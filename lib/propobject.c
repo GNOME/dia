@@ -65,7 +65,9 @@ object_list_get_prop_descriptions(GList *objects, PropMergeOption option)
     if (desc) descs = g_list_append(descs, (gpointer)desc);
   }
 
-  if (option == PROP_UNION)
+  /* use intersection for single object's list because it is more
+   * complete than union. The latter does not include PROP_FLAG_DONT_MERGE */
+  if (option == PROP_UNION && g_list_length(objects)!=1)
     pdesc = prop_desc_lists_union(descs);
   else
     pdesc = prop_desc_lists_intersection(descs);

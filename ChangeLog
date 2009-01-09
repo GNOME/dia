@@ -1,5 +1,11 @@
 2009-01-09  Hans Breuer  <hans@breuer.org>
 
+	* lib/propobject.c(object_list_get_propdescriptions) : for single 
+	object in the list use the "intersection" because otherwise props
+	with PROP_FLAG_DONT_MERGE would not be accessible anymore, e.g. 
+	for "Standard - Outline" there was no way to change the text anymore
+	(hopefully final regression introduced by fixing bug #60331)
+
 	* samples/render-test.dia : adapt font size check to concrete font
 	names commonly available on X and win32
 
