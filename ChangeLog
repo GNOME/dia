@@ -1,3 +1,39 @@
+2009-01-09  Hans Breuer  <hans@breuer.org>
+
+	* lib/font.h : declare dia_font_get_size()
+	* lib/libdia.def : export it
+	* lib/font.c : use pango_font_description_set_absolute_size() - the 
+	magic factor which tried to compensate for fontmap resolution issues 
+	_and_ the difference between Dia's intention of "font_height" and 
+	Pango's "font size" is gone. 
+	There is a much less magic factor just compensating the second issue. 
+	Dia's font-height always meant something like line height, i.e. a 
+	good difference between two consecutive lines baselines (Pango itself 
+	is using line_height=ascent+descent).
+	Instead of searching the right size for a given height a new factor 
+	got introduced, which unfortunately changes the font-size on win32 
+	and X, but all this finally fixes bug the OS dependent part of 
+	bug #108293
+
+	* plug-ins/cairo/diacairo-renderer.c : use dia_font_get_size() and 
+	pango_font_description_set_absolute_size instead of magic number 0.7
+	fixing bug #538499
+	* plug-ins/wmf/wmf.cpp : same here 
+
+	* lib/diasvgrenderer.c(draw_string): moved #if-0-ed original ...
+	* plug-ins/svg/render_svg.c : ... implementation to be used in SVG
+	export but not for shape export. For SVG export we apparently want 
+	the font-size instead of it's line-height - although my interpretation
+	of the specs differs ... should fix bug #345538
+
+	* lib/font-height.c : test program evaluating font size relations
+	* lib/makefile.msc : build it
+
+	[bugs found along the way]
+	* lib/text.c : don't use font_ref when a copy is needed
+	
+	* lib/textline.c : removed superfluous g_warning
+
 2009-01-06  Hans Breuer  <hans@breuer.org>
 
 	* app/menus.c : bind "EditReplace" to "<control>H" (rather than ^F)
