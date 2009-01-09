@@ -26,3 +26,9 @@ libxslt_filter_la_LDFLAGS = -export-dynamic -module -avoid-version
 libxslt_filter_la_LIBADD = $(XSLT_LIBS)
 
 INCLUDES = -I$(top_srcdir)/intl -I$(srcdir)/../../lib $(GTK_CFLAGS) $(GNOME_CFLAGS) $(PANGOFT2_CFLAGS) $(XML_CFLAGS) $(UNICODE_CFLAGS) $(DEBUG_FLAGS) $(XSLT_CFLAGS)
+
+if !HAVE_XSLT	
+# Prevent installation
+install-pkglibLTLIBRARIES:
+	:
+endif

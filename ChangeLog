@@ -1,5 +1,8 @@
 2009-01-09  Hans Breuer  <hans@breuer.org>
 
+	* plug-ins/xslt/Makefile.am : if !HAVE_XSLT prevent installation 
+	bug #566842
+
 	* lib/propobject.c(object_list_get_propdescriptions) : for single 
 	object in the list use the "intersection" because otherwise props
 	with PROP_FLAG_DONT_MERGE would not be accessible anymore, e.g. 
