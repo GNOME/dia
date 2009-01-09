@@ -311,7 +311,7 @@ text_copy(Text *text)
   copy->numlines = text->numlines;
   copy->lines = g_new(TextLine *, text->numlines);
   
-  copy->font = dia_font_ref(text->font);
+  copy->font = dia_font_copy(text->font);
   copy->height = text->height;
   copy->position = text->position;
   copy->color = text->color;

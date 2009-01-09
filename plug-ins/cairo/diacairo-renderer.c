@@ -295,13 +295,15 @@ set_font(DiaRenderer *self, DiaFont *font, real height)
   DiaFontStyle style = dia_font_get_style (font);
   const char *family_name;
 #endif
+  /* pango/cairo wants the font size, not the (line-) height */
+  real size = dia_font_get_size (font) * (height / dia_font_get_height (font));
 
   PangoFontDescription *pfd = pango_font_description_copy (dia_font_get_description (font));
   DIAG_NOTE(g_message("set_font %f %s", height, dia_font_get_family(font)));
 
 #ifdef HAVE_PANGOCAIRO_H
   /* select font and size */
-  pango_font_description_set_size (pfd, (int)(height * 0.7 * PANGO_SCALE)); /* same magic factor as in lib/font.c */
+  pango_font_description_set_absolute_size (pfd, (int)(size * PANGO_SCALE));
   pango_layout_set_font_description (renderer->layout, pfd);
   pango_font_description_free (pfd);
 #else
@@ -312,7 +314,7 @@ set_font(DiaRenderer *self, DiaFont *font, real height)
       family_name,
       DIA_FONT_STYLE_GET_SLANT(style) == DIA_FONT_NORMAL ? CAIRO_FONT_SLANT_NORMAL : CAIRO_FONT_SLANT_ITALIC,
       DIA_FONT_STYLE_GET_WEIGHT(style) < DIA_FONT_MEDIUM ? CAIRO_FONT_WEIGHT_NORMAL : CAIRO_FONT_WEIGHT_BOLD); 
-  cairo_set_font_size (renderer->cr, height * 0.7); /* same magic factor as in lib/font.c */
+  cairo_set_font_size (renderer->cr, size);
 #endif
 
   DIAG_STATE(renderer->cr)

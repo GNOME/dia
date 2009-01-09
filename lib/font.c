@@ -53,7 +53,15 @@ struct _DiaFont
 
   PangoFontDescription* pfd;    
   /* mutable */ char* legacy_name;
-  PangoFont *font_ref;
+
+  /* there is a difference between Pango's font size and Dia's font height */
+  /* Calculated  font_size is to make 'font_height = ascent + descent */
+  /* The font_height is used as default line height, there used to be a hard-coded size = 0.7 * height  */
+  /* before using pango_set_absolute_size() to overcome font size differences between renderers */
+  real height;
+  /* Need to load a font to query it's metrics */
+  PangoFont *loaded;
+  PangoFontMetrics *metrics;
 };
 
 
@@ -66,45 +74,17 @@ static real global_zoom_factor = 20.0;
 static void
 dia_font_check_for_font(int font) 
 {
-    DiaFont *check;
-    PangoFont *loaded;
-    static real size = 1.0;
+  DiaFont *check;
+  PangoFont *loaded;
+  static real height = 1.0;
 
-    check = dia_font_new_from_style(font, size);
-    size += 1.0;
-    loaded = pango_context_load_font(dia_font_get_context(),
-				     check->pfd);
-    if (loaded == NULL) {
-      message_error(_("Can't load font %s.\n"), dia_font_get_family(check));
-    } else {
-      PangoFont *font2;
-      PangoFontDescription *pfd2 = pango_font_description_copy (check->pfd);
-      PangoFontMetrics *m1, *m2;
-      real factor;
-      g_print ("Loaded '%s'\n", pango_font_description_to_string (check->pfd));
-      
-      if (pango_font_description_get_size_is_absolute (check->pfd))
-        pango_font_description_set_size (pfd2, pango_font_description_get_size (check->pfd));
-      else
-        pango_font_description_set_absolute_size (pfd2, pango_font_description_get_size (check->pfd));
-      
-      font2 = pango_context_load_font(dia_font_get_context(), pfd2);
-
-      m1 = pango_font_get_metrics (loaded, NULL);
-      m2 = pango_font_get_metrics (font2, NULL);
-
-      factor = (real)pango_font_metrics_get_ascent (m1) / pango_font_metrics_get_ascent (m2);
-      g_print ("Magic font-factor %g (ascents = %g / %g)\n", 
-               factor, 
-               (real)pango_font_metrics_get_ascent (m1) / PANGO_SCALE,
-               (real)pango_font_metrics_get_ascent (m2) / PANGO_SCALE);
-
-      g_object_unref (loaded);
-      g_object_unref (font2);
-      pango_font_description_free (pfd2);
-      pango_font_metrics_unref (m1);
-      pango_font_metrics_unref (m2);
-    }
+  check = dia_font_new_from_style(font, height);
+  loaded = pango_context_load_font(dia_font_get_context(), check->pfd);
+  if (!loaded) {
+    message_error(_("Can't load font %s.\n"), dia_font_get_family(check));
+  } else {
+    g_object_unref (loaded);
+  }
 }
 
 void
@@ -224,20 +204,60 @@ dia_font_init_instance(DiaFont* font)
         /*GObject *gobject = G_OBJECT(font);  */
 }
 
+static void 
+dia_pfd_set_height(PangoFontDescription* pfd, real height)
+{ 
+  /* ONLY place for the magic factor! */
+  pango_font_description_set_absolute_size(pfd, dcm_to_pdu(height) * 0.8);
+}
+
+/*!
+ * In Dia a font is usually referred to by it's (line-) height, not it's size.
+ *
+ * This methods "calculates" the latter from the former. This used to be some magic factor of 0.7 which did not 
+ * solve the resolution dependencance of the former calculation. In fact there is new magic factor now because
+ * really calculating the font size from the height would involve two font loads which seem to be two expensive.
+ */
+static void
+_dia_font_adjust_size (DiaFont *font, real height, gboolean recalc_alwways)
+{
+  
+  if (font->height != height || !font->metrics || recalc_alwways) {
+    PangoFontMetrics *metrics;
+    PangoFont *loaded;
+
+    dia_pfd_set_height (font->pfd, height);
+    /* need to load a font to get it's metrics */
+    loaded = font->loaded;
+    font->loaded = pango_context_load_font(dia_font_get_context(), font->pfd);
+    if (loaded) /* drop old reference */
+      g_object_unref (loaded);
+    if (font->metrics)
+      pango_font_metrics_unref (font->metrics);
+
+    /* caching metrics */
+    font->metrics = pango_font_get_metrics (font->loaded, NULL);
+    font->height = height;
+  }
+}
 DiaFont*
 dia_font_new(const char *family, DiaFontStyle style, real height)
 {
-  DiaFont* retval = dia_font_new_from_style(style, height);
+  DiaFont* font = dia_font_new_from_style(style, height);
+  gboolean changed;
 
-  pango_font_description_set_family(retval->pfd,family);
+  changed = family != NULL && strcmp (pango_font_description_get_family(font->pfd), family) != 0;
+  pango_font_description_set_family(font->pfd, family);
 
-  retval->font_ref = pango_context_load_font(dia_font_get_context(), retval->pfd);
+  if (changed)
+    _dia_font_adjust_size (font, font->height, TRUE);
 
-  return retval;
+  return font;
 }
 
 static void
-dia_pfd_set_family(PangoFontDescription* pfd, DiaFontFamily fam) {
+dia_pfd_set_family(PangoFontDescription* pfd, DiaFontFamily fam) 
+{
   switch (fam) {
   case DIA_FONT_SANS :
     pango_font_description_set_family(pfd, "sans");
@@ -249,8 +269,9 @@ dia_pfd_set_family(PangoFontDescription* pfd, DiaFontFamily fam) {
     pango_font_description_set_family(pfd, "monospace");
     break;
   default :
-          /* Pango does allow fonts without a name */
-      ;
+    /* Pango does _not_ allow fonts without a name (or at least they are not useful) */
+    pango_font_description_set_family(pfd, "sans");
+    break;
   }
 }
 
@@ -306,13 +327,6 @@ dia_pfd_set_slant(PangoFontDescription* pfd, DiaFontSlant fo)
   }
 }
 
-static void 
-dia_pfd_set_size(PangoFontDescription* pfd, real height)
-{ /* inline candidate... */
-  pango_font_description_set_size(pfd, dcm_to_pdu(height) );
-}
-
-
 DiaFont*
 dia_font_new_from_style(DiaFontStyle style, real height)
 {
@@ -325,11 +339,11 @@ dia_font_new_from_style(DiaFontStyle style, real height)
   dia_pfd_set_family(pfd,DIA_FONT_STYLE_GET_FAMILY(style));
   dia_pfd_set_weight(pfd,DIA_FONT_STYLE_GET_WEIGHT(style));
   dia_pfd_set_slant(pfd,DIA_FONT_STYLE_GET_SLANT(style));
-  dia_pfd_set_size(pfd,height);
+  dia_pfd_set_height(pfd,height);
   
   retval = DIA_FONT(g_object_new(DIA_TYPE_FONT, NULL));
-  
   retval->pfd = pfd;
+  _dia_font_adjust_size (retval, height, FALSE);
   retval->legacy_name = NULL;
   return retval;
 }
@@ -350,8 +364,13 @@ dia_font_finalize(GObject* object)
   
   if (font->pfd)
     pango_font_description_free(font->pfd);
-  if (font->font_ref) 
-    g_object_unref(font->font_ref);
+  font->pfd = NULL;
+  if (font->metrics)
+    pango_font_metrics_unref(font->metrics);
+  font->metrics = NULL;
+  if (font->loaded) 
+    g_object_unref(font->loaded);
+  font->loaded = NULL;
   G_OBJECT_CLASS(parent_class)->finalize(object);
 }
 
@@ -409,16 +428,21 @@ dia_font_get_description(const DiaFont* font)
 real
 dia_font_get_height(const DiaFont* font)
 {
+  return font->height;
+}
+
+real
+dia_font_get_size(const DiaFont* font)
+{
+  if (!pango_font_description_get_size_is_absolute (font->pfd))
+    g_warning ("dia_font_get_size() : no absolute size");
   return pdu_to_dcm(pango_font_description_get_size(font->pfd));
 }
 
 void
 dia_font_set_height(DiaFont* font, real height)
 {
-  dia_pfd_set_size (font->pfd, height);
-/* not
-  pango_font_description_set_size(font->pfd, dcm_to_pdu(height));
- */
+  _dia_font_adjust_size (font, height, FALSE);
 }
 
 
@@ -448,8 +472,14 @@ dia_font_get_psfontname(const DiaFont *font)
 void 
 dia_font_set_any_family(DiaFont* font, const char* family)
 {
+  gboolean changed;
+  
   g_return_if_fail(font != NULL);
+  
+  changed = strcmp (pango_font_description_get_family(font->pfd), family) != 0;
   pango_font_description_set_family(font->pfd, family);
+  if (changed) /* force recalculation on name change */
+    _dia_font_adjust_size (font, font->height, TRUE);
   if (font->legacy_name) {
     g_free(font->legacy_name);
     font->legacy_name = NULL;
@@ -459,6 +489,8 @@ dia_font_set_any_family(DiaFont* font, const char* family)
 void 
 dia_font_set_family(DiaFont* font, DiaFontFamily family)
 {
+  gboolean changed;
+
   g_return_if_fail(font != NULL);
   dia_pfd_set_family(font->pfd,family);  
   if (font->legacy_name) {
@@ -470,15 +502,21 @@ dia_font_set_family(DiaFont* font, DiaFontFamily family)
 void 
 dia_font_set_weight(DiaFont* font, DiaFontWeight weight)
 {
-  g_assert(font != NULL);    
+  DiaFontWeight old_weight = DIA_FONT_STYLE_GET_WEIGHT(dia_font_get_style(font));
+  g_return_if_fail(font != NULL);    
   dia_pfd_set_weight(font->pfd,weight);
+  if (old_weight != weight)
+    _dia_font_adjust_size (font, font->height, TRUE);
 }
 
 void 
 dia_font_set_slant(DiaFont* font, DiaFontSlant slant)
 {
-  g_assert(font != NULL);    
+  DiaFontSlant old_slant = DIA_FONT_STYLE_GET_SLANT(dia_font_get_style(font));
+  g_return_if_fail(font != NULL);    
   dia_pfd_set_slant(font->pfd,slant);
+  if (slant != old_slant)
+    _dia_font_adjust_size (font, font->height, TRUE);
 }
 
 
@@ -593,19 +631,31 @@ dia_font_string_width(const char* string, DiaFont *font, real height)
 real
 dia_font_ascent(const char* string, DiaFont* font, real height)
 {
-  TextLine *text_line = text_line_new(string, font, height);
-  real result = text_line_get_ascent(text_line);
-  text_line_destroy(text_line);
-  return result;
+  if (font->metrics) {
+    real ascent = pdu_to_dcm(pango_font_metrics_get_ascent (font->metrics));
+    return ascent * (height / font->height);
+  } else {
+    /* previous, _expensive_ but string specific way */
+    TextLine *text_line = text_line_new(string, font, height);
+    real result = text_line_get_ascent(text_line);
+    text_line_destroy(text_line);
+    return result;
+  }
 }
 
 real 
 dia_font_descent(const char* string, DiaFont* font, real height)
 {
-  TextLine *text_line = text_line_new(string, font, height);
-  real result = text_line_get_descent(text_line);
-  text_line_destroy(text_line);
-  return result;
+  if (font->metrics) {
+    real descent = pdu_to_dcm(pango_font_metrics_get_descent (font->metrics));
+    return descent * (height / font->height);
+  } else {
+    /* previous, _expensive_ but string specific way */
+    TextLine *text_line = text_line_new(string, font, height);
+    real result = text_line_get_descent(text_line);
+    text_line_destroy(text_line);
+    return result;
+  }
 }
 
 
@@ -618,6 +668,7 @@ dia_font_build_layout(const char* string, DiaFont* font, real height)
   guint length;
   gchar *desc = NULL;
   PangoFontDescription *pfd;
+  real factor;
 
   layout = pango_layout_new(dia_font_get_context());
 
@@ -627,7 +678,9 @@ dia_font_build_layout(const char* string, DiaFont* font, real height)
   list = pango_attr_list_new();
 
   pfd = pango_font_description_copy (font->pfd);
-  pango_font_description_set_size (pfd, dcm_to_pdu (height) * .7);
+  /* account for difference between size and height as well as between font height and given one */
+  factor = dia_font_get_size(font) / dia_font_get_height (font);
+  pango_font_description_set_absolute_size (pfd, dcm_to_pdu (height) * factor);
   attr = pango_attr_font_desc_new(pfd);
   pango_font_description_free (pfd);
 

@@ -213,6 +213,7 @@ EXPORTS
  dia_font_get_height
  dia_font_get_legacy_name
  dia_font_get_psfontname
+ dia_font_get_size
  dia_font_get_slant_string
  dia_font_get_style
  dia_font_get_weight_string

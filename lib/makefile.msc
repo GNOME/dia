@@ -161,6 +161,10 @@ $(PACKAGE).dll : $(OBJECTS) $(PACKAGE).def
 $(PRJ_TOP)\config.h: $(PRJ_TOP)\config.h.win32
 	copy $(PRJ_TOP)\config.h.win32 $(PRJ_TOP)\config.h
 
+font-height.exe : font-height.obj
+	$(CC) $(CFLAGS) -Fe$@ font-height.obj \
+	$(PKG_LINK) $(LDFLAGS) gdi32.lib user32.lib $(LDFLAGS) /subsystem:console
+
 .c.obj :
 	$(CC) $(CFLAGS) -c $(PKG_CFLAGS) $<
 

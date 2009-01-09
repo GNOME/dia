@@ -561,7 +561,10 @@ draw_bezier(DiaRenderer *self,
   for (i = 1; i < numpoints; i++)
     switch (points[i].type) {
     case BEZ_MOVE_TO:
-      g_warning("only first BezPoint can be a BEZ_MOVE_TO");
+      g_warning("only first BezPoint shoul be a BEZ_MOVE_TO");
+      g_string_printf(str, "M %s %s",
+		      dia_svg_dtostr(p1x_buf, (gdouble) points[i].p1.x),
+		      dia_svg_dtostr(p1y_buf, (gdouble) points[i].p1.y) );
       break;
     case BEZ_LINE_TO:
       g_string_append_printf(str, " L %s,%s",
@@ -615,7 +618,10 @@ fill_bezier(DiaRenderer *self,
   for (i = 1; i < numpoints; i++)
     switch (points[i].type) {
     case BEZ_MOVE_TO:
-      g_warning("only first BezPoint can be a BEZ_MOVE_TO");
+      g_warning("only first BezPoint should be a BEZ_MOVE_TO");
+      g_string_printf(str, "M %s %s",
+		      dia_svg_dtostr(p1x_buf, (gdouble) points[i].p1.x),
+		      dia_svg_dtostr(p1y_buf, (gdouble) points[i].p1.y) );
       break;
     case BEZ_LINE_TO:
       g_string_append_printf(str, " L %s,%s",
@@ -646,60 +652,6 @@ draw_string(DiaRenderer *self,
   TextLine *text_line = text_line_new(text, self->font, self->font_height);
   draw_text_line(self, text_line, pos, alignment, colour);
   text_line_destroy(text_line);
-  return;
-#if 0
-  DiaSvgRenderer *renderer = DIA_SVG_RENDERER (self);
-  xmlNodePtr node;
-  char *style, *tmp;
-  real saved_width;
-  gchar d_buf[DTOSTR_BUF_SIZE];
-
-  node = xmlNewChild(renderer->root, renderer->svg_name_space, "text", text);
- 
-  saved_width = renderer->linewidth;
-  renderer->linewidth = 0.001;
-  style = (char*)get_fill_style(renderer, colour);
-  /* return value must not be freed */
-  renderer->linewidth = saved_width;
-  /* This is going to break for non-LTR texts, as SVG thinks 'start' is
-   * 'right' for those.
-   */
-  switch (alignment) {
-  case ALIGN_LEFT:
-    style = g_strconcat(style, "; text-anchor:start", NULL);
-    break;
-  case ALIGN_CENTER:
-    style = g_strconcat(style, "; text-anchor:middle", NULL);
-    break;
-  case ALIGN_RIGHT:
-    style = g_strconcat(style, "; text-anchor:end", NULL);
-    break;
-  }
-  tmp = g_strdup_printf("%s; font-size: %s", style,
-			dia_svg_dtostr(d_buf, self->font_height) );
-  g_free (style);
-  style = tmp;
-
-  if (self->font) {
-     tmp = g_strdup_printf("%s; font-family: %s; font-style: %s; "
-                           "font-weight: %s",style,
-                           dia_font_get_family(self->font),
-                           dia_font_get_slant_string(self->font),
-                           dia_font_get_weight_string(self->font));
-     g_free(style);
-     style = tmp;
-  }
-
-  /* have to do something about fonts here ... */
-
-  xmlSetProp(node, "style", style);
-  g_free(style);
-
-  dia_svg_dtostr(d_buf, pos->x);
-  xmlSetProp(node, "x", d_buf);
-  dia_svg_dtostr(d_buf, pos->y);
-  xmlSetProp(node, "y", d_buf);
-#endif
 }
 
 

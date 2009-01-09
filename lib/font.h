@@ -107,7 +107,6 @@ void dia_font_push_context(PangoContext *pcontext);
 void dia_font_pop_context(void);
 /* Retrieve the current context (used for the font widget) */
 PangoContext *dia_font_get_context(void);
-                         
                              
     /* Get a font matching family,style,height. MUST be freed with
        dia_font_unref(). */
@@ -143,6 +142,8 @@ G_CONST_RETURN PangoFontDescription *dia_font_get_description (const DiaFont* fo
 real dia_font_get_height(const DiaFont* font);
     /* Change the height inside a font record. */
 void dia_font_set_height(DiaFont* font, real height);
+    /* Delivers the size of the font */                         
+real dia_font_get_size(const DiaFont* font);
 
     /* Changes the slant of an existing font */
 void dia_font_set_slant(DiaFont* font, DiaFontSlant slant);

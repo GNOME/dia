@@ -470,6 +470,7 @@ set_font(DiaRenderer *self, DiaFont *font, real height)
     W32::DWORD dwItalic = 0;
     W32::DWORD dwWeight = FW_DONTCARE;
     DiaFontStyle style = dia_font_get_style(font);
+    real font_size = dia_font_get_size (font) * (height / dia_font_get_height (font));
 
 
     DIAG_NOTE(renderer, "set_font %s %f\n", 
@@ -494,6 +495,7 @@ set_font(DiaRenderer *self, DiaFont *font, real height)
 	    W32::LOGFONT* lf = pango_win32_font_logfont (pf);
 	    /* .93 : sligthly smaller looks much better */
 	    lf->lfHeight = -SC(height*.93);
+	    lf->lfHeight = -SC(font_size);
 	    renderer->hFont = (W32::HFONT)W32::CreateFontIndirect (lf);
 	    g_free (lf);
 	    g_object_unref (pf);
@@ -528,7 +530,7 @@ set_font(DiaRenderer *self, DiaFont *font, real height)
 #       endif
 
 	renderer->hFont = (W32::HFONT)W32::CreateFont( 
-		- SC (height),  // logical height of font 
+		- SC (font_size),  // logical height of font 
 		0,		// logical average character width 
 		0,		// angle of escapement
 		0,		// base-line orientation angle 

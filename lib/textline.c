@@ -238,10 +238,6 @@ text_line_cache_values(TextLine *text_line)
       text_line->height != text_line->height_cache) {
     int n_offsets;
 
-    if (text_line->font != text_line->font_cache)
-      if (text_line->font_cache != NULL)
-        g_warning("leak?");
-
     if (text_line->offsets != NULL) {
       g_free(text_line->offsets);
       text_line->offsets = NULL;
