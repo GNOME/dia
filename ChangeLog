@@ -1,5 +1,8 @@
 2009-01-09  Hans Breuer  <hans@breuer.org>
 
+	* samples/render-test.dia : adapt font size check to concrete font
+	names commonly available on X and win32
+
 	* plug-ins/svg/render_svg.c : must use DIA_SVG_RENDERER_GET_CLASS
 	to cast from instance, otherwise it is crashing with GLib debug support
 
