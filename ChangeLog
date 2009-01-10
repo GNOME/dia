@@ -1,3 +1,13 @@
+2009-01-10  Hans Breuer  <hans@breuer.org>
+
+	* objects/standard/arc.c(arc_move_handle) : maintain a minimum 
+	distance between the three arc handles. Two or even all three 
+	handles in at the same position did produce unstable results.
+	As a side-effect this is fixing bug #501696
+	* objects/standard/outline.c(outline_move_handle) : maintain
+	minimum distance between the two handles here as well. 
+	Otherwise a meaningless font-size of zero could occur.
+
 2009-01-09  Hans Breuer  <hans@breuer.org>
 
 	* plug-ins/xslt/Makefile.am : if !HAVE_XSLT prevent installation 
@@ -14,8 +24,6 @@
 
 	* plug-ins/svg/render_svg.c : must use DIA_SVG_RENDERER_GET_CLASS
 	to cast from instance, otherwise it is crashing with GLib debug support
-
-2009-01-09  Hans Breuer  <hans@breuer.org>
 
 	* lib/font.h : declare dia_font_get_size()
 	* lib/libdia.def : export it

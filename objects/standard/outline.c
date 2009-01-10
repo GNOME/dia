@@ -471,7 +471,7 @@ outline_move_handle (Outline *outline,
   /* we use this to modify angle and scale */
   switch (handle->id) {
   case HANDLE_RESIZE_NW :
-    obj->position = start = *to;
+    start = *to;
     break;
   case HANDLE_RESIZE_SE :
     end = *to;
@@ -480,9 +480,14 @@ outline_move_handle (Outline *outline,
     g_warning ("Outline unknown handle");
   }
   dist = distance_point_point (&start, &end);
-  outline->font_height *= (dist / old_dist);
+  /* disallow everything below a certain level, otherwise the font-size could become invalid */
+  if (dist > 0.1) {
+    obj->position = start;
+    
+    outline->font_height *= (dist / old_dist);
   
-  outline_update_data (outline);
+    outline_update_data (outline);
+  }
   return NULL;
 }
 static ObjectChange* 

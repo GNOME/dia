@@ -405,6 +405,23 @@ arc_move_handle(Arc *arc, Handle *handle,
   assert(arc!=NULL);
   assert(handle!=NULL);
   assert(to!=NULL);
+  /* A minimum distance between our three points needs to be maintained
+   * Otherwise our math will get unstable with unpredictable results. */
+  {
+    const Point *p1, *p2;
+    
+    if (handle->id == HANDLE_MIDDLE) {
+      p1 = &arc->connection.endpoints[0];
+      p2 = &arc->connection.endpoints[1];
+    } else {
+      p1 = &arc->middle_handle.pos;
+      p2 = &arc->connection.endpoints[(handle == (&arc->connection.endpoint_handles[0])) ? 1 : 0];
+    }
+    if (   (distance_point_point (to, p1) < 0.01)
+        || (distance_point_point (to, p2) < 0.01))
+      return NULL;
+  }
+
   if (handle->id == HANDLE_MIDDLE) {
           TRACE(printf("curve_dist: %.2f \n",arc->curve_distance));
           arc->curve_distance = arc_compute_curve_distance(arc, &arc->connection.endpoints[0], &arc->connection.endpoints[1], to);
