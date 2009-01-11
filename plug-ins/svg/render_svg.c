@@ -90,6 +90,7 @@ static void draw_string       (DiaRenderer *self,
 			       Color *colour);
 static void draw_text_line    (DiaRenderer *self, TextLine *text_line,
 	                       Point *pos, Alignment alignment, Color *colour);
+static void draw_text         (DiaRenderer *self, Text *text);
 
 static void svg_renderer_class_init (SvgRendererClass *klass);
 
@@ -175,6 +176,7 @@ svg_renderer_class_init (SvgRendererClass *klass)
   renderer_class->draw_rounded_rect = draw_rounded_rect;
   renderer_class->fill_rounded_rect = fill_rounded_rect;
   renderer_class->draw_string  = draw_string;
+  renderer_class->draw_text  = draw_text;
   renderer_class->draw_text_line  = draw_text_line;
 }
 
@@ -378,6 +380,7 @@ node_set_text_style (xmlNodePtr      node,
    */
   real font_size = dia_font_get_size (font) * (font_height / dia_font_get_height (font));
   /* ... but at least Inkscape and Firefox would produce the wrong font-size */
+  const gchar *family = dia_font_get_family(font);
 
   saved_width = renderer->linewidth;
   renderer->linewidth = 0.001;
@@ -389,24 +392,24 @@ node_set_text_style (xmlNodePtr      node,
    */
   switch (alignment) {
   case ALIGN_LEFT:
-    style = g_strconcat(style, "; text-anchor:start", NULL);
+    style = g_strconcat(style, ";text-anchor:start", NULL);
     break;
   case ALIGN_CENTER:
-    style = g_strconcat(style, "; text-anchor:middle", NULL);
+    style = g_strconcat(style, ";text-anchor:middle", NULL);
     break;
   case ALIGN_RIGHT:
-    style = g_strconcat(style, "; text-anchor:end", NULL);
+    style = g_strconcat(style, ";text-anchor:end", NULL);
     break;
   }
-  tmp = g_strdup_printf("%s; font-size: %s", style,
+  tmp = g_strdup_printf("%s;font-size:%s", style,
 			dia_svg_dtostr(d_buf, font_size) );
   g_free (style);
   style = tmp;
 
   if (font) {
-     tmp = g_strdup_printf("%s; font-family: %s; font-style: %s; "
-                           "font-weight: %s",style,
-                           dia_font_get_family(font),
+     tmp = g_strdup_printf("%s;font-family:%s;font-style:%s;"
+                           "font-weight:%s",style,
+                           strcmp(family, "sans") == 0 ? "sanserif" : family,
                            dia_font_get_slant_string(font),
                            dia_font_get_weight_string(font));
      g_free(style);
@@ -462,6 +465,39 @@ draw_text_line(DiaRenderer *self, TextLine *text_line,
   dia_svg_dtostr(d_buf, text_line_get_width(text_line));
   xmlSetProp(node, (const xmlChar*)"textLength", (xmlChar *) d_buf);
 }
+
+static void
+draw_text (DiaRenderer *self, Text *text)
+{
+  DiaSvgRenderer *renderer = DIA_SVG_RENDERER (self);
+  Point pos = text->position;
+  int i;
+  xmlNodePtr node_text, node_tspan;
+  gchar d_buf[G_ASCII_DTOSTR_BUF_SIZE];
+
+  node_text = xmlNewChild(renderer->root, renderer->svg_name_space, (const xmlChar *)"text", NULL);
+  /* text 'global' properties  */
+  node_set_text_style(node_text, renderer, text->font, text->height, text->alignment, &text->color);
+  dia_svg_dtostr(d_buf, pos.x);
+  xmlSetProp(node_text, (const xmlChar *)"x", (xmlChar *) d_buf);
+  dia_svg_dtostr(d_buf, pos.y);
+  xmlSetProp(node_text, (const xmlChar *)"y", (xmlChar *) d_buf);
+  
+  pos = text->position;
+  for (i=0;i<text->numlines;i++) {
+    TextLine *text_line = text->lines[i];
+
+    node_tspan = xmlNewChild(node_text, renderer->svg_name_space, (const xmlChar *)"tspan",
+                             text_line_get_string(text_line));
+    dia_svg_dtostr(d_buf, pos.x);
+    xmlSetProp(node_tspan, (const xmlChar *)"x", (xmlChar *) d_buf);
+    dia_svg_dtostr(d_buf, pos.y);
+    xmlSetProp(node_tspan, (const xmlChar *)"y", (xmlChar *) d_buf);
+    
+    pos.y += text->height;
+  }
+}
+
 static void
 export_svg(DiagramData *data, const gchar *filename, 
            const gchar *diafilename, void* user_data)

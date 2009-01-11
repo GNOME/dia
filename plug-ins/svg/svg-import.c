@@ -48,6 +48,7 @@
 #include "create.h"
 #include "group.h"
 #include "font.h"
+#include "attributes.h"
 
 gboolean import_svg(const gchar *filename, DiagramData *dia, void* user_data);
 static GList *read_ellipse_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list);
@@ -185,7 +186,7 @@ apply_style(DiaObject *obj, xmlNodePtr node, DiaSvgStyle *parent_style)
       if(gs->stroke != (-1)) {
         cprop->color_data = get_colour(gs->stroke);
       } else {
-	if(gs->fill == (-1)) {
+	if(gs->fill == DIA_SVG_COLOUR_NONE) {
 	  cprop->color_data = get_colour(0x000000);
 	} else {
 	  cprop->color_data = get_colour(gs->fill);
@@ -195,7 +196,7 @@ apply_style(DiaObject *obj, xmlNodePtr node, DiaSvgStyle *parent_style)
       rprop->real_data = gs->line_width;
   
       lsprop = g_ptr_array_index(props,2);
-      lsprop->style = gs->linestyle;
+      lsprop->style = gs->linestyle != DIA_SVG_LINESTYLE_DEFAULT ? gs->linestyle : LINESTYLE_SOLID;
       lsprop->dash = gs->dashlength;
 
       cprop = g_ptr_array_index(props,3);
@@ -226,7 +227,7 @@ read_path_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list)
     gchar *str, *pathdata, *unparsed = NULL;
     GArray *bezpoints = NULL;
     gboolean closed = FALSE;
-    guint i;
+    gint i;
     
     pathdata = str = (char *) xmlGetProp(node, (const xmlChar *)"d");
     do {
@@ -287,13 +288,12 @@ read_text_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list)
     Point point;
     GPtrArray *props;
     TextProperty *prop;
-    xmlChar *str;
+    xmlChar *str = NULL;
+    gchar *multiline = NULL;
     DiaSvgStyle *gs;
 
     gs = g_new(DiaSvgStyle, 1);
-    gs->font = NULL;
-    gs->font_height = 1.0;
-    gs->alignment = ALIGN_LEFT;
+    dia_svg_style_init (gs, parent_style);
 
     point.x = 0;
     point.y = 0;
@@ -310,8 +310,28 @@ read_text_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list)
       xmlFree(str);
     }
 
-    str = xmlNodeGetContent(node);
-    if(str) {
+    if (node->children && xmlStrcmp (node->children->name, "tspan") == 0) {
+      xmlNode *tspan = node->children;
+      GString *paragraph = g_string_sized_new(512);
+
+      do {
+        xmlChar *line = xmlNodeGetContent(tspan);
+	if (line) {
+	  g_string_append(paragraph, line);
+	  if (tspan->next && xmlStrcmp (tspan->next->name, "tspan") == 0)
+	    g_string_append(paragraph, "\n");
+	  xmlFree(line);
+	}
+	tspan = tspan->next;
+      } while (tspan);
+
+      multiline = paragraph->str;
+      g_string_free (paragraph, FALSE);
+      str = NULL;
+    } else {
+      str = xmlNodeGetContent(node);
+    }
+    if(str || multiline) {
       new_obj = otype->ops->create(&point, otype->default_user_data,
 				 &h1, &h2);
       list = g_list_append (list, new_obj);
@@ -325,14 +345,29 @@ read_text_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list)
       }
       prop = g_ptr_array_index(props, 0);
       g_free(prop->text_data);
-      prop->text_data = g_strdup((char *) str);
+      prop->text_data = str ? g_strdup((char *) str) : multiline;
       xmlFree(str);
       prop->attr.alignment = gs->alignment;
       prop->attr.position.x = point.x;
       prop->attr.position.y = point.y;
-      prop->attr.font = gs->font;
+      /* FIXME: looks like a leak but without this an imported svg is 
+       * crashing on release */
+      prop->attr.font = dia_font_ref (gs->font);
       prop->attr.height = gs->font_height;
-      prop->attr.color = get_colour (gs->fill);
+      /* when operating with default values foreground and background are intentionally swapped
+       * to avoid getting white text by default */
+      switch (gs->fill) {
+      case DIA_SVG_COLOUR_TEXT :
+      case DIA_SVG_COLOUR_FOREGROUND :
+        prop->attr.color = attributes_get_background();
+	break;
+      case DIA_SVG_COLOUR_BACKGROUND :
+        prop->attr.color = attributes_get_foreground();
+	break;
+      default :
+        prop->attr.color = get_colour (gs->fill);
+	break;
+      }
       new_obj->ops->set_props(new_obj, props);
       prop_list_free(props);
     }

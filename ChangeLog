@@ -1,3 +1,13 @@
+2009-01-11  Hans Breuer  <hans@breuer.org>
+
+	* plug-ins/svg/svg-import.c(read_text_svg) : the text style was not
+	properly intialize leading e.g. to random text colors.
+	Also it now supports multi-line text elements "<tspan/>". Both can
+	be booked under bug #108502 - but that bug will never get fixed;)
+
+	* plug-ins/render_svg.c(draw_text) : implementation supporting 
+	multi-line text via <tspan/>
+
 2009-01-10  Hans Breuer  <hans@breuer.org>
 
 	* objects/standard/arc.c(arc_move_handle) : maintain a minimum 
