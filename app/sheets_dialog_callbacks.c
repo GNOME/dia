@@ -1468,7 +1468,6 @@ sheets_dialog_copy_object(GtkWidget *active_button, GtkWidget *target_wrapbox)
   SheetMod *sm;
   SheetObjectMod *som;
   SheetObjectMod *som_new;
-  SheetObject *so;
 
   sm = gtk_object_get_data(GTK_OBJECT(target_wrapbox), "sheet_mod");
   som = gtk_object_get_data(GTK_OBJECT(active_button), "sheet_object_mod");
@@ -1476,18 +1475,21 @@ sheets_dialog_copy_object(GtkWidget *active_button, GtkWidget *target_wrapbox)
   if (!som)
     return;
 
-  so = g_new0(SheetObject, 1);
-  so->object_type = g_strdup(som->sheet_object.object_type);
-  so->description = g_strdup(som->sheet_object.description);
-  so->pixmap = som->sheet_object.pixmap;
-  so->user_data = som->sheet_object.user_data;
-  so->user_data_type = som->sheet_object.user_data_type;
-  so->line_break = FALSE;          /* must be false--we don't copy linebreaks */
-  so->pixmap_file = g_strdup(som->sheet_object.pixmap_file);
-  so->has_icon_on_sheet = som->sheet_object.has_icon_on_sheet;
 
   som_new = g_new0(SheetObjectMod, 1);
-  som_new->sheet_object = *so;
+  {
+    SheetObject *so = &som_new->sheet_object;
+
+    so->object_type = g_strdup(som->sheet_object.object_type);
+    so->description = g_strdup(som->sheet_object.description);
+    so->pixmap = som->sheet_object.pixmap;
+    so->user_data = som->sheet_object.user_data;
+    so->user_data_type = som->sheet_object.user_data_type;
+    so->line_break = FALSE;          /* must be false--we don't copy linebreaks */
+    so->pixmap_file = g_strdup(som->sheet_object.pixmap_file);
+    so->has_icon_on_sheet = som->sheet_object.has_icon_on_sheet;
+  }
+
   som_new->type = som->type;
   som_new->mod = SHEET_OBJECT_MOD_NONE;
 

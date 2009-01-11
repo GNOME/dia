@@ -1,3 +1,8 @@
+2009-01-12  Hans Breuer  <hans@breuer.org>
+
+	* app/sheets_dialog_callbacks.c : don't leak a superfluous SheetObject
+	fixes bug #564677
+
 2009-01-11  Hans Breuer  <hans@breuer.org>
 
 	[make "./configure ---enable-gnome=yes" work again]
