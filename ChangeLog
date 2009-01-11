@@ -1,5 +1,10 @@
 2009-01-11  Hans Breuer  <hans@breuer.org>
 
+	* lib/dia_svg.c(read_text_svg) : support for text alignment, less warnings
+	and text colors corrected even for DIA_SVG_COLOUR_NONE
+	(read_items) : switched from if-continue to a more common if-else-if
+	* plug-ins/svg/svg-import.c : use DIA_SVG_COLOUR_NONE instead of (-1)
+
 	* plug-ins/svg/svg-import.c(read_text_svg) : the text style was not
 	properly intialize leading e.g. to random text colors.
 	Also it now supports multi-line text elements "<tspan/>". Both can
