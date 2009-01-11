@@ -24,6 +24,7 @@
 #endif
 
 #ifdef GNOME
+#undef GTK_DISABLE_DEPRECATED /* gnome */
 #include <gnome.h>
 #else
 #include <gdk/gdkkeysyms.h>

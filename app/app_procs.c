@@ -34,12 +34,14 @@
 #include <png.h> /* just for the version stuff */
 #endif
 
-#include <gtk/gtk.h>
-#include <gmodule.h>
-
 #ifdef GNOME
+#undef GTK_DISABLE_DEPRECATED
+/* /usr/include/libgnomeui-2.0/libgnomeui/gnome-entry.h:58: error: expected specifier-qualifier-list before 'GtkCombo' */
 #include <gnome.h>
 #endif
+
+#include <gtk/gtk.h>
+#include <gmodule.h>
 
 #ifdef HAVE_FREETYPE
 #include <pango/pangoft2.h>

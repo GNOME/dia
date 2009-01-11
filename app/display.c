@@ -23,11 +23,13 @@
 #include <string.h>
 #include <stdio.h>
 #include <math.h>
-#include <gdk/gdkkeysyms.h>
 
 #ifdef GNOME
+#undef GTK_DISABLE_DEPRECATED
 #include <gnome.h>
 #endif
+
+#include <gdk/gdkkeysyms.h>
 
 #include "intl.h"
 

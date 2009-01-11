@@ -27,15 +27,17 @@
 #include <math.h>
 #include <glib.h>
 
-#include <textedit.h>
-#include <focus.h>
+#ifdef GNOME
+#undef GTK_DISABLE_DEPRECATED
+#  include <gnome.h> 	 
+#endif 	 
 
 #include <gdk-pixbuf/gdk-pixbuf.h>
 #include <gtk/gtk.h>
 
- #ifdef GNOME 	 
- #  include <gnome.h> 	 
- #endif 	 
+#include <textedit.h>
+#include <focus.h>
+
 
 /** Functions called on menu selects.
  *  Note that GTK (at least up to 2.12) doesn't disable the keyboard shortcuts

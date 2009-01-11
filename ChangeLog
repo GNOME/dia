@@ -1,5 +1,13 @@
 2009-01-11  Hans Breuer  <hans@breuer.org>
 
+	[make "./configure ---enable-gnome=yes" work again]
+	* app/interface.h : was including too much e.g. itself and gnome.h. 
+	The latter gave compiling errors for --enable-gnome=yes
+	* app/interface.c app/commands.c app/recent_files.c app/display.c
+	  app/app_procs.c app/disp_callbacks.c : updated accordingly, basically
+	adding #undef GTK_DISABLE_DEPRECATED before inclusing gnome.h but also
+	adjusting include order (gnome before gtk) to make it have an effect
+
 	[make "make distcheck" work again]
 	* objects/FS/flow-poly.c : obsolete, finally removed
 	* po/POTFILES.in : added app/create_object.c

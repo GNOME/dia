@@ -20,12 +20,6 @@
 
 #include "display.h"
 
-#ifdef GNOME
-#include <gnome.h>
-#endif
-#include "gtkhwrapbox.h"
-#include "intl.h"
-#include "interface.h"
 #include "menus.h"
 #include "disp_callbacks.h"
 #include "tool.h"

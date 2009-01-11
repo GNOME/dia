@@ -18,8 +18,14 @@
 
 #include <config.h>
 
+#ifdef GNOME
+#undef GTK_DISABLE_DEPRECATED /* gnome */
+#include <gnome.h>
+#else
 #undef GTK_DISABLE_DEPRECATED /* GtkTooltips */
 #include <gtk/gtk.h>
+#endif
+#include "gtkwrapbox.h"
 
 #include <stdio.h>
 #include <string.h>
