@@ -39,11 +39,11 @@ void
 dia_svg_style_init(DiaSvgStyle *gs, DiaSvgStyle *parent_style)
 {
   g_return_if_fail (gs);
-  gs->stroke = parent_style ? parent_style->stroke : (-1);
+  gs->stroke = parent_style ? parent_style->stroke : DIA_SVG_COLOUR_NONE;
   gs->line_width = parent_style ? parent_style->line_width : 0.0;
   gs->linestyle = parent_style ? parent_style->linestyle : LINESTYLE_SOLID;
   gs->dashlength = parent_style ? parent_style->dashlength : 1;
-  gs->fill = parent_style ? parent_style->fill : (-1);
+  gs->fill = parent_style ? parent_style->fill : DIA_SVG_COLOUR_NONE;
   gs->linecap = parent_style ? parent_style->linecap : DIA_SVG_LINECAPS_DEFAULT;
   gs->linejoin = parent_style ? parent_style->linejoin : DIA_SVG_LINEJOIN_DEFAULT;
   gs->linestyle = parent_style ? parent_style->linestyle : DIA_SVG_LINESTYLE_DEFAULT;
