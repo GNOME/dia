@@ -219,7 +219,7 @@ AC_CHECK_HEADER(emf.h, emf_ok=yes, emf_ok=no)
 AC_CHECK_LIB(EMF, CreateEnhMetaFileWithFILEW, , emf_ok=no, -lstdc++)
 if test "$emf_ok" = yes; then
   LIBEMF_CFLAGS='-I /usr/include/libEMF'
-  LIBEMF_LIBS='-lEMF'
+  LIBEMF_LIBS='-lEMF -lstdc++'
   AC_DEFINE(HAVE_LIBEMF,1,[libEMF library available])
 fi
 AC_SUBST(LIBEMF_CFLAGS)
@@ -472,11 +472,9 @@ dnl
 dnl html, pdf and postscript documentation
 dnl
 AC_ARG_WITH(hardbooks,
-[  --with-hardbooks	compile html, pdf and postscript documentation],,hardbooks=no)
+[  --with-hardbooks	compile html, pdf and postscript documentation],,with_hardbooks=no)
 AC_PATH_PROG(DBLATEX,dblatex,no)
-AM_CONDITIONAL(WITH_HTMLDOC, test "x$xsltproc" != "xno")
-AM_CONDITIONAL(WITH_PDFDOC, test "x$dblatex" != "xno")
-AM_CONDITIONAL(WITH_PSDOC, test "x$dblatex" != "xno")
+
 dnl
 dnl use jw only if we don't find dblatex
 dnl
@@ -488,12 +486,15 @@ else
 fi
 hardbook_ok=no
 xsltproc_ok=no
-if test "x$hardbooks" == "xno"; then
+if test "x$with_hardbooks" == "xno"; then
   AM_CONDITIONAL(WITH_JW, test "xno" != "xno")
   AM_CONDITIONAL(WITH_HTMLDOC, test "xno" != "xno")
   AM_CONDITIONAL(WITH_PDFDOC, test "xno" != "xno")
   AM_CONDITIONAL(WITH_PSDOC, test "xno" != "xno")
 else
+  AM_CONDITIONAL(WITH_HTMLDOC, test "x$xsltproc" != "xno")
+  AM_CONDITIONAL(WITH_PDFDOC, test "x$dblatex" != "xno")
+  AM_CONDITIONAL(WITH_PSDOC, test "x$dblatex" != "xno")
   if test "x$dblatex" != "xno" ; then
     hardbook_ok=yes
   else 

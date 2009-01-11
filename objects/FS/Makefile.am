@@ -15,5 +15,4 @@ INCLUDES = -I$(top_srcdir)/intl -I$(srcdir)/../../lib \
 EXTRA_DIST = \
 	pixmaps/flow.xpm \
 	pixmaps/function.xpm \
-	pixmaps/orthflow.xpm \
-	flow-poly.c # This file seems to be unused and dead for ages !
+	pixmaps/orthflow.xpm

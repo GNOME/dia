@@ -1,7 +1,15 @@
 2009-01-11  Hans Breuer  <hans@breuer.org>
 
-	* lib/dia_svg.c(read_text_svg) : support for text alignment, less warnings
-	and text colors corrected even for DIA_SVG_COLOUR_NONE
+	[make "make distcheck" work again]
+	* objects/FS/flow-poly.c : obsolete, finally removed
+	* po/POTFILES.in : added app/create_object.c
+	* po/POTFILES.skip : added some *.py to stop complains
+	* configure.in : default is no doc creation ...
+	* hardcopies.make : ... and thus not touching read-only directories.
+	Lowers the priority of bug #567385
+
+	* lib/dia_svg.c(read_text_svg) : support for text alignment, less 
+	warnings and text colors corrected even for DIA_SVG_COLOUR_NONE
 	(read_items) : switched from if-continue to a more common if-else-if
 	* plug-ins/svg/svg-import.c : use DIA_SVG_COLOUR_NONE instead of (-1)
 

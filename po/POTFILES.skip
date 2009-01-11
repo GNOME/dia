@@ -1,5 +1,10 @@
 dia.desktop.in
-objects/FS/flow-poly.c
-objects/sybase/sybase.c
 sheets/EML.sheet.in
+po-checktrans.py
+plug-ins/python/otypes.py
+plug-ins/python/autolayoutforce.py
+plug-ins/python/gtkcons.py
+plug-ins/python/aobjects.py
+plug-ins/python/diasvg.py
+plug-ins/python/doxrev.py
 

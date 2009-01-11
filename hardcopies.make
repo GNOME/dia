@@ -17,8 +17,11 @@ sysdoc_ps = $(DESTDIR)$(psdir)/$(lang)
 
 if WITH_HTMLDOC
 htmldoc = $(progname)_html
+html_install_data = install-data-html
 html_install = install-html
+html_install_ng = install-html-nognome
 html_uninstall = uninstall-html
+html_uninstall_ng = uninstall-html-nognome
 html_clean = clean-html
 endif
 
@@ -46,7 +49,7 @@ install-data-local: install-data-xml \
 	$(html_install) $(pdf_install) $(ps_install) install-examples
 
 uninstall-local: uninstall-local-xml  \
-	uninstall-html uninstall-pdf uninstall-ps uninstall-examples
+	$(html_install) uninstall-pdf uninstall-ps uninstall-examples
 
 clean-local: clean-local-xml \
 	clean-html clean-ps clean-pdf
@@ -54,10 +57,10 @@ clean-local: clean-local-xml \
 else
  
 if HAVE_XSLTPROC
-all: $(progname)_html $(pdfdoc) $(psdoc)
+all: $(htmldoc) $(pdfdoc) $(psdoc)
 
-install-data-local: install-data-html \
-	install-html-nognome $(pdf_install) $(ps_install) install-examples
+install-data-local: $(html_install_data) \
+	$(html_install_ng) $(pdf_install) $(ps_install) install-examples
  
 uninstall-local: uninstall-local-html  \
 	uninstall-html-nognome uninstall-pdf uninstall-ps uninstall-examples
@@ -141,7 +144,7 @@ $(progname).pdf: .jw
 	cp jw/$(progname).pdf .
 endif
 
-install-html: $(progname)_html
+install-html: $(htmldoc)
 	$(mkinstalldirs) $(sysdoc_html)
 	cp -r $(srcdir)/$(progname)_html/* $(sysdoc_html)
 
@@ -169,7 +172,7 @@ clean-html:
 	-rm -rf $(srcdir)/$(progname)_html
 
 
-install-pdf: $(progname).pdf
+install-pdf: $(pdfdoc)
 	$(mkinstalldirs) $(sysdoc_pdf)
 	-$(INSTALL_DATA) $< $(sysdoc_pdf)/$<
 
@@ -210,3 +213,4 @@ uninstall-examples: $(examples)
 	  rm -f $(sysdoc)/examples/$$(basename $$i) ;\
 	done
 	-rmdir $(sysdoc)/examples
+

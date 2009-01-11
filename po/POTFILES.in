@@ -4,6 +4,7 @@ app/app_procs.c
 app/autosave.c
 app/color_area.c
 app/commands.c
+app/create_object.c
 app/defaults.c
 app/dia-props.c
 app/dia_embedd.c
