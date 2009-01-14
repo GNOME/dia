@@ -26,6 +26,7 @@
 #include <gtk/gtk.h>
 #endif
 #include "gtkwrapbox.h"
+#include "gtkhwrapbox.h"
 
 #include <stdio.h>
 #include <string.h>
