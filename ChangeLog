@@ -1,5 +1,6 @@
 2009-01-14  Steffen Macke <sdteffen@sdteffen.de>
 
+	* installer/win32/dia.nsi: Some updates for GTK 2.14.7
 	* app/interface.c: Include gtkhwrapbox.h in order to compile with MSVC
 
 2009-01-12  Hans Breuer  <hans@breuer.org>
