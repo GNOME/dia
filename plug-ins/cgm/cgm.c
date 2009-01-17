@@ -716,10 +716,11 @@ static void
 set_font(DiaRenderer *self, DiaFont *font, real height)
 {
     CgmRenderer *renderer = CGM_RENDERER(self);
+    DiaFont *oldfont = renderer->font;
 
-    if (renderer->font != NULL)
-	dia_font_unref(renderer->font);
     renderer->font = dia_font_ref(font);
+    if (oldfont != NULL)
+	dia_font_unref(oldfont);
     renderer->tcurrent.font_num = FONT_NUM(font);
     renderer->tcurrent.font_height = height;
 }

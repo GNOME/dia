@@ -38,7 +38,7 @@ As of version 0.91, Dia under Unix also needs freetype2, version 2.0.9 or
 higher.  It can be found here:
   http://www.freetype.org
 
-As of version 0.91, Dia requires intltool version 0.21 or higher.  It is
+As of version 0.97, Dia requires intltool version 0.35 or higher.  It is
 also required for Gtk.  It can be found here:
   ftp://ftp.gnome.org/pub/gnome/sources/intltool/
 
@@ -49,7 +49,7 @@ newer GLib and ATK at the least.  When possible, use the newest stable
 release. 
 
 pkg-config
-intltool 0.21
+intltool 0.35
 font-config 1.0.1
 GLib 2.1.3
 ATK 2.0.0
@@ -75,7 +75,7 @@ Extra Gnome support (limited) is available with installation of the gnome
 Python scripting is possible by adding --with-python and having the
   following installed:
   Python: http://www.python.org
-  PyGtk: ftp://ftp.gtk.org/pub/gtk/python/v2.0
+  PyGtk(optional): ftp://ftp.gtk.org/pub/gtk/python/v2.0
 
 BUILDING:
 =========
@@ -113,10 +113,10 @@ Solaris
 	bind_textdomain_codeset.  Use the gettext and libiconv from
 	ftp.gnu.org instead.
 
-COMPILING FROM CVS:
+COMPILING FROM SVN:
 ===================
 
-If you are using the cvs version of Dia you need to have the following programs:
+If you are using the SVN version of Dia you need to have the following programs:
 automake 1.4, autoconf 2.50, libtool 1.3, GNU gettext 0.10.38, intltool 0.21
 
 Then run ./autogen.sh instead of configure to create all needed files.

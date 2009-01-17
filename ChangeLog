@@ -1,5 +1,27 @@
-<<<<<<< .mine
 2009-01-17  Hans Breuer  <hans@breuer.org>
+
+	* objects/standard/image.c : #include <time.h> to fix part of the issue
+	with building with GLib < 2.10 (bug #567559,  Robert Young)
+
+	* app/app_procs.c : don't dump built-with-cairo twice, instead
+	inform about pangocairo, too.
+	
+	* INSTALL : improved consistency between configure.in and this file.
+	Also remove trace of CVS.
+	
+	* lib/prop_geomtypes.c(fontsizeprop_set_from_offsets,
+	  fontsizeprop_load) : implement clipping to min/max values to protect
+	the Dia core against plug-ins playing havoc (see e.g. bug #488935)
+
+	* plug-ins/cgm/cgm.c(CgmRenderer::set_font) : a second call with an 
+	already set font (with refcount 1) would have destroyed the font before
+	referencing it.
+
+	* plug-ins/vdx/vdx-import.c : one instruction per line to allow putting
+	a breakpoint on the g_debug() line
+
+	* RELEASE-PROCESS : updated from CVS to SVN usage, also clarify the
+	difference between tag and branch creation
 
 	* objects/UML/classicon.c objects/UML/implements.c 
 	  objects/UML/message.c objects/UML/node.c
@@ -8,7 +30,6 @@
 	"same name, same type", nowadays I'm weighting forward-compatibility 
 	higher than following unwritten rules
 
-=======
 2009-01-14  Steffen Macke <sdteffen@sdteffen.de>
 
 	* installer/win32/dia.nsi: Some updates for GTK 2.14.7
@@ -19,7 +40,6 @@
 	* app/sheets_dialog_callbacks.c : don't leak a superfluous SheetObject
 	fixes bug #564677
 
->>>>>>> .r4194
 2009-01-11  Hans Breuer  <hans@breuer.org>
 
 	[make "./configure ---enable-gnome=yes" work again]

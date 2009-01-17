@@ -21,6 +21,7 @@
 #include <string.h>
 #include <math.h>
 #include <sys/stat.h>
+#include <time.h>
 #ifdef HAVE_UNIST_H
 #include <unistd.h>
 #endif

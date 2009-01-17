@@ -412,8 +412,8 @@ dump_dependencies(void)
 #ifdef HAVE_LIBART
   "libart "
 #endif
-#ifdef HAVE_CAIRO
-  "cairo "
+#ifdef HAVE_PANGOCAIRO
+  "pangocairo "
 #endif
   "\n");
 

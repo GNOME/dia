@@ -316,7 +316,16 @@ fontsizeprop_set_from_widget(FontsizeProperty *prop, WIDGET *widget)
 static void 
 fontsizeprop_load(FontsizeProperty *prop, AttributeNode attr, DataNode data)
 {
-  prop->fontsize_data = data_real(data);
+  PropNumData *numdata = prop->common.extra_data;
+  real value = data_real(data);
+
+  if (numdata) {
+    if (value < numdata->min)
+      value = numdata->min;
+    else if (value > numdata->max)
+      value = numdata->max;
+  }
+  prop->fontsize_data = value;
 }
 
 static void 
@@ -336,7 +345,16 @@ static void
 fontsizeprop_set_from_offset(FontsizeProperty *prop,
                          void *base, guint offset, guint offset2)
 {
-  struct_member(base,offset,real) = prop->fontsize_data;
+  PropNumData *numdata = prop->common.extra_data;
+  real value = prop->fontsize_data;
+
+  if (numdata) {
+    if (value < numdata->min)
+      value = numdata->min;
+    else if (value > numdata->max)
+      value = numdata->max;
+  }
+  struct_member(base,offset,real) = value;
 }
 
 static int 

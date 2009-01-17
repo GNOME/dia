@@ -35,9 +35,10 @@ When a new version is about to be released:
    to be updated.
 
 2) D+3: a release candidate tarball is made. It is called
-   $VERSION-pre1. Simultaneously, a SVN branch is made with the name
+   $VERSION-pre1. Simultaneously, a SVN "tag" is created with the name
    "DIA_$VERSION_RELEASE" (with the non-alphanumeric characters in $VERSION
-   replaced by underscores, e.g. cvs tag -b DIA_0_93_RELEASE).
+   replaced by underscores, e.g.: svn copy svn+ssh://hans@svn.gnome.org/svn/dia/trunk \
+   svn+ssh://hans@svn.gnome.org/svn/dia/tags/DIA_0_97_PRE1).
    $VERSION-pre1 is registered with the Bugzilla, however it is encouraged
    that bug reports are made directly (or simultaneously) to the mailing
    list.
@@ -64,6 +65,10 @@ When a new version is about to be released:
    in SVN). $VERSION is registered with the Bugzilla, and all
    $VERSION-preX are removed (from now on, bugs against -preX are
    rejected as INVALID).
+   A real SVN branch is created with the name "dia-$VERSION" with the 
+   non-alphanumeric characters in $VERSION replaced by dashes, e.g.: 
+   svn copy svn+ssh://hans@svn.gnome.org/svn/dia/trunk \
+   svn+ssh://hans@svn.gnome.org/svn/dia/branches/dia-0-97).
 
 4) once the new release is complete and uploaded, announcements on
    freshmeat, the dia web site, the dia mailing list,

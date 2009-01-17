@@ -1127,7 +1127,10 @@ ellipticalarc_to_bezier(Point p0, Point p3, Point p4, double C, double D,
     e = a*(P0.x + P3.x) + b*(P0.y + P3.y);
     f = c*(P0.x + P4.x) + d*(P0.y + P4.y);
     g = 2.0*(a*(P4.y - P3.y) - b*(P4.x - P3.x));
-    if (fabs(g) < EPSILON) { g_debug("g=%f too small", g); return FALSE; }
+    if (fabs(g) < EPSILON) { 
+      g_debug("g=%f too small", g); 
+      return FALSE; 
+    }
     Q.x = (d*e - b*f)/g;
     Q.y = (a*f - c*e)/g;
     R = sqrt((P0.x - Q.x)*(P0.x - Q.x) + (P0.y - Q.y)*(P0.y - Q.y));
