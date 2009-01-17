@@ -208,6 +208,8 @@ objet_set_props(Objet *objet, GPtrArray *props)
   object_set_props_from_offsets(&objet->element.object,
                                 objet_offsets,props);
   apply_textstr_properties(props,objet->attributes,"attrib",objet->attrib);
+  /* also update our text object with the new color */
+  text_set_color(objet->text, &objet->text_color);
   g_free(objet->st_stereotype);
   objet->st_stereotype = NULL;
   objet_update_data(objet);
