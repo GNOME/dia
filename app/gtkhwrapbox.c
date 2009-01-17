@@ -468,7 +468,11 @@ layout_rows (GtkWrapBox    *wbox,
   children_per_line = g_slist_length (slist);
   while (slist)
     {
+#if GLIB_CHECK_VERSION(2,10,0)
       Line *line = g_slice_new (Line);
+#else
+      Line *line = g_new (Line, 1);
+#endif
 
       line->children = slist;
       line->min_size = min_height;
@@ -575,10 +579,15 @@ layout_rows (GtkWrapBox    *wbox,
                       line->expand);
 
           g_slist_free (line->children);
+#if (!GLIB_CHECK_VERSION(2,10,0))
+		  g_free (line);
+#endif
           line = next_line;
         }
 
+#if GLIB_CHECK_VERSION(2,10,0)
       g_slice_free_chain (Line, line_list, next);
+#endif
     }
 }
 

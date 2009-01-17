@@ -61,7 +61,12 @@ static void create_dialog()
   no_defaults_dialog = gtk_label_new(_("This object has no defaults."));
   gtk_widget_show (no_defaults_dialog);
 
+#if GLIB_CHECK_VERSION(2,10,0)
   g_object_ref_sink(GTK_OBJECT(no_defaults_dialog));
+#else
+  g_object_ref(GTK_OBJECT(no_defaults_dialog));
+  gtk_object_sink(GTK_OBJECT(no_defaults_dialog));
+#endif
 }
 
 static gint

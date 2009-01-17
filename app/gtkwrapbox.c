@@ -591,7 +591,11 @@ gtk_wrap_box_pack_wrapped (GtkWrapBox *wbox,
   g_return_if_fail (GTK_IS_WIDGET (child));
   g_return_if_fail (child->parent == NULL);
 
+#if GLIB_CHECK_VERSION(2,10,0)
   child_info = g_slice_new (GtkWrapBoxChild);
+#else
+  child_info = g_new (GtkWrapBoxChild, 1);
+#endif
 
   child_info->widget = child;
   child_info->hexpand = hexpand ? TRUE : FALSE;
@@ -861,7 +865,11 @@ gtk_wrap_box_remove (GtkContainer *container,
             last->next = child->next;
           else
             wbox->children = child->next;
+#if GLIB_CHECK_VERSION(2,10,0)
           g_slice_free (GtkWrapBoxChild, child);
+#else
+		  g_free (child);
+#endif
           wbox->n_children--;
 
           if (was_visible)

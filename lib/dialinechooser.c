@@ -315,9 +315,16 @@ dia_line_chooser_init (DiaLineChooser *lchooser)
   lchooser->selector = DIALINESTYLESELECTOR(wid);
 
   menu = gtk_menu_new();
+#if GLIB_CHECK_VERSION(2,10,0)
   g_object_ref_sink(GTK_OBJECT(menu));
   g_object_set_data_full(G_OBJECT(lchooser), button_menu_key, menu,
 			 (GDestroyNotify)g_object_unref);
+#else
+  g_object_ref(G_OBJECT(menu));
+  gtk_object_sink(GTK_OBJECT(menu));
+  g_object_set_data_full(G_OBJECT(lchooser), button_menu_key, menu,
+			 (GDestroyNotify)gtk_widget_unref);
+#endif
   for (i = 0; i <= LINESTYLE_DOTTED; i++) {
     mi = gtk_menu_item_new();
     g_object_set_data(G_OBJECT(mi), menuitem_enum_key, GINT_TO_POINTER(i));
