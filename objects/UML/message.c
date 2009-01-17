@@ -149,10 +149,11 @@ static PropDescription message_props[] = {
   /* can't use PROP_STD_TEXT_COLOUR_OPTIONAL cause it has PROP_FLAG_DONT_SAVE. It is designed to fill the Text object - not some subset */
   PROP_STD_TEXT_COLOUR_OPTIONS(PROP_FLAG_VISIBLE|PROP_FLAG_STANDARD|PROP_FLAG_OPTIONAL),
   PROP_STD_LINE_COLOUR_OPTIONAL, 
-  /* backward compatibility */
-  { "text", PROP_TYPE_STRING, PROP_FLAG_NO_DEFAULTS|PROP_FLAG_LOAD_ONLY|PROP_FLAG_OPTIONAL, N_("Message:"), NULL, NULL },
+  /* how it used to be before 0.96+SVN */
+  { "text", PROP_TYPE_STRING, PROP_FLAG_VISIBLE|PROP_FLAG_OPTIONAL, N_("Message:"), NULL, NULL },
   /* new name matching "same name, same type"  rule */
-  { "message", PROP_TYPE_STRING, PROP_FLAG_VISIBLE|PROP_FLAG_OPTIONAL, N_("Message:"), NULL, NULL },
+  { "message", PROP_TYPE_STRING, PROP_FLAG_NO_DEFAULTS|PROP_FLAG_LOAD_ONLY|PROP_FLAG_OPTIONAL, N_("Message:"), NULL, NULL },
+
   { "type", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE,
     N_("Message type:"), NULL, prop_message_type_data },
   { "text_pos", PROP_TYPE_POINT, 0, 

@@ -136,10 +136,11 @@ static PropDescription classicon_props[] = {
   ELEMENT_COMMON_PROPERTIES,
   PROP_STD_LINE_COLOUR_OPTIONAL, 
   PROP_STD_FILL_COLOUR_OPTIONAL, 
-  /* backward compatibility */
-  { "stereotype", PROP_TYPE_ENUM, PROP_FLAG_NO_DEFAULTS|PROP_FLAG_LOAD_ONLY|PROP_FLAG_OPTIONAL, N_("Stereotype"), NULL,  prop_classicon_type_data},
-  /* one name, one type */
-  { "type", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE|PROP_FLAG_OPTIONAL, N_("Stereotype"), NULL,  prop_classicon_type_data},
+  /* how it used to be before 0.96+SVN */
+  { "stereotype", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE|PROP_FLAG_OPTIONAL, N_("Stereotype"), NULL,  prop_classicon_type_data},
+  /* one name, one type: but breaks forward-compatibiliy so kind of reverted */
+  { "type", PROP_TYPE_ENUM, PROP_FLAG_NO_DEFAULTS|PROP_FLAG_LOAD_ONLY||PROP_FLAG_OPTIONAL, N_("Stereotype"), NULL,  prop_classicon_type_data},
+  
   { "is_object", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE,
   N_("Is object"), NULL, NULL },
   PROP_STD_TEXT_FONT,

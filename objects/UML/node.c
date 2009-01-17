@@ -126,10 +126,11 @@ static PropDescription node_props[] = {
   PROP_STD_TEXT_FONT,
   PROP_STD_TEXT_HEIGHT,
   PROP_STD_TEXT_COLOUR_OPTIONAL,
-  /* backward compatibility */
-  { "name", PROP_TYPE_TEXT, PROP_FLAG_NO_DEFAULTS|PROP_FLAG_LOAD_ONLY|PROP_FLAG_OPTIONAL, N_("Text"), NULL, NULL }, 
+  /* how it used to be before 0.96+SVN */
+  { "name", PROP_TYPE_TEXT, PROP_FLAG_OPTIONAL, N_("Text"), NULL, NULL }, 
   /* new name matching "same name, same type"  rule */
-  { "text", PROP_TYPE_TEXT, PROP_FLAG_OPTIONAL, N_("Text"), NULL, NULL },
+  { "text", PROP_TYPE_TEXT, PROP_FLAG_NO_DEFAULTS|PROP_FLAG_LOAD_ONLY|PROP_FLAG_OPTIONAL, N_("Text"), NULL, NULL },
+
   PROP_DESC_END
 };
 
