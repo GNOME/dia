@@ -534,6 +534,7 @@ EXPORTS
  parent_move_child_delta
 
  pdtpp_true
+ pdtpp_is_visible
 
  persistence_load
  persistence_save

@@ -277,7 +277,7 @@ read_connections(GList *objects, xmlNodePtr layer_node,
     } else {
       gboolean broken = FALSE;
       /* an invalid bounding box is a good sign for some need of corrections */
-      gboolean wants_update = obj->bounding_box.left >= obj->bounding_box.left 
+      gboolean wants_update = obj->bounding_box.right >= obj->bounding_box.left 
                            || obj->bounding_box.top >= obj->bounding_box.bottom;
       connections = obj_node->xmlChildrenNode;
       while ((connections!=NULL) &&
@@ -309,7 +309,8 @@ read_connections(GList *objects, xmlNodePtr layer_node,
 	    broken = TRUE;
 	  } else if (handle < 0 || handle >= obj->num_handles) {
 	    message_error(_("Error loading diagram.\n"
-			    "connection handle does not exist."));
+			    "connection handle %d does not exist on '%s'."),
+			    handle, to->type->name);
 	    broken = TRUE;
 	  } else {
 	    if (conn == -1) { /* Find named connpoint */
@@ -336,8 +337,8 @@ read_connections(GList *objects, xmlNodePtr layer_node,
 	      }
 	    } else {
 	      message_error(_("Error loading diagram.\n"
-			      "connection point %s does not exist."),
-			    connstr);
+			      "connection point %d does not exist on '%s'."),
+			    conn, to->type->name);
 	      broken = TRUE;
 	    }
 	  }

@@ -58,7 +58,10 @@ compile :
 	cd python
 	nmake -f makefile.msc
 	cd ..\..
-	
+	cd tests
+	nmake -f makefile.msc
+	cd ..
+
 clean :
 	del config.h
 	cd lib
@@ -72,6 +75,9 @@ clean :
 	cd python
 	nmake -f makefile.msc clean
 	cd ..\..
+	cd tests
+	nmake -f makefile.msc clean
+	cd ..
 	
 build:
 	md build
