@@ -12,7 +12,7 @@
   <textbox x1="0.25" y1="0" x2="2.25" y2="2"/>
   <svg:svg width="2.5" height="2">
     <svg:polygon points="0,0 2.5,0 2.5,2 0,2" style="fill: default"/>
-    <svg:line x1="0.25" y1="0" x2="0.25" y2="2" svg:style="stroke-width:1"/>
-    <svg:line x1="2.25" y1="0" x2="2.25" y2="2" svg:style="stroke-width:1"/>
+    <svg:line x1="0.25" y1="0" x2="0.25" y2="2" style="stroke-width:1"/>
+    <svg:line x1="2.25" y1="0" x2="2.25" y2="2" style="stroke-width:1"/>
   </svg:svg>
 </shape>

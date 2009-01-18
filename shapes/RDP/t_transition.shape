@@ -12,7 +12,7 @@
   <textbox x1="-0.9" y1="-0.9" x2="0.9" y2="-0.2"/>
   <aspectratio type="fixed"/>
    <svg:svg> 
-     <svg:rect x="-0.5" y="-1" width="1" height="0.5" svg:style="stroke:none"/>
+     <svg:rect x="-0.5" y="-1" width="1" height="0.5" style="stroke:none"/>
     <svg:line x1="-0.5" y1="-0.1" x2="0.5" y2="-0.1"/>
     <svg:line x1="-0.5" y1="0" x2="0.5" y2="0"/>
 	

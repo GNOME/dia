@@ -97,7 +97,7 @@
 <!ELEMENT svg:circle EMPTY >
 <!ATTLIST svg:circle
   cx CDATA #REQUIRED
-  cy CDATA #REQUIRED
+  cy CDATA #IMPLIED
   r CDATA #REQUIRED
   style CDATA #IMPLIED >
 

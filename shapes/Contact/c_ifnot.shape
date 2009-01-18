@@ -16,6 +16,6 @@
     <svg:rect x="-2" y="-3" width="4" height="4" style="stroke:none"/>
     <svg:polyline points="-2,0 -.75,0 -.75,-.875"/>
     <svg:polyline points="-1,-1 1,0 2,0 "/>
-    <svg:line x1="-.5" y1="-2.2" x2=".5" y2="-2.2" svg:style="stroke-width:.05"/>
+    <svg:line x1="-.5" y1="-2.2" x2=".5" y2="-2.2" style="stroke-width:.05"/>
   </svg:svg>
 </shape>

@@ -1,3 +1,20 @@
+2009-01-18  Hans Breuer  <hans@breuer.org>
+
+	[xmllint --dtdvalid doc/shape.dtd shapes/**/*.shape >/dev/null]
+	* shapes/Contact/c_ifnot.shape shapes/RDP/t_transition.shape
+	  shapes/RDP/transition.shape shapes/SDL/comment.shape 
+	  shapes/SDL/function.shape shapes/SDL/macro.shape 
+	  shapes/SDL/return.shape shapes/SDL/stop.shape : removed superfluous
+	'svg:' prefix on style attribute
+	* shapes/RDP/place_marquee.shape : removed attribute 'color' from 
+	svg:circle element; it would be ambiguous and did not validate.
+	Both foreground and background color are set in the style attribute.
+	* docs/shape.dtd : changed circle attribute cy to be IMPLIED only
+	Together this reduces the complaints of xmllint down to zero. Given
+	the recent updates on 
+	http://svn.gnome.org/viewvc/dia/trunk/doc/custom-shapes?view=log
+	IMO enough to close bug #86402
+
 2009-01-17  Hans Breuer  <hans@breuer.org>
 
 	* app/defaults.c app/gtkvwrapbox.c app/gtkwrapbox.c 

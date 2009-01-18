@@ -19,7 +19,7 @@
 
   <svg:svg width="1.0" height="1.0">
     <svg:circle cx="0" r="1.5"/>
-    <svg:circle color="#ff0000" style="stroke: #ff000; fill: #ff0000" cx="0" r="0.1"/> 	
+    <svg:circle style="stroke: #ff000; fill: #ff0000" cx="0" r="0.1"/> 	
 
   </svg:svg>
 </shape>
