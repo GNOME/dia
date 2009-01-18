@@ -1,5 +1,8 @@
 2009-01-18  Hans Breuer  <hans@breuer.org>
 
+	* objects/custom/shape_info.c(load_shape_info) : default-(width|height)
+	was still in points. Now it is cm fixing bug #568099
+
 	[xmllint --dtdvalid doc/shape.dtd shapes/**/*.shape >/dev/null]
 	* shapes/Contact/c_ifnot.shape shapes/RDP/t_transition.shape
 	  shapes/RDP/transition.shape shapes/SDL/comment.shape 
