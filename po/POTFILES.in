@@ -48,6 +48,7 @@ lib/dialinechooser.c
 lib/dialogs.c
 lib/filter.c
 lib/font.c
+lib/layer.c
 lib/message.c
 lib/newgroup.c
 lib/object_defaults.c

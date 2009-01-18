@@ -47,6 +47,7 @@ libdia_la_SOURCES =  \
 		diamenu.h \
 		diagramdata.h \
 		diagramdata.c \
+		layer.c \
 		geometry.h \
 		geometry.c \
 		color.h \

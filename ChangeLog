@@ -1,5 +1,9 @@
 2009-01-18  Hans Breuer  <hans@breuer.org>
 
+	* lib/diagramdata.c lib/layer.c : split the latter from the former to
+	have more manageable pieces (one class per file)
+	* lib/Makefile.am lib/makefile.msc po/POTFILES.in : updated accordingly
+
 	* objects/custom/shape_info.c(load_shape_info) : default-(width|height)
 	was still in points. Now it is cm fixing bug #568099
 
