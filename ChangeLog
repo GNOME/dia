@@ -1,5 +1,8 @@
 2009-01-18  Hans Breuer  <hans@breuer.org>
 
+	* lib/dia_image.c : oops, commited before compiling - now it uses for
+	message_warning() for invalid pathes _and_ includes "message"
+
 	* app/load_save.c(read_connections) : while playing with "All Objects"
 	I've got "connection point %d does not exists", now I get the more
 	useful "connection point 14 does not exist on 'SISSI - area'"

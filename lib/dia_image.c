@@ -21,6 +21,7 @@
 
 #include "geometry.h"
 #include "dia_image.h"
+#include "message.h"
 #include <gtk/gtkwidget.h>
 #include <gdk-pixbuf/gdk-pixbuf.h>
 
