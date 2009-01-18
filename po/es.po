@@ -14,8 +14,8 @@ msgstr ""
 "Project-Id-Version: dia.HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=dia&component=general\n"
-"POT-Creation-Date: 2009-01-02 14:01+0000\n"
-"PO-Revision-Date: 2009-01-02 21:46+0100\n"
+"POT-Creation-Date: 2009-01-11 20:10+0000\n"
+"PO-Revision-Date: 2009-01-18 18:36+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -360,6 +360,12 @@ msgstr ""
 #: ../app/commands.c:748
 msgid "A program for drawing structured diagrams."
 msgstr "Un programa para dibujar diagramas estructurados."
+
+#: ../app/create_object.c:71
+#, c-format
+#| msgid "Transaction file"
+msgid "'%s' creation failed"
+msgstr "Falló la creación de «%s»"
 
 #: ../app/defaults.c:43 ../app/defaults.c:145
 msgid "Object defaults"
@@ -748,11 +754,11 @@ msgid "Nothing selected for saving.  Would you like to try again?"
 msgstr "No se seleccionó nada para guardar. ¿Quiere intentarlo otra vez?"
 
 #: ../app/filedlg.c:143 ../app/filedlg.c:151 ../app/filedlg.c:167
-#: ../app/filedlg.c:741 ../lib/widgets.c:1488
+#: ../app/filedlg.c:745 ../lib/widgets.c:1488
 msgid "Supported Formats"
 msgstr "Formatos soportados"
 
-#: ../app/filedlg.c:191 ../app/filedlg.c:601
+#: ../app/filedlg.c:191 ../app/filedlg.c:605
 msgid "By extension"
 msgstr "Por extensión"
 
@@ -764,11 +770,11 @@ msgstr "Abrir diagrama"
 msgid "Open Options"
 msgstr "Abrir opciones"
 
-#: ../app/filedlg.c:317 ../app/filedlg.c:723
+#: ../app/filedlg.c:317 ../app/filedlg.c:727
 msgid "Determine file type:"
 msgstr "Determinar tipo de archivo:"
 
-#: ../app/filedlg.c:337 ../app/filedlg.c:736 ../lib/widgets.c:1493
+#: ../app/filedlg.c:337 ../app/filedlg.c:740 ../lib/widgets.c:1493
 msgid "All Files"
 msgstr "Todos los archivos"
 
@@ -782,12 +788,12 @@ msgstr ""
 " ni en su codificación local.\n"
 "Algunas cosas no funcionarán."
 
-#: ../app/filedlg.c:380 ../app/filedlg.c:648
+#: ../app/filedlg.c:380 ../app/filedlg.c:652
 #: ../plug-ins/postscript/paginate_psprint.c:424
 msgid "File already exists"
 msgstr "El archivo ya existe"
 
-#: ../app/filedlg.c:382 ../app/filedlg.c:650
+#: ../app/filedlg.c:382 ../app/filedlg.c:654
 #: ../plug-ins/postscript/paginate_psprint.c:416
 #, c-format
 msgid ""
@@ -817,7 +823,7 @@ msgstr ""
 "incrementa la velocidad al cargar y al guardar. Algunos programas de texto "
 "no pueden manipular archivos comprimidos."
 
-#: ../app/filedlg.c:674
+#: ../app/filedlg.c:678
 #, c-format
 msgid ""
 "Could not determine which export filter\n"
@@ -826,11 +832,11 @@ msgstr ""
 "No se pudo determinar qué filtro de exportación\n"
 "usar para guardar «%s»"
 
-#: ../app/filedlg.c:698
+#: ../app/filedlg.c:702
 msgid "Export Diagram"
 msgstr "Exportar diagrama"
 
-#: ../app/filedlg.c:715
+#: ../app/filedlg.c:719
 msgid "Export Options"
 msgstr "Exportar opciones"
 
@@ -1186,23 +1192,23 @@ msgstr ""
 "%s.\n"
 "Un archivo válido de Dia define al menos una capa."
 
-#: ../app/load_save.c:978
+#: ../app/load_save.c:979
 #, c-format
 msgid "Not allowed to write to output file %s\n"
 msgstr "No hay permiso para escribir el archivo de salida %s\n"
 
-#: ../app/load_save.c:1000
+#: ../app/load_save.c:1011
 #, c-format
 msgid "Not allowed to write temporary files in %s\n"
 msgstr "No se permite escribir archivos temporales en %s\n"
 
-#: ../app/load_save.c:1022 ../plug-ins/cairo/diacairo.c:124
+#: ../app/load_save.c:1033 ../plug-ins/cairo/diacairo.c:121
 #: ../plug-ins/cgm/cgm.c:1153 ../plug-ins/dxf/dxf-export.c:547
 #: ../plug-ins/hpgl/hpgl.c:710 ../plug-ins/libart/export_png.c:157
 #: ../plug-ins/metapost/render_metapost.c:1177
 #: ../plug-ins/pgf/render_pgf.c:1208 ../plug-ins/postscript/render_eps.c:105
 #: ../plug-ins/pstricks/render_pstricks.c:916
-#: ../plug-ins/shape/shape-export.c:136 ../plug-ins/svg/render_svg.c:188
+#: ../plug-ins/shape/shape-export.c:136 ../plug-ins/svg/render_svg.c:199
 #: ../plug-ins/vdx/vdx-export.c:1849 ../plug-ins/wpg/wpg.c:1072
 #: ../plug-ins/xfig/xfig-export.c:1151 ../plug-ins/xslt/xslt.c:99
 #, c-format
@@ -1211,17 +1217,17 @@ msgstr "No se pudo abrir archivo de salida «%s»: %s\n"
 
 #. Save failed; we clean our stuff up, without touching the file named
 #. "filename" if it existed.
-#: ../app/load_save.c:1033
+#: ../app/load_save.c:1044
 #, c-format
 msgid "Internal error %d writing file %s\n"
 msgstr "Error interno %d escribiendo archivo %s\n"
 
-#: ../app/load_save.c:1047
+#: ../app/load_save.c:1055
 #, c-format
 msgid "Can't rename %s to final output file %s: %s\n"
 msgstr "No se pudo renombrar %s al archivo final de salida %s: %s\n"
 
-#: ../app/load_save.c:1135 ../app/load_save.c:1140
+#: ../app/load_save.c:1146 ../app/load_save.c:1151
 msgid "Dia Diagram File"
 msgstr "Archivo de diagrama de Dia"
 
@@ -1762,8 +1768,8 @@ msgstr "Exportar"
 msgid "Portable Network Graphics"
 msgstr "Portable Network Graphics"
 
-#: ../app/preferences.c:229 ../plug-ins/svg/render_svg.c:365
-#: ../plug-ins/svg/svg-import.c:767
+#: ../app/preferences.c:229 ../plug-ins/svg/render_svg.c:515
+#: ../plug-ins/svg/svg-import.c:811
 msgid "Scalable Vector Graphics"
 msgstr "Scalable Vector Graphics"
 
@@ -1825,7 +1831,7 @@ msgstr "No"
 msgid "Preferences"
 msgstr "Preferencias"
 
-#: ../app/preferences.c:777
+#: ../app/preferences.c:782
 msgid "User Interface type settings change will take after restart"
 msgstr ""
 "Los ajustes para el interfaz del usuario tomarán efecto después de reiniciar."
@@ -2283,7 +2289,7 @@ msgstr "Error interno: al establecer tipo esquina de punto final Bézier"
 #: ../lib/create.c:50 ../lib/create.c:100 ../lib/create.c:127
 #: ../lib/create.c:161 ../lib/create.c:197 ../lib/create.c:224
 #: ../lib/create.c:260 ../lib/create.c:295 ../lib/create.c:338
-#: ../plug-ins/svg/svg-import.c:246 ../plug-ins/vdx/vdx-import.c:140
+#: ../plug-ins/svg/svg-import.c:247 ../plug-ins/vdx/vdx-import.c:140
 msgid "Can't find standard object"
 msgstr "No se pudo encontrar el objeto estándar"
 
@@ -2362,7 +2368,7 @@ msgstr "Cancelar"
 msgid "Multiple export filters with unique name %s"
 msgstr "Filtros múltiples de exportación con nombre único %s"
 
-#: ../lib/font.c:106
+#: ../lib/font.c:84
 #, c-format
 msgid "Can't load font %s.\n"
 msgstr "No se puede cargar la tipografía %s.\n"
@@ -2445,7 +2451,7 @@ msgstr ""
 msgid "Property cast from int to enum out of range"
 msgstr "Cambio de tipo de propiedad de int a enum fuera de rango"
 
-#: ../lib/prop_text.c:466
+#: ../lib/prop_text.c:468
 #, c-format
 msgid "Group with %d objects"
 msgstr "Grupo con %d objetos"
@@ -5816,17 +5822,17 @@ msgstr "Primera línea"
 msgid "Vertical text alignment"
 msgstr "Alineación vertical del texto"
 
-#: ../plug-ins/cairo/diacairo-interactive.c:257
-#: ../plug-ins/cairo/diacairo-interactive.c:258
+#: ../plug-ins/cairo/diacairo-interactive.c:263
+#: ../plug-ins/cairo/diacairo-interactive.c:264
 msgid "Zoom pointer"
 msgstr "Puntero de la ampliación"
 
-#: ../plug-ins/cairo/diacairo-interactive.c:264
-#: ../plug-ins/cairo/diacairo-interactive.c:265
+#: ../plug-ins/cairo/diacairo-interactive.c:270
+#: ../plug-ins/cairo/diacairo-interactive.c:271
 msgid "Visible rect pointer"
 msgstr "Puntero visible de la recta"
 
-#: ../plug-ins/cairo/diacairo.c:116
+#: ../plug-ins/cairo/diacairo.c:129
 #, c-format
 msgid ""
 "Can't convert output filename '%s' to locale encoding.\n"
@@ -5835,61 +5841,61 @@ msgstr ""
 "No se puede convertir el archivo de salida «%s» a la codificación local.\n"
 "Por favor, elija un nombre diferente para guardar con cairo.\n"
 
-#: ../plug-ins/cairo/diacairo.c:249 ../plug-ins/cairo/diacairo.c:265
+#: ../plug-ins/cairo/diacairo.c:256 ../plug-ins/cairo/diacairo.c:272
 #, c-format
 msgid "Can't write %d bytes to %s"
 msgstr "No se pueden escribir %d bytes en %s"
 
-#: ../plug-ins/cairo/diacairo.c:278
+#: ../plug-ins/cairo/diacairo.c:285
 msgid "Clipboard copy failed"
 msgstr "Falló al copiar al portapapeles"
 
-#: ../plug-ins/cairo/diacairo.c:302 ../plug-ins/postscript/postscript.c:39
-#: ../plug-ins/wmf/wmf.cpp:1389
+#: ../plug-ins/cairo/diacairo.c:311 ../plug-ins/postscript/postscript.c:39
+#: ../plug-ins/wmf/wmf.cpp:1388
 msgid "Nothing to print"
 msgstr "Nada que imprimir"
 
-#: ../plug-ins/cairo/diacairo.c:313
+#: ../plug-ins/cairo/diacairo.c:322
 msgid "Printing with Gtk+(cairo) requires at least version 2.10."
 msgstr "Imprimir con Gtk+ (cairo) requiere al menos la versión 2.10."
 
-#: ../plug-ins/cairo/diacairo.c:320
+#: ../plug-ins/cairo/diacairo.c:329
 msgid "Cairo PostScript"
 msgstr "Cairo PostScript"
 
-#: ../plug-ins/cairo/diacairo.c:331
+#: ../plug-ins/cairo/diacairo.c:340
 msgid "Cairo Portable Document Format"
 msgstr "Portable Document Format de Cairo"
 
-#: ../plug-ins/cairo/diacairo.c:346
+#: ../plug-ins/cairo/diacairo.c:355
 msgid "Cairo Scalable Vector Graphics"
 msgstr "Cairo Scalable Vector Graphics"
 
-#: ../plug-ins/cairo/diacairo.c:357
+#: ../plug-ins/cairo/diacairo.c:366
 msgid "Cairo PNG"
 msgstr "Cairo PNG"
 
-#: ../plug-ins/cairo/diacairo.c:365
+#: ../plug-ins/cairo/diacairo.c:374
 msgid "Cairo PNG (with alpha)"
 msgstr "Cairo PNG (con alfa)"
 
-#: ../plug-ins/cairo/diacairo.c:375
+#: ../plug-ins/cairo/diacairo.c:384
 msgid "Cairo EMF"
 msgstr "Cairo EMF"
 
-#: ../plug-ins/cairo/diacairo.c:385
+#: ../plug-ins/cairo/diacairo.c:394
 msgid "Cairo WMF"
 msgstr "Cairo WMF"
 
-#: ../plug-ins/cairo/diacairo.c:407
+#: ../plug-ins/cairo/diacairo.c:416
 msgid "Copy _Diagram"
 msgstr "Cerrar el _diagrama"
 
-#: ../plug-ins/cairo/diacairo.c:417
+#: ../plug-ins/cairo/diacairo.c:426
 msgid "Print (GTK) ..."
 msgstr "Imprimir (GTK) …"
 
-#: ../plug-ins/cairo/diacairo.c:462
+#: ../plug-ins/cairo/diacairo.c:471
 msgid "Cairo based Rendering"
 msgstr "Renderizado basado en Cairo"
 
@@ -6124,7 +6130,7 @@ msgstr "Archivo de forma de Dia"
 msgid "dia shape export filter"
 msgstr "Filtro de exportación de archivo de forma de Dia"
 
-#: ../plug-ins/svg/svg-import.c:237
+#: ../plug-ins/svg/svg-import.c:238
 msgid ""
 "Invalid path data.\n"
 "svg:path data must start with moveto."
@@ -6132,11 +6138,11 @@ msgstr ""
 "Ruta de datos inválida.\n"
 "svg:la ruta de datos debe empezar con moveto."
 
-#: ../plug-ins/svg/svg-import.c:690
+#: ../plug-ins/svg/svg-import.c:734
 msgid "Expected SVG Namespace not found in file"
 msgstr "No se encontró en el archivo el espacio de nombres SVG esperado"
 
-#: ../plug-ins/svg/svg-import.c:710
+#: ../plug-ins/svg/svg-import.c:754
 #, c-format
 msgid "root element was '%s' -- expecting 'svg'."
 msgstr "el elemento raíz era «%s» -- se esperaba «svg»."
@@ -6215,31 +6221,31 @@ msgstr "No se puede escribir el objeto %u"
 msgid "Visio XML Format import and export filter"
 msgstr "Filtro de exportación e importación para el formato Visio XML"
 
-#: ../plug-ins/wmf/wmf.cpp:504
+#: ../plug-ins/wmf/wmf.cpp:506
 #, c-format
 msgid ""
 "Can not render unknown font:\n"
 "%s"
 msgstr "No se puede renderizar la tipografía desconocida: %s"
 
-#: ../plug-ins/wmf/wmf.cpp:1262
+#: ../plug-ins/wmf/wmf.cpp:1265
 #, c-format
 msgid "Couldn't open: '%s' for writing.\n"
 msgstr "No se pudo abrir: «%s» para escritura.\n"
 
-#: ../plug-ins/wmf/wmf.cpp:1365
+#: ../plug-ins/wmf/wmf.cpp:1364
 msgid "Windows Meta File"
 msgstr "Meta-archivo de Windows (WMF)"
 
-#: ../plug-ins/wmf/wmf.cpp:1374
+#: ../plug-ins/wmf/wmf.cpp:1373
 msgid "Enhanced Meta File"
 msgstr "Meta-archivo mejorado"
 
-#: ../plug-ins/wmf/wmf.cpp:1396
+#: ../plug-ins/wmf/wmf.cpp:1395
 msgid "Print (GDI) ..."
 msgstr "Imprimir (GDI) …"
 
-#: ../plug-ins/wmf/wmf.cpp:1411
+#: ../plug-ins/wmf/wmf.cpp:1410
 msgid "WMF export filter"
 msgstr "Filtro de exportación de WMF"
 
