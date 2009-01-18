@@ -141,6 +141,7 @@ end_render(DiaRenderer *self)
 
   if (self->font != NULL) {
     dia_font_unref(self->font);
+    self->font = NULL;
   }
 }
 

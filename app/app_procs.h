@@ -28,8 +28,6 @@ void app_init(int argc, char **argv);
 gboolean app_exit(void);
 int app_is_embedded(void);
 
-char *build_output_file_name(const char *infname, const char *format);
-
 void app_splash_init(const gchar* name);
 void app_splash_done(void);
 

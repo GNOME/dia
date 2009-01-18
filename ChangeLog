@@ -1,5 +1,10 @@
 2009-01-18  Hans Breuer  <hans@breuer.org>
 
+	* app/app_procs.[ch] : implement command line switches -I and -O to give
+	input and output directories independent of filenames, bug #438842
+	* plug-ins/postscript/diapsrenderer.c : don't unref the postscript renderer 
+	font twice, fixing a crash spotted while testing the above
+
 	* lib/dia_image.c : oops, commited before compiling - now it uses for
 	message_warning() for invalid pathes _and_ includes "message"
 

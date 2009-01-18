@@ -83,7 +83,8 @@ handle_initial_diagram(const char *input_file_name,
 		       const char *export_file_name,
 		       const char *export_file_format,
 		       const char *size,
-		       char *show_layers);
+		       char *show_layers,
+		       const char *outdir);
 
 static void create_user_dirs(void);
 static PluginInitResult internal_plugin_init(PluginInfo *info);
@@ -91,9 +92,11 @@ static void process_opts(int *argc, char **argv,
 			 GOptionContext* context, GOptionEntry options[],
 			 GSList **files, char **export_file_name,
 			 char **export_file_format, char **size,
-			 char **show_layers, gboolean *nosplash);
+			 char **show_layers, gboolean *nosplash,
+			 char **input_directory, char **output_directory);
 static gboolean handle_all_diagrams(GSList *files, char *export_file_name,
-				    char *export_file_format, char *size, char *show_layers);
+				    char *export_file_format, char *size, char *show_layers,
+				    char *input_directory, char *output_directory);
 static void print_credits(gboolean credits);
 
 static gboolean dia_is_interactive = FALSE;
@@ -136,19 +139,28 @@ save_state (GnomeClient        *client,
 }
 #endif
 
-char *
-build_output_file_name(const char *infname, const char *format)
+static char *
+build_output_file_name(const char *infname, const char *format, const char *outdir)
 {
-  /* FIXME: probably overly confident... */
-  char *p = strrchr(infname,'.');
+  char *pe = strrchr(infname,'.');
+  char *pp = strrchr(infname,G_DIR_SEPARATOR);
   char *tmp;
-  if (!p) {
-    return g_strconcat(infname,".",format,NULL);
-  }
-  tmp = g_malloc0(strlen(infname)+1+strlen(format)+1);
-  memcpy(tmp,infname,p-infname);
+  if (!pp)
+    pp = infname;
+  else
+    pp += 1;
+  if (!pe)
+    return g_strconcat(outdir ? outdir : "", pp,".",format,NULL);
+
+  tmp = g_malloc0(strlen(pp)+1+strlen(format)+1);
+  memcpy(tmp,pp,pe-pp);
   strcat(tmp,".");
   strcat(tmp,format);
+  if (outdir) {
+    char *ret = g_strconcat(outdir, G_DIR_SEPARATOR_S, tmp, NULL);
+    g_free(tmp);
+    return ret;
+  }
   return tmp;
 }
 
@@ -520,7 +532,8 @@ handle_initial_diagram(const char *in_file_name,
 		       const char *out_file_name,
 		       const char *export_file_format,
 		       const char *size,
-		       char* show_layers) {
+		       char* show_layers,
+		       const char *outdir) {
   DDisplay *ddisp = NULL;
   Diagram *diagram = NULL;
   gboolean made_conversions = FALSE;
@@ -530,8 +543,7 @@ handle_initial_diagram(const char *in_file_name,
     DiaExportFilter *ef = NULL;
 
     /* First try guessing based on extension */
-    export_file_name = build_output_file_name(in_file_name,
-					      export_file_format);
+    export_file_name = build_output_file_name(in_file_name, export_file_format, outdir);
 
     /* to make the --size hack even uglier but work again for the only filter supporting it */
     if (   size && strcmp(export_file_format, "png") == 0)
@@ -545,8 +557,7 @@ handle_initial_diagram(const char *in_file_name,
 	return FALSE;
       }
       g_free (export_file_name);
-      export_file_name = build_output_file_name(in_file_name,
-						ef->extensions[0]);
+      export_file_name = build_output_file_name(in_file_name, ef->extensions[0], outdir);
     }
     made_conversions |= do_convert(in_file_name,
       (out_file_name != NULL?out_file_name:export_file_name),
@@ -610,6 +621,8 @@ app_init (int argc, char **argv)
 #endif
   static char *export_file_name = NULL;
   static char *export_file_format = NULL;
+  static char *input_directory = NULL;
+  static char *output_directory = NULL;
   static char *size = NULL;
   static char *show_layers = NULL;
   gboolean made_conversions = FALSE;
@@ -649,6 +662,10 @@ app_init (int argc, char **argv)
      N_("Don't create empty diagram"), NULL },
     {"log-to-stderr", 'l', 0, G_OPTION_ARG_NONE, &log_to_stderr,
      N_("Send error messages to stderr instead of showing dialogs."), NULL },
+    {"input-directory", 'I', 0, G_OPTION_ARG_STRING, NULL /* &input_directory */,
+     N_("Directory containing input files"), N_("DIRECTORY")},
+    {"output-directory", 'O', 0, G_OPTION_ARG_STRING, NULL /* &output_directory */,
+     N_("Directory containing output files"), N_("DIRECTORY")},
     {"credits", 'c', 0, G_OPTION_ARG_NONE, &credits,
      N_("Display credits list and exit"), NULL },
     {"verbose", 0, 0, G_OPTION_ARG_NONE, &verbose,
@@ -666,6 +683,10 @@ app_init (int argc, char **argv)
   options[1].description = export_format_string;
   options[2].arg_data = &size;
   options[3].arg_data = &show_layers;
+  g_assert(strcmp (options[7].long_name, "input-directory") == 0);
+  options[7].arg_data = &input_directory;
+  g_assert(strcmp (options[8].long_name, "output-directory") == 0);
+  options[8].arg_data = &output_directory;
 
   argv0 = (argc > 0) ? argv[0] : "(none)";
 
@@ -688,7 +709,8 @@ app_init (int argc, char **argv)
   process_opts(&argc, argv, 
                context, options, 
                &files,
-	       &export_file_name, &export_file_format, &size, &show_layers, &nosplash);
+	       &export_file_name, &export_file_format, &size, &show_layers, &nosplash,
+	       &input_directory, &output_directory);
 
 #if defined ENABLE_NLS && defined HAVE_BIND_TEXTDOMAIN_CODESET
   bind_textdomain_codeset(GETTEXT_PACKAGE,"UTF-8");  
@@ -828,7 +850,8 @@ app_init (int argc, char **argv)
   }
 
   made_conversions = handle_all_diagrams(files, export_file_name,
-					 export_file_format, size, show_layers);
+					 export_file_format, size, show_layers,
+					 input_directory, output_directory);
   if (dia_is_interactive && files == NULL && !nonew) {
     if (prefs.use_integrated_ui)
     {
@@ -1089,7 +1112,8 @@ process_opts(int *argc, char **argv,
 	     GOptionContext *context, GOptionEntry options[],
 	     GSList **files, char **export_file_name,
 	     char **export_file_format, char **size,
-	     char **show_layers, gboolean* nosplash)
+	     char **show_layers, gboolean* nosplash,
+	     char **input_directory, char **output_directory)
 {
   if (argv) {
       GError *error = NULL;
@@ -1114,11 +1138,30 @@ process_opts(int *argc, char **argv,
         g_option_context_free(context);
 	return;
       }
+      if (*input_directory && !g_file_test(*input_directory, G_FILE_TEST_IS_DIR)) {
+	g_print (_("Input-directory '%s' must exist!\n"), *input_directory);
+        g_option_context_free(context);
+	exit(2);
+      }
+      if (*output_directory && !g_file_test(*output_directory, G_FILE_TEST_IS_DIR)) {
+	g_print (_("Output-directory '%s' must exist!\n"), *output_directory);
+        g_option_context_free(context);
+	exit(2);
+      }
       for (i = 1; i < *argc; i++) {
-	if (!g_file_test (argv[i], G_FILE_TEST_IS_REGULAR)) {
+	if (!(*input_directory) && !g_file_test (argv[i], G_FILE_TEST_IS_REGULAR)) {
 	  g_print (_("'%s' not found!\n"), argv[i]);
           g_option_context_free(context);
 	  exit(2);
+	} else if (*input_directory) {
+	  gchar *testpath = g_build_filename(*input_directory, argv[i], NULL);
+	  gboolean found = g_file_test (testpath, G_FILE_TEST_IS_REGULAR);
+	  g_free(testpath);
+	  if (!found) {
+	    g_print (_("'%s' not found in '%s'!\n"), argv[i], *input_directory);
+            g_option_context_free(context);
+	    exit(2);
+	  }
 	}
 	*files = g_slist_append(*files, argv[i]);
       }
@@ -1130,15 +1173,19 @@ process_opts(int *argc, char **argv,
 
 static gboolean
 handle_all_diagrams(GSList *files, char *export_file_name,
-		    char *export_file_format, char *size, char *show_layers)
+		    char *export_file_format, char *size, char *show_layers,
+		    char *input_directory, char *output_directory)
 {
   GSList *node = NULL;
   gboolean made_conversions = FALSE;
 
   for (node = files; node; node = node->next) {
+    gchar *inpath = input_directory ? g_build_filename(input_directory, node->data, NULL) : node->data;
     made_conversions |=
-      handle_initial_diagram(node->data, export_file_name,
-			     export_file_format, size, show_layers);
+      handle_initial_diagram(inpath, export_file_name,
+			     export_file_format, size, show_layers, output_directory);
+    if (inpath != node->data)
+      g_free(inpath);
   }
   return made_conversions;
 }
