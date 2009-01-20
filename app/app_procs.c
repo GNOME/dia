@@ -482,7 +482,7 @@ dump_dependencies(void)
            glib_major_version, glib_minor_version, glib_micro_version,
            GLIB_MAJOR_VERSION, GLIB_MINOR_VERSION, GLIB_MICRO_VERSION);
 #ifdef PANGO_VERSION_ENCODE
-  g_print ("pango   : %s (%d.%d.%d.)\n", pango_version_string(), PANGO_VERSION_MAJOR, PANGO_VERSION_MINOR, PANGO_VERSION_MICRO);
+  g_print ("pango   : %s (%d.%d.%d)\n", pango_version_string(), PANGO_VERSION_MAJOR, PANGO_VERSION_MINOR, PANGO_VERSION_MICRO);
 #else
   g_print ("pango   : version not available (>= 1.14.x)\n"); /* Pango did not provide such */
 #endif

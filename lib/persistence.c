@@ -162,8 +162,10 @@ persistence_load_integer(gchar *role, xmlNodePtr node)
 
   if (g_hash_table_lookup(persistent_integers, role) == NULL) 
     g_hash_table_insert(persistent_integers, role, integer);
-  else 
-    printf("Int %s registered before loading persistence!\n", role);
+  else {
+    g_warning("Int %s registered before loading persistence!", role);
+    g_free(integer);
+  }
 }
 
 static void
@@ -182,8 +184,10 @@ persistence_load_real(gchar *role, xmlNodePtr node)
 
   if (g_hash_table_lookup(persistent_reals, role) == NULL) 
     g_hash_table_insert(persistent_reals, role, realval);
-  else 
-    printf("Real %s registered before loading persistence!\n", role);
+  else {
+    g_warning("Real %s registered before loading persistence!", role);
+    g_free(realval);
+  }
 }
 
 static void
@@ -202,8 +206,10 @@ persistence_load_boolean(gchar *role, xmlNodePtr node)
 
   if (g_hash_table_lookup(persistent_booleans, role) == NULL) 
     g_hash_table_insert(persistent_booleans, role, booleanval);
-  else 
-    printf("Boolean %s registered before loading persistence!\n", role);
+  else {
+    g_warning("Boolean %s registered before loading persistence!", role);
+    g_free(booleanval);
+  }
 }
 
 static void
@@ -221,8 +227,10 @@ persistence_load_string(gchar *role, xmlNodePtr node)
 
   if (g_hash_table_lookup(persistent_strings, role) == NULL) 
     g_hash_table_insert(persistent_strings, role, stringval);
-  else 
-    printf("String %s registered before loading persistence!\n", role);
+  else {
+    g_warning("String %s registered before loading persistence!", role);
+    g_free(stringval);
+  }
 }
 
 static void
@@ -241,8 +249,10 @@ persistence_load_color(gchar *role, xmlNodePtr node)
 
   if (g_hash_table_lookup(persistent_colors, role) == NULL) 
     g_hash_table_insert(persistent_colors, role, colorval);
-  else 
-    printf("Color %s registered before loading persistence!\n", role);
+  else {
+    g_warning("Color %s registered before loading persistence!", role);
+    g_free(colorval);
+  }
 }
 
 static xmlNodePtr
@@ -394,7 +404,8 @@ persistence_save_list(gpointer key, gpointer value, gpointer data)
   for (items = ((PersistentList*)value)->glist; items != NULL;
        items = g_list_next(items)) {
     g_string_append(buf, (gchar *)items->data);
-    if (g_list_next(items) != NULL) g_string_append(buf, "\n");
+    if (g_list_next(items) != NULL) 
+      g_string_append(buf, "\n");
   }
   
   data_add_string(new_attribute(listnode, "listvalue"), buf->str);
@@ -524,7 +535,7 @@ persistence_get_window_name(GtkWindow *window)
 {
   const gchar *name = gtk_window_get_role(window);
   if (name == NULL) {
-    printf("Internal:  Window %s has no role.\n", gtk_window_get_title(window));
+    g_warning("Internal:  Window %s has no role.", gtk_window_get_title(window));
     return NULL;
   }
   return name;
@@ -851,8 +862,7 @@ persistent_list_add(const gchar *role, const gchar *item)
 {
   PersistentList *plist = persistent_list_get(role);
   if(plist == NULL) {
-    printf("Can't find list for %s when adding %s\n", 
-	   role, item);
+    g_warning("Can't find list for %s when adding %s", role, item);
     return TRUE;
   }
   if (plist->sorted) {
@@ -989,12 +999,12 @@ persistence_get_integer(gchar *role)
 {
   gint *integer;
   if (persistent_integers == NULL) {
-    printf("No persistent integers to get for %s!\n", role);
+    g_warning("No persistent integers to get for %s!", role);
     return 0;
   }
   integer = (gint *)g_hash_table_lookup(persistent_integers, role);
   if (integer != NULL) return *integer;
-  printf("No integer to get for %s\n", role);
+  g_warning("No integer to get for %s", role);
   return 0;
 }
 
@@ -1003,12 +1013,14 @@ persistence_set_integer(gchar *role, gint newvalue)
 {
   gint *integer;
   if (persistent_integers == NULL) {
-    printf("No persistent integers yet for %s!\n", role);
+    g_warning("No persistent integers yet for %s!", role);
     return;
   }
   integer = (gint *)g_hash_table_lookup(persistent_integers, role);
-  if (integer != NULL) *integer = newvalue;
-  else printf("No integer to set for %s\n", role);
+  if (integer != NULL) 
+    *integer = newvalue;
+  else 
+    g_warning("No integer to set for %s", role);
 }
 
 /* ********* REALS ********** */
@@ -1034,12 +1046,12 @@ persistence_get_real(gchar *role)
 {
   real *realval;
   if (persistent_reals == NULL) {
-    printf("No persistent reals to get for %s!\n", role);
+    g_warning("No persistent reals to get for %s!", role);
     return 0;
   }
   realval = (real *)g_hash_table_lookup(persistent_reals, role);
   if (realval != NULL) return *realval;
-  printf("No real to get for %s\n", role);
+  g_warning("No real to get for %s", role);
   return 0.0;
 }
 
@@ -1048,12 +1060,14 @@ persistence_set_real(gchar *role, real newvalue)
 {
   real *realval;
   if (persistent_reals == NULL) {
-    printf("No persistent reals yet for %s!\n", role);
+    g_warning("No persistent reals yet for %s!", role);
     return;
   }
   realval = (real *)g_hash_table_lookup(persistent_reals, role);
-  if (realval != NULL) *realval = newvalue;
-  else printf("No real to set for %s\n", role);
+  if (realval != NULL) 
+    *realval = newvalue;
+  else 
+    g_warning("No real to set for %s", role);
 }
 
 
@@ -1093,12 +1107,12 @@ persistence_get_boolean(gchar *role)
 {
   gboolean *booleanval;
   if (persistent_booleans == NULL) {
-    printf("No persistent booleans to get for %s!\n", role);
+    g_warning("No persistent booleans to get for %s!", role);
     return FALSE;
   }
   booleanval = (gboolean *)g_hash_table_lookup(persistent_booleans, role);
   if (booleanval != NULL) return *booleanval;
-  printf("No boolean to get for %s\n", role);
+  g_warning("No boolean to get for %s", role);
   return FALSE;
 }
 
@@ -1107,12 +1121,14 @@ persistence_set_boolean(gchar *role, gboolean newvalue)
 {
   gboolean *booleanval;
   if (persistent_booleans == NULL) {
-    printf("No persistent booleans yet for %s!\n", role);
+    g_warning("No persistent booleans yet for %s!", role);
     return;
   }
   booleanval = (gboolean *)g_hash_table_lookup(persistent_booleans, role);
-  if (booleanval != NULL) *booleanval = newvalue;
-  else printf("No boolean to set for %s\n", role);
+  if (booleanval != NULL) 
+    *booleanval = newvalue;
+  else 
+    g_warning("No boolean to set for %s", role);
 }
 
 /* ********* STRINGS ********** */
@@ -1145,12 +1161,12 @@ persistence_get_string(gchar *role)
 {
   gchar *stringval;
   if (persistent_strings == NULL) {
-    printf("No persistent strings to get for %s!\n", role);
+    g_warning("No persistent strings to get for %s!", role);
     return NULL;
   }
   stringval = (gchar *)g_hash_table_lookup(persistent_strings, role);
   if (stringval != NULL) return g_strdup(stringval);
-  printf("No string to get for %s\n", role);
+  g_warning("No string to get for %s", role);
   return NULL;
 }
 
@@ -1159,7 +1175,7 @@ persistence_set_string(gchar *role, const gchar *newvalue)
 {
   gchar *stringval;
   if (persistent_strings == NULL) {
-    printf("No persistent strings yet for %s!\n", role);
+    g_warning("No persistent strings yet for %s!", role);
     return;
   }
   stringval = (gchar *)g_hash_table_lookup(persistent_strings, role);
@@ -1167,7 +1183,8 @@ persistence_set_string(gchar *role, const gchar *newvalue)
     g_hash_table_insert(persistent_strings, role, g_strdup(newvalue));
     g_free(stringval);
   }
-  else printf("No string to set for %s\n", role);
+  else 
+    g_warning("No string to set for %s", role);
 }
 
 /* ********* COLORS ********** */
@@ -1195,12 +1212,12 @@ persistence_get_color(gchar *role)
 {
   Color *colorval;
   if (persistent_colors == NULL) {
-    printf("No persistent colors to get for %s!\n", role);
+    g_warning("No persistent colors to get for %s!", role);
     return 0;
   }
   colorval = (Color *)g_hash_table_lookup(persistent_colors, role);
   if (colorval != NULL) return colorval;
-  printf("No color to get for %s\n", role);
+  g_warning("No color to get for %s", role);
   return 0;
 }
 
@@ -1209,10 +1226,12 @@ persistence_set_color(gchar *role, Color *newvalue)
 {
   Color *colorval;
   if (persistent_colors == NULL) {
-    printf("No persistent colors yet for %s!\n", role);
+    g_warning("No persistent colors yet for %s!", role);
     return;
   }
   colorval = (Color *)g_hash_table_lookup(persistent_colors, role);
-  if (colorval != NULL) *colorval = *newvalue;
-  else printf("No color to set for %s\n", role);
+  if (colorval != NULL) 
+    *colorval = *newvalue;
+  else 
+    g_warning("No color to set for %s", role);
 }
