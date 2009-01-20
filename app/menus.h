@@ -48,6 +48,9 @@ struct _UpdatableMenuItems
   GtkAction *send_backwards;
   GtkAction *bring_forwards;
 
+  GtkAction *objects_layer_above;
+  GtkAction *objects_layer_below;
+  
   GtkAction *group;
   GtkAction *ungroup;
 

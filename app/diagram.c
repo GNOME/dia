@@ -534,6 +534,11 @@ diagram_update_menu_sensitivity (Diagram *dia, UpdatableMenuItems *items)
   gtk_action_set_sensitive (items->bring_forwards, 
 			    !textedit_active && selected_count > 0);
     
+  gtk_action_set_sensitive (items->objects_layer_above, 
+			    !textedit_active && selected_count > 0);
+  gtk_action_set_sensitive (items->objects_layer_below, 
+			    !textedit_active && selected_count > 0);
+
   gtk_action_set_sensitive (items->parent, 
 			    !textedit_active && diagram_selected_can_parent (dia));
   gtk_action_set_sensitive (items->unparent, 

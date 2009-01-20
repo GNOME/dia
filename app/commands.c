@@ -419,20 +419,20 @@ edit_duplicate_callback (GtkAction *action)
   ddisplay_do_update_menu_sensitivity(ddisp);
 }
 
-static void
-move_objects_up_layer(GtkAction *action)
+void
+objects_move_up_layer(GtkAction *action)
 {
   DDisplay *ddisp = ddisplay_active();
   GList *selected_list;
+  Change *change;
 
   if (!ddisp || textedit_mode(ddisp)) return;
   selected_list = diagram_get_sorted_selected(ddisp->diagram);
 
-#ifdef MOVE_OBJECTS_LAYER
   change = undo_move_object_other_layer(ddisp->diagram, selected_list, TRUE);
   
   (change->apply)(change, ddisp->diagram);
-#endif
+
   diagram_modified(ddisp->diagram);
   undo_set_transactionpoint(ddisp->diagram->undo);
   
@@ -441,22 +441,21 @@ move_objects_up_layer(GtkAction *action)
   ddisplay_do_update_menu_sensitivity(ddisp);
 }
 
-static void
-move_objects_down_layer(GtkAction *action)
+ void
+objects_move_down_layer(GtkAction *action)
 {
   DDisplay *ddisp = ddisplay_active();
   GList *selected_list;
+  Change *change;
 
   if (!ddisp || textedit_mode(ddisp)) return;
   selected_list = diagram_get_sorted_selected(ddisp->diagram);
 
   /* Must check if move is legal here */
 
-#ifdef MOVE_OBJECTS_LAYER
   change = undo_move_object_other_layer(ddisp->diagram, selected_list, FALSE);
   
   (change->apply)(change, ddisp->diagram);
-#endif
 
   diagram_modified(ddisp->diagram);
   undo_set_transactionpoint(ddisp->diagram->undo);

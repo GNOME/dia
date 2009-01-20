@@ -76,6 +76,8 @@
 			<menuitem name="ObjectsBringtofront" action="ObjectsBringtofront" />
 			<menuitem name="ObjectsSendbackwards" action="ObjectsSendbackwards" />
 			<menuitem name="ObjectsBringforwards" action="ObjectsBringforwards" />
+			<menuitem name="ObjectsLayerAbove" action="ObjectsLayerAbove" />
+			<menuitem name="ObjectsLayerBelow" action="ObjectsLayerBelow" />
 			<separator name="ObjectsSep1" />
 			<menuitem name="ObjectsGroup" action="ObjectsGroup" />
 			<menuitem name="ObjectsUngroup" action="ObjectsUngroup" />

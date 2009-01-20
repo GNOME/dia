@@ -68,8 +68,7 @@ Change *undo_move_handle(Diagram *dia,
 Change *undo_connect(Diagram *dia, DiaObject *obj, Handle *handle,
 		     ConnectionPoint *connectionpoint);
 Change *undo_unconnect(Diagram *dia, DiaObject *obj, Handle *handle);
-Change *
-undo_delete_objects_children(Diagram *dia, GList *obj_list);
+Change *undo_delete_objects_children(Diagram *dia, GList *obj_list);
 Change *undo_delete_objects(Diagram *dia, GList *obj_list); /* Reads current obj list */
 Change *undo_insert_objects(Diagram *dia, GList *obj_list,
 			    int applied);
@@ -84,7 +83,7 @@ Change *undo_ungroup_objects(Diagram *dia, GList *obj_list,
 Change *undo_parenting(Diagram *dia, DiaObject *parentobj, DiaObject *childobj,
 		       gboolean parent);
 Change *undo_move_object_other_layer(Diagram *diagram, GList *selected_list,
-				     GList *original_list, gboolean moving_up);
+				     gboolean moving_up);
 
 #endif /* UNDO_H */
 

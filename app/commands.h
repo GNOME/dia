@@ -72,6 +72,9 @@ void objects_place_over_callback        (GtkAction *action);
 void objects_place_under_callback       (GtkAction *action);
 void objects_place_up_callback          (GtkAction *action);
 void objects_place_down_callback        (GtkAction *action);
+void objects_move_up_layer              (GtkAction *action);
+void objects_move_down_layer            (GtkAction *action);
+
 void objects_parent_callback            (GtkAction *action);
 void objects_unparent_callback          (GtkAction *action);
 void objects_unparent_children_callback (GtkAction *action);

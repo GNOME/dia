@@ -1,5 +1,10 @@
 2009-01-20  Hans Breuer  <hans@breuer.org>
 
+	* app/undo.[ch] app/commands.[ch] app/menus.c app/diagram.c 
+	  data/*-ui. : implement "Objects/Move to layer above/below" 
+	(maintaining connections between layers). Fixes bug #59105.
+	* samples/undo-check.dia a diagram to play with the above
+
 	* app/load_save.c doc/diagram.dtd : load, save and document 
 	<layer active="true"/>, fixes bug #568497
 

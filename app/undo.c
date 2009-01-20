@@ -1208,74 +1208,95 @@ undo_parenting(Diagram *dia, DiaObject* parentobj, DiaObject* childobj,
 }
 
 /* ********* MOVE TO OTHER LAYER  */
-#ifdef MOVE_OTHER_LAYER
-struct MoveObjectToLayerChange {
+typedef struct _MoveObjectToLayerChange {
   Change change;
   /** The objects we are moving */
   GList *objects;
   /** All objects in the original layer */
-  GList *original_list;
+  GList *orig_list;
+  /** The active layer when started */
+  Layer *orig_layer;
   gboolean moving_up;
-};
+} MoveObjectToLayerChange;
 
+/*!
+ * BEWARE: we need to notify the DiagramTree somehow - maybe 
+ * better make it listen to object-add signal?
+ */
 static void 
 move_object_layer_relative(Diagram *dia, GList *objects, gint dist)
 {
+  /* from the active layer to above or below */
+  Layer *active, *target;
+  guint pos;
+ 
+  g_return_if_fail(dia->data->active_layer);
 
+  active =  dia->data->active_layer;
+  for (pos = 0; pos < dia->data->layers->len; ++pos)
+    if (active == g_ptr_array_index(dia->data->layers, pos))
+      break;
+
+  pos = (pos + dia->data->layers->len + dist) % dia->data->layers->len;
+  target = g_ptr_array_index(dia->data->layers, pos);
+  object_add_updates_list(objects, dia);
+  layer_remove_objects(active, objects);
+  diagram_tree_add_objects(diagram_tree(), dia, objects);
+  layer_add_objects(target, g_list_copy(objects));
+  data_set_active_layer(dia->data, target);
+  diagram_tree_add_objects(diagram_tree(), dia, objects);
 }
 
 static void
-move_object_to_layer_apply(Change *change, Diagram *dia)
+move_object_to_layer_apply(MoveObjectToLayerChange *change, Diagram *dia)
 {
-  struct MoveObjectToLayerChange *movechange 
-    = (struct MoveObjectToLayerChange*)change;
-  if (movechange->moving_up) {
-    move_object_layer_relative(dia, movechange->objects, 1);
+  if (change->moving_up) {
+    move_object_layer_relative(dia, change->objects, 1);
   } else {
-    move_object_layer_relative(dia, movechange->objects, -1);
+    move_object_layer_relative(dia, change->objects, -1);
   }
 }
 
 static void
-move_object_to_layer_revert(Change *change, Diagram *dia)
+move_object_to_layer_revert(MoveObjectToLayerChange *change, Diagram *dia)
 {
-  struct MoveObjectToLayerChange *movechange 
-    = (struct MoveObjectToLayerChange*)change;
-  diagram_set_objects(dia, movechange->original_list);
-  if (movechange->moving_up) {
-    move_object_layer_relative(dia, movechange->objects, -1);
+  if (change->moving_up) {
+    move_object_layer_relative(dia, change->objects, -1);
   } else {
-    move_object_layer_relative(dia, movechange->objects, 1);
+    diagram_unselect_objects(dia, change->objects);
+    move_object_layer_relative(dia, change->objects, 1);
+    /* overwriting the 'unsorted' list of objects to the order it had before */
+    layer_set_object_list(change->orig_layer, g_list_copy(change->orig_list));
+    object_add_updates_list(change->orig_list, dia);
   }
 }
 
 static void
-move_object_to_layer_free(Change *change)
+move_object_to_layer_free(MoveObjectToLayerChange *change)
 {
-  struct MoveObjectToLayerChange *movechange 
-    = (struct MoveObjectToLayerChange*)change;
-  g_list_free(movechange->objects);
-  g_list_free(movechange->original_list);
+  g_list_free(change->objects);
+  g_list_free(change->orig_list);
+  change->objects = NULL;
+  change->orig_list = NULL;
 }
 
 Change *
-undo_move_object_other_layer(Diagram *diagram, GList *selected_list,
-			     GList *original_list, gboolean moving_up)
+undo_move_object_other_layer(Diagram *dia, GList *selected_list,
+			     gboolean moving_up)
 {
-  struct MoveObjectToLayerChange *movetolayerchange 
-    = g_new0(struct MoveObjectToLayerChange, 1);
+  MoveObjectToLayerChange *movetolayerchange 
+    = g_new0(MoveObjectToLayerChange, 1);
   Change *change = (Change*)movetolayerchange;
-  change->apply = move_object_to_layer_apply;
-  change->revert = move_object_to_layer_revert;
-  change->free = move_object_to_layer_free;
+  change->apply = (UndoApplyFunc) move_object_to_layer_apply;
+  change->revert = (UndoRevertFunc) move_object_to_layer_revert;
+  change->free = (UndoFreeFunc) move_object_to_layer_free;
 
-  movetolayerchange->objects = selected_list;
-  movetolayerchange->original_list = original_list;
+  movetolayerchange->orig_layer = dia->data->active_layer;
+  movetolayerchange->orig_list = g_list_copy(dia->data->active_layer->objects);
+  movetolayerchange->objects = g_list_copy(selected_list);
   movetolayerchange->moving_up = moving_up;
 
   DEBUG_PRINTF(("UNDO: Push new obj_layer_change at %d\n", depth(dia->undo)));
   undo_push_change(dia->undo, change);
   return change;
-  
 }
-#endif

@@ -135,7 +135,7 @@ static const GtkActionEntry display_entries[] =
 
   { "Diagram", NULL, N_("_Diagram"), NULL, NULL, NULL }, 
     { "DiagramProperties", GTK_STOCK_PROPERTIES, NULL, "<shift><alt>Return", NULL, G_CALLBACK (view_diagram_properties_callback) },
-    { "DiagramLayers", NULL, N_("_Layers..."), NULL, NULL, G_CALLBACK (dialogs_layers_callback) },
+    { "DiagramLayers", NULL, N_("_Layers..."), "<control>L", NULL, G_CALLBACK (dialogs_layers_callback) },
 
   { "View", NULL, N_("_View"), NULL, NULL, NULL },
     { "ViewZoomin", GTK_STOCK_ZOOM_IN, NULL, "<control>plus", NULL, G_CALLBACK (view_zoom_in_callback) },
@@ -168,6 +168,9 @@ static const GtkActionEntry display_entries[] =
     { "ObjectsSendbackwards", GTK_STOCK_GO_DOWN, N_("Send Backwards"), NULL, NULL, G_CALLBACK (objects_place_down_callback) },
     { "ObjectsBringforwards", GTK_STOCK_GO_UP, N_("Bring Forwards"), NULL, NULL, G_CALLBACK (objects_place_up_callback) },
 
+    { "ObjectsLayerAbove", NULL, N_("Move to layer above"), NULL, NULL, G_CALLBACK (objects_move_up_layer) },
+    { "ObjectsLayerBelow", NULL, N_("Move to layer below"), NULL, NULL, G_CALLBACK (objects_move_down_layer) },
+    
     { "ObjectsGroup", DIA_STOCK_GROUP, N_("_Group"), "<control>G", NULL, G_CALLBACK (objects_group_callback) },
     /* deliberately not using Ctrl+U for Ungroup */
     { "ObjectsUngroup", DIA_STOCK_UNGROUP, N_("_Ungroup"), "<control><shift>G", NULL, G_CALLBACK (objects_ungroup_callback) }, 
@@ -1202,6 +1205,9 @@ menus_initialize_updatable_items (UpdatableMenuItems *items, GtkActionGroup *act
     items->bring_to_front = gtk_action_group_get_action (actions, "ObjectsBringtofront");
     items->send_backwards = gtk_action_group_get_action (actions, "ObjectsSendbackwards");
     items->bring_forwards = gtk_action_group_get_action (actions, "ObjectsBringforwards");
+
+    items->objects_layer_above = gtk_action_group_get_action (actions, "ObjectsLayerAbove");
+    items->objects_layer_below = gtk_action_group_get_action (actions, "ObjectsLayerBelow");
   
     items->group = gtk_action_group_get_action (actions, "ObjectsGroup");
     items->ungroup = gtk_action_group_get_action (actions, "ObjectsUngroup");
