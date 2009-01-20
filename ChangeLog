@@ -1,3 +1,8 @@
+2009-01-20  Hans Breuer  <hans@breuer.org>
+
+	* app/load_save.c doc/diagram.dtd : load, save and document 
+	<layer active="true"/>, fixes bug #568497
+
 2009-01-18  Hans Breuer  <hans@breuer.org>
 
 	* app/app_procs.[ch] : implement command line switches -I and -O to give

@@ -7,7 +7,8 @@
 <!ELEMENT dia:layer (dia:object | dia:group)*>
 <!ATTLIST dia:layer
    name CDATA #REQUIRED
-   visible (true|false) #REQUIRED >
+   visible (true|false) #REQUIRED 
+   active (true|false) #IMPLIED>
 
 <!ELEMENT dia:object ((dia:attribute)*, dia:connections?)>
 <!ATTLIST dia:object

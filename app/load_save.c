@@ -420,6 +420,7 @@ diagram_data_load(const char *filename, DiagramData *data, void* user_data)
   xmlNsPtr namespace;
   gchar firstchar;
   Diagram *diagram = DIA_IS_DIAGRAM (data) ? DIA_DIAGRAM (data) : NULL;
+  Layer *active_layer = NULL;
 
   if (g_file_test (filename, G_FILE_TEST_IS_DIR)) {
     message_error(_("You must specify a file, not a directory.\n"));
@@ -626,6 +627,7 @@ diagram_data_load(const char *filename, DiagramData *data, void* user_data)
   while (layer_node != NULL) {
     gchar *name;
     char *visible;
+    char *active;
     
     if (xmlIsBlankNode(layer_node)) {
       layer_node = layer_node->next;
@@ -637,16 +639,16 @@ diagram_data_load(const char *filename, DiagramData *data, void* user_data)
     name = (char *)xmlGetProp(layer_node, (const xmlChar *)"name");
     if (!name) break; /* name is mandatory */
 
-    visible = (char *)xmlGetProp(layer_node, (const xmlChar *)"visible");
-
     layer = new_layer(g_strdup(name), data);
     if (name) xmlFree(name);
 
     layer->visible = FALSE;
-    if ((visible) && (strcmp(visible, "true")==0))
-      layer->visible = TRUE;
-    if (visible) xmlFree(visible);
-
+    visible = (char *)xmlGetProp(layer_node, (const xmlChar *)"visible");
+    if (visible) {
+      if (strcmp(visible, "true")==0)
+        layer->visible = TRUE;
+      xmlFree(visible);
+    }
     /* Read in all objects: */
     
     list = read_objects(layer_node, objects_hash, filename, NULL);
@@ -655,10 +657,20 @@ diagram_data_load(const char *filename, DiagramData *data, void* user_data)
 
     data_add_layer(data, layer);
 
+    active = (char *)xmlGetProp(layer_node, (const xmlChar *)"active");
+    if (active) {
+      if (strcmp(active, "true")==0)
+        active_layer = layer;
+      xmlFree(active);
+    }
+
     layer_node = layer_node->next;
   }
 
-  data->active_layer = (Layer *) g_ptr_array_index(data->layers, 0);
+  if (!active_layer)
+    data->active_layer = (Layer *) g_ptr_array_index(data->layers, 0);
+  else
+    data_set_active_layer(data, active_layer);
 
   xmlFreeDoc(doc);
   
@@ -919,7 +931,10 @@ diagram_data_write_doc(DiagramData *data, const char *filename)
       xmlSetProp(layer_node, (const xmlChar *)"visible", (const xmlChar *)"true");
     else
       xmlSetProp(layer_node, (const xmlChar *)"visible", (const xmlChar *)"false");
-    
+
+    if (layer == data->active_layer)
+      xmlSetProp(layer_node, (const xmlChar *)"active", (const xmlChar *)"true");
+      
     write_objects(layer->objects, layer_node,
 		  objects_hash, &obj_nr, filename);
   
