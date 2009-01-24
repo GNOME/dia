@@ -510,8 +510,7 @@ ensure_menu_path (GtkUIManager *ui_manager, GtkActionGroup *actions, const gchar
       sep = strrchr (subpath, '/');
       *sep = '\0'; /* cut subpath */
       action_name = sep + 1;
-
-
+      
       ensure_menu_path (ui_manager, actions, subpath, FALSE);
 
       action = gtk_action_new (action_name, sep + 1, NULL, NULL);
@@ -809,6 +808,18 @@ _ui_manager_connect_proxy (GtkUIManager *manager,
     }
 }
 
+/* Very minimal fallback menu info for ui-files missing 
+ * as well as to register the InvisibleMenu */
+static const gchar *ui_info =
+"<ui>\n"
+"  <popup name=\"InvisibleMenu\">\n"
+"    <menu name=\"File\" action=\"File\">\n"
+"       <menuitem name=\"FilePrint\" action=\"FilePrint\" />\n"
+"       <menuitem name=\"FileQuit\" action=\"FileQuit\" />\n"
+"    </menu>\n"
+"  </popup>\n"
+"</ui>";
+
 static void
 menus_init(void)
 {
@@ -851,8 +862,7 @@ menus_init(void)
   g_free (uifile);
 
   toolbox_accels = gtk_ui_manager_get_accel_group (toolbox_ui_manager);
-  toolbox_menubar = gtk_ui_manager_get_widget (toolbox_ui_manager, "/ToolboxMenu");
-
+  toolbox_menubar = gtk_ui_manager_get_widget (toolbox_ui_manager, TOOLBOX_MENU);
 
   /* the display menu */
   display_actions = gtk_action_group_new ("display-actions");
@@ -882,6 +892,12 @@ menus_init(void)
   gtk_ui_manager_set_add_tearoffs (display_ui_manager, DIA_SHOW_TEAROFFS);
   gtk_ui_manager_insert_action_group (display_ui_manager, display_actions, 0);
   gtk_ui_manager_insert_action_group (display_ui_manager, display_tool_actions, 0);
+  if (!gtk_ui_manager_add_ui_from_string (display_ui_manager, ui_info, -1, &error)) {
+    g_warning ("built-in menus failed: %s", error->message);
+    g_error_free (error);
+    error = NULL;
+  }
+
   uifile = build_ui_filename ("ui/popup-ui.xml");
   /* TODO it would be more elegant if we had only one definition of the 
    * menu hierarchy and merge it into a popup somehow. */
@@ -893,12 +909,12 @@ menus_init(void)
   g_free (uifile);
 
   display_accels = gtk_ui_manager_get_accel_group (display_ui_manager);
-  display_menubar = gtk_ui_manager_get_widget (display_ui_manager, "/DisplayMenu");
+  display_menubar = gtk_ui_manager_get_widget (display_ui_manager, DISPLAY_MENU);
   g_assert (display_menubar);
-
 
   add_plugin_actions (toolbox_ui_manager, TOOLBOX_MENU);
   add_plugin_actions (display_ui_manager, DISPLAY_MENU);
+  add_plugin_actions (display_ui_manager, INVISIBLE_MENU);
 
   /* load accelerators and prepare to later save them */
   accelfilename = dia_config_filename("menurc");

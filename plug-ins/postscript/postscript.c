@@ -44,7 +44,7 @@ print_callback (DiagramData *data,
 static DiaCallbackFilter cb_ps_print = {
     "FilePrintPS",
     N_("Print (PS)"),
-    "/DisplayMenu/File/FilePrint",
+    "/InvisibleMenu/File/FilePrint",
     print_callback,
     NULL
 };

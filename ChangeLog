@@ -1,6 +1,20 @@
 2009-01-24  Hans Breuer  <hans@breuer.org>
 
-	* shapes/Civil/civil_basin.shape shapes/Civil/civil_motor.shape : foreground for stroke
+	[
+	  One menu entry File/Print is enough. The not any longer experimental
+	  cairo plug-in together with GtkPrint from gtk+-2-12 and cairo-1- or 
+	  above superseds both former print facilities. 
+	]
+	* app/menus.[ch] : introduce /InvisibleMenu as target for known actions
+	registered from plug-ins supposed to be available only once. Currently
+	there is just one of these actions "FilePrint" which gets routed to
+	FilePrintGTK, FilePrintGDI or FilePrintPS in that order, i.e. depending
+	on the plug-ins being loaded
+	* plug-ins/cairo/diacairo.c plug-ins/postscript/postscript.c
+	  plug-ins/wmf/wmf.cpp : register print actions to invisible menu
+
+	* shapes/Civil/civil_basin.shape shapes/Civil/civil_motor.shape : 
+	foreground for stroke
 
 	* objects/UML/class_dialog.c(umlclass_dialog_free) : avoid double free
 	of the dialog struct. Is is already destroyed by destroy-signal
