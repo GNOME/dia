@@ -1,4 +1,4 @@
-2009-01-23  Hans Breuer  <hans@breuer.org>
+2009-01-24  Hans Breuer  <hans@breuer.org>
 
 	* objects/UML/fork.c : fix property get/set by using the right
 	methods, not object_return_void/object_return_null, bug #568524
@@ -11,6 +11,23 @@
 	* lib/diarenderer.c : just coding style
 	
 	* lib/plug-ins.h : bump DIA_PLUGIN_API_VERSION for all of the above
+
+	[
+	  Start of plug-in implementation around idea "DiaRenderScript", an
+	  XML-dialect modelled after the DiaRenderer API. Currently it is
+	  only useful for debugging other parts of Dia or itsef ;)
+	]
+	* plug-ins/drs/dia-render-script.dtd : to verify the xml files
+	* plug-ins/drs/dia-render-script-renderer.c : implementing allmost all
+	required and medium-level methods a renderer should have
+	* plug-ins/drs/dia-render-script.[ch] : registration of the exporter
+	and some dedicated diagram/layer render functions to preserve invisble
+	layers when writing .drs
+	* plug-ins/drs/dia-render-script-import.c : unfinished (some helpers
+	to parse back .drs, but far away from real import)
+	* plug-ins/drs/dia-render-script-object.c : mostly empty (should later
+	include the implmentation of a DiaObject capable to render .drs
+	* plug-ins/makefile.msc : build it
 
 2009-01-20  Hans Breuer  <hans@breuer.org>
 

@@ -2,9 +2,8 @@
 
 # dummy sissi
 PLUGINS = cairo cgm dxf hpgl libart metapost pgf pixbuf \
-	postscript pstricks shape svg vdx wmf wpg xfig xslt
-
-#broken since StdProp overhaul : diaimport 
+	postscript pstricks shape svg vdx wmf wpg xfig xslt \
+	drs
 
 # The main target
 all : sub-all
@@ -62,6 +61,14 @@ OBJECTS = \
 	diacairo-interactive.obj \
 	diacairo-renderer.obj \
 	diacairo-print.obj
+!ENDIF
+
+!IFDEF OBJ_drs
+OBJECTS = \
+  dia-render-script.obj \
+  dia-render-script-object.obj \
+  dia-render-script-renderer.obj \
+  dia-render-script-import.obj
 !ENDIF
 
 !IFDEF OBJ_dxf

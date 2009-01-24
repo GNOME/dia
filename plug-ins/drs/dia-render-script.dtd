@@ -1,0 +1,162 @@
+<!ELEMENT drs (diagram) >
+<!ATTLIST drs 
+   xmlns:drs CDATA #FIXED "http://projects.gnome.org/dia/dia-render-script.dtd" >
+
+<!ELEMENT diagram (meta|layer)* >
+   
+<!ELEMENT layer (object)*>
+<!ATTLIST layer
+   name CDATA #REQUIRED
+   visible (true|false) #REQUIRED 
+   active (true|false) #IMPLIED>
+
+<!ELEMENT object (object|
+		  set-linewidth|set-linecaps|set-linejoin|set-linestyle|set-dashlength|set-fillstyle|set-font|
+		  draw-line|draw-polyline|draw-rounded-polyline|draw-polygon|fill-polygon|
+		  draw-rect|fill-rect|draw-rounded-rect|fill-rounded-rect|
+		  draw-arc|fill-arc|draw-ellipse|fill-ellipse|
+		  draw-bezier|fill-bezier|
+		  draw-string|draw-image)* >
+<!ATTLIST object
+	type CDATA #IMPLIED >
+
+
+<!ELEMENT set-linewidth EMPTY >
+<!ATTLIST set-linewidth
+	width CDATA #REQUIRED >
+
+<!ELEMENT set-linecaps EMPTY >
+<!ATTLIST set-linecaps
+	mode (butt|round|projecting) #REQUIRED >
+
+<!ELEMENT set-linejoin EMPTY >
+<!ATTLIST set-linejoin
+	mode (miter|round|bevel) #REQUIRED >
+
+<!ELEMENT set-linestyle EMPTY >
+<!ATTLIST set-linestyle
+	mode (solid|dashed|dash-dot|dash-dot-dot|dotted) #REQUIRED >
+
+<!ELEMENT set-dashlength EMPTY >
+<!ATTLIST set-dashlength
+	length CDATA #REQUIRED >
+
+<!ELEMENT set-fillstyle EMPTY >
+<!ATTLIST set-fillstyle
+	mode (solid) #REQUIRED >
+
+<!ELEMENT set-font EMPTY >
+<!ATTLIST set-font
+	family CDATA #REQUIRED
+	height CDATA #REQUIRED
+	description CDATA #IMPLIED
+	slant CDATA #IMPLIED
+	size CDATA #IMPLIED
+	weight CDATA #IMPLIED>
+
+<!ELEMENT draw-line EMPTY >
+<!ATTLIST draw-line
+	start CDATA #REQUIRED
+	end CDATA #REQUIRED
+	stroke CDATA #IMPLIED>
+
+<!ELEMENT draw-polyline EMPTY >
+<!ATTLIST draw-polyline
+	points CDATA #REQUIRED
+	stroke CDATA #IMPLIED>
+
+<!ELEMENT draw-rounded-polyline EMPTY >
+<!ATTLIST draw-rounded-polyline
+	points CDATA #REQUIRED
+	r CDATA #REQUIRED
+	stroke CDATA #IMPLIED>
+
+<!ELEMENT draw-polygon EMPTY >
+<!ATTLIST draw-polygon
+	points CDATA #REQUIRED
+	stroke CDATA #IMPLIED >
+
+<!ELEMENT fill-polygon EMPTY >
+<!ATTLIST fill-polygon
+	points CDATA #REQUIRED
+	fill CDATA #IMPLIED>
+
+<!ELEMENT draw-rect EMPTY >
+<!ATTLIST draw-rect
+	lefttop CDATA #REQUIRED
+	rightbottom CDATA #REQUIRED
+	stroke CDATA #IMPLIED>
+
+<!ELEMENT fill-rect EMPTY >
+<!ATTLIST fill-rect
+	lefttop CDATA #REQUIRED
+	rightbottom CDATA #REQUIRED
+	fill CDATA #IMPLIED>
+
+<!ELEMENT draw-rounded-rect EMPTY >
+<!ATTLIST draw-rounded-rect
+	lefttop CDATA #REQUIRED
+	rightbottom CDATA #REQUIRED
+	r CDATA #REQUIRED
+	stroke CDATA #IMPLIED>
+
+<!ELEMENT fill-rounded-rect EMPTY >
+<!ATTLIST fill-rounded-rect
+	lefttop CDATA #REQUIRED
+	rightbottom CDATA #REQUIRED
+	r CDATA #REQUIRED
+	fill CDATA #IMPLIED>
+
+<!ELEMENT draw-arc EMPTY >
+<!ATTLIST draw-arc
+	center CDATA #REQUIRED
+	width CDATA #REQUIRED
+	height CDATA #REQUIRED
+	angle1 CDATA #REQUIRED
+	angle2 CDATA #REQUIRED
+	stroke CDATA #IMPLIED>
+
+<!ELEMENT fill-arc EMPTY >
+<!ATTLIST fill-arc
+	center CDATA #REQUIRED
+	width CDATA #REQUIRED
+	height CDATA #REQUIRED
+	angle1 CDATA #REQUIRED
+	angle2 CDATA #REQUIRED
+	fill CDATA #IMPLIED>
+	
+<!ELEMENT draw-ellipse EMPTY >
+<!ATTLIST draw-ellipse
+	center CDATA #REQUIRED
+	width CDATA #REQUIRED
+	height CDATA #REQUIRED
+	stroke CDATA #IMPLIED>
+
+<!ELEMENT fill-ellipse EMPTY >
+<!ATTLIST fill-ellipse
+	center CDATA #REQUIRED
+	width CDATA #REQUIRED
+	height CDATA #REQUIRED
+	fill CDATA #IMPLIED>
+
+<!ELEMENT draw-bezier EMPTY >
+<!ATTLIST draw-bezier
+	bezpoints CDATA #REQUIRED
+	stroke CDATA #IMPLIED>
+<!ELEMENT fill-bezier EMPTY >
+<!ATTLIST fill-bezier
+	bezpoints CDATA #REQUIRED
+	fill CDATA #IMPLIED>
+
+<!ELEMENT draw-string ANY >
+<!ATTLIST draw-string
+	pos CDATA #IMPLIED
+	fill CDATA #IMPLIED
+	alignment (left|right|center) #IMPLIED >
+
+<!ELEMENT draw-image EMPTY >
+<!ATTLIST draw-image
+	point CDATA #REQUIRED
+	width CDATA #REQUIRED
+	height CDATA #REQUIRED
+	uri CDATA #IMPLIED >
