@@ -19,8 +19,34 @@ import sys, os, re, string, math, time
 
 g_maxWeight = 1
 # a very limited demangling (leaves junk for some forms)
-rDemangle = re.compile("\?(?:\?0)*([^@]+)(?:@@[0ABGHIKPQUVXYZ?1]+|@Z|@)*([^@]*)")
-# a list of 
+#rDemangle = re.compile("\?(?:\?0)*([^@]+)(?:@@[0ABGHIKPQUVXYZ?1]+|@Z|@)*([^@]*)")
+# somewhat better:
+# 1) every mangled name starts with '?'
+# 2) ctor has '?1' following, dtor has '?0'  and the class@namespaces@@parameters
+# 3) other members have '' following function@class_and_namespaces@@parameters
+
+# this is overly simplified: somehow the key appears to have more than one meaning
+Operators = { "2" : " new", "3" : " delete", 
+			  "4" : "=", "5" : ">>", "6" : "<<", "7" : "!", "8" : "==", "9" : "!=", 
+			  "C" : "->", "Z" : "-", "F" : "--", "G" : "-", "H" : "+", "D" : "*", "E" : "++", 
+			  "M" : "<", "Y" : "+=", "A" : "[]", "B" : " char const *", "K" : "/" }
+rDemangle = re.compile ("\?(?P<tor>\?[01" + string.join(Operators.keys(), "") + "])*(?P<sym>[\w@_]+?(?=@))@@")
+# still NOT handling
+'''
+d:\Projects>undname ?ReleaseAccess@?$CWriteAccess@VCDocEx@app@@@utl@@UAEXXZ
+Microsoft (R) C++ Name Undecorator
+Copyright (C) Microsoft Corporation 1981-2001. All rights reserved.
+
+Undecoration of :- "?ReleaseAccess@?$CWriteAccess@VCDocEx@app@@@utl@@UAEXXZ"
+is :- "public: virtual void __thiscall utl::CWriteAccess<class app::CDocEx>::ReleaseAccess(void)"
+
+Undecoration of :- "??_7CDocMgrView@app@@6B@"
+is :- "const app::CDocMgrView::`vftable'"
+
+Undecoration of :- "??_0CUnit@utl@@QAEAAV01@ABV01@@Z"
+is :- "public: class utl::CUnit & __thiscall utl::CUnit::operator/=(class utl::CUnit const &)"
+'''
+# a list of dlls to ignore dependencies of
 g_DontFollow = []
 
 class Node :
@@ -40,10 +66,24 @@ class Edge :
 		demangled = []
 		for s in symbols :
 			m = rDemangle.match (s)
-			if 0 and m :
-				#print m.group(2), "::", m.group(1)
-				demangled.append (m.group(2) + "::" + m.group(1))
+			if m :
+				#print m.group("tor"), "::", m.group("sym")
+				dm = ""
+				names = string.split (m.group("sym"), "@")
+				# we must not append the .reverse() in the line above otherwise names would become None. WTF? Inplace operation?
+				names.reverse()
+				if m.group("tor") == "?0" : # constructor
+					dm =  string.join(names, "::") + "::" + names[-1]
+				elif  m.group("tor") == "?1" : # constructor
+					dm =  string.join(names, "::") + "::~" + names[-1]
+				elif  m.group("tor") != None and m.group("tor")[0] == "?" and m.group("tor")[1] in Operators.keys() : # constructor
+					dm =  string.join(names, "::") + "::operator" + Operators[m.group("tor")[1]]
+				else :
+					dm =  string.join(names, "::")
+				#print " => ", dm
+				demangled.append (dm)
 			else :
+				#print " <unmatched>: ", s
 				demangled.append (s)
 		self.symbols = demangled
 		
@@ -97,7 +137,14 @@ def Remove (deps, list) :
 			node = deps[sn]
 			if node.deps.has_key (s) :
 				del node.deps[s]
-				
+def Sorted (dict) :
+	"given a dictionary with name to number, sort by number"
+	ret = []
+	keys = dict.keys()
+	keys.sort ( lambda a, b : cmp(dict[a], dict[b]) )
+	for k in keys :
+		ret.append ((k, dict[k]))
+	return ret
 # some predefined sets of DLLs, either for hiding from the dependencies or maybe to tin them
 dllsSysWin32 = [
 	"version.dll", "winmm.dll", 
@@ -203,17 +250,35 @@ For more information read the source.
 		f = open(sOutFilename, "w")
 	
 	if bDump :
+		Symbols = {}
+		Modules = {}
+		Imports = {}
 		for sn in deps.keys() :
 			node = deps[sn]
 			if len(node.deps.keys()) == 0 :
 				continue
 			print sn
+			Imports[sn] = 0
 			for se in node.deps.keys() :
 				edge = node.deps[se]
 				print "\t", node.name, "->", edge.name
-				for sy in edge.symbols :
+				syms = edge.symbols
+				syms.sort()
+				for sy in syms :
 					print "\t\t", sy
-			
+					if Symbols.has_key(sy) : 
+						Symbols[sy] += 1 
+					else : 
+						Symbols[sy] = 1
+				Imports[sn] += len(syms)
+				if Modules.has_key (edge.name) :
+					Modules[edge.name].append (node.name)
+				else :
+					Modules[edge.name] = [node.name]
+		# symbols used by many modules are good candidates for refactoring
+		print "***** Modules with users (symbols) *****"
+		for s, i in Sorted (Imports) :
+			print s, "(" + str(i) + ") :" , string.join (Modules[s], ",")
 		# no diagram at all
 		sys.exit(0)
 	f.write ('digraph "' + components[0] + '" {\n')
