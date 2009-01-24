@@ -40,7 +40,7 @@ class Edge :
 		demangled = []
 		for s in symbols :
 			m = rDemangle.match (s)
-			if m :
+			if 0 and m :
 				#print m.group(2), "::", m.group(1)
 				demangled.append (m.group(2) + "::" + m.group(1))
 			else :
@@ -124,6 +124,7 @@ def main () :
 	dllsToRemove = []
 	nMaxDepth = 10000 # almost unlimited
 	bHaveComponents = 0
+	bDump = 0
 	bByUse = 0
 	sOutFilename = None
 
@@ -149,6 +150,8 @@ def main () :
 		elif string.find (arg, "--symbols=") == 0 :
 			nSymbols = int(arg[len("--symbols="):])
 			if nSymbols < 0 : nSymbols = 0
+		elif arg == "--dump" :
+			bDump = 1
 		elif arg == "--by-use" :
 			bByUse = 1
 		elif string.find (arg, "--") == 0 :
@@ -199,6 +202,20 @@ For more information read the source.
 		# ... dot
 		f = open(sOutFilename, "w")
 	
+	if bDump :
+		for sn in deps.keys() :
+			node = deps[sn]
+			if len(node.deps.keys()) == 0 :
+				continue
+			print sn
+			for se in node.deps.keys() :
+				edge = node.deps[se]
+				print "\t", node.name, "->", edge.name
+				for sy in edge.symbols :
+					print "\t\t", sy
+			
+		# no diagram at all
+		sys.exit(0)
 	f.write ('digraph "' + components[0] + '" {\n')
 	f.write ('graph [fontsize=24.0 label="wdeps.py ' + string.join (sys.argv[1:], " ") 
 			+ '\\n' + time.ctime() + '"]\n') 
