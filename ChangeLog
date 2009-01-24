@@ -1,5 +1,7 @@
 2009-01-24  Hans Breuer  <hans@breuer.org>
 
+	* shapes/Civil/civil_basin.shape shapes/Civil/civil_motor.shape : foreground for stroke
+
 	* objects/UML/class_dialog.c(umlclass_dialog_free) : avoid double free
 	of the dialog struct. Is is already destroyed by destroy-signal
 	Fixes bug #569013

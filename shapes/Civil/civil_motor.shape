@@ -51,7 +51,7 @@ xmlns:svg="http://www.w3.org/2000/svg">
     <svg:ellipse style="stroke-width: 1; stroke: foreground" cx="0.5"
     cy="0.5" rx="0.5" ry="0.5" />
 
-    <svg:polyline style="stroke-width: 1; stroke: #000000"
+    <svg:polyline style="stroke-width: 1; stroke: foreground"
     points="0.3,0.7 0.3,0.3 0.5,0.5 0.7,0.3 0.7,0.7 " />
   </svg:svg>
 </shape>
