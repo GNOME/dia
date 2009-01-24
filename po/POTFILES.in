@@ -179,6 +179,11 @@ objects/standard/zigzagline.c
 plug-ins/cairo/diacairo-interactive.c
 plug-ins/cairo/diacairo.c
 plug-ins/cgm/cgm.c
+plug-ins/drs/dia-render-script-import.c
+plug-ins/drs/dia-render-script-object.c
+plug-ins/drs/dia-render-script-renderer.c
+plug-ins/drs/dia-render-script-renderer.h
+plug-ins/drs/dia-render-script.c
 plug-ins/dxf/dxf-export.c
 plug-ins/dxf/dxf-import.c
 plug-ins/dxf/dxf.c

@@ -292,7 +292,7 @@ set_linestyle(DiaRenderer *self, LineStyle mode)
 {
   DrsRenderer *renderer = DRS_RENDERER (self);
   xmlNodePtr node;
-  const gchar *value;
+  const gchar *value = NULL;
 
   /* line type */
   switch (mode) {
@@ -408,9 +408,9 @@ _polygon(DiaRenderer *self,
                      (const xmlChar *)(fill ? "fill-polygon" : "draw-polygon"), NULL);
   _node_set_points (node, points, num_points);
   if (fill)
-    _node_set_color (node, (const xmlChar *)"fill", color);
+    _node_set_color (node, "fill", color);
   else
-    _node_set_color (node, (const xmlChar *)"stroke", color);
+    _node_set_color (node, "stroke", color);
 }
 static void
 draw_polygon(DiaRenderer *self, 
@@ -446,11 +446,11 @@ _rounded_rect(DiaRenderer *self,
   _node_set_point (node, "lefttop", lefttop);
   _node_set_point (node, "rightbottom", rightbottom);
   if (rounding)
-    _node_set_real (node, (const xmlChar *)"r", *rounding);
+    _node_set_real (node, "r", *rounding);
   if (fill)
-    _node_set_color (node, (const xmlChar *)"fill", color);
+    _node_set_color (node, "fill", color);
   else
-    _node_set_color (node, (const xmlChar *)"stroke", color);
+    _node_set_color (node, "stroke", color);
 }
 static void
 draw_rect(DiaRenderer *self, 
@@ -604,7 +604,7 @@ draw_rounded_polyline (DiaRenderer *self,
   
   node = xmlNewChild (renderer->root, NULL, (const xmlChar *)"draw-rounded-polyline", NULL);
   _node_set_points (node, points, num_points);
-  _node_set_color (node, (const xmlChar *)"stroke", color);
+  _node_set_color (node, "stroke", color);
   _node_set_real (node, "r", radius);
 }
 

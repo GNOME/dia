@@ -571,6 +571,7 @@ sheets/UML/Makefile
 plug-ins/Makefile
 plug-ins/cgm/Makefile
 plug-ins/cairo/Makefile
+plug-ins/drs/Makefile
 plug-ins/dxf/Makefile
 plug-ins/hpgl/Makefile
 plug-ins/libart/Makefile

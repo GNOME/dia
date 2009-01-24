@@ -52,6 +52,4 @@ struct _DrsRendererClass
   DiaRendererClass parent_class;
 };
 
-void drs_render_layer (DiaRenderer *self, Layer *layer);
-
 G_END_DECLS

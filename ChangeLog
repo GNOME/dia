@@ -28,6 +28,10 @@
 	* plug-ins/drs/dia-render-script-object.c : mostly empty (should later
 	include the implmentation of a DiaObject capable to render .drs
 	* plug-ins/makefile.msc : build it
+	* configure.in plug-ins/Makefile.am plug-ins/drs/Makefile.am : build
+	drs on *NIX, too. But do not install it.
+	plug-ins/drs/*.[hc] : now warnings with gcc except defined but not used
+	* po/POTFILES.in : not much to translate, just silence 'make distcheck'
 
 2009-01-20  Hans Breuer  <hans@breuer.org>
 

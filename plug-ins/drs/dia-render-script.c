@@ -53,7 +53,7 @@
 
 #define G_LOG_DOMAIN "DiaRenderScript"
 #include <glib.h>
-#include <gstdio.h>
+#include <glib/gstdio.h>
 
 #include "intl.h"
 #include "filter.h"

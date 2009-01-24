@@ -60,7 +60,7 @@ _parse_points (xmlNodePtr node, const char *attrib)
       Point *pt = &g_array_index(arr, Point, i);
       
       pt->x = g_strtod (val, &ep);
-      pt->y = ep ? g_strtod (++ep, &ep) : 0;
+      pt->y = ep ? ++ep, g_strtod (ep, &ep) : 0;
     }
     g_strfreev(split);
     xmlFree(str);
@@ -87,11 +87,11 @@ _parse_bezpoints (xmlNodePtr node, const char *attrib)
       ep = (gchar *)str + 1;
       
       pt->p1.x = ep ? g_strtod (ep, &ep) : 0;
-      pt->p1.y = ep ? g_strtod (++ep, &ep) : 0;
-      pt->p2.x = ep ? g_strtod (++ep, &ep) : 0;
-      pt->p2.y = ep ? g_strtod (++ep, &ep) : 0;
-      pt->p3.x = ep ? g_strtod (++ep, &ep) : 0;
-      pt->p3.y = ep ? g_strtod (++ep, &ep) : 0;
+      pt->p1.y = ep ? ++ep, g_strtod (ep, &ep) : 0;
+      pt->p2.x = ep ? ++ep, g_strtod (ep, &ep) : 0;
+      pt->p2.y = ep ? ++ep, g_strtod (ep, &ep) : 0;
+      pt->p3.x = ep ? ++ep, g_strtod (ep, &ep) : 0;
+      pt->p3.y = ep ? ++ep, g_strtod (ep, &ep) : 0;
     }    
     g_strfreev(split);
     xmlFree(str);
