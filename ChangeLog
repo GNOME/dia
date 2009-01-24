@@ -1,5 +1,9 @@
 2009-01-24  Hans Breuer  <hans@breuer.org>
 
+	* objects/UML/class_dialog.c(umlclass_dialog_free) : avoid double free
+	of the dialog struct. Is is already destroyed by destroy-signal
+	Fixes bug #569013
+
 	* objects/UML/fork.c : fix property get/set by using the right
 	methods, not object_return_void/object_return_null, bug #568524
 	* lib/object.[ch] lib/libdia.def : remove object_return_* helpers.
@@ -30,7 +34,7 @@
 	* plug-ins/makefile.msc : build it
 	* configure.in plug-ins/Makefile.am plug-ins/drs/Makefile.am : build
 	drs on *NIX, too. But do not install it.
-	plug-ins/drs/*.[hc] : now warnings with gcc except defined but not used
+	plug-ins/drs/*.[hc] : no warnings with gcc except defined but not used
 	* po/POTFILES.in : not much to translate, just silence 'make distcheck'
 
 2009-01-20  Hans Breuer  <hans@breuer.org>

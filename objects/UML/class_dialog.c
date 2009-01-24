@@ -140,7 +140,7 @@ umlclass_dialog_free (UMLClassDialog *dialog)
 {
   g_list_free(dialog->deleted_connections);
   gtk_widget_destroy(dialog->dialog);
-  g_free(dialog);
+  /* destroy-signal destroy_properties_dialog already does 'g_free(dialog);' and more */
 }
 
 typedef struct _Disconnect {
