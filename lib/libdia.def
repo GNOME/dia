@@ -500,8 +500,6 @@ EXPORTS
  object_remove_connectionpoint
  object_remove_connections_to
  object_remove_handle
- object_return_null
- object_return_void
  object_save
  object_save_props
  object_save_using_properties

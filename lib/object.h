@@ -384,10 +384,6 @@ DiaObjectType *object_get_type(char *name);
 gchar *object_get_displayname (DiaObject* obj);
 gboolean object_flags_set(DiaObject* obj, gint flags);
  
-int object_return_false(DiaObject *obj); /* Just returns FALSE */
-void *object_return_null(DiaObject *obj); /* Just returns NULL */
-void object_return_void(DiaObject *obj); /* Just an empty function */
-
 /* These functions can be used as a default implementation for an object which
    can be completely described, loaded and saved through standard properties.
 */

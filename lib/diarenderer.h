@@ -178,11 +178,6 @@ struct _DiaRendererClass
   void (*draw_polyline) (DiaRenderer *renderer,
                          Point *points, int num_points,
                          Color *color);
-  /*! Draw a line joining multiple points, using color and the current
-     line style with rounded corners between segments */
-  void (*draw_rounded_polyline) (DiaRenderer *renderer,
-                         Point *points, int num_points,
-                         Color *color, real radius );
   /*! Draw a polygone, using the current line style
      The polygon is closed even if the first point is not the same as the
      last point */
@@ -213,6 +208,11 @@ struct _DiaRendererClass
   void (*fill_rounded_rect) (DiaRenderer *renderer,
                              Point *ul_corner, Point *lr_corner,
                              Color *color, real radius);
+  /*! Draw a line joining multiple points, using color and the current
+     line style with rounded corners between segments */
+  void (*draw_rounded_polyline) (DiaRenderer *renderer,
+                         Point *points, int num_points,
+                         Color *color, real radius );
 
   /*! Highest level function doing specific arrow positioning */
   void (*draw_line_with_arrows)  (DiaRenderer *renderer, 

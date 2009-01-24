@@ -1,3 +1,17 @@
+2009-01-23  Hans Breuer  <hans@breuer.org>
+
+	* objects/UML/fork.c : fix property get/set by using the right
+	methods, not object_return_void/object_return_null, bug #568524
+	* lib/object.[ch] lib/libdia.def : remove object_return_* helpers.
+	They are not used anymore now and were causing more harm than good.
+
+	* lib/diarenderer.h : moved draw_rounded_polyline to the high-level
+	methods of DiaRenderer, which are seldom implemented by "normal" 
+	renderers
+	* lib/diarenderer.c : just coding style
+	
+	* lib/plug-ins.h : bump DIA_PLUGIN_API_VERSION for all of the above
+
 2009-01-20  Hans Breuer  <hans@breuer.org>
 
 	* lib/persistence.c : use g_warning() instead of printf() for 

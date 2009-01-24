@@ -616,7 +616,8 @@ data_render(DiagramData *data, DiaRenderer *renderer, Rectangle *update,
   int i;
   int active_layer;
 
-  if (!renderer->is_interactive) (DIA_RENDERER_GET_CLASS(renderer)->begin_render)(renderer);
+  if (!renderer->is_interactive) 
+    (DIA_RENDERER_GET_CLASS(renderer)->begin_render)(renderer);
   
   for (i=0; i<data->layers->len; i++) {
     layer = (Layer *) g_ptr_array_index(data->layers, i);
@@ -625,7 +626,8 @@ data_render(DiagramData *data, DiaRenderer *renderer, Rectangle *update,
       layer_render(layer, renderer, update, obj_renderer, gdata, active_layer);
   }
   
-  if (!renderer->is_interactive) (DIA_RENDERER_GET_CLASS(renderer)->end_render)(renderer);
+  if (!renderer->is_interactive) 
+    (DIA_RENDERER_GET_CLASS(renderer)->end_render)(renderer);
 }
 
 void 

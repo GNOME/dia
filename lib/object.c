@@ -786,35 +786,6 @@ object_flags_set(DiaObject *obj, gint flags)
   return (obj->flags & flags) == flags;
 }
 
-/** Utility function that always returns FALSE given any object.
- * @param obj Not used.
- * @return FALSE
- */
-int
-object_return_false(DiaObject *obj)
-{
-  return FALSE;
-}
-
-/** Utility function that always returns NULL given any object.
- * @param obj Not used.
- * @return NULL
- */
-void *
-object_return_null(DiaObject *obj)
-{
-  return NULL;
-}
-
-/** Utility function that always returns nothing given any object.
- * @param obj Not used.
- */
-void
-object_return_void(DiaObject *obj)
-{
-  return;
-}
-
 /** Load an object from XML based on its properties.
  *  This function is suitable for implementing the object load function
  *  for an object with normal attributes.  Any version-dependent handling
