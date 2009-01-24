@@ -15,9 +15,11 @@
 #   along with this program; if not, write to the Free Software
 #   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-import sys, os, re, string, math
+import sys, os, re, string, math, time
 
 g_maxWeight = 1
+# a very limited demangling (leaves junk for some forms)
+rDemangle = re.compile("\??([^@]+)(?:@@[^@]+@|@)*([^@]+)")
 
 class Node :
 	def __init__ (self, name) :
@@ -33,7 +35,15 @@ class Edge :
 		self.weight = len(symbols)
 		if self.weight > g_maxWeight :
 			g_maxWeight = self.weight
-		self.symbols = symbols
+		demangled = []
+		for s in symbols :
+			m = rDemangle.match (s)
+			if m :
+				#print m.group(2), "::", m.group(1)
+				demangled.append (m.group(2) + "::" + m.group(1))
+			else :
+				demangled.append (s)
+		self.symbols = demangled
 		
 def GetDeps (sFrom, dAll, nMaxDepth, nDepth=0) :
 	"calculates the dependents of the passed in dll"
@@ -67,7 +77,7 @@ def GetDeps (sFrom, dAll, nMaxDepth, nDepth=0) :
 					node.AddEdge (name, arr)
 					arr = []
 					nDepth = nDepth + 1
-					GetDeps (name, dAll, nMaxDepth, nDepth)
+					GetDeps (name, dAll, nMaxDepth-nDepth+1, nDepth)
 					nDepth = nDepth - 1
 		# add to all nodes
 		dAll[sFrom] = node
@@ -110,7 +120,7 @@ def main () :
 	bHaveComponents = 0
 	sOutFilename = None
 
-	bFullName = 0
+	nSymbols = 0
 
 	for arg in sys.argv[1:] :
 		if string.find (arg, "--remove") == 0 :
@@ -125,6 +135,11 @@ def main () :
 		elif string.find (arg, "--depth=") == 0 :
 			nMaxDepth = int(arg[len("--depth="):])
 			if nMaxDepth < 1 : print  "Wrong depth"; sys.exit(1)
+		elif string.find (arg, "--symbols=") == 0 :
+			nSymbols = int(arg[len("--symbols="):])
+			if nSymbols < 0 : nSymbols = 0
+		elif string.find (arg, "--") == 0 :
+			print "Unknown option or missing parameter:", arg
 		else :
 			if not bHaveComponents :
 				components = string.split(arg, ",")
@@ -171,18 +186,23 @@ For more information read the source.
 		# ... dot
 		f = open(sOutFilename, "w")
 	
-	f.write ('digraph "' + components[0] + '" {\nratio=0.7\nnode [fontsize=32.0]\n')
+	f.write ('digraph "' + components[0] + '" {\n')
+	f.write ('graph [fontsize=24.0 label="wdeps.py ' + string.join (sys.argv[1:], " ") 
+			+ '\\n' + time.ctime() + '"]\n') 
+	f.write ('ratio=0.7\nnode [fontsize=32.0 ]\n')
 	for sn in deps.keys() :
 		# write weighted edges, could also classify the nodes ...
 		node = deps[sn]
 		for se in node.deps.keys() :
 			edge = node.deps[se]
-			if edge.weight == 1 and bFullName :
+			if edge.weight <= nSymbols :
 				#f.write ('"%s" -> "%s" [weight=%f,label=%s]\n' % (node.name, edge.name, math.log(1)-0.5, edge.symbols[0]))
-				f.write ('"%s" -> "%s" [fontsize=8,label="%s"]\n' % (node.name, edge.name, edge.symbols[0]))
+				f.write ('"%s" -> "%s" [fontsize=8,label="%s",weight=%f]\n' 
+						% (node.name, edge.name, string.join(edge.symbols, "\\n"), math.log10(edge.weight)))
 			else :
 				#f.write ('"%s" -> "%s" [weight=%f]\n' % (node.name, edge.name, math.log(edge.weight)-0.5))
-				f.write ('"%s" -> "%s" [label="(%d)",weight=%d]\n' % (node.name, edge.name, edge.weight, edge.weight))
+				f.write ('"%s" -> "%s" [label="(%d)",weight=%f]\n' 
+						% (node.name, edge.name, edge.weight, math.log10(edge.weight)))
 	f.write("}\n")
 
 if __name__ == '__main__': main()
