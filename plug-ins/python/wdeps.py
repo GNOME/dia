@@ -19,7 +19,9 @@ import sys, os, re, string, math, time
 
 g_maxWeight = 1
 # a very limited demangling (leaves junk for some forms)
-rDemangle = re.compile("\??([^@]+)(?:@@[^@]+@|@)*([^@]+)")
+rDemangle = re.compile("\?(?:\?0)*([^@]+)(?:@@[0ABGHIKPQUVXYZ?1]+|@Z|@)*([^@]*)")
+# a list of 
+g_DontFollow = []
 
 class Node :
 	def __init__ (self, name) :
@@ -50,6 +52,9 @@ def GetDeps (sFrom, dAll, nMaxDepth, nDepth=0) :
 	if nMaxDepth <= nDepth :
 		return
 	sFrom = string.lower(sFrom)
+	global g_DontFollow
+	if sFrom in g_DontFollow :
+		return
 	if not dAll.has_key (sFrom) :
 		node = Node (sFrom)
 		f = os.popen ("dumpbin /imports " + sFrom)
@@ -67,9 +72,10 @@ def GetDeps (sFrom, dAll, nMaxDepth, nDepth=0) :
 				# print name
 			else :
 				# import by name
-				r2 = re.match ("^[ ]+[0123456789ABCDEF]{1,5}[ ]+([\w@?$]+)$", s)
+				# The system dlls seem to follow a diferent pattern (or is this for know-dlls?)  thus (?:[0123456789ABCDEF]{8}[ ]+)?
+				r2 = re.match ("^[ ]+(?:[0123456789ABCDEF]{8}[ ]+)?[0123456789ABCDEF]{1,5}[ ]+([\w@?$]+)$", s)
 				if not r2 :
-					r2 = re.match ("^[ ]+Ordinal[ ]+([1234567890]+)$", s)
+					r2 = re.match ("^[ ]+(?:[0123456789ABCDEF]{8}[ ]+)?Ordinal[ ]+([1234567890]+)$", s)
 				if r2 :
 					arr.append (r2.group(1))
 				elif s[:-1] == "" and name != None and len(arr) > 0 :
@@ -98,7 +104,7 @@ dllsSysWin32 = [
 	"kernel32.dll", "user32.dll", "gdi32.dll", "comdlg32.dll", "advapi32.dll", "shell32.dll",
 	"comctl32.dll", "ole32.dll", "oleaut32.dll", "winspool.drv", "imm32.dll",
 	"wsock32.dll", "mpr.dll", 
-	"rpcrt4.dll", "shlwapi.dll", "netapi32.dll", "msimg32.dll",
+	"rpcrt4.dll", "shlwapi.dll", "netapi32.dll", "msimg32.dll", "oledlg.dll",
 	"uxtheme.dll"]
 dllsCrts = [
 	"msvcrt.dll", "msvcrtd.dll", "msvcp60.dll",
@@ -118,6 +124,7 @@ def main () :
 	dllsToRemove = []
 	nMaxDepth = 10000 # almost unlimited
 	bHaveComponents = 0
+	bByUse = 0
 	sOutFilename = None
 
 	nSymbols = 0
@@ -132,12 +139,18 @@ def main () :
 				noDeps = string.split(arg[len("--remove="):], ",")
 				for s in noDeps :
 					dllsToRemove.append(s)
+		elif string.find (arg, "--dont-follow") == 0 :
+			global g_DontFollow
+			noFollow = string.split(arg[len("--dont-follow="):], ",")
+			g_DontFollow.extend (noFollow)
 		elif string.find (arg, "--depth=") == 0 :
 			nMaxDepth = int(arg[len("--depth="):])
 			if nMaxDepth < 1 : print  "Wrong depth"; sys.exit(1)
 		elif string.find (arg, "--symbols=") == 0 :
 			nSymbols = int(arg[len("--symbols="):])
 			if nSymbols < 0 : nSymbols = 0
+		elif arg == "--by-use" :
+			bByUse = 1
 		elif string.find (arg, "--") == 0 :
 			print "Unknown option or missing parameter:", arg
 		else :
@@ -190,19 +203,44 @@ For more information read the source.
 	f.write ('graph [fontsize=24.0 label="wdeps.py ' + string.join (sys.argv[1:], " ") 
 			+ '\\n' + time.ctime() + '"]\n') 
 	f.write ('ratio=0.7\nnode [fontsize=32.0 ]\n')
-	for sn in deps.keys() :
-		# write weighted edges, could also classify the nodes ...
-		node = deps[sn]
-		for se in node.deps.keys() :
-			edge = node.deps[se]
-			if edge.weight <= nSymbols :
-				#f.write ('"%s" -> "%s" [weight=%f,label=%s]\n' % (node.name, edge.name, math.log(1)-0.5, edge.symbols[0]))
-				f.write ('"%s" -> "%s" [fontsize=8,label="%s",weight=%f]\n' 
-						% (node.name, edge.name, string.join(edge.symbols, "\\n"), math.log10(edge.weight)))
-			else :
-				#f.write ('"%s" -> "%s" [weight=%f]\n' % (node.name, edge.name, math.log(edge.weight)-0.5))
-				f.write ('"%s" -> "%s" [label="(%d)",weight=%f]\n' 
-						% (node.name, edge.name, edge.weight, math.log10(edge.weight)))
+	if bByUse :
+		# kind of inverted diagram not showing edependencies but 'users'
+		users = {}
+		for sn in deps.keys() :
+			users[sn] = []
+		for sn in deps.keys() :
+			node = deps[sn]
+			for se in node.deps.keys() :
+				edge = node.deps[se]
+				users[edge.name].append(node.name)
+		for sn in users.keys() :
+			for s in users[sn] :
+				f.write ('"%s" -> "%s"\n' % (sn, s))
+	else :
+		# first pass mark don't follows
+		dontFollowsDone = {}
+		for sn in deps.keys() :
+			node = deps[sn]
+			for se in node.deps.keys() :
+				if se in g_DontFollow :
+					if not dontFollowsDone.has_key(se) :
+						# mark as such
+						f.write ('"%s" [style=filled,color=lightgray]\n' % (se,))
+						dontFollowsDone[se] = 1
+					
+		for sn in deps.keys() :
+			# write weighted edges, could also classify the nodes ...
+			node = deps[sn]
+			for se in node.deps.keys() :
+				edge = node.deps[se]
+				if edge.weight <= nSymbols :
+					#f.write ('"%s" -> "%s" [weight=%f,label=%s]\n' % (node.name, edge.name, math.log(1)-0.5, edge.symbols[0]))
+					f.write ('"%s" -> "%s" [fontsize=8,label="%s",weight=%f]\n' 
+							% (node.name, edge.name, string.join(edge.symbols, "\\n"), math.log10(edge.weight)))
+				else :
+					#f.write ('"%s" -> "%s" [weight=%f]\n' % (node.name, edge.name, math.log(edge.weight)-0.5))
+					f.write ('"%s" -> "%s" [label="(%d)",weight=%f]\n' 
+							% (node.name, edge.name, edge.weight, math.log10(edge.weight)))
 	f.write("}\n")
 
 if __name__ == '__main__': main()
