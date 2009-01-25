@@ -377,7 +377,7 @@ static void properties_others_create_page(GtkNotebook *notebook,  ObjetSISSI *ob
 
 
 pScroll_others = gtk_scrolled_window_new(NULL, NULL);
-gtk_scrolled_window_set_policy(pScroll_others,GTK_POLICY_NEVER,GTK_POLICY_AUTOMATIC);
+gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(pScroll_others),GTK_POLICY_NEVER,GTK_POLICY_AUTOMATIC);
 /*gtk_window_set_default_size(GTK_WINDOW(pScroll_others), 300, 200);*/
 
 gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(pScroll_others), prop_dialog->vbox_others);
@@ -788,7 +788,8 @@ static void switch_page_callback(GtkNotebook *notebook, GtkNotebookPage *page)
   }
 }
 
-static void destroy_properties_dialog (GtkWidget* widget, gpointer user_data)
+static void 
+destroy_properties_dialog (GtkWidget* widget, gpointer user_data)
 {
 
   ObjetSISSI *object_sissi = (ObjetSISSI *)user_data;
@@ -803,6 +804,7 @@ static void destroy_properties_dialog (GtkWidget* widget, gpointer user_data)
   gtk_widget_destroy((GtkWidget *)object_sissi->properties_dialog->name);
   
   g_free(object_sissi->properties_dialog);
+  object_sissi->properties_dialog = NULL;
 }
 
 static void fill_in_dialog(ObjetSISSI *object_sissi)
@@ -981,7 +983,8 @@ static void fill_in_dialog(ObjetSISSI *object_sissi)
 
 }
 /* apply the properties of dialog box to Object */
-extern ObjectChange *object_sissi_apply_properties_dialog(ObjetSISSI *object_sissi)
+extern ObjectChange *
+object_sissi_apply_properties_dialog(ObjetSISSI *object_sissi)
 {
   SISSIDialog *prop_dialog;
   DiaObject *obj;
@@ -991,12 +994,15 @@ extern ObjectChange *object_sissi_apply_properties_dialog(ObjetSISSI *object_sis
   SISSIState *old_state = NULL;
   prop_dialog = object_sissi->properties_dialog;
 
+
+  g_return_val_if_fail(prop_dialog != NULL, NULL);
+
   obj = &object_sissi->element.object;
-    properties_menaces_read_from_dialog(object_sissi, prop_dialog);
-    properties_others_read_from_dialog(object_sissi, prop_dialog);
-    document_read_from_dialog(object_sissi, prop_dialog);
-    object_sissi_update_data(object_sissi, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
-   return new_sissi_change(object_sissi, old_state, added, deleted, disconnected);
+  properties_menaces_read_from_dialog(object_sissi, prop_dialog);
+  properties_others_read_from_dialog(object_sissi, prop_dialog);
+  document_read_from_dialog(object_sissi, prop_dialog);
+  object_sissi_update_data(object_sissi, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
+  return new_sissi_change(object_sissi, old_state, added, deleted, disconnected);
 }
 
 static void create_dialog_pages(GtkNotebook *notebook, ObjetSISSI *object_sissi)

@@ -104,7 +104,7 @@ static ObjectOps object_sissi_ops = {
   (MoveFunc)            object_sissi_move,
   (MoveHandleFunc)      object_sissi_move_handle,
   (GetPropertiesFunc)   object_sissi_get_properties,
-  (ApplyPropertiesDialogFunc) object_sissi_apply_properties,
+  (ApplyPropertiesDialogFunc) object_sissi_apply_props_from_dialog,
   (ObjectMenuFunc)      NULL,
   (DescribePropsFunc)   faraday_describe_props,
   (GetPropsFunc)        faraday_get_props,

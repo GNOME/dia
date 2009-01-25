@@ -773,10 +773,15 @@ object_sissi_get_properties(ObjetSISSI *object_sissi, gboolean is_default)
     return object_sissi_get_properties_dialog(object_sissi, is_default);
 }
 
-void 
-object_sissi_apply_properties(ObjetSISSI *object_sissi)
+ObjectChange *
+object_sissi_apply_props_from_dialog(ObjetSISSI *object_sissi, GtkWidget *widget)
 {
-    object_sissi_apply_properties_dialog(object_sissi);
+  /* with multiple objects selected this function may as well be called with a different dialog */
+  if (object_sissi->properties_dialog != NULL &&
+      object_sissi->properties_dialog->dialog == widget)
+    return object_sissi_apply_properties_dialog(object_sissi);
+  else
+    return object_apply_props_from_dialog (&object_sissi->element.object, widget);
 }
 
 SISSI_Property *

@@ -1,5 +1,17 @@
 2009-01-24  Hans Breuer  <hans@breuer.org>
 
+	* objects/SISSI/area.c objects/SISSI/faraday.c objects/SISSI/room.c
+	  objects/SISSI/sissi.[ch] objects/SISSI/sissi_dialog.c
+	  objects/SISSI/sissi_object.c objects/SISSI/site.c : fixed object
+	method DiaObject::apply_props_from_dialog() for the last known issue
+	with changing multiple objects properties, bug #60331
+	(It did not crash because the SISSI object don't contribute anything
+	to the property list.)
+	* objects/SISSI/sissi_object.c(280) : local variable 'filename' used
+	without having been initialized
+	* objects/SISSI/sissi_dialog.c(380) : incompatible types - from 
+	'struct _GtkWidget *' to 'struct _GtkScrolledWindow *'
+
 	[
 	  One menu entry File/Print is enough. The not any longer experimental
 	  cairo plug-in together with GtkPrint from gtk+-2-12 and cairo-1- or 

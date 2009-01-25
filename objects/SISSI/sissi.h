@@ -197,7 +197,7 @@ void dialog_sissi_destroy(SISSIDialog *properties_dialog);
 extern ObjetSISSI *object_sissi_load(ObjectNode obj_node, int version, const char *filename, ObjetSISSI *object_sissi,Element *elem,DiaObject *obj);
 
 extern GtkWidget *object_sissi_get_properties(ObjetSISSI *object_sissi, gboolean is_default);
-extern void object_sissi_apply_properties(ObjetSISSI *object_sissi);
+extern ObjectChange *object_sissi_apply_props_from_dialog(ObjetSISSI *object_sissi, GtkWidget *widget);
 
 extern DiaObject *object_sissi_copy_using_properties(ObjetSISSI *object_sissi_origine);
 

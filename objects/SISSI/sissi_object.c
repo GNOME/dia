@@ -104,7 +104,7 @@ static ObjectOps object_sissi_ops = {
   (MoveFunc)            object_sissi_move,
   (MoveHandleFunc)      object_sissi_move_handle,
   (GetPropertiesFunc)   object_sissi_get_properties,
-  (ApplyPropertiesDialogFunc) object_sissi_apply_properties,
+  (ApplyPropertiesDialogFunc) object_sissi_apply_props_from_dialog,
   (ObjectMenuFunc)      NULL,
   (DescribePropsFunc)   sissi_object_describe_props,
   (GetPropsFunc)        sissi_object_get_props,
@@ -164,7 +164,7 @@ sissi_object_create(Point *startpoint,  void *user_data, Handle **handle1, Handl
   Url_Docs *url_doc;
   Point pos;
   int fd;
-  gchar *filename;
+  gchar *filename = NULL;
   char composition_filename[255];
   xmlDocPtr doc;
   xmlNsPtr namespace;
