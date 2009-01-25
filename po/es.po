@@ -14,8 +14,8 @@ msgstr ""
 "Project-Id-Version: dia.HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=dia&component=general\n"
-"POT-Creation-Date: 2009-01-20 23:22+0000\n"
-"PO-Revision-Date: 2009-01-24 11:59+0100\n"
+"POT-Creation-Date: 2009-01-24 14:52+0000\n"
+"PO-Revision-Date: 2009-01-25 11:13+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -255,7 +255,6 @@ msgstr "«%s» no encontrado\n"
 
 #: ../app/app_procs.c:1161
 #, c-format
-#| msgid "'%s' not found!\n"
 msgid "'%s' not found in '%s'!\n"
 msgstr "No se encontró «%s» en «%s»\n"
 
@@ -1158,9 +1157,6 @@ msgstr ""
 
 #: ../app/load_save.c:311
 #, c-format
-#| msgid ""
-#| "Error loading diagram.\n"
-#| "connection handle does not exist."
 msgid ""
 "Error loading diagram.\n"
 "connection handle %d does not exist on '%s'."
@@ -1170,9 +1166,6 @@ msgstr ""
 
 #: ../app/load_save.c:339
 #, c-format
-#| msgid ""
-#| "Error loading diagram.\n"
-#| "connection point %s does not exist."
 msgid ""
 "Error loading diagram.\n"
 "connection point %d does not exist on '%s'."
@@ -1236,8 +1229,9 @@ msgid "Not allowed to write temporary files in %s\n"
 msgstr "No se permite escribir archivos temporales en %s\n"
 
 #: ../app/load_save.c:1049 ../plug-ins/cairo/diacairo.c:121
-#: ../plug-ins/cgm/cgm.c:1154 ../plug-ins/dxf/dxf-export.c:547
-#: ../plug-ins/hpgl/hpgl.c:710 ../plug-ins/libart/export_png.c:157
+#: ../plug-ins/cgm/cgm.c:1154 ../plug-ins/drs/dia-render-script.c:120
+#: ../plug-ins/dxf/dxf-export.c:547 ../plug-ins/hpgl/hpgl.c:710
+#: ../plug-ins/libart/export_png.c:157
 #: ../plug-ins/metapost/render_metapost.c:1177
 #: ../plug-ins/pgf/render_pgf.c:1208 ../plug-ins/postscript/render_eps.c:105
 #: ../plug-ins/pstricks/render_pstricks.c:916
@@ -5951,6 +5945,14 @@ msgstr "Computer Graphics Metafile"
 #: ../plug-ins/cgm/cgm.c:1386
 msgid "Computer Graphics Metafile export filter"
 msgstr "Filtro de exportación de Computer Graphics Metafile"
+
+#: ../plug-ins/drs/dia-render-script.c:150
+msgid "DiaRenderScript"
+msgstr "ScriptDeRenderizadoDeDia"
+
+#: ../plug-ins/drs/dia-render-script.c:161
+msgid "DiaRenderScript filter"
+msgstr "Filtro del script de renderizado de Dia"
 
 #: ../plug-ins/dxf/dxf-export.c:598 ../plug-ins/dxf/dxf-import.c:1402
 msgid "Drawing Interchange File"
