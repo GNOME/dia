@@ -21,6 +21,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdarg.h>
+#define G_LOG_DOMAIN "Dia"
 #include <gtk/gtk.h>
 #include <glib.h>
 
@@ -291,4 +292,32 @@ message_error(const char *format, ...)
   message_internal(_("Error"), ALWAYS_SHOW, format, &args, &args2);
   va_end (args);
   va_end (args2);
+}
+
+static gboolean log_enabled = FALSE;
+void 
+dia_log_message_enable (gboolean yes)
+{
+  log_enabled = yes;
+}
+
+void
+dia_log_message (const char *format, ...)
+{
+  static GTimer *timer = NULL;
+  char *log;
+  va_list args;
+
+  if (!log_enabled)
+     return;
+
+  if (!timer)
+    timer = g_timer_new ();
+
+  va_start (args, format);
+  log  = g_strdup_vprintf (format, args);
+  va_end (args);
+
+  g_message ("t=%.03f - %s", g_timer_elapsed (timer, NULL), log);
+  g_free (log);
 }

@@ -704,3 +704,4 @@ EXPORTS
  text_line_adjust_layout_line
  
  libdia_init
+ dia_log_message

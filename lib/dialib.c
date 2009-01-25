@@ -97,6 +97,10 @@ libdia_init (guint flags)
   xmlSetGenericErrorFunc(NULL, myXmlErrorReporting);
 #endif
 
+  if (flags & DIA_VERBOSE) {
+    dia_log_message_enable (TRUE);
+    dia_log_message ("initializing libdia");
+  }
   stdprops_init();
 
   if (flags & DIA_INTERACTIVE) {

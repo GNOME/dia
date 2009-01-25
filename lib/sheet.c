@@ -122,12 +122,15 @@ dia_sort_sheets(void)
   sheets = g_slist_sort(sheets, dia_sheet_sort_callback);
 }
 
-void load_all_sheets(void) {
+void 
+load_all_sheets(void) 
+{
   char *sheet_path;
   char *home_dir;
 
   home_dir = dia_config_filename("sheets");
   if (home_dir) {
+    dia_log_message (_("sheets from '%s'"), home_dir);
     load_sheets_from_dir(home_dir, SHEET_SCOPE_USER);
     g_free(home_dir);
   }
@@ -137,11 +140,14 @@ void load_all_sheets(void) {
     char **dirs = g_strsplit(sheet_path,G_SEARCHPATH_SEPARATOR_S,0);
     int i;
 
-    for (i=0; dirs[i] != NULL; i++) 
+    for (i=0; dirs[i] != NULL; i++) {
+      dia_log_message (_("sheets from '%s'"), dirs[i]);
       load_sheets_from_dir(dirs[i], SHEET_SCOPE_SYSTEM);
+    }
     g_strfreev(dirs);
   } else {
     char *thedir = dia_get_data_directory("sheets");
+    dia_log_message (_("sheets from '%s'"), thedir);
     load_sheets_from_dir(thedir, SHEET_SCOPE_SYSTEM);
     g_free(thedir);
   }

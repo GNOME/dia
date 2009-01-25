@@ -38,6 +38,8 @@ void message_notice(const char *format, ...);
 void message_warning(const char *format, ...);
 void message_error(const char *format, ...);
 
+void dia_log_message(const char *format, ...);
+void dia_log_message_enable (gboolean yes);
 /* also declared in dia_dirs.h, where I think it does not belong! --hb */
 const gchar *dia_message_filename (const gchar *filename);
 

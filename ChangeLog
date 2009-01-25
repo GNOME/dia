@@ -1,5 +1,13 @@
 2009-01-24  Hans Breuer  <hans@breuer.org>
 
+	* lib/message.[ch] lib/libdia.def : new function dia_log_message() 
+	which prints the given string together with a time-stamp, but only 
+	if logging is enabled
+	* app/app_procs.c lib/dialib.[ch] : when given --verbose enable logging
+	* lib/plug-ins.c lib/sheet.c : sprinkled some dia_log_message() to get
+	a grip on Dia's start-up performance (4 secs for python plug-in, 5 secs
+	for custom plug-in - when started from cold caches)
+	
 	* app/confirm.[ch] : new function confirm_export_size() which let's the
 	user confirm an unusal diagram size
 	* app/Makefile.am app/makefile.msc po/POTFILES.in : add new files

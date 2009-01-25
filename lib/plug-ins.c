@@ -172,6 +172,7 @@ dia_plugin_load(PluginInfo *info)
   error_mode = SetErrorMode (SEM_FAILCRITICALERRORS|SEM_NOOPENFILEERRORBOX);
 #endif
 
+  dia_log_message ("plug-in '%s'", info->filename);
   info->module = g_module_open(info->filename, G_MODULE_BIND_LAZY);
 #ifdef G_OS_WIN32
     SetErrorMode (error_mode);
