@@ -60,7 +60,11 @@ confirm_export_size (Diagram *dia, GtkWindow *parent, guint flags)
     return TRUE;
   
   /* message and limits depend on the flags give */
+#if GLIB_CHECK_VERSION(3,16,0)
   size = g_format_size_for_display (bytes);
+#else
+  size = g_strdup_printf ("%d MB", (guint)(bytes >> 20));
+#endif
   if (flags & CONFIRM_PRINT)
     msg = g_strdup_printf (_("You are about to print a diagram with %d pages."), pages);
   else if ((flags & ~CONFIRM_PAGES) == 0)
