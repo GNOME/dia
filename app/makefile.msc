@@ -24,6 +24,7 @@ OBJECTS = \
 	app_procs.obj \
 	color_area.obj \
 	commands.obj \
+	confirm.obj \
 	connectionpoint_ops.obj \
 	create_object.obj \
 	cursor.obj \

@@ -781,7 +781,8 @@ app_init (int argc, char **argv)
     log_to_stderr = TRUE;
 
   libdia_init (   (dia_is_interactive ? DIA_INTERACTIVE : 0)
-	       || (log_to_stderr ? DIA_MESSAGE_STDERR : 0));
+	       | (log_to_stderr ? DIA_MESSAGE_STDERR : 0)
+	       | (verbose ? DIA_VERBOSE : 0) );
 
   print_credits(credits);
 
@@ -801,6 +802,7 @@ app_init (int argc, char **argv)
 
   load_all_sheets();     /* new mechanism */
 
+  dia_log_message ("object defaults");
   dia_object_defaults_load (NULL, TRUE /* prefs.object_defaults_create_lazy */);
 
   debug_break();
@@ -823,6 +825,7 @@ app_init (int argc, char **argv)
     /* further initialization *before* reading files */  
     active_tool = create_modify_tool();
 
+    dia_log_message ("ui creation");
     if (prefs.use_integrated_ui) {
       create_integrated_ui();
     } else {
@@ -849,6 +852,7 @@ app_init (int argc, char **argv)
 
   }
 
+  dia_log_message ("diagrams");
   made_conversions = handle_all_diagrams(files, export_file_name,
 					 export_file_format, size, show_layers,
 					 input_directory, output_directory);
@@ -886,6 +890,7 @@ app_init (int argc, char **argv)
   if (made_conversions) exit(0);
 
   dynobj_refresh_init();
+  dia_log_message ("initialized");
 }
 
 #if 0

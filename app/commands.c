@@ -37,7 +37,7 @@
 
 #include <textedit.h>
 #include <focus.h>
-
+#include "confirm.h"
 
 /** Functions called on menu selects.
  *  Note that GTK (at least up to 2.12) doesn't disable the keyboard shortcuts
@@ -109,30 +109,26 @@ void
 file_print_callback (GtkAction *_action)
 {
   Diagram *dia;
+  DDisplay *ddisp;
   GtkAction *action;
 
   dia = ddisplay_active_diagram();
   if (!dia) return;
+  ddisp = ddisplay_active();
+  if (!ddisp) return;
   
   action = menus_get_action ("FilePrintGTK");
   if (!action)
     action = menus_get_action ("FilePrintGDI");
   if (!action)
     action = menus_get_action ("FilePrintPS");
-#if 1
-  if (action)
-    gtk_action_activate (action);
-  else
+
+  if (action) {
+    if (confirm_export_size (dia, GTK_WINDOW(ddisp->shell), CONFIRM_PRINT|CONFIRM_PAGES))
+      gtk_action_activate (action);
+  } else {
     message_error (_("No print plug-in found!"));
-#else
-#ifdef G_OS_WIN32
-  /* This option could be used with Gnome too. Does it make sense there ? */
-  if (!prefs.prefer_psprint)
-    diagram_print_gdi(dia);
-  else
-#endif
-    diagram_print_ps(dia);
-#endif
+  }
 }
 
 void

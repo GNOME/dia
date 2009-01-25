@@ -43,6 +43,7 @@
 #include "preferences.h"
 #include "interface.h"
 #include "recent_files.h"
+#include "confirm.h"
 
 #include "filedlg.h"
 
@@ -696,6 +697,9 @@ file_export_callback(gpointer data, guint action, GtkWidget *widget)
   ddisp = ddisplay_active();
   if (!ddisp) return;
   dia = ddisp->diagram;
+
+  if (!confirm_export_size (dia, GTK_WINDOW(ddisp->shell), CONFIRM_MEMORY|CONFIRM_PAGES))
+    return;
 
   if (!exportdlg) {
     persistence_register_integer ("export-filter", 0);

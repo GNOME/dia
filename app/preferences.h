@@ -65,7 +65,6 @@ struct DiaPreferences {
   } pagebreak;
 
   int render_bounding_boxes;
-  int prefer_psprint;
     
   int toolbox_on_top;
 

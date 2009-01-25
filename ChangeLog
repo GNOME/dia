@@ -1,5 +1,14 @@
 2009-01-24  Hans Breuer  <hans@breuer.org>
 
+	* app/confirm.[ch] : new function confirm_export_size() which let's the
+	user confirm an unusal diagram size
+	* app/Makefile.am app/makefile.msc po/POTFILES.in : add new files
+	* app/commands.c app/filedlg.c : use it before export and print to avoid
+	possibly unintended numbers of pages printed or memory used for export.
+	(Bug #540477, Martin Wegner)
+
+	app/preferences.[ch] : removed obsolete print preference
+
 	* objects/SISSI/area.c objects/SISSI/faraday.c objects/SISSI/room.c
 	  objects/SISSI/sissi.[ch] objects/SISSI/sissi_dialog.c
 	  objects/SISSI/sissi_object.c objects/SISSI/site.c : fixed object

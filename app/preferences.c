@@ -256,9 +256,6 @@ DiaPrefData prefs_data[] =
     &default_true,0,"pretty formated xml",NULL, TRUE},
   */
 
-  { "prefer_psprint", PREF_BOOLEAN,PREF_OFFSET(prefer_psprint),
-    &default_false,0,"prefer psprint", NULL, TRUE},
-
   { NULL, PREF_NONE, 0, NULL, TREE_TAB, N_("Diagram tree window:") },
   { "diagram_tree_save_hidden", PREF_BOOLEAN, PREF_OFFSET(dia_tree.save_hidden),
     &default_false, TREE_TAB, N_("Save hidden object types")},
