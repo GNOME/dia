@@ -29,8 +29,8 @@
         <para>
          For example, clicking on the square object and placing it on the
          canvas, creates a square.  However, the dimensions of the object can
-         be changed.  See the Resizing Objects section for more information.
-         <!-- Add link to resizing objects -->
+         be changed. See <xref linkend="resizing-objects" /> for more 
+         information.
         </para>
        </listitem>
        <listitem>
@@ -73,7 +73,8 @@
      the same time.       
      The two on the top and bottom edges, in the center will edit height while
      the two on the left and right edges, in the center will edit width.  
-     Some shapes 
+     Some shapes have a fixed aspect ration and will keep their proportions
+     while resizing. 
     </para>
     <tip>
      <para>

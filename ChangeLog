@@ -1,3 +1,8 @@
+2009-02-27  Steffen Macke <sdteffen@sdteffen.de>
+
+	* doc/en/usage-objects.xml: Finished incomplete sentence. Fixes
+	bug #569369
+
 2009-01-24  Hans Breuer  <hans@breuer.org>
 
 	* lib/message.[ch] lib/libdia.def : new function dia_log_message() 
