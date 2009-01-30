@@ -1,5 +1,8 @@
 2009-01-30  Hans Breuer  <hans@breuer.org>
 
+	* objects/Jackson/domain.c : remove superfluous allocation to avoid
+	leaking it, fixes bug #569720
+
 	* app/load_save.c : do not complain about missing object types per 
 	layer but just once per diagram
 

@@ -327,7 +327,7 @@ jackson_box_draw(Box *box, DiaRenderer *renderer)
   Point b0,b1,b2,b3,p1t,p1b,p2t,p2b;
   Element *elem;
   real idfontheight;
-  char* s;
+  const char* s;
 
   /* some asserts */
   assert(box != NULL);
@@ -380,15 +380,15 @@ jackson_box_draw(Box *box, DiaRenderer *renderer)
   b3.y -= idfontheight;
 
   switch (box->domkind) {
-    case DOMAIN_CAUSAL:   s=g_strdup("C"); break;
-    case DOMAIN_BIDDABLE: s=g_strdup("B"); break;
-    case DOMAIN_LEXICAL:  s=g_strdup("L"); break;
+    case DOMAIN_CAUSAL:   s="C"; break;
+    case DOMAIN_BIDDABLE: s="B"; break;
+    case DOMAIN_LEXICAL:  s="L"; break;
     default: s=NULL;
   }
 
   if (s!=NULL) {
     renderer_ops->draw_rect(renderer, &b3, &b1, &JACKSON_BOX_FG_COLOR);
-    renderer_ops->draw_string(renderer, &(*s), &b2, ALIGN_RIGHT, &box->text->color);
+    renderer_ops->draw_string(renderer, s, &b2, ALIGN_RIGHT, &box->text->color);
   }
 
   text_draw(box->text, renderer);
