@@ -1,5 +1,9 @@
 2009-01-30  Hans Breuer  <hans@breuer.org>
 
+	* objects/SISSI/area.c objects/SISSI/faraday.c objects/SISSI/room.c
+	  objects/SISSI/sissi_object.c objects/SISSI/site.c : quite some 
+	allocation/deallocation mismatch removed, fixes bug #569725
+
 	* objects/Jackson/domain.c : remove superfluous allocation to avoid
 	leaking it, fixes bug #569720
 

@@ -277,8 +277,6 @@ sissi_object_create(Point *startpoint,  void *user_data, Handle **handle1, Handl
       object_sissi->url_docs = g_list_append(object_sissi->url_docs, url_doc);
       composite = data_next(composite);
     }
-    free (filename);
-	
     /* end of XML reading */
 	
   if (object_sissi->file) {

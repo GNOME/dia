@@ -242,8 +242,6 @@ static DiaObject *area_create(Point *startpoint,  void *user_data, Handle **hand
 	composite = data_next(composite);
 	}
 }
-/* free (filename);end of XML reading */
-
   
   action_font = dia_font_new_from_style(TEXT_FONT,TEXT_FONT_HEIGHT); 
    object_sissi->text = new_text("",action_font, TEXT_FONT_HEIGHT, &pos, &color_black, ALIGN_LEFT);

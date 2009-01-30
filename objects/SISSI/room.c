@@ -242,7 +242,6 @@ static DiaObject *room_create(Point *startpoint,  void *user_data, Handle **hand
     composite = data_next(composite);
   }
 }
-/* free (filename);end of XML reading */
 
   object_sissi->nb_others_fixes=9;
   object_sissi_update_data(object_sissi, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
