@@ -1,5 +1,16 @@
 2009-01-30  Hans Breuer  <hans@breuer.org>
 
+	[ "a minor maintenance update" from Ian Redfern, bug #477679 ]
+	* plug-ins/vdx/vdx-import.c : it replaces the g_assert() calls with 
+	attempts to handle errors, and adds a bit more sanity checking - this
+	should make it more robust with unusual or malformed files, 
+	particularly those exported from applications other than Visio 
+	(thank you OmniGraffle).
+	It also fixes assorted small bugs that people have raised with nested 
+	shapes, disconnected polygons, font handling and layers, but there's 
+	no new features such as embedded EMF or even rounded rectangles, and 
+	it makes no attempt to handle new Visio 2007 features.
+
 	* objects/SISSI/area.c objects/SISSI/faraday.c objects/SISSI/room.c
 	  objects/SISSI/sissi_object.c objects/SISSI/site.c : quite some 
 	allocation/deallocation mismatch removed, fixes bug #569725
