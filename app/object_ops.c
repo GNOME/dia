@@ -463,3 +463,50 @@ object_list_align_h(GList *objects, Diagram *dia, int align)
   if (sort_alloc)
     g_list_free(objects);
 }
+
+/** Move the list in the given direction.
+ *
+ * @param objects The objects to move
+ * @param dia The diagram owning the objects
+ * @param dir The direction to move to
+ * @param step The step-width to move
+ */
+void
+object_list_nudge(GList *objects, Diagram *dia, Direction dir, real step)
+{
+  Point *orig_pos;
+  Point *dest_pos;
+  guint nobjs, i;
+  real inc_x, inc_y;
+  GList *list;
+  DiaObject *obj;
+
+  if (!objects)
+    return;
+  g_return_if_fail (step > 0);
+
+  nobjs = g_list_length (objects);
+  g_return_if_fail (nobjs > 0);
+
+  dest_pos = g_new(Point, nobjs);
+  orig_pos = g_new(Point, nobjs);
+
+  inc_x = DIR_RIGHT == dir ? step : (DIR_LEFT == dir ? -step : 0);
+  inc_y = DIR_DOWN == dir ? step : (DIR_UP == dir ? -step : 0);
+
+  /* remeber original positions and calculate destination */
+  i = 0;
+  list = objects;
+  while (list != NULL) {
+    obj = (DiaObject *) list->data;
+    
+    orig_pos[i] = obj->position;
+    dest_pos[i].x = orig_pos[i].x + inc_x;
+    dest_pos[i].y = orig_pos[i].y + inc_y;
+
+    obj->ops->move(obj, &dest_pos[i]);
+    ++i;
+    list = g_list_next(list);
+  }
+  undo_move_objects(dia, orig_pos, dest_pos, g_list_copy(objects)); 
+}

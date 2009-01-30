@@ -1,5 +1,14 @@
 2009-01-30  Hans Breuer  <hans@breuer.org>
 
+	* app/object_ops.[ch] : implement object_list_nudge() ...
+	* app/disp_callbacks.c : ... use it to move selected objects by 
+	keyboard keys (arrow/shift-arrow for small/bigger step), bug #137433
+	(The viewable area can still be moved as before if nothing is selected)
+	Make PageUp, Ctrl-PageUp, PageDown, Ctrl-PageDown scroll selected
+	view by one page up/left/down/right, bug #94015
+	Home/End to align the top-left/bottom-right corner of the diagram with
+	the viewable area
+
 	[ "a minor maintenance update" from Ian Redfern, bug #477679 ]
 	* plug-ins/vdx/vdx-import.c : it replaces the g_assert() calls with 
 	attempts to handle errors, and adds a bit more sanity checking - this

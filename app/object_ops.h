@@ -46,5 +46,15 @@ void object_connect_display(DDisplay *ddisp, DiaObject *obj,
 Point object_list_corner(GList *list);
 void object_list_align_h(GList *objects, Diagram *dia, int align);
 void object_list_align_v(GList *objects, Diagram *dia, int align);
+
+typedef enum {
+  DIR_UP = 1,
+  DIR_DOWN,
+  DIR_LEFT,
+  DIR_RIGHT
+} Direction;
+
+void object_list_nudge(GList *objects, Diagram *dia, Direction dir, real step);
+
 #endif /* OBJECT_OPS_H */
 

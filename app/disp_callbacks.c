@@ -432,6 +432,54 @@ ddisplay_im_context_preedit_changed(GtkIMContext *context,
   }
 }
 
+static void
+_scroll_page (DDisplay *ddisp, Direction dir)
+{
+  Point delta = {0, 0};
+
+  switch (dir) {
+  case DIR_LEFT :
+    delta.x = ddisp->diagram->data->paper.width * ddisp->diagram->data->paper.scaling;
+    break;
+  case DIR_RIGHT :
+    delta.x = -ddisp->diagram->data->paper.width * ddisp->diagram->data->paper.scaling;
+    break;
+  case DIR_UP :
+    delta.y = -ddisp->diagram->data->paper.height * ddisp->diagram->data->paper.scaling;
+    break;
+  case DIR_DOWN :
+    delta.y = ddisp->diagram->data->paper.height * ddisp->diagram->data->paper.scaling;
+    break;
+  }
+  ddisplay_scroll(ddisp, &delta);
+  ddisplay_flush(ddisp);
+}
+
+static void
+_scroll_step (DDisplay *ddisp, guint keyval)
+{
+  switch (keyval) {
+  case GDK_Up :
+    ddisplay_scroll_up(ddisp);
+    ddisplay_flush(ddisp);
+    break;
+  case GDK_Down:
+    ddisplay_scroll_down(ddisp);
+    ddisplay_flush(ddisp);
+    break;
+  case GDK_Left:
+    ddisplay_scroll_left(ddisp);
+    ddisplay_flush(ddisp);
+    break;
+  case GDK_Right:
+    ddisplay_scroll_right(ddisp);
+    ddisplay_flush(ddisp);
+    break;
+  default :
+    g_assert_not_reached  ();
+  }
+}
+
 /** Main input handler for a diagram canvas.
  */
 gint
@@ -725,22 +773,51 @@ ddisplay_canvas_events (GtkWidget *canvas,
           return_val = TRUE;
           
           switch(kevent->keyval) {
+	      case GDK_Home :
+	        /* match upper left corner of the diagram with it's view */
+		ddisplay_set_origo(ddisp, ddisp->diagram->data->extents.left, ddisp->diagram->data->extents.top);
+		ddisplay_update_scrollbars(ddisp);
+		ddisplay_add_update_all(ddisp);
+	        break;
+	      case GDK_End :
+	        /* match lower right corner of the diagram with it's view */
+		visible = &ddisp->visible;
+		ddisplay_set_origo(ddisp, 
+		                   ddisp->diagram->data->extents.right - (visible->right - visible->left), 
+				   ddisp->diagram->data->extents.bottom - (visible->bottom - visible->top));
+		ddisplay_update_scrollbars(ddisp);
+		ddisplay_add_update_all(ddisp);
+	        break;
+	      case GDK_Page_Up :
+	        _scroll_page (ddisp, !(state & GDK_CONTROL_MASK) ? DIR_UP : DIR_LEFT);
+	        break;
+	      case GDK_Page_Down :
+	        _scroll_page (ddisp, !(state & GDK_CONTROL_MASK) ? DIR_DOWN : DIR_RIGHT);
+	        break;
               case GDK_Up:
-                ddisplay_scroll_up(ddisp);
-                ddisplay_flush(ddisp);
-                break;
               case GDK_Down:
-                ddisplay_scroll_down(ddisp);
-                ddisplay_flush(ddisp);
-                break;
               case GDK_Left:
-                ddisplay_scroll_left(ddisp);
-                ddisplay_flush(ddisp);
-                break;
               case GDK_Right:
-                ddisplay_scroll_right(ddisp);
-                ddisplay_flush(ddisp);
-                break;
+	        if (g_list_length (ddisp->diagram->data->selected) > 0) {
+		  Diagram *dia = ddisp->diagram;
+		  GList *objects = dia->data->selected;
+		  Direction dir = GDK_Up == kevent->keyval ? DIR_UP :
+				  GDK_Down == kevent->keyval ? DIR_DOWN :
+				  GDK_Right == kevent->keyval ? DIR_RIGHT : DIR_LEFT;
+		  object_add_updates_list(objects, dia);
+		  object_list_nudge(objects, dia, dir, 
+				    /* step one pixel or more with <ctrl> */
+				    ddisplay_untransform_length (ddisp, (state & GDK_SHIFT_MASK) ? 10 : 1));
+		  diagram_update_connections_selection(dia);
+		  object_add_updates_list(objects, dia);
+		  diagram_modified(dia);
+		  diagram_flush(dia);     
+
+		  undo_set_transactionpoint(dia->undo);
+		} else {
+		  _scroll_step (ddisp, kevent->keyval);
+		}
+		break;
               case GDK_KP_Add:
               case GDK_plus:
                 visible = &ddisp->visible;
