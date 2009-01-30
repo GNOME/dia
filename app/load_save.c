@@ -65,7 +65,8 @@ static void GHFuncUnknownObjects(gpointer key,
 				 gpointer user_data);
 static GList *read_objects(xmlNodePtr objects,
 			   GHashTable *objects_hash,
-			   const char *filename, DiaObject *parent);
+			   const char *filename, DiaObject *parent,
+			   GHashTable *unknown_objects_hash);
 static void hash_free_string(gpointer       key,
 			     gpointer       value,
 			     gpointer       user_data);
@@ -112,7 +113,8 @@ GHFuncUnknownObjects(gpointer key,
  */
 static GList *
 read_objects(xmlNodePtr objects, 
-             GHashTable *objects_hash,const char *filename, DiaObject *parent)
+             GHashTable *objects_hash,const char *filename, DiaObject *parent,
+	     GHashTable *unknown_objects_hash)
 {
   GList *list;
   DiaObjectType *type;
@@ -122,12 +124,7 @@ read_objects(xmlNodePtr objects,
   char *versionstr;
   char *id;
   int version;
-  GHashTable* unknown_hash;
-  GString*    unknown_str;
   xmlNodePtr child_node;
-
-  unknown_hash = g_hash_table_new(g_str_hash, g_str_equal);
-  unknown_str  = g_string_new("Unknown types while reading diagram file");
 
   list = NULL;
 
@@ -155,8 +152,9 @@ read_objects(xmlNodePtr objects,
       type = object_get_type((char *)typestr);
       
       if (!type) {
-	if (NULL == g_hash_table_lookup(unknown_hash, typestr))
-	    g_hash_table_insert(unknown_hash, g_strdup(typestr), 0);
+	if (g_utf8_validate (typestr, -1, NULL) &&
+	    NULL == g_hash_table_lookup(unknown_objects_hash, typestr))
+	    g_hash_table_insert(unknown_objects_hash, g_strdup(typestr), 0);
       }
       else
       {
@@ -177,7 +175,7 @@ read_objects(xmlNodePtr objects,
         {
           if (xmlStrcmp(child_node->name, (const xmlChar *)"children") == 0)
           {
-	    GList *children_read = read_objects(child_node, objects_hash, filename, obj);
+	    GList *children_read = read_objects(child_node, objects_hash, filename, obj, unknown_objects_hash);
             list = g_list_concat(list, children_read);
             break;
           }
@@ -189,7 +187,7 @@ read_objects(xmlNodePtr objects,
     } else if (xmlStrcmp(obj_node->name, (const xmlChar *)"group")==0
                && obj_node->children) {
       /* don't create empty groups */
-      obj = group_create(read_objects(obj_node, objects_hash, filename, NULL));
+      obj = group_create(read_objects(obj_node, objects_hash, filename, NULL, unknown_objects_hash));
 #ifdef USE_NEWGROUP
       /* Old group objects had objects recursively inside them.  Since
        * objects are now done with parenting, we need to extract those objects,
@@ -235,16 +233,6 @@ read_objects(xmlNodePtr objects,
 
     obj_node = obj_node->next;
   }
-  /* show all the unknown types in one message */
-  if (0 < g_hash_table_size(unknown_hash)) {
-    g_hash_table_foreach(unknown_hash,
-			 GHFuncUnknownObjects,
-			 unknown_str);
-    message_error("%s", unknown_str->str);
-  }
-  g_hash_table_destroy(unknown_hash);
-  g_string_free(unknown_str, TRUE);
-
   return list;
 }
 
@@ -421,6 +409,8 @@ diagram_data_load(const char *filename, DiagramData *data, void* user_data)
   gchar firstchar;
   Diagram *diagram = DIA_IS_DIAGRAM (data) ? DIA_DIAGRAM (data) : NULL;
   Layer *active_layer = NULL;
+  GHashTable* unknown_objects_hash = g_hash_table_new(g_str_hash, g_str_equal);
+
 
   if (g_file_test (filename, G_FILE_TEST_IS_DIR)) {
     message_error(_("You must specify a file, not a directory.\n"));
@@ -651,7 +641,7 @@ diagram_data_load(const char *filename, DiagramData *data, void* user_data)
     }
     /* Read in all objects: */
     
-    list = read_objects(layer_node, objects_hash, filename, NULL);
+    list = read_objects(layer_node, objects_hash, filename, NULL, unknown_objects_hash);
     layer_add_objects (layer, list);
     read_connections( list, layer_node, objects_hash);
 
@@ -683,7 +673,17 @@ diagram_data_load(const char *filename, DiagramData *data, void* user_data)
                      "A valid Dia file defines at least one layer."),
 		     dia_message_filename(filename));
     return FALSE;
+  } else if (0 < g_hash_table_size(unknown_objects_hash)) {
+    GString*    unknown_str = g_string_new("Unknown types while reading diagram file");
+
+    /* show all the unknown types in one message */
+    g_hash_table_foreach(unknown_objects_hash,
+			 GHFuncUnknownObjects,
+			 unknown_str);
+    message_warning("%s", unknown_str->str);
+    g_string_free(unknown_str, TRUE);
   }
+  g_hash_table_destroy(unknown_objects_hash);
 
   return TRUE;
 }

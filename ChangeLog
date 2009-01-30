@@ -1,3 +1,10 @@
+2009-01-30  Hans Breuer  <hans@breuer.org>
+
+	* app/load_save.c : do not complain about missing object types per 
+	layer but just once per diagram
+
+	* app/confirm.c : there is no glib-3.16 yet
+
 2009-02-27  Steffen Macke <sdteffen@sdteffen.de>
 
 	* doc/en/usage-objects.xml: Finished incomplete sentence. Fixes
@@ -14,7 +21,7 @@
 	for custom plug-in - when started from cold caches)
 	
 	* app/confirm.[ch] : new function confirm_export_size() which let's the
-	user confirm an unusal diagram size
+	user confirm an unusal diagram size (conditionalized glib-2-16 function)
 	* app/Makefile.am app/makefile.msc po/POTFILES.in : add new files
 	* app/commands.c app/filedlg.c : use it before export and print to avoid
 	possibly unintended numbers of pages printed or memory used for export.
