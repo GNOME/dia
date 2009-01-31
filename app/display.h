@@ -58,7 +58,6 @@ struct _DDisplay {
 
   /* menu bar widgets */
   GtkMenuItem *rulers;
-  UpdatableMenuItems updatable_menu_items;
 
   GtkWidget *zoom_status;         
   GtkWidget *grid_status;

@@ -1,3 +1,13 @@
+2009-01-31  Hans Breuer  <hans@breuer.org>
+
+	* app/display.[ch] app/diagram.[ch] app/menus.[ch] : get rid of nearly
+	unmaintainable UpdatableMenuItems and a lot of ui-variant-specific code
+	by dynamic action lookup when updating sensitivity. This not only fixes
+	bug #527565 but also bug #322190 and allows ...
+	* app/interface.c : make Tool accelerator single key strokes - e.g. no
+	more <alt><shift>L to draw a line but just "L" - another benefit of the
+	dedicated test edit mode ;) - bug #439854.
+
 2009-01-30  Hans Breuer  <hans@breuer.org>
 
 	* app/object_ops.[ch] : implement object_list_nudge() ...

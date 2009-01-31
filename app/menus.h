@@ -29,66 +29,6 @@ struct zoom_pair { const gchar *string; const gint value; };
 
 extern const struct zoom_pair zooms[10];
 
-/* all the menu items that can be updated */
-struct _UpdatableMenuItems 
-{
-  GtkAction *undo;
-  GtkAction *redo;
-
-  GtkAction *copy;
-  GtkAction *cut;
-  GtkAction *paste;
-  GtkAction *edit_delete;
-  GtkAction *edit_duplicate;
-  GtkAction *copy_text;
-  GtkAction *cut_text;
-  GtkAction *paste_text;
-
-  GtkAction *send_to_back;
-  GtkAction *bring_to_front;
-  GtkAction *send_backwards;
-  GtkAction *bring_forwards;
-
-  GtkAction *objects_layer_above;
-  GtkAction *objects_layer_below;
-  
-  GtkAction *group;
-  GtkAction *ungroup;
-
-  GtkAction *parent;
-  GtkAction *unparent;
-  GtkAction *unparent_children;
-
-  GtkAction *align_h_l;
-  GtkAction *align_h_c;
-  GtkAction *align_h_r;
-  GtkAction *align_h_e;
-  GtkAction *align_h_a;
-
-  GtkAction *align_v_t;
-  GtkAction *align_v_c;
-  GtkAction *align_v_b;
-  GtkAction *align_v_e;
-  GtkAction *align_v_a;
-
-  GtkAction *properties;
-  
-  GtkAction *select_all;
-  GtkAction *select_none;
-  GtkAction *select_invert;
-  GtkAction *select_transitive;
-  GtkAction *select_connected;
-  GtkAction *select_same_type;
-
-  GtkAction *select_replace;
-  GtkAction *select_union;
-  GtkAction *select_intersection;
-  GtkAction *select_remove;
-  GtkAction *select_inverse;
-};
-
-typedef struct _UpdatableMenuItems UpdatableMenuItems;
-
 void 
 integrated_ui_toolbar_set_zoom_text (GtkToolbar *toolbar, const gchar * text);
 
@@ -105,7 +45,6 @@ void            menus_get_toolbox_menubar        (GtkWidget **menubar, GtkAccelG
 GtkWidget     * menus_get_display_popup          (void);
 GtkAccelGroup * menus_get_display_accels         (void);
 GtkWidget *     menus_create_display_menubar     (GtkUIManager **ui_manager, GtkActionGroup **actions);
-void            menus_initialize_updatable_items (UpdatableMenuItems *items, GtkActionGroup *actions);
 
 GtkAccelGroup  * menus_get_accel_group  (void);
 GtkActionGroup * menus_get_action_group (void);

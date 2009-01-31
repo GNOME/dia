@@ -219,24 +219,24 @@ static const GtkActionEntry display_entries[] =
 static const GtkActionEntry tool_entries[] = 
 {
   { "Tools", NULL, N_("_Tools"), NULL, NULL, NULL },
-    { "ToolsModify", NULL, N_("Modify"), "<alt><shift>N", NULL, NULL },
-    { "ToolsMagnify", NULL, N_("Magnify"), "<alt><shift>M", NULL, NULL },
+    { "ToolsModify", NULL, N_("Modify"), "N", NULL, NULL },
+    { "ToolsMagnify", NULL, N_("Magnify"), "M", NULL, NULL },
     { "ToolsTextedit", NULL, N_("Edit text"), "F2", NULL, NULL },
-    { "ToolsScroll", NULL, N_("Scroll"), "<alt><shift>S", NULL, NULL },
-    { "ToolsText", NULL, N_("Text"), "<alt><shift>T", NULL, NULL },
-    { "ToolsBox", NULL, N_("Box"), "<alt><shift>R", NULL, NULL },
-    { "ToolsEllipse", NULL, N_("Ellipse"), "<alt><shift>E", NULL, NULL },
-    { "ToolsPolygon", NULL, N_("Polygon"), "<alt><shift>P", NULL, NULL },
-    { "ToolsBeziergon", NULL, N_("Beziergon"), "<alt><shift>B", NULL, NULL },
+    { "ToolsScroll", NULL, N_("Scroll"), "S", NULL, NULL },
+    { "ToolsText", NULL, N_("Text"), "T", NULL, NULL },
+    { "ToolsBox", NULL, N_("Box"), "R", NULL, NULL },
+    { "ToolsEllipse", NULL, N_("Ellipse"), "E", NULL, NULL },
+    { "ToolsPolygon", NULL, N_("Polygon"), "P", NULL, NULL },
+    { "ToolsBeziergon", NULL, N_("Beziergon"), "B", NULL, NULL },
 
-    { "ToolsLine", NULL, N_("Line"), "<alt><shift>L", NULL, NULL },
-    { "ToolsArc", NULL, N_("Arc"), "<alt><shift>A", NULL, NULL },
-    { "ToolsZigzagline", NULL, N_("Zigzagline"), "<alt><shift>Z", NULL, NULL },
-    { "ToolsPolyline", NULL, N_("Polyline"), "<alt><shift>Y", NULL },
-    { "ToolsBezierline", NULL, N_("Bezierline"), "<alt><shift>C", NULL, NULL },
-    { "ToolsOutline", NULL, N_("Outline"), "<alt><shift>O", NULL, NULL },
+    { "ToolsLine", NULL, N_("Line"), "L", NULL, NULL },
+    { "ToolsArc", NULL, N_("Arc"), "A", NULL, NULL },
+    { "ToolsZigzagline", NULL, N_("Zigzagline"), "Z", NULL, NULL },
+    { "ToolsPolyline", NULL, N_("Polyline"), "Y", NULL },
+    { "ToolsBezierline", NULL, N_("Bezierline"), "C", NULL, NULL },
+    { "ToolsOutline", NULL, N_("Outline"), "O", NULL, NULL },
 
-    { "ToolsImage", NULL, N_("Image"), "<alt><shift>I", NULL, NULL },
+    { "ToolsImage", NULL, N_("Image"), "I", NULL, NULL },
 };
 
 /* Toggle-Actions for diagram window */
@@ -1196,67 +1196,6 @@ menus_clear_recent (void)
     g_object_unref (G_OBJECT (recent_actions));
     recent_actions = NULL;
   }
-}
-
-void 
-menus_initialize_updatable_items (UpdatableMenuItems *items, GtkActionGroup *actions)
-{
-  if (actions == NULL) {
-    actions = display_actions;
-  }
-    items->undo = gtk_action_group_get_action (actions, "EditUndo");
-    items->redo = gtk_action_group_get_action (actions, "EditRedo");
-
-    items->copy = gtk_action_group_get_action (actions, "EditCopy");
-    items->cut = gtk_action_group_get_action (actions, "EditCut");
-    items->paste = gtk_action_group_get_action (actions, "EditPaste");
-    items->edit_delete = gtk_action_group_get_action (actions, "EditDelete");
-    items->edit_duplicate = gtk_action_group_get_action (actions, "EditDuplicate");
-
-    items->copy_text = gtk_action_group_get_action (actions, "EditCopytext");
-    items->cut_text = gtk_action_group_get_action (actions, "EditCuttext");
-    items->paste_text = gtk_action_group_get_action (actions, "EditPastetext");
-
-    items->send_to_back = gtk_action_group_get_action (actions, "ObjectsSendtoback");
-    items->bring_to_front = gtk_action_group_get_action (actions, "ObjectsBringtofront");
-    items->send_backwards = gtk_action_group_get_action (actions, "ObjectsSendbackwards");
-    items->bring_forwards = gtk_action_group_get_action (actions, "ObjectsBringforwards");
-
-    items->objects_layer_above = gtk_action_group_get_action (actions, "ObjectsLayerAbove");
-    items->objects_layer_below = gtk_action_group_get_action (actions, "ObjectsLayerBelow");
-  
-    items->group = gtk_action_group_get_action (actions, "ObjectsGroup");
-    items->ungroup = gtk_action_group_get_action (actions, "ObjectsUngroup");
-
-    items->parent = gtk_action_group_get_action (actions, "ObjectsParent");
-    items->unparent = gtk_action_group_get_action (actions, "ObjectsUnparent");
-    items->unparent_children = gtk_action_group_get_action (actions, "ObjectsUnparentchildren");
-
-    items->align_h_l = gtk_action_group_get_action (actions, "ObjectsAlignLeft");
-    items->align_h_c = gtk_action_group_get_action (actions, "ObjectsAlignCenter");
-    items->align_h_r = gtk_action_group_get_action (actions, "ObjectsAlignRight");
-    items->align_h_e = gtk_action_group_get_action (actions, "ObjectsAlignSpreadouthorizontally");
-    items->align_h_a = gtk_action_group_get_action (actions, "ObjectsAlignAdjacent");
-    items->align_v_t = gtk_action_group_get_action (actions, "ObjectsAlignTop");
-    items->align_v_c = gtk_action_group_get_action (actions, "ObjectsAlignMiddle");
-    items->align_v_b = gtk_action_group_get_action (actions, "ObjectsAlignBottom");
-    items->align_v_e = gtk_action_group_get_action (actions, "ObjectsAlignSpreadoutvertically");
-    items->align_v_a = gtk_action_group_get_action (actions, "ObjectsAlignStacked");
-
-    items->properties = gtk_action_group_get_action (actions, "ObjectsProperties");
-
-    items->select_all = gtk_action_group_get_action (actions, "SelectAll");
-    items->select_none = gtk_action_group_get_action (actions, "SelectNone");
-    items->select_invert = gtk_action_group_get_action (actions, "SelectInvert");
-    items->select_transitive = gtk_action_group_get_action (actions, "SelectTransitive");
-    items->select_connected = gtk_action_group_get_action (actions, "SelectConnected");
-    items->select_same_type = gtk_action_group_get_action (actions, "SelectSametype");
-
-    items->select_replace = gtk_action_group_get_action (actions, "SelectReplace");
-    items->select_union = gtk_action_group_get_action (actions, "SelectUnion");
-    items->select_intersection = gtk_action_group_get_action (actions, "SelectIntersection");
-    items->select_remove = gtk_action_group_get_action (actions, "SelectRemove");
-    items->select_inverse = gtk_action_group_get_action (actions, "SelectInverse");
 }
 
 static void

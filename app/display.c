@@ -242,9 +242,6 @@ copy_display(DDisplay *orig_ddisp)
   
   ddisp = g_new0(DDisplay,1);
 
-  /* initialize the whole struct to 0 so that we are sure to catch errors.*/
-  memset (&ddisp->updatable_menu_items, 0, sizeof (UpdatableMenuItems));
-  
   ddisp->diagram = orig_ddisp->diagram;
   /* Every display has its own reference */
   g_object_ref(dia);
@@ -286,9 +283,6 @@ new_display(Diagram *dia)
   
   ddisp = g_new0(DDisplay,1);
 
-  /* initialize the whole struct to 0 so that we are sure to catch errors.*/
-  memset (&ddisp->updatable_menu_items, 0, sizeof (UpdatableMenuItems));
-  
   ddisp->diagram = dia;
   /* Every display has it's own reference */
   g_object_ref(dia);
@@ -1262,13 +1256,8 @@ ddisplay_do_update_menu_sensitivity (DDisplay *ddisp)
     if (ddisp == NULL) {
       return;
     }
-    dia = ddisp->diagram; 
-    if (ddisp->menu_bar) {
-	diagram_update_menubar_sensitivity(dia, &ddisp->updatable_menu_items);
-    }
-    else {
-	diagram_update_popupmenu_sensitivity(dia);
-    }
+    dia = ddisp->diagram;
+    diagram_update_menu_sensitivity (dia);
 }
 
 

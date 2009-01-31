@@ -496,118 +496,132 @@ object_within_parent(DiaObject *obj, DiaObject *p)
   TODO: move it to the DDisplay as it belongs to it IMHO
  */
 void 
-diagram_update_menu_sensitivity (Diagram *dia, UpdatableMenuItems *items)
+diagram_update_menu_sensitivity (Diagram *dia)
 {
   gint selected_count = g_list_length (dia->data->selected);
   DDisplay *ddisp = ddisplay_active();
   gboolean focus_active = (get_active_focus(dia->data) != NULL);
   gboolean textedit_active = ddisp ? textedit_mode(ddisp) : FALSE;
+  GtkAction *action;
 
   /* Edit menu */
-  gtk_action_set_sensitive (items->undo, 
-			    undo_available(dia->undo, TRUE));
-  gtk_action_set_sensitive (items->redo, 
-			    undo_available(dia->undo, FALSE));
+  if ((action = menus_get_action ("EditUndo")) != NULL)
+    gtk_action_set_sensitive (action, dia ? undo_available(dia->undo, TRUE) : FALSE);
+  if ((action = menus_get_action ("EditRedo")) != NULL)
+    gtk_action_set_sensitive (action, dia ? undo_available(dia->undo, FALSE) : FALSE);
+  if ((action = menus_get_action ("EditCopy")) != NULL)
+    gtk_action_set_sensitive (action, textedit_active || selected_count > 0);
+  if ((action = menus_get_action ("EditCut")) != NULL)
+    gtk_action_set_sensitive (action, textedit_mode(ddisp) || selected_count > 0);
+  if ((action = menus_get_action ("EditPaste")) != NULL)
+    gtk_action_set_sensitive (action, textedit_active || cnp_exist_stored_objects());
+  if ((action = menus_get_action ("EditDelete")) != NULL)
+    gtk_action_set_sensitive (action, !textedit_active && selected_count > 0);
+  if ((action = menus_get_action ("EditDuplicate")) != NULL)
+    gtk_action_set_sensitive (action, !textedit_active && selected_count > 0);
 
-  gtk_action_set_sensitive (items->copy, 
-			    textedit_active || selected_count > 0);
-  gtk_action_set_sensitive (items->cut, 
-			    textedit_mode(ddisp) || selected_count > 0);
-  gtk_action_set_sensitive (items->paste, 
-			    textedit_active || cnp_exist_stored_objects());
-  gtk_action_set_sensitive (items->edit_delete, 
-			    !textedit_active && selected_count > 0);
-  gtk_action_set_sensitive (items->edit_duplicate,
-			    !textedit_active && selected_count > 0);
+  if ((action = menus_get_action ("EditCopytext")) != NULL)
+    gtk_action_set_sensitive (action, focus_active);
+  if ((action = menus_get_action ("EditCuttext")) != NULL)
+    gtk_action_set_sensitive (action, focus_active);
+  if ((action = menus_get_action ("EditPastetext")) != NULL)
+    gtk_action_set_sensitive (action, focus_active);
 
-  gtk_action_set_sensitive (items->copy_text, focus_active);
-  gtk_action_set_sensitive (items->cut_text, focus_active);
-  gtk_action_set_sensitive (items->paste_text, focus_active);
-  
   /* Objects menu */
-  gtk_action_set_sensitive (items->send_to_back, 
-			    !textedit_active && selected_count > 0);
-  gtk_action_set_sensitive (items->bring_to_front, 
-			    !textedit_active && selected_count > 0);
-  gtk_action_set_sensitive (items->send_backwards, 
-			    !textedit_active && selected_count > 0);
-  gtk_action_set_sensitive (items->bring_forwards, 
-			    !textedit_active && selected_count > 0);
-    
-  gtk_action_set_sensitive (items->objects_layer_above, 
-			    !textedit_active && selected_count > 0);
-  gtk_action_set_sensitive (items->objects_layer_below, 
-			    !textedit_active && selected_count > 0);
+  if ((action = menus_get_action ("ObjectsSendtoback")) != NULL)
+    gtk_action_set_sensitive (action, !textedit_active && selected_count > 0);
+  if ((action = menus_get_action ("ObjectsBringtofront")) != NULL)
+    gtk_action_set_sensitive (action, !textedit_active && selected_count > 0);
+  if ((action = menus_get_action ("ObjectsSendbackwards")) != NULL)
+    gtk_action_set_sensitive (action, !textedit_active && selected_count > 0);
+  if ((action = menus_get_action ("ObjectsBringforwards")) != NULL)
+    gtk_action_set_sensitive (action, !textedit_active && selected_count > 0);
 
-  gtk_action_set_sensitive (items->parent, 
-			    !textedit_active && diagram_selected_can_parent (dia));
-  gtk_action_set_sensitive (items->unparent, 
-			    !textedit_active && diagram_selected_any_children (dia));
-  gtk_action_set_sensitive (items->unparent_children,
-			    !textedit_active && diagram_selected_any_parents (dia));
-  gtk_action_set_sensitive (items->group, 
-			    !textedit_active && selected_count > 1);
-  gtk_action_set_sensitive (items->ungroup, 
-			    !textedit_active && diagram_selected_any_groups (dia));
-  gtk_action_set_sensitive (items->properties, selected_count > 0);
-  
+  if ((action = menus_get_action ("ObjectsLayerAbove")) != NULL)
+    gtk_action_set_sensitive (action, !textedit_active && selected_count > 0);
+  if ((action = menus_get_action ("ObjectsLayerBelow")) != NULL)
+    gtk_action_set_sensitive (action, !textedit_active && selected_count > 0);
+
+  if ((action = menus_get_action ("ObjectsGroup")) != NULL)
+    gtk_action_set_sensitive (action, !textedit_active && selected_count > 1);
+  if ((action = menus_get_action ("ObjectsUngroup")) != NULL)
+    gtk_action_set_sensitive (action, !textedit_active && diagram_selected_any_groups (dia));
+  if ((action = menus_get_action ("ObjectsParent")) != NULL)
+    gtk_action_set_sensitive (action, !textedit_active && diagram_selected_can_parent (dia));
+  if ((action = menus_get_action ("ObjectsUnparent")) != NULL)
+    gtk_action_set_sensitive (action, !textedit_active && diagram_selected_any_children (dia));
+  if ((action = menus_get_action ("ObjectsUnparentchildren")) != NULL)
+    gtk_action_set_sensitive (action, !textedit_active && diagram_selected_any_parents (dia));
+
+  if ((action = menus_get_action ("ObjectsProperties")) != NULL)
+    gtk_action_set_sensitive (action, selected_count > 0);
+
   /* Objects->Align menu */
-  gtk_action_set_sensitive (items->align_h_l, 
-			    !textedit_active && selected_count > 1);
-  gtk_action_set_sensitive (items->align_h_c, 
-			    !textedit_active && selected_count > 1);
-  gtk_action_set_sensitive (items->align_h_r, 
-			    !textedit_active && selected_count > 1);
-  gtk_action_set_sensitive (items->align_h_e, 
-			    !textedit_active && selected_count > 1);
-  gtk_action_set_sensitive (items->align_h_a, 
-			    !textedit_active && selected_count > 1);
-  gtk_action_set_sensitive (items->align_v_t, 
-			    !textedit_active && selected_count > 1);
-  gtk_action_set_sensitive (items->align_v_c, 
-			    !textedit_active && selected_count > 1);
-  gtk_action_set_sensitive (items->align_v_b, 
-			    !textedit_active && selected_count > 1);
-  gtk_action_set_sensitive (items->align_v_e, 
-			    !textedit_active && selected_count > 1);
-  gtk_action_set_sensitive (items->align_v_a, 
-			    !textedit_active && selected_count > 1);
+  if ((action = menus_get_action ("ObjectsAlignLeft")) != NULL)
+    gtk_action_set_sensitive (action, !textedit_active && selected_count > 1);
+  if ((action = menus_get_action ("ObjectsAlignCenter")) != NULL)
+    gtk_action_set_sensitive (action, !textedit_active && selected_count > 1);
+  if ((action = menus_get_action ("ObjectsAlignRight")) != NULL)
+    gtk_action_set_sensitive (action, !textedit_active && selected_count > 1);
+  if ((action = menus_get_action ("ObjectsAlignSpreadouthorizontally")) != NULL)
+    gtk_action_set_sensitive (action, !textedit_active && selected_count > 1);
+  if ((action = menus_get_action ("ObjectsAlignAdjacent")) != NULL)
+    gtk_action_set_sensitive (action, !textedit_active && selected_count > 1);
+  if ((action = menus_get_action ("ObjectsAlignTop")) != NULL)
+    gtk_action_set_sensitive (action, !textedit_active && selected_count > 1);
+  if ((action = menus_get_action ("ObjectsAlignMiddle")) != NULL)
+    gtk_action_set_sensitive (action, !textedit_active && selected_count > 1);
+  if ((action = menus_get_action ("ObjectsAlignBottom")) != NULL)
+    gtk_action_set_sensitive (action, !textedit_active && selected_count > 1);
+  if ((action = menus_get_action ("ObjectsAlignSpreadoutvertically")) != NULL)
+    gtk_action_set_sensitive (action, !textedit_active && selected_count > 1);
+  if ((action = menus_get_action ("ObjectsAlignStacked")) != NULL)
+    gtk_action_set_sensitive (action, !textedit_active && selected_count > 1);
 
   /* Select menu */
-  gtk_action_set_sensitive (items->select_all, !textedit_active);
-  gtk_action_set_sensitive (items->select_none, !textedit_active);
-  gtk_action_set_sensitive (items->select_invert, !textedit_active);
-  gtk_action_set_sensitive (items->select_transitive, !textedit_active);
-  gtk_action_set_sensitive (items->select_connected, !textedit_active);
-  gtk_action_set_sensitive (items->select_same_type, !textedit_active);
+  if ((action = menus_get_action ("SelectAll")) != NULL)
+    gtk_action_set_sensitive (action, !textedit_active);
+  if ((action = menus_get_action ("SelectNone")) != NULL)
+    gtk_action_set_sensitive (action, !textedit_active);
+  if ((action = menus_get_action ("SelectInvert")) != NULL)
+    gtk_action_set_sensitive (action, !textedit_active);
+  if ((action = menus_get_action ("SelectTransitive")) != NULL)
+    gtk_action_set_sensitive (action, !textedit_active);
+  if ((action = menus_get_action ("SelectConnected")) != NULL)
+    gtk_action_set_sensitive (action, !textedit_active);
+  if ((action = menus_get_action ("SelectSametype")) != NULL)
+    gtk_action_set_sensitive (action, !textedit_active);
 
-  gtk_action_set_sensitive (items->select_replace, !textedit_active);
-  gtk_action_set_sensitive (items->select_union, !textedit_active);
-  gtk_action_set_sensitive (items->select_intersection, !textedit_active);
-  gtk_action_set_sensitive (items->select_remove, !textedit_active);
-  gtk_action_set_sensitive (items->select_inverse, !textedit_active);
+  if ((action = menus_get_action ("SelectReplace")) != NULL)
+    gtk_action_set_sensitive (action, !textedit_active);
+  if ((action = menus_get_action ("SelectUnion")) != NULL)
+    gtk_action_set_sensitive (action, !textedit_active);
+  if ((action = menus_get_action ("SelectIntersection")) != NULL)
+    gtk_action_set_sensitive (action, !textedit_active);
+  if ((action = menus_get_action ("SelectRemove")) != NULL)
+    gtk_action_set_sensitive (action, !textedit_active);
+  if ((action = menus_get_action ("SelectInverse")) != NULL)
+    gtk_action_set_sensitive (action, !textedit_active);
+
+  /* Tools menu */
+  {
+    /* Keep in sync with menus.c(tool_entries) */
+    static gchar * action_names[] = {
+      "ToolsModify", "ToolsMagnify",  "ToolsTextedit",  "ToolsScroll", 
+      "ToolsText", "ToolsBox", "ToolsEllipse", "ToolsPolygon", "ToolsBeziergon",
+      "ToolsLine", "ToolsArc", "ToolsZigzagline", "ToolsPolyline","ToolsBezierline", 
+      "ToolsImage", "ToolsOutline", NULL
+    };
+    int i;
+    for (i = 0; action_names[i] != NULL; ++i) {
+      if ((action = menus_get_action (action_names[i])) != NULL)
+        gtk_action_set_sensitive (action, !textedit_active);
+    }
+  }
+  /* View menu - should not need disabling yet */
 }
     
   
-void diagram_update_menubar_sensitivity(Diagram *dia, UpdatableMenuItems *items)
-{
-  diagram_update_menu_sensitivity (dia, items);
-}
-
-
-void diagram_update_popupmenu_sensitivity(Diagram *dia)
-{
-  static int initialized = 0;
-  static UpdatableMenuItems items;
- 
-  if (initialized==0) {
-      menus_initialize_updatable_items (&items, NULL);      
-      initialized = 1;
-  }
-
-  diagram_update_menu_sensitivity (dia, &items);
-}
-
 void
 diagram_add_ddisplay(Diagram *dia, DDisplay *ddisp)
 {

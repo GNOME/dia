@@ -162,61 +162,61 @@ ToolButton tool_data[] =
   },
   { (char **) dia_zoom_tool_icon,
     N_("Magnify"),
-    "<shift><alt>M",
+    "M",
     "ToolsMagnify",
     { MAGNIFY_TOOL, NULL, NULL}
   },
   { (char **) dia_scroll_tool_icon,
     N_("Scroll around the diagram"),
-    "<shift><alt>S",
+    "S",
     "ToolsScroll",
     { SCROLL_TOOL, NULL, NULL}
   },
   { NULL,
     N_("Text"),
-    "<shift><alt>T",
+    "T",
     "ToolsText",
     { CREATE_OBJECT_TOOL, "Standard - Text", NULL }
   },
   { NULL,
     N_("Box"),
-    "<shift><alt>R",
+    "R",
     "ToolsBox",
     { CREATE_OBJECT_TOOL, "Standard - Box", NULL }
   },
   { NULL,
     N_("Ellipse"),
-    "<shift><alt>E",
+    "E",
     "ToolsEllipse",
     { CREATE_OBJECT_TOOL, "Standard - Ellipse", NULL }
   },
   { NULL,
     N_("Polygon"),
-    "<shift><alt>P",
+    "P",
     "ToolsPolygon",
     { CREATE_OBJECT_TOOL, "Standard - Polygon", NULL }
   },
   { NULL,
     N_("Beziergon"),
-    "<shift><alt>B",
+    "B",
     "ToolsBeziergon",
     { CREATE_OBJECT_TOOL, "Standard - Beziergon", NULL }
   },
   { NULL,
     N_("Line"),
-    "<shift><alt>L",
+    "L",
     "ToolsLine",
     { CREATE_OBJECT_TOOL, "Standard - Line", NULL }
   },
   { NULL,
     N_("Arc"),
-    "<shift><alt>A",
+    "A",
     "ToolsArc",
     { CREATE_OBJECT_TOOL, "Standard - Arc", NULL }
   },
   { NULL,
     N_("Zigzagline"),
-    "<shift><alt>Z",
+    "Z",
     "ToolsZigzagline",
     { CREATE_OBJECT_TOOL, "Standard - ZigZagLine", NULL }
   },
@@ -228,13 +228,13 @@ ToolButton tool_data[] =
   },
   { NULL,
     N_("Bezierline"),
-    "<shift><alt>C",
+    "C",
     "ToolsBezierline",
     { CREATE_OBJECT_TOOL, "Standard - BezierLine", NULL }
   },
   { NULL,
     N_("Image"),
-    "<shift><alt>I",
+    "I",
     "ToolsImage",
     { CREATE_OBJECT_TOOL, "Standard - Image", NULL }
   },
@@ -901,7 +901,6 @@ create_display_shell(DDisplay *ddisp,
     ddisp->menu_bar = menus_create_display_menubar (&ddisp->ui_manager, &ddisp->actions);
     g_assert (ddisp->menu_bar);
     gtk_box_pack_start (GTK_BOX (root_vbox), ddisp->menu_bar, FALSE, TRUE, 0);
-    menus_initialize_updatable_items (&ddisp->updatable_menu_items, ddisp->actions);
   }
 
   /* the statusbars */
@@ -1713,8 +1712,6 @@ create_integrated_ui (void)
   gnome_app_set_menus (GNOME_APP (window), GTK_MENU_BAR (menubar));
 #else
   gtk_box_pack_start (GTK_BOX (main_vbox), menubar, FALSE, TRUE, 0);
-  /* TODO: integrated-UI --> Figure out how to deal with updateable menu items!!! 
-  menus_initialize_updatable_items (&ddisp->updatable_menu_items, ddisp->actions); */
   gtk_widget_show (menubar);
 #endif
 

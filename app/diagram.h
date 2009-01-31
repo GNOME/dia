@@ -125,9 +125,7 @@ real diagram_find_closest_connectionpoint(Diagram *dia,
 					  DiaObject *notthis);
 void diagram_update_extents(Diagram *dia);
 
-void diagram_update_menu_sensitivity (Diagram *dia, UpdatableMenuItems *items);
-void diagram_update_menubar_sensitivity(Diagram *dia, UpdatableMenuItems *items);
-void diagram_update_popupmenu_sensitivity(Diagram *dia);
+void diagram_update_menu_sensitivity (Diagram *dia);
 
 void diagram_place_under_selected(Diagram *dia);
 void diagram_place_over_selected(Diagram *dia);
