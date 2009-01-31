@@ -66,8 +66,8 @@ sheet_prepend_sheet_obj(Sheet *sheet, SheetObject *obj)
 
   type = object_get_type(obj->object_type);
   if (type == NULL) {
-    message_warning("DiaObject '%s' needed in sheet '%s' was not found.\n"
-		    "It will not be available for use.",
+    message_warning(_("DiaObject '%s' needed in sheet '%s' was not found.\n"
+		      "It will not be available for use."),
 		    obj->object_type, sheet->name);
   } else {
     sheet->objects = g_slist_prepend( sheet->objects, (gpointer) obj);
@@ -81,9 +81,9 @@ sheet_append_sheet_obj(Sheet *sheet, SheetObject *obj)
 
   type = object_get_type(obj->object_type);
   if (type == NULL) {
-    message_warning("DiaObject '%s' needed in sheet '%s' was not found.\n"
-		    "It will not be availible for use.",
-		    obj->object_type, sheet->name);
+    message_warning(_("DiaObject '%s' needed in sheet '%s' was not found.\n"
+		      "It will not be availible for use."),
+		      obj->object_type, sheet->name);
   } else {
     sheet->objects = g_slist_append( sheet->objects, (gpointer) obj);
   }
@@ -311,14 +311,14 @@ load_register_sheet(const gchar *dirname, const gchar *filename,
       if (this_file.st_mtime > first_file.st_mtime)
       {
         gchar *tmp = g_strdup_printf("%s [Copy of system]", name);
-        message_notice("The system sheet '%s' appears to be more recent"
-                       " than your custom\n"
-                       "version and has been loaded as '%s' for this session."
-                       "\n\n"
-                       "Move new objects (if any) from '%s' into your custom"
-                       " sheet\n"
-                       "or remove '%s', using the 'Sheets and Objects' dialog.",
-                       name, tmp, tmp, tmp);
+        message_notice(_("The system sheet '%s' appears to be more recent"
+                         " than your custom\n"
+                         "version and has been loaded as '%s' for this session."
+                         "\n\n"
+                         "Move new objects (if any) from '%s' into your custom"
+                         " sheet\n"
+                         "or remove '%s', using the 'Sheets and Objects' dialog."),
+                         name, tmp, tmp, tmp);
         xmlFree(name);
         name = tmp;
         name_is_gmalloced = TRUE;
@@ -368,7 +368,7 @@ load_register_sheet(const gchar *dirname, const gchar *filename,
     if (!xmlStrcmp(node->name, (const xmlChar *)"object")) {
       /* nothing */
     } else if (!xmlStrcmp(node->name, (const xmlChar *)"shape")) {
-      g_message("%s: you should use object tags rather than shape tags now",
+      g_message(_("%s: you should use object tags rather than shape tags now"),
                 filename);
     } else if (!xmlStrcmp(node->name, (const xmlChar *)"br")) {
       /* Line break tag. */

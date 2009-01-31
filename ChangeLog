@@ -1,5 +1,8 @@
 2009-01-31  Hans Breuer  <hans@breuer.org>
 
+	* po/POTFILES.in lib/sheetc : more strings to translate ;)
+	* doc/en/Makefile.am : added new images ('make distcheck' passes)
+
 	[
 	  Huge documentation update from Mark Dexter, bug #455400, 
 	  hope I didn't break anything during merge.

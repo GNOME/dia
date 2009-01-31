@@ -61,6 +61,7 @@ lib/propdialogs.c
 lib/properties.c
 lib/properties.h
 lib/proplist.c
+lib/sheet.c
 lib/text.c
 lib/widgets.c
 objects/AADL/aadl.c

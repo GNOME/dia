@@ -56,12 +56,90 @@ EXTRA_DIST += \
 ##	graphics/greendots.png
 
 pngfigures = \
+	graphics/adjacent.png \
+	graphics/flowchart-shapes.png \
+	graphics/after-hor-spread.png \
 	graphics/greendots.png \
-	graphics/line_icon.png \
-	graphics/color_selector.png \
+	graphics/after-vert-spread.png \
 	graphics/home_network.png \
+	graphics/align-bottom.png \
+	graphics/line-arrows.png \
+	graphics/align-center.png \
+	graphics/line-buttons.png \
+	graphics/align-left.png \
+	graphics/line-colors.png \
+	graphics/align-menu.png \
+	graphics/line-connect.png \
+	graphics/align-middle.png \
+	graphics/line-handles.png \
+	graphics/align-right.png \
+	graphics/line-styles.png \
+	graphics/align-top.png \
+	graphics/line-width.png \
+	graphics/arrow-style.png \
+	graphics/line_icon.png \
+	graphics/assorted-shapes.png \
 	graphics/line_props.png \
-	graphics/preferences_fig.png
+	graphics/before-hor-spread.png \
+	graphics/misc-shapes.png \
+	graphics/before-left.png \
+	graphics/network-shapes.png \
+	graphics/before-top.png \
+	graphics/object-group.png \
+	graphics/before-vert-spread.png \
+	graphics/polyline-rightclick.png \
+	graphics/bezierline-rightclick.png \
+	graphics/preferences-fig.png \
+	graphics/canvas-zoom.png \
+	graphics/preferences-gridlines.png \
+	graphics/cisco-computer-shapes.png \
+	graphics/preferences_fig.png \
+	graphics/cisco-misc-shapes.png \
+	graphics/properties-uml-class1.png \
+	graphics/cisco-network-shapes.png \
+	graphics/reverse-colors.png \
+	graphics/cisco-switch-shapes.png \
+	graphics/ruler-arrows.png \
+	graphics/cisco-telephony-shapes.png \
+	graphics/sample-flowchart.png \
+	graphics/color-dropdown.png \
+	graphics/select-area.png \
+	graphics/color-selector1.png \
+	graphics/select-menu.png \
+	graphics/color_selector.png \
+	graphics/selected-object.png \
+	graphics/connect-fixed.png \
+	graphics/sheets-objects.png \
+	graphics/connect-middle.png \
+	graphics/snaptogrid-button.png \
+	graphics/default-colors.png \
+	graphics/stacked.png \
+	graphics/defaults-box.png \
+	graphics/standard-line-properties.png \
+	graphics/defaults-text.png \
+	graphics/toolbox-basic.png \
+	graphics/delete-text.png \
+	graphics/toolbox-image.png \
+	graphics/dia-startup.png \
+	graphics/toolbox-lower.png \
+	graphics/diagram-properties-grid.png \
+	graphics/toolbox-magnify.png \
+	graphics/diagram-properties.png \
+	graphics/toolbox-modify.png \
+	graphics/diagram-tree-sort.png \
+	graphics/toolbox-scroll.png \
+	graphics/diagram-tree.png \
+	graphics/toolbox-special.png \
+	graphics/edit-text.png \
+	graphics/toolbox.png \
+	graphics/file-preferences-diagram.png \
+	graphics/uml-shapes.png \
+	graphics/file-preferences-tree.png \
+	graphics/view-menu.png \
+	graphics/file-preferences-ui.png \
+	graphics/view-zoom.png \
+	graphics/file-preferences-view.png \
+	graphics/zigzagline-rightclick.png
 
 
 epsfigures = \
