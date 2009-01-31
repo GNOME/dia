@@ -24,6 +24,9 @@
     <object name="Misc - Measure" intdata="0">
       <_description>Measure distance</_description>
     </object>
+    <object name="Misc - Grid">
+      <_description>Resizable grid</_description>
+    </object>
     <object name="Misc - NewGroup">
       <_description>New-style group object, for testing</_description>
     </object>

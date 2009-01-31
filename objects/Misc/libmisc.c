@@ -29,6 +29,7 @@
 #include "plug-ins.h"
 
 extern DiaObjectType analog_clock_type;
+extern DiaObjectType grid_object_type;
 extern DiaObjectType tree_type;
 extern DiaObjectType measure_type;
 
@@ -42,6 +43,7 @@ dia_plugin_init(PluginInfo *info)
     return DIA_PLUGIN_INIT_ERROR;
 
   object_register_type(&analog_clock_type);  
+  object_register_type(&grid_object_type);  
   object_register_type(&tree_type);
   object_register_type(&measure_type);
 
