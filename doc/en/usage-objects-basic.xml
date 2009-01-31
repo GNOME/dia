@@ -1,21 +1,37 @@
-<chapter label="5" id="basic-objects-chapter">
-<title>Basic Objects</title>
-<sect1 id="basic-objects-introduction">
-<title>Basic Objects Introduction</title>
-  <para>
-   The first, and most common type of object is the basic object.  Basic objects normally are geometric shapes, which can be customized.  <application>Dia</application> offers
-the user numerous basic objects.
-  </para>
-  <sect2 id="text">
-  <title>Text</title>
-   <para>
-    <application>Dia</application> supports the use of text as its own type of
-    object.  Text can be placed on the canvas by clicking on the text button on
-    the toolbox.
-   </para>
-   <para>
+  <chapter label="5" id="basic-objects-chapter">
+  <title>Basic Objects</title>
+  <sect1 id="basic-objects-introduction">
+  <title>Basic Objects Introduction</title>
+        <figure>
+         <title>Basic Objects</title>
+         <screenshot>
+           <screeninfo>Basic Objects</screeninfo>
+           <graphic format="PNG" fileref="graphics/toolbox-basic.&pngfile;" 
+  				 srccredit= "Mark Dexter" />
+         </screenshot>
+       </figure>
+    <para>
+     <application>Dia</application> has 11 basic objects: Text, Box, Ellipse,
+  	 Polygon, Beziergon, Line, Arc, Zigzagline, Polyline, Bezierline, and Image. 
+  	 </para>
+    <sect2 id="text">
+    <title>Text</title>
+     <para>
+      <application>Dia</application> supports the use of text as its own type of
+      object.  Text can be placed on the canvas by clicking on the text button on
+      the toolbox. For tips on editing text, see 
+  		
+  			<link linkend="entering-text">Entering Text</link> in the Using 
+  			Objects chapter.
+      </para>
+     <note>
+      <para>
+       Text in <application>Dia</application> can use any font available to Gnome.
+      </para>
+      </note>
+      <para>
 The text object, and several other objects, offers direct text entry in the
-dia gram.  Text can be entered by selecting the object and then typing the text. The font,
+diagram.  Text can be entered by selecting the object and then typing the text. The font,
 size, and other formatting properties can be changed by double-clicking the
 object.
 </para>
@@ -26,9 +42,9 @@ Here are some important tips regarding short-cut keys when entering text.
 <itemizedlist>
 <listitem>
 <para>
-The normal Copy / Cut / Paste keys (CTRL-C, CTRL-X, CTRL-V) don't work for
-text. They work for entire objects. Use CTRL-SHIFT-X to cut and 
-CTRL-SHIFT-V to paste just the text in an object. There is no shortcut to copy
+The normal Copy / Cut / Paste keys (Ctrl+C, Ctrl+X, Ctrl+V) don't work for
+text. They work for entire objects. Use Ctrl+Shift+X to cut and 
+Ctrl+Shift+V to paste just the text in an object. There is no shortcut to copy
 just the text. 
 </para>
 <note><para>When you paste text into an object, the text is
@@ -44,9 +60,11 @@ Backspace.
 </para>
 <note><para>
 The DEL key deletes the entire object, not the text
-to the right of the cursor. Use SHIFT-DEL to delete the text to the right of
-the cursor. (Use Edit / Undo or CTRL-Z if you delete an object by mistake.) To
-delete all of the text in an object, use the Cut (CTRL-SHIFT-X). 
+to the right of the cursor. Use Shift+DEL to delete the text to the right of
+the cursor. (Use <menuchoice><guimenu>Edit</guimenu>
+            <guimenuitem>Undo</guimenuitem></menuchoice>
+						 or Ctrl+Z if you delete an object by mistake.) To
+delete all of the text in an object, use the Cut (Ctrl+Shift+X). 
 </para></note>
 </listitem>
 
@@ -54,7 +72,7 @@ delete all of the text in an object, use the Cut (CTRL-SHIFT-X).
  If you are using a non-default font or font size, one trick for productivity
 is to create a palette of empty objects with the desired font settings on a
 separate diagram. Then copy and paste these objects onto your working diagram
-as you need them (i.e., instead of using the toolbar).
+as you need them (i.e., instead of using the Toolbox icons).
 </para></listitem>
 </itemizedlist>
    <note>
@@ -108,68 +126,214 @@ as you need them (i.e., instead of using the toolbar).
    <sect2 id="line">
    <title>Line</title> 
     <para>
-     A line simply...a line.  <!--fix this wording...it sucks--> Refer to the
-     customizing a line section to find more information about a line.
+     A Line is a simple straight line. Unlike the other lines, the simple Line
+		 does not have any handles to allow the shape to be altered. It just has
+		 two connection handles, one at each end. 
     </para>
    </sect2>
    <sect2 id="arc">
    <title>Arc</title>
     <para>
-     An arc is a line which has been bent to create a semi-circle shape.
+     An Arc is a line which has been bent to create a semi-circle shape. Drag the 
+		 orange handle in the middle to alter the curve of the arc.
     </para>
    </sect2>
    <sect2 id="zigzagline">
-   <title>Zigzag Line</title>
+   <title>Zigzagline</title>
     <para>
-     A zigzag line is a line which has sharp, 90 degree turns in it.  They hold
-     visual similarities to staircases.
+     A Zigzagline is a line which has sharp, 90 degree turns in it.  
+		 Zigzaglines have two special properties, 
+		 Corner radius and Autoroute. Corner radius allows you to round the corners
+		 of the line. On the Properties page, enter a number 
+		 between 0 and 10.00, where 0 = square corners and 10.00 = maximally-rounded
+		 corners. 
+		 </para>
+		 <para>
+		 Autoroute is a yes/no property. If yes, the line is automatically
+		 routed between the start and end points with the minimum number of 
+		 segments. If you move or change the shape of 
+		 the line, the Autoroute property is automatically set to no. Autoroute can
+		 be set on the Properties page or using the right-click menu.
     </para>
+		<para>
+		Zigzaglines also allow you to add or delete line segments. This can be useful
+		if you need the line to turn several corners (e.g., to traverse around some
+		other objects) or to get the arrow pointed in the right direction. To add or
+		delete a segment, right-click on the line at the point on the line 
+		where you want to add or delete and select Add segment or Delete segment.
+		</para>
+				    <figure>
+      <title>Zigzagline Right-Click Menu</title>
+     <screenshot>
+      <screeninfo>Zigzagline Right-Click Menu</screeninfo>
+      <graphic format="PNG" fileref="graphics/zigzagline-rightclick.&pngfile;" 
+			srccredit=
+      "Mark Dexter" />
+			 </screenshot>
+    </figure>	 
    </sect2>
    <sect2 id="polyline">
-   <title>Poly Line</title>
+   <title>Polyline</title>
     <para>
-     A poly-line is like a zigzagline, but does not necessarily have to have
-     90 degree turns to it.  The angles can be customized.
+     A Polyline has multiple segments like a zigzagline, but can have turns
+		 of any angle. A Polyline starts with one segment. You add more segments 
+		 by right-clicking and selecting Add segment from the menu. Like the Zigzagline, 
+		 the Polyline has a Corner radius value between 0 and 10.00, where 0 = sharp
+		 corners and 10.00 = maximally-rounded corners.  
     </para>
+						    <figure>
+      <title>Polyline Right-Click Menu</title>
+     <screenshot>
+      <screeninfo>Polyline Right-Click Menu</screeninfo>
+      <graphic format="PNG" fileref="graphics/polyline-rightclick.&pngfile;" 
+			srccredit=
+      "Mark Dexter" />
+			 </screenshot>
+    </figure>	 
    </sect2>
    <sect2 id="bezier">
-   <title>Bezier Line</title>
+   <title>Bezierline</title>
     <para>
-     A bezier line is a line which has curves in it.  The bezier line tool is
+     A Bezierline is a line which has curves in it.  The Bezierline's shape is
      edited by clicking and dragging the green and orange dots.  The green dots
      customize the size while the orange dots customize the angles at which the
-     line curves at.
-    </para>
+     line curves. With a right-click menu, you can add or delete segments. If 
+		 you add one or more segments, three additional properties are available.
+		    </para>
+				<itemizedlist>
+        <listitem><para>
+				Symmetric control causes any dragging action on the added segment to be 
+				symmetrical around this point.
+				</para></listitem>
+					<listitem><para>
+				Smooth control allows you to pull away from the middle point  
+				independently but rotations around the middle point are symmetrical.
+				</para></listitem>
+					<listitem><para>
+				Cusp control allows you to drag each handle  
+				independently, and actions on one handle have no effect on the other one.
+				</para></listitem></itemizedlist>
+									    <figure>
+      <title>Bezierline Right-Click Menu</title>
+     <screenshot>
+      <screeninfo>Bezierline Right-Click Menu</screeninfo>
+      <graphic format="PNG" fileref="graphics/bezierline-rightclick.&pngfile;" 
+			srccredit=
+      "Mark Dexter" />
+			 </screenshot>
+    </figure>	
    </sect2>
+	 	 			   <sect2 id="line-properties">
+   <title>Line Properties</title>
+ 		<para>
+		All lines share the following properties: width, color, style, 
+		and arrows. These properties may be edited using the Properties
+		dialog box shown below. 
+		</para>
+		    <figure>
+      <title>Standard Line Properties</title>
+     <screenshot>
+      <screeninfo>Standard Line Properties</screeninfo>
+      <graphic format="PNG" fileref="graphics/standard-line-properties.&pngfile;" 
+			srccredit=   "Mark Dexter" />
+      </screenshot>
+    </figure>
+      <sect3 id="line-thickness">
+   <title>Line Width</title>
+    <para>
+     The line width is measured in centimeters and can be entered manually
+		 or by using the increment / decrement buttons.
+    </para>
+   </sect3>
+	    <sect3 id="line-colors">
+   <title>Line Color</title>
+	     <figure>
+      <title>Line Colors</title>
+     <screenshot>
+      <screeninfo>Line Colors</screeninfo>
+      <graphic format="PNG" fileref="graphics/line-colors.&pngfile;" 
+			srccredit=   "Mark Dexter" />
+      </screenshot>
+    </figure>
+    <para>
+     Line colors are edited by opening the Line color drop-down listbox and either
+		 selecting one of the choices on the list or "More colors...", which opens the
+		 Select color dialog. 
+		 See <link linkend="colors">Colors</link> for more information on 
+		 selecting colors.
+    </para>
+   </sect3>
+   <sect3 id="line-styles">
+   <title>Line Style</title>
+  	     <figure>
+      <title>Line Styles</title>
+     <screenshot>
+      <screeninfo>Line Styles</screeninfo>
+      <graphic format="PNG" fileref="graphics/line-styles.&pngfile;" 
+			srccredit=   "Mark Dexter" />
+      </screenshot>
+    </figure>
+	  <para>
+     The style of the line (solid, dots, etc.) can be changed 
+		 to one of the five options shown above using 
+		 the Line style drop-down listbox. If you select a line style with dashes, 
+		 you may also enter a dash length, measured in centimeters.
+ </para>
+   </sect3>
+
+   <sect3 id="arrows">
+   <title>Arrows</title>
+	  	     <figure>
+      <title>Line Arrows</title>
+     <screenshot>
+      <screeninfo>Line Arrows</screeninfo>
+      <graphic format="PNG" fileref="graphics/line-arrows.&pngfile;" 
+			srccredit=   "Mark Dexter" />
+      </screenshot>
+    </figure>
+    <para>
+     The start and end arrow style can be changed using the drop-down listboxes
+		 in the dialog. A large number of options are available. If you don't want
+		 any arrow, just select the plain line at the top of the list.
+    </para>
+   </sect3>
+	 </sect2>
    <sect2 id="image">
    <title>Images</title>
+     <figure>
+      <title>Image</title>
+            <screenshot>
+                <screeninfo>Image</screeninfo>
+                <graphic format="PNG"
+                         fileref="graphics/toolbox-image.&pngfile;"
+                         srccredit="Mark Dexter" />
+            </screenshot>
+      </figure>	
     <para>
-     The <application>Dia</application> canvas can have pictures inside of it,
-     as well as shapes.
-    </para>
-    <para>
-     To add an image, click on the image button and then add it to the canvas.
-     An object that says "Broken Image" will appear.  Double-click to
-     open the properties.  Click on "Browse" and select your file.  Click "OK"
-     and then the image will be updated accordingly.
+     A diagram can contain images as well as shapes.
+      To add an image, click on the Image icon and click on the canvas.
+     An object that says "Broken Image" will appear.  Double-click it to
+     open the properties dialog.  Then click on "Browse" and select your file.  
+		 Click "OK" and then the image will display on the diagram. 
+		 You can resize the image as desired using the object handles.
     </para>
     <para>Currently the following image formats are supported for inclusion in
       <application>Dia</application> diagrams:
       <itemizedlist>
-        <listitem><para>ANI</para></listitem>
-	<listitem><para>BMP</para></listitem>
-	<listitem><para>GIF</para></listitem>
-	<listitem><para>ICO</para></listitem>
-	<listitem><para>JPEG</para></listitem>
-	<listitem><para>PNG</para></listitem>
-	<listitem><para>PNM</para></listitem>
-	<listitem><para>RAS</para></listitem>
-	<listitem><para>SVG</para></listitem>
-	<listitem><para>TGA</para></listitem>
-	<listitem><para>TIFF</para></listitem>
-	<listitem><para>WMF</para></listitem>
-	<listitem><para>XBM</para></listitem>
-	<listitem><para>XPM</para></listitem>
+        <listitem><simpara>ANI</simpara></listitem>
+	<listitem><simpara>BMP</simpara></listitem>
+	<listitem><simpara>GIF</simpara></listitem>
+	<listitem><simpara>ICO</simpara></listitem>
+	<listitem><simpara>JPEG</simpara></listitem>
+	<listitem><simpara>PNG</simpara></listitem>
+	<listitem><simpara>PNM</simpara></listitem>
+	<listitem><simpara>RAS</simpara></listitem>
+	<listitem><simpara>SVG</simpara></listitem>
+	<listitem><simpara>TGA</simpara></listitem>
+	<listitem><simpara>TIFF</simpara></listitem>
+	<listitem><simpara>WMF</simpara></listitem>
+	<listitem><simpara>XBM</simpara></listitem>
+	<listitem><simpara>XPM</simpara></listitem>
       </itemizedlist>
     </para>
    </sect2>

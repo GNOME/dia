@@ -26,7 +26,7 @@
       </para>
     </tip>
     <para>
-      Each new diagram comes with the default layer labelled "Background". Of course you can change its name and settings to customize it to your needs as you can do with any other layer.
+      Each new diagram comes with the default layer labeled "Background". Of course you can change its name and settings to customize it to your needs as you can do with any other layer.
     </para>
     <para>
       You can use layers to create overlay slide show by drawing each incremental slide in a
@@ -146,7 +146,10 @@
     </para>
     <note>
       <para>
-        In <application>Dia</application>, <emphasis>Layers</emphasis> creation and manipulation are as common as drawing or selecting objects in the diagram. You must get your hands on them, because you will probably have to use them anytime you will want to creat a new diagram.
+        In <application>Dia</application>, <emphasis>Layers</emphasis> creation and 
+				manipulation are as common as drawing or selecting objects in the diagram. 
+				You must get your hands on them, because you will probably have to use 
+				them anytime you will want to create a new diagram.
       </para>
     </note>
   </sect1>

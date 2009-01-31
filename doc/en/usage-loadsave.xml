@@ -90,7 +90,7 @@
        </listitem>
        <listitem>
         <para>
-          GdkPixbuf bitmpa graphics (.bmp, .gif, .jpg, .png, .pnm, .ras, .tif)
+          GdkPixbuf bitmap graphics (.bmp, .gif, .jpg, .png, .pnm, .ras, .tif)
         </para>
        </listitem>
       </itemizedlist> 

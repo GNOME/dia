@@ -1,5 +1,22 @@
 2009-01-31  Hans Breuer  <hans@breuer.org>
 
+	[
+	  Huge documentation update from Mark Dexter, bug #455400, 
+	  hope I didn't break anything during merge.
+	]
+	* doc/en/*.xml doc/en/graphics/*.png : 
+	1. major edits to the following XML files: usage-quickstart.xml,
+	usage-canvas.xml, usage-objects.xml, usage-objects-basic.xml,
+	usage-objects-special.xml, usage-objects-selecting.xml. 
+	Added documentation for items not previously documented (e.g., 
+	Diagram Tree, Sheets and Objects, etc.) and expanded other 
+	documentation.
+	2. Added 78 screenshots (for a total of 82).
+	3. Minor edit to authors.xml. (Still need to fix broken links and
+	bad e-mails).
+	4. Updated images. These changes obsolete the following bugs:
+	#347209, #439974, #144128.
+
 	* app/display.[ch] app/diagram.[ch] app/menus.[ch] : get rid of nearly
 	unmaintainable UpdatableMenuItems and a lot of ui-variant-specific code
 	by dynamic action lookup when updating sensitivity. This not only fixes

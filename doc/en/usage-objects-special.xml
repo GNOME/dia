@@ -1,141 +1,253 @@
-<chapter label="6" id="special-objects-chapter">
-<title>Special Objects</title>
- <sect1 id="special-objects">
- <title>Special Objects Introduction</title>
-   <para>
-     The previous discussion explained what a basic object is.  The next section
-     goes a step further and teaches how to create objects, how to use pre-made
-     objects which are more detailed than just shapes, and much more!
-   </para>
- </sect1>
-   <sect1 id="special-object-categories">
-   <title>Special Object Categories</title>
-     <para>
-       Special objects are broken into different categories or sheets.  
-       This way, someone creating a diagram of a circuit board is shown 
-       only the objects which apply to them.  
-       <application>Dia</application> supports numerous
-       pre-defined categories.    
-
-<!-- Please try to keep the list Alphabetically sorted.  -->
-       
-       <variablelist>
-         <varlistentry>
-           <term>Assorted</term>
-           <listitem>
-             <para>
-               Assorted Geometric Shapes.  The purpose of this sheet is to 
-	       provide a selection of simple and convenient preset shapes so 
-	       that users need not create spend time creating their own basic 
-	       shapes.  The set includes shapes with constrained ratio such as 
-	       perfect Circles, Squares, various type of Triangle and Crosses.  
-             </para>
-           </listitem>
-         </varlistentry>
-         <varlistentry>
-           <term>Chemical Engineering</term>
-           <listitem>
-             <para>
-	       A collection of shapes for modelling the process of Chemical 
-	       Engineering.  
-             </para>
-           </listitem>
-         </varlistentry>
-	 <varlistentry>
-           <term>Chronogram</term>
-           <listitem>
-             <para>
-               Uses objects to be used in a chronographic design.  
-	       These are common place in time lines.
-             </para>
-           </listitem>
-         </varlistentry>
-         <varlistentry>
-           <term>Circuit</term>
-           <listitem>
-             <para>
-               A group for people interested in creating diagrams of electrical
-               circuits.
-             </para>
-           </listitem>
-         </varlistentry>
-         <varlistentry>
-           <term>Civil</term>
-           <listitem>
-             <para>
-               Civil Engineering components.  
-             </para>
-           </listitem>
-         </varlistentry>
-	 <varlistentry>
-           <term>Cybernetics</term>
-           <listitem>
-             <para>
-               Shapes for creating diagrams of Cybernetic Circuits.  
-             </para>
-           </listitem>
-         </varlistentry>
-        <varlistentry>
-           <term>Cisco</term>
-           <listitem>
-             <para>
-               Cisco includes shapes representing equipment from Cisco a 
-	       manufacturer of Computer Networking Equipement.  
-	     </para>
-           </listitem>
-         </varlistentry>
-	 <!-- TODO fully describe all four of the Cisco Sheets -->
-         <varlistentry>
-           <term>PLC Ladder</term>
-           <listitem>
-             <para>
-               PLC 'Ladder' graphical programming (electrical
-               controls in manufacturing automation).
-             </para>
-           </listitem>
-         </varlistentry>
-         <varlistentry>
-           <term>ER</term>
-           <listitem>
-             <para>
-               Editor for Entity Relations (ER) Diagrams. 
-	       Entity Relationship diagrams are used to represent high level 
-	       descriptions of conceptual models in terms of how each data 
+  <chapter label="6" id="special-objects-chapter">
+  <title>Special Objects</title>
+      <sect1 id="special-objects">
+     <title>Special Objects</title>
+       <para>
+  		   Special objects are sets of objects designed to serve specific needs.
+         They are organized into categories called sheets. The middle section 
+  			 of the Toolbox allows you to select a sheet of special objects. When
+  			 you do this, the objects on this sheet display on the Toolbox and can
+  			 be added to your diagram just like basic objects.  
+         <application>Dia</application> supports numerous
+         predefined categories.
+  			 </para>
+  			 <para>
+  			 The predefined sheets are designed to group related objects together
+  			 so you can see all of the objects you are likely to need on the same
+  			 sheet. However, it is easy to modify the predefined sheets. See 
+  			 <link linkend="sheets-objects">Organizing Sheets and Objects</link>
+  			  for more information.
+  			 </para>
+  			 <para>
+  			 It is also possible to create your own objects and sheets without
+  			 programming. Custom shapes can be created with an XML file that 
+  			 describes the shape. See <link linkend="custom-shapes-chapter"> 
+  			 Custom Shape Module</link> for more information 
+  			 on custom shapes.
+  			 </para>   
+  			 
+  			 
+  	 <sect2 id="special-object-categories">
+     <title>Special Object Categories</title> 
+  
+  <!-- Please try to keep the list Alphabetically sorted.  -->
+         
+  
+          <sect3 id="special-assorted"> 
+             <title>Assorted</title>
+             
+  			<figure>
+         <title>Assorted</title>
+         <screenshot>
+           <screeninfo>Assorted</screeninfo>
+           <graphic format="PNG" fileref="graphics/assorted-shapes.&pngfile;" 
+  				 srccredit=	 "Mark Dexter" />
+         </screenshot>
+       </figure>
+               <para>
+                 Assorted Geometric Shapes.  The purpose of this sheet is to 
+  	       provide a selection of simple and convenient preset shapes so 
+  	       that users need not create spend time creating their own basic 
+  	       shapes.  The set includes shapes with constrained ratio such as 
+  	       perfect Circles, Squares, various type of Triangle and Crosses. 
+  				 These objects do not allow text to be entered inside the shape.
+               </para>
+             </sect3>
+  				<sect3>
+  	           <title>Chemical Engineering</title>
+    
+               <para>
+  	       A collection of shapes for modeling the process of Chemical 
+  	       Engineering.  
+               </para>
+     
+           </sect3>
+  	 <sect3>
+             <title>Chronogram</title>
+            
+               <para>
+                 Uses objects to be used in a chronographic design.  
+  	       These are common place in time lines.
+               </para>
+            
+           </sect3>
+           <sect3>
+             <title>Circuit</title>
+             
+               <para>
+                 A group for people interested in creating diagrams of electrical
+                 circuits.
+               </para>
+            
+           </sect3>
+  			 <sect3>
+  			 <title>Cisco - Computer</title>
+  	     
+  			 <figure>
+         <title>Cisco - Computer</title>
+         <screenshot>
+           <screeninfo>Cisco - Computer</screeninfo>
+           <graphic format="PNG" fileref="graphics/cisco-computer-shapes.&pngfile;" 
+  				 srccredit=	 "Mark Dexter" />
+         </screenshot>
+       </figure>
+         
+               <para>
+           Cisco - Computer includes shapes representing computer equipment from Cisco, a 
+  	       manufacturer of Computer Networking Equipment.  
+  	     </para>
+        
+           </sect3>
+  			 <sect3>
+         <title>Cisco - Misc</title>
+  			 
+  			 <figure>
+         <title>Cisco - Misc</title>
+         <screenshot>
+           <screeninfo>Cisco - Misc</screeninfo>
+           <graphic format="PNG" fileref="graphics/cisco-misc-shapes.&pngfile;" 
+  				 srccredit=	 "Mark Dexter" />
+         </screenshot>
+       </figure>
+             
+               <para>
+           Cisco - Misc includes miscellaneous shapes 
+  				 from Cisco, a manufacturer of Computer Networking Equipment.  
+  	     </para>
+         
+           </sect3>
+  			 <sect3>
+         <title>Cisco - Network</title>
+  	
+  			 <figure>
+         <title>Cisco - Network</title>
+         <screenshot>
+           <screeninfo>Cisco - Network</screeninfo>
+           <graphic format="PNG" fileref="graphics/cisco-network-shapes.&pngfile;" 
+  				 srccredit=	 "Mark Dexter" />
+         </screenshot>
+       </figure>
+             
+               <para>
+           Cisco - Network includes shapes representing network equipment from Cisco, a 
+  	       manufacturer of Computer Networking Equipment.  
+  	     </para>
+            
+           </sect3>
+  			 <sect3>
+         <title>Cisco - Switch</title>
+  		
+  			 		 <figure>
+         <title>Cisco - Switch</title>
+         <screenshot>
+           <screeninfo>Cisco - Switch</screeninfo>
+           <graphic format="PNG" fileref="graphics/cisco-switch-shapes.&pngfile;" 
+  				 srccredit=	 "Mark Dexter" />
+         </screenshot>
+       </figure>
+             
+               <para>
+           Cisco - Switch includes shapes representing switch equipment from Cisco, a 
+  	       manufacturer of Computer Networking Equipment.  
+  	     </para>
+          
+           </sect3>
+  			 <sect3>
+         <title>Cisco - Telephony</title>
+  			 
+  			 		 <figure>
+         <title>Cisco - Telephony</title>
+         <screenshot>
+           <screeninfo>Cisco - Telephony</screeninfo>
+           <graphic format="PNG" fileref="graphics/cisco-telephony-shapes.&pngfile;" 
+  				 srccredit=	 "Mark Dexter" />
+         </screenshot>
+       </figure>
+             
+               <para>
+           Cisco - Telephony includes shapes representing telephony equipment from Cisco, a 
+  	       manufacturer of Computer Networking Equipment.  
+  	     </para>
+             
+           </sect3>
+           <sect3>
+             <title>Civil</title>
+             
+               <para>
+                 Civil Engineering components.  
+               </para>
+             
+           </sect3>
+  	 <sect3>
+             <title>Cybernetics</title>
+             
+               <para>
+                 Shapes for creating diagrams of Cybernetic Circuits.  
+               </para>
+             
+           </sect3>
+   
+  	 <!-- TODO fully describe all four of the Cisco Sheets -->
+   
+  				     <sect3>
+             <title>DIN Electrical</title>
+             
+               <para>
+  	       DIN style electrical control schematics (electrical controls
+                 in manufacturing automation). 
+               </para>
+             
+           </sect3>
+           <sect3>
+             <title>ER</title>
+             
+               <para>
+                 Editor for Entity Relations (ER) Diagrams. 
+  	       Entity Relationship diagrams are used to represent high level 	       descriptions of conceptual models in terms of how each data 
 	       entity relates to other data in the model.  
 	       They are most commonly used to model the structure of data to 
 	       be stored in a database.  
              </para>
-           </listitem>
-         </varlistentry>
-         <varlistentry>
-           <term>Function Structure, FS. </term>
-           <listitem>
+           
+         </sect3>
+         <sect3>
+           <title>Flowchart</title>
+					  
+									<figure>
+       <title>Flowchart</title>
+       <screenshot>
+         <screeninfo>Flowchart</screeninfo>
+         <graphic format="PNG" fileref="graphics/flowchart-shapes.&pngfile;" 
+				 srccredit=	 "Mark Dexter" />
+       </screenshot>
+     </figure>
+             <para>
+               A group dedicated to providing the user shapes which are
+               commonly used in flow charts.  Flow charts can be routinely
+               found in computer programming, marketing, economics, and any
+               other semi-linear operation which requires planning. Most 
+							 flowchart objects allow entry of text.
+             </para>
+           
+         </sect3>
+				          <sect3>
+           <title>FS (Function Structure)</title>
+           
              <para>
                Editor for Function Structure (FS) Diagrams.  
 	       Note that the Objects require the use of the 
 	       <interface>context menu</interface>  
-	       to access much of the funtionality of these objects.  
+	       to access much of the functionality of these objects.  
 	       <!-- TODO this needs to be explained much more clearly
 	       that it is the middle click context menu, unless the 
 	       main menubar is turned on for each document window 
 	       but this will be enough of a warning for now.  -->
              </para>
-           </listitem>
-         </varlistentry>
-         <varlistentry>
-           <term>Flowchart</term>
-           <listitem>
-             <para>
-               A group dedicated to providing the user shapes which are
-               commonly used in flow charts.  Flow charts can be routinely
-               found in computer programming, marketing, economics, and any
-               other semi-linear operation which requires planning.
-             </para>
-           </listitem>
-         </varlistentry>
-         <varlistentry>
-           <term>GRAFCET</term>
-           <listitem>
+           
+         </sect3>
+         <sect3>
+           <title>GRAFCET</title>
+           
              <para>
                Grafcet (or IEC 61131-3 SFC) diagrams. Used in graphical
                programming and documenting sequential processes in
@@ -145,134 +257,223 @@
                A chart  shows the step, the action, the transition, and
                the condition associated with the transition.  
              </para>
-           </listitem>
-         </varlistentry>
-         <varlistentry>
-           <term>Istar</term>
-           <listitem>
+           
+         </sect3>
+         <sect3>
+           <title>Istar</title>
+           
              <para>
-               Istar is agent-oriented modelling framework.  
+               Istar is agent-oriented modeling framework.  
 	       Istar is also written as i*.   
 	     </para>
-           </listitem>
-         </varlistentry>
-         <varlistentry>
-           <term>Jackson</term>
-           <listitem>
+           
+         </sect3>
+         <sect3>
+           <title>Jackson</title>
+           
              <para>
 	       Jackson Software Design (JSD) method Diagrams.  
 	     </para>
-           </listitem>
-         </varlistentry>
-         <varlistentry>
-           <term>KAOS</term>
-           <listitem>
+           
+         </sect3>
+         <sect3>
+           <title>KAOS</title>
+           
              <para>
 	       KAOS Diagrams.  
 	       <!-- provide a help description that is actually helpful! -->
 	     </para>
-           </listitem>
-         </varlistentry>
+           
+         </sect3>
 
-	 <varlistentry>
-	 <term>Map 3D Isometric</term>
-           <listitem>
+	 <sect3>
+	 <title>Map 3D Isometric</title>
+           
              <para>
-               Pseudo 3D isometic shapes for creating Directional Maps.  
+               Pseudo 3D isometric shapes for creating Directional Maps.  
 	       Microsoft Visio calls these shapes Map, Directional Map 3D. 
 	     </para>
-           </listitem>
-         </varlistentry>
-	 <varlistentry>
-	 <term>Misc. </term>
-           <listitem>
+           
+         </sect3>
+	 <sect3>
+	 <title>Misc. </title>
+           
+					 								<figure>
+       <title>Misc</title>
+       <screenshot>
+         <screeninfo>Misc</screeninfo>
+         <graphic format="PNG" fileref="graphics/misc-shapes.&pngfile;" 
+				 srccredit=	 "Mark Dexter" />
+       </screenshot>
+     </figure>
              <para>
                Miscellaneous shapes that do not fit into any of the other 
-	       groups.  Includes some Filesystem shapes and an animated clock 
+	       groups.  Includes some File system shapes and an animated clock 
 	       object that updates in real time.   
 	     </para>
-           </listitem>
-         </varlistentry>
-	 <varlistentry>
-	 <term>MSE</term>
-           <listitem>
+           
+         </sect3>
+	 <sect3>
+	 <title>MSE</title>
+           
              <para>
 	        Mobile Subscriber Equipment Components, 
 		as used by the United States Army.  
 	     </para>
-           </listitem>
-         </varlistentry>
-	 <varlistentry>
-           <term>Network</term>
-           <listitem>
+           
+         </sect3>
+	 <sect3>
+           <title>Network</title>
+           
+				<figure>
+       <title>Network</title>
+       <screenshot>
+         <screeninfo>Network</screeninfo>
+         <graphic format="PNG" fileref="graphics/network-shapes.&pngfile;" 
+				 srccredit=	 "Mark Dexter" />
+       </screenshot>
+     </figure>
              <para>
                Used by network administrators to create a design of their
                network. 
              </para>
-           </listitem>
-         </varlistentry>
-         <varlistentry>
-           <term>DIN Electrical</term>
-           <listitem>
+           
+         </sect3>
+         <sect3>
+           <title>PLC Ladder</title>
+           
              <para>
-	       DIN style electrical control schematics (electrical controls
-               in manufacturing automation). 
+               PLC 'Ladder' graphical programming (electrical
+               controls in manufacturing automation).
              </para>
-           </listitem>
-         </varlistentry>
-         <varlistentry>
-           <term>Pneumatic/Hydraulic</term>
-           <listitem>
+           
+         </sect3>
+         <sect3>
+           <title>Pneumatic/Hydraulic</title>
+           
              <para>
-               Allows diagraming of a device which employes hydraulics.
+               Allows diagramming of a device which employs hydraulics.
              </para>
-           </listitem>
-         </varlistentry>
-         <varlistentry>
-           <term>SADT</term>
-           <listitem>
+           
+         </sect3>
+         <sect3>
+           <title>SADT</title>
+           
              <para>
                Structured Analysis Design Technique.  
              </para>
-           </listitem>
-         </varlistentry>
-	 <varlistentry>
-           <term>SDL</term>
-           <listitem>
+           
+         </sect3>
+	 <sect3>
+           <title>SDL</title>
+           
              <para>
                Specification and Description Language (SDL)
-	       SDL is used to describe the behaviour of interactive 
+	       SDL is used to describe the behavior of interactive 
 	       time based systems.  
                SDL was originally focused on telecommunication systems, but 
 	       has also come to be used to describe process control and 
 	       real-time applications in general.  
 	     </para>
-           </listitem>
-         </varlistentry>
-       </variablelist>
-       <variablelist>
-         <varlistentry>
-           <term>Sybase</term>
-           <listitem>
+           
+         </sect3>
+          <sect3>
+           <title>Sybase</title>
+           
              <para>
                Designs diagrams display the flow of a Sybase computer
                network.
              </para>
-           </listitem>
-         </varlistentry>
-         <varlistentry>
-           <term>UML</term>
-           <listitem>
+           
+         </sect3>
+         <sect3>
+           <title>UML</title>
+           
+					 				 								<figure>
+       <title>UML</title>
+       <screenshot>
+         <screeninfo>UML</screeninfo>
+         <graphic format="PNG" fileref="graphics/uml-shapes.&pngfile;" 
+				 srccredit=	 "Mark Dexter" />
+       </screenshot>
+     </figure>
              <para>
-               Unified Modelling Language (UML).  
-	       UML is a modelling and specification language commonly used to 
+               Unified Modeling Language (UML).  
+	       UML is a modeling and specification language commonly used to 
 	       create diagrams showing the structure of object-oriented 
 	       computer programming code, particularly for large scale 
-	       projects.  
+	       projects. Some UML objects are complex and have extensive properties 
+				 for various types of text entries, as shown in the screenshot below. 
              </para>
-           </listitem>
-         </varlistentry>
-       </variablelist>
-     </para> 
+						 <para>
+		<figure>
+       <title>UML Class Properties</title>
+       <screenshot>
+         <screeninfo>UML Class Properties</screeninfo>
+         <graphic format="PNG" fileref="graphics/properties-uml-class1.&pngfile;" 
+				 srccredit=	 "Mark Dexter" />
+       </screenshot>
+     </figure>			
+		 </para>		 
+           
+         </sect3>
+  
+    
+		
+		 </sect2>
+		 <sect2 id="sheets-objects">
+		 <title>Organizing Sheets and Objects</title>
+		 <para>
+		 It is possible to modify the way objects are grouped into sheets. Say, 
+		 for example, that most of the object you need are on one sheet but you 
+		 also need some objects from a second sheet. To keep everything you need
+		 on one sheet, you can copy objects from one 
+		 sheet to another as follows:
+		 </para>
+		  <orderedlist>
+			<listitem>
+			<para>
+			On the Toolbox menu, select 
+			<menuchoice><guimenu>File</guimenu>
+          <guimenuitem>Sheets and Objects</guimenuitem></menuchoice>. This will
+					display the dialog shown in the figure below.
+			</para>
+			<para>
+				  	<figure>
+      <title>Sheets and Objects</title>
+     <screenshot>
+      <screeninfo>Sheets and Objects</screeninfo>
+      <graphic format="PNG" fileref="graphics/sheets-objects.&pngfile;" 
+			srccredit=   "Mark Dexter" />
+      </screenshot>
+    </figure>
+		</para>
+		</listitem>
+		<listitem>
+		<para>
+		Using the drop-down listbox on the left side, select the sheet you want
+		to copy from. On the right, select the sheet you want to copy to.
+		</para>
+		</listitem>
+			<listitem>
+		<para>
+		Click on the object you wish to copy on the left side and press the Copy
+		button. 
+		</para>
+		</listitem>
+		<listitem>
+		<para>
+		Repeat for any other objects you want to copy. When you are done, 
+		press the Apply button on the bottom to save your changes. 
+		</para>
+		</listitem>
+		</orderedlist>
+		<para>
+		From now on, the new objects will be listed on the sheet on the right. 
+		You can also remove objects from sheets and move objects from one sheet
+		to another. You can also use the Up and Down buttons to change the order 
+		of the objects within a sheet.
+		</para>
+		 </sect2>
  </sect1>
 </chapter>                   
