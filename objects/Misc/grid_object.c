@@ -127,6 +127,8 @@ static ObjectOps grid_object_ops = {
   (ApplyPropertiesListFunc) object_apply_props,
 };
 
+static PropNumData rows_columns_range = { 1, G_MAXINT, 1 };
+
 static PropDescription grid_object_props[] = {
   ELEMENT_COMMON_PROPERTIES,
   PROP_STD_LINE_WIDTH,
@@ -135,13 +137,13 @@ static PropDescription grid_object_props[] = {
   PROP_STD_SHOW_BACKGROUND,
 
   { "grid_rows", PROP_TYPE_INT, PROP_FLAG_VISIBLE,
-    N_("Rows"), NULL, NULL },
+    N_("Rows"), NULL, &rows_columns_range },
   { "grid_cols", PROP_TYPE_INT, PROP_FLAG_VISIBLE,
-    N_("Columns"), NULL, NULL },
+    N_("Columns"), NULL, &rows_columns_range },
   { "gridline_colour", PROP_TYPE_COLOUR, PROP_FLAG_VISIBLE,
     N_("Gridline color"), NULL, NULL },
   { "gridline_width", PROP_TYPE_REAL, PROP_FLAG_VISIBLE,
-    N_("Gridline width"), NULL,NULL },
+    N_("Gridline width"), NULL, &prop_std_line_width_data },
   
   {NULL}
 };

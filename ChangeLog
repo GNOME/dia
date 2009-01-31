@@ -1,5 +1,8 @@
 2009-01-31  Hans Breuer  <hans@breuer.org>
 
+	* objects/Misc/grid_object.c : give ranges to rows/columns properties
+	to avoid crashing on negative numbers, similar for line_width
+
 	* objects/Misc/pixmaps/grid_object.xpm objects/Misc/grid_object.c
 	  objects/Misc/libmisc.c objects/Misc/Makefile.am sheets/Misc.sheet.in:
 	patch from Don Blaheta adding a Grid object, bug #534118
