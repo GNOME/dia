@@ -7,7 +7,7 @@
 #  this will _not_ be the case. Known issues (at least) :
 #  - xlink stuff (should probably have some StdProp equivalent)
 #  - lack of full transformation dealing
-#  - real percentage scaling, is it woth it ? 
+#  - real percentage scaling, is it worth it ? 
 #  - see FIXME in this file
 
 #    This program is free software; you can redistribute it and/or modify

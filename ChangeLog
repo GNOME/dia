@@ -1,5 +1,12 @@
 2009-01-31  Hans Breuer  <hans@breuer.org>
 
+	* lib/dia_xml.[ch] lib/libdia.def : implement data_(add_)bezpoint to 
+	serialize bezier points
+	* lib/prop_geomtypes.c : use it instead of g_error() for an attempt to
+	save a bezpoint array (not used by any object implementation yet)
+
+	* plug-ins/python/diasvg_import.py : fixed typo
+
 	* objects/Misc/grid_object.c : give ranges to rows/columns properties
 	to avoid crashing on negative numbers, similar for line_width
 

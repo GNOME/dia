@@ -136,6 +136,7 @@ EXPORTS
  data_add_layer
  data_add_layer_at
  data_add_point
+ data_add_bezpoint
  data_add_real
  data_add_string
  data_add_text
@@ -153,6 +154,7 @@ EXPORTS
  data_lower_layer
  data_next
  data_point
+ data_bezpoint
  data_raise_layer
  data_real
  data_remove_all_selected

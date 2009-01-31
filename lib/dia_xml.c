@@ -245,7 +245,7 @@ xmlDiaParseFile(const char *filename)
     } else {
       /* the XML file is good. libxml is "old enough" to handle it correctly.
        */
-      return xmlDoParseFile(filename);        
+      return xmlDoParseFile(filename);
     }
   } else {
     return xmlDoParseFile(filename);
@@ -420,6 +420,8 @@ data_type(DataNode data)
     return DATATYPE_STRING;
   } else if (strcmp(name, "font")==0) {
     return DATATYPE_FONT;
+  } else if (strcmp(name, "bezpoint")==0) {
+    return DATATYPE_BEZPOINT;
   }
 
   message_error("Unknown type of DataNode");
@@ -620,6 +622,74 @@ data_point(DataNode data, Point *point)
     point->y = 0.0;
   }
   xmlFree(val);
+}
+
+/** Return the value of a bezpoint-type data node.
+ * @param data The XML node to read from
+ * @param point A place to store the resulting values.  If the node does
+ *  not contain a valid bezpoint zero initialization is performed.
+ */
+void 
+data_bezpoint(DataNode data, BezPoint *point)
+{
+  xmlChar *val;
+  gchar *str;
+  if (data_type(data)!=DATATYPE_BEZPOINT) {
+    message_error(_("Taking bezpoint value of non-point node."));
+    return;
+  }
+  val = xmlGetProp(data, (const xmlChar *)"type");
+  if (val) {
+     if (strcmp(val, "moveto") == 0)
+       point->type = BEZ_MOVE_TO;
+     else if (strcmp(val, "lineto") == 0)
+       point->type = BEZ_LINE_TO;
+     else
+       point->type = BEZ_CURVE_TO;
+    xmlFree(val);
+  }
+  val = xmlGetProp(data, (const xmlChar *)"p1");
+  if (val) {
+    point->p1.x = g_ascii_strtod((char *)val, &str);
+    if (*str==0) {
+      point->p1.y = 0;
+      g_warning(_("Error parsing bezpoint p1."));
+    } else {
+      point->p1.y = g_ascii_strtod(str+1, NULL);
+    }
+    xmlFree(val);
+  } else {
+    point->p1.x = 0;
+    point->p1.y = 0;
+  }
+  val = xmlGetProp(data, (const xmlChar *)"p2");
+  if (val) {
+    point->p2.x = g_ascii_strtod((char *)val, &str);
+    if (*str==0) {
+      point->p2.y = 0;
+      g_warning(_("Error parsing bezpoint p2."));
+    } else {
+      point->p2.y = g_ascii_strtod(str+1, NULL);
+    }
+    xmlFree(val);
+  } else {
+    point->p2.x = 0;
+    point->p2.y = 0;
+  }
+  val = xmlGetProp(data, (const xmlChar *)"p3");
+  if (val) {
+    point->p3.x = g_ascii_strtod((char *)val, &str);
+    if (*str==0) {
+      point->p3.y = 0;
+      g_warning(_("Error parsing bezpoint p3."));
+    } else {
+      point->p3.y = g_ascii_strtod(str+1, NULL);
+    }
+    xmlFree(val);
+  } else {
+    point->p3.x = 0;
+    point->p3.y = 0;
+  }
 }
 
 /** Return the value of a rectangle-type data node.
@@ -954,14 +1024,9 @@ data_add_color(AttributeNode attr, const Color *col)
   xmlSetProp(data_node, (const xmlChar *)"val", (xmlChar *)buffer);
 }
 
-/** Add point data to an attribute node.
- * @param attr The attribute node.
- * @param point The value to set.
- */
-void
-data_add_point(AttributeNode attr, const Point *point)
+static gchar *
+_str_point (const Point *point)
 {
-  DataNode data_node;
   gchar *buffer;
   gchar px_buf[G_ASCII_DTOSTR_BUF_SIZE];
   gchar py_buf[G_ASCII_DTOSTR_BUF_SIZE];
@@ -970,9 +1035,58 @@ data_add_point(AttributeNode attr, const Point *point)
   g_ascii_formatd(py_buf, sizeof(py_buf), "%g", point->y);
   buffer = g_strconcat(px_buf, ",", py_buf, NULL);
   
+  return buffer;
+}
+
+/** Add point data to an attribute node.
+ * @param attr The attribute node.
+ * @param point The value to set.
+ */
+void
+data_add_point(AttributeNode attr, const Point *point)
+{
+  DataNode data_node;
+  gchar *buffer = _str_point (point);
+  
   data_node = xmlNewChild(attr, NULL, (const xmlChar *)"point", NULL);
   xmlSetProp(data_node, (const xmlChar *)"val", (xmlChar *)buffer);
   g_free(buffer);
+}
+
+void
+data_add_bezpoint(AttributeNode attr, const BezPoint *point)
+{
+  DataNode data_node;
+  gchar *buffer;
+  gchar px_buf[G_ASCII_DTOSTR_BUF_SIZE];
+  gchar py_buf[G_ASCII_DTOSTR_BUF_SIZE];
+  
+  data_node = xmlNewChild(attr, NULL, (const xmlChar *)"bezpoint", NULL);
+  switch (point->type) {
+  case BEZ_MOVE_TO :
+    xmlSetProp(data_node, (const xmlChar *)"type", (const xmlChar *)"moveto");
+    break;
+  case BEZ_LINE_TO :
+    xmlSetProp(data_node, (const xmlChar *)"type", (const xmlChar *)"lineto");
+    break;
+  case BEZ_CURVE_TO :
+    xmlSetProp(data_node, (const xmlChar *)"type", (const xmlChar *)"curveto");
+    break;
+  default :
+    g_assert_not_reached();
+  }
+  
+  buffer = _str_point (&point->p1);
+  xmlSetProp(data_node, (const xmlChar *)"p1", (xmlChar *)buffer);
+  g_free (buffer);
+  if (point->type == BEZ_CURVE_TO) {
+    buffer = _str_point (&point->p2);
+    xmlSetProp(data_node, (const xmlChar *)"p2", (xmlChar *)buffer);
+    g_free (buffer);
+    buffer = _str_point (&point->p3);
+    xmlSetProp(data_node, (const xmlChar *)"p3", (xmlChar *)buffer);
+    g_free (buffer);
+  }
 }
 
 /** Add rectangle data to an attribute node.

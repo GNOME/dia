@@ -56,7 +56,8 @@ typedef enum{
   DATATYPE_POINT,
   DATATYPE_RECTANGLE,
   DATATYPE_STRING,
-  DATATYPE_FONT
+  DATATYPE_FONT,
+  DATATYPE_BEZPOINT,
 } DataType;
 
 AttributeNode object_find_attribute(ObjectNode obj_node,
@@ -73,6 +74,7 @@ real data_real(DataNode data);
 int data_boolean(DataNode data);
 void data_color(DataNode data, Color *col);
 void data_point(DataNode data, Point *point);
+void data_bezpoint(DataNode data, BezPoint *point);
 void data_rectangle(DataNode data, Rectangle *rect);
 char *data_string(DataNode data);
 char *data_filename(DataNode data);
@@ -87,6 +89,7 @@ void data_add_real(AttributeNode attr, real data);
 void data_add_boolean(AttributeNode attr, int data);
 void data_add_color(AttributeNode attr, const Color *col);
 void data_add_point(AttributeNode attr, const Point *point);
+void data_add_bezpoint(AttributeNode attr, const BezPoint *point);
 void data_add_rectangle(AttributeNode attr, const Rectangle *rect);
 void data_add_string(AttributeNode attr, const char *str);
 void data_add_filename(AttributeNode attr, const char *str);

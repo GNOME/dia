@@ -571,21 +571,13 @@ bezpointprop_copy(BezPointProperty *src)
 static void 
 bezpointprop_load(BezPointProperty *prop, AttributeNode attr, DataNode data)
 {
-#if 0
   data_bezpoint(data,&prop->bezpoint_data);
-#else
-  g_error("BezPoint_load() not implemented. Missing data_bezpoint().");
-#endif
 }
 
 static void 
 bezpointprop_save(BezPointProperty *prop, AttributeNode attr) 
 {
-#if 0
   data_add_bezpoint(attr, &prop->bezpoint_data);
-#else
-  g_error("BezPoint_save() not implemented. Missing data_bezpoint().");
-#endif
 }
 
 static void 
@@ -657,7 +649,6 @@ static void
 bezpointarrayprop_load(BezPointarrayProperty *prop, 
                        AttributeNode attr, DataNode data)
 {
-#if 0
   guint nvals = attribute_num_data(attr);
   guint i;
 
@@ -668,22 +659,15 @@ bezpointarrayprop_load(BezPointarrayProperty *prop,
   if (i != nvals) 
     g_warning("attribute_num_data() and actual data count mismatch "
               "(shouldn't happen)");
-#else
-  g_error("BezPointArray_load() not implemented. Missing data_bezpoint().");
-#endif
 }
 
 static void 
 bezpointarrayprop_save(BezPointarrayProperty *prop, AttributeNode attr) 
 {
-#if 0
   guint i;
   for (i = 0; i < prop->bezpointarray_data->len; i++)
     data_add_bezpoint(attr, 
                       &g_array_index(prop->bezpointarray_data,BezPoint,i));
-#else
-  g_error("BezPointArray_load() not implemented. Missing data_bezpoint().");
-#endif
 }
 
 static void 
