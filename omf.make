@@ -35,7 +35,7 @@ scrollkeeper_localstate_dir = $(localstatedir)/scrollkeeper
 omf: omf_timestamp
 
 omf_timestamp: $(omffile)
-	-if test "$(omffile)"; then \
+	-if test -n "$(omffile)"; then \
 	  for file in $(omffile); do \
 	    scrollkeeper-preinstall $(DESTDIR)$(helpdocdir)/$(docname).xml $(srcdir)/$$file $$file.out; \
 	  done; \
@@ -44,7 +44,7 @@ omf_timestamp: $(omffile)
 
 install-data-hook-omf:
 	$(mkinstalldirs) $(omf_dest_dir)
-	if test "$(omffile)"; then \
+	-if test -n "$(omffile)"; then \
 	  for file in $(omffile); do \
 	    $(INSTALL_DATA) $$file.out $(omf_dest_dir)/$$file; \
 	  done; \
@@ -60,7 +60,7 @@ uninstall-local-omf:
 	-scrollkeeper-update -p $(scrollkeeper_localstate_dir)
 
 clean-local-omf:
-	-if test "$(omffile)"; then \
+	-if test -n "$(omffile)"; then \
 	  for file in $(omffile); do \
 	    rm -f $$file.out; \
 	  done; \

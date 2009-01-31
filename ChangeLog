@@ -1,5 +1,8 @@
 2009-01-31  Hans Breuer  <hans@breuer.org>
 
+	* omf.make : bug #306737 – installation fails in install-data-hook-omf
+	if omffile variable is empty (patch from Thomas Harding)
+
 	* doc/en/*.xml : remove undefined entity  '.&pngfile'
 	* po/POTFILES.in lib/sheetc : more strings to translate ;)
 	* doc/en/Makefile.am : added new images ('make distcheck' passes)
