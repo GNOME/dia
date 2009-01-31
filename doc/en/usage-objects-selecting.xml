@@ -39,7 +39,7 @@
         <title>Selected Object</title>
        <screenshot>
         <screeninfo>Selected Object</screeninfo>
-        <graphic format="PNG" fileref="graphics/selected-object.&pngfile;" 
+        <graphic format="PNG" fileref="graphics/selected-object" 
   			srccredit=
         "Mark Dexter" />
   			 </screenshot>
@@ -116,7 +116,7 @@
         <title>Select By Area Example</title>
        <screenshot>
         <screeninfo>Select By Area Example</screeninfo>
-        <graphic format="PNG" fileref="graphics/select-area.&pngfile;" 
+        <graphic format="PNG" fileref="graphics/select-area" 
   			srccredit= "Mark Dexter" />
   			 </screenshot>
       <blockquote>
@@ -154,7 +154,7 @@
         <title>Select Menu</title>
        <screenshot>
         <screeninfo>Select Menu</screeninfo>
-        <graphic format="PNG" fileref="graphics/select-menu.&pngfile;" 
+        <graphic format="PNG" fileref="graphics/select-menu" 
   			srccredit= "Mark Dexter" />
   			 </screenshot>
       </figure>	 

@@ -28,8 +28,7 @@
           <screeninfo>This is a simple flowchart diagram produced 
   				using <application>Dia</application>.
           </screeninfo>
-          <graphic format="PNG" fileref="graphics/sample-flowchart.&pngfile;" srccredit=
-  	"Mark Dexter" />
+          <graphic format="PNG" fileref="graphics/sample-flowchart" srccredit="Mark Dexter" />
         </screenshot>
       </figure>
   </para>
@@ -60,8 +59,7 @@
       <screenshot>
         <screeninfo>Dia Startup
 				         </screeninfo>
-        <graphic format="PNG" fileref="graphics/dia-startup.&pngfile;" srccredit=
-	"Mark Dexter" />
+        <graphic format="PNG" fileref="graphics/dia-startup" srccredit="Mark Dexter" />
       </screenshot>
       <blockquote>
       <simpara>Dia startup showing blank canvas above and Toolbox to right.</simpara>

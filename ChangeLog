@@ -1,5 +1,6 @@
 2009-01-31  Hans Breuer  <hans@breuer.org>
 
+	* doc/en/*.xml : remove undefined entity  '.&pngfile'
 	* po/POTFILES.in lib/sheetc : more strings to translate ;)
 	* doc/en/Makefile.am : added new images ('make distcheck' passes)
 

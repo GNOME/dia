@@ -40,7 +40,7 @@
          <title>Assorted</title>
          <screenshot>
            <screeninfo>Assorted</screeninfo>
-           <graphic format="PNG" fileref="graphics/assorted-shapes.&pngfile;" 
+           <graphic format="PNG" fileref="graphics/assorted-shapes" 
   				 srccredit=	 "Mark Dexter" />
          </screenshot>
        </figure>
@@ -87,7 +87,7 @@
          <title>Cisco - Computer</title>
          <screenshot>
            <screeninfo>Cisco - Computer</screeninfo>
-           <graphic format="PNG" fileref="graphics/cisco-computer-shapes.&pngfile;" 
+           <graphic format="PNG" fileref="graphics/cisco-computer-shapes" 
   				 srccredit=	 "Mark Dexter" />
          </screenshot>
        </figure>
@@ -105,7 +105,7 @@
          <title>Cisco - Misc</title>
          <screenshot>
            <screeninfo>Cisco - Misc</screeninfo>
-           <graphic format="PNG" fileref="graphics/cisco-misc-shapes.&pngfile;" 
+           <graphic format="PNG" fileref="graphics/cisco-misc-shapes" 
   				 srccredit=	 "Mark Dexter" />
          </screenshot>
        </figure>
@@ -123,7 +123,7 @@
          <title>Cisco - Network</title>
          <screenshot>
            <screeninfo>Cisco - Network</screeninfo>
-           <graphic format="PNG" fileref="graphics/cisco-network-shapes.&pngfile;" 
+           <graphic format="PNG" fileref="graphics/cisco-network-shapes" 
   				 srccredit=	 "Mark Dexter" />
          </screenshot>
        </figure>
@@ -141,7 +141,7 @@
          <title>Cisco - Switch</title>
          <screenshot>
            <screeninfo>Cisco - Switch</screeninfo>
-           <graphic format="PNG" fileref="graphics/cisco-switch-shapes.&pngfile;" 
+           <graphic format="PNG" fileref="graphics/cisco-switch-shapes" 
   				 srccredit=	 "Mark Dexter" />
          </screenshot>
        </figure>
@@ -159,7 +159,7 @@
          <title>Cisco - Telephony</title>
          <screenshot>
            <screeninfo>Cisco - Telephony</screeninfo>
-           <graphic format="PNG" fileref="graphics/cisco-telephony-shapes.&pngfile;" 
+           <graphic format="PNG" fileref="graphics/cisco-telephony-shapes" 
   				 srccredit=	 "Mark Dexter" />
          </screenshot>
        </figure>
@@ -217,7 +217,7 @@
        <title>Flowchart</title>
        <screenshot>
          <screeninfo>Flowchart</screeninfo>
-         <graphic format="PNG" fileref="graphics/flowchart-shapes.&pngfile;" 
+         <graphic format="PNG" fileref="graphics/flowchart-shapes" 
 				 srccredit=	 "Mark Dexter" />
        </screenshot>
      </figure>
@@ -302,7 +302,7 @@
        <title>Misc</title>
        <screenshot>
          <screeninfo>Misc</screeninfo>
-         <graphic format="PNG" fileref="graphics/misc-shapes.&pngfile;" 
+         <graphic format="PNG" fileref="graphics/misc-shapes" 
 				 srccredit=	 "Mark Dexter" />
        </screenshot>
      </figure>
@@ -329,7 +329,7 @@
        <title>Network</title>
        <screenshot>
          <screeninfo>Network</screeninfo>
-         <graphic format="PNG" fileref="graphics/network-shapes.&pngfile;" 
+         <graphic format="PNG" fileref="graphics/network-shapes" 
 				 srccredit=	 "Mark Dexter" />
        </screenshot>
      </figure>
@@ -393,7 +393,7 @@
        <title>UML</title>
        <screenshot>
          <screeninfo>UML</screeninfo>
-         <graphic format="PNG" fileref="graphics/uml-shapes.&pngfile;" 
+         <graphic format="PNG" fileref="graphics/uml-shapes" 
 				 srccredit=	 "Mark Dexter" />
        </screenshot>
      </figure>
@@ -410,7 +410,7 @@
        <title>UML Class Properties</title>
        <screenshot>
          <screeninfo>UML Class Properties</screeninfo>
-         <graphic format="PNG" fileref="graphics/properties-uml-class1.&pngfile;" 
+         <graphic format="PNG" fileref="graphics/properties-uml-class1" 
 				 srccredit=	 "Mark Dexter" />
        </screenshot>
      </figure>			
@@ -443,7 +443,7 @@
       <title>Sheets and Objects</title>
      <screenshot>
       <screeninfo>Sheets and Objects</screeninfo>
-      <graphic format="PNG" fileref="graphics/sheets-objects.&pngfile;" 
+      <graphic format="PNG" fileref="graphics/sheets-objects" 
 			srccredit=   "Mark Dexter" />
       </screenshot>
     </figure>

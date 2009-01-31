@@ -30,7 +30,7 @@
         <screenshot>
             <screeninfo><interface>User Interface</interface>
   					dialog box</screeninfo>
-              <graphic format="PNG" fileref="graphics/file-preferences-ui.&pngfile;"
+              <graphic format="PNG" fileref="graphics/file-preferences-ui"
                   srccredit="Mark Dexter" />
         </screenshot>
     </figure>
@@ -149,7 +149,7 @@
       <title>Diagram Defaults</title>
      <screenshot>
       <screeninfo>Diagram Defaults</screeninfo>
-      <graphic format="PNG" fileref="graphics/file-preferences-diagram.&pngfile;" 
+      <graphic format="PNG" fileref="graphics/file-preferences-diagram" 
 			srccredit=
       "Mark Dexter" />
 			 </screenshot>
@@ -216,7 +216,7 @@
       <title>View Defaults</title>
      <screenshot>
       <screeninfo>View Defaults</screeninfo>
-      <graphic format="PNG" fileref="graphics/file-preferences-view.&pngfile;" 
+      <graphic format="PNG" fileref="graphics/file-preferences-view" 
 			srccredit=
       "Mark Dexter" />
 			 </screenshot>
@@ -262,7 +262,7 @@
       <title>Grid Lines</title>
      <screenshot>
       <screeninfo>Grid Lines</screeninfo>
-      <graphic format="PNG" fileref="graphics/preferences-gridlines.&pngfile;" 
+      <graphic format="PNG" fileref="graphics/preferences-gridlines" 
 			srccredit=
       "Mark Dexter" />
 			 </screenshot>
@@ -372,7 +372,7 @@
       <title>Diagram Tree</title>
      <screenshot>
       <screeninfo>Diagram Tree</screeninfo>
-      <graphic format="PNG" fileref="graphics/file-preferences-tree.&pngfile;" 
+      <graphic format="PNG" fileref="graphics/file-preferences-tree" 
 			srccredit=
       "Mark Dexter" />
 			 </screenshot>

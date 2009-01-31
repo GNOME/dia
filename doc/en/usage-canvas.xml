@@ -35,7 +35,7 @@
       <title>Diagram / Properties / Grid</title>
      <screenshot>
       <screeninfo>Diagram / Properties / Grid</screeninfo>
-      <graphic format="PNG" fileref="graphics/diagram-properties-grid.&pngfile;" 
+      <graphic format="PNG" fileref="graphics/diagram-properties-grid" 
 			srccredit=
       "Mark Dexter" />
 			 </screenshot>
@@ -70,7 +70,7 @@
       <title>Snap-To-Grid Toggle Button</title>
      <screenshot>
       <screeninfo>Snap-To-Grid Toggle Button</screeninfo>
-      <graphic format="PNG" fileref="graphics/snaptogrid-button.&pngfile;" 
+      <graphic format="PNG" fileref="graphics/snaptogrid-button" 
 			srccredit=
       "Mark Dexter" />
 			 </screenshot>
@@ -108,7 +108,7 @@
       <title>Ruler With Arrows Circled in Red</title>
      <screenshot>
       <screeninfo>Arrows Circled in Red</screeninfo>
-      <graphic format="PNG" fileref="graphics/ruler-arrows.&pngfile;" 
+      <graphic format="PNG" fileref="graphics/ruler-arrows" 
 			srccredit=
       "Mark Dexter" />
 			 </screenshot>
@@ -151,7 +151,7 @@
       <title>Changing Background Color</title>
      <screenshot>
       <screeninfo>Changing Background Color</screeninfo>
-      <graphic format="PNG" fileref="graphics/diagram-properties.&pngfile;" 
+      <graphic format="PNG" fileref="graphics/diagram-properties" 
 			srccredit=
       "Mark Dexter" />
 			 </screenshot>
@@ -177,7 +177,7 @@
       <title>Toolbox Magnify</title>
      <screenshot>
       <screeninfo>Toolbox Magnify</screeninfo>
-      <graphic format="PNG" fileref="graphics/toolbox-magnify.&pngfile;" 
+      <graphic format="PNG" fileref="graphics/toolbox-magnify" 
 			srccredit=
       "Mark Dexter" />
 			 </screenshot>
@@ -193,7 +193,7 @@
       <title>Canvas Zoom</title>
      <screenshot>
       <screeninfo>Canvas Zoom</screeninfo>
-      <graphic format="PNG" fileref="graphics/canvas-zoom.&pngfile;" 
+      <graphic format="PNG" fileref="graphics/canvas-zoom" 
 			srccredit=
       "Mark Dexter" />
 			 </screenshot>
@@ -207,7 +207,7 @@
       <title>View Menu Zoom Options</title>
      <screenshot>
       <screeninfo>View Menu Zoom Options</screeninfo>
-      <graphic format="PNG" fileref="graphics/view-zoom.&pngfile;" 
+      <graphic format="PNG" fileref="graphics/view-zoom" 
 			srccredit=
       "Mark Dexter" />
 			 </screenshot>
@@ -232,7 +232,7 @@
         <title>View Menu</title>
        <screenshot>
         <screeninfo>View Menu</screeninfo>
-        <graphic format="PNG" fileref="graphics/view-menu.&pngfile;" 
+        <graphic format="PNG" fileref="graphics/view-menu" 
   			srccredit=   "Mark Dexter" />
         </screenshot>
       </figure>

@@ -11,7 +11,7 @@
          <title>Dia Toolbox</title>
          <screenshot>
            <screeninfo>Dia Toolbox</screeninfo>
-           <graphic format="PNG" fileref="graphics/toolbox.&pngfile;" srccredit=
+           <graphic format="PNG" fileref="graphics/toolbox" srccredit=
   	 "Mark Dexter" />
          </screenshot>
        </figure>
@@ -41,7 +41,7 @@
          <title>Modify Control</title>
          <screenshot>
            <screeninfo>Modify Control</screeninfo>
-           <graphic format="PNG" fileref="graphics/toolbox-modify.&pngfile;" srccredit=
+           <graphic format="PNG" fileref="graphics/toolbox-modify" srccredit=
   	 "Mark Dexter" />
          </screenshot>
        </figure> 
@@ -78,7 +78,7 @@
          <title>Magnify Control</title>
          <screenshot>
            <screeninfo>Magnify Control</screeninfo>
-           <graphic format="PNG" fileref="graphics/toolbox-magnify.&pngfile;" srccredit=
+           <graphic format="PNG" fileref="graphics/toolbox-magnify" srccredit=
   	 "Mark Dexter" />
          </screenshot>
        </figure>
@@ -95,7 +95,7 @@
          <title>Scroll Control</title>
        <screenshot>
            <screeninfo>Scroll Control</screeninfo>
-           <graphic format="PNG" fileref="graphics/toolbox-scroll.&pngfile;" srccredit=
+           <graphic format="PNG" fileref="graphics/toolbox-scroll" srccredit=
   	 "Mark Dexter" />
        </screenshot>
        </figure>
@@ -123,7 +123,7 @@
          <title>Special Objects</title>
          <screenshot>
            <screeninfo>Scroll Control</screeninfo>
-           <graphic format="PNG" fileref="graphics/toolbox-special.&pngfile;" srccredit=
+           <graphic format="PNG" fileref="graphics/toolbox-special" srccredit=
   	 "Mark Dexter" />
          </screenshot>
        </figure>
@@ -146,7 +146,7 @@
          <title>Default Color, Line Width, and Line Style</title>
          <screenshot>
            <screeninfo>Default Color, Line Width, and Line Style</screeninfo>
-           <graphic format="PNG" fileref="graphics/toolbox-lower.&pngfile;" srccredit=
+           <graphic format="PNG" fileref="graphics/toolbox-lower" srccredit=
   	 "Mark Dexter" />
          </screenshot>
        </figure>
@@ -173,7 +173,7 @@
          <title>Restore Default Colors Button</title>
          <screenshot>
            <screeninfo>Restore Default Colors Button</screeninfo>
-           <graphic format="PNG" fileref="graphics/default-colors.&pngfile;" srccredit=
+           <graphic format="PNG" fileref="graphics/default-colors" srccredit=
   	 "Mark Dexter" />
          </screenshot>
        </figure>
@@ -187,7 +187,7 @@
          <title>Reverse Colors Button</title>
          <screenshot>
            <screeninfo>Reverse Colors Button</screeninfo>
-           <graphic format="PNG" fileref="graphics/reverse-colors.&pngfile;" srccredit=
+           <graphic format="PNG" fileref="graphics/reverse-colors" srccredit=
   	 "Mark Dexter" />
          </screenshot>
        </figure>
@@ -200,7 +200,7 @@
          <title>Default Line Width</title>
          <screenshot>
            <screeninfo>Default Line Width</screeninfo>
-           <graphic format="PNG" fileref="graphics/line-width.&pngfile;" srccredit=
+           <graphic format="PNG" fileref="graphics/line-width" srccredit=
   	 "Mark Dexter" />
          </screenshot>
        </figure>
@@ -213,7 +213,7 @@
          <title>Arrow and Line Style</title>
          <screenshot>
            <screeninfo>Arrow and Line Style</screeninfo>
-           <graphic format="PNG" fileref="graphics/arrow-style.&pngfile;" srccredit=
+           <graphic format="PNG" fileref="graphics/arrow-style" srccredit=
   	 "Mark Dexter" />
          </screenshot>
        </figure>	
@@ -341,7 +341,7 @@
         <title>Line Handles</title>
       <screenshot>
         <screeninfo>Line Handles</screeninfo>
-        <graphic format="PNG" fileref="graphics/line-handles.&pngfile;" 
+        <graphic format="PNG" fileref="graphics/line-handles" 
   			srccredit=   "Mark Dexter" />
       </screenshot>
     </figure>
@@ -382,7 +382,7 @@
         <title>Line Connected</title>
        <screenshot>
         <screeninfo>Line Connected</screeninfo>
-        <graphic format="PNG" fileref="graphics/line-connect.&pngfile;" 
+        <graphic format="PNG" fileref="graphics/line-connect" 
   			srccredit=   "Mark Dexter" />
         </screenshot>
       </figure>
@@ -406,7 +406,7 @@
         <title>Fixed Connection Point</title>
        <screenshot>
         <screeninfo>Fixed Connection Point</screeninfo>
-        <graphic format="PNG" fileref="graphics/connect-fixed.&pngfile;" 
+        <graphic format="PNG" fileref="graphics/connect-fixed" 
   			srccredit=   "Mark Dexter" />
         </screenshot>
       </figure>	 
@@ -420,7 +420,7 @@
         <title>Middle Connection Point</title>
        <screenshot>
         <screeninfo>Middle Connection Point</screeninfo>
-        <graphic format="PNG" fileref="graphics/connect-middle.&pngfile;" 
+        <graphic format="PNG" fileref="graphics/connect-middle" 
   			srccredit=   "Mark Dexter" />
         </screenshot>
       </figure>
@@ -466,7 +466,7 @@
          <title>Edit Menu Text Commands</title>
          <screenshot>
            <screeninfo>Edit Menu Text Commands</screeninfo>
-           <graphic format="PNG" fileref="graphics/edit-text.&pngfile;" srccredit=
+           <graphic format="PNG" fileref="graphics/edit-text" srccredit=
   	 "Mark Dexter" />
          </screenshot>
        </figure>  
@@ -499,7 +499,7 @@
          <title>Deleting Text</title>
          <screenshot>
            <screeninfo>Deleting Text</screeninfo>
-           <graphic format="PNG" fileref="graphics/delete-text.&pngfile;" srccredit=
+           <graphic format="PNG" fileref="graphics/delete-text" srccredit=
   	 "Mark Dexter" />
          </screenshot>
        </figure>  
@@ -516,7 +516,7 @@
          <title>Objects / Align Options</title>
          <screenshot>
            <screeninfo>Objects / Align Options</screeninfo>
-           <graphic format="PNG" fileref="graphics/align-menu.&pngfile;" srccredit=
+           <graphic format="PNG" fileref="graphics/align-menu" srccredit=
   	 "Mark Dexter" />
          </screenshot>
        </figure> 		
@@ -546,7 +546,7 @@
          <title>Before Left, Center, Right Align</title>
          <screenshot>
            <screeninfo>Before Left, Center, Right Align</screeninfo>
-           <graphic format="PNG" fileref="graphics/before-left.&pngfile;" srccredit=
+           <graphic format="PNG" fileref="graphics/before-left" srccredit=
   	 "Mark Dexter" />
          </screenshot>
        </figure> 	
@@ -554,7 +554,7 @@
          <title>Align Left</title>
          <screenshot>
            <screeninfo>Align Left</screeninfo>
-           <graphic format="PNG" fileref="graphics/align-left.&pngfile;" srccredit=
+           <graphic format="PNG" fileref="graphics/align-left" srccredit=
   	 "Mark Dexter" />
          </screenshot>
        </figure> 	
@@ -562,7 +562,7 @@
          <title>Align Center</title>
          <screenshot>
            <screeninfo>Align Center</screeninfo>
-           <graphic format="PNG" fileref="graphics/align-center.&pngfile;" srccredit=
+           <graphic format="PNG" fileref="graphics/align-center" srccredit=
   	 "Mark Dexter" />
          </screenshot>
        </figure> 	
@@ -570,7 +570,7 @@
          <title>Align Right</title>
          <screenshot>
            <screeninfo>Align Right</screeninfo>
-           <graphic format="PNG" fileref="graphics/align-right.&pngfile;" srccredit=
+           <graphic format="PNG" fileref="graphics/align-right" srccredit=
   	 "Mark Dexter" />
          </screenshot>
        </figure>
@@ -590,7 +590,7 @@
          <title>Before Top, Middle, Bottom Align</title>
          <screenshot>
            <screeninfo>Before Top, Middle, Bottom Align</screeninfo>
-           <graphic format="PNG" fileref="graphics/before-top.&pngfile;" srccredit=
+           <graphic format="PNG" fileref="graphics/before-top" srccredit=
   	 "Mark Dexter" />
          </screenshot>
        </figure> 	
@@ -598,7 +598,7 @@
          <title>Align Top</title>
          <screenshot>
            <screeninfo>Align Top</screeninfo>
-           <graphic format="PNG" fileref="graphics/align-top.&pngfile;" srccredit=
+           <graphic format="PNG" fileref="graphics/align-top" srccredit=
   	 "Mark Dexter" />
          </screenshot>
        </figure> 
@@ -606,7 +606,7 @@
          <title>Align Middle</title>
          <screenshot>
            <screeninfo>Align Middle</screeninfo>
-           <graphic format="PNG" fileref="graphics/align-middle.&pngfile;" srccredit=
+           <graphic format="PNG" fileref="graphics/align-middle" srccredit=
   	 "Mark Dexter" />
          </screenshot>
        </figure> 
@@ -614,7 +614,7 @@
          <title>Align Bottom</title>
          <screenshot>
            <screeninfo>Align Bottom</screeninfo>
-           <graphic format="PNG" fileref="graphics/align-bottom.&pngfile;" srccredit=
+           <graphic format="PNG" fileref="graphics/align-bottom" srccredit=
   	 "Mark Dexter" />
          </screenshot>
        </figure> 	
@@ -630,7 +630,7 @@
          <title>Before Spread Out Horizontally</title>
          <screenshot>
            <screeninfo>Before Spread Out Horizontally</screeninfo>
-           <graphic format="PNG" fileref="graphics/before-hor-spread.&pngfile;" srccredit=
+           <graphic format="PNG" fileref="graphics/before-hor-spread" srccredit=
   	 "Mark Dexter" />
          </screenshot>
        </figure> 	
@@ -638,7 +638,7 @@
          <title>After Spread Out Horizontally</title>
          <screenshot>
            <screeninfo>After Spread Out Horizontally</screeninfo>
-           <graphic format="PNG" fileref="graphics/after-hor-spread.&pngfile;" srccredit=
+           <graphic format="PNG" fileref="graphics/after-hor-spread" srccredit=
   	 "Mark Dexter" />
          </screenshot>
        </figure> 		 
@@ -646,7 +646,7 @@
   		        <title>Before Spread Out Vertically</title>
          <screenshot>
            <screeninfo>Before Spread Out Vertically</screeninfo>
-           <graphic format="PNG" fileref="graphics/before-vert-spread.&pngfile;" srccredit=
+           <graphic format="PNG" fileref="graphics/before-vert-spread" srccredit=
   	 "Mark Dexter" />
          </screenshot>
        </figure> 	
@@ -654,7 +654,7 @@
   		        <title>After Spread Out Vertically</title>
          <screenshot>
            <screeninfo>After Spread Out Vertically</screeninfo>
-           <graphic format="PNG" fileref="graphics/after-vert-spread.&pngfile;" srccredit=
+           <graphic format="PNG" fileref="graphics/after-vert-spread" srccredit=
   	 "Mark Dexter" />
          </screenshot>
        </figure> 	
@@ -672,7 +672,7 @@
          <title>Align / Adjacent</title>
          <screenshot>
            <screeninfo>Align / Adjacent</screeninfo>
-           <graphic format="PNG" fileref="graphics/adjacent.&pngfile;" srccredit=
+           <graphic format="PNG" fileref="graphics/adjacent" srccredit=
   	 "Mark Dexter" />
          </screenshot>
        </figure> 	
@@ -680,7 +680,7 @@
          <title>Align / Stacked</title>
          <screenshot>
            <screeninfo>Align / Stacked</screeninfo>
-           <graphic format="PNG" fileref="graphics/stacked.&pngfile;" srccredit=
+           <graphic format="PNG" fileref="graphics/stacked" srccredit=
   	 "Mark Dexter" />
          </screenshot>
        </figure> 		 
@@ -701,7 +701,7 @@
          <title>Before and After Group Create</title>
          <screenshot>
            <screeninfo>Before and After Group Create</screeninfo>
-           <graphic format="PNG" fileref="graphics/object-group.&pngfile;" 
+           <graphic format="PNG" fileref="graphics/object-group" 
   				 srccredit= "Mark Dexter" />
          </screenshot>
        </figure>
@@ -763,7 +763,7 @@
          <title>Default Text Properties</title>
          <screenshot>
            <screeninfo>Default Text Properties</screeninfo>
-           <graphic format="PNG" fileref="graphics/defaults-text.&pngfile;" 
+           <graphic format="PNG" fileref="graphics/defaults-text" 
   				 srccredit= "Mark Dexter" />
          </screenshot>
        </figure>
@@ -771,7 +771,7 @@
          <title>Default Box Properties</title>
          <screenshot>
            <screeninfo>Default Box Properties</screeninfo>
-           <graphic format="PNG" fileref="graphics/defaults-box.&pngfile;" 
+           <graphic format="PNG" fileref="graphics/defaults-box" 
   				 srccredit= "Mark Dexter" />
          </screenshot>
        </figure>		 		 
@@ -929,7 +929,7 @@
             <screenshot>
                   <screeninfo>Color Listbox</screeninfo>
                 <graphic format="PNG"
-                           fileref="graphics/color-dropdown.&pngfile;"
+                           fileref="graphics/color-dropdown"
                            srccredit="Mark Dexter" />
               </screenshot>
         </figure>	
@@ -948,7 +948,7 @@
               <screenshot>
                   <screeninfo>The Select color box is described below.</screeninfo>
                   <graphic format="PNG"
-                           fileref="graphics/color-selector1.&pngfile;"
+                           fileref="graphics/color-selector1"
                          srccredit="Jeremy" />
             </screenshot>
       </figure>
@@ -1063,7 +1063,7 @@
         <title>Diagram Tree</title>
        <screenshot>
         <screeninfo>Diagram Tree</screeninfo>
-        <graphic format="PNG" fileref="graphics/diagram-tree.&pngfile;" 
+        <graphic format="PNG" fileref="graphics/diagram-tree" 
   			srccredit=
         "Mark Dexter" />
   			 </screenshot>
@@ -1107,7 +1107,7 @@
         <title>Diagram Tree Sort Options</title>
        <screenshot>
         <screeninfo>Diagram Tree Sort Options</screeninfo>
-        <graphic format="PNG" fileref="graphics/diagram-tree-sort.&pngfile;" 
+        <graphic format="PNG" fileref="graphics/diagram-tree-sort" 
   			srccredit=
         "Mark Dexter" />
   			 </screenshot>

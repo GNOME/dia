@@ -6,7 +6,7 @@
          <title>Basic Objects</title>
          <screenshot>
            <screeninfo>Basic Objects</screeninfo>
-           <graphic format="PNG" fileref="graphics/toolbox-basic.&pngfile;" 
+           <graphic format="PNG" fileref="graphics/toolbox-basic" 
   				 srccredit= "Mark Dexter" />
          </screenshot>
        </figure>
@@ -166,7 +166,7 @@ as you need them (i.e., instead of using the Toolbox icons).
       <title>Zigzagline Right-Click Menu</title>
      <screenshot>
       <screeninfo>Zigzagline Right-Click Menu</screeninfo>
-      <graphic format="PNG" fileref="graphics/zigzagline-rightclick.&pngfile;" 
+      <graphic format="PNG" fileref="graphics/zigzagline-rightclick" 
 			srccredit=
       "Mark Dexter" />
 			 </screenshot>
@@ -185,7 +185,7 @@ as you need them (i.e., instead of using the Toolbox icons).
       <title>Polyline Right-Click Menu</title>
      <screenshot>
       <screeninfo>Polyline Right-Click Menu</screeninfo>
-      <graphic format="PNG" fileref="graphics/polyline-rightclick.&pngfile;" 
+      <graphic format="PNG" fileref="graphics/polyline-rightclick" 
 			srccredit=
       "Mark Dexter" />
 			 </screenshot>
@@ -217,7 +217,7 @@ as you need them (i.e., instead of using the Toolbox icons).
       <title>Bezierline Right-Click Menu</title>
      <screenshot>
       <screeninfo>Bezierline Right-Click Menu</screeninfo>
-      <graphic format="PNG" fileref="graphics/bezierline-rightclick.&pngfile;" 
+      <graphic format="PNG" fileref="graphics/bezierline-rightclick" 
 			srccredit=
       "Mark Dexter" />
 			 </screenshot>
@@ -234,7 +234,7 @@ as you need them (i.e., instead of using the Toolbox icons).
       <title>Standard Line Properties</title>
      <screenshot>
       <screeninfo>Standard Line Properties</screeninfo>
-      <graphic format="PNG" fileref="graphics/standard-line-properties.&pngfile;" 
+      <graphic format="PNG" fileref="graphics/standard-line-properties" 
 			srccredit=   "Mark Dexter" />
       </screenshot>
     </figure>
@@ -251,7 +251,7 @@ as you need them (i.e., instead of using the Toolbox icons).
       <title>Line Colors</title>
      <screenshot>
       <screeninfo>Line Colors</screeninfo>
-      <graphic format="PNG" fileref="graphics/line-colors.&pngfile;" 
+      <graphic format="PNG" fileref="graphics/line-colors" 
 			srccredit=   "Mark Dexter" />
       </screenshot>
     </figure>
@@ -269,7 +269,7 @@ as you need them (i.e., instead of using the Toolbox icons).
       <title>Line Styles</title>
      <screenshot>
       <screeninfo>Line Styles</screeninfo>
-      <graphic format="PNG" fileref="graphics/line-styles.&pngfile;" 
+      <graphic format="PNG" fileref="graphics/line-styles" 
 			srccredit=   "Mark Dexter" />
       </screenshot>
     </figure>
@@ -287,7 +287,7 @@ as you need them (i.e., instead of using the Toolbox icons).
       <title>Line Arrows</title>
      <screenshot>
       <screeninfo>Line Arrows</screeninfo>
-      <graphic format="PNG" fileref="graphics/line-arrows.&pngfile;" 
+      <graphic format="PNG" fileref="graphics/line-arrows" 
 			srccredit=   "Mark Dexter" />
       </screenshot>
     </figure>
@@ -305,7 +305,7 @@ as you need them (i.e., instead of using the Toolbox icons).
             <screenshot>
                 <screeninfo>Image</screeninfo>
                 <graphic format="PNG"
-                         fileref="graphics/toolbox-image.&pngfile;"
+                         fileref="graphics/toolbox-image"
                          srccredit="Mark Dexter" />
             </screenshot>
       </figure>	
