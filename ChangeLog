@@ -1,6 +1,12 @@
 2009-01-31  Hans Breuer  <hans@breuer.org>
 
-	* omf.make : bug #306737 – installation fails in install-data-hook-omf
+	* doc/en/intro.xml doc/en/usage-quickstart.xml : moved "try Dia" 
+	flowchart to introduction.
+
+	* configure.in : configure failed to locate libpython when building GARNOME, 
+	bug #338368 (Hans de Goede)
+
+	* omf.make : bug #306737 - installation fails in install-data-hook-omf
 	if omffile variable is empty (patch from Thomas Harding)
 
 	* doc/en/*.xml : remove undefined entity  '.&pngfile'

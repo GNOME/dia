@@ -19,6 +19,15 @@
 -->
   <para>
    This document describes version &VERSION; of <application>Dia</application>.
+    <figure>
+      <title>Sample Flowchart Diagram</title>
+        <screenshot>
+          <screeninfo>This is a simple flowchart diagram produced 
+  				using <application>Dia</application>.
+          </screeninfo>
+          <graphic format="PNG" fileref="graphics/sample-flowchart" srccredit="Mark Dexter" />
+        </screenshot>
+    </figure>
   </para>
  </sect1>
 </chapter>                                                                       
