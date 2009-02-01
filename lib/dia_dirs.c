@@ -156,9 +156,14 @@ static gchar *
 dia_get_canonical_path(const gchar *path)
 {
   gchar  *ret = NULL;
-  gchar **list = g_strsplit (path, G_DIR_SEPARATOR_S, -1);
+  gchar **list;
   int i = 0, n = 0;
 
+  /* shortcut for nothing to do (also keeps UNC path intact */
+  if (!strstr(path, "..") && !strstr(path, "." G_DIR_SEPARATOR_S))
+    return g_strdup(path);
+
+  list = g_strsplit (path, G_DIR_SEPARATOR_S, -1);
   while (list[i] != NULL) {
     if (0 == strcmp (list[i], ".")) {
       /* simple, just remove it */

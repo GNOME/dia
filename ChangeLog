@@ -1,5 +1,8 @@
 2009-02-01  Hans Breuer  <hans@breuer.org>
 
+	* lib/dia_dirs.c(dia_get_canonical_path) : shortcut for pathes not 
+	including ".." or "./" to keep UNC pathes intact; bug #362397
+
 	* po/POTFILES.in : +objects/Misc/grid_object.c
 
 	* plug-ins/drs/dia-render-script-renderer.c 
