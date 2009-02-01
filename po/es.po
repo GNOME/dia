@@ -14,8 +14,8 @@ msgstr ""
 "Project-Id-Version: dia.HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=dia&component=general\n"
-"POT-Creation-Date: 2009-01-24 14:52+0000\n"
-"PO-Revision-Date: 2009-01-25 11:13+0100\n"
+"POT-Creation-Date: 2009-01-31 23:21+0000\n"
+"PO-Revision-Date: 2009-02-01 13:21+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -169,25 +169,25 @@ msgid "Dia version %s\n"
 msgstr "Versión %s de Dia\n"
 
 # Como adjetivo creo que el plural es "estándar". FVD
-#: ../app/app_procs.c:809
+#: ../app/app_procs.c:811
 msgid ""
 "Couldn't find standard objects when looking for object-libs; exiting...\n"
 msgstr "No se encontraron objetos estándar en object-libs, saliendo…\n"
 
 # Como adjetivo creo que el plural es "estándar". FVD
-#: ../app/app_procs.c:811
+#: ../app/app_procs.c:813
 #, c-format
 msgid ""
 "Couldn't find standard objects when looking for object-libs in '%s'; "
 "exiting...\n"
 msgstr "No se encontraron objetos estándar en object-libs en «%s»; saliendo…\n"
 
-#: ../app/app_procs.c:871
+#: ../app/app_procs.c:875
 msgid "Diagram1.dia"
 msgstr "Diagrama1.dia"
 
 # Me parece más correcta y explicativa esta traducción aunque sea algo más larga. RizOX.
-#: ../app/app_procs.c:914
+#: ../app/app_procs.c:919
 msgid ""
 "This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\n"
 "describing how you can cause this message to appear.\n"
@@ -196,16 +196,16 @@ msgstr ""
 "gnome.org\n"
 "describiendo cómo conseguir que este mensaje vuelva a aparecer.\n"
 
-#: ../app/app_procs.c:929
+#: ../app/app_procs.c:934
 msgid "Exiting Dia"
 msgstr "Salir de Dia"
 
 #. no standard buttons
-#: ../app/app_procs.c:981
+#: ../app/app_procs.c:986
 msgid "Quitting without saving modified diagrams"
 msgstr "¿Salir sin guardar los diagramas modificados?"
 
-#: ../app/app_procs.c:983
+#: ../app/app_procs.c:988
 msgid ""
 "Modified diagrams exist. Are you sure you want to quit Dia without saving "
 "them?"
@@ -213,15 +213,15 @@ msgstr ""
 "Hay diagramas modificados. ¿Está seguro de que desea salir de Dia\n"
 "sin guardarlos?"
 
-#: ../app/app_procs.c:987
+#: ../app/app_procs.c:992
 msgid "Quit Dia"
 msgstr "Salir de Dia"
 
-#: ../app/app_procs.c:1056 ../app/app_procs.c:1063
+#: ../app/app_procs.c:1061 ../app/app_procs.c:1068
 msgid "Could not create per-user Dia config directory"
 msgstr "No se pudo crear el directorio de configuración de Dia para el usuario"
 
-#: ../app/app_procs.c:1066
+#: ../app/app_procs.c:1071
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
@@ -230,35 +230,35 @@ msgstr ""
 "favor, asegúrese de que la variable de entorno HOME apunta a un directorio "
 "existente."
 
-#: ../app/app_procs.c:1089
+#: ../app/app_procs.c:1094
 msgid "Objects and filters internal to dia"
 msgstr "Objetos y filtros internos para dia"
 
-#: ../app/app_procs.c:1122
+#: ../app/app_procs.c:1127
 msgid "[FILE...]"
 msgstr "[ARCHIVO…]"
 
-#: ../app/app_procs.c:1142
+#: ../app/app_procs.c:1147
 #, c-format
 msgid "Input-directory '%s' must exist!\n"
 msgstr "El directorio de entrada «%s» debe existir\n"
 
-#: ../app/app_procs.c:1147
+#: ../app/app_procs.c:1152
 #, c-format
 msgid "Output-directory '%s' must exist!\n"
 msgstr "El directorio de salida «%s» debe existir\n"
 
-#: ../app/app_procs.c:1153
+#: ../app/app_procs.c:1158
 #, c-format
 msgid "'%s' not found!\n"
 msgstr "«%s» no encontrado\n"
 
-#: ../app/app_procs.c:1161
+#: ../app/app_procs.c:1166
 #, c-format
 msgid "'%s' not found in '%s'!\n"
 msgstr "No se encontró «%s» en «%s»\n"
 
-#: ../app/app_procs.c:1210
+#: ../app/app_procs.c:1215
 #, c-format
 msgid ""
 "The original author of Dia was:\n"
@@ -267,7 +267,7 @@ msgstr ""
 "El autor original de Dia fue:\n"
 "\n"
 
-#: ../app/app_procs.c:1215
+#: ../app/app_procs.c:1220
 #, c-format
 msgid ""
 "\n"
@@ -278,7 +278,7 @@ msgstr ""
 "Los actuales mantenedores de Dia son:\n"
 "\n"
 
-#: ../app/app_procs.c:1220
+#: ../app/app_procs.c:1225
 #, c-format
 msgid ""
 "\n"
@@ -289,7 +289,7 @@ msgstr ""
 "Otros autores son:\n"
 "\n"
 
-#: ../app/app_procs.c:1225
+#: ../app/app_procs.c:1230
 #, c-format
 msgid ""
 "\n"
@@ -320,24 +320,24 @@ msgstr "Seleccione color de primer plano"
 msgid "Select background color"
 msgstr "Seleccione color de fondo"
 
-#: ../app/commands.c:126
+#: ../app/commands.c:130
 msgid "No print plug-in found!"
 msgstr "No se encontró el complemento de impresión"
 
-#: ../app/commands.c:154
+#: ../app/commands.c:150
 #, c-format
 msgid "Diagram%d.dia"
 msgstr "Diagrama%d.dia"
 
-#: ../app/commands.c:347
+#: ../app/commands.c:343
 msgid "No existing object to paste.\n"
 msgstr "No hay objetos que pegar.\n"
 
-#: ../app/commands.c:650 ../app/commands.c:688
+#: ../app/commands.c:646 ../app/commands.c:684
 msgid "Could not find help directory"
 msgstr "No se pudo encontrar el directorio de ayuda"
 
-#: ../app/commands.c:657
+#: ../app/commands.c:653
 #, c-format
 msgid ""
 "Could not open help directory:\n"
@@ -346,7 +346,7 @@ msgstr ""
 "No se pudo abrir el directorio de ayuda:\n"
 "%s"
 
-#: ../app/commands.c:724
+#: ../app/commands.c:720
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr ""
 "Jorge González <jorgegonz@svn.gnome.org>, 2007-2009\n"
@@ -354,7 +354,7 @@ msgstr ""
 "Revisión por Francisco Vila <fravd@wanadoo.es>\n"
 "2ª Revisión por Alberto Barrionuevo <traducciones@rizox.com>"
 
-#: ../app/commands.c:726
+#: ../app/commands.c:722
 msgid ""
 "This program is free software; you can redistribute it and/or modify\n"
 "it under the terms of the GNU General Public License as published by\n"
@@ -386,9 +386,44 @@ msgstr ""
 "Inc,\n"
 "59 Temple Place - Suite 330, Boston, MA 02111-1307, EE.UU.\n"
 
-#: ../app/commands.c:749
+#: ../app/commands.c:745
 msgid "A program for drawing structured diagrams."
 msgstr "Un programa para dibujar diagramas estructurados."
+
+#: ../app/confirm.c:69
+#, c-format
+msgid "You are about to print a diagram with %d pages."
+msgstr "Está a punto de imprimir un diagrama con %d páginas."
+
+#: ../app/confirm.c:71
+#, c-format
+msgid "You are about to export a diagram with %d pages."
+msgstr "Está a punto de exportar un diagrama con %d páginas."
+
+#: ../app/confirm.c:73
+#, c-format
+msgid ""
+"You are about to export a diagram which may require %s of memory.(%d pages)."
+msgstr ""
+"Está a punto de exportar un diagrama que puede necesitar %s de memoria (%d "
+"páginas)."
+
+#: ../app/confirm.c:81
+msgid ""
+"You can adjust the size of the diagram by changing the 'Scaling' in the "
+"'Page Setup' dialog.\n"
+"Alternatively use 'Select All' and 'Best Fit' to move objects/handles into "
+"the intended bounds."
+msgstr ""
+"Puede ajustar el tamaño del diagrama cambiando la «Escala» en el diálogo "
+"«Configuración de página».\n"
+"Alternativamente use «Seleccionar todo» y «Mejor ajuste» para mover objetos en "
+"los límites deseados."
+
+#: ../app/confirm.c:85
+#| msgid "Dia Diagram File"
+msgid "Confirm Diagram Size"
+msgstr "Confirmar el tamaño del diagrama"
 
 #: ../app/create_object.c:71
 #, c-format
@@ -498,7 +533,7 @@ msgstr "Posición Y del widget hijo"
 msgid "Couldn't convert filename '%s' to UTF-8: %s\n"
 msgstr "No se pudo convertir el nombre de archivo «%s» a UTF-8: %s\n"
 
-#: ../app/diagram.c:225 ../lib/message.c:88 ../lib/message.c:291
+#: ../app/diagram.c:225 ../lib/message.c:89 ../lib/message.c:292
 msgid "Error"
 msgstr "Error"
 
@@ -511,11 +546,11 @@ msgstr ""
 "en un elemento en un diagrama nuevo y si lo guarda, se guardará como un "
 "diagrama de Dia."
 
-#: ../app/diagram.c:1183
+#: ../app/diagram.c:1197
 msgid "Trying to group with no selected objects."
 msgstr "Intentando agrupar sin objetos seleccionados."
 
-#: ../app/diagram.c:1193
+#: ../app/diagram.c:1207
 msgid ""
 "You cannot group objects that belong to different groups or have different "
 "parents"
@@ -676,7 +711,7 @@ msgstr ""
 msgid "Properties..."
 msgstr "Propiedades…"
 
-#: ../app/disp_callbacks.c:938
+#: ../app/disp_callbacks.c:1015
 msgid ""
 "The object you dropped cannot fit into its parent. \n"
 "Either expand the parent object, or drop the object elsewhere."
@@ -700,20 +735,20 @@ msgid "Selected '%s'"
 msgstr "Seleccionados «%s»"
 
 #. we really should not come here but instead disable the menu command earlier
-#: ../app/display.c:1040
+#: ../app/display.c:1034
 msgid "No anti-aliased renderer found"
 msgstr "No se encontró el renderizador antialias"
 
-#: ../app/display.c:1185
+#: ../app/display.c:1179
 msgid "<unnamed>"
 msgstr "<sin nombre>"
 
 #. no standard buttons
-#: ../app/display.c:1191
+#: ../app/display.c:1185
 msgid "Closing diagram without saving"
 msgstr "Cerrando el diagrama sin guardar"
 
-#: ../app/display.c:1193
+#: ../app/display.c:1187
 #, c-format
 msgid ""
 "The diagram '%s'\n"
@@ -722,11 +757,11 @@ msgstr ""
 "Este diagrama «%s»\n"
 "no ha sido guardado. ¿Guardar los cambios ahora?"
 
-#: ../app/display.c:1195
+#: ../app/display.c:1189
 msgid "Close Diagram"
 msgstr "Cerrar el diagrama"
 
-#: ../app/display.c:1200
+#: ../app/display.c:1194
 msgid "_Discard Changes"
 msgstr "_Descartar los cambios"
 
@@ -781,32 +816,32 @@ msgstr "No seleccionar ninguno"
 msgid "Nothing selected for saving.  Would you like to try again?"
 msgstr "No se seleccionó nada para guardar. ¿Quiere intentarlo otra vez?"
 
-#: ../app/filedlg.c:143 ../app/filedlg.c:151 ../app/filedlg.c:167
-#: ../app/filedlg.c:745 ../lib/widgets.c:1488
+#: ../app/filedlg.c:144 ../app/filedlg.c:152 ../app/filedlg.c:168
+#: ../app/filedlg.c:749 ../lib/widgets.c:1488
 msgid "Supported Formats"
 msgstr "Formatos soportados"
 
-#: ../app/filedlg.c:191 ../app/filedlg.c:605
+#: ../app/filedlg.c:192 ../app/filedlg.c:606
 msgid "By extension"
 msgstr "Por extensión"
 
-#: ../app/filedlg.c:280
+#: ../app/filedlg.c:281
 msgid "Open Diagram"
 msgstr "Abrir diagrama"
 
-#: ../app/filedlg.c:309
+#: ../app/filedlg.c:310
 msgid "Open Options"
 msgstr "Abrir opciones"
 
-#: ../app/filedlg.c:317 ../app/filedlg.c:727
+#: ../app/filedlg.c:318 ../app/filedlg.c:731
 msgid "Determine file type:"
 msgstr "Determinar tipo de archivo:"
 
-#: ../app/filedlg.c:337 ../app/filedlg.c:740 ../lib/widgets.c:1493
+#: ../app/filedlg.c:338 ../app/filedlg.c:744 ../lib/widgets.c:1493
 msgid "All Files"
 msgstr "Todos los archivos"
 
-#: ../app/filedlg.c:370 ../plug-ins/postscript/paginate_psprint.c:409
+#: ../app/filedlg.c:371 ../plug-ins/postscript/paginate_psprint.c:409
 msgid ""
 "Some characters in the filename are neither UTF-8\n"
 "nor your local encoding.\n"
@@ -816,12 +851,12 @@ msgstr ""
 " ni en su codificación local.\n"
 "Algunas cosas no funcionarán."
 
-#: ../app/filedlg.c:380 ../app/filedlg.c:652
+#: ../app/filedlg.c:381 ../app/filedlg.c:653
 #: ../plug-ins/postscript/paginate_psprint.c:424
 msgid "File already exists"
 msgstr "El archivo ya existe"
 
-#: ../app/filedlg.c:382 ../app/filedlg.c:654
+#: ../app/filedlg.c:383 ../app/filedlg.c:655
 #: ../plug-ins/postscript/paginate_psprint.c:416
 #, c-format
 msgid ""
@@ -831,18 +866,18 @@ msgstr ""
 "El archivo «%s» ya existe.\n"
 "¿Quiere sobreescribirlo?"
 
-#: ../app/filedlg.c:436
+#: ../app/filedlg.c:437
 msgid "Save Diagram"
 msgstr "Guardar diagrama"
 
 #. Need better way to make it a reasonable size.  Isn't there some
 #. standard look for them (or is that just Gnome?)
-#: ../app/filedlg.c:448
+#: ../app/filedlg.c:449
 msgid "Compress diagram files"
 msgstr "Comprimir archivos del diagrama"
 
 # Me suena más natural y descriptivo "al cargar y al guardar" o "al cargar y guardar" que "del cargar y del guardar". RizOX
-#: ../app/filedlg.c:458 ../app/filedlg.c:463
+#: ../app/filedlg.c:459 ../app/filedlg.c:464
 msgid ""
 "Compression reduces file size to less than 1/10th size and speeds up loading "
 "and saving.  Some text programs cannot manipulate compressed files."
@@ -851,7 +886,7 @@ msgstr ""
 "incrementa la velocidad al cargar y al guardar. Algunos programas de texto "
 "no pueden manipular archivos comprimidos."
 
-#: ../app/filedlg.c:678
+#: ../app/filedlg.c:679
 #, c-format
 msgid ""
 "Could not determine which export filter\n"
@@ -860,11 +895,11 @@ msgstr ""
 "No se pudo determinar qué filtro de exportación\n"
 "usar para guardar «%s»"
 
-#: ../app/filedlg.c:702
+#: ../app/filedlg.c:706
 msgid "Export Diagram"
 msgstr "Exportar diagrama"
 
-#: ../app/filedlg.c:719
+#: ../app/filedlg.c:723
 msgid "Export Options"
 msgstr "Exportar opciones"
 
@@ -1004,40 +1039,40 @@ msgid "Diagram menu."
 msgstr "Menú de diagrama."
 
 # ¿"Ampliación" o "Amplía"? Fuzzy. RizOX.
-#: ../app/interface.c:918
+#: ../app/interface.c:917
 msgid "Zoom"
 msgstr "Ampliación"
 
-#: ../app/interface.c:933
+#: ../app/interface.c:932
 msgid "Toggles snap-to-grid for this window."
 msgstr "Conmuta el ajuste a la rejilla para esta ventana."
 
-#: ../app/interface.c:944
+#: ../app/interface.c:943
 msgid "Toggles object snapping for this window."
 msgstr "Conmuta el ajuste del objeto para esta ventana."
 
 # Fuzzy. RizOX
-#: ../app/interface.c:1007
+#: ../app/interface.c:1006
 msgid "NULL tooldata in tool_select_update"
 msgstr "InArray de herramienta nula (NULL) en tool_select_update"
 
-#: ../app/interface.c:1334
+#: ../app/interface.c:1333
 #, c-format
 msgid "No sheet named %s"
 msgstr "No hay ninguna hoja llamada %s"
 
 # ¿De dónde salían esa traducción y esa variable? No concuerda con el original inglés en nada. Lo cambio. RizOX.
-#: ../app/interface.c:1372
+#: ../app/interface.c:1371
 msgid "Other sheets"
 msgstr "Otras hojas"
 
-#: ../app/interface.c:1432 ../sheets/Flowchart.sheet.in.h:10
+#: ../app/interface.c:1431 ../sheets/Flowchart.sheet.in.h:10
 msgid "Flowchart"
 msgstr "Diagrama de flujo"
 
 # Corregido: lleva doble espacio antes de cada frase.
 # "Pulse doble" o "Pulse dos veces" me suena más natural. RizOX.
-#: ../app/interface.c:1492
+#: ../app/interface.c:1491
 msgid ""
 "Foreground & background colors for new objects.  The small black and white "
 "squares reset colors.  The small arrows swap colors.  Double click to change "
@@ -1048,7 +1083,7 @@ msgstr ""
 "los colores.  Pulse dos veces para cambiar los colores."
 
 # Corregido: doble espacio al principio de línea. Cambiada la segunda expresión para darle mayor naturalidad. RizOX.
-#: ../app/interface.c:1507
+#: ../app/interface.c:1506
 msgid ""
 "Line widths.  Click on a line to set the default line width for new "
 "objects.  Double-click to set the line width more precisely."
@@ -1058,7 +1093,7 @@ msgstr ""
 "anchura con mayor precisión."
 
 # La coma antes del "o" no queda bien en la frase en español. RizOX.
-#: ../app/interface.c:1550
+#: ../app/interface.c:1549
 msgid ""
 "Arrow style at the beginning of new lines.  Click to pick an arrow, or set "
 "arrow parameters with Details..."
@@ -1067,7 +1102,7 @@ msgstr ""
 "flecha o establezca los parámetros de la flecha en Detalles…"
 
 # La coma antes del "o" no queda bien en la frase en español. Añadido el doble espacio del comienzo de frase según original en inglés. RizOX.
-#: ../app/interface.c:1555
+#: ../app/interface.c:1554
 msgid ""
 "Line style for new lines.  Click to pick a line style, or set line style "
 "parameters with Details..."
@@ -1076,7 +1111,7 @@ msgstr ""
 "línea o establezca los parámetros de estilo de línea en Detalles…"
 
 # La coma antes del "o" no queda bien en la frase en español. Añadido el doble espacio del comienzo de frase según original en inglés. Cambiado "con Detalles" por "en Detalles" para mantener la coherencia con la traducción de las anteriores entradas. RizOX.
-#: ../app/interface.c:1571
+#: ../app/interface.c:1570
 msgid ""
 "Arrow style at the end of new lines.  Click to pick an arrow, or set arrow "
 "parameters with Details..."
@@ -1084,7 +1119,7 @@ msgstr ""
 "Estilo de flecha al final de las líneas nuevas.  Pulse para escoger una "
 "flecha o establezca los parámetros de la flecha en Detalles…"
 
-#: ../app/interface.c:1631 ../app/interface.c:1760
+#: ../app/interface.c:1630 ../app/interface.c:1757
 msgid "Diagram Editor"
 msgstr "Editor de diagramas"
 
@@ -1147,7 +1182,7 @@ msgid "Line width:"
 msgstr "Ancho de línea:"
 
 # Cambiado el orden de la frase para mayor naturalidad. RizOX.
-#: ../app/load_save.c:307
+#: ../app/load_save.c:295
 msgid ""
 "Error loading diagram.\n"
 "Linked object not found in document."
@@ -1155,7 +1190,7 @@ msgstr ""
 "Error cargando diagrama.\n"
 "No se ha encontrado en el documento el objeto enlazado."
 
-#: ../app/load_save.c:311
+#: ../app/load_save.c:299
 #, c-format
 msgid ""
 "Error loading diagram.\n"
@@ -1164,7 +1199,7 @@ msgstr ""
 "Error al cargar el diagrama.\n"
 "No existe el manejador de conexión %d en «%s»."
 
-#: ../app/load_save.c:339
+#: ../app/load_save.c:327
 #, c-format
 msgid ""
 "Error loading diagram.\n"
@@ -1173,23 +1208,23 @@ msgstr ""
 "Error al cargar el diagrama.\n"
 "No existe el punto de conexión %d en «%s»."
 
-#: ../app/load_save.c:379
+#: ../app/load_save.c:367
 #, c-format
 msgid "Can't find parent %s of %s object\n"
 msgstr "No se pudo encontrar el objeto padre %s de %s\n"
 
-#: ../app/load_save.c:426
+#: ../app/load_save.c:416
 msgid "You must specify a file, not a directory.\n"
 msgstr "Debe especificar un archivo, no un directorio.\n"
 
-#: ../app/load_save.c:433 ../plug-ins/dxf/dxf-import.c:1309
+#: ../app/load_save.c:423 ../plug-ins/dxf/dxf-import.c:1309
 #: ../plug-ins/wpg/wpg.c:1177 ../plug-ins/xfig/xfig-import.c:1270
 #: ../plug-ins/xslt/xslt.c:91
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
 msgstr "No se pudo abrir: «%s» para lectura.\n"
 
-#: ../app/load_save.c:451 ../app/load_save.c:457
+#: ../app/load_save.c:441 ../app/load_save.c:447
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -1198,7 +1233,7 @@ msgstr ""
 "Error cargando el diagrama %s.\n"
 "Tipo de archivo desconocido."
 
-#: ../app/load_save.c:465
+#: ../app/load_save.c:455
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -1207,7 +1242,7 @@ msgstr ""
 "Error cargando el diagrama %s.\n"
 "No es un archivo de Dia."
 
-#: ../app/load_save.c:682
+#: ../app/load_save.c:672
 #, c-format
 msgid ""
 "Error loading diagram:\n"
@@ -1347,11 +1382,11 @@ msgstr "_Ampliación"
 msgid "1600%"
 msgstr "1600%"
 
-#: ../app/menus.c:145 ../app/menus.c:567
+#: ../app/menus.c:145 ../app/menus.c:566
 msgid "800%"
 msgstr "800%"
 
-#: ../app/menus.c:146 ../app/menus.c:568
+#: ../app/menus.c:146 ../app/menus.c:567
 msgid "400%"
 msgstr "400%"
 
@@ -1597,43 +1632,43 @@ msgstr "Inverso"
 msgid "NULL tooldata in tool_menu_select"
 msgstr "InArray de herramienta nula (NULL) en tool_menu_select"
 
-#: ../app/menus.c:569
+#: ../app/menus.c:568
 msgid "300%"
 msgstr "300%"
 
-#: ../app/menus.c:570
+#: ../app/menus.c:569
 msgid "200%"
 msgstr "200%"
 
-#: ../app/menus.c:571
+#: ../app/menus.c:570
 msgid "150%"
 msgstr "150%"
 
-#: ../app/menus.c:572
+#: ../app/menus.c:571
 msgid "100%"
 msgstr "100%"
 
-#: ../app/menus.c:573
+#: ../app/menus.c:572
 msgid "75%"
 msgstr "75%"
 
-#: ../app/menus.c:574
+#: ../app/menus.c:573
 msgid "50%"
 msgstr "50%"
 
-#: ../app/menus.c:575
+#: ../app/menus.c:574
 msgid "25%"
 msgstr "25%"
 
-#: ../app/menus.c:576
+#: ../app/menus.c:575
 msgid "10%"
 msgstr "10%"
 
-#: ../app/menus.c:602
+#: ../app/menus.c:601
 msgid "Toggles snap-to-grid."
 msgstr "Conmuta el ajuste a la rejilla."
 
-#: ../app/menus.c:614
+#: ../app/menus.c:613
 msgid "Toggles object snapping."
 msgstr "Conmuta el ajuste del objeto."
 
@@ -1845,28 +1880,33 @@ msgstr "Líneas por cada línea principal"
 msgid "Hex Size:"
 msgstr "Tamaño Hex:"
 
-#: ../app/preferences.c:262
+#. There's really no reason to not pretty format it, and allowing non-pretty
+#. can lead to problems with long lines, CVS etc.
+#. { "pretty_formated_xml", PREF_BOOLEAN,PREF_OFFSET(pretty_formated_xml),
+#. &default_true,0,"pretty formated xml",NULL, TRUE},
+#.
+#: ../app/preferences.c:259
 msgid "Diagram tree window:"
 msgstr "Ventana del árbol del diagrama"
 
-#: ../app/preferences.c:264
+#: ../app/preferences.c:261
 msgid "Save hidden object types"
 msgstr "Guardar tipos de objetos ocultos"
 
-#: ../app/preferences.c:474 ../lib/prop_inttypes.c:158
+#: ../app/preferences.c:471 ../lib/prop_inttypes.c:158
 msgid "Yes"
 msgstr "Sí"
 
-#: ../app/preferences.c:474 ../app/preferences.c:485
+#: ../app/preferences.c:471 ../app/preferences.c:482
 #: ../lib/prop_inttypes.c:160 ../lib/prop_inttypes.c:186
 msgid "No"
 msgstr "No"
 
-#: ../app/preferences.c:580
+#: ../app/preferences.c:577
 msgid "Preferences"
 msgstr "Preferencias"
 
-#: ../app/preferences.c:782
+#: ../app/preferences.c:779
 msgid "User Interface type settings change will take after restart"
 msgstr ""
 "Los ajustes para el interfaz del usuario tomarán efecto después de reiniciar."
@@ -2324,7 +2364,7 @@ msgstr "Error interno: al establecer tipo esquina de punto final Bézier"
 #: ../lib/create.c:50 ../lib/create.c:100 ../lib/create.c:127
 #: ../lib/create.c:161 ../lib/create.c:197 ../lib/create.c:224
 #: ../lib/create.c:260 ../lib/create.c:295 ../lib/create.c:338
-#: ../plug-ins/svg/svg-import.c:247 ../plug-ins/vdx/vdx-import.c:140
+#: ../plug-ins/svg/svg-import.c:247 ../plug-ins/vdx/vdx-import.c:144
 msgid "Can't find standard object"
 msgstr "No se pudo encontrar el objeto estándar"
 
@@ -2347,27 +2387,47 @@ msgstr ""
 "El archivo %s no tiene especificada la codificación;\n"
 "suponiendo que está codificado en %s"
 
-#: ../lib/dia_xml.c:593
+#: ../lib/dia_xml.c:595
 msgid "Taking point value of non-point node."
 msgstr "Tomando el valor del punto de un nodo que no es un punto."
 
-#: ../lib/dia_xml.c:604
+#: ../lib/dia_xml.c:606
 #, c-format
 msgid "Incorrect x Point value \"%s\" %f; discarding it."
 msgstr "Valor incorrecto del punto x «%s» %f; se descarta."
 
-#: ../lib/dia_xml.c:611
+#: ../lib/dia_xml.c:613
 msgid "Error parsing point."
 msgstr "Error analizando el punto."
 
 #. don't bother with useless warnings (see above)
-#: ../lib/dia_xml.c:619
+#: ../lib/dia_xml.c:621
 #, c-format
 msgid "Incorrect y Point value \"%s\" %f; discarding it."
 msgstr "Valor incorrecto del punto y «%s» %f; se descarta."
 
+#: ../lib/dia_xml.c:638
+#| msgid "Taking point value of non-point node."
+msgid "Taking bezpoint value of non-point node."
+msgstr "Tomando el valor del punto de un nodo que no es un punto."
+
+#: ../lib/dia_xml.c:656
+#| msgid "Error parsing point."
+msgid "Error parsing bezpoint p1."
+msgstr "Error analizando el punto p1."
+
+#: ../lib/dia_xml.c:670
+#| msgid "Error parsing point."
+msgid "Error parsing bezpoint p2."
+msgstr "Error analizando el punto p2."
+
+#: ../lib/dia_xml.c:684
+#| msgid "Error parsing point."
+msgid "Error parsing bezpoint p3."
+msgstr "Error analizando el punto p3."
+
 # Traduzco "issues" como "problemas" en vez de como "asuntos". Cambiado el orden de la frase para hispanizarla. RizOX.
-#: ../lib/dia_xml.c:1091
+#: ../lib/dia_xml.c:1205
 msgid ""
 "Your local character set is UTF-8. Because of issues with libxml1 and the "
 "support of files generated by previous versions of dia, you will encounter  "
@@ -2408,30 +2468,30 @@ msgstr "Filtros múltiples de exportación con nombre único %s"
 msgid "Can't load font %s.\n"
 msgstr "No se puede cargar la tipografía %s.\n"
 
-#: ../lib/message.c:90 ../lib/message.c:276
+#: ../lib/message.c:91 ../lib/message.c:277
 msgid "Warning"
 msgstr "Aviso"
 
-#: ../lib/message.c:117
+#: ../lib/message.c:118
 msgid "There is one similar message."
 msgstr "Hay un mensaje similar."
 
-#: ../lib/message.c:122
+#: ../lib/message.c:123
 msgid "Show repeated messages"
 msgstr "Mostrar mensajes repetidos."
 
-#: ../lib/message.c:143
+#: ../lib/message.c:144
 msgid "Don't show this message again"
 msgstr "No mostrar este mensaje de nuevo"
 
-#: ../lib/message.c:201
+#: ../lib/message.c:202
 #, c-format
 msgid "There are %d similar messages."
 msgstr "Hay %d mensajes similares."
 
 # no estoy de acuerdo. FVD
 # Yo tampoco. "Noticia" es "News". "Notice" significa "Observación". RizOX.
-#: ../lib/message.c:260
+#: ../lib/message.c:261
 msgid "Notice"
 msgstr "Observación"
 
@@ -2454,26 +2514,26 @@ msgstr ""
 msgid "???"
 msgstr "???"
 
-#: ../lib/plug-ins.c:185
+#: ../lib/plug-ins.c:186
 #, c-format
 msgid "Missing dependencies for '%s'?"
 msgstr "¿Faltan dependencias para «%s»?"
 
-#: ../lib/plug-ins.c:196
+#: ../lib/plug-ins.c:197
 msgid "Missing symbol 'dia_plugin_init'"
 msgstr "No se encuentra el símbolo «dia_plugin_init»"
 
-#: ../lib/plug-ins.c:204 ../lib/plug-ins.c:212
+#: ../lib/plug-ins.c:205 ../lib/plug-ins.c:213
 msgid "dia_plugin_init() call failed"
 msgstr "falló la llamada a dia_plugin_init()"
 
 # Se traduce "plug-in" como "complemento" en vez de "extensión" para que no se confunda con las extensiones de los ficheros y para mantener la coherencia con lo anterior. RizOX.
-#: ../lib/plug-ins.c:231
+#: ../lib/plug-ins.c:232
 #, c-format
 msgid "%s Plugin could not be unloaded"
 msgstr "El complemento %s no pudo descargarse"
 
-#: ../lib/plug-ins.c:302
+#: ../lib/plug-ins.c:303
 #, c-format
 msgid ""
 "Could not open `%s'\n"
@@ -2562,6 +2622,51 @@ msgstr "Color de texto"
 #, c-format
 msgid "No attribute '%s' (%p) or no data(%p) in this attribute"
 msgstr "No hay ningún atributo «%s» (%p) o no hay datos (%p) en este atributo"
+
+#: ../lib/sheet.c:69
+#, c-format
+msgid ""
+"DiaObject '%s' needed in sheet '%s' was not found.\n"
+"It will not be available for use."
+msgstr ""
+"No se encontró el objeto de Dia requerido «%s» en la hoja «%s».\n"
+"No estará disponible para usarse."
+
+#: ../lib/sheet.c:84
+#, c-format
+msgid ""
+"DiaObject '%s' needed in sheet '%s' was not found.\n"
+"It will not be availible for use."
+msgstr ""
+"No se encontró el objeto de Dia requerido «%s» en la hoja «%s».\n"
+"No estará disponible para usarse."
+
+#: ../lib/sheet.c:133 ../lib/sheet.c:144 ../lib/sheet.c:150
+#, c-format
+#| msgid "No sheet named %s"
+msgid "sheets from '%s'"
+msgstr "hojas de «%s»"
+
+#: ../lib/sheet.c:314
+#, c-format
+msgid ""
+"The system sheet '%s' appears to be more recent than your custom\n"
+"version and has been loaded as '%s' for this session.\n"
+"\n"
+"Move new objects (if any) from '%s' into your custom sheet\n"
+"or remove '%s', using the 'Sheets and Objects' dialog."
+msgstr ""
+"La hoja del sistema «%s» parece más reciente que su versión\n"
+"personalizada y se ha cargado como «%s» para esta sesión.\n"
+"\n"
+"Mueve objetos nuevos (si hay alguno) desde «%s» a su hoja\n"
+"personalizada o elimine «%s» usando el diálogo «Hojas y objetos»."
+
+#: ../lib/sheet.c:371
+#, c-format
+msgid "%s: you should use object tags rather than shape tags now"
+msgstr ""
+"%s: ahora debería usar etiquetas de objeto en lugar de etiquetas de formas"
 
 #: ../lib/widgets.c:441
 msgid "Other fonts"
@@ -4476,7 +4581,7 @@ msgstr "Ancho de la manecilla de los segundos"
 msgid "Show hours"
 msgstr "Mostrar horas"
 
-#: ../objects/Misc/libmisc.c:40
+#: ../objects/Misc/libmisc.c:41
 msgid "Miscellaneous objects"
 msgstr "Figuras variadas"
 
@@ -4657,7 +4762,7 @@ msgstr "Alto secreto de la OTAN"
 msgid "SISSI diagram"
 msgstr "Diagrama de SISSI"
 
-#: ../objects/SISSI/sissi.c:919
+#: ../objects/SISSI/sissi.c:924
 #, c-format
 msgid ""
 "Error loading object.\n"
@@ -4666,7 +4771,7 @@ msgstr ""
 "Error al cargar el objeto.\n"
 "No es un archivo regular: %s"
 
-#: ../objects/SISSI/sissi.c:924 ../objects/SISSI/sissi.c:928
+#: ../objects/SISSI/sissi.c:929 ../objects/SISSI/sissi.c:933
 #, c-format
 msgid ""
 "Error loading object.\n"
@@ -4675,7 +4780,7 @@ msgstr ""
 "Error al cargar el objeto.\n"
 "Tipo de archivo incorrecto: %s"
 
-#: ../objects/SISSI/sissi.c:936
+#: ../objects/SISSI/sissi.c:941
 #, c-format
 msgid ""
 "Error loading object.\n"
@@ -6200,49 +6305,49 @@ msgstr "No se pudo leer el archivo %s"
 msgid "Visio XML format"
 msgstr "Formato XML Visio"
 
-#: ../plug-ins/vdx/vdx-import.c:219 ../plug-ins/xfig/xfig-import.c:1046
+#: ../plug-ins/vdx/vdx-import.c:226 ../plug-ins/xfig/xfig-import.c:1046
 #, c-format
 msgid "Couldn't read color: %s\n"
 msgstr "No se pudo leer color %s\n"
 
-#: ../plug-ins/vdx/vdx-import.c:513
+#: ../plug-ins/vdx/vdx-import.c:540
 #, c-format
 msgid "Couldn't find shape %d\n"
 msgstr "No se pudo encontrar la forma %d\n"
 
-#: ../plug-ins/vdx/vdx-import.c:987
+#: ../plug-ins/vdx/vdx-import.c:1046
 #, c-format
 msgid "Unexpected Ellipse object: %s\n"
 msgstr "Objeto de elipse inesperado: %s\n"
 
-#: ../plug-ins/vdx/vdx-import.c:1001
+#: ../plug-ins/vdx/vdx-import.c:1060
 msgid "Can't rotate ellipse\n"
 msgstr "No se puede rotar la elipse\n"
 
-#: ../plug-ins/vdx/vdx-import.c:1320
+#: ../plug-ins/vdx/vdx-import.c:1391
 msgid "MoveTo not at start of Bezier\n"
 msgstr "No tener moveto al comienzo de Bézier\n"
 
-#: ../plug-ins/vdx/vdx-import.c:1653
+#: ../plug-ins/vdx/vdx-import.c:1739
 msgid "Invalid NURBS formula"
 msgstr "Fórmula NURBS no válida"
 
-#: ../plug-ins/vdx/vdx-import.c:1889
+#: ../plug-ins/vdx/vdx-import.c:1983
 #, c-format
 msgid "Couldn't write file %s"
 msgstr "No se pudo escribir el archivo %s"
 
-#: ../plug-ins/vdx/vdx-import.c:1974 ../plug-ins/vdx/vdx-import.c:1987
+#: ../plug-ins/vdx/vdx-import.c:2068 ../plug-ins/vdx/vdx-import.c:2081
 #, c-format
 msgid "Couldn't handle foreign object type %s"
 msgstr "No se pudo manejar el objeto extraño tipo %s"
 
-#: ../plug-ins/vdx/vdx-import.c:2015
+#: ../plug-ins/vdx/vdx-import.c:2109
 #, c-format
 msgid "Couldn't make object dir %s"
 msgstr "No se pudo crear el directorio objeto %s"
 
-#: ../plug-ins/vdx/vdx-import.c:2962
+#: ../plug-ins/vdx/vdx-import.c:3090
 msgid "Visio XML File Format"
 msgstr "Formato de archivo Visio XML"
 
@@ -8254,18 +8359,22 @@ msgid "New-style group object, for testing"
 msgstr "Nuevo estilo de grupo de objetos, para pruebas"
 
 #: ../sheets/Misc.sheet.in.h:7
+msgid "Resizable grid"
+msgstr "Rejilla redimensionable"
+
+#: ../sheets/Misc.sheet.in.h:8
 msgid "Traditional clock"
 msgstr "Reloj tradicional"
 
-#: ../sheets/Misc.sheet.in.h:8
+#: ../sheets/Misc.sheet.in.h:9
 msgid "Tree"
 msgstr "Árbol"
 
-#: ../sheets/Misc.sheet.in.h:9
+#: ../sheets/Misc.sheet.in.h:10
 msgid "expended node"
 msgstr "nodo gastado"
 
-#: ../sheets/Misc.sheet.in.h:10
+#: ../sheets/Misc.sheet.in.h:11
 msgid "expensible node"
 msgstr "nodo gastable"
 
