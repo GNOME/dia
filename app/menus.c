@@ -514,7 +514,8 @@ ensure_menu_path (GtkUIManager *ui_manager, GtkActionGroup *actions, const gchar
       ensure_menu_path (ui_manager, actions, subpath, FALSE);
 
       action = gtk_action_new (action_name, sep + 1, NULL, NULL);
-      gtk_action_group_add_action (actions, action);
+      if (!gtk_action_group_get_action (actions, action_name))
+        gtk_action_group_add_action (actions, action);
       g_object_unref (G_OBJECT (action));
 
       gtk_ui_manager_add_ui (ui_manager, id, subpath, 
@@ -976,6 +977,11 @@ menus_get_integrated_ui_menubar (GtkWidget     **menubar,
     error = NULL;
   }
   g_free (uifile);
+  if (!gtk_ui_manager_add_ui_from_string (integrated_ui_manager, ui_info, -1, &error)) {
+    g_warning ("built-in menus failed: %s", error->message);
+    g_error_free (error);
+    error = NULL;
+  }
 
   add_plugin_actions (integrated_ui_manager, NULL);
 

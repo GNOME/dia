@@ -1,5 +1,8 @@
 2009-02-01  Hans Breuer  <hans@breuer.org>
 
+	* app/menus.c : stop complains during plug-in callback menu 
+	registration for the integrated UI case
+
 	* lib/object.[ch] lib/dia_xml.[ch] lib/prop_dict.[ch] 
 	  lib/properties.[ch] lib/propinternals.h lib/Makefile.am 
 	  lib/libdia.def po/POTFILES.in : allow to serialize meta info with 
