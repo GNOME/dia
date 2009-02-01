@@ -1,3 +1,7 @@
+2009-02-01  Hans Breuer  <hans@breuer.org>
+
+	* ro.po ko.po : converted to utf-8 fixing bug #500746
+
 2009-02-01  Jorge Gonzalez  <jorgegonz@svn.gnome.org>
 
 	* es.po: Updated Spanish translation.
