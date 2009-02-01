@@ -1,3 +1,7 @@
+2009-02-01  Hans Breuer  <hans@breuer.org>
+
+	* objects/makefile.msc : Grid object on win32, too
+
 2009-01-31  Hans Breuer  <hans@breuer.org>
 
 	* lib/dia_xml.[ch] lib/libdia.def : implement data_(add_)bezpoint to 
