@@ -24,9 +24,22 @@
 #include <config.h>
 
 #include "geometry.h"
+#include "color.h"
+#include "diagramdata.h"
 
 #include <libxml/tree.h>
 
+static real
+_parse_real (xmlNodePtr node, const char *attrib)
+{
+  xmlChar *str = xmlGetProp(node, (const xmlChar *)attrib);
+  real val = 0;
+  if (str) {
+    val = g_strtod ((gchar *)str, NULL);
+    xmlFree(str);
+  }
+  return val;
+}
 static Point *
 _parse_point (xmlNodePtr node, const char *attrib)
 {
@@ -39,6 +52,7 @@ _parse_point (xmlNodePtr node, const char *attrib)
       ++ep;
       pt->y = g_strtod (ep, NULL);
     }
+    xmlFree(str);
   }
   return pt;
 }
@@ -97,4 +111,68 @@ _parse_bezpoints (xmlNodePtr node, const char *attrib)
     xmlFree(str);
   }
   return arr;
+}
+static Color *
+_parse_color (xmlNodePtr node, const char *attrib)
+{
+  xmlChar *str = xmlGetProp(node, (const xmlChar *)attrib);
+  Color *val = NULL;
+  
+  if (str) {
+    PangoColor color;
+    if (!pango_color_parse (&color, (gchar *)str)) {
+      val = g_new (Color, 1);
+      val->red = color.red / 65535.0; 
+      val->green = color.green / 65535.0; 
+      val->blue = color.blue / 65535.0;
+    }
+    xmlFree(str);
+  }
+  return val;
+}
+
+typedef struct _RenderOp RenderOp;
+struct _RenderOp {
+  void (*render) (RenderOp *self, ...);
+  void (*destroy)(RenderOp *self);
+  void *params[6];
+};
+
+/*!
+ * Fill a GList* with objects which is to be put in a
+ * diagram or a group by the caller. 
+ * Can be called recusively to allow groups in groups.
+ */
+static GList*
+read_items (xmlNodePtr startnode)
+{
+  xmlNodePtr node;
+  GList *items = NULL;
+
+  for (node = startnode; node != NULL; node = node->next) {
+    if (xmlIsBlankNode(node)) 
+      continue;
+    if (node->type != XML_ELEMENT_NODE)
+      continue;
+    
+  }
+  return items;
+}
+
+/* imports the given SVG file, returns TRUE if successful */
+gboolean
+import_drs (const gchar *filename, DiagramData *dia, void* user_data) 
+{
+  GList *item, *items;
+  xmlNodePtr root;
+  xmlDocPtr doc = xmlParseFile(filename);
+
+  items = read_items (root->xmlChildrenNode);
+  for (item = items; item != NULL; item = g_list_next (item)) {
+    DiaObject *obj = (DiaObject *)item->data;
+    layer_add_object(dia->active_layer, obj);
+  }
+  g_list_free (items);
+  xmlFreeDoc(doc);
+  return TRUE;
 }

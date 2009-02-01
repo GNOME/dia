@@ -103,6 +103,12 @@ draw_object(DiaRenderer *self,
   g_queue_push_tail (renderer->parents, renderer->root);
   renderer->root = node = xmlNewChild(renderer->root, NULL, (const xmlChar *)"object", NULL);
   xmlSetProp(node, (const xmlChar *)"type", (xmlChar *)object->type->name);
+  /* if it looks like intdata store it as well */
+  if ((int)object->type->default_user_data > 0 && (int)object->type->default_user_data < 0xFF) {
+    gchar buffer[30];
+    g_snprintf(buffer, sizeof(buffer), "%d", (int)object->type->default_user_data);
+    xmlSetProp(node, (const xmlChar *)"intdata", (xmlChar *)buffer);
+  }
   if (renderer->save_props) {
     xmlNodePtr props_node;
     
@@ -110,8 +116,12 @@ draw_object(DiaRenderer *self,
     object_save_props (object, props_node);
   }
   /* TODO: special handling for group object? */
-  object->ops->draw(object, DIA_RENDERER (renderer));
-  
+  {
+    g_queue_push_tail (renderer->parents, renderer->root);
+    renderer->root = node = xmlNewChild(renderer->root, NULL, (const xmlChar *)"render", NULL);
+    object->ops->draw(object, DIA_RENDERER (renderer));
+    renderer->root = g_queue_pop_tail (renderer->parents);
+  }
   renderer->root = g_queue_pop_tail (renderer->parents);
 }
 

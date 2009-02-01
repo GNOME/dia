@@ -1,5 +1,11 @@
 2009-02-01  Hans Breuer  <hans@breuer.org>
 
+	* plug-ins/drs/dia-render-script-renderer.c 
+	  plug-ins/drs/dia-render-script.c : wrap <render>calls</render>, 
+	save <properties/> by default
+	
+	* plug-ins/drs/dia-render-script-import.c : more code, still unused
+
 	* app/menus.c : stop complains during plug-in callback menu 
 	registration for the integrated UI case
 

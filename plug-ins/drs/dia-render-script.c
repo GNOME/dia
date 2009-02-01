@@ -32,14 +32,15 @@
  *   <meta />
  *   <layer name="" >
  *     <object type="">
- *       <properties>
+ *       <!-- optional stdprops to restore the real object type -->
+ *       <properties />
  *       <render>
- *          <set- />
- *
- *          <rectangle />
- *          <ellipse />
- *          <string />
-  *       </render>
+ *          <set-font />
+ *          <draw-rectangle />
+ *          <fill-ellipse />
+ *          <draw-string />
+ *          <!-- ... -->
+ *       </render>
  *     </object>
  *   </layer>
  * </diagram>
@@ -124,6 +125,8 @@ export_data(DiagramData *data, const gchar *filename,
     fclose(file);
   }
   renderer = DRS_RENDERER (g_object_new(DRS_TYPE_RENDERER, NULL));
+  /* store also object properties */
+  renderer->save_props = (user_data == NULL);
 
   /* set up the root node */
   doc = xmlNewDoc((const xmlChar *)"1.0");
@@ -138,7 +141,7 @@ export_data(DiagramData *data, const gchar *filename,
   
   drs_data_render(data, DIA_RENDERER(renderer));
 
-  xmlSetDocCompressMode(doc, 0);
+  xmlSetDocCompressMode(doc, 1);
   xmlDiaSaveFile(filename, doc);
   xmlFreeDoc(doc);
 
