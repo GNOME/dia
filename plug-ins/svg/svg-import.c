@@ -137,6 +137,26 @@ static PropDescription svg_element_prop_descs[] = {
     { "elem_height", PROP_TYPE_REAL },
     PROP_DESC_END};
 
+static PropDescription _arrow_prop_descs[] = {
+    PROP_STD_START_ARROW,
+    PROP_STD_END_ARROW,
+    PROP_DESC_END
+};
+
+static void
+reset_arrows (DiaObject *obj)
+{
+    GPtrArray *props;
+    int i;
+
+    props = prop_list_from_descs(_arrow_prop_descs,pdtpp_true);
+    g_assert(props->len == 2);
+    for (i = 0; i < 2; ++i)
+        ((ArrowProperty *)g_ptr_array_index(props, 0))->arrow_data.type = ARROW_NONE;
+    obj->ops->set_props(obj, props);
+    prop_list_free(props);
+}
+
 static GPtrArray *
 make_element_props(real xpos, real ypos,
                    real width, real height)
@@ -260,6 +280,8 @@ read_path_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list)
 	  bcd->points[i].p3.y /= user_scale;
 	}
 	new_obj = otype->ops->create(NULL, bcd, &h1, &h2);
+	if (!closed)
+	  reset_arrows (new_obj);
 	g_free(bcd);
 	apply_style(new_obj, node, parent_style);
 	list = g_list_append (list, new_obj);
@@ -434,6 +456,7 @@ read_poly_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list, char *obj
     pcd->points = points;
     new_obj = otype->ops->create(NULL, pcd,
 				 &h1, &h2);
+    reset_arrows (new_obj);
     apply_style(new_obj, node, parent_style);
     list = g_list_append (list, new_obj);
     g_free(pcd);
@@ -550,7 +573,8 @@ read_line_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list)
   ptprop->point_data = end;
 
   new_obj->ops->set_props(new_obj, props);
-  
+  reset_arrows (new_obj);
+
   prop_list_free(props);
 
   apply_style(new_obj, node, parent_style);

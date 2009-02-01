@@ -1,5 +1,9 @@
 2009-02-01  Hans Breuer  <hans@breuer.org>
 
+	* plug-ins/svg/svg-import.c : reset_arrows() to not create standard
+	objects with toolbox defaults during svg import, fixes bug #537103
+	(if the effect is desired it is still available with diasvg_import.py)
+
 	* lib/persitence.c : use g_hash_table_new_full() to get rid of a lot of
 	g_warnings for double allocations, the better fix for bug #564890
 
