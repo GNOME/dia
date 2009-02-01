@@ -103,6 +103,7 @@ objects/KAOS/metaandorrel.c
 objects/KAOS/metabinrel.c
 objects/KAOS/other.c
 objects/Misc/analog_clock.c
+objects/Misc/grid_object.c
 objects/Misc/libmisc.c
 objects/Misc/measure.c
 objects/Misc/tree.c

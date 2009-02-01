@@ -1,5 +1,7 @@
 2009-02-01  Hans Breuer  <hans@breuer.org>
 
+	* po/POTFILES.in : +objects/Misc/grid_object.c
+
 	* plug-ins/drs/dia-render-script-renderer.c 
 	  plug-ins/drs/dia-render-script.c : wrap <render>calls</render>, 
 	save <properties/> by default
@@ -508,6 +510,7 @@
 
 	* app/preferences.[ch] lib/filter.[ch] lib/libdia.def : allow to select
 	a preferred export filter used when selecting exporter by extension
+	(Bug #535179 - export to png does not use AntiAliasing, now up to user)
 
 	* lib/persistence.c : don't use g_ascii_strncasecmp as GCompareFunc,
 	fixing crashes introduced by patch from bug #559671
