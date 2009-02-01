@@ -1,5 +1,10 @@
 2009-02-01  Hans Breuer  <hans@breuer.org>
 
+	* lib/persitence.c : use g_hash_table_new_full() to get rid of a lot of
+	g_warnings for double allocations, the better fix for bug #564890
+
+	* lib/prop_dict.c(dictprop_load) : make it work, too.
+
 	* lib/dia_dirs.c(dia_get_canonical_path) : shortcut for pathes not 
 	including ".." or "./" to keep UNC pathes intact; bug #362397
 

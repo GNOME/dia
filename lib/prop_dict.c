@@ -92,17 +92,22 @@ dictprop_copy(DictProperty *src)
 static void 
 dictprop_load(DictProperty *prop, AttributeNode attr, DataNode data)
 {
+  DataNode kv;
   guint nvals = attribute_num_data(attr);
   if (!nvals)
     return;
 
-  while (data) {
-    gchar *value = data_string(data);
-    const gchar *key = data->name;
-    if (!key)
+  kv = attribute_first_data (data);
+  while (kv) {
+    xmlChar *key = xmlGetProp(kv, (const xmlChar *)"name");
+
+    if (key) {
+      gchar *value = data_string(attribute_first_data (kv));
+      if (value)
+        g_hash_table_insert (prop->dict, g_strdup((gchar *)key), value);
+    } else {
       g_warning ("Dictionary key missing");
-    if (value && key)
-      g_hash_table_insert (prop->dict, g_strdup(key), value);
+    }
     data = data_next(data);
   }
 }

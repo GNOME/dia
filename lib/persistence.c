@@ -45,6 +45,12 @@ static GHashTable *persistent_integers, *persistent_reals;
 static GHashTable *persistent_booleans, *persistent_strings;
 static GHashTable *persistent_colors;
 
+static GHashTable *
+_dia_hash_table_str_any_new (void)
+{
+  /* the key is const, the value gets freed */
+  return g_hash_table_new_full(g_str_hash, g_str_equal, NULL, g_free);
+}
 /* *********************** GENERAL INTERNAL FUNCTIONS ************** */
 /** Lookup an entry in any of the type tables, ensuring existence on the way.
  * @param type_table A pointer to one of the above type tables.
@@ -59,7 +65,7 @@ persistence_lookup(GHashTable **type_table, gchar *role)
     return NULL;
   }
   if (*type_table == NULL) {
-    *type_table = g_hash_table_new(g_str_hash, g_str_equal);
+    *type_table = _dia_hash_table_str_any_new();
   }
   return g_hash_table_lookup(*type_table, role);
 }
@@ -150,21 +156,13 @@ static void
 persistence_load_integer(gchar *role, xmlNodePtr node)
 {
   AttributeNode attr;
-  gint *integer;
 
   /* Find the contents? */
   attr = composite_find_attribute(node, "intvalue");
   if (attr != NULL) {
-    integer = g_new(gint, 1);
+    gint *integer = g_new(gint, 1);
     *integer = data_int(attribute_first_data(attr));
-  } else 
-    return;
-
-  if (g_hash_table_lookup(persistent_integers, role) == NULL) 
     g_hash_table_insert(persistent_integers, role, integer);
-  else {
-    g_warning("Int %s registered before loading persistence!", role);
-    g_free(integer);
   }
 }
 
@@ -172,21 +170,13 @@ static void
 persistence_load_real(gchar *role, xmlNodePtr node)
 {
   AttributeNode attr;
-  real *realval;
 
   /* Find the contents? */
   attr = composite_find_attribute(node, "realvalue");
   if (attr != NULL) {
-    realval = g_new(real, 1);
+    real *realval = g_new(real, 1);
     *realval = data_real(attribute_first_data(attr));
-  } else 
-    return;
-
-  if (g_hash_table_lookup(persistent_reals, role) == NULL) 
     g_hash_table_insert(persistent_reals, role, realval);
-  else {
-    g_warning("Real %s registered before loading persistence!", role);
-    g_free(realval);
   }
 }
 
@@ -194,21 +184,13 @@ static void
 persistence_load_boolean(gchar *role, xmlNodePtr node)
 {
   AttributeNode attr;
-  gboolean *booleanval;
 
   /* Find the contents? */
   attr = composite_find_attribute(node, "booleanvalue");
   if (attr != NULL) {
-    booleanval = g_new(gboolean, 1);
+    gboolean *booleanval = g_new(gboolean, 1);
     *booleanval = data_boolean(attribute_first_data(attr));
-  } else 
-    return;
-
-  if (g_hash_table_lookup(persistent_booleans, role) == NULL) 
     g_hash_table_insert(persistent_booleans, role, booleanval);
-  else {
-    g_warning("Boolean %s registered before loading persistence!", role);
-    g_free(booleanval);
   }
 }
 
@@ -216,20 +198,12 @@ static void
 persistence_load_string(gchar *role, xmlNodePtr node)
 {
   AttributeNode attr;
-  gchar *stringval;
 
   /* Find the contents? */
   attr = composite_find_attribute(node, "stringvalue");
   if (attr != NULL) {
-    stringval = data_string(attribute_first_data(attr));
-  } else 
-    return;
-
-  if (g_hash_table_lookup(persistent_strings, role) == NULL) 
+    gchar *stringval = data_string(attribute_first_data(attr));
     g_hash_table_insert(persistent_strings, role, stringval);
-  else {
-    g_warning("String %s registered before loading persistence!", role);
-    g_free(stringval);
   }
 }
 
@@ -237,21 +211,13 @@ static void
 persistence_load_color(gchar *role, xmlNodePtr node)
 {
   AttributeNode attr;
-  Color *colorval;
 
   /* Find the contents? */
   attr = composite_find_attribute(node, "colorvalue");
   if (attr != NULL) {
-    colorval = g_new(Color, 1);
+    Color *colorval = g_new(Color, 1);
     data_color(attribute_first_data(attr), colorval);
-  } else 
-    return;
-
-  if (g_hash_table_lookup(persistent_colors, role) == NULL) 
     g_hash_table_insert(persistent_colors, role, colorval);
-  else {
-    g_warning("Color %s registered before loading persistence!", role);
-    g_free(colorval);
   }
 }
 
@@ -293,7 +259,7 @@ static void
 persistence_set_type_handler(gchar *name, PersistenceLoadFunc func)
 {
   if (type_handlers == NULL)
-    type_handlers = g_hash_table_new(g_str_hash, g_str_equal);
+    type_handlers = g_hash_table_new(g_str_hash,g_str_equal);
 
   g_hash_table_insert(type_handlers, name, (gpointer)func);
 }
@@ -311,28 +277,28 @@ persistence_init()
   persistence_set_type_handler("color", persistence_load_color);
 
   if (persistent_windows == NULL) {
-    persistent_windows = g_hash_table_new(g_str_hash, g_str_equal);
+    persistent_windows = _dia_hash_table_str_any_new();
   }
   if (persistent_entrystrings == NULL) {
-    persistent_entrystrings = g_hash_table_new(g_str_hash, g_str_equal);
+    persistent_entrystrings = _dia_hash_table_str_any_new();
   }
   if (persistent_lists == NULL) {
-    persistent_lists = g_hash_table_new(g_str_hash, g_str_equal);
+    persistent_lists = _dia_hash_table_str_any_new();
   }
   if (persistent_integers == NULL) {
-    persistent_integers = g_hash_table_new(g_str_hash, g_str_equal);
+    persistent_integers = _dia_hash_table_str_any_new();
   }
   if (persistent_reals == NULL) {
-    persistent_reals = g_hash_table_new(g_str_hash, g_str_equal);
+    persistent_reals = _dia_hash_table_str_any_new();
   }
   if (persistent_booleans == NULL) {
-    persistent_booleans = g_hash_table_new(g_str_hash, g_str_equal);
+    persistent_booleans = _dia_hash_table_str_any_new();
   }
   if (persistent_strings == NULL) {
-    persistent_strings = g_hash_table_new(g_str_hash, g_str_equal);
+    persistent_strings = _dia_hash_table_str_any_new();
   }
   if (persistent_colors == NULL) {
-    persistent_colors = g_hash_table_new(g_str_hash, g_str_equal);
+    persistent_colors = _dia_hash_table_str_any_new();
   }
 }
 
@@ -570,7 +536,7 @@ persistence_update_window(GtkWindow *window, gboolean isclosed)
   if (name == NULL) return;
 
   if (persistent_windows == NULL) {
-    persistent_windows = g_hash_table_new(g_str_hash, g_str_equal);
+    persistent_windows = _dia_hash_table_str_any_new();
   }    
   wininfo = (PersistentWindow *)g_hash_table_lookup(persistent_windows, name);
 
@@ -661,7 +627,7 @@ persistence_register_window(GtkWindow *window)
 
   if (name == NULL) return;
   if (persistent_windows == NULL) {
-    persistent_windows = g_hash_table_new(g_str_hash, g_str_equal);
+    persistent_windows = _dia_hash_table_str_any_new();
   }    
   wininfo = (PersistentWindow *)g_hash_table_lookup(persistent_windows, name);
   if (wininfo != NULL) {
@@ -735,9 +701,8 @@ persistence_update_string_entry(GtkWidget *widget, GdkEvent *event,
   if (event->type == GDK_FOCUS_CHANGE) {
     gchar *string = (gchar *)g_hash_table_lookup(persistent_entrystrings, role);
     const gchar *entrystring = gtk_entry_get_text(GTK_ENTRY(widget));
-    if (string == NULL || strcmp(string, entrystring)) {
+    if (string == NULL || strcmp(string, entrystring) != 0) {
       g_hash_table_insert(persistent_entrystrings, role, g_strdup(entrystring));
-      if (string != NULL) g_free(string);
     }
   }
 
@@ -759,7 +724,6 @@ persistence_change_string_entry(gchar *role, gchar *string,
       gtk_entry_set_text(GTK_ENTRY(widget), string);
     }
     g_hash_table_insert(persistent_entrystrings, role, g_strdup(string));
-    g_free(old_string);
   }
 
   return FALSE;
@@ -775,7 +739,7 @@ persistence_register_string_entry(gchar *role, GtkWidget *entry)
   gchar *string;
   if (role == NULL) return;
   if (persistent_entrystrings == NULL) {
-    persistent_entrystrings = g_hash_table_new(g_str_hash, g_str_equal);
+    persistent_entrystrings = _dia_hash_table_str_any_new();
   }    
   string = (gchar *)g_hash_table_lookup(persistent_entrystrings, role);
   if (string != NULL) {
@@ -801,7 +765,7 @@ persistence_register_list(const gchar *role)
   PersistentList *list;
   if (role == NULL) return NULL;
   if (persistent_lists == NULL) {
-    persistent_lists = g_hash_table_new(g_str_hash, g_str_equal);
+    persistent_lists = _dia_hash_table_str_any_new();
   } else {   
     list = (PersistentList *)g_hash_table_lookup(persistent_lists, role);
     if (list != NULL) {
@@ -983,7 +947,7 @@ persistence_register_integer(gchar *role, int defaultvalue)
   gint *integer;
   if (role == NULL) return 0;
   if (persistent_integers == NULL) {
-    persistent_integers = g_hash_table_new(g_str_hash, g_str_equal);
+    persistent_integers = _dia_hash_table_str_any_new();
   }    
   integer = (gint *)g_hash_table_lookup(persistent_integers, role);
   if (integer == NULL) {
@@ -1030,7 +994,7 @@ persistence_register_real(gchar *role, real defaultvalue)
   real *realval;
   if (role == NULL) return 0;
   if (persistent_reals == NULL) {
-    persistent_reals = g_hash_table_new(g_str_hash, g_str_equal);
+    persistent_reals = _dia_hash_table_str_any_new();
   }    
   realval = (real *)g_hash_table_lookup(persistent_reals, role);
   if (realval == NULL) {
@@ -1079,7 +1043,7 @@ persistence_boolean_is_registered(gchar *role)
   gboolean *booleanval;
   if (role == NULL) return 0;
   if (persistent_booleans == NULL) {
-    persistent_booleans = g_hash_table_new(g_str_hash, g_str_equal);
+    persistent_booleans = _dia_hash_table_str_any_new();
   }    
   booleanval = (gboolean *)g_hash_table_lookup(persistent_booleans, role);
   return booleanval != NULL;
@@ -1091,7 +1055,7 @@ persistence_register_boolean(gchar *role, gboolean defaultvalue)
   gboolean *booleanval;
   if (role == NULL) return 0;
   if (persistent_booleans == NULL) {
-    persistent_booleans = g_hash_table_new(g_str_hash, g_str_equal);
+    persistent_booleans = _dia_hash_table_str_any_new();
   }    
   booleanval = (gboolean *)g_hash_table_lookup(persistent_booleans, role);
   if (booleanval == NULL) {
@@ -1146,7 +1110,7 @@ persistence_register_string(gchar *role, gchar *defaultvalue)
   gchar *stringval;
   if (role == NULL) return 0;
   if (persistent_strings == NULL) {
-    persistent_strings = g_hash_table_new(g_str_hash, g_str_equal);
+    persistent_strings = _dia_hash_table_str_any_new();
   }    
   stringval = (gchar *)g_hash_table_lookup(persistent_strings, role);
   if (stringval == NULL) {
@@ -1181,7 +1145,6 @@ persistence_set_string(gchar *role, const gchar *newvalue)
   stringval = (gchar *)g_hash_table_lookup(persistent_strings, role);
   if (stringval != NULL) {
     g_hash_table_insert(persistent_strings, role, g_strdup(newvalue));
-    g_free(stringval);
   }
   else 
     g_warning("No string to set for %s", role);
@@ -1196,7 +1159,7 @@ persistence_register_color(gchar *role, Color *defaultvalue)
   Color *colorval;
   if (role == NULL) return 0;
   if (persistent_colors == NULL) {
-    persistent_colors = g_hash_table_new(g_str_hash, g_str_equal);
+    persistent_colors = _dia_hash_table_str_any_new();
   }    
   colorval = (Color *)g_hash_table_lookup(persistent_colors, role);
   if (colorval == NULL) {
