@@ -48,7 +48,7 @@ G_BEGIN_DECLS
  * The list is by no means complete. If in doubt about your change
  * please ask on dia-list or alternative increment ;-)      --hb
  */
-#define DIA_PLUGIN_API_VERSION 11
+#define DIA_PLUGIN_API_VERSION 12
 
 typedef enum {
   DIA_PLUGIN_INIT_OK,

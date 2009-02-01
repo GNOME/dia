@@ -136,7 +136,7 @@ class Object :
 			self.props["line-style"] = (3, dlen) # LINESTYLE_DASH_DOT_DOT,
 	def id(self, s) :
 		# just to handle/ignore it
-		self.props["id"] = s
+		self.props["meta"] = { "id" : s }
 	def transform(self, s) :
 		m = rTranslate.match(s)
 		if m :
@@ -173,21 +173,31 @@ class Object :
 				# Dia can't really display stroke none, some workaround :
 				if self.props.has_key("fill") and self.props["fill"] != "none" : 
 					#does it really matter ?
-					o.properties["line_colour"] = Color(self.props["fill"])
+					try :
+						o.properties["line_colour"] = Color(self.props["fill"])
+					except :
+						pass
 				o.properties["line_width"] = 0.0
 		if self.props.has_key("fill") and o.properties.has_key("fill_colour") :
 			if self.props["fill"] == "none" :
 				o.properties["show_background"] = 0
 			else :
-				o.properties["show_background"] = 1
+				color_key = "fill_colour"
 				try :
-					o.properties["fill_colour"] =Color(self.props["fill"])
+					o.properties["show_background"] = 1
+				except KeyError :
+					# not sure if this is always true
+					color_key = "text_colour"
+				try :
+					o.properties[color_key] =Color(self.props["fill"])
 				except :
 					# rgb(192,27,38) handled by Color() but ...
 					# o.properties["fill_colour"] =self.props["fill"]
 					pass
 		if self.props.has_key("line-style") and o.properties.has_key("line_style") :
 			o.properties["line_style"] = self.props["line-style"]
+		if self.props.has_key("meta") and o.properties.has_key("meta") :
+			o.properties["meta"] = self.props["meta"]
 		self.ApplyProps(o)
 		return o
 
@@ -529,7 +539,7 @@ class Text(Object) :
 			elif self.props["text-anchor"] == "end" : o.properties["text_alignment"] = 2
 			else : o.properties["text_alignment"] = 0
 		if self.props.has_key("fill") :
-			o.properties["text_colour"] = self.props["fill"]
+			o.properties["text_colour"] = Color(self.props["fill"])
 		if self.props.has_key("font-size") :
 			o.properties["text_height"] = self.props["font-size"]
 class Desc(Object) :
@@ -621,11 +631,12 @@ class Importer :
 				try :
 					_eval(s, locals())
 				except AttributeError, msg :
-					if not self.errors.has_key(s) :
-						self.errors[s] = msg
+					o.props["meta"] = { a : attrs[a] }
+					if not self.errors.has_key(msg) :
+						self.errors[msg] = s
 				except SyntaxError, msg :
-					if not self.errors.has_key(s) :
-						self.errors[s] = msg
+					if not self.errors.has_key(msg) :
+						self.errors[msg] = s
 			if grp is None :
 				self.objects.append(o)
 			else :

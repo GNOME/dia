@@ -422,6 +422,8 @@ data_type(DataNode data)
     return DATATYPE_FONT;
   } else if (strcmp(name, "bezpoint")==0) {
     return DATATYPE_BEZPOINT;
+  } else if (strcmp(name, "dict")==0) {
+    return DATATYPE_DICT;
   }
 
   message_error("Unknown type of DataNode");

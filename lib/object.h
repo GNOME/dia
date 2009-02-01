@@ -504,6 +504,8 @@ struct _DiaObject {
    *  objects.
    */
   Rectangle         enclosing_box;
+  /** Metainfo of the object, should not be manipulated directy */
+  GHashTable       *meta;
 };
 
 /*!
@@ -551,11 +553,14 @@ struct _DiaObjectType {
   { "obj_pos", PROP_TYPE_POINT, PROP_FLAG_OPTIONAL, \
     "Object position", "Where the object is located"}, \
   { "obj_bb", PROP_TYPE_RECT, PROP_FLAG_OPTIONAL, \
-    "Object bounding box", "The bounding box of the object"}
+    "Object bounding box", "The bounding box of the object"}, \
+  { "meta", PROP_TYPE_DICT, PROP_FLAG_OPTIONAL, \
+    "Object meta info", "Some key/value pairs"}
 
 #define OBJECT_COMMON_PROPERTIES_OFFSETS \
   { "obj_pos", PROP_TYPE_POINT, offsetof(DiaObject, position) }, \
-  { "obj_bb", PROP_TYPE_RECT, offsetof(DiaObject, bounding_box) }
+  { "obj_bb", PROP_TYPE_RECT, offsetof(DiaObject, bounding_box) }, \
+  { "meta", PROP_TYPE_DICT, offsetof(DiaObject, meta) }
 
 
 gboolean       dia_object_defaults_load (const gchar *filename,
@@ -578,6 +583,10 @@ gboolean   dia_object_sanity_check(const DiaObject *obj, const gchar *msg);
 
 /** A standard definition of a function that takes a DiaObject */
 typedef void (*DiaObjectFunc) (const DiaObject *obj);
+
+/** convenience functions for meta info */
+void   dia_object_set_meta (DiaObject *obj, const gchar *key, const gchar *value);
+gchar *dia_object_get_meta (DiaObject *obj, const gchar *key);
 
 G_END_DECLS
 

@@ -71,12 +71,14 @@ object_destroy(DiaObject *obj)
   
   if (obj->handles)
     g_free(obj->handles);
-
+  obj->handles = NULL;
   if (obj->connections)
     g_free(obj->connections);
-
+  obj->connections = NULL;
+  if (obj->meta)
+    g_hash_table_destroy (obj->meta);
+  obj->meta = NULL;
 }
-
 
 /** Copy the object-level information of this object.
  *  This includes type, position, bounding box, number of handles and
@@ -591,6 +593,8 @@ object_save(DiaObject *obj, ObjectNode obj_node)
 		 &obj->position);
   data_add_rectangle(new_attribute(obj_node, "obj_bb"),
 		     &obj->bounding_box);
+  if (obj->meta)
+    data_add_dict (new_attribute(obj_node, "meta"), obj->meta);
 }
 
 /** Load the object-specific parts of an object.
@@ -615,6 +619,10 @@ object_load(DiaObject *obj, ObjectNode obj_node)
   attr = object_find_attribute(obj_node, "obj_bb");
   if (attr != NULL)
     data_rectangle( attribute_first_data(attr), &obj->bounding_box );
+
+  attr = object_find_attribute(obj_node, "meta");
+  if (attr != NULL)
+    obj->meta = data_dict (attribute_first_data(attr));
 }
 
 /** Returns the layer that the given object belongs to.
@@ -1016,4 +1024,26 @@ dia_object_sanity_check(const DiaObject *obj, const gchar *msg) {
     /* Check the children */
   }
   return TRUE;
+}
+
+void   
+dia_object_set_meta (DiaObject *obj, const gchar *key, const gchar *value)
+{
+  g_return_if_fail (obj != NULL && key != NULL);
+  if (!obj->meta)
+    obj->meta = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
+  if (value)
+    g_hash_table_insert (obj->meta, g_strdup (key), g_strdup (value));
+  else
+    g_hash_table_remove (obj->meta, key);
+}
+
+gchar *
+dia_object_get_meta (DiaObject *obj, const gchar *key)
+{
+  gchar *val;
+  if (!obj->meta)
+    return NULL;
+  val = g_hash_table_lookup (obj->meta, key);
+  return g_strdup (val);
 }

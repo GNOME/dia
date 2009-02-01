@@ -1,5 +1,15 @@
 2009-02-01  Hans Breuer  <hans@breuer.org>
 
+	* lib/object.[ch] lib/dia_xml.[ch] lib/prop_dict.[ch] 
+	  lib/properties.[ch] lib/propinternals.h lib/Makefile.am 
+	  lib/libdia.def po/POTFILES.in : allow to serialize meta info with 
+	every DiaObject - no UI to modify it yet
+	* lib/plug-ins.h : bump api version because object size has changed
+	* plug-ins/python/pydia-property.c : handle translation between Python
+	and Dia dictionary to make accesible. Also s/g_warning/g_debug/
+	* plug-ins/python/diasvg_import.c : generate object meta info to test
+	the above. Also fixes regarding text color.
+
 	* objects/makefile.msc : Grid object on win32, too
 
 2009-01-31  Hans Breuer  <hans@breuer.org>

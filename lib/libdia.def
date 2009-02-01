@@ -288,6 +288,9 @@ EXPORTS
  dia_object_is_selectable
  dia_object_sanity_check
 
+ dia_object_set_meta
+ dia_object_get_meta
+
  dia_plugin_can_unload
  dia_plugin_check_version
  dia_plugin_get_description

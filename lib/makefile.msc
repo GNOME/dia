@@ -92,6 +92,7 @@ OBJECTS = \
 	prefs.obj \
 	prop_attr.obj \
 	prop_basic.obj \
+	prop_dict.obj \
 	prop_geomtypes.obj \
 	prop_inttypes.obj \
 	prop_sdarray.obj \

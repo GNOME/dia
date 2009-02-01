@@ -54,6 +54,7 @@ lib/message.c
 lib/newgroup.c
 lib/object_defaults.c
 lib/plug-ins.c
+lib/prop_dict.c
 lib/prop_inttypes.c
 lib/prop_text.c
 lib/prop_widgets.c

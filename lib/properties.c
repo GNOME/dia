@@ -49,7 +49,8 @@ stdprops_init(void)
   prop_attr_register();
   prop_text_register();
   prop_widgets_register();
-  prop_sdarray_register();  
+  prop_sdarray_register();
+  prop_dicttypes_register();
 }
 
 /* --------------------------------------- */

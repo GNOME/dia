@@ -197,6 +197,7 @@ typedef const gchar *PropertyType;
 /* Special types : */
 #define PROP_TYPE_SARRAY "sarray" /* ArrayProperty */
 #define PROP_TYPE_DARRAY "darray" /* ArrayProperty */
+#define PROP_TYPE_DICT "dict" /* DictProperty */
 
 /* **************************************************************** */
 

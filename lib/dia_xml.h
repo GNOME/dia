@@ -58,6 +58,7 @@ typedef enum{
   DATATYPE_STRING,
   DATATYPE_FONT,
   DATATYPE_BEZPOINT,
+  DATATYPE_DICT
 } DataType;
 
 AttributeNode object_find_attribute(ObjectNode obj_node,
@@ -96,6 +97,9 @@ void data_add_filename(AttributeNode attr, const char *str);
 void data_add_font(AttributeNode attr, const DiaFont *font);
 DataNode data_add_composite(AttributeNode attr, 
                             const char *type); /* can be NULL */
+
+GHashTable *data_dict (DataNode data);
+void data_add_dict (AttributeNode attr, GHashTable *data);
 
 #endif /* DIA_XML_H */
 
