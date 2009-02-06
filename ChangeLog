@@ -1,3 +1,7 @@
+2009-02-06  Hans Breuer  <hans@breuer.org>
+
+	* plug-ins/python/diasvg_import.py : remove exception for error output
+
 2009-02-01  Hans Breuer  <hans@breuer.org>
 
 	* plug-ins/svg/svg-import.c : reset_arrows() to not create standard

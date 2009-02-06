@@ -62,7 +62,7 @@ def Scaled(s) :
 			if s[-1] == "%" :
 				return float(s[:-1]) * dfViewLength / 100.0
 			# warn about invalid unit ??
-			print "Unknown unit", s[:-2], s[-2:]
+			raise NotImplementedError("Unknown unit %s %s" % (s[:-2], s[-2:]))
 			return float(s) * dfUserScale
 def Color(s) :
 	# deliver a StdProp compatible Color (or the original string)
@@ -675,7 +675,8 @@ class Importer :
 			layer = data.add_layer("Errors")
 			s = "To hide the error messages delete or disable the 'Errors' layer\n"
 			for e in self.errors.keys() :
-				s = s + e + " -> " + str(self.errors[e]) + "\n"
+				s = s + str(e) + " -> " + str(self.errors[e]) + "\n"
+		
 			o = Text()
 			o.props["fill"] = "red"
 			o.Set(s)
