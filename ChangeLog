@@ -1,5 +1,9 @@
 2009-02-06  Hans Breuer  <hans@breuer.org>
 
+	* lib/beziershape.c(beziershape_update_data): remove stray semicolon 
+	leading to leaking all connections on num_points change and the attempt
+	to free memory which was not allocated; fixes bug #570808.
+
 	* objects/standard/textobj.c : optionally draw the bounding box of text
 	with the given fill_color (Enrico Minack, bug #436560)
 

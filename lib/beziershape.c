@@ -635,7 +635,7 @@ beziershape_update_data(BezierShape *bezier)
     for (i = 0; i < obj->num_handles; i++)
       g_free(obj->handles[i]);
     g_free(obj->handles);
-    for (i = 0; i < obj->num_connections; i++);
+    for (i = 0; i < obj->num_connections; i++)
       g_free(obj->connections[i]);
     g_free(obj->connections);
 
