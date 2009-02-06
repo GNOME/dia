@@ -54,6 +54,9 @@ struct _Textobj {
   Text *text;
   TextAttributes attrs;
   Valign vert_align;
+  
+  Color fill_color;
+  gboolean show_background;
 };
 
 static struct _TextobjProperties {
@@ -145,6 +148,8 @@ static PropDescription textobj_props[] = {
   PROP_STD_TEXT_HEIGHT,
   PROP_STD_TEXT_COLOUR,
   PROP_STD_SAVED_TEXT,
+  PROP_STD_FILL_COLOUR_OPTIONAL,
+  PROP_STD_SHOW_BACKGROUND_OPTIONAL,
   PROP_DESC_END
 };
 
@@ -164,6 +169,8 @@ static PropOffset textobj_offsets[] = {
   {"text_colour",PROP_TYPE_COLOUR,offsetof(Textobj,attrs.color)},
   {"text_alignment",PROP_TYPE_ENUM,offsetof(Textobj,attrs.alignment)},
   {"text_vert_alignment",PROP_TYPE_ENUM,offsetof(Textobj,vert_align)},
+  { "fill_colour", PROP_TYPE_COLOUR, offsetof(Textobj, fill_color) },
+  { "show_background", PROP_TYPE_BOOL, offsetof(Textobj, show_background) },
   { NULL, 0, 0 }
 };
 
@@ -235,6 +242,16 @@ textobj_draw(Textobj *textobj, DiaRenderer *renderer)
   assert(textobj != NULL);
   assert(renderer != NULL);
 
+  if (textobj->show_background) {
+    Rectangle box;
+    Point ul, lr;
+    text_calc_boundingbox (textobj->text, &box);
+    ul.x = box.left;
+    ul.y = box.top;
+    lr.x = box.right;
+    lr.y = box.bottom;
+    DIA_RENDERER_GET_CLASS (renderer)->fill_rect (renderer, &ul, &lr, &textobj->fill_color);
+  }
   text_draw(textobj->text, renderer);
 }
 
@@ -307,6 +324,10 @@ textobj_create(Point *startpoint,
   dia_font_unref(font);
   textobj->vert_align = default_properties.vert_align;
   
+  /* default visibility must be off to keep compatibility */
+  textobj->fill_color = attributes_get_background();
+  textobj->show_background = FALSE;
+  
   object_init(obj, 1, 0);
 
   obj->handles[0] = &textobj->text_handle;
@@ -339,6 +360,11 @@ textobj_save(Textobj *textobj, ObjectNode obj_node, const char *filename)
 		textobj->text);
   data_add_enum(new_attribute(obj_node, "valign"),
 		  textobj->vert_align);
+
+  if (textobj->show_background) {
+    data_add_color(new_attribute(obj_node, "fill_color"), &textobj->fill_color);
+    data_add_boolean(new_attribute(obj_node, "show_background"), textobj->show_background);
+  }
 }
 
 static DiaObject *
@@ -375,6 +401,17 @@ textobj_load(ObjectNode obj_node, int version, const char *filename)
   else if (version == 0) {
     textobj->vert_align = VALIGN_FIRST_LINE;
   }
+
+  /* default visibility must be off to keep compatibility */
+  textobj->fill_color = attributes_get_background();
+  attr = object_find_attribute(obj_node, "fill_color");
+  if (attr)
+    data_color(attribute_first_data(attr), &textobj->fill_color);
+  attr = object_find_attribute(obj_node, "show_background");
+  if (attr)
+    textobj->show_background = data_boolean( attribute_first_data(attr) );
+  else
+    textobj->show_background = FALSE;
 
   object_init(obj, 1, 0);
 

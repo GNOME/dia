@@ -1,5 +1,8 @@
 2009-02-06  Hans Breuer  <hans@breuer.org>
 
+	* objects/standard/textobj.c : optionally draw the bounding box of text
+	with the given fill_color (Enrico Minack, bug #436560)
+
 	* app/disp_callbacks.c app/tool.h app/modify_tool.c : also allow
 	TextEdit entry via Button Press and Hold - patch from  Robert Young
 	fixing bug #570304
