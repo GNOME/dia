@@ -46,6 +46,8 @@ static int do_if_clicked_handle(DDisplay *ddisp, ModifyTool *tool,
 				GdkEventButton *event);
 static void modify_button_press(ModifyTool *tool, GdkEventButton *event,
 				 DDisplay *ddisp);
+static void modify_button_hold(ModifyTool *tool, GdkEventButton *event,
+				 DDisplay *ddisp);
 static void modify_button_release(ModifyTool *tool, GdkEventButton *event,
 				  DDisplay *ddisp);
 static void modify_motion(ModifyTool *tool, GdkEventMotion *event,
@@ -66,6 +68,7 @@ create_modify_tool(void)
   tool = g_new0(ModifyTool, 1);
   tool->tool.type = MODIFY_TOOL;
   tool->tool.button_press_func = (ButtonPressFunc) &modify_button_press;
+  tool->tool.button_hold_func = (ButtonHoldFunc) &modify_button_hold;
   tool->tool.button_release_func = (ButtonReleaseFunc) &modify_button_release;
   tool->tool.motion_func = (MotionFunc) &modify_motion;
   tool->tool.double_click_func = (DoubleClickFunc) &modify_double_click;
@@ -293,6 +296,43 @@ modify_button_press(ModifyTool *tool, GdkEventButton *event,
   }
 }
 
+
+static void
+modify_button_hold(ModifyTool *tool, GdkEventButton *event,
+		DDisplay *ddisp)
+{
+  Point clickedpoint;
+
+  switch (tool->state) {
+  case STATE_MOVE_OBJECT: 
+    /* A button hold is as if user was moving object - if it is
+     * a text object and can be edited, then the move is cancelled */
+    ddisplay_untransform_coords(ddisp,
+				(int)event->x, (int)event->y,
+				&clickedpoint.x, &clickedpoint.y);
+
+    if (tool->object != NULL &&
+	diagram_is_selected(ddisp->diagram, tool->object)) {
+      if (textedit_activate_object(ddisp, tool->object, &clickedpoint)) {
+	/* Return tool to normal state - object is text and is in edit */
+	gdk_pointer_ungrab (event->time);
+	tool->orig_pos = NULL;
+	tool->state = STATE_NONE;
+	/* Activate Text Edit */
+	gtk_action_activate (menus_get_action ("ToolsTextedit"));
+      }
+    } 
+    break;
+  case STATE_MOVE_HANDLE:
+    break;
+  case STATE_BOX_SELECT:
+    break;
+  case STATE_NONE:
+    break;
+  default:
+    message_error("Internal error: Strange state in modify_tool (button_hold)\n");
+  }
+}
 
 static void
 modify_double_click(ModifyTool *tool, GdkEventButton *event,

@@ -52,6 +52,16 @@
 /* This contains the point that was clicked to get this menu */
 static Point object_menu_clicked_point;
 
+typedef struct {
+	GdkEvent *event; /* Button down event which may be holding */
+	DDisplay *ddisp; /* DDisplay where event occurred */
+	guint     tag;   /* Tag for timeout */
+} HoldTimeoutData;
+
+static HoldTimeoutData hold_data = {NULL, NULL, 0};
+
+	
+
 static void
 object_menu_proxy(GtkWidget *widget, gpointer data)
 {
@@ -480,6 +490,34 @@ _scroll_step (DDisplay *ddisp, guint keyval)
   }
 }
 
+/** Cleanup/Remove Timeout Handler for Button Press and Hold
+ */
+static void 
+hold_remove_handler(void) 
+{
+  if (hold_data.tag != 0) {
+    g_source_remove(hold_data.tag);
+    hold_data.tag = 0;
+    gdk_event_free(hold_data.event);
+  }
+}
+
+/** Timeout Handler for Button Press and Hold
+ * If this function is called, then the button must still be down,
+ * indicating that the user has pressed and held the button, but not moved
+ * the pointer (mouse).
+ * Dynamic data is cleaned up in ddisplay_canvas_events
+ */
+static gboolean 
+hold_timeout_handler(gpointer data) 
+{
+  if (active_tool->button_hold_func)
+    (*active_tool->button_hold_func) (active_tool, (GdkEventButton *)(hold_data.event), hold_data.ddisp);
+  hold_remove_handler();
+  return FALSE;
+}
+
+
 /** Main input handler for a diagram canvas.
  */
 gint
@@ -583,6 +621,7 @@ ddisplay_canvas_events (GtkWidget *canvas,
 
       case GDK_FOCUS_CHANGE: {
 	GdkEventFocus *focus = (GdkEventFocus*)event;
+	hold_remove_handler();
 	if (focus->in) {
 	  display_set_active(ddisp);
 	  ddisplay_do_update_menu_sensitivity(ddisp);
@@ -591,6 +630,7 @@ ddisplay_canvas_events (GtkWidget *canvas,
       }
       case GDK_2BUTTON_PRESS:
         display_set_active(ddisp);
+	hold_remove_handler();
         bevent = (GdkEventButton *) event;
         state = bevent->state;
 
@@ -634,8 +674,15 @@ ddisplay_canvas_events (GtkWidget *canvas,
               gtk_widget_grab_focus(canvas);
               if (active_tool->button_press_func)
                 (*active_tool->button_press_func) (active_tool, bevent, ddisp);
-              break;
 
+			  /* Detect user holding down the button.
+			   * Set timeout for 1sec. If timeout is called, user must still
+			   * be holding. If user releases button, remove timeout. */
+			  hold_data.event = gdk_event_copy(event); /* need to free later */
+			  hold_data.ddisp = ddisp;
+			  hold_data.tag = g_timeout_add(1000, hold_timeout_handler, NULL);
+
+              break;
             case 2:
               if (ddisp->menu_bar == NULL && !is_integrated_ui()) {
                 popup_object_menu(ddisp, bevent);
@@ -681,6 +728,8 @@ ddisplay_canvas_events (GtkWidget *canvas,
               if (active_tool->button_release_func)
                 (*active_tool->button_release_func) (active_tool,
                                                      bevent, ddisp);
+	      /* Button Press and Hold - remove handler then deallocate memory */
+	      hold_remove_handler();
               break;
 
             case 2:
@@ -704,6 +753,7 @@ ddisplay_canvas_events (GtkWidget *canvas,
       case GDK_MOTION_NOTIFY:
 	/*  get the pointer position  */
 	gdk_window_get_pointer (canvas->window, &tx, &ty, &tmask);
+	hold_remove_handler();
 
         mevent = (GdkEventMotion *) event;
         state = mevent->state;

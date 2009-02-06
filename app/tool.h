@@ -28,6 +28,7 @@ typedef enum _ToolType ToolType;
 #include "display.h"
 
 typedef void (* ButtonPressFunc)   (Tool *, GdkEventButton *, DDisplay *ddisp);
+typedef void (* ButtonHoldFunc)    (Tool *, GdkEventButton *, DDisplay *ddisp);
 typedef void (* DoubleClickFunc)   (Tool *, GdkEventButton *, DDisplay *ddisp);
 typedef void (* ButtonReleaseFunc) (Tool *, GdkEventButton *, DDisplay *ddisp);
 typedef void (* MotionFunc)        (Tool *, GdkEventMotion *, DDisplay *ddisp);
@@ -45,6 +46,7 @@ struct _Tool {
   
   /*  Action functions  */
   ButtonPressFunc    button_press_func;
+  ButtonHoldFunc     button_hold_func;
   ButtonReleaseFunc  button_release_func;
   MotionFunc         motion_func;
   DoubleClickFunc    double_click_func;

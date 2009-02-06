@@ -1,5 +1,9 @@
 2009-02-06  Hans Breuer  <hans@breuer.org>
 
+	* app/disp_callbacks.c app/tool.h app/modify_tool.c : also allow
+	TextEdit entry via Button Press and Hold - patch from  Robert Young
+	fixing bug #570304
+
 	* plug-ins/python/diasvg_import.py : remove exception for error output
 
 2009-02-01  Hans Breuer  <hans@breuer.org>
