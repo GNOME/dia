@@ -26,6 +26,7 @@
  * Opens a dialog for export options
  */
 
+#undef GTK_DISABLE_DEPRECATED /* gtk_signal_connect, GTK_OPTION_MENU, ... */
 #include "xslt.h"
 #include <stdio.h>
 

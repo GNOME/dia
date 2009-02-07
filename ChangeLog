@@ -1,5 +1,12 @@
 2009-02-07  Hans Breuer  <hans@breuer.org>
 
+	[two less leaks - thanks valgrind]
+	* lib/dia_image.c : free filename
+	* plug-ins/svg/svg-import.c(read_poly_svg) : free points
+
+	* plug-ins/xslt/xsltdialog.c : add #undef GTK_DISABLE_DEPRECATED to 
+	fix bug #570850 - should be ported some day
+
 	* lib/dia_image.c : turn DiaImage into a GObject, plugs memory leak
 	fixing bug #570850
 

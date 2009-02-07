@@ -459,6 +459,7 @@ read_poly_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list, char *obj
     reset_arrows (new_obj);
     apply_style(new_obj, node, parent_style);
     list = g_list_append (list, new_obj);
+    g_free(points);
     g_free(pcd);
 
     return list;

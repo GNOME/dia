@@ -102,6 +102,8 @@ dia_image_finalize(GObject* object)
   if (image->image)
     gdk_pixbuf_unref (image->image);
   image->image = NULL;
+  g_free (image->filename);
+  image->filename = NULL;
 }
 
 gboolean _dia_image_initialized = FALSE;
