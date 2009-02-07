@@ -1,5 +1,11 @@
 2009-02-07  Hans Breuer  <hans@breuer.org>
 
+	* lib/dia_image.c : turn DiaImage into a GObject, plugs memory leak
+	fixing bug #570850
+
+	* plug-ins/svg/svg-import.c : actually implement read_image_svg(),
+	part of bug #570863 (strange this was not reporeted before)
+
 	* lib/diatypes.h : typedef _DiaImage DiaImage, i.e. make DiaImage 
 	follow the naming pattern of every other struct in Dia's source ...
 	* lib/dia_image.[ch] : ... and also sprinkled const and rename

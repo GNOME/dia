@@ -29,7 +29,18 @@
 
 #define SCALING_CACHE
 
+GType dia_image_get_type (void);
+#define DIA_TYPE_IMAGE (dia_image_get_type())
+#define DIA_IMAGE(object) (G_TYPE_CHECK_INSTANCE_CAST((object), DIA_TYPE_IMAGE, DiaImage))
+#define DIA_IMAGE_CLASS(klass) (G_TYPE_CHECK_CLASS_CAST ((klass), DIA_TYPE_IMAGE, DiaImageClass))
+
+typedef struct _DiaImageClass DiaImageClass;
+struct _DiaImageClass {
+  GObjectClass parent_class;
+};
+
 struct _DiaImage {
+  GObject parent_instance;
   GdkPixbuf *image;
   gchar *filename;
 #ifdef SCALING_CACHE
@@ -37,6 +48,61 @@ struct _DiaImage {
   int scaled_width, scaled_height;
 #endif
 };
+
+static void dia_image_class_init(DiaImageClass* class);
+static void dia_image_finalize(GObject* object);
+static void dia_image_init_instance(DiaImage*);
+
+GType
+dia_image_get_type (void)
+{
+    static GType object_type = 0;
+
+    if (!object_type) {
+        static const GTypeInfo object_info =
+            {
+                sizeof (DiaImageClass),
+                (GBaseInitFunc) NULL,
+                (GBaseFinalizeFunc) NULL,
+                (GClassInitFunc) dia_image_class_init, /* class_init */
+                NULL,           /* class_finalize */
+                NULL,           /* class_data */
+                sizeof (DiaImage),
+                0,              /* n_preallocs */
+                (GInstanceInitFunc)dia_image_init_instance
+            };
+        object_type = g_type_register_static (G_TYPE_OBJECT,
+                                              "DiaImage",
+                                              &object_info, 0);
+    }  
+    return object_type;
+}
+
+static gpointer parent_class;
+
+static void
+dia_image_class_init(DiaImageClass* klass)
+{
+  GObjectClass* object_class = G_OBJECT_CLASS(klass);
+  parent_class = g_type_class_peek_parent(klass);
+  object_class->finalize = dia_image_finalize;
+}
+
+static void 
+dia_image_init_instance(DiaImage *image)
+{
+  /* GObject *gobject = G_OBJECT(image);  */
+  /* zero intialization should be good for us */
+}
+
+static void
+dia_image_finalize(GObject* object)
+{
+  DiaImage *image = DIA_IMAGE(object);
+  if (image->image)
+    gdk_pixbuf_unref (image->image);
+  image->image = NULL;
+}
 
 gboolean _dia_image_initialized = FALSE;
 
@@ -61,7 +127,7 @@ dia_image_get_broken(void)
   static DiaImage *broken = NULL;
 
   if (broken == NULL) {
-    broken = g_new(struct _DiaImage, 1);
+    broken = DIA_IMAGE(g_object_new(DIA_TYPE_IMAGE, NULL));
     broken->image = gdk_pixbuf_new_from_inline(-1, dia_broken_icon, FALSE, NULL);
   } else {
     gdk_pixbuf_ref(broken->image);
@@ -98,7 +164,7 @@ dia_image_load(const gchar *filename)
     return NULL;
   }
 
-  dia_img = g_new(DiaImage, 1);
+  dia_img = DIA_IMAGE(g_object_new(DIA_TYPE_IMAGE, NULL));
   dia_img->image = image;
   /* We have a leak here, unless we add our own refcount */
   dia_img->filename = g_strdup(filename);
@@ -114,7 +180,7 @@ dia_image_load(const gchar *filename)
 void
 dia_image_add_ref(DiaImage *image)
 {
-  gdk_pixbuf_ref(image->image);
+  g_object_ref(image);
 }
 
 /** Release a reference to an image.
@@ -123,7 +189,7 @@ dia_image_add_ref(DiaImage *image)
 void
 dia_image_unref(DiaImage *image)
 {
-  gdk_pixbuf_unref(image->image);
+  g_object_unref(image);
 }
 
 /** Render an image unto a window.
