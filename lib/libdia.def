@@ -253,7 +253,7 @@ EXPORTS
  dia_image_height
  dia_image_load
  dia_image_mask_data
- dia_image_release
+ dia_image_unref
  dia_image_rgb_data
  dia_image_rgba_data
  dia_image_rowstride

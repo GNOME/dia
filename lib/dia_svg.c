@@ -171,7 +171,12 @@ dia_svg_parse_style(xmlNodePtr node, DiaSvgStyle *s, real user_scale)
 	}
 	temp[i] = '\0';
 
-	if (!over) family = g_strdup(temp);
+	if (!over) {
+	  if (strcmp (temp, "sanserif") == 0)
+	    family = g_strdup ("sans"); /* special name adaption */
+	  else
+	    family = g_strdup(temp);
+	}
       } else if (!strncmp("font-weight:", ptr, 12)) {
 	ptr += 12;
 	while ((ptr[0] != '\0') && g_ascii_isspace(ptr[0])) ptr++;

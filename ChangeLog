@@ -1,5 +1,14 @@
 2009-02-07  Hans Breuer  <hans@breuer.org>
 
+	* lib/dia_svg.c : map special svg font name "sanserif" to special 
+	dia font name "sans"
+	
+	* lib/dia_image.c(dia_image_get_broken) : was broken
+	* plug-ins/svg/svg-import.c : don't try to create_standard_image() with
+	fileanme==NULL, rather set an invalid name. Better than crashing on
+	<svg:image data="..."/>
+	* lib/libdia.def : s/dia_image_release/dia_image_unref/
+
 	[two less leaks - thanks valgrind]
 	* lib/dia_image.c : free filename
 	* plug-ins/svg/svg-import.c(read_poly_svg) : free points

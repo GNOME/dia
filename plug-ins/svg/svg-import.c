@@ -704,7 +704,7 @@ read_image_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list)
     filename = g_filename_from_uri((gchar *) str, NULL, NULL);
     xmlFree(str);
   }
-  new_obj = create_standard_image(x, y, width, height, filename);
+  new_obj = create_standard_image(x, y, width, height, filename ? filename : "<broken>");
   g_free(filename);
 
   return g_list_append (list, new_obj);

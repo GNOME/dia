@@ -126,20 +126,21 @@ dia_image_init(void)
 DiaImage *
 dia_image_get_broken(void)
 {
-  static DiaImage *broken = NULL;
+  static GdkPixbuf *broken = NULL;
+  DiaImage *image;
 
+  image = DIA_IMAGE(g_object_new(DIA_TYPE_IMAGE, NULL));
   if (broken == NULL) {
-    broken = DIA_IMAGE(g_object_new(DIA_TYPE_IMAGE, NULL));
-    broken->image = gdk_pixbuf_new_from_inline(-1, dia_broken_icon, FALSE, NULL);
-  } else {
-    gdk_pixbuf_ref(broken->image);
+    /* initial refernce will finally be leaked */
+    broken = gdk_pixbuf_new_from_inline(-1, dia_broken_icon, FALSE, NULL);
   }
+  image->image = g_object_ref (broken);
   /* Kinda hard to export :) */
-  broken->filename = g_strdup("broken");
+  image->filename = g_strdup("<broken>");
 #ifdef SCALING_CACHE
-  broken->scaled = NULL;
+  image->scaled = NULL;
 #endif
-  return broken;
+  return image;
 }
 
 /** Load an image from file.
