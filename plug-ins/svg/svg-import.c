@@ -313,6 +313,7 @@ read_text_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list)
     xmlChar *str = NULL;
     gchar *multiline = NULL;
     DiaSvgStyle *gs;
+    gboolean any_tspan = FALSE;
 
     gs = g_new(DiaSvgStyle, 1);
     dia_svg_style_init (gs, parent_style);
@@ -343,25 +344,25 @@ read_text_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list)
       xmlFree(str);
     }
 
-    if (node->children && xmlStrcmp (node->children->name, (const xmlChar*)"tspan") == 0) {
+    {
       xmlNode *tspan = node->children;
       GString *paragraph = g_string_sized_new(512);
-
-      do {
-        xmlChar *line = xmlNodeGetContent(tspan);
-	if (line) {
-	  g_string_append(paragraph, (gchar*)line);
-	  if (tspan->next && xmlStrcmp (tspan->next->name, (const xmlChar*)"tspan") == 0)
+      while (tspan) {
+        if (xmlStrcmp (tspan->name, (const xmlChar*)"tspan") == 0) {
+          xmlChar *line = xmlNodeGetContent(tspan);
+          if (any_tspan) /* every other line needs separation */
 	    g_string_append(paragraph, "\n");
+          g_string_append(paragraph, (gchar*)line);
 	  xmlFree(line);
-	}
-	tspan = tspan->next;
-      } while (tspan);
-
+          any_tspan = TRUE;
+        }        
+        tspan = tspan->next;
+      }
       multiline = paragraph->str;
       g_string_free (paragraph, FALSE);
       str = NULL;
-    } else {
+    }
+    if (!any_tspan) {
       str = xmlNodeGetContent(node);
     }
     if(str || multiline) {
@@ -836,15 +837,15 @@ import_svg(const gchar *filename, DiagramData *dia, void* user_data)
     xmlChar *sviewbox = xmlGetProp(root, (const xmlChar *)"viewBox");
 
     if (swidth && sheight && sviewbox) {
-      real width = get_value_as_cm (swidth, NULL);
-      real height = get_value_as_cm (sheight, NULL);
+      real width = get_value_as_cm ((const char *)swidth, NULL);
+      real height = get_value_as_cm ((const char *)sheight, NULL);
       gint x1 = 0, y1 = 0, x2 = 0, y2 = 0;
       
-      if (4 == sscanf (sviewbox, "%d %d %d %d", &x1, &y1, &x2, &y2)) {
+      if (4 == sscanf ((const char *)sviewbox, "%d %d %d %d", &x1, &y1, &x2, &y2)) {
         real xs, ys;
-	g_print ("viewBox(%d %d %d %d) = (%f,%f)\n", x1, y1, x2, y2, width, height);
+	g_debug ("viewBox(%d %d %d %d) = (%f,%f)\n", x1, y1, x2, y2, width, height);
         /* some basic sanity check */
-	if (x2 > x1 && y2 > y1 && width > 0 && height > 0)
+	if (x2 > x1 && y2 > y1 && width > 0 && height > 0) {
 	  xs = ((real)x2 - x1) / width;
 	  ys = ((real)y2 - y1) / height;
 	  /* plausibility check, strictly speaking these are not required to be the same 
@@ -852,8 +853,9 @@ import_svg(const gchar *filename, DiagramData *dia, void* user_data)
 	       */
 	  if (fabs((fabs (xs/ys) - 1.0) < 0.1)) {
 	    user_scale = xs;
-	    g_print ("viewBox(%d %d %d %d) scaling (%f,%f) -> %f\n", x1, y1, x2, y2, xs, ys, user_scale);
+	    g_debug ("viewBox(%d %d %d %d) scaling (%f,%f) -> %f\n", x1, y1, x2, y2, xs, ys, user_scale);
 	  }
+        }
       }
     }
     

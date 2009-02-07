@@ -12,6 +12,7 @@
 
 	* plug-ins/svg/svg-import.c : actually implement read_image_svg(),
 	part of bug #570863 (strange this was not reporeted before)
+	(read_text_svg) : was creating two much whitespace for <tspan/>
 
 	* lib/diatypes.h : typedef _DiaImage DiaImage, i.e. make DiaImage 
 	follow the naming pattern of every other struct in Dia's source ...
