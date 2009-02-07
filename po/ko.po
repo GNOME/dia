@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: dia 0.85\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-01-28 12:03+0100\n"
-"PO-Revision-Date: 2008-10-24 08:26+0900\n"
+"PO-Revision-Date: 2008-11-03 13:04+0900\n"
 "Last-Translator: Jin-Hwan Jeong <yongdoria@gmail.com>\n"
 "Language-Team: Korean <ko@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -66,78 +66,67 @@ msgid "Select the filter/format out of: %s"
 msgstr "필터/형식 선택: %s"
 
 #. &export_file_name
-#: ../app/app_procs.c:688
-#: ../app/app_procs.c:715
+#: ../app/app_procs.c:688 ../app/app_procs.c:715
 msgid "Export loaded file and exit"
 msgstr "읽어들인 파일을 저장하고 마칩니다"
 
-#: ../app/app_procs.c:688
-#: ../app/app_procs.c:715
-#: ../app/diaconv.c:94
+#: ../app/app_procs.c:688 ../app/app_procs.c:715 ../app/diaconv.c:94
 msgid "OUTPUT"
 msgstr "출력"
 
 #. &export_file_format
 #. &export_format_string
 #. &export_file_format
-#: ../app/app_procs.c:690
-#: ../app/app_procs.c:717
+#: ../app/app_procs.c:690 ../app/app_procs.c:717
 msgid "TYPE"
 msgstr "형식"
 
-#: ../app/app_procs.c:692
-#: ../app/app_procs.c:720
+#: ../app/app_procs.c:692 ../app/app_procs.c:720
 msgid "Export graphics size"
 msgstr "이미지 크기로 내보내기"
 
-#: ../app/app_procs.c:692
-#: ../app/app_procs.c:720
+#: ../app/app_procs.c:692 ../app/app_procs.c:720
 msgid "WxH"
 msgstr "WxH"
 
 #. 13.3.2004 sampo@iki.fi
-#: ../app/app_procs.c:694
-#: ../app/app_procs.c:722
-msgid "Show only specified layers (e.g. when exporting). Can be either the layer name or a range of layer numbers (X-Y)"
-msgstr "지정한 레이어만 표시 (즉, 내보내기할 때). 레이어명이나 레이어의 범위 (X-Y)가 될 수 있음"
+#: ../app/app_procs.c:694 ../app/app_procs.c:722
+msgid ""
+"Show only specified layers (e.g. when exporting). Can be either the layer "
+"name or a range of layer numbers (X-Y)"
+msgstr ""
+"지정한 레이어만 표시 (즉, 내보내기할 때). 레이어명이나 레이어의 범위 (X-Y)가 "
+"될 수 있음"
 
-#: ../app/app_procs.c:695
-#: ../app/app_procs.c:723
+#: ../app/app_procs.c:695 ../app/app_procs.c:723
 msgid "LAYER,LAYER,..."
 msgstr "레이어,레이어,..."
 
-#: ../app/app_procs.c:697
-#: ../app/app_procs.c:725
+#: ../app/app_procs.c:697 ../app/app_procs.c:725
 msgid "Don't show the splash screen"
 msgstr "스프레시 화면을 나타내지 않음"
 
-#: ../app/app_procs.c:699
-#: ../app/app_procs.c:727
+#: ../app/app_procs.c:699 ../app/app_procs.c:727
 msgid "Don't create empty diagram"
 msgstr "빈 도표를 생성하지 않음"
 
-#: ../app/app_procs.c:701
-#: ../app/app_procs.c:729
+#: ../app/app_procs.c:701 ../app/app_procs.c:729
 msgid "Send error messages to stderr instead of showing dialogs."
 msgstr "오류 메세지를 대화창에 보이는 대신 stderr로 보내기"
 
-#: ../app/app_procs.c:703
-#: ../app/app_procs.c:731
+#: ../app/app_procs.c:703 ../app/app_procs.c:731
 msgid "Display credits list and exit"
 msgstr "크래딧 목록을 표시하고 종료"
 
-#: ../app/app_procs.c:705
-#: ../app/app_procs.c:733
+#: ../app/app_procs.c:705 ../app/app_procs.c:733
 msgid "Generate verbose output"
 msgstr "상세하게 출력을 함"
 
-#: ../app/app_procs.c:707
-#: ../app/app_procs.c:735
+#: ../app/app_procs.c:707 ../app/app_procs.c:735
 msgid "Display version and exit"
 msgstr "버전을 표시하고 종료"
 
-#: ../app/app_procs.c:736
-#: ../app/diaconv.c:95
+#: ../app/app_procs.c:736 ../app/diaconv.c:95
 msgid "Show this help message"
 msgstr "도움말 나타내기"
 
@@ -156,15 +145,19 @@ msgstr "Dia 버전 %s, 컴파일 %s %s\n"
 msgid "Dia version %s\n"
 msgstr "Dia 버전  %s\n"
 
-#: ../app/app_procs.c:895
-#: ../app/diaconv.c:201
-#: ../app/diaconv.c:203
-msgid "Couldn't find standard objects when looking for object-libs; exiting...\n"
-msgstr "객체 라이브러리를 찾을 때 표준 객체를 발견하지 못하였습니다; 종료 중...\n"
+#: ../app/app_procs.c:895 ../app/diaconv.c:201 ../app/diaconv.c:203
+msgid ""
+"Couldn't find standard objects when looking for object-libs; exiting...\n"
+msgstr ""
+"객체 라이브러리를 찾을 때 표준 객체를 발견하지 못하였습니다; 종료 중...\n"
 
 #: ../app/app_procs.c:897
-msgid "Couldn't find standard objects when looking for object-libs in '%s'; exiting...\n"
-msgstr "'%s'에서 객체 라이브러리를 찾을 때 표준 객체를 발견하지 못하였습니다; 종료 중...\n"
+msgid ""
+"Couldn't find standard objects when looking for object-libs in '%s'; "
+"exiting...\n"
+msgstr ""
+"'%s'에서 객체 라이브러리를 찾을 때 표준 객체를 발견하지 못하였습니다; 종료 "
+"중...\n"
 
 #: ../app/app_procs.c:938
 msgid "Diagram1.dia"
@@ -184,7 +177,9 @@ msgid "Quitting without saving modified diagrams"
 msgstr "변경된 도표를 저장하지 않고 끝내는 중"
 
 #: ../app/app_procs.c:993
-msgid "Modified diagrams exist. Are you sure you want to quit Dia without saving them?"
+msgid ""
+"Modified diagrams exist. Are you sure you want to quit Dia without saving "
+"them?"
 msgstr ""
 "변경된 자료가 있습니다.\n"
 "정말로 종료하시겠습니까?"
@@ -199,27 +194,27 @@ msgstr "Dia 종료"
 msgid "Thank you for using Dia.\n"
 msgstr "Dia를 이용해주셔서 감사합니다.\n"
 
-#: ../app/app_procs.c:1067
-#: ../app/app_procs.c:1074
+#: ../app/app_procs.c:1067 ../app/app_procs.c:1074
 msgid "Could not create per-user Dia config directory"
 msgstr "다른 사용자의 Dia 설정 폴더를 생성할 수 없습니다"
 
 #: ../app/app_procs.c:1077
-msgid "Could not create per-user Dia config directory. Please make sure that the environment variable HOME points to an existing directory."
-msgstr "다른 사용자 Dia 설정 폴더를 생성할 수 없습니다. 환경변수 HOME이 기존 폴더를 지시하는 지 확인하여 주십시오."
+msgid ""
+"Could not create per-user Dia config directory. Please make sure that the "
+"environment variable HOME points to an existing directory."
+msgstr ""
+"다른 사용자 Dia 설정 폴더를 생성할 수 없습니다. 환경변수 HOME이 기존 폴더를 "
+"지시하는 지 확인하여 주십시오."
 
-#: ../app/app_procs.c:1100
-#: ../app/diaconv.c:251
+#: ../app/app_procs.c:1100 ../app/diaconv.c:251
 msgid "Objects and filters internal to dia"
 msgstr "Dia의 내부 객체와 필터"
 
-#: ../app/app_procs.c:1142
-#: ../app/diaconv.c:121
+#: ../app/app_procs.c:1142 ../app/diaconv.c:121
 msgid "[OPTION...] [FILE...]"
 msgstr "[옵션...] [파일...]"
 
-#: ../app/app_procs.c:1145
-#: ../app/diaconv.c:128
+#: ../app/app_procs.c:1145 ../app/diaconv.c:128
 #, c-format
 msgid ""
 "Error on option %s: %s.\n"
@@ -285,13 +280,11 @@ msgid ""
 "Please select those you wish to recover."
 msgstr "복구시키려는 것을 선택하시오."
 
-#: ../app/color_area.c:317
-#: ../app/color_area.c:364
+#: ../app/color_area.c:317 ../app/color_area.c:364
 msgid "Select foreground color"
 msgstr "전경 색상 선택"
 
-#: ../app/color_area.c:318
-#: ../app/color_area.c:365
+#: ../app/color_area.c:318 ../app/color_area.c:365
 msgid "Select background color"
 msgstr "배경 색상 선택"
 
@@ -303,8 +296,7 @@ msgstr "도표%d.dia"
 msgid "No existing object to paste.\n"
 msgstr "붙여넣을 객체가 없습니다.\n"
 
-#: ../app/commands.c:538
-#: ../app/commands.c:576
+#: ../app/commands.c:538 ../app/commands.c:576
 msgid "Could not find help directory"
 msgstr "도움말 폴더가 없습니다."
 
@@ -354,8 +346,7 @@ msgstr ""
 msgid "A program for drawing structured diagrams."
 msgstr "구조화된 도표를 그리는 프로그램"
 
-#: ../app/defaults.c:43
-#: ../app/defaults.c:146
+#: ../app/defaults.c:43 ../app/defaults.c:146
 msgid "Object defaults"
 msgstr "기본 객체"
 
@@ -392,8 +383,7 @@ msgid "Visible spacing"
 msgstr "표시 간격"
 
 #. Hexes!
-#: ../app/dia-props.c:177
-#: ../app/preferences.c:167
+#: ../app/dia-props.c:177 ../app/preferences.c:167
 msgid "Hex grid"
 msgstr "6각 격자(벌집 격자)"
 
@@ -405,13 +395,11 @@ msgstr "6각 격자 크기"
 msgid "Grid"
 msgstr "격자:"
 
-#: ../app/dia-props.c:209
-#: ../lib/diagramdata.c:113
+#: ../app/dia-props.c:209 ../lib/diagramdata.c:113
 msgid "Background"
 msgstr "배경"
 
-#: ../app/dia-props.c:220
-#: ../app/preferences.c:109
+#: ../app/dia-props.c:220 ../app/preferences.c:109
 msgid "Grid Lines"
 msgstr "격자 줄"
 
@@ -568,8 +556,7 @@ msgstr "/도표 정렬/기본/이름(_N)"
 msgid "/Sort diagrams/Default/as _inserted"
 msgstr "/도표 정렬/기본/삽입된 것(_I)"
 
-#: ../app/diagram_tree_menu.c:83
-#: ../app/diagram_tree_menu.c:94
+#: ../app/diagram_tree_menu.c:83 ../app/diagram_tree_menu.c:94
 msgid "/_Locate"
 msgstr "/위치(_L)"
 
@@ -581,8 +568,7 @@ msgstr "/설정(_P)"
 msgid "/_Hide this type"
 msgstr "/이 형식 숨기기(_H)"
 
-#: ../app/diagram_tree_window.c:80
-#: ../app/preferences.c:110
+#: ../app/diagram_tree_window.c:80 ../app/preferences.c:110
 msgid "Diagram Tree"
 msgstr "도표 자료 목록"
 
@@ -590,9 +576,7 @@ msgstr "도표 자료 목록"
 msgid "Couldn't convert filename '%s' to UTF-8: %s\n"
 msgstr "파일명 `%s'를 UTF-8: %s 로 변환할 수 없습니다\n"
 
-#: ../app/diagram.c:224
-#: ../lib/message.c:78
-#: ../lib/message.c:238
+#: ../app/diagram.c:224 ../lib/message.c:78 ../lib/message.c:238
 msgid "Error"
 msgstr "오류"
 
@@ -600,8 +584,7 @@ msgstr "오류"
 msgid "Ok"
 msgstr "확인"
 
-#: ../app/dialogs.c:52
-#: ../app/paginate_psprint.c:320
+#: ../app/dialogs.c:52 ../app/paginate_psprint.c:320
 msgid "Cancel"
 msgstr "취소"
 
@@ -658,13 +641,11 @@ msgstr ":"
 msgid "%0.3gcm x %0.3gcm"
 msgstr "%0.3gcm x %0.3gcm"
 
-#: ../app/diapagelayout.c:802
-#: ../app/pagesetup.c:76
+#: ../app/diapagelayout.c:802 ../app/pagesetup.c:76
 msgid "Page Setup"
 msgstr "페이지 설정"
 
-#: ../app/disp_callbacks.c:84
-#: ../app/properties.c:152
+#: ../app/disp_callbacks.c:84 ../app/properties.c:152
 msgid ""
 "This object doesn't support Undo/Redo.\n"
 "Undo information erased."
@@ -680,7 +661,9 @@ msgstr "설정..."
 msgid ""
 "The object you dropped cannot fit into its parent. \n"
 "Either expand the parent object, or drop the object elsewhere."
-msgstr "위치시킨 객체가 부모 객체에 맞출 수 없습니다. n부모 객체로 확장시키거나 다른 장소에 위치시켜 주세요."
+msgstr ""
+"위치시킨 객체가 부모 객체에 맞출 수 없습니다. n부모 객체로 확장시키거나 다른 "
+"장소에 위치시켜 주세요."
 
 #: ../app/display.c:94
 msgid "Diagram modified!"
@@ -722,22 +705,15 @@ msgstr "도표 닫기"
 msgid "_Discard Changes"
 msgstr "변경 무시(_D)"
 
-#: ../app/export_png.c:136
-#: ../app/load_save.c:951
-#: ../app/render_eps.c:103
-#: ../plug-ins/cairo/diacairo.c:976
-#: ../plug-ins/cgm/cgm.c:1151
-#: ../plug-ins/dxf/dxf-export.c:484
-#: ../plug-ins/hpgl/hpgl.c:708
+#: ../app/export_png.c:136 ../app/load_save.c:951 ../app/render_eps.c:103
+#: ../plug-ins/cairo/diacairo.c:976 ../plug-ins/cgm/cgm.c:1151
+#: ../plug-ins/dxf/dxf-export.c:484 ../plug-ins/hpgl/hpgl.c:708
 #: ../plug-ins/metapost/render_metapost.c:1145
 #: ../plug-ins/pgf/render_pgf.c:1143
 #: ../plug-ins/pstricks/render_pstricks.c:914
-#: ../plug-ins/shape/shape-export.c:134
-#: ../plug-ins/svg/render_svg.c:150
-#: ../plug-ins/vdx/vdx-export.c:1848
-#: ../plug-ins/wpg/wpg.c:1070
-#: ../plug-ins/xfig/xfig-export.c:1136
-#: ../plug-ins/xslt/xslt.c:93
+#: ../plug-ins/shape/shape-export.c:134 ../plug-ins/svg/render_svg.c:150
+#: ../plug-ins/vdx/vdx-export.c:1848 ../plug-ins/wpg/wpg.c:1070
+#: ../plug-ins/xfig/xfig-export.c:1136 ../plug-ins/xslt/xslt.c:93
 msgid "Can't open output file %s: %s\n"
 msgstr "출력 파일 %s를 열 수 없습니다: %s\n"
 
@@ -760,8 +736,7 @@ msgstr "PNG 내보내기 설정"
 
 #. Translators: Menu item Verb/Channel/Export
 #. Translators: Menu item Verb/Channel/Export/Export
-#: ../app/export_png.c:302
-#: ../objects/FS/function.c:696
+#: ../app/export_png.c:302 ../objects/FS/function.c:696
 #: ../objects/FS/function.c:698
 msgid "Export"
 msgstr "내보내기"
@@ -778,8 +753,7 @@ msgstr "이미지 높이:"
 msgid "Portable Network Graphics"
 msgstr "PNG"
 
-#: ../app/filedlg.c:129
-#: ../app/filedlg.c:512
+#: ../app/filedlg.c:129 ../app/filedlg.c:512
 msgid "By extension"
 msgstr "확장자"
 
@@ -791,23 +765,19 @@ msgstr "도표 열기"
 msgid "Open Options"
 msgstr "설정 열기"
 
-#: ../app/filedlg.c:251
-#: ../app/filedlg.c:632
+#: ../app/filedlg.c:251 ../app/filedlg.c:632
 msgid "Determine file type:"
 msgstr "파일 형식 선택:"
 
-#: ../app/filedlg.c:267
-#: ../app/filedlg.c:645
+#: ../app/filedlg.c:267 ../app/filedlg.c:645
 msgid "All Files"
 msgstr "전체 파일"
 
-#: ../app/filedlg.c:272
-#: ../app/filedlg.c:650
+#: ../app/filedlg.c:272 ../app/filedlg.c:650
 msgid "Supported Formats"
 msgstr "지원 형식"
 
-#: ../app/filedlg.c:307
-#: ../app/paginate_psprint.c:406
+#: ../app/filedlg.c:307 ../app/paginate_psprint.c:406
 msgid ""
 "Some characters in the filename are neither UTF-8\n"
 "nor your local encoding.\n"
@@ -817,15 +787,11 @@ msgstr ""
 "지역코드도 아닙니다.\n"
 "깨져 보일 것입니다."
 
-#: ../app/filedlg.c:317
-#: ../app/filedlg.c:559
-#: ../app/paginate_psprint.c:421
+#: ../app/filedlg.c:317 ../app/filedlg.c:559 ../app/paginate_psprint.c:421
 msgid "File already exists"
 msgstr "파일이 이미 있습니다"
 
-#: ../app/filedlg.c:319
-#: ../app/filedlg.c:561
-#: ../app/paginate_psprint.c:413
+#: ../app/filedlg.c:319 ../app/filedlg.c:561 ../app/paginate_psprint.c:413
 #, c-format
 msgid ""
 "The file '%s' already exists.\n"
@@ -845,8 +811,12 @@ msgid "Compress diagram files"
 msgstr "도표 파일 압축"
 
 #: ../app/filedlg.c:390
-msgid "Compression reduces file size to less than 1/10th size and speeds up loading and saving.  Some text programs cannot manipulate compressed files."
-msgstr "압축은 파일 크기를 1/10 이하로 줄여주고 읽어오기와 저장 속도를 높여줍니다. 몇몇 텍스트 프로그램은 압축 파일을 사용하지 않습니다."
+msgid ""
+"Compression reduces file size to less than 1/10th size and speeds up loading "
+"and saving.  Some text programs cannot manipulate compressed files."
+msgstr ""
+"압축은 파일 크기를 1/10 이하로 줄여주고 읽어오기와 저장 속도를 높여줍니다. 몇"
+"몇 텍스트 프로그램은 압축 파일을 사용하지 않습니다."
 
 #: ../app/filedlg.c:584
 #, c-format
@@ -874,9 +844,7 @@ msgstr ""
 "편집 객체 선택"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Magnify
-#: ../app/interface.c:63
-#: ../app/menus.c:187
-#: ../objects/FS/function.c:986
+#: ../app/interface.c:63 ../app/menus.c:187 ../objects/FS/function.c:986
 msgid "Magnify"
 msgstr "확대. <Shift> 누른 상태는 축소"
 
@@ -884,77 +852,56 @@ msgstr "확대. <Shift> 누른 상태는 축소"
 msgid "Scroll around the diagram"
 msgstr "이동. 작업영역 이동"
 
-#: ../app/interface.c:75
-#: ../app/menus.c:189
-#: ../lib/properties.c:79
-#: ../lib/properties.h:520
-#: ../objects/AADL/aadlbox.c:144
-#: ../objects/Jackson/requirement.c:142
-#: ../objects/UML/activity.c:127
-#: ../objects/UML/actor.c:122
-#: ../objects/UML/classicon.c:144
-#: ../objects/UML/component.c:128
-#: ../objects/UML/component_feature.c:155
-#: ../objects/UML/node.c:127
-#: ../objects/UML/note.c:121
-#: ../objects/UML/object.c:148
-#: ../objects/UML/small_package.c:128
-#: ../objects/UML/state.c:152
-#: ../objects/UML/usecase.c:138
-#: ../objects/custom/custom_object.c:200
-#: ../objects/network/basestation.c:133
+#: ../app/interface.c:75 ../app/menus.c:189 ../lib/properties.c:79
+#: ../lib/properties.h:520 ../objects/AADL/aadlbox.c:144
+#: ../objects/Jackson/requirement.c:142 ../objects/UML/activity.c:127
+#: ../objects/UML/actor.c:122 ../objects/UML/classicon.c:144
+#: ../objects/UML/component.c:128 ../objects/UML/component_feature.c:155
+#: ../objects/UML/node.c:127 ../objects/UML/note.c:121
+#: ../objects/UML/object.c:148 ../objects/UML/small_package.c:128
+#: ../objects/UML/state.c:152 ../objects/UML/usecase.c:138
+#: ../objects/custom/custom_object.c:200 ../objects/network/basestation.c:133
 #: ../objects/network/radiocell.c:125
 msgid "Text"
 msgstr "문자열 입력"
 
-#: ../app/interface.c:81
-#: ../app/menus.c:190
+#: ../app/interface.c:81 ../app/menus.c:190
 msgid "Box"
 msgstr "사각 입력"
 
-#: ../app/interface.c:87
-#: ../app/menus.c:191
+#: ../app/interface.c:87 ../app/menus.c:191
 msgid "Ellipse"
 msgstr "타원 입력"
 
-#: ../app/interface.c:93
-#: ../app/menus.c:192
+#: ../app/interface.c:93 ../app/menus.c:192
 msgid "Polygon"
 msgstr "다각형 입력. 오른쪽 마우스 조절점 추가"
 
-#: ../app/interface.c:99
-#: ../app/menus.c:193
+#: ../app/interface.c:99 ../app/menus.c:193
 msgid "Beziergon"
 msgstr "베지어원 입력. 오른쪽 마우스 조절점 추가"
 
-#: ../app/interface.c:105
-#: ../app/menus.c:195
-#: ../objects/standard/line.c:225
+#: ../app/interface.c:105 ../app/menus.c:195 ../objects/standard/line.c:225
 msgid "Line"
 msgstr "선 입력"
 
-#: ../app/interface.c:111
-#: ../app/menus.c:196
+#: ../app/interface.c:111 ../app/menus.c:196
 msgid "Arc"
 msgstr "호 입력"
 
-#: ../app/interface.c:117
-#: ../app/menus.c:197
+#: ../app/interface.c:117 ../app/menus.c:197
 msgid "Zigzagline"
 msgstr "지그재그 입력. 오른쪽 마우스 조절점 추가"
 
-#: ../app/interface.c:123
-#: ../app/menus.c:198
+#: ../app/interface.c:123 ../app/menus.c:198
 msgid "Polyline"
 msgstr "연결선 입력. 오른쪽 마우스 조절점 추가"
 
-#: ../app/interface.c:129
-#: ../app/menus.c:199
+#: ../app/interface.c:129 ../app/menus.c:199
 msgid "Bezierline"
 msgstr "베지어선 입력. 오른쪽 마우스 조절점 추가"
 
-#: ../app/interface.c:135
-#: ../app/menus.c:201
+#: ../app/interface.c:135 ../app/menus.c:201
 msgid "Image"
 msgstr "그림 입력"
 
@@ -990,30 +937,50 @@ msgstr "%s 시트명 없음"
 msgid "Other sheets"
 msgstr "다양한 시트 도형 선택"
 
-#: ../app/interface.c:1015
-#: ../sheets/Misc.sheet.in.h:3
+#: ../app/interface.c:1015 ../sheets/Misc.sheet.in.h:3
 msgid "Misc"
-msgstr "기타 도형"
+msgstr "기타...(Misc)"
 
 #: ../app/interface.c:1076
-msgid "Foreground & background colors for new objects.  The small black and white squares reset colors.  The small arrows swap colors.  Double click to change colors."
-msgstr "새 객체를 위한 전경 및 배경 색상. 작은 검고 흰 사각은 색상을 초기화 시킵니다. 작은 화살표는 색상을 바꿉니다. 색상을 변경하기 위하여 더블 클릭하시오"
+msgid ""
+"Foreground & background colors for new objects.  The small black and white "
+"squares reset colors.  The small arrows swap colors.  Double click to change "
+"colors."
+msgstr ""
+"새 객체를 위한 전경 및 배경 색상. 작은 검고 흰 사각은 색상을 초기화 시킵니"
+"다. 작은 화살표는 색상을 바꿉니다. 색상을 변경하기 위하여 더블 클릭하시오"
 
 #: ../app/interface.c:1091
-msgid "Line widths.  Click on a line to set the default line width for new objects.  Double-click to set the line width more precisely."
-msgstr "선 두께. 새 객체를 위한 기본 선 두께를 설정하기 위하여 선을 클릭. 더 정확하게 선 두께를 설정하기 위하여 더블 클릭합니다."
+msgid ""
+"Line widths.  Click on a line to set the default line width for new "
+"objects.  Double-click to set the line width more precisely."
+msgstr ""
+"선 두께. 새 객체를 위한 기본 선 두께를 설정하기 위하여 선을 클릭. 더 정확하"
+"게 선 두께를 설정하기 위하여 더블 클릭합니다."
 
 #: ../app/interface.c:1131
-msgid "Arrow style at the beginning of new lines.  Click to pick an arrow, or set arrow parameters with Details..."
-msgstr "시작 화살표 형태. 화살표를 선택, 또는 자세하게 화살표 인자를 설정하기 위하여 클릭합니다."
+msgid ""
+"Arrow style at the beginning of new lines.  Click to pick an arrow, or set "
+"arrow parameters with Details..."
+msgstr ""
+"시작 화살표 형태. 화살표를 선택, 또는 자세하게 화살표 인자를 설정하기 위하여 "
+"클릭합니다."
 
 #: ../app/interface.c:1136
-msgid "Line style for new lines.  Click to pick a line style, or set line style parameters with Details..."
-msgstr "선 형태. 선 형태를 선택, 또는 자세하게 선 형태 인자를 설정하기 위하여 클릭합니다."
+msgid ""
+"Line style for new lines.  Click to pick a line style, or set line style "
+"parameters with Details..."
+msgstr ""
+"선 형태. 선 형태를 선택, 또는 자세하게 선 형태 인자를 설정하기 위하여 클릭합"
+"니다."
 
 #: ../app/interface.c:1150
-msgid "Arrow style at the end of new lines.  Click to pick an arrow, or set arrow parameters with Details..."
-msgstr "끝 화살표 형태. 화살표를 선택, 또는 자세하게 화살표 인자를 설정하기 위하여 클릭합니다."
+msgid ""
+"Arrow style at the end of new lines.  Click to pick an arrow, or set arrow "
+"parameters with Details..."
+msgstr ""
+"끝 화살표 형태. 화살표를 선택, 또는 자세하게 화살표 인자를 설정하기 위하여 클"
+"릭합니다."
 
 #: ../app/interface.c:1260
 msgid "Diagram Editor"
@@ -1059,9 +1026,7 @@ msgstr "레이어 속성 편집"
 msgid "Layer name:"
 msgstr "레이어 이름:"
 
-#: ../app/linewidth_area.c:246
-#: ../lib/properties.h:481
-#: ../lib/properties.h:484
+#: ../app/linewidth_area.c:246 ../lib/properties.h:481 ../lib/properties.h:484
 #: ../objects/chronogram/chronoline.c:181
 #: ../objects/chronogram/chronoref.c:160
 msgid "Line width"
@@ -1103,17 +1068,14 @@ msgstr "객체 %s의 부모 %s 를 찾을 수 없습니다.\n"
 msgid "You must specify a file, not a directory.\n"
 msgstr "폴더가 아니라 파일을 지정해야 합니다.\n"
 
-#: ../app/load_save.c:366
-#: ../plug-ins/dxf/dxf-import.c:1306
-#: ../plug-ins/wpg/wpg.c:1175
-#: ../plug-ins/xfig/xfig-import.c:1258
+#: ../app/load_save.c:366 ../plug-ins/dxf/dxf-import.c:1306
+#: ../plug-ins/wpg/wpg.c:1175 ../plug-ins/xfig/xfig-import.c:1258
 #: ../plug-ins/xslt/xslt.c:85
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
 msgstr "읽기 위해 '%s'를 열 수 없습니다.\n"
 
-#: ../app/load_save.c:384
-#: ../app/load_save.c:390
+#: ../app/load_save.c:384 ../app/load_save.c:390
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -1162,8 +1124,7 @@ msgstr "파일 %s를 쓰는 중 내부 오류 %d\n"
 msgid "Can't rename %s to final output file %s: %s\n"
 msgstr "%s를 최종 출력 파일 %s로 다시 저장할 수 없습니다: %s\n"
 
-#: ../app/load_save.c:1064
-#: ../app/load_save.c:1069
+#: ../app/load_save.c:1064 ../app/load_save.c:1069
 msgid "Dia Diagram File"
 msgstr "Dia 도표 파일"
 
@@ -1197,8 +1158,7 @@ msgid "Page Set_up..."
 msgstr "페이지 설정(_U)..."
 
 #
-#: ../app/menus.c:87
-#: ../app/sheets_dialog.c:236
+#: ../app/menus.c:87 ../app/sheets_dialog.c:236
 msgid "_Edit"
 msgstr "편집(_E)"
 
@@ -1337,13 +1297,11 @@ msgid "_Unparent Children"
 msgstr "부모 해제된 자식(_U)"
 
 #. Translators: Menu item Verb/Support/Position/Align
-#: ../app/menus.c:146
-#: ../objects/FS/function.c:806
+#: ../app/menus.c:146 ../objects/FS/function.c:806
 msgid "Align"
 msgstr "정렬"
 
-#: ../app/menus.c:151
-#: ../objects/standard/textobj.c:132
+#: ../app/menus.c:151 ../objects/standard/textobj.c:132
 msgid "Top"
 msgstr "위"
 
@@ -1351,8 +1309,7 @@ msgstr "위"
 msgid "Middle"
 msgstr "중간"
 
-#: ../app/menus.c:153
-#: ../objects/standard/textobj.c:131
+#: ../app/menus.c:153 ../objects/standard/textobj.c:131
 msgid "Bottom"
 msgstr "아래"
 
@@ -1382,9 +1339,7 @@ msgstr "선택(_S)"
 msgid "All"
 msgstr "전체"
 
-#: ../app/menus.c:164
-#: ../lib/arrows.c:43
-#: ../objects/Jackson/domain.c:96
+#: ../app/menus.c:164 ../lib/arrows.c:43 ../objects/Jackson/domain.c:96
 #: ../objects/UML/association.c:1183
 msgid "None"
 msgstr "없음"
@@ -1443,8 +1398,7 @@ msgstr "전체 화면(_E)"
 #. we must have all actions registered to avoid configuration specific ui-files and crashing in GTK+,
 #. * see: http://bugzilla.gnome.org/show_bug.cgi?id=396161
 #.
-#: ../app/menus.c:213
-#: ../app/menus.c:218
+#: ../app/menus.c:213 ../app/menus.c:218
 msgid "_AntiAliased"
 msgstr "부드럽게(_A)"
 
@@ -1486,11 +1440,8 @@ msgstr "교차"
 #. Translators: Menu item Verb/Channel/Export/Remove
 #. Translators: Menu item Verb/Branch/Separate/Remove
 #. Translators: Menu item Verb/Branch/Separate/Remove/Remove
-#: ../app/menus.c:233
-#: ../app/sheets_dialog.c:785
-#: ../objects/FS/function.c:706
-#: ../objects/FS/function.c:858
-#: ../objects/FS/function.c:860
+#: ../app/menus.c:233 ../app/sheets_dialog.c:785 ../objects/FS/function.c:706
+#: ../objects/FS/function.c:858 ../objects/FS/function.c:860
 msgid "Remove"
 msgstr "삭제"
 
@@ -1515,13 +1466,11 @@ msgstr "객체 묶기 열기"
 msgid "Select Printer"
 msgstr "프린터 선택"
 
-#: ../app/paginate_psprint.c:283
-#: ../sheets/ciscocomputer.sheet.in.h:36
+#: ../app/paginate_psprint.c:283 ../sheets/ciscocomputer.sheet.in.h:36
 msgid "Printer"
 msgstr "프린터"
 
-#: ../app/paginate_psprint.c:297
-#: ../sheets/Misc.sheet.in.h:1
+#: ../app/paginate_psprint.c:297 ../sheets/Misc.sheet.in.h:1
 msgid "File"
 msgstr "파일"
 
@@ -1555,12 +1504,9 @@ msgstr "플러그인"
 msgid "Loaded"
 msgstr "적재여부"
 
-#: ../app/plugin-manager.c:262
-#: ../objects/UML/class.c:139
-#: ../objects/UML/large_package.c:131
-#: ../objects/UML/umlattribute.c:37
-#: ../objects/UML/umlformalparameter.c:35
-#: ../objects/UML/umloperation.c:62
+#: ../app/plugin-manager.c:262 ../objects/UML/class.c:139
+#: ../objects/UML/large_package.c:131 ../objects/UML/umlattribute.c:37
+#: ../objects/UML/umlformalparameter.c:35 ../objects/UML/umloperation.c:62
 #: ../objects/UML/umlparameter.c:43
 msgid "Name"
 msgstr "이름"
@@ -1658,9 +1604,7 @@ msgid "Connection Points:"
 msgstr "연결점:"
 
 #. { NULL, PREF_NONE, 0, NULL, 3, N_("Grid:") },
-#: ../app/preferences.c:150
-#: ../app/preferences.c:154
-#: ../app/preferences.c:160
+#: ../app/preferences.c:150 ../app/preferences.c:154 ../app/preferences.c:160
 msgid "Visible"
 msgstr "표시하기"
 
@@ -1668,8 +1612,7 @@ msgstr "표시하기"
 msgid "Page breaks:"
 msgstr "페이지 경계:"
 
-#: ../app/preferences.c:155
-#: ../app/preferences.c:165
+#: ../app/preferences.c:155 ../app/preferences.c:165
 msgid "Color:"
 msgstr "색상:"
 
@@ -1709,15 +1652,12 @@ msgstr "도표 자료 목록 창:"
 msgid "Save hidden object types"
 msgstr "숨겨진 객체 형태 저장"
 
-#: ../app/preferences.c:394
-#: ../lib/prop_inttypes.c:158
+#: ../app/preferences.c:394 ../lib/prop_inttypes.c:158
 msgid "Yes"
 msgstr "예"
 
-#: ../app/preferences.c:394
-#: ../app/preferences.c:405
-#: ../lib/prop_inttypes.c:160
-#: ../lib/prop_inttypes.c:186
+#: ../app/preferences.c:394 ../app/preferences.c:405
+#: ../lib/prop_inttypes.c:160 ../lib/prop_inttypes.c:186
 msgid "No"
 msgstr "아니오"
 
@@ -1796,23 +1736,19 @@ msgstr "프로그램된 Dia객체"
 msgid "Sheets and Objects"
 msgstr "시트 & 객체"
 
-#: ../app/sheets_dialog.c:110
-#: ../app/sheets_dialog_callbacks.c:178
+#: ../app/sheets_dialog.c:110 ../app/sheets_dialog_callbacks.c:178
 msgid "<- Copy"
 msgstr "<- 복사"
 
-#: ../app/sheets_dialog.c:120
-#: ../app/sheets_dialog_callbacks.c:180
+#: ../app/sheets_dialog.c:120 ../app/sheets_dialog_callbacks.c:180
 msgid "<- Copy All"
 msgstr "<- 전체 복사"
 
-#: ../app/sheets_dialog.c:127
-#: ../app/sheets_dialog_callbacks.c:182
+#: ../app/sheets_dialog.c:127 ../app/sheets_dialog_callbacks.c:182
 msgid "<- Move"
 msgstr "<- 이동"
 
-#: ../app/sheets_dialog.c:137
-#: ../app/sheets_dialog_callbacks.c:184
+#: ../app/sheets_dialog.c:137 ../app/sheets_dialog_callbacks.c:184
 msgid "<- Move All"
 msgstr "<- 전체 이동"
 
@@ -1828,18 +1764,12 @@ msgstr "복귀"
 msgid "New"
 msgstr "새로"
 
-#: ../app/sheets_dialog.c:363
-#: ../app/sheets_dialog.c:795
-#: ../objects/Istar/actor.c:144
-#: ../objects/Istar/actor.c:145
-#: ../objects/Istar/other.c:148
-#: ../objects/Istar/other.c:149
-#: ../objects/KAOS/other.c:151
-#: ../objects/KAOS/other.c:152
-#: ../objects/UML/umlattribute.c:39
-#: ../objects/UML/umlformalparameter.c:37
-#: ../objects/UML/umloperation.c:64
-#: ../objects/UML/umlparameter.c:45
+#: ../app/sheets_dialog.c:363 ../app/sheets_dialog.c:795
+#: ../objects/Istar/actor.c:144 ../objects/Istar/actor.c:145
+#: ../objects/Istar/other.c:148 ../objects/Istar/other.c:149
+#: ../objects/KAOS/other.c:151 ../objects/KAOS/other.c:152
+#: ../objects/UML/umlattribute.c:39 ../objects/UML/umlformalparameter.c:37
+#: ../objects/UML/umloperation.c:64 ../objects/UML/umlparameter.c:45
 msgid "Type"
 msgstr "형식"
 
@@ -1851,8 +1781,7 @@ msgstr "찾기..."
 msgid "SVG Shape:"
 msgstr "SVG 모양:"
 
-#: ../app/sheets_dialog.c:414
-#: ../app/sheets_dialog.c:477
+#: ../app/sheets_dialog.c:414 ../app/sheets_dialog.c:477
 msgid "description:"
 msgstr "설명:"
 
@@ -1860,8 +1789,7 @@ msgstr "설명:"
 msgid "Sheet name:"
 msgstr "시트명:"
 
-#: ../app/sheets_dialog.c:447
-#: ../app/sheets_dialog_callbacks.c:290
+#: ../app/sheets_dialog.c:447 ../app/sheets_dialog_callbacks.c:290
 #: ../app/sheets_dialog_callbacks.c:1093
 msgid "Line Break"
 msgstr "개행"
@@ -1874,21 +1802,15 @@ msgstr "속성 편집"
 msgid "DiaObject"
 msgstr "Dia객체"
 
-#: ../app/sheets_dialog.c:600
-#: ../app/sheets_dialog.c:693
+#: ../app/sheets_dialog.c:600 ../app/sheets_dialog.c:693
 msgid "Description:"
 msgstr "설명:"
 
-#: ../app/sheets_dialog.c:619
-#: ../objects/FS/flow-ortho.c:169
-#: ../objects/FS/flow.c:146
-#: ../objects/Istar/link.c:164
-#: ../objects/Jackson/phenomenon.c:144
-#: ../objects/KAOS/metaandorrel.c:164
-#: ../objects/KAOS/metabinrel.c:171
-#: ../objects/UML/class_dialog.c:975
-#: ../objects/UML/class_dialog.c:1928
-#: ../objects/UML/class_dialog.c:2166
+#: ../app/sheets_dialog.c:619 ../objects/FS/flow-ortho.c:169
+#: ../objects/FS/flow.c:146 ../objects/Istar/link.c:164
+#: ../objects/Jackson/phenomenon.c:144 ../objects/KAOS/metaandorrel.c:164
+#: ../objects/KAOS/metabinrel.c:171 ../objects/UML/class_dialog.c:975
+#: ../objects/UML/class_dialog.c:1928 ../objects/UML/class_dialog.c:2166
 #: ../objects/UML/class_dialog.c:2692
 msgid "Type:"
 msgstr "형식:"
@@ -1897,18 +1819,12 @@ msgstr "형식:"
 msgid "Sheet"
 msgstr "시트"
 
-#: ../app/sheets_dialog.c:673
-#: ../objects/ER/attribute.c:153
-#: ../objects/ER/entity.c:135
-#: ../objects/ER/relationship.c:140
-#: ../objects/UML/association.c:238
-#: ../objects/UML/association.c:1160
-#: ../objects/UML/class_dialog.c:964
-#: ../objects/UML/class_dialog.c:1917
-#: ../objects/UML/class_dialog.c:2155
-#: ../objects/UML/class_dialog.c:2681
-#: ../objects/UML/dependency.c:135
-#: ../objects/UML/generalization.c:131
+#: ../app/sheets_dialog.c:673 ../objects/ER/attribute.c:153
+#: ../objects/ER/entity.c:135 ../objects/ER/relationship.c:140
+#: ../objects/UML/association.c:238 ../objects/UML/association.c:1160
+#: ../objects/UML/class_dialog.c:964 ../objects/UML/class_dialog.c:1917
+#: ../objects/UML/class_dialog.c:2155 ../objects/UML/class_dialog.c:2681
+#: ../objects/UML/dependency.c:135 ../objects/UML/generalization.c:131
 #: ../objects/UML/realizes.c:132
 msgid "Name:"
 msgstr "이름:"
@@ -1985,8 +1901,7 @@ msgstr "모양 파일을 해석할 수 없습니다: '%s'"
 msgid "Sheet must have a Name"
 msgstr "시트는 이름이 있어야 합니다"
 
-#: ../app/sheets_dialog_callbacks.c:1597
-#: ../app/sheets_dialog_callbacks.c:1604
+#: ../app/sheets_dialog_callbacks.c:1597 ../app/sheets_dialog_callbacks.c:1604
 msgid "Couldn't open '%s': %s"
 msgstr "`%s'를 열 수 없습니다: %s"
 
@@ -2182,17 +2097,10 @@ msgstr "알려지지 않은 화살표"
 msgid "Internal error: Setting corner type of endpoint of bezier"
 msgstr "내부 오류: 베지어 곡선 끝점의 가장자리 형태 설정"
 
-#: ../lib/create.c:50
-#: ../lib/create.c:100
-#: ../lib/create.c:127
-#: ../lib/create.c:161
-#: ../lib/create.c:197
-#: ../lib/create.c:224
-#: ../lib/create.c:260
-#: ../lib/create.c:295
-#: ../lib/create.c:335
-#: ../plug-ins/svg/svg-import.c:204
-#: ../plug-ins/vdx/vdx-import.c:140
+#: ../lib/create.c:50 ../lib/create.c:100 ../lib/create.c:127
+#: ../lib/create.c:161 ../lib/create.c:197 ../lib/create.c:224
+#: ../lib/create.c:260 ../lib/create.c:295 ../lib/create.c:335
+#: ../plug-ins/svg/svg-import.c:204 ../plug-ins/vdx/vdx-import.c:140
 msgid "Can't find standard object"
 msgstr "표준 객체를 찾을 수 없습니다"
 
@@ -2235,15 +2143,20 @@ msgid "Incorrect y Point value \"%s\" %f; discarding it."
 msgstr "부정확한 Y 지점 값 \"%s\" %f; 무시하는 중."
 
 #: ../lib/dia_xml.c:1063
-msgid "Your local character set is UTF-8. Because of issues with libxml1 and the support of files generated by previous versions of dia, you will encounter  problems. Please report to dia-list@gnome.org if you see this message."
-msgstr "지역문자 설정이 UTF-8입니다. libxml1 문제와 이전 버전에서 발생하는 파일 지원문제 때문에 곤란을 격을 수도 있습니다. 이런 메세지를 보면 dia-list@gnome.org에 보고하십시오."
+msgid ""
+"Your local character set is UTF-8. Because of issues with libxml1 and the "
+"support of files generated by previous versions of dia, you will encounter  "
+"problems. Please report to dia-list@gnome.org if you see this message."
+msgstr ""
+"지역문자 설정이 UTF-8입니다. libxml1 문제와 이전 버전에서 발생하는 파일 지원"
+"문제 때문에 곤란을 격을 수도 있습니다. 이런 메세지를 보면 dia-list@gnome.org"
+"에 보고하십시오."
 
 #: ../lib/diaarrowchooser.c:322
 msgid "Arrow Properties"
 msgstr "화살표 속성"
 
-#: ../lib/diaarrowchooser.c:421
-#: ../lib/dialinechooser.c:333
+#: ../lib/diaarrowchooser.c:421 ../lib/dialinechooser.c:333
 msgid "Details..."
 msgstr "자세히..."
 
@@ -2308,8 +2221,7 @@ msgstr "유일한 이름 %s를 가진 다중 내보내기 필터"
 msgid "Can't load font %s.\n"
 msgstr "글꼴 %s를 읽어올 수 없습니다.\n"
 
-#: ../lib/message.c:80
-#: ../lib/message.c:226
+#: ../lib/message.c:80 ../lib/message.c:226
 msgid "Warning"
 msgstr "경고"
 
@@ -2363,8 +2275,7 @@ msgstr "플러그인 초기 함수에서 `%s'를 찾을 수 없습니다"
 msgid "Missing symbol 'dia_plugin_init'"
 msgstr "빠진 기호 'dia_plugin_init'"
 
-#: ../lib/plug-ins.c:256
-#: ../lib/plug-ins.c:264
+#: ../lib/plug-ins.c:256 ../lib/plug-ins.c:264
 msgid "dia_plugin_init() call failed"
 msgstr "dia_plugin_init() 호출 실패"
 
@@ -2386,93 +2297,67 @@ msgstr ""
 msgid "Group with %d objects"
 msgstr "%d 객체를 가진 그룹"
 
-#: ../lib/properties.c:64
-#: ../lib/properties.h:469
-#: ../lib/widgets.c:638
+#: ../lib/properties.c:64 ../lib/properties.h:469 ../lib/widgets.c:638
 msgid "Left"
 msgstr "왼쪽"
 
-#: ../lib/properties.c:65
-#: ../lib/properties.h:470
-#: ../lib/widgets.c:644
+#: ../lib/properties.c:65 ../lib/properties.h:470 ../lib/widgets.c:644
 #: ../objects/standard/textobj.c:133
 msgid "Center"
 msgstr "중간"
 
-#: ../lib/properties.c:66
-#: ../lib/properties.h:471
-#: ../lib/widgets.c:650
+#: ../lib/properties.c:66 ../lib/properties.h:471 ../lib/widgets.c:650
 msgid "Right"
 msgstr "오른쪽"
 
-#: ../lib/properties.c:73
-#: ../lib/properties.h:487
-#: ../lib/properties.h:490
+#: ../lib/properties.c:73 ../lib/properties.h:487 ../lib/properties.h:490
 #: ../objects/chronogram/chronoline.c:179
 #: ../objects/chronogram/chronoref.c:158
 msgid "Line color"
 msgstr "선 색상:"
 
-#: ../lib/properties.c:74
-#: ../lib/properties.h:493
-#: ../lib/properties.h:496
+#: ../lib/properties.c:74 ../lib/properties.h:493 ../lib/properties.h:496
 msgid "Line style"
 msgstr "선 형태"
 
-#: ../lib/properties.c:75
-#: ../lib/properties.h:500
-#: ../lib/properties.h:503
+#: ../lib/properties.c:75 ../lib/properties.h:500 ../lib/properties.h:503
 msgid "Fill color"
 msgstr "채움 색상:"
 
-#: ../lib/properties.c:76
-#: ../lib/properties.h:506
-#: ../lib/properties.h:509
+#: ../lib/properties.c:76 ../lib/properties.h:506 ../lib/properties.h:509
 msgid "Draw background"
 msgstr "배경 자리차지"
 
-#: ../lib/properties.c:77
-#: ../lib/properties.h:513
+#: ../lib/properties.c:77 ../lib/properties.h:513
 msgid "Start arrow"
 msgstr "시작 화살표"
 
-#: ../lib/properties.c:78
-#: ../lib/properties.h:516
+#: ../lib/properties.c:78 ../lib/properties.h:516
 msgid "End arrow"
 msgstr "끝 화살표"
 
-#: ../lib/properties.c:80
-#: ../lib/properties.h:526
+#: ../lib/properties.c:80 ../lib/properties.h:526
 msgid "Text alignment"
 msgstr "수평 문자열 정렬"
 
 #. all this just to make the defaults selectable ...
-#: ../lib/properties.c:81
-#: ../lib/properties.h:531
-#: ../objects/GRAFCET/condition.c:132
-#: ../objects/GRAFCET/step.c:165
-#: ../objects/GRAFCET/transition.c:142
-#: ../objects/UML/class.c:169
-#: ../objects/UML/class_dialog.c:394
-#: ../objects/chronogram/chronoline.c:183
+#: ../lib/properties.c:81 ../lib/properties.h:531
+#: ../objects/GRAFCET/condition.c:132 ../objects/GRAFCET/step.c:165
+#: ../objects/GRAFCET/transition.c:142 ../objects/UML/class.c:169
+#: ../objects/UML/class_dialog.c:394 ../objects/chronogram/chronoline.c:183
 #: ../objects/chronogram/chronoref.c:164
 msgid "Font"
 msgstr "글꼴"
 
-#: ../lib/properties.c:82
-#: ../lib/properties.h:537
-#: ../objects/GRAFCET/condition.c:134
-#: ../objects/GRAFCET/step.c:167
-#: ../objects/GRAFCET/transition.c:144
-#: ../objects/chronogram/chronoline.c:185
+#: ../lib/properties.c:82 ../lib/properties.h:537
+#: ../objects/GRAFCET/condition.c:134 ../objects/GRAFCET/step.c:167
+#: ../objects/GRAFCET/transition.c:144 ../objects/chronogram/chronoline.c:185
 #: ../objects/chronogram/chronoref.c:166
 msgid "Font size"
 msgstr "글꼴 크기:"
 
-#: ../lib/properties.c:83
-#: ../lib/properties.h:543
-#: ../objects/GRAFCET/step.c:169
-#: ../objects/chronogram/chronoline.c:187
+#: ../lib/properties.c:83 ../lib/properties.h:543
+#: ../objects/GRAFCET/step.c:169 ../objects/chronogram/chronoline.c:187
 #: ../objects/chronogram/chronoref.c:168
 msgid "Text color"
 msgstr "문자열 색상"
@@ -2491,8 +2376,7 @@ msgid "Couldn't find font family for %s\n"
 msgstr "%s에 대한 글꼴모음을 찾을 수 없습니다\n"
 
 #. Translators: Menu item Noun/Material/Solid
-#: ../lib/widgets.c:786
-#: ../objects/FS/function.c:1074
+#: ../lib/widgets.c:786 ../objects/FS/function.c:1074
 msgid "Solid"
 msgstr "실선"
 
@@ -2633,8 +2517,7 @@ msgstr "파생:"
 msgid "Multivalue:"
 msgstr "다중값:"
 
-#: ../objects/ER/attribute.c:434
-#: ../sheets/ER.sheet.in.h:1
+#: ../objects/ER/attribute.c:434 ../sheets/ER.sheet.in.h:1
 msgid "Attribute"
 msgstr "속성"
 
@@ -2646,8 +2529,7 @@ msgstr "Weak:"
 msgid "Associative:"
 msgstr "연관:"
 
-#: ../objects/ER/entity.c:413
-#: ../objects/UML/classicon.c:129
+#: ../objects/ER/entity.c:413 ../objects/UML/classicon.c:129
 #: ../sheets/ER.sheet.in.h:4
 msgid "Entity"
 msgstr "엔티티"
@@ -2660,30 +2542,20 @@ msgstr "엔티티/관계 도표 객체"
 msgid "Total:"
 msgstr "합계:"
 
-#: ../objects/ER/participation.c:406
-#: ../objects/FS/flow-ortho.c:639
-#: ../objects/GRAFCET/vector.c:312
-#: ../objects/SADT/arrow.c:457
-#: ../objects/UML/association.c:769
-#: ../objects/UML/component_feature.c:184
-#: ../objects/UML/dependency.c:374
-#: ../objects/UML/generalization.c:370
-#: ../objects/UML/realizes.c:361
-#: ../objects/UML/transition.c:161
+#: ../objects/ER/participation.c:406 ../objects/FS/flow-ortho.c:639
+#: ../objects/GRAFCET/vector.c:312 ../objects/SADT/arrow.c:457
+#: ../objects/UML/association.c:769 ../objects/UML/component_feature.c:184
+#: ../objects/UML/dependency.c:374 ../objects/UML/generalization.c:370
+#: ../objects/UML/realizes.c:361 ../objects/UML/transition.c:161
 #: ../objects/standard/zigzagline.c:348
 msgid "Add segment"
 msgstr "조절점 더하기"
 
-#: ../objects/ER/participation.c:407
-#: ../objects/FS/flow-ortho.c:640
-#: ../objects/GRAFCET/vector.c:313
-#: ../objects/SADT/arrow.c:458
-#: ../objects/UML/association.c:770
-#: ../objects/UML/component_feature.c:185
-#: ../objects/UML/dependency.c:375
-#: ../objects/UML/generalization.c:371
-#: ../objects/UML/realizes.c:362
-#: ../objects/UML/transition.c:162
+#: ../objects/ER/participation.c:407 ../objects/FS/flow-ortho.c:640
+#: ../objects/GRAFCET/vector.c:313 ../objects/SADT/arrow.c:458
+#: ../objects/UML/association.c:770 ../objects/UML/component_feature.c:185
+#: ../objects/UML/dependency.c:375 ../objects/UML/generalization.c:371
+#: ../objects/UML/realizes.c:362 ../objects/UML/transition.c:162
 #: ../objects/standard/zigzagline.c:349
 msgid "Delete segment"
 msgstr "조절점 삭제"
@@ -2704,25 +2576,20 @@ msgstr "회전:"
 msgid "Identifying:"
 msgstr "식별:"
 
-#: ../objects/ER/relationship.c:457
-#: ../sheets/ER.sheet.in.h:6
+#: ../objects/ER/relationship.c:457 ../sheets/ER.sheet.in.h:6
 msgid "Relationship"
 msgstr "관계"
 
 #. Translators: Menu item Noun/Energy
-#: ../objects/FS/flow-ortho.c:160
-#: ../objects/FS/flow-ortho.c:636
-#: ../objects/FS/flow.c:137
-#: ../objects/FS/flow.c:580
+#: ../objects/FS/flow-ortho.c:160 ../objects/FS/flow-ortho.c:636
+#: ../objects/FS/flow.c:137 ../objects/FS/flow.c:580
 #: ../objects/FS/function.c:1096
 msgid "Energy"
 msgstr "에너지"
 
 #. Translators: Menu item Noun/Material
-#: ../objects/FS/flow-ortho.c:161
-#: ../objects/FS/flow-ortho.c:637
-#: ../objects/FS/flow.c:138
-#: ../objects/FS/flow.c:581
+#: ../objects/FS/flow-ortho.c:161 ../objects/FS/flow-ortho.c:637
+#: ../objects/FS/flow.c:138 ../objects/FS/flow.c:581
 #: ../objects/FS/function.c:1072
 msgid "Material"
 msgstr "재질"
@@ -2731,14 +2598,10 @@ msgstr "재질"
 #. Translators: Menu item Verb/Signal/Signal
 #. Translators: Menu item Noun/Signal
 #. Translators: Menu item Noun/Signal/Signal
-#: ../objects/FS/flow-ortho.c:162
-#: ../objects/FS/flow-ortho.c:638
-#: ../objects/FS/flow.c:139
-#: ../objects/FS/flow.c:582
-#: ../objects/FS/function.c:1034
-#: ../objects/FS/function.c:1036
-#: ../objects/FS/function.c:1172
-#: ../objects/FS/function.c:1174
+#: ../objects/FS/flow-ortho.c:162 ../objects/FS/flow-ortho.c:638
+#: ../objects/FS/flow.c:139 ../objects/FS/flow.c:582
+#: ../objects/FS/function.c:1034 ../objects/FS/function.c:1036
+#: ../objects/FS/function.c:1172 ../objects/FS/function.c:1174
 msgid "Signal"
 msgstr "신호"
 
@@ -2762,22 +2625,19 @@ msgstr "동사"
 #. Translators: Menu item Verb/Channel
 #. Translators: Menu item Verb/Channel/Channel
 #. Translators: Menu item Verb/Channel/Transfer/Transport/Channel
-#: ../objects/FS/function.c:678
-#: ../objects/FS/function.c:680
+#: ../objects/FS/function.c:678 ../objects/FS/function.c:680
 #: ../objects/FS/function.c:720
 msgid "Channel"
 msgstr "채널"
 
 #. Translators: Menu item Verb/Channel/Import
 #. Translators: Menu item Verb/Channel/Import/Import
-#: ../objects/FS/function.c:682
-#: ../objects/FS/function.c:684
+#: ../objects/FS/function.c:682 ../objects/FS/function.c:684
 msgid "Import"
 msgstr "들여오기"
 
 #. Translators: Menu item Verb/Channel/Import/Input
-#: ../objects/FS/function.c:686
-#: ../objects/KAOS/metabinrel.c:163
+#: ../objects/FS/function.c:686 ../objects/KAOS/metabinrel.c:163
 msgid "Input"
 msgstr "입력"
 
@@ -2788,8 +2648,7 @@ msgstr "받기"
 
 #. Translators: Menu item Verb/Channel/Import/Allow
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Allow
-#: ../objects/FS/function.c:690
-#: ../objects/FS/function.c:962
+#: ../objects/FS/function.c:690 ../objects/FS/function.c:962
 msgid "Allow"
 msgstr "허용"
 
@@ -2800,8 +2659,7 @@ msgstr "양식 입구"
 
 #. Translators: Menu item Verb/Channel/Import/Capture
 #. Translators: Menu item Verb/Provision/Store/Capture
-#: ../objects/FS/function.c:694
-#: ../objects/FS/function.c:928
+#: ../objects/FS/function.c:694 ../objects/FS/function.c:928
 msgid "Capture"
 msgstr "캡처"
 
@@ -2823,16 +2681,14 @@ msgstr "배치"
 #. Translators: Menu item Verb/Channel/Transfer
 #. Translators: Menu item Verb/Channel/Transfer/Transfer
 #. Translators: Menu item Verb/Channel/Transfer/Transmit/Transfer
-#: ../objects/FS/function.c:708
-#: ../objects/FS/function.c:710
+#: ../objects/FS/function.c:708 ../objects/FS/function.c:710
 #: ../objects/FS/function.c:728
 msgid "Transfer"
 msgstr "전송"
 
 #. Translators: Menu item Verb/Channel/Transfer/Transport
 #. Translators: Menu item Verb/Channel/Transfer/Transport/Transport
-#: ../objects/FS/function.c:712
-#: ../objects/FS/function.c:714
+#: ../objects/FS/function.c:712 ../objects/FS/function.c:714
 msgid "Transport"
 msgstr "수송"
 
@@ -2848,8 +2704,7 @@ msgstr "이동"
 
 #. Translators: Menu item Verb/Channel/Transfer/Transmit
 #. Translators: Menu item Verb/Channel/Transfer/Transmit/Transmit
-#: ../objects/FS/function.c:722
-#: ../objects/FS/function.c:724
+#: ../objects/FS/function.c:722 ../objects/FS/function.c:724
 msgid "Transmit"
 msgstr "전달"
 
@@ -2866,8 +2721,7 @@ msgstr "운반"
 #. Translators: Menu item Verb/Channel/Guide
 #. Translators: Menu item Verb/Channel/Guide/Guide
 #. Translators: Menu item Verb/Channel/Guide/Guide/Guide
-#: ../objects/FS/function.c:732
-#: ../objects/FS/function.c:734
+#: ../objects/FS/function.c:732 ../objects/FS/function.c:734
 #: ../objects/FS/function.c:736
 msgid "Guide"
 msgstr "안내선:"
@@ -2894,8 +2748,7 @@ msgstr "번역"
 
 #. Translators: Menu item Verb/Channel/Guide/Rotate
 #. Translators: Menu item Verb/Channel/Guide/Rotate/Rotate
-#: ../objects/FS/function.c:746
-#: ../objects/FS/function.c:748
+#: ../objects/FS/function.c:746 ../objects/FS/function.c:748
 msgid "Rotate"
 msgstr "회전"
 
@@ -2911,8 +2764,7 @@ msgstr "회전"
 
 #. Translators: Menu item Verb/Channel/Guide/Allow DOF
 #. Translators: Menu item Verb/Channel/Guide/Allow DOF/Allow DOF
-#: ../objects/FS/function.c:754
-#: ../objects/FS/function.c:756
+#: ../objects/FS/function.c:754 ../objects/FS/function.c:756
 msgid "Allow DOF"
 msgstr "DOF 허용"
 
@@ -2928,15 +2780,13 @@ msgstr "잠금 해제"
 
 #. Translators: Menu item Verb/Support
 #. Translators: Menu item Verb/Support/Support
-#: ../objects/FS/function.c:762
-#: ../objects/FS/function.c:764
+#: ../objects/FS/function.c:762 ../objects/FS/function.c:764
 msgid "Support"
 msgstr "지원"
 
 #. Translators: Menu item Verb/Support/Stop
 #. Translators: Menu item Verb/Support/Stop/Stop
-#: ../objects/FS/function.c:766
-#: ../objects/FS/function.c:768
+#: ../objects/FS/function.c:766 ../objects/FS/function.c:768
 #: ../sheets/SDL.sheet.in.h:19
 msgid "Stop"
 msgstr "정지"
@@ -2953,8 +2803,7 @@ msgstr "보호"
 
 #. Translators: Menu item Verb/Support/Stop/Prevent
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Prevent
-#: ../objects/FS/function.c:774
-#: ../objects/FS/function.c:964
+#: ../objects/FS/function.c:774 ../objects/FS/function.c:964
 msgid "Prevent"
 msgstr "막음"
 
@@ -2970,8 +2819,7 @@ msgstr "금지"
 
 #. Translators: Menu item Verb/Support/Stabilize
 #. Translators: Menu item Verb/Support/Stabilize/Stabilize
-#: ../objects/FS/function.c:780
-#: ../objects/FS/function.c:782
+#: ../objects/FS/function.c:780 ../objects/FS/function.c:782
 msgid "Stabilize"
 msgstr "안정화"
 
@@ -2982,15 +2830,13 @@ msgstr "굳센"
 
 #. Translators: Menu item Verb/Support/Secure
 #. Translators: Menu item Verb/Support/Secure/Secure
-#: ../objects/FS/function.c:786
-#: ../objects/FS/function.c:788
+#: ../objects/FS/function.c:786 ../objects/FS/function.c:788
 msgid "Secure"
 msgstr "안전"
 
 #. Translators: Menu item Verb/Support/Secure/Attach
 #. Translators: Menu item Verb/Connect/Couple/Attach
-#: ../objects/FS/function.c:790
-#: ../objects/FS/function.c:822
+#: ../objects/FS/function.c:790 ../objects/FS/function.c:822
 msgid "Attach"
 msgstr "붙이기"
 
@@ -3000,8 +2846,7 @@ msgid "Mount"
 msgstr "마운트"
 
 #. Translators: Menu item Verb/Support/Secure/Lock
-#: ../objects/FS/function.c:794
-#: ../sheets/ciscomisc.sheet.in.h:19
+#: ../objects/FS/function.c:794 ../sheets/ciscomisc.sheet.in.h:19
 msgid "Lock"
 msgstr "자물쇠"
 
@@ -3017,8 +2862,7 @@ msgstr "유지"
 
 #. Translators: Menu item Verb/Support/Position
 #. Translators: Menu item Verb/Support/Position/Position
-#: ../objects/FS/function.c:800
-#: ../objects/FS/function.c:802
+#: ../objects/FS/function.c:800 ../objects/FS/function.c:802
 #: ../objects/Istar/actor.c:70
 msgid "Position"
 msgstr "위치"
@@ -3030,22 +2874,19 @@ msgstr "방향"
 
 #. Translators: Menu item Verb/Support/Position/Locate
 #. Translators: Menu item Verb/Signal/Sense/Locate
-#: ../objects/FS/function.c:808
-#: ../objects/FS/function.c:1050
+#: ../objects/FS/function.c:808 ../objects/FS/function.c:1050
 msgid "Locate"
 msgstr "위치"
 
 #. Translators: Menu item Verb/Connect
 #. Translators: Menu item Verb/Connect/Connect
-#: ../objects/FS/function.c:810
-#: ../objects/FS/function.c:812
+#: ../objects/FS/function.c:810 ../objects/FS/function.c:812
 msgid "Connect"
 msgstr "연결"
 
 #. Translators: Menu item Verb/Connect/Couple
 #. Translators: Menu item Verb/Connect/Couple/Couple
-#: ../objects/FS/function.c:814
-#: ../objects/FS/function.c:816
+#: ../objects/FS/function.c:814 ../objects/FS/function.c:816
 msgid "Couple"
 msgstr "커플"
 
@@ -3061,8 +2902,7 @@ msgstr "모음"
 
 #. Translators: Menu item Verb/Connect/Mix
 #. Translators: Menu item Verb/Connect/Mix/Mix
-#: ../objects/FS/function.c:824
-#: ../objects/FS/function.c:826
+#: ../objects/FS/function.c:824 ../objects/FS/function.c:826
 msgid "Mix"
 msgstr "혼합"
 
@@ -3093,8 +2933,7 @@ msgstr "연합"
 
 #. Translators: Menu item Verb/Branch
 #. Translators: Menu item Verb/Branch/Branch
-#: ../objects/FS/function.c:838
-#: ../objects/FS/function.c:840
+#: ../objects/FS/function.c:838 ../objects/FS/function.c:840
 #: ../sheets/UML.sheet.in.h:5
 msgid "Branch"
 msgstr "가지"
@@ -3102,8 +2941,7 @@ msgstr "가지"
 #. Translators: Menu item Verb/Branch/Separate
 #. Translators: Menu item Verb/Branch/Separate/Separate
 #. Translators: Menu item Verb/Branch/Separate/Separate/Separate
-#: ../objects/FS/function.c:842
-#: ../objects/FS/function.c:844
+#: ../objects/FS/function.c:842 ../objects/FS/function.c:844
 #: ../objects/FS/function.c:846
 msgid "Separate"
 msgstr "분리"
@@ -3160,8 +2998,7 @@ msgstr "선반"
 
 #. Translators: Menu item Verb/Branch/Refine
 #. Translators: Menu item Verb/Branch/Refine/Refine
-#: ../objects/FS/function.c:872
-#: ../objects/FS/function.c:874
+#: ../objects/FS/function.c:872 ../objects/FS/function.c:874
 msgid "Refine"
 msgstr "정제"
 
@@ -3192,8 +3029,7 @@ msgstr "제거"
 
 #. Translators: Menu item Verb/Branch/Distribute
 #. Translators: Menu item Verb/Branch/Distribute/Distribute
-#: ../objects/FS/function.c:886
-#: ../objects/FS/function.c:888
+#: ../objects/FS/function.c:886 ../objects/FS/function.c:888
 msgid "Distribute"
 msgstr "분배"
 
@@ -3214,8 +3050,7 @@ msgstr "해산"
 
 #. Translators: Menu item Verb/Branch/Distribute/Diffuse
 #. Translators: Menu item Verb/Branch/Dissipate/Diffuse
-#: ../objects/FS/function.c:896
-#: ../objects/FS/function.c:910
+#: ../objects/FS/function.c:896 ../objects/FS/function.c:910
 msgid "Diffuse"
 msgstr "확산"
 
@@ -3226,8 +3061,7 @@ msgstr "비어있음"
 
 #. Translators: Menu item Verb/Branch/Dissipate
 #. Translators: Menu item Verb/Branch/Dissipate/Dissipate
-#: ../objects/FS/function.c:900
-#: ../objects/FS/function.c:902
+#: ../objects/FS/function.c:900 ../objects/FS/function.c:902
 msgid "Dissipate"
 msgstr "흩뜨림"
 
@@ -3253,15 +3087,13 @@ msgstr "저항함"
 
 #. Translators: Menu item Verb/Provision
 #. Translators: Menu item Verb/Provision/Provision
-#: ../objects/FS/function.c:914
-#: ../objects/FS/function.c:916
+#: ../objects/FS/function.c:914 ../objects/FS/function.c:916
 msgid "Provision"
 msgstr "준비"
 
 #. Translators: Menu item Verb/Provision/Store
 #. Translators: Menu item Verb/Provision/Store/Store
-#: ../objects/FS/function.c:918
-#: ../objects/FS/function.c:920
+#: ../objects/FS/function.c:918 ../objects/FS/function.c:920
 msgid "Store"
 msgstr "저장"
 
@@ -3282,8 +3114,7 @@ msgstr "보유"
 
 #. Translators: Menu item Verb/Provision/Supply
 #. Translators: Menu item Verb/Provision/Supply/Supply
-#: ../objects/FS/function.c:930
-#: ../objects/FS/function.c:932
+#: ../objects/FS/function.c:930 ../objects/FS/function.c:932
 msgid "Supply"
 msgstr "공급"
 
@@ -3308,22 +3139,19 @@ msgid "Expose"
 msgstr "노출"
 
 #. Translators: Menu item Verb/Provision/Extract
-#: ../objects/FS/function.c:942
-#: ../sheets/Flowchart.sheet.in.h:9
+#: ../objects/FS/function.c:942 ../sheets/Flowchart.sheet.in.h:9
 msgid "Extract"
 msgstr "추출"
 
 #. Translators: Menu item Verb/Control Magnitude
 #. Translators: Menu item Verb/Control Magnitude/Control Magnitude
-#: ../objects/FS/function.c:944
-#: ../objects/FS/function.c:946
+#: ../objects/FS/function.c:944 ../objects/FS/function.c:946
 msgid "Control Magnitude"
 msgstr "크기 제어"
 
 #. Translators: Menu item Verb/Control Magnitude/Actuate
 #. Translators: Menu item Verb/Control Magnitude/Actuate/Actuate
-#: ../objects/FS/function.c:948
-#: ../objects/FS/function.c:950
+#: ../objects/FS/function.c:948 ../objects/FS/function.c:950
 msgid "Actuate"
 msgstr "작용"
 
@@ -3339,15 +3167,13 @@ msgstr "초기화"
 
 #. Translators: Menu item Verb/Control Magnitude/Regulate
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Regulate
-#: ../objects/FS/function.c:956
-#: ../objects/FS/function.c:958
+#: ../objects/FS/function.c:956 ../objects/FS/function.c:958
 msgid "Regulate"
 msgstr "조정함"
 
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Control
 #. Translators: Menu item Noun/Signal/Control
-#: ../objects/FS/function.c:960
-#: ../objects/FS/function.c:1178
+#: ../objects/FS/function.c:960 ../objects/FS/function.c:1178
 #: ../objects/UML/classicon.c:127
 msgid "Control"
 msgstr "제어"
@@ -3374,8 +3200,7 @@ msgstr "방해"
 
 #. Translators: Menu item Verb/Control Magnitude/Change
 #. Translators: Menu item Verb/Control Magnitude/Change/Change
-#: ../objects/FS/function.c:974
-#: ../objects/FS/function.c:976
+#: ../objects/FS/function.c:974 ../objects/FS/function.c:976
 msgid "Change"
 msgstr "변경"
 
@@ -3426,8 +3251,7 @@ msgstr "조절"
 
 #. Translators: Menu item Verb/Control Magnitude/Form
 #. Translators: Menu item Verb/Control Magnitude/Form/Form
-#: ../objects/FS/function.c:998
-#: ../objects/FS/function.c:1000
+#: ../objects/FS/function.c:998 ../objects/FS/function.c:1000
 msgid "Form"
 msgstr "양식"
 
@@ -3458,8 +3282,7 @@ msgstr "관통"
 
 #. Translators: Menu item Verb/Convert
 #. Translators: Menu item Verb/Convert/Convert
-#: ../objects/FS/function.c:1012
-#: ../objects/FS/function.c:1014
+#: ../objects/FS/function.c:1012 ../objects/FS/function.c:1014
 msgid "Convert"
 msgstr "변환"
 
@@ -3504,16 +3327,14 @@ msgid "Differentiate"
 msgstr "차별"
 
 #. Translators: Menu item Verb/Convert/Process
-#: ../objects/FS/function.c:1032
-#: ../sheets/AADL.sheet.in.h:8
+#: ../objects/FS/function.c:1032 ../sheets/AADL.sheet.in.h:8
 #: ../sheets/Gane_and_Sarson.sheet.in.h:7
 msgid "Process"
 msgstr "진행"
 
 #. Translators: Menu item Verb/Signal/Sense
 #. Translators: Menu item Verb/Signal/Sense/Sense
-#: ../objects/FS/function.c:1038
-#: ../objects/FS/function.c:1040
+#: ../objects/FS/function.c:1038 ../objects/FS/function.c:1040
 msgid "Sense"
 msgstr "감각"
 
@@ -3544,8 +3365,7 @@ msgstr "인증"
 
 #. Translators: Menu item Verb/Signal/Indicate
 #. Translators: Menu item Verb/Signal/Indicate/Indicate
-#: ../objects/FS/function.c:1054
-#: ../objects/FS/function.c:1056
+#: ../objects/FS/function.c:1054 ../objects/FS/function.c:1056
 msgid "Indicate"
 msgstr "지시"
 
@@ -3555,15 +3375,13 @@ msgid "Mark"
 msgstr "표시"
 
 #. Translators: Menu item Verb/Signal/Display
-#: ../objects/FS/function.c:1060
-#: ../sheets/Flowchart.sheet.in.h:7
+#: ../objects/FS/function.c:1060 ../sheets/Flowchart.sheet.in.h:7
 msgid "Display"
 msgstr "보기"
 
 #. Translators: Menu item Verb/Signal/Measure
 #. Translators: Menu item Verb/Signal/Measure/Measure
-#: ../objects/FS/function.c:1062
-#: ../objects/FS/function.c:1064
+#: ../objects/FS/function.c:1062 ../objects/FS/function.c:1064
 msgid "Measure"
 msgstr "측정"
 
@@ -3595,8 +3413,7 @@ msgstr "기체"
 #. Translators: Menu item Noun/Material/Human
 #. Translators: Menu item Noun/Material/Human/Human
 #. Translators: Menu item Noun/Energy/Human
-#: ../objects/FS/function.c:1080
-#: ../objects/FS/function.c:1082
+#: ../objects/FS/function.c:1080 ../objects/FS/function.c:1082
 #: ../objects/FS/function.c:1166
 msgid "Human"
 msgstr "인간"
@@ -3738,8 +3555,7 @@ msgstr "대류"
 
 #. Translators: Menu item Noun/Energy/Thermal/Radiation
 #. Translators: Menu item Noun/Energy/Radioactive/Radiation
-#: ../objects/FS/function.c:1140
-#: ../objects/FS/function.c:1148
+#: ../objects/FS/function.c:1140 ../objects/FS/function.c:1148
 msgid "Radiation"
 msgstr "복사"
 
@@ -3821,8 +3637,7 @@ msgstr "사용자/기기 Fn"
 msgid "Wish Fn"
 msgstr "희망 Fn"
 
-#: ../objects/GRAFCET/action.c:135
-#: ../sheets/SDL.sheet.in.h:9
+#: ../objects/GRAFCET/action.c:135 ../sheets/SDL.sheet.in.h:9
 msgid "Macro call"
 msgstr "마크로 호출"
 
@@ -3846,8 +3661,7 @@ msgstr "상태 글꼴"
 msgid "The condition's font size"
 msgstr "상태 글꼴 크기"
 
-#: ../objects/GRAFCET/condition.c:137
-#: ../objects/GRAFCET/transition.c:147
+#: ../objects/GRAFCET/condition.c:137 ../objects/GRAFCET/transition.c:147
 msgid "Color"
 msgstr "색상"
 
@@ -3859,28 +3673,23 @@ msgstr "상태 색상"
 msgid "GRAFCET diagram objects"
 msgstr "GRAFCET 도표 객체"
 
-#: ../objects/GRAFCET/step.c:146
-#: ../sheets/GRAFCET.sheet.in.h:13
+#: ../objects/GRAFCET/step.c:146 ../sheets/GRAFCET.sheet.in.h:13
 msgid "Regular step"
 msgstr "일반 스텝"
 
-#: ../objects/GRAFCET/step.c:147
-#: ../sheets/GRAFCET.sheet.in.h:6
+#: ../objects/GRAFCET/step.c:147 ../sheets/GRAFCET.sheet.in.h:6
 msgid "Initial step"
 msgstr "초기 스텝"
 
-#: ../objects/GRAFCET/step.c:148
-#: ../sheets/GRAFCET.sheet.in.h:8
+#: ../objects/GRAFCET/step.c:148 ../sheets/GRAFCET.sheet.in.h:8
 msgid "Macro entry step"
 msgstr "마크로 엔트리 스텝"
 
-#: ../objects/GRAFCET/step.c:149
-#: ../sheets/GRAFCET.sheet.in.h:9
+#: ../objects/GRAFCET/step.c:149 ../sheets/GRAFCET.sheet.in.h:9
 msgid "Macro exit step"
 msgstr "마크로 종료 스텝"
 
-#: ../objects/GRAFCET/step.c:150
-#: ../sheets/GRAFCET.sheet.in.h:7
+#: ../objects/GRAFCET/step.c:150 ../sheets/GRAFCET.sheet.in.h:7
 msgid "Macro call step"
 msgstr "마크로 호출 스텝"
 
@@ -3956,12 +3765,9 @@ msgstr "AND"
 msgid "Vergent type:"
 msgstr "분기 형태:"
 
-#: ../objects/GRAFCET/vergent.c:405
-#: ../objects/Istar/other.c:469
-#: ../objects/Jackson/domain.c:531
-#: ../objects/KAOS/goal.c:572
-#: ../objects/KAOS/other.c:525
-#: ../objects/SADT/box.c:447
+#: ../objects/GRAFCET/vergent.c:405 ../objects/Istar/other.c:469
+#: ../objects/Jackson/domain.c:531 ../objects/KAOS/goal.c:572
+#: ../objects/KAOS/other.c:525 ../objects/SADT/box.c:447
 #: ../objects/standard/line.c:219
 msgid "Add connection point"
 msgstr "연결점 더하기"
@@ -3974,13 +3780,11 @@ msgstr "연결점 삭제"
 msgid "GRAFCET OR/AND vergent"
 msgstr "GRAFCET 또는/그리고 분기"
 
-#: ../objects/Istar/actor.c:68
-#: ../objects/Istar/link.c:152
+#: ../objects/Istar/actor.c:68 ../objects/Istar/link.c:152
 msgid "Unspecified"
 msgstr "미지정"
 
-#: ../objects/Istar/actor.c:69
-#: ../objects/KAOS/other.c:75
+#: ../objects/Istar/actor.c:69 ../objects/KAOS/other.c:75
 msgid "Agent"
 msgstr "대리"
 
@@ -3988,20 +3792,16 @@ msgstr "대리"
 msgid "Role"
 msgstr "역할"
 
-#: ../objects/Istar/goal.c:76
-#: ../objects/KAOS/goal.c:79
+#: ../objects/Istar/goal.c:76 ../objects/KAOS/goal.c:79
 msgid "Softgoal"
 msgstr "소프트 목표"
 
-#: ../objects/Istar/goal.c:77
-#: ../objects/KAOS/goal.c:80
+#: ../objects/Istar/goal.c:77 ../objects/KAOS/goal.c:80
 msgid "Goal"
 msgstr "목표"
 
-#: ../objects/Istar/goal.c:154
-#: ../objects/Istar/goal.c:155
-#: ../objects/KAOS/goal.c:157
-#: ../objects/KAOS/goal.c:158
+#: ../objects/Istar/goal.c:154 ../objects/Istar/goal.c:155
+#: ../objects/KAOS/goal.c:157 ../objects/KAOS/goal.c:158
 msgid "Goal Type"
 msgstr "목표 형태"
 
@@ -4017,8 +3817,7 @@ msgstr "양의 기여"
 msgid "Negative contrib"
 msgstr "음의 기여"
 
-#: ../objects/Istar/link.c:155
-#: ../sheets/UML.sheet.in.h:10
+#: ../objects/Istar/link.c:155 ../sheets/UML.sheet.in.h:10
 msgid "Dependency"
 msgstr "의존"
 
@@ -4034,17 +3833,13 @@ msgstr "수단-끝"
 msgid "Resource"
 msgstr "자원"
 
-#: ../objects/Istar/other.c:74
-#: ../sheets/BPMN.sheet.in.h:43
+#: ../objects/Istar/other.c:74 ../sheets/BPMN.sheet.in.h:43
 msgid "Task"
 msgstr "업무"
 
-#: ../objects/Istar/other.c:470
-#: ../objects/Jackson/domain.c:532
-#: ../objects/KAOS/goal.c:573
-#: ../objects/KAOS/other.c:526
-#: ../objects/SADT/box.c:448
-#: ../objects/standard/line.c:220
+#: ../objects/Istar/other.c:470 ../objects/Jackson/domain.c:532
+#: ../objects/KAOS/goal.c:573 ../objects/KAOS/other.c:526
+#: ../objects/SADT/box.c:448 ../objects/standard/line.c:220
 msgid "Delete connection point"
 msgstr "연결점 삭제"
 
@@ -4076,8 +3871,7 @@ msgstr "입수"
 msgid "Lexical"
 msgstr "사전"
 
-#: ../objects/Jackson/domain.c:176
-#: ../objects/Jackson/domain.c:177
+#: ../objects/Jackson/domain.c:176 ../objects/Jackson/domain.c:177
 msgid "Domain Type"
 msgstr "도메인 형태"
 
@@ -4101,13 +3895,11 @@ msgstr "잭슨 도표"
 msgid "Shared"
 msgstr "공유"
 
-#: ../objects/Jackson/phenomenon.c:135
-#: ../objects/KAOS/goal.c:81
+#: ../objects/Jackson/phenomenon.c:135 ../objects/KAOS/goal.c:81
 msgid "Requirement"
 msgstr "필수"
 
-#: ../objects/Jackson/phenomenon.c:142
-#: ../objects/UML/message.c:151
+#: ../objects/Jackson/phenomenon.c:142 ../objects/UML/message.c:151
 msgid "Message:"
 msgstr "메세지:"
 
@@ -4212,8 +4004,7 @@ msgid "Miscellaneous objects"
 msgstr "다양한 객체"
 
 #. property rows
-#: ..ㅂ/objects/SADT/arrow.c:134
-#: ../objects/UML/class.c:174
+#: ..��/objects/SADT/arrow.c:134 ../objects/UML/class.c:174
 #: ../objects/UML/class_dialog.c:400
 msgid "Normal"
 msgstr "보통"
@@ -4243,17 +4034,19 @@ msgid "Automatically gray vertical flows:"
 msgstr "자동 회색 수직 흐름:"
 
 #: ../objects/SADT/arrow.c:147
-msgid "To improve the ease of reading, flows which begin and end vertically can be rendered gray"
-msgstr "읽는 것을 쉽게하기 위하여 시작과 끝의 수직 흐름을 회색으로 렌더할 수 있습니다."
+msgid ""
+"To improve the ease of reading, flows which begin and end vertically can be "
+"rendered gray"
+msgstr ""
+"읽는 것을 쉽게하기 위하여 시작과 끝의 수직 흐름을 회색으로 렌더할 수 있습니"
+"다."
 
 #: ../objects/SADT/arrow.c:463
 msgid "SADT Arrow"
 msgstr "SADT 화살표"
 
-#: ../objects/SADT/box.c:137
-#: ../objects/flowchart/box.c:152
-#: ../objects/flowchart/diamond.c:150
-#: ../objects/flowchart/ellipse.c:149
+#: ../objects/SADT/box.c:137 ../objects/flowchart/box.c:152
+#: ../objects/flowchart/diamond.c:150 ../objects/flowchart/ellipse.c:149
 #: ../objects/flowchart/parallelogram.c:154
 msgid "Text padding"
 msgstr "문자열 채움"
@@ -4274,14 +4067,12 @@ msgstr "SADT 상자"
 msgid "SADT diagram objects"
 msgstr "SADT 도표 객체"
 
-#: ../objects/UML/actor.c:349
-#: ../objects/UML/actor.c:351
+#: ../objects/UML/actor.c:349 ../objects/UML/actor.c:351
 #: ../sheets/UML.sheet.in.h:2
 msgid "Actor"
 msgstr "배우"
 
-#: ../objects/UML/association.c:1173
-#: ../objects/UML/class_dialog.c:2208
+#: ../objects/UML/association.c:1173 ../objects/UML/class_dialog.c:2208
 msgid "Direction:"
 msgstr "방향:"
 
@@ -4293,13 +4084,11 @@ msgstr "A에서 B로"
 msgid "From B to A"
 msgstr "B에서 A로"
 
-#: ../objects/UML/association.c:1221
-#: ../objects/UML/association.c:1229
+#: ../objects/UML/association.c:1221 ../objects/UML/association.c:1229
 msgid "Side A"
 msgstr "A 면"
 
-#: ../objects/UML/association.c:1223
-#: ../objects/UML/association.c:1231
+#: ../objects/UML/association.c:1223 ../objects/UML/association.c:1231
 msgid "Side B"
 msgstr "B 면"
 
@@ -4311,37 +4100,28 @@ msgstr "역할:"
 msgid "Multiplicity:"
 msgstr "댜양성"
 
-#: ../objects/UML/association.c:1260
-#: ../objects/UML/class_dialog.c:1019
+#: ../objects/UML/association.c:1260 ../objects/UML/class_dialog.c:1019
 #: ../objects/UML/class_dialog.c:1952
 msgid "Visibility:"
 msgstr "표시:"
 
-#: ../objects/UML/association.c:1269
-#: ../objects/UML/class_dialog.c:1028
-#: ../objects/UML/class_dialog.c:1961
-#: ../objects/UML/uml.c:102
+#: ../objects/UML/association.c:1269 ../objects/UML/class_dialog.c:1028
+#: ../objects/UML/class_dialog.c:1961 ../objects/UML/uml.c:102
 msgid "Public"
 msgstr "공용"
 
-#: ../objects/UML/association.c:1279
-#: ../objects/UML/class_dialog.c:1036
-#: ../objects/UML/class_dialog.c:1969
-#: ../objects/UML/uml.c:103
+#: ../objects/UML/association.c:1279 ../objects/UML/class_dialog.c:1036
+#: ../objects/UML/class_dialog.c:1969 ../objects/UML/uml.c:103
 msgid "Private"
 msgstr "개인"
 
-#: ../objects/UML/association.c:1289
-#: ../objects/UML/class_dialog.c:1044
-#: ../objects/UML/class_dialog.c:1977
-#: ../objects/UML/uml.c:104
+#: ../objects/UML/association.c:1289 ../objects/UML/class_dialog.c:1044
+#: ../objects/UML/class_dialog.c:1977 ../objects/UML/uml.c:104
 msgid "Protected"
 msgstr "보호"
 
-#: ../objects/UML/association.c:1299
-#: ../objects/UML/class_dialog.c:1052
-#: ../objects/UML/class_dialog.c:1985
-#: ../objects/UML/uml.c:105
+#: ../objects/UML/association.c:1299 ../objects/UML/class_dialog.c:1052
+#: ../objects/UML/class_dialog.c:1985 ../objects/UML/uml.c:105
 msgid "Implementation"
 msgstr "도구"
 
@@ -4360,49 +4140,36 @@ msgstr "집합"
 msgid "Composition"
 msgstr "합성"
 
-#: ../objects/UML/class.c:137
-#: ../objects/UML/class.c:308
-#: ../objects/UML/class.c:1703
-#: ../sheets/UML.sheet.in.h:6
+#: ../objects/UML/class.c:137 ../objects/UML/class.c:308
+#: ../objects/UML/class.c:1703 ../sheets/UML.sheet.in.h:6
 msgid "Class"
 msgstr "클래스"
 
-#: ../objects/UML/class.c:141
-#: ../objects/UML/classicon.c:138
-#: ../objects/UML/component.c:124
-#: ../objects/UML/large_package.c:129
-#: ../objects/UML/object.c:150
-#: ../objects/UML/small_package.c:124
+#: ../objects/UML/class.c:141 ../objects/UML/classicon.c:138
+#: ../objects/UML/component.c:124 ../objects/UML/large_package.c:129
+#: ../objects/UML/object.c:150 ../objects/UML/small_package.c:124
 #: ../objects/UML/umloperation.c:68
 msgid "Stereotype"
 msgstr "스테레오형태"
 
-#: ../objects/UML/class.c:143
-#: ../objects/UML/class.c:184
-#: ../objects/UML/class_dialog.c:425
-#: ../objects/UML/umlattribute.c:43
-#: ../objects/UML/umloperation.c:66
-#: ../objects/UML/umlparameter.c:49
+#: ../objects/UML/class.c:143 ../objects/UML/class.c:184
+#: ../objects/UML/class_dialog.c:425 ../objects/UML/umlattribute.c:43
+#: ../objects/UML/umloperation.c:66 ../objects/UML/umlparameter.c:49
 #: ../sheets/SDL.sheet.in.h:3
 msgid "Comment"
 msgstr "부연설명"
 
-#: ../objects/UML/class.c:145
-#: ../objects/UML/class.c:178
-#: ../objects/UML/class_dialog.c:324
-#: ../objects/UML/class_dialog.c:410
-#: ../objects/UML/class_dialog.c:2016
-#: ../objects/UML/uml.c:110
+#: ../objects/UML/class.c:145 ../objects/UML/class.c:178
+#: ../objects/UML/class_dialog.c:324 ../objects/UML/class_dialog.c:410
+#: ../objects/UML/class_dialog.c:2016 ../objects/UML/uml.c:110
 msgid "Abstract"
 msgstr "추상화"
 
-#: ../objects/UML/class.c:147
-#: ../objects/UML/class.c:1700
+#: ../objects/UML/class.c:147 ../objects/UML/class.c:1700
 msgid "Template"
 msgstr "서식"
 
-#: ../objects/UML/class.c:150
-#: ../objects/UML/class_dialog.c:333
+#: ../objects/UML/class.c:150 ../objects/UML/class_dialog.c:333
 msgid "Suppress Attributes"
 msgstr "속성 억제"
 
@@ -4422,8 +4189,7 @@ msgstr "볼 수 있는 작업"
 msgid "Visible Comments"
 msgstr "볼 수 있는 부연설명"
 
-#: ../objects/UML/class.c:160
-#: ../objects/UML/class_dialog.c:349
+#: ../objects/UML/class.c:160 ../objects/UML/class_dialog.c:349
 msgid "Wrap Operations"
 msgstr "작업 두르기"
 
@@ -4439,8 +4205,7 @@ msgstr "부연설명줄 길이"
 msgid "Comment tagging"
 msgstr "부연설명 태그"
 
-#: ../objects/UML/class.c:176
-#: ../objects/UML/class_dialog.c:405
+#: ../objects/UML/class.c:176 ../objects/UML/class_dialog.c:405
 msgid "Polymorphic"
 msgstr "다형성"
 
@@ -4452,17 +4217,13 @@ msgstr "클래스명"
 msgid "Abstract Classname"
 msgstr "추상 클래스명"
 
-#: ../objects/UML/class.c:188
-#: ../objects/UML/class.c:190
-#: ../objects/UML/class.c:192
-#: ../objects/UML/class.c:194
-#: ../objects/UML/class.c:196
-#: ../objects/UML/class.c:198
+#: ../objects/UML/class.c:188 ../objects/UML/class.c:190
+#: ../objects/UML/class.c:192 ../objects/UML/class.c:194
+#: ../objects/UML/class.c:196 ../objects/UML/class.c:198
 msgid " "
 msgstr " "
 
-#: ../objects/UML/class.c:204
-#: ../objects/UML/object.c:154
+#: ../objects/UML/class.c:204 ../objects/UML/object.c:154
 msgid "Attributes"
 msgstr "속성"
 
@@ -4487,18 +4248,14 @@ msgstr "클래스(_C)"
 msgid "Class name:"
 msgstr "클래스명:"
 
-#: ../objects/UML/class_dialog.c:301
-#: ../objects/UML/class_dialog.c:1939
-#: ../objects/UML/dependency.c:137
-#: ../objects/UML/generalization.c:133
+#: ../objects/UML/class_dialog.c:301 ../objects/UML/class_dialog.c:1939
+#: ../objects/UML/dependency.c:137 ../objects/UML/generalization.c:133
 #: ../objects/UML/realizes.c:134
 msgid "Stereotype:"
 msgstr "스트레오 형태:"
 
-#: ../objects/UML/class_dialog.c:308
-#: ../objects/UML/class_dialog.c:997
-#: ../objects/UML/class_dialog.c:2057
-#: ../objects/UML/class_dialog.c:2188
+#: ../objects/UML/class_dialog.c:308 ../objects/UML/class_dialog.c:997
+#: ../objects/UML/class_dialog.c:2057 ../objects/UML/class_dialog.c:2188
 msgid "Comment:"
 msgstr "부연설명:"
 
@@ -4531,8 +4288,7 @@ msgid "Show documenation tag"
 msgstr "문서 태그 보이기"
 
 #. head line
-#: ../objects/UML/class_dialog.c:391
-#: ../objects/UML/umlparameter.c:51
+#: ../objects/UML/class_dialog.c:391 ../objects/UML/umlparameter.c:51
 msgid "Kind"
 msgstr "종류"
 
@@ -4566,31 +4322,23 @@ msgstr "배경 색상"
 msgid "_Attributes"
 msgstr "속성(_A)"
 
-#: ../objects/UML/class_dialog.c:925
-#: ../objects/UML/class_dialog.c:1875
-#: ../objects/UML/class_dialog.c:2112
-#: ../objects/UML/class_dialog.c:2642
+#: ../objects/UML/class_dialog.c:925 ../objects/UML/class_dialog.c:1875
+#: ../objects/UML/class_dialog.c:2112 ../objects/UML/class_dialog.c:2642
 msgid "_New"
 msgstr "새로(_N)"
 
-#: ../objects/UML/class_dialog.c:931
-#: ../objects/UML/class_dialog.c:1881
-#: ../objects/UML/class_dialog.c:2119
-#: ../objects/UML/class_dialog.c:2648
+#: ../objects/UML/class_dialog.c:931 ../objects/UML/class_dialog.c:1881
+#: ../objects/UML/class_dialog.c:2119 ../objects/UML/class_dialog.c:2648
 msgid "_Delete"
 msgstr "삭제(_D)"
 
-#: ../objects/UML/class_dialog.c:937
-#: ../objects/UML/class_dialog.c:1887
-#: ../objects/UML/class_dialog.c:2126
-#: ../objects/UML/class_dialog.c:2654
+#: ../objects/UML/class_dialog.c:937 ../objects/UML/class_dialog.c:1887
+#: ../objects/UML/class_dialog.c:2126 ../objects/UML/class_dialog.c:2654
 msgid "Move up"
 msgstr "위로 이동"
 
-#: ../objects/UML/class_dialog.c:943
-#: ../objects/UML/class_dialog.c:1893
-#: ../objects/UML/class_dialog.c:2133
-#: ../objects/UML/class_dialog.c:2660
+#: ../objects/UML/class_dialog.c:943 ../objects/UML/class_dialog.c:1893
+#: ../objects/UML/class_dialog.c:2133 ../objects/UML/class_dialog.c:2660
 msgid "Move down"
 msgstr "아래로 이동"
 
@@ -4602,8 +4350,7 @@ msgstr "속성 자료"
 msgid "Value:"
 msgstr "값:"
 
-#: ../objects/UML/class_dialog.c:1073
-#: ../objects/UML/class_dialog.c:2001
+#: ../objects/UML/class_dialog.c:1073 ../objects/UML/class_dialog.c:2001
 msgid "Class scope"
 msgstr "클래스 범위"
 
@@ -4620,13 +4367,11 @@ msgstr "작업 자료"
 msgid "Inheritance type:"
 msgstr "상속 형태:"
 
-#: ../objects/UML/class_dialog.c:2024
-#: ../objects/UML/uml.c:111
+#: ../objects/UML/class_dialog.c:2024 ../objects/UML/uml.c:111
 msgid "Polymorphic (virtual)"
 msgstr "다형성 (virtual)"
 
-#: ../objects/UML/class_dialog.c:2032
-#: ../objects/UML/uml.c:112
+#: ../objects/UML/class_dialog.c:2032 ../objects/UML/uml.c:112
 msgid "Leaf (final)"
 msgstr "잎 (final)"
 
@@ -4646,23 +4391,19 @@ msgstr "인자 자료"
 msgid "Def. value:"
 msgstr "기본 값:"
 
-#: ../objects/UML/class_dialog.c:2217
-#: ../objects/UML/umlparameter.c:34
+#: ../objects/UML/class_dialog.c:2217 ../objects/UML/umlparameter.c:34
 msgid "Undefined"
 msgstr "미지정"
 
-#: ../objects/UML/class_dialog.c:2225
-#: ../objects/UML/umlparameter.c:35
+#: ../objects/UML/class_dialog.c:2225 ../objects/UML/umlparameter.c:35
 msgid "In"
 msgstr "입력"
 
-#: ../objects/UML/class_dialog.c:2234
-#: ../objects/UML/umlparameter.c:36
+#: ../objects/UML/class_dialog.c:2234 ../objects/UML/umlparameter.c:36
 msgid "Out"
 msgstr "출력"
 
-#: ../objects/UML/class_dialog.c:2243
-#: ../objects/UML/umlparameter.c:37
+#: ../objects/UML/class_dialog.c:2243 ../objects/UML/umlparameter.c:37
 msgid "In & Out"
 msgstr "입력 & 출력"
 
@@ -4671,8 +4412,7 @@ msgstr "입력 & 출력"
 msgid "_Templates"
 msgstr "서식(_T)"
 
-#: ../objects/UML/class_dialog.c:2614
-#: ../sheets/UML.sheet.in.h:29
+#: ../objects/UML/class_dialog.c:2614 ../sheets/UML.sheet.in.h:29
 msgid "Template class"
 msgstr "서식 클래스"
 
@@ -4688,23 +4428,19 @@ msgstr "경계"
 msgid "Is object"
 msgstr "객체임"
 
-#: ../objects/UML/component_feature.c:145
-#: ../sheets/UML.sheet.in.h:14
+#: ../objects/UML/component_feature.c:145 ../sheets/UML.sheet.in.h:14
 msgid "Facet"
 msgstr "한 면"
 
-#: ../objects/UML/component_feature.c:146
-#: ../sheets/UML.sheet.in.h:26
+#: ../objects/UML/component_feature.c:146 ../sheets/UML.sheet.in.h:26
 msgid "Receptacle"
 msgstr "용기"
 
-#: ../objects/UML/component_feature.c:147
-#: ../sheets/UML.sheet.in.h:13
+#: ../objects/UML/component_feature.c:147 ../sheets/UML.sheet.in.h:13
 msgid "Event Source"
 msgstr "이벤트 소스"
 
-#: ../objects/UML/component_feature.c:148
-#: ../sheets/UML.sheet.in.h:12
+#: ../objects/UML/component_feature.c:148 ../sheets/UML.sheet.in.h:12
 msgid "Event Sink"
 msgstr "이벤트 싱크"
 
@@ -4832,8 +4568,7 @@ msgstr "행동"
 msgid "Action to perform when this transition is taken"
 msgstr "천이를 할 때 수행되는 행동"
 
-#: ../objects/UML/transition.c:136
-#: ../sheets/cisconetwork.sheet.in.h:43
+#: ../objects/UML/transition.c:136 ../sheets/cisconetwork.sheet.in.h:43
 msgid "Guard"
 msgstr "보호"
 
@@ -4845,13 +4580,11 @@ msgstr "이벤트가 실행될 때 천이를 위한 상태"
 msgid "Unified Modelling Language diagram objects UML 1.3"
 msgstr "통합 모델 언어 도표 객체 (UML 1.3)"
 
-#: ../objects/UML/umlattribute.c:41
-#: ../objects/UML/umlparameter.c:47
+#: ../objects/UML/umlattribute.c:41 ../objects/UML/umlparameter.c:47
 msgid "Value"
 msgstr "값"
 
-#: ../objects/UML/umlattribute.c:45
-#: ../objects/UML/umloperation.c:71
+#: ../objects/UML/umlattribute.c:45 ../objects/UML/umloperation.c:71
 msgid "Visibility"
 msgstr "가시성"
 
@@ -4859,8 +4592,7 @@ msgstr "가시성"
 msgid "Abstract (?)"
 msgstr "추상 (?)"
 
-#: ../objects/UML/umlattribute.c:49
-#: ../objects/UML/umloperation.c:77
+#: ../objects/UML/umlattribute.c:49 ../objects/UML/umloperation.c:77
 msgid "Class scope (static)"
 msgstr "클래스 범위 (정적)"
 
@@ -4872,8 +4604,7 @@ msgstr "상속 형태"
 msgid "Query (const)"
 msgstr "질의 (상수)"
 
-#: ../objects/UML/umloperation.c:79
-#: ../objects/chronogram/chronoline.c:162
+#: ../objects/UML/umloperation.c:79 ../objects/chronogram/chronoline.c:162
 msgid "Parameters"
 msgstr "인자"
 
@@ -4893,8 +4624,7 @@ msgstr "표준 도표 객체"
 msgid "Chronogram diagram objects"
 msgstr "연대표시 도표 객체"
 
-#: ../objects/chronogram/chronoline.c:148
-#: ../sheets/AADL.sheet.in.h:4
+#: ../objects/chronogram/chronoline.c:148 ../sheets/AADL.sheet.in.h:4
 msgid "Data"
 msgstr "자료"
 
@@ -4983,13 +4713,11 @@ msgstr "사용자"
 msgid "Custom XML shapes loader"
 msgstr "사용자 XML 모양 해석기"
 
-#: ../objects/custom/custom_object.c:178
-#: ../objects/custom/custom_object.c:203
+#: ../objects/custom/custom_object.c:178 ../objects/custom/custom_object.c:203
 msgid "Flip horizontal"
 msgstr "수평 거꾸로"
 
-#: ../objects/custom/custom_object.c:180
-#: ../objects/custom/custom_object.c:205
+#: ../objects/custom/custom_object.c:180 ../objects/custom/custom_object.c:205
 msgid "Flip vertical"
 msgstr "수직 거꾸로"
 
@@ -5015,10 +4743,8 @@ msgstr ""
 "파일 '%s'에 잘못된 경로 자료가 있습니다.\n"
 "SVG: 경로 자료는 이동(moveto)으로부터 시작해야 합니다."
 
-#: ../objects/flowchart/box.c:150
-#: ../objects/standard/box.c:150
-#: ../objects/standard/polyline.c:134
-#: ../objects/standard/zigzagline.c:130
+#: ../objects/flowchart/box.c:150 ../objects/standard/box.c:150
+#: ../objects/standard/polyline.c:134 ../objects/standard/zigzagline.c:130
 msgid "Corner radius"
 msgstr "가장자리 반경"
 
@@ -5034,8 +4760,7 @@ msgstr "변형 각도"
 msgid "Sectors"
 msgstr "섹터"
 
-#: ../objects/network/basestation.c:396
-#: ../objects/network/basestation.c:398
+#: ../objects/network/basestation.c:396 ../objects/network/basestation.c:398
 msgid "Base Station"
 msgstr "기지국"
 
@@ -5063,81 +4788,66 @@ msgstr "두께"
 msgid "Curve distance"
 msgstr "곡선 거리"
 
-#: ../objects/standard/bezier.c:137
-#: ../objects/standard/line.c:141
+#: ../objects/standard/bezier.c:137 ../objects/standard/line.c:141
 #: ../objects/standard/polyline.c:135
 msgid "Line gaps"
 msgstr "선 간격"
 
-#: ../objects/standard/bezier.c:139
-#: ../objects/standard/line.c:143
+#: ../objects/standard/bezier.c:139 ../objects/standard/line.c:143
 #: ../objects/standard/polyline.c:137
 msgid "Absolute start gap"
 msgstr "절대 시작 지점"
 
-#: ../objects/standard/bezier.c:141
-#: ../objects/standard/line.c:145
+#: ../objects/standard/bezier.c:141 ../objects/standard/line.c:145
 #: ../objects/standard/polyline.c:139
 msgid "Absolute end gap"
 msgstr "절대 끝 지점"
 
-#: ../objects/standard/bezier.c:698
-#: ../objects/standard/beziergon.c:482
+#: ../objects/standard/bezier.c:698 ../objects/standard/beziergon.c:482
 msgid "Add Segment"
 msgstr "조절점 추가"
 
-#: ../objects/standard/bezier.c:699
-#: ../objects/standard/beziergon.c:483
+#: ../objects/standard/bezier.c:699 ../objects/standard/beziergon.c:483
 msgid "Delete Segment"
 msgstr "조절점 제거"
 
-#: ../objects/standard/bezier.c:701
-#: ../objects/standard/beziergon.c:485
+#: ../objects/standard/bezier.c:701 ../objects/standard/beziergon.c:485
 msgid "Symmetric control"
 msgstr "대칭 조절"
 
-#: ../objects/standard/bezier.c:703
-#: ../objects/standard/beziergon.c:487
+#: ../objects/standard/bezier.c:703 ../objects/standard/beziergon.c:487
 msgid "Smooth control"
 msgstr "부드러운 조절"
 
-#: ../objects/standard/bezier.c:705
-#: ../objects/standard/beziergon.c:489
+#: ../objects/standard/bezier.c:705 ../objects/standard/beziergon.c:489
 msgid "Cusp control"
 msgstr "뾰족한 조절"
 
-#: ../objects/standard/box.c:137
-#: ../objects/standard/ellipse.c:131
+#: ../objects/standard/box.c:137 ../objects/standard/ellipse.c:131
 msgid "Free"
 msgstr "자유"
 
-#: ../objects/standard/box.c:138
-#: ../objects/standard/ellipse.c:132
+#: ../objects/standard/box.c:138 ../objects/standard/ellipse.c:132
 msgid "Fixed"
 msgstr "고정"
 
-#: ../objects/standard/box.c:139
-#: ../objects/standard/box.c:694
+#: ../objects/standard/box.c:139 ../objects/standard/box.c:694
 msgid "Square"
 msgstr "사각"
 
-#: ../objects/standard/box.c:152
-#: ../objects/standard/ellipse.c:144
+#: ../objects/standard/box.c:152 ../objects/standard/ellipse.c:144
 msgid "Aspect ratio"
 msgstr "종횡비"
 
-#: ../objects/standard/box.c:690
-#: ../objects/standard/ellipse.c:668
+#: ../objects/standard/box.c:690 ../objects/standard/ellipse.c:668
 msgid "Free aspect"
 msgstr "임의 비율"
 
-#: ../objects/standard/box.c:692
-#: ../objects/standard/ellipse.c:670
+#: ../objects/standard/box.c:692 ../objects/standard/ellipse.c:670
 msgid "Fixed aspect"
 msgstr "고정 비율"
 
-#: ../objects/standard/ellipse.c:133
-#: ../objects/standard/ellipse.c:672
+#: ../objects/standard/ellipse.c:133 ../objects/standard/ellipse.c:672
 msgid "Circle"
 msgstr "원"
 
@@ -5155,8 +4865,7 @@ msgstr "종횡비 유지"
 
 #. Found file in same dir as diagram.
 #. Found file in current dir.
-#: ../objects/standard/image.c:679
-#: ../objects/standard/image.c:690
+#: ../objects/standard/image.c:679 ../objects/standard/image.c:690
 #, c-format
 msgid ""
 "The image file '%s' was not found in that directory.\n"
@@ -5166,8 +4875,7 @@ msgstr ""
 "대신에 '%s'파일을 이용 중\n"
 
 #. Didn't find file in current dir.
-#: ../objects/standard/image.c:696
-#: ../objects/standard/image.c:718
+#: ../objects/standard/image.c:696 ../objects/standard/image.c:718
 #, c-format
 msgid "The image file '%s' was not found.\n"
 msgstr "이미지 파일 '%s' 를 찾을 수 없습니다.\n"
@@ -5184,13 +4892,11 @@ msgstr "시작 점"
 msgid "End point"
 msgstr "끝 점"
 
-#: ../objects/standard/polygon.c:460
-#: ../objects/standard/polyline.c:577
+#: ../objects/standard/polygon.c:460 ../objects/standard/polyline.c:577
 msgid "Add Corner"
 msgstr "조절점 더하기"
 
-#: ../objects/standard/polygon.c:461
-#: ../objects/standard/polyline.c:578
+#: ../objects/standard/polygon.c:461 ../objects/standard/polyline.c:578
 msgid "Delete Corner"
 msgstr "조절점 삭제"
 
@@ -5258,13 +4964,11 @@ msgstr "CGM"
 msgid "Computer Graphics Metafile export filter"
 msgstr "CGM 내보내기 필터"
 
-#: ../plug-ins/dxf/dxf-export.c:527
-#: ../plug-ins/dxf/dxf-import.c:1389
+#: ../plug-ins/dxf/dxf-export.c:527 ../plug-ins/dxf/dxf-import.c:1389
 msgid "Drawing Interchange File"
 msgstr "DXF 파일"
 
-#: ../plug-ins/dxf/dxf-import.c:481
-#: ../plug-ins/dxf/dxf-import.c:498
+#: ../plug-ins/dxf/dxf-import.c:481 ../plug-ins/dxf/dxf-import.c:498
 msgid "Bad vertex bulge\n"
 msgstr "비정상 정점 부풀기\n"
 
@@ -5389,8 +5093,7 @@ msgstr "Dia 모양 파일"
 msgid "dia shape export filter"
 msgstr "Dia 모양 내보내기 필터"
 
-#: ../plug-ins/svg/render_svg.c:291
-#: ../plug-ins/svg/svg-import.c:676
+#: ../plug-ins/svg/render_svg.c:291 ../plug-ins/svg/svg-import.c:676
 msgid "Scalable Vector Graphics"
 msgstr "SVG"
 
@@ -5415,8 +5118,7 @@ msgstr "루트 요소는 'svg'가 있는 '%s'입니다."
 msgid "Scalable Vector Graphics import and export filters"
 msgstr "SVG 들여오기필터"
 
-#: ../plug-ins/vdx/vdx-export.c:1376
-#: ../plug-ins/vdx/vdx-export.c:1385
+#: ../plug-ins/vdx/vdx-export.c:1376 ../plug-ins/vdx/vdx-export.c:1385
 msgid "Couldn't read file %s"
 msgstr "파일을 읽을 수 없습니다 %s"
 
@@ -5424,8 +5126,7 @@ msgstr "파일을 읽을 수 없습니다 %s"
 msgid "Visio XML format"
 msgstr "Visio XML 형식"
 
-#: ../plug-ins/vdx/vdx-import.c:219
-#: ../plug-ins/xfig/xfig-import.c:1034
+#: ../plug-ins/vdx/vdx-import.c:219 ../plug-ins/xfig/xfig-import.c:1034
 msgid "Couldn't read color: %s\n"
 msgstr "색상을 읽을 수 없습니다: %s\n"
 
@@ -5480,8 +5181,7 @@ msgstr "부적합한 비균일베지어스프라인 식"
 msgid "Couldn't write file %s"
 msgstr "파일 %s를 쓸 수 없습니다"
 
-#: ../plug-ins/vdx/vdx-import.c:1826
-#: ../plug-ins/vdx/vdx-import.c:1839
+#: ../plug-ins/vdx/vdx-import.c:1826 ../plug-ins/vdx/vdx-import.c:1839
 #, c-format
 msgid "Couldn't handle foreign object type %s"
 msgstr "외부 객체 형태 %s를 조절할 수 없습니다"
@@ -5528,8 +5228,7 @@ msgstr "WMF 내보내기 필터"
 msgid "File: %s type/version unsupported.\n"
 msgstr "파일 : %s 형태/버전 지원 안함.\n"
 
-#: ../plug-ins/wpg/wpg.c:1319
-#: ../plug-ins/wpg/wpg.c:1326
+#: ../plug-ins/wpg/wpg.c:1319 ../plug-ins/wpg/wpg.c:1326
 msgid "WPG"
 msgstr "WPG"
 
@@ -5540,7 +5239,9 @@ msgstr "WordPerfect 이미지 내보내기 필터"
 #: ../plug-ins/xfig/xfig-export.c:459
 #, c-format
 msgid "FIG format has no equivalent of arrow style %s, using simple arrow.\n"
-msgstr "FIG 형식은 화살표 모양, 단순한 화살표를 사용하는 %s 와 동일한 것이 없습니다.\n"
+msgstr ""
+"FIG 형식은 화살표 모양, 단순한 화살표를 사용하는 %s 와 동일한 것이 없습니"
+"다.\n"
 
 #: ../plug-ins/xfig/xfig-export.c:481
 msgid "No more user-definable colors - using black"
@@ -5553,7 +5254,9 @@ msgstr "XFig 형식"
 #: ../plug-ins/xfig/xfig-import.c:109
 #, c-format
 msgid "Color index %d too high, only 512 colors allowed. Using black instead."
-msgstr "색상 %d 가 너무 높습니다. 단지 512 색상만을 허용합니다. 대신 검은 색을 사용 중."
+msgstr ""
+"색상 %d 가 너무 높습니다. 단지 512 색상만을 허용합니다. 대신 검은 색을 사용 "
+"중."
 
 #: ../plug-ins/xfig/xfig-import.c:136
 msgid "Patterns are not supported by Dia"
@@ -5603,21 +5306,18 @@ msgstr "반전된 비트를 읽을 수 없습니다: %s\n"
 msgid "Negative corner radius, negating"
 msgstr "음의 가장자리 반경, 취소 중"
 
-#: ../plug-ins/xfig/xfig-import.c:568
-#: ../plug-ins/xfig/xfig-import.c:881
+#: ../plug-ins/xfig/xfig-import.c:568 ../plug-ins/xfig/xfig-import.c:881
 #, c-format
 msgid "Unknown polyline subtype: %d\n"
 msgstr "알려지지 않은 연결선 하위형태: %d\n"
 
-#: ../plug-ins/xfig/xfig-import.c:718
-#: ../plug-ins/xfig/xfig-import.c:750
+#: ../plug-ins/xfig/xfig-import.c:718 ../plug-ins/xfig/xfig-import.c:750
 msgid "Couldn't read spline info: %s\n"
 msgstr "스프라인 정보를 읽을 수 없습니다: %s\n"
 
 #. Open approximated spline
 #. Closed approximated spline
-#: ../plug-ins/xfig/xfig-import.c:737
-#: ../plug-ins/xfig/xfig-import.c:755
+#: ../plug-ins/xfig/xfig-import.c:737 ../plug-ins/xfig/xfig-import.c:755
 msgid "Cannot convert approximated spline yet."
 msgstr "근사 스프라인을 아직 변환할 수 없습니다."
 
@@ -5696,14 +5396,12 @@ msgstr "다수 페이지 지시자를 읽는 중 오류: %s\n"
 msgid "Error reading transparent color: %s\n"
 msgstr "투명 색상을 읽는 중 오류: %s\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1222
-#: ../plug-ins/xfig/xfig-import.c:1278
+#: ../plug-ins/xfig/xfig-import.c:1222 ../plug-ins/xfig/xfig-import.c:1278
 #: ../plug-ins/xfig/xfig-import.c:1296
 msgid "Error reading FIG file: %s\n"
 msgstr "FIG 파일 읽는 중 오류: %s\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1224
-#: ../plug-ins/xfig/xfig-import.c:1280
+#: ../plug-ins/xfig/xfig-import.c:1224 ../plug-ins/xfig/xfig-import.c:1280
 msgid "Premature end of FIG file\n"
 msgstr "FIG 파일 끝이 너무 이릅니다\n"
 
@@ -5755,7 +5453,8 @@ msgstr "XSL 변형 필터"
 
 #: ../plug-ins/xslt/xslt.c:346
 msgid "No valid configuration files found for the XSLT plugin, not loading."
-msgstr "XSLT 플러그인을 위한 적합한 설정 파일을 찾을 수 없고, 읽어올 수 없습니다."
+msgstr ""
+"XSLT 플러그인을 위한 적합한 설정 파일을 찾을 수 없고, 읽어올 수 없습니다."
 
 #: ../plug-ins/xslt/xsltdialog.c:96
 msgid "Export through XSLT"
@@ -5817,7 +5516,9 @@ msgstr "쓰레드 그룹"
 #. Leave as is for now, renaming too much hassle.
 #. Will probably need to split into seperate sheets soon anyway.
 #: ../sheets/Assorted.sheet.in.h:4
-msgid "An Assorted Collection of Polygons, Beziergons and other Miscellaneous Geometric Shapes"
+msgid ""
+"An Assorted Collection of Polygons, Beziergons and other Miscellaneous "
+"Geometric Shapes"
 msgstr "다각형,베지어원 그리고 다른 다양한 기하모양의 다양한 모음"
 
 #. Please talk to me before making any changes to this sheet
@@ -6435,8 +6136,7 @@ msgstr "수평 정렬 제너 다이오드"
 msgid "Lamp"
 msgstr "램프"
 
-#: ../sheets/Circuit.sheet.in.h:16
-#: ../sheets/ciscomisc.sheet.in.h:30
+#: ../sheets/Circuit.sheet.in.h:16 ../sheets/ciscomisc.sheet.in.h:30
 msgid "Microphone"
 msgstr "마이크"
 
@@ -6462,8 +6162,7 @@ msgstr "PMOS 트랜지스터"
 msgid "PNP bipolar transistor"
 msgstr "PNP 단방향 트랜지스터"
 
-#: ../sheets/Circuit.sheet.in.h:26
-#: ../sheets/ciscomisc.sheet.in.h:42
+#: ../sheets/Circuit.sheet.in.h:26 ../sheets/ciscomisc.sheet.in.h:42
 msgid "Speaker"
 msgstr "스피커"
 
@@ -6711,8 +6410,7 @@ msgstr "약한 엔티티"
 msgid "Components for electric circuits"
 msgstr "전자 회로를 위한 요소"
 
-#: ../sheets/Electric.sheet.in.h:2
-#: ../sheets/Pneumatic.sheet.in.h:7
+#: ../sheets/Electric.sheet.in.h:2 ../sheets/Pneumatic.sheet.in.h:7
 msgid "Connection point"
 msgstr "연결점"
 
@@ -6808,8 +6506,7 @@ msgstr "연결자"
 msgid "Data source"
 msgstr "자료 소스"
 
-#: ../sheets/Flowchart.sheet.in.h:5
-#: ../sheets/SDL.sheet.in.h:4
+#: ../sheets/Flowchart.sheet.in.h:5 ../sheets/SDL.sheet.in.h:4
 msgid "Decision"
 msgstr "결정"
 
@@ -6966,8 +6663,7 @@ msgstr "OR 버전트"
 msgid "Objects to design GRAFCET charts"
 msgstr "GRAFCET 차트를 고안하기 위한 객체"
 
-#: ../sheets/GRAFCET.sheet.in.h:14
-#: ../sheets/UML.sheet.in.h:30
+#: ../sheets/GRAFCET.sheet.in.h:14 ../sheets/UML.sheet.in.h:30
 msgid "Transition"
 msgstr "변이"
 
@@ -7521,8 +7217,7 @@ msgstr "서비스 형태 참조"
 msgid "Specification and Description Language."
 msgstr "상술 & 기술 언어."
 
-#: ../sheets/SDL.sheet.in.h:18
-#: ../sheets/UML.sheet.in.h:28
+#: ../sheets/SDL.sheet.in.h:18 ../sheets/UML.sheet.in.h:28
 msgid "State"
 msgstr "상태"
 
@@ -7726,8 +7421,7 @@ msgstr "미니 VAX"
 msgid "Modem"
 msgstr "모뎀"
 
-#: ../sheets/ciscocomputer.sheet.in.h:26
-#: ../sheets/network.sheet.in.h:19
+#: ../sheets/ciscocomputer.sheet.in.h:26 ../sheets/network.sheet.in.h:19
 msgid "Monitor"
 msgstr "모니터"
 
@@ -9327,16 +9021,312 @@ msgstr "사이베이스 데이타서버"
 msgid "Sybase replication server"
 msgstr "사이베이스 복제 서버"
 
+#: �߰� ��Ʈ
+msgid "CMOS"
+msgstr "보조 금속 산화물 반도체(CMOS)"
+
+msgid "NMOS Transistor (horizontal)"
+msgstr "NMOS 트랜지스터(수평)"
+
+msgid "NMOS Transistor (vertical)"
+msgstr "NMOS 트랜지스터(수직)"
+
+msgid "PMOS Transistor (horizontal)"
+msgstr "PMOS 트랜지스터(수평)"
+
+msgid "PMOS Transistor (vertical)"
+msgstr "PMOS 트랜지스터(수직)"
+
+msgid "Ground (horizontal)"
+msgstr "접지((수평)"
+
+msgid "Ground (vertical)"
+msgstr "접지(수직)"
+
+msgid "Vdd (horizontal)"
+msgstr "Vdd((수평)"
+
+msgid "Vdd (vertical)"
+msgstr "Vdd (수직)"
+
+msgid "Digital"
+msgstr "디지털(Digital)"
+
+msgid "Buffer (horizontal)"
+msgstr "버퍼(수평)"
+
+msgid "Inverter (horizontal)"
+msgstr "변환장치(수평)"
+
+msgid "AND (horizontal)"
+msgstr "AND(수평)"
+
+msgid "NAND (horizontal)"
+msgstr "NAND(수평)"
+
+msgid "OR (horizontal)"
+msgstr "OR(수평)"
+
+msgid "NOR (horizontal)"
+msgstr "NOR(수평)"
+
+msgid "XOR (horizontal)"
+msgstr "XOR(수평)"
+
+msgid "XNOR (horizontal)"
+msgstr "XNOR(수평)"
+
+msgid "Multiplexer/Demultiplexer (horizontal)"
+msgstr "광합파/분파기(수평)"
+
+msgid "Adder/Subtractor/Multiplier/Divider (horizontal)"
+msgstr "누산기/감산기/체배기/분주기(수평)"
+
+msgid "Register (horizontal)"
+msgstr "레지스터(수평)"
+
+msgid "Buffer (vertical)"
+msgstr "버퍼(수직)"
+
+msgid "Inverter (vertical)"
+msgstr "변환장치(수직)"
+
+msgid "AND (vertical)"
+msgstr "AND(수직)"
+
+msgid "NAND (vertical)"
+msgstr "NAND(수직)"
+
+msgid "OR (vertical)"
+msgstr "OR(수직)"
+
+msgid "NOR (vertical)"
+msgstr "NOR(수직)"
+
+msgid "XOR (vertical)"
+msgstr "XOR(수직)"
+
+msgid "XNOR (vertical)"
+msgstr "XNOR(수직)"
+
+msgid "Multiplexer/Demultiplexer (vertical)"
+msgstr "광합파/분파기(수직)"
+
+msgid "Adder/Subtractor/Multiplier/Divider (vertical)"
+msgstr "누산기/감산기/체배기/분주기(수직)"
+
+msgid "Register (vertical)"
+msgstr "레지스터(수직)"
+
+msgid "Connection Point"
+msgstr "연결점"
+
+msgid "Event-driven process chain"
+msgstr "사무 공정 작업 흐름(EPC)"
+
+msgid "Event"
+msgstr "이벤트"
+
+msgid "Information Object"
+msgstr "정보 객체"
+
+msgid "Organisation Unit"
+msgstr "업무단위"
+
+msgid "Or Operator"
+msgstr "Or 조작자"
+
+msgid "AND Operator"
+msgstr "AND 조작자"
+
+msgid "XOR Operator"
+msgstr "XOR 조작자"
+
+msgid "LST"
+msgstr "루프 사이드 타입(LST)"
+
+msgid "Associator Subsystem"
+msgstr "조언기관 하위시스템"
+
+msgid "Channel Network Subsystem"
+msgstr "의사소통 수단 하위시스템"
+
+msgid "Converter Subsystem"
+msgstr "변환기관 하위시스템"
+
+msgid "Supporter Subsystem"
+msgstr "지원기관 하위시스템"
+
+msgid "Decider Subsystem"
+msgstr "결정기관 하위시스템"
+
+msgid "Decoder"
+msgstr "해역기관"
+
+msgid "Decider"
+msgstr "결정기관"
+
+msgid "Distributor Subsystem"
+msgstr "분배기관 하위시스템"
+
+msgid "Extruder Subsystem"
+msgstr "배출기관 하위시스템"
+
+msgid "Ingestor Subsystem"
+msgstr "섭취기관 하위시스템"
+
+msgid "Internal Transducer Subsystem"
+msgstr "내부변화기관 하위시스템"
+
+msgid "Input Transducer Subsystem"
+msgstr "투입변화기관 하위시스템"
+
+msgid "Memory Subsystem"
+msgstr "기억기관 하위시스템"
+
+msgid "ME Storage Subsystem"
+msgstr "역량비축기관 하위시스템"
+
+msgid "Motor Subsystem"
+msgstr "이동기관 하위시스템"
+
+msgid "Output Transducer Subsystem"
+msgstr "산출변화기관 하위시스템"
+
+msgid "Producer Subsystem"
+msgstr "생성기관 하위시스템"
+
+msgid "Reproducer Subsystem"
+msgstr "재생기관 하위시스템"
+
+msgid "Encoder"
+msgstr "편집기관"
+
+msgid "Encoder Subsystem"
+msgstr "편집기관 하위시스템"
+
+msgid "Timer"
+msgstr "시계"
+
+msgid "Optics"
+msgstr "광학(Optics)"
+
+msgid "Circulator"
+msgstr "순환자"
+
+msgid "Polarisation Controller"
+msgstr "편광 제어"
+
+msgid "Directional Coupler"
+msgstr "방향성 결합기"
+
+msgid "Tuneable Coupler"
+msgstr "조정 결합기"
+
+msgid "DFB Laser"
+msgstr "분배피드백 레이저"
+
+msgid "Long Fibre"
+msgstr "장 섬유"
+
+msgid "Osilloscope"
+msgstr "오실로스코우프"
+
+msgid "Spectrum Analyser"
+msgstr "스펙트럼 분석기"
+
+msgid "Optical Isolator"
+msgstr "광 차폐기"
+
+msgid "EDFA"
+msgstr "광 증폭기(EDFA)"
+
+msgid "Variable Attenuator"
+msgstr "가변 감쇄기"
+
+msgid "MZ Modulator"
+msgstr "MZ 변조기"
+
+msgid "Phase Modulator"
+msgstr "위상 변조기"
+
+msgid "Sine Wave Source"
+msgstr "정현파(sine) 소스"
+
+msgid "Square Wave Source"
+msgstr "방형파(square) 소스"
+
+msgid "Long Period Grating"
+msgstr "장주기 격자"
+
+msgid "Light Beam"
+msgstr "광선"
+
+msgid "Wave"
+msgstr "파형"
+
+msgid "Scene graph"
+msgstr "장면 그래프 구조(Scene graph)"
+
+msgid "Group node"
+msgstr "그룹 노드"
+
+msgid "Appearance"
+msgstr "외형 노드"
+
+msgid "Separator"
+msgstr "분리 노드"
+
+msgid "Engine"
+msgstr "기관"
+
+msgid "Light"
+msgstr "빛"
+
+msgid "Manipulator"
+msgstr "조작"
+
+msgid "Metric"
+msgstr "이격거리"
+
+msgid "Camera"
+msgstr "카메라"
+
+msgid "Node Kit"
+msgstr "노드 키트"
+
+msgid "Subgraph"
+msgstr "하위장면"
+
+msgid "SoSelection"
+msgstr "So선택"
+
+msgid "Callback"
+msgstr "복귀(Callback)"
+
+msgid "Field"
+msgstr "필드"
+
+msgid "Property"
+msgstr "속성"
+
+msgid "Real time global field"
+msgstr "실시간 전역 필드"
+
 msgid ""
 "Dia is a program for drawing structured diagrams.\n"
 "Please visit http://www.gnome.org/projects/dia for more information."
-msgstr "더 많은 정보를 알고 싶으면 http://www.lysator.liu.se/~alla/dia 를 참조하십시오"
+msgstr ""
+"더 많은 정보를 알고 싶으면 http://www.lysator.liu.se/~alla/dia 를 참조하십시"
+"오"
 
 msgid "About Dia"
 msgstr "Dia에 대하여"
 
 msgid "Please visit http://www.gnome.org/projects/dia for more information"
-msgstr "더 많은 정보를 알고 싶으면 http://www.lysator.liu.se/~alla/dia 를 참조하십시오"
+msgstr ""
+"더 많은 정보를 알고 싶으면 http://www.lysator.liu.se/~alla/dia 를 참조하십시"
+"오"
 
 msgid "Contributors:"
 msgstr "기여자:"
@@ -9367,4 +9357,3 @@ msgstr "/파일/도표 자료 목록(_D)"
 
 msgid "Show diagram tree"
 msgstr "도표 자료 목록 보이기(_N)"
-
