@@ -719,7 +719,7 @@ static void
 draw_image(DiaRenderer *self,
 	   Point *point,
 	   real width, real height,
-	   DiaImage image)
+	   DiaImage *image)
 {
   DiaSvgRenderer *renderer = DIA_SVG_RENDERER (self);
   xmlNodePtr node;

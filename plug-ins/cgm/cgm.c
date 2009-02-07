@@ -306,7 +306,7 @@ static void draw_string(DiaRenderer *self,
 static void draw_image(DiaRenderer *self,
 		       Point *point,
 		       real width, real height,
-		       DiaImage image);
+		       DiaImage *image);
 
 static void
 init_attributes( CgmRenderer *renderer )
@@ -1091,7 +1091,7 @@ static void
 draw_image(DiaRenderer *self,
 	   Point *point,
 	   real width, real height,
-	   DiaImage image)
+	   DiaImage *image)
 {
     CgmRenderer *renderer = CGM_RENDERER(self);
     const gint maxlen = 32767 - 6 * REALSIZE - 4 * 2;

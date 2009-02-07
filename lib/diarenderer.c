@@ -106,7 +106,7 @@ static void draw_string (DiaRenderer *renderer,
 static void draw_image (DiaRenderer *renderer,
                         Point *point,
                         real width, real height,
-                        DiaImage image);
+                        DiaImage *image);
 static void draw_text  (DiaRenderer *renderer,
                         Text *text);
 static void draw_text_line  (DiaRenderer *renderer,
@@ -456,7 +456,7 @@ draw_text_line (DiaRenderer *renderer,
 static void 
 draw_image (DiaRenderer *renderer,
             Point *point, real width, real height,
-            DiaImage image)
+            DiaImage *image)
 {
   g_warning ("%s::draw_image not implemented!", 
              G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (renderer)));

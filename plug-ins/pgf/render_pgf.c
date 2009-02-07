@@ -148,7 +148,7 @@ static void draw_string(DiaRenderer *self,
 static void draw_image(DiaRenderer *self,
 		       Point *point,
 		       real width, real height,
-		       DiaImage image);
+		       DiaImage *image);
   
 static void draw_line_with_arrows(DiaRenderer *renderer, Point *start, Point *end, 
                                   real line_width, Color *line_color,
@@ -1175,7 +1175,7 @@ static void
 draw_image(DiaRenderer *self,
 	   Point *point,
 	   real width, real height,
-	   DiaImage image)
+	   DiaImage *image)
 {
     PgfRenderer *renderer = PGF_RENDERER(self);
 

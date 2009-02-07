@@ -1260,7 +1260,7 @@ static void
 draw_image(DiaRenderer *self,
 	   Point *point,
 	   real width, real height,
-	   DiaImage image)
+	   DiaImage *image)
 {
   DiaLibartRenderer *renderer = DIA_LIBART_RENDERER (self);
 

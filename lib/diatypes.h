@@ -57,7 +57,7 @@ typedef struct _MultipointCreateData MultipointCreateData;
 typedef struct _BezierCreateData BezierCreateData;
 
 /* In dia_image.h: */
-typedef struct _DiaImage *DiaImage;
+typedef struct _DiaImage DiaImage;
 
 /* In diagdkrenderer.h: */
 typedef struct _DiaGdkRenderer DiaGdkRenderer;

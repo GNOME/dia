@@ -169,7 +169,7 @@ static void draw_string(DiaRenderer *self,
 static void draw_image(DiaRenderer *self,
 		       Point *point,
 		       real width, real height,
-		       DiaImage image);
+		       DiaImage *image);
 static void draw_object(DiaRenderer *self,
 			DiaObject *object);
 
@@ -1100,7 +1100,7 @@ static void
 draw_image(DiaRenderer *self,
            Point *point,
            real width, real height,
-           DiaImage image) 
+           DiaImage *image) 
 {
   XfigRenderer *renderer = XFIG_RENDERER(self);
   gchar d_buf[DTOSTR_BUF_SIZE];

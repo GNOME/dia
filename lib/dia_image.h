@@ -27,34 +27,33 @@
 
 void dia_image_init(void);
 
-DiaImage dia_image_get_broken(void);
+DiaImage *dia_image_get_broken(void);
 
-DiaImage dia_image_load(gchar *filename);
-void dia_image_add_ref(DiaImage image);
-void dia_image_release(DiaImage image);
-void dia_image_draw(DiaImage image, GdkWindow *window, GdkGC *gc,
+DiaImage *dia_image_load(const gchar *filename);
+void dia_image_add_ref(DiaImage *image);
+void dia_image_unref(DiaImage *image);
+void dia_image_draw(DiaImage *image, GdkWindow *window, GdkGC *gc,
 		    int x, int y, int width, int height);
 
-int dia_image_width(DiaImage image);
-int dia_image_rowstride(DiaImage image);
-int dia_image_height(DiaImage image);
+int dia_image_width(const DiaImage *image);
+int dia_image_rowstride(const DiaImage *image);
+int dia_image_height(const DiaImage *image);
 /** Returns a copy of the RGB data in this image with any alpha stripped 
  * The returned buffer must be freed after use.
  * The buffer is laid out as dia_image_width*dia_image_rowstride*3 bytes.
  */
-guint8 *dia_image_rgb_data(DiaImage image);
+guint8 *dia_image_rgb_data(const DiaImage *image);
 /** Returns a copy of the alpha data in this image, or NULL if none
  * The returned buffer must be freed after use.
  * The buffer is laid out as dia_image_width*dia_image_height bytes.
  */
-guint8 *dia_image_mask_data(DiaImage image);
+guint8 *dia_image_mask_data(const DiaImage *image);
 /** Returns the RGBA data in this image, or NULL if there's no alpha.
  * Note that this is the raw data, not a copy.
  */
-const guint8 *dia_image_rgba_data(DiaImage image);
-const char *dia_image_filename(DiaImage image);
-const GdkPixbuf* dia_image_pixbuf (DiaImage image);
+const guint8 *dia_image_rgba_data(const DiaImage *image);
+const char *dia_image_filename(const DiaImage *image);
+const GdkPixbuf* dia_image_pixbuf (const DiaImage *image);
 
 #endif /* DIA_IMAGE_H */
-
 

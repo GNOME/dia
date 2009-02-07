@@ -102,7 +102,7 @@ struct _ObjetSISSI {
   real 			dashlength;
   real 			line_width;
 
-  DiaImage 		image;
+  DiaImage 		*image;
   gchar 		*file;	/* url of file picture */
   real 			border_width;
   Color 		border_color;

@@ -6,11 +6,11 @@
 
 typedef struct {
     PyObject_HEAD
-    DiaImage image;
+    DiaImage *image;
 } PyDiaImage;
 
 extern PyTypeObject PyDiaImage_Type;
 
-PyObject* PyDiaImage_New (DiaImage image);
+PyObject* PyDiaImage_New (DiaImage *image);
 
 #endif

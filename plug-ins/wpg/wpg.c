@@ -862,7 +862,7 @@ static void
 draw_image(DiaRenderer *self,
            Point *point,
            real width, real height,
-           DiaImage image)
+           DiaImage *image)
 {
   WpgRenderer *renderer = WPG_RENDERER (self);
   WPGBitmap2 bmp;

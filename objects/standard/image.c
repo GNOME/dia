@@ -58,7 +58,7 @@ struct _Image {
   LineStyle line_style;
   real dashlength;
   
-  DiaImage image;
+  DiaImage *image;
   gchar *file;
   gboolean draw_border;
   gboolean keep_aspect;
@@ -191,7 +191,7 @@ image_set_props(Image *image, GPtrArray *props)
   /* handle changing the image. */
   if (strcmp(image->file, old_file) != 0 || image->mtime != mtime) {
     Element *elem = &image->element;
-    DiaImage img = NULL;
+    DiaImage *img = NULL;
 
     img = dia_image_load(image->file);
     if (img)
@@ -370,9 +370,10 @@ image_draw(Image *image, DiaRenderer *renderer)
     renderer_ops->draw_image(renderer, &elem->corner, elem->width,
 			      elem->height, image->image);
   } else {
-    DiaImage broken = dia_image_get_broken();
+    DiaImage *broken = dia_image_get_broken();
     renderer_ops->draw_image(renderer, &elem->corner, elem->width,
 			      elem->height, broken);
+    dia_image_unref(broken);
   }
 }
 
@@ -476,7 +477,7 @@ image_destroy(Image *image) {
     g_free(image->file);
 
   if (image->image != NULL)
-    dia_image_release(image->image);
+    dia_image_unref(image->image);
 
   element_destroy(&image->element);
 }

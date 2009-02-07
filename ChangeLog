@@ -1,3 +1,23 @@
+2009-02-07  Hans Breuer  <hans@breuer.org>
+
+	* lib/diatypes.h : typedef _DiaImage DiaImage, i.e. make DiaImage 
+	follow the naming pattern of every other struct in Dia's source ...
+	* lib/dia_image.[ch] : ... and also sprinkled const and rename
+	dia_image_release to dia_image_unref (too seldom used!)
+	* objects/SISSI/sissi.h objects/SISSI/sissi.c objects/KAOS/metabinrel.c
+	  objects/standard/image.c objects/custom/shape_info.h
+	  lib/diarenderer.[ch] lib/diasvgrenderer.c lib/diagdkrenderer.c
+	  plug-ins/python/pydia-render.c plug-ins/python/pydia-image.[ch]
+	  plug-ins/dxf/dxf-export.c plug-ins/drs/dia-render-script-renderer.c
+	  plug-ins/hpgl/hpgl.c plug-ins/metapost/render_metapost.c
+	  plug-ins/cairo/diacairo-renderer.c plug-ins/pgf/render_pgf.c
+	  plug-ins/pstricks/render_pstricks.c plug-ins/cgm/cgm.c
+	  plug-ins/postscript/diapsrenderer.c plug-ins/wpg/wpg.c
+	  plug-ins/libart/dialibartrenderer.c plug-ins/wmf/wmf.cpp
+	  plug-ins/xfig/xfig-export.c plug-ins/vdx/vdx-export.c : adapted 
+	accordingly in prepartion to fix bug #570850
+	* objects/SISSI/sissi.c : don't leak ObjectSISSI::image
+
 2009-02-06  Hans Breuer  <hans@breuer.org>
 
 	* lib/beziershape.c(beziershape_update_data): remove stray semicolon 

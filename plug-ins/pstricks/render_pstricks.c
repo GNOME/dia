@@ -124,7 +124,7 @@ static void draw_string(DiaRenderer *self,
 static void draw_image(DiaRenderer *self,
 		       Point *point,
 		       real width, real height,
-		       DiaImage image);
+		       DiaImage *image);
 
 static void pstricks_renderer_class_init (PstricksRendererClass *klass);
 
@@ -800,7 +800,7 @@ static void
 draw_image(DiaRenderer *self,
 	   Point *point,
 	   real width, real height,
-	   DiaImage image)
+	   DiaImage *image)
 {
     PstricksRenderer *renderer = PSTRICKS_RENDERER(self);
     int img_width, img_height;

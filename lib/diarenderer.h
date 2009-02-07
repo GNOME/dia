@@ -155,7 +155,7 @@ struct _DiaRendererClass
   void (*draw_image) (DiaRenderer *renderer,
                       Point *point,
                       real width, real height,
-                      DiaImage image);
+                      DiaImage *image);
 
   /* 
    * Functions which SHOULD be implemented by specific renderer, but

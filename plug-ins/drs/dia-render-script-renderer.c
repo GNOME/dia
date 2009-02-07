@@ -653,7 +653,7 @@ static void
 draw_image(DiaRenderer *self,
            Point *point,
            real width, real height,
-           DiaImage image)
+           DiaImage *image)
 {
   DrsRenderer *renderer = DRS_RENDERER (self);
   xmlNodePtr node;

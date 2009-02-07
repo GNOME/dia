@@ -302,8 +302,9 @@ object_sissi_draw(ObjetSISSI *object_sissi, DiaRenderer *renderer)
     renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
   } else {
 /*
-//     DiaImage broken = dia_image_get_broken();
+//     DiaImage *broken = dia_image_get_broken();
 //     renderer_ops->draw_image(renderer, &elem->corner, elem->width, elem->height, broken);
+//     dia_image_unref(broken);
 */
   }
     text_set_position(object_sissi->text,&text_corner);
@@ -484,6 +485,8 @@ object_sissi_destroy(ObjetSISSI *object_sissi)
   g_free(object_sissi->name);
   if (object_sissi->text)
     text_destroy(object_sissi->text);
+  if (object_sissi->image)
+    dia_image_unref(object_sissi->image);
 
   if (object_sissi->properties_dialog!=NULL)
   	dialog_sissi_destroy(object_sissi->properties_dialog);

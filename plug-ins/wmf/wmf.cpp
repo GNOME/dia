@@ -972,7 +972,7 @@ static void
 draw_image(DiaRenderer *self,
 	   Point *point,
 	   real width, real height,
-	   DiaImage image)
+	   DiaImage *image)
 {
     WmfRenderer *renderer = WMF_RENDERER (self);
 #ifdef SAVE_EMF

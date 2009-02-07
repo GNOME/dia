@@ -164,7 +164,7 @@ static void draw_string(DiaRenderer *self,
 static void draw_image(DiaRenderer *self,
 		       Point *point,
 		       real width, real height,
-		       DiaImage image);
+		       DiaImage *image);
 
 static void dxf_renderer_class_init (DxfRendererClass *klass);
 
@@ -528,7 +528,7 @@ static void
 draw_image(DiaRenderer *self,
 	   Point *point,
 	   real width, real height,
-	   DiaImage image)
+	   DiaImage *image)
 {
 }
 

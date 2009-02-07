@@ -149,7 +149,7 @@ static void draw_string(DiaRenderer *self,
 static void draw_image(DiaRenderer *self,
 		       Point *point,
 		       real width, real height,
-		       DiaImage image);
+		       DiaImage *image);
 
 static void vdx_renderer_class_init (VDXRendererClass *klass);
 
@@ -1453,7 +1453,7 @@ read_base64_file(const char *filename)
 static void draw_image(DiaRenderer *self,
 		       Point *point,
 		       real width, real height,
-		       DiaImage image)
+		       DiaImage *image)
 {
     VDXRenderer *renderer = VDX_RENDERER(self);
     Point a, bottom_left;

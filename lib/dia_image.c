@@ -55,10 +55,10 @@ dia_image_init(void)
 /** Get the image to put in place of a image that cannot be read.
  * @returns A statically allocated image.
  */
-DiaImage
+DiaImage *
 dia_image_get_broken(void)
 {
-  static DiaImage broken = NULL;
+  static DiaImage *broken = NULL;
 
   if (broken == NULL) {
     broken = g_new(struct _DiaImage, 1);
@@ -79,10 +79,10 @@ dia_image_get_broken(void)
  * @returns An image loaded from file, or NULL if an error occurred.
  *          Error messages will be displayed to the user.
  */
-DiaImage
-dia_image_load(gchar *filename)
+DiaImage *
+dia_image_load(const gchar *filename)
 {
-  DiaImage dia_img;
+  DiaImage *dia_img;
   GdkPixbuf *image;
   GError *error = NULL;
 
@@ -98,7 +98,7 @@ dia_image_load(gchar *filename)
     return NULL;
   }
 
-  dia_img = g_new(struct _DiaImage, 1);
+  dia_img = g_new(DiaImage, 1);
   dia_img->image = image;
   /* We have a leak here, unless we add our own refcount */
   dia_img->filename = g_strdup(filename);
@@ -112,7 +112,7 @@ dia_image_load(gchar *filename)
  * @param image Image that we want a reference to.
  */
 void
-dia_image_add_ref(DiaImage image)
+dia_image_add_ref(DiaImage *image)
 {
   gdk_pixbuf_ref(image->image);
 }
@@ -121,7 +121,7 @@ dia_image_add_ref(DiaImage image)
  * @param image Image to unreference.
  */
 void
-dia_image_release(DiaImage image)
+dia_image_unref(DiaImage *image)
 {
   gdk_pixbuf_unref(image->image);
 }
@@ -135,7 +135,7 @@ dia_image_release(DiaImage image)
  * @param height Height in pixels of rendering in window.
  */
 void 
-dia_image_draw(DiaImage image, GdkWindow *window, GdkGC *gc,
+dia_image_draw(DiaImage *image, GdkWindow *window, GdkGC *gc,
 	       int x, int y, int width, int height)
 {
   GdkPixbuf *scaled;
@@ -179,7 +179,7 @@ dia_image_draw(DiaImage image, GdkWindow *window, GdkGC *gc,
  * @returns The natural width of the object in pixels.
  */
 int 
-dia_image_width(DiaImage image)
+dia_image_width(const DiaImage *image)
 {
   return gdk_pixbuf_get_width(image->image);
 }
@@ -189,7 +189,7 @@ dia_image_width(DiaImage image)
  * @returns The natural height of the object in pixels.
  */
 int 
-dia_image_height(DiaImage image)
+dia_image_height(const DiaImage *image)
 {
   return gdk_pixbuf_get_height(image->image);
 }
@@ -199,7 +199,7 @@ dia_image_height(DiaImage image)
  * @returns The rowstride number of the image.
  */
 int
-dia_image_rowstride(DiaImage image)
+dia_image_rowstride(const DiaImage *image)
 {
   return gdk_pixbuf_get_rowstride(image->image);
 }
@@ -208,7 +208,7 @@ dia_image_rowstride(DiaImage image)
  * @returns The pixbuf
  */
 const GdkPixbuf* 
-dia_image_pixbuf (DiaImage image)
+dia_image_pixbuf (const DiaImage *image)
 {
   return image->image;
 }
@@ -219,7 +219,7 @@ dia_image_pixbuf (DiaImage image)
  *          This array should be freed after use.
  */
 guint8 *
-dia_image_rgb_data(DiaImage image)
+dia_image_rgb_data(const DiaImage *image)
 {
   int width = dia_image_width(image);
   int height = dia_image_height(image);
@@ -252,7 +252,7 @@ dia_image_rgb_data(DiaImage image)
  *          from the image.  This array should be freed after use.
  */
 guint8 *
-dia_image_mask_data(DiaImage image)
+dia_image_mask_data(const DiaImage *image)
 {
   guint8 *pixels;
   guint8 *mask;
@@ -282,7 +282,7 @@ dia_image_mask_data(DiaImage image)
  *          NULL if the image has no alpha channel.
  */
 const guint8 *
-dia_image_rgba_data(DiaImage image)
+dia_image_rgba_data(const DiaImage *image)
 {
   if (gdk_pixbuf_get_has_alpha(image->image)) {
     const guint8 *pixels = gdk_pixbuf_get_pixels(image->image);
@@ -299,7 +299,7 @@ dia_image_rgba_data(DiaImage image)
  *          has no filename.  This string should *not* be freed by the caller.
  */
 const char *
-dia_image_filename(DiaImage image)
+dia_image_filename(const DiaImage *image)
 {
   if (!image->filename)
     return "(null)";

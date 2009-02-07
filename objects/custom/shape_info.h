@@ -105,7 +105,7 @@ struct _GraphicElementImage {
   SHAPE_INFO_COMMON;
   Point topleft;
   real width, height;
-  DiaImage image;
+  DiaImage *image;
 };
 
 #define OFFSET_METHOD_PROPORTIONAL 0

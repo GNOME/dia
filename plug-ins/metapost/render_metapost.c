@@ -215,7 +215,7 @@ static void draw_text  (DiaRenderer *self,
 static void draw_image(DiaRenderer *self,
 		       Point *point,
 		       real width, real height,
-		       DiaImage image);
+		       DiaImage *image);
 
 /* GObject stuff */
 static void metapost_renderer_class_init (MetapostRendererClass *klass);
@@ -1080,7 +1080,7 @@ static void
 draw_image(DiaRenderer *self,
 	   Point *point,
 	   real width, real height,
-	   DiaImage image)
+	   DiaImage *image)
 {
     /* images have a banding problem */
     int img_width, img_height, img_rowstride;

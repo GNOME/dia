@@ -682,7 +682,7 @@ static void
 draw_image(DiaRenderer *renderer,
 	   Point *point,
 	   real width, real height,
-	   DiaImage image)
+	   DiaImage *image)
 {
   PyObject *func, *res, *arg, *self = PYDIA_RENDERER (renderer);
 

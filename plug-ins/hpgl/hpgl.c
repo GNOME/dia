@@ -607,7 +607,7 @@ static void
 draw_image(DiaRenderer *object,
 	   Point *point,
 	   real width, real height,
-	   DiaImage image)
+	   DiaImage *image)
 {
     DIAG_NOTE(g_message("draw_image %fx%f @%f,%f", 
               width, height, point->x, point->y));

@@ -743,7 +743,7 @@ static void
 draw_image(DiaRenderer *self,
 	   Point *point,
 	   real width, real height,
-	   DiaImage image)
+	   DiaImage *image)
 {
   DiaPsRenderer *renderer = DIA_PS_RENDERER(self);
   int img_width, img_height, img_rowstride;

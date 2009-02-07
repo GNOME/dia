@@ -705,7 +705,7 @@ static void
 draw_image(DiaRenderer *self,
            Point *point,
            real width, real height,
-           DiaImage image)
+           DiaImage *image)
 {
   DiaCairoRenderer *renderer = DIA_CAIRO_RENDERER (self);
   cairo_surface_t *surface;

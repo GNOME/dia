@@ -25,7 +25,7 @@
 /*
  * New
  */
-PyObject* PyDiaImage_New (DiaImage image)
+PyObject* PyDiaImage_New (DiaImage *image)
 {
   PyDiaImage *self;
   
@@ -44,7 +44,7 @@ PyObject* PyDiaImage_New (DiaImage image)
 static void
 PyDiaImage_Dealloc(PyDiaImage *self)
 {
-  dia_image_release (self->image);
+  dia_image_unref (self->image);
   PyObject_DEL(self);
 }
 
@@ -55,7 +55,7 @@ static int
 PyDiaImage_Compare(PyDiaImage *self,
                    PyDiaImage *other)
 {
-  return memcmp(&(self->image), &(other->image), sizeof(DiaImage));
+  return memcmp(&(self->image), &(other->image), sizeof(DiaImage *));
 }
 
 /*
@@ -99,7 +99,7 @@ PyDiaImage_GetAttr(PyDiaImage *self, gchar *attr)
     }
   }
   else if (!strcmp(attr, "rgb_data")) {
-    char* s = dia_image_rgb_data(self->image);
+    unsigned char* s = dia_image_rgb_data(self->image);
     int len = dia_image_width(self->image) * dia_image_height(self->image) * 3;
     PyObject* py_s = PyString_FromStringAndSize(s, len);
     g_free (s);

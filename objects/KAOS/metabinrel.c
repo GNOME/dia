@@ -358,7 +358,6 @@ mbr_draw(Mbr *mbr, DiaRenderer *renderer)
   Point p1,p2,pm1,pm2;
   Point pa1,pa2;
   Arrow arrow;
-  DiaImage img;
   gchar *annot;
   double k,dx,dy,dxn,dyn,dxp,dyp;
 
@@ -375,9 +374,6 @@ mbr_draw(Mbr *mbr, DiaRenderer *renderer)
   arrow.width = MBR_ARROWWIDTH;
 
   endpoints = &mbr->connection.endpoints[0];
-
-  /* assigning a mid-range bitmap for some metarelations */
-  img=NULL; /* no image */
 
   /* some computations */
   p1 = endpoints[0];     /* could reverse direction here */

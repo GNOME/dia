@@ -96,7 +96,7 @@ static void draw_text_line (DiaRenderer *renderer,
 static void draw_image (DiaRenderer *renderer,
                         Point *point,
                         real width, real height,
-                        DiaImage image);
+                        DiaImage *image);
 
 static void draw_rect (DiaRenderer *renderer,
                        Point *ul_corner, Point *lr_corner,
@@ -795,7 +795,7 @@ static void
 draw_image (DiaRenderer *object,
             Point *point, 
             real width, real height,
-            DiaImage image)
+            DiaImage *image)
 {
   DiaGdkRenderer *renderer = DIA_GDK_RENDERER (object);
   if (renderer->highlight_color != NULL) {
