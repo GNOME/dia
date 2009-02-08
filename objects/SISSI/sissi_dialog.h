@@ -40,10 +40,6 @@
 
 #include "plug-ins.h"
 
-extern GList *menace_list_copy(GList *list_old, GList *list_new);
-extern void menace_list_copy_gtk(GList *list_old, GList *list_dialog);
-
-static SISSIState *object_sissi_get_state(ObjetSISSI *object_sissi);
 static Propriete *propriete_copy(Propriete *Prop);
 static ObjectChange *new_sissi_change(ObjetSISSI *object_sissi, SISSIState *state, GList *added, GList *deleted, GList *disconnected);
 

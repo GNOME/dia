@@ -100,7 +100,6 @@ draw_page (GtkPrintOperation *operation,
 	   PrintData *print_data)
 {
   Rectangle bounds;
-  int nobjs = 0;
   DiagramData *data = print_data->data;
   int x, y;
   /* the effective sizes - dia already applied is_portrait */
@@ -121,7 +120,6 @@ draw_page (GtkPrintOperation *operation,
     bounds.bottom = bounds.top + dp_height;
   } else {
     int nx = ceil((data->extents.right - data->extents.left) / dp_width);
-    int ny = ceil((data->extents.bottom - data->extents.top) / dp_height);
     x = page_nr % nx;
     y = page_nr / nx; 
   }

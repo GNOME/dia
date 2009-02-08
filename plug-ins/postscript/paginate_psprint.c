@@ -223,9 +223,9 @@ diagram_print_destroy(GtkWidget *widget)
 {
   DiagramData *dia;
 
-  if ((dia = gtk_object_get_user_data(GTK_OBJECT(widget))) != NULL) {
+  if ((dia = g_object_get_data(G_OBJECT(widget), "diagram")) != NULL) {
     g_object_unref(dia);
-    gtk_object_set_user_data(GTK_OBJECT(widget), NULL);
+    g_object_set_data(G_OBJECT(widget), "diagram", NULL);
   }
 
   return FALSE;
@@ -261,7 +261,7 @@ diagram_print_ps(DiagramData *dia, const gchar* original_filename)
   dialog = gtk_dialog_new();
   /* the dialog has it's own reference to the diagram */
   g_object_ref(dia);
-  gtk_object_set_user_data(GTK_OBJECT(dialog), dia);
+  g_object_set_data(G_OBJECT(dialog), "diagram", dia);
   g_signal_connect(GTK_OBJECT(dialog), "destroy",
 		   G_CALLBACK(diagram_print_destroy), NULL);
   g_signal_connect(GTK_OBJECT(dialog), "delete_event",
@@ -399,7 +399,6 @@ diagram_print_ps(DiagramData *dia, const gchar* original_filename)
 
       if (g_stat(filename, &statbuf) == 0) {	/* Output file exists */
         GtkWidget *confirm_overwrite_dialog = NULL;
-        char buffer[300];
         char *utf8filename = NULL;
 
         if (!g_utf8_validate(filename, -1, NULL)) {
@@ -411,15 +410,14 @@ diagram_print_ps(DiagramData *dia, const gchar* original_filename)
           }
         }
 
-        if (utf8filename == NULL) utf8filename = g_strdup(filename);
-        g_snprintf(buffer, 300,
-           _("The file '%s' already exists.\n"
-             "Do you want to overwrite it?"), utf8filename);
-        g_free(utf8filename);
+        if (utf8filename == NULL) 
+	  utf8filename = g_strdup(filename);
         confirm_overwrite_dialog = gtk_message_dialog_new(GTK_WINDOW (dialog),
                        GTK_DIALOG_MODAL, GTK_MESSAGE_QUESTION,
                        GTK_BUTTONS_YES_NO,
-                       buffer);
+                       _("The file '%s' already exists.\n"
+                         "Do you want to overwrite it?"), utf8filename);
+        g_free(utf8filename);
         gtk_window_set_title(GTK_WINDOW (confirm_overwrite_dialog), 
 	                   _("File already exists"));
         gtk_dialog_set_default_response (GTK_DIALOG (confirm_overwrite_dialog),
@@ -434,23 +432,17 @@ diagram_print_ps(DiagramData *dia, const gchar* original_filename)
         gtk_widget_destroy(confirm_overwrite_dialog);
       }
 
-	  if (write_file) {
+      if (write_file) {
         if (!g_path_is_absolute(filename)) {
-          const char *dirname;
           char *full_filename;
-#if 0
-          dirname = g_path_get_dirname(dia->filename);
-#else
-	  dirname = g_get_home_dir ();
-#endif
-          full_filename = g_build_filename(dirname, filename, NULL);
+
+          full_filename = g_build_filename(g_get_home_dir(), filename, NULL);
           file = g_fopen(full_filename, "w");
           g_free(full_filename);
-          g_free(dirname);
         } else {
           file = g_fopen(filename, "w");
         }
-	  }
+      }
 
       is_pipe = FALSE;
     }

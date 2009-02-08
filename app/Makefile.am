@@ -142,7 +142,6 @@ dia_core_files = \
 	render_gdk.h \
 	tool.c \
 	tool.h \
-	pixmaps.h \
 	diapagelayout.c \
 	diapagelayout.h \
 	pagesetup.c \
@@ -238,8 +237,6 @@ EXTRA_DIST = \
 	pixmaps/arrow.xpm \
 	pixmaps/swap.xpm \
 	pixmaps/default.xpm \
-	pixmaps/magnify.xpm \
-	pixmaps/scroll.xpm \
 	\
 	pixmaps/portrait.xpm \
 	pixmaps/landscape.xpm \

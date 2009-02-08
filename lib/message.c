@@ -33,7 +33,7 @@
 static GHashTable *message_hash_table;
 
 typedef struct {
-  gchar *title;
+  const gchar *title;
   GtkWidget *dialog;
   GtkWidget *repeat_label;
   GList *repeats;

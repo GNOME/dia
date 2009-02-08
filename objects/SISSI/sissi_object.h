@@ -38,7 +38,6 @@ static DiaObject *sissi_object_create(Point *startpoint,  void *user_data, Handl
 static DiaObject *sissi_object_load(ObjectNode obj_node, int version, const char *filename);
 static void sissi_object_get_props(ObjetSISSI *object_sissi, GPtrArray *props);
 static void sissi_object_set_props(ObjetSISSI *object_sissi, GPtrArray *props);
-static GList *create_list_properties_others(GList *list_propriete_other);
 
 #endif /* GENERIC_H */
 

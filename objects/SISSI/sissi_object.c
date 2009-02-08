@@ -163,11 +163,7 @@ sissi_object_create(Point *startpoint,  void *user_data, Handle **handle1, Handl
   SISSI_Property *properties_others;
   Url_Docs *url_doc;
   Point pos;
-  int fd;
-  gchar *filename = NULL;
-  char composition_filename[255];
   xmlDocPtr doc;
-  xmlNsPtr namespace;
   /* DiagramData *data; */
   xmlNodePtr diagramdata,composite;
   AttributeNode attr;
@@ -311,7 +307,6 @@ sissi_object_load(ObjectNode obj_node, int version, const char *filename)
   ObjetSISSI *object_sissi;
   Element *elem;
   DiaObject *obj;
-  gchar *file_name;
   DiaFont* action_font;
 /*  Point defaultlen  = {1.0,0.0}, pos;*/
   Point pos;

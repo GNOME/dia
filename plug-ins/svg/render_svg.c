@@ -418,7 +418,7 @@ node_set_text_style (xmlNodePtr      node,
 
   /* have to do something about fonts here ... */
 
-  xmlSetProp(node, "style", style);
+  xmlSetProp(node, (xmlChar *)"style", (xmlChar *)style);
   g_free(style);
 }
 
@@ -432,14 +432,14 @@ draw_string(DiaRenderer *self,
   xmlNodePtr node;
   gchar d_buf[G_ASCII_DTOSTR_BUF_SIZE];
 
-  node = xmlNewChild(renderer->root, renderer->svg_name_space, "text", text);
+  node = xmlNewChild(renderer->root, renderer->svg_name_space, (xmlChar *)"text", (xmlChar *)text);
 
   node_set_text_style(node, renderer, self->font, self->font_height, alignment, colour);
   
   dia_svg_dtostr(d_buf, pos->x);
-  xmlSetProp(node, "x", d_buf);
+  xmlSetProp(node, (xmlChar *)"x", (xmlChar *)d_buf);
   dia_svg_dtostr(d_buf, pos->y);
-  xmlSetProp(node, "y", d_buf);
+  xmlSetProp(node, (xmlChar *)"y", (xmlChar *)d_buf);
 }
 
 static void
@@ -488,7 +488,7 @@ draw_text (DiaRenderer *self, Text *text)
     TextLine *text_line = text->lines[i];
 
     node_tspan = xmlNewChild(node_text, renderer->svg_name_space, (const xmlChar *)"tspan",
-                             text_line_get_string(text_line));
+                             (const xmlChar *)text_line_get_string(text_line));
     dia_svg_dtostr(d_buf, pos.x);
     xmlSetProp(node_tspan, (const xmlChar *)"x", (xmlChar *) d_buf);
     dia_svg_dtostr(d_buf, pos.y);

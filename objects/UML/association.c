@@ -173,8 +173,6 @@ static AssociationState *association_get_state(Association *assoc);
 static void association_set_state(Association *assoc,
 				  AssociationState *state);
 
-static void association_save(Association *assoc, ObjectNode obj_node,
-			     const char *filename);
 static DiaObject *association_load(ObjectNode obj_node, int version,
 				const char *filename);
 
@@ -928,39 +926,6 @@ association_copy(Association *assoc)
   return &newassoc->orth.object;
 }
 
-
-static void
-association_save(Association *assoc, ObjectNode obj_node,
-		 const char *filename)
-{
-  int i;
-  AttributeNode attr;
-  DataNode composite;
-  
-  orthconn_save(&assoc->orth, obj_node);
-
-  data_add_string(new_attribute(obj_node, "name"),
-		  assoc->name);
-  data_add_enum(new_attribute(obj_node, "direction"),
-		assoc->direction);
-
-  attr = new_attribute(obj_node, "ends");
-  for (i=0;i<2;i++) {
-    composite = data_add_composite(attr, NULL);
-
-    data_add_string(composite_add_attribute(composite, "role"),
-		    assoc->end[i].role);
-    data_add_string(composite_add_attribute(composite, "multiplicity"),
-		    assoc->end[i].multiplicity);
-    data_add_boolean(composite_add_attribute(composite, "arrow"),
-		  assoc->end[i].arrow);
-    data_add_enum(composite_add_attribute(composite, "aggregate"),
-		  assoc->end[i].aggregate);
-    data_add_enum(composite_add_attribute(composite, "visibility"),
-		assoc->end[i].visibility);
-  }
-}
-
 static DiaObject *
 association_load(ObjectNode obj_node, int version, const char *filename)
 {
@@ -1062,21 +1027,3 @@ association_load(ObjectNode obj_node, int version, const char *filename)
   return &assoc->orth.object;
 }
 
-static ObjectChange *
-association_apply_properties(Association *assoc)
-{
-  const char *str;
-  GtkWidget *menuitem;
-  int i;
-  ObjectState *old_state;
-
-  old_state = (ObjectState *)association_get_state(assoc);
-  
-  /* Read from dialog and put in object: */
-  /* ... */
-
-  association_set_state(assoc, association_get_state(assoc));
-  return new_object_state_change(&assoc->orth.object, old_state, 
-				 (GetStateFunc)association_get_state,
-				 (SetStateFunc)association_set_state);
-}

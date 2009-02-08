@@ -327,7 +327,7 @@ set_font(DiaRenderer *self, DiaFont *font, real height)
     renderer->tcurrent.font_height = height;
 }
 
-int
+static int
 dxf_color (const Color *color)
 {
     /* Fixed colors

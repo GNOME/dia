@@ -252,68 +252,6 @@ arc_update_handles(Arc *arc)
     middle_pos->y += arc->curve_distance*dx/dist;
   }
 }
-/** returns the number of intersection the circle has with the horizontal line at y=horiz
- * if 1 point intersects then *int1 is that point
- * if 2 points intersect then *int1 and *int2 are these points
- */
-static int
-arc_circle_intersects_horiz(const Arc *arc, real horiz, Point *int1, Point *int2){
-  /* inject y=horiz into r^2 = (x-x_c)^2 + (y-y_c)^2 
-   * this is r^2 = (x-x_c)^2 + (horiz-y_c)^2 
-   * translate to x^2 + b*x + c = 0 
-   * b = -2 x_c 
-   * c = x_c^2 - r^2 + (horiz-y_c)^2 
-   * and solve classically */
-  real b, c, delta;
-  b = -2.0 * arc->center.x;
-  c =  arc->center.x * arc->center.x + (horiz - arc->center.y) * (horiz - arc->center.y) - arc->radius * arc->radius;
-  delta = b*b - 4 * c;
-  if (delta < 0)
-          return 0;
-  else if (delta == 0){
-         int1->x = -b/2; 
-         int1->y = horiz;
-         return 1; 
-  }
-  else {
-         int1->x = (sqrt(delta)-b)/2; 
-         int1->y = horiz;
-         int2->x = (-sqrt(delta)-b)/2; 
-         int2->y = horiz;
-          return 2;
-  }
-}
-/** returns the number of intersection the circle has with the vertical line at x=vert
- * if 1 point intersects then *int1 is that point
- * if 2 points intersect then *int1 and *int2 are these points
- */
-static int
-arc_circle_intersects_vert(const Arc *arc, real vert, Point *int1, Point *int2){
-  /* inject x=vert into r^2 = (x-x_c)^2 + (y-y_c)^2 
-   * this is r^2 = (vert-x_c)^2 + (y-y_c)^2 
-   * translate to y^2 + b*y + c = 0 and solve classically */
-  real b, c, delta;
-  b = -2*arc->center.y;
-  c =  arc->center.y * arc->center.y + (vert - arc->center.x) * (vert - arc->center.x) - arc->radius * arc->radius;
-  delta = b*b - 4 * c;
-  if (delta < 0)
-          return 0;
-  else if (delta == 0){
-         int1->y = -b/2; 
-         int1->x = vert;
-         return 1; 
-  }
-  else {
-         int1->y = (sqrt(delta)-b)/2; 
-         int1->x = vert;
-         int2->y = (-sqrt(delta)-b)/2; 
-         int2->x = vert;
-         return 2;
-  }
-}
-        
-        
-            
 
 static real
 arc_compute_curve_distance(const Arc *arc, const Point *start, const Point *end, const Point *mid)
@@ -370,33 +308,6 @@ arc_find_radial(const Arc *arc, const Point *to, Point *best)
         
 }
 
-/* finds the closest point intersecting the full circle 
- * at any position on the vertical and horizontal lines going through Point to
- * that point is returned in Point *best if 1 is returned */
-static int
-arc_find_closest_vert_horiz(const Arc *arc, const Point *to, Point *best){
-     Point i1,i2;
-     int nh,nv;
-        nh = arc_circle_intersects_horiz(arc, to->y, &i1, &i2);
-        if (nh==2){
-           *best = *closest_to(to,&i1,&i2);
-        }
-        else if (nh==1) {
-           *best = i1;
-        }
-        nv = arc_circle_intersects_vert(arc, to->x, &i1, &i2);
-        if (nv==2){
-           Point tmp;
-           tmp = *closest_to(to,&i1,&i2);
-           *best = *closest_to(to,&tmp,best);
-        }
-        else if (nv==1) {
-           *best = *closest_to(to,&i1,best);
-        }
-        if (nv|nh)
-                return 1;
-        return 0;
-}
 static ObjectChange*
 arc_move_handle(Arc *arc, Handle *handle,
 		Point *to, ConnectionPoint *cp,

@@ -75,7 +75,7 @@ _keyvalue_copy (gpointer key,
   gchar *val = (gchar *)value;
   GHashTable *dest = (GHashTable *)user_data;
   
-  g_hash_table_insert (dest, g_strdup (key), g_strdup (value));
+  g_hash_table_insert (dest, g_strdup (name), g_strdup (val));
 }
 static DictProperty *
 dictprop_copy(DictProperty *src) 

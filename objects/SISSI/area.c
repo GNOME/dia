@@ -65,6 +65,8 @@
 #define TEXT_HEIGHT (2.0)
 #define NUM_CONNECTIONS 9
 
+static Color color_gris_clear = { 0.95f, 0.95f, 0.95f };
+
 #ifdef G_OS_WIN32
 #include <io.h>
 #define mkstemp(s) _open(_mktemp(s), O_CREAT | O_TRUNC | O_WRONLY | _O_BINARY, 0644)

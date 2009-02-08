@@ -1,3 +1,38 @@
+2009-02-08  Hans Breuer  <hans@breuer.org>
+
+	[warningectomy - about 40 left]
+	* configure.in : disable -Wunused, add a lot more useful, see:
+	http://blogs.gnome.org/otte/2008/12/22/warning-options/
+	* lib/dia_xml.c plug-ins/svg/render_svg.c : pointers differ in signedness
+	* lib/diagramdata.c : declared static but never defined
+	* lib/prop_dict.c lib/plug-ins.c : unused variable
+	* plug-ins/python/diamodule.c : dereferencing type-punned pointer will
+	break strict-aliasing rules, unused variables
+	* plug-ins/custom_line/line_info.c : mostly pointer targets differ in 
+	signedness, but also some superfluous allocations
+	* lib/prop_sdarray.c lib/prefs.c objects/standard/line.c 
+	  plug-ins/libart/dialibartrenderer.[ch] plug-ins/libart/render_libart.c
+	  objects/AADL/aadl.c app/layer_dialog.c : no previous prototype 
+	(aka: should be static, prototyped or deleted)
+	* plug-ins/dxf/autocad_pal.c : maybe used uninitialized
+	* app/confirm.c : format not a string literal and no format arguments
+	* plug-ins/postscript/paginate_psprint.c : use g_object_(g|s)et_data()
+	* (diagram_print_ps) : format not a string literal and no format arguments
+	  and g_free(g_get_home_dir()) - agood reason for crashing later on
+	* app/load_save.c(diagram_data_save) : may be used uninitialized
+	* objects/UML/association.c : removed unused functions
+	* app/exit_dialog.c : unused variable, format not a string literal and 
+	no format arguments
+	* app/menus.c : format not a string literal and no format arguments
+	* persistence.c : defined but not used
+	* objects/SISSI/*.[ch] : from around 100 warnings down to 2 ...
+	* objects/standard/arc.c : removed unused function
+	* lib/message.c : assignment discards qualifiers from pointer target type
+
+	* app/pixmaps/magnify.xpm app/pixmaps/scroll.xpm app/pixmaps.h : removed
+	* app/Makefile.am : adapted
+	* app/interfaces.c : added remaining XPMs directly
+
 2009-02-07  Hans Breuer  <hans@breuer.org>
 
 	* lib/dia_svg.c : map special svg font name "sanserif" to special 

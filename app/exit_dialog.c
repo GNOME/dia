@@ -86,7 +86,6 @@ exit_dialog_make (GtkWindow * parent_window,
 
     GtkWidget * label = gtk_label_new (_("The following are not saved:"));
 
-    GSList *    list;
     GtkWidget * scrolled;
     GtkWidget * button;
     GtkWidget * hbox;
@@ -226,13 +225,11 @@ exit_dialog_run (GtkWidget * dialog,
     
         if (count == 0)
         {
-           const gchar * msg = _("Nothing selected for saving.  Would you like to try again?");
-
            GtkWidget * msg_dialog = gtk_message_dialog_new (GTK_WINDOW (dialog),
                                                             GTK_DIALOG_MODAL,
                                                             GTK_MESSAGE_WARNING,
                                                             GTK_BUTTONS_YES_NO,
-                                                            msg);
+                                                            _("Nothing selected for saving.  Would you like to try again?"));
 
            gint yes_or_no = gtk_dialog_run (GTK_DIALOG (msg_dialog));
 

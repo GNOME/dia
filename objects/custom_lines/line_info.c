@@ -65,18 +65,19 @@ custom_get_relative_filename(const gchar *current, const gchar *relative)
   return tmp;
 }
 
-guint line_info_get_line_type( const gchar* filename, xmlNodePtr node )
+static guint 
+line_info_get_line_type( const gchar* filename, xmlNodePtr node )
 {
   guint res = CUSTOM_LINETYPE_ZIGZAGLINE;
-  char* tmp = xmlNodeGetContent(node);
+  xmlChar* tmp = xmlNodeGetContent(node);
 
-  if( !strcmp(tmp, "Zigzagline") )
+  if( !strcmp((char*)tmp, "Zigzagline") )
   	res = CUSTOM_LINETYPE_ZIGZAGLINE;
-  else if( !strcmp(tmp, "Polyline") )
+  else if( !strcmp((char*)tmp, "Polyline") )
   	res = CUSTOM_LINETYPE_POLYLINE;
-  else if( !strcmp(tmp, "Bezierline") )
+  else if( !strcmp((char*)tmp, "Bezierline") )
   	res = CUSTOM_LINETYPE_BEZIERLINE;
-  else if( !strcmp(tmp, "All") )
+  else if( !strcmp((char*)tmp, "All") )
   	res = CUSTOM_LINETYPE_ALL;
   else
   	g_warning("%s: `%s' is not a valid line type",filename,tmp);
@@ -87,198 +88,178 @@ guint line_info_get_line_type( const gchar* filename, xmlNodePtr node )
 }
 
 
-guint line_info_get_line_style( const gchar* filename, xmlNodePtr node )
+static guint 
+line_info_get_line_style( const gchar* filename, xmlNodePtr node )
 {
   guint res = LINESTYLE_SOLID;
-  char* tmp = xmlNodeGetContent(node);
+  xmlChar* tmp = xmlNodeGetContent(node);
 
-  if( !strcmp(tmp, "Solid") )
+  if( !strcmp((char*)tmp, "Solid") )
   	res = LINESTYLE_SOLID;
-  else if( !strcmp(tmp, "Dashed") )
+  else if( !strcmp((char*)tmp, "Dashed") )
   	res = LINESTYLE_DASHED;
-  else if( !strcmp(tmp, "Dash-Dot") )
+  else if( !strcmp((char*)tmp, "Dash-Dot") )
   	res = LINESTYLE_DASH_DOT;
-  else if( !strcmp(tmp, "Dash-Dot-Dot") )
+  else if( !strcmp((char*)tmp, "Dash-Dot-Dot") )
   	res = LINESTYLE_DASH_DOT_DOT;
-  else if( !strcmp(tmp, "Dotted") )
+  else if( !strcmp((char*)tmp, "Dotted") )
   	res = LINESTYLE_DOTTED;
   else
-  	g_warning("%s: `%s' is not a valid line style",filename,tmp);
+  	g_warning("%s: `%s' is not a valid line style", filename, tmp);
 	
   xmlFree(tmp);
   
   return( res );
 }
 
-gfloat line_info_get_as_float( const gchar* filename, xmlNodePtr node )
+static gfloat 
+line_info_get_as_float( const gchar* filename, xmlNodePtr node )
 {
   gfloat res = 1.0f;
-  char* tmp = xmlNodeGetContent(node);
+  xmlChar* tmp = xmlNodeGetContent(node);
 
-  res = g_ascii_strtod( tmp, NULL );
+  res = g_ascii_strtod( (char*)tmp, NULL );
     
   xmlFree(tmp);
   return( res );  
 }
 
-guint line_info_get_arrow_type( const gchar* filename, xmlNodePtr node )
+static guint 
+line_info_get_arrow_type( const gchar* filename, xmlNodePtr node )
 {
   guint res = ARROW_NONE;
-  char* tmp = xmlNodeGetContent(node);
+  xmlChar* tmp = xmlNodeGetContent(node);
 
-  if( !strcmp(tmp, "None") )
+  if( !strcmp((char*)tmp, "None") )
   	res = ARROW_NONE;
-  else if( !strcmp(tmp, "Lines") )
+  else if( !strcmp((char*)tmp, "Lines") )
   	res = ARROW_LINES;
-  else if( !strcmp(tmp, "Hollow-Triangle") )
+  else if( !strcmp((char*)tmp, "Hollow-Triangle") )
   	res = ARROW_HOLLOW_TRIANGLE;
-  else if( !strcmp(tmp, "Filled-Triangle") )
+  else if( !strcmp((char*)tmp, "Filled-Triangle") )
   	res = ARROW_FILLED_TRIANGLE;
-  else if( !strcmp(tmp, "Hollow-Diamond") )
+  else if( !strcmp((char*)tmp, "Hollow-Diamond") )
   	res = ARROW_HOLLOW_DIAMOND;
-  else if( !strcmp(tmp, "Filled-Diamond") )
+  else if( !strcmp((char*)tmp, "Filled-Diamond") )
   	res = ARROW_FILLED_DIAMOND;
-  else if( !strcmp(tmp, "Half-Head") )
+  else if( !strcmp((char*)tmp, "Half-Head") )
   	res = ARROW_HALF_HEAD;
-  else if( !strcmp(tmp, "Slashed-Cross") )
+  else if( !strcmp((char*)tmp, "Slashed-Cross") )
   	res = ARROW_SLASHED_CROSS;
-  else if( !strcmp(tmp, "Filled-Ellipse") )
+  else if( !strcmp((char*)tmp, "Filled-Ellipse") )
   	res = ARROW_FILLED_ELLIPSE;
-  else if( !strcmp(tmp, "Hollow-Ellipse") )
+  else if( !strcmp((char*)tmp, "Hollow-Ellipse") )
   	res = ARROW_HOLLOW_ELLIPSE;
-  else if( !strcmp(tmp, "Double-Hollow-Triangle ") )
+  else if( !strcmp((char*)tmp, "Double-Hollow-Triangle ") )
   	res = ARROW_DOUBLE_HOLLOW_TRIANGLE;
-  else if( !strcmp(tmp, "Double-Filled-Triangle") )
+  else if( !strcmp((char*)tmp, "Double-Filled-Triangle") )
   	res = ARROW_DOUBLE_FILLED_TRIANGLE;
-  else if( !strcmp(tmp, "Unfilled-Triangle ") )
+  else if( !strcmp((char*)tmp, "Unfilled-Triangle ") )
   	res = ARROW_UNFILLED_TRIANGLE;
-  else if( !strcmp(tmp, "Filled-Dot") )
+  else if( !strcmp((char*)tmp, "Filled-Dot") )
   	res = ARROW_FILLED_DOT;
-  else if( !strcmp(tmp, "Dimension-Origin") )
+  else if( !strcmp((char*)tmp, "Dimension-Origin") )
   	res = ARROW_DIMENSION_ORIGIN;
-  else if( !strcmp(tmp, "Blanked-Dot") )
+  else if( !strcmp((char*)tmp, "Blanked-Dot") )
   	res = ARROW_BLANKED_DOT;
-  else if( !strcmp(tmp, "Filled-Box") )
+  else if( !strcmp((char*)tmp, "Filled-Box") )
   	res = ARROW_FILLED_BOX;
-  else if( !strcmp(tmp, "Blanked-Box") )
+  else if( !strcmp((char*)tmp, "Blanked-Box") )
   	res = ARROW_BLANKED_BOX;
-  else if( !strcmp(tmp, "Slash-Arrow") )
+  else if( !strcmp((char*)tmp, "Slash-Arrow") )
   	res = ARROW_SLASH_ARROW;
-  else if( !strcmp(tmp, "Integral-Symbol") )
+  else if( !strcmp((char*)tmp, "Integral-Symbol") )
   	res = ARROW_INTEGRAL_SYMBOL;
-  else if( !strcmp(tmp, "Crow-Foot") )
+  else if( !strcmp((char*)tmp, "Crow-Foot") )
   	res = ARROW_CROW_FOOT;
-  else if( !strcmp(tmp, "Cross") )
+  else if( !strcmp((char*)tmp, "Cross") )
   	res = ARROW_CROSS;
-  else if( !strcmp(tmp, "Filled-Concave") )
+  else if( !strcmp((char*)tmp, "Filled-Concave") )
   	res = ARROW_FILLED_CONCAVE;
-  else if( !strcmp(tmp, "Blanked-Concave") )
+  else if( !strcmp((char*)tmp, "Blanked-Concave") )
   	res = ARROW_BLANKED_CONCAVE;
-  else if( !strcmp(tmp, "Rounded") )
+  else if( !strcmp((char*)tmp, "Rounded") )
   	res = ARROW_ROUNDED;
-  else if( !strcmp(tmp, "Half-Diamond") )
+  else if( !strcmp((char*)tmp, "Half-Diamond") )
   	res = ARROW_HALF_DIAMOND;
-  else if( !strcmp(tmp, "Open-Rounded") )
+  else if( !strcmp((char*)tmp, "Open-Rounded") )
   	res = ARROW_OPEN_ROUNDED;
-  else if( !strcmp(tmp, "Filled-Dot-N-Triangle") )
+  else if( !strcmp((char*)tmp, "Filled-Dot-N-Triangle") )
   	res = ARROW_FILLED_DOT_N_TRIANGLE;
-  else if( !strcmp(tmp, "One-Or-Many") )
+  else if( !strcmp((char*)tmp, "One-Or-Many") )
   	res = ARROW_ONE_OR_MANY;
-  else if( !strcmp(tmp, "None-Or-Many") )
+  else if( !strcmp((char*)tmp, "None-Or-Many") )
   	res = ARROW_NONE_OR_MANY;
-  else if( !strcmp(tmp, "One-Or-None") )
+  else if( !strcmp((char*)tmp, "One-Or-None") )
   	res = ARROW_ONE_OR_NONE;
-  else if( !strcmp(tmp, "One-Exactly") )
+  else if( !strcmp((char*)tmp, "One-Exactly") )
   	res = ARROW_ONE_EXACTLY;
-  else if( !strcmp(tmp, "Backslash") )
+  else if( !strcmp((char*)tmp, "Backslash") )
   	res = ARROW_BACKSLASH;
-  else if( !strcmp(tmp, "Three-Dots") )
+  else if( !strcmp((char*)tmp, "Three-Dots") )
   	res = ARROW_THREE_DOTS;
   else
-  	g_warning("%s: `%s' is not a valid arrow style",filename,tmp);
+  	g_warning("%s: `%s' is not a valid arrow style", filename, tmp);
 	
   xmlFree(tmp);
   
   return( res );
 }
 
-void line_info_get_arrow( const gchar* filename, xmlNodePtr node, Arrow* arrow )
+static void 
+line_info_get_arrow( const gchar* filename, xmlNodePtr node, Arrow* arrow )
 {
   xmlNodePtr child_node = NULL;
-  char* tmp = xmlNodeGetContent(node);
 
   for( child_node = node->xmlChildrenNode;
        child_node != NULL;
-	   child_node = child_node->next )
-  {
+       child_node = child_node->next ) {
     if( xmlIsBlankNode(child_node) )
       continue;
-	else if (/*node->ns == shape_ns &&*/ !strcmp(child_node->name, "type")) {
-	  arrow->type = line_info_get_arrow_type(filename, child_node);
-	}
-	else if (/*node->ns == shape_ns &&*/ !strcmp(child_node->name, "length")) {
-	  arrow->length = line_info_get_as_float(filename, child_node);
-	}
-	else if (/*node->ns == shape_ns &&*/ !strcmp(child_node->name, "width")) {
-	  arrow->width = line_info_get_as_float(filename, child_node);
-	}
+    else if (/*node->ns == shape_ns &&*/ !strcmp((char*)child_node->name, "type"))
+      arrow->type = line_info_get_arrow_type(filename, child_node);
+    else if (/*node->ns == shape_ns &&*/ !strcmp((char*)child_node->name, "length"))
+      arrow->length = line_info_get_as_float(filename, child_node);
+    else if (/*node->ns == shape_ns &&*/ !strcmp((char*)child_node->name, "width"))
+      arrow->width = line_info_get_as_float(filename, child_node);
   }
-  
-  /* res = g_ascii_strtod( tmp, NULL ); */
-    
-  xmlFree(tmp);
 }
 
-void line_info_get_arrows( const gchar* filename, xmlNodePtr node, LineInfo* info )
+static void 
+line_info_get_arrows( const gchar* filename, xmlNodePtr node, LineInfo* info )
 {
   xmlNodePtr child_node = NULL;
-  char* tmp = xmlNodeGetContent(node);
 
   for( child_node = node->xmlChildrenNode;
        child_node != NULL;
-	   child_node = child_node->next )
-  {
+       child_node = child_node->next ) {
     if( xmlIsBlankNode(child_node) )
       continue;
-	else if (/*node->ns == shape_ns &&*/ !strcmp(child_node->name, "start")) {
-	  line_info_get_arrow(filename, child_node, &(info->start_arrow));
-	}
-	else if (/*node->ns == shape_ns &&*/ !strcmp(child_node->name, "end")) {
-	  line_info_get_arrow(filename, child_node, &(info->end_arrow));
-	}
+    else if (/*node->ns == shape_ns &&*/ !strcmp((char*)child_node->name, "start"))
+      line_info_get_arrow(filename, child_node, &(info->start_arrow));
+    else if (/*node->ns == shape_ns &&*/ !strcmp((char*)child_node->name, "end"))
+      line_info_get_arrow(filename, child_node, &(info->end_arrow));
   }
-  
-  /* res = g_ascii_strtod( tmp, NULL ); */
-    
-  xmlFree(tmp);
 }
 
 
-void line_info_get_line_color( const gchar* filename, xmlNodePtr node, LineInfo* info )
+static void 
+line_info_get_line_color( const gchar* filename, xmlNodePtr node, LineInfo* info )
 {
   xmlNodePtr child_node = NULL;
-  char* tmp = xmlNodeGetContent(node);
 
   for( child_node = node->xmlChildrenNode;
        child_node != NULL;
-	   child_node = child_node->next )
-  {
+       child_node = child_node->next ) {
     if( xmlIsBlankNode(child_node) )
       continue;
-	else if (/*node->ns == shape_ns &&*/ !strcmp(child_node->name, "red")) {
-	  info->line_color.red = line_info_get_as_float(filename, child_node);
-	}
-	else if (/*node->ns == shape_ns &&*/ !strcmp(child_node->name, "green")) {
-	  info->line_color.green = line_info_get_as_float(filename, child_node);
-	}
-	else if (/*node->ns == shape_ns &&*/ !strcmp(child_node->name, "blue")) {
-	  info->line_color.blue = line_info_get_as_float(filename, child_node);
-	}
+    else if (/*node->ns == shape_ns &&*/ !strcmp((char*)child_node->name, "red"))
+      info->line_color.red = line_info_get_as_float(filename, child_node);
+    else if (/*node->ns == shape_ns &&*/ !strcmp((char*)child_node->name, "green"))
+      info->line_color.green = line_info_get_as_float(filename, child_node);
+    else if (/*node->ns == shape_ns &&*/ !strcmp((char*)child_node->name, "blue"))
+      info->line_color.blue = line_info_get_as_float(filename, child_node);
   }
-  
-  /* res = g_ascii_strtod( tmp, NULL ); */
-    
-  xmlFree(tmp);
 }
 
 LineInfo* line_info_load_and_apply_from_xmlfile(const gchar *filename, LineInfo* info);
@@ -287,7 +268,7 @@ LineInfo* line_info_load(const gchar *filename)
 {
   LineInfo* res = g_new0(LineInfo, 1);
   
-  res->line_info_filename = filename;  
+  res->line_info_filename = g_strdup(filename);
 
   res->name = "CustomLines - Default";
   res->icon_filename = NULL;
@@ -312,28 +293,28 @@ LineInfo* line_info_clone(LineInfo* info)
 {
   LineInfo* res = g_new0(LineInfo, 1);
   
-  res->line_info_filename 	= info->line_info_filename;  
+  res->line_info_filename = g_strdup(info->line_info_filename);
 
-  res->name 				= info->name;
-  res->icon_filename 		= info->icon_filename;
-  res->type 				= info->type;
-  res->line_color.red   	= info->line_color.red;
-  res->line_color.green 	= info->line_color.green;
-  res->line_color.blue  	= info->line_color.blue;
-  res->line_style 			= info->line_style;
-  res->dashlength 			= info->dashlength;
-  res->line_width 			= info->line_width;
-  res->corner_radius 		= info->corner_radius;
-  res->start_arrow.type 	= info->start_arrow.type;
-  res->start_arrow.length 	= (info->start_arrow.length > 0) ?
-                                    info->start_arrow.length : 1.0;
-  res->start_arrow.width 	= (info->start_arrow.width > 0) ? 
-                                    info->start_arrow.width : 1.0;
-  res->end_arrow.type 		= info->end_arrow.type;
-  res->end_arrow.length 	= (info->end_arrow.length > 0) ? 
-                                    info->end_arrow.length : 1.0;
-  res->end_arrow.width 		= (info->end_arrow.width > 0) ? 
-                                    info->end_arrow.width : 1.0;
+  res->name 		  = info->name;
+  res->icon_filename 	  = info->icon_filename;
+  res->type 		  = info->type;
+  res->line_color.red     = info->line_color.red;
+  res->line_color.green   = info->line_color.green;
+  res->line_color.blue    = info->line_color.blue;
+  res->line_style 	  = info->line_style;
+  res->dashlength 	  = info->dashlength;
+  res->line_width 	  = info->line_width;
+  res->corner_radius 	  = info->corner_radius;
+  res->start_arrow.type   = info->start_arrow.type;
+  res->start_arrow.length = (info->start_arrow.length > 0) ?
+                                  info->start_arrow.length : 1.0;
+  res->start_arrow.width  = (info->start_arrow.width > 0) ? 
+                                  info->start_arrow.width : 1.0;
+  res->end_arrow.type     = info->end_arrow.type;
+  res->end_arrow.length   = (info->end_arrow.length > 0) ? 
+                                  info->end_arrow.length : 1.0;
+  res->end_arrow.width 	  = (info->end_arrow.width > 0) ? 
+                                  info->end_arrow.width : 1.0;
 
   return( res );
 }
@@ -341,9 +322,8 @@ LineInfo* line_info_clone(LineInfo* info)
 LineInfo* line_info_load_and_apply_from_xmlfile(const gchar *filename, LineInfo* info)
 {
   xmlDocPtr doc = xmlDoParseFile(filename);
-  xmlNsPtr shape_ns, svg_ns;
-  xmlNodePtr node, root, ext_node = NULL;
-  char *tmp;
+  xmlNodePtr node, root;
+  xmlChar *tmp;
   int i;
 
   if (!doc) {
@@ -359,33 +339,33 @@ LineInfo* line_info_load_and_apply_from_xmlfile(const gchar *filename, LineInfo*
   i = 0;
   for (node = root->xmlChildrenNode; node != NULL; node = node->next) {
     if (xmlIsBlankNode(node))
-		continue;
+      continue;
     else if (node->type != XML_ELEMENT_NODE)
-		continue;
-    else if (/*node->ns == shape_ns &&*/ !strcmp(node->name, "name")) {
+      continue;
+    else if (!strcmp((char*)node->name, "name")) {
       tmp = xmlNodeGetContent(node);
 /*      g_free(info->name);*/
-      info->name = g_strdup(tmp);
+      info->name = g_strdup((char*)tmp);
 /*	  fprintf( stderr, "New shape of type: `%s'\n", info->name ); */
       xmlFree(tmp);
-    } else if (/*node->ns == shape_ns &&*/ !strcmp(node->name, "icon")) {
+    } else if ( !strcmp((char*)node->name, "icon")) {
       tmp = xmlNodeGetContent(node);
       g_free(info->icon_filename);
-      info->icon_filename = custom_get_relative_filename(filename, tmp);
+      info->icon_filename = custom_get_relative_filename(filename, (char*)tmp);
       xmlFree(tmp);
-    } else if (/*node->ns == shape_ns &&*/ !strcmp(node->name, "type")) {
+    } else if ( !strcmp((char*)node->name, "type")) {
       info->type = line_info_get_line_type(filename, node);
-    } else if (/*node->ns == shape_ns &&*/ !strcmp(node->name, "line-style")) {
+    } else if ( !strcmp((char*)node->name, "line-style")) {
       info->line_style = line_info_get_line_style(filename, node);
-    } else if (/*node->ns == shape_ns &&*/ !strcmp(node->name, "dash-length")) {
+    } else if ( !strcmp((char*)node->name, "dash-length")) {
       info->dashlength = line_info_get_as_float(filename, node);
-    } else if (/*node->ns == shape_ns &&*/ !strcmp(node->name, "line-width")) {
+    } else if ( !strcmp((char*)node->name, "line-width")) {
       info->line_width = line_info_get_as_float(filename, node);
-    } else if (/*node->ns == shape_ns &&*/ !strcmp(node->name, "corner-radius")) {
+    } else if ( !strcmp((char*)node->name, "corner-radius")) {
       info->corner_radius = line_info_get_as_float(filename, node);
-    } else if (/*node->ns == shape_ns &&*/ !strcmp(node->name, "arrows")) {
+    } else if ( !strcmp((char*)node->name, "arrows")) {
       line_info_get_arrows(filename, node, info);
-    } else if (/*node->ns == shape_ns &&*/ !strcmp(node->name, "line-color")) {
+    } else if ( !strcmp((char*)node->name, "line-color")) {
       line_info_get_line_color(filename, node, info);
     }
   }

@@ -1372,9 +1372,6 @@ renderer_finalize (GObject *object)
   G_OBJECT_CLASS (parent_class)->finalize (object);
 }
 
-extern void 
-dia_libart_renderer_iface_init (DiaInteractiveRendererInterface* iface);
-
 GType
 dia_libart_renderer_get_type (void)
 {

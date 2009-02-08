@@ -398,7 +398,7 @@ if test "$GCC" = yes; then
   dnl getting poor stack traces with bug-buddy because of this)
 
   DIA_CHECK_CFLAG(-Wall)
-  DIA_CHECK_CFLAG(-Wunused)
+  dnl DIA_CHECK_CFLAG(-Wunused)
   DIA_CHECK_CFLAG(--std=c89)
   DIA_CHECK_CFLAG(-Wdeclaration-after-statement)
   dnl I'd rather like to enable this but it fails on isnan() with -std=c89
@@ -410,6 +410,11 @@ if test "$GCC" = yes; then
   DIA_CHECK_CFLAG(-Wmissing-declarations)
   DIA_CHECK_CFLAG(-finline-functions)
   DIA_CHECK_CFLAG(-fstrict-aliasing)
+  dnl DIA_CHECK_CFLAG(-Wshadow)
+  DIA_CHECK_CFLAG(-Wpointer-arith)
+  dnl DIA_CHECK_CFLAG(-Wswitch-enum)
+  DIA_CHECK_CFLAG(-Winit-self)
+  DIA_CHECK_CFLAG(-Wformat-nonliteral)
 fi
 
 AM_CONDITIONAL(HAVE_GCC, test "$GCC" = yes)

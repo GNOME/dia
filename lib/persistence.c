@@ -51,25 +51,6 @@ _dia_hash_table_str_any_new (void)
   /* the key is const, the value gets freed */
   return g_hash_table_new_full(g_str_hash, g_str_equal, NULL, g_free);
 }
-/* *********************** GENERAL INTERNAL FUNCTIONS ************** */
-/** Lookup an entry in any of the type tables, ensuring existence on the way.
- * @param type_table A pointer to one of the above type tables.
- * @param role The role (name) within the table.
- * @return The value of the role in the table, or NULL if either role is
- * NULL or the table does not contain the value.
- */
-static gchar *
-persistence_lookup(GHashTable **type_table, gchar *role)
-{
-  if (role == NULL) {
-    return NULL;
-  }
-  if (*type_table == NULL) {
-    *type_table = _dia_hash_table_str_any_new();
-  }
-  return g_hash_table_lookup(*type_table, role);
-}
-
 
 /* *********************** LOADING FUNCTIONS *********************** */
 
@@ -221,14 +202,6 @@ persistence_load_color(gchar *role, xmlNodePtr node)
   }
 }
 
-static xmlNodePtr
-find_node_named (xmlNodePtr p, const char *name)
-{
-  while (p && 0 != strcmp((char *)p->name, name))
-    p = p->next;
-  return p;
-}
-
 static GHashTable *type_handlers;
 
 /** Load the named type of entries using the given function.
@@ -376,18 +349,6 @@ persistence_save_list(gpointer key, gpointer value, gpointer data)
   
   data_add_string(new_attribute(listnode, "listvalue"), buf->str);
   g_string_free(buf, TRUE);
-}
-
-static void
-persistence_save_entrystring(gpointer key, gpointer value, gpointer data)
-{  
-  xmlNodePtr tree = (xmlNodePtr)data;
-  ObjectNode stringnode;
-
-  stringnode = (ObjectNode)xmlNewChild(tree, NULL, (const xmlChar *)"entrystring", NULL);
-
-  xmlSetProp(stringnode, (const xmlChar *)"role", (xmlChar *)key);
-  data_add_string(new_attribute(stringnode, "stringvalue"), (char *)value);
 }
 
 static void
@@ -915,28 +876,6 @@ persistent_list_add_listener(const gchar *role, PersistenceCallback func,
     g_object_add_weak_pointer(watch, (gpointer)&listener->watch);
     listener->userdata = userdata;
     plist->listeners = g_list_append(plist->listeners, listener);
-  }
-}
-
-/** When changing the list, call the listeners.
- */
-static void
-persistent_list_invoke_listeners(gchar *role)
-{
-  GList *tmp;
-  PersistentList *plist = persistent_list_get(role);
-  if (plist != NULL) {
-    for (tmp = plist->listeners; tmp != NULL; tmp = g_list_next(tmp)) {
-      ListenerData *listener = (ListenerData*)tmp->data;
-      if (listener->watch == NULL) {
-	/* Listener died */
-	plist->listeners = g_list_remove_link(plist->listeners, tmp->data);
-	g_free(listener);
-      } else {
-	/* Still listening */
-	(listener->func)(listener->watch, listener->userdata);
-      }
-    }
   }
 }
 

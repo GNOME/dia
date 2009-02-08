@@ -66,6 +66,8 @@
 #define TEXT_HEIGHT (2.0)
 #define NUM_CONNECTIONS 9
 
+static Color color_gris = { 0.5f, 0.5f, 0.5f };
+
 #ifdef G_OS_WIN32
 #include <io.h>
 #define mkstemp(s) _open(_mktemp(s), O_CREAT | O_TRUNC | O_WRONLY | _O_BINARY, 0644)
@@ -257,7 +259,6 @@ DiaObject *room_load(ObjectNode obj_node, int version, const char *filename)
   ObjetSISSI *object_sissi;
   Element *elem;
   DiaObject *obj;
-  gchar *file_name;
   DiaFont* action_font;
   Point pos;
   

@@ -984,7 +984,7 @@ diagram_data_save(DiagramData *data, const char *user_filename)
   char *filename = (char *)user_filename;
   int mode,_umask;
   int fildes;
-  int ret;
+  int ret = 0;
 
   /* Once we depend on GTK 2.8+, we can use these tests. */
 #if GLIB_CHECK_VERSION(2,8,0) && !defined G_OS_WIN32

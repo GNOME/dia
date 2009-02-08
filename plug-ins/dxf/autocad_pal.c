@@ -300,7 +300,7 @@ pal_get_rgb (int index)
 int
 pal_get_index (const RGB_t rgb)
 {
-  int i, n;
+  int i, n = 0;
   int dist, last = 256*3;
   
   for (i = 0; i < num_colors; ++i) {

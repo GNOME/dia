@@ -333,8 +333,6 @@ directory_filter(const gchar *name)
 static gboolean 
 dia_plugin_filter(const gchar *name) 
 {
-  gint len = strlen(name);
-
   if (!g_file_test (name, G_FILE_TEST_IS_REGULAR | G_FILE_TEST_IS_DIR))
     return FALSE;
 

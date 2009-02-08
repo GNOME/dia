@@ -743,7 +743,7 @@ register_stock_icons (void)
 
   pixbuf = gdk_pixbuf_new_from_inline (sizeof (dia_group_icon), dia_group_icon, FALSE, &err);
   if (err) {
-    g_warning (err->message);
+    g_warning ("%s", err->message);
     g_error_free (err);
     err = NULL;
   }
@@ -754,7 +754,7 @@ register_stock_icons (void)
 
   pixbuf = gdk_pixbuf_new_from_inline (sizeof (dia_ungroup_icon), dia_ungroup_icon, FALSE, &err);
   if (err) {
-    g_warning (err->message);
+    g_warning ("%s", err->message);
     g_error_free (err);
     err = NULL;
   }

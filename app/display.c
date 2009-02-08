@@ -1465,6 +1465,7 @@ display_set_active(DDisplay *ddisp)
 
         display_update_menu_state (ddisp);
 
+        gtk_window_present (GTK_WINDOW(ddisp->shell));
       }
     } else {
       /* TODO: Prevent gtk_window_set_transient_for() in Integrated UI case */

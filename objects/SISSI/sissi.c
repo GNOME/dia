@@ -76,10 +76,6 @@ dia_plugin_init(PluginInfo *info)
   return DIA_PLUGIN_INIT_OK;
 }
 
-extern GtkWidget *object_sissi_get_properties_dialog(ObjetSISSI *object_sissi, gboolean is_default);
-extern ObjectChange *object_sissi_apply_properties_dialog(ObjetSISSI *object_sissi);
-
-
 void 
 url_doc_write(AttributeNode attr_node, Url_Docs *url_docs)
 {

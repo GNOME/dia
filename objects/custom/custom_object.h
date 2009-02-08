@@ -22,4 +22,5 @@
 #ifndef CUSTOM_OBJECT_H
 #define CUSTOM_OBJECT_H
 void custom_setup_properties (ShapeInfo *info, xmlNodePtr node);
+void custom_object_new(ShapeInfo *info, DiaObjectType **otype);
 #endif /* CUSTOM_OBJECT_H */

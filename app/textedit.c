@@ -73,7 +73,7 @@ textedit_mode(DDisplay *ddisp)
 
  * @param ddisp The display to set according to mode.
  */
-void
+static void
 textedit_display_change(DDisplay *ddisp)
 {
 }
@@ -393,3 +393,4 @@ text_edit_update(TextEditChange *change)
 {
   change->new_text = text_get_string_copy(change->text);
 }
+

@@ -642,9 +642,9 @@ data_bezpoint(DataNode data, BezPoint *point)
   }
   val = xmlGetProp(data, (const xmlChar *)"type");
   if (val) {
-     if (strcmp(val, "moveto") == 0)
+     if (strcmp((char *)val, "moveto") == 0)
        point->type = BEZ_MOVE_TO;
-     else if (strcmp(val, "lineto") == 0)
+     else if (strcmp((char *)val, "lineto") == 0)
        point->type = BEZ_LINE_TO;
      else
        point->type = BEZ_CURVE_TO;
@@ -1060,8 +1060,6 @@ data_add_bezpoint(AttributeNode attr, const BezPoint *point)
 {
   DataNode data_node;
   gchar *buffer;
-  gchar px_buf[G_ASCII_DTOSTR_BUF_SIZE];
-  gchar py_buf[G_ASCII_DTOSTR_BUF_SIZE];
   
   data_node = xmlNewChild(attr, NULL, (const xmlChar *)"bezpoint", NULL);
   switch (point->type) {

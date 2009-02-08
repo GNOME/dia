@@ -35,7 +35,6 @@
 
 
 static const Rectangle invalid_extents = { -1.0,-1.0,-1.0,-1.0 };
-static void set_parent_layer(gpointer layer, gpointer object);
 
 static void diagram_data_class_init (DiagramDataClass *klass);
 static void diagram_data_init (DiagramData *object);

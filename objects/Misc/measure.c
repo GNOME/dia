@@ -261,7 +261,6 @@ measure_update_data (Measure *measure)
 static void 
 measure_draw(Measure *measure, DiaRenderer *renderer)
 {
-  DiaObject *obj = &measure->connection.object;
   Arrow arrow = MEASURE_ARROW(measure);
 
   DIA_RENDERER_GET_CLASS (renderer)->set_linewidth (renderer, measure->line_width);
@@ -328,7 +327,6 @@ measure_move_handle (Measure *measure,
 static ObjectChange* 
 measure_move (Measure *measure, Point *to)
 {
-  DiaObject *obj = &measure->connection.object;
   Point start_to_end;
   Point *ends = &measure->connection.endpoints[0]; 
 

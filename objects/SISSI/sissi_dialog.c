@@ -36,46 +36,168 @@
 
 #include "sissi_dialog.h"
 
-/************ function of menace list copy*******/
-extern GList *menace_list_copy(GList *list_old, GList *list_new)
-{
-  unsigned int i;
-  const gchar *s; 
+/************* creation of variable repeat for each object based on EBIOS method */
 
-  for (i=0;i<g_list_length(list_old);i++)
-  {
+static SISSI_Property property_classification_data[] = {
+  { N_("No Protection"), "NO_PROTECTION" ,NULL},
+  { N_("Restricted Diffusion"), "RESTRICTED_DIFFUSION" ,NULL},
+  { N_("Special Country Confidential"), "SPECIAL_COUNTRY_CONFIDENTIAL" ,NULL},
+  { N_("NATO Confidential"), "NATO_CONFIDENTIAL" ,NULL},
+  { N_("Personal Confidential"), "PERSONAL_CONFIDENTIAL" ,NULL},
+  { N_("Medical Confidential"), "MEDICAL_CONFIDENTIAL" ,NULL},
+  { N_("Industrial Confidential"), "INDUSTRIE_CONFIDENTIAL" ,NULL},
+  { N_("Secret"), "SECRET" ,NULL},
+  { N_("Secret special country"), "SECRET_SPECIAL_COUNTRY" ,NULL},
+  { N_("NATO Secret"), "NATO_SECRET" ,NULL},
+  { N_("Very Secret"), "VERY_SECRET" ,NULL},
+  { N_("NATO Very Secret"), "NATO_VERY_SECRET" ,NULL},
+  { NULL,0,NULL}
+};
 
-   SISSI_Property_Menace *new_property_menace;
-   new_property_menace=g_new0(SISSI_Property_Menace,1);
-		/*Label*/
-   s = ((SISSI_Property_Menace *)(g_list_nth(list_old,i)->data))->label;
-   if (s && s[0])
-      new_property_menace->label = g_strdup (s);
-   else
-      new_property_menace->label = NULL;
-		/* comments */
-   s = ((SISSI_Property_Menace *)(g_list_nth(list_old,i)->data))->comments;
-   if (s && s[0])
-      new_property_menace->comments = g_strdup (s);
-   else
-      new_property_menace->comments = NULL;
+static SISSI_Property property_integrity_data[] = {
+  { N_("No integrity"), "NULL" ,NULL},
+  { N_("Low integrity"), "LOW_INTEGRITY" ,NULL},
+  { N_("Average software integrity"), "AVERAGE_SOFTWARE_INTEGRITY" ,NULL},
+  { N_("High software integrity"), "HIGHT_SOFTWARE_INTEGRITY" ,NULL},
+  { N_("Average hardware integrity"), "AVERAGE_HARDWARE_INTEGRITY" ,NULL},
+  { N_("High hardware integrity"), "HIGHT_HARDWARE_INTEGRITY" ,NULL},
+  { NULL,0,NULL}
+};
 
-   new_property_menace->action = ((SISSI_Property_Menace *)(g_list_nth(list_old,i)->data))->action;
-   
-   new_property_menace->detection = ((SISSI_Property_Menace *)(g_list_nth(list_old,i)->data))->detection;
+static SISSI_Property property_disponibility_level_data[] = {
+  { N_("Millisecond"), "MILLISECOND" ,NULL},
+  { N_("Second"), "SECOND" ,NULL},
+  { N_("Minute"), "MINUTE" ,NULL},
+  { N_("Hour"), "HOUR" ,NULL},
+  { N_("Day"), "DAY" ,NULL},
+  { N_("Week"), "WEEK" ,NULL},
+  { NULL,0,NULL}
+};
 
-   new_property_menace->vulnerability = ((SISSI_Property_Menace *)(g_list_nth(list_old,i)->data))->vulnerability;
-   
-   list_new=g_list_append(list_new,new_property_menace);
-  }
-  return list_new;
-}
+static SISSI_Property property_system_data[] = {
+  { N_("SYSTEM"), "SYS",NULL},
+  { N_("Internet access device"), "SYS_INT",NULL},
+  { N_("Electronic messaging"), "SYS_MAIL",NULL},
+  { N_("Intranet"), "SYS_ITR",NULL},
+  { N_("Company directory"), "SYS_DIRECTORY",NULL},
+  { N_("External portal"), "SYS_WEB",NULL},
+  { NULL,0,NULL}
+};
 
-/************ copy function of menace list in dailog box *******/
-extern void menace_list_copy_gtk(GList *list_old, GList *list_dialog)
-{
-/*  */
-}
+static SISSI_Property property_organisation_data[] = {
+  { N_("ORGANISATION"), "ORG",NULL},
+     { N_("Higher-tier organisation"), "ORG_DEP",NULL},
+     { N_("Structure of the organisation"), "ORG_GEN",NULL},
+     { N_("Project or system organisation"), "ORG_PRO",NULL},
+     { N_("Subcontractors / Suppliers / Manufacturers"),"ORG_EXT",NULL},
+  { NULL,0,NULL}
+};
+
+static SISSI_Property property_physic_data[] = {
+  { N_("SITE"), "PHY",NULL},
+   { N_("Places"), "PHY_LIE",NULL},
+     { N_("External environment"), "PHY_LIE1",NULL},
+     { N_("Premises"), "PHY_LIE2",NULL},
+     { N_("Zone"), "PHY_LIE3",NULL},
+   { N_("Essential Services"), "PHY_SRV",NULL},
+     { N_("Communication"), "PHY_SRV1",NULL},
+     { N_("Power"), "PHY_SRV2",NULL},
+     { N_("Cooling / Pollution"), "PHY_SRV3",NULL},
+  { NULL, 0,NULL}
+};
+static SISSI_Property property_physic_detecTHERMIC_data[] = {
+  { N_("Thermal detection"), "PHY_DETECTION_THERMIC",NULL},
+  { NULL, 0,NULL}
+};
+static SISSI_Property property_physic_detecFIRE_data[] = {
+  { N_("Fire detection"), "PHY_DETECTION_FIRE",NULL},
+  { NULL, 0,NULL}
+};
+static SISSI_Property property_physic_detecWATER_data[] = {
+  { N_("Water detection"), "PHY_DETECTION_WATER",NULL},
+  { NULL, 0,NULL}
+};
+static SISSI_Property property_physic_detecAIR_data[] = {
+  { N_("Air detection"), "PHY_DETECTION_AIR",NULL},
+  { NULL, 0,NULL}
+};
+static SISSI_Property property_physic_detecENERGY_data[] = {
+  { N_("Energy detection"), "PHY_DETECTION_ENERGY",NULL},
+  { NULL, 0,NULL}
+};
+static SISSI_Property property_physic_detecINTRUSION_data[] = {
+  { N_("Intrusion detection"), "PHY__DETECTION_INTRUSION",NULL},
+  { NULL, 0,NULL}
+};
+static SISSI_Property property_physic_actionTHERMIC_data[] = {
+  { N_("Thermal action"), "PHY_ACTION_THERMIC",NULL},
+  { NULL, 0,NULL}
+};
+static SISSI_Property property_physic_actionFIRE_data[] = {
+  { N_("Fire action"), "PHY_ACTION_FIRE",NULL},
+  { NULL, 0,NULL}
+};
+static SISSI_Property property_physic_actionWATER_data[] = {
+ { N_("Water action"), "PHY_ACTION_WATER",NULL},
+  { NULL, 0,NULL}
+};
+static SISSI_Property property_physic_actionAIR_data[] = {
+  { N_("Air action"), "PHY_ACTION_AIR",NULL},
+  { NULL, 0,NULL}
+};
+static SISSI_Property property_physic_actionENERGY_data[] = {
+  { N_("Energy action"), "PHY_ACTION_ENERGY",NULL},
+  { NULL, 0,NULL}
+};
+static SISSI_Property property_physic_actionINTRUSION_data[] = {
+  { N_("Intrusion action"), "PHY_ACTION_INTRUSION",NULL},
+  { NULL, 0,NULL}
+};
+
+static SISSI_Property property_personnel_data[] = {
+  { N_("Personal"), "PER",NULL},
+   { N_("Decision maker"), "PER_DEC",NULL},
+   { N_("SSI Responsible"), "PER_RESP_SSI",NULL},
+   { N_("Users"), "PER_UTI",NULL},
+   { N_("Functional administrator"), "PER_FONC_ADMIN",NULL},
+   { N_("Technical administrator"), "PER_TECH_ADMIN",NULL},
+   { N_("SSI administrator"), "PER_SSI_ADMIN",NULL},
+   { N_("Developer"), "PER_DEV",NULL},
+   { N_("Operator / Maintenance"), "PER_EXP",NULL},
+  { NULL, 0,NULL}
+};
+
+static SISSI_Property property_reseau_data[] = {
+  { N_("Network"), "RES",NULL},
+   { N_("Medium and support"), "RES_INF",NULL},
+   { N_("Passive or active relay"), "RES_REL",NULL},
+   { N_("Communication interface"), "RES_INT",NULL},
+  { NULL, 0,NULL}
+};
+
+static SISSI_Property property_logiciel_data[] = {
+  { N_("Software"), "LOG",NULL},
+    { N_("Operating System"), "LOG_OS",NULL},
+    { N_("Service - maintenance or administration software"), "LOG_SRV",NULL},
+    { N_("Packaged software or standard software"), "LOG_STD",NULL},
+    { N_("Business application"), "LOG_APP",NULL},
+      { N_("Standard business application"), "LOG_APP1",NULL},
+      { N_("Specific business application"), "LOG_APP2",NULL},
+  { NULL, 0,NULL}
+};
+
+static SISSI_Property property_material_data[] = {
+  { N_("HARDWARE"), "MAT",NULL},
+  { N_("Data-processing equipment (active)"), "MAT_ACT",NULL},
+  { N_("Mobile equipment"), "MAT_ACT1",NULL},
+  { N_("Fixed equipment"), "MAT_ACT2",NULL},
+  { N_("Peripheral processing"), "MAT_ACT3",NULL},
+  { N_("Electronic medium"), "MAT_PAS1",NULL},
+  { N_("Other media"), "MAT_PAS2",NULL},  
+  { N_("Data medium (passive)"), "MAT_PAS",NULL},
+  { NULL, 0,NULL}
+};
+
 
 static GList *clear_list_property_widget(GList *list)
 {  
@@ -105,13 +227,6 @@ static GList *clear_list_url_doc_widget(GList *list)
   g_list_free(list);
   list=NULL;
   return list;
-}
-
-static void
-object_sissi_set_state(ObjetSISSI *object_sissi, SISSIState *state)
-{
-  g_free(state);
-  object_sissi_update_data(object_sissi, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
 }
 
 
@@ -983,7 +1098,7 @@ static void fill_in_dialog(ObjetSISSI *object_sissi)
 
 }
 /* apply the properties of dialog box to Object */
-extern ObjectChange *
+ObjectChange *
 object_sissi_apply_properties_dialog(ObjetSISSI *object_sissi)
 {
   SISSIDialog *prop_dialog;
@@ -1067,13 +1182,3 @@ extern GtkWidget *object_sissi_get_properties_dialog(ObjetSISSI *object_sissi, g
   return object_sissi->properties_dialog->dialog;
 }
 
-static SISSI_Property *property_copy(SISSI_Property *prop)
-{
-  SISSI_Property *newprop;
-  newprop = g_new0(SISSI_Property, 1);
-  
-  newprop->label = g_strdup(prop->label);
-  newprop->value = g_strdup(prop->value);
-  newprop->description = g_strdup(prop->description);
-  return newprop;
-};

@@ -31,7 +31,7 @@
 void prefs_set_length_unit(gchar* unit);
 void prefs_set_fontsize_unit(gchar* unit);
 
-DiaUnit prefs_get_length_unit();
-DiaUnit prefs_get_fontsize_unit();
+DiaUnit prefs_get_length_unit(void);
+DiaUnit prefs_get_fontsize_unit(void);
 
 #endif

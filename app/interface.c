@@ -36,7 +36,6 @@
 #include "layer_dialog.h"
 #include "interface.h"
 #include "display.h"
-#include "pixmaps.h"
 #include "preferences.h"
 #include "commands.h"
 #include "dia_dirs.h"
@@ -53,6 +52,8 @@
 #include "dia-app-icons.h"
 #include "diacanvas.h"
 
+#include "pixmaps/swap.xpm"
+#include "pixmaps/default.xpm"
 #include "pixmaps/missing.xpm"
 
 /* HB: file dnd stuff lent by The Gimp, not fully understood but working ...

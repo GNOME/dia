@@ -326,7 +326,6 @@ orthconn_update_data(OrthConn *orth)
       (connpoint_is_autogap(start_cp) || 
        connpoint_is_autogap(end_cp))) {
     Point* new_points = g_new(Point, orth->numpoints);
-    int i;
     for (i = 0; i < orth->numpoints; i++) {
       new_points[i] = points[i];
     }

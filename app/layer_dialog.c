@@ -273,7 +273,8 @@ layer_dialog_delete(GtkWidget *widget, gpointer data)
   return TRUE;
 }
 
-void layer_view_hide_button_clicked (void * not_used)
+static void
+layer_view_hide_button_clicked (void * not_used)
 {
   integrated_ui_layer_view_hide ();
 }

@@ -54,6 +54,8 @@ struct _DiaLibartRendererClass
   DiaRendererClass parent_class;
 };
 
+void dia_libart_renderer_iface_init (DiaInteractiveRendererInterface* iface);
+
 G_END_DECLS
 
 #endif /* DIA_LIBART_RENDERER_H */

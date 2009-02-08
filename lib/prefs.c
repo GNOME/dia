@@ -56,12 +56,14 @@ prefs_set_fontsize_unit(gchar* unit) {
 }
 
 DiaUnit
-prefs_get_length_unit() {
+prefs_get_length_unit(void) 
+{
   return length_unit;
 }
 
 DiaUnit
-prefs_get_fontsize_unit() {
+prefs_get_fontsize_unit(void) 
+{
   return fontsize_unit;
 }
 

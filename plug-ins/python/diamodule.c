@@ -400,7 +400,6 @@ PyDia_RegisterCallback(PyObject *self, PyObject *args)
     gchar *menupath;
     gchar *path;
     PyObject *func;
-    DiaCallbackFilter *filter;
     gchar *action;
     PyObject *ret;
 
@@ -436,7 +435,6 @@ PyDia_RegisterAction (PyObject *self, PyObject *args)
     gchar *desc;
     gchar *menupath;
     PyObject *func;
-    DiaCallbackFilter *filter;
 
     if (!PyArg_ParseTuple(args, "sssO:dia.register_action",
 			  &action, &desc, &menupath, &func))
@@ -573,48 +571,51 @@ initdia(void)
      * The extra namespacing (prefix 'Dia') isn't necessary either, we use the
      * pythonesque namespacing instead.
      */
+    /* instead to cast to PyObject* we use void* just to silence the ugly
+     * warning: dereferencing type-punned pointer will break strict-aliasing rules
+     */
     PyDict_SetItemString(d, "Diagram",
-			 (PyObject *)&PyDiaDiagram_Type);
+			 (void *)&PyDiaDiagram_Type);
     PyDict_SetItemString(d, "Display",
-			 (PyObject *)&PyDiaDisplay_Type);
+			 (void *)&PyDiaDisplay_Type);
     PyDict_SetItemString(d, "Layer",
-			 (PyObject *)&PyDiaLayer_Type);
+			 (void *)&PyDiaLayer_Type);
     PyDict_SetItemString(d, "Object",
-			 (PyObject *)&PyDiaObject_Type);
+			 (void *)&PyDiaObject_Type);
     PyDict_SetItemString(d, "ObjectType",
-			 (PyObject *)&PyDiaObjectType_Type);
+			 (void *)&PyDiaObjectType_Type);
     PyDict_SetItemString(d, "ConnectionPoint",
-			 (PyObject *)&PyDiaConnectionPoint_Type);
+			 (void *)&PyDiaConnectionPoint_Type);
     PyDict_SetItemString(d, "Handle",
-			 (PyObject *)&PyDiaHandle_Type);
+			 (void *)&PyDiaHandle_Type);
     PyDict_SetItemString(d, "ExportFilter",
-			 (PyObject *)&PyDiaExportFilter_Type);
+			 (void *)&PyDiaExportFilter_Type);
     PyDict_SetItemString(d, "DiagramData",
-			 (PyObject *)&PyDiaDiagramData_Type);
+			 (void *)&PyDiaDiagramData_Type);
     PyDict_SetItemString(d, "Point",
-			 (PyObject *)&PyDiaPoint_Type);
+			 (void *)&PyDiaPoint_Type);
     PyDict_SetItemString(d, "Rectangle",
-			 (PyObject *)&PyDiaRectangle_Type);
+			 (void *)&PyDiaRectangle_Type);
     PyDict_SetItemString(d, "BezPoint",
-			 (PyObject *)&PyDiaBezPoint_Type);
+			 (void *)&PyDiaBezPoint_Type);
     PyDict_SetItemString(d, "Font",
-			 (PyObject *)&PyDiaFont_Type);
+			 (void *)&PyDiaFont_Type);
     PyDict_SetItemString(d, "Color",
-			 (PyObject *)&PyDiaColor_Type);
+			 (void *)&PyDiaColor_Type);
     PyDict_SetItemString(d, "Image",
-			 (PyObject *)&PyDiaImage_Type);
+			 (void *)&PyDiaImage_Type);
     PyDict_SetItemString(d, "Property",
-			 (PyObject *)&PyDiaProperty_Type);
+			 (void *)&PyDiaProperty_Type);
     PyDict_SetItemString(d, "Properties",
-			 (PyObject *)&PyDiaProperties_Type);
+			 (void *)&PyDiaProperties_Type);
     PyDict_SetItemString(d, "Error",
-			 (PyObject *)&PyDiaError_Type);
+			 (void *)&PyDiaError_Type);
     PyDict_SetItemString(d, "Arrow",
-			 (PyObject *)&PyDiaArrow_Type);
+			 (void *)&PyDiaArrow_Type);
     PyDict_SetItemString(d, "Text",
-			 (PyObject *)&PyDiaText_Type);
+			 (void *)&PyDiaText_Type);
     PyDict_SetItemString(d, "Paperinfo",
-			 (PyObject *)&PyDiaPaperinfo_Type);
+			 (void *)&PyDiaPaperinfo_Type);
 
     if (PyErr_Occurred())
 	Py_FatalError("can't initialise module dia");

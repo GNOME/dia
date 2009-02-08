@@ -252,7 +252,7 @@ line_get_object_menu(Line *line, Point *clickedpoint)
  * the actual end of the line is not moved, but it is made to look like
  * it is shorter.
  */
-void
+static void
 line_adjust_for_absolute_gap(Line *line, Point *gap_endpoints)
 {
   Point endpoints[2];

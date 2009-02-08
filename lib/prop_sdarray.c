@@ -258,12 +258,12 @@ arrayprop_get_widget(ArrayProperty *prop, PropDialog *dialog)
   return ret;  
 }
 
-void 
+static void 
 arrayprop_reset_widget(NoopProperty *prop, WIDGET *widget)
 {
 }
 
-void 
+static void 
 arrayprop_set_from_widget(NoopProperty *prop, WIDGET *widget) 
 {
 }

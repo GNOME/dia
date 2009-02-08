@@ -205,8 +205,8 @@ group_destroy_shallow(DiaObject *obj)
 
   g_list_free(group->objects);
 
-  prop_desc_list_free_handler_chain(group->pdesc);
-  g_free(group->pdesc);
+  prop_desc_list_free_handler_chain((PropDescription *)group->pdesc);
+  g_free((PropDescription *)group->pdesc);
 
   g_free(group);
 }
@@ -222,8 +222,8 @@ group_destroy(Group *group)
      been unconnected and freed. */
   obj->num_connections = 0;
   
-  prop_desc_list_free_handler_chain(group->pdesc);
-  g_free(group->pdesc);
+  prop_desc_list_free_handler_chain((PropDescription *)group->pdesc);
+  g_free((PropDescription *)group->pdesc);
 
   object_destroy(obj);
 }
@@ -415,7 +415,7 @@ group_describe_props(Group *group)
       /* hijack event delivery */
       for (i=0; group->pdesc[i].name != NULL; i++) {
         if (group->pdesc[i].event_handler) 
-          prop_desc_insert_handler(&group->pdesc[i],
+          prop_desc_insert_handler((PropDescription *)&group->pdesc[i],
                                    (PropEventHandler)group_prop_event_deliver);
       }
     }

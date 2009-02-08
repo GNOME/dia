@@ -223,7 +223,6 @@ _dia_font_adjust_size (DiaFont *font, real height, gboolean recalc_alwways)
 {
   
   if (font->height != height || !font->metrics || recalc_alwways) {
-    PangoFontMetrics *metrics;
     PangoFont *loaded;
 
     dia_pfd_set_height (font->pfd, height);
@@ -489,9 +488,8 @@ dia_font_set_any_family(DiaFont* font, const char* family)
 void 
 dia_font_set_family(DiaFont* font, DiaFontFamily family)
 {
-  gboolean changed;
-
   g_return_if_fail(font != NULL);
+
   dia_pfd_set_family(font->pfd,family);  
   if (font->legacy_name) {
     g_free(font->legacy_name);
@@ -666,7 +664,6 @@ dia_font_build_layout(const char* string, DiaFont* font, real height)
   PangoAttrList* list;
   PangoAttribute* attr;
   guint length;
-  gchar *desc = NULL;
   PangoFontDescription *pfd;
   real factor;
 
