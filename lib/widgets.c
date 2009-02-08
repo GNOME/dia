@@ -383,7 +383,7 @@ dia_font_selector_sort_fonts(const void *p1, const void *p2)
 {
   const gchar *n1 = pango_font_family_get_name(PANGO_FONT_FAMILY(*(void**)p1));
   const gchar *n2 = pango_font_family_get_name(PANGO_FONT_FAMILY(*(void**)p2));
-  return g_strcasecmp(n1, n2);
+  return g_ascii_strcasecmp(n1, n2);
 }
 
 static gchar*
@@ -504,7 +504,7 @@ dia_font_selector_get_family_from_name(GtkWidget *widget, const gchar *fontname)
 			       &families, &n_families);
   /* Doing it the slow way until I find a better way */
   for (i = 0; i < n_families; i++) {
-    if (!(g_strcasecmp(pango_font_family_get_name(families[i]), fontname))) {
+    if (!(g_ascii_strcasecmp(pango_font_family_get_name(families[i]), fontname))) {
       PangoFontFamily *fam = families[i];
       g_free(families);
       return fam;
@@ -1230,7 +1230,7 @@ set_size_sensitivity(DiaArrowSelector *as)
   int state;
   gchar *entryname = dia_dynamic_menu_get_entry(DIA_DYNAMIC_MENU(as->omenu));
 
-  state = (entryname != NULL) && (0 != g_strcasecmp(entryname, "None"));
+  state = (entryname != NULL) && (0 != g_ascii_strcasecmp(entryname, "None"));
   g_free(entryname);
 
   gtk_widget_set_sensitive(GTK_WIDGET(as->sizelabel), state);
@@ -1667,7 +1667,7 @@ dia_unit_spinner_input(DiaUnitSpinner *self, gdouble *value)
     int i;
 
     for (i = 0; units[i].name != NULL; i++)
-      if (!g_strcasecmp(units[i].unit, extra)) {
+      if (!g_ascii_strcasecmp(units[i].unit, extra)) {
 	factor = units[i].factor / units[self->unit_num].factor;
 	break;
       }
@@ -1853,7 +1853,7 @@ dia_dynamic_menu_select_entry(DiaDynamicMenu *ddm, const gchar *name)
       int i = 0;
       for (tmp = ddm->default_entries; tmp != NULL;
 	   tmp = g_list_next(tmp), i++) {
-	if (!g_strcasecmp(tmp->data, name))
+	if (!g_ascii_strcasecmp(tmp->data, name))
 	  gtk_option_menu_set_history(GTK_OPTION_MENU(ddm), i);
       }
       /* Not there after all? */
@@ -2000,7 +2000,7 @@ dia_dynamic_menu_add_entry(DiaDynamicMenu *ddm, const gchar *entry)
   gboolean existed;
 
   for (tmp = ddm->default_entries; tmp != NULL; tmp = g_list_next(tmp)) {
-    if (!g_strcasecmp(tmp->data, entry))
+    if (!g_ascii_strcasecmp(tmp->data, entry))
       return 0;
   }
   existed = persistent_list_add(ddm->persistent_name, entry);

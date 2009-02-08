@@ -36,7 +36,7 @@ export_filter_compare(gconstpointer a, gconstpointer b)
 {
   const DiaExportFilter *fa = a, *fb = b;
 
-  return g_strcasecmp(_(fa->description), _(fb->description));
+  return g_ascii_strcasecmp(_(fa->description), _(fb->description));
 }
 
 void
@@ -95,7 +95,7 @@ filter_get_unique_export_names(const char *ext)
     gint i;
 
     for (i = 0; ef->extensions[i] != NULL; i++) {
-      if (!g_strcasecmp(ef->extensions[i], ext) && ef->unique_name)
+      if (!g_ascii_strcasecmp(ef->extensions[i], ext) && ef->unique_name)
 	res = g_list_append (res, (char *)ef->unique_name);
     }
   }
@@ -153,7 +153,7 @@ filter_guess_export_filter(const gchar *filename)
 	++no_guess;
         continue;
       }
-      if (!g_strcasecmp(ef->extensions[i], ext))
+      if (!g_ascii_strcasecmp(ef->extensions[i], ext))
 	return ef;
     }
   }
@@ -171,7 +171,7 @@ filter_get_by_name(const gchar *name)
   for (tmp = export_filters; tmp != NULL; tmp = tmp->next) {
     DiaExportFilter *ef = tmp->data;
     if (ef->unique_name != NULL) {
-      if (!g_strcasecmp(ef->unique_name, name)) {
+      if (!g_ascii_strcasecmp(ef->unique_name, name)) {
 	if (filter) 
 	  g_warning(_("Multiple export filters with unique name %s"), name);
 	filter = ef;
@@ -186,7 +186,7 @@ import_filter_compare(gconstpointer a, gconstpointer b)
 {
   const DiaImportFilter *fa = a, *fb = b;
 
-  return g_strcasecmp(_(fa->description), _(fb->description));
+  return g_ascii_strcasecmp(_(fa->description), _(fb->description));
 }
 
 void
@@ -262,7 +262,7 @@ filter_guess_import_filter(const gchar *filename)
         ++no_guess;
         continue;
       }
-      if (!g_strcasecmp(ifilter->extensions[i], ext))
+      if (!g_ascii_strcasecmp(ifilter->extensions[i], ext))
 	return ifilter;
     }
   }

@@ -41,6 +41,10 @@
 	* app/textedit.c : s/ObjectChangeApplyFunc/UndoApplyFunc/ etc.
 	* plug-ins/wmf/wmf.cpp : explicit cast 'gunichar2 *' to 'W32::LPCWSTR'
 
+	* lib/makefile.msc : add -DG_DISABLE_DEPRECATED
+	* lib/filter.c lib/font.c lib/paper.c lib/widgets.c : 
+	s/g_strcasecmp/g_ascii_strcasecmp/
+
 2009-02-07  Hans Breuer  <hans@breuer.org>
 
 	* lib/dia_svg.c : map special svg font name "sanserif" to special 

@@ -965,7 +965,7 @@ dia_font_get_legacy_name(const DiaFont *font)
   family = dia_font_get_family (font);
   style = dia_font_get_style (font);
   for (i = 0; i < G_N_ELEMENTS(legacy_fonts); i++) {
-    if (0 == g_strcasecmp (legacy_fonts[i].newname, family)) {
+    if (0 == g_ascii_strcasecmp (legacy_fonts[i].newname, family)) {
       /* match weight and slant */
       DiaFontStyle st = legacy_fonts[i].style;
       if ((DIA_FONT_STYLE_GET_SLANT(style) | DIA_FONT_STYLE_GET_WEIGHT(style))

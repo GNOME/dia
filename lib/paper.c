@@ -63,8 +63,8 @@ find_paper(const gchar *name)
 
   if (name == NULL) return -1;
   for (i = 0; paper_metrics[i].paper != NULL; i++) {
-    if (!g_strncasecmp(paper_metrics[i].paper, name, 
-		       strlen(paper_metrics[i].paper)))
+    if (!g_ascii_strncasecmp(paper_metrics[i].paper, name, 
+		             strlen(paper_metrics[i].paper)))
       break;
   }
   if (paper_metrics[i].paper == NULL)
