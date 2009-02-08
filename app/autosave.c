@@ -71,7 +71,7 @@ autosave_check_autosave(gpointer data)
     if (diagram_is_modified(diagram) && 
 	!diagram->autosaved) {
       /* Diagram has been modified.  At next idleness, save it */
-      g_idle_add (G_CALLBACK (autosave_save_diagram), diagram);
+      g_idle_add ((GSourceFunc)autosave_save_diagram, diagram);
     }
     diagrams = g_list_next(diagrams);
   }

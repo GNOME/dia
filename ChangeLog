@@ -1,6 +1,6 @@
 2009-02-08  Hans Breuer  <hans@breuer.org>
 
-	[warningectomy - about 40 left]
+	[warningectomy - about 30 left]
 	* configure.in : disable -Wunused, add a lot more useful, see:
 	http://blogs.gnome.org/otte/2008/12/22/warning-options/
 	* lib/dia_xml.c plug-ins/svg/render_svg.c : pointers differ in signedness
@@ -32,6 +32,14 @@
 	* app/pixmaps/magnify.xpm app/pixmaps/scroll.xpm app/pixmaps.h : removed
 	* app/Makefile.am : adapted
 	* app/interfaces.c : added remaining XPMs directly
+
+	* lib/diagramdata.c : signed/unsigned mismatch
+	* lib/diagdkrenderer.c : different 'const' qualifiers
+	* lib/persistence.[ch] lib/message.c : constness
+	* app/autosave.c : doe not take a GCallback, but a GSourseFunc
+	* app/layer_dialog.c : gtk_button_set_image() takes a GtkWidget*
+	* app/textedit.c : s/ObjectChangeApplyFunc/UndoApplyFunc/ etc.
+	* plug-ins/wmf/wmf.cpp : explicit cast 'gunichar2 *' to 'W32::LPCWSTR'
 
 2009-02-07  Hans Breuer  <hans@breuer.org>
 

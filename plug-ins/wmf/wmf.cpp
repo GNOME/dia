@@ -960,7 +960,7 @@ draw_string(DiaRenderer *self,
             gunichar2* swc = g_utf8_to_utf16 (text, -1, NULL, &wclen, NULL);
             W32::TextOutW (renderer->hFileDC,
                            SCX(pos->x), SCY(pos->y),
-                           swc, wclen);
+                           reinterpret_cast<W32::LPCWSTR>(swc), wclen);
             g_free (swc);
         }
     }

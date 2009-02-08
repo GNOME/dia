@@ -612,8 +612,7 @@ data_render(DiagramData *data, DiaRenderer *renderer, Rectangle *update,
 	    gpointer gdata)
 {
   Layer *layer;
-  int i;
-  int active_layer;
+  guint i, active_layer;
 
   if (!renderer->is_interactive) 
     (DIA_RENDERER_GET_CLASS(renderer)->begin_render)(renderer);
@@ -633,7 +632,7 @@ void
 data_foreach_object (DiagramData *data, GFunc func, gpointer user_data)
 {
   Layer *layer;
-  int i;
+  guint i;
   for (i=0; i<data->layers->len; i++) {
     layer = (Layer *) g_ptr_array_index(data->layers, i);
     g_list_foreach (layer->objects, func, user_data);

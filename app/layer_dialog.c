@@ -201,7 +201,7 @@ create_button_box(GtkWidget *parent, gboolean show_labels)
       image = gtk_image_new_from_stock (buttons[i].stock_name,
                                         GTK_ICON_SIZE_BUTTON);
 
-      gtk_button_set_image (GTK_BUTTON (button), GTK_IMAGE(image));
+      gtk_button_set_image (GTK_BUTTON (button), image);
     }
 
     g_signal_connect_swapped (GTK_OBJECT (button), "clicked",

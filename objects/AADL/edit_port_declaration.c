@@ -206,7 +206,7 @@ ObjectChange *edit_port_declaration_callback (DiaObject *obj,
   change->newvalue = text;
   change->oldvalue = aadlbox->ports[port_num]->declaration;
 
-  change->obj_change.apply(change, obj);
+  change->obj_change.apply((ObjectChange *)change, obj);
     
   return (ObjectChange *) change;
 }

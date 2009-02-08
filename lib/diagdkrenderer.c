@@ -818,7 +818,7 @@ draw_image (DiaRenderer *object,
 			 &real_x, &real_y);
 
     if (real_width == org_width && real_height == org_height) {
-      gdk_draw_pixbuf(renderer->pixmap, renderer->gc, org,
+      gdk_draw_pixbuf(renderer->pixmap, renderer->gc, (GdkPixbuf *)org,
 		      0, 0, real_x, real_y, real_width, real_height, 
 		      GDK_RGB_DITHER_NORMAL, 0, 0);
     } else if (real_width > org_width || real_height > org_height) {

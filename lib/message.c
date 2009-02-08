@@ -54,7 +54,8 @@ gtk_message_toggle_repeats(GtkWidget *button, gpointer *userdata) {
 }
 
 static void
-gtk_message_toggle_show_again(GtkWidget *button, gpointer *userdata) {
+gtk_message_toggle_show_again(GtkWidget *button, gpointer *userdata) 
+{
   DiaMessageInfo *msginfo = (DiaMessageInfo*)userdata;
   persistence_set_boolean(msginfo->title, 
 			  gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(button)));

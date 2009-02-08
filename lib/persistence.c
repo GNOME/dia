@@ -977,7 +977,7 @@ persistence_set_real(gchar *role, real newvalue)
 /* ********* BOOLEANS ********** */
 /** Returns true if the given role has been registered. */
 gboolean
-persistence_boolean_is_registered(gchar *role)
+persistence_boolean_is_registered(const gchar *role)
 {
   gboolean *booleanval;
   if (role == NULL) return 0;
@@ -989,7 +989,7 @@ persistence_boolean_is_registered(gchar *role)
 }
 
 gboolean
-persistence_register_boolean(gchar *role, gboolean defaultvalue)
+persistence_register_boolean(const gchar *role, gboolean defaultvalue)
 {
   gboolean *booleanval;
   if (role == NULL) return 0;
@@ -1006,7 +1006,7 @@ persistence_register_boolean(gchar *role, gboolean defaultvalue)
 }
 
 gboolean
-persistence_get_boolean(gchar *role)
+persistence_get_boolean(const gchar *role)
 {
   gboolean *booleanval;
   if (persistent_booleans == NULL) {
@@ -1020,7 +1020,7 @@ persistence_get_boolean(gchar *role)
 }
 
 void
-persistence_set_boolean(gchar *role, gboolean newvalue)
+persistence_set_boolean(const gchar *role, gboolean newvalue)
 {
   gboolean *booleanval;
   if (persistent_booleans == NULL) {

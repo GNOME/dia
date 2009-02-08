@@ -371,9 +371,9 @@ text_edit_create_change(Text *text)
   
   change = g_new0(TextEditChange, 1);
 
-  change->obj_change.apply = (ObjectChangeApplyFunc) text_edit_apply;
-  change->obj_change.revert = (ObjectChangeRevertFunc) text_edit_revert;
-  change->obj_change.free = (ObjectChangeFreeFunc) text_edit_free;
+  change->obj_change.apply = (UndoApplyFunc) text_edit_apply;
+  change->obj_change.revert = (UndoRevertFunc) text_edit_revert;
+  change->obj_change.free = (UndoFreeFunc) text_edit_free;
 
   change->text = text;
   if (text_is_empty(text)) {
