@@ -1,3 +1,7 @@
+2009-02-14  Hans Breuer  <hans@breuer.org>
+
+	* plug-ins/wmf/wmf_gdi.h : define LPCWSTR type
+
 2009-02-08  Hans Breuer  <hans@breuer.org>
 
 	[warningectomy - about 30 left]

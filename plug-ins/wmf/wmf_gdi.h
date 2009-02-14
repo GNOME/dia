@@ -149,6 +149,7 @@ typedef guint UINT;
 typedef guint8 BYTE;
 
 typedef const char* LPCTSTR;
+typedef const gunichar2* LPCWSTR;
 
 typedef guint16 wmfint;
 
