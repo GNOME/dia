@@ -249,6 +249,7 @@ diagram_load_into(Diagram         *diagram,
 		  const char      *filename,
 		  DiaImportFilter *ifilter)
 {
+  gboolean was_default = diagram->is_default;
   if (!ifilter)
     ifilter = filter_guess_import_filter(filename);
   if (!ifilter)  /* default to native format */
@@ -258,20 +259,29 @@ diagram_load_into(Diagram         *diagram,
     if (ifilter != &dia_import_filter) {
       /* When loading non-Dia files, change filename to reflect that saving
        * will produce a Dia file. See bug #440093 */
-      gchar *filename = diagram_get_name(diagram);
-      gchar *suffix_offset = g_utf8_strrchr(filename, -1, (gunichar)'.');
-      gchar *new_filename;
-      if (suffix_offset != NULL) {
-	new_filename = g_strndup(filename, suffix_offset - filename);
-	g_free(filename);
-      } else {
-	new_filename = filename;
+      if (strcmp (diagram->filename, filename) == 0) {
+	/* not a real load into but initial load */
+	gchar *old_filename = g_strdup (diagram->filename);
+        gchar *suffix_offset = g_utf8_strrchr(old_filename, -1, (gunichar)'.');
+        gchar *new_filename;
+        if (suffix_offset != NULL) {
+	  new_filename = g_strndup(old_filename, suffix_offset - old_filename);
+	  g_free(old_filename);
+	} else {
+	  new_filename = old_filename;
+	}
+        old_filename = g_strconcat(new_filename, ".dia", NULL);
+        g_free(new_filename);
+        diagram_set_filename(diagram, old_filename);
+        g_free(old_filename);
+        diagram->unsaved = TRUE;
+	diagram_update_for_filename (diagram);
+	diagram_modified(diagram);
       }
-      filename = g_strconcat(new_filename, ".dia", NULL);
-      g_free(new_filename);
-      diagram_set_filename(diagram, filename);
-      g_free(filename);
-      message_notice(_("You have loaded a non-Dia file.  The file has become an element in a new diagram, and if you save it, it will be saved as a Dia diagram."));
+    } else {
+      /* the initial diagram should have confirmed filename  */
+      diagram->unsaved = 
+	  strcmp(filename, diagram->filename) == 0 ? FALSE : was_default;
     }
     diagram_set_modified(diagram, TRUE);
     return TRUE;
@@ -307,7 +317,7 @@ diagram_load(const char *filename, DiaImportFilter *ifilter)
       diagram_destroy(diagram);
     diagram = NULL;
   } else {
-    diagram->unsaved = FALSE;
+    /* not modifying 'diagram->unsaved' the state depends on the import filter used */
     diagram_set_modified(diagram, FALSE);
     if (app_is_interactive()) {
       recent_file_history_add(filename);
@@ -365,9 +375,11 @@ diagram_modified(Diagram *dia)
 {
   GSList *displays;
   gchar *dia_name = diagram_get_name(dia);
-  gchar *title = g_strdup_printf ("%s%s", diagram_is_modified(dia) ? "*" : "", dia_name);
+  gchar *extra = g_path_get_dirname (dia->filename); 
+  gchar *title = g_strdup_printf ("%s%s (%s)", diagram_is_modified(dia) ? "*" : "", dia_name, extra ? extra : " ");
 
   g_free (dia_name);
+  g_free (extra);
   displays = dia->displays;
   while (displays!=NULL) {
     DDisplay *ddisp = (DDisplay *) displays->data;
@@ -979,7 +991,7 @@ diagram_find_closest_connectionpoint(Diagram *dia,
 				     DiaObject *notthis)
 {
   real dist = 100000000.0;
-  int i;
+  guint i;
   for (i=0;i<dia->data->layers->len;i++) {
     Layer *layer = (Layer*)g_ptr_array_index(dia->data->layers, i);
     ConnectionPoint *this_cp;
