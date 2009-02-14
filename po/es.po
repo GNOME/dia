@@ -14,8 +14,8 @@ msgstr ""
 "Project-Id-Version: dia.HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=dia&component=general\n"
-"POT-Creation-Date: 2009-01-31 23:21+0000\n"
-"PO-Revision-Date: 2009-02-01 13:21+0100\n"
+"POT-Creation-Date: 2009-02-01 18:18+0000\n"
+"PO-Revision-Date: 2009-02-14 13:53+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -421,7 +421,6 @@ msgstr ""
 "los límites deseados."
 
 #: ../app/confirm.c:85
-#| msgid "Dia Diagram File"
 msgid "Confirm Diagram Size"
 msgstr "Confirmar el tamaño del diagrama"
 
@@ -973,8 +972,8 @@ msgstr "Desplazar sobre el diagrama"
 
 #. how it used to be before 0.96+SVN
 #. new name matching "same name, same type"  rule
-#: ../app/interface.c:176 ../app/menus.c:226 ../lib/properties.c:79
-#: ../lib/properties.h:529 ../objects/AADL/aadlbox.c:156
+#: ../app/interface.c:176 ../app/menus.c:226 ../lib/properties.c:80
+#: ../lib/properties.h:530 ../objects/AADL/aadlbox.c:156
 #: ../objects/Jackson/requirement.c:144 ../objects/UML/activity.c:129
 #: ../objects/UML/actor.c:126 ../objects/UML/classicon.c:149
 #: ../objects/UML/component.c:130 ../objects/UML/component_feature.c:161
@@ -1171,7 +1170,7 @@ msgstr "Editar atributos de capa"
 msgid "Layer name:"
 msgstr "Nombre de la capa:"
 
-#: ../app/linewidth_area.c:246 ../lib/properties.h:490 ../lib/properties.h:493
+#: ../app/linewidth_area.c:246 ../lib/properties.h:491 ../lib/properties.h:494
 #: ../objects/chronogram/chronoline.c:183
 #: ../objects/chronogram/chronoref.c:162
 msgid "Line width"
@@ -1264,7 +1263,7 @@ msgid "Not allowed to write temporary files in %s\n"
 msgstr "No se permite escribir archivos temporales en %s\n"
 
 #: ../app/load_save.c:1049 ../plug-ins/cairo/diacairo.c:121
-#: ../plug-ins/cgm/cgm.c:1154 ../plug-ins/drs/dia-render-script.c:120
+#: ../plug-ins/cgm/cgm.c:1154 ../plug-ins/drs/dia-render-script.c:121
 #: ../plug-ins/dxf/dxf-export.c:547 ../plug-ins/hpgl/hpgl.c:710
 #: ../plug-ins/libart/export_png.c:157
 #: ../plug-ins/metapost/render_metapost.c:1177
@@ -1382,11 +1381,11 @@ msgstr "_Ampliación"
 msgid "1600%"
 msgstr "1600%"
 
-#: ../app/menus.c:145 ../app/menus.c:566
+#: ../app/menus.c:145 ../app/menus.c:567
 msgid "800%"
 msgstr "800%"
 
-#: ../app/menus.c:146 ../app/menus.c:567
+#: ../app/menus.c:146 ../app/menus.c:568
 msgid "400%"
 msgstr "400%"
 
@@ -1632,43 +1631,43 @@ msgstr "Inverso"
 msgid "NULL tooldata in tool_menu_select"
 msgstr "InArray de herramienta nula (NULL) en tool_menu_select"
 
-#: ../app/menus.c:568
+#: ../app/menus.c:569
 msgid "300%"
 msgstr "300%"
 
-#: ../app/menus.c:569
+#: ../app/menus.c:570
 msgid "200%"
 msgstr "200%"
 
-#: ../app/menus.c:570
+#: ../app/menus.c:571
 msgid "150%"
 msgstr "150%"
 
-#: ../app/menus.c:571
+#: ../app/menus.c:572
 msgid "100%"
 msgstr "100%"
 
-#: ../app/menus.c:572
+#: ../app/menus.c:573
 msgid "75%"
 msgstr "75%"
 
-#: ../app/menus.c:573
+#: ../app/menus.c:574
 msgid "50%"
 msgstr "50%"
 
-#: ../app/menus.c:574
+#: ../app/menus.c:575
 msgid "25%"
 msgstr "25%"
 
-#: ../app/menus.c:575
+#: ../app/menus.c:576
 msgid "10%"
 msgstr "10%"
 
-#: ../app/menus.c:601
+#: ../app/menus.c:602
 msgid "Toggles snap-to-grid."
 msgstr "Conmuta el ajuste a la rejilla."
 
-#: ../app/menus.c:613
+#: ../app/menus.c:614
 msgid "Toggles object snapping."
 msgstr "Conmuta el ajuste del objeto."
 
@@ -2387,47 +2386,43 @@ msgstr ""
 "El archivo %s no tiene especificada la codificación;\n"
 "suponiendo que está codificado en %s"
 
-#: ../lib/dia_xml.c:595
+#: ../lib/dia_xml.c:597
 msgid "Taking point value of non-point node."
 msgstr "Tomando el valor del punto de un nodo que no es un punto."
 
-#: ../lib/dia_xml.c:606
+#: ../lib/dia_xml.c:608
 #, c-format
 msgid "Incorrect x Point value \"%s\" %f; discarding it."
 msgstr "Valor incorrecto del punto x «%s» %f; se descarta."
 
-#: ../lib/dia_xml.c:613
+#: ../lib/dia_xml.c:615
 msgid "Error parsing point."
 msgstr "Error analizando el punto."
 
 #. don't bother with useless warnings (see above)
-#: ../lib/dia_xml.c:621
+#: ../lib/dia_xml.c:623
 #, c-format
 msgid "Incorrect y Point value \"%s\" %f; discarding it."
 msgstr "Valor incorrecto del punto y «%s» %f; se descarta."
 
-#: ../lib/dia_xml.c:638
-#| msgid "Taking point value of non-point node."
+#: ../lib/dia_xml.c:640
 msgid "Taking bezpoint value of non-point node."
 msgstr "Tomando el valor del punto de un nodo que no es un punto."
 
-#: ../lib/dia_xml.c:656
-#| msgid "Error parsing point."
+#: ../lib/dia_xml.c:658
 msgid "Error parsing bezpoint p1."
 msgstr "Error analizando el punto p1."
 
-#: ../lib/dia_xml.c:670
-#| msgid "Error parsing point."
+#: ../lib/dia_xml.c:672
 msgid "Error parsing bezpoint p2."
 msgstr "Error analizando el punto p2."
 
-#: ../lib/dia_xml.c:684
-#| msgid "Error parsing point."
+#: ../lib/dia_xml.c:686
 msgid "Error parsing bezpoint p3."
 msgstr "Error analizando el punto p3."
 
 # Traduzco "issues" como "problemas" en vez de como "asuntos". Cambiado el orden de la frase para hispanizarla. RizOX.
-#: ../lib/dia_xml.c:1205
+#: ../lib/dia_xml.c:1207
 msgid ""
 "Your local character set is UTF-8. Because of issues with libxml1 and the "
 "support of files generated by previous versions of dia, you will encounter  "
@@ -2542,6 +2537,29 @@ msgstr ""
 "No se pudo abrir «%s»\n"
 "«%s»"
 
+#: ../lib/prop_dict.c:43
+#| msgid "Actor"
+msgid "Author"
+msgstr "Autor"
+
+#: ../lib/prop_dict.c:44
+#| msgid "Identifying:"
+msgid "Identifier"
+msgstr "Identificador"
+
+#: ../lib/prop_dict.c:45
+#| msgid "Operation data"
+msgid "Creation date"
+msgstr "Fecha de creación"
+
+#: ../lib/prop_dict.c:46
+msgid "Modification date"
+msgstr "Fecha de modificación"
+
+#: ../lib/prop_dict.c:47 ../objects/SISSI/sissi_dialog.c:765
+msgid "URL"
+msgstr "URL"
+
 #: ../lib/prop_inttypes.c:558
 msgid "Property cast from int to enum out of range"
 msgstr "Cambio de tipo de propiedad de int a enum fuera de rango"
@@ -2551,52 +2569,52 @@ msgstr "Cambio de tipo de propiedad de int a enum fuera de rango"
 msgid "Group with %d objects"
 msgstr "Grupo con %d objetos"
 
-#: ../lib/properties.c:64 ../lib/properties.h:476 ../lib/widgets.c:724
+#: ../lib/properties.c:65 ../lib/properties.h:477 ../lib/widgets.c:724
 msgid "Left"
 msgstr "Izquierda"
 
-#: ../lib/properties.c:65 ../lib/properties.h:477 ../lib/widgets.c:730
+#: ../lib/properties.c:66 ../lib/properties.h:478 ../lib/widgets.c:730
 #: ../objects/standard/textobj.c:135
 msgid "Center"
 msgstr "Centro"
 
-#: ../lib/properties.c:66 ../lib/properties.h:478 ../lib/widgets.c:736
+#: ../lib/properties.c:67 ../lib/properties.h:479 ../lib/widgets.c:736
 msgid "Right"
 msgstr "Derecha"
 
-#: ../lib/properties.c:73 ../lib/properties.h:496 ../lib/properties.h:499
+#: ../lib/properties.c:74 ../lib/properties.h:497 ../lib/properties.h:500
 #: ../objects/chronogram/chronoline.c:181
 #: ../objects/chronogram/chronoref.c:160
 msgid "Line color"
 msgstr "Color de línea"
 
-#: ../lib/properties.c:74 ../lib/properties.h:502 ../lib/properties.h:505
+#: ../lib/properties.c:75 ../lib/properties.h:503 ../lib/properties.h:506
 msgid "Line style"
 msgstr "Estilo de la línea"
 
-#: ../lib/properties.c:75 ../lib/properties.h:509 ../lib/properties.h:512
+#: ../lib/properties.c:76 ../lib/properties.h:510 ../lib/properties.h:513
 msgid "Fill color"
 msgstr "Color de relleno"
 
-#: ../lib/properties.c:76 ../lib/properties.h:515 ../lib/properties.h:518
+#: ../lib/properties.c:77 ../lib/properties.h:516 ../lib/properties.h:519
 msgid "Draw background"
 msgstr "Dibujar fondo"
 
-#: ../lib/properties.c:77 ../lib/properties.h:522
+#: ../lib/properties.c:78 ../lib/properties.h:523
 msgid "Start arrow"
 msgstr "Flecha de inicio"
 
-#: ../lib/properties.c:78 ../lib/properties.h:525
+#: ../lib/properties.c:79 ../lib/properties.h:526
 msgid "End arrow"
 msgstr "Flecha de finalización"
 
-#: ../lib/properties.c:80 ../lib/properties.h:535
+#: ../lib/properties.c:81 ../lib/properties.h:536
 msgid "Text alignment"
 msgstr "Alineación del texto"
 
 # Creí que era Tipografía como en otros msgs. FVD
 #. all this just to make the defaults selectable ...
-#: ../lib/properties.c:81 ../lib/properties.h:540
+#: ../lib/properties.c:82 ../lib/properties.h:541
 #: ../objects/Database/table_dialog.c:1036 ../objects/Database/reference.c:117
 #: ../objects/GRAFCET/condition.c:134 ../objects/GRAFCET/step.c:167
 #: ../objects/GRAFCET/transition.c:144 ../objects/UML/class.c:174
@@ -2605,14 +2623,14 @@ msgstr "Alineación del texto"
 msgid "Font"
 msgstr "Fuente"
 
-#: ../lib/properties.c:82 ../lib/properties.h:548
+#: ../lib/properties.c:83 ../lib/properties.h:549
 #: ../objects/GRAFCET/condition.c:136 ../objects/GRAFCET/step.c:169
 #: ../objects/GRAFCET/transition.c:146 ../objects/chronogram/chronoline.c:187
 #: ../objects/chronogram/chronoref.c:168
 msgid "Font size"
 msgstr "Tamaño de la fuente"
 
-#: ../lib/properties.c:83 ../lib/properties.h:554
+#: ../lib/properties.c:84 ../lib/properties.h:555
 #: ../objects/GRAFCET/step.c:171 ../objects/chronogram/chronoline.c:189
 #: ../objects/chronogram/chronoref.c:170
 msgid "Text color"
@@ -2643,7 +2661,6 @@ msgstr ""
 
 #: ../lib/sheet.c:133 ../lib/sheet.c:144 ../lib/sheet.c:150
 #, c-format
-#| msgid "No sheet named %s"
 msgid "sheets from '%s'"
 msgstr "hojas de «%s»"
 
@@ -4581,6 +4598,26 @@ msgstr "Ancho de la manecilla de los segundos"
 msgid "Show hours"
 msgstr "Mostrar horas"
 
+#: ../objects/Misc/grid_object.c:140
+#| msgid "Browse"
+msgid "Rows"
+msgstr "Filas"
+
+#: ../objects/Misc/grid_object.c:142
+#| msgid "Documents"
+msgid "Columns"
+msgstr "Columnas"
+
+#: ../objects/Misc/grid_object.c:144
+#| msgid "Line color"
+msgid "Gridline color"
+msgstr "Color de la rejilla"
+
+#: ../objects/Misc/grid_object.c:146
+#| msgid "Line width"
+msgid "Gridline width"
+msgstr "Anchura de la rejilla"
+
 #: ../objects/Misc/libmisc.c:41
 msgid "Miscellaneous objects"
 msgstr "Figuras variadas"
@@ -5130,10 +5167,6 @@ msgstr "Documentos"
 #: ../objects/SISSI/sissi_dialog.c:763
 msgid "Document title"
 msgstr "Título del documento"
-
-#: ../objects/SISSI/sissi_dialog.c:765
-msgid "URL"
-msgstr "URL"
 
 #: ../objects/UML/actor.c:357 ../objects/UML/actor.c:359
 #: ../sheets/UML.sheet.in.h:2
@@ -6051,11 +6084,11 @@ msgstr "Computer Graphics Metafile"
 msgid "Computer Graphics Metafile export filter"
 msgstr "Filtro de exportación de Computer Graphics Metafile"
 
-#: ../plug-ins/drs/dia-render-script.c:150
+#: ../plug-ins/drs/dia-render-script.c:153
 msgid "DiaRenderScript"
 msgstr "ScriptDeRenderizadoDeDia"
 
-#: ../plug-ins/drs/dia-render-script.c:161
+#: ../plug-ins/drs/dia-render-script.c:164
 msgid "DiaRenderScript filter"
 msgstr "Filtro del script de renderizado de Dia"
 
