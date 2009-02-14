@@ -1,5 +1,7 @@
 2009-02-14  Hans Breuer  <hans@breuer.org>
 
+	* plug-ins/python/scascale.py : check input feasibility, bug #440884
+
 	* app/preferences.[ch] app/display.c : allow to configure the initial
 	mainpoint magnetism, aka. "Snap to Object", bug #571724
 

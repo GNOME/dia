@@ -71,9 +71,13 @@ class CScaleDialog :
 
 	def on_scale(self, *args) :
 		s = self.entry.get_text()
-		SimpleScale (self.data, float(s))
-		self.data.update_extents ()
-		self.diagram.flush()
+		scale = float(s)
+		if scale > 0.001 and scale < 1000 :
+			SimpleScale (self.data, float(s))
+			self.data.update_extents ()
+			self.diagram.flush()
+		else :
+			dia.message(1, "Value out of range!")
 		self.win.destroy ()
 
 	def on_delete (self, *args) :
