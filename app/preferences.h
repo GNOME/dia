@@ -49,6 +49,7 @@ struct DiaPreferences {
   NewDiagramData new_diagram;
 
   int show_cx_pts;
+  int snap_object; /* mainpoint_magnetism : the whole object is the connection point */
   int view_antialised;
 
   int reset_tools_after_create;

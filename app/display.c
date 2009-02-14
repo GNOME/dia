@@ -293,7 +293,7 @@ new_display(Diagram *dia)
   ddisp->show_cx_pts = prefs.show_cx_pts;
 
   ddisp->autoscroll = TRUE;
-  ddisp->mainpoint_magnetism = TRUE;
+  ddisp->mainpoint_magnetism = prefs.snap_object;
 
   ddisp->aa_renderer = prefs.view_antialised;
   

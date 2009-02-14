@@ -1,5 +1,8 @@
 2009-02-14  Hans Breuer  <hans@breuer.org>
 
+	* app/preferences.[ch] app/display.c : allow to configure the initial
+	mainpoint magnetism, aka. "Snap to Object", bug #571724
+
 	* app/diagram.c(diagram_load_into) : cleanup to remember the original
 	path of an import file (bug #570862) and also avoid to not simply save
 	the newly created diagram without asking for confirmation of the 

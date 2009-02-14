@@ -209,6 +209,7 @@ DiaPrefData prefs_data[] =
 
   { NULL, PREF_NONE, 0, NULL, DIA_TAB, N_("Connection Points:") },
   { "show_cx_pts", PREF_BOOLEAN, PREF_OFFSET(show_cx_pts), &default_true, DIA_TAB, N_("Visible") },
+  { "snap_object", PREF_BOOLEAN, PREF_OFFSET(snap_object), &default_true, DIA_TAB, N_("Snap to object") },
   { NULL, PREF_END_GROUP, 0, NULL, DIA_TAB, NULL },
 
   { NULL, PREF_NONE, 0, NULL, VIEW_TAB, N_("Page breaks:") },
