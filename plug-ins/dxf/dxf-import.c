@@ -1064,7 +1064,7 @@ read_entity_scale_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
      {
       case 40: 
 	coord_scale = g_ascii_strtod(data->value, NULL);
-	g_message(_("Scale: %f\n"), coord_scale );
+	g_message("Scale: %f", coord_scale );
 	break;
       
       default:

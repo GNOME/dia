@@ -1,5 +1,7 @@
 2009-02-15  Hans Breuer  <hans@breuer.org>
 
+	* plug-ins/dxf/dxf-import.c : no localization of debug messages
+
 	* app/interface.c : don't add "Standard - Outline" when !HAVE_CAIRO
 	* app/create_tool.c : the error message for failing to create an object
 	was assuming the typename to be valid (crashing during message)
