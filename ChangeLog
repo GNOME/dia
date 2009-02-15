@@ -1,5 +1,7 @@
 2009-02-15  Hans Breuer  <hans@breuer.org>
 
+	* configure.in config.h.win32 NEWS : dia-0.97-pre2
+
 	* plug-ins/python/Makefile.am : every script to be installed for
 	--with-python must be available with EXTRA_DIST, bug #571862
 	(pyplugin_SCRIPTS_TO_INSTALL) : one variable to be used for both
