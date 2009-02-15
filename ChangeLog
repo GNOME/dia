@@ -1,5 +1,9 @@
 2009-02-15  Hans Breuer  <hans@breuer.org>
 
+	* app/interface.c : don't add "Standard - Outline" when !HAVE_CAIRO
+	* app/create_tool.c : the error message for failing to create an object
+	was assuming the typename to be valid (crashing during message)
+
 	* objects/standard/outline.c objects/standard/standard.c : pollute with
 	#ifdef HAVE_CAIRO, otherwise Dia won't start when built --without-cairo
 	( Couldn't find standard objects ... )

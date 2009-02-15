@@ -515,7 +515,7 @@ read_entity_polyline_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
                     if( is_equal( start.y, end.y ))
                     {
                         continue; /* better than complaining? */
-                        g_warning(_("Bad vertex bulge\n") );
+                        g_warning("Bad vertex bulge");
                     }
                     else if( start.y > center.y )
                     {
@@ -533,7 +533,7 @@ read_entity_polyline_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
                     if( is_equal( start.x, end.x ))
                     {
                         continue;
-                        g_warning( _("Bad vertex bulge\n") );
+                        g_warning("Bad vertex bulge");
                     }
                     else if( start.x > center.x )
                     {
@@ -1364,7 +1364,7 @@ import_dxf(const gchar *filename, DiagramData *dia, void* user_data)
 		}
 	    }
 	   else
-	     g_warning(_("Unknown dxf code %d\n"), data->code);
+	     g_warning("Unknown dxf code %d", data->code);
         }
     }while((data->code != 0) || (strcmp(data->value, "EOF") != 0));
     

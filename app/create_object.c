@@ -68,7 +68,7 @@ create_object_button_press(CreateObjectTool *tool, GdkEventButton *event,
   if (!obj) {
     tool->moving = FALSE;
     tool->handle = NULL;
-    message_error(_("'%s' creation failed"), tool->objtype->name);
+    message_error(_("'%s' creation failed"), tool->objtype ? tool->objtype->name : "NULL");
     return;
   }
 
