@@ -1,5 +1,9 @@
 2009-02-15  Hans Breuer  <hans@breuer.org>
 
+	* objects/standard/outline.c objects/standard/standard.c : pollute with
+	#ifdef HAVE_CAIRO, otherwise Dia won't start when built --without-cairo
+	( Couldn't find standard objects ... )
+
 	[warningectomy - not sure where I've counted the 30;) ]
 	* lib/diarenderer.c : fix constness to produce no warnings anymore
 	* lib/diagdkrenderer.c : pointer targets ... differ in signedness

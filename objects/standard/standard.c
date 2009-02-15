@@ -56,9 +56,12 @@ dia_plugin_init(PluginInfo *info)
   object_register_type(_bezierline_type);
   object_register_type(_textobj_type);
   object_register_type(_image_type);
+#ifdef HAVE_CAIRO
   object_register_type(_outline_type);
+#endif
   object_register_type(_polygon_type);
   object_register_type(_beziergon_type);
 
   return DIA_PLUGIN_INIT_OK;
 }
+

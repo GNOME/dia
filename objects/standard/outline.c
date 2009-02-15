@@ -34,7 +34,9 @@
 
 #include "tool-icons.h"
 
+#ifdef HAVE_CAIRO
 #include <cairo.h>
+
 #ifdef CAIRO_HAS_SVG_SURFACE 
 #include <cairo-svg.h>
 #endif
@@ -536,4 +538,5 @@ outline_select (Outline *outline, Point *clicked_point,
 {
   outine_update_handles (outline);
 }
+#endif /* HAVE_CAIRO */
 
