@@ -54,19 +54,14 @@ libpython_plugin_la_SOURCES = \
 	diamodule.c \
 	python.c
 
-if WITH_PYTHON
-
-pkgdata_DATA = python-startup.py
-
-pyplugindir = $(pkgdatadir)/python
-pyplugin_DATA = \
+pyplugin_SCRIPTS_TO_INSTALL = \
 	aobjects.py \
 	allprops.py \
 	codegen.py \
 	diasvg.py \
+	diasvg_import.py \
 	dot.py \
 	doxrev.py \
-	group_props.py \
 	gtkcons.py \
 	imgmap.py \
 	otypes.py \
@@ -75,26 +70,22 @@ pyplugin_DATA = \
 	select_by.py \
 	select_empty.py
 
+if WITH_PYTHON
+
+pkgdata_DATA = python-startup.py
+
+pyplugindir = $(pkgdatadir)/python
+pyplugin_DATA = \
+	$(pyplugin_SCRIPTS_TO_INSTALL)
 endif
 
 EXTRA_DIST = \
 	python-startup.py \
 	\
+	$(pyplugin_SCRIPTS_TO_INSTALL) \
+	\
 	autolayoutforce.py \
-	aobjects.py \
-	codegen.py \
-	diasvg.py \
-	diasvg_import.py \
-	dot.py \
-	doxrev.py \
 	group_props.py \
-	gtkcons.py \
-	imgmap.py \
-	otypes.py \
-	pydiadoc.py \
-	scascale.py \
-	scascale.py \
-	select_by.py \
 	\
 	bbox.py \
 	debug_objects.py \

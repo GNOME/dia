@@ -1,5 +1,10 @@
 2009-02-15  Hans Breuer  <hans@breuer.org>
 
+	* plug-ins/python/Makefile.am : every script to be installed for
+	--with-python must be available with EXTRA_DIST, bug #571862
+	(pyplugin_SCRIPTS_TO_INSTALL) : one variable to be used for both
+	cases, removed group_props.py there, the built-in dialog works better
+
 	* configure.in config.h.win32 : release of dia-0.97-pre1, finally;)
 	* INSTALL NEWS : updated
 
