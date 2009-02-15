@@ -1,3 +1,7 @@
+2009-02-15  Luca Ferretti  <elle.uca@libero.it>
+
+	* it.po: Fixed a wrong duplicated translation (bug #523881)
+
 2009-02-14  Jorge Gonzalez  <jorgegonz@svn.gnome.org>
 
 	* es.po: Updated Spanish translation.
