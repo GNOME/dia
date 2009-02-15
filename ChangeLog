@@ -1,5 +1,8 @@
 2009-02-15  Hans Breuer  <hans@breuer.org>
 
+	* app/disp_callbacks.c : allow obj->ops->get_object_menu() return NULL
+	  objects/standard/outline.c : use it for outline_get_object_menu
+
 	* app/disp_callbacks.c : make empty_menu a really empty DiaMenu with
 	menu_items==0 to avoid superfluous separators (bug #532534)
 	(ddisplay_canvas_events) : warning - integral size mismatch in argument

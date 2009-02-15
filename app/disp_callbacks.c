@@ -236,7 +236,7 @@ popup_object_menu(DDisplay *ddisp, GdkEventButton *bevent)
   /* Possibly react differently at a handle? */
 
   /* Get its menu, and remember the # of object-generated items */
-  if (obj->ops->get_object_menu == NULL) {
+  if (obj->ops->get_object_menu == NULL || (obj->ops->get_object_menu)(obj, &object_menu_clicked_point) == NULL) {
     dia_menu = &empty_menu;
     if (dia_menu->title &&
 	(0 != strcmp(dia_menu->title,obj->type->name))) {

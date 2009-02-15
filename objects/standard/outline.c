@@ -128,7 +128,7 @@ static ObjectOps outline_ops = {
   (MoveHandleFunc)      outline_move_handle,
   (GetPropertiesFunc)   object_create_props_dialog,
   (ApplyPropertiesDialogFunc) object_apply_props_from_dialog,
-  (ObjectMenuFunc)      NULL, /* outline_get_object_menu, */
+  (ObjectMenuFunc)      outline_get_object_menu,
   (DescribePropsFunc)   outline_describe_props,
   (GetPropsFunc)        outline_get_props,
   (SetPropsFunc)        outline_set_props,
@@ -424,13 +424,13 @@ outline_draw(Outline *outline, DiaRenderer *renderer)
   if (i - n - 1 > 0)
     DIA_RENDERER_GET_CLASS (renderer)->draw_bezier (renderer, &pts[n], i - n - 1, &outline->line_color);
 }
-#if 0 /* returning NULL crashes Dia, the method must be NULL if there is nothing to do */
+/* returning used to crash Dia, the method needed to be NULL if there is nothing to do */
 static DiaMenu *
 outline_get_object_menu(Outline *outline, Point *clickedpoint)
 {
   return NULL;
 }
-#endif
+
 /*! A standard props compliant object needs to describe its parameters */
 static PropDescription *
 outline_describe_props (Outline *outline)
