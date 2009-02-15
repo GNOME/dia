@@ -1,9 +1,0 @@
-.deps
-Makefile
-Makefile.in
-diamarshal.c
-diamarshal.h
-dia-lib-icons.h
-*.lo
-.libs
-*.la
