@@ -1,8 +1,10 @@
+dia-0.97-pre1: 2009-02-15
+
   * Quite some bugs fixed, at least:
     http://bugzilla.gnome.org/buglist.cgi?product=dia&target_milestone=0.97&resolution=FIXED
   
-  * improved rendering with cairo (PS, PDF, SVG, PNG, EMF) and also some
-    experimental print through Gtk+/cairo support
+  * improved rendering with cairo (PS, PDF, SVG, PNG, EMF) and also default print 
+    through Gtk+/cairo support
 
   * simple Find & Replace for diagram objects names
 
@@ -18,7 +20,7 @@
   * Much decreased start-up time and memory usage by delay loading
     custom shapes.
 
-  * Rotated text by "Standard - Outline" object
+  * Rotated text by "Standard - Outline" object (based on cairo)
 
   * overhaul of the DXF plug-in (import and export)
 

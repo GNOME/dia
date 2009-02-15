@@ -64,7 +64,6 @@ _test_creation (const DiaObjectType *type)
             && o->ops->move_handle != NULL
 	    && o->ops->apply_properties_from_dialog != NULL
 	    );
-  g_assert (o->ops->get_object_menu == NULL || o->ops->get_object_menu(o, &point) != NULL);
   
   /* can we really assume everthing complies with standard props nowadays? */
   g_assert (   o->ops->describe_props

@@ -1,5 +1,11 @@
 2009-02-15  Hans Breuer  <hans@breuer.org>
 
+	* configure.in config.h.win32 : release of dia-0.97-pre1, finally;)
+	* INSTALL NEWS : updated
+
+	* tests/test-objects.c : g_assert(o->ops->get_object_menu == NULL || 
+	o->ops->get_object_menu(o, &point) != NULL); see below
+
 	* plug-ins/dxf/dxf-import.c : no localization of debug messages
 
 	* app/interface.c : don't add "Standard - Outline" when !HAVE_CAIRO

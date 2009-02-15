@@ -53,15 +53,16 @@ intltool 0.35
 font-config 1.0.1
 GLib 2.1.3
 ATK 2.0.0
-FreeType 2.0.9
+FreeType 2.0.9 (To compile without direct freetype use --without-freetype)
 Pango 1.8.0
-GTK+ 2.6.0
+GTK+ 2.6.0 (GTK+ >=2.10 for using the new default print backend)
 libxml 2.3.9
 
-A number of other libraries are recommends for extra features:
+A number of other libraries are recommended for extra features:
 
 Cairo is used for anti-alised rendering to screen or PNG as well as PDF:
   http://cairographics.org
+  Minimum version required (if at all) is 1.2
 Libart allows anti-aliased rendering and anti-aliased export to PNG:
   http://www.artofcode.com/libart.html
 Libpng is need for anti-aliased PNG export:
@@ -139,15 +140,5 @@ install it by doing:
 
 By default Dia is installed in /usr/local.
 You can change that by passing --prefix=/some/dir to configure.
-
-
-FONTS:
-======
-I recommend that you install the URW fonts if you haven't already.
-They are free scalable version of the standard postscript fonts.
-
-Information and files can be found at:
-
- http://www.gimp.org/fonts.html
 
 
