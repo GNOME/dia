@@ -1,3 +1,9 @@
+2009-02-15  Hans Breuer  <hans@breuer.org>
+
+	* app/disp_callbacks.c : make empty_menu a really empty DiaMenu with
+	menu_items==0 to avoid superfluous separators (bug #532534)
+	(ddisplay_canvas_events) : warning - integral size mismatch in argument
+
 2009-02-14  Hans Breuer  <hans@breuer.org>
 
 	* plug-ins/python/scascale.py : check input feasibility, bug #440884

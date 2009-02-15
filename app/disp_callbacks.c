@@ -149,6 +149,7 @@ create_object_menu(DiaMenu *dia_menu)
     gtk_widget_show(menu_item);
   }
 
+  /* separator below the menu title */
   menu_item = gtk_menu_item_new();
   gtk_menu_shell_append (GTK_MENU_SHELL (menu), menu_item);
   gtk_widget_show(menu_item);
@@ -201,7 +202,7 @@ create_object_menu(DiaMenu *dia_menu)
 static DiaMenuItem empty_menu_items[] = { {0, } };
 static DiaMenu empty_menu = {
   NULL,
-  sizeof(empty_menu_items)/sizeof(DiaMenuItem),
+  0, /* NOT: sizeof(empty_menu_items)/sizeof(DiaMenuItem), */
   empty_menu_items,
   NULL
 };
@@ -569,7 +570,7 @@ ddisplay_canvas_events (GtkWidget *canvas,
               if (sevent->state & GDK_SHIFT_MASK)
                   ddisplay_scroll_left(ddisp);
               else if (sevent->state & GDK_CONTROL_MASK) {
-                  ddisplay_untransform_coords(ddisp, sevent->x, sevent->y, &middle.x, &middle.y);
+                  ddisplay_untransform_coords(ddisp, (int)sevent->x, (int)sevent->y, &middle.x, &middle.y);
                   ddisplay_zoom(ddisp, &middle, 2);
               }
               else 
@@ -579,7 +580,7 @@ ddisplay_canvas_events (GtkWidget *canvas,
               if (sevent->state & GDK_SHIFT_MASK)
                   ddisplay_scroll_right(ddisp);
               else if (sevent->state & GDK_CONTROL_MASK) { 
-                    ddisplay_untransform_coords(ddisp, sevent->x, sevent->y, &middle.x, &middle.y);
+                    ddisplay_untransform_coords(ddisp, (int)sevent->x, (int)sevent->y, &middle.x, &middle.y);
                     ddisplay_zoom(ddisp, &middle, 0.5);
               }
               else
