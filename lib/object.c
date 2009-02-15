@@ -129,7 +129,7 @@ object_copy(DiaObject *from, DiaObject *to)
 static guint
 pointer_hash(gpointer some_pointer)
 {
-  return (guint) some_pointer;
+  return GPOINTER_TO_UINT(some_pointer);
 }
 
 

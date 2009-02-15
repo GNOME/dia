@@ -615,7 +615,7 @@ flow_set_type_callback (DiaObject* obj, Point* clicked, gpointer data)
 {
   ObjectChange *change;
 
-  change = type_create_change((Flow *)obj, (int)data);
+  change = type_create_change((Flow *)obj, GPOINTER_TO_INT(data));
   change->apply(change, obj);
 
   return change;

@@ -428,7 +428,7 @@ load_register_sheet(const gchar *dirname, const gchar *filename,
     xmlFree(objdesc); objdesc = NULL;
 
     sheet_obj->pixmap = NULL;
-    sheet_obj->user_data = (void *)intdata; /* XXX modify user_data type ? */
+    sheet_obj->user_data = GINT_TO_POINTER(intdata); /* XXX modify user_data type ? */
     sheet_obj->user_data_type = has_intdata ? USER_DATA_IS_INTDATA /* sure,   */
                                             : USER_DATA_IS_OTHER;  /* why not */
     sheet_obj->pixmap_file = iconname; 

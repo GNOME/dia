@@ -109,7 +109,7 @@ static ObjectOps measure_ops = {
   (MoveHandleFunc)      measure_move_handle,
   (GetPropertiesFunc)   object_create_props_dialog,
   (ApplyPropertiesDialogFunc) object_apply_props_from_dialog,
-  (ObjectMenuFunc)      NULL, /* measure_get_object_menu, */
+  (ObjectMenuFunc)      measure_get_object_menu,
   (DescribePropsFunc)   measure_describe_props,
   (GetPropsFunc)        measure_get_props,
   (SetPropsFunc)        measure_set_props,
@@ -324,6 +324,13 @@ measure_move_handle (Measure *measure,
   measure_update_data(measure);
   return NULL;
 }
+static DiaMenu *
+measure_get_object_menu(Measure *measure,
+                        Point *clickedpoint)
+{
+  return NULL;
+}
+
 static ObjectChange* 
 measure_move (Measure *measure, Point *to)
 {

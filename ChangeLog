@@ -1,5 +1,19 @@
 2009-02-15  Hans Breuer  <hans@breuer.org>
 
+	[warningectomy - not sure where I've counted the 30;) ]
+	* lib/diarenderer.c : fix constness to produce no warnings anymore
+	* lib/diagdkrenderer.c : pointer targets ... differ in signedness
+	* objects/chronogram/chronoline_event.c : dereferencing type-punned 
+	pointer will break strict-aliasing rules
+	* objects/Misc/measure.c : object_menu() now returning NULL, see below
+	* objects/Database/table_dialog.c : use GPOINTER_TO_UINT to avoid
+	warning: cast from pointer to integer of different size
+	* lib/object_defaults.c objects/FS/flow.c : use GPOINTER_TO_INT()
+	* lib/sheet.c : use GINT_TO_POINTER()
+	* lib/object.c : use GPOINTER_TO_UINT()
+	* plug-ins/wmf/wmf.cpp : explicit accept int precision for margins
+	* plug-ins/xslt.c : pointer targets ... differ in signedness
+
 	* app/disp_callbacks.c : allow obj->ops->get_object_menu() return NULL
 	  objects/standard/outline.c : use it for outline_get_object_menu
 

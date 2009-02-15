@@ -141,13 +141,13 @@ static void draw_line_with_arrows  (DiaRenderer *renderer,
                                     Arrow *start_arrow,
                                     Arrow *end_arrow);
 static void draw_arc_with_arrows  (DiaRenderer *renderer, 
-                                  const Point *start, 
-				  const Point *end,
-                                  const Point *midpoint,
+                                  Point *start, 
+				  Point *end,
+                                  Point *midpoint,
                                   real line_width,
-                                  const Color *color,
-                                  const Arrow *start_arrow,
-                                  const Arrow *end_arrow);
+                                  Color *color,
+                                  Arrow *start_arrow,
+                                  Arrow *end_arrow);
 static void draw_polyline_with_arrows (DiaRenderer *renderer, 
                                        Point *points, int num_points,
                                        real line_width,
@@ -1237,13 +1237,13 @@ is_right_hand (const Point *a, const Point *b, const Point *c)
 
 static void
 draw_arc_with_arrows (DiaRenderer *renderer, 
-                      const Point *startpoint, 
-                      const Point *endpoint,
-                      const Point *midpoint,
+                      Point *startpoint, 
+                      Point *endpoint,
+                      Point *midpoint,
                       real line_width,
-                      const Color *color,
-                      const Arrow *start_arrow,
-                      const Arrow *end_arrow)
+                      Color *color,
+                      Arrow *start_arrow,
+                      Arrow *end_arrow)
 {
   Point new_startpoint = *startpoint;
   Point new_endpoint = *endpoint;

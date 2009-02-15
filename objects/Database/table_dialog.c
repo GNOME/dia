@@ -323,7 +323,7 @@ table_change_apply (TableChange * change, DiaObject * obj)
   TableState * old_state;
   GList * lst;
 
-  g_print ("apply (o: 0x%08x) (c: 0x%08x)\n", (guint) obj, (guint) change);
+  g_print ("apply (o: 0x%08x) (c: 0x%08x)\n", GPOINTER_TO_UINT(obj), GPOINTER_TO_UINT(change));
 
   /* first the get the current state for later use */
   old_state = table_state_new (change->obj);

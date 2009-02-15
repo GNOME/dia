@@ -685,7 +685,7 @@ draw_text_line (DiaRenderer *object, TextLine *text_line,
     int width_pixels = dia_transform_length(renderer->transform,
 					    text_line_get_width(text_line));
     gdk_gc_set_foreground(renderer->gc, &gdkcolor);
-    gdk_gc_set_dashes(renderer->gc, 0, "\1\2", 2);
+    gdk_gc_set_dashes(renderer->gc, 0, (guint8*)"\1\2", 2);
     dia_transform_coords(renderer->transform, start_pos.x, start_pos.y, &x, &y);
     gdk_draw_line(renderer->pixmap, renderer->gc, x, y, x + width_pixels, y);
     return;

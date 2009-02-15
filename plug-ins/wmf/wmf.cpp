@@ -1300,13 +1300,13 @@ export_data(DiagramData *data, const gchar *filename,
 	renderer->yoff = - data->extents.top;
 	renderer->scale = scale;
     } else {
-        int  ppc = W32::GetDeviceCaps (renderer->hPrintDC, PHYSICALWIDTH) 
-	            / ( data->paper.lmargin + data->paper.width + data->paper.rmargin);
+        int  ppc = (int)(W32::GetDeviceCaps (renderer->hPrintDC, PHYSICALWIDTH) 
+	            / ( data->paper.lmargin + data->paper.width + data->paper.rmargin));
 	/* respect margins */
-	renderer->margins.left   = ppc * data->paper.lmargin - W32::GetDeviceCaps (renderer->hPrintDC, PHYSICALOFFSETX);
-	renderer->margins.top    = ppc * data->paper.tmargin - W32::GetDeviceCaps (renderer->hPrintDC, PHYSICALOFFSETY);
-	renderer->margins.right  = W32::GetDeviceCaps (renderer->hPrintDC, PHYSICALWIDTH) - ppc * data->paper.rmargin;
-	renderer->margins.bottom = W32::GetDeviceCaps (renderer->hPrintDC, PHYSICALHEIGHT) - ppc * data->paper.bmargin;
+	renderer->margins.left   = (int)(ppc * data->paper.lmargin - W32::GetDeviceCaps (renderer->hPrintDC, PHYSICALOFFSETX));
+	renderer->margins.top    = (int)(ppc * data->paper.tmargin - W32::GetDeviceCaps (renderer->hPrintDC, PHYSICALOFFSETY));
+	renderer->margins.right  = (int)(W32::GetDeviceCaps (renderer->hPrintDC, PHYSICALWIDTH) - ppc * data->paper.rmargin);
+	renderer->margins.bottom = (int)(W32::GetDeviceCaps (renderer->hPrintDC, PHYSICALHEIGHT) - ppc * data->paper.bmargin);
 
 	renderer->xoff = - data->extents.left;
 	renderer->yoff = - data->extents.top;

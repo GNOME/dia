@@ -360,8 +360,9 @@ _obj_store (gpointer key,
   xmlSetProp(obj_node, (const xmlChar *)"id", (xmlChar *)buffer);
 
   /* if it looks like intdata store it as well */
-  if ((int)obj->type->default_user_data > 0 && (int)obj->type->default_user_data < 0xFF) {
-    g_snprintf(buffer, 30, "%d", (int)obj->type->default_user_data);
+  if (   GPOINTER_TO_INT(obj->type->default_user_data) > 0 
+      && GPOINTER_TO_INT(obj->type->default_user_data) < 0xFF) {
+    g_snprintf(buffer, 30, "%d", GPOINTER_TO_INT(obj->type->default_user_data));
     xmlSetProp(obj_node, (const xmlChar *)"intdata", (xmlChar *)buffer);
   }
 

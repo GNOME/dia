@@ -182,8 +182,8 @@ static toxsl_t *read_implementations(xmlNodePtr cur, gchar *path)
 	to = g_malloc(sizeof(toxsl_t));	
 	to->next = NULL;
 	
-	to->name = xmlGetProp(cur, (const xmlChar *) "name");
-	to->xsl = xmlGetProp(cur, (const xmlChar *) "stylesheet");
+	to->name = (gchar *)xmlGetProp(cur, (const xmlChar *) "name");
+	to->xsl = (gchar *)xmlGetProp(cur, (const xmlChar *) "stylesheet");
 	
 	if (!(to->name && to->xsl)) {
 	    g_warning ("Name and stylesheet attributes are required for the implementation element %s in XSLT plugin configuration file", cur->name);
@@ -245,12 +245,12 @@ static PluginInitResult read_configuration(const char *config)
 
     while (cur) {
 	if (xmlIsBlankNode(cur) || xmlNodeIsText(cur)) { cur = cur->next; continue; }
-	else if (!xmlStrcmp(cur->name, "language")) {
-	    fromxsl_t *new_from = g_malloc(sizeof(fromxsl_t));
+	else if (!xmlStrcmp(cur->name, (const xmlChar *)"language")) {
+	    fromxsl_t *new_from = g_new(fromxsl_t,1);
 	    new_from->next = NULL;
 
-	    new_from->name = xmlGetProp(cur, (const xmlChar *) "name");
-	    new_from->xsl = xmlGetProp(cur, (const xmlChar *) "stylesheet");
+	    new_from->name = (gchar *)xmlGetProp(cur, (const xmlChar *) "name");
+	    new_from->xsl = (gchar *)xmlGetProp(cur, (const xmlChar *) "stylesheet");
 	    
 	    if (!(new_from->name && new_from->xsl)) {
 		g_warning ("'name' and 'stylesheet' attributes are required for the language element %s in XSLT plugin configuration file", cur->name);

@@ -228,7 +228,8 @@ __forward_checksum_i(int chk, int value)
 inline static int 
 __forward_checksum_r(int chk, real value) 
 {
-  return __forward_checksum_i(chk,*((int *)(&value)));
+  int ival = (int)value;
+  return __forward_checksum_i(chk,ival);
 }
 
 static int
