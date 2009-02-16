@@ -27,7 +27,7 @@
 !define  TRANSLATIONS_SECTION_DESCRIPTION  "Prevodi uporabniškega vmesnika programa Dia"
 !define  DIA_SECTION_DESCRIPTION	"Diashapes - datoteke in dll-ji"
 !define  PYTHON_SECTION_TITLE		"Vtiènik za Python"
-!define  PYTHON_SECTION_DESCRIPTION	"Podpora za skriptni jezik Python 2.2. Ne izberite, èe nimate namešèenega okolja Python."
+!define  PYTHON_SECTION_DESCRIPTION	"Podpora za skriptni jezik Python 2.3. Ne izberite, èe nimate namešèenega okolja Python."
 
 ; Installer Finish Page
 !define  DIA_FINISH_VISIT_WEB_SITE	"Obišèite spletno stran Dia for Windows"

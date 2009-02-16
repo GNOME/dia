@@ -29,7 +29,7 @@
 !define TRANSLATIONS_SECTION_DESCRIPTION  "Volitelné preklady používate¾ského rozhrania Dia"
 !define DIA_SECTION_DESCRIPTION		"Hlavné súbory a knižnice Dia"
 !define PYTHON_SECTION_TITLE              "Zásuvný modul Python"
-!define PYTHON_SECTION_DESCRIPTION              "Podpora skriptovacieho jazyka Python 2.2. Nevyberajte túto vo¾bu, ak nie je Python nainštalovaný."
+!define PYTHON_SECTION_DESCRIPTION              "Podpora skriptovacieho jazyka Python 2.3. Nevyberajte túto vo¾bu, ak nie je Python nainštalovaný."
 
 ; Installer Finish Page
 !define DIA_FINISH_VISIT_WEB_SITE		"Navštívte webstránku Dia pre Windows"

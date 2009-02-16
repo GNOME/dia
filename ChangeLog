@@ -1,3 +1,9 @@
+2009-02-16  Steffen Macke <sdteffen@sdteffen.de>
+
+	* installer/win32/dia.nsi: Various small updates
+	* installer/win32/locale/*.nsh: Use Python 2.3 instead of 2.2 
+	* makefile.msc: Consequent use of build/win32
+
 2009-02-15  Hans Breuer  <hans@breuer.org>
 
 	* configure.in config.h.win32 NEWS : dia-0.97-pre2

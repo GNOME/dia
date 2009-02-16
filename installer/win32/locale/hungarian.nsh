@@ -29,7 +29,7 @@
 !define TRANSLATIONS_SECTION_DESCRIPTION  "A Dia felhasználói felületének fordításai"
 !define DIA_SECTION_DESCRIPTION		"Alapvetõ Dia fájlok és programkönyvtárak"
 !define PYTHON_SECTION_TITLE        "Python bõvítmény"
-!define PYTHON_SECTION_DESCRIPTION  "A Python parancsnyelv 2.2 változatának támogatása. Ne válassza ki, ha a Python nincs telepítve."
+!define PYTHON_SECTION_DESCRIPTION  "A Python parancsnyelv 2.3 változatának támogatása. Ne válassza ki, ha a Python nincs telepítve."
  
 
 ; Installer Finish Page

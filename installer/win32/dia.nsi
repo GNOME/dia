@@ -259,13 +259,13 @@ ${File} "..\..\data\" "dia-splash.png"
 ${SetOutPath} "$INSTDIR\bin"
 ; jEdit replacement: (^.*\\)(.*)$ 
 ; \${File} "$1" "$2"
-${File} "..\..\..\bin\" "dia.exe"
-${File} "..\..\..\bin\" "diaw.exe"
+${File} "..\..\build\win32\bin\" "dia.exe"
+${File} "..\..\build\win32\bin\" "diaw.exe"
 ${File} "..\..\..\bin\" "dia-win-remote.exe"
-${File} "..\..\..\bin\" "dia-app.dll"
+${File} "..\..\build\win32\bin\" "dia-app.dll"
 ${File} "..\..\..\bin\" "libart_lgpl_22.dll"
 ${File} "..\..\..\bin\" "libcairo-2.dll"
-${File} "..\..\..\bin\" "libdia.dll"
+${File} "..\..\build\win32\bin\" "libdia.dll"
 ${File} "..\..\..\bin\" "iconv.dll"
 ${File} "..\..\..\bin\" "intl.dll"
 ${File} "..\..\..\bin\" "libxml2.dll"
@@ -462,6 +462,7 @@ ${File} "..\..\shapes\BPMN\" "Start-Event-Multiple.png"
 ${File} "..\..\shapes\BPMN\" "Start-Event-Multiple.shape"
 ${File} "..\..\shapes\BPMN\" "Start-Event-Rule.png"
 ${File} "..\..\shapes\BPMN\" "Start-Event-Rule.shape"
+${File} "..\..\shapes\BPMN\" "Start-Event-Timer.shape"
 ${File} "..\..\shapes\BPMN\" "Start-Event-Timer.png"
 ${File} "..\..\shapes\BPMN\" "Start-Event.png"
 ${File} "..\..\shapes\BPMN\" "Start-Event.shape"
@@ -2656,6 +2657,8 @@ Section $(TRANSLATIONS_SECTION_TITLE) SecTranslations
   ${File} "..\..\build\win32\locale\nl\LC_MESSAGES\" "dia.mo"
   ${SetOutPath} "$INSTDIR\locale\nn\LC_MESSAGES"
   ${File} "..\..\build\win32\locale\nn\LC_MESSAGES\" "dia.mo"
+  ${SetOutPath} "$INSTDIR\locale\oc\LC_MESSAGES"
+  ${File} "..\..\build\win32\locale\oc\LC_MESSAGES\" "dia.mo"
   ${SetOutPath} "$INSTDIR\locale\pa\LC_MESSAGES"
   ${File} "..\..\build\win32\locale\pa\LC_MESSAGES\" "dia.mo"
   ${SetOutPath} "$INSTDIR\locale\pl\LC_MESSAGES"
@@ -3743,8 +3746,8 @@ Function .onInit
   !insertmacro MUI_LANGDLL_DISPLAY
   ClearErrors
   
-  ; Only enable the Python section if python22.dll is in the system path
-  SearchPath $0 "python22.dll"
+  ; Only enable the Python section if python23.dll is in the system path
+  SearchPath $0 "python23.dll"
   IfErrors NoPython HasPython
   HasPython:
   SectionGetFlags ${SecPython} $0  

@@ -5,6 +5,7 @@ full: 	build \
 	build\win32\
 	build\win32\bin \
 	build\win32\bin\dia.exe \
+	build\win32\bin\dia-app.dll \
 	build\win32\bin\libdia.dll \
 	build\win32\bin\libart_lgpl_22.dll \
 #	build\win32\bin\libfontconfig-1.dll \
@@ -99,6 +100,9 @@ build\win32\lib\locale: build\win32\lib
 
 build\win32\bin\dia.exe: build\win32\bin app\dia.exe
 	copy app\dia.exe build\win32\bin\dia.exe
+
+build\win32\bin\dia-app.dll: build\win32\bin app\dia-app.dll
+	copy app\dia.exe build\win32\bin\dia-app.dll
 	
 build\win32\bin\libart_lgpl_22.dll: build\win32\bin ..\bin\libart_lgpl_22.dll
 	copy ..\bin\libart_lgpl_22.dll build\win32\bin
