@@ -1,3 +1,7 @@
+2009-02-19  Steffen Macke <sdteffen@sdteffen.de>
+
+	* installer/win32/dia.nsi: Include missing SISSI icons
+
 2009-02-16  Steffen Macke <sdteffen@sdteffen.de>
 
 	* installer/win32/dia.nsi: Various small updates
