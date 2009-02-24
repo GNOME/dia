@@ -1781,7 +1781,7 @@ write_user_sheet(Sheet *sheet)
     if (sheetobject->has_icon_on_sheet == TRUE)
     {
       xmlAddChild(object_node, xmlNewText((const xmlChar *)"\n"));
-      icon_node = xmlNewChild(desc_node, NULL, (const xmlChar *)"icon", NULL);
+      icon_node = xmlNewChild(object_node, NULL, (const xmlChar *)"icon", NULL);
       xmlAddChild(icon_node, xmlNewText((xmlChar *) sheetobject->pixmap_file));
       xmlAddChild(object_node, xmlNewText((const xmlChar *)"\n"));
     }

@@ -1,3 +1,8 @@
+2009-02-24  Steffen Macke <sdteffen@sdteffen.de>
+
+	* app/sheets_dialog_callbacks.c: Write <icon> to <object> instead of
+	<description>, fixes part of bug #573027
+
 2009-02-20  Steffen Macke <sdteffen@sdteffen.de>
 
 	* doc/en/dia.xml: Bumped revisions and dates to indicate progress
