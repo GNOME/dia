@@ -14,8 +14,8 @@ msgstr ""
 "Project-Id-Version: dia.HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=dia&component=general\n"
-"POT-Creation-Date: 2009-02-01 18:18+0000\n"
-"PO-Revision-Date: 2009-02-14 13:53+0100\n"
+"POT-Creation-Date: 2009-02-15 17:20+0000\n"
+"PO-Revision-Date: 2009-02-24 18:55+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -467,7 +467,7 @@ msgstr "Espaciado visible"
 
 # Yo pondría "Hex" con mayúsculas si no "hexadecimal" completo (creo que significa eso, ¿no?). RizOX.
 #. Hexes!
-#: ../app/dia-props.c:177 ../app/preferences.c:246
+#: ../app/dia-props.c:177 ../app/preferences.c:247
 msgid "Hex grid"
 msgstr "Rejilla Hex."
 
@@ -480,7 +480,7 @@ msgstr "Tamaño de la rejilla Hex."
 msgid "Grid"
 msgstr "Rejilla"
 
-#: ../app/dia-props.c:209 ../lib/diagramdata.c:113
+#: ../app/dia-props.c:209 ../lib/diagramdata.c:112
 msgid "Background"
 msgstr "Fondo"
 
@@ -532,24 +532,15 @@ msgstr "Posición Y del widget hijo"
 msgid "Couldn't convert filename '%s' to UTF-8: %s\n"
 msgstr "No se pudo convertir el nombre de archivo «%s» a UTF-8: %s\n"
 
-#: ../app/diagram.c:225 ../lib/message.c:89 ../lib/message.c:292
+#: ../app/diagram.c:225 ../lib/message.c:90 ../lib/message.c:293
 msgid "Error"
 msgstr "Error"
 
-#: ../app/diagram.c:274
-msgid ""
-"You have loaded a non-Dia file.  The file has become an element in a new "
-"diagram, and if you save it, it will be saved as a Dia diagram."
-msgstr ""
-"Ha cargado un archivo que no es propio de Dia. El archivo se ha convertido "
-"en un elemento en un diagrama nuevo y si lo guarda, se guardará como un "
-"diagrama de Dia."
-
-#: ../app/diagram.c:1197
+#: ../app/diagram.c:1209
 msgid "Trying to group with no selected objects."
 msgstr "Intentando agrupar sin objetos seleccionados."
 
-#: ../app/diagram.c:1207
+#: ../app/diagram.c:1219
 msgid ""
 "You cannot group objects that belong to different groups or have different "
 "parents"
@@ -698,7 +689,7 @@ msgstr "%0.3gcm x %0.3gcm"
 msgid "Page Setup"
 msgstr "Configurar página"
 
-#: ../app/disp_callbacks.c:85 ../app/properties-dialog.c:157
+#: ../app/disp_callbacks.c:95 ../app/properties-dialog.c:157
 msgid ""
 "This object doesn't support Undo/Redo.\n"
 "Undo information erased."
@@ -706,11 +697,11 @@ msgstr ""
 "Este objeto no soporta deshacer/rehacer.\n"
 "InArray para deshacer borrada."
 
-#: ../app/disp_callbacks.c:120
+#: ../app/disp_callbacks.c:130
 msgid "Properties..."
 msgstr "Propiedades…"
 
-#: ../app/disp_callbacks.c:1015
+#: ../app/disp_callbacks.c:1066
 msgid ""
 "The object you dropped cannot fit into its parent. \n"
 "Either expand the parent object, or drop the object elsewhere."
@@ -780,38 +771,38 @@ msgstr "Guardar seleccionados"
 msgid "The following are not saved:"
 msgstr "Los siguientes no están guardados:"
 
-#: ../app/exit_dialog.c:114
+#: ../app/exit_dialog.c:113
 msgid "Save"
 msgstr "Guardar"
 
 # Activar sería Activate. FVD
-#: ../app/exit_dialog.c:115
+#: ../app/exit_dialog.c:114
 msgid "active"
 msgstr "activo"
 
 #. *** board of value **************
-#: ../app/exit_dialog.c:124 ../app/plugin-manager.c:262
+#: ../app/exit_dialog.c:123 ../app/plugin-manager.c:262
 #: ../objects/Database/table.c:138 ../objects/Database/table.c:181
-#: ../objects/SISSI/sissi_dialog.c:619 ../objects/UML/association.c:236
+#: ../objects/SISSI/sissi_dialog.c:734 ../objects/UML/association.c:234
 #: ../objects/UML/class.c:144 ../objects/UML/large_package.c:139
 #: ../objects/UML/umlattribute.c:37 ../objects/UML/umlformalparameter.c:35
 #: ../objects/UML/umloperation.c:62 ../objects/UML/umlparameter.c:43
 msgid "Name"
 msgstr "Nombre"
 
-#: ../app/exit_dialog.c:130
+#: ../app/exit_dialog.c:129
 msgid "Path"
 msgstr "Ruta"
 
-#: ../app/exit_dialog.c:143
+#: ../app/exit_dialog.c:142
 msgid "Select All"
 msgstr "Seleccionar todos"
 
-#: ../app/exit_dialog.c:151
+#: ../app/exit_dialog.c:150
 msgid "Select None"
 msgstr "No seleccionar ninguno"
 
-#: ../app/exit_dialog.c:229
+#: ../app/exit_dialog.c:232
 msgid "Nothing selected for saving.  Would you like to try again?"
 msgstr "No se seleccionó nada para guardar. ¿Quiere intentarlo otra vez?"
 
@@ -840,7 +831,7 @@ msgstr "Determinar tipo de archivo:"
 msgid "All Files"
 msgstr "Todos los archivos"
 
-#: ../app/filedlg.c:371 ../plug-ins/postscript/paginate_psprint.c:409
+#: ../app/filedlg.c:371 ../plug-ins/postscript/paginate_psprint.c:408
 msgid ""
 "Some characters in the filename are neither UTF-8\n"
 "nor your local encoding.\n"
@@ -851,12 +842,12 @@ msgstr ""
 "Algunas cosas no funcionarán."
 
 #: ../app/filedlg.c:381 ../app/filedlg.c:653
-#: ../plug-ins/postscript/paginate_psprint.c:424
+#: ../plug-ins/postscript/paginate_psprint.c:422
 msgid "File already exists"
 msgstr "El archivo ya existe"
 
 #: ../app/filedlg.c:383 ../app/filedlg.c:655
-#: ../plug-ins/postscript/paginate_psprint.c:416
+#: ../plug-ins/postscript/paginate_psprint.c:418
 #, c-format
 msgid ""
 "The file '%s' already exists.\n"
@@ -941,7 +932,7 @@ msgstr "Reemplazar _todo"
 msgid "_Replace"
 msgstr "_Reemplazar"
 
-#: ../app/interface.c:152
+#: ../app/interface.c:153
 msgid ""
 "Modify object(s)\n"
 "Use <Space> to toggle between this and other tools"
@@ -949,7 +940,7 @@ msgstr ""
 "Modificar objeto(s)\n"
 "Use <Space> para conmutar entre ésta y otras herramientas"
 
-#: ../app/interface.c:158
+#: ../app/interface.c:159
 msgid ""
 "Text edit(s)\n"
 "Use <Esc> to leave this tool"
@@ -960,19 +951,19 @@ msgstr ""
 # Yo diría "Ampliar" FVD
 # Yo también diría "Ampliar", lo de "Magnificar" me suena a barbarismo... RizOX
 #. Translators: Menu item Verb/Control Magnitude/Change/Magnify
-#: ../app/interface.c:164 ../app/menus.c:223 ../objects/FS/function.c:988
+#: ../app/interface.c:165 ../app/menus.c:223 ../objects/FS/function.c:988
 msgid "Magnify"
 msgstr "Ampliar"
 
 # Esto es fuzzy, no? FVD
 # Yo diría "Desplazar sobre...". Fuzzy. RizOX.
-#: ../app/interface.c:170
+#: ../app/interface.c:171
 msgid "Scroll around the diagram"
 msgstr "Desplazar sobre el diagrama"
 
 #. how it used to be before 0.96+SVN
 #. new name matching "same name, same type"  rule
-#: ../app/interface.c:176 ../app/menus.c:226 ../lib/properties.c:80
+#: ../app/interface.c:177 ../app/menus.c:226 ../lib/properties.c:80
 #: ../lib/properties.h:530 ../objects/AADL/aadlbox.c:156
 #: ../objects/Jackson/requirement.c:144 ../objects/UML/activity.c:129
 #: ../objects/UML/actor.c:126 ../objects/UML/classicon.c:149
@@ -985,93 +976,93 @@ msgstr "Desplazar sobre el diagrama"
 msgid "Text"
 msgstr "Texto"
 
-#: ../app/interface.c:182 ../app/menus.c:227
+#: ../app/interface.c:183 ../app/menus.c:227
 msgid "Box"
 msgstr "Caja"
 
-#: ../app/interface.c:188 ../app/menus.c:228
+#: ../app/interface.c:189 ../app/menus.c:228
 msgid "Ellipse"
 msgstr "Elipse"
 
-#: ../app/interface.c:194 ../app/menus.c:229
+#: ../app/interface.c:195 ../app/menus.c:229
 msgid "Polygon"
 msgstr "Polígono"
 
-#: ../app/interface.c:200 ../app/menus.c:230
+#: ../app/interface.c:201 ../app/menus.c:230
 msgid "Beziergon"
 msgstr "Polígono Bézier"
 
-#: ../app/interface.c:206 ../app/menus.c:232 ../objects/standard/line.c:229
+#: ../app/interface.c:207 ../app/menus.c:232 ../objects/standard/line.c:229
 msgid "Line"
 msgstr "Línea"
 
-#: ../app/interface.c:212 ../app/menus.c:233
+#: ../app/interface.c:213 ../app/menus.c:233
 msgid "Arc"
 msgstr "Arco"
 
-#: ../app/interface.c:218 ../app/menus.c:234
+#: ../app/interface.c:219 ../app/menus.c:234
 msgid "Zigzagline"
 msgstr "Línea en zigzag"
 
-#: ../app/interface.c:224 ../app/menus.c:235
+#: ../app/interface.c:225 ../app/menus.c:235
 msgid "Polyline"
 msgstr "Polilínea"
 
-#: ../app/interface.c:230 ../app/menus.c:236
+#: ../app/interface.c:231 ../app/menus.c:236
 msgid "Bezierline"
 msgstr "Línea Bézier"
 
-#: ../app/interface.c:236 ../app/menus.c:239
+#: ../app/interface.c:237 ../app/menus.c:239
 msgid "Image"
 msgstr "Imagen"
 
-#: ../app/interface.c:242 ../app/menus.c:237
+#: ../app/interface.c:244 ../app/menus.c:237
 msgid "Outline"
 msgstr "Esquema"
 
-#: ../app/interface.c:616 ../app/interface.c:852
+#: ../app/interface.c:619 ../app/interface.c:855
 msgid "Pops up the Navigation window."
 msgstr "Emerge la ventana de navegación."
 
-#: ../app/interface.c:814
+#: ../app/interface.c:817
 msgid "Diagram menu."
 msgstr "Menú de diagrama."
 
 # ¿"Ampliación" o "Amplía"? Fuzzy. RizOX.
-#: ../app/interface.c:917
+#: ../app/interface.c:920
 msgid "Zoom"
 msgstr "Ampliación"
 
-#: ../app/interface.c:932
+#: ../app/interface.c:935
 msgid "Toggles snap-to-grid for this window."
 msgstr "Conmuta el ajuste a la rejilla para esta ventana."
 
-#: ../app/interface.c:943
+#: ../app/interface.c:946
 msgid "Toggles object snapping for this window."
 msgstr "Conmuta el ajuste del objeto para esta ventana."
 
 # Fuzzy. RizOX
-#: ../app/interface.c:1006
+#: ../app/interface.c:1009
 msgid "NULL tooldata in tool_select_update"
 msgstr "InArray de herramienta nula (NULL) en tool_select_update"
 
-#: ../app/interface.c:1333
+#: ../app/interface.c:1336
 #, c-format
 msgid "No sheet named %s"
 msgstr "No hay ninguna hoja llamada %s"
 
 # ¿De dónde salían esa traducción y esa variable? No concuerda con el original inglés en nada. Lo cambio. RizOX.
-#: ../app/interface.c:1371
+#: ../app/interface.c:1374
 msgid "Other sheets"
 msgstr "Otras hojas"
 
-#: ../app/interface.c:1431 ../sheets/Flowchart.sheet.in.h:10
+#: ../app/interface.c:1434 ../sheets/Flowchart.sheet.in.h:10
 msgid "Flowchart"
 msgstr "Diagrama de flujo"
 
 # Corregido: lleva doble espacio antes de cada frase.
 # "Pulse doble" o "Pulse dos veces" me suena más natural. RizOX.
-#: ../app/interface.c:1491
+#: ../app/interface.c:1494
 msgid ""
 "Foreground & background colors for new objects.  The small black and white "
 "squares reset colors.  The small arrows swap colors.  Double click to change "
@@ -1082,7 +1073,7 @@ msgstr ""
 "los colores.  Pulse dos veces para cambiar los colores."
 
 # Corregido: doble espacio al principio de línea. Cambiada la segunda expresión para darle mayor naturalidad. RizOX.
-#: ../app/interface.c:1506
+#: ../app/interface.c:1509
 msgid ""
 "Line widths.  Click on a line to set the default line width for new "
 "objects.  Double-click to set the line width more precisely."
@@ -1092,7 +1083,7 @@ msgstr ""
 "anchura con mayor precisión."
 
 # La coma antes del "o" no queda bien en la frase en español. RizOX.
-#: ../app/interface.c:1549
+#: ../app/interface.c:1552
 msgid ""
 "Arrow style at the beginning of new lines.  Click to pick an arrow, or set "
 "arrow parameters with Details..."
@@ -1101,7 +1092,7 @@ msgstr ""
 "flecha o establezca los parámetros de la flecha en Detalles…"
 
 # La coma antes del "o" no queda bien en la frase en español. Añadido el doble espacio del comienzo de frase según original en inglés. RizOX.
-#: ../app/interface.c:1554
+#: ../app/interface.c:1557
 msgid ""
 "Line style for new lines.  Click to pick a line style, or set line style "
 "parameters with Details..."
@@ -1110,7 +1101,7 @@ msgstr ""
 "línea o establezca los parámetros de estilo de línea en Detalles…"
 
 # La coma antes del "o" no queda bien en la frase en español. Añadido el doble espacio del comienzo de frase según original en inglés. Cambiado "con Detalles" por "en Detalles" para mantener la coherencia con la traducción de las anteriores entradas. RizOX.
-#: ../app/interface.c:1570
+#: ../app/interface.c:1573
 msgid ""
 "Arrow style at the end of new lines.  Click to pick an arrow, or set arrow "
 "parameters with Details..."
@@ -1118,7 +1109,7 @@ msgstr ""
 "Estilo de flecha al final de las líneas nuevas.  Pulse para escoger una "
 "flecha o establezca los parámetros de la flecha en Detalles…"
 
-#: ../app/interface.c:1630 ../app/interface.c:1757
+#: ../app/interface.c:1633 ../app/interface.c:1760
 msgid "Diagram Editor"
 msgstr "Editor de diagramas"
 
@@ -1141,32 +1132,32 @@ msgstr "Hundir capa"
 msgid "Delete Layer"
 msgstr "Borrar capa"
 
-#: ../app/layer_dialog.c:305
+#: ../app/layer_dialog.c:306
 msgid "Layers:"
 msgstr "Capas:"
 
-#: ../app/layer_dialog.c:385
+#: ../app/layer_dialog.c:386
 msgid "Layers"
 msgstr "Capas"
 
-#: ../app/layer_dialog.c:399
+#: ../app/layer_dialog.c:400
 msgid "Diagram:"
 msgstr "Diagrama:"
 
-#: ../app/layer_dialog.c:513
+#: ../app/layer_dialog.c:514
 #, c-format
 msgid "New layer %d"
 msgstr "Capa nueva %d"
 
-#: ../app/layer_dialog.c:728
+#: ../app/layer_dialog.c:729
 msgid "none"
 msgstr "ninguna"
 
-#: ../app/layer_dialog.c:1153
+#: ../app/layer_dialog.c:1154
 msgid "Edit Layer Attributes"
 msgstr "Editar atributos de capa"
 
-#: ../app/layer_dialog.c:1172
+#: ../app/layer_dialog.c:1173
 msgid "Layer name:"
 msgstr "Nombre de la capa:"
 
@@ -1485,7 +1476,7 @@ msgstr "_Orfandar hijos"
 msgid "Align"
 msgstr "Alinear"
 
-#: ../app/menus.c:187 ../objects/standard/textobj.c:134
+#: ../app/menus.c:187 ../objects/standard/textobj.c:137
 msgid "Top"
 msgstr "Superior"
 
@@ -1493,7 +1484,7 @@ msgstr "Superior"
 msgid "Middle"
 msgstr "Medio"
 
-#: ../app/menus.c:189 ../objects/standard/textobj.c:133
+#: ../app/menus.c:189 ../objects/standard/textobj.c:136
 msgid "Bottom"
 msgstr "Inferior"
 
@@ -1522,7 +1513,7 @@ msgid "All"
 msgstr "Todo"
 
 #: ../app/menus.c:200 ../lib/arrows.c:1882 ../objects/Jackson/domain.c:96
-#: ../objects/UML/association.c:223 ../objects/UML/association.c:229
+#: ../objects/UML/association.c:221 ../objects/UML/association.c:227
 msgid "None"
 msgstr "Nada"
 
@@ -1671,7 +1662,7 @@ msgstr "Conmuta el ajuste a la rejilla."
 msgid "Toggles object snapping."
 msgstr "Conmuta el ajuste del objeto."
 
-#: ../app/modify_tool.c:350
+#: ../app/modify_tool.c:390
 msgid "Couldn't get GTK settings"
 msgstr "No se pudieron obtener las preferencias de GTK"
 
@@ -1683,8 +1674,8 @@ msgstr "Complementos"
 msgid "Loaded"
 msgstr "Cargado"
 
-#: ../app/plugin-manager.c:268 ../objects/SISSI/sissi_dialog.c:615
-#: ../objects/SISSI/sissi_dialog.c:767
+#: ../app/plugin-manager.c:268 ../objects/SISSI/sissi_dialog.c:730
+#: ../objects/SISSI/sissi_dialog.c:882
 msgid "Description"
 msgstr "Descripción"
 
@@ -1801,81 +1792,86 @@ msgid "Connection Points:"
 msgstr "Puntos de conexión:"
 
 #. { NULL, PREF_NONE, 0, NULL, 3, N_("Grid:") },
-#: ../app/preferences.c:211 ../app/preferences.c:215 ../app/preferences.c:239
+#: ../app/preferences.c:211 ../app/preferences.c:216 ../app/preferences.c:240
 msgid "Visible"
 msgstr "Visible"
 
-#: ../app/preferences.c:214
+#: ../app/preferences.c:212
+#| msgid "Snap To _Objects"
+msgid "Snap to object"
+msgstr "Ajustar al objeto"
+
+#: ../app/preferences.c:215
 msgid "Page breaks:"
 msgstr "Divisiones de páginas:"
 
-#: ../app/preferences.c:216 ../app/preferences.c:244
+#: ../app/preferences.c:217 ../app/preferences.c:245
 msgid "Color:"
 msgstr "Color:"
 
-#: ../app/preferences.c:217
+#: ../app/preferences.c:218
 msgid "Solid lines"
 msgstr "Líneas sólidas"
 
-#: ../app/preferences.c:220
+#: ../app/preferences.c:221
 msgid "Antialias:"
 msgstr "Antialias:"
 
-#: ../app/preferences.c:221
+#: ../app/preferences.c:222
 msgid "view antialised"
 msgstr "ver sin antialias"
 
 #. Favored Filter
 #. Translators: Menu item Verb/Channel/Export
 #. Translators: Menu item Verb/Channel/Export/Export
-#: ../app/preferences.c:225 ../objects/FS/function.c:698
+#: ../app/preferences.c:226 ../objects/FS/function.c:698
 #: ../objects/FS/function.c:700 ../plug-ins/libart/export_png.c:323
 msgid "Export"
 msgstr "Exportar"
 
-#: ../app/preferences.c:227
+#: ../app/preferences.c:228
 msgid "Portable Network Graphics"
 msgstr "Portable Network Graphics"
 
-#: ../app/preferences.c:229 ../plug-ins/svg/render_svg.c:515
-#: ../plug-ins/svg/svg-import.c:811
+#: ../app/preferences.c:230 ../plug-ins/svg/render_svg.c:515
+#: ../plug-ins/svg/svg-import.c:884
 msgid "Scalable Vector Graphics"
 msgstr "Scalable Vector Graphics"
 
-#: ../app/preferences.c:231
+#: ../app/preferences.c:232
 msgid "PostScript"
 msgstr "PostScript"
 
-#: ../app/preferences.c:233
+#: ../app/preferences.c:234
 msgid "Windows MetaFile"
 msgstr "Meta-archivo de Windows"
 
-#: ../app/preferences.c:235
+#: ../app/preferences.c:236
 msgid "Enhanced MetaFile"
 msgstr "Meta-archivo mejorado"
 
-#: ../app/preferences.c:240
+#: ../app/preferences.c:241
 msgid "Snap to"
 msgstr "Ajustar a"
 
-#: ../app/preferences.c:241
+#: ../app/preferences.c:242
 msgid "Dynamic grid resizing"
 msgstr "Redimensionado de rejilla dinámico"
 
-#: ../app/preferences.c:242
+#: ../app/preferences.c:243
 msgid "X Size:"
 msgstr "Tamaño X:"
 
-#: ../app/preferences.c:243
+#: ../app/preferences.c:244
 msgid "Y Size:"
 msgstr "Tamaño Y:"
 
-#: ../app/preferences.c:245
+#: ../app/preferences.c:246
 msgid "Lines per major line"
 msgstr "Líneas por cada línea principal"
 
 # Yo pondría "Hex" con mayúscula o diría directamente "hexadecimal" (si es que se refiere a eso). RizOX.
-#: ../app/preferences.c:247
+#: ../app/preferences.c:248
 msgid "Hex Size:"
 msgstr "Tamaño Hex:"
 
@@ -1884,28 +1880,28 @@ msgstr "Tamaño Hex:"
 #. { "pretty_formated_xml", PREF_BOOLEAN,PREF_OFFSET(pretty_formated_xml),
 #. &default_true,0,"pretty formated xml",NULL, TRUE},
 #.
-#: ../app/preferences.c:259
+#: ../app/preferences.c:260
 msgid "Diagram tree window:"
 msgstr "Ventana del árbol del diagrama"
 
-#: ../app/preferences.c:261
+#: ../app/preferences.c:262
 msgid "Save hidden object types"
 msgstr "Guardar tipos de objetos ocultos"
 
-#: ../app/preferences.c:471 ../lib/prop_inttypes.c:158
+#: ../app/preferences.c:472 ../lib/prop_inttypes.c:158
 msgid "Yes"
 msgstr "Sí"
 
-#: ../app/preferences.c:471 ../app/preferences.c:482
+#: ../app/preferences.c:472 ../app/preferences.c:483
 #: ../lib/prop_inttypes.c:160 ../lib/prop_inttypes.c:186
 msgid "No"
 msgstr "No"
 
-#: ../app/preferences.c:577
+#: ../app/preferences.c:578
 msgid "Preferences"
 msgstr "Preferencias"
 
-#: ../app/preferences.c:779
+#: ../app/preferences.c:780
 msgid "User Interface type settings change will take after restart"
 msgstr ""
 "Los ajustes para el interfaz del usuario tomarán efecto después de reiniciar."
@@ -2005,7 +2001,7 @@ msgstr "Nuevo"
 #: ../objects/Database/table.c:140 ../objects/Istar/actor.c:146
 #: ../objects/Istar/actor.c:147 ../objects/Istar/other.c:150
 #: ../objects/Istar/other.c:151 ../objects/KAOS/other.c:153
-#: ../objects/KAOS/other.c:154 ../objects/UML/association.c:242
+#: ../objects/KAOS/other.c:154 ../objects/UML/association.c:240
 #: ../objects/UML/umlattribute.c:39 ../objects/UML/umlformalparameter.c:37
 #: ../objects/UML/umloperation.c:64 ../objects/UML/umlparameter.c:45
 msgid "Type"
@@ -2363,16 +2359,16 @@ msgstr "Error interno: al establecer tipo esquina de punto final Bézier"
 #: ../lib/create.c:50 ../lib/create.c:100 ../lib/create.c:127
 #: ../lib/create.c:161 ../lib/create.c:197 ../lib/create.c:224
 #: ../lib/create.c:260 ../lib/create.c:295 ../lib/create.c:338
-#: ../plug-ins/svg/svg-import.c:247 ../plug-ins/vdx/vdx-import.c:144
+#: ../plug-ins/svg/svg-import.c:267 ../plug-ins/vdx/vdx-import.c:144
 msgid "Can't find standard object"
 msgstr "No se pudo encontrar el objeto estándar"
 
-#: ../lib/dia_dirs.c:237
+#: ../lib/dia_dirs.c:242
 #, c-format
 msgid "%s<illegal characters>..."
 msgstr "%s<caracteres ilegales>…"
 
-#: ../lib/dia_dirs.c:268
+#: ../lib/dia_dirs.c:273
 #, c-format
 msgid "Too many ..'s in filename %s\n"
 msgstr "Demasiados .. en el nombre del archivo %s\n"
@@ -2422,7 +2418,7 @@ msgid "Error parsing bezpoint p3."
 msgstr "Error analizando el punto p3."
 
 # Traduzco "issues" como "problemas" en vez de como "asuntos". Cambiado el orden de la frase para hispanizarla. RizOX.
-#: ../lib/dia_xml.c:1207
+#: ../lib/dia_xml.c:1205
 msgid ""
 "Your local character set is UTF-8. Because of issues with libxml1 and the "
 "support of files generated by previous versions of dia, you will encounter  "
@@ -2463,30 +2459,30 @@ msgstr "Filtros múltiples de exportación con nombre único %s"
 msgid "Can't load font %s.\n"
 msgstr "No se puede cargar la tipografía %s.\n"
 
-#: ../lib/message.c:91 ../lib/message.c:277
+#: ../lib/message.c:92 ../lib/message.c:278
 msgid "Warning"
 msgstr "Aviso"
 
-#: ../lib/message.c:118
+#: ../lib/message.c:119
 msgid "There is one similar message."
 msgstr "Hay un mensaje similar."
 
-#: ../lib/message.c:123
+#: ../lib/message.c:124
 msgid "Show repeated messages"
 msgstr "Mostrar mensajes repetidos."
 
-#: ../lib/message.c:144
+#: ../lib/message.c:145
 msgid "Don't show this message again"
 msgstr "No mostrar este mensaje de nuevo"
 
-#: ../lib/message.c:202
+#: ../lib/message.c:203
 #, c-format
 msgid "There are %d similar messages."
 msgstr "Hay %d mensajes similares."
 
 # no estoy de acuerdo. FVD
 # Yo tampoco. "Noticia" es "News". "Notice" significa "Observación". RizOX.
-#: ../lib/message.c:261
+#: ../lib/message.c:262
 msgid "Notice"
 msgstr "Observación"
 
@@ -2538,17 +2534,14 @@ msgstr ""
 "«%s»"
 
 #: ../lib/prop_dict.c:43
-#| msgid "Actor"
 msgid "Author"
 msgstr "Autor"
 
 #: ../lib/prop_dict.c:44
-#| msgid "Identifying:"
 msgid "Identifier"
 msgstr "Identificador"
 
 #: ../lib/prop_dict.c:45
-#| msgid "Operation data"
 msgid "Creation date"
 msgstr "Fecha de creación"
 
@@ -2556,7 +2549,7 @@ msgstr "Fecha de creación"
 msgid "Modification date"
 msgstr "Fecha de modificación"
 
-#: ../lib/prop_dict.c:47 ../objects/SISSI/sissi_dialog.c:765
+#: ../lib/prop_dict.c:47 ../objects/SISSI/sissi_dialog.c:880
 msgid "URL"
 msgstr "URL"
 
@@ -2574,7 +2567,7 @@ msgid "Left"
 msgstr "Izquierda"
 
 #: ../lib/properties.c:66 ../lib/properties.h:478 ../lib/widgets.c:730
-#: ../objects/standard/textobj.c:135
+#: ../objects/standard/textobj.c:138
 msgid "Center"
 msgstr "Centro"
 
@@ -2904,9 +2897,9 @@ msgstr "Nombre de la tabla"
 
 #: ../objects/Database/table.c:203 ../objects/Database/table.c:205
 #: ../objects/Database/table.c:207 ../objects/Database/reference.c:120
-#: ../objects/UML/association.c:247 ../objects/UML/association.c:258
-#: ../objects/UML/association.c:260 ../objects/UML/association.c:262
-#: ../objects/UML/association.c:264 ../objects/UML/association.c:266
+#: ../objects/UML/association.c:245 ../objects/UML/association.c:256
+#: ../objects/UML/association.c:258 ../objects/UML/association.c:260
+#: ../objects/UML/association.c:262 ../objects/UML/association.c:264
 #: ../objects/UML/class.c:193 ../objects/UML/class.c:195
 #: ../objects/UML/class.c:197 ../objects/UML/class.c:199
 #: ../objects/UML/class.c:201 ../objects/UML/class.c:203
@@ -2934,8 +2927,8 @@ msgid "_Attributes"
 msgstr "_Atributos"
 
 #. the "new" button
-#: ../objects/Database/table_dialog.c:639 ../objects/SISSI/sissi_dialog.c:624
-#: ../objects/SISSI/sissi_dialog.c:756
+#: ../objects/Database/table_dialog.c:639 ../objects/SISSI/sissi_dialog.c:739
+#: ../objects/SISSI/sissi_dialog.c:871
 msgid "_New"
 msgstr "_Nuevo"
 
@@ -3056,7 +3049,7 @@ msgstr "Final de la descripción"
 
 #: ../objects/Database/reference.c:144 ../objects/ER/participation.c:408
 #: ../objects/FS/flow-ortho.c:626 ../objects/GRAFCET/vector.c:314
-#: ../objects/SADT/arrow.c:459 ../objects/UML/association.c:854
+#: ../objects/SADT/arrow.c:459 ../objects/UML/association.c:852
 #: ../objects/UML/component_feature.c:190 ../objects/UML/dependency.c:376
 #: ../objects/UML/generalization.c:372 ../objects/UML/realizes.c:363
 #: ../objects/UML/transition.c:172 ../objects/standard/zigzagline.c:380
@@ -3065,7 +3058,7 @@ msgstr "Añadir segmento"
 
 #: ../objects/Database/reference.c:145 ../objects/ER/participation.c:409
 #: ../objects/FS/flow-ortho.c:627 ../objects/GRAFCET/vector.c:315
-#: ../objects/SADT/arrow.c:460 ../objects/UML/association.c:855
+#: ../objects/SADT/arrow.c:460 ../objects/UML/association.c:853
 #: ../objects/UML/component_feature.c:191 ../objects/UML/dependency.c:377
 #: ../objects/UML/generalization.c:373 ../objects/UML/realizes.c:364
 #: ../objects/UML/transition.c:173 ../objects/standard/zigzagline.c:381
@@ -4061,7 +4054,7 @@ msgid "Force"
 msgstr "Forzar"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Rotation
-#: ../objects/FS/function.c:1108 ../objects/standard/outline.c:204
+#: ../objects/FS/function.c:1108 ../objects/standard/outline.c:206
 msgid "Rotation"
 msgstr "Rotación"
 
@@ -4387,7 +4380,7 @@ msgstr "No especificado"
 msgid "Agent"
 msgstr "Agente"
 
-#: ../objects/Istar/actor.c:71 ../objects/UML/association.c:249
+#: ../objects/Istar/actor.c:71 ../objects/UML/association.c:247
 msgid "Role"
 msgstr "Rol"
 
@@ -4599,22 +4592,18 @@ msgid "Show hours"
 msgstr "Mostrar horas"
 
 #: ../objects/Misc/grid_object.c:140
-#| msgid "Browse"
 msgid "Rows"
 msgstr "Filas"
 
 #: ../objects/Misc/grid_object.c:142
-#| msgid "Documents"
 msgid "Columns"
 msgstr "Columnas"
 
 #: ../objects/Misc/grid_object.c:144
-#| msgid "Line color"
 msgid "Gridline color"
 msgstr "Color de la rejilla"
 
 #: ../objects/Misc/grid_object.c:146
-#| msgid "Line width"
 msgid "Gridline width"
 msgstr "Anchura de la rejilla"
 
@@ -4735,15 +4724,15 @@ msgstr "Caja SADT"
 msgid "SADT diagram objects"
 msgstr "Objetos de diagrama SADT"
 
-#: ../objects/SISSI/classification.h:38 ../objects/SISSI/sissi.h:222
+#: ../objects/SISSI/classification.h:38 ../objects/SISSI/sissi_dialog.c:42
 msgid "No Protection"
 msgstr "Sin protección"
 
-#: ../objects/SISSI/classification.h:39 ../objects/SISSI/sissi.h:223
+#: ../objects/SISSI/classification.h:39 ../objects/SISSI/sissi_dialog.c:43
 msgid "Restricted Diffusion"
 msgstr "Difusión restringida"
 
-#: ../objects/SISSI/classification.h:40 ../objects/SISSI/sissi.h:224
+#: ../objects/SISSI/classification.h:40 ../objects/SISSI/sissi_dialog.c:44
 msgid "Special Country Confidential"
 msgstr "Confidencial de país especial"
 
@@ -4751,15 +4740,15 @@ msgstr "Confidencial de país especial"
 msgid "Confidential"
 msgstr "Confidencial"
 
-#: ../objects/SISSI/classification.h:42 ../objects/SISSI/sissi.h:225
+#: ../objects/SISSI/classification.h:42 ../objects/SISSI/sissi_dialog.c:45
 msgid "NATO Confidential"
 msgstr "Confidencial de la OTAN"
 
-#: ../objects/SISSI/classification.h:43 ../objects/SISSI/sissi.h:226
+#: ../objects/SISSI/classification.h:43 ../objects/SISSI/sissi_dialog.c:46
 msgid "Personal Confidential"
 msgstr "Confidencial personal"
 
-#: ../objects/SISSI/classification.h:44 ../objects/SISSI/sissi.h:227
+#: ../objects/SISSI/classification.h:44 ../objects/SISSI/sissi_dialog.c:47
 msgid "Medical Confidential"
 msgstr "Confidencial de medicina"
 
@@ -4771,7 +4760,7 @@ msgstr "Confidencial de industria"
 msgid "Defense Confidential"
 msgstr "Confidencial de defensa"
 
-#: ../objects/SISSI/classification.h:47 ../objects/SISSI/sissi.h:229
+#: ../objects/SISSI/classification.h:47 ../objects/SISSI/sissi_dialog.c:49
 msgid "Secret"
 msgstr "Secreto"
 
@@ -4779,19 +4768,19 @@ msgstr "Secreto"
 msgid "Defense Secret"
 msgstr "Secreto de defensa"
 
-#: ../objects/SISSI/classification.h:49 ../objects/SISSI/sissi.h:230
+#: ../objects/SISSI/classification.h:49 ../objects/SISSI/sissi_dialog.c:50
 msgid "Secret special country"
 msgstr "Secreto de país especial"
 
-#: ../objects/SISSI/classification.h:50 ../objects/SISSI/sissi.h:231
+#: ../objects/SISSI/classification.h:50 ../objects/SISSI/sissi_dialog.c:51
 msgid "NATO Secret"
 msgstr "Secreto de la OTAN"
 
-#: ../objects/SISSI/classification.h:51 ../objects/SISSI/sissi.h:232
+#: ../objects/SISSI/classification.h:51 ../objects/SISSI/sissi_dialog.c:52
 msgid "Very Secret"
 msgstr "Alto secreto"
 
-#: ../objects/SISSI/classification.h:52 ../objects/SISSI/sissi.h:233
+#: ../objects/SISSI/classification.h:52 ../objects/SISSI/sissi_dialog.c:53
 msgid "NATO Very Secret"
 msgstr "Alto secreto de la OTAN"
 
@@ -4799,7 +4788,7 @@ msgstr "Alto secreto de la OTAN"
 msgid "SISSI diagram"
 msgstr "Diagrama de SISSI"
 
-#: ../objects/SISSI/sissi.c:924
+#: ../objects/SISSI/sissi.c:923
 #, c-format
 msgid ""
 "Error loading object.\n"
@@ -4808,7 +4797,7 @@ msgstr ""
 "Error al cargar el objeto.\n"
 "No es un archivo regular: %s"
 
-#: ../objects/SISSI/sissi.c:929 ../objects/SISSI/sissi.c:933
+#: ../objects/SISSI/sissi.c:928 ../objects/SISSI/sissi.c:932
 #, c-format
 msgid ""
 "Error loading object.\n"
@@ -4817,7 +4806,7 @@ msgstr ""
 "Error al cargar el objeto.\n"
 "Tipo de archivo incorrecto: %s"
 
-#: ../objects/SISSI/sissi.c:941
+#: ../objects/SISSI/sissi.c:940
 #, c-format
 msgid ""
 "Error loading object.\n"
@@ -4826,345 +4815,345 @@ msgstr ""
 "Error al cargar el objeto.\n"
 "No es un archivo de Dia: %s"
 
-#: ../objects/SISSI/sissi.h:228
+#: ../objects/SISSI/sissi_dialog.c:48
 msgid "Industrial Confidential"
 msgstr "Confidencial de industria"
 
-#: ../objects/SISSI/sissi.h:238
+#: ../objects/SISSI/sissi_dialog.c:58
 msgid "No integrity"
 msgstr "Sin integridad"
 
-#: ../objects/SISSI/sissi.h:239
+#: ../objects/SISSI/sissi_dialog.c:59
 msgid "Low integrity"
 msgstr "Baja integridad"
 
-#: ../objects/SISSI/sissi.h:240
+#: ../objects/SISSI/sissi_dialog.c:60
 msgid "Average software integrity"
 msgstr "Media integridad del software"
 
-#: ../objects/SISSI/sissi.h:241
+#: ../objects/SISSI/sissi_dialog.c:61
 msgid "High software integrity"
 msgstr "Alta integridad del software"
 
-#: ../objects/SISSI/sissi.h:242
+#: ../objects/SISSI/sissi_dialog.c:62
 msgid "Average hardware integrity"
 msgstr "Media integridad del hardware"
 
 # Yo diría mejor "Cardinalidad a derechas". RizOX.
-#: ../objects/SISSI/sissi.h:243
+#: ../objects/SISSI/sissi_dialog.c:63
 msgid "High hardware integrity"
 msgstr "Alta integridad del hardware"
 
-#: ../objects/SISSI/sissi.h:248
+#: ../objects/SISSI/sissi_dialog.c:68
 msgid "Millisecond"
 msgstr "Milisegundo"
 
-#: ../objects/SISSI/sissi.h:249
+#: ../objects/SISSI/sissi_dialog.c:69
 msgid "Second"
 msgstr "Segundo"
 
-#: ../objects/SISSI/sissi.h:250
+#: ../objects/SISSI/sissi_dialog.c:70
 msgid "Minute"
 msgstr "Minuto"
 
-#: ../objects/SISSI/sissi.h:251
+#: ../objects/SISSI/sissi_dialog.c:71
 msgid "Hour"
 msgstr "Hora"
 
-#: ../objects/SISSI/sissi.h:252
+#: ../objects/SISSI/sissi_dialog.c:72
 msgid "Day"
 msgstr "Día"
 
-#: ../objects/SISSI/sissi.h:253
+#: ../objects/SISSI/sissi_dialog.c:73
 msgid "Week"
 msgstr "Semana"
 
-#: ../objects/SISSI/sissi.h:258
+#: ../objects/SISSI/sissi_dialog.c:78
 msgid "SYSTEM"
 msgstr "SISTEMA"
 
-#: ../objects/SISSI/sissi.h:259
+#: ../objects/SISSI/sissi_dialog.c:79
 msgid "Internet access device"
 msgstr "Dispositivo de acceso a Internet"
 
-#: ../objects/SISSI/sissi.h:260
+#: ../objects/SISSI/sissi_dialog.c:80
 msgid "Electronic messaging"
 msgstr "Mensajería electrónica"
 
-#: ../objects/SISSI/sissi.h:261
+#: ../objects/SISSI/sissi_dialog.c:81
 msgid "Intranet"
 msgstr "Intranet"
 
-#: ../objects/SISSI/sissi.h:262
+#: ../objects/SISSI/sissi_dialog.c:82
 msgid "Company directory"
 msgstr "Directorio de empresa"
 
-#: ../objects/SISSI/sissi.h:263
+#: ../objects/SISSI/sissi_dialog.c:83
 msgid "External portal"
 msgstr "Portal externo"
 
-#: ../objects/SISSI/sissi.h:268
+#: ../objects/SISSI/sissi_dialog.c:88
 msgid "ORGANISATION"
 msgstr "ORGANIZACIÓN"
 
-#: ../objects/SISSI/sissi.h:269
+#: ../objects/SISSI/sissi_dialog.c:89
 msgid "Higher-tier organisation"
 msgstr "Organización de alto nivel"
 
-#: ../objects/SISSI/sissi.h:270
+#: ../objects/SISSI/sissi_dialog.c:90
 msgid "Structure of the organisation"
 msgstr "Estructura de la organización"
 
-#: ../objects/SISSI/sissi.h:271
+#: ../objects/SISSI/sissi_dialog.c:91
 msgid "Project or system organisation"
 msgstr "Organización del proyecto o sistema"
 
-#: ../objects/SISSI/sissi.h:272
+#: ../objects/SISSI/sissi_dialog.c:92
 msgid "Subcontractors / Suppliers / Manufacturers"
 msgstr "Subcontratas / Proveedores / Fabricantes"
 
-#: ../objects/SISSI/sissi.h:277
+#: ../objects/SISSI/sissi_dialog.c:97
 msgid "SITE"
 msgstr "SITIO"
 
-#: ../objects/SISSI/sissi.h:278
+#: ../objects/SISSI/sissi_dialog.c:98
 msgid "Places"
 msgstr "Lugares"
 
-#: ../objects/SISSI/sissi.h:279
+#: ../objects/SISSI/sissi_dialog.c:99
 msgid "External environment"
 msgstr "Ambiente externo"
 
-#: ../objects/SISSI/sissi.h:280
+#: ../objects/SISSI/sissi_dialog.c:100
 msgid "Premises"
 msgstr "Premisas"
 
-#: ../objects/SISSI/sissi.h:281
+#: ../objects/SISSI/sissi_dialog.c:101
 msgid "Zone"
 msgstr "Zona"
 
-#: ../objects/SISSI/sissi.h:282
+#: ../objects/SISSI/sissi_dialog.c:102
 msgid "Essential Services"
 msgstr "Servicios esenciales"
 
-#: ../objects/SISSI/sissi.h:283
+#: ../objects/SISSI/sissi_dialog.c:103
 msgid "Communication"
 msgstr "Comunicación"
 
-#: ../objects/SISSI/sissi.h:284
+#: ../objects/SISSI/sissi_dialog.c:104
 msgid "Power"
 msgstr "Energía"
 
-#: ../objects/SISSI/sissi.h:285
+#: ../objects/SISSI/sissi_dialog.c:105
 msgid "Cooling / Pollution"
 msgstr "Refrigerado / Polución"
 
-#: ../objects/SISSI/sissi.h:289
+#: ../objects/SISSI/sissi_dialog.c:109
 msgid "Thermal detection"
 msgstr "Detección térmica"
 
-#: ../objects/SISSI/sissi.h:293
+#: ../objects/SISSI/sissi_dialog.c:113
 msgid "Fire detection"
 msgstr "Detección de fuego"
 
-#: ../objects/SISSI/sissi.h:297
+#: ../objects/SISSI/sissi_dialog.c:117
 msgid "Water detection"
 msgstr "Detección de agua"
 
-#: ../objects/SISSI/sissi.h:301
+#: ../objects/SISSI/sissi_dialog.c:121
 msgid "Air detection"
 msgstr "Detección de aire"
 
-#: ../objects/SISSI/sissi.h:305
+#: ../objects/SISSI/sissi_dialog.c:125
 msgid "Energy detection"
 msgstr "Detección de energía"
 
-#: ../objects/SISSI/sissi.h:309
+#: ../objects/SISSI/sissi_dialog.c:129
 msgid "Intrusion detection"
 msgstr "Detección de intrusión"
 
-#: ../objects/SISSI/sissi.h:313
+#: ../objects/SISSI/sissi_dialog.c:133
 msgid "Thermal action"
 msgstr "Acción térmica"
 
-#: ../objects/SISSI/sissi.h:317
+#: ../objects/SISSI/sissi_dialog.c:137
 msgid "Fire action"
 msgstr "Acción del fuego"
 
-#: ../objects/SISSI/sissi.h:321
+#: ../objects/SISSI/sissi_dialog.c:141
 msgid "Water action"
 msgstr "Acción del agua"
 
-#: ../objects/SISSI/sissi.h:325
+#: ../objects/SISSI/sissi_dialog.c:145
 msgid "Air action"
 msgstr "Acción del aire"
 
-#: ../objects/SISSI/sissi.h:329
+#: ../objects/SISSI/sissi_dialog.c:149
 msgid "Energy action"
 msgstr "Acción de energía"
 
-#: ../objects/SISSI/sissi.h:333
+#: ../objects/SISSI/sissi_dialog.c:153
 msgid "Intrusion action"
 msgstr "Acción de intrusión"
 
 # También creo que todo esto son verbos. FVD
 # Parece que el verbo es la acción que se hace con la "Provisión" (los siguientes textos son verbos). RizOX.
-#: ../objects/SISSI/sissi.h:338
+#: ../objects/SISSI/sissi_dialog.c:158
 msgid "Personal"
 msgstr "Personal"
 
-#: ../objects/SISSI/sissi.h:339
+#: ../objects/SISSI/sissi_dialog.c:159
 msgid "Decision maker"
 msgstr "Tomador de decisiones"
 
-#: ../objects/SISSI/sissi.h:340
+#: ../objects/SISSI/sissi_dialog.c:160
 msgid "SSI Responsible"
 msgstr "Responsable SSI"
 
-#: ../objects/SISSI/sissi.h:341
+#: ../objects/SISSI/sissi_dialog.c:161
 msgid "Users"
 msgstr "Usuarios"
 
-#: ../objects/SISSI/sissi.h:342
+#: ../objects/SISSI/sissi_dialog.c:162
 msgid "Functional administrator"
 msgstr "Administrador funcional"
 
-#: ../objects/SISSI/sissi.h:343
+#: ../objects/SISSI/sissi_dialog.c:163
 msgid "Technical administrator"
 msgstr "Administrador técnico"
 
-#: ../objects/SISSI/sissi.h:344
+#: ../objects/SISSI/sissi_dialog.c:164
 msgid "SSI administrator"
 msgstr "Administrador SSI"
 
-#: ../objects/SISSI/sissi.h:345
+#: ../objects/SISSI/sissi_dialog.c:165
 msgid "Developer"
 msgstr "Desarrollador"
 
-#: ../objects/SISSI/sissi.h:346
+#: ../objects/SISSI/sissi_dialog.c:166
 msgid "Operator / Maintenance"
 msgstr "Operador / Mantenimiento"
 
-#: ../objects/SISSI/sissi.h:351 ../sheets/network.sheet.in.h:20
+#: ../objects/SISSI/sissi_dialog.c:171 ../sheets/network.sheet.in.h:20
 msgid "Network"
 msgstr "Red"
 
-#: ../objects/SISSI/sissi.h:352
+#: ../objects/SISSI/sissi_dialog.c:172
 msgid "Medium and support"
 msgstr "Soporte y medio"
 
-#: ../objects/SISSI/sissi.h:353
+#: ../objects/SISSI/sissi_dialog.c:173
 msgid "Passive or active relay"
 msgstr "Relé activo o pasivo"
 
-#: ../objects/SISSI/sissi.h:354
+#: ../objects/SISSI/sissi_dialog.c:174
 msgid "Communication interface"
 msgstr "Interfaz de comunicación"
 
-#: ../objects/SISSI/sissi.h:359 ../sheets/SISSI.sheet.in.h:54
+#: ../objects/SISSI/sissi_dialog.c:179 ../sheets/SISSI.sheet.in.h:54
 msgid "Software"
 msgstr "Software"
 
-#: ../objects/SISSI/sissi.h:360
+#: ../objects/SISSI/sissi_dialog.c:180
 msgid "Operating System"
 msgstr "Sistema operativo"
 
-#: ../objects/SISSI/sissi.h:361
+#: ../objects/SISSI/sissi_dialog.c:181
 msgid "Service - maintenance or administration software"
 msgstr "Servicio - mantenimiento o administración de software"
 
-#: ../objects/SISSI/sissi.h:362
+#: ../objects/SISSI/sissi_dialog.c:182
 msgid "Packaged software or standard software"
 msgstr "Paquete de software o software estándar"
 
-#: ../objects/SISSI/sissi.h:363
+#: ../objects/SISSI/sissi_dialog.c:183
 msgid "Business application"
 msgstr "Aplicación de negocio"
 
-#: ../objects/SISSI/sissi.h:364
+#: ../objects/SISSI/sissi_dialog.c:184
 msgid "Standard business application"
 msgstr "Aplicación estándar de negocio"
 
-#: ../objects/SISSI/sissi.h:365
+#: ../objects/SISSI/sissi_dialog.c:185
 msgid "Specific business application"
 msgstr "Aplicación específica de negocio"
 
-#: ../objects/SISSI/sissi.h:370
+#: ../objects/SISSI/sissi_dialog.c:190
 msgid "HARDWARE"
 msgstr "HARDWARE"
 
-#: ../objects/SISSI/sissi.h:371
+#: ../objects/SISSI/sissi_dialog.c:191
 msgid "Data-processing equipment (active)"
 msgstr "Equipo de procesamiento de datos (activo)"
 
-#: ../objects/SISSI/sissi.h:372
+#: ../objects/SISSI/sissi_dialog.c:192
 msgid "Mobile equipment"
 msgstr "Equipo móvil"
 
-#: ../objects/SISSI/sissi.h:373
+#: ../objects/SISSI/sissi_dialog.c:193
 msgid "Fixed equipment"
 msgstr "Equipo fijo"
 
-#: ../objects/SISSI/sissi.h:374
+#: ../objects/SISSI/sissi_dialog.c:194
 msgid "Peripheral processing"
 msgstr "Procesado periférico"
 
-#: ../objects/SISSI/sissi.h:375
+#: ../objects/SISSI/sissi_dialog.c:195
 msgid "Electronic medium"
 msgstr "Elecrónico medio"
 
 # ¿De dónde salían esa traducción y esa variable? No concuerda con el original inglés en nada. Lo cambio. RizOX.
-#: ../objects/SISSI/sissi.h:376
+#: ../objects/SISSI/sissi_dialog.c:196
 msgid "Other media"
 msgstr "Otros medios"
 
-#: ../objects/SISSI/sissi.h:377
+#: ../objects/SISSI/sissi_dialog.c:197
 msgid "Data medium (passive)"
 msgstr "Datos medios (pasivo)"
 
 #. Class page:
-#: ../objects/SISSI/sissi_dialog.c:186
+#: ../objects/SISSI/sissi_dialog.c:301
 msgid "_Menace"
 msgstr "A_menaza"
 
 #. ********* label of board *********
-#: ../objects/SISSI/sissi_dialog.c:202 ../objects/SISSI/sissi_dialog.c:211
+#: ../objects/SISSI/sissi_dialog.c:317 ../objects/SISSI/sissi_dialog.c:326
 msgid "Menace"
 msgstr "Amenaza"
 
-#: ../objects/SISSI/sissi_dialog.c:204 ../objects/SISSI/sissi_dialog.c:213
+#: ../objects/SISSI/sissi_dialog.c:319 ../objects/SISSI/sissi_dialog.c:328
 msgid "P Action"
 msgstr "Acción P"
 
-#: ../objects/SISSI/sissi_dialog.c:206 ../objects/SISSI/sissi_dialog.c:215
+#: ../objects/SISSI/sissi_dialog.c:321 ../objects/SISSI/sissi_dialog.c:330
 msgid "P Detection"
 msgstr "Detección P"
 
-#: ../objects/SISSI/sissi_dialog.c:208 ../objects/SISSI/sissi_dialog.c:217
+#: ../objects/SISSI/sissi_dialog.c:323 ../objects/SISSI/sissi_dialog.c:332
 msgid "Vulnerability"
 msgstr "Vulnerabilidad"
 
 #. Other properties of page:
-#: ../objects/SISSI/sissi_dialog.c:373
+#: ../objects/SISSI/sissi_dialog.c:488
 msgid "Other properties"
 msgstr "Otras propiedades"
 
 #. ********* selection menu of entity ********
 #. ********* Label of board *********
-#: ../objects/SISSI/sissi_dialog.c:611
+#: ../objects/SISSI/sissi_dialog.c:726
 msgid "Label"
 msgstr "Etiqueta"
 
-#: ../objects/SISSI/sissi_dialog.c:613
+#: ../objects/SISSI/sissi_dialog.c:728
 msgid "value"
 msgstr "valor"
 
 #. Other properties of page
-#: ../objects/SISSI/sissi_dialog.c:747
+#: ../objects/SISSI/sissi_dialog.c:862
 msgid "Documents"
 msgstr "Documentos"
 
-#: ../objects/SISSI/sissi_dialog.c:763
+#: ../objects/SISSI/sissi_dialog.c:878
 msgid "Document title"
 msgstr "Título del documento"
 
@@ -5173,52 +5162,52 @@ msgstr "Título del documento"
 msgid "Actor"
 msgstr "Actor"
 
-#: ../objects/UML/association.c:224
+#: ../objects/UML/association.c:222
 msgid "From A to B"
 msgstr "De A a B"
 
-#: ../objects/UML/association.c:225
+#: ../objects/UML/association.c:223
 msgid "From B to A"
 msgstr "De B a A"
 
-#: ../objects/UML/association.c:230
+#: ../objects/UML/association.c:228
 msgid "Aggregation"
 msgstr "Agregación"
 
-#: ../objects/UML/association.c:231
+#: ../objects/UML/association.c:229
 msgid "Composition"
 msgstr "Composición"
 
-#: ../objects/UML/association.c:238
+#: ../objects/UML/association.c:236
 msgid "Direction"
 msgstr "Dirección"
 
-#: ../objects/UML/association.c:240
+#: ../objects/UML/association.c:238
 msgid "Show direction"
 msgstr "Mostrar dirección"
 
-#: ../objects/UML/association.c:240
+#: ../objects/UML/association.c:238
 msgid "Show the small arrow denoting the reading direction"
 msgstr "Mostrar la pequeña flecha indicando la dirección de lectura"
 
-#: ../objects/UML/association.c:247
+#: ../objects/UML/association.c:245
 msgid "Side A"
 msgstr "Lado A"
 
-#: ../objects/UML/association.c:251
+#: ../objects/UML/association.c:249
 msgid "Multiplicity"
 msgstr "Multiplicidad"
 
-#: ../objects/UML/association.c:253 ../objects/UML/umlattribute.c:45
+#: ../objects/UML/association.c:251 ../objects/UML/umlattribute.c:45
 #: ../objects/UML/umloperation.c:71
 msgid "Visibility"
 msgstr "Visibilidad"
 
-#: ../objects/UML/association.c:255
+#: ../objects/UML/association.c:253
 msgid "Show arrow"
 msgstr "Mostrar flecha"
 
-#: ../objects/UML/association.c:258
+#: ../objects/UML/association.c:256
 msgid "Side B"
 msgstr "Lado B"
 
@@ -5935,7 +5924,7 @@ msgstr "Mantener proporción"
 
 #. Found file in same dir as diagram.
 #. Found file in current dir.
-#: ../objects/standard/image.c:696 ../objects/standard/image.c:707
+#: ../objects/standard/image.c:697 ../objects/standard/image.c:708
 #, c-format
 msgid ""
 "The image file '%s' was not found in that directory.\n"
@@ -5945,7 +5934,7 @@ msgstr ""
 "Se utiliza el archivo «%s» en su lugar\n"
 
 #. Didn't find file in current dir.
-#: ../objects/standard/image.c:713 ../objects/standard/image.c:735
+#: ../objects/standard/image.c:714 ../objects/standard/image.c:736
 #, c-format
 msgid "The image file '%s' was not found.\n"
 msgstr "No se encontró el archivo de imagen «%s».\n"
@@ -5962,11 +5951,11 @@ msgstr "Punto de partida"
 msgid "End point"
 msgstr "Punto de llegada"
 
-#: ../objects/standard/outline.c:202
+#: ../objects/standard/outline.c:204
 msgid "Text content"
 msgstr "Contenido del texto"
 
-#: ../objects/standard/outline.c:204
+#: ../objects/standard/outline.c:206
 msgid "Angle to rotate the outline"
 msgstr "Ángulo para rotar el contorno"
 
@@ -5983,11 +5972,11 @@ msgstr "Borrar esquina"
 msgid "Standard objects"
 msgstr "Objetos estándar"
 
-#: ../objects/standard/textobj.c:136
+#: ../objects/standard/textobj.c:139
 msgid "First Line"
 msgstr "Primera línea"
 
-#: ../objects/standard/textobj.c:143
+#: ../objects/standard/textobj.c:146
 msgid "Vertical text alignment"
 msgstr "Alineación vertical del texto"
 
@@ -6096,16 +6085,6 @@ msgstr "Filtro del script de renderizado de Dia"
 msgid "Drawing Interchange File"
 msgstr "Drawing Interchange File"
 
-#. better than complaining?
-#: ../plug-ins/dxf/dxf-import.c:518 ../plug-ins/dxf/dxf-import.c:536
-msgid "Bad vertex bulge\n"
-msgstr "Vértice de bombeo incorrecto\n"
-
-#: ../plug-ins/dxf/dxf-import.c:1067
-#, c-format
-msgid "Scale: %f\n"
-msgstr "Escala: %f\n"
-
 #: ../plug-ins/dxf/dxf-import.c:1319
 #, c-format
 msgid "read_dxf_codes failed on '%s'\n"
@@ -6115,11 +6094,6 @@ msgstr "falló read_dxf_codes en «%s»\n"
 #, c-format
 msgid "Binary DXF from '%s' not supported\n"
 msgstr "DXF binario desde «%s» no soportado\n"
-
-#: ../plug-ins/dxf/dxf-import.c:1367
-#, c-format
-msgid "Unknown dxf code %d\n"
-msgstr "Código dxf desconocido %d\n"
 
 #: ../plug-ins/dxf/dxf.c:50
 msgid "Drawing Interchange File import and export filters"
@@ -6170,11 +6144,11 @@ msgstr "PNG (con antialiasing)"
 msgid "gdk_renderer: Unsupported fill mode specified!\n"
 msgstr "gdk_renderer: Especificó un modo de relleno no admitido\n"
 
-#: ../plug-ins/libart/dialibartrenderer.c:1474
+#: ../plug-ins/libart/dialibartrenderer.c:1471
 msgid "Renderer transformation"
 msgstr "Transformación del renderizador"
 
-#: ../plug-ins/libart/dialibartrenderer.c:1475
+#: ../plug-ins/libart/dialibartrenderer.c:1472
 msgid "Transform pointer"
 msgstr "Puntero de transformación"
 
@@ -6231,22 +6205,22 @@ msgstr "Archivo"
 msgid "OK"
 msgstr "Aceptar"
 
-#: ../plug-ins/postscript/paginate_psprint.c:464
+#: ../plug-ins/postscript/paginate_psprint.c:456
 #, c-format
 msgid "Could not run command '%s': %s"
 msgstr "No se pudo ejecutar el comando «%s»: %s"
 
-#: ../plug-ins/postscript/paginate_psprint.c:467
+#: ../plug-ins/postscript/paginate_psprint.c:459
 #, c-format
 msgid "Could not open '%s' for writing: %s"
 msgstr "No se pudo abrir «%s» para escritura: %s"
 
-#: ../plug-ins/postscript/paginate_psprint.c:489
+#: ../plug-ins/postscript/paginate_psprint.c:481
 #, c-format
 msgid "Printing error: command '%s' returned %d\n"
 msgstr "Error de impresión: el comando «%s» devolvió %d\n"
 
-#: ../plug-ins/postscript/paginate_psprint.c:500
+#: ../plug-ins/postscript/paginate_psprint.c:492
 #, c-format
 msgid "Printing error: command '%s' caused sigpipe."
 msgstr "Error de impresión: el comando «%s» causó un sigpipe."
@@ -6307,7 +6281,7 @@ msgstr "Archivo de forma de Dia"
 msgid "dia shape export filter"
 msgstr "Filtro de exportación de archivo de forma de Dia"
 
-#: ../plug-ins/svg/svg-import.c:238
+#: ../plug-ins/svg/svg-import.c:258
 msgid ""
 "Invalid path data.\n"
 "svg:path data must start with moveto."
@@ -6315,11 +6289,11 @@ msgstr ""
 "Ruta de datos inválida.\n"
 "svg:la ruta de datos debe empezar con moveto."
 
-#: ../plug-ins/svg/svg-import.c:734
+#: ../plug-ins/svg/svg-import.c:806
 msgid "Expected SVG Namespace not found in file"
 msgstr "No se encontró en el archivo el espacio de nombres SVG esperado"
 
-#: ../plug-ins/svg/svg-import.c:754
+#: ../plug-ins/svg/svg-import.c:826
 #, c-format
 msgid "root element was '%s' -- expecting 'svg'."
 msgstr "el elemento raíz era «%s» -- se esperaba «svg»."
@@ -6701,15 +6675,15 @@ msgstr ""
 "No se encontraron archivos de configuración válidos para la extensión XSLT, "
 "carga no efectuada"
 
-#: ../plug-ins/xslt/xsltdialog.c:96
+#: ../plug-ins/xslt/xsltdialog.c:97
 msgid "Export through XSLT"
 msgstr "Exportar a través de XSLT"
 
-#: ../plug-ins/xslt/xsltdialog.c:111
+#: ../plug-ins/xslt/xsltdialog.c:112
 msgid "From:"
 msgstr "De:"
 
-#: ../plug-ins/xslt/xsltdialog.c:146
+#: ../plug-ins/xslt/xsltdialog.c:147
 msgid "To:"
 msgstr "A:"
 
@@ -10583,6 +10557,23 @@ msgstr "Servidor de datos Sybase"
 #: ../sheets/sybase.sheet.in.h:8
 msgid "Sybase replication server"
 msgstr "Servidor de replicación de Sybase"
+
+#~ msgid ""
+#~ "You have loaded a non-Dia file.  The file has become an element in a new "
+#~ "diagram, and if you save it, it will be saved as a Dia diagram."
+#~ msgstr ""
+#~ "Ha cargado un archivo que no es propio de Dia. El archivo se ha "
+#~ "convertido en un elemento en un diagrama nuevo y si lo guarda, se "
+#~ "guardará como un diagrama de Dia."
+
+#~ msgid "Bad vertex bulge\n"
+#~ msgstr "Vértice de bombeo incorrecto\n"
+
+#~ msgid "Scale: %f\n"
+#~ msgstr "Escala: %f\n"
+
+#~ msgid "Unknown dxf code %d\n"
+#~ msgstr "Código dxf desconocido %d\n"
 
 #~ msgid "Cairo Clipboard"
 #~ msgstr "Portapapeles Cairo"
