@@ -1780,10 +1780,26 @@ write_user_sheet(Sheet *sheet)
 
     if (sheetobject->has_icon_on_sheet == TRUE)
     {
+      gchar *canonical_icon;
+      gchar *canonical_user_sheets;
+      gchar *canonical_sheets;
+      gchar *icon;
+
       xmlAddChild(object_node, xmlNewText((const xmlChar *)"\n"));
       icon_node = xmlNewChild(object_node, NULL, (const xmlChar *)"icon", NULL);
-      xmlAddChild(icon_node, xmlNewText((xmlChar *) sheetobject->pixmap_file));
+      canonical_icon = dia_get_canonical_path(sheetobject->pixmap_file);
+      icon = canonical_icon;
+      canonical_user_sheets = dia_get_canonical_path(dir_user_sheets);
+      canonical_sheets = dia_get_canonical_path(dia_get_data_directory("sheets"));
+      if(g_str_has_prefix(icon, canonical_user_sheets))
+        icon += strlen(canonical_user_sheets) + 1;
+      if(g_str_has_prefix(icon, canonical_sheets))
+        icon += strlen(canonical_sheets) + 1; 
+      xmlAddChild(icon_node, xmlNewText((xmlChar *) icon));
       xmlAddChild(object_node, xmlNewText((const xmlChar *)"\n"));
+      g_free(canonical_icon);
+      g_free(canonical_user_sheets);
+      g_free(canonical_sheets);
     }
   }
   xmlSetDocCompressMode(doc, 0);

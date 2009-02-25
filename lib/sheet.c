@@ -415,6 +415,13 @@ load_register_sheet(const gchar *dirname, const gchar *filename,
       } else if (subnode->ns == ns && !xmlStrcmp(subnode->name, (const xmlChar *)"icon")) {
           tmp = xmlNodeGetContent(subnode);
           iconname = g_strconcat(dirname,G_DIR_SEPARATOR_S, (char *) tmp,NULL);
+	  if(!shadowing_sheet && !g_file_test (iconname, G_FILE_TEST_EXISTS))
+          {
+	   /* Fall back to system directory if there is no user icon */
+            gchar *sheetdir = dia_get_data_directory("sheets");
+            iconname = g_strconcat(sheetdir,G_DIR_SEPARATOR_S, (char *) tmp,NULL);
+	    g_free(sheetdir);
+          }
           has_icon_on_sheet = TRUE;
           if (tmp) xmlFree(tmp);
       }

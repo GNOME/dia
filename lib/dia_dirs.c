@@ -152,7 +152,7 @@ dia_config_ensure_dir(const gchar *filename)
  * @param path String to canonicalize.
  * @returns A newly allocated string, or NULL if too many ..'s were found
  */
-static gchar *
+gchar *
 dia_get_canonical_path(const gchar *path)
 {
   gchar  *ret = NULL;
