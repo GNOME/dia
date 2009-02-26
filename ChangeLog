@@ -1,3 +1,12 @@
+2009-02-26  Steffen Macke <sdteffen@sdteffen.de>
+
+	* po/POTFILES.in:
+	* configure.in:
+	* installer/win32/Makefile.am:
+	* installer/win32/gennsh.c:
+	* Makefile.am: Add gennsh.c, a dummy C program to create NSIS
+	installer locale files. Bugzilla bug #572202
+
 2009-02-25  Steffen Macke <sdteffen@sdteffen.de>
 
 	* app/sheets_dialog_callbacks.c:

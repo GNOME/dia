@@ -614,6 +614,9 @@ doc/en/Makefile
 doc/eu/Makefile
 doc/pl/Makefile
 doc/fr/Makefile
+installer/Makefile
+installer/win32/Makefile
+installer/win32/locale/Makefile
 dia.keys
 )
 
