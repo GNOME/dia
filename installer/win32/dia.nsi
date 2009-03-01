@@ -2608,7 +2608,6 @@ ${File} "..\..\..\share\themes\Raleigh\gtk-2.0\" "gtkrc"
     CreateShortCut "$SMPROGRAMS\Dia\Dia Manual (CHM).lnk" "$INSTDIR\help\C\dia-manual.chm"
     CreateShortCut "$SMPROGRAMS\Dia\Dia Manual (PDF).lnk" "$INSTDIR\help\C\dia-manual.pdf"
     CreateShortCut "$SMPROGRAMS\Dia\FAQ.lnk" "$INSTDIR\help\C\faq.html"
-    CreateShortCut "$DESKTOP\Dia.lnk" "$INSTDIR\bin\diaw.exe"
     SetOutPath "$INSTDIR"
 	
     ; write out uninstaller
@@ -3582,7 +3581,6 @@ Section Uninstall
     Delete "$SMPROGRAMS\Dia\French\Dia Manual (PDF).lnk"
     RMDir "$SMPROGRAMS\Dia\French"
     RMDir "$SMPROGRAMS\Dia"
-    Delete "$DESKTOP\Dia.lnk"
     
     IfSilent done
     MessageBox MB_YESNO|MB_ICONEXCLAMATION $(un.DIA_UNINSTALLATION_WARNING) IDNO done
