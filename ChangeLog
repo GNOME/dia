@@ -1,5 +1,7 @@
 2009-03-01  Steffen Macke <sdteffen@sdteffen.de>
 
+	* makefile.msc: Fixed typo (dia.exe was copied to dia-app.dll when doing
+	"make full")
 	* installer/win32/dia.nsi: Don't install Desktop shortcut. Patch from Niels
 	Martin Hansen
 	
