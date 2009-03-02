@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-10-04 21:20+0300\n"
+"POT-Creation-Date: 2009-03-02 17:22+0300\n"
 "PO-Revision-Date: 2007-01-13 20:28+0200\n"
 "Last-Translator: Tommi Vainikainen <Tommi.Vainikainen@iki.fi>\n"
 "Language-Team: Finnish <gnome-fi-laatu@lists.sourceforge.net>\n"
@@ -19,82 +19,82 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. This is not an errror
-#: ../app/app_procs.c:200
+#: ../app/app_procs.c:214
 #, c-format
 msgid "Warning: invalid layer range %lu - %lu\n"
 msgstr "Varoitus: virheellinen tasojakso %lu - %lu\n"
 
-#: ../app/app_procs.c:212
+#: ../app/app_procs.c:226
 #, c-format
 msgid "Warning: Layer %lu (%s) selected more than once.\n"
 msgstr "Varoitus: Taso %lu (%s) valittu useammin kuin kerran.\n"
 
-#: ../app/app_procs.c:238
+#: ../app/app_procs.c:252
 #, c-format
 msgid "Warning: Layer %d (%s) selected more than once.\n"
 msgstr "Varoitus: Taso %d (%s) valittu useammin kuin kerran.\n"
 
-#: ../app/app_procs.c:247
+#: ../app/app_procs.c:261
 #, c-format
 msgid "Warning: There is no layer named %s\n"
 msgstr "Varoitus: Ei ole tasoa nimeltä %s\n"
 
-#: ../app/app_procs.c:329
+#: ../app/app_procs.c:343
 #, c-format
 msgid "%s error: don't know how to export into %s\n"
 msgstr "%s virhe: ei tiedä kuinka viedään %s\n"
 
-#: ../app/app_procs.c:338
+#: ../app/app_procs.c:352
 #, c-format
 msgid "%s error: input and output file name is identical: %s"
 msgstr "%s virhe: syöte- ja tulostetiedostonimet ovat identtiset: %s"
 
-#: ../app/app_procs.c:346
+#: ../app/app_procs.c:360
 #, c-format
 msgid "%s error: need valid input file %s\n"
 msgstr "%s virhe: tarvitaan käypä syötetiedosto %s\n"
 
 #. if (!quiet)
-#: ../app/app_procs.c:371
+#: ../app/app_procs.c:385
 #, c-format
 msgid "%s --> %s\n"
 msgstr "%s --> %s\n"
 
-#: ../app/app_procs.c:542
+#: ../app/app_procs.c:556
 #, c-format
 msgid "Can't find output format/filter %s\n"
 msgstr "Tulostemuotoa/suodatinta %s ei löydy\n"
 
 #. Translators:  The argument is a list of options, not to be translated
-#: ../app/app_procs.c:618
+#: ../app/app_procs.c:633
 #, c-format
 msgid "Select the filter/format out of: %s"
 msgstr "Valitse suodatin/muoto seuraavista: %s"
 
 #. &export_file_name
-#: ../app/app_procs.c:636
+#: ../app/app_procs.c:651
 msgid "Export loaded file and exit"
 msgstr "Vie ladattu tiedosto ja lopeta"
 
-#: ../app/app_procs.c:636
+#: ../app/app_procs.c:651
 msgid "OUTPUT"
 msgstr "TULOSTE"
 
 #. &export_file_format
 #. &export_format_string
-#: ../app/app_procs.c:638
+#: ../app/app_procs.c:653
 msgid "TYPE"
 msgstr "TYYPPI"
 
-#: ../app/app_procs.c:640
+#: ../app/app_procs.c:655
 msgid "Export graphics size"
 msgstr "Vientigrafiikan koko"
 
-#: ../app/app_procs.c:640
+#: ../app/app_procs.c:655
 msgid "WxH"
 msgstr "L×K"
 
-#: ../app/app_procs.c:642
+#: ../app/app_procs.c:657
 msgid ""
 "Show only specified layers (e.g. when exporting). Can be either the layer "
 "name or a range of layer numbers (X-Y)"
@@ -102,56 +102,70 @@ msgstr ""
 "Näytä vain annetut tasot (esimerkiksi vietäessä). Voi olla joko kerroksen "
 "nimi tai lista tasojen numeroista (X-Y)"
 
-#: ../app/app_procs.c:643
+#: ../app/app_procs.c:658
 msgid "LAYER,LAYER,..."
 msgstr "TASO,TASO,..."
 
-#: ../app/app_procs.c:645
+#: ../app/app_procs.c:660
 msgid "Don't show the splash screen"
 msgstr "Älä näytä käynnistysruutua"
 
-#: ../app/app_procs.c:647
+#: ../app/app_procs.c:662
 msgid "Don't create empty diagram"
 msgstr "Älä luo tyhjää kaaviota"
 
-#: ../app/app_procs.c:649
+#: ../app/app_procs.c:664
 msgid "Send error messages to stderr instead of showing dialogs."
 msgstr "Lähetä virheviestit vakiovirheeseen pikaikkunoiden näyttämisen sijaan."
 
-#: ../app/app_procs.c:651
+#. &input_directory
+#: ../app/app_procs.c:666
+msgid "Directory containing input files"
+msgstr "Syötetiedostoja sisältävä kansio"
+
+#: ../app/app_procs.c:666 ../app/app_procs.c:668
+msgid "DIRECTORY"
+msgstr "KANSIO"
+
+#. &output_directory
+#: ../app/app_procs.c:668
+msgid "Directory containing output files"
+msgstr "Tulostiedostoja sisältävä kansio"
+
+#: ../app/app_procs.c:670
 msgid "Display credits list and exit"
 msgstr "Näytä tekijäluettelo ja lopeta"
 
-#: ../app/app_procs.c:653
+#: ../app/app_procs.c:672
 msgid "Generate verbose output"
 msgstr "Tulosta paljon viestejä"
 
-#: ../app/app_procs.c:655
+#: ../app/app_procs.c:674
 msgid "Display version and exit"
 msgstr "Näytä versio ja lopeta"
 
-#: ../app/app_procs.c:707
+#: ../app/app_procs.c:731
 msgid "Can't connect to session manager!\n"
 msgstr "Ei voitu yhdistää istunnonhallintaan.\n"
 
 #. TRANSLATOR: 2nd and 3rd %s are time and date respectively.
-#: ../app/app_procs.c:747
+#: ../app/app_procs.c:771
 #, c-format
 msgid "Dia version %s, compiled %s %s\n"
 msgstr "Dia, versio %s, käännetty %s %s\n"
 
-#: ../app/app_procs.c:749
+#: ../app/app_procs.c:773
 #, c-format
 msgid "Dia version %s\n"
 msgstr "Dia, versio %s\n"
 
-#: ../app/app_procs.c:785
+#: ../app/app_procs.c:811
 msgid ""
 "Couldn't find standard objects when looking for object-libs; exiting...\n"
 msgstr ""
 "Standardiobjekteja ei löytynyt etsittäessä objektikirjastoja, lopetetaan...\n"
 
-#: ../app/app_procs.c:787
+#: ../app/app_procs.c:813
 #, c-format
 msgid ""
 "Couldn't find standard objects when looking for object-libs in '%s'; "
@@ -160,11 +174,11 @@ msgstr ""
 "Standardiobjekteja ei löytynyt etsittäessä objektikirjastoja kansiosta \"%s"
 "\", lopetetaan...\n"
 
-#: ../app/app_procs.c:846
+#: ../app/app_procs.c:875
 msgid "Diagram1.dia"
 msgstr "Kaavio1.dia"
 
-#: ../app/app_procs.c:889
+#: ../app/app_procs.c:919
 msgid ""
 "This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\n"
 "describing how you can cause this message to appear.\n"
@@ -172,16 +186,16 @@ msgstr ""
 "Näin ei pitäisi tapahtua. Ole hyvä ja tee vikailmoitus osoitteessa\n"
 "bugzilla.gnome.org kertoen kuinka sait tämän viestin aikaiseksi.\n"
 
-#: ../app/app_procs.c:904
+#: ../app/app_procs.c:934
 msgid "Exiting Dia"
 msgstr "Suljetaan dia"
 
 #. no standard buttons
-#: ../app/app_procs.c:956
+#: ../app/app_procs.c:986
 msgid "Quitting without saving modified diagrams"
 msgstr "Suljetaan tallentamatta muokuttuja kaavioita"
 
-#: ../app/app_procs.c:958
+#: ../app/app_procs.c:988
 msgid ""
 "Modified diagrams exist. Are you sure you want to quit Dia without saving "
 "them?"
@@ -189,15 +203,15 @@ msgstr ""
 "Kaavioita on muokattu. Haluatko varmasti lopettaa Dian tallentamatta "
 "muutoksia?"
 
-#: ../app/app_procs.c:962
+#: ../app/app_procs.c:992
 msgid "Quit Dia"
 msgstr "Lopeta Dia"
 
-#: ../app/app_procs.c:1031 ../app/app_procs.c:1038
+#: ../app/app_procs.c:1061 ../app/app_procs.c:1068
 msgid "Could not create per-user Dia config directory"
 msgstr "Ei voitu luoda käyttäjäkohtaista Dia-asetushakemistoa"
 
-#: ../app/app_procs.c:1041
+#: ../app/app_procs.c:1071
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
@@ -205,20 +219,35 @@ msgstr ""
 "Käyttäjäkohtaista Dia-asetushakemistoa ei voi luoda. Tarkista, että "
 "ympäristömuuttuja HOME osoittaa olemassaolevaan hakemistoon."
 
-#: ../app/app_procs.c:1064
+#: ../app/app_procs.c:1094
 msgid "Objects and filters internal to dia"
 msgstr "Dian sisäiset objektit ja suodattimet"
 
-#: ../app/app_procs.c:1096
+#: ../app/app_procs.c:1127
 msgid "[FILE...]"
 msgstr "[TIEDOSTO...]"
 
-#: ../app/app_procs.c:1117
+#: ../app/app_procs.c:1147
+#, c-format
+msgid "Input-directory '%s' must exist!\n"
+msgstr ""
+
+#: ../app/app_procs.c:1152
+#, c-format
+msgid "Output-directory '%s' must exist!\n"
+msgstr ""
+
+#: ../app/app_procs.c:1158
 #, c-format
 msgid "'%s' not found!\n"
 msgstr "Tiedostoa \"%s\" ei löytynyt!\n"
 
-#: ../app/app_procs.c:1161
+#: ../app/app_procs.c:1166
+#, c-format
+msgid "'%s' not found in '%s'!\n"
+msgstr "Tiedostoa \"%s\" ei löytynyt lähteestä \"%s\"!\n"
+
+#: ../app/app_procs.c:1215
 #, c-format
 msgid ""
 "The original author of Dia was:\n"
@@ -227,7 +256,7 @@ msgstr ""
 "Dian alkuperäinen tekijä on:\n"
 "\n"
 
-#: ../app/app_procs.c:1166
+#: ../app/app_procs.c:1220
 #, c-format
 msgid ""
 "\n"
@@ -238,7 +267,7 @@ msgstr ""
 "Nykyiset Dian ylläpitäjät ovat:\n"
 "\n"
 
-#: ../app/app_procs.c:1171
+#: ../app/app_procs.c:1225
 #, c-format
 msgid ""
 "\n"
@@ -249,7 +278,7 @@ msgstr ""
 "Muut tekijät ovat:\n"
 "\n"
 
-#: ../app/app_procs.c:1176
+#: ../app/app_procs.c:1230
 #, c-format
 msgid ""
 "\n"
@@ -280,24 +309,24 @@ msgstr "Valitse etualan väri"
 msgid "Select background color"
 msgstr "Valitse taustaväri"
 
-#: ../app/commands.c:124
+#: ../app/commands.c:130
 msgid "No print plug-in found!"
 msgstr "Tulostusliitännäistä ei löytynyt!"
 
-#: ../app/commands.c:152
+#: ../app/commands.c:150
 #, c-format
 msgid "Diagram%d.dia"
 msgstr "Kaavio%d.dia"
 
-#: ../app/commands.c:345
+#: ../app/commands.c:343
 msgid "No existing object to paste.\n"
 msgstr "Ei objekteja liitettäväksi.\n"
 
-#: ../app/commands.c:649 ../app/commands.c:687
+#: ../app/commands.c:646 ../app/commands.c:684
 msgid "Could not find help directory"
 msgstr "Ohjehakemistoa ei löydy"
 
-#: ../app/commands.c:656
+#: ../app/commands.c:653
 #, c-format
 msgid ""
 "Could not open help directory:\n"
@@ -306,7 +335,7 @@ msgstr ""
 "Ohjehakemiston avaus ei onnistunut:\n"
 "%s"
 
-#: ../app/commands.c:723
+#: ../app/commands.c:720
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr ""
 "Tommi Vainikainen, 2003-2005, 2007\n"
@@ -315,7 +344,7 @@ msgstr ""
 "\n"
 "http://gnome.fi/"
 
-#: ../app/commands.c:725
+#: ../app/commands.c:722
 msgid ""
 "This program is free software; you can redistribute it and/or modify\n"
 "it under the terms of the GNU General Public License as published by\n"
@@ -345,11 +374,44 @@ msgstr ""
 "ole, kirjoita osoitteeseen Free Software Foundation Inc., 59 Temple \n"
 "Place – Suite 330, Boston, MA 02111-1307, USA.\n"
 
-#: ../app/commands.c:748
+#: ../app/commands.c:745
 msgid "A program for drawing structured diagrams."
 msgstr "Ohjelma rakenteisten kaavioiden piirtoon."
 
-#: ../app/defaults.c:43 ../app/defaults.c:145
+#: ../app/confirm.c:69
+#, c-format
+msgid "You are about to print a diagram with %d pages."
+msgstr ""
+
+#: ../app/confirm.c:71
+#, c-format
+msgid "You are about to export a diagram with %d pages."
+msgstr ""
+
+#: ../app/confirm.c:73
+#, c-format
+msgid ""
+"You are about to export a diagram which may require %s of memory.(%d pages)."
+msgstr ""
+
+#: ../app/confirm.c:81
+msgid ""
+"You can adjust the size of the diagram by changing the 'Scaling' in the "
+"'Page Setup' dialog.\n"
+"Alternatively use 'Select All' and 'Best Fit' to move objects/handles into "
+"the intended bounds."
+msgstr ""
+
+#: ../app/confirm.c:85
+msgid "Confirm Diagram Size"
+msgstr "Vahvista kaavion koko"
+
+#: ../app/create_object.c:71
+#, c-format
+msgid "'%s' creation failed"
+msgstr "\"%s\" luonti epäonnistui"
+
+#: ../app/defaults.c:43 ../app/defaults.c:150
 msgid "Object defaults"
 msgstr "Objektin oletusarvot"
 
@@ -357,7 +419,7 @@ msgstr "Objektin oletusarvot"
 msgid "This object has no defaults."
 msgstr "Tällä objektilla ei ole oletusarvoja."
 
-#: ../app/defaults.c:110
+#: ../app/defaults.c:115
 msgid "Defaults: "
 msgstr "Oletusarvot: "
 
@@ -386,7 +448,7 @@ msgid "Visible spacing"
 msgstr "Näkyvä harvennus"
 
 #. Hexes!
-#: ../app/dia-props.c:177 ../app/preferences.c:192
+#: ../app/dia-props.c:177 ../app/preferences.c:247
 msgid "Hex grid"
 msgstr "Kuusioruudukko"
 
@@ -398,11 +460,11 @@ msgstr "Kuusioruudukon koko"
 msgid "Grid"
 msgstr "Ruudukko"
 
-#: ../app/dia-props.c:209 ../lib/diagramdata.c:113
+#: ../app/dia-props.c:209 ../lib/diagramdata.c:112
 msgid "Background"
 msgstr "Tausta"
 
-#: ../app/dia-props.c:220 ../app/preferences.c:110
+#: ../app/dia-props.c:220 ../app/preferences.c:123
 msgid "Grid Lines"
 msgstr "Ruudukon viivat"
 
@@ -445,23 +507,15 @@ msgstr "Alisäätimen Y-sijainti"
 msgid "Couldn't convert filename '%s' to UTF-8: %s\n"
 msgstr "Tiedostonimeä \"%s\" ei voi muuntaa UTF-8-muotoon: %s\n"
 
-#: ../app/diagram.c:225 ../lib/message.c:88 ../lib/message.c:291
+#: ../app/diagram.c:225 ../lib/message.c:90 ../lib/message.c:293
 msgid "Error"
 msgstr "Virhe"
 
-#: ../app/diagram.c:274
-msgid ""
-"You have loaded a non-Dia file.  The file has become an element in a new "
-"diagram, and if you save it, it will be saved as a Dia diagram."
-msgstr ""
-"Latasin muun kuin dia-tiedoston. Tiedostosta tehtiin elementti uuteen "
-"kaavioon ja jos tallennat sen, se tallennetaan dia-kaaviona."
-
-#: ../app/diagram.c:1180
+#: ../app/diagram.c:1209
 msgid "Trying to group with no selected objects."
 msgstr "Yritettiin ryhmittää ilman valittuja kohteita."
 
-#: ../app/diagram.c:1190
+#: ../app/diagram.c:1219
 msgid ""
 "You cannot group objects that belong to different groups or have different "
 "parents"
@@ -548,7 +602,7 @@ msgstr "/_Ominaisuudet"
 msgid "/_Hide this type"
 msgstr "/_Piilota tämä tyyppi"
 
-#: ../app/diagram_tree_window.c:80 ../app/preferences.c:111
+#: ../app/diagram_tree_window.c:80 ../app/preferences.c:124
 msgid "Diagram Tree"
 msgstr "Kaaviopuu"
 
@@ -609,7 +663,7 @@ msgstr "%0.3g cm × %0.3g cm"
 msgid "Page Setup"
 msgstr "Sivun asetukset"
 
-#: ../app/disp_callbacks.c:84 ../app/properties.c:152
+#: ../app/disp_callbacks.c:95 ../app/properties-dialog.c:157
 msgid ""
 "This object doesn't support Undo/Redo.\n"
 "Undo information erased."
@@ -617,11 +671,11 @@ msgstr ""
 "Tämä objekti ei tue Peru/Tee uudestaan -toimintoja.\n"
 "Peru toiminto."
 
-#: ../app/disp_callbacks.c:119
+#: ../app/disp_callbacks.c:130
 msgid "Properties..."
 msgstr "Ominaisuudet..."
 
-#: ../app/disp_callbacks.c:937
+#: ../app/disp_callbacks.c:1066
 msgid ""
 "The object you dropped cannot fit into its parent. \n"
 "Either expand the parent object, or drop the object elsewhere."
@@ -632,14 +686,14 @@ msgstr ""
 #. http://www.gnu.org/software/gettext/manual/html_chapter/gettext_10.html#SEC150
 #. * Althoug the single objects wont get triggered here some languages have variations on the other numbers
 #.
-#: ../app/display.c:109
+#: ../app/display.c:115
 #, c-format
 msgid "Selection of %d object"
 msgid_plural "Selection of %d objects"
 msgstr[0] "%d kohteen valinta"
 msgstr[1] "%d kohteen valinta"
 
-#: ../app/display.c:119
+#: ../app/display.c:125
 #, c-format
 msgid "Selected '%s'"
 msgstr "Valittu '%s'"
@@ -691,67 +745,67 @@ msgstr "Tallenna valittu"
 msgid "The following are not saved:"
 msgstr "Seuraavia ei ole tallennettu:"
 
-#: ../app/exit_dialog.c:114
+#: ../app/exit_dialog.c:113
 msgid "Save"
 msgstr "Tallenna"
 
-#: ../app/exit_dialog.c:115
+#: ../app/exit_dialog.c:114
 msgid "active"
 msgstr "käytössä"
 
 #. *** board of value **************
-#: ../app/exit_dialog.c:124 ../app/plugin-manager.c:262
-#: ../objects/Database/table.c:136 ../objects/Database/table.c:179
-#: ../objects/SISSI/sissi_dialog.c:619 ../objects/UML/association.c:236
-#: ../objects/UML/class.c:141 ../objects/UML/large_package.c:133
+#: ../app/exit_dialog.c:123 ../app/plugin-manager.c:262
+#: ../objects/Database/table.c:138 ../objects/Database/table.c:181
+#: ../objects/SISSI/sissi_dialog.c:734 ../objects/UML/association.c:234
+#: ../objects/UML/class.c:144 ../objects/UML/large_package.c:139
 #: ../objects/UML/umlattribute.c:37 ../objects/UML/umlformalparameter.c:35
 #: ../objects/UML/umloperation.c:62 ../objects/UML/umlparameter.c:43
 msgid "Name"
 msgstr "Nimi"
 
-#: ../app/exit_dialog.c:130
+#: ../app/exit_dialog.c:129
 msgid "Path"
 msgstr "Polku"
 
-#: ../app/exit_dialog.c:143
+#: ../app/exit_dialog.c:142
 msgid "Select All"
 msgstr "Valitse kaikki"
 
-#: ../app/exit_dialog.c:151
+#: ../app/exit_dialog.c:150
 msgid "Select None"
 msgstr "Älä valitse mitään"
 
-#: ../app/exit_dialog.c:229
+#: ../app/exit_dialog.c:232
 msgid "Nothing selected for saving.  Would you like to try again?"
 msgstr "Mitään ei ole valittu tallennettavaksi. Haluatko yrittää uudestaan?"
 
-#: ../app/filedlg.c:143 ../app/filedlg.c:151 ../app/filedlg.c:167
-#: ../app/filedlg.c:741 ../lib/widgets.c:1488
+#: ../app/filedlg.c:144 ../app/filedlg.c:152 ../app/filedlg.c:168
+#: ../app/filedlg.c:749 ../lib/widgets.c:1488
 msgid "Supported Formats"
 msgstr "Tuetut muodot"
 
-#: ../app/filedlg.c:191 ../app/filedlg.c:601
+#: ../app/filedlg.c:192 ../app/filedlg.c:606
 msgid "By extension"
 msgstr "Tiedostopäätteestä"
 
-#: ../app/filedlg.c:280
+#: ../app/filedlg.c:281
 msgid "Open Diagram"
 msgstr "Avaa kaavio"
 
 # Tarkista
-#: ../app/filedlg.c:309
+#: ../app/filedlg.c:310
 msgid "Open Options"
 msgstr "Avaa asetukset"
 
-#: ../app/filedlg.c:317 ../app/filedlg.c:723
+#: ../app/filedlg.c:318 ../app/filedlg.c:731
 msgid "Determine file type:"
 msgstr "Määrittele tiedoston tyyppi:"
 
-#: ../app/filedlg.c:337 ../app/filedlg.c:736 ../lib/widgets.c:1493
+#: ../app/filedlg.c:338 ../app/filedlg.c:744 ../lib/widgets.c:1493
 msgid "All Files"
 msgstr "Kaikki tiedostot"
 
-#: ../app/filedlg.c:370 ../plug-ins/postscript/paginate_psprint.c:409
+#: ../app/filedlg.c:371 ../plug-ins/postscript/paginate_psprint.c:408
 msgid ""
 "Some characters in the filename are neither UTF-8\n"
 "nor your local encoding.\n"
@@ -761,13 +815,13 @@ msgstr ""
 "eikä paikallista merkistöä.\n"
 "Jotain tulee hajoamaan."
 
-#: ../app/filedlg.c:380 ../app/filedlg.c:648
-#: ../plug-ins/postscript/paginate_psprint.c:424
+#: ../app/filedlg.c:381 ../app/filedlg.c:653
+#: ../plug-ins/postscript/paginate_psprint.c:422
 msgid "File already exists"
 msgstr "Samanniminen tiedosto on jo olemassa"
 
-#: ../app/filedlg.c:382 ../app/filedlg.c:650
-#: ../plug-ins/postscript/paginate_psprint.c:416
+#: ../app/filedlg.c:383 ../app/filedlg.c:655
+#: ../plug-ins/postscript/paginate_psprint.c:418
 #, c-format
 msgid ""
 "The file '%s' already exists.\n"
@@ -776,17 +830,17 @@ msgstr ""
 "Tiedosto \"%s\" on jo olemassa.\n"
 "Korvataanko uudella?"
 
-#: ../app/filedlg.c:436
+#: ../app/filedlg.c:437
 msgid "Save Diagram"
 msgstr "Tallenna kaavio"
 
 #. Need better way to make it a reasonable size.  Isn't there some
 #. standard look for them (or is that just Gnome?)
-#: ../app/filedlg.c:448
+#: ../app/filedlg.c:449
 msgid "Compress diagram files"
 msgstr "Pakkaa kaaviotiedostot"
 
-#: ../app/filedlg.c:458 ../app/filedlg.c:463
+#: ../app/filedlg.c:459 ../app/filedlg.c:464
 msgid ""
 "Compression reduces file size to less than 1/10th size and speeds up loading "
 "and saving.  Some text programs cannot manipulate compressed files."
@@ -795,7 +849,7 @@ msgstr ""
 "ja tallentamista. Jotkin tekstiohjelmat eivät osaa käsitellä pakattuja "
 "tiedostoja."
 
-#: ../app/filedlg.c:674
+#: ../app/filedlg.c:679
 #, c-format
 msgid ""
 "Could not determine which export filter\n"
@@ -804,50 +858,54 @@ msgstr ""
 "Ei pystynyt määrittelemään mitä vientisuodatinta\n"
 "tulisi käyttää tallennettaessa tiedostoa \"%s\""
 
-#: ../app/filedlg.c:698
+#: ../app/filedlg.c:706
 msgid "Export Diagram"
 msgstr "Vie kaavio"
 
-#: ../app/filedlg.c:715
+#: ../app/filedlg.c:723
 msgid "Export Options"
 msgstr "Vientiasetukset"
 
-#: ../app/find-and-replace.c:283
+#: ../app/find-and-replace.c:453
 msgid "_Search for:"
 msgstr "_Etsi:"
 
-#: ../app/find-and-replace.c:296
+#: ../app/find-and-replace.c:466
 msgid "Replace _with:"
 msgstr "_Korvaa:"
 
-#: ../app/find-and-replace.c:306
+#: ../app/find-and-replace.c:476
 msgid "_Match case"
 msgstr "_Täsmää kirjainkoko"
 
-#: ../app/find-and-replace.c:310
+#: ../app/find-and-replace.c:480
 msgid "Match _entire word only"
 msgstr "Täsmää _koko sanat"
 
-#: ../app/find-and-replace.c:335
+#: ../app/find-and-replace.c:484
+msgid "Match _all properties (not just object name)"
+msgstr ""
+
+#: ../app/find-and-replace.c:509
 msgid "Find"
 msgstr "Etsi"
 
-#: ../app/find-and-replace.c:367 ../app/menus.c:258
+#: ../app/find-and-replace.c:541 ../app/menus.c:261
 msgid "Replace"
 msgstr "Korvaa"
 
-#: ../app/find-and-replace.c:370
+#: ../app/find-and-replace.c:544
 msgid "Replace _All"
 msgstr "Korvaa k_aikki"
 
 #. not adding the button in the list above to modify it's text;
 #. * the default "Find and Replace" is just too long for my taste ;)
 #.
-#: ../app/find-and-replace.c:375
+#: ../app/find-and-replace.c:549
 msgid "_Replace"
 msgstr "Ko_rvaa"
 
-#: ../app/interface.c:145
+#: ../app/interface.c:153
 msgid ""
 "Modify object(s)\n"
 "Use <Space> to toggle between this and other tools"
@@ -855,7 +913,7 @@ msgstr ""
 "Muokkaa objektia/objekteja\n"
 "Käytä <Välilyöntiä> vaihtamaan tämän ja muiden työkalujen välillä"
 
-#: ../app/interface.c:151
+#: ../app/interface.c:159
 msgid ""
 "Text edit(s)\n"
 "Use <Esc> to leave this tool"
@@ -864,114 +922,111 @@ msgstr ""
 "Poistu työkalusta Esc:illä"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Magnify
-#: ../app/interface.c:157 ../app/menus.c:220 ../objects/FS/function.c:988
+#: ../app/interface.c:165 ../app/menus.c:223 ../objects/FS/function.c:988
 msgid "Magnify"
 msgstr "Suurenna"
 
-#: ../app/interface.c:163
+#: ../app/interface.c:171
 msgid "Scroll around the diagram"
 msgstr "Vieritä kaaviota"
 
-#. backward compatibility
+#. how it used to be before 0.96+SVN
 #. new name matching "same name, same type"  rule
-#. backward compatibility
-#. new name matching "same name, same type"  rule
-#: ../app/interface.c:169 ../app/menus.c:223 ../lib/properties.c:79
-#: ../lib/properties.h:522 ../objects/AADL/aadlbox.c:157
-#: ../objects/AADL/aadlbox.c:159 ../objects/Jackson/requirement.c:144
-#: ../objects/UML/activity.c:129 ../objects/UML/actor.c:124
-#: ../objects/UML/classicon.c:148 ../objects/UML/component.c:130
-#: ../objects/UML/component_feature.c:161 ../objects/UML/node.c:130
-#: ../objects/UML/node.c:132 ../objects/UML/note.c:123
-#: ../objects/UML/object.c:150 ../objects/UML/small_package.c:130
-#: ../objects/UML/state.c:154 ../objects/UML/usecase.c:140
-#: ../objects/custom/custom_object.c:236 ../objects/network/basestation.c:135
-#: ../objects/network/radiocell.c:127
+#: ../app/interface.c:177 ../app/menus.c:226 ../lib/properties.c:80
+#: ../lib/properties.h:530 ../objects/AADL/aadlbox.c:156
+#: ../objects/Jackson/requirement.c:144 ../objects/UML/activity.c:129
+#: ../objects/UML/actor.c:126 ../objects/UML/classicon.c:149
+#: ../objects/UML/component.c:130 ../objects/UML/component_feature.c:161
+#: ../objects/UML/node.c:130 ../objects/UML/node.c:132
+#: ../objects/UML/note.c:124 ../objects/UML/object.c:151
+#: ../objects/UML/small_package.c:135 ../objects/UML/state.c:154
+#: ../objects/UML/usecase.c:142 ../objects/custom/custom_object.c:236
+#: ../objects/network/basestation.c:135 ../objects/network/radiocell.c:127
 msgid "Text"
 msgstr "Teksti"
 
-#: ../app/interface.c:175 ../app/menus.c:224
+#: ../app/interface.c:183 ../app/menus.c:227
 msgid "Box"
 msgstr "Laatikko"
 
-#: ../app/interface.c:181 ../app/menus.c:225
+#: ../app/interface.c:189 ../app/menus.c:228
 msgid "Ellipse"
 msgstr "Ellipsi"
 
-#: ../app/interface.c:187 ../app/menus.c:226
+#: ../app/interface.c:195 ../app/menus.c:229
 msgid "Polygon"
 msgstr "Monikulmio"
 
-#: ../app/interface.c:193 ../app/menus.c:227
+#: ../app/interface.c:201 ../app/menus.c:230
 msgid "Beziergon"
 msgstr "Bezier-kulmio"
 
-#: ../app/interface.c:199 ../app/menus.c:229 ../objects/standard/line.c:229
+#: ../app/interface.c:207 ../app/menus.c:232 ../objects/standard/line.c:229
 msgid "Line"
 msgstr "Viiva"
 
-#: ../app/interface.c:205 ../app/menus.c:230
+#: ../app/interface.c:213 ../app/menus.c:233
 msgid "Arc"
 msgstr "Kaari"
 
-#: ../app/interface.c:211 ../app/menus.c:231
+#: ../app/interface.c:219 ../app/menus.c:234
 msgid "Zigzagline"
 msgstr "Siksakkiviiva"
 
-#: ../app/interface.c:217 ../app/menus.c:232
+#: ../app/interface.c:225 ../app/menus.c:235
 msgid "Polyline"
 msgstr "Moniviiva"
 
-#: ../app/interface.c:223 ../app/menus.c:233
+#: ../app/interface.c:231 ../app/menus.c:236
 msgid "Bezierline"
 msgstr "Bezier-viiva"
 
-#: ../app/interface.c:229 ../app/menus.c:236
+#: ../app/interface.c:237 ../app/menus.c:239
 msgid "Image"
 msgstr "Kuva"
 
-#: ../app/interface.c:235 ../app/menus.c:234
+#: ../app/interface.c:244 ../app/menus.c:237
 msgid "Outline"
 msgstr ""
 
-#: ../app/interface.c:609 ../app/interface.c:845
+#: ../app/interface.c:619 ../app/interface.c:855
 msgid "Pops up the Navigation window."
 msgstr "Näytä navigointi-ikkuna."
 
-#: ../app/interface.c:807
+#: ../app/interface.c:817
 msgid "Diagram menu."
 msgstr "Kaaviovalikko."
 
-#: ../app/interface.c:911
+#: ../app/interface.c:920
 msgid "Zoom"
 msgstr "Zoomaus"
 
-#: ../app/interface.c:926
+#: ../app/interface.c:935
 msgid "Toggles snap-to-grid for this window."
 msgstr "Kiinnitä ruudukkoon -kytkin tälle ikkunalle."
 
-#: ../app/interface.c:937
+#: ../app/interface.c:946
 msgid "Toggles object snapping for this window."
 msgstr "Kiinnitetäänkö kohteet tässä ikkunassa."
 
-#: ../app/interface.c:1000
+#: ../app/interface.c:1009
 msgid "NULL tooldata in tool_select_update"
 msgstr "TYHJÄ työvälinetieto tool_select_update-funktiossa"
 
-#: ../app/interface.c:1327
+#: ../app/interface.c:1336
 #, c-format
 msgid "No sheet named %s"
 msgstr "Ei luokkaa nimeltä %s"
 
-#: ../app/interface.c:1365
+#: ../app/interface.c:1374
 msgid "Other sheets"
 msgstr "Muut luokat"
 
-#: ../app/interface.c:1425 ../sheets/Flowchart.sheet.in.h:10
+#: ../app/interface.c:1434 ../sheets/Flowchart.sheet.in.h:10
 msgid "Flowchart"
 msgstr "Vuokaavio"
 
-#: ../app/interface.c:1485
+#: ../app/interface.c:1494
 msgid ""
 "Foreground & background colors for new objects.  The small black and white "
 "squares reset colors.  The small arrows swap colors.  Double click to change "
@@ -981,7 +1036,7 @@ msgstr ""
 "palauttavat värit alkutilaan. Pienet nuolet vaihtavat värejä. "
 "Kaksoisnapsauta vaihtaaksesi värejä."
 
-#: ../app/interface.c:1500
+#: ../app/interface.c:1509
 msgid ""
 "Line widths.  Click on a line to set the default line width for new "
 "objects.  Double-click to set the line width more precisely."
@@ -989,7 +1044,7 @@ msgstr ""
 "Viivan paksuudet.  Napsauta viivaa asettaaksesi viivan oletuspaksuuden "
 "uusille objekteille.  Kaksoisnapsauta jos haluat asettaa tarkemmin."
 
-#: ../app/interface.c:1543
+#: ../app/interface.c:1552
 msgid ""
 "Arrow style at the beginning of new lines.  Click to pick an arrow, or set "
 "arrow parameters with Details..."
@@ -997,7 +1052,7 @@ msgstr ""
 "Nuolen tyyli uusien viivojen alussa. Napsauta valitaksesi nuolen tai muokkaa "
 "nuoliparametreja Tiedot-painikkeesta"
 
-#: ../app/interface.c:1548
+#: ../app/interface.c:1557
 msgid ""
 "Line style for new lines.  Click to pick a line style, or set line style "
 "parameters with Details..."
@@ -1005,7 +1060,7 @@ msgstr ""
 "Viivan tyyli uusille viivoille. Napsauta asettaaksesi viivan tyyli tai "
 "muokkaa viivan tyyliparametrit Tiedot-painikkeesta"
 
-#: ../app/interface.c:1564
+#: ../app/interface.c:1573
 msgid ""
 "Arrow style at the end of new lines.  Click to pick an arrow, or set arrow "
 "parameters with Details..."
@@ -1014,7 +1069,7 @@ msgstr ""
 "nuoliparametreja Tiedot-painikkeesta"
 
 # Vai kaaviomuokkain?
-#: ../app/interface.c:1624 ../app/interface.c:1753
+#: ../app/interface.c:1633 ../app/interface.c:1760
 msgid "Diagram Editor"
 msgstr "Kaaviomuokkain"
 
@@ -1034,36 +1089,36 @@ msgstr "Laske taso"
 msgid "Delete Layer"
 msgstr "Poista taso"
 
-#: ../app/layer_dialog.c:305
+#: ../app/layer_dialog.c:306
 msgid "Layers:"
 msgstr "Tasot:"
 
-#: ../app/layer_dialog.c:385
+#: ../app/layer_dialog.c:386
 msgid "Layers"
 msgstr "Tasot"
 
-#: ../app/layer_dialog.c:399
+#: ../app/layer_dialog.c:400
 msgid "Diagram:"
 msgstr "Kaavio:"
 
-#: ../app/layer_dialog.c:513
+#: ../app/layer_dialog.c:514
 #, c-format
 msgid "New layer %d"
 msgstr "Uusi taso %d"
 
-#: ../app/layer_dialog.c:728
+#: ../app/layer_dialog.c:729
 msgid "none"
 msgstr "ei mitään"
 
-#: ../app/layer_dialog.c:1153
+#: ../app/layer_dialog.c:1154
 msgid "Edit Layer Attributes"
 msgstr "Muokkaa tason ominaisuuksia"
 
-#: ../app/layer_dialog.c:1172
+#: ../app/layer_dialog.c:1173
 msgid "Layer name:"
 msgstr "Tason nimi:"
 
-#: ../app/linewidth_area.c:246 ../lib/properties.h:483 ../lib/properties.h:486
+#: ../app/linewidth_area.c:246 ../lib/properties.h:491 ../lib/properties.h:494
 #: ../objects/chronogram/chronoline.c:183
 #: ../objects/chronogram/chronoref.c:162
 msgid "Line width"
@@ -1073,7 +1128,7 @@ msgstr "Viivan paksuus"
 msgid "Line width:"
 msgstr "Viivan paksuus:"
 
-#: ../app/load_save.c:307
+#: ../app/load_save.c:295
 msgid ""
 "Error loading diagram.\n"
 "Linked object not found in document."
@@ -1081,49 +1136,41 @@ msgstr ""
 "Virhe ladattaessa kaaviota.\n"
 "Linkitettyä objektia ei löytynyt dokumentista."
 
-#: ../app/load_save.c:311
+#: ../app/load_save.c:299
+#,  c-format
 msgid ""
 "Error loading diagram.\n"
-"connection handle does not exist."
+"connection handle %d does not exist on '%s'."
 msgstr ""
 "Virhe ladattaessa kaaviota.\n"
-"Liitoskahvaa ei ole olemassa."
+"Liitoskahvaa %d ei ole olemassa kohteessa \"%s\"."
 
-#: ../app/load_save.c:338
+#: ../app/load_save.c:327
 #, c-format
 msgid ""
 "Error loading diagram.\n"
-"connection point %s does not exist."
+"connection point %d does not exist on '%s'."
 msgstr ""
 "Virhe ladattaessa kaaviota.\n"
-"Liitoskohtaa %s ei ole olemassa."
+"Liitoskohtaa %d ei ole olemassa kohteessa \"%s\"."
 
-#: ../app/load_save.c:378
+#: ../app/load_save.c:367
 #, c-format
 msgid "Can't find parent %s of %s object\n"
 msgstr "Objektin %2$s isää %1$s ei löydy\n"
 
-#: ../app/load_save.c:424 ../objects/SISSI/area.c:209
-#: ../objects/SISSI/faraday.c:209 ../objects/SISSI/room.c:209
-#: ../objects/SISSI/sissi_object.c:202 ../objects/SISSI/site.c:212
+#: ../app/load_save.c:416
 msgid "You must specify a file, not a directory.\n"
 msgstr "Sinun täytyy määritellä tiedosto, ei hakemistoa.\n"
 
-#: ../app/load_save.c:431 ../objects/SISSI/area.c:215
-#: ../objects/SISSI/faraday.c:215 ../objects/SISSI/room.c:215
-#: ../objects/SISSI/sissi_object.c:209 ../objects/SISSI/site.c:218
-#: ../plug-ins/dxf/dxf-import.c:1341 ../plug-ins/wpg/wpg.c:1177
-#: ../plug-ins/xfig/xfig-import.c:1270 ../plug-ins/xslt/xslt.c:91
+#: ../app/load_save.c:423 ../plug-ins/dxf/dxf-import.c:1309
+#: ../plug-ins/wpg/wpg.c:1177 ../plug-ins/xfig/xfig-import.c:1270
+#: ../plug-ins/xslt/xslt.c:91
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
 msgstr "Ei pystynyt aukaisemaan tiedostoa \"%s\" luettavaksi.\n"
 
-#: ../app/load_save.c:449 ../app/load_save.c:455 ../objects/SISSI/area.c:224
-#: ../objects/SISSI/area.c:230 ../objects/SISSI/faraday.c:224
-#: ../objects/SISSI/faraday.c:230 ../objects/SISSI/room.c:224
-#: ../objects/SISSI/room.c:230 ../objects/SISSI/sissi_object.c:219
-#: ../objects/SISSI/sissi_object.c:225 ../objects/SISSI/site.c:227
-#: ../objects/SISSI/site.c:233
+#: ../app/load_save.c:441 ../app/load_save.c:447
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -1132,9 +1179,7 @@ msgstr ""
 "Virhe ladattaessa kaaviota %s.\n"
 "Tuntematon tiedostotyyppi."
 
-#: ../app/load_save.c:463 ../objects/SISSI/area.c:238
-#: ../objects/SISSI/faraday.c:238 ../objects/SISSI/room.c:238
-#: ../objects/SISSI/sissi_object.c:233 ../objects/SISSI/site.c:241
+#: ../app/load_save.c:455
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -1143,7 +1188,7 @@ msgstr ""
 "Virhe ladattaessa kaaviota %s.\n"
 "Ei ole Dia-tiedosto."
 
-#: ../app/load_save.c:669
+#: ../app/load_save.c:672
 #, c-format
 msgid ""
 "Error loading diagram:\n"
@@ -1154,23 +1199,24 @@ msgstr ""
 "%s.\n"
 "Kelvollisessa Dia-tiedostossa on vähintään yksi taso."
 
-#: ../app/load_save.c:978
+#: ../app/load_save.c:995
 #, c-format
 msgid "Not allowed to write to output file %s\n"
 msgstr "Tulostiedostoa \"%s\" ei ole lupaa kirjoittaa\n"
 
-#: ../app/load_save.c:1000
+#: ../app/load_save.c:1027
 #, c-format
 msgid "Not allowed to write temporary files in %s\n"
 msgstr "Väliaikaistiedostoja kansiion \"%s\" ei ole lupaa kirjoittaa\n"
 
-#: ../app/load_save.c:1022 ../plug-ins/cairo/diacairo.c:122
-#: ../plug-ins/cgm/cgm.c:1153 ../plug-ins/dxf/dxf-export.c:547
-#: ../plug-ins/hpgl/hpgl.c:710 ../plug-ins/libart/export_png.c:157
+#: ../app/load_save.c:1049 ../plug-ins/cairo/diacairo.c:121
+#: ../plug-ins/cgm/cgm.c:1154 ../plug-ins/drs/dia-render-script.c:121
+#: ../plug-ins/dxf/dxf-export.c:547 ../plug-ins/hpgl/hpgl.c:710
+#: ../plug-ins/libart/export_png.c:157
 #: ../plug-ins/metapost/render_metapost.c:1177
 #: ../plug-ins/pgf/render_pgf.c:1208 ../plug-ins/postscript/render_eps.c:105
 #: ../plug-ins/pstricks/render_pstricks.c:916
-#: ../plug-ins/shape/shape-export.c:136 ../plug-ins/svg/render_svg.c:188
+#: ../plug-ins/shape/shape-export.c:136 ../plug-ins/svg/render_svg.c:199
 #: ../plug-ins/vdx/vdx-export.c:1849 ../plug-ins/wpg/wpg.c:1072
 #: ../plug-ins/xfig/xfig-export.c:1151 ../plug-ins/xslt/xslt.c:99
 #, c-format
@@ -1179,17 +1225,17 @@ msgstr "Tulostetiedostoa %s ei voi avata: %s\n"
 
 #. Save failed; we clean our stuff up, without touching the file named
 #. "filename" if it existed.
-#: ../app/load_save.c:1033
+#: ../app/load_save.c:1060
 #, c-format
 msgid "Internal error %d writing file %s\n"
 msgstr "Sisäinen virhe %d kirjoitettassa tiedostoa %s\n"
 
-#: ../app/load_save.c:1047
+#: ../app/load_save.c:1071
 #, c-format
 msgid "Can't rename %s to final output file %s: %s\n"
 msgstr "Tiedostoa %s ei voi nimetä tallennustiedostoksi %s: %s\n"
 
-#: ../app/load_save.c:1135 ../app/load_save.c:1140
+#: ../app/load_save.c:1162 ../app/load_save.c:1167
 msgid "Dia Diagram File"
 msgstr "Dia-kaaviotiedosto"
 
@@ -1280,11 +1326,11 @@ msgstr "_Kuvasuhde"
 msgid "1600%"
 msgstr "1600%"
 
-#: ../app/menus.c:145 ../app/menus.c:564
+#: ../app/menus.c:145 ../app/menus.c:567
 msgid "800%"
 msgstr "800%"
 
-#: ../app/menus.c:146 ../app/menus.c:565
+#: ../app/menus.c:146 ../app/menus.c:568
 msgid "400%"
 msgstr "400%"
 
@@ -1350,215 +1396,223 @@ msgid "Bring Forwards"
 msgstr "Tuo edemmäs"
 
 #: ../app/menus.c:171
+msgid "Move to layer above"
+msgstr ""
+
+#: ../app/menus.c:172
+msgid "Move to layer below"
+msgstr ""
+
+#: ../app/menus.c:174
 msgid "_Group"
 msgstr "_Kasaa ryhmään"
 
 #. deliberately not using Ctrl+U for Ungroup
-#: ../app/menus.c:173
+#: ../app/menus.c:176
 msgid "_Ungroup"
 msgstr "_Pura ryhmä"
 
-#: ../app/menus.c:175
+#: ../app/menus.c:178
 msgid "_Parent"
 msgstr "_Kasaa perheeksi"
 
-#: ../app/menus.c:176
+#: ../app/menus.c:179
 msgid "_Unparent"
 msgstr "_Pura perhe"
 
-#: ../app/menus.c:177
+#: ../app/menus.c:180
 msgid "_Unparent Children"
 msgstr "_Pura lapsi perheestä"
 
 #. Translators: Menu item Verb/Support/Position/Align
-#: ../app/menus.c:179 ../objects/FS/function.c:808
+#: ../app/menus.c:182 ../objects/FS/function.c:808
 msgid "Align"
 msgstr "Tasaa"
 
-#: ../app/menus.c:184 ../objects/standard/textobj.c:134
+#: ../app/menus.c:187 ../objects/standard/textobj.c:137
 msgid "Top"
 msgstr "Päällä"
 
-#: ../app/menus.c:185
+#: ../app/menus.c:188
 msgid "Middle"
 msgstr "Keskellä"
 
-#: ../app/menus.c:186 ../objects/standard/textobj.c:133
+#: ../app/menus.c:189 ../objects/standard/textobj.c:136
 msgid "Bottom"
 msgstr "Alla"
 
-#: ../app/menus.c:188
+#: ../app/menus.c:191
 msgid "Spread Out Horizontally"
 msgstr "Levitä vaakasuoraan"
 
-#: ../app/menus.c:189
+#: ../app/menus.c:192
 msgid "Spread Out Vertically"
 msgstr "Levitä pystysuoraan"
 
-#: ../app/menus.c:190
+#: ../app/menus.c:193
 msgid "Adjacent"
 msgstr "Vierekkäin"
 
-#: ../app/menus.c:191
+#: ../app/menus.c:194
 msgid "Stacked"
 msgstr "Pinossa"
 
-#: ../app/menus.c:195
+#: ../app/menus.c:198
 msgid "_Select"
 msgstr "_Valitse"
 
-#: ../app/menus.c:196
+#: ../app/menus.c:199
 msgid "All"
 msgstr "Kaikki"
 
-#: ../app/menus.c:197 ../lib/arrows.c:1882 ../objects/Jackson/domain.c:96
-#: ../objects/UML/association.c:223 ../objects/UML/association.c:229
+#: ../app/menus.c:200 ../lib/arrows.c:1882 ../objects/Jackson/domain.c:96
+#: ../objects/UML/association.c:221 ../objects/UML/association.c:227
 msgid "None"
 msgstr "Ei mitään"
 
-#: ../app/menus.c:198
+#: ../app/menus.c:201
 msgid "Invert"
 msgstr "Invertoi"
 
-#: ../app/menus.c:200
+#: ../app/menus.c:203
 msgid "Transitive"
 msgstr "Transitiivinen"
 
-#: ../app/menus.c:201
+#: ../app/menus.c:204
 msgid "Connected"
 msgstr "Yhdistetty"
 
-#: ../app/menus.c:202
+#: ../app/menus.c:205
 msgid "Same Type"
 msgstr "Sama tyyppi"
 
 #. display_select_radio_entries go here
-#: ../app/menus.c:206
+#: ../app/menus.c:209
 msgid "Select By"
 msgstr "Valitse kriteerillä"
 
-#: ../app/menus.c:208
+#: ../app/menus.c:211
 msgid "_Input Methods"
 msgstr "_Syötetavat"
 
-#: ../app/menus.c:210
+#: ../app/menus.c:213
 msgid "D_ialogs"
 msgstr "D_ialogit"
 
-#: ../app/menus.c:212
+#: ../app/menus.c:215
 msgid "D_ebug"
 msgstr "Vian_etsintä"
 
-#: ../app/menus.c:218
+#: ../app/menus.c:221
 msgid "_Tools"
 msgstr "_Työkalut"
 
-#: ../app/menus.c:219
+#: ../app/menus.c:222
 msgid "Modify"
 msgstr "Muokkaa"
 
-#: ../app/menus.c:221
+#: ../app/menus.c:224
 msgid "Edit text"
 msgstr "Muokkaa tekstiä"
 
-#: ../app/menus.c:222
+#: ../app/menus.c:225
 msgid "Scroll"
 msgstr "Vieritä"
 
-#: ../app/menus.c:245
+#: ../app/menus.c:248
 msgid "Fullscr_een"
 msgstr "_Kokoruutu"
 
-#: ../app/menus.c:247
+#: ../app/menus.c:250
 msgid "_AntiAliased"
 msgstr "_Antialiasoitu"
 
-#: ../app/menus.c:248
+#: ../app/menus.c:251
 msgid "Show _Grid"
 msgstr "Näytä _ruudukko"
 
-#: ../app/menus.c:249
+#: ../app/menus.c:252
 msgid "_Snap To Grid"
 msgstr "_Kiinnitä ruudukkoon"
 
-#: ../app/menus.c:250
+#: ../app/menus.c:253
 msgid "Snap To _Objects"
 msgstr "_Kiinnitä kohteisiin"
 
-#: ../app/menus.c:251
+#: ../app/menus.c:254
 msgid "Show _Rulers"
 msgstr "Näytä _sarkaimet"
 
-#: ../app/menus.c:252
+#: ../app/menus.c:255
 msgid "Show _Connection Points"
 msgstr "Näytä _liitoskohdat"
 
-#: ../app/menus.c:259
+#: ../app/menus.c:262
 msgid "Union"
 msgstr "Liitos"
 
-#: ../app/menus.c:260
+#: ../app/menus.c:263
 msgid "Intersection"
 msgstr "Leikkaus"
 
 #. Translators: Menu item Verb/Channel/Export/Remove
 #. Translators: Menu item Verb/Branch/Separate/Remove
 #. Translators: Menu item Verb/Branch/Separate/Remove/Remove
-#: ../app/menus.c:261 ../app/sheets_dialog.c:785 ../objects/FS/function.c:708
+#: ../app/menus.c:264 ../app/sheets_dialog.c:785 ../objects/FS/function.c:708
 #: ../objects/FS/function.c:860 ../objects/FS/function.c:862
 msgid "Remove"
 msgstr "Poista"
 
 #. Cannot also be called Invert, duplicate names caused keybinding problems
-#: ../app/menus.c:263
+#: ../app/menus.c:266
 msgid "Inverse"
 msgstr "Käännetty"
 
-#: ../app/menus.c:327
+#: ../app/menus.c:330
 msgid "NULL tooldata in tool_menu_select"
 msgstr "TYHJÄ työkalutieto työkalu_valinta_valikossa"
 
-#: ../app/menus.c:566
+#: ../app/menus.c:569
 msgid "300%"
 msgstr "300%"
 
-#: ../app/menus.c:567
+#: ../app/menus.c:570
 msgid "200%"
 msgstr "200%"
 
-#: ../app/menus.c:568
+#: ../app/menus.c:571
 msgid "150%"
 msgstr "150%"
 
-#: ../app/menus.c:569
+#: ../app/menus.c:572
 msgid "100%"
 msgstr "100%"
 
-#: ../app/menus.c:570
+#: ../app/menus.c:573
 msgid "75%"
 msgstr "75%"
 
-#: ../app/menus.c:571
+#: ../app/menus.c:574
 msgid "50%"
 msgstr "50%"
 
-#: ../app/menus.c:572
+#: ../app/menus.c:575
 msgid "25%"
 msgstr "25%"
 
-#: ../app/menus.c:573
+#: ../app/menus.c:576
 msgid "10%"
 msgstr "10%"
 
-#: ../app/menus.c:599
+#: ../app/menus.c:602
 msgid "Toggles snap-to-grid."
 msgstr "Vaihtelee kiinnitä ruudukkoon -kytkintä"
 
-#: ../app/menus.c:611
+#: ../app/menus.c:614
 msgid "Toggles object snapping."
 msgstr "Kiinnitetäänkö kohteet tässä ikkunassa."
 
-#: ../app/modify_tool.c:350
+#: ../app/modify_tool.c:390
 msgid "Couldn't get GTK settings"
 msgstr "GTK-asetuksia ei saatu"
 
@@ -1570,8 +1624,8 @@ msgstr "Liitännäiset"
 msgid "Loaded"
 msgstr "Ladattu"
 
-#: ../app/plugin-manager.c:268 ../objects/SISSI/sissi_dialog.c:615
-#: ../objects/SISSI/sissi_dialog.c:767
+#: ../app/plugin-manager.c:268 ../objects/SISSI/sissi_dialog.c:730
+#: ../objects/SISSI/sissi_dialog.c:882
 msgid "Description"
 msgstr "Kuvaus"
 
@@ -1583,27 +1637,35 @@ msgstr "Lataa käynnistettäessä"
 msgid "File Name"
 msgstr "Tiedostonimi"
 
-#: ../app/preferences.c:107
+#: ../app/preferences.c:100 ../app/preferences.c:145
+msgid "any"
+msgstr "mikä tahansa"
+
+#: ../app/preferences.c:119
 msgid "User Interface"
 msgstr "Käyttöliittymä"
 
-#: ../app/preferences.c:108
+#: ../app/preferences.c:120
 msgid "Diagram Defaults"
 msgstr "Kaavion oletukset"
 
-#: ../app/preferences.c:109
+#: ../app/preferences.c:121
 msgid "View Defaults"
 msgstr "Katso oletusarvoja"
 
-#: ../app/preferences.c:126
+#: ../app/preferences.c:122
+msgid "Favorites"
+msgstr "Suosikit"
+
+#: ../app/preferences.c:166
 msgid "Reset tools after create"
 msgstr "Palauta työkalut alkutilaansa luomisen jälkeen"
 
-#: ../app/preferences.c:129
+#: ../app/preferences.c:169
 msgid "Number of undo levels:"
 msgstr "Perumistasojen lukumäärä:"
 
-#: ../app/preferences.c:132
+#: ../app/preferences.c:172
 msgid ""
 "Reverse dragging selects\n"
 "intersecting objects"
@@ -1611,159 +1673,197 @@ msgstr ""
 "Käänteinen veto valitsee\n"
 "päällekkäin menevät objektit"
 
-#: ../app/preferences.c:135
+#: ../app/preferences.c:175
 msgid "Recent documents list size:"
 msgstr "Viimeksi avattujen listan koko:"
 
-#: ../app/preferences.c:138
+#: ../app/preferences.c:178
 msgid "Use menu bar"
 msgstr "Käytä valikkopalkkia"
 
-#: ../app/preferences.c:141
+#: ../app/preferences.c:181
 msgid "Keep tool box on top of diagram windows"
 msgstr "Pidä työkalulaatikko kaavioikkunoiden päällä"
 
-#: ../app/preferences.c:144
+#: ../app/preferences.c:184
 msgid "Length unit:"
 msgstr "Pituusyksikkö: "
 
-#: ../app/preferences.c:147
+#: ../app/preferences.c:187
 msgid "Font-size unit:"
 msgstr "Kirjasinkoon yksikkö:"
 
-#: ../app/preferences.c:151
+#: ../app/preferences.c:191
 msgid "Integrated UI"
 msgstr "Integroitu UI"
 
-#: ../app/preferences.c:154
+#: ../app/preferences.c:194
 msgid "New diagram:"
 msgstr "Uusi kaavio:"
 
-#: ../app/preferences.c:155
+#: ../app/preferences.c:195
 msgid "Portrait"
 msgstr "Paperi pystysuunnassa"
 
-#: ../app/preferences.c:157
+#: ../app/preferences.c:197
 msgid "Paper type:"
 msgstr "Paperin tyyppi:"
 
-#: ../app/preferences.c:159 ../objects/Database/table_dialog.c:1078
+#: ../app/preferences.c:199 ../objects/Database/table_dialog.c:1078
 msgid "Background Color:"
 msgstr "Taustaväri:"
 
-#: ../app/preferences.c:161
+#: ../app/preferences.c:201
 msgid "Compress saved files"
 msgstr "Pakkaa tallennetut tiedostot"
 
-#: ../app/preferences.c:164
+#: ../app/preferences.c:204
 msgid "New window:"
 msgstr "Uusi ikkuna:"
 
-#: ../app/preferences.c:165
+#: ../app/preferences.c:205
 msgid "Width:"
 msgstr "Leveys:"
 
-#: ../app/preferences.c:166
+#: ../app/preferences.c:206
 msgid "Height:"
 msgstr "Korkeus:"
 
-#: ../app/preferences.c:167
+#: ../app/preferences.c:207
 msgid "Magnify:"
 msgstr "Suurennus:"
 
-#: ../app/preferences.c:170
+#: ../app/preferences.c:210
 msgid "Connection Points:"
 msgstr "Liitoskohdat:"
 
 #. { NULL, PREF_NONE, 0, NULL, 3, N_("Grid:") },
-#: ../app/preferences.c:171 ../app/preferences.c:175 ../app/preferences.c:185
+#: ../app/preferences.c:211 ../app/preferences.c:216 ../app/preferences.c:240
 msgid "Visible"
 msgstr "Näkyvissä"
 
-#: ../app/preferences.c:174
+#: ../app/preferences.c:212
+msgid "Snap to object"
+msgstr "Kiinnitä kohteisiin"
+
+#: ../app/preferences.c:215
 msgid "Page breaks:"
 msgstr "Sivun vaihtoja:"
 
-#: ../app/preferences.c:176 ../app/preferences.c:190
+#: ../app/preferences.c:217 ../app/preferences.c:245
 msgid "Color:"
 msgstr "Väri:"
 
-#: ../app/preferences.c:177
+#: ../app/preferences.c:218
 msgid "Solid lines"
 msgstr "Kiinteät viivat"
 
-#: ../app/preferences.c:180
+#: ../app/preferences.c:221
 msgid "Antialias:"
 msgstr "Antialiasointi:"
 
-#: ../app/preferences.c:181
+#: ../app/preferences.c:222
 msgid "view antialised"
 msgstr "näytä antialiasoituna"
 
-#: ../app/preferences.c:186
+#. Favored Filter
+#. Translators: Menu item Verb/Channel/Export
+#. Translators: Menu item Verb/Channel/Export/Export
+#: ../app/preferences.c:226 ../objects/FS/function.c:698
+#: ../objects/FS/function.c:700 ../plug-ins/libart/export_png.c:323
+msgid "Export"
+msgstr "Vie"
+
+#: ../app/preferences.c:228
+msgid "Portable Network Graphics"
+msgstr "Portable Network Graphics"
+
+#: ../app/preferences.c:230 ../plug-ins/svg/render_svg.c:515
+#: ../plug-ins/svg/svg-import.c:884
+msgid "Scalable Vector Graphics"
+msgstr "Scalable Vector Graphics"
+
+#: ../app/preferences.c:232
+msgid "PostScript"
+msgstr "PostScript"
+
+#: ../app/preferences.c:234
+msgid "Windows MetaFile"
+msgstr "Windows-metatiedosto"
+
+#: ../app/preferences.c:236
+msgid "Enhanced MetaFile"
+msgstr "Parannettu metatiedosto"
+
+#: ../app/preferences.c:241
 msgid "Snap to"
 msgstr "Kiinnitä"
 
-#: ../app/preferences.c:187
+#: ../app/preferences.c:242
 msgid "Dynamic grid resizing"
 msgstr "Dynaaminen ruudukon koon muuttaminen"
 
-#: ../app/preferences.c:188
+#: ../app/preferences.c:243
 msgid "X Size:"
 msgstr "X-Koko:"
 
-#: ../app/preferences.c:189
+#: ../app/preferences.c:244
 msgid "Y Size:"
 msgstr "Y-Koko:"
 
-#: ../app/preferences.c:191
+#: ../app/preferences.c:246
 msgid "Lines per major line"
 msgstr "Viivoja per iso viiva"
 
-#: ../app/preferences.c:193
+#: ../app/preferences.c:248
 msgid "Hex Size:"
 msgstr "Kuutiokoko:"
 
-#: ../app/preferences.c:209
+#. There's really no reason to not pretty format it, and allowing non-pretty
+#. can lead to problems with long lines, CVS etc.
+#. { "pretty_formated_xml", PREF_BOOLEAN,PREF_OFFSET(pretty_formated_xml),
+#. &default_true,0,"pretty formated xml",NULL, TRUE},
+#.
+#: ../app/preferences.c:260
 msgid "Diagram tree window:"
 msgstr "Kaaviopuuikkuna:"
 
-#: ../app/preferences.c:211
+#: ../app/preferences.c:262
 msgid "Save hidden object types"
 msgstr "Tallenna piilotetut objektityypit"
 
-#: ../app/preferences.c:418 ../lib/prop_inttypes.c:158
+#: ../app/preferences.c:472 ../lib/prop_inttypes.c:158
 msgid "Yes"
 msgstr "Kyllä"
 
-#: ../app/preferences.c:418 ../app/preferences.c:429
+#: ../app/preferences.c:472 ../app/preferences.c:483
 #: ../lib/prop_inttypes.c:160 ../lib/prop_inttypes.c:186
 msgid "No"
 msgstr "Ei"
 
-#: ../app/preferences.c:525
+#: ../app/preferences.c:578
 msgid "Preferences"
 msgstr "Asetukset"
 
-#: ../app/preferences.c:714
+#: ../app/preferences.c:780
 msgid "User Interface type settings change will take after restart"
 msgstr ""
 "Käyttöliittymän tyyppiasetukset tulevat voimaan uudelleenkäynnistyksen "
 "jälkeen"
 
-#: ../app/properties.c:56
+#: ../app/properties-dialog.c:56
 msgid "Object properties"
 msgstr "Objektin ominaisuudet"
 
-#: ../app/properties.c:81
+#: ../app/properties-dialog.c:81
 msgid "This object has no properties."
 msgstr "Tällä objektilla ei ole ominaisuuksia."
 
-#: ../app/properties.c:224
+#: ../app/properties-dialog.c:245
 msgid "Properties: "
 msgstr "Ominaisuudet: "
 
-#: ../app/properties.c:228
+#: ../app/properties-dialog.c:249
 msgid "Object properties:"
 msgstr "Objektin ominaisuudet:"
 
@@ -1839,10 +1939,10 @@ msgid "New"
 msgstr "Uusi"
 
 #: ../app/sheets_dialog.c:363 ../app/sheets_dialog.c:795
-#: ../objects/Database/table.c:138 ../objects/Istar/actor.c:146
+#: ../objects/Database/table.c:140 ../objects/Istar/actor.c:146
 #: ../objects/Istar/actor.c:147 ../objects/Istar/other.c:150
 #: ../objects/Istar/other.c:151 ../objects/KAOS/other.c:153
-#: ../objects/KAOS/other.c:154 ../objects/UML/association.c:242
+#: ../objects/KAOS/other.c:154 ../objects/UML/association.c:240
 #: ../objects/UML/umlattribute.c:39 ../objects/UML/umlformalparameter.c:37
 #: ../objects/UML/umloperation.c:64 ../objects/UML/umlparameter.c:45
 msgid "Type"
@@ -1883,10 +1983,10 @@ msgstr "Kuvaus:"
 
 #: ../app/sheets_dialog.c:619 ../objects/Database/table_dialog.c:695
 #: ../objects/FS/flow-ortho.c:169 ../objects/FS/flow.c:146
-#: ../objects/Istar/link.c:162 ../objects/Jackson/phenomenon.c:148
-#: ../objects/KAOS/metaandorrel.c:168 ../objects/KAOS/metabinrel.c:173
-#: ../objects/UML/class_dialog.c:1140 ../objects/UML/class_dialog.c:2003
-#: ../objects/UML/class_dialog.c:2239 ../objects/UML/class_dialog.c:2839
+#: ../objects/Istar/link.c:162 ../objects/Jackson/phenomenon.c:146
+#: ../objects/KAOS/metaandorrel.c:166 ../objects/KAOS/metabinrel.c:173
+#: ../objects/UML/class_dialog.c:1155 ../objects/UML/class_dialog.c:2021
+#: ../objects/UML/class_dialog.c:2257 ../objects/UML/class_dialog.c:2860
 msgid "Type:"
 msgstr "Tyyppi:"
 
@@ -1897,8 +1997,8 @@ msgstr "Luokka"
 #: ../app/sheets_dialog.c:673 ../objects/Database/table_dialog.c:683
 #: ../objects/Database/table_dialog.c:1046 ../objects/ER/attribute.c:155
 #: ../objects/ER/entity.c:137 ../objects/ER/relationship.c:142
-#: ../objects/UML/class_dialog.c:1129 ../objects/UML/class_dialog.c:1992
-#: ../objects/UML/class_dialog.c:2228 ../objects/UML/class_dialog.c:2828
+#: ../objects/UML/class_dialog.c:1144 ../objects/UML/class_dialog.c:2010
+#: ../objects/UML/class_dialog.c:2246 ../objects/UML/class_dialog.c:2849
 #: ../objects/UML/dependency.c:137 ../objects/UML/generalization.c:133
 #: ../objects/UML/realizes.c:134
 msgid "Name:"
@@ -1982,36 +2082,36 @@ msgstr "Muototiedostoa ei voitu tulkita: \"%s\""
 msgid "Sheet must have a Name"
 msgstr "Luokalla täytyy olla nimi"
 
-#: ../app/sheets_dialog_callbacks.c:1619 ../app/sheets_dialog_callbacks.c:1626
+#: ../app/sheets_dialog_callbacks.c:1621 ../app/sheets_dialog_callbacks.c:1628
 #, c-format
 msgid "Couldn't open '%s': %s"
 msgstr "Tiedostoa \"%s\" ei voi avata: %s"
 
-#: ../app/sheets_dialog_callbacks.c:1678
+#: ../app/sheets_dialog_callbacks.c:1680
 #, c-format
 msgid "Couldn't open: '%s' for writing"
 msgstr "Tiedostoa \"%s\" ei voitu avata kirjoittamista varten"
 
-#: ../app/sheets_dialog_callbacks.c:1688
+#: ../app/sheets_dialog_callbacks.c:1690
 msgid "a user"
 msgstr "käyttäjä"
 
-#: ../app/sheets_dialog_callbacks.c:1701
+#: ../app/sheets_dialog_callbacks.c:1703
 #, c-format
 msgid "File: %s"
 msgstr "Tiedosto: %s"
 
-#: ../app/sheets_dialog_callbacks.c:1704
+#: ../app/sheets_dialog_callbacks.c:1706
 #, c-format
 msgid "Date: %s"
 msgstr "Päiväys: %s"
 
-#: ../app/sheets_dialog_callbacks.c:1708
+#: ../app/sheets_dialog_callbacks.c:1710
 #, c-format
 msgid "For: %s"
 msgstr "Varten: %s"
 
-#: ../app/sheets_dialog_callbacks.c:1725
+#: ../app/sheets_dialog_callbacks.c:1727
 msgid "add shapes here"
 msgstr "lisää luokkia tänne"
 
@@ -2185,16 +2285,16 @@ msgstr "Sisäinen virhe: Asetetaan bezierin päätepisteen kulmatyyppi"
 #: ../lib/create.c:50 ../lib/create.c:100 ../lib/create.c:127
 #: ../lib/create.c:161 ../lib/create.c:197 ../lib/create.c:224
 #: ../lib/create.c:260 ../lib/create.c:295 ../lib/create.c:338
-#: ../plug-ins/svg/svg-import.c:246 ../plug-ins/vdx/vdx-import.c:140
+#: ../plug-ins/svg/svg-import.c:267 ../plug-ins/vdx/vdx-import.c:144
 msgid "Can't find standard object"
 msgstr "Standardiobjekteja ei löydy"
 
-#: ../lib/dia_dirs.c:237
+#: ../lib/dia_dirs.c:242
 #, c-format
 msgid "%s<illegal characters>..."
 msgstr "%s<kiellettyjä merkkejä>..."
 
-#: ../lib/dia_dirs.c:268
+#: ../lib/dia_dirs.c:273
 #, c-format
 msgid "Too many ..'s in filename %s\n"
 msgstr "Liian monta ..-merkkijonoa tiedostonimessä %s\n"
@@ -2208,26 +2308,46 @@ msgstr ""
 "Tiedostossa %s ei ole merkistömäärettä;\n"
 "oletetaan merkistöksi %s"
 
-#: ../lib/dia_xml.c:593
+#: ../lib/dia_xml.c:597
 msgid "Taking point value of non-point node."
 msgstr "Otetaan pistearvo ei-pistemäiseltä solmulta."
 
-#: ../lib/dia_xml.c:604
+#: ../lib/dia_xml.c:608
 #, c-format
 msgid "Incorrect x Point value \"%s\" %f; discarding it."
 msgstr "Virheellinen x-pistearvo \"%s\" %f; ohitetaan se."
 
-#: ../lib/dia_xml.c:611
+#: ../lib/dia_xml.c:615
 msgid "Error parsing point."
 msgstr "Virhe jäsennettäessä pistettä."
 
 #. don't bother with useless warnings (see above)
-#: ../lib/dia_xml.c:619
+#: ../lib/dia_xml.c:623
 #, c-format
 msgid "Incorrect y Point value \"%s\" %f; discarding it."
 msgstr "Virheellinen y-pistearvo \"%s\" %f; ohitetaan se."
 
-#: ../lib/dia_xml.c:1091
+#: ../lib/dia_xml.c:640
+#, fuzzy
+msgid "Taking bezpoint value of non-point node."
+msgstr "Otetaan pistearvo ei-pistemäiseltä solmulta."
+
+#: ../lib/dia_xml.c:658
+#, fuzzy
+msgid "Error parsing bezpoint p1."
+msgstr "Virhe jäsennettäessä pistettä."
+
+#: ../lib/dia_xml.c:672
+#, fuzzy
+msgid "Error parsing bezpoint p2."
+msgstr "Virhe jäsennettäessä pistettä."
+
+#: ../lib/dia_xml.c:686
+#, fuzzy
+msgid "Error parsing bezpoint p3."
+msgstr "Virhe jäsennettäessä pistettä."
+
+#: ../lib/dia_xml.c:1205
 msgid ""
 "Your local character set is UTF-8. Because of issues with libxml1 and the "
 "support of files generated by previous versions of dia, you will encounter  "
@@ -2245,7 +2365,7 @@ msgstr "Nuolen ominaisuudet"
 msgid "Line Style Properties"
 msgstr "Viivan tyyliominaisuudet"
 
-#: ../lib/dialinechooser.c:332
+#: ../lib/dialinechooser.c:339
 msgid "Details..."
 msgstr "Tiedot..."
 
@@ -2257,38 +2377,38 @@ msgstr "OK"
 msgid "Cancel"
 msgstr "Peru"
 
-#: ../lib/filter.c:137
+#: ../lib/filter.c:176
 #, c-format
 msgid "Multiple export filters with unique name %s"
 msgstr "Useita vientisuodattimia uniikilla nimellä %s"
 
-#: ../lib/font.c:106
+#: ../lib/font.c:84
 #, c-format
 msgid "Can't load font %s.\n"
 msgstr "Kirjasinta %s ei voi ladata.\n"
 
-#: ../lib/message.c:90 ../lib/message.c:276
+#: ../lib/message.c:92 ../lib/message.c:278
 msgid "Warning"
 msgstr "Varoitus"
 
-#: ../lib/message.c:117
+#: ../lib/message.c:119
 msgid "There is one similar message."
 msgstr "Yksi samankaltainen viesti."
 
-#: ../lib/message.c:122
+#: ../lib/message.c:124
 msgid "Show repeated messages"
 msgstr "Näytä toistuvat viestit"
 
-#: ../lib/message.c:143
+#: ../lib/message.c:145
 msgid "Don't show this message again"
 msgstr "Älä näytä tätä viestiä uudestaan"
 
-#: ../lib/message.c:201
+#: ../lib/message.c:203
 #, c-format
 msgid "There are %d similar messages."
 msgstr "%d samankaltaista viestiä."
 
-#: ../lib/message.c:260
+#: ../lib/message.c:262
 msgid "Notice"
 msgstr "Huomaa"
 
@@ -2309,25 +2429,25 @@ msgstr ""
 msgid "???"
 msgstr "???"
 
-#: ../lib/plug-ins.c:185
+#: ../lib/plug-ins.c:186
 #, c-format
 msgid "Missing dependencies for '%s'?"
 msgstr "Puuttuvatko \"%s\"-riippuvuudet?"
 
-#: ../lib/plug-ins.c:196
+#: ../lib/plug-ins.c:197
 msgid "Missing symbol 'dia_plugin_init'"
 msgstr "Symboli \"dia_plugin_init\" puuttuu"
 
-#: ../lib/plug-ins.c:204 ../lib/plug-ins.c:212
+#: ../lib/plug-ins.c:205 ../lib/plug-ins.c:213
 msgid "dia_plugin_init() call failed"
 msgstr "dia_plugin_init()-kutsu epäonnistui"
 
-#: ../lib/plug-ins.c:231
+#: ../lib/plug-ins.c:232
 #, c-format
 msgid "%s Plugin could not be unloaded"
 msgstr "Liitännäistä %s ei voitu ladata pois muistista"
 
-#: ../lib/plug-ins.c:302
+#: ../lib/plug-ins.c:303
 #, c-format
 msgid ""
 "Could not open `%s'\n"
@@ -2336,76 +2456,96 @@ msgstr ""
 "Tiedoston \"%s\" avaus ei onnistunut\n"
 "\"%s\""
 
-#: ../lib/prop_inttypes.c:559
+#: ../lib/prop_dict.c:43
+msgid "Author"
+msgstr "Tekijä"
+
+#: ../lib/prop_dict.c:44
+msgid "Identifier"
+msgstr "Tunniste"
+
+#: ../lib/prop_dict.c:45
+msgid "Creation date"
+msgstr "Luontipäivä"
+
+#: ../lib/prop_dict.c:46
+msgid "Modification date"
+msgstr "Muokkauspäivä"
+
+#: ../lib/prop_dict.c:47 ../objects/SISSI/sissi_dialog.c:880
+msgid "URL"
+msgstr "URL"
+
+#: ../lib/prop_inttypes.c:558
 msgid "Property cast from int to enum out of range"
 msgstr ""
 
-#: ../lib/prop_text.c:466
+#: ../lib/prop_text.c:468
 #, c-format
 msgid "Group with %d objects"
 msgstr "Ryhmä, jossa %d objektia"
 
-#: ../lib/properties.c:64 ../lib/properties.h:469 ../lib/widgets.c:724
+#: ../lib/properties.c:65 ../lib/properties.h:477 ../lib/widgets.c:724
 msgid "Left"
 msgstr "Vasen"
 
-#: ../lib/properties.c:65 ../lib/properties.h:470 ../lib/widgets.c:730
-#: ../objects/standard/textobj.c:135
+#: ../lib/properties.c:66 ../lib/properties.h:478 ../lib/widgets.c:730
+#: ../objects/standard/textobj.c:138
 msgid "Center"
 msgstr "Keski"
 
-#: ../lib/properties.c:66 ../lib/properties.h:471 ../lib/widgets.c:736
+#: ../lib/properties.c:67 ../lib/properties.h:479 ../lib/widgets.c:736
 msgid "Right"
 msgstr "Oikea"
 
-#: ../lib/properties.c:73 ../lib/properties.h:489 ../lib/properties.h:492
+#: ../lib/properties.c:74 ../lib/properties.h:497 ../lib/properties.h:500
 #: ../objects/chronogram/chronoline.c:181
 #: ../objects/chronogram/chronoref.c:160
 msgid "Line color"
 msgstr "Janan väri"
 
-#: ../lib/properties.c:74 ../lib/properties.h:495 ../lib/properties.h:498
+#: ../lib/properties.c:75 ../lib/properties.h:503 ../lib/properties.h:506
 msgid "Line style"
 msgstr "Viivan tyyli"
 
-#: ../lib/properties.c:75 ../lib/properties.h:502 ../lib/properties.h:505
+#: ../lib/properties.c:76 ../lib/properties.h:510 ../lib/properties.h:513
 msgid "Fill color"
 msgstr "Täyttöväri"
 
-#: ../lib/properties.c:76 ../lib/properties.h:508 ../lib/properties.h:511
+#: ../lib/properties.c:77 ../lib/properties.h:516 ../lib/properties.h:519
 msgid "Draw background"
 msgstr "Piirrä tausta"
 
-#: ../lib/properties.c:77 ../lib/properties.h:515
+#: ../lib/properties.c:78 ../lib/properties.h:523
 msgid "Start arrow"
 msgstr "Lähtönuoli"
 
-#: ../lib/properties.c:78 ../lib/properties.h:518
+#: ../lib/properties.c:79 ../lib/properties.h:526
 msgid "End arrow"
 msgstr "Päättönuoli"
 
-#: ../lib/properties.c:80 ../lib/properties.h:528
+#: ../lib/properties.c:81 ../lib/properties.h:536
 msgid "Text alignment"
 msgstr "Tekstin tasaus"
 
 #. all this just to make the defaults selectable ...
-#: ../lib/properties.c:81 ../lib/properties.h:533
+#: ../lib/properties.c:82 ../lib/properties.h:541
 #: ../objects/Database/table_dialog.c:1036 ../objects/Database/reference.c:117
 #: ../objects/GRAFCET/condition.c:134 ../objects/GRAFCET/step.c:167
-#: ../objects/GRAFCET/transition.c:144 ../objects/UML/class.c:171
-#: ../objects/UML/class_dialog.c:558 ../objects/chronogram/chronoline.c:185
+#: ../objects/GRAFCET/transition.c:144 ../objects/UML/class.c:174
+#: ../objects/UML/class_dialog.c:564 ../objects/chronogram/chronoline.c:185
 #: ../objects/chronogram/chronoref.c:166
 msgid "Font"
 msgstr "Kirjasin"
 
-#: ../lib/properties.c:82 ../lib/properties.h:541
+#: ../lib/properties.c:83 ../lib/properties.h:549
 #: ../objects/GRAFCET/condition.c:136 ../objects/GRAFCET/step.c:169
 #: ../objects/GRAFCET/transition.c:146 ../objects/chronogram/chronoline.c:187
 #: ../objects/chronogram/chronoref.c:168
 msgid "Font size"
 msgstr "Kirjasinkoko"
 
-#: ../lib/properties.c:83 ../lib/properties.h:547
+#: ../lib/properties.c:84 ../lib/properties.h:555
 #: ../objects/GRAFCET/step.c:171 ../objects/chronogram/chronoline.c:189
 #: ../objects/chronogram/chronoref.c:170
 msgid "Text color"
@@ -2415,6 +2555,40 @@ msgstr "Tekstin väri"
 #, c-format
 msgid "No attribute '%s' (%p) or no data(%p) in this attribute"
 msgstr "Ei attribuuttia \"%s\" (%p) tai data(%p) tässä attribuutissa"
+
+#: ../lib/sheet.c:69
+#, c-format
+msgid ""
+"DiaObject '%s' needed in sheet '%s' was not found.\n"
+"It will not be available for use."
+msgstr ""
+
+#: ../lib/sheet.c:84
+#, c-format
+msgid ""
+"DiaObject '%s' needed in sheet '%s' was not found.\n"
+"It will not be availible for use."
+msgstr ""
+
+#: ../lib/sheet.c:133 ../lib/sheet.c:144 ../lib/sheet.c:150
+#, fuzzy, c-format
+msgid "sheets from '%s'"
+msgstr "Ei luokkaa nimeltä %s"
+
+#: ../lib/sheet.c:314
+#, c-format
+msgid ""
+"The system sheet '%s' appears to be more recent than your custom\n"
+"version and has been loaded as '%s' for this session.\n"
+"\n"
+"Move new objects (if any) from '%s' into your custom sheet\n"
+"or remove '%s', using the 'Sheets and Objects' dialog."
+msgstr ""
+
+#: ../lib/sheet.c:371
+#, c-format
+msgid "%s: you should use object tags rather than shape tags now"
+msgstr ""
 
 #: ../lib/widgets.c:441
 msgid "Other fonts"
@@ -2479,6 +2653,112 @@ msgstr "Selaa"
 msgid "Reset menu"
 msgstr "Nollausvalikko"
 
+#. Installer message if no GTK+ was found
+#: ../installer/win32/gennsh.c:38
+msgid ""
+"GTK+ is not installed. Please use the full installer. It is available from "
+"http://dia-installer.de."
+msgstr ""
+
+#. Installer message: Don't install over pre 0.95 versions
+#: ../installer/win32/gennsh.c:41
+msgid ""
+"Please remove old Dia installations completely or install Dia to a different "
+"location."
+msgstr ""
+
+#. Installer message:  License Page
+#: ../installer/win32/gennsh.c:44
+msgid "Next >"
+msgstr "Seuraava >"
+
+#. Installer message, keep the $(^Name) and $_CLICK, these will be replaced
+#: ../installer/win32/gennsh.c:47
+msgid ""
+"$(^Name) is released under the GPL license. The license is provided here for "
+"information purposes only. $_CLICK"
+msgstr ""
+
+#. Installer message: Components page
+#: ../installer/win32/gennsh.c:50
+msgid "Dia Diagram Editor (required)"
+msgstr "Dia-kaaviomuokkain (vaadittu)"
+
+#. Installer message: Components page
+#: ../installer/win32/gennsh.c:53
+msgid "Translations"
+msgstr "Käännökset"
+
+#. Installer message: Component description
+#: ../installer/win32/gennsh.c:56
+msgid "Optional translations of the Dia user interface"
+msgstr "Dian käyttöliittymän käännökset"
+
+#. Installer message: Component description
+#: ../installer/win32/gennsh.c:59
+msgid "Core Dia files and dlls"
+msgstr "Dian ydintiedostot ja kirjastot"
+
+#. Installer message: Component name
+#: ../installer/win32/gennsh.c:62
+msgid "Python plug-in"
+msgstr "Python-liitännäinen"
+
+#. Installer message: Component description
+#: ../installer/win32/gennsh.c:65
+msgid ""
+"Support for the Python Scripting Language 2.3. Do not select this if Python "
+"is not installed."
+msgstr ""
+
+#. Installer message: hyperlink text on finish page
+#: ../installer/win32/gennsh.c:68
+msgid "Visit the Dia for Windows Web Page"
+msgstr ""
+
+#. Installer message: Dia uninstaller entry in Control Panel
+#: ../installer/win32/gennsh.c:71
+msgid "Dia (remove only)"
+msgstr ""
+
+#. Installer message: confirmation question. Keep $\r
+#: ../installer/win32/gennsh.c:74
+msgid ""
+"Your old Dia directory is about to be deleted. Would you like to continue?$\r"
+"$\rNote: Any non-standard plugins that you may have installed will be "
+"deleted.$\rDia user settings will not be affected."
+msgstr ""
+
+#. Installer message: confirmatin question. Keep $\r
+#: ../installer/win32/gennsh.c:77
+msgid ""
+"The installation directory you specified already exists. Any contents$\rwill "
+"be deleted. Would you like to continue?"
+msgstr ""
+
+#. Installer message: Uninstall Section Prompts. Keep $\r
+#: ../installer/win32/gennsh.c:80
+msgid ""
+"The uninstaller could not find registry entries for Dia.$\rIt is likely that "
+"another user installed this application."
+msgstr ""
+
+#. Installer message: Uninstall error message
+#: ../installer/win32/gennsh.c:83
+msgid "You do not have permission to uninstall this application."
+msgstr ""
+
+#. Installer message: Uninstallation warning. Keep $INSTDIR
+#: ../installer/win32/gennsh.c:86
+msgid "This will completely delete $INSTDIR and all subdirectories. Continue?"
+msgstr ""
+
+#. Installer message: Uninstallation warning. Keep $\PROFILE\.dia
+#: ../installer/win32/gennsh.c:89
+msgid ""
+"This will completely delete $PROFILE\\.dia and all subdirectories. Continue?"
+msgstr ""
+
 #: ../objects/AADL/aadl.c:52
 msgid "Architecture Analysis & Design Language diagram objects"
 msgstr "Arkkitehtuurin analyysi ja suunnittelukielen kaavio-oliot"
@@ -2487,67 +2767,67 @@ msgstr "Arkkitehtuurin analyysi ja suunnittelukielen kaavio-oliot"
 msgid "Declaration"
 msgstr "Määrittely"
 
-#: ../objects/AADL/aadlbox.c:367
+#: ../objects/AADL/aadlbox.c:361
 msgid "Add Access Provider"
 msgstr "Lisää pääsyn tarjoaja"
 
-#: ../objects/AADL/aadlbox.c:369
+#: ../objects/AADL/aadlbox.c:363
 msgid "Add Access Requirer"
 msgstr "Lisää pääsyn vaatija"
 
-#: ../objects/AADL/aadlbox.c:371
+#: ../objects/AADL/aadlbox.c:365
 msgid "Add In Data Port"
 msgstr "Lisää saapuva dataportti"
 
-#: ../objects/AADL/aadlbox.c:373
+#: ../objects/AADL/aadlbox.c:367
 msgid "Add In Event Port"
 msgstr "Lisää saapuva tapahtumaportti"
 
-#: ../objects/AADL/aadlbox.c:375
+#: ../objects/AADL/aadlbox.c:369
 msgid "Add In Event Data Port"
 msgstr "Lisää saapuva tapahtumadataportti"
 
-#: ../objects/AADL/aadlbox.c:377
+#: ../objects/AADL/aadlbox.c:371
 msgid "Add Out Data Port"
 msgstr "Lisää lähtevä dataportti"
 
-#: ../objects/AADL/aadlbox.c:379
+#: ../objects/AADL/aadlbox.c:373
 msgid "Add Out Event Port"
 msgstr "Lisää lähtevä tapahtumaportti"
 
-#: ../objects/AADL/aadlbox.c:381
+#: ../objects/AADL/aadlbox.c:375
 msgid "Add Out Event Data Port"
 msgstr "Lisää lähtevä tapahtumadataportti"
 
-#: ../objects/AADL/aadlbox.c:383
+#: ../objects/AADL/aadlbox.c:377
 msgid "Add In Out Data Port"
 msgstr "Lisää lähtevä dataportti"
 
-#: ../objects/AADL/aadlbox.c:385
+#: ../objects/AADL/aadlbox.c:379
 msgid "Add In Out Event Port"
 msgstr "Lisää saapuva/lähtevä tapahtumaportti"
 
-#: ../objects/AADL/aadlbox.c:387
+#: ../objects/AADL/aadlbox.c:381
 msgid "Add In Out Event Data Port"
 msgstr "Lisää saapuva/lähtevä tapahtumalevyportti"
 
-#: ../objects/AADL/aadlbox.c:389
+#: ../objects/AADL/aadlbox.c:383
 msgid "Add Port Group"
 msgstr "Lisää porttiryhmä"
 
-#: ../objects/AADL/aadlbox.c:391
+#: ../objects/AADL/aadlbox.c:385
 msgid "Add Connection Point"
 msgstr "Lisää liitoskohta"
 
-#: ../objects/AADL/aadlbox.c:395
+#: ../objects/AADL/aadlbox.c:389
 msgid "Delete Port"
 msgstr "Poista portti"
 
-#: ../objects/AADL/aadlbox.c:396
+#: ../objects/AADL/aadlbox.c:390
 msgid "Edit Port Declaration"
 msgstr "Muokkaa portin määrittelyä"
 
-#: ../objects/AADL/aadlbox.c:400
+#: ../objects/AADL/aadlbox.c:394
 msgid "Delete Connection Point"
 msgstr "Poista liitoskohta"
 
@@ -2583,88 +2863,88 @@ msgstr "Yhdiste"
 msgid "Entity/Relationship table diagram objects"
 msgstr "ER-kaavioiden oliot"
 
-#: ../objects/Database/table.c:140 ../objects/Database/table.c:181
-#: ../objects/Database/table.c:198 ../objects/UML/class.c:145
-#: ../objects/UML/class.c:186 ../objects/UML/class_dialog.c:589
+#: ../objects/Database/table.c:142 ../objects/Database/table.c:183
+#: ../objects/Database/table.c:200 ../objects/UML/class.c:148
+#: ../objects/UML/class.c:189 ../objects/UML/class_dialog.c:595
 #: ../objects/UML/umlattribute.c:43 ../objects/UML/umloperation.c:66
 #: ../objects/UML/umlparameter.c:49 ../sheets/SDL.sheet.in.h:3
 msgid "Comment"
 msgstr "Kommentti"
 
-#: ../objects/Database/table.c:142
+#: ../objects/Database/table.c:144
 msgid "Primary key"
 msgstr "Pääavain"
 
-#: ../objects/Database/table.c:144
+#: ../objects/Database/table.c:146
 msgid "Nullable"
 msgstr "Voi olla NULL"
 
-#: ../objects/Database/table.c:146
+#: ../objects/Database/table.c:148
 msgid "Unique"
 msgstr "Yksikäsitteinen"
 
-#: ../objects/Database/table.c:183
+#: ../objects/Database/table.c:185
 msgid "Visible comments"
 msgstr "Näkyvät kommentit"
 
-#: ../objects/Database/table.c:185 ../objects/UML/class.c:168
+#: ../objects/Database/table.c:187 ../objects/UML/class.c:171
 msgid "Comment tagging"
 msgstr "Kommentin merkinnät"
 
-#: ../objects/Database/table.c:187 ../objects/Database/table_dialog.c:976
+#: ../objects/Database/table.c:189 ../objects/Database/table_dialog.c:976
 msgid "Underline primary keys"
 msgstr "Alleviivaa pääavaimet"
 
-#: ../objects/Database/table.c:189 ../objects/Database/table_dialog.c:981
+#: ../objects/Database/table.c:191 ../objects/Database/table_dialog.c:981
 msgid "Use bold font for primary keys"
 msgstr "Käytä korostettua kirjasinta pääavaimille"
 
 #. property rows
-#: ../objects/Database/table.c:194 ../objects/SADT/arrow.c:136
-#: ../objects/UML/class.c:176 ../objects/UML/class_dialog.c:564
+#: ../objects/Database/table.c:196 ../objects/SADT/arrow.c:136
+#: ../objects/UML/class.c:179 ../objects/UML/class_dialog.c:570
 msgid "Normal"
 msgstr "Normaali"
 
 # Olikos se nyt Tietoviikko mikä ainakin käyttää tätä, Tablet PC = Lehtiö-PC
-#: ../objects/Database/table.c:196
+#: ../objects/Database/table.c:198
 msgid "Tablename"
 msgstr "Taulunimi"
 
-#: ../objects/Database/table.c:201 ../objects/Database/table.c:203
-#: ../objects/Database/table.c:205 ../objects/Database/reference.c:120
-#: ../objects/UML/association.c:247 ../objects/UML/association.c:258
-#: ../objects/UML/association.c:260 ../objects/UML/association.c:262
-#: ../objects/UML/association.c:264 ../objects/UML/association.c:266
-#: ../objects/UML/class.c:190 ../objects/UML/class.c:192
-#: ../objects/UML/class.c:194 ../objects/UML/class.c:196
-#: ../objects/UML/class.c:198 ../objects/UML/class.c:200
+#: ../objects/Database/table.c:203 ../objects/Database/table.c:205
+#: ../objects/Database/table.c:207 ../objects/Database/reference.c:120
+#: ../objects/UML/association.c:245 ../objects/UML/association.c:256
+#: ../objects/UML/association.c:258 ../objects/UML/association.c:260
+#: ../objects/UML/association.c:262 ../objects/UML/association.c:264
+#: ../objects/UML/class.c:193 ../objects/UML/class.c:195
+#: ../objects/UML/class.c:197 ../objects/UML/class.c:199
+#: ../objects/UML/class.c:201 ../objects/UML/class.c:203
 msgid " "
 msgstr " "
 
-#: ../objects/Database/table.c:209 ../objects/UML/class.c:206
-#: ../objects/UML/object.c:156
+#: ../objects/Database/table.c:211 ../objects/UML/class.c:209
+#: ../objects/UML/object.c:157
 msgid "Attributes"
 msgstr "Ominaisuudet"
 
-#: ../objects/Database/table.c:246
+#: ../objects/Database/table.c:248
 msgid "Show comments"
 msgstr "Näytä kommentit"
 
 # Olikos se nyt Tietoviikko mikä ainakin käyttää tätä, Tablet PC = Lehtiö-PC
 #. init data
-#: ../objects/Database/table.c:251 ../objects/Database/table.c:354
+#: ../objects/Database/table.c:253 ../objects/Database/table.c:356
 #: ../sheets/Database.sheet.in.h:5
 msgid "Table"
 msgstr "Taulu"
 
 #. Attributes page:
-#: ../objects/Database/table_dialog.c:611 ../objects/UML/class_dialog.c:1062
+#: ../objects/Database/table_dialog.c:611 ../objects/UML/class_dialog.c:1077
 msgid "_Attributes"
 msgstr "_Määritteet"
 
 #. the "new" button
-#: ../objects/Database/table_dialog.c:639 ../objects/SISSI/sissi_dialog.c:624
-#: ../objects/SISSI/sissi_dialog.c:756
+#: ../objects/Database/table_dialog.c:639 ../objects/SISSI/sissi_dialog.c:739
+#: ../objects/SISSI/sissi_dialog.c:871
 msgid "_New"
 msgstr "_Uusi"
 
@@ -2683,15 +2963,15 @@ msgstr "Siirrä ylöspäin"
 msgid "Move down"
 msgstr "Siirrä alaspäin"
 
-#: ../objects/Database/table_dialog.c:673 ../objects/UML/class_dialog.c:1119
+#: ../objects/Database/table_dialog.c:673 ../objects/UML/class_dialog.c:1134
 msgid "Attribute data"
 msgstr "Attribuuttidata"
 
 #: ../objects/Database/table_dialog.c:707
 #: ../objects/Database/table_dialog.c:946
-#: ../objects/Database/table_dialog.c:1051 ../objects/UML/class_dialog.c:448
-#: ../objects/UML/class_dialog.c:1162 ../objects/UML/class_dialog.c:2089
-#: ../objects/UML/class_dialog.c:2261
+#: ../objects/Database/table_dialog.c:1051 ../objects/UML/class_dialog.c:452
+#: ../objects/UML/class_dialog.c:1177 ../objects/UML/class_dialog.c:2107
+#: ../objects/UML/class_dialog.c:2279
 msgid "Comment:"
 msgstr "Kommentti:"
 
@@ -2722,12 +3002,12 @@ msgstr "Taulun nimi:"
 msgid "Comment visible"
 msgstr "näkyvät kommentit"
 
-#: ../objects/Database/table_dialog.c:971 ../objects/UML/class_dialog.c:518
-msgid "Show documenation tag"
+#: ../objects/Database/table_dialog.c:971 ../objects/UML/class_dialog.c:522
+msgid "Show documentation tag"
 msgstr "Näytä dokumentointitagi"
 
 #. * Fonts and Colors selection *
-#: ../objects/Database/table_dialog.c:1010 ../objects/UML/class_dialog.c:545
+#: ../objects/Database/table_dialog.c:1010 ../objects/UML/class_dialog.c:551
 msgid "_Style"
 msgstr "_Tyyli"
 
@@ -2736,12 +3016,12 @@ msgid "Border width:"
 msgstr "Reunan paksuus:"
 
 #. head line
-#: ../objects/Database/table_dialog.c:1034 ../objects/UML/class_dialog.c:555
+#: ../objects/Database/table_dialog.c:1034 ../objects/UML/class_dialog.c:561
 #: ../objects/UML/umlparameter.c:51
 msgid "Kind"
 msgstr "Laji"
 
-#: ../objects/Database/table_dialog.c:1038 ../objects/UML/class_dialog.c:560
+#: ../objects/Database/table_dialog.c:1038 ../objects/UML/class_dialog.c:566
 msgid "Size"
 msgstr "Koko"
 
@@ -2786,15 +3066,20 @@ msgstr "Lopeta kuvaus"
 
 #: ../objects/Database/reference.c:144 ../objects/ER/participation.c:408
 #: ../objects/FS/flow-ortho.c:626 ../objects/GRAFCET/vector.c:314
-#: ../objects/SADT/arrow.c:459 ../objects/UML/association.c:854
+#: ../objects/SADT/arrow.c:459 ../objects/UML/association.c:852
 #: ../objects/UML/component_feature.c:190 ../objects/UML/dependency.c:376
 #: ../objects/UML/generalization.c:372 ../objects/UML/realizes.c:363
 #: ../objects/UML/transition.c:172 ../objects/standard/zigzagline.c:380
 msgid "Add segment"
 msgstr "Lisää osa"
 
-#: ../objects/Database/reference.c:145
-msgid "Delete segement"
+#: ../objects/Database/reference.c:145 ../objects/ER/participation.c:409
+#: ../objects/FS/flow-ortho.c:627 ../objects/GRAFCET/vector.c:315
+#: ../objects/SADT/arrow.c:460 ../objects/UML/association.c:853
+#: ../objects/UML/component_feature.c:191 ../objects/UML/dependency.c:377
+#: ../objects/UML/generalization.c:373 ../objects/UML/realizes.c:364
+#: ../objects/UML/transition.c:173 ../objects/standard/zigzagline.c:381
+msgid "Delete segment"
 msgstr "Poista osa"
 
 #: ../objects/Database/reference.c:151 ../sheets/Database.sheet.in.h:4
@@ -2841,15 +3126,6 @@ msgstr "Olio/suhde-kaavio-objektit"
 #: ../objects/ER/participation.c:118
 msgid "Total:"
 msgstr "Yhteensä:"
-
-#: ../objects/ER/participation.c:409 ../objects/FS/flow-ortho.c:627
-#: ../objects/GRAFCET/vector.c:315 ../objects/SADT/arrow.c:460
-#: ../objects/UML/association.c:855 ../objects/UML/component_feature.c:191
-#: ../objects/UML/dependency.c:377 ../objects/UML/generalization.c:373
-#: ../objects/UML/realizes.c:364 ../objects/UML/transition.c:173
-#: ../objects/standard/zigzagline.c:381
-msgid "Delete segment"
-msgstr "Poista osa"
 
 #: ../objects/ER/relationship.c:144
 msgid "Left Cardinality:"
@@ -2953,13 +3229,6 @@ msgstr "Kaavakkeen hyväksyntä"
 #: ../objects/FS/function.c:696 ../objects/FS/function.c:930
 msgid "Capture"
 msgstr "Kaappaa"
-
-#. Translators: Menu item Verb/Channel/Export
-#. Translators: Menu item Verb/Channel/Export/Export
-#: ../objects/FS/function.c:698 ../objects/FS/function.c:700
-#: ../plug-ins/libart/export_png.c:323
-msgid "Export"
-msgstr "Vie"
 
 #. Translators: Menu item Verb/Channel/Export/Discharge
 #: ../objects/FS/function.c:702
@@ -3768,7 +4037,7 @@ msgid "Force"
 msgstr "Voima"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Rotation
-#: ../objects/FS/function.c:1108 ../objects/standard/outline.c:204
+#: ../objects/FS/function.c:1108 ../objects/standard/outline.c:206
 msgid "Rotation"
 msgstr "Pyörimis-"
 
@@ -4071,8 +4340,11 @@ msgstr "Vergentin tyyppi:"
 msgid "Add connection point"
 msgstr "Lisää liitoskohta"
 
-#: ../objects/GRAFCET/vergent.c:408
-msgid "Delete  connection point"
+#: ../objects/GRAFCET/vergent.c:408 ../objects/Istar/other.c:472
+#: ../objects/Jackson/domain.c:534 ../objects/KAOS/goal.c:575
+#: ../objects/KAOS/other.c:528 ../objects/SADT/box.c:450
+#: ../objects/standard/line.c:224
+msgid "Delete connection point"
 msgstr "Poista liitoskohta"
 
 #: ../objects/GRAFCET/vergent.c:412
@@ -4087,7 +4359,7 @@ msgstr "Määrittelemätön"
 msgid "Agent"
 msgstr "Agentti"
 
-#: ../objects/Istar/actor.c:71 ../objects/UML/association.c:249
+#: ../objects/Istar/actor.c:71 ../objects/UML/association.c:247
 msgid "Role"
 msgstr "Rooli"
 
@@ -4109,7 +4381,7 @@ msgid "Istar diagram"
 msgstr "Istar-kaavio"
 
 #: ../objects/Istar/link.c:151
-msgid "Positive Contrib"
+msgid "Positive contrib"
 msgstr "Positiivinen myötävaikutus"
 
 #: ../objects/Istar/link.c:152
@@ -4135,12 +4407,6 @@ msgstr "Resurssi"
 #: ../objects/Istar/other.c:74 ../sheets/BPMN.sheet.in.h:43
 msgid "Task"
 msgstr "Tehtävä"
-
-#: ../objects/Istar/other.c:472 ../objects/Jackson/domain.c:534
-#: ../objects/KAOS/goal.c:575 ../objects/KAOS/other.c:528
-#: ../objects/SADT/box.c:450 ../objects/standard/line.c:224
-msgid "Delete connection point"
-msgstr "Poista liitoskohta"
 
 #: ../objects/Istar/other.c:477
 msgid "i* other"
@@ -4198,12 +4464,10 @@ msgstr "Jaettu"
 msgid "Requirement"
 msgstr "Vaatimus"
 
-#. backward compatibility
+#. how it used to be before 0.96+SVN
 #. new name matching "same name, same type"  rule
-#. backward compatibility
-#. new name matching "same name, same type"  rule
-#: ../objects/Jackson/phenomenon.c:144 ../objects/Jackson/phenomenon.c:146
-#: ../objects/UML/message.c:153 ../objects/UML/message.c:155
+#: ../objects/Jackson/phenomenon.c:144 ../objects/UML/message.c:153
+#: ../objects/UML/message.c:155
 msgid "Message:"
 msgstr "Viesti:"
 
@@ -4239,9 +4503,7 @@ msgstr "OR-tarkennus"
 msgid "Operationalization"
 msgstr "Operationalisointi"
 
-#. backward compatibility
-#. new name matching "same name, same type"  rule
-#: ../objects/KAOS/metaandorrel.c:163 ../objects/KAOS/metaandorrel.c:165
+#: ../objects/KAOS/metaandorrel.c:163
 msgid "Text:"
 msgstr "Teksti:"
 
@@ -4305,7 +4567,23 @@ msgstr "Toisten nuolien viivojen paksuus"
 msgid "Show hours"
 msgstr "Näytä tunnit"
 
-#: ../objects/Misc/libmisc.c:40
+#: ../objects/Misc/grid_object.c:140
+msgid "Rows"
+msgstr "Rivejä"
+
+#: ../objects/Misc/grid_object.c:142
+msgid "Columns"
+msgstr "Sarakkeita"
+
+#: ../objects/Misc/grid_object.c:144
+msgid "Gridline color"
+msgstr "Ruudukkoviivan väri"
+
+#: ../objects/Misc/grid_object.c:146
+msgid "Gridline width"
+msgstr "Ruudukkoviivan paksuus" 
+
+#: ../objects/Misc/libmisc.c:41
 msgid "Miscellaneous objects"
 msgstr "Sekalaiset objektit"
 
@@ -4420,15 +4698,15 @@ msgstr "SADT-laatikko"
 msgid "SADT diagram objects"
 msgstr "SADT-kaavio-objektit"
 
-#: ../objects/SISSI/classification.h:38 ../objects/SISSI/sissi.h:219
+#: ../objects/SISSI/classification.h:38 ../objects/SISSI/sissi_dialog.c:42
 msgid "No Protection"
 msgstr "Ei turvaa"
 
-#: ../objects/SISSI/classification.h:39 ../objects/SISSI/sissi.h:220
+#: ../objects/SISSI/classification.h:39 ../objects/SISSI/sissi_dialog.c:43
 msgid "Restricted Diffusion"
 msgstr "Rajattu diffuusio"
 
-#: ../objects/SISSI/classification.h:40 ../objects/SISSI/sissi.h:221
+#: ../objects/SISSI/classification.h:40 ../objects/SISSI/sissi_dialog.c:44
 msgid "Special Country Confidential"
 msgstr ""
 
@@ -4436,15 +4714,15 @@ msgstr ""
 msgid "Confidential"
 msgstr "Luottamuksellinen"
 
-#: ../objects/SISSI/classification.h:42 ../objects/SISSI/sissi.h:222
+#: ../objects/SISSI/classification.h:42 ../objects/SISSI/sissi_dialog.c:45
 msgid "NATO Confidential"
 msgstr "NATO-luottamuksellin"
 
-#: ../objects/SISSI/classification.h:43 ../objects/SISSI/sissi.h:223
+#: ../objects/SISSI/classification.h:43 ../objects/SISSI/sissi_dialog.c:46
 msgid "Personal Confidential"
 msgstr "Henkiökohtainen luottamuksellinen"
 
-#: ../objects/SISSI/classification.h:44 ../objects/SISSI/sissi.h:224
+#: ../objects/SISSI/classification.h:44 ../objects/SISSI/sissi_dialog.c:47
 msgid "Medical Confidential"
 msgstr ""
 
@@ -4456,7 +4734,7 @@ msgstr ""
 msgid "Defense Confidential"
 msgstr ""
 
-#: ../objects/SISSI/classification.h:47 ../objects/SISSI/sissi.h:226
+#: ../objects/SISSI/classification.h:47 ../objects/SISSI/sissi_dialog.c:49
 msgid "Secret"
 msgstr "Salainen"
 
@@ -4464,663 +4742,690 @@ msgstr "Salainen"
 msgid "Defense Secret"
 msgstr ""
 
-#: ../objects/SISSI/classification.h:49 ../objects/SISSI/sissi.h:227
+#: ../objects/SISSI/classification.h:49 ../objects/SISSI/sissi_dialog.c:50
 msgid "Secret special country"
 msgstr "Salainen, erityinen maa"
 
-#: ../objects/SISSI/classification.h:50 ../objects/SISSI/sissi.h:228
+#: ../objects/SISSI/classification.h:50 ../objects/SISSI/sissi_dialog.c:51
 msgid "NATO Secret"
 msgstr "NATO-salainen"
 
-#: ../objects/SISSI/classification.h:51 ../objects/SISSI/sissi.h:229
+#: ../objects/SISSI/classification.h:51 ../objects/SISSI/sissi_dialog.c:52
 msgid "Very Secret"
 msgstr "Erittäin salainen"
 
-#: ../objects/SISSI/classification.h:52 ../objects/SISSI/sissi.h:230
+#: ../objects/SISSI/classification.h:52 ../objects/SISSI/sissi_dialog.c:53
 msgid "NATO Very Secret"
 msgstr "NATOn erittäin salainen"
 
-#: ../objects/SISSI/sissi.c:64
+#: ../objects/SISSI/sissi.c:66
 msgid "SISSI diagram"
 msgstr "SISSI-kaavio"
 
-#: ../objects/SISSI/sissi.h:225
+#: ../objects/SISSI/sissi.c:923
+#, c-format
+msgid ""
+"Error loading object.\n"
+"Not a regular file: %s"
+msgstr ""
+"Virhe ladattaessa kohdetta.\n"
+"Ei ole tavallinen tiedosto: %s"
+
+#: ../objects/SISSI/sissi.c:928 ../objects/SISSI/sissi.c:932
+#, c-format
+msgid ""
+"Error loading object.\n"
+"Incorrect file type: %s"
+msgstr ""
+"Virhe ladattaessa kohdetta.\n"
+"Tuntematon tiedostotyyppi: %s"
+
+#: ../objects/SISSI/sissi.c:940
+#, c-format
+msgid ""
+"Error loading object.\n"
+"Not a Dia file: %s"
+msgstr ""
+"Virhe ladattaessa kohdetta.\n"
+"Ei ole Dia-tiedosto: %s"
+
+#: ../objects/SISSI/sissi_dialog.c:48
 msgid "Industrial Confidential"
 msgstr ""
 
-#: ../objects/SISSI/sissi.h:235
+#: ../objects/SISSI/sissi_dialog.c:58
 msgid "No integrity"
 msgstr ""
 
-#: ../objects/SISSI/sissi.h:236
+#: ../objects/SISSI/sissi_dialog.c:59
 msgid "Low integrity"
 msgstr ""
 
-#: ../objects/SISSI/sissi.h:237
+#: ../objects/SISSI/sissi_dialog.c:60
 msgid "Average software integrity"
 msgstr ""
 
-#: ../objects/SISSI/sissi.h:238
+#: ../objects/SISSI/sissi_dialog.c:61
 msgid "High software integrity"
 msgstr ""
 
-#: ../objects/SISSI/sissi.h:239
+#: ../objects/SISSI/sissi_dialog.c:62
 msgid "Average hardware integrity"
 msgstr ""
 
-#: ../objects/SISSI/sissi.h:240
+#: ../objects/SISSI/sissi_dialog.c:63
 msgid "High hardware integrity"
 msgstr ""
 
-#: ../objects/SISSI/sissi.h:245
+#: ../objects/SISSI/sissi_dialog.c:68
 msgid "Millisecond"
 msgstr "Millisekunti"
 
-#: ../objects/SISSI/sissi.h:246
+#: ../objects/SISSI/sissi_dialog.c:69
 msgid "Second"
 msgstr "Sekunti"
 
-#: ../objects/SISSI/sissi.h:247
+#: ../objects/SISSI/sissi_dialog.c:70
 msgid "Minute"
 msgstr "Minuutti"
 
-#: ../objects/SISSI/sissi.h:248
+#: ../objects/SISSI/sissi_dialog.c:71
 msgid "Hour"
 msgstr "Tunti"
 
-#: ../objects/SISSI/sissi.h:249
+#: ../objects/SISSI/sissi_dialog.c:72
 msgid "Day"
 msgstr "Päivä"
 
-#: ../objects/SISSI/sissi.h:250
+#: ../objects/SISSI/sissi_dialog.c:73
 msgid "Week"
 msgstr "Viikko"
 
-#: ../objects/SISSI/sissi.h:255
+#: ../objects/SISSI/sissi_dialog.c:78
 msgid "SYSTEM"
 msgstr "JÄRJESTELMÄ"
 
-#: ../objects/SISSI/sissi.h:256
+#: ../objects/SISSI/sissi_dialog.c:79
 msgid "Internet access device"
 msgstr "Internet-pääsylaite"
 
-#: ../objects/SISSI/sissi.h:257
+#: ../objects/SISSI/sissi_dialog.c:80
 msgid "Electronic messaging"
 msgstr "Sähköinen viestintä"
 
-#: ../objects/SISSI/sissi.h:258
+#: ../objects/SISSI/sissi_dialog.c:81
 msgid "Intranet"
 msgstr "Internet"
 
-#: ../objects/SISSI/sissi.h:259
+#: ../objects/SISSI/sissi_dialog.c:82
 msgid "Company directory"
 msgstr "Yrityshakemisto"
 
-#: ../objects/SISSI/sissi.h:260
+#: ../objects/SISSI/sissi_dialog.c:83
 msgid "External portal"
 msgstr "Ulkoinen portaali"
 
-#: ../objects/SISSI/sissi.h:265
+#: ../objects/SISSI/sissi_dialog.c:88
 msgid "ORGANISATION"
 msgstr "ORGANISAATIO"
 
-#: ../objects/SISSI/sissi.h:266
+#: ../objects/SISSI/sissi_dialog.c:89
 msgid "Higher-tier organisation"
 msgstr "Ylemmän tason organisaatio"
 
-#: ../objects/SISSI/sissi.h:267
+#: ../objects/SISSI/sissi_dialog.c:90
 msgid "Structure of the organisation"
 msgstr "Organisaation rakenne"
 
-#: ../objects/SISSI/sissi.h:268
+#: ../objects/SISSI/sissi_dialog.c:91
 msgid "Project or system organisation"
 msgstr "Projekti tai järjestelmäorganisaatio"
 
-#: ../objects/SISSI/sissi.h:269
+#: ../objects/SISSI/sissi_dialog.c:92
 msgid "Subcontractors / Suppliers / Manufacturers"
 msgstr "Alihankkijat, toimittajat ja valmistajat"
 
-#: ../objects/SISSI/sissi.h:274
+#: ../objects/SISSI/sissi_dialog.c:97
 msgid "SITE"
 msgstr "PAIKKA"
 
-#: ../objects/SISSI/sissi.h:275
+#: ../objects/SISSI/sissi_dialog.c:98
 msgid "Places"
 msgstr "Sijainnit"
 
-#: ../objects/SISSI/sissi.h:276
+#: ../objects/SISSI/sissi_dialog.c:99
 msgid "External environment"
 msgstr "Ulkoinen ympäristö"
 
-#: ../objects/SISSI/sissi.h:277
+#: ../objects/SISSI/sissi_dialog.c:100
 msgid "Premises"
 msgstr "Tilat"
 
-#: ../objects/SISSI/sissi.h:278
+#: ../objects/SISSI/sissi_dialog.c:101
 msgid "Zone"
 msgstr "Alue"
 
-#: ../objects/SISSI/sissi.h:279
+#: ../objects/SISSI/sissi_dialog.c:102
 msgid "Essential Services"
 msgstr "Välttämättömät palvelut"
 
-#: ../objects/SISSI/sissi.h:280
+#: ../objects/SISSI/sissi_dialog.c:103
 msgid "Communication"
 msgstr "Tietoliikenne"
 
-#: ../objects/SISSI/sissi.h:281
+#: ../objects/SISSI/sissi_dialog.c:104
 msgid "Power"
 msgstr "Virta"
 
-#: ../objects/SISSI/sissi.h:282
+#: ../objects/SISSI/sissi_dialog.c:105
 msgid "Cooling / Pollution"
 msgstr "Viilentyminen / saasteet"
 
-#: ../objects/SISSI/sissi.h:286
+#: ../objects/SISSI/sissi_dialog.c:109
 msgid "Thermal detection"
 msgstr "Lämmön havaitseminen"
 
-#: ../objects/SISSI/sissi.h:290
+#: ../objects/SISSI/sissi_dialog.c:113
 msgid "Fire detection"
 msgstr "Tulen havaitseminen"
 
-#: ../objects/SISSI/sissi.h:294
+#: ../objects/SISSI/sissi_dialog.c:117
 msgid "Water detection"
 msgstr "Veden havaitseminen"
 
-#: ../objects/SISSI/sissi.h:298
+#: ../objects/SISSI/sissi_dialog.c:121
 msgid "Air detection"
 msgstr "Ilman havaitseminen"
 
-#: ../objects/SISSI/sissi.h:302
+#: ../objects/SISSI/sissi_dialog.c:125
 msgid "Energy detection"
 msgstr "Energian havaitseminen"
 
-#: ../objects/SISSI/sissi.h:306
+#: ../objects/SISSI/sissi_dialog.c:129
 msgid "Intrusion detection"
 msgstr "Hyökkäyksen havaitseminen"
 
-#: ../objects/SISSI/sissi.h:310
+#: ../objects/SISSI/sissi_dialog.c:133
 msgid "Thermal action"
 msgstr "Lämpötilan havaitseminen"
 
-#: ../objects/SISSI/sissi.h:314
+#: ../objects/SISSI/sissi_dialog.c:137
 msgid "Fire action"
 msgstr "Tulitoimenpide"
 
-#: ../objects/SISSI/sissi.h:318
+#: ../objects/SISSI/sissi_dialog.c:141
 msgid "Water action"
 msgstr "Vesitoimenpide"
 
-#: ../objects/SISSI/sissi.h:322
+#: ../objects/SISSI/sissi_dialog.c:145
 msgid "Air action"
 msgstr "Ilmatoimenpide"
 
-#: ../objects/SISSI/sissi.h:326
+#: ../objects/SISSI/sissi_dialog.c:149
 msgid "Energy action"
 msgstr "Energiatoimenpide"
 
-#: ../objects/SISSI/sissi.h:330
+#: ../objects/SISSI/sissi_dialog.c:153
 msgid "Intrusion action"
 msgstr "Hyökkäystoimenpide"
 
-#: ../objects/SISSI/sissi.h:335
+#: ../objects/SISSI/sissi_dialog.c:158
 msgid "Personal"
 msgstr "Henkilökohtainen"
 
-#: ../objects/SISSI/sissi.h:336
+#: ../objects/SISSI/sissi_dialog.c:159
 msgid "Decision maker"
 msgstr "Päätöksentekijä"
 
-#: ../objects/SISSI/sissi.h:337
+#: ../objects/SISSI/sissi_dialog.c:160
 msgid "SSI Responsible"
 msgstr "SSI-vastuullinen"
 
-#: ../objects/SISSI/sissi.h:338
+#: ../objects/SISSI/sissi_dialog.c:161
 msgid "Users"
 msgstr "Käyttäjät"
 
-#: ../objects/SISSI/sissi.h:339
+#: ../objects/SISSI/sissi_dialog.c:162
 msgid "Functional administrator"
 msgstr "Funktionaalinen ylläpitäjä"
 
-#: ../objects/SISSI/sissi.h:340
+#: ../objects/SISSI/sissi_dialog.c:163
 msgid "Technical administrator"
 msgstr "Tekninen ylläpitäjä"
 
-#: ../objects/SISSI/sissi.h:341
+#: ../objects/SISSI/sissi_dialog.c:164
 msgid "SSI administrator"
 msgstr "SSI-ylläpitäjä"
 
-#: ../objects/SISSI/sissi.h:342
+#: ../objects/SISSI/sissi_dialog.c:165
 msgid "Developer"
 msgstr "Kehittäjä"
 
-#: ../objects/SISSI/sissi.h:343
+#: ../objects/SISSI/sissi_dialog.c:166
 msgid "Operator / Maintenance"
 msgstr "Operaattori / ylläpito"
 
-#: ../objects/SISSI/sissi.h:348 ../sheets/network.sheet.in.h:20
+#: ../objects/SISSI/sissi_dialog.c:171 ../sheets/network.sheet.in.h:20
 msgid "Network"
 msgstr "Verkko"
 
-#: ../objects/SISSI/sissi.h:349
+#: ../objects/SISSI/sissi_dialog.c:172
 msgid "Medium and support"
 msgstr "Media ja tuki"
 
-#: ../objects/SISSI/sissi.h:350
+#: ../objects/SISSI/sissi_dialog.c:173
 msgid "Passive or active relay"
 msgstr "Passiivinen tai aktiivinen rele"
 
-#: ../objects/SISSI/sissi.h:351
+#: ../objects/SISSI/sissi_dialog.c:174
 msgid "Communication interface"
 msgstr ""
 
-#: ../objects/SISSI/sissi.h:356 ../sheets/SISSI.sheet.in.h:54
+#: ../objects/SISSI/sissi_dialog.c:179 ../sheets/SISSI.sheet.in.h:54
 msgid "Software"
 msgstr "Ohjelmisto"
 
-#: ../objects/SISSI/sissi.h:357
+#: ../objects/SISSI/sissi_dialog.c:180
 msgid "Operating System"
 msgstr "Käyttöjärjestelmä"
 
-#: ../objects/SISSI/sissi.h:358
+#: ../objects/SISSI/sissi_dialog.c:181
 msgid "Service - maintenance or administration software"
 msgstr "Palvelu - ylläpito- tai hallintaohjelmisto"
 
-#: ../objects/SISSI/sissi.h:359
+#: ../objects/SISSI/sissi_dialog.c:182
 msgid "Packaged software or standard software"
 msgstr "Paketoitu- tai varusohjelmisto"
 
-#: ../objects/SISSI/sissi.h:360
+#: ../objects/SISSI/sissi_dialog.c:183
 msgid "Business application"
 msgstr "Liikesovellus"
 
-#: ../objects/SISSI/sissi.h:361
+#: ../objects/SISSI/sissi_dialog.c:184
 msgid "Standard business application"
 msgstr "Standardi liikesovellus"
 
-#: ../objects/SISSI/sissi.h:362
+#: ../objects/SISSI/sissi_dialog.c:185
 msgid "Specific business application"
 msgstr "Erityinen liikesovellus"
 
-#: ../objects/SISSI/sissi.h:367
+#: ../objects/SISSI/sissi_dialog.c:190
 msgid "HARDWARE"
 msgstr "LAITTEISTO"
 
-#: ../objects/SISSI/sissi.h:368
+#: ../objects/SISSI/sissi_dialog.c:191
 msgid "Data-processing equipment (active)"
 msgstr "Tiedonkäsittelylaitteisto (aktiivinen)"
 
-#: ../objects/SISSI/sissi.h:369
+#: ../objects/SISSI/sissi_dialog.c:192
 msgid "Mobile equipment"
 msgstr "Liikkuva laitteisto"
 
-#: ../objects/SISSI/sissi.h:370
+#: ../objects/SISSI/sissi_dialog.c:193
 msgid "Fixed equipment"
 msgstr "Kiinteä laitteisto"
 
-#: ../objects/SISSI/sissi.h:371
+#: ../objects/SISSI/sissi_dialog.c:194
 msgid "Peripheral processing"
 msgstr ""
 
-#: ../objects/SISSI/sissi.h:372
+#: ../objects/SISSI/sissi_dialog.c:195
 msgid "Electronic medium"
 msgstr "Elektroninen media"
 
-#: ../objects/SISSI/sissi.h:373
+#: ../objects/SISSI/sissi_dialog.c:196
 msgid "Other media"
 msgstr "Muut mediat"
 
-#: ../objects/SISSI/sissi.h:374
+#: ../objects/SISSI/sissi_dialog.c:197
 msgid "Data medium (passive)"
 msgstr "Tietomedia (passiivinen)"
 
 #. Class page:
-#: ../objects/SISSI/sissi_dialog.c:186
+#: ../objects/SISSI/sissi_dialog.c:301
 msgid "_Menace"
 msgstr ""
 
 #. ********* label of board *********
-#: ../objects/SISSI/sissi_dialog.c:202 ../objects/SISSI/sissi_dialog.c:211
+#: ../objects/SISSI/sissi_dialog.c:317 ../objects/SISSI/sissi_dialog.c:326
 msgid "Menace"
 msgstr ""
 
-#: ../objects/SISSI/sissi_dialog.c:204 ../objects/SISSI/sissi_dialog.c:213
+#: ../objects/SISSI/sissi_dialog.c:319 ../objects/SISSI/sissi_dialog.c:328
 msgid "P Action"
 msgstr "P-toimenpide"
 
-#: ../objects/SISSI/sissi_dialog.c:206 ../objects/SISSI/sissi_dialog.c:215
+#: ../objects/SISSI/sissi_dialog.c:321 ../objects/SISSI/sissi_dialog.c:330
 msgid "P Detection"
 msgstr "P-havaitseminen"
 
-#: ../objects/SISSI/sissi_dialog.c:208 ../objects/SISSI/sissi_dialog.c:217
+#: ../objects/SISSI/sissi_dialog.c:323 ../objects/SISSI/sissi_dialog.c:332
 msgid "Vulnerability"
 msgstr "Haavoittuvuus"
 
 #. Other properties of page:
-#: ../objects/SISSI/sissi_dialog.c:373
+#: ../objects/SISSI/sissi_dialog.c:488
 msgid "Other properties"
 msgstr "Muut ominaisuudet"
 
 #. ********* selection menu of entity ********
 #. ********* Label of board *********
-#: ../objects/SISSI/sissi_dialog.c:611
+#: ../objects/SISSI/sissi_dialog.c:726
 msgid "Label"
 msgstr "Otsikko"
 
-#: ../objects/SISSI/sissi_dialog.c:613
+#: ../objects/SISSI/sissi_dialog.c:728
 msgid "value"
 msgstr "arvo"
 
 #. Other properties of page
-#: ../objects/SISSI/sissi_dialog.c:747
+#: ../objects/SISSI/sissi_dialog.c:862
 msgid "Documents"
 msgstr "Asiakirjat"
 
-#: ../objects/SISSI/sissi_dialog.c:763
+#: ../objects/SISSI/sissi_dialog.c:878
 msgid "Document title"
 msgstr "Asiakirjan nimi"
 
-#: ../objects/SISSI/sissi_dialog.c:765
-msgid "URL"
-msgstr "URL"
-
-#: ../objects/UML/actor.c:353 ../objects/UML/actor.c:355
+#: ../objects/UML/actor.c:357 ../objects/UML/actor.c:359
 #: ../sheets/UML.sheet.in.h:2
 msgid "Actor"
 msgstr "Tekijä"
 
-#: ../objects/UML/association.c:224
+#: ../objects/UML/association.c:222
 msgid "From A to B"
 msgstr "A:sta B:hen"
 
-#: ../objects/UML/association.c:225
+#: ../objects/UML/association.c:223
 msgid "From B to A"
 msgstr "B:stä A:han"
 
-#: ../objects/UML/association.c:230
+#: ../objects/UML/association.c:228
 msgid "Aggregation"
 msgstr "Kooste"
 
-#: ../objects/UML/association.c:231
+#: ../objects/UML/association.c:229
 msgid "Composition"
 msgstr "Koostumus"
 
-#: ../objects/UML/association.c:238
+#: ../objects/UML/association.c:236
 msgid "Direction"
 msgstr "Suunta"
 
-#: ../objects/UML/association.c:240
+#: ../objects/UML/association.c:238
 msgid "Show direction"
 msgstr "Näytä suunta"
 
-#: ../objects/UML/association.c:240
+#: ../objects/UML/association.c:238
 msgid "Show the small arrow denoting the reading direction"
 msgstr "Näytä pieni nuoli, joka kertoo lukusuunnan"
 
-#: ../objects/UML/association.c:247
+#: ../objects/UML/association.c:245
 msgid "Side A"
 msgstr "A-puoli"
 
-#: ../objects/UML/association.c:251
+#: ../objects/UML/association.c:249
 msgid "Multiplicity"
 msgstr "Monimuotoisuus"
 
-#: ../objects/UML/association.c:253 ../objects/UML/umlattribute.c:45
+#: ../objects/UML/association.c:251 ../objects/UML/umlattribute.c:45
 #: ../objects/UML/umloperation.c:71
 msgid "Visibility"
 msgstr "Näkyvyys"
 
-#: ../objects/UML/association.c:255
+#: ../objects/UML/association.c:253
 msgid "Show arrow"
 msgstr "Näytä nuoli"
 
-#: ../objects/UML/association.c:258
+#: ../objects/UML/association.c:256
 msgid "Side B"
 msgstr "B-puoli"
 
-#: ../objects/UML/class.c:139 ../objects/UML/class.c:310
-#: ../objects/UML/class.c:1760 ../sheets/UML.sheet.in.h:6
+#: ../objects/UML/class.c:142 ../objects/UML/class.c:325
+#: ../objects/UML/class.c:1773 ../sheets/UML.sheet.in.h:6
 msgid "Class"
 msgstr "Luokka"
 
-#. backward compatibility
-#. one name, one type
-#: ../objects/UML/class.c:143 ../objects/UML/classicon.c:140
+#. how it used to be before 0.96+SVN
+#. one name, one type: but breaks forward-compatibiliy so kind of reverted
+#: ../objects/UML/class.c:146 ../objects/UML/classicon.c:140
 #: ../objects/UML/classicon.c:142 ../objects/UML/component.c:126
-#: ../objects/UML/large_package.c:131 ../objects/UML/object.c:152
-#: ../objects/UML/small_package.c:126 ../objects/UML/umloperation.c:68
+#: ../objects/UML/large_package.c:137 ../objects/UML/object.c:153
+#: ../objects/UML/small_package.c:131 ../objects/UML/umloperation.c:68
 msgid "Stereotype"
 msgstr "Stereotyyppi"
 
-#: ../objects/UML/class.c:147 ../objects/UML/class.c:180
-#: ../objects/UML/class_dialog.c:464 ../objects/UML/class_dialog.c:574
-#: ../objects/UML/class_dialog.c:2065 ../objects/UML/uml.c:110
+#: ../objects/UML/class.c:150 ../objects/UML/class.c:183
+#: ../objects/UML/class_dialog.c:468 ../objects/UML/class_dialog.c:580
+#: ../objects/UML/class_dialog.c:2083 ../objects/UML/uml.c:110
 msgid "Abstract"
 msgstr "Abstrakti"
 
-#: ../objects/UML/class.c:149 ../objects/UML/class.c:1757
+#: ../objects/UML/class.c:152 ../objects/UML/class.c:1770
 msgid "Template"
 msgstr "Malli"
 
-#: ../objects/UML/class.c:152 ../objects/UML/class_dialog.c:473
+#: ../objects/UML/class.c:155 ../objects/UML/class_dialog.c:477
 msgid "Suppress Attributes"
 msgstr "Ominaisuudet eivät näy"
 
-#: ../objects/UML/class.c:154
+#: ../objects/UML/class.c:157
 msgid "Suppress Operations"
 msgstr "Operaatiot eivät näy"
 
-#: ../objects/UML/class.c:156
+#: ../objects/UML/class.c:159
 msgid "Visible Attributes"
 msgstr "Ominaisuudet näkyvissä"
 
-#: ../objects/UML/class.c:158
+#: ../objects/UML/class.c:161
 msgid "Visible Operations"
 msgstr "Operaatiot näkyvissä"
 
-#: ../objects/UML/class.c:160
+#: ../objects/UML/class.c:163
 msgid "Visible Comments"
 msgstr "Kommentit näkyvissä"
 
-#: ../objects/UML/class.c:162 ../objects/UML/class_dialog.c:489
+#: ../objects/UML/class.c:165 ../objects/UML/class_dialog.c:493
 msgid "Wrap Operations"
 msgstr "Pilko operaatiot"
 
-#: ../objects/UML/class.c:164
+#: ../objects/UML/class.c:167
 msgid "Wrap after char"
 msgstr "Pilko merkin jälkeen"
 
-#: ../objects/UML/class.c:166
+#: ../objects/UML/class.c:169
 msgid "Comment line length"
 msgstr "Kommenttiviivan pituus"
 
-#: ../objects/UML/class.c:178 ../objects/UML/class_dialog.c:569
+#: ../objects/UML/class.c:181 ../objects/UML/class_dialog.c:575
 msgid "Polymorphic"
 msgstr "Polymorfinen"
 
-#: ../objects/UML/class.c:182
+#: ../objects/UML/class.c:185
 msgid "Classname"
 msgstr "Luokan nimi"
 
-#: ../objects/UML/class.c:184
+#: ../objects/UML/class.c:187
 msgid "Abstract Classname"
 msgstr "Abstraktin luokan nimi"
 
-#: ../objects/UML/class.c:208
+#: ../objects/UML/class.c:211
 msgid "Operations"
 msgstr "Operaatiot"
 
-#: ../objects/UML/class.c:211
+#: ../objects/UML/class.c:214
 msgid "Template Parameters"
 msgstr "Malliparametrit"
 
-#: ../objects/UML/class.c:305
+#: ../objects/UML/class.c:320
 msgid "Show Comments"
 msgstr "Näytä kommentit"
 
 #. Class page:
-#: ../objects/UML/class_dialog.c:425
+#: ../objects/UML/class_dialog.c:429
 msgid "_Class"
 msgstr "_Luokka"
 
-#: ../objects/UML/class_dialog.c:433
+#: ../objects/UML/class_dialog.c:437
 msgid "Class name:"
 msgstr "Luokan nimi:"
 
-#: ../objects/UML/class_dialog.c:441 ../objects/UML/class_dialog.c:2014
+#: ../objects/UML/class_dialog.c:445 ../objects/UML/class_dialog.c:2032
 #: ../objects/UML/dependency.c:139 ../objects/UML/generalization.c:135
 #: ../objects/UML/realizes.c:136
 msgid "Stereotype:"
 msgstr "Stereotyyppi:"
 
-#: ../objects/UML/class_dialog.c:470
+#: ../objects/UML/class_dialog.c:474
 msgid "Attributes visible"
 msgstr "Ominaisuudet näkyvät"
 
-#: ../objects/UML/class_dialog.c:479
+#: ../objects/UML/class_dialog.c:483
 msgid "Operations visible"
 msgstr "Operaatiot näkyvät"
 
-#: ../objects/UML/class_dialog.c:482
+#: ../objects/UML/class_dialog.c:486
 msgid "Suppress operations"
 msgstr "Operaatiot eivät näy"
 
-#: ../objects/UML/class_dialog.c:496
+#: ../objects/UML/class_dialog.c:500
 msgid "Wrap after this length: "
 msgstr "Pilko tämän pituuden jälkeen: "
 
-#: ../objects/UML/class_dialog.c:504
+#: ../objects/UML/class_dialog.c:508
 msgid "Comments visible"
 msgstr "Kommentit näkyvät"
 
-#: ../objects/UML/class_dialog.c:511
+#: ../objects/UML/class_dialog.c:515
 msgid "Wrap comment after this length: "
 msgstr "Katkaise pidemmät kommentit kuin: "
 
-#: ../objects/UML/class_dialog.c:579
+#: ../objects/UML/class_dialog.c:585
 msgid "Class Name"
 msgstr "Luokan nimi"
 
-#: ../objects/UML/class_dialog.c:584
+#: ../objects/UML/class_dialog.c:590
 msgid "Abstract Class"
 msgstr "Abstrakti luokka"
 
 #. should probably be refactored too.
-#: ../objects/UML/class_dialog.c:601
+#: ../objects/UML/class_dialog.c:607
+msgid "Line Width"
+msgstr "Viivan paksuus"
+
+#: ../objects/UML/class_dialog.c:616
 msgid "Text Color"
 msgstr "Tekstin väri"
 
-#: ../objects/UML/class_dialog.c:609
+#: ../objects/UML/class_dialog.c:624
 msgid "Foreground Color"
 msgstr "Edustaväri"
 
-#: ../objects/UML/class_dialog.c:617
+#: ../objects/UML/class_dialog.c:632
 msgid "Background Color"
 msgstr "Taustaväri"
 
-#: ../objects/UML/class_dialog.c:1151
+#: ../objects/UML/class_dialog.c:1166
 msgid "Value:"
 msgstr "Arvo:"
 
-#: ../objects/UML/class_dialog.c:1184 ../objects/UML/class_dialog.c:2026
+#: ../objects/UML/class_dialog.c:1199 ../objects/UML/class_dialog.c:2044
 msgid "Visibility:"
 msgstr "Näkyvyys:"
 
-#: ../objects/UML/class_dialog.c:1193 ../objects/UML/class_dialog.c:2035
+#: ../objects/UML/class_dialog.c:1208 ../objects/UML/class_dialog.c:2053
 #: ../objects/UML/uml.c:102
 msgid "Public"
 msgstr "Julkinen"
 
-#: ../objects/UML/class_dialog.c:1196 ../objects/UML/class_dialog.c:2038
+#: ../objects/UML/class_dialog.c:1211 ../objects/UML/class_dialog.c:2056
 #: ../objects/UML/uml.c:103
 msgid "Private"
 msgstr "Yksityinen"
 
-#: ../objects/UML/class_dialog.c:1199 ../objects/UML/class_dialog.c:2041
+#: ../objects/UML/class_dialog.c:1214 ../objects/UML/class_dialog.c:2059
 #: ../objects/UML/uml.c:104
 msgid "Protected"
 msgstr "Suojattu"
 
-#: ../objects/UML/class_dialog.c:1202 ../objects/UML/class_dialog.c:2044
+#: ../objects/UML/class_dialog.c:1217 ../objects/UML/class_dialog.c:2062
 #: ../objects/UML/uml.c:105
 msgid "Implementation"
 msgstr "Toimeenpano"
 
 #. end: Inheritance type
-#: ../objects/UML/class_dialog.c:1218 ../objects/UML/class_dialog.c:2081
+#: ../objects/UML/class_dialog.c:1233 ../objects/UML/class_dialog.c:2099
 msgid "Class scope"
 msgstr "Luokan vaikutusalue"
 
 #. end: Visibility
-#: ../objects/UML/class_dialog.c:2056
+#: ../objects/UML/class_dialog.c:2074
 msgid "Inheritance type:"
 msgstr "Periytymisen tyyppi:"
 
-#: ../objects/UML/class_dialog.c:2068 ../objects/UML/uml.c:111
+#: ../objects/UML/class_dialog.c:2086 ../objects/UML/uml.c:111
 msgid "Polymorphic (virtual)"
 msgstr "Polymorfinen (virtuaalinen)"
 
-#: ../objects/UML/class_dialog.c:2071 ../objects/UML/uml.c:112
+#: ../objects/UML/class_dialog.c:2089 ../objects/UML/uml.c:112
 msgid "Leaf (final)"
 msgstr "Lehti (lopullinen)"
 
-#: ../objects/UML/class_dialog.c:2085
+#: ../objects/UML/class_dialog.c:2103
 msgid "Query"
 msgstr "Kysely"
 
-#: ../objects/UML/class_dialog.c:2132
+#: ../objects/UML/class_dialog.c:2150
 msgid "Parameters:"
 msgstr "Parametrit:"
 
-#: ../objects/UML/class_dialog.c:2217
+#: ../objects/UML/class_dialog.c:2235
 msgid "Parameter data"
 msgstr "Parametrin tiedot"
 
-#: ../objects/UML/class_dialog.c:2250
+#: ../objects/UML/class_dialog.c:2268
 msgid "Def. value:"
 msgstr "Oletusarvo:"
 
-#: ../objects/UML/class_dialog.c:2284
+#: ../objects/UML/class_dialog.c:2302
 msgid "Direction:"
 msgstr "Suunta:"
 
-#: ../objects/UML/class_dialog.c:2293 ../objects/UML/umlparameter.c:34
+#: ../objects/UML/class_dialog.c:2311 ../objects/UML/umlparameter.c:34
 msgid "Undefined"
 msgstr "Määrittelemätön"
 
-#: ../objects/UML/class_dialog.c:2296 ../objects/UML/umlparameter.c:35
+#: ../objects/UML/class_dialog.c:2314 ../objects/UML/umlparameter.c:35
 msgid "In"
 msgstr "Sisään"
 
-#: ../objects/UML/class_dialog.c:2299 ../objects/UML/umlparameter.c:36
+#: ../objects/UML/class_dialog.c:2317 ../objects/UML/umlparameter.c:36
 msgid "Out"
 msgstr "Ulos"
 
-#: ../objects/UML/class_dialog.c:2302 ../objects/UML/umlparameter.c:37
+#: ../objects/UML/class_dialog.c:2320 ../objects/UML/umlparameter.c:37
 msgid "In & Out"
 msgstr "Sisään ja ulos"
 
 #. Operations page:
-#: ../objects/UML/class_dialog.c:2337
+#: ../objects/UML/class_dialog.c:2355
 msgid "_Operations"
 msgstr "_Operaatiot"
 
-#: ../objects/UML/class_dialog.c:2395
+#: ../objects/UML/class_dialog.c:2413
 msgid "Operation data"
 msgstr "Operaatiodata"
 
 #. Templates page:
-#: ../objects/UML/class_dialog.c:2755
+#: ../objects/UML/class_dialog.c:2776
 msgid "_Templates"
 msgstr "_Mallit"
 
-#: ../objects/UML/class_dialog.c:2761 ../sheets/UML.sheet.in.h:29
+#: ../objects/UML/class_dialog.c:2782 ../sheets/UML.sheet.in.h:29
 msgid "Template class"
 msgstr "Malliluokka"
 
-#: ../objects/UML/class_dialog.c:2818
+#: ../objects/UML/class_dialog.c:2839
 msgid "Formal parameter data"
 msgstr "Muodollisen parametrin tiedot"
 
@@ -5128,7 +5433,7 @@ msgstr "Muodollisen parametrin tiedot"
 msgid "Boundary"
 msgstr "Raja"
 
-#: ../objects/UML/classicon.c:144
+#: ../objects/UML/classicon.c:145
 msgid "Is object"
 msgstr "On objekti"
 
@@ -5156,8 +5461,8 @@ msgstr "Rajoite:"
 msgid "Show arrow:"
 msgstr "Näytä nuoli:"
 
-#. backward compatibility
-#. new name matching "same name, same type"  rule
+#. how it used to be before 0.96+SVN
+#. new name matching "same name, same type"  rule - reverted, forward compatibility seems more important
 #: ../objects/UML/implements.c:131 ../objects/UML/implements.c:133
 msgid "Interface:"
 msgstr "Liitäntä:"
@@ -5179,19 +5484,16 @@ msgid "Remove connection points"
 msgstr "Poista liitoskohtia"
 
 #: ../objects/UML/lifeline.c:507
-#, fuzzy
 msgid "Increase connection points distance"
-msgstr "Poista liitoskohtia"
+msgstr "Kasvata liitoskohtien etäisyyttä"
 
 #: ../objects/UML/lifeline.c:508
-#, fuzzy
 msgid "Decrease connection points distance"
-msgstr "Poista liitoskohta"
+msgstr "Pienennä liitoskohtien etäisyyttä"
 
 #: ../objects/UML/lifeline.c:509
-#, fuzzy
 msgid "Set default connection points distance"
-msgstr "Poista liitoskohta"
+msgstr "Aseta liitoskohtien etäisyyden oletusarvo"
 
 #: ../objects/UML/lifeline.c:513
 msgid "UML Lifeline"
@@ -5225,23 +5527,23 @@ msgstr "Lähetä"
 msgid "Recursive"
 msgstr "Rekursiivinen"
 
-#: ../objects/UML/message.c:157
+#: ../objects/UML/message.c:158
 msgid "Message type:"
 msgstr "Viestin tyyppi:"
 
-#: ../objects/UML/object.c:154
+#: ../objects/UML/object.c:155
 msgid "Explicit state"
 msgstr "Eksplisiittinen tila"
 
-#: ../objects/UML/object.c:159
+#: ../objects/UML/object.c:160
 msgid "Active object"
 msgstr "Toiminnallinen objekti"
 
-#: ../objects/UML/object.c:161
+#: ../objects/UML/object.c:162
 msgid "Show attributes"
 msgstr "Näytä ominaisuudet"
 
-#: ../objects/UML/object.c:163
+#: ../objects/UML/object.c:164
 msgid "Multiple instance"
 msgstr "Moniperintä"
 
@@ -5325,11 +5627,11 @@ msgstr "Kysely (vakio)"
 msgid "Parameters"
 msgstr "Parametrit"
 
-#: ../objects/UML/usecase.c:134
+#: ../objects/UML/usecase.c:136
 msgid "Text outside"
 msgstr "Teksti ulkopuolella"
 
-#: ../objects/UML/usecase.c:136
+#: ../objects/UML/usecase.c:138
 msgid "Collaboration"
 msgstr "Myötävaikutus"
 
@@ -5574,21 +5876,21 @@ msgstr "Kiinnitetty suhde"
 msgid "Circle"
 msgstr "Ympyrä"
 
-#: ../objects/standard/image.c:138
+#: ../objects/standard/image.c:139
 msgid "Image file"
 msgstr "Kuvatiedosto"
 
-#: ../objects/standard/image.c:140
+#: ../objects/standard/image.c:141
 msgid "Draw border"
 msgstr "Piirrä raja"
 
-#: ../objects/standard/image.c:142
+#: ../objects/standard/image.c:143
 msgid "Keep aspect ratio"
 msgstr "Säilytä suhde"
 
 #. Found file in same dir as diagram.
 #. Found file in current dir.
-#: ../objects/standard/image.c:695 ../objects/standard/image.c:706
+#: ../objects/standard/image.c:697 ../objects/standard/image.c:708
 #, c-format
 msgid ""
 "The image file '%s' was not found in that directory.\n"
@@ -5598,7 +5900,7 @@ msgstr ""
 "Käytetään tiedostoa \"%s\"\n"
 
 #. Didn't find file in current dir.
-#: ../objects/standard/image.c:712 ../objects/standard/image.c:734
+#: ../objects/standard/image.c:714 ../objects/standard/image.c:736
 #, c-format
 msgid "The image file '%s' was not found.\n"
 msgstr "Kuvatiedostoa \"%s\" ei löytynyt.\n"
@@ -5615,11 +5917,11 @@ msgstr "Aloituspiste"
 msgid "End point"
 msgstr "Lopetuspiste"
 
-#: ../objects/standard/outline.c:202
+#: ../objects/standard/outline.c:204
 msgid "Text content"
 msgstr "Tekstisisältö"
 
-#: ../objects/standard/outline.c:204
+#: ../objects/standard/outline.c:206
 msgid "Angle to rotate the outline"
 msgstr ""
 
@@ -5635,25 +5937,25 @@ msgstr "Poista kulma"
 msgid "Standard objects"
 msgstr "Vakio-objektit"
 
-#: ../objects/standard/textobj.c:136
+#: ../objects/standard/textobj.c:139
 msgid "First Line"
 msgstr "Ensimmäinen viiva"
 
-#: ../objects/standard/textobj.c:143
+#: ../objects/standard/textobj.c:146
 msgid "Vertical text alignment"
 msgstr "Tekstin vaakasuuntainen tasaus"
 
-#: ../plug-ins/cairo/diacairo-interactive.c:257
-#: ../plug-ins/cairo/diacairo-interactive.c:258
+#: ../plug-ins/cairo/diacairo-interactive.c:263
+#: ../plug-ins/cairo/diacairo-interactive.c:264
 msgid "Zoom pointer"
 msgstr "Suurenna kohdistinta"
 
-#: ../plug-ins/cairo/diacairo-interactive.c:264
-#: ../plug-ins/cairo/diacairo-interactive.c:265
+#: ../plug-ins/cairo/diacairo-interactive.c:270
+#: ../plug-ins/cairo/diacairo-interactive.c:271
 msgid "Visible rect pointer"
 msgstr ""
 
-#: ../plug-ins/cairo/diacairo.c:114
+#: ../plug-ins/cairo/diacairo.c:129
 #, c-format
 msgid ""
 "Can't convert output filename '%s' to locale encoding.\n"
@@ -5662,61 +5964,65 @@ msgstr ""
 "Tulostiedoston nimeä \"%s\" ei voi muuttaa maa-asetuston merkistöön.\n"
 "Valitse toinen nimi tallentaaksesi cairon avulla.\n"
 
-#: ../plug-ins/cairo/diacairo.c:252 ../plug-ins/cairo/diacairo.c:268
+#: ../plug-ins/cairo/diacairo.c:256 ../plug-ins/cairo/diacairo.c:272
 #, c-format
 msgid "Can't write %d bytes to %s"
 msgstr "Ei voitu kirjoittaa %d tavua kohteeseen %s"
 
-#: ../plug-ins/cairo/diacairo.c:294 ../plug-ins/postscript/postscript.c:39
-#: ../plug-ins/wmf/wmf.cpp:1389
+#: ../plug-ins/cairo/diacairo.c:285
+msgid "Clipboard copy failed"
+msgstr ""
+
+#: ../plug-ins/cairo/diacairo.c:311 ../plug-ins/postscript/postscript.c:39
+#: ../plug-ins/wmf/wmf.cpp:1388
 msgid "Nothing to print"
 msgstr "Ei tulostettavaa"
 
-#: ../plug-ins/cairo/diacairo.c:305
+#: ../plug-ins/cairo/diacairo.c:322
 msgid "Printing with Gtk+(cairo) requires at least version 2.10."
 msgstr ""
 
-#: ../plug-ins/cairo/diacairo.c:312
+#: ../plug-ins/cairo/diacairo.c:329
 msgid "Cairo PostScript"
 msgstr "Cairo-PostScript"
 
-#: ../plug-ins/cairo/diacairo.c:323
+#: ../plug-ins/cairo/diacairo.c:340
 msgid "Cairo Portable Document Format"
 msgstr "Cairo-PDF"
 
-#: ../plug-ins/cairo/diacairo.c:338
+#: ../plug-ins/cairo/diacairo.c:355
 msgid "Cairo Scalable Vector Graphics"
 msgstr "Cairo-SVG"
 
-#: ../plug-ins/cairo/diacairo.c:349
+#: ../plug-ins/cairo/diacairo.c:366
 msgid "Cairo PNG"
 msgstr "Cairo-PNG"
 
-#: ../plug-ins/cairo/diacairo.c:357
+#: ../plug-ins/cairo/diacairo.c:374
 msgid "Cairo PNG (with alpha)"
 msgstr "Cairo-PNG (alfalla)"
 
-#: ../plug-ins/cairo/diacairo.c:367
+#: ../plug-ins/cairo/diacairo.c:384
 msgid "Cairo EMF"
 msgstr "Cairo-EMF"
 
-#: ../plug-ins/cairo/diacairo.c:377
+#: ../plug-ins/cairo/diacairo.c:394
 msgid "Cairo WMF"
 msgstr "Cairo-WMF"
 
-#: ../plug-ins/cairo/diacairo.c:389
-msgid "Cairo Clipboard"
-msgstr "Cairo-leikepöytä"
+#: ../plug-ins/cairo/diacairo.c:416
+msgid "Copy _Diagram"
+msgstr "Kopioi _kaavio"
 
-#: ../plug-ins/cairo/diacairo.c:400
+#: ../plug-ins/cairo/diacairo.c:426
 msgid "Print (GTK) ..."
 msgstr "Tulostus (GTK) ..."
 
-#: ../plug-ins/cairo/diacairo.c:445
+#: ../plug-ins/cairo/diacairo.c:471
 msgid "Cairo based Rendering"
-msgstr "Cairoon perustuva renderöinti"
+msgstr "Cairo-pohjainen piirto"
 
-#: ../plug-ins/cgm/cgm.c:1105
+#: ../plug-ins/cgm/cgm.c:1106
 msgid ""
 "Image row length larger than maximum cell array.\n"
 "Image not exported to CGM."
@@ -5724,73 +6030,39 @@ msgstr ""
 "Kuvan rivipituus on suurempi kuin solun enimmäskoko.\n"
 "Kuvaa ei viety CGM:ään."
 
-#: ../plug-ins/cgm/cgm.c:1360
+#: ../plug-ins/cgm/cgm.c:1361
 msgid "Computer Graphics Metafile"
 msgstr "Computer Graphics Metafile"
 
-#: ../plug-ins/cgm/cgm.c:1385
+#: ../plug-ins/cgm/cgm.c:1386
 msgid "Computer Graphics Metafile export filter"
 msgstr "Computer Graphics Metafile -vientisuodatin"
 
-#: ../plug-ins/dxf/dxf-export.c:598 ../plug-ins/dxf/dxf-import.c:1434
+#: ../plug-ins/drs/dia-render-script.c:153
+msgid "DiaRenderScript"
+msgstr ""
+
+#: ../plug-ins/drs/dia-render-script.c:164
+msgid "DiaRenderScript filter"
+msgstr ""
+
+#: ../plug-ins/dxf/dxf-export.c:598 ../plug-ins/dxf/dxf-import.c:1402
 msgid "Drawing Interchange File"
 msgstr "Drawing Interchange File"
 
-#. better than complaining?
-#: ../plug-ins/dxf/dxf-import.c:503 ../plug-ins/dxf/dxf-import.c:521
-msgid "Bad vertex bulge\n"
-msgstr "Huono verteksipullistuma\n"
-
-#: ../plug-ins/dxf/dxf-import.c:1079
-#, c-format
-msgid "Scale: %f\n"
-msgstr "Skaala: %f\n"
-
-#: ../plug-ins/dxf/dxf-import.c:1351
+#: ../plug-ins/dxf/dxf-import.c:1319
 #, c-format
 msgid "read_dxf_codes failed on '%s'\n"
 msgstr "read_dxf_codes epäonnistui tiedostolle \"%s\"\n"
 
-#: ../plug-ins/dxf/dxf-import.c:1359
+#: ../plug-ins/dxf/dxf-import.c:1326
 #, c-format
 msgid "Binary DXF from '%s' not supported\n"
 msgstr "Binäärinen DXF tiedostosta \"%s\" ei ole tuettu\n"
 
-#: ../plug-ins/dxf/dxf-import.c:1400
-#, c-format
-msgid "Unknown dxf code %d\n"
-msgstr "Tuntematon dxf-koodi %d\n"
-
 #: ../plug-ins/dxf/dxf.c:50
 msgid "Drawing Interchange File import and export filters"
 msgstr "Drawing Interchange File tuonti- ja vientisuodattimet"
-
-#: ../plug-ins/gprint/diagnomeprint.c:81
-#, c-format
-msgid ""
-"GNOME Print Backend\n"
-" '%s'\n"
-" not available"
-msgstr ""
-"Gnome-tulostuskirjastoa\n"
-" \"%s\"\n"
-" ei saatavilla"
-
-#: ../plug-ins/gprint/diagnomeprint.c:112
-msgid "GNOME PostScript"
-msgstr "Gnome-PostScript"
-
-#: ../plug-ins/gprint/diagnomeprint.c:121
-msgid "GNOME Portable Document Format"
-msgstr "Gnome-PDF"
-
-#: ../plug-ins/gprint/diagnomeprint.c:131
-msgid "GNOME Scalable Vector Graphic"
-msgstr "Gnome Scalable Vector Graphics"
-
-#: ../plug-ins/gprint/diagnomeprint.c:164
-msgid "GNOME Print based Rendering"
-msgstr "Gnomen tulostuskirjastoon perustuva renderöinti"
 
 #: ../plug-ins/hpgl/hpgl.c:751
 msgid "HP Graphics Language"
@@ -5801,9 +6073,8 @@ msgid "HP Graphics Language export filter"
 msgstr "HP Graphics Language -vientisuodatin"
 
 #: ../plug-ins/libart/dialibart.c:59
-#, fuzzy
 msgid "Libart based rendering"
-msgstr "Cairoon perustuva renderöinti"
+msgstr "Libart-pohjainen piirto"
 
 #: ../plug-ins/libart/export_png.c:165
 msgid "Could not create PNG write structure"
@@ -5838,11 +6109,11 @@ msgstr "PNG (antialiasoitu)"
 msgid "gdk_renderer: Unsupported fill mode specified!\n"
 msgstr "gdk_renderer: Annettua täyttötapaa ei tueta.\n"
 
-#: ../plug-ins/libart/dialibartrenderer.c:1474
+#: ../plug-ins/libart/dialibartrenderer.c:1471
 msgid "Renderer transformation"
 msgstr ""
 
-#: ../plug-ins/libart/dialibartrenderer.c:1475
+#: ../plug-ins/libart/dialibartrenderer.c:1472
 #, fuzzy
 msgid "Transform pointer"
 msgstr "Siirrä"
@@ -5900,22 +6171,22 @@ msgstr "Tiedosto"
 msgid "OK"
 msgstr "OK"
 
-#: ../plug-ins/postscript/paginate_psprint.c:464
+#: ../plug-ins/postscript/paginate_psprint.c:456
 #, c-format
 msgid "Could not run command '%s': %s"
 msgstr "Komentoa \"%s\" ei voitu suorittaa: %s"
 
-#: ../plug-ins/postscript/paginate_psprint.c:467
+#: ../plug-ins/postscript/paginate_psprint.c:459
 #, c-format
 msgid "Could not open '%s' for writing: %s"
 msgstr "Ei voitu avata \"%s\" kirjoittamista varten: %s"
 
-#: ../plug-ins/postscript/paginate_psprint.c:489
+#: ../plug-ins/postscript/paginate_psprint.c:481
 #, c-format
 msgid "Printing error: command '%s' returned %d\n"
 msgstr "Tulostusvirhe: komento \"%s\" palautti arvon %d\n"
 
-#: ../plug-ins/postscript/paginate_psprint.c:500
+#: ../plug-ins/postscript/paginate_psprint.c:492
 #, c-format
 msgid "Printing error: command '%s' caused sigpipe."
 msgstr "Tulostusvirhe: komento \"%s\" aiheutti sigpipe-signaalin."
@@ -5973,11 +6244,7 @@ msgstr "Dia-muototiedosto"
 msgid "dia shape export filter"
 msgstr "dia-muotovientisuodatin"
 
-#: ../plug-ins/svg/render_svg.c:365 ../plug-ins/svg/svg-import.c:767
-msgid "Scalable Vector Graphics"
-msgstr "Scalable Vector Graphics"
-
-#: ../plug-ins/svg/svg-import.c:237
+#: ../plug-ins/svg/svg-import.c:258
 msgid ""
 "Invalid path data.\n"
 "svg:path data must start with moveto."
@@ -5985,11 +6252,11 @@ msgstr ""
 "Virheellistä polkutietoa.\n"
 "svg:path -tiedon tulee alkaa tagilla moveto."
 
-#: ../plug-ins/svg/svg-import.c:690
+#: ../plug-ins/svg/svg-import.c:806
 msgid "Expected SVG Namespace not found in file"
 msgstr "Odotettua SVG-nimiavaruutta ei löydy tiedostosta"
 
-#: ../plug-ins/svg/svg-import.c:710
+#: ../plug-ins/svg/svg-import.c:826
 #, c-format
 msgid "root element was '%s' -- expecting 'svg'."
 msgstr "juurialkio oli \"%s\" -- odotus oli \"svg\"."
@@ -6007,49 +6274,49 @@ msgstr "Ei voi lukea tiedostoa %s"
 msgid "Visio XML format"
 msgstr "Visio-XML-muoto"
 
-#: ../plug-ins/vdx/vdx-import.c:219 ../plug-ins/xfig/xfig-import.c:1046
+#: ../plug-ins/vdx/vdx-import.c:226 ../plug-ins/xfig/xfig-import.c:1046
 #, c-format
 msgid "Couldn't read color: %s\n"
 msgstr "Ei voi lukea väriä: %s\n"
 
-#: ../plug-ins/vdx/vdx-import.c:513
+#: ../plug-ins/vdx/vdx-import.c:540
 #, c-format
 msgid "Couldn't find shape %d\n"
 msgstr "Muotoa %d ei löytynyt\n"
 
-#: ../plug-ins/vdx/vdx-import.c:987
+#: ../plug-ins/vdx/vdx-import.c:1046
 #, c-format
 msgid "Unexpected Ellipse object: %s\n"
 msgstr "Odottamaton ellipsi-olio: %s\n"
 
-#: ../plug-ins/vdx/vdx-import.c:1001
+#: ../plug-ins/vdx/vdx-import.c:1060
 msgid "Can't rotate ellipse\n"
 msgstr "Ei voi pyörittää ellipsiä\n"
 
-#: ../plug-ins/vdx/vdx-import.c:1317
+#: ../plug-ins/vdx/vdx-import.c:1391
 msgid "MoveTo not at start of Bezier\n"
 msgstr "MoveTo ei ole bezier-käytän alussa\n"
 
-#: ../plug-ins/vdx/vdx-import.c:1650
+#: ../plug-ins/vdx/vdx-import.c:1739
 msgid "Invalid NURBS formula"
 msgstr "Virheellinen NURBS-kaava"
 
-#: ../plug-ins/vdx/vdx-import.c:1886
+#: ../plug-ins/vdx/vdx-import.c:1983
 #, c-format
 msgid "Couldn't write file %s"
 msgstr "Ei voitu kirjoittaa tiedostoa %s"
 
-#: ../plug-ins/vdx/vdx-import.c:1971 ../plug-ins/vdx/vdx-import.c:1984
+#: ../plug-ins/vdx/vdx-import.c:2068 ../plug-ins/vdx/vdx-import.c:2081
 #, c-format
 msgid "Couldn't handle foreign object type %s"
 msgstr "Ei voitu käsitellä vierasta objektityyppiä %s"
 
-#: ../plug-ins/vdx/vdx-import.c:2012
+#: ../plug-ins/vdx/vdx-import.c:2109
 #, c-format
 msgid "Couldn't make object dir %s"
 msgstr "Ei voitu luoda objektihakemistoa %s"
 
-#: ../plug-ins/vdx/vdx-import.c:2959
+#: ../plug-ins/vdx/vdx-import.c:3090
 msgid "Visio XML File Format"
 msgstr "Visio-XML-tiedostomuoto"
 
@@ -6067,7 +6334,7 @@ msgstr "Ei voitu kirjoittaa objektia %u"
 msgid "Visio XML Format import and export filter"
 msgstr "Visio-XML-muodon tuonti- ja vientisuodattimet"
 
-#: ../plug-ins/wmf/wmf.cpp:504
+#: ../plug-ins/wmf/wmf.cpp:506
 #, c-format
 msgid ""
 "Can not render unknown font:\n"
@@ -6076,24 +6343,24 @@ msgstr ""
 "Tuntematonta kirjasinta ei voi tulostaa:\n"
 "%s"
 
-#: ../plug-ins/wmf/wmf.cpp:1262
+#: ../plug-ins/wmf/wmf.cpp:1265
 #, c-format
 msgid "Couldn't open: '%s' for writing.\n"
 msgstr "Ei voitu avata tiedostoa \"%s\" kirjoittamista varten.\n"
 
-#: ../plug-ins/wmf/wmf.cpp:1365
+#: ../plug-ins/wmf/wmf.cpp:1364
 msgid "Windows Meta File"
 msgstr "Windows-metatiedosto"
 
-#: ../plug-ins/wmf/wmf.cpp:1374
+#: ../plug-ins/wmf/wmf.cpp:1373
 msgid "Enhanced Meta File"
 msgstr "Parannettu metatiedosto"
 
-#: ../plug-ins/wmf/wmf.cpp:1396
+#: ../plug-ins/wmf/wmf.cpp:1395
 msgid "Print (GDI) ..."
 msgstr "Tulostus (GDI) ...."
 
-#: ../plug-ins/wmf/wmf.cpp:1411
+#: ../plug-ins/wmf/wmf.cpp:1410
 msgid "WMF export filter"
 msgstr "WMF-vientisuodatin"
 
@@ -6351,9 +6618,9 @@ msgid "Error while applying stylesheet: %s\n"
 msgstr "Virhe jäsennettäessä tyylitiedostoa: %s\n"
 
 #: ../plug-ins/xslt/xslt.c:150
-#, fuzzy, c-format
+#, c-format
 msgid "Error while saving result: %s\n"
-msgstr "Virhe jäsennettäessä tyylitiedostoa: %s\n"
+msgstr "Virhe tallennettaessa tulosta: %s\n"
 
 #: ../plug-ins/xslt/xslt.c:335
 msgid "XSL Transformation filter"
@@ -6364,15 +6631,15 @@ msgid "No valid configuration files found for the XSLT plugin, not loading."
 msgstr ""
 "Kelpoa asetustiedostoa ei löydy XSLT-liitännäiselle, joten sitä ei ladata."
 
-#: ../plug-ins/xslt/xsltdialog.c:96
+#: ../plug-ins/xslt/xsltdialog.c:97
 msgid "Export through XSLT"
 msgstr "Vienti XSLT:n läpi"
 
-#: ../plug-ins/xslt/xsltdialog.c:111
+#: ../plug-ins/xslt/xsltdialog.c:112
 msgid "From:"
 msgstr "Mistä:"
 
-#: ../plug-ins/xslt/xsltdialog.c:146
+#: ../plug-ins/xslt/xsltdialog.c:147
 msgid "To:"
 msgstr "Mihin:"
 
@@ -7121,11 +7388,11 @@ msgstr "Pystysuuntainen zenerdiodi"
 
 #: ../sheets/Contact.sheet.in.h:1
 msgid "'if not' (normally closed) ladder contact"
-msgstr "'jos ei'-porraskytkentä (normaalisti kiinni)"
+msgstr "'jos ei'-tikapuuyhteys (normaalisti kiinni)"
 
 #: ../sheets/Contact.sheet.in.h:2
 msgid "'if' (normally open) ladder contact"
-msgstr "'jos'-porraskytkentä (normaalisti auki)"
+msgstr "'jos'-tikapuuyhteys (normaalisti auki)"
 
 #: ../sheets/Contact.sheet.in.h:3
 msgid "'jump' output variable"
@@ -7145,7 +7412,7 @@ msgstr "Komponentit LADDER-piireille"
 
 #: ../sheets/Contact.sheet.in.h:7
 msgid "Ladder"
-msgstr "Porras"
+msgstr "Tikapuukaavio"
 
 #: ../sheets/Contact.sheet.in.h:8
 msgid "Negative output variable"
@@ -8046,18 +8313,22 @@ msgid "New-style group object, for testing"
 msgstr "Uuden tyylinen ryhmäobjekti, testausta varten"
 
 #: ../sheets/Misc.sheet.in.h:7
+msgid "Resizable grid"
+msgstr "Muuntuvankokoinen ruudukko"
+
+#: ../sheets/Misc.sheet.in.h:8
 msgid "Traditional clock"
 msgstr "Perinteinen kello"
 
-#: ../sheets/Misc.sheet.in.h:8
+#: ../sheets/Misc.sheet.in.h:9
 msgid "Tree"
 msgstr "Puu"
 
-#: ../sheets/Misc.sheet.in.h:9
+#: ../sheets/Misc.sheet.in.h:10
 msgid "expended node"
 msgstr "laajennettu solmu"
 
-#: ../sheets/Misc.sheet.in.h:10
+#: ../sheets/Misc.sheet.in.h:11
 msgid "expensible node"
 msgstr "laajennettava solmu"
 
@@ -10224,3 +10495,48 @@ msgstr "Sybase-tietopalvelin"
 msgid "Sybase replication server"
 msgstr "Sybase-varmistuspalvelin"
 
+#~ msgid ""
+#~ "You have loaded a non-Dia file.  The file has become an element in a new "
+#~ "diagram, and if you save it, it will be saved as a Dia diagram."
+#~ msgstr ""
+#~ "Latasin muun kuin dia-tiedoston. Tiedostosta tehtiin elementti uuteen "
+#~ "kaavioon ja jos tallennat sen, se tallennetaan dia-kaaviona."
+
+#~ msgid "Delete segement"
+#~ msgstr "Poista osa"
+
+#~ msgid "Delete  connection point"
+#~ msgstr "Poista liitoskohta"
+
+#~ msgid "Cairo Clipboard"
+#~ msgstr "Cairo-leikepöytä"
+
+#~ msgid "Bad vertex bulge\n"
+#~ msgstr "Huono verteksipullistuma\n"
+
+#~ msgid "Scale: %f\n"
+#~ msgstr "Skaala: %f\n"
+
+#~ msgid "Unknown dxf code %d\n"
+#~ msgstr "Tuntematon dxf-koodi %d\n"
+
+#~ msgid ""
+#~ "GNOME Print Backend\n"
+#~ " '%s'\n"
+#~ " not available"
+#~ msgstr ""
+#~ "Gnome-tulostuskirjastoa\n"
+#~ " \"%s\"\n"
+#~ " ei saatavilla"
+
+#~ msgid "GNOME PostScript"
+#~ msgstr "Gnome-PostScript"
+
+#~ msgid "GNOME Portable Document Format"
+#~ msgstr "Gnome-PDF"
+
+#~ msgid "GNOME Scalable Vector Graphic"
+#~ msgstr "Gnome Scalable Vector Graphics"
+
+#~ msgid "GNOME Print based Rendering"
+#~ msgstr "Gnomen tulostuskirjastoon perustuva renderöinti"
