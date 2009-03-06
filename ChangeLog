@@ -1,3 +1,7 @@
+2009-03-07  Hans Breuer  <hans@breuer.org>
+
+	* app/menus.c : unique accelerators again, bug #573257
+
 2009-03-01  Steffen Macke <sdteffen@sdteffen.de>
 
 	* makefile.msc: Fixed typo (dia.exe was copied to dia-app.dll when doing

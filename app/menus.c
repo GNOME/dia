@@ -163,8 +163,8 @@ static const GtkActionEntry display_entries[] =
     { "ViewRedraw", GTK_STOCK_REFRESH, NULL, NULL, NULL, G_CALLBACK (view_redraw_callback) },
 
   { "Objects", NULL, N_("_Objects"), NULL, NULL },
-    { "ObjectsSendtoback", GTK_STOCK_GOTO_BOTTOM, N_("Send to _Back"), "<control>B", NULL, G_CALLBACK (objects_place_under_callback) },
-    { "ObjectsBringtofront", GTK_STOCK_GOTO_TOP, N_("Bring to _Front"), "<control>F", NULL, G_CALLBACK (objects_place_over_callback) },
+    { "ObjectsSendtoback", GTK_STOCK_GOTO_BOTTOM, N_("Send to _Back"), "<control><shift>B", NULL, G_CALLBACK (objects_place_under_callback) },
+    { "ObjectsBringtofront", GTK_STOCK_GOTO_TOP, N_("Bring to _Front"), "<control><shift>F", NULL, G_CALLBACK (objects_place_over_callback) },
     { "ObjectsSendbackwards", GTK_STOCK_GO_DOWN, N_("Send Backwards"), NULL, NULL, G_CALLBACK (objects_place_down_callback) },
     { "ObjectsBringforwards", GTK_STOCK_GO_UP, N_("Bring Forwards"), NULL, NULL, G_CALLBACK (objects_place_up_callback) },
 
@@ -175,8 +175,8 @@ static const GtkActionEntry display_entries[] =
     /* deliberately not using Ctrl+U for Ungroup */
     { "ObjectsUngroup", DIA_STOCK_UNGROUP, N_("_Ungroup"), "<control><shift>G", NULL, G_CALLBACK (objects_ungroup_callback) }, 
 
-    { "ObjectsParent", NULL, N_("_Parent"), "<control>L", NULL, G_CALLBACK (objects_parent_callback) },
-    { "ObjectsUnparent", NULL, N_("_Unparent"), "<control><shift>L", NULL, G_CALLBACK (objects_unparent_callback) },
+    { "ObjectsParent", NULL, N_("_Parent"), "<control>K", NULL, G_CALLBACK (objects_parent_callback) },
+    { "ObjectsUnparent", NULL, N_("_Unparent"), "<control><shift>K", NULL, G_CALLBACK (objects_unparent_callback) },
     { "ObjectsUnparentchildren", NULL, N_("_Unparent Children"), NULL, NULL, G_CALLBACK (objects_unparent_children_callback) },
 
     { "ObjectsAlign", NULL, N_("Align"), NULL, NULL, NULL },
@@ -197,7 +197,7 @@ static const GtkActionEntry display_entries[] =
 
   { "Select", NULL, N_("_Select"), NULL, NULL, NULL },
     { "SelectAll", NULL, N_("All"), "<control>A", NULL, G_CALLBACK (select_all_callback) },
-    { "SelectNone", NULL, N_("None"), NULL, NULL, G_CALLBACK (select_none_callback) },
+    { "SelectNone", NULL, N_("None"), "<control><shift>A", NULL, G_CALLBACK (select_none_callback) },
     { "SelectInvert", NULL, N_("Invert"), "<control>I", NULL, G_CALLBACK (select_invert_callback) },
 
     { "SelectTransitive", NULL, N_("Transitive"), "<control>T", NULL, G_CALLBACK (select_transitive_callback) },
