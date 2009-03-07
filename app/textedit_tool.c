@@ -148,6 +148,8 @@ create_textedit_tool(void)
   if (ddisp) {
     textedit_activate_first (ddisp);
     ddisplay_flush(ddisp);
+    /* the above may have entered the textedit mode, just update in any case */
+    ddisplay_do_update_menu_sensitivity(ddisp);
   }
 
   return (Tool *)tool;

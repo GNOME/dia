@@ -1,5 +1,8 @@
 2009-03-07  Hans Breuer  <hans@breuer.org>
 
+	* app/textedit_tool.c : ensure the action sensitivity is updated after
+	entering textedit mode. No tool activation by entering text, bug #572307
+
 	* app/menus.c : unique accelerators again, bug #573257
 
 2009-03-01  Steffen Macke <sdteffen@sdteffen.de>
