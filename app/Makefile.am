@@ -51,7 +51,14 @@ ICON_PNG_PAIRS= \
 	dia_mainpoints_off_icon $(srcdir)/pixmaps/mainpoints-off.png \
 	\
 	dia_diagram_icon $(srcdir)/pixmaps/dia-diagram.png \
-	dia_app_icon $(srcdir)/pixmaps/dia-app.png 
+	dia_app_icon $(srcdir)/pixmaps/dia-app.png \
+	\
+	dia_objects_layer_above $(srcdir)/pixmaps/objects-layer-above.png \
+	dia_objects_layer_below $(srcdir)/pixmaps/objects-layer-below.png \
+	dia_layers $(srcdir)/pixmaps/layers.png \
+	dia_layer_add $(srcdir)/pixmaps/layer-add.png \
+	dia_layer_rename $(srcdir)/pixmaps/layer-rename.png
+	
 
 ICON_PNGS= \
 	pixmaps/connectable.png \
@@ -71,8 +78,14 @@ ICON_PNGS= \
 	pixmaps/group.png \
 	pixmaps/ungroup.png \
 	pixmaps/mainpoints-on.png \
-	pixmaps/mainpoints-off.png
-
+	pixmaps/mainpoints-off.png \
+	\
+	pixmaps/objects-layer-above.png \
+	pixmaps/objects-layer-below.png \
+	pixmaps/layers.png \
+	pixmaps/layer-add.png \
+	pixmaps/layer-rename.png
+	
 
 dia-app-icons.h: $(ICON_PNGS)
 	gdk-pixbuf-csource --raw --build-list $(ICON_PNG_PAIRS) > dia-app-icons.h

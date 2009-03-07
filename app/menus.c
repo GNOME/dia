@@ -47,6 +47,11 @@
 
 #define DIA_STOCK_GROUP "dia-stock-group"
 #define DIA_STOCK_UNGROUP "dia-stock-ungroup"
+#define DIA_STOCK_LAYER_ADD "dia-stock-layer-add"
+#define DIA_STOCK_LAYER_RENAME "dia-stock-layer-rename"
+#define DIA_STOCK_OBJECTS_LAYER_ABOVE "dia-stock-objects-layer-above"
+#define DIA_STOCK_OBJECTS_LAYER_BELOW "dia-stock-objects-layer-below"
+#define DIA_STOCK_LAYERS "dia-stock-layers"
 
 #define DIA_SHOW_TEAROFFS TRUE
 
@@ -110,6 +115,7 @@ static const GtkActionEntry display_entries[] =
     { "FileSave", GTK_STOCK_SAVE, NULL, "<control>S", NULL, G_CALLBACK (file_save_callback) },
     { "FileSaveas", GTK_STOCK_SAVE_AS, NULL, "<control><shift>S", NULL, G_CALLBACK (file_save_as_callback) },
     { "FileExport", GTK_STOCK_CONVERT, N_("_Export ..."), NULL, NULL, G_CALLBACK (file_export_callback) },
+    { "DiagramProperties", GTK_STOCK_PROPERTIES, N_("_Diagram Properties"), "<shift><alt>Return", NULL, G_CALLBACK (view_diagram_properties_callback) },
     { "FilePagesetup", NULL, N_("Page Set_up..."), NULL, NULL, G_CALLBACK (file_pagesetup_callback) },
     { "FilePrint", GTK_STOCK_PRINT, NULL, "<control>P", NULL, G_CALLBACK (file_print_callback) },
     { "FileClose", GTK_STOCK_CLOSE, NULL, "<control>W", NULL, G_CALLBACK (file_close_callback) },
@@ -133,9 +139,14 @@ static const GtkActionEntry display_entries[] =
     { "EditCuttext", NULL, N_("Cut Text"), "<control><shift>X", NULL, G_CALLBACK (edit_cut_text_callback) },
     { "EditPastetext", NULL, N_("Paste _Text"), "<control><shift>V", NULL, G_CALLBACK (edit_paste_text_callback) },
 
-  { "Diagram", NULL, N_("_Diagram"), NULL, NULL, NULL }, 
-    { "DiagramProperties", GTK_STOCK_PROPERTIES, NULL, "<shift><alt>Return", NULL, G_CALLBACK (view_diagram_properties_callback) },
-    { "DiagramLayers", NULL, N_("_Layers..."), "<control>L", NULL, G_CALLBACK (dialogs_layers_callback) },
+  { "Layers", NULL, N_("_Layers"), NULL, NULL, NULL }, 
+#if 0 /* TODO: implement the callbacks */
+    { "LayerAdd", DIA_STOCK_LAYER_ADD, N_("Add Layer..."), NULL, NULL, G_CALLBACK (layers_add_layer_callback) },
+    { "LayerRename", DIA_STOCK_LAYER_RENAME, N_("Rename Layer..."), NULL, NULL, G_CALLBACK (layers_rename_layer_callback) },
+#endif
+    { "ObjectsLayerAbove", DIA_STOCK_OBJECTS_LAYER_ABOVE, N_("Move selection to layer above"), NULL, NULL, G_CALLBACK (objects_move_up_layer) },
+    { "ObjectsLayerBelow", DIA_STOCK_OBJECTS_LAYER_BELOW, N_("Move selection to layer below"), NULL, NULL, G_CALLBACK (objects_move_down_layer) },
+    { "DiagramLayers", DIA_STOCK_LAYERS, N_("_Layers..."), "<control>L", NULL, G_CALLBACK (dialogs_layers_callback) },
 
   { "View", NULL, N_("_View"), NULL, NULL, NULL },
     { "ViewZoomin", GTK_STOCK_ZOOM_IN, NULL, "<control>plus", NULL, G_CALLBACK (view_zoom_in_callback) },
@@ -168,9 +179,6 @@ static const GtkActionEntry display_entries[] =
     { "ObjectsSendbackwards", GTK_STOCK_GO_DOWN, N_("Send Backwards"), NULL, NULL, G_CALLBACK (objects_place_down_callback) },
     { "ObjectsBringforwards", GTK_STOCK_GO_UP, N_("Bring Forwards"), NULL, NULL, G_CALLBACK (objects_place_up_callback) },
 
-    { "ObjectsLayerAbove", NULL, N_("Move to layer above"), NULL, NULL, G_CALLBACK (objects_move_up_layer) },
-    { "ObjectsLayerBelow", NULL, N_("Move to layer below"), NULL, NULL, G_CALLBACK (objects_move_down_layer) },
-    
     { "ObjectsGroup", DIA_STOCK_GROUP, N_("_Group"), "<control>G", NULL, G_CALLBACK (objects_group_callback) },
     /* deliberately not using Ctrl+U for Ungroup */
     { "ObjectsUngroup", DIA_STOCK_UNGROUP, N_("_Ungroup"), "<control><shift>G", NULL, G_CALLBACK (objects_ungroup_callback) }, 
@@ -732,36 +740,39 @@ add_plugin_actions (GtkUIManager *ui_manager, const gchar *base_path)
 }
 
 static void
+_add_stock_icon (GtkIconFactory *factory, const char *name, const guint8 *data, const size_t size)
+{
+  GdkPixbuf      *pixbuf;
+  GtkIconSet     *set;
+  GError         *err = NULL;
+
+  pixbuf = gdk_pixbuf_new_from_inline (size, data, FALSE, &err);
+  if (err) {
+    g_warning ("%s", err->message);
+    g_error_free (err);
+    err = NULL;
+  }
+  set = gtk_icon_set_new_from_pixbuf (pixbuf);
+  gtk_icon_factory_add (factory, name, set);
+  g_object_unref (pixbuf);
+  pixbuf = NULL;
+}
+
+static void
 register_stock_icons (void)
 {
   GtkIconFactory *factory;
-  GtkIconSet     *set;
-  GdkPixbuf      *pixbuf;
-  GError         *err = NULL;
 
   factory = gtk_icon_factory_new ();
 
-  pixbuf = gdk_pixbuf_new_from_inline (sizeof (dia_group_icon), dia_group_icon, FALSE, &err);
-  if (err) {
-    g_warning ("%s", err->message);
-    g_error_free (err);
-    err = NULL;
-  }
-  set = gtk_icon_set_new_from_pixbuf (pixbuf);
-  gtk_icon_factory_add (factory, DIA_STOCK_GROUP, set);
-  g_object_unref (pixbuf);
-  pixbuf = NULL;
+  _add_stock_icon (factory, DIA_STOCK_GROUP, dia_group_icon, sizeof(dia_group_icon));
+  _add_stock_icon (factory, DIA_STOCK_UNGROUP, dia_ungroup_icon, sizeof(dia_ungroup_icon));
 
-  pixbuf = gdk_pixbuf_new_from_inline (sizeof (dia_ungroup_icon), dia_ungroup_icon, FALSE, &err);
-  if (err) {
-    g_warning ("%s", err->message);
-    g_error_free (err);
-    err = NULL;
-  }
-  set = gtk_icon_set_new_from_pixbuf (pixbuf);
-  gtk_icon_factory_add (factory, DIA_STOCK_UNGROUP, set);
-  g_object_unref (pixbuf); 
-  pixbuf = NULL;
+  _add_stock_icon (factory, DIA_STOCK_LAYER_ADD, dia_layer_add, sizeof(dia_layer_add));
+  _add_stock_icon (factory, DIA_STOCK_LAYER_RENAME, dia_layer_rename, sizeof(dia_layer_rename));
+  _add_stock_icon (factory, DIA_STOCK_OBJECTS_LAYER_ABOVE, dia_objects_layer_above, sizeof(dia_objects_layer_above));
+  _add_stock_icon (factory, DIA_STOCK_OBJECTS_LAYER_BELOW, dia_objects_layer_below, sizeof(dia_objects_layer_below));
+  _add_stock_icon (factory, DIA_STOCK_LAYERS, dia_layers, sizeof(dia_layers));
 
   gtk_icon_factory_add_default (factory);
   g_object_unref (factory);

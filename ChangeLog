@@ -1,5 +1,16 @@
 2009-03-07  Hans Breuer  <hans@breuer.org>
 
+	* data/display-ui.xml data/integrated-ui.xml data/popup-ui.xml
+	  app/menus.c : move "Edit/Properties" to "File/Diagram Properties" as
+	suggested by bug #573259, also create a Layers submenu to hold formerly
+	"Edit/Layers", "Objects/Move (selection) to layer [...]"
+	* app/pixmaps/objects-layer-above.png app/pixmaps/layer-add.png
+	  app/pixmaps/objects-layer-below.png app/pixmaps/layers.png
+	  app/pixmaps/layer-rename.png : stock icons stolen from Inkscape for 
+	the new Layers menu
+	* app/Makefile.am app/makefile.msc : generate inline icons
+	* app/commands.[ch] : new callbacks for layer add/rename (not enabled)
+
 	* app/preferences.c(prefs_set_value_in_widget) : don't choke on 
 	val==NULL and have a matching default initialization for units, 
 	both fixing bug #573625

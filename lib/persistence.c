@@ -517,8 +517,10 @@ persistence_update_window(GtkWindow *window, gboolean isclosed)
     wininfo->window = window;
     g_object_ref(window);
   }
+#ifdef G_OS_WIN32
   /* catch the transistion */
   wininfo->isopen = !isclosed;
+#endif
 }
 
 /** Handler for window-related events that should cause persistent storage
@@ -1092,9 +1094,9 @@ persistence_set_string(gchar *role, const gchar *newvalue)
   stringval = (gchar *)g_hash_table_lookup(persistent_strings, role);
   if (stringval != NULL) {
     g_hash_table_insert(persistent_strings, role, g_strdup(newvalue));
+  } else {
+    g_hash_table_remove(persistent_strings, role);
   }
-  else 
-    g_warning("No string to set for %s", role);
 }
 
 /* ********* COLORS ********** */

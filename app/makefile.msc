@@ -95,7 +95,13 @@ ICON_PNG_PAIRS = \
 	dia_mainpoints_off_icon pixmaps\mainpoints-off.png \
 	\
 	dia_diagram_icon pixmaps\dia-diagram.png \
-	dia_app_icon pixmaps\dia-app.png 
+	dia_app_icon pixmaps\dia-app.png \
+	\
+	dia_objects_layer_above $(srcdir)/pixmaps/objects-layer-above.png \
+	dia_objects_layer_below $(srcdir)/pixmaps/objects-layer-below.png \
+	dia_layers $(srcdir)/pixmaps/layers.png \
+	dia_layer_add $(srcdir)/pixmaps/layer-add.png \
+	dia_layer_rename $(srcdir)/pixmaps/layer-rename.png
 
 dia-app-icons.h : makefile.msc pixmaps\*.png
 	gdk-pixbuf-csource --build-list \

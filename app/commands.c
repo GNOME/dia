@@ -1018,6 +1018,15 @@ view_layers_callback (GtkAction *action)
   }
 }
 
+void 
+layers_add_layer_callback (GtkAction *action)
+{
+}
+
+void 
+layers_rename_layer_callback (GtkAction *action)
+{
+}
 
 void
 objects_place_over_callback (GtkAction *action)

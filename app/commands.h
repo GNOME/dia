@@ -68,6 +68,9 @@ void view_main_toolbar_callback       (GtkAction *action);
 void view_main_statusbar_callback     (GtkAction *action);
 void view_layers_callback             (GtkAction *action);
 
+void layers_add_layer_callback    (GtkAction *action);
+void layers_rename_layer_callback (GtkAction *action);
+
 void objects_place_over_callback        (GtkAction *action);
 void objects_place_under_callback       (GtkAction *action);
 void objects_place_up_callback          (GtkAction *action);

@@ -15,6 +15,7 @@
 			<menuitem name="FileSheets" action="FileSheets" />
 			<separator name="FileSep3 "/>
 
+			<menuitem name="DiagramProperties" action="DiagramProperties" />
 			<menuitem name="FilePagesetup" action="FilePagesetup" />
 			<menuitem name="FilePrint" action="FilePrint" />
 			<separator name="FileSep4 "/>
@@ -47,8 +48,6 @@
 			<menuitem name="EditCopytext" action="EditCopytext" />
 			<menuitem name="EditCuttext" action="EditCuttext" />
 			<menuitem name="EditPastetext" action="EditPastetext" />
-			<separator name="EditSep4" />
-			<menuitem name="DiagramProperties" action="DiagramProperties" />
 		</menu>
 		<menu name="View" action="View">
 			<menuitem name="ViewZoomin" action="ViewZoomin" />
@@ -86,13 +85,21 @@
 			<menuitem name="ViewRedraw" action="ViewRedraw" />
 		</menu>
 
+		<menu name="Layers" action="Layers">
+			<menuitem name="LayerAdd" action="LayerAdd" />
+			<menuitem name="LayerRename" action="LayerRename" />
+			<separator name="LayersSep1" />
+			<menuitem name="ObjectsLayerAbove" action="ObjectsLayerAbove" />
+			<menuitem name="ObjectsLayerBelow" action="ObjectsLayerBelow" />
+			<separator name="LayersSep2" />
+			<menuitem name="DiagramLayers" action="DiagramLayers" />
+		</menu>
+
 		<menu name="Objects" action="Objects">
 			<menuitem name="ObjectsSendtoback" action="ObjectsSendtoback" />
 			<menuitem name="ObjectsBringtofront" action="ObjectsBringtofront" />
 			<menuitem name="ObjectsSendbackwards" action="ObjectsSendbackwards" />
 			<menuitem name="ObjectsBringforwards" action="ObjectsBringforwards" />
-			<menuitem name="ObjectsLayerAbove" action="ObjectsLayerAbove" />
-			<menuitem name="ObjectsLayerBelow" action="ObjectsLayerBelow" />
 			<separator name="ObjectsSep1" />
 			<menuitem name="ObjectsGroup" action="ObjectsGroup" />
 			<menuitem name="ObjectsUngroup" action="ObjectsUngroup" />
