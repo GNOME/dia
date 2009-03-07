@@ -94,8 +94,8 @@ static Color pbreak_colour = DEFAULT_PAGEBREAK_COLOR;
 static guint default_dtree_dia_sort = DIA_TREE_SORT_INSERT;
 static guint default_dtree_obj_sort = DIA_TREE_SORT_INSERT;
 static const gchar *default_paper_name = NULL;
-static const gchar *default_length_unit = "cm";
-static const gchar *default_fontsize_unit = "point";
+static const gchar *default_length_unit = "Centimeter";
+static const gchar *default_fontsize_unit = "Point";
 
 static const char *default_favored_filter = N_("any");
 
@@ -201,16 +201,16 @@ DiaPrefData prefs_data[] =
     &default_true, DIA_TAB, N_("Compress saved files") },
   { NULL, PREF_END_GROUP, 0, NULL, DIA_TAB, NULL },
 
-  { NULL, PREF_NONE, 0, NULL, DIA_TAB, N_("New window:") },
-  { "new_view_width", PREF_UINT, PREF_OFFSET(new_view.width), &default_int_w, DIA_TAB, N_("Width:") },
-  { "new_view_height", PREF_UINT, PREF_OFFSET(new_view.height), &default_int_h, DIA_TAB, N_("Height:") },
-  { "new_view_zoom", PREF_UREAL, PREF_OFFSET(new_view.zoom), &default_real_zoom, DIA_TAB, N_("Magnify:") },
-  { NULL, PREF_END_GROUP, 0, NULL, 1, NULL },
-
   { NULL, PREF_NONE, 0, NULL, DIA_TAB, N_("Connection Points:") },
   { "show_cx_pts", PREF_BOOLEAN, PREF_OFFSET(show_cx_pts), &default_true, DIA_TAB, N_("Visible") },
   { "snap_object", PREF_BOOLEAN, PREF_OFFSET(snap_object), &default_true, DIA_TAB, N_("Snap to object") },
   { NULL, PREF_END_GROUP, 0, NULL, DIA_TAB, NULL },
+
+  { NULL, PREF_NONE, 0, NULL, VIEW_TAB, N_("New window:") },
+  { "new_view_width", PREF_UINT, PREF_OFFSET(new_view.width), &default_int_w, VIEW_TAB, N_("Width:") },
+  { "new_view_height", PREF_UINT, PREF_OFFSET(new_view.height), &default_int_h, VIEW_TAB, N_("Height:") },
+  { "new_view_zoom", PREF_UREAL, PREF_OFFSET(new_view.zoom), &default_real_zoom, VIEW_TAB, N_("Magnify:") },
+  { NULL, PREF_END_GROUP, 0, NULL, 1, NULL },
 
   { NULL, PREF_NONE, 0, NULL, VIEW_TAB, N_("Page breaks:") },
   { "pagebreak_visible", PREF_BOOLEAN, PREF_OFFSET(pagebreak.visible), &default_true, VIEW_TAB, N_("Visible") },
@@ -331,7 +331,8 @@ prefs_set_defaults(void)
     case PREF_END_GROUP:
       break;
     }
-    if (prefs_data[i].update_function)
+    /* set initial preferences, but dont talk about restarting */
+    if (prefs_data[i].update_function && prefs_data[i].update_function != update_ui_type_prefs)
       (prefs_data[i].update_function)(&prefs_data[i], ptr);
   }
   update_internal_prefs(&prefs_data[i], NULL);
@@ -411,7 +412,7 @@ prefs_set_value_in_widget(GtkWidget * widget, DiaPrefData *data,
     int index;
     char *val = *((gchar**)ptr);
     for (index = 0; names != NULL; names = g_list_next(names), index++) {
-      if (!strcmp(val, (gchar *)names->data))
+      if (!val || !strcmp(val, (gchar *)names->data))
 	break;
     }
     if (names == NULL) return;
@@ -431,36 +432,53 @@ static void
 prefs_get_value_from_widget(GtkWidget * widget, DiaPrefData *data,
 			    gpointer ptr)
 {
+  gboolean changed = FALSE;
   switch(data->type) {
-  case PREF_BOOLEAN:
-    *((int *)ptr) = GTK_TOGGLE_BUTTON(widget)->active;    
+  case PREF_BOOLEAN: {
+      int prev = *((int *)ptr);
+      *((int *)ptr) = GTK_TOGGLE_BUTTON(widget)->active;
+      changed = (prev != *((int *)ptr));
+    }
     break;
   case PREF_INT:
-  case PREF_UINT:
-    *((int *)ptr) = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(widget));
+  case PREF_UINT: {
+      int prev = *((int *)ptr);
+      *((int *)ptr) = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(widget));
+      changed = (prev != *((int *)ptr));
+    }
     break;
   case PREF_REAL:
-  case PREF_UREAL:
-    *((real *)ptr) = (real)
-      gtk_spin_button_get_value (GTK_SPIN_BUTTON(widget));
+  case PREF_UREAL: {
+      real prev = *((real *)ptr);
+      *((real *)ptr) = (real)
+        gtk_spin_button_get_value (GTK_SPIN_BUTTON(widget));
+      changed = (prev != *((real *)ptr));
+    }
     break;
-  case PREF_COLOUR:
-    dia_color_selector_get_color(widget, (Color *)ptr);
+  case PREF_COLOUR: {
+      Color prev = *(Color *)ptr;
+      dia_color_selector_get_color(widget, (Color *)ptr);
+      changed = memcmp (&prev, ptr, sizeof(Color));
+    }
     break;
   case PREF_CHOICE: {
     int index = gtk_combo_box_get_active (GTK_COMBO_BOX (widget));
     GList *names = (data->choice_list_function)(data);
     *((gchar **)ptr) = g_strdup((gchar *)g_list_nth_data(names, index));
+    /* XXX changed */
+    changed = TRUE;
     break;
   }
   case PREF_STRING:
     *((gchar **)ptr) = (gchar *)gtk_entry_get_text(GTK_ENTRY(widget));
+    /* XXX changed */
+    changed = TRUE;
     break;
   case PREF_NONE:
   case PREF_END_GROUP:
     break;
   }
-  if (data->update_function != NULL) {
+  if (changed && data->update_function != NULL) {
     (data->update_function)(data, ptr);
   }
 }
@@ -777,5 +795,5 @@ static void
 update_ui_type_prefs(DiaPrefData *pref, gpointer ptr)
 {
   g_return_if_fail (pref->key == NULL);
-  message_notice(_("User Interface type settings change will take after restart"));  
+  message_notice(_("User Interface type settings change will take effect after restart"));  
 }

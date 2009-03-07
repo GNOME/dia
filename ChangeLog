@@ -1,6 +1,12 @@
 2009-03-07  Hans Breuer  <hans@breuer.org>
 
-	* lib/persitence.c : updating/serializing window positions had issues,
+	* app/preferences.c(prefs_set_value_in_widget) : don't choke on 
+	val==NULL and have a matching default initialization for units, 
+	both fixing bug #573625
+	(prefs_get_value_from_widget) : only call the props update function if
+	something has changed, get rid of spurious restart message, bug #574387
+
+	* lib/persistence.c : updating/serializing window positions had issues,
 	now hopefully fixed, bug #574388
 
 	* app/textedit_tool.c : ensure the action sensitivity is updated after
