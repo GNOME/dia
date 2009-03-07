@@ -34,6 +34,7 @@
 #include "dia_dirs.h"
 #include "dia_xml_libxml.h"
 #include "dia_xml.h"
+#include "message.h"
 
 #include <gtk/gtk.h>
 #include <libxml/tree.h>
@@ -516,6 +517,8 @@ persistence_update_window(GtkWindow *window, gboolean isclosed)
     wininfo->window = window;
     g_object_ref(window);
   }
+  /* catch the transistion */
+  wininfo->isopen = !isclosed;
 }
 
 /** Handler for window-related events that should cause persistent storage
@@ -528,14 +531,19 @@ persistence_update_window(GtkWindow *window, gboolean isclosed)
 static gboolean
 persistence_window_event_handler(GtkWindow *window, GdkEvent *event, gpointer data)
 {
-#if 0
   switch (event->type) {
-  case GDK_UNMAP : printf ("unmap (%s)\n", persistence_get_window_name(window)); break;
-  case GDK_MAP : printf ("map (%s)\n", persistence_get_window_name(window)); break;
-  case GDK_CONFIGURE : printf ("configure (%s)\n", persistence_get_window_name(window)); break;
+  case GDK_UNMAP : 
+    dia_log_message ("unmap (%s)", persistence_get_window_name(window)); 
+    break;
+  case GDK_MAP : 
+    dia_log_message  ("map (%s)", persistence_get_window_name(window)); 
+    break;
+  case GDK_CONFIGURE : 
+    dia_log_message ("configure (%s)", persistence_get_window_name(window)); 
+    break;
   }
-#endif
   persistence_update_window(window, (event->type == GDK_UNMAP));
+  /* continue processing */
   return FALSE;
 }
 

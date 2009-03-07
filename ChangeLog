@@ -1,5 +1,8 @@
 2009-03-07  Hans Breuer  <hans@breuer.org>
 
+	* lib/persitence.c : updating/serializing window positions had issues,
+	now hopefully fixed, bug #574388
+
 	* app/textedit_tool.c : ensure the action sensitivity is updated after
 	entering textedit mode. No tool activation by entering text, bug #572307
 
