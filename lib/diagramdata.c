@@ -285,7 +285,6 @@ data_lower_layer(DiagramData *data, Layer *layer)
 /** Add a layer object to a diagram.
  * @param data The diagram to add the layer to.
  * @param layer The layer to add.
- * @bug Should just call data_add_layer_at().
  */
 void
 data_add_layer(DiagramData *data, Layer *layer)
@@ -315,6 +314,20 @@ data_add_layer_at(DiagramData *data, Layer *layer, int pos)
   layer->parent_diagram = data;
   layer_update_extents(layer);
   data_update_extents(data);
+}
+
+int
+data_layer_get_index (const DiagramData *data, const Layer *layer)
+{
+  int len;
+  int i;
+  
+  len = data->layers->len;
+  for (i=0;i<len;++i) {
+    if (layer == g_ptr_array_index(data->layers, i))
+      return i;
+  }
+  return -1;
 }
 
 /** Set which layer is the active layer in a diagram.

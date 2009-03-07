@@ -1021,11 +1021,23 @@ view_layers_callback (GtkAction *action)
 void 
 layers_add_layer_callback (GtkAction *action)
 {
+  Diagram *dia;
+
+  dia = ddisplay_active_diagram();
+  if (!dia) return;
+
+  diagram_edit_layer (dia, NULL);
 }
 
 void 
 layers_rename_layer_callback (GtkAction *action)
 {
+  Diagram *dia;
+
+  dia = ddisplay_active_diagram();
+  if (!dia) return;
+
+  diagram_edit_layer (dia, dia->data->active_layer);
 }
 
 void

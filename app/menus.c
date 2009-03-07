@@ -140,10 +140,8 @@ static const GtkActionEntry display_entries[] =
     { "EditPastetext", NULL, N_("Paste _Text"), "<control><shift>V", NULL, G_CALLBACK (edit_paste_text_callback) },
 
   { "Layers", NULL, N_("_Layers"), NULL, NULL, NULL }, 
-#if 0 /* TODO: implement the callbacks */
     { "LayerAdd", DIA_STOCK_LAYER_ADD, N_("Add Layer..."), NULL, NULL, G_CALLBACK (layers_add_layer_callback) },
     { "LayerRename", DIA_STOCK_LAYER_RENAME, N_("Rename Layer..."), NULL, NULL, G_CALLBACK (layers_rename_layer_callback) },
-#endif
     { "ObjectsLayerAbove", DIA_STOCK_OBJECTS_LAYER_ABOVE, N_("Move selection to layer above"), NULL, NULL, G_CALLBACK (objects_move_up_layer) },
     { "ObjectsLayerBelow", DIA_STOCK_OBJECTS_LAYER_BELOW, N_("Move selection to layer below"), NULL, NULL, G_CALLBACK (objects_move_down_layer) },
     { "DiagramLayers", DIA_STOCK_LAYERS, N_("_Layers..."), "<control>L", NULL, G_CALLBACK (dialogs_layers_callback) },
@@ -820,6 +818,31 @@ _ui_manager_connect_proxy (GtkUIManager *manager,
     }
 }
 
+GtkActionGroup *
+create_or_ref_display_actions (void)
+{
+  if (display_actions)
+    return g_object_ref (display_actions);
+  display_actions = gtk_action_group_new ("display-actions");
+  gtk_action_group_set_translation_domain (display_actions, NULL);
+  gtk_action_group_set_translate_func (display_actions, _dia_translate, NULL, NULL);
+  gtk_action_group_add_actions (display_actions, common_entries, 
+                G_N_ELEMENTS (common_entries), NULL);
+  gtk_action_group_add_actions (display_actions, display_entries, 
+                G_N_ELEMENTS (display_entries), NULL);
+  gtk_action_group_add_toggle_actions (display_actions, display_toggle_entries,
+                G_N_ELEMENTS (display_toggle_entries), 
+                NULL);
+  gtk_action_group_add_radio_actions (display_actions,
+                display_select_radio_entries,
+                G_N_ELEMENTS (display_select_radio_entries),
+                1,
+                G_CALLBACK (select_style_callback),
+                NULL);
+  /* the initial reference */
+  return display_actions;
+}
+
 /* Very minimal fallback menu info for ui-files missing 
  * as well as to register the InvisibleMenu */
 static const gchar *ui_info =
@@ -877,23 +900,7 @@ menus_init(void)
   toolbox_menubar = gtk_ui_manager_get_widget (toolbox_ui_manager, TOOLBOX_MENU);
 
   /* the display menu */
-  display_actions = gtk_action_group_new ("display-actions");
-  gtk_action_group_set_translation_domain (display_actions, NULL);
-  gtk_action_group_set_translate_func (display_actions, _dia_translate, NULL, NULL);
-  gtk_action_group_add_actions (display_actions, common_entries, 
-                G_N_ELEMENTS (common_entries), NULL);
-  gtk_action_group_add_actions (display_actions, display_entries, 
-                G_N_ELEMENTS (display_entries), NULL);
-  gtk_action_group_add_toggle_actions (display_actions, display_toggle_entries,
-                G_N_ELEMENTS (display_toggle_entries), 
-                NULL);
-  gtk_action_group_add_radio_actions (display_actions,
-                display_select_radio_entries,
-                G_N_ELEMENTS (display_select_radio_entries),
-                1,
-                G_CALLBACK (select_style_callback),
-                NULL);
-
+  display_actions = create_or_ref_display_actions ();
   display_tool_actions = create_tool_actions ();
 
   display_ui_manager = gtk_ui_manager_new ();
@@ -1051,24 +1058,8 @@ menus_create_display_menubar (GtkUIManager   **ui_manager,
   GError         *error = NULL;
   gchar          *uifile;
 
-  *actions = gtk_action_group_new ("display-actions");
-  gtk_action_group_set_translation_domain (*actions, NULL);
-  gtk_action_group_set_translate_func (*actions, _dia_translate, NULL, NULL);
-
-  gtk_action_group_add_actions (*actions, common_entries, 
-                G_N_ELEMENTS (common_entries), NULL);
-  gtk_action_group_add_actions (*actions, display_entries, 
-                G_N_ELEMENTS (display_entries), NULL);
-  gtk_action_group_add_toggle_actions (*actions, display_toggle_entries,
-                G_N_ELEMENTS (display_toggle_entries), 
-                NULL);
-  gtk_action_group_add_radio_actions (*actions,
-                    display_select_radio_entries,
-                    G_N_ELEMENTS (display_select_radio_entries),
-                    1,
-                    G_CALLBACK (select_style_callback),
-                    NULL);
-
+  
+  *actions = create_or_ref_display_actions ();
   tool_actions = create_tool_actions (); 
 
   *ui_manager = gtk_ui_manager_new ();

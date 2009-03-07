@@ -153,7 +153,7 @@ static void layer_dialog_new_callback(GtkWidget *widget, gpointer gdata);
 static void layer_dialog_raise_callback(GtkWidget *widget, gpointer gdata);
 static void layer_dialog_lower_callback(GtkWidget *widget, gpointer gdata);
 static void layer_dialog_delete_callback(GtkWidget *widget, gpointer gdata);
-static void layer_dialog_edit_layer(DiaLayerWidget *layer_widget);
+static void layer_dialog_edit_layer(DiaLayerWidget *layer_widget, Diagram *dia, Layer *layer);
 
 static ButtonData buttons[] = {
   { GTK_STOCK_ADD, layer_dialog_new_callback, N_("New Layer") },
@@ -240,7 +240,7 @@ layer_list_events (GtkWidget *widget,
 
     case GDK_2BUTTON_PRESS:
       bevent = (GdkEventButton *) event;
-      layer_dialog_edit_layer(layer_widget);
+      layer_dialog_edit_layer(layer_widget, NULL, NULL);
       return TRUE;
 
     case GDK_KEY_PRESS:
@@ -1088,14 +1088,15 @@ dia_layer_update_from_layer (DiaLayerWidget *widget)
 /*
  *  The edit layer attributes dialog
  */
-
+/* called from the layer widget for rename */
 static void
 edit_layer_ok_callback (GtkWidget *w, gpointer client_data)
 {
-  EditLayerDialog *dialog;
+  EditLayerDialog *dialog = (EditLayerDialog *) client_data;
   Layer *layer;
   
-  dialog = (EditLayerDialog *) client_data;
+  g_return_if_fail (dialog->layer_widget != NULL);
+  
   layer = dialog->layer_widget->layer;
 
   g_free (layer->name);
@@ -1112,6 +1113,45 @@ edit_layer_ok_callback (GtkWidget *w, gpointer client_data)
 }
 
 static void
+edit_layer_add_ok_callback (GtkWidget *w, gpointer client_data)
+{
+  EditLayerDialog *dialog = (EditLayerDialog *) client_data;
+  Diagram *dia = ddisplay_active_diagram();
+  Layer *layer;
+  int pos = data_layer_get_index (dia->data, dia->data->active_layer) + 1;
+  
+  layer = new_layer(g_strdup (gtk_entry_get_text (GTK_ENTRY (dialog->name_entry))), dia->data);
+  data_add_layer_at(dia->data, layer, pos);
+  data_set_active_layer(dia->data, layer);
+
+  diagram_add_update_all(dia);
+  diagram_flush(dia);
+  
+  undo_layer(dia, layer, TYPE_ADD_LAYER, pos);
+  undo_set_transactionpoint(dia->undo);
+    
+  gtk_widget_destroy (dialog->dialog);
+  g_free (dialog);
+}
+
+static void
+edit_layer_rename_ok_callback (GtkWidget *w, gpointer client_data)
+{
+  EditLayerDialog *dialog = (EditLayerDialog *) client_data;
+  Diagram *dia = ddisplay_active_diagram();
+  Layer *layer = dia->data->active_layer;
+  
+  g_free (layer->name);
+  layer->name = g_strdup (gtk_entry_get_text (GTK_ENTRY (dialog->name_entry)));
+
+  diagram_add_update_all(dia);
+  diagram_flush(dia);
+  /* FIXME: undo handling */
+
+  gtk_widget_destroy (dialog->dialog);
+  g_free (dialog);
+}
+static void
 edit_layer_cancel_callback (GtkWidget *w,
 			    gpointer   client_data)
 {
@@ -1119,7 +1159,8 @@ edit_layer_cancel_callback (GtkWidget *w,
 
   dialog = (EditLayerDialog *) client_data;
 
-  dialog->layer_widget->edit_dialog = NULL;
+  if (dialog->layer_widget)
+    dialog->layer_widget->edit_dialog = NULL;
   if (dialog->dialog != NULL)
     gtk_widget_destroy (dialog->dialog);
   g_free (dialog);
@@ -1136,7 +1177,7 @@ edit_layer_delete_callback (GtkWidget *w,
 }
 
 static void
-layer_dialog_edit_layer (DiaLayerWidget *layer_widget)
+layer_dialog_edit_layer (DiaLayerWidget *layer_widget, Diagram *dia, Layer *layer)
 {
   EditLayerDialog *dialog;
   GtkWidget *vbox;
@@ -1151,7 +1192,8 @@ layer_dialog_edit_layer (DiaLayerWidget *layer_widget)
   /*  the dialog  */
   dialog->dialog = gtk_dialog_new ();
   gtk_window_set_role (GTK_WINDOW (dialog->dialog), "edit_layer_attrributes");
-  gtk_window_set_title (GTK_WINDOW (dialog->dialog), _("Edit Layer Attributes"));
+  gtk_window_set_title (GTK_WINDOW (dialog->dialog), 
+      (layer_widget || layer) ? _("Edit Layer") : _("Add Layer"));
   gtk_window_set_position (GTK_WINDOW (dialog->dialog), GTK_WIN_POS_MOUSE);
 
   /*  handle the wm close signal */
@@ -1175,7 +1217,16 @@ layer_dialog_edit_layer (DiaLayerWidget *layer_widget)
   gtk_widget_show (label);
   dialog->name_entry = gtk_entry_new ();
   gtk_box_pack_start (GTK_BOX (hbox), dialog->name_entry, TRUE, TRUE, 0);
-  gtk_entry_set_text (GTK_ENTRY (dialog->name_entry), layer_widget->layer->name);
+  if (layer_widget)
+    gtk_entry_set_text (GTK_ENTRY (dialog->name_entry), layer_widget->layer->name);
+  else if (layer)
+    gtk_entry_set_text (GTK_ENTRY (dialog->name_entry), layer->name);
+  else if (dia) {
+    gchar *name = g_strdup_printf (_("New layer %d"), dia->data->layers->len);
+    gtk_entry_set_text (GTK_ENTRY (dialog->name_entry), name);
+    g_free (name);
+  }
+
   gtk_widget_show (dialog->name_entry);
   gtk_widget_show (hbox);
 
@@ -1183,9 +1234,16 @@ layer_dialog_edit_layer (DiaLayerWidget *layer_widget)
   GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
   gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog->dialog)->action_area), 
 		      button, TRUE, TRUE, 0);
-  g_signal_connect (GTK_OBJECT (button), "clicked",
-		      G_CALLBACK(edit_layer_ok_callback),
-		      dialog);
+  if (layer_widget)
+    g_signal_connect (GTK_OBJECT (button), "clicked",
+		      G_CALLBACK(edit_layer_ok_callback), dialog);
+  else if (layer)
+    g_signal_connect (GTK_OBJECT (button), "clicked",
+		      G_CALLBACK(edit_layer_rename_ok_callback), dialog);
+  else if (dia)
+    g_signal_connect (GTK_OBJECT (button), "clicked",
+		      G_CALLBACK(edit_layer_add_ok_callback), dialog);
+
   gtk_widget_grab_default (button);
   gtk_widget_show (button);
 
@@ -1201,7 +1259,8 @@ layer_dialog_edit_layer (DiaLayerWidget *layer_widget)
   gtk_widget_show (vbox);
   gtk_widget_show (dialog->dialog);
 
-  layer_widget->edit_dialog = dialog;
+  if (layer_widget)
+    layer_widget->edit_dialog = dialog;
 }
 
 
@@ -1399,4 +1458,15 @@ undo_layer_visibility(Diagram *dia, Layer *layer, gboolean exclusive)
 
   undo_push_change(dia->undo, (Change *) change);
   return change;
+}
+
+/*!
+ * \brief edit a layers name, possibly also creating the layer
+ */
+void 
+diagram_edit_layer(Diagram *dia, Layer *layer)
+{
+  g_return_if_fail(dia != NULL);
+  
+  layer_dialog_edit_layer (NULL, layer ? NULL : dia, layer);
 }

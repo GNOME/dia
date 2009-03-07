@@ -1,5 +1,15 @@
 2009-03-07  Hans Breuer  <hans@breuer.org>
 
+	* app/menus.c(create_or_ref_display_actions) :  only create the action
+	group once, not per display, so the right actions are sensitive for the
+	"Use menu bar", too. Fixes bug #574472
+	
+	* app/layer_dialog.[ch] : implement "Add Layer" and "Rename Layer" also
+	without the indirection Layer dialog
+	* app/menus.c : activate both commands
+	* lib/diagramdata.[ch] lib/libdia.def : implement and export
+	data_layer_get_index() used for the above
+
 	* data/display-ui.xml data/integrated-ui.xml data/popup-ui.xml
 	  app/menus.c : move "Edit/Properties" to "File/Diagram Properties" as
 	suggested by bug #573259, also create a Layers submenu to hold formerly

@@ -130,6 +130,8 @@ void data_add_layer(DiagramData *data, Layer *layer);
 void data_add_layer_at(DiagramData *data, Layer *layer, int pos);
 void data_set_active_layer(DiagramData *data, Layer *layer);
 void data_delete_layer(DiagramData *data, Layer *layer);
+int  data_layer_get_index (const DiagramData *data, const Layer *layer);
+
 void data_select(DiagramData *data, DiaObject *obj);
 void data_unselect(DiagramData *data, DiaObject *obj);
 void data_remove_all_selected(DiagramData *data);

@@ -36,6 +36,8 @@ GtkWidget* dia_layer_widget_new(Diagram *dia, Layer *layer);
 void dia_layer_set_layer(DiaLayerWidget *widget, Diagram *dia, Layer *layer);
 void dia_layer_update_from_layer(DiaLayerWidget *widget);
 
+void diagram_edit_layer(Diagram *dia, Layer *layer);
+
 #endif /* LAYER_DIALOG_H */
 
 
