@@ -251,6 +251,35 @@ PyDia_set_Enum (Property *prop, PyObject *val)
   return -1;
 }
 static int
+PyDia_set_Arrow (Property *prop, PyObject *val)
+{
+  ArrowProperty *p = (ArrowProperty *)prop;
+  
+  if (val->ob_type == &PyDiaArrow_Type) {
+    p->arrow_data = ((PyDiaArrow *)val)->arrow;
+    return 0;
+  } else if (PyTuple_Check (val)) {
+    int i, len = PyTuple_Size(val);
+    PyObject *o;
+    if (len < 3)
+      return -1;
+    if ((o = PyTuple_GetItem(val, 0)) != NULL && PyInt_Check(o))
+      p->arrow_data.type = PyInt_AsLong(o);
+    else
+      p->arrow_data.type = ARROW_NONE;
+    if ((o = PyTuple_GetItem(val, 1)) != NULL && PyFloat_Check(o))
+      p->arrow_data.length = PyFloat_AsDouble(o);
+    else
+      p->arrow_data.length = DEFAULT_ARROW_SIZE;
+    if ((o = PyTuple_GetItem(val, 2)) != NULL && PyFloat_Check(o))
+      p->arrow_data.width = PyFloat_AsDouble(o);
+    else
+      p->arrow_data.width = DEFAULT_ARROW_SIZE;
+    return 0;
+  }
+  return -1;
+}
+static int
 PyDia_set_Color (Property *prop, PyObject *val)
 {
   ColorProperty *p = (ColorProperty*)prop;
@@ -516,7 +545,7 @@ struct {
   { PROP_TYPE_BEZPOINT, PyDia_get_BezPoint },
   { PROP_TYPE_BEZPOINTARRAY, PyDia_get_BezPointArray, PyDia_set_BezPointArray },
   { PROP_TYPE_RECT, PyDia_get_Rect, PyDia_set_Rect },
-  { PROP_TYPE_ARROW, PyDia_get_Arrow },
+  { PROP_TYPE_ARROW, PyDia_get_Arrow, PyDia_set_Arrow },
   { PROP_TYPE_COLOUR, PyDia_get_Color, PyDia_set_Color },
   { PROP_TYPE_FONT, PyDia_get_Font },
   { PROP_TYPE_SARRAY, PyDia_get_Array, PyDia_set_Array },
