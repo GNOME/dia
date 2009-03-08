@@ -14,8 +14,8 @@ msgstr ""
 "Project-Id-Version: dia.HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=dia&component=general\n"
-"POT-Creation-Date: 2009-02-15 17:20+0000\n"
-"PO-Revision-Date: 2009-02-24 18:55+0100\n"
+"POT-Creation-Date: 2009-03-07 14:28+0000\n"
+"PO-Revision-Date: 2009-03-08 14:06+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -1771,35 +1771,34 @@ msgid "Compress saved files"
 msgstr "Comprimir archivos guardados"
 
 #: ../app/preferences.c:204
-msgid "New window:"
-msgstr "Ventana nueva:"
-
-#: ../app/preferences.c:205
-msgid "Width:"
-msgstr "Ancho:"
-
-#: ../app/preferences.c:206
-msgid "Height:"
-msgstr "Alto:"
-
-# Según lo traducido anteriormente "Ampliar" queda más natural que "Magnificar" que suena a barbarismo. RizOX.
-#: ../app/preferences.c:207
-msgid "Magnify:"
-msgstr "Ampliar:"
-
-#: ../app/preferences.c:210
 msgid "Connection Points:"
 msgstr "Puntos de conexión:"
 
 #. { NULL, PREF_NONE, 0, NULL, 3, N_("Grid:") },
-#: ../app/preferences.c:211 ../app/preferences.c:216 ../app/preferences.c:240
+#: ../app/preferences.c:205 ../app/preferences.c:216 ../app/preferences.c:240
 msgid "Visible"
 msgstr "Visible"
 
-#: ../app/preferences.c:212
-#| msgid "Snap To _Objects"
+#: ../app/preferences.c:206
 msgid "Snap to object"
 msgstr "Ajustar al objeto"
+
+#: ../app/preferences.c:209
+msgid "New window:"
+msgstr "Ventana nueva:"
+
+#: ../app/preferences.c:210
+msgid "Width:"
+msgstr "Ancho:"
+
+#: ../app/preferences.c:211
+msgid "Height:"
+msgstr "Alto:"
+
+# Según lo traducido anteriormente "Ampliar" queda más natural que "Magnificar" que suena a barbarismo. RizOX.
+#: ../app/preferences.c:212
+msgid "Magnify:"
+msgstr "Ampliar:"
 
 #: ../app/preferences.c:215
 msgid "Page breaks:"
@@ -1888,23 +1887,24 @@ msgstr "Ventana del árbol del diagrama"
 msgid "Save hidden object types"
 msgstr "Guardar tipos de objetos ocultos"
 
-#: ../app/preferences.c:472 ../lib/prop_inttypes.c:158
+#: ../app/preferences.c:490 ../lib/prop_inttypes.c:158
 msgid "Yes"
 msgstr "Sí"
 
-#: ../app/preferences.c:472 ../app/preferences.c:483
+#: ../app/preferences.c:490 ../app/preferences.c:501
 #: ../lib/prop_inttypes.c:160 ../lib/prop_inttypes.c:186
 msgid "No"
 msgstr "No"
 
-#: ../app/preferences.c:578
+#: ../app/preferences.c:596
 msgid "Preferences"
 msgstr "Preferencias"
 
-#: ../app/preferences.c:780
-msgid "User Interface type settings change will take after restart"
+#: ../app/preferences.c:798
+#| msgid "User Interface type settings change will take after restart"
+msgid "User Interface type settings change will take effect after restart"
 msgstr ""
-"Los ajustes para el interfaz del usuario tomarán efecto después de reiniciar."
+"Los ajustes para el interfaz del usuario tomarán efecto después de reiniciar"
 
 #: ../app/properties-dialog.c:56
 msgid "Object properties"
@@ -2742,6 +2742,136 @@ msgstr "Navegar"
 #: ../lib/widgets.c:2076
 msgid "Reset menu"
 msgstr "Restaurar menú"
+
+#. Installer message if no GTK+ was found
+#: ../installer/win32/gennsh.c:38
+msgid ""
+"GTK+ is not installed. Please use the full installer. It is available from "
+"http://dia-installer.de."
+msgstr ""
+"GTK+ no está instalado. Use el instalador completo. Está disponible en "
+"http://dia-installer.de."
+
+#. Installer message: Don't install over pre 0.95 versions
+#: ../installer/win32/gennsh.c:41
+msgid ""
+"Please remove old Dia installations completely or install Dia to a different "
+"location."
+msgstr ""
+"Elimine completamente las instalaciones antiguas de Dia o instale Dia en una "
+"ubicación diferente."
+
+#. Installer message:  License Page
+#: ../installer/win32/gennsh.c:44
+#| msgid "Text"
+msgid "Next >"
+msgstr "Sigueinte >"
+
+#. Installer message, keep the $(^Name) and $_CLICK, these will be replaced
+#: ../installer/win32/gennsh.c:47
+msgid ""
+"$(^Name) is released under the GPL license. The license is provided here for "
+"information purposes only. $_CLICK"
+msgstr ""
+"$(^Name) está liberado bajo la licencia GPL. La licencia se proporciona aquí "
+"solamente con propósito de informar. $_CLICK"
+
+#. Installer message: Components page
+#: ../installer/win32/gennsh.c:50
+#| msgid "Dia Diagram Editor"
+msgid "Dia Diagram Editor (required)"
+msgstr "Editor de diagramas Dia (requerido)"
+
+#. Installer message: Components page
+#: ../installer/win32/gennsh.c:53
+#| msgid "Translation"
+msgid "Translations"
+msgstr "Traducciones"
+
+#. Installer message: Component description
+#: ../installer/win32/gennsh.c:56
+msgid "Optional translations of the Dia user interface"
+msgstr "Traducciones opcionales de la interfaz de usuario de Dia"
+
+#. Installer message: Component description
+#: ../installer/win32/gennsh.c:59
+msgid "Core Dia files and dlls"
+msgstr "Archivos del núcleo de Dia y dlls"
+
+#. Installer message: Component name
+#: ../installer/win32/gennsh.c:62
+#| msgid "Plug-ins"
+msgid "Python plug-in"
+msgstr "Complemento de Python"
+
+#. Installer message: Component description
+#: ../installer/win32/gennsh.c:65
+msgid ""
+"Support for the Python Scripting Language 2.3. Do not select this if Python "
+"is not installed."
+msgstr ""
+"Soporte para el lenguaje de scripting Python 2.3. No seleccione esto si "
+"Python ya está instalado."
+
+#. Installer message: hyperlink text on finish page
+#: ../installer/win32/gennsh.c:68
+msgid "Visit the Dia for Windows Web Page"
+msgstr "Visite la página web de Dia para Windows"
+
+#. Installer message: Dia uninstaller entry in Control Panel
+#: ../installer/win32/gennsh.c:71
+msgid "Dia (remove only)"
+msgstr "Dia (sólo eliminar)"
+
+#. Installer message: confirmation question. Keep $\r
+#: ../installer/win32/gennsh.c:74
+msgid ""
+"Your old Dia directory is about to be deleted. Would you like to continue?$\r"
+"$\rNote: Any non-standard plugins that you may have installed will be "
+"deleted.$\rDia user settings will not be affected."
+msgstr ""
+"Su antiguo directorio de Dia está a punto de borrarse. ¿Quiere continuar?$\n"
+"$\n"
+"Nota: Se borrará cualquier complemento no estándar que haya instalado.$\n"
+"Los ajustes de usuario de Dia no se verán afectados."
+
+#. Installer message: confirmatin question. Keep $\r
+#: ../installer/win32/gennsh.c:77
+msgid ""
+"The installation directory you specified already exists. Any contents$\rwill "
+"be deleted. Would you like to continue?"
+msgstr ""
+"El directorio de instalación que ha especificado ya existe. Cualquier "
+"contenido$\n"
+"se eliminará. ¿Quiere continuar?"
+
+#. Installer message: Uninstall Section Prompts. Keep $\r
+#: ../installer/win32/gennsh.c:80
+msgid ""
+"The uninstaller could not find registry entries for Dia.$\rIt is likely that "
+"another user installed this application."
+msgstr ""
+"El desinstalador no pudo encontrar entradas del registro para Dia.$\n"
+"Probablemente otro usuario ha instalado esta aplicación."
+
+#. Installer message: Uninstall error message
+#: ../installer/win32/gennsh.c:83
+msgid "You do not have permission to uninstall this application."
+msgstr "No tiene permiso para desinstalar esta aplicación."
+
+#. Installer message: Uninstallation warning. Keep $INSTDIR
+#: ../installer/win32/gennsh.c:86
+msgid "This will completely delete $INSTDIR and all subdirectories. Continue?"
+msgstr ""
+"Esto borrará completamente $INSTDIR y todos sus subdirectorios. ¿Continuar?"
+
+#. Installer message: Uninstallation warning. Keep $\PROFILE\.dia
+#: ../installer/win32/gennsh.c:89
+msgid ""
+"This will completely delete $PROFILE\\.dia and all subdirectories. Continue?"
+msgstr ""
+"Esto borrará completamente $PROFILE\\.dia y todos sus subdirectorios. "
+"¿Continuar?"
 
 #: ../objects/AADL/aadl.c:52
 msgid "Architecture Analysis & Design Language diagram objects"
