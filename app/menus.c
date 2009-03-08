@@ -1213,8 +1213,13 @@ plugin_callback (GtkWidget *widget, gpointer data)
 
   /* and finally invoke it */
   if (cbf->callback) {
-    DDisplay *ddisp = ddisplay_active();
-    DiagramData* diadata = ddisp ? ddisp->diagram->data : NULL;
+    DDisplay *ddisp = NULL;
+    DiagramData* diadata = NULL;
+    /* stuff from the toolbox menu should never get a diagram to modify */
+    if (strncmp (cbf->menupath, TOOLBOX_MENU, strlen (TOOLBOX_MENU)) != 0) {
+      ddisp = ddisplay_active();
+      diadata = ddisp ? ddisp->diagram->data : NULL;
+    }
     cbf->callback (diadata, ddisp ? ddisp->diagram->filename : NULL, 0, cbf->user_data);
   }
 }

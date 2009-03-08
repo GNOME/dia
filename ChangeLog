@@ -1,3 +1,9 @@
+2009-03-08  Hans Breuer  <hans@breuer.org>
+
+	* app/menus.c : don't pass diagram and filename to plug-ins called from
+	the toolbox-menu, otherwise the pydia help series could unintentinally
+	modify unrelated open diagrams
+
 2009-03-07  Hans Breuer  <hans@breuer.org>
 
 	* app/menus.c(create_or_ref_display_actions) :  only create the action
