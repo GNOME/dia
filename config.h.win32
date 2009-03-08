@@ -18,6 +18,13 @@
 #undef LOCALEDIR /* needs to be calculated at runtime */
 /* NOT: #define LOCALEDIR "../lib/locale" */
 
+/* some non critical defines */
+#if 0
+#define HAVE_LIBART
+#define HAVE_LIBPNG
+#endif
+#define HAVE_LIBZ
+
 #define VERSION "0.97-pre2"
 
 /*

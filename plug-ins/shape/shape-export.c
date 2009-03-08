@@ -50,6 +50,7 @@
 #include <libxml/tree.h>
 #include <libxml/xmlmemory.h>
 #include <libxml/parser.h> /* xmlStrdup */
+#include "dia_xml.h"
 #include "dia_xml_libxml.h"
 #include "geometry.h"
 #include "diasvgrenderer.h"

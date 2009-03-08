@@ -1,5 +1,10 @@
 2009-03-08  Hans Breuer  <hans@breuer.org>
 
+	* lib/dia_xml_libxml.h lib/dia_xml.[ch] lib/prop_geomtypes.h
+	  plug-ins/shape/shape-export.c : removed some cruft from lixml1 
+	days while investigating bug #570592
+	* config.h.win32 : insignificant changes slightly related bug #570592
+
 	* app/menus.c : don't pass diagram and filename to plug-ins called from
 	the toolbox-menu, otherwise the pydia help series could unintentinally
 	modify unrelated open diagrams

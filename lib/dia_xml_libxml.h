@@ -23,15 +23,12 @@
 
 #include <libxml/tree.h>
 #include <libxml/parser.h>
-#include "dia_xml.h"
 
 /* for potentially broken files */
 xmlDocPtr xmlDiaParseFile(const char *filename); 
 
 /* use this one instead of xmlParseFile */
 xmlDocPtr xmlDoParseFile(const char *filename); 
-
-void warn_about_broken_libxml1(void);
 
 /* use this instead of xmlSaveFile/xmlSaveFileEnc. Set the encoding to
    UTF-8 at the very beginning ! */
