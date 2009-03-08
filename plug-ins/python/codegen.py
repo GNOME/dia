@@ -107,6 +107,10 @@ class ObjRenderer :
 							self.klasses[chi_name].AddParrent(par_name)
 						else: self.klasses[chi_name].AddTemplate(par_name)
 					
+	def end_render(self) :
+		# without this we would accumulate info from every pass
+		self.attributes = []
+		self.operations = []
 
 class PyRenderer(ObjRenderer) : 
 	def __init__(self) :

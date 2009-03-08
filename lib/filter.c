@@ -148,13 +148,14 @@ filter_guess_export_filter(const gchar *filename)
     gint i;
 
     for (i = 0; ef->extensions[i] != NULL; i++) {
-      if (ef->hints & FILTER_DONT_GUESS) {
-        dont_guess = ef;
-	++no_guess;
-        continue;
-      }
-      if (!g_ascii_strcasecmp(ef->extensions[i], ext))
+      if (!g_ascii_strcasecmp(ef->extensions[i], ext)) {
+        if (ef->hints & FILTER_DONT_GUESS) {
+          dont_guess = ef;
+	  ++no_guess;
+          continue;
+	}
 	return ef;
+      }
     }
   }
   return (no_guess == 1) ? dont_guess : NULL;
@@ -257,13 +258,14 @@ filter_guess_import_filter(const gchar *filename)
     gint i;
 
     for (i = 0; ifilter->extensions[i] != NULL; i++) {
-      if (ifilter->hints & FILTER_DONT_GUESS) {
-        dont_guess = ifilter;
-        ++no_guess;
-        continue;
-      }
-      if (!g_ascii_strcasecmp(ifilter->extensions[i], ext))
+      if (!g_ascii_strcasecmp(ifilter->extensions[i], ext)) {
+        if (ifilter->hints & FILTER_DONT_GUESS) {
+          dont_guess = ifilter;
+          ++no_guess;
+          continue;
+	}
 	return ifilter;
+      }
     }
   }
   return (no_guess == 1) ? dont_guess : NULL;
