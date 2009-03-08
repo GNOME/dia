@@ -1,5 +1,9 @@
 2009-03-08  Hans Breuer  <hans@breuer.org>
 
+	* app/filedlg.c : drop using GTK_WIN_POS_MOUSE on the file dialogs. 
+	Nowadays that almost inevitable would lead to a partial off-screen
+	dialog, see e.g. bug #314084 and bug #512580
+
 	* lib/dia_xml_libxml.h lib/dia_xml.[ch] lib/prop_geomtypes.h
 	  plug-ins/shape/shape-export.c : removed some cruft from lixml1 
 	days while investigating bug #570592
