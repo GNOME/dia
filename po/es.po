@@ -14,8 +14,8 @@ msgstr ""
 "Project-Id-Version: dia.HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=dia&component=general\n"
-"POT-Creation-Date: 2009-03-07 14:28+0000\n"
-"PO-Revision-Date: 2009-03-08 14:06+0100\n"
+"POT-Creation-Date: 2009-03-08 13:07+0000\n"
+"PO-Revision-Date: 2009-03-08 14:10+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -917,7 +917,7 @@ msgstr "Coincidir _todas las propiedades (no sólo el nombre del objeto)"
 msgid "Find"
 msgstr "Buscar"
 
-#: ../app/find-and-replace.c:541 ../app/menus.c:261
+#: ../app/find-and-replace.c:541 ../app/menus.c:267
 msgid "Replace"
 msgstr "Reemplazar"
 
@@ -951,7 +951,7 @@ msgstr ""
 # Yo diría "Ampliar" FVD
 # Yo también diría "Ampliar", lo de "Magnificar" me suena a barbarismo... RizOX
 #. Translators: Menu item Verb/Control Magnitude/Change/Magnify
-#: ../app/interface.c:165 ../app/menus.c:223 ../objects/FS/function.c:988
+#: ../app/interface.c:165 ../app/menus.c:229 ../objects/FS/function.c:988
 msgid "Magnify"
 msgstr "Ampliar"
 
@@ -963,7 +963,7 @@ msgstr "Desplazar sobre el diagrama"
 
 #. how it used to be before 0.96+SVN
 #. new name matching "same name, same type"  rule
-#: ../app/interface.c:177 ../app/menus.c:226 ../lib/properties.c:80
+#: ../app/interface.c:177 ../app/menus.c:232 ../lib/properties.c:80
 #: ../lib/properties.h:530 ../objects/AADL/aadlbox.c:156
 #: ../objects/Jackson/requirement.c:144 ../objects/UML/activity.c:129
 #: ../objects/UML/actor.c:126 ../objects/UML/classicon.c:149
@@ -976,47 +976,47 @@ msgstr "Desplazar sobre el diagrama"
 msgid "Text"
 msgstr "Texto"
 
-#: ../app/interface.c:183 ../app/menus.c:227
+#: ../app/interface.c:183 ../app/menus.c:233
 msgid "Box"
 msgstr "Caja"
 
-#: ../app/interface.c:189 ../app/menus.c:228
+#: ../app/interface.c:189 ../app/menus.c:234
 msgid "Ellipse"
 msgstr "Elipse"
 
-#: ../app/interface.c:195 ../app/menus.c:229
+#: ../app/interface.c:195 ../app/menus.c:235
 msgid "Polygon"
 msgstr "Polígono"
 
-#: ../app/interface.c:201 ../app/menus.c:230
+#: ../app/interface.c:201 ../app/menus.c:236
 msgid "Beziergon"
 msgstr "Polígono Bézier"
 
-#: ../app/interface.c:207 ../app/menus.c:232 ../objects/standard/line.c:229
+#: ../app/interface.c:207 ../app/menus.c:238 ../objects/standard/line.c:229
 msgid "Line"
 msgstr "Línea"
 
-#: ../app/interface.c:213 ../app/menus.c:233
+#: ../app/interface.c:213 ../app/menus.c:239
 msgid "Arc"
 msgstr "Arco"
 
-#: ../app/interface.c:219 ../app/menus.c:234
+#: ../app/interface.c:219 ../app/menus.c:240
 msgid "Zigzagline"
 msgstr "Línea en zigzag"
 
-#: ../app/interface.c:225 ../app/menus.c:235
+#: ../app/interface.c:225 ../app/menus.c:241
 msgid "Polyline"
 msgstr "Polilínea"
 
-#: ../app/interface.c:231 ../app/menus.c:236
+#: ../app/interface.c:231 ../app/menus.c:242
 msgid "Bezierline"
 msgstr "Línea Bézier"
 
-#: ../app/interface.c:237 ../app/menus.c:239
+#: ../app/interface.c:237 ../app/menus.c:245
 msgid "Image"
 msgstr "Imagen"
 
-#: ../app/interface.c:244 ../app/menus.c:237
+#: ../app/interface.c:244 ../app/menus.c:243
 msgid "Outline"
 msgstr "Esquema"
 
@@ -1144,7 +1144,7 @@ msgstr "Capas"
 msgid "Diagram:"
 msgstr "Diagrama:"
 
-#: ../app/layer_dialog.c:514
+#: ../app/layer_dialog.c:514 ../app/layer_dialog.c:1225
 #, c-format
 msgid "New layer %d"
 msgstr "Capa nueva %d"
@@ -1153,11 +1153,18 @@ msgstr "Capa nueva %d"
 msgid "none"
 msgstr "ninguna"
 
-#: ../app/layer_dialog.c:1154
-msgid "Edit Layer Attributes"
-msgstr "Editar atributos de capa"
+# Lo traduciría por "Elevar" en vez de "Subir". RizOX.
+#: ../app/layer_dialog.c:1196
+#| msgid "Raise Layer"
+msgid "Edit Layer"
+msgstr "Editar capa"
 
-#: ../app/layer_dialog.c:1173
+#: ../app/layer_dialog.c:1196
+#| msgid "New Layer"
+msgid "Add Layer"
+msgstr "Añadir capa"
+
+#: ../app/layer_dialog.c:1215
 msgid "Layer name:"
 msgstr "Nombre de la capa:"
 
@@ -1283,382 +1290,401 @@ msgstr "No se pudo renombrar %s al archivo final de salida %s: %s\n"
 msgid "Dia Diagram File"
 msgstr "Archivo de diagrama de Dia"
 
-#: ../app/menus.c:58
+#: ../app/menus.c:63
 msgid "Fit"
 msgstr "Ajustar"
 
-#: ../app/menus.c:76
+#: ../app/menus.c:81
 msgid "_File"
 msgstr "_Archivo"
 
-#: ../app/menus.c:80
+#: ../app/menus.c:85
 msgid "_Help"
 msgstr "Ay_uda"
 
-#: ../app/menus.c:88
+#: ../app/menus.c:93
 msgid "Sheets and Objects..."
 msgstr "Hojas y objetos…"
 
-#: ../app/menus.c:90
+#: ../app/menus.c:95
 msgid "Plugins..."
 msgstr "Complementos…"
 
-#: ../app/menus.c:96
+#: ../app/menus.c:101
 msgid "_Diagram tree..."
 msgstr "Árbol del _diagrama…"
 
-#: ../app/menus.c:102
+#: ../app/menus.c:107
 msgid "Show Toolbar"
 msgstr "Mostrar la barra de herramientas"
 
-#: ../app/menus.c:103
+#: ../app/menus.c:108
 msgid "Show Statusbar"
 msgstr "Mostrar la barra de estado"
 
 # No sé si quedaría en el contexto bien "Descender" en vez de "Bajar". RizOX.
 # Mejor Hundir.Cyphra
-#: ../app/menus.c:104
+#: ../app/menus.c:109
 msgid "Show Layers"
 msgstr "Mostrar capas"
 
-#: ../app/menus.c:112
+#: ../app/menus.c:117
 msgid "_Export ..."
 msgstr "_Exportar…"
 
-#: ../app/menus.c:113
+#: ../app/menus.c:118
+#| msgid "Diagram Properties"
+msgid "_Diagram Properties"
+msgstr "Propiedades del _diagrama"
+
+#: ../app/menus.c:119
 msgid "Page Set_up..."
 msgstr "_Configurar página…"
 
-#: ../app/menus.c:117 ../app/sheets_dialog.c:236
+#: ../app/menus.c:123 ../app/sheets_dialog.c:236
 msgid "_Edit"
 msgstr "_Editar"
 
-#: ../app/menus.c:124
+#: ../app/menus.c:130
 msgid "_Duplicate"
 msgstr "_Duplicar"
 
 #. the following used to bind to <control><shift>C which collides with Unicode input.
 #. * <control>>alt> doesn't work either
-#: ../app/menus.c:132
+#: ../app/menus.c:138
 msgid "Copy Text"
 msgstr "Copiar texto"
 
-#: ../app/menus.c:133
+#: ../app/menus.c:139
 msgid "Cut Text"
 msgstr "Cortar texto"
 
-#: ../app/menus.c:134
+#: ../app/menus.c:140
 msgid "Paste _Text"
 msgstr "Pegar _texto"
 
-#: ../app/menus.c:136
-msgid "_Diagram"
-msgstr "_Diagrama"
+#: ../app/menus.c:142
+#| msgid "Layers"
+msgid "_Layers"
+msgstr "_Capas"
 
-#: ../app/menus.c:138
+#: ../app/menus.c:143
+#| msgid "_Layers..."
+msgid "Add Layer..."
+msgstr "Añadir capa…"
+
+# Lo traduciría por "Elevar" en vez de "Subir". RizOX.
+#: ../app/menus.c:144
+#| msgid "Raise Layer"
+msgid "Rename Layer..."
+msgstr "Renombrar capa..."
+
+#: ../app/menus.c:145
+#| msgid "Move to layer above"
+msgid "Move selection to layer above"
+msgstr "Mover la selección a una capa superior"
+
+#: ../app/menus.c:146
+#| msgid "Move to layer below"
+msgid "Move selection to layer below"
+msgstr "Mover la selección a una capa inferior"
+
+#: ../app/menus.c:147
 msgid "_Layers..."
 msgstr "_Capas…"
 
-#: ../app/menus.c:140
+#: ../app/menus.c:149
 msgid "_View"
 msgstr "_Ver"
 
 # ¿"Ampliación" o "Amplía"? Fuzzy. RizOX.
-#: ../app/menus.c:143
+#: ../app/menus.c:152
 msgid "_Zoom"
 msgstr "_Ampliación"
 
-#: ../app/menus.c:144
+#: ../app/menus.c:153
 msgid "1600%"
 msgstr "1600%"
 
-#: ../app/menus.c:145 ../app/menus.c:567
+#: ../app/menus.c:154 ../app/menus.c:573
 msgid "800%"
 msgstr "800%"
 
-#: ../app/menus.c:146 ../app/menus.c:568
+#: ../app/menus.c:155 ../app/menus.c:574
 msgid "400%"
 msgstr "400%"
 
-#: ../app/menus.c:147
+#: ../app/menus.c:156
 msgid "283"
 msgstr "283"
 
-#: ../app/menus.c:148
+#: ../app/menus.c:157
 msgid "200"
 msgstr "200"
 
-#: ../app/menus.c:149
+#: ../app/menus.c:158
 msgid "141"
 msgstr "141"
 
-#: ../app/menus.c:151
+#: ../app/menus.c:160
 msgid "85"
 msgstr "85"
 
-#: ../app/menus.c:152
+#: ../app/menus.c:161
 msgid "70.7"
 msgstr "70.7"
 
-#: ../app/menus.c:153
+#: ../app/menus.c:162
 msgid "50"
 msgstr "50"
 
-#: ../app/menus.c:154
+#: ../app/menus.c:163
 msgid "35.4"
 msgstr "35.4"
 
-#: ../app/menus.c:155
+#: ../app/menus.c:164
 msgid "25"
 msgstr "25"
 
 #. "display_toggle_entries" items go here
-#: ../app/menus.c:161
+#: ../app/menus.c:170
 msgid "New _View"
 msgstr "_Vista nueva"
 
-#: ../app/menus.c:162
+#: ../app/menus.c:171
 msgid "C_lone View"
 msgstr "C_lonar vista"
 
-#: ../app/menus.c:165
+#: ../app/menus.c:174
 msgid "_Objects"
 msgstr "_Objetos"
 
-#: ../app/menus.c:166
+#: ../app/menus.c:175
 msgid "Send to _Back"
 msgstr "Enviar al _fondo"
 
-#: ../app/menus.c:167
+#: ../app/menus.c:176
 msgid "Bring to _Front"
 msgstr "Traer al f_rente"
 
-#: ../app/menus.c:168
+#: ../app/menus.c:177
 msgid "Send Backwards"
 msgstr "Enviar hacia atrás"
 
-#: ../app/menus.c:169
+#: ../app/menus.c:178
 msgid "Bring Forwards"
 msgstr "Traer al frente"
 
-#: ../app/menus.c:171
-msgid "Move to layer above"
-msgstr "Mover a una capa superior"
-
-#: ../app/menus.c:172
-msgid "Move to layer below"
-msgstr "Mover a una capa inferior"
-
-#: ../app/menus.c:174
+#: ../app/menus.c:180
 msgid "_Group"
 msgstr "_Agrupar"
 
 #. deliberately not using Ctrl+U for Ungroup
-#: ../app/menus.c:176
+#: ../app/menus.c:182
 msgid "_Ungroup"
 msgstr "_Desagrupar"
 
-#: ../app/menus.c:178
+#: ../app/menus.c:184
 msgid "_Parent"
 msgstr "_Padre"
 
-#: ../app/menus.c:179
+#: ../app/menus.c:185
 msgid "_Unparent"
 msgstr "_Orfandar"
 
-#: ../app/menus.c:180
+#: ../app/menus.c:186
 msgid "_Unparent Children"
 msgstr "_Orfandar hijos"
 
 # me parece que todo esto deberían ser verbos. FVD
 #. Translators: Menu item Verb/Support/Position/Align
-#: ../app/menus.c:182 ../objects/FS/function.c:808
+#: ../app/menus.c:188 ../objects/FS/function.c:808
 msgid "Align"
 msgstr "Alinear"
 
-#: ../app/menus.c:187 ../objects/standard/textobj.c:137
+#: ../app/menus.c:193 ../objects/standard/textobj.c:137
 msgid "Top"
 msgstr "Superior"
 
-#: ../app/menus.c:188
+#: ../app/menus.c:194
 msgid "Middle"
 msgstr "Medio"
 
-#: ../app/menus.c:189 ../objects/standard/textobj.c:136
+#: ../app/menus.c:195 ../objects/standard/textobj.c:136
 msgid "Bottom"
 msgstr "Inferior"
 
-#: ../app/menus.c:191
+#: ../app/menus.c:197
 msgid "Spread Out Horizontally"
 msgstr "Extender horizontalmente"
 
-#: ../app/menus.c:192
+#: ../app/menus.c:198
 msgid "Spread Out Vertically"
 msgstr "Extender verticalmente"
 
-#: ../app/menus.c:193
+#: ../app/menus.c:199
 msgid "Adjacent"
 msgstr "Adyacente"
 
-#: ../app/menus.c:194
+#: ../app/menus.c:200
 msgid "Stacked"
 msgstr "Apilado"
 
-#: ../app/menus.c:198
+#: ../app/menus.c:204
 msgid "_Select"
 msgstr "_Seleccionado"
 
-#: ../app/menus.c:199
+#: ../app/menus.c:205
 msgid "All"
 msgstr "Todo"
 
-#: ../app/menus.c:200 ../lib/arrows.c:1882 ../objects/Jackson/domain.c:96
+#: ../app/menus.c:206 ../lib/arrows.c:1882 ../objects/Jackson/domain.c:96
 #: ../objects/UML/association.c:221 ../objects/UML/association.c:227
 msgid "None"
 msgstr "Nada"
 
-#: ../app/menus.c:201
+#: ../app/menus.c:207
 msgid "Invert"
 msgstr "Invertir"
 
-#: ../app/menus.c:203
+#: ../app/menus.c:209
 msgid "Transitive"
 msgstr "Transitivo"
 
-#: ../app/menus.c:204
+#: ../app/menus.c:210
 msgid "Connected"
 msgstr "Conectado"
 
-#: ../app/menus.c:205
+#: ../app/menus.c:211
 msgid "Same Type"
 msgstr "Mismo tipo"
 
 #. display_select_radio_entries go here
-#: ../app/menus.c:209
+#: ../app/menus.c:215
 msgid "Select By"
 msgstr "Seleccionar por"
 
-#: ../app/menus.c:211
+#: ../app/menus.c:217
 msgid "_Input Methods"
 msgstr "Mé_todos de entrada"
 
-#: ../app/menus.c:213
+#: ../app/menus.c:219
 msgid "D_ialogs"
 msgstr "_Diálogos"
 
-#: ../app/menus.c:215
+#: ../app/menus.c:221
 msgid "D_ebug"
 msgstr "D_epurar"
 
-#: ../app/menus.c:221
+#: ../app/menus.c:227
 msgid "_Tools"
 msgstr "_Herramientas"
 
-#: ../app/menus.c:222
+#: ../app/menus.c:228
 msgid "Modify"
 msgstr "Modificar"
 
-#: ../app/menus.c:224
+#: ../app/menus.c:230
 msgid "Edit text"
 msgstr "Editar texto"
 
 # Creo que Scroll es Desplazamiento. Fuzzy. FVD
 # Yo más bien diría "Desplazar". Fuzzy. RizOX.
-#: ../app/menus.c:225
+#: ../app/menus.c:231
 msgid "Scroll"
 msgstr "Desplazar"
 
-#: ../app/menus.c:248
+#: ../app/menus.c:254
 msgid "Fullscr_een"
 msgstr "Pantalla _completa"
 
-#: ../app/menus.c:250
+#: ../app/menus.c:256
 msgid "_AntiAliased"
 msgstr "_Antialias"
 
-#: ../app/menus.c:251
+#: ../app/menus.c:257
 msgid "Show _Grid"
 msgstr "Mostrar _cuadrícula"
 
-#: ../app/menus.c:252
+#: ../app/menus.c:258
 msgid "_Snap To Grid"
 msgstr "A_justar a cuadrícula"
 
-#: ../app/menus.c:253
+#: ../app/menus.c:259
 msgid "Snap To _Objects"
 msgstr "Ajustar a _objetos"
 
-#: ../app/menus.c:254
+#: ../app/menus.c:260
 msgid "Show _Rulers"
 msgstr "Mostrar _reglas"
 
-#: ../app/menus.c:255
+#: ../app/menus.c:261
 msgid "Show _Connection Points"
 msgstr "Mostrar puntos de _conexión"
 
-#: ../app/menus.c:262
+#: ../app/menus.c:268
 msgid "Union"
 msgstr "Unión"
 
-#: ../app/menus.c:263
+#: ../app/menus.c:269
 msgid "Intersection"
 msgstr "Intersección"
 
 #. Translators: Menu item Verb/Channel/Export/Remove
 #. Translators: Menu item Verb/Branch/Separate/Remove
 #. Translators: Menu item Verb/Branch/Separate/Remove/Remove
-#: ../app/menus.c:264 ../app/sheets_dialog.c:785 ../objects/FS/function.c:708
+#: ../app/menus.c:270 ../app/sheets_dialog.c:785 ../objects/FS/function.c:708
 #: ../objects/FS/function.c:860 ../objects/FS/function.c:862
 msgid "Remove"
 msgstr "Eliminar"
 
 #. Cannot also be called Invert, duplicate names caused keybinding problems
-#: ../app/menus.c:266
+#: ../app/menus.c:272
 msgid "Inverse"
 msgstr "Inverso"
 
 # Traduzco "tooldata". RizOX.
-#: ../app/menus.c:330
+#: ../app/menus.c:336
 msgid "NULL tooldata in tool_menu_select"
 msgstr "InArray de herramienta nula (NULL) en tool_menu_select"
 
-#: ../app/menus.c:569
+#: ../app/menus.c:575
 msgid "300%"
 msgstr "300%"
 
-#: ../app/menus.c:570
+#: ../app/menus.c:576
 msgid "200%"
 msgstr "200%"
 
-#: ../app/menus.c:571
+#: ../app/menus.c:577
 msgid "150%"
 msgstr "150%"
 
-#: ../app/menus.c:572
+#: ../app/menus.c:578
 msgid "100%"
 msgstr "100%"
 
-#: ../app/menus.c:573
+#: ../app/menus.c:579
 msgid "75%"
 msgstr "75%"
 
-#: ../app/menus.c:574
+#: ../app/menus.c:580
 msgid "50%"
 msgstr "50%"
 
-#: ../app/menus.c:575
+#: ../app/menus.c:581
 msgid "25%"
 msgstr "25%"
 
-#: ../app/menus.c:576
+#: ../app/menus.c:582
 msgid "10%"
 msgstr "10%"
 
-#: ../app/menus.c:602
+#: ../app/menus.c:608
 msgid "Toggles snap-to-grid."
 msgstr "Conmuta el ajuste a la rejilla."
 
-#: ../app/menus.c:614
+#: ../app/menus.c:620
 msgid "Toggles object snapping."
 msgstr "Conmuta el ajuste del objeto."
 
@@ -1901,7 +1927,6 @@ msgid "Preferences"
 msgstr "Preferencias"
 
 #: ../app/preferences.c:798
-#| msgid "User Interface type settings change will take after restart"
 msgid "User Interface type settings change will take effect after restart"
 msgstr ""
 "Los ajustes para el interfaz del usuario tomarán efecto después de reiniciar"
@@ -2763,7 +2788,6 @@ msgstr ""
 
 #. Installer message:  License Page
 #: ../installer/win32/gennsh.c:44
-#| msgid "Text"
 msgid "Next >"
 msgstr "Sigueinte >"
 
@@ -2778,13 +2802,11 @@ msgstr ""
 
 #. Installer message: Components page
 #: ../installer/win32/gennsh.c:50
-#| msgid "Dia Diagram Editor"
 msgid "Dia Diagram Editor (required)"
 msgstr "Editor de diagramas Dia (requerido)"
 
 #. Installer message: Components page
 #: ../installer/win32/gennsh.c:53
-#| msgid "Translation"
 msgid "Translations"
 msgstr "Traducciones"
 
@@ -2800,7 +2822,6 @@ msgstr "Archivos del núcleo de Dia y dlls"
 
 #. Installer message: Component name
 #: ../installer/win32/gennsh.c:62
-#| msgid "Plug-ins"
 msgid "Python plug-in"
 msgstr "Complemento de Python"
 
@@ -10687,6 +10708,12 @@ msgstr "Servidor de datos Sybase"
 #: ../sheets/sybase.sheet.in.h:8
 msgid "Sybase replication server"
 msgstr "Servidor de replicación de Sybase"
+
+#~ msgid "Edit Layer Attributes"
+#~ msgstr "Editar atributos de capa"
+
+#~ msgid "_Diagram"
+#~ msgstr "_Diagrama"
 
 #~ msgid ""
 #~ "You have loaded a non-Dia file.  The file has become an element in a new "
