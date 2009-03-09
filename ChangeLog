@@ -1,7 +1,10 @@
-2009-03-08  Hans Breuer  <hans@breuer.org>
+2009-03-09  Hans Breuer  <hans@breuer.org>
 
 	* plug-ins/python/codegen.py : PascalRenderer by Johann Glaser and
 	some adjustments to (Cxx/Py/Java)Renderer to almost get on par
+	(now really commited)
+
+2009-03-08  Hans Breuer  <hans@breuer.org>
 
 	* lib/filter.c(filter_guess_*_filter) : make the no-guess flag work
 	as intended, i.e. when there is just one filter per extension it's
