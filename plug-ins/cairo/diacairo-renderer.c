@@ -534,6 +534,14 @@ _ellipse(DiaRenderer *self,
 
   cairo_set_source_rgba (renderer->cr, color->red, color->green, color->blue, 1.0);
   
+#if 1
+  cairo_save (renderer->cr);
+  /* copied straight from cairo's documentation, and fixed the bug there */
+  cairo_translate (renderer->cr, center->x, center->y);
+  cairo_scale (renderer->cr, width / 2., height / 2.);
+  cairo_arc (renderer->cr, 0., 0., 1., 0., 2 * G_PI);
+  cairo_restore (renderer->cr);
+#else
   /* FIXME: how to make a perfect ellipse from a bezier ? */
   co = sqrt(pow(width,2)/4 + pow(height,2)/4);
 
@@ -548,6 +556,8 @@ _ellipse(DiaRenderer *self,
                   center->x - co, center->y + height/2,
                   center->x - co, center->y - height/2,
                   center->x, center->y - height/2);
+#endif
+
   if (fill)
     cairo_fill (renderer->cr);
   else

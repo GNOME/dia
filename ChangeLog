@@ -1,3 +1,8 @@
+2009-03-13  Hans Breuer  <hans@breuer.org>
+
+	* plug-ins/cairo/diacairo.c : rather than using broken ellipse 
+	approximation convert to translate/scale/arc dance, fixes bug #574868
+
 2009-03-09  Hans Breuer  <hans@breuer.org>
 
 	* plug-ins/python/codegen.py : PascalRenderer by Johann Glaser and
