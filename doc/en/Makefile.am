@@ -89,7 +89,6 @@ pngfigures = \
 	graphics/before-vert-spread.png \
 	graphics/polyline-rightclick.png \
 	graphics/bezierline-rightclick.png \
-	graphics/preferences-fig.png \
 	graphics/canvas-zoom.png \
 	graphics/preferences-gridlines.png \
 	graphics/cisco-computer-shapes.png \
@@ -133,6 +132,7 @@ pngfigures = \
 	graphics/edit-text.png \
 	graphics/toolbox.png \
 	graphics/file-preferences-diagram.png \
+	graphics/file-preferences-favorites.png \
 	graphics/uml-shapes.png \
 	graphics/file-preferences-tree.png \
 	graphics/view-menu.png \

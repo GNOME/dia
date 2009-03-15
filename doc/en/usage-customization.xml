@@ -1,80 +1,78 @@
-  <chapter label="9" id="usage-customization">
+<chapter label="9" id="usage-customization">
   <title>Customization</title>
- <sect1 id="prefs">
-   <title>Preferences Dialog</title>
+  <sect1 id="prefs">
+    <title>Preferences Dialog</title>
    
- <para>
-    <application>Dia</application> allows you to set a number of 
-  	customization options that modify how the program works.
-    These options are set by selecting the 
-    <menuchoice>
-     <guimenu>File</guimenu> <guimenuitem>Preferences</guimenuitem>
-     </menuchoice> from the <interface>Toolbox Menu Bar</interface>.  
-     This opens the    <interface>Preferences</interface> dialog. This 
-  	 dialog has five tab panes: User Interface, Diagram Defaults, 
-  	 View Defaults, Grid Lines, and Diagram Tree.
-  	 </para>  
-  	  <para>
+    <para>
+      <application>Dia</application> allows you to set a number of 
+      customization options that modify how the program works.
+      These options are set by selecting the 
+      <menuchoice>
+        <guimenu>File</guimenu> <guimenuitem>Preferences</guimenuitem>
+      </menuchoice> from the <interface>Toolbox Menu Bar</interface>.  
+      This opens the <interface>Preferences</interface> dialog. This 
+      dialog has tab panes grouping related preferences like: User Interface, 
+      Diagram Defaults, View Defaults and Grid Lines. 
+    </para>  
+    <para>
      After you have made all the changes you want, click on
      <guibutton>OK</guibutton> to apply the changes and close the
      <interface>Preferences</interface> dialog. To cancel the changes and return
      to previous values, click the <guibutton>Close</guibutton> button. You may
      preview the effect of your changes using the Apply
      button.
- </para>
-  	 <sect2 id="user-interface">
-  	 <title>User Interface</title>
- <para>
-    <figure>
+    </para>
+  <sect2 id="user-interface">
+    <title>User Interface</title>
+    <para>
+      <figure>
         <title><interface>User Interface</interface></title>
         <screenshot>
-            <screeninfo><interface>User Interface</interface>
-  					dialog box</screeninfo>
-              <graphic format="PNG" fileref="graphics/file-preferences-ui"
-                  srccredit="Mark Dexter" />
+          <screeninfo><interface>User Interface</interface> dialog box</screeninfo>
+          <graphic format="PNG" fileref="graphics/file-preferences-ui"
+                   srccredit="Hans Breuer" />
         </screenshot>
-    </figure>
- </para>
- <para>
-   The User Interface tab pane allows you to change the way
-   <application>Dia</application> works. 
-   The configurable properties in the User Interface tab are explained below.
-   </para>
-  <itemizedlist>
-   <listitem>
-  	 
-    <para>
-       Reset tools after create causes the Modify tool to be selected 
-  		 automatically each time an object has been added to the diagram. This
-       allows you to add an object and then use the Modify tool to select objects
-  		 without having to go back to the Toolbox.
+      </figure>
     </para>
-  		 <para>
-        If the Reset tools button is not checked, 
-       then the current object tool will "stick" until another tool is chosen. This 
-       is useful if you want to draw many shapes using the same tool repeatedly. 
-  		 However, in this case, you will need to manually select the Modify tool
-  		 in order to select objects.
-  		 </para> 
-  		 <tip>
-		 <para>
-       As an alternative to unchecking this box,  
-  		 you can press the Space key after inserting an object to reselect
-  		 the last object. See <link linkend="adding-objects">Adding Objects</link>
-  		  for more information.
-		  </para>
-  			</tip>  
-   </listitem>
-   <listitem>
     <para>
-        Compress saved files provides the option to have Dia XML files 
-      compressed into much smaller files using gzip or to leave the Dia XML 
-      files as plain text so that they can be more easily edited using other
-      software.  
+      The User Interface tab pane allows you to change the way
+      <application>Dia</application> works. 
+      The configurable properties in the User Interface tab are explained below.
     </para>
-   </listitem>
-   <listitem>
-    <para>
+    <itemizedlist>
+      <listitem>
+        <para>
+          Reset tools after create causes the Modify tool to be selected 
+	  automatically each time an object has been added to the diagram. This
+	  allows you to add an object and then use the Modify tool to select objects
+	  without having to go back to the Toolbox.
+        </para>
+        <para>
+	If the Reset tools button is not checked, 
+	then the current object tool will "stick" until another tool is chosen. This 
+	is useful if you want to draw many shapes using the same tool repeatedly. 
+	However, in this case, you will need to manually select the Modify tool
+	in order to select objects.
+        </para> 
+	<tip>
+	  <para>
+            As an alternative to unchecking this box,  
+	    you can press the Space key after inserting an object to reselect
+	    the last object. See <link linkend="adding-objects">Adding Objects</link>
+	    for more information.
+	  </para>
+  	</tip>  
+      </listitem>
+      <listitem>
+        <para>
+          Compress saved files provides the option to have Dia XML files 
+          compressed into much smaller files using gzip or to leave the Dia XML 
+          files as plain text so that they can be more easily edited using other
+          software.  
+        </para>
+      </listitem>
+     <listitem>
+       <para>
         Number of undo levels customizes how many steps that the undo tool
         remembers.  The higher the number, the more steps you can undo to fix an
         error. However, more undo levels requires more computer memory.
@@ -150,9 +148,8 @@
      <screenshot>
       <screeninfo>Diagram Defaults</screeninfo>
       <graphic format="PNG" fileref="graphics/file-preferences-diagram" 
-			srccredit=
-      "Mark Dexter" />
-			 </screenshot>
+			srccredit="Hans Breuer" />
+     </screenshot>
     </figure>	
 		<para>
 		The Diagram Defaults tab allows you to set default properties for all new
@@ -217,9 +214,8 @@
      <screenshot>
       <screeninfo>View Defaults</screeninfo>
       <graphic format="PNG" fileref="graphics/file-preferences-view" 
-			srccredit=
-      "Mark Dexter" />
-			 </screenshot>
+			srccredit="Hans Breuer" />
+     </screenshot>
     </figure>	
 		<para>
 		This tab allows you to set default properties for the Page break lines.
@@ -255,94 +251,97 @@
   
  
 	</sect2>
+    <sect2 id="preferences-favorites">
+      <title>File export favorites</title>
+      When exporting files there are often multiple filters capable to save to one format. 
+      This preference allows to choose the one used, when not explicit selected in the file 
+      export dialog, i.e. <menuchoice><guimenuitem>By extension</guimenuitem></menuchoice> gets used.
+      <figure>
+        <screenshot>
+          <screeninfo>File export favorites</screeninfo>
+          <graphic format="PNG" fileref="graphics/file-preferences-favorites" 
+		   srccredit="Hans Breuer" />
+        </screenshot>
+      </figure>
+    </sect2>
  
-   <sect2 id="preferences-gridlines">
-  <title>Grid Lines</title>
-		 		 <figure>
+    <sect2 id="preferences-gridlines">
       <title>Grid Lines</title>
-     <screenshot>
-      <screeninfo>Grid Lines</screeninfo>
-      <graphic format="PNG" fileref="graphics/preferences-gridlines" 
-			srccredit=
-      "Mark Dexter" />
-			 </screenshot>
-    </figure>	
-   <para>
-  
-		This tab allows you to set default properties for Grid Lines. These may
-		be changed for an individual diagram by selecting the 
-		     <menuchoice>
-     <guimenu>
-     Diagram
-     </guimenu>
-     <guimenuitem>
-		 Properties
-		 </guimenuitem></menuchoice> from the Diagram menu bar and then selecting
-		 the Grid tab.  These options are explained below.
- 
-  </para>
-<itemizedlist>
-    <listitem>
-  <para>
-      Visible determines whether, by default, grid lines will be visible on
-			new diagrams.
-  </para>
-  </listitem> 
-    <listitem>
-    <para>
-		  Snap to determines whether, by default, new diagrams will have snap-to-grid
-			enabled. Snap-to-grid forces object edges to move to the nearest grid line 
-			intersection.  
-      This makes it easier to align objects, as separate objects
-      snap to the same line. This feature can be toggled on or off using the
-			snap-to-grid button on the bottom of the Toolbox. 
-			See <link linkend="gridlines">Canvas /
-			Grid Lines</link> for more information. This can also be toggled using the
-				     <menuchoice>
-     <guimenu>
-     View
-     </guimenu>
-     <guimenuitem>
-		 Snap To Grid
-		 </guimenuitem></menuchoice> option on the Diagram menu bar. 
+
+      <figure>
+        <title>Grid Lines</title>
+        <screenshot>
+          <screeninfo>Grid Lines</screeninfo>
+          <graphic format="PNG" fileref="graphics/preferences-gridlines" 
+                   srccredit="Hans Breuer" />
+        </screenshot>
+      </figure>	
+      <para>
+ 	This tab allows you to set default properties for Grid Lines. These may
+	be changed for an individual diagram by selecting the 
+	<menuchoice>
+          <guimenu>Diagram</guimenu>
+          <guimenuitem>Properties</guimenuitem>
+        </menuchoice> from the Diagram menu bar and then selecting
+	the Grid tab.  These options are explained below.
      </para>
-  </listitem> 
-   <listitem>
-    <para>
-       Dynamic grid resizing determines whether the grid size changes as the 
-			 diagram is zoomed in or out. If this box is checked, then the grid lines
-			 display as the same size no matter how the diagram zoom is changed. 
-			 In this case, the X Size and Y Size values have no effect. 
-			 </para>
-			 <para>
-			 If this
-			 box is unchecked, then the grid size is set in absolute terms according to
-			 the X Size and Y Size values (in centimeters). In this case, the appearance 
-			 of the grid will change as the zoom changes, so the grid lines will 
-			 move closer when you zoom out and will spread out as you zoom in. 
-    </para>
-  </listitem>    
-    <listitem>
-    <para>
-       X Size determines the distance, in centimeters, between grid lines
-			 along the horizontal axis. This only
-			 takes effect if Dynamic grid resizing is unchecked.
-    </para>
-  </listitem> 
- 
-    <listitem>
-    <para>
-        Y Size determines the distance, in centimeters, between grid lines
-			 along the vertical axis. This only
-			 takes effect if Dynamic grid resizing is unchecked.
-    </para>
-  </listitem> 
+     <itemizedlist>
+       <listitem>
+         <para>
+           Visible determines whether, by default, grid lines will be visible on new diagrams.
+         </para>
+       </listitem> 
+       <listitem>
+         <para>
+	   Snap to determines whether, by default, new diagrams will have snap-to-grid
+	   enabled. Snap-to-grid forces object edges to move to the nearest grid line 
+	   intersection.  
+           This makes it easier to align objects, as separate objects
+           snap to the same line. This feature can be toggled on or off using the
+	   snap-to-grid button on the bottom of the Toolbox. 
+	   See <link linkend="gridlines">Canvas / Grid Lines</link> for more information. 
+	   This can also be toggled using the
+	   <menuchoice>
+             <guimenu>View</guimenu>
+	     <guimenuitem>Snap To Grid</guimenuitem>
+           </menuchoice> option on the Diagram menu bar. 
+         </para>
+       </listitem> 
+       <listitem>
+         <para>
+           Dynamic grid resizing determines whether the grid size changes as the 
+	   diagram is zoomed in or out. If this box is checked, then the grid lines
+	   display as the same size no matter how the diagram zoom is changed. 
+	   In this case, the X Size and Y Size values have no effect. 
+	</para>
+	<para>
+	  If this box is unchecked, then the grid size is set in absolute terms according to
+	  the X Size and Y Size values (in centimeters). In this case, the appearance 
+	  of the grid will change as the zoom changes, so the grid lines will 
+	  move closer when you zoom out and will spread out as you zoom in. 
+        </para>
+      </listitem>    
+      <listitem>
+        <para>
+          X Size determines the distance, in centimeters, between grid lines
+	  along the horizontal axis. This only
+	  takes effect if Dynamic grid resizing is unchecked.
+        </para>
+      </listitem> 
+      <listitem>
+        <para>
+          Y Size determines the distance, in centimeters, between grid lines
+	  along the vertical axis. This only
+	  takes effect if Dynamic grid resizing is unchecked.
+        </para>
+     </listitem> 
   
-    <listitem>
-    <para>
-       Color sets the display color of the grid lines.   
-    </para>
-  </listitem> 
+     <listitem>
+       <para>
+         Color sets the display color of the grid lines.   
+       </para>
+     </listitem> 
+
    <listitem>
     <para>
        Lines per major line determines the spacing of major (i.e., solid) 

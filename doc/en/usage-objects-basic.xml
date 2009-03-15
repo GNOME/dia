@@ -59,11 +59,14 @@ just by typing. You can delete the character to the left of the mouse using
 Backspace. 
 </para>
 <note><para>
-The DEL key deletes the entire object, not the text
-to the right of the cursor. Use Shift+DEL to delete the text to the right of
-the cursor. (Use <menuchoice><guimenu>Edit</guimenu>
-            <guimenuitem>Undo</guimenuitem></menuchoice>
-						 or Ctrl+Z if you delete an object by mistake.) To
+The DEL key used to delete the entire object, now it should work as expected: 
+it either deletes the object or the text to the right of the cursor depending 
+on the editing mode.
+If you delete something (text or object) by accident use 
+<menuchoice>
+  <guimenu>Edit</guimenu>
+  <guimenuitem>Undo</guimenuitem>
+</menuchoice>or Ctrl+Z if you delete an object by mistake.) To
 delete all of the text in an object, use the Cut (Ctrl+Shift+X). 
 </para></note>
 </listitem>

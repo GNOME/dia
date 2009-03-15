@@ -1,3 +1,18 @@
+2009-03-15  Hans Breuer  <hans@breuer.org>
+
+	* doc/en/usage-objects-basic.xml : removed old workaround for DEL, we
+	have put quite some work to make it behave as expected. Still it would
+	be nice to have described the new text edit mode in more detail ...
+	* doc/en/usage-customization.xml doc/en/graphics/file-preferences-*.png
+	  doc/en/graphics/preferences-gridlines.png : updated to show the new 
+	layout, also initial description of the Favorites pane. 
+	Whitespace changes to have it more readable with tab width 8.
+	* doc/en/graphics/preferences-fig.png : unused -> deleted
+	* doc/en/Makefile.am : reflect above changes
+
+	* plug-ins/cairo/diacairo-renderer.c : some unused test-code attempting
+	to work around bug #573261 but no luck.
+
 2009-03-13  Hans Breuer  <hans@breuer.org>
 
 	* plug-ins/cairo/diacairo.c : rather than using broken ellipse 

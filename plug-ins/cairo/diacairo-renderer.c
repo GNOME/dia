@@ -127,6 +127,19 @@ begin_render(DiaRenderer *self)
 #endif
 
   cairo_set_fill_rule (renderer->cr, CAIRO_FILL_RULE_EVEN_ODD);
+
+#if 0 /* try to work around bug #341481 - no luck */
+  {
+    cairo_font_options_t *fo = cairo_font_options_create ();
+    cairo_get_font_options (renderer->cr, fo);
+    /* try to switch off kerning */
+    cairo_font_options_set_hint_style (fo, CAIRO_HINT_STYLE_NONE);
+    cairo_font_options_set_hint_metrics (fo, CAIRO_HINT_METRICS_OFF);
+
+    cairo_set_font_options (renderer->cr, fo);
+    cairo_font_options_destroy (fo);
+  }
+#endif
   
   DIAG_STATE(renderer->cr)
 }
