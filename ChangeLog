@@ -10,6 +10,10 @@
 	* doc/en/graphics/preferences-fig.png : unused -> deleted
 	* doc/en/Makefile.am : reflect above changes
 
+	* doc/en/usage-objects-basic.xml en/graphics/toolbox-basic.png : 
+	reflect the recent addition of the twelves basic object - Outline
+	* en/usage-quickstart.xml : add more appeal(ees)
+
 	* plug-ins/cairo/diacairo-renderer.c : some unused test-code attempting
 	to work around bug #573261 but no luck.
 
