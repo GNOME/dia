@@ -191,6 +191,7 @@ static PropNumData compound_num_arms_prop_extra_data = {2.0, 10.0, 1.0};
 
 static PropDescription compound_props[] =
   {
+    OBJECT_COMMON_PROPERTIES,
     PROP_STD_LINE_COLOUR_OPTIONAL,
     PROP_STD_LINE_WIDTH_OPTIONAL,
     { "num_arms", PROP_TYPE_INT, PROP_FLAG_VISIBLE,
@@ -201,6 +202,7 @@ static PropDescription compound_props[] =
 
 static PropOffset compound_offsets[] =
   {
+    OBJECT_COMMON_PROPERTIES_OFFSETS,
     { "line_colour", PROP_TYPE_COLOUR, offsetof(Compound, line_color) },
     { PROP_STDNAME_LINE_WIDTH, PROP_STDTYPE_LINE_WIDTH, offsetof(Compound, line_width) },
     { "num_arms", PROP_TYPE_INT, offsetof(Compound, num_arms) },
