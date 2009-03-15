@@ -8,7 +8,8 @@ if sys.platform == "win32" :
 	sys.path.insert(0, r'd:\graph\dia2\python')
 	sys.path.insert(0, r'd:\graph\dia2\bin')
 	sys.path.insert(0, r'..\plug-ins\python')
-	format_extensions.prepend ("wmf")
+	# format_extensions.prepend ("wmf")
+	format_extensions.insert (0, "wmf")
 else : # sorry only Linux and win32 tested ;)
 	sys.path.insert (0, os.getcwd() + "/.libs")
 	sys.path.insert(0, r'../plug-ins/python')
@@ -159,6 +160,6 @@ for arg in sys.argv[1:] :
 		Types()
 		AObj ()
 		Gen()
-		DRaw()
+		#DRaw()
+		Props()
 	else : format_extensions.insert(0, arg)
-

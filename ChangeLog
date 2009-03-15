@@ -40,6 +40,8 @@
 	* objects/Database/compound.c : now there is no DiaObject any longer which
 	does not deliver at least OBJECT_COMMON_PROPERTIES
 
+	* bindings/test.py : make it work again (on win32)
+
 2009-03-13  Hans Breuer  <hans@breuer.org>
 
 	* plug-ins/cairo/diacairo.c : rather than using broken ellipse 
