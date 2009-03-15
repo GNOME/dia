@@ -28,12 +28,18 @@ class Node :
 		return 0
 	def IsUnion (self) :
 		return 0
+	def IsClass (self) :
+		return 0
 	def Name (self) :
 		return self.name
 
 class Type(Node) :
 	def __init__ (self, name) :
 		Node.__init__(self, name)
+		self.names = []
+	def AddName (self, name) :
+		# for enumerations
+		self.names.append(name)
 
 class Union(Node) :
 	def __init__ (self, name) :
@@ -45,6 +51,8 @@ class Union(Node) :
 		self.names.append(name)
 	def Name (self) :
 		ms = []
+		# shortcut to avoid endless recursion with self referencing uions
+		return self.name
 		for s in self.names :
 			ms.append (g_nodes[s].Name())
 		return string.join(ms, "; ")
@@ -76,32 +84,17 @@ class Argument(Node) :
 		elif "private" == self.access : return 1 #UML_PRIVATE
 		return 0 #UML_PUBLIC
 
-class Method(Node) :
+class Function(Node) :
 	def __init__ (self, name, type) :
 		Node.__init__(self, name)
 		self.returns = type
 		self.params = []
-		self.const = 0
-		self.static = 0
-		self.access = "public"
-		self.virtual = 0
-	def IsMethod (self) :
-		return 1
 	def AddArg (self, arg) :
 		self.params.append (arg)
 	def Type (self) :
 		if g_nodes.has_key (self.returns) :
 			return g_nodes[self.returns].Name()
 		return ""
-	def Visibility (self) :
-		"This function is mapping from string to dia enum; should probably not be done here"
-		if "protected" == self.access : return 2 #UML_PROTECTED
-		elif "private" == self.access : return 1 #UML_PRIVATE
-		return 0 #UML_PUBLIC
-	def InheritanceType (self) :
-		if self.virtual > 1 : return 0 #UML_ABSTRACT
-		if self.virtual > 0 : return 1 #UML_POLYMORPHIC
-		return 2
 	def Signature (self) :
 		args = []
 		ret = ""
@@ -116,6 +109,25 @@ class Method(Node) :
 			ret = g_nodes[self.returns].Name() + " "
 		return ret + self.name + " (" + string.join(args, ", ") + ")"
 
+class Method(Function) :
+	def __init__ (self, name, type) :
+		Function.__init__(self, name, type)
+		self.const = 0
+		self.static = 0
+		self.access = "public"
+		self.virtual = 0
+	def IsMethod (self) :
+		return 1
+	def Visibility (self) :
+		"This function is mapping from string to dia enum; should probably not be done here"
+		if "protected" == self.access : return 2 #UML_PROTECTED
+		elif "private" == self.access : return 1 #UML_PRIVATE
+		return 0 #UML_PUBLIC
+	def InheritanceType (self) :
+		if self.virtual > 1 : return 0 #UML_ABSTRACT
+		if self.virtual > 0 : return 1 #UML_POLYMORPHIC
+		return 2
+
 class Klass(Node) :
 	def __init__ (self, name) :
 		Node.__init__(self, name)
@@ -126,6 +138,8 @@ class Klass(Node) :
 		self.parents.append (id)
 	def AddMember (self, id) :
 		self.members.append (id)
+	def IsClass (self) :
+		return 1
 	def Name (self) :
 		if g_nodes.has_key (self.context) and g_nodes[self.context].Name() != "" :
 			return g_nodes[self.context].Name() + "::" + self.name
@@ -151,7 +165,10 @@ class Klass(Node) :
 			elif g_nodes[id].IsUnion() :
 				print "\t" + g_nodes[id].Name() 
 			else :
-				print "\t" + g_nodes[id].Name() + ":" + g_nodes[g_nodes[id].type].Name()			
+				try :
+					print "\t" + g_nodes[id].Name() + ":" + g_nodes[g_nodes[id].type].Name()
+				except AttributeError :
+					print "AttributeError:", g_nodes[id]
 
 class Namespace(Node) :
 	def __init__ (self, name) :
@@ -172,7 +189,7 @@ def Parse (sFile, nodes) :
 	import xml.parsers.expat
 	global g_classes
 
-	ctx = [] 
+	ctx = []
 	def start_element(name, attrs) :
 		o = None
 		if name in ["Class", "Struct"] :
@@ -234,7 +251,25 @@ def Parse (sFile, nodes) :
 			if ctx[-1][1] :
 				ctx[-1][1].AddArg (o)
 			o = None # lookup not possible
-			
+		elif "Ellipsis" == name :
+			o = Argument ("", "...")
+			if ctx[-1][1] :
+				ctx[-1][1].AddArg (o)
+			o = None # lookup not possible			
+		elif "EnumValue" == name :
+			if ctx[-1][1] :
+				ctx[-1][1].AddName (attrs["name"])
+		elif name in ["Function", "OperatorFunction", "FunctionType"] :
+			if attrs.has_key("name") :
+				o = Function (attrs["returns"], attrs["name"])
+			else : # function & type
+				o = Function (attrs["returns"], attrs["id"])				
+		elif "Variable" == name :
+			pass # not ofinterest?
+		elif "File" == name :
+			pass # FIXME: thrown away
+		else :
+			print "Unhandled:", name
 		if o :
 			if attrs.has_key("context") :
 				#print attrs["context"]
@@ -354,9 +389,16 @@ def ImportXml (sFile, diagramData) :
 if __name__ == '__main__': 
 	Process(sys.argv[1])
 	for c in g_classes :
-		if c.Name()[:5] == "OBS::" :
-			c.Dump()
-
-import dia
-#dia.register_import("Cpp via GCC_XML", "cpp", ImportCpp)
-dia.register_import("XML from GCC_XML", "xml", ImportXml)
+		if c.Name()[:2] != "__" and c.Name()[:5] != "std::" :
+			try :
+				if c.IsClass() :
+					c.Dump()
+			except KeyError :
+				pass
+else :
+	try :
+		import dia
+		#dia.register_import("Cpp via GCC_XML", "cpp", ImportCpp)
+		dia.register_import("XML from GCC_XML", "xml", ImportXml)
+	except ImportError :
+		pass

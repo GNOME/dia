@@ -19,7 +19,7 @@
 
 import sys, dia, string
 
-def work_cb(data, flags) :
+def bbox_cb (data, flags) :
 
 	layer = data.active_layer
 	dest = data.add_layer ("BBox of '%s' (%s)" % (layer.name, sys.platform), -1)
@@ -34,7 +34,24 @@ def work_cb(data, flags) :
 		b.properties["line_colour"] = 'red'
 		dest.add_object (b)
 
+def annotate_cb (data, flags) :
 
-dia.register_action ("DrawBoundingbox", "Dia BoundingBox Drawing", 
+	layer = data.active_layer
+	dest = data.add_layer ("Annotated '%s' (%s)" % (layer.name, sys.platform), -1)
+	ann_type = dia.get_object_type ("Standard - Text")
+
+	for o in layer.objects :
+		bb = o.bounding_box
+		a, h1, h2 = ann_type.create (bb.right, bb.top)
+		
+		a.properties["text"] = "h: %g w: %g" % (bb.bottom - bb.top, bb.right - bb.left)
+
+		dest.add_object (a)
+
+dia.register_action ("DrawBoundingbox", "Draw BoundingBox", 
                      "/DisplayMenu/Debug/DebugExtensionStart", 
-                     work_cb)
+                     bbox_cb)
+
+dia.register_action ("AnnotateMeasurements", "Annotate", 
+                     "/DisplayMenu/Debug/DebugExtensionStart", 
+                     annotate_cb)

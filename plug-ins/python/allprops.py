@@ -72,9 +72,9 @@ def allprops_cb(data, flags) :
 	ot = dia.get_object_type("UML - Class")
 
 	props_keys = props_by_name.keys()
-	# alpha-numeric sorting by type; than by number of users
-	props_keys.sort (lambda a,b : cmp(props_by_name[b][0].type, props_by_name[a][0].type))
+	# alpha-numeric sorting by type; after by number of users
 	props_keys.sort (lambda a,b : len(props_by_name[b][1]) - len(props_by_name[a][1]))
+	props_keys.sort (lambda a,b : cmp(props_by_name[a][0].type, props_by_name[b][0].type))
 	
 	almost_all = 98 * len(otypes) / 100 # 98 %
 

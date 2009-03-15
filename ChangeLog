@@ -17,6 +17,24 @@
 	* plug-ins/cairo/diacairo-renderer.c : some unused test-code attempting
 	to work around bug #573261 but no luck.
 
+	* plug-ins/python/allprops.py : alpha-numeric sorting by type; after 
+	by number of users
+	* plug-ins/python/aobjects.py : to make the resulting diagram more 
+	interesting we set every sting property with it's name
+	* plug-ins/python/bbox.py : create annotated bounding boxes
+	* plug-ins/python/diagx.py : handling more tags/types like Ellipsis,
+	EnumValue and Function, some other are silently ignored
+	* plug-ins/python/doxrev.py : try to arrange before inserting the
+	classes into the diagram
+	* plug-ins/python/arrange.py : added for the above
+	* plug-ins/python/otypes.py : a better fix for running standalone or
+	from the toolbox menu
+	
+	* plug-ins/python/pydia-paperinfo.c : fixed typo in docu
+	
+	* samples/Self/PyDiaObjects.dia : updated to 0.97 interface (e.g. PaperInfo
+	and fixed the same typo)
+
 2009-03-13  Hans Breuer  <hans@breuer.org>
 
 	* plug-ins/cairo/diacairo.c : rather than using broken ellipse 

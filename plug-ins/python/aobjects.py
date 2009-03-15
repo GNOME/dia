@@ -21,6 +21,16 @@
 
 import sys, dia, string
 
+def set_object_string (o) :
+	keys = o.properties.keys()
+	for s in keys :
+		p = o.properties[s]
+		if p.type in ["string", "text"] :
+			if s in ["name", "text"] :
+				o.properties[s] = o.type.name
+			else :
+				o.properties[s] = s
+
 def aobjects_cb(data, flags) :
 
 	# copied from otypes.py
@@ -66,9 +76,8 @@ def aobjects_cb(data, flags) :
 				continue # can't create empty group
 			#print st
 			o, h1, h2 = dia.get_object_type(st).create (cx, cy)
-			# make it a bit more interesting
-			if o.properties.has_key("name") :
-				o.properties["name"] = st
+			# to make the resulting diagram more interesting we set every sting property with it's name
+			set_object_string (o)
 			w = o.bounding_box.right - o.bounding_box.left
 			h = o.bounding_box.bottom - o.bounding_box.top
 			o.move (cx, cy)

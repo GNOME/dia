@@ -32,12 +32,12 @@ def _log(s, append=1) :
 
 def otypes_cb(data, flags) :
 
-	if dia.active_display () :
+	if data :
+		diagram = None # we may be running w/o GUI
+	else :
 		diagram = dia.new("Object Types.dia")
-		layer = diagram.data.active_layer
-	else : # non-interactive
-		diagram = None
-		layer = data.active_layer
+		data = diagram.data
+	layer = data.active_layer
 
 	otypes = dia.registered_types()
 	keys = otypes.keys()
@@ -78,7 +78,6 @@ def otypes_cb(data, flags) :
 
 	for sp in packages.keys() :
 		pkg = packages[sp]
-		print "Package", sp
 		op, h1, h2 = dtp.create(0.0, cy + 1.0)
 		op.properties["name"] = sp
 		layer.add_object(op)
@@ -173,13 +172,12 @@ def otypes_cb(data, flags) :
 		op.move_handle(h,(maxx + 1.0, maxy + 1.0), 0, 0)
 		cy = maxy + 2.0
 		maxx = 0 # every package a new size
-	print "Size:", cx, cy
-	layer.update_extents ()
-	data.update_extents ()
+	data.update_extents()
 	if diagram :
 		diagram.display()
-		diagram.update_extents()
 		diagram.flush()
+	# make it work standalone
+	return data
 
 dia.register_action ("HelpOtypes", "Dia Object Types",
                      "/ToolboxMenu/Help/HelpExtensionStart", 

@@ -132,5 +132,5 @@ PyTypeObject PyDiaPaperinfo_Type = {
     (setattrofunc)0,
     (PyBufferProcs *)0,
     0L, /* Flags */
-    "dia.Paperinfo is part of dia.DiagramData escribing the paper"
+    "dia.Paperinfo is part of dia.DiagramData describing the paper"
 };
