@@ -29,7 +29,9 @@
 	* plug-ins/python/arrange.py : added for the above
 	* plug-ins/python/otypes.py : a better fix for running standalone or
 	from the toolbox menu
-	
+	* plug-ins/python/pydiadoc.py : work better from toolbox and filter out
+	the SWIG noise when running from the other bindings, some more objects
+
 	* plug-ins/python/pydia-paperinfo.c : fixed typo in docu
 	
 	* samples/Self/PyDiaObjects.dia : updated to 0.97 interface (e.g. PaperInfo
