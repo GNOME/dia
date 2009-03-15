@@ -7,12 +7,12 @@
          <screenshot>
            <screeninfo>Basic Objects</screeninfo>
            <graphic format="PNG" fileref="graphics/toolbox-basic" 
-  				 srccredit= "Mark Dexter" />
+  				 srccredit= "Hans Breuer" />
          </screenshot>
        </figure>
     <para>
-     <application>Dia</application> has 11 basic objects: Text, Box, Ellipse,
-  	 Polygon, Beziergon, Line, Arc, Zigzagline, Polyline, Bezierline, and Image. 
+     <application>Dia</application> has a dozen basic objects: Text, Box, Ellipse,
+  	 Polygon, Beziergon, Line, Arc, Zigzagline, Polyline, Bezierline, Image and Outline. 
   	 </para>
     <sect2 id="text">
     <title>Text</title>
@@ -26,7 +26,9 @@
       </para>
      <note>
       <para>
-       Text in <application>Dia</application> can use any font available to Gnome.
+       Text in <application>Dia</application> can use almost any font available in the system.
+       But if you plan to exchange diagrams with people using a different plattform, it would
+       be samrt to restrict yourself to a common subset.
       </para>
       </note>
       <para>
@@ -56,7 +58,7 @@ formatted according to the Dia object properties, not the text source.
 You cannot select a section of text inside an object with the mouse (this
 moves the object). You can insert characters at the current cursor position
 just by typing. You can delete the character to the left of the mouse using
-Backspace. 
+Backspace.
 </para>
 <note><para>
 The DEL key used to delete the entire object, now it should work as expected: 
@@ -78,12 +80,7 @@ separate diagram. Then copy and paste these objects onto your working diagram
 as you need them (i.e., instead of using the Toolbox icons).
 </para></listitem>
 </itemizedlist>
-   <note>
-    <para>
-     Text in <application>Dia</application> can use any font available to Gnome.
-    </para>
-   </note>
-   </sect2>
+</sect2>
    <sect2 id="box">
    <title>Box</title>
     <para>
@@ -226,7 +223,7 @@ as you need them (i.e., instead of using the Toolbox icons).
 			 </screenshot>
     </figure>	
    </sect2>
-	 	 			   <sect2 id="line-properties">
+   <sect2 id="line-properties">
    <title>Line Properties</title>
  		<para>
 		All lines share the following properties: width, color, style, 
@@ -276,11 +273,11 @@ as you need them (i.e., instead of using the Toolbox icons).
 			srccredit=   "Mark Dexter" />
       </screenshot>
     </figure>
-	  <para>
+  <para>
      The style of the line (solid, dots, etc.) can be changed 
-		 to one of the five options shown above using 
-		 the Line style drop-down listbox. If you select a line style with dashes, 
-		 you may also enter a dash length, measured in centimeters.
+     to one of the five options shown above using 
+     the Line style drop-down listbox. If you select a line style with dashes, 
+     you may also enter a dash length, measured in centimeters.
  </para>
    </sect3>
 
@@ -302,7 +299,7 @@ as you need them (i.e., instead of using the Toolbox icons).
    </sect3>
 	 </sect2>
    <sect2 id="image">
-   <title>Images</title>
+   <title>Image</title>
      <figure>
       <title>Image</title>
             <screenshot>
@@ -320,25 +317,27 @@ as you need them (i.e., instead of using the Toolbox icons).
 		 Click "OK" and then the image will display on the diagram. 
 		 You can resize the image as desired using the object handles.
     </para>
-    <para>Currently the following image formats are supported for inclusion in
+    <para>The following image are usually supported for inclusion in
       <application>Dia</application> diagrams:
       <itemizedlist>
-        <listitem><simpara>ANI</simpara></listitem>
 	<listitem><simpara>BMP</simpara></listitem>
-	<listitem><simpara>GIF</simpara></listitem>
-	<listitem><simpara>ICO</simpara></listitem>
 	<listitem><simpara>JPEG</simpara></listitem>
 	<listitem><simpara>PNG</simpara></listitem>
-	<listitem><simpara>PNM</simpara></listitem>
-	<listitem><simpara>RAS</simpara></listitem>
 	<listitem><simpara>SVG</simpara></listitem>
-	<listitem><simpara>TGA</simpara></listitem>
-	<listitem><simpara>TIFF</simpara></listitem>
-	<listitem><simpara>WMF</simpara></listitem>
-	<listitem><simpara>XBM</simpara></listitem>
 	<listitem><simpara>XPM</simpara></listitem>
       </itemizedlist>
+      The exact list depends on your system configuration (the concrete import
+      format filters available to gdk-pixbuf).
     </para>
    </sect2>
+    <sect2 id="outline">
+      <title>Outline</title>
+      One of the most requested features for <application>Dia</application> is rotated text;
+      shortly before having transformation capabilities for everything ;-)
+      The Outline object is a small step in that direction. It has known limitations in
+      convenience (you need to open the properties dialog to change the text) and 
+      rendering style (Dia's drawing model does not yet allow to 
+      <ulink url="http://bugzilla.gnome.org/show_bug.cgi?id=568168">render holes</ulink>).
+    </sect2>
   </sect1>
 </chapter>

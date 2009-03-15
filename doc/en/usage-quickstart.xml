@@ -192,9 +192,9 @@
 	 	   <sect1 id="quickstart-commandline">                                                     
 	 <title>Running Dia From the Command Line</title>
     <para>
-    Dia can be run from the command line. This allows certain Dia capabilities
-		to be used in batch script files. See <link linkend="commandline"> 
-		Dia Command Line </link> for more information on creating your own custom shapes.
+	Dia can be run from the command line. This allows certain Dia capabilities
+	to be used in batch script files. See <link linkend="commandline"> 
+	Dia Command Line </link> for more information on creating your own custom shapes.
     </para>
  </sect1>
 	   <sect1 id="who-appeal-too">                                                     
@@ -204,10 +204,36 @@
      <itemizedlist>
       <listitem>
        <para>
-        An electrical engineer may use <application>Dia</application> to
-        create a diagram to show how a circuit works.
+        A systems engineer can create <ulink url="http://en.wikipedia.org/wiki/SADT">SADT</ulink> 
+	diagrams for system analysis and design.
        </para>
       </listitem>
+      <listitem>
+       <para>
+        A requirements engineer can compose e.g. <ulink url="http://en.wikipedia.org/wiki/KAOS_(software_development)">RE-KAOS</ulink>,
+	RE-Jackson or RE-I* diagrams.
+       </para>
+      </listitem>
+      <listitem>
+       <para>
+        A software developer can create <ulink url="http://en.wikipedia.org/wiki/Unified_Modeling_Language">UML</ulink> 
+	diagrams of various types and extend them with the flexibility of a general purpose diagram tool.
+       </para>
+      </listitem>
+
+      <listitem>
+       <para>
+        A database designer can represent data relations with 
+	<ulink url="http://en.wikipedia.org/wiki/Entity-relationship_model">ER diagrams</ulink>.
+       </para>
+      </listitem>
+
+      <listitem>
+       <para>
+	A control engineer may draw <ulink url="http://en.wikipedia.org/wiki/Control_theory">Cybernetics</ulink> diagrams.
+       </para>
+      </listitem>
+
       <listitem>
        <para>
         A computer programmer can create a flow chart to show the execution path
@@ -220,6 +246,17 @@
         company network.
        </para>
       </listitem>                                                             
+      <listitem>
+       <para>
+        An electrical engineer may use <application>Dia</application> to
+        create a diagram to show how a circuit works.
+       </para>
+      </listitem>
+      <listitem>
+       <para>
+        An mechanical engineer may design some Hydraulic or Pneumatic diagrams.
+       </para>
+      </listitem>
      </itemizedlist>
     </para>
  </sect1>
