@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.92.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-02-17 20:45+0100\n"
-"PO-Revision-Date: 2009-01-31 12:13+0100\n"
+"POT-Creation-Date: 2009-03-17 22:33+0100\n"
+"PO-Revision-Date: 2009-02-22 15:00+0100\n"
 "Last-Translator: David Planella <david.planella@gmail.com>\n"
 "Language-Team: Catalan <tradgnome@softcatala.org>\n"
 "MIME-Version: 1.0\n"
@@ -723,7 +723,7 @@ msgstr "S'ha seleccionat «%s»"
 #. we really should not come here but instead disable the menu command earlier
 #: ../app/display.c:1034
 msgid "No anti-aliased renderer found"
-msgstr "No s'ha trobat cap representador amb antialiàsing"
+msgstr "No s'ha trobat cap renderitzador amb antialiàsing"
 
 #: ../app/display.c:1179
 msgid "<unnamed>"
@@ -803,11 +803,11 @@ msgstr "No hi ha res seleccionat per a desar. Voleu tornar-ho a intentar?"
 
 #
 #: ../app/filedlg.c:144 ../app/filedlg.c:152 ../app/filedlg.c:168
-#: ../app/filedlg.c:749 ../lib/widgets.c:1488
+#: ../app/filedlg.c:746 ../lib/widgets.c:1488
 msgid "Supported Formats"
 msgstr "Formats admesos"
 
-#: ../app/filedlg.c:192 ../app/filedlg.c:606
+#: ../app/filedlg.c:192 ../app/filedlg.c:604
 msgid "By extension"
 msgstr "Per l'extensió"
 
@@ -815,20 +815,20 @@ msgstr "Per l'extensió"
 msgid "Open Diagram"
 msgstr "Obre el diagrama"
 
-#: ../app/filedlg.c:310
+#: ../app/filedlg.c:309
 msgid "Open Options"
 msgstr "Obre les opcions"
 
-#: ../app/filedlg.c:318 ../app/filedlg.c:731
+#: ../app/filedlg.c:317 ../app/filedlg.c:728
 msgid "Determine file type:"
 msgstr "Determina el tipus de fitxer:"
 
 #
-#: ../app/filedlg.c:338 ../app/filedlg.c:744 ../lib/widgets.c:1493
+#: ../app/filedlg.c:337 ../app/filedlg.c:741 ../lib/widgets.c:1493
 msgid "All Files"
 msgstr "Tots els fitxers"
 
-#: ../app/filedlg.c:371 ../plug-ins/postscript/paginate_psprint.c:408
+#: ../app/filedlg.c:370 ../plug-ins/postscript/paginate_psprint.c:408
 msgid ""
 "Some characters in the filename are neither UTF-8\n"
 "nor your local encoding.\n"
@@ -838,12 +838,12 @@ msgstr ""
 "codificació local del sistema.\n"
 "Es produiran errors."
 
-#: ../app/filedlg.c:381 ../app/filedlg.c:653
+#: ../app/filedlg.c:380 ../app/filedlg.c:651
 #: ../plug-ins/postscript/paginate_psprint.c:422
 msgid "File already exists"
 msgstr "El fitxer ja existeix"
 
-#: ../app/filedlg.c:383 ../app/filedlg.c:655
+#: ../app/filedlg.c:382 ../app/filedlg.c:653
 #: ../plug-ins/postscript/paginate_psprint.c:418
 #, c-format
 msgid ""
@@ -853,17 +853,17 @@ msgstr ""
 "El fitxer «%s» ja existeix.\n"
 "El voleu sobreescriure?"
 
-#: ../app/filedlg.c:437
+#: ../app/filedlg.c:436
 msgid "Save Diagram"
 msgstr "Desa el diagrama"
 
 #. Need better way to make it a reasonable size.  Isn't there some
 #. standard look for them (or is that just Gnome?)
-#: ../app/filedlg.c:449
+#: ../app/filedlg.c:447
 msgid "Compress diagram files"
 msgstr "Comprimeix els fitxers del diagrama"
 
-#: ../app/filedlg.c:459 ../app/filedlg.c:464
+#: ../app/filedlg.c:457 ../app/filedlg.c:462
 msgid ""
 "Compression reduces file size to less than 1/10th size and speeds up loading "
 "and saving.  Some text programs cannot manipulate compressed files."
@@ -872,7 +872,7 @@ msgstr ""
 "procés de càrrega i desat. Alguns programes de text no poden manipular "
 "fitxers comprimits."
 
-#: ../app/filedlg.c:679
+#: ../app/filedlg.c:677
 #, c-format
 msgid ""
 "Could not determine which export filter\n"
@@ -881,11 +881,11 @@ msgstr ""
 "No s'ha pogut determinar quin filtre d'exportació\n"
 "cal utilitzar per a desar «%s»"
 
-#: ../app/filedlg.c:706
+#: ../app/filedlg.c:704
 msgid "Export Diagram"
 msgstr "Exporta el diagrama"
 
-#: ../app/filedlg.c:723
+#: ../app/filedlg.c:720
 msgid "Export Options"
 msgstr "Opcions d'exportació"
 
@@ -913,7 +913,7 @@ msgstr "Concordança amb _totes les propietats (no només el nom d'objecte)"
 msgid "Find"
 msgstr "Cerca"
 
-#: ../app/find-and-replace.c:541 ../app/menus.c:261
+#: ../app/find-and-replace.c:541 ../app/menus.c:267
 msgid "Replace"
 msgstr "Substitueix"
 
@@ -945,7 +945,7 @@ msgstr ""
 "Premeu la tecla d'escapada per a abandonar aquesta eina"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Magnify
-#: ../app/interface.c:165 ../app/menus.c:223 ../objects/FS/function.c:988
+#: ../app/interface.c:165 ../app/menus.c:229 ../objects/FS/function.c:988
 msgid "Magnify"
 msgstr "Augmenta"
 
@@ -955,7 +955,7 @@ msgstr "Desplaça pel diagrama"
 
 #. how it used to be before 0.96+SVN
 #. new name matching "same name, same type"  rule
-#: ../app/interface.c:177 ../app/menus.c:226 ../lib/properties.c:80
+#: ../app/interface.c:177 ../app/menus.c:232 ../lib/properties.c:80
 #: ../lib/properties.h:530 ../objects/AADL/aadlbox.c:156
 #: ../objects/Jackson/requirement.c:144 ../objects/UML/activity.c:129
 #: ../objects/UML/actor.c:126 ../objects/UML/classicon.c:149
@@ -968,47 +968,47 @@ msgstr "Desplaça pel diagrama"
 msgid "Text"
 msgstr "Text"
 
-#: ../app/interface.c:183 ../app/menus.c:227
+#: ../app/interface.c:183 ../app/menus.c:233
 msgid "Box"
 msgstr "Quadre"
 
-#: ../app/interface.c:189 ../app/menus.c:228
+#: ../app/interface.c:189 ../app/menus.c:234
 msgid "Ellipse"
 msgstr "El·lipse"
 
-#: ../app/interface.c:195 ../app/menus.c:229
+#: ../app/interface.c:195 ../app/menus.c:235
 msgid "Polygon"
 msgstr "Polígon"
 
-#: ../app/interface.c:201 ../app/menus.c:230
+#: ../app/interface.c:201 ../app/menus.c:236
 msgid "Beziergon"
 msgstr "Beziergon"
 
-#: ../app/interface.c:207 ../app/menus.c:232 ../objects/standard/line.c:229
+#: ../app/interface.c:207 ../app/menus.c:238 ../objects/standard/line.c:229
 msgid "Line"
 msgstr "Línia"
 
-#: ../app/interface.c:213 ../app/menus.c:233
+#: ../app/interface.c:213 ../app/menus.c:239
 msgid "Arc"
 msgstr "Arc"
 
-#: ../app/interface.c:219 ../app/menus.c:234
+#: ../app/interface.c:219 ../app/menus.c:240
 msgid "Zigzagline"
 msgstr "Línia en ziga-zaga"
 
-#: ../app/interface.c:225 ../app/menus.c:235
+#: ../app/interface.c:225 ../app/menus.c:241
 msgid "Polyline"
 msgstr "Polilínia"
 
-#: ../app/interface.c:231 ../app/menus.c:236
+#: ../app/interface.c:231 ../app/menus.c:242
 msgid "Bezierline"
 msgstr "Línia de Bezier"
 
-#: ../app/interface.c:237 ../app/menus.c:239
+#: ../app/interface.c:237 ../app/menus.c:245
 msgid "Image"
 msgstr "Imatge"
 
-#: ../app/interface.c:244 ../app/menus.c:237
+#: ../app/interface.c:244 ../app/menus.c:243
 msgid "Outline"
 msgstr "Contorn"
 
@@ -1126,7 +1126,7 @@ msgid "Diagram:"
 msgstr "Diagrama:"
 
 # c-format
-#: ../app/layer_dialog.c:514
+#: ../app/layer_dialog.c:514 ../app/layer_dialog.c:1225
 #, c-format
 msgid "New layer %d"
 msgstr "Nova capa %d"
@@ -1135,11 +1135,17 @@ msgstr "Nova capa %d"
 msgid "none"
 msgstr "cap"
 
-#: ../app/layer_dialog.c:1154
-msgid "Edit Layer Attributes"
-msgstr "Edita els atributs de la capa"
+#: ../app/layer_dialog.c:1196
+#, fuzzy
+msgid "Edit Layer"
+msgstr "Puja la capa"
 
-#: ../app/layer_dialog.c:1173
+#: ../app/layer_dialog.c:1196
+#, fuzzy
+msgid "Add Layer"
+msgstr "Nova capa"
+
+#: ../app/layer_dialog.c:1215
 msgid "Layer name:"
 msgstr "Nom de la capa:"
 
@@ -1241,7 +1247,7 @@ msgstr "No es permet escriure els fitxers temporals a %s\n"
 #: ../plug-ins/metapost/render_metapost.c:1177
 #: ../plug-ins/pgf/render_pgf.c:1208 ../plug-ins/postscript/render_eps.c:105
 #: ../plug-ins/pstricks/render_pstricks.c:916
-#: ../plug-ins/shape/shape-export.c:136 ../plug-ins/svg/render_svg.c:199
+#: ../plug-ins/shape/shape-export.c:137 ../plug-ins/svg/render_svg.c:199
 #: ../plug-ins/vdx/vdx-export.c:1849 ../plug-ins/wpg/wpg.c:1072
 #: ../plug-ins/xfig/xfig-export.c:1151 ../plug-ins/xslt/xslt.c:99
 #, c-format
@@ -1265,379 +1271,396 @@ msgid "Dia Diagram File"
 msgstr "Fitxer de diagrama del Dia"
 
 # FIXME: no volia fer servir «ajusta» perquè ja s'utilitza per a «snap» (dpm)
-#: ../app/menus.c:58
+#: ../app/menus.c:63
 msgid "Fit"
 msgstr "Encaixa"
 
-#: ../app/menus.c:76
+#: ../app/menus.c:81
 msgid "_File"
 msgstr "_Fitxer"
 
-#: ../app/menus.c:80
+#: ../app/menus.c:85
 msgid "_Help"
 msgstr "A_juda"
 
-#: ../app/menus.c:88
+#: ../app/menus.c:93
 msgid "Sheets and Objects..."
 msgstr "Fulls i objectes..."
 
-#: ../app/menus.c:90
+#: ../app/menus.c:95
 msgid "Plugins..."
 msgstr "Connectors..."
 
-#: ../app/menus.c:96
+#: ../app/menus.c:101
 msgid "_Diagram tree..."
 msgstr "Arbre del _diagrama..."
 
-#: ../app/menus.c:102
+#: ../app/menus.c:107
 msgid "Show Toolbar"
 msgstr "Mostra la barra d'eines"
 
-#: ../app/menus.c:103
+#: ../app/menus.c:108
 msgid "Show Statusbar"
 msgstr "Mostra la barra d'estat"
 
-#: ../app/menus.c:104
+#: ../app/menus.c:109
 msgid "Show Layers"
 msgstr "Mostra les capes"
 
-#: ../app/menus.c:112
+#: ../app/menus.c:117
 msgid "_Export ..."
 msgstr "_Exporta..."
 
-#: ../app/menus.c:113
+#: ../app/menus.c:118
+#, fuzzy
+msgid "_Diagram Properties"
+msgstr "Propietats del diagrama"
+
+#: ../app/menus.c:119
 msgid "Page Set_up..."
 msgstr "Config_uració de la pàgina..."
 
-#: ../app/menus.c:117 ../app/sheets_dialog.c:236
+#: ../app/menus.c:123 ../app/sheets_dialog.c:236
 msgid "_Edit"
 msgstr "_Edita"
 
 #
-#: ../app/menus.c:124
+#: ../app/menus.c:130
 msgid "_Duplicate"
 msgstr "_Duplica"
 
 #. the following used to bind to <control><shift>C which collides with Unicode input.
 #. * <control>>alt> doesn't work either
-#: ../app/menus.c:132
+#: ../app/menus.c:138
 msgid "Copy Text"
 msgstr "Copia el text"
 
-#: ../app/menus.c:133
+#: ../app/menus.c:139
 msgid "Cut Text"
 msgstr "Retalla el text"
 
-#: ../app/menus.c:134
+#: ../app/menus.c:140
 msgid "Paste _Text"
 msgstr "Enganxa el _text"
 
-#
-#: ../app/menus.c:136
-msgid "_Diagram"
-msgstr "_Diagrama"
+#: ../app/menus.c:142
+#, fuzzy
+msgid "_Layers"
+msgstr "Capes"
 
-#: ../app/menus.c:138
+#: ../app/menus.c:143
+#, fuzzy
+msgid "Add Layer..."
+msgstr "_Capes..."
+
+#: ../app/menus.c:144
+#, fuzzy
+msgid "Rename Layer..."
+msgstr "Puja la capa"
+
+#: ../app/menus.c:145
+#, fuzzy
+msgid "Move selection to layer above"
+msgstr "Mou a la capa de sobre"
+
+#: ../app/menus.c:146
+#, fuzzy
+msgid "Move selection to layer below"
+msgstr "Mou a la capa de sota"
+
+#: ../app/menus.c:147
 msgid "_Layers..."
 msgstr "_Capes..."
 
-#: ../app/menus.c:140
+#: ../app/menus.c:149
 msgid "_View"
 msgstr "_Visualitza"
 
-#: ../app/menus.c:143
+#: ../app/menus.c:152
 msgid "_Zoom"
 msgstr "_Ampliació"
 
-#: ../app/menus.c:144
+#: ../app/menus.c:153
 msgid "1600%"
 msgstr "1600%"
 
-#: ../app/menus.c:145 ../app/menus.c:567
+#: ../app/menus.c:154 ../app/menus.c:573
 msgid "800%"
 msgstr "800%"
 
-#: ../app/menus.c:146 ../app/menus.c:568
+#: ../app/menus.c:155 ../app/menus.c:574
 msgid "400%"
 msgstr "400%"
 
-#: ../app/menus.c:147
+#: ../app/menus.c:156
 msgid "283"
 msgstr "283"
 
-#: ../app/menus.c:148
+#: ../app/menus.c:157
 msgid "200"
 msgstr "200"
 
-#: ../app/menus.c:149
+#: ../app/menus.c:158
 msgid "141"
 msgstr "141"
 
-#: ../app/menus.c:151
+#: ../app/menus.c:160
 msgid "85"
 msgstr "85"
 
-#: ../app/menus.c:152
+#: ../app/menus.c:161
 msgid "70.7"
 msgstr "70,7"
 
-#: ../app/menus.c:153
+#: ../app/menus.c:162
 msgid "50"
 msgstr "50"
 
-#: ../app/menus.c:154
+#: ../app/menus.c:163
 msgid "35.4"
 msgstr "35,4"
 
-#: ../app/menus.c:155
+#: ../app/menus.c:164
 msgid "25"
 msgstr "25"
 
 #. "display_toggle_entries" items go here
-#: ../app/menus.c:161
+#: ../app/menus.c:170
 msgid "New _View"
 msgstr "Nova _visualització"
 
-#: ../app/menus.c:162
+#: ../app/menus.c:171
 msgid "C_lone View"
 msgstr "C_lona la visualització"
 
-#: ../app/menus.c:165
+#: ../app/menus.c:174
 msgid "_Objects"
 msgstr "_Objectes"
 
-#: ../app/menus.c:166
+#: ../app/menus.c:175
 msgid "Send to _Back"
 msgstr "Envia al _fons"
 
-#: ../app/menus.c:167
+#: ../app/menus.c:176
 msgid "Bring to _Front"
 msgstr "Porta al p_rimer pla"
 
-#: ../app/menus.c:168
+#: ../app/menus.c:177
 msgid "Send Backwards"
 msgstr "Envia cap enrere"
 
-#: ../app/menus.c:169
+#: ../app/menus.c:178
 msgid "Bring Forwards"
 msgstr "Porta cap endavant"
 
-#: ../app/menus.c:171
-msgid "Move to layer above"
-msgstr "Mou a la capa de sobre"
-
-#: ../app/menus.c:172
-msgid "Move to layer below"
-msgstr "Mou a la capa de sota"
-
-#: ../app/menus.c:174
+#: ../app/menus.c:180
 msgid "_Group"
 msgstr "_Agrupa"
 
 #. deliberately not using Ctrl+U for Ungroup
-#: ../app/menus.c:176
+#: ../app/menus.c:182
 msgid "_Ungroup"
 msgstr "Desagr_upa"
 
-#: ../app/menus.c:178
+#: ../app/menus.c:184
 msgid "_Parent"
 msgstr "Associa amb un _pare"
 
-#: ../app/menus.c:179
+#: ../app/menus.c:185
 msgid "_Unparent"
 msgstr "D_esassocia del pare"
 
-#: ../app/menus.c:180
+#: ../app/menus.c:186
 msgid "_Unparent Children"
 msgstr "D_esassocia els fills"
 
 #. Translators: Menu item Verb/Support/Position/Align
-#: ../app/menus.c:182 ../objects/FS/function.c:808
+#: ../app/menus.c:188 ../objects/FS/function.c:808
 msgid "Align"
 msgstr "Alinea"
 
-#: ../app/menus.c:187 ../objects/standard/textobj.c:137
+#: ../app/menus.c:193 ../objects/standard/textobj.c:137
 msgid "Top"
 msgstr "Superior"
 
-#: ../app/menus.c:188
+#: ../app/menus.c:194
 msgid "Middle"
 msgstr "Centre"
 
-#: ../app/menus.c:189 ../objects/standard/textobj.c:136
+#: ../app/menus.c:195 ../objects/standard/textobj.c:136
 msgid "Bottom"
 msgstr "Inferior"
 
 #
-#: ../app/menus.c:191
+#: ../app/menus.c:197
 msgid "Spread Out Horizontally"
 msgstr "Escampa horitzontalment"
 
-#: ../app/menus.c:192
+#: ../app/menus.c:198
 msgid "Spread Out Vertically"
 msgstr "Escampa verticalment"
 
-#: ../app/menus.c:193
+#: ../app/menus.c:199
 msgid "Adjacent"
 msgstr "Adjacent"
 
-#: ../app/menus.c:194
+#: ../app/menus.c:200
 msgid "Stacked"
 msgstr "Apilat"
 
-#: ../app/menus.c:198
+#: ../app/menus.c:204
 msgid "_Select"
 msgstr "_Selecciona"
 
-#: ../app/menus.c:199
+#: ../app/menus.c:205
 msgid "All"
 msgstr "Tot"
 
-#: ../app/menus.c:200 ../lib/arrows.c:1882 ../objects/Jackson/domain.c:96
+#: ../app/menus.c:206 ../lib/arrows.c:1882 ../objects/Jackson/domain.c:96
 #: ../objects/UML/association.c:221 ../objects/UML/association.c:227
 msgid "None"
 msgstr "Cap"
 
-#: ../app/menus.c:201
+#: ../app/menus.c:207
 msgid "Invert"
 msgstr "Inverteix"
 
-#: ../app/menus.c:203
+#: ../app/menus.c:209
 msgid "Transitive"
 msgstr "Transitiu"
 
-#: ../app/menus.c:204
+#: ../app/menus.c:210
 msgid "Connected"
 msgstr "Connectat"
 
-#: ../app/menus.c:205
+#: ../app/menus.c:211
 msgid "Same Type"
 msgstr "Mateix tipus"
 
 #. display_select_radio_entries go here
-#: ../app/menus.c:209
+#: ../app/menus.c:215
 msgid "Select By"
 msgstr "Selecciona per"
 
-#: ../app/menus.c:211
+#: ../app/menus.c:217
 msgid "_Input Methods"
 msgstr "Mètodes d'en_trada"
 
-#: ../app/menus.c:213
+#: ../app/menus.c:219
 msgid "D_ialogs"
 msgstr "D_iàlegs"
 
-#: ../app/menus.c:215
+#: ../app/menus.c:221
 msgid "D_ebug"
 msgstr "D_epura"
 
-#: ../app/menus.c:221
+#: ../app/menus.c:227
 msgid "_Tools"
 msgstr "Ei_nes"
 
-#: ../app/menus.c:222
+#: ../app/menus.c:228
 msgid "Modify"
 msgstr "Modifica"
 
-#: ../app/menus.c:224
+#: ../app/menus.c:230
 msgid "Edit text"
 msgstr "Edita el text"
 
-#: ../app/menus.c:225
+#: ../app/menus.c:231
 msgid "Scroll"
 msgstr "Desplaçament"
 
-#: ../app/menus.c:248
+#: ../app/menus.c:254
 msgid "Fullscr_een"
 msgstr "Pantalla compl_eta"
 
-#: ../app/menus.c:250
+#: ../app/menus.c:256
 msgid "_AntiAliased"
 msgstr "Su_avitza el traçat de línies"
 
-#: ../app/menus.c:251
+#: ../app/menus.c:257
 msgid "Show _Grid"
 msgstr "Mostra la _graella"
 
-#: ../app/menus.c:252
+#: ../app/menus.c:258
 msgid "_Snap To Grid"
 msgstr "Aju_sta a la graella"
 
 #
-#: ../app/menus.c:253
+#: ../app/menus.c:259
 msgid "Snap To _Objects"
 msgstr "Ajusta als _objectes"
 
-#: ../app/menus.c:254
+#: ../app/menus.c:260
 msgid "Show _Rulers"
 msgstr "Mostra els _regles"
 
-#: ../app/menus.c:255
+#: ../app/menus.c:261
 msgid "Show _Connection Points"
 msgstr "Mostra els punts de _connexió"
 
-#: ../app/menus.c:262
+#: ../app/menus.c:268
 msgid "Union"
 msgstr "Unió"
 
-#: ../app/menus.c:263
+#: ../app/menus.c:269
 msgid "Intersection"
 msgstr "Intersecció"
 
 #. Translators: Menu item Verb/Channel/Export/Remove
 #. Translators: Menu item Verb/Branch/Separate/Remove
 #. Translators: Menu item Verb/Branch/Separate/Remove/Remove
-#: ../app/menus.c:264 ../app/sheets_dialog.c:785 ../objects/FS/function.c:708
+#: ../app/menus.c:270 ../app/sheets_dialog.c:785 ../objects/FS/function.c:708
 #: ../objects/FS/function.c:860 ../objects/FS/function.c:862
 msgid "Remove"
 msgstr "Suprimeix"
 
 #. Cannot also be called Invert, duplicate names caused keybinding problems
-#: ../app/menus.c:266
+#: ../app/menus.c:272
 msgid "Inverse"
 msgstr "Invers"
 
-#: ../app/menus.c:330
+#: ../app/menus.c:336
 msgid "NULL tooldata in tool_menu_select"
 msgstr "Dades d'eina NULL a tool_menu_select"
 
-#: ../app/menus.c:569
+#: ../app/menus.c:575
 msgid "300%"
 msgstr "300%"
 
-#: ../app/menus.c:570
+#: ../app/menus.c:576
 msgid "200%"
 msgstr "200%"
 
-#: ../app/menus.c:571
+#: ../app/menus.c:577
 msgid "150%"
 msgstr "150%"
 
-#: ../app/menus.c:572
+#: ../app/menus.c:578
 msgid "100%"
 msgstr "100%"
 
-#: ../app/menus.c:573
+#: ../app/menus.c:579
 msgid "75%"
 msgstr "75%"
 
-#: ../app/menus.c:574
+#: ../app/menus.c:580
 msgid "50%"
 msgstr "50%"
 
-#: ../app/menus.c:575
+#: ../app/menus.c:581
 msgid "25%"
 msgstr "25%"
 
-#: ../app/menus.c:576
+#: ../app/menus.c:582
 msgid "10%"
 msgstr "10%"
 
-#: ../app/menus.c:602
+#: ../app/menus.c:608
 msgid "Toggles snap-to-grid."
 msgstr "Commuta l'ajust a la graella."
 
-#: ../app/menus.c:614
+#: ../app/menus.c:620
 msgid "Toggles object snapping."
 msgstr "Commuta l'ajust als objectes."
 
@@ -1747,41 +1770,38 @@ msgid "Compress saved files"
 msgstr "Comprimeix els fitxers desats"
 
 #: ../app/preferences.c:204
-msgid "New window:"
-msgstr "Nova finestra:"
-
-#: ../app/preferences.c:205
-msgid "Width:"
-msgstr "Amplada:"
-
-#: ../app/preferences.c:206
-msgid "Height:"
-msgstr "Altura:"
-
-#: ../app/preferences.c:207
-msgid "Magnify:"
-msgstr "Augmenta:"
-
-#: ../app/preferences.c:210
 msgid "Connection Points:"
 msgstr "Punts de connexió:"
 
 #. { NULL, PREF_NONE, 0, NULL, 3, N_("Grid:") },
-#: ../app/preferences.c:211 ../app/preferences.c:216 ../app/preferences.c:240
+#: ../app/preferences.c:205 ../app/preferences.c:216 ../app/preferences.c:240
 msgid "Visible"
 msgstr "Visible"
 
-#
-#: ../app/preferences.c:212
-#, fuzzy
+#: ../app/preferences.c:206
 msgid "Snap to object"
-msgstr "Ajusta als _objectes"
+msgstr "Ajusta a l'objecte"
+
+#: ../app/preferences.c:209
+msgid "New window:"
+msgstr "Nova finestra:"
+
+#: ../app/preferences.c:210
+msgid "Width:"
+msgstr "Amplada:"
+
+#: ../app/preferences.c:211
+msgid "Height:"
+msgstr "Altura:"
+
+#: ../app/preferences.c:212
+msgid "Magnify:"
+msgstr "Augmenta:"
 
 #: ../app/preferences.c:215
 msgid "Page breaks:"
 msgstr "Salts de pàgina:"
 
-#
 #: ../app/preferences.c:217 ../app/preferences.c:245
 msgid "Color:"
 msgstr "Color:"
@@ -1866,21 +1886,22 @@ msgstr "Finestra d'arbre del diagrama:"
 msgid "Save hidden object types"
 msgstr "Desa els tipus d'objecte amagats"
 
-#: ../app/preferences.c:472 ../lib/prop_inttypes.c:158
+#: ../app/preferences.c:490 ../lib/prop_inttypes.c:158
 msgid "Yes"
 msgstr "Sí"
 
-#: ../app/preferences.c:472 ../app/preferences.c:483
+#: ../app/preferences.c:490 ../app/preferences.c:501
 #: ../lib/prop_inttypes.c:160 ../lib/prop_inttypes.c:186
 msgid "No"
 msgstr "No"
 
-#: ../app/preferences.c:578
+#: ../app/preferences.c:596
 msgid "Preferences"
 msgstr "Preferències"
 
-#: ../app/preferences.c:780
-msgid "User Interface type settings change will take after restart"
+#: ../app/preferences.c:798
+#, fuzzy
+msgid "User Interface type settings change will take effect after restart"
 msgstr ""
 "El canvi dels paràmetres del tipus d'interfície d'usuari es durà a terme "
 "després de reiniciar"
@@ -2368,35 +2389,20 @@ msgid "Incorrect y Point value \"%s\" %f; discarding it."
 msgstr "El valor «%s» %f del punt y és incorrecte; es descartarà."
 
 #: ../lib/dia_xml.c:640
-#, fuzzy
 msgid "Taking bezpoint value of non-point node."
-msgstr "El valor del punt es prendrà d'un node que no és un punt."
+msgstr "El valor del punt Bézier es prendrà d'un node que no és un punt."
 
 #: ../lib/dia_xml.c:658
-#, fuzzy
 msgid "Error parsing bezpoint p1."
-msgstr "S'ha produït un error en analitzar el punt."
+msgstr "S'ha produït un error en analitzar el punt Bézier p1."
 
 #: ../lib/dia_xml.c:672
-#, fuzzy
 msgid "Error parsing bezpoint p2."
-msgstr "S'ha produït un error en analitzar el punt."
+msgstr "S'ha produït un error en analitzar el punt Bézier p2."
 
 #: ../lib/dia_xml.c:686
-#, fuzzy
 msgid "Error parsing bezpoint p3."
-msgstr "S'ha produït un error en analitzar el punt."
-
-#: ../lib/dia_xml.c:1205
-msgid ""
-"Your local character set is UTF-8. Because of issues with libxml1 and the "
-"support of files generated by previous versions of dia, you will encounter  "
-"problems. Please report to dia-list@gnome.org if you see this message."
-msgstr ""
-"El vostre joc de caràcters és UTF-8. Tindreu problemes degut a qüestions "
-"relacionades amb la biblioteca libxml1 i el seu funcionament amb fitxers "
-"generats per versions anteriors del Dia. Si us apareix aquest missatge "
-"hauríeu d'informar-ne a la llista de correu dia-list@gnome.org."
+msgstr "S'ha produït un error en analitzar el punt Bézier p3."
 
 #: ../lib/diaarrowchooser.c:352
 msgid "Arrow Properties"
@@ -2418,7 +2424,7 @@ msgstr "D'acord"
 msgid "Cancel"
 msgstr "Cancel·la"
 
-#: ../lib/filter.c:176
+#: ../lib/filter.c:177
 #, c-format
 msgid "Multiple export filters with unique name %s"
 msgstr "Múltiples filtres d'exportació amb un únic nom %s"
@@ -2498,24 +2504,21 @@ msgstr ""
 "«%s»"
 
 #: ../lib/prop_dict.c:43
-#, fuzzy
 msgid "Author"
-msgstr "Actor"
+msgstr "Autor"
 
 # FIXME: identificació?
 #: ../lib/prop_dict.c:44
-#, fuzzy
 msgid "Identifier"
-msgstr "Identificant:"
+msgstr "Identificador:"
 
 #: ../lib/prop_dict.c:45
-#, fuzzy
 msgid "Creation date"
-msgstr "Dades de les operacions"
+msgstr "Data de creació"
 
 #: ../lib/prop_dict.c:46
 msgid "Modification date"
-msgstr ""
+msgstr "Data de modificació"
 
 #: ../lib/prop_dict.c:47 ../objects/SISSI/sissi_dialog.c:880
 msgid "URL"
@@ -2607,6 +2610,8 @@ msgid ""
 "DiaObject '%s' needed in sheet '%s' was not found.\n"
 "It will not be available for use."
 msgstr ""
+"No s'ha trobat el DiaObject «%s» necessari per al full «%s».\n"
+"Com a conseqüència, no es podrà utilitzar."
 
 #: ../lib/sheet.c:84
 #, c-format
@@ -2614,11 +2619,13 @@ msgid ""
 "DiaObject '%s' needed in sheet '%s' was not found.\n"
 "It will not be availible for use."
 msgstr ""
+"No s'ha trobat el DiaObject «%s» necessari per al full «%s».\n"
+"Com a conseqüència, no es podrà utilitzar."
 
 #: ../lib/sheet.c:133 ../lib/sheet.c:144 ../lib/sheet.c:150
-#, fuzzy, c-format
+#, c-format
 msgid "sheets from '%s'"
-msgstr "No hi ha cap full anomenat %s"
+msgstr "fulls de «%s»"
 
 #: ../lib/sheet.c:314
 #, c-format
@@ -2629,11 +2636,18 @@ msgid ""
 "Move new objects (if any) from '%s' into your custom sheet\n"
 "or remove '%s', using the 'Sheets and Objects' dialog."
 msgstr ""
+"El full de sistema «%s» sembla ser més recent que la vostra versió\n"
+"personalitzada i en aquesta sessió s'ha carregat com a «%s».\n"
+"\n"
+"Traslladeu els objectes nous (si n'hi ha) de «%s» cap al vostre full\n"
+"personalitzat, o bé suprimiu «%s» a través del diàleg «Fulls i objectes»."
 
 #: ../lib/sheet.c:371
 #, c-format
 msgid "%s: you should use object tags rather than shape tags now"
 msgstr ""
+"%s: a partir d'ara hauríeu d'utilitzar etiquetes d'objecte en comptes "
+"d'etiquetes de forma"
 
 #: ../lib/widgets.c:441
 msgid "Other fonts"
@@ -2699,6 +2713,117 @@ msgstr "Navega"
 #: ../lib/widgets.c:2076
 msgid "Reset menu"
 msgstr "Reinicia el menú"
+
+#. Installer message if no GTK+ was found
+#: ../installer/win32/gennsh.c:38
+msgid ""
+"GTK+ is not installed. Please use the full installer. It is available from "
+"http://dia-installer.de."
+msgstr ""
+
+#. Installer message: Don't install over pre 0.95 versions
+#: ../installer/win32/gennsh.c:41
+msgid ""
+"Please remove old Dia installations completely or install Dia to a different "
+"location."
+msgstr ""
+
+#. Installer message:  License Page
+#: ../installer/win32/gennsh.c:44
+#, fuzzy
+msgid "Next >"
+msgstr "Text"
+
+#. Installer message, keep the $(^Name) and $_CLICK, these will be replaced
+#: ../installer/win32/gennsh.c:47
+msgid ""
+"$(^Name) is released under the GPL license. The license is provided here for "
+"information purposes only. $_CLICK"
+msgstr ""
+
+#
+#. Installer message: Components page
+#: ../installer/win32/gennsh.c:50
+#, fuzzy
+msgid "Dia Diagram Editor (required)"
+msgstr "Editor de diagrames Dia"
+
+#. Installer message: Components page
+#: ../installer/win32/gennsh.c:53
+#, fuzzy
+msgid "Translations"
+msgstr "Translació"
+
+#. Installer message: Component description
+#: ../installer/win32/gennsh.c:56
+msgid "Optional translations of the Dia user interface"
+msgstr ""
+
+#. Installer message: Component description
+#: ../installer/win32/gennsh.c:59
+msgid "Core Dia files and dlls"
+msgstr ""
+
+#. Installer message: Component name
+#: ../installer/win32/gennsh.c:62
+#, fuzzy
+msgid "Python plug-in"
+msgstr "Connectors"
+
+#. Installer message: Component description
+#: ../installer/win32/gennsh.c:65
+msgid ""
+"Support for the Python Scripting Language 2.3. Do not select this if Python "
+"is not installed."
+msgstr ""
+
+#. Installer message: hyperlink text on finish page
+#: ../installer/win32/gennsh.c:68
+msgid "Visit the Dia for Windows Web Page"
+msgstr ""
+
+#. Installer message: Dia uninstaller entry in Control Panel
+#: ../installer/win32/gennsh.c:71
+msgid "Dia (remove only)"
+msgstr ""
+
+#. Installer message: confirmation question. Keep $\r
+#: ../installer/win32/gennsh.c:74
+msgid ""
+"Your old Dia directory is about to be deleted. Would you like to continue?$\r"
+"$\rNote: Any non-standard plugins that you may have installed will be "
+"deleted.$\rDia user settings will not be affected."
+msgstr ""
+
+#. Installer message: confirmatin question. Keep $\r
+#: ../installer/win32/gennsh.c:77
+msgid ""
+"The installation directory you specified already exists. Any contents$\rwill "
+"be deleted. Would you like to continue?"
+msgstr ""
+
+#. Installer message: Uninstall Section Prompts. Keep $\r
+#: ../installer/win32/gennsh.c:80
+msgid ""
+"The uninstaller could not find registry entries for Dia.$\rIt is likely that "
+"another user installed this application."
+msgstr ""
+
+#. Installer message: Uninstall error message
+#: ../installer/win32/gennsh.c:83
+msgid "You do not have permission to uninstall this application."
+msgstr ""
+
+#. Installer message: Uninstallation warning. Keep $INSTDIR
+#: ../installer/win32/gennsh.c:86
+msgid "This will completely delete $INSTDIR and all subdirectories. Continue?"
+msgstr ""
+
+#. Installer message: Uninstallation warning. Keep $\PROFILE\.dia
+#: ../installer/win32/gennsh.c:89
+msgid ""
+"This will completely delete $PROFILE\\.dia and all subdirectories. Continue?"
+msgstr ""
 
 #: ../objects/AADL/aadl.c:52
 msgid "Architecture Analysis & Design Language diagram objects"
@@ -2773,31 +2898,31 @@ msgstr "Edita la declaració del port"
 msgid "Delete Connection Point"
 msgstr "Suprimeix el punt de connexió"
 
-#: ../objects/Database/compound.c:197
+#: ../objects/Database/compound.c:198
 msgid "Number of arms"
 msgstr "Nombre de braços"
 
-#: ../objects/Database/compound.c:219
+#: ../objects/Database/compound.c:221
 msgid "Flip arms verticaly"
 msgstr "Volteja els braços verticalment"
 
-#: ../objects/Database/compound.c:221
+#: ../objects/Database/compound.c:223
 msgid "Flip arms horizontaly"
 msgstr "Volteja els braços horitzontalment"
 
-#: ../objects/Database/compound.c:223
+#: ../objects/Database/compound.c:225
 msgid "Center mount point verticaly"
 msgstr "Centra el punt de muntatge verticalment"
 
-#: ../objects/Database/compound.c:225
+#: ../objects/Database/compound.c:227
 msgid "Center mount point horizontaly"
 msgstr "Centra el punt de muntatge horitzontalment"
 
-#: ../objects/Database/compound.c:227
+#: ../objects/Database/compound.c:229
 msgid "Center mount point"
 msgstr "Centra el punt de muntatge"
 
-#: ../objects/Database/compound.c:232
+#: ../objects/Database/compound.c:234
 msgid "Compound"
 msgstr "Compost"
 
@@ -4525,24 +4650,20 @@ msgid "Show hours"
 msgstr "Mostra les hores"
 
 #: ../objects/Misc/grid_object.c:140
-#, fuzzy
 msgid "Rows"
-msgstr "Navega"
+msgstr "Files"
 
 #: ../objects/Misc/grid_object.c:142
-#, fuzzy
 msgid "Columns"
-msgstr "Documents"
+msgstr "Columnes"
 
 #: ../objects/Misc/grid_object.c:144
-#, fuzzy
 msgid "Gridline color"
-msgstr "Color de la línia"
+msgstr "Color de la línia de la graella"
 
 #: ../objects/Misc/grid_object.c:146
-#, fuzzy
 msgid "Gridline width"
-msgstr "Amplada de la línia"
+msgstr "Amplada de la línia de la graella"
 
 #: ../objects/Misc/libmisc.c:41
 msgid "Miscellaneous objects"
@@ -4631,7 +4752,7 @@ msgid ""
 "rendered gray"
 msgstr ""
 "Per millorar la facilitat de lectura, els fluxos que comencen i acaben "
-"verticalment es poden representar en gris"
+"verticalment es poden renderitzar en gris"
 
 #: ../objects/SADT/arrow.c:465
 msgid "SADT Arrow"
@@ -5967,7 +6088,8 @@ msgstr "No hi ha res a imprimir"
 #: ../plug-ins/cairo/diacairo.c:322
 msgid "Printing with Gtk+(cairo) requires at least version 2.10."
 msgstr ""
-"Cal tenir com a mínim la versió 2.10 per a poder imprimir amb la Cairo."
+"Cal tenir com a mínim la versió 2.10 per a poder imprimir amb el GTK+ "
+"(Cairo)."
 
 #: ../plug-ins/cairo/diacairo.c:329
 msgid "Cairo PostScript"
@@ -6007,7 +6129,7 @@ msgstr "Imprimeix (GTK)..."
 
 #: ../plug-ins/cairo/diacairo.c:471
 msgid "Cairo based Rendering"
-msgstr "Representació basada en la Cairo"
+msgstr "Renderització basada en la Cairo"
 
 #: ../plug-ins/cgm/cgm.c:1106
 msgid ""
@@ -6062,7 +6184,7 @@ msgstr "Filtre d'exportació del Llenguatge de gràfics de HP"
 
 #: ../plug-ins/libart/dialibart.c:59
 msgid "Libart based rendering"
-msgstr "Representació basada en la Libart"
+msgstr "Renderització basada en la Libart"
 
 #: ../plug-ins/libart/export_png.c:165
 msgid "Could not create PNG write structure"
@@ -6099,7 +6221,7 @@ msgstr "gdk_renderer: S'ha especificat un mode d'emplenat no implementat!\n"
 
 #: ../plug-ins/libart/dialibartrenderer.c:1471
 msgid "Renderer transformation"
-msgstr "Transformació del representador"
+msgstr "Transformació del renderitzador"
 
 #: ../plug-ins/libart/dialibartrenderer.c:1472
 msgid "Transform pointer"
@@ -6199,7 +6321,7 @@ msgstr "Imprimeix (PS)..."
 
 #: ../plug-ins/postscript/postscript.c:70
 msgid "Postscript Rendering"
-msgstr "Representació per Postscript"
+msgstr "Renderització per Postscript"
 
 #: ../plug-ins/pstricks/pstricks.c:26
 msgid "TeX Pstricks export filter"
@@ -6218,17 +6340,17 @@ msgstr "No s'ha pogut obrir «%s» per a la seva escriptura.\n"
 msgid "Python scripting support"
 msgstr "Implementació de seqüències d'ordres de Python"
 
-#: ../plug-ins/shape/shape-export.c:473
+#: ../plug-ins/shape/shape-export.c:474
 msgid "Shape files must end in .shape, or they cannot be loaded by Dia"
 msgstr ""
 "Els fitxers de formes han d'acabar en .shape; en cas contrari el Dia no els "
 "podrà carregar"
 
-#: ../plug-ins/shape/shape-export.c:484
+#: ../plug-ins/shape/shape-export.c:485
 msgid "Can't export png without libart!"
 msgstr "No es pot exportar al format PNG sense libart"
 
-#: ../plug-ins/shape/shape-export.c:509
+#: ../plug-ins/shape/shape-export.c:510
 msgid "Dia Shape File"
 msgstr "Fitxer de formes del Dia"
 
@@ -6333,7 +6455,7 @@ msgid ""
 "Can not render unknown font:\n"
 "%s"
 msgstr ""
-"No es pot representar el tipus de lletra desconegut:\n"
+"No es pot renderitzar el tipus de lletra desconeguda:\n"
 "%s"
 
 #: ../plug-ins/wmf/wmf.cpp:1265
@@ -8317,7 +8439,7 @@ msgstr "Grup d'objectes amb un nou estil, per a proves"
 
 #: ../sheets/Misc.sheet.in.h:7
 msgid "Resizable grid"
-msgstr ""
+msgstr "Graella redimensionable"
 
 #: ../sheets/Misc.sheet.in.h:8
 msgid "Traditional clock"
@@ -10515,6 +10637,24 @@ msgstr "Servidor de dades del Sybase"
 #: ../sheets/sybase.sheet.in.h:8
 msgid "Sybase replication server"
 msgstr "Servidor de replicació de Sybase"
+
+#~ msgid "Edit Layer Attributes"
+#~ msgstr "Edita els atributs de la capa"
+
+#
+#~ msgid "_Diagram"
+#~ msgstr "_Diagrama"
+
+#~ msgid ""
+#~ "Your local character set is UTF-8. Because of issues with libxml1 and the "
+#~ "support of files generated by previous versions of dia, you will "
+#~ "encounter  problems. Please report to dia-list@gnome.org if you see this "
+#~ "message."
+#~ msgstr ""
+#~ "El vostre joc de caràcters és UTF-8. Tindreu problemes degut a qüestions "
+#~ "relacionades amb la biblioteca libxml1 i el seu funcionament amb fitxers "
+#~ "generats per versions anteriors del Dia. Si us apareix aquest missatge "
+#~ "hauríeu d'informar-ne a la llista de correu dia-list@gnome.org."
 
 #~ msgid ""
 #~ "You have loaded a non-Dia file.  The file has become an element in a new "
