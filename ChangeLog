@@ -1,3 +1,8 @@
+2009-03-22  Hans Breuer  <hans@breuer.org>
+
+	* plug-ins/UML/class_dialog.c : some more NULL pointer checks to avoid
+	crash bug #576247 
+
 2009-03-15  Hans Breuer  <hans@breuer.org>
 
 	* doc/en/usage-objects-basic.xml : removed old workaround for DEL, we

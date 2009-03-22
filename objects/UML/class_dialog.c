@@ -719,7 +719,7 @@ attributes_get_current_values(UMLClassDialog *prop_dialog)
   GtkLabel *label;
   char *new_str;
 
-  if (prop_dialog->current_attr != NULL) {
+  if (prop_dialog != NULL && prop_dialog->current_attr != NULL) {
     current_attr = (UMLAttribute *)
       gtk_object_get_user_data(GTK_OBJECT(prop_dialog->current_attr));
     if (current_attr != NULL) {
@@ -760,14 +760,18 @@ attributes_list_selection_changed_callback(GtkWidget *gtklist,
    * Thus, we stop it before it gets that bad.  See bug #156706 for
    * one example.
    */
-  if (umlclass->destroyed) return;
+  if (umlclass->destroyed)
+    return;
 
   prop_dialog = umlclass->properties_dialog;
+
+  if (!prop_dialog)
+    return;
 
   attributes_get_current_values(prop_dialog);
   
   list = GTK_LIST(gtklist)->selection;
-  if (!list) { /* No selected */
+  if (!list && prop_dialog) { /* No selected */
     attributes_set_sensitive(prop_dialog, FALSE);
     attributes_clear_values(prop_dialog);
     prop_dialog->current_attr = NULL;
