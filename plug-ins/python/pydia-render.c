@@ -161,7 +161,7 @@ set_linecaps(DiaRenderer *renderer, LineCaps mode)
   case LINECAPS_PROJECTING:
     break;
   default:
-    message_error("DiaPyRenderer : Unsupported fill mode specified!\n");
+    PyErr_Warn (PyExc_RuntimeWarning, "DiaPyRenderer : Unsupported fill mode specified!\n");
   }
 
   func = PyObject_GetAttrString (self, "set_linecaps");
@@ -194,7 +194,7 @@ set_linejoin(DiaRenderer *renderer, LineJoin mode)
   case LINEJOIN_BEVEL:
     break;
   default:
-    message_error("DiaPyRenderer : Unsupported fill mode specified!\n");
+    PyErr_Warn (PyExc_RuntimeWarning, "DiaPyRenderer : Unsupported fill mode specified!\n");
   }
 
   func = PyObject_GetAttrString (self, "set_linejoin");
@@ -232,7 +232,7 @@ set_linestyle(DiaRenderer *renderer, LineStyle mode)
   case LINESTYLE_DOTTED:
     break;
   default:
-    message_error("DiaPyRenderer : Unsupported fill mode specified!\n");
+    PyErr_Warn (PyExc_RuntimeWarning, "DiaPyRenderer : Unsupported fill mode specified!\n");
   }
 
   func = PyObject_GetAttrString (self, "set_linestyle");
@@ -283,7 +283,7 @@ set_fillstyle(DiaRenderer *renderer, FillStyle mode)
   case FILLSTYLE_SOLID:
     break;
   default:
-    message_error("DiaPyRenderer : Unsupported fill mode specified!\n");
+    PyErr_Warn (PyExc_RuntimeWarning, "DiaPyRenderer : Unsupported fill mode specified!\n");
   }
 
   func = PyObject_GetAttrString (self, "set_fillstyle");
@@ -325,6 +325,8 @@ set_font(DiaRenderer *renderer, DiaFont *font, real height)
     PyErr_Clear();
 }
 
+static gpointer parent_class = NULL;
+
 static void
 draw_line(DiaRenderer *renderer, 
           Point *start, Point *end, 
@@ -347,8 +349,13 @@ draw_line(DiaRenderer *renderer,
     Py_DECREF(func);
     Py_DECREF(self);
   }
-  else /* member optional */
+  else { /* member not optional */
+    gchar *msg = g_strdup_printf ("%s.draw_line() implmentation missing.",
+				  G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (renderer)));
     PyErr_Clear();
+    PyErr_Warn (PyExc_RuntimeWarning, msg);
+    g_free (msg);
+  }
 }
 
 static void
@@ -372,8 +379,11 @@ draw_polyline(DiaRenderer *renderer,
     Py_DECREF(func);
     Py_DECREF(self);
   }
-  else /* member optional */
+  else { /* member optional */
     PyErr_Clear();
+    /* XXX: implementing the same fallback as DiaRenderer */
+    DIA_RENDERER_CLASS (parent_class)->draw_polyline (renderer, points, num_points, line_colour);
+  }
 }
 
 static void
@@ -397,8 +407,11 @@ draw_polygon(DiaRenderer *renderer,
     Py_DECREF(func);
     Py_DECREF(self);
   }
-  else /* member optional */
+  else { /* member optional */
     PyErr_Clear();
+    /* XXX: implementing the same fallback as DiaRenderer would do */
+    DIA_RENDERER_CLASS (parent_class)->draw_polygon (renderer, points, num_points, line_colour);
+  }
 }
 
 static void
@@ -422,8 +435,13 @@ fill_polygon(DiaRenderer *renderer,
     Py_DECREF(func);
     Py_DECREF(self);
   }
-  else /* member optional */
+  else { /* member not optional */
+    gchar *msg = g_strdup_printf ("%s.fill_polygon() implmentation missing.",
+				  G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (renderer)));
     PyErr_Clear();
+    PyErr_Warn (PyExc_RuntimeWarning, msg);
+    g_free (msg);
+  }
 }
 
 static void
@@ -447,8 +465,11 @@ draw_rect(DiaRenderer *renderer,
     Py_DECREF(func);
     Py_DECREF(self);
   }
-  else /* member optional */
+  else { /* member optional */
     PyErr_Clear();
+    /* XXX: implementing the same fallback as DiaRenderer would do */
+    DIA_RENDERER_CLASS (parent_class)->draw_rect (renderer, ul_corner, lr_corner, colour);
+  }
 }
 
 static void
@@ -472,8 +493,13 @@ fill_rect(DiaRenderer *renderer,
     Py_DECREF(func);
     Py_DECREF(self);
   }
-  else /* member optional */
+  else { /* member not optional */
+    gchar *msg = g_strdup_printf ("%s.fill_rect() implmentation missing.",
+				  G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (renderer)));
     PyErr_Clear();
+    PyErr_Warn (PyExc_RuntimeWarning, msg);
+    g_free (msg);
+  }
 }
 
 static void
@@ -500,8 +526,13 @@ draw_arc(DiaRenderer *renderer,
     Py_DECREF(func);
     Py_DECREF(self);
   }
-  else /* member optional */
+  else { /* member not optional */
+    gchar *msg = g_strdup_printf ("%s.draw_arc() implmentation missing.",
+				  G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (renderer)));
     PyErr_Clear();
+    PyErr_Warn (PyExc_RuntimeWarning, msg);
+    g_free (msg);
+  }
 }
 
 static void
@@ -528,8 +559,13 @@ fill_arc(DiaRenderer *renderer,
     Py_DECREF(func);
     Py_DECREF(self);
   }
-  else /* member optional */
+  else { /* member not optional */
+    gchar *msg = g_strdup_printf ("%s.fill_arc() implmentation missing.",
+				  G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (renderer)));
     PyErr_Clear();
+    PyErr_Warn (PyExc_RuntimeWarning, msg);
+    g_free (msg);
+  }
 }
 
 static void
@@ -555,8 +591,13 @@ draw_ellipse(DiaRenderer *renderer,
     Py_DECREF(func);
     Py_DECREF(self);
   }
-  else /* member optional */
+  else { /* member not optional */
+    gchar *msg = g_strdup_printf ("%s.draw_ellipse() implmentation missing.",
+				  G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (renderer)));
     PyErr_Clear();
+    PyErr_Warn (PyExc_RuntimeWarning, msg);
+    g_free (msg);
+  }
 }
 
 static void
@@ -582,8 +623,13 @@ fill_ellipse(DiaRenderer *renderer,
     Py_DECREF(func);
     Py_DECREF(self);
   }
-  else /* member optional */
+  else { /* member not optional */
+    gchar *msg = g_strdup_printf ("%s.fill_ellipse() implmentation missing.",
+				  G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (renderer)));
     PyErr_Clear();
+    PyErr_Warn (PyExc_RuntimeWarning, msg);
+    g_free (msg);
+  }
 }
 
 static void
@@ -608,8 +654,11 @@ draw_bezier(DiaRenderer *renderer,
     Py_DECREF(func);
     Py_DECREF(self);
   }
-  else /* member optional */
+  else { /* member optional */
     PyErr_Clear();
+    /* XXX: implementing the same fallback as DiaRenderer would do */
+    DIA_RENDERER_CLASS (parent_class)->draw_bezier (renderer, points, num_points, colour);
+  }
 }
 
 static void
@@ -634,8 +683,11 @@ fill_bezier(DiaRenderer *renderer,
     Py_DECREF(func);
     Py_DECREF(self);
   }
-  else /* member optional */
+  else { /* member optional */
     PyErr_Clear();
+    /* XXX: implementing the same fallback as DiaRenderer would do */
+    DIA_RENDERER_CLASS (parent_class)->fill_bezier (renderer, points, num_points, colour);
+  }
 }
 
 static void
@@ -673,9 +725,13 @@ draw_string(DiaRenderer *renderer,
     Py_XDECREF (arg);
     Py_DECREF(func);
     Py_DECREF(self);
-  }
-  else /* member optional */
+  } else { /* member not optional */
+    gchar *msg = g_strdup_printf ("%s.draw_string() implmentation missing.",
+				  G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (renderer)));
     PyErr_Clear();
+    PyErr_Warn (PyExc_RuntimeWarning, msg);
+    g_free (msg);
+  }
 }
 
 static void
@@ -700,9 +756,13 @@ draw_image(DiaRenderer *renderer,
     Py_XDECREF (arg);
     Py_DECREF(func);
     Py_DECREF(self);
-  }
-  else /* member optional */
+  } else { /* member not optional */
+    gchar *msg = g_strdup_printf ("%s.draw_string() implmentation missing.",
+				  G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (renderer)));
     PyErr_Clear();
+    PyErr_Warn (PyExc_RuntimeWarning, msg);
+    g_free (msg);
+  }
 }
 
 void
@@ -742,8 +802,6 @@ PyDia_export_data(DiagramData *data, const gchar *filename,
  * GObject boiler plate
  */
 static void dia_py_renderer_class_init (DiaPyRendererClass *klass);
-
-static gpointer parent_class = NULL;
 
 GType
 dia_py_renderer_get_type (void)

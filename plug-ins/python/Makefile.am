@@ -88,6 +88,7 @@ EXTRA_DIST = \
 	group_props.py \
 	\
 	bbox.py \
+	diastddia.py \
 	debug_objects.py \
 	export-object.py \
 	export-render.py \

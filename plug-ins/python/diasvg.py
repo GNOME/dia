@@ -23,6 +23,7 @@ import sys, string, dia
 class SvgRenderer :
 	def __init__ (self) :
 		self.f = None
+		self.line_width = 0.1
 		self.line_caps = 0
 		self.line_join = 0
 		self.line_style = 0

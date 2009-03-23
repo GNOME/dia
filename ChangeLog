@@ -1,3 +1,19 @@
+2009-03-23  Hans Breuer  <hans@breuer.org>
+
+	* plug-ins/python/diastddia.py : a new renderer implementation which 
+	outputs Dia's native format, but restricted to "Standard - *"-objects.
+	Initial version: buggy and incomplete (e.g. bug #576468).
+	* plug-ins/python/Makefile.am : added to EXTRA_DIST
+	* plug-ins/python/pydia-render.c : if the PyDia renderer does not
+	implement an optional method just fall back to the base classes
+	render implmentation. Also (try to) warn about missing, not optional
+	methods with PyErr_Warn(), but can't find these messages yet.
+
+	* plug-ins/python/diasvg.py : self.line_width was not initialized
+
+	* samples/UML-demo.dia : converted to be readable, not a single line
+	of uncpompresed XML.
+
 2009-03-22  Hans Breuer  <hans@breuer.org>
 
 	* plug-ins/UML/class_dialog.c : some more NULL pointer checks to avoid
