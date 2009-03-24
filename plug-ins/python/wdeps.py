@@ -206,8 +206,7 @@ def main () :
 		else :
 			if not bHaveComponents :
 				components = string.split(arg, ",")
-				for s in components:
-					GetDeps (s, deps, nMaxDepth)
+				# don't GetDeps here cause we need to first evaluate *all* parameters
 				bHaveComponents = 1
 			else :
 				sOutFilename = arg
@@ -237,18 +236,35 @@ Another way to get more manageable graphs is to limit the recursion
 depth while searching, like --depth=2 which cuts everything below 
 the second dependency level.
 
+The most useful switch to anaylze parts of a highly coupled system is
+--dont-follow=random.dll (accepting a list as above). This will show
+random.dll in the resulting graph in gray. But it will not drag in 
+any dependencies below.
+
+If you have a small graph it may be useful to not only show the 
+number of symbols used but their name. Giving --symbols=n all edges 
+with n or less symbols will have the (mostly demangled) name of the 
+symbols printed as text.
+
+Finally there is the switch --dump for people prefering the textual
+representation over some graph.
+
 For more information read the source.
 """
 		sys.exit(0)
 
-	Remove (deps, dllsToRemove)
 	# output ...
 	if not sOutFilename :
 		f = sys.stdout
 	else :
 		# ... dot
 		f = open(sOutFilename, "w")
-	
+
+	for s in components:
+		GetDeps (s, deps, nMaxDepth)
+
+	Remove (deps, dllsToRemove)
+
 	if bDump :
 		Symbols = {}
 		Modules = {}
@@ -278,7 +294,10 @@ For more information read the source.
 		# symbols used by many modules are good candidates for refactoring
 		print "***** Modules with users (symbols) *****"
 		for s, i in Sorted (Imports) :
-			print s, "(" + str(i) + ") :" , string.join (Modules[s], ",")
+			if Modules.has_key (s) :
+				print s, "(" + str(i) + ") :" , string.join (Modules[s], ",")
+			else :
+				print s, "(0) : <no users>"
 		# no diagram at all
 		sys.exit(0)
 	f.write ('digraph "' + components[0] + '" {\n')
