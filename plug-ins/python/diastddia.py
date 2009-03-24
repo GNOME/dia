@@ -224,8 +224,36 @@ class StandardDiaRenderer :
 		self._bezier("Beziergon", points, color, 1)
 
 	def draw_string (self, text, pos, alignment, color) :
-		pass #FIXME
-
+		self.oid = self.oid + 1
+		self.f.write('''
+    <dia:object type="Standard - Text" version="1" id="O%d">
+      <dia:attribute name="obj_pos">
+        <dia:point val="%.3f,%.3f"/>
+      </dia:attribute>
+      <dia:attribute name="text">
+        <dia:composite type="text">
+          <dia:attribute name="string">
+            <dia:string>#%s#</dia:string>
+          </dia:attribute>
+          <dia:attribute name="font">
+            <dia:font family="%s" style="%d"/>
+          </dia:attribute>
+          <dia:attribute name="height">
+            <dia:real val="%.3f"/>
+          </dia:attribute>
+          <dia:attribute name="color">
+            <dia:color val="%s"/>
+          </dia:attribute>
+          <dia:attribute name="alignment">
+            <dia:enum val="%d"/>
+          </dia:attribute>
+        </dia:composite>
+      </dia:attribute>
+      <dia:attribute name="valign">
+        <dia:enum val="3"/>
+      </dia:attribute>
+      </dia:object>''' % (self.oid, pos.x, pos.y, text, self.font.family, self.font.style, self.font_size,
+			self._rgb(color), alignment))
 	def draw_image (self, point, width, height, image) :
 		fname = image.filename
 		# do something better than absolute pathes
