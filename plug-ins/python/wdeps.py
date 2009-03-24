@@ -61,6 +61,7 @@ class Edge :
 		global g_maxWeight
 		self.name = name # the target
 		self.weight = len(symbols)
+		self.reduce = 0 # != 0 if this should better vanish
 		if self.weight > g_maxWeight :
 			g_maxWeight = self.weight
 		demangled = []
@@ -112,7 +113,7 @@ def GetDeps (sFrom, dAll, nMaxDepth, nDepth=0) :
 				# print name
 			else :
 				# import by name
-				# The system dlls seem to follow a diferent pattern (or is this for know-dlls?)  thus (?:[0123456789ABCDEF]{8}[ ]+)?
+				# The system dlls seem to follow a diferent pattern (or is this for know-dlls? Delay load?)  thus (?:[0123456789ABCDEF]{8}[ ]+)?
 				r2 = re.match ("^[ ]+(?:[0123456789ABCDEF]{8}[ ]+)?[0123456789ABCDEF]{1,5}[ ]+([\w@?$]+)$", s)
 				if not r2 :
 					r2 = re.match ("^[ ]+(?:[0123456789ABCDEF]{8}[ ]+)?Ordinal[ ]+([1234567890]+)$", s)
@@ -137,6 +138,58 @@ def Remove (deps, list) :
 			node = deps[sn]
 			if node.deps.has_key (s) :
 				del node.deps[s]
+def Reduce (deps, f, bHintOnly = 1) :
+	"Automatically remove connections until there is only something reasonable left"
+	# first iteration: two components are connected in both directions
+	# if one connection is much weaker tahn the other one, the weaker one is considered bad
+	# if both have similar weight they are both treated as bad and removed
+	keys = deps.keys()
+	keys.sort()
+	nReduced = 0
+	for k in keys :
+		node = deps[k]
+		for c in node.deps.keys () :
+			edge = node.deps[c]
+			if deps.has_key (c) :
+				node2 = deps[c]
+				if node2.deps.has_key(k) :
+					edge2 = node2.deps[k]
+					# if one already is reduced dont do it again
+					if edge.reduce or edge2.reduce :
+						continue
+					n = len(edge.symbols)
+					n2 = len(edge2.symbols)
+					if  abs(n - n2) < 3 :
+						f.write ("Remove (" + str(n) + "," + str(n2) +  ") " + edge.name + " <-> " + edge2.name +
+							"\n\t" + string.join (edge.symbols, ", ") +
+							"\n\t" + string.join (edge2.symbols, ", ") + "\n")
+						# if we now remove *both* connections some components could become completely disconnected. 
+						# Instead may try some more guessing. Maybe the component with less deps should drop one more ?
+						if bHintOnly :
+							edge.reduce = 1
+							edge2.reduce = 1
+						else :
+							if node.deps.has_key(c) : del node.deps[c]
+							if node2.deps.has_key(k) : del node2.deps[k]
+						nReduced += (n + n2)
+					elif n > n2 :
+						f.write ("Remove (" + str(n2) + ") " + edge.name + " -> " + edge2.name +
+							"\n\t" + string.join (edge2.symbols, ", ") + "\n")
+						if bHintOnly :
+							edge2.reduce = 1
+						else :
+							if node2.deps.has_key(k) : del node2.deps[k]
+						nReduced += n2
+					else : 
+						f.write("Remove (" + str(n) + ") " + edge2.name + " -> " + edge.name + 
+							"\n\t" + string.join (edge.symbols, ", ") + "\n")
+						if bHintOnly :
+							edge.reduce = 1
+						else :
+							if node.deps.has_key(c) : del node.deps[c]
+						nReduced += n
+	f.write("Remove total: %d\n" % (nReduced))
+	
 def Sorted (dict) :
 	"given a dictionary with name to number, sort by number"
 	ret = []
@@ -173,6 +226,7 @@ def main () :
 	bHaveComponents = 0
 	bDump = 0
 	bByUse = 0
+	bReduce = 0
 	sOutFilename = None
 
 	nSymbols = 0
@@ -199,6 +253,8 @@ def main () :
 			if nSymbols < 0 : nSymbols = 0
 		elif arg == "--dump" :
 			bDump = 1
+		elif arg == "--reduce" :
+			bReduce = 1
 		elif arg == "--by-use" :
 			bByUse = 1
 		elif string.find (arg, "--") == 0 :
@@ -264,8 +320,17 @@ For more information read the source.
 		GetDeps (s, deps, nMaxDepth)
 
 	Remove (deps, dllsToRemove)
+	
+	if bReduce :
+		if not sOutFilename :
+			f2 = f
+		else :
+			f2 = open (sOutFilename + ".reduced", "w")
+		Reduce (deps, f2)
 
 	if bDump :
+		# remember the command line
+		f.write ("# " + string.join (sys.argv, " ") + "\n")
 		Symbols = {}
 		Modules = {}
 		Imports = {}
@@ -273,15 +338,18 @@ For more information read the source.
 			node = deps[sn]
 			if len(node.deps.keys()) == 0 :
 				continue
-			print sn
+			f.write (sn + "\n")
 			Imports[sn] = 0
 			for se in node.deps.keys() :
 				edge = node.deps[se]
-				print "\t", node.name, "->", edge.name
+				if edge.reduce :
+					f.write ("\t!" + node.name + " -> " + edge.name + "\n")
+					continue
+				f.write ("\t" + node.name + " -> " + edge.name + "\n")
 				syms = edge.symbols
 				syms.sort()
 				for sy in syms :
-					print "\t\t", sy
+					f.write ("\t\t" + sy + "\n")
 					if Symbols.has_key(sy) : 
 						Symbols[sy] += 1 
 					else : 
@@ -292,16 +360,16 @@ For more information read the source.
 				else :
 					Modules[edge.name] = [node.name]
 		# symbols used by many modules are good candidates for refactoring
-		print "***** Modules with users (symbols) *****"
+		f.write ( "***** Modules with users (symbols) *****\n" )
 		for s, i in Sorted (Imports) :
 			if Modules.has_key (s) :
-				print s, "(" + str(i) + ") :" , string.join (Modules[s], ",")
+				f.write (s + " (" + str(i) + ") : " + string.join (Modules[s], ",") + "\n")
 			else :
-				print s, "(0) : <no users>"
+				f.write (s + " (0) : <no users>\n")
 		# no diagram at all
 		sys.exit(0)
 	f.write ('digraph "' + components[0] + '" {\n')
-	f.write ('graph [fontsize=24.0 label="wdeps.py ' + string.join (sys.argv[1:], " ") 
+	f.write ('graph [fontsize=12.0 label="wdeps.py ' + string.join (sys.argv[1:], " ") 
 			+ '\\n' + time.ctime() + '"]\n') 
 	f.write ('ratio=0.7\nnode [fontsize=32.0 ]\n')
 	if bByUse :
@@ -320,7 +388,9 @@ For more information read the source.
 	else :
 		# first pass mark don't follows
 		dontFollowsDone = {}
-		for sn in deps.keys() :
+		deps_keys = deps.keys()
+		deps_keys.sort()
+		for sn in deps_keys :
 			node = deps[sn]
 			for se in node.deps.keys() :
 				if se in g_DontFollow :
@@ -329,19 +399,22 @@ For more information read the source.
 						f.write ('"%s" [style=filled,color=lightgray]\n' % (se,))
 						dontFollowsDone[se] = 1
 					
-		for sn in deps.keys() :
+		for sn in deps_keys :
 			# write weighted edges, could also classify the nodes ...
 			node = deps[sn]
 			for se in node.deps.keys() :
 				edge = node.deps[se]
+				sPrefix = ""
+				if edge.reduce : # remove from graph by commenting it out
+					sPrefix = "// " + string.join(edge.symbols, ", ") + "\n// "
 				if edge.weight <= nSymbols :
 					#f.write ('"%s" -> "%s" [weight=%f,label=%s]\n' % (node.name, edge.name, math.log(1)-0.5, edge.symbols[0]))
-					f.write ('"%s" -> "%s" [fontsize=8,label="%s",weight=%f]\n' 
-							% (node.name, edge.name, string.join(edge.symbols, "\\n"), math.log10(edge.weight)))
+					f.write ('%s"%s" -> "%s" [fontsize=8,label="%s",weight=%f]\n' 
+							% (sPrefix, node.name, edge.name, string.join(edge.symbols, "\\n"), math.log10(edge.weight)))
 				else :
 					#f.write ('"%s" -> "%s" [weight=%f]\n' % (node.name, edge.name, math.log(edge.weight)-0.5))
-					f.write ('"%s" -> "%s" [label="(%d)",weight=%f]\n' 
-							% (node.name, edge.name, edge.weight, math.log10(edge.weight)))
+					f.write ('%s"%s" -> "%s" [label="(%d)",weight=%f]\n' 
+							% (sPrefix, node.name, edge.name, edge.weight, math.log10(edge.weight)))
 	f.write("}\n")
 
 if __name__ == '__main__': main()
