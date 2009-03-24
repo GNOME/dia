@@ -18,7 +18,7 @@
 #  along with this program; if not, write to the Free Software
 #  Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-import sys, string, os, dia
+import sys, string, os, math, dia
 
 class StandardDiaRenderer :
 	def __init__ (self) :
@@ -54,46 +54,47 @@ class StandardDiaRenderer :
 		# given a dia color convert to svg color string
 		rgb = "#%02X%02X%02X" % (int(255 * color.red), int(color.green * 255), int(color.blue * 255))
 		return rgb
-	#FIXME: http://bugzilla.gnome.org/show_bug.cgi?id=576468 makes this evem less desirable
-	def _tinting (self, color, fill=None) :
+	# http://bugzilla.gnome.org/show_bug.cgi?id=576468 makes this even less desirable
+	# see also: samples/Self/dia-standard-objects.dia for inconsistency mapping
+	def _tinting (self, color, fill=None, stroke_key="line_color", width_key="line_width", fill_key="inner_color") :
 		# maybe this is too smart: fill=0 != fill=None
 		if fill == None :
 			attrs = '''
-      <dia:attribute name="line_color">
+      <dia:attribute name="%s">
         <dia:color val="%s"/>
       </dia:attribute>
-      <dia:attribute name="line_width">
+      <dia:attribute name="%s">
         <dia:real val="%.3f"/>
       </dia:attribute>
-'''  % (self._rgb(color), self.line_width)
+'''  % (stroke_key, self._rgb(color), width_key, self.line_width)
 		elif fill :
 			attrs = '''
-      <dia:attribute name="border_color">
+      <dia:attribute name="%s">
         <dia:color val="%s"/>
       </dia:attribute>
       <dia:attribute name="show_background">
         <dia:boolean val="true"/>
       </dia:attribute>
-      <!-- FIXME: folding missing -->
-      <dia:attribute name="inner_color">
+      <!-- TODO: folding missing -->
+      <dia:attribute name="%s">
         <dia:color val="%s"/>
       </dia:attribute>
-      <dia:attribute name="border_width">
+      <dia:attribute name="%s">
         <dia:real val="0"/>
       </dia:attribute>
-''' % (self._rgb(color), self._rgb(color))
+''' % (fill_key, self._rgb(color), stroke_key, self._rgb(color), width_key)
 		else :
 			attrs = '''
-      <dia:attribute name="border_color">
+      <dia:attribute name="%s">
         <dia:color val="%s"/>
       </dia:attribute>
       <dia:attribute name="show_background">
         <dia:boolean val="false"/>
       </dia:attribute>
-      <dia:attribute name="border_width">
+      <dia:attribute name="%s">
         <dia:real val="%.3f"/>
       </dia:attribute>
-''' % (self._rgb(color), self.line_width)
+''' % (stroke_key, self._rgb(color), width_key, self.line_width)
 		return attrs
 	def _stroke_style (self) :
 		return '''
@@ -138,7 +139,7 @@ class StandardDiaRenderer :
       </dia:attribute>
 %s%s
     </dia:object>''' % (self.oid, rect.left,rect.top, rect.right - rect.left, rect.bottom - rect.top, 
-			self._tinting(color, fill), self._stroke_style()))
+			self._tinting(color, fill, 'border_color', 'border_width'), self._stroke_style()))
 	def draw_rect (self, rect, color) :
 		self._box(rect, color, 0)
 	def fill_rect (self, rect, color) :
@@ -159,16 +160,42 @@ class StandardDiaRenderer :
       </dia:attribute>
 %s%s
     </dia:object>''' % (self.oid, center.x-width/2, center.y-height/2, width, height, 
-			self._tinting(color, fill), self._stroke_style()))
+			self._tinting(color, fill, 'border_color', 'border_width'), self._stroke_style()))
 	def draw_ellipse (self, center, width, height, color) :
 		self._ellipse(center, width, height, color, 0)
 	def fill_ellipse (self, center, width, height, color) :
 		self._ellipse(center, width, height, color, 0)
 
 	def _arc(self, center, width, height, angle1, angle2, color, fill) :
-		pass #FIXME
+		self.oid = self.oid + 1
+		mPi180 = math.pi / 180.0
+		rx = width / 2.0
+		ry = height / 2.0
+		sx = center.x + rx * math.cos(mPi180 * angle1)
+		sy = center.y - ry * math.sin(mPi180 * angle1)
+		ex = center.x + rx * math.cos(mPi180 * angle2)
+		ey = center.y - ry * math.sin(mPi180 * angle2)
+		# the middle control point
+		cx = center.x + rx * math.cos(mPi180 * (angle1 + angle2)/2.0)
+		cy = center.y - ry * math.sin(mPi180 * (angle1 + angle2)/2.0)
+		dx = (sx + ex) / 2.0 - cx
+		dy = (sy + ey) / 2.0 - cy
+		dist = math.sqrt(dx * dx + dy * dy)
+		# FIXME: need direction, too
+		self.f.write('''
+    <dia:object type="Standard - Arc" version="0" id="O%d">
+      <dia:attribute name="conn_endpoints">
+        <dia:point val="%.3f,%.3f"/>
+        <dia:point val="%.3f,%.3f"/>
+      </dia:attribute>
+      <dia:attribute name="curve_distance">
+        <dia:real val="%.3f"/>
+      </dia:attribute>
+%s%s
+    </dia:object>''' % (self.oid, sx, sy, ex, ey, dist,
+			self._tinting(color, fill, 'arc_color'), self._stroke_style()))
 	def draw_arc (self, center, width, height, angle1, angle2, color) :
-		self._arc(center, width, height, angle1, angle2, color, 0)
+		self._arc(center, width, height, angle1, angle2, color, None)
 	def fill_arc (self, center, width, height, angle1, angle2, color) :
 		self._arc(center, width, height, angle1, angle2, color, 1)
 
@@ -177,7 +204,8 @@ class StandardDiaRenderer :
 		self.f.write('''
     <dia:object type="Standard - %s" version="0" id="O%d">
 %s%s
-      <dia:attribute name="poly_points">''' % (type_name, self.oid, self._tinting(color, fill), self._stroke_style()))
+      <dia:attribute name="poly_points">''' % (type_name, self.oid, 
+						self._tinting(color, fill), self._stroke_style()))
 		for p in points :
 			self.f.write('''
         <dia:point val="%.3f,%.3f"/>''' % (p.x, p.y))
@@ -197,14 +225,13 @@ class StandardDiaRenderer :
     <dia:object type="Standard - %s" version="0" id="O%d">
 %s%s
       <dia:attribute name="bez_points">''' % (type_name, self.oid, self._tinting(color, fill), self._stroke_style()))
-		# first point is just move
 		for bp in points :
 			if bp.type == 0 : # BEZ_MOVE_TO
-				#FIXME: moveto must be first
+				# moveto must be first (and only first) otherwise the file format is broken
 				self.f.write('''
         <dia:point val="%.3f,%.3f"/>''' % (bp.p1.x, bp.p1.y))
 			elif bp.type == 1 : # BEZ_LINE_TO
-				# simulated by curveto
+				# simulated by curveto (there is no lineto on the file format level)
 				self.f.write('''
         <dia:point val="%.3f,%.3f"/>
         <dia:point val="%.3f,%.3f"/>
@@ -302,4 +329,3 @@ class StandardDiaRenderer :
 		
 # register the renderer
 dia.register_export ("Dia plain", "dia", StandardDiaRenderer())
-
