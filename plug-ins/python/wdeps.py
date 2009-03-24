@@ -320,13 +320,16 @@ dllsSysWin32 = [
 	"comctl32.dll", "ole32.dll", "oleaut32.dll", "winspool.drv", "imm32.dll",
 	"ws2_32.dll", "ws2help.dll", "wsock32.dll", "ntdll.dll", "mpr.dll", 
 	"rpcrt4.dll", "shlwapi.dll", "netapi32.dll", "msimg32.dll", "oledlg.dll",
+	"setupapi.dll", "secur32.dll", "avifil32.dll", "msvfw32.dll", 
 	"uxtheme.dll"]
 dllsCrts = [
 	"msvcrt.dll", "msvcrtd.dll", "msvcp60.dll",
 	"msvcr71.dll", "msvcr71d.dll", "msvcp71.dll", "msvcp71d.dll"
+	"msvcr80.dll", "msvcr80d.dll", "msvcp80.dll", "msvcp80d.dll"
 	]
 dllsMfc = [
-	"mfc71u.dll", "mfc71.dll", "mfc71ud.dll"
+	"mfc71u.dll", "mfc71.dll", "mfc71ud.dll",
+	"mfc80u.dll", "mfc80.dll", "mfc80ud.dll"
 	]
 dllsGtk = [
 	"libglib-2.0-0.dll", "libgmodule-2.0-0.dll", "libgobject-2.0-0.dll", "libgthread-2.0-0.dll",
@@ -556,9 +559,9 @@ For more information read the source.
 		# no diagram at all
 		sys.exit(0)
 	f.write ('digraph "' + sGraph + '" {\n')
-	f.write ('graph [fontsize=12.0 label="wdeps.py ' + string.join (sys.argv[1:], " ") 
+	f.write ('graph [fontsize=8.0 label="wdeps.py ' + string.join (sys.argv[1:], " ") 
 			+ '\\n' + time.ctime() + '"]\n') 
-	f.write ('ratio=0.7\nnode [fontsize=32.0 ]\n')
+	f.write ('ratio=0.7\nnode [fontsize=12.0 ]\nedge [fontsize=8.0]')
 	if bByUse :
 		# kind of inverted diagram not showing edependencies but 'users'
 		users = {}
@@ -575,6 +578,7 @@ For more information read the source.
 	else :
 		# first pass mark don't follows
 		dontFollowsDone = {}
+		urlsDone = {}
 		deps_keys = deps.keys()
 		deps_keys.sort()
 		for sn in deps_keys :
@@ -582,11 +586,17 @@ For more information read the source.
 			edge_keys = node.deps.keys()
 			edge_keys.sort()
 			for se in edge_keys :
+				ses = se[:string.find(se, ".dll")]
 				if se in g_DontFollow :
 					if not dontFollowsDone.has_key(se) :
 						# mark as such
 						f.write ('"%s" [style=filled,color=lightgray]\n' % (se,))
 						dontFollowsDone[se] = 1
+				else :
+					if not urlsDone.has_key (se) :
+						f.write ('"%s" [fillcolor=red,URL="#%s"]\n' % (se,se))
+						urlsDone[se] = 1
+						
 					
 		for sn in deps_keys :
 			# write weighted edges, could also classify the nodes ...
@@ -604,7 +614,7 @@ For more information read the source.
 					sStyle = "weight=%f" % (math.log10(edge.weight),)
 				if edge.weight <= nSymbols :
 					#f.write ('"%s" -> "%s" [weight=%f,label=%s]\n' % (node.name, edge.name, math.log(1)-0.5, edge.symbols[0]))
-					f.write ('%s"%s" -> "%s" [fontsize=8,label="%s",%s]\n' 
+					f.write ('%s"%s" -> "%s" [fontsize=6,label="%s",%s]\n' 
 							% (sPrefix, node.name, edge.name, string.join(edge.symbols, "\\n"), sStyle))
 				else :
 					#f.write ('"%s" -> "%s" [weight=%f]\n' % (node.name, edge.name, math.log(edge.weight)-0.5))
