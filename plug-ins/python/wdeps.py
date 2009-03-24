@@ -324,7 +324,9 @@ dllsSysWin32 = [
 	"uxtheme.dll"]
 dllsCrts = [
 	"msvcrt.dll", "msvcrtd.dll", "msvcp60.dll",
-	"msvcr71.dll", "msvcr71d.dll", "msvcp71.dll", "msvcp71d.dll"
+#	"msvcrt20.dll",
+#	"msvcr70.dll", "msvcp70.dll",
+	"msvcr71.dll", "msvcr71d.dll", "msvcp71.dll", "msvcp71d.dll",
 	"msvcr80.dll", "msvcr80d.dll", "msvcp80.dll", "msvcp80d.dll"
 	]
 dllsMfc = [
@@ -353,6 +355,12 @@ def main () :
 	nSymbols = 0
 	nCutLeafs = 0
 
+	# check if we are running from the right environment
+	try :
+		print "FrameworkSDKDir=" + os.environ["FrameworkSDKDir"]
+	except :
+		print "The script needs to be called from a 'VS command prompt'"
+		sys.exit (1)
 	if FindInPath ("dumpbin.exe") == "dumpbin.exe" :
 		print "dumpbin.exe not found"
 		sys.exit (1)
@@ -506,8 +514,15 @@ For more information read the source.
 		if not sOutFilename :
 			f2 = f
 		else :
-			f2 = open (sOutFilename + ".reduced", "w")
+			f2 = open (sOutFilename + ".reduced.txt", "w")
 		Reduce (deps, f2)
+		if nCutLeafs > 1000 : # magic number two, still infinite ;)
+			for d in deps.keys() :
+				# kind of arbitrary numbers
+				n1 = len(deps[d].deps.keys()) # lthis ones dependencies
+				n2 = len(deps.keys()) # total number of components left
+				# write erros/warning like the compiler would do
+				f2.write ("%s - %d error(s), %d warning(s)\n" % (deps[d].name, n1, n2))
 
 	if sPickle :
 		import pickle
@@ -590,11 +605,11 @@ For more information read the source.
 				if se in g_DontFollow :
 					if not dontFollowsDone.has_key(se) :
 						# mark as such
-						f.write ('"%s" [style=filled,color=lightgray]\n' % (se,))
+						f.write ('"%s" [style=filled,fillcolor=lightgray]\n' % (se,))
 						dontFollowsDone[se] = 1
 				else :
 					if not urlsDone.has_key (se) :
-						f.write ('"%s" [fillcolor=red,URL="#%s"]\n' % (se,se))
+						f.write ('"%s" [style=filled,fillcolor=red,URL="#%s"]\n' % (se,se))
 						urlsDone[se] = 1
 						
 					
