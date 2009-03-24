@@ -53,15 +53,16 @@ class Node :
 	def __init__ (self, name) :
 		self.name = name
 		self.deps = {}
-	def AddEdge (self, name, symbols) :
-		self.deps[name] = Edge(name, symbols)
+	def AddEdge (self, name, symbols, delayLoad) :
+		self.deps[name] = Edge(name, symbols, delayLoad)
 
 class Edge :
-	def __init__ (self, name, symbols) :
+	def __init__ (self, name, symbols, delayLoad) :
 		global g_maxWeight
 		self.name = name # the target
 		self.weight = len(symbols)
 		self.reduce = 0 # != 0 if this should better vanish
+		self.delayLoad = delayLoad
 		if self.weight > g_maxWeight :
 			g_maxWeight = self.weight
 		demangled = []
@@ -107,8 +108,12 @@ def GetDeps (sFrom, dAll, nMaxDepth, nDepth=0) :
 		f = None
 		# avoids infinite recursion on circular dependencies
 		dAll[sFrom] = None
+		delayLoad = 0
 		for s in sDump :
 			r = re.match ("^    (.*\.dll)", s, re.IGNORECASE)
+			# the delay load switch is flipped once
+			if s.find ("delay load imports") > 0 :
+				delayLoad = 1
 			if r :
 				name = string.lower(r.group(1))
 				# print name
@@ -122,7 +127,7 @@ def GetDeps (sFrom, dAll, nMaxDepth, nDepth=0) :
 					arr.append (r2.group(1))
 				elif s[:-1] == "" and name != None and len(arr) > 0 :
 					#print name, len(arr)
-					node.AddEdge (name, arr)
+					node.AddEdge (name, arr, delayLoad)
 					arr = []
 					nDepth = nDepth + 1
 					GetDeps (name, dAll, nMaxDepth-nDepth+1, nDepth)
@@ -160,6 +165,8 @@ def RemoveBySymbols (deps, list) :
 			kills = []
 			for s2 in edge.symbols :
 				for s1 in list :
+					# robustness, dont compare the empty string
+					if s1 == "" : continue
 					# only comparing the start of the symbol
 					if string.find (s2, s1) == 0 :
 						#print "removing", s2, "from", c, "->", k
@@ -434,6 +441,7 @@ For more information read the source.
 			leafs = CutLeafs (deps, nCutLeafs)
 			break
 
+	# the *automatic* reduction is intentionally after cut-leafs
 	if bReduce :
 		if not sOutFilename :
 			f2 = f
@@ -456,7 +464,10 @@ For more information read the source.
 				if edge.reduce :
 					f.write ("\t!" + node.name + " -> " + edge.name + "\n")
 					continue
-				f.write ("\t" + node.name + " -> " + edge.name + "\n")
+				if edge.delayLoad :
+					f.write ("\t" + node.name + " -> " + edge.name + " (delay load)\n")
+				else :
+					f.write ("\t" + node.name + " -> " + edge.name + "\n")
 				syms = edge.symbols
 				syms.sort()
 				for sy in syms :
@@ -518,14 +529,18 @@ For more information read the source.
 				sPrefix = ""
 				if edge.reduce : # remove from graph by commenting it out
 					sPrefix = "// " + string.join(edge.symbols, ", ") + "\n// "
+				if edge.delayLoad :
+					sStyle = "weight=%f,style=dotted" % (math.log10(math.sqrt(edge.weight)),)
+				else :
+					sStyle = "weight=%f" % (math.log10(edge.weight),)
 				if edge.weight <= nSymbols :
 					#f.write ('"%s" -> "%s" [weight=%f,label=%s]\n' % (node.name, edge.name, math.log(1)-0.5, edge.symbols[0]))
-					f.write ('%s"%s" -> "%s" [fontsize=8,label="%s",weight=%f]\n' 
-							% (sPrefix, node.name, edge.name, string.join(edge.symbols, "\\n"), math.log10(edge.weight)))
+					f.write ('%s"%s" -> "%s" [fontsize=8,label="%s",%s]\n' 
+							% (sPrefix, node.name, edge.name, string.join(edge.symbols, "\\n"), sStyle))
 				else :
 					#f.write ('"%s" -> "%s" [weight=%f]\n' % (node.name, edge.name, math.log(edge.weight)-0.5))
-					f.write ('%s"%s" -> "%s" [label="(%d)",weight=%f]\n' 
-							% (sPrefix, node.name, edge.name, edge.weight, math.log10(edge.weight)))
+					f.write ('%s"%s" -> "%s" [label="(%d)",%s]\n' 
+							% (sPrefix, node.name, edge.name, edge.weight, sStyle))
 	f.write("}\n")
 
 if __name__ == '__main__': main()
