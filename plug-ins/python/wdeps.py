@@ -202,6 +202,16 @@ def Reduce (deps, f, bHintOnly = 1) :
 						nReduced += n
 	f.write("Remove total: %d\n" % (nReduced))
 	
+def UnGlob (comps) :
+	import glob
+	comp_dict = {}
+	for p in comps :
+		g = glob.glob (p)
+		for d in g :
+			if not comp_dict.has_key (d) :
+				comp_dict[d] = 1
+	return comp_dict.keys()
+
 def Sorted (dict) :
 	"given a dictionary with name to number, sort by number"
 	ret = []
@@ -277,6 +287,7 @@ def main () :
 		else :
 			if not bHaveComponents :
 				components = string.split(arg, ",")
+				components = UnGlob (components)
 				# don't GetDeps here cause we need to first evaluate *all* parameters
 				bHaveComponents = 1
 			else :
