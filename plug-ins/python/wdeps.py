@@ -138,6 +138,18 @@ def Remove (deps, list) :
 			node = deps[sn]
 			if node.deps.has_key (s) :
 				del node.deps[s]
+def RemoveRegEx (deps, reg_ex) :
+	"If a module matches reg_ex remove it"
+	import re
+	rr = re.compile (reg_ex)
+	for k1 in deps.keys() :
+		if rr.match (k1) :
+			del deps[k1]
+		else :
+			node = deps[k1]
+			for k2 in node.deps.keys () :
+				if rr.match (k2) :
+					del node.deps[k2]
 def Reduce (deps, f, bHintOnly = 1) :
 	"Automatically remove connections until there is only something reasonable left"
 	# first iteration: two components are connected in both directions
@@ -208,10 +220,10 @@ dllsSysWin32 = [
 	"uxtheme.dll"]
 dllsCrts = [
 	"msvcrt.dll", "msvcrtd.dll", "msvcp60.dll",
-	"msvcr71.dll", "msvcr71d.dll", "msvcp71.dll"
+	"msvcr71.dll", "msvcr71d.dll", "msvcp71.dll", "msvcp71d.dll"
 	]
 dllsMfc = [
-	"mfc71u.dll", "mfc71.dll"
+	"mfc71u.dll", "mfc71.dll", "mfc71ud.dll"
 	]
 dllsGtk = [
 	"libglib-2.0-0.dll", "libgmodule-2.0-0.dll", "libgobject-2.0-0.dll", "libgthread-2.0-0.dll",
@@ -222,6 +234,7 @@ dllsGtk = [
 def main () :
 	deps = {}
 	dllsToRemove = []
+	regexRemoves = []
 	nMaxDepth = 10000 # almost unlimited
 	bHaveComponents = 0
 	bDump = 0
@@ -237,6 +250,8 @@ def main () :
 			elif arg == "--remove-crt" : dllsToRemove.extend (dllsCrts)
 			elif arg == "--remove-mfc" : dllsToRemove.extend (dllsMfc)
 			elif arg == "--remove-gtk" : dllsToRemove.extend (dllsGtk)
+			elif string.find (arg, "--remove-regex=") == 0 :
+				regexRemoves.append (arg[len("--remove-regex="):])
 			else :
 				noDeps = string.split(arg[len("--remove="):], ",")
 				for s in noDeps :
@@ -321,6 +336,9 @@ For more information read the source.
 
 	Remove (deps, dllsToRemove)
 	
+	for rr in regexRemoves :
+		RemoveRegEx (deps, rr)
+
 	if bReduce :
 		if not sOutFilename :
 			f2 = f
