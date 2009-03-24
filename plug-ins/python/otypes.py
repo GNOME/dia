@@ -44,7 +44,7 @@ def otypes_cb(data, flags) :
 	keys.sort()
 
 	# property keys w/o overlap
-	object_props = ["obj_pos", "obj_bb"]
+	object_props = ["obj_pos", "obj_bb", "meta"]
 	element_props = ["elem_corner", "elem_width", "elem_height"]
 	orthconn_props = ["orth_points", "orth_orient", "orth_autoroute"]
 	shape_props = ["flip_horizontal", "flip_vertical"]

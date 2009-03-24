@@ -4,6 +4,13 @@
 	curve_distance calculation. Implemented the insane load/save property
 	name mapping - bug #576468, implmented draw_text and draw_arc. Some 
 	comments on bezier related file format weakness.
+	Write some paper info; convert strings before writing to avoid 
+	invalid XML (text and filename)
+
+	* plug-ins/python/otypes.py : 'meta' is part of every object type 
+
+	* samples/Self/dia-standard-objects.dia : new file documenting the
+	structure of Dia's "Standard - *" objects, see also bug #576468
 
 2009-03-23  Hans Breuer  <hans@breuer.org>
 

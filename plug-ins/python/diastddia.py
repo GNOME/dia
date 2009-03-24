@@ -36,14 +36,31 @@ class StandardDiaRenderer :
 	def begin_render (self, data, filename) :
 		self.filename = filename
 		self._open (filename)
+		portrait = "false"
+		if data.paper.is_portrait :
+			portrait = "true"
+		# data.paper doesn't provide margins yet, data.paper.width is _useable_ width
 		self.f.write('''<?xml version="1.0" encoding="UTF-8"?>
 <dia:diagram xmlns:dia="http://www.lysator.liu.se/~alla/dia/">
   <!-- Created by dia_standard_dia.py -->
   <dia:diagramdata>
-    <!-- almost everything is optional here -->
+    <!-- everything is optional here -->
+    <dia:attribute name="paper">
+      <dia:composite type="paper">
+        <dia:attribute name="name">
+          <dia:string>#%s#</dia:string>
+        </dia:attribute>
+        <dia:attribute name="is_portrait">
+          <dia:boolean val="%s"/>
+        </dia:attribute>
+        <dia:attribute name="scaling">
+          <dia:real val="%.3f"/>
+        </dia:attribute>
+      </dia:composite>
+    </dia:attribute>
   </dia:diagramdata>
   <dia:layer name="Background" visible="true" >
-''')
+''' % (data.paper.name, portrait, data.paper.scaling))
 	def end_render (self) :
 		self.f.write('''<!-- no connections in the renderer interface -->
   </dia:layer>
@@ -279,7 +296,8 @@ class StandardDiaRenderer :
       <dia:attribute name="valign">
         <dia:enum val="3"/>
       </dia:attribute>
-      </dia:object>''' % (self.oid, pos.x, pos.y, text, self.font.family, self.font.style, self.font_size,
+      </dia:object>''' % (self.oid, pos.x, pos.y, text.replace("&", "&amp;").replace(">", "&gt;").replace("<", "&lt;"), 
+			self.font.family, self.font.style, self.font_size,
 			self._rgb(color), alignment))
 	def draw_image (self, point, width, height, image) :
 		fname = image.filename
@@ -287,6 +305,8 @@ class StandardDiaRenderer :
 		common = os.path.commonprefix ([fname, self.filename])
 		if len(common) > 0 and string.find(self.filename[len(common):], os.path.pathsep) == -1 :
 			fname = fname[len(common):]
+		# ensure <broken> does not get through
+		fname = fname.replace("&", "&amp;").replace(">", "&gt;").replace("<", "&lt;")
 		self.oid = self.oid + 1
 		if abs(width/height - image.width/image.height) < 0.001 :
 			keep_aspect = "true"
@@ -329,3 +349,4 @@ class StandardDiaRenderer :
 		
 # register the renderer
 dia.register_export ("Dia plain", "dia", StandardDiaRenderer())
+
