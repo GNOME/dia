@@ -375,6 +375,9 @@ def main () :
 				components = string.split(arg, ",")
 				components = UnGlob (components)
 				# don't GetDeps here cause we need to first evaluate *all* parameters
+				if len(components) == 0 :
+					print "No DLL input found - wrong directory?"
+					sys.exit(1)
 				sGraph = components[0]
 			else :
 				sOutFilename = arg
