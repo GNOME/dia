@@ -1,5 +1,5 @@
 # Generates a weighted dependencies graph from DLLs
-# Copyright (c) 2001, 2005 Hans Breuer <hans@breuer.org>
+# Copyright (c) 2001, 2005, 2007 Hans Breuer <hans@breuer.org>
 
 #    This program is free software; you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
@@ -262,7 +262,19 @@ def CutLeafs (deps, nCuts) :
 	if len(leafs.keys()) > 0 :
 		return leafs.keys()
 	return cut
-	
+def TopMost (deps) :
+	"everything not used by something else"
+	keys = deps.keys ()
+	topmost = []
+	used = {}
+	for k in keys :
+		for d in deps[k].deps.keys() :
+			if not used.has_key (d) :
+				used[d] = 1
+	for k in keys :
+		if not used.has_key (k) :
+			topmost.append (k)
+	return topmost
 def UnGlob (comps) :
 	import glob
 	comp_dict = {}
@@ -308,11 +320,12 @@ def main () :
 	regexRemoves = []
 	symbolsToRemove = []
 	nMaxDepth = 10000 # almost unlimited
-	bHaveComponents = 0
+	components = []
 	bDump = 0
 	bByUse = 0
 	bReduce = 0
 	sOutFilename = None
+	sPickle = None
 
 	nSymbols = 0
 	nCutLeafs = 0
@@ -352,14 +365,17 @@ def main () :
 			bReduce = 1
 		elif arg == "--by-use" :
 			bByUse = 1
+		elif string.find (arg, "--pickle=") == 0 :
+			sGraph = arg[len("--pickle="):]
+			sPickle = arg[len("--pickle="):] + ".pickle"
 		elif string.find (arg, "--") == 0 :
 			print "Unknown option or missing parameter:", arg
 		else :
-			if not bHaveComponents :
+			if len(components) == 0 :
 				components = string.split(arg, ",")
 				components = UnGlob (components)
 				# don't GetDeps here cause we need to first evaluate *all* parameters
-				bHaveComponents = 1
+				sGraph = components[0]
 			else :
 				sOutFilename = arg
 		print "arg is:", arg 
@@ -415,8 +431,13 @@ For more information read the source.
 	if bDump : # remember the command line
 		f.write ("# " + string.join (sys.argv, " ") + "\n")
 
-	for s in components:
-		GetDeps (s, deps, nMaxDepth)
+	try :
+		import pickle
+		deps = pickle.load (open(sPickle))
+		print "Input from", sPickle
+	except :
+		for s in components:
+			GetDeps (s, deps, nMaxDepth)
 
 	if len(dllsToRemove) :
 		Remove (deps, dllsToRemove)
@@ -441,6 +462,10 @@ For more information read the source.
 			leafs = CutLeafs (deps, nCutLeafs)
 			break
 
+	if bDump :
+		topmost = TopMost(deps)
+		f.write ("TopMost(%d) : %s\n" % (len(topmost), string.join(topmost, ",")))
+
 	# the *automatic* reduction is intentionally after cut-leafs
 	if bReduce :
 		if not sOutFilename :
@@ -449,17 +474,25 @@ For more information read the source.
 			f2 = open (sOutFilename + ".reduced", "w")
 		Reduce (deps, f2)
 
+	if sPickle :
+		import pickle
+		pickle.dump(deps, open(sPickle,"w"))
+
 	if bDump :
 		Symbols = {}
 		Modules = {}
 		Imports = {}
-		for sn in deps.keys() :
+		node_keys = deps.keys()
+		node_keys.sort()
+		for sn in node_keys :
 			node = deps[sn]
 			if len(node.deps.keys()) == 0 :
 				continue
 			f.write (sn + "\n")
 			Imports[sn] = 0
-			for se in node.deps.keys() :
+			edge_keys = node.deps.keys()
+			edge_keys.sort()
+			for se in edge_keys :
 				edge = node.deps[se]
 				if edge.reduce :
 					f.write ("\t!" + node.name + " -> " + edge.name + "\n")
@@ -490,7 +523,7 @@ For more information read the source.
 				f.write (s + " (0) : <no users>\n")
 		# no diagram at all
 		sys.exit(0)
-	f.write ('digraph "' + components[0] + '" {\n')
+	f.write ('digraph "' + sGraph + '" {\n')
 	f.write ('graph [fontsize=12.0 label="wdeps.py ' + string.join (sys.argv[1:], " ") 
 			+ '\\n' + time.ctime() + '"]\n') 
 	f.write ('ratio=0.7\nnode [fontsize=32.0 ]\n')
@@ -514,7 +547,9 @@ For more information read the source.
 		deps_keys.sort()
 		for sn in deps_keys :
 			node = deps[sn]
-			for se in node.deps.keys() :
+			edge_keys = node.deps.keys()
+			edge_keys.sort()
+			for se in edge_keys :
 				if se in g_DontFollow :
 					if not dontFollowsDone.has_key(se) :
 						# mark as such
@@ -524,7 +559,9 @@ For more information read the source.
 		for sn in deps_keys :
 			# write weighted edges, could also classify the nodes ...
 			node = deps[sn]
-			for se in node.deps.keys() :
+			edge_keys = node.deps.keys()
+			edge_keys.sort()
+			for se in edge_keys :
 				edge = node.deps[se]
 				sPrefix = ""
 				if edge.reduce : # remove from graph by commenting it out
