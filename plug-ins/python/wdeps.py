@@ -151,6 +151,28 @@ def RemoveRegEx (deps, reg_ex) :
 			for k2 in node.deps.keys () :
 				if rr.match (k2) :
 					del node.deps[k2]
+def RemoveBySymbols (deps, list) :
+	"If a connection is conly caused by some symbol in 'list' it is removed"
+	for k in deps.keys() :
+		node = deps[k]
+		for c in node.deps.keys () :
+			edge = node.deps[c]
+			kills = []
+			for s2 in edge.symbols :
+				for s1 in list :
+					# only comparing the start of the symbol
+					if string.find (s2, s1) == 0 :
+						#print "removing", s2, "from", c, "->", k
+						kills.append (s2)
+						#NOT modifying while iterating: edge.symbols.remove (s2)
+						break
+			if len(edge.symbols) == len(kills) :
+				# remove complete edge (maybe we should only mark it removed?)
+				#print "removing", c, "from", k
+				del node.deps[c]
+			else :
+				for s in kills :
+					edge.symbols.remove (s)
 def Reduce (deps, f, bHintOnly = 1) :
 	"Automatically remove connections until there is only something reasonable left"
 	# first iteration: two components are connected in both directions
@@ -277,6 +299,7 @@ def main () :
 	deps = {}
 	dllsToRemove = []
 	regexRemoves = []
+	symbolsToRemove = []
 	nMaxDepth = 10000 # almost unlimited
 	bHaveComponents = 0
 	bDump = 0
@@ -295,10 +318,12 @@ def main () :
 			elif arg == "--remove-gtk" : dllsToRemove.extend (dllsGtk)
 			elif string.find (arg, "--remove-regex=") == 0 :
 				regexRemoves.append (arg[len("--remove-regex="):])
+			elif string.find (arg, "--remove-symbols=") == 0 :
+				noSyms = string.split(arg[len("--remove-symbols="):], ",")
+				symbolsToRemove.extend (noSyms)
 			else :
 				noDeps = string.split(arg[len("--remove="):], ",")
-				for s in noDeps :
-					dllsToRemove.append(s)
+				dllsToRemove.extend(noDeps)
 		elif string.find (arg, "--dont-follow") == 0 :
 			global g_DontFollow
 			noFollow = string.split(arg[len("--dont-follow="):], ",")
@@ -386,8 +411,11 @@ For more information read the source.
 	for s in components:
 		GetDeps (s, deps, nMaxDepth)
 
-	Remove (deps, dllsToRemove)
-	
+	if len(dllsToRemove) :
+		Remove (deps, dllsToRemove)
+	if len(symbolsToRemove) > 0 :
+		RemoveBySymbols (deps, symbolsToRemove)
+
 	for rr in regexRemoves :
 		RemoveRegEx (deps, rr)
 
@@ -401,7 +429,6 @@ For more information read the source.
 			f.write ("CutLeafs " + str(nTotal) + " => " + str(nTotal - len(leafs)) + "\n")
 			leafs.sort()
 			f.write ("\t" + string.join (leafs, ",") + "\n")
-			f.flush()
 			nCutLeafs -= 1
 		else :
 			leafs = CutLeafs (deps, nCutLeafs)
