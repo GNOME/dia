@@ -89,6 +89,23 @@ class Edge :
 				demangled.append (s)
 		self.symbols = demangled
 		
+g_path = None # empty, default behaviour
+def FindInPath (sName) :
+	"returns the complete path of the given name, looking at cwd first"
+	sDir = os.getcwd()
+	p = sDir + os.sep + sName
+	if os.path.exists (p) :
+		return p
+	myPath = os.environ['PATH']
+	if g_path :
+		myPath = g_path
+	for sDir in string.split (myPath, os.pathsep) :
+		p = sDir + os.sep + sName
+		if os.path.exists (p) :
+			return p
+	# safety
+	return sName
+
 def GetDeps (sFrom, dAll, nMaxDepth, nDepth=0) :
 	"calculates the dependents of the passed in dll"
 	if nMaxDepth <= nDepth :
@@ -100,7 +117,10 @@ def GetDeps (sFrom, dAll, nMaxDepth, nDepth=0) :
 		return
 	if not dAll.has_key (sFrom) :
 		node = Node (sFrom)
-		f = os.popen ("dumpbin /imports " + sFrom)
+		sPath = sFrom
+		if g_path :
+			sPath = FindInPath (sFrom)
+		f = os.popen ('dumpbin /imports "' + sPath + '"')
 		name = None
 		arr = []
 		sDump = f.readlines ()
@@ -298,7 +318,7 @@ dllsSysWin32 = [
 	"version.dll", "winmm.dll", 
 	"kernel32.dll", "user32.dll", "gdi32.dll", "comdlg32.dll", "advapi32.dll", "shell32.dll",
 	"comctl32.dll", "ole32.dll", "oleaut32.dll", "winspool.drv", "imm32.dll",
-	"wsock32.dll", "mpr.dll", 
+	"ws2_32.dll", "ws2help.dll", "wsock32.dll", "ntdll.dll", "mpr.dll", 
 	"rpcrt4.dll", "shlwapi.dll", "netapi32.dll", "msimg32.dll", "oledlg.dll",
 	"uxtheme.dll"]
 dllsCrts = [
@@ -330,6 +350,9 @@ def main () :
 	nSymbols = 0
 	nCutLeafs = 0
 
+	if FindInPath ("dumpbin.exe") == "dumpbin.exe" :
+		print "dumpbin.exe not found"
+		sys.exit (1)
 	for arg in sys.argv[1:] :
 		if string.find (arg, "--remove") == 0 :
 			if arg == "--remove-sys" : dllsToRemove.extend (dllsSysWin32)
@@ -368,6 +391,12 @@ def main () :
 		elif string.find (arg, "--pickle=") == 0 :
 			sGraph = arg[len("--pickle="):]
 			sPickle = arg[len("--pickle="):] + ".pickle"
+		elif string.find (arg, "--path") == 0 :
+			global g_path
+			if string.find (arg, "--path=") == 0 :
+				g_path = arg[len("--path="):]
+			else :
+				g_path = os.environ['PATH']
 		elif string.find (arg, "--") == 0 :
 			print "Unknown option or missing parameter:", arg
 		else :
