@@ -95,6 +95,7 @@ def GetDeps (sFrom, dAll, nMaxDepth, nDepth=0) :
 	sFrom = string.lower(sFrom)
 	global g_DontFollow
 	if sFrom in g_DontFollow :
+		dAll[sFrom] = Node (sFrom) # needed here so other algoritm can remove it ;)
 		return
 	if not dAll.has_key (sFrom) :
 		node = Node (sFrom)
@@ -153,7 +154,7 @@ def RemoveRegEx (deps, reg_ex) :
 def Reduce (deps, f, bHintOnly = 1) :
 	"Automatically remove connections until there is only something reasonable left"
 	# first iteration: two components are connected in both directions
-	# if one connection is much weaker tahn the other one, the weaker one is considered bad
+	# if one connection is much weaker than the other one, the weaker one is considered bad
 	# if both have similar weight they are both treated as bad and removed
 	keys = deps.keys()
 	keys.sort()
@@ -201,6 +202,37 @@ def Reduce (deps, f, bHintOnly = 1) :
 							if node.deps.has_key(c) : del node.deps[c]
 						nReduced += n
 	f.write("Remove total: %d\n" % (nReduced))
+
+def CutLeafs (deps, nCuts) :
+	"Remove components without connections. After some iterations only circulars remain (or nothing)"
+	leafs = {}
+	cut = [] # what we have cut in the last pass
+	while nCuts > 0 :
+		cut = leafs.keys()
+		leafs = {}
+		# first pass: find leafs
+		for k in deps.keys() :
+			node = deps[k]
+			if len(node.deps.keys ()) == 0 :
+				leafs[k] = 0
+		if len(leafs.keys()) == 0 :
+			break # nothing remaining
+		nCuts -= 1
+		# second pass : remove references to leafs
+		for k in deps.keys() :
+			node = deps[k]
+			for c in leafs.keys() :
+				if node.deps.has_key(c) :
+					leafs[c] += 1
+					del node.deps[c]
+		# third pass: remove the leafs
+		for k in leafs.keys() :
+			# we either need to reset leafs in every round or 
+			if deps.has_key(k) :
+				del deps[k]
+	if len(leafs.keys()) > 0 :
+		return leafs.keys()
+	return cut
 	
 def UnGlob (comps) :
 	import glob
@@ -253,6 +285,7 @@ def main () :
 	sOutFilename = None
 
 	nSymbols = 0
+	nCutLeafs = 0
 
 	for arg in sys.argv[1:] :
 		if string.find (arg, "--remove") == 0 :
@@ -276,6 +309,11 @@ def main () :
 		elif string.find (arg, "--symbols=") == 0 :
 			nSymbols = int(arg[len("--symbols="):])
 			if nSymbols < 0 : nSymbols = 0
+		elif string.find (arg, "--cut-leafs") == 0 :
+			if string.find (arg, "--cut-leafs=") == 0 :
+				nCutLeafs = int(arg[len("--cut-leafs="):])
+			else :
+				nCutLeafs = 10000 # infinite ;)
 		elif arg == "--dump" :
 			bDump = 1
 		elif arg == "--reduce" :
@@ -342,6 +380,9 @@ For more information read the source.
 		# ... dot
 		f = open(sOutFilename, "w")
 
+	if bDump : # remember the command line
+		f.write ("# " + string.join (sys.argv, " ") + "\n")
+
 	for s in components:
 		GetDeps (s, deps, nMaxDepth)
 
@@ -349,6 +390,22 @@ For more information read the source.
 	
 	for rr in regexRemoves :
 		RemoveRegEx (deps, rr)
+
+	while nCutLeafs > 0 :
+		# not always iterating here, CutLeafs does too
+		if bDump :
+			nTotal = len(deps.keys())
+			leafs = CutLeafs (deps, 1)
+			if len(leafs) < 1 :
+				break
+			f.write ("CutLeafs " + str(nTotal) + " => " + str(nTotal - len(leafs)) + "\n")
+			leafs.sort()
+			f.write ("\t" + string.join (leafs, ",") + "\n")
+			f.flush()
+			nCutLeafs -= 1
+		else :
+			leafs = CutLeafs (deps, nCutLeafs)
+			break
 
 	if bReduce :
 		if not sOutFilename :
@@ -358,8 +415,6 @@ For more information read the source.
 		Reduce (deps, f2)
 
 	if bDump :
-		# remember the command line
-		f.write ("# " + string.join (sys.argv, " ") + "\n")
 		Symbols = {}
 		Modules = {}
 		Imports = {}
