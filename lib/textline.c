@@ -159,23 +159,23 @@ text_line_get_height(const TextLine *text_line)
 }
 
 real
-text_line_get_width(TextLine *text_line)
+text_line_get_width(const TextLine *text_line)
 {
-  text_line_cache_values(text_line);
+  text_line_cache_values((TextLine *)text_line);
   return text_line->width;
 }
 
 real
-text_line_get_ascent(TextLine *text_line)
+text_line_get_ascent(const TextLine *text_line)
 {
-  text_line_cache_values(text_line);
+  text_line_cache_values((TextLine *)text_line);
   return text_line->ascent;
 }
 
 real
-text_line_get_descent(TextLine *text_line)
+text_line_get_descent(const TextLine *text_line)
 {
-  text_line_cache_values(text_line);
+  text_line_cache_values((TextLine *)text_line);
   return text_line->descent;
 }
 

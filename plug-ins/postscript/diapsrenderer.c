@@ -33,11 +33,6 @@
 #include "font.h"
 #include "textline.h"
 
-static void
-draw_text_line(DiaRenderer *self,
-	       const TextLine *text_line,
-	       Point *pos, Alignment alignment, Color *color);
-
 #define DTOSTR_BUF_SIZE G_ASCII_DTOSTR_BUF_SIZE
 #define psrenderer_dtostr(buf,d) \
 	g_ascii_formatd(buf, sizeof(buf), "%f", d)
@@ -647,22 +642,41 @@ ps_convert_string(const char *text)
 }
 
 static void
+put_text_alignment (DiaPsRenderer *renderer,
+		    Alignment alignment,
+		    Point *pos)
+{
+  gchar px_buf[DTOSTR_BUF_SIZE];
+  gchar py_buf[DTOSTR_BUF_SIZE];
+
+  switch (alignment) {
+  case ALIGN_LEFT:
+    fprintf(renderer->file, "%s %s m\n",
+	    psrenderer_dtostr(px_buf, pos->x),
+	    psrenderer_dtostr(py_buf, pos->y) );
+    break;
+  case ALIGN_CENTER:
+    fprintf(renderer->file, "dup sw 2 div %s ex sub %s m\n",
+	    psrenderer_dtostr(px_buf, pos->x),
+	    psrenderer_dtostr(py_buf, pos->y) );
+    break;
+  case ALIGN_RIGHT:
+    fprintf(renderer->file, "dup sw %s ex sub %s m\n",
+	    psrenderer_dtostr(px_buf, pos->x),
+	    psrenderer_dtostr(py_buf, pos->y) );
+    break;
+  }  
+}
+
+static void
 draw_string(DiaRenderer *self,
 	    const char *text,
 	    Point *pos, Alignment alignment,
 	    Color *color)
 {
-#define DRAW_STRING_WITH_TEXT_LINE
-#ifdef DRAW_STRING_WITH_TEXT_LINE
-  TextLine *text_line = text_line_new(text, self->font, self->font_height);
-  draw_text_line(self, text_line, pos, alignment, color);
-  text_line_destroy(text_line);
-#else
   DiaPsRenderer *renderer = DIA_PS_RENDERER(self);
+  Point pos_adj;
   gchar *buffer;
-  gchar px_buf[DTOSTR_BUF_SIZE];
-  gchar py_buf[DTOSTR_BUF_SIZE];
-  GError * error = NULL;
 
   if (1 > strlen(text))
     return;
@@ -674,69 +688,11 @@ draw_string(DiaRenderer *self,
   fprintf(renderer->file, "(%s) ", buffer);
   g_free(buffer);
 
-  switch (alignment) {
-  case ALIGN_LEFT:
-    fprintf(renderer->file, "%s %s m",
-	    psrenderer_dtostr(px_buf, pos->x),
-	    psrenderer_dtostr(py_buf, pos->y) );
-    break;
-  case ALIGN_CENTER:
-    fprintf(renderer->file, "dup sw 2 div %s ex sub %s m",
-	    psrenderer_dtostr(px_buf, pos->x),
-	    psrenderer_dtostr(py_buf, pos->y) );
-    break;
-  case ALIGN_RIGHT:
-    fprintf(renderer->file, "dup sw %s ex sub %s m",
-	    psrenderer_dtostr(px_buf, pos->x),
-	    psrenderer_dtostr(py_buf, pos->y) );
-    break;
-  }
-  
+  pos_adj.x = pos->x;
+  pos_adj.y = pos->y - dia_font_descent("", self->font, self->font_height);
+  put_text_alignment (renderer, alignment, &pos_adj);
+
   fprintf(renderer->file, " gs 1 -1 sc sh gr\n");
-#endif
-}
-
-static void
-draw_text_line(DiaRenderer *self,
-	       const TextLine *text_line,
-	       Point *pos, Alignment alignment, Color *color)
-{
-  DiaPsRenderer *renderer = DIA_PS_RENDERER(self);
-  gchar *buffer;
-  gchar px_buf[DTOSTR_BUF_SIZE];
-  gchar py_buf[DTOSTR_BUF_SIZE];
-  real width;
-  gchar *text = text_line_get_string(text_line);
-  int n_chars = g_utf8_strlen(text, -1);
-
-  if (1 > n_chars)
-    return;
-
-  set_font(self, text_line_get_font(text_line),
-	   text_line_get_height(text_line));
-
-  lazy_setcolor(renderer, color);
-
-  buffer = ps_convert_string(text);
-
-  fprintf(renderer->file, "(%s) ", buffer);
-  g_free(buffer);
-
-  fprintf(renderer->file, "%s %s m \n",
-	  psrenderer_dtostr(px_buf, pos->x - text_line_get_alignment_adjustment (text_line, alignment)),
-	  psrenderer_dtostr(py_buf, pos->y - text_line_get_descent(text_line)) );
-  
-  /* Perform magic to ensure the right size */
-  width = text_line_get_width(text_line);
-  
-  /* Find the difference in length */
-  fprintf(renderer->file, "dup sw %s exch sub \n", 
-	  psrenderer_dtostr(px_buf, width));
-
-  /* Divide by number of chars and set up for ashow */
-  fprintf(renderer->file, "%d div exch 0.0 exch \n", n_chars);
-  
-  fprintf(renderer->file, " gs 1 -1 sc ashow gr\n");
 }
 
 static void
@@ -1095,7 +1051,6 @@ dia_ps_renderer_class_init (DiaPsRendererClass *klass)
   renderer_class->fill_rect = fill_rect;
   renderer_class->draw_polyline  = draw_polyline;
   renderer_class->draw_polygon   = draw_polygon;
-  renderer_class->draw_text_line = draw_text_line;
 
   /* ps specific */
   ps_renderer_class->begin_prolog = begin_prolog;

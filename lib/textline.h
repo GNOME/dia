@@ -69,9 +69,9 @@ gchar *text_line_get_string(const TextLine *text);
 DiaFont *text_line_get_font(const TextLine *text);
 real text_line_get_height(const TextLine *text);
 void text_line_calc_boundingbox_size(TextLine *text, Point *size);
-real text_line_get_width(TextLine *text);
-real text_line_get_ascent(TextLine *text);
-real text_line_get_descent(TextLine *text);
+real text_line_get_width(const TextLine *text);
+real text_line_get_ascent(const TextLine *text);
+real text_line_get_descent(const TextLine *text);
 
 void text_line_adjust_glyphs(TextLine *line,
 			     PangoGlyphString *glyphs,
