@@ -1,3 +1,9 @@
+2009-03-26  Hans Breuer  <hans@breuer.org>
+
+	* plug-ins/python/pydia-property.c : check for a correct number of
+	bezier points before assigning them. So evem a broken PyDia script
+	can not crash the core (this way)
+
 2009-03-25  Hans Breuer  <hans@breuer.org>
 
 	* plug-ins/diapsrenderer.c : dont't throw away alignment information

@@ -472,6 +472,7 @@ PyDia_set_BezPointArray(Property *prop, PyObject *val)
     BezPoint bpt;
     gboolean is_list = !PyTuple_Check(val);
     int i, len = is_list ? PyList_Size(val) : PyTuple_Size(val);
+    int numpts = 0;
     g_array_set_size(ptp->bezpointarray_data,len);
     for (i = 0; i < len; i++) {
       /* a tuple of at least (int,double,double) */
@@ -497,7 +498,15 @@ PyDia_set_BezPointArray(Property *prop, PyObject *val)
         bpt.p2 = bpt.p3 = bpt.p1;
       }
       g_array_index(ptp->bezpointarray_data,BezPoint,i) = bpt;
+      ++numpts;
     }
+    /* rather than crashing Dia with too few point handle it here */
+    if (numpts < 2) {
+      g_warning ("Too few BezPoints!");
+      return -1;
+    }
+    /* only count valid points */
+    g_array_set_size(ptp->bezpointarray_data,numpts);
     return 0;
   }
   return -1;
