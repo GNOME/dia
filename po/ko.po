@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.85\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=dia&component=general\n"
-"POT-Creation-Date: 2009-02-01 18:18+0000\n"
-"PO-Revision-Date: 2009-02-13 05:30+0900\n"
+"POT-Creation-Date: 2009-03-08 17:04+0000\n"
+"PO-Revision-Date: 2009-03-23 10:38+0900\n"
 "Last-Translator: Jin-Hwan Jeong <yongdoria@gmail.com>\n"
 "Language-Team: Korean <Dokdo@korea.land>\n"
 "MIME-Version: 1.0\n"
@@ -47,7 +47,7 @@ msgstr "%s 오류: 입출력 파일이름이 동일합니다: %s"
 
 #: ../app/app_procs.c:360
 msgid "%s error: need valid input file %s\n"
-msgstr "%s 오류: 올바른 입력 파일이 필요합니다\n"
+msgstr "%s 오류: 올바른 입력 파일 %s 필요합니다\n"
 
 #. if (!quiet)
 #: ../app/app_procs.c:385
@@ -225,7 +225,7 @@ msgstr "'%s'을 찾을 수 없습니다!\n"
 
 #: ../app/app_procs.c:1166
 msgid "'%s' not found in '%s'!\n"
-msgstr "'%s'을 찾을 수 없습니다!\n"
+msgstr "'%s'을 찾을 수 없습니다 '%s'에서!\n"
 
 #: ../app/app_procs.c:1215
 #, c-format
@@ -352,7 +352,7 @@ msgstr ""
 
 #: ../app/commands.c:745
 msgid "A program for drawing structured diagrams."
-msgstr "구조화된 도표를 그리는 프로그램"
+msgstr "구조화된 도표 작성 프로그램"
 
 #: ../app/confirm.c:69
 #, c-format
@@ -382,6 +382,7 @@ msgid "Confirm Diagram Size"
 msgstr "도표 크기 확인"
 
 #: ../app/create_object.c:71
+#, c-format
 msgid "'%s' creation failed"
 msgstr "'%s' 생성 실패"
 
@@ -424,7 +425,7 @@ msgstr "표시 간격"
 
 #. Hexes!
 #: ../app/dia-props.c:177
-#: ../app/preferences.c:246
+#: ../app/preferences.c:247
 msgid "Hex grid"
 msgstr "6각 격자(벌집 격자)"
 
@@ -437,7 +438,7 @@ msgid "Grid"
 msgstr "격자:"
 
 #: ../app/dia-props.c:209
-#: ../lib/diagramdata.c:113
+#: ../lib/diagramdata.c:112
 msgid "Background"
 msgstr "배경"
 
@@ -486,20 +487,16 @@ msgid "Couldn't convert filename '%s' to UTF-8: %s\n"
 msgstr "파일명 `%s'를 UTF-8: %s 로 변환할 수 없습니다\n"
 
 #: ../app/diagram.c:225
-#: ../lib/message.c:89
-#: ../lib/message.c:292
+#: ../lib/message.c:90
+#: ../lib/message.c:293
 msgid "Error"
 msgstr "오류"
 
-#: ../app/diagram.c:274
-msgid "You have loaded a non-Dia file.  The file has become an element in a new diagram, and if you save it, it will be saved as a Dia diagram."
-msgstr "비 Dia 파일을 읽어왔습니다.  이 파일은 새 도표의 요소가 됩니다. 저장시 Dia 도표로서 저장됩니다."
-
-#: ../app/diagram.c:1197
+#: ../app/diagram.c:1209
 msgid "Trying to group with no selected objects."
 msgstr "선택 객체 없이 그룹화 시도"
 
-#: ../app/diagram.c:1207
+#: ../app/diagram.c:1219
 msgid "You cannot group objects that belong to different groups or have different parents"
 msgstr "다른 그룹에 속하거나 또는 다른 상위개체들을 가진 객체를 그룹화할 수 없습니다."
 
@@ -647,7 +644,7 @@ msgstr "%0.3gcm x %0.3gcm"
 msgid "Page Setup"
 msgstr "페이지 설정"
 
-#: ../app/disp_callbacks.c:85
+#: ../app/disp_callbacks.c:95
 #: ../app/properties-dialog.c:157
 msgid ""
 "This object doesn't support Undo/Redo.\n"
@@ -656,11 +653,11 @@ msgstr ""
 "이 객체는 취소/재실행을 지원하지 않습니다.\n"
 "취소 정보가 지워집니다."
 
-#: ../app/disp_callbacks.c:120
+#: ../app/disp_callbacks.c:130
 msgid "Properties..."
 msgstr "설정..."
 
-#: ../app/disp_callbacks.c:1015
+#: ../app/disp_callbacks.c:1066
 msgid ""
 "The object you dropped cannot fit into its parent. \n"
 "Either expand the parent object, or drop the object elsewhere."
@@ -725,21 +722,21 @@ msgstr "선택된 것 저장"
 msgid "The following are not saved:"
 msgstr "다음을 저장하지 않습니다:"
 
-#: ../app/exit_dialog.c:114
+#: ../app/exit_dialog.c:113
 msgid "Save"
 msgstr "저장"
 
-#: ../app/exit_dialog.c:115
+#: ../app/exit_dialog.c:114
 msgid "active"
 msgstr "활성"
 
 #. *** board of value **************
-#: ../app/exit_dialog.c:124
+#: ../app/exit_dialog.c:123
 #: ../app/plugin-manager.c:262
 #: ../objects/Database/table.c:138
 #: ../objects/Database/table.c:181
-#: ../objects/SISSI/sissi_dialog.c:619
-#: ../objects/UML/association.c:236
+#: ../objects/SISSI/sissi_dialog.c:734
+#: ../objects/UML/association.c:234
 #: ../objects/UML/class.c:144
 #: ../objects/UML/large_package.c:139
 #: ../objects/UML/umlattribute.c:37
@@ -749,19 +746,19 @@ msgstr "활성"
 msgid "Name"
 msgstr "이름"
 
-#: ../app/exit_dialog.c:130
+#: ../app/exit_dialog.c:129
 msgid "Path"
 msgstr "선반"
 
-#: ../app/exit_dialog.c:143
+#: ../app/exit_dialog.c:142
 msgid "Select All"
 msgstr "전체 선택"
 
-#: ../app/exit_dialog.c:151
+#: ../app/exit_dialog.c:150
 msgid "Select None"
 msgstr "선택 없음"
 
-#: ../app/exit_dialog.c:229
+#: ../app/exit_dialog.c:232
 msgid "Nothing selected for saving.  Would you like to try again?"
 msgstr "저장하기 위하여 선택된 것이 없음. 다시 시도하겠습니까?"
 
@@ -798,7 +795,7 @@ msgid "All Files"
 msgstr "전체 파일"
 
 #: ../app/filedlg.c:371
-#: ../plug-ins/postscript/paginate_psprint.c:409
+#: ../plug-ins/postscript/paginate_psprint.c:408
 msgid ""
 "Some characters in the filename are neither UTF-8\n"
 "nor your local encoding.\n"
@@ -810,13 +807,13 @@ msgstr ""
 
 #: ../app/filedlg.c:381
 #: ../app/filedlg.c:653
-#: ../plug-ins/postscript/paginate_psprint.c:424
+#: ../plug-ins/postscript/paginate_psprint.c:422
 msgid "File already exists"
 msgstr "파일이 이미 있습니다"
 
 #: ../app/filedlg.c:383
 #: ../app/filedlg.c:655
-#: ../plug-ins/postscript/paginate_psprint.c:416
+#: ../plug-ins/postscript/paginate_psprint.c:418
 #, c-format
 msgid ""
 "The file '%s' already exists.\n"
@@ -882,7 +879,7 @@ msgid "Find"
 msgstr "찾기"
 
 #: ../app/find-and-replace.c:541
-#: ../app/menus.c:261
+#: ../app/menus.c:267
 msgid "Replace"
 msgstr "치환"
 
@@ -897,7 +894,7 @@ msgstr "전체 치환(_A)"
 msgid "_Replace"
 msgstr "치환(_R)"
 
-#: ../app/interface.c:152
+#: ../app/interface.c:153
 msgid ""
 "Modify object(s)\n"
 "Use <Space> to toggle between this and other tools"
@@ -905,7 +902,7 @@ msgstr ""
 "선택\n"
 "편집 객체 선택"
 
-#: ../app/interface.c:158
+#: ../app/interface.c:159
 msgid ""
 "Text edit(s)\n"
 "Use <Esc> to leave this tool"
@@ -914,20 +911,20 @@ msgstr ""
 "이 도구를 벗어나기 위하여 <Esc> 사용"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Magnify
-#: ../app/interface.c:164
-#: ../app/menus.c:223
+#: ../app/interface.c:165
+#: ../app/menus.c:229
 #: ../objects/FS/function.c:988
 msgid "Magnify"
 msgstr "확대. <Shift> 누른 상태는 축소"
 
-#: ../app/interface.c:170
+#: ../app/interface.c:171
 msgid "Scroll around the diagram"
 msgstr "이동. 작업영역 이동"
 
 #. how it used to be before 0.96+SVN
 #. new name matching "same name, same type"  rule
-#: ../app/interface.c:176
-#: ../app/menus.c:226
+#: ../app/interface.c:177
+#: ../app/menus.c:232
 #: ../lib/properties.c:80
 #: ../lib/properties.h:530
 #: ../objects/AADL/aadlbox.c:156
@@ -950,123 +947,123 @@ msgstr "이동. 작업영역 이동"
 msgid "Text"
 msgstr "문자열 입력"
 
-#: ../app/interface.c:182
-#: ../app/menus.c:227
+#: ../app/interface.c:183
+#: ../app/menus.c:233
 msgid "Box"
 msgstr "사각 입력"
 
-#: ../app/interface.c:188
-#: ../app/menus.c:228
+#: ../app/interface.c:189
+#: ../app/menus.c:234
 msgid "Ellipse"
 msgstr "타원 입력"
 
-#: ../app/interface.c:194
-#: ../app/menus.c:229
+#: ../app/interface.c:195
+#: ../app/menus.c:235
 msgid "Polygon"
 msgstr "다각형 입력. 오른쪽 마우스 조절점 추가"
 
-#: ../app/interface.c:200
-#: ../app/menus.c:230
+#: ../app/interface.c:201
+#: ../app/menus.c:236
 msgid "Beziergon"
 msgstr "베지어원 입력. 오른쪽 마우스 조절점 추가"
 
-#: ../app/interface.c:206
-#: ../app/menus.c:232
+#: ../app/interface.c:207
+#: ../app/menus.c:238
 #: ../objects/standard/line.c:229
 msgid "Line"
 msgstr "선 입력"
 
-#: ../app/interface.c:212
-#: ../app/menus.c:233
+#: ../app/interface.c:213
+#: ../app/menus.c:239
 msgid "Arc"
 msgstr "호 입력"
 
-#: ../app/interface.c:218
-#: ../app/menus.c:234
+#: ../app/interface.c:219
+#: ../app/menus.c:240
 msgid "Zigzagline"
 msgstr "지그재그 입력. 오른쪽 마우스 조절점 추가"
 
-#: ../app/interface.c:224
-#: ../app/menus.c:235
+#: ../app/interface.c:225
+#: ../app/menus.c:241
 msgid "Polyline"
 msgstr "연결선 입력. 오른쪽 마우스 조절점 추가"
 
-#: ../app/interface.c:230
-#: ../app/menus.c:236
+#: ../app/interface.c:231
+#: ../app/menus.c:242
 msgid "Bezierline"
 msgstr "베지어선 입력. 오른쪽 마우스 조절점 추가"
 
-#: ../app/interface.c:236
-#: ../app/menus.c:239
+#: ../app/interface.c:237
+#: ../app/menus.c:245
 msgid "Image"
 msgstr "그림 입력"
 
-#: ../app/interface.c:242
-#: ../app/menus.c:237
+#: ../app/interface.c:244
+#: ../app/menus.c:243
 msgid "Outline"
-msgstr "윤곽선"
+msgstr "윤곽선 문자열 입력"
 
-#: ../app/interface.c:616
-#: ../app/interface.c:852
+#: ../app/interface.c:619
+#: ../app/interface.c:855
 msgid "Pops up the Navigation window."
 msgstr "작업영역을 쉽게 이동할 수 있는 팝업창입니다."
 
-#: ../app/interface.c:814
+#: ../app/interface.c:817
 msgid "Diagram menu."
 msgstr "도표 메뉴."
 
-#: ../app/interface.c:917
+#: ../app/interface.c:920
 msgid "Zoom"
 msgstr "확대"
 
-#: ../app/interface.c:932
+#: ../app/interface.c:935
 msgid "Toggles snap-to-grid for this window."
 msgstr "격자에 붙이기 토글"
 
-#: ../app/interface.c:943
+#: ../app/interface.c:946
 msgid "Toggles object snapping for this window."
 msgstr "객체에 붙이기 토글"
 
-#: ../app/interface.c:1006
+#: ../app/interface.c:1009
 msgid "NULL tooldata in tool_select_update"
 msgstr "도구_선택_갱신에서 NULL 도구자료"
 
-#: ../app/interface.c:1333
+#: ../app/interface.c:1336
 #, c-format
 msgid "No sheet named %s"
 msgstr "%s 시트명 없음"
 
-#: ../app/interface.c:1371
+#: ../app/interface.c:1374
 msgid "Other sheets"
 msgstr "다양한 시트 도형 선택"
 
-#: ../app/interface.c:1431
+#: ../app/interface.c:1434
 #: ../sheets/Flowchart.sheet.in.h:10
 msgid "Flowchart"
 msgstr "흐름도(Flowchart)"
 
-#: ../app/interface.c:1491
+#: ../app/interface.c:1494
 msgid "Foreground & background colors for new objects.  The small black and white squares reset colors.  The small arrows swap colors.  Double click to change colors."
 msgstr "새 객체를 위한 전경 및 배경 색상. 작은 검고 흰 사각은 색상을 초기화 시킵니다. 작은 화살표는 색상을 바꿉니다. 색상을 변경하기 위하여 더블 클릭하시오"
 
-#: ../app/interface.c:1506
+#: ../app/interface.c:1509
 msgid "Line widths.  Click on a line to set the default line width for new objects.  Double-click to set the line width more precisely."
 msgstr "선 두께. 새 객체를 위한 기본 선 두께를 설정하기 위하여 선을 클릭. 더 정확하게 선 두께를 설정하기 위하여 더블 클릭합니다."
 
-#: ../app/interface.c:1549
+#: ../app/interface.c:1552
 msgid "Arrow style at the beginning of new lines.  Click to pick an arrow, or set arrow parameters with Details..."
 msgstr "시작 화살표 형태. 화살표를 선택, 또는 자세하게 화살표 인자를 설정하기 위하여 클릭합니다."
 
-#: ../app/interface.c:1554
+#: ../app/interface.c:1557
 msgid "Line style for new lines.  Click to pick a line style, or set line style parameters with Details..."
 msgstr "선 형태. 선 형태를 선택, 또는 자세하게 선 형태 인자를 설정하기 위하여 클릭합니다."
 
-#: ../app/interface.c:1570
+#: ../app/interface.c:1573
 msgid "Arrow style at the end of new lines.  Click to pick an arrow, or set arrow parameters with Details..."
 msgstr "끝 화살표 형태. 화살표를 선택, 또는 자세하게 화살표 인자를 설정하기 위하여 클릭합니다."
 
-#: ../app/interface.c:1630
-#: ../app/interface.c:1757
+#: ../app/interface.c:1633
+#: ../app/interface.c:1760
 msgid "Diagram Editor"
 msgstr "도표 편집기"
 
@@ -1086,32 +1083,37 @@ msgstr "레이어 내림"
 msgid "Delete Layer"
 msgstr "레이어 지움"
 
-#: ../app/layer_dialog.c:305
+#: ../app/layer_dialog.c:306
 msgid "Layers:"
 msgstr "레이어:"
 
-#: ../app/layer_dialog.c:385
+#: ../app/layer_dialog.c:386
 msgid "Layers"
 msgstr "레이어"
 
-#: ../app/layer_dialog.c:399
+#: ../app/layer_dialog.c:400
 msgid "Diagram:"
 msgstr "도표:"
 
-#: ../app/layer_dialog.c:513
+#: ../app/layer_dialog.c:514
+#: ../app/layer_dialog.c:1225
 #, c-format
 msgid "New layer %d"
 msgstr "새 레이어 %d"
 
-#: ../app/layer_dialog.c:728
+#: ../app/layer_dialog.c:729
 msgid "none"
 msgstr "없음"
 
-#: ../app/layer_dialog.c:1153
-msgid "Edit Layer Attributes"
-msgstr "레이어 속성 편집"
+#: ../app/layer_dialog.c:1196
+msgid "Edit Layer"
+msgstr "레이어 편집"
 
-#: ../app/layer_dialog.c:1172
+#: ../app/layer_dialog.c:1196
+msgid "Add Layer"
+msgstr "레이어 더하기"
+
+#: ../app/layer_dialog.c:1215
 msgid "Layer name:"
 msgstr "레이어 이름:"
 
@@ -1136,6 +1138,7 @@ msgstr ""
 "문서에서 연결된 객체를 찾을 수 없습니다."
 
 #: ../app/load_save.c:299
+#, c-format
 msgid ""
 "Error loading diagram.\n"
 "connection handle %d does not exist on '%s'."
@@ -1144,6 +1147,7 @@ msgstr ""
 "연결 조절점 %d이 '%s'에 없습니다."
 
 #: ../app/load_save.c:327
+#, c-format
 msgid ""
 "Error loading diagram.\n"
 "connection point %d does not exist on '%s'."
@@ -1200,10 +1204,12 @@ msgstr ""
 "적절한 Dia 파일이 최소 한 레이어 이상 정의되어야 합니다."
 
 #: ../app/load_save.c:995
+#, c-format
 msgid "Not allowed to write to output file %s\n"
 msgstr "출력 파일 %s를 쓰기가 허용되지 않음\n"
 
 #: ../app/load_save.c:1027
+#, c-format
 msgid "Not allowed to write temporary files in %s\n"
 msgstr "%s 임시파일 쓰기가 허용되지 않았습니다.\n"
 
@@ -1218,7 +1224,7 @@ msgstr "%s 임시파일 쓰기가 허용되지 않았습니다.\n"
 #: ../plug-ins/pgf/render_pgf.c:1208
 #: ../plug-ins/postscript/render_eps.c:105
 #: ../plug-ins/pstricks/render_pstricks.c:916
-#: ../plug-ins/shape/shape-export.c:136
+#: ../plug-ins/shape/shape-export.c:137
 #: ../plug-ins/svg/render_svg.c:199
 #: ../plug-ins/vdx/vdx-export.c:1849
 #: ../plug-ins/wpg/wpg.c:1072
@@ -1232,7 +1238,7 @@ msgstr "출력 파일 %s를 열 수 없습니다: %s\n"
 #. "filename" if it existed.
 #: ../app/load_save.c:1060
 msgid "Internal error %d writing file %s\n"
-msgstr "파일 %s를 쓰는 중 내부 오류 %d\n"
+msgstr "내부 오류 %d 파일 %s를 쓰는 중 발생\n"
 
 #: ../app/load_save.c:1071
 #, c-format
@@ -1244,349 +1250,361 @@ msgstr "%s를 최종 출력 파일 %s로 다시 저장할 수 없습니다: %s\n
 msgid "Dia Diagram File"
 msgstr "Dia 도표 파일"
 
-#: ../app/menus.c:58
+#: ../app/menus.c:63
 msgid "Fit"
 msgstr "적당"
 
 #
-#: ../app/menus.c:76
+#: ../app/menus.c:81
 msgid "_File"
 msgstr "파일(_F)"
 
-#: ../app/menus.c:80
+#: ../app/menus.c:85
 msgid "_Help"
 msgstr "도움말(_H)"
 
-#: ../app/menus.c:88
+#: ../app/menus.c:93
 msgid "Sheets and Objects..."
 msgstr "시트 & 객체..."
 
-#: ../app/menus.c:90
+#: ../app/menus.c:95
 msgid "Plugins..."
 msgstr "플러그인..."
 
-#: ../app/menus.c:96
+#: ../app/menus.c:101
 msgid "_Diagram tree..."
 msgstr "도표 자료 목록(_D)..."
 
-#: ../app/menus.c:102
+#: ../app/menus.c:107
 msgid "Show Toolbar"
 msgstr "도구막대 보이기"
 
-#: ../app/menus.c:103
+#: ../app/menus.c:108
 msgid "Show Statusbar"
 msgstr "상태막대 보이기"
 
-#: ../app/menus.c:104
+#: ../app/menus.c:109
 msgid "Show Layers"
 msgstr "레이어 보이기"
 
-#: ../app/menus.c:112
+#: ../app/menus.c:117
 msgid "_Export ..."
 msgstr "다른 파일 형식 저장(_E)..."
 
-#: ../app/menus.c:113
+#: ../app/menus.c:118
+msgid "_Diagram Properties"
+msgstr "도표 속성(_D)"
+
+#: ../app/menus.c:119
 msgid "Page Set_up..."
 msgstr "페이지 설정(_U)..."
 
 #
-#: ../app/menus.c:117
+#: ../app/menus.c:123
 #: ../app/sheets_dialog.c:236
 msgid "_Edit"
 msgstr "편집(_E)"
 
 #
-#: ../app/menus.c:124
+#: ../app/menus.c:130
 msgid "_Duplicate"
 msgstr "복제(_D)"
 
 #. the following used to bind to <control><shift>C which collides with Unicode input.
 #. * <control>>alt> doesn't work either
-#: ../app/menus.c:132
+#: ../app/menus.c:138
 msgid "Copy Text"
 msgstr "문자열 복사"
 
-#: ../app/menus.c:133
+#: ../app/menus.c:139
 msgid "Cut Text"
 msgstr "문자열 잘라내기"
 
-#: ../app/menus.c:134
+#: ../app/menus.c:140
 msgid "Paste _Text"
 msgstr "문자열 붙여넣기(_T)"
 
-#: ../app/menus.c:136
-msgid "_Diagram"
-msgstr "도표(_D)"
+#: ../app/menus.c:142
+msgid "_Layers"
+msgstr "레이어(_L)"
 
-#: ../app/menus.c:138
+#: ../app/menus.c:143
+msgid "Add Layer..."
+msgstr "레이어 더하기..."
+
+#: ../app/menus.c:144
+msgid "Rename Layer..."
+msgstr "레이어 다른 이름으로..."
+
+#: ../app/menus.c:145
+msgid "Move selection to layer above"
+msgstr "선택을 레이어 위로 이동"
+
+#: ../app/menus.c:146
+msgid "Move selection to layer below"
+msgstr "선택을 레이어 아래로 이동"
+
+#: ../app/menus.c:147
 msgid "_Layers..."
 msgstr "레이어(_L)..."
 
 #
-#: ../app/menus.c:140
+#: ../app/menus.c:149
 msgid "_View"
 msgstr "보기(_V)"
 
-#: ../app/menus.c:143
+#: ../app/menus.c:152
 msgid "_Zoom"
 msgstr "확대(_Z)"
 
-#: ../app/menus.c:144
+#: ../app/menus.c:153
 msgid "1600%"
 msgstr "1600%"
 
-#: ../app/menus.c:145
-#: ../app/menus.c:567
+#: ../app/menus.c:154
+#: ../app/menus.c:573
 msgid "800%"
 msgstr "800%"
 
-#: ../app/menus.c:146
-#: ../app/menus.c:568
+#: ../app/menus.c:155
+#: ../app/menus.c:574
 msgid "400%"
 msgstr "400%"
 
-#: ../app/menus.c:147
+#: ../app/menus.c:156
 msgid "283"
 msgstr "283%"
 
-#: ../app/menus.c:148
+#: ../app/menus.c:157
 msgid "200"
 msgstr "200%"
 
-#: ../app/menus.c:149
+#: ../app/menus.c:158
 msgid "141"
 msgstr "141%"
 
-#: ../app/menus.c:151
+#: ../app/menus.c:160
 msgid "85"
 msgstr "85%"
 
-#: ../app/menus.c:152
+#: ../app/menus.c:161
 msgid "70.7"
 msgstr "70.7%"
 
-#: ../app/menus.c:153
+#: ../app/menus.c:162
 msgid "50"
 msgstr "50%"
 
-#: ../app/menus.c:154
+#: ../app/menus.c:163
 msgid "35.4"
 msgstr "35.4%"
 
-#: ../app/menus.c:155
+#: ../app/menus.c:164
 msgid "25"
 msgstr "25%"
 
 #
 #. "display_toggle_entries" items go here
-#: ../app/menus.c:161
+#: ../app/menus.c:170
 msgid "New _View"
 msgstr "새로이 보기(_V)"
 
-#: ../app/menus.c:162
+#: ../app/menus.c:171
 msgid "C_lone View"
 msgstr "복제 후 보기(_L)"
 
 #
-#: ../app/menus.c:165
+#: ../app/menus.c:174
 msgid "_Objects"
 msgstr "객체(_O)"
 
-#: ../app/menus.c:166
+#: ../app/menus.c:175
 msgid "Send to _Back"
 msgstr "끝으로 보내기(_B)"
 
-#: ../app/menus.c:167
+#: ../app/menus.c:176
 msgid "Bring to _Front"
 msgstr "처음으로 보내기(_F)"
 
-#: ../app/menus.c:168
+#: ../app/menus.c:177
 msgid "Send Backwards"
 msgstr "뒤로 보내기"
 
 #
-#: ../app/menus.c:169
+#: ../app/menus.c:178
 msgid "Bring Forwards"
 msgstr "앞으로 보내기"
 
-#: ../app/menus.c:171
-msgid "Move to layer above"
-msgstr "레이어를 위로 이동"
-
-#: ../app/menus.c:172
-msgid "Move to layer below"
-msgstr "레이어를 아래로 이동"
-
-#: ../app/menus.c:174
+#: ../app/menus.c:180
 msgid "_Group"
 msgstr "객체 묶기(_G)"
 
 #. deliberately not using Ctrl+U for Ungroup
-#: ../app/menus.c:176
+#: ../app/menus.c:182
 msgid "_Ungroup"
 msgstr "객체 풀기(_U)"
 
-#: ../app/menus.c:178
+#: ../app/menus.c:184
 msgid "_Parent"
 msgstr "부모(_P)"
 
 #
-#: ../app/menus.c:179
+#: ../app/menus.c:185
 msgid "_Unparent"
 msgstr "부모 해제(_U)"
 
-#: ../app/menus.c:180
+#: ../app/menus.c:186
 msgid "_Unparent Children"
-msgstr "부모 해제된 자식(_U)"
+msgstr "자식 부모 해제(_U)"
 
 #. Translators: Menu item Verb/Support/Position/Align
-#: ../app/menus.c:182
+#: ../app/menus.c:188
 #: ../objects/FS/function.c:808
 msgid "Align"
 msgstr "정렬"
 
-#: ../app/menus.c:187
-#: ../objects/standard/textobj.c:134
+#: ../app/menus.c:193
+#: ../objects/standard/textobj.c:137
 msgid "Top"
 msgstr "위"
 
-#: ../app/menus.c:188
+#: ../app/menus.c:194
 msgid "Middle"
 msgstr "중간"
 
-#: ../app/menus.c:189
-#: ../objects/standard/textobj.c:133
+#: ../app/menus.c:195
+#: ../objects/standard/textobj.c:136
 msgid "Bottom"
 msgstr "아래"
 
 #
-#: ../app/menus.c:191
+#: ../app/menus.c:197
 msgid "Spread Out Horizontally"
 msgstr "수평 정렬(_H)"
 
 #
-#: ../app/menus.c:192
+#: ../app/menus.c:198
 msgid "Spread Out Vertically"
 msgstr "수직 정렬(_V)"
 
-#: ../app/menus.c:193
+#: ../app/menus.c:199
 msgid "Adjacent"
 msgstr "인접"
 
-#: ../app/menus.c:194
+#: ../app/menus.c:200
 msgid "Stacked"
 msgstr "쌓기"
 
-#: ../app/menus.c:198
+#: ../app/menus.c:204
 msgid "_Select"
 msgstr "선택(_S)"
 
-#: ../app/menus.c:199
+#: ../app/menus.c:205
 msgid "All"
-msgstr "전체"
+msgstr "전체 선택"
 
-#: ../app/menus.c:200
+#: ../app/menus.c:206
 #: ../lib/arrows.c:1882
 #: ../objects/Jackson/domain.c:96
-#: ../objects/UML/association.c:223
-#: ../objects/UML/association.c:229
+#: ../objects/UML/association.c:221
+#: ../objects/UML/association.c:227
 msgid "None"
-msgstr "없음"
+msgstr "선택 없음"
 
-#: ../app/menus.c:201
+#: ../app/menus.c:207
 msgid "Invert"
-msgstr "반대로"
+msgstr "반전"
 
-#: ../app/menus.c:203
+#: ../app/menus.c:209
 msgid "Transitive"
 msgstr "전이"
 
-#: ../app/menus.c:204
+#: ../app/menus.c:210
 msgid "Connected"
 msgstr "연결"
 
 #
-#: ../app/menus.c:205
+#: ../app/menus.c:211
 msgid "Same Type"
 msgstr "동일 형태"
 
 #. display_select_radio_entries go here
-#: ../app/menus.c:209
+#: ../app/menus.c:215
 msgid "Select By"
 msgstr "선택"
 
-#: ../app/menus.c:211
+#: ../app/menus.c:217
 msgid "_Input Methods"
 msgstr "언어 설정(_I)"
 
 #
-#: ../app/menus.c:213
+#: ../app/menus.c:219
 msgid "D_ialogs"
 msgstr "대화상자(_D)"
 
-#: ../app/menus.c:215
+#: ../app/menus.c:221
 msgid "D_ebug"
 msgstr "디버그(_E)"
 
-#: ../app/menus.c:221
+#: ../app/menus.c:227
 msgid "_Tools"
 msgstr "도구(_T)"
 
-#: ../app/menus.c:222
+#: ../app/menus.c:228
 msgid "Modify"
 msgstr "편집"
 
-#: ../app/menus.c:224
+#: ../app/menus.c:230
 msgid "Edit text"
 msgstr "문자열 편집"
 
-#: ../app/menus.c:225
+#: ../app/menus.c:231
 msgid "Scroll"
 msgstr "이동"
 
-#: ../app/menus.c:248
+#: ../app/menus.c:254
 msgid "Fullscr_een"
 msgstr "전체 화면(_E)"
 
-#: ../app/menus.c:250
+#: ../app/menus.c:256
 msgid "_AntiAliased"
 msgstr "부드럽게(_A)"
 
-#: ../app/menus.c:251
+#: ../app/menus.c:257
 msgid "Show _Grid"
 msgstr "격자 보이기(_G)"
 
 #
-#: ../app/menus.c:252
+#: ../app/menus.c:258
 msgid "_Snap To Grid"
 msgstr "격자에 붙이기(_S)"
 
 #
-#: ../app/menus.c:253
+#: ../app/menus.c:259
 msgid "Snap To _Objects"
 msgstr "객체에 붙이기(_O)"
 
-#: ../app/menus.c:254
+#: ../app/menus.c:260
 msgid "Show _Rulers"
 msgstr "눈금자 보기(_R)"
 
-#: ../app/menus.c:255
+#: ../app/menus.c:261
 msgid "Show _Connection Points"
 msgstr "연결점 보기(_C)"
 
-#: ../app/menus.c:262
+#: ../app/menus.c:268
 msgid "Union"
 msgstr "결합"
 
 #
-#: ../app/menus.c:263
+#: ../app/menus.c:269
 msgid "Intersection"
 msgstr "교차"
 
 #. Translators: Menu item Verb/Channel/Export/Remove
 #. Translators: Menu item Verb/Branch/Separate/Remove
 #. Translators: Menu item Verb/Branch/Separate/Remove/Remove
-#: ../app/menus.c:264
+#: ../app/menus.c:270
 #: ../app/sheets_dialog.c:785
 #: ../objects/FS/function.c:708
 #: ../objects/FS/function.c:860
@@ -1595,55 +1613,55 @@ msgid "Remove"
 msgstr "삭제"
 
 #. Cannot also be called Invert, duplicate names caused keybinding problems
-#: ../app/menus.c:266
+#: ../app/menus.c:272
 msgid "Inverse"
-msgstr "반대로"
+msgstr "반전"
 
-#: ../app/menus.c:330
+#: ../app/menus.c:336
 msgid "NULL tooldata in tool_menu_select"
 msgstr "도구_메뉴_선택에서 NULL 도구자료"
 
-#: ../app/menus.c:569
+#: ../app/menus.c:575
 msgid "300%"
 msgstr "300%"
 
-#: ../app/menus.c:570
+#: ../app/menus.c:576
 msgid "200%"
 msgstr "200%"
 
-#: ../app/menus.c:571
+#: ../app/menus.c:577
 msgid "150%"
 msgstr "150%"
 
-#: ../app/menus.c:572
+#: ../app/menus.c:578
 msgid "100%"
 msgstr "100%"
 
-#: ../app/menus.c:573
+#: ../app/menus.c:579
 msgid "75%"
 msgstr "75%"
 
-#: ../app/menus.c:574
+#: ../app/menus.c:580
 msgid "50%"
 msgstr "50%"
 
-#: ../app/menus.c:575
+#: ../app/menus.c:581
 msgid "25%"
 msgstr "25%"
 
-#: ../app/menus.c:576
+#: ../app/menus.c:582
 msgid "10%"
 msgstr "10%"
 
-#: ../app/menus.c:602
+#: ../app/menus.c:608
 msgid "Toggles snap-to-grid."
 msgstr "격자에 붙이기 토글"
 
-#: ../app/menus.c:614
+#: ../app/menus.c:620
 msgid "Toggles object snapping."
 msgstr "객체에 붙이기 토글"
 
-#: ../app/modify_tool.c:350
+#: ../app/modify_tool.c:390
 msgid "Couldn't get GTK settings"
 msgstr "GTK 설정을 얻을 수 없습니다"
 
@@ -1656,8 +1674,8 @@ msgid "Loaded"
 msgstr "적재여부"
 
 #: ../app/plugin-manager.c:268
-#: ../objects/SISSI/sissi_dialog.c:615
-#: ../objects/SISSI/sissi_dialog.c:767
+#: ../objects/SISSI/sissi_dialog.c:730
+#: ../objects/SISSI/sissi_dialog.c:882
 msgid "Description"
 msgstr "설명"
 
@@ -1752,106 +1770,111 @@ msgid "Compress saved files"
 msgstr "저장파일 압축"
 
 #: ../app/preferences.c:204
-msgid "New window:"
-msgstr "새 창:"
-
-#: ../app/preferences.c:205
-msgid "Width:"
-msgstr "너비:"
-
-#: ../app/preferences.c:206
-msgid "Height:"
-msgstr "높이:"
-
-#: ../app/preferences.c:207
-msgid "Magnify:"
-msgstr "확대:"
-
-#: ../app/preferences.c:210
 msgid "Connection Points:"
 msgstr "연결점:"
 
 #. { NULL, PREF_NONE, 0, NULL, 3, N_("Grid:") },
-#: ../app/preferences.c:211
-#: ../app/preferences.c:215
-#: ../app/preferences.c:239
+#: ../app/preferences.c:205
+#: ../app/preferences.c:216
+#: ../app/preferences.c:240
 msgid "Visible"
 msgstr "표시하기"
 
-#: ../app/preferences.c:214
+#
+#: ../app/preferences.c:206
+msgid "Snap to object"
+msgstr "객체에 붙이기"
+
+#: ../app/preferences.c:209
+msgid "New window:"
+msgstr "새 창:"
+
+#: ../app/preferences.c:210
+msgid "Width:"
+msgstr "너비:"
+
+#: ../app/preferences.c:211
+msgid "Height:"
+msgstr "높이:"
+
+#: ../app/preferences.c:212
+msgid "Magnify:"
+msgstr "확대:"
+
+#: ../app/preferences.c:215
 msgid "Page breaks:"
 msgstr "페이지 경계:"
 
-#: ../app/preferences.c:216
-#: ../app/preferences.c:244
+#: ../app/preferences.c:217
+#: ../app/preferences.c:245
 msgid "Color:"
 msgstr "색상:"
 
-#: ../app/preferences.c:217
+#: ../app/preferences.c:218
 msgid "Solid lines"
 msgstr "실선"
 
-#: ../app/preferences.c:220
+#: ../app/preferences.c:221
 msgid "Antialias:"
 msgstr "부드럽게:"
 
-#: ../app/preferences.c:221
+#: ../app/preferences.c:222
 msgid "view antialised"
 msgstr "부드러움 보이기"
 
 #. Favored Filter
 #. Translators: Menu item Verb/Channel/Export
 #. Translators: Menu item Verb/Channel/Export/Export
-#: ../app/preferences.c:225
+#: ../app/preferences.c:226
 #: ../objects/FS/function.c:698
 #: ../objects/FS/function.c:700
 #: ../plug-ins/libart/export_png.c:323
 msgid "Export"
 msgstr "내보내기"
 
-#: ../app/preferences.c:227
+#: ../app/preferences.c:228
 msgid "Portable Network Graphics"
 msgstr "PNG"
 
-#: ../app/preferences.c:229
+#: ../app/preferences.c:230
 #: ../plug-ins/svg/render_svg.c:515
-#: ../plug-ins/svg/svg-import.c:811
+#: ../plug-ins/svg/svg-import.c:884
 msgid "Scalable Vector Graphics"
 msgstr "SVG"
 
-#: ../app/preferences.c:231
+#: ../app/preferences.c:232
 msgid "PostScript"
 msgstr "포스트스크립트"
 
-#: ../app/preferences.c:233
+#: ../app/preferences.c:234
 msgid "Windows MetaFile"
 msgstr "윈도우 메타파일"
 
-#: ../app/preferences.c:235
+#: ../app/preferences.c:236
 msgid "Enhanced MetaFile"
 msgstr "인핸스드 메타파일"
 
-#: ../app/preferences.c:240
+#: ../app/preferences.c:241
 msgid "Snap to"
 msgstr "붙이기"
 
-#: ../app/preferences.c:241
+#: ../app/preferences.c:242
 msgid "Dynamic grid resizing"
 msgstr "동적 격자 크기 재설정"
 
-#: ../app/preferences.c:242
+#: ../app/preferences.c:243
 msgid "X Size:"
 msgstr "X 크기:"
 
-#: ../app/preferences.c:243
+#: ../app/preferences.c:244
 msgid "Y Size:"
 msgstr "Y 크기:"
 
-#: ../app/preferences.c:245
+#: ../app/preferences.c:246
 msgid "Lines per major line"
 msgstr "주선당 보조선 갯수 "
 
-#: ../app/preferences.c:247
+#: ../app/preferences.c:248
 msgid "Hex Size:"
 msgstr "6각 크기:"
 
@@ -1860,32 +1883,32 @@ msgstr "6각 크기:"
 #. { "pretty_formated_xml", PREF_BOOLEAN,PREF_OFFSET(pretty_formated_xml),
 #. &default_true,0,"pretty formated xml",NULL, TRUE},
 #.
-#: ../app/preferences.c:259
+#: ../app/preferences.c:260
 msgid "Diagram tree window:"
 msgstr "도표 자료 목록 창:"
 
-#: ../app/preferences.c:261
+#: ../app/preferences.c:262
 msgid "Save hidden object types"
 msgstr "숨겨진 객체 형태 저장"
 
-#: ../app/preferences.c:471
+#: ../app/preferences.c:490
 #: ../lib/prop_inttypes.c:158
 msgid "Yes"
 msgstr "예"
 
-#: ../app/preferences.c:471
-#: ../app/preferences.c:482
+#: ../app/preferences.c:490
+#: ../app/preferences.c:501
 #: ../lib/prop_inttypes.c:160
 #: ../lib/prop_inttypes.c:186
 msgid "No"
 msgstr "아니오"
 
-#: ../app/preferences.c:577
+#: ../app/preferences.c:596
 msgid "Preferences"
 msgstr "속성"
 
-#: ../app/preferences.c:779
-msgid "User Interface type settings change will take after restart"
+#: ../app/preferences.c:798
+msgid "User Interface type settings change will take effect after restart"
 msgstr "사용자 인터페이스 모양 설정 변경은 재실행시 효력을 미칩니다."
 
 #: ../app/properties-dialog.c:56
@@ -1988,7 +2011,7 @@ msgstr "새로"
 #: ../objects/Istar/other.c:151
 #: ../objects/KAOS/other.c:153
 #: ../objects/KAOS/other.c:154
-#: ../objects/UML/association.c:242
+#: ../objects/UML/association.c:240
 #: ../objects/UML/umlattribute.c:39
 #: ../objects/UML/umlformalparameter.c:37
 #: ../objects/UML/umloperation.c:64
@@ -2129,7 +2152,7 @@ msgstr "파일명은 '%s'로 끝나야 합니다: '%s'"
 
 #: ../app/sheets_dialog_callbacks.c:811
 msgid "Error examining %s: %s"
-msgstr "%S 검사 중 오류: %s"
+msgstr "%s 검사 중 오류: %s"
 
 #: ../app/sheets_dialog_callbacks.c:842
 msgid "Please export the diagram as a shape."
@@ -2353,17 +2376,17 @@ msgstr "내부 오류: 베지어 곡선 끝점의 가장자리 형태 설정"
 #: ../lib/create.c:260
 #: ../lib/create.c:295
 #: ../lib/create.c:338
-#: ../plug-ins/svg/svg-import.c:247
+#: ../plug-ins/svg/svg-import.c:267
 #: ../plug-ins/vdx/vdx-import.c:144
 msgid "Can't find standard object"
 msgstr "표준 객체를 찾을 수 없습니다"
 
-#: ../lib/dia_dirs.c:237
+#: ../lib/dia_dirs.c:242
 #, c-format
 msgid "%s<illegal characters>..."
 msgstr "%s<부적합한 문자>..."
 
-#: ../lib/dia_dirs.c:268
+#: ../lib/dia_dirs.c:273
 #, c-format
 msgid "Too many ..'s in filename %s\n"
 msgstr "파일명 %s 에서 너무 많은 's\n"
@@ -2412,10 +2435,6 @@ msgstr "bez점 p2해석 중 오류"
 msgid "Error parsing bezpoint p3."
 msgstr "bez점 p3해석 중 오류"
 
-#: ../lib/dia_xml.c:1207
-msgid "Your local character set is UTF-8. Because of issues with libxml1 and the support of files generated by previous versions of dia, you will encounter  problems. Please report to dia-list@gnome.org if you see this message."
-msgstr "지역문자 설정이 UTF-8입니다. libxml1 문제와 이전 버전에서 발생하는 파일 지원문제 때문에 곤란을 격을 수도 있습니다. 이런 메세지를 보면 dia-list@gnome.org에 보고하십시오."
-
 #: ../lib/diaarrowchooser.c:352
 msgid "Arrow Properties"
 msgstr "화살표 속성"
@@ -2447,29 +2466,29 @@ msgstr "유일한 이름 %s를 가진 다중 내보내기 필터"
 msgid "Can't load font %s.\n"
 msgstr "글꼴 %s를 읽어올 수 없습니다.\n"
 
-#: ../lib/message.c:91
-#: ../lib/message.c:277
+#: ../lib/message.c:92
+#: ../lib/message.c:278
 msgid "Warning"
 msgstr "경고"
 
-#: ../lib/message.c:118
+#: ../lib/message.c:119
 msgid "There is one similar message."
 msgstr "한 개의 유사한 메시지입니다."
 
-#: ../lib/message.c:123
+#: ../lib/message.c:124
 msgid "Show repeated messages"
 msgstr "반복된 메세지 복이기"
 
-#: ../lib/message.c:144
+#: ../lib/message.c:145
 msgid "Don't show this message again"
 msgstr "이 메세지 다시 보이지 않음"
 
-#: ../lib/message.c:202
+#: ../lib/message.c:203
 #, c-format
 msgid "There are %d similar messages."
 msgstr "%d 유사 메세지 입니다."
 
-#: ../lib/message.c:261
+#: ../lib/message.c:262
 msgid "Notice"
 msgstr "알림"
 
@@ -2510,6 +2529,7 @@ msgid "%s Plugin could not be unloaded"
 msgstr "플러그인 %s를 제거할 수 없습니다"
 
 #: ../lib/plug-ins.c:303
+#, c-format
 msgid ""
 "Could not open `%s'\n"
 "`%s'"
@@ -2534,7 +2554,7 @@ msgid "Modification date"
 msgstr "수정 날짜"
 
 #: ../lib/prop_dict.c:47
-#: ../objects/SISSI/sissi_dialog.c:765
+#: ../objects/SISSI/sissi_dialog.c:880
 msgid "URL"
 msgstr "URL"
 
@@ -2556,7 +2576,7 @@ msgstr "왼쪽"
 #: ../lib/properties.c:66
 #: ../lib/properties.h:478
 #: ../lib/widgets.c:730
-#: ../objects/standard/textobj.c:135
+#: ../objects/standard/textobj.c:138
 msgid "Center"
 msgstr "중간"
 
@@ -2666,6 +2686,7 @@ msgstr ""
 #: ../lib/sheet.c:133
 #: ../lib/sheet.c:144
 #: ../lib/sheet.c:150
+#, c-format
 msgid "sheets from '%s'"
 msgstr "'%s' 시트"
 
@@ -2752,6 +2773,96 @@ msgstr "찾기"
 #: ../lib/widgets.c:2076
 msgid "Reset menu"
 msgstr "시트 도형 메뉴 초기화"
+
+#. Installer message if no GTK+ was found
+#: ../installer/win32/gennsh.c:38
+msgid "GTK+ is not installed. Please use the full installer. It is available from http://dia-installer.de."
+msgstr "GTK+가 설치되지 않았습니다.  전체 설치를 하십시오. http://dia-installer.de에서 사용가능합니다."
+
+#. Installer message: Don't install over pre 0.95 versions
+#: ../installer/win32/gennsh.c:41
+msgid "Please remove old Dia installations completely or install Dia to a different location."
+msgstr "이전 Dia를 완전히 삭제하거나 다른 위치에 Dia를 설치하시오."
+
+#. Installer message:  License Page
+#: ../installer/win32/gennsh.c:44
+msgid "Next >"
+msgstr "다음 >"
+
+#. Installer message, keep the $(^Name) and $_CLICK, these will be replaced
+#: ../installer/win32/gennsh.c:47
+msgid "$(^Name) is released under the GPL license. The license is provided here for information purposes only. $_CLICK"
+msgstr "$(^Name)은 GPL 저작권하에 배포됩니다. 저작권이 여기에서 단지 알림 정보 목적으로 제공됩니다. $_CLICK"
+
+#. Installer message: Components page
+#: ../installer/win32/gennsh.c:50
+msgid "Dia Diagram Editor (required)"
+msgstr "도표 편집기 (필요)"
+
+#. Installer message: Components page
+#: ../installer/win32/gennsh.c:53
+msgid "Translations"
+msgstr "번역"
+
+#. Installer message: Component description
+#: ../installer/win32/gennsh.c:56
+msgid "Optional translations of the Dia user interface"
+msgstr "Dia 사용자 인터페이스의 부가적 변역"
+
+#. Installer message: Component description
+#: ../installer/win32/gennsh.c:59
+msgid "Core Dia files and dlls"
+msgstr "핵심 Dia 파일 및 DLL"
+
+#. Installer message: Component name
+#: ../installer/win32/gennsh.c:62
+msgid "Python plug-in"
+msgstr "파이썬 플러그인"
+
+#. Installer message: Component description
+#: ../installer/win32/gennsh.c:65
+msgid "Support for the Python Scripting Language 2.3. Do not select this if Python is not installed."
+msgstr "파이썬 스크립트 언어 2.3 지원. 파이썬이 설치되지 않았으면 선택하지 마시오."
+
+#. Installer message: hyperlink text on finish page
+#: ../installer/win32/gennsh.c:68
+msgid "Visit the Dia for Windows Web Page"
+msgstr "윈도우 웹 페이지를 위하여 Dia를 방문하세요"
+
+#. Installer message: Dia uninstaller entry in Control Panel
+#: ../installer/win32/gennsh.c:71
+msgid "Dia (remove only)"
+msgstr "Dia (제거시만)"
+
+#. Installer message: confirmation question. Keep $\r
+#: ../installer/win32/gennsh.c:74
+msgid "Your old Dia directory is about to be deleted. Would you like to continue?$\r$\rNote: Any non-standard plugins that you may have installed will be deleted.$\rDia user settings will not be affected."
+msgstr "이전 Dia 폴더를 지우려고 합니다. 계속 하시겠습니까? $\r$\r주의: 설치된 비표준 플러그인을 삭제할 것입니다. $\rDia 사용자 설정이 영향을 받지 않습니다."
+
+#. Installer message: confirmatin question. Keep $\r
+#: ../installer/win32/gennsh.c:77
+msgid "The installation directory you specified already exists. Any contents$\rwill be deleted. Would you like to continue?"
+msgstr "설정 설치 폴더가 이미 있습니다. 임의 내용$r이 삭제될 것입니다. 계속하시겠습니까?"
+
+#. Installer message: Uninstall Section Prompts. Keep $\r
+#: ../installer/win32/gennsh.c:80
+msgid "The uninstaller could not find registry entries for Dia.$\rIt is likely that another user installed this application."
+msgstr "제거시 Dia의 레지스트리 엔트리를 찾을 수 없습니다. $\r다른 사용자가 이 프로그램을 설치한 것 같습니다."
+
+#. Installer message: Uninstall error message
+#: ../installer/win32/gennsh.c:83
+msgid "You do not have permission to uninstall this application."
+msgstr "Dia를 제거하기 위한 권한이 없습니다."
+
+#. Installer message: Uninstallation warning. Keep $INSTDIR
+#: ../installer/win32/gennsh.c:86
+msgid "This will completely delete $INSTDIR and all subdirectories. Continue?"
+msgstr "완전히 $INSTDIR와 전체 하위 폴더를 제거합니다. 계속하시겠습니까?"
+
+#. Installer message: Uninstallation warning. Keep $\PROFILE\.dia
+#: ../installer/win32/gennsh.c:89
+msgid "This will completely delete $PROFILE\\.dia and all subdirectories. Continue?"
+msgstr "완전히 $PROFILE\\.dia와 전체 하위폴더를 삭제합니다. 계속할까요?"
 
 #: ../objects/AADL/aadl.c:52
 msgid "Architecture Analysis & Design Language diagram objects"
@@ -2917,12 +3028,12 @@ msgstr "테이블명"
 #: ../objects/Database/table.c:205
 #: ../objects/Database/table.c:207
 #: ../objects/Database/reference.c:120
-#: ../objects/UML/association.c:247
+#: ../objects/UML/association.c:245
+#: ../objects/UML/association.c:256
 #: ../objects/UML/association.c:258
 #: ../objects/UML/association.c:260
 #: ../objects/UML/association.c:262
 #: ../objects/UML/association.c:264
-#: ../objects/UML/association.c:266
 #: ../objects/UML/class.c:193
 #: ../objects/UML/class.c:195
 #: ../objects/UML/class.c:197
@@ -2957,8 +3068,8 @@ msgstr "속성(_A)"
 
 #. the "new" button
 #: ../objects/Database/table_dialog.c:639
-#: ../objects/SISSI/sissi_dialog.c:624
-#: ../objects/SISSI/sissi_dialog.c:756
+#: ../objects/SISSI/sissi_dialog.c:739
+#: ../objects/SISSI/sissi_dialog.c:871
 msgid "_New"
 msgstr "새로(_N)"
 
@@ -3091,7 +3202,7 @@ msgstr "설명 종료"
 #: ../objects/FS/flow-ortho.c:626
 #: ../objects/GRAFCET/vector.c:314
 #: ../objects/SADT/arrow.c:459
-#: ../objects/UML/association.c:854
+#: ../objects/UML/association.c:852
 #: ../objects/UML/component_feature.c:190
 #: ../objects/UML/dependency.c:376
 #: ../objects/UML/generalization.c:372
@@ -3106,7 +3217,7 @@ msgstr "조절점 더하기"
 #: ../objects/FS/flow-ortho.c:627
 #: ../objects/GRAFCET/vector.c:315
 #: ../objects/SADT/arrow.c:460
-#: ../objects/UML/association.c:855
+#: ../objects/UML/association.c:853
 #: ../objects/UML/component_feature.c:191
 #: ../objects/UML/dependency.c:377
 #: ../objects/UML/generalization.c:373
@@ -4131,7 +4242,7 @@ msgstr "힘"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Rotation
 #: ../objects/FS/function.c:1108
-#: ../objects/standard/outline.c:204
+#: ../objects/standard/outline.c:206
 msgid "Rotation"
 msgstr "회전"
 
@@ -4470,7 +4581,7 @@ msgid "Agent"
 msgstr "대리"
 
 #: ../objects/Istar/actor.c:71
-#: ../objects/UML/association.c:249
+#: ../objects/UML/association.c:247
 msgid "Role"
 msgstr "역할"
 
@@ -4821,17 +4932,17 @@ msgid "SADT diagram objects"
 msgstr "SADT 도표 객체"
 
 #: ../objects/SISSI/classification.h:38
-#: ../objects/SISSI/sissi.h:222
+#: ../objects/SISSI/sissi_dialog.c:42
 msgid "No Protection"
 msgstr "보호 안함"
 
 #: ../objects/SISSI/classification.h:39
-#: ../objects/SISSI/sissi.h:223
+#: ../objects/SISSI/sissi_dialog.c:43
 msgid "Restricted Diffusion"
 msgstr "제한적 확산"
 
 #: ../objects/SISSI/classification.h:40
-#: ../objects/SISSI/sissi.h:224
+#: ../objects/SISSI/sissi_dialog.c:44
 msgid "Special Country Confidential"
 msgstr "특수 나라 기밀"
 
@@ -4840,17 +4951,17 @@ msgid "Confidential"
 msgstr "기밀"
 
 #: ../objects/SISSI/classification.h:42
-#: ../objects/SISSI/sissi.h:225
+#: ../objects/SISSI/sissi_dialog.c:45
 msgid "NATO Confidential"
 msgstr "나토 기밀"
 
 #: ../objects/SISSI/classification.h:43
-#: ../objects/SISSI/sissi.h:226
+#: ../objects/SISSI/sissi_dialog.c:46
 msgid "Personal Confidential"
 msgstr "개인 기밀"
 
 #: ../objects/SISSI/classification.h:44
-#: ../objects/SISSI/sissi.h:227
+#: ../objects/SISSI/sissi_dialog.c:47
 msgid "Medical Confidential"
 msgstr "의학 기밀"
 
@@ -4863,7 +4974,7 @@ msgid "Defense Confidential"
 msgstr "방어 기밀"
 
 #: ../objects/SISSI/classification.h:47
-#: ../objects/SISSI/sissi.h:229
+#: ../objects/SISSI/sissi_dialog.c:49
 msgid "Secret"
 msgstr "안전"
 
@@ -4872,22 +4983,22 @@ msgid "Defense Secret"
 msgstr "방어 비밀"
 
 #: ../objects/SISSI/classification.h:49
-#: ../objects/SISSI/sissi.h:230
+#: ../objects/SISSI/sissi_dialog.c:50
 msgid "Secret special country"
 msgstr "기밀 특별 나라"
 
 #: ../objects/SISSI/classification.h:50
-#: ../objects/SISSI/sissi.h:231
+#: ../objects/SISSI/sissi_dialog.c:51
 msgid "NATO Secret"
 msgstr "나토 기밀"
 
 #: ../objects/SISSI/classification.h:51
-#: ../objects/SISSI/sissi.h:232
+#: ../objects/SISSI/sissi_dialog.c:52
 msgid "Very Secret"
 msgstr "매우 비밀"
 
 #: ../objects/SISSI/classification.h:52
-#: ../objects/SISSI/sissi.h:233
+#: ../objects/SISSI/sissi_dialog.c:53
 msgid "NATO Very Secret"
 msgstr "나토 매우 기밀"
 
@@ -4895,7 +5006,8 @@ msgstr "나토 매우 기밀"
 msgid "SISSI diagram"
 msgstr "SISSI 도표"
 
-#: ../objects/SISSI/sissi.c:924
+#: ../objects/SISSI/sissi.c:923
+#, c-format
 msgid ""
 "Error loading object.\n"
 "Not a regular file: %s"
@@ -4903,8 +5015,9 @@ msgstr ""
 "객체 읽는 중 오류.\n"
 "정규 파일이 아닙니다: %s"
 
-#: ../objects/SISSI/sissi.c:929
-#: ../objects/SISSI/sissi.c:933
+#: ../objects/SISSI/sissi.c:928
+#: ../objects/SISSI/sissi.c:932
+#, c-format
 msgid ""
 "Error loading object.\n"
 "Incorrect file type: %s"
@@ -4912,7 +5025,8 @@ msgstr ""
 "객체 읽는 중 오류.\n"
 "알려지지 않은 파일 형식: %s"
 
-#: ../objects/SISSI/sissi.c:941
+#: ../objects/SISSI/sissi.c:940
+#, c-format
 msgid ""
 "Error loading object.\n"
 "Not a Dia file: %s"
@@ -4920,350 +5034,350 @@ msgstr ""
 "객체 읽는 중 오류.\n"
 "Dia 파일이 아님: %s"
 
-#: ../objects/SISSI/sissi.h:228
+#: ../objects/SISSI/sissi_dialog.c:48
 msgid "Industrial Confidential"
 msgstr "사넙 기밀"
 
-#: ../objects/SISSI/sissi.h:238
+#: ../objects/SISSI/sissi_dialog.c:58
 msgid "No integrity"
 msgstr "통합 없음"
 
-#: ../objects/SISSI/sissi.h:239
+#: ../objects/SISSI/sissi_dialog.c:59
 msgid "Low integrity"
 msgstr "약간 통합"
 
-#: ../objects/SISSI/sissi.h:240
+#: ../objects/SISSI/sissi_dialog.c:60
 msgid "Average software integrity"
 msgstr "평균 소프트웨어 통합"
 
-#: ../objects/SISSI/sissi.h:241
+#: ../objects/SISSI/sissi_dialog.c:61
 msgid "High software integrity"
 msgstr "높은 소프트웨어 통합"
 
-#: ../objects/SISSI/sissi.h:242
+#: ../objects/SISSI/sissi_dialog.c:62
 msgid "Average hardware integrity"
 msgstr "평균 하드웨어 통합"
 
-#: ../objects/SISSI/sissi.h:243
+#: ../objects/SISSI/sissi_dialog.c:63
 msgid "High hardware integrity"
 msgstr "높은 하드웨어 통합"
 
-#: ../objects/SISSI/sissi.h:248
+#: ../objects/SISSI/sissi_dialog.c:68
 msgid "Millisecond"
 msgstr "밀리초"
 
-#: ../objects/SISSI/sissi.h:249
+#: ../objects/SISSI/sissi_dialog.c:69
 msgid "Second"
 msgstr "초"
 
-#: ../objects/SISSI/sissi.h:250
+#: ../objects/SISSI/sissi_dialog.c:70
 msgid "Minute"
 msgstr "분"
 
-#: ../objects/SISSI/sissi.h:251
+#: ../objects/SISSI/sissi_dialog.c:71
 msgid "Hour"
 msgstr "시"
 
-#: ../objects/SISSI/sissi.h:252
+#: ../objects/SISSI/sissi_dialog.c:72
 msgid "Day"
 msgstr "일"
 
-#: ../objects/SISSI/sissi.h:253
+#: ../objects/SISSI/sissi_dialog.c:73
 msgid "Week"
 msgstr "주"
 
-#: ../objects/SISSI/sissi.h:258
+#: ../objects/SISSI/sissi_dialog.c:78
 msgid "SYSTEM"
 msgstr "시스템"
 
-#: ../objects/SISSI/sissi.h:259
+#: ../objects/SISSI/sissi_dialog.c:79
 msgid "Internet access device"
 msgstr "인터넷 접근 기기"
 
-#: ../objects/SISSI/sissi.h:260
+#: ../objects/SISSI/sissi_dialog.c:80
 msgid "Electronic messaging"
 msgstr "전자 메세징"
 
-#: ../objects/SISSI/sissi.h:261
+#: ../objects/SISSI/sissi_dialog.c:81
 msgid "Intranet"
 msgstr "인트라넷"
 
-#: ../objects/SISSI/sissi.h:262
+#: ../objects/SISSI/sissi_dialog.c:82
 msgid "Company directory"
 msgstr "회사 중역회"
 
-#: ../objects/SISSI/sissi.h:263
+#: ../objects/SISSI/sissi_dialog.c:83
 msgid "External portal"
 msgstr "외부 포털"
 
-#: ../objects/SISSI/sissi.h:268
+#: ../objects/SISSI/sissi_dialog.c:88
 msgid "ORGANISATION"
 msgstr "기관"
 
-#: ../objects/SISSI/sissi.h:269
+#: ../objects/SISSI/sissi_dialog.c:89
 msgid "Higher-tier organisation"
 msgstr "고등 유기체"
 
-#: ../objects/SISSI/sissi.h:270
+#: ../objects/SISSI/sissi_dialog.c:90
 msgid "Structure of the organisation"
 msgstr "유기체 구조"
 
-#: ../objects/SISSI/sissi.h:271
+#: ../objects/SISSI/sissi_dialog.c:91
 msgid "Project or system organisation"
 msgstr "프로젝트 또는 시스템 조직"
 
-#: ../objects/SISSI/sissi.h:272
+#: ../objects/SISSI/sissi_dialog.c:92
 msgid "Subcontractors / Suppliers / Manufacturers"
 msgstr "하위 도급자 / 공급자 / 제조업자"
 
-#: ../objects/SISSI/sissi.h:277
+#: ../objects/SISSI/sissi_dialog.c:97
 msgid "SITE"
 msgstr "사이트"
 
-#: ../objects/SISSI/sissi.h:278
+#: ../objects/SISSI/sissi_dialog.c:98
 msgid "Places"
 msgstr "장소"
 
-#: ../objects/SISSI/sissi.h:279
+#: ../objects/SISSI/sissi_dialog.c:99
 msgid "External environment"
 msgstr "외부 환경"
 
-#: ../objects/SISSI/sissi.h:280
+#: ../objects/SISSI/sissi_dialog.c:100
 msgid "Premises"
 msgstr "토지"
 
-#: ../objects/SISSI/sissi.h:281
+#: ../objects/SISSI/sissi_dialog.c:101
 msgid "Zone"
 msgstr "구역"
 
-#: ../objects/SISSI/sissi.h:282
+#: ../objects/SISSI/sissi_dialog.c:102
 msgid "Essential Services"
 msgstr "중요 서비스"
 
-#: ../objects/SISSI/sissi.h:283
+#: ../objects/SISSI/sissi_dialog.c:103
 msgid "Communication"
 msgstr "통신"
 
-#: ../objects/SISSI/sissi.h:284
+#: ../objects/SISSI/sissi_dialog.c:104
 msgid "Power"
 msgstr "파워"
 
-#: ../objects/SISSI/sissi.h:285
+#: ../objects/SISSI/sissi_dialog.c:105
 msgid "Cooling / Pollution"
 msgstr "냉각 / 오염"
 
-#: ../objects/SISSI/sissi.h:289
+#: ../objects/SISSI/sissi_dialog.c:109
 msgid "Thermal detection"
 msgstr "열 검출"
 
-#: ../objects/SISSI/sissi.h:293
+#: ../objects/SISSI/sissi_dialog.c:113
 msgid "Fire detection"
 msgstr "불 검출"
 
 #
-#: ../objects/SISSI/sissi.h:297
+#: ../objects/SISSI/sissi_dialog.c:117
 msgid "Water detection"
 msgstr "물 검출"
 
-#: ../objects/SISSI/sissi.h:301
+#: ../objects/SISSI/sissi_dialog.c:121
 msgid "Air detection"
 msgstr "공기 검출"
 
-#: ../objects/SISSI/sissi.h:305
+#: ../objects/SISSI/sissi_dialog.c:125
 msgid "Energy detection"
 msgstr "에너지 검출"
 
 #
-#: ../objects/SISSI/sissi.h:309
+#: ../objects/SISSI/sissi_dialog.c:129
 msgid "Intrusion detection"
 msgstr "침입 검출"
 
-#: ../objects/SISSI/sissi.h:313
+#: ../objects/SISSI/sissi_dialog.c:133
 msgid "Thermal action"
 msgstr "열 작용"
 
-#: ../objects/SISSI/sissi.h:317
+#: ../objects/SISSI/sissi_dialog.c:137
 msgid "Fire action"
 msgstr "불 작용"
 
-#: ../objects/SISSI/sissi.h:321
+#: ../objects/SISSI/sissi_dialog.c:141
 msgid "Water action"
 msgstr "물 작용"
 
-#: ../objects/SISSI/sissi.h:325
+#: ../objects/SISSI/sissi_dialog.c:145
 msgid "Air action"
 msgstr "공기 작용"
 
-#: ../objects/SISSI/sissi.h:329
+#: ../objects/SISSI/sissi_dialog.c:149
 msgid "Energy action"
 msgstr "에너지 활동"
 
 #
-#: ../objects/SISSI/sissi.h:333
+#: ../objects/SISSI/sissi_dialog.c:153
 msgid "Intrusion action"
 msgstr "침입 활동"
 
-#: ../objects/SISSI/sissi.h:338
+#: ../objects/SISSI/sissi_dialog.c:158
 msgid "Personal"
 msgstr "개인"
 
-#: ../objects/SISSI/sissi.h:339
+#: ../objects/SISSI/sissi_dialog.c:159
 msgid "Decision maker"
 msgstr "결정자"
 
-#: ../objects/SISSI/sissi.h:340
+#: ../objects/SISSI/sissi_dialog.c:160
 msgid "SSI Responsible"
 msgstr "SSI 책임"
 
-#: ../objects/SISSI/sissi.h:341
+#: ../objects/SISSI/sissi_dialog.c:161
 msgid "Users"
 msgstr "사용자"
 
-#: ../objects/SISSI/sissi.h:342
+#: ../objects/SISSI/sissi_dialog.c:162
 msgid "Functional administrator"
 msgstr "직무 관리자"
 
-#: ../objects/SISSI/sissi.h:343
+#: ../objects/SISSI/sissi_dialog.c:163
 msgid "Technical administrator"
 msgstr "기술 관리자"
 
-#: ../objects/SISSI/sissi.h:344
+#: ../objects/SISSI/sissi_dialog.c:164
 msgid "SSI administrator"
 msgstr "SSI 관리자"
 
-#: ../objects/SISSI/sissi.h:345
+#: ../objects/SISSI/sissi_dialog.c:165
 msgid "Developer"
 msgstr "개발자"
 
-#: ../objects/SISSI/sissi.h:346
+#: ../objects/SISSI/sissi_dialog.c:166
 msgid "Operator / Maintenance"
 msgstr "운영자 / 유지"
 
-#: ../objects/SISSI/sissi.h:351
+#: ../objects/SISSI/sissi_dialog.c:171
 #: ../sheets/network.sheet.in.h:20
 msgid "Network"
 msgstr "네트워크(Network)"
 
-#: ../objects/SISSI/sissi.h:352
+#: ../objects/SISSI/sissi_dialog.c:172
 msgid "Medium and support"
 msgstr "매체와 지원"
 
-#: ../objects/SISSI/sissi.h:353
+#: ../objects/SISSI/sissi_dialog.c:173
 msgid "Passive or active relay"
 msgstr "비활성 또는 활성 연기"
 
-#: ../objects/SISSI/sissi.h:354
+#: ../objects/SISSI/sissi_dialog.c:174
 msgid "Communication interface"
 msgstr "통신 인터페이스"
 
-#: ../objects/SISSI/sissi.h:359
+#: ../objects/SISSI/sissi_dialog.c:179
 #: ../sheets/SISSI.sheet.in.h:54
 msgid "Software"
 msgstr "소프트웨어"
 
-#: ../objects/SISSI/sissi.h:360
+#: ../objects/SISSI/sissi_dialog.c:180
 msgid "Operating System"
 msgstr "작동 시스템"
 
-#: ../objects/SISSI/sissi.h:361
+#: ../objects/SISSI/sissi_dialog.c:181
 msgid "Service - maintenance or administration software"
 msgstr "서버스 - 유지 또는 관리 소프트웨어"
 
-#: ../objects/SISSI/sissi.h:362
+#: ../objects/SISSI/sissi_dialog.c:182
 msgid "Packaged software or standard software"
 msgstr "패키지 소프트웨어 또는 표준 소프트웨어"
 
-#: ../objects/SISSI/sissi.h:363
+#: ../objects/SISSI/sissi_dialog.c:183
 msgid "Business application"
 msgstr "사업 응용프로그램"
 
-#: ../objects/SISSI/sissi.h:364
+#: ../objects/SISSI/sissi_dialog.c:184
 msgid "Standard business application"
 msgstr "표준 사업 응용"
 
-#: ../objects/SISSI/sissi.h:365
+#: ../objects/SISSI/sissi_dialog.c:185
 msgid "Specific business application"
 msgstr "특별 사업 응용"
 
-#: ../objects/SISSI/sissi.h:370
+#: ../objects/SISSI/sissi_dialog.c:190
 msgid "HARDWARE"
 msgstr "하드웨어"
 
-#: ../objects/SISSI/sissi.h:371
+#: ../objects/SISSI/sissi_dialog.c:191
 msgid "Data-processing equipment (active)"
 msgstr "자료 처리 장비(활성화)"
 
-#: ../objects/SISSI/sissi.h:372
+#: ../objects/SISSI/sissi_dialog.c:192
 msgid "Mobile equipment"
 msgstr "모바일 장비"
 
-#: ../objects/SISSI/sissi.h:373
+#: ../objects/SISSI/sissi_dialog.c:193
 msgid "Fixed equipment"
 msgstr "고정 장비"
 
-#: ../objects/SISSI/sissi.h:374
+#: ../objects/SISSI/sissi_dialog.c:194
 msgid "Peripheral processing"
 msgstr "보조 프로세싱"
 
-#: ../objects/SISSI/sissi.h:375
+#: ../objects/SISSI/sissi_dialog.c:195
 msgid "Electronic medium"
 msgstr "전자 매체"
 
-#: ../objects/SISSI/sissi.h:376
+#: ../objects/SISSI/sissi_dialog.c:196
 msgid "Other media"
 msgstr "다른 매체"
 
-#: ../objects/SISSI/sissi.h:377
+#: ../objects/SISSI/sissi_dialog.c:197
 msgid "Data medium (passive)"
 msgstr "자료 메체(수동)"
 
 #. Class page:
-#: ../objects/SISSI/sissi_dialog.c:186
+#: ../objects/SISSI/sissi_dialog.c:301
 msgid "_Menace"
 msgstr "위협(_M)"
 
 #. ********* label of board *********
-#: ../objects/SISSI/sissi_dialog.c:202
-#: ../objects/SISSI/sissi_dialog.c:211
+#: ../objects/SISSI/sissi_dialog.c:317
+#: ../objects/SISSI/sissi_dialog.c:326
 msgid "Menace"
 msgstr "위협"
 
-#: ../objects/SISSI/sissi_dialog.c:204
-#: ../objects/SISSI/sissi_dialog.c:213
+#: ../objects/SISSI/sissi_dialog.c:319
+#: ../objects/SISSI/sissi_dialog.c:328
 msgid "P Action"
 msgstr "P 행동"
 
-#: ../objects/SISSI/sissi_dialog.c:206
-#: ../objects/SISSI/sissi_dialog.c:215
+#: ../objects/SISSI/sissi_dialog.c:321
+#: ../objects/SISSI/sissi_dialog.c:330
 msgid "P Detection"
 msgstr "P 검파기"
 
-#: ../objects/SISSI/sissi_dialog.c:208
-#: ../objects/SISSI/sissi_dialog.c:217
+#: ../objects/SISSI/sissi_dialog.c:323
+#: ../objects/SISSI/sissi_dialog.c:332
 msgid "Vulnerability"
 msgstr "취약점"
 
 #. Other properties of page:
-#: ../objects/SISSI/sissi_dialog.c:373
+#: ../objects/SISSI/sissi_dialog.c:488
 msgid "Other properties"
 msgstr "다른 속성"
 
 #. ********* selection menu of entity ********
 #. ********* Label of board *********
-#: ../objects/SISSI/sissi_dialog.c:611
+#: ../objects/SISSI/sissi_dialog.c:726
 msgid "Label"
 msgstr "라벨"
 
-#: ../objects/SISSI/sissi_dialog.c:613
+#: ../objects/SISSI/sissi_dialog.c:728
 msgid "value"
 msgstr "값"
 
 #. Other properties of page
-#: ../objects/SISSI/sissi_dialog.c:747
+#: ../objects/SISSI/sissi_dialog.c:862
 msgid "Documents"
 msgstr "문서"
 
-#: ../objects/SISSI/sissi_dialog.c:763
+#: ../objects/SISSI/sissi_dialog.c:878
 msgid "Document title"
 msgstr "문서 제목"
 
@@ -5273,53 +5387,53 @@ msgstr "문서 제목"
 msgid "Actor"
 msgstr "배우"
 
-#: ../objects/UML/association.c:224
+#: ../objects/UML/association.c:222
 msgid "From A to B"
 msgstr "A에서 B로"
 
-#: ../objects/UML/association.c:225
+#: ../objects/UML/association.c:223
 msgid "From B to A"
 msgstr "B에서 A로"
 
-#: ../objects/UML/association.c:230
+#: ../objects/UML/association.c:228
 msgid "Aggregation"
 msgstr "응집"
 
-#: ../objects/UML/association.c:231
+#: ../objects/UML/association.c:229
 msgid "Composition"
 msgstr "합성"
 
-#: ../objects/UML/association.c:238
+#: ../objects/UML/association.c:236
 msgid "Direction"
 msgstr "방향"
 
-#: ../objects/UML/association.c:240
+#: ../objects/UML/association.c:238
 msgid "Show direction"
 msgstr "방향 보이기"
 
-#: ../objects/UML/association.c:240
+#: ../objects/UML/association.c:238
 msgid "Show the small arrow denoting the reading direction"
 msgstr "읽는 방향을 표시하기 위한 작은 화살표 보이기"
 
-#: ../objects/UML/association.c:247
+#: ../objects/UML/association.c:245
 msgid "Side A"
 msgstr "A 면"
 
-#: ../objects/UML/association.c:251
+#: ../objects/UML/association.c:249
 msgid "Multiplicity"
 msgstr "댜양성"
 
-#: ../objects/UML/association.c:253
+#: ../objects/UML/association.c:251
 #: ../objects/UML/umlattribute.c:45
 #: ../objects/UML/umloperation.c:71
 msgid "Visibility"
 msgstr "가시성"
 
-#: ../objects/UML/association.c:255
+#: ../objects/UML/association.c:253
 msgid "Show arrow"
 msgstr "화살표 보이기"
 
-#: ../objects/UML/association.c:258
+#: ../objects/UML/association.c:256
 msgid "Side B"
 msgstr "B 면"
 
@@ -6088,8 +6202,8 @@ msgstr "종횡비 유지"
 
 #. Found file in same dir as diagram.
 #. Found file in current dir.
-#: ../objects/standard/image.c:696
-#: ../objects/standard/image.c:707
+#: ../objects/standard/image.c:697
+#: ../objects/standard/image.c:708
 #, c-format
 msgid ""
 "The image file '%s' was not found in that directory.\n"
@@ -6099,8 +6213,8 @@ msgstr ""
 "대신에 '%s'파일을 이용 중\n"
 
 #. Didn't find file in current dir.
-#: ../objects/standard/image.c:713
-#: ../objects/standard/image.c:735
+#: ../objects/standard/image.c:714
+#: ../objects/standard/image.c:736
 #, c-format
 msgid "The image file '%s' was not found.\n"
 msgstr "이미지 파일 '%s' 를 찾을 수 없습니다.\n"
@@ -6117,11 +6231,11 @@ msgstr "시작 점"
 msgid "End point"
 msgstr "끝 점"
 
-#: ../objects/standard/outline.c:202
+#: ../objects/standard/outline.c:204
 msgid "Text content"
 msgstr "문자열 내용"
 
-#: ../objects/standard/outline.c:204
+#: ../objects/standard/outline.c:206
 msgid "Angle to rotate the outline"
 msgstr "윤곽선 회전 각도"
 
@@ -6139,11 +6253,11 @@ msgstr "조절점 삭제"
 msgid "Standard objects"
 msgstr "표준 객체"
 
-#: ../objects/standard/textobj.c:136
+#: ../objects/standard/textobj.c:139
 msgid "First Line"
 msgstr "첫째 줄"
 
-#: ../objects/standard/textobj.c:143
+#: ../objects/standard/textobj.c:146
 msgid "Vertical text alignment"
 msgstr "수직 문자열 정렬"
 
@@ -6168,6 +6282,7 @@ msgstr ""
 
 #: ../plug-ins/cairo/diacairo.c:256
 #: ../plug-ins/cairo/diacairo.c:272
+#, c-format
 msgid "Can't write %d bytes to %s"
 msgstr "%d 파이트를 %s 에 쓸 수 없습니다"
 
@@ -6254,17 +6369,6 @@ msgstr "Dia렌더스크립트 필터"
 msgid "Drawing Interchange File"
 msgstr "DXF 파일"
 
-#. better than complaining?
-#: ../plug-ins/dxf/dxf-import.c:518
-#: ../plug-ins/dxf/dxf-import.c:536
-msgid "Bad vertex bulge\n"
-msgstr "비정상 정점 부풀기\n"
-
-#: ../plug-ins/dxf/dxf-import.c:1067
-#, c-format
-msgid "Scale: %f\n"
-msgstr "비율: %f\n"
-
 #: ../plug-ins/dxf/dxf-import.c:1319
 #, c-format
 msgid "read_dxf_codes failed on '%s'\n"
@@ -6274,11 +6378,6 @@ msgstr "'%s'에서 dxf 읽기 실패\n"
 #, c-format
 msgid "Binary DXF from '%s' not supported\n"
 msgstr "'%s'에서 바이러리 DXF 지원 안함\n"
-
-#: ../plug-ins/dxf/dxf-import.c:1367
-#, c-format
-msgid "Unknown dxf code %d\n"
-msgstr "알려지지 않은 dxf 코드 %d\n"
 
 #: ../plug-ins/dxf/dxf.c:50
 msgid "Drawing Interchange File import and export filters"
@@ -6329,11 +6428,11 @@ msgstr "PNG (부드럽게)"
 msgid "gdk_renderer: Unsupported fill mode specified!\n"
 msgstr "gdk_렌더러: 설정된 지원이 되지 않는 채움 모드!\n"
 
-#: ../plug-ins/libart/dialibartrenderer.c:1474
+#: ../plug-ins/libart/dialibartrenderer.c:1471
 msgid "Renderer transformation"
 msgstr "렌더러 변형"
 
-#: ../plug-ins/libart/dialibartrenderer.c:1475
+#: ../plug-ins/libart/dialibartrenderer.c:1472
 msgid "Transform pointer"
 msgstr "포인터 변형"
 
@@ -6391,22 +6490,22 @@ msgstr "파일"
 msgid "OK"
 msgstr "확인"
 
-#: ../plug-ins/postscript/paginate_psprint.c:464
+#: ../plug-ins/postscript/paginate_psprint.c:456
 #, c-format
 msgid "Could not run command '%s': %s"
 msgstr "명령어 `%s'를 실행 할 수 없습니다: %s"
 
-#: ../plug-ins/postscript/paginate_psprint.c:467
+#: ../plug-ins/postscript/paginate_psprint.c:459
 #, c-format
 msgid "Could not open '%s' for writing: %s"
 msgstr "쓰기위해 '%s'를 열 수 없습니다: %s"
 
-#: ../plug-ins/postscript/paginate_psprint.c:489
+#: ../plug-ins/postscript/paginate_psprint.c:481
 #, c-format
 msgid "Printing error: command '%s' returned %d\n"
 msgstr "인쇄 오류: 명령어 '%s'가 %d를 반환합니다\n"
 
-#: ../plug-ins/postscript/paginate_psprint.c:500
+#: ../plug-ins/postscript/paginate_psprint.c:492
 #, c-format
 msgid "Printing error: command '%s' caused sigpipe."
 msgstr "인쇄 오류: 명령어 '%s'가 sigpipe를 일으킵니다. "
@@ -6448,15 +6547,15 @@ msgstr "쓰기위해 '%s' 열 수 없습니다.\n"
 msgid "Python scripting support"
 msgstr "파이썬 스크립트 지원"
 
-#: ../plug-ins/shape/shape-export.c:473
+#: ../plug-ins/shape/shape-export.c:474
 msgid "Shape files must end in .shape, or they cannot be loaded by Dia"
 msgstr "모양 파일은 .shape확장자로 끝나야 합니다. 그렇지 않으면 Dia에서 읽을 수 없습니다."
 
-#: ../plug-ins/shape/shape-export.c:484
+#: ../plug-ins/shape/shape-export.c:485
 msgid "Can't export png without libart!"
 msgstr "Libart없이 Png를 내보내기 할 수 없습니다!"
 
-#: ../plug-ins/shape/shape-export.c:509
+#: ../plug-ins/shape/shape-export.c:510
 msgid "Dia Shape File"
 msgstr "Dia 모양 파일"
 
@@ -6464,7 +6563,7 @@ msgstr "Dia 모양 파일"
 msgid "dia shape export filter"
 msgstr "Dia 모양 내보내기 필터"
 
-#: ../plug-ins/svg/svg-import.c:238
+#: ../plug-ins/svg/svg-import.c:258
 msgid ""
 "Invalid path data.\n"
 "svg:path data must start with moveto."
@@ -6472,11 +6571,11 @@ msgstr ""
 "유효하지 않은 경료 자료.\n"
 "svg:경로자료는 moveto로 시작해야 합니다."
 
-#: ../plug-ins/svg/svg-import.c:734
+#: ../plug-ins/svg/svg-import.c:806
 msgid "Expected SVG Namespace not found in file"
 msgstr "파일에 SVG 이름을 찾을 수 없습니다"
 
-#: ../plug-ins/svg/svg-import.c:754
+#: ../plug-ins/svg/svg-import.c:826
 #, c-format
 msgid "root element was '%s' -- expecting 'svg'."
 msgstr "루트 요소는 'svg'가 있는 '%s'입니다."
@@ -6704,6 +6803,7 @@ msgid "Filled arc treated as unfilled"
 msgstr "채워진 호를 채워지지 않은 것으로 취급"
 
 #: ../plug-ins/xfig/xfig-import.c:893
+#, c-format
 msgid "Unknown polyline arc: %d\n"
 msgstr "알려지지 않은 연결선 호: %d\n"
 
@@ -6842,6 +6942,7 @@ msgid "Error while applying stylesheet: %s\n"
 msgstr "스타일시트 적용 중 오류: %s\n"
 
 #: ../plug-ins/xslt/xslt.c:150
+#, c-format
 msgid "Error while saving result: %s\n"
 msgstr "결과 저장 중 오류: %s\n"
 
@@ -6853,15 +6954,15 @@ msgstr "XSL 변형 필터"
 msgid "No valid configuration files found for the XSLT plugin, not loading."
 msgstr "XSLT 플러그인을 위한 적합한 설정 파일을 찾을 수 없고, 읽어올 수 없습니다."
 
-#: ../plug-ins/xslt/xsltdialog.c:96
+#: ../plug-ins/xslt/xsltdialog.c:97
 msgid "Export through XSLT"
 msgstr "XSLT 이용한 내보내기"
 
-#: ../plug-ins/xslt/xsltdialog.c:111
+#: ../plug-ins/xslt/xsltdialog.c:112
 msgid "From:"
 msgstr "에서:"
 
-#: ../plug-ins/xslt/xsltdialog.c:146
+#: ../plug-ins/xslt/xsltdialog.c:147
 msgid "To:"
 msgstr "로:"
 
@@ -8400,7 +8501,7 @@ msgstr "프레셀 랜턴"
 
 #: ../sheets/Lights.sheet.in.h:6
 msgid "Lights"
-msgstr "빛"
+msgstr "빛(Lights)"
 
 #: ../sheets/Lights.sheet.in.h:7
 msgid "Moving head"
@@ -8526,7 +8627,7 @@ msgstr "측정 거리"
 
 #: ../sheets/Misc.sheet.in.h:4
 msgid "Misc"
-msgstr "기타 도형"
+msgstr "기타 도형(Misc)"
 
 #: ../sheets/Misc.sheet.in.h:5
 msgid "Miscellaneous Shapes"
@@ -10728,7 +10829,15 @@ msgstr "사이베이스 데이타서버"
 msgid "Sybase replication server"
 msgstr "사이베이스 복제 서버"
 
-#: 추가 시트
+msgid "Move to layer above"
+msgstr "레이어 위로 이동"
+
+msgid "Move to layer below"
+msgstr "레이어 아래로 이동"
+
+msgid "_Diagram"
+msgstr "도표(_D)"
+
 msgid "CMOS"
 msgstr "보조 금속 산화물 반도체(CMOS)"
 
@@ -10829,7 +10938,7 @@ msgid "Connection Point"
 msgstr "연결점"
 
 msgid "Event-driven process chain"
-msgstr "사무 공정 작업 흐름(EPC)"
+msgstr "사무 공정 작업 흐름(Event-driven process chain)"
 
 msgid "Event"
 msgstr "이벤트"
@@ -11019,47 +11128,6 @@ msgstr "속성"
 
 msgid "Real time global field"
 msgstr "실시간 전역 필드"
-
-msgid ""
-"Dia is a program for drawing structured diagrams.\n"
-"Please visit http://www.gnome.org/projects/dia for more information."
-msgstr "더 많은 정보를 알고 싶으면 http://www.lysator.liu.se/~alla/dia 를 참조하십시오"
-
-msgid "About Dia"
-msgstr "Dia에 대하여"
-
-msgid "Please visit http://www.gnome.org/projects/dia for more information"
-msgstr "더 많은 정보를 알고 싶으면 http://www.lysator.liu.se/~alla/dia 를 참조하십시오"
-
-msgid "Contributors:"
-msgstr "기여자:"
-
-msgid "Diagram tree"
-msgstr "도표 자료 목록"
-
-msgid "Modify object(s)"
-msgstr "객체 편집"
-
-msgid "/Diagram/_Properties..."
-msgstr "/도표/속성(_P)..."
-
-msgid "/Diagram/_Layers..."
-msgstr "/도표/레이어(_L)..."
-
-msgid "/View/Zoom _In"
-msgstr "/보기/확대(_I)"
-
-msgid "/View/Zoom _Out"
-msgstr "/보기/축소(_O)"
-
-msgid "/View/_Zoom"
-msgstr "/보기/확대(_Z)"
-
-msgid "/File/_Diagram tree"
-msgstr "/파일/도표 자료 목록(_D)"
-
-msgid "Show diagram tree"
-msgstr "도표 자료 목록 보이기(_N)"
 
 msgid "Central Data Processing"
 msgstr "중앙 자료 처리(Central Data Processing)"
@@ -11399,4 +11467,155 @@ msgstr "데이타 로거"
 
 msgid "Temperature and Humidity Sensor"
 msgstr "온도와 습도 센서"
+
+msgid "Chemistry Lab"
+msgstr "화학 실험(Chemistry Lab)"
+
+msgid "30 Degree Bend"
+msgstr "30도 굴곡"
+
+msgid "Beaker"
+msgstr "비커"
+
+msgid "Buechner Funnel"
+msgstr "부크너 깔떼기"
+
+msgid "Burette"
+msgstr "뷰렛"
+
+msgid "Clamp"
+msgstr "클램프"
+
+msgid "Clamp Extra Large"
+msgstr "클램프 극대"
+
+msgid "Clamp Front"
+msgstr "클램프-프론트"
+
+msgid "Clamp Large"
+msgstr "클램프-대"
+
+msgid "Reflux Column"
+msgstr "리플럭스 컬럼"
+
+msgid "Reflux Column Red"
+msgstr "리플럭스 컬럼 적색"
+
+msgid "Reflux Column Red-Blue"
+msgstr "리플럭스 컬럼 적-청"
+
+msgid "Condenser"
+msgstr "응축기"
+
+msgid "Condenser Black"
+msgstr "응축기-검정"
+
+msgid "Condenser Blue"
+msgstr "응축기-청색"
+
+msgid "Condenser Green"
+msgstr "응축기-녹색"
+
+msgid "Liebig Condenser Vertical"
+msgstr "응축기-리이빅-수직"
+
+msgid "Condenser Orange"
+msgstr "응축기-오렌지"
+
+msgid "Condenser Pale Blue"
+msgstr "응축기-엷은 청색"
+
+msgid "Condenser Red"
+msgstr "응축기 적색"
+
+msgid "Erlenmeyer Flask"
+msgstr "삼각 플라스크"
+
+msgid "Powder Funnel"
+msgstr "파우더 깔떼기"
+
+msgid "Gooseneck"
+msgstr "U자관"
+
+msgid "Lab Stand Side"
+msgstr "랩 스탠드 면"
+
+msgid "Lab Stand Front"
+msgstr "랩 스텐드 프런트"
+
+msgid "Ring Side"
+msgstr "링 면"
+
+msgid "Ring Front"
+msgstr "링 프런트"
+
+msgid "Separatory Funnel 3 Phases"
+msgstr "분별 깔때기 3 위상"
+
+msgid "Separatory Funnel 2 Phases"
+msgstr "분별 깔때기 2 위상"
+
+msgid "Separatory Funnel"
+msgstr "분별 깔때기"
+
+msgid "Stir Bar"
+msgstr "휘젓는 막대"
+
+msgid "Stir Plate Side"
+msgstr "위젓는 접시 면"
+
+msgid "Stir Plate Front"
+msgstr "위젓는 접시 프런트"
+
+#~ msgid ""
+#~ "You have loaded a non-Dia file.  The file has become an element in a new "
+#~ "diagram, and if you save it, it will be saved as a Dia diagram."
+#~ msgstr ""
+#~ "비 Dia 파일을 읽어왔습니다.  이 파일은 새 도표의 요소가 됩니다. 저장시 "
+#~ "Dia 도표로서 저장됩니다."
+#~ msgid "Edit Layer Attributes"
+#~ msgstr "레이어 속성 편집"
+#~ msgid ""
+#~ "Your local character set is UTF-8. Because of issues with libxml1 and the "
+#~ "support of files generated by previous versions of dia, you will "
+#~ "encounter  problems. Please report to dia-list@gnome.org if you see this "
+#~ "message."
+#~ msgstr ""
+#~ "지역문자 설정이 UTF-8입니다. libxml1 문제와 이전 버전에서 발생하는 파일 지"
+#~ "원문제 때문에 곤란을 격을 수도 있습니다. 이런 메세지를 보면 dia-"
+#~ "list@gnome.org에 보고하십시오."
+#~ msgid "Bad vertex bulge\n"
+#~ msgstr "비정상 정점 부풀기\n"
+#~ msgid "Scale: %f\n"
+#~ msgstr "비율: %f\n"
+#~ msgid "Unknown dxf code %d\n"
+#~ msgstr "알려지지 않은 dxf 코드 %d\n"
+#~ "Dia is a program for drawing structured diagrams.\n"
+#~ "Please visit http://www.gnome.org/projects/dia for more information."
+#~ msgid "About Dia"
+#~ msgstr "Dia에 대하여"
+#~ msgid "Please visit http://www.gnome.org/projects/dia for more information"
+#~ msgstr ""
+#~ "더 많은 정보를 알고 싶으면 http://www.lysator.liu.se/~alla/dia 를 참조하십"
+#~ "시오"
+#~ msgid "Contributors:"
+#~ msgstr "기여자:"
+#~ msgid "Diagram tree"
+#~ msgstr "도표 자료 목록"
+#~ msgid "Modify object(s)"
+#~ msgstr "객체 편집"
+#~ msgid "/Diagram/_Properties..."
+#~ msgstr "/도표/속성(_P)..."
+#~ msgid "/Diagram/_Layers..."
+#~ msgstr "/도표/레이어(_L)..."
+#~ msgid "/View/Zoom _In"
+#~ msgstr "/보기/확대(_I)"
+#~ msgid "/View/Zoom _Out"
+#~ msgstr "/보기/축소(_O)"
+#~ msgid "/View/_Zoom"
+#~ msgstr "/보기/확대(_Z)"
+#~ msgid "/File/_Diagram tree"
+#~ msgstr "/파일/도표 자료 목록(_D)"
+#~ msgid "Show diagram tree"
+#~ msgstr "도표 자료 목록 보이기(_N)"
 
