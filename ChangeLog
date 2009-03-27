@@ -1,3 +1,8 @@
+2009-03-27  Hans Breuer  <hans@breuer.org>
+
+	* plug-ins/python/dot2dia.py plug-ins/python/Makefile.am : initial 
+	version of dot (http://www.graphviz.org) import for Dia
+
 2009-03-26  Hans Breuer  <hans@breuer.org>
 
 	* plug-ins/python/pydia-property.c : check for a correct number of

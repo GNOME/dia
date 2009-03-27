@@ -90,6 +90,7 @@ EXTRA_DIST = \
 	bbox.py \
 	diastddia.py \
 	debug_objects.py \
+	dot2dia.py \
 	export-object.py \
 	export-render.py \
 	\
