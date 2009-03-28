@@ -138,6 +138,10 @@ begin_render(DiaRenderer *self)
 
     cairo_set_font_options (renderer->cr, fo);
     cairo_font_options_destroy (fo);
+#ifdef HAVE_PANGOCAIRO_H
+    pango_cairo_update_context (renderer->cr, pango_layout_get_context (renderer->layout));
+    pango_layout_context_changed (renderer->layout);
+#endif
   }
 #endif
   
@@ -691,6 +695,10 @@ draw_string(DiaRenderer *self,
     cairo_move_to (renderer->cr, pos->x - (double)shift / PANGO_SCALE, pos->y - (double)bline / PANGO_SCALE);
     pango_layout_iter_free (iter);
   }
+  /* does this hide bug #341481? */
+  pango_cairo_update_context (renderer->cr, pango_layout_get_context (renderer->layout));
+  pango_layout_context_changed (renderer->layout);
+
   pango_cairo_show_layout (renderer->cr, renderer->layout);
   cairo_restore (renderer->cr);
 #else

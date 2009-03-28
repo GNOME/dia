@@ -1,5 +1,8 @@
 2009-03-28  Hans Breuer  <hans@breuer.org>
 
+	* plug-ins/cairo/diacairo-renderer.c : apparently I've found a 
+	workaround for pango bug #341481. Or maybe bug #573261 always we mine.
+
 	* lib/prop_text.c : for 'multistring' connect to the 'change' signal
 	of the TextBuffer rather than to the unreliable 'insert-at-cursor' of
 	the TextView -> "Chronogram - line" works again, bug #576905
