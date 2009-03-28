@@ -76,7 +76,7 @@ buttonprop_get_widget(ButtonProperty *prop, PropDialog *dialog)
   if (!prop->common.descr) return NULL;
 
   ret = gtk_button_new_with_label(_(prop->common.descr->tooltip));
-  prophandler_connect(&prop->common,GTK_OBJECT(ret),"clicked");
+  prophandler_connect(&prop->common, G_OBJECT(ret), "clicked");
 
   return ret;
 }
@@ -460,7 +460,7 @@ listprop_get_widget(ListProperty *prop, PropDialog *dialog)
   gtk_signal_connect(GTK_OBJECT(ret), "select-child",
                      GTK_SIGNAL_FUNC(listprop_select_child_signal), prop);
 
-  prophandler_connect(&prop->common,GTK_OBJECT(ret),"selection-changed");
+  prophandler_connect(&prop->common, G_OBJECT(ret), "selection-changed");
   return ret;
 }
 

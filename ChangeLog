@@ -1,3 +1,13 @@
+2009-03-28  Hans Breuer  <hans@breuer.org>
+
+	* lib/prop_text.c : for 'multistring' connect to the 'change' signal
+	of the TextBuffer rather than to the unreliable 'insert-at-cursor' of
+	the TextView -> "Chronogram - line" works again, bug #576905
+	* lib/propinternals.h  lib/prop_attr.c lib/prop_geomtypes.c 
+	  lib/prop_inttypes.c lib/prop_text.c lib/prop_widgets.c 
+	  lib/propdialogs.c : make prophandler_connect() take a GObject* to
+	do the above without warnings
+
 2009-03-27  Hans Breuer  <hans@breuer.org>
 
 	* plug-ins/python/dot2dia.py plug-ins/python/Makefile.am : initial 

@@ -209,7 +209,7 @@ property_signal_handler(GtkObject *obj,
 
 void 
 prophandler_connect(const Property *prop,
-                    GtkObject *object,
+                    GObject *object,
                     const gchar *signal)
 {
   if (0==strcmp(signal,"FIXME")) {

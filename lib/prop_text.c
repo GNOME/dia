@@ -86,7 +86,7 @@ static GtkWidget *
 stringprop_get_widget(StringProperty *prop, PropDialog *dialog) 
 { 
   GtkWidget *ret = gtk_entry_new();
-  prophandler_connect(&prop->common,GTK_OBJECT(ret),"changed");
+  prophandler_connect(&prop->common, G_OBJECT(ret), "changed");
   return ret;
 }
 
@@ -121,13 +121,14 @@ static GtkWidget *
 multistringprop_get_widget(StringProperty *prop, PropDialog *dialog) 
 { 
   GtkWidget *ret = gtk_text_view_new();
+  GtkTextBuffer *buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(ret));
   GtkWidget *frame = gtk_frame_new(NULL);
   gtk_frame_set_shadow_type(GTK_FRAME(frame), GTK_SHADOW_IN);
   gtk_container_add(GTK_CONTAINER(frame), ret);
   g_signal_connect(G_OBJECT(ret), "key-release-event", 
 		   G_CALLBACK(multistringprop_handle_key), NULL);
   gtk_widget_show(ret);
-  prophandler_connect(&prop->common,GTK_OBJECT(ret),"insert-at-cursor");
+  prophandler_connect(&prop->common, G_OBJECT(buffer), "changed");
   return frame;
 }
 
@@ -156,7 +157,7 @@ static GtkWidget *
 fileprop_get_widget(StringProperty *prop, PropDialog *dialog) 
 { 
   GtkWidget *ret = dia_file_selector_new();
-  prophandler_connect(&prop->common,GTK_OBJECT(ret),"value-changed");
+  prophandler_connect(&prop->common, G_OBJECT(ret), "value-changed");
   return ret;
 }
 

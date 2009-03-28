@@ -37,9 +37,6 @@
 gboolean propdescs_can_be_merged(const PropDescription *p1, 
                                  const PropDescription *p2);
 
-void prophandler_connect(const Property *prop, GtkObject *object,
-                         const gchar *signal);
-
 /* returns FALSE if error is set cause of meesed up format */
 gboolean prop_list_load(GPtrArray *props, DataNode data, GError **err);
 void prop_list_save(GPtrArray *props, DataNode data);
@@ -70,7 +67,7 @@ void prop_dialog_destroy(PropDialog *dialog);
 void prop_get_data_from_widgets(PropDialog *dialog);
 WIDGET *prop_dialog_get_widget(const PropDialog *dialog);
 
-void prophandler_connect(const Property *prop, GtkObject *object, 
+void prophandler_connect(const Property *prop, GObject *object, 
                          const gchar *signal);
 
 /* Stuff in propoffsets.c: */

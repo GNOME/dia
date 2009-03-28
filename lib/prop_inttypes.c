@@ -63,7 +63,7 @@ static WIDGET *
 charprop_get_widget(CharProperty *prop, PropDialog *dialog) 
 { 
   GtkWidget *ret = gtk_entry_new();  
-  prophandler_connect(&prop->common,GTK_OBJECT(ret),"changed");
+  prophandler_connect(&prop->common, G_OBJECT(ret), "changed");
   return ret;
 }
 
@@ -186,7 +186,7 @@ boolprop_get_widget(BoolProperty *prop, PropDialog *dialog)
   GtkWidget *ret = gtk_toggle_button_new_with_label(_("No"));
   g_signal_connect(G_OBJECT(ret), "toggled",
                    G_CALLBACK (bool_toggled), NULL);
-  prophandler_connect(&prop->common,GTK_OBJECT(ret),"toggled");
+  prophandler_connect(&prop->common, G_OBJECT(ret), "toggled");
   return ret;
 }
 
@@ -283,7 +283,7 @@ intprop_get_widget(IntProperty *prop, PropDialog *dialog)
                                                          1.0, 10.0, 0));
   GtkWidget *ret = gtk_spin_button_new(adj, 1.0, 0);
   gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(ret),TRUE);
-  prophandler_connect(&prop->common,GTK_OBJECT(ret),"value_changed");
+  prophandler_connect(&prop->common, G_OBJECT(ret), "value_changed");
   
   return ret;
 }
@@ -493,7 +493,7 @@ enumprop_get_widget(EnumProperty *prop, PropDialog *dialog)
     ret = gtk_combo_box_new_text ();
     for (i = 0; enumdata[i].name != NULL; i++)
       gtk_combo_box_append_text (GTK_COMBO_BOX (ret), _(enumdata[i].name)); 
-    prophandler_connect(&prop->common, GTK_OBJECT (ret), "changed");
+    prophandler_connect(&prop->common, G_OBJECT (ret), "changed");
   } else {
     ret = gtk_entry_new(); /* should use spin button/option menu */
   }  
