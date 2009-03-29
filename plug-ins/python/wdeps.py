@@ -202,8 +202,8 @@ def GetDepsPosix (sFrom, dAll, nMaxDepth, nDepth=0) :
 							arr.append (me.group(1))
 				if len(arr) > 0 :
 					node.AddEdge(r.group("name"), arr, 0)
-					# FIXME: could place to recurse ?
-					GetDepsPosix (r.group("path"), dAll, nMaxDepth-nDepth+1, nDepth)
+					# FIXME: good place to recurse ?
+					GetDepsPosix (r.group("path"), dAll, nMaxDepth-nDepth+1, nDepth+1)
 				
 		# add to all nodes
 		dAll[sFromName] = node
@@ -395,6 +395,37 @@ dllsGtk = [
 	"libgdk_pixbuf-2.0-0.dll", "libgdk-win32-2.0-0.dll", "libgtk-win32-2.0-0.dll", "libatk-1.0-0.dll", 
 	"libcairo.dll", "libintl-1.dll", "iconv.dll"
 	]
+
+def LookupColor (node) :
+	"""Used to tint the nodes by 'layer' """
+	tangoColors = [
+		"#fce94f", # butter   (light occer)
+		"#fcaf3e", # orange
+		"#e9b96e", # chocolate (light brown)
+		"#8ae234", # chameleon (green)
+		"#729fcf", # sky blue
+		"#ad7fa8", # plum
+		# leaving out red, now getting darker
+		"#edd400",
+		"#f57900",
+		"#c17d11",
+		"#73d216",
+		"#3465a4",
+		"#75507b",
+		# even darker
+		"#c4a00",
+		"#ce5c00",
+		"#8f590f",
+		"#4ce9a06",
+		"#204a87",
+		"#5c3566",
+	]
+	try :
+		return tangoColors[node.depth]
+	except KeyError, msg :
+		print msg
+		return "#ef2929" # scarlet red
+
 def main () :
 	deps = {}
 	dllsToRemove = []
@@ -637,7 +668,7 @@ For more information read the source.
 	f.write ('digraph "' + sGraph + '" {\n')
 	f.write ('graph [fontsize=8.0 label="wdeps.py ' + string.join (sys.argv[1:], " ") 
 			+ '\\n' + time.ctime() + '"]\n') 
-	f.write ('ratio=0.7\nnode [fontsize=12.0 ]\nedge [fontsize=8.0]')
+	f.write ('ratio=0.7\nnode [fontsize=12.0 ]\nedge [fontsize=8.0]\n')
 	if bByUse :
 		# kind of inverted diagram not showing edependencies but 'users'
 		users = {}
@@ -671,11 +702,11 @@ For more information read the source.
 				if se in g_DontFollow :
 					if not dontFollowsDone.has_key(se) :
 						# mark as such
-						f.write ('"%s" [style=filled,fillcolor=lightgray]\n' % (se,))
+						f.write ('"%s" [style=filled,fillcolor="lightgray"]\n' % (se,))
 						dontFollowsDone[se] = 1
 				else :
 					if not urlsDone.has_key (se) :
-						f.write ('"%s" [style=filled,fillcolor=red,URL="#%s"]\n' % (se,se))
+						f.write ('"%s" [style=filled,fillcolor="%s",URL="#%s"]\n' % (se, LookupColor(node), se))
 						urlsDone[se] = 1
 						
 					

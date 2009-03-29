@@ -1,3 +1,12 @@
+2009-03-29  Hans Breuer  <hans@breuer.org>
+
+	* plug-ins/python/wdeps.py : my dependency analysis script is finally 
+	running on Linux and together with dot can produce pretty nice images
+	(last change was the introduction of tinting by layer)
+	* samples/Self/dia-linux-2.dia : dependency graph of Dia
+	* samples/Self/dia-linux-2.dot : dot file produced by wdeps.py and
+	preocessed by dot
+
 2009-03-28  Hans Breuer  <hans@breuer.org>
 
 	* plug-ins/cairo/diacairo-renderer.c : apparently I've found a 
