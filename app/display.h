@@ -33,9 +33,9 @@ typedef struct _DDisplay DDisplay;
 /** This is close to, but not quite the same as, the physical display size
  * in most cases */
 
-#define DDISPLAY_MAX_ZOOM 500.0
+#define DDISPLAY_MAX_ZOOM 2000.0
 #define DDISPLAY_NORMAL_ZOOM 20.0
-#define DDISPLAY_MIN_ZOOM 1.0
+#define DDISPLAY_MIN_ZOOM 0.2
 
 /* The zoom amount should be uniform.  Pixels per cm should be defined by the
  * renderer alone.  But that'd take a lot of fiddling in renderers. */

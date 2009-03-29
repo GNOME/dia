@@ -1,5 +1,8 @@
 2009-03-29  Hans Breuer  <hans@breuer.org>
 
+	* app/display.h : increased the arbitrary zoom limits to make my 
+	current stress test diagram fit
+
 	* plug-ins/python/wdeps.py : my dependency analysis script is finally 
 	running on Linux and together with dot can produce pretty nice images
 	(last change was the introduction of tinting by layer)
