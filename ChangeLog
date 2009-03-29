@@ -1,4 +1,11 @@
 2009-03-29  Hans Breuer  <hans@breuer.org>
+	
+	* app/display.c : the interactive cairo renderer has highlighting 
+	issues (bug #576548). For now default to the libart renderer for
+	the antialiased display renderer (only fall back to cairo if the
+	libart plug-in is not loaded)
+	* plug-ins/libart/dialibartrenderer : initialize 
+	DiaRenderer::is_interactive to allow entering text edit mode
 
 	* app/display.h : increased the arbitrary zoom limits to make my 
 	current stress test diagram fit

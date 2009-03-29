@@ -1006,36 +1006,39 @@ ddisplay_scroll_to_object(DDisplay *ddisp, DiaObject *obj)
 }
 
 /**
- * Kind of dirty way to init an antialiased renderer, there should be some plug-in interface to do this
- * but first libart needs to be moved out of the core.
+ * Kind of dirty way to init an antialiased renderer, there should be some plug-in interface to do this.
+ * Now with the Libart renderer being a plug-in and the cairo renderer having issues with highlighting
+ * (  http://bugzilla.gnome.org/show_bug.cgi?id=576548 ) it seems reasonable to have default at
+ * Libart, also becuase you loose less when it is switched off ;-)
  */
 static DiaRenderer *
 new_aa_renderer (DDisplay *ddisp)
 {
-  GType cairo_renderer_type;
-  cairo_renderer_type = g_type_from_name ("DiaCairoInteractiveRenderer");
-  if (cairo_renderer_type) {
-    DiaRenderer *renderer = g_object_new(cairo_renderer_type, NULL);
+  GType renderer_type;
+
+  renderer_type = g_type_from_name ("DiaLibartRenderer");
+  if (renderer_type) {
+    DiaRenderer *renderer = g_object_new(renderer_type, NULL);
+    g_object_set (renderer,
+                  "transform", dia_transform_new (&ddisp->visible, &ddisp->zoom_factor),
+		  NULL);
+    return renderer;
+  } 
+  
+  renderer_type = g_type_from_name ("DiaCairoInteractiveRenderer");
+  if (renderer_type) {
+    DiaRenderer *renderer = g_object_new(renderer_type, NULL);
     g_object_set (renderer,
                   "zoom", &ddisp->zoom_factor,
 		  "rect", &ddisp->visible,
 		  NULL);
     return renderer;
-  } else {
-    GType libart_renderer_type = g_type_from_name ("DiaLibartRenderer");
-    if (libart_renderer_type) {
-      DiaRenderer *renderer = g_object_new(libart_renderer_type, NULL);
-      g_object_set (renderer,
-                    "transform", dia_transform_new (&ddisp->visible, &ddisp->zoom_factor),
-		    NULL);
-      return renderer;
-    } else {
-      /* we really should not come here but instead disable the menu command earlier */
-      message_warning (_("No anti-aliased renderer found"));
-      /* fallback: built-in libart renderer */
-      return new_gdk_renderer (ddisp); 
-    }
   }
+  
+  /* we really should not come here but instead disable the menu command earlier */
+  message_warning (_("No anti-aliased renderer found"));
+  /* fallback: built-in libart renderer */
+  return new_gdk_renderer (ddisp); 
 }
 
 void

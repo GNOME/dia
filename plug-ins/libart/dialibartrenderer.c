@@ -1342,6 +1342,8 @@ draw_object (DiaRenderer *renderer, DiaObject *object)
 static void
 renderer_init (DiaLibartRenderer *renderer, gpointer g_class)
 {
+  DiaRenderer *dia_renderer = DIA_RENDERER(renderer);
+
   renderer->rgb_buffer = NULL;
 
   renderer->line_width = 1.0;
@@ -1356,6 +1358,9 @@ renderer_init (DiaLibartRenderer *renderer, gpointer g_class)
   renderer->highlight_color = NULL;
 
   renderer->parent_instance.font = NULL;
+  
+  /* lib/text.c does not use the interfaces */
+  dia_renderer->is_interactive = TRUE;
 }
 
 static void dia_libart_renderer_class_init (DiaLibartRendererClass *klass);
