@@ -1,5 +1,8 @@
 2009-03-29  Hans Breuer  <hans@breuer.org>
 	
+	* app/app_procs.c : slightly hacked version to avoid double request
+	of "Exit without save" for integrated UI case, bug #573635
+
 	* app/display.c : the interactive cairo renderer has highlighting 
 	issues (bug #576548). For now default to the libart renderer for
 	the antialiased display renderer (only fall back to cairo if the

@@ -973,6 +973,18 @@ app_exit(void)
           g_free (filename);
         }
         exit_dialog_free_items (items);
+      } 
+      else if (result == EXIT_DIALOG_EXIT_NO_SAVE) 
+      {
+        list = dia_open_diagrams();
+        while (list) {
+          diagram = list->data;
+
+	  /* slight hack: don't ask again */
+          diagram_set_modified (diagram, FALSE);
+	  undo_clear(diagram->undo);
+          list = g_list_next (list);
+	}
       }
     }
     else
