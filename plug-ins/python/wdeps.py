@@ -50,9 +50,10 @@ is :- "public: class utl::CUnit & __thiscall utl::CUnit::operator/=(class utl::C
 g_DontFollow = []
 
 class Node :
-	def __init__ (self, name) :
+	def __init__ (self, name, depth) :
 		self.name = name
 		self.deps = {}
+		self.depth = depth # where we found it
 	def AddEdge (self, name, symbols, delayLoad) :
 		self.deps[name] = Edge(name, symbols, delayLoad)
 
@@ -88,7 +89,7 @@ class Edge :
 				#print " <unmatched>: ", s
 				demangled.append (s)
 		self.symbols = demangled
-		
+
 g_path = None # empty, default behaviour
 def FindInPath (sName) :
 	"returns the complete path of the given name, looking at cwd first"
@@ -106,17 +107,17 @@ def FindInPath (sName) :
 	# safety
 	return sName
 
-def GetDeps (sFrom, dAll, nMaxDepth, nDepth=0) :
+def GetDepsWin32 (sFrom, dAll, nMaxDepth, nDepth=0) :
 	"calculates the dependents of the passed in dll"
 	if nMaxDepth <= nDepth :
 		return
 	sFrom = string.lower(sFrom)
 	global g_DontFollow
 	if sFrom in g_DontFollow :
-		dAll[sFrom] = Node (sFrom) # needed here so other algoritm can remove it ;)
+		dAll[sFrom] = Node (sFrom, nDepth) # needed here so other algoritm can remove it ;)
 		return
 	if not dAll.has_key (sFrom) :
-		node = Node (sFrom)
+		node = Node (sFrom, nDepth)
 		sPath = sFrom
 		if g_path :
 			sPath = FindInPath (sFrom)
@@ -150,11 +151,66 @@ def GetDeps (sFrom, dAll, nMaxDepth, nDepth=0) :
 					node.AddEdge (name, arr, delayLoad)
 					arr = []
 					nDepth = nDepth + 1
-					GetDeps (name, dAll, nMaxDepth-nDepth+1, nDepth)
+					GetDepsWin32 (name, dAll, nMaxDepth-nDepth+1, nDepth)
 					nDepth = nDepth - 1
 		# add to all nodes
 		dAll[sFrom] = node
 	
+def GetDepsPosix (sFrom, dAll, nMaxDepth, nDepth=0) :
+	"calculates the dependents of the passed in so"
+	# sFrom must be with absolute on Posix, still we prefer the shorter name
+	sFromName = os.path.split(sFrom)[-1]
+	if nMaxDepth <= nDepth :
+		return
+	global g_DontFollow
+	if sFromName in g_DontFollow :
+		dAll[sFromName] = Node (sFromName, nDepth) # needed here so other algoritm can remove it ;)
+		return
+	if not dAll.has_key (sFromName) :
+		node = Node (sFromName, nDepth)
+		sPath = sFrom
+		#TODO: work with relative pathes? Current dir?
+		f = os.popen ('ldd "' + sPath + '"')
+		arr = []
+		sDump = f.readlines ()
+		# avoids multiple instances of dumpbin running simultaneously
+		f = None
+		# avoids infinite recursion on circular dependencies
+		dAll[sFromName] = None
+		# sFrom imports
+		fImports = os.popen ('nm --extern-only --dynamic --undefined-only ' + sPath)
+		sImports = fImports.readlines()
+		dImports = {}
+		for si in sImports :
+			mi = re.match("\s+U (\S+)", si)
+			if mi :
+				dImports[mi.group(1)] = 1
+		for s in sDump :
+			r = re.match ("\s+(?P<name>\S+) => (?P<path>\S+).*", s)
+			if r :
+				# print r.group("name"), r.group("path")
+				# now find symbols between sFrom and of the SOs
+				arr = []
+				fExports = os.popen ('nm --extern-only --dynamic --defined-only ' + r.group("path"))
+				sExports = fExports.readlines() 
+				for se in sExports :
+					me = re.match ("\w+ T (\S+)", se)
+					if me :
+						# print me.group(1), r.group('name') 
+						if me.group(1) in dImports.keys() :
+							# direct connection
+							arr.append (me.group(1))
+				if len(arr) > 0 :
+					node.AddEdge(r.group("name"), arr, 0)
+					# FIXME: could place to recurse ?
+					GetDepsPosix (r.group("path"), dAll, nMaxDepth-nDepth+1, nDepth)
+				
+		# add to all nodes
+		dAll[sFromName] = node
+
+def IsWin32 () :
+	return os.name in ["nt"]
+
 def Remove (deps, list) :
 	"From the deps tree remove the nodes matching list"
 	for s in list :
@@ -355,15 +411,17 @@ def main () :
 	nSymbols = 0
 	nCutLeafs = 0
 
-	# check if we are running from the right environment
-	try :
-		print "FrameworkSDKDir=" + os.environ["FrameworkSDKDir"]
-	except :
-		print "The script needs to be called from a 'VS command prompt'"
-		sys.exit (1)
-	if FindInPath ("dumpbin.exe") == "dumpbin.exe" :
-		print "dumpbin.exe not found"
-		sys.exit (1)
+	if IsWin32() :
+		# check if we are running from the right environment
+		# HB: completely bogus, only works with vc2003? 
+		#try :
+		#	print "FrameworkSDKDir=" + os.environ["FrameworkSDKDir"]
+		#except :
+		#	print "The script needs to be called from a 'VS command prompt'"
+		#	sys.exit (1)
+		if FindInPath ("dumpbin.exe") == "dumpbin.exe" :
+			print "dumpbin.exe not found"
+			sys.exit (1)
 	for arg in sys.argv[1:] :
 		if string.find (arg, "--remove") == 0 :
 			if arg == "--remove-sys" : dllsToRemove.extend (dllsSysWin32)
@@ -480,7 +538,10 @@ For more information read the source.
 		print "Input from", sPickle
 	except :
 		for s in components:
-			GetDeps (s, deps, nMaxDepth)
+			if IsWin32() :
+				GetDepsWin32 (s, deps, nMaxDepth)
+			else :
+				GetDepsPosix (s, deps, nMaxDepth)
 
 	if len(dllsToRemove) :
 		Remove (deps, dllsToRemove)
@@ -601,7 +662,12 @@ For more information read the source.
 			edge_keys = node.deps.keys()
 			edge_keys.sort()
 			for se in edge_keys :
-				ses = se[:string.find(se, ".dll")]
+				cut_len = len(se)
+				if IsWin32() :
+					cut_len = string.find(se, ".dll")
+				else :
+					cut_len = string.find(se, ".so") 
+				ses = se[:cut_len]
 				if se in g_DontFollow :
 					if not dontFollowsDone.has_key(se) :
 						# mark as such
@@ -624,7 +690,9 @@ For more information read the source.
 				if edge.reduce : # remove from graph by commenting it out
 					sPrefix = "// " + string.join(edge.symbols, ", ") + "\n// "
 				if edge.delayLoad :
-					sStyle = "weight=%f,style=dotted" % (math.log10(math.sqrt(edge.weight)),)
+					# putting 'weight' and 'constraint' seems to be too much for dot
+					#sStyle = "weight=%f,style=dotted" % (math.log10(math.sqrt(edge.weight)),)
+					sStyle = "style=dotted,constraint=false"
 				else :
 					sStyle = "weight=%f" % (math.log10(edge.weight),)
 				if edge.weight <= nSymbols :
@@ -638,3 +706,4 @@ For more information read the source.
 	f.write("}\n")
 
 if __name__ == '__main__': main()
+
