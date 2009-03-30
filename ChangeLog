@@ -1,11 +1,14 @@
 2009-03-30  Hans Breuer  <hans@breuer.org>
 
+	* plug-ins/python/wdeps.py : implement another coloring theme, fix
+	the previous tinting
+
 	* app/find.and-replace.c : ensure visibility of the object found
 	* app/display.[ch](ddisp_present_object) : new function to move
 	an object into view with minimum scrolling
 
 2009-03-29  Hans Breuer  <hans@breuer.org>
-	
+
 	* app/app_procs.c : slightly hacked version to avoid double request
 	of "Exit without save" for integrated UI case, bug #573635
 

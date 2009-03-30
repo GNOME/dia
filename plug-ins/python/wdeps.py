@@ -396,35 +396,69 @@ dllsGtk = [
 	"libcairo.dll", "libintl-1.dll", "iconv.dll"
 	]
 
+# Tinting themes
+colorMatcher = []
+tangoColors = [
+	"#fce94f", # butter   (light occer)
+	"#fcaf3e", # orange
+	"#e9b96e", # chocolate (light brown)
+	"#8ae234", # chameleon (green)
+	"#729fcf", # sky blue
+	"#ad7fa8", # plum
+	# leaving out red, now getting darker
+	"#edd400",
+	"#f57900",
+	"#c17d11",
+	"#73d216",
+	"#3465a4",
+	"#75507b",
+	# even darker
+	"#c4a00",
+	"#ce5c00",
+	"#8f590f",
+	"#4ce9a06",
+	"#204a87",
+	"#5c3566",
+]
+def ParseRegexTheme (fname) :
+	global colorMatcher
+	rkv = re.compile(r'^"(?P<regex>[^"]+)"\s*=\s*(?P<color>[\w#]+).*')
+	f = open (fname, 'r')
+	for s in f.readlines() :
+		m = rkv.match(s)
+		if m :
+			try :
+				sr = re.compile(m.group('regex'))
+				sc = m.group('color')
+				colorMatcher.append ((sr, sc))
+			except re.error, msg :
+				print "Parser error\n", s
+				sys.exit(2)
+	if len(colorMatcher) == 0 :
+		print "no colors parsed:", fname
+		sys.exit(3)
+	else :
+		print len(colorMatcher), "colors parsed:", fname
+
 def LookupColor (node) :
-	"""Used to tint the nodes by 'layer' """
-	tangoColors = [
-		"#fce94f", # butter   (light occer)
-		"#fcaf3e", # orange
-		"#e9b96e", # chocolate (light brown)
-		"#8ae234", # chameleon (green)
-		"#729fcf", # sky blue
-		"#ad7fa8", # plum
-		# leaving out red, now getting darker
-		"#edd400",
-		"#f57900",
-		"#c17d11",
-		"#73d216",
-		"#3465a4",
-		"#75507b",
-		# even darker
-		"#c4a00",
-		"#ce5c00",
-		"#8f590f",
-		"#4ce9a06",
-		"#204a87",
-		"#5c3566",
-	]
+	'''Used to tint the nodes by layer '''
+	global colorMatcher
+	if len(colorMatcher) :
+		for rx, color in colorMatcher :
+			m = rx.match(node.name) 
+			if m and m.start() == 0 and m.end() == len(node.name) :
+				#print color, node.name
+				return color
+		return "white"
+	# tinting by palette
 	try :
 		return tangoColors[node.depth]
 	except KeyError, msg :
 		print msg
 		return "#ef2929" # scarlet red
+	except IndexError, msg :
+		print "Dependency", node.name, 'level', node.depth
+		return "#cc0000" # scarlet ret (a bit darker)
 
 def main () :
 	deps = {}
@@ -497,6 +531,13 @@ def main () :
 				g_path = arg[len("--path="):]
 			else :
 				g_path = os.environ['PATH']
+		elif string.find (arg, "--theme=") == 0 :
+			theme = arg[len("--theme="):]
+			if theme == 'regex' :
+				ParseRegexTheme('wdeps.tinting')
+			else :
+				print "Unknown theme!"
+				sys.exit(1)
 		elif string.find (arg, "--") == 0 :
 			print "Unknown option or missing parameter:", arg
 		else :
@@ -706,7 +747,7 @@ For more information read the source.
 						dontFollowsDone[se] = 1
 				else :
 					if not urlsDone.has_key (se) :
-						f.write ('"%s" [style=filled,fillcolor="%s",URL="#%s"]\n' % (se, LookupColor(node), se))
+						f.write ('"%s" [style=filled,fillcolor="%s",URL="#%s"]\n' % (se, LookupColor(deps[se]), se))
 						urlsDone[se] = 1
 						
 					
