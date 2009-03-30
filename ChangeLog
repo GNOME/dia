@@ -1,7 +1,12 @@
 2009-03-30  Hans Breuer  <hans@breuer.org>
 
 	* plug-ins/python/wdeps.py : implement another coloring theme, fix
-	the previous tinting
+	the previous tinting; allow to leave out C-Runtime on Linux, too
+	* plug-ins/python/dot2dia.py : the assumption of every node name being
+	in quotes broke with dia-linux.dot; now fixed and ...
+	* samples/Self/dia-linux-2.dia : ... updated the diagram also with new
+	colors and passing --remove-crt to wdeps.py
+	
 
 	* app/find.and-replace.c : ensure visibility of the object found
 	* app/display.[ch](ddisp_present_object) : new function to move

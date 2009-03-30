@@ -22,9 +22,9 @@ import re, string, sys
 keywords = ['node', 'edge', 'graph', 'digraph', 'strict']
 # starts with either a keyword or a node name in quotes. 
 # BEWARE: (?<-> ) - negative lookbehind to not find nodes a second time in connection definition (and misinterpret the params)
-rDecl = re.compile(r'\s*(?<!-> )(?P<cmd>(?:' + string.join(keywords, ')|(?:') + ')|(?:"[^"]+"))\s+\[(?P<dict>[^\]]+)\];', re.DOTALL | re.MULTILINE)
-# for the moment it is assumed that all node names are in quotes
-rEdge = re.compile(r'\s*"(?P<n1>[^"]+)"\s*->\s*"(?P<n2>[^"]+)"\s+\[(?P<dict>[^\]]+)\];*', re.DOTALL | re.MULTILINE)
+rDecl = re.compile(r'\s*(?<!-> )(?P<cmd>(?:' + string.join(keywords, ')|(?:') + ')|(?:\w+' + ')|(?:"[^"]+"))\s+\[(?P<dict>[^\]]+)\];', re.DOTALL | re.MULTILINE)
+# dont assume that all node names are in quotes
+rEdge = re.compile(r'\s*(?P<n1>("[^"]+")|(\w+))\s*->\s*(?P<n2>("[^"]+")|(\w+))\s+\[(?P<dict>[^\]]+)\];*', re.DOTALL | re.MULTILINE)
 # a list of key=value
 rParam = re.compile(r'(?P<key>\w+)\s*=(?P<val>(\w+)|("[^"]+")),?\s*', re.DOTALL | re.MULTILINE)
 
@@ -113,7 +113,7 @@ class Edge(Object) :
 				del sp[0]
 				bp = []
 				for i in range(0, len(sp)) :
-					xy = string.split(sp[i], ",")
+					xy = string.split(sp[i].replace("\n", "").replace("\\", ""), ",")
 					try :
 						x = float(xy[0]) * cmPoints
 						y = float(xy[1]) * (-cmPoints)

@@ -383,7 +383,9 @@ dllsCrts = [
 #	"msvcrt20.dll",
 #	"msvcr70.dll", "msvcp70.dll",
 	"msvcr71.dll", "msvcr71d.dll", "msvcp71.dll", "msvcp71d.dll",
-	"msvcr80.dll", "msvcr80d.dll", "msvcp80.dll", "msvcp80d.dll"
+	"msvcr80.dll", "msvcr80d.dll", "msvcp80.dll", "msvcp80d.dll",
+	# only one on Linux? (or am I missing th C++rt, and what about librt.so.1?)
+	"libc.so.5", "libc.so.6"
 	]
 dllsMfc = [
 	"mfc71u.dll", "mfc71.dll", "mfc71ud.dll",
