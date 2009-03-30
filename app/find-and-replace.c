@@ -384,6 +384,7 @@ fnr_respond (GtkWidget *widget, gint response_id, gpointer data)
         diagram_flush(ddisp->diagram);
       }
       diagram_select (ddisp->diagram, sd.last);
+      ddisplay_present_object (ddisp, sd.last);
     }
     break;
   case RESPONSE_REPLACE :

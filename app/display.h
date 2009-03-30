@@ -171,6 +171,7 @@ void ddisplay_scroll_left(DDisplay *ddisp);
 void ddisplay_scroll_right(DDisplay *ddisp);
 gboolean ddisplay_scroll_center_point(DDisplay *ddisp, Point *p);
 gboolean ddisplay_scroll_to_object(DDisplay *ddisp, DiaObject *obj);
+gboolean ddisplay_present_object(DDisplay *ddisp, DiaObject *obj);
 
 void ddisplay_show_all (DDisplay *ddisp);
 

@@ -1005,6 +1005,38 @@ ddisplay_scroll_to_object(DDisplay *ddisp, DiaObject *obj)
   return ddisplay_scroll_center_point(ddisp, &p);
 }
 
+/** Ensure the object is visible but minimize scrolling
+ */
+gboolean
+ddisplay_present_object(DDisplay *ddisp, DiaObject *obj)
+{
+  const Rectangle *r = dia_object_get_enclosing_box(obj);
+  const Rectangle *v = &ddisp->visible;
+
+  display_set_active(ddisp);
+  if  (!rectangle_in_rectangle(v, r)) {
+    Point delta = { 0, 0 };
+
+    if ((r->right - r->left) > (v->right - v->left)) /* object bigger than visible area */
+      delta.x = (r->left - v->left + r->right - v->right) / 2;
+    else if (r->left < v->left)
+      delta.x = r->left - v->left;
+    else if  (r->right > v->right)
+      delta.x = r->right - v->right;
+
+    if ((r->bottom - r->top) > (v->bottom - v->top)) /* object bigger than visible area */
+      delta.y = (r->top - v->top + r->bottom - v->bottom) / 2;
+    else if (r->top < v->top)
+      delta.y = r->top - v->top;
+    else if  (r->bottom > v->bottom)
+      delta.y = r->bottom - v->bottom;
+
+    ddisplay_scroll(ddisp, &delta);
+    return TRUE;
+  }
+  return FALSE;
+}
+
 /**
  * Kind of dirty way to init an antialiased renderer, there should be some plug-in interface to do this.
  * Now with the Libart renderer being a plug-in and the cairo renderer having issues with highlighting
