@@ -1,6 +1,9 @@
 2009-03-31  Hans Breuer  <hans@breuer.org>
 
-	* plug-ins/python/wdeps.py : tinting of nodes now working as intented
+	* plug-ins/python/wdeps.py : tinting of nodes now working as intended
+	(also on windows)
+	* samples/Self/dia-win32-2.dot samples/Self/dia-win32-2.dia : sample
+	dependency graph with instructions
 
 2009-03-30  Hans Breuer  <hans@breuer.org>
 
