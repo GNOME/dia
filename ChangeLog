@@ -1,3 +1,7 @@
+2009-03-31  Hans Breuer  <hans@breuer.org>
+
+	* plug-ins/python/wdeps.py : tinting of nodes now working as intented
+
 2009-03-30  Hans Breuer  <hans@breuer.org>
 
 	* plug-ins/python/wdeps.py : implement another coloring theme, fix

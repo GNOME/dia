@@ -54,8 +54,17 @@ class Node :
 		self.name = name
 		self.deps = {}
 		self.depth = depth # where we found it
+		# symbol -> use-count
+		self.exports = {}
 	def AddEdge (self, name, symbols, delayLoad) :
 		self.deps[name] = Edge(name, symbols, delayLoad)
+	def AddExports (self, symbols, used=0) :
+		''' remember the symbols this node exports (and their use)'''
+		for s in symbols :
+			if self.exports.has_key(s) :
+				self.exports[s] += used
+			else :
+				self.exports[s] = used
 
 class Edge :
 	def __init__ (self, name, symbols, delayLoad) :
@@ -166,13 +175,13 @@ def GetDepsPosix (sFrom, dAll, nMaxDepth, nDepth=0) :
 	if sFromName in g_DontFollow :
 		dAll[sFromName] = Node (sFromName, nDepth) # needed here so other algoritm can remove it ;)
 		return
-	if not dAll.has_key (sFromName) :
+	if not sFromName in dAll.keys() :
+		print "Creating", sFromName, nDepth
 		node = Node (sFromName, nDepth)
 		sPath = sFrom
 		#TODO: work with relative pathes? Current dir?
 		f = os.popen ('ldd "' + sPath + '"')
-		arr = []
-		sDump = f.readlines ()
+		sModules = f.readlines ()
 		# avoids multiple instances of dumpbin running simultaneously
 		f = None
 		# avoids infinite recursion on circular dependencies
@@ -185,28 +194,42 @@ def GetDepsPosix (sFrom, dAll, nMaxDepth, nDepth=0) :
 			mi = re.match("\s+U (\S+)", si)
 			if mi :
 				dImports[mi.group(1)] = 1
-		for s in sDump :
+		toRecurse = []
+		for s in sModules :
 			r = re.match ("\s+(?P<name>\S+) => (?P<path>\S+).*", s)
 			if r :
 				# print r.group("name"), r.group("path")
-				# now find symbols between sFrom and of the SOs
-				arr = []
+				# now find symbols between sFrom and any of the SOs
+				usedSymbols = []
+				unusedSymbols = []
 				fExports = os.popen ('nm --extern-only --dynamic --defined-only ' + r.group("path"))
 				sExports = fExports.readlines() 
 				for se in sExports :
 					me = re.match ("\w+ T (\S+)", se)
 					if me :
+						symbol = me.group(1)
 						# print me.group(1), r.group('name') 
-						if me.group(1) in dImports.keys() :
+						if symbol in dImports.keys() :
 							# direct connection
-							arr.append (me.group(1))
-				if len(arr) > 0 :
-					node.AddEdge(r.group("name"), arr, 0)
-					# FIXME: good place to recurse ?
-					GetDepsPosix (r.group("path"), dAll, nMaxDepth-nDepth+1, nDepth+1)
-				
+							usedSymbols.append (symbol)
+						else :
+							unusedSymbols.append(symbol)
+				# now we have complete symbols for node r.group('name'), 
+				# should remember the node although it may not be connected yet
+				# OTOH the recursion would become more difficult to understand, favor KISS
+				if len(usedSymbols) > 0 :
+					node.AddEdge(r.group("name"), usedSymbols, 0)
+					toRecurse.append(r.group("path"))
+					print sFromName, "(", nDepth, "):", r.group("path")
 		# add to all nodes
 		dAll[sFromName] = node
+		for sd in toRecurse :
+			print sFromName, "->", sd, "level:", nDepth+1
+			sdn = os.path.split(sd)[-1]
+			GetDepsPosix (sd, dAll, nMaxDepth-nDepth+2, nDepth+1)
+			if sdn in dAll.keys() :
+				#print "Adjusting depth", sd, nDepth+1
+				dAll[sdn].depth = nDepth+1 # adjust to original depth (not how our recursion found it)
 
 def IsWin32 () :
 	return os.name in ["nt"]
@@ -401,6 +424,7 @@ dllsGtk = [
 # Tinting themes
 colorMatcher = []
 tangoColors = [
+	"white", # noone is going to ask for it (start of graph)
 	"#fce94f", # butter   (light occer)
 	"#fcaf3e", # orange
 	"#e9b96e", # chocolate (light brown)
