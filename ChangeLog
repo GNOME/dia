@@ -1,3 +1,8 @@
+2009-04-04  Hans Breuer  <hans@breuer.org>
+
+	* app/interface.c : don't translate g_warning
+	* lib/sheet.c : fix typo in translatebale string
+
 2009-03-31  Hans Breuer  <hans@breuer.org>
 
 	* plug-ins/python/wdeps.py : tinting of nodes now working as intended

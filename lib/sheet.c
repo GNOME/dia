@@ -82,7 +82,7 @@ sheet_append_sheet_obj(Sheet *sheet, SheetObject *obj)
   type = object_get_type(obj->object_type);
   if (type == NULL) {
     message_warning(_("DiaObject '%s' needed in sheet '%s' was not found.\n"
-		      "It will not be availible for use."),
+		      "It will not be available for use."),
 		      obj->object_type, sheet->name);
   } else {
     sheet->objects = g_slist_append( sheet->objects, (gpointer) obj);
@@ -130,7 +130,7 @@ load_all_sheets(void)
 
   home_dir = dia_config_filename("sheets");
   if (home_dir) {
-    dia_log_message (_("sheets from '%s'"), home_dir);
+    dia_log_message ("sheets from '%s'", home_dir);
     load_sheets_from_dir(home_dir, SHEET_SCOPE_USER);
     g_free(home_dir);
   }
@@ -141,13 +141,13 @@ load_all_sheets(void)
     int i;
 
     for (i=0; dirs[i] != NULL; i++) {
-      dia_log_message (_("sheets from '%s'"), dirs[i]);
+      dia_log_message ("sheets from '%s'", dirs[i]);
       load_sheets_from_dir(dirs[i], SHEET_SCOPE_SYSTEM);
     }
     g_strfreev(dirs);
   } else {
     char *thedir = dia_get_data_directory("sheets");
-    dia_log_message (_("sheets from '%s'"), thedir);
+    dia_log_message ("sheets from '%s'", thedir);
     load_sheets_from_dir(thedir, SHEET_SCOPE_SYSTEM);
     g_free(thedir);
   }

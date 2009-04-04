@@ -1006,7 +1006,7 @@ tool_select_update (GtkWidget *w,
   ToolButtonData *tooldata = (ToolButtonData *) data;
 
   if (tooldata == NULL) {
-    g_warning(_("NULL tooldata in tool_select_update"));
+    g_warning("NULL tooldata in tool_select_update");
     return;
   }
 
