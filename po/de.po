@@ -9,7 +9,7 @@
 # Frank Arnold <frank@scirocco-5v-turbo.de>, 2005.
 # Hendrik Richter <hendrikr@gnome.org>, 2005, 2006.
 # Jens Seidel <jseidel@cvs.gnome.org>, 2006.
-# Hans Breuer <hans@breuer.org>, 2007.
+# Hans Breuer <hans@breuer.org>, 2007, 2009.
 # Mario Blättermann <mariobl@gnome.org>, 2009.
 #
 msgid ""
@@ -18,7 +18,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-03-08 00:45+0100\n"
 "PO-Revision-Date: 2009-03-08 01:10+0100\n"
-"Last-Translator: Mario Blättermann <mariobl@gnome.org>\n"
+"Last-Translator: Hans Breuer <hans@breuer.org>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -95,7 +95,7 @@ msgstr "TYP"
 
 #: ../app/app_procs.c:655
 msgid "Export graphics size"
-msgstr "Grafikgröße exportieren"
+msgstr "Grafikgröße für Export"
 
 #: ../app/app_procs.c:655
 msgid "WxH"
@@ -132,7 +132,7 @@ msgstr "Ordner, der Eingabedateien enthält"
 
 #: ../app/app_procs.c:666 ../app/app_procs.c:668
 msgid "DIRECTORY"
-msgstr ""
+msgstr "ORDNER"
 
 #. &output_directory
 #: ../app/app_procs.c:668
@@ -202,7 +202,7 @@ msgstr "Dia beenden"
 #. no standard buttons
 #: ../app/app_procs.c:986
 msgid "Quitting without saving modified diagrams"
-msgstr "Beenden mit veränderten Diagrammen"
+msgstr "Beenden und Änderungen verwerfen"
 
 #: ../app/app_procs.c:988
 msgid ""
@@ -376,6 +376,19 @@ msgid ""
 "along with this program; if not, write to the Free Software\n"
 "Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.\n"
 msgstr ""
+"Dieses Programm ist freie Software. Sie können es unter den Bedingungen\n" 
+"der GNU General Public License, wie von der Free Software Foundation\n" 
+"herausgegeben, weitergeben und/oder modifizieren, entweder unter \n"
+"Version 2 der Lizenz oder (wenn Sie es wünschen) jeder späteren Version.\n"
+"\n"
+"Die Veröffentlichung von Dia erfolgt in der Hoffnung, dass es Ihnen von\n"
+"Nutzen sein wird, aber OHNE JEDE GEWÄHRLEISTUNG - sogar ohne die implizite\n"
+"Gewährleistung der MARKTREIFE oder der EIGNUNG FÜR EINEN BESTIMMTEN ZWECK.\n"
+"Details finden Sie in der GNU General Public License.\n"
+"\n"
+"Sie sollten eine Kopie der GNU General Public License zusammen mit Dia\n"
+"erhalten haben. Falls nicht, schreiben Sie an die Free Software Foundation, Inc.,\n" 
+"59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.\n"
 
 #: ../app/commands.c:745
 msgid "A program for drawing structured diagrams."
@@ -384,18 +397,19 @@ msgstr "Eine Anwendung zum Zeichnen von strukturierten Diagrammen."
 #: ../app/confirm.c:69
 #, c-format
 msgid "You are about to print a diagram with %d pages."
-msgstr ""
+msgstr "Sie sind dabei ein Diagramm mit %d Seiten zu drucken."
 
 #: ../app/confirm.c:71
 #, c-format
 msgid "You are about to export a diagram with %d pages."
-msgstr ""
+msgstr "Sie sind dabei ein Diagramm mit %d Seiten zu exportieren."
 
 #: ../app/confirm.c:73
 #, c-format
 msgid ""
 "You are about to export a diagram which may require %s of memory.(%d pages)."
 msgstr ""
+"Sie sind dabei ein Diagramm zu exportieren, dass evtl. %s Speicher braucht (%d Seiten)."
 
 #: ../app/confirm.c:81
 msgid ""
@@ -404,16 +418,17 @@ msgid ""
 "Alternatively use 'Select All' and 'Best Fit' to move objects/handles into "
 "the intended bounds."
 msgstr ""
+"Die Diagrammgröße lässt sich unter Datei/Seiteneinstellungen anpassen.\n"
+"Alternativ können Sie auch die Diagrammgröße automatisch an die gewünschte "
+"Seitenzahl koppeln."
 
 #: ../app/confirm.c:85
-#, fuzzy
 msgid "Confirm Diagram Size"
-msgstr "Dia-Diagrammdatei"
+msgstr "Bestätigung der Diagrammgröße"
 
 #: ../app/create_object.c:71
-#, fuzzy, c-format
 msgid "'%s' creation failed"
-msgstr "Transaktionsdatei"
+msgstr "'%s' Erzeugung gescheitert"
 
 #: ../app/defaults.c:43 ../app/defaults.c:150
 msgid "Object defaults"
@@ -884,11 +899,11 @@ msgstr "_Groß-/Kleinschreibung beachten"
 
 #: ../app/find-and-replace.c:480
 msgid "Match _entire word only"
-msgstr ""
+msgstr "Nur _vollständige Wörter berücksichtigen"
 
 #: ../app/find-and-replace.c:484
 msgid "Match _all properties (not just object name)"
-msgstr ""
+msgstr "_Ausgedehnte Suche (nicht nur Objektnamen)"
 
 #: ../app/find-and-replace.c:509
 msgid "Find"
@@ -991,7 +1006,7 @@ msgstr "Bild"
 
 #: ../app/interface.c:244 ../app/menus.c:243
 msgid "Outline"
-msgstr ""
+msgstr "Kontur"
 
 #: ../app/interface.c:619 ../app/interface.c:855
 msgid "Pops up the Navigation window."
@@ -1145,22 +1160,20 @@ msgstr ""
 "Gelinktes Objekt wurde nicht im Dokument gefunden."
 
 #: ../app/load_save.c:299
-#, fuzzy, c-format
 msgid ""
 "Error loading diagram.\n"
 "connection handle %d does not exist on '%s'."
 msgstr ""
 "Fehler beim Laden des Diagramms.\n"
-"Verbindung existiert nicht."
+"Verbindungs-Handle %d existiert nicht."
 
 #: ../app/load_save.c:327
-#, fuzzy, c-format
 msgid ""
 "Error loading diagram.\n"
 "connection point %d does not exist on '%s'."
 msgstr ""
 "Fehler beim Laden des Diagramms.\n"
-"Verbindungspunkt %s existiert nicht."
+"Verbindungspunkt %d existiert nicht für '%s'."
 
 #: ../app/load_save.c:367
 #, c-format
@@ -1677,7 +1690,7 @@ msgstr "Ansichtsvorgaben"
 
 #: ../app/preferences.c:122
 msgid "Favorites"
-msgstr ""
+msgstr "Favoriten"
 
 #: ../app/preferences.c:166
 msgid "Reset tools after create"
@@ -2495,7 +2508,7 @@ msgstr "URL"
 
 #: ../lib/prop_inttypes.c:558
 msgid "Property cast from int to enum out of range"
-msgstr ""
+msgstr "Wert ausserhalb der Grenzen nach Umwandlung von in nach enum"
 
 #: ../lib/prop_text.c:468
 #, c-format
@@ -2577,6 +2590,8 @@ msgid ""
 "DiaObject '%s' needed in sheet '%s' was not found.\n"
 "It will not be available for use."
 msgstr ""
+"Bogen »%s« referenziert ein unbekanntes Objekt »%s«\n"
+"Es wird nicht zur Verfügung stehen." 
 
 #: ../lib/sheet.c:84
 #, c-format
@@ -2586,9 +2601,8 @@ msgid ""
 msgstr ""
 
 #: ../lib/sheet.c:133 ../lib/sheet.c:144 ../lib/sheet.c:150
-#, fuzzy, c-format
 msgid "sheets from '%s'"
-msgstr "Kein Objektbogen mit dem Namen »%s«"
+msgstr "Objektbögen aus '%s'"
 
 #: ../lib/sheet.c:314
 #, c-format
@@ -2688,9 +2702,8 @@ msgstr ""
 
 #. Installer message:  License Page
 #: ../installer/win32/gennsh.c:44
-#, fuzzy
 msgid "Next >"
-msgstr "Text"
+msgstr "Weiter >"
 
 #. Installer message, keep the $(^Name) and $_CLICK, these will be replaced
 #: ../installer/win32/gennsh.c:47
@@ -2884,9 +2897,8 @@ msgid "Center mount point"
 msgstr ""
 
 #: ../objects/Database/compound.c:232
-#, fuzzy
 msgid "Compound"
-msgstr "Komponente"
+msgstr "Kompositum"
 
 #: ../objects/Database/database.c:39
 msgid "Entity/Relationship table diagram objects"
@@ -4433,7 +4445,6 @@ msgid "Istar diagram"
 msgstr "Istar-Diagramm"
 
 #: ../objects/Istar/link.c:151
-#, fuzzy
 msgid "Positive contrib"
 msgstr "Positiver Beitrag"
 
@@ -4767,9 +4778,8 @@ msgid "Special Country Confidential"
 msgstr ""
 
 #: ../objects/SISSI/classification.h:41
-#, fuzzy
 msgid "Confidential"
-msgstr "Kondensieren"
+msgstr "Vertraulich"
 
 #: ../objects/SISSI/classification.h:42 ../objects/SISSI/sissi_dialog.c:45
 msgid "NATO Confidential"
@@ -4792,14 +4802,12 @@ msgid "Defense Confidential"
 msgstr ""
 
 #: ../objects/SISSI/classification.h:47 ../objects/SISSI/sissi_dialog.c:49
-#, fuzzy
 msgid "Secret"
-msgstr "Sichern"
+msgstr ""
 
 #: ../objects/SISSI/classification.h:48
-#, fuzzy
 msgid "Defense Secret"
-msgstr "Segment löschen"
+msgstr ""
 
 #: ../objects/SISSI/classification.h:49 ../objects/SISSI/sissi_dialog.c:50
 msgid "Secret special country"
@@ -4818,45 +4826,40 @@ msgid "NATO Very Secret"
 msgstr ""
 
 #: ../objects/SISSI/sissi.c:66
-#, fuzzy
 msgid "SISSI diagram"
-msgstr "KAOS Diagramm"
+msgstr "SISSI Diagramm"
 
 #: ../objects/SISSI/sissi.c:923
-#, fuzzy, c-format
 msgid ""
 "Error loading object.\n"
 "Not a regular file: %s"
 msgstr ""
-"Fehler beim Laden des Diagramms %s.\n"
-"Keine Dia-Datei."
+"Fehler beim Laden des Objekts.\n"
+"KeineDatei: %s."
 
 #: ../objects/SISSI/sissi.c:928 ../objects/SISSI/sissi.c:932
-#, fuzzy, c-format
 msgid ""
 "Error loading object.\n"
 "Incorrect file type: %s"
 msgstr ""
-"Fehler beim Laden des Diagramms %s.\n"
-"Unbekannter Dateityp."
+"Fehler beim Laden des Objekts %s.\n"
+"Unbekannter Dateityp: %s."
 
 #: ../objects/SISSI/sissi.c:940
-#, fuzzy, c-format
 msgid ""
 "Error loading object.\n"
 "Not a Dia file: %s"
 msgstr ""
-"Fehler beim Laden des Diagramms %s.\n"
-"Keine Dia-Datei."
+"Fehler beim Laden des Objekts.\n"
+"Keine Dia-Datei: %s"
 
 #: ../objects/SISSI/sissi_dialog.c:48
 msgid "Industrial Confidential"
 msgstr ""
 
 #: ../objects/SISSI/sissi_dialog.c:58
-#, fuzzy
 msgid "No integrity"
-msgstr "Knotenzentrum"
+msgstr ""
 
 #: ../objects/SISSI/sissi_dialog.c:59
 msgid "Low integrity"
@@ -4920,14 +4923,12 @@ msgstr "Intranet"
 
 # CHECK
 #: ../objects/SISSI/sissi_dialog.c:82
-#, fuzzy
 msgid "Company directory"
-msgstr "Arbeitsgruppenleister"
+msgstr ""
 
 #: ../objects/SISSI/sissi_dialog.c:83
-#, fuzzy
 msgid "External portal"
-msgstr "Interner Speicher"
+msgstr ""
 
 #: ../objects/SISSI/sissi_dialog.c:88
 msgid "ORGANISATION"
@@ -4962,18 +4963,16 @@ msgid "External environment"
 msgstr ""
 
 #: ../objects/SISSI/sissi_dialog.c:100
-#, fuzzy
 msgid "Premises"
-msgstr "Vorgang"
+msgstr ""
 
 #: ../objects/SISSI/sissi_dialog.c:101
 msgid "Zone"
 msgstr "Zone"
 
 #: ../objects/SISSI/sissi_dialog.c:102
-#, fuzzy
 msgid "Essential Services"
-msgstr "Router für optische Dienste"
+msgstr ""
 
 #: ../objects/SISSI/sissi_dialog.c:103
 msgid "Communication"
@@ -5000,63 +4999,52 @@ msgid "Water detection"
 msgstr "Wassermeldung"
 
 #: ../objects/SISSI/sissi_dialog.c:121
-#, fuzzy
 msgid "Air detection"
-msgstr "Richtung:"
+msgstr ""
 
 #: ../objects/SISSI/sissi_dialog.c:125
-#, fuzzy
 msgid "Energy detection"
-msgstr "Eingangsaktion"
+msgstr ""
 
 #: ../objects/SISSI/sissi_dialog.c:129
 msgid "Intrusion detection"
 msgstr "Einbruchmeldung"
 
 #: ../objects/SISSI/sissi_dialog.c:133
-#, fuzzy
 msgid "Thermal action"
-msgstr "Übersetzung"
+msgstr ""
 
 #: ../objects/SISSI/sissi_dialog.c:137
-#, fuzzy
 msgid "Fire action"
-msgstr "Richtung:"
+msgstr ""
 
 #: ../objects/SISSI/sissi_dialog.c:141
-#, fuzzy
 msgid "Water action"
-msgstr "Eingangsaktion"
+msgstr ""
 
 #: ../objects/SISSI/sissi_dialog.c:145
-#, fuzzy
 msgid "Air action"
-msgstr "Ausgangsaktion"
+msgstr ""
 
 #: ../objects/SISSI/sissi_dialog.c:149
-#, fuzzy
 msgid "Energy action"
-msgstr "Eingangsaktion"
+msgstr ""
 
 #: ../objects/SISSI/sissi_dialog.c:153
-#, fuzzy
 msgid "Intrusion action"
-msgstr "Überschneidung"
+msgstr ""
 
 #: ../objects/SISSI/sissi_dialog.c:158
-#, fuzzy
 msgid "Personal"
-msgstr "Terminal"
+msgstr ""
 
 #: ../objects/SISSI/sissi_dialog.c:159
-#, fuzzy
 msgid "Decision maker"
-msgstr "Entscheidung"
+msgstr "Entscheidungsträger"
 
 #: ../objects/SISSI/sissi_dialog.c:160
-#, fuzzy
 msgid "SSI Responsible"
-msgstr "Verantwortlichkeit"
+msgstr ""
 
 # CHECK Translation
 #: ../objects/SISSI/sissi_dialog.c:161
@@ -5065,27 +5053,24 @@ msgstr "Benutzer"
 
 # CHECK - Header?
 #: ../objects/SISSI/sissi_dialog.c:162
-#, fuzzy
 msgid "Functional administrator"
-msgstr "Funktionskopfteil"
+msgstr ""
 
 #: ../objects/SISSI/sissi_dialog.c:163
 msgid "Technical administrator"
 msgstr ""
 
 #: ../objects/SISSI/sissi_dialog.c:164
-#, fuzzy
 msgid "SSI administrator"
-msgstr "SSL-Terminal"
+msgstr ""
 
 #: ../objects/SISSI/sissi_dialog.c:165
 msgid "Developer"
 msgstr "Entwickler"
 
 #: ../objects/SISSI/sissi_dialog.c:166
-#, fuzzy
 msgid "Operator / Maintenance"
-msgstr "Operationsdaten"
+msgstr ""
 
 #: ../objects/SISSI/sissi_dialog.c:171 ../sheets/network.sheet.in.h:20
 msgid "Network"
@@ -5223,9 +5208,8 @@ msgid "From B to A"
 msgstr "Von B nach A"
 
 #: ../objects/UML/association.c:228
-#, fuzzy
 msgid "Aggregation"
-msgstr "Aggregat"
+msgstr "Aggregation"
 
 #: ../objects/UML/association.c:229
 msgid "Composition"
@@ -5248,9 +5232,8 @@ msgid "Side A"
 msgstr "Seite A"
 
 #: ../objects/UML/association.c:249
-#, fuzzy
 msgid "Multiplicity"
-msgstr "Vielfachheit:"
+msgstr "Multiplizität"
 
 #: ../objects/UML/association.c:251 ../objects/UML/umlattribute.c:45
 #: ../objects/UML/umloperation.c:71
@@ -5532,7 +5515,7 @@ msgstr "Facette"
 # CHECK - Receptacle => Steckdose?
 #: ../objects/UML/component_feature.c:151 ../sheets/UML.sheet.in.h:26
 msgid "Receptacle"
-msgstr "Buchstenkontakt"
+msgstr "Buchse"
 
 #: ../objects/UML/component_feature.c:152 ../sheets/UML.sheet.in.h:13
 msgid "Event Source"
@@ -5846,9 +5829,8 @@ msgid "CustomLines"
 msgstr "CustomLines"
 
 #: ../objects/custom_lines/custom_lines.c:160
-#, fuzzy
 msgid "Custom XML lines loader"
-msgstr "Lader für benutzerspezifische XML Formen"
+msgstr "Lader für benutzerspezifische XML Linien"
 
 #: ../objects/custom_lines/custom_linetypes.c:226
 msgid "INTERNAL: CustomLines: Illegal line type in LineInfo object."
@@ -6032,15 +6014,13 @@ msgstr "Vertikale Textausrichtung"
 
 #: ../plug-ins/cairo/diacairo-interactive.c:263
 #: ../plug-ins/cairo/diacairo-interactive.c:264
-#, fuzzy
 msgid "Zoom pointer"
-msgstr "Einfacher Drucker"
+msgstr "Zoom-Zeiger"
 
 #: ../plug-ins/cairo/diacairo-interactive.c:270
 #: ../plug-ins/cairo/diacairo-interactive.c:271
-#, fuzzy
 msgid "Visible rect pointer"
-msgstr "Sichtbare Attribute"
+msgstr "Sichtbarer Bereich-Zeiger"
 
 #: ../plug-ins/cairo/diacairo.c:129
 #, c-format
@@ -6050,9 +6030,8 @@ msgid ""
 msgstr ""
 
 #: ../plug-ins/cairo/diacairo.c:256 ../plug-ins/cairo/diacairo.c:272
-#, fuzzy, c-format
 msgid "Can't write %d bytes to %s"
-msgstr "Object %u konnte nicht geschrieben werden"
+msgstr "Es konnten nicht %d Bytes in %s geschrieben werden."
 
 #: ../plug-ins/cairo/diacairo.c:285
 msgid "Clipboard copy failed"
@@ -6201,9 +6180,8 @@ msgid "Renderer transformation"
 msgstr ""
 
 #: ../plug-ins/libart/dialibartrenderer.c:1472
-#, fuzzy
 msgid "Transform pointer"
-msgstr "Transformieren"
+msgstr "Transform-Zeiger"
 
 #: ../plug-ins/metapost/metapost.c:46
 msgid "TeX Metapost export filter"
@@ -6568,9 +6546,8 @@ msgid "Filled arc treated as unfilled"
 msgstr ""
 
 #: ../plug-ins/xfig/xfig-import.c:893
-#, fuzzy, c-format
 msgid "Unknown polyline arc: %d\n"
-msgstr "Unbekannter Mehrfachlinien-Untertyp: %d\n"
+msgstr "Unbekannter Winkel %d in Linienzug\n"
 
 #: ../plug-ins/xfig/xfig-import.c:957
 #, c-format
@@ -7661,18 +7638,16 @@ msgid "Time delay"
 msgstr "Zeitverzögerung"
 
 #: ../sheets/Database.sheet.in.h:1
-#, fuzzy
 msgid "Attribute compound"
-msgstr "Attributdaten"
+msgstr "Attribut-Kompositum"
 
 #: ../sheets/Database.sheet.in.h:2
 msgid "Database"
 msgstr "Datenbank"
 
 #: ../sheets/Database.sheet.in.h:3
-#, fuzzy
 msgid "Editor for Database Table Relation Diagrams"
-msgstr "Editor für Entität/Beziehungsdiagramme"
+msgstr "Editor für Datenbank-Tabellen-Beziehungsdiagramme"
 
 #: ../sheets/ER.sheet.in.h:2
 msgid "ER"
@@ -7929,7 +7904,7 @@ msgstr "Objekte zum Entwerfen von GRAFCET-Diagrammen"
 
 #: ../sheets/GRAFCET.sheet.in.h:14 ../sheets/UML.sheet.in.h:30
 msgid "Transition"
-msgstr "Übersetzung"
+msgstr "Übergang"
 
 #: ../sheets/Gane_and_Sarson.sheet.in.h:1
 msgid "Alternate external entity"
@@ -8261,9 +8236,8 @@ msgid "Black light"
 msgstr "Schwarzlicht"
 
 #: ../sheets/Lights.sheet.in.h:3
-#, fuzzy
 msgid "Blinders"
-msgstr "Linien"
+msgstr "Blenden"
 
 #: ../sheets/Lights.sheet.in.h:4
 msgid "Ellipsoidal Reflector Spotlight"
@@ -8302,9 +8276,8 @@ msgid "Scanner"
 msgstr "Scanner"
 
 #: ../sheets/Lights.sheet.in.h:13
-#, fuzzy
 msgid "Striplight"
-msgstr "Begradigen"
+msgstr "Streifenbeleuchtung"
 
 #: ../sheets/Lights.sheet.in.h:14
 msgid "Stroboscope light"
@@ -8425,14 +8398,12 @@ msgid "Tree"
 msgstr "Baum"
 
 #: ../sheets/Misc.sheet.in.h:10
-#, fuzzy
 msgid "expended node"
-msgstr "Abhängigkeit"
+msgstr "Aufgeklappter Knoten"
 
 #: ../sheets/Misc.sheet.in.h:11
-#, fuzzy
 msgid "expensible node"
-msgstr "Großer Erweiterungsknoten"
+msgstr "Aufklappbarer Knoten"
 
 #: ../sheets/Pneumatic.sheet.in.h:1
 msgid "2/2 distributor"
@@ -8614,23 +8585,20 @@ msgid "Airconditioner"
 msgstr "Klimaanlage"
 
 #: ../sheets/SISSI.sheet.in.h:4
-#, fuzzy
 msgid "Alarm center"
-msgstr "Parameter"
+msgstr ""
 
 #: ../sheets/SISSI.sheet.in.h:5
 msgid "Axial Ventilator"
 msgstr "Axialer Ventilator"
 
 #: ../sheets/SISSI.sheet.in.h:6
-#, fuzzy
 msgid "Backup"
-msgstr "Hintergrund"
+msgstr "Backup"
 
 #: ../sheets/SISSI.sheet.in.h:7
-#, fuzzy
 msgid "Badge reader"
-msgstr "Seitenumbrüche"
+msgstr ""
 
 #: ../sheets/SISSI.sheet.in.h:8
 msgid "Badge reader/keyboard"
@@ -8661,9 +8629,8 @@ msgid "Condensator"
 msgstr "Kondensator"
 
 #: ../sheets/SISSI.sheet.in.h:15
-#, fuzzy
 msgid "Current transducer"
-msgstr "Kurvendistanz"
+msgstr ""
 
 #: ../sheets/SISSI.sheet.in.h:16
 msgid "Digital code"
@@ -8690,9 +8657,8 @@ msgid "Gate"
 msgstr "Tor"
 
 #: ../sheets/SISSI.sheet.in.h:22
-#, fuzzy
 msgid "Geographic site"
-msgstr "Grafikgröße exportieren"
+msgstr ""
 
 #: ../sheets/SISSI.sheet.in.h:23
 msgid "Glass-break sensor"
@@ -8715,14 +8681,12 @@ msgid "Laptop"
 msgstr "Laptop"
 
 #: ../sheets/SISSI.sheet.in.h:29
-#, fuzzy
 msgid "Level detector"
-msgstr "Detektor"
+msgstr ""
 
 #: ../sheets/SISSI.sheet.in.h:30
-#, fuzzy
 msgid "Light detector"
-msgstr "Detektor"
+msgstr ""
 
 #: ../sheets/SISSI.sheet.in.h:31
 msgid "Log analysis"
@@ -8761,9 +8725,8 @@ msgid "PDA"
 msgstr "PDA"
 
 #: ../sheets/SISSI.sheet.in.h:40
-#, fuzzy
 msgid "Paper storage"
-msgstr "Interner Speicher"
+msgstr "Papierspeicher"
 
 # CHECK Translation
 #: ../sheets/SISSI.sheet.in.h:41
@@ -8772,9 +8735,8 @@ msgstr "Person"
 
 # CHECK Translation
 #: ../sheets/SISSI.sheet.in.h:42
-#, fuzzy
 msgid "Power transducer"
-msgstr "Zugang modellieren"
+msgstr "Energiewandler"
 
 #: ../sheets/SISSI.sheet.in.h:43
 msgid "Pressure transducer"
@@ -8801,18 +8763,16 @@ msgid "Router"
 msgstr "Router"
 
 #: ../sheets/SISSI.sheet.in.h:49
-#, fuzzy
 msgid "Safe"
-msgstr "Skalieren"
+msgstr ""
 
 #: ../sheets/SISSI.sheet.in.h:50
 msgid "Security area"
 msgstr "Sicherheitsbereich"
 
 #: ../sheets/SISSI.sheet.in.h:51
-#, fuzzy
 msgid "Sensor beam"
-msgstr "Sensor - unten"
+msgstr ""
 
 # CHECK Translation
 #: ../sheets/SISSI.sheet.in.h:52
@@ -8852,9 +8812,8 @@ msgid "Video movement detector"
 msgstr ""
 
 #: ../sheets/SISSI.sheet.in.h:62
-#, fuzzy
 msgid "Voltage detector"
-msgstr "Spannung"
+msgstr ""
 
 #: ../sheets/SISSI.sheet.in.h:63
 msgid "Workstation"
@@ -9415,9 +9374,8 @@ msgid "Workgroup switch"
 msgstr "Arbeitsgruppen-Switch"
 
 #: ../sheets/ciscohub.sheet.in.h:72
-#, fuzzy
 msgid "Workgroup switch Subdued"
-msgstr "Arbeitsgruppen-Switch"
+msgstr "Arbeitsgruppen-Switch (flach)"
 
 #: ../sheets/ciscohub.sheet.in.h:73
 msgid "iSCSI switch"
@@ -9758,9 +9716,8 @@ msgid "Directory Server"
 msgstr "Verzeichnis-Server"
 
 #: ../sheets/cisconetwork.sheet.in.h:33
-#, fuzzy
 msgid "Distributed Director"
-msgstr "Distributed-Director"
+msgstr ""
 
 #: ../sheets/cisconetwork.sheet.in.h:34
 msgid "Dual Mode AccessPoint"
@@ -9771,9 +9728,8 @@ msgid "FDDI Ring"
 msgstr "FDDI-Ring"
 
 #: ../sheets/cisconetwork.sheet.in.h:36
-#, fuzzy
 msgid "File Engine"
-msgstr "Ordnerkabinett"
+msgstr ""
 
 #: ../sheets/cisconetwork.sheet.in.h:37
 msgid "Firewall"
@@ -9788,9 +9744,8 @@ msgid "Firewall horizontal"
 msgstr "Firewall horizontal"
 
 #: ../sheets/cisconetwork.sheet.in.h:40
-#, fuzzy
 msgid "Firewall subdued"
-msgstr "Brandschutzmauer"
+msgstr "Brandschutzmauer (flach)"
 
 #: ../sheets/cisconetwork.sheet.in.h:41
 msgid "General Appliance"
@@ -9901,9 +9856,8 @@ msgid "Optical Cross-Connect"
 msgstr "Optische Kreuzverbindung"
 
 #: ../sheets/cisconetwork.sheet.in.h:69
-#, fuzzy
 msgid "Optical Fiber"
-msgstr "Optische Energie"
+msgstr "Optische Faser"
 
 #: ../sheets/cisconetwork.sheet.in.h:70
 msgid "Optical Transport"
@@ -9950,9 +9904,8 @@ msgid "Service Control"
 msgstr "Dienstkontrolle"
 
 #: ../sheets/cisconetwork.sheet.in.h:81
-#, fuzzy
 msgid "Storage Solution Engine"
-msgstr "Speicher-Router"
+msgstr ""
 
 #: ../sheets/cisconetwork.sheet.in.h:82
 msgid "System controller"
@@ -10151,9 +10104,8 @@ msgid "Mobile Access IP Phone"
 msgstr "Mobiltelefon mit IP"
 
 #: ../sheets/ciscotelephony.sheet.in.h:29
-#, fuzzy
 msgid "Mobile Access Router"
-msgstr "Voice-Router"
+msgstr ""
 
 #: ../sheets/ciscotelephony.sheet.in.h:30
 msgid "Octel"
@@ -10184,9 +10136,8 @@ msgid "Phone Appliance"
 msgstr "Telefongerät"
 
 #: ../sheets/ciscotelephony.sheet.in.h:37
-#, fuzzy
 msgid "Phone Ethernet"
-msgstr "Ethernet-Bus"
+msgstr ""
 
 #: ../sheets/ciscotelephony.sheet.in.h:38
 msgid "Phone Feature"
@@ -10238,9 +10189,8 @@ msgid "Turret"
 msgstr "Drehkreuz"
 
 #: ../sheets/ciscotelephony.sheet.in.h:50
-#, fuzzy
 msgid "Unity Express"
-msgstr "Unity-Server"
+msgstr ""
 
 #: ../sheets/ciscotelephony.sheet.in.h:51
 msgid "Unity server"
@@ -11133,7 +11083,6 @@ msgstr "Sybase-Replikations-Server"
 #~ msgid "Text colour"
 #~ msgstr "Schriftfarbe"
 
-#, fuzzy
 #~ msgid "Implmentation"
 #~ msgstr "Implementierung"
 
