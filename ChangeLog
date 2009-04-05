@@ -1,5 +1,8 @@
 2009-04-04  Hans Breuer  <hans@breuer.org>
 
+	* objects/network/basestation.c : don't move non-movable handles,
+	fixing bug #574637
+
 	* objects/UML/association.c : force an internal state update after 
 	changing properties, fixes bug #576843
 

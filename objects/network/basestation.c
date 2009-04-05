@@ -207,6 +207,9 @@ basestation_move_handle(Basestation *basestation, Handle *handle,
   assert(to!=NULL);
   assert(handle->id < 8);
 
+  if (handle->type == HANDLE_NON_MOVABLE)
+    return NULL;
+
   oc = element_move_handle (&(basestation->element), handle->id, to, cp, reason, modifiers);
 
   return oc;
