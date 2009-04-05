@@ -1,4 +1,8 @@
-2009-04-04  Hans Breuer  <hans@breuer.org>
+2009-04-05  Hans Breuer  <hans@breuer.org>
+
+	* plug-ins/python/wdeps.py : intended tinting on win32, too.
+	* plug-ins/python/dot2dia.py : don't let a single unknown color make
+	the whole import fail
 
 	* objects/AADL/aadlbox.c(aadlbox_destroy) : free ports after calling
 	element_destroy(), which needs valid handles, should fix bug #575224

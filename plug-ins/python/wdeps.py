@@ -139,6 +139,7 @@ def GetDepsWin32 (sFrom, dAll, nMaxDepth, nDepth=0) :
 		# avoids infinite recursion on circular dependencies
 		dAll[sFrom] = None
 		delayLoad = 0
+		directDeps = []
 		for s in sDump :
 			r = re.match ("^    (.*\.dll)", s, re.IGNORECASE)
 			# the delay load switch is flipped once
@@ -159,11 +160,17 @@ def GetDepsWin32 (sFrom, dAll, nMaxDepth, nDepth=0) :
 					#print name, len(arr)
 					node.AddEdge (name, arr, delayLoad)
 					arr = []
-					nDepth = nDepth + 1
-					GetDepsWin32 (name, dAll, nMaxDepth-nDepth+1, nDepth)
-					nDepth = nDepth - 1
+					directDeps.append(name)
+					GetDepsWin32 (name, dAll, nMaxDepth-nDepth+2, nDepth+1)
 		# add to all nodes
 		dAll[sFrom] = node
+		# restore original depth (independent of how the recurison works)
+		for sd in directDeps :
+			if sd in dAll.keys() :
+				try :
+					dAll[sd].depth = nDepth + 1 
+				except AttributeError, msg :
+					print "FIXME:", sd, msg
 	
 def GetDepsPosix (sFrom, dAll, nMaxDepth, nDepth=0) :
 	"calculates the dependents of the passed in so"
@@ -176,7 +183,7 @@ def GetDepsPosix (sFrom, dAll, nMaxDepth, nDepth=0) :
 		dAll[sFromName] = Node (sFromName, nDepth) # needed here so other algoritm can remove it ;)
 		return
 	if not sFromName in dAll.keys() :
-		print "Creating", sFromName, nDepth
+		#print "Creating", sFromName, nDepth
 		node = Node (sFromName, nDepth)
 		sPath = sFrom
 		#TODO: work with relative pathes? Current dir?
@@ -789,10 +796,11 @@ For more information read the source.
 					sPrefix = "// " + string.join(edge.symbols, ", ") + "\n// "
 				if edge.delayLoad :
 					# putting 'weight' and 'constraint' seems to be too much for dot
-					#sStyle = "weight=%f,style=dotted" % (math.log10(math.sqrt(edge.weight)),)
-					sStyle = "style=dotted,constraint=false"
+					sStyle = "weight=%f,style=dotted" % (math.log10(math.sqrt(edge.weight+.1)),)
+					# even using constraint at all seems to often crash dot
+					#sStyle = "style=dotted,constraint=false"
 				else :
-					sStyle = "weight=%f" % (math.log10(edge.weight),)
+					sStyle = "weight=%f" % (math.log10(edge.weight+.1),)
 				if edge.weight <= nSymbols :
 					#f.write ('"%s" -> "%s" [weight=%f,label=%s]\n' % (node.name, edge.name, math.log(1)-0.5, edge.symbols[0]))
 					f.write ('%s"%s" -> "%s" [fontsize=6,label="%s",%s]\n' 

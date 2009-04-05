@@ -203,7 +203,10 @@ def ImportFile (sFile, diagramData) :
 		obj, h1, h2 = nodeType.create(x-w/2, y-h/2) # Dot pos is center, Dia (usually) uses top/left
 		obj.move_handle(h2, (x+w/2, y+h/2), 0, 0) # resize the object
 		if n.parms.has_key('fillcolor') :
-			obj.properties['fill_colour'] = n.parms['fillcolor'] # same color syntax
+			try :
+				obj.properties['fill_colour'] = n.parms['fillcolor'] # same color syntax?
+			except :
+				print "Failed to apply:", n.parms['fillcolor']
 		layer.add_object(obj)
 		AddLabel (layer, (x,y), n.name, n.FontSize(), 1)
 		obj.properties['meta'] = n.parms # copy all (remaining) parameters
