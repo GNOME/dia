@@ -335,6 +335,15 @@ set_font(DiaRenderer *self, DiaFont *font, real height)
 #endif
 
   DIAG_STATE(renderer->cr)
+  
+  /* for the interactive case we must maintain the font field in the base class */
+  if (self->is_interactive) {
+    dia_font_ref(font);
+    if (self->font)
+      dia_font_unref(self->font);
+    self->font = font;
+    self->font_height = height;
+  }
 }
 
 static void

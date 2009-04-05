@@ -1,5 +1,10 @@
 2009-04-04  Hans Breuer  <hans@breuer.org>
 
+	* lib/diarenderer.c(get_text_width) : complain if the derived renderer
+	does not implment the method and does not maintian DiaRenderer::font.
+	* plug-ins/cairo/diacairo-renderer.c : actually maintain the font field
+	to make text cursor position calculation work, part of bug #576548
+
 	* app/display.c : make the tab use the short name again and adjust the
 	(integrated UI) application title HIC compliant, fixing bug #527288
 

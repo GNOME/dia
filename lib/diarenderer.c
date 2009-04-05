@@ -1430,6 +1430,9 @@ get_text_width (DiaRenderer *renderer,
                                  renderer->font,
                                  renderer->font_height);
     g_free (str);
+  } else {
+    g_warning ("%s::get_text_width not implemented (and renderer->font==NULL)!", 
+               G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (renderer)));
   }
 
   return ret;
