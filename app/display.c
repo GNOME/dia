@@ -1346,9 +1346,19 @@ ddisplay_set_title(DDisplay  *ddisp, char *title)
       if (g_object_get_data (G_OBJECT (page), "DDisplay") == ddisp)
       {
         GtkLabel *label = g_object_get_data (G_OBJECT (page), "tab-label");
-        gtk_label_set_text(label,title);
+        /* not using the passed in title here, because it may be too long */
+        gchar *name = diagram_get_name(ddisp->diagram);
+        gtk_label_set_text(label,name);
+        g_free(name);
         break;
       }
+    }
+    /* now modify the application window title */
+    {
+      const gchar *pname = g_get_prgname();
+      gchar *fulltitle = g_strdup_printf ("%s - %s", title, pname ? pname : "Dia");
+      gtk_window_set_title (GTK_WINDOW (ddisp->shell), fulltitle);
+      g_free(fulltitle);
     }
   }
 }
@@ -1489,6 +1499,9 @@ display_set_active(DDisplay *ddisp)
           }
         }
         /* synchronize_ui_to_active_display (ddisp); */
+        /* updates display title, etc */
+        diagram_modified(ddisp->diagram);
+
         /* ZOOM */
         update_zoom_status (ddisp);
 

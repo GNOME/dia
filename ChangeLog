@@ -1,5 +1,9 @@
 2009-04-04  Hans Breuer  <hans@breuer.org>
 
+	* app/display.c : make the tab use the short name again and adjust the
+	(integrated UI) application title HIC compliant, fixing bug #527288
+
+
 	* objects/network/basestation.c : don't move non-movable handles,
 	fixing bug #574637
 
