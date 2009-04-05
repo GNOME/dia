@@ -319,6 +319,8 @@ association_set_props(Association *assoc, GPtrArray *props)
 {
   object_set_props_from_offsets(&assoc->orth.object, 
                                 association_offsets, props);
+  /* force an internal state update after changing properties */
+  association_set_state(assoc, association_get_state(assoc));
   association_update_data(assoc);
 }
 
