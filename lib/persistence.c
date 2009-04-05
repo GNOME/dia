@@ -503,7 +503,7 @@ persistence_update_window(GtkWindow *window, gboolean isclosed)
   wininfo = (PersistentWindow *)g_hash_table_lookup(persistent_windows, name);
 
   if (wininfo != NULL) {  
-    persistence_store_window_info(window, wininfo, isclosed || !wininfo->isopen);
+    persistence_store_window_info(window, wininfo, isclosed);
   } else {
     wininfo = g_new0(PersistentWindow, 1);
     persistence_store_window_info(window, wininfo, FALSE);
@@ -517,10 +517,8 @@ persistence_update_window(GtkWindow *window, gboolean isclosed)
     wininfo->window = window;
     g_object_ref(window);
   }
-#ifdef G_OS_WIN32
   /* catch the transistion */
   wininfo->isopen = !isclosed;
-#endif
 }
 
 /** Handler for window-related events that should cause persistent storage
@@ -544,7 +542,7 @@ persistence_window_event_handler(GtkWindow *window, GdkEvent *event, gpointer da
     dia_log_message ("configure (%s)", persistence_get_window_name(window)); 
     break;
   }
-  persistence_update_window(window, (event->type == GDK_UNMAP));
+  persistence_update_window(window, !(GTK_WIDGET_MAPPED(window)));
   /* continue processing */
   return FALSE;
 }
@@ -557,7 +555,7 @@ persistence_window_event_handler(GtkWindow *window, GdkEvent *event, gpointer da
 static gboolean
 persistence_hide_show_window(GtkWindow *window, gpointer data)
 {
-  persistence_update_window(window, !GTK_WIDGET_VISIBLE(window));
+  persistence_update_window(window, !GTK_WIDGET_MAPPED(window));
   return FALSE;
 }
 

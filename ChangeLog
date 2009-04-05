@@ -1,3 +1,8 @@
+2009-04-05  Hans Breuer  <hans@breuer.org>
+
+	* lib/persistence.c : instead of trying to manage the open state of our
+	windows 'by hand' just use GTK_WIDGET_MAPPED(window), fixes bug #574388
+
 2009-04-04  Hans Breuer  <hans@breuer.org>
 
 	* app/interface.c : don't translate g_warning
