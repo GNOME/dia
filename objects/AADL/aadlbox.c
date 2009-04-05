@@ -39,7 +39,8 @@
 #define PORT_HANDLE_AADLBOX (HANDLE_CUSTOM9)
 
 static Aadlport *
-new_port(Aadl_type t, gchar *d) {
+new_port(Aadl_type t, gchar *d) 
+{
   Aadlport *p;
   p = g_new0(Aadlport,1);		       
   p->handle = g_new0(Handle,1);	       
@@ -53,12 +54,8 @@ static void
 free_port(Aadlport *port)                                    
 {
   if (port) {                                            
-    if (port->handle) {
-      g_free((port)->handle);	           
-    }
-    if (port->declaration) {
-      g_free((port)->declaration);  
-    }
+    g_free(port->handle);	           
+    g_free(port->declaration);
     g_free(port);                                          
   }
 }
@@ -85,7 +82,7 @@ struct PointChange {
 };
 
 static void aadlbox_update_data(Aadlbox *aadlbox);
-static void aadlbox_add_port(Aadlbox *aadlbox, Point *p, Aadlport *port);
+static void aadlbox_add_port(Aadlbox *aadlbox, const Point *p, Aadlport *port);
 static void aadlbox_remove_port(Aadlbox *aadlbox, Aadlport *port);
 static ObjectChange *aadlbox_add_port_callback (DiaObject *obj,
 						Point *clicked, gpointer data);
@@ -93,12 +90,12 @@ static ObjectChange *aadlbox_delete_port_callback (DiaObject *obj,
                                                 Point *clicked, gpointer data);
 int aadlbox_point_near_port(Aadlbox *aadlbox, Point *p);
 
-static void aadlbox_add_connection(Aadlbox *aadlbox, Point *p, 
+static void aadlbox_add_connection(Aadlbox *aadlbox, const Point *p, 
 				   ConnectionPoint *connection);
 static void aadlbox_remove_connection(Aadlbox *aadlbox, 
 				      ConnectionPoint *connection);
 static ObjectChange *aadlbox_add_connection_callback (DiaObject *obj,
-						Point *clicked, gpointer data);
+						const Point *clicked, gpointer data);
 static ObjectChange *aadlbox_delete_connection_callback (DiaObject *obj,
                                                 Point *clicked, gpointer data);
 static int aadlbox_point_near_connection(Aadlbox *aadlbox, Point *p);
@@ -214,21 +211,20 @@ DiaObject *aadlbox_copy(DiaObject *obj)
 
   /* copy ports */
   for (i=0; i<aadlbox->num_ports; i++) {
-    p = g_malloc(sizeof(Point));
-    point_copy(p, &aadlbox->ports[i]->handle->pos);
+    Point p;
+    point_copy(&p, &aadlbox->ports[i]->handle->pos);
     port = new_port(aadlbox->ports[i]->type, aadlbox->ports[i]->declaration);
     
-    
-    aadlbox_add_port((Aadlbox *)newobj, p, port);
+    aadlbox_add_port((Aadlbox *)newobj, &p, port);
   }
 
   /* copy connection points */
   for (i=0; i<aadlbox->num_connections; i++) {
-    p = g_malloc(sizeof(Point));
-    point_copy(p, &aadlbox->connections[i]->pos);
+    Point p;
+    point_copy(&p, &aadlbox->connections[i]->pos);
     connection= g_new0(ConnectionPoint, 1);
     
-    aadlbox_add_connection((Aadlbox *)newobj, p, connection);
+    aadlbox_add_connection((Aadlbox *)newobj, &p, connection);
   }
 
   return newobj;
@@ -248,11 +244,13 @@ aadlbox_change_free(struct PointChange *change)
        (change->type==TYPE_REMOVE_POINT && change->applied) ) {
 
     free_port (change->port);
+    change->port = NULL;
   
   } else if ( (change->type==TYPE_ADD_CONNECTION && !change->applied) ||
 	    (change->type==TYPE_REMOVE_CONNECTION && change->applied) ) {
     
     g_free (change->connection);
+    change->connection = NULL;
   
   }
 }
@@ -476,7 +474,7 @@ aadlbox_point_near_port(Aadlbox *aadlbox, Point *p)
 }
 
 static void
-aadlbox_add_port(Aadlbox *aadlbox, Point *p, Aadlport *port)
+aadlbox_add_port(Aadlbox *aadlbox, const Point *p, Aadlport *port)
 {
   int i;
 
@@ -595,7 +593,7 @@ aadlbox_point_near_connection(Aadlbox *aadlbox, Point *p)
 }
 
 static void
-aadlbox_add_connection(Aadlbox *aadlbox, Point *p, ConnectionPoint *connection)
+aadlbox_add_connection(Aadlbox *aadlbox, const Point *p, ConnectionPoint *connection)
 {
   int i;
 
@@ -910,15 +908,17 @@ DiaObject *aadlbox_create(Point *startpoint, void *user_data,
   return &aadlbox->element.object;
 }
 
-void aadlbox_destroy(Aadlbox *aadlbox)
+void 
+aadlbox_destroy(Aadlbox *aadlbox)
 {
   int i;
   text_destroy(aadlbox->name);
 
+  /* object_unconnect needs valid handles (from ports) */
+  element_destroy(&aadlbox->element);
+
   for (i=0; i<aadlbox->num_ports; i++)
     free_port(aadlbox->ports[i]);
-  
-  element_destroy(&aadlbox->element);
 }
 
 void
@@ -971,9 +971,9 @@ void aadlbox_load(ObjectNode obj_node, int version, const char *filename,
   
   for (i=0; i<num; i++) {
     
-    p = g_malloc(sizeof(Point));
+    Point p;
     attr = composite_find_attribute(composite, "point");
-    data_point( attribute_first_data(attr), p );
+    data_point( attribute_first_data(attr), &p);
     
     attr = composite_find_attribute(composite, "port_type");
     type = data_enum(attribute_first_data(attr));
@@ -987,7 +987,7 @@ void aadlbox_load(ObjectNode obj_node, int version, const char *filename,
     port->declaration = declaration;
     
 
-    aadlbox_add_port(aadlbox, p, port);
+    aadlbox_add_port(aadlbox, &p, port);
     
     composite = data_next(composite);
   }
@@ -997,11 +997,11 @@ void aadlbox_load(ObjectNode obj_node, int version, const char *filename,
   data = attribute_first_data(attr);
   
   for (i=0; i<num; i++) {
-    p = g_malloc(sizeof(Point));
-    data_point( data, p );
+    Point p;
+    data_point( data, &p );
 
     connection = g_new0(ConnectionPoint,1);
-    aadlbox_add_connection(aadlbox, p, connection);
+    aadlbox_add_connection(aadlbox, &p, connection);
     
     data = data_next(data);
   }
