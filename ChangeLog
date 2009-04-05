@@ -1,5 +1,7 @@
 2009-04-05  Hans Breuer  <hans@breuer.org>
 
+	* objects/AADL/aadlbox.c : one const too much, build error with gcc
+
 	* plug-ins/python/wdeps.py : intended tinting on win32, too.
 	* plug-ins/python/dot2dia.py : don't let a single unknown color make
 	the whole import fail
@@ -15,7 +17,6 @@
 
 	* app/display.c : make the tab use the short name again and adjust the
 	(integrated UI) application title HIC compliant, fixing bug #527288
-
 
 	* objects/network/basestation.c : don't move non-movable handles,
 	fixing bug #574637

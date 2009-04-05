@@ -95,7 +95,7 @@ static void aadlbox_add_connection(Aadlbox *aadlbox, const Point *p,
 static void aadlbox_remove_connection(Aadlbox *aadlbox, 
 				      ConnectionPoint *connection);
 static ObjectChange *aadlbox_add_connection_callback (DiaObject *obj,
-						const Point *clicked, gpointer data);
+						Point *clicked, gpointer data);
 static ObjectChange *aadlbox_delete_connection_callback (DiaObject *obj,
                                                 Point *clicked, gpointer data);
 static int aadlbox_point_near_connection(Aadlbox *aadlbox, Point *p);
@@ -199,7 +199,6 @@ DiaObject *aadlbox_copy(DiaObject *obj)
   Handle *handle1,*handle2;
   Aadlport *port;
   ConnectionPoint *connection;
-  Point *p;
   Aadlbox *aadlbox = (Aadlbox *) obj;
   void *user_data = ((Aadlbox *) obj)->specific;
 
@@ -960,7 +959,6 @@ void aadlbox_load(ObjectNode obj_node, int version, const char *filename,
   gchar *declaration;
   Aadlport *port;
   ConnectionPoint *connection;
-  Point *p;
   int i, num;
   
   attr = object_find_attribute(obj_node, "aadlbox_ports");
