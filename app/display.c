@@ -1138,11 +1138,6 @@ ddisplay_active_diagram(void)
 static void 
 ddisp_destroy(DDisplay *ddisp)
 {
-  if (ddisp->update_id) {
-    g_source_remove (ddisp->update_id);
-    ddisp->update_id = 0;
-  }
-
   g_signal_handlers_disconnect_by_func (ddisp->diagram, selection_changed, ddisp);
 
   g_object_unref (G_OBJECT (ddisp->im_context));
@@ -1304,6 +1299,11 @@ ddisplay_really_destroy(DDisplay *ddisp)
   if (active_display == ddisp)
     display_set_active(NULL);
 
+  /* last chance to avoid crashing in the idle update */
+  if (ddisp->update_id) {
+    g_source_remove (ddisp->update_id);
+    ddisp->update_id = 0;
+  }
   
   if (ddisp->diagram) {
     diagram_remove_ddisplay(ddisp->diagram, ddisp);

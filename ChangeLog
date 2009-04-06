@@ -1,3 +1,9 @@
+2009-04-06  Hans Breuer  <hans@breuer.org>
+
+	* app/display.c : something called ddisplay_flush() while we were
+	already in ddisplay_destroy() - moved removing the idle handler to
+	ddisplay_really_destroy(), the last possible moment - bug #578173
+
 2009-04-05  Hans Breuer  <hans@breuer.org>
 
 	* objects/AADL/aadlbox.c : one const too much, build error with gcc
