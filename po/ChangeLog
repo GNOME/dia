@@ -1,3 +1,8 @@
+2009-04-08  Sandeep Shedmake  <sshedmak@redhat.com>
+
+	* mr.po: Added Marathi Translations
+	* LINGUAS: Added 'mr'
+
 2009-04-04  Hans Breuer  <hans@breuer.org>
 
 	* de.po: Updated German translation, translated License (from GIMP)
