@@ -1,3 +1,8 @@
+dia-0.97-pre3: 2009-04-05
+
+  * even more bugs fixed:
+    http://bugzilla.gnome.org/buglist.cgi?product=dia&target_milestone=0.97&chfieldfrom=2009-02-15&chfieldto=2009-04-06
+
 dia-0.97-pre2: 2009-02-15
 
   * Quite some bugs fixed, at least:

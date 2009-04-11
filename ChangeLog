@@ -1,5 +1,8 @@
 2009-04-11  Hans Breuer  <hans@breuer.org>
 
+	* app/app_procs.c :  patch from Arunan Balasubramaniam, bug #573921 to
+	to reduce wakeups prefer g_timeout_add_seconds() over g_timeout_add()
+
 	* app/modify_tool.c(modify_button_press) : don't got to single handle 
 	movement if there is more than one object selected, bug #525011
 	* app/handle_ops.c : consider the selection state in choosing the
@@ -2904,7 +2907,7 @@
 	the 'Table' object looks like a much better playground for a generic
 	property list widget.
 
-	* app/textedit.c(textedit_activate_first) had an endless loop when
+	* app/textedit.c(textedit_activate_first) : had an endless loop when
 	none of the selected objects are text editable
 	
 	* app/properties.c : resets current_obj when the dialog is closed
@@ -5013,7 +5016,7 @@
 	* plug-ins/cairo/diacairo.c : get rid of c++ coment
 	* app/diagram.h app/diagram.c app/modify_tool.c app/select.c 
 	  app/undo.c : reverted 'Shortened diagram_unselect'. It broke
-	plug-ins/python, but more iomportant made one function fromm
+	plug-ins/python, but more important made one function from
 	app/diagram.h asymmetric with all the others. We should not leave
 	the common C OO-pattern of passing an explicit "this pointer" just
 	because that can also be deduced from the other object.
