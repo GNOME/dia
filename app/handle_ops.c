@@ -23,35 +23,47 @@
 /* This value is best left odd so that the handles are centered. */
 #define HANDLE_SIZE 7
 
-static Color handle_color[NUM_HANDLE_TYPES] =
+static const Color handle_color[NUM_HANDLE_TYPES<<1] =
 {
-  { 0.0, 0.0, 0.4}, /* HANDLE_NON_MOVABLE */
+  { 0.0, 0.0, 0.5}, /* HANDLE_NON_MOVABLE */
   { 0.0, 1.0, 0.0}, /* HANDLE_MAJOR_CONTROL */
-  { 1.0, 0.4, 0.0}, /* HANDLE_MINOR_CONTROL */
+  { 1.0, 0.6, 0.0}, /* HANDLE_MINOR_CONTROL */
+  /* dim down the color if the handle is in a group of selected objects */
+  { 0.0, 0.0, 0.5}, /* HANDLE_NON_MOVABLE */
+  { 0.0, 0.7, 0.0}, /* HANDLE_MAJOR_CONTROL */
+  { 0.7, 0.4, 0.0}, /* HANDLE_MINOR_CONTROL */
 };
 
-static Color handle_color_connected[NUM_HANDLE_TYPES] =
+static const Color handle_color_connected[NUM_HANDLE_TYPES<<1] =
 {
-  { 0.0, 0.0, 0.4}, /* HANDLE_NON_MOVABLE */
+  { 0.0, 0.0, 0.5}, /* HANDLE_NON_MOVABLE */
   { 1.0, 0.0, 0.0}, /* HANDLE_MAJOR_CONTROL */
-  { 1.0, 0.1, 0.0}, /* HANDLE_MINOR_CONTROL */
+  { 1.0, 0.4, 0.0}, /* HANDLE_MINOR_CONTROL */
+  /* dim down the color if the handle is in a group of selected objects */
+  { 0.0, 0.0, 0.5}, /* HANDLE_NON_MOVABLE */
+  { 0.7, 0.0, 0.0}, /* HANDLE_MAJOR_CONTROL */
+  { 0.7, 0.3, 0.0}, /* HANDLE_MINOR_CONTROL */
 };
 
 void
 handle_draw(Handle *handle, DDisplay *ddisp)
 {
+  gboolean some_selected;
   int x,y;
   DiaRenderer *renderer = ddisp->renderer;
   DiaInteractiveRendererInterface *irenderer =
     DIA_GET_INTERACTIVE_RENDERER_INTERFACE (ddisp->renderer);
-  Color *color;
+  const Color *color;
 
   ddisplay_transform_coords(ddisp, handle->pos.x, handle->pos.y, &x, &y);
+  /* change handle color to reflect different behaviour for multiple selected */
+  /* this code relies on the fact that only selected objects get their handles drawn */
+  some_selected = g_list_length (ddisp->diagram->data->selected) > 1;
 
   if  (handle->connected_to != NULL) {
-    color = &handle_color_connected[handle->type];
+    color = &handle_color_connected[handle->type + (some_selected ? NUM_HANDLE_TYPES : 0)];
   } else {
-    color = &handle_color[handle->type];
+    color = &handle_color[handle->type + (some_selected ? NUM_HANDLE_TYPES : 0)];
   }
 
   DIA_RENDERER_GET_CLASS(renderer)->set_linewidth(renderer, 0.0);
@@ -64,7 +76,8 @@ handle_draw(Handle *handle, DDisplay *ddisp)
 			     x - HANDLE_SIZE/2 + 1,
 			     y - HANDLE_SIZE/2 + 1,
 			     HANDLE_SIZE-2, HANDLE_SIZE-2,
-			     color);
+			     /* it does not change the color, but does not reflect taht in the signature */
+			     (Color *)color);
   
   irenderer->draw_pixel_rect(renderer,
 			     x - HANDLE_SIZE/2,

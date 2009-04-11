@@ -1,3 +1,10 @@
+2009-04-11  Hans Breuer  <hans@breuer.org>
+
+	* app/modify_tool.c(modify_button_press) : don't got to single handle 
+	movement if there is more than one object selected, bug #525011
+	* app/handle_ops.c : consider the selection state in choosing the
+	handle color, to give some feedback on the handles behavior change
+
 2009-04-06  Hans Breuer  <hans@breuer.org>
 
 	* app/display.c : something called ddisplay_flush() while we were

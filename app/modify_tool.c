@@ -246,17 +246,19 @@ modify_button_press(ModifyTool *tool, GdkEventButton *event,
 {
   Point clickedpoint;
   DiaObject *clicked_obj;
-  
+  gboolean some_selected;
+
   ddisplay_untransform_coords(ddisp,
 			      (int)event->x, (int)event->y,
 			      &clickedpoint.x, &clickedpoint.y);
 
-
-  if (do_if_clicked_handle(ddisp, tool, &clickedpoint, event))
+  /* don't got to single handle movement if there is more than one object selected */
+  some_selected = g_list_length (ddisp->diagram->data->selected) > 1;
+  if (!some_selected && do_if_clicked_handle(ddisp, tool, &clickedpoint, event))
     return;
   
   clicked_obj = click_select_object(ddisp, &clickedpoint, event);
-  if (do_if_clicked_handle(ddisp, tool, &clickedpoint, event))
+  if (!some_selected && do_if_clicked_handle(ddisp, tool, &clickedpoint, event))
     return;
 
   if ( clicked_obj != NULL ) {
