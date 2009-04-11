@@ -283,10 +283,12 @@ prop_dialog_add_properties(PropDialog *dialog, GPtrArray *props)
     GtkRequisition requisition;
     GtkWidget *vbox = prop_dialog_container_pop(dialog);
     GtkWidget *swin = prop_dialog_container_pop(dialog);
-    
+    GdkScreen *screen = gtk_widget_get_screen(swin);
+    guint sheight = screen ? (2 * gdk_screen_get_height(screen)) / 3 : 400;
+
     gtk_widget_size_request (vbox, &requisition);
     /* I'd say default size calculation for scrollable is quite broken */
-    gtk_widget_set_size_request (swin, -1, requisition.height > 400 ? 400 : requisition.height);    
+    gtk_widget_set_size_request (swin, -1, requisition.height > sheight ? sheight : requisition.height);    
   }
 }
 

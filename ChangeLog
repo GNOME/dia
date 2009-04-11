@@ -1,5 +1,8 @@
 2009-04-11  Hans Breuer  <hans@breuer.org>
 
+	* lib/propdialogs.c : derive initial scrolling area of properties
+	dialog from screen size, only use hardcoded values as fallback
+
 	* app/app_procs.c :  patch from Arunan Balasubramaniam, bug #573921 to
 	to reduce wakeups prefer g_timeout_add_seconds() over g_timeout_add()
 
