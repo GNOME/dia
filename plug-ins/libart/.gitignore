@@ -1,0 +1,12 @@
+.cvsignore
+.deps
+.libs
+Makefile
+Makefile.in
+*.lo
+libuml_objects.la
+*.obj
+*.dll
+*.exp
+*.lib
+

@@ -1,0 +1,12 @@
+.deps
+.libs
+Makefile
+Makefile.in
+*.lo
+libcustom_objects.la
+*.pyc
+*.dll
+*.exp
+*.lib
+*.obj
+

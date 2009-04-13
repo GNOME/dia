@@ -1,0 +1,11 @@
+.deps
+.libs
+Makefile
+Makefile.in
+*.lo
+libflowchart_objects.la
+*.obj
+*.dll
+*.exp
+*.lib
+

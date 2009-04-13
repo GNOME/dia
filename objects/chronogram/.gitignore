@@ -1,0 +1,11 @@
+.deps
+.libs
+Makefile
+Makefile.in
+*.lo
+libchronogram_objects.la
+*.dll
+*.exp
+*.lib
+*.obj
+

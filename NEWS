@@ -1,7 +1,9 @@
-dia-0.97-pre3: 2009-04-05
+dia-0.97-pre3: 2009-04-11
 
+  * integrated UI does not need a restart anymore (it must be selected on the 
+    command line with 'dia --integrated' ;)
   * even more bugs fixed:
-    http://bugzilla.gnome.org/buglist.cgi?product=dia&target_milestone=0.97&chfieldfrom=2009-02-15&chfieldto=2009-04-06
+    http://bugzilla.gnome.org/buglist.cgi?product=dia&target_milestone=0.97&chfieldfrom=2009-02-15&chfieldto=2009-04-13
 
 dia-0.97-pre2: 2009-02-15
 

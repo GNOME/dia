@@ -1,0 +1,13 @@
+.cvsignore
+.deps
+.libs
+Makefile
+Makefile.in
+*.lo
+libcgm_filter.la
+*.pyc
+*.dll
+*.exp
+*.lib
+*.obj
+

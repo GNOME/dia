@@ -1,5 +1,7 @@
 2009-04-13  Hans Breuer  <hans@breuer.org>
 
+	* NEWS config.h.win32 configure.in : updated for dia-0.97-pre3
+
 	* plug-ins/python/python.c : found and fixed the immediate crash
 	when loading the Python plug-in under win32 with Python version newer
 	than 2.3. Still did not get prebuilt pygtk running with it, so the

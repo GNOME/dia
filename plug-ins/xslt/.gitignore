@@ -1,0 +1,12 @@
+Makefile
+Makefile.in
+*.o
+*.lo
+.libs
+.deps
+*.la
+*.dll
+*.exp
+*.lib
+*.obj
+

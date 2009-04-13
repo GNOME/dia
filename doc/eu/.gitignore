@@ -1,0 +1,10 @@
+Makefile
+Makefile.in
+omf_timestamp
+*.html
+*.fo
+*.pdf
+*.chm
+*.hhp
+*.hhc
+
