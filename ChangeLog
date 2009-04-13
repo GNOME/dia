@@ -1,5 +1,10 @@
 2009-04-13  Hans Breuer  <hans@breuer.org>
 
+	* plug-ins/python/python.c : found and fixed the immediate crash
+	when loading the Python plug-in under win32 with Python version newer
+	than 2.3. Still did not get prebuilt pygtk running with it, so the
+	requirement of Python 2.3 (on win32) remains the same.
+
 	* data/integrated-ui.xml app/menus.c : removed Layers/Layers... from
 	the integrated UI menu and assigned <control>L also to ShowLayers
 	(the two menu entries are never available together, so no conflict)

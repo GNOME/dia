@@ -114,9 +114,9 @@ dia_plugin_init(PluginInfo *info)
     PySys_SetObject("stderr", PyDiaError_New (NULL, TRUE));
 #endif
     if (g_getenv ("DIA_PYTHON_PATH")) {
-      startup_file = g_build_filename (g_getenv ("DIA_PYTHON_PATH"), "python-startup.py", NULL);
+	startup_file = g_build_filename (g_getenv ("DIA_PYTHON_PATH"), "python-startup.py", NULL);
     } else {
-      startup_file = dia_get_data_directory("python-startup.py");
+	startup_file = dia_get_data_directory("python-startup.py");
     }
     if (!startup_file) {
 	g_warning("could not find python-startup.py");
@@ -128,14 +128,42 @@ dia_plugin_init(PluginInfo *info)
     __file__ = PyString_FromString(startup_file);
     PyObject_SetAttrString(__main__, "__file__", __file__);
     Py_DECREF(__file__);
+#if defined(G_OS_WIN32) && (PY_VERSION_HEX >= 0x02040000)
+    /* this code should work for every supported Python version, but it is needed 
+     * on win32 since Python 2.4 due to mixed runtime issues, i.e.
+     * crashing in PyRun_SimpleFile for python2(5|6)/msvcr(71|90) 
+     * It is not enabled by default yet, because I could not get PyGtk using 
+     * plug-ins to work at all with 2.5/2.6 */
+    {
+	gchar *startup_string = NULL;
+	gsize i, length = 0;
+	GError *error = NULL;
+	if (!g_file_get_contents(startup_file, &startup_string, &length, &error)) {
+	    g_warning("Python: Couldn't find startup file %s\n%s\n", 
+		      startup_file, error->message);
+	    g_error_free(error);
+	    g_free(startup_file);
+	    return DIA_PLUGIN_INIT_ERROR;
+	}
+	/* PyRun_SimpleString does not like the windows format */
+	for (i = 0; i < length; ++i)
+	    if (startup_string[i] == '\r')
+		startup_string[i] = '\n';
 
+	if (PyRun_SimpleString(startup_string) != 0) {
+	    g_warning("Python: Couldn't run startup file %s\n", startup_file);
+	}
+	g_free(startup_string);
+    }
+#else
     fp = fopen(startup_file, "r");
     if (!fp) {
-      g_warning("Python: Couldn't find startup file %s\n", startup_file);
-      g_free(startup_file);
-      return DIA_PLUGIN_INIT_ERROR;
+	g_warning("Python: Couldn't find startup file %s\n", startup_file);
+	g_free(startup_file);
+	return DIA_PLUGIN_INIT_ERROR;
     }
     PyRun_SimpleFile(fp, startup_file);
+#endif
     g_free(startup_file);
 
     if (on_error_report())
