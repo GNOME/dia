@@ -1,3 +1,16 @@
+2009-04-13  Hans Breuer  <hans@breuer.org>
+
+	* data/integrated-ui.xml app/menus.c : removed Layers/Layers... from
+	the integrated UI menu and assigned <control>L also to ShowLayers
+	(the two menu entries are never available together, so no conflict)
+	Fixes bug #576879.
+
+	* app/preferences.[ch] :removed "Integrated UI" option here ...
+	(together with the annoying change-needs-restart message)
+	* app/app_procs.c : ... and made it a start-up option, aka. command
+	line switch. If the UI type some day can be switch at runtime the
+	prefernce setting may be added again.
+
 2009-04-11  Hans Breuer  <hans@breuer.org>
 
 	* lib/propdialogs.c : derive initial scrolling area of properties

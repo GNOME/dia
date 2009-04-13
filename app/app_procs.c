@@ -612,6 +612,7 @@ app_init (int argc, char **argv)
 {
   static gboolean nosplash = FALSE;
   static gboolean nonew = FALSE;
+  static gboolean use_integrated_ui = FALSE;
   static gboolean credits = FALSE;
   static gboolean version = FALSE;
   static gboolean verbose = FALSE;
@@ -660,6 +661,8 @@ app_init (int argc, char **argv)
      N_("Don't show the splash screen"), NULL },
     {"nonew", 'n', 0, G_OPTION_ARG_NONE, &nonew,
      N_("Don't create empty diagram"), NULL },
+    {"integrated", '\0', 0, G_OPTION_ARG_NONE, &use_integrated_ui,
+     N_("Start integrated user interface (diagrams in tabs)"), NULL },
     {"log-to-stderr", 'l', 0, G_OPTION_ARG_NONE, &log_to_stderr,
      N_("Send error messages to stderr instead of showing dialogs."), NULL },
     {"input-directory", 'I', 0, G_OPTION_ARG_STRING, NULL /* &input_directory */,
@@ -683,10 +686,10 @@ app_init (int argc, char **argv)
   options[1].description = export_format_string;
   options[2].arg_data = &size;
   options[3].arg_data = &show_layers;
-  g_assert(strcmp (options[7].long_name, "input-directory") == 0);
-  options[7].arg_data = &input_directory;
-  g_assert(strcmp (options[8].long_name, "output-directory") == 0);
-  options[8].arg_data = &output_directory;
+  g_assert(strcmp (options[8].long_name, "input-directory") == 0);
+  options[8].arg_data = &input_directory;
+  g_assert(strcmp (options[9].long_name, "output-directory") == 0);
+  options[9].arg_data = &output_directory;
 
   argv0 = (argc > 0) ? argv[0] : "(none)";
 
@@ -826,7 +829,7 @@ app_init (int argc, char **argv)
     active_tool = create_modify_tool();
 
     dia_log_message ("ui creation");
-    if (prefs.use_integrated_ui) {
+    if (use_integrated_ui) {
       create_integrated_ui();
     } else {
       create_toolbox();
@@ -861,7 +864,7 @@ app_init (int argc, char **argv)
 					 export_file_format, size, show_layers,
 					 input_directory, output_directory);
   if (dia_is_interactive && files == NULL && !nonew) {
-    if (prefs.use_integrated_ui)
+    if (use_integrated_ui)
     {
       GList * list;
     

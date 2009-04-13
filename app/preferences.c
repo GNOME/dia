@@ -78,7 +78,6 @@ typedef struct _DiaPrefData {
 
 static void update_floating_toolbox(DiaPrefData *pref, gpointer ptr);
 static void update_internal_prefs(DiaPrefData *pref, gpointer ptr);
-static void update_ui_type_prefs(DiaPrefData *pref, gpointer ptr);
 
 static int default_true = 1;
 static int default_false = 0;
@@ -187,10 +186,6 @@ DiaPrefData prefs_data[] =
     &default_fontsize_unit, UI_TAB, N_("Font-size unit:"), NULL, FALSE,
     _get_units_name_list, update_internal_prefs },
   
-  { "use_integrated_ui", PREF_BOOLEAN, PREF_OFFSET(use_integrated_ui),
-    &default_false, UI_TAB, N_("Integrated UI"), NULL, FALSE, NULL, update_ui_type_prefs },
-
-
   { NULL, PREF_NONE, 0, NULL, DIA_TAB, N_("New diagram:") },
   { "is_portrait", PREF_BOOLEAN, PREF_OFFSET(new_diagram.is_portrait), &default_true, DIA_TAB, N_("Portrait") },
   { "new_diagram_papertype", PREF_CHOICE, PREF_OFFSET(new_diagram.papertype),
@@ -332,7 +327,7 @@ prefs_set_defaults(void)
       break;
     }
     /* set initial preferences, but dont talk about restarting */
-    if (prefs_data[i].update_function && prefs_data[i].update_function != update_ui_type_prefs)
+    if (prefs_data[i].update_function)
       (prefs_data[i].update_function)(&prefs_data[i], ptr);
   }
   update_internal_prefs(&prefs_data[i], NULL);
@@ -791,9 +786,3 @@ update_floating_toolbox(DiaPrefData *pref, gpointer ptr)
   }
 }
 
-static void 
-update_ui_type_prefs(DiaPrefData *pref, gpointer ptr)
-{
-  g_return_if_fail (pref->key == NULL);
-  message_notice(_("User Interface type settings change will take effect after restart"));  
-}
