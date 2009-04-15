@@ -103,10 +103,10 @@ XPStyle On
   
 VIAddVersionKey "ProductName" "Dia for Windows"
 VIAddVersionKey "CompanyName" "The Dia Developers"
-VIAddVersionKey "LegalCopyright" "(c) 2003-2006 Alexander Larsson and others"
+VIAddVersionKey "LegalCopyright" "(c) 2003-2009 Alexander Larsson and others"
 VIAddVersionKey "FileDescription" "Dia for Windows Installer"
-VIAddVersionKey "FileVersion" "0.96.2.0"
-VIProductVersion "0.96.2.0"
+VIAddVersionKey "FileVersion" "0.97.0.3"
+VIProductVersion "0.97.0.3"
 
 ;--------------------------------
 ;Modern UI Configuration
@@ -126,7 +126,9 @@ VIProductVersion "0.96.2.0"
   !define MUI_ABORTWARNING
 
   ;Finish Page config
-  !define MUI_FINISHPAGE_RUN			"$INSTDIR\bin\diaw.exe"
+  !define MUI_FINISHPAGE_RUN
+  !define MUI_FINISHPAGE_RUN_FUNCTION "LaunchDia"
+
   !define MUI_FINISHPAGE_RUN_NOTCHECKED
   !define MUI_FINISHPAGE_LINK			$(DIA_FINISH_VISIT_WEB_SITE)
   !define MUI_FINISHPAGE_LINK_LOCATION          "http://dia-installer.de/"
@@ -226,7 +228,7 @@ Section $(DIA_SECTION_TITLE) SecDia
     WriteRegStr HKEY_CLASSES_ROOT ".dia" "Content Type" "application/dia"
     WriteRegStr HKEY_CLASSES_ROOT "diaFile" "" "diaFile"
     WriteRegBin HKEY_CLASSES_ROOT "diaFile" "EditFlags" 00000100
-    WriteRegStr HKEY_CLASSES_ROOT "diaFile\Shell\open\command" "" '"$INSTDIR\bin\dia-win-remote.exe" diaw.exe "%1"'
+    WriteRegStr HKEY_CLASSES_ROOT "diaFile\Shell\open\command" "" '"$INSTDIR\bin\dia-win-remote.exe" diaw.exe --integrated "%1"'
     WriteRegStr HKEY_CLASSES_ROOT "diaFile\DefaultIcon" "" "$INSTDIR\etc\dia-diagram.ico,0"
     WriteRegStr HKEY_CLASSES_ROOT "diaFile\Shell\createcgm" "" "Create CGM image"
     WriteRegStr HKEY_CLASSES_ROOT "diaFile\Shell\createcgm\command" "" '"$INSTDIR\bin\dia.exe" -t cgm "%1"'
@@ -261,7 +263,7 @@ ${SetOutPath} "$INSTDIR\bin"
 ; \${File} "$1" "$2"
 ${File} "..\..\build\win32\bin\" "dia.exe"
 ${File} "..\..\build\win32\bin\" "diaw.exe"
-${File} "..\..\..\bin\" "dia-win-remote.exe"
+${File} "..\..\app\" "dia-win-remote.exe"
 ${File} "..\..\build\win32\bin\" "dia-app.dll"
 ${File} "..\..\..\bin\" "libart_lgpl_22.dll"
 ${File} "..\..\..\bin\" "libcairo-2.dll"
@@ -278,6 +280,7 @@ ${File} "..\..\plug-ins\cairo\" "cairo.dll"
 ${File} "..\..\plug-ins\cgm\" "cgm.dll"
 ${File} "..\..\objects\chronogram\" "chronogram.dll"
 ${File} "..\..\objects\custom\" "custom.dll"
+${File} "..\..\plug-ins\drs\" "drs.dll"
 ${File} "..\..\plug-ins\dxf\" "dxf.dll"
 ${File} "..\..\objects\er\" "er.dll"
 ${File} "..\..\objects\flowchart\" "flowchart.dll"
@@ -287,10 +290,13 @@ ${File} "..\..\plug-ins\hpgl\" "hpgl.dll"
 ${File} "..\..\objects\Istar\" "Istar.dll"
 ${File} "..\..\objects\Jackson\" "Jackson.dll"
 ${File} "..\..\objects\KAOS\" "Kaos.dll"
+#TODO: Fix libart plugin/dependencies
+#${File} "..\..\plug-ins\libart\" "libart.dll"
 ${File} "..\..\plug-ins\metapost\" "metapost.dll"
 ${File} "..\..\objects\misc\" "misc.dll"
 ${File} "..\..\objects\network\" "network.dll"
 ${File} "..\..\plug-ins\pixbuf\" "pixbuf.dll"
+${File} "..\..\plug-ins\postscript\" "postscript.dll"
 ${File} "..\..\plug-ins\pstricks\" "pstricks.dll"
 ${File} "..\..\objects\SADT\" "sadt.dll"
 ${File} "..\..\plug-ins\shape\" "shape.dll"
@@ -2424,6 +2430,7 @@ ${File} "..\..\samples\" "chronograms.dia"
 ${File} "..\..\samples\" "CompositeAction.dia"
 ${File} "..\..\samples\" "dia_logo.png"
 ${File} "..\..\samples\" "ER-demo.dia"
+${File} "..\..\samples\" "font-sizes.dia"
 ${File} "..\..\samples\" "grafcet.dia"
 ${File} "..\..\samples\" "Istar.dia"
 ${File} "..\..\samples\" "Jackson.dia"
@@ -2434,6 +2441,7 @@ ${File} "..\..\samples\" "SADT.dia"
 ${File} "..\..\samples\" "TexChars.dia"
 ${File} "..\..\samples\" "UML-demo.dia"
 ${File} "..\..\samples\" "UMLPackages.dia"
+${File} "..\..\samples\" "undo-check.dia"
 
 ${SetOutPath} "$INSTDIR\samples\Fig"
 ${File} "..\..\samples\Fig\" "Foo.fig"
@@ -2441,8 +2449,14 @@ ${File} "..\..\samples\Fig\" "splines.fig"
 
 ${SetOutPath} "$INSTDIR\samples\self"
 ${File} "..\..\samples\self\" "dia-core.dia"
+${File} "..\..\samples\self\" "dia-linux-2.dia"
+${File} "..\..\samples\self\" "dia-linux-2.dot"
 ${File} "..\..\samples\self\" "dia-objects.dia"
 ${File} "..\..\samples\self\" "dia-renderer.dia"
+${File} "..\..\samples\self\" "dia-standard-objects.dia"
+${File} "..\..\samples\self\" "dia-win32-2.dia"
+${File} "..\..\samples\self\" "dia-win32-2.dot"
+${File} "..\..\samples\self\" "PyDiaObjects.dia"
 ${File} "..\..\samples\self\" "umlclass.dia"
 
 ${SetOutPath} "$INSTDIR\samples\Visio"
@@ -2604,7 +2618,7 @@ ${File} "..\..\..\share\themes\Raleigh\gtk-2.0\" "gtkrc"
     CreateDirectory "$SMPROGRAMS\Dia"
     ReadRegStr $0 HKU ".DEFAULT\Software\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders" "My Pictures"
     SetOutPath "$0"
-    CreateShortCut "$SMPROGRAMS\Dia\Dia.lnk" "$INSTDIR\bin\diaw.exe"
+    CreateShortCut "$SMPROGRAMS\Dia\Dia.lnk" "$INSTDIR\bin\diaw.exe" "--integrated"
     CreateShortCut "$SMPROGRAMS\Dia\Dia Manual (CHM).lnk" "$INSTDIR\help\C\dia-manual.chm"
     CreateShortCut "$SMPROGRAMS\Dia\Dia Manual (PDF).lnk" "$INSTDIR\help\C\dia-manual.pdf"
     CreateShortCut "$SMPROGRAMS\Dia\FAQ.lnk" "$INSTDIR\help\C\faq.html"
@@ -3472,11 +3486,18 @@ Section /o $(PYTHON_SECTION_TITLE) SecPython
   ${SetOutPath} "$INSTDIR\bin"
   ${File} "..\..\plug-ins\python\" "dia.pyd"
   ${SetOutPath} "$INSTDIR"
+  ${File} "..\..\plug-ins\python\" "allprops.py"
   ${File} "..\..\plug-ins\python\" "aobjects.py"
+  ${File} "..\..\plug-ins\python\" "arrange.py"
+  ${File} "..\..\plug-ins\python\" "autolayoutforce.py"
   ${File} "..\..\plug-ins\python\" "bbox.py"
   ${File} "..\..\plug-ins\python\" "codegen.py"
   ${File} "..\..\plug-ins\python\" "debug_objects.py"
+  ${File} "..\..\plug-ins\python\" "diagx.py"
+  ${File} "..\..\plug-ins\python\" "diastddia.py"
+  ${File} "..\..\plug-ins\python\" "diasvg.py"
   ${File} "..\..\plug-ins\python\" "diasvg_import.py"
+  ${File} "..\..\plug-ins\python\" "dot2dia.py"
   ${File} "..\..\plug-ins\python\" "dot.py"
   ${File} "..\..\plug-ins\python\" "doxrev.py"
   ${File} "..\..\plug-ins\python\" "export-object.py"
@@ -3488,7 +3509,9 @@ Section /o $(PYTHON_SECTION_TITLE) SecPython
   ${File} "..\..\plug-ins\python\" "pydiadoc.py"
   ${File} "..\..\plug-ins\python\" "python-startup.py"
   ${File} "..\..\plug-ins\python\" "scascale.py"
-  ${File} "..\..\plug-ins\python\" "select_by.py" 
+  ${File} "..\..\plug-ins\python\" "select_by.py"
+  ${File} "..\..\plug-ins\python\" "select_empty.py"
+  ${File} "..\..\plug-ins\python\" "wdeps.py"
 SectionEnd
 
 Section -closelogfile
@@ -4084,4 +4107,9 @@ Function StrStr
   Pop $R2
   Pop $R1
   Exch $R0
+FunctionEnd
+
+Function LaunchDia
+  ExecShell "" "$SMPROGRAMS\Dia\Dia.lnk"
+
 FunctionEnd

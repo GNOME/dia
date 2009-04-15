@@ -1,3 +1,8 @@
+2009-04-15  Steffen Macke <sdteffen@sdteffen.de>
+
+	* makefile.msc: cairo, drs, locale build fixes
+	* dia.nsi: Various updates for 0.97-pre3
+	
 2009-04-13  Hans Breuer  <hans@breuer.org>
 
 	* NEWS config.h.win32 configure.in : updated for dia-0.97-pre3

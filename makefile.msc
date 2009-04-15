@@ -18,6 +18,7 @@ full: 	build \
 #	build\win32\dia\bondgraph.dll \
 	build\win32\dia\chronogram.dll \
 	build\win32\dia\custom.dll \
+	build\win32\dia\drs.dll \
 	build\win32\dia\er.dll \
 	build\win32\dia\flowchart.dll \
 	build\win32\dia\fs.dll \
@@ -30,7 +31,7 @@ full: 	build \
 	build\win32\dia\sadt.dll \
 	build\win32\dia\standard.dll \
 	build\win32\dia\uml.dll \
-#	build\win32\dia\cairo.dll \
+	build\win32\dia\cairo.dll \
 	build\win32\dia\cgm.dll \
 	build\win32\dia\dxf.dll \
 	build\win32\dia\hpgl.dll \
@@ -136,6 +137,9 @@ build\win32\dia\chronogram.dll: build\win32\dia objects\chronogram\chronogram.dl
 	
 build\win32\dia\custom.dll: build\win32\dia objects\custom\custom.dll
 	copy objects\custom\custom.dll build\win32\dia
+	
+build\win32\dia\drs.dll: build\win32\dia plug-ins\drs\drs.dll
+	copy plug-ins\drs\drs.dll build\win32\dia
 
 build\win32\dia\er.dll: build\win32\dia objects\ER\er.dll
 	copy objects\ER\er.dll build\win32\dia
@@ -232,7 +236,7 @@ build\win32\dia-splash.png: build\win32 data\dia-splash.png
 
 ALL_LINGUAS = am ar az be bg bs ca cs da de dz el en_CA en_GB es eu fi fr ga gl gu hr hu id is it ja ko lt lv mk ml mn ms nb ne nl nn oc pa pl pt pt_BR ro ru rw sk sl sq sr sr@Latn sv th tr uk vi zh_CN zh_HK zh_TW	
 
-po: installer\locale
+po: build\win32\locale
  	for %d in ($(ALL_LINGUAS)) do md build\win32\locale\%d
 	for %d in ($(ALL_LINGUAS)) do md build\win32\locale\%d\LC_MESSAGES
 	for %d in ($(ALL_LINGUAS)) do msgfmt -o build\win32\locale\%d\LC_MESSAGES\dia.mo po\%d.po
