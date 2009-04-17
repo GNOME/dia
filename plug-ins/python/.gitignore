@@ -1,0 +1,4 @@
+*.a
+*.pyc
+*.pyo
+libpython_plugin.la
