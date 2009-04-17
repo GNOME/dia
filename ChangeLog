@@ -1,3 +1,7 @@
+2009-04-17  Steffen Macke <sdteffen@sdteffen.de>
+
+	* app/commands.c: Updated copyright date
+
 2009-04-15  Steffen Macke <sdteffen@sdteffen.de>
 
 	* makefile.msc: cairo, drs, locale build fixes

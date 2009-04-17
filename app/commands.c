@@ -743,7 +743,7 @@ help_about_callback (GtkAction *action)
         "name", "Dia",
 	"version", VERSION,
 	"comments", _("A program for drawing structured diagrams."),
-	"copyright", "(C) 1998-2008 The Free Software Foundation and the authors",
+	"copyright", "(C) 1998-2009 The Free Software Foundation and the authors",
 	"website", "http://live.gnome.org/Dia",
 	"authors", authors,
 	"documenters", documentors,
