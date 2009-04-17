@@ -1,0 +1,20 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+         xmlns:foaf="http://xmlns.com/foaf/0.1/"
+         xmlns:gnome="http://api.gnome.org/doap-extensions#"
+         xmlns="http://usefulinc.com/ns/doap#">
+
+  <name xml:lang="en">dia</name>
+  <shortdesc xml:lang="en">Dia is a program for drawing structured diagrams.</shortdesc>
+  <homepage rdf:resource="http://www.gnome.org/projects/dia" />
+  <mailing-list rdf:resource="http://mail.gnome.org/mailman/listinfo/dia-list" />
+
+  <maintainer>
+    <foaf:Person>
+      <foaf:name>Hans Breuer</foaf:name>
+      <foaf:mbox rdf:resource="hans@breuer.org" />
+      <gnome:userid>hans</gnome:userid>
+    </foaf:Person>
+  </maintainer>
+</Project>
+
