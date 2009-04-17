@@ -1,8 +1,8 @@
 NOTE FOR WINDOWS USERS:
 =======================
 
-If you're reading this and just want to use Dia rather than
-compiling/extending it, you're in the wrong place.  Please go to
+If you are reading this and just want to use Dia rather than
+compiling/extending it, you are in the wrong place.  Please go to
 http://dia-installer.sourceforge.net and download the precompiled, easily
 installable binary.
 
@@ -44,7 +44,7 @@ also required for Gtk.  It can be found here:
 
 A full list of packages required for building Dia in the order in which
 they should be installed.  Note that if the versions here are just the
-minimum required by Dia, if you plan to use a newer GTK+, you'll need a
+minimum required by Dia, if you plan to use a newer GTK+, you will need a
 newer GLib and ATK at the least.  When possible, use the newest stable
 release. 
 
@@ -65,12 +65,11 @@ Cairo is used for anti-alised rendering to screen or PNG as well as PDF:
   Minimum version required (if at all) is 1.2
 Libart allows anti-aliased rendering and anti-aliased export to PNG:
   http://www.artofcode.com/libart.html
-Libpng is need for anti-aliased PNG export:
+Libpng is need for libart based anti-aliased PNG export:
   http://download.sourceforge.net/libpng/
 Libxslt allows export through XSLT translation schemas:
   ftp://ftp.gnome.org/pub/GNOME/sources/libxslt/
-Extra Gnome support (limited) is available with installation of the gnome
-  libs:
+Extra Gnome support (limited) is available with installation of the gnome libs:
   ftp://ftp.gnome.org/pub/GNOME/sources/gnome-libs/
   Note that ./configure must be run with --enable-gnome to use Gnome.
 Python scripting is possible by adding --with-python and having the
@@ -110,15 +109,17 @@ AFS
           until ln "$srcfile" "$lockfile" 2>/dev/null; do
 
 Solaris
-	The gettext that comes with Solaris doesn't define
+	The gettext that comes with Solaris does not define
 	bind_textdomain_codeset.  Use the gettext and libiconv from
 	ftp.gnu.org instead.
 
-COMPILING FROM SVN:
+COMPILING FROM GIT:
 ===================
 
-If you are using the SVN version of Dia you need to have the following programs:
+If you are using the Git version of Dia you need to have the following programs:
 automake 1.4, autoconf 2.50, libtool 1.3, GNU gettext 0.10.38, intltool 0.21
+
+Get it by: git clone git://git.gnome.org/dia
 
 Then run ./autogen.sh instead of configure to create all needed files.
 
