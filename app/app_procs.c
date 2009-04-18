@@ -487,7 +487,11 @@ dump_dependencies(void)
   g_print ("pango   : version not available (>= 1.14.x)\n"); /* Pango did not provide such */
 #endif
 #if HAVE_CAIRO
+#  ifdef CAIRO_VERSION_STRING
+  g_print ("cairo   : %s (%s)\n", cairo_version_string(), CAIRO_VERSION_STRING);
+#  else
   g_print ("cairo   : %s (%d.%d.%d)\n", cairo_version_string(), CAIRO_VERSION_MAJOR, CAIRO_VERSION_MINOR, CAIRO_VERSION_MICRO);
+#  endif
 #endif
 #if 0
   {
