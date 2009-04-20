@@ -75,14 +75,14 @@ PyDiaLayer_Destroy(PyDiaLayer *self, PyObject *args)
 }
 
 static PyObject *
-PyDiaLayer_ObjectIndex(PyDiaLayer *self, PyObject *args)
+PyDiaLayer_ObjectGetIndex(PyDiaLayer *self, PyObject *args)
 {
     PyDiaObject *obj;
 
-    if (!PyArg_ParseTuple(args, "O!:Layer.object_index",
+    if (!PyArg_ParseTuple(args, "O!:Layer.object_get_index",
 			  &PyDiaObject_Type, &obj))
 	return NULL;
-    return PyInt_FromLong(layer_object_index(self->layer, obj->object));
+    return PyInt_FromLong(layer_object_get_index(self->layer, obj->object));
 }
 
 static PyObject *
@@ -195,7 +195,7 @@ PyDiaLayer_UpdateExtents(PyDiaLayer *self, PyObject *args)
 
 static PyMethodDef PyDiaLayer_Methods[] = {
     {"destroy", (PyCFunction)PyDiaLayer_Destroy, 1},
-    {"object_index", (PyCFunction)PyDiaLayer_ObjectIndex, 1},
+    {"object_get_index", (PyCFunction)PyDiaLayer_ObjectGetIndex, 1},
     {"add_object", (PyCFunction)PyDiaLayer_AddObject, 1},
     {"remove_object", (PyCFunction)PyDiaLayer_RemoveObject, 1},
     {"find_objects_in_rectangle",

@@ -131,6 +131,7 @@ void data_add_layer_at(DiagramData *data, Layer *layer, int pos);
 void data_set_active_layer(DiagramData *data, Layer *layer);
 void data_delete_layer(DiagramData *data, Layer *layer);
 int  data_layer_get_index (const DiagramData *data, const Layer *layer);
+Layer *data_layer_get_nth (const DiagramData *data, guint index);
 
 void data_select(DiagramData *data, DiaObject *obj);
 void data_unselect(DiagramData *data, DiaObject *obj);
@@ -160,7 +161,8 @@ void layer_render(Layer *layer, DiaRenderer *renderer, Rectangle *update,
 		  gpointer data,
 		  int active_layer);
 
-int layer_object_index(Layer *layer, DiaObject *obj);
+int layer_object_get_index(Layer *layer, DiaObject *obj);
+DiaObject *layer_object_get_nth(Layer *layer, guint index);
 void layer_add_object(Layer *layer, DiaObject *obj);
 void layer_add_object_at(Layer *layer, DiaObject *obj, int pos);
 void layer_add_objects(Layer *layer, GList *obj_list);
@@ -182,6 +184,7 @@ void layer_replace_object_with_list(Layer *layer, DiaObject *obj,
 				    GList *list);
 void layer_set_object_list(Layer *layer, GList *list);
 DiagramData *layer_get_parent_diagram(Layer *layer);
+
 /* Make sure all objects that are in the layer and not in the new
    list eventually gets destroyed. */
 

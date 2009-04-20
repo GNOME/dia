@@ -152,6 +152,7 @@ EXPORTS
  data_get_sorted_selected_remove
  data_int
  data_layer_get_index
+ data_layer_get_nth
  data_lower_layer
  data_next
  data_point
@@ -441,7 +442,7 @@ EXPORTS
  layer_find_objects_in_rectangle
  layer_find_objects_intersecting_rectangle
  layer_get_parent_diagram
- layer_object_index
+ layer_object_get_index
  layer_remove_object
  layer_remove_objects
  layer_render

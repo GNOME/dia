@@ -113,15 +113,26 @@ set_parent_layer(gpointer element, gpointer user_data)
  * @param obj The object to look for.
  * @return The index of the object in the layers list of objects.  This is also
  *  the vertical position of the object.
- * @bug This should be in a separate layer.c file.
- * @bug The layer could be inferred from the object, in which case the
- *  layer arg is not needed, and we would be sure we always looked in the
- *  right layer.
  */
 int
-layer_object_index(Layer *layer, DiaObject *obj)
+layer_object_get_index(Layer *layer, DiaObject *obj)
 {
   return (int)g_list_index(layer->objects, (gpointer) obj);
+}
+
+/**
+ * Get the object a index or NULL
+ * @param layer The layer to query for the nth object
+ * @param index The zero-based indexed of the object
+ */
+DiaObject *
+layer_object_get_nth (Layer *layer, guint index)
+{
+  if (g_list_length(layer->objects) > index) {
+    g_assert(g_list_nth(layer->objects, index));
+    return (DiaObject *)g_list_nth(layer->objects, index)->data;
+  }
+  return NULL;
 }
 
 /** Add an object to the top of a layer.

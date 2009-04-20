@@ -1299,8 +1299,8 @@ void diagram_ungroup_selected(Diagram *dia)
       group_list = group_objects(group);
       diagram_select_list(dia, group_list);
 
-      group_index = layer_object_index(dia->data->active_layer, group);
-    
+      group_index = layer_object_get_index(dia->data->active_layer, group);
+
       change = undo_ungroup_objects(dia, group_list, group, group_index);
       (change->apply)(change, dia);
 
