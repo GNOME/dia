@@ -336,6 +336,11 @@ data_layer_get_nth (const DiagramData *data, guint index)
     return g_ptr_array_index(data->layers, index);
   return NULL;
 }
+int 
+data_layer_count(const DiagramData *data)
+{
+  return data->layers->len;
+}
 
 /** Set which layer is the active layer in a diagram.
  * @param data The diagram in which to set the active layer.

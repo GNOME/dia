@@ -134,7 +134,16 @@ layer_object_get_nth (Layer *layer, guint index)
   }
   return NULL;
 }
-
+int
+layer_object_count (Layer *layer)
+{
+  return g_list_length(layer->objects);
+}
+gchar *
+layer_get_name (Layer *layer)
+{
+  return g_strdup (layer->name);
+}
 /** Add an object to the top of a layer.
  * @param layer The layer to add the object to.
  * @param obj The object to add.  This must not already be part of another

@@ -131,6 +131,7 @@ void data_add_layer_at(DiagramData *data, Layer *layer, int pos);
 void data_set_active_layer(DiagramData *data, Layer *layer);
 void data_delete_layer(DiagramData *data, Layer *layer);
 int  data_layer_get_index (const DiagramData *data, const Layer *layer);
+int data_layer_count(const DiagramData *data);
 Layer *data_layer_get_nth (const DiagramData *data, guint index);
 
 void data_select(DiagramData *data, DiaObject *obj);
@@ -163,6 +164,8 @@ void layer_render(Layer *layer, DiaRenderer *renderer, Rectangle *update,
 
 int layer_object_get_index(Layer *layer, DiaObject *obj);
 DiaObject *layer_object_get_nth(Layer *layer, guint index);
+int layer_object_count(Layer *layer);
+gchar *layer_get_name(Layer *layer);
 void layer_add_object(Layer *layer, DiaObject *obj);
 void layer_add_object_at(Layer *layer, DiaObject *obj, int pos);
 void layer_add_objects(Layer *layer, GList *obj_list);
