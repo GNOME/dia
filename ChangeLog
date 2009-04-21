@@ -1,3 +1,9 @@
+2009-04-21  Steffen Macke <sdteffen@sdteffen.de>
+
+	* makefile.msc: Adjustments for libart.dll, deploye diaw.exe
+	* installer/win32/dia.nsi: Remove drs.dll for the time being, re-add
+	libart.dll, adjust for current libart 2.3.20 DLL from ftp.gnome.org
+	
 2009-04-17  Steffen Macke <sdteffen@sdteffen.de>
 
 	* app/commands.c: Updated copyright date
