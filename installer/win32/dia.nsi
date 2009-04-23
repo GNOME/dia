@@ -2689,6 +2689,8 @@ Section $(TRANSLATIONS_SECTION_TITLE) SecTranslations
   ${File} "..\..\build\win32\locale\it\LC_MESSAGES\" "dia.mo"
   ${SetOutPath} "$INSTDIR\locale\ja\LC_MESSAGES"
   ${File} "..\..\build\win32\locale\ja\LC_MESSAGES\" "dia.mo"
+  ${SetOutPath} "$INSTDIR\locale\kn\LC_MESSAGES"
+  ${File} "..\..\build\win32\locale\kn\LC_MESSAGES\" "dia.mo"
   ${SetOutPath} "$INSTDIR\locale\ko\LC_MESSAGES"
   ${File} "..\..\build\win32\locale\ko\LC_MESSAGES\" "dia.mo"
   ${SetOutPath} "$INSTDIR\locale\lt\LC_MESSAGES"
