@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: dia.HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=dia&component=general\n"
 "POT-Creation-Date: 2009-03-17 22:02+0000\n"
-"PO-Revision-Date: 2009-04-23 11:55+0530\n"
+"PO-Revision-Date: 2009-04-23 17:40+0530\n"
 "Last-Translator: Shankar Prasad <svenkate@redhat.com>\n"
 "Language-Team: Kannada <en@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -41,23 +41,23 @@ msgstr ""
 #: ../app/app_procs.c:343
 #, c-format
 msgid "%s error: don't know how to export into %s\n"
-msgstr ""
+msgstr "%s ದೋಷ: %s ಗೆ ಹೇಗೆ ರಫ್ತು ಮಾಡಬೇಕು ಎಂದು ತಿಳಿದಿಲ್ಲ\n"
 
 #: ../app/app_procs.c:352
 #, c-format
 msgid "%s error: input and output file name is identical: %s"
-msgstr ""
+msgstr "%s ದೋಷ: ಇನ್‌ಪುಟ್ ಹಾಗು ಔಟ್‌ಪುಟ್ ಕಡತಗಳು ಒಂದೇ ರೀತಿ ಇವೆ: %s"
 
 #: ../app/app_procs.c:360
 #, c-format
 msgid "%s error: need valid input file %s\n"
-msgstr ""
+msgstr "%s ದೋಷ: ಮಾನ್ಯವಾದ ಇನ್‌ಪುಟ್ ಕಡತ %s ಬೇಕಿದೆ\n"
 
 #. if (!quiet)
 #: ../app/app_procs.c:385
 #, c-format
 msgid "%s --> %s\n"
-msgstr ""
+msgstr "%s --> %s\n"
 
 #: ../app/app_procs.c:556
 #, c-format
@@ -73,11 +73,11 @@ msgstr ""
 #. &export_file_name
 #: ../app/app_procs.c:651
 msgid "Export loaded file and exit"
-msgstr ""
+msgstr "ಲೋಡ್ ಮಾಡಲಾದ ಕಡತವನ್ನು ಆಮದು ಮಾಡು ಹಾಗು ನಿರ್ಗಮಿಸು"
 
 #: ../app/app_procs.c:651
 msgid "OUTPUT"
-msgstr ""
+msgstr "OUTPUT"
 
 #. &export_file_format
 #. &export_format_string
@@ -91,7 +91,7 @@ msgstr ""
 
 #: ../app/app_procs.c:655
 msgid "WxH"
-msgstr ""
+msgstr "WxH"
 
 #: ../app/app_procs.c:657
 msgid ""
@@ -101,11 +101,11 @@ msgstr ""
 
 #: ../app/app_procs.c:658
 msgid "LAYER,LAYER,..."
-msgstr ""
+msgstr "LAYER,LAYER,..."
 
 #: ../app/app_procs.c:660
 msgid "Don't show the splash screen"
-msgstr ""
+msgstr "ಎರಚು ತೆರೆಯನ್ನು ತೋರಿಸಬೇಡ"
 
 #: ../app/app_procs.c:662
 msgid "Don't create empty diagram"
@@ -113,12 +113,12 @@ msgstr ""
 
 #: ../app/app_procs.c:664
 msgid "Send error messages to stderr instead of showing dialogs."
-msgstr ""
+msgstr "ಸಂವಾದಗಳನ್ನು ತೋರಿಸುವ ಬದಲಿಗೆ stderr ಗೆ ಸಂದೇಶಗಳನ್ನು ಕಳುಹಿಸು."
 
 #. &input_directory
 #: ../app/app_procs.c:666
 msgid "Directory containing input files"
-msgstr ""
+msgstr "ಇನ್‌ಪುಟ್ ಕಡತಗಳನ್ನು ಹೊಂದಿರುವ ಕೋಶ"
 
 #: ../app/app_procs.c:666 ../app/app_procs.c:668
 msgid "DIRECTORY"
@@ -127,23 +127,23 @@ msgstr "DIRECTORY"
 #. &output_directory
 #: ../app/app_procs.c:668
 msgid "Directory containing output files"
-msgstr ""
+msgstr "ಔಟ್‌ಪುಟ್ ಕಡತಗಳನ್ನು ಹೊಂದಿರುವ ಕೋಶ"
 
 #: ../app/app_procs.c:670
 msgid "Display credits list and exit"
-msgstr ""
+msgstr "ಮನ್ನಣೆಗಳ ಪಟ್ಟಿಯನ್ನು ತೋರಿಸು ಹಾಗು ನಿರ್ಗಮಿಸು"
 
 #: ../app/app_procs.c:672
 msgid "Generate verbose output"
-msgstr ""
+msgstr "ವರ್ಬೋಸ್ ಔಟ್‌ಪುಟ್ ಅನ್ನು ಉತ್ಪಾದಿಸು"
 
 #: ../app/app_procs.c:674
 msgid "Display version and exit"
-msgstr ""
+msgstr "ಆವೃತ್ತಿಯನ್ನು ತೋರಿಸಿ ನಿರ್ಗಮಿಸು"
 
 #: ../app/app_procs.c:731
 msgid "Can't connect to session manager!\n"
-msgstr ""
+msgstr "ಅಧಿವೇಶನ ವ್ಯವಸ್ಥಾಪಕದೊಂದಿಗೆ ಸಂಪರ್ಕಸಾಧಿಸಲು ಸಾಧ್ಯವಾಗಿಲ್ಲ!\n"
 
 #. TRANSLATOR: 2nd and 3rd %s are time and date respectively.
 #: ../app/app_procs.c:771
@@ -154,7 +154,7 @@ msgstr ""
 #: ../app/app_procs.c:773
 #, c-format
 msgid "Dia version %s\n"
-msgstr ""
+msgstr "Dia ಆವೃತ್ತಿ %s\n"
 
 #: ../app/app_procs.c:811
 msgid "Couldn't find standard objects when looking for object-libs; exiting...\n"
@@ -169,7 +169,7 @@ msgstr ""
 
 #: ../app/app_procs.c:875
 msgid "Diagram1.dia"
-msgstr ""
+msgstr "Diagram1.dia"
 
 #: ../app/app_procs.c:919
 msgid ""
@@ -179,7 +179,7 @@ msgstr ""
 
 #: ../app/app_procs.c:934
 msgid "Exiting Dia"
-msgstr ""
+msgstr "Dia ದಿಂದ ನಿರ್ಗಮಿಸಲಾಗುತ್ತಿದೆ"
 
 #. no standard buttons
 #: ../app/app_procs.c:986
@@ -194,7 +194,7 @@ msgstr ""
 
 #: ../app/app_procs.c:992
 msgid "Quit Dia"
-msgstr ""
+msgstr "Dia ದಿಂದ ಹೊರನಡೆ"
 
 #: ../app/app_procs.c:1061 ../app/app_procs.c:1068
 msgid "Could not create per-user Dia config directory"
@@ -217,22 +217,22 @@ msgstr "[FILE...]"
 #: ../app/app_procs.c:1147
 #, c-format
 msgid "Input-directory '%s' must exist!\n"
-msgstr ""
+msgstr "ಇನ್‌ಪುಟ್-ಕೋಶ '%s' ಅಸ್ತಿತ್ವದಲ್ಲಿರಬೇಕು!\n"
 
 #: ../app/app_procs.c:1152
 #, c-format
 msgid "Output-directory '%s' must exist!\n"
-msgstr ""
+msgstr "ಔಟ್‌ಪುಟ್-ಕೋಶ '%s' ಅಸ್ತಿತ್ವದಲ್ಲಿರಬೇಕು!\n"
 
 #: ../app/app_procs.c:1158
 #, c-format
 msgid "'%s' not found!\n"
-msgstr ""
+msgstr "'%s' ಕಂಡುಬಂದಿಲ್ಲ!\n"
 
 #: ../app/app_procs.c:1166
 #, c-format
 msgid "'%s' not found in '%s'!\n"
-msgstr ""
+msgstr "'%s' ವು '%s'ನಲ್ಲಿ ಕಂಡುಬಂದಿಲ್ಲ!\n"
 
 #: ../app/app_procs.c:1215
 #, c-format
@@ -240,6 +240,8 @@ msgid ""
 "The original author of Dia was:\n"
 "\n"
 msgstr ""
+"Dia ದ ಮೂಲ ಕತೃಗಳು:\n"
+"\n"
 
 #: ../app/app_procs.c:1220
 #, c-format
@@ -248,6 +250,9 @@ msgid ""
 "The current maintainers of Dia are:\n"
 "\n"
 msgstr ""
+"\n"
+"Dia ಅನ್ನು ಪ್ರಸಕ್ತ ನೋಡಿಕೊಳ್ಳುತ್ತಿರುವವರು:\n"
+"\n"
 
 #: ../app/app_procs.c:1225
 #, c-format
@@ -256,6 +261,9 @@ msgid ""
 "Other authors are:\n"
 "\n"
 msgstr ""
+"\n"
+"ಇತರೆ ಕತೃಗಳು:\n"
+"\n"
 
 #: ../app/app_procs.c:1230
 #, c-format
@@ -264,6 +272,9 @@ msgid ""
 "Dia is documented by:\n"
 "\n"
 msgstr ""
+"\n"
+"Dia ದಸ್ತಾವೇಜನ್ನು ಮಾಡಿದವರು:\n"
+"\n"
 
 #: ../app/autosave.c:90
 msgid "Recovering autosaved diagrams"
@@ -277,28 +288,28 @@ msgstr ""
 
 #: ../app/color_area.c:317 ../app/color_area.c:360
 msgid "Select foreground color"
-msgstr ""
+msgstr "ಮುನ್ನೆಲ ಬಣ್ಣವನ್ನು ಆಯ್ಕೆ ಮಾಡಿ"
 
 #: ../app/color_area.c:318 ../app/color_area.c:361
 msgid "Select background color"
-msgstr ""
+msgstr "ಹಿನ್ನೆಲ ಬಣ್ಣವನ್ನು ಆಯ್ಕೆ ಮಾಡಿ"
 
 #: ../app/commands.c:130
 msgid "No print plug-in found!"
-msgstr ""
+msgstr "ಯಾವುದೆ ಮುದ್ರಣ ಪ್ಲಗ್‌-ಇನ್ ಕಂಡುಬಂದಿಲ್ಲ!"
 
 #: ../app/commands.c:150
 #, c-format
 msgid "Diagram%d.dia"
-msgstr ""
+msgstr "Diagram%d.dia"
 
 #: ../app/commands.c:343
 msgid "No existing object to paste.\n"
-msgstr ""
+msgstr "ಅಂಟಿಸಲು ಯಾವುದೆ ವಸ್ತುವಿಲ್ಲ.\n"
 
 #: ../app/commands.c:646 ../app/commands.c:684
 msgid "Could not find help directory"
-msgstr ""
+msgstr "ನೆರವಿನ ಕೋಶವು ಕಂಡುಬಂದಿಲ್ಲ"
 
 #: ../app/commands.c:653
 #, c-format
@@ -306,10 +317,12 @@ msgid ""
 "Could not open help directory:\n"
 "%s"
 msgstr ""
+"ನೆರವಿನ ಕೋಶವನ್ನು ತೆರೆಯಲು ಸಾಧ್ಯವಾಗಿಲ್ಲ:\n"
+"%s"
 
 #: ../app/commands.c:720
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
-msgstr ""
+msgstr "ಅನುವಾದಕರು - ಶಂಕರ್ ಪ್ರಸಾದ್ <svenkate@redhat.com>"
 
 #: ../app/commands.c:722
 msgid ""
@@ -327,6 +340,19 @@ msgid ""
 "along with this program; if not, write to the Free Software\n"
 "Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.\n"
 msgstr ""
+"This program is free software; you can redistribute it and/or modify\n"
+"it under the terms of the GNU General Public License as published by\n"
+"the Free Software Foundation; either version 2 of the License, or\n"
+"(at your option) any later version.\n"
+"\n"
+"This program is distributed in the hope that it will be useful,\n"
+"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
+"GNU General Public License for more details.\n"
+"\n"
+"You should have received a copy of the GNU General Public License\n"
+"along with this program; if not, write to the Free Software\n"
+"Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.\n"
 
 #: ../app/commands.c:745
 msgid "A program for drawing structured diagrams."
@@ -362,19 +388,19 @@ msgstr ""
 #: ../app/create_object.c:71
 #, c-format
 msgid "'%s' creation failed"
-msgstr ""
+msgstr "'%s' ರಚನೆಯು ವಿಫಲಗೊಂಡಿದೆ"
 
 #: ../app/defaults.c:43 ../app/defaults.c:150
 msgid "Object defaults"
-msgstr ""
+msgstr "ವಸ್ತುವಿನ ಪೂರ್ವನಿಯೋಜಿತಗಳು"
 
 #: ../app/defaults.c:61
 msgid "This object has no defaults."
-msgstr ""
+msgstr "ಈ ವಸ್ತುವು ಯಾವುದೆ ಪೂರ್ವನಿಯೋಜಿತಗಳನ್ನು ಹೊಂದಿಲ್ಲ."
 
 #: ../app/defaults.c:115
 msgid "Defaults: "
-msgstr ""
+msgstr "ಪೂರ್ವನಿಯೋಜಿತ: "
 
 #: ../app/dia-props.c:85
 msgid "Diagram Properties"
@@ -385,7 +411,6 @@ msgid "Dynamic grid"
 msgstr ""
 
 #: ../app/dia-props.c:127
-#, fuzzy
 msgid "x"
 msgstr "x"
 
@@ -399,7 +424,7 @@ msgstr "ಅಂತರ"
 
 #: ../app/dia-props.c:156
 msgid "Visible spacing"
-msgstr ""
+msgstr "ಗೋಚರಿಸುತ್ತಿರುವ ಅಂತರ"
 
 #. Hexes!
 #: ../app/dia-props.c:177 ../app/preferences.c:247
@@ -424,7 +449,7 @@ msgstr ""
 
 #: ../app/dia-props.c:231
 msgid "Page Breaks"
-msgstr ""
+msgstr "ಪುಟದ ತಡೆಗಳು"
 
 #: ../app/dia-props.c:242
 msgid "Colors"
@@ -438,7 +463,7 @@ msgstr ""
 
 #: ../app/dia_embedd.c:348
 msgid "Could not initialize Bonobo!"
-msgstr ""
+msgstr "Bonobo ಅನ್ನು ಆರಂಭಿಸಲು ಸಾಧ್ಯವಾಗಿಲ್ಲ!"
 
 #: ../app/diacanvas.c:121
 msgid "X position"
@@ -459,7 +484,7 @@ msgstr "ಚೈಲ್ಡ್‍ ವಿಜೆಟ್‌ನ Y ಸ್ಥಾನ"
 #: ../app/diagram.c:222
 #, c-format
 msgid "Couldn't convert filename '%s' to UTF-8: %s\n"
-msgstr ""
+msgstr "ಕಡತದ ಹೆಸರು '%s' ಅನ್ನು UTF-8 ಗೆ ಬದಲಾಯಿಸಲು ಸಾಧ್ಯವಾಗಿಲ್ಲ: %s\n"
 
 #: ../app/diagram.c:225 ../lib/message.c:90 ../lib/message.c:293
 msgid "Error"
@@ -477,47 +502,47 @@ msgstr ""
 
 #: ../app/diagram_tree_menu.c:47
 msgid "/_Sort objects"
-msgstr ""
+msgstr "/ವಸ್ತುಗಳನ್ನು ವಿಂಗಡಿಸು(_S)"
 
 #: ../app/diagram_tree_menu.c:48
 msgid "/Sort objects/by _name"
-msgstr ""
+msgstr "/ವಸ್ತುಗಳನ್ನು ವಿಂಗಡಿಸು/ಹೆಸರಿನ ಮೇರೆಗೆ(_n)"
 
 #: ../app/diagram_tree_menu.c:50
 msgid "/Sort objects/by _type"
-msgstr ""
+msgstr "/ವಸ್ತುಗಳನ್ನು ವಿಂಗಡಿಸು/ಪ್ರಕಾರದ ಮೇರೆಗೆ(_t)"
 
 #: ../app/diagram_tree_menu.c:52
 msgid "/Sort objects/as _inserted"
-msgstr ""
+msgstr "/ವಸ್ತುಗಳನ್ನು ವಿಂಗಡಿಸು/ಸೇರಿಸಿದ ಮೇರೆಗೆ(_i)"
 
 #: ../app/diagram_tree_menu.c:55
 msgid "/Sort objects/All by name"
-msgstr ""
+msgstr "/ವಸ್ತುಗಳನ್ನು ವಿಂಗಡಿಸು/ಎಲ್ಲವನ್ನೂ ಹೆಸರಿನ ಮೇರೆಗೆ"
 
 #: ../app/diagram_tree_menu.c:57
 msgid "/Sort objects/All by type"
-msgstr ""
+msgstr "/ವಸ್ತುಗಳನ್ನು ವಿಂಗಡಿಸು/ಎಲ್ಲವನ್ನೂ ಪ್ರಕಾರದ ಮೇರೆಗೆ"
 
 #: ../app/diagram_tree_menu.c:59
 msgid "/Sort objects/All as inserted"
-msgstr ""
+msgstr "/ವಸ್ತುಗಳನ್ನು ವಿಂಗಡಿಸು/ಎಲ್ಲವನ್ನೂ ಸೇರಿಸಿದ ಮೇರೆಗೆ"
 
 #: ../app/diagram_tree_menu.c:61
 msgid "/Sort objects/_Default"
-msgstr ""
+msgstr "/ವಸ್ತುಗಳನ್ನು ವಿಂಗಡಿಸು/ಪೂರ್ವನಿಯೋಜಿತ(_D)"
 
 #: ../app/diagram_tree_menu.c:62
 msgid "/Sort objects/Default/by _name"
-msgstr ""
+msgstr "/ವಸ್ತುಗಳನ್ನು ವಿಂಗಡಿಸು/ಪೂರ್ವನಿಯೋಜಿತ/ಹೆಸರಿನ ಮೇರೆಗೆ(_n)"
 
 #: ../app/diagram_tree_menu.c:64
 msgid "/Sort objects/Default/by _type"
-msgstr ""
+msgstr "/ವಸ್ತುಗಳನ್ನು ವಿಂಗಡಿಸು/ಪೂರ್ವನಿಯೋಜಿತ/ಪ್ರಕಾರದ ಮೇರೆಗೆ(_t)"
 
 #: ../app/diagram_tree_menu.c:66
 msgid "/Sort objects/Default/as _inserted"
-msgstr ""
+msgstr "/ವಸ್ತುಗಳನ್ನು ವಿಂಗಡಿಸು/ಪೂರ್ವನಿಯೋಜಿತ/ಸೇರಿಸಿದ ಮೇರೆಗೆ(_t)"
 
 #: ../app/diagram_tree_menu.c:68
 msgid "/Sort _diagrams"
@@ -545,15 +570,15 @@ msgstr ""
 
 #: ../app/diagram_tree_menu.c:84 ../app/diagram_tree_menu.c:95
 msgid "/_Locate"
-msgstr ""
+msgstr "/ಪತ್ತೆ ಮಾಡು(_L)"
 
 #: ../app/diagram_tree_menu.c:85
 msgid "/_Properties"
-msgstr ""
+msgstr "/ಗುಣಗಳು(_P)"
 
 #: ../app/diagram_tree_menu.c:86
 msgid "/_Hide this type"
-msgstr ""
+msgstr "/ಈ ಬಗೆಯನ್ನು ಅಡಗಿಸು(_H)"
 
 #: ../app/diagram_tree_window.c:80 ../app/preferences.c:124
 msgid "Diagram Tree"
@@ -592,7 +617,6 @@ msgstr "ಬಲಭಾಗ:"
 
 #. Scaling
 #: ../app/diapagelayout.c:289
-#, fuzzy
 msgid "Scaling"
 msgstr "ಅಳತೆ ಬದಲಾವಣೆ"
 
@@ -602,7 +626,7 @@ msgstr ""
 
 #: ../app/diapagelayout.c:312
 msgid "Fit to:"
-msgstr ""
+msgstr "ಇದಕ್ಕೆ ಸರಿಹೊಂದಿಸಲಾದ:"
 
 #: ../app/diapagelayout.c:324
 msgid "by"
@@ -611,7 +635,7 @@ msgstr "ಇಂದ"
 #: ../app/diapagelayout.c:741
 #, c-format
 msgid "%0.3gcm x %0.3gcm"
-msgstr ""
+msgstr "%0.3gcm x %0.3gcm"
 
 #: ../app/diapagelayout.c:845 ../app/pagesetup.c:76
 msgid "Page Setup"
@@ -640,13 +664,13 @@ msgstr ""
 #, c-format
 msgid "Selection of %d object"
 msgid_plural "Selection of %d objects"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d ವಸ್ತುವಿನ ಆಯ್ಕೆ"
+msgstr[1] "%d ವಸ್ತುಗಳ ಆಯ್ಕೆ"
 
 #: ../app/display.c:125
 #, c-format
 msgid "Selected '%s'"
-msgstr ""
+msgstr "'%s' ಅನ್ನು ಆಯ್ಕೆ ಮಾಡಲಾಗಿದೆ"
 
 #. we really should not come here but instead disable the menu command earlier
 #: ../app/display.c:1034
@@ -655,7 +679,7 @@ msgstr ""
 
 #: ../app/display.c:1179
 msgid "<unnamed>"
-msgstr ""
+msgstr "<ಹೆಸರಿಲ್ಲದ>"
 
 #. no standard buttons
 #: ../app/display.c:1185
@@ -679,20 +703,19 @@ msgstr "ಬದಲಾವಣೆಗಳನ್ನು ತಿರಸ್ಕರಿಸು(_
 
 #: ../app/exit_dialog.c:77
 msgid "Do Not Exit"
-msgstr ""
+msgstr "ಅಸ್ತಿತ್ವದಲ್ಲಿಲ್ಲ"
 
 #: ../app/exit_dialog.c:79
 msgid "Exit Without Save"
-msgstr ""
+msgstr "ಉಳಿಸದೆ ನಿರ್ಗಮಿಸು"
 
 #: ../app/exit_dialog.c:81
-#, fuzzy
 msgid "Save Selected"
 msgstr "ಆಯ್ದುದನ್ನು ಉಳಿಸು"
 
 #: ../app/exit_dialog.c:87
 msgid "The following are not saved:"
-msgstr ""
+msgstr "ಈ ಕೆಳಗಿನವನ್ನು ಉಳಿಸಲಾಗಿಲ್ಲ:"
 
 #: ../app/exit_dialog.c:113
 msgid "Save"
@@ -722,11 +745,11 @@ msgstr "ಎಲ್ಲವನ್ನೂ ಆರಿಸು"
 
 #: ../app/exit_dialog.c:150
 msgid "Select None"
-msgstr ""
+msgstr "ಏನನ್ನೂ ಆರಿಸಬೇಡ"
 
 #: ../app/exit_dialog.c:232
 msgid "Nothing selected for saving.  Would you like to try again?"
-msgstr ""
+msgstr "ಉಳಿಸಲು ಏನನ್ನೂ ಆಯ್ಕೆ ಮಾಡಿಲ್ಲ. ಇನ್ನೊಮ್ಮೆ ಪ್ರಯತ್ನಿಸಲು ಇಚ್ಛಿಸುತ್ತೀರಾ?"
 
 #: ../app/filedlg.c:144 ../app/filedlg.c:152 ../app/filedlg.c:168
 #: ../app/filedlg.c:746 ../lib/widgets.c:1488
@@ -743,11 +766,11 @@ msgstr ""
 
 #: ../app/filedlg.c:309
 msgid "Open Options"
-msgstr ""
+msgstr "ಮುಕ್ತ ಆಯ್ಕೆಗಳು"
 
 #: ../app/filedlg.c:317 ../app/filedlg.c:728
 msgid "Determine file type:"
-msgstr ""
+msgstr "ಕಡತದ ಬಗೆಯನ್ನು ನಿರ್ಧರಿಸು:"
 
 #: ../app/filedlg.c:337 ../app/filedlg.c:741 ../lib/widgets.c:1493
 msgid "All Files"
@@ -772,6 +795,8 @@ msgid ""
 "The file '%s' already exists.\n"
 "Do you want to overwrite it?"
 msgstr ""
+"ಕಡತ '%s' ಈಗಾಗಲೆ ಅಸ್ತಿತ್ವದಲ್ಲಿದೆ.\n"
+"ನೀವದನ್ನು ತಿದ್ದಿ ಬರೆಯಲು ಇಚ್ಛಿಸುತ್ತೀರಾ?"
 
 #: ../app/filedlg.c:436
 msgid "Save Diagram"
@@ -810,7 +835,7 @@ msgstr "ಇದಕ್ಕಾಗಿ ಹುಡುಕು(_S):"
 
 #: ../app/find-and-replace.c:466
 msgid "Replace _with:"
-msgstr ""
+msgstr "ಇದರಿಂದ ಬದಲಾಯಿಸು(_w):"
 
 #: ../app/find-and-replace.c:476
 msgid "_Match case"
@@ -950,7 +975,7 @@ msgstr ""
 #: ../app/interface.c:1336
 #, c-format
 msgid "No sheet named %s"
-msgstr ""
+msgstr "%s ಹೆಸರಿನ ಯಾವುದೆ ಹಾಳೆ ಇಲ್ಲ"
 
 #: ../app/interface.c:1374
 msgid "Other sheets"
@@ -1081,14 +1106,14 @@ msgstr ""
 
 #: ../app/load_save.c:416
 msgid "You must specify a file, not a directory.\n"
-msgstr ""
+msgstr "ನೀವು ಒಂದು ಕಡತವನ್ನು ಸೂಚಿಸಬೇಕೆ ಹೊರತು ಕೋಶವನ್ನಲ್ಲ.\n"
 
 #: ../app/load_save.c:423 ../plug-ins/dxf/dxf-import.c:1309
 #: ../plug-ins/wpg/wpg.c:1177 ../plug-ins/xfig/xfig-import.c:1270
 #: ../plug-ins/xslt/xslt.c:91
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
-msgstr ""
+msgstr "ತೆರೆಯಲಾಗಿಲ್ಲ: '%s' ಅನ್ನು ಓದಲು.\n"
 
 #: ../app/load_save.c:441 ../app/load_save.c:447
 #, c-format
@@ -1115,12 +1140,12 @@ msgstr ""
 #: ../app/load_save.c:995
 #, c-format
 msgid "Not allowed to write to output file %s\n"
-msgstr ""
+msgstr "ಔಟ್‌ಪುಟ್ ಕಡತ %s ಕ್ಕೆ ಬರೆಯಲು ಅನುಮತಿ ಇಲ್ಲ\n"
 
 #: ../app/load_save.c:1027
 #, c-format
 msgid "Not allowed to write temporary files in %s\n"
-msgstr ""
+msgstr "%s ನಲ್ಲಿ ತಾತ್ಕಾಲಿಕ ಕಡತಗಳನ್ನು ಬರೆಯಲು ಅನುಮತಿ ಇಲ್ಲ\n"
 
 #: ../app/load_save.c:1049 ../plug-ins/cairo/diacairo.c:121
 #: ../plug-ins/cgm/cgm.c:1154 ../plug-ins/drs/dia-render-script.c:121
@@ -1134,14 +1159,14 @@ msgstr ""
 #: ../plug-ins/xfig/xfig-export.c:1151 ../plug-ins/xslt/xslt.c:99
 #, c-format
 msgid "Can't open output file %s: %s\n"
-msgstr ""
+msgstr "ಔಟ್‌ಪುಟ್ ಕಡತ %s ಅನ್ನು ತೆರೆಯಲು ಸಾಧ್ಯವಾಗಿಲ್ಲ: %s\n"
 
 #. Save failed; we clean our stuff up, without touching the file named
 #. "filename" if it existed.
 #: ../app/load_save.c:1060
 #, c-format
 msgid "Internal error %d writing file %s\n"
-msgstr ""
+msgstr "ಅಂತರಿಕ ದೋಷ %d (ಕಡತ %s ಕ್ಕೆ ಬರೆಯುವಾಗ)\n"
 
 #: ../app/load_save.c:1071
 #, c-format
@@ -1236,11 +1261,11 @@ msgstr "ಪದರದ ಹೆಸರನ್ನು ಬದಲಾಯಿಸು..."
 
 #: ../app/menus.c:145
 msgid "Move selection to layer above"
-msgstr ""
+msgstr "ಆಯ್ಕೆಯನ್ನು ಮೇಲಿನ ಪದರಕ್ಕೆ ಜರುಗಿಸು"
 
 #: ../app/menus.c:146
 msgid "Move selection to layer below"
-msgstr ""
+msgstr "ಆಯ್ಕೆಯನ್ನು ಕೆಳಗಿನ ಪದರಕ್ಕೆ ಜರುಗಿಸು"
 
 #: ../app/menus.c:147
 msgid "_Layers..."
@@ -1305,7 +1330,7 @@ msgstr "ಹೊಸ ನೋಟ(_V)"
 
 #: ../app/menus.c:171
 msgid "C_lone View"
-msgstr ""
+msgstr "ತದ್ರೂಪು ನೋಟ(_l)"
 
 #: ../app/menus.c:174
 msgid "_Objects"
@@ -1337,9 +1362,8 @@ msgid "_Ungroup"
 msgstr "ಚದುರಿಸು(_U)"
 
 #: ../app/menus.c:184
-#, fuzzy
 msgid "_Parent"
-msgstr "ಮೂಲ(_P)"
+msgstr ""
 
 #: ../app/menus.c:185
 msgid "_Unparent"
@@ -1426,7 +1450,7 @@ msgstr "ಸಂವಾದಗಳು(_i)"
 
 #: ../app/menus.c:221
 msgid "D_ebug"
-msgstr ""
+msgstr "ದೋಷ ನಿವಾರಣೆ(_e)"
 
 #: ../app/menus.c:227
 msgid "_Tools"
@@ -1442,7 +1466,7 @@ msgstr "ಪಠ್ಯವನ್ನು ಬದಲಾಯಿಸು"
 
 #: ../app/menus.c:231
 msgid "Scroll"
-msgstr ""
+msgstr "ಚಲಿಸು"
 
 #: ../app/menus.c:254
 msgid "Fullscr_een"
@@ -1491,7 +1515,7 @@ msgstr "ತೆಗೆದು ಹಾಕು"
 #. Cannot also be called Invert, duplicate names caused keybinding problems
 #: ../app/menus.c:272
 msgid "Inverse"
-msgstr ""
+msgstr "ವಿಲೋಮ"
 
 #: ../app/menus.c:336
 msgid "NULL tooldata in tool_menu_select"
@@ -1564,7 +1588,7 @@ msgstr "ಕಡತದ ಹೆಸರು"
 
 #: ../app/preferences.c:100 ../app/preferences.c:145
 msgid "any"
-msgstr ""
+msgstr "ಯಾವುದಾದರೂ"
 
 #: ../app/preferences.c:119
 msgid "User Interface"
@@ -1576,7 +1600,7 @@ msgstr ""
 
 #: ../app/preferences.c:121
 msgid "View Defaults"
-msgstr ""
+msgstr "ಪೂರ್ವನಿಯೋಜಿತಗಳನ್ನು ನೋಡು"
 
 #: ../app/preferences.c:122
 msgid "Favorites"
@@ -1638,7 +1662,7 @@ msgstr "ಹಿನ್ನಲೆ ಬಣ್ಣ:"
 
 #: ../app/preferences.c:201
 msgid "Compress saved files"
-msgstr ""
+msgstr "ಉಳಿಸಲಾದ ಕಡತಗಳನ್ನು ಸಂಕುಚಿತಗೊಳಿಸು"
 
 #: ../app/preferences.c:204
 msgid "Connection Points:"
@@ -1712,11 +1736,11 @@ msgstr ""
 
 #: ../app/preferences.c:234
 msgid "Windows MetaFile"
-msgstr ""
+msgstr "ವಿಂಡೋಸ್ ಮೆಟಾಕಡತ"
 
 #: ../app/preferences.c:236
 msgid "Enhanced MetaFile"
-msgstr ""
+msgstr "ವರ್ಧಿತ ಮೆಟಾಕಡತ"
 
 #: ../app/preferences.c:241
 msgid "Snap to"
@@ -1753,7 +1777,7 @@ msgstr ""
 
 #: ../app/preferences.c:262
 msgid "Save hidden object types"
-msgstr ""
+msgstr "ಅಡಗಿಸಲಾದ ವಸ್ತು ಬಗೆಗಳನ್ನು ಉಳಿಸು"
 
 #: ../app/preferences.c:490 ../lib/prop_inttypes.c:158
 msgid "Yes"
@@ -1882,11 +1906,11 @@ msgstr "ಹಾಳೆಯ ಹೆಸರು:"
 #: ../app/sheets_dialog.c:447 ../app/sheets_dialog_callbacks.c:292
 #: ../app/sheets_dialog_callbacks.c:1109
 msgid "Line Break"
-msgstr ""
+msgstr "ಸಾಲಿನ ತಡೆ"
 
 #: ../app/sheets_dialog.c:569
 msgid "Edit Attributes"
-msgstr ""
+msgstr "ಗುಣವಿಶೇಷಗಳನ್ನು ಸಂಪಾದಿಸು"
 
 #: ../app/sheets_dialog.c:584
 msgid "DiaObject"
@@ -1929,7 +1953,7 @@ msgstr "ಹಾಳೆ:"
 
 #: ../app/sheets_dialog.c:921
 msgid "Select SVG Shape File"
-msgstr ""
+msgstr "SVG ಆಕಾರ ಕಡತವನ್ನು ಆಯ್ಕೆ ಮಾಡು"
 
 #: ../app/sheets_dialog_callbacks.c:167
 msgid "Copy ->"
@@ -1953,6 +1977,8 @@ msgid ""
 "%s\n"
 "Shape"
 msgstr ""
+"%s\n"
+"ಆಕಾರ"
 
 #: ../app/sheets_dialog_callbacks.c:309
 #, c-format
@@ -1973,12 +1999,12 @@ msgstr ""
 #: ../app/sheets_dialog_callbacks.c:803
 #, c-format
 msgid "Filename must end with '%s': '%s'"
-msgstr ""
+msgstr "ಕಡತದ ಹೆಸರು '%s' ನೊಂದಿಗೆ ಅಂತ್ಯಗೊಳ್ಳಬೇಕು: '%s'"
 
 #: ../app/sheets_dialog_callbacks.c:811
 #, c-format
 msgid "Error examining %s: %s"
-msgstr ""
+msgstr "%s ಅನ್ನು ಪರಿಶೀಲಿಸುವಲ್ಲಿ ದೋಷ: %s"
 
 #: ../app/sheets_dialog_callbacks.c:842
 msgid "Please export the diagram as a shape."
@@ -2020,7 +2046,7 @@ msgstr "ದಿನಾಂಕ: %s"
 #: ../app/sheets_dialog_callbacks.c:1710
 #, c-format
 msgid "For: %s"
-msgstr ""
+msgstr "ಇದಕ್ಕಾಗಿ: %s"
 
 #: ../app/sheets_dialog_callbacks.c:1727
 msgid "add shapes here"
@@ -2168,9 +2194,8 @@ msgid "Open Round"
 msgstr ""
 
 #: ../lib/arrows.c:1914
-#, fuzzy
 msgid "Backslash"
-msgstr "Backslash"
+msgstr ""
 
 #: ../lib/arrows.c:1915
 msgid "Infinite Line"
@@ -2187,7 +2212,7 @@ msgstr ""
 
 #: ../lib/arrows.c:2184
 msgid "unknown arrow"
-msgstr ""
+msgstr "ಗೊತ್ತಿರದ ದೋಷ"
 
 #: ../lib/bezier_conn.c:636
 msgid "Internal error: Setting corner type of endpoint of bezier"
@@ -2254,7 +2279,7 @@ msgstr ""
 
 #: ../lib/diaarrowchooser.c:352
 msgid "Arrow Properties"
-msgstr ""
+msgstr "ಬಾಣದ ಗುಣಗಳು"
 
 #: ../lib/dialinechooser.c:297
 msgid "Line Style Properties"
@@ -2309,7 +2334,7 @@ msgstr "ಸೂಚನೆ"
 
 #: ../lib/newgroup.c:124
 msgid "Open group"
-msgstr ""
+msgstr "ಮುಕ್ತ ಸಮೂಹ"
 
 #: ../lib/object_defaults.c:128
 #, c-format
@@ -2333,12 +2358,12 @@ msgstr ""
 
 #: ../lib/plug-ins.c:205 ../lib/plug-ins.c:213
 msgid "dia_plugin_init() call failed"
-msgstr ""
+msgstr "dia_plugin_init() ಕರೆ ವಿಫಲಗೊಂಡಿದೆ"
 
 #: ../lib/plug-ins.c:232
 #, c-format
 msgid "%s Plugin could not be unloaded"
-msgstr ""
+msgstr "%s ಪ್ಲಗ್‌ಇನ್‌ ಅನ್ನು ಲೋಡ್ ಮಾಡಲು ಸಾಧ್ಯವಾಗಿಲ್ಲ"
 
 #: ../lib/plug-ins.c:303
 #, c-format
@@ -2346,6 +2371,8 @@ msgid ""
 "Could not open `%s'\n"
 "`%s'"
 msgstr ""
+"`%s' ಅನ್ನು ತೆರೆಯಲು ಸಾಧ್ಯವಾಗಿಲ್ಲ\n"
+"`%s'"
 
 #: ../lib/prop_dict.c:43
 msgid "Author"
@@ -2357,11 +2384,11 @@ msgstr "ಪತ್ತೆಗಾರ"
 
 #: ../lib/prop_dict.c:45
 msgid "Creation date"
-msgstr ""
+msgstr "ರಚಿಸಲಾದ ದಿನಾಂಕ"
 
 #: ../lib/prop_dict.c:46
 msgid "Modification date"
-msgstr ""
+msgstr "ಮಾರ್ಪಡಿಸಲಾದ ದಿನಾಂಕ"
 
 #: ../lib/prop_dict.c:47 ../objects/SISSI/sissi_dialog.c:880
 msgid "URL"
@@ -2393,28 +2420,27 @@ msgstr "ಬಲ"
 #: ../objects/chronogram/chronoline.c:181
 #: ../objects/chronogram/chronoref.c:160
 msgid "Line color"
-msgstr ""
+msgstr "ರೇಖೆಯ ಬಣ್ಣ"
 
 #: ../lib/properties.c:75 ../lib/properties.h:503 ../lib/properties.h:506
 msgid "Line style"
-msgstr ""
+msgstr "ರೇಖೆಯ ಶೈಲಿ"
 
 #: ../lib/properties.c:76 ../lib/properties.h:510 ../lib/properties.h:513
 msgid "Fill color"
 msgstr "ಬಣ್ಣವನ್ನು ತುಂಬಿಸು"
 
 #: ../lib/properties.c:77 ../lib/properties.h:516 ../lib/properties.h:519
-#, fuzzy
 msgid "Draw background"
-msgstr "ಹಿನ್ನಲೆಯನ್ನು ಎಳೆ"
+msgstr ""
 
 #: ../lib/properties.c:78 ../lib/properties.h:523
 msgid "Start arrow"
-msgstr ""
+msgstr "ಬಾಣದ ಆರಂಭ"
 
 #: ../lib/properties.c:79 ../lib/properties.h:526
 msgid "End arrow"
-msgstr ""
+msgstr "ಬಾಣದ ಕೊನೆ"
 
 #: ../lib/properties.c:81 ../lib/properties.h:536
 msgid "Text alignment"
@@ -2434,7 +2460,6 @@ msgstr "ಅಕ್ಷರಶೈಲಿ"
 #: ../objects/GRAFCET/condition.c:136 ../objects/GRAFCET/step.c:169
 #: ../objects/GRAFCET/transition.c:146 ../objects/chronogram/chronoline.c:187
 #: ../objects/chronogram/chronoref.c:168
-#, fuzzy
 msgid "Font size"
 msgstr "ಅಕ್ಷರಶೈಲಿಯ ಗಾತ್ರ"
 
@@ -2511,7 +2536,7 @@ msgstr ""
 
 #: ../lib/widgets.c:920
 msgid "Dotted"
-msgstr ""
+msgstr "ಚುಕ್ಕಿಯಿಂದ ಕೂಡಿದ"
 
 #. fs->sizebox = GTK_HBOX(box);
 #: ../lib/widgets.c:938
@@ -2520,15 +2545,15 @@ msgstr ""
 
 #: ../lib/widgets.c:1066
 msgid "Select color"
-msgstr ""
+msgstr "ಬಣ್ಣವನ್ನು ಆಯ್ಕೆ ಮಾಡು"
 
 #: ../lib/widgets.c:1132
 msgid "More colors..."
-msgstr ""
+msgstr "ಇನ್ನಷ್ಟು ಬಣ್ಣಗಳು..."
 
 #: ../lib/widgets.c:1280
 msgid "More arrows"
-msgstr ""
+msgstr "ಇನ್ನಷ್ಟು ಬಾಣಗಳು"
 
 #: ../lib/widgets.c:1297
 msgid "Size: "
@@ -2536,7 +2561,7 @@ msgstr "ಗಾತ್ರ: "
 
 #: ../lib/widgets.c:1475
 msgid "Select image file"
-msgstr ""
+msgstr "ಚಿತ್ರಕಡತವನ್ನು ಆಯ್ಕೆ ಮಾಡಿ"
 
 #: ../lib/widgets.c:1523
 msgid "Browse"
@@ -2563,7 +2588,7 @@ msgstr ""
 #. Installer message:  License Page
 #: ../installer/win32/gennsh.c:44
 msgid "Next >"
-msgstr ""
+msgstr "ಮುಂದಕ್ಕೆ >"
 
 #. Installer message, keep the $(^Name) and $_CLICK, these will be replaced
 #: ../installer/win32/gennsh.c:47
@@ -2590,12 +2615,12 @@ msgstr ""
 #. Installer message: Component description
 #: ../installer/win32/gennsh.c:59
 msgid "Core Dia files and dlls"
-msgstr ""
+msgstr "ಪ್ರಮುಖ Dia ಕಡತಗಳು ಹಾಗು dlls"
 
 #. Installer message: Component name
 #: ../installer/win32/gennsh.c:62
 msgid "Python plug-in"
-msgstr ""
+msgstr "ಪೈಥಾನ್ ಪ್ಲಗ್‌ಇನ್‌"
 
 #. Installer message: Component description
 #: ../installer/win32/gennsh.c:65
@@ -2612,7 +2637,7 @@ msgstr ""
 #. Installer message: Dia uninstaller entry in Control Panel
 #: ../installer/win32/gennsh.c:71
 msgid "Dia (remove only)"
-msgstr ""
+msgstr "Dia (ತೆಗೆದು ಹಾಕಲು ಮಾತ್ರ)"
 
 #. Installer message: confirmation question. Keep $\r
 #: ../installer/win32/gennsh.c:74
@@ -2760,13 +2785,12 @@ msgstr ""
 #: ../objects/UML/class.c:189 ../objects/UML/class_dialog.c:595
 #: ../objects/UML/umlattribute.c:43 ../objects/UML/umloperation.c:66
 #: ../objects/UML/umlparameter.c:49 ../sheets/SDL.sheet.in.h:3
-#, fuzzy
 msgid "Comment"
 msgstr "ಟಿಪ್ಪಣಿ"
 
 #: ../objects/Database/table.c:144
 msgid "Primary key"
-msgstr ""
+msgstr "ಪ್ರಾಥಮಿಕ ಕೀಲಿ"
 
 #: ../objects/Database/table.c:146
 msgid "Nullable"
@@ -2774,11 +2798,11 @@ msgstr ""
 
 #: ../objects/Database/table.c:148
 msgid "Unique"
-msgstr ""
+msgstr "ವಿಶಿಷ್ಟ"
 
 #: ../objects/Database/table.c:185
 msgid "Visible comments"
-msgstr ""
+msgstr "ಗೋಚರಿಸುವ ಟಿಪ್ಪಣಿಗಳು"
 
 #: ../objects/Database/table.c:187 ../objects/UML/class.c:171
 msgid "Comment tagging"
@@ -2786,22 +2810,22 @@ msgstr ""
 
 #: ../objects/Database/table.c:189 ../objects/Database/table_dialog.c:976
 msgid "Underline primary keys"
-msgstr ""
+msgstr "ಪ್ರಾಥಮಿಕ ಕೀಲಿಗಳ ಕೆಳಗೆ ಅಡಿಗೆರೆಯನ್ನು ಎಳೆ"
 
 #: ../objects/Database/table.c:191 ../objects/Database/table_dialog.c:981
+#, fuzzy
 msgid "Use bold font for primary keys"
-msgstr ""
+msgstr "ಪ್ರಾಥಮಿಕ ಕೀಲಿಗಳಿಗಾಗಿ "
 
 #. property rows
 #: ../objects/Database/table.c:196 ../objects/SADT/arrow.c:136
 #: ../objects/UML/class.c:179 ../objects/UML/class_dialog.c:570
-#, fuzzy
 msgid "Normal"
 msgstr "ಸಾಮಾನ್ಯ"
 
 #: ../objects/Database/table.c:198
 msgid "Tablename"
-msgstr ""
+msgstr "ಕೋಷ್ಟಕದಹೆಸರು"
 
 #: ../objects/Database/table.c:203 ../objects/Database/table.c:205
 #: ../objects/Database/table.c:207 ../objects/Database/reference.c:120
@@ -2811,73 +2835,65 @@ msgstr ""
 #: ../objects/UML/class.c:193 ../objects/UML/class.c:195
 #: ../objects/UML/class.c:197 ../objects/UML/class.c:199
 #: ../objects/UML/class.c:201 ../objects/UML/class.c:203
-#, fuzzy
 msgid " "
 msgstr " "
 
 #: ../objects/Database/table.c:211 ../objects/UML/class.c:209
 #: ../objects/UML/object.c:157
-#, fuzzy
 msgid "Attributes"
 msgstr "ಗುಣವಿಶೇಷಗಳು"
 
 #: ../objects/Database/table.c:248
 msgid "Show comments"
-msgstr ""
+msgstr "ಟಿಪ್ಪಣಿಗಳನ್ನು ತೋರಿಸು"
 
 #. init data
 #: ../objects/Database/table.c:253 ../objects/Database/table.c:356
 #: ../sheets/Database.sheet.in.h:5
-#, fuzzy
 msgid "Table"
 msgstr "ಕೋಷ್ಟಕ"
 
 #. Attributes page:
 #: ../objects/Database/table_dialog.c:611 ../objects/UML/class_dialog.c:1077
 msgid "_Attributes"
-msgstr ""
+msgstr "ಗುಣವಿಶೇಷಗಳು(_A)"
 
 #. the "new" button
 #: ../objects/Database/table_dialog.c:639 ../objects/SISSI/sissi_dialog.c:739
 #: ../objects/SISSI/sissi_dialog.c:871
-#, fuzzy
 msgid "_New"
 msgstr "ಹೊಸ(_N)"
 
 #. the "delete" button
 #: ../objects/Database/table_dialog.c:647
-#, fuzzy
 msgid "_Delete"
 msgstr "ಅಳಿಸಿ ಹಾಕು(_D)"
 
 #. the "Move up" button
 #: ../objects/Database/table_dialog.c:655
-#, fuzzy
 msgid "Move up"
-msgstr "ಮೇಲಕ್ಕೆ ನಡೆಸು"
+msgstr "ಮೇಲಕ್ಕೆ ಜರುಗಿಸು"
 
 #. the "Move down" button
 #: ../objects/Database/table_dialog.c:663
-#, fuzzy
 msgid "Move down"
-msgstr "ಕೆಳಕ್ಕೆ ನಡೆಸು"
+msgstr "ಕೆಳಕ್ಕೆ ಜರುಗಿಸು"
 
 #: ../objects/Database/table_dialog.c:673 ../objects/UML/class_dialog.c:1134
 msgid "Attribute data"
-msgstr ""
+msgstr "ಗುಣವಿಶೇಷ ದತ್ತಾಂಶ"
 
 #: ../objects/Database/table_dialog.c:707
 #: ../objects/Database/table_dialog.c:946
 #: ../objects/Database/table_dialog.c:1051 ../objects/UML/class_dialog.c:452
 #: ../objects/UML/class_dialog.c:1177 ../objects/UML/class_dialog.c:2107
 #: ../objects/UML/class_dialog.c:2279
-#, fuzzy
 msgid "Comment:"
 msgstr "ಟಿಪ್ಪಣಿ:"
 
 #: ../objects/Database/table_dialog.c:726
 msgid "_Primary key"
-msgstr ""
+msgstr "ಪ್ರಾಥಮಿಕ ಕೀಲಿ(_P)"
 
 #: ../objects/Database/table_dialog.c:733
 msgid "N_ullable"
@@ -2885,16 +2901,15 @@ msgstr ""
 
 #: ../objects/Database/table_dialog.c:740
 msgid "Uni_que"
-msgstr ""
+msgstr "ವಿಶಿಷ್ಟ(_q)"
 
 #: ../objects/Database/table_dialog.c:928
-#, fuzzy
 msgid "_Table"
-msgstr "ಪಟ್ಟಿ(_T)"
+msgstr "ಕೋಷ್ಟಕ(_T)"
 
 #: ../objects/Database/table_dialog.c:936
 msgid "Table name:"
-msgstr ""
+msgstr "ಕೋಷ್ಟಕದ ಹೆಸರು:"
 
 #. XXX create a handler and disable the 'show documentation tag' checkbox
 #. if 'comment visible' is not active.
@@ -2908,13 +2923,12 @@ msgstr ""
 
 #. * Fonts and Colors selection *
 #: ../objects/Database/table_dialog.c:1010 ../objects/UML/class_dialog.c:551
-#, fuzzy
 msgid "_Style"
 msgstr "ಶೈಲಿ(_S)"
 
 #: ../objects/Database/table_dialog.c:1021
 msgid "Border width:"
-msgstr ""
+msgstr "ಅಂಚಿನ ಅಗಲ:"
 
 #. head line
 #: ../objects/Database/table_dialog.c:1034 ../objects/UML/class_dialog.c:561
@@ -2923,34 +2937,33 @@ msgid "Kind"
 msgstr ""
 
 #: ../objects/Database/table_dialog.c:1038 ../objects/UML/class_dialog.c:566
-#, fuzzy
 msgid "Size"
 msgstr "ಗಾತ್ರ"
 
 #: ../objects/Database/table_dialog.c:1041
 msgid "Normal:"
-msgstr ""
+msgstr "ಸಾಮಾನ್ಯ:"
 
 #: ../objects/Database/table_dialog.c:1062
 msgid "Text Color:"
-msgstr ""
+msgstr "ಪಠ್ಯದ ಬಣ್ಣ:"
 
 #: ../objects/Database/table_dialog.c:1070
 msgid "Foreground Color:"
-msgstr ""
+msgstr "ಮುನ್ನೆಲೆ ಬಣ್ಣ:"
 
 #. two chars at the beginning
 #: ../objects/Database/table_dialog.c:1383
 msgid "not null"
-msgstr ""
+msgstr "ಶೂನ್ಯವಲ್ಲ"
 
 #: ../objects/Database/table_dialog.c:1384
 msgid "null"
-msgstr ""
+msgstr "ಶೂನ್ಯ"
 
 #: ../objects/Database/table_dialog.c:1385
 msgid "unique"
-msgstr ""
+msgstr "ವಿಶಿಷ್ಟವಾದ"
 
 #: ../objects/Database/reference.c:108 ../objects/flowchart/box.c:152
 #: ../objects/standard/box.c:152 ../objects/standard/polyline.c:136
@@ -2960,11 +2973,11 @@ msgstr ""
 
 #: ../objects/Database/reference.c:111
 msgid "Start description"
-msgstr ""
+msgstr "ವಿವರಣೆಯ ಆರಂಭ"
 
 #: ../objects/Database/reference.c:113
 msgid "End description"
-msgstr ""
+msgstr "ವಿವರಣೆಯ ಅಂತ್ಯ"
 
 #: ../objects/Database/reference.c:144 ../objects/ER/participation.c:408
 #: ../objects/FS/flow-ortho.c:626 ../objects/GRAFCET/vector.c:314
@@ -2985,17 +2998,16 @@ msgid "Delete segment"
 msgstr ""
 
 #: ../objects/Database/reference.c:151 ../sheets/Database.sheet.in.h:4
-#, fuzzy
 msgid "Reference"
 msgstr "ಉಲ್ಲೇಖ"
 
 #: ../objects/ER/attribute.c:157
 msgid "Key:"
-msgstr ""
+msgstr "ಕೀಲಿ:"
 
 #: ../objects/ER/attribute.c:159
 msgid "Weak key:"
-msgstr ""
+msgstr "ದುರ್ಭಲ ಮೌಲ್ಯ:"
 
 #: ../objects/ER/attribute.c:161
 msgid "Derived:"
@@ -3003,16 +3015,15 @@ msgstr ""
 
 #: ../objects/ER/attribute.c:163
 msgid "Multivalue:"
-msgstr ""
+msgstr "ಬಹುಮೌಲ್ಯ:"
 
 #: ../objects/ER/attribute.c:436 ../sheets/ER.sheet.in.h:1
-#, fuzzy
 msgid "Attribute"
 msgstr "ಗುಣವಿಶೇಷ"
 
 #: ../objects/ER/entity.c:139
 msgid "Weak:"
-msgstr ""
+msgstr "ದುರ್ಭಲ:"
 
 #: ../objects/ER/entity.c:141
 msgid "Associative:"
@@ -3020,16 +3031,14 @@ msgstr ""
 
 #: ../objects/ER/entity.c:415 ../objects/UML/classicon.c:131
 #: ../sheets/ER.sheet.in.h:4
-#, fuzzy
 msgid "Entity"
-msgstr "ಎಂಟಿಟಿ"
+msgstr ""
 
 #: ../objects/ER/er.c:44
 msgid "Entity/Relationship diagram objects"
 msgstr ""
 
 #: ../objects/ER/participation.c:118
-#, fuzzy
 msgid "Total:"
 msgstr "ಒಟ್ಟು:"
 
@@ -3043,21 +3052,20 @@ msgstr ""
 
 #: ../objects/ER/relationship.c:148
 msgid "Rotate:"
-msgstr ""
+msgstr "ತಿರುಗಿಸು:"
 
 #: ../objects/ER/relationship.c:150
 msgid "Identifying:"
-msgstr ""
+msgstr "ಗುರುತಿಸು:"
 
 #: ../objects/ER/relationship.c:459 ../sheets/ER.sheet.in.h:6
 msgid "Relationship"
-msgstr ""
+msgstr "ಸಂಬಂಧ"
 
 #. Translators: Menu item Noun/Energy
 #: ../objects/FS/flow-ortho.c:160 ../objects/FS/flow-ortho.c:623
 #: ../objects/FS/flow.c:137 ../objects/FS/flow.c:625
 #: ../objects/FS/function.c:1098
-#, fuzzy
 msgid "Energy"
 msgstr "ಶಕ್ತಿ"
 
@@ -3076,9 +3084,8 @@ msgstr ""
 #: ../objects/FS/flow.c:139 ../objects/FS/flow.c:627
 #: ../objects/FS/function.c:1036 ../objects/FS/function.c:1038
 #: ../objects/FS/function.c:1174 ../objects/FS/function.c:1176
-#, fuzzy
 msgid "Signal"
-msgstr "ಸಿಗ್ನಲ್"
+msgstr "ಸಂಜ್ಞೆ ಮಾಡು"
 
 #: ../objects/FS/fs.c:43
 msgid "Function structure diagram objects"
@@ -3095,7 +3102,7 @@ msgstr ""
 #. Translators: Menu item Verb
 #: ../objects/FS/function.c:678
 msgid "Verb"
-msgstr ""
+msgstr "ಕ್ರಿಯಾಪದ"
 
 #. Translators: Menu item Verb/Channel
 #. Translators: Menu item Verb/Channel/Channel
@@ -3108,26 +3115,24 @@ msgstr ""
 #. Translators: Menu item Verb/Channel/Import
 #. Translators: Menu item Verb/Channel/Import/Import
 #: ../objects/FS/function.c:684 ../objects/FS/function.c:686
-#, fuzzy
 msgid "Import"
-msgstr "ಆಮದು"
+msgstr "ಆಮದು ಮಾಡು"
 
 #. Translators: Menu item Verb/Channel/Import/Input
 #: ../objects/FS/function.c:688 ../objects/KAOS/metabinrel.c:165
-#, fuzzy
 msgid "Input"
 msgstr "ಇನ್‌ಪುಟ್‌"
 
 #. Translators: Menu item Verb/Channel/Import/Receive
 #: ../objects/FS/function.c:690
 msgid "Receive"
-msgstr ""
+msgstr "ಸ್ವೀಕರಿಸು"
 
 #. Translators: Menu item Verb/Channel/Import/Allow
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Allow
 #: ../objects/FS/function.c:692 ../objects/FS/function.c:964
 msgid "Allow"
-msgstr ""
+msgstr "ಅನುಮತಿಸು"
 
 #. Translators: Menu item Verb/Channel/Import/Form Entrance
 #: ../objects/FS/function.c:694
@@ -3138,7 +3143,7 @@ msgstr ""
 #. Translators: Menu item Verb/Provision/Store/Capture
 #: ../objects/FS/function.c:696 ../objects/FS/function.c:930
 msgid "Capture"
-msgstr ""
+msgstr "ಸೆರೆಹಿಡಿ"
 
 #. Translators: Menu item Verb/Channel/Export/Discharge
 #: ../objects/FS/function.c:702
@@ -3147,7 +3152,6 @@ msgstr ""
 
 #. Translators: Menu item Verb/Channel/Export/Eject
 #: ../objects/FS/function.c:704
-#, fuzzy
 msgid "Eject"
 msgstr "ಹೊರತಳ್ಳು"
 
@@ -3161,7 +3165,6 @@ msgstr ""
 #. Translators: Menu item Verb/Channel/Transfer/Transmit/Transfer
 #: ../objects/FS/function.c:710 ../objects/FS/function.c:712
 #: ../objects/FS/function.c:730
-#, fuzzy
 msgid "Transfer"
 msgstr "ವರ್ಗಾಯಿಸು"
 
@@ -3170,16 +3173,15 @@ msgstr "ವರ್ಗಾಯಿಸು"
 #: ../objects/FS/function.c:714 ../objects/FS/function.c:716
 #, fuzzy
 msgid "Transport"
-msgstr "ವರ್ಗಾವಣೆ"
+msgstr "ವರ್ಗಾಯಿಸು"
 
 #. Translators: Menu item Verb/Channel/Transfer/Transport/Lift
 #: ../objects/FS/function.c:718
 msgid "Lift"
-msgstr ""
+msgstr "ಎತ್ತು"
 
 #. Translators: Menu item Verb/Channel/Transfer/Transport/Move
 #: ../objects/FS/function.c:720
-#, fuzzy
 msgid "Move"
 msgstr "ಸ್ಥಳಾಂತರಿಸು"
 
@@ -3214,7 +3216,6 @@ msgstr ""
 
 #. Translators: Menu item Verb/Channel/Guide/Guide/Straighten
 #: ../objects/FS/function.c:742
-#, fuzzy
 msgid "Straighten"
 msgstr "ನೇರಗೊಳಿಸು"
 
@@ -3226,7 +3227,7 @@ msgstr ""
 #. Translators: Menu item Verb/Channel/Guide/Translate
 #: ../objects/FS/function.c:746
 msgid "Translate"
-msgstr ""
+msgstr "ಅನುವಾದಿಸು"
 
 #. Translators: Menu item Verb/Channel/Guide/Rotate
 #. Translators: Menu item Verb/Channel/Guide/Rotate/Rotate
@@ -3243,13 +3244,13 @@ msgstr ""
 #. Translators: Menu item Verb/Channel/Guide/Rotate/Spin
 #: ../objects/FS/function.c:754
 msgid "Spin"
-msgstr ""
+msgstr "ತಿರುಗಿಸು"
 
 #. Translators: Menu item Verb/Channel/Guide/Allow DOF
 #. Translators: Menu item Verb/Channel/Guide/Allow DOF/Allow DOF
 #: ../objects/FS/function.c:756 ../objects/FS/function.c:758
 msgid "Allow DOF"
-msgstr ""
+msgstr "DOF ಅನ್ನು ಅನುಮತಿಸು"
 
 #. Translators: Menu item Verb/Channel/Guide/Allow DOF/Constrain
 #: ../objects/FS/function.c:760
@@ -3258,22 +3259,19 @@ msgstr ""
 
 #. Translators: Menu item Verb/Channel/Guide/Allow DOF/Unlock
 #: ../objects/FS/function.c:762
-#, fuzzy
 msgid "Unlock"
-msgstr "ಅನ್‌ಲಾಕ್ ಮಾಡು"
+msgstr ""
 
 #. Translators: Menu item Verb/Support
 #. Translators: Menu item Verb/Support/Support
 #: ../objects/FS/function.c:764 ../objects/FS/function.c:766
-#, fuzzy
 msgid "Support"
-msgstr "ಬೆಂಬಲ"
+msgstr "ಬೆಂಬಲಿಸು"
 
 #. Translators: Menu item Verb/Support/Stop
 #. Translators: Menu item Verb/Support/Stop/Stop
 #: ../objects/FS/function.c:768 ../objects/FS/function.c:770
 #: ../sheets/SDL.sheet.in.h:19
-#, fuzzy
 msgid "Stop"
 msgstr "ನಿಲ್ಲಿಸು"
 
@@ -3285,13 +3283,13 @@ msgstr ""
 #. Translators: Menu item Verb/Support/Stop/Protect
 #: ../objects/FS/function.c:774
 msgid "Protect"
-msgstr ""
+msgstr "ಸಂರಕ್ಷಿಸು"
 
 #. Translators: Menu item Verb/Support/Stop/Prevent
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Prevent
 #: ../objects/FS/function.c:776 ../objects/FS/function.c:966
 msgid "Prevent"
-msgstr ""
+msgstr "ತಡೆಹಿಡಿ"
 
 #. Translators: Menu item Verb/Support/Stop/Shield
 #: ../objects/FS/function.c:778
@@ -3312,18 +3310,17 @@ msgstr ""
 #. Translators: Menu item Verb/Support/Stabilize/Steady
 #: ../objects/FS/function.c:786
 msgid "Steady"
-msgstr ""
+msgstr "ಸ್ಥಿರ"
 
 #. Translators: Menu item Verb/Support/Secure
 #. Translators: Menu item Verb/Support/Secure/Secure
 #: ../objects/FS/function.c:788 ../objects/FS/function.c:790
 msgid "Secure"
-msgstr ""
+msgstr "ಸುರಕ್ಷಿತಗೊಳಿಸು"
 
 #. Translators: Menu item Verb/Support/Secure/Attach
 #. Translators: Menu item Verb/Connect/Couple/Attach
 #: ../objects/FS/function.c:792 ../objects/FS/function.c:824
-#, fuzzy
 msgid "Attach"
 msgstr "ಲಗತ್ತಿಸು"
 
@@ -3334,9 +3331,8 @@ msgstr ""
 
 #. Translators: Menu item Verb/Support/Secure/Lock
 #: ../objects/FS/function.c:796 ../sheets/ciscomisc.sheet.in.h:19
-#, fuzzy
 msgid "Lock"
-msgstr "ಲಾಕ್"
+msgstr "ಬಂಧಿಸು"
 
 #. Translators: Menu item Verb/Support/Secure/Fasten
 #: ../objects/FS/function.c:798
@@ -3346,7 +3342,7 @@ msgstr ""
 #. Translators: Menu item Verb/Support/Secure/Hold
 #: ../objects/FS/function.c:800
 msgid "Hold"
-msgstr ""
+msgstr "ತಡೆಹಿಡಿ"
 
 #. Translators: Menu item Verb/Support/Position
 #. Translators: Menu item Verb/Support/Position/Position
@@ -3365,12 +3361,11 @@ msgstr ""
 #. Translators: Menu item Verb/Signal/Sense/Locate
 #: ../objects/FS/function.c:810 ../objects/FS/function.c:1052
 msgid "Locate"
-msgstr ""
+msgstr "ಪತ್ತೆ ಮಾಡು"
 
 #. Translators: Menu item Verb/Connect
 #. Translators: Menu item Verb/Connect/Connect
 #: ../objects/FS/function.c:812 ../objects/FS/function.c:814
-#, fuzzy
 msgid "Connect"
 msgstr "ಸಂಪರ್ಕ ಕಲ್ಪಿಸು"
 
@@ -3378,24 +3373,23 @@ msgstr "ಸಂಪರ್ಕ ಕಲ್ಪಿಸು"
 #. Translators: Menu item Verb/Connect/Couple/Couple
 #: ../objects/FS/function.c:816 ../objects/FS/function.c:818
 msgid "Couple"
-msgstr ""
+msgstr "ಜೋಡಿ"
 
 #. Translators: Menu item Verb/Connect/Couple/Join
 #: ../objects/FS/function.c:820
-#, fuzzy
 msgid "Join"
-msgstr "ಸೇರು"
+msgstr "ಸೇರಿಸು"
 
 #. Translators: Menu item Verb/Connect/Couple/Assemble
 #: ../objects/FS/function.c:822
 msgid "Assemble"
-msgstr ""
+msgstr "ಜೋಡಿಸು"
 
 #. Translators: Menu item Verb/Connect/Mix
 #. Translators: Menu item Verb/Connect/Mix/Mix
 #: ../objects/FS/function.c:826 ../objects/FS/function.c:828
 msgid "Mix"
-msgstr ""
+msgstr "ಮಿಶ್ರಗೊಳಿಸು"
 
 #. Translators: Menu item Verb/Connect/Mix/Combine
 #: ../objects/FS/function.c:830
@@ -3409,7 +3403,6 @@ msgstr ""
 
 #. Translators: Menu item Verb/Connect/Mix/Add
 #: ../objects/FS/function.c:834
-#, fuzzy
 msgid "Add"
 msgstr "ಸೇರಿಸು"
 
@@ -3436,25 +3429,22 @@ msgstr ""
 #: ../objects/FS/function.c:844 ../objects/FS/function.c:846
 #: ../objects/FS/function.c:848
 msgid "Separate"
-msgstr ""
+msgstr "ಬೇರ್ಪಡಿಸು"
 
 #. Translators: Menu item Verb/Branch/Separate/Separate/Switch
 #: ../objects/FS/function.c:850
-#, fuzzy
 msgid "Switch"
-msgstr "ಸ್ವಿಚ್"
+msgstr "ಬದಲಾಯಿಸು"
 
 #. Translators: Menu item Verb/Branch/Separate/Separate/Divide
 #: ../objects/FS/function.c:852
-#, fuzzy
 msgid "Divide"
-msgstr "ಭಾಗಿಸು"
+msgstr "ವಿಭಜಿಸು"
 
 #. Translators: Menu item Verb/Branch/Separate/Separate/Release
 #: ../objects/FS/function.c:854
-#, fuzzy
 msgid "Release"
-msgstr "ಬಿಡುಗಡೆ"
+msgstr "ಬಿಡುಗಡೆಗೊಳಿಸು"
 
 #. Translators: Menu item Verb/Branch/Separate/Separate/Detach
 #: ../objects/FS/function.c:856
@@ -3463,37 +3453,33 @@ msgstr ""
 
 #. Translators: Menu item Verb/Branch/Separate/Separate/Disconnect
 #: ../objects/FS/function.c:858
-#, fuzzy
 msgid "Disconnect"
 msgstr "ಸಂಪರ್ಕ ಕಡಿದು ಹಾಕು"
 
 #. Translators: Menu item Verb/Branch/Separate/Remove/Cut
 #: ../objects/FS/function.c:864
-#, fuzzy
 msgid "Cut"
 msgstr "ಕತ್ತರಿಸು"
 
 #. Translators: Menu item Verb/Branch/Separate/Remove/Polish
 #: ../objects/FS/function.c:866
-#, fuzzy
 msgid "Polish"
-msgstr "ಪೋಲಿಶ್"
+msgstr ""
 
 #. Translators: Menu item Verb/Branch/Separate/Remove/Sand
 #: ../objects/FS/function.c:868
-#, fuzzy
 msgid "Sand"
-msgstr "ಮರಳು"
+msgstr ""
 
 #. Translators: Menu item Verb/Branch/Separate/Remove/Drill
 #: ../objects/FS/function.c:870
 msgid "Drill"
-msgstr ""
+msgstr "ಕೊರೆ"
 
 #. Translators: Menu item Verb/Branch/Separate/Remove/Lathe
 #: ../objects/FS/function.c:872
 msgid "Lathe"
-msgstr ""
+msgstr "ಲೇತ್ ಮಾಡು"
 
 #. Translators: Menu item Verb/Branch/Refine
 #. Translators: Menu item Verb/Branch/Refine/Refine
@@ -3504,7 +3490,7 @@ msgstr ""
 #. Translators: Menu item Verb/Branch/Refine/Purify
 #: ../objects/FS/function.c:878
 msgid "Purify"
-msgstr ""
+msgstr "ಸ್ವಚ್ಛಗೊಳಿಸು"
 
 #. Translators: Menu item Verb/Branch/Refine/Strain
 #: ../objects/FS/function.c:880
@@ -3513,9 +3499,8 @@ msgstr ""
 
 #. Translators: Menu item Verb/Branch/Refine/Filter
 #: ../objects/FS/function.c:882
-#, fuzzy
 msgid "Filter"
-msgstr "ಶೋಧಕ(Filter)"
+msgstr "ಸೋಸು"
 
 #. Translators: Menu item Verb/Branch/Refine/Percolate
 #: ../objects/FS/function.c:884
@@ -3524,15 +3509,14 @@ msgstr ""
 
 #. Translators: Menu item Verb/Branch/Refine/Clear
 #: ../objects/FS/function.c:886
-#, fuzzy
 msgid "Clear"
-msgstr "ಅಳಿಸು"
+msgstr "ತೆರವುಗೊಳಿಸು"
 
 #. Translators: Menu item Verb/Branch/Distribute
 #. Translators: Menu item Verb/Branch/Distribute/Distribute
 #: ../objects/FS/function.c:888 ../objects/FS/function.c:890
 msgid "Distribute"
-msgstr ""
+msgstr "ವಿತರಿಸು"
 
 #. Translators: Menu item Verb/Branch/Distribute/Diverge
 #: ../objects/FS/function.c:892
@@ -3542,7 +3526,7 @@ msgstr ""
 #. Translators: Menu item Verb/Branch/Distribute/Scatter
 #: ../objects/FS/function.c:894
 msgid "Scatter"
-msgstr ""
+msgstr "ಚದುರಿಸು"
 
 #. Translators: Menu item Verb/Branch/Distribute/Disperse
 #: ../objects/FS/function.c:896
@@ -3557,9 +3541,8 @@ msgstr ""
 
 #. Translators: Menu item Verb/Branch/Distribute/Empty
 #: ../objects/FS/function.c:900
-#, fuzzy
 msgid "Empty"
-msgstr "ಖಾಲಿ"
+msgstr "ಖಾಲಿ ಮಾಡು"
 
 #. Translators: Menu item Verb/Branch/Dissipate
 #. Translators: Menu item Verb/Branch/Dissipate/Dissipate
@@ -3570,7 +3553,7 @@ msgstr ""
 #. Translators: Menu item Verb/Branch/Dissipate/Absorb
 #: ../objects/FS/function.c:906
 msgid "Absorb"
-msgstr ""
+msgstr "ಹೀರಿಕೊ"
 
 #. Translators: Menu item Verb/Branch/Dissipate/Dampen
 #: ../objects/FS/function.c:908
@@ -3597,7 +3580,7 @@ msgstr ""
 #. Translators: Menu item Verb/Provision/Store/Store
 #: ../objects/FS/function.c:920 ../objects/FS/function.c:922
 msgid "Store"
-msgstr ""
+msgstr "ಶೇಖರಿಸು"
 
 #. Translators: Menu item Verb/Provision/Store/Contain
 #: ../objects/FS/function.c:924
@@ -3607,29 +3590,28 @@ msgstr ""
 #. Translators: Menu item Verb/Provision/Store/Collect
 #: ../objects/FS/function.c:926
 msgid "Collect"
-msgstr ""
+msgstr "ಸಂಗ್ರಹಿಸು"
 
 #. Translators: Menu item Verb/Provision/Store/Reserve
 #: ../objects/FS/function.c:928
 msgid "Reserve"
-msgstr ""
+msgstr "ಕಾದಿರಿಸು"
 
 #. Translators: Menu item Verb/Provision/Supply
 #. Translators: Menu item Verb/Provision/Supply/Supply
 #: ../objects/FS/function.c:932 ../objects/FS/function.c:934
 msgid "Supply"
-msgstr ""
+msgstr "ಒದಗಿಸು"
 
 #. Translators: Menu item Verb/Provision/Supply/Fill
 #: ../objects/FS/function.c:936
-#, fuzzy
 msgid "Fill"
 msgstr "ತುಂಬಿಸು"
 
 #. Translators: Menu item Verb/Provision/Supply/Provide
 #: ../objects/FS/function.c:938
 msgid "Provide"
-msgstr ""
+msgstr "ಒದಗಿಸು"
 
 #. Translators: Menu item Verb/Provision/Supply/Replenish
 #: ../objects/FS/function.c:940
@@ -3643,7 +3625,6 @@ msgstr ""
 
 #. Translators: Menu item Verb/Provision/Extract
 #: ../objects/FS/function.c:944 ../sheets/Flowchart.sheet.in.h:9
-#, fuzzy
 msgid "Extract"
 msgstr "ಆಯ್ದು ತೆಗೆ"
 
@@ -3661,14 +3642,13 @@ msgstr ""
 
 #. Translators: Menu item Verb/Control Magnitude/Actuate/Start
 #: ../objects/FS/function.c:954
-#, fuzzy
 msgid "Start"
-msgstr "ಆರಂಭ"
+msgstr "ಆರಂಭಿಸು"
 
 #. Translators: Menu item Verb/Control Magnitude/Actuate/Initiate
 #: ../objects/FS/function.c:956
 msgid "Initiate"
-msgstr ""
+msgstr "ಪ್ರಾರಂಭಿಸು"
 
 #. Translators: Menu item Verb/Control Magnitude/Regulate
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Regulate
@@ -3680,50 +3660,44 @@ msgstr ""
 #. Translators: Menu item Noun/Signal/Control
 #: ../objects/FS/function.c:962 ../objects/FS/function.c:1180
 #: ../objects/UML/classicon.c:129
-#, fuzzy
 msgid "Control"
-msgstr "ನಿಯಂತ್ರಣ"
+msgstr "ನಿಯಂತ್ರಿಸು"
 
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Enable
 #: ../objects/FS/function.c:968
-#, fuzzy
 msgid "Enable"
 msgstr "ಶಕ್ತಗೊಳಿಸು"
 
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Disable
 #: ../objects/FS/function.c:970
-#, fuzzy
 msgid "Disable"
-msgstr "ಅಶಕ್ತಗೊಳಿಸಿ"
+msgstr "ಅಶಕ್ತಗೊಳಿಸು"
 
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Limit
 #: ../objects/FS/function.c:972
-#, fuzzy
 msgid "Limit"
 msgstr "ಮಿತಿ"
 
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Interrupt
 #: ../objects/FS/function.c:974
-#, fuzzy
 msgid "Interrupt"
 msgstr "ತಡೆ"
 
 #. Translators: Menu item Verb/Control Magnitude/Change
 #. Translators: Menu item Verb/Control Magnitude/Change/Change
 #: ../objects/FS/function.c:976 ../objects/FS/function.c:978
-#, fuzzy
 msgid "Change"
 msgstr "ಬದಲಾಯಿಸು"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Increase
 #: ../objects/FS/function.c:980
 msgid "Increase"
-msgstr ""
+msgstr "ಹೆಚ್ಚಿಸು"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Decrease
 #: ../objects/FS/function.c:982
 msgid "Decrease"
-msgstr ""
+msgstr "ಕಡಿಮೆಗೊಳಿಸು"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Amplify
 #: ../objects/FS/function.c:984
@@ -3733,26 +3707,23 @@ msgstr ""
 #. Translators: Menu item Verb/Control Magnitude/Change/Reduce
 #: ../objects/FS/function.c:986
 msgid "Reduce"
-msgstr ""
+msgstr "ಕಡಿಮೆ ಮಾಡು"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Normalize
 #: ../objects/FS/function.c:990
-#, fuzzy
 msgid "Normalize"
 msgstr "ಸಾಮಾನ್ಯಗೊಳಿಸು"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Multiply
 #: ../objects/FS/function.c:992
-#, fuzzy
 msgid "Multiply"
 msgstr "ಗುಣಿಸು"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Scale
 #. FIXME: mark read-only
 #: ../objects/FS/function.c:994 ../objects/Misc/measure.c:187
-#, fuzzy
 msgid "Scale"
-msgstr "ಗಾತ್ರ ಬದಲಾವಣೆ"
+msgstr "ಗಾತ್ರ ಬದಲಾಯಿಸು"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Rectify
 #: ../objects/FS/function.c:996
@@ -3761,16 +3732,14 @@ msgstr ""
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Adjust
 #: ../objects/FS/function.c:998
-#, fuzzy
 msgid "Adjust"
-msgstr "ಸರಿಹೊಂದಿಸಿ"
+msgstr "ಸರಿಹೊಂದಿಸು"
 
 #. Translators: Menu item Verb/Control Magnitude/Form
 #. Translators: Menu item Verb/Control Magnitude/Form/Form
 #: ../objects/FS/function.c:1000 ../objects/FS/function.c:1002
-#, fuzzy
 msgid "Form"
-msgstr "ಫಾರ್ಮ್"
+msgstr ""
 
 #. Translators: Menu item Verb/Control Magnitude/Form/Compact
 #: ../objects/FS/function.c:1004
@@ -3780,49 +3749,48 @@ msgstr ""
 #. Translators: Menu item Verb/Control Magnitude/Form/Crush
 #: ../objects/FS/function.c:1006
 msgid "Crush"
-msgstr ""
+msgstr "ಪುಡಿಮಾಡು"
 
 #. Translators: Menu item Verb/Control Magnitude/Form/Shape
 #: ../objects/FS/function.c:1008
-#, fuzzy
 msgid "Shape"
 msgstr "ಆಕಾರ"
 
 #. Translators: Menu item Verb/Control Magnitude/Form/Compress
 #: ../objects/FS/function.c:1010
 msgid "Compress"
-msgstr ""
+msgstr "ಸಂಕುಚನಗೊಳಿಸು"
 
 #. Translators: Menu item Verb/Control Magnitude/Form/Pierce
 #: ../objects/FS/function.c:1012
 msgid "Pierce"
-msgstr ""
+msgstr "ಚುಚ್ಚು"
 
 #. Translators: Menu item Verb/Convert
 #. Translators: Menu item Verb/Convert/Convert
 #: ../objects/FS/function.c:1014 ../objects/FS/function.c:1016
 msgid "Convert"
-msgstr ""
+msgstr "ಪರಿವರ್ತಿಸು"
 
 #. Translators: Menu item Verb/Convert/Transform
 #: ../objects/FS/function.c:1018
 msgid "Transform"
-msgstr ""
+msgstr "ಮಾರ್ಪಡಿಸು"
 
 #. Translators: Menu item Verb/Convert/Liquefy
 #: ../objects/FS/function.c:1020
 msgid "Liquefy"
-msgstr ""
+msgstr "ದ್ರವೀಕರಿಸು"
 
 #. Translators: Menu item Verb/Convert/Solidify
 #: ../objects/FS/function.c:1022
 msgid "Solidify"
-msgstr ""
+msgstr "ಘನೀಕರಿಸು"
 
 #. Translators: Menu item Verb/Convert/Evaporate
 #: ../objects/FS/function.c:1024
 msgid "Evaporate"
-msgstr ""
+msgstr "ಆವಿಯಾಗಿಸು"
 
 #. Translators: Menu item Verb/Convert/Sublimate
 #: ../objects/FS/function.c:1026
@@ -3847,7 +3815,6 @@ msgstr ""
 #. Translators: Menu item Verb/Convert/Process
 #: ../objects/FS/function.c:1034 ../sheets/AADL.sheet.in.h:8
 #: ../sheets/Gane_and_Sarson.sheet.in.h:7
-#, fuzzy
 msgid "Process"
 msgstr "ಪ್ರಕ್ರಿಯೆ"
 
@@ -3865,7 +3832,7 @@ msgstr ""
 #. Translators: Menu item Verb/Signal/Sense/Recognize
 #: ../objects/FS/function.c:1046
 msgid "Recognize"
-msgstr ""
+msgstr "ಗುರುತಿಸು"
 
 #. Translators: Menu item Verb/Signal/Sense/Discern
 #: ../objects/FS/function.c:1048
@@ -3875,35 +3842,34 @@ msgstr ""
 #. Translators: Menu item Verb/Signal/Sense/Check
 #: ../objects/FS/function.c:1050
 msgid "Check"
-msgstr ""
+msgstr "ಪರೀಕ್ಷಿಸು"
 
 #. Translators: Menu item Verb/Signal/Sense/Verify
 #: ../objects/FS/function.c:1054
 msgid "Verify"
-msgstr ""
+msgstr "ಪರಿಶೀಲಿಸು"
 
 #. Translators: Menu item Verb/Signal/Indicate
 #. Translators: Menu item Verb/Signal/Indicate/Indicate
 #: ../objects/FS/function.c:1056 ../objects/FS/function.c:1058
 msgid "Indicate"
-msgstr ""
+msgstr "ಸೂಚಿಸು"
 
 #. Translators: Menu item Verb/Signal/Indicate/Mark
 #: ../objects/FS/function.c:1060
 msgid "Mark"
-msgstr ""
+msgstr "ಗುರುತು"
 
 #. Translators: Menu item Verb/Signal/Display
 #: ../objects/FS/function.c:1062 ../sheets/Flowchart.sheet.in.h:7
-#, fuzzy
 msgid "Display"
-msgstr "ಪ್ರದರ್ಶಕ"
+msgstr "ಪ್ರದರ್ಶಿಸು"
 
 #. Translators: Menu item Verb/Signal/Measure
 #. Translators: Menu item Verb/Signal/Measure/Measure
 #: ../objects/FS/function.c:1064 ../objects/FS/function.c:1066
 msgid "Measure"
-msgstr ""
+msgstr "ಅಳತೆ ಮಾಡು"
 
 #. Translators: Menu item Verb/Signal/Measure/Calculate
 #: ../objects/FS/function.c:1068
@@ -3913,84 +3879,80 @@ msgstr ""
 #. Translators: Menu item Verb/Signal/Represent
 #: ../objects/FS/function.c:1070
 msgid "Represent"
-msgstr ""
+msgstr "ಪ್ರತಿನಿಧಿಸು"
 
 #. Translators: Menu item Noun
 #: ../objects/FS/function.c:1072
 msgid "Noun"
-msgstr ""
+msgstr "ನಾಮಪದ"
 
 #. Translators: Menu item Noun/Material/Liquid
 #: ../objects/FS/function.c:1078
 msgid "Liquid"
-msgstr ""
+msgstr "ದ್ರವ"
 
 #. Translators: Menu item Noun/Material/Gas
 #: ../objects/FS/function.c:1080
 msgid "Gas"
-msgstr ""
+msgstr "ಅನಿಲ"
 
 #. Translators: Menu item Noun/Material/Human
 #. Translators: Menu item Noun/Material/Human/Human
 #. Translators: Menu item Noun/Energy/Human
 #: ../objects/FS/function.c:1082 ../objects/FS/function.c:1084
 #: ../objects/FS/function.c:1168
-#, fuzzy
 msgid "Human"
 msgstr "ಮನುಷ್ಯ"
 
 #. Translators: Menu item Noun/Material/Human/Hand
 #: ../objects/FS/function.c:1086
 msgid "Hand"
-msgstr ""
+msgstr "ಕೈ"
 
 #. Translators: Menu item Noun/Material/Human/Foot
 #: ../objects/FS/function.c:1088
-#, fuzzy
 msgid "Foot"
-msgstr "ಅಡಿ"
+msgstr "ಪಾದ"
 
 #. Translators: Menu item Noun/Material/Human/Head
 #: ../objects/FS/function.c:1090
 msgid "Head"
-msgstr ""
+msgstr "ತಲೆ"
 
 #. Translators: Menu item Noun/Material/Human/Finger
 #: ../objects/FS/function.c:1092
 msgid "Finger"
-msgstr ""
+msgstr "ಬೆರಳು"
 
 #. Translators: Menu item Noun/Material/Human/Toe
 #: ../objects/FS/function.c:1094
 msgid "Toe"
-msgstr ""
+msgstr "ಕಾಲುಬೆರಳು"
 
 #. Translators: Menu item Noun/Material/Biological
 #: ../objects/FS/function.c:1096
 msgid "Biological"
-msgstr ""
+msgstr "ಜೈವಿಕ"
 
 #. Translators: Menu item Noun/Energy/Mechanical
 #: ../objects/FS/function.c:1100
 msgid "Mechanical"
-msgstr ""
+msgstr "ಯಾಂತ್ರಿಕ"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Mech. Energy
 #: ../objects/FS/function.c:1102
 msgid "Mech. Energy"
-msgstr ""
+msgstr "ಯಾಂತ್ರಿಕ ಶಕ್ತಿ"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Translation
 #: ../objects/FS/function.c:1104
-#, fuzzy
 msgid "Translation"
 msgstr "ಅನುವಾದ"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Force
 #: ../objects/FS/function.c:1106
-#, fuzzy
 msgid "Force"
-msgstr "ಒತ್ತಾಯಿಸು"
+msgstr ""
 
 #. Translators: Menu item Noun/Energy/Mechanical/Rotation
 #: ../objects/FS/function.c:1108 ../objects/standard/outline.c:206
@@ -4029,30 +3991,28 @@ msgstr ""
 
 #. Translators: Menu item Noun/Energy/Electricity/Electricity
 #: ../objects/FS/function.c:1122
-#, fuzzy
 msgid "Electricity"
-msgstr "ವಿದ್ಯುತ್"
+msgstr "ವಿದ್ಯುಚ್ಛಕ್ತಿ"
 
 #. Translators: Menu item Noun/Energy/Electricity/Voltage
 #: ../objects/FS/function.c:1124
-#, fuzzy
 msgid "Voltage"
 msgstr "ವೋಲ್ಟೇಜ್"
 
 #. Translators: Menu item Noun/Energy/Electricity/Current
 #: ../objects/FS/function.c:1126
 msgid "Current"
-msgstr ""
+msgstr "ಕರೆಂಟು"
 
 #. Translators: Menu item Noun/Energy/Hydraulic
 #: ../objects/FS/function.c:1128
 msgid "Hydraulic"
-msgstr ""
+msgstr "ಹೈಡ್ರಾಲಿಕ್"
 
 #. Translators: Menu item Noun/Energy/Hydraulic/Pressure
 #: ../objects/FS/function.c:1130
 msgid "Pressure"
-msgstr ""
+msgstr "ಒತ್ತಡ"
 
 #. Translators: Menu item Noun/Energy/Hydraulic/Volumetric Flow
 #: ../objects/FS/function.c:1132
@@ -4067,7 +4027,7 @@ msgstr ""
 #. Translators: Menu item Noun/Energy/Thermal/Heat
 #: ../objects/FS/function.c:1136
 msgid "Heat"
-msgstr ""
+msgstr "ಉಷ್ಣತೆ"
 
 #. Translators: Menu item Noun/Energy/Thermal/Conduction
 #: ../objects/FS/function.c:1138
@@ -4093,7 +4053,7 @@ msgstr ""
 #. Translators: Menu item Noun/Energy/Chemical
 #: ../objects/FS/function.c:1146
 msgid "Chemical"
-msgstr ""
+msgstr "ರಾಸಾಯನಿಕ"
 
 #. Translators: Menu item Noun/Energy/Radioactive
 #: ../objects/FS/function.c:1148
@@ -4103,22 +4063,22 @@ msgstr ""
 #. Translators: Menu item Noun/Energy/Radioactive/Microwaves
 #: ../objects/FS/function.c:1152
 msgid "Microwaves"
-msgstr ""
+msgstr "ಮೈಕ್ರೋತರಂಗಗಳು"
 
 #. Translators: Menu item Noun/Energy/Radioactive/Radio waves
 #: ../objects/FS/function.c:1154
 msgid "Radio waves"
-msgstr ""
+msgstr "ರೇಡಿಯೋ ತರಂಗಗಳು"
 
 #. Translators: Menu item Noun/Energy/Radioactive/X-Rays
 #: ../objects/FS/function.c:1156
 msgid "X-Rays"
-msgstr ""
+msgstr "X-ಕಿರಣಗಳು"
 
 #. Translators: Menu item Noun/Energy/Radioactive/Gamma Rays
 #: ../objects/FS/function.c:1158
 msgid "Gamma Rays"
-msgstr ""
+msgstr "ಗಾಮಾ ಕಿರಣಗಳು"
 
 #. Translators: Menu item Noun/Energy/Acoustic Energy
 #: ../objects/FS/function.c:1160
@@ -4133,12 +4093,12 @@ msgstr ""
 #. Translators: Menu item Noun/Energy/Solar Energy
 #: ../objects/FS/function.c:1164
 msgid "Solar Energy"
-msgstr ""
+msgstr "ಸೌರ ಶಕ್ತಿ"
 
 #. Translators: Menu item Noun/Energy/Magnetic Energy
 #: ../objects/FS/function.c:1166
 msgid "Magnetic Energy"
-msgstr ""
+msgstr "ಆಯಸ್ಕಾಂತೀಯ ಶಕ್ತಿ"
 
 #. Translators: Menu item Noun/Energy/Human/Human Motion
 #: ../objects/FS/function.c:1170
@@ -4152,17 +4112,16 @@ msgstr ""
 
 #. Translators: Menu item Noun/Signal/Status
 #: ../objects/FS/function.c:1178
-#, fuzzy
 msgid "Status"
 msgstr "ಸ್ಥಿತಿ"
 
 #: ../objects/FS/function.c:1182
 msgid "User/Device Fn"
-msgstr ""
+msgstr "ಬಳಕೆದಾರ/ಸಾಧನ Fn"
 
 #: ../objects/FS/function.c:1183
 msgid "Wish Fn"
-msgstr ""
+msgstr "ಇಚ್ಛೆಯ Fn"
 
 #: ../objects/GRAFCET/action.c:137 ../sheets/SDL.sheet.in.h:9
 msgid "Macro call"
@@ -4173,9 +4132,8 @@ msgid "This action is a call to a macro-step"
 msgstr ""
 
 #: ../objects/GRAFCET/condition.c:132
-#, fuzzy
 msgid "Condition"
-msgstr "ಷರತ್ತು "
+msgstr ""
 
 #: ../objects/GRAFCET/condition.c:132
 msgid "The boolean equation of the condition"
@@ -4190,7 +4148,6 @@ msgid "The condition's font size"
 msgstr ""
 
 #: ../objects/GRAFCET/condition.c:139 ../objects/GRAFCET/transition.c:149
-#, fuzzy
 msgid "Color"
 msgstr "ಬಣ್ಣ"
 
@@ -4243,7 +4200,6 @@ msgid "The kind of step"
 msgstr ""
 
 #: ../objects/GRAFCET/step.c:165
-#, fuzzy
 msgid "Active"
 msgstr "ಸಕ್ರಿಯ"
 
@@ -4273,23 +4229,21 @@ msgstr ""
 
 #: ../objects/GRAFCET/transition.c:150
 msgid "North point"
-msgstr ""
+msgstr "ಉತ್ತರ ಬಿಂದು"
 
 #: ../objects/GRAFCET/transition.c:151
 msgid "South point"
-msgstr ""
+msgstr "ದಕ್ಷಿಣ ಬಿಂದು"
 
 #: ../objects/GRAFCET/vector.c:131
 msgid "Draw arrow heads on upward arcs:"
 msgstr ""
 
 #: ../objects/GRAFCET/vergent.c:124
-#, fuzzy
 msgid "OR"
 msgstr "OR"
 
 #: ../objects/GRAFCET/vergent.c:125
-#, fuzzy
 msgid "AND"
 msgstr "AND"
 
@@ -4316,16 +4270,14 @@ msgid "GRAFCET OR/AND vergent"
 msgstr ""
 
 #: ../objects/Istar/actor.c:68 ../objects/Istar/link.c:150
-#, fuzzy
 msgid "Unspecified"
 msgstr "ಸೂಚಿಸದೆ ಇರುವ"
 
 #: ../objects/Istar/actor.c:69 ../objects/KAOS/other.c:75
 msgid "Agent"
-msgstr ""
+msgstr "ಮಧ್ಯವರ್ತಿ"
 
 #: ../objects/Istar/actor.c:71 ../objects/UML/association.c:247
-#, fuzzy
 msgid "Role"
 msgstr "ಪಾತ್ರ"
 
@@ -4335,12 +4287,12 @@ msgstr ""
 
 #: ../objects/Istar/goal.c:77 ../objects/KAOS/goal.c:80
 msgid "Goal"
-msgstr ""
+msgstr "ಗುರಿ"
 
 #: ../objects/Istar/goal.c:156 ../objects/Istar/goal.c:157
 #: ../objects/KAOS/goal.c:159 ../objects/KAOS/goal.c:160
 msgid "Goal Type"
-msgstr ""
+msgstr "ಗುರಿಯ ಬಗೆ"
 
 #: ../objects/Istar/istar.c:46
 msgid "Istar diagram"
@@ -4356,7 +4308,7 @@ msgstr ""
 
 #: ../objects/Istar/link.c:153 ../sheets/UML.sheet.in.h:10
 msgid "Dependency"
-msgstr ""
+msgstr "ಅವಲಂಬನೆ"
 
 #: ../objects/Istar/link.c:154
 msgid "Decomposition"
@@ -4367,18 +4319,16 @@ msgid "Means-Ends"
 msgstr ""
 
 #: ../objects/Istar/other.c:73
-#, fuzzy
 msgid "Resource"
 msgstr "ಸಂಪನ್ಮೂಲ"
 
 #: ../objects/Istar/other.c:74 ../sheets/BPMN.sheet.in.h:43
-#, fuzzy
 msgid "Task"
 msgstr "ಕಾರ್ಯ"
 
 #: ../objects/Istar/other.c:477
 msgid "i* other"
-msgstr ""
+msgstr "i* ಇತರೆ"
 
 #: ../objects/Jackson/domain.c:79
 msgid "Given Domain"
@@ -4425,25 +4375,23 @@ msgid "Jackson diagram"
 msgstr ""
 
 #: ../objects/Jackson/phenomenon.c:136
-#, fuzzy
 msgid "Shared"
 msgstr "ಹಂಚಲಾದ"
 
 #: ../objects/Jackson/phenomenon.c:137 ../objects/KAOS/goal.c:81
 msgid "Requirement"
-msgstr ""
+msgstr "ಅವಶ್ಯಕತೆ"
 
 #. how it used to be before 0.96+SVN
 #. new name matching "same name, same type"  rule
 #: ../objects/Jackson/phenomenon.c:144 ../objects/UML/message.c:153
 #: ../objects/UML/message.c:155
-#, fuzzy
 msgid "Message:"
 msgstr "ಸಂದೇಶ:"
 
 #: ../objects/KAOS/goal.c:82
 msgid "Assumption"
-msgstr ""
+msgstr "ಊಹೆ"
 
 #: ../objects/KAOS/goal.c:83
 msgid "Obstacle"
@@ -4451,7 +4399,7 @@ msgstr ""
 
 #: ../objects/KAOS/goal.c:580
 msgid "KAOS goal"
-msgstr ""
+msgstr "KAOS ಗುರಿ"
 
 #: ../objects/KAOS/kaos.c:49
 msgid "KAOS diagram"
@@ -4475,7 +4423,7 @@ msgstr ""
 
 #: ../objects/KAOS/metaandorrel.c:163
 msgid "Text:"
-msgstr ""
+msgstr "ಪಠ್ಯ:"
 
 #: ../objects/KAOS/metabinrel.c:157
 msgid "Contributes"
@@ -4491,14 +4439,13 @@ msgstr ""
 
 #: ../objects/KAOS/metabinrel.c:160
 msgid "Responsibility"
-msgstr ""
+msgstr "ಜವಾಬ್ದಾರಿ"
 
 #: ../objects/KAOS/metabinrel.c:161
 msgid "Monitors"
 msgstr ""
 
 #: ../objects/KAOS/metabinrel.c:162
-#, fuzzy
 msgid "Controls"
 msgstr "ನಿಯಂತ್ರಣಗಳು"
 
@@ -4516,11 +4463,11 @@ msgstr ""
 
 #: ../objects/KAOS/other.c:533
 msgid "KAOS other"
-msgstr ""
+msgstr "KAOS ಇತರೆ"
 
 #: ../objects/Misc/analog_clock.c:139
 msgid "Arrow color"
-msgstr ""
+msgstr "ಬಾಣದ ಬಣ್ಣ"
 
 #: ../objects/Misc/analog_clock.c:141
 msgid "Arrow line width"
@@ -4536,17 +4483,15 @@ msgstr ""
 
 #: ../objects/Misc/analog_clock.c:147
 msgid "Show hours"
-msgstr ""
+msgstr "ಗಂಟೆಗಳನ್ನು ತೋರಿಸು"
 
 #: ../objects/Misc/grid_object.c:140
-#, fuzzy
 msgid "Rows"
 msgstr "ಅಡ್ಡಸಾಲುಗಳು"
 
 #: ../objects/Misc/grid_object.c:142
-#, fuzzy
 msgid "Columns"
-msgstr "ಕಾಲಂಗಳು"
+msgstr "ಲಂಬಸಾಲುಗಳು"
 
 #: ../objects/Misc/grid_object.c:144
 msgid "Gridline color"
@@ -4558,58 +4503,52 @@ msgstr ""
 
 #: ../objects/Misc/libmisc.c:41
 msgid "Miscellaneous objects"
-msgstr ""
+msgstr "ಇತರೆ ವಸ್ತುಗಳು"
 
 #: ../objects/Misc/measure.c:170
-#, fuzzy
 msgid "cm"
 msgstr "cm"
 
 #: ../objects/Misc/measure.c:171
 msgid "dm"
-msgstr ""
+msgstr "dm"
 
 #: ../objects/Misc/measure.c:172
 msgid "ft"
-msgstr ""
+msgstr "ft"
 
 #: ../objects/Misc/measure.c:173
-#, fuzzy
 msgid "in"
 msgstr "in"
 
 #: ../objects/Misc/measure.c:174
-#, fuzzy
 msgid "m"
 msgstr "m"
 
 #: ../objects/Misc/measure.c:175
-#, fuzzy
 msgid "mm"
 msgstr "mm"
 
 #: ../objects/Misc/measure.c:176
 msgid "pt"
-msgstr ""
+msgstr "pt"
 
 #: ../objects/Misc/measure.c:177
-#, fuzzy
 msgid "pi"
 msgstr "ಪೈ"
 
 #. PROP_FLAG_VISIBLE|
 #: ../objects/Misc/measure.c:186 ../sheets/ChemEng.sheet.in.h:28
 msgid "Measurement"
-msgstr ""
+msgstr "ಅಳತೆ"
 
 #: ../objects/Misc/measure.c:188
-#, fuzzy
 msgid "Unit"
 msgstr "ಘಟಕ"
 
 #: ../objects/Misc/measure.c:189
 msgid "Precision"
-msgstr ""
+msgstr "ನಿಖರತೆ"
 
 #: ../objects/Misc/tree.c:605 ../objects/network/bus.c:613
 msgid "Add Handle"
@@ -4651,7 +4590,7 @@ msgstr ""
 
 #: ../objects/SADT/arrow.c:465
 msgid "SADT Arrow"
-msgstr ""
+msgstr "SADT ಬಾಣ"
 
 #: ../objects/SADT/box.c:139 ../objects/custom/custom_object.c:226
 #: ../objects/flowchart/box.c:154 ../objects/flowchart/diamond.c:152
@@ -4669,7 +4608,7 @@ msgstr ""
 
 #: ../objects/SADT/box.c:455
 msgid "SADT box"
-msgstr ""
+msgstr "SADT ಚೌಕ"
 
 #: ../objects/SADT/sadt.c:41
 msgid "SADT diagram objects"
@@ -4677,7 +4616,7 @@ msgstr ""
 
 #: ../objects/SISSI/classification.h:38 ../objects/SISSI/sissi_dialog.c:42
 msgid "No Protection"
-msgstr ""
+msgstr "ಯಾವುದೆ ರಕ್ಷಣೆ ಇಲ್ಲ"
 
 #: ../objects/SISSI/classification.h:39 ../objects/SISSI/sissi_dialog.c:43
 msgid "Restricted Diffusion"
@@ -4688,17 +4627,16 @@ msgid "Special Country Confidential"
 msgstr ""
 
 #: ../objects/SISSI/classification.h:41
-#, fuzzy
 msgid "Confidential"
 msgstr "ಗೌಪ್ಯವಾದ"
 
 #: ../objects/SISSI/classification.h:42 ../objects/SISSI/sissi_dialog.c:45
 msgid "NATO Confidential"
-msgstr ""
+msgstr "NATO ಗೌಪ್ಯವಾದ"
 
 #: ../objects/SISSI/classification.h:43 ../objects/SISSI/sissi_dialog.c:46
 msgid "Personal Confidential"
-msgstr ""
+msgstr "ವೈಯಕ್ತಿಕ ಗೌಪ್ಯವಾದ"
 
 #: ../objects/SISSI/classification.h:44 ../objects/SISSI/sissi_dialog.c:47
 msgid "Medical Confidential"
@@ -4710,16 +4648,15 @@ msgstr ""
 
 #: ../objects/SISSI/classification.h:46
 msgid "Defense Confidential"
-msgstr ""
+msgstr "ರಕ್ಷಣಾ ಗೌಪ್ಯವಾದ"
 
 #: ../objects/SISSI/classification.h:47 ../objects/SISSI/sissi_dialog.c:49
-#, fuzzy
 msgid "Secret"
 msgstr "ರಹಸ್ಯ"
 
 #: ../objects/SISSI/classification.h:48
 msgid "Defense Secret"
-msgstr ""
+msgstr "ರಕ್ಷಣಾ ರಹಸ್ಯ"
 
 #: ../objects/SISSI/classification.h:49 ../objects/SISSI/sissi_dialog.c:50
 msgid "Secret special country"
@@ -4727,11 +4664,11 @@ msgstr ""
 
 #: ../objects/SISSI/classification.h:50 ../objects/SISSI/sissi_dialog.c:51
 msgid "NATO Secret"
-msgstr ""
+msgstr "NATO ರಹಸ್ಯ"
 
 #: ../objects/SISSI/classification.h:51 ../objects/SISSI/sissi_dialog.c:52
 msgid "Very Secret"
-msgstr ""
+msgstr "ಅತ್ಯಂತ ರಹಸ್ಯವಾದ"
 
 #: ../objects/SISSI/classification.h:52 ../objects/SISSI/sissi_dialog.c:53
 msgid "NATO Very Secret"
@@ -4747,6 +4684,8 @@ msgid ""
 "Error loading object.\n"
 "Not a regular file: %s"
 msgstr ""
+"ವಸ್ತುವನ್ನು ಲೋಡ್ ಮಾಡುವಲ್ಲಿ ದೋಷ.\n"
+"ಒಂದು ಸಾಮಾನ್ಯ ಕಡತವಲ್ಲ: %s"
 
 #: ../objects/SISSI/sissi.c:928 ../objects/SISSI/sissi.c:932
 #, c-format
@@ -4754,6 +4693,8 @@ msgid ""
 "Error loading object.\n"
 "Incorrect file type: %s"
 msgstr ""
+"ವಸ್ತುವನ್ನು ಲೋಡ್ ಮಾಡುವಲ್ಲಿ ದೋಷ.\n"
+"ಸರಿಯಲ್ಲದ ಕಡತದ ಬಗೆ: %s"
 
 #: ../objects/SISSI/sissi.c:940
 #, c-format
@@ -4761,6 +4702,8 @@ msgid ""
 "Error loading object.\n"
 "Not a Dia file: %s"
 msgstr ""
+"ವಸ್ತುವನ್ನು ಲೋಡ್ ಮಾಡುವಲ್ಲಿ ದೋಷ.\n"
+"ಒಂದು Dia ಕಡತವಾಗಿಲ್ಲ: %s"
 
 #: ../objects/SISSI/sissi_dialog.c:48
 msgid "Industrial Confidential"
@@ -4792,40 +4735,35 @@ msgstr ""
 
 #: ../objects/SISSI/sissi_dialog.c:68
 msgid "Millisecond"
-msgstr ""
+msgstr "ಮಿಲಿಸೆಕೆಂಡುಗಳು"
 
 #: ../objects/SISSI/sissi_dialog.c:69
-#, fuzzy
 msgid "Second"
 msgstr "ಸೆಕೆಂಡು"
 
 #: ../objects/SISSI/sissi_dialog.c:70
-#, fuzzy
 msgid "Minute"
 msgstr "ನಿಮಿಷಗಳು"
 
 #: ../objects/SISSI/sissi_dialog.c:71
-#, fuzzy
 msgid "Hour"
 msgstr "ಗಂಟೆ"
 
 #: ../objects/SISSI/sissi_dialog.c:72
-#, fuzzy
 msgid "Day"
 msgstr "ದಿನ"
 
 #: ../objects/SISSI/sissi_dialog.c:73
-#, fuzzy
 msgid "Week"
 msgstr "ವಾರ"
 
 #: ../objects/SISSI/sissi_dialog.c:78
 msgid "SYSTEM"
-msgstr ""
+msgstr "SYSTEM"
 
 #: ../objects/SISSI/sissi_dialog.c:79
 msgid "Internet access device"
-msgstr ""
+msgstr "ಅಂತರ್ಜಾಲ ನಿಲುಕಣಾ ಸಾಧನ"
 
 #: ../objects/SISSI/sissi_dialog.c:80
 msgid "Electronic messaging"
@@ -4833,7 +4771,7 @@ msgstr ""
 
 #: ../objects/SISSI/sissi_dialog.c:81
 msgid "Intranet"
-msgstr ""
+msgstr "ಅಂತರ್ಜಾಲ"
 
 #: ../objects/SISSI/sissi_dialog.c:82
 msgid "Company directory"
@@ -4865,10 +4803,9 @@ msgstr ""
 
 #: ../objects/SISSI/sissi_dialog.c:97
 msgid "SITE"
-msgstr ""
+msgstr "SITE"
 
 #: ../objects/SISSI/sissi_dialog.c:98
-#, fuzzy
 msgid "Places"
 msgstr "ಸ್ಥಳಗಳು"
 
@@ -4882,19 +4819,17 @@ msgstr ""
 
 #: ../objects/SISSI/sissi_dialog.c:101
 msgid "Zone"
-msgstr ""
+msgstr "ವಲಯ"
 
 #: ../objects/SISSI/sissi_dialog.c:102
 msgid "Essential Services"
-msgstr ""
+msgstr "ಅಗತ್ಯ ಸೇವೆಗಳು"
 
 #: ../objects/SISSI/sissi_dialog.c:103
-#, fuzzy
 msgid "Communication"
 msgstr "ಸಂವಹನ"
 
 #: ../objects/SISSI/sissi_dialog.c:104
-#, fuzzy
 msgid "Power"
 msgstr "ವಿದ್ಯುಚ್ಛಕ್ತಿ"
 
@@ -4951,7 +4886,6 @@ msgid "Intrusion action"
 msgstr ""
 
 #: ../objects/SISSI/sissi_dialog.c:158
-#, fuzzy
 msgid "Personal"
 msgstr "ವೈಯಕ್ತಿಕ"
 
@@ -4964,7 +4898,6 @@ msgid "SSI Responsible"
 msgstr ""
 
 #: ../objects/SISSI/sissi_dialog.c:161
-#, fuzzy
 msgid "Users"
 msgstr "ಬಳಕೆದಾರರು"
 
@@ -4974,28 +4907,27 @@ msgstr ""
 
 #: ../objects/SISSI/sissi_dialog.c:163
 msgid "Technical administrator"
-msgstr ""
+msgstr "ತಾಂತ್ರಿಕ ವ್ಯವಸ್ಥಾಪಕ"
 
 #: ../objects/SISSI/sissi_dialog.c:164
 msgid "SSI administrator"
-msgstr ""
+msgstr "SSI ವ್ಯವಸ್ಥಾಪಕ"
 
 #: ../objects/SISSI/sissi_dialog.c:165
 msgid "Developer"
-msgstr ""
+msgstr "ವಿಕಸಗಾರ"
 
 #: ../objects/SISSI/sissi_dialog.c:166
 msgid "Operator / Maintenance"
 msgstr ""
 
 #: ../objects/SISSI/sissi_dialog.c:171 ../sheets/network.sheet.in.h:20
-#, fuzzy
 msgid "Network"
 msgstr "ಜಾಲಬಂಧ"
 
 #: ../objects/SISSI/sissi_dialog.c:172
 msgid "Medium and support"
-msgstr ""
+msgstr "ಮಾಧ್ಯಮ ಹಾಗು ಬೆಂಬಲ"
 
 #: ../objects/SISSI/sissi_dialog.c:173
 msgid "Passive or active relay"
@@ -5006,13 +4938,12 @@ msgid "Communication interface"
 msgstr ""
 
 #: ../objects/SISSI/sissi_dialog.c:179 ../sheets/SISSI.sheet.in.h:54
-#, fuzzy
 msgid "Software"
 msgstr "ತಂತ್ರಾಂಶ"
 
 #: ../objects/SISSI/sissi_dialog.c:180
 msgid "Operating System"
-msgstr ""
+msgstr "ಕಾರ್ಯ ವ್ಯವಸ್ಥೆ"
 
 #: ../objects/SISSI/sissi_dialog.c:181
 msgid "Service - maintenance or administration software"
@@ -5036,7 +4967,7 @@ msgstr ""
 
 #: ../objects/SISSI/sissi_dialog.c:190
 msgid "HARDWARE"
-msgstr ""
+msgstr "HARDWARE"
 
 #: ../objects/SISSI/sissi_dialog.c:191
 msgid "Data-processing equipment (active)"
@@ -5060,7 +4991,7 @@ msgstr ""
 
 #: ../objects/SISSI/sissi_dialog.c:196
 msgid "Other media"
-msgstr ""
+msgstr "ಇತರೆ ಮಾಧ್ಯಮ"
 
 #: ../objects/SISSI/sissi_dialog.c:197
 msgid "Data medium (passive)"
@@ -5091,62 +5022,55 @@ msgstr ""
 #. Other properties of page:
 #: ../objects/SISSI/sissi_dialog.c:488
 msgid "Other properties"
-msgstr ""
+msgstr "ಇತರೆ ಗುಣಗಳು"
 
 #. ********* selection menu of entity ********
 #. ********* Label of board *********
 #: ../objects/SISSI/sissi_dialog.c:726
-#, fuzzy
 msgid "Label"
 msgstr "ಲೇಬಲ್"
 
 #: ../objects/SISSI/sissi_dialog.c:728
-#, fuzzy
 msgid "value"
 msgstr "ಮೌಲ್ಯ"
 
 #. Other properties of page
 #: ../objects/SISSI/sissi_dialog.c:862
-#, fuzzy
 msgid "Documents"
 msgstr "ದಸ್ತಾವೇಜುಗಳು"
 
 #: ../objects/SISSI/sissi_dialog.c:878
-#, fuzzy
 msgid "Document title"
 msgstr "ದಸ್ತಾವೇಜಿನ ಶೀರ್ಷಿಕೆ"
 
 #: ../objects/UML/actor.c:357 ../objects/UML/actor.c:359
 #: ../sheets/UML.sheet.in.h:2
-#, fuzzy
 msgid "Actor"
 msgstr "ನಟ"
 
 #: ../objects/UML/association.c:222
 msgid "From A to B"
-msgstr ""
+msgstr "A ಇಂದ B ಗೆ"
 
 #: ../objects/UML/association.c:223
 msgid "From B to A"
-msgstr ""
+msgstr "B ಇಂದ A ಗೆ"
 
 #: ../objects/UML/association.c:228
 msgid "Aggregation"
 msgstr ""
 
 #: ../objects/UML/association.c:229
-#, fuzzy
 msgid "Composition"
-msgstr "ಕಂಪೋಸಿಶನ್"
+msgstr "ರಚನೆ"
 
 #: ../objects/UML/association.c:236
-#, fuzzy
 msgid "Direction"
 msgstr "ದಿಕ್ಕು"
 
 #: ../objects/UML/association.c:238
 msgid "Show direction"
-msgstr ""
+msgstr "ದಿಕ್ಕನ್ನು ತೋರಿಸು"
 
 #: ../objects/UML/association.c:238
 msgid "Show the small arrow denoting the reading direction"
@@ -5154,7 +5078,7 @@ msgstr ""
 
 #: ../objects/UML/association.c:245
 msgid "Side A"
-msgstr ""
+msgstr "ಬದಿ A"
 
 #: ../objects/UML/association.c:249
 msgid "Multiplicity"
@@ -5162,21 +5086,19 @@ msgstr ""
 
 #: ../objects/UML/association.c:251 ../objects/UML/umlattribute.c:45
 #: ../objects/UML/umloperation.c:71
-#, fuzzy
 msgid "Visibility"
 msgstr "ಗೋಚರಿಕೆ"
 
 #: ../objects/UML/association.c:253
 msgid "Show arrow"
-msgstr ""
+msgstr "ಬಾಣವನ್ನು ತೋರಿಸು"
 
 #: ../objects/UML/association.c:256
 msgid "Side B"
-msgstr ""
+msgstr "ಬದಿ B"
 
 #: ../objects/UML/class.c:142 ../objects/UML/class.c:325
 #: ../objects/UML/class.c:1773 ../sheets/UML.sheet.in.h:6
-#, fuzzy
 msgid "Class"
 msgstr "ವರ್ಗ"
 
@@ -5196,9 +5118,8 @@ msgid "Abstract"
 msgstr ""
 
 #: ../objects/UML/class.c:152 ../objects/UML/class.c:1770
-#, fuzzy
 msgid "Template"
-msgstr "ಟೆಂಪ್ಲೇಟ್"
+msgstr "ನಮೂನೆ"
 
 #: ../objects/UML/class.c:155 ../objects/UML/class_dialog.c:477
 msgid "Suppress Attributes"
@@ -5214,7 +5135,7 @@ msgstr ""
 
 #: ../objects/UML/class.c:161
 msgid "Visible Operations"
-msgstr ""
+msgstr "ಗೋಚರಿಸುವ ಕಾರ್ಯಗಳು"
 
 #: ../objects/UML/class.c:163
 msgid "Visible Comments"
@@ -5238,14 +5159,13 @@ msgstr ""
 
 #: ../objects/UML/class.c:185
 msgid "Classname"
-msgstr ""
+msgstr "ವರ್ಗಹೆಸರು"
 
 #: ../objects/UML/class.c:187
 msgid "Abstract Classname"
 msgstr ""
 
 #: ../objects/UML/class.c:211
-#, fuzzy
 msgid "Operations"
 msgstr "ಕಾರ್ಯಗಳು"
 
@@ -5255,16 +5175,16 @@ msgstr ""
 
 #: ../objects/UML/class.c:320
 msgid "Show Comments"
-msgstr ""
+msgstr "ಟಿಪ್ಪಣಿಗಳನ್ನು ತೋರಿಸು"
 
 #. Class page:
 #: ../objects/UML/class_dialog.c:429
 msgid "_Class"
-msgstr ""
+msgstr "ವರ್ಗ(_C)"
 
 #: ../objects/UML/class_dialog.c:437
 msgid "Class name:"
-msgstr ""
+msgstr "ವರ್ಗದ ಹೆಸರು:"
 
 #: ../objects/UML/class_dialog.c:445 ../objects/UML/class_dialog.c:2032
 #: ../objects/UML/dependency.c:139 ../objects/UML/generalization.c:135
@@ -5298,7 +5218,7 @@ msgstr ""
 
 #: ../objects/UML/class_dialog.c:585
 msgid "Class Name"
-msgstr ""
+msgstr "ವರ್ಗದ ಹೆಸರು"
 
 #: ../objects/UML/class_dialog.c:590
 msgid "Abstract Class"
@@ -5307,46 +5227,40 @@ msgstr ""
 #. should probably be refactored too.
 #: ../objects/UML/class_dialog.c:607
 msgid "Line Width"
-msgstr ""
+msgstr "ರೇಖೆಯ ಅಗಲ"
 
 #: ../objects/UML/class_dialog.c:616
-#, fuzzy
 msgid "Text Color"
 msgstr "ಪಠ್ಯದ ಬಣ್ಣ"
 
 #: ../objects/UML/class_dialog.c:624
 msgid "Foreground Color"
-msgstr ""
+msgstr "ಮುನ್ನಲೆ ಬಣ್ಣ"
 
 #: ../objects/UML/class_dialog.c:632
-#, fuzzy
 msgid "Background Color"
 msgstr "ಹಿನ್ನಲೆ ಬಣ್ಣ"
 
 #: ../objects/UML/class_dialog.c:1166
 msgid "Value:"
-msgstr ""
+msgstr "ಮೌಲ್ಯ:"
 
 #: ../objects/UML/class_dialog.c:1199 ../objects/UML/class_dialog.c:2044
-#, fuzzy
 msgid "Visibility:"
 msgstr "ಗೋಚರಿಕೆ:"
 
 #: ../objects/UML/class_dialog.c:1208 ../objects/UML/class_dialog.c:2053
 #: ../objects/UML/uml.c:102
-#, fuzzy
 msgid "Public"
 msgstr "ಸಾರ್ವಜನಿಕ"
 
 #: ../objects/UML/class_dialog.c:1211 ../objects/UML/class_dialog.c:2056
 #: ../objects/UML/uml.c:103
-#, fuzzy
 msgid "Private"
 msgstr "ಖಾಸಗಿ"
 
 #: ../objects/UML/class_dialog.c:1214 ../objects/UML/class_dialog.c:2059
 #: ../objects/UML/uml.c:104
-#, fuzzy
 msgid "Protected"
 msgstr "ಸಂರಕ್ಷಿತ"
 
@@ -5358,7 +5272,7 @@ msgstr ""
 #. end: Inheritance type
 #: ../objects/UML/class_dialog.c:1233 ../objects/UML/class_dialog.c:2099
 msgid "Class scope"
-msgstr ""
+msgstr "ವರ್ಗ ವ್ಯಾಪ್ತಿ"
 
 #. end: Visibility
 #: ../objects/UML/class_dialog.c:2074
@@ -5374,18 +5288,16 @@ msgid "Leaf (final)"
 msgstr ""
 
 #: ../objects/UML/class_dialog.c:2103
-#, fuzzy
 msgid "Query"
 msgstr "ಸಂದೇಹ"
 
 #: ../objects/UML/class_dialog.c:2150
-#, fuzzy
 msgid "Parameters:"
 msgstr "ನಿಯತಾಂಕಗಳು:"
 
 #: ../objects/UML/class_dialog.c:2235
 msgid "Parameter data"
-msgstr ""
+msgstr "ನಿಯತಾಂಕ ದತ್ತಾಂಶ"
 
 #: ../objects/UML/class_dialog.c:2268
 msgid "Def. value:"
@@ -5393,7 +5305,7 @@ msgstr ""
 
 #: ../objects/UML/class_dialog.c:2302
 msgid "Direction:"
-msgstr ""
+msgstr "ದಿಕ್ಕು:"
 
 #: ../objects/UML/class_dialog.c:2311 ../objects/UML/umlparameter.c:34
 msgid "Undefined"
@@ -5520,8 +5432,9 @@ msgid "Simple"
 msgstr "ಸರಳ"
 
 #: ../objects/UML/message.c:141
+#, fuzzy
 msgid "Return"
-msgstr ""
+msgstr "ರಿಟರ್ನ್"
 
 #: ../objects/UML/message.c:142
 msgid "Send"
