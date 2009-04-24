@@ -181,12 +181,18 @@ dia_core_files = \
 	recent_files.c \
 	diagram_tree.h \
 	diagram_tree.c \
+	\
 	diagram_tree_window.h \
 	diagram_tree_window.c \
 	diagram_tree_menu.h \
 	diagram_tree_menu.c \
 	diagram_tree_menu_callbacks.h \
 	diagram_tree_menu_callbacks.c \
+	\
+	diagram_tree_model.c \
+	diagram_tree_model.h \
+	diagram_tree_view.c \
+	\
 	sheets.c \
 	sheets.h \
 	sheets_dialog.c \

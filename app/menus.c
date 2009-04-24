@@ -94,10 +94,12 @@ static const GtkActionEntry toolbox_entries[] =
     { "FilePlugins", NULL, N_("Plugins..."), NULL, NULL, G_CALLBACK (file_plugins_callback) }
 };
 
+extern void diagram_tree_show(void);
 /* Toggle-Actions for toolbox menu */
 static const GtkToggleActionEntry toolbox_toggle_entries[] = 
 {
-    { "FileTree", NULL, N_("_Diagram tree..."), "F8", NULL, G_CALLBACK (diagtree_show_callback) }
+    { "FileTree", NULL, N_("_Diagram tree..."), "F8", NULL, G_CALLBACK (diagtree_show_callback) },
+    { "DiagramTree", NULL, N_("_Diagram tree"), NULL, NULL, G_CALLBACK (diagram_tree_show) }
 };
 
 /* Toggle-Actions for toolbox menu */

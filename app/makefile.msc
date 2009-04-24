@@ -74,7 +74,10 @@ OBJECTS = \
 	textedit.obj \
 	textedit_tool.obj \
 	tool.obj \
-	undo.obj
+	undo.obj \
+	\
+	diagram_tree_model.obj \
+	diagram_tree_view.obj \
 
 ICON_PNG_PAIRS = \
 	dia_connectable_icon pixmaps\connectable.png \
