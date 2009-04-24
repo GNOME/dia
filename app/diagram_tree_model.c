@@ -273,6 +273,7 @@ _dtm_iter_children (GtkTreeModel *tree_model,
     NODE_OBJECT(iter) = NULL;
     return NODE_DIAGRAM(iter) != NULL;
   }
+  return FALSE;
 }
 static gboolean
 _dtm_iter_has_child (GtkTreeModel *tree_model,
@@ -370,8 +371,107 @@ _dtm_iface_init (GtkTreeModelIface *iface)
 #endif
 }
 
+/* SORTABLE 
+ * Wrapper around the original model to allow sorting by various columns IDs
+ */
+static gint
+cmp_diagram (GtkTreeIter  *a,
+	     GtkTreeIter  *b)
+{
+  DiagramData *pa = NODE_DIAGRAM(a), *pb = NODE_DIAGRAM(b);
+  gchar *na, *nb;
+  gint ret;
+  if (pa == pb)
+    return 0;
+  na = diagram_get_name (DIA_DIAGRAM(pa));
+  nb = diagram_get_name (DIA_DIAGRAM(pa));
+  if (!na || !nb)
+    return (na > nb) ? -1 : 1;
+  ret = strcmp (na, nb);
+  g_free (na);
+  g_free (nb);
+  return ret;
+}
+static gint
+cmp_layer (GtkTreeIter  *a,
+	   GtkTreeIter  *b)
+{
+  Layer *pa = NODE_LAYER(a), *pb = NODE_LAYER(b);
+  gchar *na, *nb;
+  gint ret;
+  if (pa == pb)
+    return 0;
+  na = layer_get_name (pa);
+  nb = layer_get_name (pb);
+  if (!na || !nb)
+    return (na > nb) ? -1 : 1;
+  ret = strcmp (na, nb);
+  g_free (na);
+  g_free (nb);
+  return ret;
+}
+static gint
+name_sort_func (GtkTreeModel *model,
+		GtkTreeIter  *a,
+		GtkTreeIter  *b,
+		gpointer      user_data)
+{
+  DiaObject *pa = NODE_OBJECT(a), *pb = NODE_OBJECT(b);
+  gchar *na, *nb;
+  gint ret = cmp_diagram (a, b);
+  if (ret)
+    return ret;
+  ret = cmp_layer (a, b);
+  if (ret)
+    return ret;
+  if (pa == pb)
+    return 0;
+  else if (!pa || !pb)
+    return (pa > pb) ? -1 : 1;
+  na = object_get_displayname (pa);
+  nb = object_get_displayname (pb);
+  if (!na || !nb)
+      return (na > nb) ? -1 : 1;
+  ret = strcmp (na, nb);
+  g_free (na);
+  g_free (nb);
+  return ret;
+}
+static gint
+type_sort_func (GtkTreeModel *model,
+		GtkTreeIter  *a,
+		GtkTreeIter  *b,
+		gpointer      user_data)
+{
+  DiaObject *pa = NODE_OBJECT(a), *pb = NODE_OBJECT(b);
+  gchar *na, *nb;
+  gint ret = cmp_diagram (a, b);
+  if (ret)
+    return ret;
+  ret = cmp_layer (a, b);
+  if (ret)
+    return ret;
+  if (pa == pb)
+    return 0;
+  else if (!pa || !pb)
+    return (pa > pb) ? -1 : 1;
+  return strcmp (pa->type->name, pb->type->name);
+}
+static GtkTreeModel *
+wrap_as_sortable_model (GtkTreeModel *model)
+{
+  GtkTreeModel *sort_model = gtk_tree_model_sort_new_with_model (GTK_TREE_MODEL (model));
+  
+  gtk_tree_sortable_set_sort_func (GTK_TREE_SORTABLE (sort_model), NAME_COLUMN, name_sort_func, model, NULL);
+  gtk_tree_sortable_set_sort_func (GTK_TREE_SORTABLE (sort_model), OBJECT_COLUMN, type_sort_func, model, NULL);
+  
+  return sort_model;
+}
+
 GtkTreeModel *
 diagram_tree_model_new (void)
 {
-  return g_object_new (DIAGRAM_TREE_MODEL, NULL);
+  GtkTreeModel *model = g_object_new (DIAGRAM_TREE_MODEL, NULL);
+  model = wrap_as_sortable_model (model);
+  return model;
 }

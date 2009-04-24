@@ -447,6 +447,8 @@ _dtv_init (DiagramTreeView *dtv)
 
   /* this is enough for simple name search (just typing) */
   gtk_tree_view_set_search_column (GTK_TREE_VIEW (dtv), NAME_COLUMN);
+  /* must have a sortable model ... */
+  gtk_tree_view_column_set_sort_column_id (column, NAME_COLUMN);
 
   /* type column - show the type icon */
   column = gtk_tree_view_column_new ();
@@ -454,13 +456,14 @@ _dtv_init (DiagramTreeView *dtv)
   /* must have fixed size, too */
   gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_FIXED);
   /* without it gets zero size - not very useful! */
-  gtk_tree_view_column_set_min_width (column, font_size * 4);
+  gtk_tree_view_column_set_min_width (column, font_size * 6);
   gtk_tree_view_column_set_resizable (column, TRUE);
   cell = gtk_cell_renderer_pixbuf_new ();
   gtk_cell_layout_pack_start (GTK_CELL_LAYOUT (column), cell, TRUE);
   gtk_cell_layout_set_cell_data_func (GTK_CELL_LAYOUT (column), cell,
 				      _dtv_cell_pixbuf_func, dtv, NULL);
   gtk_tree_view_insert_column (GTK_TREE_VIEW (dtv), column, -1);
+  gtk_tree_view_column_set_sort_column_id (column, OBJECT_COLUMN);
 
   /*  TODO: other fancy stuff */
 
