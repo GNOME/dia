@@ -48,10 +48,6 @@ diagram_tree_new(GList *diagrams, GtkWindow *window,
 		 DiagramTreeSortType dia_sort,
 		 DiagramTreeSortType obj_sort);
 
-/* delete a tree (the widget is destroyed, but not the diagrams */
-extern void
-diagram_tree_delete(DiagramTree *tree);
-
 /* add a diagram to the tree */
 extern void
 diagram_tree_add(DiagramTree *tree, Diagram *diagram);

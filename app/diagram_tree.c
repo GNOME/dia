@@ -33,6 +33,9 @@
 #include "diagram_tree.h"
 #include "persistence.h"
 
+/* delete a tree (the widget is destroyed, but not the diagrams */
+static void diagram_tree_delete(DiagramTree *tree);
+
 struct _DiagramTree {
   GtkCTree *tree;		/* the tree widget */
   GtkCTreeNode *last;		/* last clicked node */
@@ -354,7 +357,7 @@ diagram_tree_new(GList *diagrams, GtkWindow *window,
   return result;
 }
 
-void
+static void
 diagram_tree_delete(DiagramTree *tree) 
 {
   g_return_if_fail(tree);
