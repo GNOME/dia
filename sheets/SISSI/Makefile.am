@@ -2,69 +2,67 @@
 SISSIsheetdir = $(pkgdatadir)/sheets/SISSI
 
 PIX = \
-	sissi_object.xpm \
-	analyse.xpm \
-	barriere.png \
-	camera_interphone.png \
-	capteur_brise_glace.png \
-	capteur_faisceau.png \
+	aircooler_icon.png \
+	alarm_center.png \
+	analyse.png \
+	barriere_icon.png \
+	camera_interphone_icon.png \
+	capteur_brise_glace_icon.png \
+	capteur_faisceau_icon.png \
 	cellular_phone.png \
 	cloud.png \
-	condensateur.png \
-	detecteur_alimentation.png \
-	detecteur_courant.png \
-	detecteur_enthalpie.png \
-	detecteur_fumee.png \
-	detecteur_humidite.png \
-	detecteur_lumiere.png \
-	detecteur_mouvement.png \
-	detecteur_mouvement_video.png \
+	condensateur_icon.png \
+	detecteur_alimentation_icon.png \
+	detecteur_courant_icon.png \
+	detecteur_enthalpie_icon.png \
+	detecteur_fumee_icon.png \
+	detecteur_humidite_icon.png \
+	detecteur_lumiere_icon.png \
+	detecteur_mouvement_icon.png \
+	detecteur_mouvement_video_icon.png \
 	detecteur_niveau.png \
-	detecteur_pression.png \
-	detecteur_qualite_air.png \
-	detecteur_tension.png \
-	detecteur_vehicule.png \
-	detecteur_vibration.png \
-	digi_code.png \
+	detecteur_pression_icon.png \
+	detecteur_qualite_air_icon.png \
+	detecteur_tension_icon.png \
+	detecteur_vehicule_icon.png \
+	detecteur_vibration_icon.png \
+	digi_code_icon.png \
 	diskette.png \
-	extracteur_humidite.png \
+	extincteur_icon.png \
+	extracteur_humidite_icon.png \
 	faraday.png \
 	file.png \
-	filtre_air.png \
-	key.png \
+	filtre_air_icon.png \
 	hub.png \
 	ibm_mini.png \
-	info.xpm \
+	info.png \
+	key.png \
 	laptop.png \
-	lecteur_badge_clavier.png \
 	lecteur_badge.png \
-	lecteur_biometrique.png \
-	logiciel.xpm \
-	meuble.xpm \
-	menace.xpm \
+	lecteur_badge_clavier_icon.png \
+	lecteur_badge_icon.png \
+	lecteur_biometrique_icon.png \
+	logiciel.png \
+	meuble.png \
 	modem.png \
-	onduleur.png \
+	onduleur_icon.png \
 	pc.png \
-	pda.png \
-	personne.xpm \
+	pda_icon.png \
+	personne.png \
 	phone.png \
-	pompe.png \
-	pompe_rotative.png \
-	porte_tambour.png \
+	pompe_icon.png \
+	pompe_rotative_icon.png \
+	porte_tambour_icon.png \
 	relational_database.png \
 	router.png \
-	safe.png \
-	sauvegarde.xpm \
-	si.xpm \
+	safe_icon.png \
+	sauvegarde.png \
+	si.png \
 	storage_array.png \
-	support.xpm \
 	tourniquet.png \
-	ventilateur_axial.png \
-	ventilateur_centrifuge.png \
 	ventilateur.png \
-	aircooler.png \
-	extincteur.png \
-	alarm_center.png \
+	ventilateur_axial_icon.png \
+	ventilateur_centrifuge_icon.png \
 	1.xml \
 	2.xml \
 	3.xml \
