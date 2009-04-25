@@ -78,6 +78,8 @@ OBJECTS = \
 	\
 	diagram_tree_model.obj \
 	diagram_tree_view.obj \
+	\
+	dia-application.obj
 
 ICON_PNG_PAIRS = \
 	dia_connectable_icon pixmaps\connectable.png \

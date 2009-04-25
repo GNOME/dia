@@ -37,7 +37,7 @@
 #include "dia_dirs.h"
 #include "load_save.h"
 #include "recent_files.h"
-#include "diagram_tree_window.h"
+#include "dia-application.h"
 #include "autosave.h"
 #include "dynamic_refresh.h"
 #include "textedit.h"
@@ -112,7 +112,7 @@ diagram_finalize(GObject *object)
     undo_destroy(dia->undo);
   dia->undo = NULL;
   
-  diagram_tree_remove(diagram_tree(), dia);
+  dia_diagram_remove(dia);
 
   diagram_cleanup_autosave(dia);
 
@@ -321,7 +321,7 @@ diagram_load(const char *filename, DiaImportFilter *ifilter)
     diagram_set_modified(diagram, FALSE);
     if (app_is_interactive()) {
       recent_file_history_add(filename);
-      diagram_tree_add(diagram_tree(), diagram);
+      dia_diagram_add(diagram);
     }
   }
   
@@ -659,8 +659,6 @@ diagram_add_object(Diagram *dia, DiaObject *obj)
   layer_add_object(dia->data->active_layer, obj);
 
   diagram_modified(dia);
-
-  diagram_tree_add_object(diagram_tree(), dia, obj);
 }
 
 void
@@ -669,8 +667,6 @@ diagram_add_object_list(Diagram *dia, GList *list)
   layer_add_objects(dia->data->active_layer, list);
 
   diagram_modified(dia);
-
-  diagram_tree_add_objects(diagram_tree(), dia, list);
 }
 
 void
@@ -733,7 +729,7 @@ diagram_selected_break_external(Diagram *dia)
 	connected_list = g_list_next(connected_list);
       }
     }
-    diagram_tree_remove_object(diagram_tree(), obj);
+    data_emit (dia->data, dia_object_get_parent_layer(obj), obj, "object_remove");
     list = g_list_next(list);
   }
 }
@@ -1504,7 +1500,8 @@ diagram_update_for_filename(Diagram *dia)
 
   layer_dialog_update_diagram_list();
 
-  diagram_tree_update_name(diagram_tree(), dia);
+  /* signal about the change */
+  dia_diagram_change (dia, DIAGRAM_CHANGE_NAME, NULL);
 }
 
 /** Returns a string with a 'sensible' (human-readable) name for the
@@ -1535,7 +1532,9 @@ int diagram_modified_exists(void)
   return FALSE;
 }
 
-void diagram_object_modified(Diagram *dia, DiaObject *object)
+void 
+diagram_object_modified(Diagram *dia, DiaObject *object)
 {
-  diagram_tree_update_object(diagram_tree(), dia, object);
+  /* signal about the change */
+  dia_diagram_change (dia, DIAGRAM_CHANGE_OBJECT, object);
 }

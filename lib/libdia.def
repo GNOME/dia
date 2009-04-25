@@ -717,3 +717,6 @@ EXPORTS
  
  libdia_init
  dia_log_message
+
+ dia_marshal_VOID__OBJECT_UINT_POINTER
+

@@ -63,26 +63,6 @@ diagram_tree_update_all(DiagramTree *tree);
 extern void
 diagram_tree_update(DiagramTree *tree, Diagram *diagram);
 
-extern void
-diagram_tree_update_name(DiagramTree *tree, Diagram *diagram);
-
-/* add/remove an object in a diagram already contained in the tree */
-extern void
-diagram_tree_add_object(DiagramTree *tree, Diagram *diagram, DiaObject *object);
-
-extern void
-diagram_tree_add_objects(DiagramTree *tree, Diagram *diagram, GList *objects);
-
-extern void
-diagram_tree_remove_object(DiagramTree *tree, DiaObject *object);
-
-extern void
-diagram_tree_remove_objects(DiagramTree *tree, GList *objects);
-
-extern void
-diagram_tree_update_object(DiagramTree *tree, Diagram *diagram,
-			   DiaObject *object);
-
 /* operations on the last clicked node */
 extern void
 diagram_tree_raise(DiagramTree *tree);

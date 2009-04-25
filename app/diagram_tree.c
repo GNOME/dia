@@ -32,6 +32,7 @@
 #include "diagram_tree_menu_callbacks.h"
 #include "diagram_tree.h"
 #include "persistence.h"
+#include "dia-application.h"
 
 /* delete a tree (the widget is destroyed, but not the diagrams */
 static void diagram_tree_delete(DiagramTree *tree);
@@ -63,6 +64,16 @@ find_hidden_type(gconstpointer type, gconstpointer object_type)
 
 static void
 update_object(DiagramTree *tree, GtkCTreeNode *node, DiaObject *object);
+static void
+diagram_tree_add_object(DiagramTree *tree, Diagram *diagram, DiaObject *object);
+static void
+diagram_tree_remove_object(DiagramTree *tree, DiaObject *object);
+static void
+diagram_tree_remove_objects(DiagramTree *tree, GList *objects);
+static void
+diagram_tree_update_name(DiagramTree *tree, Diagram *diagram);
+static void
+diagram_tree_update_object(DiagramTree *tree, Diagram *diagram, DiaObject *object);
 
 static void
 select_node(DiagramTree *tree, GtkCTreeNode *node, gboolean raise)
@@ -326,6 +337,33 @@ update_diagram_children(DiagramTree *tree, GtkCTreeNode *node,
   sort_objects(tree, node);
 }
 
+/* listen to diagram creation */
+static void
+_diagram_add (DiaApplication *app,
+              Diagram        *dia,
+	      DiagramTree    *tree)
+{
+  diagram_tree_add(tree, dia);
+}
+static void
+_diagram_change (DiaApplication *app,
+                 Diagram        *dia,
+		 guint           flags,
+		 gpointer        object,
+	         DiagramTree    *tree)
+{
+  if (flags & DIAGRAM_CHANGE_NAME)
+    diagram_tree_update_name (tree, dia);
+  if (flags & DIAGRAM_CHANGE_OBJECT)
+    diagram_tree_update_object (tree, dia, object);
+}
+static void
+_diagram_remove (DiaApplication *app,
+                 Diagram        *dia,
+	         DiagramTree    *tree)
+{
+  diagram_tree_remove(tree, dia);
+}
 /* external interface */
 DiagramTree*
 diagram_tree_new(GList *diagrams, GtkWindow *window,
@@ -342,6 +380,20 @@ diagram_tree_new(GList *diagrams, GtkWindow *window,
 		     "button_press_event",
 		   G_CALLBACK(button_press_callback),
 		     (gpointer)result);
+		     
+  g_signal_connect (G_OBJECT (dia_application_get ()),
+                    "diagram_add",
+		    G_CALLBACK (_diagram_add),
+		    result);
+  g_signal_connect (G_OBJECT (dia_application_get ()),
+                    "diagram_change",
+		    G_CALLBACK (_diagram_change),
+		    result);
+  g_signal_connect (G_OBJECT(dia_application_get ()),
+                    "diagram_add",
+		    G_CALLBACK (_diagram_add),
+		    result);
+
   while (diagrams) {
     diagram_tree_add(result, (Diagram *)diagrams->data);
     diagrams = g_list_next(diagrams);
@@ -364,6 +416,27 @@ diagram_tree_delete(DiagramTree *tree)
   gtk_widget_destroy(GTK_WIDGET(tree->tree));
 }
 
+static void
+_object_add (DiagramData *dia,
+	     Layer       *layer,
+             DiaObject   *obj,
+	     DiagramTree *tree)
+{
+  g_return_if_fail (DIA_DIAGRAM(dia) != NULL);
+  
+  diagram_tree_add_object (tree, DIA_DIAGRAM(dia), obj);
+}
+static void
+_object_remove(DiagramData *dia,
+	       Layer       *layer,
+               DiaObject   *obj,
+	       DiagramTree *tree)
+{
+  g_return_if_fail (DIA_DIAGRAM(dia) != NULL);
+  
+  diagram_tree_remove_object (tree, obj);
+}
+
 void
 diagram_tree_add(DiagramTree *tree, Diagram *diagram)
 {
@@ -378,6 +451,9 @@ diagram_tree_add(DiagramTree *tree, Diagram *diagram)
             gtk_ctree_node_set_row_data(tree->tree, node, (gpointer)diagram);
             create_diagram_children(tree, node, diagram);
             sort_diagrams(tree);
+	    
+	    g_signal_connect (G_OBJECT(diagram), "object_add", G_CALLBACK(_object_add), tree);
+	    g_signal_connect (G_OBJECT(diagram), "object_remove", G_CALLBACK(_object_remove), tree);
         }
     }
 }
@@ -391,6 +467,9 @@ diagram_tree_remove(DiagramTree *tree, Diagram *diagram)
 	&& (node = gtk_ctree_find_by_row_data(tree->tree, NULL,
 					      (gpointer)diagram)))
       gtk_ctree_remove_node(tree->tree, node);
+
+      g_signal_handlers_disconnect_by_func (diagram, _object_add, tree);
+      g_signal_handlers_disconnect_by_func (diagram, _object_remove, tree);
   }
 }
 
@@ -435,7 +514,7 @@ diagram_tree_update_name(DiagramTree *tree, Diagram *diagram)
   }
 }
 
-void
+static void
 diagram_tree_add_object(DiagramTree *tree, Diagram *diagram, DiaObject *object)
 {
   if (tree) {

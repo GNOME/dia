@@ -159,6 +159,7 @@ textedit_end_edit(DDisplay *ddisp, Focus *focus)
   */
   highlight_object_off(focus->obj, ddisp->diagram);
   object_add_updates(focus->obj, ddisp->diagram);
+  diagram_object_modified(ddisp->diagram, focus->obj);
 /* Undo not quite ready yet
   change = (TextEditChange *) undo_remove_to(ddisp->diagram->undo,
 					     text_edit_apply);

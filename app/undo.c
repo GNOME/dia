@@ -25,7 +25,6 @@
 #include "focus.h"
 #include "group.h"
 #include "preferences.h"
-#include "diagram_tree_window.h"
 #include "textedit.h"
 #include "parent.h"
 
@@ -647,8 +646,6 @@ delete_objects_apply(struct DeleteObjectsChange *change, Diagram *dia)
 
     list = g_list_next(list);
   }
-
-  diagram_tree_remove_objects(diagram_tree(), change->obj_list);
 }
 
 static void
@@ -673,8 +670,6 @@ delete_objects_revert(struct DeleteObjectsChange *change, Diagram *dia)
 
   list = g_list_next(list);
  }
-
-  diagram_tree_add_objects(diagram_tree(), dia, change->obj_list);
 }
 
 static void
@@ -737,7 +732,6 @@ insert_objects_apply(struct InsertObjectsChange *change, Diagram *dia)
   change->applied = 1;
   layer_add_objects(change->layer, g_list_copy(change->obj_list));
   object_add_updates_list(change->obj_list, dia);
-  diagram_tree_add_objects(diagram_tree(), dia, change->obj_list);
 }
 
 static void
@@ -761,8 +755,6 @@ insert_objects_revert(struct InsertObjectsChange *change, Diagram *dia)
 
     list = g_list_next(list);
   }
-
-  diagram_tree_remove_objects(diagram_tree(), change->obj_list);
 }
 
 static void
@@ -974,9 +966,6 @@ group_objects_apply(struct GroupObjectsChange *change, Diagram *dia)
 
     list = g_list_next(list);
   }
-
-  diagram_tree_add_object(diagram_tree(), dia, change->group);
-  diagram_tree_remove_objects(diagram_tree(), change->obj_list);
 }
 
 static void
@@ -993,9 +982,6 @@ group_objects_revert(struct GroupObjectsChange *change, Diagram *dia)
   object_add_updates_list(change->obj_list, dia);
 
   properties_hide_if_shown(dia, change->group);
-
-  diagram_tree_add_objects(diagram_tree(), dia, change->obj_list);
-  diagram_tree_remove_object(diagram_tree(), change->group);
 }
 
 static void
@@ -1060,9 +1046,6 @@ ungroup_objects_apply(struct UngroupObjectsChange *change, Diagram *dia)
   object_add_updates_list(change->obj_list, dia);
   
   properties_hide_if_shown(dia, change->group);
-
-  diagram_tree_add_objects(diagram_tree(), dia, change->obj_list);
-  diagram_tree_remove_object(diagram_tree(), change->group);
 }
 
 static void
@@ -1090,8 +1073,12 @@ ungroup_objects_revert(struct UngroupObjectsChange *change, Diagram *dia)
     list = g_list_next(list);
   }
 
-  diagram_tree_add_object(diagram_tree(), dia, change->group);
-  diagram_tree_remove_objects(diagram_tree(), change->obj_list);
+  data_emit (dia, change->layer, change->group, "object_add");
+  list = change->obj_list;
+  while (list) {
+    data_emit (dia, change->layer, list->data, "object_remove");
+    list = g_list_next(list);
+  }
 }
 
 static void
@@ -1241,10 +1228,8 @@ move_object_layer_relative(Diagram *dia, GList *objects, gint dist)
   target = g_ptr_array_index(dia->data->layers, pos);
   object_add_updates_list(objects, dia);
   layer_remove_objects(active, objects);
-  diagram_tree_add_objects(diagram_tree(), dia, objects);
   layer_add_objects(target, g_list_copy(objects));
   data_set_active_layer(dia->data, target);
-  diagram_tree_add_objects(diagram_tree(), dia, objects);
 }
 
 static void

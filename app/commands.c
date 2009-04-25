@@ -38,6 +38,7 @@
 #include <textedit.h>
 #include <focus.h>
 #include "confirm.h"
+#include "dia-application.h"
 
 /** Functions called on menu selects.
  *  Note that GTK (at least up to 2.12) doesn't disable the keyboard shortcuts
@@ -86,7 +87,6 @@ ShellExecuteA (long        hwnd,
 #include "lib/properties.h"
 #include "lib/parent.h"
 #include "dia-props.h"
-#include "diagram_tree_window.h"
 #include "authors.h"                /* master contributors data */
 
 void 
@@ -151,7 +151,7 @@ file_new_callback (GtkAction *action)
   filename = g_filename_from_utf8(name, -1, NULL, NULL, NULL);
   dia = new_diagram(filename);
   ddisp = new_display(dia);
-  diagram_tree_add(diagram_tree(), dia);
+  dia_diagram_add (dia); /* notify DiagramTree etc. */
   g_free (name);
   g_free (filename);
 }

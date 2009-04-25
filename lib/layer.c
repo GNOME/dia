@@ -501,13 +501,14 @@ void
 layer_replace_object_with_list(Layer *layer, DiaObject *remove_obj,
 			       GList *insert_list)
 {
-  GList *list;
+  GList *list, *il;
 
   list = g_list_find(layer->objects, remove_obj);
 
   g_assert(list!=NULL);
   set_parent_layer(remove_obj, NULL);
   dynobj_list_remove_object(remove_obj);
+  data_emit (layer_get_parent_diagram(layer), layer, remove_obj, "object_remove");
   g_list_foreach(insert_list, set_parent_layer, layer);
 
   if (list->prev == NULL) {
@@ -522,6 +523,11 @@ layer_replace_object_with_list(Layer *layer, DiaObject *remove_obj,
     last->next = list->next;
     list->next->prev = last;
   }
+  il = insert_list;
+  while (il) {
+    data_emit (layer_get_parent_diagram(layer), layer, il->data, "object_add");
+    il = g_list_next(il);
+  }
   g_list_free_1(list);
 }
 
@@ -533,11 +539,24 @@ layer_remove_dynobj(gpointer obj, gpointer userdata)
 
 void layer_set_object_list(Layer *layer, GList *list)
 {
+  GList *ol;
+  /* signal removal on all objects */
+  ol = layer->objects;
+  while (ol) {
+    data_emit (layer_get_parent_diagram(layer), layer, ol->data, "object_remove");
+    ol = g_list_next (ol);
+  }
   g_list_foreach(layer->objects, set_parent_layer, NULL);
   g_list_foreach(layer->objects, layer_remove_dynobj, NULL);
   g_list_free(layer->objects);
   layer->objects = list;
   g_list_foreach(layer->objects, set_parent_layer, layer);
+  /* signal addition on all objects */
+  list = layer->objects;
+  while (list) {
+    data_emit (layer_get_parent_diagram(layer), layer, list->data, "object_add");
+    list = g_list_next (list);
+  }
 }
 
 DiagramData *

@@ -189,6 +189,9 @@ dia_core_files = \
 	diagram_tree_menu_callbacks.h \
 	diagram_tree_menu_callbacks.c \
 	\
+	dia-application.h \
+	dia-application.c \
+	\
 	diagram_tree_model.c \
 	diagram_tree_model.h \
 	diagram_tree_view.c \
