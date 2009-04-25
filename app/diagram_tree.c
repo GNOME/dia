@@ -35,7 +35,7 @@
 #include "dia-application.h"
 
 /* delete a tree (the widget is destroyed, but not the diagrams */
-static void diagram_tree_delete(DiagramTree *tree);
+static void diagram_tree_delete(GtkCTree *ctree, DiagramTree *tree);
 
 struct _DiagramTree {
   GtkCTree *tree;		/* the tree widget */
@@ -380,6 +380,9 @@ diagram_tree_new(GList *diagrams, GtkWindow *window,
 		     "button_press_event",
 		   G_CALLBACK(button_press_callback),
 		     (gpointer)result);
+  g_signal_connect (GTK_OBJECT (result->tree), "destroy",
+		    G_CALLBACK (diagram_tree_delete),
+		    result);
 		     
   g_signal_connect (G_OBJECT (dia_application_get ()),
                     "diagram_add",
@@ -390,8 +393,8 @@ diagram_tree_new(GList *diagrams, GtkWindow *window,
 		    G_CALLBACK (_diagram_change),
 		    result);
   g_signal_connect (G_OBJECT(dia_application_get ()),
-                    "diagram_add",
-		    G_CALLBACK (_diagram_add),
+                    "diagram_remove",
+		    G_CALLBACK (_diagram_remove),
 		    result);
 
   while (diagrams) {
@@ -410,10 +413,13 @@ diagram_tree_new(GList *diagrams, GtkWindow *window,
 }
 
 static void
-diagram_tree_delete(DiagramTree *tree) 
+diagram_tree_delete(GtkCTree *ctree, DiagramTree *tree) 
 {
   g_return_if_fail(tree);
-  gtk_widget_destroy(GTK_WIDGET(tree->tree));
+
+  g_signal_handlers_disconnect_by_func (G_OBJECT (dia_application_get ()), _diagram_add,    tree);
+  g_signal_handlers_disconnect_by_func (G_OBJECT (dia_application_get ()), _diagram_change, tree);
+  g_signal_handlers_disconnect_by_func (G_OBJECT (dia_application_get ()), _diagram_remove, tree);
 }
 
 static void
