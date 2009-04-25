@@ -99,23 +99,34 @@ diagram_get_type (void)
 }
 
 static void
+diagram_dispose (GObject *object)
+{
+  Diagram *dia = DIA_DIAGRAM(object);
+
+  assert(dia->displays==NULL);
+  
+  if (g_list_index(open_diagrams, dia) >= 0) {
+    dia_diagram_remove(dia);
+
+    open_diagrams = g_list_remove(open_diagrams, dia);
+    layer_dialog_update_diagram_list();
+  }
+
+  if (dia->undo)
+    undo_destroy(dia->undo);
+  dia->undo = NULL;
+  
+  diagram_cleanup_autosave(dia);
+
+  G_OBJECT_CLASS (parent_class)->dispose (object);
+}
+static void
 diagram_finalize(GObject *object) 
 {
   Diagram *dia = DIA_DIAGRAM(object);
 
   assert(dia->displays==NULL);
   
-  open_diagrams = g_list_remove(open_diagrams, dia);
-  layer_dialog_update_diagram_list();
-
-  if (dia->undo)
-    undo_destroy(dia->undo);
-  dia->undo = NULL;
-  
-  dia_diagram_remove(dia);
-
-  diagram_cleanup_autosave(dia);
-
   if (dia->filename)
     g_free(dia->filename);
   dia->filename = NULL;
@@ -163,6 +174,7 @@ diagram_class_init (DiagramClass *klass)
   klass->selection_changed = _diagram_selection_changed;
 
   object_class->finalize = diagram_finalize;
+  object_class->dispose = diagram_dispose;
 }
 
 GList *
@@ -321,6 +333,8 @@ diagram_load(const char *filename, DiaImportFilter *ifilter)
     diagram_set_modified(diagram, FALSE);
     if (app_is_interactive()) {
       recent_file_history_add(filename);
+      if (was_default) /* replacing it is like first remove than add */
+        dia_diagram_remove(diagram);
       dia_diagram_add(diagram);
     }
   }
