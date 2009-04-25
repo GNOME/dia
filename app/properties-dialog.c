@@ -47,14 +47,15 @@ static gboolean properties_key_event(GtkWidget *widget,
 				     gpointer data);
 static void properties_dialog_hide(void);
 
-static void create_dialog()
+static void 
+create_dialog(GtkWidget *parent)
 {
 /*   GtkWidget *actionbox; */
 /*   GList *buttons; */
 
   dialog = gtk_dialog_new_with_buttons(
              _("Object properties"),
-             GTK_WINDOW (ddisplay_active()->shell), 
+             parent ? GTK_WINDOW (parent) : NULL, 
              GTK_DIALOG_DESTROY_WITH_PARENT,
              GTK_STOCK_CLOSE, GTK_RESPONSE_CLOSE,
              GTK_STOCK_APPLY, GTK_RESPONSE_APPLY,
@@ -217,9 +218,9 @@ object_list_properties_show(Diagram *dia, GList *objects)
 {
   GtkWidget *properties;
   DiaObject *one_obj;
-
+  GtkWidget *parent = ddisplay_active() ? ddisplay_active()->shell : NULL;
   if (!dialog)
-    create_dialog();
+      create_dialog(parent);
   clear_dialog_globals();
 
   if (!objects) {
@@ -260,8 +261,8 @@ object_list_properties_show(Diagram *dia, GList *objects)
   /* resize to minimum */
   /* if (obj != current_obj) */
   gtk_window_resize (GTK_WINDOW(dialog), 1, 1);
-  gtk_window_set_transient_for(GTK_WINDOW(dialog),
-			       GTK_WINDOW (ddisplay_active()->shell));
+  if (parent)
+    gtk_window_set_transient_for(GTK_WINDOW(dialog), GTK_WINDOW (parent));
   gtk_window_present (GTK_WINDOW (dialog));
   object_part = properties;
   current_objects = g_list_copy(objects);
