@@ -27,6 +27,7 @@
 #include <gtk/gtk.h>
 #include "diagram.h"
 #include "object.h"
+#include "dia-application.h"
 
 #include "diagram_tree_model.h"
 
@@ -43,17 +44,18 @@ typedef struct _DiagramTreeModel
   GObject parent;
   /* no need to store anything */
 } DiagramTreeModel;
+
+static void _dtm_finalize (GObject *object);
+
 static void
 _dtm_class_init (DiagramTreeModelClass *klass)
 {
   GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
-}
-static void
-_dtm_init (DiagramTreeModel *dtm)
-{
+  
+  gobject_class->finalize = _dtm_finalize;
 }
 
-#define DIAGRAM_TREE_MODEL (_dtm_get_type ())
+#define DIA_TYPE_DIAGRAM_TREE_MODEL (_dtm_get_type ())
 
 static void _dtm_iface_init (GtkTreeModelIface *iface);
 
@@ -64,7 +66,7 @@ G_DEFINE_TYPE_WITH_CODE (DiagramTreeModel, _dtm, G_TYPE_OBJECT,
 static GtkTreeModelFlags
 _get_flags (GtkTreeModel *tree_model)
 {
-  return GTK_TREE_MODEL_ITERS_PERSIST;
+  return GTK_TREE_MODEL_ITERS_PERSIST; /* NOT: ; */
 }
 static gint
 _dtm_get_n_columns (GtkTreeModel *tree_model)
@@ -358,8 +360,10 @@ _dtm_iface_init (GtkTreeModelIface *iface)
   iface->iter_nth_child = _dtm_iter_nth_child;
   iface->iter_parent = _dtm_iter_parent;
 
+#if 0 /* optional: for performance reasons */
   iface->ref_node = _dtm_ref_node;
   iface->unref_node = _dtm_unref_node;
+#endif
 
   /*todo?*/
 #if 0
@@ -369,6 +373,117 @@ _dtm_iface_init (GtkTreeModelIface *iface)
   row_deleted;
   rows_reordered;
 #endif
+}
+
+/*
+ * MODELCHANGES
+ */
+static void
+_recurse_row_inserted (GtkTreeModel *dtm, GtkTreeIter *parent)
+{
+  GtkTreeIter iter;
+  int n = 0;
+  while (_dtm_iter_nth_child (dtm, &iter, parent, n)) {
+    GtkTreePath *path = _dtm_get_path (dtm, &iter);
+    gtk_tree_model_row_inserted (dtm, path, &iter);
+    _recurse_row_inserted (dtm, &iter);
+    gtk_tree_path_free (path);
+    ++n;
+  }
+}
+
+/* listen to diagram creation */
+static void
+_diagram_add (DiaApplication   *app,
+              Diagram          *dia,
+	      DiagramTreeModel *dtm)
+{
+  GtkTreePath *path;
+  GtkTreeIter _iter = {0,}; /* all null is our root */
+  GtkTreeIter *iter = &_iter;
+
+  if (GTK_IS_TREE_SORTABLE(dtm))
+    dtm = gtk_tree_model_sort_get_model (GTK_TREE_MODEL (dtm));
+  NODE_DIAGRAM(iter) = DIA_DIAGRAM_DATA (dia);
+  path = _dtm_get_path (GTK_TREE_MODEL (dtm), iter);
+  /* we always get a path, but it may not be a valid one */
+  if (path) {
+    /* gtk_tree_model_row_changed is not 'strong' enough, lets try to re-add the root */
+    gtk_tree_model_row_inserted (GTK_TREE_MODEL (dtm), path, iter);
+    /* looks like the GtkTreeView is somewhat out of service */
+    _recurse_row_inserted (GTK_TREE_MODEL (dtm), iter);
+    gtk_tree_path_free (path);
+  }
+}
+static void
+_diagram_change (DiaApplication   *app,
+                 Diagram          *dia,
+		 guint             flags,
+		 gpointer          object,
+	         DiagramTreeModel *dtm)
+{
+  GtkTreePath *path;
+  GtkTreeIter _iter = {0,};
+  GtkTreeIter *iter = &_iter;
+  
+  NODE_DIAGRAM(iter) = DIA_DIAGRAM_DATA(dia);
+
+  if (flags & DIAGRAM_CHANGE_NAME)
+    /* nothing special */;
+  if (flags & DIAGRAM_CHANGE_LAYER)
+    NODE_LAYER(iter) = object;
+  if (flags & DIAGRAM_CHANGE_OBJECT) {
+    NODE_OBJECT(iter) = object;
+    NODE_LAYER(iter) = dia_object_get_parent_layer (object);
+  }
+
+  if (GTK_IS_TREE_SORTABLE(dtm))
+    dtm = gtk_tree_model_sort_get_model (GTK_TREE_MODEL (dtm));
+  path = _dtm_get_path (GTK_TREE_MODEL (dtm), iter);
+  gtk_tree_model_row_changed (GTK_TREE_MODEL (dtm), path, iter);
+  gtk_tree_path_free (path);
+}
+static void
+_diagram_remove (DiaApplication   *app,
+                 Diagram          *dia,
+	         DiagramTreeModel *dtm)
+{
+  GtkTreePath *path;
+  GtkTreeIter _iter = {0,};
+  GtkTreeIter *iter = &_iter;
+  
+  NODE_DIAGRAM(iter) = DIA_DIAGRAM_DATA(dia);
+  NODE_LAYER(iter)   = NULL;
+  NODE_OBJECT(iter)  = NULL;
+  if (GTK_IS_TREE_SORTABLE(dtm))
+    dtm = gtk_tree_model_sort_get_model (GTK_TREE_MODEL (dtm));
+  path = _dtm_get_path (GTK_TREE_MODEL (dtm), iter);
+  gtk_tree_model_row_deleted (GTK_TREE_MODEL (dtm), path);
+  gtk_tree_path_free (path);
+}
+
+static void
+_dtm_init (DiagramTreeModel *dtm)
+{
+  /* connect to intersting state changes */
+  g_signal_connect (G_OBJECT (dia_application_get ()),
+                    "diagram_add", G_CALLBACK (_diagram_add), dtm);
+  g_signal_connect (G_OBJECT (dia_application_get ()),
+                    "diagram_change", G_CALLBACK (_diagram_change), dtm);
+  g_signal_connect (G_OBJECT(dia_application_get ()),
+                    "diagram_remove", G_CALLBACK (_diagram_remove), dtm);
+}
+
+static void
+_dtm_finalize (GObject *object)
+{
+  DiagramTreeModel *dtm = (DiagramTreeModel *)object;
+
+  g_signal_handlers_disconnect_by_func (G_OBJECT (dia_application_get ()), _diagram_add, dtm);
+  g_signal_handlers_disconnect_by_func (G_OBJECT (dia_application_get ()), _diagram_change, dtm);
+  g_signal_handlers_disconnect_by_func (G_OBJECT (dia_application_get ()), _diagram_remove, dtm);
+  
+  G_OBJECT_CLASS(_dtm_parent_class)->finalize (object);
 }
 
 /* SORTABLE 
@@ -471,7 +586,7 @@ wrap_as_sortable_model (GtkTreeModel *model)
 GtkTreeModel *
 diagram_tree_model_new (void)
 {
-  GtkTreeModel *model = g_object_new (DIAGRAM_TREE_MODEL, NULL);
+  GtkTreeModel *model = g_object_new (DIA_TYPE_DIAGRAM_TREE_MODEL, NULL);
   model = wrap_as_sortable_model (model);
   return model;
 }
