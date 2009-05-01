@@ -19,6 +19,8 @@ full: 	build \
 #	build\win32\dia\bondgraph.dll \
 	build\win32\dia\chronogram.dll \
 	build\win32\dia\custom.dll \
+	build\win32\dia\custom_lines.dll \
+	build\win32\dia\Database.dll \
 	build\win32\dia\drs.dll \
 	build\win32\dia\er.dll \
 	build\win32\dia\flowchart.dll \
@@ -142,6 +144,12 @@ build\win32\dia\chronogram.dll: build\win32\dia objects\chronogram\chronogram.dl
 	
 build\win32\dia\custom.dll: build\win32\dia objects\custom\custom.dll
 	copy objects\custom\custom.dll build\win32\dia
+	
+build\win32\dia\custom_lines.dll: build\win32\dia objects\custom_lines\custom_lines.dll
+	copy objects\custom_lines\custom_lines.dll build\win32\dia
+
+build\win32\dia\Database.dll: build\win32\dia objects\Database\Database.dll
+	copy objects\Database\Database.dll build\win32\dia
 	
 build\win32\dia\drs.dll: build\win32\dia plug-ins\drs\drs.dll
 	copy plug-ins\drs\drs.dll build\win32\dia
