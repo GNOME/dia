@@ -12,7 +12,7 @@ sheet_in_files = \
   ciscohub.sheet.in ciscomisc.sheet.in cisconetwork.sheet.in \
   ciscotelephony.sheet.in Cybernetics.sheet.in IsometricMap.sheet.in \
   Istar.sheet.in Jackson.sheet.in KAOS.sheet.in ChemEng.sheet.in \
-  AADL.sheet.in Gane_and_Sarson.sheet.in BPMN.sheet.in SISSI.sheet.in \
+  AADL.sheet.in Gane_and_Sarson.sheet.in BPMN.sheet.in \
   Lights.sheet.in Database.sheet.in
 
 SHEETS = $(sheet_in_files:.sheet.in=.sheet)
@@ -25,7 +25,8 @@ sheet_DATA = $(SHEETS)
 	 	-c $(top_srcdir)/po/.intltool-merge-cache
 
 EXTRA_DIST = $(sheet_in_files) \
-	checktrans checktrans.py
+	checktrans checktrans.py \
+	SISSI.sheet.in 
 
 CLEANFILES = sheet-translation-report $(SHEETS) 
 

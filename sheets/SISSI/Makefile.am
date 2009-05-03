@@ -126,6 +126,9 @@ PIX = \
 	75.xml \
 	76.xml
 
-	
-SISSIsheet_DATA = $(PIX)
+
+# disabled installation - considered too alpha to support
+#SISSIsheet_DATA = $(PIX)
+SISSIsheet_DATA =
 EXTRA_DIST = $(PIX)
+

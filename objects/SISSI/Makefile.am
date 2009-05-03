@@ -30,3 +30,8 @@ EXTRA_DIST = \
 	pixmaps/broken.xpm \
 	methode_attack.h \
 	classification.h
+
+# Prevent installation - considered too alpha
+install-pkglibLTLIBRARIES:
+	:
+
