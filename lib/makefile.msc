@@ -7,15 +7,19 @@ PACKAGE = libdia
 #	-DGTK_DISABLE_DEPRECATED \
 
 
-PKG_CFLAGS = -FImsvc_recommended_pragmas.h \
-	-I.. \
-	-DG_DISABLE_DEPRECATED -DGTK_DISABLE_DEPRECATED \
+INCLUDES = \
+	-FImsvc_recommended_pragmas.h \
+	-I. -I.. \
 	$(GTK2_CFLAGS) \
 	$(LIBXML2_CFLAGS) \
 	$(ZLIB_CFLAGS) \
 !IFDEF USEFT2
 	-DHAVE_FREETYPE $(FREETYPE2_CFLAGS) \
 !ENDIF
+
+DEFINES = \
+	-DHAVE_CONFIG_H \
+	-DG_DISABLE_DEPRECATED -DGTK_DISABLE_DEPRECATED \
 	-DLIBDIA_COMPILATION
 
 # in GTK_CFLAGS: $(GLIB_CFLAGS) 
@@ -37,7 +41,7 @@ ICON_PNG_PAIRS = \
 # I'm not gonna chase goblins right now.
 dia-lib-icons.h:
 	gdk-pixbuf-csource --build-list \
-	$(ICON_PNG_PAIRS) > dia-lib-icons.h
+	$(ICON_PNG_PAIRS) > dia-lib-icons.h || del dia-lib-icons.h
 
 OBJECTS = \
 	autoroute.obj \
@@ -143,8 +147,6 @@ diamarshal.c: diamarshal.h
 # No general LDFLAGS needed
 LDFLAGS = /link $(LINKDEBUG)
 INSTALL = copy
-
-CFLAGS = -I. -DHAVE_CONFIG_H
 
 ## targets
 all : \

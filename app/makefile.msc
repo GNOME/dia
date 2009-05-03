@@ -105,7 +105,7 @@ ICON_PNG_PAIRS = \
 
 dia-app-icons.h : makefile.msc pixmaps\*.png
 	gdk-pixbuf-csource --build-list \
-	$(ICON_PNG_PAIRS) > dia-app-icons.h
+	$(ICON_PNG_PAIRS) > dia-app-icons.h || del dia-app-icons.h
 
 # No general LDFLAGS needed
 # /subsystem:console and /subsystem:windows have their own exe
