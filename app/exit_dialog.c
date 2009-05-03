@@ -219,6 +219,10 @@ exit_dialog_run (GtkWidget * dialog,
             case EXIT_DIALOG_EXIT_NO_SAVE:
                 *items = NULL;
                 return result;
+	    case EXIT_DIALOG_EXIT_SAVE_SELECTED :
+		break;
+	    default : /* e.g. if closed by window manager button */
+	        return EXIT_DIALOG_EXIT_CANCEL;
         }
     
         count = get_selected_items (dialog, items);
