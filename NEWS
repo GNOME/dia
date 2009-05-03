@@ -1,3 +1,7 @@
+dia-0.97: 2009-05-03
+
+  * a few more bugs fixed, some updated translations, build from git
+
 dia-0.97-pre3: 2009-04-11
 
   * integrated UI does not need a restart anymore (it must be selected on the 
