@@ -92,7 +92,6 @@ static void measure_draw(Measure *measure, DiaRenderer *renderer);
 static real measure_distance_from (Measure *measure, Point *point);
 static void measure_update_data (Measure *measure);
 static void measure_destroy (Measure *measure);
-static DiaObject *measure_copy (Measure *measure);
 static DiaMenu *measure_get_object_menu(Measure *measure,
 					Point *clickedpoint);
 static PropDescription *measure_describe_props(Measure *measure);
@@ -104,7 +103,7 @@ static ObjectOps measure_ops = {
   (DrawFunc)            measure_draw,
   (DistanceFunc)        measure_distance_from,
   (SelectFunc)          measure_select,
-  (CopyFunc)            measure_copy,
+  (CopyFunc)            object_copy_using_properties,
   (MoveFunc)            measure_move,
   (MoveHandleFunc)      measure_move_handle,
   (GetPropertiesFunc)   object_create_props_dialog,
@@ -181,7 +180,7 @@ static PropNumData precision_data = {1, 9, 1};
 
 /* Class/Object implementation */
 static PropDescription measure_props[] = {
-  OBJECT_COMMON_PROPERTIES,
+  CONNECTION_COMMON_PROPERTIES,
   { "name", PROP_TYPE_STRING,/*PROP_FLAG_VISIBLE|*/PROP_FLAG_DONT_MERGE, 
     N_("Measurement"),NULL }, /* FIXME: mark read-only */
   { "scale", PROP_TYPE_REAL, PROP_FLAG_VISIBLE, N_("Scale"), NULL, &scale_range},
@@ -195,7 +194,7 @@ static PropDescription measure_props[] = {
   PROP_DESC_END
 };
 static PropOffset measure_offsets[] = {
-  OBJECT_COMMON_PROPERTIES_OFFSETS,
+  CONNECTION_COMMON_PROPERTIES_OFFSETS,
   { "name", PROP_TYPE_STRING, offsetof(Measure, name) },
   { "scale", PROP_TYPE_REAL, offsetof(Measure, scale) },
   { "unit", PROP_TYPE_ENUM, offsetof(Measure, unit) },
@@ -350,24 +349,4 @@ static void
 measure_destroy(Measure *measure)
 {
   connection_destroy(&measure->connection);
-}
-static DiaObject *
-measure_copy (Measure *from)
-{
-  Measure *to;
-  
-  to = g_new0 (Measure, 1);
-  connection_copy(&from->connection, &to->connection);
-
-  to->name = g_strdup (from->name);
-  to->font = dia_font_ref (from->font);
-  to->font_height = from->font_height;
-  to->line_width = from->line_width;
-  to->line_color = from->line_color;
-  to->scale = from->scale;
-  to->unit = from->unit;
-  /* the rest will be recalculated in update_data() */
-  measure_update_data(to);
-
-  return &to->connection.object;
 }
