@@ -86,7 +86,7 @@ linewidth_area_draw (GtkWidget *linewidth_area)
 			       GDK_JOIN_MITER);
   }
 
-  gdk_window_get_size (linewidth_area_pixmap, &width, &height);
+  gdk_drawable_get_size (linewidth_area_pixmap, &width, &height);
 
   win_bg = &(linewidth_area->style->bg[GTK_STATE_NORMAL]);
   line = color_gdk_black;
