@@ -311,12 +311,12 @@ static gboolean
 on_da_expose_event (GtkWidget * widget, GdkEventExpose * event, gpointer unused)
 {
   /*refresh the part outdated by the event*/
-  gdk_draw_pixmap (widget->window,
-                   widget->style->fg_gc[GTK_WIDGET_STATE (widget)],
-                   GDK_PIXMAP(nav->buffer),
-                   event->area.x, event->area.y,
-                   event->area.x, event->area.y,
-                   event->area.width, event->area.height);
+  gdk_draw_drawable (widget->window,
+                     widget->style->fg_gc[GTK_WIDGET_STATE (widget)],
+                     GDK_PIXMAP(nav->buffer),
+                     event->area.x, event->area.y,
+                     event->area.x, event->area.y,
+                     event->area.width, event->area.height);
 
   /*the first time, display the current display's state*/
   if(nav->is_first_expose){
@@ -393,10 +393,10 @@ on_da_motion_notify_event (GtkWidget * drawing_area, GdkEventMotion * event, gpo
 
 /*--Draw the miniframe*/
 /*refresh from the buffer*/
-  gdk_draw_pixmap (drawing_area->window,
-                   drawing_area->style->fg_gc[GTK_WIDGET_STATE (drawing_area)],
-                   GDK_PIXMAP(nav->buffer),
-                   0, 0, 0, 0, nav->width, nav->height);
+  gdk_draw_drawable (drawing_area->window,
+                     drawing_area->style->fg_gc[GTK_WIDGET_STATE (drawing_area)],
+                     GDK_PIXMAP(nav->buffer),
+                     0, 0, 0, 0, nav->width, nav->height);
 /*draw directly on the window, do not buffer the miniframe*/
   gdk_draw_rectangle (drawing_area->window,
                       nav->gc, FALSE,

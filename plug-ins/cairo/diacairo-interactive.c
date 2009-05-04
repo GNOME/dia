@@ -353,12 +353,12 @@ copy_to_window (DiaRenderer *object, gpointer window,
   if (!copy_gc)
     copy_gc = gdk_gc_new(window);
 
-  gdk_draw_pixmap (GDK_WINDOW(window),
-                   copy_gc,
-                   renderer->pixmap,
-                   x, y,
-                   x, y,
-                   width > 0 ? width : -width, height > 0 ? height : -height);
+  gdk_draw_drawable (GDK_WINDOW(window),
+                     copy_gc,
+                     renderer->pixmap,
+                     x, y,
+                     x, y,
+                     width > 0 ? width : -width, height > 0 ? height : -height);
 }
 
 static void

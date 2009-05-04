@@ -111,8 +111,8 @@ linewidth_area_draw (GtkWidget *linewidth_area)
 		      active_linewidth+4, height-1);
   }
 
-  gdk_draw_pixmap (linewidth_area->window, linewidth_area_gc, linewidth_area_pixmap,
-		   0, 0, 0, 0, width, height);
+  gdk_draw_drawable (linewidth_area->window, linewidth_area_gc, linewidth_area_pixmap,
+		     0, 0, 0, 0, width, height);
 }
 
 static gint
