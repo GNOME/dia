@@ -113,7 +113,7 @@ menu_item_compare_labels(gconstpointer a, gconstpointer b)
   a_list = gtk_container_get_children(GTK_CONTAINER(GTK_MENU_ITEM(a)));
   g_assert(g_list_length(a_list) == 1);
 
-  gtk_label_get(GTK_LABEL(a_list->data), &label);
+  label = gtk_label_get_text(GTK_LABEL(a_list->data));
   g_list_free(a_list);
 
   if (!strcmp(label, (gchar *)b))
