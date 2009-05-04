@@ -120,7 +120,7 @@ xslt_dialog_create(void) {
 		menuitem = gtk_radio_menu_item_new_with_label (group, cur_f->name);
 		gtk_signal_connect (GTK_OBJECT (menuitem), "activate",
 				    GTK_SIGNAL_FUNC (from_activate), cur_f);
-		group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
+		group = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM (menuitem));
 		gtk_menu_append (GTK_MENU (menu), menuitem);
 		gtk_widget_show (menuitem);
 		cur_f = cur_f->next;
@@ -158,7 +158,7 @@ xslt_dialog_create(void) {
 			menuitem = gtk_radio_menu_item_new_with_label (group, cur_to->name);
 			gtk_signal_connect (GTK_OBJECT (menuitem), "activate",
 					    GTK_SIGNAL_FUNC (to_update), cur_to );
-			group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
+			group = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM (menuitem));
 			gtk_menu_append (GTK_MENU (menu), menuitem);
 			gtk_widget_show (menuitem);
 			cur_to->item = menuitem;

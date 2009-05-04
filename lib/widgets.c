@@ -723,19 +723,19 @@ dia_alignment_selector_init (DiaAlignmentSelector *fs)
 
   menuitem = gtk_radio_menu_item_new_with_label (group, _("Left"));
   gtk_object_set_user_data(GTK_OBJECT(menuitem), GINT_TO_POINTER(ALIGN_LEFT));
-  group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
+  group = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM (menuitem));
   gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
   gtk_widget_show (menuitem);
 
   menuitem = gtk_radio_menu_item_new_with_label (group, _("Center"));
   gtk_object_set_user_data(GTK_OBJECT(menuitem), GINT_TO_POINTER(ALIGN_CENTER));
-  group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
+  group = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM (menuitem));
   gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
   gtk_widget_show (menuitem);
 
   menuitem = gtk_radio_menu_item_new_with_label (group, _("Right"));
   gtk_object_set_user_data(GTK_OBJECT(menuitem), GINT_TO_POINTER(ALIGN_RIGHT));
-  group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
+  group = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM (menuitem));
   gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
   gtk_widget_show (menuitem);
   
@@ -895,31 +895,31 @@ dia_line_style_selector_init (DiaLineStyleSelector *fs)
 #if 0
   menuitem = gtk_radio_menu_item_new_with_label (group, _("Solid"));
   gtk_object_set_user_data(GTK_OBJECT(menuitem), GINT_TO_POINTER(LINESTYLE_SOLID));
-  group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
+  group = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM (menuitem));
   gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
   gtk_widget_show (menuitem);
 
   menuitem = gtk_radio_menu_item_new_with_label (group, _("Dashed"));
   gtk_object_set_user_data(GTK_OBJECT(menuitem), GINT_TO_POINTER(LINESTYLE_DASHED));
-  group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
+  group = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM (menuitem));
   gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
   gtk_widget_show (menuitem);
 
   menuitem = gtk_radio_menu_item_new_with_label (group, _("Dash-Dot"));
   gtk_object_set_user_data(GTK_OBJECT(menuitem), GINT_TO_POINTER(LINESTYLE_DASH_DOT));
-  group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
+  group = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM (menuitem));
   gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
   gtk_widget_show (menuitem);
 
   menuitem = gtk_radio_menu_item_new_with_label (group, _("Dash-Dot-Dot"));
   gtk_object_set_user_data(GTK_OBJECT(menuitem), GINT_TO_POINTER(LINESTYLE_DASH_DOT_DOT));
-  group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
+  group = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM (menuitem));
   gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
   gtk_widget_show (menuitem);
   
   menuitem = gtk_radio_menu_item_new_with_label (group, _("Dotted"));
   gtk_object_set_user_data(GTK_OBJECT(menuitem), GINT_TO_POINTER(LINESTYLE_DOTTED));
-  group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
+  group = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM (menuitem));
   gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
   gtk_widget_show (menuitem);
 #endif
