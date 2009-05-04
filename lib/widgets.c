@@ -124,7 +124,7 @@ static void
 dia_size_selector_adjust_width(DiaSizeSelector *ss)
 {
   real height = 
-    gtk_spin_button_get_value_as_float(GTK_SPIN_BUTTON(ss->height));
+    gtk_spin_button_get_value(GTK_SPIN_BUTTON(ss->height));
   if (fabs(ss->ratio) > 1e-6)
     gtk_spin_button_set_value(GTK_SPIN_BUTTON(ss->width), height*ss->ratio);
 }
@@ -133,7 +133,7 @@ static void
 dia_size_selector_adjust_height(DiaSizeSelector *ss)
 {
   real width = 
-    gtk_spin_button_get_value_as_float(GTK_SPIN_BUTTON(ss->width));
+    gtk_spin_button_get_value(GTK_SPIN_BUTTON(ss->width));
   if (fabs(ss->ratio) > 1e-6)
     gtk_spin_button_set_value(GTK_SPIN_BUTTON(ss->height), width/ss->ratio);
 }
@@ -301,8 +301,8 @@ dia_size_selector_set_locked(DiaSizeSelector *ss, gboolean locked)
 gboolean
 dia_size_selector_get_size(DiaSizeSelector *ss, real *width, real *height)
 {
-  *width = gtk_spin_button_get_value_as_float(GTK_SPIN_BUTTON(ss->width));
-  *height = gtk_spin_button_get_value_as_float(GTK_SPIN_BUTTON(ss->height));
+  *width = gtk_spin_button_get_value(GTK_SPIN_BUTTON(ss->width));
+  *height = gtk_spin_button_get_value(GTK_SPIN_BUTTON(ss->height));
   return gtk_toggle_button_get_active(ss->aspect_locked);
 }
 

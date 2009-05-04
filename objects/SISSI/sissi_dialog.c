@@ -279,9 +279,9 @@ static void properties_menaces_read_from_dialog(ObjetSISSI *object_sissi, SISSID
 
      ((SISSI_Property_Menace *)(g_list_nth(object_sissi->properties_menaces,i)->data))->comments = g_strdup(gtk_entry_get_text((GtkEntry *)(((SISSI_Property_Menace_Widget *)(g_list_nth(prop_dialog->properties_menaces,i)->data))->comments)));
 
-     ((SISSI_Property_Menace *)(g_list_nth(object_sissi->properties_menaces,i)->data))->action = gtk_spin_button_get_value_as_float(GTK_SPIN_BUTTON(((SISSI_Property_Menace_Widget *)(g_list_nth(prop_dialog->properties_menaces,i)->data))->action));
-     ((SISSI_Property_Menace *)(g_list_nth(object_sissi->properties_menaces,i)->data))->detection = gtk_spin_button_get_value_as_float(GTK_SPIN_BUTTON(((SISSI_Property_Menace_Widget *)(g_list_nth(prop_dialog->properties_menaces,i)->data))->detection));
-     ((SISSI_Property_Menace *)(g_list_nth(object_sissi->properties_menaces,i)->data))->vulnerability = gtk_spin_button_get_value_as_float(GTK_SPIN_BUTTON(((SISSI_Property_Menace_Widget *)(g_list_nth(prop_dialog->properties_menaces,i)->data))->vulnerability));
+     ((SISSI_Property_Menace *)(g_list_nth(object_sissi->properties_menaces,i)->data))->action = gtk_spin_button_get_value(GTK_SPIN_BUTTON(((SISSI_Property_Menace_Widget *)(g_list_nth(prop_dialog->properties_menaces,i)->data))->action));
+     ((SISSI_Property_Menace *)(g_list_nth(object_sissi->properties_menaces,i)->data))->detection = gtk_spin_button_get_value(GTK_SPIN_BUTTON(((SISSI_Property_Menace_Widget *)(g_list_nth(prop_dialog->properties_menaces,i)->data))->detection));
+     ((SISSI_Property_Menace *)(g_list_nth(object_sissi->properties_menaces,i)->data))->vulnerability = gtk_spin_button_get_value(GTK_SPIN_BUTTON(((SISSI_Property_Menace_Widget *)(g_list_nth(prop_dialog->properties_menaces,i)->data))->vulnerability));
   }
 /*  fprintf(stderr,"espion properties_menaces_read_from_dialog fin\n");*/
 }
@@ -397,7 +397,7 @@ static void properties_others_read_from_dialog(ObjetSISSI *object_sissi, SISSIDi
     object_sissi->disponibility_level = g_strdup((char *)strtol(gtk_entry_get_text(GTK_ENTRY(object_sissi->properties_dialog->disponibility_level)), NULL, 0));
   }
   
-  object_sissi->disponibility_value = gtk_spin_button_get_value_as_float(GTK_SPIN_BUTTON(object_sissi->properties_dialog->disponibility_value));
+  object_sissi->disponibility_value = gtk_spin_button_get_value(GTK_SPIN_BUTTON(object_sissi->properties_dialog->disponibility_value));
   
   
     /************ Entity list box*******************/

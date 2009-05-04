@@ -433,11 +433,11 @@ general_page_props_to_object (Table * table, TablePropDialog * prop_dialog)
   table->comment_font = dia_font_selector_get_font (prop_dialog->comment_font);
 
   table->normal_font_height =
-    gtk_spin_button_get_value_as_float (prop_dialog->normal_font_height);
+    gtk_spin_button_get_value (prop_dialog->normal_font_height);
   table->name_font_height =
-    gtk_spin_button_get_value_as_float (prop_dialog->name_font_height);
+    gtk_spin_button_get_value (prop_dialog->name_font_height);
   table->comment_font_height =
-    gtk_spin_button_get_value_as_float (prop_dialog->comment_font_height);
+    gtk_spin_button_get_value (prop_dialog->comment_font_height);
 
   dia_color_selector_get_color (GTK_WIDGET (prop_dialog->text_color),
                                 &table->text_color);

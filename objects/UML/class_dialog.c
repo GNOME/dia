@@ -316,7 +316,7 @@ class_read_from_dialog(UMLClass *umlclass, UMLClassDialog *prop_dialog)
   umlclass->visible_comments = prop_dialog->comments_vis->active;
   umlclass->suppress_attributes = prop_dialog->attr_supp->active;
   umlclass->suppress_operations = prop_dialog->op_supp->active;
-  umlclass->line_width = gtk_spin_button_get_value_as_float(prop_dialog->line_width);
+  umlclass->line_width = gtk_spin_button_get_value(prop_dialog->line_width);
   dia_color_selector_get_color(GTK_WIDGET(prop_dialog->text_color), &umlclass->text_color);
   dia_color_selector_get_color(GTK_WIDGET(prop_dialog->line_color), &umlclass->line_color);
   dia_color_selector_get_color(GTK_WIDGET(prop_dialog->fill_color), &umlclass->fill_color);
@@ -328,12 +328,12 @@ class_read_from_dialog(UMLClass *umlclass, UMLClassDialog *prop_dialog)
   umlclass->abstract_classname_font = dia_font_selector_get_font (prop_dialog->abstract_classname_font);
   umlclass->comment_font = dia_font_selector_get_font (prop_dialog->comment_font);
 
-  umlclass->font_height = gtk_spin_button_get_value_as_float (prop_dialog->normal_font_height);
-  umlclass->abstract_font_height = gtk_spin_button_get_value_as_float (prop_dialog->abstract_font_height);
-  umlclass->polymorphic_font_height = gtk_spin_button_get_value_as_float (prop_dialog->polymorphic_font_height);
-  umlclass->classname_font_height = gtk_spin_button_get_value_as_float (prop_dialog->classname_font_height);
-  umlclass->abstract_classname_font_height = gtk_spin_button_get_value_as_float (prop_dialog->abstract_classname_font_height);
-  umlclass->comment_font_height = gtk_spin_button_get_value_as_float (prop_dialog->comment_font_height);
+  umlclass->font_height = gtk_spin_button_get_value (prop_dialog->normal_font_height);
+  umlclass->abstract_font_height = gtk_spin_button_get_value (prop_dialog->abstract_font_height);
+  umlclass->polymorphic_font_height = gtk_spin_button_get_value (prop_dialog->polymorphic_font_height);
+  umlclass->classname_font_height = gtk_spin_button_get_value (prop_dialog->classname_font_height);
+  umlclass->abstract_classname_font_height = gtk_spin_button_get_value (prop_dialog->abstract_classname_font_height);
+  umlclass->comment_font_height = gtk_spin_button_get_value (prop_dialog->comment_font_height);
 }
 
 static void
