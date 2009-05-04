@@ -39,7 +39,7 @@
 #include "prefs.h"
 
 /* private class : noone wants to inherit and noone needs to mess with details */
-#define DIA_PAGE_LAYOUT_CLASS(klass) GTK_CHECK_CLASS_CAST(klass, dia_page_layout_get_type(), DiaPageLayoutClass)
+#define DIA_PAGE_LAYOUT_CLASS(klass) G_TYPE_CHECK_CLASS_CAST(klass, dia_page_layout_get_type(), DiaPageLayoutClass)
 #define DIA_IS_PAGE_LAYOUT(obj) GTK_CHECK_TYPE(obj, dia_page_layout_get_type())
 
 typedef struct _DiaPageLayoutClass DiaPageLayoutClass;
