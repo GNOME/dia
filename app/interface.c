@@ -409,7 +409,7 @@ create_zoom_widget(DDisplay *ddisp) {
   g_signal_connect (GTK_OBJECT (entry), "activate",
 		    G_CALLBACK(zoom_activate_callback),
 		      ddisp);
-  gtk_box_pack_start_defaults(GTK_BOX(combo), entry);
+  gtk_box_pack_start(GTK_BOX(combo), entry, TRUE, TRUE, 0);
   g_object_set_data (G_OBJECT(combo), "user_data", entry);
   gtk_entry_set_width_chars(GTK_ENTRY(entry), 8);
   gtk_widget_show(entry);
@@ -418,7 +418,7 @@ create_zoom_widget(DDisplay *ddisp) {
   GTK_WIDGET_UNSET_FLAGS(button, GTK_CAN_FOCUS);
   arrow = gtk_arrow_new(GTK_ARROW_DOWN, GTK_SHADOW_OUT);
   gtk_container_add(GTK_CONTAINER(button), arrow);
-  gtk_box_pack_start_defaults(GTK_BOX(combo), button);
+  gtk_box_pack_start(GTK_BOX(combo), button, TRUE, TRUE, 0);
   g_object_set_data (G_OBJECT(combo), "user_data", entry);
   gtk_widget_show_all(button);
 

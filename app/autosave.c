@@ -95,7 +95,7 @@ autosave_make_restore_dialog(GList *files)
   gchar **filearray = (gchar**)g_new(gchar *, g_list_length(files)+1);
   int i;
 
-  gtk_box_pack_start_defaults(GTK_BOX(vbox), gtk_label_new(_("Autosaved files exist.\nPlease select those you wish to recover.")));
+  gtk_box_pack_start(GTK_BOX(vbox), gtk_label_new(_("Autosaved files exist.\nPlease select those you wish to recover.")), TRUE, TRUE, 0);
 
   for (i = 0, iter = files; iter != NULL; i++, iter = g_list_next(iter)) {
     filearray[i] = (gchar *)iter->data;
@@ -103,7 +103,7 @@ autosave_make_restore_dialog(GList *files)
   filearray[i] = 0;
   gtk_clist_append(GTK_CLIST(selectarea), filearray);
 
-  gtk_box_pack_start_defaults(GTK_BOX(vbox), selectarea);
+  gtk_box_pack_start(GTK_BOX(vbox), selectarea, TRUE, TRUE, 0);
   gtk_widget_show_all(dialog);
 }
 

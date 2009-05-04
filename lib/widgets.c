@@ -461,8 +461,8 @@ dia_font_selector_init (DiaFontSelector *fs)
   gtk_widget_show(menu);
   gtk_widget_show(omenu);
 
-  gtk_box_pack_start_defaults(GTK_BOX(fs), GTK_WIDGET(fs->font_omenu));
-  gtk_box_pack_start_defaults(GTK_BOX(fs), GTK_WIDGET(fs->style_omenu));
+  gtk_box_pack_start(GTK_BOX(fs), GTK_WIDGET(fs->font_omenu), TRUE, TRUE, 0);
+  gtk_box_pack_start(GTK_BOX(fs), GTK_WIDGET(fs->style_omenu), TRUE, TRUE, 0);
 }
 
 GtkType
@@ -937,7 +937,7 @@ dia_line_style_selector_init (DiaLineStyleSelector *fs)
 
   label = gtk_label_new(_("Dash length: "));
   fs->lengthlabel = GTK_LABEL(label);
-  gtk_box_pack_start_defaults(GTK_BOX(box), label);
+  gtk_box_pack_start(GTK_BOX(box), label, TRUE, TRUE, 0);
   gtk_widget_show(label);
 
   adj = (GtkAdjustment *)gtk_adjustment_new(0.1, 0.00, 10.0, 0.1, 1.0, 0);
@@ -945,14 +945,14 @@ dia_line_style_selector_init (DiaLineStyleSelector *fs)
   gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(length), TRUE);
   gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(length), TRUE);
   fs->dashlength = GTK_SPIN_BUTTON(length);
-  gtk_box_pack_start_defaults(GTK_BOX (box), length);
+  gtk_box_pack_start(GTK_BOX (box), length, TRUE, TRUE, 0);
   gtk_widget_show (length);
 
   g_signal_connect(GTK_OBJECT(length), "changed", 
 		   G_CALLBACK(linestyle_dashlength_change_callback), fs);
 
   set_linestyle_sensitivity(fs);
-  gtk_box_pack_start_defaults(GTK_BOX(fs), box);
+  gtk_box_pack_start(GTK_BOX(fs), box, TRUE, TRUE, 0);
   gtk_widget_show(box);
   
 }
@@ -1296,18 +1296,18 @@ dia_arrow_selector_init (DiaArrowSelector *as,
 
   label = gtk_label_new(_("Size: "));
   as->sizelabel = GTK_LABEL(label);
-  gtk_box_pack_start_defaults(GTK_BOX(box), label);
+  gtk_box_pack_start(GTK_BOX(box), label, TRUE, TRUE, 0);
   gtk_widget_show(label);
 
   size = dia_size_selector_new(0.0, 0.0);
   as->size = DIA_SIZE_SELECTOR(size);
-  gtk_box_pack_start_defaults(GTK_BOX(box), size);
+  gtk_box_pack_start(GTK_BOX(box), size, TRUE, TRUE, 0);
   gtk_widget_show(size);
   g_signal_connect(size, "value-changed",
 		   G_CALLBACK(arrow_size_change_callback), as);
 
   set_size_sensitivity(as);
-  gtk_box_pack_start_defaults(GTK_BOX(as), box);
+  gtk_box_pack_start(GTK_BOX(as), box, TRUE, TRUE, 0);
 
   gtk_widget_show(box);
 }

@@ -229,7 +229,7 @@ multicol_columnprop_get_widget(MulticolProperty *prop, PropDialog *dialog)
   
   prop_dialog_container_pop(dialog); /* NULL or the previous column */
   
-  gtk_box_pack_start_defaults(GTK_BOX(dialog->lastcont),col);
+  gtk_box_pack_start(GTK_BOX(dialog->lastcont),col,TRUE,TRUE,0);
 
   prop_dialog_add_raw(dialog,NULL); /* to reset the internal table system */  
   prop_dialog_container_push(dialog,col);
