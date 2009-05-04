@@ -43,7 +43,7 @@
 
 /* DiaLayerWidget: */
 #define DIA_LAYER_WIDGET(obj)          \
-  GTK_CHECK_CAST (obj, dia_layer_widget_get_type (), DiaLayerWidget)
+  G_TYPE_CHECK_INSTANCE_CAST (obj, dia_layer_widget_get_type (), DiaLayerWidget)
 #define DIA_LAYER_WIDGET_CLASS(klass)  \
   GTK_CHECK_CLASS_CAST (klass, dia_layer_widget_get_type (), DiaLayerWidgetClass)
 #define IS_DIA_LAYER_WIDGET(obj)       \
