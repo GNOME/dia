@@ -109,8 +109,6 @@ libdia_init (guint flags)
 
     dia_image_init();
 
-    gdk_rgb_init();
-
     diagtkrc = dia_config_filename("diagtkrc");
     dia_log_message ("Config from %s", diagtkrc);
     gtk_rc_parse(diagtkrc);
