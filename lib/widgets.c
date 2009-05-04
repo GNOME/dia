@@ -2188,7 +2188,7 @@ dia_toggle_button_new(GtkWidget *on_widget, GtkWidget *off_widget)
   rcstyle = gtk_rc_style_new ();  
   rcstyle->xthickness = rcstyle->ythickness = 0;       
   gtk_widget_modify_style (button, rcstyle);
-  gtk_rc_style_unref (rcstyle);
+  g_object_unref (rcstyle);
 
   prop = g_new0(GValue, 1);
   g_value_init(prop, G_TYPE_INT);
