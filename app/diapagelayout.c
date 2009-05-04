@@ -207,7 +207,7 @@ dia_page_layout_init(DiaPageLayout *self)
   gtk_widget_show(self->orient_portrait);
 
   self->orient_landscape = gtk_radio_button_new(
-	gtk_radio_button_group(GTK_RADIO_BUTTON(self->orient_portrait)));
+	gtk_radio_button_get_group(GTK_RADIO_BUTTON(self->orient_portrait)));
   pix = gdk_pixmap_colormap_create_from_xpm_d(NULL,
 		gtk_widget_get_colormap(GTK_WIDGET(self)), &mask, NULL,
 		landscape_xpm);

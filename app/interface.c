@@ -1128,7 +1128,7 @@ create_tools(GtkWidget *parent)
     tool_widgets[i] = button = gtk_radio_button_new (tool_group);
     gtk_container_set_border_width (GTK_CONTAINER (button), 0);
     gtk_button_set_relief(GTK_BUTTON(button), GTK_RELIEF_HALF);
-    tool_group = gtk_radio_button_group (GTK_RADIO_BUTTON (button));
+    tool_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (button));
     gtk_toggle_button_set_mode (GTK_TOGGLE_BUTTON (button), FALSE);
 
     gtk_wrap_box_pack(GTK_WRAP_BOX(parent), button,
@@ -1226,7 +1226,7 @@ fill_sheet_wbox(Sheet *sheet)
 
   gtk_container_foreach(GTK_CONTAINER(sheet_wbox),
 			(GtkCallback)gtk_widget_destroy, NULL);
-  tool_group = gtk_radio_button_group(GTK_RADIO_BUTTON(tool_widgets[0]));
+  tool_group = gtk_radio_button_get_group(GTK_RADIO_BUTTON(tool_widgets[0]));
 
   /* Remember sheet 'name' for 'Sheets and Objects' dialog */
   interface_current_sheet_name = sheet->name;
@@ -1294,7 +1294,7 @@ fill_sheet_wbox(Sheet *sheet)
     button = gtk_radio_button_new (tool_group);
     gtk_toggle_button_set_mode (GTK_TOGGLE_BUTTON (button), FALSE);
     gtk_container_set_border_width (GTK_CONTAINER (button), 0);
-    tool_group = gtk_radio_button_group (GTK_RADIO_BUTTON (button));
+    tool_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (button));
 
     gtk_container_add (GTK_CONTAINER (button), pixmapwidget);
     gtk_widget_show(pixmapwidget);
