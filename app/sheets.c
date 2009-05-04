@@ -356,7 +356,7 @@ create_object_pixmap(SheetObject *so, GtkWidget *parent,
 	  pixbuf = cropped;
 	}
         gdk_pixbuf_render_pixmap_and_mask(pixbuf, pixmap, mask, 1.0);
-        gdk_pixbuf_unref(pixbuf);
+        g_object_unref(pixbuf);
       } else {
         message_warning ("%s", error->message);
         g_error_free (error);

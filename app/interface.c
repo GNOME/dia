@@ -1267,7 +1267,7 @@ fill_sheet_wbox(Sheet *sheet)
 	    pixbuf = cropped;
 	  }
           gdk_pixbuf_render_pixmap_and_mask_for_colormap(pixbuf, gtk_widget_get_colormap(sheet_wbox), &pixmap, &mask, 1.0);
-          gdk_pixbuf_unref(pixbuf);
+          g_object_unref(pixbuf);
       } else {
           pixmap = gdk_pixmap_colormap_create_from_xpm_d(NULL,
 			gtk_widget_get_colormap(sheet_wbox), &mask, 

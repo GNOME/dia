@@ -100,7 +100,7 @@ dia_image_finalize(GObject* object)
 {
   DiaImage *image = DIA_IMAGE(object);
   if (image->image)
-    gdk_pixbuf_unref (image->image);
+    g_object_unref (image->image);
   image->image = NULL;
   g_free (image->filename);
   image->filename = NULL;
@@ -218,7 +218,7 @@ dia_image_draw(DiaImage *image, GdkWindow *window, GdkGC *gc,
     if (image->scaled == NULL ||
 	image->scaled_width != width || image->scaled_height != height) {
       if (image->scaled)
-	gdk_pixbuf_unref(image->scaled);
+	g_object_unref(image->scaled);
       image->scaled = gdk_pixbuf_scale_simple(image->image, width, height, 
 					      GDK_INTERP_TILES);
       image->scaled_width = width;
@@ -239,7 +239,7 @@ dia_image_draw(DiaImage *image, GdkWindow *window, GdkGC *gc,
 		  GDK_RGB_DITHER_NORMAL, 0, 0);
 
 #ifndef SCALING_CACHE
-  gdk_pixbuf_unref(scaled);
+  g_object_unref(scaled);
 #endif
 }
 
