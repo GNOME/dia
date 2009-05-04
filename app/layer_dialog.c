@@ -47,7 +47,7 @@
 #define DIA_LAYER_WIDGET_CLASS(klass)  \
   G_TYPE_CHECK_CLASS_CAST (klass, dia_layer_widget_get_type (), DiaLayerWidgetClass)
 #define IS_DIA_LAYER_WIDGET(obj)       \
-  GTK_CHECK_TYPE (obj, dia_layer_widget_get_type ())
+  G_TYPE_CHECK_INSTANCE_TYPE (obj, dia_layer_widget_get_type ())
 
 typedef struct _DiaLayerWidgetClass  DiaLayerWidgetClass;
 typedef struct _EditLayerDialog EditLayerDialog;
