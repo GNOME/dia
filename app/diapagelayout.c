@@ -199,7 +199,7 @@ dia_page_layout_init(DiaPageLayout *self)
 		portrait_xpm);
   wid = gtk_pixmap_new(pix, mask);
   g_object_unref(pix);
-  gdk_bitmap_unref(mask);
+  g_object_unref(mask);
   gtk_container_add(GTK_CONTAINER(self->orient_portrait), wid);
   gtk_widget_show(wid);
 
@@ -213,7 +213,7 @@ dia_page_layout_init(DiaPageLayout *self)
 		landscape_xpm);
   wid = gtk_pixmap_new(pix, mask);
   g_object_unref(pix);
-  gdk_bitmap_unref(mask);
+  g_object_unref(mask);
   gtk_container_add(GTK_CONTAINER(self->orient_landscape), wid);
   gtk_widget_show(wid);
 

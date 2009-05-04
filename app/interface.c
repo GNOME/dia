@@ -1169,7 +1169,7 @@ create_tools(GtkWidget *parent)
 			     pixmap, mask);
 
     if (pixmap) g_object_unref(pixmap);
-    if (mask) gdk_bitmap_unref(mask);
+    if (mask) g_object_unref(mask);
 
     tool_data[i].callback_data.widget = button;
 
@@ -1286,7 +1286,7 @@ fill_sheet_wbox(Sheet *sheet)
     if (pixmap) {
       pixmapwidget = gtk_pixmap_new(pixmap, mask);
       g_object_unref(pixmap);
-      if (mask) gdk_bitmap_unref(mask);
+      if (mask) g_object_unref(mask);
     } else {
       pixmapwidget = gtk_type_new(gtk_pixmap_get_type());
     }

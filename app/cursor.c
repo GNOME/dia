@@ -121,8 +121,8 @@ create_cursor(GdkWindow *window,
   cursor = gdk_cursor_new_from_pixmap(dbit, mbit, &white, &black, hot_x,hot_y);
   g_assert(cursor != NULL);
 
-  gdk_bitmap_unref(dbit);
-  gdk_bitmap_unref(mbit);
+  g_object_unref(dbit);
+  g_object_unref(mbit);
 
   return cursor;
 }

@@ -27,7 +27,7 @@ get_logo_pixmap (void)
     gdk_pixbuf_render_pixmap_and_mask(logo, &pixmap, &bitmap, 128);
     gpixmap = gtk_pixmap_new(pixmap, bitmap);
     g_object_unref(pixmap);
-    if (bitmap) gdk_bitmap_unref(bitmap);
+    if (bitmap) g_object_unref(bitmap);
     g_object_unref (logo);
   }
   return gpixmap;
