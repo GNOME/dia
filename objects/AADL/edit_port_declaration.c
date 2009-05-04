@@ -139,7 +139,7 @@ ObjectChange *edit_port_declaration_callback (DiaObject *obj,
     
   window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
   gtk_window_set_position (GTK_WINDOW (window), GTK_WIN_POS_CENTER);
-  gtk_widget_set_usize(window,400,50);
+  gtk_widget_set_size_request(window,400,50);
   gtk_window_set_title(GTK_WINDOW(window) , "Port Declaration");
   gtk_container_set_border_width(GTK_CONTAINER(window),5);    
 
