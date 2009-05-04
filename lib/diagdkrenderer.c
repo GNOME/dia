@@ -188,7 +188,7 @@ renderer_finalize(GObject *object)
   DiaGdkRenderer *renderer = DIA_GDK_RENDERER (object);
 
   if (renderer->pixmap != NULL)
-    gdk_pixmap_unref(renderer->pixmap);
+    g_object_unref(renderer->pixmap);
 
   if (renderer->gc != NULL)
     gdk_gc_unref(renderer->gc);

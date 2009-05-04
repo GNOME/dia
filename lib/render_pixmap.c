@@ -75,7 +75,7 @@ renderer_pixmap_set_pixmap (DiaRenderer *ren,
   DiaGdkRenderer *renderer = DIA_GDK_RENDERER (ren);
 
   if (renderer->pixmap != NULL)
-    gdk_pixmap_unref(renderer->pixmap);
+    g_object_unref(renderer->pixmap);
 
   if (renderer->gc != NULL)
     gdk_gc_unref(renderer->gc);

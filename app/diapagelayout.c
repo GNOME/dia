@@ -198,7 +198,7 @@ dia_page_layout_init(DiaPageLayout *self)
 		gtk_widget_get_colormap(GTK_WIDGET(self)), &mask, NULL,
 		portrait_xpm);
   wid = gtk_pixmap_new(pix, mask);
-  gdk_pixmap_unref(pix);
+  g_object_unref(pix);
   gdk_bitmap_unref(mask);
   gtk_container_add(GTK_CONTAINER(self->orient_portrait), wid);
   gtk_widget_show(wid);
@@ -212,7 +212,7 @@ dia_page_layout_init(DiaPageLayout *self)
 		gtk_widget_get_colormap(GTK_WIDGET(self)), &mask, NULL,
 		landscape_xpm);
   wid = gtk_pixmap_new(pix, mask);
-  gdk_pixmap_unref(pix);
+  g_object_unref(pix);
   gdk_bitmap_unref(mask);
   gtk_container_add(GTK_CONTAINER(self->orient_landscape), wid);
   gtk_widget_show(wid);
