@@ -741,7 +741,7 @@ paper_size_change(GtkMenuItem *item, DiaPageLayout *self)
   g_snprintf(buf, sizeof(buf), _("%0.3gcm x %0.3gcm"),
 	     get_paper_pswidth(self->papernum),
 	     get_paper_psheight(self->papernum));
-  gtk_label_set(GTK_LABEL(self->paper_label), buf);
+  gtk_label_set_text(GTK_LABEL(self->paper_label), buf);
 
   gtk_signal_emit(GTK_OBJECT(self), pl_signals[CHANGED]);
 }
