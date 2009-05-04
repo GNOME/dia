@@ -330,7 +330,7 @@ set_size(DiaRenderer *object, gpointer window,
   renderer->width = width;
   renderer->height = height;
   if (renderer->pixmap != NULL)
-    gdk_drawable_unref(renderer->pixmap);
+    g_object_unref(renderer->pixmap);
 
   /* TODO: we can probably get rid of this extra pixmap and just draw directly to what gdk_cairo_create() gives us for the window */
   renderer->pixmap = gdk_pixmap_new(GDK_WINDOW(window),  width, height, -1);

@@ -101,7 +101,7 @@ set_size(DiaRenderer *object, gpointer window,
   DiaGdkRenderer *renderer = DIA_GDK_RENDERER (object);
 
   if (renderer->pixmap != NULL)
-    gdk_drawable_unref(renderer->pixmap);
+    g_object_unref(renderer->pixmap);
 
   if (window)
     renderer->pixmap = gdk_pixmap_new(GDK_WINDOW(window),  width, height, -1);
