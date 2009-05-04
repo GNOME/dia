@@ -78,7 +78,7 @@ renderer_pixmap_set_pixmap (DiaRenderer *ren,
     g_object_unref(renderer->pixmap);
 
   if (renderer->gc != NULL)
-    gdk_gc_unref(renderer->gc);
+    g_object_unref(renderer->gc);
 
   gdk_pixmap_ref(drawable);
   renderer->pixmap = drawable;

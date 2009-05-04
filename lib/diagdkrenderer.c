@@ -191,7 +191,7 @@ renderer_finalize(GObject *object)
     g_object_unref(renderer->pixmap);
 
   if (renderer->gc != NULL)
-    gdk_gc_unref(renderer->gc);
+    g_object_unref(renderer->gc);
 
   if (renderer->clip_region != NULL)
     gdk_region_destroy(renderer->clip_region);

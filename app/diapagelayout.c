@@ -813,7 +813,7 @@ dia_page_layout_destroy(GtkObject *object)
   DiaPageLayout *self = DIA_PAGE_LAYOUT(object);
 
   if (self->gc) {
-    gdk_gc_unref(self->gc);
+    g_object_unref(self->gc);
     self->gc = NULL;
   }
 

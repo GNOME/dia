@@ -101,7 +101,7 @@ free_modify_tool(Tool *tool)
 {
   ModifyTool *mtool = (ModifyTool *)tool;
   if (mtool->gc)
-    gdk_gc_unref(mtool->gc);
+    g_object_unref(mtool->gc);
   g_free(mtool);
 }
 
