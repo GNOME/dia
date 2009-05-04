@@ -117,7 +117,7 @@ dia_page_layout_class_init(DiaPageLayoutClass *class)
   pl_signals[CHANGED] =
     gtk_signal_new("changed",
 		   GTK_RUN_FIRST,
-		   GTK_CLASS_TYPE (object_class),
+		   G_TYPE_FROM_CLASS (object_class),
 		   GTK_SIGNAL_OFFSET(DiaPageLayoutClass, changed),
 		   gtk_signal_default_marshaller,
 		   GTK_TYPE_NONE, 0);
