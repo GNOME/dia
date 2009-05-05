@@ -164,6 +164,7 @@ VIProductVersion "0.97.0.3"
   !insertmacro MUI_LANGUAGE "Hungarian"
   !insertmacro MUI_LANGUAGE "Slovak"
   !insertmacro MUI_LANGUAGE "Slovenian"
+  !insertmacro MUI_LANGUAGE "Spanish"
 
 ;--------------------------------
 ;Translations
@@ -178,6 +179,7 @@ VIProductVersion "0.97.0.3"
   !insertmacro DIA_MACRO_INCLUDE_LANGFILE "HUNGARIAN" "locale\hungarian.nsh"
   !insertmacro DIA_MACRO_INCLUDE_LANGFILE "SLOVAK" "locale\slovak.nsh"
   !insertmacro DIA_MACRO_INCLUDE_LANGFILE "SLOVENIAN" "locale\slovenian.nsh"
+  !insertmacro DIA_MACRO_INCLUDE_LANGFILE "SPANISH" "locale\es.nsh"
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Start Install Sections ;;

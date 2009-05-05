@@ -30,7 +30,7 @@
 int main(int argc, char *argv[])
 {
 
-  bindtextdomain("dia", "../../locale");
+  bindtextdomain("dia", "../../build/win32/locale");
   bind_textdomain_codeset("dia", "UTF-8");
   textdomain("dia");
 
