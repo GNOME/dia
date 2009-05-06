@@ -158,8 +158,11 @@ VIProductVersion "0.97.0.3"
   ;; in alphabetical order (at least the strings actually displayed
   ;; will be).
 
+  !insertmacro MUI_LANGUAGE "Basque"
   !insertmacro MUI_LANGUAGE "English"
   !insertmacro MUI_LANGUAGE "French"
+  !insertmacro MUI_LANGUAGE "Finnish"
+  !insertmacro MUI_LANGUAGE "Galician"
   !insertmacro MUI_LANGUAGE "German"
   !insertmacro MUI_LANGUAGE "Hungarian"
   !insertmacro MUI_LANGUAGE "Slovak"
@@ -173,9 +176,12 @@ VIProductVersion "0.97.0.3"
 
   !include "langmacros.nsh"
   
+  !insertmacro DIA_MACRO_INCLUDE_LANGFILE "BASQUE" "locale\eu.nsh"
   !insertmacro DIA_MACRO_INCLUDE_LANGFILE "ENGLISH" "locale\english.nsh"
   !insertmacro DIA_MACRO_INCLUDE_LANGFILE "FRENCH" "locale\french.nsh"
+  !insertmacro DIA_MACRO_INCLUDE_LANGFILE "GALICIAN" "locale\gl.nsh"
   !insertmacro DIA_MACRO_INCLUDE_LANGFILE "GERMAN" "locale\german.nsh"
+  !insertmacro DIA_MACRO_INCLUDE_LANGFILE "FINNISH" "locale\fi.nsh"
   !insertmacro DIA_MACRO_INCLUDE_LANGFILE "HUNGARIAN" "locale\hungarian.nsh"
   !insertmacro DIA_MACRO_INCLUDE_LANGFILE "SLOVAK" "locale\slovak.nsh"
   !insertmacro DIA_MACRO_INCLUDE_LANGFILE "SLOVENIAN" "locale\slovenian.nsh"

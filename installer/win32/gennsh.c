@@ -77,14 +77,14 @@ int main(int argc, char *argv[])
   printf("!define DIA_PROMPT_DIR_EXISTS \"%s\"\n", _("The installation directory you specified already exists. Any contents$\rwill be deleted. Would you like to continue?"));
 
   /* Installer message: Uninstall Section Prompts. Keep $\r */
-  printf("!define un.DIA_UNINSTALL_ERROR_1 \"%s\"", _("The uninstaller could not find registry entries for Dia.$\rIt is likely that another user installed this application."));
+  printf("!define un.DIA_UNINSTALL_ERROR_1 \"%s\"\n", _("The uninstaller could not find registry entries for Dia.$\rIt is likely that another user installed this application."));
 
   /* Installer message: Uninstall error message */
-  printf("!define un.DIA_UNINSTALL_ERROR_2 \"%s\"", _("You do not have permission to uninstall this application."));
+  printf("!define un.DIA_UNINSTALL_ERROR_2 \"%s\"\n", _("You do not have permission to uninstall this application."));
 
   /* Installer message: Uninstallation warning. Keep $INSTDIR */
-  printf("!define un.DIA_UNINSTALLATION_WARNING \"%s\"", _("This will completely delete $INSTDIR and all subdirectories. Continue?"));
+  printf("!define un.DIA_UNINSTALLATION_WARNING \"%s\"\n", _("This will completely delete $INSTDIR and all subdirectories. Continue?"));
 
   /* Installer message: Uninstallation warning. Keep $\PROFILE\.dia */
-  printf("!define un.DIA_DOTDIA_WARNING \"%s\"", _("This will completely delete $PROFILE\.dia and all subdirectories. Continue?"));
+  printf("!define un.DIA_DOTDIA_WARNING \"%s\"\n", _("This will completely delete $PROFILE\.dia and all subdirectories. Continue?"));
 }
