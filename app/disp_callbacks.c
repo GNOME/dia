@@ -800,6 +800,7 @@ ddisplay_canvas_events (GtkWidget *canvas,
 		  case GDK_Escape:
 		    textedit_deactivate_focus();
 		    tool_reset ();
+		    ddisplay_do_update_menu_sensitivity(ddisp);
 		    break;
 		  default:
 		    /*! key event not swallowed by the input method ? */
