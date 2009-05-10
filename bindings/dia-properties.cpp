@@ -140,7 +140,7 @@ dia::Property< ::Property* >::get (const std::vector<IProperty*>** v) const
 	::ArrayProperty *prop = (::ArrayProperty *)self;
 
 	// now build with new values
-	int num_props = num_props = prop->ex_props->len;
+	int num_props = prop->ex_props->len;
 	for (int i = 0; i < prop->records->len; ++i) {
 	  ::Property* p = 0;
 	  vec.push_back (new dia::Property <Property*> (0));

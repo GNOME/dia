@@ -164,10 +164,9 @@ gboolean
 import_drs (const gchar *filename, DiagramData *dia, void* user_data) 
 {
   GList *item, *items;
-  xmlNodePtr root;
   xmlDocPtr doc = xmlParseFile(filename);
 
-  items = read_items (root->xmlChildrenNode);
+  items = read_items (doc->xmlChildrenNode);
   for (item = items; item != NULL; item = g_list_next (item)) {
     DiaObject *obj = (DiaObject *)item->data;
     layer_add_object(dia->active_layer, obj);
