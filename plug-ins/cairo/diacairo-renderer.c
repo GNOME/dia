@@ -301,7 +301,7 @@ set_fillstyle(DiaRenderer *self, FillStyle mode)
   default:
     message_error("DiaCairoRenderer : Unsupported fill mode specified!\n");
   }
-  DIAG_STATE(renderer->cr)
+  DIAG_STATE(DIA_CAIRO_RENDERER (self)->cr)
 }
 
 static void
