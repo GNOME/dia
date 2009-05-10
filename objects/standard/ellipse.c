@@ -277,6 +277,9 @@ ellipse_move_handle(Ellipse *ellipse, Handle *handle,
         opposite_to.y = center.y - (to->y-center.y);
 
         element_move_handle(&ellipse->element, handle->id, to, cp, reason, modifiers);
+        /* this second move screws the intended object size, e.g. from dot2dia.py
+	 * but without it the 'centered' behaviour during edit is screwed 
+	 */
         element_move_handle(&ellipse->element, 7-handle->id, &opposite_to, cp, reason, modifiers);
     }
 
