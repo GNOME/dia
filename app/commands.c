@@ -690,7 +690,7 @@ help_manual_callback (GtkAction *action)
   ShellExecuteA (0, "open", helpindex, NULL, helpdir, SW_SHOWNORMAL);
 #else
   command = getenv("BROWSER");
-  command = g_strdup_printf("%s 'file://%s' &", command ? command : "gnome-open", helpindex);
+  command = g_strdup_printf("%s 'file://%s' &", command ? command : "xdg-open", helpindex);
   system(command);
   g_free(command);
 #endif
@@ -708,7 +708,7 @@ activate_url (GtkAboutDialog *about,
   ShellExecuteA (0, "open", link, NULL, NULL, SW_SHOWNORMAL);
 #else
   gchar *command = getenv("BROWSER");
-  command = g_strdup_printf("%s '%s' &", command ? command : "gnome-open", link);
+  command = g_strdup_printf("%s '%s' &", command ? command : "xdg-open", link);
   system(command);
   g_free(command);
 #endif
