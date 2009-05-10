@@ -201,7 +201,10 @@ def ImportFile (sFile, diagramData) :
 		x, y = n.Pos()
 		w, h = n.Size()
 		obj, h1, h2 = nodeType.create(x-w/2, y-h/2) # Dot pos is center, Dia (usually) uses top/left
-		obj.move_handle(h2, (x+w/2, y+h/2), 0, 0) # resize the object
+		# resizing the Ellipse by handle is screwed
+		# obj.move_handle(h2, (x+w/2, y+h/2), 0, 0) # resize the object
+		obj.properties["elem_width"] = w
+		obj.properties["elem_height"] = h
 		if n.parms.has_key('fillcolor') :
 			try :
 				obj.properties['fill_colour'] = n.parms['fillcolor'] # same color syntax?
