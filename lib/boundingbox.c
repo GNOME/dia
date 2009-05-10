@@ -501,10 +501,15 @@ polybezier_bbox(const BezPoint *pts, int numpoints,
 
       co = point_dot(&vpx,&vxn);      
       alpha = acos(-co); 
-      if ((co > -0.9816) && (finite(alpha))) { /* 0.9816 = cos(11deg) */
+      if (co > -0.9816) { /* 0.9816 = cos(11deg) */
         /* we have a pointy join. */
-        real overshoot = extra->middle_trans / sin(alpha/2.0);
+        real overshoot;
         Point vovs,pto;
+
+	if (finite(alpha))
+	  overshoot = extra->middle_trans / sin(alpha/2.0);
+	else /* prependicular? */
+	  overshoot = extra->middle_trans;
 
         point_copy_add_scaled(&vovs,&vpx,&vxn,-1);
         point_normalize(&vovs);

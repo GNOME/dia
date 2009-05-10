@@ -202,109 +202,12 @@ _test_movement (const DiaObjectType *type)
     _object_change_free(change);
   bbox2 = o->bounding_box;
   /* test fails e.g. for 'Cisco - Web cluster' probably due to bezier-bbox-issues: bug 568115 */
-  if (   strcmp (type->name, "Cisco - Web cluster") == 0
-      || strcmp (type->name, "Cisco - University") == 0
-      || strcmp (type->name, "Cisco - Web browser") == 0
-      || strcmp (type->name, "Cisco - Firewall Service Module") == 0
-      || strcmp (type->name, "Cisco - Data Center Switch") == 0
-      || strcmp (type->name, "Cisco - Content Engine (Cache Director)") == 0
-      || strcmp (type->name, "Cisco - Storage Solution Engine") == 0
-      || strcmp (type->name, "Cisco - IP Softphone") == 0
-      || strcmp (type->name, "Cisco - Data Center Switch") == 0
-      || strcmp (type->name, "Cisco - Video Camera right") == 0
-      || strcmp (type->name, "Cisco - Video camera") == 0
-      || strcmp (type->name, "Cisco - Data Center Switch") == 0
-      || strcmp (type->name, "Cisco - File cabinet") == 0
-      || strcmp (type->name, "Cisco - Universal Gateway") == 0
-      || strcmp (type->name, "Cisco - CDDI-FDDI") == 0
-      || strcmp (type->name, "Cisco - Generic processor") == 0
-      || strcmp (type->name, "Cisco - CiscoWorks workstation") == 0
-      || strcmp (type->name, "Cisco - Laptop") == 0
-      || strcmp (type->name, "Cisco - Breakout box") == 0
-      || strcmp (type->name, "Cisco - IBM mainframe") == 0
-      || strcmp (type->name, "Cisco - Multilayer switch") == 0
-      || strcmp (type->name, "Cisco - Edge Label Switch Router with NetFlow") == 0
-      || strcmp (type->name, "Cisco - Route Switch Processor with Si") == 0
+  if (   strcmp (type->name, "Cisco - IP Softphone") == 0
       || strcmp (type->name, "Cisco - Router in building") == 0
-      || strcmp (type->name, "Cisco - Cisco CA") == 0
-      || strcmp (type->name, "Cisco - Unity server") == 0
-      || strcmp (type->name, "Cisco - SONET MUX") == 0
-      || strcmp (type->name, "Cisco - PC Video") == 0
-      || strcmp (type->name, "Cisco - IP Telephony Router") == 0
-      || strcmp (type->name, "Cisco - Content Service Switch 1100") == 0
-      || strcmp (type->name, "Cisco - Speaker") == 0
-      || strcmp (type->name, "Cisco - Generic softswitch") == 0
-      || strcmp (type->name, "Network - A Telephone") == 0
-      || strcmp (type->name, "Cisco - Multilayer Switch with Silicon") == 0
-      || strcmp (type->name, "Cisco - Androgynous Person") == 0
-      || strcmp (type->name, "Cisco - MGX 8000 Series Voice Gateway") == 0
-      || strcmp (type->name, "Cisco - PC Adapter Card") == 0
-      || strcmp (type->name, "Cisco - Wireless Transport") == 0
-      || strcmp (type->name, "Cisco - Workgroup director") == 0
-      || strcmp (type->name, "Cisco - IntelliSwitch Stack") == 0
-      || strcmp (type->name, "Cisco - ATA") == 0
-      || strcmp (type->name, "Cisco - BBS") == 0
-      || strcmp (type->name, "Cisco - Automatic Protection Switching") == 0
-      || strcmp (type->name, "Cisco - Mobile Access Router") == 0
       || strcmp (type->name, "Cisco - MCU") == 0
-      || strcmp (type->name, "Cisco - Layer 2 Remote Switch") == 0
-      || strcmp (type->name, "Cisco - CDM Content Distribution Manager") == 0
-      || strcmp (type->name, "Cisco - CiscoWorks Man") == 0
-      || strcmp (type->name, "Cisco - Access Gateway") == 0
-      || strcmp (type->name, "Cisco - Government Building") == 0
-      || strcmp (type->name, "Cisco - ITP") == 0
-      || strcmp (type->name, "Cisco - CiscoSecurity") == 0
-      || strcmp (type->name, "Cisco - VIP") == 0
-      || strcmp (type->name, "Cisco - 10700") == 0
-      || strcmp (type->name, "Cisco - IBM mainframe with FEP") == 0
-      || strcmp (type->name, "Cisco - Phone Ethernet") == 0
-      || strcmp (type->name, "Cisco - Cisco Hub") == 0
       || strcmp (type->name, "Cisco - Mac Woman") == 0
-      || strcmp (type->name, "Cisco - Small Business") == 0
-      || strcmp (type->name, "Cisco - Content Switch") == 0
-      || strcmp (type->name, "Cisco - Satellite dish") == 0
-      || strcmp (type->name, "Cisco - Storage Router") == 0
-      || strcmp (type->name, "Cisco - NetFlow router") == 0
-      || strcmp (type->name, "Cisco - STB") == 0
-      || strcmp (type->name, "Cisco - STB (set top box)") == 0
-      || strcmp (type->name, "Cisco - Key") == 0
-      || strcmp (type->name, "Cisco - Router with Firewall") == 0
-      || strcmp (type->name, "Cisco - Router with Silicon Switch") == 0
-      || strcmp (type->name, "Cisco - Data Center Switch Reversed") == 0
-      || strcmp (type->name, "Cisco - 7500ARS (7513) Router") == 0
-      || strcmp (type->name, "Cisco - 7507 Router") == 0
-      || strcmp (type->name, "Cisco - ATM Router") == 0
-      || strcmp (type->name, "Cisco - Distributed Director") == 0
-      || strcmp (type->name, "Cisco - Centri Firewall") == 0
-      || strcmp (type->name, "Cisco - IAD router") == 0
-      || strcmp (type->name, "Cisco - Optical Cross-Connect") == 0
-      || strcmp (type->name, "Cisco - Cloud Dark") == 0
-      || strcmp (type->name, "Cisco - PC Man left") == 0
-      || strcmp (type->name, "Cisco - Cloud Gold") == 0
-      || strcmp (type->name, "Cisco - ME 1100") == 0
-      || strcmp (type->name, "Cisco - Satellite") == 0
-      || strcmp (type->name, "Cisco - SUN workstation") == 0
-      || strcmp (type->name, "Cisco - Multilayer Switch with Silicon subdued") == 0
-      || strcmp (type->name, "Cisco - Lock") == 0
-      || strcmp (type->name, "Cisco - SIP Proxy server") == 0
-      || strcmp (type->name, "Cisco - WWW server") == 0
-      || strcmp (type->name, "Cisco - Channelized Pipe") == 0
-      || strcmp (type->name, "Cisco - PC Man") == 0
-      || strcmp (type->name, "Cisco - Headphones") == 0
-      || strcmp (type->name, "Cisco - PC with Router-Based Software") == 0
-      || strcmp (type->name, "Cisco - Content Service Router") == 0
-      || strcmp (type->name, "Cisco - Microphone") == 0
-      || strcmp (type->name, "Cisco - Cloud White") == 0
-      || strcmp (type->name, "Cisco - Directory Server") == 0
-      || strcmp (type->name, "Cisco - Modem") == 0
-      || strcmp (type->name, "Cisco - Cloud") == 0
-      || strcmp (type->name, "Cisco - Octel") == 0
-      || strcmp (type->name, "Cisco - Lock and Key") == 0
-      || strcmp (type->name, "Cisco - Route Switch Processor") == 0
-
-      || strcmp (type->name, "Assorted - Heart") == 0
       /* FIXME: this shape should be simple enough to actually fix the bug */
-      || strcmp (type->name, "Flowchart - Document") == 0
+      || strcmp (type->name, "Assorted - Heart") == 0
      )
     g_print ("SKIPPED! ");
   else
