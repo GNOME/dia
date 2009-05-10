@@ -28,7 +28,7 @@
       <para>
        Text in <application>Dia</application> can use almost any font available in the system.
        But if you plan to exchange diagrams with people using a different plattform, it would
-       be samrt to restrict yourself to a common subset.
+       be smart to restrict yourself to a common subset.
       </para>
       </note>
       <para>
@@ -332,12 +332,14 @@ as you need them (i.e., instead of using the Toolbox icons).
    </sect2>
     <sect2 id="outline">
       <title>Outline</title>
+      <para>
       One of the most requested features for <application>Dia</application> is rotated text;
       shortly before having transformation capabilities for everything ;-)
       The Outline object is a small step in that direction. It has known limitations in
       convenience (you need to open the properties dialog to change the text) and 
       rendering style (Dia's drawing model does not yet allow to 
       <ulink url="http://bugzilla.gnome.org/show_bug.cgi?id=568168">render holes</ulink>).
+      </para>
     </sect2>
   </sect1>
 </chapter>

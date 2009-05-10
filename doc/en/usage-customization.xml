@@ -253,10 +253,13 @@
 	</sect2>
     <sect2 id="preferences-favorites">
       <title>File export favorites</title>
+      <para>
       When exporting files there are often multiple filters capable to save to one format. 
       This preference allows to choose the one used, when not explicit selected in the file 
       export dialog, i.e. <menuchoice><guimenuitem>By extension</guimenuitem></menuchoice> gets used.
+      </para>
       <figure>
+	<title>File export favorites</title>
         <screenshot>
           <screeninfo>File export favorites</screeninfo>
           <graphic format="PNG" fileref="graphics/file-preferences-favorites" 
