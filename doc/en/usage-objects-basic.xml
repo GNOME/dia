@@ -1,344 +1,332 @@
-  <chapter label="5" id="basic-objects-chapter">
+<chapter label="5" id="basic-objects-chapter">
   <title>Basic Objects</title>
   <sect1 id="basic-objects-introduction">
-  <title>Basic Objects Introduction</title>
-        <figure>
-         <title>Basic Objects</title>
-         <screenshot>
-           <screeninfo>Basic Objects</screeninfo>
-           <graphic format="PNG" fileref="graphics/toolbox-basic" 
-  				 srccredit= "Hans Breuer" />
-         </screenshot>
-       </figure>
+    <title>Basic Objects Introduction</title>
+    <figure>
+      <title>Basic Objects</title>
+      <screenshot>
+        <screeninfo>Basic Objects</screeninfo>
+        <graphic format="PNG" fileref="graphics/toolbox-basic" srccredit= "Hans Breuer" />
+      </screenshot>
+    </figure>
     <para>
-     <application>Dia</application> has a dozen basic objects: Text, Box, Ellipse,
-  	 Polygon, Beziergon, Line, Arc, Zigzagline, Polyline, Bezierline, Image and Outline. 
-  	 </para>
+      <application>Dia</application> has a dozen basic objects: Text, Box, Ellipse,
+      Polygon, Beziergon, Line, Arc, Zigzagline, Polyline, Bezierline, Image and Outline. 
+    </para>
     <sect2 id="text">
-    <title>Text</title>
-     <para>
-      <application>Dia</application> supports the use of text as its own type of
-      object.  Text can be placed on the canvas by clicking on the text button on
-      the toolbox. For tips on editing text, see 
-  		
-  			<link linkend="entering-text">Entering Text</link> in the Using 
-  			Objects chapter.
-      </para>
-     <note>
+      <title>Text</title>
       <para>
-       Text in <application>Dia</application> can use almost any font available in the system.
-       But if you plan to exchange diagrams with people using a different plattform, it would
-       be smart to restrict yourself to a common subset.
+        <application>Dia</application> supports the use of text as its own type of
+        object.  Text can be placed on the canvas by clicking on the text button on
+        the toolbox. For tips on editing text, see 
+        <link linkend="entering-text">Entering Text</link> in the Using 
+        Objects chapter.
       </para>
+      <note>
+        <para>
+          Text in <application>Dia</application> can use almost any font available in the system.
+          But if you plan to exchange diagrams with people using a different plattform, it would
+          be smart to restrict yourself to a common subset.
+        </para>
       </note>
       <para>
-The text object, and several other objects, offers direct text entry in the
-diagram.  Text can be entered by selecting the object and then typing the text. The font,
-size, and other formatting properties can be changed by double-clicking the
-object.
-</para>
-<para>
-Here are some important tips regarding short-cut keys when entering text.
-</para>
+        The text object, and several other objects, offers direct text entry in the
+        diagram.  Text can be entered by selecting the object and then typing the text. The font,
+        size, and other formatting properties can be changed by double-clicking the
+        object.
+      </para>
+      <para>
+        Here are some important tips regarding short-cut keys when entering text.
+      </para>
 
-<itemizedlist>
-<listitem>
-<para>
-The normal Copy / Cut / Paste keys (Ctrl+C, Ctrl+X, Ctrl+V) don't work for
-text. They work for entire objects. Use Ctrl+Shift+X to cut and 
-Ctrl+Shift+V to paste just the text in an object. There is no shortcut to copy
-just the text. 
-</para>
-<note><para>When you paste text into an object, the text is
-formatted according to the Dia object properties, not the text source.
-</para></note>
-</listitem>
-<listitem>
-<para>
-You cannot select a section of text inside an object with the mouse (this
-moves the object). You can insert characters at the current cursor position
-just by typing. You can delete the character to the left of the mouse using
-Backspace.
-</para>
-<note><para>
-The DEL key used to delete the entire object, now it should work as expected: 
-it either deletes the object or the text to the right of the cursor depending 
-on the editing mode.
-If you delete something (text or object) by accident use 
-<menuchoice>
-  <guimenu>Edit</guimenu>
-  <guimenuitem>Undo</guimenuitem>
-</menuchoice>or Ctrl+Z if you delete an object by mistake.) To
-delete all of the text in an object, use the Cut (Ctrl+Shift+X). 
-</para></note>
-</listitem>
-
-<listitem><para>
- If you are using a non-default font or font size, one trick for productivity
-is to create a palette of empty objects with the desired font settings on a
-separate diagram. Then copy and paste these objects onto your working diagram
-as you need them (i.e., instead of using the Toolbox icons).
-</para></listitem>
-</itemizedlist>
-</sect2>
-   <sect2 id="box">
-   <title>Box</title>
-    <para>
-     The boxes in <application>Dia</application> can be customized to be any
-     size desired by the user.  The properties available are:
-     <itemizedlist>
-      <listitem>
-       <para>
-        Corner Rounding - Causes the corners to be rounded instead of hard
-        edges.
-       </para>
-      </listitem>
-      <listitem>
-       <para>
-        Draw Background - Keeps the center clear or fills with the background
-        color.
-       </para>
-      </listitem>
-     </itemizedlist>
-    </para>
-   </sect2>
-   <sect2 id="ellipse">
-   <title>Ellipse</title>
-    <para>
-     An ellipse is a shape which has all rounded sides, such as a circle or an
-     oval.
-    </para>
-   </sect2>
-   <sect2 id="polygon">
-   <title>Polygon</title>
-    <para>
-     A polygon is any closed shape made up of straight lines.  The
-     polygon tool, allows the user to draw any shape with all straight lines.
-    </para>
-   </sect2>
-   <sect2 id="beziergon">
-   <title>Beziergon</title>
-    <para>
-     A beziergon is similar to the polygon as the user defines the shape.
-     However, it differs in that it allows curves to exist in the shape.
-    </para>
-   </sect2>
-   <sect2 id="line">
-   <title>Line</title> 
-    <para>
-     A Line is a simple straight line. Unlike the other lines, the simple Line
-		 does not have any handles to allow the shape to be altered. It just has
-		 two connection handles, one at each end. 
-    </para>
-   </sect2>
-   <sect2 id="arc">
-   <title>Arc</title>
-    <para>
-     An Arc is a line which has been bent to create a semi-circle shape. Drag the 
-		 orange handle in the middle to alter the curve of the arc.
-    </para>
-   </sect2>
-   <sect2 id="zigzagline">
-   <title>Zigzagline</title>
-    <para>
-     A Zigzagline is a line which has sharp, 90 degree turns in it.  
-		 Zigzaglines have two special properties, 
-		 Corner radius and Autoroute. Corner radius allows you to round the corners
-		 of the line. On the Properties page, enter a number 
-		 between 0 and 10.00, where 0 = square corners and 10.00 = maximally-rounded
-		 corners. 
-		 </para>
-		 <para>
-		 Autoroute is a yes/no property. If yes, the line is automatically
-		 routed between the start and end points with the minimum number of 
-		 segments. If you move or change the shape of 
-		 the line, the Autoroute property is automatically set to no. Autoroute can
-		 be set on the Properties page or using the right-click menu.
-    </para>
-		<para>
-		Zigzaglines also allow you to add or delete line segments. This can be useful
-		if you need the line to turn several corners (e.g., to traverse around some
-		other objects) or to get the arrow pointed in the right direction. To add or
-		delete a segment, right-click on the line at the point on the line 
-		where you want to add or delete and select Add segment or Delete segment.
-		</para>
-				    <figure>
-      <title>Zigzagline Right-Click Menu</title>
-     <screenshot>
-      <screeninfo>Zigzagline Right-Click Menu</screeninfo>
-      <graphic format="PNG" fileref="graphics/zigzagline-rightclick" 
-			srccredit=
-      "Mark Dexter" />
-			 </screenshot>
-    </figure>	 
-   </sect2>
-   <sect2 id="polyline">
-   <title>Polyline</title>
-    <para>
-     A Polyline has multiple segments like a zigzagline, but can have turns
-		 of any angle. A Polyline starts with one segment. You add more segments 
-		 by right-clicking and selecting Add segment from the menu. Like the Zigzagline, 
-		 the Polyline has a Corner radius value between 0 and 10.00, where 0 = sharp
-		 corners and 10.00 = maximally-rounded corners.  
-    </para>
-						    <figure>
-      <title>Polyline Right-Click Menu</title>
-     <screenshot>
-      <screeninfo>Polyline Right-Click Menu</screeninfo>
-      <graphic format="PNG" fileref="graphics/polyline-rightclick" 
-			srccredit=
-      "Mark Dexter" />
-			 </screenshot>
-    </figure>	 
-   </sect2>
-   <sect2 id="bezier">
-   <title>Bezierline</title>
-    <para>
-     A Bezierline is a line which has curves in it.  The Bezierline's shape is
-     edited by clicking and dragging the green and orange dots.  The green dots
-     customize the size while the orange dots customize the angles at which the
-     line curves. With a right-click menu, you can add or delete segments. If 
-		 you add one or more segments, three additional properties are available.
-		    </para>
-				<itemizedlist>
-        <listitem><para>
-				Symmetric control causes any dragging action on the added segment to be 
-				symmetrical around this point.
-				</para></listitem>
-					<listitem><para>
-				Smooth control allows you to pull away from the middle point  
-				independently but rotations around the middle point are symmetrical.
-				</para></listitem>
-					<listitem><para>
-				Cusp control allows you to drag each handle  
-				independently, and actions on one handle have no effect on the other one.
-				</para></listitem></itemizedlist>
-									    <figure>
-      <title>Bezierline Right-Click Menu</title>
-     <screenshot>
-      <screeninfo>Bezierline Right-Click Menu</screeninfo>
-      <graphic format="PNG" fileref="graphics/bezierline-rightclick" 
-			srccredit=
-      "Mark Dexter" />
-			 </screenshot>
-    </figure>	
-   </sect2>
-   <sect2 id="line-properties">
-   <title>Line Properties</title>
- 		<para>
-		All lines share the following properties: width, color, style, 
-		and arrows. These properties may be edited using the Properties
-		dialog box shown below. 
-		</para>
-		    <figure>
-      <title>Standard Line Properties</title>
-     <screenshot>
-      <screeninfo>Standard Line Properties</screeninfo>
-      <graphic format="PNG" fileref="graphics/standard-line-properties" 
-			srccredit=   "Mark Dexter" />
-      </screenshot>
-    </figure>
-      <sect3 id="line-thickness">
-   <title>Line Width</title>
-    <para>
-     The line width is measured in centimeters and can be entered manually
-		 or by using the increment / decrement buttons.
-    </para>
-   </sect3>
-	    <sect3 id="line-colors">
-   <title>Line Color</title>
-	     <figure>
-      <title>Line Colors</title>
-     <screenshot>
-      <screeninfo>Line Colors</screeninfo>
-      <graphic format="PNG" fileref="graphics/line-colors" 
-			srccredit=   "Mark Dexter" />
-      </screenshot>
-    </figure>
-    <para>
-     Line colors are edited by opening the Line color drop-down listbox and either
-		 selecting one of the choices on the list or "More colors...", which opens the
-		 Select color dialog. 
-		 See <link linkend="colors">Colors</link> for more information on 
-		 selecting colors.
-    </para>
-   </sect3>
-   <sect3 id="line-styles">
-   <title>Line Style</title>
-  	     <figure>
-      <title>Line Styles</title>
-     <screenshot>
-      <screeninfo>Line Styles</screeninfo>
-      <graphic format="PNG" fileref="graphics/line-styles" 
-			srccredit=   "Mark Dexter" />
-      </screenshot>
-    </figure>
-  <para>
-     The style of the line (solid, dots, etc.) can be changed 
-     to one of the five options shown above using 
-     the Line style drop-down listbox. If you select a line style with dashes, 
-     you may also enter a dash length, measured in centimeters.
- </para>
-   </sect3>
-
-   <sect3 id="arrows">
-   <title>Arrows</title>
-	  	     <figure>
-      <title>Line Arrows</title>
-     <screenshot>
-      <screeninfo>Line Arrows</screeninfo>
-      <graphic format="PNG" fileref="graphics/line-arrows" 
-			srccredit=   "Mark Dexter" />
-      </screenshot>
-    </figure>
-    <para>
-     The start and end arrow style can be changed using the drop-down listboxes
-		 in the dialog. A large number of options are available. If you don't want
-		 any arrow, just select the plain line at the top of the list.
-    </para>
-   </sect3>
-	 </sect2>
-   <sect2 id="image">
-   <title>Image</title>
-     <figure>
-      <title>Image</title>
-            <screenshot>
-                <screeninfo>Image</screeninfo>
-                <graphic format="PNG"
-                         fileref="graphics/toolbox-image"
-                         srccredit="Mark Dexter" />
-            </screenshot>
-      </figure>	
-    <para>
-     A diagram can contain images as well as shapes.
-      To add an image, click on the Image icon and click on the canvas.
-     An object that says "Broken Image" will appear.  Double-click it to
-     open the properties dialog.  Then click on "Browse" and select your file.  
-		 Click "OK" and then the image will display on the diagram. 
-		 You can resize the image as desired using the object handles.
-    </para>
-    <para>The following image are usually supported for inclusion in
-      <application>Dia</application> diagrams:
       <itemizedlist>
-	<listitem><simpara>BMP</simpara></listitem>
-	<listitem><simpara>JPEG</simpara></listitem>
-	<listitem><simpara>PNG</simpara></listitem>
-	<listitem><simpara>SVG</simpara></listitem>
-	<listitem><simpara>XPM</simpara></listitem>
+        <listitem>
+          <para>
+            The normal Copy / Cut / Paste keys (Ctrl+C, Ctrl+X, Ctrl+V) don't work for
+            text. They work for entire objects. Use Ctrl+Shift+X to cut and 
+            Ctrl+Shift+V to paste just the text in an object. There is no shortcut to copy
+            just the text. 
+          </para>
+          <note><para>When you paste text into an object, the text is
+              formatted according to the Dia object properties, not the text source.
+            </para></note>
+        </listitem>
+        <listitem>
+          <para>
+            You cannot select a section of text inside an object with the mouse (this
+            moves the object). You can insert characters at the current cursor position
+            just by typing. You can delete the character to the left of the mouse using
+            Backspace.
+          </para>
+          <note><para>
+              The DEL key used to delete the entire object, now it should work as expected: 
+              it either deletes the object or the text to the right of the cursor depending 
+              on the editing mode.
+              If you delete something (text or object) by accident use 
+              <menuchoice>
+                <guimenu>Edit</guimenu>
+                <guimenuitem>Undo</guimenuitem>
+              </menuchoice>or Ctrl+Z if you delete an object by mistake.) To
+              delete all of the text in an object, use the Cut (Ctrl+Shift+X). 
+            </para></note>
+        </listitem>
+
+        <listitem>
+	  <para>
+            If you are using a non-default font or font size, one trick for productivity
+            is to create a palette of empty objects with the desired font settings on a
+            separate diagram. Then copy and paste these objects onto your working diagram
+            as you need them (i.e., instead of using the Toolbox icons).
+          </para>
+	</listitem>
       </itemizedlist>
-      The exact list depends on your system configuration (the concrete import
-      format filters available to gdk-pixbuf).
-    </para>
-   </sect2>
+    </sect2>
+    <sect2 id="box">
+      <title>Box</title>
+      <para>
+        The boxes in <application>Dia</application> can be customized to be any
+        size desired by the user.  The properties available are:
+        <itemizedlist>
+          <listitem>
+            <para>
+              Corner Rounding - Causes the corners to be rounded instead of hard
+              edges.
+            </para>
+          </listitem>
+          <listitem>
+            <para>
+              Draw Background - Keeps the center clear or fills with the background
+              color.
+            </para>
+          </listitem>
+        </itemizedlist>
+      </para>
+    </sect2>
+    <sect2 id="ellipse">
+      <title>Ellipse</title>
+      <para>
+        An ellipse is a shape which has all rounded sides, such as a circle or an
+        oval.
+      </para>
+    </sect2>
+    <sect2 id="polygon">
+      <title>Polygon</title>
+      <para>
+        A polygon is any closed shape made up of straight lines.  The
+        polygon tool, allows the user to draw any shape with all straight lines.
+      </para>
+    </sect2>
+    <sect2 id="beziergon">
+      <title>Beziergon</title>
+      <para>
+        A beziergon is similar to the polygon as the user defines the shape.
+        However, it differs in that it allows curves to exist in the shape.
+      </para>
+    </sect2>
+    <sect2 id="line">
+      <title>Line</title> 
+      <para>
+        A Line is a simple straight line. Unlike the other lines, the simple Line
+        does not have any handles to allow the shape to be altered. It just has
+        two connection handles, one at each end. 
+      </para>
+    </sect2>
+    <sect2 id="arc">
+      <title>Arc</title>
+      <para>
+        An Arc is a line which has been bent to create a semi-circle shape. Drag the 
+        orange handle in the middle to alter the curve of the arc.
+      </para>
+    </sect2>
+    <sect2 id="zigzagline">
+      <title>Zigzagline</title>
+      <para>
+        A Zigzagline is a line which has sharp, 90 degree turns in it.  
+        Zigzaglines have two special properties, 
+        Corner radius and Autoroute. Corner radius allows you to round the corners
+        of the line. On the Properties page, enter a number 
+        between 0 and 10.00, where 0 = square corners and 10.00 = maximally-rounded
+        corners. 
+      </para>
+      <para>
+        Autoroute is a yes/no property. If yes, the line is automatically
+        routed between the start and end points with the minimum number of 
+        segments. If you move or change the shape of 
+        the line, the Autoroute property is automatically set to no. Autoroute can
+        be set on the Properties page or using the right-click menu.
+      </para>
+      <para>
+        Zigzaglines also allow you to add or delete line segments. This can be useful
+        if you need the line to turn several corners (e.g., to traverse around some
+        other objects) or to get the arrow pointed in the right direction. To add or
+        delete a segment, right-click on the line at the point on the line 
+        where you want to add or delete and select Add segment or Delete segment.
+      </para>
+      <figure>
+        <title>Zigzagline Right-Click Menu</title>
+        <screenshot>
+          <screeninfo>Zigzagline Right-Click Menu</screeninfo>
+          <graphic format="PNG" fileref="graphics/zigzagline-rightclick" srccredit="Mark Dexter" />
+        </screenshot>
+      </figure>   
+    </sect2>
+    <sect2 id="polyline">
+      <title>Polyline</title>
+      <para>
+        A Polyline has multiple segments like a zigzagline, but can have turns
+        of any angle. A Polyline starts with one segment. You add more segments 
+        by right-clicking and selecting Add segment from the menu. Like the Zigzagline, 
+        the Polyline has a Corner radius value between 0 and 10.00, where 0 = sharp
+        corners and 10.00 = maximally-rounded corners.  
+      </para>
+      <figure>
+        <title>Polyline Right-Click Menu</title>
+        <screenshot>
+          <screeninfo>Polyline Right-Click Menu</screeninfo>
+          <graphic format="PNG" fileref="graphics/polyline-rightclick" srccredit="Mark Dexter" />
+        </screenshot>
+      </figure>   
+    </sect2>
+    <sect2 id="bezier">
+      <title>Bezierline</title>
+      <para>
+        A Bezierline is a line which has curves in it.  The Bezierline's shape is
+        edited by clicking and dragging the green and orange dots.  The green dots
+        customize the size while the orange dots customize the angles at which the
+        line curves. With a right-click menu, you can add or delete segments. If 
+        you add one or more segments, three additional properties are available.
+      </para>
+      <itemizedlist>
+        <listitem><para>
+            Symmetric control causes any dragging action on the added segment to be 
+            symmetrical around this point.
+          </para></listitem>
+        <listitem><para>
+            Smooth control allows you to pull away from the middle point  
+            independently but rotations around the middle point are symmetrical.
+          </para></listitem>
+        <listitem><para>
+            Cusp control allows you to drag each handle  
+            independently, and actions on one handle have no effect on the other one.
+          </para></listitem></itemizedlist>
+      <figure>
+        <title>Bezierline Right-Click Menu</title>
+        <screenshot>
+          <screeninfo>Bezierline Right-Click Menu</screeninfo>
+          <graphic format="PNG" fileref="graphics/bezierline-rightclick" srccredit="Mark Dexter" />
+        </screenshot>
+      </figure>  
+    </sect2>
+    <sect2 id="line-properties">
+      <title>Line Properties</title>
+      <para>
+        All lines share the following properties: width, color, style, 
+        and arrows. These properties may be edited using the Properties
+        dialog box shown below. 
+      </para>
+      <figure>
+        <title>Standard Line Properties</title>
+        <screenshot>
+          <screeninfo>Standard Line Properties</screeninfo>
+          <graphic format="PNG" fileref="graphics/standard-line-properties" srccredit="Mark Dexter" />
+        </screenshot>
+      </figure>
+      <sect3 id="line-thickness">
+        <title>Line Width</title>
+        <para>
+          The line width is measured in centimeters and can be entered manually
+          or by using the increment / decrement buttons.
+        </para>
+      </sect3>
+      <sect3 id="line-colors">
+        <title>Line Color</title>
+        <figure>
+          <title>Line Colors</title>
+          <screenshot>
+            <screeninfo>Line Colors</screeninfo>
+            <graphic format="PNG" fileref="graphics/line-colors" srccredit="Mark Dexter" />
+          </screenshot>
+        </figure>
+        <para>
+          Line colors are edited by opening the Line color drop-down listbox and either
+          selecting one of the choices on the list or "More colors...", which opens the
+          Select color dialog. 
+          See <link linkend="colors">Colors</link> for more information on 
+          selecting colors.
+        </para>
+      </sect3>
+      <sect3 id="line-styles">
+        <title>Line Style</title>
+        <figure>
+          <title>Line Styles</title>
+          <screenshot>
+            <screeninfo>Line Styles</screeninfo>
+            <graphic format="PNG" fileref="graphics/line-styles" srccredit="Mark Dexter" />
+          </screenshot>
+        </figure>
+        <para>
+          The style of the line (solid, dots, etc.) can be changed 
+          to one of the five options shown above using 
+          the Line style drop-down listbox. If you select a line style with dashes, 
+          you may also enter a dash length, measured in centimeters.
+        </para>
+      </sect3>
+
+      <sect3 id="arrows">
+        <title>Arrows</title>
+        <figure>
+          <title>Line Arrows</title>
+          <screenshot>
+            <screeninfo>Line Arrows</screeninfo>
+            <graphic format="PNG" fileref="graphics/line-arrows" srccredit="Mark Dexter" />
+          </screenshot>
+        </figure>
+        <para>
+          The start and end arrow style can be changed using the drop-down listboxes
+          in the dialog. A large number of options are available. If you don't want
+          any arrow, just select the plain line at the top of the list.
+        </para>
+      </sect3>
+    </sect2>
+    <sect2 id="image">
+      <title>Image</title>
+      <figure>
+        <title>Image</title>
+        <screenshot>
+          <screeninfo>Image</screeninfo>
+          <graphic format="PNG" fileref="graphics/toolbox-image" srccredit="Mark Dexter" />
+        </screenshot>
+      </figure>  
+      <para>
+        A diagram can contain images as well as shapes.
+        To add an image, click on the Image icon and click on the canvas.
+        An object that says "Broken Image" will appear.  Double-click it to
+        open the properties dialog.  Then click on "Browse" and select your file.  
+        Click "OK" and then the image will display on the diagram. 
+        You can resize the image as desired using the object handles.
+      </para>
+      <para>The following image are usually supported for inclusion in
+        <application>Dia</application> diagrams:
+        <itemizedlist>
+          <listitem><simpara>BMP</simpara></listitem>
+          <listitem><simpara>JPEG</simpara></listitem>
+          <listitem><simpara>PNG</simpara></listitem>
+          <listitem><simpara>SVG</simpara></listitem>
+          <listitem><simpara>XPM</simpara></listitem>
+        </itemizedlist>
+        The exact list depends on your system configuration (the concrete import
+        format filters available to gdk-pixbuf).
+      </para>
+    </sect2>
     <sect2 id="outline">
       <title>Outline</title>
       <para>
-      One of the most requested features for <application>Dia</application> is rotated text;
-      shortly before having transformation capabilities for everything ;-)
-      The Outline object is a small step in that direction. It has known limitations in
-      convenience (you need to open the properties dialog to change the text) and 
-      rendering style (Dia's drawing model does not yet allow to 
-      <ulink url="http://bugzilla.gnome.org/show_bug.cgi?id=568168">render holes</ulink>).
+        One of the most requested features for <application>Dia</application> is rotated text;
+        shortly before having transformation capabilities for everything ;-)
+        The Outline object is a small step in that direction. It has known limitations in
+        convenience (you need to open the properties dialog to change the text) and 
+        rendering style (Dia's drawing model does not yet allow to 
+        <ulink url="http://bugzilla.gnome.org/show_bug.cgi?id=568168">render holes</ulink>).
       </para>
     </sect2>
   </sect1>
