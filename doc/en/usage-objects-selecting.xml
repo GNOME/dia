@@ -349,16 +349,16 @@
       <sect3 id="individual-selected">
         <title>Working With Individual Objects</title>
         <para>
-          While a set of objects is selected, you may still resize or modify a single object's
-          properties without losing the currently selected set. To resize an object, 
-          place the mouse pointer over the desired handle of the object and drag the
-          handle to resize. To view or change an object's properties, double-click anywhere
-          on the object and the properties dialog box will display.
-        </para>
+	  Due to limitations in the implementation some operations on single objects
+	  in a selection were still only modifying the single object. Since dia 0.97
+	  these inconsitency got resolved so the properties dialog allows to change
+	  multiple objects properties at once - without first grouping them. 
+	</para>
         <para>
-          For line objects, you may change the line's connection points and change the shape
-          of the line while a line is part of a selected set. Just place the pointer on the 
-          desired handle of the line and drag it as needed.
+          Also the single objects handles change behaviour in a selection (shown by 
+	  slightly dimming them). Instead of resizing the single object they can just
+	  be used to move the whole selection an align it on the grid, see 
+	  <link linkend="gridlines">snap to grid</link> for details.
         </para>
         <tip>
           <para>
