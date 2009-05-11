@@ -325,13 +325,6 @@
           relative positions. To do this, place the mouse pointer inside a shape or
           on a blank spot on a line that is part of the selected set and then drag 
           to the desired new location. 
-          <tip>
-            <para>
-              Be sure
-              to avoid placing the mouse on an object's handle, or this will resize the object
-              instead of moving the selected set of objects.
-            </para>
-          </tip>
         </para>
       </sect3>
       <sect3 id="copy-selected0">
