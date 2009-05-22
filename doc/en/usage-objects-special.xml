@@ -294,7 +294,7 @@
           <title>Misc</title>
           <screenshot>
             <screeninfo>Misc</screeninfo>
-            <graphic format="PNG" fileref="graphics/misc-shapes" srccredit="Mark Dexter" />
+            <graphic format="PNG" fileref="graphics/misc-shapes" srccredit="Hans Breuer" />
           </screenshot>
         </figure>
         <para>
@@ -399,7 +399,7 @@
             <title>UML Class Properties</title>
             <screenshot>
               <screeninfo>UML Class Properties</screeninfo>
-              <graphic format="PNG" fileref="graphics/properties-uml-class1" srccredit="Mark Dexter" />
+              <graphic format="PNG" fileref="graphics/properties-uml-class1" srccredit="Hans Breuer" />
             </screenshot>
           </figure>      
         </para>     
