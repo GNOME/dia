@@ -27,7 +27,7 @@
 #include "object_ops.h"
 #include "textedit.h"
 
-enum SelectionStyle selection_style = SELECT_REPLACE;
+SelectionStyle selection_style = SELECT_REPLACE;
 
 void
 select_all_callback(gpointer data, guint action, GtkWidget *widget)
@@ -255,11 +255,11 @@ select_same_type_callback(gpointer data, guint action, GtkWidget *widget)
 }
 
 void
-select_style_callback(gpointer data, guint action, GtkWidget *widget)
+select_style_callback(GtkAction *action, GtkRadioAction *current, gpointer user_data)
 {
   DDisplay *ddisp = ddisplay_active();
   if (!ddisp || textedit_mode(ddisp)) return;
 
   /* simply set the selection style to the value of `action' */
-  selection_style = action;
+  selection_style = gtk_radio_action_get_current_value (current);
 }

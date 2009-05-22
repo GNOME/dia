@@ -836,7 +836,7 @@ create_or_ref_display_actions (void)
   gtk_action_group_add_radio_actions (display_actions,
                 display_select_radio_entries,
                 G_N_ELEMENTS (display_select_radio_entries),
-                1,
+                0, /* SELECT_REPLACE - first radio entry */
                 G_CALLBACK (select_style_callback),
                 NULL);
   /* the initial reference */

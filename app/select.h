@@ -21,10 +21,15 @@
 #include "diagram.h"
 #include "display.h"
 
-enum SelectionStyle {SELECT_REPLACE, SELECT_UNION, 
-                     SELECT_INTERSECTION, SELECT_REMOVE, SELECT_INVERT};
+typedef enum {
+  SELECT_REPLACE, 
+  SELECT_UNION,
+  SELECT_INTERSECTION,
+  SELECT_REMOVE,
+  SELECT_INVERT
+} SelectionStyle;
 
-extern enum SelectionStyle selection_style;
+extern SelectionStyle selection_style;
 
 void select_all_callback(gpointer data, guint action, GtkWidget *widget);
 void select_none_callback(gpointer data, guint action, GtkWidget *widget);
@@ -32,6 +37,6 @@ void select_invert_callback(gpointer data, guint action, GtkWidget *widget);
 void select_connected_callback(gpointer data, guint action, GtkWidget *widget);
 void select_transitive_callback(gpointer data, guint action, GtkWidget*widget);
 void select_same_type_callback(gpointer data, guint action, GtkWidget *widget);
-void select_style_callback(gpointer data, guint action, GtkWidget *widget);
+void select_style_callback(GtkAction *action, GtkRadioAction *current, gpointer user_data);
 
 #endif
