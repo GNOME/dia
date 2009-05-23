@@ -70,11 +70,10 @@ class Edge :
 	def __init__ (self, name, symbols, delayLoad) :
 		global g_maxWeight
 		self.name = name # the target
-		self.weight = len(symbols)
 		self.reduce = 0 # != 0 if this should better vanish
 		self.delayLoad = delayLoad
-		if self.weight > g_maxWeight :
-			g_maxWeight = self.weight
+		if len(symbols) > g_maxWeight :
+			g_maxWeight = len(symbols)
 		demangled = []
 		for s in symbols :
 			m = rDemangle.match (s)
@@ -98,7 +97,9 @@ class Edge :
 				#print " <unmatched>: ", s
 				demangled.append (s)
 		self.symbols = demangled
-
+	def Weight (self) :
+		"As method to have let always be the number of symbols"
+		return len(self.symbols)
 g_path = None # empty, default behaviour
 def FindInPath (sName) :
 	"returns the complete path of the given name, looking at cwd first"
@@ -368,6 +369,48 @@ def CutLeafs (deps, nCuts) :
 	if len(leafs.keys()) > 0 :
 		return leafs.keys()
 	return cut
+def TransitiveReduction (deps, tops, treds=[]) :
+	"""If a component A has B and C as dependency and B also depends on C reduce A->C.
+	   This algorithm is available with dot, too. But here we can adjust the respective
+	   'inherited' symbols and 'depth' as well.
+	"""
+	for a in tops :
+		bs = deps[a].deps.keys()
+		cs = {}
+		for b in bs :
+			for c in deps[b].deps.keys() :
+				if not c in cs.keys() :
+					cs[c] = 1
+		# bs and cs are now complete, remove all a->b, where b in cs
+		extra_syms = {}
+		for c in cs.keys() :
+			if c in bs :
+				print "Cut", a, "->", c
+				# we need to know which edge a->b is taking the extra symbols
+				extra_syms[c] = deps[a].deps[c].symbols
+				del deps[a].deps[c]
+		# fill remaining bs having a c dependency with the extra symbols
+		e_keys = extra_syms.keys()
+		for e in e_keys :
+			bs = deps[a].deps.keys() # they are reduced above
+			for b in bs :
+				if e in deps[b].deps.keys () :
+					print "Adjust", a, "->", b, "+", len(extra_syms[e]), "from", e
+					#NOT: deps[a].deps[b].symbols.extend(extra_syms[e]) # producing duplicates
+					for s in extra_syms[e] :
+						if not s in deps[a].deps[b].symbols :
+							deps[a].deps[b].symbols.append(s)
+					del extra_syms[e]
+					break
+		#FIXME: something we have cut before may not be visible anymore (would need a deeper search or an ordered reduction)
+		if len(extra_syms.keys()) :
+			print "Not adjusted:", a, "->", string.join(extra_syms.keys(), ", ")
+	# recurse into remaining bs
+	for a in tops :
+		bs = deps[a].deps.keys()
+		treds.append(a) # rember already done to avoid endless recursion
+		TransitiveReduction (deps, bs, treds)
+
 def TopMost (deps) :
 	"everything not used by something else"
 	keys = deps.keys ()
@@ -503,6 +546,7 @@ def main () :
 	bDump = 0
 	bByUse = 0
 	bReduce = 0
+	bTred = 0
 	sOutFilename = None
 	sPickle = None
 
@@ -553,6 +597,8 @@ def main () :
 			bDump = 1
 		elif arg == "--reduce" :
 			bReduce = 1
+		elif arg == "--tred" :
+			bTred = 1
 		elif arg == "--by-use" :
 			bByUse = 1
 		elif string.find (arg, "--pickle=") == 0 :
@@ -689,6 +735,12 @@ For more information read the source.
 				n2 = len(deps.keys()) # total number of components left
 				# write erros/warning like the compiler would do
 				f2.write ("%s - %d error(s), %d warning(s)\n" % (deps[d].name, n1, n2))
+	if bTred :
+		tops = TopMost (deps)
+		if len(tops) == 0 :
+			print "Transitive reduction without topmost!"
+			tops = deps.keys ()
+		TransitiveReduction (deps, tops)
 
 	if sPickle :
 		import pickle
@@ -796,19 +848,19 @@ For more information read the source.
 					sPrefix = "// " + string.join(edge.symbols, ", ") + "\n// "
 				if edge.delayLoad :
 					# putting 'weight' and 'constraint' seems to be too much for dot
-					sStyle = "weight=%f,style=dotted" % (math.log10(math.sqrt(edge.weight+.1)),)
+					sStyle = "weight=%f,style=dotted" % (math.log10(math.sqrt(edge.Weight()+.1)),)
 					# even using constraint at all seems to often crash dot
 					#sStyle = "style=dotted,constraint=false"
 				else :
-					sStyle = "weight=%f" % (math.log10(edge.weight+.1),)
-				if edge.weight <= nSymbols :
+					sStyle = "weight=%f" % (math.log10(edge.Weight()+.1),)
+				if edge.Weight() <= nSymbols :
 					#f.write ('"%s" -> "%s" [weight=%f,label=%s]\n' % (node.name, edge.name, math.log(1)-0.5, edge.symbols[0]))
 					f.write ('%s"%s" -> "%s" [fontsize=6,label="%s",%s]\n' 
 							% (sPrefix, node.name, edge.name, string.join(edge.symbols, "\\n"), sStyle))
 				else :
-					#f.write ('"%s" -> "%s" [weight=%f]\n' % (node.name, edge.name, math.log(edge.weight)-0.5))
+					#f.write ('"%s" -> "%s" [weight=%f]\n' % (node.name, edge.name, math.log(edge.Weight())-0.5))
 					f.write ('%s"%s" -> "%s" [label="(%d)",%s]\n' 
-							% (sPrefix, node.name, edge.name, edge.weight, sStyle))
+							% (sPrefix, node.name, edge.name, edge.Weight(), sStyle))
 	f.write("}\n")
 
 if __name__ == '__main__': main()
