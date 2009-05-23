@@ -101,7 +101,7 @@ int
 dia::Layer::object_index (Object* o) const
 {
     g_return_val_if_fail (self != NULL, -1);
-    return layer_object_index (self, o->Self());
+    return layer_object_get_index (self, o->Self());
 }
 
 int
