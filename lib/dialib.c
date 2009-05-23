@@ -32,6 +32,7 @@
 #include "dia_image.h"
 #include "color.h"
 #include "object.h"
+#include "dia_dirs.h"
 
 static void
 stderr_message_internal(const char *title, enum ShowAgainStyle showAgain,
@@ -104,12 +105,16 @@ libdia_init (guint flags)
   stdprops_init();
 
   if (flags & DIA_INTERACTIVE) {
+    char *diagtkrc;
 
     dia_image_init();
 
     gdk_rgb_init();
 
-    gtk_rc_parse("diagtkrc");
+    diagtkrc = dia_config_filename("diagtkrc");
+    dia_log_message ("Config from %s", diagtkrc);
+    gtk_rc_parse(diagtkrc);
+    g_free(diagtkrc);
 
     color_init();
   }
