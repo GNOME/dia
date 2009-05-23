@@ -337,7 +337,8 @@ view_zoom_set (float factor)
 }
 
 static void
-zoom_activate_callback(GtkWidget *item, gpointer user_data) {
+zoom_activate_callback(GtkWidget *item, gpointer user_data) 
+{
   DDisplay *ddisp = (DDisplay *)user_data;
   const gchar *zoom_text =
       gtk_entry_get_text(GTK_ENTRY(gtk_object_get_user_data(GTK_OBJECT(ddisp->zoom_status))));
@@ -371,7 +372,8 @@ zoom_activate_callback(GtkWidget *item, gpointer user_data) {
 }
 
 static void
-zoom_add_zoom_amount(GtkWidget *menu, gchar *text, DDisplay *ddisp) {
+zoom_add_zoom_amount(GtkWidget *menu, gchar *text, DDisplay *ddisp) 
+{
   GtkWidget *menuitem = gtk_menu_item_new_with_label(text);
   gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuitem);
   g_signal_connect(GTK_OBJECT(menuitem), 

@@ -758,19 +758,29 @@ void
 ddisplay_zoom(DDisplay *ddisp, Point *point, real magnify)
 {
   Rectangle *visible;
-  real width, height;
+  real width, height, old_zoom;
 
   visible = &ddisp->visible;
-
-  width = (visible->right - visible->left)/magnify;
-  height = (visible->bottom - visible->top)/magnify;
 
   if ((ddisp->zoom_factor <= DDISPLAY_MIN_ZOOM) && (magnify<=1.0))
     return;
   if ((ddisp->zoom_factor >= DDISPLAY_MAX_ZOOM) && (magnify>=1.0))
     return;
 
-  ddisp->zoom_factor *= magnify;
+  old_zoom = ddisp->zoom_factor;
+  ddisp->zoom_factor = old_zoom * magnify;
+
+  /* clip once more */
+  if (ddisp->zoom_factor < DDISPLAY_MIN_ZOOM)
+    ddisp->zoom_factor = DDISPLAY_MIN_ZOOM;
+  else if (ddisp->zoom_factor > DDISPLAY_MAX_ZOOM)
+    ddisp->zoom_factor = DDISPLAY_MAX_ZOOM;
+
+  /* the real one used - after clipping */
+  magnify = ddisp->zoom_factor / old_zoom;
+  width = (visible->right - visible->left)/magnify;
+  height = (visible->bottom - visible->top)/magnify;
+
 
   ddisplay_set_origo(ddisp, point->x - width/2.0, point->y - height/2.0);
   
