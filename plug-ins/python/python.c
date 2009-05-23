@@ -102,6 +102,8 @@ dia_plugin_init(PluginInfo *info)
     Py_Initialize();
 
     PySys_SetArgv(1, python_argv);
+    /* Sanitize sys.path */
+    PyRun_SimpleString("import sys; sys.path = filter(None, sys.path)");
 
     if (on_error_report())
 	return DIA_PLUGIN_INIT_ERROR;
