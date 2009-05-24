@@ -1,3 +1,6 @@
+  * bugs fixed:
+    http://bugzilla.gnome.org/buglist.cgi?product=dia&target_milestone=0.97.1
+
 dia-0.97: 2009-05-03
 
   * a few more bugs fixed, some updated translations, build from git
