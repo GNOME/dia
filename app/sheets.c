@@ -250,10 +250,12 @@ sheets_dialog_create(void)
                                       "active_sheet_name");
 
     wrapbox = lookup_widget(sheets_dialog, "wrapbox_left");
-    gtk_widget_destroy(wrapbox);
+    if (wrapbox)
+      gtk_widget_destroy(wrapbox);
 
     wrapbox = lookup_widget(sheets_dialog, "wrapbox_right");
-    gtk_widget_destroy(wrapbox);
+    if (wrapbox)
+      gtk_widget_destroy(wrapbox);
   }
 
   if (custom_type_symbol == NULL)
@@ -286,6 +288,10 @@ sheets_dialog_create(void)
     sheets_append_sheet_mods(sheets_list->data);
     
   sw = lookup_widget(sheets_dialog, "scrolledwindow_right");
+  /* In case glade already add a child to scrolledwindow */
+  wrapbox = gtk_bin_get_child (GTK_BIN(sw));
+  if (wrapbox)
+    gtk_container_remove(GTK_CONTAINER(sw), wrapbox);
   wrapbox = gtk_hwrap_box_new(FALSE);
   gtk_widget_ref(wrapbox);
   gtk_object_set_data(GTK_OBJECT(sheets_dialog), "wrapbox_right", wrapbox);
@@ -298,6 +304,10 @@ sheets_dialog_create(void)
   sheets_optionmenu_create(option_menu, wrapbox, sheet_right);
 
   sw = lookup_widget(sheets_dialog, "scrolledwindow_left");
+  /* In case glade already add a child to scrolledwindow */
+  wrapbox = gtk_bin_get_child (GTK_BIN(sw));
+  if (wrapbox)
+    gtk_container_remove(GTK_CONTAINER(sw), wrapbox);
   wrapbox = gtk_hwrap_box_new(FALSE);
   gtk_widget_ref(wrapbox);
   gtk_object_set_data(GTK_OBJECT(sheets_dialog), "wrapbox_left", wrapbox);
@@ -377,10 +387,11 @@ create_object_pixmap(SheetObject *so, GtkWidget *parent,
 }
 
 GtkWidget*
-lookup_widget                          (GtkWidget       *widget,
-                                        const gchar     *widget_name)
+lookup_widget (GtkWidget   *widget,
+               const gchar *widget_name)
 {
   GtkWidget *parent, *found_widget;
+  GtkBuilder *builder;
 
   for (;;)
     {
@@ -393,8 +404,8 @@ lookup_widget                          (GtkWidget       *widget,
       widget = parent;
     }
 
-  found_widget = (GtkWidget*) gtk_object_get_data (GTK_OBJECT (widget),
-                                                   widget_name);
+  builder = g_object_get_data (G_OBJECT (widget), "_sheet_dialogs_builder");
+  found_widget = GTK_WIDGET (gtk_builder_get_object (builder, widget_name));
   if (!found_widget)
     g_warning (_("Widget not found: %s"), widget_name);
   return found_widget;

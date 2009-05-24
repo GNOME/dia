@@ -69,8 +69,7 @@ create_integrated_ui_toolbar (void);
 
 static void add_plugin_actions (GtkUIManager *ui_manager, const char *base_path);
 
-static gchar*
-build_ui_filename (const gchar* name);
+gchar *build_ui_filename (const gchar* name);
 
 /* Active/inactive state is set in diagram_update_menu_sensitivity()
  * in diagram.c */
@@ -775,7 +774,7 @@ register_stock_icons (void)
   factory = NULL;
 }
 
-static gchar*
+gchar*
 build_ui_filename (const gchar* name)
 {
   gchar* uifile;

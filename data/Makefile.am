@@ -9,7 +9,8 @@ ui_DATA = 			\
 	toolbox-ui.xml	\
 	popup-ui.xml \
 	toolbar-ui.xml \
-	integrated-ui.xml
+	integrated-ui.xml \
+	sheets-dialog.xml
 
 EXTRA_DIST = \
 	$(ui_DATA) \
