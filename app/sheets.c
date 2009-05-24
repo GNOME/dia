@@ -45,7 +45,6 @@
 
 GtkWidget *sheets_dialog = NULL;
 GSList *sheets_mods_list = NULL;
-GtkTooltips *sheets_dialog_tooltips = NULL;
 static gpointer custom_type_symbol = NULL;
 
 /* Given a SheetObject and a SheetMod, create a new SheetObjectMod
@@ -136,9 +135,6 @@ sheets_optionmenu_create(GtkWidget *option_menu, GtkWidget *wrapbox,
   gtk_container_foreach(GTK_CONTAINER(optionmenu_menu),
                         (GtkCallback)gtk_widget_destroy, NULL);
 
-  if (!sheets_dialog_tooltips)
-    sheets_dialog_tooltips = gtk_tooltips_new();
-
   for (sheets_list = sheets_mods_list; sheets_list;
        sheets_list = g_slist_next(sheets_list))
   {
@@ -163,8 +159,7 @@ sheets_optionmenu_create(GtkWidget *option_menu, GtkWidget *wrapbox,
       else
 	tip = g_strdup_printf(_("%s\nUser sheet"), sheet_mod->sheet.description);
       
-      gtk_tooltips_set_tip(GTK_TOOLTIPS(sheets_dialog_tooltips), menu_item, tip,
-			   NULL);
+      gtk_widget_set_tooltip_text(menu_item, tip);
       g_free(tip);
     }
 
@@ -232,9 +227,6 @@ sheets_dialog_create(void)
     g_signal_connect (GTK_OBJECT (sheets_dialog), "destroy",
 		      G_CALLBACK (gtk_widget_destroyed),
 			&sheets_dialog);
-    g_signal_connect (GTK_OBJECT (sheets_dialog), "destroy",
-		      G_CALLBACK (gtk_widget_destroyed),
-			&sheets_dialog_tooltips);
 
     sheet_left = NULL;
     sheet_right = NULL;

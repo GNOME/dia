@@ -289,7 +289,7 @@ sheets_dialog_wrapbox_add_line_break(GtkWidget *wrapbox)
   gtk_wrap_box_pack(GTK_WRAP_BOX(wrapbox), button, FALSE, TRUE, FALSE, TRUE);
   gtk_widget_show(button);
 
-  gtk_tooltips_set_tip(sheets_dialog_tooltips, button, _("Line Break"), NULL);
+  gtk_widget_set_tooltip_text(button, _("Line Break"));
 
   g_signal_connect(GTK_OBJECT(button), "toggled",
 		   G_CALLBACK(on_sheets_dialog_object_button_toggled),
@@ -313,7 +313,7 @@ sheets_dialog_object_set_tooltip(SheetObjectMod *som, GtkWidget *button)
     break;
   }
 
-  gtk_tooltips_set_tip(sheets_dialog_tooltips, button, tip, NULL);
+  gtk_widget_set_tooltip_text(button, tip);
   g_free(tip);
 }
 
