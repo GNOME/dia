@@ -22,10 +22,9 @@
 /** \file diaarrowchooser.c  A widget to choose arrowhead.  This only select arrowhead, not width  and height. 
  * \ingroup diawidgets
  */
-#undef GTK_DISABLE_DEPRECATED /* GtkTooltips */
-
-#include <gtk/gtk.h>
 #include <config.h>
+#undef GTK_DISABLE_DEPRECATED /* e.g. gtk_object_get_data */
+#include <gtk/gtk.h>
 #include "intl.h"
 #include "widgets.h"
 #include "diaarrowchooser.h"
@@ -411,12 +410,11 @@ dia_arrow_chooser_change_arrow_type(GtkMenuItem *mi, DiaArrowChooser *chooser)
  * @param callback void (*callback)(Arrow *arrow, gpointer user_data) which
  *                 will be called when the arrow type or dimensions change.
  * @param user_data Any user data.  This will be stored in chooser->user_data.
- * @param tool_tips An object to set arrow names with.
  * @return A new DiaArrowChooser widget.
  */
 GtkWidget *
 dia_arrow_chooser_new(gboolean left, DiaChangeArrowCallback callback,
-		      gpointer user_data, GtkTooltips *tool_tips)
+		      gpointer user_data)
 {
   DiaArrowChooser *chooser = g_object_new(DIA_TYPE_ARROW_CHOOSER, NULL);
   GtkWidget *menu, *mi, *ar;
@@ -438,9 +436,7 @@ dia_arrow_chooser_new(gboolean left, DiaChangeArrowCallback callback,
     mi = gtk_menu_item_new();
     g_object_set_data(G_OBJECT(mi), menuitem_enum_key,
 		      GINT_TO_POINTER(arrow_type));
-    if (tool_tips) {
-      gtk_tooltips_set_tip(tool_tips, mi, _dia_translate(arrow_get_name_from_type(arrow_type), NULL), NULL);
-    }
+    gtk_widget_set_tooltip_text(mi, _dia_translate(arrow_get_name_from_type(arrow_type), NULL));
     ar = dia_arrow_preview_new(arrow_type, left);
 
     gtk_container_add(GTK_CONTAINER(mi), ar);

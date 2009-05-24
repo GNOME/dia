@@ -22,7 +22,6 @@
 #undef GTK_DISABLE_DEPRECATED /* gnome */
 #include <gnome.h>
 #else
-#undef GTK_DISABLE_DEPRECATED /* GtkTooltips */
 #include <gtk/gtk.h>
 #endif
 #include "gtkwrapbox.h"
@@ -267,7 +266,6 @@ static struct
     GtkWidget    * layer_view;
 } ui;
 
-/*static*/ GtkTooltips *tool_tips;
 static GSList *tool_group = NULL;
 
 GtkWidget *modify_tool_button;
@@ -617,8 +615,8 @@ use_integrated_ui_for_display_shell(DDisplay *ddisp, char *title)
 
   /*  Popup button between scrollbars for navigation window  */
   navigation_button = navigation_popup_new(ddisp);
-  gtk_tooltips_set_tip(tool_tips, navigation_button,
-                       _("Pops up the Navigation window."), NULL);
+  gtk_widget_set_tooltip_text(navigation_button,
+                       _("Pops up the Navigation window."));
   gtk_widget_show(navigation_button);
 
   /*  Canvas  */
@@ -726,9 +724,6 @@ create_display_shell(DDisplay *ddisp,
   ddisp->container            = NULL;
 
 
-  if (!tool_tips) /* needed here if we dont create_toolbox() */
-    tool_tips = gtk_tooltips_new ();
-    
   s_width = gdk_screen_width ();
   s_height = gdk_screen_height ();
   if (width > s_width)
@@ -816,7 +811,7 @@ create_display_shell(DDisplay *ddisp,
       GTK_WIDGET_UNSET_FLAGS(ddisp->origin, GTK_CAN_FOCUS);
       widget = gtk_arrow_new(GTK_ARROW_RIGHT, GTK_SHADOW_OUT);
       gtk_container_add(GTK_CONTAINER(ddisp->origin), widget);
-      gtk_tooltips_set_tip(tool_tips, widget, _("Diagram menu."), NULL);
+      gtk_widget_set_tooltip_text(widget, _("Diagram menu."));
       gtk_widget_show(widget);
       g_signal_connect(GTK_OBJECT(ddisp->origin), "button_press_event",
 		     G_CALLBACK(origin_button_press), ddisp);
@@ -853,8 +848,8 @@ create_display_shell(DDisplay *ddisp,
 
   /*  Popup button between scrollbars for navigation window  */
   navigation_button = navigation_popup_new(ddisp);
-  gtk_tooltips_set_tip(tool_tips, navigation_button,
-                       _("Pops up the Navigation window."), NULL);
+  gtk_widget_set_tooltip_text(navigation_button,
+                       _("Pops up the Navigation window."));
   gtk_widget_show(navigation_button);
 
   /*  Canvas  */
@@ -933,8 +928,8 @@ create_display_shell(DDisplay *ddisp,
   
   g_signal_connect(G_OBJECT(ddisp->grid_status), "toggled",
 		   G_CALLBACK (grid_toggle_snap), ddisp);
-  gtk_tooltips_set_tip(tool_tips, ddisp->grid_status,
-		       _("Toggles snap-to-grid for this window."), NULL);
+  gtk_widget_set_tooltip_text(ddisp->grid_status,
+		       _("Toggles snap-to-grid for this window."));
   gtk_box_pack_start (GTK_BOX (status_hbox), ddisp->grid_status,
 		      FALSE, FALSE, 0);
 
@@ -944,8 +939,8 @@ create_display_shell(DDisplay *ddisp,
   
   g_signal_connect(G_OBJECT(ddisp->mainpoint_status), "toggled",
 		   G_CALLBACK (interface_toggle_mainpoint_magnetism), ddisp);
-  gtk_tooltips_set_tip(tool_tips, ddisp->mainpoint_status,
-		       _("Toggles object snapping for this window."), NULL);
+  gtk_widget_set_tooltip_text(ddisp->mainpoint_status,
+		       _("Toggles object snapping for this window."));
   gtk_box_pack_start (GTK_BOX (status_hbox), ddisp->mainpoint_status,
 		      FALSE, FALSE, 0);
 
@@ -1182,13 +1177,13 @@ create_tools(GtkWidget *parent)
 
 	alabel = gtk_accelerator_get_label(key, mods);
 	atip = g_strconcat(gettext(tool_data[i].tool_desc), " (", alabel, ")", NULL);
-	gtk_tooltips_set_tip (tool_tips, button, atip, NULL);
+	gtk_widget_set_tooltip_text (button, atip);
 	g_free (atip);
 	g_free (alabel);
 
     } else {
-	gtk_tooltips_set_tip (tool_tips, button,
-				gettext(tool_data[i].tool_desc), NULL);
+	gtk_widget_set_tooltip_text (button,
+				gettext(tool_data[i].tool_desc));
     }
     
     gtk_widget_show (pixmapwidget);
@@ -1318,8 +1313,7 @@ fill_sheet_wbox(Sheet *sheet)
 
     tool_setup_drag_source(button, data, pixmap, mask);
 
-    gtk_tooltips_set_tip (tool_tips, button,
-			  gettext(sheet_obj->description), NULL);
+    gtk_widget_set_tooltip_text (button, gettext(sheet_obj->description));
   }
   /* If the selection is in the old sheet, steal it */
   if (active_tool != NULL &&
@@ -1492,12 +1486,11 @@ create_color_area (GtkWidget *parent)
 
   gtk_box_pack_start (GTK_BOX (hbox), alignment, TRUE, TRUE, 0);
 
-  gtk_tooltips_set_tip (tool_tips, col_area, 
+  gtk_widget_set_tooltip_text (col_area, 
 			_("Foreground & background colors for new objects.  "
 			  "The small black and white squares reset colors.  "
 			  "The small arrows swap colors.  Double click to "
-			  "change colors."),
-                        NULL);
+			  "change colors."));
 
   gtk_widget_show (alignment);
   
@@ -1508,7 +1501,7 @@ create_color_area (GtkWidget *parent)
   line_area = linewidth_area_create ();
   gtk_container_add (GTK_CONTAINER (alignment), line_area);
   gtk_box_pack_start (GTK_BOX (hbox), alignment, TRUE, TRUE, 0);
-  gtk_tooltips_set_tip(tool_tips, line_area, _("Line widths.  Click on a line to set the default line width for new objects.  Double-click to set the line width more precisely."), NULL);
+  gtk_widget_set_tooltip_text(line_area, _("Line widths.  Click on a line to set the default line width for new objects.  Double-click to set the line width more precisely."));
   gtk_widget_show (alignment);
 
   gtk_widget_show (col_area);
@@ -1542,7 +1535,7 @@ create_lineprops_area(GtkWidget *parent)
   LineStyle style;
   gchar *arrow_name;
 
-  chooser = dia_arrow_chooser_new(TRUE, change_start_arrow_style, NULL, tool_tips);
+  chooser = dia_arrow_chooser_new(TRUE, change_start_arrow_style, NULL);
   gtk_wrap_box_pack_wrapped(GTK_WRAP_BOX(parent), chooser, FALSE, TRUE, FALSE, TRUE, TRUE);
   arrow.width = persistence_register_real("start-arrow-width", DEFAULT_ARROW_WIDTH);
   arrow.length = persistence_register_real("start-arrow-length", DEFAULT_ARROW_LENGTH);
@@ -1551,18 +1544,18 @@ create_lineprops_area(GtkWidget *parent)
   g_free(arrow_name);
   dia_arrow_chooser_set_arrow(DIA_ARROW_CHOOSER(chooser), &arrow);
   attributes_set_default_start_arrow(arrow);
-  gtk_tooltips_set_tip(tool_tips, chooser, _("Arrow style at the beginning of new lines.  Click to pick an arrow, or set arrow parameters with Details..."), NULL);
+  gtk_widget_set_tooltip_text(chooser, _("Arrow style at the beginning of new lines.  Click to pick an arrow, or set arrow parameters with Details..."));
   gtk_widget_show(chooser);
 
   chooser = dia_line_chooser_new(change_line_style, NULL);
   gtk_wrap_box_pack(GTK_WRAP_BOX(parent), chooser, TRUE, TRUE, FALSE, TRUE);
-  gtk_tooltips_set_tip(tool_tips, chooser, _("Line style for new lines.  Click to pick a line style, or set line style parameters with Details..."), NULL);
+  gtk_widget_set_tooltip_text (chooser, _("Line style for new lines.  Click to pick a line style, or set line style parameters with Details..."));
   style = persistence_register_integer("line-style", LINESTYLE_SOLID);
   dash_length = persistence_register_real("dash-length", DEFAULT_LINESTYLE_DASHLEN);
   dia_line_chooser_set_line_style(DIA_LINE_CHOOSER(chooser), style, dash_length);
   gtk_widget_show(chooser);
 
-  chooser = dia_arrow_chooser_new(FALSE, change_end_arrow_style, NULL, tool_tips);
+  chooser = dia_arrow_chooser_new(FALSE, change_end_arrow_style, NULL);
   arrow.width = persistence_register_real("end-arrow-width", DEFAULT_ARROW_WIDTH);
   arrow.length = persistence_register_real("end-arrow-length", DEFAULT_ARROW_LENGTH);
   arrow_name = persistence_register_string("end-arrow-type", "Filled Concave");
@@ -1572,7 +1565,7 @@ create_lineprops_area(GtkWidget *parent)
   attributes_set_default_end_arrow(arrow);
 
   gtk_wrap_box_pack(GTK_WRAP_BOX(parent), chooser, FALSE, TRUE, FALSE, TRUE);
-  gtk_tooltips_set_tip(tool_tips, chooser, _("Arrow style at the end of new lines.  Click to pick an arrow, or set arrow parameters with Details..."), NULL);
+  gtk_widget_set_tooltip_text(chooser, _("Arrow style at the end of new lines.  Click to pick an arrow, or set arrow parameters with Details..."));
   gtk_widget_show(chooser);
 }
 
@@ -1682,9 +1675,6 @@ create_integrated_ui (void)
   gtk_notebook_set_scrollable (GTK_NOTEBOOK (notebook), TRUE); 
   gtk_widget_show (notebook);
 
-  /*  tooltips  */
-  tool_tips = gtk_tooltips_new ();
-
   wrapbox = gtk_hwrap_box_new(FALSE);
   gtk_wrap_box_set_aspect_ratio(GTK_WRAP_BOX(wrapbox), 144.0 / 318.0);
   gtk_wrap_box_set_justify(GTK_WRAP_BOX(wrapbox), GTK_JUSTIFY_TOP);
@@ -1793,13 +1783,6 @@ create_toolbox ()
   gtk_container_add (GTK_CONTAINER (window), main_vbox);
 #endif
   gtk_widget_show (main_vbox);
-
-  /*  tooltips  */
-  tool_tips = gtk_tooltips_new ();
-
-  /*  gtk_tooltips_set_colors (tool_tips,
-			   &colors[11],
-			   &main_vbox->style->fg[GTK_STATE_NORMAL]);*/
 
   wrapbox = gtk_hwrap_box_new(FALSE);
   gtk_wrap_box_set_aspect_ratio(GTK_WRAP_BOX(wrapbox), 144.0 / 318.0);

@@ -21,7 +21,7 @@
 #include <config.h>
 #endif
 
-#undef GTK_DISABLE_DEPRECATED /* GtkTooltips */
+#undef GTK_DISABLE_DEPRECATED /* watch out sheets.h dragging in gnome.h */
 #include <gtk/gtk.h>
 #include <gdk/gdkkeysyms.h>
 #include <string.h>
@@ -604,8 +604,7 @@ create_integrated_ui_toolbar (void)
                                         dia_off_grid_icon);
   g_signal_connect (G_OBJECT (w), "toggled",
 		   G_CALLBACK (integrated_ui_toolbar_grid_snap_toggle), toolbar);
-  gtk_tooltips_set_tip (tool_tips, w,
-		      _("Toggles snap-to-grid."), NULL);
+  gtk_widget_set_tooltip_text (w, _("Toggles snap-to-grid."));
   g_object_set_data (G_OBJECT (toolbar), 
                      DIA_INTEGRATED_TOOLBAR_SNAP_GRID,
                      w);
@@ -616,8 +615,7 @@ create_integrated_ui_toolbar (void)
                                         dia_mainpoints_off_icon);
   g_signal_connect (G_OBJECT (w), "toggled",
 		   G_CALLBACK (integrated_ui_toolbar_object_snap_toggle), toolbar);
-  gtk_tooltips_set_tip (tool_tips, w,
-		       _("Toggles object snapping."), NULL);
+  gtk_widget_set_tooltip_text (w, _("Toggles object snapping."));
   g_object_set_data (G_OBJECT (toolbar), 
                      DIA_INTEGRATED_TOOLBAR_OBJECT_SNAP,
                      w);
@@ -812,7 +810,7 @@ _ui_manager_connect_proxy (GtkUIManager *manager,
 
       if (tooltip)
         {
-	  gtk_tooltips_set_tip (tool_tips, proxy, tooltip, NULL);
+	  gtk_widget_set_tooltip_text (proxy, tooltip);
 	  g_free (tooltip);
 	}
     }

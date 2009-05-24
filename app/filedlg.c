@@ -452,17 +452,10 @@ file_save_as_callback(gpointer data, guint action, GtkWidget *widget)
     g_signal_connect(G_OBJECT(compressbutton), "toggled",
 		     G_CALLBACK(toggle_compress_callback), NULL);
     gtk_widget_show(compressbutton);
-#if GTK_CHECK_VERSION (2,12,0)
     gtk_widget_set_tooltip_text (compressbutton,
 			 _("Compression reduces file size to less than 1/10th "
 			   "size and speeds up loading and saving.  Some text "
 			   "programs cannot manipulate compressed files."));
-#else
-    gtk_tooltips_set_tip(tool_tips, compressbutton,
-			 _("Compression reduces file size to less than 1/10th "
-			   "size and speeds up loading and saving.  Some text "
-			   "programs cannot manipulate compressed files."), NULL);
-#endif
     g_signal_connect (GTK_FILE_CHOOSER(savedlg),
 		      "response", G_CALLBACK(file_save_as_response_callback), compressbutton);
     g_signal_connect(GTK_OBJECT(savedlg), "destroy",

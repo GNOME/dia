@@ -208,8 +208,7 @@ create_button_box(GtkWidget *parent, gboolean show_labels)
 			     G_CALLBACK(buttons[i].callback),
 			       GTK_OBJECT (parent));
           
-    if (tool_tips != NULL)
-      gtk_tooltips_set_tip (tool_tips, button, gettext(buttons[i].tooltip), NULL);
+    gtk_widget_set_tooltip_text (button, gettext(buttons[i].tooltip));
 
     gtk_box_pack_start (GTK_BOX(button_box), button, TRUE, TRUE, 0);
 

@@ -100,10 +100,6 @@ extern gchar *interface_current_sheet_name;
 void tool_select_update (GtkWidget *w, gpointer   data);
 void fill_sheet_menu(void);
 
-#ifndef GTK_DISABLE_DEPRECATED
-extern GtkTooltips *tool_tips;
-#endif
-
 void close_notebook_page_callback (GtkButton *button, gpointer user_data);
 
 #endif /* INTERFACE_H */

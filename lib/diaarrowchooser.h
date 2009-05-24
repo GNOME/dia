@@ -92,13 +92,7 @@ struct _DiaArrowChooserClass
 
 GtkWidget *dia_arrow_chooser_new (gboolean left,
 				  DiaChangeArrowCallback callback,
-				  gpointer user_data, 
-#ifndef GTK_DISABLE_DEPRECATED
-				  GtkTooltips *tool_tips
-#else
-				  gpointer     tool_tips
-#endif
-				  );
+				  gpointer user_data);
 void dia_arrow_chooser_set_arrow(DiaArrowChooser *chooser, Arrow *arrow);
 ArrowType dia_arrow_chooser_get_arrow_type(DiaArrowChooser *chooser);
 
