@@ -22,6 +22,7 @@
 #undef GTK_DISABLE_DEPRECATED /* gnome */
 #include <gnome.h>
 #else
+#undef GTK_DISABLE_DEPRECATED /* e.g. GTK_SIGNAL_FUNC */
 #include <gtk/gtk.h>
 #endif
 #include "gtkwrapbox.h"
