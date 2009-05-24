@@ -107,10 +107,7 @@ begin_render(DiaRenderer *self)
                              renderer->dia->bg_color.blue,
                              1.0);
     }
-  cairo_rectangle (renderer->cr, 
-                   renderer->dia->extents.left, renderer->dia->extents.top,
-                   renderer->dia->extents.right, renderer->dia->extents.bottom);
-  cairo_fill (renderer->cr);
+  cairo_paint (renderer->cr);
   if (renderer->with_alpha)
     {
       /* restore to default drawing */
