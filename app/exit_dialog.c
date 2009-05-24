@@ -111,7 +111,7 @@ exit_dialog_make (GtkWindow * parent_window,
     renderer = gtk_cell_renderer_toggle_new ();
 
     column   = gtk_tree_view_column_new_with_attributes (_("Save"), renderer,
-                                                         _("active"), CHECK_COL,
+                                                         "active", CHECK_COL,
                                                           NULL);
     gtk_tree_view_append_column (GTK_TREE_VIEW (treeview), column);
 
