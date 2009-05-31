@@ -54,6 +54,7 @@ struct _DiagramTreeViewClass {
 #define DIAGRAM_TREE_VIEW_TYPE (_dtv_get_type ())
 #define DIAGRAM_TREE_VIEW(obj) (G_TYPE_CHECK_INSTANCE_CAST ((obj), DIAGRAM_TREE_VIEW_TYPE, DiagramTreeView))
 
+static GType _dtv_get_type (void);
 #if 0
 //future
 G_DEFINE_TYPE_WITH_CODE (DiagramTreeView, _dtv, GTK_TYPE_TREE_VIEW,
@@ -217,7 +218,7 @@ _dtv_row_activated (GtkTreeView       *view,
   if (gtk_tree_model_get_iter (model, &iter, path)) {
     gtk_tree_model_get (model, &iter, OBJECT_COLUMN, &object, -1);
 
-    //g_signal_emit (view, signals[REVISION_ACTIVATED], 0, object);
+    /* FIXME: g_signal_emit (view, signals[REVISION_ACTIVATED], 0, object); */
 
   }
 

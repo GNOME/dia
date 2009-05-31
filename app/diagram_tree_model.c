@@ -32,9 +32,17 @@
 #include "diagram_tree_model.h"
 
 /* accessing iter fileds by name by */
+#ifdef _MSC_VER
+/* GCC does not like the pattern */
+/* error: lvalue required as left operand of assignment */
 #define NODE_DIAGRAM(it) ((DiagramData*)(it->user_data))
 #define NODE_LAYER(it) ((Layer*)(it->user_data2))
 #define NODE_OBJECT(it) ((DiaObject*)(it->user_data3))
+#else
+#define NODE_DIAGRAM(it) (it->user_data)
+#define NODE_LAYER(it) (it->user_data2)
+#define NODE_OBJECT(it) (it->user_data3)
+#endif
 typedef struct _DiagramTreeModelClass
 {
   GObjectClass parent_class;
@@ -45,6 +53,7 @@ typedef struct _DiagramTreeModel
   /* no need to store anything */
 } DiagramTreeModel;
 
+static GType _dtm_get_type (void);
 static void _dtm_finalize (GObject *object);
 
 static void
