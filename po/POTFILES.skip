@@ -1,4 +1,5 @@
 dia.desktop.in
+data/sheets-dialog.xml
 sheets/EML.sheet.in
 po-checktrans.py
 plug-ins/python/otypes.py
