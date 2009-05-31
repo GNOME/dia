@@ -33,7 +33,8 @@
 #include "objchange.h"
 #include "textline.h"
 
-static int text_key_event(Focus *focus, guint keysym,
+static int text_key_event(Focus *focus, 
+			  guint keystate, guint keysym,
 			  const gchar *str, int strlen,
 			  ObjectChange **change);
 
@@ -573,6 +574,53 @@ text_set_cursor_at_end( Text* text )
   text->cursor_pos = text_get_line_strlen(text, text->cursor_row) ;
 }
 
+typedef enum {
+  WORD_START = 1,
+  WORD_END
+} CursorMovement;
+
+static void
+text_move_cursor(Text *text, CursorMovement mv)
+{
+  gchar *str = text_line_get_string(text->lines[text->cursor_row]);
+  gchar *p = str;
+  int curmax = text_get_line_strlen(text, text->cursor_row);
+  if (text->cursor_pos > 0 && text->cursor_pos <= curmax) {
+    int i;
+    for (i = 0; i < text->cursor_pos; ++i)
+      p = g_utf8_next_char (p);
+  } 
+  if (WORD_START == mv && text->cursor_pos < 1) {
+    if (text->cursor_row) {
+      text->cursor_row--;
+      text->cursor_pos = text_get_line_strlen(text, text->cursor_row);
+    }
+    return;
+  } else if (WORD_END == mv && text->cursor_pos == curmax) {
+    if (text->cursor_row < text->numlines - 1) {
+      text->cursor_row++;
+      text->cursor_pos = 0;
+    }
+    return;
+  }
+  while (!g_unichar_isalnum (g_utf8_get_char (p))) {
+    p = (WORD_START == mv ? g_utf8_find_prev_char (str, p) : g_utf8_next_char (p));
+    if (p) text->cursor_pos += (WORD_START == mv ? -1 : 1);
+    if (!p || !*p)
+      return;
+    if (!text->cursor_pos || text->cursor_pos == curmax)
+      return;
+  }
+  while (g_unichar_isalnum (g_utf8_get_char (p))) {
+    p = (WORD_START == mv ? g_utf8_find_prev_char (str, p) : g_utf8_next_char (p));
+    if (p) text->cursor_pos += (WORD_START == mv ? -1 : 1);
+    if (!p || !*p)
+      return;
+    if (!text->cursor_pos || text->cursor_pos == curmax)
+      return;
+  }
+}
+
 /* The renderer is only used to determine where the click is, so is not
  * required when no point is given. */
 void
@@ -826,7 +874,9 @@ text_delete_key_handler(Focus *focus, ObjectChange ** change)
 }
 
 static int
-text_key_event(Focus *focus, guint keyval, const gchar *str, int strlen,
+text_key_event(Focus *focus, 
+	       guint keystate, guint keyval, 
+	       const gchar *str, int strlen,
                ObjectChange **change)
 {
   Text *text;
@@ -859,12 +909,18 @@ text_key_event(Focus *focus, guint keyval, const gchar *str, int strlen,
     
         break;
       case GDK_Left:
-        text->cursor_pos--;
+        if (keystate & GDK_CONTROL_MASK)
+	  text_move_cursor(text, WORD_START);
+	else
+          text->cursor_pos--;
         if (text->cursor_pos<0)
           text->cursor_pos = 0;
         break;
       case GDK_Right:
-        text->cursor_pos++;
+        if (keystate & GDK_CONTROL_MASK)
+	  text_move_cursor(text, WORD_END);
+	else
+          text->cursor_pos++;
         if (text->cursor_pos > text_get_line_strlen(text, text->cursor_row))
           text->cursor_pos = text_get_line_strlen(text, text->cursor_row);
         break;

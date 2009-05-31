@@ -371,7 +371,8 @@ ddisplay_popup_menu(DDisplay *ddisp, GdkEventButton *event)
 		 event->button, event->time);
 }
 static void 
-handle_key_event(DDisplay *ddisp, Focus *focus, guint keysym,
+handle_key_event(DDisplay *ddisp, Focus *focus, 
+		 guint keystate, guint keysym,
                  const gchar *str, int strlen) 
 {
   DiaObject *obj = focus_get_object(focus);
@@ -381,7 +382,7 @@ handle_key_event(DDisplay *ddisp, Focus *focus, guint keysym,
 
   object_add_updates(obj, ddisp->diagram);
   
-  modified = (focus->key_event)(focus, keysym, str, strlen,
+  modified = (focus->key_event)(focus, keystate, keysym, str, strlen,
 				&obj_change);
 
       /* Make sure object updates its data and its connected: */
@@ -419,7 +420,7 @@ ddisplay_im_context_commit(GtkIMContext *context, const gchar  *str,
   ddisplay_im_context_preedit_reset(ddisp, focus);
   
   if (focus != NULL)
-    handle_key_event(ddisp, focus, 0, str, g_utf8_strlen(str,-1));
+    handle_key_event(ddisp, focus, 0, 0, str, g_utf8_strlen(str,-1));
 }
 
 void 
@@ -435,7 +436,7 @@ ddisplay_im_context_preedit_changed(GtkIMContext *context,
                                     &ddisp->preedit_attrs, &cursor_pos);
   if (ddisp->preedit_string != NULL) {
     if (focus != NULL) {
-      handle_key_event(ddisp, focus, 0, ddisp->preedit_string,
+      handle_key_event(ddisp, focus, 0, 0, ddisp->preedit_string,
                        g_utf8_strlen(ddisp->preedit_string,-1));
     } else {
       ddisplay_im_context_preedit_reset(ddisp, focus);
@@ -804,7 +805,7 @@ ddisplay_canvas_events (GtkWidget *canvas,
 		    break;
 		  default:
 		    /*! key event not swallowed by the input method ? */
-		    handle_key_event(ddisp, focus, kevent->keyval,
+		    handle_key_event(ddisp, focus, kevent->state, kevent->keyval,
 				     kevent->string, kevent->length);
 		    
 		    diagram_flush(ddisp->diagram);

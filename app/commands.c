@@ -181,10 +181,10 @@ insert_text(DDisplay *ddisp, Focus *focus, const gchar *text)
     gchar *next_line = g_utf8_strchr(text, -1, '\n');
     if (next_line != text) {
       gint len = g_utf8_strlen(text, (next_line-text));
-      modified = (*focus->key_event)(focus, GDK_A, text, len, &change);
+      modified = (*focus->key_event)(focus, 0, GDK_A, text, len, &change);
     }
     if (next_line != NULL) {
-      modified = (*focus->key_event)(focus, GDK_Return, "\n", 1, &change);
+      modified = (*focus->key_event)(focus, 0, GDK_Return, "\n", 1, &change);
       text = g_utf8_next_char(next_line);
     } else {
       text = NULL;
