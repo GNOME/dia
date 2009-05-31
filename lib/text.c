@@ -38,20 +38,20 @@ static int text_key_event(Focus *focus,
 			  const gchar *str, int strlen,
 			  ObjectChange **change);
 
-enum change_type {
+typedef enum {
   TYPE_DELETE_BACKWARD,
   TYPE_DELETE_FORWARD,
   TYPE_INSERT_CHAR,
   TYPE_JOIN_ROW,
   TYPE_SPLIT_ROW,
   TYPE_DELETE_ALL
-};
+} TextChangeType;
 
 struct TextObjectChange {
   ObjectChange obj_change;
 
   Text *text;
-  enum change_type type;
+  TextChangeType type;
   gunichar ch;
   int pos;
   int row;
@@ -164,7 +164,7 @@ text_get_descent(Text *text)
   return text->descent;
 }
 
-static ObjectChange *text_create_change(Text *text, enum change_type type,
+static ObjectChange *text_create_change(Text *text, TextChangeType type,
 					gunichar ch, int pos, int row);
 
 static void
@@ -1199,7 +1199,7 @@ text_change_free(struct TextObjectChange *change) {
 }
 
 static ObjectChange *
-text_create_change(Text *text, enum change_type type,
+text_create_change(Text *text, TextChangeType type,
 		   gunichar ch, int pos, int row)
 {
   struct TextObjectChange *change;
