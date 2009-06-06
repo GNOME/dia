@@ -17,17 +17,18 @@
  */
 #include <config.h>
 
-/* so we get fdopen declared even when compiling with -ansi */
-#define _POSIX_C_SOURCE 2
+#define _BSD_SOURCE 1 /* to get the prototype for fchmod() */
+#define _POSIX_C_SOURCE 2 /* so we get fdopen declared even when compiling with -ansi */
+#include <sys/stat.h>
 #ifdef HAVE_UNISTD_H
 #include <unistd.h>
 #endif
 #include <stdlib.h>
 #include <sys/types.h>
-#include <sys/stat.h>
 #include <stdio.h>
 #include <fcntl.h>
 #include <string.h>
+
 #include <glib.h>
 #include <glib/gstdio.h> /* g_access() and friends */
 #include <errno.h>
