@@ -65,7 +65,7 @@ _dtm_class_init (DiagramTreeModelClass *klass)
 }
 
 #define DIA_TYPE_DIAGRAM_TREE_MODEL (_dtm_get_type ())
-
+#define DIAGRAM_TREE_MODEL(obj) (G_TYPE_CHECK_INSTANCE_CAST ((obj), DIA_TYPE_DIAGRAM_TREE_MODEL, DiagramTreeModel))
 static void _dtm_iface_init (GtkTreeModelIface *iface);
 
 G_DEFINE_TYPE_WITH_CODE (DiagramTreeModel, _dtm, G_TYPE_OBJECT,
@@ -73,7 +73,7 @@ G_DEFINE_TYPE_WITH_CODE (DiagramTreeModel, _dtm, G_TYPE_OBJECT,
 						_dtm_iface_init))
 
 static GtkTreeModelFlags
-_get_flags (GtkTreeModel *tree_model)
+_dtm_get_flags (GtkTreeModel *tree_model)
 {
   return GTK_TREE_MODEL_ITERS_PERSIST; /* NOT: ; */
 }
@@ -189,7 +189,7 @@ _dtm_get_value (GtkTreeModel *tree_model,
   switch (column) {
   case DIAGRAM_COLUMN :
     g_value_init (value, G_TYPE_OBJECT);
-    g_value_set_object (value, g_object_ref(NODE_DIAGRAM(iter)));
+    g_value_set_object (value, NODE_DIAGRAM(iter));
     break;
   case LAYER_COLUMN :
     g_value_init (value, G_TYPE_POINTER);
@@ -342,21 +342,9 @@ _dtm_iter_parent (GtkTreeModel *tree_model,
 }
 
 static void
-_dtm_ref_node (GtkTreeModel *tree_model,
-	       GtkTreeIter  *iter)
-{
-  /* fixme: ref-counting? */
-}
-static void
-_dtm_unref_node (GtkTreeModel *tree_model,
-	     GtkTreeIter  *iter)
-{
-  /* fixme: ref-counting? */
-}
-static void
 _dtm_iface_init (GtkTreeModelIface *iface)
 {
-  iface->get_flags = _get_flags;
+  iface->get_flags = _dtm_get_flags;
   iface->get_n_columns = _dtm_get_n_columns;
   iface->get_column_type = _dtm_get_column_type;
   iface->get_iter = _dtm_get_iter;
@@ -368,11 +356,6 @@ _dtm_iface_init (GtkTreeModelIface *iface)
   iface->iter_n_children = _dtm_iter_n_children;
   iface->iter_nth_child = _dtm_iter_nth_child;
   iface->iter_parent = _dtm_iter_parent;
-
-#if 0 /* optional: for performance reasons */
-  iface->ref_node = _dtm_ref_node;
-  iface->unref_node = _dtm_unref_node;
-#endif
 
   /*todo?*/
 #if 0
@@ -386,19 +369,29 @@ _dtm_iface_init (GtkTreeModelIface *iface)
 
 /*
  * MODELCHANGES
+ *
+ * No matter if we are wrapped in the SortModel change signals are always
+ * sent to this model. In the sortable case the GtkTreeModelSort translates
+ * them to the right coordinates for the tree view.
  */
-static void
-_recurse_row_inserted (GtkTreeModel *dtm, GtkTreeIter *parent)
+static gboolean
+_recurse_row_inserted (GtkTreeModel *model, GtkTreeIter *parent)
 {
   GtkTreeIter iter;
   int n = 0;
-  while (_dtm_iter_nth_child (dtm, &iter, parent, n)) {
-    GtkTreePath *path = _dtm_get_path (dtm, &iter);
-    gtk_tree_model_row_inserted (dtm, path, &iter);
-    _recurse_row_inserted (dtm, &iter);
+  while (_dtm_iter_nth_child (model, &iter, parent, n)) {
+    GtkTreePath *path = _dtm_get_path (model, &iter);
+    gtk_tree_model_row_inserted (model, path, &iter);
+    /* gtk_tree_model_row_has_child_toggled
+     * ... emitted when a row has gotten the first child row ... 
+     * So no need to do it here. Or maybe not for the sorted model? 
+     */
+    if (_recurse_row_inserted (model, &iter))
+      gtk_tree_model_row_has_child_toggled (model, path, &iter);
     gtk_tree_path_free (path);
     ++n;
   }
+  return (n > 0);
 }
 
 /* listen to diagram creation */
@@ -411,8 +404,6 @@ _diagram_add (DiaApplication   *app,
   GtkTreeIter _iter = {0,}; /* all null is our root */
   GtkTreeIter *iter = &_iter;
 
-  if (GTK_IS_TREE_SORTABLE(dtm))
-    dtm = gtk_tree_model_sort_get_model (GTK_TREE_MODEL (dtm));
   NODE_DIAGRAM(iter) = DIA_DIAGRAM_DATA (dia);
   path = _dtm_get_path (GTK_TREE_MODEL (dtm), iter);
   /* we always get a path, but it may not be a valid one */
@@ -420,7 +411,8 @@ _diagram_add (DiaApplication   *app,
     /* gtk_tree_model_row_changed is not 'strong' enough, lets try to re-add the root */
     gtk_tree_model_row_inserted (GTK_TREE_MODEL (dtm), path, iter);
     /* looks like the GtkTreeView is somewhat out of service */
-    _recurse_row_inserted (GTK_TREE_MODEL (dtm), iter);
+    if (_recurse_row_inserted (GTK_TREE_MODEL (dtm), iter))
+      gtk_tree_model_row_has_child_toggled (GTK_TREE_MODEL (dtm), path, iter);
     gtk_tree_path_free (path);
   }
 }
@@ -446,8 +438,6 @@ _diagram_change (DiaApplication   *app,
     NODE_LAYER(iter) = dia_object_get_parent_layer (object);
   }
 
-  if (GTK_IS_TREE_SORTABLE(dtm))
-    dtm = gtk_tree_model_sort_get_model (GTK_TREE_MODEL (dtm));
   path = _dtm_get_path (GTK_TREE_MODEL (dtm), iter);
   gtk_tree_model_row_changed (GTK_TREE_MODEL (dtm), path, iter);
   gtk_tree_path_free (path);
@@ -464,8 +454,7 @@ _diagram_remove (DiaApplication   *app,
   NODE_DIAGRAM(iter) = DIA_DIAGRAM_DATA(dia);
   NODE_LAYER(iter)   = NULL;
   NODE_OBJECT(iter)  = NULL;
-  if (GTK_IS_TREE_SORTABLE(dtm))
-    dtm = gtk_tree_model_sort_get_model (GTK_TREE_MODEL (dtm));
+
   path = _dtm_get_path (GTK_TREE_MODEL (dtm), iter);
   gtk_tree_model_row_deleted (GTK_TREE_MODEL (dtm), path);
   gtk_tree_path_free (path);
@@ -568,7 +557,6 @@ type_sort_func (GtkTreeModel *model,
 		gpointer      user_data)
 {
   DiaObject *pa = NODE_OBJECT(a), *pb = NODE_OBJECT(b);
-  gchar *na, *nb;
   gint ret = cmp_diagram (a, b);
   if (ret)
     return ret;

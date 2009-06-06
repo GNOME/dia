@@ -157,10 +157,9 @@ _dtv_query_tooltip (GtkWidget  *widget,
 
       markup = g_string_new (NULL);
 
-      if (diagram) {
+      if (diagram)
         g_string_append_printf (markup, "<b>%s</b>: %s\n", _("Diagram"), diagram->filename);
-        g_object_unref (diagram);
-      }
+
       if (layer) {
         gchar *name = layer_get_name (layer);
         g_string_append_printf (markup, "<b>%s</b>: %s\n", _("Layer"), name);
@@ -193,6 +192,9 @@ _dtv_query_tooltip (GtkWidget  *widget,
 	had_info = TRUE;
       }
 
+      /* drop references */
+      if (diagram)
+        g_object_unref (diagram);
       g_string_free (markup, TRUE);
     }
     gtk_tree_path_free (path);
@@ -227,11 +229,18 @@ _dtv_row_activated (GtkTreeView       *view,
 }
 
 static void
+_dtv_finalize (GObject *object)
+{
+  G_OBJECT_CLASS (_dtv_parent_class)->finalize (object);
+}
+static void
 _dtv_class_init (DiagramTreeViewClass *klass)
 {
   GObjectClass     *object_class    = G_OBJECT_CLASS (klass);
   GtkWidgetClass   *widget_class    = GTK_WIDGET_CLASS (klass);
   GtkTreeViewClass *tree_view_class = GTK_TREE_VIEW_CLASS (klass);
+
+  object_class->finalize            = _dtv_finalize;
 
   widget_class->button_press_event  = _dtv_button_press;
   widget_class->query_tooltip       = _dtv_query_tooltip;
@@ -486,7 +495,9 @@ diagram_tree_view_new (void)
   return g_object_new (DIAGRAM_TREE_VIEW_TYPE, NULL);
 }
 
-/* should go to it's own file, just for testing */
+/* should eventually go to it's own file, just for testing 
+ * The DiagramTreeView should remain integrateable with the integrated UI.
+ */
 void
 diagram_tree_show (void)
 {
