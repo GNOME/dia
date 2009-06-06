@@ -20,9 +20,13 @@
 /** \file boundingbox.c This code is nothing but a fancy pile of FPU crap. */
 
 #include <config.h>
-#include <glib.h>
+
+#define _BSD_SOURCE 1
 #include <math.h>
 #include <string.h> /* memcmp() */
+
+#include <glib.h>
+
 #include "geometry.h"
 #include "boundingbox.h"
 

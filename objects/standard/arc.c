@@ -21,6 +21,7 @@
 #endif
 
 #include <assert.h>
+#define _BSD_SOURCE 1 /* to get finite */
 #include <math.h>
 
 #include "intl.h"
