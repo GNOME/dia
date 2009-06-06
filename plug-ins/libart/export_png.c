@@ -255,10 +255,10 @@ export_png_ok(GtkButton *button, gpointer userdata)
  error:
   g_object_unref(renderer);
   if (button != NULL) {
-    gtk_signal_disconnect_by_data(GTK_OBJECT(export_png_okay_button),
-				  userdata);
-    gtk_signal_disconnect_by_data(GTK_OBJECT(export_png_cancel_button),
-				  userdata);
+    g_signal_handlers_disconnect_matched (GTK_OBJECT(export_png_okay_button), 
+					  G_SIGNAL_MATCH_DATA, 0, 0, NULL, NULL, userdata);
+    g_signal_handlers_disconnect_matched (GTK_OBJECT(export_png_cancel_button), 
+					  G_SIGNAL_MATCH_DATA, 0, 0, NULL, NULL, userdata);
   }
   g_free(cbdata->filename);
   g_free(cbdata);
@@ -271,11 +271,14 @@ export_png_ok(GtkButton *button, gpointer userdata)
    free callback data
 */
 static void
-export_png_cancel(GtkButton *button, gpointer userdata) {
+export_png_cancel(GtkButton *button, gpointer userdata) 
+{
   struct png_callback_data *cbdata = (struct png_callback_data *)userdata;
 
-  gtk_signal_disconnect_by_data(GTK_OBJECT(export_png_okay_button), userdata);
-  gtk_signal_disconnect_by_data(GTK_OBJECT(export_png_cancel_button), userdata);
+  g_signal_handlers_disconnect_matched (GTK_OBJECT(export_png_okay_button), 
+					G_SIGNAL_MATCH_DATA, 0, 0, NULL, NULL, userdata);
+  g_signal_handlers_disconnect_matched (GTK_OBJECT(export_png_cancel_button), 
+					G_SIGNAL_MATCH_DATA, 0, 0, NULL, NULL, userdata);
 
   gtk_widget_hide(export_png_dialog);
   g_free(cbdata->filename);
