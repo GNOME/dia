@@ -21,7 +21,7 @@
  */
 #include "config.h"
 
-#include <math.h>
+#include <stdlib.h> /* abs() from stdlib.h */
 
 #include "autocad_pal.h"
 
