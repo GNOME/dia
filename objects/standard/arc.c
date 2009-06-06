@@ -16,13 +16,11 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif
 
-#include <assert.h>
 #define _BSD_SOURCE 1 /* to get finite */
 #include <math.h>
+#include <assert.h>
 
 #include "intl.h"
 #include "object.h"
