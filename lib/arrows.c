@@ -18,10 +18,12 @@
 
 #include <config.h>
 
+#define _BSD_SOURCE 1 /* to get finite */
+#include <math.h>
 #include <stdio.h>
 #include <string.h>
+
 #include <glib.h>
-#include <math.h>
 #include "message.h"
 #include "boundingbox.h"
 
