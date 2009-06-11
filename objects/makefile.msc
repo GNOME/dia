@@ -37,6 +37,7 @@ PKG_DEF = ..\objects.def
 !INCLUDE $(TOP)\glib\build\win32\make.msc
 
 PKG_CFLAGS = -FImsvc_recommended_pragmas.h \
+	-DGTK_DISABLE_DEPRECATED \
 	$(GLIB_CFLAGS) $(GTK2_CFLAGS) $(INTL_CFLAGS) \
 	$(LIBXML2_CFLAGS) -I$(PRJ_TOP)\lib \
 
