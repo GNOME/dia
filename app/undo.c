@@ -658,18 +658,14 @@ delete_objects_revert(struct DeleteObjectsChange *change, Diagram *dia)
 			g_list_copy(change->original_objects));
   object_add_updates_list(change->obj_list, dia);
 
- list = change->obj_list;
- while (list)
- {
-   DiaObject *obj = (DiaObject *) list->data;
-   if (obj->parent) /* Restore child references */
-   	obj->parent->children = g_list_append(obj->parent->children, obj);
-   	
-   /* Emit a signal per object reverted */
-   data_emit(layer_get_parent_diagram(change->layer),change->layer,obj,"object_add");
-
-  list = g_list_next(list);
- }
+  list = change->obj_list;
+  while (list) {
+    DiaObject *obj = (DiaObject *) list->data;
+    if (obj->parent) /* Restore child references */
+      obj->parent->children = g_list_append(obj->parent->children, obj);
+    /* no need to emit object_add signal, already done by layer_set_object_list */
+    list = g_list_next(list);
+  }
 }
 
 static void

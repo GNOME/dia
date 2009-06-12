@@ -743,7 +743,7 @@ diagram_selected_break_external(Diagram *dia)
 	connected_list = g_list_next(connected_list);
       }
     }
-    data_emit (dia->data, dia_object_get_parent_layer(obj), obj, "object_remove");
+
     list = g_list_next(list);
   }
 }

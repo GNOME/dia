@@ -255,13 +255,14 @@ layer_remove_objects(Layer *layer, GList *obj_list)
   while (obj_list != NULL) {
     obj = (DiaObject *) obj_list->data;
     
+    /* send a signal that we will remove an object from the diagram */
+    data_emit (layer_get_parent_diagram(layer), layer, obj, "object_remove");
+
     layer->objects = g_list_remove(layer->objects, obj);
     
     obj_list = g_list_next(obj_list);
     dynobj_list_remove_object(obj);
     set_parent_layer(obj, NULL);
-    /* send a signal that we have removed a object from the diagram */
-    data_emit (layer_get_parent_diagram(layer), layer, obj, "object_remove");
   }
 }
 
@@ -537,26 +538,32 @@ layer_remove_dynobj(gpointer obj, gpointer userdata)
   dynobj_list_remove_object((DiaObject*)obj);
 }
 
-void layer_set_object_list(Layer *layer, GList *list)
+void 
+layer_set_object_list(Layer *layer, GList *list)
 {
   GList *ol;
   /* signal removal on all objects */
   ol = layer->objects;
   while (ol) {
-    data_emit (layer_get_parent_diagram(layer), layer, ol->data, "object_remove");
+    if (!g_list_find (list, ol->data)) /* only if it really vanishes */
+      data_emit (layer_get_parent_diagram(layer), layer, ol->data, "object_remove");
     ol = g_list_next (ol);
   }
+  /* restore old list */
+  ol = layer->objects;
   g_list_foreach(layer->objects, set_parent_layer, NULL);
   g_list_foreach(layer->objects, layer_remove_dynobj, NULL);
-  g_list_free(layer->objects);
+
   layer->objects = list;
   g_list_foreach(layer->objects, set_parent_layer, layer);
   /* signal addition on all objects */
   list = layer->objects;
   while (list) {
-    data_emit (layer_get_parent_diagram(layer), layer, list->data, "object_add");
+    if (!g_list_find (ol, list->data)) /* only if it is new */
+      data_emit (layer_get_parent_diagram(layer), layer, list->data, "object_add");
     list = g_list_next (list);
   }
+  g_list_free(ol);
 }
 
 DiagramData *
