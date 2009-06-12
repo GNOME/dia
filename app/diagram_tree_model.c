@@ -134,6 +134,7 @@ _dtm_get_path (GtkTreeModel *tree_model,
 	       GtkTreeIter  *iter)
 {
   GtkTreePath *result;
+  int index = 0;
 
   if (!NODE_DIAGRAM(iter) && !NODE_LAYER(iter) && !NODE_OBJECT(iter)) {
     /* the root path */
@@ -148,13 +149,21 @@ _dtm_get_path (GtkTreeModel *tree_model,
   }
   if (NODE_LAYER(iter)) {
     g_return_val_if_fail (NODE_DIAGRAM(iter) == layer_get_parent_diagram (NODE_LAYER(iter)), NULL);
-    gtk_tree_path_append_index (result, data_layer_get_index (NODE_DIAGRAM(iter), NODE_LAYER(iter)));
+    index = data_layer_get_index (NODE_DIAGRAM(iter), NODE_LAYER(iter));
+    if (index >= 0)
+      gtk_tree_path_append_index (result, index);
   }
-  if (NODE_OBJECT(iter)) {
+  if (index >= 0 && NODE_OBJECT(iter)) {
     g_return_val_if_fail (NODE_LAYER(iter) == dia_object_get_parent_layer (NODE_OBJECT(iter)), NULL);
-    gtk_tree_path_append_index (result, layer_object_get_index (NODE_LAYER(iter), NODE_OBJECT(iter)));
+    index = layer_object_get_index (NODE_LAYER(iter), NODE_OBJECT(iter));
+    if (index >= 0)
+      gtk_tree_path_append_index (result, index);
   }
 
+  if (index < 0) {
+    gtk_tree_path_free (result);
+    return NULL;
+  }
   return result;
 }
 
@@ -394,6 +403,59 @@ _recurse_row_inserted (GtkTreeModel *model, GtkTreeIter *parent)
   return (n > 0);
 }
 
+/* listen on the diagram for object add/remove */
+static void
+_object_add (DiagramData      *dia,
+	     Layer            *layer,
+             DiaObject        *obj,
+	     DiagramTreeModel *dtm)
+{
+  GtkTreePath *path;
+  GtkTreeIter _iter;
+  GtkTreeIter *iter = &_iter;
+
+  g_return_if_fail (DIA_DIAGRAM(dia) != NULL);
+
+  NODE_DIAGRAM(iter) = dia;
+  NODE_LAYER(iter)   = layer;
+  NODE_OBJECT(iter)  = obj;
+
+
+  /* FIXME: this may get called before the layer is added to the tree */
+  path = _dtm_get_path (GTK_TREE_MODEL (dtm), iter);
+  if (path) {
+    gtk_tree_model_row_inserted (GTK_TREE_MODEL (dtm), path, iter);
+    gtk_tree_path_free (path);
+  }
+}
+static void
+_object_remove(DiagramData      *dia,
+	       Layer            *layer,
+               DiaObject        *obj,
+	       DiagramTreeModel *dtm)
+{
+  GtkTreePath *path;
+  GtkTreeIter _iter;
+  GtkTreeIter *iter = &_iter;
+
+  g_return_if_fail (DIA_DIAGRAM(dia) != NULL);
+  
+  NODE_DIAGRAM(iter) = dia;
+  NODE_LAYER(iter)   = layer;
+  NODE_OBJECT(iter)  = obj;
+
+  path = _dtm_get_path (GTK_TREE_MODEL (dtm), iter);
+  gtk_tree_model_row_deleted (GTK_TREE_MODEL (dtm), path);
+  gtk_tree_path_free (path);
+}
+/* start listening for diagram specific object changes */
+static void
+_dtm_listen_on_diagram (DiagramTreeModel *dtm,
+			Diagram          *dia)
+{
+  g_signal_connect (G_OBJECT(dia), "object_add", G_CALLBACK(_object_add), dtm);
+  g_signal_connect (G_OBJECT(dia), "object_remove", G_CALLBACK(_object_remove), dtm);
+}
 /* listen to diagram creation */
 static void
 _diagram_add (DiaApplication   *app,
@@ -415,6 +477,7 @@ _diagram_add (DiaApplication   *app,
       gtk_tree_model_row_has_child_toggled (GTK_TREE_MODEL (dtm), path, iter);
     gtk_tree_path_free (path);
   }
+  _dtm_listen_on_diagram (dtm, dia);
 }
 static void
 _diagram_change (DiaApplication   *app,
@@ -458,6 +521,10 @@ _diagram_remove (DiaApplication   *app,
   path = _dtm_get_path (GTK_TREE_MODEL (dtm), iter);
   gtk_tree_model_row_deleted (GTK_TREE_MODEL (dtm), path);
   gtk_tree_path_free (path);
+
+  /* stop listening on this diagram */
+  g_signal_handlers_disconnect_by_func (dia, _object_add, dtm);
+  g_signal_handlers_disconnect_by_func (dia, _object_remove, dtm);
 }
 
 static void
@@ -470,6 +537,15 @@ _dtm_init (DiagramTreeModel *dtm)
                     "diagram_change", G_CALLBACK (_diagram_change), dtm);
   g_signal_connect (G_OBJECT(dia_application_get ()),
                     "diagram_remove", G_CALLBACK (_diagram_remove), dtm);
+  /* also connect to every already existing diagram */
+  {
+    GList *list =  dia_open_diagrams();
+
+    while (list) {
+      _dtm_listen_on_diagram (dtm, DIA_DIAGRAM(list->data));
+      list = g_list_next (list);
+    }
+  }
 }
 
 static void
