@@ -34,7 +34,7 @@
 #include <png.h> /* just for the version stuff */
 #endif
 
-#ifdef GNOME
+#ifdef HAVE_GNOME
 #undef GTK_DISABLE_DEPRECATED
 /* /usr/include/libgnomeui-2.0/libgnomeui/gnome-entry.h:58: error: expected specifier-qualifier-list before 'GtkCombo' */
 #include <gnome.h>
@@ -101,7 +101,7 @@ static void print_credits(gboolean credits);
 
 static gboolean dia_is_interactive = FALSE;
 
-#ifdef GNOME
+#ifdef HAVE_GNOME
 
 static void
 session_die (gpointer client_data)
@@ -415,11 +415,8 @@ dump_dependencies(void)
 #ifdef HAVE_CAIRO
   "cairo "
 #endif
-#ifdef GNOME
+#ifdef HAVE_GNOME
   "gnome "
-#endif
-#ifdef HAVE_GNOMEPRINT
-  "gnomeprint "
 #endif
 #ifdef HAVE_LIBART
   "libart "
@@ -621,7 +618,7 @@ app_init (int argc, char **argv)
   static gboolean version = FALSE;
   static gboolean verbose = FALSE;
   static gboolean log_to_stderr = FALSE;
-#ifdef GNOME
+#ifdef HAVE_GNOME
   GnomeClient *client;
 #endif
   static char *export_file_name = NULL;
@@ -725,7 +722,7 @@ app_init (int argc, char **argv)
   textdomain(GETTEXT_PACKAGE);
 
   if (argv && dia_is_interactive && !version) {
-#ifdef GNOME
+#ifdef HAVE_GNOME
     GnomeProgram *program =
       gnome_program_init (PACKAGE, VERSION, LIBGNOMEUI_MODULE,
 			  argc, argv,

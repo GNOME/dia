@@ -27,7 +27,7 @@
 #include <math.h>
 #include <glib.h>
 
-#ifdef GNOME
+#ifdef HAVE_GNOME
 #undef GTK_DISABLE_DEPRECATED
 #  include <gnome.h> 	 
 #endif 	 
@@ -632,7 +632,7 @@ edit_redo_callback (GtkAction *action)
 void
 help_manual_callback (GtkAction *action)
 {
-#ifdef GNOME
+#ifdef HAVE_GNOME
   gnome_help_display("dia", NULL, NULL);
 #else
   char *helpdir, *helpindex = NULL, *command;

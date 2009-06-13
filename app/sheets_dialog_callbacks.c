@@ -48,11 +48,7 @@
 #include <gmodule.h>
 
 #undef GTK_DISABLE_DEPRECATED /* GtkOptionMenu */
-#ifdef GNOME
-#include <gnome.h>
-#else
 #include <gtk/gtk.h>
-#endif
 
 #include <libxml/tree.h>
 #include <libxml/parser.h>

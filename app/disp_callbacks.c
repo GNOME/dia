@@ -23,10 +23,6 @@
 #include <stdio.h>
 #include <string.h>
 #include <math.h>
-#ifdef GNOME
-#undef GTK_DISABLE_DEPRECATED
-#include <gnome.h>
-#endif
 #include <gtk/gtk.h>
 #include <gdk/gdkkeysyms.h>
 

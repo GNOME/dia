@@ -22,15 +22,7 @@ noinst_PROGRAMS = run_dia.sh
 
 run_dia_sh_SOURCES = 
 
-if HAVE_BONOBO
-dia_embedd = dia-embedd
-dia_oafinfo = GNOME_Dia.oaf
-else
-dia_embedd =
-dia_oafinfo =
-endif
-
-bin_PROGRAMS = dia $(dia_embedd)
+bin_PROGRAMS = dia
 
 ICON_PNG_PAIRS= \
 	dia_connectable_icon $(srcdir)/pixmaps/connectable.png \
@@ -91,9 +83,6 @@ dia-app-icons.h: $(ICON_PNGS)
 	gdk-pixbuf-csource --raw --build-list $(ICON_PNG_PAIRS) > dia-app-icons.h
 
 BUILT_SOURCES = dia-app-icons.h
-
-oafinfodir = $(datadir)/oaf
-oafinfo_DATA = $(dia_oafinfo)
 
 dia_core_files = \
 	confirm.h \
@@ -231,15 +220,6 @@ dia_LDADD = ../lib/libdia.la \
 
 ## Bonobo embeddable dia. Commented out, because it's a bit raw.
 ## Especially the configure/make parts.
-
-dia_embedd_SOURCES = \
-	$(dia_core_files) \
-	dia_embedd.c
-
-dia_embedd_LDADD = ../lib/libdia.la \
-	$(EFENCE) \
-	$(APP_LIBS) $(PNG_LIBS) $(GTK_LIBS) $(INTLLIBS) 
-#$(BONOBO_LIBS)
 
 if HAVE_GCC
 # OS X would like += rather than =, but Linux automake no like that.  Grrr.

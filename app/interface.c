@@ -18,7 +18,7 @@
 
 #include <config.h>
 
-#ifdef GNOME
+#ifdef HAVE_GNOME
 #undef GTK_DISABLE_DEPRECATED /* gnome */
 #include <gnome.h>
 #else
@@ -1625,7 +1625,7 @@ create_integrated_ui (void)
 
   GtkWidget *layer_view;
 	
-#ifdef GNOME
+#ifdef HAVE_GNOME
   window = gnome_app_new ("Dia", _("Diagram Editor"));
 #else
   window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
@@ -1651,7 +1651,7 @@ create_integrated_ui (void)
 
   main_vbox = gtk_vbox_new (FALSE, 1);
   gtk_container_set_border_width (GTK_CONTAINER (main_vbox), 1);
-#ifdef GNOME
+#ifdef HAVE_GNOME
   gnome_app_set_contents (GNOME_APP(window), main_vbox);
 #else
   gtk_container_add (GTK_CONTAINER (window), main_vbox);
@@ -1704,7 +1704,7 @@ create_integrated_ui (void)
    * uses the tool buttons*/
   menus_get_integrated_ui_menubar(&menubar, &toolbar, &accel_group);
   gtk_window_add_accel_group (GTK_WINDOW (window), accel_group);
-#ifdef GNOME
+#ifdef HAVE_GNOME
   gnome_app_set_menus (GNOME_APP (window), GTK_MENU_BAR (menubar));
 #else
   gtk_box_pack_start (GTK_BOX (main_vbox), menubar, FALSE, TRUE, 0);
@@ -1749,7 +1749,7 @@ create_toolbox ()
   GtkWidget *menubar;
   GtkAccelGroup *accel_group;
 
-#ifdef GNOME
+#ifdef HAVE_GNOME
   window = gnome_app_new ("Dia", _("Diagram Editor"));
 #else
   window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
@@ -1778,7 +1778,7 @@ create_toolbox ()
 
   main_vbox = gtk_vbox_new (FALSE, 1);
   gtk_container_set_border_width (GTK_CONTAINER (main_vbox), 1);
-#ifdef GNOME
+#ifdef HAVE_GNOME
   gnome_app_set_contents(GNOME_APP(window), main_vbox);
 #else
   gtk_container_add (GTK_CONTAINER (window), main_vbox);
@@ -1814,7 +1814,7 @@ create_toolbox ()
    * uses the tool buttons*/
   menus_get_toolbox_menubar(&menubar, &accel_group);
   gtk_window_add_accel_group (GTK_WINDOW (window), accel_group);
-#ifdef GNOME
+#ifdef HAVE_GNOME
   gnome_app_set_menus(GNOME_APP(window), GTK_MENU_BAR(menubar));
 #else
   gtk_box_pack_start (GTK_BOX (main_vbox), menubar, FALSE, TRUE, 0);

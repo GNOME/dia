@@ -24,11 +24,6 @@
 #include <stdio.h>
 #include <math.h>
 
-#ifdef GNOME
-#undef GTK_DISABLE_DEPRECATED
-#include <gnome.h>
-#endif
-
 #include <gdk/gdkkeysyms.h>
 
 #include "intl.h"
