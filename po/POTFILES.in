@@ -8,7 +8,6 @@ app/confirm.c
 app/create_object.c
 app/defaults.c
 app/dia-props.c
-app/dia_embedd.c
 app/diacanvas.c
 app/diagram.c
 app/diagram_tree.c
