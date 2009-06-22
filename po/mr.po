@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: mr\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=dia&component=general\n"
 "POT-Creation-Date: 2009-06-16 12:26+0000\n"
-"PO-Revision-Date: 2009-06-19 18:28+0530\n"
+"PO-Revision-Date: 2009-06-22 16:55+0530\n"
 "Last-Translator: Sandeep Shedmake <sandeep.shedmake@gmail.com>\n"
 "Language-Team: marathi\n"
 "MIME-Version: 1.0\n"
@@ -4840,7 +4840,7 @@ msgstr "प्रकल्प किंवा प्रणाली संस्
 
 #: ../objects/SISSI/sissi_dialog.c:92
 msgid "Subcontractors / Suppliers / Manufacturers"
-msgstr ""
+msgstr "उपकॉन्ट्रॉक्टर / विक्रेता / उत्पादक"
 
 #: ../objects/SISSI/sissi_dialog.c:97
 msgid "SITE"
@@ -4960,7 +4960,7 @@ msgstr "डेव्हलपर"
 
 #: ../objects/SISSI/sissi_dialog.c:166
 msgid "Operator / Maintenance"
-msgstr ""
+msgstr "चालक / दुरूस्ती"
 
 #: ../objects/SISSI/sissi_dialog.c:171 ../sheets/network.sheet.in.h:20
 msgid "Network"
@@ -5160,7 +5160,7 @@ msgstr ""
 
 #: ../objects/UML/class.c:152 ../objects/UML/class.c:1770
 msgid "Template"
-msgstr ""
+msgstr "साचा"
 
 #: ../objects/UML/class.c:155 ../objects/UML/class_dialog.c:477
 msgid "Suppress Attributes"
@@ -5192,19 +5192,19 @@ msgstr ""
 
 #: ../objects/UML/class.c:169
 msgid "Comment line length"
-msgstr ""
+msgstr "टिपण्णी ओळची लांबी"
 
 #: ../objects/UML/class.c:181 ../objects/UML/class_dialog.c:575
 msgid "Polymorphic"
-msgstr ""
+msgstr "Polymorphic"
 
 #: ../objects/UML/class.c:185
 msgid "Classname"
-msgstr ""
+msgstr "Classname"
 
 #: ../objects/UML/class.c:187
 msgid "Abstract Classname"
-msgstr ""
+msgstr "Abstract Classname"
 
 #: ../objects/UML/class.c:211
 msgid "Operations"
@@ -5535,7 +5535,7 @@ msgstr "Trigger"
 
 #: ../objects/UML/transition.c:142
 msgid "The event that causes this transition to be taken"
-msgstr ""
+msgstr "घटना ज्यामुळे हे रूपांतरन शक्य होते"
 
 #: ../objects/UML/transition.c:143
 msgid "Action"
@@ -5583,11 +5583,11 @@ msgstr "बाब"
 
 #: ../objects/UML/usecase.c:136
 msgid "Text outside"
-msgstr ""
+msgstr "बाहेरील पाठ्य"
 
 #: ../objects/UML/usecase.c:138
 msgid "Collaboration"
-msgstr ""
+msgstr "सहभाग"
 
 #: ../objects/chronogram/chronogram.c:40
 msgid "Chronogram diagram objects"
@@ -6507,76 +6507,76 @@ msgstr ""
 #: ../plug-ins/xfig/xfig-import.c:1308
 #, c-format
 msgid "Error reading FIG file: %s\n"
-msgstr ""
+msgstr "FIG फाइल वाचतेवेळी त्रुटी आढळली: %s\n"
 
 #: ../plug-ins/xfig/xfig-import.c:1236 ../plug-ins/xfig/xfig-import.c:1292
 msgid "Premature end of FIG file\n"
-msgstr ""
+msgstr "FIG फाइलची अयोग्य समाप्ती\n"
 
 #: ../plug-ins/xfig/xfig-import.c:1245
 #, c-format
 msgid "Error reading resolution: %s\n"
-msgstr ""
+msgstr "रेजोल्यूशन वाचतेवेळी त्रुटी: %s\n"
 
 #: ../plug-ins/xfig/xfig-import.c:1277
 #, c-format
 msgid "Doesn't look like a Fig file: %s\n"
-msgstr ""
+msgstr "Fig फाइल नुरूप आढळले नाही: %s\n"
 
 #: ../plug-ins/xfig/xfig-import.c:1283
 #, c-format
 msgid "This is a FIG version %d.%d file, I may not understand it\n"
-msgstr ""
+msgstr "ही FIG आवृत्ती %d.%d फाइल आहे, मला ते कदाचीत समझणार नाही\n"
 
 #: ../plug-ins/xfig/xfig-import.c:1331
 msgid "XFig File Format"
-msgstr ""
+msgstr "XFig फाइल स्वरूप"
 
 #: ../plug-ins/xfig/xfig.c:51
 msgid "Fig Format import and export filter"
-msgstr ""
+msgstr "Fig Format import व export फिल्टर"
 
 #: ../plug-ins/xslt/xslt.c:108
 #, c-format
 msgid "Error while parsing %s\n"
-msgstr ""
+msgstr "%s वाचतेवेळी त्रुटी\n"
 
 #: ../plug-ins/xslt/xslt.c:117
 #, c-format
 msgid "Error while parsing stylesheet %s\n"
-msgstr ""
+msgstr "स्टाइलशीट %s वाचतेवेळी त्रुटी\n"
 
 #: ../plug-ins/xslt/xslt.c:124
 #, c-format
 msgid "Error while applying stylesheet %s\n"
-msgstr ""
+msgstr "स्टाइलशीट %s लागू करतेवेळी त्रुटी\n"
 
 #: ../plug-ins/xslt/xslt.c:133
 #, c-format
 msgid "Error while parsing stylesheet: %s\n"
-msgstr ""
+msgstr "स्टाइलशीट वाचतेवेळी त्रुटी: %s\n"
 
 #: ../plug-ins/xslt/xslt.c:142
 #, c-format
 msgid "Error while applying stylesheet: %s\n"
-msgstr ""
+msgstr "स्टाइलशीट लागू करतेवेळी त्रुटी: %s\n"
 
 #: ../plug-ins/xslt/xslt.c:150
 #, c-format
 msgid "Error while saving result: %s\n"
-msgstr ""
+msgstr "परिणाम साठवतेवेळी त्रुटी: %s\n"
 
 #: ../plug-ins/xslt/xslt.c:335
 msgid "XSL Transformation filter"
-msgstr ""
+msgstr "XSL Transformation फिल्टर"
 
 #: ../plug-ins/xslt/xslt.c:362
 msgid "No valid configuration files found for the XSLT plugin, not loading."
-msgstr ""
+msgstr "XSLT प्लगइन करीता वैध संयोजना फाइल आढळले नाही, दाखल करत नाही."
 
 #: ../plug-ins/xslt/xsltdialog.c:97
 msgid "Export through XSLT"
-msgstr ""
+msgstr "XSLT नुरूप स्वरूप बदला"
 
 #: ../plug-ins/xslt/xsltdialog.c:112
 msgid "From:"
@@ -6616,7 +6616,7 @@ msgstr "प्रोसेसर"
 
 #: ../sheets/AADL.sheet.in.h:10
 msgid "Subprogram"
-msgstr ""
+msgstr "उपकार्यक्रम"
 
 #: ../sheets/AADL.sheet.in.h:11
 msgid "System"
@@ -6628,7 +6628,7 @@ msgstr "थ्रेड"
 
 #: ../sheets/AADL.sheet.in.h:13
 msgid "Thread Group"
-msgstr ""
+msgstr "थ्रेड गट"
 
 #. Sheet Name: Assorted, was Geometric, maybe Basic Shapes instead?
 #. Leave as is for now, renaming too much hassle.
@@ -6819,11 +6819,11 @@ msgstr ""
 #. For: anthonym
 #: ../sheets/BPMN.sheet.in.h:4
 msgid "BPMN"
-msgstr ""
+msgstr "BPMN"
 
 #: ../sheets/BPMN.sheet.in.h:5
 msgid "Business Process Modeling Notation"
-msgstr ""
+msgstr "Business Process Modeling Notation"
 
 #: ../sheets/BPMN.sheet.in.h:6
 msgid "Collapsed Sub-Process"
@@ -6847,43 +6847,43 @@ msgstr ""
 
 #: ../sheets/BPMN.sheet.in.h:11
 msgid "End Event"
-msgstr ""
+msgstr "समाप्ती घटना"
 
 #: ../sheets/BPMN.sheet.in.h:12
 msgid "End Event - Cancel"
-msgstr ""
+msgstr "समाप्ती घटना - रद्द"
 
 #: ../sheets/BPMN.sheet.in.h:13
 msgid "End Event - Compensation"
-msgstr ""
+msgstr "समाप्ती घटना - भरपाई"
 
 #: ../sheets/BPMN.sheet.in.h:14
 msgid "End Event - Error"
-msgstr ""
+msgstr "समाप्ती घटना - त्रुटी"
 
 #: ../sheets/BPMN.sheet.in.h:15
 msgid "End Event - Link"
-msgstr ""
+msgstr "समाप्ती घटना - दुवा"
 
 #: ../sheets/BPMN.sheet.in.h:16
 msgid "End Event - Message"
-msgstr ""
+msgstr "समाप्ती घटना - संदेश"
 
 #: ../sheets/BPMN.sheet.in.h:17
 msgid "End Event - Multiple"
-msgstr ""
+msgstr "समाप्ती घटना - बहु"
 
 #: ../sheets/BPMN.sheet.in.h:18
 msgid "End Event - Terminate"
-msgstr ""
+msgstr "समाप्ती घटना - समाप्त करा"
 
 #: ../sheets/BPMN.sheet.in.h:19
 msgid "Exclusive (XOR) Data Based"
-msgstr ""
+msgstr "Exclusive (XOR) डेटा आधारीत"
 
 #: ../sheets/BPMN.sheet.in.h:20
 msgid "Exclusive (XOR) Event Based"
-msgstr ""
+msgstr "Exclusive (XOR) घटना आधारीत"
 
 #: ../sheets/BPMN.sheet.in.h:21
 msgid "Gateway"
@@ -6899,39 +6899,39 @@ msgstr ""
 
 #: ../sheets/BPMN.sheet.in.h:24
 msgid "Intermediate Event"
-msgstr ""
+msgstr "मध्यम घटना"
 
 #: ../sheets/BPMN.sheet.in.h:25
 msgid "Intermediate Event - Cancel"
-msgstr ""
+msgstr "मध्यम घटना - रद्द"
 
 #: ../sheets/BPMN.sheet.in.h:26
 msgid "Intermediate Event - Compensation"
-msgstr ""
+msgstr "मध्यम घटना - भरपाई"
 
 #: ../sheets/BPMN.sheet.in.h:27
 msgid "Intermediate Event - Error"
-msgstr ""
+msgstr "मध्यम घटना - त्रुटी"
 
 #: ../sheets/BPMN.sheet.in.h:28
 msgid "Intermediate Event - Link"
-msgstr ""
+msgstr "मध्यम घटना - दुवा"
 
 #: ../sheets/BPMN.sheet.in.h:29
 msgid "Intermediate Event - Message"
-msgstr ""
+msgstr "मध्यम घटना - संदेश"
 
 #: ../sheets/BPMN.sheet.in.h:30
 msgid "Intermediate Event - Multiple"
-msgstr ""
+msgstr "मध्यम घटना - बहु"
 
 #: ../sheets/BPMN.sheet.in.h:31
 msgid "Intermediate Event - Rule"
-msgstr ""
+msgstr "मध्यम घटना - नियम"
 
 #: ../sheets/BPMN.sheet.in.h:32
 msgid "Intermediate Event - Timer"
-msgstr ""
+msgstr "मध्यम घटना - टाइमर"
 
 #: ../sheets/BPMN.sheet.in.h:33
 msgid "Looping Collapsed Sub-Process"
@@ -6955,23 +6955,23 @@ msgstr ""
 
 #: ../sheets/BPMN.sheet.in.h:38
 msgid "Start Event - Link"
-msgstr ""
+msgstr "प्रारंभ घटना - दुवा"
 
 #: ../sheets/BPMN.sheet.in.h:39
 msgid "Start Event - Message"
-msgstr ""
+msgstr "प्रारंभ घटना - Message"
 
 #: ../sheets/BPMN.sheet.in.h:40
 msgid "Start Event - Multiple"
-msgstr ""
+msgstr "प्रारंभ घटना - बहु"
 
 #: ../sheets/BPMN.sheet.in.h:41
 msgid "Start Event - Rule"
-msgstr ""
+msgstr "प्रारंभ घटना - नियम"
 
 #: ../sheets/BPMN.sheet.in.h:42
 msgid "Start Event - Timer"
-msgstr ""
+msgstr "प्रारंभ घटना - टाइमर"
 
 #: ../sheets/BPMN.sheet.in.h:44
 msgid "Text Annotation"
@@ -7012,7 +7012,7 @@ msgstr ""
 #. For: zenith
 #: ../sheets/ChemEng.sheet.in.h:9
 msgid "ChemEng"
-msgstr ""
+msgstr "ChemEng"
 
 #: ../sheets/ChemEng.sheet.in.h:10
 msgid "Clarifier or Settling Tank"
@@ -8158,7 +8158,7 @@ msgstr "रचना"
 
 #: ../sheets/Logic.sheet.in.h:1
 msgid "AND gate"
-msgstr ""
+msgstr "AND gate"
 
 #: ../sheets/Logic.sheet.in.h:2
 msgid "Boolean Logic"
@@ -8214,15 +8214,15 @@ msgstr "MSE"
 
 #: ../sheets/MSE.sheet.in.h:4
 msgid "Multiplexer"
-msgstr ""
+msgstr "मल्टिप्लेक्सर"
 
 #: ../sheets/MSE.sheet.in.h:5
 msgid "Node center"
-msgstr ""
+msgstr "नोड केंद्र"
 
 #: ../sheets/MSE.sheet.in.h:6
 msgid "Small extension node"
-msgstr ""
+msgstr "लहान वाढ नोड"
 
 #: ../sheets/MSE.sheet.in.h:7
 msgid "Tactical satellite communications terminal"
@@ -8238,7 +8238,7 @@ msgstr "फोल्डर"
 
 #: ../sheets/Misc.sheet.in.h:3
 msgid "Measure distance"
-msgstr ""
+msgstr "अंतर मोजा"
 
 #: ../sheets/Misc.sheet.in.h:4
 msgid "Misc"
@@ -8246,7 +8246,7 @@ msgstr "विविध"
 
 #: ../sheets/Misc.sheet.in.h:5
 msgid "Miscellaneous Shapes"
-msgstr ""
+msgstr "विविध आकार"
 
 #: ../sheets/Misc.sheet.in.h:6
 msgid "New-style group object, for testing"
@@ -8254,15 +8254,15 @@ msgstr ""
 
 #: ../sheets/Misc.sheet.in.h:7
 msgid "Resizable grid"
-msgstr ""
+msgstr "पुन्हआकारजोगी ग्रीड"
 
 #: ../sheets/Misc.sheet.in.h:8
 msgid "Traditional clock"
-msgstr ""
+msgstr "पारंपारीक घड्याळ"
 
 #: ../sheets/Misc.sheet.in.h:9
 msgid "Tree"
-msgstr "वृक्ष"
+msgstr "ट्री"
 
 #: ../sheets/Misc.sheet.in.h:10
 msgid "expended node"
@@ -8274,19 +8274,19 @@ msgstr ""
 
 #: ../sheets/Pneumatic.sheet.in.h:1
 msgid "2/2 distributor"
-msgstr ""
+msgstr "2/2 डिस्ट्रीब्यूटर"
 
 #: ../sheets/Pneumatic.sheet.in.h:2
 msgid "3/2 distributor"
-msgstr ""
+msgstr "3/2 डिस्ट्रीब्यूटर"
 
 #: ../sheets/Pneumatic.sheet.in.h:3
 msgid "4/2 distributor"
-msgstr ""
+msgstr "4/2 डिस्ट्रीब्यूटर"
 
 #: ../sheets/Pneumatic.sheet.in.h:4
 msgid "5/2 distributor"
-msgstr ""
+msgstr "5/2 डिस्ट्रीब्यूटर"
 
 #: ../sheets/Pneumatic.sheet.in.h:5
 msgid "Air exhaust orifice"
@@ -8378,7 +8378,7 @@ msgstr "SADT/IDEF0"
 
 #: ../sheets/SDL.sheet.in.h:1
 msgid "Action being executed"
-msgstr ""
+msgstr "कार्यान्वीतजोगी कार्य"
 
 #: ../sheets/SDL.sheet.in.h:2
 msgid "Block type reference"
@@ -8386,19 +8386,19 @@ msgstr ""
 
 #: ../sheets/SDL.sheet.in.h:5
 msgid "Function call"
-msgstr ""
+msgstr "कार्यपद्धती कॉल"
 
 #: ../sheets/SDL.sheet.in.h:6
 msgid "Function header"
-msgstr ""
+msgstr "कार्यपद्धती हेड्डर"
 
 #: ../sheets/SDL.sheet.in.h:7
 msgid "Generic text note"
-msgstr ""
+msgstr "मुळ पाठ्य टिप"
 
 #: ../sheets/SDL.sheet.in.h:8
 msgid "In/Out connector"
-msgstr ""
+msgstr "In/Out कनेक्टटर"
 
 #: ../sheets/SDL.sheet.in.h:10
 msgid "Procedure return"
@@ -8410,7 +8410,7 @@ msgstr ""
 
 #: ../sheets/SDL.sheet.in.h:12
 msgid "Receive message"
-msgstr ""
+msgstr "प्राप्य संदेश"
 
 #: ../sheets/SDL.sheet.in.h:13
 msgid "SDL"
@@ -8418,59 +8418,59 @@ msgstr "SDL"
 
 #: ../sheets/SDL.sheet.in.h:14
 msgid "Save state"
-msgstr ""
+msgstr "थर साठवा"
 
 #: ../sheets/SDL.sheet.in.h:15
 msgid "Send message"
-msgstr ""
+msgstr "संदेश पाठवा"
 
 #: ../sheets/SDL.sheet.in.h:16
 msgid "Service type reference"
-msgstr ""
+msgstr "सेवा प्रकार संदर्भ"
 
 #: ../sheets/SDL.sheet.in.h:17
 msgid "Specification and Description Language."
-msgstr ""
+msgstr "संयोजना व वर्णन भाषा."
 
 #: ../sheets/SDL.sheet.in.h:18 ../sheets/UML.sheet.in.h:28
 msgid "State"
-msgstr "स्थिती"
+msgstr "स्थर"
 
 #: ../sheets/SISSI.sheet.in.h:1
 msgid "Air filter"
-msgstr ""
+msgstr "एयर फिल्टर"
 
 #: ../sheets/SISSI.sheet.in.h:2
 msgid "Air quality detector"
-msgstr ""
+msgstr "एयर दर्जा डिटेक्टटर"
 
 #: ../sheets/SISSI.sheet.in.h:3
 msgid "Airconditioner"
-msgstr ""
+msgstr "एयरकंडिश्नर"
 
 #: ../sheets/SISSI.sheet.in.h:4
 msgid "Alarm center"
-msgstr ""
+msgstr "अलार्म केंद्र"
 
 #: ../sheets/SISSI.sheet.in.h:5
 msgid "Axial Ventilator"
-msgstr ""
+msgstr "एक्सीयल वेन्टीलेटर"
 
 #: ../sheets/SISSI.sheet.in.h:6
 msgid "Backup"
-msgstr "प्रतिकृत करा"
+msgstr "बॅकअप"
 
 #: ../sheets/SISSI.sheet.in.h:7
 msgid "Badge reader"
-msgstr ""
+msgstr "Badge वाचक"
 
 #: ../sheets/SISSI.sheet.in.h:8
 msgid "Badge reader/keyboard"
-msgstr ""
+msgstr "Badge वाचक/कळफलक"
 
 #: ../sheets/SISSI.sheet.in.h:9
 msgid "Biometric reader"
-msgstr ""
+msgstr "Biometric वाचक"
 
 #: ../sheets/SISSI.sheet.in.h:10
 msgid "Cell phone"
@@ -8478,31 +8478,31 @@ msgstr "सेल फोन"
 
 #: ../sheets/SISSI.sheet.in.h:11
 msgid "Centrifugal Ventilator"
-msgstr ""
+msgstr "सेन्ट्रीफ्यूगल वेन्टीलेटर"
 
 #: ../sheets/SISSI.sheet.in.h:12
 msgid "Cipher machine"
-msgstr ""
+msgstr "सिफर मशीन"
 
 #: ../sheets/SISSI.sheet.in.h:13
 msgid "Circulation pump"
-msgstr ""
+msgstr "पम्प"
 
 #: ../sheets/SISSI.sheet.in.h:14
 msgid "Condensator"
-msgstr ""
+msgstr "कनडेन्सेटर"
 
 #: ../sheets/SISSI.sheet.in.h:15
 msgid "Current transducer"
-msgstr ""
+msgstr "विज ट्रान्सडूसर"
 
 #: ../sheets/SISSI.sheet.in.h:16
 msgid "Digital code"
-msgstr ""
+msgstr "डिजिटल कोड"
 
 #: ../sheets/SISSI.sheet.in.h:17
 msgid "Enthalpy transducer"
-msgstr ""
+msgstr "Enthalpy ट्रान्सडूसर"
 
 #: ../sheets/SISSI.sheet.in.h:18
 msgid "Extinguisher"
@@ -8514,7 +8514,7 @@ msgstr ""
 
 #: ../sheets/SISSI.sheet.in.h:20 ../sheets/ciscomisc.sheet.in.h:9
 msgid "File cabinet"
-msgstr ""
+msgstr "फाइल कॅबिनेट"
 
 #: ../sheets/SISSI.sheet.in.h:21
 msgid "Gate"
@@ -8522,15 +8522,15 @@ msgstr "Gate"
 
 #: ../sheets/SISSI.sheet.in.h:22
 msgid "Geographic site"
-msgstr ""
+msgstr "भूगोलिक स्थळ"
 
 #: ../sheets/SISSI.sheet.in.h:23
 msgid "Glass-break sensor"
-msgstr ""
+msgstr "Glass-break सेन्सर"
 
 #: ../sheets/SISSI.sheet.in.h:24 ../sheets/ciscohub.sheet.in.h:29
 msgid "Hub"
-msgstr ""
+msgstr "हब"
 
 #: ../sheets/SISSI.sheet.in.h:25
 msgid "Information"
@@ -8538,7 +8538,7 @@ msgstr "माहिती"
 
 #: ../sheets/SISSI.sheet.in.h:26
 msgid "Information system"
-msgstr ""
+msgstr "माहिती प्रणाली"
 
 #: ../sheets/SISSI.sheet.in.h:28 ../sheets/ciscocomputer.sheet.in.h:21
 msgid "Laptop"
@@ -8546,19 +8546,19 @@ msgstr "लॅपटॉप"
 
 #: ../sheets/SISSI.sheet.in.h:29
 msgid "Level detector"
-msgstr ""
+msgstr "थर डिटेक्टटर"
 
 #: ../sheets/SISSI.sheet.in.h:30
 msgid "Light detector"
-msgstr ""
+msgstr "प्रकाश डिटेक्टटर"
 
 #: ../sheets/SISSI.sheet.in.h:31
 msgid "Log analysis"
-msgstr ""
+msgstr "लॉग विश्लेषण"
 
 #: ../sheets/SISSI.sheet.in.h:32
 msgid "Magnetic storage"
-msgstr ""
+msgstr "मॅगनेटीक स्टोरेज"
 
 #: ../sheets/SISSI.sheet.in.h:33 ../sheets/ciscocomputer.sheet.in.h:25
 msgid "Modem"
@@ -8574,15 +8574,15 @@ msgstr ""
 
 #: ../sheets/SISSI.sheet.in.h:36
 msgid "Movement detector"
-msgstr ""
+msgstr "हालचाली डिटेक्टटर"
 
 #: ../sheets/SISSI.sheet.in.h:37 ../sheets/network.sheet.in.h:21
 msgid "Network cloud"
-msgstr ""
+msgstr "Network cloud"
 
 #: ../sheets/SISSI.sheet.in.h:38
 msgid "Objects to design sissi diagrams"
-msgstr ""
+msgstr "sissi आकृतीची रचना करीता घटक"
 
 #: ../sheets/SISSI.sheet.in.h:39 ../sheets/ciscocomputer.sheet.in.h:35
 msgid "PDA"
@@ -8598,23 +8598,23 @@ msgstr ""
 
 #: ../sheets/SISSI.sheet.in.h:42
 msgid "Power transducer"
-msgstr ""
+msgstr "पावर ट्रान्सडूसर"
 
 #: ../sheets/SISSI.sheet.in.h:43
 msgid "Pressure transducer"
-msgstr ""
+msgstr "प्रेश्शर ट्रान्सडूसर"
 
 #: ../sheets/SISSI.sheet.in.h:44
 msgid "Pump"
-msgstr ""
+msgstr "पम्प"
 
 #: ../sheets/SISSI.sheet.in.h:45 ../sheets/ciscocomputer.sheet.in.h:37
 msgid "Relational Database"
-msgstr ""
+msgstr "Relational Database"
 
 #: ../sheets/SISSI.sheet.in.h:46
 msgid "Revolving door"
-msgstr ""
+msgstr "Revolving door"
 
 #: ../sheets/SISSI.sheet.in.h:47
 msgid "Room"
@@ -8622,31 +8622,31 @@ msgstr "कक्ष"
 
 #: ../sheets/SISSI.sheet.in.h:48 ../sheets/ciscohub.sheet.in.h:53
 msgid "Router"
-msgstr ""
+msgstr "राऊटर"
 
 #: ../sheets/SISSI.sheet.in.h:49
 msgid "Safe"
-msgstr ""
+msgstr "सुरक्षा"
 
 #: ../sheets/SISSI.sheet.in.h:50
 msgid "Security area"
-msgstr ""
+msgstr "सुरक्षा क्षेत्र"
 
 #: ../sheets/SISSI.sheet.in.h:51
 msgid "Sensor beam"
-msgstr ""
+msgstr "सेन्सर बीम"
 
 #: ../sheets/SISSI.sheet.in.h:52
 msgid "Server"
-msgstr "सेवक"
+msgstr "सर्वर"
 
 #: ../sheets/SISSI.sheet.in.h:53
 msgid "Smoke detector"
-msgstr ""
+msgstr "Smoke डिटेक्टटर"
 
 #: ../sheets/SISSI.sheet.in.h:55 ../sheets/ciscocomputer.sheet.in.h:42
 msgid "Storage array"
-msgstr ""
+msgstr "साठा अरे"
 
 #: ../sheets/SISSI.sheet.in.h:56 ../sheets/network.sheet.in.h:33
 msgid "Telephone"
@@ -8654,31 +8654,31 @@ msgstr "दूरध्वनी"
 
 #: ../sheets/SISSI.sheet.in.h:57
 msgid "Vehicle detector"
-msgstr ""
+msgstr "वेहीकल डिटेक्टटर"
 
 #: ../sheets/SISSI.sheet.in.h:58
 msgid "Ventilator"
-msgstr ""
+msgstr "वेन्टीलेटर"
 
 #: ../sheets/SISSI.sheet.in.h:59
 msgid "Vibration sensor"
-msgstr ""
+msgstr "वायब्रेशन सेन्सर"
 
 #: ../sheets/SISSI.sheet.in.h:60
 msgid "Video camera"
-msgstr ""
+msgstr "विडीओ कॅमेरा"
 
 #: ../sheets/SISSI.sheet.in.h:61
 msgid "Video movement detector"
-msgstr ""
+msgstr "विडीओ हालचाल डिटेक्टटर"
 
 #: ../sheets/SISSI.sheet.in.h:62
 msgid "Voltage detector"
-msgstr ""
+msgstr "वोल्टेज डिटेक्टटर"
 
 #: ../sheets/SISSI.sheet.in.h:63
 msgid "Workstation"
-msgstr ""
+msgstr "वर्कस्टेशन"
 
 #: ../sheets/UML.sheet.in.h:1
 msgid "Activity"
@@ -8686,15 +8686,15 @@ msgstr "कार्य"
 
 #: ../sheets/UML.sheet.in.h:3
 msgid "Aggregation, one class is part of another"
-msgstr ""
+msgstr "Aggregation, एक वर्ग दुसऱ्याचा भाग आहे"
 
 #: ../sheets/UML.sheet.in.h:4
 msgid "Association, two classes are associated"
-msgstr ""
+msgstr "Association, दोन वर्ग संबंधित आहे"
 
 #: ../sheets/UML.sheet.in.h:7
 msgid "Class stereotype icon"
-msgstr ""
+msgstr "Class stereotype चिन्ह"
 
 #: ../sheets/UML.sheet.in.h:8
 msgid "Component"
@@ -8702,35 +8702,35 @@ msgstr "घटक"
 
 #: ../sheets/UML.sheet.in.h:9
 msgid "Constraint, place a constraint on something"
-msgstr ""
+msgstr "Constraint, व्यत्यय लागू करा"
 
 #: ../sheets/UML.sheet.in.h:11
 msgid "Editor for UML Static Structure Diagrams"
-msgstr ""
+msgstr "UML Static Structure Diagrams करीता संपादक"
 
 #: ../sheets/UML.sheet.in.h:15
 msgid "Fork/union"
-msgstr ""
+msgstr "Fork/union"
 
 #: ../sheets/UML.sheet.in.h:16
 msgid "Generalization, class inheritance"
-msgstr ""
+msgstr "Generalization, वर्ग आत्मसातता"
 
 #: ../sheets/UML.sheet.in.h:17
 msgid "Implements, class implements a specific interface"
-msgstr ""
+msgstr "Implements, वर्ग ठराविक संवाद लागू करतो"
 
 #: ../sheets/UML.sheet.in.h:18
 msgid "Initial/end state"
-msgstr ""
+msgstr "प्रारंभ/समाप्ति थर"
 
 #: ../sheets/UML.sheet.in.h:19
 msgid "Large package"
-msgstr ""
+msgstr "मोठे संकुल"
 
 #: ../sheets/UML.sheet.in.h:20
 msgid "Lifeline"
-msgstr ""
+msgstr "कार्यकाळ"
 
 #: ../sheets/UML.sheet.in.h:21
 msgid "Message"
@@ -8754,7 +8754,7 @@ msgstr ""
 
 #: ../sheets/UML.sheet.in.h:27
 msgid "Small package"
-msgstr ""
+msgstr "लहान संकुल"
 
 #: ../sheets/UML.sheet.in.h:31
 msgid "UML"
@@ -8762,23 +8762,23 @@ msgstr "UML"
 
 #: ../sheets/UML.sheet.in.h:32
 msgid "Use case"
-msgstr ""
+msgstr "Use case"
 
 #: ../sheets/chronogram.sheet.in.h:1
 msgid "Chronogram"
-msgstr ""
+msgstr "Chronogram"
 
 #: ../sheets/chronogram.sheet.in.h:2
 msgid "Data line"
-msgstr ""
+msgstr "डेटा रेष"
 
 #: ../sheets/chronogram.sheet.in.h:3
 msgid "Objects to design chronogram charts"
-msgstr ""
+msgstr "chronogram चार्टची रचना करण्याकरीता घटक"
 
 #: ../sheets/chronogram.sheet.in.h:4
 msgid "Time scale"
-msgstr ""
+msgstr "वेळेचे प्रमाण"
 
 #: ../sheets/ciscocomputer.sheet.in.h:1
 msgid "BBS"
@@ -8794,47 +8794,47 @@ msgstr "Cisco CA"
 
 #: ../sheets/ciscocomputer.sheet.in.h:4
 msgid "CiscoSecurity"
-msgstr ""
+msgstr "CiscoSecurity"
 
 #: ../sheets/ciscocomputer.sheet.in.h:5
 msgid "CiscoWorks workstation"
-msgstr ""
+msgstr "CiscoWorks वर्कस्टेशन"
 
 #: ../sheets/ciscocomputer.sheet.in.h:6
 msgid "Computer shapes by Cisco"
-msgstr ""
+msgstr "Cisco चे संगणक आकार"
 
 #: ../sheets/ciscocomputer.sheet.in.h:7
 msgid "Disk subsystem"
-msgstr ""
+msgstr "डिस्क उपप्रणाली"
 
 #: ../sheets/ciscocomputer.sheet.in.h:8
 msgid "Diskette"
-msgstr ""
+msgstr "डिस्केट"
 
 #: ../sheets/ciscocomputer.sheet.in.h:9
 msgid "EtherClient"
-msgstr ""
+msgstr "EtherClient"
 
 #: ../sheets/ciscocomputer.sheet.in.h:10
 msgid "FC Storage"
-msgstr ""
+msgstr "FC साठा"
 
 #: ../sheets/ciscocomputer.sheet.in.h:11
 msgid "File Server"
-msgstr ""
+msgstr "फाइल सर्वर"
 
 #: ../sheets/ciscocomputer.sheet.in.h:12
 msgid "Front End Processor"
-msgstr ""
+msgstr "Front End प्रोसेसर"
 
 #: ../sheets/ciscocomputer.sheet.in.h:13
 msgid "HP Mini"
-msgstr ""
+msgstr "HP Mini"
 
 #: ../sheets/ciscocomputer.sheet.in.h:14
 msgid "Handheld"
-msgstr ""
+msgstr "हॅन्डहेल्ड"
 
 #: ../sheets/ciscocomputer.sheet.in.h:15
 msgid "Host"
@@ -8854,7 +8854,7 @@ msgstr "IBM mainframe"
 
 #: ../sheets/ciscocomputer.sheet.in.h:19
 msgid "IBM mainframe with FEP"
-msgstr "IBM mainframe with FEP"
+msgstr "IBM mainframe FEP सह"
 
 #: ../sheets/ciscocomputer.sheet.in.h:20
 msgid "JBOD"
@@ -8866,15 +8866,15 @@ msgstr "Macintosh"
 
 #: ../sheets/ciscocomputer.sheet.in.h:23
 msgid "MicroWebserver"
-msgstr ""
+msgstr "MicroWebserver"
 
 #: ../sheets/ciscocomputer.sheet.in.h:24
 msgid "Mini VAX"
-msgstr ""
+msgstr "Mini VAX"
 
 #: ../sheets/ciscocomputer.sheet.in.h:26 ../sheets/network.sheet.in.h:19
 msgid "Monitor"
-msgstr "मॉनीटर"
+msgstr "Monitor"
 
 #: ../sheets/ciscocomputer.sheet.in.h:27
 msgid "Newton"
@@ -8886,43 +8886,43 @@ msgstr "PC"
 
 #: ../sheets/ciscocomputer.sheet.in.h:29
 msgid "PC Adapter Card"
-msgstr ""
+msgstr "PC एडॅप्टर कार्ड"
 
 #: ../sheets/ciscocomputer.sheet.in.h:30
 msgid "PC Card"
-msgstr ""
+msgstr "PC कार्ड"
 
 #: ../sheets/ciscocomputer.sheet.in.h:31
 msgid "PC Router Card"
-msgstr ""
+msgstr "PC राऊटर कार्ड"
 
 #: ../sheets/ciscocomputer.sheet.in.h:32
 msgid "PC Software"
-msgstr ""
+msgstr "PC सॉफ्टवेअर"
 
 #: ../sheets/ciscocomputer.sheet.in.h:33
 msgid "PC Video"
-msgstr ""
+msgstr "PC विडीओ"
 
 #: ../sheets/ciscocomputer.sheet.in.h:34
 msgid "PC with Router-Based Software"
-msgstr ""
+msgstr "राऊटर-आधारीत सॉफ्टवेअर सह PC"
 
 #: ../sheets/ciscocomputer.sheet.in.h:38
 msgid "SUN workstation"
-msgstr ""
+msgstr "SUN वर्कस्टेशन"
 
 #: ../sheets/ciscocomputer.sheet.in.h:40
 msgid "Server with PC Router"
-msgstr ""
+msgstr "PC राऊटर सह सर्वर"
 
 #: ../sheets/ciscocomputer.sheet.in.h:41
 msgid "Software-Based Router on File Server"
-msgstr ""
+msgstr "फाइल सर्वर वरील सॉफ्टवेअर-आधारीत राऊटर"
 
 #: ../sheets/ciscocomputer.sheet.in.h:43
 msgid "Supercomputer"
-msgstr ""
+msgstr "सूपरकमप्युटर"
 
 #: ../sheets/ciscocomputer.sheet.in.h:44
 msgid "Tablet"
@@ -8930,7 +8930,7 @@ msgstr "टॅबलेट"
 
 #: ../sheets/ciscocomputer.sheet.in.h:45
 msgid "Tape array"
-msgstr ""
+msgstr "टेप अरे"
 
 #: ../sheets/ciscocomputer.sheet.in.h:46
 msgid "Terminal"
@@ -8946,55 +8946,55 @@ msgstr "वेब ब्राउजर"
 
 #: ../sheets/ciscocomputer.sheet.in.h:49
 msgid "Web cluster"
-msgstr ""
+msgstr "वेब क्लस्टर"
 
 #: ../sheets/ciscocomputer.sheet.in.h:50
 msgid "Wireless"
-msgstr "बिनतारी"
+msgstr "वायरलेस"
 
 #: ../sheets/ciscocomputer.sheet.in.h:51
 msgid "Workgroup director"
-msgstr ""
+msgstr "Workgroup डायरेक्टर"
 
 #: ../sheets/ciscohub.sheet.in.h:1
 msgid "100BaseT Hub"
-msgstr "100BaseT Hub"
+msgstr "100BaseT हब"
 
 #: ../sheets/ciscohub.sheet.in.h:2
 msgid "7500ARS (7513) Router"
-msgstr ""
+msgstr "7500ARS (7513) राऊटर"
 
 #: ../sheets/ciscohub.sheet.in.h:3
 msgid "7505 Router"
-msgstr ""
+msgstr "7505 राऊटर"
 
 #: ../sheets/ciscohub.sheet.in.h:4
 msgid "7507 Router"
-msgstr ""
+msgstr "7507 राऊटर"
 
 #: ../sheets/ciscohub.sheet.in.h:5
 msgid "ASIC Processor"
-msgstr ""
+msgstr "ASIC प्रोसेसर"
 
 #: ../sheets/ciscohub.sheet.in.h:6
 msgid "ATM 3800"
-msgstr ""
+msgstr "ATM 3800"
 
 #: ../sheets/ciscohub.sheet.in.h:7
 msgid "ATM Fast Gigabit Etherswitch"
-msgstr ""
+msgstr "ATM Fast Gigabit Etherswitch"
 
 #: ../sheets/ciscohub.sheet.in.h:8
 msgid "ATM Switch"
-msgstr ""
+msgstr "ATM स्वीच"
 
 #: ../sheets/ciscohub.sheet.in.h:9
 msgid "ATM Tag Switch Router"
-msgstr ""
+msgstr "ATM टॅग स्वीच राऊटर"
 
 #: ../sheets/ciscohub.sheet.in.h:10
 msgid "Access Gateway"
-msgstr ""
+msgstr "Access Gateway"
 
 #: ../sheets/ciscohub.sheet.in.h:11
 msgid "BBSM"
@@ -9002,7 +9002,7 @@ msgstr "BBSM"
 
 #: ../sheets/ciscohub.sheet.in.h:12
 msgid "Broadband router"
-msgstr ""
+msgstr "ब्रॉडबॅन्ड राऊटर"
 
 #: ../sheets/ciscohub.sheet.in.h:13
 msgid "CSM-S"
@@ -9010,19 +9010,19 @@ msgstr "CSM-S"
 
 #: ../sheets/ciscohub.sheet.in.h:14
 msgid "Carrier Routing System"
-msgstr ""
+msgstr "Carrier राऊटींग प्रणाली"
 
 #: ../sheets/ciscohub.sheet.in.h:15
 msgid "Cisco - Switch"
-msgstr ""
+msgstr "Cisco - Switch"
 
 #: ../sheets/ciscohub.sheet.in.h:16
 msgid "Cisco 1000"
-msgstr ""
+msgstr "Cisco 1000"
 
 #: ../sheets/ciscohub.sheet.in.h:17
 msgid "Cisco Hub"
-msgstr ""
+msgstr "Cisco Hub"
 
 #: ../sheets/ciscohub.sheet.in.h:18
 msgid "Content Router"
@@ -9058,11 +9058,11 @@ msgstr ""
 
 #: ../sheets/ciscohub.sheet.in.h:26
 msgid "Edge Label Switch Router"
-msgstr ""
+msgstr "Edge Label Switch Router"
 
 #: ../sheets/ciscohub.sheet.in.h:27
 msgid "Edge Label Switch Router with NetFlow"
-msgstr ""
+msgstr "NetFlow सह Edge Label Switch Router"
 
 #: ../sheets/ciscohub.sheet.in.h:28
 msgid "Generic Processor"
@@ -9070,23 +9070,23 @@ msgstr ""
 
 #: ../sheets/ciscohub.sheet.in.h:30
 msgid "Hub subdued"
-msgstr ""
+msgstr "Hub सबड्यूड"
 
 #: ../sheets/ciscohub.sheet.in.h:31
 msgid "ISDN switch"
-msgstr ""
+msgstr "ISDN स्वीच"
 
 #: ../sheets/ciscohub.sheet.in.h:32
 msgid "LAN2LAN Switch"
-msgstr ""
+msgstr "LAN2LAN स्वीच"
 
 #: ../sheets/ciscohub.sheet.in.h:33
 msgid "Label Switch Router"
-msgstr ""
+msgstr "लेबल स्वीच राऊटर"
 
 #: ../sheets/ciscohub.sheet.in.h:34
 msgid "Layer 2 Remote Switch"
-msgstr ""
+msgstr "Layer 2 रिमोट स्वीच"
 
 #: ../sheets/ciscohub.sheet.in.h:35
 msgid "MGX 8220"
@@ -9102,43 +9102,43 @@ msgstr "MGX 8260"
 
 #: ../sheets/ciscohub.sheet.in.h:38
 msgid "Multi-Fabric Server Switch"
-msgstr ""
+msgstr "Multi-Fabric सर्वर स्वीच"
 
 #: ../sheets/ciscohub.sheet.in.h:39
 msgid "MultiSwitch Device"
-msgstr ""
+msgstr "MultiSwitch साधन"
 
 #: ../sheets/ciscohub.sheet.in.h:40
 msgid "Multilayer Remote Switch"
-msgstr ""
+msgstr "Multilayer Remote Switch"
 
 #: ../sheets/ciscohub.sheet.in.h:41
 msgid "Multilayer Switch"
-msgstr ""
+msgstr "Multilayer Switch"
 
 #: ../sheets/ciscohub.sheet.in.h:42
 msgid "Multilayer Switch with Silicon"
-msgstr ""
+msgstr "Silicon सह Multilayer स्वीच"
 
 #: ../sheets/ciscohub.sheet.in.h:43
 msgid "Multilayer Switch with Silicon subdued"
-msgstr ""
+msgstr "Silicon सबड्यूड सह Multilayer स्वीच"
 
 #: ../sheets/ciscohub.sheet.in.h:44
 msgid "NetFlow router"
-msgstr ""
+msgstr "NetFlow राऊटर"
 
 #: ../sheets/ciscohub.sheet.in.h:45
 msgid "NetRanger"
-msgstr ""
+msgstr "NetRanger"
 
 #: ../sheets/ciscohub.sheet.in.h:46
 msgid "NetSonar"
-msgstr ""
+msgstr "NetSonar"
 
 #: ../sheets/ciscohub.sheet.in.h:47
 msgid "Optical Services Router"
-msgstr ""
+msgstr "ऑप्टिकल सर्विसेस राऊटर"
 
 #: ../sheets/ciscohub.sheet.in.h:48
 msgid "PXF"
@@ -9146,67 +9146,67 @@ msgstr "PXF"
 
 #: ../sheets/ciscohub.sheet.in.h:49
 msgid "Programmable Switch"
-msgstr ""
+msgstr "प्रोग्रामेबल स्वीच"
 
 #: ../sheets/ciscohub.sheet.in.h:50
 msgid "RateMUX"
-msgstr ""
+msgstr "RateMUX"
 
 #: ../sheets/ciscohub.sheet.in.h:51
 msgid "Route Switch Processor"
-msgstr ""
+msgstr "Route Switch Processor"
 
 #: ../sheets/ciscohub.sheet.in.h:52
 msgid "Route Switch Processor with Si"
-msgstr ""
+msgstr "Route Switch Processor, Si सह"
 
 #: ../sheets/ciscohub.sheet.in.h:54
 msgid "Router and switch shapes by Cisco"
-msgstr ""
+msgstr "Cisco चे राऊटर व स्वीच आकार"
 
 #: ../sheets/ciscohub.sheet.in.h:55
 msgid "Router subdued"
-msgstr ""
+msgstr "राऊटर सबड्यूड"
 
 #: ../sheets/ciscohub.sheet.in.h:56
 msgid "Router with Firewall"
-msgstr ""
+msgstr "फायरवॉल सह राऊटर"
 
 #: ../sheets/ciscohub.sheet.in.h:57
 msgid "Router with Silicon Switch"
-msgstr ""
+msgstr "सिलिकॉन स्वीच सह राऊटर"
 
 #: ../sheets/ciscohub.sheet.in.h:58
 msgid "Server Switch"
-msgstr ""
+msgstr "सर्वर स्वीच"
 
 #: ../sheets/ciscohub.sheet.in.h:59
 msgid "Small Hub"
-msgstr ""
+msgstr "लहान हब"
 
 #: ../sheets/ciscohub.sheet.in.h:60
 msgid "Storage Router"
-msgstr ""
+msgstr "Storage राऊटर"
 
 #: ../sheets/ciscohub.sheet.in.h:61
 msgid "Switch Processor"
-msgstr ""
+msgstr "स्वीच प्रोसेसर"
 
 #: ../sheets/ciscohub.sheet.in.h:62
 msgid "Universal Gateway"
-msgstr ""
+msgstr "Universal गेटवे"
 
 #: ../sheets/ciscohub.sheet.in.h:63
 msgid "Virtual Layer Switch"
-msgstr ""
+msgstr "Virtual स्थर स्वीच"
 
 #: ../sheets/ciscohub.sheet.in.h:64
 msgid "Wavelength router"
-msgstr ""
+msgstr "Wavelength राऊटर"
 
 #: ../sheets/ciscohub.sheet.in.h:65
 msgid "Wireless router"
-msgstr ""
+msgstr "वायरलेस राऊटर"
 
 #: ../sheets/ciscohub.sheet.in.h:66
 msgid "Workgroup 5000"
@@ -9222,23 +9222,23 @@ msgstr "Workgroup 5500"
 
 #: ../sheets/ciscohub.sheet.in.h:69
 msgid "Workgroup Fibre Channel intelligent switch"
-msgstr ""
+msgstr "Workgroup Fibre Channel इन्टेलिजेन्ट स्वीच"
 
 #: ../sheets/ciscohub.sheet.in.h:70
 msgid "Workgroup Switch Voice-Enabled"
-msgstr ""
+msgstr "Workgroup स्वीच वॉईस-कार्यान्वीत"
 
 #: ../sheets/ciscohub.sheet.in.h:71
 msgid "Workgroup switch"
-msgstr ""
+msgstr "Workgroup स्वीच"
 
 #: ../sheets/ciscohub.sheet.in.h:72
 msgid "Workgroup switch Subdued"
-msgstr ""
+msgstr "Workgroup स्वीच Subdued"
 
 #: ../sheets/ciscohub.sheet.in.h:73
 msgid "iSCSI switch"
-msgstr ""
+msgstr "iSCSI स्वीच"
 
 #: ../sheets/ciscomisc.sheet.in.h:1
 msgid "Androgynous Person"
@@ -9246,7 +9246,7 @@ msgstr ""
 
 #: ../sheets/ciscomisc.sheet.in.h:2
 msgid "Antenna"
-msgstr ""
+msgstr "ऍन्टिना"
 
 #: ../sheets/ciscomisc.sheet.in.h:3
 msgid "Branch office"
@@ -9262,11 +9262,11 @@ msgstr ""
 
 #: ../sheets/ciscomisc.sheet.in.h:6
 msgid "Car"
-msgstr ""
+msgstr "कार"
 
 #: ../sheets/ciscomisc.sheet.in.h:7
 msgid "Cisco - Misc"
-msgstr ""
+msgstr "Cisco - विविध"
 
 #: ../sheets/ciscomisc.sheet.in.h:8
 msgid "CiscoWorks Man"
@@ -9286,7 +9286,7 @@ msgstr ""
 
 #: ../sheets/ciscomisc.sheet.in.h:13
 msgid "Government Building"
-msgstr ""
+msgstr "शासन बिल्डींग"
 
 #: ../sheets/ciscomisc.sheet.in.h:14
 msgid "Headphones"
@@ -9298,7 +9298,7 @@ msgstr ""
 
 #: ../sheets/ciscomisc.sheet.in.h:16
 msgid "House"
-msgstr "घर"
+msgstr ""
 
 #: ../sheets/ciscomisc.sheet.in.h:17
 msgid "House blue"
@@ -9310,11 +9310,11 @@ msgstr "किल्ली"
 
 #: ../sheets/ciscomisc.sheet.in.h:20
 msgid "Lock and Key"
-msgstr ""
+msgstr "लॉक व किल्ली"
 
 #: ../sheets/ciscomisc.sheet.in.h:21
 msgid "MDU"
-msgstr ""
+msgstr "MDU"
 
 #: ../sheets/ciscomisc.sheet.in.h:22
 msgid "Mac Woman"
@@ -9418,11 +9418,11 @@ msgstr ""
 
 #: ../sheets/ciscomisc.sheet.in.h:49
 msgid "University"
-msgstr ""
+msgstr "यूनिवर्सिटी"
 
 #: ../sheets/ciscomisc.sheet.in.h:50
 msgid "Video Camera"
-msgstr ""
+msgstr "विडीओ कॅमेरा"
 
 #: ../sheets/ciscomisc.sheet.in.h:51
 msgid "Video Camera right"
@@ -9458,23 +9458,23 @@ msgstr "15800"
 
 #: ../sheets/cisconetwork.sheet.in.h:4
 msgid "3174 (desktop) cluster controller"
-msgstr ""
+msgstr "3174 (डेस्कटॉप) क्लस्टर कंट्रोलर"
 
 #: ../sheets/cisconetwork.sheet.in.h:5
 msgid "3X74 (floor) cluster controller"
-msgstr ""
+msgstr "3X74 (फ्लोर) क्लस्टर कंट्रोलर"
 
 #: ../sheets/cisconetwork.sheet.in.h:6
 msgid "Access Server"
-msgstr ""
+msgstr "Access Server"
 
 #: ../sheets/cisconetwork.sheet.in.h:7
 msgid "AccessPoint"
-msgstr ""
+msgstr "AccessPoint"
 
 #: ../sheets/cisconetwork.sheet.in.h:8
 msgid "Automatic Protection Switching"
-msgstr ""
+msgstr "स्वपसंत सुरक्षा स्वीच पद्धत"
 
 #: ../sheets/cisconetwork.sheet.in.h:9
 msgid "BBFW"
@@ -9486,19 +9486,19 @@ msgstr "BBFW मिडीया"
 
 #: ../sheets/cisconetwork.sheet.in.h:11
 msgid "Breakout box"
-msgstr ""
+msgstr "Breakout पेटी"
 
 #: ../sheets/cisconetwork.sheet.in.h:12
 msgid "Bridge"
-msgstr "जुळले"
+msgstr "Bridge"
 
 #: ../sheets/cisconetwork.sheet.in.h:13
 msgid "CDDI/FDDI Concentrator"
-msgstr ""
+msgstr "CDDI/FDDI कॉनसनट्रेटर"
 
 #: ../sheets/cisconetwork.sheet.in.h:14
 msgid "CDM Content Distribution Manager"
-msgstr ""
+msgstr "CDM Content Distribution Manager"
 
 #: ../sheets/cisconetwork.sheet.in.h:15
 msgid "CSU/DSU"
@@ -9506,51 +9506,51 @@ msgstr "CSU/DSU"
 
 #: ../sheets/cisconetwork.sheet.in.h:16
 msgid "Cable Modem"
-msgstr ""
+msgstr "केबल मोडेम"
 
 #: ../sheets/cisconetwork.sheet.in.h:17
 msgid "Catalyst Access Gateway"
-msgstr ""
+msgstr "Catalyst Access गेटवे"
 
 #: ../sheets/cisconetwork.sheet.in.h:18
 msgid "Centri Firewall"
-msgstr ""
+msgstr "Centri फायरवॉल"
 
 #: ../sheets/cisconetwork.sheet.in.h:19
 msgid "Channelized Pipe"
-msgstr ""
+msgstr "Channelized पाइप"
 
 #: ../sheets/cisconetwork.sheet.in.h:20
 msgid "Cisco - Network"
-msgstr ""
+msgstr "Cisco - जाळ"
 
 #: ../sheets/cisconetwork.sheet.in.h:21
 msgid "Cloud"
-msgstr "ढग"
+msgstr "Cloud"
 
 #: ../sheets/cisconetwork.sheet.in.h:22
 msgid "Cloud Dark"
-msgstr ""
+msgstr "Cloud Dark"
 
 #: ../sheets/cisconetwork.sheet.in.h:23
 msgid "Cloud Gold"
-msgstr ""
+msgstr "Cloud Gold"
 
 #: ../sheets/cisconetwork.sheet.in.h:24
 msgid "Cloud White"
-msgstr ""
+msgstr "Cloud White"
 
 #: ../sheets/cisconetwork.sheet.in.h:25
 msgid "Concatenated Payload"
-msgstr ""
+msgstr "Concatenated Payload"
 
 #: ../sheets/cisconetwork.sheet.in.h:26
 msgid "Content Engine (Cache Director)"
-msgstr ""
+msgstr "अंतर्भूत माहिती इंजिन (कॅशे डायरेक्टर)"
 
 #: ../sheets/cisconetwork.sheet.in.h:27
 msgid "Content Transformation Engine (CTE)"
-msgstr ""
+msgstr "Content Transformation Engine (CTE)"
 
 #: ../sheets/cisconetwork.sheet.in.h:28
 msgid "DSLAM"
@@ -9558,35 +9558,35 @@ msgstr "DSLAM"
 
 #: ../sheets/cisconetwork.sheet.in.h:29
 msgid "DWDM Filter"
-msgstr ""
+msgstr "DWDM फिल्टर"
 
 #: ../sheets/cisconetwork.sheet.in.h:30
 msgid "Detector"
-msgstr ""
+msgstr "डिटेक्टटर"
 
 #: ../sheets/cisconetwork.sheet.in.h:31
 msgid "Digital Cross-Connect"
-msgstr ""
+msgstr "डिजिटल क्रॉस-कन्नेक्ट"
 
 #: ../sheets/cisconetwork.sheet.in.h:32
 msgid "Directory Server"
-msgstr ""
+msgstr "डिरेक्ट्री सर्वर"
 
 #: ../sheets/cisconetwork.sheet.in.h:33
 msgid "Distributed Director"
-msgstr ""
+msgstr "डिस्ट्रीब्यूटेड डायरेक्टर"
 
 #: ../sheets/cisconetwork.sheet.in.h:34
 msgid "Dual Mode AccessPoint"
-msgstr ""
+msgstr "ड्युअल पद्धत AccessPoint"
 
 #: ../sheets/cisconetwork.sheet.in.h:35
 msgid "FDDI Ring"
-msgstr ""
+msgstr "FDDI रिंग"
 
 #: ../sheets/cisconetwork.sheet.in.h:36
 msgid "File Engine"
-msgstr ""
+msgstr "फाइल इंजिन"
 
 #: ../sheets/cisconetwork.sheet.in.h:37
 msgid "Firewall"
@@ -9594,27 +9594,27 @@ msgstr "फायरवॉल"
 
 #: ../sheets/cisconetwork.sheet.in.h:38
 msgid "Firewall Service Module"
-msgstr ""
+msgstr "फायरवॉल सेवा विभाग"
 
 #: ../sheets/cisconetwork.sheet.in.h:39
 msgid "Firewall horizontal"
-msgstr ""
+msgstr "फायरवॉल आडवे"
 
 #: ../sheets/cisconetwork.sheet.in.h:40
 msgid "Firewall subdued"
-msgstr ""
+msgstr "फायरवॉल सबड्यूड"
 
 #: ../sheets/cisconetwork.sheet.in.h:41
 msgid "General Appliance"
-msgstr ""
+msgstr "साधारण अप्लायनस्"
 
 #: ../sheets/cisconetwork.sheet.in.h:42
 msgid "Generic Gateway"
-msgstr ""
+msgstr "मुळ गेटवे"
 
 #: ../sheets/cisconetwork.sheet.in.h:44
 msgid "IOS Firewall"
-msgstr ""
+msgstr "IOS फायरवॉल"
 
 #: ../sheets/cisconetwork.sheet.in.h:45
 msgid "IOS SLB"
@@ -9626,47 +9626,47 @@ msgstr "IP"
 
 #: ../sheets/cisconetwork.sheet.in.h:47
 msgid "IP DSL Switch"
-msgstr ""
+msgstr "IP DSL स्वीच"
 
 #: ../sheets/cisconetwork.sheet.in.h:48
 msgid "IP Old-style"
-msgstr ""
+msgstr "IP जुणी-शैली"
 
 #: ../sheets/cisconetwork.sheet.in.h:49
 msgid "IP Transport Concentrator"
-msgstr ""
+msgstr "IP ट्रान्सपोर्ट कॉनसनट्रेटर"
 
 #: ../sheets/cisconetwork.sheet.in.h:50
 msgid "IPTV broadcast server"
-msgstr ""
+msgstr "IPTV ब्रॉडकास्ट सर्वर"
 
 #: ../sheets/cisconetwork.sheet.in.h:51
 msgid "IPTV content manager"
-msgstr ""
+msgstr "IPTV अंतर्भूत माहिती व्यवस्थापक"
 
 #: ../sheets/cisconetwork.sheet.in.h:52
 msgid "LAN to LAN"
-msgstr ""
+msgstr "LAN ते LAN"
 
 #: ../sheets/cisconetwork.sheet.in.h:53
 msgid "Lightweight AP"
-msgstr ""
+msgstr "Lightweight AP"
 
 #: ../sheets/cisconetwork.sheet.in.h:54
 msgid "LocalDirector"
-msgstr ""
+msgstr "LocalDirector"
 
 #: ../sheets/cisconetwork.sheet.in.h:55
 msgid "Location server"
-msgstr ""
+msgstr "ठिकाण सर्वर"
 
 #: ../sheets/cisconetwork.sheet.in.h:56
 msgid "LongReach CPE"
-msgstr ""
+msgstr "LongReach CPE"
 
 #: ../sheets/cisconetwork.sheet.in.h:57
 msgid "MAS Gateway"
-msgstr ""
+msgstr "MAS गेटवे"
 
 #: ../sheets/cisconetwork.sheet.in.h:58
 msgid "MAU"
@@ -9682,7 +9682,7 @@ msgstr "MUX"
 
 #: ../sheets/cisconetwork.sheet.in.h:61
 msgid "Metro 1500"
-msgstr ""
+msgstr "Metro 1500"
 
 #: ../sheets/cisconetwork.sheet.in.h:62
 msgid "NAT"
@@ -9690,11 +9690,11 @@ msgstr "NAT"
 
 #: ../sheets/cisconetwork.sheet.in.h:63
 msgid "Network Management"
-msgstr ""
+msgstr "जाळ व्यवस्थापन"
 
 #: ../sheets/cisconetwork.sheet.in.h:64
 msgid "Network shapes by Cisco"
-msgstr ""
+msgstr "Cisco चे जाळ आकार"
 
 #: ../sheets/cisconetwork.sheet.in.h:65
 msgid "ONS15104"
@@ -9706,35 +9706,35 @@ msgstr "ONS15540"
 
 #: ../sheets/cisconetwork.sheet.in.h:67
 msgid "Optical Amplifier"
-msgstr ""
+msgstr "ऑप्टिकल अमप्लिफायर"
 
 #: ../sheets/cisconetwork.sheet.in.h:68
 msgid "Optical Cross-Connect"
-msgstr ""
+msgstr "Optical Cross-Connect"
 
 #: ../sheets/cisconetwork.sheet.in.h:69
 msgid "Optical Fiber"
-msgstr ""
+msgstr "ऑप्टिकल फायबर"
 
 #: ../sheets/cisconetwork.sheet.in.h:70
 msgid "Optical Transport"
-msgstr ""
+msgstr "ऑप्टिकल ट्रॉन्सपोर्ट"
 
 #: ../sheets/cisconetwork.sheet.in.h:71
 msgid "PAD"
-msgstr ""
+msgstr "PAD"
 
 #: ../sheets/cisconetwork.sheet.in.h:72
 msgid "PIX Firewall"
-msgstr ""
+msgstr "PIX Firewall"
 
 #: ../sheets/cisconetwork.sheet.in.h:73
 msgid "PIX Firewall Left"
-msgstr ""
+msgstr "PIX Firewall Left"
 
 #: ../sheets/cisconetwork.sheet.in.h:74
 msgid "Protocol Translator"
-msgstr ""
+msgstr "प्रोटोकॉल ट्रान्सलेटर"
 
 #: ../sheets/cisconetwork.sheet.in.h:75
 msgid "RPS"
@@ -9742,31 +9742,31 @@ msgstr "RPS"
 
 #: ../sheets/cisconetwork.sheet.in.h:76
 msgid "Repeater"
-msgstr ""
+msgstr "रिपीटर"
 
 #: ../sheets/cisconetwork.sheet.in.h:77
 msgid "SSL Terminator"
-msgstr ""
+msgstr "SSL टर्मिनेटर"
 
 #: ../sheets/cisconetwork.sheet.in.h:78
 msgid "STB (set top box)"
-msgstr ""
+msgstr "STB (set top box)"
 
 #: ../sheets/cisconetwork.sheet.in.h:79
 msgid "Security appliance"
-msgstr ""
+msgstr "सुरक्षा अप्लायनस्"
 
 #: ../sheets/cisconetwork.sheet.in.h:80
 msgid "Service Control"
-msgstr ""
+msgstr "सेवा नियंत्रक"
 
 #: ../sheets/cisconetwork.sheet.in.h:81
 msgid "Storage Solution Engine"
-msgstr ""
+msgstr "साठा पर्याय इंजिन"
 
 #: ../sheets/cisconetwork.sheet.in.h:82
 msgid "System controller"
-msgstr ""
+msgstr "प्रणाली कंट्रोलर"
 
 #: ../sheets/cisconetwork.sheet.in.h:83
 msgid "TV"
@@ -9774,15 +9774,15 @@ msgstr "TV"
 
 #: ../sheets/cisconetwork.sheet.in.h:84
 msgid "Terminal Server"
-msgstr ""
+msgstr "टर्मिनल सर्वर"
 
 #: ../sheets/cisconetwork.sheet.in.h:85
 msgid "TokenRing"
-msgstr ""
+msgstr "TokenRing"
 
 #: ../sheets/cisconetwork.sheet.in.h:86
 msgid "TransPath"
-msgstr ""
+msgstr "TransPath"
 
 #: ../sheets/cisconetwork.sheet.in.h:87
 msgid "UPS"
@@ -9806,11 +9806,11 @@ msgstr "VN5902"
 
 #: ../sheets/cisconetwork.sheet.in.h:92
 msgid "VPN Concentrator"
-msgstr ""
+msgstr "VPN कॉनसनट्रेटर"
 
 #: ../sheets/cisconetwork.sheet.in.h:93
 msgid "VPN Gateway"
-msgstr ""
+msgstr "VPN गेटवे"
 
 #: ../sheets/cisconetwork.sheet.in.h:94
 msgid "WAN"
@@ -9822,27 +9822,27 @@ msgstr "WDM"
 
 #: ../sheets/cisconetwork.sheet.in.h:96
 msgid "WLAN controller"
-msgstr ""
+msgstr "WLAN कंट्रोलर"
 
 #: ../sheets/cisconetwork.sheet.in.h:97
 msgid "Wi-Fi Tag"
-msgstr ""
+msgstr "Wi-Fi टॅग"
 
 #: ../sheets/cisconetwork.sheet.in.h:98
 msgid "Wireless Bridge"
-msgstr ""
+msgstr "वायरलेस ब्रिज"
 
 #: ../sheets/cisconetwork.sheet.in.h:99
 msgid "Wireless Connectivity"
-msgstr ""
+msgstr "वायलेस जुळवणी"
 
 #: ../sheets/cisconetwork.sheet.in.h:100
 msgid "Wireless Location Appliance"
-msgstr ""
+msgstr "वायरलेस ठिकाण अप्लायनस"
 
 #: ../sheets/cisconetwork.sheet.in.h:101
 msgid "Wireless Transport"
-msgstr ""
+msgstr "Wireless Transport"
 
 #: ../sheets/cisconetwork.sheet.in.h:102
 msgid "uBR910 Cable DSU"
@@ -9874,23 +9874,23 @@ msgstr "BTS 10200"
 
 #: ../sheets/ciscotelephony.sheet.in.h:7
 msgid "CallManager"
-msgstr ""
+msgstr "CallManager"
 
 #: ../sheets/ciscotelephony.sheet.in.h:8
 msgid "Cellular Phone"
-msgstr ""
+msgstr "सेल्यूलार फोन"
 
 #: ../sheets/ciscotelephony.sheet.in.h:9
 msgid "Cisco - Telephony"
-msgstr ""
+msgstr "Cisco - टेलिफोनी"
 
 #: ../sheets/ciscotelephony.sheet.in.h:10
 msgid "Class 4/5 switch"
-msgstr ""
+msgstr "Class 4/5 स्वीच"
 
 #: ../sheets/ciscotelephony.sheet.in.h:11
 msgid "End Office"
-msgstr ""
+msgstr "एन्ड ऑफिस"
 
 #: ../sheets/ciscotelephony.sheet.in.h:12
 msgid "Fax"
@@ -9898,11 +9898,11 @@ msgstr "फॅक्स"
 
 #: ../sheets/ciscotelephony.sheet.in.h:13
 msgid "Gatekeeper"
-msgstr ""
+msgstr "Gatekeeper"
 
 #: ../sheets/ciscotelephony.sheet.in.h:14
 msgid "Generic softswitch"
-msgstr ""
+msgstr "मुळ सॉफ्टस्वीच"
 
 #: ../sheets/ciscotelephony.sheet.in.h:15
 msgid "H.323"
@@ -9910,11 +9910,11 @@ msgstr "H.323"
 
 #: ../sheets/ciscotelephony.sheet.in.h:16
 msgid "HootPhone"
-msgstr ""
+msgstr "HootPhone"
 
 #: ../sheets/ciscotelephony.sheet.in.h:17
 msgid "IAD router"
-msgstr ""
+msgstr "IAD राऊटर"
 
 #: ../sheets/ciscotelephony.sheet.in.h:18
 msgid "ICM"
@@ -9926,15 +9926,15 @@ msgstr "ICS"
 
 #: ../sheets/ciscotelephony.sheet.in.h:20
 msgid "IP Phone"
-msgstr ""
+msgstr "IP फोन"
 
 #: ../sheets/ciscotelephony.sheet.in.h:21
 msgid "IP Softphone"
-msgstr ""
+msgstr "IP सॉफ्टफोन"
 
 #: ../sheets/ciscotelephony.sheet.in.h:22
 msgid "IP Telephony Router"
-msgstr ""
+msgstr "IP टेलिफोनी राऊटर"
 
 #: ../sheets/ciscotelephony.sheet.in.h:23
 msgid "ITP"
@@ -9942,7 +9942,7 @@ msgstr "ITP"
 
 #: ../sheets/ciscotelephony.sheet.in.h:24
 msgid "IntelliSwitch Stack"
-msgstr ""
+msgstr "IntelliSwitch स्टॅक"
 
 #: ../sheets/ciscotelephony.sheet.in.h:25
 msgid "MCU"
@@ -9950,19 +9950,19 @@ msgstr "MCU"
 
 #: ../sheets/ciscotelephony.sheet.in.h:26
 msgid "MGX 8000 Series Voice Gateway"
-msgstr ""
+msgstr "MGX 8000 सिरीज वॉइस गेटवे"
 
 #: ../sheets/ciscotelephony.sheet.in.h:27
 msgid "MoH server (Music on Hold)"
-msgstr ""
+msgstr "MoH सर्वर (Music on Hold)"
 
 #: ../sheets/ciscotelephony.sheet.in.h:28
 msgid "Mobile Access IP Phone"
-msgstr ""
+msgstr "Mobile Access IP फोन"
 
 #: ../sheets/ciscotelephony.sheet.in.h:29
 msgid "Mobile Access Router"
-msgstr ""
+msgstr "Mobile Access राऊटर"
 
 #: ../sheets/ciscotelephony.sheet.in.h:30
 msgid "Octel"
@@ -9974,43 +9974,43 @@ msgstr "PBX"
 
 #: ../sheets/ciscotelephony.sheet.in.h:32
 msgid "PBX Switch"
-msgstr ""
+msgstr "PBX स्वीच"
 
 #: ../sheets/ciscotelephony.sheet.in.h:33
 msgid "Pager"
-msgstr "पेजर"
+msgstr "Pager"
 
 #: ../sheets/ciscotelephony.sheet.in.h:34
 msgid "Phone"
-msgstr "दूरध्वनी"
+msgstr "Phone"
 
 #: ../sheets/ciscotelephony.sheet.in.h:35
 msgid "Phone 2"
-msgstr ""
+msgstr "Phone 2"
 
 #: ../sheets/ciscotelephony.sheet.in.h:36
 msgid "Phone Appliance"
-msgstr ""
+msgstr "Phone ऍप्पलायन्स"
 
 #: ../sheets/ciscotelephony.sheet.in.h:37
 msgid "Phone Ethernet"
-msgstr ""
+msgstr "Phone इथरनेट"
 
 #: ../sheets/ciscotelephony.sheet.in.h:38
 msgid "Phone Feature"
-msgstr ""
+msgstr "Phone गुणविशेष"
 
 #: ../sheets/ciscotelephony.sheet.in.h:39
 msgid "Phone/Fax"
-msgstr ""
+msgstr "Phone/Fax"
 
 #: ../sheets/ciscotelephony.sheet.in.h:40
 msgid "Radio Tower"
-msgstr ""
+msgstr "रेडिओ टावर"
 
 #: ../sheets/ciscotelephony.sheet.in.h:41
 msgid "SC2200 (Signalling Controller)"
-msgstr ""
+msgstr "SC2200 (Signalling Controller)"
 
 #: ../sheets/ciscotelephony.sheet.in.h:42
 msgid "SC2200/VSC3000 host"
@@ -10030,15 +10030,15 @@ msgstr "STP"
 
 #: ../sheets/ciscotelephony.sheet.in.h:46
 msgid "Softphone"
-msgstr ""
+msgstr "सॉफ्टफोन"
 
 #: ../sheets/ciscotelephony.sheet.in.h:47
 msgid "TDM router"
-msgstr ""
+msgstr "TDM राऊटर"
 
 #: ../sheets/ciscotelephony.sheet.in.h:48
 msgid "Telephony shapes by Cisco"
-msgstr ""
+msgstr "Cisco द्वारे टेलिफोनी आकार"
 
 #: ../sheets/ciscotelephony.sheet.in.h:49
 msgid "Turret"
@@ -10046,239 +10046,239 @@ msgstr "Turret"
 
 #: ../sheets/ciscotelephony.sheet.in.h:50
 msgid "Unity Express"
-msgstr ""
+msgstr "Unity Express"
 
 #: ../sheets/ciscotelephony.sheet.in.h:51
 msgid "Unity server"
-msgstr ""
+msgstr "Unity सर्वर"
 
 #: ../sheets/ciscotelephony.sheet.in.h:52
 msgid "Virtual switch controller (VSC 3000)"
-msgstr ""
+msgstr "Virtual switch controller (VSC 3000)"
 
 #: ../sheets/ciscotelephony.sheet.in.h:53
 msgid "Voice-Enabled ATM Switch"
-msgstr ""
+msgstr "Voice-Enabled ATM स्वीच"
 
 #: ../sheets/ciscotelephony.sheet.in.h:54
 msgid "Voice-Enabled Access Server"
-msgstr ""
+msgstr "Voice-Enabled Access Server"
 
 #: ../sheets/ciscotelephony.sheet.in.h:55
 msgid "Voice-Enabled Router"
-msgstr ""
+msgstr "Voice-Enabled राऊटर"
 
 #: ../sheets/ciscotelephony.sheet.in.h:56
 msgid "uMG series"
-msgstr ""
+msgstr "uMG श्रेणी"
 
 #: ../sheets/civil.sheet.in.h:1
 msgid "Aerator with bubbles"
-msgstr ""
+msgstr "फुगे सह एरेटेर"
 
 #: ../sheets/civil.sheet.in.h:2
 msgid "Backflow preventer"
-msgstr ""
+msgstr "Backflow बाधक"
 
 #: ../sheets/civil.sheet.in.h:3
 msgid "Basin"
-msgstr ""
+msgstr "Basin"
 
 #: ../sheets/civil.sheet.in.h:4
 msgid "Bivalent vertical rest"
-msgstr ""
+msgstr "Bivalent उभी रेस्ट"
 
 #: ../sheets/civil.sheet.in.h:5
 msgid "Civil"
-msgstr ""
+msgstr "Civil"
 
 #: ../sheets/civil.sheet.in.h:6
 msgid "Civil Engineering Components"
-msgstr ""
+msgstr "Civil Engineering घटक"
 
 #: ../sheets/civil.sheet.in.h:7
 msgid "Container"
-msgstr "समाविष्ठीका"
+msgstr "कंटेनर"
 
 #: ../sheets/civil.sheet.in.h:8
 msgid "Final-settling basin"
-msgstr ""
+msgstr "Final-settling बेसीन"
 
 #: ../sheets/civil.sheet.in.h:9
 msgid "Frequency converter"
-msgstr ""
+msgstr "फ्रिक्वेनसी रूपांतरक"
 
 #: ../sheets/civil.sheet.in.h:10
 msgid "Gas bottle"
-msgstr ""
+msgstr "गॅस बॉटल"
 
 #: ../sheets/civil.sheet.in.h:11
 msgid "Horizontal limiting line"
-msgstr ""
+msgstr "आडवी मर्यादीत रेष"
 
 #: ../sheets/civil.sheet.in.h:12
 msgid "Horizontal rest"
-msgstr ""
+msgstr "आडवे रेस्ट"
 
 #: ../sheets/civil.sheet.in.h:13
 msgid "Horizontally aligned arrow"
-msgstr ""
+msgstr "आडवे संरेषीत बाण"
 
 #: ../sheets/civil.sheet.in.h:14
 msgid "Horizontally aligned compressor"
-msgstr ""
+msgstr "आडवे संरेषीत कंप्रेसर"
 
 #: ../sheets/civil.sheet.in.h:15
 msgid "Horizontally aligned pump"
-msgstr ""
+msgstr "आडवे संरेषीत पम्प"
 
 #: ../sheets/civil.sheet.in.h:16
 msgid "Horizontally aligned valve"
-msgstr ""
+msgstr "आडवे संरेषीत वॉल्व"
 
 #: ../sheets/civil.sheet.in.h:17
 msgid "Motor"
-msgstr ""
+msgstr "मोटर"
 
 #: ../sheets/civil.sheet.in.h:18
 msgid "Preliminary clarification tank"
-msgstr ""
+msgstr "प्राथमीक तपासणी टॅन्क"
 
 #: ../sheets/civil.sheet.in.h:19
 msgid "Reference line"
-msgstr ""
+msgstr "संदर्भ रेष"
 
 #: ../sheets/civil.sheet.in.h:20
 msgid "Rotor"
-msgstr ""
+msgstr "रोटर"
 
 #: ../sheets/civil.sheet.in.h:21
 msgid "Soil"
-msgstr ""
+msgstr "जमीन"
 
 #: ../sheets/civil.sheet.in.h:22
 msgid "Vertical limiting line"
-msgstr ""
+msgstr "उभी मर्यादीत रेष"
 
 #: ../sheets/civil.sheet.in.h:23
 msgid "Vertical rest"
-msgstr ""
+msgstr "उभे रेस्ट"
 
 #: ../sheets/civil.sheet.in.h:24
 msgid "Vertically aligned arrow"
-msgstr ""
+msgstr "उभे संरेषीत बाण"
 
 #: ../sheets/civil.sheet.in.h:25
 msgid "Vertically aligned compressor"
-msgstr ""
+msgstr "उभे संरेषीत कंप्रेसर"
 
 #: ../sheets/civil.sheet.in.h:26
 msgid "Vertically aligned propeller"
-msgstr ""
+msgstr "उभे संरेषीत प्रोपेल्लर"
 
 #: ../sheets/civil.sheet.in.h:27
 msgid "Vertically aligned pump"
-msgstr ""
+msgstr "उभे संरेषीत पंप"
 
 #: ../sheets/civil.sheet.in.h:28
 msgid "Vertically aligned valve"
-msgstr ""
+msgstr "उभे संरेषीत वॉल्व"
 
 #: ../sheets/civil.sheet.in.h:29
 msgid "Water level"
-msgstr ""
+msgstr "पाण्याचे स्थर"
 
 #: ../sheets/jigsaw.sheet.in.h:1
 msgid "Jigsaw"
-msgstr "जिगसॉ"
+msgstr "Jigsaw"
 
 #: ../sheets/jigsaw.sheet.in.h:2
 msgid "Jigsaw - part_iiii"
-msgstr ""
+msgstr "Jigsaw - तुकडा_iiii"
 
 #: ../sheets/jigsaw.sheet.in.h:3
 msgid "Jigsaw - part_iiio"
-msgstr ""
+msgstr "Jigsaw - तुकडा_iiio"
 
 #: ../sheets/jigsaw.sheet.in.h:4
 msgid "Jigsaw - part_iioi"
-msgstr ""
+msgstr "Jigsaw - तुकडा_iioi"
 
 #: ../sheets/jigsaw.sheet.in.h:5
 msgid "Jigsaw - part_iioo"
-msgstr ""
+msgstr "Jigsaw - तुकडा_iioo"
 
 #: ../sheets/jigsaw.sheet.in.h:6
 msgid "Jigsaw - part_ioii"
-msgstr ""
+msgstr "Jigsaw - तुकडा_ioii"
 
 #: ../sheets/jigsaw.sheet.in.h:7
 msgid "Jigsaw - part_ioio"
-msgstr ""
+msgstr "Jigsaw - तुकडा_ioio"
 
 #: ../sheets/jigsaw.sheet.in.h:8
 msgid "Jigsaw - part_iooi"
-msgstr ""
+msgstr "Jigsaw - तुकडा_iooi"
 
 #: ../sheets/jigsaw.sheet.in.h:9
 msgid "Jigsaw - part_iooo"
-msgstr ""
+msgstr "Jigsaw - तुकडा_iooo"
 
 #: ../sheets/jigsaw.sheet.in.h:10
 msgid "Jigsaw - part_oiii"
-msgstr ""
+msgstr "Jigsaw - तुकडा_oiii"
 
 #: ../sheets/jigsaw.sheet.in.h:11
 msgid "Jigsaw - part_oiio"
-msgstr ""
+msgstr "Jigsaw - तुकडा_oiio"
 
 #: ../sheets/jigsaw.sheet.in.h:12
 msgid "Jigsaw - part_oioi"
-msgstr ""
+msgstr "Jigsaw - तुकडा_oioi"
 
 #: ../sheets/jigsaw.sheet.in.h:13
 msgid "Jigsaw - part_oioo"
-msgstr ""
+msgstr "Jigsaw - तुकडा_oioo"
 
 #: ../sheets/jigsaw.sheet.in.h:14
 msgid "Jigsaw - part_ooii"
-msgstr ""
+msgstr "Jigsaw - तुकडा_ooii"
 
 #: ../sheets/jigsaw.sheet.in.h:15
 msgid "Jigsaw - part_ooio"
-msgstr ""
+msgstr "Jigsaw - तुकडा_ooio"
 
 #: ../sheets/jigsaw.sheet.in.h:16
 msgid "Jigsaw - part_oooi"
-msgstr ""
+msgstr "Jigsaw - तुकडा_oooi"
 
 #: ../sheets/jigsaw.sheet.in.h:17
 msgid "Jigsaw - part_oooo"
-msgstr ""
+msgstr "Jigsaw - तुकडा_oooo"
 
 #: ../sheets/jigsaw.sheet.in.h:18
 msgid "Pieces of a jigsaw"
-msgstr ""
+msgstr "जिगसॉचे तुकडे"
 
 #: ../sheets/network.sheet.in.h:1
 msgid "24 Port Patch Panel"
-msgstr ""
+msgstr "24 पोर्ट पॅच पटल"
 
 #: ../sheets/network.sheet.in.h:2
 msgid "3 1/2 inch diskette"
-msgstr ""
+msgstr "3 1/2 इंच डिस्केट"
 
 #: ../sheets/network.sheet.in.h:3
 msgid "ATM switch symbol"
-msgstr ""
+msgstr "ATM स्वीच चिन्ह"
 
 #: ../sheets/network.sheet.in.h:4
 msgid "Antenna for wireless transmission"
-msgstr ""
+msgstr "वायरलेस स्थानांतरन करीता ऍन्टीना"
 
 #: ../sheets/network.sheet.in.h:5
 msgid "Bigtower PC"
-msgstr ""
+msgstr "Bigtower PC"
 
 #: ../sheets/network.sheet.in.h:6
 msgid "Computer"
@@ -10286,87 +10286,87 @@ msgstr "संगणक"
 
 #: ../sheets/network.sheet.in.h:7
 msgid "Desktop PC"
-msgstr ""
+msgstr "डेस्कटॉप PC"
 
 #: ../sheets/network.sheet.in.h:8
 msgid "Digitizing board"
-msgstr ""
+msgstr "Digitizing बोर्ड"
 
 #: ../sheets/network.sheet.in.h:9
 msgid "Ethernet bus"
-msgstr ""
+msgstr "Ethernet बस"
 
 #: ../sheets/network.sheet.in.h:10
 msgid "External DAT drive"
-msgstr ""
+msgstr "बाहेरील DAT ड्राइव्ह"
 
 #: ../sheets/network.sheet.in.h:11
 msgid "Firewall router"
-msgstr ""
+msgstr "फायरवॉल राऊटर"
 
 #: ../sheets/network.sheet.in.h:12
 msgid "Laptop PC"
-msgstr ""
+msgstr "लॅपटॉप PC"
 
 #: ../sheets/network.sheet.in.h:13
 msgid "Miditower PC"
-msgstr ""
+msgstr "Miditower PC"
 
 #: ../sheets/network.sheet.in.h:14
 msgid "Minitower PC"
-msgstr ""
+msgstr "Minitower PC"
 
 #: ../sheets/network.sheet.in.h:15
 msgid "Mobile phone"
-msgstr ""
+msgstr "Mobile फोन"
 
 #: ../sheets/network.sheet.in.h:16
 msgid "Mobile telephony base station"
-msgstr ""
+msgstr "Mobile टेलिफोनी बेस स्टेशन"
 
 #: ../sheets/network.sheet.in.h:17
 msgid "Mobile telephony cell"
-msgstr ""
+msgstr "Mobile टेलिफोनी क्षेत्र"
 
 #: ../sheets/network.sheet.in.h:18
 msgid "Modular switching system"
-msgstr ""
+msgstr "Modular स्वीच प्रणाली"
 
 #: ../sheets/network.sheet.in.h:22
 msgid "Objects to design network diagrams with"
-msgstr ""
+msgstr "जाळ आकृती सह रचण्याजोगी घटक"
 
 #: ../sheets/network.sheet.in.h:23
 msgid "Plotter"
-msgstr ""
+msgstr "Plotter"
 
 #: ../sheets/network.sheet.in.h:24
 msgid "RJ45 wall-plug"
-msgstr ""
+msgstr "RJ45 वॉल-प्लग"
 
 #: ../sheets/network.sheet.in.h:25
 msgid "Router symbol"
-msgstr ""
+msgstr "राऊटर चिन्ह"
 
 #: ../sheets/network.sheet.in.h:26
 msgid "Simple modem"
-msgstr ""
+msgstr "सोपे मोडेम"
 
 #: ../sheets/network.sheet.in.h:27
 msgid "Simple printer"
-msgstr ""
+msgstr "सोपे प्रिन्टर"
 
 #: ../sheets/network.sheet.in.h:28
 msgid "Speaker with integrated amplifier"
-msgstr ""
+msgstr "अंतर्भूतीत ऍमप्लिफायर सह स्पिकर"
 
 #: ../sheets/network.sheet.in.h:29
 msgid "Speaker without amplifier"
-msgstr ""
+msgstr "ऍमप्लिफायर विना स्पिकर"
 
 #: ../sheets/network.sheet.in.h:30
 msgid "Stackable hub or switch"
-msgstr ""
+msgstr "Stackable हब किंवा स्वीच"
 
 #: ../sheets/network.sheet.in.h:31
 msgid "Storage"
@@ -10374,27 +10374,27 @@ msgstr "साठा"
 
 #: ../sheets/network.sheet.in.h:32
 msgid "Switch symbol"
-msgstr ""
+msgstr "Switch चिन्ह"
 
 #: ../sheets/network.sheet.in.h:34
 msgid "UNIX workstation"
-msgstr ""
+msgstr "UNIX वर्कस्टेशन"
 
 #: ../sheets/network.sheet.in.h:35
 msgid "WAN connection"
-msgstr ""
+msgstr "WAN जुळवणी"
 
 #: ../sheets/network.sheet.in.h:36
 msgid "WAN link"
-msgstr ""
+msgstr "WAN लिंक"
 
 #: ../sheets/network.sheet.in.h:37
 msgid "Wall-plug for the scEAD cabling system"
-msgstr ""
+msgstr "scEAD केबलींग प्रणाली करीता वॉल-प्लग"
 
 #: ../sheets/network.sheet.in.h:38
 msgid "Workstation monitor"
-msgstr ""
+msgstr "Workstation मॉनीटर"
 
 #: ../sheets/network.sheet.in.h:39
 msgid "ZIP disk"
@@ -10406,7 +10406,7 @@ msgstr "लॉग स्थानांतरन व्यवस्थापक 
 
 #: ../sheets/sybase.sheet.in.h:2
 msgid "Objects to design Sybase replication domain diagrams with"
-msgstr ""
+msgstr "Sybase replication क्षेत्र आकृती सह रचण्याजोगी घटक"
 
 #: ../sheets/sybase.sheet.in.h:3
 msgid "Replication server manager"
