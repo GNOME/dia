@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: mr\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=dia&component=general\n"
 "POT-Creation-Date: 2009-06-16 12:26+0000\n"
-"PO-Revision-Date: 2009-06-22 16:55+0530\n"
+"PO-Revision-Date: 2009-06-23 12:08+0530\n"
 "Last-Translator: Sandeep Shedmake <sandeep.shedmake@gmail.com>\n"
 "Language-Team: marathi\n"
 "MIME-Version: 1.0\n"
@@ -6983,15 +6983,15 @@ msgstr "व्यवहार"
 
 #: ../sheets/ChemEng.sheet.in.h:1
 msgid "AC Generator"
-msgstr ""
+msgstr "AC जेनरेटर"
 
 #: ../sheets/ChemEng.sheet.in.h:2
 msgid "Air Cooler"
-msgstr ""
+msgstr "एयर कूलर"
 
 #: ../sheets/ChemEng.sheet.in.h:3
 msgid "Autoclave"
-msgstr ""
+msgstr "ऑटोक्लेव"
 
 #: ../sheets/ChemEng.sheet.in.h:4
 msgid "Axial Flow Fan"
@@ -6999,11 +6999,11 @@ msgstr ""
 
 #: ../sheets/ChemEng.sheet.in.h:5
 msgid "Basic Filter"
-msgstr ""
+msgstr "मुळ फिल्टर"
 
 #: ../sheets/ChemEng.sheet.in.h:6
 msgid "Centrifugal Pump or Fan"
-msgstr ""
+msgstr "सेन्ट्रीफ्यूगल पम्प किंवा फॅन"
 
 #: ../sheets/ChemEng.sheet.in.h:7
 msgid "Centrifuge"
@@ -7040,19 +7040,19 @@ msgstr ""
 
 #: ../sheets/ChemEng.sheet.in.h:16
 msgid "Ejector or Injector"
-msgstr ""
+msgstr "इजेक्टर किंवा इंजेक्टर"
 
 #: ../sheets/ChemEng.sheet.in.h:17
 msgid "Fan or Stirrer"
-msgstr ""
+msgstr "फॅन किंवा स्टिरर"
 
 #: ../sheets/ChemEng.sheet.in.h:18
 msgid "Fixed-Sheet Exchanger"
-msgstr ""
+msgstr "फिक्सड्-शीट एक्सचेंजर"
 
 #: ../sheets/ChemEng.sheet.in.h:19
 msgid "Floating-Head or U-Tube Exchanger"
-msgstr ""
+msgstr "फ्लोटिंग-हेड किंवा यू-ट्यूब एक्सचेंजर"
 
 #: ../sheets/ChemEng.sheet.in.h:20
 msgid "Fluid Contacting Vessel, simple"
@@ -7064,15 +7064,15 @@ msgstr ""
 
 #: ../sheets/ChemEng.sheet.in.h:22
 msgid "Gas Holder, basic"
-msgstr ""
+msgstr "गॅस होल्डर, मुळ"
 
 #: ../sheets/ChemEng.sheet.in.h:23
 msgid "Heating/Cooling Coil"
-msgstr ""
+msgstr "हिटिंग/कूलिंग कॉईल"
 
 #: ../sheets/ChemEng.sheet.in.h:24
 msgid "Heating/Cooling Coil, vertical"
-msgstr ""
+msgstr "हिटिंग/कूलिंग कॉईल, उभे"
 
 #: ../sheets/ChemEng.sheet.in.h:25
 msgid "Induced-Flow Air Cooler"
@@ -7180,207 +7180,207 @@ msgstr ""
 
 #: ../sheets/ChemEng.sheet.in.h:52
 msgid "Valve"
-msgstr ""
+msgstr "वॉल्व"
 
 #: ../sheets/ChemEng.sheet.in.h:53
 msgid "Valve, vertical"
-msgstr ""
+msgstr "वॉल्व, उभा"
 
 #: ../sheets/ChemEng.sheet.in.h:54
 msgid "Water Cooler"
-msgstr ""
+msgstr "वाटर कूलर"
 
 #: ../sheets/ChemEng.sheet.in.h:55
 msgid "Water Cooler, vertical"
-msgstr ""
+msgstr "वाटर कूलर, उभा"
 
 #: ../sheets/Circuit.sheet.in.h:1
 msgid "Circuit"
-msgstr ""
+msgstr "सर्किट"
 
 #: ../sheets/Circuit.sheet.in.h:2
 msgid "Components for circuit diagrams"
-msgstr ""
+msgstr "सर्किट आकृती करीता विभाग"
 
 #: ../sheets/Circuit.sheet.in.h:3
 msgid "Ground point"
-msgstr ""
+msgstr "ग्राऊन्ड पॉईन्ट"
 
 #: ../sheets/Circuit.sheet.in.h:4
 msgid "Horizontal jumper"
-msgstr ""
+msgstr "आडवा जम्पर"
 
 #: ../sheets/Circuit.sheet.in.h:5
 msgid "Horizontally aligned LED"
-msgstr ""
+msgstr "आडवेरित्या संरेषीत LED"
 
 #: ../sheets/Circuit.sheet.in.h:6
 msgid "Horizontally aligned capacitor"
-msgstr ""
+msgstr "आडवेरित्या संरेषीत कपॅसीटर"
 
 #: ../sheets/Circuit.sheet.in.h:7
 msgid "Horizontally aligned diode"
-msgstr ""
+msgstr "आडवेरित्या संरेषीत डायोड"
 
 #: ../sheets/Circuit.sheet.in.h:8
 msgid "Horizontally aligned fuse"
-msgstr ""
+msgstr "आडवेरित्या संरेषीत फ्यूज"
 
 #: ../sheets/Circuit.sheet.in.h:9
 msgid "Horizontally aligned inductor"
-msgstr ""
+msgstr "आडवेरित्या संरेषीत इंडक्टटर"
 
 #: ../sheets/Circuit.sheet.in.h:10
 msgid "Horizontally aligned inductor (European)"
-msgstr ""
+msgstr "आडवेरित्या संरेषीत इंडक्टटर (यूरोपियन)"
 
 #: ../sheets/Circuit.sheet.in.h:11
 msgid "Horizontally aligned powersource"
-msgstr ""
+msgstr "आडवेरित्या संरेषीत पावरस्त्रोत"
 
 #: ../sheets/Circuit.sheet.in.h:12
 msgid "Horizontally aligned resistor"
-msgstr ""
+msgstr "आडवेरित्या संरेषीत रेजिस्टर"
 
 #: ../sheets/Circuit.sheet.in.h:13
 msgid "Horizontally aligned resistor (European)"
-msgstr ""
+msgstr "आडवेरित्या संरेषीत रेजिस्टर (यूरोपियन)"
 
 #: ../sheets/Circuit.sheet.in.h:14
 msgid "Horizontally aligned zener diode"
-msgstr ""
+msgstr "आडवेरित्या संरेषीत झेनर डायोड"
 
 #: ../sheets/Circuit.sheet.in.h:15
 msgid "Lamp"
-msgstr ""
+msgstr "Lamp"
 
 #: ../sheets/Circuit.sheet.in.h:16 ../sheets/ciscomisc.sheet.in.h:30
 msgid "Microphone"
-msgstr ""
+msgstr "मायक्रोफोन"
 
 #: ../sheets/Circuit.sheet.in.h:17
 msgid "NMOS transistor"
-msgstr ""
+msgstr "NMOS ट्रानजीस्टर"
 
 #.
 #.
 #: ../sheets/Circuit.sheet.in.h:20
 msgid "NPN bipolar transistor"
-msgstr ""
+msgstr "NPN बायपोलर ट्रानजीस्टर"
 
 #: ../sheets/Circuit.sheet.in.h:21
 msgid "Operational amplifier"
-msgstr ""
+msgstr "कार्यवाहिक ऍमप्लिफायर"
 
 #: ../sheets/Circuit.sheet.in.h:22
 msgid "PMOS transistor"
-msgstr ""
+msgstr "PMOS ट्रानजीस्टर"
 
 #.
 #.
 #: ../sheets/Circuit.sheet.in.h:25
 msgid "PNP bipolar transistor"
-msgstr ""
+msgstr "PNP बायपोलार ट्रानजीस्टर"
 
 #: ../sheets/Circuit.sheet.in.h:26 ../sheets/ciscomisc.sheet.in.h:42
 msgid "Speaker"
-msgstr ""
+msgstr "स्पीकर"
 
 #: ../sheets/Circuit.sheet.in.h:27
 msgid "Vertically aligned LED"
-msgstr ""
+msgstr "उभेरित्या संरेषीत LED"
 
 #: ../sheets/Circuit.sheet.in.h:28
 msgid "Vertically aligned capacitor"
-msgstr ""
+msgstr "उभेरित्या संरेषीत कपॅसीटर"
 
 #: ../sheets/Circuit.sheet.in.h:29
 msgid "Vertically aligned diode"
-msgstr ""
+msgstr "उभेरित्या संरेषीत डायोड"
 
 #: ../sheets/Circuit.sheet.in.h:30
 msgid "Vertically aligned fuse"
-msgstr ""
+msgstr "उभेरित्या संरेषीत फ्यूज"
 
 #: ../sheets/Circuit.sheet.in.h:31
 msgid "Vertically aligned inductor"
-msgstr ""
+msgstr "उभेरित्या संरेषीत इंडक्टटर"
 
 #: ../sheets/Circuit.sheet.in.h:32
 msgid "Vertically aligned inductor (European)"
-msgstr ""
+msgstr "उभेरित्या संरेषीत इंडक्टटर (यूरोपियन)"
 
 #: ../sheets/Circuit.sheet.in.h:33
 msgid "Vertically aligned powersource"
-msgstr ""
+msgstr "उभेरित्या संरेषीत पावरस्त्रोत"
 
 #: ../sheets/Circuit.sheet.in.h:34
 msgid "Vertically aligned resistor"
-msgstr ""
+msgstr "उभेरित्या संरेषीत रेजिस्टर"
 
 #: ../sheets/Circuit.sheet.in.h:35
 msgid "Vertically aligned resistor (European)"
-msgstr ""
+msgstr "उभेरित्या संरेषीत रेजिस्टर (यूरोपियन)"
 
 #: ../sheets/Circuit.sheet.in.h:36
 msgid "Vertically aligned zener diode"
-msgstr ""
+msgstr "उभेरित्या संरेषीत झेनर डायोड"
 
 #: ../sheets/Contact.sheet.in.h:1
 msgid "'if not' (normally closed) ladder contact"
-msgstr ""
+msgstr "'if not' (सहसा बंद) ladder संपर्क"
 
 #: ../sheets/Contact.sheet.in.h:2
 msgid "'if' (normally open) ladder contact"
-msgstr ""
+msgstr "'if' (normally open) ladder संपर्क"
 
 #: ../sheets/Contact.sheet.in.h:3
 msgid "'jump' output variable"
-msgstr ""
+msgstr "'jump' आऊटपुट वेरियेबल"
 
 #: ../sheets/Contact.sheet.in.h:4
 msgid "'reset' output variable"
-msgstr ""
+msgstr "'reset' आऊटपुट वेरियेबल"
 
 #: ../sheets/Contact.sheet.in.h:5
 msgid "'set' output variable"
-msgstr ""
+msgstr "'set' आऊटपुट वेरियेबल"
 
 #: ../sheets/Contact.sheet.in.h:6
 msgid "Components for LADDER circuits"
-msgstr ""
+msgstr "LADDER सक्रिट करीता विभाग"
 
 #: ../sheets/Contact.sheet.in.h:7
 msgid "Ladder"
-msgstr ""
+msgstr "Ladder"
 
 #: ../sheets/Contact.sheet.in.h:8
 msgid "Negative output variable"
-msgstr ""
+msgstr "Negative आऊटपुट वेरियेबल"
 
 #: ../sheets/Contact.sheet.in.h:9
 msgid "Power-saved 'reset' output variable"
-msgstr ""
+msgstr "Power-saved 'reset' आऊटपुट वेरियेबल"
 
 #: ../sheets/Contact.sheet.in.h:10
 msgid "Power-saved 'set' output variable"
-msgstr ""
+msgstr "Power-saved 'set' आऊटपुट वेरियेबल"
 
 #: ../sheets/Contact.sheet.in.h:11
 msgid "Power-saved negative output variable"
-msgstr ""
+msgstr "Power-saved negative आऊटपुट वेरियेबल"
 
 #: ../sheets/Contact.sheet.in.h:12
 msgid "Power-saved simple output variable"
-msgstr ""
+msgstr "Power-saved सोपे आऊटपुट वेरियेबल"
 
 #: ../sheets/Contact.sheet.in.h:13
 msgid "Receptivity output variable"
-msgstr ""
+msgstr "Receptivity आऊटपुट वेरियेबल"
 
 #: ../sheets/Contact.sheet.in.h:14
 msgid "Simple output variable"
-msgstr ""
+msgstr "सोपे आऊटपुट वेरियेबल"
 
 #: ../sheets/Cybernetics.sheet.in.h:1
 msgid "Constant factor below -1"
@@ -8090,7 +8090,7 @@ msgstr ""
 
 #: ../sheets/KAOS.sheet.in.h:23
 msgid "Objects to design KAOS diagrams"
-msgstr ""
+msgstr "KAOS आकृती रचनाकृत करण्याकरीता घटक"
 
 #: ../sheets/KAOS.sheet.in.h:24
 msgid "RE-KAOS"
