@@ -16,7 +16,7 @@ void _pyerror_report_last (gboolean popup, const char* fn, const char* file, int
 
 #define ON_RES(r,popup) \
 if (!r) { \
-  _pyerror_report_last (popup, G_GNUC_PRETTY_FUNCTION, __FILE__, __LINE__); \
+  _pyerror_report_last (popup, G_STRFUNC, __FILE__, __LINE__); \
 } \
 else \
   Py_DECREF (r)
