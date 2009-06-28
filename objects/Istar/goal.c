@@ -174,6 +174,7 @@ static PropOffset goal_offsets[] = {
   ELEMENT_COMMON_PROPERTIES_OFFSETS,
   { "type", PROP_TYPE_ENUM, offsetof(Goal,type)},
   { "text", PROP_TYPE_TEXT, offsetof(Goal,text)},
+  { NULL, 0, 0 }
 };
 
 static void
