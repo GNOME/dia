@@ -24,7 +24,7 @@ intl_score_locale(const gchar *locale)
       break;
     ++i;
   }
-  if (!names[i] != NULL) /* not found */
+  if (names[i] == NULL) /* not found */
     i = G_MAXINT;
   return i;
 }
