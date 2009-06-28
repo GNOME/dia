@@ -62,6 +62,9 @@
    /* avoid namespace collisions */
 #  define Rectangle RectangleWin32
 #  endif
+#  ifdef CAIRO_HAS_SCRIPT_SURFACE
+#  include <cairo-script.h>
+#  endif
 #endif
 
 #ifdef HAVE_PANGOCAIRO_H
@@ -88,7 +91,8 @@ typedef enum OutputKind
   OUTPUT_WMF,
   OUTPUT_EMF,
   OUTPUT_CLIPBOARD,
-  OUTPUT_SVG
+  OUTPUT_SVG,
+  OUTPUT_CAIRO_SCRIPT
 } OutputKind;
 
 #if defined CAIRO_HAS_WIN32_SURFACE && CAIRO_VERSION > 10510
@@ -193,6 +197,18 @@ export_data(DiagramData *data, const gchar *filename,
     renderer->surface = cairo_svg_surface_create(
 						filename_crt,
 						(int)width, (int)height);
+    break;
+#endif
+#ifdef CAIRO_HAS_SCRIPT_SURFACE
+  case OUTPUT_CAIRO_SCRIPT :
+    /* quite arbitrary, but consistent with ../pixbuf ;-) */
+    renderer->scale = 20.0 * data->paper.scaling; 
+    width  = (data->extents.right - data->extents.left) * renderer->scale;
+    height = (data->extents.bottom - data->extents.top) * renderer->scale;
+    DIAG_NOTE(g_message ("CairoScript Surface %dx%d\n", (int)width, (int)height));
+    renderer->surface = cairo_script_surface_create(filename_crt,
+						    width, height);
+    cairo_script_surface_set_mode(renderer->surface, CAIRO_SCRIPT_MODE_ASCII);
     break;
 #endif
   /* finally cairo can render to MetaFiles */
@@ -361,6 +377,18 @@ static DiaExportFilter svg_export_filter = {
 };
 #endif
 
+#ifdef CAIRO_HAS_SCRIPT_SURFACE
+static const gchar *cs_extensions[] = { "cs", NULL };
+static DiaExportFilter cs_export_filter = {
+    N_("CairoScript"),
+    cs_extensions,
+    export_data,
+    (void*)OUTPUT_CAIRO_SCRIPT,
+    "cairo-script",
+    FILTER_DONT_GUESS /* don't use this if not asked explicit */
+};
+#endif
+
 static const gchar *png_extensions[] = { "png", NULL };
 static DiaExportFilter png_export_filter = {
     N_("Cairo PNG"),
@@ -449,6 +477,9 @@ _plugin_unload (PluginInfo *info)
 #ifdef CAIRO_HAS_SVG_SURFACE
   filter_unregister_export(&svg_export_filter);
 #endif
+#ifdef CAIRO_HAS_SCRIPT_SURFACE
+  filter_unregister_export(&cs_export_filter);
+#endif
 #if defined CAIRO_HAS_PNG_SURFACE || defined CAIRO_HAS_PNG_FUNCTIONS
   filter_unregister_export(&png_export_filter);
   filter_unregister_export(&pnga_export_filter);
@@ -484,6 +515,9 @@ dia_plugin_init(PluginInfo *info)
 #endif
 #ifdef CAIRO_HAS_SVG_SURFACE
   filter_register_export(&svg_export_filter);
+#endif
+#ifdef CAIRO_HAS_SCRIPT_SURFACE
+  filter_register_export(&cs_export_filter);
 #endif
 #if defined CAIRO_HAS_PNG_SURFACE || defined CAIRO_HAS_PNG_FUNCTIONS
   filter_register_export(&png_export_filter);
