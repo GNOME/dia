@@ -239,7 +239,7 @@ AC_ARG_ENABLE(debug,
   enable_debug=minimum)
 
 if test "x$enable_debug" = "xyes"; then
-  DEBUG_FLAGS="-g -DENABLE_DEBUG -DGTK_DISABLE_DEPRECATED"
+  DEBUG_FLAGS="-g -DENABLE_DEBUG"
 else
   if test "x$enable_debug" = "xno"; then
     DEBUG_FLAGS=""
@@ -247,6 +247,32 @@ else
     DEBUG_FLAGS=""
   fi
 fi
+
+dnl
+dnl Deprecation
+dnl
+AC_ARG_ENABLE(deprecation, 
+[  --enable-deprecation=[no,glib,pango,gtk,yes] turn on glib/pango/gtk deprecations [default=no]],
+   ,
+   enable_deprecation=no)
+if test "x$enable_deprecation" != "xno"; then
+  if test "x$enable_deprecation" = "xglib"; then 
+    DEBUG_FLAGS="$DEBUG_FLAGS -DG_DISABLE_DEPRECATED"
+  else
+    if test "x$enable_deprecation" = "xpango"; then 
+      DEBUG_FLAGS="$DEBUG_FLAGS -DPANGO_DISABLE_DEPRECATED"
+    else
+      if test "x$enable_deprecation" = "xgtk"; then 
+        DEBUG_FLAGS="$DEBUG_FLAGS -DGTK_DISABLE_DEPRECATED"
+      else
+        DEBUG_FLAGS="$DEBUG_FLAGS -DG_DISABLE_DEPRECATED -DPANGO_DISABLE_DEPRECATED -DGTK_DISABLE_DEPRECATED"
+      fi
+    fi
+  fi
+  enable_deprecation=yes
+fi
+
+dnl Used for both
 AC_SUBST(DEBUG_FLAGS)
 
 dnl
@@ -628,14 +654,15 @@ Configuration:
 	Source code location:	${srcdir}
 	Compiler:		${CC}
 
-	Gnome support:				${have_gnome}
-	Python support:				${with_python}
-	Libart support (PNG export):		${have_libart}
-	Cairo support (PNG, PDF, print):	${with_cairo}
-	Dia Python bindings with SWIG		${with_swig}
-	WMF plug-in with libEMF:                ${emf_ok}
-	html doc:                               ${xsltproc_ok}
-	pdf and ps doc:                         ${hardbook_ok}
+	Gnome support:				 ${have_gnome}
+	Python support:				 ${with_python}
+	Libart support (PNG export):		 ${have_libart}
+	Cairo support (PNG, PDF, print):	 ${with_cairo}
+	Dia Python bindings with SWIG		 ${with_swig}
+	WMF plug-in with libEMF:                 ${emf_ok}
+	html doc:                                ${xsltproc_ok}
+	pdf and ps doc:                          ${hardbook_ok}
+	Enable deprecations (disable deprecated) ${enable_deprecation}
 "
 
 echo "Now type make to build dia..."
