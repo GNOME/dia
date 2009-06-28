@@ -821,7 +821,7 @@ attributes_page_update_cur_attr_item (TablePropDialog * prop_dialog)
   GtkLabel * label;
   gchar * str;
 
-  if (prop_dialog->cur_attr_list_item != NULL)
+  if (prop_dialog && prop_dialog->cur_attr_list_item)
     {
       attr = (TableAttribute *)
         gtk_object_get_user_data (GTK_OBJECT (prop_dialog->cur_attr_list_item));
@@ -885,7 +885,7 @@ attributes_list_selection_changed_cb (GtkWidget * gtklist, Table * table)
    * Thus, we stop it before it gets that bad.  See bug #156706 for
    * one example.
    */
-  if (table->destroyed == TRUE)
+  if (table->destroyed || !table->prop_dialog)
     return;
 
   prop_dialog = table->prop_dialog;
