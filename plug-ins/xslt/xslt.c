@@ -79,7 +79,9 @@ xslt_ok(void)
 	char *params[] = { "directory", NULL, NULL };
 	xsltStylesheetPtr style, codestyle;
 	xmlDocPtr doc, res;
-	gchar *uri = g_filename_to_uri (g_dirname(filename), NULL, NULL);
+        gchar *directory = g_path_get_dirname(filename);
+	gchar *uri = g_filename_to_uri (directory, NULL, NULL);
+	g_free (directory);
 
 	/* strange: requires an uri, but the last char is platform specifc?! */
 	params[1] = g_strconcat("'", uri, G_DIR_SEPARATOR_S, "'", NULL);
@@ -237,7 +239,7 @@ static PluginInitResult read_configuration(const char *config)
 	return DIA_PLUGIN_INIT_ERROR;
     }
     
-    path = g_dirname(config);
+    path = g_path_get_dirname(config);
 
     /* We don't care about the top level element's name */
     
