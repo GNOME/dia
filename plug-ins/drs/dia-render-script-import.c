@@ -26,6 +26,8 @@
 #include "geometry.h"
 #include "color.h"
 #include "diagramdata.h"
+#include "group.h"
+#include "message.h"
 
 #include <libxml/tree.h>
 
@@ -138,6 +140,15 @@ struct _RenderOp {
   void *params[6];
 };
 
+xmlNodePtr
+find_child_named (xmlNodePtr node, const char *name)
+{
+  for (node = node->children; node; node = node->next)
+    if (xmlStrcmp (node->name, (const xmlChar *)name) == 0)
+      return node;
+  return NULL;
+}
+
 /*!
  * Fill a GList* with objects which is to be put in a
  * diagram or a group by the caller. 
@@ -154,7 +165,41 @@ read_items (xmlNodePtr startnode)
       continue;
     if (node->type != XML_ELEMENT_NODE)
       continue;
-    
+    if (!xmlStrcmp(node->name, (const xmlChar *)"object")) {
+      xmlChar *sType = xmlGetProp(node, (const xmlChar *)"type");
+      const DiaObjectType *ot = object_get_type (sType);
+      xmlNodePtr child, props = NULL, render = NULL;
+      
+      props = find_child_named (node, "properties");
+      render = find_child_named (node, "render");
+
+      if (ot && !ot->ops) {
+	GList *moreitems;
+        /* FIXME: 'render' is also the grouping element */
+	moreitems = read_items (render->children);
+	if (moreitems) {
+	  DiaObject *group = group_create (moreitems);
+	    /* group eats list */
+	  items = g_list_append (items, group);
+	}
+      } else if (ot) {
+        Point startpoint = {0.0,0.0};
+        Handle *handle1,*handle2;
+	DiaObject *o;
+
+	o = ot->ops->create(&startpoint, 
+                            ot->default_user_data, 
+			    &handle1,&handle2);
+	if (o) {
+	  object_load_props (o, props);
+	  items = g_list_append (items, o);
+	}
+      } else {
+        g_debug ("DRS: unknown object '%s'", sType);
+      }
+    } else {
+      g_debug ("DRS-Import: %s?", node->name);
+    }
   }
   return items;
 }
@@ -165,13 +210,44 @@ import_drs (const gchar *filename, DiagramData *dia, void* user_data)
 {
   GList *item, *items;
   xmlDocPtr doc = xmlParseFile(filename);
+  xmlNodePtr root, node;
+  Layer *active_layer = NULL;
 
-  items = read_items (doc->xmlChildrenNode);
-  for (item = items; item != NULL; item = g_list_next (item)) {
-    DiaObject *obj = (DiaObject *)item->data;
-    layer_add_object(dia->active_layer, obj);
+  for (node = doc->children; node; node = node->next)
+    if (xmlStrcmp (node->name, (const xmlChar *)"drs") == 0)
+      root = node;
+
+  if (!root || !(root = find_child_named (root, "diagram"))) {
+    message_warning (_("Broken file?"));
+    return FALSE;
   }
-  g_list_free (items);
+
+  for (node = root->children; node != NULL; node = node->next) {
+    if (xmlStrcmp (node->name, (const xmlChar *)"layer") == 0) {
+      xmlChar *str;
+      xmlChar *name = xmlGetProp (node, (const xmlChar *)"name");
+      Layer *layer = new_layer (g_strdup (name ? (gchar *)name : _("Layer")), dia);
+
+      if (name)
+	xmlFree (name);
+
+      str = xmlGetProp (node, "active");
+      if (xmlStrcmp (str, "true")) {
+	  active_layer = layer;
+	xmlFree (str);
+      }
+
+      items = read_items (node->children);
+      for (item = items; item != NULL; item = g_list_next (item)) {
+        DiaObject *obj = (DiaObject *)item->data;
+        layer_add_object(layer, obj);
+      }
+      g_list_free (items);
+      data_add_layer (dia, layer);
+    }
+  }
+  if (active_layer)
+    data_set_active_layer (dia, active_layer);
   xmlFreeDoc(doc);
   return TRUE;
 }

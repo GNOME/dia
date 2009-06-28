@@ -63,10 +63,11 @@
 #include "diagramdata.h"
 #include "dia_xml_libxml.h"
 
+#include "dia-render-script.h"
 #include "dia-render-script-renderer.h"
 
 static void
-drs_render_layer (DiaRenderer *self, Layer *layer)
+drs_render_layer (DiaRenderer *self, Layer *layer, gboolean active)
 {
   DrsRenderer *renderer = DRS_RENDERER (self);
   xmlNodePtr node;
@@ -78,6 +79,8 @@ drs_render_layer (DiaRenderer *self, Layer *layer)
   renderer->root = node = xmlNewChild(renderer->root, NULL, (const xmlChar *)"layer", NULL);
   xmlSetProp(node, (const xmlChar *)"name", (xmlChar *)layer->name);
   xmlSetProp(node, (const xmlChar *)"visible", (xmlChar *)(layer->visible ? "true" : "false"));
+  if (active)
+    xmlSetProp(node, (const xmlChar *)"active", (xmlChar *)"true");
 
   /* Draw all objects: */
   list = layer->objects;
@@ -99,7 +102,7 @@ drs_data_render (DiagramData *data, DiaRenderer *renderer)
   DIA_RENDERER_GET_CLASS(renderer)->begin_render(renderer);
   for (i=0; i<data->layers->len; i++) {
     Layer *layer = (Layer *) g_ptr_array_index(data->layers, i);
-    drs_render_layer (renderer, layer);
+    drs_render_layer (renderer, layer, layer == data->active_layer);
   }
   DIA_RENDERER_GET_CLASS(renderer)->end_render(renderer);
 }
@@ -149,11 +152,29 @@ export_data(DiagramData *data, const gchar *filename,
 }
 
 static const gchar *extensions[] = { "drs", NULL };
-DiaExportFilter export_filter = {
+static DiaExportFilter export_filter = {
   N_("DiaRenderScript"),
   extensions,
   export_data
 };
+static DiaImportFilter import_filter = {
+  N_("DiaRenderScript"),
+  extensions,
+  import_drs
+};
+
+static gboolean
+_plugin_can_unload (PluginInfo *info)
+{
+  return TRUE;
+}
+
+static void
+_plugin_unload (PluginInfo *info)
+{
+  filter_unregister_export(&export_filter);
+  filter_unregister_import(&import_filter);
+}
 
 DIA_PLUGIN_CHECK_INIT
 
@@ -162,10 +183,12 @@ dia_plugin_init(PluginInfo *info)
 {
   if (!dia_plugin_info_init(info, "drs",
 			    N_("DiaRenderScript filter"),
-			    NULL, NULL))
+			    _plugin_can_unload,
+                            _plugin_unload))
     return DIA_PLUGIN_INIT_ERROR;
 
   filter_register_export(&export_filter);
+  filter_register_import(&import_filter);
 
   return DIA_PLUGIN_INIT_OK;
 }
