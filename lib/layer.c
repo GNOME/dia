@@ -94,6 +94,48 @@ layer_render(Layer *layer, DiaRenderer *renderer, Rectangle *update,
   }
 }
 
+/** Create a new layer in this diagram.
+ * @param name Name of the new layer.
+ * @param parent The DiagramData that the layer will belong to,.
+ * @return A new Layer object.
+ * @bug Must determine if a NULL name is ok.
+ * @bug Even though this sets parent diagram, it doesn't call the
+ * update_extents functions that add_layer does.
+ */
+Layer *
+new_layer(gchar *name, DiagramData *parent)
+{
+  Layer *layer;
+
+  layer = g_new(Layer, 1);
+
+  layer->name = name;
+
+  layer->parent_diagram = parent;
+  layer->visible = TRUE;
+  layer->connectable = TRUE;
+
+  layer->objects = NULL;
+
+  layer->extents.left = 0.0; 
+  layer->extents.right = 10.0; 
+  layer->extents.top = 0.0; 
+  layer->extents.bottom = 10.0; 
+  
+  return layer;
+}
+
+/** Destroy a layer object.
+ * @param layer The layer object to deallocate entirely.
+ */
+void
+layer_destroy(Layer *layer)
+{
+  g_free(layer->name);
+  destroy_object_list(layer->objects);
+  g_free(layer);
+}
+
 /** Set the parent layer of an object.
  * @param element A DiaObject that should be part of a layer.
  * @param user_data The layer it should be part of.
@@ -146,9 +188,7 @@ layer_get_name (Layer *layer)
 }
 /** Add an object to the top of a layer.
  * @param layer The layer to add the object to.
- * @param obj The object to add.  This must not already be part of another
- *  layer.
- * @bug This should be in a separate layer.c file.
+ * @param obj The object to add.  This must not already be part of another layer.
  * @bug This should just call layer_add_object_at().
  */
 void
@@ -165,7 +205,6 @@ layer_add_object(Layer *layer, DiaObject *obj)
  * @param layer The layer to add the object to.
  * @param obj The object to add.  This must not be part of another layer.
  * @param pos The top-to-bottom position this object should be inserted at.
- * @bug This should be in a separate layer.c file.
  */
 void
 layer_add_object_at(Layer *layer, DiaObject *obj, int pos)

@@ -186,54 +186,9 @@ diagram_data_class_init(DiagramDataClass *klass)
   klass->object_remove = _diagram_data_object_remove;
 }
 
-/** Create a new layer in this diagram.
- * @param name Name of the new layer.
- * @param parent The DiagramData that the layer will belong to,.
- * @return A new Layer object.
- * @bug Must determine if a NULL name is ok.
- * @bug This belongs in a layers.c file.
- * @bug Even though this sets parent diagram, it doesn't call the
- * update_extents functions that add_layer does.
- */
-Layer *
-new_layer(gchar *name, DiagramData *parent)
-{
-  Layer *layer;
-
-  layer = g_new(Layer, 1);
-
-  layer->name = name;
-
-  layer->parent_diagram = parent;
-  layer->visible = TRUE;
-  layer->connectable = TRUE;
-
-  layer->objects = NULL;
-
-  layer->extents.left = 0.0; 
-  layer->extents.right = 10.0; 
-  layer->extents.top = 0.0; 
-  layer->extents.bottom = 10.0; 
-  
-  return layer;
-}
-
-/** Destroy a layer object.
- * @param layer The layer object to deallocate entirely.
- * @bug This belongs in a layers.c file.
- */
-void
-layer_destroy(Layer *layer)
-{
-  g_free(layer->name);
-  destroy_object_list(layer->objects);
-  g_free(layer);
-}
-
 /** Raise a layer up one in a diagram.
  * @param data The diagram that the layer belongs to.
  * @param layer The layer to raise.
- * @bug The diagram doesn't really need to be passed, as the layer knows it.
  */
 void
 data_raise_layer(DiagramData *data, Layer *layer)
@@ -258,7 +213,6 @@ data_raise_layer(DiagramData *data, Layer *layer)
 /** Lower a layer by one in a diagram.
  * @param data The diagram that the layer belongs to.
  * @param layer The layer to lower.
- * @bug The diagram doesn't really need to be passed, as the layer knows it.
  */
 void
 data_lower_layer(DiagramData *data, Layer *layer)
@@ -345,7 +299,6 @@ data_layer_count(const DiagramData *data)
 /** Set which layer is the active layer in a diagram.
  * @param data The diagram in which to set the active layer.
  * @param layer The layer that should be active.
- * @bug The diagram doesn't really need to be passed, as the layer knows it.
  */
 void
 data_set_active_layer(DiagramData *data, Layer *layer)
@@ -356,7 +309,6 @@ data_set_active_layer(DiagramData *data, Layer *layer)
 /** Delete a layer from a diagram.
  * @param data The diagram to delete the layer from.
  * @param layer The layer to delete.
- * @bug The diagram doesn't really need to be passed, as the layer knows it.
  */
 void
 data_delete_layer(DiagramData *data, Layer *layer)
@@ -379,8 +331,6 @@ data_delete_layer(DiagramData *data, Layer *layer)
  *  objects currently selected in the diagram.
  * @param data The diagram to select in.
  * @param obj The object to select.
- * @bug Does not need to be passed the diagram, as it can be found from the 
- *  object.
  */
 void
 data_select(DiagramData *data, DiaObject *obj)
@@ -395,8 +345,6 @@ data_select(DiagramData *data, DiaObject *obj)
  *  selected after this function is done.
  * @param data The diagram to deselect in.
  * @param obj The object to deselect.
- * @bug Does not need to be passed the diagram, as it can be found from the 
- *  object.
  */
 void
 data_unselect(DiagramData *data, DiaObject *obj)
