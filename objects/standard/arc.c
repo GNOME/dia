@@ -131,7 +131,7 @@ static ObjectOps arc_ops = {
 };
 
 static PropDescription arc_props[] = {
-  OBJECT_COMMON_PROPERTIES,
+  CONNECTION_COMMON_PROPERTIES,
   PROP_STD_LINE_WIDTH,
   PROP_STD_LINE_COLOUR,
   PROP_STD_LINE_STYLE,
@@ -151,7 +151,7 @@ arc_describe_props(Arc *arc)
 }
 
 static PropOffset arc_offsets[] = {
-  OBJECT_COMMON_PROPERTIES_OFFSETS,
+  CONNECTION_COMMON_PROPERTIES_OFFSETS,
   { PROP_STDNAME_LINE_WIDTH, PROP_STDTYPE_LINE_WIDTH, offsetof(Arc, line_width) },
   { "line_colour", PROP_TYPE_COLOUR, offsetof(Arc, arc_color) },
   { "line_style", PROP_TYPE_LINESTYLE,
