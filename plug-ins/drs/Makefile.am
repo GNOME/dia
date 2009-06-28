@@ -1,6 +1,7 @@
 
 plugin_sources = \
 	dia-render-script.c \
+	dia-render-script.h \
 	dia-render-script-import.c \
 	dia-render-script-object.c \
 	dia-render-script-renderer.c \
