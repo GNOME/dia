@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: mr\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=dia&component=general\n"
 "POT-Creation-Date: 2009-06-16 12:26+0000\n"
-"PO-Revision-Date: 2009-06-23 12:08+0530\n"
+"PO-Revision-Date: 2009-06-29 18:23+0530\n"
 "Last-Translator: Sandeep Shedmake <sandeep.shedmake@gmail.com>\n"
 "Language-Team: marathi\n"
 "MIME-Version: 1.0\n"
@@ -5412,7 +5412,7 @@ msgstr ""
 
 #: ../objects/UML/constraint.c:127
 msgid "Constraint:"
-msgstr ""
+msgstr "कंस्ट्रेन्ट:"
 
 #: ../objects/UML/dependency.c:141
 msgid "Show arrow:"
@@ -5430,7 +5430,7 @@ msgstr "कंट्रोलचा केंद्र रेखांकीत 
 
 #: ../objects/UML/lifeline.c:154
 msgid "Draw destruction mark:"
-msgstr ""
+msgstr "destruction चिन्ह रेखाटा:"
 
 #: ../objects/UML/lifeline.c:505
 msgid "Add connection points"
@@ -5474,7 +5474,7 @@ msgstr "सोपे"
 
 #: ../objects/UML/message.c:141
 msgid "Return"
-msgstr ""
+msgstr "पुरवा"
 
 #: ../objects/UML/message.c:142
 msgid "Send"
@@ -5490,11 +5490,11 @@ msgstr "संदेश प्रकार:"
 
 #: ../objects/UML/object.c:155
 msgid "Explicit state"
-msgstr ""
+msgstr "Explicit स्थर"
 
 #: ../objects/UML/object.c:160
 msgid "Active object"
-msgstr "सक्रीय घटक"
+msgstr "Active घटक"
 
 #: ../objects/UML/object.c:162
 msgid "Show attributes"
@@ -5502,11 +5502,11 @@ msgstr "गुणधर्म दाखवा"
 
 #: ../objects/UML/object.c:164
 msgid "Multiple instance"
-msgstr "बहु घटना"
+msgstr "एकापेक्षा जास्त घटना"
 
 #: ../objects/UML/state.c:155
 msgid "Entry action"
-msgstr "प्रवेशीय क्रिया"
+msgstr "प्रवेश क्रिया"
 
 #: ../objects/UML/state.c:156
 msgid "Do action"
@@ -5524,6 +5524,9 @@ msgid ""
 "That option will go away in future versions.\n"
 "Please use the Initial/Final State object instead\n"
 msgstr ""
+"आकृती प्राथमिक/अखेरच्या स्थर करीता State घटकचा वापर करतो.\n"
+"तो पर्याय भविष्यात आढळणार नाही.\n"
+"कृपया त्याऐवजी प्राथमिक/अखेरचे स्थर वापरा\n"
 
 #: ../objects/UML/state_term.c:127
 msgid "Is final"
@@ -5543,15 +5546,15 @@ msgstr "क्रिया"
 
 #: ../objects/UML/transition.c:144
 msgid "Action to perform when this transition is taken"
-msgstr "हे रूपांतर चालत असतेवेळी कार्यान्वीत करण्याजोगी कृती"
+msgstr "हे रूपांतरन चालत असतेवेळी कार्यान्वीतजोगी कृती"
 
 #: ../objects/UML/transition.c:145 ../sheets/cisconetwork.sheet.in.h:43
 msgid "Guard"
-msgstr ""
+msgstr "दक्षता"
 
 #: ../objects/UML/transition.c:146
 msgid "Condition for taking this transition when the event is fired"
-msgstr "घटना फायर केल्यावर हे रूपांतरन कार्यान्वीत करण्याकरीता अट"
+msgstr "घटना सक्रिय केल्यावर ही रूपांतरन कार्यान्वीत करण्याकरीता अट"
 
 #: ../objects/UML/uml.c:66
 msgid "Unified Modelling Language diagram objects UML 1.3"
@@ -5575,7 +5578,7 @@ msgstr "Inheritance प्रकार"
 
 #: ../objects/UML/umloperation.c:75
 msgid "Query (const)"
-msgstr ""
+msgstr "Query (const)"
 
 #: ../objects/UML/umloperation.c:79 ../objects/chronogram/chronoline.c:164
 msgid "Parameters"
@@ -5617,6 +5620,11 @@ msgid ""
 "u duration  sets the signal to \"unknown\" state, then wait 'duration'.\n"
 "example : @ 1.0 (2.0)1.0(2.0)\n"
 msgstr ""
+"@ वेळ    पॉईन्टरला absolute time करीता निश्चित करतो.\n"
+"( duration  संकेतला up असे निश्चित करतो, व त्यानंतर 'duration' करीता प्रतिक्षा करतो.\n"
+") duration  संकेतला down असे निश्चित करतो, व त्यानंतर 'duration' करीता प्रतिक्षा करतो.\n"
+"u duration  संकेतला \"unknown\" स्थर यानुरूप निश्चित करतो, व त्यानंतर 'duration' प्रतिक्षा करतो.\n"
+"उदाहरणार्थ : @ 1.0 (2.0)1.0(2.0)\n"
 
 #: ../objects/chronogram/chronoline.c:166
 #: ../objects/chronogram/chronoref.c:148
@@ -5630,11 +5638,11 @@ msgstr "समाप्ती वेळ"
 
 #: ../objects/chronogram/chronoline.c:170
 msgid "Rise time"
-msgstr ""
+msgstr "चढ वेळ"
 
 #: ../objects/chronogram/chronoline.c:172
 msgid "Fall time"
-msgstr ""
+msgstr "उतार वेळ"
 
 #: ../objects/chronogram/chronoline.c:173
 msgid "Multi-bit data"
@@ -5643,7 +5651,7 @@ msgstr "बहु-बिट डेटा"
 #: ../objects/chronogram/chronoline.c:175
 #: ../objects/chronogram/chronoref.c:158
 msgid "Aspect"
-msgstr ""
+msgstr "एस्पेक्ट"
 
 #: ../objects/chronogram/chronoline.c:177
 msgid "Data color"
@@ -5659,15 +5667,15 @@ msgstr "वेळ डेटा"
 
 #: ../objects/chronogram/chronoref.c:152
 msgid "Major time step"
-msgstr ""
+msgstr "मुख्य time step"
 
 #: ../objects/chronogram/chronoref.c:154
 msgid "Minor time step"
-msgstr ""
+msgstr "किर्कोळ time step"
 
 #: ../objects/chronogram/chronoref.c:164
 msgid "Minor step line width"
-msgstr ""
+msgstr "किर्कोळ step ओळ रूंदी"
 
 #: ../objects/custom/custom.c:140
 msgid "Custom"
@@ -5705,7 +5713,7 @@ msgstr "चिन्ह फाइल %s उघडणे अशक्य, घट�
 
 #: ../objects/custom_lines/custom_lines.c:160
 msgid "CustomLines"
-msgstr ""
+msgstr "CustomLines"
 
 #: ../objects/custom_lines/custom_lines.c:160
 msgid "Custom XML lines loader"
@@ -5713,12 +5721,12 @@ msgstr "स्वपसंत XML ओळ दाखलकर्ता"
 
 #: ../objects/custom_lines/custom_linetypes.c:226
 msgid "INTERNAL: CustomLines: Illegal line type in LineInfo object."
-msgstr ""
+msgstr "INTERNAL: CustomLines: LineInfo मधिल Illegal ओळ प्रकार."
 
 #: ../objects/custom_lines/custom_linetypes.c:251
 #, c-format
 msgid "INTERNAL: CustomLines: Illegal line type in LineInfo object %s."
-msgstr ""
+msgstr "INTERNAL: CustomLines: LineInfo घटक %s मधिल Illegal ओळ प्रकार."
 
 #: ../objects/custom/shape_info.c:162
 #, c-format
@@ -5735,15 +5743,15 @@ msgstr "Flowchart घटक"
 
 #: ../objects/flowchart/parallelogram.c:154
 msgid "Shear angle"
-msgstr ""
+msgstr "Shear angle"
 
 #: ../objects/network/basestation.c:137
 msgid "Sectors"
-msgstr ""
+msgstr "सेक्टर"
 
 #: ../objects/network/basestation.c:401 ../objects/network/basestation.c:403
 msgid "Base Station"
-msgstr ""
+msgstr "Base Station"
 
 #: ../objects/network/network.c:43
 msgid "Network diagram objects"
@@ -5778,7 +5786,7 @@ msgstr ""
 
 #: ../objects/standard/bezier.c:731 ../objects/standard/beziergon.c:495
 msgid "Add Segment"
-msgstr ""
+msgstr "खंड समावेष करा"
 
 #: ../objects/standard/bezier.c:732 ../objects/standard/beziergon.c:496
 msgid "Delete Segment"
@@ -5786,43 +5794,43 @@ msgstr "खंड नष्ट करा"
 
 #: ../objects/standard/bezier.c:734 ../objects/standard/beziergon.c:498
 msgid "Symmetric control"
-msgstr ""
+msgstr "समप्रमाण नियंत्रण"
 
 #: ../objects/standard/bezier.c:736 ../objects/standard/beziergon.c:500
 msgid "Smooth control"
-msgstr ""
+msgstr "गुळगुळीत नियंत्रण"
 
 #: ../objects/standard/bezier.c:738 ../objects/standard/beziergon.c:502
 msgid "Cusp control"
-msgstr ""
+msgstr "Cusp नियंत्रण"
 
 #: ../objects/standard/box.c:139 ../objects/standard/ellipse.c:133
 msgid "Free"
-msgstr ""
+msgstr "Free"
 
 #: ../objects/standard/box.c:140 ../objects/standard/ellipse.c:134
 msgid "Fixed"
-msgstr "ठराविक"
+msgstr "Fixed"
 
 #: ../objects/standard/box.c:141 ../objects/standard/box.c:699
 msgid "Square"
-msgstr "चौरस"
+msgstr "Square"
 
 #: ../objects/standard/box.c:154 ../objects/standard/ellipse.c:146
 msgid "Aspect ratio"
-msgstr "एस्पेक्ट गुणोत्तर"
+msgstr "Aspect ratio"
 
 #: ../objects/standard/box.c:695 ../objects/standard/ellipse.c:673
 msgid "Free aspect"
-msgstr ""
+msgstr "Free aspect"
 
 #: ../objects/standard/box.c:697 ../objects/standard/ellipse.c:675
 msgid "Fixed aspect"
-msgstr ""
+msgstr "Fixed aspect"
 
 #: ../objects/standard/ellipse.c:135 ../objects/standard/ellipse.c:677
 msgid "Circle"
-msgstr ""
+msgstr "गोलाकार"
 
 #: ../objects/standard/image.c:139
 msgid "Image file"
@@ -5830,11 +5838,11 @@ msgstr "प्रतिमा फाइल"
 
 #: ../objects/standard/image.c:141
 msgid "Draw border"
-msgstr ""
+msgstr "किनार रेखाटा"
 
 #: ../objects/standard/image.c:143
 msgid "Keep aspect ratio"
-msgstr ""
+msgstr "aspect ratio निश्चित करा"
 
 #. Found file in same dir as diagram.
 #. Found file in current dir.
@@ -5901,7 +5909,7 @@ msgstr "दृष्य बदल पॉईन्टर"
 #: ../plug-ins/cairo/diacairo-interactive.c:270
 #: ../plug-ins/cairo/diacairo-interactive.c:271
 msgid "Visible rect pointer"
-msgstr ""
+msgstr "दृष्यास्पद rect पॉईन्टर"
 
 #: ../plug-ins/cairo/diacairo.c:129
 #, c-format
@@ -6063,7 +6071,7 @@ msgstr "रेन्डरअर रूपांतर"
 
 #: ../plug-ins/libart/dialibartrenderer.c:1477
 msgid "Transform pointer"
-msgstr ""
+msgstr "ट्रान्सफार्म पाईन्टर"
 
 #: ../plug-ins/metapost/metapost.c:46
 msgid "TeX Metapost export filter"
@@ -6177,7 +6185,7 @@ msgstr "Python स्क्रिप्टींग समर्थन"
 
 #: ../plug-ins/shape/shape-export.c:474
 msgid "Shape files must end in .shape, or they cannot be loaded by Dia"
-msgstr ""
+msgstr "Shape फाइल .shape नुरूप समाप्त व्हायला हवे, किंवा ते Dia द्वारे दाखल करणे अशक्य आहे"
 
 #: ../plug-ins/shape/shape-export.c:485
 msgid "Can't export png without libart!"
@@ -6358,11 +6366,11 @@ msgstr "रेष शैली %d दृष्यास्पद होणे �
 #: ../plug-ins/xfig/xfig-import.c:238
 #, c-format
 msgid "Error while reading %dth of %d points: %s\n"
-msgstr ""
+msgstr "%2$d पॉईन्ट पैकी %1$d वाचतेवेळी त्रुटी: %3$s\n"
 
 #: ../plug-ins/xfig/xfig-import.c:266
 msgid "Error while reading arrowhead\n"
-msgstr ""
+msgstr "arrowhead वाचतेवेळी त्रुटी\n"
 
 #: ../plug-ins/xfig/xfig-import.c:288
 #, c-format
@@ -6377,12 +6385,12 @@ msgstr ""
 #: ../plug-ins/xfig/xfig-import.c:426
 #, c-format
 msgid "Couldn't read ellipse info: %s\n"
-msgstr ""
+msgstr "अंडाकार माहिती वाचणे अशक्य: %s\n"
 
 #: ../plug-ins/xfig/xfig-import.c:494
 #, c-format
 msgid "Couldn't read polyline info: %s\n"
-msgstr ""
+msgstr "polyline माहिती वाचतेवेळी त्रुटी: %s\n"
 
 #: ../plug-ins/xfig/xfig-import.c:509
 #, c-format
