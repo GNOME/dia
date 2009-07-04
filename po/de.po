@@ -4367,7 +4367,7 @@ msgstr "Verbindungspunkt hinzufügen"
 #: ../objects/KAOS/other.c:528 ../objects/SADT/box.c:450
 #: ../objects/standard/line.c:224
 msgid "Delete connection point"
-msgstr "Verbindungspunkt hinzufügen"
+msgstr "Verbindungspunkt entfernen"
 
 #: ../objects/GRAFCET/vergent.c:412
 msgid "GRAFCET OR/AND vergent"
