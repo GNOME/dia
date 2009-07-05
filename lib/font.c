@@ -83,8 +83,9 @@ dia_font_check_for_font(int font)
   if (!loaded) {
     message_error(_("Can't load font %s.\n"), dia_font_get_family(check));
   } else {
-    g_object_unref (loaded);
+    g_object_unref(loaded);
   }
+  dia_font_unref(check);
 }
 
 void
@@ -104,7 +105,6 @@ static GList *pango_contexts = NULL;
 void
 dia_font_push_context(PangoContext *pcontext) 
 {
-  dia_font_init (pcontext); /* not needed, just testing */
   pango_contexts = g_list_prepend(pango_contexts, pango_context);
   pango_context = pcontext;
   pango_context_set_language (pango_context, gtk_get_default_language ());
