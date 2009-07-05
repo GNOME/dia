@@ -1777,8 +1777,8 @@ custom_flip_v_callback (DiaObject *obj, Point *clicked, gpointer data)
 }
 
 static DiaMenuItem custom_menu_items[] = {
-  { N_("Flip Horizontal"), custom_flip_h_callback, NULL, 1 },
-  { N_("Flip Vertical"), custom_flip_v_callback, NULL, 1 },
+  { N_("Flip horizontal"), custom_flip_h_callback, NULL, 1 },
+  { N_("Flip vertical"), custom_flip_v_callback, NULL, 1 },
 };
 
 static DiaMenu custom_menu = {

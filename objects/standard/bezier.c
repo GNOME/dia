@@ -728,8 +728,8 @@ bezierline_set_corner_type_callback (DiaObject *obj, Point *clicked, gpointer da
 }
 
 static DiaMenuItem bezierline_menu_items[] = {
-  { N_("Add Segment"), bezierline_add_segment_callback, NULL, 1 },
-  { N_("Delete Segment"), bezierline_delete_segment_callback, NULL, 1 },
+  { N_("Add segment"), bezierline_add_segment_callback, NULL, 1 },
+  { N_("Delete segment"), bezierline_delete_segment_callback, NULL, 1 },
   { NULL, NULL, NULL, 1 },
   { N_("Symmetric control"), bezierline_set_corner_type_callback, 
     GINT_TO_POINTER(BEZ_CORNER_SYMMETRIC), 1 },
