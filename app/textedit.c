@@ -204,7 +204,7 @@ textedit_activate_focus(DDisplay *ddisp, Focus *focus, Point *clicked)
     textedit_end_edit(ddisp, old_focus);
   }
   if (clicked) {
-      text_set_cursor((Text*)focus->user_data, clicked, ddisp->renderer);
+      text_set_cursor(focus->text, clicked, ddisp->renderer);
   }
   textedit_begin_edit(ddisp, focus);
   give_focus(focus);
@@ -230,7 +230,7 @@ textedit_activate_object(DDisplay *ddisp, DiaObject *obj, Point *clicked)
     }
     give_focus(new_focus); 
     if (clicked) {
-      text_set_cursor((Text*)new_focus->user_data, clicked, ddisp->renderer);
+      text_set_cursor(new_focus->text, clicked, ddisp->renderer);
     }
     textedit_begin_edit(ddisp, new_focus);
     diagram_flush(ddisp->diagram);

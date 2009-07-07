@@ -291,7 +291,6 @@ new_text(const char *string, DiaFont *font, real height,
   
   text->focus.obj = NULL;
   text->focus.has_focus = FALSE;
-  text->focus.user_data = (void *)text;
   text->focus.key_event = text_key_event;
   text->focus.text = text;
   
@@ -329,7 +328,6 @@ text_copy(Text *text)
   copy->cursor_row = 0;
   copy->focus.obj = NULL;
   copy->focus.has_focus = FALSE;
-  copy->focus.user_data = (void *)copy;
   copy->focus.key_event = text_key_event;
   copy->focus.text = copy;
   
@@ -852,7 +850,7 @@ text_delete_key_handler(Focus *focus, ObjectChange ** change)
   const char *utf;
   gunichar c;
 
-  text = (Text *)focus->user_data;
+  text = focus->text;
   row = text->cursor_row;
   if (text->cursor_pos >= text_get_line_strlen(text, row)) {
     if (row+1 < text->numlines) {
@@ -887,7 +885,7 @@ text_key_event(Focus *focus,
 
   *change = NULL;
   
-  text = (Text *)focus->user_data;
+  text = focus->text;
 
   switch(keyval) {
       case GDK_Up:

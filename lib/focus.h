@@ -24,7 +24,6 @@ struct _Focus {
   DiaObject *obj;
   Text *text;
   int has_focus;
-  void *user_data; /* To be used by the object using this focus (eg. Text) */
 
   /* return TRUE if modified object.
      Set change if object is changed. */

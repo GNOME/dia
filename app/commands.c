@@ -504,7 +504,6 @@ edit_cut_text_callback (GtkAction *action)
   Focus *focus;
   DDisplay *ddisp;
   DiaObject *obj;
-  Text *text;
   GPtrArray *textprops;
   TextProperty *prop;
   ObjectChange *change;
@@ -516,7 +515,6 @@ edit_cut_text_callback (GtkAction *action)
   if ((focus == NULL) || (!focus->has_focus)) return;
 
   obj = focus_get_object(focus);
-  text = (Text*)focus->user_data;
 
   if (obj->ops->get_props == NULL) 
     return;
@@ -538,7 +536,7 @@ edit_cut_text_callback (GtkAction *action)
 
   prop_list_free(textprops);
 
-  if (text_delete_all(text, &change)) { 
+  if (text_delete_all(focus->text, &change)) { 
     object_add_updates(obj, ddisp->diagram);
     undo_object_change(ddisp->diagram, obj, change);
     undo_set_transactionpoint(ddisp->diagram->undo);
