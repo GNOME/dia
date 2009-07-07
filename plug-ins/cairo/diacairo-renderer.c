@@ -559,6 +559,9 @@ _ellipse(DiaRenderer *self,
   
 #if 1
   cairo_save (renderer->cr);
+  /* don't create a line from the current point to the beginning 
+   * of the ellipse */
+  cairo_new_sub_path (renderer->cr);
   /* copied straight from cairo's documentation, and fixed the bug there */
   cairo_translate (renderer->cr, center->x, center->y);
   cairo_scale (renderer->cr, width / 2., height / 2.);
