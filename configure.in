@@ -61,7 +61,7 @@ PKG_CHECK_MODULES(PANGOVERSION, pango >= 1.8.0, ,
 
 AC_ARG_WITH(freetype,
 [  --without-freetype        compile without FreeType support],,with_freetype=yes)
-if test "x$with_freetype" == "xyes"; then
+if test "x$with_freetype" = "xyes"; then
 PKG_CHECK_MODULES(PANGOFT2,pangoft2,have_pangoft2=true,have_pangoft2=false)
 if test "$have_pangoft2" = "true"; then
   dnl On Solaris with Forte C, at least, need to link app/dia with -lfreetype.
@@ -147,7 +147,7 @@ AM_CONDITIONAL(WITH_CAIRO, test "x$with_cairo" != "xno")
 
 dnl with gtk+ >= 2.8 this is no longer optional
 PKG_CHECK_MODULES(PANGOCAIRO,pangocairo, pangocairo_ok=yes, pangocairo_ok=no)
-if test "x$pangocairo_ok" == "xyes"; then
+if test "x$pangocairo_ok" = "xyes"; then
   AC_DEFINE(HAVE_PANGOCAIRO_H,1,[Defined to render text with pangocairo not cairos toy API])
 fi
 
@@ -296,7 +296,7 @@ AC_SUBST(GETTEXT_PACKAGE)
 AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE,"$GETTEXT_PACKAGE",[Needed for glib gettext])
 
 AC_CHECK_PROG(XGETTEXT, xgettext, xgettext, none)
-if test "$XGETTEXT" == none ; then
+if test "$XGETTEXT" = none ; then
    AC_MSG_ERROR([xgettext program not found: $XGETTEXT.])
 fi
 
@@ -523,14 +523,14 @@ dnl
 dnl use jw only if we don't find dblatex
 dnl
 AC_PATH_PROG(JW,jw,no)
-if  test "x$dblatex" == "xno"; then
+if  test "x$dblatex" = "xno"; then
  AM_CONDITIONAL(WITH_JW, test "x$jw" != "xno")	
 else
  AM_CONDITIONAL(WITH_JW, test "xno" != "xno")
 fi
 hardbook_ok=no
 xsltproc_ok=no
-if test "x$with_hardbooks" == "xno"; then
+if test "x$with_hardbooks" = "xno"; then
   AM_CONDITIONAL(WITH_JW, test "xno" != "xno")
   AM_CONDITIONAL(WITH_HTMLDOC, test "xno" != "xno")
   AM_CONDITIONAL(WITH_PDFDOC, test "xno" != "xno")
