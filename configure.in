@@ -212,23 +212,35 @@ AC_SUBST(PNG_LIBS)
 LIBS="${old_LIBS} ${PNG_LIBS}"
 
 dnl check for libEMF to provide Windows Metafile plug-in on Linux
-old_CPPFLAGS="${CPPFLAGS}"
-old_CFLAGS="${CFLAGS}"
-old_LIBS="${LIBS}"
-CPPFLAGS="${CPPFLAGS} -I /usr/include/libEMF"
-AC_CHECK_HEADER(emf.h, emf_ok=yes, emf_ok=no)
-AC_CHECK_LIB(EMF, CreateEnhMetaFileWithFILEW, , emf_ok=no, -lstdc++)
-if test "$emf_ok" = yes; then
-  LIBEMF_CFLAGS='-I /usr/include/libEMF'
-  LIBEMF_LIBS='-lEMF -lstdc++'
-  AC_DEFINE(HAVE_LIBEMF,1,[libEMF library available])
+AC_ARG_ENABLE([libemf],
+	AS_HELP_STRING([--enable-libemf], [enable plugin for windows metafile support]),
+	,
+	enable_libemf=yes)
+
+if test "$enable_libemf" = "yes"; then
+	old_CPPFLAGS="${CPPFLAGS}"
+	old_CFLAGS="${CFLAGS}"
+	old_LIBS="${LIBS}"
+
+	CPPFLAGS="${CPPFLAGS} -I /usr/include/libEMF"
+	AC_CHECK_HEADER(emf.h, emf_ok=yes, emf_ok=no)
+	AC_CHECK_LIB(EMF, CreateEnhMetaFileWithFILEW, , emf_ok=no, -lstdc++)
+
+	if test "$emf_ok" = yes; then
+		LIBEMF_CFLAGS='-I /usr/include/libEMF'
+		LIBEMF_LIBS='-lEMF -lstdc++'
+		AC_DEFINE(HAVE_LIBEMF,1,[libEMF library available])
+	fi
+
+	CPPFLAGS="${old_CPPFLAGS}"
+	CFLAGS="${old_CFLAGS}"
+	LIBS="${old_LIBS}"
+else
+	emf_ok=no
 fi
 AC_SUBST(LIBEMF_CFLAGS)
 AC_SUBST(LIBEMF_LIBS)
 AM_CONDITIONAL(WITH_LIBEMF, test "$emf_ok" = yes)
-CPPFLAGS="${old_CPPFLAGS}"
-CFLAGS="${old_CFLAGS}"
-LIBS="${old_LIBS}"
 
 dnl
 dnl Debugging
