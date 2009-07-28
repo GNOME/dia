@@ -594,7 +594,7 @@ layer_dialog_raise_callback(GtkWidget *widget, gpointer gdata)
       
       list = g_list_prepend(list, selected);
 
-      gtk_widget_ref(selected);
+      g_object_ref(selected);
       
       gtk_list_remove_items(GTK_LIST(layer_dialog->layer_list),
 			    list);
@@ -639,7 +639,7 @@ layer_dialog_lower_callback(GtkWidget *widget, gpointer gdata)
       
       list = g_list_prepend(list, selected);
 
-      gtk_widget_ref(selected);
+      g_object_ref(selected);
       
       gtk_list_remove_items(GTK_LIST(layer_dialog->layer_list),
 			    list);

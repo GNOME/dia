@@ -880,7 +880,7 @@ attributes_list_move_up_callback(GtkWidget *button,
     if (i>0)
       i--;
 
-    gtk_widget_ref(list_item);
+    g_object_ref(list_item);
     list = g_list_prepend(NULL, list_item);
     gtk_list_remove_items(gtklist, list);
     gtk_list_insert_items(gtklist, list, i);
@@ -911,7 +911,7 @@ attributes_list_move_down_callback(GtkWidget *button,
       i++;
 
     
-    gtk_widget_ref(list_item);
+    g_object_ref(list_item);
     list = g_list_prepend(NULL, list_item);
     gtk_list_remove_items(gtklist, list);
     gtk_list_insert_items(gtklist, list, i);
@@ -1478,7 +1478,7 @@ parameters_list_move_up_callback(GtkWidget *button,
 					   i);
 
     /* Move parameter in gtk list: */
-    gtk_widget_ref(list_item);
+    g_object_ref(list_item);
     list = g_list_prepend(NULL, list_item);
     gtk_list_remove_items(gtklist, list);
     gtk_list_insert_items(gtklist, list, i);
@@ -1525,7 +1525,7 @@ parameters_list_move_down_callback(GtkWidget *button,
 					   i);
 
     /* Move parameter in gtk list: */
-    gtk_widget_ref(list_item);
+    g_object_ref(list_item);
     list = g_list_prepend(NULL, list_item);
     gtk_list_remove_items(gtklist, list);
     gtk_list_insert_items(gtklist, list, i);
@@ -1819,7 +1819,7 @@ operations_list_move_up_callback(GtkWidget *button,
     if (i>0)
       i--;
 
-    gtk_widget_ref(list_item);
+    g_object_ref(list_item);
     list = g_list_prepend(NULL, list_item);
     gtk_list_remove_items(gtklist, list);
     gtk_list_insert_items(gtklist, list, i);
@@ -1850,7 +1850,7 @@ operations_list_move_down_callback(GtkWidget *button,
     if (i<(g_list_length(gtklist->children)-1))
       i++;
 
-    gtk_widget_ref(list_item);
+    g_object_ref(list_item);
     list = g_list_prepend(NULL, list_item);
     gtk_list_remove_items(gtklist, list);
     gtk_list_insert_items(gtklist, list, i);
@@ -2620,7 +2620,7 @@ templates_list_move_up_callback(GtkWidget *button,
     if (i>0)
       i--;
 
-    gtk_widget_ref(list_item);
+    g_object_ref(list_item);
     list = g_list_prepend(NULL, list_item);
     gtk_list_remove_items(gtklist, list);
     gtk_list_insert_items(gtklist, list, i);
@@ -2650,7 +2650,7 @@ templates_list_move_down_callback(GtkWidget *button,
     if (i<(g_list_length(gtklist->children)-1))
       i++;
 
-    gtk_widget_ref(list_item);
+    g_object_ref(list_item);
     list = g_list_prepend(NULL, list_item);
     gtk_list_remove_items(gtklist, list);
     gtk_list_insert_items(gtklist, list, i);

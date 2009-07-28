@@ -1629,7 +1629,7 @@ create_integrated_ui (void)
   window = gnome_app_new ("Dia", _("Diagram Editor"));
 #else
   window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-  gtk_widget_ref (window);
+  g_object_ref (window);
   gtk_window_set_title (GTK_WINDOW (window), "Dia v" VERSION);
 #endif
 
@@ -1753,7 +1753,7 @@ create_toolbox ()
   window = gnome_app_new ("Dia", _("Diagram Editor"));
 #else
   window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-  gtk_widget_ref (window);
+  g_object_ref(window);
   gtk_window_set_title (GTK_WINDOW (window), "Dia v" VERSION);
 #endif
   gtk_window_set_role (GTK_WINDOW (window), "toolbox_window");

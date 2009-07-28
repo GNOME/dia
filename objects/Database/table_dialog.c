@@ -1242,7 +1242,7 @@ attributes_list_moveup_button_clicked_cb (GtkWidget * button, Table * table)
         {
           i--;
 
-          gtk_widget_ref (list_item);
+          g_object_ref (list_item);
           list = g_list_prepend (NULL, list_item);
           gtk_list_remove_items (gtklist, list);
           gtk_list_insert_items (gtklist, list, i);
@@ -1274,7 +1274,7 @@ attributes_list_movedown_button_clicked_cb (GtkWidget * button, Table * table)
         {
           i++;
 
-          gtk_widget_ref (list_item);
+          g_object_ref (list_item);
           list = g_list_prepend (NULL, list_item);
           gtk_list_remove_items (gtklist, list);
           gtk_list_insert_items (gtklist, list, i);

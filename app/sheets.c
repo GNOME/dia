@@ -282,7 +282,7 @@ sheets_dialog_create(void)
   if (wrapbox)
     gtk_container_remove(GTK_CONTAINER(sw), wrapbox);
   wrapbox = gtk_hwrap_box_new(FALSE);
-  gtk_widget_ref(wrapbox);
+  g_object_ref(wrapbox);
   g_object_set_data(G_OBJECT(sheets_dialog), "wrapbox_right", wrapbox);
   gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(sw), wrapbox);
   gtk_wrap_box_set_justify(GTK_WRAP_BOX(wrapbox), GTK_JUSTIFY_TOP);
@@ -298,7 +298,7 @@ sheets_dialog_create(void)
   if (wrapbox)
     gtk_container_remove(GTK_CONTAINER(sw), wrapbox);
   wrapbox = gtk_hwrap_box_new(FALSE);
-  gtk_widget_ref(wrapbox);
+  g_object_ref(wrapbox);
   g_object_set_data(G_OBJECT(sheets_dialog), "wrapbox_left", wrapbox);
   gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(sw), wrapbox);
   gtk_wrap_box_set_justify(GTK_WRAP_BOX(wrapbox), GTK_JUSTIFY_TOP);
