@@ -265,7 +265,7 @@ sheets_dialog_wrapbox_add_line_break(GtkWidget *wrapbox)
 
   gtk_object_set_data(GTK_OBJECT(button), "sheet_mod", sm);
 
-  radio_group = gtk_radio_button_group(GTK_RADIO_BUTTON(button));
+  radio_group = gtk_radio_button_get_group(GTK_RADIO_BUTTON(button));
 
   gtk_toggle_button_set_mode(GTK_TOGGLE_BUTTON(button), FALSE);
   gtk_container_set_border_width(GTK_CONTAINER(button), 0);
@@ -322,7 +322,7 @@ sheets_dialog_create_object_button(SheetObjectMod *som, SheetMod *sm,
   GtkWidget *gtkpixmap;
 
   button = gtk_radio_button_new(radio_group);
-  radio_group = gtk_radio_button_group(GTK_RADIO_BUTTON(button));
+  radio_group = gtk_radio_button_get_group(GTK_RADIO_BUTTON(button));
 
   gtk_toggle_button_set_mode(GTK_TOGGLE_BUTTON(button), FALSE);
   gtk_container_set_border_width(GTK_CONTAINER(button), 0);
@@ -372,7 +372,7 @@ on_sheets_dialog_optionmenu_activate   (GtkMenuItem     *menuitem,
   else
   {
     hidden_button = gtk_radio_button_new(radio_group);
-    radio_group = gtk_radio_button_group(GTK_RADIO_BUTTON(hidden_button));
+    radio_group = gtk_radio_button_get_group(GTK_RADIO_BUTTON(hidden_button));
   }
 
   g_signal_connect(GTK_OBJECT(hidden_button), "toggled",
@@ -392,7 +392,7 @@ on_sheets_dialog_optionmenu_activate   (GtkMenuItem     *menuitem,
   gtk_container_foreach(GTK_CONTAINER(wrapbox),
                         (GtkCallback)gtk_widget_destroy, NULL);
 
-  radio_group = gtk_radio_button_group(GTK_RADIO_BUTTON(hidden_button));
+  radio_group = gtk_radio_button_get_group(GTK_RADIO_BUTTON(hidden_button));
 
   gtk_wrap_box_set_aspect_ratio(GTK_WRAP_BOX(wrapbox), 4 * 1.0 / 9);
                                                 /* MCNFIXME: calculate this */
@@ -541,8 +541,8 @@ sheets_dialog_normalize_line_breaks(GtkWidget *wrapbox, SheetsDialogMoveDir dir)
           iter_list = g_list_previous(iter_list);
           gtk_widget_destroy(GTK_WIDGET(iter_list->data));
           iter_list = g_list_next(iter_list);
-          radio_group = gtk_radio_button_group(GTK_RADIO_BUTTON(iter_list
-                                                                       ->data));
+          radio_group = gtk_radio_button_get_group(GTK_RADIO_BUTTON(iter_list
+                                                                      ->data));
         }
         else
         {
@@ -550,8 +550,8 @@ sheets_dialog_normalize_line_breaks(GtkWidget *wrapbox, SheetsDialogMoveDir dir)
 
           tmp_list = g_list_previous(iter_list);
           gtk_widget_destroy(GTK_WIDGET(iter_list->data));
-          radio_group = gtk_radio_button_group(GTK_RADIO_BUTTON(tmp_list
-                                                                       ->data));
+          radio_group = gtk_radio_button_get_group(GTK_RADIO_BUTTON(tmp_list
+                                                                      ->data));
         }
       }
       else
@@ -569,8 +569,8 @@ sheets_dialog_normalize_line_breaks(GtkWidget *wrapbox, SheetsDialogMoveDir dir)
     if (g_list_previous(iter_list))
     {
       gtk_toggle_button_set_active(g_list_previous(iter_list)->data, TRUE);
-      radio_group = gtk_radio_button_group(GTK_RADIO_BUTTON(
-                                             g_list_previous(iter_list)->data));
+      radio_group = gtk_radio_button_get_group(GTK_RADIO_BUTTON(
+                                            g_list_previous(iter_list)->data));
     }
   }
 
@@ -1313,7 +1313,7 @@ on_sheets_remove_dialog_button_ok_clicked
     new_active_button = sheets_dialog_set_new_active_button();
 
     gtk_widget_destroy(active_button);
-    radio_group = gtk_radio_button_group(GTK_RADIO_BUTTON(new_active_button));
+    radio_group = gtk_radio_button_get_group(GTK_RADIO_BUTTON(new_active_button));
 
     sheets_dialog_normalize_line_breaks(wrapbox, SHEETS_DIALOG_MOVE_NONE);
     break;
@@ -1565,7 +1565,7 @@ on_sheets_dialog_button_move_clicked   (GtkButton       *button,
   new_active_button = sheets_dialog_set_new_active_button();
 
   gtk_widget_destroy(active_button);
-  radio_group = gtk_radio_button_group(GTK_RADIO_BUTTON(new_active_button));
+  radio_group = gtk_radio_button_get_group(GTK_RADIO_BUTTON(new_active_button));
 
   sheets_dialog_normalize_line_breaks(wrapbox, SHEETS_DIALOG_MOVE_NONE);
 }
