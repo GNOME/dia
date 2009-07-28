@@ -162,7 +162,7 @@ sheets_optionmenu_create(GtkWidget *option_menu, GtkWidget *wrapbox,
 
     gtk_widget_show(menu_item);
 
-    gtk_object_set_data(GTK_OBJECT(menu_item), "wrapbox", wrapbox);
+    g_object_set_data(G_OBJECT(menu_item), "wrapbox", wrapbox);
 
     g_signal_connect(GTK_OBJECT(menu_item), "activate",
 		     G_CALLBACK(on_sheets_dialog_optionmenu_activate),
@@ -283,12 +283,12 @@ sheets_dialog_create(void)
     gtk_container_remove(GTK_CONTAINER(sw), wrapbox);
   wrapbox = gtk_hwrap_box_new(FALSE);
   gtk_widget_ref(wrapbox);
-  gtk_object_set_data(GTK_OBJECT(sheets_dialog), "wrapbox_right", wrapbox);
+  g_object_set_data(G_OBJECT(sheets_dialog), "wrapbox_right", wrapbox);
   gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(sw), wrapbox);
   gtk_wrap_box_set_justify(GTK_WRAP_BOX(wrapbox), GTK_JUSTIFY_TOP);
   gtk_wrap_box_set_line_justify(GTK_WRAP_BOX(wrapbox), GTK_JUSTIFY_LEFT);
   gtk_widget_show(wrapbox);
-  gtk_object_set_data(GTK_OBJECT(wrapbox), "is_left", FALSE);
+  g_object_set_data(G_OBJECT(wrapbox), "is_left", FALSE);
   option_menu = lookup_widget(sheets_dialog, "optionmenu_right");
   sheets_optionmenu_create(option_menu, wrapbox, sheet_right);
 
@@ -299,12 +299,12 @@ sheets_dialog_create(void)
     gtk_container_remove(GTK_CONTAINER(sw), wrapbox);
   wrapbox = gtk_hwrap_box_new(FALSE);
   gtk_widget_ref(wrapbox);
-  gtk_object_set_data(GTK_OBJECT(sheets_dialog), "wrapbox_left", wrapbox);
+  g_object_set_data(G_OBJECT(sheets_dialog), "wrapbox_left", wrapbox);
   gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(sw), wrapbox);
   gtk_wrap_box_set_justify(GTK_WRAP_BOX(wrapbox), GTK_JUSTIFY_TOP);
   gtk_wrap_box_set_line_justify(GTK_WRAP_BOX(wrapbox), GTK_JUSTIFY_LEFT);
   gtk_widget_show(wrapbox);
-  gtk_object_set_data(GTK_OBJECT(wrapbox), "is_left", (gpointer)TRUE);
+  g_object_set_data(G_OBJECT(wrapbox), "is_left", (gpointer)TRUE);
   option_menu = lookup_widget(sheets_dialog, "optionmenu_left");
   sheets_optionmenu_create(option_menu, wrapbox, sheet_left);
 

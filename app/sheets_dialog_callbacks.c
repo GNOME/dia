@@ -140,12 +140,12 @@ on_sheets_dialog_object_button_toggled(GtkToggleButton *togglebutton,
 
   /* We remember the active button so we don't have to search for it later */
 
-  gtk_object_set_data(GTK_OBJECT(ud_wrapbox), "active_button", togglebutton);
+  g_object_set_data(G_OBJECT(ud_wrapbox), "active_button", togglebutton);
 
   /* Same with the active wrapbox */
 
   table_sheets = lookup_widget(sheets_dialog, "table_sheets");
-  gtk_object_set_data(GTK_OBJECT(table_sheets), "active_wrapbox", ud_wrapbox);
+  g_object_set_data(G_OBJECT(table_sheets), "active_wrapbox", ud_wrapbox);
 
   optionmenu_left = lookup_widget(sheets_dialog, "optionmenu_left");
   sheet_left = gtk_object_get_data(GTK_OBJECT(optionmenu_left),
@@ -157,8 +157,8 @@ on_sheets_dialog_object_button_toggled(GtkToggleButton *togglebutton,
 
   if ((gboolean)gtk_object_get_data(GTK_OBJECT(ud_wrapbox), "is_left") ==TRUE)
   {
-    gtk_object_set_data(GTK_OBJECT(table_sheets), "active_optionmenu",
-                        optionmenu_left);
+    g_object_set_data(G_OBJECT(table_sheets), "active_optionmenu",
+                      optionmenu_left);
     button = lookup_widget(sheets_dialog, "button_copy");
     gtk_object_set(GTK_OBJECT(button), "label", _("Copy ->"), NULL);
     button = lookup_widget(sheets_dialog, "button_copy_all");
@@ -170,8 +170,8 @@ on_sheets_dialog_object_button_toggled(GtkToggleButton *togglebutton,
   }
   else
   {
-    gtk_object_set_data(GTK_OBJECT(table_sheets), "active_optionmenu",
-                        optionmenu_right);
+    g_object_set_data(G_OBJECT(table_sheets), "active_optionmenu",
+                      optionmenu_right);
     button = lookup_widget(sheets_dialog, "button_copy");
     gtk_object_set(GTK_OBJECT(button), "label", _("<- Copy"), NULL);
     button = lookup_widget(sheets_dialog, "button_copy_all");
@@ -263,7 +263,7 @@ sheets_dialog_wrapbox_add_line_break(GtkWidget *wrapbox)
   button = gtk_radio_button_new(radio_group);
   gtk_button_set_relief(GTK_BUTTON(button), GTK_RELIEF_NONE);
 
-  gtk_object_set_data(GTK_OBJECT(button), "sheet_mod", sm);
+  g_object_set_data(G_OBJECT(button), "sheet_mod", sm);
 
   radio_group = gtk_radio_button_get_group(GTK_RADIO_BUTTON(button));
 
@@ -334,8 +334,8 @@ sheets_dialog_create_object_button(SheetObjectMod *som, SheetMod *sm,
 
   sheets_dialog_object_set_tooltip(som, button);
 
-  gtk_object_set_data(GTK_OBJECT(button), "sheet_mod", sm);
-  gtk_object_set_data(GTK_OBJECT(button), "sheet_object_mod", som);
+  g_object_set_data(G_OBJECT(button), "sheet_mod", sm);
+  g_object_set_data(G_OBJECT(button), "sheet_object_mod", som);
 
   g_signal_connect(GTK_OBJECT(button), "toggled",
 		   G_CALLBACK(on_sheets_dialog_object_button_toggled),
@@ -378,16 +378,16 @@ on_sheets_dialog_optionmenu_activate   (GtkMenuItem     *menuitem,
   g_signal_connect(GTK_OBJECT(hidden_button), "toggled",
 		   G_CALLBACK(on_sheets_dialog_object_button_toggled),
                      wrapbox);
-  gtk_object_set_data(GTK_OBJECT(hidden_button), "is_hidden_button",
-                      (gpointer)TRUE);
-  gtk_object_set_data(GTK_OBJECT(wrapbox), "hidden_button", hidden_button);
-  gtk_object_set_data(GTK_OBJECT(hidden_button), "sheet_mod", user_data);
+  g_object_set_data(G_OBJECT(hidden_button), "is_hidden_button",
+                    (gpointer)TRUE);
+  g_object_set_data(G_OBJECT(wrapbox), "hidden_button", hidden_button);
+  g_object_set_data(G_OBJECT(hidden_button), "sheet_mod", user_data);
 
   if (gtk_object_get_data(GTK_OBJECT(wrapbox), "is_left"))
     optionmenu = lookup_widget(sheets_dialog, "optionmenu_left");
   else
     optionmenu = lookup_widget(sheets_dialog, "optionmenu_right");
-  gtk_object_set_data(GTK_OBJECT(optionmenu), "active_sheet_name", sheet->name);
+  g_object_set_data(G_OBJECT(optionmenu), "active_sheet_name", sheet->name);
 
   gtk_container_foreach(GTK_CONTAINER(wrapbox),
                         (GtkCallback)gtk_widget_destroy, NULL);
@@ -416,7 +416,7 @@ on_sheets_dialog_optionmenu_activate   (GtkMenuItem     *menuitem,
   }
 #endif
 
-  gtk_object_set_data(GTK_OBJECT(wrapbox), "sheet_mod", user_data);
+  g_object_set_data(G_OBJECT(wrapbox), "sheet_mod", user_data);
 
   for (object_mod_list = sheet->objects; object_mod_list;
        object_mod_list = g_slist_next(object_mod_list))
@@ -736,8 +736,8 @@ on_sheets_dialog_button_new_clicked    (GtkButton       *button,
   /* Use the 'ok' button to hold the current 'type' selection */
 
   active_button = lookup_widget(sheets_new_dialog, "button_ok");
-  gtk_object_set_data(GTK_OBJECT(active_button), "active_type",
-                      (gpointer)SHEETS_NEW_DIALOG_TYPE_SVG_SHAPE);
+  g_object_set_data(G_OBJECT(active_button), "active_type",
+                    (gpointer)SHEETS_NEW_DIALOG_TYPE_SVG_SHAPE);
 
   gtk_widget_show(sheets_new_dialog);
 }
@@ -1155,7 +1155,7 @@ sheets_dialog_togglebutton_set_sensitive(GtkToggleButton *togglebutton,
   if (is_sensitive)
   {
     tmp = lookup_widget(dialog, "button_ok");
-    gtk_object_set_data(GTK_OBJECT(tmp), "active_type", (gpointer)type);
+    g_object_set_data(G_OBJECT(tmp), "active_type", (gpointer)type);
   }
 
   for (i = 0; widget_names[i]; i++)
@@ -1428,7 +1428,7 @@ on_sheets_edit_dialog_entry_object_description_changed
                                         (GtkEditable     *editable,
                                         gpointer         user_data)
 {
-  gtk_object_set_data(GTK_OBJECT(editable), "changed", (gpointer)TRUE);
+  g_object_set_data(G_OBJECT(editable), "changed", (gpointer)TRUE);
 }
 
 
@@ -1437,7 +1437,7 @@ on_sheets_edit_dialog_entry_sheet_description_changed
                                         (GtkEditable     *editable,
                                         gpointer         user_data)
 {
-  gtk_object_set_data(GTK_OBJECT(editable), "changed", (gpointer)TRUE);
+  g_object_set_data(G_OBJECT(editable), "changed", (gpointer)TRUE);
 }
 
 void
@@ -1445,7 +1445,7 @@ on_sheets_edit_dialog_entry_sheet_name_changed
                                         (GtkEditable     *editable,
                                         gpointer         user_data)
 {
-  gtk_object_set_data(GTK_OBJECT(editable), "changed", (gpointer)TRUE);
+  g_object_set_data(G_OBJECT(editable), "changed", (gpointer)TRUE);
 }
 
 static GtkWidget *
