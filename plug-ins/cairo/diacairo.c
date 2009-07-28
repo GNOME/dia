@@ -313,7 +313,6 @@ export_print_data (DiagramData *data, const gchar *filename_utf8,
                    const gchar *diafilename, void* user_data)
 {
   OutputKind kind = (OutputKind)user_data;
-#if GTK_CHECK_VERSION (2,10,0)
   GtkPrintOperation *op = create_print_operation (data, filename_utf8);
   GtkPrintOperationResult res;
   GError *error = NULL;
@@ -334,9 +333,6 @@ export_print_data (DiagramData *data, const gchar *filename_utf8,
     message_error (error->message);
     g_error_free (error);
   }
-#else
-  message_error (_("Printing with Gtk+(cairo) requires at least version 2.10."));
-#endif
 }
 
 #ifdef CAIRO_HAS_PS_SURFACE
@@ -355,11 +351,7 @@ static const gchar *pdf_extensions[] = { "pdf", NULL };
 static DiaExportFilter pdf_export_filter = {
     N_("Cairo Portable Document Format"),
     pdf_extensions,
-# if GTK_CHECK_VERSION (2,10,0)
     export_print_data,
-# else
-    export_data,
-# endif
     (void*)OUTPUT_PDF,
     "cairo-pdf"
 };
@@ -448,7 +440,6 @@ static DiaCallbackFilter cb_clipboard = {
 };
 #endif
 
-#if GTK_CHECK_VERSION (2,10,0)
 static DiaCallbackFilter cb_gtk_print = {
     "FilePrintGTK",
     N_("Print (GTK) ..."),
@@ -456,7 +447,6 @@ static DiaCallbackFilter cb_gtk_print = {
     cairo_print_callback,
     (void*)OUTPUT_PDF
 };
-#endif
 
 static gboolean
 _plugin_can_unload (PluginInfo *info)
@@ -532,9 +522,7 @@ dia_plugin_init(PluginInfo *info)
   filter_register_export(&cb_export_filter);
 #endif
 
-#if GTK_CHECK_VERSION (2,10,0)
   filter_register_callback (&cb_gtk_print);
-#endif
   
   return DIA_PLUGIN_INIT_OK;
 }

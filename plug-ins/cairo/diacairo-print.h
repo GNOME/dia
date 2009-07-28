@@ -1,7 +1,6 @@
 
 #include <gtk/gtkversion.h>
 
-#if GTK_CHECK_VERSION(2,10,0)
 #include <gtk/gtkprintoperation.h>
 #include "diagramdata.h"
 
@@ -14,4 +13,3 @@ cairo_print_callback (DiagramData *dia,
                       const gchar *filename,
                       guint flags, /* further additions */
                       void *user_data);
-#endif

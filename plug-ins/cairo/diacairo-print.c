@@ -24,8 +24,6 @@
 
 #include "message.h"
 
-#if GTK_CHECK_VERSION (2,10,0)
-
 typedef struct _PrintData
 {
   DiagramData *data;
@@ -237,5 +235,3 @@ cairo_print_callback (DiagramData *data,
     g_error_free (error);
   }
 }
-
-#endif /* Gtk+ 2.10 */
