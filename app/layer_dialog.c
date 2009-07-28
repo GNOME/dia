@@ -602,7 +602,7 @@ layer_dialog_raise_callback(GtkWidget *widget, gpointer gdata)
       gtk_list_insert_items(GTK_LIST(layer_dialog->layer_list),
 			    list, pos - 1);
 
-      gtk_widget_unref(selected);
+      g_object_unref(selected);
 
       gtk_list_select_item(GTK_LIST(layer_dialog->layer_list), pos-1);
       
@@ -647,7 +647,7 @@ layer_dialog_lower_callback(GtkWidget *widget, gpointer gdata)
       gtk_list_insert_items(GTK_LIST(layer_dialog->layer_list),
 			    list, pos + 1);
 
-      gtk_widget_unref(selected);
+      g_object_unref(selected);
 
       gtk_list_select_item(GTK_LIST(layer_dialog->layer_list), pos+1);
       

@@ -884,7 +884,7 @@ attributes_list_move_up_callback(GtkWidget *button,
     list = g_list_prepend(NULL, list_item);
     gtk_list_remove_items(gtklist, list);
     gtk_list_insert_items(gtklist, list, i);
-    gtk_widget_unref(list_item);
+    g_object_unref(list_item);
 
     gtk_list_select_child(gtklist, list_item);
   }
@@ -915,7 +915,7 @@ attributes_list_move_down_callback(GtkWidget *button,
     list = g_list_prepend(NULL, list_item);
     gtk_list_remove_items(gtklist, list);
     gtk_list_insert_items(gtklist, list, i);
-    gtk_widget_unref(list_item);
+    g_object_unref(list_item);
 
     gtk_list_select_child(gtklist, list_item);
   }
@@ -1482,7 +1482,7 @@ parameters_list_move_up_callback(GtkWidget *button,
     list = g_list_prepend(NULL, list_item);
     gtk_list_remove_items(gtklist, list);
     gtk_list_insert_items(gtklist, list, i);
-    gtk_widget_unref(list_item);
+    g_object_unref(list_item);
 
     gtk_list_select_child(gtklist, list_item);
 
@@ -1529,7 +1529,7 @@ parameters_list_move_down_callback(GtkWidget *button,
     list = g_list_prepend(NULL, list_item);
     gtk_list_remove_items(gtklist, list);
     gtk_list_insert_items(gtklist, list, i);
-    gtk_widget_unref(list_item);
+    g_object_unref(list_item);
 
     gtk_list_select_child(gtklist, list_item);
 
@@ -1823,7 +1823,7 @@ operations_list_move_up_callback(GtkWidget *button,
     list = g_list_prepend(NULL, list_item);
     gtk_list_remove_items(gtklist, list);
     gtk_list_insert_items(gtklist, list, i);
-    gtk_widget_unref(list_item);
+    g_object_unref(list_item);
 
     gtk_list_select_child(gtklist, list_item);
   }
@@ -1854,7 +1854,7 @@ operations_list_move_down_callback(GtkWidget *button,
     list = g_list_prepend(NULL, list_item);
     gtk_list_remove_items(gtklist, list);
     gtk_list_insert_items(gtklist, list, i);
-    gtk_widget_unref(list_item);
+    g_object_unref(list_item);
 
     gtk_list_select_child(gtklist, list_item);
   }
@@ -2624,7 +2624,7 @@ templates_list_move_up_callback(GtkWidget *button,
     list = g_list_prepend(NULL, list_item);
     gtk_list_remove_items(gtklist, list);
     gtk_list_insert_items(gtklist, list, i);
-    gtk_widget_unref(list_item);
+    g_object_unref(list_item);
 
     gtk_list_select_child(gtklist, list_item);
   }
@@ -2654,7 +2654,7 @@ templates_list_move_down_callback(GtkWidget *button,
     list = g_list_prepend(NULL, list_item);
     gtk_list_remove_items(gtklist, list);
     gtk_list_insert_items(gtklist, list, i);
-    gtk_widget_unref(list_item);
+    g_object_unref(list_item);
 
     gtk_list_select_child(gtklist, list_item);
   }

@@ -323,7 +323,7 @@ dia_line_chooser_init (DiaLineChooser *lchooser)
   g_object_ref(G_OBJECT(menu));
   gtk_object_sink(GTK_OBJECT(menu));
   g_object_set_data_full(G_OBJECT(lchooser), button_menu_key, menu,
-			 (GDestroyNotify)gtk_widget_unref);
+			 (GDestroyNotify)g_object_unref);
 #endif
   for (i = 0; i <= LINESTYLE_DOTTED; i++) {
     mi = gtk_menu_item_new();

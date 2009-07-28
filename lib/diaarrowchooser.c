@@ -23,7 +23,7 @@
  * \ingroup diawidgets
  */
 #include <config.h>
-#undef GTK_DISABLE_DEPRECATED /* gtk_object_sink, gtk_widget_unref */
+#undef GTK_DISABLE_DEPRECATED /* gtk_object_sink */
 #include <gtk/gtk.h>
 #include "intl.h"
 #include "widgets.h"
@@ -429,7 +429,7 @@ dia_arrow_chooser_new(gboolean left, DiaChangeArrowCallback callback,
   g_object_ref(G_OBJECT(menu));
   gtk_object_sink(GTK_OBJECT(menu));
   g_object_set_data_full(G_OBJECT(chooser), button_menu_key, menu,
-			 (GtkDestroyNotify)gtk_widget_unref);
+			 (GtkDestroyNotify)g_object_unref);
   /* although from ARROW_NONE to MAX_ARROW_TYPE-1 this is sorted by *index* to keep the order consistent with earlier releases */
   for (i = ARROW_NONE; i < MAX_ARROW_TYPE; ++i) {
     ArrowType arrow_type = arrow_type_from_index(i);
