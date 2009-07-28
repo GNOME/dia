@@ -24,7 +24,7 @@
 #endif
 
 #include <assert.h>
-#undef GTK_DISABLE_DEPRECATED /* GtkOptionMenu, gtk_object_get_user_data, ... */
+#undef GTK_DISABLE_DEPRECATED /* GtkOptionMenu, ... */
 #include <gtk/gtk.h>
 #include <math.h>
 #include <string.h>
@@ -377,22 +377,22 @@ static void properties_others_read_from_dialog(ObjetSISSI *object_sissi, SISSIDi
   unsigned int i;
      /************** classification list box *************/
   if (GTK_IS_OPTION_MENU(object_sissi->properties_dialog->confidentiality)) {
-   object_sissi->confidentiality = g_strdup((char *)(gtk_object_get_user_data(
-           GTK_OBJECT(GTK_OPTION_MENU(object_sissi->properties_dialog->confidentiality)->menu_item))));
+   object_sissi->confidentiality = g_strdup((char *)(g_object_get_data(
+           GTK_OBJECT(GTK_OPTION_MENU(object_sissi->properties_dialog->confidentiality)->menu_item), "user_data")));
   } else {
     object_sissi->confidentiality = g_strdup((char *)strtol(gtk_entry_get_text(GTK_ENTRY(object_sissi->properties_dialog->confidentiality)), NULL, 0));
   }
 
   if (GTK_IS_OPTION_MENU(object_sissi->properties_dialog->integrity)) {
-   object_sissi->integrity = g_strdup((char *)(gtk_object_get_user_data(
-           GTK_OBJECT(GTK_OPTION_MENU(object_sissi->properties_dialog->integrity)->menu_item))));
+   object_sissi->integrity = g_strdup((char *)(g_object_get_data(
+           GTK_OBJECT(GTK_OPTION_MENU(object_sissi->properties_dialog->integrity)->menu_item), "user_data")));
   } else {
     object_sissi->integrity = g_strdup((char *)strtol(gtk_entry_get_text(GTK_ENTRY(object_sissi->properties_dialog->integrity)), NULL, 0));
   }
   
   if (GTK_IS_OPTION_MENU(object_sissi->properties_dialog->disponibility_level)) {
-   object_sissi->disponibility_level = g_strdup((char *)(gtk_object_get_user_data(
-           GTK_OBJECT(GTK_OPTION_MENU(object_sissi->properties_dialog->disponibility_level)->menu_item))));
+   object_sissi->disponibility_level = g_strdup((char *)(g_object_get_data(
+           GTK_OBJECT(GTK_OPTION_MENU(object_sissi->properties_dialog->disponibility_level)->menu_item), "user_data")));
   } else {
     object_sissi->disponibility_level = g_strdup((char *)strtol(gtk_entry_get_text(GTK_ENTRY(object_sissi->properties_dialog->disponibility_level)), NULL, 0));
   }
@@ -402,8 +402,8 @@ static void properties_others_read_from_dialog(ObjetSISSI *object_sissi, SISSIDi
   
     /************ Entity list box*******************/
   if (GTK_IS_OPTION_MENU(object_sissi->properties_dialog->entity)) {
-   object_sissi->entity = g_strdup((char *)(gtk_object_get_user_data(
-           GTK_OBJECT(GTK_OPTION_MENU(object_sissi->properties_dialog->entity)->menu_item))));
+   object_sissi->entity = g_strdup((char *)(g_object_get_data(
+           GTK_OBJECT(GTK_OPTION_MENU(object_sissi->properties_dialog->entity)->menu_item), "user_data")));
   } else {
     object_sissi->entity = g_strdup((char *)strtol(gtk_entry_get_text(GTK_ENTRY(object_sissi->properties_dialog->entity)), NULL, 0));
   }
@@ -511,7 +511,7 @@ gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(pScroll_others), prop_
   
   for (j = 0; property_classification_data[j].label != NULL; j++) {
       GtkWidget *item = gtk_menu_item_new_with_label(_(property_classification_data[j].label));
-      gtk_object_set_user_data(GTK_OBJECT(item),GUINT_TO_POINTER(property_classification_data[j].value));
+      g_object_set_data(G_OBJECT(item),"user_data",GUINT_TO_POINTER(property_classification_data[j].value));
       gtk_container_add(GTK_CONTAINER(menu_classification), item);
       gtk_widget_show(item);
   }
@@ -520,7 +520,7 @@ gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(pScroll_others), prop_
  /************* end of menu **********/
   for (j = 0; property_integrity_data[j].label != NULL; j++) {
       GtkWidget *item = gtk_menu_item_new_with_label(_(property_integrity_data[j].label));
-      gtk_object_set_user_data(GTK_OBJECT(item),GUINT_TO_POINTER(property_integrity_data[j].value));
+      g_object_set_data(G_OBJECT(item),"user_data",GUINT_TO_POINTER(property_integrity_data[j].value));
       gtk_container_add(GTK_CONTAINER(menu_integrity), item);
       gtk_widget_show(item);
   }
@@ -532,7 +532,7 @@ gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(pScroll_others), prop_
 
   for (j = 0; property_disponibility_level_data[j].label != NULL; j++) {
       GtkWidget *item = gtk_menu_item_new_with_label(_(property_disponibility_level_data[j].label));
-      gtk_object_set_user_data(GTK_OBJECT(item),GUINT_TO_POINTER(property_disponibility_level_data[j].value));
+      g_object_set_data(G_OBJECT(item),"user_data",GUINT_TO_POINTER(property_disponibility_level_data[j].value));
       gtk_container_add(GTK_CONTAINER(menu_disponibility_level), item);
       gtk_widget_show(item);
   }
@@ -547,7 +547,7 @@ gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(pScroll_others), prop_
   {  
     for (j = 0; property_material_data[j].label != NULL; j++) {
         GtkWidget *item = gtk_menu_item_new_with_label(_(property_material_data[j].label));
-        gtk_object_set_user_data(GTK_OBJECT(item),GUINT_TO_POINTER(property_material_data[j].value));
+        g_object_set_data(G_OBJECT(item),"user_data",GUINT_TO_POINTER(property_material_data[j].value));
         gtk_container_add(GTK_CONTAINER(menu_entity), item);
       	gtk_widget_show(item);
     }
@@ -556,7 +556,7 @@ gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(pScroll_others), prop_
   {  
     for (j = 0; property_logiciel_data[j].label != NULL; j++) {
         GtkWidget *item = gtk_menu_item_new_with_label(_(property_logiciel_data[j].label));
-        gtk_object_set_user_data(GTK_OBJECT(item),GUINT_TO_POINTER(property_logiciel_data[j].value));
+        g_object_set_data(G_OBJECT(item),"user_data",GUINT_TO_POINTER(property_logiciel_data[j].value));
         gtk_container_add(GTK_CONTAINER(menu_entity), item);
       	gtk_widget_show(item);
     }
@@ -565,7 +565,7 @@ gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(pScroll_others), prop_
   {  
     for (j = 0; property_reseau_data[j].label != NULL; j++) {
         GtkWidget *item = gtk_menu_item_new_with_label(_(property_reseau_data[j].label));
-        gtk_object_set_user_data(GTK_OBJECT(item),GUINT_TO_POINTER(property_reseau_data[j].value));
+        g_object_set_data(G_OBJECT(item),"user_data",GUINT_TO_POINTER(property_reseau_data[j].value));
         gtk_container_add(GTK_CONTAINER(menu_entity), item);
       	gtk_widget_show(item);
     }
@@ -574,7 +574,7 @@ gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(pScroll_others), prop_
   {  
     for (j = 0; property_personnel_data[j].label != NULL; j++) {
         GtkWidget *item = gtk_menu_item_new_with_label(_(property_personnel_data[j].label));
-        gtk_object_set_user_data(GTK_OBJECT(item),GUINT_TO_POINTER(property_personnel_data[j].value));
+        g_object_set_data(G_OBJECT(item),"user_data",GUINT_TO_POINTER(property_personnel_data[j].value));
         gtk_container_add(GTK_CONTAINER(menu_entity), item);
       	gtk_widget_show(item);
     }
@@ -583,7 +583,7 @@ gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(pScroll_others), prop_
   {  
     for (j = 0; property_physic_data[j].label != NULL; j++) {
         GtkWidget *item = gtk_menu_item_new_with_label(_(property_physic_data[j].label));
-        gtk_object_set_user_data(GTK_OBJECT(item),GUINT_TO_POINTER(property_physic_data[j].value));
+        g_object_set_user_data(G_OBJECT(item),"user_data",GUINT_TO_POINTER(property_physic_data[j].value));
         gtk_container_add(GTK_CONTAINER(menu_entity), item);
       	gtk_widget_show(item);
     }
@@ -592,7 +592,7 @@ gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(pScroll_others), prop_
   {  
     for (j = 0; property_physic_detecTHERMIC_data[j].label != NULL; j++) {
         GtkWidget *item = gtk_menu_item_new_with_label(_(property_physic_detecTHERMIC_data[j].label));
-        gtk_object_set_user_data(GTK_OBJECT(item),GUINT_TO_POINTER(property_physic_detecTHERMIC_data[j].value));
+        g_object_set_data(G_OBJECT(item),"user_data",GUINT_TO_POINTER(property_physic_detecTHERMIC_data[j].value));
         gtk_container_add(GTK_CONTAINER(menu_entity), item);
       	gtk_widget_show(item);
     }
@@ -601,7 +601,7 @@ gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(pScroll_others), prop_
   {  
     for (j = 0; property_physic_detecFIRE_data[j].label != NULL; j++) {
         GtkWidget *item = gtk_menu_item_new_with_label(_(property_physic_detecFIRE_data[j].label));
-        gtk_object_set_user_data(GTK_OBJECT(item),GUINT_TO_POINTER(property_physic_detecFIRE_data[j].value));
+        g_object_set_data(G_OBJECT(item),"user_data",GUINT_TO_POINTER(property_physic_detecFIRE_data[j].value));
         gtk_container_add(GTK_CONTAINER(menu_entity), item);
       	gtk_widget_show(item);
     }
@@ -610,7 +610,7 @@ gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(pScroll_others), prop_
   {  
     for (j = 0; property_physic_detecWATER_data[j].label != NULL; j++) {
         GtkWidget *item = gtk_menu_item_new_with_label(_(property_physic_detecWATER_data[j].label));
-        gtk_object_set_user_data(GTK_OBJECT(item),GUINT_TO_POINTER(property_physic_detecWATER_data[j].value));
+        g_object_set_data(G_OBJECT(item),"user_data",GUINT_TO_POINTER(property_physic_detecWATER_data[j].value));
         gtk_container_add(GTK_CONTAINER(menu_entity), item);
       	gtk_widget_show(item);
     }
@@ -619,7 +619,7 @@ gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(pScroll_others), prop_
   {  
     for (j = 0; property_physic_detecAIR_data[j].label != NULL; j++) {
         GtkWidget *item = gtk_menu_item_new_with_label(_(property_physic_detecAIR_data[j].label));
-        gtk_object_set_user_data(GTK_OBJECT(item),GUINT_TO_POINTER(property_physic_detecAIR_data[j].value));
+        g_object_set_data(G_OBJECT(item),"user_data",GUINT_TO_POINTER(property_physic_detecAIR_data[j].value));
         gtk_container_add(GTK_CONTAINER(menu_entity), item);
       	gtk_widget_show(item);
     }
@@ -628,7 +628,7 @@ gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(pScroll_others), prop_
   {  
     for (j = 0; property_physic_detecENERGY_data[j].label != NULL; j++) {
         GtkWidget *item = gtk_menu_item_new_with_label(_(property_physic_detecENERGY_data[j].label));
-        gtk_object_set_user_data(GTK_OBJECT(item),GUINT_TO_POINTER(property_physic_detecENERGY_data[j].value));
+        g_object_set_data(G_OBJECT(item),"user_data",GUINT_TO_POINTER(property_physic_detecENERGY_data[j].value));
         gtk_container_add(GTK_CONTAINER(menu_entity), item);
       	gtk_widget_show(item);
     }
@@ -637,7 +637,7 @@ gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(pScroll_others), prop_
   {  
     for (j = 0; property_physic_detecINTRUSION_data[j].label != NULL; j++) {
         GtkWidget *item = gtk_menu_item_new_with_label(_(property_physic_detecINTRUSION_data[j].label));
-        gtk_object_set_user_data(GTK_OBJECT(item),GUINT_TO_POINTER(property_physic_detecINTRUSION_data[j].value));
+        g_object_set_data(G_OBJECT(item),"user_data",GUINT_TO_POINTER(property_physic_detecINTRUSION_data[j].value));
         gtk_container_add(GTK_CONTAINER(menu_entity), item);
       	gtk_widget_show(item);
     }
@@ -646,7 +646,7 @@ gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(pScroll_others), prop_
   {  
     for (j = 0; property_physic_actionTHERMIC_data[j].label != NULL; j++) {
         GtkWidget *item = gtk_menu_item_new_with_label(_(property_physic_actionTHERMIC_data[j].label));
-        gtk_object_set_user_data(GTK_OBJECT(item),GUINT_TO_POINTER(property_physic_actionTHERMIC_data[j].value));
+        g_object_set_data(G_OBJECT(item),"user_data",GUINT_TO_POINTER(property_physic_actionTHERMIC_data[j].value));
         gtk_container_add(GTK_CONTAINER(menu_entity), item);
       	gtk_widget_show(item);
     }
@@ -655,7 +655,7 @@ gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(pScroll_others), prop_
   {  
     for (j = 0; property_physic_actionFIRE_data[j].label != NULL; j++) {
         GtkWidget *item = gtk_menu_item_new_with_label(_(property_physic_actionFIRE_data[j].label));
-        gtk_object_set_user_data(GTK_OBJECT(item),GUINT_TO_POINTER(property_physic_actionFIRE_data[j].value));
+        g_object_set_data(G_OBJECT(item),"user_data",GUINT_TO_POINTER(property_physic_actionFIRE_data[j].value));
         gtk_container_add(GTK_CONTAINER(menu_entity), item);
       	gtk_widget_show(item);
     }
@@ -664,7 +664,7 @@ gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(pScroll_others), prop_
   {  
     for (j = 0; property_physic_actionWATER_data[j].label != NULL; j++) {
         GtkWidget *item = gtk_menu_item_new_with_label(_(property_physic_actionWATER_data[j].label));
-        gtk_object_set_user_data(GTK_OBJECT(item),GUINT_TO_POINTER(property_physic_actionWATER_data[j].value));
+        g_object_set_data(G_OBJECT(item),"user_data",GUINT_TO_POINTER(property_physic_actionWATER_data[j].value));
         gtk_container_add(GTK_CONTAINER(menu_entity), item);
       	gtk_widget_show(item);
     }
@@ -673,7 +673,7 @@ gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(pScroll_others), prop_
   {  
     for (j = 0; property_physic_actionAIR_data[j].label != NULL; j++) {
         GtkWidget *item = gtk_menu_item_new_with_label(_(property_physic_actionAIR_data[j].label));
-        gtk_object_set_user_data(GTK_OBJECT(item),GUINT_TO_POINTER(property_physic_actionAIR_data[j].value));
+        g_object_set_data(G_OBJECT(item),"user_data",GUINT_TO_POINTER(property_physic_actionAIR_data[j].value));
         gtk_container_add(GTK_CONTAINER(menu_entity), item);
       	gtk_widget_show(item);
     }
@@ -682,7 +682,7 @@ gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(pScroll_others), prop_
   {  
     for (j = 0; property_physic_actionENERGY_data[j].label != NULL; j++) {
         GtkWidget *item = gtk_menu_item_new_with_label(_(property_physic_actionENERGY_data[j].label));
-        gtk_object_set_user_data(GTK_OBJECT(item),GUINT_TO_POINTER(property_physic_actionENERGY_data[j].value));
+        g_object_set_data(G_OBJECT(item),"user_data",GUINT_TO_POINTER(property_physic_actionENERGY_data[j].value));
         gtk_container_add(GTK_CONTAINER(menu_entity), item);
       	gtk_widget_show(item);
     }
@@ -691,7 +691,7 @@ gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(pScroll_others), prop_
   {  
     for (j = 0; property_physic_actionINTRUSION_data[j].label != NULL; j++) {
         GtkWidget *item = gtk_menu_item_new_with_label(_(property_physic_actionINTRUSION_data[j].label));
-        gtk_object_set_user_data(GTK_OBJECT(item),GUINT_TO_POINTER(property_physic_actionINTRUSION_data[j].value));
+        g_object_set_data(G_OBJECT(item),"user_data",GUINT_TO_POINTER(property_physic_actionINTRUSION_data[j].value));
         gtk_container_add(GTK_CONTAINER(menu_entity), item);
       	gtk_widget_show(item);
     }
@@ -700,7 +700,7 @@ gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(pScroll_others), prop_
   {  
     for (j = 0; property_organisation_data[j].label != NULL; j++) {
         GtkWidget *item = gtk_menu_item_new_with_label(_(property_organisation_data[j].label));
-        gtk_object_set_user_data(GTK_OBJECT(item),GUINT_TO_POINTER(property_organisation_data[j].value));
+        g_object_set_data(G_OBJECT(item),"user_data",GUINT_TO_POINTER(property_organisation_data[j].value));
         gtk_container_add(GTK_CONTAINER(menu_entity), item);
       	gtk_widget_show(item);
     }
@@ -709,7 +709,7 @@ gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(pScroll_others), prop_
   {  
     for (j = 0; property_system_data[j].label != NULL; j++) {
         GtkWidget *item = gtk_menu_item_new_with_label(_(property_system_data[j].label));
-        gtk_object_set_user_data(GTK_OBJECT(item),GUINT_TO_POINTER(property_system_data[j].value));
+        g_object_set_data(G_OBJECT(item),"user_data",GUINT_TO_POINTER(property_system_data[j].value));
         gtk_container_add(GTK_CONTAINER(menu_entity), item);
       	gtk_widget_show(item);
     }
@@ -895,7 +895,7 @@ static void switch_page_callback(GtkNotebook *notebook, GtkNotebookPage *page)
   SISSIDialog *prop_dialog;
 
   object_sissi = (ObjetSISSI *)
-    gtk_object_get_user_data(GTK_OBJECT(notebook));
+    g_object_get_data(G_OBJECT(notebook),"user_data");
 
   prop_dialog = object_sissi->properties_dialog;
 
@@ -1161,7 +1161,7 @@ extern GtkWidget *object_sissi_get_properties_dialog(ObjetSISSI *object_sissi, g
 /* fixing the width of dialog box */
     gtk_container_set_border_width (GTK_CONTAINER (notebook), 0);
 
-    gtk_object_set_user_data(GTK_OBJECT(notebook), (gpointer) object_sissi);
+    g_object_set_data(G_OBJECT(notebook), "user_data", (gpointer) object_sissi);
     
     gtk_signal_connect (GTK_OBJECT (notebook),
 			"switch_page",

@@ -161,7 +161,7 @@ table_get_properties_dialog (Table * table, gboolean is_default)
     gtk_box_pack_start (GTK_BOX (vbox), notebook, TRUE, TRUE, 0);
     gtk_container_set_border_width (GTK_CONTAINER (notebook), 10);
 
-    gtk_object_set_user_data (GTK_OBJECT (notebook), (gpointer) table);
+    g_object_set_data (G_OBJECT (notebook), "user_data", (gpointer) table);
 
     gtk_signal_connect (GTK_OBJECT (notebook),
                         "destroy",
@@ -485,10 +485,10 @@ attribute_page_props_to_object (Table * table, TablePropDialog * prop_dialog)
 
       clear_list = g_list_prepend (clear_list, list_item);
       attr = (TableAttribute *)
-        gtk_object_get_user_data (GTK_OBJECT (list_item));
+        g_object_get_data (G_OBJECT (list_item), "user_data");
       /* set to NULL so the attribute get's not freed when list_item is
          destroyed */
-      gtk_object_set_user_data (GTK_OBJECT (list_item), NULL);
+      g_object_set_data (G_OBJECT (list_item), "user_data", NULL);
       table->attributes = g_list_append (table->attributes, attr);
 
       list = g_list_next (list);
@@ -824,7 +824,7 @@ attributes_page_update_cur_attr_item (TablePropDialog * prop_dialog)
   if (prop_dialog && prop_dialog->cur_attr_list_item)
     {
       attr = (TableAttribute *)
-        gtk_object_get_user_data (GTK_OBJECT (prop_dialog->cur_attr_list_item));
+        g_object_get_data (G_OBJECT (prop_dialog->cur_attr_list_item), "user_data");
       if (attr != NULL)
         {
           attributes_page_values_to_attribute (prop_dialog, attr);
@@ -902,7 +902,7 @@ attributes_list_selection_changed_cb (GtkWidget * gtklist, Table * table)
   else
     {
       list_item = GTK_OBJECT (list->data);
-      attr = (TableAttribute *) gtk_object_get_user_data (list_item);
+      attr = (TableAttribute *) g_object_get_data (list_item, "user_data");
       attributes_page_set_sensitive (prop_dialog, TRUE);
       attributes_page_set_values (prop_dialog, attr);
 
@@ -1160,7 +1160,7 @@ attributes_list_add_attribute (Table * table,
   gtk_widget_show (list_item);
   g_free (attrstr);
 
-  gtk_object_set_user_data (GTK_OBJECT (list_item), attribute);
+  g_object_set_data (G_OBJECT (list_item), "user_data", attribute);
   gtk_signal_connect (GTK_OBJECT (list_item), "destroy",
                       GTK_SIGNAL_FUNC (attribute_list_item_destroy_cb),
                       NULL);
@@ -1205,7 +1205,7 @@ attributes_list_delete_button_clicked_cb (GtkWidget * button, Table * table)
   if (gtklist->selection != NULL)
     {
       attr = (TableAttribute *)
-        gtk_object_get_user_data (GTK_OBJECT (gtklist->selection->data));
+        g_object_get_data (G_OBJECT (gtklist->selection->data), "user_data");
       prop_dialog->deleted_connections =
         g_list_prepend (prop_dialog->deleted_connections,
                         attr->left_connection);
@@ -1290,7 +1290,7 @@ attribute_list_item_destroy_cb (GtkWidget * list_item, gpointer data)
 {
   TableAttribute * attr;
 
-  attr = (TableAttribute *) gtk_object_get_user_data (GTK_OBJECT (list_item));
+  attr = (TableAttribute *) g_object_get_data (G_OBJECT (list_item), "user_data");
   if (attr != NULL)
     table_attribute_free (attr);
 }

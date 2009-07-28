@@ -340,7 +340,7 @@ zoom_activate_callback(GtkWidget *item, gpointer user_data)
 {
   DDisplay *ddisp = (DDisplay *)user_data;
   const gchar *zoom_text =
-      gtk_entry_get_text(GTK_ENTRY(gtk_object_get_user_data(GTK_OBJECT(ddisp->zoom_status))));
+      gtk_entry_get_text(GTK_ENTRY(g_object_get_data(G_OBJECT(ddisp->zoom_status), "user_data")));
   float zoom_amount, magnify;
   gchar *zoomamount = g_object_get_data(G_OBJECT(item), "zoomamount");
   if (zoomamount != NULL) {
@@ -358,7 +358,7 @@ zoom_activate_callback(GtkWidget *item, gpointer user_data)
       zoom_amount = 1e4;
     }
     zoomamount = g_strdup_printf("%f%%\n", zoom_amount);
-    gtk_entry_set_text(GTK_ENTRY(gtk_object_get_user_data(GTK_OBJECT(ddisp->zoom_status))), zoomamount);
+    gtk_entry_set_text(GTK_ENTRY(g_object_get_data(G_OBJECT(ddisp->zoom_status), "user_data")), zoomamount);
     g_free(zoomamount);
     magnify = (zoom_amount*DDISPLAY_NORMAL_ZOOM/100.0)/ddisp->zoom_factor;
     if (fabs(magnify - 1.0) > 0.000001) {

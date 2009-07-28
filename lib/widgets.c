@@ -618,7 +618,7 @@ dia_font_selector_set_style_menu(DiaFontSelector *fs,
     if (!(stylebits & (1 << (3*weight + slant)))) continue;
     menuitem = gtk_radio_menu_item_new_with_label (group, style_labels[3*weight+slant]);
     group = gtk_radio_menu_item_get_group(GTK_RADIO_MENU_ITEM(menuitem));
-    gtk_object_set_user_data(GTK_OBJECT(menuitem), GINT_TO_POINTER(i));
+    g_object_set_data(G_OBJECT(menuitem), "user_data", GINT_TO_POINTER(i));
     if (dia_style == i) {
       select = menu_item_nr;
     }
@@ -681,7 +681,7 @@ dia_font_selector_get_font(DiaFontSelector *fs)
   if (!menuitem) /* FIXME: should not happen ??? (but does if we don't have added a style) */
     style = 0;
   else
-    style = GPOINTER_TO_INT(gtk_object_get_user_data(GTK_OBJECT(menuitem)));
+    style = GPOINTER_TO_INT(g_object_get_data(G_OBJECT(menuitem), "user_data"));
   font = dia_font_new(fontname, style, 1.0);
   g_free(fontname);
   return font;
@@ -722,19 +722,19 @@ dia_alignment_selector_init (DiaAlignmentSelector *fs)
   group = NULL;
 
   menuitem = gtk_radio_menu_item_new_with_label (group, _("Left"));
-  gtk_object_set_user_data(GTK_OBJECT(menuitem), GINT_TO_POINTER(ALIGN_LEFT));
+  g_object_set_data(G_OBJECT(menuitem), "user_data", GINT_TO_POINTER(ALIGN_LEFT));
   group = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM (menuitem));
   gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
   gtk_widget_show (menuitem);
 
   menuitem = gtk_radio_menu_item_new_with_label (group, _("Center"));
-  gtk_object_set_user_data(GTK_OBJECT(menuitem), GINT_TO_POINTER(ALIGN_CENTER));
+  g_object_set_data(G_OBJECT(menuitem), "user_data", GINT_TO_POINTER(ALIGN_CENTER));
   group = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM (menuitem));
   gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
   gtk_widget_show (menuitem);
 
   menuitem = gtk_radio_menu_item_new_with_label (group, _("Right"));
-  gtk_object_set_user_data(GTK_OBJECT(menuitem), GINT_TO_POINTER(ALIGN_RIGHT));
+  g_object_set_data(G_OBJECT(menuitem), "user_data", GINT_TO_POINTER(ALIGN_RIGHT));
   group = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM (menuitem));
   gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
   gtk_widget_show (menuitem);
@@ -780,7 +780,7 @@ dia_alignment_selector_get_alignment(DiaAlignmentSelector *fs)
   void *align;
   
   menuitem = gtk_menu_get_active(fs->alignment_menu);
-  align = gtk_object_get_user_data(GTK_OBJECT(menuitem));
+  align = g_object_get_data(G_OBJECT(menuitem), "user_item");
 
   return GPOINTER_TO_INT(align);
 }
@@ -840,7 +840,7 @@ set_linestyle_sensitivity(DiaLineStyleSelector *fs)
   GtkWidget *menuitem;
   if (!fs->linestyle_menu) return;
   menuitem = gtk_menu_get_active(fs->linestyle_menu);
-  state = (GPOINTER_TO_INT(gtk_object_get_user_data(GTK_OBJECT(menuitem)))
+  state = (GPOINTER_TO_INT(g_object_get_data(G_OBJECT(menuitem), "user_data"))
 	   != LINESTYLE_SOLID);
 
   gtk_widget_set_sensitive(GTK_WIDGET(fs->lengthlabel), state);
@@ -885,7 +885,7 @@ dia_line_style_selector_init (DiaLineStyleSelector *fs)
 
   for (i = 0; i <= LINESTYLE_DOTTED; i++) {
     menuitem = gtk_menu_item_new();
-    gtk_object_set_user_data(GTK_OBJECT(menuitem), GINT_TO_POINTER(i));
+    g_object_set_data(G_OBJECT(menuitem), "user_data", GINT_TO_POINTER(i));
     ln = dia_line_preview_new(i);
     gtk_container_add(GTK_CONTAINER(menuitem), ln);
     gtk_widget_show(ln);
@@ -894,31 +894,31 @@ dia_line_style_selector_init (DiaLineStyleSelector *fs)
   }
 #if 0
   menuitem = gtk_radio_menu_item_new_with_label (group, _("Solid"));
-  gtk_object_set_user_data(GTK_OBJECT(menuitem), GINT_TO_POINTER(LINESTYLE_SOLID));
+  g_object_set_data(G_OBJECT(menuitem), "user_data", GINT_TO_POINTER(LINESTYLE_SOLID));
   group = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM (menuitem));
   gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
   gtk_widget_show (menuitem);
 
   menuitem = gtk_radio_menu_item_new_with_label (group, _("Dashed"));
-  gtk_object_set_user_data(GTK_OBJECT(menuitem), GINT_TO_POINTER(LINESTYLE_DASHED));
+  g_object_set_data(G_OBJECT(menuitem), "user_data", GINT_TO_POINTER(LINESTYLE_DASHED));
   group = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM (menuitem));
   gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
   gtk_widget_show (menuitem);
 
   menuitem = gtk_radio_menu_item_new_with_label (group, _("Dash-Dot"));
-  gtk_object_set_user_data(GTK_OBJECT(menuitem), GINT_TO_POINTER(LINESTYLE_DASH_DOT));
+  g_object_set_data(G_OBJECT(menuitem), "user_data", GINT_TO_POINTER(LINESTYLE_DASH_DOT));
   group = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM (menuitem));
   gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
   gtk_widget_show (menuitem);
 
   menuitem = gtk_radio_menu_item_new_with_label (group, _("Dash-Dot-Dot"));
-  gtk_object_set_user_data(GTK_OBJECT(menuitem), GINT_TO_POINTER(LINESTYLE_DASH_DOT_DOT));
+  g_object_set_data(G_OBJECT(menuitem), "user_data", GINT_TO_POINTER(LINESTYLE_DASH_DOT_DOT));
   group = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM (menuitem));
   gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
   gtk_widget_show (menuitem);
   
   menuitem = gtk_radio_menu_item_new_with_label (group, _("Dotted"));
-  gtk_object_set_user_data(GTK_OBJECT(menuitem), GINT_TO_POINTER(LINESTYLE_DOTTED));
+  g_object_set_data(G_OBJECT(menuitem), "user_data", GINT_TO_POINTER(LINESTYLE_DOTTED));
   group = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM (menuitem));
   gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
   gtk_widget_show (menuitem);
@@ -995,7 +995,7 @@ dia_line_style_selector_get_linestyle(DiaLineStyleSelector *fs,
   void *align;
   
   menuitem = gtk_menu_get_active(fs->linestyle_menu);
-  align = gtk_object_get_user_data(GTK_OBJECT(menuitem));
+  align = g_object_get_data(G_OBJECT(menuitem), "user_data");
   *ls = GPOINTER_TO_INT(align);
   if (dl!=NULL) {
     *dl = gtk_spin_button_get_value(fs->dashlength);
@@ -1446,7 +1446,7 @@ file_open_response_callback(GtkWidget *dialog,
                             gpointer   user_data)
 {
   DiaFileSelector *fs =
-    DIAFILESELECTOR(gtk_object_get_user_data(GTK_OBJECT(dialog)));
+    DIAFILESELECTOR(g_object_get_data(G_OBJECT(dialog), "user_data"));
 
   if (response == GTK_RESPONSE_ACCEPT || response == GTK_RESPONSE_OK) { 
     gchar *utf8 = g_filename_to_utf8(gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog)), 
@@ -1494,7 +1494,7 @@ dia_file_selector_browse_pressed(GtkWidget *widget, gpointer data)
     gtk_file_filter_add_pattern (filter, "*");
     gtk_file_chooser_add_filter (GTK_FILE_CHOOSER (dialog), filter);
 
-    gtk_object_set_user_data(GTK_OBJECT(dialog), fs);
+    g_object_set_data(G_OBJECT(dialog), "user_data", fs);
   }
 
   filename = g_filename_from_utf8(gtk_entry_get_text(fs->entry), -1, NULL, NULL, NULL);
