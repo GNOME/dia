@@ -206,13 +206,7 @@ begin_render(DiaRenderer *self)
   DiaCairoRenderer *base_renderer = DIA_CAIRO_RENDERER (self);
 
   g_return_if_fail (base_renderer->cr == NULL);
-#if GTK_CHECK_VERSION(2,8,0)
   base_renderer->cr = gdk_cairo_create(renderer->pixmap);
-#else
-  base_renderer->surface = cairo_image_surface_create (
-                             CAIRO_FORMAT_ARGB32, get_width_pixels (self), get_height_pixels (self));
-  base_renderer->cr = cairo_create (base_renderer->surface);
-#endif
 
   cairo_scale (base_renderer->cr, *renderer->zoom_factor, *renderer->zoom_factor);
   cairo_translate (base_renderer->cr, -renderer->visible->left, -renderer->visible->top);
