@@ -229,21 +229,7 @@ dia_message_filename(const gchar *filename)
   gchar *tmp;
   GQuark msg_quark;
 
-#if GLIB_CHECK_VERSION(2,6,0)
   tmp = g_filename_display_name(filename);
-#else
-  gsize num_read;
-  tmp = g_filename_to_utf8(filename, -1, &num_read, NULL, NULL);
-  if (tmp == NULL) {
-    gchar *ellipsis;
-    /* Best effort at displaying filename: Display as must as is readable */
-    g_utf8_validate(filename, -1, &ellipsis);
-    tmp = g_filename_to_utf8(filename, ellipsis-filename, NULL, NULL, NULL);
-    ellipsis = g_strdup_printf(_("%s<illegal characters>..."), tmp);
-    g_free(tmp);
-    tmp = ellipsis;
-  }
-#endif
   /* Stick in the quark table so that we can return a static result
    */
   msg_quark = g_quark_from_string (tmp);
