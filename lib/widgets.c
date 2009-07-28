@@ -2170,13 +2170,11 @@ dia_toggle_button_new(GtkWidget *on_widget, GtkWidget *off_widget)
   /* Since these may not be added at any point, make sure to
    * sink them. */
   images->on = on_widget;
-  g_object_ref(G_OBJECT(images->on));
-  gtk_object_sink(GTK_OBJECT(images->on));
+  g_object_ref_sink(images->on);
   gtk_widget_show(images->on);
 
   images->off = off_widget;
-  g_object_ref(G_OBJECT(images->off));
-  gtk_object_sink(GTK_OBJECT(images->off));
+  g_object_ref_sink(images->off);
   gtk_widget_show(images->off);
 
   /* Make border as small as possible */

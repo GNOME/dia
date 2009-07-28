@@ -252,8 +252,7 @@ typedef ObjectChange* (*MoveHandleFunc) (DiaObject*          obj,
  * Note that if you want to use the same dialog multiple times,
  * you should ref it first.  Just run the following on the widget
  * when you create it:
- *   gtk_object_ref(GTK_OBJECT(widget));
- *   gtk_object_sink(GTK_OBJECT(widget)); / * optional, but recommended * /
+ *   g_object_ref_sink(widget);
  * If you don't do this, the widget will be destroyed when the
  * properties dialog is closed.
  */

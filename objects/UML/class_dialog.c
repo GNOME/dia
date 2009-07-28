@@ -3040,8 +3040,7 @@ umlclass_get_properties(UMLClass *umlclass, gboolean is_default)
     umlclass->properties_dialog = prop_dialog;
 
     vbox = gtk_vbox_new(FALSE, 0);
-    gtk_object_ref(GTK_OBJECT(vbox));
-    gtk_object_sink(GTK_OBJECT(vbox));
+    g_object_ref_sink(vbox);
     prop_dialog->dialog = vbox;
 
     prop_dialog->current_attr = NULL;

@@ -152,8 +152,7 @@ table_get_properties_dialog (Table * table, gboolean is_default)
     table->prop_dialog = prop_dialog;
 
     vbox = gtk_vbox_new (FALSE, 0);
-    gtk_object_ref (GTK_OBJECT(vbox));
-    gtk_object_sink (GTK_OBJECT(vbox));
+    g_object_ref_sink(vbox);
     prop_dialog->dialog = vbox;
 
     notebook = gtk_notebook_new ();

@@ -1143,8 +1143,7 @@ extern GtkWidget *object_sissi_get_properties_dialog(ObjetSISSI *object_sissi, g
     vbox = gtk_vbox_new(FALSE, 0);
   gtk_container_set_border_width (GTK_CONTAINER (vbox), 0);
 
-    gtk_object_ref(GTK_OBJECT(vbox));
-    gtk_object_sink(GTK_OBJECT(vbox));
+    g_object_ref_sink(vbox);
 
    prop_dialog->dialog = vbox;
 
