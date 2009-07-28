@@ -231,12 +231,12 @@ sheets_dialog_create(void)
   else
   {
     option_menu = lookup_widget(sheets_dialog, "optionmenu_left");
-    sheet_left = gtk_object_get_data(GTK_OBJECT(option_menu),
-                                     "active_sheet_name");
+    sheet_left = g_object_get_data(G_OBJECT(option_menu),
+                                   "active_sheet_name");
 
     option_menu = lookup_widget(sheets_dialog, "optionmenu_right");
-    sheet_right = gtk_object_get_data(GTK_OBJECT(option_menu),
-                                      "active_sheet_name");
+    sheet_right = g_object_get_data(G_OBJECT(option_menu),
+                                    "active_sheet_name");
 
     wrapbox = lookup_widget(sheets_dialog, "wrapbox_left");
     if (wrapbox)
@@ -416,7 +416,7 @@ create_pixmap(GtkWidget *dialog, gchar *filename, gboolean arg3)
   SheetObjectMod *som;
 
   button = sheets_dialog_get_active_button(&wrapbox, &button_list);
-  som = gtk_object_get_data(GTK_OBJECT(button), "sheet_object_mod");
+  som = g_object_get_data(G_OBJECT(button), "sheet_object_mod");
 
   if (som)
     create_object_pixmap(&som->sheet_object, wrapbox, &pixmap, &mask);
@@ -427,7 +427,7 @@ create_pixmap(GtkWidget *dialog, gchar *filename, gboolean arg3)
 
     style = gtk_widget_get_style(wrapbox);
     
-    if ((gboolean)gtk_object_get_data(GTK_OBJECT(button), "is_hidden_button")
+    if ((gboolean)g_object_get_data(G_OBJECT(button), "is_hidden_button")
         == TRUE)
       icon = n_a_xpm;
     else
@@ -457,7 +457,7 @@ sheets_dialog_show_callback(gpointer data, guint action, GtkWidget *widget)
   if (!sheets_dialog)
     return;
 
-  wrapbox = gtk_object_get_data(GTK_OBJECT(sheets_dialog), "wrapbox_left");
+  wrapbox = g_object_get_data(G_OBJECT(sheets_dialog), "wrapbox_left");
   option_menu = lookup_widget(sheets_dialog, "optionmenu_left");
   sheets_optionmenu_create(option_menu, wrapbox, interface_current_sheet_name);
 

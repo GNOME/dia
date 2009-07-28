@@ -23,7 +23,7 @@
  * \ingroup diawidgets
  */
 #include <config.h>
-#undef GTK_DISABLE_DEPRECATED /* e.g. gtk_object_get_data */
+#undef GTK_DISABLE_DEPRECATED /* gtk_object_sink, gtk_widget_unref */
 #include <gtk/gtk.h>
 #include "intl.h"
 #include "widgets.h"
@@ -270,7 +270,7 @@ static gint
 dia_arrow_chooser_event(GtkWidget *widget, GdkEvent *event)
 {
   if (event->type == GDK_BUTTON_PRESS && event->button.button == 1) {
-    GtkMenu *menu = gtk_object_get_data(GTK_OBJECT(widget), button_menu_key);
+    GtkMenu *menu = g_object_get_data(G_OBJECT(widget), button_menu_key);
     gtk_menu_popup(menu, NULL, NULL, NULL, NULL,
 		   event->button.button, event->button.time);
     return TRUE;
