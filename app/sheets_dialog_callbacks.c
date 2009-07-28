@@ -209,7 +209,7 @@ on_sheets_dialog_object_button_toggled(GtkToggleButton *togglebutton,
     gtk_widget_set_sensitive(button, TRUE);
   }
 
-  wrapbox_button_list = gtk_container_children(GTK_CONTAINER(ud_wrapbox));
+  wrapbox_button_list = gtk_container_get_children(GTK_CONTAINER(ud_wrapbox));
 
   if (g_list_length(wrapbox_button_list))
   {
@@ -439,7 +439,7 @@ on_sheets_dialog_optionmenu_activate   (GtkMenuItem     *menuitem,
     gtk_widget_show(button);
   }
 
-  button_list = gtk_container_children(GTK_CONTAINER(wrapbox));
+  button_list = gtk_container_get_children(GTK_CONTAINER(wrapbox));
 
   if (g_list_length(button_list))
   {
@@ -491,7 +491,7 @@ sheets_dialog_normalize_line_breaks(GtkWidget *wrapbox, SheetsDialogMoveDir dir)
   GList *iter_list;
   gboolean is_line_break;
 
-  button_list = gtk_container_children(GTK_CONTAINER(wrapbox));
+  button_list = gtk_container_get_children(GTK_CONTAINER(wrapbox));
 
   is_line_break = FALSE;
   for (iter_list = button_list; iter_list; iter_list = g_list_next(iter_list))
@@ -584,7 +584,7 @@ sheets_dialog_get_active_button(GtkWidget **wrapbox, GList **button_list)
 
   table_sheets = lookup_widget(sheets_dialog, "table_sheets");
   *wrapbox = gtk_object_get_data(GTK_OBJECT(table_sheets), "active_wrapbox");
-  *button_list = gtk_container_children(GTK_CONTAINER(*wrapbox));
+  *button_list = gtk_container_get_children(GTK_CONTAINER(*wrapbox));
   return gtk_object_get_data(GTK_OBJECT(*wrapbox), "active_button");
 }
 
@@ -604,7 +604,7 @@ sheets_dialog_move_up_or_down(SheetsDialogMoveDir dir)
   table_sheets = lookup_widget(sheets_dialog, "table_sheets");
   wrapbox = gtk_object_get_data(GTK_OBJECT(table_sheets), "active_wrapbox");
 
-  button_list = gtk_container_children(GTK_CONTAINER(wrapbox));
+  button_list = gtk_container_get_children(GTK_CONTAINER(wrapbox));
   active_button = gtk_object_get_data(GTK_OBJECT(wrapbox), "active_button");
 
   button_pos = g_list_index(button_list, active_button);
@@ -616,7 +616,7 @@ sheets_dialog_move_up_or_down(SheetsDialogMoveDir dir)
 
   /* And then reorder the backing store if necessary */
 
-  button_list = gtk_container_children(GTK_CONTAINER(wrapbox));
+  button_list = gtk_container_get_children(GTK_CONTAINER(wrapbox));
   active_button = gtk_object_get_data(GTK_OBJECT(wrapbox), "active_button");
 
   som = gtk_object_get_data(GTK_OBJECT(active_button), "sheet_object_mod");
@@ -881,7 +881,7 @@ on_sheets_new_dialog_button_ok_clicked (GtkButton       *button,
 
     sheets_dialog_wrapbox_add_line_break(wrapbox);
 
-    button_list = gtk_container_children(GTK_CONTAINER(wrapbox));
+    button_list = gtk_container_get_children(GTK_CONTAINER(wrapbox));
     active_button = gtk_object_get_data(GTK_OBJECT(wrapbox), "active_button");
     pos = g_list_index(button_list, active_button);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(g_list_last(button_list)
@@ -941,7 +941,7 @@ on_sheets_new_dialog_button_ok_clicked (GtkButton       *button,
 
   sheets_dialog_apply_revert_set_sensitive(TRUE);
 
-  button_list = gtk_container_children(GTK_CONTAINER(wrapbox));
+  button_list = gtk_container_get_children(GTK_CONTAINER(wrapbox));
   active_button = gtk_object_get_data(GTK_OBJECT(wrapbox), "active_button");
   sheets_dialog_up_down_set_sensitive(button_list,
                                       GTK_TOGGLE_BUTTON(active_button));
@@ -1601,7 +1601,7 @@ on_sheets_dialog_button_move_all_clicked
   
   /* Force the 1st button in the target wrapbox to be active after moving */
 
-  button_list = gtk_container_children(GTK_CONTAINER(target_wrapbox));
+  button_list = gtk_container_get_children(GTK_CONTAINER(target_wrapbox));
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(button_list->data), TRUE);
 }
 
