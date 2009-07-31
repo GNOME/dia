@@ -1127,8 +1127,8 @@ fig_read_line_choice(FILE *file, char *choice1, char *choice2) {
 
     buf[strlen(buf)-1] = 0; /* Remove trailing newline */
     g_strstrip(buf); /* And any other whitespace */
-    if (!g_strcasecmp(buf, choice1)) return 0;
-    if (!g_strcasecmp(buf, choice2)) return 1;
+    if (!g_ascii_strcasecmp(buf, choice1)) return 0;
+    if (!g_ascii_strcasecmp(buf, choice2)) return 1;
     message_warning(_("`%s' is not one of `%s' or `%s'\n"), buf, choice1, choice2);
     return 0;
 }

@@ -1206,7 +1206,7 @@ get_sheet_by_name(const gchar *name)
     /* There is something fishy with comparing both forms: the english and the localized one.
      * But we should be on the safe side here, especially when bug #328570 gets tackled.
      */
-    if (0 == g_strcasecmp(name, sheet->name) || 0 == g_strcasecmp(name, gettext(sheet->name)))
+    if (0 == g_ascii_strcasecmp(name, sheet->name) || 0 == g_ascii_strcasecmp(name, gettext(sheet->name)))
       return sheet;
   }
   return NULL;

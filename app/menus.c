@@ -491,7 +491,7 @@ integrated_ui_toolbar_zoom_combo_selection_changed (GtkComboBox *combo,
         {
             view_zoom_set (zoom_percent * 10.0);
         }
-        else if (g_strcasecmp (text, ZOOM_FIT) == 0)
+        else if (g_ascii_strcasecmp (text, ZOOM_FIT) == 0)
         {
             view_show_all_callback (NULL);
         }
