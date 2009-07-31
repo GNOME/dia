@@ -1,6 +1,8 @@
 ## Process this file with automake to produce Makefile.in
 
+if HAVE_CPLUSPLUS
 libpython_bindings = _dia.la
+endif
 
 ## without SWIG we wont have/build this
 ## but to avoid bit-rotting we build the rest

@@ -211,6 +211,16 @@ AC_SUBST(PNG_LIBS)
 
 LIBS="${old_LIBS} ${PNG_LIBS}"
 
+dnl AC_PROG_CXX does behave a bit strange, it is setting CXX=g++ as "last resort"
+dnl but that does not solve the missing g++ issue. Make C++ optional:
+cxx_ok=yes
+if test "$CXX" = "g++"; then
+  if test "$GXX" != "yes"; then
+    cxx_ok=no
+  fi
+fi
+AM_CONDITIONAL(HAVE_CPLUSPLUS, test "$cxx_ok" = yes)
+
 dnl check for libEMF to provide Windows Metafile plug-in on Linux
 AC_ARG_ENABLE([libemf],
 	AS_HELP_STRING([--enable-libemf], [enable plugin for windows metafile support]),
@@ -665,6 +675,7 @@ echo "
 Configuration:
 	Source code location:	${srcdir}
 	Compiler:		${CC}
+	can C++:		${cxx_ok}
 
 	Gnome support:				 ${have_gnome}
 	Python support:				 ${with_python}

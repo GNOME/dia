@@ -4,7 +4,10 @@ if !WITH_LIBEMF
 plugin_sources += wmf_gdi.cpp wmf_gdi.h
 endif
 
+# Can't do without C++
+if HAVE_CPLUSPLUS
 pkglib_LTLIBRARIES = libwmf_filter.la
+endif
 
 libwmf_filter_la_SOURCES = $(plugin_sources)
 libwmf_filter_la_LDFLAGS = -export-dynamic -module -avoid-version 
