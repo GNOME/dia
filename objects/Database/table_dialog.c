@@ -901,7 +901,7 @@ attributes_list_selection_changed_cb (GtkWidget * gtklist, Table * table)
   else
     {
       list_item = GTK_OBJECT (list->data);
-      attr = (TableAttribute *) g_object_get_data (list_item, "user_data");
+      attr = (TableAttribute *) g_object_get_data (G_OBJECT(list_item), "user_data");
       attributes_page_set_sensitive (prop_dialog, TRUE);
       attributes_page_set_values (prop_dialog, attr);
 

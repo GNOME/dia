@@ -817,7 +817,7 @@ _ui_manager_connect_proxy (GtkUIManager *manager,
     }
 }
 
-GtkActionGroup *
+static GtkActionGroup *
 create_or_ref_display_actions (void)
 {
   if (display_actions)

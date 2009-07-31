@@ -779,7 +779,7 @@ attributes_list_selection_changed_callback(GtkWidget *gtklist,
   }
   
   list_item = GTK_OBJECT(list->data);
-  attr = (UMLAttribute *)g_object_get_data(list_item, "user_data");
+  attr = (UMLAttribute *)g_object_get_data(G_OBJECT(list_item), "user_data");
   attributes_set_values(prop_dialog, attr);
   attributes_set_sensitive(prop_dialog, TRUE);
 
@@ -1359,7 +1359,7 @@ parameters_list_selection_changed_callback(GtkWidget *gtklist,
   }
   
   list_item = GTK_OBJECT(list->data);
-  param = (UMLParameter *)g_object_get_data(list_item, "user_data");
+  param = (UMLParameter *)g_object_get_data(G_OBJECT(list_item), "user_data");
   parameters_set_values(prop_dialog, param);
   parameters_set_sensitive(prop_dialog, TRUE);
 
@@ -1715,7 +1715,7 @@ operations_list_selection_changed_callback(GtkWidget *gtklist,
   }
   
   list_item = GTK_OBJECT(list->data);
-  op = (UMLOperation *)g_object_get_data(list_item, "user_data");
+  op = (UMLOperation *)g_object_get_data(G_OBJECT(list_item), "user_data");
   operations_set_values(prop_dialog, op);
   operations_set_sensitive(prop_dialog, TRUE);
 
@@ -2537,7 +2537,7 @@ templates_list_selection_changed_callback(GtkWidget *gtklist,
   }
   
   list_item = GTK_OBJECT(list->data);
-  param = (UMLFormalParameter *)g_object_get_data(list_item, "user_data");
+  param = (UMLFormalParameter *)g_object_get_data(G_OBJECT(list_item), "user_data");
   templates_set_values(prop_dialog, param);
   templates_set_sensitive(prop_dialog, TRUE);
 

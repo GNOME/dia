@@ -378,21 +378,21 @@ static void properties_others_read_from_dialog(ObjetSISSI *object_sissi, SISSIDi
      /************** classification list box *************/
   if (GTK_IS_OPTION_MENU(object_sissi->properties_dialog->confidentiality)) {
    object_sissi->confidentiality = g_strdup((char *)(g_object_get_data(
-           GTK_OBJECT(GTK_OPTION_MENU(object_sissi->properties_dialog->confidentiality)->menu_item), "user_data")));
+           G_OBJECT(GTK_OPTION_MENU(object_sissi->properties_dialog->confidentiality)->menu_item), "user_data")));
   } else {
     object_sissi->confidentiality = g_strdup((char *)strtol(gtk_entry_get_text(GTK_ENTRY(object_sissi->properties_dialog->confidentiality)), NULL, 0));
   }
 
   if (GTK_IS_OPTION_MENU(object_sissi->properties_dialog->integrity)) {
    object_sissi->integrity = g_strdup((char *)(g_object_get_data(
-           GTK_OBJECT(GTK_OPTION_MENU(object_sissi->properties_dialog->integrity)->menu_item), "user_data")));
+           G_OBJECT(GTK_OPTION_MENU(object_sissi->properties_dialog->integrity)->menu_item), "user_data")));
   } else {
     object_sissi->integrity = g_strdup((char *)strtol(gtk_entry_get_text(GTK_ENTRY(object_sissi->properties_dialog->integrity)), NULL, 0));
   }
   
   if (GTK_IS_OPTION_MENU(object_sissi->properties_dialog->disponibility_level)) {
    object_sissi->disponibility_level = g_strdup((char *)(g_object_get_data(
-           GTK_OBJECT(GTK_OPTION_MENU(object_sissi->properties_dialog->disponibility_level)->menu_item), "user_data")));
+           G_OBJECT(GTK_OPTION_MENU(object_sissi->properties_dialog->disponibility_level)->menu_item), "user_data")));
   } else {
     object_sissi->disponibility_level = g_strdup((char *)strtol(gtk_entry_get_text(GTK_ENTRY(object_sissi->properties_dialog->disponibility_level)), NULL, 0));
   }
