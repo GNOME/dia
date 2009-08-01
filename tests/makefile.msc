@@ -15,7 +15,8 @@ DEFINES = -DHAVE_CONFIG_H
 
 TESTS = \
 	test-boundingbox.exe \
-	test-objects.exe
+	test-objects.exe \
+	test-sizeof.exe
 
 all :	$(TESTS)
 
