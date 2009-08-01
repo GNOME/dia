@@ -403,7 +403,7 @@ static void properties_others_read_from_dialog(ObjetSISSI *object_sissi, SISSIDi
     /************ Entity list box*******************/
   if (GTK_IS_OPTION_MENU(object_sissi->properties_dialog->entity)) {
    object_sissi->entity = g_strdup((char *)(g_object_get_data(
-           GTK_OBJECT(GTK_OPTION_MENU(object_sissi->properties_dialog->entity)->menu_item), "user_data")));
+           G_OBJECT(GTK_OPTION_MENU(object_sissi->properties_dialog->entity)->menu_item), "user_data")));
   } else {
     object_sissi->entity = g_strdup((char *)strtol(gtk_entry_get_text(GTK_ENTRY(object_sissi->properties_dialog->entity)), NULL, 0));
   }
@@ -583,7 +583,7 @@ gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(pScroll_others), prop_
   {  
     for (j = 0; property_physic_data[j].label != NULL; j++) {
         GtkWidget *item = gtk_menu_item_new_with_label(_(property_physic_data[j].label));
-        g_object_set_user_data(G_OBJECT(item),"user_data",GUINT_TO_POINTER(property_physic_data[j].value));
+        g_object_set_data(G_OBJECT(item),"user_data",GUINT_TO_POINTER(property_physic_data[j].value));
         gtk_container_add(GTK_CONTAINER(menu_entity), item);
       	gtk_widget_show(item);
     }
