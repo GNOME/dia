@@ -417,7 +417,6 @@ connectionpoint_init (ConnectionPoint* cp, DiaObject* obj)
   cp->object = obj;
   cp->connected = NULL;
   cp->directions = DIR_ALL;
-  cp->name = NULL;
   cp->flags = 0;
 }
 

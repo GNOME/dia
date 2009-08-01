@@ -302,16 +302,6 @@ read_connections(GList *objects, xmlNodePtr layer_node,
 			    handle, to->type->name);
 	    broken = TRUE;
 	  } else {
-	    if (conn == -1) { /* Find named connpoint */
-	      int i;
-	      for (i = 0; i < to->num_connections; i++) {
-		if (to->connections[i]->name != NULL &&
-		    strcmp(to->connections[i]->name, connstr) == 0) {
-		  conn = i;
-		  break;
-		}
-	      }
-	    }
 	    if (conn >= 0 && conn < to->num_connections) {
 	      object_connect(obj, obj->handles[handle],
 			     to->connections[conn]);
@@ -809,11 +799,7 @@ write_connections(GList *objects, xmlNodePtr layer_node,
 
 	  xmlSetProp(connection, (const xmlChar *)"to", (xmlChar *) buffer);
 	  /* to what connection_point on that object */
-	  if (other_obj->connections[con_point_nr]->name != NULL) {
-	    g_snprintf(buffer, 30, "%s", other_obj->connections[con_point_nr]->name);
-	  } else {
-	    g_snprintf(buffer, 30, "%d", con_point_nr);
-	  }
+	  g_snprintf(buffer, 30, "%d", con_point_nr);
 	  xmlSetProp(connection, (const xmlChar *)"connection", (xmlChar *) buffer);
 	}
       }

@@ -988,10 +988,6 @@ dia_object_sanity_check(const DiaObject *obj, const gchar *msg) {
 	dia_assert_true((cp->flags & CP_FLAGS_MAIN) == cp->flags,
 			"%s: Object %p CP %d (%p) has illegal flags %d\n",
 			msg, obj, i, cp, cp->flags);
-	dia_assert_true(cp->name == NULL 
-			|| g_utf8_validate(cp->name, -1, NULL),
-			"%s: Object %p CP %d (%p) has non-UTF8 name %s\n",
-			msg, obj, i, cp, cp->name);
 	j = 0;
 	for (connected = cp->connected; connected != NULL;
 	     connected = g_list_next(connected)) {

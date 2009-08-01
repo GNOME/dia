@@ -65,8 +65,7 @@ struct _ConnectionPoint {
   Point last_pos;    /*!< Used by update_connections_xxx only. */
   DiaObject *object; /*!< pointer to the object having this point */
   GList *connected;  /*!< list of 'DiaObject *' connected to this point*/
-  gchar directions;  /*!< Directions that this connection point is open to */
-  gchar *name;       /*!< Name of this connpoint, NULL means uses number only.*/
+  guint8 directions; /*!< Directions that this connection point is open to */
   guint8 flags;      /*!< Flags set for this connpoint.  See CP_FLAGS_* above. */
 };
 
