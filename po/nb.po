@@ -1169,7 +1169,7 @@ msgid ""
 "connection handle %d does not exist on '%s'."
 msgstr ""
 "Feil under lasting av diagram.\n"
-"Håndtak for forbindelse eksisterer ikke på «%s»."
+"Håndtak for forbindelse %d eksisterer ikke på «%s»."
 
 #: ../app/load_save.c:318
 #, c-format
@@ -1178,7 +1178,7 @@ msgid ""
 "connection point %d does not exist on '%s'."
 msgstr ""
 "Feil under lasting av diagram.\n"
-"Punkt %s for forbindelse eksisterer ikke på «%s»."
+"Punkt for forbindelse %d eksisterer ikke på «%s»."
 
 #: ../app/load_save.c:358
 #, c-format
@@ -1259,7 +1259,7 @@ msgstr "Intern feil %d under skriving av fil %s\n"
 #: ../app/load_save.c:1058
 #, c-format
 msgid "Can't rename %s to final output file %s: %s\n"
-msgstr "Kunne ikke skrive endelig utfil %s: %s\n"
+msgstr "Kunne endre navn på %s til endelig utfil %s: %s\n"
 
 #: ../app/load_save.c:1149 ../app/load_save.c:1154
 msgid "Dia Diagram File"
