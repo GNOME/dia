@@ -1813,7 +1813,7 @@ touch_file(gchar *filename)
   g_stat(filename, &stat_buf);
   utim_buf.actime = stat_buf.st_atime;
   utim_buf.modtime = time(NULL);
-  utime(filename, &utim_buf);
+  g_utime(filename, &utim_buf);
 }
 
 static gint
