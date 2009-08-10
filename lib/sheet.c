@@ -26,6 +26,7 @@
 #include <unistd.h>
 #endif
 #include <glib.h>
+#include <glib/gstdio.h> /* g_stat() */
 #include <libxml/tree.h>
 #include <libxml/parser.h>
 #include <libxml/xmlmemory.h>
@@ -302,10 +303,10 @@ load_register_sheet(const gchar *dirname, const gchar *filename,
       struct stat first_file, this_file;
       int stat_ret;
       
-      stat_ret = stat(((Sheet *)(sheetp->data))->filename, &first_file);
+      stat_ret = g_stat(((Sheet *)(sheetp->data))->filename, &first_file);
       g_assert(!stat_ret);
 
-      stat_ret = stat(filename, &this_file);
+      stat_ret = g_stat(filename, &this_file);
       g_assert(!stat_ret);
 
       if (this_file.st_mtime > first_file.st_mtime)

@@ -25,12 +25,12 @@
 #include <string.h>
 #include <errno.h>
 #include <sys/types.h>
-#include <sys/stat.h>
 #include <fcntl.h>
 #ifdef HAVE_UNISTD_H
 #include <unistd.h>
 #endif
 
+#include <glib/gstdio.h>
 #include <libxml/xmlmemory.h>
 #include <libxml/parser.h>
 #include <libxml/tree.h>
@@ -295,7 +295,7 @@ for_each_in_dir(const gchar *directory, ForEachInDirDoFunc dofunc,
   GDir *dp;
   GError *error = NULL;
 
-  if (stat(directory, &statbuf) < 0)
+  if (g_stat(directory, &statbuf) < 0)
     return;
 
   dp = g_dir_open(directory, 0, &error);
