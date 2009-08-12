@@ -62,6 +62,7 @@ compile :
 	cd ..\plug-ins
 	nmake -f makefile.msc
 	cd python
+# Comment out the following line, if you want to build without python	
 	nmake -f makefile.msc
 	cd ..\..
 	cd tests
