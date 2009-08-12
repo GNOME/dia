@@ -204,13 +204,16 @@ Color
 vdx_parse_color(const char *s, const VDXDocument *theDoc)
 {
     int colorvalues;
-    Color c = {0, 0, 0};
+    Color c = {0, 0, 0, 0};
     if (s[0] == '#')
     {
         sscanf(s, "#%xd", &colorvalues);
+        /* A wild fabricated guess? */
+        /* c.alpha = ((colorvalues & 0xff000000)>>24) / 255.0; */
         c.red = ((colorvalues & 0x00ff0000)>>16) / 255.0;
         c.green = ((colorvalues & 0x0000ff00)>>8) / 255.0;
         c.blue = (colorvalues & 0x000000ff) / 255.0;
+        c.alpha = 1.0;
         return c;
     }
     if (g_ascii_isdigit(s[0]))
@@ -720,6 +723,7 @@ vdx_simple_properties(DiaObject *obj,
             cprop->color_data.red = 0;
             cprop->color_data.green = 0;
             cprop->color_data.blue = 0;
+            cprop->color_data.alpha = 1.0;
         }
         else
         {
@@ -727,6 +731,7 @@ vdx_simple_properties(DiaObject *obj,
             cprop->color_data.red = 1;
             cprop->color_data.green = (theDoc->shape_id >> 8)/255.0;
             cprop->color_data.blue = (theDoc->shape_id & 0xff)/255.0;
+            cprop->color_data.alpha = 1.0;
         }
     }
 

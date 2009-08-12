@@ -478,6 +478,7 @@ inline static void grayify(Color *col,Color *src)
   col->red = .5 * (src->red + color_white.red);
   col->green = .5 * (src->green + color_white.green);
   col->blue = .5 * (src->blue + color_white.blue);
+  col->alpha = .5 * (src->alpha + color_white.alpha);
 }
 
 static void
@@ -634,6 +635,7 @@ chronoline_create(Point *startpoint,
   chronoline->data_color.red = 1.0;
   chronoline->data_color.green = 0.0;
   chronoline->data_color.blue = 0.0;
+  chronoline->data_color.alpha = 1.0;
   chronoline->multibit = FALSE;
   
   chronoline->evtlist = NULL;

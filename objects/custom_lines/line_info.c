@@ -260,6 +260,7 @@ line_info_get_line_color( const gchar* filename, xmlNodePtr node, LineInfo* info
     else if (/*node->ns == shape_ns &&*/ !strcmp((char*)child_node->name, "blue"))
       info->line_color.blue = line_info_get_as_float(filename, child_node);
   }
+  info->line_color.alpha = 1.0;
 }
 
 LineInfo* line_info_load_and_apply_from_xmlfile(const gchar *filename, LineInfo* info);
@@ -276,6 +277,7 @@ LineInfo* line_info_load(const gchar *filename)
   res->line_color.red   = 0.0f;
   res->line_color.green = 0.0f;
   res->line_color.blue  = 0.0f;
+  res->line_color.alpha = 1.0f;
   res->line_style = LINESTYLE_SOLID;
   res->dashlength = 1.0f;
   res->line_width = 0.1f;
@@ -301,6 +303,7 @@ LineInfo* line_info_clone(LineInfo* info)
   res->line_color.red     = info->line_color.red;
   res->line_color.green   = info->line_color.green;
   res->line_color.blue    = info->line_color.blue;
+  res->line_color.alpha   = info->line_color.alpha;
   res->line_style 	  = info->line_style;
   res->dashlength 	  = info->dashlength;
   res->line_width 	  = info->line_width;

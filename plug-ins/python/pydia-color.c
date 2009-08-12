@@ -72,14 +72,15 @@ static PyObject *
 PyDiaColor_GetAttr(PyDiaColor *self, gchar *attr)
 {
   if (!strcmp(attr, "__members__"))
-    return Py_BuildValue("[sss]", "red", "green", "blue");
+    return Py_BuildValue("[ssss]", "red", "green", "blue", "alpha");
   else if (!strcmp(attr, "red"))
     return PyFloat_FromDouble(self->color.red);
   else if (!strcmp(attr, "green"))
     return PyFloat_FromDouble(self->color.green);
   else if (!strcmp(attr, "blue"))
     return PyFloat_FromDouble(self->color.blue);
-
+  else if (!strcmp(attr, "alpha"))
+    return PyFloat_FromDouble(self->color.alpha);
   PyErr_SetString(PyExc_AttributeError, attr);
   return NULL;
 }
@@ -91,10 +92,11 @@ static PyObject *
 PyDiaColor_Str(PyDiaColor *self)
 {
   PyObject* py_s;
-  gchar* s = g_strdup_printf("(%f,%f,%f)",
+  gchar* s = g_strdup_printf("(%f,%f,%f,%f)",
                              (float)(self->color.red),
                              (float)(self->color.green),
-                             (float)(self->color.blue));
+                             (float)(self->color.blue),
+                             (float)(self->color.alpha));
   py_s = PyString_FromString(s);
   g_free (s);
   return py_s;

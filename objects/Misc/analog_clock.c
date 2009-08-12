@@ -411,10 +411,12 @@ analog_clock_create(Point *startpoint,
   analog_clock->arrow_color.red = 0.0;
   analog_clock->arrow_color.green = 0.0;
   analog_clock->arrow_color.blue = 0.5;
+  analog_clock->arrow_color.alpha = 1.0;
   analog_clock->arrow_line_width = attributes_get_default_linewidth();
   analog_clock->sec_arrow_color.red = 1.0;
   analog_clock->sec_arrow_color.green = 0.0;
   analog_clock->sec_arrow_color.blue = 0.0;
+  analog_clock->sec_arrow_color.alpha = 1.0;
   analog_clock->sec_arrow_line_width = attributes_get_default_linewidth()/3;
   analog_clock->show_ticks = TRUE;
 

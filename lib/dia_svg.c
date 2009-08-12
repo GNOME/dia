@@ -101,7 +101,14 @@ _parse_color(gint32 *color, const char *str)
   else if (0 == strncmp(str, "rgb(", 4)) {
     int r = 0, g = 0, b = 0;
     if (3 == sscanf (str+4, "%d,%d,%d", &r, &g, &b))
-      *color = ((r<<16) & 0xFF0000) | ((g<<8) & 0xFF00) | (b & 0xFF);
+      /* Set alpha to 1.0 */
+      *color = ((0xFF<<24) & 0xFF000000) | ((r<<16) & 0xFF0000) | ((g<<8) & 0xFF00) | (b & 0xFF);
+    else
+      return FALSE;
+  } else if (0 == strncmp(str, "rgba(", 5)) {
+    int r = 0, g = 0, b = 0, a = 0;
+    if (4 == sscanf (str+4, "%d,%d,%d,%d", &r, &g, &b, &a))
+      *color = ((a<<24) & 0xFF000000) | ((r<<16) & 0xFF0000) | ((g<<8) & 0xFF00) | (b & 0xFF);
     else
       return FALSE;
   } else {
@@ -111,7 +118,7 @@ _parse_color(gint32 *color, const char *str)
 
     if (!se) {
       if (pango_color_parse (&pc, str))
-	*color = ((pc.red >> 8) << 16) | ((pc.green >> 8) << 8) | (pc.blue >> 8);
+	*color = ((0xFF<<24) & 0xFF000000) | ((pc.red >> 8) << 16) | ((pc.green >> 8) << 8) | (pc.blue >> 8);
       else
 	return FALSE;
     } else {
@@ -119,7 +126,7 @@ _parse_color(gint32 *color, const char *str)
       gboolean ret = pango_color_parse (&pc, str);
 
       if (ret)
-	*color = ((pc.red >> 8) << 16) | ((pc.green >> 8) << 8) | (pc.blue >> 8);
+	*color = ((0xFF<<24) & 0xFF000000) | ((pc.red >> 8) << 16) | ((pc.green >> 8) << 8) | (pc.blue >> 8);
       g_free (sz);
       return ret;
     }

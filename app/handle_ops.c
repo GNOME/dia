@@ -25,24 +25,24 @@
 
 static const Color handle_color[NUM_HANDLE_TYPES<<1] =
 {
-  { 0.0, 0.0, 0.5}, /* HANDLE_NON_MOVABLE */
-  { 0.0, 1.0, 0.0}, /* HANDLE_MAJOR_CONTROL */
-  { 1.0, 0.6, 0.0}, /* HANDLE_MINOR_CONTROL */
+  { 0.0, 0.0, 0.5, 1.0 }, /* HANDLE_NON_MOVABLE */
+  { 0.0, 1.0, 0.0, 1.0 }, /* HANDLE_MAJOR_CONTROL */
+  { 1.0, 0.6, 0.0, 1.0 }, /* HANDLE_MINOR_CONTROL */
   /* dim down the color if the handle is in a group of selected objects */
-  { 0.0, 0.0, 0.5}, /* HANDLE_NON_MOVABLE */
-  { 0.0, 0.7, 0.0}, /* HANDLE_MAJOR_CONTROL */
-  { 0.7, 0.4, 0.0}, /* HANDLE_MINOR_CONTROL */
+  { 0.0, 0.0, 0.5, 1.0 }, /* HANDLE_NON_MOVABLE */
+  { 0.0, 0.7, 0.0, 1.0 }, /* HANDLE_MAJOR_CONTROL */
+  { 0.7, 0.4, 0.0, 1.0 }, /* HANDLE_MINOR_CONTROL */
 };
 
 static const Color handle_color_connected[NUM_HANDLE_TYPES<<1] =
 {
-  { 0.0, 0.0, 0.5}, /* HANDLE_NON_MOVABLE */
-  { 1.0, 0.0, 0.0}, /* HANDLE_MAJOR_CONTROL */
-  { 1.0, 0.4, 0.0}, /* HANDLE_MINOR_CONTROL */
+  { 0.0, 0.0, 0.5, 1.0 }, /* HANDLE_NON_MOVABLE */
+  { 1.0, 0.0, 0.0, 1.0 }, /* HANDLE_MAJOR_CONTROL */
+  { 1.0, 0.4, 0.0, 1.0 }, /* HANDLE_MINOR_CONTROL */
   /* dim down the color if the handle is in a group of selected objects */
-  { 0.0, 0.0, 0.5}, /* HANDLE_NON_MOVABLE */
-  { 0.7, 0.0, 0.0}, /* HANDLE_MAJOR_CONTROL */
-  { 0.7, 0.3, 0.0}, /* HANDLE_MINOR_CONTROL */
+  { 0.0, 0.0, 0.5, 1.0 }, /* HANDLE_NON_MOVABLE */
+  { 0.7, 0.0, 0.0, 1.0 }, /* HANDLE_MAJOR_CONTROL */
+  { 0.7, 0.3, 0.0, 1.0 }, /* HANDLE_MINOR_CONTROL */
 };
 
 void

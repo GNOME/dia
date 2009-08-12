@@ -385,7 +385,7 @@ action_draw(Action *action, DiaRenderer *renderer)
     renderer_ops->draw_line(renderer,&p1,&p2,&color_black);
   }
 
-  cl.red = 1.0; cl.blue = cl.green = .2; 
+  cl.red = 1.0; cl.blue = cl.green = .2; cl.alpha = 1.0;
   renderer_ops->draw_rect(renderer,&ul,&br,&color_black);
 }
 

@@ -1022,21 +1022,26 @@ static GtkWidget *
 dia_color_selector_create_string_item(DiaDynamicMenu *ddm, gchar *string)
 {
   GtkWidget *item = gtk_menu_item_new_with_label(string);
-  gint r, g, b;
-  sscanf(string, "#%2x%2x%2x", &r, &g, &b);
+  gint r, g, b, a;
+  gchar *markup;
   
+  sscanf(string, "#%2x%2x%2x%2x", &r, &g, &b, &a);
+
+  markup = g_strdup_printf("#%02X%02X%02X", r, g, b);
+
   /* See http://web.umr.edu/~rhall/commentary/color_readability.htm for
    * explanation of this formula */
   if (r*299+g*587+b*114 > 500 * 256) {
-    gchar *label = g_strdup_printf("<span foreground=\"black\" background=\"%s\">%s</span>", string, string);
+    gchar *label = g_strdup_printf("<span foreground=\"black\" background=\"%s\">%s</span>", markup, string);
     gtk_label_set_markup(GTK_LABEL(gtk_bin_get_child(GTK_BIN(item))), label);
     g_free(label);
   } else {
-    gchar *label = g_strdup_printf("<span foreground=\"white\" background=\"%s\">%s</span>", string, string);
+    gchar *label = g_strdup_printf("<span foreground=\"white\" background=\"%s\">%s</span>", markup, string);
     gtk_label_set_markup(GTK_LABEL(gtk_bin_get_child(GTK_BIN(item))), label);
     g_free(label);
   }
   
+  g_free(markup);
   return item;
 }
 
@@ -1046,6 +1051,7 @@ dia_color_selector_more_ok(GtkWidget *ok, gpointer userdata)
   DiaDynamicMenu *ddm = g_object_get_data(G_OBJECT(userdata), "ddm");
   GtkWidget *colorsel = GTK_WIDGET(userdata);
   GdkColor gcol;
+  guint galpha;
   gchar *entry;
 
   gtk_color_selection_get_current_color(
@@ -1053,7 +1059,11 @@ dia_color_selector_more_ok(GtkWidget *ok, gpointer userdata)
 	    GTK_COLOR_SELECTION_DIALOG(colorsel)->colorsel),
 	&gcol);
 
-  entry = g_strdup_printf("#%02X%02X%02X", gcol.red/256, gcol.green/256, gcol.blue/256);
+  galpha = gtk_color_selection_get_current_alpha(
+        GTK_COLOR_SELECTION(
+            GTK_COLOR_SELECTION_DIALOG(colorsel)->colorsel));
+
+  entry = g_strdup_printf("#%02X%02X%02X%02X", gcol.red/256, gcol.green/256, gcol.blue/256, galpha/256);
   dia_dynamic_menu_select_entry(ddm, entry);
   g_free(entry);
 
@@ -1069,6 +1079,9 @@ dia_color_selector_more_callback(GtkWidget *widget, gpointer userdata)
   GString *palette = g_string_new ("");
 
   gchar *old_color = dia_dynamic_menu_get_entry(ddm);
+
+  gtk_color_selection_set_has_opacity_control(colorsel, TRUE);
+
   /* Force history to the old place */
   dia_dynamic_menu_select_entry(ddm, old_color);
 
@@ -1081,6 +1094,7 @@ dia_color_selector_more_callback(GtkWidget *widget, gpointer userdata)
          tmplist != NULL || advance; 
          tmplist = g_list_next(tmplist)) {
       const gchar* spec;
+      guint r, g, b, a, old_a;
       GdkColor color;
 
       /* handle both lists */
@@ -1090,8 +1104,20 @@ dia_color_selector_more_callback(GtkWidget *widget, gpointer userdata)
         if (!tmplist)
           break;
       }
-      spec = (gchar *)tmplist->data;
 
+      if (sscanf((gchar *)tmplist->data,"#%02X%02X%02X%02X", &r, &g, &b, &a) != 4) {
+        /* We don't have alpha, default to 1.0 */
+        a = 65535;
+      } else {
+        a = (guint)((((float)a) / 255.0) * 65535.0);
+      }
+      if (sscanf(old_color,"#%02X%02X%02X%02X", &r, &g, &b, &old_a) != 4) {
+        /* We don't have alpha, default to 1.0 */
+        old_a = 65535;
+      } else {
+        old_a = (guint)((((float)old_a) / 255.0) * 65535.0);
+      }
+      spec = g_strndup((gchar *)tmplist->data, 7);
       gdk_color_parse (spec, &color);
 #if 0
       /* the easy way if the Gtk Team would decide to make it public */
@@ -1100,11 +1126,14 @@ dia_color_selector_more_callback(GtkWidget *widget, gpointer userdata)
       g_string_append (palette, spec);
       g_string_append (palette, ":");
 #endif
-      if (0 == strcmp (spec, old_color)) {
+      if (0 == strcmp ((gchar *)tmplist->data, old_color) && a == old_a) {
         gtk_color_selection_set_previous_color (colorsel, &color);
         gtk_color_selection_set_current_color (colorsel, &color);
+        gtk_color_selection_set_previous_alpha (colorsel, a);
+        gtk_color_selection_set_current_alpha (colorsel, a);
       }
       index++;
+      g_free(spec);
     }
   }
 
@@ -1135,15 +1164,15 @@ dia_color_selector_new ()
 					GTK_MENU_ITEM(otheritem),
 					"color-menu");
   dia_dynamic_menu_add_default_entry(DIA_DYNAMIC_MENU(ddm),
-				     "#000000");
+				     "#000000FF");
   dia_dynamic_menu_add_default_entry(DIA_DYNAMIC_MENU(ddm),
-				     "#FFFFFF");
+				     "#FFFFFFFF");
   dia_dynamic_menu_add_default_entry(DIA_DYNAMIC_MENU(ddm),
-				     "#FF0000");
+				     "#FF0000FF");
   dia_dynamic_menu_add_default_entry(DIA_DYNAMIC_MENU(ddm),
-				     "#00FF00");
+				     "#00FF00FF");
   dia_dynamic_menu_add_default_entry(DIA_DYNAMIC_MENU(ddm),
-				     "#0000FF");
+				     "#0000FFFF");
   g_signal_connect(G_OBJECT(otheritem), "activate",
 		   G_CALLBACK(dia_color_selector_more_callback), ddm);
   gtk_widget_show(otheritem);
@@ -1155,32 +1184,35 @@ void
 dia_color_selector_get_color(GtkWidget *widget, Color *color)
 {
   gchar *entry = dia_dynamic_menu_get_entry(DIA_DYNAMIC_MENU(widget));
-  gint r, g, b;
+  gint r, g, b, a;
 
-  sscanf(entry, "#%2x%2x%2x", &r, &g, &b);
+  sscanf(entry, "#%2x%2x%2x%2x", &r, &g, &b, &a);
   g_free(entry);
   color->red = r / 255.0;
   color->green = g / 255.0;
   color->blue = b / 255.0;
+  color->alpha = a / 255.0;
 }
 
 void
 dia_color_selector_set_color (GtkWidget *widget,
 			      const Color *color)
 {
-  gint red, green, blue;
+  gint red, green, blue, alpha;
   gchar *entry;
   red = color->red * 255;
   green = color->green * 255;
   blue = color->blue * 255;
-  if (color->red > 1.0 || color->green > 1.0 || color->blue > 1.0) {
-    printf("Color out of range: r %f, g %f, b %f\n",
-	   color->red, color->green, color->blue);
+  alpha = color->alpha * 255;
+  if (color->red > 1.0 || color->green > 1.0 || color->blue > 1.0 || color->alpha > 1.0) {
+    printf("Color out of range: r %f, g %f, b %f, a %f\n",
+	   color->red, color->green, color->blue, color->alpha);
     red = MIN(red, 255);
     green = MIN(green, 255);
     blue = MIN(blue, 255);
+    alpha = MIN(alpha, 255);
   }
-  entry = g_strdup_printf("#%02X%02X%02X", red, green, blue);
+  entry = g_strdup_printf("#%02X%02X%02X%02X", red, green, blue, alpha);
   dia_dynamic_menu_select_entry(DIA_DYNAMIC_MENU(widget), entry);
   g_free (entry);
 }

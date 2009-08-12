@@ -743,7 +743,7 @@ bezierconn_simple_draw(BezierConn *bez, DiaRenderer *renderer, real width)
 void
 bezierconn_draw_control_lines(BezierConn *bez, DiaRenderer *renderer)
 {
-  Color line_colour = {0.0, 0.0, 0.6};
+  Color line_colour = { 0.0, 0.0, 0.6, 1.0 };
   Point startpoint;
   int i;
   

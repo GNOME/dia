@@ -21,8 +21,8 @@
 #include "intl.h"
 #include "persistence.h"
 
-static Color attributes_foreground = { 0.0f, 0.0f, 0.0f };
-static Color attributes_background = { 1.0f, 1.0f, 1.0f };
+static Color attributes_foreground = { 0.0f, 0.0f, 0.0f, 1.0f };
+static Color attributes_background = { 1.0f, 1.0f, 1.0f, 1.0f };
 
 static real attributes_default_linewidth = 0.1;
 

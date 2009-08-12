@@ -2018,7 +2018,7 @@ arrow_draw(DiaRenderer *renderer, ArrowType type,
     Arrow arrow = {type, length, width};
     Rectangle bbox = {0, };
     Point p1, p2;
-    Color col = {1.0, 0.0, 1.0};
+    Color col = { 1.0, 0.0, 1.0, 1.0 };
     
     arrow_bbox (&arrow, linewidth, to, from, &bbox);
 

@@ -65,7 +65,7 @@ color_to_abgr(Color *col)
 {
   int rgba;
 
-  rgba = 0x0;
+  rgba = (guint)(0xFF*col->alpha) << 24;
   rgba |= (guint)(0xFF*col->blue) << 16;
   rgba |= (guint)(0xFF*col->green) << 8;
   rgba |= (guint)(0xFF*col->red);
@@ -79,12 +79,12 @@ color_to_rgba(DiaLibartRenderer *renderer, Color *col)
   int rgba;
 
   if (renderer->highlight_color != NULL) {
-      rgba = 0xFF;
+      rgba = (guint)(0xFF*renderer->highlight_color->alpha);
       rgba |= (guint)(0xFF*renderer->highlight_color->red) << 24;
       rgba |= (guint)(0xFF*renderer->highlight_color->green) << 16;
       rgba |= (guint)(0xFF*renderer->highlight_color->blue) << 8;
   } else {
-    rgba = 0xFF;
+    rgba = (guint)(0xFF*col->alpha);
     rgba |= (guint)(0xFF*col->red) << 24;
     rgba |= (guint)(0xFF*col->green) << 16;
     rgba |= (guint)(0xFF*col->blue) << 8;

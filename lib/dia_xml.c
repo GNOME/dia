@@ -555,7 +555,7 @@ void
 data_color(DataNode data, Color *col)
 {
   xmlChar *val;
-  int r=0, g=0, b=0;
+  int r=0, g=0, b=0, a=0;
   
   if (data_type(data)!=DATATYPE_COLOR) {
     message_error("Taking color value of non-color node.");
@@ -571,6 +571,11 @@ data_color(DataNode data, Color *col)
     r = hex_digit(val[1])*16 + hex_digit(val[2]);
     g = hex_digit(val[3])*16 + hex_digit(val[4]);
     b = hex_digit(val[5])*16 + hex_digit(val[6]);
+    if (xmlStrlen(val) >= 9) {
+      a = hex_digit(val[7])*16 + hex_digit(val[8]);
+    } else {
+      a = 0xff;
+    }
   }
 
   if (val) xmlFree(val);
@@ -578,6 +583,7 @@ data_color(DataNode data, Color *col)
   col->red = (float)(r/255.0);
   col->green = (float)(g/255.0);
   col->blue = (float)(b/255.0);
+  col->alpha = (float)(a/255.0);
 }
 
 /** Return the value of a point-type data node.
@@ -1013,14 +1019,15 @@ convert_to_hex(float x, char *str)
 void
 data_add_color(AttributeNode attr, const Color *col)
 {
-  char buffer[1+6+1];
+  char buffer[1+8+1];
   DataNode data_node;
 
   buffer[0] = '#';
   convert_to_hex(col->red, &buffer[1]);
   convert_to_hex(col->green, &buffer[3]);
   convert_to_hex(col->blue, &buffer[5]);
-  buffer[7] = 0;
+  convert_to_hex(col->alpha, &buffer[7]);
+  buffer[9] = 0;
 
   data_node = xmlNewChild(attr, NULL, (const xmlChar *)"color", NULL);
   xmlSetProp(data_node, (const xmlChar *)"val", (xmlChar *)buffer);

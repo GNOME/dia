@@ -29,8 +29,8 @@
 static GdkColormap *colormap = NULL;
 
 #ifndef G_OS_WIN32 
-Color color_black = { 0.0f, 0.0f, 0.0f };
-Color color_white = { 1.0f, 1.0f, 1.0f };
+Color color_black = { 0.0f, 0.0f, 0.0f, 1.0f };
+Color color_white = { 1.0f, 1.0f, 1.0f, 1.0f };
 #endif
 
 GdkColor color_gdk_black, color_gdk_white;
@@ -54,18 +54,38 @@ color_init(void)
 }
 
 /** Allocate a new color object wtih the given values.
+ * Initializes alpha component to 1.0
  * @param r Red component (0 <= r <= 1)
  * @param g Green component (0 <= g <= 1)
  * @param b Blue component (0 <= b <= 1)
  * @returns A newly allocated color object.  This should be freed after use.
  */
 Color *
-color_new_rgb(float r, float g, float b) 
+color_new_rgb(float r, float g, float b)
 {
   Color *col = g_new(Color, 1);
   col->red = r;
   col->green = g;
   col->blue = b;
+  col->alpha = 1.0;
+  return col;
+}
+
+/** Allocate a new color object wtih the given values.
+ * @param r Red component (0 <= r <= 1)
+ * @param g Green component (0 <= g <= 1)
+ * @param b Blue component (0 <= b <= 1)
+ * @param alpha Alpha component (0 <= alpha <= 1)
+ * @returns A newly allocated color object.  This should be freed after use.
+ */
+Color *
+color_new_rgba(float r, float g, float b, float alpha)
+{
+  Color *col = g_new(Color, 1);
+  col->red = r;
+  col->green = g;
+  col->blue = b;
+  col->alpha = alpha;
   return col;
 }
 
@@ -98,5 +118,6 @@ color_equals(Color *color1, Color *color2)
 {
   return (color1->red == color2->red) &&
     (color1->green == color2->green) &&
-    (color1->blue == color2->blue);
+    (color1->blue == color2->blue) &&
+    (color1->alpha == color2->alpha);
 }

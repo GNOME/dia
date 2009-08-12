@@ -234,6 +234,7 @@ set_prop (::Property* p, const char* v)
             ((ColorProperty*)p)->color_data.red = color.red / 65535.0; 
             ((ColorProperty*)p)->color_data.green = color.green / 65535.0; 
             ((ColorProperty*)p)->color_data.blue = color.blue / 65535.0;
+            ((ColorProperty*)p)->color_data.alpha = 1.0;
         }
     }
     else if (strcmp (p->type, PROP_TYPE_STRING) == 0) {
@@ -370,10 +371,11 @@ dia::Properties::setitem (const char* s, const std::vector<double>& v)
     ::Property *p = object_prop_by_name (object, s);
     if (p) {
         bool apply = true;
-        if (strcmp (p->type, PROP_TYPE_COLOUR) == 0 && v.size() == 3) {
+        if (strcmp (p->type, PROP_TYPE_COLOUR) == 0 && v.size() == 4) {
             ((ColorProperty*)p)->color_data.red   = v[0]; 
             ((ColorProperty*)p)->color_data.green = v[1]; 
             ((ColorProperty*)p)->color_data.blue  = v[2];
+            ((ColorProperty*)p)->color_data.alpha = v[3];
 	}
 	else if (strcmp (p->type, PROP_TYPE_LINESTYLE) == 0 && v.size() == 2) {
 	    ((LinestyleProperty *)p)->style = (::LineStyle)(int)v[0];

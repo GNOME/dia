@@ -27,7 +27,7 @@
 #include "network.h"
 #include "plug-ins.h"
 
-Color computer_color = { 0.7, 0.7, 0.7 };
+Color computer_color = { 0.7, 0.7, 0.7, 1.0 };
 
 extern DiaObjectType bus_type;
 extern DiaObjectType bus_type_std;

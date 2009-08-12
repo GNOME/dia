@@ -275,7 +275,7 @@ begin_render(DiaRenderer *self)
 
   gint16 i;
   guint8* pPal;
-  Color color = {1, 1, 1};
+  Color color = { 1.0, 1.0, 1.0, 1.0 };
 
   DIAG_NOTE(g_message("begin_render"));
 

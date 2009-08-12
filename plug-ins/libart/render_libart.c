@@ -33,11 +33,11 @@
 #include "color.h"
 
 /** Used for highlighting mainpoint connections. */
-static Color cp_main_color = { 1.0, 0.8, 0.0 };
+static Color cp_main_color = { 1.0, 0.8, 0.0, 1.0 };
 /** Used for highlighting normal connections. */
-static Color cp_color = { 1.0, 0.0, 0.0 };
+static Color cp_color = { 1.0, 0.0, 0.0, 1.0 };
 
-static Color text_edit_color = {1.0, 1.0, 0.0 };
+static Color text_edit_color = {1.0, 1.0, 0.0, 1.0 };
 
 
 static void clip_region_clear(DiaRenderer *self);

@@ -827,9 +827,10 @@ get_colour(Custom *custom, Color *colour, gint32 c)
     *colour = custom->text->color;
     break;
   default:
-    colour->red   = ((c & 0xff0000) >> 16) / 255.0;
-    colour->green = ((c & 0x00ff00) >> 8) / 255.0;
-    colour->blue  =  (c & 0x0000ff) / 255.0;
+    colour->alpha = ((c & 0xff000000) >> 24) / 255.0;
+    colour->red   = ((c & 0x00ff0000) >> 16) / 255.0;
+    colour->green = ((c & 0x0000ff00) >> 8) / 255.0;
+    colour->blue  =  (c & 0x000000ff) / 255.0;
     break;
   }
 }

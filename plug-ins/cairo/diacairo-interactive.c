@@ -411,7 +411,7 @@ draw_pixel_line(DiaRenderer *object,
   cairo_device_to_user (renderer->cr, &x1u, &y1u);
   cairo_device_to_user (renderer->cr, &x2u, &y2u);
 
-  cairo_set_source_rgba (renderer->cr, color->red, color->green, color->blue, 1.0);
+  cairo_set_source_rgba (renderer->cr, color->red, color->green, color->blue, color->alpha);
   cairo_move_to (renderer->cr, x1u, y1u);
   cairo_line_to (renderer->cr, x2u, y2u);
   cairo_stroke (renderer->cr);
@@ -434,7 +434,7 @@ draw_pixel_rect(DiaRenderer *object,
   cairo_device_to_user (renderer->cr, &x1u, &y1u);
   cairo_device_to_user (renderer->cr, &x2u, &y2u);
 
-  cairo_set_source_rgba (renderer->cr, color->red, color->green, color->blue, 1.0);
+  cairo_set_source_rgba (renderer->cr, color->red, color->green, color->blue, color->alpha);
   cairo_rectangle (renderer->cr, x1u, y1u, x2u - x1u, y2u - y1u);
   cairo_stroke (renderer->cr);
 }
@@ -467,7 +467,7 @@ fill_pixel_rect(DiaRenderer *object,
   cairo_device_to_user (renderer->cr, &x1u, &y1u);
   cairo_device_to_user (renderer->cr, &x2u, &y2u);
 
-  cairo_set_source_rgba (renderer->cr, color->red, color->green, color->blue, 1.0);
+  cairo_set_source_rgba (renderer->cr, color->red, color->green, color->blue, color->alpha);
   cairo_rectangle (renderer->cr, x1u, y1u, x2u - x1u, y2u - y1u);
   cairo_fill (renderer->cr);
 #endif

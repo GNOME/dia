@@ -23,7 +23,7 @@
 #include "object_ops.h"
 #include "color.h"
 
-static Color connectionpoint_color = { 0.4, 0.4, 1.0 };
+static Color connectionpoint_color = { 0.4, 0.4, 1.0, 1.0 };
 
 #define CP_SZ (CONNECTIONPOINT_SIZE/2)
 
@@ -42,7 +42,7 @@ connectionpoint_draw(ConnectionPoint *conpoint,
    * have snap-to-grid */
   if (conpoint->flags & CP_FLAG_ANYPLACE) {
     if (!ddisp->mainpoint_magnetism) {
-      static Color midpoint_color = { 1.0, 0.0, 0.0 };
+      static Color midpoint_color = { 1.0, 0.0, 0.0, 1.0 };
       
       ddisplay_transform_coords(ddisp, point->x, point->y, &x, &y);
          

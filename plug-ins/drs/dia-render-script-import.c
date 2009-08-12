@@ -127,6 +127,7 @@ _parse_color (xmlNodePtr node, const char *attrib)
       val->red = color.red / 65535.0; 
       val->green = color.green / 65535.0; 
       val->blue = color.blue / 65535.0;
+      val->alpha = 1.0;
     }
     xmlFree(str);
   }

@@ -277,6 +277,7 @@ colorprop_new(const PropDescription *pdesc, PropDescToPropPredicate reason)
   prop->color_data.red = 0.0;
   prop->color_data.green = 0.0;
   prop->color_data.blue = 1.0;
+  prop->color_data.alpha = 1.0;
   return prop;
 }
 

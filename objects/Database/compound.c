@@ -563,7 +563,7 @@ compound_draw (Compound * comp, DiaRenderer * renderer)
 #if DEBUG_DRAW_MP_DIRECTION
  {
    Point p = comp->mount_point.pos;
-   Color red = {1.0, 0.0, 0.0};
+   Color red = { 1.0, 0.0, 0.0, 1.0 };
    gchar dirs = comp->mount_point.directions;
    if (dirs & DIR_NORTH)
      p.y -= 1.0;

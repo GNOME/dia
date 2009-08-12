@@ -129,6 +129,7 @@ handle_btn1(Annotation *annotation, Property *prop) {
   col.red = g_random_double();
   col.green = g_random_double();
   col.blue = g_random_double();
+  col.alpha = 1.0;
   annotation->attrs.color = col;
   text_set_attributes(annotation->text,&annotation->attrs);
   /* g_message("end of handle_btn1 for object %p col=%.2f:%.2f:%.2f",
