@@ -3,9 +3,9 @@
  *
  * dia-win-remote.c
  * Copyright (C) 2002, 2004, 2006 Edward G. Bruck <ebruck@users.sourceforge.net>
- * Copyright (C) 2006 Steffen Macke <sdteffen@gmail.com>
+ * Copyright (C) 2006, 2009 Steffen Macke <sdteffen@sdteffen.de>
  *
- * dia-win-remote is a program that allows the user running 9x/2000/XP 
+ * dia-win-remote is a program that allows the user running 2000/XP/Vista 
  * to open a dia file in an already running Dia process. If Dia 
  * isn't running, dia-win-remote will launch it and open the requested 
  * file(s).
@@ -237,7 +237,7 @@ int DragAndDropDia(HWND hWnd)
  */ 
 BOOL CALLBACK FindDiaWindow(HWND hWnd, LPARAM lParam)
 {
-    char szTitle[40]; /* should be enough to find Dia */
+    char szTitle[MAX_PATH + 40]; /* should be enough to find diaw.exe */
 
     if (GetWindowText(hWnd, szTitle, sizeof(szTitle)) != 0)
     {
@@ -245,7 +245,7 @@ BOOL CALLBACK FindDiaWindow(HWND hWnd, LPARAM lParam)
         char* pszToken = strtok(szTitle, " ");
         while(pszToken != NULL)
         {
-            if (stricmp(pszToken,"Dia") == 0)
+            if (stricmp(pszToken,"diaw.exe") == 0)
             {
                 /* sanity check class name */         
                 char szClass[20]; /* should be enough */
