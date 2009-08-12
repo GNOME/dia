@@ -91,7 +91,7 @@ struct _Mbr {
 
 #define MBR_DEC_SIZE 1.0
 
-static Color color_red = { 1.0f, 0.0f, 0.0f };
+static Color color_red = { 1.0f, 0.0f, 0.0f, 1.0f };
 
 static DiaFont *mbr_font = NULL;
 

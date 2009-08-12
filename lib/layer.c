@@ -83,6 +83,7 @@ layer_render(Layer *layer, DiaRenderer *renderer, Rectangle *update,
 	col.red = 1.0;
 	col.green = 0.0;
 	col.blue = 1.0;
+	col.alpha = 1.0;
 
         DIA_RENDERER_GET_CLASS(renderer)->set_linewidth(renderer,0.01);
 	DIA_RENDERER_GET_CLASS(renderer)->draw_rect(renderer, &p1, &p2, &col);

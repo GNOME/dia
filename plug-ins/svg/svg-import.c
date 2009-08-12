@@ -67,6 +67,7 @@ get_colour(gint32 c)
     colour.red   = ((c & 0xff0000) >> 16) / 255.0;
     colour.green = ((c & 0x00ff00) >> 8) / 255.0;
     colour.blue  =  (c & 0x0000ff) / 255.0;
+    colour.alpha = 1.0;
 
     return colour;
 }

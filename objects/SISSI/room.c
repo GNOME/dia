@@ -66,7 +66,7 @@
 #define TEXT_HEIGHT (2.0)
 #define NUM_CONNECTIONS 9
 
-static Color color_gris = { 0.5f, 0.5f, 0.5f };
+static Color color_gris = { 0.5f, 0.5f, 0.5f, 1.0f };
 
 #ifdef G_OS_WIN32
 #include <io.h>

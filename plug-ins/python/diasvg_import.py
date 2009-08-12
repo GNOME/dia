@@ -38,6 +38,7 @@ dictUnitScales = {
 
 # only compile once
 rColor = re.compile(r"rgb\s*\(\s*(\d+)[, ]+(\d+)[, +](\d+)\s*\)")
+rColora = re.compile(r"rgba\s*\(\s*(\d+)[, ]+(\d+)[, +](\d+)[, +](\d+)\s*\)")
 # not really parsing numbers (Scaled will deal with more)
 rTranslate = re.compile(r"translate\s*\(\s*([^,]+),([^)]+)\s*\)")
 #FIXME: parse more - e.g. AQT - of the strange path data
@@ -68,7 +69,10 @@ def Color(s) :
 	# deliver a StdProp compatible Color (or the original string)
 	m = rColor.match(s)
 	if m :
-		return (int(m.group(1)) / 255.0, int(m.group(2)) / 255.0, int(m.group(2)) / 255.0)
+		return (int(m.group(1)) / 255.0, int(m.group(2)) / 255.0, int(m.group(3)) / 255.0, 1.0)
+	else:
+		m = rColora.match(s)
+		return (int(m.group(1)) / 255.0, int(m.group(2)) / 255.0, int(m.group(3)) / 255.0, int(m.group(4)) / 255.0)
 	# any more ugly color definitions not compatible with pango_color_parse() ?
 	return string.strip(s)
 def _eval (s, _locals) :

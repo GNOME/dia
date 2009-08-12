@@ -308,6 +308,7 @@ PyDia_set_Color (Property *prop, PyObject *val)
       p->color_data.red = color.red / 65535.0; 
       p->color_data.green = color.green / 65535.0; 
       p->color_data.blue = color.blue / 65535.0;
+      p->color_data.alpha = 1.0;
       return 0;
     } else
       g_debug("Failed to parse color string '%s'", str);
@@ -328,6 +329,7 @@ PyDia_set_Color (Property *prop, PyObject *val)
     p->color_data.red = f[0]; 
     p->color_data.green = f[1]; 
     p->color_data.blue = f[2];
+    p->color_data.alpha = 1.0;
     return 0;
   }
   /* also convert char/255 ? */

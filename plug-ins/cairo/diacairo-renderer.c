@@ -100,7 +100,7 @@ begin_render(DiaRenderer *self)
                              renderer->dia->bg_color.red, 
                              renderer->dia->bg_color.green, 
                              renderer->dia->bg_color.blue,
-                             0.0);
+                             renderer->dia->bg_color.alpha);
     }
   else
     {
@@ -119,7 +119,7 @@ begin_render(DiaRenderer *self)
                              renderer->dia->bg_color.red, 
                              renderer->dia->bg_color.green, 
                              renderer->dia->bg_color.blue,
-                             1.0);
+                             renderer->dia->bg_color.alpha);
     }
 #ifdef HAVE_PANGOCAIRO_H
   if (!renderer->layout)
@@ -332,6 +332,7 @@ set_dashlength(DiaRenderer *self, real length)
 static void
 set_fillstyle(DiaRenderer *self, FillStyle mode)
 {
+  DiaCairoRenderer *renderer = DIA_CAIRO_RENDERER (self);
   DIAG_NOTE(g_message("set_fillstyle %d", mode));
 
   switch(mode) {
@@ -397,7 +398,7 @@ draw_line(DiaRenderer *self,
   DIAG_NOTE(g_message("draw_line %f,%f -> %f, %f", 
             start->x, start->y, end->x, end->y));
 
-  cairo_set_source_rgba (renderer->cr, color->red, color->green, color->blue, 1.0);
+  cairo_set_source_rgba (renderer->cr, color->red, color->green, color->blue, color->alpha);
   cairo_move_to (renderer->cr, start->x, start->y);
   cairo_line_to (renderer->cr, end->x, end->y);
   if (!renderer->stroke_pending)
@@ -418,7 +419,7 @@ draw_polyline(DiaRenderer *self,
 
   g_return_if_fail(1 < num_points);
 
-  cairo_set_source_rgba (renderer->cr, color->red, color->green, color->blue, 1.0);
+  cairo_set_source_rgba (renderer->cr, color->red, color->green, color->blue, color->alpha);
 
   cairo_new_path (renderer->cr);
   /* point data */
@@ -446,7 +447,7 @@ _polygon(DiaRenderer *self,
 
   g_return_if_fail(1 < num_points);
 
-  cairo_set_source_rgba (renderer->cr, color->red, color->green, color->blue, 1.0);
+  cairo_set_source_rgba (renderer->cr, color->red, color->green, color->blue, color->alpha);
 
   cairo_new_path (renderer->cr);
   /* point data */
@@ -492,7 +493,7 @@ _rect(DiaRenderer *self,
             fill ? "fill" : "draw",
             ul_corner->x, ul_corner->y, lr_corner->x, lr_corner->y));
 
-  cairo_set_source_rgba (renderer->cr, color->red, color->green, color->blue, 1.0);
+  cairo_set_source_rgba (renderer->cr, color->red, color->green, color->blue, color->alpha);
   
   cairo_rectangle (renderer->cr, 
                    ul_corner->x, ul_corner->y, 
@@ -535,7 +536,7 @@ draw_arc(DiaRenderer *self,
   DIAG_NOTE(g_message("draw_arc %fx%f <%f,<%f", 
             width, height, angle1, angle2));
 
-  cairo_set_source_rgba (renderer->cr, color->red, color->green, color->blue, 1.0);
+  cairo_set_source_rgba (renderer->cr, color->red, color->green, color->blue, color->alpha);
 
   if (!renderer->stroke_pending)
     cairo_new_path (renderer->cr);
@@ -570,7 +571,7 @@ fill_arc(DiaRenderer *self,
   DIAG_NOTE(g_message("draw_arc %fx%f <%f,<%f", 
             width, height, angle1, angle2));
 
-  cairo_set_source_rgba (renderer->cr, color->red, color->green, color->blue, 1.0);
+  cairo_set_source_rgba (renderer->cr, color->red, color->green, color->blue, color->alpha);
   
   cairo_new_path (renderer->cr);
   start.x = center->x + (width / 2.0)  * cos((M_PI / 180.0) * angle1);
@@ -601,7 +602,7 @@ _ellipse(DiaRenderer *self,
   DIAG_NOTE(g_message("%s_ellipse %fx%f center @ %f,%f", 
             fill ? "fill" : "draw", width, height, center->x, center->y));
 
-  cairo_set_source_rgba (renderer->cr, color->red, color->green, color->blue, 1.0);
+  cairo_set_source_rgba (renderer->cr, color->red, color->green, color->blue, color->alpha);
   
   cairo_save (renderer->cr);
   /* don't create a line from the current point to the beginning 
@@ -651,7 +652,7 @@ _bezier(DiaRenderer *self,
   DIAG_NOTE(g_message("%s_bezier n:%d %fx%f ...", 
             fill ? "fill" : "draw", numpoints, points->p1.x, points->p1.y));
 
-  cairo_set_source_rgba (renderer->cr, color->red, color->green, color->blue, 1.0);
+  cairo_set_source_rgba (renderer->cr, color->red, color->green, color->blue, color->alpha);
 
   cairo_new_path (renderer->cr);
   for (i = 0; i < numpoints; i++)
@@ -714,7 +715,7 @@ draw_string(DiaRenderer *self,
 
   if (len < 1) return; /* shouldn't this be handled by Dia's core ? */
 
-  cairo_set_source_rgba (renderer->cr, color->red, color->green, color->blue, 1.0);
+  cairo_set_source_rgba (renderer->cr, color->red, color->green, color->blue, color->alpha);
 #ifdef HAVE_PANGOCAIRO_H
   cairo_save (renderer->cr);
   /* alignment calculation done by pangocairo? */
@@ -744,7 +745,7 @@ draw_string(DiaRenderer *self,
   {
     cairo_text_extents_t extents;
     double x = 0, y = 0;
-    cairo_set_source_rgba (renderer->cr, color->red, color->green, color->blue, 1.0);
+    cairo_set_source_rgba (renderer->cr, color->red, color->green, color->blue, color->alpha);
     cairo_text_extents (renderer->cr,
                         text,
                         &extents);
@@ -902,7 +903,7 @@ _rounded_rect (DiaRenderer *self,
             fill ? "fill" : "draw",
             topleft->x, topleft->y, bottomright->x, bottomright->y, radius));
 
-  cairo_set_source_rgba (renderer->cr, color->red, color->green, color->blue, 1.0);
+  cairo_set_source_rgba (renderer->cr, color->red, color->green, color->blue, color->alpha);
 
   cairo_new_path (renderer->cr);
   cairo_move_to (renderer->cr, /* north-west */

@@ -124,16 +124,19 @@ fig_area_fill_color(int area_fill, int color_index) {
 	    col.red = 0xff*(20-area_fill)/20;
 	    col.green = 0xff*(20-area_fill)/20;
 	    col.blue = 0xff*(20-area_fill)/20;
+	    col.alpha = 1.0;
 	} else {
 	    col.red = (col.red*area_fill)/20;
 	    col.green = (col.green*area_fill)/20;
 	    col.blue = (col.blue*area_fill)/20;
+	    col.alpha = 1.0;
 	}
     } else if (area_fill > 20 && area_fill <= 40) {
 	/* White and black area illegal here */
 	col.red += (0xff-col.red)*(area_fill-20)/20;
 	col.green += (0xff-col.green)*(area_fill-20)/20;
 	col.blue += (0xff-col.blue)*(area_fill-20)/20;
+	col.alpha = 1.0;
     } else {
 	message_warning(_("Patterns are not supported by Dia"));
     }
@@ -1056,6 +1059,7 @@ fig_read_object(FILE *file) {
 	color.red = ((colorvalues & 0x00ff0000)>>16) / 255.0;
 	color.green = ((colorvalues & 0x0000ff00)>>8) / 255.0;
 	color.blue = (colorvalues & 0x000000ff) / 255.0;
+	color.alpha = 1.0;
 
 	fig_colors[colornumber-32] = color;
 	break;

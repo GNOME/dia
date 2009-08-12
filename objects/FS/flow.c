@@ -40,9 +40,9 @@
 
 #include "pixmaps/flow.xpm"
 
-Color flow_color_energy   = { 1.0f, 0.0f, 0.0f };
-Color flow_color_material = { 0.8f, 0.0f, 0.8f };
-Color flow_color_signal   = { 0.0f, 0.0f, 1.0f };
+Color flow_color_energy   = { 1.0f, 0.0f, 0.0f, 1.0f };
+Color flow_color_material = { 0.8f, 0.0f, 0.8f, 1.0f };
+Color flow_color_signal   = { 0.0f, 0.0f, 1.0f, 1.0f };
 
 typedef struct _Flow Flow;
 typedef enum {

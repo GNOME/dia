@@ -21,8 +21,8 @@
 #include "diatypes.h"
 #include "diagramdata.h"
 
-#define DEFAULT_GRID_COLOR { 0.85, .90, .90 }
-#define DEFAULT_PAGEBREAK_COLOR { 0.0, 0.0, 0.6 }
+#define DEFAULT_GRID_COLOR { 0.85, .90, .90, 1.0 }
+#define DEFAULT_PAGEBREAK_COLOR { 0.0, 0.0, 0.6, 1.0 }
 
 struct DiaPreferences {
   struct {

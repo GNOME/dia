@@ -319,6 +319,7 @@ init_attributes( CgmRenderer *renderer )
     renderer->lcurrent.color.red   = 0;
     renderer->lcurrent.color.green = 0;
     renderer->lcurrent.color.blue  = 0;
+    renderer->lcurrent.color.alpha = 1.0;
 
     renderer->linfile.cap    = -1;
     renderer->linfile.join   = -1;
@@ -327,12 +328,14 @@ init_attributes( CgmRenderer *renderer )
     renderer->linfile.color.red   = -1;
     renderer->linfile.color.green = -1;
     renderer->linfile.color.blue  = -1;
+    renderer->linfile.color.alpha = 1.0;
 
     /* fill/edge defaults */
     renderer->fcurrent.fill_style = 1;          /* solid */
     renderer->fcurrent.fill_color.red = 0;
     renderer->fcurrent.fill_color.green = 0;
     renderer->fcurrent.fill_color.blue = 0;
+    renderer->fcurrent.fill_color.alpha = 1.0;
 
     renderer->fcurrent.edgevis = 0;
     renderer->fcurrent.cap   = 3;            /* round */
@@ -342,11 +345,13 @@ init_attributes( CgmRenderer *renderer )
     renderer->fcurrent.color.red   = 0;
     renderer->fcurrent.color.green = 0;
     renderer->fcurrent.color.blue  = 0;
-   
+    renderer->fcurrent.color.alpha = 1.0;
+
     renderer->finfile.fill_style = -1;
     renderer->finfile.fill_color.red = -1;
     renderer->finfile.fill_color.green = -1;
     renderer->finfile.fill_color.blue = -1;
+    renderer->finfile.fill_color.alpha = 1.0;
 
     renderer->finfile.edgevis = -1;
     renderer->finfile.cap   = -1;            
@@ -356,19 +361,22 @@ init_attributes( CgmRenderer *renderer )
     renderer->finfile.color.red   = -1.0;
     renderer->finfile.color.green = -1.0;
     renderer->finfile.color.blue  = -1.0;
+    renderer->finfile.color.alpha = 1.0;
 
     renderer->tcurrent.font_num    = 1;
     renderer->tcurrent.font_height = 0.1;
     renderer->tcurrent.color.red   = 0.0;
     renderer->tcurrent.color.green = 0.0;
     renderer->tcurrent.color.blue  = 0.0;
+    renderer->tcurrent.color.alpha = 1.0;
 
     renderer->tinfile.font_num    = -1;
     renderer->tinfile.font_height = -1.0;
     renderer->tinfile.color.red   = -1.0;
     renderer->tinfile.color.green = -1.0;
     renderer->tinfile.color.blue  = -1.0;
-   
+    renderer->tinfile.color.alpha = 1.0;
+
 }
     
 
@@ -417,7 +425,8 @@ LineAttrCGM    *lnew, *lold;
     lnew->color = *color;
     if ( lnew->color.red != lold->color.red ||
          lnew->color.green != lold->color.green ||
-         lnew->color.blue != lold->color.blue )
+         lnew->color.blue != lold->color.blue ||
+         lnew->color.alpha != lold->color.alpha)
     {
         write_elhead(renderer->file, 5, 4, 3); /* line colour */
         write_colour(renderer->file, &lnew->color);
@@ -498,7 +507,8 @@ FillEdgeAttrCGM    *fnew, *fold;
         fnew->color = *edge_color;
         if ( fnew->color.red != fold->color.red ||
              fnew->color.green != fold->color.green ||
-             fnew->color.blue != fold->color.blue )
+             fnew->color.blue != fold->color.blue ||
+             fnew->color.alpha != fold->color.alpha)
         {
             write_elhead(renderer->file, 5, 29, 3); /* line colour */
             write_colour(renderer->file, &fnew->color);
@@ -529,7 +539,8 @@ FillEdgeAttrCGM    *fnew, *fold;
         fnew->fill_color = *fill_color;
         if ( fnew->fill_color.red != fold->fill_color.red ||
              fnew->fill_color.green != fold->fill_color.green ||
-             fnew->fill_color.blue != fold->fill_color.blue )
+             fnew->fill_color.blue != fold->fill_color.blue ||
+             fnew->fill_color.alpha != fold->fill_color.alpha)
         {
             write_elhead(renderer->file, 5, 23, 3);   /* fill colour */
             write_colour(renderer->file, &fnew->fill_color);
@@ -578,7 +589,8 @@ TextAttrCGM    *tnew, *told;
     tnew->color = *text_color;
     if ( tnew->color.red != told->color.red ||
          tnew->color.green != told->color.green ||
-         tnew->color.blue != told->color.blue )
+         tnew->color.blue != told->color.blue ||
+         tnew->color.alpha != told->color.alpha)
     {
         write_elhead(renderer->file, 5, 14, 3);   /* text colour */
         write_colour(renderer->file, &tnew->color);

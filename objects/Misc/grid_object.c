@@ -388,6 +388,7 @@ grid_object_create(Point *startpoint,
   grid_object->gridline_color.red = 0.5;
   grid_object->gridline_color.green = 0.5;
   grid_object->gridline_color.blue = 0.5;
+  grid_object->gridline_color.alpha = 1.0;
   grid_object->gridline_width = attributes_get_default_linewidth();
 
   for (i = 0; i < 9; ++i)

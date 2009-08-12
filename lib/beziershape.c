@@ -721,7 +721,7 @@ beziershape_update_boundingbox(BezierShape *bezier)
 void
 beziershape_draw_control_lines(BezierShape *bez, DiaRenderer *renderer)
 {
-  Color line_colour = {0.0, 0.0, 0.6};
+  Color line_colour = { 0.0, 0.0, 0.6, 1.0 };
   Point startpoint;
   int i;
   

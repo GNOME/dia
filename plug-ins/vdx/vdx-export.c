@@ -291,9 +291,9 @@ begin_render(DiaRenderer *self)
     /* renderer->version = 0; */
 
     /* Black and white are 0 and 1 respectively */
-    c.red = 0.0; c.green = 0.0; c.blue = 0.0;
+    c.red = 0.0; c.green = 0.0; c.blue = 0.0; c.alpha = 1.0;
     vdxCheckColor(renderer, &c);
-    c.red = 1.0; c.green = 1.0; c.blue = 1.0;
+    c.red = 1.0; c.green = 1.0; c.blue = 1.0; c.alpha = 1.0;
     vdxCheckColor(renderer, &c);
 }
 
@@ -1638,7 +1638,7 @@ write_header(DiagramData *data, VDXRenderer *renderer)
     struct vdx_Char Char;
     struct vdx_Para Para;
     struct vdx_Tabs Tabs;
-    static Color color_black = {0,0,0};
+    static Color color_black = { 0.0, 0.0, 0.0, 1.0 };
 
     g_debug("write_header");
 

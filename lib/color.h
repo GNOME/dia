@@ -29,16 +29,18 @@ struct _Color {
   float red;
   float green;
   float blue;
+  float alpha;
 };
 
 void color_init(void);
 Color *color_new_rgb(float r, float g, float b);
+Color *color_new_rgba(float r, float g, float b, float alpha);
 void color_convert(Color *color, GdkColor *gdkcolor);
 gboolean color_equals(Color *color1, Color *color2);
 
 #ifdef G_OS_WIN32
-static Color color_black = { 0.0f, 0.0f, 0.0f };
-static Color color_white = { 1.0f, 1.0f, 1.0f };
+static Color color_black = { 0.0f, 0.0f, 0.0f, 1.0f };
+static Color color_white = { 1.0f, 1.0f, 1.0f, 1.0f };
 #else
 DIAVAR Color color_black, color_white;
 #endif
@@ -52,6 +54,7 @@ DIAVAR GdkColor color_gdk_black, color_gdk_white;
 #define GDK_COLOR_TO_DIA(from, to) \
 (to).red = (from).red/65535.0; \
 (to).green = (from).green/65535.0; \
-(to).blue = (from).blue/65535.0;
+(to).blue = (from).blue/65535.0; \
+(to).alpha = 1.0;
 
 #endif /* COLOR_H */

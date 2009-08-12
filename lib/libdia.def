@@ -85,6 +85,7 @@ EXPORTS
  color_equals
  color_init
  color_new_rgb
+ color_new_rgba
 
  composite_add_attribute
  composite_find_attribute

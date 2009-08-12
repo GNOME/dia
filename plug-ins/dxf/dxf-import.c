@@ -158,7 +158,7 @@ read_entity_line_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
     Handle *h1, *h2;
     
     DiaObject *line_obj;
-    Color line_colour = { 0.0, 0.0, 0.0 };
+    Color line_colour = { 0.0, 0.0, 0.0, 1.0 };
     RGB_t color;
     GPtrArray *props;
     PointProperty *ptprop;
@@ -203,6 +203,7 @@ read_entity_line_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
 	    line_colour.red = color.r / 255.0;
 	    line_colour.green = color.g / 255.0;
 	    line_colour.blue = color.b / 255.0;
+	    line_colour.alpha = 1.0;
             break;
         }	
     } while(data->code != 0);
@@ -262,7 +263,7 @@ read_entity_solid_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
    DiaObject *polygon_obj;
    MultipointCreateData *pcd;
 
-   Color fill_colour = { 0.5, 0.5, 0.5 };
+   Color fill_colour = { 0.5, 0.5, 0.5, 1.0 };
 
    GPtrArray *props;
    LinestyleProperty *lsprop;
@@ -332,6 +333,7 @@ read_entity_solid_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
 	    fill_colour.red = color.r / 255.0;
 	    fill_colour.green = color.g / 255.0;
 	    fill_colour.blue = color.b / 255.0;
+	    fill_colour.alpha = 1.0;
             break;
         }	
     } while(data->code != 0);
@@ -414,7 +416,7 @@ read_entity_polyline_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
     DiaObject *polyline_obj;
     MultipointCreateData *pcd;
 
-    Color line_colour = { 0.0, 0.0, 0.0 };
+    Color line_colour = { 0.0, 0.0, 0.0, 1.0 };
 
     GPtrArray *props;
     LinestyleProperty *lsprop;
@@ -491,6 +493,7 @@ read_entity_polyline_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
                 line_colour.red = color.r / 255.0;
                 line_colour.green = color.g / 255.0;
                 line_colour.blue = color.b / 255.0;
+                line_colour.alpha = 1.0;
                 break;
             case 70:
                 closed = 1 & atoi( data->value );
@@ -636,7 +639,7 @@ DiaObject *read_entity_circle_dxf(FILE *filedxf, DxfData *data, DiagramData *dia
     Handle *h1, *h2;
     
     DiaObject *ellipse_obj;
-    Color line_colour = { 0.0, 0.0, 0.0 };
+    Color line_colour = { 0.0, 0.0, 0.0, 1.0 };
 
     PointProperty *ptprop;
     RealProperty *rprop;
@@ -724,7 +727,7 @@ DiaObject *read_entity_arc_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
     Handle *h1, *h2;
   
     DiaObject *arc_obj;
-    Color line_colour = { 0.0, 0.0, 0.0 };
+    Color line_colour = { 0.0, 0.0, 0.0, 1.0 };
 
     ColorProperty *cprop;
     PointProperty *ptprop;
@@ -818,7 +821,7 @@ read_entity_ellipse_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
     Handle *h1, *h2;
     
     DiaObject *ellipse_obj; 
-    Color line_colour = { 0.0, 0.0, 0.0 };
+    Color line_colour = { 0.0, 0.0, 0.0, 1.0 };
     PointProperty *ptprop;
     RealProperty *rprop;
     BoolProperty *bprop;
@@ -906,7 +909,7 @@ read_entity_text_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
     Handle *h1, *h2;
     
     DiaObject *text_obj;
-    Color text_colour = { 0.0, 0.0, 0.0 };
+    Color text_colour = { 0.0, 0.0, 0.0, 1.0 };
 
     TextProperty *tprop;
     GPtrArray *props;
@@ -964,6 +967,7 @@ read_entity_text_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
 	   text_colour.red = color.r / 255.0;
 	   text_colour.green = color.g / 255.0;
 	   text_colour.blue = color.b / 255.0;
+	   text_colour.alpha = 1.0;
             break;
         case 72: 
 	   switch(atoi(data->value))

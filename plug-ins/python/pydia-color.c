@@ -74,10 +74,11 @@ static PyObject *
 PyDiaColor_Str(PyDiaColor *self)
 {
   PyObject* py_s;
-  gchar* s = g_strdup_printf("(%f,%f,%f)",
+  gchar* s = g_strdup_printf("(%f,%f,%f,%f)",
                              (float)(self->color.red),
                              (float)(self->color.green),
-                             (float)(self->color.blue));
+                             (float)(self->color.blue),
+                             (float)(self->color.alpha));
   py_s = PyString_FromString(s);
   g_free (s);
   return py_s;
@@ -90,6 +91,8 @@ static PyMemberDef PyDiaColor_Members[] = {
       "double: green color component [0 .. 1.0]" },
     { "blue", T_FLOAT, offsetof(PyDiaColor, color.blue), 0,
       "double: blue color component [0 .. 1.0]" },
+    { "alpha", T_FLOAT, offsetof(PyDiaColor, color.alpha), 0,
+      "double: alpha color component [0 .. 1.0]" },
     { NULL }
 };
 /*

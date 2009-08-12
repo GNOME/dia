@@ -227,7 +227,7 @@ get_draw_style(DiaSvgRenderer *renderer,
   g_string_truncate(str, 0);
 
   /* TODO(CHECK): the shape-export didn't have 'fill: none' here */
-  g_string_printf(str, "fill: none; fill-opacity:0; stroke-width: %s", dia_svg_dtostr(linewidth_buf, renderer->linewidth) );
+  g_string_printf(str, "fill: none; fill-opacity: %f; stroke-width: %s", colour->alpha, dia_svg_dtostr(linewidth_buf, renderer->linewidth) );
   if (strcmp(renderer->linecap, "butt"))
     g_string_append_printf(str, "; stroke-linecap: %s", renderer->linecap);
   if (strcmp(renderer->linejoin, "miter"))
@@ -253,10 +253,9 @@ get_fill_style(DiaSvgRenderer *renderer,
 
   if (!str) str = g_string_new(NULL);
 
-  g_string_printf(str, "fill: #%02x%02x%02x",
-		   (int)(255*colour->red), 
-		   (int)(255*colour->green),
-		   (int)(255*colour->blue));
+  g_string_printf(str, "fill: #%02x%02x%02x; fill-opacity: %f",
+		   (int)(255*colour->red), (int)(255*colour->green),
+		   (int)(255*colour->blue), colour->alpha);
 
   return str->str;
 }

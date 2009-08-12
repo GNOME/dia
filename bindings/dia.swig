@@ -104,6 +104,7 @@ struct _Color
    float red;
    float green;
    float blue;
+   float alpha;
 };
 
 #if 0 /* works for vc7.1, but not with vc6 and *not* for const char* ? 

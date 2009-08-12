@@ -220,12 +220,16 @@ color_selection_ok (GtkWidget               *w,
 {
   GtkColorSelection *colorsel;
   GdkColor color;
+  guint alpha;
   Color col;
 
   colorsel=GTK_COLOR_SELECTION(gtk_color_selection_dialog_get_color_selection(cs));
 
   gtk_color_selection_get_current_color(colorsel,&color);
   GDK_COLOR_TO_DIA(color, col);
+
+  alpha = gtk_color_selection_get_current_alpha(colorsel);
+  col.alpha = alpha / 65535.0;
 
   if (edit_color == FOREGROUND) {
     attributes_set_foreground(&col);
@@ -277,12 +281,17 @@ color_selection_changed (GtkWidget *w,
 {
   GtkColorSelection *colorsel;
   GdkColor color;
+  guint alpha;
   Color col;
 
   colorsel=GTK_COLOR_SELECTION(gtk_color_selection_dialog_get_color_selection(cs));
 
   gtk_color_selection_get_current_color(colorsel,&color);
   GDK_COLOR_TO_DIA(color, col);
+
+  alpha = gtk_color_selection_get_current_alpha(colorsel);
+  printf ("col.alpha = %f, alpha = %u\n", col.alpha, alpha);
+  col.alpha = alpha / 65535.0;
 
   if (edit_color == FOREGROUND) {
     attributes_set_foreground(&col);
@@ -318,6 +327,9 @@ color_area_edit (void)
 				     _("Select foreground color"):
 				     _("Select background color"));
     color_select_active = 1;
+    gtk_color_selection_set_has_opacity_control(
+        GTK_COLOR_SELECTION (GTK_COLOR_SELECTION_DIALOG (window)->colorsel),
+        TRUE);
 
     gtk_color_selection_set_has_palette (
 	GTK_COLOR_SELECTION (gtk_color_selection_dialog_get_color_selection (
@@ -371,7 +383,10 @@ color_area_edit (void)
 	GTK_COLOR_SELECTION (gtk_color_selection_dialog_get_color_selection (
 				GTK_COLOR_SELECTION_DIALOG (color_select))),
 	&color);
-
+  printf ("col.alpha = %f\n", col.alpha);
+  gtk_color_selection_set_current_alpha(
+        GTK_COLOR_SELECTION (GTK_COLOR_SELECTION_DIALOG (color_select)->colorsel),
+        (guint)(col.alpha * 65535.0));
 }
 
 static gint

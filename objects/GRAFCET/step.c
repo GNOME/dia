@@ -244,7 +244,7 @@ static void step_been_renamed(const gchar *sid)
   if (*endptr == '\0') __stepnum = snum + 1; 
 }
 
-static Color color_red = { 1.0f, 0.0f, 0.0f };
+static Color color_red = { 1.0f, 0.0f, 0.0f, 1.0f };
 
 static real
 step_distance_from(Step *step, Point *point)
