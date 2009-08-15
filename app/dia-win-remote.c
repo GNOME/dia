@@ -200,7 +200,8 @@ int DragAndDropDia(HWND hWnd)
 
     /* no wide chars and drop point is in client coordinates */
     pDropFiles->fWide = FALSE;
-    pDropFiles->pt.x = pDropFiles->pt.y = 50;
+    pDropFiles->pt.x = 50;
+	pDropFiles->pt.y = 150;
     pDropFiles->fNC = FALSE;
 
     for(i=(gUseRegVal) ? 1 : 2; i < __argc; ++i)
