@@ -54,6 +54,7 @@ compile :
 	cd lib
 	nmake -f makefile.msc
 	cd ..\bindings
+# Comment out the following line, if you want to build without python	
 	nmake -f makefile.msc
 	cd ..\app
 	nmake -f makefile.msc
