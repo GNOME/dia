@@ -233,9 +233,6 @@ build\win32\dia\xfig.dll: build\win32\dia plug-ins\xfig\xfig.dll
 
 build\win32\dia\xslt.dll: build\win32\dia plug-ins\xslt\xslt.dll
 	copy plug-ins\xslt\xslt.dll build\win32\dia	
-		
-build\win32\lib: build\win32
-	md build\win32\lib
 
 build\win32\lib\pango: build\win32\lib ..\lib\pango
 	md build\win32\lib\pango
