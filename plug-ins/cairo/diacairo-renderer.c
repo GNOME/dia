@@ -305,10 +305,6 @@ static void
 set_font(DiaRenderer *self, DiaFont *font, real height)
 {
   DiaCairoRenderer *renderer = DIA_CAIRO_RENDERER (self);
-#ifndef HAVE_PANGOCAIRO_H
-  DiaFontStyle style = dia_font_get_style (font);
-  const char *family_name;
-#endif
   /* pango/cairo wants the font size, not the (line-) height */
   real size = dia_font_get_size (font) * (height / dia_font_get_height (font));
 
@@ -321,18 +317,21 @@ set_font(DiaRenderer *self, DiaFont *font, real height)
   pango_layout_set_font_description (renderer->layout, pfd);
   pango_font_description_free (pfd);
 #else
-  family_name = dia_font_get_family(font);
+  if (renderer->cr) {
+    DiaFontStyle style = dia_font_get_style (font);
+    const char *family_name = dia_font_get_family(font);
 
-  cairo_select_font_face (
-      renderer->cr,
-      family_name,
-      DIA_FONT_STYLE_GET_SLANT(style) == DIA_FONT_NORMAL ? CAIRO_FONT_SLANT_NORMAL : CAIRO_FONT_SLANT_ITALIC,
-      DIA_FONT_STYLE_GET_WEIGHT(style) < DIA_FONT_MEDIUM ? CAIRO_FONT_WEIGHT_NORMAL : CAIRO_FONT_WEIGHT_BOLD); 
-  cairo_set_font_size (renderer->cr, size);
+    cairo_select_font_face (
+        renderer->cr,
+        family_name,
+        DIA_FONT_STYLE_GET_SLANT(style) == DIA_FONT_NORMAL ? CAIRO_FONT_SLANT_NORMAL : CAIRO_FONT_SLANT_ITALIC,
+        DIA_FONT_STYLE_GET_WEIGHT(style) < DIA_FONT_MEDIUM ? CAIRO_FONT_WEIGHT_NORMAL : CAIRO_FONT_WEIGHT_BOLD); 
+    cairo_set_font_size (renderer->cr, size);
+
+    DIAG_STATE(renderer->cr)
+  }
 #endif
 
-  DIAG_STATE(renderer->cr)
-  
   /* for the interactive case we must maintain the font field in the base class */
   if (self->is_interactive) {
     dia_font_ref(font);
