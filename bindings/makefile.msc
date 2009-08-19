@@ -2,15 +2,14 @@ TOP = ..\..
 
 !INCLUDE $(TOP)\glib\build\win32\make.msc
 
-!IFNDEF DEBUG
-PYTHON = ..\..\..\python23
-#PYTHON = ..\..\..\python25
-EXTRALIBS = $(PYTHON)\libs\python23.lib user32.lib
-#EXTRALIBS = $(PYTHON)\Python-2.5\PC\VC6\python25.lib user32.lib
-!ELSE
-PYTHON = ..\..\..\python25
-EXTRALIBS = $(PYTHON)\Python-2.5\PC\VC6\python25_d.lib user32.lib
+!IFNDEF PYTHON_VERSION
+PYTHON_VERSION=23
 !ENDIF
+!IFNDEF PYTHON
+PYTHON = ..\..\..\python$(PYTHON_VERSION)
+!ENDIF
+
+EXTRALIBS = $(PYTHON)\libs\python$(PYTHON_VERSION).lib user32.lib
 
 INCLUDES = \
 	-I.. \

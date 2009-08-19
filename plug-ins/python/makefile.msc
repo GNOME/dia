@@ -2,17 +2,14 @@ TOP = ..\..\..
 
 !INCLUDE $(TOP)\glib\build\win32\make.msc
 
-PYTHON = ..\..\..\..\python23
-!IFNDEF DEBUG
-EXTRALIBS = $(PYTHON)\libs\python23.lib user32.lib
-!ELSE
-EXTRALIBS = $(PYTHON)\Python-2.3\PC\python23_d.lib user32.lib
+!IFNDEF PYTHON_VERSION
+PYTHON_VERSION=23
+!ENDIF
+!IFNDEF PYTHON
+PYTHON = $(TOP)\..\python$(PYTHON_VERSION)
 !ENDIF
 
-!IFNDEF DEBUG
-# Debug Release!
-OPTIMIZE = -Zi -MD
-!ENDIF
+EXTRALIBS = $(PYTHON)\libs\python$(PYTHON_VERSION).lib user32.lib
 
 # we don't depend on Gtk at runtime, but some dia headers
 # need it at compile time
