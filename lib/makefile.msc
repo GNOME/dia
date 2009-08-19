@@ -145,7 +145,6 @@ diamarshal.c: diamarshal.h
 
 
 # No general LDFLAGS needed
-LDFLAGS = /link $(LINKDEBUG)
 INSTALL = copy
 
 ## targets

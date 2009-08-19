@@ -110,7 +110,6 @@ dia-app-icons.h : makefile.msc pixmaps\*.png
 
 # No general LDFLAGS needed
 # /subsystem:console and /subsystem:windows have their own exe
-LDFLAGS = /link $(LINKDEBUG) /machine:ix86
 INSTALL = copy
 
 CFLAGS = -I. -I$(PRJ_TOP) -DHAVE_CONFIG_H
