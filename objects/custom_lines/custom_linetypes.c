@@ -31,6 +31,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <sys/stat.h>
+#include <glib/gstdio.h>
 
 #include "object.h"
 
@@ -256,7 +257,7 @@ custom_linetype_new(LineInfo *info, DiaObjectType **otype)
 
   if (info->icon_filename) {
     struct stat buf;
-    if (0==stat(info->icon_filename,&buf)) {
+    if (0==g_stat(info->icon_filename,&buf)) {
       obj->pixmap = NULL;
       obj->pixmap_file = info->icon_filename;
     } else {

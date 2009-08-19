@@ -35,6 +35,7 @@
 #ifdef HAVE_UNISTD_H
 #include <unistd.h>
 #endif
+#include <glib/gstdio.h>
 
 #include "intl.h"
 #include "shape_info.h"
@@ -1811,7 +1812,7 @@ custom_object_new(ShapeInfo *info, DiaObjectType **otype)
 
   if (info->icon) {
     struct stat buf;
-    if (0==stat(info->icon,&buf)) {
+    if (0==g_stat(info->icon,&buf)) {
       obj->pixmap = NULL;
       obj->pixmap_file = info->icon;
     } else {
