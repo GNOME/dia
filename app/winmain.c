@@ -129,7 +129,8 @@ dia_redirect_console (void)
 
   if (file != INVALID_HANDLE_VALUE)
     {
-      char* log2 = g_strjoinv("\r\n", _environ);
+      gchar** envlist = g_listenv ();
+      char* log2 = g_strjoinv("\r\n", envlist);
       char* log = g_strdup_printf ("Dia (%s) instance %d started "
                                    "using Gtk %d.%d.%d (%d)\r\n%s\r\n", 
                                    VERSION, i + 1,
@@ -137,6 +138,7 @@ dia_redirect_console (void)
                                    log2);
       guint32 dwWritten; /* looks like being optional in msdn, but isn't */
       g_free (log2);
+      g_strfreev (envlist);
 
       if (!verbose || WriteFile (file, log, strlen(log), &dwWritten, 0))
         {
