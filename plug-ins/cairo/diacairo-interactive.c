@@ -208,6 +208,11 @@ begin_render(DiaRenderer *self)
   g_return_if_fail (base_renderer->cr == NULL);
   base_renderer->cr = gdk_cairo_create(renderer->pixmap);
 
+  /* Setup clipping for this sequence of render operations */
+  /* Must be done before the scaling because the clip is in pixel coords */
+  gdk_cairo_region (base_renderer->cr, renderer->clip_region);
+  cairo_clip(base_renderer->cr); 
+
   cairo_scale (base_renderer->cr, *renderer->zoom_factor, *renderer->zoom_factor);
   cairo_translate (base_renderer->cr, -renderer->visible->left, -renderer->visible->top);
 
@@ -359,6 +364,7 @@ static void
 clip_region_clear(DiaRenderer *object)
 {
   DiaCairoInteractiveRenderer *renderer = DIA_CAIRO_INTERACTIVE_RENDERER (object);
+  DiaCairoRenderer *base_renderer = DIA_CAIRO_RENDERER (object);
 
   if (renderer->clip_region != NULL)
     gdk_region_destroy(renderer->clip_region);
@@ -373,6 +379,7 @@ clip_region_add_rect(DiaRenderer *object,
 		 Rectangle *rect)
 {
   DiaCairoInteractiveRenderer *renderer = DIA_CAIRO_INTERACTIVE_RENDERER (object);
+  DiaCairoRenderer *base_renderer = DIA_CAIRO_RENDERER (object);
   GdkRectangle clip_rect;
   int x1,y1;
   int x2,y2;
