@@ -43,7 +43,9 @@ typedef struct _DiaSvgStyle DiaSvgStyle;
 struct _DiaSvgStyle {
   real line_width;
   gint32 stroke;
+  real   stroke_opacity;
   gint32 fill;
+  real   fill_opacity;
 
   LineCaps linecap;
   LineJoin linejoin;

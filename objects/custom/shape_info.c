@@ -833,7 +833,7 @@ load_shape_info(const gchar *filename, ShapeInfo *preload)
       xmlFree(tmp);
     } else if (node->ns == svg_ns && !xmlStrcmp(node->name, (const xmlChar *)"svg")) {
       DiaSvgStyle s = {
-	1.0, DIA_SVG_COLOUR_FOREGROUND, DIA_SVG_COLOUR_NONE,
+	1.0, DIA_SVG_COLOUR_FOREGROUND, 1.0, DIA_SVG_COLOUR_NONE, 1.0,
 	DIA_SVG_LINECAPS_DEFAULT, DIA_SVG_LINEJOIN_DEFAULT, DIA_SVG_LINESTYLE_DEFAULT, 1.0
       };
 

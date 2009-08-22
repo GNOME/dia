@@ -40,10 +40,12 @@ dia_svg_style_init(DiaSvgStyle *gs, DiaSvgStyle *parent_style)
 {
   g_return_if_fail (gs);
   gs->stroke = parent_style ? parent_style->stroke : DIA_SVG_COLOUR_NONE;
+  gs->stroke_opacity = parent_style ? parent_style->stroke_opacity : 1.0;
   gs->line_width = parent_style ? parent_style->line_width : 0.0;
   gs->linestyle = parent_style ? parent_style->linestyle : LINESTYLE_SOLID;
   gs->dashlength = parent_style ? parent_style->dashlength : 1;
   gs->fill = parent_style ? parent_style->fill : DIA_SVG_COLOUR_NONE;
+  gs->fill_opacity = parent_style ? parent_style->fill_opacity : 1.0;
   gs->linecap = parent_style ? parent_style->linecap : DIA_SVG_LINECAPS_DEFAULT;
   gs->linejoin = parent_style ? parent_style->linejoin : DIA_SVG_LINEJOIN_DEFAULT;
   gs->linestyle = parent_style ? parent_style->linestyle : DIA_SVG_LINESTYLE_DEFAULT;
@@ -62,10 +64,12 @@ dia_svg_style_copy(DiaSvgStyle *dest, DiaSvgStyle *src)
   g_return_if_fail (dest && src);
 
   dest->stroke = src->stroke;
+  dest->stroke_opacity = src->stroke_opacity;
   dest->line_width = src->line_width;
   dest->linestyle = src->linestyle;
   dest->dashlength = src->dashlength;
   dest->fill = src->fill;
+  dest->fill_opacity = src->fill_opacity;
   if (dest->font)
     dia_font_unref (dest->font);
   dest->font = src->font ? dia_font_ref(src->font) : NULL;
@@ -251,12 +255,18 @@ dia_svg_parse_style(xmlNodePtr node, DiaSvgStyle *s, real user_scale)
 	if (ptr[0] == '\0') break;
 
 	_parse_color (&s->stroke, ptr);
+      } else if (!strncmp("stroke-opacity:", ptr, 15)) {
+	ptr += 15;
+	s->stroke_opacity = g_ascii_strtod(ptr, &ptr);
       } else if (!strncmp("fill:", ptr, 5)) {
 	ptr += 5;
 	while (ptr[0] != '\0' && g_ascii_isspace(ptr[0])) ptr++;
 	if (ptr[0] == '\0') break;
 
 	_parse_color (&s->fill, ptr);
+      } else if (!strncmp("fill-opacity:", ptr, 13)) {
+	ptr += 13;
+	s->fill_opacity = g_ascii_strtod(ptr, &ptr);
       } else if (!strncmp("stroke-linecap:", ptr, 15)) {
 	ptr += 15;
 	while (ptr[0] != '\0' && g_ascii_isspace(ptr[0])) ptr++;
@@ -347,11 +357,21 @@ dia_svg_parse_style(xmlNodePtr node, DiaSvgStyle *s, real user_scale)
     _parse_color (&s->fill, (char *) str);
     xmlFree(str);
   }
+  str = xmlGetProp(node, (const xmlChar *)"fill-opacity");
+  if (str) {
+    s->fill_opacity = g_ascii_strtod((char *) str, NULL);
+    xmlFree(str);
+  }  
   str = xmlGetProp(node, (const xmlChar *)"stroke");
   if (str) {
     _parse_color (&s->stroke, (char *) str);
     xmlFree(str);
   }
+  str = xmlGetProp(node, (const xmlChar *)"stroke-opacity");
+  if (str) {
+    s->stroke_opacity = g_ascii_strtod((char *) str, NULL);
+    xmlFree(str);
+  }  
   str = xmlGetProp(node, (const xmlChar *)"stroke-width");
   if (str) {
     s->line_width = g_ascii_strtod((char *) str, NULL);

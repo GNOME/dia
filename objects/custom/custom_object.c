@@ -812,7 +812,7 @@ custom_move(Custom *custom, Point *to)
 }
 
 static void
-get_colour(Custom *custom, Color *colour, gint32 c)
+get_colour(Custom *custom, Color *colour, gint32 c, real opacity)
 {
   switch (c) {
   case DIA_SVG_COLOUR_NONE:
@@ -827,7 +827,7 @@ get_colour(Custom *custom, Color *colour, gint32 c)
     *colour = custom->text->color;
     break;
   default:
-    colour->alpha = ((c & 0xff000000) >> 24) / 255.0;
+    colour->alpha = opacity;
     colour->red   = ((c & 0x00ff0000) >> 16) / 255.0;
     colour->green = ((c & 0x0000ff00) >> 8) / 255.0;
     colour->blue  =  (c & 0x000000ff) / 255.0;
@@ -935,8 +935,8 @@ custom_draw_element(GraphicElement* el, Custom *custom, DiaRenderer *renderer,
   }
       
   (*cur_line) = el->any.s.line_width;
-  get_colour(custom, fg, el->any.s.stroke);
-  get_colour(custom, bg, el->any.s.fill);
+  get_colour(custom, fg, el->any.s.stroke, el->any.s.stroke_opacity);
+  get_colour(custom, bg, el->any.s.fill, el->any.s.fill_opacity);
   switch (el->type) {
   case GE_LINE:
     transform_coord(custom, &el->line.p1, &p1);
@@ -989,7 +989,7 @@ custom_draw_element(GraphicElement* el, Custom *custom, DiaRenderer *renderer,
   case GE_TEXT:
     text_set_height (el->text.object, transform_length (custom, el->text.s.font_height));
     custom_reposition_text(custom, &el->text);
-    get_colour(custom, &el->text.object->color, el->any.s.fill);
+    get_colour(custom, &el->text.object->color, el->any.s.fill, el->any.s.fill_opacity);
     text_draw(el->text.object, renderer);
     text_set_position(el->text.object, &el->text.anchor);
     break;
