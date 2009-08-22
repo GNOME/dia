@@ -41,6 +41,8 @@ struct _DiaGdkRenderer
 
   /** If non-NULL, this rendering is a highlighting with the given color. */
   Color *highlight_color;
+  
+  real   current_alpha;
 };
 
 struct _DiaGdkRendererClass

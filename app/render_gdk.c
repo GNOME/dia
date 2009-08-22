@@ -209,6 +209,9 @@ draw_pixel_line(DiaRenderer *object,
   
   color_convert(color, &gdkcolor);
   gdk_gc_set_foreground(gc, &gdkcolor);
+  /* reset stippling (alpha emulation) */
+  gdk_gc_set_fill(gc, GDK_SOLID);
+  renderer->current_alpha = 1.0;
   
   gdk_draw_line(renderer->pixmap, gc, x1, y1, x2, y2);
 }
@@ -233,6 +236,9 @@ draw_pixel_rect(DiaRenderer *object,
 
   color_convert(color, &gdkcolor);
   gdk_gc_set_foreground(gc, &gdkcolor);
+  /* reset stippling (alpha emulation) */
+  gdk_gc_set_fill(gc, GDK_SOLID);
+  renderer->current_alpha = 1.0;
 
   gdk_draw_rectangle (renderer->pixmap, gc, FALSE,
 		      x, y,  width, height);
@@ -256,6 +262,9 @@ fill_pixel_rect(DiaRenderer *object,
 
   color_convert(color, &gdkcolor);
   gdk_gc_set_foreground(gc, &gdkcolor);
+  /* reset stippling (alpha emulation) */
+  gdk_gc_set_fill(gc, GDK_SOLID);
+  renderer->current_alpha = 1.0;
 
   gdk_draw_rectangle (renderer->pixmap, gc, TRUE,
 		      x, y,  width, height);
