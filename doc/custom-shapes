@@ -140,6 +140,8 @@ Currently only the following style attributes are understood:
   stroke-dashlength - The length of the dashes in the dash pattern, in
                       relation to the user selected value (default is a
                       synonym for 1.0).
+  stroke-opacity    - alpha value between 0..1.0
+  fill-opacity      - alpha value between 0..1.0
 
   stroke       - The stroke colour.  You can use one of the symbolic
                  names foreground, fg, default, background, bg inverse,

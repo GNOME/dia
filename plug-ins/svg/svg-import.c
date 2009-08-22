@@ -61,13 +61,13 @@ static GPtrArray *make_element_props(real xpos, real ypos, real width, real heig
 
 /* TODO: use existing implementation in dia source */
 static Color 
-get_colour(gint32 c)
+get_colour(gint32 c, real opacity)
 {
     Color colour;
     colour.red   = ((c & 0xff0000) >> 16) / 255.0;
     colour.green = ((c & 0x00ff00) >> 8) / 255.0;
     colour.blue  =  (c & 0x0000ff) / 255.0;
-    colour.alpha = 1.0;
+    colour.alpha = opacity;
 
     return colour;
 }
@@ -205,12 +205,12 @@ apply_style(DiaObject *obj, xmlNodePtr node, DiaSvgStyle *parent_style)
   
       cprop = g_ptr_array_index(props,0);
       if(gs->stroke != (-1)) {
-        cprop->color_data = get_colour(gs->stroke);
+        cprop->color_data = get_colour(gs->stroke, gs->stroke_opacity);
       } else {
 	if(gs->fill == DIA_SVG_COLOUR_NONE) {
-	  cprop->color_data = get_colour(0x000000);
+	  cprop->color_data = get_colour(0x000000, 1.0);
 	} else {
-	  cprop->color_data = get_colour(gs->fill);
+	  cprop->color_data = get_colour(gs->fill, gs->fill_opacity);
 	}
       }
       rprop = g_ptr_array_index(props,1);
@@ -221,7 +221,7 @@ apply_style(DiaObject *obj, xmlNodePtr node, DiaSvgStyle *parent_style)
       lsprop->dash = gs->dashlength;
 
       cprop = g_ptr_array_index(props,3);
-      cprop->color_data = get_colour(gs->fill);
+      cprop->color_data = get_colour(gs->fill, gs->fill_opacity);
       
       bprop = g_ptr_array_index(props,4);
       if(gs->fill == (-1)) {
@@ -402,7 +402,7 @@ read_text_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list)
         prop->attr.color = attributes_get_background();
 	break;
       default :
-        prop->attr.color = get_colour (gs->fill);
+        prop->attr.color = get_colour (gs->fill, gs->fill_opacity);
 	break;
       }
       new_obj->ops->set_props(new_obj, props);
