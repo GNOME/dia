@@ -100,7 +100,7 @@ begin_render(DiaRenderer *self)
                              renderer->dia->bg_color.red, 
                              renderer->dia->bg_color.green, 
                              renderer->dia->bg_color.blue,
-                             renderer->dia->bg_color.alpha);
+                             0.0);
     }
   else
     {
@@ -119,7 +119,7 @@ begin_render(DiaRenderer *self)
                              renderer->dia->bg_color.red, 
                              renderer->dia->bg_color.green, 
                              renderer->dia->bg_color.blue,
-                             renderer->dia->bg_color.alpha);
+                             1.0);
     }
 #ifdef HAVE_PANGOCAIRO_H
   if (!renderer->layout)
