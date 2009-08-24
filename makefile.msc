@@ -40,6 +40,7 @@ full: 	build \
 	build\win32\dia\dxf.dll \
 	build\win32\dia\hpgl.dll \
 	build\win32\dia\metapost.dll \
+	build\win32\dia\pgf.dll \
 	build\win32\dia\pixbuf.dll \
 	build\win32\dia\pstricks.dll \
 	build\win32\dia\shape.dll \
@@ -210,6 +211,9 @@ build\win32\dia\hpgl.dll: build\win32\dia plug-ins\hpgl\hpgl.dll
 build\win32\dia\metapost.dll: build\win32\dia plug-ins\metapost\metapost.dll
 	copy plug-ins\metapost\metapost.dll build\win32\dia
 
+build\win32\dia\pgf.dll: build\win32\dia plug-ins\pgf\pgf.dll
+	copy plug-ins\pgf\pgf.dll build\win32\dia
+	
 build\win32\dia\pixbuf.dll: build\win32\dia plug-ins\pixbuf\pixbuf.dll
 	copy plug-ins\pixbuf\pixbuf.dll build\win32\dia
 
