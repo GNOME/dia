@@ -9,15 +9,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-03-20 18:06+0100\n"
-"PO-Revision-Date: 2009-03-20 19:34+0100\n"
+"POT-Creation-Date: 2009-08-29 16:45+0200\n"
+"PO-Revision-Date: 2009-08-29 16:46+0200\n"
 "Last-Translator: Iñaki Larrañaga Murgoitio <dooteo@euskalgnu.org>\n"
 "Language-Team: Basque <itzulpena@euskalgnu.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
-"Plural-Forms:  nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "\n"
 
 #. This is not an errror
@@ -62,42 +62,42 @@ msgstr "%s errorea: %s baliozko sarrerako fitxategia behar da\n"
 msgid "%s --> %s\n"
 msgstr "%s --> %s\n"
 
-#: ../app/app_procs.c:556
+#: ../app/app_procs.c:560
 #, c-format
 msgid "Can't find output format/filter %s\n"
 msgstr "Ezin da aurkitu %s irteerako formatua/iragazkia\n"
 
 #. Translators:  The argument is a list of options, not to be translated
-#: ../app/app_procs.c:633
+#: ../app/app_procs.c:638
 #, c-format
 msgid "Select the filter/format out of: %s"
 msgstr "Hautatu %s(r)en iragazkia edo irteerako formatua"
 
 #. &export_file_name
-#: ../app/app_procs.c:651
+#: ../app/app_procs.c:656
 msgid "Export loaded file and exit"
 msgstr "Esportatu kargatutako fitxategia eta irten"
 
-#: ../app/app_procs.c:651
+#: ../app/app_procs.c:656
 msgid "OUTPUT"
 msgstr "IRTEERA"
 
 # Supongo que también hay que traducir "TYPE", ¿no? RizOX.
 #. &export_file_format
 #. &export_format_string
-#: ../app/app_procs.c:653
+#: ../app/app_procs.c:658
 msgid "TYPE"
 msgstr "MOTA"
 
-#: ../app/app_procs.c:655
+#: ../app/app_procs.c:660
 msgid "Export graphics size"
 msgstr "Esportatzeko grafikoen tamaina"
 
-#: ../app/app_procs.c:655
+#: ../app/app_procs.c:660
 msgid "WxH"
 msgstr "ZxH"
 
-#: ../app/app_procs.c:657
+#: ../app/app_procs.c:662
 msgid ""
 "Show only specified layers (e.g. when exporting). Can be either the layer "
 "name or a range of layer numbers (X-Y)"
@@ -105,68 +105,72 @@ msgstr ""
 "Erakutsi zehaztutako geruzak bakarrik (adib. esportatzean). Geruzaren izena "
 "edo geruza kopuruen barrutia (X-Y) izan daiteke."
 
-#: ../app/app_procs.c:658
+#: ../app/app_procs.c:663
 msgid "LAYER,LAYER,..."
 msgstr "GERUZA,GERUZA,..."
 
-#: ../app/app_procs.c:660
+#: ../app/app_procs.c:665
 msgid "Don't show the splash screen"
 msgstr "Ez erakutsi harrerako pantaila"
 
-#: ../app/app_procs.c:662
+#: ../app/app_procs.c:667
 msgid "Don't create empty diagram"
 msgstr "Ez sortu diagrama hutsa"
 
-#: ../app/app_procs.c:664
+#: ../app/app_procs.c:669
+msgid "Start integrated user interface (diagrams in tabs)"
+msgstr "Abiarazi integratutako erabiltzailearen interfazea (diagramak fitxetan)"
+
+#: ../app/app_procs.c:671
 msgid "Send error messages to stderr instead of showing dialogs."
 msgstr "Bidali errore-mezuak stderr-era, elkarrizketa-koadroak erakutsi beharrean."
 
 #. &input_directory
-#: ../app/app_procs.c:666
+#: ../app/app_procs.c:673
 msgid "Directory containing input files"
 msgstr "Sarrerako fitxategiak dituen direktorioa"
 
-#: ../app/app_procs.c:666 ../app/app_procs.c:668
+#: ../app/app_procs.c:673 ../app/app_procs.c:675
 msgid "DIRECTORY"
 msgstr "DIREKTORIOA"
 
 #. &output_directory
-#: ../app/app_procs.c:668
+#: ../app/app_procs.c:675
 msgid "Directory containing output files"
 msgstr "Irteerako fitxategiak dituen direktorioa"
 
-#: ../app/app_procs.c:670
+#: ../app/app_procs.c:677
 msgid "Display credits list and exit"
 msgstr "Bistaratu kredituen zerrenda eta irten"
 
-#: ../app/app_procs.c:672
+#: ../app/app_procs.c:679
 msgid "Generate verbose output"
 msgstr "Sortu irteera xehatua"
 
-#: ../app/app_procs.c:674
+#: ../app/app_procs.c:681
 msgid "Display version and exit"
 msgstr "Bistaratu bertsioa eta irten"
 
-#: ../app/app_procs.c:731
+#: ../app/app_procs.c:738
 msgid "Can't connect to session manager!\n"
 msgstr "Ezin da konektatu saio-kudeatzailera.\n"
 
 #. TRANSLATOR: 2nd and 3rd %s are time and date respectively.
-#: ../app/app_procs.c:771
+#: ../app/app_procs.c:778
 #, c-format
 msgid "Dia version %s, compiled %s %s\n"
 msgstr "Dia, %s bertsioa, konpilatua: %s %s\n"
 
-#: ../app/app_procs.c:773
+#: ../app/app_procs.c:780
 #, c-format
 msgid "Dia version %s\n"
 msgstr "Dia, %s bertsioa\n"
 
-#: ../app/app_procs.c:811
+#: ../app/app_procs.c:818
 msgid "Couldn't find standard objects when looking for object-libs; exiting...\n"
 msgstr "Ezin izan dira 'object-libs'eko objektu estandarrak aurkitu, irtetzen...\n"
 
-#: ../app/app_procs.c:813
+#: ../app/app_procs.c:820
 #, c-format
 msgid ""
 "Couldn't find standard objects when looking for object-libs in '%s'; "
@@ -175,11 +179,11 @@ msgstr ""
 "Ezin izan dira '%s'(e)n 'object-libs'eko objektu estandarrak aurkitu, "
 "irtetzen...\n"
 
-#: ../app/app_procs.c:875
+#: ../app/app_procs.c:886
 msgid "Diagram1.dia"
 msgstr "Diagrama1.dia"
 
-#: ../app/app_procs.c:919
+#: ../app/app_procs.c:930
 msgid ""
 "This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\n"
 "describing how you can cause this message to appear.\n"
@@ -187,16 +191,16 @@ msgstr ""
 "Ez luke gertatu behar. Eman errorearen berri bugzilla.gnome.org-en,\n"
 "mezu hau agertzeko zer egin duzun azalduz.\n"
 
-#: ../app/app_procs.c:934
+#: ../app/app_procs.c:945
 msgid "Exiting Dia"
 msgstr "Dia-tik irtetzen"
 
 #. no standard buttons
-#: ../app/app_procs.c:986
+#: ../app/app_procs.c:1009
 msgid "Quitting without saving modified diagrams"
 msgstr "Irtetzen (aldatutako diagramak gorde gabe)"
 
-#: ../app/app_procs.c:988
+#: ../app/app_procs.c:1011
 msgid ""
 "Modified diagrams exist. Are you sure you want to quit Dia without saving "
 "them?"
@@ -204,15 +208,15 @@ msgstr ""
 "Aldatutako diagramak daude. Ziur zaude Dia-tik irten nahi duzula diagramak "
 "gorde gabe?"
 
-#: ../app/app_procs.c:992
+#: ../app/app_procs.c:1015
 msgid "Quit Dia"
 msgstr "Irten Dia-tik"
 
-#: ../app/app_procs.c:1061 ../app/app_procs.c:1068
+#: ../app/app_procs.c:1084 ../app/app_procs.c:1091
 msgid "Could not create per-user Dia config directory"
 msgstr "Ezin izan da sortu erabiltzaile bakoitzeko Dia konfigurazioko direktorioa"
 
-#: ../app/app_procs.c:1071
+#: ../app/app_procs.c:1094
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
@@ -220,35 +224,35 @@ msgstr ""
 "Ezin izan da sortu erabiltzaile bakoitzeko Dia konfigurazioko direktorioa. "
 "Egiaztatu HOME ingurune-aldagaiak seinalatzen duen direktorioa badagoela."
 
-#: ../app/app_procs.c:1094
+#: ../app/app_procs.c:1117
 msgid "Objects and filters internal to dia"
 msgstr "Dia-ren barneko objektuak eta iragazkiak"
 
-#: ../app/app_procs.c:1127
+#: ../app/app_procs.c:1150
 msgid "[FILE...]"
 msgstr "[FITXATEGIA...]"
 
-#: ../app/app_procs.c:1147
+#: ../app/app_procs.c:1170
 #, c-format
 msgid "Input-directory '%s' must exist!\n"
 msgstr "'%s' sarrerako direktorioak existitu behar du.\n"
 
-#: ../app/app_procs.c:1152
+#: ../app/app_procs.c:1175
 #, c-format
 msgid "Output-directory '%s' must exist!\n"
 msgstr "'%s' irteerako direktorioak existitu behar du.\n"
 
-#: ../app/app_procs.c:1158
+#: ../app/app_procs.c:1181
 #, c-format
 msgid "'%s' not found!\n"
 msgstr "'%s' ez da aurkitu.\n"
 
-#: ../app/app_procs.c:1166
+#: ../app/app_procs.c:1189
 #, c-format
 msgid "'%s' not found in '%s'!\n"
 msgstr "'%s' ez da aurkitu \"%s\"(e)n.\n"
 
-#: ../app/app_procs.c:1215
+#: ../app/app_procs.c:1238
 #, c-format
 msgid ""
 "The original author of Dia was:\n"
@@ -257,7 +261,7 @@ msgstr ""
 "Dia-ren jatorriko egilea:\n"
 "\n"
 
-#: ../app/app_procs.c:1220
+#: ../app/app_procs.c:1243
 #, c-format
 msgid ""
 "\n"
@@ -268,7 +272,7 @@ msgstr ""
 "Dia-ren uneko mantentzaileak:\n"
 "\n"
 
-#: ../app/app_procs.c:1225
+#: ../app/app_procs.c:1248
 #, c-format
 msgid ""
 "\n"
@@ -279,7 +283,7 @@ msgstr ""
 "Beste egile batzuk:\n"
 "\n"
 
-#: ../app/app_procs.c:1230
+#: ../app/app_procs.c:1253
 #, c-format
 msgid ""
 "\n"
@@ -399,8 +403,8 @@ msgid ""
 msgstr ""
 "Diagramaren tamaina doitu dezakezu 'Eskalatzea' aldatuz 'Prestatu orrialdea' "
 "elkarrizketa-koadroan.\n"
-"Bestela erabili 'Hautatu denak' eta 'Egokiena' objektuak/heldulekuak nahi den "
-"mugetan lekuz aldatzeko."
+"Bestela erabili 'Hautatu denak' eta 'Egokiena' objektuak/heldulekuak nahi "
+"den mugetan lekuz aldatzeko."
 
 #: ../app/confirm.c:85
 msgid "Confirm Diagram Size"
@@ -448,7 +452,7 @@ msgid "Visible spacing"
 msgstr "Tarte ikusgaia"
 
 #. Hexes!
-#: ../app/dia-props.c:177 ../app/preferences.c:247
+#: ../app/dia-props.c:177 ../app/preferences.c:242
 msgid "Hex grid"
 msgstr "Hamaseitar sareta"
 
@@ -464,7 +468,7 @@ msgstr "Sareta"
 msgid "Background"
 msgstr "Atzeko planoa"
 
-#: ../app/dia-props.c:220 ../app/preferences.c:123
+#: ../app/dia-props.c:220 ../app/preferences.c:122
 msgid "Grid Lines"
 msgstr "Sareta-marrak"
 
@@ -603,7 +607,7 @@ msgstr "/_Propietateak"
 msgid "/_Hide this type"
 msgstr "/_Ezkutatu mota hau"
 
-#: ../app/diagram_tree_window.c:80 ../app/preferences.c:124
+#: ../app/diagram_tree_window.c:80 ../app/preferences.c:123
 msgid "Diagram Tree"
 msgstr "Diagrama-zuhaitza"
 
@@ -676,7 +680,7 @@ msgstr ""
 msgid "Properties..."
 msgstr "Propietateak..."
 
-#: ../app/disp_callbacks.c:1066
+#: ../app/disp_callbacks.c:1067
 msgid ""
 "The object you dropped cannot fit into its parent. \n"
 "Either expand the parent object, or drop the object elsewhere."
@@ -700,20 +704,20 @@ msgid "Selected '%s'"
 msgstr "'%s' hautatuta"
 
 #. we really should not come here but instead disable the menu command earlier
-#: ../app/display.c:1034
+#: ../app/display.c:1081
 msgid "No anti-aliased renderer found"
 msgstr "Ez da antialiasing errendatzailerik aurkitu"
 
-#: ../app/display.c:1179
+#: ../app/display.c:1219
 msgid "<unnamed>"
 msgstr "<izengabea>"
 
 #. no standard buttons
-#: ../app/display.c:1185
+#: ../app/display.c:1225
 msgid "Closing diagram without saving"
 msgstr "Diagrama gorde gabe ixten"
 
-#: ../app/display.c:1187
+#: ../app/display.c:1227
 #, c-format
 msgid ""
 "The diagram '%s'\n"
@@ -722,11 +726,11 @@ msgstr ""
 "'%s' diagrama\n"
 "ez da gorde. Aldaketak gorde nahi dituzu?"
 
-#: ../app/display.c:1189
+#: ../app/display.c:1229
 msgid "Close Diagram"
 msgstr "Itxi diagrama"
 
-#: ../app/display.c:1194
+#: ../app/display.c:1234
 msgid "_Discard Changes"
 msgstr "_Baztertu aldaketak"
 
@@ -750,10 +754,6 @@ msgstr "Honakoak ez dira gorde:"
 msgid "Save"
 msgstr "Gorde"
 
-#: ../app/exit_dialog.c:114
-msgid "active"
-msgstr "aktibo"
-
 #. *** board of value **************
 #: ../app/exit_dialog.c:123 ../app/plugin-manager.c:262
 #: ../objects/Database/table.c:138 ../objects/Database/table.c:181
@@ -776,7 +776,7 @@ msgstr "Hautatu denak"
 msgid "Select None"
 msgstr "Ez hautatu ezer"
 
-#: ../app/exit_dialog.c:232
+#: ../app/exit_dialog.c:236
 msgid "Nothing selected for saving.  Would you like to try again?"
 msgstr "Ez da ezer hautatu gordetzeko. Saiatu nahi duzu berriro?"
 
@@ -866,42 +866,42 @@ msgstr "Esportatu diagrama"
 msgid "Export Options"
 msgstr "Esportatzeko aukerak"
 
-#: ../app/find-and-replace.c:453
+#: ../app/find-and-replace.c:454
 msgid "_Search for:"
 msgstr "_Bilatu:"
 
-#: ../app/find-and-replace.c:466
+#: ../app/find-and-replace.c:467
 msgid "Replace _with:"
 msgstr "Ordeztu _honekin:"
 
-#: ../app/find-and-replace.c:476
+#: ../app/find-and-replace.c:477
 msgid "_Match case"
 msgstr "_Maiuskula/minuskula"
 
-#: ../app/find-and-replace.c:480
+#: ../app/find-and-replace.c:481
 msgid "Match _entire word only"
 msgstr "_Hitz osoak soilik"
 
-#: ../app/find-and-replace.c:484
+#: ../app/find-and-replace.c:485
 msgid "Match _all properties (not just object name)"
 msgstr "Parekatu propietate _guztiak (ez soilik objektuen izenak)"
 
-#: ../app/find-and-replace.c:509
+#: ../app/find-and-replace.c:510
 msgid "Find"
 msgstr "Bilatu"
 
-#: ../app/find-and-replace.c:541 ../app/menus.c:267
+#: ../app/find-and-replace.c:542 ../app/menus.c:267
 msgid "Replace"
 msgstr "Ordeztu"
 
-#: ../app/find-and-replace.c:544
+#: ../app/find-and-replace.c:545
 msgid "Replace _All"
 msgstr "Ordeztu _guztiak"
 
 #. not adding the button in the list above to modify it's text;
 #. * the default "Find and Replace" is just too long for my taste ;)
 #.
-#: ../app/find-and-replace.c:549
+#: ../app/find-and-replace.c:550
 msgid "_Replace"
 msgstr "_Ordeztu"
 
@@ -933,7 +933,7 @@ msgstr "Korritu diagrama"
 #. how it used to be before 0.96+SVN
 #. new name matching "same name, same type"  rule
 #: ../app/interface.c:177 ../app/menus.c:232 ../lib/properties.c:80
-#: ../lib/properties.h:530 ../objects/AADL/aadlbox.c:156
+#: ../lib/properties.h:530 ../objects/AADL/aadlbox.c:153
 #: ../objects/Jackson/requirement.c:144 ../objects/UML/activity.c:129
 #: ../objects/UML/actor.c:126 ../objects/UML/classicon.c:149
 #: ../objects/UML/component.c:130 ../objects/UML/component_feature.c:161
@@ -989,44 +989,40 @@ msgstr "Irudia"
 msgid "Outline"
 msgstr "Eskema"
 
-#: ../app/interface.c:619 ../app/interface.c:855
+#: ../app/interface.c:621 ../app/interface.c:857
 msgid "Pops up the Navigation window."
 msgstr "Nabigazio-leihoa bistaratzen du pantailan."
 
-#: ../app/interface.c:817
+#: ../app/interface.c:819
 msgid "Diagram menu."
 msgstr "Diagrama menua."
 
-#: ../app/interface.c:920
+#: ../app/interface.c:922
 msgid "Zoom"
 msgstr "Zooma"
 
-#: ../app/interface.c:935
+#: ../app/interface.c:937
 msgid "Toggles snap-to-grid for this window."
 msgstr "'Atxiki saretari' aktibatzen/desaktibatzen du leiho honetan."
 
-#: ../app/interface.c:946
+#: ../app/interface.c:948
 msgid "Toggles object snapping for this window."
 msgstr "Objektua atxikitzea aktibatzen/desaktibatzen du leiho honetan."
 
-#: ../app/interface.c:1009
-msgid "NULL tooldata in tool_select_update"
-msgstr "Tooldata = NULL tool_select_update funtzioan"
-
-#: ../app/interface.c:1336
+#: ../app/interface.c:1338
 #, c-format
 msgid "No sheet named %s"
 msgstr "Ez dago %s izeneko orririk"
 
-#: ../app/interface.c:1374
+#: ../app/interface.c:1376
 msgid "Other sheets"
 msgstr "Beste orriak"
 
-#: ../app/interface.c:1434 ../sheets/Flowchart.sheet.in.h:10
+#: ../app/interface.c:1436 ../sheets/Flowchart.sheet.in.h:10
 msgid "Flowchart"
 msgstr "Fluxu-diagrama"
 
-#: ../app/interface.c:1494
+#: ../app/interface.c:1496
 msgid ""
 "Foreground & background colors for new objects.  The small black and white "
 "squares reset colors.  The small arrows swap colors.  Double click to change "
@@ -1036,7 +1032,7 @@ msgstr ""
 "zuri-beltzek koloreak berrezartzen dituzte. Gezi txikiek koloreak trukatzen "
 "dituzte. Egin klik bikoitza koloreak aldatzeko."
 
-#: ../app/interface.c:1509
+#: ../app/interface.c:1511
 msgid ""
 "Line widths.  Click on a line to set the default line width for new "
 "objects.  Double-click to set the line width more precisely."
@@ -1045,7 +1041,7 @@ msgstr ""
 "klik marra batean. Zabalera zehaztasun handiagoz ezartzeko, egin klik "
 "bikoitza."
 
-#: ../app/interface.c:1552
+#: ../app/interface.c:1554
 msgid ""
 "Arrow style at the beginning of new lines.  Click to pick an arrow, or set "
 "arrow parameters with Details..."
@@ -1053,7 +1049,7 @@ msgstr ""
 "Marra berrien hasierako gezi-estiloa. Egin klik gezi bat hautatzeko, edo "
 "ezarri gezi-parametroak Xehetasunekin..."
 
-#: ../app/interface.c:1557
+#: ../app/interface.c:1559
 msgid ""
 "Line style for new lines.  Click to pick a line style, or set line style "
 "parameters with Details..."
@@ -1061,7 +1057,7 @@ msgstr ""
 "Marra berrien marra-estiloa. Egin klik marra-estilo bat hautatzeko, edo "
 "marra-estiloaren parametroak Xehetasunekin..."
 
-#: ../app/interface.c:1573
+#: ../app/interface.c:1575
 msgid ""
 "Arrow style at the end of new lines.  Click to pick an arrow, or set arrow "
 "parameters with Details..."
@@ -1069,7 +1065,7 @@ msgstr ""
 "Marra berrien amaierako gezi-estiloa. Egin klik gezi bat hautatzeko, edo "
 "ezarri gezi-parametroak Xehetasunekin..."
 
-#: ../app/interface.c:1633 ../app/interface.c:1760
+#: ../app/interface.c:1635 ../app/interface.c:1762
 msgid "Diagram Editor"
 msgstr "Diagrama-editorea"
 
@@ -1132,7 +1128,7 @@ msgstr "Marra-zabalera"
 msgid "Line width:"
 msgstr "Marra-zabalera:"
 
-#: ../app/load_save.c:295
+#: ../app/load_save.c:296
 msgid ""
 "Error loading diagram.\n"
 "Linked object not found in document."
@@ -1140,7 +1136,7 @@ msgstr ""
 "Errorea diagrama kargatzean.\n"
 "Ez da aurkitu estekatutako objektua dokumentuan."
 
-#: ../app/load_save.c:299
+#: ../app/load_save.c:300
 #, c-format
 msgid ""
 "Error loading diagram.\n"
@@ -1149,7 +1145,7 @@ msgstr ""
 "Errorea diagrama kargatzean.\n"
 "%d. konexio-heldulekua ez dago '%s'(e)n."
 
-#: ../app/load_save.c:327
+#: ../app/load_save.c:328
 #, c-format
 msgid ""
 "Error loading diagram.\n"
@@ -1158,23 +1154,23 @@ msgstr ""
 "Errorea diagrama kargatzean.\n"
 "%d. konexio-puntua ez dago '%s'(e)n."
 
-#: ../app/load_save.c:367
+#: ../app/load_save.c:368
 #, c-format
 msgid "Can't find parent %s of %s object\n"
 msgstr "Ezin da aurkitu %2$s objektuaren %1$s gurasoa\n"
 
-#: ../app/load_save.c:416
+#: ../app/load_save.c:417
 msgid "You must specify a file, not a directory.\n"
 msgstr "Fitxategi bat zehaztu behar duzu, ez direktorioa.\n"
 
-#: ../app/load_save.c:423 ../plug-ins/dxf/dxf-import.c:1309
+#: ../app/load_save.c:424 ../plug-ins/dxf/dxf-import.c:1309
 #: ../plug-ins/wpg/wpg.c:1177 ../plug-ins/xfig/xfig-import.c:1270
 #: ../plug-ins/xslt/xslt.c:91
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
 msgstr "Ezin izan da ireki: '%s' irakurtzeko.\n"
 
-#: ../app/load_save.c:441 ../app/load_save.c:447
+#: ../app/load_save.c:442 ../app/load_save.c:448
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -1183,7 +1179,7 @@ msgstr ""
 "Errorea %s diagrama kargatzean.\n"
 "Fitxategi-mota ezezaguna."
 
-#: ../app/load_save.c:455
+#: ../app/load_save.c:456
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -1192,7 +1188,7 @@ msgstr ""
 "Errorea %s diagrama kargatzean.\n"
 "Ez da Dia fitxategia."
 
-#: ../app/load_save.c:672
+#: ../app/load_save.c:673
 #, c-format
 msgid ""
 "Error loading diagram:\n"
@@ -1203,17 +1199,17 @@ msgstr ""
 "%s.\n"
 "Baliozko Dia fitxategi batek gutxienez geruza bat definitzen du."
 
-#: ../app/load_save.c:995
+#: ../app/load_save.c:996
 #, c-format
 msgid "Not allowed to write to output file %s\n"
 msgstr "Ez dago baimenik irteerako %s fitxategian idazteko\n"
 
-#: ../app/load_save.c:1027
+#: ../app/load_save.c:1028
 #, c-format
 msgid "Not allowed to write temporary files in %s\n"
 msgstr "Ez dago baimenik aldi baterako fitxategiak %s(e)n idazteko\n"
 
-#: ../app/load_save.c:1049 ../plug-ins/cairo/diacairo.c:121
+#: ../app/load_save.c:1050 ../plug-ins/cairo/diacairo.c:121
 #: ../plug-ins/cgm/cgm.c:1154 ../plug-ins/drs/dia-render-script.c:121
 #: ../plug-ins/dxf/dxf-export.c:547 ../plug-ins/hpgl/hpgl.c:710
 #: ../plug-ins/libart/export_png.c:157
@@ -1229,17 +1225,17 @@ msgstr "Ezin da %s irteerako fitxategia ireki: %s\n"
 
 #. Save failed; we clean our stuff up, without touching the file named
 #. "filename" if it existed.
-#: ../app/load_save.c:1060
+#: ../app/load_save.c:1061
 #, c-format
 msgid "Internal error %d writing file %s\n"
 msgstr "Barneko %d. errorea %s fitxategian idaztean\n"
 
-#: ../app/load_save.c:1071
+#: ../app/load_save.c:1072
 #, c-format
 msgid "Can't rename %s to final output file %s: %s\n"
 msgstr "Ezin da %s izenez aldatu amaierako irteerako %s fitxategira: %s\n"
 
-#: ../app/load_save.c:1162 ../app/load_save.c:1167
+#: ../app/load_save.c:1163 ../app/load_save.c:1168
 msgid "Dia Diagram File"
 msgstr "Dia diagrama-fitxategia"
 
@@ -1480,7 +1476,7 @@ msgstr "_Hautatu"
 msgid "All"
 msgstr "Denak"
 
-#: ../app/menus.c:206 ../lib/arrows.c:1882 ../objects/Jackson/domain.c:96
+#: ../app/menus.c:206 ../lib/arrows.c:1884 ../objects/Jackson/domain.c:96
 #: ../objects/UML/association.c:221 ../objects/UML/association.c:227
 msgid "None"
 msgstr "Bat ere ez"
@@ -1627,7 +1623,7 @@ msgstr "Txandakatu 'atxiki saretari'."
 msgid "Toggles object snapping."
 msgstr "Txandakatu objektua atxikitzea."
 
-#: ../app/modify_tool.c:390
+#: ../app/modify_tool.c:392
 msgid "Couldn't get GTK settings"
 msgstr "Ezin izan dira GTK ezarpenak atzitu"
 
@@ -1652,35 +1648,35 @@ msgstr "Kargatu abioan"
 msgid "File Name"
 msgstr "Fitxategi-izena"
 
-#: ../app/preferences.c:100 ../app/preferences.c:145
+#: ../app/preferences.c:99 ../app/preferences.c:144
 msgid "any"
 msgstr "edozein"
 
-#: ../app/preferences.c:119
+#: ../app/preferences.c:118
 msgid "User Interface"
 msgstr "Erabiltzaile-interfazea"
 
-#: ../app/preferences.c:120
+#: ../app/preferences.c:119
 msgid "Diagram Defaults"
 msgstr "Diagrama-lehenespenak"
 
-#: ../app/preferences.c:121
+#: ../app/preferences.c:120
 msgid "View Defaults"
 msgstr "Ikusteko lehenespenak"
 
-#: ../app/preferences.c:122
+#: ../app/preferences.c:121
 msgid "Favorites"
 msgstr "Gogokoak"
 
-#: ../app/preferences.c:166
+#: ../app/preferences.c:165
 msgid "Reset tools after create"
 msgstr "Berrezarri tresnak sortu ondoren"
 
-#: ../app/preferences.c:169
+#: ../app/preferences.c:168
 msgid "Number of undo levels:"
 msgstr "Desegiteko mailak:"
 
-#: ../app/preferences.c:172
+#: ../app/preferences.c:171
 msgid ""
 "Reverse dragging selects\n"
 "intersecting objects"
@@ -1688,149 +1684,145 @@ msgstr ""
 "Alderantzizko arrastatzearekin\n"
 "ebakidurako objektuak hautatzen dira"
 
-#: ../app/preferences.c:175
+#: ../app/preferences.c:174
 msgid "Recent documents list size:"
 msgstr "Azken dokumentuen kopurua:"
 
-#: ../app/preferences.c:178
+#: ../app/preferences.c:177
 msgid "Use menu bar"
 msgstr "Erabili menu-barra"
 
-#: ../app/preferences.c:181
+#: ../app/preferences.c:180
 msgid "Keep tool box on top of diagram windows"
 msgstr "Eduki tresna-koadroa diagrama-leihoen goialdean"
 
-#: ../app/preferences.c:184
+#: ../app/preferences.c:183
 msgid "Length unit:"
 msgstr "Luzeraren unitatea:"
 
-#: ../app/preferences.c:187
+#: ../app/preferences.c:186
 msgid "Font-size unit:"
 msgstr "Letra-tamainaren unitatea:"
 
-#: ../app/preferences.c:191
-msgid "Integrated UI"
-msgstr "Integratutako interfazea"
-
-#: ../app/preferences.c:194
+#: ../app/preferences.c:189
 msgid "New diagram:"
 msgstr "Diagrama berria:"
 
-#: ../app/preferences.c:195
+#: ../app/preferences.c:190
 msgid "Portrait"
 msgstr "Bertikala"
 
-#: ../app/preferences.c:197
+#: ../app/preferences.c:192
 msgid "Paper type:"
 msgstr "Paper-mota:"
 
-#: ../app/preferences.c:199 ../objects/Database/table_dialog.c:1078
+#: ../app/preferences.c:194 ../objects/Database/table_dialog.c:1078
 msgid "Background Color:"
 msgstr "Atzeko planoaren kolorea:"
 
-#: ../app/preferences.c:201
+#: ../app/preferences.c:196
 msgid "Compress saved files"
 msgstr "Konprimitu gordetako fitxategiak"
 
-#: ../app/preferences.c:204
+#: ../app/preferences.c:199
 msgid "Connection Points:"
 msgstr "Konexio-puntuak:"
 
 #. { NULL, PREF_NONE, 0, NULL, 3, N_("Grid:") },
-#: ../app/preferences.c:205 ../app/preferences.c:216 ../app/preferences.c:240
+#: ../app/preferences.c:200 ../app/preferences.c:211 ../app/preferences.c:235
 msgid "Visible"
 msgstr "Ikusgai"
 
-#: ../app/preferences.c:206
+#: ../app/preferences.c:201
 msgid "Snap to object"
 msgstr "Atxiki objetuari"
 
-#: ../app/preferences.c:209
+#: ../app/preferences.c:204
 msgid "New window:"
 msgstr "Leiho berria:"
 
-#: ../app/preferences.c:210
+#: ../app/preferences.c:205
 msgid "Width:"
 msgstr "Zabalera:"
 
-#: ../app/preferences.c:211
+#: ../app/preferences.c:206
 msgid "Height:"
 msgstr "Altuera:"
 
-#: ../app/preferences.c:212
+#: ../app/preferences.c:207
 msgid "Magnify:"
 msgstr "Handitu:"
 
-#: ../app/preferences.c:215
+#: ../app/preferences.c:210
 msgid "Page breaks:"
 msgstr "Orrialde-jauziak:"
 
-#: ../app/preferences.c:217 ../app/preferences.c:245
+#: ../app/preferences.c:212 ../app/preferences.c:240
 msgid "Color:"
 msgstr "Kolorea:"
 
-#: ../app/preferences.c:218
+#: ../app/preferences.c:213
 msgid "Solid lines"
 msgstr "Marra beteak"
 
-#: ../app/preferences.c:221
+#: ../app/preferences.c:216
 msgid "Antialias:"
 msgstr "Antialias-a:"
 
-#: ../app/preferences.c:222
+#: ../app/preferences.c:217
 msgid "view antialised"
 msgstr "ikusi antialiasing-a"
 
 #. Favored Filter
 #. Translators: Menu item Verb/Channel/Export
 #. Translators: Menu item Verb/Channel/Export/Export
-#: ../app/preferences.c:226 ../objects/FS/function.c:698
-#: ../objects/FS/function.c:700 ../plug-ins/libart/export_png.c:323
+#: ../app/preferences.c:221 ../objects/FS/function.c:698
+#: ../objects/FS/function.c:700 ../plug-ins/libart/export_png.c:326
 msgid "Export"
 msgstr "Esportatu"
 
-#: ../app/preferences.c:228
+#: ../app/preferences.c:223
 msgid "Portable Network Graphics"
 msgstr "Portable Network Graphics"
 
-#: ../app/preferences.c:230 ../plug-ins/svg/render_svg.c:515
+#: ../app/preferences.c:225 ../plug-ins/svg/render_svg.c:515
 #: ../plug-ins/svg/svg-import.c:884
 msgid "Scalable Vector Graphics"
 msgstr "SVG (Bektore-Grafiko Eskalakorra)"
 
-#: ../app/preferences.c:232
+#: ../app/preferences.c:227
 msgid "PostScript"
 msgstr "PostScript"
 
-#: ../app/preferences.c:234
+#: ../app/preferences.c:229
 msgid "Windows MetaFile"
 msgstr "Windows-en metafitxategia"
 
-#: ../app/preferences.c:236
+#: ../app/preferences.c:231
 msgid "Enhanced MetaFile"
 msgstr "Hobetutako metafitxategia"
 
-#: ../app/preferences.c:241
+#: ../app/preferences.c:236
 msgid "Snap to"
 msgstr "Atxiki"
 
-#: ../app/preferences.c:242
+#: ../app/preferences.c:237
 msgid "Dynamic grid resizing"
 msgstr "Dinamikoki sareta tamainaz aldatzea"
 
-#: ../app/preferences.c:243
+#: ../app/preferences.c:238
 msgid "X Size:"
 msgstr "X tamaina:"
 
-#: ../app/preferences.c:244
+#: ../app/preferences.c:239
 msgid "Y Size:"
 msgstr "Y tamaina:"
 
-#: ../app/preferences.c:246
+#: ../app/preferences.c:241
 msgid "Lines per major line"
 msgstr "Marrak marra nagusiko"
 
-#: ../app/preferences.c:248
+#: ../app/preferences.c:243
 msgid "Hex Size:"
 msgstr "Hamaseitar tamaina:"
 
@@ -1839,30 +1831,26 @@ msgstr "Hamaseitar tamaina:"
 #. { "pretty_formated_xml", PREF_BOOLEAN,PREF_OFFSET(pretty_formated_xml),
 #. &default_true,0,"pretty formated xml",NULL, TRUE},
 #.
-#: ../app/preferences.c:260
+#: ../app/preferences.c:255
 msgid "Diagram tree window:"
 msgstr "Diagrama-zuhaitzaren leihoa:"
 
-#: ../app/preferences.c:262
+#: ../app/preferences.c:257
 msgid "Save hidden object types"
 msgstr "Gorde ezkutuko objektu-motak"
 
-#: ../app/preferences.c:490 ../lib/prop_inttypes.c:158
+#: ../app/preferences.c:485 ../lib/prop_inttypes.c:158
 msgid "Yes"
 msgstr "Bai"
 
-#: ../app/preferences.c:490 ../app/preferences.c:501
+#: ../app/preferences.c:485 ../app/preferences.c:496
 #: ../lib/prop_inttypes.c:160 ../lib/prop_inttypes.c:186
 msgid "No"
 msgstr "Ez"
 
-#: ../app/preferences.c:596
+#: ../app/preferences.c:591
 msgid "Preferences"
 msgstr "Hobespenak"
-
-#: ../app/preferences.c:798
-msgid "User Interface type settings change will take effect after restart"
-msgstr "Interfazearen ezarpenen aldaketek berrabiarazi ondoren eragingo dute"
 
 #: ../app/properties-dialog.c:56
 msgid "Object properties"
@@ -1998,8 +1986,8 @@ msgstr "Azalpena:"
 #: ../objects/FS/flow-ortho.c:169 ../objects/FS/flow.c:146
 #: ../objects/Istar/link.c:162 ../objects/Jackson/phenomenon.c:146
 #: ../objects/KAOS/metaandorrel.c:166 ../objects/KAOS/metabinrel.c:173
-#: ../objects/UML/class_dialog.c:1155 ../objects/UML/class_dialog.c:2021
-#: ../objects/UML/class_dialog.c:2257 ../objects/UML/class_dialog.c:2860
+#: ../objects/UML/class_dialog.c:1159 ../objects/UML/class_dialog.c:2025
+#: ../objects/UML/class_dialog.c:2261 ../objects/UML/class_dialog.c:2864
 msgid "Type:"
 msgstr "Mota:"
 
@@ -2010,8 +1998,8 @@ msgstr "Orria"
 #: ../app/sheets_dialog.c:673 ../objects/Database/table_dialog.c:683
 #: ../objects/Database/table_dialog.c:1046 ../objects/ER/attribute.c:155
 #: ../objects/ER/entity.c:137 ../objects/ER/relationship.c:142
-#: ../objects/UML/class_dialog.c:1144 ../objects/UML/class_dialog.c:2010
-#: ../objects/UML/class_dialog.c:2246 ../objects/UML/class_dialog.c:2849
+#: ../objects/UML/class_dialog.c:1148 ../objects/UML/class_dialog.c:2014
+#: ../objects/UML/class_dialog.c:2250 ../objects/UML/class_dialog.c:2853
 #: ../objects/UML/dependency.c:137 ../objects/UML/generalization.c:133
 #: ../objects/UML/realizes.c:134
 msgid "Name:"
@@ -2145,148 +2133,148 @@ msgstr "Dia, diagrama-editorea"
 msgid "Edit your Diagrams"
 msgstr "Editatu diagramak"
 
-#: ../lib/arrows.c:1883
+#: ../lib/arrows.c:1885
 msgid "Lines"
 msgstr "Marrak"
 
-#: ../lib/arrows.c:1884
+#: ../lib/arrows.c:1886
 msgid "Hollow Triangle"
 msgstr "Triangelu hutsa"
 
-#: ../lib/arrows.c:1885
+#: ../lib/arrows.c:1887
 msgid "Filled Triangle"
 msgstr "Triangelu betea"
 
-#: ../lib/arrows.c:1886
+#: ../lib/arrows.c:1888
 msgid "Unfilled Triangle"
 msgstr "Triangelu bete gabea"
 
-#: ../lib/arrows.c:1887
+#: ../lib/arrows.c:1889
 msgid "Hollow Diamond"
 msgstr "Diamante hutsa"
 
-#: ../lib/arrows.c:1888
+#: ../lib/arrows.c:1890
 msgid "Filled Diamond"
 msgstr "Diamante betea"
 
-#: ../lib/arrows.c:1889
+#: ../lib/arrows.c:1891
 msgid "Half Diamond"
 msgstr "Diamante erdia"
 
-#: ../lib/arrows.c:1890
+#: ../lib/arrows.c:1892
 msgid "Half Head"
 msgstr "Buru erdia"
 
-#: ../lib/arrows.c:1891
+#: ../lib/arrows.c:1893
 msgid "Slashed Cross"
 msgstr "Gurutze barraduna"
 
-#: ../lib/arrows.c:1892
+#: ../lib/arrows.c:1894
 msgid "Filled Ellipse"
 msgstr "Elipse betea"
 
-#: ../lib/arrows.c:1893
+#: ../lib/arrows.c:1895
 msgid "Hollow Ellipse"
 msgstr "Elipse hutsa"
 
-#: ../lib/arrows.c:1894
+#: ../lib/arrows.c:1896
 msgid "Filled Dot"
 msgstr "Puntu betea"
 
-#: ../lib/arrows.c:1895
+#: ../lib/arrows.c:1897
 msgid "Dimension Origin"
 msgstr "Dimentsio-jatorria"
 
-#: ../lib/arrows.c:1896
+#: ../lib/arrows.c:1898
 msgid "Blanked Dot"
 msgstr "Puntu hustua"
 
-#: ../lib/arrows.c:1897
+#: ../lib/arrows.c:1899
 msgid "Double Hollow Triangle"
 msgstr "Triangelu huts bikoitza"
 
-#: ../lib/arrows.c:1898
+#: ../lib/arrows.c:1900
 msgid "Double Filled Triangle"
 msgstr "Triangelu bete bikoitza"
 
-#: ../lib/arrows.c:1899
+#: ../lib/arrows.c:1901
 msgid "Filled Dot and Triangle"
 msgstr "Puntu eta triangelu beteak"
 
-#: ../lib/arrows.c:1900
+#: ../lib/arrows.c:1902
 msgid "Filled Box"
 msgstr "Lauki betea"
 
-#: ../lib/arrows.c:1901
+#: ../lib/arrows.c:1903
 msgid "Blanked Box"
 msgstr "Lauki hustua"
 
-#: ../lib/arrows.c:1902
+#: ../lib/arrows.c:1904
 msgid "Slashed"
 msgstr "Barraduna"
 
-#: ../lib/arrows.c:1903
+#: ../lib/arrows.c:1905
 msgid "Integral Symbol"
 msgstr "Integralen ikurra"
 
-#: ../lib/arrows.c:1904
+#: ../lib/arrows.c:1906
 msgid "Crow Foot"
 msgstr "Izar-plantain"
 
-#: ../lib/arrows.c:1905
+#: ../lib/arrows.c:1907
 msgid "Cross"
 msgstr "Gurutzea"
 
-#: ../lib/arrows.c:1906
+#: ../lib/arrows.c:1908
 msgid "1-or-many"
 msgstr "1-edo-hainbat"
 
-#: ../lib/arrows.c:1907
+#: ../lib/arrows.c:1909
 msgid "0-or-many"
 msgstr "0-edo-hainbat"
 
-#: ../lib/arrows.c:1908
+#: ../lib/arrows.c:1910
 msgid "1-or-0"
 msgstr "1-edo-0"
 
-#: ../lib/arrows.c:1909
+#: ../lib/arrows.c:1911
 msgid "1 exactly"
 msgstr "1 zehazki"
 
-#: ../lib/arrows.c:1910
+#: ../lib/arrows.c:1912
 msgid "Filled Concave"
 msgstr "Ahur betea"
 
-#: ../lib/arrows.c:1911
+#: ../lib/arrows.c:1913
 msgid "Blanked Concave"
 msgstr "Ahur hustua"
 
-#: ../lib/arrows.c:1912
+#: ../lib/arrows.c:1914
 msgid "Round"
 msgstr "Biribila"
 
-#: ../lib/arrows.c:1913
+#: ../lib/arrows.c:1915
 msgid "Open Round"
 msgstr "Biribil irekia"
 
-#: ../lib/arrows.c:1914
+#: ../lib/arrows.c:1916
 msgid "Backslash"
 msgstr "Alderantzizko barra"
 
-#: ../lib/arrows.c:1915
+#: ../lib/arrows.c:1917
 msgid "Infinite Line"
 msgstr "Marra infinitua"
 
-#: ../lib/arrows.c:2043
+#: ../lib/arrows.c:2045
 msgid "Arrow head of unknown type"
 msgstr "Geziaren burua mota ezezagunekoa"
 
-#: ../lib/arrows.c:2051
+#: ../lib/arrows.c:2053
 #, c-format
 msgid "Arrow head of type %s has too small dimensions, removing.\n"
 msgstr "Geziaren %s motako buruaren dimentsioa txikiegia da, kentzen.\n"
 
-#: ../lib/arrows.c:2184
+#: ../lib/arrows.c:2186
 msgid "unknown arrow"
 msgstr "gezi ezezaguna"
 
@@ -2478,7 +2466,7 @@ msgstr "URLa"
 msgid "Property cast from int to enum out of range"
 msgstr "Propietatearen bihurketa osokotik enum.-era barrutitik kanpo"
 
-#: ../lib/prop_text.c:468
+#: ../lib/prop_text.c:469
 #, c-format
 msgid "Group with %d objects"
 msgstr "Taldea (%d objektuekin)"
@@ -2554,7 +2542,7 @@ msgstr "Testu-kolorea"
 msgid "No attribute '%s' (%p) or no data(%p) in this attribute"
 msgstr "Ez dago '%s' (%p) atributua edo ez dago daturik (%p) atributuan"
 
-#: ../lib/sheet.c:69
+#: ../lib/sheet.c:69 ../lib/sheet.c:84
 #, c-format
 msgid ""
 "DiaObject '%s' needed in sheet '%s' was not found.\n"
@@ -2562,20 +2550,6 @@ msgid ""
 msgstr ""
 "'%2$s' orrian behar den '%1$s' DiaObject ez da aurkitu.\n"
 "Ez da erabilgarri egongo."
-
-#: ../lib/sheet.c:84
-#, c-format
-msgid ""
-"DiaObject '%s' needed in sheet '%s' was not found.\n"
-"It will not be availible for use."
-msgstr ""
-"'%2$s' orrian behar den '%1$s' DiaObject ez da aurkitu.\n"
-"Ez da erabilgarri egongo."
-
-#: ../lib/sheet.c:133 ../lib/sheet.c:144 ../lib/sheet.c:150
-#, c-format
-msgid "sheets from '%s'"
-msgstr "%s(e)ngo orriak"
 
 #: ../lib/sheet.c:314
 #, c-format
@@ -2596,7 +2570,9 @@ msgstr ""
 #: ../lib/sheet.c:371
 #, c-format
 msgid "%s: you should use object tags rather than shape tags now"
-msgstr "%s: objektuen etiketak erabili beharko zenituzke orain formen etiketak erabili ordez."
+msgstr ""
+"%s: objektuen etiketak erabili beharko zenituzke orain formen etiketak "
+"erabili ordez."
 
 #: ../lib/widgets.c:441
 msgid "Other fonts"
@@ -2724,8 +2700,8 @@ msgid ""
 "Support for the Python Scripting Language 2.3. Do not select this if Python "
 "is not installed."
 msgstr ""
-"Python scriptaren 2.3 bertsioaren euskarria. Ez hautatu hau Python instalatu gabe "
-"egonez gero."
+"Python scriptaren 2.3 bertsioaren euskarria. Ez hautatu hau Python instalatu "
+"gabe egonez gero."
 
 #. Installer message: hyperlink text on finish page
 #: ../installer/win32/gennsh.c:68
@@ -2745,8 +2721,8 @@ msgid ""
 "deleted.$\rDia user settings will not be affected."
 msgstr ""
 "Dia zaharraren direktorioa ezabatzera doa. Jarraitzea nahi duzu?\n"
-"Jakin ezazu instalatuta eduki dezakezun edozein plugin ez-estandar "
-"ere ezabatu egingo dela. \n"
+"Jakin ezazu instalatuta eduki dezakezun edozein plugin ez-estandar ere "
+"ezabatu egingo dela. \n"
 "Dia-ko erabiltailearen ezarpenei ez die eragingo."
 
 #. Installer message: confirmatin question. Keep $\r
@@ -2780,77 +2756,79 @@ msgstr "Honek erabat ezabatuko du $INSTDIR eta bere azpidirektorio guztiak. Jarr
 #. Installer message: Uninstallation warning. Keep $\PROFILE\.dia
 #: ../installer/win32/gennsh.c:89
 msgid "This will completely delete $PROFILE\\.dia and all subdirectories. Continue?"
-msgstr "Honek erabat ezabatuko du $PROFILE\\.dia eta bere azpidirektorio guztiak. Jarraitu?"
+msgstr ""
+"Honek erabat ezabatuko du $PROFILE\\.dia eta bere azpidirektorio guztiak. "
+"Jarraitu?"
 
 #: ../objects/AADL/aadl.c:52
 msgid "Architecture Analysis & Design Language diagram objects"
 msgstr "Arkitekturaren analisiko eta hizkuntzaren diseinuko diagrama-objektuak"
 
-#: ../objects/AADL/aadlbox.c:150
+#: ../objects/AADL/aadlbox.c:147
 msgid "Declaration"
 msgstr "Adierazpena"
 
-#: ../objects/AADL/aadlbox.c:361
+#: ../objects/AADL/aadlbox.c:358
 msgid "Add Access Provider"
 msgstr "Gehitu sarbideko hornitzailea"
 
-#: ../objects/AADL/aadlbox.c:363
+#: ../objects/AADL/aadlbox.c:360
 msgid "Add Access Requirer"
 msgstr "Gehitu sarbideko eskatzailea"
 
-#: ../objects/AADL/aadlbox.c:365
+#: ../objects/AADL/aadlbox.c:362
 msgid "Add In Data Port"
 msgstr "Gehitu sarrerako datuen ataka"
 
-#: ../objects/AADL/aadlbox.c:367
+#: ../objects/AADL/aadlbox.c:364
 msgid "Add In Event Port"
 msgstr "Gehitu sarrerako gertaeren ataka"
 
-#: ../objects/AADL/aadlbox.c:369
+#: ../objects/AADL/aadlbox.c:366
 msgid "Add In Event Data Port"
 msgstr "Gehitu sarrerako datuen gertaeren ataka"
 
-#: ../objects/AADL/aadlbox.c:371
+#: ../objects/AADL/aadlbox.c:368
 msgid "Add Out Data Port"
 msgstr "Gehitu irteerako datuen ataka"
 
-#: ../objects/AADL/aadlbox.c:373
+#: ../objects/AADL/aadlbox.c:370
 msgid "Add Out Event Port"
 msgstr "Gehitu irteerako gertaeren ataka"
 
-#: ../objects/AADL/aadlbox.c:375
+#: ../objects/AADL/aadlbox.c:372
 msgid "Add Out Event Data Port"
 msgstr "Gehitu irteerako datuen ataka"
 
-#: ../objects/AADL/aadlbox.c:377
+#: ../objects/AADL/aadlbox.c:374
 msgid "Add In Out Data Port"
 msgstr "Gehitu sarrerako/irteerako datuen ataka"
 
-#: ../objects/AADL/aadlbox.c:379
+#: ../objects/AADL/aadlbox.c:376
 msgid "Add In Out Event Port"
 msgstr "Gehitu sarrerako/irteerako gertaeren ataka"
 
-#: ../objects/AADL/aadlbox.c:381
+#: ../objects/AADL/aadlbox.c:378
 msgid "Add In Out Event Data Port"
 msgstr "Gehitu sarrerako/irteerako datuen gertaeren ataka"
 
-#: ../objects/AADL/aadlbox.c:383
+#: ../objects/AADL/aadlbox.c:380
 msgid "Add Port Group"
 msgstr "Gehitu ataka-taldea"
 
-#: ../objects/AADL/aadlbox.c:385
+#: ../objects/AADL/aadlbox.c:382
 msgid "Add Connection Point"
 msgstr "Gehitu konexio-puntua"
 
-#: ../objects/AADL/aadlbox.c:389
+#: ../objects/AADL/aadlbox.c:386
 msgid "Delete Port"
 msgstr "Ezabatu ataka"
 
-#: ../objects/AADL/aadlbox.c:390
+#: ../objects/AADL/aadlbox.c:387
 msgid "Edit Port Declaration"
 msgstr "Editatu atakaren adierazpena"
 
-#: ../objects/AADL/aadlbox.c:394
+#: ../objects/AADL/aadlbox.c:391
 msgid "Delete Connection Point"
 msgstr "Ezabatu konexio-puntua"
 
@@ -2959,7 +2937,7 @@ msgid "Table"
 msgstr "Taula"
 
 #. Attributes page:
-#: ../objects/Database/table_dialog.c:611 ../objects/UML/class_dialog.c:1077
+#: ../objects/Database/table_dialog.c:611 ../objects/UML/class_dialog.c:1081
 msgid "_Attributes"
 msgstr "_Atributuak"
 
@@ -2984,15 +2962,15 @@ msgstr "Eraman gorantz"
 msgid "Move down"
 msgstr "Eraman beherantz"
 
-#: ../objects/Database/table_dialog.c:673 ../objects/UML/class_dialog.c:1134
+#: ../objects/Database/table_dialog.c:673 ../objects/UML/class_dialog.c:1138
 msgid "Attribute data"
 msgstr "Atributu-datuak"
 
 #: ../objects/Database/table_dialog.c:707
 #: ../objects/Database/table_dialog.c:946
 #: ../objects/Database/table_dialog.c:1051 ../objects/UML/class_dialog.c:452
-#: ../objects/UML/class_dialog.c:1177 ../objects/UML/class_dialog.c:2107
-#: ../objects/UML/class_dialog.c:2279
+#: ../objects/UML/class_dialog.c:1181 ../objects/UML/class_dialog.c:2111
+#: ../objects/UML/class_dialog.c:2283
 msgid "Comment:"
 msgstr "Iruzkina:"
 
@@ -3086,19 +3064,21 @@ msgstr "Azalpenaren amaiera"
 
 #: ../objects/Database/reference.c:144 ../objects/ER/participation.c:408
 #: ../objects/FS/flow-ortho.c:626 ../objects/GRAFCET/vector.c:314
-#: ../objects/SADT/arrow.c:459 ../objects/UML/association.c:852
+#: ../objects/SADT/arrow.c:459 ../objects/UML/association.c:854
 #: ../objects/UML/component_feature.c:190 ../objects/UML/dependency.c:376
 #: ../objects/UML/generalization.c:372 ../objects/UML/realizes.c:363
-#: ../objects/UML/transition.c:172 ../objects/standard/zigzagline.c:380
+#: ../objects/UML/transition.c:172 ../objects/standard/bezier.c:731
+#: ../objects/standard/beziergon.c:495 ../objects/standard/zigzagline.c:380
 msgid "Add segment"
 msgstr "Gehitu segmentua"
 
 #: ../objects/Database/reference.c:145 ../objects/ER/participation.c:409
 #: ../objects/FS/flow-ortho.c:627 ../objects/GRAFCET/vector.c:315
-#: ../objects/SADT/arrow.c:460 ../objects/UML/association.c:853
+#: ../objects/SADT/arrow.c:460 ../objects/UML/association.c:855
 #: ../objects/UML/component_feature.c:191 ../objects/UML/dependency.c:377
 #: ../objects/UML/generalization.c:373 ../objects/UML/realizes.c:364
-#: ../objects/UML/transition.c:173 ../objects/standard/zigzagline.c:381
+#: ../objects/UML/transition.c:173 ../objects/standard/bezier.c:732
+#: ../objects/standard/beziergon.c:496 ../objects/standard/zigzagline.c:381
 msgid "Delete segment"
 msgstr "Ezabatu segmentua"
 
@@ -3823,7 +3803,7 @@ msgstr "Biderkatu"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Scale
 #. FIXME: mark read-only
-#: ../objects/FS/function.c:994 ../objects/Misc/measure.c:187
+#: ../objects/FS/function.c:994 ../objects/Misc/measure.c:186
 msgid "Scale"
 msgstr "Eskalatu"
 
@@ -4607,48 +4587,48 @@ msgstr "Saretako marra-zabalera"
 msgid "Miscellaneous objects"
 msgstr "Hainbat objektu"
 
-#: ../objects/Misc/measure.c:170
+#: ../objects/Misc/measure.c:169
 msgid "cm"
 msgstr "cm"
 
-#: ../objects/Misc/measure.c:171
+#: ../objects/Misc/measure.c:170
 msgid "dm"
 msgstr "dm"
 
-#: ../objects/Misc/measure.c:172
+#: ../objects/Misc/measure.c:171
 msgid "ft"
 msgstr "oin"
 
-#: ../objects/Misc/measure.c:173
+#: ../objects/Misc/measure.c:172
 msgid "in"
 msgstr "hazbete"
 
-#: ../objects/Misc/measure.c:174
+#: ../objects/Misc/measure.c:173
 msgid "m"
 msgstr "m"
 
-#: ../objects/Misc/measure.c:175
+#: ../objects/Misc/measure.c:174
 msgid "mm"
 msgstr "mm"
 
-#: ../objects/Misc/measure.c:176
+#: ../objects/Misc/measure.c:175
 msgid "pt"
 msgstr "pt"
 
-#: ../objects/Misc/measure.c:177
+#: ../objects/Misc/measure.c:176
 msgid "pi"
 msgstr "pi"
 
 #. PROP_FLAG_VISIBLE|
-#: ../objects/Misc/measure.c:186 ../sheets/ChemEng.sheet.in.h:28
+#: ../objects/Misc/measure.c:185 ../sheets/ChemEng.sheet.in.h:28
 msgid "Measurement"
 msgstr "Neurria"
 
-#: ../objects/Misc/measure.c:188
+#: ../objects/Misc/measure.c:187
 msgid "Unit"
 msgstr "Unitatea"
 
-#: ../objects/Misc/measure.c:189
+#: ../objects/Misc/measure.c:188
 msgid "Precision"
 msgstr "Doitasuna"
 
@@ -5217,7 +5197,7 @@ msgstr "Estereotipoa"
 
 #: ../objects/UML/class.c:150 ../objects/UML/class.c:183
 #: ../objects/UML/class_dialog.c:468 ../objects/UML/class_dialog.c:580
-#: ../objects/UML/class_dialog.c:2083 ../objects/UML/uml.c:110
+#: ../objects/UML/class_dialog.c:2087 ../objects/UML/uml.c:110
 msgid "Abstract"
 msgstr "Abstraktua"
 
@@ -5290,7 +5270,7 @@ msgstr "_Klasea"
 msgid "Class name:"
 msgstr "Klase-izena:"
 
-#: ../objects/UML/class_dialog.c:445 ../objects/UML/class_dialog.c:2032
+#: ../objects/UML/class_dialog.c:445 ../objects/UML/class_dialog.c:2036
 #: ../objects/UML/dependency.c:139 ../objects/UML/generalization.c:135
 #: ../objects/UML/realizes.c:136
 msgid "Stereotype:"
@@ -5345,107 +5325,107 @@ msgstr "Aurreko planoaren kolorea"
 msgid "Background Color"
 msgstr "Atzeko planoaren kolorea"
 
-#: ../objects/UML/class_dialog.c:1166
+#: ../objects/UML/class_dialog.c:1170
 msgid "Value:"
 msgstr "Balioa:"
 
-#: ../objects/UML/class_dialog.c:1199 ../objects/UML/class_dialog.c:2044
+#: ../objects/UML/class_dialog.c:1203 ../objects/UML/class_dialog.c:2048
 msgid "Visibility:"
 msgstr "Ikusgaitasuna:"
 
-#: ../objects/UML/class_dialog.c:1208 ../objects/UML/class_dialog.c:2053
+#: ../objects/UML/class_dialog.c:1212 ../objects/UML/class_dialog.c:2057
 #: ../objects/UML/uml.c:102
 msgid "Public"
 msgstr "Publikoa"
 
-#: ../objects/UML/class_dialog.c:1211 ../objects/UML/class_dialog.c:2056
+#: ../objects/UML/class_dialog.c:1215 ../objects/UML/class_dialog.c:2060
 #: ../objects/UML/uml.c:103
 msgid "Private"
 msgstr "Pribatua"
 
-#: ../objects/UML/class_dialog.c:1214 ../objects/UML/class_dialog.c:2059
+#: ../objects/UML/class_dialog.c:1218 ../objects/UML/class_dialog.c:2063
 #: ../objects/UML/uml.c:104
 msgid "Protected"
 msgstr "Babestua"
 
-#: ../objects/UML/class_dialog.c:1217 ../objects/UML/class_dialog.c:2062
+#: ../objects/UML/class_dialog.c:1221 ../objects/UML/class_dialog.c:2066
 #: ../objects/UML/uml.c:105
 msgid "Implementation"
 msgstr "Inplementazioa"
 
 #. end: Inheritance type
-#: ../objects/UML/class_dialog.c:1233 ../objects/UML/class_dialog.c:2099
+#: ../objects/UML/class_dialog.c:1237 ../objects/UML/class_dialog.c:2103
 msgid "Class scope"
 msgstr "Klase-esparrua"
 
 #. end: Visibility
-#: ../objects/UML/class_dialog.c:2074
+#: ../objects/UML/class_dialog.c:2078
 msgid "Inheritance type:"
 msgstr "Herentzia-mota:"
 
-#: ../objects/UML/class_dialog.c:2086 ../objects/UML/uml.c:111
+#: ../objects/UML/class_dialog.c:2090 ../objects/UML/uml.c:111
 msgid "Polymorphic (virtual)"
 msgstr "Polimorfikoa (birtuala)"
 
-#: ../objects/UML/class_dialog.c:2089 ../objects/UML/uml.c:112
+#: ../objects/UML/class_dialog.c:2093 ../objects/UML/uml.c:112
 msgid "Leaf (final)"
 msgstr "Hostoa (azkena)"
 
-#: ../objects/UML/class_dialog.c:2103
+#: ../objects/UML/class_dialog.c:2107
 msgid "Query"
 msgstr "Kontsulta"
 
-#: ../objects/UML/class_dialog.c:2150
+#: ../objects/UML/class_dialog.c:2154
 msgid "Parameters:"
 msgstr "Parametroak:"
 
-#: ../objects/UML/class_dialog.c:2235
+#: ../objects/UML/class_dialog.c:2239
 msgid "Parameter data"
 msgstr "Parametro-datuak"
 
-#: ../objects/UML/class_dialog.c:2268
+#: ../objects/UML/class_dialog.c:2272
 msgid "Def. value:"
 msgstr "Balio def.:"
 
-#: ../objects/UML/class_dialog.c:2302
+#: ../objects/UML/class_dialog.c:2306
 msgid "Direction:"
 msgstr "Noranzkoa:"
 
-#: ../objects/UML/class_dialog.c:2311 ../objects/UML/umlparameter.c:34
+#: ../objects/UML/class_dialog.c:2315 ../objects/UML/umlparameter.c:34
 msgid "Undefined"
 msgstr "Definitu gabe"
 
-#: ../objects/UML/class_dialog.c:2314 ../objects/UML/umlparameter.c:35
+#: ../objects/UML/class_dialog.c:2318 ../objects/UML/umlparameter.c:35
 msgid "In"
 msgstr "Sarrera"
 
-#: ../objects/UML/class_dialog.c:2317 ../objects/UML/umlparameter.c:36
+#: ../objects/UML/class_dialog.c:2321 ../objects/UML/umlparameter.c:36
 msgid "Out"
 msgstr "Irteera"
 
-#: ../objects/UML/class_dialog.c:2320 ../objects/UML/umlparameter.c:37
+#: ../objects/UML/class_dialog.c:2324 ../objects/UML/umlparameter.c:37
 msgid "In & Out"
 msgstr "Sarrera eta irteera"
 
 #. Operations page:
-#: ../objects/UML/class_dialog.c:2355
+#: ../objects/UML/class_dialog.c:2359
 msgid "_Operations"
 msgstr "_Eragiketak"
 
-#: ../objects/UML/class_dialog.c:2413
+#: ../objects/UML/class_dialog.c:2417
 msgid "Operation data"
 msgstr "Eragiketa-datuak"
 
 #. Templates page:
-#: ../objects/UML/class_dialog.c:2776
+#: ../objects/UML/class_dialog.c:2780
 msgid "_Templates"
 msgstr "_Txantiloiak"
 
-#: ../objects/UML/class_dialog.c:2782 ../sheets/UML.sheet.in.h:29
+#: ../objects/UML/class_dialog.c:2786 ../sheets/UML.sheet.in.h:29
 msgid "Template class"
 msgstr "Txantiloi-klasea"
 
-#: ../objects/UML/class_dialog.c:2839
+#: ../objects/UML/class_dialog.c:2843
 msgid "Formal parameter data"
 msgstr "Parametro formalen datuak"
 
@@ -5750,24 +5730,18 @@ msgid "Custom XML shapes loader"
 msgstr "XML forma pertsonalizatuen kargatzailea"
 
 #: ../objects/custom/custom_object.c:207 ../objects/custom/custom_object.c:239
+#: ../objects/custom/custom_object.c:1780
 msgid "Flip horizontal"
 msgstr "Irauli horizontalki"
 
 #: ../objects/custom/custom_object.c:209 ../objects/custom/custom_object.c:241
+#: ../objects/custom/custom_object.c:1781
 msgid "Flip vertical"
 msgstr "Irauli bertikalki"
 
 #: ../objects/custom/custom_object.c:212 ../objects/custom/custom_object.c:244
 msgid "Scale of the subshapes"
 msgstr "Azpiformen eskala"
-
-#: ../objects/custom/custom_object.c:1780
-msgid "Flip Horizontal"
-msgstr "Irauli horizontalki"
-
-#: ../objects/custom/custom_object.c:1781
-msgid "Flip Vertical"
-msgstr "Irauli bertikalki"
 
 #: ../objects/custom/custom_object.c:1818
 #: ../objects/custom_lines/custom_linetypes.c:263
@@ -5813,7 +5787,7 @@ msgstr "Zizailatu angelua"
 msgid "Sectors"
 msgstr "Sektoreak"
 
-#: ../objects/network/basestation.c:398 ../objects/network/basestation.c:400
+#: ../objects/network/basestation.c:401 ../objects/network/basestation.c:403
 msgid "Base Station"
 msgstr "Oinarri-estazioa"
 
@@ -5829,7 +5803,7 @@ msgstr "Erradioa"
 msgid "Width"
 msgstr "Zabalera"
 
-#: ../objects/standard/arc.c:142
+#: ../objects/standard/arc.c:143
 msgid "Curve distance"
 msgstr "Kurba-distantzia"
 
@@ -5847,14 +5821,6 @@ msgstr "Hasierako hutsune absolutua"
 #: ../objects/standard/polyline.c:141
 msgid "Absolute end gap"
 msgstr "Amaierako hutsune absolutua"
-
-#: ../objects/standard/bezier.c:731 ../objects/standard/beziergon.c:495
-msgid "Add Segment"
-msgstr "Gehitu segmentua"
-
-#: ../objects/standard/bezier.c:732 ../objects/standard/beziergon.c:496
-msgid "Delete Segment"
-msgstr "Ezabatu segmentua"
 
 #: ../objects/standard/bezier.c:734 ../objects/standard/beziergon.c:498
 msgid "Symmetric control"
@@ -5884,15 +5850,15 @@ msgstr "Karratua"
 msgid "Aspect ratio"
 msgstr "Aspektu-erlazioa"
 
-#: ../objects/standard/box.c:695 ../objects/standard/ellipse.c:670
+#: ../objects/standard/box.c:695 ../objects/standard/ellipse.c:673
 msgid "Free aspect"
 msgstr "Itxura librea"
 
-#: ../objects/standard/box.c:697 ../objects/standard/ellipse.c:672
+#: ../objects/standard/box.c:697 ../objects/standard/ellipse.c:675
 msgid "Fixed aspect"
 msgstr "Itxura finkoa"
 
-#: ../objects/standard/ellipse.c:135 ../objects/standard/ellipse.c:674
+#: ../objects/standard/ellipse.c:135 ../objects/standard/ellipse.c:677
 msgid "Circle"
 msgstr "Zirkulua"
 
@@ -6109,19 +6075,19 @@ msgid "Error occurred while writing PNG"
 msgstr "Errorea gertatu da PNG idaztean"
 
 #. Create a dialog
-#: ../plug-ins/libart/export_png.c:322
+#: ../plug-ins/libart/export_png.c:325
 msgid "PNG Export Options"
 msgstr "PNG esportazioaren aukerak"
 
-#: ../plug-ins/libart/export_png.c:328
+#: ../plug-ins/libart/export_png.c:331
 msgid "Image width:"
 msgstr "Irudiaren zabalera:"
 
-#: ../plug-ins/libart/export_png.c:331
+#: ../plug-ins/libart/export_png.c:334
 msgid "Image height:"
 msgstr "Irudiaren altuera:"
 
-#: ../plug-ins/libart/export_png.c:377
+#: ../plug-ins/libart/export_png.c:380
 msgid "PNG (anti-aliased)"
 msgstr "PNG (antialiasing-a)"
 
@@ -6129,11 +6095,11 @@ msgstr "PNG (antialiasing-a)"
 msgid "gdk_renderer: Unsupported fill mode specified!\n"
 msgstr "gdk_renderer: onartzen ez den betetze-modua zehaztu da.\n"
 
-#: ../plug-ins/libart/dialibartrenderer.c:1471
+#: ../plug-ins/libart/dialibartrenderer.c:1476
 msgid "Renderer transformation"
 msgstr "Errendatzailearen eraldaketa"
 
-#: ../plug-ins/libart/dialibartrenderer.c:1472
+#: ../plug-ins/libart/dialibartrenderer.c:1477
 msgid "Transform pointer"
 msgstr "Eraldatu erakuslea"
 
@@ -6238,7 +6204,7 @@ msgstr "'TeX Pstricks' esportatzeko iragazkia"
 msgid "TeX PSTricks macros"
 msgstr "'TeX PSTricks' makroak"
 
-#: ../plug-ins/python/pydia-render.c:719
+#: ../plug-ins/python/pydia-render.c:779
 #, c-format
 msgid "Couldn't open '%s' for writing.\n"
 msgstr "Ezin izan da '%s' idazteko ireki.\n"
