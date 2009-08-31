@@ -13,39 +13,12 @@ The current plan is:
   upcoming weekend, if all works well, i.e. there are not too 
   much (new) conflicts [done 2002-06-08]
 
-[the following tasks could easy be shared]
-- convert Renderer interface to GObject
-  - change init_*_*ops() to *_class_init, virtual function support 
-    (should be done by/with the help of GObject)
-  - lib/render.c includes most of the base DiaRenderer
-    plug-ins/renderer.inc has code to approximate ellipse by arcs
-    app/renderer_gdk.c : has a bezier by line approximation
-  - try to involve original plug-in authors (to at least 
-    take a look if something got broken during the transition)
-
 - split out HAVE_FREETYPE stuff in own files *_ft2.c to keep 
   the know-how for later possible reintegration
-
-- remove the font name trough gettext hack
-
-- do basic GdkFont -> Pango conversion
-
-- remove the scrolling menu hack (Gtk2 does handle such)
-
-- make it compile without GTK_ENABLE_BROKEN
 
 - make it compile with GTK_DISABLE_DEPRECATED
   - maybe split in parts by un-defining it in single files,
     which need more work (diagram_tree.c, ...)
-
-- simplify render_pixmap.c : by inheritance from DiaGdkRenderer 
-
-- fix Arrow widget to properly scale and make thicker lines
-  again (they IMHO looked much prettier)
-
-- remove LIBXML1 #hell
-
-- remove as much as obvious not needed anymore GNOME #hell
 
 - do some gui tweaking to try to conform to new HIG (at 
   least button ordering)
@@ -61,8 +34,12 @@ The current plan is:
   - remove all object implementation specifc 
 
 - make a plan about further GObject-ification
+  - use accessors for every object member variable
+  - new interfaces for DiaObject, DiaElement and DiaConnection base classes
+    - map StdProp to GType/
+  - look at gobject introspection
+  - develop full gobjectification for Standard first (all the other objects are optional)
+  - think about a wrapper to other DiaObject or port them
 
 
 Future:
-
-- Make printing backends runtime configurable plug-in
