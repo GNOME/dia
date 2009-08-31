@@ -284,15 +284,15 @@ renderer_color_convert(DiaGdkRenderer *renderer,
       static gchar bits[9][4] = {
         { 0x00, 0x00, 0x00, 0x00 }, /*   0% */
 	{ 0x20, 0x02, 0x20, 0x02 },
-        { 0x42, 0x24, 0x42, 0x24 }, /*  25% */
+        { 0x22, 0x88, 0x22, 0x88 }, /*  25% */
 	{ 0x4A, 0xA4, 0x4A, 0xA4 },
         { 0x5A, 0xA5, 0x5A, 0xA5 }, /*  50% */
-	{ 0xAB, 0xBA, 0xAB, 0xBA },
+	{ 0x57, 0xBA, 0x57, 0xBA },
         { 0xBE, 0xEB, 0xBE, 0xEB }, /*  75% */
 	{ 0xEF, 0xFE, 0xEF, 0xFE },
         { 0xFF, 0xFF, 0xFF, 0xFF }, /* 100% */
       };
-      GdkBitmap *stipple = gdk_bitmap_create_from_data (NULL, bits[(int)(9*col->alpha)], 4, 4);
+      GdkBitmap *stipple = gdk_bitmap_create_from_data (NULL, bits[(int)(9*col->alpha+.49)], 4, 4);
       gdk_gc_set_stipple (renderer->gc, stipple);
       g_object_unref (stipple);
       gdk_gc_set_fill(renderer->gc, GDK_STIPPLED);
