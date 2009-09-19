@@ -3439,7 +3439,7 @@ vdx_write_object(FILE *file, unsigned int depth, const void *p)
     const struct vdx_pp *pp;
     const struct vdx_tp *tp;
     const struct vdx_text *text;
-    char *pad = (char *)malloc(2*depth+1);
+    char *pad = (char *)g_alloca(2*depth+1);
     unsigned int i;
     for (i=0; i<2*depth; i++) { pad[i] = ' '; }
     pad[2*depth] = 0;
