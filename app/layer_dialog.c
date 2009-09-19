@@ -149,6 +149,10 @@ static void
 layer_visibility_change_apply(struct LayerVisibilityChange *change, 
 			      Diagram *dia);
 
+static GtkWidget* dia_layer_widget_new(Diagram *dia, Layer *layer);
+static void dia_layer_set_layer(DiaLayerWidget *widget, Diagram *dia, Layer *layer);
+static void dia_layer_update_from_layer(DiaLayerWidget *widget);
+
 static void layer_dialog_new_callback(GtkWidget *widget, gpointer gdata);
 static void layer_dialog_raise_callback(GtkWidget *widget, gpointer gdata);
 static void layer_dialog_lower_callback(GtkWidget *widget, gpointer gdata);
@@ -1043,7 +1047,7 @@ dia_layer_widget_get_type(void)
   return dlw_type;
 }
 
-GtkWidget *
+static GtkWidget *
 dia_layer_widget_new(Diagram *dia, Layer *layer)
 {
   GtkWidget *widget;
@@ -1060,7 +1064,7 @@ dia_layer_widget_new(Diagram *dia, Layer *layer)
 }
 
 /** Layer has either been selected or created */
-void
+static void
 dia_layer_set_layer(DiaLayerWidget *widget, Diagram *dia, Layer *layer)
 {
   widget->dia = dia;
@@ -1069,7 +1073,7 @@ dia_layer_set_layer(DiaLayerWidget *widget, Diagram *dia, Layer *layer)
   dia_layer_update_from_layer(widget);
 }
 
-void
+static void
 dia_layer_update_from_layer (DiaLayerWidget *widget)
 {
   internal_call = TRUE;
