@@ -986,5 +986,7 @@ static const gchar *extensions[] = { "tex", NULL };
 DiaExportFilter pstricks_export_filter = {
     N_("TeX PSTricks macros"),
     extensions,
-    export_pstricks
+    export_pstricks,
+	NULL,
+	"pstricks-tex"
 };

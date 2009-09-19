@@ -1276,5 +1276,7 @@ static const gchar *extensions[] = { "tex", NULL };
 DiaExportFilter pgf_export_filter = {
     N_("LaTeX PGF macros"),
     extensions,
-    export_pgf
+    export_pgf,
+	NULL,
+	"pgf-tex"
 };
