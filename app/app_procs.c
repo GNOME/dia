@@ -643,7 +643,7 @@ app_init (int argc, char **argv)
 #  endif
 		    /* we always have pixbuf but don't know exactly all it's *few* save formats */
 		    "pixbuf-png), jpg, "
-		    "shape, svg, tex, " WMF
+		    "shape, svg, tex (pgf-tex, pstricks-tex), " WMF
 		    "wpg");
 
   GOptionContext *context = NULL;
