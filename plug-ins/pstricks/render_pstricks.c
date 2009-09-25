@@ -987,6 +987,6 @@ DiaExportFilter pstricks_export_filter = {
     N_("TeX PSTricks macros"),
     extensions,
     export_pstricks,
-	NULL,
-	"pstricks-tex"
+    NULL,
+    "pstricks-tex"
 };
