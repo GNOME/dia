@@ -695,7 +695,7 @@ fig_read_spline(FILE *file) {
     int forward_arrow, backward_arrow;
     Arrow *forward_arrow_info = NULL, *backward_arrow_info = NULL;
     int npoints;
-    Point *points;
+    Point *points = NULL;
     GPtrArray *props = g_ptr_array_new();
     DiaObject *newobj = NULL;
     BezPoint *bezpoints;
