@@ -183,7 +183,7 @@ image_set_props(Image *image, GPtrArray *props)
   object_set_props_from_offsets(&image->element.object, image_offsets, props);
 
   /* use old value on error */
-  if (g_stat (image->file, &st) != 0)
+  if (!image->file || g_stat (image->file, &st) != 0)
     mtime = image->mtime;
   else
     mtime = st.st_mtime;
