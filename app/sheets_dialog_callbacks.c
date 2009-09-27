@@ -155,7 +155,7 @@ on_sheets_dialog_object_button_toggled(GtkToggleButton *togglebutton,
   sheet_right = g_object_get_data(G_OBJECT(optionmenu_right),
                                   "active_sheet_name");
 
-  if ((gboolean)g_object_get_data(G_OBJECT(ud_wrapbox), "is_left") ==TRUE)
+  if (GPOINTER_TO_INT(g_object_get_data(G_OBJECT(ud_wrapbox), "is_left")) != 0)
   {
     g_object_set_data(G_OBJECT(table_sheets), "active_optionmenu",
                       optionmenu_left);
@@ -833,7 +833,7 @@ on_sheets_new_dialog_button_ok_clicked (GtkButton       *button,
 	if(doc != NULL)
 	{
 		root_element = xmlDocGetRootElement(doc);
-		if(0 == g_strncasecmp((gchar *)root_element->name, "dia", 3))
+		if(0 == g_ascii_strncasecmp((gchar *)root_element->name, "dia", 3))
 			message_error(
 				_("Please export the diagram as a shape."));
 		xmlFreeDoc(doc);
@@ -1155,7 +1155,7 @@ sheets_dialog_togglebutton_set_sensitive(GtkToggleButton *togglebutton,
   if (is_sensitive)
   {
     tmp = lookup_widget(dialog, "button_ok");
-    g_object_set_data(G_OBJECT(tmp), "active_type", (gpointer)type);
+    g_object_set_data(G_OBJECT(tmp), "active_type", GINT_TO_POINTER(type));
   }
 
   for (i = 0; widget_names[i]; i++)
@@ -1360,7 +1360,7 @@ on_sheets_edit_dialog_button_ok_clicked
   g_assert(active_button);
 
   entry = lookup_widget(sheets_edit_dialog, "entry_object_description");
-  if ((gboolean)g_object_get_data(G_OBJECT(entry), "changed") == TRUE)
+  if (GPOINTER_TO_INT(g_object_get_data(G_OBJECT(entry), "changed")) != 0)
   {
     SheetMod *sm;
     SheetObjectMod *som;
@@ -1380,7 +1380,7 @@ on_sheets_edit_dialog_button_ok_clicked
   }
 
   entry = lookup_widget(sheets_edit_dialog, "entry_sheet_description");
-  if ((gboolean)g_object_get_data(G_OBJECT(entry), "changed") == TRUE)
+  if (GPOINTER_TO_INT(g_object_get_data(G_OBJECT(entry), "changed")) != 0)
   {
     SheetMod *sm;
 
@@ -1655,8 +1655,7 @@ write_user_sheet(Sheet *sheet)
   GSList *sheet_objects;
     
   dir_user_sheets = dia_config_filename("sheets");
-  if (!*(sheet->filename))
-  {
+  if (!*(sheet->filename)) {
     gchar *basename;
 
     basename = g_strdup(sheet->name);
@@ -1664,11 +1663,14 @@ write_user_sheet(Sheet *sheet)
     filename = g_strdup_printf("%s%s%s.sheet", dir_user_sheets,
                                G_DIR_SEPARATOR_S, basename);
     g_free(basename);
-  }
-  else
-    filename = g_strdup_printf("%s%s%s", dir_user_sheets,
-                               G_DIR_SEPARATOR_S, g_basename(sheet->filename));
+  } else {
+    gchar *basename;
 
+    basename = g_path_get_basename(sheet->filename);
+    filename = g_strdup_printf("%s%s%s", dir_user_sheets,
+                               G_DIR_SEPARATOR_S, basename);
+    g_free(basename);
+  }
   file = g_fopen(filename, "w");
    
   if (file==NULL)
@@ -1741,16 +1743,19 @@ write_user_sheet(Sheet *sheet)
     {
       gchar *dia_user_shapes;
       gchar *dest;
+      gchar *basename;
 
       dia_user_shapes = dia_config_filename("shapes");
 
-      dest = g_strdup_printf("%s%s%s", dia_user_shapes, G_DIR_SEPARATOR_S,
-                             g_basename(som->svg_filename));
+      basename = g_path_get_basename(som->svg_filename);
+      dest = g_strdup_printf("%s%s%s", dia_user_shapes, G_DIR_SEPARATOR_S, basename);
+      g_free(basename);
       copy_file(som->svg_filename, dest);
       g_free(dest);
 
-      dest = g_strdup_printf("%s%s%s", dia_user_shapes, G_DIR_SEPARATOR_S,
-                             g_basename(som->sheet_object.pixmap_file));
+      basename = g_path_get_basename(som->sheet_object.pixmap_file);
+      dest = g_strdup_printf("%s%s%s", dia_user_shapes, G_DIR_SEPARATOR_S, basename);
+      g_free(basename);
       copy_file(som->sheet_object.pixmap_file, dest);
       g_free(dest);
     }
@@ -1764,7 +1769,7 @@ write_user_sheet(Sheet *sheet)
     {
       gchar *user_data;
 
-      user_data = g_strdup_printf("%u", (guint)(sheetobject->user_data));
+      user_data = g_strdup_printf("%u", GPOINTER_TO_UINT(sheetobject->user_data));
       xmlSetProp(object_node, (const xmlChar *)"intdata", (xmlChar *) user_data);
       g_free(user_data);
     }
