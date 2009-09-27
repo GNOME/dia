@@ -1018,11 +1018,13 @@ umlclass_draw_operationbox(UMLClass *umlclass, DiaRenderer *renderer, Element *e
             if (part_opstr_len < part_opstr_need) {
               part_opstr_len = part_opstr_need;
               part_opstr = g_realloc (part_opstr, part_opstr_need);
+            } else {
+              /* ensure to never strncpy to NULL amd not shrink */
+              part_opstr = g_realloc (part_opstr, MAX(part_opstr_need, part_opstr_len));
             }
             strncpy( part_opstr, opstr, wrap_pos);
             memset( part_opstr+wrap_pos, '\0', 1);
-          }
-          else   {
+          } else   {
             part_opstr_need = ident + wrap_pos - last_wrap_pos + 1;
             if (part_opstr_len < part_opstr_need) {
               part_opstr_len = part_opstr_need;
