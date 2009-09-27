@@ -1019,7 +1019,7 @@ umlclass_draw_operationbox(UMLClass *umlclass, DiaRenderer *renderer, Element *e
               part_opstr_len = part_opstr_need;
               part_opstr = g_realloc (part_opstr, part_opstr_need);
             } else {
-              /* ensure to never strncpy to NULL amd not shrink */
+              /* ensure to never strncpy to NULL and not shrink */
               part_opstr = g_realloc (part_opstr, MAX(part_opstr_need, part_opstr_len));
             }
             strncpy( part_opstr, opstr, wrap_pos);
