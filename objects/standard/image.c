@@ -189,7 +189,7 @@ image_set_props(Image *image, GPtrArray *props)
     mtime = st.st_mtime;
 
   /* handle changing the image. */
-  if (strcmp(image->file, old_file) != 0 || image->mtime != mtime) {
+  if (image->file && (strcmp(image->file, old_file) != 0 || image->mtime != mtime)) {
     Element *elem = &image->element;
     DiaImage *img = NULL;
 
