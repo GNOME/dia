@@ -149,6 +149,18 @@ object_apply_props(DiaObject *obj, GPtrArray *props)
   return (ObjectChange *)change;
 }
 
+/*!
+ * Toggle a boolean property including change management
+ */
+ObjectChange *
+object_toggle_prop (DiaObject *obj, const char *pname, gboolean val)
+{
+  Property *prop = make_new_prop (pname, PROP_TYPE_BOOL, 0);
+  GPtrArray *plist = prop_list_from_single (prop);
+  
+  ((BoolProperty *)prop)->bool_data = val;
+  return object_apply_props (obj, plist);
+}
 
 /* Get/Set routines */
 

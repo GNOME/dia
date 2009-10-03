@@ -373,6 +373,7 @@ EXPORTS
  element_init
  element_load
  element_move_handle
+ element_move_handle_aspect
  element_save
  element_update_boundingbox
  element_update_handles
@@ -516,6 +517,7 @@ EXPORTS
  object_save_props
  object_save_using_properties
  object_set_props_from_offsets
+ object_toggle_prop
  object_unconnect
 
  orthconn_add_segment

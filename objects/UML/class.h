@@ -119,6 +119,7 @@ struct _UMLClass {
   /** Template parameters */
   GList *formal_params;
 
+  gboolean allow_resizing;
   /* Calculated variables: */
   
   real namebox_height;
@@ -127,9 +128,10 @@ struct _UMLClass {
   real attributesbox_height;
 
   real operationsbox_height;
-/*
-  GList *operations_wrappos;*/
+
   int max_wrapped_line_width;
+  /*! chached for resizing */
+  real min_width;
 
   real templates_height;
   real templates_width;
@@ -145,11 +147,11 @@ struct _UMLClass {
 };
 
 void umlclass_dialog_free (UMLClassDialog *dialog);
-extern GtkWidget *umlclass_get_properties(UMLClass *umlclass, gboolean is_default);
-extern ObjectChange *umlclass_apply_props_from_dialog(UMLClass *umlclass, GtkWidget *widget);
-extern void umlclass_calculate_data(UMLClass *umlclass);
-extern void umlclass_update_data(UMLClass *umlclass);
+GtkWidget *umlclass_get_properties(UMLClass *umlclass, gboolean is_default);
+ObjectChange *umlclass_apply_props_from_dialog(UMLClass *umlclass, GtkWidget *widget);
+void umlclass_calculate_data(UMLClass *umlclass);
+void umlclass_update_data(UMLClass *umlclass);
 
-extern void umlclass_sanity_check(UMLClass *c, gchar *msg);
+void umlclass_sanity_check(UMLClass *c, gchar *msg);
 
 #endif /* CLASS_H */

@@ -69,6 +69,7 @@ static DiaObject *umlclass_load(ObjectNode obj_node, int version,
 
 static DiaMenu * umlclass_object_menu(DiaObject *obj, Point *p);
 static ObjectChange *umlclass_show_comments_callback(DiaObject *obj, Point *pos, gpointer data);
+static ObjectChange *umlclass_allow_resizing_callback(DiaObject *obj, Point *pos, gpointer data);
 
 static PropDescription *umlclass_describe_props(UMLClass *umlclass);
 static void umlclass_get_props(UMLClass *umlclass, GPtrArray *props);
@@ -169,6 +170,8 @@ static PropDescription umlclass_props[] = {
   N_("Comment line length"), NULL, NULL},
   { "comment_tagging", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
   N_("Comment tagging"), NULL, NULL},
+  { "allow_resizing", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
+  N_("Allow resizing"), NULL, NULL},
 
   /* all this just to make the defaults selectable ... */
   PROP_NOTEBOOK_PAGE("font", PROP_FLAG_DONT_MERGE, N_("Font")),
@@ -282,7 +285,8 @@ static PropOffset umlclass_offsets[] = {
   { "wrap_after_char", PROP_TYPE_INT, offsetof(UMLClass , wrap_after_char) },
   { "comment_line_length", PROP_TYPE_INT, offsetof(UMLClass, comment_line_length) },
   { "comment_tagging", PROP_TYPE_BOOL, offsetof(UMLClass, comment_tagging) },
-  
+  { "allow_resizing", PROP_TYPE_BOOL, offsetof(UMLClass, allow_resizing) },
+
   /* all this just to make the defaults selectable ... */
   PROP_OFFSET_MULTICOL_BEGIN("class"),
   PROP_OFFSET_MULTICOL_COLUMN("font"),
@@ -317,7 +321,9 @@ umlclass_get_props(UMLClass * umlclass, GPtrArray *props)
 }
 
 static DiaMenuItem umlclass_menu_items[] = {
-        { N_("Show Comments"), umlclass_show_comments_callback, NULL, 
+        { N_("Show comments"), umlclass_show_comments_callback, NULL, 
+          DIAMENU_ACTIVE|DIAMENU_TOGGLE },
+        { N_("Allow resizing"), umlclass_allow_resizing_callback, NULL, 
           DIAMENU_ACTIVE|DIAMENU_TOGGLE },
 };
 
@@ -333,6 +339,8 @@ umlclass_object_menu(DiaObject *obj, Point *p)
 {
         umlclass_menu_items[0].active = DIAMENU_ACTIVE|DIAMENU_TOGGLE|
                 (((UMLClass *)obj)->visible_comments?DIAMENU_TOGGLE_ON:0);
+        umlclass_menu_items[1].active = DIAMENU_ACTIVE|DIAMENU_TOGGLE|
+                (((UMLClass *)obj)->allow_resizing?DIAMENU_TOGGLE_ON:0);
 
         return &umlclass_menu;
 }
@@ -358,7 +366,7 @@ _comment_set_state (DiaObject *obj, ObjectState *state)
   umlclass_update_data((UMLClass *)obj);
 }
 
-ObjectChange *
+static ObjectChange *
 umlclass_show_comments_callback(DiaObject *obj, Point *pos, gpointer data)
 {
   ObjectState *old_state = _comment_get_state(obj);
@@ -368,6 +376,29 @@ umlclass_show_comments_callback(DiaObject *obj, Point *pos, gpointer data)
   umlclass_calculate_data((UMLClass *)obj);
   umlclass_update_data((UMLClass *)obj);
   return change;
+}
+
+static ObjectChange *
+umlclass_allow_resizing_callback(DiaObject *obj, Point *pos, gpointer data)
+{
+  pos; /* unused */
+  data; /* unused */
+
+  return object_toggle_prop(obj, "allow_resizing", !((UMLClass *)obj)->allow_resizing); 
+}
+
+static void
+umlclass_reflect_resizing(UMLClass *umlclass)
+{
+  Element *elem = &umlclass->element;
+
+  element_update_handles(elem);
+
+  g_assert (elem->resize_handles[3].id == HANDLE_RESIZE_W);
+  g_assert (elem->resize_handles[4].id == HANDLE_RESIZE_E);
+  
+  elem->resize_handles[3].type = umlclass->allow_resizing ? HANDLE_MAJOR_CONTROL : HANDLE_NON_MOVABLE;
+  elem->resize_handles[4].type = umlclass->allow_resizing ? HANDLE_MAJOR_CONTROL : HANDLE_NON_MOVABLE;
 }
 
 static void
@@ -434,6 +465,8 @@ umlclass_set_props(UMLClass *umlclass, GPtrArray *props)
   obj->connections[num]->object = obj;
 #endif
 
+  umlclass_reflect_resizing(umlclass);
+
   umlclass_calculate_data(umlclass);
   umlclass_update_data(umlclass);
 #ifdef DEBUG
@@ -462,11 +495,25 @@ umlclass_move_handle(UMLClass *umlclass, Handle *handle,
 		     Point *to, ConnectionPoint *cp,
                      HandleMoveReason reason, ModifierKeys modifiers)
 {
+  Element *elem = &umlclass->element;
+
   assert(umlclass!=NULL);
   assert(handle!=NULL);
   assert(to!=NULL);
-
   assert(handle->id < UMLCLASS_CONNECTIONPOINTS);
+
+  if (handle->type != HANDLE_NON_MOVABLE) {
+    if (handle->id == HANDLE_RESIZE_E || handle->id == HANDLE_RESIZE_W) {
+      real dist = (handle->id == HANDLE_RESIZE_E) ?
+             to->x - elem->resize_handles[3].pos.x :
+	     elem->resize_handles[4].pos.x - to->x;
+      if (umlclass->min_width <= dist) {
+        ObjectChange *oc = element_move_handle (elem, handle->id, to, cp, reason, modifiers);
+	umlclass_update_data(umlclass);
+	return oc;
+      }
+    }
+  }
 
   return NULL;
 }
@@ -1603,7 +1650,12 @@ umlclass_calculate_operation_data(UMLClass *umlclass)
     }
   }
 
-  umlclass->element.width = maxwidth + 2*0.3;
+  if (!umlclass->allow_resizing)
+    umlclass->element.width = maxwidth + 2*0.3;
+  else {
+    umlclass->min_width = maxwidth + 2*0.3;
+    umlclass->element.width = MAX(umlclass->element.width, umlclass->min_width);
+  }
 
   if ((umlclass->operationsbox_height<0.4) || umlclass->suppress_operations ) {
     umlclass->operationsbox_height = 0.4;
@@ -1621,7 +1673,9 @@ umlclass_calculate_operation_data(UMLClass *umlclass)
  * comment within the box. The various font settings with in the class
  * properties contribute to the overall size of the resulting bounding box.
  * 
- *  * @param   umlclass  a pointer to an object of UMLClass
+ * @param   umlclass  a pointer to an object of UMLClass
+ *
+ * @return  the horizontial size of the box
  *
  */
 void
@@ -1632,6 +1686,7 @@ umlclass_calculate_data(UMLClass *umlclass)
   real   maxwidth = 0.0;
   real   width;
   GList *list;
+  real   min_box_width;
 
   if (!umlclass->destroyed)
   {
@@ -1647,7 +1702,12 @@ umlclass_calculate_data(UMLClass *umlclass)
       maxwidth = MAX(umlclass_calculate_operation_data(umlclass), maxwidth);
       umlclass->element.height += umlclass->operationsbox_height;
     }
-    umlclass->element.width  = maxwidth+0.5;
+    if (!umlclass->allow_resizing)
+      umlclass->element.width  = maxwidth+0.5;
+    else {
+      umlclass->min_width = maxwidth+0.5;
+      umlclass->element.width = MAX(umlclass->element.width, umlclass->min_width);
+    }
     /* templates box: */
     num_templates = g_list_length(umlclass->formal_params);
 
@@ -1956,6 +2016,7 @@ umlclass_copy(UMLClass *umlclass)
   newumlclass->wrap_after_char = umlclass->wrap_after_char;
   newumlclass->comment_line_length = umlclass->comment_line_length;
   newumlclass->comment_tagging = umlclass->comment_tagging;
+  newumlclass->allow_resizing = umlclass->allow_resizing;
   newumlclass->line_width = umlclass->line_width;
   newumlclass->text_color = umlclass->text_color;
   newumlclass->line_color = umlclass->line_color;
@@ -2103,6 +2164,8 @@ umlclass_save(UMLClass *umlclass, ObjectNode obj_node,
                    umlclass->comment_line_length);
   data_add_boolean(new_attribute(obj_node, "comment_tagging"),
                    umlclass->comment_tagging);
+  data_add_boolean(new_attribute(obj_node, "allow_resizing"),
+                   umlclass->allow_resizing);
   data_add_real(new_attribute(obj_node, PROP_STDNAME_LINE_WIDTH), 
 		   umlclass->line_width);
   data_add_color(new_attribute(obj_node, "line_color"), 
@@ -2306,6 +2369,7 @@ static DiaObject *umlclass_load(ObjectNode obj_node, int version,
   for (i=0;i<8;i++) {
     obj->handles[i]->type = HANDLE_NON_MOVABLE;
   }
+  umlclass_reflect_resizing(umlclass); 
 
 #ifdef DEBUG
   umlclass_sanity_check(umlclass, "Loaded class");

@@ -422,6 +422,7 @@ gboolean object_set_props_from_offsets(DiaObject *obj, PropOffset *offsets,
 
 /* apply some properties and return a corresponding object change */
 ObjectChange *object_apply_props(DiaObject *obj, GPtrArray *props);
+ObjectChange *object_toggle_prop (DiaObject *obj, const char *pname, gboolean val);
 
 /* standard properties dialogs that can be used for objects that
  * implement describe_props, get_props and set_props.
