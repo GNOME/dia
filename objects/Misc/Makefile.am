@@ -4,6 +4,7 @@ pkglib_LTLIBRARIES = 	libmisc_objects.la
 libmisc_objects_la_SOURCES = \
 			libmisc.c \
 			analog_clock.c \
+			diagram_as_object.c \
 			grid_object.c \
 			measure.c \
 			tree.c
@@ -16,6 +17,7 @@ INCLUDES = -I$(top_srcdir)/intl -I$(srcdir)/../../lib \
 
 EXTRA_DIST = \
 	pixmaps/analog_clock.xpm \
+	pixmaps/diagram_as_element.xpm \
 	pixmaps/grid_object.xpm \
 	pixmaps/measure.xpm \
 	pixmaps/newgroup.xpm \

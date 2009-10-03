@@ -32,6 +32,7 @@ extern DiaObjectType analog_clock_type;
 extern DiaObjectType grid_object_type;
 extern DiaObjectType tree_type;
 extern DiaObjectType measure_type;
+extern DiaObjectType diagram_as_element_type;
 
 DIA_PLUGIN_CHECK_INIT
 
@@ -46,6 +47,7 @@ dia_plugin_init(PluginInfo *info)
   object_register_type(&grid_object_type);  
   object_register_type(&tree_type);
   object_register_type(&measure_type);
+  object_register_type(&diagram_as_element_type);
 
   return DIA_PLUGIN_INIT_OK;
 }
