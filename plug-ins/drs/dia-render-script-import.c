@@ -31,6 +31,8 @@
 
 #include <libxml/tree.h>
 
+#include "dia-render-script.h"
+
 static real
 _parse_real (xmlNodePtr node, const char *attrib)
 {
@@ -140,7 +142,7 @@ struct _RenderOp {
   void *params[6];
 };
 
-xmlNodePtr
+static xmlNodePtr
 find_child_named (xmlNodePtr node, const char *name)
 {
   for (node = node->children; node; node = node->next)
@@ -167,8 +169,8 @@ read_items (xmlNodePtr startnode)
       continue;
     if (!xmlStrcmp(node->name, (const xmlChar *)"object")) {
       xmlChar *sType = xmlGetProp(node, (const xmlChar *)"type");
-      const DiaObjectType *ot = object_get_type (sType);
-      xmlNodePtr child, props = NULL, render = NULL;
+      const DiaObjectType *ot = object_get_type ((gchar *)sType);
+      xmlNodePtr props = NULL, render = NULL;
       
       props = find_child_named (node, "properties");
       render = find_child_named (node, "render");
@@ -204,13 +206,13 @@ read_items (xmlNodePtr startnode)
   return items;
 }
 
-/* imports the given SVG file, returns TRUE if successful */
+/* imports the given DRS file, returns TRUE if successful */
 gboolean
 import_drs (const gchar *filename, DiagramData *dia, void* user_data) 
 {
   GList *item, *items;
   xmlDocPtr doc = xmlParseFile(filename);
-  xmlNodePtr root, node;
+  xmlNodePtr root = NULL, node;
   Layer *active_layer = NULL;
 
   for (node = doc->children; node; node = node->next)
@@ -231,8 +233,8 @@ import_drs (const gchar *filename, DiagramData *dia, void* user_data)
       if (name)
 	xmlFree (name);
 
-      str = xmlGetProp (node, "active");
-      if (xmlStrcmp (str, "true")) {
+      str = xmlGetProp (node, (const xmlChar *)"active");
+      if (xmlStrcmp (str, (const xmlChar *)"true")) {
 	  active_layer = layer;
 	xmlFree (str);
       }
