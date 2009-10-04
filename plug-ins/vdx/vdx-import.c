@@ -1959,17 +1959,18 @@ plot_nurbs(const struct vdx_Geom *Geom, const struct vdx_XForm *XForm,
 /** Converts Base64 data to binary and writes to file
  * @param filename file to write
  * @param b64 Base64 encoded data
- * @note glibc 2.12 offers g_base64_decode()
  */
 
 static void
 write_base64_file(const char *filename, const char *b64)
 {
+#define BUF_SIZE 4096
     FILE *f;
-    const char *c;
-    char d = 0;
-    char buf[4];                /* For 4 decoded 6-bit chunks */
-    unsigned int buf_len = 0;
+    const gchar *in = b64;
+    guchar buf[BUF_SIZE];
+    gint state = 0;
+    guint save = 0;
+    gssize len;
 
     if (!filename || !b64)
     {
@@ -1984,44 +1985,24 @@ write_base64_file(const char *filename, const char *b64)
         return;
     }
 
-    for (c = b64; *c; c++)
+    len = strlen (b64);
+    do
     {
-        /* Ignore whitespace, = padding at end etc. */
-        if (!isalnum(*c) && *c != '+' && *c != '/') continue;
-
-        if (*c >= 'A' && *c <= 'Z') { d = *c - 'A'; }
-        if (*c >= 'a' && *c <= 'z') { d = *c - 'a' + 26; }
-        if (*c >= '0' && *c <= '9') { d = *c - '0' + 52; }
-        if (*c == '+') { d = 62; }
-        if (*c == '/') { d = 63; }
-
-        buf[buf_len++] = d;
-        if (buf_len == 4)
-        {
-            /* We now have 3 bytes in 4 6-bit chunks */
-            fputc(buf[0] << 2 | buf[1] >> 4, f);
-            fputc(buf[1] << 4 | buf[2] >> 2, f);
-            fputc(buf[2] << 6 | buf[3], f);
-            buf_len = 0;
-        }
+        gsize ret = g_base64_decode_step (in,
+					  len > BUF_SIZE ? BUF_SIZE : len,
+					  buf, &state, &save);
+	if (fwrite (buf, sizeof(guchar), ret, f) != ret)
+	{
+	    message_error(_("Couldn't write file %s"), filename); 
+	    break;
+	}
+	in += BUF_SIZE;
+	len -= BUF_SIZE;
     }
-
-    /* Deal with any chunks left over */
-    if (buf_len)
-    {
-        fputc(buf[0] << 2 | buf[1] >> 4, f);
-        if (buf_len > 1)
-        {
-            fputc(buf[1] << 4 | buf[2] >> 2, f);
-            if (buf_len > 2)
-            {
-                /* This one can't happen */
-                fputc(buf[2] << 6 | buf[3], f);
-            }
-        }
-    }
+    while (len > 0);
 
     fclose(f);
+#undef BUF_SIZE
 }
 
 /** Plots a bitmap
