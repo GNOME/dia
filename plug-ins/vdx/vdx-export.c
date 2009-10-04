@@ -1358,7 +1358,6 @@ static void draw_string(DiaRenderer *self,
  * @returns Base64 encoded data (or NULL if problem)
  * @note glibc 2.12 offers g_base64_encode()
  */
-
 static char *
 read_base64_file(const char *filename)
 {
