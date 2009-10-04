@@ -139,7 +139,15 @@ end_render(DiaRenderer *self)
   dia_font_pop_context();
 }
 
-
+static gboolean 
+is_capable_to (DiaRenderer *renderer, RenderCapability cap)
+{
+  if (RENDER_HOLES == cap)
+    return TRUE;
+  else if (RENDER_ALPHA == cap)
+    return TRUE;
+  return FALSE;
+}
 
 static void
 set_linewidth(DiaRenderer *self, real linewidth)
@@ -1512,6 +1520,8 @@ dia_libart_renderer_class_init (DiaLibartRendererClass *klass)
 
   /* Interactive functions */
   renderer_class->get_text_width = get_text_width;
+  /* other */
+  renderer_class->is_capable_to = is_capable_to;
 }
 
 #endif

@@ -37,7 +37,6 @@ extern "C" {
 #include "filter.h"
 #include "plug-ins.h"
 #include "dia_image.h"
-
 #ifdef __cplusplus
 }
 #endif
@@ -324,6 +323,16 @@ end_render(DiaRenderer *self)
 	W32::DeleteObject(renderer->hFont);
     if (renderer->pango_context)
         g_object_unref (renderer->pango_context);
+}
+
+static gboolean 
+is_capable_to (DiaRenderer *renderer, RenderCapability cap)
+{
+  if (RENDER_HOLES == cap)
+    return TRUE;
+  else if (RENDER_ALPHA == cap)
+    return TRUE;
+  return FALSE;
 }
 
 static void
@@ -815,11 +824,70 @@ fill_ellipse(DiaRenderer *self,
 }
 
 static void
+_bezier (DiaRenderer *self, 
+	    BezPoint *points,
+	    int       numpoints,
+	    Color    *colour,
+	    gboolean  fill)
+{
+    WmfRenderer *renderer = WMF_RENDERER (self);
+    W32::HGDIOBJ hBrush, hBrOld;
+    W32::HPEN hPen;
+    W32::COLORREF rgb = W32COLOR(colour);
+
+    DIAG_NOTE(renderer, "_bezier n:%d %fx%f ...\n", 
+              numpoints, points->p1.x, points->p1.y);
+
+    if (fill) {
+      hBrush = W32::CreateSolidBrush(rgb);
+      hBrOld = W32::SelectObject(renderer->hFileDC, hBrush);
+    } else {
+      hPen = UsePen(renderer, colour);
+    }
+
+    W32::BeginPath (renderer->hFileDC);
+    
+    for (int i = 0; i < numpoints; ++i) {
+        switch (points[i].type) {
+	case BezPoint::BEZ_MOVE_TO :
+	    W32::MoveToEx (renderer->hFileDC, SCX(points[i].p1.x), SCX(points[i].p1.y), NULL);
+	    break;
+	case BezPoint::BEZ_LINE_TO :
+	    W32::LineTo (renderer->hFileDC, SCX(points[i].p1.x), SCX(points[i].p1.y));
+	    break;
+	case BezPoint::BEZ_CURVE_TO :
+	  {
+	    W32::POINT pts[3] = {
+	      {SCX(points[i].p1.x), SCX(points[i].p1.y)},
+	      {SCX(points[i].p2.x), SCX(points[i].p2.y)},
+	      {SCX(points[i].p3.x), SCX(points[i].p3.y)}
+	    };
+	    W32::PolyBezierTo (renderer->hFileDC, pts, 3);
+	  }
+	  break;
+	}
+    }
+    W32::EndPath (renderer->hFileDC);
+    if (fill) {
+        W32::FillPath (renderer->hFileDC);
+        W32::SelectObject(renderer->hFileDC, 
+                          W32::GetStockObject (HOLLOW_BRUSH) );
+        W32::DeleteObject(hBrush);
+    } else {
+        W32::StrokePath (renderer->hFileDC);
+        DonePen(renderer, hPen);
+    }
+}
+
+static void
 draw_bezier(DiaRenderer *self, 
 	    BezPoint *points,
 	    int numpoints,
 	    Color *colour)
 {
+#ifndef SAVE_EMF
+    _bezier(self, points, numpoints, colour, FALSE);
+#else
     WmfRenderer *renderer = WMF_RENDERER (self);
     W32::HPEN    hPen;
     W32::POINT * pts;
@@ -839,14 +907,14 @@ draw_bezier(DiaRenderer *self,
         {
         case _BezPoint::BEZ_MOVE_TO:
             g_warning("only first BezPoint can be a BEZ_MOVE_TO");
-	      break;
+	  break;
         case _BezPoint::BEZ_LINE_TO:
             /* everyhing the same ?*/
             pts[i*3-2].x = pts[i*3-1].x = 
             pts[i*3  ].x = SCX(points[i].p1.x);
             pts[i*3-2].y = pts[i*3-1].y = 
             pts[i*3  ].y = SCY(points[i].p1.y);
-        break;
+          break;
         case _BezPoint::BEZ_CURVE_TO:
             /* control points */
             pts[i*3-2].x = SCX(points[i].p1.x);
@@ -870,6 +938,7 @@ draw_bezier(DiaRenderer *self,
     DonePen(renderer, hPen);
 
     g_free(pts);
+#endif
 }
 
 #ifndef SAVE_EMF
@@ -880,24 +949,7 @@ fill_bezier(DiaRenderer *self,
 	    int numpoints,
 	    Color *colour)
 {
-    WmfRenderer *renderer = WMF_RENDERER (self);
-    W32::HGDIOBJ hBrush, hBrOld;
-    W32::COLORREF rgb = W32COLOR(colour);
-
-    DIAG_NOTE(renderer, "fill_bezier n:%d %fx%f ...\n", 
-              numpoints, points->p1.x, points->p1.y);
-
-    hBrush = W32::CreateSolidBrush(rgb);
-    hBrOld = W32::SelectObject(renderer->hFileDC, hBrush);
-
-    W32::BeginPath (renderer->hFileDC);
-    draw_bezier(self, points, numpoints, NULL);
-    W32::EndPath (renderer->hFileDC);
-    W32::FillPath (renderer->hFileDC);
-
-    W32::SelectObject(renderer->hFileDC, 
-                      W32::GetStockObject (HOLLOW_BRUSH) );
-    W32::DeleteObject(hBrush);
+    _bezier(self, points, numpoints, colour, TRUE);
 }
 #endif
 
@@ -1210,6 +1262,8 @@ wmf_renderer_class_init (WmfRendererClass *klass)
   renderer_class->draw_rounded_rect = draw_rounded_rect;
   renderer_class->fill_rounded_rect = fill_rounded_rect;
 #endif
+  /* other */
+  renderer_class->is_capable_to = is_capable_to;
 }
 
 /* plug-in export api */

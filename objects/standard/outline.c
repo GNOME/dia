@@ -379,7 +379,14 @@ outline_draw(Outline *outline, DiaRenderer *renderer)
       ++n;
     }
   }
-  /* split the path data into piece which can be handled by Dia's bezier rendering */
+
+  if (DIA_RENDERER_GET_CLASS (renderer)->is_capable_to(renderer, RENDER_HOLES)) {
+    if (outline->show_background)
+      DIA_RENDERER_GET_CLASS (renderer)->fill_bezier(renderer, pts, total, &outline->fill_color);
+    DIA_RENDERER_GET_CLASS (renderer)->draw_bezier (renderer, pts, total, &outline->line_color);
+    return; /* that was easy ;) */
+  }
+  /* otherwise split the path data into piece which can be handled by Dia's standard bezier rendering */
   if (outline->show_background) {
     /* first draw the fills */
     int s1 = 0, n1 = 0;
@@ -538,5 +545,6 @@ outline_select (Outline *outline, Point *clicked_point,
 {
   outine_update_handles (outline);
 }
-#endif /* HAVE_CAIRO */
+
+#endif /* HAVE_CAIRO */
 

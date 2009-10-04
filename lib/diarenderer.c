@@ -170,6 +170,8 @@ static void draw_bezier_with_arrows (DiaRenderer *renderer,
                                     Arrow *start_arrow,
                                     Arrow *end_arrow);
 
+static gboolean is_capable_to (DiaRenderer *renderer, RenderCapability cap);
+
 static gpointer parent_class = NULL;
 
 GType
@@ -279,6 +281,9 @@ dia_renderer_class_init (DiaRendererClass *klass)
   renderer_class->draw_polyline_with_arrows = draw_polyline_with_arrows;
   renderer_class->draw_rounded_polyline_with_arrows = draw_rounded_polyline_with_arrows;
   renderer_class->draw_bezier_with_arrows = draw_bezier_with_arrows;
+  
+  /* other */
+  renderer_class->is_capable_to = is_capable_to;
 }
 
 static void 
@@ -1452,6 +1457,14 @@ get_height_pixels (DiaRenderer *renderer)
   return 0;
 }
 
+/*!
+ * The base class has none of the advanced capabilities
+ */
+static gboolean 
+is_capable_to (DiaRenderer *renderer, RenderCapability cap)
+{
+  return FALSE;
+}
 
 /*
  * non member functions

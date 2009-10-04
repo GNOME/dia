@@ -328,8 +328,7 @@ distance_bez_line_point(const BezPoint *b, guint npoints,
 
     switch (b[i].type) {
     case BEZ_MOVE_TO:
-      /*g_assert_not_reached();*/
-      g_warning("BEZ_MOVE_TO found half way through a bezier line");
+      last = b[i].p1;
       break;
     case BEZ_LINE_TO:
       dist = distance_line_point(&last, &b[i].p1, line_width, point);
@@ -366,8 +365,8 @@ distance_bez_shape_point(const BezPoint *b, guint npoints,
 
     switch (b[i].type) {
     case BEZ_MOVE_TO:
-      /*g_assert_not_reached();*/
-      g_warning("BEZ_MOVE_TO found half way through a bezier shape");
+      /* no complains, there are renderers capable to handle this */
+      last = b[i].p1;
       break;
     case BEZ_LINE_TO:
       dist = distance_line_point(&last, &b[i].p1, line_width, point);

@@ -31,6 +31,11 @@
 
 G_BEGIN_DECLS
 
+typedef enum {
+  RENDER_HOLES = (1<<0),
+  RENDER_ALPHA = (1<<1)
+} RenderCapability;
+
 /*! GObject boiler plate, create runtime information */
 #define DIA_TYPE_RENDERER           (dia_renderer_get_type ())
 /*! GObject boiler plate, a safe type cast */
@@ -253,6 +258,9 @@ struct _DiaRendererClass
                                    Color *color,
                                    Arrow *start_arrow,
                                    Arrow *end_arrow);
+  /*! allows to adapt DiaObject implementations to certain renderer capabilities */
+  gboolean (*is_capable_to) (DiaRenderer *renderer,
+			     RenderCapability cap);
 };
 
 /*

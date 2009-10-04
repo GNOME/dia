@@ -719,7 +719,20 @@ bezierconn_simple_draw(BezierConn *bez, DiaRenderer *renderer, real width)
   DIA_RENDERER_GET_CLASS(renderer)->set_linejoin(renderer, LINEJOIN_ROUND);
   DIA_RENDERER_GET_CLASS(renderer)->set_linecaps(renderer, LINECAPS_BUTT);
 
-  DIA_RENDERER_GET_CLASS(renderer)->draw_bezier(renderer, points, bez->numpoints, &color_black);
+  if (DIA_RENDERER_GET_CLASS(renderer)->is_capable_to(renderer, RENDER_HOLES)) {
+    DIA_RENDERER_GET_CLASS(renderer)->draw_bezier(renderer, points, bez->numpoints, &color_black);
+  } else {
+    int i, from = 0, len;
+    
+    do {
+      for (i = from+1; i < bez->numpoints; ++i)
+        if (points[i].type == BEZ_MOVE_TO)
+          break;
+      len = i - from;
+      DIA_RENDERER_GET_CLASS(renderer)->draw_bezier(renderer, &points[from], len, &color_black);
+      from += len;
+    } while (from < bez->numpoints);
+  }
 }
 
 /** Draw the control lines from the points of the bezier conn.
@@ -926,6 +939,8 @@ bezierconn_save(BezierConn *bez, ObjectNode obj_node)
   
   data_add_point(attr, &bez->points[0].p1);
   for (i = 1; i < bez->numpoints; i++) {
+    if (BEZ_MOVE_TO == bez->points[i].type)
+      g_warning("only first BezPoint can be a BEZ_MOVE_TO");
     data_add_point(attr, &bez->points[i].p1);
     data_add_point(attr, &bez->points[i].p2);
     data_add_point(attr, &bez->points[i].p3);

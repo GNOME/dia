@@ -160,6 +160,16 @@ end_render(DiaRenderer *self)
   DIAG_STATE(renderer->cr)
 }
 
+static gboolean 
+is_capable_to (DiaRenderer *renderer, RenderCapability cap)
+{
+  if (RENDER_HOLES == cap)
+    return TRUE;
+  else if (RENDER_ALPHA == cap)
+    return TRUE;
+  return FALSE;
+}
+
 static void
 set_linewidth(DiaRenderer *self, real linewidth)
 {  
@@ -1014,4 +1024,7 @@ cairo_renderer_class_init (DiaCairoRendererClass *klass)
   /* highest level functions */
   renderer_class->draw_rounded_rect = draw_rounded_rect;
   renderer_class->fill_rounded_rect = fill_rounded_rect;
+  
+  /* other */
+  renderer_class->is_capable_to = is_capable_to;
 }

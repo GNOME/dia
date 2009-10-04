@@ -723,6 +723,7 @@ void
 beziershape_simple_draw(BezierShape *bezier, DiaRenderer *renderer, real width)
 {
   BezPoint *points;
+  int numpoints;
   
   g_assert(bezier != NULL);
   g_assert(renderer != NULL);
@@ -733,6 +734,18 @@ beziershape_simple_draw(BezierShape *bezier, DiaRenderer *renderer, real width)
   DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_SOLID);
   DIA_RENDERER_GET_CLASS(renderer)->set_linejoin(renderer, LINEJOIN_ROUND);
   DIA_RENDERER_GET_CLASS(renderer)->set_linecaps(renderer, LINECAPS_BUTT);
+
+  numpoints = bezier->numpoints;
+  if (!DIA_RENDERER_GET_CLASS(renderer)->is_capable_to(renderer, RENDER_HOLES)) {
+    /* just throw away everything from the second move */
+    int i;
+
+    for (i = 1; i < numpoints; ++i)
+      if (points[i].type == BEZ_MOVE_TO) {
+        numpoints = i;
+        break;
+      }
+  }
 
   DIA_RENDERER_GET_CLASS(renderer)->fill_bezier(renderer, points, bezier->numpoints,&color_white);
   DIA_RENDERER_GET_CLASS(renderer)->draw_bezier(renderer, points, bezier->numpoints,&color_black);
@@ -929,6 +942,8 @@ beziershape_save(BezierShape *bezier, ObjectNode obj_node)
 
   data_add_point(attr, &bezier->points[0].p1);
   for (i = 1; i < bezier->numpoints; i++) {
+    if (BEZ_MOVE_TO == bezier->points[i].type)
+      g_warning("only first BezPoint can be a BEZ_MOVE_TO");
     data_add_point(attr, &bezier->points[i].p1);
     data_add_point(attr, &bezier->points[i].p2);
     if (i < bezier->numpoints - 1)

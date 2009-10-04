@@ -581,20 +581,25 @@ dia_svg_parse_path(const gchar *path_str, gchar **unparsed, gboolean *closed)
     /* check for a new command */
     switch (path[0]) {
     case 'M':
+#undef MULTI_MOVE_BEZIER /* Dia XML serialization can't cope with it */
+#ifndef MULTI_MOVE_BEZIER
       if (points->len > 0) {
 	need_next_element = TRUE;
 	goto MORETOPARSE;
       }
+#endif
       path++;
       path_chomp(path);
       last_type = PATH_MOVE;
       last_relative = FALSE;
       break;
     case 'm':
+#ifndef MULTI_MOVE_BEZIER
       if (points->len > 0) {
 	need_next_element = TRUE;
 	goto MORETOPARSE;
       }
+#endif
       path++;
       path_chomp(path);
       last_type = PATH_MOVE;
@@ -861,7 +866,9 @@ dia_svg_parse_path(const gchar *path_str, gchar **unparsed, gboolean *closed)
 	g_array_append_val(points, bez);
       }
       *closed = TRUE;
+#ifndef MULTI_MOVE_BEZIER
       need_next_element = TRUE;
+#endif
     }
     /* get rid of any ignorable characters */
     path_chomp(path);
