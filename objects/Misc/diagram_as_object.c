@@ -76,11 +76,13 @@ _dae_create (Point *startpoint,
 	     void *user_data,
 	     Handle **handle1,
 	     Handle **handle2);
+static DiaObject *
+_dae_load (ObjectNode obj_node, int version, const char *filename);
 
 static ObjectTypeOps _dae_type_ops =
 {
   (CreateFunc) _dae_create,
-  (LoadFunc)   object_load_using_properties,
+  (LoadFunc)   _dae_load, /* can't use object_load_using_properties, signature mismatch */
   (SaveFunc)   object_save_using_properties,
   (GetDefaultsFunc)   NULL,
   (ApplyDefaultsFunc) NULL
@@ -91,8 +93,9 @@ DiaObjectType diagram_as_element_type =
   "Misc - Diagram",  /* name */
   0,                 /* version */
   (char **) diagram_as_element_xpm, /* pixmap */
-  
-  &_dae_type_ops      /* ops */
+  &_dae_type_ops,     /* ops */
+  NULL,              /* pixmap_file */
+  0                  /* default_uder_data */
 };
 
 static void _dae_update_data (DiagramAsElement *dae);
@@ -197,14 +200,16 @@ _dae_draw(DiagramAsElement *dae, DiaRenderer *renderer)
 	gchar *imgfname = NULL;
 	gint fd = g_file_open_tmp ("diagram-as-elementXXXXXX.png", &imgfname, NULL);
 	if (fd != -1) {
-          DiaExportFilter *ef = filter_guess_export_filter (imgfname);
-	  
+          DiaExportFilter *ef = filter_get_by_name ("cairo-alpha-png");
+	  if (!ef) /* prefer cairo with alpha, but don't require it */
+	    ef = filter_guess_export_filter (imgfname);
 	  close(fd);
 	  if (ef) {
 	    ef->export_func (dae->data, imgfname, dae->filename, ef->user_data);
 	    /* TODO: change export_func to return success or GError* */
 	    dae->image = dia_image_load (imgfname);
 	  }
+	  g_unlink (imgfname);
 	  g_free (imgfname);
 	}
       }
@@ -255,6 +260,9 @@ _dae_destroy(DiagramAsElement *dae)
     g_object_unref(dae->data);
 
   g_free(dae->filename);
+  
+  if (dae->image)
+    g_object_unref (dae->image);
 
   element_destroy(&dae->element);
 }
@@ -316,4 +324,11 @@ _dae_create (Point *startpoint,
   *handle1 = NULL;
   *handle2 = obj->handles[7];  
   return &dae->element.object;
+}
+
+static DiaObject *
+_dae_load (ObjectNode obj_node, int version, const char *filename)
+{
+  return object_load_using_properties (&diagram_as_element_type,
+                                       obj_node, version, filename);
 }
