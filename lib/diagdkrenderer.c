@@ -46,6 +46,7 @@
 #include <pango/pangoft2.h>
 #endif
 
+
 static int get_width_pixels (DiaRenderer *);
 static int get_height_pixels (DiaRenderer *);
 
@@ -1056,16 +1057,10 @@ fill_rounded_rect (DiaRenderer *self,
     fill_rect (self, ul_corner, lr_corner, color);
 }
 
+
 static void
 draw_object (DiaRenderer *renderer, DiaObject *object)
 {
-  if (renderer->is_interactive &&
-      object->highlight_color != NULL) {
-    DiaGdkRenderer *gdk_rend = DIA_GDK_RENDERER(renderer);
-    gdk_rend->highlight_color = object->highlight_color;
-    object->ops->draw(object, renderer);
-    gdk_rend->highlight_color = NULL;
-  }
   object->ops->draw(object, renderer);
 }
 

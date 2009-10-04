@@ -124,14 +124,12 @@ textedit_exit(DDisplay *ddisp)
 static void
 textedit_begin_edit(DDisplay *ddisp, Focus *focus)
 {
-  Color *focus_col = color_new_rgb(1.0, 1.0, 0.0);
-  
   g_assert(dia_object_is_selected(focus_get_object(focus)));
   if (!textedit_mode(ddisp)) {
     textedit_enter(ddisp);
   }
   ddisplay_set_active_focus(ddisp, focus);
-  highlight_object(focus->obj, focus_col, ddisp->diagram);
+  highlight_object(focus->obj, DIA_HIGHLIGHT_TEXT_EDIT, ddisp->diagram);
   object_add_updates(focus->obj, ddisp->diagram);
 /* Undo not quite ready yet.
   undo_push_change(ddisp->diagram->undo, text_edit_create_change(focus->text));

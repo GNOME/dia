@@ -31,7 +31,7 @@
  * If color is NULL, a standard #FF0000 color (red) is used.
  * The exact method used for highlighting depends on the renderer.
  */
-void highlight_object(DiaObject *obj, Color *col, Diagram *dia);
+void highlight_object(DiaObject *obj, DiaHighlightType type, Diagram *dia);
 /** Remove highlighting from an object.
  */
 void highlight_object_off(DiaObject *obj, Diagram *dia);

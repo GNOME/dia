@@ -414,11 +414,6 @@ modify_move_already(ModifyTool *tool, DDisplay *ddisp, Point *to)
   }
 }
 
-/** Used for highlighting mainpoint connections. */
-static Color mainpoint_color = { 1.0, 0.8, 0.0 };
-/** Used for highlighting normal connections. */
-static Color cp_color = { 1.0, 0.0, 0.0 };
-
 static void
 modify_motion(ModifyTool *tool, GdkEventMotion *event,
 	      DDisplay *ddisp)
@@ -535,14 +530,14 @@ modify_motion(ModifyTool *tool, GdkEventMotion *event,
       connectionpoint =
 	object_find_connectpoint_display(ddisp, &to, tool->object, TRUE);
       if (connectionpoint != NULL) {
-	Color *hi_color;
+        DiaHighlightType type;
 	to = connectionpoint->pos;
 	if (connectionpoint->flags & CP_FLAGS_MAIN) {
-	  hi_color = &mainpoint_color;
+          type = DIA_HIGHLIGHT_CONNECTIONPOINT_MAIN;
 	} else {
-	  hi_color = &cp_color;
+          type = DIA_HIGHLIGHT_CONNECTIONPOINT;
 	}
-	highlight_object(connectionpoint->object, hi_color, ddisp->diagram);
+	highlight_object(connectionpoint->object, type, ddisp->diagram);
 	ddisplay_set_all_cursor(get_cursor(CURSOR_CONNECT));
       }
     }

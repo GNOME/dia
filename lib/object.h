@@ -489,9 +489,6 @@ struct _DiaObject {
   GList *children; /*!< In case this object is a parent of other object the children are listed here */
   gint flags; /*!< Various flags that can be set for this object, see defines above */
 
-  Color *highlight_color; /*!< The color that this object is currently
-			       highlighted with, or NULL if it is not 
-			       highlighted. */
   /** The area that contains all parts rendered interactively, so includes
    *  handles, bezier controllers etc.  Despite historical difference, this
    *  should not be accessed directly, but through dia_object_get_bounding_box().

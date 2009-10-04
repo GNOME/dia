@@ -45,6 +45,11 @@ enum {
   LAST_SIGNAL
 };
 
+typedef struct {
+  DiaObject *obj;
+  DiaHighlightType type;
+} ObjectHighlight;
+
 static guint diagram_data_signals[LAST_SIGNAL] = { 0, };
 
 static gpointer parent_class = NULL;
@@ -117,6 +122,8 @@ diagram_data_init(DiagramData *data)
 
   data->selected_count_private = 0;
   data->selected = NULL;
+
+  data->highlighted = NULL;
   
   data->is_compressed = compress; /* Overridden by doc */
 
@@ -325,6 +332,53 @@ data_delete_layer(DiagramData *data, Layer *layer)
   if (data->active_layer == layer) {
     data->active_layer = g_ptr_array_index(data->layers, 0);
   }
+}
+
+static ObjectHighlight *
+find_object_highlight(GList *list, DiaObject *obj)
+{
+  ObjectHighlight *oh=NULL;
+  while(list) {
+    oh = (ObjectHighlight*)list->data;
+    if (oh && oh->obj == obj) {
+      return oh;
+    }
+    list = g_list_next(list);
+  }
+  return NULL;
+}
+
+void 
+data_highlight_add(DiagramData *data, DiaObject *obj, DiaHighlightType type)
+{
+  ObjectHighlight *oh;
+  if (find_object_highlight (data->highlighted, obj))
+    return; /* should this be an error?`*/
+  oh = g_malloc(sizeof(ObjectHighlight));
+  oh->obj = obj;
+  oh->type = type;
+  data->highlighted = g_list_prepend(data->highlighted, oh);
+}
+
+void 
+data_highlight_remove(DiagramData *data, DiaObject *obj)
+{
+  ObjectHighlight *oh;
+  if (!(oh = find_object_highlight (data->highlighted, obj)))
+    return; /* should this be an error?`*/
+  data->highlighted = g_list_remove(data->highlighted, oh);
+  g_free(oh);
+}
+
+DiaHighlightType 
+data_object_get_highlight(DiagramData *data, DiaObject *obj)
+{
+  ObjectHighlight *oh;
+  DiaHighlightType type = DIA_HIGHLIGHT_NONE;
+  if (oh = find_object_highlight (data->highlighted, obj)) {
+    type = oh->type;
+  }
+  return type;
 }
 
 /** Select an object in a diagram.  Note that this does not unselect other

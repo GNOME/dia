@@ -618,7 +618,15 @@ ddisplay_obj_render(DiaObject *obj, DiaRenderer *renderer,
   DDisplay *ddisp = (DDisplay *)data;
   int i;
 
-  DIA_RENDERER_GET_CLASS(renderer)->draw_object(renderer, obj);
+  DiaInteractiveRendererInterface *irenderer =
+    DIA_GET_INTERACTIVE_RENDERER_INTERFACE (renderer);
+  DiaHighlightType hltype = data_object_get_highlight(DIA_DIAGRAM_DATA(ddisp->diagram), obj);
+
+  if (hltype != DIA_HIGHLIGHT_NONE && irenderer->draw_object_highlighted != NULL)
+    irenderer->draw_object_highlighted(renderer, obj, hltype);
+  else /* maybe the renderer does not support highlighting */
+    DIA_RENDERER_GET_CLASS(renderer)->draw_object(renderer, obj);
+
   if (ddisp->show_cx_pts && 
       obj->parent_layer != NULL && obj->parent_layer->connectable) {
     for (i=0;i<obj->num_connections;i++) {

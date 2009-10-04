@@ -23,9 +23,19 @@
 #include <string.h>
 #include <gdk/gdk.h>
 
+#include "object.h"
 #include "message.h"
 #include "render_gdk.h"
 #include "diagdkrenderer.h"
+
+
+/** Used for highlighting mainpoint connections. */
+static Color cp_main_color = { 1.0, 0.8, 0.0 };
+/** Used for highlighting normal connections. */
+static Color cp_color = { 1.0, 0.0, 0.0 };
+
+static Color text_edit_color = {1.0, 1.0, 0.0 };
+
 
 static void clip_region_clear(DiaRenderer *renderer);
 static void clip_region_add_rect(DiaRenderer *renderer,
@@ -49,6 +59,9 @@ static void set_size (DiaRenderer *renderer,
 static void copy_to_window (DiaRenderer *renderer, 
                 gpointer window,
                 int x, int y, int width, int height);
+static void draw_object_highlighted (DiaRenderer *renderer,
+                                     DiaObject *object,
+                                     DiaHighlightType type);
 
 static void dia_gdk_renderer_iface_init (DiaInteractiveRendererInterface* iface)
 {
@@ -59,6 +72,7 @@ static void dia_gdk_renderer_iface_init (DiaInteractiveRendererInterface* iface)
   iface->fill_pixel_rect = fill_pixel_rect;
   iface->copy_to_window = copy_to_window;
   iface->set_size = set_size;
+  iface->draw_object_highlighted = draw_object_highlighted;
 }
 
 DiaRenderer *
@@ -246,3 +260,32 @@ fill_pixel_rect(DiaRenderer *object,
   gdk_draw_rectangle (renderer->pixmap, gc, TRUE,
 		      x, y,  width, height);
 }
+
+static void
+draw_object_highlighted (DiaRenderer *renderer, DiaObject *object, DiaHighlightType type)
+{
+  DiaGdkRenderer *gdk_rend = DIA_GDK_RENDERER(renderer);
+  Color *color = NULL;
+  switch (type) {
+  case DIA_HIGHLIGHT_CONNECTIONPOINT:
+    color = &cp_color;
+    break;
+  case DIA_HIGHLIGHT_CONNECTIONPOINT_MAIN:
+    color = &cp_main_color;
+    break;
+  case DIA_HIGHLIGHT_TEXT_EDIT:
+    color = &text_edit_color;
+    break;
+  case DIA_HIGHLIGHT_NONE:
+    color = NULL;
+    break;
+  }
+  if( color ) {
+    gdk_rend->highlight_color = color;
+    object->ops->draw(object, renderer);
+    gdk_rend->highlight_color = NULL;
+  }
+
+  object->ops->draw(object, renderer);
+}
+

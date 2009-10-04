@@ -1329,13 +1329,6 @@ draw_image(DiaRenderer *self,
 static void
 draw_object (DiaRenderer *renderer, DiaObject *object)
 {
-  if (renderer->is_interactive &&
-      object->highlight_color != NULL) {
-    DiaLibartRenderer *libart_rend = DIA_LIBART_RENDERER(renderer);
-    libart_rend->highlight_color = object->highlight_color;
-    object->ops->draw(object, renderer);
-    libart_rend->highlight_color = NULL;
-  }
   object->ops->draw(object, renderer);
 }
 

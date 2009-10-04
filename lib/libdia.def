@@ -150,6 +150,9 @@ EXPORTS
  data_foreach_object
  data_get_sorted_selected
  data_get_sorted_selected_remove
+ data_highlight_add
+ data_highlight_remove
+ data_object_get_highlight 
  data_int
  data_layer_count
  data_layer_get_index

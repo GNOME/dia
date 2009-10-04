@@ -233,7 +233,7 @@ create_object_motion(CreateObjectTool *tool, GdkEventMotion *event,
     
     if (connectionpoint != NULL) {
       to = connectionpoint->pos;
-      highlight_object(connectionpoint->object, NULL, ddisp->diagram);
+      highlight_object(connectionpoint->object, DIA_HIGHLIGHT_CONNECTIONPOINT, ddisp->diagram);
       ddisplay_set_all_cursor(get_cursor(CURSOR_CONNECT));
     }
   }

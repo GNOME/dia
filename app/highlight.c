@@ -40,15 +40,10 @@
  * as it knows about the conversion.
  */
 
-static Color red = { 1.0, 0.0, 0.0 };
-
 void
-highlight_object(DiaObject *obj, Color *col, Diagram *dia)
+highlight_object(DiaObject *obj, DiaHighlightType type, Diagram *dia)
 {
-  if (col) 
-    obj->highlight_color = col;
-  else
-    obj->highlight_color = &red;
+  data_highlight_add(dia->data, obj, type);
 
   object_add_updates(obj, dia);
 }
@@ -56,11 +51,8 @@ highlight_object(DiaObject *obj, Color *col, Diagram *dia)
 void
 highlight_object_off(DiaObject *obj, Diagram *dia)
 {
-  if (obj->highlight_color != NULL) {
-    /* Must add updates first, so we get the border erased. */
-    object_add_updates(obj, dia);
-    obj->highlight_color = NULL;
-  }
+  object_add_updates(obj, dia);
+  data_highlight_remove(dia->data, obj);
 }
 
 /** Resets all highlighting in this layer.  Helper function for 

@@ -33,6 +33,7 @@ dia_interactive_renderer_iface_init (DiaInteractiveRendererInterface *iface)
   iface->fill_pixel_rect = NULL;
   iface->copy_to_window = NULL;
   iface->set_size = NULL;
+  iface->draw_object_highlighted = NULL;
 }
 
 GType

@@ -82,6 +82,9 @@ struct _DiagramData {
   /** The focus (from text_edits) that's currently being edited, if any.
    *  Updated by focus.c */
   Focus *active_text_edit;
+
+  GList *highlighted;        /*!< List of objects that are highlighted */
+
 };
 
 /**
@@ -120,6 +123,13 @@ struct _Layer {
 				  layer_get_parent_diagram() */
 };
 
+typedef enum {
+  DIA_HIGHLIGHT_NONE,
+  DIA_HIGHLIGHT_CONNECTIONPOINT,
+  DIA_HIGHLIGHT_CONNECTIONPOINT_MAIN,
+  DIA_HIGHLIGHT_TEXT_EDIT
+} DiaHighlightType;
+
 Layer *new_layer (char *name, DiagramData *parent);
 void layer_destroy(Layer *layer);
 
@@ -133,6 +143,10 @@ void data_delete_layer(DiagramData *data, Layer *layer);
 int  data_layer_get_index (const DiagramData *data, const Layer *layer);
 int data_layer_count(const DiagramData *data);
 Layer *data_layer_get_nth (const DiagramData *data, guint index);
+
+void data_highlight_add(DiagramData *data, DiaObject *obj, DiaHighlightType type);
+void data_highlight_remove(DiagramData *data, DiaObject *obj);
+DiaHighlightType data_object_get_highlight(DiagramData *data, DiaObject *obj);
 
 void data_select(DiagramData *data, DiaObject *obj);
 void data_unselect(DiagramData *data, DiaObject *obj);

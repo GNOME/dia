@@ -26,10 +26,19 @@
 
 #ifdef HAVE_LIBART
 
+#include "object.h"
 #include "dialibartrenderer.h"
 #include <libart_lgpl/art_rgb.h>
 #include "font.h"
 #include "color.h"
+
+/** Used for highlighting mainpoint connections. */
+static Color cp_main_color = { 1.0, 0.8, 0.0 };
+/** Used for highlighting normal connections. */
+static Color cp_color = { 1.0, 0.0, 0.0 };
+
+static Color text_edit_color = {1.0, 1.0, 0.0 };
+
 
 static void clip_region_clear(DiaRenderer *self);
 static void clip_region_add_rect(DiaRenderer *self,
@@ -51,6 +60,9 @@ static void set_size(DiaRenderer *self, gpointer window,
                      int width, int height);
 static void copy_to_window (DiaRenderer *self, gpointer window,
                             int x, int y, int width, int height);
+static void draw_object_highlighted (DiaRenderer *renderer,
+                                     DiaObject *object,
+                                     DiaHighlightType type);
 
 
 void 
@@ -63,6 +75,7 @@ dia_libart_renderer_iface_init (DiaInteractiveRendererInterface* iface)
   iface->fill_pixel_rect = fill_pixel_rect;
   iface->copy_to_window = copy_to_window;
   iface->set_size = set_size;
+  iface->draw_object_highlighted = draw_object_highlighted;
 }
 
 
@@ -458,6 +471,35 @@ fill_pixel_rect(DiaRenderer *self,
     art_rgb_fill_run(ptr, r, g, b, width+1);
     ptr += stride;
   }
+}
+
+
+static void
+draw_object_highlighted (DiaRenderer *renderer, DiaObject *object, DiaHighlightType type)
+{
+  DiaLibartRenderer *libart_rend = DIA_LIBART_RENDERER(renderer);
+  Color *color = NULL;
+  switch (type) {
+  case DIA_HIGHLIGHT_CONNECTIONPOINT:
+    color = &cp_color;
+    break;
+  case DIA_HIGHLIGHT_CONNECTIONPOINT_MAIN:
+    color = &cp_main_color;
+    break;
+  case DIA_HIGHLIGHT_TEXT_EDIT:
+    color = &text_edit_color;
+    break;
+  case DIA_HIGHLIGHT_NONE:
+    color = NULL;
+    break;
+  }
+  if( color ) {
+    libart_rend->highlight_color = color;
+    object->ops->draw(object, renderer);
+    libart_rend->highlight_color = NULL;
+  }
+
+  object->ops->draw(object, renderer);
 }
 
 #else

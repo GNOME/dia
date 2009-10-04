@@ -27,6 +27,8 @@
 #include "geometry.h"
 #include "font.h" /* not strictly needed by this header, but needed in almost any plug-in/ */
 
+#include "diagramdata.h"
+
 G_BEGIN_DECLS
 
 /*! GObject boiler plate, create runtime information */
@@ -289,6 +291,10 @@ struct _DiaInteractiveRendererInterface
   void (*copy_to_window)      (DiaRenderer *renderer,
                                gpointer     window, 
                                int x, int y, int width, int height);
+
+  void (*draw_object_highlighted) (DiaRenderer *renderer,
+				   DiaObject *object,
+				   DiaHighlightType type);
 };
 
 GType dia_interactive_renderer_interface_get_type (void) G_GNUC_CONST;
