@@ -1813,7 +1813,11 @@ touch_file(gchar *filename)
   g_stat(filename, &stat_buf);
   utim_buf.actime = stat_buf.st_atime;
   utim_buf.modtime = time(NULL);
+#if GLIB_CHECK_VERSION(2,18,0)
   g_utime(filename, &utim_buf);
+#else
+  utime(filename, &utim_buf);
+#endif
 }
 
 static gint

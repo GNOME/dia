@@ -225,7 +225,11 @@ _dae_update_data(DiagramAsElement *dae)
   Element *elem = &dae->element;
   
   if (   strlen(dae->filename)
+#if GLIB_CHECK_VERSION(2,18,0)
       && g_utime(dae->filename, &utbuf) == 0
+#else
+      && utime(dae->filename, &utbuf) == 0
+#endif
       && dae->mtime != utbuf.modtime) {
     DiaImportFilter *inf;
 
