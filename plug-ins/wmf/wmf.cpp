@@ -64,14 +64,14 @@ typedef W32::LOGFONTW LOGFONTW;
   }
 #else
 #  include "wmf_gdi.h"
-#  define SAVE_EMF
+#  define DIRECT_WMF
 #endif
 
 /* force linking with gdi32 */
 #pragma comment( lib, "gdi32" )
 
 
-// #define SAVE_EMF
+// #define DIRECT_WMF
 
 typedef struct _PlaceableMetaHeader
 {
@@ -282,7 +282,7 @@ end_render(DiaRenderer *self)
     DIAG_NOTE(renderer, "end_render\n");
     hEmf = W32::CloseEnhMetaFile(renderer->hFileDC);
 
-#if !defined SAVE_EMF && defined G_OS_WIN32 /* the later offers both */
+#if !defined DIRECT_WMF && defined G_OS_WIN32 /* the later offers both */
     /* Don't do it when printing */
     if (renderer->sFileName && strlen (renderer->sFileName)) {
 
@@ -823,6 +823,7 @@ fill_ellipse(DiaRenderer *self,
     W32::DeleteObject(hBrush);
 }
 
+#ifndef DIRECT_WMF
 static void
 _bezier (DiaRenderer *self, 
 	    BezPoint *points,
@@ -878,6 +879,7 @@ _bezier (DiaRenderer *self,
         DonePen(renderer, hPen);
     }
 }
+#endif
 
 static void
 draw_bezier(DiaRenderer *self, 
@@ -885,7 +887,7 @@ draw_bezier(DiaRenderer *self,
 	    int numpoints,
 	    Color *colour)
 {
-#ifndef SAVE_EMF
+#ifndef DIRECT_WMF
     _bezier(self, points, numpoints, colour, FALSE);
 #else
     WmfRenderer *renderer = WMF_RENDERER (self);
@@ -941,7 +943,7 @@ draw_bezier(DiaRenderer *self,
 #endif
 }
 
-#ifndef SAVE_EMF
+#ifndef DIRECT_WMF
 /* not defined in compatibility layer */
 static void
 fill_bezier(DiaRenderer *self, 
@@ -1027,7 +1029,7 @@ draw_image(DiaRenderer *self,
 	   DiaImage *image)
 {
     WmfRenderer *renderer = WMF_RENDERER (self);
-#ifdef SAVE_EMF
+#ifdef DIRECT_WMF
     /* not yet supported in compatibility mode */
 #else	
     W32::HBITMAP hBmp;
@@ -1123,7 +1125,7 @@ draw_image(DiaRenderer *self,
         g_free (pData);
     if (pImg)
         g_free (pImg);
-#endif /* SAVE_EMF */
+#endif /* DIRECT_WMF */
 }
 
 static void
@@ -1255,7 +1257,7 @@ wmf_renderer_class_init (WmfRendererClass *klass)
   renderer_class->draw_polygon   = draw_polygon;
 
   renderer_class->draw_bezier   = draw_bezier;
-#ifndef SAVE_EMF
+#ifndef DIRECT_WMF
   renderer_class->fill_bezier   = fill_bezier;
 #endif
 #ifndef HAVE_LIBEMF
@@ -1307,7 +1309,7 @@ export_data(DiagramData *data, const gchar *filename,
 #else
     file = (W32::HDC)W32::CreateEnhMetaFile(
                     refDC, // handle to a reference device context
-#  ifdef SAVE_EMF
+#  ifdef DIRECT_WMF
                     filename, // pointer to a filename string
 #  else
                     NULL, // in memory
@@ -1382,7 +1384,7 @@ export_data(DiagramData *data, const gchar *filename,
     for (ptr = (guint16 *)&renderer->pmh; ptr < (guint16 *)&(renderer->pmh.Checksum); ptr++)
         renderer->pmh.Checksum ^= *ptr;
 
-#ifdef SAVE_EMF
+#ifdef DIRECT_WMF
     /* write the placeable header */
     fwrite(&renderer->pmh, 1, 22 /* NOT: sizeof(PLACEABLEMETAHEADER) */, file->file);
 #endif
