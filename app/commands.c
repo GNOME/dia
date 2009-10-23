@@ -26,12 +26,6 @@
 #include <sys/types.h>
 #include <math.h>
 #include <glib.h>
-
-#ifdef HAVE_GNOME
-#undef GTK_DISABLE_DEPRECATED
-#  include <gnome.h> 	 
-#endif 	 
-
 #include <gdk-pixbuf/gdk-pixbuf.h>
 #include <gtk/gtk.h>
 
@@ -630,14 +624,20 @@ edit_redo_callback (GtkAction *action)
 void
 help_manual_callback (GtkAction *action)
 {
-#ifdef HAVE_GNOME
-  gnome_help_display("dia", NULL, NULL);
-#else
   char *helpdir, *helpindex = NULL, *command;
   guint bestscore = G_MAXINT;
   GDir *dp;
   const char *dentry;
   GError *error = NULL;
+#if GTK_CHECK_VERSION(2,14,0)
+  GdkScreen *screen;
+  DDisplay *ddisp;
+  ddisp = ddisplay_active();
+  screen = gtk_widget_get_screen (GTK_WIDGET(ddisp->menu_bar));
+  if (gtk_show_uri(screen, "ghelp:dia", gtk_get_current_event_time (), NULL)) {
+    return;
+  }
+#endif
 
   helpdir = dia_get_data_directory("help");
   if (!helpdir) {
@@ -687,14 +687,18 @@ help_manual_callback (GtkAction *action)
 # define SW_SHOWNORMAL 1
   ShellExecuteA (0, "open", helpindex, NULL, helpdir, SW_SHOWNORMAL);
 #else
+# if GTK_CHECK_VERSION(2,14,0)
+  command = g_strdup_printf("file://%s", helpindex);
+  gtk_show_uri(screen, command, gtk_get_current_event_time (), NULL);
+# else
   command = getenv("BROWSER");
   command = g_strdup_printf("%s 'file://%s' &", command ? command : "xdg-open", helpindex);
+# endif
   system(command);
   g_free(command);
 #endif
 
   g_free(helpindex);
-#endif
 }
 
 static void 
@@ -705,10 +709,16 @@ activate_url (GtkAboutDialog *about,
 #ifdef G_OS_WIN32
   ShellExecuteA (0, "open", link, NULL, NULL, SW_SHOWNORMAL);
 #else
+# if GTK_CHECK_VERSION(2,14,0)
+  GdkScreen *screen;
+  screen = gtk_widget_get_screen (GTK_WIDGET(about));
+  gtk_show_uri(screen, link, gtk_get_current_event_time (), NULL);
+# else
   gchar *command = getenv("BROWSER");
   command = g_strdup_printf("%s '%s' &", command ? command : "xdg-open", link);
   system(command);
   g_free(command);
+# endif
 #endif
 }
 
