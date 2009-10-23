@@ -220,6 +220,11 @@ sheets_dialog_create(void)
   if (sheets_dialog == NULL)
   {
     sheets_dialog = create_sheets_main_dialog();
+    if (!sheets_dialog) {
+      /* don not let a broken builder file crash Dia */
+      g_warning("SheetDialog creation failed");
+      return FALSE;
+    }
     /* Make sure to null our pointer when destroyed */
     g_signal_connect (GTK_OBJECT (sheets_dialog), "destroy",
 		      G_CALLBACK (gtk_widget_destroyed),
