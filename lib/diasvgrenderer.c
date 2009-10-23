@@ -236,8 +236,9 @@ get_draw_style(DiaSvgRenderer *renderer,
 
   if (colour)
     g_string_append_printf(str, "; stroke: #%02x%02x%02x",
-		      (int)ceil(255*colour->red), (int)ceil(255*colour->green),
-		      (int)ceil(255*colour->blue));
+		      (int)(255*colour->red), 
+			  (int)(255*colour->green),
+		      (int)(255*colour->blue));
 
   return str->str;
 }
@@ -252,8 +253,9 @@ get_fill_style(DiaSvgRenderer *renderer,
   if (!str) str = g_string_new(NULL);
 
   g_string_printf(str, "fill: #%02x%02x%02x",
-		   (int)ceil(255*colour->red), (int)ceil(255*colour->green),
-		   (int)ceil(255*colour->blue));
+		   (int)(255*colour->red), 
+		   (int)(255*colour->green),
+		   (int)(255*colour->blue));
 
   return str->str;
 }
