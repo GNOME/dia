@@ -25,6 +25,7 @@
 #include "diapsft2renderer.h"
 #include "textline.h"
 
+#undef PANGO_DISABLE_DEPRECATED /* pango_ft2_font_get_face */
 #include <pango/pango.h>
 #include <pango/pangoft2.h>
 #include <pango/pango-engine.h>
