@@ -537,7 +537,7 @@ diagram_tree_add_object(DiagramTree *tree, Diagram *diagram, DiaObject *object)
   }
 }
 
-void
+static void
 diagram_tree_add_objects(DiagramTree *tree, Diagram *diagram, GList *objects)
 {
   if (tree) {
