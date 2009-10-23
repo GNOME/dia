@@ -51,14 +51,10 @@
 static void
 sheets_dialog_destroyed (GtkWidget *widget, gpointer user_data)
 {
-#if 0
-  GladeXML *xml;
-  xml = g_object_get_data (G_OBJECT(widget),"glade-xml");
-  if (xml)
-    g_object_unref(xml);
-#else
-  g_warning("Leak!");
-#endif
+  GObject *builder = g_object_get_data (G_OBJECT(widget), "_sheet_dialogs_builder");
+  if (builder)
+    g_object_unref (builder);
+  g_object_set_data (G_OBJECT(widget), "_sheet_dialogs_builder", NULL);
 }
 
 /* FIXME: header? */
@@ -68,11 +64,9 @@ static GtkBuilder *
 builder_new_from_file (const char *filename)
 {
   GError *error = NULL;
-  static GtkBuilder* builder = NULL;
   gchar *uifile;
+  GtkBuilder *builder;
 
-  if (builder)
-    return builder;
   builder = gtk_builder_new();
   uifile = build_ui_filename (filename);
   if (!gtk_builder_add_from_file (builder, uifile, &error)) {
@@ -92,7 +86,7 @@ create_sheets_main_dialog (void)
   GtkWidget *glade_menuitem;
   GtkBuilder *builder;
 
-  builder = builder_new_from_file ("ui/sheets-dialog.xml");
+  builder = builder_new_from_file ("ui/sheets-main-dialog.xml");
   sheets_main_dialog = GTK_WIDGET (gtk_builder_get_object (builder, "sheets_main_dialog"));
   g_object_set_data (G_OBJECT(sheets_main_dialog), "_sheet_dialogs_builder", builder);
 
@@ -161,7 +155,7 @@ create_sheets_new_dialog (void)
   GtkWidget *sheets_new_dialog;
   GtkBuilder *builder;
 
-  builder = builder_new_from_file ("ui/sheets-dialog.xml");
+  builder = builder_new_from_file ("ui/sheets-new-dialog.xml");
   sheets_new_dialog = GTK_WIDGET (gtk_builder_get_object (builder, "sheets_new_dialog"));
   g_object_set_data (G_OBJECT(sheets_new_dialog), "_sheet_dialogs_builder", builder);
 
@@ -197,7 +191,7 @@ create_sheets_edit_dialog (void)
   GtkWidget *pixmap_object;
   GtkBuilder *builder;
 
-  builder = builder_new_from_file ("ui/sheets-dialog.xml");
+  builder = builder_new_from_file ("ui/sheets-edit-dialog.xml");
   sheets_edit_dialog = GTK_WIDGET (gtk_builder_get_object (builder,"sheets_edit_dialog"));
   g_object_set_data (G_OBJECT(sheets_edit_dialog), "_sheet_dialogs_builder", builder);
 
@@ -230,7 +224,7 @@ create_sheets_remove_dialog (void)
   GtkWidget *pixmap_object;
   GtkBuilder *builder;
 
-  builder = builder_new_from_file ("ui/sheets-dialog.xml");
+  builder = builder_new_from_file ("ui/sheets-remove-dialog.xml");
   sheets_remove_dialog = GTK_WIDGET (gtk_builder_get_object (builder, "sheets_remove_dialog"));
   g_object_set_data (G_OBJECT(sheets_remove_dialog), "_sheet_dialogs_builder", builder);
 
