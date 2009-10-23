@@ -2337,6 +2337,10 @@ ${File} "..\..\data\" "integrated-ui.xml"
 ${File} "..\..\data\" "popup-ui.xml"
 ${File} "..\..\data\" "toolbar-ui.xml"
 ${File} "..\..\data\" "toolbox-ui.xml"
+${File} "..\..\data\" "sheets-edit-dialog.xml"
+${File} "..\..\data\" "sheets-main-dialog.xml"
+${File} "..\..\data\" "sheets-new-dialog.xml"
+${File} "..\..\data\" "sheets-remove-dialog.xml"
 
 !ifdef DIA_INCLUDE_GTK
 ${SetOutPath} "$INSTDIR\bin"
