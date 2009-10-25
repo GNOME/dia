@@ -494,7 +494,7 @@ polybezier_bbox(const BezPoint *pts, int numpoints,
        account with the "pointy corners" X (and PS) add when LINEJOIN_MITER mode is 
        in force. */
 
-    if ((!start) && (!end)) { /* We have a non-extremity vertex. */
+    if (!end) { /* only the last segment might not produce overshoot. */
       Point vpx,vxn;
       real co,alpha;
 
