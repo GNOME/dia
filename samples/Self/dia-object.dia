@@ -727,7 +727,7 @@ has a different signature!#</dia:string>
         <dia:point val="1,9"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="0.95,8.95;10.865,12.35"/>
+        <dia:rectangle val="0.95,8.95;10.8625,12.35"/>
       </dia:attribute>
       <dia:attribute name="meta">
         <dia:composite type="dict"/>
@@ -736,7 +736,7 @@ has a different signature!#</dia:string>
         <dia:point val="1,9"/>
       </dia:attribute>
       <dia:attribute name="elem_width">
-        <dia:real val="9.8150000000000013"/>
+        <dia:real val="9.8125"/>
       </dia:attribute>
       <dia:attribute name="elem_height">
         <dia:real val="3.3000000000000003"/>
@@ -777,13 +777,13 @@ Why is this a type function?#</dia:string>
     </dia:object>
     <dia:object type="Standard - Line" version="0" id="O4">
       <dia:attribute name="obj_pos">
-        <dia:point val="10.8654,12.1529"/>
+        <dia:point val="10.8611,12.1517"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="10.8342,12.1217;13.0535,12.9257"/>
+        <dia:rectangle val="10.83,12.1206;13.0535,12.9257"/>
       </dia:attribute>
       <dia:attribute name="conn_endpoints">
-        <dia:point val="10.8654,12.1529"/>
+        <dia:point val="10.8611,12.1517"/>
         <dia:point val="13,12.8"/>
       </dia:attribute>
       <dia:attribute name="numcp">
@@ -811,7 +811,7 @@ Why is this a type function?#</dia:string>
         <dia:point val="1,14"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="0.95,13.95;10.3725,17.35"/>
+        <dia:rectangle val="0.95,13.95;10.3675,17.35"/>
       </dia:attribute>
       <dia:attribute name="meta">
         <dia:composite type="dict"/>
@@ -820,7 +820,7 @@ Why is this a type function?#</dia:string>
         <dia:point val="1,14"/>
       </dia:attribute>
       <dia:attribute name="elem_width">
-        <dia:real val="9.3224999999999998"/>
+        <dia:real val="9.3175000000000008"/>
       </dia:attribute>
       <dia:attribute name="elem_height">
         <dia:real val="3.3000000000000003"/>
@@ -861,13 +861,13 @@ anywhere any longer.#</dia:string>
     </dia:object>
     <dia:object type="Standard - Line" version="0" id="O6">
       <dia:attribute name="obj_pos">
-        <dia:point val="10.3716,14.8477"/>
+        <dia:point val="10.3676,14.8482"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="10.3428,14.2018;13.0551,14.8765"/>
+        <dia:rectangle val="10.3387,14.2018;13.0551,14.8771"/>
       </dia:attribute>
       <dia:attribute name="conn_endpoints">
-        <dia:point val="10.3716,14.8477"/>
+        <dia:point val="10.3676,14.8482"/>
         <dia:point val="13,14.4"/>
       </dia:attribute>
       <dia:attribute name="numcp">
@@ -892,13 +892,13 @@ anywhere any longer.#</dia:string>
     </dia:object>
     <dia:object type="Standard - Line" version="0" id="O7">
       <dia:attribute name="obj_pos">
-        <dia:point val="10.3716,15.3612"/>
+        <dia:point val="10.3676,15.3614"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="10.3451,14.9422;13.0558,15.522"/>
+        <dia:rectangle val="10.3411,14.9422;13.0558,15.522"/>
       </dia:attribute>
       <dia:attribute name="conn_endpoints">
-        <dia:point val="10.3716,15.3612"/>
+        <dia:point val="10.3676,15.3614"/>
         <dia:point val="13,15.2"/>
       </dia:attribute>
       <dia:attribute name="numcp">
@@ -926,7 +926,7 @@ anywhere any longer.#</dia:string>
         <dia:point val="37,1"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="36.95,0.95;44.215,2.75"/>
+        <dia:rectangle val="36.95,0.95;44.21,2.75"/>
       </dia:attribute>
       <dia:attribute name="meta">
         <dia:composite type="dict"/>
@@ -935,7 +935,7 @@ anywhere any longer.#</dia:string>
         <dia:point val="37,1"/>
       </dia:attribute>
       <dia:attribute name="elem_width">
-        <dia:real val="7.1649999999999991"/>
+        <dia:real val="7.1599999999999993"/>
       </dia:attribute>
       <dia:attribute name="elem_height">
         <dia:real val="1.7000000000000002"/>
@@ -974,13 +974,13 @@ anywhere any longer.#</dia:string>
     </dia:object>
     <dia:object type="Standard - Line" version="0" id="O9">
       <dia:attribute name="obj_pos">
-        <dia:point val="38.7555,2.74999"/>
+        <dia:point val="38.7538,2.74999"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="34.9499,2.71652;38.789,4.63679"/>
+        <dia:rectangle val="34.9499,2.71652;38.7873,4.63669"/>
       </dia:attribute>
       <dia:attribute name="conn_endpoints">
-        <dia:point val="38.7555,2.74999"/>
+        <dia:point val="38.7538,2.74999"/>
         <dia:point val="35,4.6"/>
       </dia:attribute>
       <dia:attribute name="numcp">
@@ -1008,7 +1008,7 @@ anywhere any longer.#</dia:string>
         <dia:point val="45,2"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="44.95,1.95;50.46,3.75"/>
+        <dia:rectangle val="44.95,1.95;50.4625,3.75"/>
       </dia:attribute>
       <dia:attribute name="meta">
         <dia:composite type="dict"/>
@@ -1017,7 +1017,7 @@ anywhere any longer.#</dia:string>
         <dia:point val="45,2"/>
       </dia:attribute>
       <dia:attribute name="elem_width">
-        <dia:real val="5.4099999999999993"/>
+        <dia:real val="5.4124999999999996"/>
       </dia:attribute>
       <dia:attribute name="elem_height">
         <dia:real val="1.7000000000000002"/>
@@ -1056,13 +1056,13 @@ anywhere any longer.#</dia:string>
     </dia:object>
     <dia:object type="Standard - Line" version="0" id="O11">
       <dia:attribute name="obj_pos">
-        <dia:point val="44.9498,3.57647"/>
+        <dia:point val="44.9496,3.57678"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="34.9459,3.54593;44.9804,6.347"/>
+        <dia:rectangle val="34.9459,3.54623;44.9802,6.34701"/>
       </dia:attribute>
       <dia:attribute name="conn_endpoints">
-        <dia:point val="44.9498,3.57647"/>
+        <dia:point val="44.9496,3.57678"/>
         <dia:point val="35,6.2"/>
       </dia:attribute>
       <dia:attribute name="numcp">
@@ -1090,7 +1090,7 @@ anywhere any longer.#</dia:string>
         <dia:point val="51,3"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="50.95,2.95;55.08,4.75"/>
+        <dia:rectangle val="50.95,2.95;55.075,4.75"/>
       </dia:attribute>
       <dia:attribute name="meta">
         <dia:composite type="dict"/>
@@ -1099,7 +1099,7 @@ anywhere any longer.#</dia:string>
         <dia:point val="51,3"/>
       </dia:attribute>
       <dia:attribute name="elem_width">
-        <dia:real val="4.0299999999999994"/>
+        <dia:real val="4.0249999999999995"/>
       </dia:attribute>
       <dia:attribute name="elem_height">
         <dia:real val="1.7000000000000002"/>
@@ -1138,13 +1138,13 @@ anywhere any longer.#</dia:string>
     </dia:object>
     <dia:object type="Standard - Line" version="0" id="O13">
       <dia:attribute name="obj_pos">
-        <dia:point val="50.9498,4.30283"/>
+        <dia:point val="50.9498,4.30234"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="34.9454,4.27305;50.9795,7.97127"/>
+        <dia:rectangle val="34.9454,4.27257;50.9795,7.97125"/>
       </dia:attribute>
       <dia:attribute name="conn_endpoints">
-        <dia:point val="50.9498,4.30283"/>
+        <dia:point val="50.9498,4.30234"/>
         <dia:point val="35,7.8"/>
       </dia:attribute>
       <dia:attribute name="numcp">
@@ -2547,7 +2547,7 @@ by a sheet parameter.#</dia:string>
         <dia:point val="22,44"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="21.95,43.95;35.7625,47.35"/>
+        <dia:rectangle val="21.95,43.95;35.8425,47.35"/>
       </dia:attribute>
       <dia:attribute name="meta">
         <dia:composite type="dict"/>
@@ -2556,7 +2556,7 @@ by a sheet parameter.#</dia:string>
         <dia:point val="22,44"/>
       </dia:attribute>
       <dia:attribute name="elem_width">
-        <dia:real val="13.7125"/>
+        <dia:real val="13.792500000000002"/>
       </dia:attribute>
       <dia:attribute name="elem_height">
         <dia:real val="3.3000000000000003"/>
@@ -3257,7 +3257,7 @@ methods in the base class this is needed.#</dia:string>
         <dia:point val="20,36.2"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="1.95,20.9;22.05,37"/>
+        <dia:rectangle val="1.95,20.9;22.05,37.15"/>
       </dia:attribute>
       <dia:attribute name="meta">
         <dia:composite type="dict"/>
@@ -3332,7 +3332,7 @@ methods in the base class this is needed.#</dia:string>
         <dia:point val="39,40"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="1.95,32.25;39.05,40.8"/>
+        <dia:rectangle val="1.95,32.25;39.05,40.95"/>
       </dia:attribute>
       <dia:attribute name="meta">
         <dia:composite type="dict"/>
@@ -3516,7 +3516,7 @@ methods in the base class this is needed.#</dia:string>
         <dia:point val="69,40.8"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="68.95,6.6;74.1,41.6"/>
+        <dia:rectangle val="68.95,6.6;74.1,41.75"/>
       </dia:attribute>
       <dia:attribute name="meta">
         <dia:composite type="dict"/>
@@ -3551,7 +3551,7 @@ methods in the base class this is needed.#</dia:string>
         <dia:point val="9,41"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="8.95,40.95;20.93,44.35"/>
+        <dia:rectangle val="8.95,40.95;20.925,44.35"/>
       </dia:attribute>
       <dia:attribute name="meta">
         <dia:composite type="dict"/>
@@ -3560,7 +3560,7 @@ methods in the base class this is needed.#</dia:string>
         <dia:point val="9,41"/>
       </dia:attribute>
       <dia:attribute name="elem_width">
-        <dia:real val="11.880000000000001"/>
+        <dia:real val="11.875"/>
       </dia:attribute>
       <dia:attribute name="elem_height">
         <dia:real val="3.3000000000000003"/>
@@ -3601,13 +3601,13 @@ duplicate something from selectf()#</dia:string>
     </dia:object>
     <dia:object type="Standard - Line" version="0" id="O26">
       <dia:attribute name="obj_pos">
-        <dia:point val="20.9293,42.7869"/>
+        <dia:point val="20.9245,42.7868"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="20.9037,42.7613;39.0559,43.4784"/>
+        <dia:rectangle val="20.8989,42.7613;39.0559,43.4784"/>
       </dia:attribute>
       <dia:attribute name="conn_endpoints">
-        <dia:point val="20.9293,42.7869"/>
+        <dia:point val="20.9245,42.7868"/>
         <dia:point val="39,43.2"/>
       </dia:attribute>
       <dia:attribute name="numcp">
@@ -3963,7 +3963,7 @@ duplicate something from selectf()#</dia:string>
         <dia:point val="69,38.4"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="68.95,11.25;73.1,39.2"/>
+        <dia:rectangle val="68.95,11.25;73.1,39.35"/>
       </dia:attribute>
       <dia:attribute name="meta">
         <dia:composite type="dict"/>
@@ -4034,7 +4034,7 @@ duplicate something from selectf()#</dia:string>
         <dia:point val="69,36"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="68.95,11.25;72.1,36.8"/>
+        <dia:rectangle val="68.95,11.25;72.1,36.95"/>
       </dia:attribute>
       <dia:attribute name="meta">
         <dia:composite type="dict"/>
@@ -4105,7 +4105,7 @@ duplicate something from selectf()#</dia:string>
         <dia:point val="69,35.2"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="68.95,11.25;71.1,36"/>
+        <dia:rectangle val="68.95,11.25;71.1,36.15"/>
       </dia:attribute>
       <dia:attribute name="meta">
         <dia:composite type="dict"/>
@@ -4140,7 +4140,7 @@ duplicate something from selectf()#</dia:string>
         <dia:point val="61,19"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="60.95,18.95;70.3575,20.75"/>
+        <dia:rectangle val="60.95,18.95;70.3675,20.75"/>
       </dia:attribute>
       <dia:attribute name="meta">
         <dia:composite type="dict"/>
@@ -4149,7 +4149,7 @@ duplicate something from selectf()#</dia:string>
         <dia:point val="61,19"/>
       </dia:attribute>
       <dia:attribute name="elem_width">
-        <dia:real val="9.307500000000001"/>
+        <dia:real val="9.3175000000000008"/>
       </dia:attribute>
       <dia:attribute name="elem_height">
         <dia:real val="1.7000000000000002"/>
@@ -4247,7 +4247,7 @@ duplicate something from selectf()#</dia:string>
         <dia:point val="54,30.2"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="48.2938,29.8263;59.7063,30.5738"/>
+        <dia:rectangle val="49.0913,29.8425;58.9087,30.5575"/>
       </dia:attribute>
       <dia:attribute name="text">
         <dia:composite type="text">
@@ -4261,7 +4261,7 @@ duplicate something from selectf()#</dia:string>
             <dia:real val="0.80000000000000004"/>
           </dia:attribute>
           <dia:attribute name="pos">
-            <dia:point val="54,30.4213"/>
+            <dia:point val="54,30.4225"/>
           </dia:attribute>
           <dia:attribute name="color">
             <dia:color val="#ff0000"/>
@@ -4314,7 +4314,7 @@ duplicate something from selectf()#</dia:string>
         <dia:point val="24,7"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="18.2937,6.62625;29.7062,7.37375"/>
+        <dia:rectangle val="19.0913,6.6425;28.9088,7.3575"/>
       </dia:attribute>
       <dia:attribute name="text">
         <dia:composite type="text">
@@ -4328,7 +4328,7 @@ duplicate something from selectf()#</dia:string>
             <dia:real val="0.80000000000000004"/>
           </dia:attribute>
           <dia:attribute name="pos">
-            <dia:point val="24,7.22125"/>
+            <dia:point val="24,7.2225"/>
           </dia:attribute>
           <dia:attribute name="color">
             <dia:color val="#ff0000"/>
@@ -4356,7 +4356,7 @@ duplicate something from selectf()#</dia:string>
         <dia:point val="24,36"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="24,36;35.985,39.3"/>
+        <dia:rectangle val="23.95,35.95;36.0375,39.35"/>
       </dia:attribute>
       <dia:attribute name="meta">
         <dia:composite type="dict"/>
@@ -4365,7 +4365,7 @@ duplicate something from selectf()#</dia:string>
         <dia:point val="24,36"/>
       </dia:attribute>
       <dia:attribute name="elem_width">
-        <dia:real val="11.984999999999999"/>
+        <dia:real val="11.987500000000001"/>
       </dia:attribute>
       <dia:attribute name="elem_height">
         <dia:real val="3.3000000000000003"/>
@@ -4406,13 +4406,13 @@ object_apply_props_from_dialog()#</dia:string>
     </dia:object>
     <dia:object type="Standard - Line" version="0" id="O38">
       <dia:attribute name="obj_pos">
-        <dia:point val="35.9839,38.1489"/>
+        <dia:point val="36.0371,38.1533"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="35.957,38.067;39.0557,38.6459"/>
+        <dia:rectangle val="36.0101,38.067;39.0557,38.6459"/>
       </dia:attribute>
       <dia:attribute name="conn_endpoints">
-        <dia:point val="35.9839,38.1489"/>
+        <dia:point val="36.0371,38.1533"/>
         <dia:point val="39,38.4"/>
       </dia:attribute>
       <dia:attribute name="numcp">
@@ -4437,13 +4437,13 @@ object_apply_props_from_dialog()#</dia:string>
     </dia:object>
     <dia:object type="Standard - Line" version="0" id="O39">
       <dia:attribute name="obj_pos">
-        <dia:point val="35.9839,37.6167"/>
+        <dia:point val="36.0371,37.6164"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="35.9588,37.3125;39.0559,37.8934"/>
+        <dia:rectangle val="36.012,37.3125;39.0559,37.8934"/>
       </dia:attribute>
       <dia:attribute name="conn_endpoints">
-        <dia:point val="35.9839,37.6167"/>
+        <dia:point val="36.0371,37.6164"/>
         <dia:point val="39,37.6"/>
       </dia:attribute>
       <dia:attribute name="numcp">
@@ -4471,7 +4471,7 @@ object_apply_props_from_dialog()#</dia:string>
         <dia:point val="24,31.4667"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="24,31.4667;33.595,34.7667"/>
+        <dia:rectangle val="23.95,31.4167;33.6525,34.8167"/>
       </dia:attribute>
       <dia:attribute name="meta">
         <dia:composite type="dict"/>
@@ -4480,7 +4480,7 @@ object_apply_props_from_dialog()#</dia:string>
         <dia:point val="24,31.4667"/>
       </dia:attribute>
       <dia:attribute name="elem_width">
-        <dia:real val="9.5950000000000006"/>
+        <dia:real val="9.6025000000000009"/>
       </dia:attribute>
       <dia:attribute name="elem_height">
         <dia:real val="3.3000000000000003"/>
@@ -4521,13 +4521,13 @@ element_*() or orthconn_*()#</dia:string>
     </dia:object>
     <dia:object type="Standard - Line" version="0" id="O41">
       <dia:attribute name="obj_pos">
-        <dia:point val="33.5952,34.4725"/>
+        <dia:point val="33.6523,34.4881"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="33.5643,34.4417;39.0538,36.1367"/>
+        <dia:rectangle val="33.6214,34.4573;39.0538,36.1367"/>
       </dia:attribute>
       <dia:attribute name="conn_endpoints">
-        <dia:point val="33.5952,34.4725"/>
+        <dia:point val="33.6523,34.4881"/>
         <dia:point val="39,36"/>
       </dia:attribute>
       <dia:attribute name="numcp">
@@ -4552,13 +4552,13 @@ element_*() or orthconn_*()#</dia:string>
     </dia:object>
     <dia:object type="Standard - Line" version="0" id="O42">
       <dia:attribute name="obj_pos">
-        <dia:point val="33.5952,34.0963"/>
+        <dia:point val="33.6523,34.1076"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="33.5657,34.0668;39.0548,35.3795"/>
+        <dia:rectangle val="33.6228,34.0781;39.0548,35.3795"/>
       </dia:attribute>
       <dia:attribute name="conn_endpoints">
-        <dia:point val="33.5952,34.0963"/>
+        <dia:point val="33.6523,34.1076"/>
         <dia:point val="39,35.2"/>
       </dia:attribute>
       <dia:attribute name="numcp">
@@ -4583,13 +4583,13 @@ element_*() or orthconn_*()#</dia:string>
     </dia:object>
     <dia:object type="Standard - Line" version="0" id="O43">
       <dia:attribute name="obj_pos">
-        <dia:point val="33.5952,32.9678"/>
+        <dia:point val="33.6523,32.9661"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="33.5694,32.526;39.0559,33.1066"/>
+        <dia:rectangle val="33.6265,32.526;39.0559,33.1066"/>
       </dia:attribute>
       <dia:attribute name="conn_endpoints">
-        <dia:point val="33.5952,32.9678"/>
+        <dia:point val="33.6523,32.9661"/>
         <dia:point val="39,32.8"/>
       </dia:attribute>
       <dia:attribute name="numcp">
@@ -4617,7 +4617,7 @@ element_*() or orthconn_*()#</dia:string>
         <dia:point val="24,27.7333"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="24,27.7333;33.81,30.2333"/>
+        <dia:rectangle val="23.95,27.6833;33.8625,30.2833"/>
       </dia:attribute>
       <dia:attribute name="meta">
         <dia:composite type="dict"/>
@@ -4626,7 +4626,7 @@ element_*() or orthconn_*()#</dia:string>
         <dia:point val="24,27.7333"/>
       </dia:attribute>
       <dia:attribute name="elem_width">
-        <dia:real val="9.8100000000000005"/>
+        <dia:real val="9.8125"/>
       </dia:attribute>
       <dia:attribute name="elem_height">
         <dia:real val="2.5"/>
@@ -4669,7 +4669,7 @@ object_copy_using_properties()#</dia:string>
         <dia:point val="28.905,28.9833"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="32.3941,30.2324;39,34.4"/>
+        <dia:rectangle val="32.5337,30.2824;39,34.4"/>
       </dia:attribute>
       <dia:attribute name="bez_points">
         <dia:point val="28.905,28.9833"/>
@@ -4703,7 +4703,7 @@ object_copy_using_properties()#</dia:string>
         <dia:point val="24,24"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="24,24;35.06,26.5"/>
+        <dia:rectangle val="23.95,23.95;35.11,26.55"/>
       </dia:attribute>
       <dia:attribute name="meta">
         <dia:composite type="dict"/>
@@ -4755,7 +4755,7 @@ handling for Text* members#</dia:string>
         <dia:point val="29.53,25.25"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="33.0183,26.4988;39,33.6"/>
+        <dia:rectangle val="33.1575,26.5486;39,33.6"/>
       </dia:attribute>
       <dia:attribute name="bez_points">
         <dia:point val="29.53,25.25"/>
@@ -4825,7 +4825,7 @@ handling for Text* members#</dia:string>
         <dia:point val="20,27.1"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="19.95,11.25;55.05,27.9"/>
+        <dia:rectangle val="19.95,11.25;55.05,28.05"/>
       </dia:attribute>
       <dia:attribute name="meta">
         <dia:composite type="dict"/>
