@@ -107,8 +107,8 @@ export_png_ok(GtkButton *button, gpointer userdata)
   png_color_8 sig_bit;
   png_bytep *row_ptr;
 
-  width  = (guint32) ((ext->right - ext->left) * DPCM * data->paper.scaling);
-  height = (guint32) ((ext->bottom - ext->top) * DPCM * data->paper.scaling);
+  width  = (guint32) ((ext->right - ext->left) * DPCM * data->paper.scaling + 0.5);
+  height = (guint32) ((ext->bottom - ext->top) * DPCM * data->paper.scaling + 0.5);
 
   if (button != NULL) {
     /* We don't want multiple clicks:) */

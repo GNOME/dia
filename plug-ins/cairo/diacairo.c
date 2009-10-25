@@ -144,8 +144,8 @@ export_data(DiagramData *data, const gchar *filename,
   switch (kind) {
 #ifdef CAIRO_HAS_PS_SURFACE
   case OUTPUT_PS :
-    width  = data->paper.width * (72.0 / 2.54);
-    height = data->paper.height * (72.0 / 2.54);
+    width  = data->paper.width * (72.0 / 2.54) + 0.5;
+    height = data->paper.height * (72.0 / 2.54) + 0.5;
     renderer->scale = data->paper.scaling * (72.0 / 2.54);
     DIAG_NOTE(g_message ("PS Surface %dx%d\n", (int)width, (int)height)); 
     renderer->surface = cairo_ps_surface_create (filename_crt,
@@ -160,8 +160,8 @@ export_data(DiagramData *data, const gchar *filename,
   case OUTPUT_PNG :
     /* quite arbitrary, but consistent with ../pixbuf ;-) */
     renderer->scale = 20.0 * data->paper.scaling; 
-    width  = (data->extents.right - data->extents.left) * renderer->scale;
-    height = (data->extents.bottom - data->extents.top) * renderer->scale;
+    width  = (data->extents.right - data->extents.left) * renderer->scale + 0.5;
+    height = (data->extents.bottom - data->extents.top) * renderer->scale + 0.5;
 
     DIAG_NOTE(g_message ("PNG Surface %dx%d\n", (int)width, (int)height));
     /* use case screwed by API shakeup. We need to special case */
@@ -177,8 +177,8 @@ export_data(DiagramData *data, const gchar *filename,
 #define DPI 72.0 /* 600.0? */
     /* I just don't get how the scaling is supposed to work, dpi versus page size ? */
     renderer->scale = data->paper.scaling * (72.0 / 2.54);
-    width = data->paper.width * (72.0 / 2.54);
-    height = data->paper.height * (72.0 / 2.54);
+    width = data->paper.width * (72.0 / 2.54) + 0.5;
+    height = data->paper.height * (72.0 / 2.54) + 0.5;
     DIAG_NOTE(g_message ("PDF Surface %dx%d\n", (int)width, (int)height));
     renderer->surface = cairo_pdf_surface_create (filename_crt,
                                                   width, height);
@@ -190,8 +190,8 @@ export_data(DiagramData *data, const gchar *filename,
   case OUTPUT_SVG :
     /* quite arbitrary, but consistent with ../pixbuf ;-) */
     renderer->scale = 20.0 * data->paper.scaling; 
-    width  = (data->extents.right - data->extents.left) * renderer->scale;
-    height = (data->extents.bottom - data->extents.top) * renderer->scale;
+    width  = (data->extents.right - data->extents.left) * renderer->scale + 0.5;
+    height = (data->extents.bottom - data->extents.top) * renderer->scale + 0.5;
     DIAG_NOTE(g_message ("SVG Surface %dx%d\n", (int)width, (int)height));
     /* use case screwed by API shakeup. We need to special case */
     renderer->surface = cairo_svg_surface_create(
@@ -203,8 +203,8 @@ export_data(DiagramData *data, const gchar *filename,
   case OUTPUT_CAIRO_SCRIPT :
     /* quite arbitrary, but consistent with ../pixbuf ;-) */
     renderer->scale = 20.0 * data->paper.scaling; 
-    width  = (data->extents.right - data->extents.left) * renderer->scale;
-    height = (data->extents.bottom - data->extents.top) * renderer->scale;
+    width  = (data->extents.right - data->extents.left) * renderer->scale + 0.5;
+    height = (data->extents.bottom - data->extents.top) * renderer->scale + 0.5;
     DIAG_NOTE(g_message ("CairoScript Surface %dx%d\n", (int)width, (int)height));
     renderer->surface = cairo_script_surface_create(filename_crt,
 						    width, height);
