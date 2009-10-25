@@ -387,6 +387,8 @@ lookup_widget (GtkWidget   *widget,
   GtkWidget *parent, *found_widget;
   GtkBuilder *builder;
 
+  g_return_val_if_fail(widget != NULL, NULL);
+
   for (;;)
     {
       if (GTK_IS_MENU (widget))

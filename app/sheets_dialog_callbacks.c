@@ -789,9 +789,15 @@ on_sheets_new_dialog_button_ok_clicked (GtkButton       *button,
 
   case SHEETS_NEW_DIALOG_TYPE_SVG_SHAPE:
 
-    entry = lookup_widget(sheets_new_dialog, "combo_entry_from_file");
+    entry = lookup_widget(sheets_new_dialog, "file_chooser_button");
     /* Since this is a file name, no utf8 translation is needed */
-    file_name = gtk_editable_get_chars(GTK_EDITABLE(entry), 0, -1);
+    file_name = gtk_file_chooser_get_preview_filename(GTK_FILE_CHOOSER(entry));
+
+    if (!file_name)
+    {
+      message_error(_("Please select a .shape file"));
+      return;
+    }
 
     p = file_name + strlen(file_name) - 6;
     if (strcmp(p, ".shape"))
@@ -952,15 +958,6 @@ on_sheets_new_dialog_button_ok_clicked (GtkButton       *button,
 }
 
 static GtkWidget *sheets_shapeselection_dialog;
-
-void
-on_sheets_new_dialog_button_browse_clicked
-                                        (GtkButton       *button,
-                                        gpointer         user_data)
-{
-  sheets_shapeselection_dialog = create_sheets_shapeselection_dialog();
-  gtk_widget_show(sheets_shapeselection_dialog);
-}
 
 void
 on_sheets_shapeselection_dialog_button_cancel_clicked
@@ -1172,9 +1169,7 @@ on_sheets_new_dialog_radiobutton_svg_shape_toggled
 {
   static gchar *widget_names[] =
   {
-    "combo_from_file",
-    "button_browse",
-    "label_svg_description",
+    "file_chooser_button",
     "entry_svg_description",
     NULL
   };

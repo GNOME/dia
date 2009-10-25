@@ -162,9 +162,6 @@ create_sheets_new_dialog (void)
   g_signal_connect (GTK_OBJECT (sheets_new_dialog), "destroy",
 		      G_CALLBACK (sheets_dialog_destroyed), NULL);
 
-  g_signal_connect (gtk_builder_get_object (builder,"button_browse"), "clicked",
-                      G_CALLBACK (on_sheets_new_dialog_button_browse_clicked),
-                      NULL);
   g_signal_connect (gtk_builder_get_object (builder,"radiobutton_svg_shape"), "toggled",
                       G_CALLBACK (on_sheets_new_dialog_radiobutton_svg_shape_toggled),
                       NULL);
