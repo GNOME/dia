@@ -455,7 +455,7 @@ polyline_update_data(Polyline *polyline)
     Point move_arrow, move_line;
     Point to = gap_endpoints[1];
     Point from = poly->points[n-2];
-    calculate_arrow_point(&polyline->start_arrow, &to, &from,
+    calculate_arrow_point(&polyline->end_arrow, &to, &from,
                           &move_arrow, &move_line, polyline->line_width);
     /* move them */
     point_sub(&to, &move_arrow);

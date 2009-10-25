@@ -347,7 +347,7 @@ zigzagline_update_data(Zigzagline *zigzagline)
     int n = orth->numpoints;
     Point to = orth->points[n-1];
     Point from = orth->points[n-2];
-    calculate_arrow_point(&zigzagline->start_arrow, &to, &from,
+    calculate_arrow_point(&zigzagline->end_arrow, &to, &from,
                           &move_arrow, &move_line, zigzagline->line_width);
     /* move them */
     point_sub(&to, &move_arrow);

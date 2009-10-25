@@ -499,7 +499,7 @@ line_update_data(Line *line)
     Point move_arrow, move_line;
     Point to = end;
     Point from = start;
-    calculate_arrow_point(&line->start_arrow, &to, &from,
+    calculate_arrow_point(&line->end_arrow, &to, &from,
                           &move_arrow, &move_line, line->line_width);
     /* move them */
     point_sub(&to, &move_arrow);
