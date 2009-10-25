@@ -85,11 +85,6 @@ void       dia_line_style_selector_set_linestyle (DiaLineStyleSelector *as,
 #define DIACOLORSELECTOR_CLASS(klass)  G_TYPE_CHECK_CLASS_CAST (klass, dia_color_selector_get_type (), DiaColorSelectorClass)
 #define IS_DIACOLORSELECTOR(obj)       G_TYPE_CHECK_INSTANCE_TYPE (obj, dia_color_selector_get_type ())
 
-#define DEFAULT_FG_COLOR color_black
-#define DEFAULT_BG_COLOR color_white
-#define DEFAULT_COLOR color_white
-
-
 /* FIXME: _get_type is not implemented */
 GType      dia_color_selector_get_type  (void);
 GtkWidget* dia_color_selector_new       (void);
