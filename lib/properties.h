@@ -480,9 +480,23 @@ static PropEnumData prop_std_text_align_data[] = {
   { N_("Right"), ALIGN_RIGHT },
   { NULL, 0 }
 };
+static PropEnumData prop_std_line_join_data[] = {
+  { N_("Miter"), LINEJOIN_MITER },
+  { N_("Round"), LINEJOIN_ROUND },
+  { N_("Bevel"), LINEJOIN_BEVEL },
+  { NULL, 0 }
+};
+static PropEnumData prop_std_line_caps_data[] = {
+  { N_("Butt"), LINECAPS_BUTT },
+  { N_("Round"), LINECAPS_ROUND },
+  { N_("Projecting"), LINECAPS_PROJECTING },
+  { NULL, 0 }
+};
 #else
 extern PropNumData prop_std_line_width_data, prop_std_text_height_data;
 extern PropEnumData prop_std_text_align_data[];
+extern PropEnumData prop_std_line_join_data[];
+extern PropEnumData prop_std_line_caps_data[];
 #endif
 
 #define PROP_STDNAME_LINE_WIDTH "line_width"
@@ -505,6 +519,18 @@ extern PropEnumData prop_std_text_align_data[];
 #define PROP_STD_LINE_STYLE_OPTIONAL \
   { "line_style", PROP_TYPE_LINESTYLE, PROP_FLAG_VISIBLE|PROP_FLAG_STANDARD|PROP_FLAG_OPTIONAL, \
     N_("Line style"), NULL, NULL }
+#define PROP_STD_LINE_JOIN \
+  { "line_join", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE, \
+    N_("Line join"), NULL, prop_std_line_join_data }
+#define PROP_STD_LINE_JOIN_OPTIONAL \
+  { "line_join", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE|PROP_FLAG_OPTIONAL, \
+    N_("Line join"), NULL, prop_std_line_join_data }
+#define PROP_STD_LINE_CAPS \
+  { "line_caps", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE, \
+    N_("Line caps"), NULL, prop_std_line_caps_data }
+#define PROP_STD_LINE_CAPS_OPTIONAL \
+  { "line_caps", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE|PROP_FLAG_OPTIONAL, \
+    N_("Line caps"), NULL, prop_std_line_caps_data }
 
 #define PROP_STD_FILL_COLOUR \
   { "fill_colour", PROP_TYPE_COLOUR, PROP_FLAG_VISIBLE|PROP_FLAG_STANDARD, \

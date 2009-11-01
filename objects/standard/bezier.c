@@ -49,6 +49,8 @@ struct _Bezierline {
 
   Color line_color;
   LineStyle line_style;
+  LineJoin line_join;
+  LineCaps line_caps;
   real dashlength;
   real line_width;
   Arrow start_arrow, end_arrow;
@@ -134,6 +136,8 @@ static PropDescription bezierline_props[] = {
   PROP_STD_LINE_WIDTH,
   PROP_STD_LINE_COLOUR,
   PROP_STD_LINE_STYLE,
+  PROP_STD_LINE_JOIN_OPTIONAL,
+  PROP_STD_LINE_CAPS_OPTIONAL,
   PROP_STD_START_ARROW,
   PROP_STD_END_ARROW,
   PROP_FRAME_BEGIN("gaps",0,N_("Line gaps")),
@@ -159,6 +163,8 @@ static PropOffset bezierline_offsets[] = {
   { "line_colour", PROP_TYPE_COLOUR, offsetof(Bezierline, line_color) },
   { "line_style", PROP_TYPE_LINESTYLE,
     offsetof(Bezierline, line_style), offsetof(Bezierline, dashlength) },
+  { "line_join", PROP_TYPE_ENUM, offsetof(Bezierline, line_join) },
+  { "line_caps", PROP_TYPE_ENUM, offsetof(Bezierline, line_caps) },
   { "start_arrow", PROP_TYPE_ARROW, offsetof(Bezierline, start_arrow) },
   { "end_arrow", PROP_TYPE_ARROW, offsetof(Bezierline, end_arrow) },
   PROP_OFFSET_FRAME_BEGIN("gaps"),
@@ -365,8 +371,8 @@ bezierline_draw(Bezierline *bezierline, DiaRenderer *renderer)
   renderer_ops->set_linewidth(renderer, bezierline->line_width);
   renderer_ops->set_linestyle(renderer, bezierline->line_style);
   renderer_ops->set_dashlength(renderer, bezierline->dashlength);
-  renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
-  renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
+  renderer_ops->set_linejoin(renderer, bezierline->line_join);
+  renderer_ops->set_linecaps(renderer, bezierline->line_caps);
 
   if (connpoint_is_autogap(bez->object.handles[0]->connected_to) ||
       connpoint_is_autogap(bez->object.handles[3*(bez->numpoints-1)]->connected_to) ||
@@ -459,6 +465,8 @@ bezierline_create(Point *startpoint,
   bezierline->line_color = attributes_get_foreground();
   attributes_get_default_line_style(&bezierline->line_style,
 				    &bezierline->dashlength);
+  bezierline->line_join = LINEJOIN_MITER;
+  bezierline->line_caps = LINECAPS_BUTT;
   bezierline->start_arrow = attributes_get_default_start_arrow();
   bezierline->end_arrow = attributes_get_default_end_arrow();
 
@@ -494,6 +502,8 @@ bezierline_copy(Bezierline *bezierline)
   newbezierline->line_color = bezierline->line_color;
   newbezierline->line_width = bezierline->line_width;
   newbezierline->line_style = bezierline->line_style;
+  newbezierline->line_join = bezierline->line_join;
+  newbezierline->line_caps = bezierline->line_caps;
   newbezierline->dashlength = bezierline->dashlength;
   newbezierline->start_arrow = bezierline->start_arrow;
   newbezierline->end_arrow = bezierline->end_arrow;
@@ -603,7 +613,14 @@ bezierline_save(Bezierline *bezierline, ObjectNode obj_node,
       bezierline->dashlength != DEFAULT_LINESTYLE_DASHLEN)
     data_add_real(new_attribute(obj_node, "dashlength"),
 		  bezierline->dashlength);
-  
+
+  if (bezierline->line_join != LINEJOIN_MITER)
+    data_add_enum(new_attribute(obj_node, "line_join"),
+                  bezierline->line_join);
+  if (bezierline->line_caps != LINECAPS_BUTT)
+    data_add_enum(new_attribute(obj_node, "line_caps"),
+                  bezierline->line_caps);
+
   if (bezierline->start_arrow.type != ARROW_NONE) {
     save_arrow(obj_node, &bezierline->start_arrow, "start_arrow",
 	     "start_arrow_length", "start_arrow_width");
@@ -654,6 +671,16 @@ bezierline_load(ObjectNode obj_node, int version, const char *filename)
   attr = object_find_attribute(obj_node, "line_style");
   if (attr != NULL)
     bezierline->line_style = data_enum(attribute_first_data(attr));
+
+  bezierline->line_join = LINEJOIN_MITER;
+  attr = object_find_attribute(obj_node, "line_join");
+  if (attr != NULL)
+    bezierline->line_join = data_enum(attribute_first_data(attr));
+
+  bezierline->line_caps = LINECAPS_BUTT;
+  attr = object_find_attribute(obj_node, "line_caps");
+  if (attr != NULL)
+    bezierline->line_caps = data_enum(attribute_first_data(attr));
 
   bezierline->dashlength = DEFAULT_LINESTYLE_DASHLEN;
   attr = object_find_attribute(obj_node, "dashlength");

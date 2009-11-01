@@ -53,6 +53,7 @@ typedef struct _Polygon {
 
   Color line_color;
   LineStyle line_style;
+  LineJoin line_join;
   Color inner_color;
   gboolean show_background;
   real dashlength;
@@ -135,6 +136,7 @@ static PropDescription polygon_props[] = {
   PROP_STD_LINE_WIDTH,
   PROP_STD_LINE_COLOUR,
   PROP_STD_LINE_STYLE,
+  PROP_STD_LINE_JOIN_OPTIONAL,
   PROP_STD_FILL_COLOUR,
   PROP_STD_SHOW_BACKGROUND,
   PROP_DESC_END
@@ -154,6 +156,7 @@ static PropOffset polygon_offsets[] = {
   { "line_colour", PROP_TYPE_COLOUR, offsetof(Polygon, line_color) },
   { "line_style", PROP_TYPE_LINESTYLE,
     offsetof(Polygon, line_style), offsetof(Polygon, dashlength) },
+  { "line_join", PROP_TYPE_ENUM, offsetof(Polygon, line_join) },
   { "fill_colour", PROP_TYPE_COLOUR, offsetof(Polygon, inner_color) },
   { "show_background", PROP_TYPE_BOOL, offsetof(Polygon, show_background) },
   { NULL, 0, 0 }
@@ -234,7 +237,7 @@ polygon_draw(Polygon *polygon, DiaRenderer *renderer)
   renderer_ops->set_linewidth(renderer, polygon->line_width);
   renderer_ops->set_linestyle(renderer, polygon->line_style);
   renderer_ops->set_dashlength(renderer, polygon->dashlength);
-  renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
+  renderer_ops->set_linejoin(renderer, polygon->line_join);
   renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
 
   if (polygon->show_background)
@@ -282,6 +285,7 @@ polygon_create(Point *startpoint,
   polygon->inner_color = attributes_get_background();
   attributes_get_default_line_style(&polygon->line_style,
 				    &polygon->dashlength);
+  polygon->line_join = LINEJOIN_MITER;
   polygon->show_background = default_properties.show_background;
 
   polygon_update_data(polygon);
@@ -368,6 +372,10 @@ polygon_save(Polygon *polygon, ObjectNode obj_node,
     data_add_real(new_attribute(obj_node, "dashlength"),
 		  polygon->dashlength);
   
+  if (polygon->line_join != LINEJOIN_MITER)
+    data_add_enum(new_attribute(obj_node, "line_join"),
+                  polygon->line_join);
+
 }
 
 static DiaObject *
@@ -412,6 +420,11 @@ polygon_load(ObjectNode obj_node, int version, const char *filename)
   attr = object_find_attribute(obj_node, "line_style");
   if (attr != NULL)
     polygon->line_style = data_enum(attribute_first_data(attr));
+
+  polygon->line_join = LINEJOIN_MITER;
+  attr = object_find_attribute(obj_node, "line_join");
+  if (attr != NULL)
+    polygon->line_join = data_enum(attribute_first_data(attr));
 
   polygon->dashlength = DEFAULT_LINESTYLE_DASHLEN;
   attr = object_find_attribute(obj_node, "dashlength");

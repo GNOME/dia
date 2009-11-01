@@ -45,6 +45,8 @@ typedef struct _Zigzagline {
 
   Color line_color;
   LineStyle line_style;
+  LineJoin line_join;
+  LineCaps line_caps;
   real dashlength;
   real line_width;
   real corner_radius;
@@ -126,6 +128,8 @@ static PropDescription zigzagline_props[] = {
   PROP_STD_LINE_WIDTH,
   PROP_STD_LINE_COLOUR,
   PROP_STD_LINE_STYLE,
+  PROP_STD_LINE_JOIN_OPTIONAL,
+  PROP_STD_LINE_CAPS_OPTIONAL,
   PROP_STD_START_ARROW,
   PROP_STD_END_ARROW,
   { "corner_radius", PROP_TYPE_REAL, PROP_FLAG_VISIBLE,
@@ -147,6 +151,8 @@ static PropOffset zigzagline_offsets[] = {
   { "line_colour", PROP_TYPE_COLOUR, offsetof(Zigzagline, line_color) },
   { "line_style", PROP_TYPE_LINESTYLE,
     offsetof(Zigzagline, line_style), offsetof(Zigzagline, dashlength) },
+  { "line_join", PROP_TYPE_ENUM, offsetof(Zigzagline, line_join) },
+  { "line_caps", PROP_TYPE_ENUM, offsetof(Zigzagline, line_caps) },
   { "start_arrow", PROP_TYPE_ARROW, offsetof(Zigzagline, start_arrow) },
   { "end_arrow", PROP_TYPE_ARROW, offsetof(Zigzagline, end_arrow) },
   { "corner_radius", PROP_TYPE_REAL, offsetof(Zigzagline, corner_radius) },
@@ -224,11 +230,8 @@ zigzagline_draw(Zigzagline *zigzagline, DiaRenderer *renderer)
   renderer_ops->set_linewidth(renderer, zigzagline->line_width);
   renderer_ops->set_linestyle(renderer, zigzagline->line_style);
   renderer_ops->set_dashlength(renderer, zigzagline->dashlength);
-  if (zigzagline->corner_radius > 0)
-    renderer_ops->set_linejoin(renderer, LINEJOIN_ROUND);
-  else
-    renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
-  renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
+  renderer_ops->set_linejoin(renderer, zigzagline->line_join);
+  renderer_ops->set_linecaps(renderer, zigzagline->line_caps);
 
   renderer_ops->draw_rounded_polyline_with_arrows(renderer,
 						  points, n,
@@ -264,6 +267,8 @@ zigzagline_create(Point *startpoint,
   zigzagline->line_color = attributes_get_foreground();
   attributes_get_default_line_style(&zigzagline->line_style,
 				    &zigzagline->dashlength);
+  zigzagline->line_join = LINEJOIN_MITER;
+  zigzagline->line_caps = LINECAPS_BUTT;
   zigzagline->start_arrow = attributes_get_default_start_arrow();
   zigzagline->end_arrow = attributes_get_default_end_arrow();
   zigzagline->corner_radius = 0.0;
@@ -300,6 +305,8 @@ zigzagline_copy(Zigzagline *zigzagline)
   newzigzagline->line_color = zigzagline->line_color;
   newzigzagline->line_width = zigzagline->line_width;
   newzigzagline->line_style = zigzagline->line_style;
+  newzigzagline->line_join = zigzagline->line_join;
+  newzigzagline->line_caps = zigzagline->line_caps;
   newzigzagline->dashlength = zigzagline->dashlength;
   newzigzagline->start_arrow = zigzagline->start_arrow;
   newzigzagline->end_arrow = zigzagline->end_arrow;
@@ -422,6 +429,13 @@ zigzagline_save(Zigzagline *zigzagline, ObjectNode obj_node,
     data_add_enum(new_attribute(obj_node, "line_style"),
 		  zigzagline->line_style);
   
+  if (zigzagline->line_join != LINEJOIN_MITER)
+    data_add_enum(new_attribute(obj_node, "line_join"),
+                  zigzagline->line_join);
+  if (zigzagline->line_caps != LINECAPS_BUTT)
+    data_add_enum(new_attribute(obj_node, "line_caps"),
+                  zigzagline->line_caps);
+
   if (zigzagline->start_arrow.type != ARROW_NONE) {
     save_arrow(obj_node, &zigzagline->start_arrow, "start_arrow",
 	     "start_arrow_length", "start_arrow_width");
@@ -474,6 +488,16 @@ zigzagline_load(ObjectNode obj_node, int version, const char *filename)
   attr = object_find_attribute(obj_node, "line_style");
   if (attr != NULL)
     zigzagline->line_style = data_enum(attribute_first_data(attr));
+
+  zigzagline->line_join = LINEJOIN_MITER;
+  attr = object_find_attribute(obj_node, "line_join");
+  if (attr != NULL)
+    zigzagline->line_join = data_enum(attribute_first_data(attr));
+
+  zigzagline->line_caps = LINECAPS_BUTT;
+  attr = object_find_attribute(obj_node, "line_caps");
+  if (attr != NULL)
+    zigzagline->line_caps = data_enum(attribute_first_data(attr));
 
   load_arrow(obj_node, &zigzagline->start_arrow, "start_arrow",
 	     "start_arrow_length", "start_arrow_width");

@@ -45,6 +45,8 @@ typedef struct _Polyline {
 
   Color line_color;
   LineStyle line_style;
+  LineJoin line_join;
+  LineCaps line_caps;
   real dashlength;
   real line_width;
   real corner_radius;
@@ -130,6 +132,8 @@ static PropDescription polyline_props[] = {
   PROP_STD_LINE_WIDTH,
   PROP_STD_LINE_COLOUR,
   PROP_STD_LINE_STYLE,
+  PROP_STD_LINE_JOIN_OPTIONAL,
+  PROP_STD_LINE_CAPS_OPTIONAL,
   PROP_STD_START_ARROW,
   PROP_STD_END_ARROW,
   { "corner_radius", PROP_TYPE_REAL, PROP_FLAG_VISIBLE,
@@ -157,6 +161,8 @@ static PropOffset polyline_offsets[] = {
   { "line_colour", PROP_TYPE_COLOUR, offsetof(Polyline, line_color) },
   { "line_style", PROP_TYPE_LINESTYLE,
     offsetof(Polyline, line_style), offsetof(Polyline, dashlength) },
+  { "line_join", PROP_TYPE_ENUM, offsetof(Polyline, line_join) },
+  { "line_caps", PROP_TYPE_ENUM, offsetof(Polyline, line_caps) },
   { "start_arrow", PROP_TYPE_ARROW, offsetof(Polyline, start_arrow) },
   { "end_arrow", PROP_TYPE_ARROW, offsetof(Polyline, end_arrow) },
   { "corner_radius", PROP_TYPE_REAL, offsetof(Polyline, corner_radius) },
@@ -300,11 +306,8 @@ polyline_draw(Polyline *polyline, DiaRenderer *renderer)
   renderer_ops->set_linewidth(renderer, polyline->line_width);
   renderer_ops->set_linestyle(renderer, polyline->line_style);
   renderer_ops->set_dashlength(renderer, polyline->dashlength);
-  if (polyline->corner_radius > 0.0)
-    renderer_ops->set_linejoin(renderer, LINEJOIN_ROUND);
-  else
-    renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
-  renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
+  renderer_ops->set_linejoin(renderer, polyline->line_join);
+  renderer_ops->set_linecaps(renderer, polyline->line_caps);
 
   polyline_calculate_gap_endpoints(polyline, gap_endpoints);
   polyline_exchange_gap_points(polyline, gap_endpoints);
@@ -369,6 +372,8 @@ polyline_create(Point *startpoint,
   polyline->line_color = attributes_get_foreground();
   attributes_get_default_line_style(&polyline->line_style,
 				    &polyline->dashlength);
+  polyline->line_join = LINEJOIN_MITER;
+  polyline->line_caps = LINECAPS_BUTT;
   polyline->start_arrow = attributes_get_default_start_arrow();
   polyline->end_arrow = attributes_get_default_end_arrow();
   polyline->corner_radius = 0.0;
@@ -402,6 +407,8 @@ polyline_copy(Polyline *polyline)
   newpolyline->line_color = polyline->line_color;
   newpolyline->line_width = polyline->line_width;
   newpolyline->line_style = polyline->line_style;
+  newpolyline->line_join = polyline->line_join;
+  newpolyline->line_caps = polyline->line_caps;
   newpolyline->dashlength = polyline->dashlength;
   newpolyline->start_arrow = polyline->start_arrow;
   newpolyline->end_arrow = polyline->end_arrow;
@@ -492,7 +499,14 @@ polyline_save(Polyline *polyline, ObjectNode obj_node,
       polyline->dashlength != DEFAULT_LINESTYLE_DASHLEN)
     data_add_real(new_attribute(obj_node, "dashlength"),
 		  polyline->dashlength);
-  
+
+  if (polyline->line_join != LINEJOIN_MITER)
+    data_add_enum(new_attribute(obj_node, "line_join"),
+                  polyline->line_join);
+  if (polyline->line_caps != LINECAPS_BUTT)
+    data_add_enum(new_attribute(obj_node, "line_caps"),
+                  polyline->line_caps);
+
   if (polyline->start_arrow.type != ARROW_NONE) {
     save_arrow(obj_node, &polyline->start_arrow, "start_arrow",
 	     "start_arrow_length", "start_arrow_width");
@@ -547,6 +561,16 @@ polyline_load(ObjectNode obj_node, int version, const char *filename)
   attr = object_find_attribute(obj_node, "line_style");
   if (attr != NULL)
     polyline->line_style = data_enum(attribute_first_data(attr));
+
+  polyline->line_join = LINEJOIN_MITER;
+  attr = object_find_attribute(obj_node, "line_join");
+  if (attr != NULL)
+    polyline->line_join = data_enum(attribute_first_data(attr));
+
+  polyline->line_caps = LINECAPS_BUTT;
+  attr = object_find_attribute(obj_node, "line_caps");
+  if (attr != NULL)
+    polyline->line_caps = data_enum(attribute_first_data(attr));
 
   polyline->dashlength = DEFAULT_LINESTYLE_DASHLEN;
   attr = object_find_attribute(obj_node, "dashlength");

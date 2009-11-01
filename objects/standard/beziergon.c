@@ -49,6 +49,7 @@ typedef struct _Beziergon {
 
   Color line_color;
   LineStyle line_style;
+  LineJoin line_join;
   Color inner_color;
   gboolean show_background;
   real dashlength;
@@ -132,6 +133,7 @@ static PropDescription beziergon_props[] = {
   PROP_STD_LINE_WIDTH,
   PROP_STD_LINE_COLOUR,
   PROP_STD_LINE_STYLE,
+  PROP_STD_LINE_JOIN_OPTIONAL,
   PROP_STD_FILL_COLOUR,
   PROP_STD_SHOW_BACKGROUND,
   PROP_DESC_END
@@ -151,6 +153,7 @@ static PropOffset beziergon_offsets[] = {
   { "line_colour", PROP_TYPE_COLOUR, offsetof(Beziergon, line_color) },
   { "line_style", PROP_TYPE_LINESTYLE,
     offsetof(Beziergon, line_style), offsetof(Beziergon, dashlength) },
+  { "line_join", PROP_TYPE_ENUM, offsetof(Beziergon, line_join) },
   { "fill_colour", PROP_TYPE_COLOUR, offsetof(Beziergon, inner_color) },
   { "show_background", PROP_TYPE_BOOL, offsetof(Beziergon, show_background) },
   { NULL, 0, 0 }
@@ -232,7 +235,7 @@ beziergon_draw(Beziergon *beziergon, DiaRenderer *renderer)
   renderer_ops->set_linewidth(renderer, beziergon->line_width);
   renderer_ops->set_linestyle(renderer, beziergon->line_style);
   renderer_ops->set_dashlength(renderer, beziergon->dashlength);
-  renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
+  renderer_ops->set_linejoin(renderer, beziergon->line_join);
   renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
 
   if (beziergon->show_background)
@@ -297,6 +300,7 @@ beziergon_create(Point *startpoint,
   beziergon->inner_color = attributes_get_background();
   attributes_get_default_line_style(&beziergon->line_style,
 				    &beziergon->dashlength);
+  beziergon->line_join = LINEJOIN_MITER;
   beziergon->show_background = default_properties.show_background;
 
   beziergon_update_data(beziergon);
@@ -330,6 +334,7 @@ beziergon_copy(Beziergon *beziergon)
   newbeziergon->line_color = beziergon->line_color;
   newbeziergon->line_width = beziergon->line_width;
   newbeziergon->line_style = beziergon->line_style;
+  newbeziergon->line_join = beziergon->line_join;
   newbeziergon->dashlength = beziergon->dashlength;
   newbeziergon->inner_color = beziergon->inner_color;
   newbeziergon->show_background = beziergon->show_background;
@@ -393,6 +398,10 @@ beziergon_save(Beziergon *beziergon, ObjectNode obj_node,
     data_add_real(new_attribute(obj_node, "dashlength"),
 		  beziergon->dashlength);
   
+  if (beziergon->line_join != LINEJOIN_MITER)
+    data_add_enum(new_attribute(obj_node, "line_join"),
+                  beziergon->line_join);
+
 }
 
 static DiaObject *
@@ -437,6 +446,11 @@ beziergon_load(ObjectNode obj_node, int version, const char *filename)
   attr = object_find_attribute(obj_node, "line_style");
   if (attr != NULL)
     beziergon->line_style = data_enum(attribute_first_data(attr));
+
+  beziergon->line_join = LINEJOIN_MITER;
+  attr = object_find_attribute(obj_node, "line_join");
+  if (attr != NULL)
+    beziergon->line_join = data_enum(attribute_first_data(attr));
 
   beziergon->dashlength = DEFAULT_LINESTYLE_DASHLEN;
   attr = object_find_attribute(obj_node, "dashlength");

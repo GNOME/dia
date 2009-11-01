@@ -67,6 +67,18 @@ PropEnumData prop_std_text_align_data[] = {
   { N_("Right"), ALIGN_RIGHT },
   { NULL, 0 }
 };
+PropEnumData prop_std_line_join_data[] = {
+  { N_("Miter"), LINEJOIN_MITER },
+  { N_("Round"), LINEJOIN_ROUND },
+  { N_("Bevel"), LINEJOIN_BEVEL },
+  { NULL, 0 }
+};
+PropEnumData prop_std_line_caps_data[] = {
+  { N_("Butt"), LINECAPS_BUTT },
+  { N_("Round"), LINECAPS_ROUND },
+  { N_("Projecting"), LINECAPS_PROJECTING },
+  { NULL, 0 }
+};
 #endif
 
 #ifdef FOR_TRANSLATORS_ONLY

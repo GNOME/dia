@@ -48,7 +48,8 @@ typedef struct _Line {
 
   Color line_color;
   real line_width;
-  LineStyle line_style;  
+  LineStyle line_style;
+  LineCaps line_caps;
   Arrow start_arrow, end_arrow;
   real dashlength;
   real absolute_start_gap, absolute_end_gap;
@@ -131,6 +132,7 @@ static PropDescription line_props[] = {
   PROP_STD_LINE_WIDTH,
   PROP_STD_LINE_COLOUR,
   PROP_STD_LINE_STYLE,
+  PROP_STD_LINE_CAPS_OPTIONAL,
   PROP_FRAME_BEGIN("arrows",PROP_FLAG_STANDARD,N_("Arrows")),
   PROP_STD_START_ARROW,
   PROP_STD_END_ARROW,
@@ -164,6 +166,7 @@ static PropOffset line_offsets[] = {
   { "line_colour", PROP_TYPE_COLOUR, offsetof(Line, line_color) },
   { "line_style", PROP_TYPE_LINESTYLE,
     offsetof(Line, line_style), offsetof(Line, dashlength) },
+  { "line_caps", PROP_TYPE_ENUM, offsetof(Line, line_caps) },
   { "start_arrow", PROP_TYPE_ARROW, offsetof(Line, start_arrow) },
   { "end_arrow", PROP_TYPE_ARROW, offsetof(Line, end_arrow) },
   { "start_point", PROP_TYPE_POINT, offsetof(Connection, endpoints[0]) },
@@ -344,7 +347,7 @@ line_draw(Line *line, DiaRenderer *renderer)
   renderer_ops->set_linewidth(renderer, line->line_width);
   renderer_ops->set_linestyle(renderer, line->line_style);
   renderer_ops->set_dashlength(renderer, line->dashlength);
-  renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
+  renderer_ops->set_linecaps(renderer, line->line_caps);
 
   if (line->absolute_start_gap || line->absolute_end_gap ) {
     line_adjust_for_absolute_gap(line, gap_endpoints);
@@ -402,6 +405,7 @@ line_create(Point *startpoint,
   line->cpl = connpointline_create(obj,1);
 
   attributes_get_default_line_style(&line->line_style, &line->dashlength);
+  line->line_caps = LINECAPS_BUTT;
   line->start_arrow = attributes_get_default_start_arrow();
   line->end_arrow = attributes_get_default_end_arrow();
   line_update_data(line);
@@ -439,6 +443,7 @@ line_copy(Line *line)
   newline->line_color = line->line_color;
   newline->line_width = line->line_width;
   newline->line_style = line->line_style;
+  newline->line_caps = line->line_caps;
   newline->dashlength = line->dashlength;
   newline->start_arrow = line->start_arrow;
   newline->end_arrow = line->end_arrow;
@@ -541,6 +546,10 @@ line_save(Line *line, ObjectNode obj_node, const char *filename)
     data_add_enum(new_attribute(obj_node, "line_style"),
 		  line->line_style);
   
+  if (line->line_caps != LINECAPS_BUTT)
+    data_add_enum(new_attribute(obj_node, "line_caps"),
+                  line->line_caps);
+
   if (line->start_arrow.type != ARROW_NONE) {
     save_arrow(obj_node, &line->start_arrow,
 	       "start_arrow", "start_arrow_length", "start_arrow_width");
@@ -595,6 +604,11 @@ line_load(ObjectNode obj_node, int version, const char *filename)
   attr = object_find_attribute(obj_node, "line_style");
   if (attr != NULL)
     line->line_style = data_enum(attribute_first_data(attr));
+
+  line->line_caps = LINECAPS_BUTT;
+  attr = object_find_attribute(obj_node, "line_caps");
+  if (attr != NULL)
+    line->line_caps = data_enum(attribute_first_data(attr));
 
   load_arrow(obj_node, &line->start_arrow, 
 	     "start_arrow", "start_arrow_length", "start_arrow_width");

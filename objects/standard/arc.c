@@ -52,6 +52,7 @@ struct _Arc {
   real curve_distance;
   real line_width;
   LineStyle line_style;
+  LineCaps line_caps;
   real dashlength;
   Arrow start_arrow, end_arrow;
 
@@ -135,6 +136,7 @@ static PropDescription arc_props[] = {
   PROP_STD_LINE_WIDTH,
   PROP_STD_LINE_COLOUR,
   PROP_STD_LINE_STYLE,
+  PROP_STD_LINE_CAPS_OPTIONAL,
   PROP_STD_START_ARROW,
   PROP_STD_END_ARROW,
   { "curve_distance", PROP_TYPE_REAL, 0,
@@ -156,6 +158,7 @@ static PropOffset arc_offsets[] = {
   { "line_colour", PROP_TYPE_COLOUR, offsetof(Arc, arc_color) },
   { "line_style", PROP_TYPE_LINESTYLE,
     offsetof(Arc, line_style), offsetof(Arc, dashlength) },
+  { "line_caps", PROP_TYPE_ENUM, offsetof(Arc, line_caps) },
   { "start_arrow", PROP_TYPE_ARROW, offsetof(Arc, start_arrow) },
   { "end_arrow", PROP_TYPE_ARROW, offsetof(Arc, end_arrow) },
   { "curve_distance", PROP_TYPE_REAL, offsetof(Arc, curve_distance) },
@@ -555,7 +558,7 @@ arc_draw(Arc *arc, DiaRenderer *renderer)
   renderer_ops->set_linewidth(renderer, arc->line_width);
   renderer_ops->set_linestyle(renderer, arc->line_style);
   renderer_ops->set_dashlength(renderer, arc->dashlength);
-  renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
+  renderer_ops->set_linecaps(renderer, arc->line_caps);
   
   /* Special case when almost line: */
   if (fabs(arc->curve_distance) <= 0.01) {
@@ -596,6 +599,7 @@ arc_create(Point *startpoint,
   arc->curve_distance = 1.0;
   arc->arc_color = attributes_get_foreground(); 
   attributes_get_default_line_style(&arc->line_style, &arc->dashlength);
+  arc->line_caps = LINECAPS_BUTT;
   arc->start_arrow = attributes_get_default_start_arrow();
   arc->end_arrow = attributes_get_default_end_arrow();
 
@@ -649,6 +653,7 @@ arc_copy(Arc *arc)
   newarc->curve_distance = arc->curve_distance;
   newarc->line_width = arc->line_width;
   newarc->line_style = arc->line_style;
+  newarc->line_caps = arc->line_caps;
   newarc->dashlength = arc->dashlength;
   newarc->start_arrow = arc->start_arrow;
   newarc->end_arrow = arc->end_arrow;
@@ -838,7 +843,11 @@ arc_save(Arc *arc, ObjectNode obj_node, const char *filename)
       arc->dashlength != DEFAULT_LINESTYLE_DASHLEN)
     data_add_real(new_attribute(obj_node, "dashlength"),
 		  arc->dashlength);
-  
+
+  if (arc->line_caps != LINECAPS_BUTT)
+    data_add_enum(new_attribute(obj_node, "line_caps"),
+                  arc->line_caps);
+
   if (arc->start_arrow.type != ARROW_NONE) {
     save_arrow(obj_node, &arc->start_arrow, "start_arrow",
 	     "start_arrow_length", "start_arrow_width");
@@ -892,6 +901,11 @@ arc_load(ObjectNode obj_node, int version, const char *filename)
   attr = object_find_attribute(obj_node, "dashlength");
   if (attr != NULL)
     arc->dashlength = data_real(attribute_first_data(attr));
+
+  arc->line_caps = LINECAPS_BUTT;
+  attr = object_find_attribute(obj_node, "line_caps");
+  if (attr != NULL)
+    arc->line_caps = data_enum(attribute_first_data(attr));
 
   load_arrow(obj_node, &arc->start_arrow, "start_arrow",
 	     "start_arrow_length", "start_arrow_width");
