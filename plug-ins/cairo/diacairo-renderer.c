@@ -365,7 +365,8 @@ draw_line(DiaRenderer *self,
   cairo_set_source_rgba (renderer->cr, color->red, color->green, color->blue, 1.0);
   cairo_move_to (renderer->cr, start->x, start->y);
   cairo_line_to (renderer->cr, end->x, end->y);
-  cairo_stroke (renderer->cr);
+  if (!renderer->stroke_pending)
+    cairo_stroke (renderer->cr);
   DIAG_STATE(renderer->cr)
 }
 
@@ -501,10 +502,11 @@ draw_arc(DiaRenderer *self,
 
   cairo_set_source_rgba (renderer->cr, color->red, color->green, color->blue, 1.0);
 
+  if (!renderer->stroke_pending)
+    cairo_new_path (renderer->cr);
   /* Dia and Cairo don't agree on arc definitions, so it needs
    * to be converted, i.e. mirrored at the x axis
    */
-  cairo_new_path (renderer->cr);
   start.x = center->x + (width / 2.0)  * cos((M_PI / 180.0) * angle1);
   start.y = center->y - (height / 2.0) * sin((M_PI / 180.0) * angle1);
   cairo_move_to (renderer->cr, start.x, start.y);
@@ -514,7 +516,8 @@ draw_arc(DiaRenderer *self,
   cairo_arc_negative (renderer->cr, center->x, center->y, 
                       width > height ? height / 2.0 : width / 2.0, /* FIXME 2nd radius */
                       a1, a2);
-  cairo_stroke (renderer->cr);
+  if (!renderer->stroke_pending)
+    cairo_stroke (renderer->cr);
   DIAG_STATE(renderer->cr)
 }
 
@@ -917,11 +920,30 @@ fill_rounded_rect (DiaRenderer *renderer,
   _rounded_rect (renderer, topleft, bottomright, color, radius, TRUE);
 }
 
+static gpointer parent_class = NULL;
+
+static void
+draw_rounded_polyline (DiaRenderer *self,
+                       Point *points, int num_points,
+                       Color *color, real radius)
+{
+  DiaCairoRenderer *renderer = DIA_CAIRO_RENDERER (self);
+
+  cairo_new_path (renderer->cr);
+  cairo_move_to (renderer->cr, points[0].x, points[0].y);
+  /* use base class implementation */
+  renderer->stroke_pending = TRUE;
+  DIA_RENDERER_CLASS(parent_class)->draw_rounded_polyline (self, 
+                                                           points, num_points,
+							   color, radius);
+  renderer->stroke_pending = FALSE;
+  cairo_stroke (renderer->cr);
+  DIAG_STATE(renderer->cr)
+}
+
 /* gobject boiler plate */
 static void cairo_renderer_init (DiaCairoRenderer *r, void *p);
 static void cairo_renderer_class_init (DiaCairoRendererClass *klass);
-
-static gpointer parent_class = NULL;
 
 GType
 dia_cairo_renderer_get_type (void)
@@ -1024,7 +1046,7 @@ cairo_renderer_class_init (DiaCairoRendererClass *klass)
   /* highest level functions */
   renderer_class->draw_rounded_rect = draw_rounded_rect;
   renderer_class->fill_rounded_rect = fill_rounded_rect;
-  
+  renderer_class->draw_rounded_polyline = draw_rounded_polyline;
   /* other */
   renderer_class->is_capable_to = is_capable_to;
 }

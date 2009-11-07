@@ -60,6 +60,7 @@ struct _DiaCairoRenderer
   real scale;
   gboolean with_alpha;
   gboolean skip_show_page; /**< when using for print avoid the internal show_page */
+  gboolean stroke_pending; /**< to delay call to cairo_stroke */
   
   /** caching the font description from set_font */
   PangoLayout *layout;
