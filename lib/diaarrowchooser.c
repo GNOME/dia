@@ -214,12 +214,21 @@ dia_arrow_preview_expose(GtkWidget *widget, GdkEventExpose *event)
     renderer_pixmap_set_pixmap(renderer, win, x, y, width, height);
     renderer_ops->begin_render(renderer);
     renderer_ops->set_linewidth(renderer, linewidth);
-    renderer_ops->draw_line(renderer, &from, &to, &color_black);
-    arrow_draw (renderer, arrow_type.type, 
-                &arrow_head, &from, 
-		arrow_type.length, 
-		arrow_type.width,
-                linewidth, &color_black, &color_white);
+    {
+      Color color_bg, color_fg;
+      /* the text colors are the best approximation to what we had */
+      GdkColor bg = widget->style->base[GTK_WIDGET_STATE(widget)];
+      GdkColor fg = widget->style->text[GTK_WIDGET_STATE(widget)];
+
+      GDK_COLOR_TO_DIA(bg, color_bg);
+      GDK_COLOR_TO_DIA(fg, color_fg);
+      renderer_ops->draw_line(renderer, &from, &to, &color_fg);
+      arrow_draw (renderer, arrow_type.type, 
+                  &arrow_head, &from, 
+		  arrow_type.length, 
+		  arrow_type.width,
+                  linewidth, &color_fg, &color_bg);
+    }
     renderer_ops->end_render(renderer);
     g_object_unref(renderer);
   }
