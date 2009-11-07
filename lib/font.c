@@ -28,6 +28,7 @@
 #include <time.h>
 
 #include <pango/pango.h>
+#undef PANGO_DISABLE_DEPRECATED /* pango_ft_get_context */
 #ifdef HAVE_FREETYPE
 #include <pango/pangoft2.h>
 #endif
@@ -208,6 +209,7 @@ static void
 dia_pfd_set_height(PangoFontDescription* pfd, real height)
 { 
   /* ONLY place for the magic factor! */
+  g_return_if_fail (height > 0.0);
   pango_font_description_set_absolute_size(pfd, dcm_to_pdu(height) * 0.8);
 }
 
