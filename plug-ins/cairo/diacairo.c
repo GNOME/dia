@@ -206,9 +206,13 @@ export_data(DiagramData *data, const gchar *filename,
     width  = (data->extents.right - data->extents.left) * renderer->scale + 0.5;
     height = (data->extents.bottom - data->extents.top) * renderer->scale + 0.5;
     DIAG_NOTE(g_message ("CairoScript Surface %dx%d\n", (int)width, (int)height));
-    renderer->surface = cairo_script_surface_create(filename_crt,
-						    width, height);
-    cairo_script_surface_set_mode(renderer->surface, CAIRO_SCRIPT_MODE_ASCII);
+    {
+      cairo_script_context_t *csc = cairo_script_context_create (filename_crt);
+      cairo_script_context_set_mode (csc, CAIRO_SCRIPT_MODE_ASCII);
+      renderer->surface = cairo_script_surface_create(csc, CAIRO_CONTENT_COLOR_ALPHA,
+						      width, height);
+      cairo_script_context_destroy (csc);
+    }
     break;
 #endif
   /* finally cairo can render to MetaFiles */
