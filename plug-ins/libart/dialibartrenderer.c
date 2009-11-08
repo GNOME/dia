@@ -35,6 +35,7 @@
 
 #ifdef HAVE_FREETYPE
 #include <pango/pango.h>
+#undef PANGO_DISABLE_DEPRECATED /* pango_ft2_get_context */
 #include <pango/pangoft2.h>
 #elif defined G_OS_WIN32
 /* ugly namespace clashes */
