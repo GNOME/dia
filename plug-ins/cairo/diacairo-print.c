@@ -119,14 +119,28 @@ draw_page (GtkPrintOperation *operation,
     bounds.right = bounds.left + dp_width;
     bounds.bottom = bounds.top + dp_height;
   } else {
+    double dx, dy;
     int nx = ceil((data->extents.right - data->extents.left) / dp_width);
     x = page_nr % nx;
-    y = page_nr / nx; 
+    y = page_nr / nx;
+
+    /* Respect the original pagination as shown by the page guides.
+     * Caclulate the offset between page origin 0,0 and data.extents.topleft. 
+     * For the usual first page this boils down to lefttop=(0,0) but beware
+     * the origin being negative.
+     */
+    dx = fmod(data->extents.left, dp_width);
+    if (dx < 0.0)
+      dx += dp_width;
+    dy = fmod(data->extents.top, dp_height);
+    if (dy < 0.0)
+      dy += dp_height;
+
+    bounds.left = dp_width * x + data->extents.left - dx;
+    bounds.top = dp_height * y + data->extents.top - dy;
+    bounds.right = bounds.left + dp_width;
+    bounds.bottom = bounds.top + dp_height;
   }
-  bounds.left = dp_width * x + data->extents.left;
-  bounds.top = dp_height * y + data->extents.top;
-  bounds.right = bounds.left + dp_width;
-  bounds.bottom = bounds.top + dp_height;
 
 #if 0 /* calls begin/end of the given renderer */
   /* count the number of objects in this region */
