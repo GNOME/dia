@@ -183,7 +183,7 @@ PyDiaObject_GetAttr(PyDiaObject *self, gchar *attr)
 {
     if (!strcmp(attr, "__members__"))
 	return Py_BuildValue("[sssss]", "bounding_box", "connections",
-			     "handles", "properties", "type");
+			     "handles", "parent", "properties", "type");
     else if (!strcmp(attr, "type"))
 	return PyDiaObjectType_New(self->object->type);
     else if (!strcmp(attr, "bounding_box"))
@@ -205,6 +205,13 @@ PyDiaObject_GetAttr(PyDiaObject *self, gchar *attr)
 	return ret;
     } else if (!strcmp(attr, "properties")) {
 	return PyDiaProperties_New(self->object);
+    } else if (!strcmp(attr, "parent")) {
+	if (!self->object->parent) {
+	    Py_INCREF(Py_None);
+	    return Py_None;
+	} else {
+	    return PyDiaObject_New(self->object->parent);
+	}
     }
 
     return Py_FindMethod(PyDiaObject_Methods, (PyObject *)self, attr);
