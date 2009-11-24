@@ -28,6 +28,8 @@
 #include "pydia-color.h"
 #include "pydia-paperinfo.h"
 
+#include <structmember.h> /* PyMemberDef */
+
 #include "app/diagram.h"
 
 PyObject *
@@ -178,7 +180,7 @@ PyDiaDiagramData_DeleteLayer(PyDiaDiagramData *self, PyObject *args)
     return Py_None;
 }
 
-/* 
+/*! 
  *  Callback for "object_add" and "object_remove "signal, used by the connect_after method,
  *  it's a proxy for the python function, creating the values it needs.
  *  Params are those of the signals on the Diagram object.
@@ -287,15 +289,50 @@ PyDiaDiagramData_ConnectAfter(PyDiaDiagramData *self, PyObject *args)
 
 
 static PyMethodDef PyDiaDiagramData_Methods[] = {
-    {"update_extents", (PyCFunction)PyDiaDiagramData_UpdateExtents, 1},
-    {"get_sorted_selected", (PyCFunction)PyDiaDiagramData_GetSortedSelected, 1},
-    {"add_layer", (PyCFunction)PyDiaDiagramData_AddLayer, 1},
-    {"raise_layer", (PyCFunction)PyDiaDiagramData_RaiseLayer, 1},
-    {"lower_layer", (PyCFunction)PyDiaDiagramData_LowerLayer, 1},
-    {"set_active_layer", (PyCFunction)PyDiaDiagramData_SetActiveLayer, 1},
-    {"delete_layer", (PyCFunction)PyDiaDiagramData_DeleteLayer, 1},
-    {"connect_after", (PyCFunction)PyDiaDiagramData_ConnectAfter, 1},
+    {"update_extents", (PyCFunction)PyDiaDiagramData_UpdateExtents, METH_VARARGS,
+     "update_extents() -> None.  Recalculation of the diagram extents."},
+    {"get_sorted_selected", (PyCFunction)PyDiaDiagramData_GetSortedSelected, METH_VARARGS,
+     "get_sorted_selected() -> list.  Return the current selection sorted by Z-Order."},
+    {"add_layer", (PyCFunction)PyDiaDiagramData_AddLayer, METH_VARARGS,
+     "add_layer(Layer: layer[, int: position]) -> Layer."
+     "  Add a layer to the diagram at the top or the given position counting from bottom."},
+    {"raise_layer", (PyCFunction)PyDiaDiagramData_RaiseLayer, METH_VARARGS,
+     "raise_layer() -> None.  Move the layer towards the top."},
+    {"lower_layer", (PyCFunction)PyDiaDiagramData_LowerLayer, METH_VARARGS,
+     "lower_layer() -> None.  Move the layer towards the bottom."},
+    {"set_active_layer", (PyCFunction)PyDiaDiagramData_SetActiveLayer, METH_VARARGS,
+     "set_active_layer(Layer: layer) -> None.  Make the given layer the active one."},
+    {"delete_layer", (PyCFunction)PyDiaDiagramData_DeleteLayer, METH_VARARGS,
+     "delete_layer(Layer: layer) -> None.  Remove the given layer from the diagram."},
+    {"connect_after", (PyCFunction)PyDiaDiagramData_ConnectAfter, METH_VARARGS,
+     "connect_after(string: signal_name, Callback: func) -> None."
+     "  Listen to diagram events in ['object_add', 'object_remove']."},
     {NULL, 0, 0, NULL}
+};
+
+#define T_INVALID -1 /* can't allow direct access due to pyobject->data indirection */
+static PyMemberDef PyDiaDiagramData_Members[] = {
+    { "extents", T_INVALID, 0, RESTRICTED|READONLY,
+      "Rectangle covering all object's bounding boxes." },
+    { "bg_color", T_INVALID, 0, RESTRICTED|READONLY,
+      "Color of the diagram's background."},
+    { "paper", T_INVALID, 0, RESTRICTED|READONLY,
+      "Paperinfo of the diagram."},
+    { "layers", T_INVALID, 0, RESTRICTED|READONLY,
+      "Read-only list of the diagrams layers."},
+    { "active_layer", T_INVALID, 0, RESTRICTED|READONLY,
+      "Layer currently active in the diagram."},
+    { "grid_width", T_INVALID, 0, RESTRICTED|READONLY,
+      "Tuple(real: x, real: y) : describing the grid size."},
+    { "grid_visible", T_INVALID, 0, RESTRICTED|READONLY,
+      "bool: visibility of the grid."},
+    { "hguides", T_INVALID, 0, RESTRICTED|READONLY,
+      "List of real: horizontal guides."},
+    { "vguides", T_INVALID, 0, RESTRICTED|READONLY,
+      "List of real: vertical guides."},
+    { "selected", T_INVALID, 0, RESTRICTED|READONLY,
+      "List of Object: current selection."},
+    { NULL }
 };
 
 static PyObject *
@@ -399,5 +436,14 @@ PyTypeObject PyDiaDiagramData_Type = {
     0L, /* Flags */
     "The 'low level' diagram object. It contains everything to manipulate diagrams from im- and export "
     "filters as well as from the UI. It does not provide any access to GUI elements related to the diagram."
-    "Use the subclass dia.Diagram object for such matters."
+    "Use the subclass dia.Diagram object for such matters.",
+    (traverseproc)0,
+    (inquiry)0,
+    (richcmpfunc)0,
+    0, /* tp_weakliszoffset */
+    (getiterfunc)0,
+    (iternextfunc)0,
+    PyDiaDiagramData_Methods, /* tp_methods */
+    PyDiaDiagramData_Members, /* tp_members */
+    0
 };

@@ -22,6 +22,8 @@
 #include "pydia-object.h"
 #include "pydia-export.h"
 
+#include <structmember.h> /* PyMemberDef */
+
 PyObject *
 PyDiaExportFilter_New(DiaExportFilter *filter)
 {
@@ -68,13 +70,24 @@ static PyMethodDef PyDiaExportFilter_Methods[] = {
     {NULL, 0, 0, NULL}
 };
 
+#define T_INVALID -1 /* can't allow direct access due to pyobject->data indirection */
+static PyMemberDef PyDiaExportFilter_Members[] = {
+    { "name", T_INVALID, 0, RESTRICTED|READONLY,
+      "The description for the filter." },
+    { "unique_name", T_INVALID, 0, RESTRICTED|READONLY,
+      "A uniqe name within filters to allow disambiguation.", },
+    { NULL }
+};
+
 static PyObject *
 PyDiaExportFilter_GetAttr(PyDiaExportFilter *self, gchar *attr)
 {
     if (!strcmp(attr, "__members__"))
-	return Py_BuildValue("[s]", "name");
+	return Py_BuildValue("[ss]", "name");
     else if (!strcmp(attr, "name"))
 	return PyString_FromString(self->filter->description);
+    else if (!strcmp(attr, "unique_name"))
+	return PyString_FromString(self->filter->unique_name);
 
     return Py_FindMethod(PyDiaExportFilter_Methods, (PyObject *)self, attr);
 }
@@ -101,5 +114,14 @@ PyTypeObject PyDiaExportFilter_Type = {
     (setattrofunc)0,
     (PyBufferProcs *)0,
     0L, /* Flags */
-    "returned by dia.register_export() but not used otherwise yet."
+    "returned by dia.register_export() but not used otherwise yet.",
+    (traverseproc)0,
+    (inquiry)0,
+    (richcmpfunc)0,
+    0, /* tp_weakliszoffset */
+    (getiterfunc)0,
+    (iternextfunc)0,
+    PyDiaExportFilter_Methods, /* tp_methods */
+    PyDiaExportFilter_Members, /* tp_members */
+    0
 };

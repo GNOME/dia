@@ -26,6 +26,8 @@
 #include "pydia-font.h"
 #include "pydia-geometry.h"
 
+#include <structmember.h> /* PyMemberDef */
+
 /*
  * New
  */
@@ -116,6 +118,22 @@ PyDiaText_Str(PyDiaText *self)
   return ret;
 }
 
+#define T_INVALID -1 /* can't allow direct access due to pyobject->text indirection */
+static PyMemberDef PyDiaText_Members[] = {
+    { "text", T_INVALID, 0, RESTRICTED|READONLY,
+      "string: text data" },
+    { "font", T_INVALID, 0, RESTRICTED|READONLY,
+      "Font: read-only reference to font used" },
+    { "height", T_INVALID, 0, RESTRICTED|READONLY,
+      "real: height of the font" },
+    { "position", T_INVALID, 0, RESTRICTED|READONLY,
+      "Point: alignment position of the text" },
+    { "color", T_INVALID, 0, RESTRICTED|READONLY,
+      "Color: color of the text" },
+    { "alignment", T_INVALID, 0, RESTRICTED|READONLY,
+      "int: alignment out of LEFT=0, CENTER=1, RIGHT=2" },
+    { NULL }
+};
 /*
  * Python objetcs
  */
@@ -141,5 +159,14 @@ PyTypeObject PyDiaText_Type = {
     (setattrofunc)0,
     (PyBufferProcs *)0,
     0L, /* Flags */
-    "Many objects (dia.Object) having text to display provide this property."
+    "Many objects (dia.Object) having text to display provide this property.",
+    (traverseproc)0,
+    (inquiry)0,
+    (richcmpfunc)0,
+    0, /* tp_weakliszoffset */
+    (getiterfunc)0,
+    (iternextfunc)0,
+    0, /* tp_methods */
+    PyDiaText_Members, /* tp_members */
+    0
 };

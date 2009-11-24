@@ -22,6 +22,8 @@
 #include "pydia-object.h"
 #include "pydia-image.h"
 
+#include <structmember.h> /* PyMemberDef */
+
 /*
  * New
  */
@@ -134,6 +136,22 @@ PyDiaImage_Str(PyDiaImage *self)
   return py_s;
 }
 
+#define T_INVALID -1 /* can't allow direct access due to pyobject->cpoint indirection */
+static PyMemberDef PyDiaImage_Members[] = {
+    { "width", T_INVALID, 0, RESTRICTED|READONLY,
+      "int: pixel width of the image" },
+    { "height", T_INVALID, 0, RESTRICTED|READONLY,
+      "int: pixel height of the image" },
+    { "rgb_data", T_INVALID, 0, RESTRICTED|READONLY,
+      "string: array of packed rgb pixel values" },
+    { "mask_data", T_INVALID, 0, RESTRICTED|READONLY,
+      "string: array of alpha pixel values" },
+    { "filename", T_INVALID, 0, RESTRICTED|READONLY,
+      "string: utf-8 encoded filename of the image" },
+    { "uri", T_INVALID, 0, RESTRICTED|READONLY,
+      "string: Uniform Resource Identifier of the image" },
+    { NULL }
+};
 /*
  * Python objetcs
  */
@@ -159,5 +177,14 @@ PyTypeObject PyDiaImage_Type = {
     (setattrofunc)0,
     (PyBufferProcs *)0,
     0L, /* Flags */
-    "dia.Image gets passed into DiaRenderer.draw_image"
+    "dia.Image gets passed into DiaRenderer.draw_image",
+    (traverseproc)0,
+    (inquiry)0,
+    (richcmpfunc)0,
+    0, /* tp_weakliszoffset */
+    (getiterfunc)0,
+    (iternextfunc)0,
+    0, /* tp_methods */
+    PyDiaImage_Members, /* tp_members */
+    0
 };

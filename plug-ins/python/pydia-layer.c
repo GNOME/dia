@@ -23,6 +23,8 @@
 #include "pydia-object.h"
 #include "pydia-cpoint.h"
 
+#include <structmember.h> /* PyMemberDef */
+
 PyObject *
 PyDiaLayer_New(Layer *layer)
 {
@@ -158,11 +160,12 @@ PyDiaLayer_FindClosestConnectionPoint(PyDiaLayer *self, PyObject *args)
     Point pos;
     real dist;
     PyObject *ret;
+    PyDiaObject *obj;
 
-    if (!PyArg_ParseTuple(args, "dd:Layer.find_closest_connection_point",
-			  &pos.x, &pos.y))
+    if (!PyArg_ParseTuple(args, "dd|O!:Layer.find_closest_connection_point",
+			  &pos.x, &pos.y, PyDiaObject_Type, &obj))
 	return NULL;
-    dist = layer_find_closest_connectionpoint(self->layer, &cpoint, &pos, NULL);
+    dist = layer_find_closest_connectionpoint(self->layer, &cpoint, &pos, obj ? obj->object : NULL);
 
     ret = PyTuple_New(2);
     PyTuple_SetItem(ret, 0, PyFloat_FromDouble(dist));
@@ -194,17 +197,44 @@ PyDiaLayer_UpdateExtents(PyDiaLayer *self, PyObject *args)
  */
 
 static PyMethodDef PyDiaLayer_Methods[] = {
-    {"destroy", (PyCFunction)PyDiaLayer_Destroy, 1},
-    {"object_get_index", (PyCFunction)PyDiaLayer_ObjectGetIndex, 1},
-    {"add_object", (PyCFunction)PyDiaLayer_AddObject, 1},
-    {"remove_object", (PyCFunction)PyDiaLayer_RemoveObject, 1},
+    {"destroy", (PyCFunction)PyDiaLayer_Destroy, METH_VARARGS,
+     "Release the layer. Must not be called when already added to a diagram."},
+    {"object_get_index", (PyCFunction)PyDiaLayer_ObjectGetIndex, METH_VARARGS,
+     "object_get_index(Object: o) -> int."
+     "  Returns the index of the object in the layers list of objects."},
+    {"add_object", (PyCFunction)PyDiaLayer_AddObject, METH_VARARGS,
+     "add_object(Object: o[, int: position]) -> None."
+     "  Add the object to the layer at the top or the given position counting from bottom."},
+    {"remove_object", (PyCFunction)PyDiaLayer_RemoveObject, METH_VARARGS,
+     "remove_object(Object: o) -> None"
+     "  Remove the object from the layer and delete it."},
     {"find_objects_in_rectangle",
-     (PyCFunction)PyDiaLayer_FindObjectsInRectangle, 1},
-    {"find_closest_object", (PyCFunction)PyDiaLayer_FindClosestObject, 1},
+     (PyCFunction)PyDiaLayer_FindObjectsInRectangle, METH_VARARGS,
+     "find_objects_in_rectangle(real: top, real left, real: bottom, real: right) -> Objects"
+     "  Returns a list of objects found in the given rectangle."},
+    {"find_closest_object", (PyCFunction)PyDiaLayer_FindClosestObject, METH_VARARGS,
+     "find_closest_object(real: x, real: y, real: maxdist) -> Object."
+     "  Find an object in the given maximum distance of the given point."},
     {"find_closest_connection_point",
-     (PyCFunction)PyDiaLayer_FindClosestConnectionPoint, 1},
-    {"update_extents", (PyCFunction)PyDiaLayer_UpdateExtents, 1},
+     (PyCFunction)PyDiaLayer_FindClosestConnectionPoint, METH_VARARGS,
+     "find_closest_connectionpoint(real: x, real: y[, Object: o]) -> (real: dist, ConnectionPoint: cp)."
+     "  Given a point and an optional object to exclude return the distance and the closest connection point or None."},
+    {"update_extents", (PyCFunction)PyDiaLayer_UpdateExtents, METH_VARARGS,
+     "update_extents() -> None.  Force recaculation of the layer extents."},
     {NULL, 0, 0, NULL}
+};
+
+#define T_INVALID -1 /* can't allow direct access due to pyobject->data indirection */
+static PyMemberDef PyDiaLayer_Members[] = {
+    { "extents", T_INVALID, 0, RESTRICTED|READONLY,
+      "Rectangle covering all object's bounding boxes." },
+    { "name", T_INVALID, 0, RESTRICTED|READONLY,
+      "The name of the layer." },
+    { "objects", T_INVALID, 0, RESTRICTED|READONLY,
+      "The list of objects in the layer." },
+    { "visible", T_INVALID, 0, RESTRICTED|READONLY,
+      "The visibility of the layer." },
+    { NULL }
 };
 
 static PyObject *
@@ -257,5 +287,14 @@ PyTypeObject PyDiaLayer_Type = {
     (setattrofunc)0,
     (PyBufferProcs *)0,
     0L, /* Flags */
-    "A Layer is part of a Diagram and can contain objects."
+    "A Layer is part of a Diagram and can contain objects.",
+    (traverseproc)0,
+    (inquiry)0,
+    (richcmpfunc)0,
+    0, /* tp_weakliszoffset */
+    (getiterfunc)0,
+    (iternextfunc)0,
+    PyDiaLayer_Methods, /* tp_methods */
+    PyDiaLayer_Members, /* tp_members */
+    0
 };

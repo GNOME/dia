@@ -113,7 +113,7 @@
         <dia:int val="40"/>
       </dia:attribute>
       <dia:attribute name="comment_line_length">
-        <dia:int val="0"/>
+        <dia:int val="120"/>
       </dia:attribute>
       <dia:attribute name="comment_tagging">
         <dia:boolean val="false"/>
@@ -181,9 +181,7 @@
             <dia:string>##</dia:string>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>#float(x) -&gt; floating point number
-
-Convert a string or number to a floating point number, if possible.#</dia:string>
+            <dia:string>#double: blue color component [0 .. 1.0]#</dia:string>
           </dia:attribute>
           <dia:attribute name="visibility">
             <dia:enum val="0"/>
@@ -206,9 +204,7 @@ Convert a string or number to a floating point number, if possible.#</dia:string
             <dia:string>##</dia:string>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>#float(x) -&gt; floating point number
-
-Convert a string or number to a floating point number, if possible.#</dia:string>
+            <dia:string>#double: green color component [0 .. 1.0]#</dia:string>
           </dia:attribute>
           <dia:attribute name="visibility">
             <dia:enum val="0"/>
@@ -231,9 +227,7 @@ Convert a string or number to a floating point number, if possible.#</dia:string
             <dia:string>##</dia:string>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>#float(x) -&gt; floating point number
-
-Convert a string or number to a floating point number, if possible.#</dia:string>
+            <dia:string>#double: red color component [0 .. 1.0]#</dia:string>
           </dia:attribute>
           <dia:attribute name="visibility">
             <dia:enum val="0"/>
@@ -302,7 +296,7 @@ Convert a string or number to a floating point number, if possible.#</dia:string
         <dia:int val="40"/>
       </dia:attribute>
       <dia:attribute name="comment_line_length">
-        <dia:int val="0"/>
+        <dia:int val="120"/>
       </dia:attribute>
       <dia:attribute name="comment_tagging">
         <dia:boolean val="false"/>
@@ -370,10 +364,7 @@ Convert a string or number to a floating point number, if possible.#</dia:string
             <dia:string>##</dia:string>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>#tuple() -&gt; an empty tuple
-tuple(sequence) -&gt; tuple initialized from sequence's items
-
-If the argument is a tuple, the return value is the same object.#</dia:string>
+            <dia:string>#List of Object: read-only list of connected objects#</dia:string>
           </dia:attribute>
           <dia:attribute name="visibility">
             <dia:enum val="0"/>
@@ -396,7 +387,7 @@ If the argument is a tuple, the return value is the same object.#</dia:string>
             <dia:string>##</dia:string>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>#The main building block of diagrams.#</dia:string>
+            <dia:string>#Object: the object owning this connection point#</dia:string>
           </dia:attribute>
           <dia:attribute name="visibility">
             <dia:enum val="0"/>
@@ -419,7 +410,7 @@ If the argument is a tuple, the return value is the same object.#</dia:string>
             <dia:string>##</dia:string>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>#&lt;dia.ConnectionPoint object at 0x02C39CC0&gt;.pos#</dia:string>
+            <dia:string>#Point: read-only position of the connection point#</dia:string>
           </dia:attribute>
           <dia:attribute name="visibility">
             <dia:enum val="0"/>
@@ -443,7 +434,7 @@ If the argument is a tuple, the return value is the same object.#</dia:string>
         <dia:point val="14.6201,26.392"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="14.5701,26.342;27.1051,47.442"/>
+        <dia:rectangle val="14.5701,26.342;27.1051,48.242"/>
       </dia:attribute>
       <dia:attribute name="elem_corner">
         <dia:point val="14.6201,26.392"/>
@@ -452,7 +443,7 @@ If the argument is a tuple, the return value is the same object.#</dia:string>
         <dia:real val="12.434999999999999"/>
       </dia:attribute>
       <dia:attribute name="elem_height">
-        <dia:real val="21.000000000000007"/>
+        <dia:real val="21.800000000000004"/>
       </dia:attribute>
       <dia:attribute name="name">
         <dia:string>#Diagram#</dia:string>
@@ -461,7 +452,7 @@ If the argument is a tuple, the return value is the same object.#</dia:string>
         <dia:string>##</dia:string>
       </dia:attribute>
       <dia:attribute name="comment">
-        <dia:string>#Subclass of dia.DiagramData (at least in the C implmentation) adding interfacing the GUI elements.#</dia:string>
+        <dia:string>#Subclass of dia.DiagramData (at least in the C implementation) adding interfacing the GUI elements.#</dia:string>
       </dia:attribute>
       <dia:attribute name="abstract">
         <dia:boolean val="false"/>
@@ -488,7 +479,7 @@ If the argument is a tuple, the return value is the same object.#</dia:string>
         <dia:int val="40"/>
       </dia:attribute>
       <dia:attribute name="comment_line_length">
-        <dia:int val="0"/>
+        <dia:int val="120"/>
       </dia:attribute>
       <dia:attribute name="comment_tagging">
         <dia:boolean val="false"/>
@@ -556,7 +547,7 @@ If the argument is a tuple, the return value is the same object.#</dia:string>
             <dia:string>##</dia:string>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>#The 'low level' diagram object. It contains everything to manipulate diagrams from im- and export filters as well as from the UI. It does not provide any access to GUI elements related to the diagram.Use the subclass dia.Diagram object for such matters.#</dia:string>
+            <dia:string>#Backward-compatible base-class access#</dia:string>
           </dia:attribute>
           <dia:attribute name="visibility">
             <dia:enum val="0"/>
@@ -579,10 +570,7 @@ If the argument is a tuple, the return value is the same object.#</dia:string>
             <dia:string>##</dia:string>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>#tuple() -&gt; an empty tuple
-tuple(sequence) -&gt; tuple initialized from sequence's items
-
-If the argument is a tuple, the return value is the same object.#</dia:string>
+            <dia:string>#The list of current displays of this diagram.#</dia:string>
           </dia:attribute>
           <dia:attribute name="visibility">
             <dia:enum val="0"/>
@@ -605,10 +593,7 @@ If the argument is a tuple, the return value is the same object.#</dia:string>
             <dia:string>##</dia:string>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>#str(object) -&gt; string
-
-Return a nice string representation of the object.
-If the argument is a string, the return value is the same object.#</dia:string>
+            <dia:string>#Filename in utf-8 encoding.#</dia:string>
           </dia:attribute>
           <dia:attribute name="visibility">
             <dia:enum val="0"/>
@@ -631,14 +616,7 @@ If the argument is a string, the return value is the same object.#</dia:string>
             <dia:string>##</dia:string>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>#int(x[, base]) -&gt; integer
-
-Convert a string or number to an integer, if possible.  A floating point
-argument will be truncated towards zero (this does not include a string
-representation of a floating point number!)  When converting a string, use
-the optional base.  It is an error to supply a base when converting a
-non-string. If the argument is outside the integer range a long object
-will be returned instead.#</dia:string>
+            <dia:string>#Modification state.#</dia:string>
           </dia:attribute>
           <dia:attribute name="visibility">
             <dia:enum val="0"/>
@@ -661,10 +639,30 @@ will be returned instead.#</dia:string>
             <dia:string>##</dia:string>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>#tuple() -&gt; an empty tuple
-tuple(sequence) -&gt; tuple initialized from sequence's items
-
-If the argument is a tuple, the return value is the same object.#</dia:string>
+            <dia:string>#The current object selection.#</dia:string>
+          </dia:attribute>
+          <dia:attribute name="visibility">
+            <dia:enum val="0"/>
+          </dia:attribute>
+          <dia:attribute name="abstract">
+            <dia:boolean val="false"/>
+          </dia:attribute>
+          <dia:attribute name="class_scope">
+            <dia:boolean val="false"/>
+          </dia:attribute>
+        </dia:composite>
+        <dia:composite type="umlattribute">
+          <dia:attribute name="name">
+            <dia:string>#unsaved#</dia:string>
+          </dia:attribute>
+          <dia:attribute name="type">
+            <dia:string>##</dia:string>
+          </dia:attribute>
+          <dia:attribute name="value">
+            <dia:string>##</dia:string>
+          </dia:attribute>
+          <dia:attribute name="comment">
+            <dia:string>#True if the diagram was not saved yet.#</dia:string>
           </dia:attribute>
           <dia:attribute name="visibility">
             <dia:enum val="0"/>
@@ -692,7 +690,7 @@ If the argument is a tuple, the return value is the same object.#</dia:string>
             <dia:enum val="0"/>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>##</dia:string>
+            <dia:string>#add_update(real: top, real: left, real: bottom, real: right) -&gt; None.  Add the given rectangle to the update queue.#</dia:string>
           </dia:attribute>
           <dia:attribute name="abstract">
             <dia:boolean val="true"/>
@@ -722,7 +720,7 @@ If the argument is a tuple, the return value is the same object.#</dia:string>
             <dia:enum val="0"/>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>##</dia:string>
+            <dia:string>#add_update_all() -&gt; None.  Add the diagram visible area to the update queue.#</dia:string>
           </dia:attribute>
           <dia:attribute name="abstract">
             <dia:boolean val="true"/>
@@ -752,7 +750,7 @@ If the argument is a tuple, the return value is the same object.#</dia:string>
             <dia:enum val="0"/>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>##</dia:string>
+            <dia:string>#connect_after(string: signal_name, Callback: func) -&gt; None.  Listen to diagram events in ['removed', 'selection_changed'].#</dia:string>
           </dia:attribute>
           <dia:attribute name="abstract">
             <dia:boolean val="true"/>
@@ -782,7 +780,7 @@ If the argument is a tuple, the return value is the same object.#</dia:string>
             <dia:enum val="0"/>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>##</dia:string>
+            <dia:string>#display() -&gt; Display.  Create a new display of the diagram.#</dia:string>
           </dia:attribute>
           <dia:attribute name="abstract">
             <dia:boolean val="true"/>
@@ -812,7 +810,7 @@ If the argument is a tuple, the return value is the same object.#</dia:string>
             <dia:enum val="0"/>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>##</dia:string>
+            <dia:string>#find_clicked_object(real[2]: point, real: distance) -&gt; Object.  Find an object in the given distance of the given point.#</dia:string>
           </dia:attribute>
           <dia:attribute name="abstract">
             <dia:boolean val="true"/>
@@ -842,7 +840,7 @@ If the argument is a tuple, the return value is the same object.#</dia:string>
             <dia:enum val="0"/>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>##</dia:string>
+            <dia:string>#find_closest_connectionpoint(real: x, real: y[, Object: o]) -&gt; (real: dist, ConnectionPoint: cp).  Given a point and an optional object to exclude, return the distance and closest connection point or None.#</dia:string>
           </dia:attribute>
           <dia:attribute name="abstract">
             <dia:boolean val="true"/>
@@ -872,7 +870,7 @@ If the argument is a tuple, the return value is the same object.#</dia:string>
             <dia:enum val="0"/>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>##</dia:string>
+            <dia:string>#find_closest_handle(real[2]: point) -&gt; (real: distance, Handle: h, Object: o).  Find the closest handle from point and return a tuple of the search results.  Handle and Object might be None.#</dia:string>
           </dia:attribute>
           <dia:attribute name="abstract">
             <dia:boolean val="true"/>
@@ -902,7 +900,7 @@ If the argument is a tuple, the return value is the same object.#</dia:string>
             <dia:enum val="0"/>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>##</dia:string>
+            <dia:string>#flush() -&gt; None.  If no display update is queued, queue update.#</dia:string>
           </dia:attribute>
           <dia:attribute name="abstract">
             <dia:boolean val="true"/>
@@ -932,7 +930,7 @@ If the argument is a tuple, the return value is the same object.#</dia:string>
             <dia:enum val="0"/>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>##</dia:string>
+            <dia:string>#get_sorted_selected() -&gt; list.  Return the current selection sorted by Z-Order.#</dia:string>
           </dia:attribute>
           <dia:attribute name="abstract">
             <dia:boolean val="true"/>
@@ -962,7 +960,7 @@ If the argument is a tuple, the return value is the same object.#</dia:string>
             <dia:enum val="0"/>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>##</dia:string>
+            <dia:string>#get_sorted_selected_remove() -&gt; list.  Return sorted selection and remove it from the diagram.#</dia:string>
           </dia:attribute>
           <dia:attribute name="abstract">
             <dia:boolean val="true"/>
@@ -992,7 +990,7 @@ If the argument is a tuple, the return value is the same object.#</dia:string>
             <dia:enum val="0"/>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>##</dia:string>
+            <dia:string>#group_selected() -&gt; None.  Turn the current selection into a group object.#</dia:string>
           </dia:attribute>
           <dia:attribute name="abstract">
             <dia:boolean val="true"/>
@@ -1022,7 +1020,7 @@ If the argument is a tuple, the return value is the same object.#</dia:string>
             <dia:enum val="0"/>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>##</dia:string>
+            <dia:string>#is_selected(Object: o) -&gt; bool.  True if the given object is already selected.#</dia:string>
           </dia:attribute>
           <dia:attribute name="abstract">
             <dia:boolean val="true"/>
@@ -1052,7 +1050,7 @@ If the argument is a tuple, the return value is the same object.#</dia:string>
             <dia:enum val="0"/>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>##</dia:string>
+            <dia:string>#remove_all_selected() -&gt; None.  Delete all selected objects.#</dia:string>
           </dia:attribute>
           <dia:attribute name="abstract">
             <dia:boolean val="true"/>
@@ -1082,7 +1080,7 @@ If the argument is a tuple, the return value is the same object.#</dia:string>
             <dia:enum val="0"/>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>##</dia:string>
+            <dia:string>#save(string: filename) -&gt; None.  Save the diagram under the given filename.#</dia:string>
           </dia:attribute>
           <dia:attribute name="abstract">
             <dia:boolean val="true"/>
@@ -1112,7 +1110,7 @@ If the argument is a tuple, the return value is the same object.#</dia:string>
             <dia:enum val="0"/>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>##</dia:string>
+            <dia:string>#select(Object: o) -&gt; None.  Add the given object to the selection.#</dia:string>
           </dia:attribute>
           <dia:attribute name="abstract">
             <dia:boolean val="true"/>
@@ -1142,7 +1140,7 @@ If the argument is a tuple, the return value is the same object.#</dia:string>
             <dia:enum val="0"/>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>##</dia:string>
+            <dia:string>#ungroup_selected() -&gt; None.  Split all groups in the current selection into single objects.#</dia:string>
           </dia:attribute>
           <dia:attribute name="abstract">
             <dia:boolean val="true"/>
@@ -1172,7 +1170,7 @@ If the argument is a tuple, the return value is the same object.#</dia:string>
             <dia:enum val="0"/>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>##</dia:string>
+            <dia:string>#unselect(Object: o) -&gt; None.  Remove the given object from the selection)#</dia:string>
           </dia:attribute>
           <dia:attribute name="abstract">
             <dia:boolean val="true"/>
@@ -1202,7 +1200,7 @@ If the argument is a tuple, the return value is the same object.#</dia:string>
             <dia:enum val="0"/>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>##</dia:string>
+            <dia:string>#update_connections(Object: o) -&gt; None.  Update all connections of the given object. Might move connected objects.#</dia:string>
           </dia:attribute>
           <dia:attribute name="abstract">
             <dia:boolean val="true"/>
@@ -1232,7 +1230,7 @@ If the argument is a tuple, the return value is the same object.#</dia:string>
             <dia:enum val="0"/>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>##</dia:string>
+            <dia:string>#update_extents() -&gt; None.  Force recaculation of the diagram extents.#</dia:string>
           </dia:attribute>
           <dia:attribute name="abstract">
             <dia:boolean val="true"/>
@@ -1304,7 +1302,7 @@ If the argument is a tuple, the return value is the same object.#</dia:string>
         <dia:int val="40"/>
       </dia:attribute>
       <dia:attribute name="comment_line_length">
-        <dia:int val="0"/>
+        <dia:int val="120"/>
       </dia:attribute>
       <dia:attribute name="comment_tagging">
         <dia:boolean val="false"/>
@@ -1372,7 +1370,7 @@ If the argument is a tuple, the return value is the same object.#</dia:string>
             <dia:string>##</dia:string>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>#A Layer is part of a Diagram and can contain objects.#</dia:string>
+            <dia:string>#Layer currently active in the diagram.#</dia:string>
           </dia:attribute>
           <dia:attribute name="visibility">
             <dia:enum val="0"/>
@@ -1395,7 +1393,7 @@ If the argument is a tuple, the return value is the same object.#</dia:string>
             <dia:string>##</dia:string>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>#&lt;PyDiaDiagramData 02C39C50&gt;.bg_color#</dia:string>
+            <dia:string>#Color of the diagram's background.#</dia:string>
           </dia:attribute>
           <dia:attribute name="visibility">
             <dia:enum val="0"/>
@@ -1418,7 +1416,7 @@ If the argument is a tuple, the return value is the same object.#</dia:string>
             <dia:string>##</dia:string>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>#&lt;PyDiaDiagramData 02C39C50&gt;.extents#</dia:string>
+            <dia:string>#Rectangle covering all object's bounding boxes.#</dia:string>
           </dia:attribute>
           <dia:attribute name="visibility">
             <dia:enum val="0"/>
@@ -1441,10 +1439,7 @@ If the argument is a tuple, the return value is the same object.#</dia:string>
             <dia:string>##</dia:string>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>#tuple() -&gt; an empty tuple
-tuple(sequence) -&gt; tuple initialized from sequence's items
-
-If the argument is a tuple, the return value is the same object.#</dia:string>
+            <dia:string>#bool: visibility of the grid.#</dia:string>
           </dia:attribute>
           <dia:attribute name="visibility">
             <dia:enum val="0"/>
@@ -1467,10 +1462,7 @@ If the argument is a tuple, the return value is the same object.#</dia:string>
             <dia:string>##</dia:string>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>#tuple() -&gt; an empty tuple
-tuple(sequence) -&gt; tuple initialized from sequence's items
-
-If the argument is a tuple, the return value is the same object.#</dia:string>
+            <dia:string>#Tuple(real: x, real: y) : describing the grid size.#</dia:string>
           </dia:attribute>
           <dia:attribute name="visibility">
             <dia:enum val="0"/>
@@ -1493,10 +1485,7 @@ If the argument is a tuple, the return value is the same object.#</dia:string>
             <dia:string>##</dia:string>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>#tuple() -&gt; an empty tuple
-tuple(sequence) -&gt; tuple initialized from sequence's items
-
-If the argument is a tuple, the return value is the same object.#</dia:string>
+            <dia:string>#List of real: horizontal guides.#</dia:string>
           </dia:attribute>
           <dia:attribute name="visibility">
             <dia:enum val="0"/>
@@ -1519,10 +1508,7 @@ If the argument is a tuple, the return value is the same object.#</dia:string>
             <dia:string>##</dia:string>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>#tuple() -&gt; an empty tuple
-tuple(sequence) -&gt; tuple initialized from sequence's items
-
-If the argument is a tuple, the return value is the same object.#</dia:string>
+            <dia:string>#Read-only list of the diagrams layers.#</dia:string>
           </dia:attribute>
           <dia:attribute name="visibility">
             <dia:enum val="0"/>
@@ -1545,7 +1531,7 @@ If the argument is a tuple, the return value is the same object.#</dia:string>
             <dia:string>##</dia:string>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>##</dia:string>
+            <dia:string>#Paperinfo of the diagram.#</dia:string>
           </dia:attribute>
           <dia:attribute name="visibility">
             <dia:enum val="0"/>
@@ -1568,10 +1554,7 @@ If the argument is a tuple, the return value is the same object.#</dia:string>
             <dia:string>##</dia:string>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>#tuple() -&gt; an empty tuple
-tuple(sequence) -&gt; tuple initialized from sequence's items
-
-If the argument is a tuple, the return value is the same object.#</dia:string>
+            <dia:string>#List of Object: current selection.#</dia:string>
           </dia:attribute>
           <dia:attribute name="visibility">
             <dia:enum val="0"/>
@@ -1594,10 +1577,7 @@ If the argument is a tuple, the return value is the same object.#</dia:string>
             <dia:string>##</dia:string>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>#tuple() -&gt; an empty tuple
-tuple(sequence) -&gt; tuple initialized from sequence's items
-
-If the argument is a tuple, the return value is the same object.#</dia:string>
+            <dia:string>#List of real: vertical guides.#</dia:string>
           </dia:attribute>
           <dia:attribute name="visibility">
             <dia:enum val="0"/>
@@ -1625,7 +1605,7 @@ If the argument is a tuple, the return value is the same object.#</dia:string>
             <dia:enum val="0"/>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>##</dia:string>
+            <dia:string>#add_layer(Layer: layer[, int: position]) -&gt; Layer.  Add a layer to the diagram at the top or the given position counting from bottom.#</dia:string>
           </dia:attribute>
           <dia:attribute name="abstract">
             <dia:boolean val="true"/>
@@ -1655,7 +1635,7 @@ If the argument is a tuple, the return value is the same object.#</dia:string>
             <dia:enum val="0"/>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>##</dia:string>
+            <dia:string>#connect_after(string: signal_name, Callback: func) -&gt; None.  Listen to diagram events in ['object_add', 'object_remove'].#</dia:string>
           </dia:attribute>
           <dia:attribute name="abstract">
             <dia:boolean val="true"/>
@@ -1685,7 +1665,7 @@ If the argument is a tuple, the return value is the same object.#</dia:string>
             <dia:enum val="0"/>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>##</dia:string>
+            <dia:string>#delete_layer(Layer: layer) -&gt; None.  Remove the given layer from the diagram.#</dia:string>
           </dia:attribute>
           <dia:attribute name="abstract">
             <dia:boolean val="true"/>
@@ -1715,7 +1695,7 @@ If the argument is a tuple, the return value is the same object.#</dia:string>
             <dia:enum val="0"/>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>##</dia:string>
+            <dia:string>#get_sorted_selected() -&gt; list.  Return the current selection sorted by Z-Order.#</dia:string>
           </dia:attribute>
           <dia:attribute name="abstract">
             <dia:boolean val="true"/>
@@ -1745,7 +1725,7 @@ If the argument is a tuple, the return value is the same object.#</dia:string>
             <dia:enum val="0"/>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>##</dia:string>
+            <dia:string>#lower_layer() -&gt; None.  Move the layer towards the bottom.#</dia:string>
           </dia:attribute>
           <dia:attribute name="abstract">
             <dia:boolean val="true"/>
@@ -1775,7 +1755,7 @@ If the argument is a tuple, the return value is the same object.#</dia:string>
             <dia:enum val="0"/>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>##</dia:string>
+            <dia:string>#raise_layer() -&gt; None.  Move the layer towards the top.#</dia:string>
           </dia:attribute>
           <dia:attribute name="abstract">
             <dia:boolean val="true"/>
@@ -1805,7 +1785,7 @@ If the argument is a tuple, the return value is the same object.#</dia:string>
             <dia:enum val="0"/>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>##</dia:string>
+            <dia:string>#set_active_layer(Layer: layer) -&gt; None.  Make the given layer the active one.#</dia:string>
           </dia:attribute>
           <dia:attribute name="abstract">
             <dia:boolean val="true"/>
@@ -1835,7 +1815,7 @@ If the argument is a tuple, the return value is the same object.#</dia:string>
             <dia:enum val="0"/>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>##</dia:string>
+            <dia:string>#update_extents() -&gt; None.  Recalculation of the diagram extents.#</dia:string>
           </dia:attribute>
           <dia:attribute name="abstract">
             <dia:boolean val="true"/>
@@ -1907,7 +1887,7 @@ If the argument is a tuple, the return value is the same object.#</dia:string>
         <dia:int val="40"/>
       </dia:attribute>
       <dia:attribute name="comment_line_length">
-        <dia:int val="0"/>
+        <dia:int val="120"/>
       </dia:attribute>
       <dia:attribute name="comment_tagging">
         <dia:boolean val="false"/>
@@ -1975,7 +1955,7 @@ If the argument is a tuple, the return value is the same object.#</dia:string>
             <dia:string>##</dia:string>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>#Subclass of dia.DiagramData (at least in the C implmentation) adding interfacing the GUI elements.#</dia:string>
+            <dia:string>#Diagram displayed.#</dia:string>
           </dia:attribute>
           <dia:attribute name="visibility">
             <dia:enum val="0"/>
@@ -1998,10 +1978,7 @@ If the argument is a tuple, the return value is the same object.#</dia:string>
             <dia:string>##</dia:string>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>#tuple() -&gt; an empty tuple
-tuple(sequence) -&gt; tuple initialized from sequence's items
-
-If the argument is a tuple, the return value is the same object.#</dia:string>
+            <dia:string>#Point in diagram coordinates of the top-left corner of the visible area.#</dia:string>
           </dia:attribute>
           <dia:attribute name="visibility">
             <dia:enum val="0"/>
@@ -2024,10 +2001,7 @@ If the argument is a tuple, the return value is the same object.#</dia:string>
             <dia:string>##</dia:string>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>#tuple() -&gt; an empty tuple
-tuple(sequence) -&gt; tuple initialized from sequence's items
-
-If the argument is a tuple, the return value is the same object.#</dia:string>
+            <dia:string>#Tuple(real: top, real: left, real: bottom, real: right) : visible area#</dia:string>
           </dia:attribute>
           <dia:attribute name="visibility">
             <dia:enum val="0"/>
@@ -2050,9 +2024,7 @@ If the argument is a tuple, the return value is the same object.#</dia:string>
             <dia:string>##</dia:string>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>#float(x) -&gt; floating point number
-
-Convert a string or number to a floating point number, if possible.#</dia:string>
+            <dia:string>#Real: zoom-factor#</dia:string>
           </dia:attribute>
           <dia:attribute name="visibility">
             <dia:enum val="0"/>
@@ -2080,7 +2052,7 @@ Convert a string or number to a floating point number, if possible.#</dia:string
             <dia:enum val="0"/>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>##</dia:string>
+            <dia:string>#add_update_all() -&gt; None.  Add the diagram visible area to the update queue.#</dia:string>
           </dia:attribute>
           <dia:attribute name="abstract">
             <dia:boolean val="true"/>
@@ -2110,7 +2082,7 @@ Convert a string or number to a floating point number, if possible.#</dia:string
             <dia:enum val="0"/>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>##</dia:string>
+            <dia:string>#close() -&gt; None.  Close the display possibly asking to save.#</dia:string>
           </dia:attribute>
           <dia:attribute name="abstract">
             <dia:boolean val="true"/>
@@ -2140,7 +2112,7 @@ Convert a string or number to a floating point number, if possible.#</dia:string
             <dia:enum val="0"/>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>##</dia:string>
+            <dia:string>#flush() -&gt; None.  If no display update is queued, queue update.#</dia:string>
           </dia:attribute>
           <dia:attribute name="abstract">
             <dia:boolean val="true"/>
@@ -2170,7 +2142,7 @@ Convert a string or number to a floating point number, if possible.#</dia:string
             <dia:enum val="0"/>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>##</dia:string>
+            <dia:string>#resize_canvas(int: width, int: height) -&gt; None.  BEWARE: Changing the drawing area but not the window size.#</dia:string>
           </dia:attribute>
           <dia:attribute name="abstract">
             <dia:boolean val="true"/>
@@ -2200,7 +2172,7 @@ Convert a string or number to a floating point number, if possible.#</dia:string
             <dia:enum val="0"/>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>##</dia:string>
+            <dia:string>#scroll(real: dx, real: dy) -&gt; None.  Scroll the visible area by the given delta.#</dia:string>
           </dia:attribute>
           <dia:attribute name="abstract">
             <dia:boolean val="true"/>
@@ -2230,7 +2202,7 @@ Convert a string or number to a floating point number, if possible.#</dia:string
             <dia:enum val="0"/>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>##</dia:string>
+            <dia:string>#scroll_down() -&gt; None. Scroll downwards by a fixed amount.#</dia:string>
           </dia:attribute>
           <dia:attribute name="abstract">
             <dia:boolean val="true"/>
@@ -2260,7 +2232,7 @@ Convert a string or number to a floating point number, if possible.#</dia:string
             <dia:enum val="0"/>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>##</dia:string>
+            <dia:string>#scroll_left() -&gt; None. Scroll to the left by a fixed amount.#</dia:string>
           </dia:attribute>
           <dia:attribute name="abstract">
             <dia:boolean val="true"/>
@@ -2290,7 +2262,7 @@ Convert a string or number to a floating point number, if possible.#</dia:string
             <dia:enum val="0"/>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>##</dia:string>
+            <dia:string>#scroll_right() -&gt; None. Scroll to the right by a fixed amount.#</dia:string>
           </dia:attribute>
           <dia:attribute name="abstract">
             <dia:boolean val="true"/>
@@ -2320,7 +2292,7 @@ Convert a string or number to a floating point number, if possible.#</dia:string
             <dia:enum val="0"/>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>##</dia:string>
+            <dia:string>#scroll_up() -&gt; None. Scroll upwards by a fixed amount.#</dia:string>
           </dia:attribute>
           <dia:attribute name="abstract">
             <dia:boolean val="true"/>
@@ -2350,7 +2322,7 @@ Convert a string or number to a floating point number, if possible.#</dia:string
             <dia:enum val="0"/>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>##</dia:string>
+            <dia:string>#set_origion(real: x, real, y) -&gt; None.  Move the given diagram point to the top-left corner of the visible area.#</dia:string>
           </dia:attribute>
           <dia:attribute name="abstract">
             <dia:boolean val="true"/>
@@ -2380,7 +2352,7 @@ Convert a string or number to a floating point number, if possible.#</dia:string
             <dia:enum val="0"/>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>##</dia:string>
+            <dia:string>#set_title(string: title) -&gt; None.  Temporary change of the diagram title.#</dia:string>
           </dia:attribute>
           <dia:attribute name="abstract">
             <dia:boolean val="true"/>
@@ -2410,7 +2382,7 @@ Convert a string or number to a floating point number, if possible.#</dia:string
             <dia:enum val="0"/>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>##</dia:string>
+            <dia:string>#zoom(real[2]: point, real: factor) -&gt; None.  Zoom around the given point.#</dia:string>
           </dia:attribute>
           <dia:attribute name="abstract">
             <dia:boolean val="true"/>
@@ -2482,7 +2454,7 @@ Convert a string or number to a floating point number, if possible.#</dia:string
         <dia:int val="40"/>
       </dia:attribute>
       <dia:attribute name="comment_line_length">
-        <dia:int val="0"/>
+        <dia:int val="120"/>
       </dia:attribute>
       <dia:attribute name="comment_tagging">
         <dia:boolean val="false"/>
@@ -2547,19 +2519,19 @@ Convert a string or number to a floating point number, if possible.#</dia:string
     </dia:object>
     <dia:object type="UML - Class" version="0" id="O6">
       <dia:attribute name="obj_pos">
-        <dia:point val="2.23349,35.3833"/>
+        <dia:point val="2.1558,35.2279"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="2.18349,35.3333;7.54099,37.6333"/>
+        <dia:rectangle val="2.1058,35.1779;7.4633,38.8779"/>
       </dia:attribute>
       <dia:attribute name="elem_corner">
-        <dia:point val="2.23349,35.3833"/>
+        <dia:point val="2.1558,35.2279"/>
       </dia:attribute>
       <dia:attribute name="elem_width">
         <dia:real val="5.2575000000000003"/>
       </dia:attribute>
       <dia:attribute name="elem_height">
-        <dia:real val="2.1999999999999997"/>
+        <dia:real val="3.6000000000000001"/>
       </dia:attribute>
       <dia:attribute name="name">
         <dia:string>#ExportFilter#</dia:string>
@@ -2595,7 +2567,7 @@ Convert a string or number to a floating point number, if possible.#</dia:string
         <dia:int val="40"/>
       </dia:attribute>
       <dia:attribute name="comment_line_length">
-        <dia:int val="0"/>
+        <dia:int val="120"/>
       </dia:attribute>
       <dia:attribute name="comment_tagging">
         <dia:boolean val="false"/>
@@ -2651,7 +2623,54 @@ Convert a string or number to a floating point number, if possible.#</dia:string
       <dia:attribute name="comment_font_height">
         <dia:real val="0.69999999999999996"/>
       </dia:attribute>
-      <dia:attribute name="attributes"/>
+      <dia:attribute name="attributes">
+        <dia:composite type="umlattribute">
+          <dia:attribute name="name">
+            <dia:string>#name#</dia:string>
+          </dia:attribute>
+          <dia:attribute name="type">
+            <dia:string>##</dia:string>
+          </dia:attribute>
+          <dia:attribute name="value">
+            <dia:string>##</dia:string>
+          </dia:attribute>
+          <dia:attribute name="comment">
+            <dia:string>#The description for the filter.#</dia:string>
+          </dia:attribute>
+          <dia:attribute name="visibility">
+            <dia:enum val="0"/>
+          </dia:attribute>
+          <dia:attribute name="abstract">
+            <dia:boolean val="false"/>
+          </dia:attribute>
+          <dia:attribute name="class_scope">
+            <dia:boolean val="false"/>
+          </dia:attribute>
+        </dia:composite>
+        <dia:composite type="umlattribute">
+          <dia:attribute name="name">
+            <dia:string>#unique_name#</dia:string>
+          </dia:attribute>
+          <dia:attribute name="type">
+            <dia:string>##</dia:string>
+          </dia:attribute>
+          <dia:attribute name="value">
+            <dia:string>##</dia:string>
+          </dia:attribute>
+          <dia:attribute name="comment">
+            <dia:string>#A uniqe name within filters to allow disambiguation.#</dia:string>
+          </dia:attribute>
+          <dia:attribute name="visibility">
+            <dia:enum val="0"/>
+          </dia:attribute>
+          <dia:attribute name="abstract">
+            <dia:boolean val="false"/>
+          </dia:attribute>
+          <dia:attribute name="class_scope">
+            <dia:boolean val="false"/>
+          </dia:attribute>
+        </dia:composite>
+      </dia:attribute>
       <dia:attribute name="operations"/>
       <dia:attribute name="template">
         <dia:boolean val="false"/>
@@ -2708,7 +2727,7 @@ Convert a string or number to a floating point number, if possible.#</dia:string
         <dia:int val="40"/>
       </dia:attribute>
       <dia:attribute name="comment_line_length">
-        <dia:int val="0"/>
+        <dia:int val="120"/>
       </dia:attribute>
       <dia:attribute name="comment_tagging">
         <dia:boolean val="false"/>
@@ -2776,14 +2795,7 @@ Convert a string or number to a floating point number, if possible.#</dia:string
             <dia:string>##</dia:string>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>#int(x[, base]) -&gt; integer
-
-Convert a string or number to an integer, if possible.  A floating point
-argument will be truncated towards zero (this does not include a string
-representation of a floating point number!)  When converting a string, use
-the optional base.  It is an error to supply a base when converting a
-non-string. If the argument is outside the integer range a long object
-will be returned instead.#</dia:string>
+            <dia:string>#NONCONNECTABLE=0.#</dia:string>
           </dia:attribute>
           <dia:attribute name="visibility">
             <dia:enum val="0"/>
@@ -2806,7 +2818,7 @@ will be returned instead.#</dia:string>
             <dia:string>##</dia:string>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>##</dia:string>
+            <dia:string>#The connected ConnectionPoint object or None.#</dia:string>
           </dia:attribute>
           <dia:attribute name="visibility">
             <dia:enum val="0"/>
@@ -2829,14 +2841,7 @@ will be returned instead.#</dia:string>
             <dia:string>##</dia:string>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>#int(x[, base]) -&gt; integer
-
-Convert a string or number to an integer, if possible.  A floating point
-argument will be truncated towards zero (this does not include a string
-representation of a floating point number!)  When converting a string, use
-the optional base.  It is an error to supply a base when converting a
-non-string. If the argument is outside the integer range a long object
-will be returned instead.#</dia:string>
+            <dia:string>#Can be used to derive preferred directions from it.#</dia:string>
           </dia:attribute>
           <dia:attribute name="visibility">
             <dia:enum val="0"/>
@@ -2859,7 +2864,7 @@ will be returned instead.#</dia:string>
             <dia:string>##</dia:string>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>#&lt;dia.Handle object at 0x02C39C90&gt;.pos#</dia:string>
+            <dia:string>#The position of the connection point.#</dia:string>
           </dia:attribute>
           <dia:attribute name="visibility">
             <dia:enum val="0"/>
@@ -2882,14 +2887,7 @@ will be returned instead.#</dia:string>
             <dia:string>##</dia:string>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>#int(x[, base]) -&gt; integer
-
-Convert a string or number to an integer, if possible.  A floating point
-argument will be truncated towards zero (this does not include a string
-representation of a floating point number!)  When converting a string, use
-the optional base.  It is an error to supply a base when converting a
-non-string. If the argument is outside the integer range a long object
-will be returned instead.#</dia:string>
+            <dia:string>#NON_MOVABLE=0, MAJOR_CONTROL=1, MINOR_CONTROL=2#</dia:string>
           </dia:attribute>
           <dia:attribute name="visibility">
             <dia:enum val="0"/>
@@ -2917,7 +2915,7 @@ will be returned instead.#</dia:string>
             <dia:enum val="0"/>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>##</dia:string>
+            <dia:string>#connect(ConnectionPoint: cp) -&gt; None.  Connect object A's handle with object B's connection point. To disconnect a handle pass in None.#</dia:string>
           </dia:attribute>
           <dia:attribute name="abstract">
             <dia:boolean val="true"/>
@@ -2989,7 +2987,7 @@ will be returned instead.#</dia:string>
         <dia:int val="40"/>
       </dia:attribute>
       <dia:attribute name="comment_line_length">
-        <dia:int val="0"/>
+        <dia:int val="120"/>
       </dia:attribute>
       <dia:attribute name="comment_tagging">
         <dia:boolean val="false"/>
@@ -3057,10 +3055,7 @@ will be returned instead.#</dia:string>
             <dia:string>##</dia:string>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>#tuple() -&gt; an empty tuple
-tuple(sequence) -&gt; tuple initialized from sequence's items
-
-If the argument is a tuple, the return value is the same object.#</dia:string>
+            <dia:string>#Rectangle covering all object's bounding boxes.#</dia:string>
           </dia:attribute>
           <dia:attribute name="visibility">
             <dia:enum val="0"/>
@@ -3083,10 +3078,7 @@ If the argument is a tuple, the return value is the same object.#</dia:string>
             <dia:string>##</dia:string>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>#str(object) -&gt; string
-
-Return a nice string representation of the object.
-If the argument is a string, the return value is the same object.#</dia:string>
+            <dia:string>#The name of the layer.#</dia:string>
           </dia:attribute>
           <dia:attribute name="visibility">
             <dia:enum val="0"/>
@@ -3109,10 +3101,7 @@ If the argument is a string, the return value is the same object.#</dia:string>
             <dia:string>##</dia:string>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>#tuple() -&gt; an empty tuple
-tuple(sequence) -&gt; tuple initialized from sequence's items
-
-If the argument is a tuple, the return value is the same object.#</dia:string>
+            <dia:string>#The list of objects in the layer.#</dia:string>
           </dia:attribute>
           <dia:attribute name="visibility">
             <dia:enum val="0"/>
@@ -3135,14 +3124,7 @@ If the argument is a tuple, the return value is the same object.#</dia:string>
             <dia:string>##</dia:string>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>#int(x[, base]) -&gt; integer
-
-Convert a string or number to an integer, if possible.  A floating point
-argument will be truncated towards zero (this does not include a string
-representation of a floating point number!)  When converting a string, use
-the optional base.  It is an error to supply a base when converting a
-non-string. If the argument is outside the integer range a long object
-will be returned instead.#</dia:string>
+            <dia:string>#The visibility of the layer.#</dia:string>
           </dia:attribute>
           <dia:attribute name="visibility">
             <dia:enum val="0"/>
@@ -3170,7 +3152,7 @@ will be returned instead.#</dia:string>
             <dia:enum val="0"/>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>##</dia:string>
+            <dia:string>#add_object(Object: o[, int: position]) -&gt; None.  Add the object to the layer at the top or the given position counting from bottom.#</dia:string>
           </dia:attribute>
           <dia:attribute name="abstract">
             <dia:boolean val="true"/>
@@ -3200,7 +3182,7 @@ will be returned instead.#</dia:string>
             <dia:enum val="0"/>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>##</dia:string>
+            <dia:string>#Release the layer. Must not be called when already added to a diagram.#</dia:string>
           </dia:attribute>
           <dia:attribute name="abstract">
             <dia:boolean val="true"/>
@@ -3230,7 +3212,7 @@ will be returned instead.#</dia:string>
             <dia:enum val="0"/>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>##</dia:string>
+            <dia:string>#find_closest_connectionpoint(real: x, real: y[, Object: o]) -&gt; (real: dist, ConnectionPoint: cp).  Given a point and an optional object to exclude return the distance and the closest connection point or None.#</dia:string>
           </dia:attribute>
           <dia:attribute name="abstract">
             <dia:boolean val="true"/>
@@ -3260,7 +3242,7 @@ will be returned instead.#</dia:string>
             <dia:enum val="0"/>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>##</dia:string>
+            <dia:string>#find_closest_object(real: x, real: y, real: maxdist) -&gt; Object.  Find an object in the given maximum distance of the given point.#</dia:string>
           </dia:attribute>
           <dia:attribute name="abstract">
             <dia:boolean val="true"/>
@@ -3290,7 +3272,7 @@ will be returned instead.#</dia:string>
             <dia:enum val="0"/>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>##</dia:string>
+            <dia:string>#find_objects_in_rectangle(real: top, real left, real: bottom, real: right) -&gt; Objects  Returns a list of objects found in the given rectangle.#</dia:string>
           </dia:attribute>
           <dia:attribute name="abstract">
             <dia:boolean val="true"/>
@@ -3308,7 +3290,7 @@ will be returned instead.#</dia:string>
         </dia:composite>
         <dia:composite type="umloperation">
           <dia:attribute name="name">
-            <dia:string>#object_index#</dia:string>
+            <dia:string>#object_get_index#</dia:string>
           </dia:attribute>
           <dia:attribute name="stereotype">
             <dia:string>##</dia:string>
@@ -3320,7 +3302,7 @@ will be returned instead.#</dia:string>
             <dia:enum val="0"/>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>##</dia:string>
+            <dia:string>#object_get_index(Object: o) -&gt; int.  Returns the index of the object in the layers list of objects.#</dia:string>
           </dia:attribute>
           <dia:attribute name="abstract">
             <dia:boolean val="true"/>
@@ -3350,7 +3332,7 @@ will be returned instead.#</dia:string>
             <dia:enum val="0"/>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>##</dia:string>
+            <dia:string>#remove_object(Object: o) -&gt; None  Remove the object from the layer and delete it.#</dia:string>
           </dia:attribute>
           <dia:attribute name="abstract">
             <dia:boolean val="true"/>
@@ -3380,7 +3362,7 @@ will be returned instead.#</dia:string>
             <dia:enum val="0"/>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>##</dia:string>
+            <dia:string>#update_extents() -&gt; None.  Force recaculation of the layer extents.#</dia:string>
           </dia:attribute>
           <dia:attribute name="abstract">
             <dia:boolean val="true"/>
@@ -3452,7 +3434,7 @@ will be returned instead.#</dia:string>
         <dia:int val="40"/>
       </dia:attribute>
       <dia:attribute name="comment_line_length">
-        <dia:int val="0"/>
+        <dia:int val="120"/>
       </dia:attribute>
       <dia:attribute name="comment_tagging">
         <dia:boolean val="false"/>
@@ -3520,7 +3502,7 @@ will be returned instead.#</dia:string>
             <dia:string>##</dia:string>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>#&lt;DiaObject of type "Standard - Image" at 2dd9958&gt;.bounding_box#</dia:string>
+            <dia:string>#Box covering all the object.#</dia:string>
           </dia:attribute>
           <dia:attribute name="visibility">
             <dia:enum val="0"/>
@@ -3543,10 +3525,7 @@ will be returned instead.#</dia:string>
             <dia:string>##</dia:string>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>#tuple() -&gt; an empty tuple
-tuple(sequence) -&gt; tuple initialized from sequence's items
-
-If the argument is a tuple, the return value is the same object.#</dia:string>
+            <dia:string>#Vector of connection points.#</dia:string>
           </dia:attribute>
           <dia:attribute name="visibility">
             <dia:enum val="0"/>
@@ -3569,10 +3548,30 @@ If the argument is a tuple, the return value is the same object.#</dia:string>
             <dia:string>##</dia:string>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>#tuple() -&gt; an empty tuple
-tuple(sequence) -&gt; tuple initialized from sequence's items
-
-If the argument is a tuple, the return value is the same object.#</dia:string>
+            <dia:string>#Vector of handles.#</dia:string>
+          </dia:attribute>
+          <dia:attribute name="visibility">
+            <dia:enum val="0"/>
+          </dia:attribute>
+          <dia:attribute name="abstract">
+            <dia:boolean val="false"/>
+          </dia:attribute>
+          <dia:attribute name="class_scope">
+            <dia:boolean val="false"/>
+          </dia:attribute>
+        </dia:composite>
+        <dia:composite type="umlattribute">
+          <dia:attribute name="name">
+            <dia:string>#parent#</dia:string>
+          </dia:attribute>
+          <dia:attribute name="type">
+            <dia:string>##</dia:string>
+          </dia:attribute>
+          <dia:attribute name="value">
+            <dia:string>##</dia:string>
+          </dia:attribute>
+          <dia:attribute name="comment">
+            <dia:string>#The parent object when parenting is in place, None otherwise.#</dia:string>
           </dia:attribute>
           <dia:attribute name="visibility">
             <dia:enum val="0"/>
@@ -3595,30 +3594,7 @@ If the argument is a tuple, the return value is the same object.#</dia:string>
             <dia:string>##</dia:string>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>#A dictionary interface to dia.Object's standard properties. Many propertiescan be get and set through this. If there is a specific method to change anobjects property like o.move() or o.move_handle() use that instead.#</dia:string>
-          </dia:attribute>
-          <dia:attribute name="visibility">
-            <dia:enum val="0"/>
-          </dia:attribute>
-          <dia:attribute name="abstract">
-            <dia:boolean val="false"/>
-          </dia:attribute>
-          <dia:attribute name="class_scope">
-            <dia:boolean val="false"/>
-          </dia:attribute>
-        </dia:composite>
-        <dia:composite type="umlattribute">
-          <dia:attribute name="name">
-            <dia:string>#type#</dia:string>
-          </dia:attribute>
-          <dia:attribute name="type">
-            <dia:string>##</dia:string>
-          </dia:attribute>
-          <dia:attribute name="value">
-            <dia:string>##</dia:string>
-          </dia:attribute>
-          <dia:attribute name="comment">
-            <dia:string>#The dia.Object factory. Allows to create objects of the specific type. Use: factory = get_object_type(&lt;type name&gt;) to get a grip on it.#</dia:string>
+            <dia:string>#Dictionary of object properties.#</dia:string>
           </dia:attribute>
           <dia:attribute name="visibility">
             <dia:enum val="0"/>
@@ -3646,7 +3622,7 @@ If the argument is a tuple, the return value is the same object.#</dia:string>
             <dia:enum val="0"/>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>##</dia:string>
+            <dia:string>#copy() -&gt; Object.  Create a new object copy.#</dia:string>
           </dia:attribute>
           <dia:attribute name="abstract">
             <dia:boolean val="true"/>
@@ -3676,7 +3652,7 @@ If the argument is a tuple, the return value is the same object.#</dia:string>
             <dia:enum val="0"/>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>##</dia:string>
+            <dia:string>#destroy() -&gt; None.  Release the object. Must not be called when already added to a group or layer.#</dia:string>
           </dia:attribute>
           <dia:attribute name="abstract">
             <dia:boolean val="true"/>
@@ -3706,7 +3682,7 @@ If the argument is a tuple, the return value is the same object.#</dia:string>
             <dia:enum val="0"/>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>##</dia:string>
+            <dia:string>#distance_from(real: x, real: y) -&gt; real.  Calculate the object's distance from the given point.#</dia:string>
           </dia:attribute>
           <dia:attribute name="abstract">
             <dia:boolean val="true"/>
@@ -3736,7 +3712,7 @@ If the argument is a tuple, the return value is the same object.#</dia:string>
             <dia:enum val="0"/>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>##</dia:string>
+            <dia:string>#move(real: x, real: y) -&gt; None.  Move the entire object. The given point is the new object.obj_pos.#</dia:string>
           </dia:attribute>
           <dia:attribute name="abstract">
             <dia:boolean val="true"/>
@@ -3766,7 +3742,7 @@ If the argument is a tuple, the return value is the same object.#</dia:string>
             <dia:enum val="0"/>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>##</dia:string>
+            <dia:string>#move_handle(Handle: h, (real: x, real: y)[int: reason, int: modifiers]) -&gt; None.  Move the given handle of the object to the given position#</dia:string>
           </dia:attribute>
           <dia:attribute name="abstract">
             <dia:boolean val="true"/>
@@ -3838,7 +3814,7 @@ If the argument is a tuple, the return value is the same object.#</dia:string>
         <dia:int val="40"/>
       </dia:attribute>
       <dia:attribute name="comment_line_length">
-        <dia:int val="0"/>
+        <dia:int val="120"/>
       </dia:attribute>
       <dia:attribute name="comment_tagging">
         <dia:boolean val="false"/>
@@ -3906,10 +3882,7 @@ If the argument is a tuple, the return value is the same object.#</dia:string>
             <dia:string>##</dia:string>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>#str(object) -&gt; string
-
-Return a nice string representation of the object.
-If the argument is a string, the return value is the same object.#</dia:string>
+            <dia:string>#string: the unique type indentifier of the object type.#</dia:string>
           </dia:attribute>
           <dia:attribute name="visibility">
             <dia:enum val="0"/>
@@ -3932,14 +3905,7 @@ If the argument is a string, the return value is the same object.#</dia:string>
             <dia:string>##</dia:string>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>#int(x[, base]) -&gt; integer
-
-Convert a string or number to an integer, if possible.  A floating point
-argument will be truncated towards zero (this does not include a string
-representation of a floating point number!)  When converting a string, use
-the optional base.  It is an error to supply a base when converting a
-non-string. If the argument is outside the integer range a long object
-will be returned instead.#</dia:string>
+            <dia:string>#int: version number#</dia:string>
           </dia:attribute>
           <dia:attribute name="visibility">
             <dia:enum val="0"/>
@@ -3967,7 +3933,7 @@ will be returned instead.#</dia:string>
             <dia:enum val="0"/>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>##</dia:string>
+            <dia:string>#create(real: x, real: y) -&gt; (Object: o, Handle: h1, Handle: h2)  Create a new object of this type. Returns a tuple containing the new object and up to two handles.#</dia:string>
           </dia:attribute>
           <dia:attribute name="abstract">
             <dia:boolean val="true"/>
@@ -4039,7 +4005,7 @@ will be returned instead.#</dia:string>
         <dia:int val="40"/>
       </dia:attribute>
       <dia:attribute name="comment_line_length">
-        <dia:int val="0"/>
+        <dia:int val="120"/>
       </dia:attribute>
       <dia:attribute name="comment_tagging">
         <dia:boolean val="false"/>
@@ -4107,9 +4073,7 @@ will be returned instead.#</dia:string>
             <dia:string>##</dia:string>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>#float(x) -&gt; floating point number
-
-Convert a string or number to a floating point number, if possible.#</dia:string>
+            <dia:string>#int or double: lower edge y coordinate#</dia:string>
           </dia:attribute>
           <dia:attribute name="visibility">
             <dia:enum val="0"/>
@@ -4132,9 +4096,7 @@ Convert a string or number to a floating point number, if possible.#</dia:string
             <dia:string>##</dia:string>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>#float(x) -&gt; floating point number
-
-Convert a string or number to a floating point number, if possible.#</dia:string>
+            <dia:string>#int or double: left edge x coordinate#</dia:string>
           </dia:attribute>
           <dia:attribute name="visibility">
             <dia:enum val="0"/>
@@ -4157,9 +4119,7 @@ Convert a string or number to a floating point number, if possible.#</dia:string
             <dia:string>##</dia:string>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>#float(x) -&gt; floating point number
-
-Convert a string or number to a floating point number, if possible.#</dia:string>
+            <dia:string>#int or double: right edge x coordinate#</dia:string>
           </dia:attribute>
           <dia:attribute name="visibility">
             <dia:enum val="0"/>
@@ -4182,9 +4142,7 @@ Convert a string or number to a floating point number, if possible.#</dia:string
             <dia:string>##</dia:string>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>#float(x) -&gt; floating point number
-
-Convert a string or number to a floating point number, if possible.#</dia:string>
+            <dia:string>#int or double: upper edge y coordinate#</dia:string>
           </dia:attribute>
           <dia:attribute name="visibility">
             <dia:enum val="0"/>
@@ -4569,7 +4527,7 @@ Convert a string or number to a floating point number, if possible.#</dia:string
         <dia:point val="61.2344,23.9356"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="34.1129,23.1356;65.0364,35.9309"/>
+        <dia:rectangle val="34.1129,23.1356;65.0364,34.9309"/>
       </dia:attribute>
       <dia:attribute name="meta">
         <dia:composite type="dict"/>
@@ -4579,7 +4537,7 @@ Convert a string or number to a floating point number, if possible.#</dia:string
         <dia:point val="64.9864,23.9356"/>
         <dia:point val="64.9864,32.7761"/>
         <dia:point val="34.9129,32.7761"/>
-        <dia:point val="34.9129,35.1309"/>
+        <dia:point val="34.9129,34.1309"/>
       </dia:attribute>
       <dia:attribute name="orth_orient">
         <dia:enum val="0"/>
@@ -4639,27 +4597,25 @@ Convert a string or number to a floating point number, if possible.#</dia:string
         <dia:boolean val="true"/>
       </dia:attribute>
       <dia:attribute name="obj_pos">
-        <dia:point val="45.0452,42.5042"/>
+        <dia:point val="43.8798,41.4265"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="44.2952,40.852;66.6011,43.3042"/>
+        <dia:rectangle val="43.1298,40.6265;56.8263,43.8"/>
       </dia:attribute>
       <dia:attribute name="meta">
         <dia:composite type="dict"/>
       </dia:attribute>
       <dia:attribute name="orth_points">
-        <dia:point val="45.0452,42.5042"/>
-        <dia:point val="62.0611,42.5042"/>
-        <dia:point val="62.0611,41.652"/>
-        <dia:point val="66.5511,41.652"/>
+        <dia:point val="43.8798,41.4265"/>
+        <dia:point val="56.0262,41.4265"/>
+        <dia:point val="56.0262,43"/>
       </dia:attribute>
       <dia:attribute name="orth_orient">
         <dia:enum val="0"/>
         <dia:enum val="1"/>
-        <dia:enum val="0"/>
       </dia:attribute>
       <dia:attribute name="orth_autoroute">
-        <dia:boolean val="false"/>
+        <dia:boolean val="true"/>
       </dia:attribute>
       <dia:attribute name="text_colour">
         <dia:color val="#000000"/>
@@ -4669,18 +4625,18 @@ Convert a string or number to a floating point number, if possible.#</dia:string
       </dia:attribute>
       <dia:connections>
         <dia:connection handle="0" to="O25" connection="13"/>
-        <dia:connection handle="1" to="O20" connection="3"/>
+        <dia:connection handle="1" to="O20" connection="1"/>
       </dia:connections>
     </dia:object>
     <dia:object type="UML - Class" version="0" id="O19">
       <dia:attribute name="obj_pos">
-        <dia:point val="55.3726,44.6806"/>
+        <dia:point val="65,43"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="55.3226,44.6306;58.6176,49.1306"/>
+        <dia:rectangle val="64.95,42.95;68.245,47.45"/>
       </dia:attribute>
       <dia:attribute name="elem_corner">
-        <dia:point val="55.3726,44.6806"/>
+        <dia:point val="65,43"/>
       </dia:attribute>
       <dia:attribute name="elem_width">
         <dia:real val="3.1949999999999998"/>
@@ -4722,7 +4678,7 @@ Convert a string or number to a floating point number, if possible.#</dia:string
         <dia:int val="40"/>
       </dia:attribute>
       <dia:attribute name="comment_line_length">
-        <dia:int val="0"/>
+        <dia:int val="120"/>
       </dia:attribute>
       <dia:attribute name="comment_tagging">
         <dia:boolean val="false"/>
@@ -4790,9 +4746,7 @@ Convert a string or number to a floating point number, if possible.#</dia:string
             <dia:string>##</dia:string>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>#float(x) -&gt; floating point number
-
-Convert a string or number to a floating point number, if possible.#</dia:string>
+            <dia:string>#double: length along the line#</dia:string>
           </dia:attribute>
           <dia:attribute name="visibility">
             <dia:enum val="0"/>
@@ -4815,14 +4769,7 @@ Convert a string or number to a floating point number, if possible.#</dia:string
             <dia:string>##</dia:string>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>#int(x[, base]) -&gt; integer
-
-Convert a string or number to an integer, if possible.  A floating point
-argument will be truncated towards zero (this does not include a string
-representation of a floating point number!)  When converting a string, use
-the optional base.  It is an error to supply a base when converting a
-non-string. If the argument is outside the integer range a long object
-will be returned instead.#</dia:string>
+            <dia:string>#int: the shape of the arrow#</dia:string>
           </dia:attribute>
           <dia:attribute name="visibility">
             <dia:enum val="0"/>
@@ -4845,9 +4792,7 @@ will be returned instead.#</dia:string>
             <dia:string>##</dia:string>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>#float(x) -&gt; floating point number
-
-Convert a string or number to a floating point number, if possible.#</dia:string>
+            <dia:string>#double: corresponding to line width#</dia:string>
           </dia:attribute>
           <dia:attribute name="visibility">
             <dia:enum val="0"/>
@@ -4868,13 +4813,13 @@ Convert a string or number to a floating point number, if possible.#</dia:string
     </dia:object>
     <dia:object type="UML - Class" version="0" id="O20">
       <dia:attribute name="obj_pos">
-        <dia:point val="66.5511,40.952"/>
+        <dia:point val="54,43"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="66.5011,40.902;70.6536,46.202"/>
+        <dia:rectangle val="53.95,42.95;58.1025,48.25"/>
       </dia:attribute>
       <dia:attribute name="elem_corner">
-        <dia:point val="66.5511,40.952"/>
+        <dia:point val="54,43"/>
       </dia:attribute>
       <dia:attribute name="elem_width">
         <dia:real val="4.0525000000000002"/>
@@ -4916,7 +4861,7 @@ Convert a string or number to a floating point number, if possible.#</dia:string
         <dia:int val="40"/>
       </dia:attribute>
       <dia:attribute name="comment_line_length">
-        <dia:int val="0"/>
+        <dia:int val="120"/>
       </dia:attribute>
       <dia:attribute name="comment_tagging">
         <dia:boolean val="false"/>
@@ -4984,7 +4929,7 @@ Convert a string or number to a floating point number, if possible.#</dia:string
             <dia:string>##</dia:string>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>#MOVE_TO.p1#</dia:string>
+            <dia:string>#Point: first control point for CURVETO#</dia:string>
           </dia:attribute>
           <dia:attribute name="visibility">
             <dia:enum val="0"/>
@@ -5007,7 +4952,7 @@ Convert a string or number to a floating point number, if possible.#</dia:string
             <dia:string>##</dia:string>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>#MOVE_TO.p2#</dia:string>
+            <dia:string>#Point: second control point for CURVETO#</dia:string>
           </dia:attribute>
           <dia:attribute name="visibility">
             <dia:enum val="0"/>
@@ -5030,7 +4975,7 @@ Convert a string or number to a floating point number, if possible.#</dia:string
             <dia:string>##</dia:string>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>#MOVE_TO.p3#</dia:string>
+            <dia:string>#Point: target point for CURVETO#</dia:string>
           </dia:attribute>
           <dia:attribute name="visibility">
             <dia:enum val="0"/>
@@ -5053,14 +4998,7 @@ Convert a string or number to a floating point number, if possible.#</dia:string
             <dia:string>##</dia:string>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>#int(x[, base]) -&gt; integer
-
-Convert a string or number to an integer, if possible.  A floating point
-argument will be truncated towards zero (this does not include a string
-representation of a floating point number!)  When converting a string, use
-the optional base.  It is an error to supply a base when converting a
-non-string. If the argument is outside the integer range a long object
-will be returned instead.#</dia:string>
+            <dia:string>#int: MOVETO, LINETO using p1 only;  CURVETO all 3 points#</dia:string>
           </dia:attribute>
           <dia:attribute name="visibility">
             <dia:enum val="0"/>
@@ -5081,13 +5019,13 @@ will be returned instead.#</dia:string>
     </dia:object>
     <dia:object type="UML - Class" version="0" id="O21">
       <dia:attribute name="obj_pos">
-        <dia:point val="61.4358,43.9551"/>
+        <dia:point val="60,43"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="61.3858,43.9051;64.6808,48.4051"/>
+        <dia:rectangle val="59.95,42.95;63.245,47.45"/>
       </dia:attribute>
       <dia:attribute name="elem_corner">
-        <dia:point val="61.4358,43.9551"/>
+        <dia:point val="60,43"/>
       </dia:attribute>
       <dia:attribute name="elem_width">
         <dia:real val="3.1949999999999998"/>
@@ -5102,7 +5040,7 @@ will be returned instead.#</dia:string>
         <dia:string>##</dia:string>
       </dia:attribute>
       <dia:attribute name="comment">
-        <dia:string>#Provides access to the some objects font property.#</dia:string>
+        <dia:string>#Provides access to some objects font property.#</dia:string>
       </dia:attribute>
       <dia:attribute name="abstract">
         <dia:boolean val="false"/>
@@ -5129,7 +5067,7 @@ will be returned instead.#</dia:string>
         <dia:int val="40"/>
       </dia:attribute>
       <dia:attribute name="comment_line_length">
-        <dia:int val="0"/>
+        <dia:int val="120"/>
       </dia:attribute>
       <dia:attribute name="comment_tagging">
         <dia:boolean val="false"/>
@@ -5197,10 +5135,7 @@ will be returned instead.#</dia:string>
             <dia:string>##</dia:string>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>#str(object) -&gt; string
-
-Return a nice string representation of the object.
-If the argument is a string, the return value is the same object.#</dia:string>
+            <dia:string>#string: family name of the font#</dia:string>
           </dia:attribute>
           <dia:attribute name="visibility">
             <dia:enum val="0"/>
@@ -5223,10 +5158,7 @@ If the argument is a string, the return value is the same object.#</dia:string>
             <dia:string>##</dia:string>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>#str(object) -&gt; string
-
-Return a nice string representation of the object.
-If the argument is a string, the return value is the same object.#</dia:string>
+            <dia:string>#string: legacy name of the font#</dia:string>
           </dia:attribute>
           <dia:attribute name="visibility">
             <dia:enum val="0"/>
@@ -5249,14 +5181,7 @@ If the argument is a string, the return value is the same object.#</dia:string>
             <dia:string>##</dia:string>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>#int(x[, base]) -&gt; integer
-
-Convert a string or number to an integer, if possible.  A floating point
-argument will be truncated towards zero (this does not include a string
-representation of a floating point number!)  When converting a string, use
-the optional base.  It is an error to supply a base when converting a
-non-string. If the argument is outside the integer range a long object
-will be returned instead.#</dia:string>
+            <dia:string>#int: style flags#</dia:string>
           </dia:attribute>
           <dia:attribute name="visibility">
             <dia:enum val="0"/>
@@ -5277,19 +5202,19 @@ will be returned instead.#</dia:string>
     </dia:object>
     <dia:object type="UML - Class" version="0" id="O22">
       <dia:attribute name="obj_pos">
-        <dia:point val="46.8085,45.6036"/>
+        <dia:point val="70,32"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="46.7585,45.5536;49.966,47.8536"/>
+        <dia:rectangle val="69.95,31.95;74.4,38.85"/>
       </dia:attribute>
       <dia:attribute name="elem_corner">
-        <dia:point val="46.8085,45.6036"/>
+        <dia:point val="70,32"/>
       </dia:attribute>
       <dia:attribute name="elem_width">
-        <dia:real val="3.1074999999999999"/>
+        <dia:real val="4.3499999999999996"/>
       </dia:attribute>
       <dia:attribute name="elem_height">
-        <dia:real val="2.1999999999999997"/>
+        <dia:real val="6.8000000000000007"/>
       </dia:attribute>
       <dia:attribute name="name">
         <dia:string>#Image#</dia:string>
@@ -5325,7 +5250,7 @@ will be returned instead.#</dia:string>
         <dia:int val="40"/>
       </dia:attribute>
       <dia:attribute name="comment_line_length">
-        <dia:int val="0"/>
+        <dia:int val="120"/>
       </dia:attribute>
       <dia:attribute name="comment_tagging">
         <dia:boolean val="false"/>
@@ -5381,7 +5306,146 @@ will be returned instead.#</dia:string>
       <dia:attribute name="comment_font_height">
         <dia:real val="0.69999999999999996"/>
       </dia:attribute>
-      <dia:attribute name="attributes"/>
+      <dia:attribute name="attributes">
+        <dia:composite type="umlattribute">
+          <dia:attribute name="name">
+            <dia:string>#filename#</dia:string>
+          </dia:attribute>
+          <dia:attribute name="type">
+            <dia:string>##</dia:string>
+          </dia:attribute>
+          <dia:attribute name="value">
+            <dia:string>##</dia:string>
+          </dia:attribute>
+          <dia:attribute name="comment">
+            <dia:string>#string: utf-8 encoded filename of the image#</dia:string>
+          </dia:attribute>
+          <dia:attribute name="visibility">
+            <dia:enum val="0"/>
+          </dia:attribute>
+          <dia:attribute name="abstract">
+            <dia:boolean val="false"/>
+          </dia:attribute>
+          <dia:attribute name="class_scope">
+            <dia:boolean val="false"/>
+          </dia:attribute>
+        </dia:composite>
+        <dia:composite type="umlattribute">
+          <dia:attribute name="name">
+            <dia:string>#height#</dia:string>
+          </dia:attribute>
+          <dia:attribute name="type">
+            <dia:string>##</dia:string>
+          </dia:attribute>
+          <dia:attribute name="value">
+            <dia:string>##</dia:string>
+          </dia:attribute>
+          <dia:attribute name="comment">
+            <dia:string>#int: pixel height of the image#</dia:string>
+          </dia:attribute>
+          <dia:attribute name="visibility">
+            <dia:enum val="0"/>
+          </dia:attribute>
+          <dia:attribute name="abstract">
+            <dia:boolean val="false"/>
+          </dia:attribute>
+          <dia:attribute name="class_scope">
+            <dia:boolean val="false"/>
+          </dia:attribute>
+        </dia:composite>
+        <dia:composite type="umlattribute">
+          <dia:attribute name="name">
+            <dia:string>#mask_data#</dia:string>
+          </dia:attribute>
+          <dia:attribute name="type">
+            <dia:string>##</dia:string>
+          </dia:attribute>
+          <dia:attribute name="value">
+            <dia:string>##</dia:string>
+          </dia:attribute>
+          <dia:attribute name="comment">
+            <dia:string>#string: array of alpha pixel values#</dia:string>
+          </dia:attribute>
+          <dia:attribute name="visibility">
+            <dia:enum val="0"/>
+          </dia:attribute>
+          <dia:attribute name="abstract">
+            <dia:boolean val="false"/>
+          </dia:attribute>
+          <dia:attribute name="class_scope">
+            <dia:boolean val="false"/>
+          </dia:attribute>
+        </dia:composite>
+        <dia:composite type="umlattribute">
+          <dia:attribute name="name">
+            <dia:string>#rgb_data#</dia:string>
+          </dia:attribute>
+          <dia:attribute name="type">
+            <dia:string>##</dia:string>
+          </dia:attribute>
+          <dia:attribute name="value">
+            <dia:string>##</dia:string>
+          </dia:attribute>
+          <dia:attribute name="comment">
+            <dia:string>#string: array of packed rgb pixel values#</dia:string>
+          </dia:attribute>
+          <dia:attribute name="visibility">
+            <dia:enum val="0"/>
+          </dia:attribute>
+          <dia:attribute name="abstract">
+            <dia:boolean val="false"/>
+          </dia:attribute>
+          <dia:attribute name="class_scope">
+            <dia:boolean val="false"/>
+          </dia:attribute>
+        </dia:composite>
+        <dia:composite type="umlattribute">
+          <dia:attribute name="name">
+            <dia:string>#uri#</dia:string>
+          </dia:attribute>
+          <dia:attribute name="type">
+            <dia:string>##</dia:string>
+          </dia:attribute>
+          <dia:attribute name="value">
+            <dia:string>##</dia:string>
+          </dia:attribute>
+          <dia:attribute name="comment">
+            <dia:string>#string: Uniform Resource Identifier of the image#</dia:string>
+          </dia:attribute>
+          <dia:attribute name="visibility">
+            <dia:enum val="0"/>
+          </dia:attribute>
+          <dia:attribute name="abstract">
+            <dia:boolean val="false"/>
+          </dia:attribute>
+          <dia:attribute name="class_scope">
+            <dia:boolean val="false"/>
+          </dia:attribute>
+        </dia:composite>
+        <dia:composite type="umlattribute">
+          <dia:attribute name="name">
+            <dia:string>#width#</dia:string>
+          </dia:attribute>
+          <dia:attribute name="type">
+            <dia:string>##</dia:string>
+          </dia:attribute>
+          <dia:attribute name="value">
+            <dia:string>##</dia:string>
+          </dia:attribute>
+          <dia:attribute name="comment">
+            <dia:string>#int: pixel width of the image#</dia:string>
+          </dia:attribute>
+          <dia:attribute name="visibility">
+            <dia:enum val="0"/>
+          </dia:attribute>
+          <dia:attribute name="abstract">
+            <dia:boolean val="false"/>
+          </dia:attribute>
+          <dia:attribute name="class_scope">
+            <dia:boolean val="false"/>
+          </dia:attribute>
+        </dia:composite>
+      </dia:attribute>
       <dia:attribute name="operations"/>
       <dia:attribute name="template">
         <dia:boolean val="false"/>
@@ -5390,25 +5454,25 @@ will be returned instead.#</dia:string>
     </dia:object>
     <dia:object type="UML - Class" version="0" id="O23">
       <dia:attribute name="obj_pos">
-        <dia:point val="51.0873,45.0807"/>
+        <dia:point val="47,43"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="51.0373,45.0307;53.7448,48.7307"/>
+        <dia:rectangle val="46.95,42.95;52.17,47.45"/>
       </dia:attribute>
       <dia:attribute name="elem_corner">
-        <dia:point val="51.0873,45.0807"/>
+        <dia:point val="47,43"/>
       </dia:attribute>
       <dia:attribute name="elem_width">
-        <dia:real val="2.6074999999999999"/>
+        <dia:real val="5.1200000000000001"/>
       </dia:attribute>
       <dia:attribute name="elem_height">
-        <dia:real val="3.6000000000000001"/>
+        <dia:real val="4.4000000000000004"/>
       </dia:attribute>
       <dia:attribute name="name">
         <dia:string>#Point#</dia:string>
       </dia:attribute>
       <dia:attribute name="stereotype">
-        <dia:string>##</dia:string>
+        <dia:string>#sequence#</dia:string>
       </dia:attribute>
       <dia:attribute name="comment">
         <dia:string>#The dia.Point does not only provide access trough it's members but also via a sequence interface.#</dia:string>
@@ -5438,7 +5502,7 @@ will be returned instead.#</dia:string>
         <dia:int val="40"/>
       </dia:attribute>
       <dia:attribute name="comment_line_length">
-        <dia:int val="0"/>
+        <dia:int val="120"/>
       </dia:attribute>
       <dia:attribute name="comment_tagging">
         <dia:boolean val="false"/>
@@ -5506,9 +5570,7 @@ will be returned instead.#</dia:string>
             <dia:string>##</dia:string>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>#float(x) -&gt; floating point number
-
-Convert a string or number to a floating point number, if possible.#</dia:string>
+            <dia:string>#double: coordinate horizontal part#</dia:string>
           </dia:attribute>
           <dia:attribute name="visibility">
             <dia:enum val="0"/>
@@ -5531,9 +5593,7 @@ Convert a string or number to a floating point number, if possible.#</dia:string
             <dia:string>##</dia:string>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>#float(x) -&gt; floating point number
-
-Convert a string or number to a floating point number, if possible.#</dia:string>
+            <dia:string>#double: coordinate vertical part#</dia:string>
           </dia:attribute>
           <dia:attribute name="visibility">
             <dia:enum val="0"/>
@@ -5554,13 +5614,13 @@ Convert a string or number to a floating point number, if possible.#</dia:string
     </dia:object>
     <dia:object type="UML - Class" version="0" id="O24">
       <dia:attribute name="obj_pos">
-        <dia:point val="32.5854,35.1309"/>
+        <dia:point val="32.5854,34.1309"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="32.5354,35.0809;37.2904,39.5809"/>
+        <dia:rectangle val="32.5354,34.0809;37.2904,38.5809"/>
       </dia:attribute>
       <dia:attribute name="elem_corner">
-        <dia:point val="32.5854,35.1309"/>
+        <dia:point val="32.5854,34.1309"/>
       </dia:attribute>
       <dia:attribute name="elem_width">
         <dia:real val="4.6549999999999994"/>
@@ -5602,7 +5662,7 @@ Convert a string or number to a floating point number, if possible.#</dia:string
         <dia:int val="40"/>
       </dia:attribute>
       <dia:attribute name="comment_line_length">
-        <dia:int val="0"/>
+        <dia:int val="120"/>
       </dia:attribute>
       <dia:attribute name="comment_tagging">
         <dia:boolean val="false"/>
@@ -5758,13 +5818,13 @@ Convert a string or number to a floating point number, if possible.#</dia:string
     </dia:object>
     <dia:object type="UML - Class" version="0" id="O25">
       <dia:attribute name="obj_pos">
-        <dia:point val="41.0602,39.0042"/>
+        <dia:point val="39.8948,37.9265"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="41.0102,38.9542;45.0952,44.2542"/>
+        <dia:rectangle val="39.8448,37.8765;43.9298,43.1765"/>
       </dia:attribute>
       <dia:attribute name="elem_corner">
-        <dia:point val="41.0602,39.0042"/>
+        <dia:point val="39.8948,37.9265"/>
       </dia:attribute>
       <dia:attribute name="elem_width">
         <dia:real val="3.9850000000000003"/>
@@ -5806,7 +5866,7 @@ Convert a string or number to a floating point number, if possible.#</dia:string
         <dia:int val="40"/>
       </dia:attribute>
       <dia:attribute name="comment_line_length">
-        <dia:int val="0"/>
+        <dia:int val="120"/>
       </dia:attribute>
       <dia:attribute name="comment_tagging">
         <dia:boolean val="false"/>
@@ -5874,10 +5934,7 @@ Convert a string or number to a floating point number, if possible.#</dia:string
             <dia:string>##</dia:string>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>#str(object) -&gt; string
-
-Return a nice string representation of the object.
-If the argument is a string, the return value is the same object.#</dia:string>
+            <dia:string>#string: the name of the property#</dia:string>
           </dia:attribute>
           <dia:attribute name="visibility">
             <dia:enum val="0"/>
@@ -5900,10 +5957,7 @@ If the argument is a string, the return value is the same object.#</dia:string>
             <dia:string>##</dia:string>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>#str(object) -&gt; string
-
-Return a nice string representation of the object.
-If the argument is a string, the return value is the same object.#</dia:string>
+            <dia:string>#string: the type name of the object#</dia:string>
           </dia:attribute>
           <dia:attribute name="visibility">
             <dia:enum val="0"/>
@@ -5926,7 +5980,7 @@ If the argument is a string, the return value is the same object.#</dia:string>
             <dia:string>##</dia:string>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>#&lt;DiaProperty at 02C39CF0, "obj_pos", point&gt;.value#</dia:string>
+            <dia:string>#various: the value is of type char, bool, dict, int, real, string, Text, Point, BezPoint, Rect, Arrow, Color or a tuple or list, possibly containing tuple of varying types.#</dia:string>
           </dia:attribute>
           <dia:attribute name="visibility">
             <dia:enum val="0"/>
@@ -5949,14 +6003,7 @@ If the argument is a string, the return value is the same object.#</dia:string>
             <dia:string>##</dia:string>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>#int(x[, base]) -&gt; integer
-
-Convert a string or number to an integer, if possible.  A floating point
-argument will be truncated towards zero (this does not include a string
-representation of a floating point number!)  When converting a string, use
-the optional base.  It is an error to supply a base when converting a
-non-string. If the argument is outside the integer range a long object
-will be returned instead.#</dia:string>
+            <dia:string>#bool: visibility of the property#</dia:string>
           </dia:attribute>
           <dia:attribute name="visibility">
             <dia:enum val="0"/>
@@ -5977,13 +6024,13 @@ will be returned instead.#</dia:string>
     </dia:object>
     <dia:object type="UML - Class" version="0" id="O26">
       <dia:attribute name="obj_pos">
-        <dia:point val="68.431,33.285"/>
+        <dia:point val="70,40"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="68.381,33.235;72.446,39.335"/>
+        <dia:rectangle val="69.95,39.95;74.015,46.05"/>
       </dia:attribute>
       <dia:attribute name="elem_corner">
-        <dia:point val="68.431,33.285"/>
+        <dia:point val="70,40"/>
       </dia:attribute>
       <dia:attribute name="elem_width">
         <dia:real val="3.9649999999999999"/>
@@ -6025,7 +6072,7 @@ will be returned instead.#</dia:string>
         <dia:int val="40"/>
       </dia:attribute>
       <dia:attribute name="comment_line_length">
-        <dia:int val="0"/>
+        <dia:int val="120"/>
       </dia:attribute>
       <dia:attribute name="comment_tagging">
         <dia:boolean val="false"/>
@@ -6093,7 +6140,7 @@ will be returned instead.#</dia:string>
             <dia:string>##</dia:string>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>#&lt;DiaText "none" at 2d6ab60&gt;.color#</dia:string>
+            <dia:string>#Color: color of the text#</dia:string>
           </dia:attribute>
           <dia:attribute name="visibility">
             <dia:enum val="0"/>
@@ -6116,7 +6163,7 @@ will be returned instead.#</dia:string>
             <dia:string>##</dia:string>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>#&lt;DiaText "none" at 2d6ab60&gt;.font#</dia:string>
+            <dia:string>#Font: read-only reference to font used#</dia:string>
           </dia:attribute>
           <dia:attribute name="visibility">
             <dia:enum val="0"/>
@@ -6139,9 +6186,7 @@ will be returned instead.#</dia:string>
             <dia:string>##</dia:string>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>#float(x) -&gt; floating point number
-
-Convert a string or number to a floating point number, if possible.#</dia:string>
+            <dia:string>#real: height of the font#</dia:string>
           </dia:attribute>
           <dia:attribute name="visibility">
             <dia:enum val="0"/>
@@ -6164,7 +6209,7 @@ Convert a string or number to a floating point number, if possible.#</dia:string
             <dia:string>##</dia:string>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>#&lt;DiaText "none" at 2d6ab60&gt;.position#</dia:string>
+            <dia:string>#Point: alignment position of the text#</dia:string>
           </dia:attribute>
           <dia:attribute name="visibility">
             <dia:enum val="0"/>
@@ -6187,10 +6232,7 @@ Convert a string or number to a floating point number, if possible.#</dia:string
             <dia:string>##</dia:string>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>#str(object) -&gt; string
-
-Return a nice string representation of the object.
-If the argument is a string, the return value is the same object.#</dia:string>
+            <dia:string>#string: text data#</dia:string>
           </dia:attribute>
           <dia:attribute name="visibility">
             <dia:enum val="0"/>
@@ -6247,25 +6289,27 @@ If the argument is a string, the return value is the same object.#</dia:string>
         <dia:boolean val="true"/>
       </dia:attribute>
       <dia:attribute name="obj_pos">
-        <dia:point val="45.0452,42.5042"/>
+        <dia:point val="43.8798,41.4265"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="44.2952,41.7042;49.1623,46.4036"/>
+        <dia:rectangle val="43.1298,31.9;70.05,42.2265"/>
       </dia:attribute>
       <dia:attribute name="meta">
         <dia:composite type="dict"/>
       </dia:attribute>
       <dia:attribute name="orth_points">
-        <dia:point val="45.0452,42.5042"/>
-        <dia:point val="48.3623,42.5042"/>
-        <dia:point val="48.3623,45.6036"/>
+        <dia:point val="43.8798,41.4265"/>
+        <dia:point val="66,41.4265"/>
+        <dia:point val="66,32.7"/>
+        <dia:point val="70,32.7"/>
       </dia:attribute>
       <dia:attribute name="orth_orient">
         <dia:enum val="0"/>
         <dia:enum val="1"/>
+        <dia:enum val="0"/>
       </dia:attribute>
       <dia:attribute name="orth_autoroute">
-        <dia:boolean val="true"/>
+        <dia:boolean val="false"/>
       </dia:attribute>
       <dia:attribute name="text_colour">
         <dia:color val="#000000"/>
@@ -6275,7 +6319,7 @@ If the argument is a string, the return value is the same object.#</dia:string>
       </dia:attribute>
       <dia:connections>
         <dia:connection handle="0" to="O25" connection="13"/>
-        <dia:connection handle="1" to="O22" connection="1"/>
+        <dia:connection handle="1" to="O22" connection="3"/>
       </dia:connections>
     </dia:object>
     <dia:object type="UML - Association" version="2" id="O28">
@@ -6316,18 +6360,18 @@ If the argument is a string, the return value is the same object.#</dia:string>
         <dia:boolean val="true"/>
       </dia:attribute>
       <dia:attribute name="obj_pos">
-        <dia:point val="45.0452,42.5042"/>
+        <dia:point val="43.8798,41.4265"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="44.2952,41.7042;53.1911,45.8807"/>
+        <dia:rectangle val="43.1298,40.6265;50.36,43.8"/>
       </dia:attribute>
       <dia:attribute name="meta">
         <dia:composite type="dict"/>
       </dia:attribute>
       <dia:attribute name="orth_points">
-        <dia:point val="45.0452,42.5042"/>
-        <dia:point val="52.3911,42.5042"/>
-        <dia:point val="52.3911,45.0807"/>
+        <dia:point val="43.8798,41.4265"/>
+        <dia:point val="49.56,41.4265"/>
+        <dia:point val="49.56,43"/>
       </dia:attribute>
       <dia:attribute name="orth_orient">
         <dia:enum val="0"/>
@@ -6385,18 +6429,18 @@ If the argument is a string, the return value is the same object.#</dia:string>
         <dia:boolean val="true"/>
       </dia:attribute>
       <dia:attribute name="obj_pos">
-        <dia:point val="45.0452,42.5042"/>
+        <dia:point val="43.8798,41.4265"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="44.2952,41.7042;57.7701,45.4806"/>
+        <dia:rectangle val="43.1298,40.6265;67.3975,43.8"/>
       </dia:attribute>
       <dia:attribute name="meta">
         <dia:composite type="dict"/>
       </dia:attribute>
       <dia:attribute name="orth_points">
-        <dia:point val="45.0452,42.5042"/>
-        <dia:point val="56.9701,42.5042"/>
-        <dia:point val="56.9701,44.6806"/>
+        <dia:point val="43.8798,41.4265"/>
+        <dia:point val="66.5975,41.4265"/>
+        <dia:point val="66.5975,43"/>
       </dia:attribute>
       <dia:attribute name="orth_orient">
         <dia:enum val="0"/>
@@ -6454,27 +6498,25 @@ If the argument is a string, the return value is the same object.#</dia:string>
         <dia:boolean val="true"/>
       </dia:attribute>
       <dia:attribute name="obj_pos">
-        <dia:point val="45.0452,42.5042"/>
+        <dia:point val="43.8798,41.4265"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="44.2952,41.7042;61.4858,45.4551"/>
+        <dia:rectangle val="43.1298,40.6265;62.3975,43.8"/>
       </dia:attribute>
       <dia:attribute name="meta">
         <dia:composite type="dict"/>
       </dia:attribute>
       <dia:attribute name="orth_points">
-        <dia:point val="45.0452,42.5042"/>
-        <dia:point val="59.7664,42.5042"/>
-        <dia:point val="59.7664,44.6551"/>
-        <dia:point val="61.4358,44.6551"/>
+        <dia:point val="43.8798,41.4265"/>
+        <dia:point val="61.5975,41.4265"/>
+        <dia:point val="61.5975,43"/>
       </dia:attribute>
       <dia:attribute name="orth_orient">
         <dia:enum val="0"/>
         <dia:enum val="1"/>
-        <dia:enum val="0"/>
       </dia:attribute>
       <dia:attribute name="orth_autoroute">
-        <dia:boolean val="false"/>
+        <dia:boolean val="true"/>
       </dia:attribute>
       <dia:attribute name="text_colour">
         <dia:color val="#000000"/>
@@ -6484,7 +6526,7 @@ If the argument is a string, the return value is the same object.#</dia:string>
       </dia:attribute>
       <dia:connections>
         <dia:connection handle="0" to="O25" connection="13"/>
-        <dia:connection handle="1" to="O21" connection="3"/>
+        <dia:connection handle="1" to="O21" connection="1"/>
       </dia:connections>
     </dia:object>
     <dia:object type="UML - Association" version="2" id="O31">
@@ -6525,19 +6567,19 @@ If the argument is a string, the return value is the same object.#</dia:string>
         <dia:boolean val="true"/>
       </dia:attribute>
       <dia:attribute name="obj_pos">
-        <dia:point val="45.0452,42.5042"/>
+        <dia:point val="43.8798,41.4265"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="44.2952,33.185;68.481,43.3042"/>
+        <dia:rectangle val="43.1298,39.9;70.05,42.2265"/>
       </dia:attribute>
       <dia:attribute name="meta">
         <dia:composite type="dict"/>
       </dia:attribute>
       <dia:attribute name="orth_points">
-        <dia:point val="45.0452,42.5042"/>
-        <dia:point val="59.7665,42.5042"/>
-        <dia:point val="59.7665,33.985"/>
-        <dia:point val="68.431,33.985"/>
+        <dia:point val="43.8798,41.4265"/>
+        <dia:point val="68,41.4265"/>
+        <dia:point val="68,40.7"/>
+        <dia:point val="70,40.7"/>
       </dia:attribute>
       <dia:attribute name="orth_orient">
         <dia:enum val="0"/>
@@ -6596,18 +6638,18 @@ If the argument is a string, the return value is the same object.#</dia:string>
         <dia:boolean val="true"/>
       </dia:attribute>
       <dia:attribute name="obj_pos">
-        <dia:point val="37.2404,37.4309"/>
+        <dia:point val="37.2404,36.4309"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="37.1904,36.6309;43.9854,39.8042"/>
+        <dia:rectangle val="37.1904,35.6309;43.9854,38.7265"/>
       </dia:attribute>
       <dia:attribute name="meta">
         <dia:composite type="dict"/>
       </dia:attribute>
       <dia:attribute name="orth_points">
-        <dia:point val="37.2404,37.4309"/>
-        <dia:point val="43.0527,37.4309"/>
-        <dia:point val="43.0527,39.0042"/>
+        <dia:point val="37.2404,36.4309"/>
+        <dia:point val="41.8873,36.4309"/>
+        <dia:point val="41.8873,37.9265"/>
       </dia:attribute>
       <dia:attribute name="orth_orient">
         <dia:enum val="0"/>
@@ -7035,7 +7077,7 @@ If the argument is a string, the return value is the same object.#</dia:string>
         <dia:point val="59.045,2.9"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="10.9737,2.1;77.906,49.7353"/>
+        <dia:rectangle val="10.9737,2.1;77.906,50.05"/>
       </dia:attribute>
       <dia:attribute name="meta">
         <dia:composite type="dict"/>
@@ -7043,8 +7085,8 @@ If the argument is a string, the return value is the same object.#</dia:string>
       <dia:attribute name="orth_points">
         <dia:point val="59.045,2.9"/>
         <dia:point val="77.856,2.9"/>
-        <dia:point val="77.856,49.6853"/>
-        <dia:point val="11.0237,49.6853"/>
+        <dia:point val="77.856,50"/>
+        <dia:point val="11.0237,50"/>
         <dia:point val="11.0237,27.092"/>
         <dia:point val="14.6201,27.092"/>
       </dia:attribute>
@@ -7321,7 +7363,7 @@ If the argument is a string, the return value is the same object.#</dia:string>
         <dia:point val="61.2344,24.7356"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="0.634475,16.9;64.2093,48.5977"/>
+        <dia:rectangle val="0.634475,16.9;64.2093,49.05"/>
       </dia:attribute>
       <dia:attribute name="meta">
         <dia:composite type="dict"/>
@@ -7331,8 +7373,8 @@ If the argument is a string, the return value is the same object.#</dia:string>
         <dia:point val="64.1593,24.7356"/>
         <dia:point val="64.1593,31.9992"/>
         <dia:point val="30.4407,31.9992"/>
-        <dia:point val="30.4407,48.5477"/>
-        <dia:point val="0.684475,48.5477"/>
+        <dia:point val="30.4407,49"/>
+        <dia:point val="0.684475,49"/>
         <dia:point val="0.684475,17.7"/>
         <dia:point val="4,17.7"/>
       </dia:attribute>
@@ -7409,7 +7451,7 @@ If the argument is a string, the return value is the same object.#</dia:string>
         <dia:int val="40"/>
       </dia:attribute>
       <dia:attribute name="comment_line_length">
-        <dia:int val="17"/>
+        <dia:int val="120"/>
       </dia:attribute>
       <dia:attribute name="comment_tagging">
         <dia:boolean val="false"/>
@@ -7481,7 +7523,7 @@ If the argument is a string, the return value is the same object.#</dia:string>
             <dia:enum val="0"/>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>#delivers the currently active display 'dia.Display' or None#</dia:string>
+            <dia:string>#active_display() -&gt; Display.  Delivers the currently active display 'dia.Display' or None#</dia:string>
           </dia:attribute>
           <dia:attribute name="abstract">
             <dia:boolean val="true"/>
@@ -7511,7 +7553,7 @@ If the argument is a string, the return value is the same object.#</dia:string>
             <dia:enum val="0"/>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>#returns the list of currently open diagrams#</dia:string>
+            <dia:string>#diagrams() -&gt; List of Diagram.  Returns the list of currently open diagrams#</dia:string>
           </dia:attribute>
           <dia:attribute name="abstract">
             <dia:boolean val="true"/>
@@ -7541,7 +7583,7 @@ If the argument is a string, the return value is the same object.#</dia:string>
             <dia:enum val="0"/>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>#from a type name like "Standard - Line" return the factory to create objects of that type, see: DiaObjectType#</dia:string>
+            <dia:string>#get_object_type(string: type) -&gt; ObjectType.  From a type name like "Standard - Line" return the factory to create objects of that type, see: DiaObjectType#</dia:string>
           </dia:attribute>
           <dia:attribute name="abstract">
             <dia:boolean val="true"/>
@@ -7571,7 +7613,7 @@ If the argument is a string, the return value is the same object.#</dia:string>
             <dia:enum val="0"/>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>#create a group containing the given list of dia.Object(s)#</dia:string>
+            <dia:string>#group_create(List of Object: objs) -&gt; Object.  Create a group containing the given list of dia.Object(s)#</dia:string>
           </dia:attribute>
           <dia:attribute name="abstract">
             <dia:boolean val="true"/>
@@ -7601,7 +7643,7 @@ If the argument is a string, the return value is the same object.#</dia:string>
             <dia:enum val="0"/>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>#loads a diagram from the given filename#</dia:string>
+            <dia:string>#load(string: name) -&gt; Diagram.  Loads a diagram from the given filename#</dia:string>
           </dia:attribute>
           <dia:attribute name="abstract">
             <dia:boolean val="true"/>
@@ -7631,7 +7673,7 @@ If the argument is a string, the return value is the same object.#</dia:string>
             <dia:enum val="0"/>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>#popup a dialog with given message#</dia:string>
+            <dia:string>#message(int: type, string: msg) -&gt; None.  Popup a dialog with given message#</dia:string>
           </dia:attribute>
           <dia:attribute name="abstract">
             <dia:boolean val="true"/>
@@ -7661,7 +7703,7 @@ If the argument is a string, the return value is the same object.#</dia:string>
             <dia:enum val="0"/>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>#create an empty diagram#</dia:string>
+            <dia:string>#new(string: name) -&gt; Diagram.  Create an empty diagram#</dia:string>
           </dia:attribute>
           <dia:attribute name="abstract">
             <dia:boolean val="true"/>
@@ -7691,7 +7733,7 @@ If the argument is a string, the return value is the same object.#</dia:string>
             <dia:enum val="0"/>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>#register a callback function which appears in the menu. Depending on the menu path used during registrationthe callback gets called with the current DiaDiagramData object#</dia:string>
+            <dia:string>#register_action(string: action, string: description, string: menupath, Callback: func) -&gt; None.  Register a callback function which appears in the menu. Depending on the menu path used during registrationthe callback gets called with the current DiaDiagramData object#</dia:string>
           </dia:attribute>
           <dia:attribute name="abstract">
             <dia:boolean val="true"/>
@@ -7721,7 +7763,7 @@ If the argument is a string, the return value is the same object.#</dia:string>
             <dia:enum val="0"/>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>#register a callback function which appears in the menu. Depending on the menu path used during registrationthe callback gets called with the current DiaDiagramData object#</dia:string>
+            <dia:string>#register_callback(string: description, string: menupath, Callback: func) -&gt; None.  Register a callback function which appears in the menu. Depending on the menu path used during registrationthe callback gets called with the current DiaDiagramData object#</dia:string>
           </dia:attribute>
           <dia:attribute name="abstract">
             <dia:boolean val="true"/>
@@ -7751,7 +7793,7 @@ If the argument is a string, the return value is the same object.#</dia:string>
             <dia:enum val="0"/>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>#allows to register an export filter written in Python. It needs to conform to the DiaRenderer interface.#</dia:string>
+            <dia:string>#register_export(string: name, string: extension, Renderer: r) -&gt; None.  Allows to register an export filter written in Python. It needs to conform to the DiaRenderer interface.#</dia:string>
           </dia:attribute>
           <dia:attribute name="abstract">
             <dia:boolean val="true"/>
@@ -7781,7 +7823,7 @@ If the argument is a string, the return value is the same object.#</dia:string>
             <dia:enum val="0"/>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>#allows to register an import filter written in Python, that is mainly a callback function which fills thegiven DiaDiagramData from the given filename#</dia:string>
+            <dia:string>#register_import(string: name, string: extension, Callback: func) -&gt; None.  Allows to register an import filter written in Python, that is mainly a callback function which fills thegiven DiaDiagramData from the given filename#</dia:string>
           </dia:attribute>
           <dia:attribute name="abstract">
             <dia:boolean val="true"/>
@@ -7811,7 +7853,7 @@ If the argument is a string, the return value is the same object.#</dia:string>
             <dia:enum val="0"/>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>#registers a single plug-in given its filename#</dia:string>
+            <dia:string>#register_plugin(string: filename) -&gt; None.  Registers a single plug-in given its filename, that is load a dynamic module.#</dia:string>
           </dia:attribute>
           <dia:attribute name="abstract">
             <dia:boolean val="true"/>
@@ -7841,7 +7883,7 @@ If the argument is a string, the return value is the same object.#</dia:string>
             <dia:enum val="0"/>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>#a dictionary of all registered object factories, aka. DiaObjectType#</dia:string>
+            <dia:string>#registered_types() -&gt; Dict of ObjectType indexed by their name.  A dictionary of all registered object factories, aka. DiaObjectType#</dia:string>
           </dia:attribute>
           <dia:attribute name="abstract">
             <dia:boolean val="true"/>
@@ -7871,7 +7913,7 @@ If the argument is a string, the return value is the same object.#</dia:string>
             <dia:enum val="0"/>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>#force a global update of all existing diagrams#</dia:string>
+            <dia:string>#update_all() -&gt; None.  Force an asynchronous update of all existing diagram displays#</dia:string>
           </dia:attribute>
           <dia:attribute name="abstract">
             <dia:boolean val="true"/>
@@ -7943,7 +7985,7 @@ If the argument is a string, the return value is the same object.#</dia:string>
         <dia:int val="40"/>
       </dia:attribute>
       <dia:attribute name="comment_line_length">
-        <dia:int val="17"/>
+        <dia:int val="120"/>
       </dia:attribute>
       <dia:attribute name="comment_tagging">
         <dia:boolean val="false"/>
@@ -8011,9 +8053,7 @@ If the argument is a string, the return value is the same object.#</dia:string>
             <dia:string>##</dia:string>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>#float(x) -&gt; floating point number
-
-Convert a string or number to a floating point number, if possible.#</dia:string>
+            <dia:string>#real: height of the drawable area (sans margins)#</dia:string>
           </dia:attribute>
           <dia:attribute name="visibility">
             <dia:enum val="0"/>
@@ -8036,14 +8076,7 @@ Convert a string or number to a floating point number, if possible.#</dia:string
             <dia:string>##</dia:string>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>#int(x[, base]) -&gt; integer
-
-Convert a string or number to an integer, if possible.  A floating point
-argument will be truncated towards zero (this does not include a string
-representation of a floating point number!)  When converting a string, use
-the optional base.  It is an error to supply a base when converting a
-non-string. If the argument is outside the integer range a long object
-will be returned instead.#</dia:string>
+            <dia:string>#int: paper orientation#</dia:string>
           </dia:attribute>
           <dia:attribute name="visibility">
             <dia:enum val="0"/>
@@ -8066,10 +8099,7 @@ will be returned instead.#</dia:string>
             <dia:string>##</dia:string>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>#str(object) -&gt; string
-
-Return a nice string representation of the object.
-If the argument is a string, the return value is the same object.#</dia:string>
+            <dia:string>#string: paper name, e.g. A4 or Letter#</dia:string>
           </dia:attribute>
           <dia:attribute name="visibility">
             <dia:enum val="0"/>
@@ -8092,9 +8122,7 @@ If the argument is a string, the return value is the same object.#</dia:string>
             <dia:string>##</dia:string>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>#float(x) -&gt; floating point number
-
-Convert a string or number to a floating point number, if possible.#</dia:string>
+            <dia:string>#real: factor to zoom the diagram on the paper#</dia:string>
           </dia:attribute>
           <dia:attribute name="visibility">
             <dia:enum val="0"/>
@@ -8117,9 +8145,7 @@ Convert a string or number to a floating point number, if possible.#</dia:string
             <dia:string>##</dia:string>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>#float(x) -&gt; floating point number
-
-Convert a string or number to a floating point number, if possible.#</dia:string>
+            <dia:string>#real: width of the drawable area (sans margins)#</dia:string>
           </dia:attribute>
           <dia:attribute name="visibility">
             <dia:enum val="0"/>

@@ -54,7 +54,23 @@ def distribute_objects (objs) :
 			x = 0.0
 			y += height
 
-def autodoc_cb (data, flags) :
+def find_class (data, name) :
+	"Find an UML-Class with the given class-name"
+	if not data :
+		return None
+	for la in data.layers :
+		for o in la.objects :
+			if o.type.name == 'UML - Class' and o.properties['name'].value == name :
+				return o
+	return None
+
+def autodoc_fresh_cb (data, flags) :
+	return autodoc_cb(data, flags, 0)
+def autodoc_update_cb (data, flags) :
+	return autodoc_cb(data, flags, data != None)
+
+def autodoc_cb (data, flags, update) :
+	show_comments = 1 # maybe this should be selectable
 	if not data : # not set when called by the toolbox menu
 		diagram = dia.new("PyDiaObjects.dia")
 		# passed in data is not necessary valid - we are called from the Toolbox menu
@@ -117,6 +133,7 @@ def autodoc_cb (data, flags) :
 	# add UML classes for every object in dir
 	#print theTypes
 
+	fresh = [] # list of newly created objects
 	theGlobals = []
 	# remove all objects prefixed with '__'
 	for s in theDir :
@@ -129,10 +146,19 @@ def autodoc_cb (data, flags) :
 		if is_a :
 			theGlobals.append((s,doc))
 			continue
-		o, h1, h2 = oType.create (0,0) # p.x, p.y
+		# search the class we would create in the diagram and if found, modify rather than create
+		o = None
+		if update :
+			o = find_class(data, s)
+			h1 = h2 = None
+			if o :
+				show_comments = o.properties["visible_comments"].value
+		if not o :
+			o, h1, h2 = oType.create (0,0) # p.x, p.y
+			layer.add_object (o)
+			fresh.append(o)
 		if doc :
 			o.properties["comment"] = doc
-		layer.add_object (o)
 		# set the objects name
 		o.properties["name"] = s
 		# now populate the object with ...
@@ -172,8 +198,11 @@ def autodoc_cb (data, flags) :
 					except AttributeError, msg :
 						print m, msg # No constructor defined
 				try :
-					doc = eval("t." + m + ".__doc__")
-				except :
+					# try to get the member's docstring from the type
+					doc = eval("dia." + s + "." + m + ".__doc__")
+					# fallback to object?
+					#doc = eval("t." + m + ".__doc__")
+				except AttributeError :
 					doc = str(t) + "." + m
 				if is_m : # (name, type, comment, stereotype, visibility, inheritance_type, query,class_scope, params)
 					methods.append((m,tt,doc,'',0,0,0,0,()))
@@ -181,22 +210,33 @@ def autodoc_cb (data, flags) :
 					attributes.append((m,tt,'',doc,0,0,0))
 			o.properties["operations"] = methods
 			o.properties["attributes"] = attributes
+			o.properties["comment_line_length"] = 120
+			o.properties["visible_comments"] = show_comments
 			if stereotype != "" :
 				o.properties["stereotype"] = stereotype
-	# build the module object
-	o, h1, h2 = oType.create (0,0) # p.x, p.y
-	layer.add_object (o)
-	# set the objects name
-	o.properties["name"] = "dia"
+	o = None
+	if update :
+		o = find_class(data, 'dia')
+	if o :
+		show_comments = o.properties["visible_comments"].value
+	else :
+		# build the module object
+		o, h1, h2 = oType.create (0,0) # p.x, p.y
+		layer.add_object (o)
+		# set the objects name
+		o.properties["name"] = "dia"
+		fresh.append(o)
 	o.properties["comment"] = eval("dia.__doc__")
+	o.properties["comment_line_length"] = 120
+	o.properties["visible_comments"] = show_comments
 	methods = []
 	for s in theGlobals :
 		if string.find(s[0], "swigregister") >= 0 :
 			continue # just noise
 		methods.append((s[0],'',s[1],'',0,0,0,1,()))
 	o.properties["operations"] = methods
-	# all objects got there bounding box, distribute them
-	distribute_objects (layer.objects)
+	# all objects got there bounding box, distribute the fresh ones
+	distribute_objects (fresh)
 
 	if diagram :
 		diagram.update_extents()
@@ -204,6 +244,23 @@ def autodoc_cb (data, flags) :
 	# work with bindings test
 	return data
 
+def autodoc_html_cb (data, flags) :
+	import pydoc
+	import os
+	try :
+		path = os.environ["TEMP"]
+		os.chdir(path)
+		pydoc.writedoc(dia)
+		dia.message(0, path + os.path.sep + "dia.html saved.")
+	except :
+		pass
+
+dia.register_action ("HelpPydia2", "PyDia HTML Docs", 
+                       "/ToolboxMenu/Help/HelpExtensionStart", 
+                       autodoc_html_cb)
 dia.register_action ("HelpPydia", "PyDia Docs", 
                        "/ToolboxMenu/Help/HelpExtensionStart", 
-                       autodoc_cb)
+                       autodoc_fresh_cb)
+dia.register_action ("UpdatePydia", "PyDia Docs Update", 
+                       "/DisplayMenu/Help/HelpExtensionStart", 
+                       autodoc_update_cb)

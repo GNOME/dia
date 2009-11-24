@@ -494,36 +494,44 @@ PyDia_Message (PyObject *self, PyObject *args)
 
 static PyMethodDef dia_methods[] = {
     { "group_create", PyDia_GroupCreate, METH_VARARGS,
-      "create a group containing the given list of dia.Object(s)" },
+      "group_create(List of Object: objs) -> Object."
+      "  Create a group containing the given list of dia.Object(s)" },
     { "diagrams", PyDia_Diagrams, METH_VARARGS,
-      "returns the list of currently open diagrams" },
+      "diagrams() -> List of Diagram.  Returns the list of currently open diagrams" },
     { "load", PyDia_Load, METH_VARARGS,
-      "loads a diagram from the given filename" },
+      "load(string: name) -> Diagram.  Loads a diagram from the given filename" },
     { "message", PyDia_Message, METH_VARARGS,
-      "popup a dialog with given message" },
+      "message(int: type, string: msg) -> None.  Popup a dialog with given message" },
     { "new", PyDia_New, METH_VARARGS,
-      "create an empty diagram" },
+      "new(string: name) -> Diagram.  Create an empty diagram" },
     { "get_object_type", PyDia_GetObjectType, METH_VARARGS,
-      "from a type name like \"Standard - Line\" return the factory to create objects of that type, see: DiaObjectType" },
+      "get_object_type(string: type) -> ObjectType."
+      "  From a type name like \"Standard - Line\" return the factory to create objects of that type, see: DiaObjectType" },
     { "registered_types", PyDia_RegisteredTypes, METH_VARARGS,
-      "a dictionary of all registered object factories, aka. DiaObjectType" },
+      "registered_types() -> Dict of ObjectType indexed by their name."
+      "  A dictionary of all registered object factories, aka. DiaObjectType" },
     { "active_display", PyDia_ActiveDisplay, METH_VARARGS,
-      "delivers the currently active display 'dia.Display' or None" },
+      "active_display() -> Display.  Delivers the currently active display 'dia.Display' or None" },
     { "update_all", PyDia_UpdateAll, METH_VARARGS,
-      "force a global update of all existing diagrams" },
+      "update_all() -> None.  Force an asynchronous update of all existing diagram displays" },
     { "register_export", PyDia_RegisterExport, METH_VARARGS,
-      "allows to register an export filter written in Python. It needs to conform to the DiaRenderer interface." },
+      "register_export(string: name, string: extension, Renderer: r) -> None."
+      "  Allows to register an export filter written in Python. It needs to conform to the DiaRenderer interface." },
     { "register_import", PyDia_RegisterImport, METH_VARARGS,
-      "allows to register an import filter written in Python, that is mainly a callback function which fills the"
+      "register_import(string: name, string: extension, Callback: func) -> None."
+      "  Allows to register an import filter written in Python, that is mainly a callback function which fills the"
       "given DiaDiagramData from the given filename" },
     { "register_callback", PyDia_RegisterCallback, METH_VARARGS,
-      "register a callback function which appears in the menu. Depending on the menu path used during registration"
+      "register_callback(string: description, string: menupath, Callback: func) -> None."
+      "  Register a callback function which appears in the menu. Depending on the menu path used during registration"
       "the callback gets called with the current DiaDiagramData object" },
     { "register_action", PyDia_RegisterAction, METH_VARARGS,
-      "register a callback function which appears in the menu. Depending on the menu path used during registration"
+      "register_action(string: action, string: description, string: menupath, Callback: func) -> None."
+      "  Register a callback function which appears in the menu. Depending on the menu path used during registration"
       "the callback gets called with the current DiaDiagramData object" },
     { "register_plugin", PyDia_RegisterPlugin, METH_VARARGS,
-      "registers a single plug-in given its filename" },
+      "register_plugin(string: filename) -> None."
+      "  Registers a single plug-in given its filename, that is load a dynamic module." },
     { NULL, NULL }
 };
 

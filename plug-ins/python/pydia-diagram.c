@@ -30,6 +30,8 @@
 #include "pydia-geometry.h"
 #include "pydia-color.h"
 
+#include <structmember.h> /* PyMemberDef */
+
 #include "app/load_save.h"
 #include "app/connectionpoint_ops.h"
 
@@ -270,13 +272,13 @@ PyDiaDiagram_FindClosestConnectionPoint(PyDiaDiagram *self, PyObject *args)
     double dist;
     ConnectionPoint *cpoint;
     PyObject *ret;
-    PyDiaObject *obj;
+    PyDiaObject *obj = NULL;
 
-    if (!PyArg_ParseTuple(args, "ddO!:Diagram.find_closest_connectionpoint",
+    if (!PyArg_ParseTuple(args, "dd|O!:Diagram.find_closest_connectionpoint",
 			  &p.x, &p.y, PyDiaObject_Type, &obj))
 	return NULL;
     dist = diagram_find_closest_connectionpoint(self->dia, &cpoint, &p, 
-						obj->object);
+						obj ? obj->object : NULL);
     ret = PyTuple_New(2);
     PyTuple_SetItem(ret, 0, PyFloat_FromDouble(dist));
     if (cpoint)
@@ -465,28 +467,71 @@ PyDiaDiagram_ConnectAfter(PyDiaDiagram *self, PyObject *args)
 }
 
 static PyMethodDef PyDiaDiagram_Methods[] = {
-    {"select", (PyCFunction)PyDiaDiagram_Select, 1},
-    {"is_selected", (PyCFunction)PyDiaDiagram_IsSelected, 1},
-    {"unselect", (PyCFunction)PyDiaDiagram_Unselect, 1},
-    {"remove_all_selected", (PyCFunction)PyDiaDiagram_RemoveAllSelected, 1},
-    {"update_extents", (PyCFunction)PyDiaDiagram_UpdateExtents, 1},
-    {"get_sorted_selected", (PyCFunction)PyDiaDiagram_GetSortedSelected, 1},
+    {"select", (PyCFunction)PyDiaDiagram_Select, METH_VARARGS,
+     "select(Object: o) -> None.  Add the given object to the selection."},
+    {"is_selected", (PyCFunction)PyDiaDiagram_IsSelected, METH_VARARGS,
+     "is_selected(Object: o) -> bool.  True if the given object is already selected."},
+    {"unselect", (PyCFunction)PyDiaDiagram_Unselect, METH_VARARGS,
+     "unselect(Object: o) -> None.  Remove the given object from the selection)"},
+    {"remove_all_selected", (PyCFunction)PyDiaDiagram_RemoveAllSelected, METH_VARARGS,
+     "remove_all_selected() -> None.  Delete all selected objects."},
+    {"update_extents", (PyCFunction)PyDiaDiagram_UpdateExtents, METH_VARARGS,
+     "update_extents() -> None.  Force recaculation of the diagram extents."},
+    {"get_sorted_selected", (PyCFunction)PyDiaDiagram_GetSortedSelected, METH_VARARGS,
+     "get_sorted_selected() -> list.  Return the current selection sorted by Z-Order."},
     {"get_sorted_selected_remove",
-     (PyCFunction)PyDiaDiagram_GetSortedSelectedRemove, 1},
-    {"add_update", (PyCFunction)PyDiaDiagram_AddUpdate, 1},
-    {"add_update_all", (PyCFunction)PyDiaDiagram_AddUpdateAll, 1},
-    {"update_connections", (PyCFunction)PyDiaDiagram_UpdateConnections, 1},
-    {"flush", (PyCFunction)PyDiaDiagram_Flush, 1},
-    {"find_clicked_object", (PyCFunction)PyDiaDiagram_FindClickedObject, 1},
-    {"find_closest_handle", (PyCFunction)PyDiaDiagram_FindClosestHandle, 1},
+     (PyCFunction)PyDiaDiagram_GetSortedSelectedRemove, METH_VARARGS,
+     "get_sorted_selected_remove() -> list."
+     "  Return sorted selection and remove it from the diagram."},
+    {"add_update", (PyCFunction)PyDiaDiagram_AddUpdate, METH_VARARGS,
+     "add_update(real: top, real: left, real: bottom, real: right) -> None."
+     "  Add the given rectangle to the update queue."},
+    {"add_update_all", (PyCFunction)PyDiaDiagram_AddUpdateAll, METH_VARARGS,
+     "add_update_all() -> None.  Add the diagram visible area to the update queue."},
+    {"update_connections", (PyCFunction)PyDiaDiagram_UpdateConnections, METH_VARARGS,
+     "update_connections(Object: o) -> None."
+     "  Update all connections of the given object. Might move connected objects."},
+    {"flush", (PyCFunction)PyDiaDiagram_Flush, METH_VARARGS,
+     "flush() -> None.  If no display update is queued, queue update."},
+    {"find_clicked_object", (PyCFunction)PyDiaDiagram_FindClickedObject, METH_VARARGS,
+     "find_clicked_object(real[2]: point, real: distance) -> Object."
+     "  Find an object in the given distance of the given point."},
+    {"find_closest_handle", (PyCFunction)PyDiaDiagram_FindClosestHandle, METH_VARARGS,
+     "find_closest_handle(real[2]: point) -> (real: distance, Handle: h, Object: o)."
+     "  Find the closest handle from point and return a tuple of the search results. "
+     " Handle and Object might be None."},
     {"find_closest_connectionpoint",
-     (PyCFunction)PyDiaDiagram_FindClosestConnectionPoint, 1},
-    {"group_selected", (PyCFunction)PyDiaDiagram_GroupSelected, 1},
-    {"ungroup_selected", (PyCFunction)PyDiaDiagram_UngroupSelected, 1},
-    {"save", (PyCFunction)PyDiaDiagram_Save, 1},
-    {"display", (PyCFunction)PyDiaDiagram_Display, 1},
-    {"connect_after", (PyCFunction)PyDiaDiagram_ConnectAfter, 1},
+     (PyCFunction)PyDiaDiagram_FindClosestConnectionPoint, METH_VARARGS,
+     "find_closest_connectionpoint(real: x, real: y[, Object: o]) -> (real: dist, ConnectionPoint: cp)."
+     "  Given a point and an optional object to exclude, return the distance and closest connection point or None."},
+    {"group_selected", (PyCFunction)PyDiaDiagram_GroupSelected, METH_VARARGS,
+     "group_selected() -> None.  Turn the current selection into a group object."},
+    {"ungroup_selected", (PyCFunction)PyDiaDiagram_UngroupSelected, METH_VARARGS,
+     "ungroup_selected() -> None.  Split all groups in the current selection into single objects."},
+    {"save", (PyCFunction)PyDiaDiagram_Save, METH_VARARGS,
+     "save(string: filename) -> None.  Save the diagram under the given filename."},
+    {"display", (PyCFunction)PyDiaDiagram_Display, METH_VARARGS,
+     "display() -> Display.  Create a new display of the diagram."},
+    {"connect_after", (PyCFunction)PyDiaDiagram_ConnectAfter, METH_VARARGS,
+     "connect_after(string: signal_name, Callback: func) -> None.  Listen to diagram events in ['removed', 'selection_changed']."},
     {NULL, 0, 0, NULL}
+};
+
+#define T_INVALID -1 /* can't allow direct access due to pyobject->handle indirection */
+static PyMemberDef PyDiaDiagram_Members[] = {
+    { "data", T_INVALID, 0, RESTRICTED|READONLY, /* can't allow direct access due to pyobject->dia indirection */
+      "Backward-compatible base-class access" },
+    { "displays", T_INVALID, 0, RESTRICTED|READONLY,
+      "The list of current displays of this diagram." },
+    { "filename", T_INVALID, 0, RESTRICTED|READONLY,
+      "Filename in utf-8 encoding." },
+    { "modified", T_INVALID, 0, RESTRICTED|READONLY,
+      "Modification state." },
+    { "selected", T_INVALID, 0, RESTRICTED|READONLY,
+      "The current object selection." },
+    { "unsaved", T_INVALID, 0, RESTRICTED|READONLY,
+      "True if the diagram was not saved yet." },
+    { NULL }
 };
 
 static PyObject *
@@ -497,7 +542,7 @@ PyDiaDiagram_GetAttr(PyDiaDiagram *self, gchar *attr)
 			     "data", "displays", "filename",
 			     "modified", "selected", "unsaved");
     else if (!strcmp(attr, "data"))
-      return PyDiaDiagramData_New (self->dia->data);
+        return PyDiaDiagramData_New (self->dia->data);
     else if (!strcmp(attr, "filename"))
 	return PyString_FromString(self->dia->filename);
     else if (!strcmp(attr, "unsaved"))
@@ -548,5 +593,14 @@ PyTypeObject PyDiaDiagram_Type = {
     (setattrofunc)0,
     (PyBufferProcs *)0,
     0L, /* Flags */
-    "Subclass of dia.DiagramData (at least in the C implmentation) adding interfacing the GUI elements."
+    "Subclass of dia.DiagramData (at least in the C implementation) adding interfacing the GUI elements.",
+    (traverseproc)0,
+    (inquiry)0,
+    (richcmpfunc)0,
+    0, /* tp_weakliszoffset */
+    (getiterfunc)0,
+    (iternextfunc)0,
+    PyDiaDiagram_Methods, /* tp_methods */
+    PyDiaDiagram_Members, /* tp_members */
+    0
 };

@@ -22,6 +22,8 @@
 #include "pydia-paperinfo.h"
 #include "pydia-object.h" /* for PyObject_HEAD_INIT */
 
+#include <structmember.h> /* PyMemberDef */
+
 /*
  * New
  */
@@ -107,6 +109,20 @@ PyDiaPaperinfo_Str(PyDiaPaperinfo *self)
   return py_s;
 }
 
+#define T_INVALID -1 /* can't allow direct access due to pyobject->paper indirection */
+static PyMemberDef PyDiaPaperinfo_Members[] = {
+    { "name", T_INVALID, 0, RESTRICTED|READONLY,
+      "string: paper name, e.g. A4 or Letter" },
+    { "is_portrait", T_INVALID, 0, RESTRICTED|READONLY,
+      "int: paper orientation" },
+    { "scaling", T_INVALID, 0, RESTRICTED|READONLY,
+      "real: factor to zoom the diagram on the paper" },
+    { "width", T_INVALID, 0, RESTRICTED|READONLY,
+      "real: width of the drawable area (sans margins)" },
+    { "height", T_INVALID, 0, RESTRICTED|READONLY,
+      "real: height of the drawable area (sans margins)" },
+    { NULL }
+};
 /*
  * Python objetcs
  */
@@ -132,5 +148,14 @@ PyTypeObject PyDiaPaperinfo_Type = {
     (setattrofunc)0,
     (PyBufferProcs *)0,
     0L, /* Flags */
-    "dia.Paperinfo is part of dia.DiagramData describing the paper"
+    "dia.Paperinfo is part of dia.DiagramData describing the paper",
+    (traverseproc)0,
+    (inquiry)0,
+    (richcmpfunc)0,
+    0, /* tp_weakliszoffset */
+    (getiterfunc)0,
+    (iternextfunc)0,
+    0, /* tp_methods */
+    PyDiaPaperinfo_Members, /* tp_members */
+    0
 };

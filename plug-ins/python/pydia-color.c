@@ -22,6 +22,8 @@
 #include "pydia-object.h"
 #include "pydia-color.h"
 
+#include <structmember.h> /* PyMemberDef */
+
 /*
  * New
  */
@@ -66,25 +68,6 @@ PyDiaColor_Hash(PyObject *self)
 }
 
 /*
- * GetAttr
- */
-static PyObject *
-PyDiaColor_GetAttr(PyDiaColor *self, gchar *attr)
-{
-  if (!strcmp(attr, "__members__"))
-    return Py_BuildValue("[sss]", "red", "green", "blue");
-  else if (!strcmp(attr, "red"))
-    return PyFloat_FromDouble(self->color.red);
-  else if (!strcmp(attr, "green"))
-    return PyFloat_FromDouble(self->color.green);
-  else if (!strcmp(attr, "blue"))
-    return PyFloat_FromDouble(self->color.blue);
-
-  PyErr_SetString(PyExc_AttributeError, attr);
-  return NULL;
-}
-
-/*
  * Repr / _Str
  */
 static PyObject *
@@ -100,6 +83,15 @@ PyDiaColor_Str(PyDiaColor *self)
   return py_s;
 }
 
+static PyMemberDef PyDiaColor_Members[] = {
+    { "red", T_DOUBLE, offsetof(PyDiaColor, color.red), 0,
+      "double: red color component [0 .. 1.0]" },
+    { "green", T_DOUBLE, offsetof(PyDiaColor, color.green), 0,
+      "double: green color component [0 .. 1.0]" },
+    { "blue", T_DOUBLE, offsetof(PyDiaColor, color.blue), 0,
+      "double: blue color component [0 .. 1.0]" },
+    { NULL }
+};
 /*
  * Python objetcs
  */
@@ -111,7 +103,7 @@ PyTypeObject PyDiaColor_Type = {
     0,
     (destructor)PyDiaColor_Dealloc,
     (printfunc)0,
-    (getattrfunc)PyDiaColor_GetAttr,
+    (getattrfunc)0,
     (setattrfunc)0,
     (cmpfunc)PyDiaColor_Compare,
     (reprfunc)0,
@@ -121,10 +113,19 @@ PyTypeObject PyDiaColor_Type = {
     (hashfunc)PyDiaColor_Hash,
     (ternaryfunc)0,
     (reprfunc)PyDiaColor_Str,
-    (getattrofunc)0,
+    PyObject_GenericGetAttr, /* tp_getattro */
     (setattrofunc)0,
     (PyBufferProcs *)0,
     0L, /* Flags */
     "A color either defined by a color string or by a tuple with three elements "
-    "(r, g, b) with type float 0.0 ... 1.0 or range int 0 ... 65535"
+    "(r, g, b) with type float 0.0 ... 1.0 or range int 0 ... 65535",
+    (traverseproc)0,
+    (inquiry)0,
+    (richcmpfunc)0,
+    0, /* tp_weakliszoffset */
+    (getiterfunc)0,
+    (iternextfunc)0,
+    0, /* tp_methods */
+    PyDiaColor_Members, /* tp_members */
+    0
 };

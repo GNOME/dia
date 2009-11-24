@@ -22,6 +22,7 @@
 #include "pydia-object.h"
 #include "pydia-geometry.h"
 
+#include <structmember.h> /* PyMemberDef */
 
 /* Implements wrappers for Point, Rectangle, IntRectangle, BezPoint */
 
@@ -187,23 +188,6 @@ PyDiaGeometry_Hash(PyObject *self)
     return (long)self;
 }
 
-/*
- * GetAttr
- */
-static PyObject *
-PyDiaPoint_GetAttr(PyDiaPoint *self, gchar *attr)
-{
-  if (!strcmp(attr, "__members__"))
-    return Py_BuildValue("[ss]", "x", "y");
-  else if (!strcmp(attr, "x"))
-    return PyFloat_FromDouble(self->pt.x);
-  else if (!strcmp(attr, "y"))
-    return PyFloat_FromDouble(self->pt.y);
-
-  PyErr_SetString(PyExc_AttributeError, attr);
-  return NULL;
-}
-
 static PyObject *
 PyDiaRectangle_GetAttr(PyDiaRectangle *self, gchar *attr)
 {
@@ -241,22 +225,6 @@ PyDiaBezPoint_GetAttr(PyDiaBezPoint *self, gchar *attr)
     return PyDiaPoint_New(&(self->bpn.p2));
   else if (!strcmp(attr, "p3"))
     return PyDiaPoint_New(&(self->bpn.p3));
-
-  PyErr_SetString(PyExc_AttributeError, attr);
-  return NULL;
-}
-
-static PyObject *
-PyDiaArrow_GetAttr(PyDiaArrow *self, gchar *attr)
-{
-  if (!strcmp(attr, "__members__"))
-    return Py_BuildValue("[sss]", "type", "width", "length");
-  else if (!strcmp(attr, "type"))
-    return PyInt_FromLong(self->arrow.type);
-  else if (!strcmp(attr, "width"))
-    return PyFloat_FromDouble(self->arrow.width);
-  else if (!strcmp(attr, "length"))
-    return PyFloat_FromDouble(self->arrow.length);
 
   PyErr_SetString(PyExc_AttributeError, attr);
   return NULL;
@@ -360,8 +328,8 @@ static PyObject *
 point_item(PyDiaPoint* self, int i)
 {
   switch (i) {
-  case 0 : return PyDiaPoint_GetAttr(self, "x");
-  case 1 : return PyDiaPoint_GetAttr(self, "y");
+  case 0 : return PyFloat_FromDouble(self->pt.x);
+  case 1 : return PyFloat_FromDouble(self->pt.y);
   default :
     PyErr_SetString(PyExc_IndexError, "PyDiaPoint index out of range");
     return NULL;
@@ -448,6 +416,13 @@ static PySequenceMethods rect_as_sequence = {
 	(objobjproc)0 /*sq_contains*/
 };
 
+static PyMemberDef PyDiaPoint_Members[] = {
+    { "x", T_DOUBLE, offsetof(PyDiaPoint, pt.x), 0,
+      "double: coordinate horizontal part" },
+    { "y", T_DOUBLE, offsetof(PyDiaPoint, pt.y), 0,
+      "double: coordinate vertical part" },
+    { NULL }
+};
 /*
  * Python objetcs
  */
@@ -459,7 +434,7 @@ PyTypeObject PyDiaPoint_Type = {
     0,
     (destructor)PyDiaGeometry_Dealloc,
     (printfunc)0,
-    (getattrfunc)PyDiaPoint_GetAttr,
+    (getattrfunc)0,
     (setattrfunc)0,
     (cmpfunc)PyDiaPoint_Compare,
     (reprfunc)0,
@@ -469,13 +444,33 @@ PyTypeObject PyDiaPoint_Type = {
     (hashfunc)PyDiaGeometry_Hash,
     (ternaryfunc)0,
     (reprfunc)PyDiaPoint_Str,
-    (getattrofunc)0,
+    PyObject_GenericGetAttr, /* tp_getattro */
     (setattrofunc)0,
     (PyBufferProcs *)0,
     0L, /* Flags */
-    "The dia.Point does not only provide access trough it's members but also via a sequence interface."
+    "The dia.Point does not only provide access trough it's members but also via a sequence interface.",
+    (traverseproc)0,
+    (inquiry)0,
+    (richcmpfunc)0,
+    0, /* tp_weakliszoffset */
+    (getiterfunc)0,
+    (iternextfunc)0,
+    0, /* tp_methods */
+    PyDiaPoint_Members, /* tp_members */
+    0
 };
-
+#define T_INVALID -1 /* can't allow direct access due to pyobject->is_int */
+static PyMemberDef PyDiaRect_Members[] = {
+    { "top", T_INVALID, 0, RESTRICTED|READONLY,
+      "int or double: upper edge y coordinate" },
+    { "left", T_INVALID, 0, RESTRICTED|READONLY,
+      "int or double: left edge x coordinate" },
+    { "bottom", T_INVALID, 0, RESTRICTED|READONLY,
+      "int or double: lower edge y coordinate" },
+    { "right", T_INVALID, 0, RESTRICTED|READONLY,
+      "int or double: right edge x coordinate" },
+    { NULL }
+};
 PyTypeObject PyDiaRectangle_Type = {
     PyObject_HEAD_INIT(&PyType_Type)
     0,
@@ -498,9 +493,29 @@ PyTypeObject PyDiaRectangle_Type = {
     (setattrofunc)0,
     (PyBufferProcs *)0,
     0L, /* Flags */
-    "The dia.Rectangle does not only provide access trough it's members but also via a sequence interface."
+    "The dia.Rectangle does not only provide access trough it's members but also via a sequence interface.",
+    (traverseproc)0,
+    (inquiry)0,
+    (richcmpfunc)0,
+    0, /* tp_weakliszoffset */
+    (getiterfunc)0,
+    (iternextfunc)0,
+    0, /* tp_methods */
+    PyDiaRect_Members, /* tp_members */
+    0
 };
 
+static PyMemberDef PyDiaBezPoint_Members[] = {
+    { "type", T_INT, offsetof(PyDiaBezPoint, bpn.type), 0,
+      "int: MOVETO, LINETO using p1 only;  CURVETO all 3 points" },
+    { "p1", T_INVALID, offsetof(PyDiaBezPoint, bpn.p1), 0, /* T_INVALID for Python not knowing Point */
+      "Point: first control point for CURVETO" },
+    { "p2", T_INVALID, offsetof(PyDiaBezPoint, bpn.p2), 0,
+      "Point: second control point for CURVETO" },
+    { "p3", T_INVALID, offsetof(PyDiaBezPoint, bpn.p3), 0,
+      "Point: target point for CURVETO" },
+    { NULL }
+};
 PyTypeObject PyDiaBezPoint_Type = {
     PyObject_HEAD_INIT(&PyType_Type)
     0,
@@ -523,9 +538,27 @@ PyTypeObject PyDiaBezPoint_Type = {
     (setattrofunc)0,
     (PyBufferProcs *)0,
     0L, /* Flags */
-    "A dia.Point, a bezier type and two control points (dia.Point) make a bezier point."
+    "A dia.Point, a bezier type and two control points (dia.Point) make a bezier point.",
+    (traverseproc)0,
+    (inquiry)0,
+    (richcmpfunc)0,
+    0, /* tp_weakliszoffset */
+    (getiterfunc)0,
+    (iternextfunc)0,
+    0, /* tp_methods */
+    PyDiaBezPoint_Members, /* tp_members */
+    0
 };
 
+static PyMemberDef PyDiaArrow_Members[] = {
+    { "type", T_INT, offsetof(PyDiaArrow, arrow.type), 0,
+      "int: the shape of the arrow" },
+    { "width", T_DOUBLE, offsetof(PyDiaPoint, pt.x), 0,
+      "double: corresponding to line width" },
+    { "length", T_DOUBLE, offsetof(PyDiaPoint, pt.y), 0,
+      "double: length along the line" },
+    { NULL }
+};
 PyTypeObject PyDiaArrow_Type = {
     PyObject_HEAD_INIT(&PyType_Type)
     0,
@@ -534,7 +567,7 @@ PyTypeObject PyDiaArrow_Type = {
     0,
     (destructor)PyDiaGeometry_Dealloc,
     (printfunc)0,
-    (getattrfunc)PyDiaArrow_GetAttr,
+    (getattrfunc)0,
     (setattrfunc)0,
     (cmpfunc)PyDiaArrow_Compare,
     (reprfunc)0,
@@ -544,9 +577,18 @@ PyTypeObject PyDiaArrow_Type = {
     (hashfunc)PyDiaGeometry_Hash,
     (ternaryfunc)0,
     (reprfunc)PyDiaArrow_Str,
-    (getattrofunc)0,
+    PyObject_GenericGetAttr, /* tp_getattro */
     (setattrofunc)0,
     (PyBufferProcs *)0,
     0L, /* Flags */
-    "Dia's line objects usually ends with an dia.Arrow"
+    "Dia's line objects usually ends with an dia.Arrow",
+    (traverseproc)0,
+    (inquiry)0,
+    (richcmpfunc)0,
+    0, /* tp_weakliszoffset */
+    (getiterfunc)0,
+    (iternextfunc)0,
+    0, /* tp_methods */
+    PyDiaArrow_Members, /* tp_members */
+    0
 };

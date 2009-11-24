@@ -23,6 +23,8 @@
 #include "pydia-cpoint.h"
 #include "pydia-object.h"
 
+#include <structmember.h> /* PyMemberDef */
+
 PyObject *
 PyDiaConnectionPoint_New(ConnectionPoint *cpoint)
 {
@@ -80,6 +82,17 @@ PyDiaConnectionPoint_GetAttr(PyDiaConnectionPoint *self, gchar *attr)
     return NULL;
 }
 
+#define T_INVALID -1 /* can't allow direct access due to pyobject->cpoint indirection */
+static PyMemberDef PyDiaConnectionPoint_Members[] = {
+    { "connected", T_INVALID, 0, RESTRICTED|READONLY,
+      "List of Object: read-only list of connected objects" },
+    { "object", T_INVALID, 0, RESTRICTED|READONLY,
+      "Object: the object owning this connection point" },
+    { "pos", T_INVALID, 0, RESTRICTED|READONLY,
+      "Point: read-only position of the connection point" },
+    { NULL }
+};
+
 PyTypeObject PyDiaConnectionPoint_Type = {
     PyObject_HEAD_INIT(&PyType_Type)
     0,
@@ -103,5 +116,14 @@ PyTypeObject PyDiaConnectionPoint_Type = {
     (PyBufferProcs *)0,
     0L, /* Flags */
     "One of the major features of Dia are connectable objects. They work by this type accesible "
-    "through dia.Object.connections[]."
+    "through dia.Object.connections[].",
+    (traverseproc)0,
+    (inquiry)0,
+    (richcmpfunc)0,
+    0, /* tp_weakliszoffset */
+    (getiterfunc)0,
+    (iternextfunc)0,
+    0, /* tp_methods */
+    PyDiaConnectionPoint_Members, /* tp_members */
+    0
 };

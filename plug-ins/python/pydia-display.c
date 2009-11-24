@@ -23,6 +23,8 @@
 #include "pydia-diagram.h"
 #include "pydia-object.h" /* for PyObject_HEAD_INIT */
 
+#include <structmember.h> /* PyMemberDef */
+
 PyObject *
 PyDiaDisplay_New(DDisplay *disp)
 {
@@ -195,19 +197,46 @@ PyDiaDisplay_ScrollRight(PyDiaDisplay *self, PyObject *args)
 }
 
 static PyMethodDef PyDiaDisplay_Methods[] = {
-    {"add_update_all", (PyCFunction)PyDiaDisplay_AddUpdateAll, 1},
-    {"flush", (PyCFunction)PyDiaDisplay_Flush, 1},
-    {"set_origion", (PyCFunction)PyDiaDisplay_SetOrigion, 1},
-    {"zoom", (PyCFunction)PyDiaDisplay_Zoom, 1},
-    {"resize_canvas", (PyCFunction)PyDiaDisplay_ResizeCanvas, 1},
-    {"close", (PyCFunction)PyDiaDisplay_Close, 1},
-    {"set_title", (PyCFunction)PyDiaDisplay_SetTitle, 1},
-    {"scroll", (PyCFunction)PyDiaDisplay_Scroll, 1},
-    {"scroll_up", (PyCFunction)PyDiaDisplay_ScrollUp, 1},
-    {"scroll_down", (PyCFunction)PyDiaDisplay_ScrollDown, 1},
-    {"scroll_left", (PyCFunction)PyDiaDisplay_ScrollLeft, 1},
-    {"scroll_right", (PyCFunction)PyDiaDisplay_ScrollRight, 1},
+    {"add_update_all", (PyCFunction)PyDiaDisplay_AddUpdateAll, METH_VARARGS,
+     "add_update_all() -> None.  Add the diagram visible area to the update queue."},
+    {"flush", (PyCFunction)PyDiaDisplay_Flush, METH_VARARGS,
+     "flush() -> None.  If no display update is queued, queue update."},
+    {"set_origion", (PyCFunction)PyDiaDisplay_SetOrigion, METH_VARARGS,
+     "set_origion(real: x, real, y) -> None."
+     "  Move the given diagram point to the top-left corner of the visible area."},
+    {"zoom", (PyCFunction)PyDiaDisplay_Zoom, METH_VARARGS,
+     "zoom(real[2]: point, real: factor) -> None.  Zoom around the given point."},
+    {"resize_canvas", (PyCFunction)PyDiaDisplay_ResizeCanvas, METH_VARARGS,
+     "resize_canvas(int: width, int: height) -> None."
+     "  BEWARE: Changing the drawing area but not the window size."},
+    {"close", (PyCFunction)PyDiaDisplay_Close, METH_VARARGS,
+     "close() -> None.  Close the display possibly asking to save."},
+    {"set_title", (PyCFunction)PyDiaDisplay_SetTitle, METH_VARARGS,
+     "set_title(string: title) -> None.  Temporary change of the diagram title."},
+    {"scroll", (PyCFunction)PyDiaDisplay_Scroll, METH_VARARGS,
+     "scroll(real: dx, real: dy) -> None.  Scroll the visible area by the given delta."},
+    {"scroll_up", (PyCFunction)PyDiaDisplay_ScrollUp, METH_VARARGS,
+     "scroll_up() -> None. Scroll upwards by a fixed amount."},
+    {"scroll_down", (PyCFunction)PyDiaDisplay_ScrollDown, METH_VARARGS,
+     "scroll_down() -> None. Scroll downwards by a fixed amount."},
+    {"scroll_left", (PyCFunction)PyDiaDisplay_ScrollLeft, METH_VARARGS,
+     "scroll_left() -> None. Scroll to the left by a fixed amount."},
+    {"scroll_right", (PyCFunction)PyDiaDisplay_ScrollRight, METH_VARARGS,
+     "scroll_right() -> None. Scroll to the right by a fixed amount."},
     {NULL, 0, 0, NULL}
+};
+
+#define T_INVALID -1 /* can't allow direct access due to pyobject->data indirection */
+static PyMemberDef PyDiaDisplay_Members[] = {
+    { "diagram", T_INVALID, 0, RESTRICTED|READONLY, /* can't allow direct access due to pyobject->disp indirection */
+      "Diagram displayed." },
+    { "origin", T_INVALID, 0, RESTRICTED|READONLY,
+      "Point in diagram coordinates of the top-left corner of the visible area."},
+    { "zoom_factor", T_INVALID, 0, RESTRICTED|READONLY,
+      "Real: zoom-factor"},
+    { "visible", T_INVALID, 0, RESTRICTED|READONLY,
+      "Tuple(real: top, real: left, real: bottom, real: right) : visible area"},
+    { NULL }
 };
 
 static PyObject *
@@ -254,5 +283,14 @@ PyTypeObject PyDiaDisplay_Type = {
     (setattrofunc)0,
     (PyBufferProcs *)0,
     0L, /* Flags */
-    "A Diagram can have multiple displays but every Display has just one Diagram."
+    "A Diagram can have multiple displays but every Display has just one Diagram.",
+    (traverseproc)0,
+    (inquiry)0,
+    (richcmpfunc)0,
+    0, /* tp_weakliszoffset */
+    (getiterfunc)0,
+    (iternextfunc)0,
+    PyDiaDisplay_Methods, /* tp_methods */
+    PyDiaDisplay_Members, /* tp_members */
+    0
 };

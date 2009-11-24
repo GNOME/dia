@@ -24,6 +24,8 @@
 #include "pydia-geometry.h"
 #include "pydia-object.h" /* for PyObject_HEAD_INIT */
 
+#include <structmember.h> /* PyMemberDef */
+
 PyObject *
 PyDiaHandle_New(Handle *handle, DiaObject *owner)
 {
@@ -83,8 +85,25 @@ PyDiaHandle_Connect(PyDiaHandle *self, PyObject *args)
 }
 
 static PyMethodDef PyDiaHandle_Methods[] = {
-    { "connect", (PyCFunction)PyDiaHandle_Connect, 1 },
+    { "connect", (PyCFunction)PyDiaHandle_Connect, METH_VARARGS, 
+      "connect(ConnectionPoint: cp) -> None."
+      "  Connect object A's handle with object B's connection point. To disconnect a handle pass in None." },
     { NULL, 0, 0, NULL }
+};
+
+#define T_INVALID -1 /* can't allow direct access due to pyobject->handle indirection */
+static PyMemberDef PyDiaHandle_Members[] = {
+    { "connect_type", T_INVALID, 0, RESTRICTED|READONLY,
+      "NONCONNECTABLE=0." },
+    { "connected_to", T_INVALID, 0, RESTRICTED|READONLY,
+      "The connected ConnectionPoint object or None." },
+    { "id", T_INVALID, 0, RESTRICTED|READONLY,
+      "Can be used to derive preferred directions from it." },
+    { "pos", T_INVALID, 0, RESTRICTED|READONLY,
+      "The position of the connection point." },
+    { "type", T_INVALID, 0, RESTRICTED|READONLY,
+      "NON_MOVABLE=0, MAJOR_CONTROL=1, MINOR_CONTROL=2" },
+    { NULL }
 };
 
 static PyObject *
@@ -133,5 +152,14 @@ PyTypeObject PyDiaHandle_Type = {
     (setattrofunc)0,
     (PyBufferProcs *)0,
     0L, /* Flags */
-    "A handle is used to connect objects or for object resizing."
+    "A handle is used to connect objects or for object resizing.",
+    (traverseproc)0,
+    (inquiry)0,
+    (richcmpfunc)0,
+    0, /* tp_weakliszoffset */
+    (getiterfunc)0,
+    (iternextfunc)0,
+    PyDiaHandle_Methods, /* tp_methods */
+    PyDiaHandle_Members, /* tp_members */
+    0
 };

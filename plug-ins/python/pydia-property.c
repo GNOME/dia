@@ -31,6 +31,8 @@
 #include "pydia-color.h"
 #include "pydia-text.h"
 
+#include <structmember.h> /* PyMemberDef */
+
 /* include mess: propinternals.h needs tree.h, we don't */
 #include "prop_inttypes.h"
 #include "prop_geomtypes.h"
@@ -851,6 +853,19 @@ PyDiaProperty_Str(PyDiaProperty *self)
   return py_s;
 }
 
+#define T_INVALID -1 /* can't allow direct access due to pyobject->property indirection */
+static PyMemberDef PyDiaProperty_Members[] = {
+    { "name", T_INVALID, 0, RESTRICTED|READONLY,
+      "string: the name of the property" },
+    { "type", T_INVALID, 0, RESTRICTED|READONLY,
+      "string: the type name of the object" },
+    { "value", T_INVALID, 0, RESTRICTED|READONLY,
+      "various: the value is of type char, bool, dict, int, real, string, Text, Point, BezPoint, "
+      "Rect, Arrow, Color or a tuple or list, possibly containing tuple of varying types." },
+    { "visible", T_INVALID, 0, RESTRICTED|READONLY,
+      "bool: visibility of the property" },
+    { NULL }
+};
 /*
  * Python object
  */
@@ -877,5 +892,14 @@ PyTypeObject PyDiaProperty_Type = {
     (PyBufferProcs *)0,
     0L, /* Flags */
     "Interface to so called StdProps, the mechanism to control "
-    "most of Dia's canvas objects properties. "
+    "most of Dia's canvas objects properties. ",
+    (traverseproc)0,
+    (inquiry)0,
+    (richcmpfunc)0,
+    0, /* tp_weakliszoffset */
+    (getiterfunc)0,
+    (iternextfunc)0,
+    0, /* tp_methods */
+    PyDiaProperty_Members, /* tp_members */
+    0
 };

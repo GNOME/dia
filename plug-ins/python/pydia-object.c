@@ -25,6 +25,8 @@
 #include "pydia-geometry.h"
 #include "pydia-properties.h"
 
+#include <structmember.h> /* PyMemberDef */
+
 PyObject *
 PyDiaObject_New(DiaObject *object)
 {
@@ -131,6 +133,7 @@ static PyObject *
 PyDiaObject_Move(PyDiaObject *self, PyObject *args)
 {
     Point point;
+    ObjectChange *change;
 
     if (!PyArg_ParseTuple(args, "dd:Object.move", &point.x, &point.y))
 	return NULL;
@@ -140,7 +143,10 @@ PyDiaObject_Move(PyDiaObject *self, PyObject *args)
 	return NULL;
     }
 
-    self->object->ops->move(self->object, &point);
+    change = self->object->ops->move(self->object, &point);
+    if (G_UNLIKELY(change)) /* TODO: return the change? */
+        change->free(change);
+
     Py_INCREF(Py_None);
     return Py_None;
 }
@@ -150,10 +156,11 @@ PyDiaObject_MoveHandle(PyDiaObject *self, PyObject *args)
 {
     PyDiaHandle *handle;
     Point point;
-    HandleMoveReason reason;
-    ModifierKeys modifiers;
+    HandleMoveReason reason = 0;
+    ModifierKeys modifiers = 0;
+    ObjectChange *change;
 
-    if (!PyArg_ParseTuple(args, "O!(dd)ii:Object.move_handle",
+    if (!PyArg_ParseTuple(args, "O!(dd)|ii:Object.move_handle",
 			  &PyDiaHandle_Type, &handle, &point.x, &point.y,
 			  &reason, &modifiers))
 	return NULL;
@@ -163,19 +170,49 @@ PyDiaObject_MoveHandle(PyDiaObject *self, PyObject *args)
 	return NULL;
     }
 
-    self->object->ops->move_handle(self->object, handle->handle, &point,
-				   NULL, reason, modifiers);
+    change = self->object->ops->move_handle(self->object, handle->handle, &point,
+				            NULL, reason, modifiers);
+
+    if (G_UNLIKELY(change)) /* TODO: return the change? */
+        change->free(change);
+
     Py_INCREF(Py_None);
     return Py_None;
 }
 
 static PyMethodDef PyDiaObject_Methods[] = {
-    { "destroy", (PyCFunction)PyDiaObject_Destroy, 1 },
-    { "distance_from", (PyCFunction)PyDiaObject_DistanceFrom, 1 },
-    { "copy", (PyCFunction)PyDiaObject_Copy, 1 },
-    { "move", (PyCFunction)PyDiaObject_Move, 1 },
-    { "move_handle", (PyCFunction)PyDiaObject_MoveHandle, 1 },
+    { "destroy", (PyCFunction)PyDiaObject_Destroy, METH_VARARGS,
+      "destroy() -> None."
+      "  Release the object. Must not be called when already added to a group or layer." },
+    { "distance_from", (PyCFunction)PyDiaObject_DistanceFrom, METH_VARARGS,
+      "distance_from(real: x, real: y) -> real."
+      "  Calculate the object's distance from the given point." },
+    { "copy", (PyCFunction)PyDiaObject_Copy, METH_VARARGS,
+      "copy() -> Object.  Create a new object copy." },
+    { "move", (PyCFunction)PyDiaObject_Move, METH_VARARGS,
+      "move(real: x, real: y) -> None."
+      "  Move the entire object. The given point is the new object.obj_pos." },
+    { "move_handle", (PyCFunction)PyDiaObject_MoveHandle, METH_VARARGS,
+      "move_handle(Handle: h, (real: x, real: y)[int: reason, int: modifiers]) -> None."
+      "  Move the given handle of the object to the given position"},
     { NULL, 0, 0, NULL }
+};
+
+#define T_INVALID -1 /* can't allow direct access due to pyobject->data indirection */
+static PyMemberDef PyDiaObject_Members[] = {
+    { "bounding_box", T_INVALID, 0, RESTRICTED|READONLY,
+      "Box covering all the object." },
+    { "connections", T_INVALID, 0, RESTRICTED|READONLY,
+      "Vector of connection points." },
+    { "handles", T_INVALID, 0, RESTRICTED|READONLY,
+      "Vector of handles." },
+    { "parent", T_INVALID, 0, RESTRICTED|READONLY,
+      "The parent object when parenting is in place, None otherwise." },
+    { "properties", T_INVALID, 0, RESTRICTED|READONLY,
+      "Dictionary of object properties." },
+    { "type", T_INVALID, 0, RESTRICTED|READONLY,
+      "The dia.ObjectType of the object" },
+    { NULL }
 };
 
 static PyObject *
@@ -239,7 +276,16 @@ PyTypeObject PyDiaObject_Type = {
     (setattrofunc)0,
     (PyBufferProcs *)0,
     0L, /* Flags */
-    "The main building block of diagrams."
+    "The main building block of diagrams.",
+    (traverseproc)0,
+    (inquiry)0,
+    (richcmpfunc)0,
+    0, /* tp_weakliszoffset */
+    (getiterfunc)0,
+    (iternextfunc)0,
+    PyDiaObject_Methods, /* tp_methods */
+    PyDiaObject_Members, /* tp_members */
+    0
 };
 
 PyObject *
@@ -332,8 +378,18 @@ PyDiaObjectType_Create(PyDiaObjectType *self, PyObject *args)
 }
 
 static PyMethodDef PyDiaObjectType_Methods[] = {
-    { "create", (PyCFunction)PyDiaObjectType_Create, 1 },
+    { "create", (PyCFunction)PyDiaObjectType_Create, METH_VARARGS,
+      "create(real: x, real: y) -> (Object: o, Handle: h1, Handle: h2)"
+      "  Create a new object of this type. Returns a tuple containing the new object and up to two handles." },
     { NULL, 0, 0, NULL }
+};
+
+static PyMemberDef PyDiaObjectType_Members[] = {
+    { "name", T_INVALID, 0, RESTRICTED|READONLY,
+      "string: the unique type indentifier of the object type." },
+    { "version", T_INVALID, 0, RESTRICTED|READONLY,
+      "int: version number" },
+    { NULL }
 };
 
 static PyObject *
@@ -372,6 +428,15 @@ PyTypeObject PyDiaObjectType_Type = {
     (PyBufferProcs *)0,
     0L, /* Flags */
     "The dia.Object factory. Allows to create objects of the specific type. "
-    "Use: factory = get_object_type(<type name>) to get a grip on it."
+    "Use: factory = get_object_type(<type name>) to get a grip on it.",
+    (traverseproc)0,
+    (inquiry)0,
+    (richcmpfunc)0,
+    0, /* tp_weakliszoffset */
+    (getiterfunc)0,
+    (iternextfunc)0,
+    PyDiaObjectType_Methods, /* tp_methods */
+    PyDiaObjectType_Members, /* tp_members */
+    0
 };
 

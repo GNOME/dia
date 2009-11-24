@@ -22,6 +22,8 @@
 #include "pydia-object.h"
 #include "pydia-font.h"
 
+#include <structmember.h> /* PyMemberDef */
+
 /*
  * New
  */
@@ -121,10 +123,19 @@ PyDiaFont_Str(PyDiaFont *self)
   return ret;
 }
 
+#define T_INVALID -1 /* can't allow direct access due to pyobject->cpoint indirection */
+static PyMemberDef PyDiaFont_Members[] = {
+    { "family", T_INVALID, 0, RESTRICTED|READONLY,
+      "string: family name of the font" },
+    { "name", T_INVALID, 0, RESTRICTED|READONLY,
+      "string: legacy name of the font" },
+    { "style", T_INVALID, 0, RESTRICTED|READONLY,
+      "int: style flags" },
+    { NULL }
+};
 /*
  * Python objetc
  */
-
 PyTypeObject PyDiaFont_Type = {
     PyObject_HEAD_INIT(&PyType_Type)
     0,
@@ -147,6 +158,14 @@ PyTypeObject PyDiaFont_Type = {
     (setattrofunc)0,
     (PyBufferProcs *)0,
     0L, /* Flags */
-    "Provides access to the some objects font property."
+    "Provides access to some objects font property.",
+    (traverseproc)0,
+    (inquiry)0,
+    (richcmpfunc)0,
+    0, /* tp_weakliszoffset */
+    (getiterfunc)0,
+    (iternextfunc)0,
+    0, /* tp_methods */
+    PyDiaFont_Members, /* tp_members */
+    0
 };
-

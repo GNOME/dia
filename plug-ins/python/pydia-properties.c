@@ -22,6 +22,8 @@
 #include "pydia-object.h"
 #include "pydia-properties.h"
 
+#include <structmember.h> /* PyMemberDef */
+
 /*
  * New
  */
@@ -253,11 +255,17 @@ static PyMappingMethods PyDiaProperties_AsMapping = {
 	(objobjargproc)PyDiaProperties_AssSub, /*mp_ass_subscript*/
 };
 
-static PyMethodDef mapp_methods[] = {
+static PyMethodDef PyDiaProperties_Methods[] = {
+	/* duck-typing dictionary */
 	{"get",     (PyCFunction)PyDiaProperties_Get,     METH_VARARGS},
 	{"has_key", (PyCFunction)PyDiaProperties_HasKey,  METH_VARARGS},
 	{"keys",    (PyCFunction)PyDiaProperties_Keys},
 	{NULL,		NULL}		/* sentinel */
+};
+
+#define T_INVALID -1 /* can't allow direct access due to pyobject->handle indirection */
+static PyMemberDef PyDiaProperties_Members[] = {
+	{ NULL }
 };
 
 /*
@@ -266,7 +274,7 @@ static PyMethodDef mapp_methods[] = {
 static PyObject*
 PyDiaProperties_GetAttr(PyDiaProperties *self, gchar *attr)
 {
-  return Py_FindMethod(mapp_methods, (PyObject *)self, attr);
+  return Py_FindMethod(PyDiaProperties_Methods, (PyObject *)self, attr);
 }
 
 /*
@@ -296,5 +304,14 @@ PyTypeObject PyDiaProperties_Type = {
     0L, /* Flags */
     "A dictionary interface to dia.Object's standard properties. Many properties"
     "can be get and set through this. If there is a specific method to change an"
-    "objects property like o.move() or o.move_handle() use that instead."
+    "objects property like o.move() or o.move_handle() use that instead.",
+    (traverseproc)0,
+    (inquiry)0,
+    (richcmpfunc)0,
+    0, /* tp_weakliszoffset */
+    (getiterfunc)0,
+    (iternextfunc)0,
+    PyDiaProperties_Methods, /* tp_methods */
+    PyDiaProperties_Members, /* tp_members */
+    0
 };
