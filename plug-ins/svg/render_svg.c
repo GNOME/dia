@@ -487,8 +487,8 @@ draw_text (DiaRenderer *self, Text *text)
   for (i=0;i<text->numlines;i++) {
     TextLine *text_line = text->lines[i];
 
-    node_tspan = xmlNewChild(node_text, renderer->svg_name_space, (const xmlChar *)"tspan",
-                             (const xmlChar *)text_line_get_string(text_line));
+    node_tspan = xmlNewTextChild(node_text, renderer->svg_name_space, (const xmlChar *)"tspan",
+                                 (const xmlChar *)text_line_get_string(text_line));
     dia_svg_dtostr(d_buf, pos.x);
     xmlSetProp(node_tspan, (const xmlChar *)"x", (xmlChar *) d_buf);
     dia_svg_dtostr(d_buf, pos.y);
