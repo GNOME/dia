@@ -668,8 +668,8 @@ draw_text_line(DiaRenderer *self, TextLine *text_line,
   gchar d_buf[DTOSTR_BUF_SIZE];
   DiaFont *font;
 
-  node = xmlNewChild(renderer->root, renderer->svg_name_space, (const xmlChar *)"text", 
-		     (xmlChar *) text_line_get_string(text_line));
+  node = xmlNewTextChild(renderer->root, renderer->svg_name_space, (const xmlChar *)"text", 
+		         (xmlChar *) text_line_get_string(text_line));
  
   saved_width = renderer->linewidth;
   renderer->linewidth = 0.001;
