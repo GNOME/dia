@@ -39,6 +39,8 @@
 #include "message.h"
 #include "dialogs.h"
 
+/* ugly, but better tahn crashin on non-interactive use */
+#include "../../app/app_procs.h"
 
 /* parses a string of the form "[0-9]*x[0-9]*" and transforms it into
    two long values width and height. */
@@ -320,7 +322,7 @@ export_png(DiagramData *data, const gchar *filename,
      the same time will lead to confusion.
   */
 
-  if (export_png_dialog == NULL && user_data == NULL) {
+  if (export_png_dialog == NULL && user_data == NULL && app_is_interactive()) {
     /* Create a dialog */
     export_png_dialog = dialog_make(_("PNG Export Options"),
 				    _("Export"), NULL,
@@ -348,7 +350,7 @@ export_png(DiagramData *data, const gchar *filename,
   cbdata->data = data;
   cbdata->filename = g_strdup(filename);
 
-  if (user_data == NULL) {
+  if (user_data == NULL && app_is_interactive()) {
     /* Find the default size */
     width  = (guint32) ((ext->right - ext->left) * DPCM * data->paper.scaling);
     height = (guint32) ((ext->bottom - ext->top) * DPCM * data->paper.scaling);
