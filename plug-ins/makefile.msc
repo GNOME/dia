@@ -81,7 +81,7 @@ OBJECTS = \
 
 !IFDEF OBJ_libart
 PKG_CFLAGS = $(PKG_CFLAGS) -DHAVE_LIBART -DHAVE_LIBPNG $(LIBART_CFLAGS) $(PNG_CFLAGS)
-PKG_LINK = $(PKG_LINK) $(LIBART_LIBS) $(PNG_LIBS)
+PKG_LINK = $(PKG_LINK) $(LIBART_LIBS) $(PNG_LIBS) ..\..\app\dia-app.lib
 OBJECTS = \
   dialibart.obj \
   export_png.obj \
