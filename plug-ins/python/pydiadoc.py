@@ -249,11 +249,12 @@ def autodoc_html_cb (data, flags) :
 	import os
 	try :
 		path = os.environ["TEMP"]
-		os.chdir(path)
-		pydoc.writedoc(dia)
-		dia.message(0, path + os.path.sep + "dia.html saved.")
-	except :
-		pass
+	except KeyError :
+		# with os.tmpnam() we get a RuntimeWarning so fall back to
+		path = "/tmp/"
+	os.chdir(path)
+	pydoc.writedoc(dia)
+	dia.message(0, path + os.path.sep + "dia.html saved.")
 
 dia.register_action ("HelpPydia2", "PyDia HTML Docs", 
                        "/ToolboxMenu/Help/HelpExtensionStart", 

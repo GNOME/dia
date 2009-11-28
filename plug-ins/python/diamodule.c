@@ -535,6 +535,16 @@ static PyMethodDef dia_methods[] = {
     { NULL, NULL }
 };
 
+PyDoc_STRVAR(dia_module_doc,
+"The dia module allows to write Python plug-ins for Dia [http://live.gnome.org/Dia/Python]\n"
+"\n"
+"This modules is designed to run Python scripts embedded in Dia. To make your script accessible\n"
+"to Dia you have to put it into $HOME/.dia/python and let it call one of the register_*() functions.\n"
+"It is possible to write import filters [register_import()] and export filters [register_export()], "
+"as well as scripts to manipulate existing diagrams or create new ones [register_action()].\n"
+"\n"
+"For stand-alone Python bindings to Dia see http://mail.gnome.org/archives/dia-list/2007-March/msg00092.html");
+
 DL_EXPORT(void) initdia(void);
 
 DL_EXPORT(void)
@@ -569,7 +579,7 @@ initdia(void)
     PyDiaPaperinfo_Type.ob_type = &PyType_Type;
 #endif
 
-    m = Py_InitModule("dia", dia_methods);
+    m = Py_InitModule3("dia", dia_methods, dia_module_doc);
     d = PyModule_GetDict(m);
 
     /* 
