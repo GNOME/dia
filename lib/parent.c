@@ -63,7 +63,7 @@ GList *parent_list_affected_hierarchy(GList *obj_list)
 {
   GHashTable *object_hash = g_hash_table_new(g_direct_hash, g_direct_equal);
   GList *all_list = g_list_copy(obj_list);
-  GList *new_list = NULL, *list = all_list;
+  GList *new_list = NULL, *list;
   int orig_length = g_list_length(obj_list);
 
   if (parent_list_expand(all_list)) /* fast way out */
@@ -107,7 +107,7 @@ GList *parent_list_affected(GList *obj_list)
 {
   GHashTable *object_hash = g_hash_table_new(g_direct_hash, g_direct_equal);
   GList *all_list = g_list_copy(obj_list);
-  GList *new_list = NULL, *list = all_list;
+  GList *new_list = NULL, *list;
 
   if (parent_list_expand(all_list)) /* fast way out */
     return g_list_copy(obj_list);
@@ -168,7 +168,7 @@ gboolean parent_handle_move_in_check(DiaObject *object, Point *to, Point *start_
   Rectangle common_ext;
   gboolean restricted = FALSE;
 
-  if (!object_flags_set(object, DIA_OBJECT_CAN_PARENT) || !object->children)
+  if (!object_flags_set(object, DIA_OBJECT_CAN_PARENT) || !list)
     return FALSE;
 
   while (list)
@@ -261,9 +261,6 @@ parent_handle_extents(DiaObject *obj, Rectangle *extents)
   int idx;
   coord *left_most = NULL, *top_most = NULL, *bottom_most = NULL, *right_most = NULL;
 
-  if (obj->num_handles == 0)
-    return FALSE;
-
   for (idx = 0; idx < obj->num_handles; idx++)
   {
     Handle *handle = obj->handles[idx];
@@ -277,6 +274,9 @@ parent_handle_extents(DiaObject *obj, Rectangle *extents)
     if (!bottom_most || *bottom_most < handle->pos.y)
       bottom_most = &handle->pos.y;
   }
+
+  if (!left_most ||  !right_most || !top_most || !bottom_most)
+    return FALSE;
 
   extents->left = *left_most;
   extents->right = *right_most;

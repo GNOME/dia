@@ -49,9 +49,11 @@ object_state_change_apply_revert(ObjectStateChange *change, DiaObject *obj)
 static void
 object_state_change_free(ObjectStateChange *change)
 {
-  if ((change) && (change->saved_state) && (change->saved_state->free))
-    (*change->saved_state->free)(change->saved_state);
-  g_free(change->saved_state);
+  if ((change) && (change->saved_state)) {
+    if (change->saved_state->free)
+      (*change->saved_state->free)(change->saved_state);
+    g_free(change->saved_state);
+  }
 }
 
 ObjectChange *new_object_state_change(DiaObject *obj,

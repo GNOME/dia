@@ -972,10 +972,9 @@ text_key_event(Focus *focus,
         break;
       default:
         if (str || (strlen>0)) {
-          if (strlen == 1 && *str == '\r')
+          if (str && *str == '\r')
             break; /* avoid putting junk into our string */
           return_val = TRUE;
-          utf = str;
           for (utf = str; utf && *utf && strlen > 0 ;
 	       utf = g_utf8_next_char (utf), strlen--) {
             c = g_utf8_get_char (utf);
@@ -1051,10 +1050,7 @@ data_text(AttributeNode text_attr)
   Color col;
   Alignment align;
   AttributeNode attr;
-  DataNode composite_node;
   Text *text;
-
-  composite_node = attribute_first_data(text_attr);
 
   attr = composite_find_attribute(text_attr, "string");
   if (attr != NULL)
