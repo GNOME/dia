@@ -27,8 +27,9 @@
 /* some more detailed error code */
 typedef enum
 {
-  DIA_ERROR_FORMAT, /* something wrong with our xml format */
-  DIA_ERROR_FILE,   /*  to be got from inport filters? */
+  DIA_ERROR_FORMAT,    /* something wrong with our xml format */
+  DIA_ERROR_FILE,      /*  to be got from inport filters? */
+  DIA_ERROR_DIRECTORY, /*  directory missing */
 } DiaError;
 
 GQuark dia_error_quark (void);

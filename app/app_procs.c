@@ -77,6 +77,7 @@
 #include "exit_dialog.h"
 #include "newgroup.h"
 #include "dialib.h"
+#include "diaerror.h"
 
 static gboolean
 handle_initial_diagram(const char *input_file_name, 
@@ -88,15 +89,9 @@ handle_initial_diagram(const char *input_file_name,
 
 static void create_user_dirs(void);
 static PluginInitResult internal_plugin_init(PluginInfo *info);
-static void process_opts(int *argc, char **argv,
-			 GOptionContext* context, GOptionEntry options[],
-			 GSList **files, char **export_file_name,
-			 char **export_file_format, char **size,
-			 char **show_layers, gboolean *nosplash,
-			 char **input_directory, char **output_directory);
 static gboolean handle_all_diagrams(GSList *files, char *export_file_name,
 				    char *export_file_format, char *size, char *show_layers,
-				    char *input_directory, char *output_directory);
+				    const gchar *input_directory, const gchar *output_directory);
 static void print_credits(gboolean credits);
 
 static gboolean dia_is_interactive = FALSE;
@@ -142,8 +137,8 @@ save_state (GnomeClient        *client,
 static char *
 build_output_file_name(const char *infname, const char *format, const char *outdir)
 {
-  char *pe = strrchr(infname,'.');
-  char *pp = strrchr(infname,G_DIR_SEPARATOR);
+  const char *pe = strrchr(infname,'.');
+  const char *pp = strrchr(infname,G_DIR_SEPARATOR);
   char *tmp;
   if (!pp)
     pp = infname;
@@ -365,6 +360,9 @@ do_convert(const char *infname,
   /* Apply --show-layers */
   if (show_layers)
     handle_show_layers(diagdata, show_layers);
+
+  /* recalculate before export */
+  data_update_extents(diagdata);
 
   /* Do our best in providing the size to the filter, but don't abuse user_data 
    * too much for it. It _must not_ be changed after initialization and there 
@@ -608,6 +606,65 @@ handle_initial_diagram(const char *in_file_name,
 #define WMF ""
 #endif
 
+static const gchar *input_directory = NULL;
+static const gchar *output_directory = NULL;
+
+static gboolean
+_check_option_input_directory (const gchar    *option_name,
+			       const gchar    *value,
+			       gpointer        data,
+			       GError        **error)
+{
+  gchar *directory = g_filename_from_utf8 (value, -1, NULL, NULL, NULL);
+
+  if (g_file_test (directory, G_FILE_TEST_IS_DIR)) {
+    input_directory = directory;
+    return TRUE;
+  }
+  g_set_error (error, DIA_ERROR, DIA_ERROR_DIRECTORY,
+               _("Input-directory '%s' must exist!\n"), directory);
+  g_free (directory);
+  return FALSE;
+}
+static gboolean
+_check_option_output_directory (const gchar    *option_name,
+			        const gchar    *value,
+			        gpointer        data,
+			        GError        **error)
+{
+  gchar *directory = g_filename_from_utf8 (value, -1, NULL, NULL, NULL);
+
+  if (g_file_test (directory, G_FILE_TEST_IS_DIR)) {
+    output_directory = directory;
+    return TRUE;
+  }
+  g_set_error (error, DIA_ERROR, DIA_ERROR_DIRECTORY,
+               _("Output-directory '%s' must exist!\n"), directory);
+  g_free (directory);
+  return FALSE;
+}
+
+static void
+_setup_textdomains (void)
+{
+#ifdef G_OS_WIN32
+  /* calculate runtime directory */
+  {
+    gchar* localedir = dia_get_lib_directory ("locale");
+    
+    bindtextdomain(GETTEXT_PACKAGE, localedir);
+    g_free (localedir);
+  }
+#else
+  bindtextdomain(GETTEXT_PACKAGE, LOCALEDIR);
+#endif
+
+#if defined ENABLE_NLS && defined HAVE_BIND_TEXTDOMAIN_CODESET
+  bind_textdomain_codeset(GETTEXT_PACKAGE,"UTF-8");  
+#endif
+  textdomain(GETTEXT_PACKAGE);
+}
+
 void
 app_init (int argc, char **argv)
 {
@@ -623,12 +680,12 @@ app_init (int argc, char **argv)
 #endif
   static char *export_file_name = NULL;
   static char *export_file_format = NULL;
-  static char *input_directory = NULL;
-  static char *output_directory = NULL;
   static char *size = NULL;
   static char *show_layers = NULL;
   gboolean made_conversions = FALSE;
   GSList *files = NULL;
+  static const gchar **filenames = NULL;
+  int i = 0;
 
   gchar *export_format_string = 
      /* Translators:  The argument is a list of options, not to be translated */
@@ -649,7 +706,7 @@ app_init (int argc, char **argv)
   GOptionContext *context = NULL;
   static GOptionEntry options[] =
   {
-    {"export", 'e', 0, G_OPTION_ARG_STRING, NULL /* &export_file_name */,
+    {"export", 'e', 0, G_OPTION_ARG_FILENAME, NULL /* &export_file_name */,
      N_("Export loaded file and exit"), N_("OUTPUT")},
     {"filter",'t', 0, G_OPTION_ARG_STRING, NULL /* &export_file_format */,
      NULL /* &export_format_string */, N_("TYPE") },
@@ -666,9 +723,9 @@ app_init (int argc, char **argv)
      N_("Start integrated user interface (diagrams in tabs)"), NULL },
     {"log-to-stderr", 'l', 0, G_OPTION_ARG_NONE, &log_to_stderr,
      N_("Send error messages to stderr instead of showing dialogs."), NULL },
-    {"input-directory", 'I', 0, G_OPTION_ARG_STRING, NULL /* &input_directory */,
+    {"input-directory", 'I', 0, G_OPTION_ARG_CALLBACK, _check_option_input_directory,
      N_("Directory containing input files"), N_("DIRECTORY")},
-    {"output-directory", 'O', 0, G_OPTION_ARG_STRING, NULL /* &output_directory */,
+    {"output-directory", 'O', 0, G_OPTION_ARG_CALLBACK, _check_option_output_directory,
      N_("Directory containing output files"), N_("DIRECTORY")},
     {"credits", 'c', 0, G_OPTION_ARG_NONE, &credits,
      N_("Display credits list and exit"), NULL },
@@ -676,6 +733,8 @@ app_init (int argc, char **argv)
      N_("Generate verbose output"), NULL },
     {"version", 'v', 0, G_OPTION_ARG_NONE, &version,
      N_("Display version and exit"), NULL },
+    { G_OPTION_REMAINING, 0, 0, G_OPTION_ARG_FILENAME_ARRAY, NULL /* &filenames */,
+      NULL, NULL },
     { NULL }
   };
   
@@ -687,39 +746,55 @@ app_init (int argc, char **argv)
   options[1].description = export_format_string;
   options[2].arg_data = &size;
   options[3].arg_data = &show_layers;
-  g_assert(strcmp (options[8].long_name, "input-directory") == 0);
-  options[8].arg_data = &input_directory;
-  g_assert(strcmp (options[9].long_name, "output-directory") == 0);
-  options[9].arg_data = &output_directory;
+  g_assert (strcmp (options[13].long_name, G_OPTION_REMAINING) == 0);
+  options[13].arg_data = (void*)&filenames;
 
   argv0 = (argc > 0) ? argv[0] : "(none)";
 
   gtk_set_locale();
   setlocale(LC_NUMERIC, "C");
-  
-#ifdef G_OS_WIN32
-  /* calculate runtime directory */
-  {
-    gchar* localedir = dia_get_lib_directory ("locale");
-    
-    bindtextdomain(GETTEXT_PACKAGE, localedir);
-    g_free (localedir);
+  _setup_textdomains ();
+
+  context = g_option_context_new(_("[FILE...]"));
+  g_option_context_add_main_entries (context, options, GETTEXT_PACKAGE);
+  g_option_context_add_group (context, gtk_get_option_group (FALSE));
+
+  if (argv) {
+    GError *error = NULL;
+
+    if (!g_option_context_parse (context, &argc, &argv, &error)) {
+      if (error) { /* IMO !error here is a bug upstream, triggered e.g. with --gdk-debug=updates */
+	g_print ("%s", error->message);
+	g_error_free (error);
+      } else {
+	g_print (_("Invalid option?"));
+      }
+
+      g_option_context_free(context);
+      exit(1);
+    }
+    /* second level check of command line options, existance of input files etc. */
+    if (filenames) {
+      while (filenames[i] != NULL) {
+	gchar *filename = g_filename_to_utf8 (filenames[i], -1, NULL, NULL, NULL);
+	gchar *testpath = g_path_is_absolute(filename) ? filename :
+	  g_build_filename(input_directory ? input_directory : ".", filename, NULL);
+	if (g_file_test (testpath, G_FILE_TEST_IS_REGULAR))
+	  files = g_slist_append(files, filename);
+	else {
+	  g_print (_("Missing input: %s\n"), filename);
+	  g_free (filename);
+	}
+	if (filename != testpath)
+	  g_free (testpath);
+	++i;
+      }
+    }
+    /* given some files to output, we are not starting up the UI */
+    if (export_file_name || export_file_format || size)
+      dia_is_interactive = FALSE;
+
   }
-#else
-  bindtextdomain(GETTEXT_PACKAGE, LOCALEDIR);
-#endif
-  textdomain(GETTEXT_PACKAGE);
-
-  process_opts(&argc, argv, 
-               context, options, 
-               &files,
-	       &export_file_name, &export_file_format, &size, &show_layers, &nosplash,
-	       &input_directory, &output_directory);
-
-#if defined ENABLE_NLS && defined HAVE_BIND_TEXTDOMAIN_CODESET
-  bind_textdomain_codeset(GETTEXT_PACKAGE,"UTF-8");  
-#endif
-  textdomain(GETTEXT_PACKAGE);
 
   if (argv && dia_is_interactive && !version) {
 #ifdef HAVE_GNOME
@@ -864,6 +939,7 @@ app_init (int argc, char **argv)
   made_conversions = handle_all_diagrams(files, export_file_name,
 					 export_file_format, size, show_layers,
 					 input_directory, output_directory);
+					 
   if (dia_is_interactive && files == NULL && !nonew) {
     if (use_integrated_ui)
     {
@@ -900,15 +976,6 @@ app_init (int argc, char **argv)
   dynobj_refresh_init();
   dia_log_message ("initialized");
 }
-
-#if 0
-/* app_procs.c: warning: `set_true_callback' defined but not used */
-static void
-set_true_callback(GtkWidget *w, int *data)
-{
-  *data = TRUE;
-}
-#endif
 
 gboolean
 app_exit(void)
@@ -1131,75 +1198,10 @@ internal_plugin_init(PluginInfo *info)
   return DIA_PLUGIN_INIT_OK;
 }
 
-/* Note: running in locale encoding */
-static void
-process_opts(int *argc, char **argv,
-	     GOptionContext *context, GOptionEntry options[],
-	     GSList **files, char **export_file_name,
-	     char **export_file_format, char **size,
-	     char **show_layers, gboolean* nosplash,
-	     char **input_directory, char **output_directory)
-{
-  if (argv) {
-      GError *error = NULL;
-      int i;
-      
-      context = g_option_context_new(_("[FILE...]"));
-      g_option_context_add_main_entries (context, options, GETTEXT_PACKAGE);
-      g_option_context_add_group (context, gtk_get_option_group (FALSE));
-
-      if (!g_option_context_parse (context, argc, &argv, &error)) {
-        if (error) { /* IMO !error here is a bug upstream, triggered with --gdk-debug=updates */
-	g_print ("%s", error->message);
-	  g_error_free (error);
-	} else {
-	  g_print ("Invalid option?");
-	}
-	
-        g_option_context_free(context);
-	exit(0);
-      }
-      if (*argc < 2) {
-        g_option_context_free(context);
-	return;
-      }
-      if (*input_directory && !g_file_test(*input_directory, G_FILE_TEST_IS_DIR)) {
-	g_print (_("Input-directory '%s' must exist!\n"), *input_directory);
-        g_option_context_free(context);
-	exit(2);
-      }
-      if (*output_directory && !g_file_test(*output_directory, G_FILE_TEST_IS_DIR)) {
-	g_print (_("Output-directory '%s' must exist!\n"), *output_directory);
-        g_option_context_free(context);
-	exit(2);
-      }
-      for (i = 1; i < *argc; i++) {
-	if (!(*input_directory) && !g_file_test (argv[i], G_FILE_TEST_IS_REGULAR)) {
-	  g_print (_("'%s' not found!\n"), argv[i]);
-          g_option_context_free(context);
-	  exit(2);
-	} else if (*input_directory) {
-	  gchar *testpath = g_build_filename(*input_directory, argv[i], NULL);
-	  gboolean found = g_file_test (testpath, G_FILE_TEST_IS_REGULAR);
-	  g_free(testpath);
-	  if (!found) {
-	    g_print (_("'%s' not found in '%s'!\n"), argv[i], *input_directory);
-            g_option_context_free(context);
-	    exit(2);
-	  }
-	}
-	*files = g_slist_append(*files, argv[i]);
-      }
-      g_option_context_free(context);
-  }
-  if (*export_file_name || *export_file_format || *size)
-    dia_is_interactive = FALSE;
-}
-
 static gboolean
 handle_all_diagrams(GSList *files, char *export_file_name,
 		    char *export_file_format, char *size, char *show_layers,
-		    char *input_directory, char *output_directory)
+		    const gchar *input_directory, const gchar *output_directory)
 {
   GSList *node = NULL;
   gboolean made_conversions = FALSE;
