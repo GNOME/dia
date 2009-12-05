@@ -36,6 +36,7 @@
 #include <libxml/xmlmemory.h>
 #include <float.h>
 #include <sys/stat.h>
+#include <locale.h>
 
 #include "intl.h"
 #include "message.h"
@@ -2993,6 +2994,7 @@ import_vdx(const gchar *filename, DiagramData *dia, void* user_data)
     int visio_version = 0;
     const char *debug = 0;
     unsigned int debug_shapes = 0;
+    char* old_locale;
 
     if (!doc) {
         message_warning("parse error for %s",
@@ -3028,6 +3030,10 @@ import_vdx(const gchar *filename, DiagramData *dia, void* user_data)
     }
     theDoc = g_new0(struct VDXDocument, 1);
     theDoc->ok = TRUE;
+
+    
+    /* ugly, but still better than bogus sizes */
+    old_locale = setlocale(LC_NUMERIC, "C");
 
     /* VDX_DEBUG sets verbose per-shape debugging on */
     if (g_getenv("VDX_DEBUG")) theDoc->debug_comments = TRUE;
@@ -3080,6 +3086,10 @@ import_vdx(const gchar *filename, DiagramData *dia, void* user_data)
     /* Get rid of internal strings before returning */
     vdx_free(theDoc);
     xmlFreeDoc(doc);
+    
+    /* dont screw Dia's global state */
+    setlocale(LC_NUMERIC, old_locale);
+
     return TRUE;
 }
 
