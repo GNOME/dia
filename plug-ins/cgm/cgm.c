@@ -1268,7 +1268,8 @@ export_cgm(DiagramData *data, const gchar *filename,
 
     data_render(data, DIA_RENDERER(renderer), NULL, NULL, NULL);
 
-    dia_font_unref(renderer->font);
+    if (renderer->font != NULL)
+      dia_font_unref(renderer->font);
     g_object_unref(renderer);
 }
 
