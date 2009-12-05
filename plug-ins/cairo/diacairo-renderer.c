@@ -161,22 +161,28 @@ end_render(DiaRenderer *self)
 }
 
 static void
+ensure_minimum_one_device_unit(DiaCairoRenderer *renderer, real *value)
+{
+  double ax = 1., ay = 1.;
+
+  cairo_device_to_user_distance (renderer->cr, &ax, &ay);
+
+  ax = MAX(ax, ay);
+  if (*value < ax)
+      *value = ax;
+}
+
+static void
 set_linewidth(DiaRenderer *self, real linewidth)
 {  
   DiaCairoRenderer *renderer = DIA_CAIRO_RENDERER (self);
 
   DIAG_NOTE(g_message("set_linewidth %f", linewidth));
 
-  /* make hairline? */
-  if (linewidth == 0.0) {
-    double ax = 0.0, ay = 0.0;
-    double bx = 1.0, by = 0.0;    
-    
-    cairo_device_to_user_distance (renderer->cr, &ax, &ay);
-    cairo_device_to_user_distance (renderer->cr, &bx, &by);
-    
-    linewidth = sqrt ((bx - ax) * (bx - ax) + (by - ay) * (by - ay));
-  }
+  /* make hairline? Everythnig below one device unit get the same width,
+   * otherwise 0.0 may end up thicker than 0.0+epsilon
+   */
+  ensure_minimum_one_device_unit(renderer, &linewidth);
 
   cairo_set_line_width (renderer->cr, linewidth);
   DIAG_STATE(renderer->cr)
@@ -281,6 +287,9 @@ set_dashlength(DiaRenderer *self, real length)
 
   DIAG_NOTE(g_message("set_dashlength %f", length));
 
+  /* this call does not make sense, the value is certainly bigger
+   * than one device unit. But the side-effect seems to end the endless loop */
+  ensure_minimum_one_device_unit(renderer, &length);
   renderer->dash_length = length;
 }
 
