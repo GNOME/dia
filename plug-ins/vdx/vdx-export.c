@@ -1841,6 +1841,7 @@ export_vdx(DiagramData *data, const gchar *filename,
     VDXRenderer *renderer;
     int i;
     Layer *layer;
+    char* old_locale;
 
     file = g_fopen(filename, "w");
 
@@ -1849,6 +1850,9 @@ export_vdx(DiagramData *data, const gchar *filename,
                       dia_message_filename(filename), strerror(errno));
         return;
     }
+
+    /* ugly, but still better than creatin corrupt files */
+    old_locale = setlocale(LC_NUMERIC, "C");
 
     /* Create and initialise our renderer */
     renderer = g_object_new(VDX_TYPE_RENDERER, NULL);
@@ -1893,6 +1897,9 @@ export_vdx(DiagramData *data, const gchar *filename,
     write_trailer(data, renderer);
 
     g_object_unref(renderer);
+
+    /* dont screw Dia's global state */
+    setlocale(LC_NUMERIC, old_locale);
 
     fclose(file);
 }
