@@ -402,6 +402,7 @@ diagram_data_load(const char *filename, DiagramData *data, void* user_data)
   Layer *active_layer = NULL;
   GHashTable* unknown_objects_hash = g_hash_table_new(g_str_hash, g_str_equal);
 
+  g_return_val_if_fail(data!=NULL, FALSE);
 
   if (g_file_test (filename, G_FILE_TEST_IS_DIR)) {
     message_error(_("You must specify a file, not a directory.\n"));
@@ -836,6 +837,8 @@ diagram_data_write_doc(DiagramData *data, const char *filename)
   AttributeNode attr;
   xmlNs *name_space;
   Diagram *diagram = DIA_IS_DIAGRAM (data) ? DIA_DIAGRAM (data) : NULL;
+
+  g_return_val_if_fail(data!=NULL, NULL);
 
   doc = xmlNewDoc((const xmlChar *)"1.0");
   doc->encoding = xmlStrdup((const xmlChar *)"UTF-8");
