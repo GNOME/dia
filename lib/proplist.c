@@ -118,7 +118,7 @@ prop_list_copy(GPtrArray *src)
 
   for (i=0; i < src->len; i++) {
     Property *psrc = g_ptr_array_index(src,i);
-    Property *pdest = pdest = psrc->ops->copy(psrc);
+    Property *pdest = psrc->ops->copy(psrc);
     g_ptr_array_index(dest,i) = pdest;
   }
   return dest;

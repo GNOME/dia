@@ -1162,18 +1162,18 @@ static real
 table_calculate_namebox_data (Table * table)
 {
   real maxwidth = 0.0;
-  real width = 0.0;
 
   if (IS_NOT_EMPTY(table->name))
     {
-      maxwidth = width = dia_font_string_width (table->name,
-                                                table->name_font,
-                                                table->name_font_height);
+      maxwidth = dia_font_string_width (table->name,
+                                        table->name_font,
+                                        table->name_font_height);
     }
   table->namebox_height = table->name_font_height + 2*0.1;
 
   if (table->visible_comment && IS_NOT_EMPTY(table->comment))
     {
+      real width;
       gint numOfCommentLines = 0;
       gchar * wrapped_box = create_documentation_tag (table->comment,
                                                       table->tagging_comment,
