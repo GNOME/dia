@@ -270,12 +270,14 @@ read_entity_solid_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
    RealProperty *rprop;
    BoolProperty *bprop;
    
-    real line_width = 0.001;
-    LineStyle style = LINESTYLE_SOLID;
-    Layer *layer = dia->active_layer;
+   real line_width = 0.001;
+   LineStyle style = LINESTYLE_SOLID;
+   Layer *layer = dia->active_layer;
    RGB_t color;
    
 /*   printf( "Solid " ); */
+
+   memset(p, 0, sizeof(p));
 
     do {
         if(read_dxf_codes(filedxf, data) == FALSE){
@@ -627,7 +629,7 @@ static PropDescription dxf_ellipse_prop_descs[] = {
 DiaObject *read_entity_circle_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
 {
     /* circle data */
-    Point center;
+    Point center = {0, 0};
     real radius = 1.0;
     
     DiaObjectType *otype = object_get_type("Standard - Ellipse");  
@@ -713,7 +715,8 @@ static PropDescription dxf_arc_prop_descs[] = {
 DiaObject *read_entity_arc_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
 {
     /* arc data */
-    Point start,center,end;
+    Point start, end;
+    Point center = {0, 0};
     real radius = 1.0, start_angle = 0.0, end_angle=360.0;
     real curve_distance;
 
@@ -807,7 +810,7 @@ DiaObject *
 read_entity_ellipse_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
 {
     /* ellipse data */
-    Point center;
+    Point center = {0, 0};
     real width = 1.0;
     real ratio_width_height = 1.0;
     
@@ -893,7 +896,7 @@ read_entity_text_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
     RGB_t color;
 
     /* text data */
-    Point location;
+    Point location = {0, 0};
     real height = text_scale * coord_scale * measure_scale;
     real y_offset = 0;
     Alignment textalignment = ALIGN_LEFT;
