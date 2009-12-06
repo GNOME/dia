@@ -422,7 +422,7 @@ modify_motion(ModifyTool *tool, GdkEventMotion *event,
   Point now, delta, full_delta;
   gboolean auto_scroll, vertical = FALSE;
   ConnectionPoint *connectionpoint = NULL;
-  ObjectChange *objchange;
+  ObjectChange *objchange = NULL;
 
   if (tool->state==STATE_NONE)
     return; /* Fast path... */
@@ -594,9 +594,10 @@ modify_motion(ModifyTool *tool, GdkEventMotion *event,
     object_add_updates(tool->object, ddisp->diagram);
 
     /* Handle undo */
-    objchange = tool->object->ops->move_handle(tool->object, tool->handle, 
-					       &to, connectionpoint,
-					       HANDLE_MOVE_USER, gdk_event_to_dia_ModifierKeys(event->state));
+    if (tool->object)
+      objchange = tool->object->ops->move_handle(tool->object, tool->handle, 
+					         &to, connectionpoint,
+					         HANDLE_MOVE_USER, gdk_event_to_dia_ModifierKeys(event->state));
     if (objchange != NULL) {
       undo_object_change(ddisp->diagram, tool->object, objchange);
     }
@@ -668,9 +669,7 @@ modify_button_release(ModifyTool *tool, GdkEventButton *event,
   Point *dest_pos, to;
   GList *list;
   int i;
-  DiaObject *active_obj = NULL;
   ObjectChange *objchange;
-  Focus *active_focus;
   
   tool->break_connections = FALSE;
   ddisplay_set_all_cursor(default_cursor);
@@ -763,9 +762,6 @@ modify_button_release(ModifyTool *tool, GdkEventButton *event,
   case STATE_BOX_SELECT:
     
     gdk_pointer_ungrab (event->time);
-    /* Remember the currently active object for reactivating. */
-    active_focus = get_active_focus((DiagramData *) ddisp->diagram);
-    active_obj = active_focus!=NULL?focus_get_object(active_focus):NULL;
     /* Remove last box: */
     if (!tool->auto_scrolled) {
       gdk_draw_rectangle (ddisp->canvas->window, tool->gc, FALSE,
@@ -831,15 +827,6 @@ modify_button_release(ModifyTool *tool, GdkEventButton *event,
       
     }
     
-    /* To be removed once text edit mode is stable.  By then,
-     * we don't want to automatically edit selected objects.
-    if (active_obj != NULL &&
-	diagram_is_selected(ddisp->diagram, active_obj)) {
-      textedit_activate_object(ddisp, active_obj, NULL);
-    } else {
-      textedit_activate_first(ddisp);
-    }
-    */
     ddisplay_do_update_menu_sensitivity(ddisp);
     ddisplay_flush(ddisp);
 
