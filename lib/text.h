@@ -59,6 +59,7 @@ struct _Text {
 /* makes an internal copy of the string */
 Text *new_text(const char *string, DiaFont *font, real height,
 	       Point *pos, Color *color, Alignment align);
+Text *new_text_default(Point *pos, Color *color, Alignment align);
 void text_destroy(Text *text);
 Text *text_copy(Text *text);
 gchar *text_get_line(Text *text, int line);

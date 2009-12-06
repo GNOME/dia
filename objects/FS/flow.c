@@ -65,7 +65,7 @@ struct _Flow {
 #define FLOW_WIDTH 0.1
 #define FLOW_MATERIAL_WIDTH 0.2
 #define FLOW_DASHLEN 0.4
-#define FLOW_FONTHEIGHT 0.6
+#define FLOW_FONTHEIGHT 0.8
 #define FLOW_ARROWLEN 0.8
 #define FLOW_ARROWWIDTH 0.5
 #define HANDLE_MOVE_TEXT (HANDLE_CUSTOM1)
@@ -404,9 +404,9 @@ flow_create(Point *startpoint,
   point_add( &p, &conn->endpoints[0] ) ;
   flow->textpos = p;
 
-  font = dia_font_new_from_style(DIA_FONT_SANS, 0.8);
+  font = dia_font_new_from_style(DIA_FONT_SANS, FLOW_FONTHEIGHT);
 
-  flow->text = new_text("", font, 0.8, &p, &color_black, ALIGN_CENTER);
+  flow->text = new_text("", font, FLOW_FONTHEIGHT, &p, &color_black, ALIGN_CENTER);
   dia_font_unref(font);  
   text_get_attributes(flow->text, &flow->attrs);
 
@@ -541,6 +541,12 @@ flow_load(ObjectNode obj_node, int version, const char *filename)
   attr = object_find_attribute(obj_node, "text");
   if (attr != NULL)
     flow->text = data_text(attribute_first_data(attr));
+  else { /* pathologic */
+    DiaFont *font = dia_font_new_from_style(DIA_FONT_SANS, FLOW_FONTHEIGHT);
+
+    flow->text = new_text("", font, FLOW_FONTHEIGHT, &obj->position, &color_black, ALIGN_CENTER);
+    dia_font_unref(font);  
+  }
 
   attr = object_find_attribute(obj_node, "type");
   if (attr != NULL)

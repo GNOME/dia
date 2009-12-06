@@ -70,7 +70,7 @@ struct _FunctionChange {
   char*			text ;
 };
 
-#define FUNCTION_FONTHEIGHT 0.6
+#define FUNCTION_FONTHEIGHT 0.8
 #define FUNCTION_BORDERWIDTH_SCALE 6.0
 #define FUNCTION_MARGIN_SCALE 3.0
 #define FUNCTION_MARGIN_X 2.4
@@ -563,6 +563,11 @@ function_load(ObjectNode obj_node, int version, const char *filename)
   attr = object_find_attribute(obj_node, "text");
   if (attr != NULL)
     pkg->text = data_text(attribute_first_data(attr));
+  else { /* paranoid */
+    DiaFont *font = dia_font_new_from_style (DIA_FONT_SANS,FUNCTION_FONTHEIGHT);
+    pkg->text = new_text("", font, FUNCTION_FONTHEIGHT, &obj->position, &color_black, ALIGN_CENTER);
+    dia_font_unref(font);
+  }
 
   attr = object_find_attribute(obj_node, "is_wish");
   if (attr != NULL)

@@ -752,6 +752,8 @@ box_load(ObjectNode obj_node, int version, const char *filename)
   attr = object_find_attribute(obj_node, "text");
   if (attr != NULL)
     box->text = data_text(attribute_first_data(attr));
+  else /* paranoid */
+    box->text = new_text_default(&obj->position, &box->border_color, ALIGN_CENTER);
 
   element_init(elem, 8, NUM_CONNECTIONS);
 

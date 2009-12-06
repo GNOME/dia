@@ -32,6 +32,7 @@
 #include "diagramdata.h"
 #include "objchange.h"
 #include "textline.h"
+#include "attributes.h"
 
 static int text_key_event(Focus *focus, 
 			  guint keystate, guint keysym,
@@ -298,6 +299,22 @@ new_text(const char *string, DiaFont *font, real height,
 
   calc_ascent_descent(text);
 
+  return text;
+}
+
+/*!
+ * Fallback function returning a default initialized text object.
+ */
+Text *
+new_text_default(Point *pos, Color *color, Alignment align)
+{
+  Text *text;
+  DiaFont *font;
+  real font_height;
+
+  attributes_get_default_font(&font, &font_height);
+  text = new_text("", font, font_height, pos, color, align); 
+  dia_font_unref(font);
   return text;
 }
 

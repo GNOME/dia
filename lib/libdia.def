@@ -661,6 +661,7 @@ EXPORTS
  nearest_pow
 
  new_text
+ new_text_default
  text_calc_boundingbox
  text_copy
  text_delete_all

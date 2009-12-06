@@ -86,7 +86,7 @@ Color orthflow_color_signal   = { 0.0f, 0.0f, 1.0f };
 #define ORTHFLOW_WIDTH 0.1
 #define ORTHFLOW_MATERIAL_WIDTH 0.2
 #define ORTHFLOW_DASHLEN 0.4
-#define ORTHFLOW_FONTHEIGHT 0.6
+#define ORTHFLOW_FONTHEIGHT 0.8
 #define ORTHFLOW_ARROWLEN 0.8
 #define ORTHFLOW_ARROWWIDTH 0.5
 #define HANDLE_MOVE_TEXT (HANDLE_CUSTOM2)
@@ -419,9 +419,9 @@ orthflow_create(Point *startpoint,
   p = *startpoint ;
   p.y += 0.1 * ORTHFLOW_FONTHEIGHT ;
   orthflow->textpos = p;
-  font = dia_font_new_from_style(DIA_FONT_SANS, 0.8);
+  font = dia_font_new_from_style(DIA_FONT_SANS, ORTHFLOW_FONTHEIGHT);
 
-  orthflow->text = new_text("", font, 0.8, &p, &color_black, ALIGN_CENTER);
+  orthflow->text = new_text("", font, ORTHFLOW_FONTHEIGHT, &p, &color_black, ALIGN_CENTER);
   dia_font_unref(font);  
   text_get_attributes(orthflow->text, &orthflow->attrs);
 
@@ -573,6 +573,12 @@ orthflow_load(ObjectNode obj_node, int version, const char *filename)
   attr = object_find_attribute(obj_node, "text");
   if (attr != NULL)
     orthflow->text = data_text(attribute_first_data(attr));
+  else { /* paranoid */
+    DiaFont *font = dia_font_new_from_style(DIA_FONT_SANS, ORTHFLOW_FONTHEIGHT);
+
+    orthflow->text = new_text("", font, ORTHFLOW_FONTHEIGHT, &obj->position, &color_black, ALIGN_CENTER);
+    dia_font_unref(font);
+  }
 
   attr = object_find_attribute(obj_node, "type");
   if (attr != NULL)

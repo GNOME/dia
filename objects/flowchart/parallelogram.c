@@ -699,6 +699,8 @@ pgram_load(ObjectNode obj_node, int version, const char *filename)
   attr = object_find_attribute(obj_node, "text");
   if (attr != NULL)
     pgram->text = data_text(attribute_first_data(attr));
+  else /* paranoid */
+    pgram->text = new_text_default(&obj->position, &pgram->border_color, ALIGN_CENTER);
 
   element_init(elem, 8, NUM_CONNECTIONS);
 
