@@ -558,8 +558,8 @@ property_other_read(DataNode composite)
   if (attr_node != NULL)
     properties_others->description = data_string( attribute_first_data(attr_node) );
   
-  if (!strcmp(properties_others->description,""))
-  	properties_others->description=NULL;
+  if (properties_others->description!=NULL && !strcmp(properties_others->description,""))
+    properties_others->description=NULL;
 	
   return properties_others;
 }
