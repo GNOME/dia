@@ -1214,6 +1214,7 @@ move_object_layer_relative(Diagram *dia, GList *objects, gint dist)
   guint pos;
  
   g_return_if_fail(dia->data->active_layer);
+  g_return_if_fail(dia->data->layers->len != 0);
 
   active =  dia->data->active_layer;
   for (pos = 0; pos < dia->data->layers->len; ++pos)
