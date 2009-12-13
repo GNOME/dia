@@ -93,6 +93,8 @@ xslt_dialog_create(void) {
 	fromxsl_t *cur_f = froms;
 	toxsl_t *cur_to = NULL;
 
+	g_return_if_fail(froms != NULL);
+
 	dialog = gtk_dialog_new_with_buttons(
              _("Export through XSLT"),
              NULL, 0,
