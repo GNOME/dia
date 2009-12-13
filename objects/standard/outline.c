@@ -393,15 +393,15 @@ outline_draw(Outline *outline, DiaRenderer *renderer)
     int s2 = 0;
     for (i = 1; i < total; ++i) {
       if (BEZ_MOVE_TO == pts[i].type) {
-        /* check wether any point of the second outline is within the first outline. 
+        /* check whether the start point of the second outline is within the first outline. 
 	 * If so it need to be subtracted - currently blanked. */
 	real dist = distance_bez_shape_point (&pts[s1], 
-	  n1 > 0 ? n1 : i - s1 - 1, 0, &pts[i].p1);
+	  n1 > 0 ? n1 : i - s1, 0, &pts[i].p1);
 	if (s2 > s1) { /* blanking the previous one */
 	  n = i - s2 - 1;
           DIA_RENDERER_GET_CLASS (renderer)->fill_bezier (renderer, &pts[s2], n, &color_white);
 	} else { /* fill the outer shape */
-	  n1 = n = i - s1 - 1;
+	  n1 = n = i - s1;
           DIA_RENDERER_GET_CLASS (renderer)->fill_bezier (renderer, &pts[s1], n, &outline->fill_color);
 	}
 	if (dist > 0) { /* remember as new outer outline */
