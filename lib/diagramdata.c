@@ -375,7 +375,7 @@ data_object_get_highlight(DiagramData *data, DiaObject *obj)
 {
   ObjectHighlight *oh;
   DiaHighlightType type = DIA_HIGHLIGHT_NONE;
-  if (oh = find_object_highlight (data->highlighted, obj)) {
+  if ((oh = find_object_highlight (data->highlighted, obj)) != NULL) {
     type = oh->type;
   }
   return type;
