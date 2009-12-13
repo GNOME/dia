@@ -316,6 +316,7 @@ get_selected_items (GtkWidget * dialog,
         list_iter = list;
         for(i = 0 ; i < selected_count ; i++)
         {
+            g_assert(list_iter!=NULL); /* can't be if g_slist_length works */
             exit_dialog_item_t * item = list_iter->data;
             (*items)->array[i].name = item->name;
             (*items)->array[i].path = item->path;
