@@ -691,6 +691,7 @@ layer_dialog_update_diagram_list(void)
     else
       create_layer_dialog();
   }
+  g_assert(layer_dialog != NULL); /* must be valid now */
   /* oh this options: here integrated UI ;( */
   if (!layer_dialog->diagram_omenu)
     return;
@@ -762,6 +763,7 @@ layer_dialog_show()
   {   
   if (layer_dialog == NULL || layer_dialog->dialog == NULL)
     create_layer_dialog();
+  g_assert(layer_dialog != NULL); /* must be valid now */
   gtk_window_present(GTK_WINDOW(layer_dialog->dialog));
   }
 }
@@ -794,6 +796,7 @@ layer_dialog_set_diagram(Diagram *dia)
 
   if (layer_dialog == NULL || layer_dialog->dialog == NULL) 
     create_layer_dialog(); /* May have been destroyed */
+  g_assert(layer_dialog != NULL); /* must be valid now */
 
   gtk_container_foreach (GTK_CONTAINER(layer_dialog->layer_list),
                          _layer_widget_clear_layer, NULL);
