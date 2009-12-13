@@ -93,8 +93,10 @@ sheets_dialog_up_down_set_sensitive(GList *wrapbox_button_list,
                                     GtkToggleButton *togglebutton)
 {
   GtkWidget *button;
+  GList *second;
 
   button = lookup_widget(sheets_dialog, "button_move_up");
+  g_return_if_fail(button != NULL);
 
   /* If the active button is the 1st in the wrapbox, OR
      if the active button is a linebreak AND is 2nd in the wrapbox
@@ -111,13 +113,12 @@ sheets_dialog_up_down_set_sensitive(GList *wrapbox_button_list,
     gtk_widget_set_sensitive(button, TRUE);
 
   button = lookup_widget(sheets_dialog, "button_move_down");
+  g_return_if_fail(button != NULL);
   if (!wrapbox_button_list
       || GTK_TOGGLE_BUTTON(g_list_last(wrapbox_button_list)->data) == togglebutton
       || (!g_object_get_data(G_OBJECT(togglebutton), "sheet_object_mod")
-          && g_list_previous(g_list_last(wrapbox_button_list))
-          && GTK_TOGGLE_BUTTON(g_list_previous(g_list_last(wrapbox_button_list))
-                              ->data)
-             == togglebutton))
+          && ((second = g_list_previous(g_list_last(wrapbox_button_list))) != NULL)
+          && GTK_TOGGLE_BUTTON(second->data) == togglebutton))
     gtk_widget_set_sensitive(button, FALSE);
   else
     gtk_widget_set_sensitive(button, TRUE);
