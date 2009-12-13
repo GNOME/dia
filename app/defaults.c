@@ -119,6 +119,7 @@ defaults_show(DiaObjectType *objtype, gpointer user_data)
   
   if (dialog == NULL)
     create_dialog();
+  g_assert(dialog != NULL); /* valid by create_dialog() */
 
   if ((objtype==NULL) || (defaults == NULL)) { 
     /* No defaults or no object */
