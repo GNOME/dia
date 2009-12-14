@@ -108,7 +108,7 @@ dictprop_load(DictProperty *prop, AttributeNode attr, DataNode data)
     } else {
       g_warning ("Dictionary key missing");
     }
-    data = data_next(data);
+    kv = data_next(kv);
   }
 }
 
