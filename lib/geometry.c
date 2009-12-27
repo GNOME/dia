@@ -198,31 +198,18 @@ distance_line_point(const Point *line_start, const Point *line_end,
   return perp_dist;
 }
 
-/* returns 1 iff the line crosses the ray from (-Inf, rayend.y) to rayend */
-static guint
-line_crosses_ray(const Point *line_start, 
+/* returns 1 if the line crosses the ray from (-Inf, rayend.y) to rayend */
+static int
+line_crosses_ray(const Point *line_start,
                  const Point *line_end, const Point *rayend)
 {
-  coord xpos;
-
-  /* swap end points if necessary */
-  if (line_start->y > line_end->y) {
-    const Point *tmp;
-
-    tmp = line_start;
-    line_start = line_end;
-    line_end = tmp;
+  if ((line_start->y <= rayend->y && line_end->y > rayend->y) || /* upward crossing */
+      (line_start->y > rayend->y && line_end->y <= rayend->y)) { /* downward crossing */
+    real vt = (rayend->y - line_start->y) / (line_end->y - line_start->y);
+    if (rayend->x < line_start->x + vt * (line_end->x - line_start->x)) /* intersect */
+      return 1;
   }
-  /* if y coords of line do not include rayend.y */
-  if (line_start->y > rayend->y || line_end->y < rayend->y)
-    return 0;
-  /* Avoid division by zero for horizontal case */
-  if (line_end->y - line_start->y < 0.00000000001) {
-    return (line_end->y - rayend->y < 0.00000000001);
-  }
-  xpos = line_start->x + (rayend->y - line_start->y) * 
-    (line_end->x - line_start->x) / (line_end->y - line_start->y);
-  return xpos <= rayend->x;
+  return 0;
 }
 
 real
