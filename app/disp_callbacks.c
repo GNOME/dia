@@ -219,13 +219,13 @@ popup_object_menu(DDisplay *ddisp, GdkEventButton *bevent)
   int num_items;
   
   diagram = ddisp->diagram;
-  if (g_list_length (diagram->data->selected) != 1)
+  if (g_list_length (diagram->data->selected) < 1)
     return;
   
   selected_list = diagram->data->selected;
   
   /* Have to have exactly one selected object */
-  if (selected_list == NULL || g_list_next(selected_list) != NULL) {
+  if (selected_list == NULL) {
     message_error("Selected list is %s while selected_count is %d\n",
 		  (selected_list?"long":"empty"), g_list_length (diagram->data->selected));
     return;
@@ -236,13 +236,18 @@ popup_object_menu(DDisplay *ddisp, GdkEventButton *bevent)
   /* Possibly react differently at a handle? */
 
   /* Get its menu, and remember the # of object-generated items */
-  if (obj->ops->get_object_menu == NULL || (obj->ops->get_object_menu)(obj, &object_menu_clicked_point) == NULL) {
+  if (    g_list_length (diagram->data->selected) > 1
+      ||  obj->ops->get_object_menu == NULL
+      || (obj->ops->get_object_menu)(obj, &object_menu_clicked_point) == NULL) {
     dia_menu = &empty_menu;
     if (dia_menu->title &&
 	(0 != strcmp(dia_menu->title,obj->type->name))) {
       dia_menu->app_data_free(dia_menu);
     }
-    dia_menu->title = obj->type->name;
+    if (g_list_length (diagram->data->selected) > 1)
+      dia_menu->title = _("Selection");
+    else
+      dia_menu->title = obj->type->name;
     num_items = 0;
   } else {
     dia_menu = (obj->ops->get_object_menu)(obj, &object_menu_clicked_point);
