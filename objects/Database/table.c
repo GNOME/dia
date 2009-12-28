@@ -48,6 +48,7 @@
 #define TABLE_ATTR_COMMENT_OFFSET 0.25
 #define TABLE_ATTR_INDIC_WIDTH 0.20
 #define TABLE_ATTR_INDIC_LINE_WIDTH 0.01
+#define TABLE_NORMAL_FONT_HEIGHT 0.8
 
 /* ----------------------------------------------------------------------- */
 
@@ -654,6 +655,7 @@ table_draw_attributesbox (Table * table, DiaRenderer * renderer,
   Color * line_color = &table->line_color;
   DiaFont * attr_font;
   real attr_font_height;
+  real scale;
 
   startP.x = elem->corner.x;
   startP.y = Yoffset;
@@ -668,6 +670,8 @@ table_draw_attributesbox (Table * table, DiaRenderer * renderer,
   startP.x += (table->border_width/2.0 + 0.1);
 
   list = table->attributes;
+  /* adjust size of symbols with font height */
+  scale = table->normal_font_height/TABLE_NORMAL_FONT_HEIGHT;
   while (list != NULL)
     {
       TableAttribute * attr = (TableAttribute *) list->data;
@@ -691,14 +695,14 @@ table_draw_attributesbox (Table * table, DiaRenderer * renderer,
       renderer_ops->set_linewidth (renderer, TABLE_ATTR_INDIC_LINE_WIDTH);
       indicP = startP;
       indicP.x -= ((TABLE_ATTR_NAME_OFFSET/2.0)
-                   + (TABLE_ATTR_INDIC_WIDTH/4.0));
+                   + (TABLE_ATTR_INDIC_WIDTH*scale/4.0));
       indicP.y -= (attr_font_height/2.0);
-      indicP.y += TABLE_ATTR_INDIC_WIDTH/2.0;
+      indicP.y += TABLE_ATTR_INDIC_WIDTH*scale/2.0;
       if (attr->primary_key)
         {
           fill_diamond (renderer,
-                        0.75*TABLE_ATTR_INDIC_WIDTH,
-                        TABLE_ATTR_INDIC_WIDTH,
+                        0.75*TABLE_ATTR_INDIC_WIDTH*scale,
+                        TABLE_ATTR_INDIC_WIDTH*scale,
                         &indicP,
                         &table->line_color);
         }
@@ -706,16 +710,16 @@ table_draw_attributesbox (Table * table, DiaRenderer * renderer,
         {
           renderer_ops->draw_ellipse (renderer,
                                       &indicP,
-                                      TABLE_ATTR_INDIC_WIDTH,
-                                      TABLE_ATTR_INDIC_WIDTH,
+                                      TABLE_ATTR_INDIC_WIDTH*scale,
+                                      TABLE_ATTR_INDIC_WIDTH*scale,
                                       &table->line_color);
         }
       else
         {
           renderer_ops->fill_ellipse (renderer,
                                       &indicP,
-                                      TABLE_ATTR_INDIC_WIDTH,
-                                      TABLE_ATTR_INDIC_WIDTH,
+                                      TABLE_ATTR_INDIC_WIDTH*scale,
+                                      TABLE_ATTR_INDIC_WIDTH*scale,
                                       &table->line_color);
         }
 
@@ -1379,8 +1383,8 @@ table_init_fonts (Table * table)
 {
   if (table->normal_font == NULL)
     {
-      table->normal_font_height = 0.8;
-      table->normal_font = dia_font_new_from_style (DIA_FONT_MONOSPACE, 0.8);
+      table->normal_font_height = TABLE_NORMAL_FONT_HEIGHT;
+      table->normal_font = dia_font_new_from_style (DIA_FONT_MONOSPACE, TABLE_NORMAL_FONT_HEIGHT);
     }
   if (table->name_font == NULL)
     {
