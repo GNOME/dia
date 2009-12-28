@@ -146,7 +146,10 @@ create_textedit_tool(void)
 
   ddisp = ddisplay_active();
   if (ddisp) {
-    textedit_activate_first (ddisp);
+    if (textedit_activate_first (ddisp)) {
+      /*  set the focus to the canvas area  */
+      gtk_widget_grab_focus (ddisp->canvas);
+    }
     ddisplay_flush(ddisp);
     /* the above may have entered the textedit mode, just update in any case */
     ddisplay_do_update_menu_sensitivity(ddisp);

@@ -989,6 +989,7 @@ ddisplay_drop_object(DDisplay *ddisp, gint x, gint y, DiaObjectType *otype,
   DiaObject *obj, *p_obj;
   GList *list;
   real click_distance;
+  gboolean avoid_reset;
 
   ddisplay_untransform_coords(ddisp, x, y, &droppoint.x, &droppoint.y);
 
@@ -1075,7 +1076,8 @@ ddisplay_drop_object(DDisplay *ddisp, gint x, gint y, DiaObjectType *otype,
   diagram_remove_all_selected(ddisp->diagram, TRUE); /* unselect all */
   diagram_select(ddisp->diagram, obj);
   obj->ops->selectf(obj, &droppoint, ddisp->renderer);
-  textedit_activate_object(ddisp, obj, NULL);
+  /* if we entered textedit don't reset */
+  avoid_reset = textedit_activate_object(ddisp, obj, NULL);
 
   /* Connect first handle if possible: */
   if ((handle1 != NULL) &&
@@ -1092,7 +1094,10 @@ ddisplay_drop_object(DDisplay *ddisp, gint x, gint y, DiaObjectType *otype,
 
   undo_set_transactionpoint(ddisp->diagram->undo);
   diagram_modified(ddisp->diagram);
-  if (prefs.reset_tools_after_create)
+  if (!avoid_reset && prefs.reset_tools_after_create)
     tool_reset();
+  else /* cant use gtk_action_activate (menus_get_action ("ToolsTextedit")); - it's disabled */
+    tool_select (TEXTEDIT_TOOL, NULL, NULL, NULL, 0);
+
   return obj;
 }

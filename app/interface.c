@@ -472,8 +472,11 @@ display_data_received_callback (GtkWidget *widget,
 			 tooldata->user_data);
 
     gtk_drag_finish (context, TRUE, FALSE, time);
-  } else
+  } else {
     dia_dnd_file_drag_data_received (widget, context, x, y, data, info, time, ddisp);
+  }
+  /* ensure the right window has the focus for text editing */
+  gtk_window_present(ddisp->shell);
 }
 
 /**

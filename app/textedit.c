@@ -244,7 +244,7 @@ textedit_activate_object(DDisplay *ddisp, DiaObject *obj, Point *clicked)
  * Calling this function will put us into text-edit mode if there is
  * text to edit, otherwise it will take us out of text-edit mode.
  */
-void
+gboolean
 textedit_activate_first(DDisplay *ddisp)
 {
   Focus *new_focus = NULL;
@@ -265,8 +265,10 @@ textedit_activate_first(DDisplay *ddisp)
     give_focus(new_focus); 
     textedit_begin_edit(ddisp, new_focus);
     diagram_flush(ddisp->diagram);
+    return TRUE;
   } else {
     textedit_exit(ddisp);
+    return FALSE;
   }
 }
 
