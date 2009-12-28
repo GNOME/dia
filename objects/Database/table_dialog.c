@@ -268,7 +268,8 @@ table_state_set (TableState * state, Table * table)
   table_compute_width_height (table);
   table_update_positions (table);
 
-  gtk_list_clear_items (table->prop_dialog->attributes_list, 0, -1);
+  if (table->prop_dialog)
+    gtk_list_clear_items (table->prop_dialog->attributes_list, 0, -1);
 }
 
 static void
