@@ -78,8 +78,8 @@ gchar *build_ui_filename (const gchar* name);
 static const GtkActionEntry common_entries[] =
 {
   { "File", NULL, N_("_File"), NULL, NULL, NULL },
-    { "FileNew", GTK_STOCK_NEW, NULL, "<control>N", NULL, G_CALLBACK (file_new_callback) },
-    { "FileOpen", GTK_STOCK_OPEN, NULL,"<control>O", NULL, G_CALLBACK (file_open_callback) },
+    { "FileNew", GTK_STOCK_NEW, NULL, "<control>N", N_("Create a new diagram"), G_CALLBACK (file_new_callback) },
+    { "FileOpen", GTK_STOCK_OPEN, NULL,"<control>O", N_("Open a diagram file"), G_CALLBACK (file_open_callback) },
     { "FileQuit", GTK_STOCK_QUIT, NULL, "<control>Q", NULL, G_CALLBACK (file_quit_callback) }, 
   { "Help", NULL, N_("_Help"), NULL, NULL, NULL },
     { "HelpContents", GTK_STOCK_HELP, NULL, "F1", NULL, G_CALLBACK (help_manual_callback) },
@@ -113,21 +113,21 @@ static const GtkToggleActionEntry integrated_ui_view_toggle_entries[] =
 /* Actions for diagram window */
 static const GtkActionEntry display_entries[] =
 {
-    { "FileSave", GTK_STOCK_SAVE, NULL, "<control>S", NULL, G_CALLBACK (file_save_callback) },
-    { "FileSaveas", GTK_STOCK_SAVE_AS, NULL, "<control><shift>S", NULL, G_CALLBACK (file_save_as_callback) },
-    { "FileExport", GTK_STOCK_CONVERT, N_("_Export ..."), NULL, NULL, G_CALLBACK (file_export_callback) },
+    { "FileSave", GTK_STOCK_SAVE, NULL, "<control>S", N_("Save the diagram"), G_CALLBACK (file_save_callback) },
+    { "FileSaveas", GTK_STOCK_SAVE_AS, NULL, "<control><shift>S", N_("Save the diagram with a new name"), G_CALLBACK (file_save_as_callback) },
+    { "FileExport", GTK_STOCK_CONVERT, N_("_Export ..."), NULL, N_("Export the diagram"), G_CALLBACK (file_export_callback) },
     { "DiagramProperties", GTK_STOCK_PROPERTIES, N_("_Diagram Properties"), "<shift><alt>Return", NULL, G_CALLBACK (view_diagram_properties_callback) },
     { "FilePagesetup", NULL, N_("Page Set_up..."), NULL, NULL, G_CALLBACK (file_pagesetup_callback) },
-    { "FilePrint", GTK_STOCK_PRINT, NULL, "<control>P", NULL, G_CALLBACK (file_print_callback) },
+    { "FilePrint", GTK_STOCK_PRINT, NULL, "<control>P", N_("Print the diagram"), G_CALLBACK (file_print_callback) },
     { "FileClose", GTK_STOCK_CLOSE, NULL, "<control>W", NULL, G_CALLBACK (file_close_callback) },
 
   { "Edit", NULL, N_("_Edit"), NULL, NULL, NULL },
     { "EditUndo", GTK_STOCK_UNDO, NULL, "<control>Z", NULL, G_CALLBACK (edit_undo_callback) },
     { "EditRedo", GTK_STOCK_REDO, NULL, "<control><shift>Z", NULL, G_CALLBACK (edit_redo_callback) },
 
-    { "EditCopy", GTK_STOCK_COPY, NULL, "<control>C", NULL, G_CALLBACK (edit_copy_callback) },
-    { "EditCut", GTK_STOCK_CUT, NULL, "<control>X", NULL, G_CALLBACK (edit_cut_callback) },
-    { "EditPaste", GTK_STOCK_PASTE, NULL, "<control>V", NULL, G_CALLBACK (edit_paste_callback) },
+    { "EditCopy", GTK_STOCK_COPY, NULL, "<control>C", N_("Copy selection"), G_CALLBACK (edit_copy_callback) },
+    { "EditCut", GTK_STOCK_CUT, NULL, "<control>X", N_("Cut selection"), G_CALLBACK (edit_cut_callback) },
+    { "EditPaste", GTK_STOCK_PASTE, NULL, "<control>V", N_("Paste selection"), G_CALLBACK (edit_paste_callback) },
     { "EditDuplicate", NULL, N_("_Duplicate"), "<control>D", NULL, G_CALLBACK (edit_duplicate_callback) },
     { "EditDelete", GTK_STOCK_DELETE, NULL, "Delete", NULL, G_CALLBACK (edit_delete_callback) },
 
@@ -148,8 +148,8 @@ static const GtkActionEntry display_entries[] =
     { "DiagramLayers", DIA_STOCK_LAYERS, N_("_Layers..."), "<control>L", NULL, G_CALLBACK (dialogs_layers_callback) },
 
   { "View", NULL, N_("_View"), NULL, NULL, NULL },
-    { "ViewZoomin", GTK_STOCK_ZOOM_IN, NULL, "<control>plus", NULL, G_CALLBACK (view_zoom_in_callback) },
-    { "ViewZoomout", GTK_STOCK_ZOOM_OUT, NULL, "<control>minus", NULL, G_CALLBACK (view_zoom_out_callback) },
+    { "ViewZoomin", GTK_STOCK_ZOOM_IN, NULL, "<control>plus", N_("Zoom in"), G_CALLBACK (view_zoom_in_callback) },
+    { "ViewZoomout", GTK_STOCK_ZOOM_OUT, NULL, "<control>minus", N_("Zoom out"), G_CALLBACK (view_zoom_out_callback) },
     { "ViewZoom", NULL, N_("_Zoom"), NULL, NULL, NULL },
       { "ViewZoom16000", NULL, N_("1600%"), NULL, NULL, G_CALLBACK (view_zoom_set_callback) },
       { "ViewZoom8000", NULL, N_("800%"), NULL, NULL, G_CALLBACK (view_zoom_set_callback) },
@@ -164,7 +164,7 @@ static const GtkActionEntry display_entries[] =
       { "ViewZoom354", NULL, N_("35.4"), NULL, NULL, G_CALLBACK (view_zoom_set_callback) },
       { "ViewZoom250", NULL, N_("25"), NULL, NULL, G_CALLBACK (view_zoom_set_callback) },
     /* Show All, Best Fit.  Same as the Gimp, Ctrl+E */
-    { "ViewShowall", GTK_STOCK_ZOOM_FIT, NULL, "<control>E", NULL, G_CALLBACK (view_show_all_callback) },
+    { "ViewShowall", GTK_STOCK_ZOOM_FIT, NULL, "<control>E", N_("Zoom fit"), G_CALLBACK (view_show_all_callback) },
 
   /* "display_toggle_entries" items go here */
 
