@@ -347,8 +347,6 @@ ddisplay_size_allocate (GtkWidget *widget,
 			GtkAllocation *allocation,
 			gpointer data)
 {
-  DDisplay *ddisp;
-
   g_return_if_fail (widget != NULL);
   g_return_if_fail (allocation != NULL);
   g_return_if_fail (data != NULL);
@@ -358,7 +356,6 @@ ddisplay_size_allocate (GtkWidget *widget,
 	   widget->allocation.width, widget->allocation.height);
 #endif
   widget->allocation = *allocation;
-  ddisp = (DDisplay *)data;
 }
 
 void
@@ -635,7 +632,6 @@ ddisplay_canvas_events (GtkWidget *canvas,
         display_set_active(ddisp);
 	hold_remove_handler();
         bevent = (GdkEventButton *) event;
-        state = bevent->state;
 
         switch (bevent->button)
         {
@@ -660,7 +656,6 @@ ddisplay_canvas_events (GtkWidget *canvas,
       case GDK_BUTTON_PRESS:
         display_set_active(ddisp);
         bevent = (GdkEventButton *) event;
-        state = bevent->state;
 
         ddisplay_untransform_coords(ddisp,
                                     (int)bevent->x, (int)bevent->y,
@@ -721,7 +716,6 @@ ddisplay_canvas_events (GtkWidget *canvas,
       case GDK_BUTTON_RELEASE:
         display_set_active(ddisp);
         bevent = (GdkEventButton *) event;
-        state = bevent->state;
 
         switch (bevent->button)
         {
@@ -759,7 +753,6 @@ ddisplay_canvas_events (GtkWidget *canvas,
 	hold_remove_handler();
 
         mevent = (GdkEventMotion *) event;
-        state = mevent->state;
 
         if (mevent->is_hint) {
           mevent->x = tx;
@@ -921,7 +914,6 @@ ddisplay_canvas_events (GtkWidget *canvas,
 
       case GDK_KEY_RELEASE:
         kevent = (GdkEventKey *) event;
-        state = kevent->state;
         if (gtk_im_context_filter_keypress(GTK_IM_CONTEXT(ddisp->im_context),
                                            kevent)) {
           return_val = TRUE;
