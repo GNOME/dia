@@ -292,13 +292,11 @@ zigzagline_copy(Zigzagline *zigzagline)
 {
   Zigzagline *newzigzagline;
   OrthConn *orth, *neworth;
-  DiaObject *newobj;
   
   orth = &zigzagline->orth;
  
   newzigzagline = g_malloc0(sizeof(Zigzagline));
   neworth = &newzigzagline->orth;
-  newobj = &neworth->object;
 
   orthconn_copy(orth, neworth);
 

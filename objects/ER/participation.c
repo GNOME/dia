@@ -331,13 +331,11 @@ participation_copy(Participation *participation)
 {
   Participation *newparticipation;
   OrthConn *orth, *neworth;
-  DiaObject *newobj;
   
   orth = &participation->orth;
   
   newparticipation = g_malloc0(sizeof(Participation));
   neworth = &newparticipation->orth;
-  newobj = &neworth->object;
 
   orthconn_copy(orth, neworth);
 

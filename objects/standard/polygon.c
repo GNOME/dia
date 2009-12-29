@@ -306,13 +306,11 @@ polygon_copy(Polygon *polygon)
 {
   Polygon *newpolygon;
   PolyShape *poly, *newpoly;
-  DiaObject *newobj;
 
   poly = &polygon->poly;
  
   newpolygon = g_malloc0(sizeof(Polygon));
   newpoly = &newpolygon->poly;
-  newobj = &newpoly->object;
 
   polyshape_copy(poly, newpoly);
 

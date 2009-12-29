@@ -321,13 +321,11 @@ beziergon_copy(Beziergon *beziergon)
 {
   Beziergon *newbeziergon;
   BezierShape *bezier, *newbezier;
-  DiaObject *newobj;
 
   bezier = &beziergon->bezier;
  
   newbeziergon = g_malloc0(sizeof(Beziergon));
   newbezier = &newbeziergon->bezier;
-  newobj = &newbezier->object;
 
   beziershape_copy(bezier, newbezier);
 

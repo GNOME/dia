@@ -896,14 +896,12 @@ association_copy(Association *assoc)
 {
   Association *newassoc;
   OrthConn *orth, *neworth;
-  DiaObject *newobj;
   int i;
   
   orth = &assoc->orth;
   
   newassoc = g_malloc0(sizeof(Association));
   neworth = &newassoc->orth;
-  newobj = &neworth->object;
 
   orthconn_copy(orth, neworth);
 
