@@ -1123,12 +1123,11 @@ data_add_rectangle(AttributeNode attr, const Rectangle *rect)
 void
 data_add_string(AttributeNode attr, const char *str)
 {
-    DataNode data_node;
     xmlChar *escaped_str;
     xmlChar *sharped_str;
 
     if (str==NULL) {
-        data_node = xmlNewChild(attr, NULL, (const xmlChar *)"string", (const xmlChar *)"##");
+        (void)xmlNewChild(attr, NULL, (const xmlChar *)"string", (const xmlChar *)"##");
         return;
     } 
 
@@ -1138,7 +1137,7 @@ data_add_string(AttributeNode attr, const char *str)
 
     xmlFree(escaped_str);
     
-    data_node = xmlNewChild(attr, NULL, (const xmlChar *)"string", (xmlChar *) sharped_str);
+    (void)xmlNewChild(attr, NULL, (const xmlChar *)"string", (xmlChar *) sharped_str);
   
     g_free(sharped_str);
 }
@@ -1166,11 +1165,9 @@ void
 data_add_font(AttributeNode attr, const DiaFont *font)
 {
   DataNode data_node;
-  DiaFontStyle style;
   char buffer[20+1]; /* Enought for 64bit int + zero */
 
   data_node = xmlNewChild(attr, NULL, (const xmlChar *)"font", NULL);
-  style = dia_font_get_style (font);
   xmlSetProp(data_node, (const xmlChar *)"family", (xmlChar *) dia_font_get_family(font));
   g_snprintf(buffer, 20, "%d", dia_font_get_style(font));
  
