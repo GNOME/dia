@@ -254,7 +254,6 @@ calculate_arrow_point(const Arrow *arrow, const Point *to, const Point *from,
   case ARROW_INTEGRAL_SYMBOL:
     *move_line = *to;
     point_sub(move_line, from);
-    add_len = point_len(move_line);
     point_normalize(move_line);
     point_scale(move_line, arrow->length / 2);
     return;
@@ -1013,13 +1012,6 @@ calculate_halfhead(Point *poly, const Point *to, const Point *from,
   Point delta;
   Point orth_delta;
   real len;
-  real angle;
-
-  if (width > 0.0000001) {
-    angle = atan(length/(width/2));
-  } else {
-    angle = 0;
-  }
 
   delta = *to;
   point_sub(&delta, from);
