@@ -317,12 +317,9 @@ static void
 analog_clock_draw(Analog_Clock *analog_clock, DiaRenderer *renderer)
 {
   DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
-  Element *elem;
   
   g_assert(analog_clock != NULL);
   g_assert(renderer != NULL);
-
-  elem = &analog_clock->element;
 
   renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
   renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);

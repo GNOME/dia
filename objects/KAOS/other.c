@@ -347,13 +347,10 @@ other_draw(Other *other, DiaRenderer *renderer)
 {
   DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Point pl[6];
-  Element *elem;
 
   /* some asserts */
   assert(other != NULL);
   assert(renderer != NULL);
-
-  elem = &other->element;
 
   renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
   renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
