@@ -394,13 +394,11 @@ polyline_copy(Polyline *polyline)
 {
   Polyline *newpolyline;
   PolyConn *poly, *newpoly;
-  DiaObject *newobj;
   
   poly = &polyline->poly;
  
   newpolyline = g_malloc0(sizeof(Polyline));
   newpoly = &newpolyline->poly;
-  newobj = &newpoly->object;
 
   polyconn_copy(poly, newpoly);
 

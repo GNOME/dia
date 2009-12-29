@@ -489,13 +489,11 @@ bezierline_copy(Bezierline *bezierline)
 {
   Bezierline *newbezierline;
   BezierConn *bez, *newbez;
-  DiaObject *newobj;
   
   bez = &bezierline->bez;
  
   newbezierline = g_new0(Bezierline, 1);
   newbez = &newbezierline->bez;
-  newobj = &bez->object;
 
   bezierconn_copy(bez, newbez);
 
