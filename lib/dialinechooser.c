@@ -110,7 +110,6 @@ dia_line_preview_expose(GtkWidget *widget, GdkEventExpose *event)
   GtkMisc *misc = GTK_MISC(widget);
   gint width, height;
   gint x, y;
-  gint extent;
   GdkWindow *win;
   GdkGC *gc;
   GdkGCValues gcvalues;
@@ -120,7 +119,6 @@ dia_line_preview_expose(GtkWidget *widget, GdkEventExpose *event)
   if (GTK_WIDGET_DRAWABLE(widget)) {
     width = widget->allocation.width - misc->xpad * 2;
     height = widget->allocation.height - misc->ypad * 2;
-    extent = MIN(width, height);
     x = (widget->allocation.x + misc->xpad);
     y = (widget->allocation.y + misc->ypad);
 
