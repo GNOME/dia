@@ -98,12 +98,12 @@ PyDiaDiagramData_GetSortedSelected(PyDiaDiagramData *self, PyObject *args)
 
     if (!PyArg_ParseTuple(args, ":DiagramData.get_sorted_selected"))
 	return NULL;
-    list = tmp = data_get_sorted_selected(self->data);
+    list = data_get_sorted_selected(self->data);
 
-    len = g_list_length (self->data->selected);
+    len = g_list_length (list);
     ret = PyTuple_New(len);
 
-    for (i = 0, tmp = self->data->selected; tmp; i++, tmp = tmp->next)
+    for (i = 0, tmp = list; tmp; i++, tmp = tmp->next)
 	PyTuple_SetItem(ret, i, PyDiaObject_New((DiaObject *)tmp->data));
     g_list_free(list);
     return ret;

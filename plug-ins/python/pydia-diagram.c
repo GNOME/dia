@@ -141,12 +141,12 @@ PyDiaDiagram_GetSortedSelected(PyDiaDiagram *self, PyObject *args)
 
     if (!PyArg_ParseTuple(args, ":Diagram.get_sorted_selected"))
 	return NULL;
-    list = tmp = diagram_get_sorted_selected(self->dia);
+    list = diagram_get_sorted_selected(self->dia);
 
-    len = g_list_length (self->dia->data->selected);
+    len = g_list_length (list);
     ret = PyTuple_New(len);
 
-    for (i = 0, tmp = self->dia->data->selected; tmp; i++, tmp = tmp->next)
+    for (i = 0, tmp = list; tmp; i++, tmp = tmp->next)
 	PyTuple_SetItem(ret, i, PyDiaObject_New((DiaObject *)tmp->data));
     g_list_free(list);
     return ret;
@@ -161,12 +161,12 @@ PyDiaDiagram_GetSortedSelectedRemove(PyDiaDiagram *self, PyObject *args)
 
     if (!PyArg_ParseTuple(args, ":Diagram.get_sorted_selected_remove"))
 	return NULL;
-    list = tmp = diagram_get_sorted_selected_remove(self->dia);
+    list = diagram_get_sorted_selected_remove(self->dia);
 
-    len = g_list_length (self->dia->data->selected);
+    len = g_list_length (list);
     ret = PyTuple_New(len);
 
-    for (i = 0, tmp = self->dia->data->selected; tmp; i++, tmp = tmp->next)
+    for (i = 0, tmp = list; tmp; i++, tmp = tmp->next)
 	PyTuple_SetItem(ret, i, PyDiaObject_New((DiaObject *)tmp->data));
     g_list_free(list);
     return ret;
