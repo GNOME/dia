@@ -269,7 +269,7 @@ vdx_get_colors(xmlNodePtr cur, VDXDocument* theDoc)
 static void
 vdx_get_facenames(xmlNodePtr cur, VDXDocument* theDoc)
 {
-    xmlNodePtr Face = cur->xmlChildrenNode;
+    xmlNodePtr Face;
     theDoc->FaceNames =
         g_array_new(FALSE, FALSE, sizeof (struct vdx_FaceName));
 
@@ -299,7 +299,7 @@ vdx_get_facenames(xmlNodePtr cur, VDXDocument* theDoc)
 static void
 vdx_get_fonts(xmlNodePtr cur, VDXDocument* theDoc)
 {
-    xmlNodePtr Font = cur->xmlChildrenNode;
+    xmlNodePtr Font;
     theDoc->Fonts = g_array_new(FALSE, FALSE, sizeof (struct vdx_FontEntry));
 
     for (Font = cur->xmlChildrenNode; Font; Font = Font->next) {
@@ -326,7 +326,7 @@ vdx_get_fonts(xmlNodePtr cur, VDXDocument* theDoc)
 static void
 vdx_get_masters(xmlNodePtr cur, VDXDocument* theDoc)
 {
-    xmlNodePtr Master = cur->xmlChildrenNode;
+    xmlNodePtr Master;
     theDoc->Masters = g_array_new (FALSE, TRUE,
                                    sizeof (struct vdx_Master));
     for (Master = cur->xmlChildrenNode; Master;
@@ -357,7 +357,7 @@ vdx_get_masters(xmlNodePtr cur, VDXDocument* theDoc)
 static void
 vdx_get_stylesheets(xmlNodePtr cur, VDXDocument* theDoc)
 {
-    xmlNodePtr StyleSheet = cur->xmlChildrenNode;
+    xmlNodePtr StyleSheet;
     theDoc->StyleSheets = g_array_new (FALSE, TRUE,
                                        sizeof (struct vdx_StyleSheet));
     for (StyleSheet = cur->xmlChildrenNode; StyleSheet;
@@ -2876,7 +2876,7 @@ vdx_setup_layers(struct vdx_PageSheet* PageSheet, VDXDocument* theDoc,
 static void
 vdx_get_pages(xmlNodePtr cur, VDXDocument* theDoc, DiagramData *dia)
 {
-    xmlNodePtr Page = cur->xmlChildrenNode;
+    xmlNodePtr Page;
     xmlNodePtr Shapes;
 
     for (Page = cur->xmlChildrenNode; Page; Page = Page->next)
