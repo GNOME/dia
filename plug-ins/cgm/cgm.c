@@ -1099,7 +1099,7 @@ draw_image(DiaRenderer *self,
            x2 = x1+width, y2 = y1-height;
     gint rowlen = dia_image_width(image) * 3, lines = dia_image_height(image);
     double linesize = (y1 - y2) / lines;
-    gint chunk, clines = lines;
+    gint chunk, clines;
     guint8 *pImg, *ptr;
 
     if (rowlen > maxlen) {
