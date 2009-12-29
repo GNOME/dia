@@ -157,8 +157,8 @@ add_handle(PolyShape *poly, int pos, Point *point, Handle *handle,
 	   ConnectionPoint *cp1, ConnectionPoint *cp2)
 {
   int i;
-  DiaObject *obj;
-  
+  DiaObject *obj = &poly->object;
+
   poly->numpoints++;
   poly->points = g_realloc(poly->points, poly->numpoints*sizeof(Point));
 
@@ -166,11 +166,9 @@ add_handle(PolyShape *poly, int pos, Point *point, Handle *handle,
     poly->points[i] = poly->points[i-1];
   }
   poly->points[pos] = *point;
-  object_add_handle_at((DiaObject*)poly, handle, pos);
-  object_add_connectionpoint_at((DiaObject*)poly, cp1, 2*pos);
-  object_add_connectionpoint_at((DiaObject*)poly, cp2, 2*pos+1);
-
-  obj = (DiaObject *)poly;
+  object_add_handle_at(obj, handle, pos);
+  object_add_connectionpoint_at(obj, cp1, 2*pos);
+  object_add_connectionpoint_at(obj, cp2, 2*pos+1);
 }
 
 static void
