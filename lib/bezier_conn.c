@@ -529,6 +529,8 @@ bezierconn_remove_segment(BezierConn *bez, int pos)
   object_unconnect((DiaObject *)bez, old_handle2);
   object_unconnect((DiaObject *)bez, old_handle3);
 
+  /* remember the other point before overwriting */
+  old_point.p1 = bez->points[pos+1].p1;
   remove_handles(bez, pos);
 
   bezierconn_update_data(bez);
