@@ -999,6 +999,8 @@ plot_polyline(const struct vdx_Geom *Geom, const struct vdx_XForm *XForm,
     }
     if (newobj)
         vdx_simple_properties(newobj, Fill, Line, theDoc);
+    g_free(end_arrow_p);
+    g_free(start_arrow_p);
     return newobj;
 }
 
@@ -1560,6 +1562,8 @@ plot_bezier(const struct vdx_Geom *Geom, const struct vdx_XForm *XForm,
     g_free(bezpoints);
     if (newobj)
         vdx_simple_properties(newobj, Fill, Line, theDoc);
+    g_free(end_arrow_p);
+    g_free(start_arrow_p);
     return newobj;
 }
 
@@ -1947,8 +1951,10 @@ plot_nurbs(const struct vdx_Geom *Geom, const struct vdx_XForm *XForm,
         end_arrow_p = make_arrow(Line, 'e', theDoc);
     }
 
-    newobj = create_standard_polyline(num_points, points, NULL, NULL);
+    newobj = create_standard_polyline(num_points, points, end_arrow_p, start_arrow_p);
 
+    g_free(end_arrow_p);
+    g_free(start_arrow_p);
     g_free(control);
     g_free(weight);
     g_free(knot);
