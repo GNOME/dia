@@ -346,12 +346,10 @@ function_update_data(Function *pkg)
 {
   Element *elem = &pkg->element;
   DiaObject *obj = &elem->object;
-  DiaFont *font;
   Point p1;
   real h, w = 0, font_height;
   
   text_calc_boundingbox(pkg->text, NULL) ;
-  font = pkg->text->font ;
   font_height = pkg->text->height ;
   h = elem->corner.y + font_height/FUNCTION_MARGIN_Y;
 
