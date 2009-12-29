@@ -218,7 +218,7 @@ actor_draw(Actor *actor, DiaRenderer *renderer)
 {
   DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Element *elem;
-  real x, y, w, h;
+  real x, y, w;
   real r, r1;  
   Point ch, cb, p1, p2;
   real actor_height;
@@ -231,7 +231,6 @@ actor_draw(Actor *actor, DiaRenderer *renderer)
   x = elem->corner.x;
   y = elem->corner.y;
   w = elem->width;
-  h = elem->height;
   actor_height = elem->height - actor->text->height;
   
   renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
