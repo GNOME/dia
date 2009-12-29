@@ -317,12 +317,11 @@ add_handles(BezierShape *bezier, int pos, BezPoint *point,
 	    ConnectionPoint *cp1, ConnectionPoint *cp2)
 {
   int i, next;
-  DiaObject *obj;
+  DiaObject *obj = &bezier->object;
 
   g_assert(pos >= 1);
   g_assert(pos <= bezier->numpoints);
 
-  obj = (DiaObject *)bezier;
   bezier->numpoints++;
   next = pos + 1;
   if (pos == bezier->numpoints - 1)
@@ -342,11 +341,11 @@ add_handles(BezierShape *bezier, int pos, BezPoint *point,
   if (pos == bezier->numpoints - 1)
     bezier->points[0].p1 = bezier->points[0].p3 = bezier->points[pos].p3;
   bezier->corner_types[pos] = corner_type;
-  object_add_handle_at((DiaObject*)bezier, handle1, 3*pos-3);
-  object_add_handle_at((DiaObject*)bezier, handle2, 3*pos-2);
-  object_add_handle_at((DiaObject*)bezier, handle3, 3*pos-1);
-  object_add_connectionpoint_at((DiaObject *)bezier, cp1, 2*pos-2);
-  object_add_connectionpoint_at((DiaObject *)bezier, cp2, 2*pos-1);
+  object_add_handle_at(obj, handle1, 3*pos-3);
+  object_add_handle_at(obj, handle2, 3*pos-2);
+  object_add_handle_at(obj, handle3, 3*pos-1);
+  object_add_connectionpoint_at(obj, cp1, 2*pos-2);
+  object_add_connectionpoint_at(obj, cp2, 2*pos-1);
 }
 
 static void
