@@ -381,7 +381,6 @@ dia_gdk_renderer_set_dashes(DiaGdkRenderer *renderer, int offset)
 {
   gint8 dash_list[6];
   int hole_width;
-  int pattern_length;
   
   switch(renderer->saved_line_style) {
   case LINESTYLE_SOLID:
@@ -389,7 +388,6 @@ dia_gdk_renderer_set_dashes(DiaGdkRenderer *renderer, int offset)
   case LINESTYLE_DASHED:
     dash_list[0] = renderer->dash_length;
     dash_list[1] = renderer->dash_length;
-    pattern_length = renderer->dash_length*2;
     gdk_gc_set_dashes(renderer->gc, offset, dash_list, 2);
     break;
   case LINESTYLE_DASH_DOT:
@@ -400,7 +398,6 @@ dia_gdk_renderer_set_dashes(DiaGdkRenderer *renderer, int offset)
     dash_list[1] = hole_width;
     dash_list[2] = renderer->dot_length;
     dash_list[3] = hole_width;
-    pattern_length = renderer->dash_length+renderer->dot_length+2*hole_width;
     gdk_gc_set_dashes(renderer->gc, offset, dash_list, 4);
     break;
   case LINESTYLE_DASH_DOT_DOT:
@@ -413,17 +410,14 @@ dia_gdk_renderer_set_dashes(DiaGdkRenderer *renderer, int offset)
     dash_list[3] = hole_width;
     dash_list[4] = renderer->dot_length;
     dash_list[5] = hole_width;
-    pattern_length = renderer->dash_length+2*renderer->dot_length+3*hole_width;
     gdk_gc_set_dashes(renderer->gc, offset, dash_list, 6);
     break;
   case LINESTYLE_DOTTED:
     dash_list[0] = renderer->dot_length;
     dash_list[1] = renderer->dot_length;
-    pattern_length = renderer->dot_length;
     gdk_gc_set_dashes(renderer->gc, offset, dash_list, 2);
     break;
   }
-
 }
 
 static void 
