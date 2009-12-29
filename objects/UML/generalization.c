@@ -405,7 +405,6 @@ generalization_create(Point *startpoint,
   Generalization *genlz;
   OrthConn *orth;
   DiaObject *obj;
-  PolyBBExtras *extra;
 
   if (genlz_font == NULL) {
     genlz_font = dia_font_new_from_style(DIA_FONT_MONOSPACE, GENERALIZATION_FONTHEIGHT);
@@ -414,7 +413,6 @@ generalization_create(Point *startpoint,
   genlz = g_new0(Generalization, 1);
   orth = &genlz->orth;
   obj = (DiaObject *)genlz;
-  extra = &orth->extra_spacing;
 
   obj->type = &generalization_type;
 
