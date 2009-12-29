@@ -235,7 +235,6 @@ begin_render(DiaRenderer *self)
 static void
 end_render(DiaRenderer *self)
 {
-  DiaCairoInteractiveRenderer *renderer = DIA_CAIRO_INTERACTIVE_RENDERER (self);
   DiaCairoRenderer *base_renderer = DIA_CAIRO_RENDERER (self);
 
   cairo_show_page (base_renderer->cr);
@@ -364,7 +363,6 @@ static void
 clip_region_clear(DiaRenderer *object)
 {
   DiaCairoInteractiveRenderer *renderer = DIA_CAIRO_INTERACTIVE_RENDERER (object);
-  DiaCairoRenderer *base_renderer = DIA_CAIRO_RENDERER (object);
 
   if (renderer->clip_region != NULL)
     gdk_region_destroy(renderer->clip_region);
@@ -379,7 +377,6 @@ clip_region_add_rect(DiaRenderer *object,
 		 Rectangle *rect)
 {
   DiaCairoInteractiveRenderer *renderer = DIA_CAIRO_INTERACTIVE_RENDERER (object);
-  DiaCairoRenderer *base_renderer = DIA_CAIRO_RENDERER (object);
   GdkRectangle clip_rect;
   int x1,y1;
   int x2,y2;
