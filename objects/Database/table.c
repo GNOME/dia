@@ -510,7 +510,7 @@ table_draw (Table *table, DiaRenderer *renderer)
   elem = &table->element;
 
   y = table_draw_namebox (table, renderer, elem);
-  y = table_draw_attributesbox (table, renderer, elem, y);
+  table_draw_attributesbox (table, renderer, elem, y);
 }
 
 static real
