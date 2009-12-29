@@ -46,8 +46,6 @@ struct _BezierShape {
 
 void beziershape_update_data(BezierShape *bezier);
 void beziershape_update_boundingbox(BezierShape *bezier);
-void beziershape_simple_draw(BezierShape *bezier, DiaRenderer *renderer,
-			     real width);
 void beziershape_init(BezierShape *bezier, int num_points);
 void beziershape_set_points(BezierShape *bezier, int num_points, BezPoint *points);
 void beziershape_destroy(BezierShape *bezier);

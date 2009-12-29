@@ -720,38 +720,6 @@ beziershape_update_boundingbox(BezierShape *bezier)
 }
 
 void
-beziershape_simple_draw(BezierShape *bezier, DiaRenderer *renderer, real width)
-{
-  BezPoint *points;
-  int numpoints;
-  
-  g_assert(bezier != NULL);
-  g_assert(renderer != NULL);
-
-  points = &bezier->points[0];
-  
-  DIA_RENDERER_GET_CLASS(renderer)->set_linewidth(renderer, width);
-  DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_SOLID);
-  DIA_RENDERER_GET_CLASS(renderer)->set_linejoin(renderer, LINEJOIN_ROUND);
-  DIA_RENDERER_GET_CLASS(renderer)->set_linecaps(renderer, LINECAPS_BUTT);
-
-  numpoints = bezier->numpoints;
-  if (!DIA_RENDERER_GET_CLASS(renderer)->is_capable_to(renderer, RENDER_HOLES)) {
-    /* just throw away everything from the second move */
-    int i;
-
-    for (i = 1; i < numpoints; ++i)
-      if (points[i].type == BEZ_MOVE_TO) {
-        numpoints = i;
-        break;
-      }
-  }
-
-  DIA_RENDERER_GET_CLASS(renderer)->fill_bezier(renderer, points, bezier->numpoints,&color_white);
-  DIA_RENDERER_GET_CLASS(renderer)->draw_bezier(renderer, points, bezier->numpoints,&color_black);
-}
-
-void
 beziershape_draw_control_lines(BezierShape *bez, DiaRenderer *renderer)
 {
   Color line_colour = {0.0, 0.0, 0.6};
