@@ -71,7 +71,7 @@ _parse_points (xmlNodePtr node, const char *attrib)
     gint i;
     gchar **split = g_strsplit ((gchar *)str, " ", -1);
     gchar *val, *ep = NULL;
-    for (i = 0, val = split[i]; split[i] != NULL; ++i)
+    for (i = 0; split[i] != NULL; ++i)
       /* count them */;
     g_array_set_size (arr, i);
     for (i = 0, val = split[i]; split[i] != 0; ++i) {
@@ -96,7 +96,7 @@ _parse_bezpoints (xmlNodePtr node, const char *attrib)
     gint i;
     gchar **split = g_strsplit ((gchar *)str, " ", -1);
     gchar *val, *ep = NULL;
-    for (i = 0, val = split[i]; split[i] != NULL; ++i)
+    for (i = 0; split[i] != NULL; ++i)
       /* count them */;
     g_array_set_size (arr, i);
     for (i = 0, val = split[i]; split[i] != 0; ++i) {
