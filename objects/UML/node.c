@@ -293,16 +293,13 @@ node_update_data(Node *node)
 {
   Element *elem = &node->element;
   DiaObject *obj = &node->element.object;
-  DiaFont *font;
   Point p1;
-  real h, w = 0;
+  real h;
 
   text_calc_boundingbox(node->name, NULL);
 
-  font = node->name->font;
   h = elem->corner.y + NODE_TEXT_MARGIN;
 
-  w = node->name->max_width;
   p1.x = elem->corner.x + NODE_TEXT_MARGIN;
   p1.y = h + node->name->ascent;  /* position of text */
   text_set_position(node->name, &p1);

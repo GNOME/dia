@@ -245,7 +245,7 @@ classicon_draw(Classicon *icon, DiaRenderer *renderer)
 {
   DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Element *elem;
-  real r, x, y, w, h;
+  real r, x, y, w;
   Point center, p1, p2;
   int i;
   
@@ -257,8 +257,7 @@ classicon_draw(Classicon *icon, DiaRenderer *renderer)
   x = elem->corner.x;
   y = elem->corner.y;
   w = elem->width;
-  h = elem->height;
-  
+
   r = CLASSICON_RADIOUS;
   center.x = x + elem->width/2;
   center.y = y + r + CLASSICON_ARROW;
@@ -346,13 +345,11 @@ classicon_update_data(Classicon *cicon)
 {
   Element *elem = &cicon->element;
   DiaObject *obj = &elem->object;
-  DiaFont *font;
   Point p1;
   real h, wt, w = 0;
   int is_boundary = (cicon->stereotype==CLASSICON_BOUNDARY);
 	
   text_calc_boundingbox(cicon->text, NULL);
-  font = cicon->text->font;
   h = CLASSICON_AIR + CLASSICON_MARGIN + CLASSICON_ARROW + 2*CLASSICON_RADIOUS;
 
   w = 2*CLASSICON_RADIOUS;
