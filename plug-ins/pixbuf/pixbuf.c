@@ -202,7 +202,7 @@ dia_plugin_init(PluginInfo *info)
       return DIA_PLUGIN_INIT_ERROR;
     else {
       GSList* formats = gdk_pixbuf_get_formats ();
-      GSList* sl = formats;
+      GSList* sl;
 
       /* if we get this far we still may be running non-interactive. To avoid complains
        * from color_convert() we are initializing ourselves ;)
