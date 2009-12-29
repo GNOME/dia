@@ -565,23 +565,23 @@ dia_pluginrc_write(void)
   ensure_pluginrc();
   for (tmp = plugins; tmp != NULL; tmp = tmp->next) {
     PluginInfo *info = tmp->data;
-    xmlNodePtr node, pluginnode, datanode;
+    xmlNodePtr node, pluginnode;
 
     if (info == NULL) {
       continue;
     }
 
     pluginnode = xmlNewNode(NULL, (const xmlChar *)"plugin");
-    datanode = xmlNewChild(pluginnode, NULL, (const xmlChar *)"name", (xmlChar *)info->name);
+    (void)xmlNewChild(pluginnode, NULL, (const xmlChar *)"name", (xmlChar *)info->name);
     /* FIXME: UNICODE_WORK_IN_PROGRESS why is this reencoding necessary ?*/
  {
      xmlChar *enc = xmlEncodeEntitiesReentrant(pluginnode->doc,
                                                (xmlChar *)info->description);
-     datanode = xmlNewChild(pluginnode, NULL, (const xmlChar *)"description", enc);
+     (void)xmlNewChild(pluginnode, NULL, (const xmlChar *)"description", enc);
      xmlFree(enc);
  }
     if (info->inhibit_load)
-      datanode = xmlNewChild(pluginnode, NULL, (const xmlChar *)"inhibit-load", NULL);
+      (void)xmlNewChild(pluginnode, NULL, (const xmlChar *)"inhibit-load", NULL);
 
     for (node = pluginrc->xmlRootNode->xmlChildrenNode; 
          node != NULL; 
