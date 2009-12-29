@@ -596,11 +596,6 @@ dia_font_set_slant_from_string(DiaFont* font, const char* obli)
 {
   DiaFontSlant fo = DIA_FONT_NORMAL;
   const SlantName* p;
-
-  DiaFontStyle old_style;
-  DiaFontSlant old_fo;
-  old_style = dia_font_get_style(font);
-  old_fo = DIA_FONT_STYLE_GET_SLANT(old_style);
     
   for (p = slant_names; p->name != NULL; ++p) {
     if (0 == strncmp(obli,p->name,8)) {
