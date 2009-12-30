@@ -436,12 +436,6 @@ transform_subshape_coord(Custom *custom, GraphicElementSubShape* subshape,
   
   scale = custom->subscale * subshape->default_scale;
   	      
-  cx = 0.0;
-  cy = 0.0;
-  
-  width = 0.0;
-  height = 0.0;
-  
   xoffs = custom->xoffs;
   yoffs = custom->yoffs;
   
@@ -492,14 +486,12 @@ transform_subshape_coord(Custom *custom, GraphicElementSubShape* subshape,
   /* step #5: handle flip_h/flip_v */
   if (custom->flip_h) {
     out->x = -out->x + width;
-    cx = -cx + width;
     
     xoffs -= (new_bounds.right - new_bounds.left);
     custom->xscale = -custom->xscale; /* undo the damage we've done above */
   }
   if (custom->flip_v) {
     out->y = -out->y + height;
-    cy = -cy + height;
   
     yoffs -= (new_bounds.bottom - new_bounds.top);
     custom->yscale = -custom->yscale; /* undo the damage we've done above */
