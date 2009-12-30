@@ -319,12 +319,12 @@ LineInfo* line_info_clone(LineInfo* info)
   return( res );
 }
 
-LineInfo* line_info_load_and_apply_from_xmlfile(const gchar *filename, LineInfo* info)
+LineInfo* 
+line_info_load_and_apply_from_xmlfile(const gchar *filename, LineInfo* info)
 {
   xmlDocPtr doc = xmlDoParseFile(filename);
   xmlNodePtr node, root;
   xmlChar *tmp;
-  int i;
 
   if (!doc) {
     g_warning("parse error for %s", filename);
@@ -336,7 +336,6 @@ LineInfo* line_info_load_and_apply_from_xmlfile(const gchar *filename, LineInfo*
   if (!root) return NULL;
   if (xmlIsBlankNode(root)) return NULL;
 
-  i = 0;
   for (node = root->xmlChildrenNode; node != NULL; node = node->next) {
     if (xmlIsBlankNode(node))
       continue;
