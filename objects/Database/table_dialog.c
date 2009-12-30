@@ -454,13 +454,10 @@ attribute_page_props_to_object (Table * table, TablePropDialog * prop_dialog)
   GList * clear_list = NULL;
   TableAttribute * attr;
   GtkWidget * list_item;
-  DiaObject * obj;
   ConnectionPoint * cp;
 
   /* if there is any currently edited item ... update its values */
   attributes_page_update_cur_attr_item (prop_dialog);
-
-  obj = &table->element.object;
 
   /* free current attributes */
   list = table->attributes;

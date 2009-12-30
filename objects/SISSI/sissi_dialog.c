@@ -1102,7 +1102,6 @@ ObjectChange *
 object_sissi_apply_properties_dialog(ObjetSISSI *object_sissi)
 {
   SISSIDialog *prop_dialog;
-  DiaObject *obj;
   GList *added = NULL;
   GList *deleted = NULL;
   GList *disconnected = NULL;
@@ -1112,7 +1111,6 @@ object_sissi_apply_properties_dialog(ObjetSISSI *object_sissi)
 
   g_return_val_if_fail(prop_dialog != NULL, NULL);
 
-  obj = &object_sissi->element.object;
   properties_menaces_read_from_dialog(object_sissi, prop_dialog);
   properties_others_read_from_dialog(object_sissi, prop_dialog);
   document_read_from_dialog(object_sissi, prop_dialog);
