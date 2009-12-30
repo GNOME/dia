@@ -329,7 +329,7 @@ condition_create(Point *startpoint,
   Connection *conn;
   LineBBExtras *extra;
   DiaObject *obj;
-  Point defaultlen  = {0.0,CONDITION_ARROW_SIZE}, pos;
+  Point defaultlen  = {0.0,CONDITION_ARROW_SIZE};
 
   DiaFont *default_font; 
   real default_fontheight;
@@ -348,8 +348,6 @@ condition_create(Point *startpoint,
   point_add(&conn->endpoints[1], &defaultlen);
 
   connection_init(conn, 2,0);
-
-  pos = conn->endpoints[1];
 
   default_font = NULL;
   attributes_get_default_font(&default_font,&default_fontheight);
