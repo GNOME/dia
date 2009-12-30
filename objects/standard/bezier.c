@@ -297,9 +297,10 @@ static real approx_bez_length(BezierConn *bez)
         return length;
 }
 
-static void compute_gap_points(Bezierline *bezierline, Point *gap_points)
+static void 
+compute_gap_points(Bezierline *bezierline, Point *gap_points)
 {
-        real first_length, last_length, bez_length;
+        real bez_length;
         BezierConn *bez = &bezierline->bez;
         Point vec_start, vec_end;
 
@@ -318,8 +319,6 @@ static void compute_gap_points(Bezierline *bezierline, Point *gap_points)
 
                 
         bez_length = approx_bez_length(bez) ; 
-        first_length = distance_point_point(&gap_points[0],&gap_points[1]);
-        last_length = distance_point_point(&gap_points[2],&gap_points[3]);
         
         if (connpoint_is_autogap(bez->object.handles[0]->connected_to) && 
                (bez->object.handles[0])->connected_to != NULL && 
