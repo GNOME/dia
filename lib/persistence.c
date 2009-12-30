@@ -226,7 +226,6 @@ persistence_load_type(xmlNodePtr node)
   }
   
   (*func)(name, node);
-  node = node->next;
 }
 
 static void
