@@ -615,8 +615,6 @@ maor_update_data(Maor *maor)
   rectangle_union(&obj->bounding_box, &rect);
 
   /* Add boundingbox for end image: */
-  p1 = conn->endpoints[0];
-  p2 = conn->endpoints[1];
   p3.x=p1.x-MAOR_REF_WIDTH*1.1/2;    /* 1.1 factor to be safe (fix for or) */
   p3.y=p1.y-MAOR_REF_HEIGHT*1.1/2;
   p4.x=p3.x+MAOR_REF_WIDTH*1.1;
