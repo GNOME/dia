@@ -295,14 +295,15 @@ static void compute_agent(Other *other, Point *pl) {
      pl[5].y=ry+h;
 }
 
-static void draw_agent_icon(Other *other, DiaRenderer *renderer) {
+static void 
+draw_agent_icon(Other *other, DiaRenderer *renderer)
+{
      DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
-     double rx,ry,w,h;
+     double rx,ry,h;
      Point c,p1,p2;
      Element *elem;
 
      elem=&other->element;
-     w=elem->width;
      h=elem->height;
      rx=elem->corner.x+h/2;
      ry=elem->corner.y+3*h/10;
