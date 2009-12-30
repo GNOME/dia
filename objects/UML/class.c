@@ -996,11 +996,6 @@ umlclass_draw_operationbox(UMLClass *umlclass, DiaRenderer *renderer, Element *e
         font_height = umlclass->font_height;
       }
 
-      wrapping_needed = 0;
-      if( umlclass->wrap_operations ) {
-	wrapsublist = op->wrappos;
-      }
-
       ascent = dia_font_ascent(opstr, font, font_height);
       op->ascent = ascent;
       renderer_ops->set_font(renderer, font, font_height);
@@ -1008,7 +1003,7 @@ umlclass_draw_operationbox(UMLClass *umlclass, DiaRenderer *renderer, Element *e
       if( umlclass->wrap_operations && op->needs_wrapping) {
 	ident = op->wrap_indent;
 	wrapsublist = op->wrappos;
-        wrap_pos = last_wrap_pos = 0;
+        last_wrap_pos = 0;
 
         while( wrapsublist != NULL)   {
           wrap_pos = GPOINTER_TO_INT( wrapsublist->data);
@@ -1180,7 +1175,7 @@ umlclass_draw(UMLClass *umlclass, DiaRenderer *renderer)
     y = umlclass_draw_attributebox(umlclass, renderer, elem, y);
   }
   if (umlclass->visible_operations) {
-    y = umlclass_draw_operationbox(umlclass, renderer, elem, y);
+    umlclass_draw_operationbox(umlclass, renderer, elem, y);
   }
   if (umlclass->template) {
     umlclass_draw_template_parameters_box(umlclass, renderer, elem);
@@ -1491,7 +1486,6 @@ static real
 umlclass_calculate_operation_data(UMLClass *umlclass)
 {
   int    i;
-  int    pos_next_comma;
   int    pos_brace;
   int    wrap_pos;
   int    last_wrap_pos;
@@ -1552,13 +1546,13 @@ umlclass_calculate_operation_data(UMLClass *umlclass)
           /* count maximal line width to create a secure buffer (part_opstr)
           and build the sublist with the wrapping data for the current operation, which will be used by umlclass_draw(), too. 
 	  */
-          pos_next_comma = pos_brace = wrap_pos = offset 
+          pos_brace = wrap_pos = offset 
 	    = maxlinewidth = umlclass->max_wrapped_line_width = 0;
           while( wrap_pos + offset < length)
           {
             do
             {
-              pos_next_comma = strcspn( (const gchar*)opstr + wrap_pos + offset, ",");
+              int pos_next_comma = strcspn( (const gchar*)opstr + wrap_pos + offset, ",");
               wrap_pos += pos_next_comma + 1;
             } while( wrap_pos < umlclass->wrap_after_char - pos_brace 
 		     && wrap_pos + offset < length);
@@ -1581,7 +1575,7 @@ umlclass_calculate_operation_data(UMLClass *umlclass)
           part_opstr = g_alloca(umlclass->max_wrapped_line_width+indent+1);
 
 	  wrapsublist = op->wrappos;
-          wrap_pos = last_wrap_pos = 0;
+          last_wrap_pos = 0;
 
           while( wrapsublist != NULL){
             wrap_pos = GPOINTER_TO_INT( wrapsublist->data);
@@ -2110,7 +2104,6 @@ umlclass_copy(UMLClass *umlclass)
     umlclass->connections[UMLCLASS_CONNECTIONPOINTS].last_pos;
   newumlclass->connections[UMLCLASS_CONNECTIONPOINTS].flags = 
     umlclass->connections[UMLCLASS_CONNECTIONPOINTS].flags;
-  i++;
 #endif
 
   umlclass_update_data(newumlclass);
