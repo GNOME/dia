@@ -188,7 +188,6 @@ neworthconn_move_handle(NewOrthConn *orth, Handle *handle,
     } 
     break;
   case HANDLE_MIDPOINT:
-    n = orth->numpoints - 1;
     handle_nr = get_handle_nr(orth, handle);
 
     switch (orth->orientation[handle_nr]) {
