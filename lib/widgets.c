@@ -104,10 +104,8 @@ dia_size_selector_unrealize(GtkWidget *widget)
 static void
 dia_size_selector_class_init (DiaSizeSelectorClass *class)
 {
-  GtkObjectClass *object_class;
   GtkWidgetClass *widget_class;
   
-  object_class = (GtkObjectClass*) class;
   widget_class = (GtkWidgetClass*) class;
   widget_class->unrealize = dia_size_selector_unrealize;
 
@@ -365,10 +363,6 @@ static void dia_font_selector_set_style_menu(DiaFontSelector *fs,
 static void
 dia_font_selector_class_init (DiaFontSelectorClass *class)
 {
-  GtkObjectClass *object_class;
-  
-  object_class = (GtkObjectClass*) class;
-
   dfontsel_signals[DFONTSEL_VALUE_CHANGED]
       = g_signal_new("value_changed",
 		     G_TYPE_FROM_CLASS(class),
@@ -703,9 +697,6 @@ struct _DiaAlignmentSelectorClass
 static void
 dia_alignment_selector_class_init (DiaAlignmentSelectorClass *class)
 {
-  GtkObjectClass *object_class;
-  
-  object_class = (GtkObjectClass*) class;
 }
 
 static void
@@ -820,10 +811,6 @@ static guint dls_signals[DLS_LAST_SIGNAL] = { 0 };
 static void
 dia_line_style_selector_class_init (DiaLineStyleSelectorClass *class)
 {
-  GtkObjectClass *object_class;
-  
-  object_class = (GtkObjectClass*) class;
-
   dls_signals[DLS_VALUE_CHANGED]
       = g_signal_new("value-changed",
 		     G_TYPE_FROM_CLASS(class),
@@ -1416,10 +1403,8 @@ dia_file_selector_unrealize(GtkWidget *widget)
 static void
 dia_file_selector_class_init (DiaFileSelectorClass *class)
 {
-  GtkObjectClass *object_class;
   GtkWidgetClass *widget_class;
   
-  object_class = (GtkObjectClass*) class;
   widget_class = (GtkWidgetClass*) class;
   widget_class->unrealize = dia_file_selector_unrealize;
 
@@ -2162,8 +2147,6 @@ dia_toggle_button_new(GtkWidget *on_widget, GtkWidget *off_widget)
 {
   GtkWidget *button = gtk_toggle_button_new();
   GtkRcStyle *rcstyle;
-  GValue *prop;
-  gint i;
   struct image_pair *images;
 
   images = g_new(struct image_pair, 1);
@@ -2187,13 +2170,6 @@ dia_toggle_button_new(GtkWidget *on_widget, GtkWidget *off_widget)
   rcstyle->xthickness = rcstyle->ythickness = 0;       
   gtk_widget_modify_style (button, rcstyle);
   g_object_unref (rcstyle);
-
-  prop = g_new0(GValue, 1);
-  g_value_init(prop, G_TYPE_INT);
-  gtk_widget_style_get_property(GTK_WIDGET(button), "focus-padding", prop);
-  i = g_value_get_int(prop);
-  g_value_set_int(prop, 0);
-  g_free(prop);
 
   gtk_button_set_relief(GTK_BUTTON(button), GTK_RELIEF_NONE);
   /*  gtk_button_set_focus_on_click(GTK_BUTTON(button), FALSE);*/
