@@ -277,7 +277,6 @@ annotation_move(Annotation *annotation, Point *to)
 static void
 annotation_draw(Annotation *annotation, DiaRenderer *renderer)
 {
-  Point *endpoints;
   Point vect,rvect,v1,v2;
   Point pts[4];
   real vlen;
@@ -286,8 +285,6 @@ annotation_draw(Annotation *annotation, DiaRenderer *renderer)
   assert(annotation != NULL);
   assert(renderer != NULL);
 
-  endpoints = &annotation->connection.endpoints[0];
-  
   renderer_ops->set_linewidth(renderer, ANNOTATION_LINE_WIDTH);
   renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
   renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
