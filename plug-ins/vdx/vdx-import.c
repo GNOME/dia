@@ -486,7 +486,6 @@ get_style_child(unsigned int type, unsigned int style, VDXDocument* theDoc)
         /* Terminate on style 0 (default) */
         if (!style) return 0;
         /* Find a parent style to check */
-        style = 0;
         if (type == vdx_types_Fill) style = theSheet.FillStyle;
         else if (type == vdx_types_Line) style = theSheet.LineStyle;
         else style = theSheet.TextStyle;
