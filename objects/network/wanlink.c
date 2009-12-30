@@ -257,13 +257,11 @@ wanlink_copy(WanLink *wanlink)
 {
   WanLink *newwanlink;
   Connection *conn, *newconn;
-  DiaObject *newobj;
   
   conn = &wanlink->connection;
   
   newwanlink = g_malloc0(sizeof(WanLink));
   newconn = &newwanlink->connection;
-  newobj = (DiaObject *) newwanlink;
   
   connection_copy(conn, newconn);
 
@@ -370,10 +368,8 @@ wanlink_update_data(WanLink *wanlink)
   DiaObject *obj = (DiaObject *) wanlink;
   Point v, vhat;
   Point *endpoints;
-  real min_par, max_par;
   real width, width_2;
   real len, angle;
-  real middle_x;
   Point origin;
   int i;
   Matrix m;
@@ -396,18 +392,11 @@ wanlink_update_data(WanLink *wanlink)
   }
   vhat = v;
   point_normalize(&vhat);
-  min_par = 0.0;
-  max_par = point_dot(&vhat, &v);
-
-  min_par -= width_2;
-  max_par += width_2;
 
   connection_update_boundingbox(conn);
 
-
   /** compute the polygon **/
   origin = wanlink->connection.endpoints [0];
-  middle_x = origin.x;
   len = point_len (&v);
 
   angle = atan2 (vhat.y, vhat.x) - M_PI_2;
@@ -427,10 +416,8 @@ wanlink_update_data(WanLink *wanlink)
   wanlink->poly[5].y = (len * 0.55);
   
   /* rotate */
-
   identity_matrix (m);
   rotate_matrix (m, angle);
-  
 
   obj->bounding_box.top = origin.y;
   obj->bounding_box.left = origin.x;
