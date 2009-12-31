@@ -1161,7 +1161,6 @@ export_metapost(DiagramData *data, const gchar *filename,
     MetapostRenderer *renderer;
     FILE *file;
     time_t time_now;
-    double scale;
     Rectangle *extent;
     const char *name;
     gchar d1_buf[DTOSTR_BUF_SIZE];
@@ -1189,8 +1188,6 @@ export_metapost(DiagramData *data, const gchar *filename,
   
     time_now  = time(NULL);
     extent = &data->extents;
-  
-    scale = POINTS_in_INCH * data->paper.scaling;
   
     name = g_get_user_name();
   

@@ -1190,13 +1190,7 @@ export_pgf(DiagramData *data, const gchar *filename,
     PgfRenderer *renderer;
     FILE *file;
     time_t time_now;
-    double scale;
-    Rectangle *extent;
     const char *name;
-    /* gchar el_buf[DTOSTR_BUF_SIZE];
-    gchar er_buf[DTOSTR_BUF_SIZE];
-    gchar eb_buf[DTOSTR_BUF_SIZE];
-    gchar et_buf[DTOSTR_BUF_SIZE]; */
     gchar scale1_buf[DTOSTR_BUF_SIZE];
     gchar scale2_buf[DTOSTR_BUF_SIZE];
 
@@ -1219,9 +1213,6 @@ export_pgf(DiagramData *data, const gchar *filename,
     renderer->saved_line_style = LINESTYLE_SOLID;
   
     time_now  = time(NULL);
-    extent = &data->extents;
-  
-    scale = POINTS_in_INCH * data->paper.scaling;
   
     name = g_get_user_name();
   
@@ -1246,12 +1237,6 @@ export_pgf(DiagramData *data, const gchar *filename,
 	ctime(&time_now),
 	name);
 
-/*    fprintf(renderer->file,"\\pspicture(%s,%s)(%s,%s)\n",
-	    pgf_dtostr(el_buf,extent->left * data->paper.scaling),
-	    pgf_dtostr(eb_buf,-extent->bottom * data->paper.scaling),
-	    pgf_dtostr(er_buf,extent->right * data->paper.scaling),
-	    pgf_dtostr(et_buf,-extent->top * data->paper.scaling) );
-*/
     fprintf(renderer->file,"\\pgftransformxscale{%s}\n"
 	                   "\\pgftransformyscale{%s}\n",
 	    pgf_dtostr(scale1_buf,data->paper.scaling),
