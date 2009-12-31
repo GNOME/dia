@@ -185,12 +185,9 @@ static DiaSvgRenderer *
 new_svg_renderer(DiagramData *data, const char *filename)
 {
   DiaSvgRenderer *renderer;
-  SvgRenderer *svg_renderer;
   FILE *file;
   gchar buf[512];
-  time_t time_now;
   Rectangle *extent;
-  const char *name;
   xmlDtdPtr dtd;
  
   file = g_fopen(filename, "w");
@@ -224,9 +221,6 @@ new_svg_renderer(DiagramData *data, const char *filename)
   renderer->root = xmlNewDocNode(renderer->doc, NULL, (const xmlChar *)"svg", NULL);
   xmlAddSibling(renderer->doc->children, (xmlNodePtr) renderer->root);
 
-  /* add namespaces to make strict parsers happy, e.g. Firefox */
-  svg_renderer = SVG_RENDERER (renderer);
-
   /* set the extents of the SVG document */
   extent = &data->extents;
   g_snprintf(buf, sizeof(buf), "%dcm",
@@ -244,28 +238,6 @@ new_svg_renderer(DiagramData *data, const char *filename)
   xmlSetProp(renderer->root,(const xmlChar *)"xmlns", (const xmlChar *)"http://www.w3.org/2000/svg");
   xmlSetProp(renderer->root,(const xmlChar *)"xmlns:xlink", (const xmlChar *)"http://www.w3.org/1999/xlink");
 
-  time_now = time(NULL);
-  name = g_get_user_name();
-
-#if 0
-  /* some comments at the top of the file ... */
-  xmlAddChild(renderer->root, xmlNewText("\n"));
-  xmlAddChild(renderer->root, xmlNewComment("Dia-Version: "VERSION));
-  xmlAddChild(renderer->root, xmlNewText("\n"));
-  g_snprintf(buf, sizeof(buf), "File: %s", dia->filename);
-  xmlAddChild(renderer->root, xmlNewComment(buf));
-  xmlAddChild(renderer->root, xmlNewText("\n"));
-  g_snprintf(buf, sizeof(buf), "Date: %s", ctime(&time_now));
-  buf[strlen(buf)-1] = '\0'; /* remove the trailing new line */
-  xmlAddChild(renderer->root, xmlNewComment(buf));
-  xmlAddChild(renderer->root, xmlNewText("\n"));
-  g_snprintf(buf, sizeof(buf), "For: %s", name);
-  xmlAddChild(renderer->root, xmlNewComment(buf));
-  xmlAddChild(renderer->root, xmlNewText("\n\n"));
-
-  xmlNewChild(renderer->root, NULL, "title", dia->filename);
-#endif
-  
   return renderer;
 }
 
