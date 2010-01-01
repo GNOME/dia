@@ -533,7 +533,6 @@ handle_initial_diagram(const char *in_file_name,
 		       const char *size,
 		       char* show_layers,
 		       const char *outdir) {
-  DDisplay *ddisp = NULL;
   Diagram *diagram = NULL;
   gboolean made_conversions = FALSE;
 
@@ -583,7 +582,7 @@ handle_initial_diagram(const char *in_file_name,
       if (app_is_interactive()) {
 	layer_dialog_set_diagram(diagram);
         /* the display initial diagram holds two references */
-	ddisp = new_display(diagram);
+	new_display(diagram);
       } else {
         g_object_unref(diagram);
       }

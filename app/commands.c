@@ -137,14 +137,13 @@ void
 file_new_callback (GtkAction *action)
 {
   Diagram *dia;
-  DDisplay *ddisp;
   static int untitled_nr = 1;
   gchar *name, *filename;
 
   name = g_strdup_printf(_("Diagram%d.dia"), untitled_nr++);
   filename = g_filename_from_utf8(name, -1, NULL, NULL, NULL);
   dia = new_diagram(filename);
-  ddisp = new_display(dia);
+  new_display(dia);
   dia_diagram_add (dia); /* notify DiagramTree etc. */
   g_free (name);
   g_free (filename);
@@ -380,14 +379,12 @@ edit_duplicate_callback (GtkAction *action)
 { 
   GList *duplicate_list;
   DDisplay *ddisp;
-  Point duplicate_corner;
   Point delta;
   Change *change;
 
   ddisp = ddisplay_active();
   if (!ddisp || textedit_mode(ddisp)) return;
   duplicate_list = object_copy_list(diagram_get_sorted_selected(ddisp->diagram));
-  duplicate_corner = object_list_corner(duplicate_list);
   
   /* Move down some 10% of the visible area. */
   delta.x = (ddisp->visible.right - ddisp->visible.left)*0.05;
