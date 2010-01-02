@@ -35,6 +35,7 @@
 #include "object.h"
 #include "plug-ins.h"
 #include "dialib.h"
+#include "create.h"
 
 /* allows to select specific objects for testing */
 static gchar *_type_name = NULL;
@@ -248,6 +249,72 @@ _test_change (const DiaObjectType *type)
   /* finally */
   o->ops->destroy (o);
 }
+static void
+_test_move_handle (const DiaObjectType *type)
+{
+  Handle *h1 = NULL, *h2 = NULL;
+  Point from = {0, 0};
+  DiaObject *o = type->ops->create (&from, type->default_user_data, &h1, &h2);
+  DiaObject *o2 = NULL;
+  ObjectChange *change;
+  ConnectionPoint *cp = NULL;
+  gint i;
+  
+  if (h2) /* not mandatory to return one */
+    {
+      Point to = h2->pos;
+      to.x += 1.0; to.y += 1.0;
+      change = o->ops->move_handle(o, h2, &to, NULL, HANDLE_MOVE_CREATE_FINAL, 0);
+      /* the API would allow, but it gave at least a leak at app/create_object.c */
+      g_assert (change == NULL);
+      h2 = NULL;
+    }
+  /* find a good handle to move */
+  for (i = 0; i < o->num_handles; ++i)
+    {
+      
+      if (o->handles[i]->type == HANDLE_MAJOR_CONTROL)
+        {
+          h2 = o->handles[i];
+	  if (h2->connect_type == HANDLE_CONNECTABLE)
+	    {
+	      o2 = create_standard_box (5.0, 5.0, 2.0, 2.0);
+	      g_assert(o2->num_connections > 0);
+	      cp = o2->connections[0];
+	      object_connect(o, h2, cp);
+	    }
+	  break;
+	}
+    }
+  /* second move */
+  if (h2)
+    {
+      Point to = h2->pos;
+      to.x += 1.0; to.y += 1.0;
+      if (cp)
+        {
+          change = o->ops->move_handle(o, h2, &to, cp, HANDLE_MOVE_CONNECTED, 0);
+          /* again the API would allow, but it gave at least a leak at app/connectionpoint_ops.c */
+          g_assert (change == NULL);
+	}
+      else
+        {
+          change = o->ops->move_handle(o, h2, &to, NULL, HANDLE_MOVE_USER_FINAL, 0);
+	  if (change) /* still not mandatory */
+	    {
+	      to.x -= 1.0; to.y -= 1.0;
+	      change->revert(change, NULL);
+	      _object_change_free(change);
+	      g_assert(to.x == o->handles[i]->pos.x && to.y == o->handles[i]->pos.y);
+	    }
+	}
+      h2 = NULL;
+    }
+  /* finally */
+  o->ops->destroy (o);
+  if (o2)
+    o2->ops->destroy (o2);
+}
 /*
  * A dictionary interface to all registered object(-types)
  */
@@ -276,6 +343,10 @@ _ot_item (gpointer key,
 
   testpath = g_strdup_printf ("%s/%s/%s", base, name, "Change");
   g_test_add_data_func (testpath, type, _test_change);
+  g_free (testpath);
+  
+  testpath = g_strdup_printf ("%s/%s/%s", base, name, "MoveHandle");
+  g_test_add_data_func (testpath, type, _test_move_handle);
   g_free (testpath);
 #endif
 
