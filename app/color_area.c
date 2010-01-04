@@ -113,7 +113,7 @@ color_area_draw ()
 {
   Color col;
   GdkColor *win_bg;
-  GdkColor fg, bg, bd;
+  GdkColor fg, bg;
   gint rect_w, rect_h;
   gint width, height;
   gint def_width, def_height;
@@ -133,7 +133,6 @@ color_area_draw ()
   color_convert(&col, &fg);
   col = attributes_get_background();
   color_convert(&col, &bg);
-  bd = color_gdk_black;
 
   rect_w = width * 0.65;
   rect_h = height * 0.65;
