@@ -496,12 +496,10 @@ void
 edit_find_callback(gpointer data, guint action, GtkWidget *widget)
 {
   DDisplay *ddisp;
-  Diagram *dia;
   GtkWidget *dialog;
 
   ddisp = ddisplay_active();
   if (!ddisp) return;
-  dia = ddisp->diagram;
 
   /* no static var, instead we are attaching the dialog to the diplay shell */
   dialog = g_object_get_data (G_OBJECT (ddisp->shell), "edit-find-dialog");
@@ -527,12 +525,10 @@ void
 edit_replace_callback(gpointer data, guint action, GtkWidget *widget)
 {
   DDisplay *ddisp;
-  Diagram *dia;
   GtkWidget *dialog;
 
   ddisp = ddisplay_active();
   if (!ddisp) return;
-  dia = ddisp->diagram;
 
   /* no static var, instead we are attaching the dialog to the diplay shell */
   dialog = g_object_get_data (G_OBJECT (ddisp->shell), "edit-replace-dialog");
