@@ -1,5 +1,5 @@
 # dia chinese zh_CN po file.
-# Copyright (C) YEAR Free Software Foundation, Inc.
+# Copyright (C) 2009 Free Software Foundation, Inc.
 # Wang Jian <lark@linux.net.cn>, 2001
 # Zong Yaotang <zong@cosix.com.cn>, 2002
 # Wen Shaohua <nadwsh@sbell.com.cn>, 2002
@@ -12,9 +12,9 @@ msgstr ""
 "Project-Id-Version: dia 0.96.1\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=dia&component=general\n"
-"POT-Creation-Date: 2009-11-27 21:49+0000\n"
-"PO-Revision-Date: 2009-04-23 23:27+0800\n"
-"Last-Translator: James Meng <linuxmeng@gmail.com>\n"
+"POT-Creation-Date: 2010-01-02 14:45+0000\n"
+"PO-Revision-Date: 2010-01-06 01:51+0800\n"
+"Last-Translator: 丁鑫 <xgnid@foxmail.com>\n"
 "Language-Team: zh_CN <http://l10n.gnome.org/teams/zh_CN>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,165 +22,188 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #. This is not an errror
-#: ../app/app_procs.c:214
+#: ../app/app_procs.c:209
 #, c-format
 msgid "Warning: invalid layer range %lu - %lu\n"
 msgstr "警告：无效的图层范围 %lu - %lu\n"
 
-#: ../app/app_procs.c:226
+#: ../app/app_procs.c:221
 #, c-format
 msgid "Warning: Layer %lu (%s) selected more than once.\n"
 msgstr "警告：图层 %lu (%s) 被多次选择。\n"
 
-#: ../app/app_procs.c:252
+#: ../app/app_procs.c:247
 #, c-format
 msgid "Warning: Layer %d (%s) selected more than once.\n"
 msgstr "警告：图层 %d (%s) 被多次选择。\n"
 
-#: ../app/app_procs.c:261
+#: ../app/app_procs.c:256
 #, c-format
 msgid "Warning: There is no layer named %s\n"
 msgstr "警告：没有名为 %s 的图层\n"
 
-#: ../app/app_procs.c:343
+#: ../app/app_procs.c:338
 #, c-format
 msgid "%s error: don't know how to export into %s\n"
 msgstr "%s 错误：不知道如何导出到 %s\n"
 
-#: ../app/app_procs.c:352
+#: ../app/app_procs.c:347
 #, c-format
 msgid "%s error: input and output file name is identical: %s"
 msgstr "%s 错误：输入文件和要输出的文件同名：%s"
 
-#: ../app/app_procs.c:360
+#: ../app/app_procs.c:355
 #, c-format
 msgid "%s error: need valid input file %s\n"
 msgstr "%s 错误：需要合法的输入文件 %s\n"
 
 #. if (!quiet)
-#: ../app/app_procs.c:385
+#: ../app/app_procs.c:383
 #, c-format
 msgid "%s --> %s\n"
 msgstr "%s --> %s\n"
 
-#: ../app/app_procs.c:557
+#: ../app/app_procs.c:554
 #, c-format
 msgid "Can't find output format/filter %s\n"
 msgstr "找不到输出格式/过滤器 %s\n"
 
+#: ../app/app_procs.c:624
+#, c-format
+msgid "Input-directory '%s' must exist!\n"
+msgstr "输入目录“%s”必须存在！\n"
+
+#: ../app/app_procs.c:641
+#, c-format
+msgid "Output-directory '%s' must exist!\n"
+msgstr "输出目录“%s”必须存在！\n"
+
 #. Translators:  The argument is a list of options, not to be translated
-#: ../app/app_procs.c:635
+#: ../app/app_procs.c:691
 #, c-format
 msgid "Select the filter/format out of: %s"
 msgstr "自此选出过滤器/格式:%s"
 
 #. &export_file_name
-#: ../app/app_procs.c:653
+#: ../app/app_procs.c:709
 msgid "Export loaded file and exit"
 msgstr "导出载入的文件然后退出"
 
-#: ../app/app_procs.c:653
+#: ../app/app_procs.c:709
 msgid "OUTPUT"
 msgstr "输出"
 
 #. &export_file_format
 #. &export_format_string
-#: ../app/app_procs.c:655
+#: ../app/app_procs.c:711
 msgid "TYPE"
 msgstr "类型"
 
-#: ../app/app_procs.c:657
+#: ../app/app_procs.c:713
 msgid "Export graphics size"
 msgstr "导出图像大小"
 
-#: ../app/app_procs.c:657
+#: ../app/app_procs.c:713
 msgid "WxH"
 msgstr "宽x高"
 
-#: ../app/app_procs.c:659
+#: ../app/app_procs.c:715
 msgid ""
 "Show only specified layers (e.g. when exporting). Can be either the layer "
 "name or a range of layer numbers (X-Y)"
 msgstr "只显示指定的图层(例如：导出时)。可以用图层名称或是图层号的范围(X-Y)"
 
-#: ../app/app_procs.c:660
+#: ../app/app_procs.c:716
 msgid "LAYER,LAYER,..."
 msgstr "图层、图层……"
 
-#: ../app/app_procs.c:662
+#: ../app/app_procs.c:718
 msgid "Don't show the splash screen"
 msgstr "不显示启动画面"
 
-#: ../app/app_procs.c:664
+#: ../app/app_procs.c:720
 msgid "Don't create empty diagram"
 msgstr "不创建空图表"
 
-#: ../app/app_procs.c:666
+#: ../app/app_procs.c:722
 msgid "Start integrated user interface (diagrams in tabs)"
 msgstr "启动集成的用户界面(图表显示为标签)"
 
-#: ../app/app_procs.c:668
+#: ../app/app_procs.c:724
 msgid "Send error messages to stderr instead of showing dialogs."
 msgstr "将错误信息发送至标准错误，而不显示对话框。"
 
-#. &input_directory
-#: ../app/app_procs.c:670
+#: ../app/app_procs.c:726
 msgid "Directory containing input files"
 msgstr "输入文件所在目录"
 
-#: ../app/app_procs.c:670 ../app/app_procs.c:672
+#: ../app/app_procs.c:726 ../app/app_procs.c:728
 msgid "DIRECTORY"
 msgstr "目录"
 
-#. &output_directory
-#: ../app/app_procs.c:672
+#: ../app/app_procs.c:728
 msgid "Directory containing output files"
 msgstr "输出文件所在目录"
 
-#: ../app/app_procs.c:674
+#: ../app/app_procs.c:730
 msgid "Display credits list and exit"
 msgstr "显示致谢清单后退出"
 
-#: ../app/app_procs.c:676
+#: ../app/app_procs.c:732
 msgid "Generate verbose output"
 msgstr "产生详细的输出"
 
-#: ../app/app_procs.c:678
+#: ../app/app_procs.c:734
 msgid "Display version and exit"
 msgstr "显示版本后退出"
 
-#: ../app/app_procs.c:735
+#: ../app/app_procs.c:757
+msgid "[FILE...]"
+msgstr "[文件...]"
+
+#: ../app/app_procs.c:769
+#, fuzzy, c-format
+#| msgid "Manual operation"
+msgid "Invalid option?"
+msgstr "手工操作"
+
+#: ../app/app_procs.c:784
+#, c-format
+msgid "Missing input: %s\n"
+msgstr ""
+
+#: ../app/app_procs.c:809
 msgid "Can't connect to session manager!\n"
 msgstr "无法连接会话管理器！\n"
 
 #. TRANSLATOR: 2nd and 3rd %s are time and date respectively.
-#: ../app/app_procs.c:775
+#: ../app/app_procs.c:849
 #, c-format
 msgid "Dia version %s, compiled %s %s\n"
 msgstr "Dia 版本 %s，编译于 %s %s\n"
 
-#: ../app/app_procs.c:777
+#: ../app/app_procs.c:851
 #, c-format
 msgid "Dia version %s\n"
 msgstr "Dia 版本 %s\n"
 
-#: ../app/app_procs.c:815
+#: ../app/app_procs.c:889
 msgid ""
 "Couldn't find standard objects when looking for object-libs; exiting...\n"
 msgstr "查找对象库时无法找到标准对象，正在退出...\n"
 
-#: ../app/app_procs.c:817
+#: ../app/app_procs.c:891
 #, c-format
 msgid ""
 "Couldn't find standard objects when looking for object-libs in '%s'; "
 "exiting...\n"
 msgstr "查找“%s”中的对象库时，无法找到标准对象；正在退出...\n"
 
-#: ../app/app_procs.c:883
+#: ../app/app_procs.c:958
 msgid "Diagram1.dia"
 msgstr "图表1.dia"
 
-#: ../app/app_procs.c:927
+#: ../app/app_procs.c:993
 msgid ""
 "This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\n"
 "describing how you can cause this message to appear.\n"
@@ -188,64 +211,40 @@ msgstr ""
 "错误的程序状态。请在 bugzilla.gnome.org 提交错误报告，\n"
 "描述您如何致使 Dia 出现这个错误信息的。\n"
 
-#: ../app/app_procs.c:942
+#: ../app/app_procs.c:1008
 msgid "Exiting Dia"
 msgstr "退出 Dia"
 
 #. no standard buttons
-#: ../app/app_procs.c:1006
+#: ../app/app_procs.c:1072
 msgid "Quitting without saving modified diagrams"
 msgstr "在不保存图表改动的情况下退出"
 
-#: ../app/app_procs.c:1008
+#: ../app/app_procs.c:1074
 msgid ""
 "Modified diagrams exist. Are you sure you want to quit Dia without saving "
 "them?"
 msgstr "图表已修改。确定不保存文件并退出Dia？"
 
-#: ../app/app_procs.c:1012
+#: ../app/app_procs.c:1078
 msgid "Quit Dia"
 msgstr "退出 Dia"
 
-#: ../app/app_procs.c:1081 ../app/app_procs.c:1088
+#: ../app/app_procs.c:1147 ../app/app_procs.c:1154
 msgid "Could not create per-user Dia config directory"
 msgstr "无法创建用户的 Dia 配置目录"
 
-#: ../app/app_procs.c:1091
+#: ../app/app_procs.c:1157
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
 msgstr "无法创建用户的 Dia 配置目录。请确定环境变量 HOME 指向存在的目录。"
 
-#: ../app/app_procs.c:1114
+#: ../app/app_procs.c:1180
 msgid "Objects and filters internal to dia"
 msgstr "Dia 内部的对象和过滤器"
 
-#: ../app/app_procs.c:1147
-msgid "[FILE...]"
-msgstr "[文件...]"
-
-#: ../app/app_procs.c:1167
-#, c-format
-msgid "Input-directory '%s' must exist!\n"
-msgstr "输入目录“%s”必须存在！\n"
-
-#: ../app/app_procs.c:1172
-#, c-format
-msgid "Output-directory '%s' must exist!\n"
-msgstr "输出目录“%s”必须存在！\n"
-
-#: ../app/app_procs.c:1178
-#, c-format
-msgid "'%s' not found!\n"
-msgstr "没有找到“%s”！\n"
-
-#: ../app/app_procs.c:1186
-#, c-format
-msgid "'%s' not found in '%s'!\n"
-msgstr "“%s”不在目录“%s”中！\n"
-
-#: ../app/app_procs.c:1235
+#: ../app/app_procs.c:1236
 #, c-format
 msgid ""
 "The original author of Dia was:\n"
@@ -254,7 +253,7 @@ msgstr ""
 "Dia 原作者：\n"
 "\n"
 
-#: ../app/app_procs.c:1240
+#: ../app/app_procs.c:1241
 #, c-format
 msgid ""
 "\n"
@@ -265,7 +264,7 @@ msgstr ""
 "Dia 当前的维护者:\n"
 "\n"
 
-#: ../app/app_procs.c:1245
+#: ../app/app_procs.c:1246
 #, c-format
 msgid ""
 "\n"
@@ -276,7 +275,7 @@ msgstr ""
 "其它作者：\n"
 "\n"
 
-#: ../app/app_procs.c:1250
+#: ../app/app_procs.c:1251
 #, c-format
 msgid ""
 "\n"
@@ -311,20 +310,20 @@ msgstr "选择背景色"
 msgid "No print plug-in found!"
 msgstr "没有找到打印插件！"
 
-#: ../app/commands.c:144
+#: ../app/commands.c:143
 #, c-format
 msgid "Diagram%d.dia"
 msgstr "图表%d.dia"
 
-#: ../app/commands.c:337
+#: ../app/commands.c:336
 msgid "No existing object to paste.\n"
 msgstr "没有要粘贴的对象。\n"
 
-#: ../app/commands.c:644 ../app/commands.c:682
+#: ../app/commands.c:641 ../app/commands.c:679
 msgid "Could not find help directory"
 msgstr "无法找到帮助目录"
 
-#: ../app/commands.c:651
+#: ../app/commands.c:648
 #, c-format
 msgid ""
 "Could not open help directory:\n"
@@ -333,7 +332,7 @@ msgstr ""
 "无法打开帮助目录：\n"
 "%s"
 
-#: ../app/commands.c:728
+#: ../app/commands.c:725
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr ""
 "Wang Jian <lark@linux.net.cn>, 2001\n"
@@ -343,7 +342,7 @@ msgstr ""
 "James Meng <linuxmeng@gmail.com>, 2009\n"
 "Ming Yang <yamisoe@gmail.com, 2009>"
 
-#: ../app/commands.c:730
+#: ../app/commands.c:727
 msgid ""
 "This program is free software; you can redistribute it and/or modify\n"
 "it under the terms of the GNU General Public License as published by\n"
@@ -371,7 +370,7 @@ msgstr ""
 "如果还没有，写信给：Free Software Foundation, Inc., 59 Temple Place - Suite "
 "330, Boston, MA 02111-1307, USA。\n"
 
-#: ../app/commands.c:753
+#: ../app/commands.c:750
 msgid "A program for drawing structured diagrams."
 msgstr "结构性图表绘制程序。"
 
@@ -410,7 +409,7 @@ msgstr "确认图表尺寸"
 msgid "'%s' creation failed"
 msgstr "创建“%s”失败"
 
-#: ../app/defaults.c:43 ../app/defaults.c:150
+#: ../app/defaults.c:43 ../app/defaults.c:151
 msgid "Object defaults"
 msgstr "对象默认值"
 
@@ -597,10 +596,8 @@ msgid "/_Hide this type"
 msgstr "/隐藏此类型(_H)"
 
 #: ../app/diagram_tree_view.c:161
-#, fuzzy
-#| msgid "Diagram:"
 msgid "Diagram"
-msgstr "图表："
+msgstr "图表"
 
 #: ../app/diagram_tree_view.c:165
 #: ../plug-ins/drs/dia-render-script-import.c:231
@@ -616,7 +613,7 @@ msgid "Layer(s)"
 msgstr "图层"
 
 #: ../app/diagram_tree_view.c:172 ../app/diagram_tree_view.c:465
-#: ../objects/Database/table.c:140 ../objects/Istar/actor.c:146
+#: ../objects/Database/table.c:141 ../objects/Istar/actor.c:146
 #: ../objects/Istar/actor.c:147 ../objects/Istar/other.c:150
 #: ../objects/Istar/other.c:151 ../objects/KAOS/other.c:153
 #: ../objects/KAOS/other.c:154 ../objects/UML/association.c:240
@@ -627,17 +624,15 @@ msgstr "类型"
 
 #. Translators: Menu item Verb/Support/Position
 #. Translators: Menu item Verb/Support/Position/Position
-#: ../app/diagram_tree_view.c:173 ../objects/FS/function.c:802
-#: ../objects/FS/function.c:804 ../objects/Istar/actor.c:70
+#: ../app/diagram_tree_view.c:173 ../objects/FS/function.c:805
+#: ../objects/FS/function.c:807 ../objects/Istar/actor.c:70
 msgid "Position"
 msgstr "位置"
 
 #
 #: ../app/diagram_tree_view.c:176
-#, fuzzy
-#| msgid "_Unparent Children"
 msgid "Children"
-msgstr "取消子对象的父对象(_U)"
+msgstr "子对象"
 
 #
 #: ../app/diagram_tree_view.c:180
@@ -655,21 +650,19 @@ msgstr "选择(_S)"
 
 #. Translators: Menu item Verb/Support/Position/Locate
 #. Translators: Menu item Verb/Signal/Sense/Locate
-#: ../app/diagram_tree_view.c:397 ../objects/FS/function.c:810
-#: ../objects/FS/function.c:1052
+#: ../app/diagram_tree_view.c:397 ../objects/FS/function.c:813
+#: ../objects/FS/function.c:1055
 msgid "Locate"
 msgstr "定位"
 
 #: ../app/diagram_tree_view.c:398
-#, fuzzy
-#| msgid "/_Properties"
 msgid "Properties"
-msgstr "/属性(_P)"
+msgstr "属性(_P)"
 
 #. *** board of value **************
 #: ../app/diagram_tree_view.c:448 ../app/exit_dialog.c:123
-#: ../app/plugin-manager.c:262 ../objects/Database/table.c:138
-#: ../objects/Database/table.c:181 ../objects/SISSI/sissi_dialog.c:734
+#: ../app/plugin-manager.c:262 ../objects/Database/table.c:139
+#: ../objects/Database/table.c:182 ../objects/SISSI/sissi_dialog.c:734
 #: ../objects/UML/association.c:234 ../objects/UML/class.c:145
 #: ../objects/UML/large_package.c:139 ../objects/UML/umlattribute.c:37
 #: ../objects/UML/umlformalparameter.c:35 ../objects/UML/umloperation.c:62
@@ -751,7 +744,14 @@ msgstr ""
 msgid "Properties..."
 msgstr "属性..."
 
-#: ../app/disp_callbacks.c:1064
+#
+#: ../app/disp_callbacks.c:244
+#, fuzzy
+#| msgid "_Select"
+msgid "Selection"
+msgstr "选择(_S)"
+
+#: ../app/disp_callbacks.c:1062
 msgid ""
 "The object you dropped cannot fit into its parent. \n"
 "Either expand the parent object, or drop the object elsewhere."
@@ -842,7 +842,7 @@ msgid "Nothing selected for saving.  Would you like to try again?"
 msgstr "没有选中的对象可供保存。您想再试一次吗？"
 
 #: ../app/filedlg.c:144 ../app/filedlg.c:152 ../app/filedlg.c:168
-#: ../app/filedlg.c:739 ../lib/widgets.c:1488
+#: ../app/filedlg.c:739 ../lib/widgets.c:1473
 msgid "Supported Formats"
 msgstr "支持的格式"
 
@@ -862,7 +862,7 @@ msgstr "打开选项"
 msgid "Determine file type:"
 msgstr "确定文件类型："
 
-#: ../app/filedlg.c:337 ../app/filedlg.c:734 ../lib/widgets.c:1493
+#: ../app/filedlg.c:337 ../app/filedlg.c:734 ../lib/widgets.c:1478
 msgid "All Files"
 msgstr "全部文件"
 
@@ -982,7 +982,7 @@ msgstr ""
 "使用<Esc>退出该工具"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Magnify
-#: ../app/interface.c:165 ../app/menus.c:230 ../objects/FS/function.c:988
+#: ../app/interface.c:165 ../app/menus.c:230 ../objects/FS/function.c:991
 msgid "Magnify"
 msgstr "放大"
 
@@ -1049,40 +1049,40 @@ msgstr "图像"
 msgid "Outline"
 msgstr "轮廓字"
 
-#: ../app/interface.c:620 ../app/interface.c:853
+#: ../app/interface.c:623 ../app/interface.c:856
 msgid "Pops up the Navigation window."
 msgstr "弹出导航窗口。"
 
-#: ../app/interface.c:815
+#: ../app/interface.c:818
 msgid "Diagram menu."
 msgstr "图表菜单。"
 
-#: ../app/interface.c:918
+#: ../app/interface.c:921
 msgid "Zoom"
 msgstr "缩放"
 
-#: ../app/interface.c:933
+#: ../app/interface.c:936
 msgid "Toggles snap-to-grid for this window."
 msgstr "切换本窗口的“对齐到网格”功能。"
 
-#: ../app/interface.c:944
+#: ../app/interface.c:947
 msgid "Toggles object snapping for this window."
 msgstr "切换本窗口的“对象捕捉”功能。"
 
-#: ../app/interface.c:1333
+#: ../app/interface.c:1336
 #, c-format
 msgid "No sheet named %s"
 msgstr "没有名为 %s 的工作表"
 
-#: ../app/interface.c:1371
+#: ../app/interface.c:1374
 msgid "Other sheets"
 msgstr "其它工作表"
 
-#: ../app/interface.c:1431 ../sheets/Flowchart.sheet.in.h:10
+#: ../app/interface.c:1434 ../sheets/Flowchart.sheet.in.h:10
 msgid "Flowchart"
 msgstr "流程图"
 
-#: ../app/interface.c:1491
+#: ../app/interface.c:1494
 msgid ""
 "Foreground & background colors for new objects.  The small black and white "
 "squares reset colors.  The small arrows swap colors.  Double click to change "
@@ -1091,32 +1091,32 @@ msgstr ""
 "新对象的前景和背景色。黑白小方块可重置颜色。小箭头可调换颜色。双击可改变颜"
 "色。"
 
-#: ../app/interface.c:1505
+#: ../app/interface.c:1508
 msgid ""
 "Line widths.  Click on a line to set the default line width for new "
 "objects.  Double-click to set the line width more precisely."
 msgstr ""
 "直线宽度。单击直线可以设定新对象的缺省线条宽度。双击则可以更精确的设定线宽。"
 
-#: ../app/interface.c:1548
+#: ../app/interface.c:1551
 msgid ""
 "Arrow style at the beginning of new lines.  Click to pick an arrow, or set "
 "arrow parameters with Details..."
 msgstr "新直线起始箭头样式。单击可以挑选箭头，或是用“细节...”设定箭头参数"
 
-#: ../app/interface.c:1553
+#: ../app/interface.c:1556
 msgid ""
 "Line style for new lines.  Click to pick a line style, or set line style "
 "parameters with Details..."
 msgstr "新直线的线条样式。点击可以挑选直线样式，或是用“细节...”设定线条参数"
 
-#: ../app/interface.c:1569
+#: ../app/interface.c:1572
 msgid ""
 "Arrow style at the end of new lines.  Click to pick an arrow, or set arrow "
 "parameters with Details..."
 msgstr "新直线终止箭头样式。点击可以挑选箭头，或是用“细节...”设定箭头参数"
 
-#: ../app/interface.c:1629 ../app/interface.c:1753
+#: ../app/interface.c:1632 ../app/interface.c:1756
 msgid "Diagram Editor"
 msgstr "图表编辑器"
 
@@ -1148,24 +1148,24 @@ msgstr "图层"
 msgid "Diagram:"
 msgstr "图表："
 
-#: ../app/layer_dialog.c:517 ../app/layer_dialog.c:1228
+#: ../app/layer_dialog.c:517 ../app/layer_dialog.c:1231
 #, c-format
 msgid "New layer %d"
 msgstr "新建图层 %d"
 
-#: ../app/layer_dialog.c:732
+#: ../app/layer_dialog.c:733
 msgid "none"
 msgstr "无"
 
-#: ../app/layer_dialog.c:1199
+#: ../app/layer_dialog.c:1202
 msgid "Edit Layer"
 msgstr "编辑图层"
 
-#: ../app/layer_dialog.c:1199
+#: ../app/layer_dialog.c:1202
 msgid "Add Layer"
 msgstr "添加图层"
 
-#: ../app/layer_dialog.c:1218
+#: ../app/layer_dialog.c:1221
 msgid "Layer name:"
 msgstr "图层名："
 
@@ -1210,18 +1210,18 @@ msgstr ""
 msgid "Can't find parent %s of %s object\n"
 msgstr "找不到 %2$s 对象的父对象 %1$s\n"
 
-#: ../app/load_save.c:407
+#: ../app/load_save.c:408
 msgid "You must specify a file, not a directory.\n"
 msgstr "您必须指定一个文件，而不是目录。\n"
 
-#: ../app/load_save.c:414 ../plug-ins/dxf/dxf-import.c:1309
+#: ../app/load_save.c:415 ../plug-ins/dxf/dxf-import.c:1312
 #: ../plug-ins/wpg/wpg.c:1177 ../plug-ins/xfig/xfig-import.c:1270
 #: ../plug-ins/xslt/xslt.c:93
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
 msgstr "无法打开“%s”进行读取。\n"
 
-#: ../app/load_save.c:432 ../app/load_save.c:438
+#: ../app/load_save.c:433 ../app/load_save.c:439
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -1230,7 +1230,7 @@ msgstr ""
 "载入图表 %s 时发生错误。\n"
 "未知的文件类型。"
 
-#: ../app/load_save.c:446
+#: ../app/load_save.c:447
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -1239,7 +1239,7 @@ msgstr ""
 "载入图表 %s 时发生错误。\n"
 "不是 Dia 文件。"
 
-#: ../app/load_save.c:663
+#: ../app/load_save.c:664
 #, c-format
 msgid ""
 "Error loading diagram:\n"
@@ -1250,25 +1250,25 @@ msgstr ""
 "%s。\n"
 "合法的 Dia 文件至少定义了一个层。"
 
-#: ../app/load_save.c:982
+#: ../app/load_save.c:985
 #, c-format
 msgid "Not allowed to write to output file %s\n"
 msgstr "不允许写入输出文件 %s\n"
 
-#: ../app/load_save.c:1014
+#: ../app/load_save.c:1017
 #, c-format
 msgid "Not allowed to write temporary files in %s\n"
 msgstr "不允许在 %s 中写入临时文件\n"
 
-#: ../app/load_save.c:1036 ../plug-ins/cairo/diacairo.c:125
+#: ../app/load_save.c:1039 ../plug-ins/cairo/diacairo.c:125
 #: ../plug-ins/cgm/cgm.c:1154 ../plug-ins/drs/dia-render-script.c:124
 #: ../plug-ins/dxf/dxf-export.c:547 ../plug-ins/hpgl/hpgl.c:710
 #: ../plug-ins/libart/export_png.c:159
-#: ../plug-ins/metapost/render_metapost.c:1177
-#: ../plug-ins/pgf/render_pgf.c:1208 ../plug-ins/postscript/render_eps.c:105
+#: ../plug-ins/metapost/render_metapost.c:1176
+#: ../plug-ins/pgf/render_pgf.c:1202 ../plug-ins/postscript/render_eps.c:105
 #: ../plug-ins/pstricks/render_pstricks.c:916
-#: ../plug-ins/shape/shape-export.c:137 ../plug-ins/svg/render_svg.c:199
-#: ../plug-ins/vdx/vdx-export.c:1848 ../plug-ins/wpg/wpg.c:1072
+#: ../plug-ins/shape/shape-export.c:137 ../plug-ins/svg/render_svg.c:196
+#: ../plug-ins/vdx/vdx-export.c:1849 ../plug-ins/wpg/wpg.c:1072
 #: ../plug-ins/xfig/xfig-export.c:1151 ../plug-ins/xslt/xslt.c:101
 #, c-format
 msgid "Can't open output file %s: %s\n"
@@ -1276,17 +1276,17 @@ msgstr "无法打开输入文件 %s：%s\n"
 
 #. Save failed; we clean our stuff up, without touching the file named
 #. "filename" if it existed.
-#: ../app/load_save.c:1047
+#: ../app/load_save.c:1050
 #, c-format
 msgid "Internal error %d writing file %s\n"
 msgstr "写入文件 %2$s 时发生内部错误 %1$d\n"
 
-#: ../app/load_save.c:1058
+#: ../app/load_save.c:1061
 #, c-format
 msgid "Can't rename %s to final output file %s: %s\n"
 msgstr "无法将 %s 重命名为终稿输出文件 %s：%s\n"
 
-#: ../app/load_save.c:1149 ../app/load_save.c:1154
+#: ../app/load_save.c:1152 ../app/load_save.c:1157
 msgid "Dia Diagram File"
 msgstr "Dia 图表文件"
 
@@ -1298,6 +1298,18 @@ msgstr "适合"
 #: ../app/menus.c:80
 msgid "_File"
 msgstr "文件(_F)"
+
+#: ../app/menus.c:81
+#, fuzzy
+#| msgid "Don't create empty diagram"
+msgid "Create a new diagram"
+msgstr "不创建空图表"
+
+#: ../app/menus.c:82
+#, fuzzy
+#| msgid "Compress diagram files"
+msgid "Open a diagram file"
+msgstr "压缩图表文件"
 
 #
 #: ../app/menus.c:84
@@ -1317,10 +1329,8 @@ msgid "_Diagram tree..."
 msgstr "图表树(_D)..."
 
 #: ../app/menus.c:102
-#, fuzzy
-#| msgid "_Diagram tree..."
 msgid "_Diagram tree"
-msgstr "图表树(_D)..."
+msgstr "图表树(_D)"
 
 #: ../app/menus.c:108
 msgid "Show Toolbar"
@@ -1334,10 +1344,26 @@ msgstr "显示状态栏"
 msgid "Show Layers"
 msgstr "显示图层"
 
+#: ../app/menus.c:116
+#, fuzzy
+#| msgid "Save Diagram"
+msgid "Save the diagram"
+msgstr "保存图表"
+
+#: ../app/menus.c:117
+msgid "Save the diagram with a new name"
+msgstr ""
+
 #
 #: ../app/menus.c:118
 msgid "_Export ..."
 msgstr "导出(_E)..."
+
+#: ../app/menus.c:118
+#, fuzzy
+#| msgid "Export Diagram"
+msgid "Export the diagram"
+msgstr "导出图表"
 
 #: ../app/menus.c:119
 msgid "_Diagram Properties"
@@ -1347,9 +1373,34 @@ msgstr "图表属性(_D)"
 msgid "Page Set_up..."
 msgstr "页面设置(_U)..."
 
+#: ../app/menus.c:121
+#, fuzzy
+#| msgid "Scroll around the diagram"
+msgid "Print the diagram"
+msgstr "滚动图表"
+
 #: ../app/menus.c:124
 msgid "_Edit"
 msgstr "编辑(_E)"
+
+#: ../app/menus.c:128
+#, fuzzy
+#| msgid "Convection"
+msgid "Copy selection"
+msgstr "热对流"
+
+#: ../app/menus.c:129
+#, fuzzy
+#| msgid "P Detection"
+msgid "Cut selection"
+msgstr "P 检测"
+
+#
+#: ../app/menus.c:130
+#, fuzzy
+#| msgid "Water detection"
+msgid "Paste selection"
+msgstr "水浸检测"
 
 #
 #: ../app/menus.c:131
@@ -1402,6 +1453,18 @@ msgstr "图层(_L)..."
 msgid "_View"
 msgstr "查看(_V)"
 
+#: ../app/menus.c:151
+#, fuzzy
+#| msgid "Zoom pointer"
+msgid "Zoom in"
+msgstr "缩放指针"
+
+#: ../app/menus.c:152
+#, fuzzy
+#| msgid "Zoom pointer"
+msgid "Zoom out"
+msgstr "缩放指针"
+
 #: ../app/menus.c:153
 msgid "_Zoom"
 msgstr "缩放(_Z)"
@@ -1449,6 +1512,13 @@ msgstr "35.4"
 #: ../app/menus.c:165
 msgid "25"
 msgstr "25"
+
+#. Show All, Best Fit.  Same as the Gimp, Ctrl+E
+#: ../app/menus.c:167
+#, fuzzy
+#| msgid "Zoom pointer"
+msgid "Zoom fit"
+msgstr "缩放指针"
 
 #
 #. "display_toggle_entries" items go here
@@ -1510,7 +1580,7 @@ msgid "_Unparent Children"
 msgstr "取消子对象的父对象(_U)"
 
 #. Translators: Menu item Verb/Support/Position/Align
-#: ../app/menus.c:189 ../objects/FS/function.c:808
+#: ../app/menus.c:189 ../objects/FS/function.c:811
 msgid "Align"
 msgstr "对齐"
 
@@ -1553,7 +1623,7 @@ msgstr "选择(_S)"
 msgid "All"
 msgstr "全选"
 
-#: ../app/menus.c:207 ../lib/arrows.c:1884 ../objects/Jackson/domain.c:96
+#: ../app/menus.c:207 ../lib/arrows.c:1876 ../objects/Jackson/domain.c:96
 #: ../objects/UML/association.c:221 ../objects/UML/association.c:227
 msgid "None"
 msgstr "不选"
@@ -1657,8 +1727,8 @@ msgstr "交叉"
 #. Translators: Menu item Verb/Channel/Export/Remove
 #. Translators: Menu item Verb/Branch/Separate/Remove
 #. Translators: Menu item Verb/Branch/Separate/Remove/Remove
-#: ../app/menus.c:271 ../objects/FS/function.c:708
-#: ../objects/FS/function.c:860 ../objects/FS/function.c:862
+#: ../app/menus.c:271 ../objects/FS/function.c:711
+#: ../objects/FS/function.c:863 ../objects/FS/function.c:865
 msgid "Remove"
 msgstr "删除"
 
@@ -1804,7 +1874,7 @@ msgstr "纵向"
 msgid "Paper type:"
 msgstr "纸张类型："
 
-#: ../app/preferences.c:194 ../objects/Database/table_dialog.c:1077
+#: ../app/preferences.c:194 ../objects/Database/table_dialog.c:1075
 msgid "Background Color:"
 msgstr "背景色："
 
@@ -1866,8 +1936,8 @@ msgstr "查看反锯齿化的对象"
 #. Favored Filter
 #. Translators: Menu item Verb/Channel/Export
 #. Translators: Menu item Verb/Channel/Export/Export
-#: ../app/preferences.c:221 ../objects/FS/function.c:698
-#: ../objects/FS/function.c:700 ../plug-ins/libart/export_png.c:328
+#: ../app/preferences.c:221 ../objects/FS/function.c:701
+#: ../objects/FS/function.c:703 ../plug-ins/libart/export_png.c:328
 msgid "Export"
 msgstr "导出"
 
@@ -1875,7 +1945,7 @@ msgstr "导出"
 msgid "Portable Network Graphics"
 msgstr "便携式网络图像"
 
-#: ../app/preferences.c:225 ../plug-ins/svg/render_svg.c:515
+#: ../app/preferences.c:225 ../plug-ins/svg/render_svg.c:487
 #: ../plug-ins/svg/svg-import.c:884
 msgid "Scalable Vector Graphics"
 msgstr "可缩放矢量图(SVG)"
@@ -1999,43 +2069,43 @@ msgstr "Programmed DiaObject"
 msgid "Select SVG Shape File"
 msgstr "选择 SVG 形状文件"
 
-#: ../app/sheets_dialog_callbacks.c:163
+#: ../app/sheets_dialog_callbacks.c:164
 msgid "Copy ->"
 msgstr "复制 ->"
 
-#: ../app/sheets_dialog_callbacks.c:165
+#: ../app/sheets_dialog_callbacks.c:166
 msgid "Copy All ->"
 msgstr "全部复制 ->"
 
-#: ../app/sheets_dialog_callbacks.c:167
+#: ../app/sheets_dialog_callbacks.c:168
 msgid "Move ->"
 msgstr "移动 ->"
 
-#: ../app/sheets_dialog_callbacks.c:169
+#: ../app/sheets_dialog_callbacks.c:170
 msgid "Move All ->"
 msgstr "全部移动 ->"
 
-#: ../app/sheets_dialog_callbacks.c:176
+#: ../app/sheets_dialog_callbacks.c:177
 msgid "<- Copy"
 msgstr "<- 复制"
 
-#: ../app/sheets_dialog_callbacks.c:178
+#: ../app/sheets_dialog_callbacks.c:179
 msgid "<- Copy All"
 msgstr "<- 全部复制"
 
-#: ../app/sheets_dialog_callbacks.c:180
+#: ../app/sheets_dialog_callbacks.c:181
 msgid "<- Move"
 msgstr "<- 移动"
 
-#: ../app/sheets_dialog_callbacks.c:182
+#: ../app/sheets_dialog_callbacks.c:183
 msgid "<- Move All"
 msgstr "<- 全部移动"
 
-#: ../app/sheets_dialog_callbacks.c:288 ../app/sheets_dialog_callbacks.c:1102
+#: ../app/sheets_dialog_callbacks.c:289 ../app/sheets_dialog_callbacks.c:1103
 msgid "Line Break"
 msgstr "换行"
 
-#: ../app/sheets_dialog_callbacks.c:302
+#: ../app/sheets_dialog_callbacks.c:303
 #, c-format
 msgid ""
 "%s\n"
@@ -2044,7 +2114,7 @@ msgstr ""
 "%s\n"
 "形状"
 
-#: ../app/sheets_dialog_callbacks.c:305
+#: ../app/sheets_dialog_callbacks.c:306
 #, c-format
 msgid ""
 "%s\n"
@@ -2053,7 +2123,7 @@ msgstr ""
 "%s\n"
 "对象"
 
-#: ../app/sheets_dialog_callbacks.c:308
+#: ../app/sheets_dialog_callbacks.c:309
 #, c-format
 msgid ""
 "%s\n"
@@ -2062,65 +2132,63 @@ msgstr ""
 "%s\n"
 "未分配的类型"
 
-#: ../app/sheets_dialog_callbacks.c:798
-#, fuzzy
-#| msgid "Select SVG Shape File"
+#: ../app/sheets_dialog_callbacks.c:799
 msgid "Please select a .shape file"
-msgstr "选择 SVG 形状文件"
+msgstr "请选择一个 .shape 文件"
 
-#: ../app/sheets_dialog_callbacks.c:805
+#: ../app/sheets_dialog_callbacks.c:806
 #, c-format
 msgid "Filename must end with '%s': '%s'"
 msgstr "文件名必须以“%s”结尾：“%s”"
 
-#: ../app/sheets_dialog_callbacks.c:813
+#: ../app/sheets_dialog_callbacks.c:814
 #, c-format
 msgid "Error examining %s: %s"
 msgstr "错误检查 %s：%s"
 
-#: ../app/sheets_dialog_callbacks.c:844
+#: ../app/sheets_dialog_callbacks.c:845
 msgid "Please export the diagram as a shape."
 msgstr "请将图表导出为形状。"
 
-#: ../app/sheets_dialog_callbacks.c:847
+#: ../app/sheets_dialog_callbacks.c:848
 #, c-format
 msgid "Could not interpret shape file: '%s'"
 msgstr "无法解析形状文件：%s"
 
-#: ../app/sheets_dialog_callbacks.c:918
+#: ../app/sheets_dialog_callbacks.c:919
 msgid "Sheet must have a Name"
 msgstr "工作表必须有名称"
 
-#: ../app/sheets_dialog_callbacks.c:1612 ../app/sheets_dialog_callbacks.c:1619
+#: ../app/sheets_dialog_callbacks.c:1613 ../app/sheets_dialog_callbacks.c:1620
 #, c-format
 msgid "Couldn't open '%s': %s"
 msgstr "无法打开“%s”：%s"
 
-#: ../app/sheets_dialog_callbacks.c:1673
+#: ../app/sheets_dialog_callbacks.c:1674
 #, c-format
 msgid "Couldn't open: '%s' for writing"
 msgstr "无法以写方式打开：“%s”"
 
-#: ../app/sheets_dialog_callbacks.c:1683
+#: ../app/sheets_dialog_callbacks.c:1684
 msgid "a user"
 msgstr "用户"
 
-#: ../app/sheets_dialog_callbacks.c:1696
+#: ../app/sheets_dialog_callbacks.c:1697
 #, c-format
 msgid "File: %s"
 msgstr "文件：%s"
 
-#: ../app/sheets_dialog_callbacks.c:1699
+#: ../app/sheets_dialog_callbacks.c:1700
 #, c-format
 msgid "Date: %s"
 msgstr "日期：%s"
 
-#: ../app/sheets_dialog_callbacks.c:1703
+#: ../app/sheets_dialog_callbacks.c:1704
 #, c-format
 msgid "For: %s"
 msgstr "给：%s"
 
-#: ../app/sheets_dialog_callbacks.c:1720
+#: ../app/sheets_dialog_callbacks.c:1721
 msgid "add shapes here"
 msgstr "在此处添加形状"
 
@@ -2141,160 +2209,160 @@ msgstr "Dia 图表编辑器"
 msgid "Edit your Diagrams"
 msgstr "编辑您的图表"
 
-#: ../lib/arrows.c:1885
+#: ../lib/arrows.c:1877
 msgid "Lines"
 msgstr "直线"
 
-#: ../lib/arrows.c:1886
+#: ../lib/arrows.c:1878
 msgid "Hollow Triangle"
 msgstr "空心三角形"
 
-#: ../lib/arrows.c:1887
+#: ../lib/arrows.c:1879
 msgid "Filled Triangle"
 msgstr "实心三角形"
 
-#: ../lib/arrows.c:1888
+#: ../lib/arrows.c:1880
 msgid "Unfilled Triangle"
 msgstr "空心三角形"
 
-#: ../lib/arrows.c:1889
+#: ../lib/arrows.c:1881
 msgid "Hollow Diamond"
 msgstr "空心菱形"
 
-#: ../lib/arrows.c:1890
+#: ../lib/arrows.c:1882
 msgid "Filled Diamond"
 msgstr "实心菱形"
 
-#: ../lib/arrows.c:1891
+#: ../lib/arrows.c:1883
 msgid "Half Diamond"
 msgstr "半菱形"
 
-#: ../lib/arrows.c:1892
+#: ../lib/arrows.c:1884
 msgid "Half Head"
 msgstr "半个箭头"
 
-#: ../lib/arrows.c:1893
+#: ../lib/arrows.c:1885
 msgid "Slashed Cross"
 msgstr "交叉线"
 
-#: ../lib/arrows.c:1894
+#: ../lib/arrows.c:1886
 msgid "Filled Ellipse"
 msgstr "实心椭圆"
 
-#: ../lib/arrows.c:1895
+#: ../lib/arrows.c:1887
 msgid "Hollow Ellipse"
 msgstr "空心椭圆"
 
-#: ../lib/arrows.c:1896
+#: ../lib/arrows.c:1888
 msgid "Filled Dot"
 msgstr "实心点"
 
-#: ../lib/arrows.c:1897
+#: ../lib/arrows.c:1889
 msgid "Dimension Origin"
 msgstr "坐标原点"
 
-#: ../lib/arrows.c:1898
+#: ../lib/arrows.c:1890
 msgid "Blanked Dot"
 msgstr "空心点"
 
-#: ../lib/arrows.c:1899
+#: ../lib/arrows.c:1891
 msgid "Double Hollow Triangle"
 msgstr "双空心三角形"
 
-#: ../lib/arrows.c:1900
+#: ../lib/arrows.c:1892
 msgid "Double Filled Triangle"
 msgstr "双实心三角形"
 
-#: ../lib/arrows.c:1901
+#: ../lib/arrows.c:1893
 msgid "Filled Dot and Triangle"
 msgstr "实心圆点和三角形"
 
-#: ../lib/arrows.c:1902
+#: ../lib/arrows.c:1894
 msgid "Filled Box"
 msgstr "实心方框"
 
-#: ../lib/arrows.c:1903
+#: ../lib/arrows.c:1895
 msgid "Blanked Box"
 msgstr "空心方框"
 
-#: ../lib/arrows.c:1904
+#: ../lib/arrows.c:1896
 msgid "Slashed"
 msgstr "斜线"
 
-#: ../lib/arrows.c:1905
+#: ../lib/arrows.c:1897
 msgid "Integral Symbol"
 msgstr "积分符号"
 
-#: ../lib/arrows.c:1906
+#: ../lib/arrows.c:1898
 msgid "Crow Foot"
 msgstr "鸟爪形"
 
-#: ../lib/arrows.c:1907
+#: ../lib/arrows.c:1899
 msgid "Cross"
 msgstr "十字"
 
-#: ../lib/arrows.c:1908
+#: ../lib/arrows.c:1900
 msgid "1-or-many"
 msgstr "一个或多个"
 
-#: ../lib/arrows.c:1909
+#: ../lib/arrows.c:1901
 msgid "0-or-many"
 msgstr "零个或多个"
 
-#: ../lib/arrows.c:1910
+#: ../lib/arrows.c:1902
 msgid "1-or-0"
 msgstr "一个或零个"
 
-#: ../lib/arrows.c:1911
+#: ../lib/arrows.c:1903
 msgid "1 exactly"
 msgstr "只有一个"
 
-#: ../lib/arrows.c:1912
+#: ../lib/arrows.c:1904
 msgid "Filled Concave"
 msgstr "实心凹箭头"
 
-#: ../lib/arrows.c:1913
+#: ../lib/arrows.c:1905
 msgid "Blanked Concave"
 msgstr "空心凹箭头"
 
-#: ../lib/arrows.c:1914 ../lib/properties.c:72 ../lib/properties.c:78
+#: ../lib/arrows.c:1906 ../lib/properties.c:72 ../lib/properties.c:78
 #: ../lib/properties.h:485 ../lib/properties.h:491
 msgid "Round"
 msgstr "圆的"
 
-#: ../lib/arrows.c:1915
+#: ../lib/arrows.c:1907
 msgid "Open Round"
 msgstr "开放的圆形"
 
-#: ../lib/arrows.c:1916
+#: ../lib/arrows.c:1908
 msgid "Backslash"
 msgstr "反斜杠"
 
-#: ../lib/arrows.c:1917
+#: ../lib/arrows.c:1909
 msgid "Infinite Line"
 msgstr "无限长线"
 
-#: ../lib/arrows.c:2045
+#: ../lib/arrows.c:2037
 msgid "Arrow head of unknown type"
 msgstr "未知类型箭头"
 
-#: ../lib/arrows.c:2053
+#: ../lib/arrows.c:2045
 #, c-format
 msgid "Arrow head of type %s has too small dimensions, removing.\n"
 msgstr "%s 类型的箭头尺寸太小，正在移除。\n"
 
-#: ../lib/arrows.c:2186
+#: ../lib/arrows.c:2178
 msgid "unknown arrow"
 msgstr "未知箭头"
 
-#: ../lib/bezier_conn.c:636
+#: ../lib/bezier_conn.c:638
 msgid "Internal error: Setting corner type of endpoint of bezier"
 msgstr "内部错误：设置贝塞尔曲线端点的拐角类型"
 
 #: ../lib/create.c:50 ../lib/create.c:100 ../lib/create.c:127
 #: ../lib/create.c:161 ../lib/create.c:197 ../lib/create.c:224
 #: ../lib/create.c:260 ../lib/create.c:295 ../lib/create.c:338
-#: ../plug-ins/svg/svg-import.c:267 ../plug-ins/vdx/vdx-import.c:144
+#: ../plug-ins/svg/svg-import.c:267 ../plug-ins/vdx/vdx-import.c:145
 msgid "Can't find standard object"
 msgstr "找不到标准对象"
 
@@ -2351,11 +2419,11 @@ msgstr "分析贝塞尔点 p3 时出错。"
 msgid "Arrow Properties"
 msgstr "箭头属性"
 
-#: ../lib/dialinechooser.c:297
+#: ../lib/dialinechooser.c:295
 msgid "Line Style Properties"
 msgstr "线型属性"
 
-#: ../lib/dialinechooser.c:332
+#: ../lib/dialinechooser.c:330
 msgid "Details..."
 msgstr "细节..."
 
@@ -2475,40 +2543,34 @@ msgstr "将属性从 int 转换为 enum 时超出了范围"
 msgid "Group with %d objects"
 msgstr "有 %d 个对象的组"
 
-#: ../lib/properties.c:65 ../lib/properties.h:478 ../lib/widgets.c:724
+#: ../lib/properties.c:65 ../lib/properties.h:478 ../lib/widgets.c:715
 msgid "Left"
 msgstr "左"
 
-#: ../lib/properties.c:66 ../lib/properties.h:479 ../lib/widgets.c:730
+#: ../lib/properties.c:66 ../lib/properties.h:479 ../lib/widgets.c:721
 #: ../objects/standard/textobj.c:138
 msgid "Center"
 msgstr "中"
 
-#: ../lib/properties.c:67 ../lib/properties.h:480 ../lib/widgets.c:736
+#: ../lib/properties.c:67 ../lib/properties.h:480 ../lib/widgets.c:727
 msgid "Right"
 msgstr "右"
 
 #: ../lib/properties.c:71 ../lib/properties.h:484
-#, fuzzy
-#| msgid "Mixer"
 msgid "Miter"
-msgstr "混合器"
+msgstr "斜角"
 
 #: ../lib/properties.c:73 ../lib/properties.h:486
 msgid "Bevel"
-msgstr ""
+msgstr "斜面"
 
 #: ../lib/properties.c:77 ../lib/properties.h:490
-#, fuzzy
-#| msgid "Bottom"
 msgid "Butt"
-msgstr "底部"
+msgstr "对接"
 
 #: ../lib/properties.c:79 ../lib/properties.h:492
-#, fuzzy
-#| msgid "Protect"
 msgid "Projecting"
-msgstr "保护"
+msgstr "投影"
 
 #: ../lib/properties.c:86 ../lib/properties.h:512 ../lib/properties.h:515
 #: ../objects/chronogram/chronoline.c:181
@@ -2542,7 +2604,7 @@ msgstr "文本对齐"
 
 #. all this just to make the defaults selectable ...
 #: ../lib/properties.c:94 ../lib/properties.h:568
-#: ../objects/Database/table_dialog.c:1035 ../objects/Database/reference.c:117
+#: ../objects/Database/table_dialog.c:1033 ../objects/Database/reference.c:117
 #: ../objects/GRAFCET/condition.c:134 ../objects/GRAFCET/step.c:167
 #: ../objects/GRAFCET/transition.c:144 ../objects/UML/class.c:177
 #: ../objects/UML/class_dialog.c:564 ../objects/chronogram/chronoline.c:185
@@ -2564,16 +2626,12 @@ msgid "Text color"
 msgstr "文本颜色"
 
 #: ../lib/properties.h:524 ../lib/properties.h:527
-#, fuzzy
-#| msgid "Line width"
 msgid "Line join"
-msgstr "线宽"
+msgstr "线连接"
 
 #: ../lib/properties.h:530 ../lib/properties.h:533
-#, fuzzy
-#| msgid "Line gaps"
 msgid "Line caps"
-msgstr "线间距"
+msgstr "线端"
 
 #: ../lib/proplist.c:163
 #, c-format
@@ -2609,66 +2667,66 @@ msgstr ""
 msgid "%s: you should use object tags rather than shape tags now"
 msgstr "%s：现在您应当用对象标签，而不是形状标签"
 
-#: ../lib/widgets.c:441
+#: ../lib/widgets.c:435
 msgid "Other fonts"
 msgstr "其它字体"
 
-#: ../lib/widgets.c:513
+#: ../lib/widgets.c:507
 #, c-format
 msgid "Couldn't find font family for %s\n"
 msgstr "找不到 %s 的字体族\n"
 
 #. Translators: Menu item Noun/Material/Solid
-#: ../lib/widgets.c:896 ../objects/FS/function.c:1076
+#: ../lib/widgets.c:883 ../objects/FS/function.c:1079
 msgid "Solid"
 msgstr "实心"
 
-#: ../lib/widgets.c:902
+#: ../lib/widgets.c:889
 msgid "Dashed"
 msgstr "划线"
 
-#: ../lib/widgets.c:908
+#: ../lib/widgets.c:895
 msgid "Dash-Dot"
 msgstr "点划线"
 
-#: ../lib/widgets.c:914
+#: ../lib/widgets.c:901
 msgid "Dash-Dot-Dot"
 msgstr "双点划线"
 
-#: ../lib/widgets.c:920
+#: ../lib/widgets.c:907
 msgid "Dotted"
 msgstr "虚线"
 
 #. fs->sizebox = GTK_HBOX(box);
-#: ../lib/widgets.c:938
+#: ../lib/widgets.c:925
 msgid "Dash length: "
 msgstr "划长度： "
 
-#: ../lib/widgets.c:1066
+#: ../lib/widgets.c:1053
 msgid "Select color"
 msgstr "选择颜色"
 
-#: ../lib/widgets.c:1132
+#: ../lib/widgets.c:1119
 msgid "More colors..."
 msgstr "更多颜色..."
 
-#: ../lib/widgets.c:1280
+#: ../lib/widgets.c:1267
 msgid "More arrows"
 msgstr "更多箭头"
 
-#: ../lib/widgets.c:1297
+#: ../lib/widgets.c:1284
 msgid "Size: "
 msgstr "大小："
 
-#: ../lib/widgets.c:1475
+#: ../lib/widgets.c:1460
 msgid "Select image file"
 msgstr "选择图像文件"
 
-#: ../lib/widgets.c:1523
+#: ../lib/widgets.c:1508
 msgid "Browse"
 msgstr "浏览"
 
-#: ../lib/widgets.c:2076
+#: ../lib/widgets.c:2061
 msgid "Reset menu"
 msgstr "重置菜单"
 
@@ -2887,54 +2945,54 @@ msgstr "复合"
 msgid "Entity/Relationship table diagram objects"
 msgstr "实体/关系表图表对象"
 
-#: ../objects/Database/table.c:142 ../objects/Database/table.c:183
-#: ../objects/Database/table.c:200 ../objects/UML/class.c:149
+#: ../objects/Database/table.c:143 ../objects/Database/table.c:184
+#: ../objects/Database/table.c:201 ../objects/UML/class.c:149
 #: ../objects/UML/class.c:192 ../objects/UML/class_dialog.c:595
 #: ../objects/UML/umlattribute.c:43 ../objects/UML/umloperation.c:66
 #: ../objects/UML/umlparameter.c:49 ../sheets/SDL.sheet.in.h:3
 msgid "Comment"
 msgstr "注释"
 
-#: ../objects/Database/table.c:144
+#: ../objects/Database/table.c:145
 msgid "Primary key"
 msgstr "主键"
 
-#: ../objects/Database/table.c:146
+#: ../objects/Database/table.c:147
 msgid "Nullable"
 msgstr "可以为空"
 
-#: ../objects/Database/table.c:148
+#: ../objects/Database/table.c:149
 msgid "Unique"
 msgstr "唯一索引"
 
-#: ../objects/Database/table.c:185
+#: ../objects/Database/table.c:186
 msgid "Visible comments"
 msgstr "可见的注释"
 
-#: ../objects/Database/table.c:187 ../objects/UML/class.c:172
+#: ../objects/Database/table.c:188 ../objects/UML/class.c:172
 msgid "Comment tagging"
 msgstr "注释标记"
 
-#: ../objects/Database/table.c:189 ../objects/Database/table_dialog.c:975
+#: ../objects/Database/table.c:190 ../objects/Database/table_dialog.c:973
 msgid "Underline primary keys"
 msgstr "为主键加上下划线"
 
-#: ../objects/Database/table.c:191 ../objects/Database/table_dialog.c:980
+#: ../objects/Database/table.c:192 ../objects/Database/table_dialog.c:978
 msgid "Use bold font for primary keys"
 msgstr "为主键使用粗体"
 
 #. property rows
-#: ../objects/Database/table.c:196 ../objects/SADT/arrow.c:136
+#: ../objects/Database/table.c:197 ../objects/SADT/arrow.c:136
 #: ../objects/UML/class.c:182 ../objects/UML/class_dialog.c:570
 msgid "Normal"
 msgstr "正常"
 
-#: ../objects/Database/table.c:198
+#: ../objects/Database/table.c:199
 msgid "Tablename"
 msgstr "表名"
 
-#: ../objects/Database/table.c:203 ../objects/Database/table.c:205
-#: ../objects/Database/table.c:207 ../objects/Database/reference.c:120
+#: ../objects/Database/table.c:204 ../objects/Database/table.c:206
+#: ../objects/Database/table.c:208 ../objects/Database/reference.c:120
 #: ../objects/UML/association.c:245 ../objects/UML/association.c:256
 #: ../objects/UML/association.c:258 ../objects/UML/association.c:260
 #: ../objects/UML/association.c:262 ../objects/UML/association.c:264
@@ -2944,53 +3002,53 @@ msgstr "表名"
 msgid " "
 msgstr " "
 
-#: ../objects/Database/table.c:211 ../objects/UML/class.c:212
+#: ../objects/Database/table.c:212 ../objects/UML/class.c:212
 #: ../objects/UML/object.c:157
 msgid "Attributes"
 msgstr "属性"
 
-#: ../objects/Database/table.c:248 ../objects/UML/class.c:324
+#: ../objects/Database/table.c:249 ../objects/UML/class.c:324
 msgid "Show comments"
 msgstr "显示注释"
 
 #. init data
-#: ../objects/Database/table.c:253 ../objects/Database/table.c:356
+#: ../objects/Database/table.c:254 ../objects/Database/table.c:357
 #: ../sheets/Database.sheet.in.h:5
 msgid "Table"
 msgstr "表"
 
 #. Attributes page:
-#: ../objects/Database/table_dialog.c:610 ../objects/UML/class_dialog.c:1081
+#: ../objects/Database/table_dialog.c:608 ../objects/UML/class_dialog.c:1081
 msgid "_Attributes"
 msgstr "属性(_A)"
 
 #. the "new" button
-#: ../objects/Database/table_dialog.c:638 ../objects/SISSI/sissi_dialog.c:739
+#: ../objects/Database/table_dialog.c:636 ../objects/SISSI/sissi_dialog.c:739
 #: ../objects/SISSI/sissi_dialog.c:871
 msgid "_New"
 msgstr "新建(_N)"
 
 #. the "delete" button
-#: ../objects/Database/table_dialog.c:646
+#: ../objects/Database/table_dialog.c:644
 msgid "_Delete"
 msgstr "删除(_D)"
 
 #. the "Move up" button
-#: ../objects/Database/table_dialog.c:654
+#: ../objects/Database/table_dialog.c:652
 msgid "Move up"
 msgstr "上移"
 
 #. the "Move down" button
-#: ../objects/Database/table_dialog.c:662
+#: ../objects/Database/table_dialog.c:660
 msgid "Move down"
 msgstr "下移"
 
-#: ../objects/Database/table_dialog.c:672 ../objects/UML/class_dialog.c:1138
+#: ../objects/Database/table_dialog.c:670 ../objects/UML/class_dialog.c:1138
 msgid "Attribute data"
 msgstr "属性数据"
 
-#: ../objects/Database/table_dialog.c:682
-#: ../objects/Database/table_dialog.c:1045 ../objects/ER/attribute.c:155
+#: ../objects/Database/table_dialog.c:680
+#: ../objects/Database/table_dialog.c:1043 ../objects/ER/attribute.c:155
 #: ../objects/ER/entity.c:137 ../objects/ER/relationship.c:142
 #: ../objects/UML/class_dialog.c:1148 ../objects/UML/class_dialog.c:2014
 #: ../objects/UML/class_dialog.c:2250 ../objects/UML/class_dialog.c:2853
@@ -2999,7 +3057,7 @@ msgstr "属性数据"
 msgid "Name:"
 msgstr "名称："
 
-#: ../objects/Database/table_dialog.c:694 ../objects/FS/flow-ortho.c:169
+#: ../objects/Database/table_dialog.c:692 ../objects/FS/flow-ortho.c:169
 #: ../objects/FS/flow.c:146 ../objects/Istar/link.c:162
 #: ../objects/Jackson/phenomenon.c:146 ../objects/KAOS/metaandorrel.c:166
 #: ../objects/KAOS/metabinrel.c:173 ../objects/UML/class_dialog.c:1159
@@ -3008,85 +3066,85 @@ msgstr "名称："
 msgid "Type:"
 msgstr "类型："
 
-#: ../objects/Database/table_dialog.c:706
-#: ../objects/Database/table_dialog.c:945
-#: ../objects/Database/table_dialog.c:1050 ../objects/UML/class_dialog.c:452
+#: ../objects/Database/table_dialog.c:704
+#: ../objects/Database/table_dialog.c:943
+#: ../objects/Database/table_dialog.c:1048 ../objects/UML/class_dialog.c:452
 #: ../objects/UML/class_dialog.c:1181 ../objects/UML/class_dialog.c:2111
 #: ../objects/UML/class_dialog.c:2283
 msgid "Comment:"
 msgstr "注释："
 
-#: ../objects/Database/table_dialog.c:725
+#: ../objects/Database/table_dialog.c:723
 msgid "_Primary key"
 msgstr "主键(_P)"
 
-#: ../objects/Database/table_dialog.c:732
+#: ../objects/Database/table_dialog.c:730
 msgid "N_ullable"
 msgstr "可以为空(_U)"
 
-#: ../objects/Database/table_dialog.c:739
+#: ../objects/Database/table_dialog.c:737
 msgid "Uni_que"
 msgstr "唯一索引(_Q)"
 
-#: ../objects/Database/table_dialog.c:927
+#: ../objects/Database/table_dialog.c:925
 msgid "_Table"
 msgstr "表(_T)"
 
-#: ../objects/Database/table_dialog.c:935
+#: ../objects/Database/table_dialog.c:933
 msgid "Table name:"
 msgstr "表名："
 
 #. XXX create a handler and disable the 'show documentation tag' checkbox
 #. if 'comment visible' is not active.
-#: ../objects/Database/table_dialog.c:965
+#: ../objects/Database/table_dialog.c:963
 msgid "Comment visible"
 msgstr "注释可见"
 
-#: ../objects/Database/table_dialog.c:970 ../objects/UML/class_dialog.c:522
+#: ../objects/Database/table_dialog.c:968 ../objects/UML/class_dialog.c:522
 msgid "Show documentation tag"
 msgstr "显示文档标签"
 
 #. * Fonts and Colors selection *
-#: ../objects/Database/table_dialog.c:1009 ../objects/UML/class_dialog.c:551
+#: ../objects/Database/table_dialog.c:1007 ../objects/UML/class_dialog.c:551
 msgid "_Style"
 msgstr "样式(_S)"
 
-#: ../objects/Database/table_dialog.c:1020
+#: ../objects/Database/table_dialog.c:1018
 msgid "Border width:"
 msgstr "边框宽度："
 
 #. head line
-#: ../objects/Database/table_dialog.c:1033 ../objects/UML/class_dialog.c:561
+#: ../objects/Database/table_dialog.c:1031 ../objects/UML/class_dialog.c:561
 #: ../objects/UML/umlparameter.c:51
 msgid "Kind"
 msgstr "种类"
 
-#: ../objects/Database/table_dialog.c:1037 ../objects/UML/class_dialog.c:566
+#: ../objects/Database/table_dialog.c:1035 ../objects/UML/class_dialog.c:566
 msgid "Size"
 msgstr "尺寸"
 
-#: ../objects/Database/table_dialog.c:1040
+#: ../objects/Database/table_dialog.c:1038
 msgid "Normal:"
 msgstr "正常："
 
-#: ../objects/Database/table_dialog.c:1061
+#: ../objects/Database/table_dialog.c:1059
 msgid "Text Color:"
 msgstr "文本颜色："
 
-#: ../objects/Database/table_dialog.c:1069
+#: ../objects/Database/table_dialog.c:1067
 msgid "Foreground Color:"
 msgstr "前景色："
 
 #. two chars at the beginning
-#: ../objects/Database/table_dialog.c:1382
+#: ../objects/Database/table_dialog.c:1380
 msgid "not null"
 msgstr "非空"
 
-#: ../objects/Database/table_dialog.c:1383
+#: ../objects/Database/table_dialog.c:1381
 msgid "null"
 msgstr "空"
 
-#: ../objects/Database/table_dialog.c:1384
+#: ../objects/Database/table_dialog.c:1382
 msgid "unique"
 msgstr "唯一索引"
 
@@ -3104,21 +3162,21 @@ msgstr "起点描述："
 msgid "End description"
 msgstr "终点描述："
 
-#: ../objects/Database/reference.c:144 ../objects/ER/participation.c:408
-#: ../objects/FS/flow-ortho.c:626 ../objects/GRAFCET/vector.c:314
+#: ../objects/Database/reference.c:144 ../objects/ER/participation.c:406
+#: ../objects/FS/flow-ortho.c:632 ../objects/GRAFCET/vector.c:314
 #: ../objects/SADT/arrow.c:459 ../objects/UML/association.c:854
 #: ../objects/UML/component_feature.c:190 ../objects/UML/dependency.c:376
 #: ../objects/UML/generalization.c:372 ../objects/UML/realizes.c:363
-#: ../objects/UML/transition.c:172 ../objects/standard/zigzagline.c:387
+#: ../objects/UML/transition.c:172 ../objects/standard/zigzagline.c:385
 msgid "Add segment"
 msgstr "添加图段"
 
-#: ../objects/Database/reference.c:145 ../objects/ER/participation.c:409
-#: ../objects/FS/flow-ortho.c:627 ../objects/GRAFCET/vector.c:315
+#: ../objects/Database/reference.c:145 ../objects/ER/participation.c:407
+#: ../objects/FS/flow-ortho.c:633 ../objects/GRAFCET/vector.c:315
 #: ../objects/SADT/arrow.c:460 ../objects/UML/association.c:855
 #: ../objects/UML/component_feature.c:191 ../objects/UML/dependency.c:377
 #: ../objects/UML/generalization.c:373 ../objects/UML/realizes.c:364
-#: ../objects/UML/transition.c:173 ../objects/standard/zigzagline.c:388
+#: ../objects/UML/transition.c:173 ../objects/standard/zigzagline.c:386
 msgid "Delete segment"
 msgstr "删除图段"
 
@@ -3188,16 +3246,16 @@ msgid "Relationship"
 msgstr "关系"
 
 #. Translators: Menu item Noun/Energy
-#: ../objects/FS/flow-ortho.c:160 ../objects/FS/flow-ortho.c:623
-#: ../objects/FS/flow.c:137 ../objects/FS/flow.c:625
-#: ../objects/FS/function.c:1098
+#: ../objects/FS/flow-ortho.c:160 ../objects/FS/flow-ortho.c:629
+#: ../objects/FS/flow.c:137 ../objects/FS/flow.c:631
+#: ../objects/FS/function.c:1101
 msgid "Energy"
 msgstr "能量"
 
 #. Translators: Menu item Noun/Material
-#: ../objects/FS/flow-ortho.c:161 ../objects/FS/flow-ortho.c:624
-#: ../objects/FS/flow.c:138 ../objects/FS/flow.c:626
-#: ../objects/FS/function.c:1074
+#: ../objects/FS/flow-ortho.c:161 ../objects/FS/flow-ortho.c:630
+#: ../objects/FS/flow.c:138 ../objects/FS/flow.c:632
+#: ../objects/FS/function.c:1077
 msgid "Material"
 msgstr "物质"
 
@@ -3205,10 +3263,10 @@ msgstr "物质"
 #. Translators: Menu item Verb/Signal/Signal
 #. Translators: Menu item Noun/Signal
 #. Translators: Menu item Noun/Signal/Signal
-#: ../objects/FS/flow-ortho.c:162 ../objects/FS/flow-ortho.c:625
-#: ../objects/FS/flow.c:139 ../objects/FS/flow.c:627
-#: ../objects/FS/function.c:1036 ../objects/FS/function.c:1038
-#: ../objects/FS/function.c:1174 ../objects/FS/function.c:1176
+#: ../objects/FS/flow-ortho.c:162 ../objects/FS/flow-ortho.c:631
+#: ../objects/FS/flow.c:139 ../objects/FS/flow.c:633
+#: ../objects/FS/function.c:1039 ../objects/FS/function.c:1041
+#: ../objects/FS/function.c:1177 ../objects/FS/function.c:1179
 msgid "Signal"
 msgstr "信号"
 
@@ -3225,309 +3283,309 @@ msgid "User function"
 msgstr "用户函数"
 
 #. Translators: Menu item Verb
-#: ../objects/FS/function.c:678
+#: ../objects/FS/function.c:681
 msgid "Verb"
 msgstr "动词"
 
 #. Translators: Menu item Verb/Channel
 #. Translators: Menu item Verb/Channel/Channel
 #. Translators: Menu item Verb/Channel/Transfer/Transport/Channel
-#: ../objects/FS/function.c:680 ../objects/FS/function.c:682
-#: ../objects/FS/function.c:722
+#: ../objects/FS/function.c:683 ../objects/FS/function.c:685
+#: ../objects/FS/function.c:725
 msgid "Channel"
 msgstr "通道"
 
 #. Translators: Menu item Verb/Channel/Import
 #. Translators: Menu item Verb/Channel/Import/Import
-#: ../objects/FS/function.c:684 ../objects/FS/function.c:686
+#: ../objects/FS/function.c:687 ../objects/FS/function.c:689
 msgid "Import"
 msgstr "导入"
 
 #. Translators: Menu item Verb/Channel/Import/Input
-#: ../objects/FS/function.c:688 ../objects/KAOS/metabinrel.c:165
+#: ../objects/FS/function.c:691 ../objects/KAOS/metabinrel.c:165
 msgid "Input"
 msgstr "输入"
 
 #. Translators: Menu item Verb/Channel/Import/Receive
-#: ../objects/FS/function.c:690
+#: ../objects/FS/function.c:693
 msgid "Receive"
 msgstr "接收"
 
 #. Translators: Menu item Verb/Channel/Import/Allow
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Allow
-#: ../objects/FS/function.c:692 ../objects/FS/function.c:964
+#: ../objects/FS/function.c:695 ../objects/FS/function.c:967
 msgid "Allow"
 msgstr "允许"
 
 #. Translators: Menu item Verb/Channel/Import/Form Entrance
-#: ../objects/FS/function.c:694
+#: ../objects/FS/function.c:697
 msgid "Form Entrance"
 msgstr "表单入口"
 
 #. Translators: Menu item Verb/Channel/Import/Capture
 #. Translators: Menu item Verb/Provision/Store/Capture
-#: ../objects/FS/function.c:696 ../objects/FS/function.c:930
+#: ../objects/FS/function.c:699 ../objects/FS/function.c:933
 msgid "Capture"
 msgstr "捕捉"
 
 #. Translators: Menu item Verb/Channel/Export/Discharge
-#: ../objects/FS/function.c:702
+#: ../objects/FS/function.c:705
 msgid "Discharge"
 msgstr "释放"
 
 #. Translators: Menu item Verb/Channel/Export/Eject
-#: ../objects/FS/function.c:704
+#: ../objects/FS/function.c:707
 msgid "Eject"
 msgstr "弹出"
 
 #. Translators: Menu item Verb/Channel/Export/Dispose
-#: ../objects/FS/function.c:706
+#: ../objects/FS/function.c:709
 msgid "Dispose"
 msgstr "处理"
 
 #. Translators: Menu item Verb/Channel/Transfer
 #. Translators: Menu item Verb/Channel/Transfer/Transfer
 #. Translators: Menu item Verb/Channel/Transfer/Transmit/Transfer
-#: ../objects/FS/function.c:710 ../objects/FS/function.c:712
-#: ../objects/FS/function.c:730
+#: ../objects/FS/function.c:713 ../objects/FS/function.c:715
+#: ../objects/FS/function.c:733
 msgid "Transfer"
 msgstr "传输"
 
 #. Translators: Menu item Verb/Channel/Transfer/Transport
 #. Translators: Menu item Verb/Channel/Transfer/Transport/Transport
-#: ../objects/FS/function.c:714 ../objects/FS/function.c:716
+#: ../objects/FS/function.c:717 ../objects/FS/function.c:719
 msgid "Transport"
 msgstr "输送"
 
 #. Translators: Menu item Verb/Channel/Transfer/Transport/Lift
-#: ../objects/FS/function.c:718
+#: ../objects/FS/function.c:721
 msgid "Lift"
 msgstr "提升"
 
 #. Translators: Menu item Verb/Channel/Transfer/Transport/Move
-#: ../objects/FS/function.c:720
+#: ../objects/FS/function.c:723
 msgid "Move"
 msgstr "移动"
 
 #. Translators: Menu item Verb/Channel/Transfer/Transmit
 #. Translators: Menu item Verb/Channel/Transfer/Transmit/Transmit
-#: ../objects/FS/function.c:724 ../objects/FS/function.c:726
+#: ../objects/FS/function.c:727 ../objects/FS/function.c:729
 msgid "Transmit"
 msgstr "发射"
 
 #. Translators: Menu item Verb/Channel/Transfer/Transmit/Conduct
-#: ../objects/FS/function.c:728
+#: ../objects/FS/function.c:731
 msgid "Conduct"
 msgstr "传导"
 
 #. Translators: Menu item Verb/Channel/Transfer/Transmit/Convey
-#: ../objects/FS/function.c:732
+#: ../objects/FS/function.c:735
 msgid "Convey"
 msgstr "转让"
 
 #. Translators: Menu item Verb/Channel/Guide
 #. Translators: Menu item Verb/Channel/Guide/Guide
 #. Translators: Menu item Verb/Channel/Guide/Guide/Guide
-#: ../objects/FS/function.c:734 ../objects/FS/function.c:736
-#: ../objects/FS/function.c:738
+#: ../objects/FS/function.c:737 ../objects/FS/function.c:739
+#: ../objects/FS/function.c:741
 msgid "Guide"
 msgstr "导向"
 
 #. Translators: Menu item Verb/Channel/Guide/Guide/Direct
-#: ../objects/FS/function.c:740
+#: ../objects/FS/function.c:743
 msgid "Direct"
 msgstr "方向"
 
 #. Translators: Menu item Verb/Channel/Guide/Guide/Straighten
-#: ../objects/FS/function.c:742
+#: ../objects/FS/function.c:745
 msgid "Straighten"
 msgstr "弄直"
 
 #. Translators: Menu item Verb/Channel/Guide/Guide/Steer
-#: ../objects/FS/function.c:744
+#: ../objects/FS/function.c:747
 msgid "Steer"
 msgstr "把舵"
 
 #. Translators: Menu item Verb/Channel/Guide/Translate
-#: ../objects/FS/function.c:746
+#: ../objects/FS/function.c:749
 msgid "Translate"
 msgstr "转化"
 
 #. Translators: Menu item Verb/Channel/Guide/Rotate
 #. Translators: Menu item Verb/Channel/Guide/Rotate/Rotate
-#: ../objects/FS/function.c:748 ../objects/FS/function.c:750
+#: ../objects/FS/function.c:751 ../objects/FS/function.c:753
 msgid "Rotate"
 msgstr "旋转"
 
 #. Translators: Menu item Verb/Channel/Guide/Rotate/Turn
-#: ../objects/FS/function.c:752
+#: ../objects/FS/function.c:755
 msgid "Turn"
 msgstr "平面旋转"
 
 #. Translators: Menu item Verb/Channel/Guide/Rotate/Spin
-#: ../objects/FS/function.c:754
+#: ../objects/FS/function.c:757
 msgid "Spin"
 msgstr "垂直旋转"
 
 #. Translators: Menu item Verb/Channel/Guide/Allow DOF
 #. Translators: Menu item Verb/Channel/Guide/Allow DOF/Allow DOF
-#: ../objects/FS/function.c:756 ../objects/FS/function.c:758
+#: ../objects/FS/function.c:759 ../objects/FS/function.c:761
 msgid "Allow DOF"
 msgstr "允许 DOF"
 
 #. Translators: Menu item Verb/Channel/Guide/Allow DOF/Constrain
-#: ../objects/FS/function.c:760
+#: ../objects/FS/function.c:763
 msgid "Constrain"
 msgstr "约束"
 
 #. Translators: Menu item Verb/Channel/Guide/Allow DOF/Unlock
-#: ../objects/FS/function.c:762
+#: ../objects/FS/function.c:765
 msgid "Unlock"
 msgstr "解锁"
 
 #. Translators: Menu item Verb/Support
 #. Translators: Menu item Verb/Support/Support
-#: ../objects/FS/function.c:764 ../objects/FS/function.c:766
+#: ../objects/FS/function.c:767 ../objects/FS/function.c:769
 msgid "Support"
 msgstr "支持"
 
 #. Translators: Menu item Verb/Support/Stop
 #. Translators: Menu item Verb/Support/Stop/Stop
-#: ../objects/FS/function.c:768 ../objects/FS/function.c:770
+#: ../objects/FS/function.c:771 ../objects/FS/function.c:773
 #: ../sheets/SDL.sheet.in.h:19
 msgid "Stop"
 msgstr "停止"
 
 #. Translators: Menu item Verb/Support/Stop/Insulate
-#: ../objects/FS/function.c:772
+#: ../objects/FS/function.c:775
 msgid "Insulate"
 msgstr "隔离"
 
 #. Translators: Menu item Verb/Support/Stop/Protect
-#: ../objects/FS/function.c:774
+#: ../objects/FS/function.c:777
 msgid "Protect"
 msgstr "保护"
 
 #. Translators: Menu item Verb/Support/Stop/Prevent
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Prevent
-#: ../objects/FS/function.c:776 ../objects/FS/function.c:966
+#: ../objects/FS/function.c:779 ../objects/FS/function.c:969
 msgid "Prevent"
 msgstr "阻止"
 
 #. Translators: Menu item Verb/Support/Stop/Shield
-#: ../objects/FS/function.c:778
+#: ../objects/FS/function.c:781
 msgid "Shield"
 msgstr "屏蔽"
 
 #. Translators: Menu item Verb/Support/Stop/Inhibit
-#: ../objects/FS/function.c:780
+#: ../objects/FS/function.c:783
 msgid "Inhibit"
 msgstr "禁止"
 
 #. Translators: Menu item Verb/Support/Stabilize
 #. Translators: Menu item Verb/Support/Stabilize/Stabilize
-#: ../objects/FS/function.c:782 ../objects/FS/function.c:784
+#: ../objects/FS/function.c:785 ../objects/FS/function.c:787
 msgid "Stabilize"
 msgstr "稳定"
 
 #. Translators: Menu item Verb/Support/Stabilize/Steady
-#: ../objects/FS/function.c:786
+#: ../objects/FS/function.c:789
 msgid "Steady"
 msgstr "稳定"
 
 #. Translators: Menu item Verb/Support/Secure
 #. Translators: Menu item Verb/Support/Secure/Secure
-#: ../objects/FS/function.c:788 ../objects/FS/function.c:790
+#: ../objects/FS/function.c:791 ../objects/FS/function.c:793
 msgid "Secure"
 msgstr "牢固"
 
 #. Translators: Menu item Verb/Support/Secure/Attach
 #. Translators: Menu item Verb/Connect/Couple/Attach
-#: ../objects/FS/function.c:792 ../objects/FS/function.c:824
+#: ../objects/FS/function.c:795 ../objects/FS/function.c:827
 msgid "Attach"
 msgstr "附着"
 
 #. Translators: Menu item Verb/Support/Secure/Mount
-#: ../objects/FS/function.c:794
+#: ../objects/FS/function.c:797
 msgid "Mount"
 msgstr "安装"
 
 #. Translators: Menu item Verb/Support/Secure/Lock
-#: ../objects/FS/function.c:796 ../sheets/ciscomisc.sheet.in.h:19
+#: ../objects/FS/function.c:799 ../sheets/ciscomisc.sheet.in.h:19
 msgid "Lock"
 msgstr "锁定"
 
 #. Translators: Menu item Verb/Support/Secure/Fasten
-#: ../objects/FS/function.c:798
+#: ../objects/FS/function.c:801
 msgid "Fasten"
 msgstr "固定"
 
 #. Translators: Menu item Verb/Support/Secure/Hold
-#: ../objects/FS/function.c:800
+#: ../objects/FS/function.c:803
 msgid "Hold"
 msgstr "保持"
 
 #. Translators: Menu item Verb/Support/Position/Orient
-#: ../objects/FS/function.c:806
+#: ../objects/FS/function.c:809
 msgid "Orient"
 msgstr "方向"
 
 #. Translators: Menu item Verb/Connect
 #. Translators: Menu item Verb/Connect/Connect
-#: ../objects/FS/function.c:812 ../objects/FS/function.c:814
+#: ../objects/FS/function.c:815 ../objects/FS/function.c:817
 msgid "Connect"
 msgstr "连接"
 
 #. Translators: Menu item Verb/Connect/Couple
 #. Translators: Menu item Verb/Connect/Couple/Couple
-#: ../objects/FS/function.c:816 ../objects/FS/function.c:818
+#: ../objects/FS/function.c:819 ../objects/FS/function.c:821
 msgid "Couple"
 msgstr "结合"
 
 #. Translators: Menu item Verb/Connect/Couple/Join
-#: ../objects/FS/function.c:820
+#: ../objects/FS/function.c:823
 msgid "Join"
 msgstr "联接"
 
 #. Translators: Menu item Verb/Connect/Couple/Assemble
-#: ../objects/FS/function.c:822
+#: ../objects/FS/function.c:825
 msgid "Assemble"
 msgstr "集合"
 
 #. Translators: Menu item Verb/Connect/Mix
 #. Translators: Menu item Verb/Connect/Mix/Mix
-#: ../objects/FS/function.c:826 ../objects/FS/function.c:828
+#: ../objects/FS/function.c:829 ../objects/FS/function.c:831
 msgid "Mix"
 msgstr "混合"
 
 #. Translators: Menu item Verb/Connect/Mix/Combine
-#: ../objects/FS/function.c:830
+#: ../objects/FS/function.c:833
 msgid "Combine"
 msgstr "联合"
 
 #. Translators: Menu item Verb/Connect/Mix/Blend
-#: ../objects/FS/function.c:832
+#: ../objects/FS/function.c:835
 msgid "Blend"
 msgstr "融合"
 
 #. Translators: Menu item Verb/Connect/Mix/Add
-#: ../objects/FS/function.c:834
+#: ../objects/FS/function.c:837
 msgid "Add"
 msgstr "添加"
 
 #. Translators: Menu item Verb/Connect/Mix/Pack
-#: ../objects/FS/function.c:836
+#: ../objects/FS/function.c:839
 msgid "Pack"
 msgstr "包装"
 
 #. Translators: Menu item Verb/Connect/Mix/Coalesce
-#: ../objects/FS/function.c:838
+#: ../objects/FS/function.c:841
 msgid "Coalesce"
 msgstr "聚结"
 
 #. Translators: Menu item Verb/Branch
 #. Translators: Menu item Verb/Branch/Branch
-#: ../objects/FS/function.c:840 ../objects/FS/function.c:842
+#: ../objects/FS/function.c:843 ../objects/FS/function.c:845
 #: ../sheets/UML.sheet.in.h:5
 msgid "Branch"
 msgstr "分支"
@@ -3535,700 +3593,700 @@ msgstr "分支"
 #. Translators: Menu item Verb/Branch/Separate
 #. Translators: Menu item Verb/Branch/Separate/Separate
 #. Translators: Menu item Verb/Branch/Separate/Separate/Separate
-#: ../objects/FS/function.c:844 ../objects/FS/function.c:846
-#: ../objects/FS/function.c:848
+#: ../objects/FS/function.c:847 ../objects/FS/function.c:849
+#: ../objects/FS/function.c:851
 msgid "Separate"
 msgstr "分离"
 
 #. Translators: Menu item Verb/Branch/Separate/Separate/Switch
-#: ../objects/FS/function.c:850
+#: ../objects/FS/function.c:853
 msgid "Switch"
 msgstr "转换"
 
 #. Translators: Menu item Verb/Branch/Separate/Separate/Divide
-#: ../objects/FS/function.c:852
+#: ../objects/FS/function.c:855
 msgid "Divide"
 msgstr "划分"
 
 #. Translators: Menu item Verb/Branch/Separate/Separate/Release
-#: ../objects/FS/function.c:854
+#: ../objects/FS/function.c:857
 msgid "Release"
 msgstr "释放"
 
 #. Translators: Menu item Verb/Branch/Separate/Separate/Detach
-#: ../objects/FS/function.c:856
+#: ../objects/FS/function.c:859
 msgid "Detach"
 msgstr "拆开"
 
 #. Translators: Menu item Verb/Branch/Separate/Separate/Disconnect
-#: ../objects/FS/function.c:858
+#: ../objects/FS/function.c:861
 msgid "Disconnect"
 msgstr "断开连接"
 
 #. Translators: Menu item Verb/Branch/Separate/Remove/Cut
-#: ../objects/FS/function.c:864
+#: ../objects/FS/function.c:867
 msgid "Cut"
 msgstr "切开"
 
 #. Translators: Menu item Verb/Branch/Separate/Remove/Polish
-#: ../objects/FS/function.c:866
+#: ../objects/FS/function.c:869
 msgid "Polish"
 msgstr "抛光"
 
 #. Translators: Menu item Verb/Branch/Separate/Remove/Sand
-#: ../objects/FS/function.c:868
+#: ../objects/FS/function.c:871
 msgid "Sand"
 msgstr "沙磨"
 
 #. Translators: Menu item Verb/Branch/Separate/Remove/Drill
-#: ../objects/FS/function.c:870
+#: ../objects/FS/function.c:873
 msgid "Drill"
 msgstr "钻孔"
 
 #. Translators: Menu item Verb/Branch/Separate/Remove/Lathe
-#: ../objects/FS/function.c:872
+#: ../objects/FS/function.c:875
 msgid "Lathe"
 msgstr "车"
 
 #. Translators: Menu item Verb/Branch/Refine
 #. Translators: Menu item Verb/Branch/Refine/Refine
-#: ../objects/FS/function.c:874 ../objects/FS/function.c:876
+#: ../objects/FS/function.c:877 ../objects/FS/function.c:879
 msgid "Refine"
 msgstr "精制"
 
 #. Translators: Menu item Verb/Branch/Refine/Purify
-#: ../objects/FS/function.c:878
+#: ../objects/FS/function.c:881
 msgid "Purify"
 msgstr "提纯"
 
 #. Translators: Menu item Verb/Branch/Refine/Strain
-#: ../objects/FS/function.c:880
+#: ../objects/FS/function.c:883
 msgid "Strain"
 msgstr "拉紧"
 
 #. Translators: Menu item Verb/Branch/Refine/Filter
-#: ../objects/FS/function.c:882
+#: ../objects/FS/function.c:885
 msgid "Filter"
 msgstr "过滤"
 
 #. Translators: Menu item Verb/Branch/Refine/Percolate
-#: ../objects/FS/function.c:884
+#: ../objects/FS/function.c:887
 msgid "Percolate"
 msgstr "渗滤"
 
 #. Translators: Menu item Verb/Branch/Refine/Clear
-#: ../objects/FS/function.c:886
+#: ../objects/FS/function.c:889
 msgid "Clear"
 msgstr "清除"
 
 #. Translators: Menu item Verb/Branch/Distribute
 #. Translators: Menu item Verb/Branch/Distribute/Distribute
-#: ../objects/FS/function.c:888 ../objects/FS/function.c:890
+#: ../objects/FS/function.c:891 ../objects/FS/function.c:893
 msgid "Distribute"
 msgstr "分发"
 
 #. Translators: Menu item Verb/Branch/Distribute/Diverge
-#: ../objects/FS/function.c:892
+#: ../objects/FS/function.c:895
 msgid "Diverge"
 msgstr "发散"
 
 #. Translators: Menu item Verb/Branch/Distribute/Scatter
-#: ../objects/FS/function.c:894
+#: ../objects/FS/function.c:897
 msgid "Scatter"
 msgstr "散布"
 
 #. Translators: Menu item Verb/Branch/Distribute/Disperse
-#: ../objects/FS/function.c:896
+#: ../objects/FS/function.c:899
 msgid "Disperse"
 msgstr "疏散"
 
 #. Translators: Menu item Verb/Branch/Distribute/Diffuse
 #. Translators: Menu item Verb/Branch/Dissipate/Diffuse
-#: ../objects/FS/function.c:898 ../objects/FS/function.c:912
+#: ../objects/FS/function.c:901 ../objects/FS/function.c:915
 msgid "Diffuse"
 msgstr "扩散"
 
 #. Translators: Menu item Verb/Branch/Distribute/Empty
-#: ../objects/FS/function.c:900
+#: ../objects/FS/function.c:903
 msgid "Empty"
 msgstr "清空"
 
 #. Translators: Menu item Verb/Branch/Dissipate
 #. Translators: Menu item Verb/Branch/Dissipate/Dissipate
-#: ../objects/FS/function.c:902 ../objects/FS/function.c:904
+#: ../objects/FS/function.c:905 ../objects/FS/function.c:907
 msgid "Dissipate"
 msgstr "淡化"
 
 #. Translators: Menu item Verb/Branch/Dissipate/Absorb
-#: ../objects/FS/function.c:906
+#: ../objects/FS/function.c:909
 msgid "Absorb"
 msgstr "吸收"
 
 #. Translators: Menu item Verb/Branch/Dissipate/Dampen
-#: ../objects/FS/function.c:908
+#: ../objects/FS/function.c:911
 msgid "Dampen"
 msgstr "潮湿"
 
 #. Translators: Menu item Verb/Branch/Dissipate/Dispel
-#: ../objects/FS/function.c:910
+#: ../objects/FS/function.c:913
 msgid "Dispel"
 msgstr "消散"
 
 #. Translators: Menu item Verb/Branch/Dissipate/Resist
-#: ../objects/FS/function.c:914
+#: ../objects/FS/function.c:917
 msgid "Resist"
 msgstr "反抗"
 
 #. Translators: Menu item Verb/Provision
 #. Translators: Menu item Verb/Provision/Provision
-#: ../objects/FS/function.c:916 ../objects/FS/function.c:918
+#: ../objects/FS/function.c:919 ../objects/FS/function.c:921
 msgid "Provision"
 msgstr "供应"
 
 #. Translators: Menu item Verb/Provision/Store
 #. Translators: Menu item Verb/Provision/Store/Store
-#: ../objects/FS/function.c:920 ../objects/FS/function.c:922
+#: ../objects/FS/function.c:923 ../objects/FS/function.c:925
 msgid "Store"
 msgstr "存储"
 
 #. Translators: Menu item Verb/Provision/Store/Contain
-#: ../objects/FS/function.c:924
+#: ../objects/FS/function.c:927
 msgid "Contain"
 msgstr "包含"
 
 #. Translators: Menu item Verb/Provision/Store/Collect
-#: ../objects/FS/function.c:926
+#: ../objects/FS/function.c:929
 msgid "Collect"
 msgstr "收集"
 
 #. Translators: Menu item Verb/Provision/Store/Reserve
-#: ../objects/FS/function.c:928
+#: ../objects/FS/function.c:931
 msgid "Reserve"
 msgstr "保留"
 
 #. Translators: Menu item Verb/Provision/Supply
 #. Translators: Menu item Verb/Provision/Supply/Supply
-#: ../objects/FS/function.c:932 ../objects/FS/function.c:934
+#: ../objects/FS/function.c:935 ../objects/FS/function.c:937
 msgid "Supply"
 msgstr "供给"
 
 #. Translators: Menu item Verb/Provision/Supply/Fill
-#: ../objects/FS/function.c:936
+#: ../objects/FS/function.c:939
 msgid "Fill"
 msgstr "填充"
 
 #. Translators: Menu item Verb/Provision/Supply/Provide
-#: ../objects/FS/function.c:938
+#: ../objects/FS/function.c:941
 msgid "Provide"
 msgstr "提供"
 
 #. Translators: Menu item Verb/Provision/Supply/Replenish
-#: ../objects/FS/function.c:940
+#: ../objects/FS/function.c:943
 msgid "Replenish"
 msgstr "补充"
 
 #. Translators: Menu item Verb/Provision/Supply/Expose
-#: ../objects/FS/function.c:942
+#: ../objects/FS/function.c:945
 msgid "Expose"
 msgstr "暴露"
 
 #. Translators: Menu item Verb/Provision/Extract
-#: ../objects/FS/function.c:944 ../sheets/Flowchart.sheet.in.h:9
+#: ../objects/FS/function.c:947 ../sheets/Flowchart.sheet.in.h:9
 msgid "Extract"
 msgstr "展开"
 
 #. Translators: Menu item Verb/Control Magnitude
 #. Translators: Menu item Verb/Control Magnitude/Control Magnitude
-#: ../objects/FS/function.c:946 ../objects/FS/function.c:948
+#: ../objects/FS/function.c:949 ../objects/FS/function.c:951
 msgid "Control Magnitude"
 msgstr "控制量质"
 
 #. Translators: Menu item Verb/Control Magnitude/Actuate
 #. Translators: Menu item Verb/Control Magnitude/Actuate/Actuate
-#: ../objects/FS/function.c:950 ../objects/FS/function.c:952
+#: ../objects/FS/function.c:953 ../objects/FS/function.c:955
 msgid "Actuate"
 msgstr "敦促"
 
 #. Translators: Menu item Verb/Control Magnitude/Actuate/Start
-#: ../objects/FS/function.c:954
+#: ../objects/FS/function.c:957
 msgid "Start"
 msgstr "开始"
 
 #. Translators: Menu item Verb/Control Magnitude/Actuate/Initiate
-#: ../objects/FS/function.c:956
+#: ../objects/FS/function.c:959
 msgid "Initiate"
 msgstr "初始化"
 
 #. Translators: Menu item Verb/Control Magnitude/Regulate
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Regulate
-#: ../objects/FS/function.c:958 ../objects/FS/function.c:960
+#: ../objects/FS/function.c:961 ../objects/FS/function.c:963
 msgid "Regulate"
 msgstr "管制"
 
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Control
 #. Translators: Menu item Noun/Signal/Control
-#: ../objects/FS/function.c:962 ../objects/FS/function.c:1180
+#: ../objects/FS/function.c:965 ../objects/FS/function.c:1183
 #: ../objects/UML/classicon.c:129
 msgid "Control"
 msgstr "控制"
 
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Enable
-#: ../objects/FS/function.c:968
+#: ../objects/FS/function.c:971
 msgid "Enable"
 msgstr "启用"
 
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Disable
-#: ../objects/FS/function.c:970
+#: ../objects/FS/function.c:973
 msgid "Disable"
 msgstr "禁用"
 
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Limit
-#: ../objects/FS/function.c:972
+#: ../objects/FS/function.c:975
 msgid "Limit"
 msgstr "限制"
 
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Interrupt
-#: ../objects/FS/function.c:974
+#: ../objects/FS/function.c:977
 msgid "Interrupt"
 msgstr "中断"
 
 #. Translators: Menu item Verb/Control Magnitude/Change
 #. Translators: Menu item Verb/Control Magnitude/Change/Change
-#: ../objects/FS/function.c:976 ../objects/FS/function.c:978
+#: ../objects/FS/function.c:979 ../objects/FS/function.c:981
 msgid "Change"
 msgstr "更改"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Increase
-#: ../objects/FS/function.c:980
+#: ../objects/FS/function.c:983
 msgid "Increase"
 msgstr "增大"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Decrease
-#: ../objects/FS/function.c:982
+#: ../objects/FS/function.c:985
 msgid "Decrease"
 msgstr "减小"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Amplify
-#: ../objects/FS/function.c:984
+#: ../objects/FS/function.c:987
 msgid "Amplify"
 msgstr "放大"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Reduce
-#: ../objects/FS/function.c:986
+#: ../objects/FS/function.c:989
 msgid "Reduce"
 msgstr "缩小"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Normalize
-#: ../objects/FS/function.c:990
+#: ../objects/FS/function.c:993
 msgid "Normalize"
 msgstr "规格化"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Multiply
-#: ../objects/FS/function.c:992
+#: ../objects/FS/function.c:995
 msgid "Multiply"
 msgstr "增加"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Scale
 #. FIXME: mark read-only
-#: ../objects/FS/function.c:994 ../objects/Misc/measure.c:186
+#: ../objects/FS/function.c:997 ../objects/Misc/measure.c:186
 msgid "Scale"
 msgstr "缩放比例"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Rectify
-#: ../objects/FS/function.c:996
+#: ../objects/FS/function.c:999
 msgid "Rectify"
 msgstr "调整"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Adjust
-#: ../objects/FS/function.c:998
+#: ../objects/FS/function.c:1001
 msgid "Adjust"
 msgstr "校准"
 
 #. Translators: Menu item Verb/Control Magnitude/Form
 #. Translators: Menu item Verb/Control Magnitude/Form/Form
-#: ../objects/FS/function.c:1000 ../objects/FS/function.c:1002
+#: ../objects/FS/function.c:1003 ../objects/FS/function.c:1005
 msgid "Form"
 msgstr "排列"
 
 #. Translators: Menu item Verb/Control Magnitude/Form/Compact
-#: ../objects/FS/function.c:1004
+#: ../objects/FS/function.c:1007
 msgid "Compact"
 msgstr "紧凑"
 
 #. Translators: Menu item Verb/Control Magnitude/Form/Crush
-#: ../objects/FS/function.c:1006
+#: ../objects/FS/function.c:1009
 msgid "Crush"
 msgstr "碾压变形"
 
 #. Translators: Menu item Verb/Control Magnitude/Form/Shape
-#: ../objects/FS/function.c:1008
+#: ../objects/FS/function.c:1011
 msgid "Shape"
 msgstr "形状"
 
 #. Translators: Menu item Verb/Control Magnitude/Form/Compress
-#: ../objects/FS/function.c:1010
+#: ../objects/FS/function.c:1013
 msgid "Compress"
 msgstr "压缩"
 
 #. Translators: Menu item Verb/Control Magnitude/Form/Pierce
-#: ../objects/FS/function.c:1012
+#: ../objects/FS/function.c:1015
 msgid "Pierce"
 msgstr "穿透"
 
 #. Translators: Menu item Verb/Convert
 #. Translators: Menu item Verb/Convert/Convert
-#: ../objects/FS/function.c:1014 ../objects/FS/function.c:1016
+#: ../objects/FS/function.c:1017 ../objects/FS/function.c:1019
 msgid "Convert"
 msgstr "转换"
 
 #. Translators: Menu item Verb/Convert/Transform
-#: ../objects/FS/function.c:1018
+#: ../objects/FS/function.c:1021
 msgid "Transform"
 msgstr "变换"
 
 #. Translators: Menu item Verb/Convert/Liquefy
-#: ../objects/FS/function.c:1020
+#: ../objects/FS/function.c:1023
 msgid "Liquefy"
 msgstr "液化"
 
 #. Translators: Menu item Verb/Convert/Solidify
-#: ../objects/FS/function.c:1022
+#: ../objects/FS/function.c:1025
 msgid "Solidify"
 msgstr "固化"
 
 #. Translators: Menu item Verb/Convert/Evaporate
-#: ../objects/FS/function.c:1024
+#: ../objects/FS/function.c:1027
 msgid "Evaporate"
 msgstr "蒸发"
 
 #. Translators: Menu item Verb/Convert/Sublimate
-#: ../objects/FS/function.c:1026
+#: ../objects/FS/function.c:1029
 msgid "Sublimate"
 msgstr "升华"
 
 #. Translators: Menu item Verb/Convert/Condense
-#: ../objects/FS/function.c:1028
+#: ../objects/FS/function.c:1031
 msgid "Condense"
 msgstr "浓缩"
 
 #. Translators: Menu item Verb/Convert/Integrate
-#: ../objects/FS/function.c:1030
+#: ../objects/FS/function.c:1033
 msgid "Integrate"
 msgstr "整合"
 
 #. Translators: Menu item Verb/Convert/Differentiate
-#: ../objects/FS/function.c:1032
+#: ../objects/FS/function.c:1035
 msgid "Differentiate"
 msgstr "分离"
 
 #. Translators: Menu item Verb/Convert/Process
-#: ../objects/FS/function.c:1034 ../sheets/AADL.sheet.in.h:8
+#: ../objects/FS/function.c:1037 ../sheets/AADL.sheet.in.h:8
 #: ../sheets/Gane_and_Sarson.sheet.in.h:7
 msgid "Process"
 msgstr "处理"
 
 #. Translators: Menu item Verb/Signal/Sense
 #. Translators: Menu item Verb/Signal/Sense/Sense
-#: ../objects/FS/function.c:1040 ../objects/FS/function.c:1042
+#: ../objects/FS/function.c:1043 ../objects/FS/function.c:1045
 msgid "Sense"
 msgstr "理解"
 
 #. Translators: Menu item Verb/Signal/Sense/Perceive
-#: ../objects/FS/function.c:1044
+#: ../objects/FS/function.c:1047
 msgid "Perceive"
 msgstr "觉察"
 
 #. Translators: Menu item Verb/Signal/Sense/Recognize
-#: ../objects/FS/function.c:1046
+#: ../objects/FS/function.c:1049
 msgid "Recognize"
 msgstr "认可"
 
 #. Translators: Menu item Verb/Signal/Sense/Discern
-#: ../objects/FS/function.c:1048
+#: ../objects/FS/function.c:1051
 msgid "Discern"
 msgstr "洞悉"
 
 #. Translators: Menu item Verb/Signal/Sense/Check
-#: ../objects/FS/function.c:1050
+#: ../objects/FS/function.c:1053
 msgid "Check"
 msgstr "核对"
 
 #. Translators: Menu item Verb/Signal/Sense/Verify
-#: ../objects/FS/function.c:1054
+#: ../objects/FS/function.c:1057
 msgid "Verify"
 msgstr "校验"
 
 #. Translators: Menu item Verb/Signal/Indicate
 #. Translators: Menu item Verb/Signal/Indicate/Indicate
-#: ../objects/FS/function.c:1056 ../objects/FS/function.c:1058
+#: ../objects/FS/function.c:1059 ../objects/FS/function.c:1061
 msgid "Indicate"
 msgstr "指示"
 
 #. Translators: Menu item Verb/Signal/Indicate/Mark
-#: ../objects/FS/function.c:1060
+#: ../objects/FS/function.c:1063
 msgid "Mark"
 msgstr "标记"
 
 #. Translators: Menu item Verb/Signal/Display
-#: ../objects/FS/function.c:1062 ../sheets/Flowchart.sheet.in.h:7
+#: ../objects/FS/function.c:1065 ../sheets/Flowchart.sheet.in.h:7
 msgid "Display"
 msgstr "显示"
 
 #. Translators: Menu item Verb/Signal/Measure
 #. Translators: Menu item Verb/Signal/Measure/Measure
-#: ../objects/FS/function.c:1064 ../objects/FS/function.c:1066
+#: ../objects/FS/function.c:1067 ../objects/FS/function.c:1069
 msgid "Measure"
 msgstr "测量"
 
 #. Translators: Menu item Verb/Signal/Measure/Calculate
-#: ../objects/FS/function.c:1068
+#: ../objects/FS/function.c:1071
 msgid "Calculate"
 msgstr "计算"
 
 #. Translators: Menu item Verb/Signal/Represent
-#: ../objects/FS/function.c:1070
+#: ../objects/FS/function.c:1073
 msgid "Represent"
 msgstr "描绘"
 
 #. Translators: Menu item Noun
-#: ../objects/FS/function.c:1072
+#: ../objects/FS/function.c:1075
 msgid "Noun"
 msgstr "名词"
 
 #. Translators: Menu item Noun/Material/Liquid
-#: ../objects/FS/function.c:1078
+#: ../objects/FS/function.c:1081
 msgid "Liquid"
 msgstr "液体"
 
 #. Translators: Menu item Noun/Material/Gas
-#: ../objects/FS/function.c:1080
+#: ../objects/FS/function.c:1083
 msgid "Gas"
 msgstr "气体"
 
 #. Translators: Menu item Noun/Material/Human
 #. Translators: Menu item Noun/Material/Human/Human
 #. Translators: Menu item Noun/Energy/Human
-#: ../objects/FS/function.c:1082 ../objects/FS/function.c:1084
-#: ../objects/FS/function.c:1168
+#: ../objects/FS/function.c:1085 ../objects/FS/function.c:1087
+#: ../objects/FS/function.c:1171
 msgid "Human"
 msgstr "人"
 
 #. Translators: Menu item Noun/Material/Human/Hand
-#: ../objects/FS/function.c:1086
+#: ../objects/FS/function.c:1089
 msgid "Hand"
 msgstr "手"
 
 #. Translators: Menu item Noun/Material/Human/Foot
-#: ../objects/FS/function.c:1088
+#: ../objects/FS/function.c:1091
 msgid "Foot"
 msgstr "脚"
 
 #. Translators: Menu item Noun/Material/Human/Head
-#: ../objects/FS/function.c:1090
+#: ../objects/FS/function.c:1093
 msgid "Head"
 msgstr "头"
 
 #. Translators: Menu item Noun/Material/Human/Finger
-#: ../objects/FS/function.c:1092
+#: ../objects/FS/function.c:1095
 msgid "Finger"
 msgstr "手指"
 
 #. Translators: Menu item Noun/Material/Human/Toe
-#: ../objects/FS/function.c:1094
+#: ../objects/FS/function.c:1097
 msgid "Toe"
 msgstr "脚趾"
 
 #. Translators: Menu item Noun/Material/Biological
-#: ../objects/FS/function.c:1096
+#: ../objects/FS/function.c:1099
 msgid "Biological"
 msgstr "生物"
 
 #. Translators: Menu item Noun/Energy/Mechanical
-#: ../objects/FS/function.c:1100
+#: ../objects/FS/function.c:1103
 msgid "Mechanical"
 msgstr "机械"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Mech. Energy
-#: ../objects/FS/function.c:1102
+#: ../objects/FS/function.c:1105
 msgid "Mech. Energy"
 msgstr "机械能"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Translation
-#: ../objects/FS/function.c:1104
+#: ../objects/FS/function.c:1107
 msgid "Translation"
 msgstr "平动"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Force
-#: ../objects/FS/function.c:1106
+#: ../objects/FS/function.c:1109
 msgid "Force"
 msgstr "力"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Rotation
-#: ../objects/FS/function.c:1108 ../objects/standard/outline.c:206
+#: ../objects/FS/function.c:1111 ../objects/standard/outline.c:206
 msgid "Rotation"
 msgstr "旋转"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Torque
-#: ../objects/FS/function.c:1110
+#: ../objects/FS/function.c:1113
 msgid "Torque"
 msgstr "扭矩"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Random Motion
-#: ../objects/FS/function.c:1112
+#: ../objects/FS/function.c:1115
 msgid "Random Motion"
 msgstr "随机运动"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Vibration
-#: ../objects/FS/function.c:1114
+#: ../objects/FS/function.c:1117
 msgid "Vibration"
 msgstr "振动"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Rotational Energy
-#: ../objects/FS/function.c:1116
+#: ../objects/FS/function.c:1119
 msgid "Rotational Energy"
 msgstr "转动能"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Translational Energy
-#: ../objects/FS/function.c:1118
+#: ../objects/FS/function.c:1121
 msgid "Translational Energy"
 msgstr "平动能"
 
 #. Translators: Menu item Noun/Energy/Electricity
-#: ../objects/FS/function.c:1120
+#: ../objects/FS/function.c:1123
 msgid "Electrical"
 msgstr "电"
 
 #. Translators: Menu item Noun/Energy/Electricity/Electricity
-#: ../objects/FS/function.c:1122
+#: ../objects/FS/function.c:1125
 msgid "Electricity"
 msgstr "电力"
 
 #. Translators: Menu item Noun/Energy/Electricity/Voltage
-#: ../objects/FS/function.c:1124
+#: ../objects/FS/function.c:1127
 msgid "Voltage"
 msgstr "电压"
 
 #. Translators: Menu item Noun/Energy/Electricity/Current
-#: ../objects/FS/function.c:1126
+#: ../objects/FS/function.c:1129
 msgid "Current"
 msgstr "电流"
 
 #. Translators: Menu item Noun/Energy/Hydraulic
-#: ../objects/FS/function.c:1128
+#: ../objects/FS/function.c:1131
 msgid "Hydraulic"
 msgstr "水压"
 
 #. Translators: Menu item Noun/Energy/Hydraulic/Pressure
-#: ../objects/FS/function.c:1130
+#: ../objects/FS/function.c:1133
 msgid "Pressure"
 msgstr "压力"
 
 #. Translators: Menu item Noun/Energy/Hydraulic/Volumetric Flow
-#: ../objects/FS/function.c:1132
+#: ../objects/FS/function.c:1135
 msgid "Volumetric Flow"
 msgstr "容积流量"
 
 #. Translators: Menu item Noun/Energy/Thermal
-#: ../objects/FS/function.c:1134
+#: ../objects/FS/function.c:1137
 msgid "Thermal"
 msgstr "热能"
 
 #. Translators: Menu item Noun/Energy/Thermal/Heat
-#: ../objects/FS/function.c:1136
+#: ../objects/FS/function.c:1139
 msgid "Heat"
 msgstr "热"
 
 #. Translators: Menu item Noun/Energy/Thermal/Conduction
-#: ../objects/FS/function.c:1138
+#: ../objects/FS/function.c:1141
 msgid "Conduction"
 msgstr "热传导"
 
 #. Translators: Menu item Noun/Energy/Thermal/Convection
-#: ../objects/FS/function.c:1140
+#: ../objects/FS/function.c:1143
 msgid "Convection"
 msgstr "热对流"
 
 #. Translators: Menu item Noun/Energy/Thermal/Radiation
 #. Translators: Menu item Noun/Energy/Radioactive/Radiation
-#: ../objects/FS/function.c:1142 ../objects/FS/function.c:1150
+#: ../objects/FS/function.c:1145 ../objects/FS/function.c:1153
 msgid "Radiation"
 msgstr "热辐射"
 
 #. Translators: Menu item Noun/Energy/Pneumatic
-#: ../objects/FS/function.c:1144
+#: ../objects/FS/function.c:1147
 msgid "Pneumatic"
 msgstr "风能"
 
 #. Translators: Menu item Noun/Energy/Chemical
-#: ../objects/FS/function.c:1146
+#: ../objects/FS/function.c:1149
 msgid "Chemical"
 msgstr "化学能"
 
 #. Translators: Menu item Noun/Energy/Radioactive
-#: ../objects/FS/function.c:1148
+#: ../objects/FS/function.c:1151
 msgid "Radioactive"
 msgstr "辐射"
 
 #. Translators: Menu item Noun/Energy/Radioactive/Microwaves
-#: ../objects/FS/function.c:1152
+#: ../objects/FS/function.c:1155
 msgid "Microwaves"
 msgstr "微波"
 
 #. Translators: Menu item Noun/Energy/Radioactive/Radio waves
-#: ../objects/FS/function.c:1154
+#: ../objects/FS/function.c:1157
 msgid "Radio waves"
 msgstr "无线电波"
 
 #. Translators: Menu item Noun/Energy/Radioactive/X-Rays
-#: ../objects/FS/function.c:1156
+#: ../objects/FS/function.c:1159
 msgid "X-Rays"
 msgstr "X 射线"
 
 #. Translators: Menu item Noun/Energy/Radioactive/Gamma Rays
-#: ../objects/FS/function.c:1158
+#: ../objects/FS/function.c:1161
 msgid "Gamma Rays"
 msgstr "伽玛射线"
 
 #. Translators: Menu item Noun/Energy/Acoustic Energy
-#: ../objects/FS/function.c:1160
+#: ../objects/FS/function.c:1163
 msgid "Acoustic Energy"
 msgstr "声能"
 
 #. Translators: Menu item Noun/Energy/Optical Energy
-#: ../objects/FS/function.c:1162
+#: ../objects/FS/function.c:1165
 msgid "Optical Energy"
 msgstr "光能"
 
 #. Translators: Menu item Noun/Energy/Solar Energy
-#: ../objects/FS/function.c:1164
+#: ../objects/FS/function.c:1167
 msgid "Solar Energy"
 msgstr "太阳能"
 
 #. Translators: Menu item Noun/Energy/Magnetic Energy
-#: ../objects/FS/function.c:1166
+#: ../objects/FS/function.c:1169
 msgid "Magnetic Energy"
 msgstr "磁能"
 
 #. Translators: Menu item Noun/Energy/Human/Human Motion
-#: ../objects/FS/function.c:1170
+#: ../objects/FS/function.c:1173
 msgid "Human Motion"
 msgstr "人类运动"
 
 #. Translators: Menu item Noun/Energy/Human/Human Force
-#: ../objects/FS/function.c:1172
+#: ../objects/FS/function.c:1175
 msgid "Human Force"
 msgstr "人力"
 
 #. Translators: Menu item Noun/Signal/Status
-#: ../objects/FS/function.c:1178
+#: ../objects/FS/function.c:1181
 msgid "Status"
 msgstr "状态"
 
-#: ../objects/FS/function.c:1182
+#: ../objects/FS/function.c:1185
 msgid "User/Device Fn"
 msgstr "用户/设备 Fn"
 
-#: ../objects/FS/function.c:1183
+#: ../objects/FS/function.c:1186
 msgid "Wish Fn"
 msgstr "期望 Fn"
 
@@ -4362,14 +4420,14 @@ msgstr "Vergent 种类："
 
 #: ../objects/GRAFCET/vergent.c:407 ../objects/Istar/other.c:471
 #: ../objects/Jackson/domain.c:533 ../objects/KAOS/goal.c:574
-#: ../objects/KAOS/other.c:527 ../objects/SADT/box.c:449
+#: ../objects/KAOS/other.c:525 ../objects/SADT/box.c:449
 #: ../objects/standard/line.c:226
 msgid "Add connection point"
 msgstr "添加连接点"
 
 #: ../objects/GRAFCET/vergent.c:408 ../objects/Istar/other.c:472
 #: ../objects/Jackson/domain.c:534 ../objects/KAOS/goal.c:575
-#: ../objects/KAOS/other.c:528 ../objects/SADT/box.c:450
+#: ../objects/KAOS/other.c:526 ../objects/SADT/box.c:450
 #: ../objects/standard/line.c:227
 msgid "Delete connection point"
 msgstr "删除连接点"
@@ -4570,7 +4628,7 @@ msgstr "执行"
 msgid "Output"
 msgstr "输出"
 
-#: ../objects/KAOS/other.c:533
+#: ../objects/KAOS/other.c:531
 msgid "KAOS other"
 msgstr "KAOS 其它"
 
@@ -5155,7 +5213,7 @@ msgstr "文档"
 msgid "Document title"
 msgstr "文档标题"
 
-#: ../objects/UML/actor.c:357 ../objects/UML/actor.c:359
+#: ../objects/UML/actor.c:356 ../objects/UML/actor.c:358
 #: ../sheets/UML.sheet.in.h:2
 msgid "Actor"
 msgstr "角色"
@@ -5210,7 +5268,7 @@ msgid "Side B"
 msgstr "B 面"
 
 #: ../objects/UML/class.c:143 ../objects/UML/class.c:331
-#: ../objects/UML/class.c:1835 ../sheets/UML.sheet.in.h:6
+#: ../objects/UML/class.c:1829 ../sheets/UML.sheet.in.h:6
 msgid "Class"
 msgstr "类"
 
@@ -5229,7 +5287,7 @@ msgstr "定型"
 msgid "Abstract"
 msgstr "抽象"
 
-#: ../objects/UML/class.c:153 ../objects/UML/class.c:1832
+#: ../objects/UML/class.c:153 ../objects/UML/class.c:1826
 msgid "Template"
 msgstr "模板"
 
@@ -5266,10 +5324,8 @@ msgid "Comment line length"
 msgstr "注释行长度"
 
 #: ../objects/UML/class.c:174 ../objects/UML/class.c:326
-#, fuzzy
-#| msgid "Hollow Triangle"
 msgid "Allow resizing"
-msgstr "空心三角形"
+msgstr "允许尺寸调整"
 
 #: ../objects/UML/class.c:184 ../objects/UML/class_dialog.c:575
 msgid "Polymorphic"
@@ -5505,27 +5561,27 @@ msgstr "画控制的焦点："
 msgid "Draw destruction mark:"
 msgstr "画毁坏标记："
 
-#: ../objects/UML/lifeline.c:505
+#: ../objects/UML/lifeline.c:499
 msgid "Add connection points"
 msgstr "增加连接点"
 
-#: ../objects/UML/lifeline.c:506
+#: ../objects/UML/lifeline.c:500
 msgid "Remove connection points"
 msgstr "删除连接点"
 
-#: ../objects/UML/lifeline.c:507
+#: ../objects/UML/lifeline.c:501
 msgid "Increase connection points distance"
 msgstr "增大连接点间距"
 
-#: ../objects/UML/lifeline.c:508
+#: ../objects/UML/lifeline.c:502
 msgid "Decrease connection points distance"
 msgstr "缩小连接点间距"
 
-#: ../objects/UML/lifeline.c:509
+#: ../objects/UML/lifeline.c:503
 msgid "Set default connection points distance"
 msgstr "设置默认连接点间距"
 
-#: ../objects/UML/lifeline.c:513
+#: ../objects/UML/lifeline.c:507
 msgid "UML Lifeline"
 msgstr "UML生命线"
 
@@ -5770,15 +5826,15 @@ msgstr "垂直翻转"
 msgid "Scale of the subshapes"
 msgstr "子形状的缩放比例"
 
-#: ../objects/custom/custom_object.c:1781
+#: ../objects/custom/custom_object.c:1773
 msgid "Flip Horizontal"
 msgstr "水平翻转"
 
-#: ../objects/custom/custom_object.c:1782
+#: ../objects/custom/custom_object.c:1774
 msgid "Flip Vertical"
 msgstr "垂直翻转"
 
-#: ../objects/custom/custom_object.c:1819
+#: ../objects/custom/custom_object.c:1811
 #: ../objects/custom_lines/custom_linetypes.c:264
 #, c-format
 msgid "Cannot open icon file %s for object type '%s'."
@@ -5857,23 +5913,23 @@ msgstr "绝对起始空白"
 msgid "Absolute end gap"
 msgstr "绝对末尾空白"
 
-#: ../objects/standard/bezier.c:758 ../objects/standard/beziergon.c:509
+#: ../objects/standard/bezier.c:755 ../objects/standard/beziergon.c:507
 msgid "Add Segment"
 msgstr "添加段"
 
-#: ../objects/standard/bezier.c:759 ../objects/standard/beziergon.c:510
+#: ../objects/standard/bezier.c:756 ../objects/standard/beziergon.c:508
 msgid "Delete Segment"
 msgstr "删除段"
 
-#: ../objects/standard/bezier.c:761 ../objects/standard/beziergon.c:512
+#: ../objects/standard/bezier.c:758 ../objects/standard/beziergon.c:510
 msgid "Symmetric control"
 msgstr "并发控制"
 
-#: ../objects/standard/bezier.c:763 ../objects/standard/beziergon.c:514
+#: ../objects/standard/bezier.c:760 ../objects/standard/beziergon.c:512
 msgid "Smooth control"
 msgstr "平滑控制"
 
-#: ../objects/standard/bezier.c:765 ../objects/standard/beziergon.c:516
+#: ../objects/standard/bezier.c:762 ../objects/standard/beziergon.c:514
 msgid "Cusp control"
 msgstr "尖锐控制"
 
@@ -5954,11 +6010,11 @@ msgstr "文本内容"
 msgid "Angle to rotate the outline"
 msgstr "轮廓字的转动角度"
 
-#: ../objects/standard/polygon.c:475 ../objects/standard/polyline.c:640
+#: ../objects/standard/polygon.c:473 ../objects/standard/polyline.c:638
 msgid "Add Corner"
 msgstr "添加拐角"
 
-#: ../objects/standard/polygon.c:476 ../objects/standard/polyline.c:641
+#: ../objects/standard/polygon.c:474 ../objects/standard/polyline.c:639
 msgid "Delete Corner"
 msgstr "删除拐角"
 
@@ -5974,13 +6030,13 @@ msgstr "第一行"
 msgid "Vertical text alignment"
 msgstr "垂直对齐文字"
 
+#: ../plug-ins/cairo/diacairo-interactive.c:261
 #: ../plug-ins/cairo/diacairo-interactive.c:262
-#: ../plug-ins/cairo/diacairo-interactive.c:263
 msgid "Zoom pointer"
 msgstr "缩放指针"
 
+#: ../plug-ins/cairo/diacairo-interactive.c:268
 #: ../plug-ins/cairo/diacairo-interactive.c:269
-#: ../plug-ins/cairo/diacairo-interactive.c:270
 msgid "Visible rect pointer"
 msgstr "可见矩形指针"
 
@@ -6020,10 +6076,8 @@ msgid "Cairo Scalable Vector Graphics"
 msgstr "Cairo SVG (可缩放矢量图形)"
 
 #: ../plug-ins/cairo/diacairo.c:379
-#, fuzzy
-#| msgid "Cairo PostScript"
 msgid "CairoScript"
-msgstr "Cairo PostScript"
+msgstr "CairoScript"
 
 #: ../plug-ins/cairo/diacairo.c:390
 msgid "Cairo PNG"
@@ -6061,17 +6115,17 @@ msgstr ""
 "影像高度大于最大储存格高。\n"
 "影像未导出至 CGM。"
 
-#: ../plug-ins/cgm/cgm.c:1361
+#: ../plug-ins/cgm/cgm.c:1362
 msgid "Computer Graphics Metafile"
 msgstr "计算机图形文件 (CGM)"
 
-#: ../plug-ins/cgm/cgm.c:1386
+#: ../plug-ins/cgm/cgm.c:1387
 msgid "Computer Graphics Metafile export filter"
 msgstr "计算机图形文件 (CGM) 输出过滤器"
 
 #: ../plug-ins/drs/dia-render-script-import.c:223
 msgid "Broken file?"
-msgstr ""
+msgstr "文件损坏？"
 
 #: ../plug-ins/drs/dia-render-script.c:156
 #: ../plug-ins/drs/dia-render-script.c:161
@@ -6082,16 +6136,16 @@ msgstr "DiaRenderScript"
 msgid "DiaRenderScript filter"
 msgstr "DiaRenderScript 过滤器"
 
-#: ../plug-ins/dxf/dxf-export.c:598 ../plug-ins/dxf/dxf-import.c:1402
+#: ../plug-ins/dxf/dxf-export.c:598 ../plug-ins/dxf/dxf-import.c:1405
 msgid "Drawing Interchange File"
 msgstr "制图交换文件 (DIF)"
 
-#: ../plug-ins/dxf/dxf-import.c:1319
+#: ../plug-ins/dxf/dxf-import.c:1322
 #, c-format
 msgid "read_dxf_codes failed on '%s'\n"
 msgstr "文件“%s” read_dxf_codes 失败\n"
 
-#: ../plug-ins/dxf/dxf-import.c:1326
+#: ../plug-ins/dxf/dxf-import.c:1329
 #, c-format
 msgid "Binary DXF from '%s' not supported\n"
 msgstr "不支持来自“%s”的二进制的 DXF\n"
@@ -6158,7 +6212,7 @@ msgstr "变换指针"
 msgid "TeX Metapost export filter"
 msgstr "TeX Metapost 导出过滤器"
 
-#: ../plug-ins/metapost/render_metapost.c:1262
+#: ../plug-ins/metapost/render_metapost.c:1259
 msgid "TeX Metapost macros"
 msgstr "TeX Metapost 宏"
 
@@ -6171,7 +6225,7 @@ msgstr "LaTeX PGF 导出过滤器"
 msgid "Not valid UTF8"
 msgstr "不是有效的 UTF8"
 
-#: ../plug-ins/pgf/render_pgf.c:1277
+#: ../plug-ins/pgf/render_pgf.c:1262
 msgid "LaTeX PGF macros"
 msgstr "LaTeX PGF 宏"
 
@@ -6269,10 +6323,8 @@ msgid "Shape files must end in .shape, or they cannot be loaded by Dia"
 msgstr "形状文件必须以 .shape 作为扩展名，否则无法被 Dia 载入"
 
 #: ../plug-ins/shape/shape-export.c:488
-#, fuzzy
-#| msgid "Can't export png without libart!"
 msgid "Can't export png icon without export plug-in!"
-msgstr "没有 libart 不能导出 png！"
+msgstr "缺少导出插件不能导出 png 图标！"
 
 #: ../plug-ins/shape/shape-export.c:512
 msgid "Dia Shape File"
@@ -6308,11 +6360,11 @@ msgstr "可缩放矢量图(SVG)导入/导出过滤器"
 msgid "Couldn't read file %s"
 msgstr "无法读取文件 %s"
 
-#: ../plug-ins/vdx/vdx-export.c:1904
+#: ../plug-ins/vdx/vdx-export.c:1911
 msgid "Visio XML format"
 msgstr "Visio XML 格式"
 
-#: ../plug-ins/vdx/vdx-import.c:226 ../plug-ins/xfig/xfig-import.c:1046
+#: ../plug-ins/vdx/vdx-import.c:227 ../plug-ins/xfig/xfig-import.c:1046
 #, c-format
 msgid "Couldn't read color: %s\n"
 msgstr "无法读颜色：%s\n"
@@ -6322,39 +6374,39 @@ msgstr "无法读颜色：%s\n"
 msgid "Couldn't find shape %d\n"
 msgstr "无法找到形状 %d\n"
 
-#: ../plug-ins/vdx/vdx-import.c:1046
+#: ../plug-ins/vdx/vdx-import.c:1048
 #, c-format
 msgid "Unexpected Ellipse object: %s\n"
 msgstr "不应有的椭圆对象：%s\n"
 
-#: ../plug-ins/vdx/vdx-import.c:1060
+#: ../plug-ins/vdx/vdx-import.c:1062
 msgid "Can't rotate ellipse\n"
 msgstr "无法旋转椭圆\n"
 
-#: ../plug-ins/vdx/vdx-import.c:1391
+#: ../plug-ins/vdx/vdx-import.c:1393
 msgid "MoveTo not at start of Bezier\n"
 msgstr "MoveTo 没有在 Bezier 开始\n"
 
-#: ../plug-ins/vdx/vdx-import.c:1739
+#: ../plug-ins/vdx/vdx-import.c:1743
 msgid "Invalid NURBS formula"
 msgstr "非法的 NURBS 公式"
 
-#: ../plug-ins/vdx/vdx-import.c:1984 ../plug-ins/vdx/vdx-import.c:1996
+#: ../plug-ins/vdx/vdx-import.c:1990 ../plug-ins/vdx/vdx-import.c:2002
 #, c-format
 msgid "Couldn't write file %s"
 msgstr "不能写入文件 %s"
 
-#: ../plug-ins/vdx/vdx-import.c:2049 ../plug-ins/vdx/vdx-import.c:2062
+#: ../plug-ins/vdx/vdx-import.c:2055 ../plug-ins/vdx/vdx-import.c:2068
 #, c-format
 msgid "Couldn't handle foreign object type %s"
 msgstr "不能处理外来的对象类型 %s"
 
-#: ../plug-ins/vdx/vdx-import.c:2090
+#: ../plug-ins/vdx/vdx-import.c:2096
 #, c-format
 msgid "Couldn't make object dir %s"
 msgstr "无法创建对象目录 %s"
 
-#: ../plug-ins/vdx/vdx-import.c:3071
+#: ../plug-ins/vdx/vdx-import.c:3086
 msgid "Visio XML File Format"
 msgstr "Visio XML 文件格式"
 
@@ -6665,15 +6717,15 @@ msgstr "XSL 变换过滤器"
 msgid "No valid configuration files found for the XSLT plugin, not loading."
 msgstr "找不到用于 XSLT 插件的有效配置文件，不予载入"
 
-#: ../plug-ins/xslt/xsltdialog.c:97
+#: ../plug-ins/xslt/xsltdialog.c:99
 msgid "Export through XSLT"
 msgstr "经 XSLT 导出"
 
-#: ../plug-ins/xslt/xsltdialog.c:112
+#: ../plug-ins/xslt/xsltdialog.c:114
 msgid "From:"
 msgstr "从："
 
-#: ../plug-ins/xslt/xsltdialog.c:147
+#: ../plug-ins/xslt/xsltdialog.c:149
 msgid "To:"
 msgstr "至："
 
@@ -10522,6 +10574,12 @@ msgstr "Sybase 数据服务器"
 #: ../sheets/sybase.sheet.in.h:8
 msgid "Sybase replication server"
 msgstr "Sybase 复制服务器"
+
+#~ msgid "'%s' not found!\n"
+#~ msgstr "没有找到“%s”！\n"
+
+#~ msgid "'%s' not found in '%s'!\n"
+#~ msgstr "“%s”不在目录“%s”中！\n"
 
 #~ msgid "Could not initialize Bonobo!"
 #~ msgstr "无法初始化 Bonobo！"
