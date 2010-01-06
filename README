@@ -78,9 +78,9 @@ Some of the recent changes (log message starting with [scan-build] are suggested
 by static source analysis, see http://clang-analyzer.llvm.org/scan-build
 To use it just run ./configure and make through the scan-build script, like:
 
-PATH=/mnt/Home/from-svn/llvm/Release/bin:$PATH /mnt/Home/from-svn/llvm/tools/clang/utils/scan-build ./configure --enable-debug=yes
+PATH=/mnt/Home/from-svn/llvm/Release/bin:$PATH /mnt/Home/from-svn/llvm/tools/clang/tools/scan-build/scan-build ./configure --prefix=/opt --enable-debug=yes
   and
-PATH=/mnt/Home/from-svn/llvm/Release/bin:$PATH /mnt/Home/from-svn/llvm/tools/clang/utils/scan-build -v -v make -j3
+PATH=/mnt/Home/from-svn/llvm/Release/bin:$PATH /mnt/Home/from-svn/llvm/tools/clang/tools/scan-build/scan-build -v -v make -j3
   view with
 PATH=/mnt/Home/from-svn/llvm/Release/bin:$PATH /mnt/Home/from-svn/llvm/tools/clang/tools/scan-view/scan-view
 
