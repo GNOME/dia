@@ -48,7 +48,9 @@ typedef struct _Annotation {
 
   Text *text;
 
-  TextAttributes attrs; 
+  TextAttributes attrs;
+
+  Color line_color;
 } Annotation;
 
   
@@ -149,6 +151,7 @@ static PropDescription annotation_props[] = {
   PROP_STD_TEXT_FONT,
   PROP_STD_TEXT_HEIGHT,
   PROP_STD_TEXT_COLOUR,
+  PROP_STD_LINE_COLOUR_OPTIONAL,
   {"pos", PROP_TYPE_POINT, PROP_FLAG_DONT_SAVE},
   PROP_DESC_END
 };
@@ -169,6 +172,7 @@ static PropOffset annotation_offsets[] = {
   {"text_font",PROP_TYPE_FONT,offsetof(Annotation,attrs.font)},
   {PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(Annotation,attrs.height)},
   {"text_colour",PROP_TYPE_COLOUR,offsetof(Annotation,attrs.color)},
+  { "line_colour", PROP_TYPE_COLOUR, offsetof(Annotation, line_color) },
   {"pos", PROP_TYPE_POINT, offsetof(Annotation,text_handle.pos)},
   { NULL,0,0 }
 };
@@ -316,7 +320,7 @@ annotation_draw(Annotation *annotation, DiaRenderer *renderer)
     pts[3] = annotation->connection.endpoints[1];
     renderer_ops->draw_polyline(renderer,
 			     pts, sizeof(pts) / sizeof(pts[0]),
-			     &color_black);
+			     &annotation->line_color);
   }
   text_draw(annotation->text,renderer);
 }
@@ -349,6 +353,8 @@ annotation_create(Point *startpoint,
   obj->ops = &annotation_ops;
   
   connection_init(conn, 3, 0);
+
+  annotation->line_color = color_black;
 
   font = dia_font_new_from_style(DIA_FONT_SANS,ANNOTATION_FONTHEIGHT);
   annotation->text = new_text("", font,
@@ -419,13 +425,3 @@ annotation_load(ObjectNode obj_node, int version, const char *filename)
   return object_load_using_properties(&sadtannotation_type,
                                       obj_node,version,filename);
 }
-
-
-
-
-
-
-
-
-
-
