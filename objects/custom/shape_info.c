@@ -37,6 +37,7 @@
 #include "message.h"
 #include "intl.h"
 #include "prefs.h"
+#include "boundingbox.h"
 
 #include "units.h"
 
@@ -582,6 +583,16 @@ update_bounds(ShapeInfo *info)
       break;
     case GE_PATH:
     case GE_SHAPE:
+#if 1
+      {
+	Rectangle bbox;
+	PolyBBExtras extra = { 0, };
+
+        polybezier_bbox(&el->path.points[0],el->path.npoints,
+                      &extra,el->type == GE_SHAPE,&bbox);
+	rectangle_union(&info->shape_bounds, &bbox);
+      }
+#else
       for (i = 0; i < el->path.npoints; i++)
 	switch (el->path.points[i].type) {
 	case BEZ_CURVE_TO:
@@ -591,6 +602,7 @@ update_bounds(ShapeInfo *info)
 	case BEZ_LINE_TO:
 	  check_point(info, &el->path.points[i].p1);
 	}
+#endif
       break;
     case GE_IMAGE:
       check_point(info, &(el->image.topleft));

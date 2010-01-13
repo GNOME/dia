@@ -1352,6 +1352,7 @@ custom_update_data(Custom *custom, AnchorShape horiz, AnchorShape vert)
       line_bbox(&p1,&p2,&extra,&rect);
       break; 
     }
+    case GE_POLYGON:
     case GE_POLYLINE: {
       PolyBBExtras extra;
 
@@ -1365,24 +1366,10 @@ custom_update_data(Custom *custom, AnchorShape horiz, AnchorShape vert)
                         &g_array_index(arr, Point, i));
      
       polyline_bbox(&g_array_index(arr,Point,0),el->polyline.npoints,
-                    &extra,FALSE,&rect);
+                    &extra,el->type==GE_POLYGON,&rect);
       break;
     }
-    case GE_POLYGON: {
-      PolyBBExtras extra;
-      extra.start_trans = extra.end_trans = extra.middle_trans = 
-        el->polygon.s.line_width * lwfactor;
-      extra.start_long = extra.end_long = 0;
-
-      g_array_set_size(arr, el->polygon.npoints);
-      for (i = 0; i < el->polygon.npoints; i++)
-        transform_coord(custom, &el->polygon.points[i],
-                        &g_array_index(arr, Point, i));
-     
-      polyline_bbox(&g_array_index(arr,Point,0),el->polyline.npoints,
-                    &extra,TRUE,&rect);
-      break;
-    }
+    case GE_SHAPE:
     case GE_PATH: {
       PolyBBExtras extra;
       extra.start_trans = extra.end_trans = extra.middle_trans = 
@@ -1404,30 +1391,7 @@ custom_update_data(Custom *custom, AnchorShape horiz, AnchorShape vert)
         }
 
       polybezier_bbox(&g_array_index(barr,BezPoint,0),el->path.npoints,
-                      &extra,FALSE,&rect);
-      break;
-    }
-    case GE_SHAPE: {
-      PolyBBExtras extra;
-      extra.start_trans = extra.end_trans = extra.middle_trans = 
-        el->shape.s.line_width * lwfactor;
-      extra.start_long = extra.end_long = 0;
-
-      g_array_set_size(barr, el->shape.npoints);
-      for (i = 0; i < el->shape.npoints; i++)
-        switch (g_array_index(barr,BezPoint,i).type=el->shape.points[i].type) {
-        case BEZ_CURVE_TO:
-          transform_coord(custom, &el->shape.points[i].p3,
-                          &g_array_index(barr, BezPoint, i).p3);
-          transform_coord(custom, &el->shape.points[i].p2,
-                          &g_array_index(barr, BezPoint, i).p2);
-        case BEZ_MOVE_TO:
-        case BEZ_LINE_TO:
-          transform_coord(custom, &el->shape.points[i].p1,
-                          &g_array_index(barr, BezPoint, i).p1);
-        }
-      polybezier_bbox(&g_array_index(barr,BezPoint,0),el->shape.npoints,
-                      &extra,TRUE,&rect);
+                      &extra,el->type==GE_SHAPE,&rect);
       break;
     }
     case GE_ELLIPSE: {
