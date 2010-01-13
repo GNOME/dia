@@ -847,8 +847,7 @@ on_sheets_new_dialog_button_ok_clicked (GtkButton       *button,
 	}
 	message_error(_("Could not interpret shape file: '%s'"), 
 		    dia_message_filename(file_name));
-	xmlCleanupParser();
-      g_free(file_name);
+        g_free(file_name);
       return;
     }
     object_register_type(ot);

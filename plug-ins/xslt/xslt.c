@@ -166,7 +166,6 @@ xslt_ok(void)
 	xmlFreeDoc(res);
 	xmlFreeDoc(doc);
 	xsltCleanupGlobals();
-	xmlCleanupParser();
 
 	xslt_clear();
 }
