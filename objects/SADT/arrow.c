@@ -47,7 +47,6 @@
 #define ARROW_HEAD_LENGTH .8
 #define ARROW_HEAD_WIDTH .8
 #define ARROW_HEAD_TYPE ARROW_FILLED_TRIANGLE
-#define ARROW_COLOR color_black
 #define ARROW_DOT_LOFFSET .4
 #define ARROW_DOT_WOFFSET .5
 #define ARROW_DOT_RADIUS .25
@@ -67,6 +66,8 @@ typedef struct _Sadtarrow {
 
   Sadtarrow_style style;
   gboolean autogray;
+  
+  Color line_color;
 } Sadtarrow;
 
 static ObjectChange* sadtarrow_move_handle(Sadtarrow *sadtarrow, Handle *handle,
@@ -142,12 +143,14 @@ PropEnumData flow_style[] = {
 
 static PropDescription sadtarrow_props[] = {
   NEWORTHCONN_COMMON_PROPERTIES,
+
   { "arrow_style", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE,
     N_("Flow style:"), NULL, flow_style },
   { "autogray",PROP_TYPE_BOOL,PROP_FLAG_VISIBLE,
     N_("Automatically gray vertical flows:"),
     N_("To improve the ease of reading, flows which begin and end vertically "
        "can be rendered gray")},
+  PROP_STD_LINE_COLOUR_OPTIONAL,
   PROP_DESC_END
 };
 
@@ -164,6 +167,7 @@ static PropOffset sadtarrow_offsets[] = {
   NEWORTHCONN_COMMON_PROPERTIES_OFFSETS,
   { "arrow_style", PROP_TYPE_ENUM, offsetof(Sadtarrow,style)},
   { "autogray",PROP_TYPE_BOOL, offsetof(Sadtarrow,autogray)},
+  { "line_colour", PROP_TYPE_COLOUR, offsetof(Sadtarrow, line_color) },
   { NULL, 0, 0 }
 };
 
@@ -251,7 +255,7 @@ sadtarrow_draw(Sadtarrow *sadtarrow, DiaRenderer *renderer)
   renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
   renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
   
-  col = ARROW_COLOR;
+  col = sadtarrow->line_color;
   if (sadtarrow->autogray && 
       (orth->orientation[0] == VERTICAL) && 
       (orth->orientation[orth->numpoints-2] == VERTICAL)) {
@@ -386,6 +390,7 @@ sadtarrow_create(Point *startpoint,
 
   sadtarrow->style = SADT_ARROW_NORMAL; /* sadtarrow_defaults.style; */
   sadtarrow->autogray = TRUE; /* sadtarrow_defaults.autogray; */
+  sadtarrow->line_color = color_black;
 
   *handle1 = orth->handles[0];
   *handle2 = orth->handles[orth->numpoints-2];
@@ -487,29 +492,4 @@ sadtarrow_load(ObjectNode obj_node, int version, const char *filename)
   return object_load_using_properties(&sadtarrow_type,
                                       obj_node,version,filename);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -50,8 +50,6 @@
 #define DEFAULT_HEIGHT 5.0
 #define DEFAULT_BORDER 0.25
 #define SADTBOX_LINE_WIDTH 0.10
-#define SADTBOX_FG_COLOR color_black
-#define SADTBOX_BG_COLOR color_white
 
 typedef enum {
   ANCHOR_MIDDLE,
@@ -70,6 +68,9 @@ typedef struct _Box {
   real padding;
 
   TextAttributes attrs;
+  
+  Color line_color;
+  Color fill_color;
 } Box;
 
 static real sadtbox_distance_from(Box *box, Point *point);
@@ -142,6 +143,8 @@ static PropDescription box_props[] = {
   PROP_STD_TEXT_FONT,
   PROP_STD_TEXT_HEIGHT,
   PROP_STD_TEXT_COLOUR,
+  PROP_STD_LINE_COLOUR_OPTIONAL,
+  PROP_STD_FILL_COLOUR_OPTIONAL,
   { "id", PROP_TYPE_STRING, PROP_FLAG_VISIBLE|PROP_FLAG_DONT_MERGE,
     N_("Activity/Data identifier"),
     N_("The identifier which appears in the lower right corner of the Box")},
@@ -169,6 +172,8 @@ static PropOffset box_offsets[] = {
   { "text_font",PROP_TYPE_FONT,offsetof(Box,attrs.font)},
   { PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(Box,attrs.height)},
   { "text_colour",PROP_TYPE_COLOUR,offsetof(Box,attrs.color)},
+  { "line_colour", PROP_TYPE_COLOUR, offsetof(Box, line_color) },
+  { "fill_colour", PROP_TYPE_COLOUR, offsetof(Box, fill_color) },
   { "id", PROP_TYPE_STRING, offsetof(Box,id)},
   { "cpl_north",PROP_TYPE_CONNPOINT_LINE, offsetof(Box,north)},
   { "cpl_west",PROP_TYPE_CONNPOINT_LINE, offsetof(Box,west)},
@@ -284,7 +289,7 @@ sadtbox_draw(Box *box, DiaRenderer *renderer)
   renderer_ops->fill_rect(renderer, 
 			   &elem->corner,
 			   &lr_corner, 
-			   &SADTBOX_BG_COLOR);
+			   &box->fill_color);
 
 
   renderer_ops->set_linewidth(renderer, SADTBOX_LINE_WIDTH);
@@ -294,7 +299,7 @@ sadtbox_draw(Box *box, DiaRenderer *renderer)
   renderer_ops->draw_rect(renderer, 
 			   &elem->corner,
 			   &lr_corner, 
-			   &SADTBOX_FG_COLOR);
+			   &box->line_color);
 
 
   text_draw(box->text, renderer);
@@ -497,6 +502,9 @@ sadtbox_create(Point *startpoint,
 
   box->padding = 0.5; /* default_values.padding; */
   
+  box->line_color = color_black;
+  box->fill_color = color_white;
+  
   p = *startpoint;
   p.x += elem->width / 2.0;
   p.y += elem->height / 2.0 + /*default_properties.font_size*/ 0.8 / 2;
@@ -550,10 +558,4 @@ sadtbox_load(ObjectNode obj_node, int version, const char *filename)
   return object_load_using_properties(&sadtbox_type,
                                       obj_node,version,filename);
 }
-
-
-
-
-
-
 
