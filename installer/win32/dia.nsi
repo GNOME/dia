@@ -54,13 +54,6 @@ Var GTKBIN
  FileWrite $UninstLog "${PATH}$\r$\n"
 !macroend
 !define SetOutPath "!insertmacro SetOutPath"
-
-!macro ReplaceInFile SOURCE_FILE SEARCH_TEXT REPLACEMENT
-  Push "${SOURCE_FILE}"
-  Push "${SEARCH_TEXT}"
-  Push "${REPLACEMENT}"
-  Call RIF
-!macroend
  
 Section -openlogfile
  SetOutPath "$INSTDIR"
@@ -2355,6 +2348,7 @@ ${SetOutPath} "$INSTDIR\bin"
 ;${File} "..\..\..\bin\" "gspawn-win32-helper-console.exe"
 ;${File} "..\..\..\bin\" "gspawn-win32-helper.exe"
 ${File} "..\..\..\bin\" "bzip2.dll"
+${File} "..\..\..\bin\" "gdk-pixbuf-query-loaders.exe"
 ${File} "..\..\..\bin\" "iconv.dll"
 ;${File} "..\..\..\bin\" "iconv.exe"
 ${File} "..\..\..\bin\" "intl.dll"
@@ -2377,6 +2371,7 @@ ${File} "..\..\..\bin\" "libgobject-2.0-0.dll"
 ${File} "..\..\..\bin\" "libgsf-1-114.dll"
 ${File} "..\..\..\bin\" "libgthread-2.0-0.dll"
 ${File} "..\..\..\bin\" "libgtk-win32-2.0-0.dll"
+${File} "..\..\..\bin\" "libjpeg-7.dll"
 ${File} "..\..\..\bin\" "libpango-1.0-0.dll"
 ${File} "..\..\..\bin\" "libpangocairo-1.0-0.dll"
 ${File} "..\..\..\bin\" "libpangoft2-1.0-0.dll"
@@ -2386,6 +2381,7 @@ ${File} "..\..\..\bin\" "libpng12-0.dll"
 ${File} "..\..\..\bin\" "librsvg-2-2.dll"
 ;${File} "..\..\..\bin\" "librle3.dll"
 ${File} "..\..\..\bin\" "libtiff3.dll"
+CopyFiles "$INSTDIR\bin\libtiff3.dll" "$INSTDIR\bin\libtiff-3.dll"
 ${File} "..\..\..\bin\" "libxml2.dll"
 CopyFiles "$INSTDIR\bin\libxml2.dll" "$INSTDIR\bin\libxml2-2.dll"
 ${File} "..\..\..\bin\" "pango-querymodules.exe"
@@ -2396,11 +2392,10 @@ ${SetOutPath} "$INSTDIR\etc"
 ;${SetOutPath} "$INSTDIR\etc\fonts"
 ;${File} "..\..\..\etc\fonts\" "fonts.conf"
 ${SetOutPath} "$INSTDIR\etc\gtk-2.0"
-${File} "..\..\..\etc\gtk-2.0\" "gdk-pixbuf.loaders"
-
-!insertmacro ReplaceInFile "$INSTDIR\etc\gtk-2.0\gdk-pixbuf.loaders" "c:/gtk/dia" "$INSTDIR"
-
+; gdk-pixpuf.loaders is generated below
+;${File} "..\..\..\etc\gtk-2.0\" "gdk-pixbuf.loaders"
 ${File} "..\..\..\etc\gtk-2.0\" "gtk.immodules"
+
 # Workaround 0.96.1 installer bug
 RMDir "$INSTDIR\etc\gtk-2.0\gtkrc"
 
@@ -2442,6 +2437,17 @@ ${File} "..\..\..\lib\gtk-2.0\2.10.0\loaders\" "libpixbufloader-wbmp.dll"
 ${File} "..\..\..\lib\gtk-2.0\2.10.0\loaders\" "libpixbufloader-xbm.dll"
 ${File} "..\..\..\lib\gtk-2.0\2.10.0\loaders\" "libpixbufloader-xpm.dll"
 ${File} "..\..\..\lib\gtk-2.0\2.10.0\loaders\" "svg_loader.dll"
+
+SetOutPath "$INSTDIR\bin"
+FileOpen $0 "$INSTDIR\bin\gdk-pixbuf-query-loaders.bat" w
+FileWrite $0 ".\gdk-pixbuf-query-loaders.exe > ..\etc\gtk-2.0\gdk-pixbuf.loaders"
+FileWriteByte $0 13
+FileWriteByte $0 10
+FileClose $0
+ReadEnvStr $0 COMSPEC
+nsExec::Exec '"$0" /c "$INSTDIR\bin\gdk-pixbuf-query-loaders.bat"'
+Pop $1
+Delete "$INSTDIR\bin\gdk-pixbuf-query-loaders.bat"
 
 ${SetOutPath} "$INSTDIR\share"
 ${SetOutPath} "$INSTDIR\share\themes"
@@ -3416,6 +3422,7 @@ Section Uninstall
       SetShellVarContext "all"
 
   cont_uninstall:
+	Delete "$INSTDIR\bin\libtiff-3.dll"
 	Delete "$INSTDIR\bin\libxml2-2.dll"
     DeleteRegKey HKEY_CLASSES_ROOT "diaFile"
     DeleteRegKey HKEY_CLASSES_ROOT ".dia"
@@ -3981,119 +3988,3 @@ Function LaunchDia
   ExecShell "" "$SMPROGRAMS\Dia\Dia.lnk"
 
 FunctionEnd
-
-;  ReplaceInFile from http://nsis.sourceforge.net/ReplaceInFile 
-
-Function RIF
- 
-  ClearErrors  ; want to be a newborn
- 
-  Exch $0      ; REPLACEMENT
-  Exch
-  Exch $1      ; SEARCH_TEXT
-  Exch 2
-  Exch $2      ; SOURCE_FILE
- 
-  Push $R0     ; SOURCE_FILE file handle
-  Push $R1     ; temporary file handle
-  Push $R2     ; unique temporary file name
-  Push $R3     ; a line to sar/save
-  Push $R4     ; shift puffer
- 
-  IfFileExists $2 +1 RIF_error      ; knock-knock
-  FileOpen $R0 $2 "r"               ; open the door
- 
-  GetTempFileName $R2               ; who's new?
-  FileOpen $R1 $R2 "w"              ; the escape, please!
- 
-  RIF_loop:                         ; round'n'round we go
-    FileRead $R0 $R3                ; read one line
-    IfErrors RIF_leaveloop          ; enough is enough
-    RIF_sar:                        ; sar - search and replace
-      Push "$R3"                    ; (hair)stack
-      Push "$1"                     ; needle
-      Push "$0"                     ; blood
-      Call StrReplace               ; do the bartwalk
-      StrCpy $R4 "$R3"              ; remember previous state
-      Pop $R3                       ; gimme s.th. back in return!
-      StrCmp "$R3" "$R4" +1 RIF_sar ; loop, might change again!
-    FileWrite $R1 "$R3"             ; save the newbie
-  Goto RIF_loop                     ; gimme more
- 
-  RIF_leaveloop:                    ; over'n'out, Sir!
-    FileClose $R1                   ; S'rry, Ma'am - clos'n now
-    FileClose $R0                   ; me 2
- 
-    Delete "$2.old"                 ; go away, Sire
-    Rename "$2" "$2.old"            ; step aside, Ma'am
-    Rename "$R2" "$2"               ; hi, baby!
- 
-    ClearErrors                     ; now i AM a newborn
-    Goto RIF_out                    ; out'n'away
- 
-  RIF_error:                        ; ups - s.th. went wrong...
-    SetErrors                       ; ...so cry, boy!
- 
-  RIF_out:                          ; your wardrobe?
-  Pop $R4
-  Pop $R3
-  Pop $R2
-  Pop $R1
-  Pop $R0
-  Pop $2
-  Pop $0
-  Pop $1
- 
-FunctionEnd
-
-; StrReplace
-; Replaces all ocurrences of a given needle within a haystack with another string
-; Written by dandaman32
- 
-Var STR_REPLACE_VAR_0
-Var STR_REPLACE_VAR_1
-Var STR_REPLACE_VAR_2
-Var STR_REPLACE_VAR_3
-Var STR_REPLACE_VAR_4
-Var STR_REPLACE_VAR_5
-Var STR_REPLACE_VAR_6
-Var STR_REPLACE_VAR_7
-Var STR_REPLACE_VAR_8
- 
-Function StrReplace
-  Exch $STR_REPLACE_VAR_2
-  Exch 1
-  Exch $STR_REPLACE_VAR_1
-  Exch 2
-  Exch $STR_REPLACE_VAR_0
-    StrCpy $STR_REPLACE_VAR_3 -1
-    StrLen $STR_REPLACE_VAR_4 $STR_REPLACE_VAR_1
-    StrLen $STR_REPLACE_VAR_6 $STR_REPLACE_VAR_0
-    loop:
-      IntOp $STR_REPLACE_VAR_3 $STR_REPLACE_VAR_3 + 1
-      StrCpy $STR_REPLACE_VAR_5 $STR_REPLACE_VAR_0 $STR_REPLACE_VAR_4 $STR_REPLACE_VAR_3
-      StrCmp $STR_REPLACE_VAR_5 $STR_REPLACE_VAR_1 found
-      StrCmp $STR_REPLACE_VAR_3 $STR_REPLACE_VAR_6 done
-      Goto loop
-    found:
-      StrCpy $STR_REPLACE_VAR_5 $STR_REPLACE_VAR_0 $STR_REPLACE_VAR_3
-      IntOp $STR_REPLACE_VAR_8 $STR_REPLACE_VAR_3 + $STR_REPLACE_VAR_4
-      StrCpy $STR_REPLACE_VAR_7 $STR_REPLACE_VAR_0 "" $STR_REPLACE_VAR_8
-      StrCpy $STR_REPLACE_VAR_0 $STR_REPLACE_VAR_5$STR_REPLACE_VAR_2$STR_REPLACE_VAR_7
-      StrLen $STR_REPLACE_VAR_6 $STR_REPLACE_VAR_0
-      Goto loop
-    done:
-  Pop $STR_REPLACE_VAR_1 ; Prevent "invalid opcode" errors and keep the
-  Pop $STR_REPLACE_VAR_1 ; stack as it was before the function was called
-  Exch $STR_REPLACE_VAR_0
-FunctionEnd
- 
-!macro _strReplaceConstructor OUT NEEDLE NEEDLE2 HAYSTACK
-  Push "${HAYSTACK}"
-  Push "${NEEDLE}"
-  Push "${NEEDLE2}"
-  Call StrReplace
-  Pop "${OUT}"
-!macroend
- 
-!define StrReplace '!insertmacro "_strReplaceConstructor"'
