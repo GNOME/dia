@@ -16,7 +16,7 @@
       <_description>Pebble Convex lantern</_description>
     </object>
     <object name="Lights - Fresnel">
-      <_description>Fresel lantern</_description>
+      <_description>Fresnel lantern</_description>
     </object>
     <object name="Lights - Striplight">
       <_description>Striplight</_description>
