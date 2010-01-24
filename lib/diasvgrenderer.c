@@ -420,13 +420,17 @@ draw_arc(DiaRenderer *self,
   real ex=center->x + rx*cos(angle2*G_PI/180);
   real ey=center->y - ry*sin(angle2*G_PI/180);
   int swp = 0; /* always drawin negative direction */
-  int large_arc = (angle2 - angle1 >= 180);
+  int large_arc; 
   gchar sx_buf[DTOSTR_BUF_SIZE];
   gchar sy_buf[DTOSTR_BUF_SIZE];
   gchar rx_buf[DTOSTR_BUF_SIZE];
   gchar ry_buf[DTOSTR_BUF_SIZE];
   gchar ex_buf[DTOSTR_BUF_SIZE];
   gchar ey_buf[DTOSTR_BUF_SIZE];
+
+  if (angle1 > angle2)
+    angle2 += 360;
+  large_arc = (angle2 - angle1 >= 180);
 
   node = xmlNewChild(renderer->root, renderer->svg_name_space, (const xmlChar *)"path", NULL);
   
