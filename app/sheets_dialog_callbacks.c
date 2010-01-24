@@ -397,25 +397,6 @@ on_sheets_dialog_optionmenu_activate   (GtkMenuItem     *menuitem,
 
   gtk_wrap_box_set_aspect_ratio(GTK_WRAP_BOX(wrapbox), 4 * 1.0 / 9);
                                                 /* MCNFIXME: calculate this */
-#ifdef CHANGE_COLOUR_OF_MODIFIED_SHEETS
-  {
-    GtkRcStyle *style;
-
-    style->fg[0].red = style->bg[0].red = 56000;
-    style->fg[1].red = style->bg[1].red = 56000;
-    style->fg[2].red = style->bg[2].red = 56000;
-    style->fg[3].red = style->bg[3].red = 56000;
-    style->fg[4].red = style->bg[4].red = 56000;
-    style->color_flags[0] |= 0x0f;
-    style->color_flags[1] |= 0x0f;
-    style->color_flags[2] |= 0x0f;
-    style->color_flags[3] |= 0x0f;
-    style->color_flags[4] |= 0x0f;
-
-    sw = lookup_widget(sheets_dialog, "scrolledwindow_right");
-    gtk_widget_modify_style(wrapbox, style);
-  }
-#endif
 
   g_object_set_data(G_OBJECT(wrapbox), "sheet_mod", user_data);
 
