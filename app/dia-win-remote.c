@@ -1,9 +1,9 @@
 /* Dia -- an diagram creation/manipulation program
- * Copyright (C) 1998 Alexander Larsson
+ * Copyright (C) 1998 - 2010 Alexander Larsson, Lars Clausen, Hans Breuer
  *
  * dia-win-remote.c
  * Copyright (C) 2002, 2004, 2006 Edward G. Bruck <ebruck@users.sourceforge.net>
- * Copyright (C) 2006 Steffen Macke <sdteffen@gmail.com>
+ * Copyright (C) 2006, 2009 , 2010 Steffen Macke <sdteffen@sdteffen.de>
  *
  * dia-win-remote is a program that allows the user running 9x/2000/XP 
  * to open a dia file in an already running Dia process. If Dia 
@@ -33,22 +33,32 @@
 #include <windows.h>
 #include <shlobj.h>
 #include <shellapi.h>
+#include <Shlwapi.h>
+#include <glib.h>
+#include <glib/gprintf.h>
 
 /**
  * PROTOTYPES:
  */
-int LaunchDia(char* pszCmdLine);
-int DragAndDropDia(HWND hWnd);
+int LaunchDia(int nArgs, LPWSTR *szArglist, int start_at);
+int DragAndDropDia(HWND hWnd, int nArgs, LPWSTR *szArglist, int start_at);
 BOOL CALLBACK FindDiaWindow(HWND hWnd, LPARAM lParam);
 void LoadRegSettings();
 char gszDiaExe[_MAX_PATH] = {0};   /* exe name */
-char gszVersion[] = "dia-win-remote 1.0.0";
+char gszVersion[] = "dia-win-remote 1.1.0";
 BOOL gUseRegVal = FALSE;
 
 int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
                       LPSTR lpCmdLine, int nCmdShow)
 {
     HWND hWnd = NULL; /* Dia's window */
+	LPWSTR *szArglist = NULL;
+	int nArgs;
+	int retval;
+	int start_at = 1;
+	char *filename_utf8 = NULL;
+	char *filename_utf8_down = NULL;
+	GError *error = NULL;
 
     /**
      * load registry setting if it's available
@@ -59,25 +69,36 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
      * was anything found in the registry?
      */
     gUseRegVal = (strlen(gszDiaExe) !=0);
-    if (!gUseRegVal)
+    if (__argc < 2)
     {
-        if (__argc < 3)
-        {
-            MessageBox(NULL, "Usage: dia-win-remote.exe diaw.exe file1 file2 ...",
-                       gszVersion, MB_ICONSTOP);
-            return -1;
-        }
+        MessageBox(NULL, "Usage: dia-win-remote.exe [diaw.exe|dia.exe] [--integrated] file1 file2 ...",
+                   gszVersion, MB_ICONSTOP);
+        return -1;
     }
-    else
-    {
-        if (__argc < 2)
-        {
-            MessageBox(NULL, "Usage: dia-win-remote.exe file1 file2 ...",
-                       gszVersion, MB_ICONSTOP);
-            return -1;
-        }
-    }
-
+	
+	szArglist = CommandLineToArgvW(GetCommandLineW(), &nArgs);
+	if( NULL == szArglist )
+	{
+		MessageBox(NULL, "CommandLineToArgvW failed\n", gszVersion, MB_ICONSTOP);
+		return -1;
+	}
+	
+	/**
+	 * Check if first argument is an executable.
+	 */
+	filename_utf8 = g_utf16_to_utf8(szArglist[1], -1, NULL, NULL, &error);
+	if(error) {
+		MessageBox(NULL, "Error converting to UTF-8!", gszVersion, MB_ICONEXCLAMATION);
+		g_free(filename_utf8);
+		LocalFree(szArglist);
+		return -1;
+	}
+	filename_utf8_down = g_utf8_strdown(filename_utf8, -1);
+	g_free(filename_utf8);
+	if(g_pattern_match_simple("*.exe", filename_utf8_down))
+		start_at = 2;
+	g_free(filename_utf8_down);
+	 
     /**
      * Can't just look for "Dia" as other languages use
      * different title text. Lets do this the hard way
@@ -90,30 +111,32 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
      */
     if (hWnd != NULL)
     {
-        return DragAndDropDia(hWnd);
+        retval = DragAndDropDia(hWnd, nArgs, szArglist, start_at);
     }
     else
-    {
-	/* pass second parameter */ 
-        if (!gUseRegVal)
-            return LaunchDia(strchr(lpCmdLine, ' '));
-        else
-            return LaunchDia(lpCmdLine);
+    { 
+		retval = LaunchDia(nArgs, szArglist, start_at);
     }
+	LocalFree(szArglist);
+	return retval;
 }
-
 
 /* Find path to Dia in the registry and then launch it with the
    passed command line.*/
-int LaunchDia(char* pszCmdLine)
+int LaunchDia(int nArgs, LPWSTR *szArglist, int start_at)
 {
     HKEY hRegData;
     char szAppPath[_MAX_PATH];   /* path to exe */
 	char szDiaKey[255*2]; /* just incase * 2 */
+	char *uri_args = NULL;
+	char *uri_args_cpy = NULL;
+	char *filename_utf8 = NULL;
+	char *filename_uri = NULL;
     DWORD dwSize;
     DWORD dwType = 0;
     DWORD dwDisp;
-    int iRetCode=-1;
+    int i, iRetCode=-1;
+	GError *error = NULL;
 
     /* Read path to Dia */
     sprintf(szDiaKey, "Software\\Microsoft\\Windows\\CurrentVersion\\App Paths\\%s", 
@@ -145,11 +168,53 @@ int LaunchDia(char* pszCmdLine)
                 }
             }
           
+			/**
+			 * Create commandline with URIs
+			 */
+			uri_args_cpy = g_strdup("");
+			for(i = start_at; i<nArgs; i++)
+			{
+				if((0 == wcsncmp(szArglist[i], L"--", 2)) && !PathFileExistsW(szArglist[i]))
+				{
+					uri_args = g_strdup_printf("%s %s", uri_args_cpy, __argv[i]);
+					g_free(uri_args_cpy);
+					uri_args_cpy = uri_args;
+				}
+				else
+				{
+					filename_utf8 = g_utf16_to_utf8(szArglist[i], -1, NULL, NULL, &error);
+					if(error) {
+						MessageBox(NULL, "Error converting to UTF-8!", gszVersion, MB_ICONEXCLAMATION);
+						g_free(filename_utf8);
+						g_free(uri_args);
+						g_free(uri_args_cpy);
+						return -1;
+					}
+					
+					filename_uri = g_filename_to_uri(filename_utf8, NULL, &error);
+					if(error) {
+						MessageBox(NULL, "Error converting to URI!", gszVersion, MB_ICONEXCLAMATION);
+						g_free(filename_uri);
+						g_free(uri_args);
+						g_free(uri_args_cpy);					
+						g_free(filename_utf8);
+						return -1;
+					}
+					else
+					{
+						uri_args = g_strdup_printf("%s %s", uri_args_cpy, filename_uri);
+						g_free(uri_args_cpy);
+						g_free(filename_uri);
+						uri_args_cpy = uri_args;
+					}
+					g_free(filename_utf8);
+				}
+			}
             /**
 	     * Try launching Dia with the passed params.
 	     */
             if (ShellExecute(NULL, "open", szAppPath,
-                             pszCmdLine, szPath, SW_SHOW) <= (HINSTANCE)32)
+                             uri_args, szPath, SW_SHOW) <= (HINSTANCE)32)
             {
                 MessageBox(NULL, "Failed to launch Dia!", gszVersion, MB_ICONEXCLAMATION);
             }
@@ -157,6 +222,8 @@ int LaunchDia(char* pszCmdLine)
             {
                 iRetCode = 0;
             }
+			g_free(uri_args);
+			g_free(uri_args_cpy);
         }
     }
     else
@@ -170,12 +237,10 @@ int LaunchDia(char* pszCmdLine)
     return iRetCode;
 }
 
-
 /**
  * Dia is running, so we simulate a drag & drop event.
- * Uses __argv & __argc for list of files to drop.
  */
-int DragAndDropDia(HWND hWnd)
+int DragAndDropDia(HWND hWnd, int nArgs, LPWSTR *szArglist, int start_at)
 {
     int iNumFiles   = (gUseRegVal) ? __argc-1 : __argc-2;
     int iCurBytePos = sizeof(DROPFILES);
@@ -199,18 +264,21 @@ int DragAndDropDia(HWND hWnd)
     pDropFiles->pFiles = sizeof(DROPFILES);
 
     /* no wide chars and drop point is in client coordinates */
-    pDropFiles->fWide = FALSE;
-    pDropFiles->pt.x = pDropFiles->pt.y = 50;
+    pDropFiles->fWide = TRUE;
+    pDropFiles->pt.x = 50;
+    pDropFiles->pt.y = 150;
     pDropFiles->fNC = FALSE;
 
-    for(i=(gUseRegVal) ? 1 : 2; i < __argc; ++i)
+    for(i = start_at; i < nArgs; ++i)
     {
-        strcpy(((LPSTR)(pDropFiles) + iCurBytePos), __argv[i]);
-        /**
-	 * Move the current position beyond the file name copied.
-         * +1 for NULL terminator
-	 */
-        iCurBytePos += strlen(__argv[i]) + 1;
+		if((0 == wcsncmp(szArglist[i], L"--", 2)) && !PathFileExistsW(szArglist[i]))
+			continue;
+        wcsncpy((LPWSTR)((LPSTR)(pDropFiles) + iCurBytePos), szArglist[i], _MAX_PATH);
+         /**
+		  * Move the current position beyond the file name copied.
+		 * +1 for NULL terminator
+		*/
+        iCurBytePos += (wcslen(szArglist[i]) * sizeof(wchar_t)) + sizeof(wchar_t);
     }
 
     ((LPSTR)(pDropFiles))[iCurBytePos] = 0;
