@@ -775,9 +775,30 @@ app_init (int argc, char **argv)
     /* second level check of command line options, existance of input files etc. */
     if (filenames) {
       while (filenames[i] != NULL) {
-	gchar *filename = g_filename_to_utf8 (filenames[i], -1, NULL, NULL, NULL);
-	gchar *testpath = g_path_is_absolute(filename) ? filename :
-	  g_build_filename(input_directory ? input_directory : ".", filename, NULL);
+	gchar *filename; 
+	gchar *testpath;	  
+
+	if (g_str_has_prefix (filenames[i], "file://")) {
+	  filename = g_filename_from_uri (filenames[i], NULL, NULL);
+	  if (!g_utf8_validate(filename, -1, NULL)) {
+	    gchar *tfn = filename;
+	    filename = g_filename_to_utf8(filename, -1, NULL, NULL, NULL);
+	    g_free(tfn);
+	  }
+	} else
+	  filename = g_filename_to_utf8 (filenames[i], -1, NULL, NULL, NULL);
+
+	if (!filename) {
+	  g_print (_("Filename conversion failed: %s\n"), filenames[i]);
+	  continue;
+	}
+
+	if (g_path_is_absolute(filename))
+	  testpath = filename;
+	else
+	  testpath = g_build_filename(input_directory ? input_directory : ".", filename, NULL);
+
+	/* we still have a problem here, if GLib's file name encoding would not be utf-8 */
 	if (g_file_test (testpath, G_FILE_TEST_IS_REGULAR))
 	  files = g_slist_append(files, filename);
 	else {
