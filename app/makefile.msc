@@ -145,8 +145,8 @@ $(PACKAGE)w.exe : $(OBJECTS) $(PACKAGE).def $(PACKAGE).res winmain.obj $(PACKAGE
 	
 $(PACKAGE)-win-remote.exe : dia-win-remote.c dia-win-remote.obj
 	$(CC) $(CFLAGS) -Fedia-win-remote.exe $(PACKAGE).res dia-win-remote.obj \
-	$(LDFLAGS) gdi32.lib comdlg32.lib user32.lib advapi32.lib shell32.lib \
-	/subsystem:windows
+	$(LDFLAGS) $(GLIB_LIBS) gdi32.lib comdlg32.lib user32.lib advapi32.lib shell32.lib \
+	shlwapi.lib /subsystem:windows
 
 $(PRJ_TOP)/config.h: $(PRJ_TOP)/config.h.win32
 	copy $(PRJ_TOP)\config.h.win32 $(PRJ_TOP)\config.h
