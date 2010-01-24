@@ -25,7 +25,7 @@
 #endif
 #define HAVE_LIBZ
 
-#define VERSION "0.97"
+#define VERSION "0.97.1"
 
 /*
  * We are linking libxml as DLL with either msvc or mingw, but this
