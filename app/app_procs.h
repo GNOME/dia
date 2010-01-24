@@ -18,7 +18,7 @@
 #ifndef APP_PROCS_H
 #define APP_PROCS_H
 
-#include <lib/filter.h>
+#include <glib.h>
 
 void app_init(int argc, char **argv);
 /** Exit the application, but asking the user for confirmation
