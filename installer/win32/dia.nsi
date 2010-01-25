@@ -2248,10 +2248,6 @@ ${File} "..\..\build\win32\help\C\faq_files\" "zig2.png"
 ${File} "..\..\build\win32\help\C\faq_files\" "zig4.png"
 ${File} "..\..\build\win32\help\C\faq_files\" "zig5.png"
 
-${SetOutPath} "$INSTDIR\help\en"
-${File} "..\..\build\win32\help\en\" "dia-manual.chm"
-${File} "..\..\build\win32\help\en\" "dia-manual.pdf"
-
 ${SetOutPath} "$INSTDIR\help\eu"
 ${File} "..\..\build\win32\help\eu\" "dia-manual.chm"
 ${File} "..\..\build\win32\help\eu\" "dia-manual.pdf"
