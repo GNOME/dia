@@ -128,7 +128,7 @@ else:
   AC_CACHE_CHECK([for $am_display_PYTHON script directory],
     [am_cv_python_pythondir],
     [am_cv_python_pythondir=`$PYTHON -c "from distutils import sysconfig; print sysconfig.get_python_lib(0,0,prefix='$PYTHON_PREFIX')" 2>/dev/null ||
-     echo "$PYTHON_PREFIX/lib/python$PYTHON_VERSION/site-packages"`])
+     echo "$PYTHON_PREFIX/${py_lib}/python$PYTHON_VERSION/site-packages"`])
   AC_SUBST([pythondir], [$am_cv_python_pythondir])
 
   dnl pkgpythondir -- $PACKAGE directory under pythondir.  Was
@@ -145,7 +145,7 @@ else:
   AC_CACHE_CHECK([for $am_display_PYTHON extension module directory],
     [am_cv_python_pyexecdir],
     [am_cv_python_pyexecdir=`$PYTHON -c "from distutils import sysconfig; print sysconfig.get_python_lib(1,0,prefix='$PYTHON_EXEC_PREFIX')" 2>/dev/null ||
-     echo "${PYTHON_EXEC_PREFIX}/lib/python${PYTHON_VERSION}/site-packages"`])
+     echo "${PYTHON_EXEC_PREFIX}/${py_lib}/python${PYTHON_VERSION}/site-packages"`])
   AC_SUBST([pyexecdir], [$am_cv_python_pyexecdir])
 
   dnl pkgpyexecdir -- $(pyexecdir)/$(PACKAGE)
@@ -202,6 +202,7 @@ AC_DEFUN([AM_CHECK_PYTHON_HEADERS],
 AC_MSG_CHECKING(for headers required to compile python extensions)
 dnl deduce PYTHON_INCLUDES
 py_prefix=`$PYTHON -c "import sys; print sys.prefix"`
+py_lib=`$PYTHON -c "from distutils import sysconfig; print sysconfig.get_python_lib(0,1)" | cut -d '/' -f 3`
 py_exec_prefix=`$PYTHON -c "import sys; print sys.exec_prefix"`
 PYTHON_INCLUDES="-I${py_prefix}/include/python${PYTHON_VERSION}"
 if test "$py_prefix" != "$py_exec_prefix"; then
@@ -225,7 +226,7 @@ AC_REQUIRE([AM_CHECK_PYTHON_HEADERS])
 
 AC_MSG_CHECKING(for libpython${PYTHON_VERSION}.a)
 
-py_config_dir="$py_prefix/lib/python${PYTHON_VERSION}/config"
+py_config_dir="$py_prefix/$py_lib/python${PYTHON_VERSION}/config"
 
 py_makefile="${py_config_dir}/Makefile"
 if test -f "$py_makefile"; then
@@ -235,7 +236,11 @@ dnl extra required libs
   py_other_libs=`sed -n -e 's/^LIBS=\(.*\)/\1/p' $py_makefile`
 
 dnl now the actual libpython
-  if test -e "${py_config_dir}/libpython${PYTHON_VERSION}.a"; then
+  if test -e "$PYTHON_PREFIX/${py_lib}/libpython${PYTHON_VERSION}.so"; then
+    PYTHON_LIBS="-L${py_config_dir} -lpython${PYTHON_VERSION} $py_localmodlibs $py_basemodlibs $py_other_libs"
+    AC_MSG_RESULT(found)
+  elif test -e "${py_config_dir}/libpython${PYTHON_VERSION}.a"; then
+    dnl Same as above, but looking into the previous location: bug #581533
     PYTHON_LIBS="-L${py_config_dir} -lpython${PYTHON_VERSION} $py_localmodlibs $py_basemodlibs $py_other_libs"
     AC_MSG_RESULT(found)
   else
