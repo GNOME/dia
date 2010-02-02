@@ -3422,6 +3422,7 @@ Section Uninstall
 	Delete "$INSTDIR\bin\libxml2-2.dll"
     DeleteRegKey HKEY_CLASSES_ROOT "diaFile"
     DeleteRegKey HKEY_CLASSES_ROOT ".dia"
+    DeleteRegKey HKEY_CLASSES_ROOT "Applications\dia-win-remote.exe"
     
     ; The WinPrefs plugin may have left this behind..
     DeleteRegValue HKCU "${DIA_STARTUP_RUN_KEY}" "Dia"
