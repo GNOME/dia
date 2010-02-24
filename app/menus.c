@@ -129,7 +129,7 @@ static const GtkActionEntry display_entries[] =
     { "EditReplace", GTK_STOCK_FIND_AND_REPLACE, NULL, "<control>H", NULL, G_CALLBACK (edit_replace_callback) },
 
     /* the following used to bind to <control><shift>C which collides with Unicode input. 
-     * <control>>alt> doesn't work either */
+     * <control><alt> doesn't work either */
     { "EditCopytext", NULL, N_("Copy Text"), NULL, NULL, G_CALLBACK (edit_copy_text_callback) },
     { "EditCuttext", NULL, N_("Cut Text"), "<control><shift>X", NULL, G_CALLBACK (edit_cut_text_callback) },
     { "EditPastetext", NULL, N_("Paste _Text"), "<control><shift>V", NULL, G_CALLBACK (edit_paste_text_callback) },
@@ -137,8 +137,8 @@ static const GtkActionEntry display_entries[] =
   { "Layers", NULL, N_("_Layers"), NULL, NULL, NULL }, 
     { "LayerAdd", DIA_STOCK_LAYER_ADD, N_("Add Layer…"), NULL, NULL, G_CALLBACK (layers_add_layer_callback) },
     { "LayerRename", DIA_STOCK_LAYER_RENAME, N_("Rename Layer…"), NULL, NULL, G_CALLBACK (layers_rename_layer_callback) },
-    { "ObjectsLayerAbove", DIA_STOCK_OBJECTS_LAYER_ABOVE, N_("Move selection to layer above"), NULL, NULL, G_CALLBACK (objects_move_up_layer) },
-    { "ObjectsLayerBelow", DIA_STOCK_OBJECTS_LAYER_BELOW, N_("Move selection to layer below"), NULL, NULL, G_CALLBACK (objects_move_down_layer) },
+    { "ObjectsLayerAbove", DIA_STOCK_OBJECTS_LAYER_ABOVE, N_("Move Selection to Layer above"), NULL, NULL, G_CALLBACK (objects_move_up_layer) },
+    { "ObjectsLayerBelow", DIA_STOCK_OBJECTS_LAYER_BELOW, N_("Move Selection to Layer below"), NULL, NULL, G_CALLBACK (objects_move_down_layer) },
     { "DiagramLayers", DIA_STOCK_LAYERS, N_("_Layers…"), "<control>L", NULL, G_CALLBACK (dialogs_layers_callback) },
 
   { "View", NULL, N_("_View"), NULL, NULL, NULL },
@@ -222,7 +222,7 @@ static const GtkActionEntry tool_entries[] =
   { "Tools", NULL, N_("_Tools"), NULL, NULL, NULL },
     { "ToolsModify", NULL, N_("Modify"), "N", NULL, NULL },
     { "ToolsMagnify", NULL, N_("Magnify"), "M", NULL, NULL },
-    { "ToolsTextedit", NULL, N_("Edit text"), "F2", NULL, NULL },
+    { "ToolsTextedit", NULL, N_("Edit Text"), "F2", NULL, NULL },
     { "ToolsScroll", NULL, N_("Scroll"), "S", NULL, NULL },
     { "ToolsText", NULL, N_("Text"), "T", NULL, NULL },
     { "ToolsBox", NULL, N_("Box"), "R", NULL, NULL },
@@ -243,15 +243,11 @@ static const GtkActionEntry tool_entries[] =
 /* Toggle-Actions for diagram window */
 static const GtkToggleActionEntry display_toggle_entries[] = 
 {
-#ifdef GTK_STOCK_FULLSCREEN /* added with gtk+-2.8, but no reason to depend on it */
     { "ViewFullscreen", GTK_STOCK_FULLSCREEN, NULL, "F11", NULL, G_CALLBACK (view_fullscreen_callback) },
-#else
-    { "ViewFullscreen", NULL, N_("Fullscr_een"), "F11", NULL, G_CALLBACK (view_fullscreen_callback) },
-#endif
-    { "ViewAntialiased", NULL, N_("_AntiAliased"), NULL, NULL, G_CALLBACK (view_aa_callback) },
+    { "ViewAntialiased", NULL, N_("_Antialiased"), NULL, NULL, G_CALLBACK (view_aa_callback) },
     { "ViewShowgrid", NULL, N_("Show _Grid"), NULL, NULL, G_CALLBACK (view_visible_grid_callback) },
-    { "ViewSnaptogrid", NULL, N_("_Snap To Grid"), NULL, NULL, G_CALLBACK (view_snap_to_grid_callback) },
-    { "ViewSnaptoobjects", NULL, N_("Snap To _Objects"), NULL, NULL, G_CALLBACK (view_snap_to_objects_callback) },
+    { "ViewSnaptogrid", NULL, N_("_Snap to Grid"), NULL, NULL, G_CALLBACK (view_snap_to_grid_callback) },
+    { "ViewSnaptoobjects", NULL, N_("Snap to _Objects"), NULL, NULL, G_CALLBACK (view_snap_to_objects_callback) },
     { "ViewShowrulers", NULL, N_("Show _Rulers"), NULL, NULL, G_CALLBACK (view_toggle_rulers_callback)  },
     { "ViewShowconnectionpoints", NULL, N_("Show _Connection Points"), NULL, NULL, G_CALLBACK (view_show_cx_pts_callback) }
 };
