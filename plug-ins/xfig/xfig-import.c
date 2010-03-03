@@ -376,7 +376,7 @@ static int compound_depth;
 static void
 add_at_depth(DiaObject *newobj, int depth) {
     if (depth < 0 || depth >= FIG_MAX_DEPTHS) {
-	message_error(_("Depth %d of of range, only 0-%d allowed.\n"),
+	message_error(_("Depth %d out of range; only 0–%d allowed.\n"),
 		      depth, FIG_MAX_DEPTHS-1);
 	depth = FIG_MAX_DEPTHS - 1;
     }
@@ -1048,7 +1048,7 @@ fig_read_object(FILE *file) {
 	}
 
 	if (colornumber < 32 || colornumber > FIG_MAX_USER_COLORS) {
-	    message_error(_("Color number %d out of range 0..%d.  Discarding color.\n"),
+	    message_error(_("Color number %d out of range 0–%d.  Discarding color.\n"),
 			  colornumber, FIG_MAX_USER_COLORS);
 	    return FALSE;
 	}

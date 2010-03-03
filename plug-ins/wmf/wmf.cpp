@@ -1448,7 +1448,7 @@ print_callback (DiagramData *data,
 
 static DiaCallbackFilter cb_gdi_print = {
     "FilePrintGDI",
-    N_("Print (GDI) ..."),
+    N_("Print (GDI)…"),
     "/InvisibleMenu/File/FilePrint",
     print_callback,
     NULL

@@ -1116,7 +1116,7 @@ dia_color_selector_more_callback(GtkWidget *widget, gpointer userdata)
 GtkWidget *
 dia_color_selector_new ()
 {
-  GtkWidget *otheritem = gtk_menu_item_new_with_label(_("More colors..."));
+  GtkWidget *otheritem = gtk_menu_item_new_with_label(_("More colors…"));
   GtkWidget *ddm = dia_dynamic_menu_new(dia_color_selector_create_string_item,
 					NULL,
 					GTK_MENU_ITEM(otheritem),

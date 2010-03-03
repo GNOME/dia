@@ -161,26 +161,26 @@ on_sheets_dialog_object_button_toggled(GtkToggleButton *togglebutton,
     g_object_set_data(G_OBJECT(table_sheets), "active_optionmenu",
                       optionmenu_left);
     button = lookup_widget(sheets_dialog, "button_copy");
-    g_object_set(button, "label", _("Copy ->"), NULL);
+    g_object_set(button, "label", _("Copy →"), NULL);
     button = lookup_widget(sheets_dialog, "button_copy_all");
-    g_object_set(button, "label", _("Copy All ->"), NULL);
+    g_object_set(button, "label", _("Copy All →"), NULL);
     button = lookup_widget(sheets_dialog, "button_move");
-    g_object_set(button, "label", _("Move ->"), NULL);
+    g_object_set(button, "label", _("Move →"), NULL);
     button = lookup_widget(sheets_dialog, "button_move_all");
-    g_object_set(button, "label", _("Move All ->"), NULL);
+    g_object_set(button, "label", _("Move All →"), NULL);
   }
   else
   {
     g_object_set_data(G_OBJECT(table_sheets), "active_optionmenu",
                       optionmenu_right);
     button = lookup_widget(sheets_dialog, "button_copy");
-    g_object_set(button, "label", _("<- Copy"), NULL);
+    g_object_set(button, "label", _("← Copy"), NULL);
     button = lookup_widget(sheets_dialog, "button_copy_all");
-    g_object_set(button, "label", _("<- Copy All"), NULL);
+    g_object_set(button, "label", _("← Copy All"), NULL);
     button = lookup_widget(sheets_dialog, "button_move");
-    g_object_set(button, "label", _("<- Move"), NULL);
+    g_object_set(button, "label", _("← Move"), NULL);
     button = lookup_widget(sheets_dialog, "button_move_all");
-    g_object_set(button, "label", _("<- Move All"), NULL);
+    g_object_set(button, "label", _("← Move All"), NULL);
   }
 
   sheet_left = sheet_left ? sheet_left : "";  /* initial value can be NULL */

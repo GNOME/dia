@@ -481,7 +481,7 @@ begin_render(DiaRenderer *self)
   if (renderer->color_pass) {
     /* Set up warnings */
     renderer->warnings[WARNING_OUT_OF_COLORS] = 
-      _("No more user-definable colors - using black");
+      _("No more user-definable colors — using black");
     renderer->max_user_color = 0;
   }
 

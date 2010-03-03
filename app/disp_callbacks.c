@@ -123,7 +123,7 @@ add_properties_menu_item (GtkMenu *menu, gboolean separator)
     gtk_widget_show(menu_item);
   }
 
-  menu_item = gtk_menu_item_new_with_label(_("Properties..."));
+  menu_item = gtk_menu_item_new_with_label(_("Properties…"));
   g_signal_connect(GTK_OBJECT(menu_item), "activate", G_CALLBACK(dialogs_properties_callback), NULL);
   gtk_menu_shell_append (GTK_MENU_SHELL (menu), menu_item);
   gtk_widget_show(menu_item);

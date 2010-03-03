@@ -54,7 +54,7 @@ app_splash_init (const gchar* fname)
 
   splash = gtk_window_new (GTK_WINDOW_TOPLEVEL);
   gtk_window_set_role (GTK_WINDOW (splash), "start_dialog");
-  gtk_window_set_title (GTK_WINDOW (splash), _("Loading ..."));
+  gtk_window_set_title (GTK_WINDOW (splash), _("Loading…"));
   gtk_window_set_resizable (GTK_WINDOW (splash), FALSE);
   gtk_window_set_position (GTK_WINDOW (splash), GTK_WIN_POS_CENTER);
 

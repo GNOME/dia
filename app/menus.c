@@ -89,16 +89,16 @@ static const GtkActionEntry common_entries[] =
 /* Actions for toolbox menu */
 static const GtkActionEntry toolbox_entries[] = 
 {
-    { "FileSheets", NULL, N_("Sheets and Objects..."), "F9", NULL, G_CALLBACK (sheets_dialog_show_callback) },
+    { "FileSheets", NULL, N_("Sheets and Objects…"), "F9", NULL, G_CALLBACK (sheets_dialog_show_callback) },
     { "FilePrefs", GTK_STOCK_PREFERENCES, NULL, NULL, NULL, G_CALLBACK (file_preferences_callback) },
-    { "FilePlugins", NULL, N_("Plugins..."), NULL, NULL, G_CALLBACK (file_plugins_callback) }
+    { "FilePlugins", NULL, N_("Plugins…"), NULL, NULL, G_CALLBACK (file_plugins_callback) }
 };
 
 extern void diagram_tree_show(void);
 /* Toggle-Actions for toolbox menu */
 static const GtkToggleActionEntry toolbox_toggle_entries[] = 
 {
-    { "FileTree", NULL, N_("_Diagram tree..."), "F8", NULL, G_CALLBACK (diagtree_show_callback) },
+    { "FileTree", NULL, N_("_Diagram Tree…"), "F8", NULL, G_CALLBACK (diagtree_show_callback) },
     { "DiagramTree", NULL, N_("_Diagram tree"), NULL, NULL, G_CALLBACK (diagram_tree_show) }
 };
 
@@ -115,9 +115,9 @@ static const GtkActionEntry display_entries[] =
 {
     { "FileSave", GTK_STOCK_SAVE, NULL, "<control>S", N_("Save the diagram"), G_CALLBACK (file_save_callback) },
     { "FileSaveas", GTK_STOCK_SAVE_AS, NULL, "<control><shift>S", N_("Save the diagram with a new name"), G_CALLBACK (file_save_as_callback) },
-    { "FileExport", GTK_STOCK_CONVERT, N_("_Export ..."), NULL, N_("Export the diagram"), G_CALLBACK (file_export_callback) },
+    { "FileExport", GTK_STOCK_CONVERT, N_("_Export…"), NULL, N_("Export the diagram"), G_CALLBACK (file_export_callback) },
     { "DiagramProperties", GTK_STOCK_PROPERTIES, N_("_Diagram Properties"), "<shift><alt>Return", NULL, G_CALLBACK (view_diagram_properties_callback) },
-    { "FilePagesetup", NULL, N_("Page Set_up..."), NULL, NULL, G_CALLBACK (file_pagesetup_callback) },
+    { "FilePagesetup", NULL, N_("Page Set_up…"), NULL, NULL, G_CALLBACK (file_pagesetup_callback) },
     { "FilePrint", GTK_STOCK_PRINT, NULL, "<control>P", N_("Print the diagram"), G_CALLBACK (file_print_callback) },
     { "FileClose", GTK_STOCK_CLOSE, NULL, "<control>W", NULL, G_CALLBACK (file_close_callback) },
 
@@ -141,11 +141,11 @@ static const GtkActionEntry display_entries[] =
     { "EditPastetext", NULL, N_("Paste _Text"), "<control><shift>V", NULL, G_CALLBACK (edit_paste_text_callback) },
 
   { "Layers", NULL, N_("_Layers"), NULL, NULL, NULL }, 
-    { "LayerAdd", DIA_STOCK_LAYER_ADD, N_("Add Layer..."), NULL, NULL, G_CALLBACK (layers_add_layer_callback) },
-    { "LayerRename", DIA_STOCK_LAYER_RENAME, N_("Rename Layer..."), NULL, NULL, G_CALLBACK (layers_rename_layer_callback) },
+    { "LayerAdd", DIA_STOCK_LAYER_ADD, N_("Add Layer…"), NULL, NULL, G_CALLBACK (layers_add_layer_callback) },
+    { "LayerRename", DIA_STOCK_LAYER_RENAME, N_("Rename Layer…"), NULL, NULL, G_CALLBACK (layers_rename_layer_callback) },
     { "ObjectsLayerAbove", DIA_STOCK_OBJECTS_LAYER_ABOVE, N_("Move selection to layer above"), NULL, NULL, G_CALLBACK (objects_move_up_layer) },
     { "ObjectsLayerBelow", DIA_STOCK_OBJECTS_LAYER_BELOW, N_("Move selection to layer below"), NULL, NULL, G_CALLBACK (objects_move_down_layer) },
-    { "DiagramLayers", DIA_STOCK_LAYERS, N_("_Layers..."), "<control>L", NULL, G_CALLBACK (dialogs_layers_callback) },
+    { "DiagramLayers", DIA_STOCK_LAYERS, N_("_Layers…"), "<control>L", NULL, G_CALLBACK (dialogs_layers_callback) },
 
   { "View", NULL, N_("_View"), NULL, NULL, NULL },
     { "ViewZoomin", GTK_STOCK_ZOOM_IN, NULL, "<control>plus", N_("Zoom in"), G_CALLBACK (view_zoom_in_callback) },

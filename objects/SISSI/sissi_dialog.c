@@ -178,7 +178,7 @@ static SISSI_Property property_reseau_data[] = {
 static SISSI_Property property_logiciel_data[] = {
   { N_("Software"), "LOG",NULL},
     { N_("Operating System"), "LOG_OS",NULL},
-    { N_("Service - maintenance or administration software"), "LOG_SRV",NULL},
+    { N_("Service — maintenance or administration software"), "LOG_SRV",NULL},
     { N_("Packaged software or standard software"), "LOG_STD",NULL},
     { N_("Business application"), "LOG_APP",NULL},
       { N_("Standard business application"), "LOG_APP1",NULL},

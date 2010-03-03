@@ -6,16 +6,16 @@
 	<contents>
 
 		<object name="Cybernetics - l-sens">
-			<_description>Sensor - left</_description>
+			<_description>Sensor — left</_description>
 		</object>
 		<object name="Cybernetics - r-sens">
-			<_description>Sensor - right</_description>
+			<_description>Sensor — right</_description>
 		</object>
 		<object name="Cybernetics - b-sens">
-			<_description>Sensor - bottom</_description>
+			<_description>Sensor — bottom</_description>
 		</object>
 		<object name="Cybernetics - t-sens">
-			<_description>Sensor - top</_description>
+			<_description>Sensor — top</_description>
 		</object>
 
 		<br/>
@@ -36,16 +36,16 @@
 		<br/>
 
 		<object name="Cybernetics - l-integrator">
-			<_description>Integrator - input left</_description>
+			<_description>Integrator — input left</_description>
 		</object>
 		<object name="Cybernetics - r-integrator">
-			<_description>Integrator - input right</_description>
+			<_description>Integrator — input right</_description>
 		</object>
 		<object name="Cybernetics - b-integrator">
-			<_description>Integrator - input bottom</_description>
+			<_description>Integrator — input bottom</_description>
 		</object>
 		<object name="Cybernetics - t-integrator">
-			<_description>Integrator - input top</_description>
+			<_description>Integrator — input top</_description>
 		</object>
 
 		<br/>

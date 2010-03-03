@@ -823,7 +823,7 @@ import_svg(const gchar *filename, DiagramData *dia, void* user_data)
   }
 
   if (root->ns != svg_ns && 0 != xmlStrcmp(root->name, (const xmlChar *)"svg")) {
-    message_warning(_("root element was '%s' -- expecting 'svg'."), root->name);
+    message_warning(_("root element was '%s' — expecting 'svg'."), root->name);
     xmlFreeDoc(doc);
     return FALSE;
   }

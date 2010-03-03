@@ -335,7 +335,7 @@ dia_line_chooser_init (DiaLineChooser *lchooser)
     gtk_menu_shell_append (GTK_MENU_SHELL (menu), mi);
     gtk_widget_show (mi);
   }
-  mi = gtk_menu_item_new_with_label(_("Details..."));
+  mi = gtk_menu_item_new_with_label(_("Details…"));
   g_signal_connect_swapped(G_OBJECT(mi), "activate",
 			   G_CALLBACK(gtk_widget_show), lchooser->dialog);
   gtk_menu_shell_append (GTK_MENU_SHELL (menu), mi);
