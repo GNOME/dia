@@ -6478,7 +6478,7 @@ msgstr "Unknown arrow type %d\n"
 #: ../plug-ins/xfig/xfig-import.c:379
 #, c-format
 msgid "Depth %d of of range, only 0-%d allowed.\n"
-msgstr "Depth %d of of range; only 0–%d allowed.\n"
+msgstr "Depth %d out of range; only 0–%d allowed.\n"
 
 #: ../plug-ins/xfig/xfig-import.c:426
 #, c-format
