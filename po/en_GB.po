@@ -101,7 +101,7 @@ msgstr "Export graphics size"
 
 #: ../app/app_procs.c:713
 msgid "WxH"
-msgstr "W×H"
+msgstr "WxH"
 
 #: ../app/app_procs.c:715
 msgid ""
@@ -109,7 +109,7 @@ msgid ""
 "name or a range of layer numbers (X-Y)"
 msgstr ""
 "Show only specified layers (e.g. when exporting). Can be either the layer "
-"name or a range of layer numbers (X–Y)."
+"name or a range of layer numbers (X-Y)."
 
 #: ../app/app_procs.c:716
 msgid "LAYER,LAYER,..."
