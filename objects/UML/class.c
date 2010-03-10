@@ -185,9 +185,9 @@ static PropDescription umlclass_props[] = {
   { "abstract_font", PROP_TYPE_FONT, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
   N_("Abstract"), NULL, NULL },
   { "classname_font", PROP_TYPE_FONT, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
-  N_("Classname"), NULL, NULL },
+  N_("Class Name"), NULL, NULL },
   { "abstract_classname_font", PROP_TYPE_FONT, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
-  N_("Abstract Classname"), NULL, NULL },
+  N_("Abstract Class Name"), NULL, NULL },
   { "comment_font", PROP_TYPE_FONT, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
   N_("Comment"), NULL, NULL },
 

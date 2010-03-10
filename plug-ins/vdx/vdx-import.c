@@ -2093,7 +2093,7 @@ plot_image(const struct vdx_Geom *Geom, const struct vdx_XForm *XForm,
         if (!image_dir) return 0;
         if (g_mkdir(image_dir, 0700))
         {
-            message_error(_("Couldn't make object dir %s"), image_dir);
+            message_error(_("Couldn't make object directory %s"), image_dir);
             return 0;
         }
     }

@@ -89,7 +89,7 @@ static SISSI_Property property_organisation_data[] = {
      { N_("Higher-tier organisation"), "ORG_DEP",NULL},
      { N_("Structure of the organisation"), "ORG_GEN",NULL},
      { N_("Project or system organisation"), "ORG_PRO",NULL},
-     { N_("Subcontractors / Suppliers / Manufacturers"),"ORG_EXT",NULL},
+     { N_("Subcontractors/Suppliers/Manufacturers"),"ORG_EXT",NULL},
   { NULL,0,NULL}
 };
 
@@ -102,7 +102,7 @@ static SISSI_Property property_physic_data[] = {
    { N_("Essential Services"), "PHY_SRV",NULL},
      { N_("Communication"), "PHY_SRV1",NULL},
      { N_("Power"), "PHY_SRV2",NULL},
-     { N_("Cooling / Pollution"), "PHY_SRV3",NULL},
+     { N_("Cooling/Pollution"), "PHY_SRV3",NULL},
   { NULL, 0,NULL}
 };
 static SISSI_Property property_physic_detecTHERMIC_data[] = {
@@ -163,7 +163,7 @@ static SISSI_Property property_personnel_data[] = {
    { N_("Technical administrator"), "PER_TECH_ADMIN",NULL},
    { N_("SSI administrator"), "PER_SSI_ADMIN",NULL},
    { N_("Developer"), "PER_DEV",NULL},
-   { N_("Operator / Maintenance"), "PER_EXP",NULL},
+   { N_("Operator/Maintenance"), "PER_EXP",NULL},
   { NULL, 0,NULL}
 };
 

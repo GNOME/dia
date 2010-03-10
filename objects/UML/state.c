@@ -476,7 +476,7 @@ state_load(ObjectNode obj_node, int version, const char *filename)
   if (obj->state_type != STATE_NORMAL) {
     /* Would like to create a state_term instead, but making the connections
      * is a pain */
-    message_warning(_("This diagram uses the State object for initial/final states.\nThat option will go away in future versions.\nPlease use the Initial/Final State object instead\n"));
+    message_warning(_("This diagram uses the State object for initial/final states.\nThis option will go away in future versions.\nPlease use the Initial/Final State object instead.\n"));
   }
   return (DiaObject *)obj;
 }

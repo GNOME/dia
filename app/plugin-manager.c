@@ -281,7 +281,7 @@ get_plugin_manager(void)
   gtk_tree_view_append_column (GTK_TREE_VIEW (tree_view), col);
 
   col = gtk_tree_view_column_new_with_attributes(
-		   _("File Name"), gtk_cell_renderer_text_new (),
+		   _("Filename"), gtk_cell_renderer_text_new (),
 		   "text", FILENAME_COLUMN, NULL);
   gtk_tree_view_column_set_sort_column_id (col, FILENAME_COLUMN);
   gtk_tree_view_append_column (GTK_TREE_VIEW (tree_view), col);

@@ -218,13 +218,13 @@ static PropOffset compound_offsets[] =
 #define FLIP_HORIZONTAL 2
 
 static DiaMenuItem compound_menu_items[] = {
-  { N_("Flip arms verticaly"), compound_flip_arms_cb,
+  { N_("Flip arms vertically"), compound_flip_arms_cb,
     GINT_TO_POINTER(1), DIAMENU_ACTIVE },
-  { N_("Flip arms horizontaly"), compound_flip_arms_cb,
+  { N_("Flip arms horizontally"), compound_flip_arms_cb,
     GINT_TO_POINTER(2), DIAMENU_ACTIVE },
-  { N_("Center mount point verticaly"), compound_repos_mount_point_cb,
+  { N_("Center mount point vertically"), compound_repos_mount_point_cb,
     GINT_TO_POINTER (CENTER_VERTICAL), DIAMENU_ACTIVE },
-  { N_("Center mount point horizontaly"), compound_repos_mount_point_cb,
+  { N_("Center mount point horizontally"), compound_repos_mount_point_cb,
     GINT_TO_POINTER (CENTER_HORIZONTAL), DIAMENU_ACTIVE },
   { N_("Center mount point"), compound_repos_mount_point_cb,
     GINT_TO_POINTER (CENTER_BOTH), DIAMENU_ACTIVE }

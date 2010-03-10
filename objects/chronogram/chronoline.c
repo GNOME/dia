@@ -155,11 +155,11 @@ static PropDescription chronoline_props[] = {
   { "help", PROP_TYPE_STATIC,
     PROP_FLAG_VISIBLE|PROP_FLAG_DONT_SAVE|PROP_FLAG_DONT_MERGE,
     N_("Event specification"),N_(
-   "@ time    set the pointer at an absolute time.\n"
-   "( duration  sets the signal up, then wait 'duration'.\n"
-   ") duration  sets the signal down, then wait 'duration'.\n" 
-   "u duration  sets the signal to \"unknown\" state, then wait 'duration'.\n"
-   "example : @ 1.0 (2.0)1.0(2.0)\n" )},
+   "@ time    set the pointer to an absolute time.\n"
+   "( duration  set the signal up, then wait 'duration'.\n"
+   ") duration  set the signal down, then wait 'duration'.\n" 
+   "u duration  set the signal to \"unknown\" state, then wait 'duration'.\n"
+   "Example: @ 1.0 (2.0)1.0(2.0)\n" )},
 
   PROP_NOTEBOOK_PAGE("parameters",0,N_("Parameters")),
   { "start_time",PROP_TYPE_REAL,PROP_FLAG_VISIBLE,

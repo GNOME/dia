@@ -160,7 +160,7 @@ prop_list_load(GPtrArray *props, DataNode data, GError **err)
       if (err && !*err)
 	*err = g_error_new (DIA_ERROR,
                             DIA_ERROR_FORMAT,
-			    _("No attribute '%s' (%p) or no data(%p) in this attribute"),
+			    _("No attribute '%s' (%p) or no data (%p) in this attribute"),
 			    prop->name,attr,data);
       prop->experience |= PXP_NOTSET;
       ret = FALSE;

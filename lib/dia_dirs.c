@@ -256,7 +256,7 @@ dia_get_absolute_filename (const gchar *filename)
   if (strchr(fullname, '.') == NULL) return fullname;
   canonical = dia_get_canonical_path(fullname);
   if (canonical == NULL) {
-    message_warning(_("Too many ..'s in filename %s\n"),
+    message_warning(_("Too many \"..\"s in filename %s\n"),
                     dia_message_filename(filename));
     return g_strdup(filename);
   }

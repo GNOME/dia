@@ -512,7 +512,7 @@ set_font(DiaRenderer *self, DiaFont *font, real height)
 	else
 	{
 	    gchar *desc = pango_font_description_to_string (dia_font_get_description (font));
-	    message_warning (_("Can not render unknown font:\n%s"), desc);
+	    message_warning (_("Cannot render unknown font:\n%s"), desc);
 	    g_free (desc);
 	}
 #else

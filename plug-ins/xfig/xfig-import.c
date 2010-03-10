@@ -108,7 +108,7 @@ fig_color(int color_index)
     else if (color_index < FIG_MAX_USER_COLORS) 
 	return fig_colors[color_index-FIG_MAX_DEFAULT_COLORS];
     else {
-	message_error(_("Color index %d too high, only 512 colors allowed. Using black instead."),
+	message_error(_("Color index %d too high; only 512 colors allowed. Using black instead."),
 		      color_index);
 	return color_black;
     }
@@ -163,7 +163,7 @@ fig_line_style_to_dia(int line_style)
     case 4:
         return LINESTYLE_DASH_DOT_DOT;
     case 5:
-        message_warning(_("Triple-dotted lines are not supported by Dia, "
+        message_warning(_("Triple-dotted lines are not supported by Dia; "
 			  "using double-dotted"));
         return LINESTYLE_DASH_DOT_DOT;
     default:
@@ -524,7 +524,7 @@ fig_read_polyline(FILE *file) {
 	    (RealProperty *)make_new_prop("corner_radius",
 					  PROP_TYPE_REAL,PROP_FLAG_DONT_SAVE);
 	if (radius < 0) {
-	    message_warning(_("Negative corner radius, negating"));
+	    message_warning(_("Negative corner radius; negating"));
 	    rprop->real_data = -radius/FIG_ALT_UNIT;
 	} else {
 	    rprop->real_data = radius/FIG_ALT_UNIT;

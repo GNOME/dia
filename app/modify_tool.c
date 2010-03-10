@@ -389,7 +389,7 @@ modify_move_already(ModifyTool *tool, DDisplay *ddisp, Point *to)
        move --Lars */
     GtkSettings *settings = gtk_settings_get_default();
     if (settings == NULL) {
-      g_message(_("Couldn't get GTK settings"));
+      g_message(_("Couldn't get GTK+ settings"));
     } else {
       g_object_get(G_OBJECT(settings), 
 		   "gtk-double-click-time", &double_click_time, NULL);

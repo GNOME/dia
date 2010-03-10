@@ -42,7 +42,7 @@ static PropEnumData propriete_confidentialite_data[] = {
   { N_("NATO Confidential") , NATO_CONFIDENTIAL },
   { N_("Personal Confidential") , PERSONAL_CONFIDENTIAL },
   { N_("Medical Confidential") , MEDICAL_CONFIDENTIAL },
-  { N_("Industrie Confidential") , INDUSTRIE_CONFIDENTIAL },
+  { N_("Industry Confidential") , INDUSTRIE_CONFIDENTIAL },
   { N_("Defense Confidential") , DEFENSE_CONFIDENTIAL },
   { N_("Secret") , SECRET },
   { N_("Defense Secret") , DEFENSE_SECRET },

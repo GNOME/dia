@@ -360,7 +360,7 @@ dia_plugin_init(PluginInfo *info)
 	    filter_register_export(&my_export_filter);
 	    return DIA_PLUGIN_INIT_OK;
 	} else {
-	    message_error (_("No valid configuration files found for the XSLT plugin, not loading."));
+	    message_error (_("No valid configuration files found for the XSLT plugin; not loading."));
 	    return DIA_PLUGIN_INIT_ERROR;
 	}
 }

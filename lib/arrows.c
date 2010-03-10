@@ -2042,7 +2042,7 @@ sanitize_arrow(Arrow *arrow)
 
   if (arrow->length < MIN_ARROW_DIMENSION ||
       arrow->width < MIN_ARROW_DIMENSION) {
-    message_warning(_("Arrow head of type %s has too small dimensions, removing.\n"),
+    message_warning(_("Arrow head of type %s has too small dimensions; removing.\n"),
 		    arrow_get_name_from_type(arrow->type));
     arrow->type = ARROW_NONE;
     arrow->width = DEFAULT_ARROW_WIDTH;

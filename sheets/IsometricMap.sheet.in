@@ -28,7 +28,7 @@
 
 <object name="River"><_description>River</_description></object>
 
-<object name="Roof1"><_description>Roof1</_description></object>
+<object name="Roof1"><_description>Roof 1</_description></object>
 <object name="Block1"><_description>Block 1, 2:4</_description></object>
 <object name="Block2"><_description>Block 2, 2:8</_description></object>
 <object name="Block3"><_description>Block 3, 4:4</_description></object>

@@ -141,9 +141,9 @@ static PropDescription grid_object_props[] = {
   { "grid_cols", PROP_TYPE_INT, PROP_FLAG_VISIBLE,
     N_("Columns"), NULL, &rows_columns_range },
   { "gridline_colour", PROP_TYPE_COLOUR, PROP_FLAG_VISIBLE,
-    N_("Gridline color"), NULL, NULL },
+    N_("Grid line color"), NULL, NULL },
   { "gridline_width", PROP_TYPE_REAL, PROP_FLAG_VISIBLE,
-    N_("Gridline width"), NULL, &prop_std_line_width_data },
+    N_("Grid line width"), NULL, &prop_std_line_width_data },
   
   {NULL}
 };

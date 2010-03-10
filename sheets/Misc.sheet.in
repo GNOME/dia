@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?> <!-- -*- xml -*- -->
 <sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
-  <_name>Misc</_name>
+  <_name>Miscellaneous</_name>
   <_description>Miscellaneous Shapes</_description>
   <contents>
     <object name="Misc - Tree">
@@ -13,10 +13,10 @@
       <_description>File</_description>
     </object>
     <object name="Misc - expensible node">
-      <_description>expensible node</_description>
+      <_description>expansible node</_description>
     </object>
     <object name="Misc - expended node">
-      <_description>expended node</_description>
+      <_description>expanded node</_description>
     </object>
     <object name="Misc - Analog Clock">
       <_description>Traditional clock</_description>

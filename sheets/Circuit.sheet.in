@@ -73,10 +73,10 @@
       <_description>Vertically aligned fuse</_description>
     </object>
     <object name="Circuit - Horizontal Powersource (European)">
-      <_description>Horizontally aligned powersource</_description>
+      <_description>Horizontally aligned power source</_description>
     </object>
     <object name="Circuit - Vertical Powersource (European)">
-      <_description>Vertically aligned powersource</_description>
+      <_description>Vertically aligned power source</_description>
     </object>
     <object name="Circuit - Lamp (European)">
       <_description>Lamp</_description>

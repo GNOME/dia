@@ -199,7 +199,7 @@ static PropDescription table_props[] =
     { "normal_font", PROP_TYPE_FONT, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
       N_("Normal"), NULL, NULL },
     { "name_font", PROP_TYPE_FONT, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
-      N_("Tablename"), NULL, NULL },
+      N_("Table name"), NULL, NULL },
     { "comment_font", PROP_TYPE_FONT, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
       N_("Comment"), NULL, NULL },
     PROP_MULTICOL_COLUMN("height"),

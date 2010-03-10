@@ -694,8 +694,8 @@ image_load(ObjectNode obj_node, int version, const char *filename)
 
 	if (image->image != NULL) {
 	  /* Found file in same dir as diagram. */
-	  message_warning(_("The image file '%s' was not found in that directory.\n"
-			  "Using the file '%s' instead\n"), image->file, temp_string);
+	  message_warning(_("The image file '%s' was not found in the specified directory.\n"
+			  "Using the file '%s' instead.\n"), image->file, temp_string);
 	  g_free(image->file);
 	  image->file = temp_string;
 	} else {
@@ -705,8 +705,8 @@ image_load(ObjectNode obj_node, int version, const char *filename)
 	  if (image->image != NULL) {
 	    char *tmp;
 	    /* Found file in current dir. */
-	    message_warning(_("The image file '%s' was not found in that directory.\n"
-			    "Using the file '%s' instead\n"), image->file, image_file_name);
+	    message_warning(_("The image file '%s' was not found in the specified directory.\n"
+			    "Using the file '%s' instead.\n"), image->file, image_file_name);
 	    tmp = image->file;
 	    image->file = g_strdup(image_file_name);
 	    g_free(tmp);

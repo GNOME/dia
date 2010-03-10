@@ -253,7 +253,7 @@ show_layers_parse_word(DiagramData *diagdata, gboolean *visible_layers, gint n_l
   }
 
   if (found == FALSE)
-    g_print(_("Warning: There is no layer named %s\n"), str);
+    g_print(_("Warning: There is no layer named %s.\n"), str);
 }
 
 static void
@@ -344,7 +344,7 @@ do_convert(const char *infname,
   dia_is_interactive = FALSE;
 
   if (0==strcmp(infname,outfname)) {
-    g_critical(_("%s error: input and output file name is identical: %s"),
+    g_critical(_("%s error: input and output filenames are identical: %s"),
             argv0, infname);
     exit(1);
   }
@@ -717,7 +717,7 @@ app_init (int argc, char **argv)
     {"nosplash", 'n', 0, G_OPTION_ARG_NONE, &nosplash,
      N_("Don't show the splash screen"), NULL },
     {"nonew", 'n', 0, G_OPTION_ARG_NONE, &nonew,
-     N_("Don't create empty diagram"), NULL },
+     N_("Don't create an empty diagram"), NULL },
     {"integrated", '\0', 0, G_OPTION_ARG_NONE, &use_integrated_ui,
      N_("Start integrated user interface (diagrams in tabs)"), NULL },
     {"log-to-stderr", 'l', 0, G_OPTION_ARG_NONE, &log_to_stderr,
@@ -1012,7 +1012,7 @@ app_exit(void)
 
   if (app_exit_once) {
     g_error(_("This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\n"
-	      "describing how you can cause this message to appear.\n"));
+	      "describing how you caused this message to appear.\n"));
     return FALSE;
   }
 
@@ -1165,17 +1165,17 @@ static void create_user_dirs(void)
    */
   if (!g_get_home_dir())
   {
-    g_warning(_("Could not create per-user Dia config directory"));
+    g_warning(_("Could not create per-user Dia configuration directory"));
     return; /* ... and return. Probably removes my one and only FAQ. --HB */
   }
 #endif
   dir = g_strconcat(g_get_home_dir(), G_DIR_SEPARATOR_S ".dia", NULL);
   if (g_mkdir(dir, 0755) && errno != EEXIST) {
 #ifndef G_OS_WIN32
-    g_critical(_("Could not create per-user Dia config directory"));
+    g_critical(_("Could not create per-user Dia configuration directory"));
     exit(1);
 #else /* HB: it this really a reason to exit the program on *nix ? */
-    g_warning(_("Could not create per-user Dia config directory. Please make "
+    g_warning(_("Could not create per-user Dia configuration directory. Please make "
         "sure that the environment variable HOME points to an existing directory."));
 #endif
   }

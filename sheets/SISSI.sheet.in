@@ -244,7 +244,7 @@
       <icon>SISSI/onduleur_icon.png</icon>
     </object>
    <object name="SISSI - sissi_object" intdata="62">
-      <_description>Airconditioner</_description>
+      <_description>Air conditioner</_description>
       <icon>SISSI/aircooler_icon.png</icon>
     </object>
    <object name="SISSI - sissi_object" intdata="63">
