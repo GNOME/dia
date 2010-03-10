@@ -228,9 +228,9 @@ DiaPrefData prefs_data[] =
   { "favored_ps_export", PREF_CHOICE, PREF_OFFSET(favored_filter.ps), &default_favored_filter, 
     FAVOR_TAB, N_("PostScript"), NULL, FALSE, get_exporter_names, set_favored_exporter, "PS" },
   { "favored_wmf_export", PREF_CHOICE, PREF_OFFSET(favored_filter.wmf), &default_favored_filter, 
-    FAVOR_TAB, N_("Windows MetaFile"), NULL, FALSE, get_exporter_names, set_favored_exporter, "WMF" },
+    FAVOR_TAB, N_("Windows Metafile"), NULL, FALSE, get_exporter_names, set_favored_exporter, "WMF" },
   { "favored_emf_export", PREF_CHOICE, PREF_OFFSET(favored_filter.emf), &default_favored_filter, 
-    FAVOR_TAB, N_("Enhanced MetaFile"), NULL, FALSE, get_exporter_names, set_favored_exporter, "EMF" },
+    FAVOR_TAB, N_("Enhanced Metafile"), NULL, FALSE, get_exporter_names, set_favored_exporter, "EMF" },
   { NULL, PREF_END_GROUP, 0, NULL, FAVOR_TAB, NULL },
 
   /*{ NULL, PREF_NONE, 0, NULL, 3, N_("Grid:") }, */

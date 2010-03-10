@@ -81,7 +81,7 @@
       <_description>Class stereotype icon</_description>
     </object>
     <object name="UML - State Term">
-      <_description>Initial/end state</_description>
+      <_description>Initial/End state</_description>
     </object>
     <object name="UML - State">
       <_description>State</_description>
@@ -93,7 +93,7 @@
       <_description>Branch</_description>
     </object>
     <object name="UML - Fork">
-      <_description>Fork/union</_description>
+      <_description>Fork/Union</_description>
     </object>
     <object name="UML - Transition">
       <_description>Transition</_description>

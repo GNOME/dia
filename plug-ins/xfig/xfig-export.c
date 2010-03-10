@@ -458,7 +458,7 @@ figArrow(XfigRenderer *renderer, Arrow *arrow, real line_width)
   case ARROW_FILLED_DIAMOND:
     type = 3; style = 1; break;
   default:
-    message_warning(_("FIG format has no equivalent of arrow style %s, using simple arrow.\n"), 
+    message_warning(_("Fig format has no equivalent of arrow style %s; using simple arrow.\n"), 
 		    arrow_get_name_from_type(arrow->type));
     /* Notice fallthrough */
   case ARROW_FILLED_CONCAVE:
@@ -1202,7 +1202,7 @@ export_fig(DiagramData *data, const gchar *filename,
 
 static const gchar *extensions[] = { "fig", NULL };
 DiaExportFilter xfig_export_filter = {
-  N_("XFig format"),
+  N_("Xfig format"),
   extensions,
   export_fig
 };

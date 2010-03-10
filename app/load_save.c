@@ -303,7 +303,7 @@ read_connections(GList *objects, xmlNodePtr layer_node,
 	    broken = TRUE;
 	  } else if (handle < 0 || handle >= obj->num_handles) {
 	    message_error(_("Error loading diagram.\n"
-			    "connection handle %d does not exist on '%s'."),
+			    "Connection handle %d does not exist on '%s'."),
 			    handle, to->type->name);
 	    broken = TRUE;
 	  } else {
@@ -321,7 +321,7 @@ read_connections(GList *objects, xmlNodePtr layer_node,
 	      }
 	    } else {
 	      message_error(_("Error loading diagram.\n"
-			      "connection point %d does not exist on '%s'."),
+			      "Connection point %d does not exist on '%s'."),
 			    conn, to->type->name);
 	      broken = TRUE;
 	    }

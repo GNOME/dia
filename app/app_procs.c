@@ -1198,7 +1198,7 @@ static PluginInitResult
 internal_plugin_init(PluginInfo *info)
 {
   if (!dia_plugin_info_init(info, "Internal",
-			    _("Objects and filters internal to dia"),
+			    _("Objects and filters internal to Dia"),
 			    NULL, NULL))
     return DIA_PLUGIN_INIT_ERROR;
 

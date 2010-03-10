@@ -147,7 +147,7 @@ static const gchar *epsi_extensions[] = { "epsi", NULL };
 #endif
 #ifdef HAVE_FREETYPE
 DiaExportFilter eps_ft2_export_filter = {
-  N_("Encapsulated Postscript (using Pango fonts)"),
+  N_("Encapsulated PostScript (using Pango fonts)"),
   eps_extensions,
   export_ft2_eps,
   GINT_TO_POINTER(PSTYPE_EPS), /* user_data */
@@ -166,7 +166,7 @@ DiaExportFilter epsi_ft2_export_filter = {
 #endif
 
 DiaExportFilter eps_export_filter = {
-  N_("Encapsulated Postscript (using PostScript Latin-1 fonts)"),
+  N_("Encapsulated PostScript (using PostScript Latin-1 fonts)"),
   eps_extensions,
   export_eps,
   GINT_TO_POINTER(PSTYPE_EPS), /* user_data */

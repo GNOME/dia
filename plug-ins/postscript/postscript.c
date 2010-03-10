@@ -67,7 +67,7 @@ PluginInitResult
 dia_plugin_init(PluginInfo *info)
 {
   if (!dia_plugin_info_init(info, "Postscript",
-                            _("Postscript Rendering"),
+                            _("PostScript Rendering"),
                             _plugin_can_unload,
                             _plugin_unload))
     return DIA_PLUGIN_INIT_ERROR;

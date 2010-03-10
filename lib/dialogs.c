@@ -48,7 +48,7 @@ dialog_make(char *title, char *okay_text, char *cancel_text,
 
   gtk_container_add(GTK_CONTAINER(GTK_DIALOG(dialog)->vbox), label);
 
-  *okay_button = gtk_button_new_with_label((okay_text!=NULL?okay_text:_("Ok")));
+  *okay_button = gtk_button_new_with_label((okay_text!=NULL?okay_text:_("OK")));
   *cancel_button = gtk_button_new_with_label((cancel_text!=NULL?cancel_text:_("Cancel")));
 
   gtk_container_add(GTK_CONTAINER(GTK_DIALOG(dialog)->action_area), 

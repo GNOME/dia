@@ -1417,7 +1417,7 @@ export_data(DiagramData *data, const gchar *filename,
 
 static const gchar *wmf_extensions[] = { "wmf", NULL };
 static DiaExportFilter wmf_export_filter = {
-    N_("Windows Meta File"),
+    N_("Windows Metafile"),
     wmf_extensions,
     export_data,
     NULL, /* user data */
@@ -1426,7 +1426,7 @@ static DiaExportFilter wmf_export_filter = {
 
 static const gchar *emf_extensions[] = { "emf", NULL };
 static DiaExportFilter emf_export_filter = {
-    N_("Enhanced Meta File"),
+    N_("Enhanced Metafile"),
     emf_extensions,
     export_data,
     (void*)1, /* user data: urgh, reused as bool and pointer */

@@ -1016,7 +1016,7 @@ fig_read_object(FILE *file) {
 
     if (fscanf(file, "%d ", &objecttype) != 1) {
 	if (!feof(file)) {
-	    message_error(_("Couldn't identify FIG object: %s\n"), strerror(errno));
+	    message_error(_("Couldn't identify Fig object: %s\n"), strerror(errno));
 	}
 	return FALSE;
     }
@@ -1231,9 +1231,9 @@ fig_read_meta_data(FILE *file, DiagramData *dia) {
 
     if (!skip_comments(file)) {
 	if (!feof(file)) {
-	    message_error(_("Error reading FIG file: %s\n"), strerror(errno));
+	    message_error(_("Error reading Fig file: %s\n"), strerror(errno));
 	} else {
-	    message_error(_("Premature end of FIG file\n"));
+	    message_error(_("Premature end of Fig file\n"));
 	}
 	return FALSE;
     }
@@ -1280,16 +1280,16 @@ import_fig(const gchar *filename, DiagramData *dia, void* user_data) {
     }
 	
     if (figmajor != 3 || figminor != 2) {
-	message_warning(_("This is a FIG version %d.%d file, I may not understand it\n"), figmajor, figminor);
+	message_warning(_("This is a Fig version %d.%d file. It may not be importable.\n"), figmajor, figminor);
     }
 
     figversion = figmajor*100+figminor;
 
     if (!skip_comments(figfile)) {
 	if (!feof(figfile)) {
-	    message_error(_("Error reading FIG file: %s\n"), strerror(errno));
+	    message_error(_("Error reading Fig file: %s\n"), strerror(errno));
 	} else {
-	    message_error(_("Premature end of FIG file\n"));
+	    message_error(_("Premature end of Fig file\n"));
 	}
 	fclose(figfile);
 	return FALSE;
@@ -1305,7 +1305,7 @@ import_fig(const gchar *filename, DiagramData *dia, void* user_data) {
     do {
 	if (!skip_comments(figfile)) {
 	    if (!feof(figfile)) {
-		message_error(_("Error reading FIG file: %s\n"), strerror(errno));
+		message_error(_("Error reading Fig file: %s\n"), strerror(errno));
 	    } else {
 		break;
 	    }
@@ -1328,7 +1328,7 @@ import_fig(const gchar *filename, DiagramData *dia, void* user_data) {
 
 static const gchar *extensions[] = {"fig", NULL };
 DiaImportFilter xfig_import_filter = {
-    N_("XFig File Format"),
+    N_("Xfig File Format"),
     extensions,
     import_fig
 };

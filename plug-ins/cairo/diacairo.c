@@ -131,7 +131,7 @@ export_data(DiagramData *data, const gchar *filename,
     filename_crt =  g_locale_from_utf8 (filename, -1, NULL, NULL, NULL);
     if (!filename_crt) {
       message_error(_("Can't convert output filename '%s' to locale encoding.\n"
-                      "Please choose a different name to save with cairo.\n"), 
+                      "Please choose a different name to save with Cairo.\n"), 
 		    dia_message_filename(filename), strerror(errno));
       return;
     }
