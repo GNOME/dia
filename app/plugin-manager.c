@@ -88,7 +88,7 @@ toggle_loaded_callback (GtkCellRendererToggle *celltoggle,
       loaded = TRUE;
     }
   else
-    message_notice("Can't unload plug-in '%s'!", dia_plugin_get_name(info));
+    message_notice("Can't unload plugin '%s'!", dia_plugin_get_name(info));
   gtk_list_store_set (GTK_LIST_STORE (model), &iter, 
                       LOADED_COLUMN, loaded, -1);
 }
@@ -149,7 +149,7 @@ toggle_autoload_callback (GtkCellRendererToggle *celltoggle,
   if (   0 == strcmp(dia_plugin_get_name(info), "Standard")
       || 0 == strcmp(dia_plugin_get_name(info), "Internal"))
     message_notice("You don't want to inhibit loading\n"
-                   "of plug-in '%s'!", dia_plugin_get_name(info));
+                   "of plugin '%s'!", dia_plugin_get_name(info));
   else {
     dia_plugin_set_inhibit_load(info, load);
     gtk_list_store_set (GTK_LIST_STORE (model), &iter, 
@@ -197,7 +197,7 @@ get_plugin_manager(void)
 
   /* build up the user interface */
   dialog = gtk_dialog_new_with_buttons(
-		_("Plug-ins"),
+		_("Plugins"),
 		NULL, 0,
 		GTK_STOCK_CLOSE, GTK_RESPONSE_CLOSE,
 		NULL);

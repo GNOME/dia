@@ -181,7 +181,7 @@ static PropDescription box_props[] = {
 
     { "domkind", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE,
     N_("Domain Kind"),
-    N_("Optional kind which appears in the lower right corner of the Domain"),
+    N_("Optional kind which appears in the lower-right corner of the Domain"),
     prop_domain_kind_data},
 
 /* hidding style stuff

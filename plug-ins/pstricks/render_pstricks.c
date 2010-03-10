@@ -730,7 +730,7 @@ tex_escape_string(const gchar *src)
     gchar *p;
 
     if (!g_utf8_validate(src, -1, NULL)) {
-	message_error(_("Not valid UTF8"));
+	message_error(_("Not valid UTF-8"));
 	return g_strdup(src);
     }
 

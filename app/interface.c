@@ -1493,7 +1493,7 @@ create_color_area (GtkWidget *parent)
   gtk_widget_set_tooltip_text (col_area, 
 			_("Foreground & background colors for new objects.  "
 			  "The small black and white squares reset colors.  "
-			  "The small arrows swap colors.  Double click to "
+			  "The small arrows swap colors.  Double-click to "
 			  "change colors."));
 
   gtk_widget_show (alignment);

@@ -485,7 +485,7 @@ export_shape(DiagramData *data, const gchar *filename,
       exportfilter = filter_guess_export_filter(png_filename);
 
     if (!exportfilter) {
-      message_warning(_("Can't export png icon without export plug-in!"));
+      message_warning(_("Can't export PNG icon without export plugin!"));
     } else {
       /* get the scaling right */
       old_scaling = data->paper.scaling;

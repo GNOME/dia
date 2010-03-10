@@ -1081,7 +1081,7 @@ new_aa_renderer (DDisplay *ddisp)
   }
   
   /* we really should not come here but instead disable the menu command earlier */
-  message_warning (_("No anti-aliased renderer found"));
+  message_warning (_("No antialiased renderer found"));
   /* fallback: built-in libart renderer */
   return new_gdk_renderer (ddisp); 
 }

@@ -621,7 +621,7 @@ _check_option_input_directory (const gchar    *option_name,
     return TRUE;
   }
   g_set_error (error, DIA_ERROR, DIA_ERROR_DIRECTORY,
-               _("Input-directory '%s' must exist!\n"), directory);
+               _("Input directory '%s' must exist!\n"), directory);
   g_free (directory);
   return FALSE;
 }
@@ -638,7 +638,7 @@ _check_option_output_directory (const gchar    *option_name,
     return TRUE;
   }
   g_set_error (error, DIA_ERROR, DIA_ERROR_DIRECTORY,
-               _("Output-directory '%s' must exist!\n"), directory);
+               _("Output directory '%s' must exist!\n"), directory);
   g_free (directory);
   return FALSE;
 }

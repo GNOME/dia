@@ -59,7 +59,7 @@ int main(int argc, char *argv[])
   printf("!define DIA_SECTION_DESCRIPTION \"%s\"\n", _("Core Dia files and dlls"));
 
   /* Installer message: Component name */
-  printf("!define PYTHON_SECTION_TITLE \"%s\"\n", _("Python plug-in"));
+  printf("!define PYTHON_SECTION_TITLE \"%s\"\n", _("Python plugin"));
 
   /* Installer message: Component description */
   printf("!define PYTHON_SECTION_DESCRIPTION \"%s\"\n", _("Support for the Python Scripting Language 2.3. Do not select this if Python is not installed."));

@@ -196,7 +196,7 @@ dia_plugin_init(PluginInfo *info)
    */
   if (gdk_display_get_default ()) {
     if (!dia_plugin_info_init(info, "Pixbuf",
-			      _("gdk-pixbuf based bitmap export/import"),
+			      _("gdk-pixbuf-based bitmap export/import"),
 			      _plugin_can_unload,
                               _plugin_unload))
       return DIA_PLUGIN_INIT_ERROR;

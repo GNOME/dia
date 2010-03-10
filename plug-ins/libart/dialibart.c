@@ -56,7 +56,7 @@ PluginInitResult
 dia_plugin_init(PluginInfo *info)
 {
   if (!dia_plugin_info_init(info, "Libart",
-                            _("Libart based rendering"),
+                            _("Libart-based rendering"),
                             _plugin_can_unload,
                             _plugin_unload))
     return DIA_PLUGIN_INIT_ERROR;

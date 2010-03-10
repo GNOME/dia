@@ -121,7 +121,7 @@ file_print_callback (GtkAction *_action)
     if (confirm_export_size (dia, GTK_WINDOW(ddisp->shell), CONFIRM_PRINT|CONFIRM_PAGES))
       gtk_action_activate (action);
   } else {
-    message_error (_("No print plug-in found!"));
+    message_error (_("No print plugin found!"));
   }
 }
 

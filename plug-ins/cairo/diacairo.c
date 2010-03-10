@@ -493,7 +493,7 @@ PluginInitResult
 dia_plugin_init(PluginInfo *info)
 {
   if (!dia_plugin_info_init(info, "Cairo",
-                            _("Cairo based Rendering"),
+                            _("Cairo-based Rendering"),
                             _plugin_can_unload,
                             _plugin_unload))
     return DIA_PLUGIN_INIT_ERROR;

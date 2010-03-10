@@ -185,7 +185,7 @@ DiaPrefData prefs_data[] =
     &default_length_unit, UI_TAB, N_("Length unit:"), NULL, FALSE,
     _get_units_name_list, update_internal_prefs },
   { "fontsize_unit", PREF_CHOICE, PREF_OFFSET(fontsize_unit),
-    &default_fontsize_unit, UI_TAB, N_("Font-size unit:"), NULL, FALSE,
+    &default_fontsize_unit, UI_TAB, N_("Font size unit:"), NULL, FALSE,
     _get_units_name_list, update_internal_prefs },
   
   { NULL, PREF_NONE, 0, NULL, DIA_TAB, N_("New diagram:") },

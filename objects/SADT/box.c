@@ -147,7 +147,7 @@ static PropDescription box_props[] = {
   PROP_STD_FILL_COLOUR_OPTIONAL,
   { "id", PROP_TYPE_STRING, PROP_FLAG_VISIBLE|PROP_FLAG_DONT_MERGE,
     N_("Activity/Data identifier"),
-    N_("The identifier which appears in the lower right corner of the Box")},
+    N_("The identifier which appears in the lower-right corner of the Box")},
   { "cpl_north",PROP_TYPE_CONNPOINT_LINE, 0, NULL, NULL},
   { "cpl_west",PROP_TYPE_CONNPOINT_LINE, 0, NULL, NULL},
   { "cpl_south",PROP_TYPE_CONNPOINT_LINE, 0, NULL, NULL},

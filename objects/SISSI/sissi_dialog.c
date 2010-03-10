@@ -188,7 +188,7 @@ static SISSI_Property property_logiciel_data[] = {
 
 static SISSI_Property property_material_data[] = {
   { N_("HARDWARE"), "MAT",NULL},
-  { N_("Data-processing equipment (active)"), "MAT_ACT",NULL},
+  { N_("Data processing equipment (active)"), "MAT_ACT",NULL},
   { N_("Mobile equipment"), "MAT_ACT1",NULL},
   { N_("Fixed equipment"), "MAT_ACT2",NULL},
   { N_("Peripheral processing"), "MAT_ACT3",NULL},
