@@ -906,7 +906,7 @@ msgid ""
 "and saving.  Some text programs cannot manipulate compressed files."
 msgstr ""
 "Compression reduces file size to less than 1/10th size and speeds up loading "
-"and saving. Some text programs cannot manipulate compressed files."
+"and saving.  Some text programs cannot manipulate compressed files."
 
 #: ../app/filedlg.c:670
 #, c-format
@@ -1096,7 +1096,7 @@ msgid ""
 "Line widths.  Click on a line to set the default line width for new "
 "objects.  Double-click to set the line width more precisely."
 msgstr ""
-"Line widths. Click on a line to set the default line width for new objects. "
+"Line widths.  Click on a line to set the default line width for new objects.  "
 "Double-click to set the line width more precisely."
 
 #: ../app/interface.c:1551
@@ -5284,7 +5284,7 @@ msgstr "Wrap after char"
 
 #: ../objects/UML/class.c:170
 msgid "Comment line length"
-msgstr "Comments line length"
+msgstr "Comment line length"
 
 #: ../objects/UML/class.c:174 ../objects/UML/class.c:326
 msgid "Allow resizing"
@@ -6052,7 +6052,7 @@ msgstr "Cairo PNG (with alpha)"
 
 #: ../plug-ins/cairo/diacairo.c:408
 msgid "Cairo EMF"
-msgstr "Cairo WMF"
+msgstr "Cairo EMF"
 
 #: ../plug-ins/cairo/diacairo.c:418
 msgid "Cairo WMF"
@@ -8994,7 +8994,7 @@ msgstr "PC"
 
 #: ../sheets/ciscocomputer.sheet.in.h:29
 msgid "PC Adapter Card"
-msgstr "PC adapter card"
+msgstr "PC Adapter Card"
 
 #: ../sheets/ciscocomputer.sheet.in.h:30
 msgid "PC Card"
@@ -9002,7 +9002,7 @@ msgstr "PC Card"
 
 #: ../sheets/ciscocomputer.sheet.in.h:31
 msgid "PC Router Card"
-msgstr "PC Router card"
+msgstr "PC Router Card"
 
 #: ../sheets/ciscocomputer.sheet.in.h:32
 msgid "PC Software"
@@ -9386,7 +9386,7 @@ msgstr "Generic Building"
 
 #: ../sheets/ciscomisc.sheet.in.h:11
 msgid "Generic Building blue"
-msgstr "Generic building blue"
+msgstr "Generic Building blue"
 
 #: ../sheets/ciscomisc.sheet.in.h:12
 msgid "Generic Building subdued"
@@ -9718,7 +9718,7 @@ msgstr "General Appliance"
 
 #: ../sheets/cisconetwork.sheet.in.h:42
 msgid "Generic Gateway"
-msgstr "Generic gateway"
+msgstr "Generic Gateway"
 
 #: ../sheets/cisconetwork.sheet.in.h:44
 msgid "IOS Firewall"
@@ -9834,7 +9834,7 @@ msgstr "PAD"
 
 #: ../sheets/cisconetwork.sheet.in.h:72
 msgid "PIX Firewall"
-msgstr "PIX firewall"
+msgstr "PIX Firewall"
 
 #: ../sheets/cisconetwork.sheet.in.h:73
 msgid "PIX Firewall Left"
@@ -10166,7 +10166,7 @@ msgstr "Virtual switch controller (VSC 3000)"
 
 #: ../sheets/ciscotelephony.sheet.in.h:53
 msgid "Voice-Enabled ATM Switch"
-msgstr "Voice-Enabled ATM switch"
+msgstr "Voice-Enabled ATM Switch"
 
 #: ../sheets/ciscotelephony.sheet.in.h:54
 msgid "Voice-Enabled Access Server"
