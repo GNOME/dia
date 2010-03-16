@@ -1,16 +1,16 @@
-# translation of eu.po to Basque
+# translation of dia.dia-0-97.po to Basque
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
 #
 # Hizkuntza Politikarako Sailburuordetza <hizkpol@ej-gv.es>, 2005.
-# Iñaki Larrañaga Murgoitio <dooteo@euskalgnu.org>, 2006, 2008, 2009.
+# Iñaki Larrañaga Murgoitio <dooteo@euskalgnu.org>, 2006, 2008, 2009, 2010.
 # Iñaki Larrañaga Murgoitio <dooteo@zundan.com>, 2007.
 msgid ""
 msgstr ""
-"Project-Id-Version: eu\n"
+"Project-Id-Version: dia.dia-0-97\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-08-29 16:45+0200\n"
-"PO-Revision-Date: 2009-08-29 16:46+0200\n"
+"POT-Creation-Date: 2010-03-16 18:03+0100\n"
+"PO-Revision-Date: 2010-03-15 22:05+0100\n"
 "Last-Translator: Iñaki Larrañaga Murgoitio <dooteo@euskalgnu.org>\n"
 "Language-Team: Basque <itzulpena@euskalgnu.org>\n"
 "MIME-Version: 1.0\n"
@@ -21,83 +21,93 @@ msgstr ""
 "\n"
 
 #. This is not an errror
-#: ../app/app_procs.c:214
+#: ../app/app_procs.c:209
 #, c-format
 msgid "Warning: invalid layer range %lu - %lu\n"
 msgstr "Abisua: baliogabeko geruzaren barrutia %lu - %lu\n"
 
-#: ../app/app_procs.c:226
+#: ../app/app_procs.c:221
 #, c-format
 msgid "Warning: Layer %lu (%s) selected more than once.\n"
 msgstr "Abisua: %lu. geruza (%s) hainbat aldiz hautatuta\n"
 
-#: ../app/app_procs.c:252
+#: ../app/app_procs.c:247
 #, c-format
 msgid "Warning: Layer %d (%s) selected more than once.\n"
 msgstr "Abisua: %d. geruza (%s) hainbat aldiz hautatuta\n"
 
-#: ../app/app_procs.c:261
+#: ../app/app_procs.c:256
 #, c-format
 msgid "Warning: There is no layer named %s\n"
 msgstr "Abisua: ez dago %s izeneko geruzarik.\n"
 
-#: ../app/app_procs.c:343
+#: ../app/app_procs.c:338
 #, c-format
 msgid "%s error: don't know how to export into %s\n"
 msgstr "%s errorea: ez dakit nola esportatu hona: %s\n"
 
-#: ../app/app_procs.c:352
+#: ../app/app_procs.c:347
 #, c-format
 msgid "%s error: input and output file name is identical: %s"
 msgstr "%s errorea: sarrerako eta irteerako fitxategi-izena berdina da: %s"
 
-#: ../app/app_procs.c:360
+#: ../app/app_procs.c:355
 #, c-format
 msgid "%s error: need valid input file %s\n"
 msgstr "%s errorea: %s baliozko sarrerako fitxategia behar da\n"
 
 #. if (!quiet)
-#: ../app/app_procs.c:385
+#: ../app/app_procs.c:383
 #, c-format
 msgid "%s --> %s\n"
 msgstr "%s --> %s\n"
 
-#: ../app/app_procs.c:560
+#: ../app/app_procs.c:558
 #, c-format
 msgid "Can't find output format/filter %s\n"
 msgstr "Ezin da aurkitu %s irteerako formatua/iragazkia\n"
 
+#: ../app/app_procs.c:628
+#, c-format
+msgid "Input-directory '%s' must exist!\n"
+msgstr "'%s' sarrerako direktorioak existitu behar du.\n"
+
+#: ../app/app_procs.c:645
+#, c-format
+msgid "Output-directory '%s' must exist!\n"
+msgstr "'%s' irteerako direktorioak existitu behar du.\n"
+
 #. Translators:  The argument is a list of options, not to be translated
-#: ../app/app_procs.c:638
+#: ../app/app_procs.c:695
 #, c-format
 msgid "Select the filter/format out of: %s"
 msgstr "Hautatu %s(r)en iragazkia edo irteerako formatua"
 
 #. &export_file_name
-#: ../app/app_procs.c:656
+#: ../app/app_procs.c:713
 msgid "Export loaded file and exit"
 msgstr "Esportatu kargatutako fitxategia eta irten"
 
-#: ../app/app_procs.c:656
+#: ../app/app_procs.c:713
 msgid "OUTPUT"
 msgstr "IRTEERA"
 
 # Supongo que también hay que traducir "TYPE", ¿no? RizOX.
 #. &export_file_format
 #. &export_format_string
-#: ../app/app_procs.c:658
+#: ../app/app_procs.c:715
 msgid "TYPE"
 msgstr "MOTA"
 
-#: ../app/app_procs.c:660
+#: ../app/app_procs.c:717
 msgid "Export graphics size"
 msgstr "Esportatzeko grafikoen tamaina"
 
-#: ../app/app_procs.c:660
+#: ../app/app_procs.c:717
 msgid "WxH"
 msgstr "ZxH"
 
-#: ../app/app_procs.c:662
+#: ../app/app_procs.c:719
 msgid ""
 "Show only specified layers (e.g. when exporting). Can be either the layer "
 "name or a range of layer numbers (X-Y)"
@@ -105,72 +115,93 @@ msgstr ""
 "Erakutsi zehaztutako geruzak bakarrik (adib. esportatzean). Geruzaren izena "
 "edo geruza kopuruen barrutia (X-Y) izan daiteke."
 
-#: ../app/app_procs.c:663
+#: ../app/app_procs.c:720
 msgid "LAYER,LAYER,..."
 msgstr "GERUZA,GERUZA,..."
 
-#: ../app/app_procs.c:665
+#: ../app/app_procs.c:722
 msgid "Don't show the splash screen"
 msgstr "Ez erakutsi harrerako pantaila"
 
-#: ../app/app_procs.c:667
+#: ../app/app_procs.c:724
 msgid "Don't create empty diagram"
 msgstr "Ez sortu diagrama hutsa"
 
-#: ../app/app_procs.c:669
+#: ../app/app_procs.c:726
 msgid "Start integrated user interface (diagrams in tabs)"
-msgstr "Abiarazi integratutako erabiltzailearen interfazea (diagramak fitxetan)"
+msgstr ""
+"Abiarazi integratutako erabiltzailearen interfazea (diagramak fitxetan)"
 
-#: ../app/app_procs.c:671
+#: ../app/app_procs.c:728
 msgid "Send error messages to stderr instead of showing dialogs."
-msgstr "Bidali errore-mezuak stderr-era, elkarrizketa-koadroak erakutsi beharrean."
+msgstr ""
+"Bidali errore-mezuak stderr-era, elkarrizketa-koadroak erakutsi beharrean."
 
-#. &input_directory
-#: ../app/app_procs.c:673
+#: ../app/app_procs.c:730
 msgid "Directory containing input files"
 msgstr "Sarrerako fitxategiak dituen direktorioa"
 
-#: ../app/app_procs.c:673 ../app/app_procs.c:675
+#: ../app/app_procs.c:730 ../app/app_procs.c:732
 msgid "DIRECTORY"
 msgstr "DIREKTORIOA"
 
-#. &output_directory
-#: ../app/app_procs.c:675
+#: ../app/app_procs.c:732
 msgid "Directory containing output files"
 msgstr "Irteerako fitxategiak dituen direktorioa"
 
-#: ../app/app_procs.c:677
+#: ../app/app_procs.c:734
 msgid "Display credits list and exit"
 msgstr "Bistaratu kredituen zerrenda eta irten"
 
-#: ../app/app_procs.c:679
+#: ../app/app_procs.c:736
 msgid "Generate verbose output"
 msgstr "Sortu irteera xehatua"
 
-#: ../app/app_procs.c:681
+#: ../app/app_procs.c:738
 msgid "Display version and exit"
 msgstr "Bistaratu bertsioa eta irten"
 
-#: ../app/app_procs.c:738
+#: ../app/app_procs.c:761
+msgid "[FILE...]"
+msgstr "[FITXATEGIA...]"
+
+#: ../app/app_procs.c:773
+#, c-format
+msgid "Invalid option?"
+msgstr "Aukera baliogabea?"
+
+#: ../app/app_procs.c:796
+#, c-format
+msgid "Filename conversion failed: %s\n"
+msgstr "Huts egin du fitxategi-izena bihurtzean: %s\n"
+
+#: ../app/app_procs.c:809
+#, c-format
+msgid "Missing input: %s\n"
+msgstr "Sarrera falta da: %s\n"
+
+#: ../app/app_procs.c:834
 msgid "Can't connect to session manager!\n"
 msgstr "Ezin da konektatu saio-kudeatzailera.\n"
 
 #. TRANSLATOR: 2nd and 3rd %s are time and date respectively.
-#: ../app/app_procs.c:778
+#: ../app/app_procs.c:874
 #, c-format
 msgid "Dia version %s, compiled %s %s\n"
 msgstr "Dia, %s bertsioa, konpilatua: %s %s\n"
 
-#: ../app/app_procs.c:780
+#: ../app/app_procs.c:876
 #, c-format
 msgid "Dia version %s\n"
 msgstr "Dia, %s bertsioa\n"
 
-#: ../app/app_procs.c:818
-msgid "Couldn't find standard objects when looking for object-libs; exiting...\n"
-msgstr "Ezin izan dira 'object-libs'eko objektu estandarrak aurkitu, irtetzen...\n"
+#: ../app/app_procs.c:914
+msgid ""
+"Couldn't find standard objects when looking for object-libs; exiting...\n"
+msgstr ""
+"Ezin izan dira 'object-libs'eko objektu estandarrak aurkitu, irtetzen...\n"
 
-#: ../app/app_procs.c:820
+#: ../app/app_procs.c:916
 #, c-format
 msgid ""
 "Couldn't find standard objects when looking for object-libs in '%s'; "
@@ -179,11 +210,11 @@ msgstr ""
 "Ezin izan dira '%s'(e)n 'object-libs'eko objektu estandarrak aurkitu, "
 "irtetzen...\n"
 
-#: ../app/app_procs.c:886
+#: ../app/app_procs.c:983
 msgid "Diagram1.dia"
 msgstr "Diagrama1.dia"
 
-#: ../app/app_procs.c:930
+#: ../app/app_procs.c:1018
 msgid ""
 "This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\n"
 "describing how you can cause this message to appear.\n"
@@ -191,16 +222,16 @@ msgstr ""
 "Ez luke gertatu behar. Eman errorearen berri bugzilla.gnome.org-en,\n"
 "mezu hau agertzeko zer egin duzun azalduz.\n"
 
-#: ../app/app_procs.c:945
+#: ../app/app_procs.c:1033
 msgid "Exiting Dia"
 msgstr "Dia-tik irtetzen"
 
 #. no standard buttons
-#: ../app/app_procs.c:1009
+#: ../app/app_procs.c:1097
 msgid "Quitting without saving modified diagrams"
 msgstr "Irtetzen (aldatutako diagramak gorde gabe)"
 
-#: ../app/app_procs.c:1011
+#: ../app/app_procs.c:1099
 msgid ""
 "Modified diagrams exist. Are you sure you want to quit Dia without saving "
 "them?"
@@ -208,15 +239,16 @@ msgstr ""
 "Aldatutako diagramak daude. Ziur zaude Dia-tik irten nahi duzula diagramak "
 "gorde gabe?"
 
-#: ../app/app_procs.c:1015
+#: ../app/app_procs.c:1103
 msgid "Quit Dia"
 msgstr "Irten Dia-tik"
 
-#: ../app/app_procs.c:1084 ../app/app_procs.c:1091
+#: ../app/app_procs.c:1172 ../app/app_procs.c:1179
 msgid "Could not create per-user Dia config directory"
-msgstr "Ezin izan da sortu erabiltzaile bakoitzeko Dia konfigurazioko direktorioa"
+msgstr ""
+"Ezin izan da sortu erabiltzaile bakoitzeko Dia konfigurazioko direktorioa"
 
-#: ../app/app_procs.c:1094
+#: ../app/app_procs.c:1182
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
@@ -224,35 +256,11 @@ msgstr ""
 "Ezin izan da sortu erabiltzaile bakoitzeko Dia konfigurazioko direktorioa. "
 "Egiaztatu HOME ingurune-aldagaiak seinalatzen duen direktorioa badagoela."
 
-#: ../app/app_procs.c:1117
+#: ../app/app_procs.c:1205
 msgid "Objects and filters internal to dia"
 msgstr "Dia-ren barneko objektuak eta iragazkiak"
 
-#: ../app/app_procs.c:1150
-msgid "[FILE...]"
-msgstr "[FITXATEGIA...]"
-
-#: ../app/app_procs.c:1170
-#, c-format
-msgid "Input-directory '%s' must exist!\n"
-msgstr "'%s' sarrerako direktorioak existitu behar du.\n"
-
-#: ../app/app_procs.c:1175
-#, c-format
-msgid "Output-directory '%s' must exist!\n"
-msgstr "'%s' irteerako direktorioak existitu behar du.\n"
-
-#: ../app/app_procs.c:1181
-#, c-format
-msgid "'%s' not found!\n"
-msgstr "'%s' ez da aurkitu.\n"
-
-#: ../app/app_procs.c:1189
-#, c-format
-msgid "'%s' not found in '%s'!\n"
-msgstr "'%s' ez da aurkitu \"%s\"(e)n.\n"
-
-#: ../app/app_procs.c:1238
+#: ../app/app_procs.c:1261
 #, c-format
 msgid ""
 "The original author of Dia was:\n"
@@ -261,7 +269,7 @@ msgstr ""
 "Dia-ren jatorriko egilea:\n"
 "\n"
 
-#: ../app/app_procs.c:1243
+#: ../app/app_procs.c:1266
 #, c-format
 msgid ""
 "\n"
@@ -272,7 +280,7 @@ msgstr ""
 "Dia-ren uneko mantentzaileak:\n"
 "\n"
 
-#: ../app/app_procs.c:1248
+#: ../app/app_procs.c:1271
 #, c-format
 msgid ""
 "\n"
@@ -283,7 +291,7 @@ msgstr ""
 "Beste egile batzuk:\n"
 "\n"
 
-#: ../app/app_procs.c:1253
+#: ../app/app_procs.c:1276
 #, c-format
 msgid ""
 "\n"
@@ -391,7 +399,8 @@ msgstr "%d orrialdeko diagrama bat esportatzera zoaz."
 
 #: ../app/confirm.c:73
 #, c-format
-msgid "You are about to export a diagram which may require %s of memory.(%d pages)."
+msgid ""
+"You are about to export a diagram which may require %s of memory.(%d pages)."
 msgstr "%s memoria behar duen diagrama bat esportatzera zoaz (%d orrialde)."
 
 #: ../app/confirm.c:81
@@ -680,7 +689,11 @@ msgstr ""
 msgid "Properties..."
 msgstr "Propietateak..."
 
-#: ../app/disp_callbacks.c:1067
+#: ../app/disp_callbacks.c:248
+msgid "Selection"
+msgstr "Hautapena"
+
+#: ../app/disp_callbacks.c:1072
 msgid ""
 "The object you dropped cannot fit into its parent. \n"
 "Either expand the parent object, or drop the object elsewhere."
@@ -1212,12 +1225,12 @@ msgstr "Ez dago baimenik aldi baterako fitxategiak %s(e)n idazteko\n"
 #: ../app/load_save.c:1050 ../plug-ins/cairo/diacairo.c:121
 #: ../plug-ins/cgm/cgm.c:1154 ../plug-ins/drs/dia-render-script.c:121
 #: ../plug-ins/dxf/dxf-export.c:547 ../plug-ins/hpgl/hpgl.c:710
-#: ../plug-ins/libart/export_png.c:157
+#: ../plug-ins/libart/export_png.c:159
 #: ../plug-ins/metapost/render_metapost.c:1177
 #: ../plug-ins/pgf/render_pgf.c:1208 ../plug-ins/postscript/render_eps.c:105
 #: ../plug-ins/pstricks/render_pstricks.c:916
 #: ../plug-ins/shape/shape-export.c:137 ../plug-ins/svg/render_svg.c:199
-#: ../plug-ins/vdx/vdx-export.c:1849 ../plug-ins/wpg/wpg.c:1072
+#: ../plug-ins/vdx/vdx-export.c:1850 ../plug-ins/wpg/wpg.c:1072
 #: ../plug-ins/xfig/xfig-export.c:1151 ../plug-ins/xslt/xslt.c:99
 #, c-format
 msgid "Can't open output file %s: %s\n"
@@ -1777,7 +1790,7 @@ msgstr "ikusi antialiasing-a"
 #. Translators: Menu item Verb/Channel/Export
 #. Translators: Menu item Verb/Channel/Export/Export
 #: ../app/preferences.c:221 ../objects/FS/function.c:698
-#: ../objects/FS/function.c:700 ../plug-ins/libart/export_png.c:326
+#: ../objects/FS/function.c:700 ../plug-ins/libart/export_png.c:328
 msgid "Export"
 msgstr "Esportatu"
 
@@ -2285,7 +2298,7 @@ msgstr "Barne-errorea: bezier-en amaieraren izkina-mota ezartzen"
 #: ../lib/create.c:50 ../lib/create.c:100 ../lib/create.c:127
 #: ../lib/create.c:161 ../lib/create.c:197 ../lib/create.c:224
 #: ../lib/create.c:260 ../lib/create.c:295 ../lib/create.c:338
-#: ../plug-ins/svg/svg-import.c:267 ../plug-ins/vdx/vdx-import.c:144
+#: ../plug-ins/svg/svg-import.c:267 ../plug-ins/vdx/vdx-import.c:145
 msgid "Can't find standard object"
 msgstr "Ezin da objektu estandarra aurkitu"
 
@@ -2343,7 +2356,7 @@ msgstr "Errorea p2 puntua analizatzean."
 msgid "Error parsing bezpoint p3."
 msgstr "Errorea p3 puntua analizatzean."
 
-#: ../lib/diaarrowchooser.c:352
+#: ../lib/diaarrowchooser.c:361
 msgid "Arrow Properties"
 msgstr "Geziaren propietateak"
 
@@ -2720,10 +2733,9 @@ msgid ""
 "$\rNote: Any non-standard plugins that you may have installed will be "
 "deleted.$\rDia user settings will not be affected."
 msgstr ""
-"Dia zaharraren direktorioa ezabatzera doa. Jarraitzea nahi duzu?\n"
-"Jakin ezazu instalatuta eduki dezakezun edozein plugin ez-estandar ere "
-"ezabatu egingo dela. \n"
-"Dia-ko erabiltailearen ezarpenei ez die eragingo."
+"Dia zaharraren direktorioa ezabatzera doa. Jarraitzea nahi duzu?$\r"
+"$\rOharra: instalatuta eduki dezakezun edozein plugin ez-estandar ere ezabatu "
+"egingo dela.$\rDia-ko erabiltailearen ezarpenei ez die eragingo."
 
 #. Installer message: confirmatin question. Keep $\r
 #: ../installer/win32/gennsh.c:77
@@ -2731,7 +2743,7 @@ msgid ""
 "The installation directory you specified already exists. Any contents$\rwill "
 "be deleted. Would you like to continue?"
 msgstr ""
-"Zehaztu duzun instalatiorako direktorioa badago lehendik ere. Bertako\n"
+"Zehaztu duzun instalatiorako direktorioa badago lehendik ere. Bertako$\r"
 "edozein eduki ezabatu egingo da. Jarraitzea nahi duzu?"
 
 #. Installer message: Uninstall Section Prompts. Keep $\r
@@ -2740,7 +2752,7 @@ msgid ""
 "The uninstaller could not find registry entries for Dia.$\rIt is likely that "
 "another user installed this application."
 msgstr ""
-"Desintalatzaileak ezin izan du Dia-ren sarrerako erregistrorik aurkitu. "
+"Desintalatzaileak ezin izan du Dia-ren sarrerako erregistrorik aurkitu.$\r"
 "Badirudi beste erabiltzaile batek instalatu duela aplikazio hau."
 
 #. Installer message: Uninstall error message
@@ -2751,11 +2763,13 @@ msgstr "Ez daukazu aplikazio hau desinstalateko baimenik."
 #. Installer message: Uninstallation warning. Keep $INSTDIR
 #: ../installer/win32/gennsh.c:86
 msgid "This will completely delete $INSTDIR and all subdirectories. Continue?"
-msgstr "Honek erabat ezabatuko du $INSTDIR eta bere azpidirektorio guztiak. Jarraitu?"
+msgstr ""
+"Honek erabat ezabatuko du $INSTDIR eta bere azpidirektorio guztiak. Jarraitu?"
 
 #. Installer message: Uninstallation warning. Keep $\PROFILE\.dia
 #: ../installer/win32/gennsh.c:89
-msgid "This will completely delete $PROFILE\\.dia and all subdirectories. Continue?"
+msgid ""
+"This will completely delete $PROFILE\\.dia and all subdirectories. Continue?"
 msgstr ""
 "Honek erabat ezabatuko du $PROFILE\\.dia eta bere azpidirektorio guztiak. "
 "Jarraitu?"
@@ -5759,12 +5773,14 @@ msgstr "XML lerro pertsonalizatuen kargatzailea"
 
 #: ../objects/custom_lines/custom_linetypes.c:226
 msgid "INTERNAL: CustomLines: Illegal line type in LineInfo object."
-msgstr "BARNEKOA: LerroPertsonalizatuak: lerro mota ilegala LineInfo objektuan."
+msgstr ""
+"BARNEKOA: LerroPertsonalizatuak: lerro mota ilegala LineInfo objektuan."
 
 #: ../objects/custom_lines/custom_linetypes.c:251
 #, c-format
 msgid "INTERNAL: CustomLines: Illegal line type in LineInfo object %s."
-msgstr "BARNEKOA: LerroPertsonalizatuak: lerro mota ilegala LineInfo %s objektuan."
+msgstr ""
+"BARNEKOA: LerroPertsonalizatuak: lerro mota ilegala LineInfo %s objektuan."
 
 #: ../objects/custom/shape_info.c:162
 #, c-format
@@ -6016,11 +6032,11 @@ msgstr ""
 "Irudiaren errenkada-luzera gelaxka-bektorearen muga baino handiagoa da.\n"
 "Irudia ez da esportatu CGMra."
 
-#: ../plug-ins/cgm/cgm.c:1361
+#: ../plug-ins/cgm/cgm.c:1362
 msgid "Computer Graphics Metafile"
 msgstr "CGM (Computer Graphics Metafile)"
 
-#: ../plug-ins/cgm/cgm.c:1386
+#: ../plug-ins/cgm/cgm.c:1387
 msgid "Computer Graphics Metafile export filter"
 msgstr "Computer Graphics Metafile esportatzeko iragazkia"
 
@@ -6062,32 +6078,32 @@ msgstr "'HP Graphics Language' esportatzeko iragazkia"
 msgid "Libart based rendering"
 msgstr "Libart-en oinarritutako errendatua"
 
-#: ../plug-ins/libart/export_png.c:165
+#: ../plug-ins/libart/export_png.c:167
 msgid "Could not create PNG write structure"
 msgstr "Ezin da PNG idazteko egitura sortu"
 
-#: ../plug-ins/libart/export_png.c:174
+#: ../plug-ins/libart/export_png.c:176
 msgid "Could not create PNG header info structure"
 msgstr "Ezin da PNG goiburu-informazioaren egitura sortu"
 
-#: ../plug-ins/libart/export_png.c:182
+#: ../plug-ins/libart/export_png.c:184
 msgid "Error occurred while writing PNG"
 msgstr "Errorea gertatu da PNG idaztean"
 
 #. Create a dialog
-#: ../plug-ins/libart/export_png.c:325
+#: ../plug-ins/libart/export_png.c:327
 msgid "PNG Export Options"
 msgstr "PNG esportazioaren aukerak"
 
-#: ../plug-ins/libart/export_png.c:331
+#: ../plug-ins/libart/export_png.c:333
 msgid "Image width:"
 msgstr "Irudiaren zabalera:"
 
-#: ../plug-ins/libart/export_png.c:334
+#: ../plug-ins/libart/export_png.c:336
 msgid "Image height:"
 msgstr "Irudiaren altuera:"
 
-#: ../plug-ins/libart/export_png.c:380
+#: ../plug-ins/libart/export_png.c:382
 msgid "PNG (anti-aliased)"
 msgstr "PNG (antialiasing-a)"
 
@@ -6219,11 +6235,11 @@ msgstr ""
 "Formen fitxategiak .shape luzapenarekin amaitu behar dira, edo ezingo dira "
 "Dia-rekin kargatu"
 
-#: ../plug-ins/shape/shape-export.c:485
-msgid "Can't export png without libart!"
-msgstr "Ezin da png esportatu libart gabe!"
+#: ../plug-ins/shape/shape-export.c:488
+msgid "Can't export png icon without export plug-in!"
+msgstr "Ezin da png ikonoa esportatu esportatzeko pluginik gabe."
 
-#: ../plug-ins/shape/shape-export.c:510
+#: ../plug-ins/shape/shape-export.c:512
 msgid "Dia Shape File"
 msgstr "Dia forma-fitxategia"
 
@@ -6257,53 +6273,53 @@ msgstr "Bektore-grafiko eskalagarriak inportatzeko eta esportatzeko iragazkiak"
 msgid "Couldn't read file %s"
 msgstr "Ezin izan da %s fitxategia irakurri"
 
-#: ../plug-ins/vdx/vdx-export.c:1905
+#: ../plug-ins/vdx/vdx-export.c:1912
 msgid "Visio XML format"
 msgstr "Visio XML formatua"
 
-#: ../plug-ins/vdx/vdx-import.c:226 ../plug-ins/xfig/xfig-import.c:1046
+#: ../plug-ins/vdx/vdx-import.c:227 ../plug-ins/xfig/xfig-import.c:1046
 #, c-format
 msgid "Couldn't read color: %s\n"
 msgstr "Ezin izan da kolorea irakurri: %s\n"
 
-#: ../plug-ins/vdx/vdx-import.c:540
+#: ../plug-ins/vdx/vdx-import.c:541
 #, c-format
 msgid "Couldn't find shape %d\n"
 msgstr "Ezin izan da %d. forma aurkitu\n"
 
-#: ../plug-ins/vdx/vdx-import.c:1046
+#: ../plug-ins/vdx/vdx-import.c:1047
 #, c-format
 msgid "Unexpected Ellipse object: %s\n"
 msgstr "Ustekabeko elipse objektua: %s\n"
 
-#: ../plug-ins/vdx/vdx-import.c:1060
+#: ../plug-ins/vdx/vdx-import.c:1061
 msgid "Can't rotate ellipse\n"
 msgstr "Ezin da elipsea biratu\n"
 
-#: ../plug-ins/vdx/vdx-import.c:1391
+#: ../plug-ins/vdx/vdx-import.c:1392
 msgid "MoveTo not at start of Bezier\n"
 msgstr "Ez eduki 'MoveTo'  Bezier-en hasieran\n"
 
-#: ../plug-ins/vdx/vdx-import.c:1739
+#: ../plug-ins/vdx/vdx-import.c:1740
 msgid "Invalid NURBS formula"
 msgstr "NURBS formula baliogabea"
 
-#: ../plug-ins/vdx/vdx-import.c:1983
+#: ../plug-ins/vdx/vdx-import.c:1984
 #, c-format
 msgid "Couldn't write file %s"
 msgstr "Ezin izan da %s fitxategia idatzi"
 
-#: ../plug-ins/vdx/vdx-import.c:2068 ../plug-ins/vdx/vdx-import.c:2081
+#: ../plug-ins/vdx/vdx-import.c:2069 ../plug-ins/vdx/vdx-import.c:2082
 #, c-format
 msgid "Couldn't handle foreign object type %s"
 msgstr "Ezin izan da kanpoko %s objektu mota kudeatu"
 
-#: ../plug-ins/vdx/vdx-import.c:2109
+#: ../plug-ins/vdx/vdx-import.c:2110
 #, c-format
 msgid "Couldn't make object dir %s"
 msgstr "Ezin izan da %s direktorio objektua sortu"
 
-#: ../plug-ins/vdx/vdx-import.c:3090
+#: ../plug-ins/vdx/vdx-import.c:3100
 msgid "Visio XML File Format"
 msgstr "Visio XML fitxategi-formatua"
 
@@ -6875,7 +6891,8 @@ msgstr "BPMN"
 
 #: ../sheets/BPMN.sheet.in.h:5
 msgid "Business Process Modeling Notation"
-msgstr "Business Process Modeling Notation (Enpresako prozesua modelatzeko notazioa)"
+msgstr ""
+"Business Process Modeling Notation (Enpresako prozesua modelatzeko notazioa)"
 
 #: ../sheets/BPMN.sheet.in.h:6
 msgid "Collapsed Sub-Process"
@@ -10483,4 +10500,3 @@ msgstr "Sybase datu-zerbitzaria"
 #: ../sheets/sybase.sheet.in.h:8
 msgid "Sybase replication server"
 msgstr "Sybase erreplikatze-zerbitzaria"
-
