@@ -11,20 +11,19 @@
 # Jens Seidel <jseidel@cvs.gnome.org>, 2006.
 # Hans Breuer <hans@breuer.org>, 2007, 2009.
 # Mario Blättermann <mariobl@gnome.org>, 2009, 2010.
-#
+# Christian Kirbach <Christian.Kirbach@googlemail.com>, 2010.
 msgid ""
 msgstr ""
 "Project-Id-Version: dia-0-97\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
-"product=dia&component=general\n"
-"POT-Creation-Date: 2010-02-02 18:46+0000\n"
-"PO-Revision-Date: 2010-02-13 01:15+0100\n"
-"Last-Translator: Mario Blättermann <mariobl@gnome.org>\n"
-"Language-Team: German <gnome-de@gnome.org>\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-03-23 16:46+0100\n"
+"PO-Revision-Date: 2010-03-22 22:10+0100\n"
+"Last-Translator: Christian Kirbach <Christian.Kirbach@googlemail.com>\n"
+"Language-Team: Deutsch <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "X-Poedit-Language: German\n"
 "X-Poedit-Country: GERMANY\n"
 
@@ -172,13 +171,11 @@ msgstr "[DATEI...]"
 
 #: ../app/app_procs.c:773
 #, c-format
-#| msgid "Manual operation"
 msgid "Invalid option?"
 msgstr "Ungültige Option?"
 
 #: ../app/app_procs.c:796
 #, c-format
-#| msgid "Dia version %s, compiled %s %s\n"
 msgid "Filename conversion failed: %s\n"
 msgstr "Umwandlung des Dateinamens ist fehlgeschlagen: %s\n"
 
@@ -427,8 +424,8 @@ msgstr ""
 
 #: ../app/confirm.c:81
 msgid ""
-"You can adjust the size of the diagram by changing the 'Scaling' in the 'Page "
-"Setup' dialog.\n"
+"You can adjust the size of the diagram by changing the 'Scaling' in the "
+"'Page Setup' dialog.\n"
 "Alternatively use 'Select All' and 'Best Fit' to move objects/handles into "
 "the intended bounds."
 msgstr ""
@@ -711,7 +708,6 @@ msgid "Properties..."
 msgstr "Eigenschaften …"
 
 #: ../app/disp_callbacks.c:248
-#| msgid "Select None"
 msgid "Selection"
 msgstr "Auswahl"
 
@@ -1069,12 +1065,12 @@ msgstr ""
 
 #: ../app/interface.c:1511
 msgid ""
-"Line widths.  Click on a line to set the default line width for new objects.  "
-"Double-click to set the line width more precisely."
+"Line widths.  Click on a line to set the default line width for new "
+"objects.  Double-click to set the line width more precisely."
 msgstr ""
-"Linienbreiten. Klicken Sie eine Linie an, um die voreingestellte Linienbreite "
-"für neue Objekte festzulegen. Doppelklicken Sie sie, um die Linienbreite "
-"präziser festzulegen."
+"Linienbreiten. Klicken Sie eine Linie an, um die voreingestellte "
+"Linienbreite für neue Objekte festzulegen. Doppelklicken Sie sie, um die "
+"Linienbreite präziser festzulegen."
 
 #: ../app/interface.c:1554
 msgid ""
@@ -1154,7 +1150,8 @@ msgid "Layer name:"
 msgstr "Name der Ebene:"
 
 #: ../app/linewidth_area.c:246 ../lib/properties.h:491 ../lib/properties.h:494
-#: ../objects/chronogram/chronoline.c:183 ../objects/chronogram/chronoref.c:162
+#: ../objects/chronogram/chronoline.c:183
+#: ../objects/chronogram/chronoref.c:162
 msgid "Line width"
 msgstr "Linienbreite"
 
@@ -1881,8 +1878,8 @@ msgstr "Verborgene Objekttypen speichern"
 msgid "Yes"
 msgstr "Ja"
 
-#: ../app/preferences.c:485 ../app/preferences.c:496 ../lib/prop_inttypes.c:160
-#: ../lib/prop_inttypes.c:186
+#: ../app/preferences.c:485 ../app/preferences.c:496
+#: ../lib/prop_inttypes.c:160 ../lib/prop_inttypes.c:186
 msgid "No"
 msgstr "Nein"
 
@@ -2523,7 +2520,8 @@ msgid "Right"
 msgstr "Rechts"
 
 #: ../lib/properties.c:74 ../lib/properties.h:497 ../lib/properties.h:500
-#: ../objects/chronogram/chronoline.c:181 ../objects/chronogram/chronoref.c:160
+#: ../objects/chronogram/chronoline.c:181
+#: ../objects/chronogram/chronoref.c:160
 msgid "Line color"
 msgstr "Zeilenfarbe"
 
@@ -2568,8 +2566,9 @@ msgstr "Schrift"
 msgid "Font size"
 msgstr "Schriftgröße"
 
-#: ../lib/properties.c:84 ../lib/properties.h:555 ../objects/GRAFCET/step.c:171
-#: ../objects/chronogram/chronoline.c:189 ../objects/chronogram/chronoref.c:170
+#: ../lib/properties.c:84 ../lib/properties.h:555
+#: ../objects/GRAFCET/step.c:171 ../objects/chronogram/chronoline.c:189
+#: ../objects/chronogram/chronoref.c:170
 msgid "Text color"
 msgstr "Schriftfarbe"
 
@@ -2596,7 +2595,8 @@ msgid ""
 "Move new objects (if any) from '%s' into your custom sheet\n"
 "or remove '%s', using the 'Sheets and Objects' dialog."
 msgstr ""
-"Der System-Objektbogen »%s« scheint neuer zu sein als Ihre benutzerdefinierte\n"
+"Der System-Objektbogen »%s« scheint neuer zu sein als Ihre "
+"benutzerdefinierte\n"
 "Version und wurde als »%s« für diese Sitzung geladen.\n"
 "\n"
 "Verschieben Sie neue Objekte (falls nötig) von »%s« in Ihren "
@@ -2686,8 +2686,8 @@ msgid ""
 "Please remove old Dia installations completely or install Dia to a different "
 "location."
 msgstr ""
-"Bitte entfernen Sie alte Dia-Installationen vollständig oder installieren Sie "
-"Dia an einem anderen Ort."
+"Bitte entfernen Sie alte Dia-Installationen vollständig oder installieren "
+"Sie Dia an einem anderen Ort."
 
 #. Installer message:  License Page
 #: ../installer/win32/gennsh.c:44
@@ -2700,8 +2700,8 @@ msgid ""
 "$(^Name) is released under the GPL license. The license is provided here for "
 "information purposes only. $_CLICK"
 msgstr ""
-"$(^Name) wird unter der GPL-Lizenz veröffentlicht. Die Lizenz wir hier nur zu "
-"Informationszwecken angezeigt. $_CLICK"
+"$(^Name) wird unter der GPL-Lizenz veröffentlicht. Die Lizenz wir hier nur "
+"zu Informationszwecken angezeigt. $_CLICK"
 
 #. Installer message: Components page
 #: ../installer/win32/gennsh.c:50
@@ -2734,8 +2734,8 @@ msgid ""
 "Support for the Python Scripting Language 2.3. Do not select this if Python "
 "is not installed."
 msgstr ""
-"Unterstützung für die Python-Skriptsprache Version 2.3. Nicht auswählen, wenn "
-"Python nicht installiert ist."
+"Unterstützung für die Python-Skriptsprache Version 2.3. Nicht auswählen, "
+"wenn Python nicht installiert ist."
 
 #. Installer message: hyperlink text on finish page
 #: ../installer/win32/gennsh.c:68
@@ -2750,13 +2750,13 @@ msgstr "Dia (nur entfernen)"
 #. Installer message: confirmation question. Keep $\r
 #: ../installer/win32/gennsh.c:74
 msgid ""
-"Your old Dia directory is about to be deleted. Would you like to continue?$\r$"
-"\rNote: Any non-standard plugins that you may have installed will be deleted.$"
-"\rDia user settings will not be affected."
+"Your old Dia directory is about to be deleted. Would you like to continue?$\r"
+"$\rNote: Any non-standard plugins that you may have installed will be "
+"deleted.$\rDia user settings will not be affected."
 msgstr ""
-"Ihr alter Dia-Ordner wird gelöscht werden. Wirklich fortsetzen?$\r$\rAchtung: "
-"Alle von Ihnen installierten Nicht-Standard-Plugins werden gelöscht.$\rDie "
-"Dia-Benutzereinstellungen sind davon nicht betroffen."
+"Ihr alter Dia-Ordner wird gelöscht werden. Wirklich fortsetzen?$\r$"
+"\rAchtung: Alle von Ihnen installierten Nicht-Standard-Plugins werden "
+"gelöscht.$\rDie Dia-Benutzereinstellungen sind davon nicht betroffen."
 
 #. Installer message: confirmatin question. Keep $\r
 #: ../installer/win32/gennsh.c:77
@@ -2846,7 +2846,7 @@ msgstr ""
 
 #: ../objects/AADL/aadlbox.c:380
 msgid "Add Port Group"
-msgstr ""
+msgstr "Port-Gruppe hinzufügen"
 
 #: ../objects/AADL/aadlbox.c:382
 msgid "Add Connection Point"
@@ -4777,7 +4777,7 @@ msgstr "Vertraulich"
 
 #: ../objects/SISSI/classification.h:42 ../objects/SISSI/sissi_dialog.c:45
 msgid "NATO Confidential"
-msgstr ""
+msgstr "NATO-vertraulich"
 
 #: ../objects/SISSI/classification.h:43 ../objects/SISSI/sissi_dialog.c:46
 msgid "Personal Confidential"
@@ -4797,7 +4797,7 @@ msgstr ""
 
 #: ../objects/SISSI/classification.h:47 ../objects/SISSI/sissi_dialog.c:49
 msgid "Secret"
-msgstr ""
+msgstr "Geheim"
 
 #: ../objects/SISSI/classification.h:48
 msgid "Defense Secret"
@@ -4809,11 +4809,11 @@ msgstr ""
 
 #: ../objects/SISSI/classification.h:50 ../objects/SISSI/sissi_dialog.c:51
 msgid "NATO Secret"
-msgstr ""
+msgstr "NATO-geheim"
 
 #: ../objects/SISSI/classification.h:51 ../objects/SISSI/sissi_dialog.c:52
 msgid "Very Secret"
-msgstr ""
+msgstr "Streng geheim"
 
 #: ../objects/SISSI/classification.h:52 ../objects/SISSI/sissi_dialog.c:53
 msgid "NATO Very Secret"
@@ -4921,7 +4921,7 @@ msgstr "Intranet"
 # CHECK
 #: ../objects/SISSI/sissi_dialog.c:82
 msgid "Company directory"
-msgstr ""
+msgstr "Betriebsverzeichnis"
 
 #: ../objects/SISSI/sissi_dialog.c:83
 msgid "External portal"
@@ -4985,7 +4985,7 @@ msgstr "Kühlung / Verschmutzung"
 
 #: ../objects/SISSI/sissi_dialog.c:109
 msgid "Thermal detection"
-msgstr ""
+msgstr "Thermische Erkennung"
 
 #: ../objects/SISSI/sissi_dialog.c:113
 msgid "Fire detection"
@@ -4997,11 +4997,11 @@ msgstr "Wassermeldung"
 
 #: ../objects/SISSI/sissi_dialog.c:121
 msgid "Air detection"
-msgstr ""
+msgstr "Lufterkennung"
 
 #: ../objects/SISSI/sissi_dialog.c:125
 msgid "Energy detection"
-msgstr ""
+msgstr "Energieerkennung"
 
 #: ../objects/SISSI/sissi_dialog.c:129
 msgid "Intrusion detection"
@@ -5033,7 +5033,7 @@ msgstr ""
 
 #: ../objects/SISSI/sissi_dialog.c:158
 msgid "Personal"
-msgstr ""
+msgstr "Persönlich"
 
 #: ../objects/SISSI/sissi_dialog.c:159
 msgid "Decision maker"
@@ -5067,7 +5067,7 @@ msgstr "Entwickler"
 
 #: ../objects/SISSI/sissi_dialog.c:166
 msgid "Operator / Maintenance"
-msgstr ""
+msgstr "Bediener / Wartung"
 
 #: ../objects/SISSI/sissi_dialog.c:171 ../sheets/network.sheet.in.h:20
 msgid "Network"
@@ -5079,7 +5079,7 @@ msgstr ""
 
 #: ../objects/SISSI/sissi_dialog.c:173
 msgid "Passive or active relay"
-msgstr ""
+msgstr "Passive oder aktive Weiterleitung"
 
 #: ../objects/SISSI/sissi_dialog.c:174
 msgid "Communication interface"
@@ -5148,24 +5148,24 @@ msgstr "Datenmedium (passiv)"
 #. Class page:
 #: ../objects/SISSI/sissi_dialog.c:301
 msgid "_Menace"
-msgstr ""
+msgstr "_Bedrohung"
 
 #. ********* label of board *********
 #: ../objects/SISSI/sissi_dialog.c:317 ../objects/SISSI/sissi_dialog.c:326
 msgid "Menace"
-msgstr ""
+msgstr "Bedrohung"
 
 #: ../objects/SISSI/sissi_dialog.c:319 ../objects/SISSI/sissi_dialog.c:328
 msgid "P Action"
-msgstr ""
+msgstr "P-Aktion"
 
 #: ../objects/SISSI/sissi_dialog.c:321 ../objects/SISSI/sissi_dialog.c:330
 msgid "P Detection"
-msgstr ""
+msgstr "P-Erkennung"
 
 #: ../objects/SISSI/sissi_dialog.c:323 ../objects/SISSI/sissi_dialog.c:332
 msgid "Vulnerability"
-msgstr ""
+msgstr "Verwundbarkeit"
 
 #. Other properties of page:
 #: ../objects/SISSI/sissi_dialog.c:488
@@ -5739,11 +5739,13 @@ msgstr ""
 "warten.\n"
 "Beispiel: @ 1.0 (2.0)1.0(2.0)\n"
 
-#: ../objects/chronogram/chronoline.c:166 ../objects/chronogram/chronoref.c:148
+#: ../objects/chronogram/chronoline.c:166
+#: ../objects/chronogram/chronoref.c:148
 msgid "Start time"
 msgstr "Startzeit"
 
-#: ../objects/chronogram/chronoline.c:168 ../objects/chronogram/chronoref.c:150
+#: ../objects/chronogram/chronoline.c:168
+#: ../objects/chronogram/chronoref.c:150
 msgid "End time"
 msgstr "Endzeit"
 
@@ -5759,7 +5761,8 @@ msgstr "Abfallzeit"
 msgid "Multi-bit data"
 msgstr "Multi-Bit Daten"
 
-#: ../objects/chronogram/chronoline.c:175 ../objects/chronogram/chronoref.c:158
+#: ../objects/chronogram/chronoline.c:175
+#: ../objects/chronogram/chronoref.c:158
 msgid "Aspect"
 msgstr "Seitenverhältnis"
 
@@ -6013,8 +6016,8 @@ msgid ""
 "Can't convert output filename '%s' to locale encoding.\n"
 "Please choose a different name to save with cairo.\n"
 msgstr ""
-"Name der Ausgabedatei »%s« konnte nicht in lokale Zeichenkodierung umgewandelt "
-"werden.\n"
+"Name der Ausgabedatei »%s« konnte nicht in lokale Zeichenkodierung "
+"umgewandelt werden.\n"
 "Bitte wählen Sie einen anderen Namen, um mit Cairo zu speichern.\n"
 
 #: ../plug-ins/cairo/diacairo.c:256 ../plug-ins/cairo/diacairo.c:272
@@ -6166,7 +6169,7 @@ msgstr "gdk_renderer: Es wurde ein nicht unterstützter Füllmodus angegeben!\n"
 
 #: ../plug-ins/libart/dialibartrenderer.c:1476
 msgid "Renderer transformation"
-msgstr ""
+msgstr "Transformation der Darstellung"
 
 #: ../plug-ins/libart/dialibartrenderer.c:1477
 msgid "Transform pointer"
@@ -6184,7 +6187,8 @@ msgstr "TeX Metapost Makros"
 msgid "LaTeX PGF export filter"
 msgstr "LaTeX PGF-Exportfilter"
 
-#: ../plug-ins/pgf/render_pgf.c:1112 ../plug-ins/pstricks/render_pstricks.c:733
+#: ../plug-ins/pgf/render_pgf.c:1112
+#: ../plug-ins/pstricks/render_pstricks.c:733
 msgid "Not valid UTF8"
 msgstr "Ungültiges UTF-8"
 
@@ -6284,11 +6288,10 @@ msgstr "Python-Makro-Unterstützung"
 #: ../plug-ins/shape/shape-export.c:474
 msgid "Shape files must end in .shape, or they cannot be loaded by Dia"
 msgstr ""
-"Form-Dateien müssen die Endung .shape haben oder können von Dia nicht geladen "
-"werden"
+"Form-Dateien müssen die Endung .shape haben oder können von Dia nicht "
+"geladen werden"
 
 #: ../plug-ins/shape/shape-export.c:488
-#| msgid "Can't export png without libart!"
 msgid "Can't export png icon without export plug-in!"
 msgstr "png-Symbol kann ohne Export-Plugin nicht exportiert werden!"
 
@@ -6437,8 +6440,8 @@ msgstr "WordPerfect Grafik-Exportfilter"
 #, c-format
 msgid "FIG format has no equivalent of arrow style %s, using simple arrow.\n"
 msgstr ""
-"Das FIG-Format bietet kein Äquivalent zum Pfeilstils %s, einfacher Pfeil wird "
-"verwendet.\n"
+"Das FIG-Format bietet kein Äquivalent zum Pfeilstils %s, einfacher Pfeil "
+"wird verwendet.\n"
 
 #: ../plug-ins/xfig/xfig-export.c:484
 msgid "No more user-definable colors - using black"
@@ -6563,7 +6566,8 @@ msgstr "Verbund endete außerhalb des Verbundes\n"
 #: ../plug-ins/xfig/xfig-import.c:1051
 #, c-format
 msgid "Color number %d out of range 0..%d.  Discarding color.\n"
-msgstr "Farbnummer %d ist außerhalb des Bereichs 0..%d. Farbe wird verworfen.\n"
+msgstr ""
+"Farbnummer %d ist außerhalb des Bereichs 0..%d. Farbe wird verworfen.\n"
 
 #: ../plug-ins/xfig/xfig-import.c:1097
 #, c-format
@@ -6970,35 +6974,35 @@ msgstr "Datenobjekt"
 
 #: ../sheets/BPMN.sheet.in.h:11
 msgid "End Event"
-msgstr ""
+msgstr "Endereignis"
 
 #: ../sheets/BPMN.sheet.in.h:12
 msgid "End Event - Cancel"
-msgstr ""
+msgstr "Endereignis - Abbruch"
 
 #: ../sheets/BPMN.sheet.in.h:13
 msgid "End Event - Compensation"
-msgstr ""
+msgstr "Endereignis - Ausgleich"
 
 #: ../sheets/BPMN.sheet.in.h:14
 msgid "End Event - Error"
-msgstr ""
+msgstr "Endereignis - Fehler"
 
 #: ../sheets/BPMN.sheet.in.h:15
 msgid "End Event - Link"
-msgstr ""
+msgstr "Endereignis - Verweis"
 
 #: ../sheets/BPMN.sheet.in.h:16
 msgid "End Event - Message"
-msgstr ""
+msgstr "Endereignis - Nachricht"
 
 #: ../sheets/BPMN.sheet.in.h:17
 msgid "End Event - Multiple"
-msgstr ""
+msgstr "Endereignis - Mehrfach"
 
 #: ../sheets/BPMN.sheet.in.h:18
 msgid "End Event - Terminate"
-msgstr ""
+msgstr "Endereignis - Beenden"
 
 #: ../sheets/BPMN.sheet.in.h:19
 msgid "Exclusive (XOR) Data Based"
@@ -7022,35 +7026,35 @@ msgstr "Inklusiv (OR)"
 
 #: ../sheets/BPMN.sheet.in.h:24
 msgid "Intermediate Event"
-msgstr ""
+msgstr "Zwischenzeitliches Ereignis"
 
 #: ../sheets/BPMN.sheet.in.h:25
 msgid "Intermediate Event - Cancel"
-msgstr ""
+msgstr "Zwischenzeitliches Ereignis - Abbruch"
 
 #: ../sheets/BPMN.sheet.in.h:26
 msgid "Intermediate Event - Compensation"
-msgstr ""
+msgstr "Zwischenzeitliches Ereignis - Ausgleich"
 
 #: ../sheets/BPMN.sheet.in.h:27
 msgid "Intermediate Event - Error"
-msgstr ""
+msgstr "Zwischenzeitliches Ereignis - Fehler"
 
 #: ../sheets/BPMN.sheet.in.h:28
 msgid "Intermediate Event - Link"
-msgstr ""
+msgstr "Zwischenzeitliches Ereignis - Verweis"
 
 #: ../sheets/BPMN.sheet.in.h:29
 msgid "Intermediate Event - Message"
-msgstr ""
+msgstr "Zwischenzeitliches Ereignis - Nachricht"
 
 #: ../sheets/BPMN.sheet.in.h:30
 msgid "Intermediate Event - Multiple"
-msgstr ""
+msgstr "Zwischenzeitliches Ereignis - Mehrfach"
 
 #: ../sheets/BPMN.sheet.in.h:31
 msgid "Intermediate Event - Rule"
-msgstr ""
+msgstr "Zwischenzeitliches Ereignis - Regel"
 
 #: ../sheets/BPMN.sheet.in.h:32
 msgid "Intermediate Event - Timer"
@@ -7074,23 +7078,23 @@ msgstr "Parallel (AND)"
 
 #: ../sheets/BPMN.sheet.in.h:37
 msgid "Start Event"
-msgstr ""
+msgstr "Anfangsereignis"
 
 #: ../sheets/BPMN.sheet.in.h:38
 msgid "Start Event - Link"
-msgstr ""
+msgstr "Anfangsereignis - Verweis"
 
 #: ../sheets/BPMN.sheet.in.h:39
 msgid "Start Event - Message"
-msgstr ""
+msgstr "Anfangsereignis - Nachricht"
 
 #: ../sheets/BPMN.sheet.in.h:40
 msgid "Start Event - Multiple"
-msgstr ""
+msgstr "Anfangsereignis - Mehrfach"
 
 #: ../sheets/BPMN.sheet.in.h:41
 msgid "Start Event - Rule"
-msgstr ""
+msgstr "Anfangsereignis - Regel"
 
 #: ../sheets/BPMN.sheet.in.h:42
 msgid "Start Event - Timer"
@@ -7098,7 +7102,7 @@ msgstr ""
 
 #: ../sheets/BPMN.sheet.in.h:44
 msgid "Text Annotation"
-msgstr ""
+msgstr "Textanmerkung"
 
 #: ../sheets/BPMN.sheet.in.h:45
 msgid "Transaction"
@@ -8057,7 +8061,7 @@ msgstr "Ein i* negativer Beitrag"
 
 #: ../sheets/Istar.sheet.in.h:7
 msgid "An i* position"
-msgstr ""
+msgstr "Eine i*-Position"
 
 #: ../sheets/Istar.sheet.in.h:8
 msgid "An i* positive contribution"
@@ -8248,9 +8252,10 @@ msgstr ""
 msgid "Lights"
 msgstr "Leuchten"
 
+# Sollte das vielleicht eine Rundumleuchte sein?
 #: ../sheets/Lights.sheet.in.h:7
 msgid "Moving head"
-msgstr ""
+msgstr "Bewegter Kopf"
 
 #: ../sheets/Lights.sheet.in.h:8
 msgid "Objects to design simple lighting plots"
@@ -8290,7 +8295,7 @@ msgstr "UND-Gatter"
 
 #: ../sheets/Logic.sheet.in.h:2
 msgid "Boolean Logic"
-msgstr "Boolsche Logik"
+msgstr "Boolesche Logik"
 
 #: ../sheets/Logic.sheet.in.h:3
 msgid "Crossconnector"
@@ -8575,7 +8580,7 @@ msgstr "Luftfilter"
 
 #: ../sheets/SISSI.sheet.in.h:2
 msgid "Air quality detector"
-msgstr ""
+msgstr "Luftgütemesser"
 
 #: ../sheets/SISSI.sheet.in.h:3
 msgid "Airconditioner"
@@ -8595,11 +8600,11 @@ msgstr "Backup"
 
 #: ../sheets/SISSI.sheet.in.h:7
 msgid "Badge reader"
-msgstr ""
+msgstr "Ausweisleser"
 
 #: ../sheets/SISSI.sheet.in.h:8
 msgid "Badge reader/keyboard"
-msgstr ""
+msgstr "Ausweisleser/Tastatur"
 
 #: ../sheets/SISSI.sheet.in.h:9
 msgid "Biometric reader"
@@ -8615,7 +8620,7 @@ msgstr "Zentrifugaler Ventilator"
 
 #: ../sheets/SISSI.sheet.in.h:12
 msgid "Cipher machine"
-msgstr ""
+msgstr "Chiffriermaschine"
 
 #: ../sheets/SISSI.sheet.in.h:13
 msgid "Circulation pump"
@@ -8655,7 +8660,7 @@ msgstr "Tor"
 
 #: ../sheets/SISSI.sheet.in.h:22
 msgid "Geographic site"
-msgstr ""
+msgstr "Geographischer Ort"
 
 #: ../sheets/SISSI.sheet.in.h:23
 msgid "Glass-break sensor"
@@ -8679,11 +8684,11 @@ msgstr "Laptop"
 
 #: ../sheets/SISSI.sheet.in.h:29
 msgid "Level detector"
-msgstr ""
+msgstr "Füllstandsdetektor"
 
 #: ../sheets/SISSI.sheet.in.h:30
 msgid "Light detector"
-msgstr ""
+msgstr "Lichtdetektor"
 
 #: ../sheets/SISSI.sheet.in.h:31
 msgid "Log analysis"
@@ -8749,7 +8754,7 @@ msgstr "Relationale Datenbank"
 
 #: ../sheets/SISSI.sheet.in.h:46
 msgid "Revolving door"
-msgstr ""
+msgstr "Drehtür"
 
 #: ../sheets/SISSI.sheet.in.h:47
 msgid "Room"
@@ -8761,7 +8766,7 @@ msgstr "Router"
 
 #: ../sheets/SISSI.sheet.in.h:49
 msgid "Safe"
-msgstr ""
+msgstr "Geldspeicher"
 
 #: ../sheets/SISSI.sheet.in.h:50
 msgid "Security area"
@@ -8790,7 +8795,7 @@ msgstr "Telefon"
 
 #: ../sheets/SISSI.sheet.in.h:57
 msgid "Vehicle detector"
-msgstr ""
+msgstr "Fahrzeugdetektor"
 
 #: ../sheets/SISSI.sheet.in.h:58
 msgid "Ventilator"
@@ -8810,7 +8815,7 @@ msgstr "Video-Bewegungssensor"
 
 #: ../sheets/SISSI.sheet.in.h:62
 msgid "Voltage detector"
-msgstr ""
+msgstr "Spannungsdetektor"
 
 #: ../sheets/SISSI.sheet.in.h:63
 msgid "Workstation"
@@ -8842,7 +8847,7 @@ msgstr "Einschränkung, etwas mit einer Einschränkung belegen"
 
 #: ../sheets/UML.sheet.in.h:11
 msgid "Editor for UML Static Structure Diagrams"
-msgstr "Editor für statische UML Strukturdiagramme"
+msgstr "Editor für statische UML-Strukturdiagramme"
 
 # CHECK
 #: ../sheets/UML.sheet.in.h:15
@@ -9148,7 +9153,7 @@ msgstr "CSM-S"
 
 #: ../sheets/ciscohub.sheet.in.h:14
 msgid "Carrier Routing System"
-msgstr ""
+msgstr "Routing-System eines Netzbetreibers"
 
 #: ../sheets/ciscohub.sheet.in.h:15
 msgid "Cisco - Switch"
@@ -9196,11 +9201,11 @@ msgstr ""
 
 #: ../sheets/ciscohub.sheet.in.h:26
 msgid "Edge Label Switch Router"
-msgstr ""
+msgstr "Edge Label Switch Router"
 
 #: ../sheets/ciscohub.sheet.in.h:27
 msgid "Edge Label Switch Router with NetFlow"
-msgstr ""
+msgstr "Edge Label Switch Router with NetFlow"
 
 #: ../sheets/ciscohub.sheet.in.h:28
 msgid "Generic Processor"
@@ -9212,7 +9217,7 @@ msgstr ""
 
 #: ../sheets/ciscohub.sheet.in.h:31
 msgid "ISDN switch"
-msgstr "ISN-Switch"
+msgstr "ISDN-Switch"
 
 #: ../sheets/ciscohub.sheet.in.h:32
 msgid "LAN2LAN Switch"
@@ -9398,10 +9403,11 @@ msgstr "Branch-Office blau"
 msgid "Branch office subdued"
 msgstr "Branch-Office"
 
+# Also wenn es um Cisco-Netzwerke geht, scheint mir das Auto fehl am Platz.
 # CHECK
 #: ../sheets/ciscomisc.sheet.in.h:6
 msgid "Car"
-msgstr "Car"
+msgstr "Auto"
 
 #: ../sheets/ciscomisc.sheet.in.h:7
 msgid "Cisco - Misc"
@@ -9629,7 +9635,7 @@ msgstr "Breakout-Box"
 
 #: ../sheets/cisconetwork.sheet.in.h:12
 msgid "Bridge"
-msgstr "Brücke"
+msgstr "Netzwerkbrücke"
 
 #: ../sheets/cisconetwork.sheet.in.h:13
 msgid "CDDI/FDDI Concentrator"
@@ -9681,7 +9687,7 @@ msgstr "Wolke weiß"
 
 #: ../sheets/cisconetwork.sheet.in.h:25
 msgid "Concatenated Payload"
-msgstr ""
+msgstr "Concatenated Payload"
 
 # CHECK
 #: ../sheets/cisconetwork.sheet.in.h:26
@@ -10038,7 +10044,7 @@ msgstr "Fax"
 
 #: ../sheets/ciscotelephony.sheet.in.h:13
 msgid "Gatekeeper"
-msgstr ""
+msgstr "Gatekeeper"
 
 #: ../sheets/ciscotelephony.sheet.in.h:14
 msgid "Generic softswitch"
@@ -10187,7 +10193,7 @@ msgstr "Drehkreuz"
 
 #: ../sheets/ciscotelephony.sheet.in.h:50
 msgid "Unity Express"
-msgstr ""
+msgstr "Unity Express"
 
 #: ../sheets/ciscotelephony.sheet.in.h:51
 msgid "Unity server"
@@ -10639,8 +10645,8 @@ msgstr "Sybase-Replikations-Server"
 #~ msgstr ""
 #~ "Ihr lokaler Zeichensatz ist UTF-8. Weil es Probleme mit libxml1 und der "
 #~ "Unterstützung von Dateien gibt, die von vorhergehenden Dia-Versionen "
-#~ "erzeugt wurden, werden Sie auf Fehler stoßen. Bitte wenden Sie sich an dia-"
-#~ "list@gnome.org, wenn Sie diese Meldung erhalten."
+#~ "erzeugt wurden, werden Sie auf Fehler stoßen. Bitte wenden Sie sich an "
+#~ "dia-list@gnome.org, wenn Sie diese Meldung erhalten."
 
 #~ msgid "sheets from '%s'"
 #~ msgstr "Objektbögen aus '%s'"
