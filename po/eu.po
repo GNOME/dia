@@ -1,4 +1,4 @@
-# translation of dia.dia-0-97.po to Basque
+# translation of eu.po to Basque
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
 #
@@ -7,10 +7,10 @@
 # Iñaki Larrañaga Murgoitio <dooteo@zundan.com>, 2007.
 msgid ""
 msgstr ""
-"Project-Id-Version: dia.dia-0-97\n"
+"Project-Id-Version: eu\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-03-16 18:03+0100\n"
-"PO-Revision-Date: 2010-03-15 22:05+0100\n"
+"PO-Revision-Date: 2010-03-29 11:45+0200\n"
 "Last-Translator: Iñaki Larrañaga Murgoitio <dooteo@euskalgnu.org>\n"
 "Language-Team: Basque <itzulpena@euskalgnu.org>\n"
 "MIME-Version: 1.0\n"
@@ -129,13 +129,11 @@ msgstr "Ez sortu diagrama hutsa"
 
 #: ../app/app_procs.c:726
 msgid "Start integrated user interface (diagrams in tabs)"
-msgstr ""
-"Abiarazi integratutako erabiltzailearen interfazea (diagramak fitxetan)"
+msgstr "Abiarazi integratutako erabiltzailearen interfazea (diagramak fitxetan)"
 
 #: ../app/app_procs.c:728
 msgid "Send error messages to stderr instead of showing dialogs."
-msgstr ""
-"Bidali errore-mezuak stderr-era, elkarrizketa-koadroak erakutsi beharrean."
+msgstr "Bidali errore-mezuak stderr-era, elkarrizketa-koadroak erakutsi beharrean."
 
 #: ../app/app_procs.c:730
 msgid "Directory containing input files"
@@ -196,10 +194,8 @@ msgid "Dia version %s\n"
 msgstr "Dia, %s bertsioa\n"
 
 #: ../app/app_procs.c:914
-msgid ""
-"Couldn't find standard objects when looking for object-libs; exiting...\n"
-msgstr ""
-"Ezin izan dira 'object-libs'eko objektu estandarrak aurkitu, irtetzen...\n"
+msgid "Couldn't find standard objects when looking for object-libs; exiting...\n"
+msgstr "Ezin izan dira 'object-libs'eko objektu estandarrak aurkitu, irtetzen...\n"
 
 #: ../app/app_procs.c:916
 #, c-format
@@ -245,8 +241,7 @@ msgstr "Irten Dia-tik"
 
 #: ../app/app_procs.c:1172 ../app/app_procs.c:1179
 msgid "Could not create per-user Dia config directory"
-msgstr ""
-"Ezin izan da sortu erabiltzaile bakoitzeko Dia konfigurazioko direktorioa"
+msgstr "Ezin izan da sortu erabiltzaile bakoitzeko Dia konfigurazioko direktorioa"
 
 #: ../app/app_procs.c:1182
 msgid ""
@@ -399,8 +394,7 @@ msgstr "%d orrialdeko diagrama bat esportatzera zoaz."
 
 #: ../app/confirm.c:73
 #, c-format
-msgid ""
-"You are about to export a diagram which may require %s of memory.(%d pages)."
+msgid "You are about to export a diagram which may require %s of memory.(%d pages)."
 msgstr "%s memoria behar duen diagrama bat esportatzera zoaz (%d orrialde)."
 
 #: ../app/confirm.c:81
@@ -422,7 +416,7 @@ msgstr "Berretsi diagramaren tamaina"
 #: ../app/create_object.c:71
 #, c-format
 msgid "'%s' creation failed"
-msgstr "Huts eign du '%s' sortzean"
+msgstr "Huts egin du '%s' sortzean"
 
 #: ../app/defaults.c:43 ../app/defaults.c:150
 msgid "Object defaults"
@@ -1270,7 +1264,7 @@ msgstr "Orriak eta objektuak..."
 
 #: ../app/menus.c:95
 msgid "Plugins..."
-msgstr "Plugin-ak..."
+msgstr "Pluginak..."
 
 #: ../app/menus.c:101
 msgid "_Diagram tree..."
@@ -1561,7 +1555,7 @@ msgstr "At_xiki saretari"
 
 #: ../app/menus.c:259
 msgid "Snap To _Objects"
-msgstr "At_xiki objetuei"
+msgstr "At_xiki objektuei"
 
 #: ../app/menus.c:260
 msgid "Show _Rulers"
@@ -1642,7 +1636,7 @@ msgstr "Ezin izan dira GTK ezarpenak atzitu"
 
 #: ../app/plugin-manager.c:200
 msgid "Plug-ins"
-msgstr "Plugin-ak"
+msgstr "Pluginak"
 
 #: ../app/plugin-manager.c:255
 msgid "Loaded"
@@ -1748,7 +1742,7 @@ msgstr "Ikusgai"
 
 #: ../app/preferences.c:201
 msgid "Snap to object"
-msgstr "Atxiki objetuari"
+msgstr "Atxiki objektuari"
 
 #: ../app/preferences.c:204
 msgid "New window:"
@@ -2136,7 +2130,7 @@ msgstr "Kargatzen..."
 #: ../app/splash.c:75
 #, c-format
 msgid "Dia v %s"
-msgstr "Dia %s berts."
+msgstr "Dia %s"
 
 #: ../dia.desktop.in.in.h:1
 msgid "Dia Diagram Editor"
@@ -2444,7 +2438,7 @@ msgstr "dia_plugin_init() deiak huts egin du"
 #: ../lib/plug-ins.c:232
 #, c-format
 msgid "%s Plugin could not be unloaded"
-msgstr "Ezin izan da %s plugin-a deskargatu"
+msgstr "Ezin izan da %s plugina deskargatu"
 
 #: ../lib/plug-ins.c:303
 #, c-format
@@ -2679,7 +2673,7 @@ msgid ""
 "$(^Name) is released under the GPL license. The license is provided here for "
 "information purposes only. $_CLICK"
 msgstr ""
-"$(^Name) GPL lizentziapean argitaratu da. Lizentzia hemen eskaintzen da "
+"$(^Name) GPL lizentzia pean argitaratu da. Lizentzia hemen eskaintzen da "
 "informazioa emateko zedearekin. $_CLICK"
 
 #. Installer message: Components page
@@ -2735,7 +2729,7 @@ msgid ""
 msgstr ""
 "Dia zaharraren direktorioa ezabatzera doa. Jarraitzea nahi duzu?$\r"
 "$\rOharra: instalatuta eduki dezakezun edozein plugin ez-estandar ere ezabatu "
-"egingo dela.$\rDia-ko erabiltailearen ezarpenei ez die eragingo."
+"egingo dela.$\rDia-ko erabiltzailearen ezarpenei ez die eragingo."
 
 #. Installer message: confirmatin question. Keep $\r
 #: ../installer/win32/gennsh.c:77
@@ -2743,7 +2737,7 @@ msgid ""
 "The installation directory you specified already exists. Any contents$\rwill "
 "be deleted. Would you like to continue?"
 msgstr ""
-"Zehaztu duzun instalatiorako direktorioa badago lehendik ere. Bertako$\r"
+"Zehaztu duzun instalaziorako direktorioa badago lehendik ere. Bertako$\r"
 "edozein eduki ezabatu egingo da. Jarraitzea nahi duzu?"
 
 #. Installer message: Uninstall Section Prompts. Keep $\r
@@ -2752,24 +2746,22 @@ msgid ""
 "The uninstaller could not find registry entries for Dia.$\rIt is likely that "
 "another user installed this application."
 msgstr ""
-"Desintalatzaileak ezin izan du Dia-ren sarrerako erregistrorik aurkitu.$\r"
+"Desinstalatzaileak ezin izan du Dia-ren sarrerako erregistrorik aurkitu.$\r"
 "Badirudi beste erabiltzaile batek instalatu duela aplikazio hau."
 
 #. Installer message: Uninstall error message
 #: ../installer/win32/gennsh.c:83
 msgid "You do not have permission to uninstall this application."
-msgstr "Ez daukazu aplikazio hau desinstalateko baimenik."
+msgstr "Ez daukazu aplikazio hau desinstalatzeko baimenik."
 
 #. Installer message: Uninstallation warning. Keep $INSTDIR
 #: ../installer/win32/gennsh.c:86
 msgid "This will completely delete $INSTDIR and all subdirectories. Continue?"
-msgstr ""
-"Honek erabat ezabatuko du $INSTDIR eta bere azpidirektorio guztiak. Jarraitu?"
+msgstr "Honek erabat ezabatuko du $INSTDIR eta bere azpidirektorio guztiak. Jarraitu?"
 
 #. Installer message: Uninstallation warning. Keep $\PROFILE\.dia
 #: ../installer/win32/gennsh.c:89
-msgid ""
-"This will completely delete $PROFILE\\.dia and all subdirectories. Continue?"
+msgid "This will completely delete $PROFILE\\.dia and all subdirectories. Continue?"
 msgstr ""
 "Honek erabat ezabatuko du $PROFILE\\.dia eta bere azpidirektorio guztiak. "
 "Jarraitu?"
@@ -5596,7 +5588,7 @@ msgstr "Abiarazlea"
 
 #: ../objects/UML/transition.c:142
 msgid "The event that causes this transition to be taken"
-msgstr "Gertaera (transizio hau eragiten duena)"
+msgstr "Gertaera (trantsizio hau eragiten duena)"
 
 #: ../objects/UML/transition.c:143
 msgid "Action"
@@ -5604,7 +5596,7 @@ msgstr "Ekintza"
 
 #: ../objects/UML/transition.c:144
 msgid "Action to perform when this transition is taken"
-msgstr "Ekintza (transizio hau gertatzean egikaritzeko)"
+msgstr "Ekintza (trantsizio hau gertatzean egikaritzeko)"
 
 #: ../objects/UML/transition.c:145 ../sheets/cisconetwork.sheet.in.h:43
 msgid "Guard"
@@ -5612,7 +5604,7 @@ msgstr "Zaintzailea"
 
 #: ../objects/UML/transition.c:146
 msgid "Condition for taking this transition when the event is fired"
-msgstr "Baldintza (transizio hau eragiteko gertaera piztean)"
+msgstr "Baldintza (trantsizio hau eragiteko gertaera piztean)"
 
 #: ../objects/UML/uml.c:66
 msgid "Unified Modelling Language diagram objects UML 1.3"
@@ -5773,14 +5765,12 @@ msgstr "XML lerro pertsonalizatuen kargatzailea"
 
 #: ../objects/custom_lines/custom_linetypes.c:226
 msgid "INTERNAL: CustomLines: Illegal line type in LineInfo object."
-msgstr ""
-"BARNEKOA: LerroPertsonalizatuak: lerro mota ilegala LineInfo objektuan."
+msgstr "BARNEKOA: LerroPertsonalizatuak: lerro mota ilegala LineInfo objektuan."
 
 #: ../objects/custom_lines/custom_linetypes.c:251
 #, c-format
 msgid "INTERNAL: CustomLines: Illegal line type in LineInfo object %s."
-msgstr ""
-"BARNEKOA: LerroPertsonalizatuak: lerro mota ilegala LineInfo %s objektuan."
+msgstr "BARNEKOA: LerroPertsonalizatuak: lerro mota ilegala LineInfo %s objektuan."
 
 #: ../objects/custom/shape_info.c:162
 #, c-format
@@ -6637,7 +6627,7 @@ msgstr "XSL eraldaketaren iragazkia"
 #: ../plug-ins/xslt/xslt.c:362
 msgid "No valid configuration files found for the XSLT plugin, not loading."
 msgstr ""
-"Ez da aurkitu konfigurazio-fitxategi baliozkorik XSLT plugin-arentzat; ez da "
+"Ez da aurkitu konfigurazio-fitxategi baliozkorik XSLT pluginarentzat; ez da "
 "kargatuko."
 
 #: ../plug-ins/xslt/xsltdialog.c:97
@@ -6891,8 +6881,7 @@ msgstr "BPMN"
 
 #: ../sheets/BPMN.sheet.in.h:5
 msgid "Business Process Modeling Notation"
-msgstr ""
-"Business Process Modeling Notation (Enpresako prozesua modelatzeko notazioa)"
+msgstr "Business Process Modeling Notation (Enpresako prozesua modelatzeko notazioa)"
 
 #: ../sheets/BPMN.sheet.in.h:6
 msgid "Collapsed Sub-Process"
@@ -7153,7 +7142,7 @@ msgstr "Galdara lapikoa"
 
 #: ../sheets/ChemEng.sheet.in.h:27
 msgid "Knock-out Drum (with demister pad)"
-msgstr "Lauzoa kentzeko gailu-bereizlea"
+msgstr "Lauza kentzeko gailu-bereizlea"
 
 #: ../sheets/ChemEng.sheet.in.h:29
 msgid "Mixer"
@@ -7189,7 +7178,7 @@ msgstr "Erreaktorea edo xurgatzeko ontzia, bakuna"
 
 #: ../sheets/ChemEng.sheet.in.h:37
 msgid "Reciprocating Compressor or Pump"
-msgstr "Piztoizko konpresorea edo ponpa"
+msgstr "Pistoizko konpresorea edo ponpa"
 
 #: ../sheets/ChemEng.sheet.in.h:38
 msgid "Regulable Valve"
@@ -8151,7 +8140,7 @@ msgstr "KAOS-ren eskaerak"
 
 #: ../sheets/KAOS.sheet.in.h:21
 msgid "A KAOS responsibility"
-msgstr "KAOS-en erantzunkizunak"
+msgstr "KAOS-en erantzukizunak"
 
 #: ../sheets/KAOS.sheet.in.h:22
 msgid "A KAOS softgoal"
@@ -8987,7 +8976,7 @@ msgstr "Zerbitzaria PC bideratzailearekin"
 
 #: ../sheets/ciscocomputer.sheet.in.h:41
 msgid "Software-Based Router on File Server"
-msgstr "Softwarean oinarritutako bideratzeailea fitxategi-zerbitzarian"
+msgstr "Softwarean oinarritutako bideratzailea fitxategi-zerbitzarian"
 
 #: ../sheets/ciscocomputer.sheet.in.h:43
 msgid "Supercomputer"
@@ -10500,3 +10489,4 @@ msgstr "Sybase datu-zerbitzaria"
 #: ../sheets/sybase.sheet.in.h:8
 msgid "Sybase replication server"
 msgstr "Sybase erreplikatze-zerbitzaria"
+
