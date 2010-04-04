@@ -2,15 +2,15 @@
 # This file is distributed under the same license as the package.
 #
 # Andraz Tori <andraz.tori1@guest.arnes.si>, 2000.
-# Martin Srebotnjak <miles@filmsi.net>, 2007.
 # Matej Urbančič <mateju@svn.gnome.org>, 2007.
+# Martin Srebotnjak <miles@filmsi.net>, 2007, 2010.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: dia\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=dia&component=general\n"
 "POT-Creation-Date: 2010-03-29 09:44+0000\n"
-"PO-Revision-Date: 2010-04-02 21:35+0100\n"
+"PO-Revision-Date: 2010-04-03 16:44+0100\n"
 "Last-Translator: Martin Srebotnjak  <miles@filmsi.net>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -687,7 +687,7 @@ msgstr "Velikost papirja"
 #. orientation
 #: ../app/diapagelayout.c:186
 msgid "Orientation"
-msgstr "Usmerjenost"
+msgstr "Postavitev"
 
 #. margins
 #: ../app/diapagelayout.c:224
@@ -6058,7 +6058,7 @@ msgstr "Debelina črte malega kazalca časa:"
 
 #: ../objects/custom/custom.c:140
 msgid "Custom"
-msgstr "Po meri"
+msgstr "Po meri ..."
 
 #: ../objects/custom/custom.c:140
 msgid "Custom XML shapes loader"
@@ -6240,7 +6240,7 @@ msgstr "Nariši rob"
 
 #: ../objects/standard/image.c:143
 msgid "Keep aspect ratio"
-msgstr "Ohrani razmerja"
+msgstr "Ohrani razmerje stranic"
 
 #. Found file in same dir as diagram.
 #. Found file in current dir.
