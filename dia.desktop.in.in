@@ -1,6 +1,7 @@
 [Desktop Entry]
-Encoding=UTF-8
-_Name=Dia Diagram Editor
+_Name=Dia
+_GenericName=Diagram Editor
+_X-GNOME-FullName=Dia Diagram Editor
 _Comment=Edit your Diagrams
 Type=Application
 Exec=dia %F
