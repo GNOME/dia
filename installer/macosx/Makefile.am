@@ -1,4 +1,4 @@
 ## Process this file with automake to produce Makefile.in
 
-SUBDIRS = macosx win32
+EXTRA_DIST = osx-app.sh osx-build.sh osx-dmg.sh
 
