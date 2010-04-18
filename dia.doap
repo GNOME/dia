@@ -12,7 +12,7 @@
   <maintainer>
     <foaf:Person>
       <foaf:name>Hans Breuer</foaf:name>
-      <foaf:mbox rdf:resource="hans@breuer.org" />
+      <foaf:mbox rdf:resource="mailto:hans@breuer.org" />
       <gnome:userid>hans</gnome:userid>
     </foaf:Person>
   </maintainer>
