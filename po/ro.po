@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=dia&component=general\n"
 "POT-Creation-Date: 2010-04-20 19:11+0000\n"
-"PO-Revision-Date: 2010-05-02 23:17+0300\n"
+"PO-Revision-Date: 2010-05-02 23:21+0300\n"
 "Last-Translator: Cristian Secară <cristi AT secarica DOT ro>\n"
 "Language-Team: Gnome Romanian Team <gnomero-list@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -519,43 +519,43 @@ msgstr "/_Sortează obiectele"
 
 #: ../app/diagram_tree_menu.c:48
 msgid "/Sort objects/by _name"
-msgstr "/_Sortează obiectele/după _nume"
+msgstr "/Sortează obiectele/după _nume"
 
 #: ../app/diagram_tree_menu.c:50
 msgid "/Sort objects/by _type"
-msgstr "/_Sortează obiectele/după _tip"
+msgstr "/Sortează obiectele/după _tip"
 
 #: ../app/diagram_tree_menu.c:52
 msgid "/Sort objects/as _inserted"
-msgstr "/_Sortează obiectele/după _inserție"
+msgstr "/Sortează obiectele/după _inserție"
 
 #: ../app/diagram_tree_menu.c:55
 msgid "/Sort objects/All by name"
-msgstr "/_Sortează obiectele/Toate după nume"
+msgstr "/Sortează obiectele/Toate după nume"
 
 #: ../app/diagram_tree_menu.c:57
 msgid "/Sort objects/All by type"
-msgstr "/_Sortează obiectele/Toate după tip"
+msgstr "/Sortează obiectele/Toate după tip"
 
 #: ../app/diagram_tree_menu.c:59
 msgid "/Sort objects/All as inserted"
-msgstr "/_Sortează obiectele/Toate după momentul de inserție"
+msgstr "/Sortează obiectele/Toate după momentul de inserție"
 
 #: ../app/diagram_tree_menu.c:61
 msgid "/Sort objects/_Default"
-msgstr "/_Sortează obiectele/_Implicit"
+msgstr "/Sortează obiectele/_Implicit"
 
 #: ../app/diagram_tree_menu.c:62
 msgid "/Sort objects/Default/by _name"
-msgstr "/_Sortează obiectele/_Implicit/după _nume"
+msgstr "/Sortează obiectele/Implicit/după _nume"
 
 #: ../app/diagram_tree_menu.c:64
 msgid "/Sort objects/Default/by _type"
-msgstr "/_Sortează obiectele/_Implicit/după _tip"
+msgstr "/Sortează obiectele/Implicit/după _tip"
 
 #: ../app/diagram_tree_menu.c:66
 msgid "/Sort objects/Default/as _inserted"
-msgstr "/_Sortează obiectele/_Implicit/după momentul de _inserție"
+msgstr "/Sortează obiectele/Implicit/după momentul de _inserție"
 
 #: ../app/diagram_tree_menu.c:68
 msgid "/Sort _diagrams"
@@ -563,23 +563,23 @@ msgstr "/Sortează _diagramele"
 
 #: ../app/diagram_tree_menu.c:69
 msgid "/Sort _diagrams/by _name"
-msgstr "/Sortează _diagramele/după _nume"
+msgstr "/Sortează diagramele/după _nume"
 
 #: ../app/diagram_tree_menu.c:71
 msgid "/Sort _diagrams/as _inserted"
-msgstr "/Sortează _diagramele/după momentul de _inserție"
+msgstr "/Sortează diagramele/după momentul de _inserție"
 
 #: ../app/diagram_tree_menu.c:73
 msgid "/Sort diagrams/_Default"
-msgstr "/Sortează _diagramele/_Implicit"
+msgstr "/Sortează diagramele/_Implicit"
 
 #: ../app/diagram_tree_menu.c:74
 msgid "/Sort diagrams/Default/by _name"
-msgstr "/Sortează _diagramele/_Implicit/după _nume"
+msgstr "/Sortează diagramele/Implicit/după _nume"
 
 #: ../app/diagram_tree_menu.c:76
 msgid "/Sort diagrams/Default/as _inserted"
-msgstr "/Sortează _diagramele/_Implicit/după momentul de _inserție"
+msgstr "/Sortează diagramele/Implicit/după momentul de _inserție"
 
 #: ../app/diagram_tree_menu.c:84 ../app/diagram_tree_menu.c:95
 msgid "/_Locate"
