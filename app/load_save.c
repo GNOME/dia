@@ -188,46 +188,51 @@ read_objects(xmlNodePtr objects,
     } else if (xmlStrcmp(obj_node->name, (const xmlChar *)"group")==0
                && obj_node->children) {
       /* don't create empty groups */
-      obj = group_create(read_objects(obj_node, objects_hash, filename, NULL, unknown_objects_hash));
+      GList *inner_objects = read_objects(obj_node, objects_hash, filename, NULL, unknown_objects_hash);
+
+      if (inner_objects) {
+        obj = group_create(inner_objects);
+
 #ifdef USE_NEWGROUP
-      /* Old group objects had objects recursively inside them.  Since
-       * objects are now done with parenting, we need to extract those objects,
-       * make a newgroup object, set parent-child relationships, and add
-       * all of them to the diagram.
-       */
-      {
-	DiaObject *newgroup;
-	GList *objects;
-	Point lower_right;
-	type = object_get_type("Misc - NewGroup");
-	lower_right = obj->position;
-	newgroup = type->ops->create(&lower_right,
-				     NULL,
-				     NULL,
-				     NULL);
-	list = g_list_append(list, newgroup);
-	
-	for (objects = group_objects(obj); objects != NULL; objects = g_list_next(objects)) {
-	  DiaObject *subobj = (DiaObject *) objects->data;
-	  list = g_list_append(list, subobj);
-	  subobj->parent = newgroup;
-          newgroup->children = g_list_append(newgroup->children, subobj);
-	  if (subobj->bounding_box.right > lower_right.x) {
-	    lower_right.x = subobj->bounding_box.right;
+	/* Old group objects had objects recursively inside them.  Since
+	 * objects are now done with parenting, we need to extract those objects,
+	 * make a newgroup object, set parent-child relationships, and add
+	 * all of them to the diagram.
+	 */
+	{
+	  DiaObject *newgroup;
+	  GList *objects;
+	  Point lower_right;
+	  type = object_get_type("Misc - NewGroup");
+	  lower_right = obj->position;
+	  newgroup = type->ops->create(&lower_right,
+				       NULL,
+				       NULL,
+				       NULL);
+	  list = g_list_append(list, newgroup);
+	  
+	  for (objects = group_objects(obj); objects != NULL; objects = g_list_next(objects)) {
+	    DiaObject *subobj = (DiaObject *) objects->data;
+	    list = g_list_append(list, subobj);
+	    subobj->parent = newgroup;
+	    newgroup->children = g_list_append(newgroup->children, subobj);
+	    if (subobj->bounding_box.right > lower_right.x) {
+	      lower_right.x = subobj->bounding_box.right;
+	    }
+	    if (subobj->bounding_box.bottom > lower_right.y) {
+	      lower_right.y = subobj->bounding_box.bottom;
+	    }
 	  }
-	  if (subobj->bounding_box.bottom > lower_right.y) {
-	    lower_right.y = subobj->bounding_box.bottom;
-	  }
+	  newgroup->ops->move_handle(newgroup, newgroup->handles[7],
+				 &lower_right, NULL,
+				 HANDLE_MOVE_CREATE_FINAL, 0);
+	  /* We've used the info from the old group, destroy it */
+	  group_destroy_shallow(obj);
 	}
-	newgroup->ops->move_handle(newgroup, newgroup->handles[7],
-			       &lower_right, NULL,
-			       HANDLE_MOVE_CREATE_FINAL, 0);
-	/* We've used the info from the old group, destroy it */
-	group_destroy_shallow(obj);
-      }
 #else
-      list = g_list_append(list, obj);
+	list = g_list_append(list, obj);
 #endif
+      }
     } else {
       /* silently ignore other nodes */
     }
