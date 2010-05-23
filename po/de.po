@@ -12,18 +12,20 @@
 # Hans Breuer <hans@breuer.org>, 2007, 2009.
 # Mario Blättermann <mariobl@gnome.org>, 2009, 2010.
 # Christian Kirbach <Christian.Kirbach@googlemail.com>, 2010.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: dia-0-97\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-23 16:46+0100\n"
-"PO-Revision-Date: 2010-03-22 22:10+0100\n"
-"Last-Translator: Christian Kirbach <Christian.Kirbach@googlemail.com>\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=dia&component=general\n"
+"POT-Creation-Date: 2010-05-02 20:24+0000\n"
+"PO-Revision-Date: 2010-05-22 19:23+0100\n"
+"Last-Translator: Mario Blättermann <mariobl@gnome.org>\n"
 "Language-Team: Deutsch <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-Language: German\n"
 "X-Poedit-Country: GERMANY\n"
 
@@ -2866,15 +2868,15 @@ msgstr "Verbindungspunkt entfernen"
 
 #: ../objects/Database/compound.c:198
 msgid "Number of arms"
-msgstr ""
+msgstr "Anzahl der Arme"
 
 #: ../objects/Database/compound.c:221
 msgid "Flip arms verticaly"
-msgstr ""
+msgstr "Arme vertikal spiegeln"
 
 #: ../objects/Database/compound.c:223
 msgid "Flip arms horizontaly"
-msgstr ""
+msgstr "Arme horizontal spiegeln"
 
 #: ../objects/Database/compound.c:225
 msgid "Center mount point verticaly"
@@ -4589,15 +4591,15 @@ msgstr "Beobachter"
 #  Translators: Menu item Verb/Control Magnitude/Regulate/Control
 #: ../objects/KAOS/metabinrel.c:162
 msgid "Controls"
-msgstr ""
+msgstr "Steuerung"
 
 #: ../objects/KAOS/metabinrel.c:163
 msgid "CapableOf"
-msgstr ""
+msgstr "Fähig zu"
 
 #: ../objects/KAOS/metabinrel.c:164
 msgid "Performs"
-msgstr ""
+msgstr "Führt aus"
 
 #: ../objects/KAOS/metabinrel.c:166
 msgid "Output"
@@ -4817,7 +4819,7 @@ msgstr "Streng geheim"
 
 #: ../objects/SISSI/classification.h:52 ../objects/SISSI/sissi_dialog.c:53
 msgid "NATO Very Secret"
-msgstr ""
+msgstr "NATO streng geheim"
 
 #: ../objects/SISSI/sissi.c:66
 msgid "SISSI diagram"
@@ -5029,7 +5031,7 @@ msgstr ""
 
 #: ../objects/SISSI/sissi_dialog.c:153
 msgid "Intrusion action"
-msgstr ""
+msgstr "Einbruchabwehr"
 
 #: ../objects/SISSI/sissi_dialog.c:158
 msgid "Personal"
@@ -5554,11 +5556,11 @@ msgstr "Verbindungspunkte entfernen"
 
 #: ../objects/UML/lifeline.c:507
 msgid "Increase connection points distance"
-msgstr "Abstand der Verbindungspunkte verringern"
+msgstr "Abstand der Verbindungspunkte vergrößern"
 
 #: ../objects/UML/lifeline.c:508
 msgid "Decrease connection points distance"
-msgstr "Abstand der Verbindungspunkte vergrößern"
+msgstr "Abstand der Verbindungspunkte verringern"
 
 #: ../objects/UML/lifeline.c:509
 msgid "Set default connection points distance"
@@ -5810,7 +5812,7 @@ msgstr "Vertikal spiegeln"
 
 #: ../objects/custom/custom_object.c:212 ../objects/custom/custom_object.c:244
 msgid "Scale of the subshapes"
-msgstr ""
+msgstr "Maßstab der Unterformen"
 
 #: ../objects/custom/custom_object.c:1818
 #: ../objects/custom_lines/custom_linetypes.c:263
@@ -7058,7 +7060,7 @@ msgstr "Zwischenzeitliches Ereignis - Regel"
 
 #: ../sheets/BPMN.sheet.in.h:32
 msgid "Intermediate Event - Timer"
-msgstr ""
+msgstr "Zwischenzeitliches Ereignis - Zeituhr"
 
 #: ../sheets/BPMN.sheet.in.h:33
 msgid "Looping Collapsed Sub-Process"
@@ -7098,7 +7100,7 @@ msgstr "Anfangsereignis - Regel"
 
 #: ../sheets/BPMN.sheet.in.h:42
 msgid "Start Event - Timer"
-msgstr ""
+msgstr "Anfangsereignis - Zeituhr"
 
 #: ../sheets/BPMN.sheet.in.h:44
 msgid "Text Annotation"
@@ -8246,7 +8248,7 @@ msgstr "Scheinwerfer mit elliptischem Reflektor"
 
 #: ../sheets/Lights.sheet.in.h:5
 msgid "Fresel lantern"
-msgstr ""
+msgstr "Scheinwerfer mit Fresnellinse"
 
 #: ../sheets/Lights.sheet.in.h:6
 msgid "Lights"
@@ -8267,7 +8269,7 @@ msgstr "PAR"
 
 #: ../sheets/Lights.sheet.in.h:10
 msgid "PAR on the floor"
-msgstr ""
+msgstr "Standscheinwerfer"
 
 #: ../sheets/Lights.sheet.in.h:11
 msgid "Pebble Convex lantern"
@@ -10579,24 +10581,6 @@ msgstr "Sybase-Datenserver"
 msgid "Sybase replication server"
 msgstr "Sybase-Replikations-Server"
 
-#~ msgid "'%s' not found!\n"
-#~ msgstr "»%s« nicht gefunden!\n"
-
-#~ msgid "'%s' not found in '%s'!\n"
-#~ msgstr "»%s« nicht in »%s« gefunden!\n"
-
-#~ msgid "Flip Horizontal"
-#~ msgstr "Horizontal spiegeln"
-
-#~ msgid "Flip Vertical"
-#~ msgstr "Vertikal spiegeln"
-
-#~ msgid "Add Segment"
-#~ msgstr "Segment hinzufügen"
-
-#~ msgid "Delete Segment"
-#~ msgstr "Segment löschen"
-
 #~ msgid "Diagram"
 #~ msgstr "Diagramm"
 
@@ -10619,8 +10603,93 @@ msgstr "Sybase-Replikations-Server"
 #~ msgid "Properties"
 #~ msgstr "Eigenschaften"
 
+#~ msgid "Create a new diagram"
+#~ msgstr "Ein neues Diagramm erstellen"
+
+#~ msgid "Open a diagram file"
+#~ msgstr "Eine Diagrammdateien öffnen"
+
 #~ msgid "_Diagram tree"
 #~ msgstr "_Diagrammbaum"
+
+#~ msgid "Save the diagram"
+#~ msgstr "Das Diagramm speichern"
+
+#~ msgid "Save the diagram with a new name"
+#~ msgstr "Das Diagramm unter neuem Namen speichern"
+
+#~ msgid "Export the diagram"
+#~ msgstr "Das Diagramm exportieren"
+
+#~ msgid "Print the diagram"
+#~ msgstr "Das Diagramm drucken"
+
+#~ msgid "Copy selection"
+#~ msgstr "Auswahl kopieren"
+
+#~ msgid "Cut selection"
+#~ msgstr "Auswahl ausschneiden"
+
+#~ msgid "Paste selection"
+#~ msgstr "Auswahl einfügen"
+
+#~ msgid "Zoom in"
+#~ msgstr "Vergrößern"
+
+#~ msgid "Zoom out"
+#~ msgstr "Verkleinern"
+
+#~ msgid "Zoom fit"
+#~ msgstr "Größe einpassen"
+
+#~ msgid "Please select a .shape file"
+#~ msgstr "Bitte wählen Sie eine .shape-Datei"
+
+#, fuzzy
+#~ msgid "Miter"
+#~ msgstr "Mixer"
+
+#, fuzzy
+#~ msgid "Butt"
+#~ msgstr "Unten"
+
+#, fuzzy
+#~ msgid "Projecting"
+#~ msgstr "Schützen"
+
+#~ msgid "Line join"
+#~ msgstr "Linienverbindung"
+
+#, fuzzy
+#~ msgid "Line caps"
+#~ msgstr "Linienabstände"
+
+#~ msgid "Allow resizing"
+#~ msgstr "Größenänderung zulassen"
+
+#~ msgid "Flip Horizontal"
+#~ msgstr "Horizontal spiegeln"
+
+#~ msgid "Flip Vertical"
+#~ msgstr "Vertikal spiegeln"
+
+#~ msgid "Add Segment"
+#~ msgstr "Segment hinzufügen"
+
+#~ msgid "Delete Segment"
+#~ msgstr "Segment löschen"
+
+#~ msgid "CairoScript"
+#~ msgstr "CairoScript"
+
+#~ msgid "Broken file?"
+#~ msgstr "Defekte Datei?"
+
+#~ msgid "'%s' not found!\n"
+#~ msgstr "»%s« nicht gefunden!\n"
+
+#~ msgid "'%s' not found in '%s'!\n"
+#~ msgstr "»%s« nicht in »%s« gefunden!\n"
 
 #~ msgid "active"
 #~ msgstr "aktiv"
@@ -10758,9 +10827,6 @@ msgstr "Sybase-Replikations-Server"
 
 #~ msgid "_Preview:"
 #~ msgstr "_Vorschau:"
-
-#~ msgid "Font Selection"
-#~ msgstr "Schriftwähler"
 
 #~ msgid "Could not deduce correct path for `%s'"
 #~ msgstr "Der korrekte Pfad für »%s« konnte nicht hergeleitet werden."
