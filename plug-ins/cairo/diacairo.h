@@ -55,6 +55,7 @@ struct _DiaCairoRenderer
   cairo_surface_t *surface; /**< can be NULL to use the provived cr */
  
   double dash_length;
+  LineStyle line_style;
   DiagramData *dia;
 
   real scale;

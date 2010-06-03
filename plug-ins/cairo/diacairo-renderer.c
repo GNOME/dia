@@ -243,6 +243,8 @@ set_linestyle(DiaRenderer *self, LineStyle mode)
 
   DIAG_NOTE(g_message("set_linestyle %d", mode));
 
+  /* also stored for use in set_dashlength */
+  renderer->line_style = mode;
   /* line type */
   switch (mode) {
   case LINESTYLE_SOLID:
@@ -291,6 +293,9 @@ set_dashlength(DiaRenderer *self, real length)
    * than one device unit. But the side-effect seems to end the endless loop */
   ensure_minimum_one_device_unit(renderer, &length);
   renderer->dash_length = length;
+  /* updating the line style (potentially once more) make the real
+   * style and it's length indepndent of the calling sequence */
+  set_linestyle(self, renderer->line_style);
 }
 
 static void
@@ -953,6 +958,7 @@ dia_cairo_renderer_get_type (void)
 static void
 cairo_renderer_init (DiaCairoRenderer *renderer, void *p)
 {
+  renderer->line_style = LINESTYLE_SOLID;
   /*
    * Initialize fields where 0 init isn't good enough. Bug #151716
    * appears to show that we are sometimes called to render a line
