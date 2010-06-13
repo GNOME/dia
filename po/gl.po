@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: dia.dia-0-97\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-06-13 17:21+0200\n"
-"PO-Revision-Date: 2010-06-13 17:24+0200\n"
+"PO-Revision-Date: 2010-06-13 18:01+0200\n"
 "Last-Translator: Fran Diéguez <frandieguez@ubuntu.com>\n"
 "Language-Team: Galician <gnome@g11.net>\n"
 "MIME-Version: 1.0\n"
@@ -425,7 +425,7 @@ msgstr ""
 "Pode axustar o tamaño do diagrama cambiando o «Escalado» no diálogo "
 "«Configuración de páxina»\n"
 "Como alternativa, pode usar «Seleccionar todo» e «Mellor axuste» para mover os "
-"obxectos ou manipuladores dentro dos limites desexados."
+"obxectos ou manipuladores dentro dos límites desexados."
 
 # rever
 #: ../app/confirm.c:85
@@ -627,20 +627,17 @@ msgid "/_Hide this type"
 msgstr "/_Ocultar este tipo"
 
 #: ../app/diagram_tree_view.c:161
-#, fuzzy
 msgid "Diagram"
-msgstr "Diagrama:"
+msgstr "Diagrama"
 
 #: ../app/diagram_tree_view.c:165
 #: ../plug-ins/drs/dia-render-script-import.c:231
-#, fuzzy
 msgid "Layer"
-msgstr "Capas"
+msgstr "Capa"
 
 #: ../app/diagram_tree_view.c:169
-#, fuzzy
 msgid "Layer(s)"
-msgstr "Capas"
+msgstr "Capa(s)"
 
 #: ../app/diagram_tree_view.c:172 ../app/diagram_tree_view.c:465
 #: ../objects/Database/table.c:141 ../objects/Istar/actor.c:146
@@ -660,19 +657,16 @@ msgid "Position"
 msgstr "Colocar"
 
 #: ../app/diagram_tree_view.c:176
-#, fuzzy
 msgid "Children"
-msgstr "Desa_sociar do fillo"
+msgstr "Fillo"
 
 #: ../app/diagram_tree_view.c:180
-#, fuzzy
 msgid "Object(s)"
-msgstr "_Obxectos"
+msgstr "Obxecto(s)"
 
 #: ../app/diagram_tree_view.c:396
-#, fuzzy
 msgid "Select"
-msgstr "_Seleccionar"
+msgstr "Seleccionar"
 
 #. Translators: Menu item Verb/Support/Position/Locate
 #. Translators: Menu item Verb/Signal/Sense/Locate
@@ -682,9 +676,8 @@ msgid "Locate"
 msgstr "Localizar"
 
 #: ../app/diagram_tree_view.c:398
-#, fuzzy
 msgid "Properties"
-msgstr "/_Propiedades"
+msgstr "Propiedades"
 
 #. *** board of value **************
 #: ../app/diagram_tree_view.c:448 ../app/exit_dialog.c:123
@@ -1335,14 +1328,12 @@ msgid "_File"
 msgstr "_Ficheiro"
 
 #: ../app/menus.c:81
-#, fuzzy
 msgid "Create a new diagram"
-msgstr "Non crear un diagrama baleiro"
+msgstr "Crear un diagrama novo"
 
 #: ../app/menus.c:82
-#, fuzzy
 msgid "Open a diagram file"
-msgstr "Comprimir o ficheiro do diagrama"
+msgstr "Abrir un ficheiro de diagrama"
 
 #: ../app/menus.c:84
 msgid "_Help"
@@ -1361,9 +1352,8 @@ msgid "_Diagram tree..."
 msgstr "Árbore de _Diagrama..."
 
 #: ../app/menus.c:102
-#, fuzzy
 msgid "_Diagram tree"
-msgstr "Árbore de _Diagrama..."
+msgstr "Árbore de _Diagrama"
 
 #: ../app/menus.c:108
 msgid "Show Toolbar"
@@ -1378,22 +1368,20 @@ msgid "Show Layers"
 msgstr "Mostrar Capas"
 
 #: ../app/menus.c:116
-#, fuzzy
 msgid "Save the diagram"
-msgstr "Gardar Diagrama"
+msgstr "Gardar o diagrama"
 
 #: ../app/menus.c:117
 msgid "Save the diagram with a new name"
-msgstr ""
+msgstr "Gardar o diagrama con un novo nome"
 
 #: ../app/menus.c:118
 msgid "_Export ..."
 msgstr "_Exportar ..."
 
 #: ../app/menus.c:118
-#, fuzzy
 msgid "Export the diagram"
-msgstr "Exportar Diagrama"
+msgstr "Exportar o diagrama"
 
 #: ../app/menus.c:119
 msgid "_Diagram Properties"
@@ -1404,28 +1392,24 @@ msgid "Page Set_up..."
 msgstr "Config_uración de páxina..."
 
 #: ../app/menus.c:121
-#, fuzzy
 msgid "Print the diagram"
-msgstr "Desprazamento sobre o diagrama"
+msgstr "Imprimir o diagrama"
 
 #: ../app/menus.c:124
 msgid "_Edit"
 msgstr "_Editar"
 
 #: ../app/menus.c:128
-#, fuzzy
 msgid "Copy selection"
-msgstr "Deseleccionar todo"
+msgstr "Copiar selección"
 
 #: ../app/menus.c:129
-#, fuzzy
 msgid "Cut selection"
-msgstr "Deseleccionar todo"
+msgstr "Cortar selección"
 
 #: ../app/menus.c:130
-#, fuzzy
 msgid "Paste selection"
-msgstr "Detección de auga"
+msgstr "Pegar selección"
 
 #: ../app/menus.c:131
 msgid "_Duplicate"
@@ -1474,14 +1458,12 @@ msgid "_View"
 msgstr "_Ver"
 
 #: ../app/menus.c:151
-#, fuzzy
 msgid "Zoom in"
-msgstr "Punteiro de zoom"
+msgstr "Acercar"
 
 #: ../app/menus.c:152
-#, fuzzy
 msgid "Zoom out"
-msgstr "Punteiro de zoom"
+msgstr "Afastar"
 
 #: ../app/menus.c:153
 msgid "_Zoom"
@@ -1533,9 +1515,8 @@ msgstr "25"
 
 #. Show All, Best Fit.  Same as the Gimp, Ctrl+E
 #: ../app/menus.c:167
-#, fuzzy
 msgid "Zoom fit"
-msgstr "Punteiro de zoom"
+msgstr "Axustar o zoom"
 
 #. "display_toggle_entries" items go here
 #: ../app/menus.c:171
@@ -2134,9 +2115,8 @@ msgstr ""
 "Tipo non asignado"
 
 #: ../app/sheets_dialog_callbacks.c:780
-#, fuzzy
 msgid "Please select a .shape file"
-msgstr "Seleccionar ficheiro de forma SVG"
+msgstr "Seleccione un ficheiro .shape"
 
 #: ../app/sheets_dialog_callbacks.c:787
 #, c-format
@@ -2639,9 +2619,8 @@ msgid "Text color"
 msgstr "Cor do texto"
 
 #: ../lib/properties.h:524 ../lib/properties.h:527
-#, fuzzy
 msgid "Line join"
-msgstr "Largura de liña"
+msgstr "Unir liña"
 
 #: ../lib/properties.h:530 ../lib/properties.h:533
 #, fuzzy
@@ -5366,9 +5345,8 @@ msgid "Comment line length"
 msgstr "Lonxitude da liña de comentario"
 
 #: ../objects/UML/class.c:174 ../objects/UML/class.c:326
-#, fuzzy
 msgid "Allow resizing"
-msgstr "Triángulo oco"
+msgstr "Permitir o redimensionado"
 
 #: ../objects/UML/class.c:184 ../objects/UML/class_dialog.c:575
 msgid "Polymorphic"
@@ -5964,12 +5942,10 @@ msgid "Absolute end gap"
 msgstr "Intervalo final absoluto"
 
 #: ../objects/standard/bezier.c:755 ../objects/standard/beziergon.c:507
-#, fuzzy
 msgid "Add Segment"
 msgstr "Engadir segmento"
 
 #: ../objects/standard/bezier.c:756 ../objects/standard/beziergon.c:508
-#, fuzzy
 msgid "Delete Segment"
 msgstr "Eliminar segmento"
 
@@ -6130,9 +6106,8 @@ msgid "Cairo Scalable Vector Graphics"
 msgstr "Cairo Scalable Vector Graphics"
 
 #: ../plug-ins/cairo/diacairo.c:379
-#, fuzzy
 msgid "CairoScript"
-msgstr "Cairo PostScript"
+msgstr "CairoScript"
 
 #: ../plug-ins/cairo/diacairo.c:390
 msgid "Cairo PNG"
@@ -6181,7 +6156,7 @@ msgstr "Filtro de exportación de Computer Graphics Metafile"
 
 #: ../plug-ins/drs/dia-render-script-import.c:223
 msgid "Broken file?"
-msgstr ""
+msgstr "Ficheiro roto?"
 
 # rever
 #: ../plug-ins/drs/dia-render-script.c:156
