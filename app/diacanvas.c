@@ -26,6 +26,7 @@
 
 #include "diacanvas.h"
 #include "intl.h"
+#include <gtk/gtkversion.h>
 
 enum {
   CHILD_PROP_0,
@@ -262,7 +263,11 @@ dia_canvas_move_internal (DiaCanvas       *canvas,
 
   gtk_widget_thaw_child_notify (widget);
   
+#if GTK_CHECK_VERSION(2,20,0)
+  if (gtk_widget_get_visible (widget) && gtk_widget_get_visible (canvas))
+#else
   if (GTK_WIDGET_VISIBLE (widget) && GTK_WIDGET_VISIBLE (canvas))
+#endif
     gtk_widget_queue_resize (GTK_WIDGET (canvas));
 }
 
@@ -379,7 +384,11 @@ dia_canvas_size_request (GtkWidget      *widget,
       child = children->data;
       children = children->next;
 
+#if GTK_CHECK_VERSION(2,20,0)
+      if (gtk_widget_get_visible (child->widget))
+#else
       if (GTK_WIDGET_VISIBLE (child->widget))
+#endif
 	{
           gtk_widget_size_request (child->widget, &child_requisition);
 
@@ -412,7 +421,11 @@ dia_canvas_size_allocate (GtkWidget     *widget,
 
   widget->allocation = *allocation;
 
+#if GTK_CHECK_VERSION(2,20,0)
+  if (gtk_widget_get_realized (widget)) {
+#else
   if (GTK_WIDGET_REALIZED (widget)) {
+#endif
     gdk_window_move_resize (widget->window,
 			    allocation->x, 
 			    allocation->y,
@@ -428,13 +441,21 @@ dia_canvas_size_allocate (GtkWidget     *widget,
       child = children->data;
       children = children->next;
       
+#if GTK_CHECK_VERSION(2,20,0)
+      if (gtk_widget_get_visible (child->widget))
+#else
       if (GTK_WIDGET_VISIBLE (child->widget))
+#endif
 	{
 	  gtk_widget_get_child_requisition (child->widget, &child_requisition);
 	  child_allocation.x = child->x + border_width;
 	  child_allocation.y = child->y + border_width;
 
+#if GTK_CHECK_VERSION(2,20,0)
+	  if (gtk_widget_get_has_window (widget))
+#else
 	  if (GTK_WIDGET_NO_WINDOW (widget))
+#endif
 	    {
 	      child_allocation.x += widget->allocation.x;
 	      child_allocation.y += widget->allocation.y;
@@ -471,7 +492,11 @@ dia_canvas_remove (GtkContainer *container,
 
       if (child->widget == widget)
 	{
+#if GTK_CHECK_VERSION(2,20,0)
+	  gboolean was_visible = gtk_widget_get_visible (widget);
+#else
 	  gboolean was_visible = GTK_WIDGET_VISIBLE (widget);
+#endif
 	  
 	  gtk_widget_unparent (widget);
 
@@ -479,7 +504,11 @@ dia_canvas_remove (GtkContainer *container,
 	  g_list_free (children);
 	  g_free (child);
 
+#if GTK_CHECK_VERSION(2,20,0)
+	  if (was_visible && gtk_widget_get_visible (container))
+#else
 	  if (was_visible && GTK_WIDGET_VISIBLE (container))
+#endif
 	    gtk_widget_queue_resize (GTK_WIDGET (container));
 
 	  break;

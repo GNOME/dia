@@ -1863,7 +1863,11 @@ gboolean integrated_ui_main_toolbar_is_showing (void)
 {
   if (ui.toolbar)
   {
+#if GTK_CHECK_VERSION(2,20,0)
+    return gtk_widget_get_visible (ui.toolbar)? TRUE : FALSE;
+#else
     return GTK_WIDGET_VISIBLE (ui.toolbar)? TRUE : FALSE;
+#endif
   }
   return FALSE;
 }
@@ -1901,7 +1905,11 @@ gboolean integrated_ui_layer_view_is_showing (void)
 {
   if (ui.layer_view)
   {
+#if GTK_CHECK_VERSION(2,20,0)
+    return gtk_widget_get_visible (ui.layer_view)? TRUE : FALSE;
+#else
     return GTK_WIDGET_VISIBLE (ui.layer_view)? TRUE : FALSE;
+#endif
   }
   return FALSE;
 }
@@ -1941,7 +1949,11 @@ gboolean integrated_ui_main_statusbar_is_showing (void)
 {
   if (ui.statusbar)
   {
+#if GTK_CHECK_VERSION(2,20,0)
+    return gtk_widget_get_visible (ui.statusbar)? TRUE : FALSE;
+#else
     return GTK_WIDGET_VISIBLE (ui.statusbar)? TRUE : FALSE;
+#endif
   }
   return FALSE;
 }

@@ -299,7 +299,11 @@ file_open_callback(gpointer data, guint action, GtkWidget *widget)
 		     G_CALLBACK(gtk_widget_destroyed), &opendlg);
   } else {
     gtk_widget_set_sensitive(opendlg, TRUE);
+#if GTK_CHECK_VERSION(2,20,0)
+    if (gtk_widget_get_visible(opendlg))
+#else
     if (GTK_WIDGET_VISIBLE(opendlg))
+#endif
       return;
   }
   if (!gtk_file_chooser_get_extra_widget(GTK_FILE_CHOOSER(opendlg))) {
@@ -469,7 +473,11 @@ file_save_as_callback(gpointer data, guint action, GtkWidget *widget)
     g_signal_handlers_unblock_by_func(G_OBJECT(compressbutton), toggle_compress_callback, NULL);
     if (g_object_get_data (G_OBJECT (savedlg), "user_data") != NULL)
       g_object_unref (g_object_get_data (G_OBJECT (savedlg), "user_data"));
+#if GTK_CHECK_VERSION(2,20,0)
+    if (gtk_widget_get_visible(savedlg)) {
+#else
     if (GTK_WIDGET_VISIBLE(savedlg)) {
+#endif
       /* keep a refernce to the diagram */
       g_object_ref(dia);
       g_object_set_data (G_OBJECT (savedlg), "user_data", dia);

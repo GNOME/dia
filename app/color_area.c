@@ -394,7 +394,11 @@ color_area_events (GtkWidget *widget,
 					color_area->allocation.height, 1);
       break;
     case GDK_EXPOSE:
+#if GTK_CHECK_VERSION(2,18,0)
+      if (gtk_widget_is_drawable(color_area))
+#else
       if (GTK_WIDGET_DRAWABLE (color_area))
+#endif
 	{
 	  if (!color_area_gc)
 	    {

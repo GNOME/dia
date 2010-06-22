@@ -23,6 +23,7 @@
 #include "config.h"
 
 #include "gtkwrapbox.h"
+#include <gtk/gtkversion.h>
 
 
 /* --- properties --- */
@@ -618,12 +619,24 @@ gtk_wrap_box_pack_wrapped (GtkWrapBox *wbox,
 
   gtk_widget_set_parent (child, GTK_WIDGET (wbox));
 
+#if GTK_CHECK_VERSION(2,20,0)
+  if (gtk_widget_get_realized (wbox))
+#else
   if (GTK_WIDGET_REALIZED (wbox))
+#endif
     gtk_widget_realize (child);
 
+#if GTK_CHECK_VERSION(2,20,0)
+  if (gtk_widget_get_visible (wbox) && gtk_widget_get_visible (child))
+#else
   if (GTK_WIDGET_VISIBLE (wbox) && GTK_WIDGET_VISIBLE (child))
+#endif
     {
+#if GTK_CHECK_VERSION(2,20,0)
+      if (gtk_widget_get_mapped (wbox))
+#else
       if (GTK_WIDGET_MAPPED (wbox))
+#endif
         gtk_widget_map (child);
 
       gtk_widget_queue_resize (child);
@@ -676,7 +689,11 @@ gtk_wrap_box_reorder_child (GtkWrapBox *wbox,
             wbox->children = child_info;
         }
 
+#if GTK_CHECK_VERSION(2,20,0)
+      if (gtk_widget_get_visible (child) && gtk_widget_get_visible (wbox))
+#else
       if (GTK_WIDGET_VISIBLE (child) && GTK_WIDGET_VISIBLE (wbox))
+#endif
         gtk_widget_queue_resize (child);
     }
 }
@@ -749,7 +766,11 @@ gtk_wrap_box_set_child_packing (GtkWrapBox *wbox,
       child_info->vfill = vfill;
       child_info->wrapped = wrapped;
 
+#if GTK_CHECK_VERSION(2,20,0)
+      if (gtk_widget_get_visible (child) && gtk_widget_get_visible (wbox))
+#else
       if (GTK_WIDGET_VISIBLE (child) && GTK_WIDGET_VISIBLE (wbox))
+#endif
         gtk_widget_queue_resize (child);
     }
 }
@@ -811,8 +832,16 @@ gtk_wrap_box_map (GtkWidget *widget)
   GTK_WIDGET_SET_FLAGS (wbox, GTK_MAPPED);
 
   for (child = wbox->children; child; child = child->next)
+#if GTK_CHECK_VERSION(2,20,0)
+    if (gtk_widget_get_visible (child->widget) &&
+#else
     if (GTK_WIDGET_VISIBLE (child->widget) &&
+#endif
+#if GTK_CHECK_VERSION(2,20,0)
+        !gtk_widget_get_mapped (child->widget))
+#else
         !GTK_WIDGET_MAPPED (child->widget))
+#endif
       gtk_widget_map (child->widget);
 }
 
@@ -825,8 +854,16 @@ gtk_wrap_box_unmap (GtkWidget *widget)
   GTK_WIDGET_UNSET_FLAGS (wbox, GTK_MAPPED);
 
   for (child = wbox->children; child; child = child->next)
+#if GTK_CHECK_VERSION(2,20,0)
+    if (gtk_widget_get_visible (child->widget) &&
+#else
     if (GTK_WIDGET_VISIBLE (child->widget) &&
+#endif
+#if GTK_CHECK_VERSION(2,20,0)
+        gtk_widget_get_mapped (child->widget))
+#else
         GTK_WIDGET_MAPPED (child->widget))
+#endif
       gtk_widget_unmap (child->widget);
 }
 
@@ -858,7 +895,11 @@ gtk_wrap_box_remove (GtkContainer *container,
         {
           gboolean was_visible;
 
+#if GTK_CHECK_VERSION(2,20,0)
+          was_visible = gtk_widget_get_visible (widget);
+#else
           was_visible = GTK_WIDGET_VISIBLE (widget);
+#endif
           gtk_widget_unparent (widget);
 
           if (last)

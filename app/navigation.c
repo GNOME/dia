@@ -312,7 +312,11 @@ on_da_expose_event (GtkWidget * widget, GdkEventExpose * event, gpointer unused)
 {
   /*refresh the part outdated by the event*/
   gdk_draw_drawable (widget->window,
+#if GTK_CHECK_VERSION(2,18,0)
+                     widget->style->fg_gc[gtk_widget_get_state (widget)],
+#else
                      widget->style->fg_gc[GTK_WIDGET_STATE (widget)],
+#endif
                      GDK_PIXMAP(nav->buffer),
                      event->area.x, event->area.y,
                      event->area.x, event->area.y,
@@ -394,7 +398,11 @@ on_da_motion_notify_event (GtkWidget * drawing_area, GdkEventMotion * event, gpo
 /*--Draw the miniframe*/
 /*refresh from the buffer*/
   gdk_draw_drawable (drawing_area->window,
+#if GTK_CHECK_VERSION(2,18,0)
+                     drawing_area->style->fg_gc[gtk_widget_get_state (drawing_area)],
+#else
                      drawing_area->style->fg_gc[GTK_WIDGET_STATE (drawing_area)],
+#endif
                      GDK_PIXMAP(nav->buffer),
                      0, 0, 0, 0, nav->width, nav->height);
 /*draw directly on the window, do not buffer the miniframe*/

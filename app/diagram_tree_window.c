@@ -130,7 +130,11 @@ create_diagram_tree_window(DiagramTreeConfig *config, GtkToggleAction *action)
   if (!diagwindow_) {
     diagwindow_ = diagram_tree_window_new(config_);
   }
+#if GTK_CHECK_VERSION(2,20,0)
+  gtk_toggle_action_set_active(action, gtk_widget_get_realized(diagwindow_));
+#else
   gtk_toggle_action_set_active(action, GTK_WIDGET_REALIZED(diagwindow_));
+#endif
 }
 
 /* menu callbacks */

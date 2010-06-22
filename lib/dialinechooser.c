@@ -98,7 +98,11 @@ dia_line_preview_set(DiaLinePreview *line, LineStyle lstyle)
 {
   if (line->lstyle != lstyle) {
     line->lstyle = lstyle;
+#if GTK_CHECK_VERSION(2,18,0)
+    if (gtk_widget_is_drawable(GTK_WIDGET(line)))
+#else
     if (GTK_WIDGET_DRAWABLE(line))
+#endif
       gtk_widget_queue_draw(GTK_WIDGET(line));
   }
 }
@@ -116,7 +120,11 @@ dia_line_preview_expose(GtkWidget *widget, GdkEventExpose *event)
   gint8 dash_list[6];
   int line_width = 2;
 
+#if GTK_CHECK_VERSION(2,18,0)
+  if (gtk_widget_is_drawable(widget)) {
+#else
   if (GTK_WIDGET_DRAWABLE(widget)) {
+#endif
     width = widget->allocation.width - misc->xpad * 2;
     height = widget->allocation.height - misc->ypad * 2;
     x = (widget->allocation.x + misc->xpad);

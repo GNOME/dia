@@ -183,7 +183,11 @@ properties_respond(GtkWidget *widget,
 static void
 properties_give_focus(GtkWidget *widget, gpointer data)
 {
+#if GTK_CHECK_VERSION(2,20,0)
+  if (gtk_widget_get_can_focus(widget)) {
+#else
   if (GTK_WIDGET_CAN_FOCUS(widget)) {
+#endif
     gtk_widget_grab_focus(widget);
   } else {
     if (GTK_IS_CONTAINER(widget)) {

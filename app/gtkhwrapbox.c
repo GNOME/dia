@@ -23,6 +23,7 @@
 #include "config.h"
 
 #include "gtkhwrapbox.h"
+#include <gtk/gtkversion.h>
 
 
 /* --- prototypes --- */
@@ -140,7 +141,11 @@ get_layout_size (GtkHWrapBox *this,
       GtkRequisition child_requisition;
       guint row_width, row_height, n = 1;
 
+#if GTK_CHECK_VERSION(2,20,0)
+      if (!gtk_widget_get_visible (child->widget))
+#else
       if (!GTK_WIDGET_VISIBLE (child->widget))
+#endif
         continue;
 
       get_child_requisition (wbox, child->widget, &child_requisition);
@@ -150,7 +155,11 @@ get_layout_size (GtkHWrapBox *this,
       row_height = child_requisition.height;
       for (row_child = child->next; row_child && n < wbox->child_limit; row_child = row_child->next)
         {
+#if GTK_CHECK_VERSION(2,20,0)
+          if (gtk_widget_get_visible (row_child->widget))
+#else
           if (GTK_WIDGET_VISIBLE (row_child->widget))
+#endif
             {
               get_child_requisition (wbox, row_child->widget, &child_requisition);
               if (row_width + wbox->hspacing + child_requisition.width > max_width)
@@ -192,7 +201,11 @@ gtk_hwrap_box_size_request (GtkWidget      *widget,
 
   /* size_request all children */
   for (child = wbox->children; child; child = child->next)
+#if GTK_CHECK_VERSION(2,20,0)
+    if (gtk_widget_get_visible (child->widget))
+#else
     if (GTK_WIDGET_VISIBLE (child->widget))
+#endif
       {
         GtkRequisition child_requisition;
 
@@ -251,7 +264,11 @@ reverse_list_row_children (GtkWrapBox       *wbox,
   *max_child_size = 0;
   *expand_line = FALSE;
 
+#if GTK_CHECK_VERSION(2,20,0)
+  while (child && !gtk_widget_get_visible (child->widget))
+#else
   while (child && !GTK_WIDGET_VISIBLE (child->widget))
+#endif
     {
       *child_p = child->next;
       child = *child_p;
@@ -272,7 +289,11 @@ reverse_list_row_children (GtkWrapBox       *wbox,
 
       while (child && n < wbox->child_limit)
         {
+#if GTK_CHECK_VERSION(2,20,0)
+          if (gtk_widget_get_visible (child->widget))
+#else
           if (GTK_WIDGET_VISIBLE (child->widget))
+#endif
             {
               get_child_requisition (wbox, child->widget, &child_requisition);
               if (width + wbox->hspacing + child_requisition.width > row_width ||

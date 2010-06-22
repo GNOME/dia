@@ -525,7 +525,11 @@ diagram_tree_show (void)
 		      G_CALLBACK (gtk_widget_destroyed),
 		      &window);
 
+#if GTK_CHECK_VERSION(2,20,0)
+    if (!gtk_widget_get_visible (window))
+#else
     if (!GTK_WIDGET_VISIBLE (window))
+#endif
       gtk_widget_show_all (window);
   }
   gtk_window_present (GTK_WINDOW(window));

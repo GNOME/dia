@@ -1434,7 +1434,11 @@ void display_rulers_show (DDisplay *ddisp)
     gtk_widget_show (ddisp->hrule);
     gtk_widget_show (ddisp->vrule);
 
+#if GTK_CHECK_VERSION(2,20,0)
+    if (gtk_widget_get_visible (parent))
+#else
     if (GTK_WIDGET_VISIBLE (parent))
+#endif
       gtk_widget_queue_resize (parent);
 
     ddisp->rulers_are_showing = TRUE;
@@ -1458,7 +1462,11 @@ void display_rulers_hide (DDisplay *ddisp)
     gtk_widget_hide (ddisp->hrule);
     gtk_widget_hide (ddisp->vrule);
     
+#if GTK_CHECK_VERSION(2,20,0)
+    if (gtk_widget_get_visible (parent))
+#else
     if (GTK_WIDGET_VISIBLE (parent))
+#endif
       gtk_widget_queue_resize (parent);
 
     ddisp->rulers_are_showing = FALSE;
