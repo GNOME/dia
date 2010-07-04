@@ -30,7 +30,6 @@
 #include <stdio.h>
 #include <glib/gstdio.h>
 
-#undef GTK_DISABLE_DEPRECATED /* gtk_file_chooser_dialog_new_with_backend */
 #include <gtk/gtk.h>
 #include "intl.h"
 #include "filter.h"
@@ -278,9 +277,8 @@ file_open_callback(gpointer data, guint action, GtkWidget *widget)
       parent_window = GTK_WINDOW(interface_get_toolbox_shell());
     }
     persistence_register_integer ("import-filter", 0);
-    opendlg = gtk_file_chooser_dialog_new_with_backend(_("Open Diagram"), parent_window,
+    opendlg = gtk_file_chooser_dialog_new(_("Open Diagram"), parent_window,
 					  GTK_FILE_CHOOSER_ACTION_OPEN,
-					  "default", /* default, not gnome-vfs */
 					  GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
 					  GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
 					  NULL);
@@ -437,10 +435,9 @@ file_save_as_callback(gpointer data, guint action, GtkWidget *widget)
   if (!savedlg) {
     GtkWidget *compressbutton;
 
-    savedlg = gtk_file_chooser_dialog_new_with_backend(_("Save Diagram"),
+    savedlg = gtk_file_chooser_dialog_new(_("Save Diagram"),
 					  GTK_WINDOW(ddisp->shell),
 					  GTK_FILE_CHOOSER_ACTION_SAVE,
-					  "gtk+", /* default, not gnome-vfs */
 					  GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
 					  GTK_STOCK_SAVE, GTK_RESPONSE_ACCEPT,
 					  NULL);
@@ -702,10 +699,9 @@ file_export_callback(gpointer data, guint action, GtkWidget *widget)
 
   if (!exportdlg) {
     persistence_register_integer ("export-filter", 0);
-    exportdlg = gtk_file_chooser_dialog_new_with_backend(_("Export Diagram"),
+    exportdlg = gtk_file_chooser_dialog_new(_("Export Diagram"),
 					    GTK_WINDOW(ddisp->shell),
 					    GTK_FILE_CHOOSER_ACTION_SAVE,
-					    "gtk+", /* default, not gnome-vfs */
 					    GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
 					    GTK_STOCK_SAVE, GTK_RESPONSE_ACCEPT,
 					    NULL);
