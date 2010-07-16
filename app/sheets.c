@@ -402,6 +402,10 @@ lookup_widget (GtkWidget   *widget,
 
   builder = g_object_get_data (G_OBJECT (widget), "_sheet_dialogs_builder");
   found_widget = GTK_WIDGET (gtk_builder_get_object (builder, widget_name));
+  /* not everything is under control of the builder,
+   * e.g. "wrapbox_left" */
+  if (!found_widget)
+    found_widget = (GtkWidget*) g_object_get_data (G_OBJECT (widget), widget_name);
   if (!found_widget)
     g_warning (_("Widget not found: %s"), widget_name);
   return found_widget;
