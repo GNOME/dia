@@ -297,5 +297,11 @@ create_create_object_tool(DiaObjectType *objtype, void *user_data,
 
 void free_create_object_tool(Tool *tool)
 {
+  CreateObjectTool *real_tool = (CreateObjectTool *)tool;
+
+  if (real_tool->moving) { /* should not get here, but see bug #619246 */
+    gdk_pointer_ungrab (GDK_CURRENT_TIME);
+    ddisplay_set_all_cursor(default_cursor);
+  }
   g_free(tool);
 }
