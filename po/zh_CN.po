@@ -12,10 +12,10 @@ msgstr ""
 "Project-Id-Version: dia 0.96.1\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=dia&component=general\n"
-"POT-Creation-Date: 2010-01-02 14:45+0000\n"
-"PO-Revision-Date: 2010-01-06 01:51+0800\n"
+"POT-Creation-Date: 2010-07-16 11:26+0000\n"
+"PO-Revision-Date: 2010-07-27 16:14+0800\n"
 "Last-Translator: 丁鑫 <xgnid@foxmail.com>\n"
-"Language-Team: zh_CN <http://l10n.gnome.org/teams/zh_CN>\n"
+"Language-Team: Chinese (simplified) <i18n-zh@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -162,48 +162,52 @@ msgid "[FILE...]"
 msgstr "[文件...]"
 
 #: ../app/app_procs.c:769
-#, fuzzy, c-format
-#| msgid "Manual operation"
+#, c-format
 msgid "Invalid option?"
-msgstr "手工操作"
+msgstr "无效的选项？"
 
-#: ../app/app_procs.c:784
+#: ../app/app_procs.c:792
+#, c-format
+msgid "Filename conversion failed: %s\n"
+msgstr "文件名转换失败：%s\n"
+
+#: ../app/app_procs.c:805
 #, c-format
 msgid "Missing input: %s\n"
-msgstr ""
+msgstr "缺少输入：%s\n"
 
-#: ../app/app_procs.c:809
+#: ../app/app_procs.c:830
 msgid "Can't connect to session manager!\n"
 msgstr "无法连接会话管理器！\n"
 
 #. TRANSLATOR: 2nd and 3rd %s are time and date respectively.
-#: ../app/app_procs.c:849
+#: ../app/app_procs.c:870
 #, c-format
 msgid "Dia version %s, compiled %s %s\n"
 msgstr "Dia 版本 %s，编译于 %s %s\n"
 
-#: ../app/app_procs.c:851
+#: ../app/app_procs.c:872
 #, c-format
 msgid "Dia version %s\n"
 msgstr "Dia 版本 %s\n"
 
-#: ../app/app_procs.c:889
+#: ../app/app_procs.c:910
 msgid ""
 "Couldn't find standard objects when looking for object-libs; exiting...\n"
 msgstr "查找对象库时无法找到标准对象，正在退出...\n"
 
-#: ../app/app_procs.c:891
+#: ../app/app_procs.c:912
 #, c-format
 msgid ""
 "Couldn't find standard objects when looking for object-libs in '%s'; "
 "exiting...\n"
 msgstr "查找“%s”中的对象库时，无法找到标准对象；正在退出...\n"
 
-#: ../app/app_procs.c:958
+#: ../app/app_procs.c:979
 msgid "Diagram1.dia"
 msgstr "图表1.dia"
 
-#: ../app/app_procs.c:993
+#: ../app/app_procs.c:1014
 msgid ""
 "This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\n"
 "describing how you can cause this message to appear.\n"
@@ -211,40 +215,40 @@ msgstr ""
 "错误的程序状态。请在 bugzilla.gnome.org 提交错误报告，\n"
 "描述您如何致使 Dia 出现这个错误信息的。\n"
 
-#: ../app/app_procs.c:1008
+#: ../app/app_procs.c:1029
 msgid "Exiting Dia"
 msgstr "退出 Dia"
 
 #. no standard buttons
-#: ../app/app_procs.c:1072
+#: ../app/app_procs.c:1093
 msgid "Quitting without saving modified diagrams"
 msgstr "在不保存图表改动的情况下退出"
 
-#: ../app/app_procs.c:1074
+#: ../app/app_procs.c:1095
 msgid ""
 "Modified diagrams exist. Are you sure you want to quit Dia without saving "
 "them?"
 msgstr "图表已修改。确定不保存文件并退出Dia？"
 
-#: ../app/app_procs.c:1078
+#: ../app/app_procs.c:1099
 msgid "Quit Dia"
 msgstr "退出 Dia"
 
-#: ../app/app_procs.c:1147 ../app/app_procs.c:1154
+#: ../app/app_procs.c:1168 ../app/app_procs.c:1175
 msgid "Could not create per-user Dia config directory"
 msgstr "无法创建用户的 Dia 配置目录"
 
-#: ../app/app_procs.c:1157
+#: ../app/app_procs.c:1178
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
 msgstr "无法创建用户的 Dia 配置目录。请确定环境变量 HOME 指向存在的目录。"
 
-#: ../app/app_procs.c:1180
+#: ../app/app_procs.c:1201
 msgid "Objects and filters internal to dia"
 msgstr "Dia 内部的对象和过滤器"
 
-#: ../app/app_procs.c:1236
+#: ../app/app_procs.c:1257
 #, c-format
 msgid ""
 "The original author of Dia was:\n"
@@ -253,7 +257,7 @@ msgstr ""
 "Dia 原作者：\n"
 "\n"
 
-#: ../app/app_procs.c:1241
+#: ../app/app_procs.c:1262
 #, c-format
 msgid ""
 "\n"
@@ -264,7 +268,7 @@ msgstr ""
 "Dia 当前的维护者:\n"
 "\n"
 
-#: ../app/app_procs.c:1246
+#: ../app/app_procs.c:1267
 #, c-format
 msgid ""
 "\n"
@@ -275,7 +279,7 @@ msgstr ""
 "其它作者：\n"
 "\n"
 
-#: ../app/app_procs.c:1251
+#: ../app/app_procs.c:1272
 #, c-format
 msgid ""
 "\n"
@@ -298,11 +302,11 @@ msgstr ""
 "发现自动保存的文件。\n"
 "请选择希望恢复的文件。"
 
-#: ../app/color_area.c:317 ../app/color_area.c:360
+#: ../app/color_area.c:316 ../app/color_area.c:359
 msgid "Select foreground color"
 msgstr "选择前景色"
 
-#: ../app/color_area.c:318 ../app/color_area.c:361
+#: ../app/color_area.c:317 ../app/color_area.c:360
 msgid "Select background color"
 msgstr "选择背景色"
 
@@ -480,19 +484,19 @@ msgstr "颜色"
 msgid "Diagram Properties: %s"
 msgstr "图表属性：%s"
 
-#: ../app/diacanvas.c:121
+#: ../app/diacanvas.c:122
 msgid "X position"
 msgstr "X 位置"
 
-#: ../app/diacanvas.c:122
+#: ../app/diacanvas.c:123
 msgid "X position of child widget"
 msgstr "子部件的 X 位置"
 
-#: ../app/diacanvas.c:131
+#: ../app/diacanvas.c:132
 msgid "Y position"
 msgstr "Y 位置"
 
-#: ../app/diacanvas.c:132
+#: ../app/diacanvas.c:133
 msgid "Y position of child widget"
 msgstr "子部件的 Y 位置"
 
@@ -601,14 +605,10 @@ msgstr "图表"
 
 #: ../app/diagram_tree_view.c:165
 #: ../plug-ins/drs/dia-render-script-import.c:231
-#, fuzzy
-#| msgid "Layers"
 msgid "Layer"
 msgstr "图层"
 
 #: ../app/diagram_tree_view.c:169
-#, fuzzy
-#| msgid "Layers"
 msgid "Layer(s)"
 msgstr "图层"
 
@@ -636,17 +636,13 @@ msgstr "子对象"
 
 #
 #: ../app/diagram_tree_view.c:180
-#, fuzzy
-#| msgid "_Objects"
 msgid "Object(s)"
-msgstr "对象(_O)"
+msgstr "对象"
 
 #
 #: ../app/diagram_tree_view.c:396
-#, fuzzy
-#| msgid "_Select"
 msgid "Select"
-msgstr "选择(_S)"
+msgstr "选择"
 
 #. Translators: Menu item Verb/Support/Position/Locate
 #. Translators: Menu item Verb/Signal/Sense/Locate
@@ -746,10 +742,8 @@ msgstr "属性..."
 
 #
 #: ../app/disp_callbacks.c:244
-#, fuzzy
-#| msgid "_Select"
 msgid "Selection"
-msgstr "选择(_S)"
+msgstr "选择"
 
 #: ../app/disp_callbacks.c:1062
 msgid ""
@@ -842,11 +836,11 @@ msgid "Nothing selected for saving.  Would you like to try again?"
 msgstr "没有选中的对象可供保存。您想再试一次吗？"
 
 #: ../app/filedlg.c:144 ../app/filedlg.c:152 ../app/filedlg.c:168
-#: ../app/filedlg.c:739 ../lib/widgets.c:1473
+#: ../app/filedlg.c:747 ../lib/widgets.c:1473
 msgid "Supported Formats"
 msgstr "支持的格式"
 
-#: ../app/filedlg.c:192 ../app/filedlg.c:597
+#: ../app/filedlg.c:192 ../app/filedlg.c:605
 msgid "By extension"
 msgstr "按扩展名"
 
@@ -854,19 +848,19 @@ msgstr "按扩展名"
 msgid "Open Diagram"
 msgstr "打开图表"
 
-#: ../app/filedlg.c:309
+#: ../app/filedlg.c:313
 msgid "Open Options"
 msgstr "打开选项"
 
-#: ../app/filedlg.c:317 ../app/filedlg.c:721
+#: ../app/filedlg.c:321 ../app/filedlg.c:729
 msgid "Determine file type:"
 msgstr "确定文件类型："
 
-#: ../app/filedlg.c:337 ../app/filedlg.c:734 ../lib/widgets.c:1478
+#: ../app/filedlg.c:341 ../app/filedlg.c:742 ../lib/widgets.c:1478
 msgid "All Files"
 msgstr "全部文件"
 
-#: ../app/filedlg.c:370 ../plug-ins/postscript/paginate_psprint.c:408
+#: ../app/filedlg.c:374 ../plug-ins/postscript/paginate_psprint.c:408
 msgid ""
 "Some characters in the filename are neither UTF-8\n"
 "nor your local encoding.\n"
@@ -876,12 +870,12 @@ msgstr ""
 "也不是您的本地编码。\n"
 "这可能会导致一些功能不能正确工作。"
 
-#: ../app/filedlg.c:380 ../app/filedlg.c:644
+#: ../app/filedlg.c:384 ../app/filedlg.c:652
 #: ../plug-ins/postscript/paginate_psprint.c:422
 msgid "File already exists"
 msgstr "文件已存在"
 
-#: ../app/filedlg.c:382 ../app/filedlg.c:646
+#: ../app/filedlg.c:386 ../app/filedlg.c:654
 #: ../plug-ins/postscript/paginate_psprint.c:418
 #, c-format
 msgid ""
@@ -891,17 +885,17 @@ msgstr ""
 "文件“%s”已存在。\n"
 "您要覆盖它吗？"
 
-#: ../app/filedlg.c:436
+#: ../app/filedlg.c:440
 msgid "Save Diagram"
 msgstr "保存图表"
 
 #. Need better way to make it a reasonable size.  Isn't there some
 #. standard look for them (or is that just Gnome?)
-#: ../app/filedlg.c:447
+#: ../app/filedlg.c:451
 msgid "Compress diagram files"
 msgstr "压缩图表文件"
 
-#: ../app/filedlg.c:456
+#: ../app/filedlg.c:460
 msgid ""
 "Compression reduces file size to less than 1/10th size and speeds up loading "
 "and saving.  Some text programs cannot manipulate compressed files."
@@ -909,7 +903,7 @@ msgstr ""
 "压缩文件到小于原先的 1/10，可以加快载入和保存的速度。但某些文本程序无法处理压"
 "缩过的文件。"
 
-#: ../app/filedlg.c:670
+#: ../app/filedlg.c:678
 #, c-format
 msgid ""
 "Could not determine which export filter\n"
@@ -918,11 +912,11 @@ msgstr ""
 "无法确定使用哪个导出过滤器来保存\n"
 "“%s”"
 
-#: ../app/filedlg.c:697
+#: ../app/filedlg.c:705
 msgid "Export Diagram"
 msgstr "导出图表"
 
-#: ../app/filedlg.c:713
+#: ../app/filedlg.c:721
 msgid "Export Options"
 msgstr "导出选项"
 
@@ -946,22 +940,22 @@ msgstr "只匹配整个单词(_E)"
 msgid "Match _all properties (not just object name)"
 msgstr "匹配全部属性(不仅仅是对象名称)(_A)"
 
-#: ../app/find-and-replace.c:510
+#: ../app/find-and-replace.c:508
 msgid "Find"
 msgstr "查找"
 
-#: ../app/find-and-replace.c:542 ../app/menus.c:268
+#: ../app/find-and-replace.c:538 ../app/menus.c:268
 msgid "Replace"
 msgstr "替换"
 
-#: ../app/find-and-replace.c:545
+#: ../app/find-and-replace.c:541
 msgid "Replace _All"
 msgstr "全部替换(_A)"
 
 #. not adding the button in the list above to modify it's text;
 #. * the default "Find and Replace" is just too long for my taste ;)
 #.
-#: ../app/find-and-replace.c:550
+#: ../app/find-and-replace.c:546
 msgid "_Replace"
 msgstr "替换(_R)"
 
@@ -1116,7 +1110,7 @@ msgid ""
 "parameters with Details..."
 msgstr "新直线终止箭头样式。点击可以挑选箭头，或是用“细节...”设定箭头参数"
 
-#: ../app/interface.c:1632 ../app/interface.c:1756
+#: ../app/interface.c:1632 ../app/interface.c:1756 ../dia.desktop.in.in.h:3
 msgid "Diagram Editor"
 msgstr "图表编辑器"
 
@@ -1179,7 +1173,7 @@ msgstr "线宽"
 msgid "Line width:"
 msgstr "线宽："
 
-#: ../app/load_save.c:296
+#: ../app/load_save.c:301
 msgid ""
 "Error loading diagram.\n"
 "Linked object not found in document."
@@ -1187,7 +1181,7 @@ msgstr ""
 "载入图表时发生错误。\n"
 "在文档中没有发现所链接的对象。"
 
-#: ../app/load_save.c:300
+#: ../app/load_save.c:305
 #, c-format
 msgid ""
 "Error loading diagram.\n"
@@ -1196,7 +1190,7 @@ msgstr ""
 "载入图表时发生错误。\n"
 "连接柄 %d 不存在于“%s”。"
 
-#: ../app/load_save.c:318
+#: ../app/load_save.c:323
 #, c-format
 msgid ""
 "Error loading diagram.\n"
@@ -1205,23 +1199,23 @@ msgstr ""
 "载入图表时发生错误。\n"
 "连接点 %d 不存在于“%s”。"
 
-#: ../app/load_save.c:358
+#: ../app/load_save.c:363
 #, c-format
 msgid "Can't find parent %s of %s object\n"
 msgstr "找不到 %2$s 对象的父对象 %1$s\n"
 
-#: ../app/load_save.c:408
+#: ../app/load_save.c:413
 msgid "You must specify a file, not a directory.\n"
 msgstr "您必须指定一个文件，而不是目录。\n"
 
-#: ../app/load_save.c:415 ../plug-ins/dxf/dxf-import.c:1312
+#: ../app/load_save.c:420 ../plug-ins/dxf/dxf-import.c:1312
 #: ../plug-ins/wpg/wpg.c:1177 ../plug-ins/xfig/xfig-import.c:1270
 #: ../plug-ins/xslt/xslt.c:93
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
 msgstr "无法打开“%s”进行读取。\n"
 
-#: ../app/load_save.c:433 ../app/load_save.c:439
+#: ../app/load_save.c:438 ../app/load_save.c:444
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -1230,7 +1224,7 @@ msgstr ""
 "载入图表 %s 时发生错误。\n"
 "未知的文件类型。"
 
-#: ../app/load_save.c:447
+#: ../app/load_save.c:452
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -1239,7 +1233,7 @@ msgstr ""
 "载入图表 %s 时发生错误。\n"
 "不是 Dia 文件。"
 
-#: ../app/load_save.c:664
+#: ../app/load_save.c:669
 #, c-format
 msgid ""
 "Error loading diagram:\n"
@@ -1250,17 +1244,17 @@ msgstr ""
 "%s。\n"
 "合法的 Dia 文件至少定义了一个层。"
 
-#: ../app/load_save.c:985
+#: ../app/load_save.c:990
 #, c-format
 msgid "Not allowed to write to output file %s\n"
 msgstr "不允许写入输出文件 %s\n"
 
-#: ../app/load_save.c:1017
+#: ../app/load_save.c:1022
 #, c-format
 msgid "Not allowed to write temporary files in %s\n"
 msgstr "不允许在 %s 中写入临时文件\n"
 
-#: ../app/load_save.c:1039 ../plug-ins/cairo/diacairo.c:125
+#: ../app/load_save.c:1044 ../plug-ins/cairo/diacairo.c:125
 #: ../plug-ins/cgm/cgm.c:1154 ../plug-ins/drs/dia-render-script.c:124
 #: ../plug-ins/dxf/dxf-export.c:547 ../plug-ins/hpgl/hpgl.c:710
 #: ../plug-ins/libart/export_png.c:159
@@ -1276,17 +1270,17 @@ msgstr "无法打开输入文件 %s：%s\n"
 
 #. Save failed; we clean our stuff up, without touching the file named
 #. "filename" if it existed.
-#: ../app/load_save.c:1050
+#: ../app/load_save.c:1055
 #, c-format
 msgid "Internal error %d writing file %s\n"
 msgstr "写入文件 %2$s 时发生内部错误 %1$d\n"
 
-#: ../app/load_save.c:1061
+#: ../app/load_save.c:1066
 #, c-format
 msgid "Can't rename %s to final output file %s: %s\n"
 msgstr "无法将 %s 重命名为终稿输出文件 %s：%s\n"
 
-#: ../app/load_save.c:1152 ../app/load_save.c:1157
+#: ../app/load_save.c:1157 ../app/load_save.c:1162
 msgid "Dia Diagram File"
 msgstr "Dia 图表文件"
 
@@ -1300,16 +1294,12 @@ msgid "_File"
 msgstr "文件(_F)"
 
 #: ../app/menus.c:81
-#, fuzzy
-#| msgid "Don't create empty diagram"
 msgid "Create a new diagram"
-msgstr "不创建空图表"
+msgstr "创建新图表"
 
 #: ../app/menus.c:82
-#, fuzzy
-#| msgid "Compress diagram files"
 msgid "Open a diagram file"
-msgstr "压缩图表文件"
+msgstr "打开图表文件"
 
 #
 #: ../app/menus.c:84
@@ -1345,14 +1335,12 @@ msgid "Show Layers"
 msgstr "显示图层"
 
 #: ../app/menus.c:116
-#, fuzzy
-#| msgid "Save Diagram"
 msgid "Save the diagram"
 msgstr "保存图表"
 
 #: ../app/menus.c:117
 msgid "Save the diagram with a new name"
-msgstr ""
+msgstr "将图表另存为"
 
 #
 #: ../app/menus.c:118
@@ -1360,8 +1348,6 @@ msgid "_Export ..."
 msgstr "导出(_E)..."
 
 #: ../app/menus.c:118
-#, fuzzy
-#| msgid "Export Diagram"
 msgid "Export the diagram"
 msgstr "导出图表"
 
@@ -1374,33 +1360,25 @@ msgid "Page Set_up..."
 msgstr "页面设置(_U)..."
 
 #: ../app/menus.c:121
-#, fuzzy
-#| msgid "Scroll around the diagram"
 msgid "Print the diagram"
-msgstr "滚动图表"
+msgstr "打印图表"
 
 #: ../app/menus.c:124
 msgid "_Edit"
 msgstr "编辑(_E)"
 
 #: ../app/menus.c:128
-#, fuzzy
-#| msgid "Convection"
 msgid "Copy selection"
-msgstr "热对流"
+msgstr "复制图表"
 
 #: ../app/menus.c:129
-#, fuzzy
-#| msgid "P Detection"
 msgid "Cut selection"
-msgstr "P 检测"
+msgstr "剪切选择"
 
 #
 #: ../app/menus.c:130
-#, fuzzy
-#| msgid "Water detection"
 msgid "Paste selection"
-msgstr "水浸检测"
+msgstr "粘贴选择"
 
 #
 #: ../app/menus.c:131
@@ -1454,16 +1432,12 @@ msgid "_View"
 msgstr "查看(_V)"
 
 #: ../app/menus.c:151
-#, fuzzy
-#| msgid "Zoom pointer"
 msgid "Zoom in"
-msgstr "缩放指针"
+msgstr "放大"
 
 #: ../app/menus.c:152
-#, fuzzy
-#| msgid "Zoom pointer"
 msgid "Zoom out"
-msgstr "缩放指针"
+msgstr "缩小"
 
 #: ../app/menus.c:153
 msgid "_Zoom"
@@ -1515,10 +1489,8 @@ msgstr "25"
 
 #. Show All, Best Fit.  Same as the Gimp, Ctrl+E
 #: ../app/menus.c:167
-#, fuzzy
-#| msgid "Zoom pointer"
 msgid "Zoom fit"
-msgstr "缩放指针"
+msgstr "最佳尺寸"
 
 #
 #. "display_toggle_entries" items go here
@@ -2020,11 +1992,11 @@ msgstr "对象属性"
 msgid "This object has no properties."
 msgstr "此对象无属性。"
 
-#: ../app/properties-dialog.c:246
+#: ../app/properties-dialog.c:250
 msgid "Properties: "
 msgstr "属性："
 
-#: ../app/properties-dialog.c:250
+#: ../app/properties-dialog.c:254
 msgid "Object properties:"
 msgstr "对象属性："
 
@@ -2052,16 +2024,16 @@ msgid ""
 "Editing shapes is disabled."
 msgstr "无法从任何模块中找到符号“custom_type”。禁止编辑形状。"
 
-#: ../app/sheets.c:406
+#: ../app/sheets.c:410
 #, c-format
 msgid "Widget not found: %s"
 msgstr "无法找到子部件：%s"
 
-#: ../app/sheets.c:481
+#: ../app/sheets.c:485
 msgid "SVG Shape"
 msgstr "SVG 形状"
 
-#: ../app/sheets.c:483
+#: ../app/sheets.c:487
 msgid "Programmed DiaObject"
 msgstr "Programmed DiaObject"
 
@@ -2101,7 +2073,7 @@ msgstr "<- 移动"
 msgid "<- Move All"
 msgstr "<- 全部移动"
 
-#: ../app/sheets_dialog_callbacks.c:289 ../app/sheets_dialog_callbacks.c:1103
+#: ../app/sheets_dialog_callbacks.c:289 ../app/sheets_dialog_callbacks.c:1083
 msgid "Line Break"
 msgstr "换行"
 
@@ -2132,63 +2104,63 @@ msgstr ""
 "%s\n"
 "未分配的类型"
 
-#: ../app/sheets_dialog_callbacks.c:799
+#: ../app/sheets_dialog_callbacks.c:780
 msgid "Please select a .shape file"
 msgstr "请选择一个 .shape 文件"
 
-#: ../app/sheets_dialog_callbacks.c:806
+#: ../app/sheets_dialog_callbacks.c:787
 #, c-format
 msgid "Filename must end with '%s': '%s'"
 msgstr "文件名必须以“%s”结尾：“%s”"
 
-#: ../app/sheets_dialog_callbacks.c:814
+#: ../app/sheets_dialog_callbacks.c:795
 #, c-format
 msgid "Error examining %s: %s"
 msgstr "错误检查 %s：%s"
 
-#: ../app/sheets_dialog_callbacks.c:845
+#: ../app/sheets_dialog_callbacks.c:826
 msgid "Please export the diagram as a shape."
 msgstr "请将图表导出为形状。"
 
-#: ../app/sheets_dialog_callbacks.c:848
+#: ../app/sheets_dialog_callbacks.c:829
 #, c-format
 msgid "Could not interpret shape file: '%s'"
 msgstr "无法解析形状文件：%s"
 
-#: ../app/sheets_dialog_callbacks.c:919
+#: ../app/sheets_dialog_callbacks.c:899
 msgid "Sheet must have a Name"
 msgstr "工作表必须有名称"
 
-#: ../app/sheets_dialog_callbacks.c:1613 ../app/sheets_dialog_callbacks.c:1620
+#: ../app/sheets_dialog_callbacks.c:1593 ../app/sheets_dialog_callbacks.c:1600
 #, c-format
 msgid "Couldn't open '%s': %s"
 msgstr "无法打开“%s”：%s"
 
-#: ../app/sheets_dialog_callbacks.c:1674
+#: ../app/sheets_dialog_callbacks.c:1654
 #, c-format
 msgid "Couldn't open: '%s' for writing"
 msgstr "无法以写方式打开：“%s”"
 
-#: ../app/sheets_dialog_callbacks.c:1684
+#: ../app/sheets_dialog_callbacks.c:1664
 msgid "a user"
 msgstr "用户"
 
-#: ../app/sheets_dialog_callbacks.c:1697
+#: ../app/sheets_dialog_callbacks.c:1677
 #, c-format
 msgid "File: %s"
 msgstr "文件：%s"
 
-#: ../app/sheets_dialog_callbacks.c:1700
+#: ../app/sheets_dialog_callbacks.c:1680
 #, c-format
 msgid "Date: %s"
 msgstr "日期：%s"
 
-#: ../app/sheets_dialog_callbacks.c:1704
+#: ../app/sheets_dialog_callbacks.c:1684
 #, c-format
 msgid "For: %s"
 msgstr "给：%s"
 
-#: ../app/sheets_dialog_callbacks.c:1721
+#: ../app/sheets_dialog_callbacks.c:1701
 msgid "add shapes here"
 msgstr "在此处添加形状"
 
@@ -2202,10 +2174,14 @@ msgid "Dia v %s"
 msgstr "Dia v %s"
 
 #: ../dia.desktop.in.in.h:1
+msgid "Dia"
+msgstr "Dia"
+
+#: ../dia.desktop.in.in.h:2
 msgid "Dia Diagram Editor"
 msgstr "Dia 图表编辑器"
 
-#: ../dia.desktop.in.in.h:2
+#: ../dia.desktop.in.in.h:4
 msgid "Edit your Diagrams"
 msgstr "编辑您的图表"
 
@@ -2415,15 +2391,15 @@ msgstr "分析贝塞尔点 p2 时出错。"
 msgid "Error parsing bezpoint p3."
 msgstr "分析贝塞尔点 p3 时出错。"
 
-#: ../lib/diaarrowchooser.c:360
+#: ../lib/diaarrowchooser.c:376
 msgid "Arrow Properties"
 msgstr "箭头属性"
 
-#: ../lib/dialinechooser.c:295
+#: ../lib/dialinechooser.c:303
 msgid "Line Style Properties"
 msgstr "线型属性"
 
-#: ../lib/dialinechooser.c:330
+#: ../lib/dialinechooser.c:338
 msgid "Details..."
 msgstr "细节..."
 
@@ -2982,7 +2958,7 @@ msgid "Use bold font for primary keys"
 msgstr "为主键使用粗体"
 
 #. property rows
-#: ../objects/Database/table.c:197 ../objects/SADT/arrow.c:136
+#: ../objects/Database/table.c:197 ../objects/SADT/arrow.c:137
 #: ../objects/UML/class.c:182 ../objects/UML/class_dialog.c:570
 msgid "Normal"
 msgstr "正常"
@@ -3164,7 +3140,7 @@ msgstr "终点描述："
 
 #: ../objects/Database/reference.c:144 ../objects/ER/participation.c:406
 #: ../objects/FS/flow-ortho.c:632 ../objects/GRAFCET/vector.c:314
-#: ../objects/SADT/arrow.c:459 ../objects/UML/association.c:854
+#: ../objects/SADT/arrow.c:464 ../objects/UML/association.c:854
 #: ../objects/UML/component_feature.c:190 ../objects/UML/dependency.c:376
 #: ../objects/UML/generalization.c:372 ../objects/UML/realizes.c:363
 #: ../objects/UML/transition.c:172 ../objects/standard/zigzagline.c:385
@@ -3173,7 +3149,7 @@ msgstr "添加图段"
 
 #: ../objects/Database/reference.c:145 ../objects/ER/participation.c:407
 #: ../objects/FS/flow-ortho.c:633 ../objects/GRAFCET/vector.c:315
-#: ../objects/SADT/arrow.c:460 ../objects/UML/association.c:855
+#: ../objects/SADT/arrow.c:465 ../objects/UML/association.c:855
 #: ../objects/UML/component_feature.c:191 ../objects/UML/dependency.c:377
 #: ../objects/UML/generalization.c:373 ../objects/UML/realizes.c:364
 #: ../objects/UML/transition.c:173 ../objects/standard/zigzagline.c:386
@@ -4420,14 +4396,14 @@ msgstr "Vergent 种类："
 
 #: ../objects/GRAFCET/vergent.c:407 ../objects/Istar/other.c:471
 #: ../objects/Jackson/domain.c:533 ../objects/KAOS/goal.c:574
-#: ../objects/KAOS/other.c:525 ../objects/SADT/box.c:449
+#: ../objects/KAOS/other.c:525 ../objects/SADT/box.c:454
 #: ../objects/standard/line.c:226
 msgid "Add connection point"
 msgstr "添加连接点"
 
 #: ../objects/GRAFCET/vergent.c:408 ../objects/Istar/other.c:472
 #: ../objects/Jackson/domain.c:534 ../objects/KAOS/goal.c:575
-#: ../objects/KAOS/other.c:526 ../objects/SADT/box.c:450
+#: ../objects/KAOS/other.c:526 ../objects/SADT/box.c:455
 #: ../objects/standard/line.c:227
 msgid "Delete connection point"
 msgstr "删除连接点"
@@ -4725,55 +4701,55 @@ msgstr "添加控制柄"
 msgid "Delete Handle"
 msgstr "删除控制柄"
 
-#: ../objects/SADT/arrow.c:137
+#: ../objects/SADT/arrow.c:138
 msgid "Import resource (not shown upstairs)"
 msgstr "导入资源(不显示上层)"
 
-#: ../objects/SADT/arrow.c:138
+#: ../objects/SADT/arrow.c:139
 msgid "Imply resource (not shown downstairs)"
 msgstr "导入资源(不显示下层)"
 
-#: ../objects/SADT/arrow.c:139
+#: ../objects/SADT/arrow.c:140
 msgid "Dotted arrow"
 msgstr "点状箭头"
 
-#: ../objects/SADT/arrow.c:140
+#: ../objects/SADT/arrow.c:141
 msgid "disable arrow heads"
 msgstr "禁用箭头"
 
-#: ../objects/SADT/arrow.c:146
+#: ../objects/SADT/arrow.c:148
 msgid "Flow style:"
 msgstr "流程样式："
 
-#: ../objects/SADT/arrow.c:148
+#: ../objects/SADT/arrow.c:150
 msgid "Automatically gray vertical flows:"
 msgstr "自动化灰阶垂直变化："
 
-#: ../objects/SADT/arrow.c:149
+#: ../objects/SADT/arrow.c:151
 msgid ""
 "To improve the ease of reading, flows which begin and end vertically can be "
 "rendered gray"
 msgstr "为了提高易读性，竖直开始和结束的流可以使其变为灰色"
 
-#: ../objects/SADT/arrow.c:465
+#: ../objects/SADT/arrow.c:470
 msgid "SADT Arrow"
 msgstr "SADT 箭头"
 
-#: ../objects/SADT/box.c:139 ../objects/custom/custom_object.c:227
+#: ../objects/SADT/box.c:140 ../objects/custom/custom_object.c:227
 #: ../objects/flowchart/box.c:154 ../objects/flowchart/diamond.c:152
 #: ../objects/flowchart/ellipse.c:151 ../objects/flowchart/parallelogram.c:156
 msgid "Text padding"
 msgstr "文本填充"
 
-#: ../objects/SADT/box.c:146
+#: ../objects/SADT/box.c:149
 msgid "Activity/Data identifier"
 msgstr "活动/数据标识符"
 
-#: ../objects/SADT/box.c:147
+#: ../objects/SADT/box.c:150
 msgid "The identifier which appears in the lower right corner of the Box"
 msgstr "出现在框右下角的标识符"
 
-#: ../objects/SADT/box.c:455
+#: ../objects/SADT/box.c:460
 msgid "SADT box"
 msgstr "SADT 方块"
 
@@ -5826,15 +5802,15 @@ msgstr "垂直翻转"
 msgid "Scale of the subshapes"
 msgstr "子形状的缩放比例"
 
-#: ../objects/custom/custom_object.c:1773
+#: ../objects/custom/custom_object.c:1737
 msgid "Flip Horizontal"
 msgstr "水平翻转"
 
-#: ../objects/custom/custom_object.c:1774
+#: ../objects/custom/custom_object.c:1738
 msgid "Flip Vertical"
 msgstr "垂直翻转"
 
-#: ../objects/custom/custom_object.c:1811
+#: ../objects/custom/custom_object.c:1775
 #: ../objects/custom_lines/custom_linetypes.c:264
 #, c-format
 msgid "Cannot open icon file %s for object type '%s'."
@@ -5857,7 +5833,7 @@ msgstr "INTERNAL：CustomLines：LineInfo 对象中的非法线类型。"
 msgid "INTERNAL: CustomLines: Illegal line type in LineInfo object %s."
 msgstr "INTERNAL：CustomLines：LineInfo 对象 %s 中的非法线类型。"
 
-#: ../objects/custom/shape_info.c:162
+#: ../objects/custom/shape_info.c:163
 #, c-format
 msgid ""
 "The file '%s' has invalid path data.\n"
@@ -6709,11 +6685,11 @@ msgstr "应用样式表时发生错误：%s\n"
 msgid "Error while saving result: %s\n"
 msgstr "保存结果时发生错误：%s\n"
 
-#: ../plug-ins/xslt/xslt.c:337
+#: ../plug-ins/xslt/xslt.c:336
 msgid "XSL Transformation filter"
 msgstr "XSL 变换过滤器"
 
-#: ../plug-ins/xslt/xslt.c:364
+#: ../plug-ins/xslt/xslt.c:363
 msgid "No valid configuration files found for the XSLT plugin, not loading."
 msgstr "找不到用于 XSLT 插件的有效配置文件，不予载入"
 
@@ -8256,7 +8232,9 @@ msgid "Ellipsoidal Reflector Spotlight"
 msgstr "椭圆形聚光灯"
 
 #: ../sheets/Lights.sheet.in.h:5
-msgid "Fresel lantern"
+#, fuzzy
+#| msgid "Fresel lantern"
+msgid "Fresnel lantern"
 msgstr "屈折反光灯"
 
 #: ../sheets/Lights.sheet.in.h:6
