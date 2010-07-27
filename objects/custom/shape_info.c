@@ -828,7 +828,7 @@ load_shape_info(const gchar *filename, ShapeInfo *preload)
 
       val = g_ascii_strtod(tmp, NULL);
 
-      for (j = 0, ud = units[i]; ud.name; ud = units[++j]) {
+      for (ud = units[j]; ud.name; ud = units[++j]) {
         unit_ssize = strlen(ud.unit);
         if (ssize > unit_ssize && !strcmp(tmp+(ssize-unit_ssize), ud.unit)) {
           val *= (ud.factor / 28.346457);
