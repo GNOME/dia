@@ -1553,7 +1553,7 @@ custom_create(Point *startpoint,
     p.x += elem->width / 2.0;
     p.y += elem->height / 2.0 + font_height / 2;
     custom->text = new_text("", font, font_height, &p, &custom->border_color,
-                            default_properties.alignment);
+                            info->text_align);
     text_get_attributes(custom->text,&custom->attrs);
     dia_font_unref(font);
   }
