@@ -676,8 +676,6 @@ typedef enum
 }
 SheetsNewDialogType;
 
-GList *sheets_new_dialog_combo_list = NULL;
-
 void
 on_sheets_dialog_button_new_clicked    (GtkButton       *button,
                                         gpointer         user_data)
@@ -689,13 +687,6 @@ on_sheets_dialog_button_new_clicked    (GtkButton       *button,
   gboolean is_line_break_sensitive;
 
   sheets_new_dialog = create_sheets_new_dialog();
-
-  if (sheets_new_dialog_combo_list)
-  {
-    combo = lookup_widget(sheets_new_dialog, "combo_from_file");
-    gtk_combo_set_popdown_strings(GTK_COMBO(combo),
-                                  sheets_new_dialog_combo_list);
-  }
 
   /* Deterine if a line break button can be put after the active button */
 
@@ -860,8 +851,6 @@ on_sheets_new_dialog_button_ok_clicked (GtkButton       *button,
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(active_button), TRUE);
     gtk_widget_show(active_button);
 
-    sheets_new_dialog_combo_list = g_list_append(sheets_new_dialog_combo_list, 
-                                                 file_name);
     break;
 
   case SHEETS_NEW_DIALOG_TYPE_LINE_BREAK:
