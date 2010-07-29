@@ -386,7 +386,7 @@ class JavaRenderer(ObjRenderer) :
 	def end_render(self) :
 		f = open(self.filename, "w")
 		
-		visibilities = {0:"public", 2:"private", 1:"protected"}
+		visibilities = {0:"public", 1:"private", 2:"protected"}
 
 		for name, klass in self.klasses.iteritems() :
 			if len(klass.comment) > 0 :
