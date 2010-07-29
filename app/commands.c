@@ -630,7 +630,8 @@ help_manual_callback (GtkAction *action)
   GdkScreen *screen;
   DDisplay *ddisp;
   ddisp = ddisplay_active();
-  screen = gtk_widget_get_screen (GTK_WIDGET(ddisp->menu_bar));
+  screen = ddisp ? gtk_widget_get_screen (GTK_WIDGET(ddisp->shell))
+         : gdk_screen_get_default ();
   if (gtk_show_uri(screen, "ghelp:dia", gtk_get_current_event_time (), NULL)) {
     return;
   }
