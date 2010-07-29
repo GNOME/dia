@@ -165,7 +165,7 @@ class CxxRenderer(ObjRenderer) :
 			# first sort by visibility
 			ops = [[], [], [], []]
 			for so, (t, v, p, i, c, s) in k.operations :
-				ops[v].append((t,so,p))
+				ops[v].append((t,so,p,i,c))
 			vars = [[], [], [], []]
 			for sa, (t, vi, va, vc) in k.attributes :
 				#TODO: use 'va'=value 'vc'=comment 
@@ -176,12 +176,17 @@ class CxxRenderer(ObjRenderer) :
 					continue
 				f.write ("%s\n" % visibilities[v])
 				for op in ops[v] :
+					if op[4] != "" :
+						f.write ('\t/* ' + op[4] + ' */\n')
+					inh = ""
+					if op[3] < 2 :
+						inh = "virtual "
 					# detect ctor/dtor
 					so = ""
 					if sk == op[1] or ("~" + sk) == op[1] :
-						so = "\t%s (" % (op[1])
+						so = "\t%s%s (" % (inh, op[1])
 					else :
-						so = "\t%s %s (" % (op[0], op[1])
+						so = "\t%s%s %s (" % (inh, op[0], op[1])
 					f.write (so)
 					# align parameters with the opening brace
 					n = len(so)
@@ -193,7 +198,10 @@ class CxxRenderer(ObjRenderer) :
 							linefeed = ""
 						f.write ("%s %s%s" % (p[1], p[0], linefeed))
 						i = i + 1
-					f.write(");\n")
+					if op[3] == 0 : # abstract ?= pure virtual?
+						f.write(") = 0;\n")
+					else :
+						f.write(");\n")
 				for var in vars[v] :
 					f.write("\t%s %s;\n" % (var[0], var[1]))
 			f.write ("};\n\n")
