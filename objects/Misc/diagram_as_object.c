@@ -223,6 +223,7 @@ _dae_update_data(DiagramAsElement *dae)
 {
   struct utimbuf utbuf;
   Element *elem = &dae->element;
+  DiaObject *obj = &elem->object;
   
   if (   strlen(dae->filename)
 #if GLIB_CHECK_VERSION(2,18,0)
@@ -256,6 +257,9 @@ _dae_update_data(DiagramAsElement *dae)
   elem->extra_spacing.border_trans = dae->border_line_width/2.0;
   element_update_boundingbox(elem);
   element_update_handles(elem);
+
+  /* adjust objects position, otherwise it'll jump on move */
+  obj->position = elem->corner;
 }
 static void 
 _dae_destroy(DiagramAsElement *dae) 
