@@ -555,6 +555,10 @@ diagram_data_load(const char *filename, DiagramData *data, void* user_data)
     if (attr != NULL) {
       gridinfo = attribute_first_data(attr);
 
+      attr = composite_find_attribute(gridinfo, "dynamic");
+      if (attr != NULL)
+         diagram->grid.dynamic = data_boolean(attribute_first_data(attr));
+
       attr = composite_find_attribute(gridinfo, "width_x");
       if (attr != NULL)
         diagram->grid.width_x = data_real(attribute_first_data(attr));
@@ -891,6 +895,8 @@ diagram_data_write_doc(DiagramData *data, const char *filename)
   if (diagram) {
     attr = new_attribute((ObjectNode)tree, "grid");
     gridinfo = data_add_composite(attr, "grid");
+    data_add_boolean(composite_add_attribute(gridinfo, "dynamic"),
+          diagram->grid.dynamic);
     data_add_real(composite_add_attribute(gridinfo, "width_x"),
 		  diagram->grid.width_x);
     data_add_real(composite_add_attribute(gridinfo, "width_y"),
