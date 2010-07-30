@@ -1369,6 +1369,7 @@ struct _DiaFileSelector
   GtkButton *browse;
   GtkWidget *dialog;
   gchar *sys_filename;
+  gchar *pattern; /* for supported formats */
 };
 
 struct _DiaFileSelectorClass
@@ -1395,6 +1396,10 @@ dia_file_selector_unrealize(GtkWidget *widget)
   if (fs->sys_filename) {
     g_free(fs->sys_filename);
     fs->sys_filename = NULL;
+  }
+  if (fs->pattern) {
+    g_free (fs->pattern);
+    fs->pattern = NULL;
   }
 
   (* GTK_WIDGET_CLASS (gtk_type_class(gtk_hbox_get_type ()))->unrealize) (widget);
@@ -1471,7 +1476,10 @@ dia_file_selector_browse_pressed(GtkWidget *widget, gpointer data)
     
     filter = gtk_file_filter_new ();
     gtk_file_filter_set_name (filter, _("Supported Formats"));
-    gtk_file_filter_add_pixbuf_formats (filter);
+    if (fs->pattern)
+      gtk_file_filter_add_pattern (filter, fs->pattern);
+    else /* fallback */
+      gtk_file_filter_add_pixbuf_formats (filter);
     gtk_file_chooser_add_filter (GTK_FILE_CHOOSER (dialog), filter);
 
     filter = gtk_file_filter_new ();
@@ -1497,7 +1505,8 @@ dia_file_selector_init (DiaFileSelector *fs)
 {
   /* Here's where we set up the real thing */
   fs->dialog = NULL;
-  fs->sys_filename = NULL;  
+  fs->sys_filename = NULL;
+  fs->pattern = NULL;
 
   fs->entry = GTK_ENTRY(gtk_entry_new());
   gtk_box_pack_start(GTK_BOX(fs), GTK_WIDGET(fs->entry), FALSE, TRUE, 0);
@@ -1542,6 +1551,24 @@ GtkWidget *
 dia_file_selector_new ()
 {
   return GTK_WIDGET ( gtk_type_new (dia_file_selector_get_type ()));
+}
+
+void
+dia_file_selector_set_extensions  (DiaFileSelector *fs, const gchar **exts)
+{
+  GString *pattern = g_string_new ("*.");
+  int i = 0;
+
+  g_free (fs->pattern);
+
+  while (exts[i] != NULL) {
+    if (i != 0)
+      g_string_append (pattern, "|*.");
+    g_string_append (pattern, exts[i]);
+    ++i;
+  }
+  fs->pattern = pattern->str;
+  g_string_free (pattern, FALSE);
 }
 
 void

@@ -120,6 +120,7 @@ void       dia_arrow_selector_set_arrow     (DiaArrowSelector *as,
 
 GType      dia_file_selector_get_type        (void);
 GtkWidget* dia_file_selector_new             (void);
+void       dia_file_selector_set_extensions  (DiaFileSelector *fs, const gchar **exts);
 void       dia_file_selector_set_file        (DiaFileSelector *fs, char *file);
 const gchar *dia_file_selector_get_file        (DiaFileSelector *fs);
 

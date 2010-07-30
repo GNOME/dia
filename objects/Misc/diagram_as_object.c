@@ -102,6 +102,8 @@ DiaObjectType diagram_as_element_type =
 
 static void _dae_update_data (DiagramAsElement *dae);
 
+static const gchar *_extensions[] = { "dia", NULL };
+
 static PropDescription _dae_props[] = {
   ELEMENT_COMMON_PROPERTIES,
   PROP_STD_LINE_WIDTH,
@@ -109,7 +111,7 @@ static PropDescription _dae_props[] = {
   PROP_STD_FILL_COLOUR,
   PROP_STD_SHOW_BACKGROUND,
   { "diagram_file", PROP_TYPE_FILE, PROP_FLAG_VISIBLE,
-    N_("Diagram file"), NULL, NULL},
+    N_("Diagram file"), NULL, /* extra_data */_extensions },
   PROP_DESC_END
 };
 static PropDescription *
@@ -352,6 +354,9 @@ _dae_load (ObjectNode obj_node, int version, const char *filename)
     g_free (dae->filename);
     dae->filename = filename;
     g_free (dirname);
+
+    /* need to update again with new filenames */
+    _dae_update_data(dae);
   }
   return obj;
 }

@@ -157,6 +157,8 @@ static GtkWidget *
 fileprop_get_widget(StringProperty *prop, PropDialog *dialog) 
 { 
   GtkWidget *ret = dia_file_selector_new();
+  if (prop->common.extra_data)
+    dia_file_selector_set_extensions (DIAFILESELECTOR(ret), prop->common.extra_data);
   prophandler_connect(&prop->common, G_OBJECT(ret), "value-changed");
   return ret;
 }
