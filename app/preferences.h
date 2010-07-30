@@ -34,6 +34,8 @@ struct DiaPreferences {
     gboolean dynamic;
     real x;
     real y;
+    int vis_x;
+    int vis_y;
     int major_lines;
     int hex;
     real w;

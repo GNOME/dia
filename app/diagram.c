@@ -207,8 +207,8 @@ diagram_init(Diagram *dia, const char *filename)
   dia->grid.hex_size = 1.0;
   dia->grid.colour = prefs.new_diagram.grid_color;
   dia->grid.hex = prefs.grid.hex;
-  dia->grid.visible_x = 1;
-  dia->grid.visible_y = 1;
+  dia->grid.visible_x = prefs.grid.vis_x;
+  dia->grid.visible_y = prefs.grid.vis_y;
   dia->grid.dynamic = prefs.grid.dynamic;
   dia->grid.major_lines = prefs.grid.major_lines;
 

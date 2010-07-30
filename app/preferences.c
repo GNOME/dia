@@ -81,6 +81,8 @@ static void update_internal_prefs(DiaPrefData *pref, gpointer ptr);
 
 static int default_true = 1;
 static int default_false = 0;
+static int default_int_vis_x = 1;
+static int default_int_vis_y = 1;
 static int default_major_lines = 5;
 static real default_real_one = 1.0;
 static real default_real_zoom = 100.0;
@@ -237,6 +239,8 @@ DiaPrefData prefs_data[] =
   { "grid_dynamic", PREF_BOOLEAN, PREF_OFFSET(grid.dynamic), &default_true, GRID_TAB, N_("Dynamic grid resizing") },
   { "grid_x", PREF_UREAL, PREF_OFFSET(grid.x), &default_real_one, GRID_TAB, N_("X Size:") },
   { "grid_y", PREF_UREAL, PREF_OFFSET(grid.y), &default_real_one, GRID_TAB, N_("Y Size:") },
+  { "grid_vis_x", PREF_UINT, PREF_OFFSET(grid.vis_x), &default_int_vis_x, GRID_TAB, N_("Visual Spacing X:") },
+  { "grid_vis_y", PREF_UINT, PREF_OFFSET(grid.vis_y), &default_int_vis_y, GRID_TAB, N_("Visual Spacing Y:") },
   { "grid_colour", PREF_COLOUR, PREF_OFFSET(new_diagram.grid_color), &default_colour, GRID_TAB, N_("Color:") },
   { "grid_major", PREF_UINT, PREF_OFFSET(grid.major_lines), &default_major_lines, GRID_TAB, N_("Lines per major line") },
   { "grid_hex", PREF_BOOLEAN, PREF_OFFSET(grid.hex), &default_false, GRID_TAB, N_("Hex grid") },
