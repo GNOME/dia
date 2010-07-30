@@ -78,12 +78,14 @@ _dae_create (Point *startpoint,
 	     Handle **handle2);
 static DiaObject *
 _dae_load (ObjectNode obj_node, int version, const char *filename);
+static void
+_dae_save (DiaObject *obj, ObjectNode obj_node, const char *filename);
 
 static ObjectTypeOps _dae_type_ops =
 {
   (CreateFunc) _dae_create,
   (LoadFunc)   _dae_load, /* can't use object_load_using_properties, signature mismatch */
-  (SaveFunc)   object_save_using_properties,
+  (SaveFunc)   _dae_save, /* overwrite for filename normalization */
   (GetDefaultsFunc)   NULL,
   (ApplyDefaultsFunc) NULL
 };
@@ -337,6 +339,42 @@ _dae_create (Point *startpoint,
 static DiaObject *
 _dae_load (ObjectNode obj_node, int version, const char *filename)
 {
-  return object_load_using_properties (&diagram_as_element_type,
+  DiaObject *obj;
+  DiagramAsElement *dae;
+ 
+  obj = object_load_using_properties (&diagram_as_element_type,
                                        obj_node, version, filename);
+  /* filename de-normalization */
+  dae = (DiagramAsElement*)obj;
+  if (strlen(dae->filename) && !g_path_is_absolute (dae->filename)) {
+    gchar *dirname = g_path_get_dirname (filename);
+    gchar *filename = g_build_filename (dirname, dae->filename, NULL);
+    g_free (dae->filename);
+    dae->filename = filename;
+    g_free (dirname);    
+  }
+  return obj;
+}
+
+static void
+_dae_save (DiaObject *obj, ObjectNode obj_node, const char *filename)
+{
+  DiagramAsElement *dae;
+  /* filename normalization */
+  gchar *saved_path = NULL;
+
+  dae = (DiagramAsElement*)obj;
+  if (strlen(dae->filename) && g_path_is_absolute (dae->filename)) {
+    gchar *dirname = g_path_get_dirname (filename);
+    if (strstr (dae->filename, dirname) == dae->filename) {
+      saved_path = dae->filename;
+      dae->filename += (strlen (dirname) + 1);
+    }
+    g_free (dirname);
+  }
+  object_save_using_properties (obj, obj_node, diagram_as_element_type.version, filename);
+  
+  if (saved_path) {
+    dae->filename = saved_path;
+  }
 }
