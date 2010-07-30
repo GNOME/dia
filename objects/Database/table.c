@@ -147,6 +147,8 @@ static PropDescription table_attribute_props[] =
       N_("Nullable"), NULL, NULL },
     { "unique", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
       N_("Unique"), NULL, NULL },
+    { "default_value", PROP_TYPE_STRING, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
+      N_("Default value"), NULL, NULL },
 
     PROP_DESC_END
   };
@@ -158,6 +160,7 @@ static PropOffset table_attribute_offsets[] = {
   { "primary_key", PROP_TYPE_BOOL, offsetof(TableAttribute, primary_key) },
   { "nullable", PROP_TYPE_BOOL, offsetof(TableAttribute, nullable) },
   { "unique", PROP_TYPE_BOOL, offsetof(TableAttribute, unique) },
+  { "default_value", PROP_TYPE_STRING, offsetof(TableAttribute, default_value) },
 
   { NULL, 0, 0 },
 };
@@ -278,6 +281,9 @@ TableAttribute * table_attribute_new (void)
       /* by default not unique */
       attr->unique = FALSE;
 
+      /* empty default value by default */
+      attr->default_value = g_strdup ("");
+
       attr->left_connection = NULL;
       attr->right_connection = NULL;
     }
@@ -329,6 +335,7 @@ table_attribute_copy (TableAttribute * orig)
   copy->primary_key = orig->primary_key;
   copy->nullable = orig->nullable;
   copy->unique = orig->unique;
+  copy->default_value = g_strdup (orig->default_value);
 
   return copy;
 }

@@ -68,6 +68,7 @@ struct _TablePropDialog {
   GtkList *     attributes_list;
   GtkEntry *    attribute_name;
   GtkEntry *    attribute_type;
+  GtkEntry *    attribute_default_value;
   GtkTextView * attribute_comment;
   GtkToggleButton * attribute_primary_key;
   GtkToggleButton * attribute_nullable;
@@ -700,6 +701,17 @@ create_attribute_page (GtkNotebook * notebook, Table * table)
   gtk_table_attach (GTK_TABLE (gtk_table), label, 0, 1, 1, 2, GTK_FILL, 0, 0, 0);
   gtk_table_attach (GTK_TABLE (gtk_table), entry, 1, 2, 1, 2, GTK_FILL | GTK_EXPAND, 0, 0, 2);
 
+  label = gtk_label_new (_("Default:"));
+  entry = gtk_entry_new ();
+  prop_dialog->attribute_default_value = GTK_ENTRY (entry);
+  gtk_signal_connect (GTK_OBJECT (entry), "focus_out_event",
+                      GTK_SIGNAL_FUNC (current_attribute_update_event), table);
+  gtk_signal_connect (GTK_OBJECT (entry), "activate",
+                      GTK_SIGNAL_FUNC (current_attribute_update), table);
+  gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
+  gtk_table_attach (GTK_TABLE (gtk_table), label, 0, 1, 2, 3, GTK_FILL, 0, 0, 0);
+  gtk_table_attach (GTK_TABLE (gtk_table), entry, 1, 2, 2, 3, GTK_FILL | GTK_EXPAND, 0, 0, 2);
+
 
   label = gtk_label_new (_("Comment:"));
   scrolledwindow = gtk_scrolled_window_new (NULL, NULL);
@@ -713,8 +725,8 @@ create_attribute_page (GtkNotebook * notebook, Table * table)
   gtk_signal_connect (GTK_OBJECT (entry), "focus_out_event",
 		      GTK_SIGNAL_FUNC (current_attribute_update_event), table);
   gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
-  gtk_table_attach (GTK_TABLE (gtk_table), label, 0, 1, 2, 3, GTK_FILL, 0, 0, 0);
-  gtk_table_attach (GTK_TABLE (gtk_table), scrolledwindow, 1, 2, 2, 3, GTK_FILL | GTK_EXPAND, 0, 0, 2);
+  gtk_table_attach (GTK_TABLE (gtk_table), label, 0, 1, 3, 4, GTK_FILL, 0, 0, 0);
+  gtk_table_attach (GTK_TABLE (gtk_table), scrolledwindow, 1, 2, 3, 4, GTK_FILL | GTK_EXPAND, 0, 0, 2);
 
   /* start a new gtk-table */
   gtk_table = gtk_table_new (2, 2, FALSE);
@@ -752,6 +764,7 @@ attributes_page_set_sensitive (TablePropDialog * prop_dialog, gboolean val)
 {
   gtk_widget_set_sensitive (GTK_WIDGET (prop_dialog->attribute_name), val);
   gtk_widget_set_sensitive (GTK_WIDGET (prop_dialog->attribute_type), val);
+  gtk_widget_set_sensitive (GTK_WIDGET (prop_dialog->attribute_default_value), val);
   gtk_widget_set_sensitive (GTK_WIDGET (prop_dialog->attribute_comment), val);
   gtk_widget_set_sensitive (GTK_WIDGET (prop_dialog->attribute_primary_key), val);
   gtk_widget_set_sensitive (GTK_WIDGET (prop_dialog->attribute_nullable), val);
@@ -763,6 +776,7 @@ attributes_page_clear_values(TablePropDialog * prop_dialog)
 {
   gtk_entry_set_text(prop_dialog->attribute_name, "");
   gtk_entry_set_text(prop_dialog->attribute_type, "");
+  gtk_entry_set_text(prop_dialog->attribute_default_value, "");
   set_comment(prop_dialog->attribute_comment, "");
   gtk_toggle_button_set_active (prop_dialog->attribute_primary_key, FALSE);
   gtk_toggle_button_set_active (prop_dialog->attribute_nullable, TRUE);
@@ -777,6 +791,7 @@ attributes_page_set_values (TablePropDialog * prop_dialog, TableAttribute * attr
 {
   gtk_entry_set_text (prop_dialog->attribute_name, attr->name);
   gtk_entry_set_text (prop_dialog->attribute_type, attr->type);
+  gtk_entry_set_text (prop_dialog->attribute_default_value, attr->default_value);
   set_comment (prop_dialog->attribute_comment, attr->comment);
   gtk_toggle_button_set_active (prop_dialog->attribute_primary_key,
                                 attr->primary_key);
@@ -796,10 +811,12 @@ attributes_page_values_to_attribute (TablePropDialog * prop_dialog,
 {
   if (attr->name) g_free (attr->name);
   if (attr->type) g_free (attr->type);
+  if (attr->default_value) g_free (attr->default_value);
   if (attr->comment) g_free (attr->comment);
 
   attr->name = g_strdup (gtk_entry_get_text (prop_dialog->attribute_name));
   attr->type = g_strdup (gtk_entry_get_text (prop_dialog->attribute_type));
+  attr->default_value = g_strdup (gtk_entry_get_text (prop_dialog->attribute_default_value));
   attr->comment = g_strdup (get_comment (prop_dialog->attribute_comment));
   attr->primary_key = gtk_toggle_button_get_active (prop_dialog->attribute_primary_key);
   attr->nullable = gtk_toggle_button_get_active (prop_dialog->attribute_nullable);

@@ -91,8 +91,9 @@ struct _Table {
 void table_dialog_free (TablePropDialog *dialog);
 
 struct _TableAttribute {
-  gchar * name; /* column name */
-  gchar * type; /* the type of the values in this column */
+  gchar * name;          /* column name */
+  gchar * type;          /* the type of the values in this column */
+  gchar * default_value; /* optional default column value */
   gchar * comment;
   gint primary_key;
   gint nullable;
