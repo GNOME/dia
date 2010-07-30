@@ -295,7 +295,7 @@ figLineWidth(XfigRenderer *renderer)
 {
   int width = 0;
   /* Minimal line width in fig diagrams. */
-  if (renderer->linewidth <= 0.3175) width = 1;
+  if (renderer->linewidth <= 0.03175) width = 1;
   else width = (int)((renderer->linewidth / 2.54) * 80.0);
   return width;
 }
