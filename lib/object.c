@@ -824,13 +824,11 @@ object_load_using_properties(const DiaObjectType *type,
  *  for an object with normal attributes.
  * @param obj The object to save.
  * @param obj_node The XML structure to save into.
- * @param version The version of the objects structure this will be saved as
- *                (for allowing backwards compatibility).
  * @param filename The name of the file being saved to, for error messages.
  */
 void 
 object_save_using_properties(DiaObject *obj, ObjectNode obj_node, 
-                             int version, const char *filename)
+                             const char *filename)
 {
   object_save_props(obj,obj_node);
 }

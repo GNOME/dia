@@ -351,7 +351,7 @@ _dae_load (ObjectNode obj_node, int version, const char *filename)
     gchar *filename = g_build_filename (dirname, dae->filename, NULL);
     g_free (dae->filename);
     dae->filename = filename;
-    g_free (dirname);    
+    g_free (dirname);
   }
   return obj;
 }
@@ -372,8 +372,8 @@ _dae_save (DiaObject *obj, ObjectNode obj_node, const char *filename)
     }
     g_free (dirname);
   }
-  object_save_using_properties (obj, obj_node, diagram_as_element_type.version, filename);
-  
+  object_save_using_properties (obj, obj_node, filename);
+
   if (saved_path) {
     dae->filename = saved_path;
   }

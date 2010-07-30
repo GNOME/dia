@@ -390,7 +390,7 @@ DiaObject *object_load_using_properties(const DiaObjectType *type,
                                      ObjectNode obj_node, int version,
                                      const char *filename);
 void object_save_using_properties(DiaObject *obj, ObjectNode obj_node, 
-                                  int version, const char *filename);
+                                  const char *filename);
 DiaObject *object_copy_using_properties(DiaObject *obj);
 
 /*****************************************
