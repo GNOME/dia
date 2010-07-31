@@ -347,7 +347,48 @@ static void
 _dtv_locate_item (GtkAction *action,
                   DiagramTreeView *dtv)
 {
-  /* FIXME: implement */
+  GtkTreeSelection *selection;
+  GtkTreeModel     *model;
+  GList            *rows, *r;
+
+  selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (dtv));
+  rows = gtk_tree_selection_get_selected_rows (selection, &model);
+  r = rows;
+  while (r) {
+    GtkTreeIter     iter;
+
+    if (gtk_tree_model_get_iter (model, &iter, r->data)) {
+      Diagram   *diagram;
+      Layer     *layer;
+      DiaObject *object;
+
+      gtk_tree_model_get (model, &iter, DIAGRAM_COLUMN, &diagram, -1);
+      gtk_tree_model_get (model, &iter, OBJECT_COLUMN, &object, -1);
+
+      if (object && diagram) {
+        /* It's kind of stupid to have this running in two loops:
+         * - one may expect to have one presentation for all selected objects
+         * - if there really would be multiple displays and objects we would
+         *   iterate through them with a very questionable order ;)
+         */
+        GSList *displays;
+
+        for (displays = diagram->displays; 
+             displays != NULL; displays = g_slist_next (displays)) {
+          DDisplay *ddisp = (DDisplay *)displays->data;
+
+          ddisplay_present_object (ddisp, object);
+        }
+      }
+      /* drop all references got from the model */
+      if (diagram) {
+        g_object_unref (diagram);
+      }
+    }
+    r = g_list_next (r);
+  }
+  g_list_foreach (rows, (GFunc) gtk_tree_path_free, NULL);
+  g_list_free (rows);
 }
 static void
 _dtv_showprops_item (GtkAction *action,
