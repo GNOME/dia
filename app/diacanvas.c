@@ -505,7 +505,7 @@ dia_canvas_remove (GtkContainer *container,
 	  g_free (child);
 
 #if GTK_CHECK_VERSION(2,20,0)
-	  if (was_visible && gtk_widget_get_visible (container))
+	  if (was_visible && gtk_widget_get_visible (GTK_WIDGET (container)))
 #else
 	  if (was_visible && GTK_WIDGET_VISIBLE (container))
 #endif

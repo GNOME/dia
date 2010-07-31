@@ -421,7 +421,7 @@ diagram_tree_delete(GtkCTree *ctree, DiagramTree *tree)
   g_signal_handlers_disconnect_by_func (G_OBJECT (dia_application_get ()), _diagram_change, tree);
   g_signal_handlers_disconnect_by_func (G_OBJECT (dia_application_get ()), _diagram_remove, tree);
 
-  gtk_widget_destroy (ctree);
+  gtk_widget_destroy (GTK_WIDGET (ctree));
 }
 
 static void

@@ -620,20 +620,20 @@ gtk_wrap_box_pack_wrapped (GtkWrapBox *wbox,
   gtk_widget_set_parent (child, GTK_WIDGET (wbox));
 
 #if GTK_CHECK_VERSION(2,20,0)
-  if (gtk_widget_get_realized (wbox))
+  if (gtk_widget_get_realized (GTK_WIDGET (wbox)))
 #else
   if (GTK_WIDGET_REALIZED (wbox))
 #endif
     gtk_widget_realize (child);
 
 #if GTK_CHECK_VERSION(2,20,0)
-  if (gtk_widget_get_visible (wbox) && gtk_widget_get_visible (child))
+  if (gtk_widget_get_visible (GTK_WIDGET (wbox)) && gtk_widget_get_visible (child))
 #else
   if (GTK_WIDGET_VISIBLE (wbox) && GTK_WIDGET_VISIBLE (child))
 #endif
     {
 #if GTK_CHECK_VERSION(2,20,0)
-      if (gtk_widget_get_mapped (wbox))
+      if (gtk_widget_get_mapped (GTK_WIDGET (wbox)))
 #else
       if (GTK_WIDGET_MAPPED (wbox))
 #endif
@@ -690,7 +690,7 @@ gtk_wrap_box_reorder_child (GtkWrapBox *wbox,
         }
 
 #if GTK_CHECK_VERSION(2,20,0)
-      if (gtk_widget_get_visible (child) && gtk_widget_get_visible (wbox))
+      if (gtk_widget_get_visible (child) && gtk_widget_get_visible (GTK_WIDGET (wbox)))
 #else
       if (GTK_WIDGET_VISIBLE (child) && GTK_WIDGET_VISIBLE (wbox))
 #endif
@@ -767,7 +767,7 @@ gtk_wrap_box_set_child_packing (GtkWrapBox *wbox,
       child_info->wrapped = wrapped;
 
 #if GTK_CHECK_VERSION(2,20,0)
-      if (gtk_widget_get_visible (child) && gtk_widget_get_visible (wbox))
+      if (gtk_widget_get_visible (child) && gtk_widget_get_visible (GTK_WIDGET (wbox)))
 #else
       if (GTK_WIDGET_VISIBLE (child) && GTK_WIDGET_VISIBLE (wbox))
 #endif
