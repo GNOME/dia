@@ -488,7 +488,7 @@ create_Line(VDXRenderer *renderer, Color *color, struct vdx_Line *Line,
 {
     /* A Line (colour etc) */
     memset(Line, 0, sizeof(*Line));
-    Line->type = vdx_types_Line;
+    Line->any.type = vdx_types_Line;
     switch (renderer->stylemode)
     {
     case LINESTYLE_DASHED:
@@ -528,7 +528,7 @@ create_Fill(VDXRenderer *renderer, Color *color, struct vdx_Fill *Fill)
 {
     /* A Fill (colour etc) */
     memset(Fill, 0, sizeof(*Fill));
-    Fill->type = vdx_types_Fill;
+    Fill->any.type = vdx_types_Fill;
     Fill->FillForegnd = *color;
     Fill->FillPattern = 1;      /* Solid fill */
 }
@@ -566,7 +566,7 @@ draw_line(DiaRenderer *self, Point *start, Point *end, Color *color)
     
     /* Setup the standard shape object */
     memset(&Shape, 0, sizeof(Shape));
-    Shape.type = vdx_types_Shape;
+    Shape.any.type = vdx_types_Shape;
     Shape.ID = renderer->shapeid++;
     Shape.Type = "Shape";
     sprintf(NameU, "Line.%d", Shape.ID);
@@ -577,7 +577,7 @@ draw_line(DiaRenderer *self, Point *start, Point *end, Color *color)
 
     /* An XForm */
     memset(&XForm, 0, sizeof(XForm));
-    XForm.type = vdx_types_XForm;
+    XForm.any.type = vdx_types_XForm;
     a = visio_point(*start);
     b = visio_point(*end);
     XForm.PinX = a.x;           /* Start */
@@ -590,7 +590,7 @@ draw_line(DiaRenderer *self, Point *start, Point *end, Color *color)
 
     /* Lines must have an XForm1D as well */
     memset(&XForm1D, 0, sizeof(XForm1D));
-    XForm1D.type = vdx_types_XForm1D;
+    XForm1D.any.type = vdx_types_XForm1D;
     XForm1D.BeginX = a.x;
     XForm1D.BeginY = a.y;
     XForm1D.EndX = b.x;
@@ -599,17 +599,17 @@ draw_line(DiaRenderer *self, Point *start, Point *end, Color *color)
     /* Standard Geom object */
     memset(&Geom, 0, sizeof(Geom));
     Geom.NoFill = 1;
-    Geom.type = vdx_types_Geom;
+    Geom.any.type = vdx_types_Geom;
 
     /* Two children - MoveTo(start) and LineTo(end) */
     memset(&MoveTo, 0, sizeof(MoveTo));
-    MoveTo.type = vdx_types_MoveTo;
+    MoveTo.any.type = vdx_types_MoveTo;
     MoveTo.IX = 1;
     MoveTo.X = 0;
     MoveTo.Y = 0;
 
     memset(&LineTo, 0, sizeof(LineTo));
-    LineTo.type = vdx_types_LineTo;
+    LineTo.any.type = vdx_types_LineTo;
     LineTo.IX = 2;
     LineTo.X = b.x-a.x; 
     LineTo.Y = b.y-a.y;
@@ -618,20 +618,20 @@ draw_line(DiaRenderer *self, Point *start, Point *end, Color *color)
     create_Line(renderer, color, &Line, 0, 0);
 
     /* Setup children */
-    Geom.children = g_slist_append(Geom.children, &MoveTo);
-    Geom.children = g_slist_append(Geom.children, &LineTo);
+    Geom.any.children = g_slist_append(Geom.any.children, &MoveTo);
+    Geom.any.children = g_slist_append(Geom.any.children, &LineTo);
 
-    Shape.children = g_slist_append(Shape.children, &XForm);
-    Shape.children = g_slist_append(Shape.children, &XForm1D);
-    Shape.children = g_slist_append(Shape.children, &Line);
-    Shape.children = g_slist_append(Shape.children, &Geom);
+    Shape.any.children = g_slist_append(Shape.any.children, &XForm);
+    Shape.any.children = g_slist_append(Shape.any.children, &XForm1D);
+    Shape.any.children = g_slist_append(Shape.any.children, &Line);
+    Shape.any.children = g_slist_append(Shape.any.children, &Geom);
 
     /* Write out XML */
     vdx_write_object(renderer->file, renderer->xml_depth, &Shape);
 
     /* Free up list entries */
-    g_slist_free(Geom.children);
-    g_slist_free(Shape.children);
+    g_slist_free(Geom.any.children);
+    g_slist_free(Shape.any.children);
 }
 
 
@@ -668,7 +668,7 @@ static void draw_polyline(DiaRenderer *self, Point *points, int num_points,
     
     /* Setup the standard shape object */
     memset(&Shape, 0, sizeof(Shape));
-    Shape.type = vdx_types_Shape;
+    Shape.any.type = vdx_types_Shape;
     Shape.ID = renderer->shapeid++;
     Shape.Type = "Shape";
     sprintf(NameU, "PolyLine.%d", Shape.ID);
@@ -679,7 +679,7 @@ static void draw_polyline(DiaRenderer *self, Point *points, int num_points,
 
     /* An XForm */
     memset(&XForm, 0, sizeof(XForm));
-    XForm.type = vdx_types_XForm;
+    XForm.any.type = vdx_types_XForm;
     a = visio_point(points[0]);
 
     /* Find width and height */
@@ -704,11 +704,11 @@ static void draw_polyline(DiaRenderer *self, Point *points, int num_points,
     /* Standard Geom object */
     memset(&Geom, 0, sizeof(Geom));
     Geom.NoFill = 1;
-    Geom.type = vdx_types_Geom;
+    Geom.any.type = vdx_types_Geom;
 
     /* Multiple children - MoveTo(start) and LineTo(others) */
     memset(&MoveTo, 0, sizeof(MoveTo));
-    MoveTo.type = vdx_types_MoveTo;
+    MoveTo.any.type = vdx_types_MoveTo;
     MoveTo.IX = 1;
     MoveTo.X = 0;
     MoveTo.Y = 0;
@@ -716,7 +716,7 @@ static void draw_polyline(DiaRenderer *self, Point *points, int num_points,
     LineTo = g_new0(struct vdx_LineTo, num_points-1);
     for (i=0; i<num_points-1; i++)
     {
-        LineTo[i].type = vdx_types_LineTo;
+        LineTo[i].any.type = vdx_types_LineTo;
         LineTo[i].IX = i+2;
         b = visio_point(points[i+1]);
         LineTo[i].X = b.x-a.x; 
@@ -727,22 +727,22 @@ static void draw_polyline(DiaRenderer *self, Point *points, int num_points,
     create_Line(renderer, color, &Line, 0, 0);
 
     /* Setup children */
-    Geom.children = g_slist_append(Geom.children, &MoveTo);
+    Geom.any.children = g_slist_append(Geom.any.children, &MoveTo);
     for (i=0; i<num_points-1; i++)
     {
-        Geom.children = g_slist_append(Geom.children, &LineTo[i]);
+        Geom.any.children = g_slist_append(Geom.any.children, &LineTo[i]);
     }
 
-    Shape.children = g_slist_append(Shape.children, &XForm);
-    Shape.children = g_slist_append(Shape.children, &Line);
-    Shape.children = g_slist_append(Shape.children, &Geom);
+    Shape.any.children = g_slist_append(Shape.any.children, &XForm);
+    Shape.any.children = g_slist_append(Shape.any.children, &Line);
+    Shape.any.children = g_slist_append(Shape.any.children, &Geom);
 
     /* Write out XML */
     vdx_write_object(renderer->file, renderer->xml_depth, &Shape);
 
     /* Free up list entries */
-    g_slist_free(Geom.children);
-    g_slist_free(Shape.children);
+    g_slist_free(Geom.any.children);
+    g_slist_free(Shape.any.children);
     g_free(LineTo);
 }
 
@@ -799,7 +799,7 @@ static void fill_polygon(DiaRenderer *self,
     
     /* Setup the standard shape object */
     memset(&Shape, 0, sizeof(Shape));
-    Shape.type = vdx_types_Shape;
+    Shape.any.type = vdx_types_Shape;
     Shape.ID = renderer->shapeid++;
     Shape.Type = "Shape";
     sprintf(NameU, "FillPolygon.%d", Shape.ID);
@@ -810,7 +810,7 @@ static void fill_polygon(DiaRenderer *self,
 
     /* An XForm */
     memset(&XForm, 0, sizeof(XForm));
-    XForm.type = vdx_types_XForm;
+    XForm.any.type = vdx_types_XForm;
     a = visio_point(points[0]);
 
     /* Find width and height */
@@ -834,11 +834,11 @@ static void fill_polygon(DiaRenderer *self,
 
     /* Standard Geom object */
     memset(&Geom, 0, sizeof(Geom));
-    Geom.type = vdx_types_Geom;
+    Geom.any.type = vdx_types_Geom;
 
     /* Multiple children - MoveTo(start) and LineTo(others) */
     memset(&MoveTo, 0, sizeof(MoveTo));
-    MoveTo.type = vdx_types_MoveTo;
+    MoveTo.any.type = vdx_types_MoveTo;
     MoveTo.IX = 1;
     MoveTo.X = 0;
     MoveTo.Y = 0;
@@ -846,7 +846,7 @@ static void fill_polygon(DiaRenderer *self,
     LineTo = g_new0(struct vdx_LineTo, num_points);
     for (i=0; i<num_points; i++)
     {
-        LineTo[i].type = vdx_types_LineTo;
+        LineTo[i].any.type = vdx_types_LineTo;
         LineTo[i].IX = i+2;
         /* Last point = first */
         if (i == num_points-1) b = a;
@@ -859,22 +859,22 @@ static void fill_polygon(DiaRenderer *self,
     create_Fill(renderer, color, &Fill);
 
     /* Setup children */
-    Geom.children = g_slist_append(Geom.children, &MoveTo);
+    Geom.any.children = g_slist_append(Geom.any.children, &MoveTo);
     for (i=0; i<num_points; i++)
     {
-        Geom.children = g_slist_append(Geom.children, &LineTo[i]);
+        Geom.any.children = g_slist_append(Geom.any.children, &LineTo[i]);
     }
 
-    Shape.children = g_slist_append(Shape.children, &XForm);
-    Shape.children = g_slist_append(Shape.children, &Fill);
-    Shape.children = g_slist_append(Shape.children, &Geom);
+    Shape.any.children = g_slist_append(Shape.any.children, &XForm);
+    Shape.any.children = g_slist_append(Shape.any.children, &Fill);
+    Shape.any.children = g_slist_append(Shape.any.children, &Geom);
 
     /* Write out XML */
     vdx_write_object(renderer->file, renderer->xml_depth, &Shape);
 
     /* Free up list entries */
-    g_slist_free(Geom.children);
-    g_slist_free(Shape.children);
+    g_slist_free(Geom.any.children);
+    g_slist_free(Shape.any.children);
     g_free(LineTo);
 }
 
@@ -966,7 +966,7 @@ static void draw_arc(DiaRenderer *self,
 
     /* Setup the standard shape object */
     memset(&Shape, 0, sizeof(Shape));
-    Shape.type = vdx_types_Shape;
+    Shape.any.type = vdx_types_Shape;
     Shape.ID = renderer->shapeid++;
     Shape.Type = "Shape";
     sprintf(NameU, "Arc.%d", Shape.ID);
@@ -977,7 +977,7 @@ static void draw_arc(DiaRenderer *self,
 
     /* An XForm */
     memset(&XForm, 0, sizeof(XForm));
-    XForm.type = vdx_types_XForm;
+    XForm.any.type = vdx_types_XForm;
 
     /* Find the start of the arc */
     start = *center;
@@ -1018,17 +1018,17 @@ static void draw_arc(DiaRenderer *self,
     /* Standard Geom object */
     memset(&Geom, 0, sizeof(Geom));
     Geom.NoFill = 1;
-    Geom.type = vdx_types_Geom;
+    Geom.any.type = vdx_types_Geom;
 
     memset(&MoveTo, 0, sizeof(MoveTo));
-    MoveTo.type = vdx_types_MoveTo;
+    MoveTo.any.type = vdx_types_MoveTo;
     MoveTo.IX = 1;
     MoveTo.X = 0;
     MoveTo.Y = 0;
 
     /* Second child - EllipticalArcTo */
     memset(&EllipticalArcTo, 0, sizeof(EllipticalArcTo));
-    EllipticalArcTo.type = vdx_types_EllipticalArcTo;
+    EllipticalArcTo.any.type = vdx_types_EllipticalArcTo;
     EllipticalArcTo.IX = 2;
 
     /* X and Y are the end point
@@ -1051,19 +1051,19 @@ static void draw_arc(DiaRenderer *self,
     create_Line(renderer, color, &Line, 0, 0);
 
     /* Setup children */
-    Geom.children = g_slist_append(Geom.children, &MoveTo);
-    Geom.children = g_slist_append(Geom.children, &EllipticalArcTo);
+    Geom.any.children = g_slist_append(Geom.any.children, &MoveTo);
+    Geom.any.children = g_slist_append(Geom.any.children, &EllipticalArcTo);
 
-    Shape.children = g_slist_append(Shape.children, &XForm);
-    Shape.children = g_slist_append(Shape.children, &Line);
-    Shape.children = g_slist_append(Shape.children, &Geom);
+    Shape.any.children = g_slist_append(Shape.any.children, &XForm);
+    Shape.any.children = g_slist_append(Shape.any.children, &Line);
+    Shape.any.children = g_slist_append(Shape.any.children, &Geom);
 
     /* Write out XML */
     vdx_write_object(renderer->file, renderer->xml_depth, &Shape);
 
     /* Free up list entries */
-    g_slist_free(Geom.children);
-    g_slist_free(Shape.children);
+    g_slist_free(Geom.any.children);
+    g_slist_free(Shape.any.children);
 }
 
 /** Render a Dia filled arc
@@ -1126,7 +1126,7 @@ static void draw_ellipse(DiaRenderer *self,
     
     /* Setup the standard shape object */
     memset(&Shape, 0, sizeof(Shape));
-    Shape.type = vdx_types_Shape;
+    Shape.any.type = vdx_types_Shape;
     Shape.ID = renderer->shapeid++;
     Shape.Type = "Shape";
     sprintf(NameU, "Ellipse.%d", Shape.ID);
@@ -1137,7 +1137,7 @@ static void draw_ellipse(DiaRenderer *self,
 
     /* An XForm */
     memset(&XForm, 0, sizeof(XForm));
-    XForm.type = vdx_types_XForm;
+    XForm.any.type = vdx_types_XForm;
     a = visio_point(*center);
     XForm.PinX = a.x;           /* Start */
     XForm.PinY = a.y;
@@ -1150,11 +1150,11 @@ static void draw_ellipse(DiaRenderer *self,
     /* Standard Geom object */
     memset(&Geom, 0, sizeof(Geom));
     Geom.NoFill = 1;
-    Geom.type = vdx_types_Geom;
+    Geom.any.type = vdx_types_Geom;
 
     /* One child - Ellipse */
     memset(&Ellipse, 0, sizeof(Ellipse));
-    Ellipse.type = vdx_types_Ellipse;
+    Ellipse.any.type = vdx_types_Ellipse;
     Ellipse.IX = 1;
     Ellipse.X = XForm.Width/2.0;
     Ellipse.Y = XForm.Height/2.0;
@@ -1167,18 +1167,18 @@ static void draw_ellipse(DiaRenderer *self,
     create_Line(renderer, color, &Line, 0, 0);
 
     /* Setup children */
-    Geom.children = g_slist_append(Geom.children, &Ellipse);
+    Geom.any.children = g_slist_append(Geom.any.children, &Ellipse);
 
-    Shape.children = g_slist_append(Shape.children, &XForm);
-    Shape.children = g_slist_append(Shape.children, &Line);
-    Shape.children = g_slist_append(Shape.children, &Geom);
+    Shape.any.children = g_slist_append(Shape.any.children, &XForm);
+    Shape.any.children = g_slist_append(Shape.any.children, &Line);
+    Shape.any.children = g_slist_append(Shape.any.children, &Geom);
 
     /* Write out XML */
     vdx_write_object(renderer->file, renderer->xml_depth, &Shape);
 
     /* Free up list entries */
-    g_slist_free(Geom.children);
-    g_slist_free(Shape.children);
+    g_slist_free(Geom.any.children);
+    g_slist_free(Shape.any.children);
 }
 
 /** Render a Dia filled ellipse (parallel to axes)
@@ -1214,7 +1214,7 @@ static void fill_ellipse(DiaRenderer *self,
     
     /* Setup the standard shape object */
     memset(&Shape, 0, sizeof(Shape));
-    Shape.type = vdx_types_Shape;
+    Shape.any.type = vdx_types_Shape;
     Shape.ID = renderer->shapeid++;
     Shape.Type = "Shape";
     sprintf(NameU, "FillEllipse.%d", Shape.ID);
@@ -1225,7 +1225,7 @@ static void fill_ellipse(DiaRenderer *self,
 
     /* An XForm */
     memset(&XForm, 0, sizeof(XForm));
-    XForm.type = vdx_types_XForm;
+    XForm.any.type = vdx_types_XForm;
     a = visio_point(*center);
     XForm.PinX = a.x;           /* Start */
     XForm.PinY = a.y;
@@ -1237,11 +1237,11 @@ static void fill_ellipse(DiaRenderer *self,
 
     /* Standard Geom object */
     memset(&Geom, 0, sizeof(Geom));
-    Geom.type = vdx_types_Geom;
+    Geom.any.type = vdx_types_Geom;
 
     /* One child - Ellipse */
     memset(&Ellipse, 0, sizeof(Ellipse));
-    Ellipse.type = vdx_types_Ellipse;
+    Ellipse.any.type = vdx_types_Ellipse;
     Ellipse.IX = 1;
     Ellipse.X = XForm.Width/2.0;
     Ellipse.Y = XForm.Height/2.0;
@@ -1254,18 +1254,18 @@ static void fill_ellipse(DiaRenderer *self,
     create_Fill(renderer, color, &Fill);
 
     /* Setup children */
-    Geom.children = g_slist_append(Geom.children, &Ellipse);
+    Geom.any.children = g_slist_append(Geom.any.children, &Ellipse);
 
-    Shape.children = g_slist_append(Shape.children, &XForm);
-    Shape.children = g_slist_append(Shape.children, &Fill);
-    Shape.children = g_slist_append(Shape.children, &Geom);
+    Shape.any.children = g_slist_append(Shape.any.children, &XForm);
+    Shape.any.children = g_slist_append(Shape.any.children, &Fill);
+    Shape.any.children = g_slist_append(Shape.any.children, &Geom);
 
     /* Write out XML */
     vdx_write_object(renderer->file, renderer->xml_depth, &Shape);
 
     /* Free up list entries */
-    g_slist_free(Geom.children);
-    g_slist_free(Shape.children);
+    g_slist_free(Geom.any.children);
+    g_slist_free(Shape.any.children);
 }
 
 /** Render a Dia string
@@ -1303,7 +1303,7 @@ static void draw_string(DiaRenderer *self,
     g_debug("draw_string");
     /* Standard shape */
     memset(&Shape, 0, sizeof(Shape));
-    Shape.type = vdx_types_Shape;
+    Shape.any.type = vdx_types_Shape;
     Shape.ID = renderer->shapeid++;
     Shape.Type = "Shape";
     sprintf(NameU, "Text.%d", Shape.ID);
@@ -1314,7 +1314,7 @@ static void draw_string(DiaRenderer *self,
 
     /* XForm describes bounding box */
     memset(&XForm, 0, sizeof(XForm));
-    XForm.type = vdx_types_XForm;
+    XForm.any.type = vdx_types_XForm;
     a = visio_point(*pos);
     XForm.PinX = a.x;
     XForm.PinY = a.y;
@@ -1325,7 +1325,7 @@ static void draw_string(DiaRenderer *self,
 
     /* Character properties */
     memset(&Char, 0, sizeof(Char));
-    Char.type = vdx_types_Char;
+    Char.any.type = vdx_types_Char;
     Char.Font = vdxCheckFont(renderer);
     Char.Color = *color;
     Char.FontScale = 1;
@@ -1333,24 +1333,24 @@ static void draw_string(DiaRenderer *self,
 
     /* Text object - no attributes */
     memset(&Text, 0, sizeof(Text));
-    Text.type = vdx_types_Text;
+    Text.any.type = vdx_types_Text;
 
     /* text object (XML pseudo-tag) - no attributes */
     memset(&my_text, 0, sizeof(my_text));
-    my_text.type = vdx_types_text;
+    my_text.any.type = vdx_types_text;
     my_text.text = (char *)text;
 
     /* Construct the children */
-    Text.children = g_slist_append(Text.children, &my_text);
+    Text.any.children = g_slist_append(Text.any.children, &my_text);
 
-    Shape.children = g_slist_append(Shape.children, &XForm);
-    Shape.children = g_slist_append(Shape.children, &Char);
-    Shape.children = g_slist_append(Shape.children, &Text);
+    Shape.any.children = g_slist_append(Shape.any.children, &XForm);
+    Shape.any.children = g_slist_append(Shape.any.children, &Char);
+    Shape.any.children = g_slist_append(Shape.any.children, &Text);
 
     vdx_write_object(renderer->file, renderer->xml_depth, &Shape);
 
-    g_slist_free(Text.children);
-    g_slist_free(Shape.children);
+    g_slist_free(Text.any.children);
+    g_slist_free(Shape.any.children);
 }
 
 /** Reads binary file and converts to Base64 data
@@ -1475,7 +1475,7 @@ static void draw_image(DiaRenderer *self,
             width, height, dia_image_filename(image));
     /* Setup the standard shape object */
     memset(&Shape, 0, sizeof(Shape));
-    Shape.type = vdx_types_Shape;
+    Shape.any.type = vdx_types_Shape;
     Shape.ID = renderer->shapeid++;
     Shape.Type = "Foreign";
     sprintf(NameU, "Foreign.%d", Shape.ID);
@@ -1486,7 +1486,7 @@ static void draw_image(DiaRenderer *self,
 
     /* An XForm */
     memset(&XForm, 0, sizeof(XForm));
-    XForm.type = vdx_types_XForm;
+    XForm.any.type = vdx_types_XForm;
     bottom_left.x = point->x;
     bottom_left.y = point->y + height;
     a = visio_point(bottom_left);
@@ -1500,12 +1500,12 @@ static void draw_image(DiaRenderer *self,
 
     /* Standard Geom object */
     memset(&Geom, 0, sizeof(Geom));
-    Geom.type = vdx_types_Geom;
+    Geom.any.type = vdx_types_Geom;
     /* We don't use it, but our decoder needs it */
 
     /* And a Foreign */
     memset(&Foreign, 0, sizeof(Foreign));
-    Foreign.type = vdx_types_Foreign;
+    Foreign.any.type = vdx_types_Foreign;
     Foreign.ImgOffsetX = 0;
     Foreign.ImgOffsetY = 0;
     Foreign.ImgHeight = visio_length(height);
@@ -1513,7 +1513,7 @@ static void draw_image(DiaRenderer *self,
 
     /* And a ForeignData */
     memset(&ForeignData, 0, sizeof(ForeignData));
-    ForeignData.type = vdx_types_ForeignData;
+    ForeignData.any.type = vdx_types_ForeignData;
     ForeignData.ForeignType = "Bitmap";
     ForeignData.CompressionType = "JPEG";
     ForeignData.CompressionLevel = 1.0;
@@ -1534,23 +1534,23 @@ static void draw_image(DiaRenderer *self,
 
     /* And the data itself */
     memset(&text, 0, sizeof(text));
-    text.type = vdx_types_text;
+    text.any.type = vdx_types_text;
     text.text = read_base64_file(filename);
     if (!text.text) return;     /* Problem reading file */
 
     /* Setup children */
-    Shape.children = g_slist_append(Shape.children, &XForm);
-    Shape.children = g_slist_append(Shape.children, &Geom);
-    Shape.children = g_slist_append(Shape.children, &Foreign);
-    Shape.children = g_slist_append(Shape.children, &ForeignData);
-    ForeignData.children = g_slist_append(ForeignData.children, &text);
+    Shape.any.children = g_slist_append(Shape.any.children, &XForm);
+    Shape.any.children = g_slist_append(Shape.any.children, &Geom);
+    Shape.any.children = g_slist_append(Shape.any.children, &Foreign);
+    Shape.any.children = g_slist_append(Shape.any.children, &ForeignData);
+    ForeignData.any.children = g_slist_append(ForeignData.any.children, &text);
 
     /* Write out XML */
     vdx_write_object(renderer->file, renderer->xml_depth, &Shape);
 
     /* Free up list entries */
-    g_slist_free(ForeignData.children);
-    g_slist_free(Shape.children);
+    g_slist_free(ForeignData.any.children);
+    g_slist_free(Shape.any.children);
 
     /* And the Base64 data */
     g_free(text.text);
@@ -1688,7 +1688,7 @@ write_header(DiagramData *data, VDXRenderer *renderer)
         {
             struct vdx_FontEntry Font;
             memset(&Font, 0, sizeof(Font));
-            Font.type = vdx_types_FontEntry;
+            Font.any.type = vdx_types_FontEntry;
             f = g_array_index(renderer->Fonts, char *, i);
             
             /* Assume want stndard fonts names converted */
@@ -1739,60 +1739,60 @@ write_header(DiagramData *data, VDXRenderer *renderer)
 
     /* An initial stylesheet (mandatory) */
     memset(&StyleSheet, 0, sizeof(StyleSheet));
-    StyleSheet.type = vdx_types_StyleSheet;
+    StyleSheet.any.type = vdx_types_StyleSheet;
     StyleSheet.NameU = "No Style";
 
     /* All these values observed */
     memset(&StyleProp, 0, sizeof(StyleProp));
-    StyleProp.type = vdx_types_StyleProp;
+    StyleProp.any.type = vdx_types_StyleProp;
     StyleProp.EnableLineProps = 1;
     StyleProp.EnableFillProps = 1;
     StyleProp.EnableTextProps = 1;
 
     memset(&Line, 0, sizeof(Line));
-    Line.type = vdx_types_Line;
+    Line.any.type = vdx_types_Line;
     Line.LineWeight = 0.01;
     Line.LinePattern = 1;
     
     memset(&Fill, 0, sizeof(Fill));
-    Fill.type = vdx_types_Fill;
+    Fill.any.type = vdx_types_Fill;
     Fill.FillForegnd = color_black;
     Fill.FillPattern = 1;
 
     memset(&TextBlock, 0, sizeof(TextBlock));
-    TextBlock.type = vdx_types_TextBlock;
+    TextBlock.any.type = vdx_types_TextBlock;
     TextBlock.VerticalAlign = 1;
     TextBlock.DefaultTabStop = 0.59055118110236;
     
     memset(&Char, 0, sizeof(Char));
-    Char.type = vdx_types_Char;
+    Char.any.type = vdx_types_Char;
     Char.FontScale = 1;
     Char.Size = 0.16666666666667;
     
     memset(&Para, 0, sizeof(Para));
-    Para.type = vdx_types_Para;
+    Para.any.type = vdx_types_Para;
     Para.SpLine = -1.2;
     Para.HorzAlign = 1;
     Para.BulletStr = "&#xe000;";
     Para.BulletFontSize = "-1";
 
     memset(&Tabs, 0, sizeof(Tabs));
-    Tabs.type = vdx_types_Tabs;
+    Tabs.any.type = vdx_types_Tabs;
 
     /* Setup children */
-    StyleSheet.children = g_slist_append(StyleSheet.children, &StyleProp);
-    StyleSheet.children = g_slist_append(StyleSheet.children, &Line);
-    StyleSheet.children = g_slist_append(StyleSheet.children, &Fill);
-    StyleSheet.children = g_slist_append(StyleSheet.children, &TextBlock);
-    StyleSheet.children = g_slist_append(StyleSheet.children, &Char);
-    StyleSheet.children = g_slist_append(StyleSheet.children, &Para);
-    StyleSheet.children = g_slist_append(StyleSheet.children, &Tabs);
+    StyleSheet.any.children = g_slist_append(StyleSheet.any.children, &StyleProp);
+    StyleSheet.any.children = g_slist_append(StyleSheet.any.children, &Line);
+    StyleSheet.any.children = g_slist_append(StyleSheet.any.children, &Fill);
+    StyleSheet.any.children = g_slist_append(StyleSheet.any.children, &TextBlock);
+    StyleSheet.any.children = g_slist_append(StyleSheet.any.children, &Char);
+    StyleSheet.any.children = g_slist_append(StyleSheet.any.children, &Para);
+    StyleSheet.any.children = g_slist_append(StyleSheet.any.children, &Tabs);
 
     fprintf(file, "  <StyleSheets>\n");
     vdx_write_object(renderer->file, 2, &StyleSheet);
     fprintf(file, "  </StyleSheets>\n");
 
-    g_slist_free(StyleSheet.children);
+    g_slist_free(StyleSheet.any.children);
 
     /*  Following attributes observed */
     fprintf(file, "  <Pages>\n");
@@ -1956,7 +1956,7 @@ static void draw_line_with_arrows(DiaRenderer *self,
 
     g_debug("draw_line_with_arrows");
     memset(&Shape, 0, sizeof(Shape));
-    Shape.type = vdx_types_Shape;
+    Shape.any.type = vdx_types_Shape;
     Shape.ID = renderer->shapeid++;
     Shape.Type = "Shape";
     sprintf(NameU, "ArrowLine.%d", Shape.ID);
@@ -1966,7 +1966,7 @@ static void draw_line_with_arrows(DiaRenderer *self,
     Shape.TextStyle_exists = 1;
 
     memset(&XForm, 0, sizeof(XForm));
-    XForm.type = vdx_types_XForm;
+    XForm.any.type = vdx_types_XForm;
     a = visio_point(*start);
     b = visio_point(*end);
     XForm.PinX = a.x;
@@ -1978,7 +1978,7 @@ static void draw_line_with_arrows(DiaRenderer *self,
     XForm.Angle = 0.0;
 
     memset(&XForm1D, 0, sizeof(XForm1D));
-    XForm1D.type = vdx_types_XForm1D;
+    XForm1D.any.type = vdx_types_XForm1D;
     XForm1D.BeginX = a.x;
     XForm1D.BeginY = a.y;
     XForm1D.EndX = b.x;
@@ -1986,34 +1986,34 @@ static void draw_line_with_arrows(DiaRenderer *self,
 
     memset(&Geom, 0, sizeof(Geom));
     Geom.NoFill = 1;
-    Geom.type = vdx_types_Geom;
+    Geom.any.type = vdx_types_Geom;
 
     memset(&MoveTo, 0, sizeof(MoveTo));
-    MoveTo.type = vdx_types_MoveTo;
+    MoveTo.any.type = vdx_types_MoveTo;
     MoveTo.IX = 1;
     MoveTo.X = 0;
     MoveTo.Y = 0;
 
     memset(&LineTo, 0, sizeof(LineTo));
-    LineTo.type = vdx_types_LineTo;
+    LineTo.any.type = vdx_types_LineTo;
     LineTo.IX = 2;
     LineTo.X = b.x-a.x; 
     LineTo.Y = b.y-a.y;
 
     create_Line(renderer, color, &Line, start_arrow, end_arrow);
 
-    Geom.children = g_slist_append(Geom.children, &MoveTo);
-    Geom.children = g_slist_append(Geom.children, &LineTo);
+    Geom.any.children = g_slist_append(Geom.any.children, &MoveTo);
+    Geom.any.children = g_slist_append(Geom.any.children, &LineTo);
 
-    Shape.children = g_slist_append(Shape.children, &XForm);
-    Shape.children = g_slist_append(Shape.children, &XForm1D);
-    Shape.children = g_slist_append(Shape.children, &Line);
-    Shape.children = g_slist_append(Shape.children, &Geom);
+    Shape.any.children = g_slist_append(Shape.any.children, &XForm);
+    Shape.any.children = g_slist_append(Shape.any.children, &XForm1D);
+    Shape.any.children = g_slist_append(Shape.any.children, &Line);
+    Shape.any.children = g_slist_append(Shape.any.children, &Geom);
 
     vdx_write_object(renderer->file, renderer->xml_depth, &Shape);
 
-    g_slist_free(Geom.children);
-    g_slist_free(Shape.children);
+    g_slist_free(Geom.any.children);
+    g_slist_free(Shape.any.children);
 }
 
 /** Render a Dia polyline with arrows

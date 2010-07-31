@@ -388,7 +388,7 @@ vdx_get_stylesheets(xmlNodePtr cur, VDXDocument* theDoc)
 static void *
 find_child(unsigned int type, const void *p)
 {
-    struct vdx_any *Any = (struct vdx_any *)p;
+    const struct vdx_any *Any = p;
     GSList *child;
 
     if (!p)
@@ -516,7 +516,7 @@ get_shape_by_id(unsigned int id, struct vdx_Shapes *Shapes, unsigned int depth)
     }
 
     /* A Master has a list of Shapes */
-    for(child = Shapes->children; child; child = child->next)
+    for(child = Shapes->any.children; child; child = child->next)
     {
         struct vdx_any *Any_child = (struct vdx_any *)child->data;
         if (!child->data) continue;
@@ -782,13 +782,13 @@ apply_XForm(Point p, const struct vdx_XForm *XForm)
     q.x += XForm->PinX;
     q.y += XForm->PinY;
 
-    if (XForm->children)
+    if (XForm->any.children)
     {
         /* Recurse if we have a list */
         /* This is overloading the children list, but XForms cannot
            have real children, so this list is always empty, and it's a lot
            easier than the composition calculations */
-        XForm = (struct vdx_XForm*)XForm->children->data;
+        XForm = (struct vdx_XForm*)XForm->any.children->data;
         if (XForm)
         {
             q = apply_XForm(q, XForm);
@@ -1089,8 +1089,8 @@ arc_to_ellipticalarc(struct vdx_ArcTo *ArcTo, const Point *Start,
         return FALSE;
     }
 
-    EllipticalArcTo->type = vdx_types_EllipticalArcTo;
-    EllipticalArcTo->children = 0;
+    EllipticalArcTo->any.type = vdx_types_EllipticalArcTo;
+    EllipticalArcTo->any.children = 0;
 
     EllipticalArcTo->X = ArcTo->X;
     EllipticalArcTo->Y = ArcTo->Y;
@@ -1363,7 +1363,7 @@ plot_bezier(const struct vdx_Geom *Geom, const struct vdx_XForm *XForm,
     struct vdx_MoveTo *MoveTo;
     struct vdx_LineTo *LineTo;
     struct vdx_EllipticalArcTo *EllipticalArcTo;
-    struct vdx_EllipticalArcTo EllipticalArcTo_from_ArcTo = {0,};
+    struct vdx_EllipticalArcTo EllipticalArcTo_from_ArcTo = { {0, }, };
     struct vdx_ArcTo *ArcTo;
     struct vdx_any *Any;
     unsigned int num_points = 0;
@@ -2102,7 +2102,7 @@ plot_image(const struct vdx_Geom *Geom, const struct vdx_XForm *XForm,
     g_debug("Writing file %s", filename);
 
     /* Find the data in Base64 encoding in the body of ForeignData */
-    for (item = ForeignData->children; item; item = item->next)
+    for (item = ForeignData->any.children; item; item = item->next)
     {
         if (!item->data) continue;
         Any = (struct vdx_any *)(item->data);
@@ -2615,8 +2615,8 @@ vdx_plot_shape(struct vdx_Shape *Shape, GSList *objects,
         if (XForm)
         {
             /* Populate the XForm's children list with the parent XForm */
-            XForm->children =
-                g_slist_append(XForm->children, group_XForm);
+            XForm->any.children =
+                g_slist_append(XForm->any.children, group_XForm);
         }
         else
         {
@@ -2635,11 +2635,11 @@ vdx_plot_shape(struct vdx_Shape *Shape, GSList *objects,
             (struct vdx_Shapes*)find_child(vdx_types_Shapes, Shape);
 
         /* Create a list of member objects */
-        for (child = Shapes->children; child; child = child->next)
+        for (child = Shapes->any.children; child; child = child->next)
         {
             struct vdx_Shape * theShape = (struct vdx_Shape*)(child->data);
             if (!theShape) continue;
-            if (theShape->type == vdx_types_Shape)
+            if (theShape->any.type == vdx_types_Shape)
             {
                 if (!theShape->Master)
                 {
@@ -2668,7 +2668,7 @@ vdx_plot_shape(struct vdx_Shape *Shape, GSList *objects,
         Line = ShapeLine;
         if (Geom->NoLine) Line = 0;
 
-        more = Geom->children;
+        more = Geom->any.children;
         do
         {
             objects =
@@ -2695,7 +2695,7 @@ vdx_plot_shape(struct vdx_Shape *Shape, GSList *objects,
     }
 
     /* Wipe the child XForm list to avoid double-free */
-    if (XForm) XForm->children = 0;
+    if (XForm) XForm->any.children = 0;
     return objects;
 }
 
@@ -2711,7 +2711,7 @@ vdx_parse_shape(xmlNodePtr Shape, struct vdx_PageSheet *PageSheet,
                 VDXDocument* theDoc, DiagramData *dia)
 {
     /* All decoding is done in Visio-space */
-    struct vdx_Shape theShape = {0, 0 };
+    struct vdx_Shape theShape = { {0, }, };
     GSList *objects = NULL;
     GSList *object;
     struct vdx_LayerMem *LayerMem = NULL;
@@ -2754,7 +2754,7 @@ vdx_parse_shape(xmlNodePtr Shape, struct vdx_PageSheet *PageSheet,
     }
 
     /* Remove NULLs */
-    theShape.children = g_slist_remove_all(theShape.children, 0);
+    theShape.any.children = g_slist_remove_all(theShape.any.children, 0);
 
     /* What layer are we on, if any? */
     LayerMem = find_child(vdx_types_LayerMem, &theShape);
@@ -2824,7 +2824,7 @@ vdx_setup_layers(struct vdx_PageSheet* PageSheet, VDXDocument* theDoc,
         return;
     }
 
-    for (child = PageSheet->children; child; child = child->next)
+    for (child = PageSheet->any.children; child; child = child->next)
     {
         if (!child || !child->data) continue;
         Any = (struct vdx_any *)(child->data);

@@ -58,8 +58,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         struct vdx_Act *s;
         if (p) { s = (struct vdx_Act *)(p); }
         else { s = g_new0(struct vdx_Act, 1); }
-        s->children = 0;
-        s->type = vdx_types_Act;
+        s->any.children = 0;
+        s->any.type = vdx_types_Act;
         for (attr = cur->properties; attr; attr = attr->next) {
             if (!strcmp((char *)attr->name, "ID") &&
                      attr->children && attr->children->content)
@@ -106,8 +106,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
             else if (!strcmp((char *)child->name, "TagName"))
             { if (child->children && child->children->content)
                 s->TagName = atoi((char *)child->children->content); }
-            else s->children =
-                     g_slist_append(s->children,
+            else s->any.children =
+                     g_slist_append(s->any.children,
                                     vdx_read_object(child, theDoc, 0));
         }
         return s;
@@ -117,8 +117,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         struct vdx_Align *s;
         if (p) { s = (struct vdx_Align *)(p); }
         else { s = g_new0(struct vdx_Align, 1); }
-        s->children = 0;
-        s->type = vdx_types_Align;
+        s->any.children = 0;
+        s->any.type = vdx_types_Align;
         for (attr = cur->properties; attr; attr = attr->next) {
         }
         for (child = cur->xmlChildrenNode; child; child = child->next) {
@@ -141,8 +141,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
             else if (!strcmp((char *)child->name, "AlignTop"))
             { if (child->children && child->children->content)
                 s->AlignTop = atof((char *)child->children->content); }
-            else s->children =
-                     g_slist_append(s->children,
+            else s->any.children =
+                     g_slist_append(s->any.children,
                                     vdx_read_object(child, theDoc, 0));
         }
         return s;
@@ -152,8 +152,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         struct vdx_ArcTo *s;
         if (p) { s = (struct vdx_ArcTo *)(p); }
         else { s = g_new0(struct vdx_ArcTo, 1); }
-        s->children = 0;
-        s->type = vdx_types_ArcTo;
+        s->any.children = 0;
+        s->any.type = vdx_types_ArcTo;
         for (attr = cur->properties; attr; attr = attr->next) {
             if (!strcmp((char *)attr->name, "Del") &&
                      attr->children && attr->children->content)
@@ -173,8 +173,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
             else if (!strcmp((char *)child->name, "Y"))
             { if (child->children && child->children->content)
                 s->Y = atof((char *)child->children->content); }
-            else s->children =
-                     g_slist_append(s->children,
+            else s->any.children =
+                     g_slist_append(s->any.children,
                                     vdx_read_object(child, theDoc, 0));
         }
         return s;
@@ -184,8 +184,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         struct vdx_Char *s;
         if (p) { s = (struct vdx_Char *)(p); }
         else { s = g_new0(struct vdx_Char, 1); }
-        s->children = 0;
-        s->type = vdx_types_Char;
+        s->any.children = 0;
+        s->any.type = vdx_types_Char;
         for (attr = cur->properties; attr; attr = attr->next) {
             if (!strcmp((char *)attr->name, "Del") &&
                      attr->children && attr->children->content)
@@ -265,8 +265,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
             else if (!strcmp((char *)child->name, "UseVertical"))
             { if (child->children && child->children->content)
                 s->UseVertical = atoi((char *)child->children->content); }
-            else s->children =
-                     g_slist_append(s->children,
+            else s->any.children =
+                     g_slist_append(s->any.children,
                                     vdx_read_object(child, theDoc, 0));
         }
         return s;
@@ -276,8 +276,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         struct vdx_ColorEntry *s;
         if (p) { s = (struct vdx_ColorEntry *)(p); }
         else { s = g_new0(struct vdx_ColorEntry, 1); }
-        s->children = 0;
-        s->type = vdx_types_ColorEntry;
+        s->any.children = 0;
+        s->any.type = vdx_types_ColorEntry;
         for (attr = cur->properties; attr; attr = attr->next) {
             if (!strcmp((char *)attr->name, "IX") &&
                      attr->children && attr->children->content)
@@ -288,8 +288,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         }
         for (child = cur->xmlChildrenNode; child; child = child->next) {
             if (xmlIsBlankNode(child)) { continue; }
-            else s->children =
-                     g_slist_append(s->children,
+            else s->any.children =
+                     g_slist_append(s->any.children,
                                     vdx_read_object(child, theDoc, 0));
         }
         return s;
@@ -299,8 +299,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         struct vdx_Colors *s;
         if (p) { s = (struct vdx_Colors *)(p); }
         else { s = g_new0(struct vdx_Colors, 1); }
-        s->children = 0;
-        s->type = vdx_types_Colors;
+        s->any.children = 0;
+        s->any.type = vdx_types_Colors;
         for (attr = cur->properties; attr; attr = attr->next) {
         }
         for (child = cur->xmlChildrenNode; child; child = child->next) {
@@ -308,8 +308,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
             if (!strcmp((char *)child->name, "ColorEntry"))
             { if (child->children && child->children->content)
                 s->ColorEntry = atoi((char *)child->children->content); }
-            else s->children =
-                     g_slist_append(s->children,
+            else s->any.children =
+                     g_slist_append(s->any.children,
                                     vdx_read_object(child, theDoc, 0));
         }
         return s;
@@ -319,8 +319,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         struct vdx_Connect *s;
         if (p) { s = (struct vdx_Connect *)(p); }
         else { s = g_new0(struct vdx_Connect, 1); }
-        s->children = 0;
-        s->type = vdx_types_Connect;
+        s->any.children = 0;
+        s->any.type = vdx_types_Connect;
         for (attr = cur->properties; attr; attr = attr->next) {
             if (!strcmp((char *)attr->name, "FromCell") &&
                      attr->children && attr->children->content)
@@ -347,8 +347,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         }
         for (child = cur->xmlChildrenNode; child; child = child->next) {
             if (xmlIsBlankNode(child)) { continue; }
-            else s->children =
-                     g_slist_append(s->children,
+            else s->any.children =
+                     g_slist_append(s->any.children,
                                     vdx_read_object(child, theDoc, 0));
         }
         return s;
@@ -358,8 +358,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         struct vdx_Connection *s;
         if (p) { s = (struct vdx_Connection *)(p); }
         else { s = g_new0(struct vdx_Connection, 1); }
-        s->children = 0;
-        s->type = vdx_types_Connection;
+        s->any.children = 0;
+        s->any.type = vdx_types_Connection;
         for (attr = cur->properties; attr; attr = attr->next) {
             if (!strcmp((char *)attr->name, "ID") &&
                      attr->children && attr->children->content)
@@ -394,8 +394,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
             else if (!strcmp((char *)child->name, "Y"))
             { if (child->children && child->children->content)
                 s->Y = atof((char *)child->children->content); }
-            else s->children =
-                     g_slist_append(s->children,
+            else s->any.children =
+                     g_slist_append(s->any.children,
                                     vdx_read_object(child, theDoc, 0));
         }
         return s;
@@ -405,8 +405,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         struct vdx_Connects *s;
         if (p) { s = (struct vdx_Connects *)(p); }
         else { s = g_new0(struct vdx_Connects, 1); }
-        s->children = 0;
-        s->type = vdx_types_Connects;
+        s->any.children = 0;
+        s->any.type = vdx_types_Connects;
         for (attr = cur->properties; attr; attr = attr->next) {
         }
         for (child = cur->xmlChildrenNode; child; child = child->next) {
@@ -414,8 +414,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
             if (!strcmp((char *)child->name, "Connect"))
             { if (child->children && child->children->content)
                 s->Connect = atoi((char *)child->children->content); }
-            else s->children =
-                     g_slist_append(s->children,
+            else s->any.children =
+                     g_slist_append(s->any.children,
                                     vdx_read_object(child, theDoc, 0));
         }
         return s;
@@ -425,8 +425,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         struct vdx_Control *s;
         if (p) { s = (struct vdx_Control *)(p); }
         else { s = g_new0(struct vdx_Control, 1); }
-        s->children = 0;
-        s->type = vdx_types_Control;
+        s->any.children = 0;
+        s->any.type = vdx_types_Control;
         for (attr = cur->properties; attr; attr = attr->next) {
             if (!strcmp((char *)attr->name, "ID") &&
                      attr->children && attr->children->content)
@@ -464,8 +464,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
             else if (!strcmp((char *)child->name, "YDyn"))
             { if (child->children && child->children->content)
                 s->YDyn = atof((char *)child->children->content); }
-            else s->children =
-                     g_slist_append(s->children,
+            else s->any.children =
+                     g_slist_append(s->any.children,
                                     vdx_read_object(child, theDoc, 0));
         }
         return s;
@@ -475,8 +475,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         struct vdx_CustomProp *s;
         if (p) { s = (struct vdx_CustomProp *)(p); }
         else { s = g_new0(struct vdx_CustomProp, 1); }
-        s->children = 0;
-        s->type = vdx_types_CustomProp;
+        s->any.children = 0;
+        s->any.type = vdx_types_CustomProp;
         for (attr = cur->properties; attr; attr = attr->next) {
             if (!strcmp((char *)attr->name, "Name") &&
                      attr->children && attr->children->content)
@@ -487,8 +487,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         }
         for (child = cur->xmlChildrenNode; child; child = child->next) {
             if (xmlIsBlankNode(child)) { continue; }
-            else s->children =
-                     g_slist_append(s->children,
+            else s->any.children =
+                     g_slist_append(s->any.children,
                                     vdx_read_object(child, theDoc, 0));
         }
         return s;
@@ -498,8 +498,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         struct vdx_CustomProps *s;
         if (p) { s = (struct vdx_CustomProps *)(p); }
         else { s = g_new0(struct vdx_CustomProps, 1); }
-        s->children = 0;
-        s->type = vdx_types_CustomProps;
+        s->any.children = 0;
+        s->any.type = vdx_types_CustomProps;
         for (attr = cur->properties; attr; attr = attr->next) {
         }
         for (child = cur->xmlChildrenNode; child; child = child->next) {
@@ -507,8 +507,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
             if (!strcmp((char *)child->name, "CustomProp"))
             { if (child->children && child->children->content)
                 s->CustomProp = (char *)child->children->content; }
-            else s->children =
-                     g_slist_append(s->children,
+            else s->any.children =
+                     g_slist_append(s->any.children,
                                     vdx_read_object(child, theDoc, 0));
         }
         return s;
@@ -518,8 +518,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         struct vdx_DocProps *s;
         if (p) { s = (struct vdx_DocProps *)(p); }
         else { s = g_new0(struct vdx_DocProps, 1); }
-        s->children = 0;
-        s->type = vdx_types_DocProps;
+        s->any.children = 0;
+        s->any.type = vdx_types_DocProps;
         for (attr = cur->properties; attr; attr = attr->next) {
         }
         for (child = cur->xmlChildrenNode; child; child = child->next) {
@@ -545,8 +545,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
             else if (!strcmp((char *)child->name, "ViewMarkup"))
             { if (child->children && child->children->content)
                 s->ViewMarkup = atoi((char *)child->children->content); }
-            else s->children =
-                     g_slist_append(s->children,
+            else s->any.children =
+                     g_slist_append(s->any.children,
                                     vdx_read_object(child, theDoc, 0));
         }
         return s;
@@ -556,8 +556,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         struct vdx_DocumentProperties *s;
         if (p) { s = (struct vdx_DocumentProperties *)(p); }
         else { s = g_new0(struct vdx_DocumentProperties, 1); }
-        s->children = 0;
-        s->type = vdx_types_DocumentProperties;
+        s->any.children = 0;
+        s->any.type = vdx_types_DocumentProperties;
         for (attr = cur->properties; attr; attr = attr->next) {
         }
         for (child = cur->xmlChildrenNode; child; child = child->next) {
@@ -601,8 +601,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
             else if (!strcmp((char *)child->name, "Title"))
             { if (child->children && child->children->content)
                 s->Title = (char *)child->children->content; }
-            else s->children =
-                     g_slist_append(s->children,
+            else s->any.children =
+                     g_slist_append(s->any.children,
                                     vdx_read_object(child, theDoc, 0));
         }
         return s;
@@ -612,8 +612,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         struct vdx_DocumentSettings *s;
         if (p) { s = (struct vdx_DocumentSettings *)(p); }
         else { s = g_new0(struct vdx_DocumentSettings, 1); }
-        s->children = 0;
-        s->type = vdx_types_DocumentSettings;
+        s->any.children = 0;
+        s->any.type = vdx_types_DocumentSettings;
         for (attr = cur->properties; attr; attr = attr->next) {
             if (!strcmp((char *)attr->name, "DefaultFillStyle") &&
                      attr->children && attr->children->content)
@@ -662,8 +662,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
             else if (!strcmp((char *)child->name, "SnapSettings"))
             { if (child->children && child->children->content)
                 s->SnapSettings = atoi((char *)child->children->content); }
-            else s->children =
-                     g_slist_append(s->children,
+            else s->any.children =
+                     g_slist_append(s->any.children,
                                     vdx_read_object(child, theDoc, 0));
         }
         return s;
@@ -673,8 +673,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         struct vdx_DocumentSheet *s;
         if (p) { s = (struct vdx_DocumentSheet *)(p); }
         else { s = g_new0(struct vdx_DocumentSheet, 1); }
-        s->children = 0;
-        s->type = vdx_types_DocumentSheet;
+        s->any.children = 0;
+        s->any.type = vdx_types_DocumentSheet;
         for (attr = cur->properties; attr; attr = attr->next) {
             if (!strcmp((char *)attr->name, "FillStyle") &&
                      attr->children && attr->children->content)
@@ -697,8 +697,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         }
         for (child = cur->xmlChildrenNode; child; child = child->next) {
             if (xmlIsBlankNode(child)) { continue; }
-            else s->children =
-                     g_slist_append(s->children,
+            else s->any.children =
+                     g_slist_append(s->any.children,
                                     vdx_read_object(child, theDoc, 0));
         }
         return s;
@@ -708,8 +708,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         struct vdx_Ellipse *s;
         if (p) { s = (struct vdx_Ellipse *)(p); }
         else { s = g_new0(struct vdx_Ellipse, 1); }
-        s->children = 0;
-        s->type = vdx_types_Ellipse;
+        s->any.children = 0;
+        s->any.type = vdx_types_Ellipse;
         for (attr = cur->properties; attr; attr = attr->next) {
             if (!strcmp((char *)attr->name, "IX") &&
                      attr->children && attr->children->content)
@@ -735,8 +735,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
             else if (!strcmp((char *)child->name, "Y"))
             { if (child->children && child->children->content)
                 s->Y = atof((char *)child->children->content); }
-            else s->children =
-                     g_slist_append(s->children,
+            else s->any.children =
+                     g_slist_append(s->any.children,
                                     vdx_read_object(child, theDoc, 0));
         }
         return s;
@@ -746,8 +746,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         struct vdx_EllipticalArcTo *s;
         if (p) { s = (struct vdx_EllipticalArcTo *)(p); }
         else { s = g_new0(struct vdx_EllipticalArcTo, 1); }
-        s->children = 0;
-        s->type = vdx_types_EllipticalArcTo;
+        s->any.children = 0;
+        s->any.type = vdx_types_EllipticalArcTo;
         for (attr = cur->properties; attr; attr = attr->next) {
             if (!strcmp((char *)attr->name, "IX") &&
                      attr->children && attr->children->content)
@@ -773,8 +773,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
             else if (!strcmp((char *)child->name, "Y"))
             { if (child->children && child->children->content)
                 s->Y = atof((char *)child->children->content); }
-            else s->children =
-                     g_slist_append(s->children,
+            else s->any.children =
+                     g_slist_append(s->any.children,
                                     vdx_read_object(child, theDoc, 0));
         }
         return s;
@@ -784,8 +784,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         struct vdx_Event *s;
         if (p) { s = (struct vdx_Event *)(p); }
         else { s = g_new0(struct vdx_Event, 1); }
-        s->children = 0;
-        s->type = vdx_types_Event;
+        s->any.children = 0;
+        s->any.type = vdx_types_Event;
         for (attr = cur->properties; attr; attr = attr->next) {
         }
         for (child = cur->xmlChildrenNode; child; child = child->next) {
@@ -805,8 +805,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
             else if (!strcmp((char *)child->name, "TheText"))
             { if (child->children && child->children->content)
                 s->TheText = atoi((char *)child->children->content); }
-            else s->children =
-                     g_slist_append(s->children,
+            else s->any.children =
+                     g_slist_append(s->any.children,
                                     vdx_read_object(child, theDoc, 0));
         }
         return s;
@@ -816,8 +816,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         struct vdx_EventItem *s;
         if (p) { s = (struct vdx_EventItem *)(p); }
         else { s = g_new0(struct vdx_EventItem, 1); }
-        s->children = 0;
-        s->type = vdx_types_EventItem;
+        s->any.children = 0;
+        s->any.type = vdx_types_EventItem;
         for (attr = cur->properties; attr; attr = attr->next) {
             if (!strcmp((char *)attr->name, "Action") &&
                      attr->children && attr->children->content)
@@ -841,8 +841,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         }
         for (child = cur->xmlChildrenNode; child; child = child->next) {
             if (xmlIsBlankNode(child)) { continue; }
-            else s->children =
-                     g_slist_append(s->children,
+            else s->any.children =
+                     g_slist_append(s->any.children,
                                     vdx_read_object(child, theDoc, 0));
         }
         return s;
@@ -852,8 +852,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         struct vdx_EventList *s;
         if (p) { s = (struct vdx_EventList *)(p); }
         else { s = g_new0(struct vdx_EventList, 1); }
-        s->children = 0;
-        s->type = vdx_types_EventList;
+        s->any.children = 0;
+        s->any.type = vdx_types_EventList;
         for (attr = cur->properties; attr; attr = attr->next) {
         }
         for (child = cur->xmlChildrenNode; child; child = child->next) {
@@ -861,8 +861,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
             if (!strcmp((char *)child->name, "EventItem"))
             { if (child->children && child->children->content)
                 s->EventItem = atoi((char *)child->children->content); }
-            else s->children =
-                     g_slist_append(s->children,
+            else s->any.children =
+                     g_slist_append(s->any.children,
                                     vdx_read_object(child, theDoc, 0));
         }
         return s;
@@ -872,8 +872,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         struct vdx_FaceName *s;
         if (p) { s = (struct vdx_FaceName *)(p); }
         else { s = g_new0(struct vdx_FaceName, 1); }
-        s->children = 0;
-        s->type = vdx_types_FaceName;
+        s->any.children = 0;
+        s->any.type = vdx_types_FaceName;
         for (attr = cur->properties; attr; attr = attr->next) {
             if (!strcmp((char *)attr->name, "CharSets") &&
                      attr->children && attr->children->content)
@@ -897,8 +897,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         }
         for (child = cur->xmlChildrenNode; child; child = child->next) {
             if (xmlIsBlankNode(child)) { continue; }
-            else s->children =
-                     g_slist_append(s->children,
+            else s->any.children =
+                     g_slist_append(s->any.children,
                                     vdx_read_object(child, theDoc, 0));
         }
         return s;
@@ -908,8 +908,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         struct vdx_FaceNames *s;
         if (p) { s = (struct vdx_FaceNames *)(p); }
         else { s = g_new0(struct vdx_FaceNames, 1); }
-        s->children = 0;
-        s->type = vdx_types_FaceNames;
+        s->any.children = 0;
+        s->any.type = vdx_types_FaceNames;
         for (attr = cur->properties; attr; attr = attr->next) {
         }
         for (child = cur->xmlChildrenNode; child; child = child->next) {
@@ -917,8 +917,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
             if (!strcmp((char *)child->name, "FaceName"))
             { if (child->children && child->children->content)
                 s->FaceName = atoi((char *)child->children->content); }
-            else s->children =
-                     g_slist_append(s->children,
+            else s->any.children =
+                     g_slist_append(s->any.children,
                                     vdx_read_object(child, theDoc, 0));
         }
         return s;
@@ -928,8 +928,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         struct vdx_Field *s;
         if (p) { s = (struct vdx_Field *)(p); }
         else { s = g_new0(struct vdx_Field, 1); }
-        s->children = 0;
-        s->type = vdx_types_Field;
+        s->any.children = 0;
+        s->any.type = vdx_types_Field;
         for (attr = cur->properties; attr; attr = attr->next) {
             if (!strcmp((char *)attr->name, "Del") &&
                      attr->children && attr->children->content)
@@ -967,8 +967,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
             else if (!strcmp((char *)child->name, "Value"))
             { if (child->children && child->children->content)
                 s->Value = atof((char *)child->children->content); }
-            else s->children =
-                     g_slist_append(s->children,
+            else s->any.children =
+                     g_slist_append(s->any.children,
                                     vdx_read_object(child, theDoc, 0));
         }
         return s;
@@ -978,8 +978,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         struct vdx_Fill *s;
         if (p) { s = (struct vdx_Fill *)(p); }
         else { s = g_new0(struct vdx_Fill, 1); }
-        s->children = 0;
-        s->type = vdx_types_Fill;
+        s->any.children = 0;
+        s->any.type = vdx_types_Fill;
         for (attr = cur->properties; attr; attr = attr->next) {
         }
         for (child = cur->xmlChildrenNode; child; child = child->next) {
@@ -1029,8 +1029,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
             else if (!strcmp((char *)child->name, "ShdwPattern"))
             { if (child->children && child->children->content)
                 s->ShdwPattern = atoi((char *)child->children->content); }
-            else s->children =
-                     g_slist_append(s->children,
+            else s->any.children =
+                     g_slist_append(s->any.children,
                                     vdx_read_object(child, theDoc, 0));
         }
         return s;
@@ -1040,8 +1040,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         struct vdx_FontEntry *s;
         if (p) { s = (struct vdx_FontEntry *)(p); }
         else { s = g_new0(struct vdx_FontEntry, 1); }
-        s->children = 0;
-        s->type = vdx_types_FontEntry;
+        s->any.children = 0;
+        s->any.type = vdx_types_FontEntry;
         for (attr = cur->properties; attr; attr = attr->next) {
             if (!strcmp((char *)attr->name, "Attributes") &&
                      attr->children && attr->children->content)
@@ -1070,8 +1070,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         }
         for (child = cur->xmlChildrenNode; child; child = child->next) {
             if (xmlIsBlankNode(child)) { continue; }
-            else s->children =
-                     g_slist_append(s->children,
+            else s->any.children =
+                     g_slist_append(s->any.children,
                                     vdx_read_object(child, theDoc, 0));
         }
         return s;
@@ -1081,8 +1081,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         struct vdx_Fonts *s;
         if (p) { s = (struct vdx_Fonts *)(p); }
         else { s = g_new0(struct vdx_Fonts, 1); }
-        s->children = 0;
-        s->type = vdx_types_Fonts;
+        s->any.children = 0;
+        s->any.type = vdx_types_Fonts;
         for (attr = cur->properties; attr; attr = attr->next) {
         }
         for (child = cur->xmlChildrenNode; child; child = child->next) {
@@ -1090,8 +1090,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
             if (!strcmp((char *)child->name, "FontEntry"))
             { if (child->children && child->children->content)
                 s->FontEntry = atoi((char *)child->children->content); }
-            else s->children =
-                     g_slist_append(s->children,
+            else s->any.children =
+                     g_slist_append(s->any.children,
                                     vdx_read_object(child, theDoc, 0));
         }
         return s;
@@ -1101,8 +1101,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         struct vdx_Foreign *s;
         if (p) { s = (struct vdx_Foreign *)(p); }
         else { s = g_new0(struct vdx_Foreign, 1); }
-        s->children = 0;
-        s->type = vdx_types_Foreign;
+        s->any.children = 0;
+        s->any.type = vdx_types_Foreign;
         for (attr = cur->properties; attr; attr = attr->next) {
         }
         for (child = cur->xmlChildrenNode; child; child = child->next) {
@@ -1119,8 +1119,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
             else if (!strcmp((char *)child->name, "ImgWidth"))
             { if (child->children && child->children->content)
                 s->ImgWidth = atof((char *)child->children->content); }
-            else s->children =
-                     g_slist_append(s->children,
+            else s->any.children =
+                     g_slist_append(s->any.children,
                                     vdx_read_object(child, theDoc, 0));
         }
         return s;
@@ -1130,8 +1130,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         struct vdx_ForeignData *s;
         if (p) { s = (struct vdx_ForeignData *)(p); }
         else { s = g_new0(struct vdx_ForeignData, 1); }
-        s->children = 0;
-        s->type = vdx_types_ForeignData;
+        s->any.children = 0;
+        s->any.type = vdx_types_ForeignData;
         for (attr = cur->properties; attr; attr = attr->next) {
             if (!strcmp((char *)attr->name, "CompressionLevel") &&
                      attr->children && attr->children->content)
@@ -1170,8 +1170,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         }
         for (child = cur->xmlChildrenNode; child; child = child->next) {
             if (xmlIsBlankNode(child)) { continue; }
-            else s->children =
-                     g_slist_append(s->children,
+            else s->any.children =
+                     g_slist_append(s->any.children,
                                     vdx_read_object(child, theDoc, 0));
         }
         return s;
@@ -1181,8 +1181,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         struct vdx_Geom *s;
         if (p) { s = (struct vdx_Geom *)(p); }
         else { s = g_new0(struct vdx_Geom, 1); }
-        s->children = 0;
-        s->type = vdx_types_Geom;
+        s->any.children = 0;
+        s->any.type = vdx_types_Geom;
         for (attr = cur->properties; attr; attr = attr->next) {
             if (!strcmp((char *)attr->name, "IX") &&
                      attr->children && attr->children->content)
@@ -1202,8 +1202,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
             else if (!strcmp((char *)child->name, "NoSnap"))
             { if (child->children && child->children->content)
                 s->NoSnap = atoi((char *)child->children->content); }
-            else s->children =
-                     g_slist_append(s->children,
+            else s->any.children =
+                     g_slist_append(s->any.children,
                                     vdx_read_object(child, theDoc, 0));
         }
         return s;
@@ -1213,8 +1213,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         struct vdx_Group *s;
         if (p) { s = (struct vdx_Group *)(p); }
         else { s = g_new0(struct vdx_Group, 1); }
-        s->children = 0;
-        s->type = vdx_types_Group;
+        s->any.children = 0;
+        s->any.type = vdx_types_Group;
         for (attr = cur->properties; attr; attr = attr->next) {
         }
         for (child = cur->xmlChildrenNode; child; child = child->next) {
@@ -1237,8 +1237,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
             else if (!strcmp((char *)child->name, "SelectMode"))
             { if (child->children && child->children->content)
                 s->SelectMode = atoi((char *)child->children->content); }
-            else s->children =
-                     g_slist_append(s->children,
+            else s->any.children =
+                     g_slist_append(s->any.children,
                                     vdx_read_object(child, theDoc, 0));
         }
         return s;
@@ -1248,8 +1248,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         struct vdx_HeaderFooter *s;
         if (p) { s = (struct vdx_HeaderFooter *)(p); }
         else { s = g_new0(struct vdx_HeaderFooter, 1); }
-        s->children = 0;
-        s->type = vdx_types_HeaderFooter;
+        s->any.children = 0;
+        s->any.type = vdx_types_HeaderFooter;
         for (attr = cur->properties; attr; attr = attr->next) {
             if (!strcmp((char *)attr->name, "HeaderFooterColor") &&
                      attr->children && attr->children->content)
@@ -1275,8 +1275,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
             else if (!strcmp((char *)child->name, "HeaderRight"))
             { if (child->children && child->children->content)
                 s->HeaderRight = (char *)child->children->content; }
-            else s->children =
-                     g_slist_append(s->children,
+            else s->any.children =
+                     g_slist_append(s->any.children,
                                     vdx_read_object(child, theDoc, 0));
         }
         return s;
@@ -1286,8 +1286,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         struct vdx_HeaderFooterFont *s;
         if (p) { s = (struct vdx_HeaderFooterFont *)(p); }
         else { s = g_new0(struct vdx_HeaderFooterFont, 1); }
-        s->children = 0;
-        s->type = vdx_types_HeaderFooterFont;
+        s->any.children = 0;
+        s->any.type = vdx_types_HeaderFooterFont;
         for (attr = cur->properties; attr; attr = attr->next) {
             if (!strcmp((char *)attr->name, "CharSet") &&
                      attr->children && attr->children->content)
@@ -1339,8 +1339,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         }
         for (child = cur->xmlChildrenNode; child; child = child->next) {
             if (xmlIsBlankNode(child)) { continue; }
-            else s->children =
-                     g_slist_append(s->children,
+            else s->any.children =
+                     g_slist_append(s->any.children,
                                     vdx_read_object(child, theDoc, 0));
         }
         return s;
@@ -1350,8 +1350,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         struct vdx_Help *s;
         if (p) { s = (struct vdx_Help *)(p); }
         else { s = g_new0(struct vdx_Help, 1); }
-        s->children = 0;
-        s->type = vdx_types_Help;
+        s->any.children = 0;
+        s->any.type = vdx_types_Help;
         for (attr = cur->properties; attr; attr = attr->next) {
         }
         for (child = cur->xmlChildrenNode; child; child = child->next) {
@@ -1362,8 +1362,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
             else if (!strcmp((char *)child->name, "HelpTopic"))
             { if (child->children && child->children->content)
                 s->HelpTopic = (char *)child->children->content; }
-            else s->children =
-                     g_slist_append(s->children,
+            else s->any.children =
+                     g_slist_append(s->any.children,
                                     vdx_read_object(child, theDoc, 0));
         }
         return s;
@@ -1373,8 +1373,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         struct vdx_Hyperlink *s;
         if (p) { s = (struct vdx_Hyperlink *)(p); }
         else { s = g_new0(struct vdx_Hyperlink, 1); }
-        s->children = 0;
-        s->type = vdx_types_Hyperlink;
+        s->any.children = 0;
+        s->any.type = vdx_types_Hyperlink;
         for (attr = cur->properties; attr; attr = attr->next) {
             if (!strcmp((char *)attr->name, "ID") &&
                      attr->children && attr->children->content)
@@ -1412,8 +1412,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
             else if (!strcmp((char *)child->name, "SubAddress"))
             { if (child->children && child->children->content)
                 s->SubAddress = (char *)child->children->content; }
-            else s->children =
-                     g_slist_append(s->children,
+            else s->any.children =
+                     g_slist_append(s->any.children,
                                     vdx_read_object(child, theDoc, 0));
         }
         return s;
@@ -1423,8 +1423,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         struct vdx_Icon *s;
         if (p) { s = (struct vdx_Icon *)(p); }
         else { s = g_new0(struct vdx_Icon, 1); }
-        s->children = 0;
-        s->type = vdx_types_Icon;
+        s->any.children = 0;
+        s->any.type = vdx_types_Icon;
         for (attr = cur->properties; attr; attr = attr->next) {
             if (!strcmp((char *)attr->name, "IX") &&
                      attr->children && attr->children->content)
@@ -1432,8 +1432,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         }
         for (child = cur->xmlChildrenNode; child; child = child->next) {
             if (xmlIsBlankNode(child)) { continue; }
-            else s->children =
-                     g_slist_append(s->children,
+            else s->any.children =
+                     g_slist_append(s->any.children,
                                     vdx_read_object(child, theDoc, 0));
         }
         return s;
@@ -1443,8 +1443,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         struct vdx_Image *s;
         if (p) { s = (struct vdx_Image *)(p); }
         else { s = g_new0(struct vdx_Image, 1); }
-        s->children = 0;
-        s->type = vdx_types_Image;
+        s->any.children = 0;
+        s->any.type = vdx_types_Image;
         for (attr = cur->properties; attr; attr = attr->next) {
         }
         for (child = cur->xmlChildrenNode; child; child = child->next) {
@@ -1470,8 +1470,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
             else if (!strcmp((char *)child->name, "Transparency"))
             { if (child->children && child->children->content)
                 s->Transparency = atof((char *)child->children->content); }
-            else s->children =
-                     g_slist_append(s->children,
+            else s->any.children =
+                     g_slist_append(s->any.children,
                                     vdx_read_object(child, theDoc, 0));
         }
         return s;
@@ -1481,8 +1481,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         struct vdx_InfiniteLine *s;
         if (p) { s = (struct vdx_InfiniteLine *)(p); }
         else { s = g_new0(struct vdx_InfiniteLine, 1); }
-        s->children = 0;
-        s->type = vdx_types_InfiniteLine;
+        s->any.children = 0;
+        s->any.type = vdx_types_InfiniteLine;
         for (attr = cur->properties; attr; attr = attr->next) {
             if (!strcmp((char *)attr->name, "IX") &&
                      attr->children && attr->children->content)
@@ -1502,8 +1502,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
             else if (!strcmp((char *)child->name, "Y"))
             { if (child->children && child->children->content)
                 s->Y = atof((char *)child->children->content); }
-            else s->children =
-                     g_slist_append(s->children,
+            else s->any.children =
+                     g_slist_append(s->any.children,
                                     vdx_read_object(child, theDoc, 0));
         }
         return s;
@@ -1513,8 +1513,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         struct vdx_Layer *s;
         if (p) { s = (struct vdx_Layer *)(p); }
         else { s = g_new0(struct vdx_Layer, 1); }
-        s->children = 0;
-        s->type = vdx_types_Layer;
+        s->any.children = 0;
+        s->any.type = vdx_types_Layer;
         for (attr = cur->properties; attr; attr = attr->next) {
             if (!strcmp((char *)attr->name, "IX") &&
                      attr->children && attr->children->content)
@@ -1555,8 +1555,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
             else if (!strcmp((char *)child->name, "Visible"))
             { if (child->children && child->children->content)
                 s->Visible = atoi((char *)child->children->content); }
-            else s->children =
-                     g_slist_append(s->children,
+            else s->any.children =
+                     g_slist_append(s->any.children,
                                     vdx_read_object(child, theDoc, 0));
         }
         return s;
@@ -1566,8 +1566,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         struct vdx_LayerMem *s;
         if (p) { s = (struct vdx_LayerMem *)(p); }
         else { s = g_new0(struct vdx_LayerMem, 1); }
-        s->children = 0;
-        s->type = vdx_types_LayerMem;
+        s->any.children = 0;
+        s->any.type = vdx_types_LayerMem;
         for (attr = cur->properties; attr; attr = attr->next) {
         }
         for (child = cur->xmlChildrenNode; child; child = child->next) {
@@ -1575,8 +1575,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
             if (!strcmp((char *)child->name, "LayerMember"))
             { if (child->children && child->children->content)
                 s->LayerMember = (char *)child->children->content; }
-            else s->children =
-                     g_slist_append(s->children,
+            else s->any.children =
+                     g_slist_append(s->any.children,
                                     vdx_read_object(child, theDoc, 0));
         }
         return s;
@@ -1586,8 +1586,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         struct vdx_Layout *s;
         if (p) { s = (struct vdx_Layout *)(p); }
         else { s = g_new0(struct vdx_Layout, 1); }
-        s->children = 0;
-        s->type = vdx_types_Layout;
+        s->any.children = 0;
+        s->any.type = vdx_types_Layout;
         for (attr = cur->properties; attr; attr = attr->next) {
         }
         for (child = cur->xmlChildrenNode; child; child = child->next) {
@@ -1637,8 +1637,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
             else if (!strcmp((char *)child->name, "ShapeSplittable"))
             { if (child->children && child->children->content)
                 s->ShapeSplittable = atoi((char *)child->children->content); }
-            else s->children =
-                     g_slist_append(s->children,
+            else s->any.children =
+                     g_slist_append(s->any.children,
                                     vdx_read_object(child, theDoc, 0));
         }
         return s;
@@ -1648,8 +1648,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         struct vdx_Line *s;
         if (p) { s = (struct vdx_Line *)(p); }
         else { s = g_new0(struct vdx_Line, 1); }
-        s->children = 0;
-        s->type = vdx_types_Line;
+        s->any.children = 0;
+        s->any.type = vdx_types_Line;
         for (attr = cur->properties; attr; attr = attr->next) {
         }
         for (child = cur->xmlChildrenNode; child; child = child->next) {
@@ -1684,8 +1684,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
             else if (!strcmp((char *)child->name, "Rounding"))
             { if (child->children && child->children->content)
                 s->Rounding = atof((char *)child->children->content); }
-            else s->children =
-                     g_slist_append(s->children,
+            else s->any.children =
+                     g_slist_append(s->any.children,
                                     vdx_read_object(child, theDoc, 0));
         }
         return s;
@@ -1695,8 +1695,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         struct vdx_LineTo *s;
         if (p) { s = (struct vdx_LineTo *)(p); }
         else { s = g_new0(struct vdx_LineTo, 1); }
-        s->children = 0;
-        s->type = vdx_types_LineTo;
+        s->any.children = 0;
+        s->any.type = vdx_types_LineTo;
         for (attr = cur->properties; attr; attr = attr->next) {
             if (!strcmp((char *)attr->name, "Del") &&
                      attr->children && attr->children->content)
@@ -1713,8 +1713,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
             else if (!strcmp((char *)child->name, "Y"))
             { if (child->children && child->children->content)
                 s->Y = atof((char *)child->children->content); }
-            else s->children =
-                     g_slist_append(s->children,
+            else s->any.children =
+                     g_slist_append(s->any.children,
                                     vdx_read_object(child, theDoc, 0));
         }
         return s;
@@ -1724,8 +1724,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         struct vdx_Master *s;
         if (p) { s = (struct vdx_Master *)(p); }
         else { s = g_new0(struct vdx_Master, 1); }
-        s->children = 0;
-        s->type = vdx_types_Master;
+        s->any.children = 0;
+        s->any.type = vdx_types_Master;
         for (attr = cur->properties; attr; attr = attr->next) {
             if (!strcmp((char *)attr->name, "AlignName") &&
                      attr->children && attr->children->content)
@@ -1769,8 +1769,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         }
         for (child = cur->xmlChildrenNode; child; child = child->next) {
             if (xmlIsBlankNode(child)) { continue; }
-            else s->children =
-                     g_slist_append(s->children,
+            else s->any.children =
+                     g_slist_append(s->any.children,
                                     vdx_read_object(child, theDoc, 0));
         }
         return s;
@@ -1780,8 +1780,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         struct vdx_Misc *s;
         if (p) { s = (struct vdx_Misc *)(p); }
         else { s = g_new0(struct vdx_Misc, 1); }
-        s->children = 0;
-        s->type = vdx_types_Misc;
+        s->any.children = 0;
+        s->any.type = vdx_types_Misc;
         for (attr = cur->properties; attr; attr = attr->next) {
         }
         for (child = cur->xmlChildrenNode; child; child = child->next) {
@@ -1846,8 +1846,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
             else if (!strcmp((char *)child->name, "WalkPreference"))
             { if (child->children && child->children->content)
                 s->WalkPreference = atoi((char *)child->children->content); }
-            else s->children =
-                     g_slist_append(s->children,
+            else s->any.children =
+                     g_slist_append(s->any.children,
                                     vdx_read_object(child, theDoc, 0));
         }
         return s;
@@ -1857,8 +1857,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         struct vdx_MoveTo *s;
         if (p) { s = (struct vdx_MoveTo *)(p); }
         else { s = g_new0(struct vdx_MoveTo, 1); }
-        s->children = 0;
-        s->type = vdx_types_MoveTo;
+        s->any.children = 0;
+        s->any.type = vdx_types_MoveTo;
         for (attr = cur->properties; attr; attr = attr->next) {
             if (!strcmp((char *)attr->name, "IX") &&
                      attr->children && attr->children->content)
@@ -1872,8 +1872,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
             else if (!strcmp((char *)child->name, "Y"))
             { if (child->children && child->children->content)
                 s->Y = atof((char *)child->children->content); }
-            else s->children =
-                     g_slist_append(s->children,
+            else s->any.children =
+                     g_slist_append(s->any.children,
                                     vdx_read_object(child, theDoc, 0));
         }
         return s;
@@ -1883,8 +1883,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         struct vdx_NURBSTo *s;
         if (p) { s = (struct vdx_NURBSTo *)(p); }
         else { s = g_new0(struct vdx_NURBSTo, 1); }
-        s->children = 0;
-        s->type = vdx_types_NURBSTo;
+        s->any.children = 0;
+        s->any.type = vdx_types_NURBSTo;
         for (attr = cur->properties; attr; attr = attr->next) {
             if (!strcmp((char *)attr->name, "IX") &&
                      attr->children && attr->children->content)
@@ -1913,8 +1913,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
             else if (!strcmp((char *)child->name, "Y"))
             { if (child->children && child->children->content)
                 s->Y = atof((char *)child->children->content); }
-            else s->children =
-                     g_slist_append(s->children,
+            else s->any.children =
+                     g_slist_append(s->any.children,
                                     vdx_read_object(child, theDoc, 0));
         }
         return s;
@@ -1924,8 +1924,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         struct vdx_Page *s;
         if (p) { s = (struct vdx_Page *)(p); }
         else { s = g_new0(struct vdx_Page, 1); }
-        s->children = 0;
-        s->type = vdx_types_Page;
+        s->any.children = 0;
+        s->any.type = vdx_types_Page;
         for (attr = cur->properties; attr; attr = attr->next) {
             if (!strcmp((char *)attr->name, "BackPage") &&
                      attr->children && attr->children->content)
@@ -1955,8 +1955,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         }
         for (child = cur->xmlChildrenNode; child; child = child->next) {
             if (xmlIsBlankNode(child)) { continue; }
-            else s->children =
-                     g_slist_append(s->children,
+            else s->any.children =
+                     g_slist_append(s->any.children,
                                     vdx_read_object(child, theDoc, 0));
         }
         return s;
@@ -1966,8 +1966,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         struct vdx_PageLayout *s;
         if (p) { s = (struct vdx_PageLayout *)(p); }
         else { s = g_new0(struct vdx_PageLayout, 1); }
-        s->children = 0;
-        s->type = vdx_types_PageLayout;
+        s->any.children = 0;
+        s->any.type = vdx_types_PageLayout;
         for (attr = cur->properties; attr; attr = attr->next) {
         }
         for (child = cur->xmlChildrenNode; child; child = child->next) {
@@ -2053,8 +2053,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
             else if (!strcmp((char *)child->name, "RouteStyle"))
             { if (child->children && child->children->content)
                 s->RouteStyle = atoi((char *)child->children->content); }
-            else s->children =
-                     g_slist_append(s->children,
+            else s->any.children =
+                     g_slist_append(s->any.children,
                                     vdx_read_object(child, theDoc, 0));
         }
         return s;
@@ -2064,8 +2064,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         struct vdx_PageProps *s;
         if (p) { s = (struct vdx_PageProps *)(p); }
         else { s = g_new0(struct vdx_PageProps, 1); }
-        s->children = 0;
-        s->type = vdx_types_PageProps;
+        s->any.children = 0;
+        s->any.type = vdx_types_PageProps;
         for (attr = cur->properties; attr; attr = attr->next) {
         }
         for (child = cur->xmlChildrenNode; child; child = child->next) {
@@ -2109,8 +2109,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
             else if (!strcmp((char *)child->name, "UIVisibility"))
             { if (child->children && child->children->content)
                 s->UIVisibility = atoi((char *)child->children->content); }
-            else s->children =
-                     g_slist_append(s->children,
+            else s->any.children =
+                     g_slist_append(s->any.children,
                                     vdx_read_object(child, theDoc, 0));
         }
         return s;
@@ -2120,8 +2120,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         struct vdx_PageSheet *s;
         if (p) { s = (struct vdx_PageSheet *)(p); }
         else { s = g_new0(struct vdx_PageSheet, 1); }
-        s->children = 0;
-        s->type = vdx_types_PageSheet;
+        s->any.children = 0;
+        s->any.type = vdx_types_PageSheet;
         for (attr = cur->properties; attr; attr = attr->next) {
             if (!strcmp((char *)attr->name, "FillStyle") &&
                      attr->children && attr->children->content)
@@ -2141,8 +2141,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         }
         for (child = cur->xmlChildrenNode; child; child = child->next) {
             if (xmlIsBlankNode(child)) { continue; }
-            else s->children =
-                     g_slist_append(s->children,
+            else s->any.children =
+                     g_slist_append(s->any.children,
                                     vdx_read_object(child, theDoc, 0));
         }
         return s;
@@ -2152,8 +2152,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         struct vdx_Para *s;
         if (p) { s = (struct vdx_Para *)(p); }
         else { s = g_new0(struct vdx_Para, 1); }
-        s->children = 0;
-        s->type = vdx_types_Para;
+        s->any.children = 0;
+        s->any.type = vdx_types_Para;
         for (attr = cur->properties; attr; attr = attr->next) {
             if (!strcmp((char *)attr->name, "IX") &&
                      attr->children && attr->children->content)
@@ -2203,8 +2203,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
             else if (!strcmp((char *)child->name, "TextPosAfterBullet"))
             { if (child->children && child->children->content)
                 s->TextPosAfterBullet = atoi((char *)child->children->content); }
-            else s->children =
-                     g_slist_append(s->children,
+            else s->any.children =
+                     g_slist_append(s->any.children,
                                     vdx_read_object(child, theDoc, 0));
         }
         return s;
@@ -2214,8 +2214,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         struct vdx_PolylineTo *s;
         if (p) { s = (struct vdx_PolylineTo *)(p); }
         else { s = g_new0(struct vdx_PolylineTo, 1); }
-        s->children = 0;
-        s->type = vdx_types_PolylineTo;
+        s->any.children = 0;
+        s->any.type = vdx_types_PolylineTo;
         for (attr = cur->properties; attr; attr = attr->next) {
             if (!strcmp((char *)attr->name, "IX") &&
                      attr->children && attr->children->content)
@@ -2232,8 +2232,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
             else if (!strcmp((char *)child->name, "Y"))
             { if (child->children && child->children->content)
                 s->Y = atof((char *)child->children->content); }
-            else s->children =
-                     g_slist_append(s->children,
+            else s->any.children =
+                     g_slist_append(s->any.children,
                                     vdx_read_object(child, theDoc, 0));
         }
         return s;
@@ -2243,8 +2243,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         struct vdx_PreviewPicture *s;
         if (p) { s = (struct vdx_PreviewPicture *)(p); }
         else { s = g_new0(struct vdx_PreviewPicture, 1); }
-        s->children = 0;
-        s->type = vdx_types_PreviewPicture;
+        s->any.children = 0;
+        s->any.type = vdx_types_PreviewPicture;
         for (attr = cur->properties; attr; attr = attr->next) {
             if (!strcmp((char *)attr->name, "Size") &&
                      attr->children && attr->children->content)
@@ -2253,8 +2253,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         }
         for (child = cur->xmlChildrenNode; child; child = child->next) {
             if (xmlIsBlankNode(child)) { continue; }
-            else s->children =
-                     g_slist_append(s->children,
+            else s->any.children =
+                     g_slist_append(s->any.children,
                                     vdx_read_object(child, theDoc, 0));
         }
         return s;
@@ -2264,8 +2264,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         struct vdx_PrintProps *s;
         if (p) { s = (struct vdx_PrintProps *)(p); }
         else { s = g_new0(struct vdx_PrintProps, 1); }
-        s->children = 0;
-        s->type = vdx_types_PrintProps;
+        s->any.children = 0;
+        s->any.type = vdx_types_PrintProps;
         for (attr = cur->properties; attr; attr = attr->next) {
         }
         for (child = cur->xmlChildrenNode; child; child = child->next) {
@@ -2315,8 +2315,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
             else if (!strcmp((char *)child->name, "ScaleY"))
             { if (child->children && child->children->content)
                 s->ScaleY = atoi((char *)child->children->content); }
-            else s->children =
-                     g_slist_append(s->children,
+            else s->any.children =
+                     g_slist_append(s->any.children,
                                     vdx_read_object(child, theDoc, 0));
         }
         return s;
@@ -2326,8 +2326,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         struct vdx_PrintSetup *s;
         if (p) { s = (struct vdx_PrintSetup *)(p); }
         else { s = g_new0(struct vdx_PrintSetup, 1); }
-        s->children = 0;
-        s->type = vdx_types_PrintSetup;
+        s->any.children = 0;
+        s->any.type = vdx_types_PrintSetup;
         for (attr = cur->properties; attr; attr = attr->next) {
         }
         for (child = cur->xmlChildrenNode; child; child = child->next) {
@@ -2368,8 +2368,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
             else if (!strcmp((char *)child->name, "PrintScale"))
             { if (child->children && child->children->content)
                 s->PrintScale = atoi((char *)child->children->content); }
-            else s->children =
-                     g_slist_append(s->children,
+            else s->any.children =
+                     g_slist_append(s->any.children,
                                     vdx_read_object(child, theDoc, 0));
         }
         return s;
@@ -2379,8 +2379,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         struct vdx_Prop *s;
         if (p) { s = (struct vdx_Prop *)(p); }
         else { s = g_new0(struct vdx_Prop, 1); }
-        s->children = 0;
-        s->type = vdx_types_Prop;
+        s->any.children = 0;
+        s->any.type = vdx_types_Prop;
         for (attr = cur->properties; attr; attr = attr->next) {
             if (!strcmp((char *)attr->name, "ID") &&
                      attr->children && attr->children->content)
@@ -2424,8 +2424,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
             else if (!strcmp((char *)child->name, "Verify"))
             { if (child->children && child->children->content)
                 s->Verify = atoi((char *)child->children->content); }
-            else s->children =
-                     g_slist_append(s->children,
+            else s->any.children =
+                     g_slist_append(s->any.children,
                                     vdx_read_object(child, theDoc, 0));
         }
         return s;
@@ -2435,8 +2435,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         struct vdx_Protection *s;
         if (p) { s = (struct vdx_Protection *)(p); }
         else { s = g_new0(struct vdx_Protection, 1); }
-        s->children = 0;
-        s->type = vdx_types_Protection;
+        s->any.children = 0;
+        s->any.type = vdx_types_Protection;
         for (attr = cur->properties; attr; attr = attr->next) {
         }
         for (child = cur->xmlChildrenNode; child; child = child->next) {
@@ -2492,8 +2492,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
             else if (!strcmp((char *)child->name, "LockWidth"))
             { if (child->children && child->children->content)
                 s->LockWidth = atoi((char *)child->children->content); }
-            else s->children =
-                     g_slist_append(s->children,
+            else s->any.children =
+                     g_slist_append(s->any.children,
                                     vdx_read_object(child, theDoc, 0));
         }
         return s;
@@ -2503,8 +2503,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         struct vdx_RulerGrid *s;
         if (p) { s = (struct vdx_RulerGrid *)(p); }
         else { s = g_new0(struct vdx_RulerGrid, 1); }
-        s->children = 0;
-        s->type = vdx_types_RulerGrid;
+        s->any.children = 0;
+        s->any.type = vdx_types_RulerGrid;
         for (attr = cur->properties; attr; attr = attr->next) {
         }
         for (child = cur->xmlChildrenNode; child; child = child->next) {
@@ -2539,8 +2539,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
             else if (!strcmp((char *)child->name, "YRulerOrigin"))
             { if (child->children && child->children->content)
                 s->YRulerOrigin = atof((char *)child->children->content); }
-            else s->children =
-                     g_slist_append(s->children,
+            else s->any.children =
+                     g_slist_append(s->any.children,
                                     vdx_read_object(child, theDoc, 0));
         }
         return s;
@@ -2550,8 +2550,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         struct vdx_Scratch *s;
         if (p) { s = (struct vdx_Scratch *)(p); }
         else { s = g_new0(struct vdx_Scratch, 1); }
-        s->children = 0;
-        s->type = vdx_types_Scratch;
+        s->any.children = 0;
+        s->any.type = vdx_types_Scratch;
         for (attr = cur->properties; attr; attr = attr->next) {
             if (!strcmp((char *)attr->name, "IX") &&
                      attr->children && attr->children->content)
@@ -2577,8 +2577,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
             else if (!strcmp((char *)child->name, "Y"))
             { if (child->children && child->children->content)
                 s->Y = atof((char *)child->children->content); }
-            else s->children =
-                     g_slist_append(s->children,
+            else s->any.children =
+                     g_slist_append(s->any.children,
                                     vdx_read_object(child, theDoc, 0));
         }
         return s;
@@ -2588,8 +2588,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         struct vdx_Shape *s;
         if (p) { s = (struct vdx_Shape *)(p); }
         else { s = g_new0(struct vdx_Shape, 1); }
-        s->children = 0;
-        s->type = vdx_types_Shape;
+        s->any.children = 0;
+        s->any.type = vdx_types_Shape;
         for (attr = cur->properties; attr; attr = attr->next) {
             if (!strcmp((char *)attr->name, "Del") &&
                      attr->children && attr->children->content)
@@ -2641,8 +2641,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
             else if (!strcmp((char *)child->name, "Data3"))
             { if (child->children && child->children->content)
                 s->Data3 = atoi((char *)child->children->content); }
-            else s->children =
-                     g_slist_append(s->children,
+            else s->any.children =
+                     g_slist_append(s->any.children,
                                     vdx_read_object(child, theDoc, 0));
         }
         return s;
@@ -2652,14 +2652,14 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         struct vdx_Shapes *s;
         if (p) { s = (struct vdx_Shapes *)(p); }
         else { s = g_new0(struct vdx_Shapes, 1); }
-        s->children = 0;
-        s->type = vdx_types_Shapes;
+        s->any.children = 0;
+        s->any.type = vdx_types_Shapes;
         for (attr = cur->properties; attr; attr = attr->next) {
         }
         for (child = cur->xmlChildrenNode; child; child = child->next) {
             if (xmlIsBlankNode(child)) { continue; }
-            else s->children =
-                     g_slist_append(s->children,
+            else s->any.children =
+                     g_slist_append(s->any.children,
                                     vdx_read_object(child, theDoc, 0));
         }
         return s;
@@ -2669,8 +2669,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         struct vdx_SplineKnot *s;
         if (p) { s = (struct vdx_SplineKnot *)(p); }
         else { s = g_new0(struct vdx_SplineKnot, 1); }
-        s->children = 0;
-        s->type = vdx_types_SplineKnot;
+        s->any.children = 0;
+        s->any.type = vdx_types_SplineKnot;
         for (attr = cur->properties; attr; attr = attr->next) {
             if (!strcmp((char *)attr->name, "IX") &&
                      attr->children && attr->children->content)
@@ -2687,8 +2687,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
             else if (!strcmp((char *)child->name, "Y"))
             { if (child->children && child->children->content)
                 s->Y = atof((char *)child->children->content); }
-            else s->children =
-                     g_slist_append(s->children,
+            else s->any.children =
+                     g_slist_append(s->any.children,
                                     vdx_read_object(child, theDoc, 0));
         }
         return s;
@@ -2698,8 +2698,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         struct vdx_SplineStart *s;
         if (p) { s = (struct vdx_SplineStart *)(p); }
         else { s = g_new0(struct vdx_SplineStart, 1); }
-        s->children = 0;
-        s->type = vdx_types_SplineStart;
+        s->any.children = 0;
+        s->any.type = vdx_types_SplineStart;
         for (attr = cur->properties; attr; attr = attr->next) {
             if (!strcmp((char *)attr->name, "IX") &&
                      attr->children && attr->children->content)
@@ -2725,8 +2725,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
             else if (!strcmp((char *)child->name, "Y"))
             { if (child->children && child->children->content)
                 s->Y = atof((char *)child->children->content); }
-            else s->children =
-                     g_slist_append(s->children,
+            else s->any.children =
+                     g_slist_append(s->any.children,
                                     vdx_read_object(child, theDoc, 0));
         }
         return s;
@@ -2736,8 +2736,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         struct vdx_StyleProp *s;
         if (p) { s = (struct vdx_StyleProp *)(p); }
         else { s = g_new0(struct vdx_StyleProp, 1); }
-        s->children = 0;
-        s->type = vdx_types_StyleProp;
+        s->any.children = 0;
+        s->any.type = vdx_types_StyleProp;
         for (attr = cur->properties; attr; attr = attr->next) {
         }
         for (child = cur->xmlChildrenNode; child; child = child->next) {
@@ -2754,8 +2754,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
             else if (!strcmp((char *)child->name, "HideForApply"))
             { if (child->children && child->children->content)
                 s->HideForApply = atoi((char *)child->children->content); }
-            else s->children =
-                     g_slist_append(s->children,
+            else s->any.children =
+                     g_slist_append(s->any.children,
                                     vdx_read_object(child, theDoc, 0));
         }
         return s;
@@ -2765,8 +2765,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         struct vdx_StyleSheet *s;
         if (p) { s = (struct vdx_StyleSheet *)(p); }
         else { s = g_new0(struct vdx_StyleSheet, 1); }
-        s->children = 0;
-        s->type = vdx_types_StyleSheet;
+        s->any.children = 0;
+        s->any.type = vdx_types_StyleSheet;
         for (attr = cur->properties; attr; attr = attr->next) {
             if (!strcmp((char *)attr->name, "FillStyle") &&
                      attr->children && attr->children->content)
@@ -2792,8 +2792,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         }
         for (child = cur->xmlChildrenNode; child; child = child->next) {
             if (xmlIsBlankNode(child)) { continue; }
-            else s->children =
-                     g_slist_append(s->children,
+            else s->any.children =
+                     g_slist_append(s->any.children,
                                     vdx_read_object(child, theDoc, 0));
         }
         return s;
@@ -2803,8 +2803,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         struct vdx_Tab *s;
         if (p) { s = (struct vdx_Tab *)(p); }
         else { s = g_new0(struct vdx_Tab, 1); }
-        s->children = 0;
-        s->type = vdx_types_Tab;
+        s->any.children = 0;
+        s->any.type = vdx_types_Tab;
         for (attr = cur->properties; attr; attr = attr->next) {
             if (!strcmp((char *)attr->name, "IX") &&
                      attr->children && attr->children->content)
@@ -2818,8 +2818,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
             else if (!strcmp((char *)child->name, "Position"))
             { if (child->children && child->children->content)
                 s->Position = atof((char *)child->children->content); }
-            else s->children =
-                     g_slist_append(s->children,
+            else s->any.children =
+                     g_slist_append(s->any.children,
                                     vdx_read_object(child, theDoc, 0));
         }
         return s;
@@ -2829,8 +2829,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         struct vdx_Tabs *s;
         if (p) { s = (struct vdx_Tabs *)(p); }
         else { s = g_new0(struct vdx_Tabs, 1); }
-        s->children = 0;
-        s->type = vdx_types_Tabs;
+        s->any.children = 0;
+        s->any.type = vdx_types_Tabs;
         for (attr = cur->properties; attr; attr = attr->next) {
             if (!strcmp((char *)attr->name, "IX") &&
                      attr->children && attr->children->content)
@@ -2838,8 +2838,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         }
         for (child = cur->xmlChildrenNode; child; child = child->next) {
             if (xmlIsBlankNode(child)) { continue; }
-            else s->children =
-                     g_slist_append(s->children,
+            else s->any.children =
+                     g_slist_append(s->any.children,
                                     vdx_read_object(child, theDoc, 0));
         }
         return s;
@@ -2849,8 +2849,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         struct vdx_Text *s;
         if (p) { s = (struct vdx_Text *)(p); }
         else { s = g_new0(struct vdx_Text, 1); }
-        s->children = 0;
-        s->type = vdx_types_Text;
+        s->any.children = 0;
+        s->any.type = vdx_types_Text;
         for (attr = cur->properties; attr; attr = attr->next) {
             if (!strcmp((char *)attr->name, "IX") &&
                      attr->children && attr->children->content)
@@ -2870,8 +2870,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
             else if (!strcmp((char *)child->name, "tp"))
             { if (child->children && child->children->content)
                 s->tp = atoi((char *)child->children->content); }
-            else s->children =
-                     g_slist_append(s->children,
+            else s->any.children =
+                     g_slist_append(s->any.children,
                                     vdx_read_object(child, theDoc, 0));
         }
         return s;
@@ -2881,8 +2881,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         struct vdx_TextBlock *s;
         if (p) { s = (struct vdx_TextBlock *)(p); }
         else { s = g_new0(struct vdx_TextBlock, 1); }
-        s->children = 0;
-        s->type = vdx_types_TextBlock;
+        s->any.children = 0;
+        s->any.type = vdx_types_TextBlock;
         for (attr = cur->properties; attr; attr = attr->next) {
         }
         for (child = cur->xmlChildrenNode; child; child = child->next) {
@@ -2914,8 +2914,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
             else if (!strcmp((char *)child->name, "VerticalAlign"))
             { if (child->children && child->children->content)
                 s->VerticalAlign = atoi((char *)child->children->content); }
-            else s->children =
-                     g_slist_append(s->children,
+            else s->any.children =
+                     g_slist_append(s->any.children,
                                     vdx_read_object(child, theDoc, 0));
         }
         return s;
@@ -2925,8 +2925,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         struct vdx_TextXForm *s;
         if (p) { s = (struct vdx_TextXForm *)(p); }
         else { s = g_new0(struct vdx_TextXForm, 1); }
-        s->children = 0;
-        s->type = vdx_types_TextXForm;
+        s->any.children = 0;
+        s->any.type = vdx_types_TextXForm;
         for (attr = cur->properties; attr; attr = attr->next) {
         }
         for (child = cur->xmlChildrenNode; child; child = child->next) {
@@ -2952,8 +2952,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
             else if (!strcmp((char *)child->name, "TxtWidth"))
             { if (child->children && child->children->content)
                 s->TxtWidth = atof((char *)child->children->content); }
-            else s->children =
-                     g_slist_append(s->children,
+            else s->any.children =
+                     g_slist_append(s->any.children,
                                     vdx_read_object(child, theDoc, 0));
         }
         return s;
@@ -2963,8 +2963,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         struct vdx_User *s;
         if (p) { s = (struct vdx_User *)(p); }
         else { s = g_new0(struct vdx_User, 1); }
-        s->children = 0;
-        s->type = vdx_types_User;
+        s->any.children = 0;
+        s->any.type = vdx_types_User;
         for (attr = cur->properties; attr; attr = attr->next) {
             if (!strcmp((char *)attr->name, "ID") &&
                      attr->children && attr->children->content)
@@ -2984,8 +2984,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
             else if (!strcmp((char *)child->name, "Value"))
             { if (child->children && child->children->content)
                 s->Value = atof((char *)child->children->content); }
-            else s->children =
-                     g_slist_append(s->children,
+            else s->any.children =
+                     g_slist_append(s->any.children,
                                     vdx_read_object(child, theDoc, 0));
         }
         return s;
@@ -2995,8 +2995,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         struct vdx_VisioDocument *s;
         if (p) { s = (struct vdx_VisioDocument *)(p); }
         else { s = g_new0(struct vdx_VisioDocument, 1); }
-        s->children = 0;
-        s->type = vdx_types_VisioDocument;
+        s->any.children = 0;
+        s->any.type = vdx_types_VisioDocument;
         for (attr = cur->properties; attr; attr = attr->next) {
             if (!strcmp((char *)attr->name, "DocLangID") &&
                      attr->children && attr->children->content)
@@ -3031,8 +3031,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
             else if (!strcmp((char *)child->name, "Masters"))
             { if (child->children && child->children->content)
                 s->Masters = atoi((char *)child->children->content); }
-            else s->children =
-                     g_slist_append(s->children,
+            else s->any.children =
+                     g_slist_append(s->any.children,
                                     vdx_read_object(child, theDoc, 0));
         }
         return s;
@@ -3042,8 +3042,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         struct vdx_Window *s;
         if (p) { s = (struct vdx_Window *)(p); }
         else { s = g_new0(struct vdx_Window, 1); }
-        s->children = 0;
-        s->type = vdx_types_Window;
+        s->any.children = 0;
+        s->any.type = vdx_types_Window;
         for (attr = cur->properties; attr; attr = attr->next) {
             if (!strcmp((char *)attr->name, "ContainerType") &&
                      attr->children && attr->children->content)
@@ -3140,8 +3140,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
             else if (!strcmp((char *)child->name, "TabSplitterPos"))
             { if (child->children && child->children->content)
                 s->TabSplitterPos = atof((char *)child->children->content); }
-            else s->children =
-                     g_slist_append(s->children,
+            else s->any.children =
+                     g_slist_append(s->any.children,
                                     vdx_read_object(child, theDoc, 0));
         }
         return s;
@@ -3151,8 +3151,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         struct vdx_Windows *s;
         if (p) { s = (struct vdx_Windows *)(p); }
         else { s = g_new0(struct vdx_Windows, 1); }
-        s->children = 0;
-        s->type = vdx_types_Windows;
+        s->any.children = 0;
+        s->any.type = vdx_types_Windows;
         for (attr = cur->properties; attr; attr = attr->next) {
             if (!strcmp((char *)attr->name, "ClientHeight") &&
                      attr->children && attr->children->content)
@@ -3168,8 +3168,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
             if (!strcmp((char *)child->name, "Window"))
             { if (child->children && child->children->content)
                 s->Window = atoi((char *)child->children->content); }
-            else s->children =
-                     g_slist_append(s->children,
+            else s->any.children =
+                     g_slist_append(s->any.children,
                                     vdx_read_object(child, theDoc, 0));
         }
         return s;
@@ -3179,8 +3179,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         struct vdx_XForm *s;
         if (p) { s = (struct vdx_XForm *)(p); }
         else { s = g_new0(struct vdx_XForm, 1); }
-        s->children = 0;
-        s->type = vdx_types_XForm;
+        s->any.children = 0;
+        s->any.type = vdx_types_XForm;
         for (attr = cur->properties; attr; attr = attr->next) {
         }
         for (child = cur->xmlChildrenNode; child; child = child->next) {
@@ -3215,8 +3215,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
             else if (!strcmp((char *)child->name, "Width"))
             { if (child->children && child->children->content)
                 s->Width = atof((char *)child->children->content); }
-            else s->children =
-                     g_slist_append(s->children,
+            else s->any.children =
+                     g_slist_append(s->any.children,
                                     vdx_read_object(child, theDoc, 0));
         }
         return s;
@@ -3226,8 +3226,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         struct vdx_XForm1D *s;
         if (p) { s = (struct vdx_XForm1D *)(p); }
         else { s = g_new0(struct vdx_XForm1D, 1); }
-        s->children = 0;
-        s->type = vdx_types_XForm1D;
+        s->any.children = 0;
+        s->any.type = vdx_types_XForm1D;
         for (attr = cur->properties; attr; attr = attr->next) {
         }
         for (child = cur->xmlChildrenNode; child; child = child->next) {
@@ -3244,8 +3244,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
             else if (!strcmp((char *)child->name, "EndY"))
             { if (child->children && child->children->content)
                 s->EndY = atof((char *)child->children->content); }
-            else s->children =
-                     g_slist_append(s->children,
+            else s->any.children =
+                     g_slist_append(s->any.children,
                                     vdx_read_object(child, theDoc, 0));
         }
         return s;
@@ -3255,8 +3255,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         struct vdx_cp *s;
         if (p) { s = (struct vdx_cp *)(p); }
         else { s = g_new0(struct vdx_cp, 1); }
-        s->children = 0;
-        s->type = vdx_types_cp;
+        s->any.children = 0;
+        s->any.type = vdx_types_cp;
         for (attr = cur->properties; attr; attr = attr->next) {
             if (!strcmp((char *)attr->name, "IX") &&
                      attr->children && attr->children->content)
@@ -3264,8 +3264,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         }
         for (child = cur->xmlChildrenNode; child; child = child->next) {
             if (xmlIsBlankNode(child)) { continue; }
-            else s->children =
-                     g_slist_append(s->children,
+            else s->any.children =
+                     g_slist_append(s->any.children,
                                     vdx_read_object(child, theDoc, 0));
         }
         return s;
@@ -3275,8 +3275,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         struct vdx_fld *s;
         if (p) { s = (struct vdx_fld *)(p); }
         else { s = g_new0(struct vdx_fld, 1); }
-        s->children = 0;
-        s->type = vdx_types_fld;
+        s->any.children = 0;
+        s->any.type = vdx_types_fld;
         for (attr = cur->properties; attr; attr = attr->next) {
             if (!strcmp((char *)attr->name, "IX") &&
                      attr->children && attr->children->content)
@@ -3284,8 +3284,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         }
         for (child = cur->xmlChildrenNode; child; child = child->next) {
             if (xmlIsBlankNode(child)) { continue; }
-            else s->children =
-                     g_slist_append(s->children,
+            else s->any.children =
+                     g_slist_append(s->any.children,
                                     vdx_read_object(child, theDoc, 0));
         }
         return s;
@@ -3295,8 +3295,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         struct vdx_pp *s;
         if (p) { s = (struct vdx_pp *)(p); }
         else { s = g_new0(struct vdx_pp, 1); }
-        s->children = 0;
-        s->type = vdx_types_pp;
+        s->any.children = 0;
+        s->any.type = vdx_types_pp;
         for (attr = cur->properties; attr; attr = attr->next) {
             if (!strcmp((char *)attr->name, "IX") &&
                      attr->children && attr->children->content)
@@ -3304,8 +3304,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         }
         for (child = cur->xmlChildrenNode; child; child = child->next) {
             if (xmlIsBlankNode(child)) { continue; }
-            else s->children =
-                     g_slist_append(s->children,
+            else s->any.children =
+                     g_slist_append(s->any.children,
                                     vdx_read_object(child, theDoc, 0));
         }
         return s;
@@ -3315,8 +3315,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         struct vdx_tp *s;
         if (p) { s = (struct vdx_tp *)(p); }
         else { s = g_new0(struct vdx_tp, 1); }
-        s->children = 0;
-        s->type = vdx_types_tp;
+        s->any.children = 0;
+        s->any.type = vdx_types_tp;
         for (attr = cur->properties; attr; attr = attr->next) {
             if (!strcmp((char *)attr->name, "IX") &&
                      attr->children && attr->children->content)
@@ -3324,8 +3324,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         }
         for (child = cur->xmlChildrenNode; child; child = child->next) {
             if (xmlIsBlankNode(child)) { continue; }
-            else s->children =
-                     g_slist_append(s->children,
+            else s->any.children =
+                     g_slist_append(s->any.children,
                                     vdx_read_object(child, theDoc, 0));
         }
         return s;
@@ -3335,8 +3335,8 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         struct vdx_text *s;
         if (p) { s = (struct vdx_text *)(p); }
         else { s = g_new0(struct vdx_text, 1); }
-        s->children = 0;
-        s->type = vdx_types_text;
+        s->any.children = 0;
+        s->any.type = vdx_types_text;
         s->text = (char *)cur->content;
         return s;
     }

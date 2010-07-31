@@ -31,8 +31,7 @@ struct vdx_any
 
 struct vdx_Act
 {
-    GSList *children;
-    char type;
+    struct vdx_any any;
     float Action; /* F=0,0,1,0))",1,SETF(&quot;LockDelete&quot;,&quot;Guard(0)&quot;),SETF(&quot;Loc Unit=BOOL */
     gboolean BeginGroup; /* F=No Formula =0 */
     unsigned int ButtonFace; /* F=No Formula = */
@@ -52,8 +51,7 @@ struct vdx_Act
 
 struct vdx_Align
 {
-    GSList *children;
-    char type;
+    struct vdx_any any;
     float AlignBottom; /* F=IntersectY(Sheet.1972!PinX,Sheet.1972!PinY,Sheet.1972!Angle,10.185039370079DL */
     float AlignCenter; /* F=IntersectX(Sheet.1972!PinX,Sheet.1972!PinY,Sheet.1972!Angle,10.185039370079DL */
     gboolean AlignLeft; /* F=_Marker(1) =1 */
@@ -64,8 +62,7 @@ struct vdx_Align
 
 struct vdx_ArcTo
 {
-    GSList *children;
-    char type;
+    struct vdx_any any;
     float A; /* F=(Scratch.X4+Scratch.B4)*Scratch.C4,-(Scratch.X1-Scratch.Y1)*0.2929,-(Scratch. Unit=DL,IN,MM,PT */
     gboolean Del; /* =1 */
     unsigned int IX; /* */
@@ -75,8 +72,7 @@ struct vdx_ArcTo
 
 struct vdx_Char
 {
-    GSList *children;
-    char type;
+    struct vdx_any any;
     unsigned int AsianFont; /* F=Inh */
     gboolean Case; /* F=0,Inh =0 */
     Color Color; /* F=0,0,0,19))",0,1,16))",1,14,15,2,4,GUARD(IF(Sheet.5!User.active,0,19)),HSL(0,0 */
@@ -106,23 +102,20 @@ struct vdx_Char
 
 struct vdx_ColorEntry
 {
-    GSList *children;
-    char type;
+    struct vdx_any any;
     unsigned int IX; /* */
     char * RGB; /* =#000000,#000080,#0000FF,#007D7B,#008000,#008080,#00FF00,#00FFFF,#1A1A1A,#33333 */
 };
 
 struct vdx_Colors
 {
-    GSList *children;
-    char type;
+    struct vdx_any any;
     unsigned int ColorEntry; /* = */
 };
 
 struct vdx_Connect
 {
-    GSList *children;
-    char type;
+    struct vdx_any any;
     char * FromCell; /* =AlignBottom,AlignTop,BeginX,BeginY,Controls.Row_1,Controls.Row_10,Controls.Row */
     unsigned int FromPart; /* =10,100,101,102,103,104,105,106,107,108,109,11,12,4,6,7,8,9 */
     gboolean FromPart_exists;
@@ -137,8 +130,7 @@ struct vdx_Connect
 
 struct vdx_Connection
 {
-    GSList *children;
-    char type;
+    struct vdx_any any;
     gboolean AutoGen; /* F=Inh,No Formula =0,1 */
     float DirX; /* F=-1IN,-25.4MM,Inh,No Formula Unit=IN,MM,NUM */
     float DirY; /* F=-1IN,-25.4MM,Inh,No Formula Unit=IN,MM,NUM */
@@ -153,15 +145,13 @@ struct vdx_Connection
 
 struct vdx_Connects
 {
-    GSList *children;
-    char type;
+    struct vdx_any any;
     unsigned int Connect; /* = */
 };
 
 struct vdx_Control
 {
-    GSList *children;
-    char type;
+    struct vdx_any any;
     gboolean CanGlue; /* F=Inh =0,1 */
     unsigned int ID; /* */
     unsigned int IX; /* */
@@ -177,23 +167,20 @@ struct vdx_Control
 
 struct vdx_CustomProp
 {
-    GSList *children;
-    char type;
+    struct vdx_any any;
     char * Name; /* =_TemplateID */
     char * PropType; /* =String */
 };
 
 struct vdx_CustomProps
 {
-    GSList *children;
-    char type;
+    struct vdx_any any;
     char * CustomProp; /* =TC010483951033,TC010492811033,TC010498121033,TC010498511033 */
 };
 
 struct vdx_DocProps
 {
-    GSList *children;
-    char type;
+    struct vdx_any any;
     gboolean AddMarkup; /* F=No Formula =0 */
     unsigned int DocLangID; /* =1033,1053,2057 */
     gboolean LockPreview; /* F=No Formula =0,1 */
@@ -205,8 +192,7 @@ struct vdx_DocProps
 
 struct vdx_DocumentProperties
 {
-    GSList *children;
-    char type;
+    struct vdx_any any;
     char * AlternateNames; /* =?,rt\export,Ց粑ࠈ?խ粑᫤ඔ㷤? */
     int BuildNumberCreated; /* =-1,1245,2072,671351279,671351309,671353298,671355894,738200627,738200720,73820 */
     unsigned int BuildNumberEdited; /* =671351309,671352994,671353097,671353298,671353406,738200720,738203013 */
@@ -224,8 +210,7 @@ struct vdx_DocumentProperties
 
 struct vdx_DocumentSettings
 {
-    GSList *children;
-    char type;
+    struct vdx_any any;
     unsigned int DefaultFillStyle; /* */
     gboolean DefaultFillStyle_exists;
     unsigned int DefaultGuideStyle; /* */
@@ -248,8 +233,7 @@ struct vdx_DocumentSettings
 
 struct vdx_DocumentSheet
 {
-    GSList *children;
-    char type;
+    struct vdx_any any;
     unsigned int FillStyle; /* */
     gboolean FillStyle_exists;
     unsigned int LineStyle; /* */
@@ -262,8 +246,7 @@ struct vdx_DocumentSheet
 
 struct vdx_Ellipse
 {
-    GSList *children;
-    char type;
+    struct vdx_any any;
     float A; /* F=Inh,Width*0,Width*0.021265284423179,Width*0.021346344438398,Width*0.026441036 Unit=DL,IN,MM */
     float B; /* F=Height*0,Height*0.050632911392406,Height*0.061728395014259,Height*0.072100313 Unit=DL,IN,MM */
     float C; /* F=Geometry1.X1,Inh,Width*0.01063264221159,Width*0.010673172221386,Width*0.01322 Unit=DL,IN,MM */
@@ -275,8 +258,7 @@ struct vdx_Ellipse
 
 struct vdx_EllipticalArcTo
 {
-    GSList *children;
-    char type;
+    struct vdx_any any;
     float A; /* F=Controls.Row_1,Controls.X1,Geometry1.A2,Geometry3.A2,Inh,Width,Width*0,Width* Unit=DL,IN,MM */
     float B; /* F=2*Scratch.X1,Controls.Row_1.Y,Controls.Y1,Geometry1.B2,Geometry1.Y1-Scratch.Y Unit=DL,IN,MM */
     float C; /* F=-1E-14,Inh,_ELLIPSE_THETA(-0.004496519859392,1,0.76771653543307,1.14175745231 Unit=DA */
@@ -289,8 +271,7 @@ struct vdx_EllipticalArcTo
 
 struct vdx_Event
 {
-    GSList *children;
-    char type;
+    struct vdx_any any;
     unsigned int EventDblClick; /* F=1001&quot;)",DEFAULTEVENT(),GUARD(0),GUARD(DOCMD(1312)),Inh,NA(),No Formula,O */
 /* ? Event.EventDblClick.Err */
     float EventDrop; /* F=0,DOCMD(1048),DOCMD(1312)+SETF(&quot;EventDrop&quot;,GUARD(DOCMD(1046))),DOCM */
@@ -301,8 +282,7 @@ struct vdx_Event
 
 struct vdx_EventItem
 {
-    GSList *children;
-    char type;
+    struct vdx_any any;
     gboolean Action; /* =1 */
     gboolean Enabled; /* =1 */
     unsigned int EventCode; /* =1,2 */
@@ -314,15 +294,13 @@ struct vdx_EventItem
 
 struct vdx_EventList
 {
-    GSList *children;
-    char type;
+    struct vdx_any any;
     unsigned int EventItem; /* = */
 };
 
 struct vdx_FaceName
 {
-    GSList *children;
-    char type;
+    struct vdx_any any;
     char * CharSets; /* =-2147483648 0,0 0,1 0,1048577 0,1073742335 -65536,1073873055 -539557888,107426 */
     unsigned int Flags; /* =260,261,325,327,357,421 */
     gboolean Flags_exists;
@@ -334,15 +312,13 @@ struct vdx_FaceName
 
 struct vdx_FaceNames
 {
-    GSList *children;
-    char type;
+    struct vdx_any any;
     unsigned int FaceName; /* = */
 };
 
 struct vdx_Field
 {
-    GSList *children;
-    char type;
+    struct vdx_any any;
     gboolean Calendar; /* F=No Formula =0 */
     gboolean Del; /* =1 */
     gboolean EditMode; /* F=Inh =0 */
@@ -358,8 +334,7 @@ struct vdx_Field
 
 struct vdx_Fill
 {
-    GSList *children;
-    char type;
+    struct vdx_any any;
     Color FillBkgnd; /* F=0,1,14,15,18,2,8,HSL(0,0,128),HSL(0,0,181),HSL(0,0,210),HSL(0,0,240),HSL(0,0, */
     float FillBkgndTrans; /* F=0%,Inh,No Formula */
     Color FillForegnd; /* F=0,0,0,20)",0,1,17)",0,10,19))",1,10,11,12,13,14,15,17,18,19,2,20,21,23,3,4,5, */
@@ -379,8 +354,7 @@ struct vdx_Fill
 
 struct vdx_FontEntry
 {
-    GSList *children;
-    char type;
+    struct vdx_any any;
     unsigned int Attributes; /* =0,16896,19072,19140,19172,23040,23108,23140,4096,4160,4196 */
     gboolean Attributes_exists;
     unsigned int CharSet; /* =0,2 */
@@ -395,15 +369,13 @@ struct vdx_FontEntry
 
 struct vdx_Fonts
 {
-    GSList *children;
-    char type;
+    struct vdx_any any;
     unsigned int FontEntry; /* = */
 };
 
 struct vdx_Foreign
 {
-    GSList *children;
-    char type;
+    struct vdx_any any;
     float ImgHeight; /* F=Height*1,Height*1.0169491525424,Height*1.0189032166643,Height*1.0189032166645 Unit=IN */
     float ImgOffsetX; /* F=ImgWidth*-0.00091096324461408,ImgWidth*-0.00091096324461409,ImgWidth*-0.00092 Unit=IN */
     float ImgOffsetY; /* F=ImgHeight*-0.0086805555555564,ImgHeight*-0.0095961281708911,ImgHeight*-0.0095 Unit=IN */
@@ -412,8 +384,7 @@ struct vdx_Foreign
 
 struct vdx_ForeignData
 {
-    GSList *children;
-    char type;
+    struct vdx_any any;
     float CompressionLevel; /* =0.05,1.000000 */
     char * CompressionType; /* =GIF,JPEG,PNG */
     unsigned int ExtentX; /* =10112,10370,10413,10520,10523,107,10883,10948,11,11013,11043,11073,11138,11203 */
@@ -432,8 +403,7 @@ struct vdx_ForeignData
 
 struct vdx_Geom
 {
-    GSList *children;
-    char type;
+    struct vdx_any any;
     unsigned int IX; /* */
     gboolean NoFill; /* F=GUARD(1),GUARD(TRUE),Guard(1),Inh =0,1 */
     gboolean NoLine; /* F=Inh,No Formula =0,1 */
@@ -443,8 +413,7 @@ struct vdx_Geom
 
 struct vdx_Group
 {
-    GSList *children;
-    char type;
+    struct vdx_any any;
     unsigned int DisplayMode; /* F=2,Inh =2 */
     gboolean DontMoveChildren; /* F=FALSE,Inh */
     gboolean IsDropTarget; /* F=FALSE,Inh */
@@ -455,8 +424,7 @@ struct vdx_Group
 
 struct vdx_HeaderFooter
 {
-    GSList *children;
-    char type;
+    struct vdx_any any;
     char * FooterLeft; /* =&amp;f&amp;e&amp;n */
     float FooterMargin; /* Unit=IN_F,MM */
     char * HeaderFooterColor; /* =#000000 */
@@ -468,8 +436,7 @@ struct vdx_HeaderFooter
 
 struct vdx_HeaderFooterFont
 {
-    GSList *children;
-    char type;
+    struct vdx_any any;
     gboolean CharSet; /* =0 */
     unsigned int ClipPrecision; /* =0,2 */
     gboolean ClipPrecision_exists;
@@ -493,16 +460,14 @@ struct vdx_HeaderFooterFont
 
 struct vdx_Help
 {
-    GSList *children;
-    char type;
+    struct vdx_any any;
     char * Copyright; /* F=Inh =,&#xe000;,Copyright (C) 1997 Visio Corporation. Med ensamrätt.,Copyrigh */
     char * HelpTopic; /* F=Inh =,!#52533,!#52846,!#55170,!#55174,!#55477,!#55488,!#55499,&#xe000;,ET.HLP */
 };
 
 struct vdx_Hyperlink
 {
-    GSList *children;
-    char type;
+    struct vdx_any any;
     char * Address; /* =,http://netc.members.microsoft.com/,http://officeupdate.com/visio/,http://vdxt */
     gboolean Default; /* F=No Formula =0 */
     char * Description; /* =,VDXtoSVG Home Page,Visio Network Solutions */
@@ -518,15 +483,13 @@ struct vdx_Hyperlink
 
 struct vdx_Icon
 {
-    GSList *children;
-    char type;
+    struct vdx_any any;
     unsigned int IX; /* */
 };
 
 struct vdx_Image
 {
-    GSList *children;
-    char type;
+    struct vdx_any any;
     float Blur; /* F=0% */
     float Brightness; /* F=50% */
     float Contrast; /* F=50% */
@@ -538,8 +501,7 @@ struct vdx_Image
 
 struct vdx_InfiniteLine
 {
-    GSList *children;
-    char type;
+    struct vdx_any any;
     float A; /* F=IF(Width&gt;0,Width,1DL),If(Width&gt;0,Width,0.039370078740157DL) Unit=DL */
     float B; /* F=Height*0.5 Unit=DL */
     unsigned int IX; /* */
@@ -549,8 +511,7 @@ struct vdx_InfiniteLine
 
 struct vdx_Layer
 {
-    GSList *children;
-    char type;
+    struct vdx_any any;
     gboolean Active; /* =0 */
     unsigned int Color; /* =255 */
     float ColorTrans; /* F=No Formula =0,0.5 */
@@ -568,15 +529,13 @@ struct vdx_Layer
 
 struct vdx_LayerMem
 {
-    GSList *children;
-    char type;
+    struct vdx_any any;
     char * LayerMember; /* F=No Formula =,&#xe000;,0,0;1,1,2,4,5,6, */
 };
 
 struct vdx_Layout
 {
-    GSList *children;
-    char type;
+    struct vdx_any any;
     unsigned int ConFixedCode; /* F=0,Inh =0,3,6 */
     gboolean ConLineJumpCode; /* F=0,Inh =0 */
     gboolean ConLineJumpDirX; /* F=0,Inh =0 */
@@ -596,8 +555,7 @@ struct vdx_Layout
 
 struct vdx_Line
 {
-    GSList *children;
-    char type;
+    struct vdx_any any;
     unsigned int BeginArrow; /* F=0,3,41,4)))',4,GUARD(0),Inh,USE(&quot;Composite&quot;) =0,1,10,11,13,14,15,25 */
     unsigned int BeginArrowSize; /* F=1,2,IF(User.UMLError,0,2),Inh =0,1,2,3,4 */
     unsigned int EndArrow; /* F=0,3,41,4)))',4,GUARD(0),Inh =0,1,10,11,12,13,14,15,16,4,5,9 */
@@ -612,8 +570,7 @@ struct vdx_Line
 
 struct vdx_LineTo
 {
-    GSList *children;
-    char type;
+    struct vdx_any any;
     gboolean Del; /* =1 */
     unsigned int IX; /* */
     float X; /* F=(Width+Scratch.Y1)/2,-0.5*Scratch.A1*AND(Scratch.B1&lt;&gt;Scratch.C1,Scratch Unit=IN,IN_F,MM,PT */
@@ -622,8 +579,7 @@ struct vdx_LineTo
 
 struct vdx_Master
 {
-    GSList *children;
-    char type;
+    struct vdx_any any;
     unsigned int AlignName; /* =2 */
     gboolean AlignName_exists;
     char * BaseID; /* ={0018B32E-000A-F00D-0000-000000000000},{001AFBE6-0020-F00D-0000-000000000000}, */
@@ -643,8 +599,7 @@ struct vdx_Master
 
 struct vdx_Misc
 {
-    GSList *children;
-    char type;
+    struct vdx_any any;
     unsigned int BegTrigger; /* F=Inh,No Formula,_XFTRIGGER(Class!EventXFMod),_XFTRIGGER(Class.102!EventXFMod), */
 /* ? Misc.BegTrigger.Err */
     gboolean Calendar; /* F=Inh =0 */
@@ -671,8 +626,7 @@ struct vdx_Misc
 
 struct vdx_MoveTo
 {
-    GSList *children;
-    char type;
+    struct vdx_any any;
     unsigned int IX; /* */
     float X; /* F=(Width*1-Height*0.5)*NOT(Scratch.A1),(Width-Scratch.Y1)/2,-Geometry1.X2,-Scra Unit=IN,IN_F,MM,PT */
     float Y; /* F=(Height+Scratch.X1)/2,-2*User.Margin,-Height*0.2,-Height*0.25,-Scratch.A1,-Us Unit=CM,IN,MM,PT */
@@ -680,8 +634,7 @@ struct vdx_MoveTo
 
 struct vdx_NURBSTo
 {
-    GSList *children;
-    char type;
+    struct vdx_any any;
     float A; /* F=Inh =-0.06462336099700583,-0.314670638477898,-0.6860878983991592,-0.701050922 */
     float B; /* F=Inh =1 */
     float C; /* F=Inh =-0.2847946620216469,-0.314670638477898,-0.412922655298515,-0.69374622906 */
@@ -694,8 +647,7 @@ struct vdx_NURBSTo
 
 struct vdx_Page
 {
-    GSList *children;
-    char type;
+    struct vdx_any any;
     unsigned int BackPage; /* =10,4,5,6,8 */
     gboolean BackPage_exists;
     gboolean Background; /* =1 */
@@ -709,8 +661,7 @@ struct vdx_Page
 
 struct vdx_PageLayout
 {
-    GSList *children;
-    char type;
+    struct vdx_any any;
     float AvenueSizeX; /* F=0.29527559055118DL,0.375DL,Inh Unit=IN,MM */
     float AvenueSizeY; /* F=0.29527559055118DL,0.375DL,Inh Unit=IN,MM */
     float BlockSizeX; /* F=0.19685039370079DL,0.25DL,Inh Unit=IN,MM */
@@ -742,8 +693,7 @@ struct vdx_PageLayout
 
 struct vdx_PageProps
 {
-    GSList *children;
-    char type;
+    struct vdx_any any;
     float DrawingScale; /* F=No Formula Unit=F_I,IN,IN_F,M,MM */
     unsigned int DrawingScaleType; /* F=No Formula =0,1,3,4 */
     unsigned int DrawingSizeType; /* F=No Formula =0,1,2,3,4,5,6 */
@@ -761,8 +711,7 @@ struct vdx_PageProps
 
 struct vdx_PageSheet
 {
-    GSList *children;
-    char type;
+    struct vdx_any any;
     unsigned int FillStyle; /* */
     gboolean FillStyle_exists;
     unsigned int LineStyle; /* */
@@ -774,8 +723,7 @@ struct vdx_PageSheet
 
 struct vdx_Para
 {
-    GSList *children;
-    char type;
+    struct vdx_any any;
     unsigned int Bullet; /* F=0,Inh =0,1,2 */
     unsigned int BulletFont; /* F=Inh */
     char * BulletFontSize; /* F=Inh =-1,0) */
@@ -795,8 +743,7 @@ struct vdx_Para
 
 struct vdx_PolylineTo
 {
-    GSList *children;
-    char type;
+    struct vdx_any any;
     float A; /* F=POLYLINE(0, 0, 0,1, 0,0, 1,0),POLYLINE(0, 0, 0.085708617154953,0, 0.085708617 Unit=POLYLINE */
     unsigned int IX; /* */
     float X; /* F=Width*0,Width*0.13061305469215,Width*0.2612261093843,Width*0.39183916407645,W */
@@ -805,16 +752,14 @@ struct vdx_PolylineTo
 
 struct vdx_PreviewPicture
 {
-    GSList *children;
-    char type;
+    struct vdx_any any;
     unsigned int Size; /* =1056,1064,1088,1124,1168,1192,1352,1372,1980,20740,20760,20936,20980,21032,210 */
     gboolean Size_exists;
 };
 
 struct vdx_PrintProps
 {
-    GSList *children;
-    char type;
+    struct vdx_any any;
     gboolean CenterX; /* F=Inh =0,1 */
     gboolean CenterY; /* F=Inh =0,1 */
     gboolean OnPage; /* F=Inh =0,1 */
@@ -834,8 +779,7 @@ struct vdx_PrintProps
 
 struct vdx_PrintSetup
 {
-    GSList *children;
-    char type;
+    struct vdx_any any;
     float PageBottomMargin; /* =0.25,0.55,106.63 */
     float PageLeftMargin; /* =0.25,138.38 */
     float PageRightMargin; /* =0.25,138.38 */
@@ -852,8 +796,7 @@ struct vdx_PrintSetup
 
 struct vdx_Prop
 {
-    GSList *children;
-    char type;
+    struct vdx_any any;
     gboolean Calendar; /* F=No Formula =0 */
     char * Format; /* F=Guard(ThePage!Prop.Theme.Format),Inh,No Formula,ThePage!Prop.Theme.Format =,& */
     unsigned int ID; /* */
@@ -871,8 +814,7 @@ struct vdx_Prop
 
 struct vdx_Protection
 {
-    GSList *children;
-    char type;
+    struct vdx_any any;
     gboolean LockAspect; /* F=0,Inh =0,1 */
     gboolean LockBegin; /* F=0,Inh =0 */
     gboolean LockCalcWH; /* F=0,Inh =0,1 */
@@ -894,8 +836,7 @@ struct vdx_Protection
 
 struct vdx_RulerGrid
 {
-    GSList *children;
-    char type;
+    struct vdx_any any;
     unsigned int XGridDensity; /* F=8,Inh =0,4,8 */
     float XGridOrigin; /* F=0DL,Inh Unit=IN */
     float XGridSpacing; /* F=0DL,Inh Unit=CM,IN,MM */
@@ -910,8 +851,7 @@ struct vdx_RulerGrid
 
 struct vdx_Scratch
 {
-    GSList *children;
-    char type;
+    struct vdx_any any;
     float A; /* F=0)",0,0,1)+Int(Sheet.21!Width/Scratch.X1)',0,0,1)+Int(Sheet.38!Width/Scratch. Unit=BOOL,DA,DL,DT,IN,MM,STR */
     float B; /* F=(LineWeight+(EndArrowSize+2)*0.02IN*Scratch.B1),(LineWeight+(EndArrowSize+2)* Unit=BOOL,DEG,DL,DT,IN,MM,PT,STR */
     float C; /* F=(ABS(Width)&lt;2*Scratch.B2),0,Geometry1.Y7,Geometry1.Y1)",0,LineWeight*-3,0) Unit=BOOL,DA,DL,IN,MM,PT,STR */
@@ -923,8 +863,7 @@ struct vdx_Scratch
 
 struct vdx_Shape
 {
-    GSList *children;
-    char type;
+    struct vdx_any any;
     unsigned int Data1; /* =,1001 */
     unsigned int Data2; /* = */
     unsigned int Data3; /* = */
@@ -948,14 +887,12 @@ struct vdx_Shape
 
 struct vdx_Shapes
 {
-    GSList *children;
-    char type;
+    struct vdx_any any;
 };
 
 struct vdx_SplineKnot
 {
-    GSList *children;
-    char type;
+    struct vdx_any any;
     float A; /* F=Inh =0,0.01588792876351469,0.019830308804445,0.049324479568668,0.055118110236 */
     unsigned int IX; /* */
     float X; /* F=Geometry1.X1,Inh,Scratch.X2/(12/81),Sheet.77!Width*1.4396670792842,Sheet.77!W */
@@ -964,8 +901,7 @@ struct vdx_SplineKnot
 
 struct vdx_SplineStart
 {
-    GSList *children;
-    char type;
+    struct vdx_any any;
     float A; /* F=Inh =0 */
     float B; /* F=Inh =0 */
     float C; /* F=Inh =0.13484716066176,0.1698959365932391,0.1910708009830822,0.197567972399904 */
@@ -977,8 +913,7 @@ struct vdx_SplineStart
 
 struct vdx_StyleProp
 {
-    GSList *children;
-    char type;
+    struct vdx_any any;
     gboolean EnableFillProps; /* F=0,1,Inh =0,1 */
     gboolean EnableLineProps; /* F=0,1,Inh =0,1 */
     gboolean EnableTextProps; /* F=0,1,Inh =0,1 */
@@ -987,8 +922,7 @@ struct vdx_StyleProp
 
 struct vdx_StyleSheet
 {
-    GSList *children;
-    char type;
+    struct vdx_any any;
     unsigned int FillStyle; /* */
     gboolean FillStyle_exists;
     unsigned int ID; /* */
@@ -1002,8 +936,7 @@ struct vdx_StyleSheet
 
 struct vdx_Tab
 {
-    GSList *children;
-    char type;
+    struct vdx_any any;
     gboolean Alignment; /* =0 */
     unsigned int IX; /* */
     float Position; /* Unit=DP,MM */
@@ -1011,15 +944,13 @@ struct vdx_Tab
 
 struct vdx_Tabs
 {
-    GSList *children;
-    char type;
+    struct vdx_any any;
     unsigned int IX; /* */
 };
 
 struct vdx_Text
 {
-    GSList *children;
-    char type;
+    struct vdx_any any;
     unsigned int IX; /* */
     unsigned int cp; /* = */
     float fld; /* =0.006,0.009,0.011,0.031,0.042,0.046,0.048,0.061,0.063,0.071,0.081,0.084,0.086, */
@@ -1029,8 +960,7 @@ struct vdx_Text
 
 struct vdx_TextBlock
 {
-    GSList *children;
-    char type;
+    struct vdx_any any;
     float BottomMargin; /* F=0DP,0DT,0PT,1PT,2PT,4PT,Char.Size*0.5,Char.Size/4,Inh Unit=PT */
     float DefaultTabStop; /* F=0.59055118110236DP,0.5DP,Inh =0.5,0.590551,0.59055118110236,0.590551181102362 */
     float LeftMargin; /* F=0DP,0PT,1PT,2PT,4PT,Char.Size/2,Inh Unit=PT */
@@ -1044,8 +974,7 @@ struct vdx_TextBlock
 
 struct vdx_TextXForm
 {
-    GSList *children;
-    char type;
+    struct vdx_any any;
     float TxtAngle; /* F=-Angle,-Scratch.A1,90DEG),0DEG,180DEG)",90DEG),0DEG,180DEG)',GRAVITY(Angle,-6 Unit=DEG */
 /* ? TextXForm.TxtAngle.Err */
     float TxtHeight; /* F=0,TEXTHEIGHT(TheText,TxtWidth),TEXTWIDTH(TheText)))",1,TEXTWIDTH(TheText),TEX Unit=CM,IN,IN_F,MM */
@@ -1058,8 +987,7 @@ struct vdx_TextXForm
 
 struct vdx_User
 {
-    GSList *children;
-    char type;
+    struct vdx_any any;
     unsigned int ID; /* */
     char * Name; /* =216Nff,216Npp */
     char * NameU; /* =1stLegDir,1stLegDirInd,1stLegDirLook,216V,216Vff,216Vpp,28V,28Vpp,AL_ChildLayo */
@@ -1069,8 +997,7 @@ struct vdx_User
 
 struct vdx_VisioDocument
 {
-    GSList *children;
-    char type;
+    struct vdx_any any;
     unsigned int DocLangID; /* =1033,1053,2057 */
     gboolean DocLangID_exists;
     unsigned int EventList; /* = */
@@ -1087,8 +1014,7 @@ struct vdx_VisioDocument
 
 struct vdx_Window
 {
-    GSList *children;
-    char type;
+    struct vdx_any any;
     char * ContainerType; /* =Page */
     char * Document; /* =C:\Archivos de programa\Microsoft Office\Visio11\1033\UMLACT_M.VSS,C:\Archivos */
     gboolean DynamicGridEnabled; /* =0,1 */
@@ -1129,8 +1055,7 @@ struct vdx_Window
 
 struct vdx_Windows
 {
-    GSList *children;
-    char type;
+    struct vdx_any any;
     unsigned int ClientHeight; /* =587,605,607,609,612,621,625,641,643,681,791,851,855,864,868,871,875,882,890 */
     gboolean ClientHeight_exists;
     unsigned int ClientWidth; /* =1020,1022,1024,1095,1119,1125,1156,1184,1236,1280,1680,818,819,828 */
@@ -1140,8 +1065,7 @@ struct vdx_Windows
 
 struct vdx_XForm
 {
-    GSList *children;
-    char type;
+    struct vdx_any any;
     float Angle; /* F=-0.5235987756666,-90DEG,-Scratch.B1*90DEG,ATAN2(EndY-BeginY,EndX-BeginX),ATan Unit=DEG */
     gboolean FlipX; /* F=FlipY,GUARD(0),GUARD(FALSE),Guard(0),Guard(EndX&lt;BeginX),Guard(FALSE),Inh,S */
     gboolean FlipY; /* F=BeginY&lt;EndY)",BeginY&lt;EndY)',FlipX,GUARD(0),GUARD(EndY&lt;BeginY),GUARD( */
@@ -1156,8 +1080,7 @@ struct vdx_XForm
 
 struct vdx_XForm1D
 {
-    GSList *children;
-    char type;
+    struct vdx_any any;
     float BeginX; /* F=GUARD(Sheet.10!PinX),GUARD(Sheet.5!LocPinX),Guard(Sheet.6!Width+Sheet.9!Width Unit=IN,IN_F,MM */
 /* ? XForm1D.BeginX.Err */
     float BeginY; /* F=GUARD(Sheet.13!PinY+Sheet.13!Height),GUARD(Sheet.5!LocPinY),GUARD(Sheet.8!Pin Unit=IN,IN_F,MM */
@@ -1170,36 +1093,31 @@ struct vdx_XForm1D
 
 struct vdx_cp
 {
-    GSList *children;
-    char type;
+    struct vdx_any any;
     unsigned int IX; /* */
 };
 
 struct vdx_fld
 {
-    GSList *children;
-    char type;
+    struct vdx_any any;
     unsigned int IX; /* */
 };
 
 struct vdx_pp
 {
-    GSList *children;
-    char type;
+    struct vdx_any any;
     unsigned int IX; /* */
 };
 
 struct vdx_tp
 {
-    GSList *children;
-    char type;
+    struct vdx_any any;
     unsigned int IX; /* */
 };
 
 struct vdx_text
 {
-    GSList *children;
-    char type;
+    struct vdx_any any;
     char * text; /* */
 };
 
