@@ -27,6 +27,9 @@
 #  include <sys/utime.h>
 #endif
 #include <glib.h>
+#ifdef HAVE_UNISTD_H
+#include <unistd.h> /* close */
+#endif
 #ifdef G_OS_WIN32
 #include <io.h> /* close */
 #endif
@@ -176,6 +179,7 @@ _dae_move(DiagramAsElement *dae, Point *to)
 
   return NULL;
 }
+static void
 _dae_draw(DiagramAsElement *dae, DiaRenderer *renderer)
 {
   DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
