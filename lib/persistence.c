@@ -540,6 +540,9 @@ persistence_window_event_handler(GtkWindow *window, GdkEvent *event, gpointer da
   case GDK_CONFIGURE : 
     dia_log_message ("configure (%s)", persistence_get_window_name(window)); 
     break;
+  default :
+    /* silence gcc */
+    break;
   }
 #if GTK_CHECK_VERSION(2,20,0)
   persistence_update_window(window, !gtk_widget_get_mapped(GTK_WIDGET(window)));
