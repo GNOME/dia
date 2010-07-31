@@ -157,19 +157,26 @@ _dtv_query_tooltip (GtkWidget  *widget,
 
       markup = g_string_new (NULL);
 
-      if (diagram)
-        g_string_append_printf (markup, "<b>%s</b>: %s\n", _("Diagram"), diagram->filename);
+      if (diagram) {
+        gchar *em = g_markup_printf_escaped ("<b>%s</b>: %s\n", _("Diagram"), diagram->filename);
+        g_string_append (markup, em);
+        g_free (em);
+      }
 
       if (layer) {
         gchar *name = layer_get_name (layer);
-        g_string_append_printf (markup, "<b>%s</b>: %s\n", _("Layer"), name);
+        gchar *em = g_markup_printf_escaped ("<b>%s</b>: %s\n", _("Layer"), name);
+        g_string_append (markup, em);
+        g_free (em);
         g_free (name);
       } else if (diagram) {
 	g_string_append_printf (markup, "%d %s", 
 			        data_layer_count (DIA_DIAGRAM_DATA(diagram)), _("Layer(s)"));
       }
       if (object) {
-        g_string_append_printf (markup, "<b>%s</b>: %s\n", _("Type"), object->type->name);
+        gchar *em = g_markup_printf_escaped ("<b>%s</b>: %s\n", _("Type"), object->type->name);
+        g_string_append (markup, em);
+        g_free (em);
         g_string_append_printf (markup, "<b>%s</b>: %g,%g\n", _("Position"), 
 			        object->position.x, object->position.y);
 	g_string_append_printf (markup, "%d %s", 
