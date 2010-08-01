@@ -44,6 +44,7 @@
 #include "message.h"
 #include "dia_xml_libxml.h"
 #include "dia_image.h"
+#include "dia_dirs.h"
 
 #include "diasvgrenderer.h"
 #include "textline.h"
@@ -730,7 +731,7 @@ draw_image(DiaRenderer *self,
   DiaSvgRenderer *renderer = DIA_SVG_RENDERER (self);
   xmlNodePtr node;
   gchar d_buf[DTOSTR_BUF_SIZE];
-  gchar *uri;
+  gchar *uri = NULL;
 
   node = xmlNewChild(renderer->root, NULL, (const xmlChar *)"image", NULL);
 
@@ -742,9 +743,12 @@ draw_image(DiaRenderer *self,
   xmlSetProp(node, (const xmlChar *)"width", (xmlChar *) d_buf);
   dia_svg_dtostr(d_buf, height);
   xmlSetProp(node, (const xmlChar *)"height", (xmlChar *) d_buf);
-  
-  uri = g_filename_to_uri(dia_image_filename(image), NULL, NULL);
-  if (uri)
+
+  /* if the image file location is relative to the SVG file's store 
+   * a relative path */
+  if ((uri = dia_relativize_filename (renderer->filename, dia_image_filename(image))) != NULL)
+    xmlSetProp(node, (const xmlChar *)"xlink:href", (xmlChar *) uri);
+  else if ((uri = g_filename_to_uri(dia_image_filename(image), NULL, NULL)) != NULL)
     xmlSetProp(node, (const xmlChar *)"xlink:href", (xmlChar *) uri);
   else /* not sure if this fallbach is better than nothing */
     xmlSetProp(node, (const xmlChar *)"xlink:href", (xmlChar *) dia_image_filename(image));

@@ -263,3 +263,34 @@ dia_get_absolute_filename (const gchar *filename)
   g_free(fullname);
   return canonical;
 }
+
+/** Calculate a filename relative to the basepath of a master file
+ * @param master The main filename
+ * @param slave  A filename to become relative to the master
+ * @return Relative filename or NULL if there is no common base path
+ */
+gchar *
+dia_relativize_filename (const gchar *master, const gchar *slave)
+{
+  gchar *bp1;
+  gchar *bp2;
+  gchar * rel = NULL;
+
+  if (!g_path_is_absolute (master) || !g_path_is_absolute (slave))
+    return NULL;
+
+  bp1 = g_path_get_dirname (master);
+  bp2 = g_path_get_dirname (slave);
+
+  if (g_str_has_prefix (bp1, bp2)) {
+    gchar *p;
+    rel = g_strdup (slave + strlen (bp1) + 1);
+    /* flip backslashes */
+    for (p = rel; *p != '\0'; p++)
+      if (*p == '\\') *p = '/';    
+  }
+  g_free (bp1);
+  g_free (bp2);
+  
+  return rel;
+}

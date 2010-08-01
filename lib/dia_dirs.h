@@ -32,6 +32,7 @@ gchar *dia_get_lib_directory  (const gchar* subdir);
 gchar *dia_config_filename    (const gchar* file);
 gboolean dia_config_ensure_dir  (const gchar* filename);
 gchar *dia_get_absolute_filename (const gchar *filename);
+gchar *dia_relativize_filename (const gchar *master, const gchar *slave);
 gchar *dia_get_canonical_path (const gchar *path);
 const gchar *dia_message_filename (const gchar *filename);
 
