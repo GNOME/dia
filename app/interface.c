@@ -476,7 +476,7 @@ display_data_received_callback (GtkWidget *widget,
     dia_dnd_file_drag_data_received (widget, context, x, y, data, info, time, ddisp);
   }
   /* ensure the right window has the focus for text editing */
-  gtk_window_present(ddisp->shell);
+  gtk_window_present(GTK_WINDOW(ddisp->shell));
 }
 
 /**
@@ -1094,7 +1094,7 @@ create_widget_from_xpm_or_gdkp(gchar **icon_data, GtkWidget *button)
 
   if (strncmp((char*)icon_data, "GdkP", 4) == 0) {
     GdkPixbuf *p;
-    p = gdk_pixbuf_new_from_inline(-1, (char*)icon_data, TRUE, NULL);
+    p = gdk_pixbuf_new_from_inline(-1, (guint8*)icon_data, TRUE, NULL);
     pixmapwidget = gtk_image_new_from_pixbuf(p);
   } else {
     GdkBitmap *mask = NULL;
@@ -1624,7 +1624,6 @@ create_integrated_ui (void)
   GtkWidget *notebook;
   GtkWidget *statusbar;
   GtkAccelGroup *accel_group;
-  GdkPixbuf *pixbuf;
 
   GtkWidget *layer_view;
 	
