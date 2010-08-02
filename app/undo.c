@@ -1069,10 +1069,10 @@ ungroup_objects_revert(struct UngroupObjectsChange *change, Diagram *dia)
     list = g_list_next(list);
   }
 
-  data_emit (dia, change->layer, change->group, "object_add");
+  data_emit (DIA_DIAGRAM_DATA(dia), change->layer, change->group, "object_add");
   list = change->obj_list;
   while (list) {
-    data_emit (dia, change->layer, list->data, "object_remove");
+    data_emit (DIA_DIAGRAM_DATA(dia), change->layer, list->data, "object_remove");
     list = g_list_next(list);
   }
 }
