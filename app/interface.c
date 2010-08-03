@@ -39,7 +39,6 @@
 #include "preferences.h"
 #include "commands.h"
 #include "dia_dirs.h"
-#include "diagram_tree_window.h"
 #include "intl.h"
 #include "navigation.h"
 #include "persistence.h"
@@ -1837,13 +1836,6 @@ void
 toolbox_hide(void)
 {
   gtk_widget_hide(toolbox_shell);
-}
-
-void
-create_tree_window(void)
-{
-  GtkAction *action = menus_get_action ("FileTree");
-  create_diagram_tree_window(&prefs.dia_tree, GTK_TOGGLE_ACTION(action));
 }
 
 GtkWidget *

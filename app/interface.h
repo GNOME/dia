@@ -65,7 +65,6 @@ GtkWidget *interface_get_toolbox_shell(void);
 
 void tool_select_callback(GtkWidget *widget, gpointer data);
 void create_integrated_ui (void);
-void create_tree_window(void);
 
 void create_sheets(GtkWidget *parent);
 extern GtkWidget *modify_tool_button;

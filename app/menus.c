@@ -38,7 +38,6 @@
 #include "plugin-manager.h"
 #include "select.h"
 #include "dia_dirs.h"
-#include "diagram_tree_window.h"
 #include "object_ops.h"
 #include "sheets.h"
 #include "dia-app-icons.h"
@@ -86,20 +85,15 @@ static const GtkActionEntry common_entries[] =
     { "HelpAbout", GTK_STOCK_ABOUT, NULL, NULL, NULL, G_CALLBACK (help_about_callback) }
 };
 
+extern void diagram_tree_show(void);
+
 /* Actions for toolbox menu */
 static const GtkActionEntry toolbox_entries[] = 
 {
     { "FileSheets", NULL, N_("Sheets and Objects…"), "F9", NULL, G_CALLBACK (sheets_dialog_show_callback) },
     { "FilePrefs", GTK_STOCK_PREFERENCES, NULL, NULL, NULL, G_CALLBACK (file_preferences_callback) },
-    { "FilePlugins", NULL, N_("Plugins…"), NULL, NULL, G_CALLBACK (file_plugins_callback) }
-};
-
-extern void diagram_tree_show(void);
-/* Toggle-Actions for toolbox menu */
-static const GtkToggleActionEntry toolbox_toggle_entries[] = 
-{
-    { "FileTree", NULL, N_("_Diagram Tree…"), "F8", NULL, G_CALLBACK (diagtree_show_callback) },
-    { "DiagramTree", NULL, N_("_Diagram tree"), NULL, NULL, G_CALLBACK (diagram_tree_show) }
+    { "FilePlugins", NULL, N_("Plugins…"), NULL, NULL, G_CALLBACK (file_plugins_callback) },
+    { "FileTree", NULL, N_("_Diagram Tree…"), "F8", NULL, G_CALLBACK (diagram_tree_show) }
 };
 
 /* Toggle-Actions for toolbox menu */
@@ -876,9 +870,6 @@ menus_init(void)
                 G_N_ELEMENTS (common_entries), NULL);
   gtk_action_group_add_actions (toolbox_actions, toolbox_entries, 
                 G_N_ELEMENTS (toolbox_entries), NULL);
-  gtk_action_group_add_toggle_actions (toolbox_actions, toolbox_toggle_entries,
-                G_N_ELEMENTS (toolbox_toggle_entries), 
-                NULL);
 
   toolbox_ui_manager = gtk_ui_manager_new ();
   g_signal_connect (G_OBJECT (toolbox_ui_manager), 
@@ -967,9 +958,6 @@ menus_get_integrated_ui_menubar (GtkWidget     **menubar,
                 G_N_ELEMENTS (display_entries), NULL);
   gtk_action_group_add_toggle_actions (integrated_ui_actions, integrated_ui_view_toggle_entries, 
                 G_N_ELEMENTS (integrated_ui_view_toggle_entries), NULL);
-  gtk_action_group_add_toggle_actions (integrated_ui_actions, toolbox_toggle_entries,
-                G_N_ELEMENTS (toolbox_toggle_entries), 
-                NULL);
   gtk_action_group_add_toggle_actions (integrated_ui_actions, display_toggle_entries,
                 G_N_ELEMENTS (display_toggle_entries), 
                 NULL);

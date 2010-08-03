@@ -92,8 +92,6 @@ static int default_undo_depth = 15;
 static guint default_recent_documents = 5;
 static Color default_colour = DEFAULT_GRID_COLOR;
 static Color pbreak_colour = DEFAULT_PAGEBREAK_COLOR;
-static guint default_dtree_dia_sort = DIA_TREE_SORT_INSERT;
-static guint default_dtree_obj_sort = DIA_TREE_SORT_INSERT;
 static const gchar *default_paper_name = NULL;
 static const gchar *default_length_unit = "Centimeter";
 static const gchar *default_fontsize_unit = "Point";
@@ -111,8 +109,7 @@ typedef enum {
   DIA_TAB,
   VIEW_TAB,
   FAVOR_TAB,
-  GRID_TAB,
-  TREE_TAB
+  GRID_TAB
 } TabIndex;
 
 struct DiaPrefsTab prefs_tabs[] =
@@ -122,7 +119,6 @@ struct DiaPrefsTab prefs_tabs[] =
   {N_("View Defaults"), NULL, 0},
   {N_("Favorites"), NULL, 0},
   {N_("Grid Lines"), NULL, 0},
-  {N_("Diagram Tree"), NULL, 0},
 };
 
 #define NUM_PREFS_TABS (sizeof(prefs_tabs)/sizeof(struct DiaPrefsTab))
@@ -256,14 +252,6 @@ DiaPrefData prefs_data[] =
     &default_true,0,"pretty formated xml",NULL, TRUE},
   */
 
-  { NULL, PREF_NONE, 0, NULL, TREE_TAB, N_("Diagram tree window:") },
-  { "diagram_tree_save_hidden", PREF_BOOLEAN, PREF_OFFSET(dia_tree.save_hidden),
-    &default_false, TREE_TAB, N_("Save hidden object types")},
-  { "diagram_tree_dia_sort", PREF_UINT, PREF_OFFSET(dia_tree.dia_sort),
-    &default_dtree_dia_sort, TREE_TAB, "default diagram sort order", NULL, TRUE},
-  { "diagram_tree_obj_sort", PREF_UINT, PREF_OFFSET(dia_tree.obj_sort),
-    &default_dtree_obj_sort, TREE_TAB, "default object sort order", NULL, TRUE},
-  { NULL, PREF_END_GROUP, 0, NULL, TREE_TAB, NULL },
 };
 
 #define NUM_PREFS_DATA (sizeof(prefs_data)/sizeof(DiaPrefData))

@@ -37,6 +37,7 @@
 #include "display.h"
 #include "properties-dialog.h" /* object_list_properties_show */
 #include "dia-props.h" /* diagram_properties_show */
+#include "persistence.h"
 
 typedef struct _DiagramTreeView DiagramTreeView;
 struct _DiagramTreeView {
@@ -573,12 +574,17 @@ diagram_tree_show (void)
 		      G_CALLBACK (gtk_widget_destroyed),
 		      &window);
 
+    gtk_window_set_role (GTK_WINDOW (window), "diagram_tree");
+
 #if GTK_CHECK_VERSION(2,20,0)
     if (!gtk_widget_get_visible (window))
 #else
     if (!GTK_WIDGET_VISIBLE (window))
 #endif
       gtk_widget_show_all (window);
+
+    /* FIXME: remove flicker by removing gtk_widget_show from persistence_register_window() */
+    persistence_register_window (GTK_WINDOW (window));
   }
   gtk_window_present (GTK_WINDOW(window));
 }

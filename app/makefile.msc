@@ -28,10 +28,6 @@ OBJECTS = \
 	defaults.obj \
 	diacanvas.obj \
 	diagram.obj \
-	diagram_tree.obj \
-	diagram_tree_menu.obj \
-	diagram_tree_menu_callbacks.obj \
-	diagram_tree_window.obj \
 	diapagelayout.obj \
 	dia-props.obj \
 	disp_callbacks.obj \

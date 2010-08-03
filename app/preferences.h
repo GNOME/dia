@@ -18,11 +18,7 @@
 #ifndef PREFERENCES_H
 #define PREFERENCES_H
 
-#include "geometry.h"
-#include "color.h"
-#include "diagram_tree_window.h"
 #include "diagramdata.h"
-#include "lib/widgets.h"
 
 #define DEFAULT_GRID_COLOR { 0.85, .90, .90 }
 #define DEFAULT_PAGEBREAK_COLOR { 0.0, 0.0, 0.6 }
@@ -71,8 +67,6 @@ struct DiaPreferences {
     
   int toolbox_on_top;
 
-  DiagramTreeConfig dia_tree;
-
   int use_integrated_ui;
   
   /* a dedicated filter name or NULL */
@@ -93,6 +87,4 @@ void prefs_set_defaults(void);
 void prefs_save(void);
 void prefs_init(void);
 
-#endif /* DIA_IMAGE_H */
-
-
+#endif /* PREFERENCES_H */
