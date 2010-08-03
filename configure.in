@@ -496,7 +496,7 @@ AC_ARG_WITH(python,
 [  --with-python           compile python plug-in],,with_python=no)
 
 if test "x$with_python" != xno; then
-  AM_PATH_PYTHON(1.5.2)
+  AM_PATH_PYTHON(2.3.0)
   AM_CHECK_PYMOD(gtk,,,[AC_MSG_RESULT(could not find pygtk module)])
   AM_CHECK_PYTHON_HEADERS
   AM_CHECK_PYTHON_LIB
