@@ -130,6 +130,7 @@ new_shape_renderer(DiagramData *data, const char *filename)
   gchar *png_filename;
   char *shapename, *dirname, *fullname;
   char *sheetname;
+  char *basename;
 
   file = g_fopen(filename, "w");
 
@@ -164,7 +165,9 @@ new_shape_renderer(DiagramData *data, const char *filename)
 
   dirname = g_path_get_dirname(filename);
   sheetname = g_path_get_basename(dirname);
-  shapename = g_strndup(g_basename(filename), strlen(g_basename(filename))-6);
+  basename = g_path_get_basename(filename);
+  shapename = g_strndup(basename, strlen(basename)-6);
+  g_free(basename);
   fullname = g_strdup_printf ("%s - %s", sheetname, shapename);
   g_free(dirname);
   g_free(sheetname);
@@ -177,7 +180,9 @@ new_shape_renderer(DiagramData *data, const char *filename)
   point = g_strndup(filename, i);
   png_filename = g_strdup_printf("%s.png",point);
   g_free(point);
-  xmlNewChild(renderer->root, NULL, (const xmlChar *)"icon", (xmlChar *) g_basename(png_filename));
+  basename = g_path_get_basename(png_filename);
+  xmlNewChild(renderer->root, NULL, (const xmlChar *)"icon", (xmlChar *) basename);
+  g_free(basename);
   g_free(png_filename);
   shape_renderer->connection_root = xmlNewChild(renderer->root, NULL, (const xmlChar *)"connections", NULL);
   xml_node_ptr = xmlNewChild(renderer->root, NULL, (const xmlChar *)"aspectratio",NULL);
