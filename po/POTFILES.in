@@ -10,11 +10,8 @@ app/defaults.c
 app/dia-props.c
 app/diacanvas.c
 app/diagram.c
-app/diagram_tree.c
-app/diagram_tree_menu.c
 app/diagram_tree_model.c
 app/diagram_tree_view.c
-app/diagram_tree_window.c
 app/diapagelayout.c
 app/disp_callbacks.c
 app/display.c
@@ -106,6 +103,7 @@ objects/KAOS/metaandorrel.c
 objects/KAOS/metabinrel.c
 objects/KAOS/other.c
 objects/Misc/analog_clock.c
+objects/Misc/diagram_as_object.c
 objects/Misc/grid_object.c
 objects/Misc/libmisc.c
 objects/Misc/measure.c

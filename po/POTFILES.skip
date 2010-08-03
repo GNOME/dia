@@ -1,5 +1,8 @@
 dia.desktop.in
-data/sheets-dialog.xml
+data/sheets-edit-dialog.xml
+data/sheets-main-dialog.xml
+data/sheets-new-dialog.xml
+data/sheets-remove-dialog.xml
 sheets/EML.sheet.in
 po-checktrans.py
 plug-ins/python/otypes.py

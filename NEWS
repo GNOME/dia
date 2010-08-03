@@ -1,3 +1,20 @@
+  * improved diagram tree (actually all new implementation)
+    - nicer look
+    - can search for object name by simply typing it
+    - multiple selection (works across layers!)
+    - allows to transfer the selection to the diagram
+    - sortable by name or typenn
+    - tooltips showing more detailed information about the objects at hand
+
+  * new object "Diagram as Element" allows to embbed diagrams
+
+  * bugs fixed:
+    http://bugzilla.gnome.org/buglist.cgi?product=dia&target_milestone=0.98
+  
+dia-0.97.1: 2010-01-24
+
+  * updated translations
+
   * bugs fixed:
     http://bugzilla.gnome.org/buglist.cgi?product=dia&target_milestone=0.97.1
 
