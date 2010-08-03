@@ -239,15 +239,15 @@ dnl now the actual libpython
   if test -e "$PYTHON_PREFIX/${py_lib}/libpython${PYTHON_VERSION}.so"; then
     PYTHON_LIBS="-L${py_config_dir} -lpython${PYTHON_VERSION} $py_localmodlibs $py_basemodlibs $py_other_libs"
     AC_MSG_RESULT(found)
-  elif test -e "${py_config_dir}/libpython${PYTHON_VERSION}.a"; then
+  elif test -e "${py_prefix}/${py_lib}/libpython${PYTHON_VERSION}.a"; then
     dnl Same as above, but looking into the previous location: bug #581533
     PYTHON_LIBS="-L${py_config_dir} -lpython${PYTHON_VERSION} $py_localmodlibs $py_basemodlibs $py_other_libs"
     AC_MSG_RESULT(found)
   else
-    AC_MSG_RESULT(not found)
+    AC_MSG_RESULT(not found lib)
   fi
 else
-  AC_MSG_RESULT(not found)
+  AC_MSG_RESULT(not found config)
 fi
 AC_SUBST(PYTHON_LIBS)])
 
