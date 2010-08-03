@@ -96,31 +96,35 @@ dia_application_init (DiaApplication *app)
 {
 }
 
+static DiaApplication *_app = NULL;
+
 /* ensure the singleton is available */
 DiaApplication *
 dia_application_get (void)
 {
-  static DiaApplication *app = NULL;
   
-  if (!app)
-    app = g_object_new (DIA_TYPE_APPLICATION, NULL);
+  if (!_app)
+    _app = g_object_new (DIA_TYPE_APPLICATION, NULL);
   
-  return app;
+  return _app;
 }
 
 void
 dia_diagram_add (Diagram *dia)
 {
-  g_signal_emit (dia_application_get (), _dia_application_signals[DIAGRAM_ADD], 0, dia);
+  if (_app)
+    g_signal_emit (_app, _dia_application_signals[DIAGRAM_ADD], 0, dia);
 }
 void
 dia_diagram_remove (Diagram *dia)
 {
-  g_signal_emit (dia_application_get (), _dia_application_signals[DIAGRAM_REMOVE], 0, dia);
+  if (_app)
+    g_signal_emit (_app, _dia_application_signals[DIAGRAM_REMOVE], 0, dia);
 }
 
 void 
 dia_diagram_change (Diagram *dia, guint flags, gpointer object)
 {
-  g_signal_emit (dia_application_get (), _dia_application_signals[DIAGRAM_CHANGE], 0, dia, flags, object);
+  if (_app)
+    g_signal_emit (_app, _dia_application_signals[DIAGRAM_CHANGE], 0, dia, flags, object);
 }
