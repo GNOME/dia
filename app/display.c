@@ -794,6 +794,46 @@ ddisplay_zoom(DDisplay *ddisp, Point *point, real magnify)
   update_zoom_status (ddisp);
 }
 
+/*
+   When using the mouse wheel button to zoom in and out, it is more 
+   intuitive to maintain the drawing zoom center-point based on the 
+   cursor position. This can help orientation and prevent the drawing 
+   from "jumping" around while zooming in and out.
+ */
+void
+ddisplay_zoom_centered(DDisplay *ddisp, Point *point, real magnify)
+{
+  Rectangle *visible;
+  real width, height;
+  /* cursor position ratios */
+  real rx,ry; 
+
+  if ((ddisp->zoom_factor <= DDISPLAY_MIN_ZOOM) && (magnify<=1.0))
+    return;
+  if ((ddisp->zoom_factor >= DDISPLAY_MAX_ZOOM) && (magnify>=1.0))
+    return;
+
+  visible = &ddisp->visible;
+
+  /* calculate cursor position ratios */
+  rx = (point->x-visible->left)/(visible->right - visible->left);
+  ry = (point->y-visible->top)/(visible->bottom - visible->top);
+
+  width = (visible->right - visible->left)/magnify;
+  height = (visible->bottom - visible->top)/magnify;
+
+  ddisp->zoom_factor *= magnify;
+
+  /* set new origin based on the calculated ratios before zooming */
+  ddisplay_set_origo(ddisp, point->x-(width*rx),point->y-(height*ry));
+
+  ddisplay_update_scrollbars(ddisp);
+  ddisplay_add_update_all(ddisp);
+  ddisplay_flush(ddisp);
+
+  update_zoom_status (ddisp);
+}
+
 /** Set the display's snap-to-grid setting, updating menu and button
  * in the process */
 void

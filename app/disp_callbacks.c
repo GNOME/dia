@@ -570,7 +570,8 @@ ddisplay_canvas_events (GtkWidget *canvas,
                   ddisplay_scroll_left(ddisp);
               else if (sevent->state & GDK_CONTROL_MASK) {
                   ddisplay_untransform_coords(ddisp, (int)sevent->x, (int)sevent->y, &middle.x, &middle.y);
-                  ddisplay_zoom(ddisp, &middle, 2);
+		  /* zooming with the wheel in small steps 1^(1/8) */
+                  ddisplay_zoom_centered(ddisp, &middle, 1.090508);
               }
               else 
                   ddisplay_scroll_up(ddisp);
@@ -579,8 +580,9 @@ ddisplay_canvas_events (GtkWidget *canvas,
               if (sevent->state & GDK_SHIFT_MASK)
                   ddisplay_scroll_right(ddisp);
               else if (sevent->state & GDK_CONTROL_MASK) { 
-                    ddisplay_untransform_coords(ddisp, (int)sevent->x, (int)sevent->y, &middle.x, &middle.y);
-                    ddisplay_zoom(ddisp, &middle, 0.5);
+                  ddisplay_untransform_coords(ddisp, (int)sevent->x, (int)sevent->y, &middle.x, &middle.y);
+		  /* zooming with the wheel in small steps 1/(1^(1/8)) */
+                  ddisplay_zoom_centered(ddisp, &middle, 0.917004);
               }
               else
                   ddisplay_scroll_down(ddisp);
