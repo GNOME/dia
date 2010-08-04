@@ -264,7 +264,7 @@ dia_canvas_move_internal (DiaCanvas       *canvas,
   gtk_widget_thaw_child_notify (widget);
   
 #if GTK_CHECK_VERSION(2,20,0)
-  if (gtk_widget_get_visible (widget) && gtk_widget_get_visible (canvas))
+  if (gtk_widget_get_visible (widget) && gtk_widget_get_visible (GTK_WIDGET (canvas)))
 #else
   if (GTK_WIDGET_VISIBLE (widget) && GTK_WIDGET_VISIBLE (canvas))
 #endif
