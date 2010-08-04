@@ -3,12 +3,17 @@ PRJ_TOP = ..
 PACKAGE = dia
 !INCLUDE $(TOP)\glib\build\win32\make.msc
 
-# -DWIN32 for newer libxml versions
-# not yet 
-PKG_CFLAGS = -FImsvc_recommended_pragmas.h \
-	-DWIN32  -I.. -DGTK_DISABLE_DEPRECATED \
+INCLUDES = \
+	-FImsvc_recommended_pragmas.h \
+	-I. -I$(PRJ_TOP) \
 	$(GLIB_CFLAGS) $(GTK2_CFLAGS) $(LIBXML2_CFLAGS) \
 	-I$(PRJ_TOP)\lib \
+
+# -DWIN32 for newer libxml versions
+DEFINES = \
+	-DHAVE_CONFIG_H \
+	-DWIN32 \
+	-DG_DISABLE_DEPRECATED -DGTK_DISABLE_DEPRECATED \
 
 PKG_LINK = $(GTK2_LIBS) $(GLIB_LIBS) $(GTHREAD_LIBS) $(PANGOWIN32_LIBS) \
 	$(LIBXML2_LIBS) \
@@ -108,8 +113,6 @@ dia-app-icons.h : makefile.msc pixmaps\*.png
 # /subsystem:console and /subsystem:windows have their own exe
 INSTALL = copy
 
-CFLAGS = -I. -I$(PRJ_TOP) -DHAVE_CONFIG_H
-
 ## targets
 all : \
 	$(PRJ_TOP)\config.h \
@@ -146,10 +149,3 @@ $(PACKAGE)-win-remote.exe : dia-win-remote.c dia-win-remote.obj
 
 $(PRJ_TOP)/config.h: $(PRJ_TOP)/config.h.win32
 	copy $(PRJ_TOP)\config.h.win32 $(PRJ_TOP)\config.h
-
-.c.obj :
-	$(CC) $(CFLAGS) -c $(PKG_CFLAGS) $<
-
-.cpp.obj :
-	$(CC) $(CFLAGS) -c $(PKG_CFLAGS) $<
-

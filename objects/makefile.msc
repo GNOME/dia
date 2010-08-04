@@ -36,10 +36,16 @@ PKG_DEF = ..\objects.def
 
 !INCLUDE $(TOP)\glib\build\win32\make.msc
 
-PKG_CFLAGS = -FImsvc_recommended_pragmas.h \
-	-DGTK_DISABLE_DEPRECATED \
+INCLUDES = \
+	-FImsvc_recommended_pragmas.h \
+	-I. -I$(PRJ_TOP) \
 	$(GLIB_CFLAGS) $(GTK2_CFLAGS) $(INTL_CFLAGS) \
 	$(LIBXML2_CFLAGS) -I$(PRJ_TOP)\lib \
+
+DEFINES = \
+	-DHAVE_CONFIG_H \
+	-DG_DISABLE_DEPRECATED \
+	-DGTK_DISABLE_DEPRECATED \
 
 PKG_LINK = $(GLIB_LIBS) $(INTL_LIBS) \
 	$(PRJ_TOP)\lib\libdia.lib \
@@ -348,9 +354,6 @@ OBJECTS = \
 PKG_LINK = $(PKG_LINK) $(GTK2_LIBS)
 !ENDIF
 
-
-CFLAGS = -I. -I$(PRJ_TOP) -DHAVE_CONFIG_H
-
 $(PACKAGE).lib : $(OBJECTS)
 	lib /out:$(PACKAGE).lib $(OBJECTS)
 
@@ -359,9 +362,6 @@ $(PACKAGE).dll : $(OBJECTS) $(PKG_DEF)
 
 $(PRJ_TOP)\config.h: $(PRJ_TOP)\config.h.win32
 	copy $(PRJ_TOP)\config.h.win32 $(PRJ_TOP)\config.h
-
-.c.obj :
-	$(CC) $(CFLAGS) -c $(PKG_CFLAGS) $<
 
 !ENDIF
 

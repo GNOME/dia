@@ -3,10 +3,6 @@ PRJ_TOP = ..
 PACKAGE = libdia
 !INCLUDE $(TOP)\glib\build\win32\make.msc
 
-# don't break on win32 only with it
-#	-DGTK_DISABLE_DEPRECATED \
-
-
 INCLUDES = \
 	-FImsvc_recommended_pragmas.h \
 	-I. -I.. \
@@ -168,9 +164,6 @@ font-height.exe : font-height.obj
 	$(CC) $(CFLAGS) -Fe$@ font-height.obj \
 	$(PKG_LINK) $(LDFLAGS) gdi32.lib user32.lib $(LDFLAGS) /subsystem:console
 
-.c.obj :
-	$(CC) $(CFLAGS) -c $(PKG_CFLAGS) $<
-
 splint :
-	sp -weak $(PKG_CFLAGS) *.c >sp.log
+	sp -weak $(CFLAGS) *.c >sp.log
 	
