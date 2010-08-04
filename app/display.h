@@ -141,6 +141,7 @@ void ddisplay_set_origo(DDisplay *ddisp,
 			coord x, coord y);
 void ddisplay_zoom(DDisplay *ddisp, Point *point,
 		   real zoom_factor);
+void ddisplay_zoom_centered(DDisplay *ddisp, Point *point, real magnify);
 void ddisplay_set_snap_to_grid(DDisplay *ddisp, gboolean snap);
 void ddisplay_set_snap_to_objects(DDisplay *ddisp, gboolean magnetic);
 void ddisplay_set_renderer(DDisplay *ddisp, int aa_renderer);
