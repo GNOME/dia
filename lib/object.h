@@ -545,6 +545,9 @@ struct _DiaObjectType {
 };
 
 /* base property stuff ... */
+/* Needs to stay ~PROP_FLAG_VISIBLE or the dialogs get seriously messed up.
+ * The meta info has special code in property dialog creation.
+ */
 #define OBJECT_COMMON_PROPERTIES \
   { "obj_pos", PROP_TYPE_POINT, PROP_FLAG_OPTIONAL, \
     "Object position", "Where the object is located"}, \

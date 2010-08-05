@@ -310,6 +310,43 @@ pdtpp_is_visible_default (const PropDescription *pdesc)
   return pdtpp_defaults (pdesc) && pdtpp_is_visible_no_standard(pdesc);
 }
 
+static void
+_prop_list_extend_for_meta (GPtrArray *props)
+{
+  static PropDescription extras[] = {
+    PROP_STD_NOTEBOOK_BEGIN,
+    PROP_NOTEBOOK_PAGE("general_page",PROP_FLAG_DONT_MERGE,N_("General")),
+    PROP_NOTEBOOK_PAGE("meta_page",0,N_("Meta")),
+    { "meta", PROP_TYPE_DICT, PROP_FLAG_VISIBLE, "", ""},
+    PROP_STD_NOTEBOOK_END,
+    {NULL}
+  };
+
+  Property *p = g_ptr_array_index(props,0);
+  GPtrArray *pex = prop_list_from_descs(extras,pdtpp_is_visible);
+
+  if (strcmp (p->type, PROP_TYPE_NOTEBOOK_BEGIN) != 0) {
+    int i, olen = props->len;
+    /* wrap everything into a first notebook page */
+    g_ptr_array_set_size (props, olen + 2);
+    /* make room for 2 at the beginning */
+    for (i = olen - 1; i >=  0; --i)
+      g_ptr_array_index (props, i + 2) = g_ptr_array_index (props, i);
+    g_ptr_array_index (props, 0) = g_ptr_array_index (pex, 0);
+    g_ptr_array_index (props, 1) = g_ptr_array_index (pex, 1);
+  } else {
+    p = g_ptr_array_index (props, props->len - 1);
+    g_assert (strcmp (p->type, PROP_TYPE_NOTEBOOK_END) == 0);
+    /* drop the end, we'll add it again below */
+    g_ptr_array_set_size (props, props->len - 1);
+  }
+  g_ptr_array_add (props, g_ptr_array_index (pex, 2));
+  g_ptr_array_add (props, g_ptr_array_index (pex, 3));
+  g_ptr_array_add (props, g_ptr_array_index (pex, 4));
+  /* free the array, but not the reused segments */
+  g_ptr_array_free (pex, FALSE);
+}
+
 static void 
 prop_dialog_fill(PropDialog *dialog, GList *objects, gboolean is_default)
 {
@@ -330,7 +367,9 @@ prop_dialog_fill(PropDialog *dialog, GList *objects, gboolean is_default)
       props = prop_list_from_descs(pdesc,pdtpp_is_visible);
 
   if (!props) return;
-    
+
+  _prop_list_extend_for_meta (props);
+
   dialog->props = props;
   object_list_get_props(objects, props);
 
