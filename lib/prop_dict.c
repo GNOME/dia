@@ -159,15 +159,177 @@ dictprop_set_from_offset(DictProperty *prop,
   struct_member(base,offset, GHashTable *) = _hash_dup (prop->dict);
 }
 
+/* GUI stuff */
+#define TREE_MODEL_KEY "dict-tree-model"
+enum {
+  KEY_COLUMN,
+  VALUE_COLUMN,
+  IS_EDITABLE_COLUMN,
+  NUM_COLUMNS
+};
+
+static void
+_keyvalue_fill_model (gpointer key,
+                      gpointer value,
+                      gpointer user_data)
+{
+  gchar *name = (gchar *)key;
+  gchar *val = (gchar *)value;
+  GtkTreeStore *model = (GtkTreeStore *)user_data;
+  GtkTreeIter iter;
+
+  gtk_tree_store_append (model, &iter, NULL);
+  gtk_tree_store_set (model, &iter,
+                      KEY_COLUMN, key,
+		      VALUE_COLUMN, val,
+		      IS_EDITABLE_COLUMN, TRUE,
+		      -1);
+}
+
+static GtkTreeModel *
+_create_model (DictProperty *prop)
+{
+  GtkTreeStore *model;
+
+  model = gtk_tree_store_new (NUM_COLUMNS,
+			      G_TYPE_STRING,
+			      G_TYPE_STRING,
+			      G_TYPE_BOOLEAN);
+
+  return GTK_TREE_MODEL (model);
+}
+static void
+edited (GtkCellRendererText *cell,
+	gchar               *path_string,
+	gchar               *new_text,
+	gpointer             data)
+{
+  GtkTreeModel *model = GTK_TREE_MODEL (data);
+  GtkTreeIter iter;
+  GtkTreePath *path = gtk_tree_path_new_from_string (path_string);
+
+  gtk_tree_model_get_iter (model, &iter, path);
+  gtk_tree_store_set (GTK_TREE_STORE (model), &iter, VALUE_COLUMN, new_text, -1);
+
+  gtk_tree_path_free (path);
+}
+
+GtkWidget *
+_create_view (GtkTreeModel *model)
+{
+  GtkWidget *widget;
+  GtkWidget *tree_view;
+  GtkTreeViewColumn *col;
+  GtkCellRenderer *renderer;
+ 
+  widget = gtk_scrolled_window_new (NULL, NULL);
+  gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (widget), GTK_SHADOW_ETCHED_IN);
+  gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (widget), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
+
+  tree_view = gtk_tree_view_new_with_model (model);
+  gtk_tree_view_set_rules_hint (GTK_TREE_VIEW (tree_view), TRUE);
+  gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (tree_view), TRUE);
+  
+  col = gtk_tree_view_column_new_with_attributes(
+		   _("Key"), gtk_cell_renderer_text_new (),
+		   "text", KEY_COLUMN, NULL);
+  gtk_tree_view_append_column (GTK_TREE_VIEW (tree_view), col);
+  gtk_tree_view_column_set_sort_column_id (col, KEY_COLUMN);
+
+  renderer = gtk_cell_renderer_text_new ();
+  col = gtk_tree_view_column_new_with_attributes(
+		   _("Value"), renderer,
+		   "text", VALUE_COLUMN,
+		   "editable", IS_EDITABLE_COLUMN, NULL);
+  g_signal_connect (renderer, "edited",
+		    G_CALLBACK (edited), model);
+  gtk_tree_view_append_column (GTK_TREE_VIEW (tree_view), col);
+  gtk_tree_view_column_set_sort_column_id (col, VALUE_COLUMN);
+
+  gtk_container_add (GTK_CONTAINER (widget), tree_view);
+
+  g_object_set_data (G_OBJECT (widget), TREE_MODEL_KEY, model);
+
+  return widget;
+}
+static GtkWidget *
+dictprop_get_widget (DictProperty *prop, PropDialog *dialog) 
+{ 
+  GtkWidget *ret;
+  ret = _create_view (_create_model (prop));
+  gtk_widget_show_all (ret);
+  /* FIXME: prophandler_connect(&prop->common, G_OBJECT(ret), "value_changed"); */
+  return ret;
+}
+static void 
+dictprop_reset_widget(DictProperty *prop, GtkWidget *widget)
+{
+  GtkTreeModel *model = g_object_get_data (G_OBJECT (widget), TREE_MODEL_KEY);
+  GtkTreeIter iter;
+  WellKnownKeys *wkk;
+
+  /* should it be empty */
+  gtk_tree_store_clear (GTK_TREE_STORE (model));
+
+  /* add everything we have */
+  if (!prop->dict)
+    prop->dict = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
+  g_hash_table_foreach (prop->dict, _keyvalue_fill_model, model);
+
+  /* also add the well known ? */
+  for (wkk = _well_known; wkk->name != NULL; ++wkk) {
+    gchar *val;
+
+    if (g_hash_table_lookup (prop->dict, wkk->name))
+      continue;
+
+    gtk_tree_store_append (GTK_TREE_STORE (model), &iter, NULL);
+    val = g_hash_table_lookup (prop->dict, wkk->name);
+    gtk_tree_store_set (GTK_TREE_STORE (model), &iter,
+                        KEY_COLUMN, wkk->name,
+			VALUE_COLUMN, val ? val : "",
+			IS_EDITABLE_COLUMN, TRUE,
+			-1);
+  }
+}
+static void 
+dictprop_set_from_widget(DictProperty *prop, GtkWidget *widget) 
+{
+  GtkTreeModel *model = g_object_get_data (G_OBJECT (widget), TREE_MODEL_KEY);
+  GtkTreeIter   iter;
+  
+  if (gtk_tree_model_get_iter_first (model, &iter)) {
+    gchar *key, *val;
+    
+    do {
+      gtk_tree_model_get (model, &iter, 
+                          KEY_COLUMN, &key,
+			  VALUE_COLUMN, &val, 
+			  -1);
+
+      if (key && val) {
+	if (!prop->dict)
+	  prop->dict = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
+
+	if (strlen (val))
+          g_hash_table_insert (prop->dict, key, val);
+	else /* delete stuff which has no value any longer */
+	  g_hash_table_remove (prop->dict, key);
+	/* FIXME: enough to replace prophandler_connect() ? */
+	prop->common.experience &= ~PXP_NOTSET;
+      }
+    } while (gtk_tree_model_iter_next (model, &iter));
+  }
+}
 static const PropertyOps dictprop_ops = {
   (PropertyType_New) dictprop_new,
   (PropertyType_Free) dictprop_free,
   (PropertyType_Copy) dictprop_copy,
   (PropertyType_Load) dictprop_load,
   (PropertyType_Save) dictprop_save,
-  (PropertyType_GetWidget) noopprop_get_widget,
-  (PropertyType_ResetWidget) noopprop_reset_widget,
-  (PropertyType_SetFromWidget) noopprop_set_from_widget,
+  (PropertyType_GetWidget) dictprop_get_widget,
+  (PropertyType_ResetWidget) dictprop_reset_widget,
+  (PropertyType_SetFromWidget) dictprop_set_from_widget,
 
   (PropertyType_CanMerge) noopprop_can_merge,
   (PropertyType_GetFromOffset) dictprop_get_from_offset,
