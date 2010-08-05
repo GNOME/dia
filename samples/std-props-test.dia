@@ -222,7 +222,7 @@ when messing with the std-props implementation.#</dia:string>
             <dia:string>#number one#</dia:string>
           </dia:attribute>
           <dia:attribute name="url">
-            <dia:string>#http://live.gnome.org/Dia#</dia:string>
+            <dia:string>#http://dia-installer.de/doc/en/basic-objects-chapter.html#ellipse#</dia:string>
           </dia:attribute>
         </dia:composite>
       </dia:attribute>
@@ -287,7 +287,7 @@ when messing with the std-props implementation.#</dia:string>
             <dia:string>#simple-line#</dia:string>
           </dia:attribute>
           <dia:attribute name="url">
-            <dia:string>#mailto://dia-list@gnome.org#</dia:string>
+            <dia:string>#http://dia-installer.de/doc/en/basic-objects-chapter.html#line#</dia:string>
           </dia:attribute>
         </dia:composite>
       </dia:attribute>
@@ -349,6 +349,13 @@ when messing with the std-props implementation.#</dia:string>
       </dia:attribute>
       <dia:attribute name="obj_bb">
         <dia:rectangle val="2,20.9;4.635,22.28"/>
+      </dia:attribute>
+      <dia:attribute name="meta">
+        <dia:composite type="dict">
+          <dia:attribute name="url">
+            <dia:string>#http://dia-installer.de/doc/en/basic-objects-chapter.html#text#</dia:string>
+          </dia:attribute>
+        </dia:composite>
       </dia:attribute>
       <dia:attribute name="text">
         <dia:composite type="text">
@@ -433,7 +440,7 @@ when messing with the std-props implementation.#</dia:string>
             <dia:string>#just now#</dia:string>
           </dia:attribute>
           <dia:attribute name="url">
-            <dia:string>#htpp://hans.breuer.org/dia#</dia:string>
+            <dia:string>#http://dia-installer.de/doc/en/basic-objects-chapter.html#polyline#</dia:string>
           </dia:attribute>
         </dia:composite>
       </dia:attribute>
@@ -499,6 +506,13 @@ when messing with the std-props implementation.#</dia:string>
       </dia:attribute>
       <dia:attribute name="obj_bb">
         <dia:rectangle val="29.95,9.95;33.26,12.85"/>
+      </dia:attribute>
+      <dia:attribute name="meta">
+        <dia:composite type="dict">
+          <dia:attribute name="url">
+            <dia:string>#http://dia-installer.de/doc/en/special-objects-chapter.html#N408C4#</dia:string>
+          </dia:attribute>
+        </dia:composite>
       </dia:attribute>
       <dia:attribute name="elem_corner">
         <dia:point val="30,10"/>
@@ -1145,7 +1159,7 @@ when messing with the std-props implementation.#</dia:string>
             <dia:string>#new#</dia:string>
           </dia:attribute>
           <dia:attribute name="url">
-            <dia:string>#render-test.dia#</dia:string>
+            <dia:string>#std-props-test.dia#</dia:string>
           </dia:attribute>
         </dia:composite>
       </dia:attribute>
