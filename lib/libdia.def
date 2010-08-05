@@ -252,6 +252,7 @@ EXPORTS
  dia_get_lib_directory
  dia_get_absolute_filename
  dia_relativize_filename
+ dia_absolutize_filename
  dia_get_canonical_path
 
  dia_image_add_ref

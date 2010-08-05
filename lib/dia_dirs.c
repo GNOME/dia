@@ -294,3 +294,13 @@ dia_relativize_filename (const gchar *master, const gchar *slave)
   
   return rel;
 }
+
+gchar *
+dia_absolutize_filename (const gchar *master, const gchar *slave)
+{
+  gchar *path = g_path_get_dirname (master);
+  gchar *result = g_build_path (G_DIR_SEPARATOR_S, path, slave, NULL);
+
+  g_free (path);
+  return result;
+}
