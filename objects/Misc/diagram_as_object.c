@@ -232,7 +232,12 @@ _dae_update_data(DiagramAsElement *dae)
   struct utimbuf utbuf;
   Element *elem = &dae->element;
   DiaObject *obj = &elem->object;
+  static int working = 0;
   
+  if (working > 1)
+    return; /* protect against infinite recursion */
+  ++working;
+
   if (   strlen(dae->filename)
 #if GLIB_CHECK_VERSION(2,18,0)
       && g_utime(dae->filename, &utbuf) == 0
@@ -268,6 +273,8 @@ _dae_update_data(DiagramAsElement *dae)
 
   /* adjust objects position, otherwise it'll jump on move */
   obj->position = elem->corner;
+
+  --working;
 }
 static void 
 _dae_destroy(DiagramAsElement *dae) 
