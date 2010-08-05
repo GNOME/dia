@@ -44,6 +44,7 @@
 #include "highlight.h"
 #include "textedit.h"
 #include "lib/parent.h"
+#include "dia_dirs.h"
 
 /* This contains the point that was clicked to get this menu */
 static Point object_menu_clicked_point;
@@ -128,7 +129,45 @@ add_properties_menu_item (GtkMenu *menu, gboolean separator)
   gtk_menu_shell_append (GTK_MENU_SHELL (menu), menu_item);
   gtk_widget_show(menu_item);
 }
+static void
+_follow_link_callback (GtkAction *action, gpointer data)
+{
+  DiaObject *obj;
+  DDisplay *ddisp = ddisplay_active();
+  gchar *url;
 
+  if (!ddisp) return;
+
+  obj = (DiaObject *)ddisp->diagram->data->selected->data;
+
+  url = dia_object_get_meta (obj, "url");
+
+  if (!url) return;
+
+  if (strstr (url, "://") == NULL) {
+    if (!g_path_is_absolute(url)) {
+      gchar *p = NULL;
+      
+      if (ddisp->diagram->filename)
+        p = dia_absolutize_filename (ddisp->diagram->filename, url);
+      if (p) {
+	g_free (url);
+	url = p;
+      }
+    }
+    dia_file_open (url, NULL);
+  } else
+    activate_url (GTK_WIDGET (ddisp->shell), url, NULL);
+  g_free (url);
+}
+static void
+add_follow_link_menu_item (GtkMenu *menu)
+{
+  GtkWidget *menu_item = gtk_menu_item_new_with_label(_("Follow link…"));
+  g_signal_connect(GTK_OBJECT(menu_item), "activate", G_CALLBACK(_follow_link_callback), NULL);
+  gtk_menu_shell_append (GTK_MENU_SHELL (menu), menu_item);
+  gtk_widget_show(menu_item);
+}
 static void
 create_object_menu(DiaMenu *dia_menu)
 {
@@ -190,6 +229,7 @@ create_object_menu(DiaMenu *dia_menu)
 
   /* Finally add a Properties... menu item for objects*/
   add_properties_menu_item(GTK_MENU (menu), i > 0);
+  add_follow_link_menu_item(GTK_MENU (menu));
 
   dia_menu->app_data = menu;
   dia_menu->app_data_free = dia_menu_free;

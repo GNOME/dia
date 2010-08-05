@@ -699,17 +699,21 @@ help_manual_callback (GtkAction *action)
   g_free(helpindex);
 }
 
-static void 
-activate_url (GtkAboutDialog *about,
-              const gchar    *link,
-	      gpointer        data)
+void 
+activate_url (GtkWidget   *parent,
+              const gchar *link,
+	      gpointer     data)
 {
 #ifdef G_OS_WIN32
   ShellExecuteA (0, "open", link, NULL, NULL, SW_SHOWNORMAL);
 #else
 # if GTK_CHECK_VERSION(2,14,0)
   GdkScreen *screen;
-  screen = gtk_widget_get_screen (GTK_WIDGET(about));
+  
+  if (parent)
+    screen = gtk_widget_get_screen (GTK_WIDGET(parent));
+  else
+    screen = gdk_screen_get_default ();
   gtk_show_uri(screen, link, gtk_get_current_event_time (), NULL);
 # else
   gchar *command = getenv("BROWSER");
@@ -743,7 +747,7 @@ help_about_callback (GtkAction *action)
   gchar *filename = g_build_filename (dirname, "dia-splash.png", NULL);
   GdkPixbuf *logo = gdk_pixbuf_new_from_file(filename, NULL);
 
-  gtk_about_dialog_set_url_hook (activate_url, NULL, NULL);
+  gtk_about_dialog_set_url_hook ((GtkAboutDialogActivateLinkFunc)activate_url, NULL, NULL);
   gtk_show_about_dialog (NULL,
 	"logo", logo,
         "name", "Dia",
@@ -1238,4 +1242,20 @@ objects_align_v_callback (GtkAction *action)
   undo_set_transactionpoint(dia->undo);
 }
 
+/*! Open a file and show it in a new display */
+void
+dia_file_open (const gchar *filename,
+               DiaImportFilter *ifilter)
+{
+  Diagram *diagram;
 
+  if (!ifilter)
+    ifilter = filter_guess_import_filter(filename);
+
+  diagram = diagram_load(filename, ifilter);
+  if (diagram != NULL) {
+    diagram_update_extents(diagram);
+    layer_dialog_set_diagram(diagram);
+    new_display(diagram);
+  }
+}

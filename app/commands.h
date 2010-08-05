@@ -30,6 +30,8 @@ void file_preferences_callback (GtkAction *action);
 void help_manual_callback (GtkAction *action);
 void help_about_callback  (GtkAction *action);
 
+void activate_url (GtkWidget *parent, const gchar *url, gpointer data);
+
 void edit_copy_callback       (GtkAction *action);
 void edit_cut_callback        (GtkAction *action);
 void edit_paste_callback      (GtkAction *action);
@@ -89,5 +91,6 @@ void objects_align_v_callback           (GtkAction *action);
 void dialogs_properties_callback (GtkAction *action);
 void dialogs_layers_callback     (GtkAction *action);
 
+void dia_file_open (const gchar *filename, DiaImportFilter *ifilter);
 
 #endif /* COMMANDS_H */
