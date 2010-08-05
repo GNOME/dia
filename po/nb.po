@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.96.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-05 22:16+0200\n"
+"POT-Creation-Date: 2010-08-05 22:40+0200\n"
 "PO-Revision-Date: 2010-08-05 22:40+0200\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian <i18n-nb@lister.ping.uio.no>\n"
@@ -245,7 +245,9 @@ msgstr "Kunne ikke opprette per-bruker konfigurasjonskatalog for Dia"
 msgid ""
 "Could not create per-user Dia configuration directory. Please make sure that "
 "the environment variable HOME points to an existing directory."
-msgstr "Kunne ikke opprette per-bruker konfigurasjonskatalog for Dia. Vennligst sjekk at miljøvariabelen HOME peker til en eksisterende katalog."
+msgstr ""
+"Kunne ikke opprette per-bruker konfigurasjonskatalog for Dia. Vennligst "
+"sjekk at miljøvariabelen HOME peker til en eksisterende katalog."
 
 #: ../app/app_procs.c:1202
 msgid "Objects and filters internal to Dia"
@@ -986,7 +988,10 @@ msgid ""
 "Foreground & background colors for new objects.  The small black and white "
 "squares reset colors.  The small arrows swap colors.  Double-click to change "
 "colors."
-msgstr "Forgrunns- og bakgrunnsfarger for nye objekter. De små sorte og hvite rutene nullstiller farger. De små pilene bytter farger. Dobbeltklikk for å endre farger."
+msgstr ""
+"Forgrunns- og bakgrunnsfarger for nye objekter. De små sorte og hvite rutene "
+"nullstiller farger. De små pilene bytter farger. Dobbeltklikk for å endre "
+"farger."
 
 #: ../app/interface.c:1507
 msgid ""
@@ -1000,13 +1005,17 @@ msgstr ""
 msgid ""
 "Arrow style at the beginning of new lines.  Click to pick an arrow, or set "
 "arrow parameters with Details…"
-msgstr "Stil for pil på begynnelsen av nye linjer. Klikk for å velge en pil, eller sett parametere for piler under Detaljer …"
+msgstr ""
+"Stil for pil på begynnelsen av nye linjer. Klikk for å velge en pil, eller "
+"sett parametere for piler under Detaljer …"
 
 #: ../app/interface.c:1555
 msgid ""
 "Line style for new lines.  Click to pick a line style, or set line style "
 "parameters with Details…"
-msgstr "Stil for nye linjer. Klikk for å velge en linjestil eller sett parametere for linjestil med Detaljer …"
+msgstr ""
+"Stil for nye linjer. Klikk for å velge en linjestil eller sett parametere "
+"for linjestil med Detaljer …"
 
 #: ../app/interface.c:1571
 #, fuzzy
@@ -6566,7 +6575,9 @@ msgstr "Ser ikke ut som en Fig-fil: %s\n"
 #: ../plug-ins/xfig/xfig-import.c:1283
 #, c-format
 msgid "This is a Fig version %d.%d file. It may not be importable.\n"
-msgstr "Dette er en fil i Fig-versjon %d.%d. Det er ikke sikkert at den kan importeres.\n"
+msgstr ""
+"Dette er en fil i Fig-versjon %d.%d. Det er ikke sikkert at den kan "
+"importeres.\n"
 
 #: ../plug-ins/xfig/xfig-import.c:1331
 msgid "Xfig File Format"
