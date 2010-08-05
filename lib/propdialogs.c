@@ -248,7 +248,14 @@ prop_dialog_add_property(PropDialog *dialog, Property *prop)
   pwa.widget = widget;  
   g_array_append_val(dialog->prop_widgets,pwa);  
 
-  label = gtk_label_new(_(prop->descr->description));
+  /* Don't let gettext translate the empty string (it would give po-info).
+   * Admitted it is a hack the string is empty for meta info, but the
+   * gettext behavior looks suspicious, too.
+   */
+  if (strlen (prop->descr->description) == 0)
+    label = gtk_label_new("");
+  else
+    label = gtk_label_new(_(prop->descr->description));
   gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.5);
 
   prop_dialog_add_widget(dialog, label, widget);
