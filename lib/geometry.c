@@ -520,7 +520,7 @@ yshear_matrix (Matrix m, real shear)
 }
 
 /*  find the determinate for a 3x3 matrix  */
-static real
+G_GNUC_UNUSED static real
 determinate (Matrix m)
 {
   int i;

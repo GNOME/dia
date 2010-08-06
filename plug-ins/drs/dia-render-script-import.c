@@ -33,7 +33,7 @@
 
 #include "dia-render-script.h"
 
-static real
+G_GNUC_UNUSED static real
 _parse_real (xmlNodePtr node, const char *attrib)
 {
   xmlChar *str = xmlGetProp(node, (const xmlChar *)attrib);
@@ -44,7 +44,7 @@ _parse_real (xmlNodePtr node, const char *attrib)
   }
   return val;
 }
-static Point *
+G_GNUC_UNUSED static Point *
 _parse_point (xmlNodePtr node, const char *attrib)
 {
   xmlChar *str = xmlGetProp(node, (const xmlChar *)attrib);
@@ -60,7 +60,7 @@ _parse_point (xmlNodePtr node, const char *attrib)
   }
   return pt;
 }
-static GArray *
+G_GNUC_UNUSED static GArray *
 _parse_points (xmlNodePtr node, const char *attrib)
 {
   xmlChar *str = xmlGetProp(node, (const xmlChar *)attrib);
@@ -85,7 +85,7 @@ _parse_points (xmlNodePtr node, const char *attrib)
   }
   return arr;
 }
-static GArray *
+G_GNUC_UNUSED static GArray *
 _parse_bezpoints (xmlNodePtr node, const char *attrib)
 {
   xmlChar *str = xmlGetProp(node, (const xmlChar *)attrib);
@@ -116,7 +116,7 @@ _parse_bezpoints (xmlNodePtr node, const char *attrib)
   }
   return arr;
 }
-static Color *
+G_GNUC_UNUSED static Color *
 _parse_color (xmlNodePtr node, const char *attrib)
 {
   xmlChar *str = xmlGetProp(node, (const xmlChar *)attrib);

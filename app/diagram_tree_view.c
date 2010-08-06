@@ -360,7 +360,6 @@ _dtv_locate_item (GtkAction *action,
 
     if (gtk_tree_model_get_iter (model, &iter, r->data)) {
       Diagram   *diagram;
-      Layer     *layer;
       DiaObject *object;
 
       gtk_tree_model_get (model, &iter, DIAGRAM_COLUMN, &diagram, -1);

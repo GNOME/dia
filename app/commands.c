@@ -1128,7 +1128,6 @@ void
 dialogs_properties_callback (GtkAction *action)
 {
   Diagram *dia;
-  DiaObject *selected;
 
   dia = ddisplay_active_diagram();
   if (!dia || textedit_mode(ddisplay_active())) return;

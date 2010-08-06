@@ -261,7 +261,7 @@ PyDia_set_Arrow (Property *prop, PyObject *val)
     p->arrow_data = ((PyDiaArrow *)val)->arrow;
     return 0;
   } else if (PyTuple_Check (val)) {
-    int i, len = PyTuple_Size(val);
+    int len = PyTuple_Size(val);
     PyObject *o;
     if (len < 3)
       return -1;

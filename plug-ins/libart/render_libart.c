@@ -83,7 +83,6 @@ DiaRenderer *
 new_libart_renderer(DiaTransform *trans, int interactive)
 {
   DiaLibartRenderer *renderer;
-  GType renderer_type = 0;
 
   renderer = g_object_new(DIA_TYPE_LIBART_RENDERER, NULL);
   renderer->transform = trans;

@@ -379,11 +379,10 @@ umlclass_show_comments_callback(DiaObject *obj, Point *pos, gpointer data)
 }
 
 static ObjectChange *
-umlclass_allow_resizing_callback(DiaObject *obj, Point *pos, gpointer data)
+umlclass_allow_resizing_callback(DiaObject *obj, 
+                                 Point *pos G_GNUC_UNUSED, 
+                                 gpointer data G_GNUC_UNUSED)
 {
-  pos; /* unused */
-  data; /* unused */
-
   return object_toggle_prop(obj, "allow_resizing", !((UMLClass *)obj)->allow_resizing); 
 }
 
@@ -969,7 +968,7 @@ umlclass_draw_operationbox(UMLClass *umlclass, DiaRenderer *renderer, Element *e
     gint i = 0;
     GList *wrapsublist = NULL;
     gchar *part_opstr = NULL;
-    int wrap_pos, last_wrap_pos, ident, wrapping_needed;
+    int wrap_pos, last_wrap_pos, ident;
     int part_opstr_len = 0, part_opstr_need = 0;
 
     StartPoint.x += (umlclass->line_width/2.0 + 0.1);
@@ -1682,7 +1681,6 @@ umlclass_calculate_data(UMLClass *umlclass)
   real   maxwidth = 0.0;
   real   width;
   GList *list;
-  real   min_box_width;
 
   if (!umlclass->destroyed)
   {

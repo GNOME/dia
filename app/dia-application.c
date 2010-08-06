@@ -58,7 +58,7 @@ G_DEFINE_TYPE (DiaApplication, dia_application, G_TYPE_OBJECT);
 static void
 dia_application_class_init (DiaApplicationClass *klass)
 {
-  GObjectClass *object_class = G_OBJECT_CLASS (klass);
+  G_GNUC_UNUSED GObjectClass *object_class = G_OBJECT_CLASS (klass);
   
   _dia_application_signals[DIAGRAM_ADD] =
     g_signal_new ("diagram_add",

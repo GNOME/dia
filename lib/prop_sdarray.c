@@ -244,7 +244,7 @@ darrayprop_set_from_offset(ArrayProperty *prop,
 static void
 darray_prop_edit (GtkWidget *widget, gpointer data)
 {
-  ArrayProperty *prop = data;
+  ArrayProperty *prop G_GNUC_UNUSED = data;
   
 }
 

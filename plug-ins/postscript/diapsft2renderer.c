@@ -342,7 +342,6 @@ draw_string(DiaRenderer *self,
   DiaPsFt2Renderer *renderer = DIA_PS_FT2_RENDERER(self);
   TextLine *text_line = text_line_new(text, renderer->current_font,
 				      renderer->current_height);
-  real width = text_line_get_width(text_line);
   draw_text_line(self, text_line, pos, alignment, color);
   text_line_destroy(text_line);
 }

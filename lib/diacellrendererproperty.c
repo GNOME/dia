@@ -200,7 +200,7 @@ dia_cell_renderer_property_get_size (GtkCellRenderer *cell,
                                       gint            *width,
                                       gint            *height)
 {
-  DiaCellRendererProperty *cellproperty;
+  G_GNUC_UNUSED DiaCellRendererProperty *cellproperty;
   gint                      view_width  = 0;
   gint                      view_height = 0;
   gint                      calc_width;

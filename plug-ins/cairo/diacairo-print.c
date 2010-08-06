@@ -30,7 +30,7 @@ typedef struct _PrintData
   DiaRenderer *renderer;
 } PrintData;
 
-static void
+G_GNUC_UNUSED static void
 count_objs(DiaObject *obj, DiaRenderer *renderer, int active_layer, guint *nobjs)
 {
   (*nobjs)++;

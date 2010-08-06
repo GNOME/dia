@@ -128,7 +128,6 @@ _add_bezier_tests (void)
 int
 main (int argc, char** argv)
 {
-  GList *plugins = NULL;
   int ret;
   
 #if GLIB_CHECK_VERSION(2,16,0)

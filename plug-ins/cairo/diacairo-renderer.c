@@ -576,14 +576,12 @@ _ellipse(DiaRenderer *self,
          gboolean fill)
 {
   DiaCairoRenderer *renderer = DIA_CAIRO_RENDERER (self);
-  double co;
 
   DIAG_NOTE(g_message("%s_ellipse %fx%f center @ %f,%f", 
             fill ? "fill" : "draw", width, height, center->x, center->y));
 
   cairo_set_source_rgba (renderer->cr, color->red, color->green, color->blue, 1.0);
   
-#if 1
   cairo_save (renderer->cr);
   /* don't create a line from the current point to the beginning 
    * of the ellipse */
@@ -593,22 +591,6 @@ _ellipse(DiaRenderer *self,
   cairo_scale (renderer->cr, width / 2., height / 2.);
   cairo_arc (renderer->cr, 0., 0., 1., 0., 2 * G_PI);
   cairo_restore (renderer->cr);
-#else
-  /* FIXME: how to make a perfect ellipse from a bezier ? */
-  co = sqrt(pow(width,2)/4 + pow(height,2)/4);
-
-  cairo_new_path (renderer->cr);
-  cairo_move_to (renderer->cr,
-                 center->x, center->y - height/2);
-  cairo_curve_to (renderer->cr,
-                  center->x + co, center->y - height/2,
-                  center->x + co, center->y + height/2,
-                  center->x, center->y + height/2);
-  cairo_curve_to (renderer->cr,
-                  center->x - co, center->y + height/2,
-                  center->x - co, center->y - height/2,
-                  center->x, center->y - height/2);
-#endif
 
   if (fill)
     cairo_fill (renderer->cr);
