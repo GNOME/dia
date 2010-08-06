@@ -105,6 +105,7 @@ dictprop_load(DictProperty *prop, AttributeNode attr, DataNode data)
       gchar *value = data_string(attribute_first_data (kv));
       if (value)
         g_hash_table_insert (prop->dict, g_strdup((gchar *)key), value);
+      xmlFree (key);
     } else {
       g_warning ("Dictionary key missing");
     }
