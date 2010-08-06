@@ -50,6 +50,7 @@ struct _DiaApplication
   GObject parent;
 };
 
+GType dia_application_get_type (void);
 #define DIA_TYPE_APPLICATION (dia_application_get_type ())
 
 G_DEFINE_TYPE (DiaApplication, dia_application, G_TYPE_OBJECT);
