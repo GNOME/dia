@@ -32,6 +32,12 @@
 #include "element.h"
 #include "message.h"
 
+#ifdef G_OS_WIN32
+/* defined in header */
+#else
+PropNumData width_range = { -G_MAXFLOAT, G_MAXFLOAT, 0.1};
+#endif
+
 /** Update the boundingbox information for this element.
  * @param An object to update bounding box on.
  */

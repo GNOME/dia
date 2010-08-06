@@ -63,7 +63,14 @@ void element_save(Element *elem, ObjectNode obj_node);
 void element_load(Element *elem, ObjectNode obj_node);
 
 /* base property stuff ... */
+#ifdef G_OS_WIN32
+/* see lib/properties.h for the reason */
 static PropNumData width_range = { -G_MAXFLOAT, G_MAXFLOAT, 0.1};
+#else
+/* use extern on Linux/gcc to avoid 
+ * warning: 'width_range' defined but not used */
+extern PropNumData width_range;
+#endif
 
 #define ELEMENT_COMMON_PROPERTIES \
   OBJECT_COMMON_PROPERTIES, \
