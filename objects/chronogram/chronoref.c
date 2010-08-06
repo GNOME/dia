@@ -70,7 +70,7 @@ typedef struct _Chronoref {
   real majgrad_height,mingrad_height;
   real firstmaj,firstmin; /* in time units */
   real firstmaj_x,firstmin_x,majgrad,mingrad; /* in dia graphic units */
-  char spec[10];
+  int  spec;
 } Chronoref;
 
 static real chronoref_distance_from(Chronoref *chronoref, Point *point);
@@ -312,7 +312,7 @@ chronoref_draw(Chronoref *chronoref, DiaRenderer *renderer)
       p3.x = p2.x = p1.x;
     
       renderer_ops->draw_line(renderer,&p1,&p2,&chronoref->color);
-      g_snprintf(time,sizeof(time),chronoref->spec,t);
+      g_snprintf(time,sizeof(time),"%.*f",chronoref->spec,t);
       renderer_ops->draw_string(renderer,time,&p3,ALIGN_CENTER,
 				 &chronoref->font_color);
     }
@@ -348,8 +348,8 @@ chronoref_update_data(Chronoref *chronoref)
     t /= 10;
     i++;
   }
-  g_snprintf(chronoref->spec,sizeof(chronoref->spec),"%%.%df",i);
-  g_snprintf(biglabel,sizeof(biglabel),chronoref->spec,
+  chronoref->spec = i; /* update precision */
+  g_snprintf(biglabel,sizeof(biglabel),"%.*f", chronoref->spec,
 	   MIN(-ABS(chronoref->start_time),-ABS(chronoref->end_time)));
   
   labelwidth = dia_font_string_width(biglabel,chronoref->font,

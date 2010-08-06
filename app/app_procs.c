@@ -865,12 +865,18 @@ app_init (int argc, char **argv)
   g_free(export_format_string);
   
   if (version) {
+    gchar *ver_utf8;
+    gchar *ver_locale;
 #if (defined __TIME__) && (defined __DATE__)
     /* TRANSLATOR: 2nd and 3rd %s are time and date respectively. */
-    printf(g_locale_from_utf8(_("Dia version %s, compiled %s %s\n"), -1, NULL, NULL, NULL), VERSION, __TIME__, __DATE__);
+    ver_utf8 = g_strdup_printf(_("Dia version %s, compiled %s %s\n"), VERSION, __TIME__, __DATE__);
 #else
-    printf(g_locale_from_utf8(_("Dia version %s\n"), -1, NULL, NULL, NULL), VERSION);
+    ver_utf8 = g_strdup_printf(_("Dia version %s\n"), VERSION);
 #endif
+    ver_locale = g_locale_from_utf8(ver_utf8, -1, NULL, NULL, NULL);
+    printf("%s\n", ver_locale);
+    g_free(ver_locale);
+    g_free(ver_utf8);
     if (verbose)
       dump_dependencies();
     exit(0);

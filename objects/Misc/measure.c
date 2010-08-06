@@ -218,13 +218,10 @@ measure_update_data (Measure *measure)
   Rectangle bbox;
   Arrow arrow = MEASURE_ARROW(measure);
   real ascent, width;
-  gchar format[] = "%.3g %s";
   
   g_return_if_fail (obj->handles != NULL);
   connection_update_handles(conn);
   
-  format[2] = measure->precision + '0';
-
   extra->start_trans =
   extra->end_trans   =
   extra->start_long  =
@@ -234,7 +231,7 @@ measure_update_data (Measure *measure)
   value = distance_point_point (&ends[0], &ends[1]);
   value *= measure->scale;
   value *= (28.346457 / units[measure->unit].factor);
-  measure->name = g_strdup_printf (format, value, units[measure->unit].unit);
+  measure->name = g_strdup_printf ("%.*g %s", measure->precision, value, units[measure->unit].unit);
   
   ascent = dia_font_ascent (measure->name, measure->font, measure->font_height);
   width = dia_font_string_width (measure->name, measure->font, measure->font_height);
