@@ -180,7 +180,7 @@ _keyvalue_fill_model (gpointer key,
 
   gtk_tree_store_append (model, &iter, NULL);
   gtk_tree_store_set (model, &iter,
-                      KEY_COLUMN, key,
+                      KEY_COLUMN, name,
 		      VALUE_COLUMN, val,
 		      IS_EDITABLE_COLUMN, TRUE,
 		      -1);
@@ -214,7 +214,7 @@ edited (GtkCellRendererText *cell,
   gtk_tree_path_free (path);
 }
 
-GtkWidget *
+static GtkWidget *
 _create_view (GtkTreeModel *model)
 {
   GtkWidget *widget;
