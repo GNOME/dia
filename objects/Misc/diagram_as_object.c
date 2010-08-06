@@ -21,11 +21,6 @@
 #include <config.h>
 
 #include <time.h>
-#ifdef HAVE_UTIME_H
-#  include <utime.h>
-#else
-#  include <sys/utime.h>
-#endif
 #include <glib.h>
 #ifdef HAVE_UNISTD_H
 #include <unistd.h> /* close */
@@ -229,22 +224,18 @@ _dae_draw(DiagramAsElement *dae, DiaRenderer *renderer)
 static void
 _dae_update_data(DiagramAsElement *dae)
 {
-  struct utimbuf utbuf;
+  struct stat statbuf;
   Element *elem = &dae->element;
   DiaObject *obj = &elem->object;
   static int working = 0;
   
-  if (working > 1)
+  if (working > 2)
     return; /* protect against infinite recursion */
   ++working;
 
   if (   strlen(dae->filename)
-#if GLIB_CHECK_VERSION(2,18,0)
-      && g_utime(dae->filename, &utbuf) == 0
-#else
-      && utime(dae->filename, &utbuf) == 0
-#endif
-      && dae->mtime != utbuf.modtime) {
+      && g_stat(dae->filename, &statbuf) == 0
+      && dae->mtime != statbuf.st_mtime) {
     DiaImportFilter *inf;
 
     if (dae->data)
@@ -255,7 +246,7 @@ _dae_update_data(DiagramAsElement *dae)
     if (inf && inf->import_func(dae->filename, dae->data, inf->user_data)) {
       dae->scale = dae->element.width / (dae->data->extents.right - dae->data->extents.left);
       dae->element.height = (dae->data->extents.bottom - dae->data->extents.top) * dae->scale;
-      dae->mtime = utbuf.modtime;
+      dae->mtime = statbuf.st_mtime;
     }
     /* invalidate possibly cached image */
     if (dae->image) {
