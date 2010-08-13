@@ -1,3 +1,7 @@
+  * object meta info possible since 0.97 finally got an editor
+    (see: Object Properties). Meta info can be used for 
+    "<ObjectMenu>/Follow Link..."
+
   * improved diagram tree (actually all new implementation)
     - nicer look
     - can search for object name by simply typing it
@@ -8,9 +12,25 @@
 
   * new object "Diagram as Element" allows to embbed diagrams
 
+  * more color for SADT/IDEF0 objects
+
+  * PyDia inline API documentation overhaul and easier access to it,
+    see e.g. "<Toolbox>/Help/PyDia HTML Docs"
+
+  * LineCaps and LineJoin switchable for Standard objects
+
+  * more diagrams describing internal behavior
+
+  * allow to render "holes" with some renderers, for details see:
+    https://bugzilla.gnome.org/show_bug.cgi?id=568168
+
+  * Allow to increase the width of 'UML - CLass' to help grid aligning
+
+  * A lot less deprecated function use, still a long way to go for gtk+3
+
   * bugs fixed:
     http://bugzilla.gnome.org/buglist.cgi?product=dia&target_milestone=0.98
-  
+
 dia-0.97.1: 2010-01-24
 
   * updated translations
