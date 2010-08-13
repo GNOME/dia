@@ -325,7 +325,11 @@ ddisplay_focus_in_event(GtkWidget *widget, GdkEventFocus *event, gpointer data)
 
   ddisp = (DDisplay *)data;
 
+#if GTK_CHECK_VERSION(2,21,6)
+  g_assert (event->in == TRUE);
+#else
   GTK_WIDGET_SET_FLAGS(widget, GTK_HAS_FOCUS);
+#endif
 
   gtk_im_context_focus_in(GTK_IM_CONTEXT(ddisp->im_context));
   
@@ -346,7 +350,11 @@ ddisplay_focus_out_event(GtkWidget *widget, GdkEventFocus *event,gpointer data)
 
   ddisp = (DDisplay *)data;
 
+#if GTK_CHECK_VERSION(2,21,6)
+  g_assert (event->in == FALSE);
+#else
   GTK_WIDGET_UNSET_FLAGS (widget, GTK_HAS_FOCUS);
+#endif
 
   gtk_im_context_focus_out(GTK_IM_CONTEXT(ddisp->im_context));
 

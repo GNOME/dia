@@ -259,12 +259,20 @@ create_sheets_shapeselection_dialog (void)
   ok_button = GTK_FILE_SELECTION (sheets_shapeselection_dialog)->ok_button;
   gtk_object_set_data (GTK_OBJECT (sheets_shapeselection_dialog), "ok_button", ok_button);
   gtk_widget_show (ok_button);
+#if GTK_CHECK_VERSION(2,18,0)
+  gtk_widget_set_can_default (GTK_WIDGET (ok_button), TRUE);
+#else
   GTK_WIDGET_SET_FLAGS (ok_button, GTK_CAN_DEFAULT);
+#endif
 
   cancel_button1 = GTK_FILE_SELECTION (sheets_shapeselection_dialog)->cancel_button;
   gtk_object_set_data (GTK_OBJECT (sheets_shapeselection_dialog), "cancel_button1", cancel_button1);
   gtk_widget_show (cancel_button1);
+#if GTK_CHECK_VERSION(2,18,0)
+  gtk_widget_set_can_default (GTK_WIDGET (cancel_button1), TRUE);
+#else
   GTK_WIDGET_SET_FLAGS (cancel_button1, GTK_CAN_DEFAULT);
+#endif
 
   g_signal_connect (GTK_OBJECT (ok_button), "clicked",
                       G_CALLBACK (on_sheets_shapeselection_dialog_button_ok_clicked),

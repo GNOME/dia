@@ -314,7 +314,11 @@ diagram_print_ps(DiagramData *dia, const gchar* original_filename)
   button = gtk_button_new_with_label(_("OK"));
   g_signal_connect(GTK_OBJECT(button), "clicked", 
 		   G_CALLBACK(ok_pressed), &cont);
+#if GTK_CHECK_VERSION(2,18,0)
+  gtk_widget_set_can_default (GTK_WIDGET (button), TRUE);
+#else
   GTK_WIDGET_SET_FLAGS(button, GTK_CAN_DEFAULT);
+#endif
   gtk_box_pack_start(GTK_BOX(box), button, TRUE, TRUE, 0);
   gtk_widget_grab_default(button);
   gtk_widget_show(button);
@@ -322,7 +326,11 @@ diagram_print_ps(DiagramData *dia, const gchar* original_filename)
   button = gtk_button_new_with_label(_("Cancel"));
   g_signal_connect(GTK_OBJECT(button), "clicked", 
 		   G_CALLBACK(gtk_main_quit), NULL);
+#if GTK_CHECK_VERSION(2,18,0)
+  gtk_widget_set_can_default (GTK_WIDGET (button), TRUE);
+#else
   GTK_WIDGET_SET_FLAGS(button, GTK_CAN_DEFAULT);
+#endif
   gtk_box_pack_start(GTK_BOX(box), button, TRUE, TRUE, 0);
   gtk_widget_show(button);
 

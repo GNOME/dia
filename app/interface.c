@@ -413,7 +413,11 @@ create_zoom_widget(DDisplay *ddisp) {
   gtk_widget_show(entry);
 
   button = gtk_button_new();
+#if GTK_CHECK_VERSION(2,18,0)
+  gtk_widget_set_can_focus (GTK_WIDGET (button), FALSE);
+#else
   GTK_WIDGET_UNSET_FLAGS(button, GTK_CAN_FOCUS);
+#endif
   arrow = gtk_arrow_new(GTK_ARROW_DOWN, GTK_SHADOW_OUT);
   gtk_container_add(GTK_CONTAINER(button), arrow);
   gtk_box_pack_start(GTK_BOX(combo), button, TRUE, TRUE, 0);

@@ -155,7 +155,11 @@ ObjectChange *edit_port_declaration_callback (DiaObject *obj,
 
   button = gtk_button_new_from_stock (GTK_STOCK_OK);
   gtk_box_pack_start (GTK_BOX (vbox), button, TRUE, TRUE, 0);
+#if GTK_CHECK_VERSION(2,18,0)
+  gtk_widget_set_can_default (GTK_WIDGET (button), TRUE);
+#else
   GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
+#endif
   gtk_widget_grab_default (button);
   gtk_widget_show (button);
   

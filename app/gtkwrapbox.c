@@ -268,7 +268,11 @@ gtk_wrap_box_class_init (GtkWrapBoxClass *class)
 static void
 gtk_wrap_box_init (GtkWrapBox *wbox)
 {
+#if GTK_CHECK_VERSION(2,18,0)
+  gtk_widget_set_has_window (GTK_WIDGET (wbox), FALSE);
+#else
   GTK_WIDGET_SET_FLAGS (wbox, GTK_NO_WINDOW);
+#endif
 
   wbox->homogeneous = FALSE;
   wbox->hspacing = 0;
@@ -829,7 +833,11 @@ gtk_wrap_box_map (GtkWidget *widget)
   GtkWrapBox *wbox = GTK_WRAP_BOX (widget);
   GtkWrapBoxChild *child;
 
+#if GTK_CHECK_VERSION(2,20,0)
+  gtk_widget_set_mapped (GTK_WIDGET (wbox), TRUE);
+#else
   GTK_WIDGET_SET_FLAGS (wbox, GTK_MAPPED);
+#endif
 
   for (child = wbox->children; child; child = child->next)
 #if GTK_CHECK_VERSION(2,20,0)
@@ -851,7 +859,11 @@ gtk_wrap_box_unmap (GtkWidget *widget)
   GtkWrapBox *wbox = GTK_WRAP_BOX (widget);
   GtkWrapBoxChild *child;
 
+#if GTK_CHECK_VERSION(2,20,0)
+  gtk_widget_set_mapped (GTK_WIDGET (wbox), FALSE);
+#else
   GTK_WIDGET_UNSET_FLAGS (wbox, GTK_MAPPED);
+#endif
 
   for (child = wbox->children; child; child = child->next)
 #if GTK_CHECK_VERSION(2,20,0)

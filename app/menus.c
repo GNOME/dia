@@ -808,6 +808,12 @@ _ui_manager_connect_proxy (GtkUIManager *manager,
 	  gtk_widget_set_tooltip_text (proxy, tooltip);
 	  g_free (tooltip);
 	}
+      else
+	{
+	  const gchar *name = gtk_action_get_name (action);
+
+	  g_print ("Action '%s' missing tooltip\n", name);
+	}
     }
 }
 

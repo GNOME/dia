@@ -116,7 +116,11 @@ dia_arrow_preview_class_init(DiaArrowPreviewClass *class)
 static void
 dia_arrow_preview_init(DiaArrowPreview *arrow)
 {
+#if GTK_CHECK_VERSION(2,18,0)
+  gtk_widget_set_has_window (GTK_WIDGET (arrow), FALSE);
+#else
   GTK_WIDGET_SET_FLAGS (arrow, GTK_NO_WINDOW);
+#endif
 
   GTK_WIDGET (arrow)->requisition.width = 40 + GTK_MISC (arrow)->xpad * 2;
   GTK_WIDGET (arrow)->requisition.height = 20 + GTK_MISC (arrow)->ypad * 2;

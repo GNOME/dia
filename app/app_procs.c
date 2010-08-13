@@ -1107,7 +1107,11 @@ app_exit(void)
   
     button = gtk_button_new_from_stock (GTK_STOCK_CANCEL);
     gtk_dialog_add_action_widget (GTK_DIALOG(dialog), button, GTK_RESPONSE_CANCEL);
+#if GTK_CHECK_VERSION(2,18,0)
+    gtk_widget_set_can_default (GTK_WIDGET (button), TRUE);
+#else
     GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
+#endif
     gtk_dialog_set_default_response (GTK_DIALOG(dialog), GTK_RESPONSE_CANCEL);
 
     button = gtk_button_new_from_stock (GTK_STOCK_QUIT);

@@ -338,7 +338,11 @@ dia_canvas_realize (GtkWidget *widget)
   GdkWindowAttr attributes;
   gint attributes_mask;
 
+#if GTK_CHECK_VERSION(2,20,0)
+  gtk_widget_set_realized (GTK_WIDGET (widget), TRUE);
+#else
   GTK_WIDGET_SET_FLAGS (widget, GTK_REALIZED);
+#endif
 
   attributes.window_type = GDK_WINDOW_CHILD;
   attributes.x = widget->allocation.x;

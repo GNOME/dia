@@ -1280,7 +1280,11 @@ ddisplay_close(DDisplay *ddisp)
   /* button = gtk_button_new_with_label (_("Save and Close")); */
   button = gtk_button_new_from_stock (GTK_STOCK_SAVE);
   gtk_dialog_add_action_widget (GTK_DIALOG(dialog), button, GTK_RESPONSE_YES);
+#if GTK_CHECK_VERSION(2,18,0)
+  gtk_widget_set_can_default (GTK_WIDGET (button), TRUE);
+#else
   GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
+#endif
   gtk_dialog_set_default_response (GTK_DIALOG(dialog), GTK_RESPONSE_YES);
 
   g_signal_connect (G_OBJECT (dialog), "response",
