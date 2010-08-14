@@ -58,7 +58,8 @@ typedef enum{
   DATATYPE_STRING,
   DATATYPE_FONT,
   DATATYPE_BEZPOINT,
-  DATATYPE_DICT
+  DATATYPE_DICT,
+  DATATYPE_PIXBUF
 } DataType;
 
 AttributeNode object_find_attribute(ObjectNode obj_node,
@@ -100,6 +101,9 @@ DataNode data_add_composite(AttributeNode attr,
 
 GHashTable *data_dict (DataNode data);
 void data_add_dict (AttributeNode attr, GHashTable *data);
+
+GdkPixbuf *data_pixbuf (DataNode data);
+void data_add_pixbuf (AttributeNode attr, GdkPixbuf *pixbuf);
 
 #endif /* DIA_XML_H */
 

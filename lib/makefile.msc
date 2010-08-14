@@ -95,6 +95,7 @@ OBJECTS = \
 	prop_dict.obj \
 	prop_geomtypes.obj \
 	prop_inttypes.obj \
+	prop_pixbuf.obj \
 	prop_sdarray.obj \
 	prop_text.obj \
 	prop_widgets.obj \

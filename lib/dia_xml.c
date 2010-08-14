@@ -424,6 +424,8 @@ data_type(DataNode data)
     return DATATYPE_BEZPOINT;
   } else if (strcmp(name, "dict")==0) {
     return DATATYPE_DICT;
+  } else if (strcmp(name, "pixbuf")==0) {
+    return DATATYPE_PIXBUF;
   }
 
   message_error("Unknown type of DataNode");

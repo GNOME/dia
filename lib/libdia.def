@@ -130,11 +130,13 @@ EXPORTS
  data_add_color
  data_add_composite
  data_add_enum
+ data_add_dict
  data_add_filename
  data_add_font
  data_add_int
  data_add_layer
  data_add_layer_at
+ data_add_pixbuf
  data_add_point
  data_add_bezpoint
  data_add_real
@@ -143,6 +145,7 @@ EXPORTS
  data_boolean
  data_color
  data_delete_layer
+ data_dict
  data_emit
  data_enum
  data_filename
@@ -159,6 +162,7 @@ EXPORTS
  data_layer_get_nth
  data_lower_layer
  data_next
+ data_pixbuf
  data_point
  data_bezpoint
  data_raise_layer
