@@ -186,7 +186,6 @@ DiaImage *
 dia_image_new_from_pixbuf (GdkPixbuf *pixbuf)
 {
   DiaImage *dia_img;
-  GdkPixbuf *image;
 
   dia_img = DIA_IMAGE(g_object_new(DIA_TYPE_IMAGE, NULL));
   dia_img->image = g_object_ref (pixbuf);

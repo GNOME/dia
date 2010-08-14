@@ -78,12 +78,12 @@ data_pixbuf (DataNode data)
     guint save = 0;
 #  define BUF_SIZE 4096
     guchar buf[BUF_SIZE];
-    guchar *in = NULL; /* direct access, not involving another xmlStrDup/xmlFree */
+    gchar *in = NULL; /* direct access, not involving another xmlStrDup/xmlFree */
     gssize len = 0;
 
-    if (node->children && xmlStrcmp (node->children->name, "text") == 0) {
-      in = node->children->content;
-      len = strlen (in);
+    if (node->children && xmlStrcmp (node->children->name, (const xmlChar*)"text") == 0) {
+      in = (gchar *)node->children->content;
+      len = strlen ((char *)in);
     }
 
     do {
@@ -100,7 +100,7 @@ data_pixbuf (DataNode data)
     if (gdk_pixbuf_loader_close (loader, error ? NULL : &error)) {
       pixbuf = g_object_ref (gdk_pixbuf_loader_get_pixbuf (loader));
     } else {
-      message_warning ("%s", error->message);
+      message_warning (_("Failed to load image form diagram:\n%s"), error->message);
       g_error_free (error);
     }
 
@@ -131,15 +131,15 @@ _pixbuf_encode (const gchar *buf,
 		gpointer data)
 {
   EncodeData *ed = data;
-  gsize size;
   guint old_len;
   gsize growth = (count / 3 + 1) * 4 + 4 + ((count / 3 + 1) * 4 + 4) / 72 + 1;
-  guchar *out;
+  gchar *out;
 
   old_len = ed->array->len;
   g_byte_array_set_size (ed->array, ed->size + growth);
-  out = &ed->array->data[ed->size];
-  ed->size += g_base64_encode_step (buf, count, TRUE, out, &ed->state, &ed->save);
+  out = (gchar *)&ed->array->data[ed->size];
+  ed->size += g_base64_encode_step ((guchar *)buf, count, TRUE, 
+                                    out, &ed->state, &ed->save);
 
   return TRUE;
 }
@@ -159,13 +159,14 @@ data_add_pixbuf (AttributeNode attr, GdkPixbuf *pixbuf)
     return;
   }
   /* FIXME: is there enough space for the rest? */
-  ed.size += g_base64_encode_close (TRUE, &ed.array->data[ed.size], &ed.state, &ed.save);
+  ed.size += g_base64_encode_close (TRUE, (gchar *)&ed.array->data[ed.size], 
+				    &ed.state, &ed.save);
   /* is the array 0-terminated? */
   if (ed.array->data[ed.size] != 0) {
-    g_byte_array_append (ed.array, "\0", 1);
-    ed.array->data[ed.size] = '\0';
+    g_byte_array_append (ed.array, '\0', 1);
+    ed.array->data[ed.size] = (guint8)'\0';
   }
-  (void)xmlNewChild (comp_attr, NULL, "data", ed.array->data);
+  (void)xmlNewChild (comp_attr, NULL, (const xmlChar *)"data", ed.array->data);
 
   g_byte_array_free (ed.array, TRUE);
 }
