@@ -756,8 +756,10 @@ app_init (int argc, char **argv)
 
   context = g_option_context_new(_("[FILE...]"));
   g_option_context_add_main_entries (context, options, GETTEXT_PACKAGE);
+#ifndef HAVE_GNOME
+  /* avoid to add it a second time */
   g_option_context_add_group (context, gtk_get_option_group (FALSE));
-
+#endif
   if (argv) {
     GError *error = NULL;
 
