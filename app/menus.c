@@ -21,7 +21,6 @@
 #include <config.h>
 #endif
 
-#undef GTK_DISABLE_DEPRECATED /* watch out sheets.h dragging in gnome.h */
 #include <gtk/gtk.h>
 #include <gdk/gdkkeysyms.h>
 #include <string.h>
@@ -39,7 +38,6 @@
 #include "select.h"
 #include "dia_dirs.h"
 #include "object_ops.h"
-#include "sheets.h"
 #include "dia-app-icons.h"
 #include "widgets.h"
 #include "preferences.h"

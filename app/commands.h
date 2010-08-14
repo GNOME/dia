@@ -91,6 +91,9 @@ void objects_align_v_callback           (GtkAction *action);
 void dialogs_properties_callback (GtkAction *action);
 void dialogs_layers_callback     (GtkAction *action);
 
+/* from sheets.c */
+void sheets_dialog_show_callback(GtkAction *action);
+
 void dia_file_open (const gchar *filename, DiaImportFilter *ifilter);
 
 #endif /* COMMANDS_H */

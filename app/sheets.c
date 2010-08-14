@@ -458,7 +458,7 @@ create_pixmap(GtkWidget *dialog, gchar *filename, gboolean arg3)
 /* The menu calls us here, after we've been instantiated */
 
 void
-sheets_dialog_show_callback(gpointer data, guint action, GtkWidget *widget)
+sheets_dialog_show_callback(GtkAction *action)
 {
   GtkWidget *wrapbox;
   GtkWidget *option_menu;
