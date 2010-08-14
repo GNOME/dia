@@ -30,6 +30,7 @@ void dia_image_init(void);
 DiaImage *dia_image_get_broken(void);
 
 DiaImage *dia_image_load(const gchar *filename);
+DiaImage *dia_image_new_from_pixbuf(GdkPixbuf *pixbuf);
 void dia_image_add_ref(DiaImage *image);
 void dia_image_unref(DiaImage *image);
 void dia_image_draw(DiaImage *image, GdkWindow *window, GdkGC *gc,

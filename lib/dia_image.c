@@ -177,6 +177,23 @@ dia_image_load(const gchar *filename)
   return dia_img;
 }
 
+/*!
+ * Create a Dia Image from in memory GdkPixbuf
+ *
+ * It stores only a reference, so drop your own after calling this.
+ */
+DiaImage *
+dia_image_new_from_pixbuf (GdkPixbuf *pixbuf)
+{
+  DiaImage *dia_img;
+  GdkPixbuf *image;
+
+  dia_img = DIA_IMAGE(g_object_new(DIA_TYPE_IMAGE, NULL));
+  dia_img->image = g_object_ref (pixbuf);
+  
+  return dia_img;
+}
+
 /** Reference an image.
  * @param image Image that we want a reference to.
  */
@@ -279,6 +296,8 @@ dia_image_rowstride(const DiaImage *image)
 const GdkPixbuf* 
 dia_image_pixbuf (const DiaImage *image)
 {
+  if (!image)
+    return NULL;
   return image->image;
 }
 

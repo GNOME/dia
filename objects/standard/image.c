@@ -60,6 +60,11 @@ struct _Image {
   
   DiaImage *image;
   gchar *file;
+  
+  gboolean inline_data;
+  /* may contain the images pixbuf pointer */
+  GdkPixbuf *pixbuf;
+
   gboolean draw_border;
   gboolean keep_aspect;
 
@@ -137,6 +142,10 @@ static PropDescription image_props[] = {
   ELEMENT_COMMON_PROPERTIES,
   { "image_file", PROP_TYPE_FILE, PROP_FLAG_VISIBLE,
     N_("Image file"), NULL, NULL},
+  { "inline_data", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE|PROP_FLAG_OPTIONAL,
+    N_("Inline data"), N_("Store image data in diagram"), NULL },
+  { "pixbuf", PROP_TYPE_PIXBUF, PROP_FLAG_OPTIONAL,
+    N_("Pixbuf"), N_("The Pixbuf reference"), NULL },
   { "show_border", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE,
     N_("Draw border"), NULL, NULL},
   { "keep_aspect", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE,
@@ -158,6 +167,8 @@ image_describe_props(Image *image)
 static PropOffset image_offsets[] = {
   ELEMENT_COMMON_PROPERTIES_OFFSETS,
   { "image_file", PROP_TYPE_FILE, offsetof(Image, file) },
+  { "inline_data", PROP_TYPE_BOOL, offsetof(Image, inline_data) },
+  { "pixbuf", PROP_TYPE_PIXBUF, offsetof(Image, pixbuf) },
   { "show_border", PROP_TYPE_BOOL, offsetof(Image, draw_border) },
   { "keep_aspect", PROP_TYPE_BOOL, offsetof(Image, keep_aspect) },
   { PROP_STDNAME_LINE_WIDTH, PROP_STDTYPE_LINE_WIDTH, offsetof(Image, border_width) },
@@ -170,6 +181,8 @@ static PropOffset image_offsets[] = {
 static void
 image_get_props(Image *image, GPtrArray *props)
 {
+  if (image->inline_data)
+    image->pixbuf = dia_image_pixbuf (image->image);
   object_get_props_from_offsets(&image->element.object, image_offsets, props);
 }
 
@@ -179,8 +192,22 @@ image_set_props(Image *image, GPtrArray *props)
   struct stat st;
   time_t mtime = 0;
   char *old_file = image->file ? g_strdup(image->file) : "";
+  GdkPixbuf *old_pixbuf = dia_image_pixbuf (image->image);
 
   object_set_props_from_offsets(&image->element.object, image_offsets, props);
+
+  if (old_pixbuf != image->pixbuf) {
+    if (!image->file || *image->file == '\0') {
+      image->inline_data = TRUE; /* otherwise we'll loose it */
+      if (image->image)
+        g_object_unref (image->image);
+      image->image = dia_image_new_from_pixbuf (image->pixbuf);
+      /* FIXME: reference problem? */
+      image->pixbuf = dia_image_pixbuf (image->image);  
+    } else {
+      message_warning ("FIXME: handle pixbuf change!");
+    }
+  }
 
   /* use old value on error */
   if (!image->file || g_stat (image->file, &st) != 0)
@@ -601,6 +628,18 @@ image_save(Image *image, ObjectNode obj_node, const char *filename)
     }
     
   }
+  /* only save image_data inline if told to do so */
+  if (image->inline_data) {
+    GdkPixbuf *pixbuf;
+    data_add_boolean (new_attribute(obj_node, "inline_data"), image->inline_data);
+
+    /* just to be sure to get the currently visible */
+    pixbuf = dia_image_pixbuf (image->image);
+    if (pixbuf != image->pixbuf)
+      message_warning (_("Inconsistent pixbuf during image save."));
+    if (pixbuf)
+      data_add_pixbuf (new_attribute(obj_node, "pixbuf"), pixbuf);
+  }
 }
 
 static DiaObject *
@@ -739,6 +778,20 @@ image_load(ObjectNode obj_node, int version, const char *filename)
       }
     }
     g_free(diafile_dir);
+  }
+  /* if we don't have an image yet try to recover it from inlined data */
+  if (!image->image) {
+    attr = object_find_attribute(obj_node, "pixbuf");
+    if (attr != NULL) {
+      GdkPixbuf *pixbuf = data_pixbuf (attribute_first_data(attr));
+
+      if (pixbuf) {
+	image->image = dia_image_new_from_pixbuf (pixbuf);
+	image->inline_data = TRUE; /* avoid loosing it */
+	/* FIXME: should we reset the filename? */
+	g_object_unref (pixbuf);
+      }
+    }
   }
 
   /* update mtime */
