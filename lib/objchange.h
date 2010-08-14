@@ -75,4 +75,7 @@ ObjectChange *new_object_state_change(DiaObject *obj,
 				      GetStateFunc get_state,
 				      SetStateFunc set_state );
 
+ObjectChange *change_list_create (void);
+void change_list_add (ObjectChange *change_list, ObjectChange *change);
+
 #endif /* OBJCHANGE_H */

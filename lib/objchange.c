@@ -83,3 +83,75 @@ ObjectChange *new_object_state_change(DiaObject *obj,
   return (ObjectChange *)change;
 }
 
+typedef struct _ObjectChangeList ObjectChangeList;
+struct _ObjectChangeList {
+  ObjectChange object_change;
+  
+  GPtrArray *changes;
+};
+
+static void
+_change_list_apply (ObjectChange *change_list, DiaObject *obj)
+{
+  ObjectChangeList *list = (ObjectChangeList *)change_list;
+  guint i;
+  
+  for (i = 0; i < list->changes->len; ++i) {
+    ObjectChange * change = (ObjectChange *)g_ptr_array_index(list->changes, i);
+    
+    change->apply (change, obj /*?*/);
+  }
+}
+static void
+_change_list_revert (ObjectChange *change_list, DiaObject *obj)
+{
+  ObjectChangeList *list = (ObjectChangeList *)change_list;
+  guint i;
+  
+  for (i = list->changes->len - 1;/* i >= 0 */; --i) {
+    ObjectChange * change = (ObjectChange *)g_ptr_array_index(list->changes, i);
+    
+    change->revert (change, obj /*?*/);
+    if (i == 0)
+      break; /* break here, i>=0 does not work as loop condition (it's always TRUE) */
+  }
+}
+static void
+_change_list_free (ObjectChange *change_list)
+{
+  ObjectChangeList *list = (ObjectChangeList *)change_list;
+  guint i;
+
+  for (i = 0; i < list->changes->len; ++i) {
+    ObjectChange * change = (ObjectChange *)g_ptr_array_index(list->changes, i);
+    
+    if (change->free)
+      change->free (change);
+  }
+  g_ptr_array_free (list->changes, FALSE);
+  /* must not delete the object itself, so no:
+  g_free (change_list);
+   */
+}
+/* An empty list of changes to accumulate many to one change */
+ObjectChange *
+change_list_create (void)
+{
+  ObjectChangeList *list = g_new (ObjectChangeList, 1);
+  
+  list->object_change.apply  = _change_list_apply;
+  list->object_change.revert = _change_list_revert;
+  list->object_change.free   = _change_list_free;
+  
+  list->changes = g_ptr_array_new ();
+  
+  return (ObjectChange *)list;
+}
+
+void
+change_list_add (ObjectChange *change_list, ObjectChange *change)
+{
+  ObjectChangeList *list = (ObjectChangeList *)change_list;
+  
+  g_ptr_array_add (list->changes, change);
+}

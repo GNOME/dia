@@ -992,12 +992,15 @@ text_key_event(Focus *focus,
           if (str && *str == '\r')
             break; /* avoid putting junk into our string */
           return_val = TRUE;
+	  *change = change_list_create();
           for (utf = str; utf && *utf && strlen > 0 ;
 	       utf = g_utf8_next_char (utf), strlen--) {
+	    ObjectChange *step;
             c = g_utf8_get_char (utf);
             
-            *change = text_create_change (text, TYPE_INSERT_CHAR, c,
+            step = text_create_change (text, TYPE_INSERT_CHAR, c,
                                           text->cursor_pos, text->cursor_row);
+	    change_list_add (*change, step);
             text_insert_char (text, c);
           }
         }
