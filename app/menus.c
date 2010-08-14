@@ -806,7 +806,7 @@ _ui_manager_connect_proxy (GtkUIManager *manager,
 	{
 	  const gchar *name = gtk_action_get_name (action);
 
-	  g_print ("Action '%s' missing tooltip\n", name);
+	  dia_log_message ("Action '%s' missing tooltip\n", name);
 	}
     }
 }
