@@ -198,12 +198,17 @@ image_set_props(Image *image, GPtrArray *props)
 
   if (old_pixbuf != image->pixbuf) {
     if (!image->file || *image->file == '\0') {
+      GdkPixbuf *pixbuf = NULL;
       image->inline_data = TRUE; /* otherwise we'll loose it */
+      /* somebody deleting the filename? */
+      if (!image->pixbuf && image->image)
+	pixbuf = g_object_ref ((GdkPixbuf *)dia_image_pixbuf (image->image));
       if (image->image)
         g_object_unref (image->image);
-      image->image = dia_image_new_from_pixbuf (image->pixbuf);
-      /* FIXME: reference problem? */
-      image->pixbuf = dia_image_pixbuf (image->image);  
+      image->image = dia_image_new_from_pixbuf (image->pixbuf ? image->pixbuf : pixbuf);
+      image->pixbuf = dia_image_pixbuf (image->image);
+      if (pixbuf)
+	g_object_unref (pixbuf);
     } else {
       message_warning ("FIXME: handle pixbuf change!");
     }
@@ -410,6 +415,17 @@ image_update_data(Image *image)
   Element *elem = &image->element;
   ElementBBExtras *extra = &elem->extra_spacing;
   DiaObject *obj = &elem->object;
+
+  if (image->keep_aspect && image->image) {
+    /* maybe the image got changes since */
+    real aspect_org = (float)dia_image_width(image->image)
+                    / (float)dia_image_height(image->image);
+    real aspect_now = elem->width / elem->height;
+
+    if (fabs (aspect_now - aspect_org) > 1e-4) {
+      elem->height = elem->width /aspect_org;
+    }
+  }
 
   /* Update connections: */
   image->connections[0].pos = elem->corner;
@@ -635,7 +651,7 @@ image_save(Image *image, ObjectNode obj_node, const char *filename)
 
     /* just to be sure to get the currently visible */
     pixbuf = dia_image_pixbuf (image->image);
-    if (pixbuf != image->pixbuf)
+    if (pixbuf != image->pixbuf && image->pixbuf != NULL)
       message_warning (_("Inconsistent pixbuf during image save."));
     if (pixbuf)
       data_add_pixbuf (new_attribute(obj_node, "pixbuf"), pixbuf);
