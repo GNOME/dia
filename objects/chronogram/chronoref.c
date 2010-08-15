@@ -410,7 +410,7 @@ chronoref_update_data(Chronoref *chronoref)
   point_copy(&p1,&elem->corner); point_copy(&p2,&ur_corner);
   p1.x -= chronoref->mingrad;
   p2.x += chronoref->mingrad; 
-  connpointline_putonaline(chronoref->scale,&p1,&p2);
+  connpointline_putonaline(chronoref->scale,&p1,&p2, DIR_SOUTH);
 }
 
 static DiaObject *

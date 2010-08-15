@@ -302,13 +302,13 @@ vergent_update_data(Vergent *vergent)
 
     /* place the connection point lines */
     connpointline_update(vergent->north);
-    connpointline_putonaline(vergent->north,&p0,&p1);
+    connpointline_putonaline(vergent->north,&p0,&p1,DIR_NORTH);
     vergent->northwest.pos = p0;
     vergent->northwest.directions = DIR_NORTH;
     vergent->northeast.pos = p1;
     vergent->northeast.directions = DIR_NORTH;
     connpointline_update(vergent->south);
-    connpointline_putonaline(vergent->south,&p0,&p1);
+    connpointline_putonaline(vergent->south,&p0,&p1,DIR_SOUTH);
     vergent->southwest.pos = p0;
     vergent->southwest.directions = DIR_SOUTH;
     vergent->southeast.pos = p1;    
@@ -325,14 +325,14 @@ vergent_update_data(Vergent *vergent)
     /* place the connection point lines */
     p0.y = p1.y = p0.y - VERGENT_LINE_WIDTH;
     connpointline_update(vergent->north);
-    connpointline_putonaline(vergent->north,&p0,&p1);
+    connpointline_putonaline(vergent->north,&p0,&p1,DIR_NORTH);
     vergent->northwest.pos = p0;
     vergent->northwest.directions = DIR_NORTH;
     vergent->northeast.pos = p1;
     vergent->northeast.directions = DIR_NORTH;
     p0.y = p1.y = p0.y + 2.0 *VERGENT_LINE_WIDTH;
     connpointline_update(vergent->south);
-    connpointline_putonaline(vergent->south,&p0,&p1);
+    connpointline_putonaline(vergent->south,&p0,&p1,DIR_SOUTH);
     vergent->southwest.pos = p0;
     vergent->southwest.directions = DIR_SOUTH;
     vergent->southeast.pos = p1;

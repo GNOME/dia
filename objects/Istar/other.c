@@ -400,13 +400,13 @@ other_update_data(Other *other, AnchorShape horiz, AnchorShape vert)
   sw.x = nw.x;
 
   connpointline_update(other->north);
-  connpointline_putonaline(other->north,&ne,&nw);
+  connpointline_putonaline(other->north,&ne,&nw,DIR_NORTH);
   connpointline_update(other->west);
-  connpointline_putonaline(other->west,&nw,&sw);
+  connpointline_putonaline(other->west,&nw,&sw,DIR_WEST);
   connpointline_update(other->south);
-  connpointline_putonaline(other->south,&sw,&se);
+  connpointline_putonaline(other->south,&sw,&se,DIR_SOUTH);
   connpointline_update(other->east);
-  connpointline_putonaline(other->east,&se,&ne);
+  connpointline_putonaline(other->east,&se,&ne,DIR_EAST);
 }
 
 static ConnPointLine *

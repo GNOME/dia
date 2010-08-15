@@ -667,6 +667,7 @@ lifeline_update_data(Lifeline *lifeline)
 
   lifeline->connections[6].pos.x = conn->endpoints[0].x;
   lifeline->connections[6].pos.y = conn->endpoints[0].y + lifeline->rbot;
+  lifeline->connections[6].directions = DIR_SOUTH;
 
   lifeline->connections[0].pos = pnw;
   lifeline->connections[1].pos = pne;
@@ -682,13 +683,13 @@ lifeline_update_data(Lifeline *lifeline)
   lifeline->connections[5].directions = DIR_SOUTH|DIR_EAST;
 
   connpointline_update(lifeline->northwest);
-  connpointline_putonaline(lifeline->northwest,&pnw,&pmw);
+  connpointline_putonaline(lifeline->northwest,&pnw,&pmw, DIR_WEST);
   connpointline_update(lifeline->southwest);
-  connpointline_putonaline(lifeline->southwest,&pmw,&psw);
+  connpointline_putonaline(lifeline->southwest,&pmw,&psw, DIR_WEST);
   connpointline_update(lifeline->northeast);
-  connpointline_putonaline(lifeline->northeast,&pne,&pme);
+  connpointline_putonaline(lifeline->northeast,&pne,&pme, DIR_EAST);
   connpointline_update(lifeline->southeast);
-  connpointline_putonaline(lifeline->southeast,&pme,&pse);
+  connpointline_putonaline(lifeline->southeast,&pme,&pse, DIR_EAST);
 }
 
 static DiaObject *

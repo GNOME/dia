@@ -503,13 +503,13 @@ goal_update_data(Goal *goal, AnchorShape horiz, AnchorShape vert)
   sw.x = nw.x;
 
   connpointline_update(goal->north);
-  connpointline_putonaline(goal->north,&ne,&nw);
+  connpointline_putonaline(goal->north,&ne,&nw,DIR_NORTH);
   connpointline_update(goal->west);
-  connpointline_putonaline(goal->west,&nw,&sw);
+  connpointline_putonaline(goal->west,&nw,&sw,DIR_SOUTH);
   connpointline_update(goal->south);
-  connpointline_putonaline(goal->south,&sw,&se);
+  connpointline_putonaline(goal->south,&sw,&se,DIR_SOUTH);
   connpointline_update(goal->east);
-  connpointline_putonaline(goal->east,&se,&ne);
+  connpointline_putonaline(goal->east,&se,&ne,DIR_EAST);
 }
 
 static ConnPointLine *

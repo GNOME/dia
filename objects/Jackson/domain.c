@@ -461,13 +461,13 @@ jackson_box_update_data(Box *box, AnchorShape horiz, AnchorShape vert)
   sw.x = nw.x;
 
   connpointline_update(box->north);
-  connpointline_putonaline(box->north,&ne,&nw);
+  connpointline_putonaline(box->north,&ne,&nw,DIR_NORTH);
   connpointline_update(box->west);
-  connpointline_putonaline(box->west,&nw,&sw);
+  connpointline_putonaline(box->west,&nw,&sw,DIR_WEST);
   connpointline_update(box->south);
-  connpointline_putonaline(box->south,&sw,&se);
+  connpointline_putonaline(box->south,&sw,&se,DIR_SOUTH);
   connpointline_update(box->east);
-  connpointline_putonaline(box->east,&se,&ne);
+  connpointline_putonaline(box->east,&se,&ne,DIR_EAST);
 }
 
 

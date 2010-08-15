@@ -48,7 +48,7 @@ ConnPointLine *connpointline_create(DiaObject *parent,
 				    int num_connections);
 void connpointline_destroy(ConnPointLine *cpl);
 void connpointline_update(ConnPointLine *cpl);
-void connpointline_putonaline(ConnPointLine *cpl,Point *start,Point *end);
+void connpointline_putonaline(ConnPointLine *cpl,Point *start,Point *end, gint dirs);
 int connpointline_can_add_point(ConnPointLine *cpl,
 				Point *clicked);
 int connpointline_can_remove_point(ConnPointLine *cpl,
