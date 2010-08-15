@@ -486,7 +486,7 @@ pgram_update_data(Pgram *pgram, AnchorShape horiz, AnchorShape vert)
   connpoint_update(&pgram->connections[8],
 		   top_left + width + 2.0 * offs,
 		   elem->corner.y + elem->height / 2.0,
-		   DIR_WEST);
+		   DIR_EAST);
   connpoint_update(&pgram->connections[9],
 		   top_left + 3.0 * offs,
 		   elem->corner.y + elem->height * 3.0 / 4.0,

@@ -360,7 +360,7 @@ relationship_update_data(Relationship *relationship)
   connpoint_update(&relationship->connections[0],
 		   elem->corner.x,
 		   elem->corner.y + elem->height / 2.0,
-		   DIR_WEST|DIR_NORTH|DIR_SOUTH);
+		   DIR_WEST);
 
   connpoint_update(&relationship->connections[1],
 		   elem->corner.x + elem->width / 4.0,
@@ -370,7 +370,7 @@ relationship_update_data(Relationship *relationship)
   connpoint_update(&relationship->connections[2],
 		   elem->corner.x + elem->width / 2.0,
 		   elem->corner.y,
-		   DIR_NORTH|DIR_EAST|DIR_WEST);
+		   DIR_NORTH);
   
   connpoint_update(&relationship->connections[3],
 		   elem->corner.x + 3.0 * elem->width / 4.0,
@@ -380,7 +380,7 @@ relationship_update_data(Relationship *relationship)
   connpoint_update(&relationship->connections[4],
 		   elem->corner.x + elem->width,
 		   elem->corner.y + elem->height / 2.0,
-		   DIR_EAST|DIR_NORTH|DIR_SOUTH);
+		   DIR_EAST);
 
   connpoint_update(&relationship->connections[5],
 		   elem->corner.x + 3.0 * elem->width / 4.0,
@@ -390,7 +390,7 @@ relationship_update_data(Relationship *relationship)
   connpoint_update(&relationship->connections[6],
 		   elem->corner.x + elem->width / 2.0,
 		   elem->corner.y + elem->height,
-		   DIR_SOUTH|DIR_EAST|DIR_WEST);
+		   DIR_SOUTH);
 
   connpoint_update(&relationship->connections[7],
 		   elem->corner.x + elem->width / 4.0,

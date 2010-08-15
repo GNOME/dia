@@ -454,13 +454,13 @@ step_update_data(Step *step)
 
   /* Update connections: */
   step->connections[0].pos = step->A;
-  step->connections[0].directions = DIR_EAST|DIR_WEST;
+  step->connections[0].directions = DIR_NORTH;
   step->connections[1].pos = step->D;
-  step->connections[1].directions = DIR_EAST|DIR_WEST;
+  step->connections[1].directions = DIR_SOUTH;
   step->connections[2].pos = step->Z;
   step->connections[2].directions = DIR_EAST;
   step->connections[3].pos = step->H;
-  step->connections[3].directions = DIR_ALL;
+  step->connections[3].directions = DIR_WEST;
 
   /* recalc the bounding box : */
   if ((step->type == STEP_INITIAL) || (step->type == STEP_SUBPCALL)) {
