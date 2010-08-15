@@ -102,6 +102,34 @@ element_update_connections_rectangle(Element *elem,
   cps[8].directions = DIR_ALL;
 }
 
+/**
+ * More elaborate variant to calculate connection point directions
+ *
+ * It works for any number of connection points.
+ * It calculates them based on qudrants, so works best for symmetric elements.
+ */
+void
+element_update_connections_directions (Element         *elem,
+                                       ConnectionPoint *cps)
+{
+  Point center = { elem->corner.x + elem->width / 2, elem->corner.y + elem->height / 2.0 };
+  int i;
+
+  for (i = 0; i < elem->object.num_connections; ++i) {
+    cps[i].directions = DIR_NONE;
+    if (cps[i].pos.x > center.x)
+      cps[i].directions |= DIR_EAST;
+    else if (cps[i].pos.x < center.x)
+      cps[i].directions |= DIR_WEST;
+    if (cps[i].pos.y > center.y)
+      cps[i].directions |= DIR_SOUTH;
+    else if (cps[i].pos.y < center.y)
+      cps[i].directions |= DIR_NORTH;
+    if (cps[i].flags == CP_FLAGS_MAIN)
+      cps[i].directions |= DIR_ALL;
+  }
+}
+
 /** Update the corner and edge handles of an element to reflect its position
  *  and size.
  * @param elem An element to update.

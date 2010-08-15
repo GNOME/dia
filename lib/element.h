@@ -47,7 +47,9 @@ struct _Element {
 
 void element_update_handles(Element *elem);
 void element_update_connections_rectangle(Element *elem,
-					  ConnectionPoint* cps);
+					  ConnectionPoint *cps);
+void element_update_connections_directions (Element *elem,
+                                            ConnectionPoint *cps);
 void element_update_boundingbox(Element *elem);
 void element_init(Element *elem, int num_handles, int num_connections);
 void element_destroy(Element *elem);

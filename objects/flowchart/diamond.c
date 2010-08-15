@@ -466,6 +466,9 @@ diamond_update_data(Diamond *diamond, AnchorShape horiz, AnchorShape vert)
   diamond->connections[16].pos.x = elem->corner.x + 4*dw;
   diamond->connections[16].pos.y = elem->corner.y + 4*dh;
 
+  /* help autorouting */
+  element_update_connections_directions (elem, diamond->connections);
+
   extra->border_trans = diamond->border_width / 2.0;
   element_update_boundingbox(elem);
   
