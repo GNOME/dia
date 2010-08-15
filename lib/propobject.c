@@ -367,5 +367,23 @@ object_prop_by_name(DiaObject *obj, const char *name)
 }
 
 
-
-
+ObjectChange *
+dia_object_set_pixbuf (DiaObject *object,
+		       GdkPixbuf *pixbuf)
+{
+  ObjectChange *change;
+  GPtrArray *props;
+  PixbufProperty *pp;
+  Property *prop = object_prop_by_name_type (object, "pixbuf", PROP_TYPE_PIXBUF);
+  
+  if (!prop)
+    return NULL;
+  pp = (PixbufProperty *)prop;
+  if (pp->pixbuf)
+    g_object_unref (pp->pixbuf);
+  pp->pixbuf = g_object_ref (pixbuf);
+  props = prop_list_from_single (prop);
+  change = object_apply_props (object, props);
+  prop_list_free (props);
+  return change;
+}

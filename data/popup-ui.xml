@@ -34,6 +34,8 @@
 			<menuitem name="EditCopytext" action="EditCopytext" />
 			<menuitem name="EditCuttext" action="EditCuttext" />
 			<menuitem name="EditPastetext" action="EditPastetext" />
+			<separator name="EditSep4" />
+			<menuitem name="EditPasteImage" action="EditPasteImage" />
 			<separator name="EditExtensionStart" />
 		</menu>
 		<menu name="View" action="View">

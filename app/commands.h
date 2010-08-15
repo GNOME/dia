@@ -43,6 +43,8 @@ void edit_paste_text_callback (GtkAction *action);
 void edit_copy_text_callback  (GtkAction *action);
 void edit_cut_text_callback   (GtkAction *action);
 
+void edit_paste_image_callback (GtkAction *action);
+
 void received_selection_handler (GtkWidget *widget, GtkSelectionData *selection,
 				gpointer data);
 void get_selection_handler(GtkWidget *widget, GtkSelectionData *selection,

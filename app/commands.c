@@ -205,9 +205,10 @@ insert_text(DDisplay *ddisp, Focus *focus, const gchar *text)
 
 
 static void
-received_clipboard_handler(GtkClipboard *clipboard, 
-			   const gchar *text,
-			   gpointer data) {
+received_clipboard_text_handler(GtkClipboard *clipboard, 
+			        const gchar *text,
+			        gpointer data)
+{
   DDisplay *ddisp = (DDisplay *)data;
   Focus *focus = get_active_focus((DiagramData *) ddisp->diagram);
   
@@ -221,6 +222,56 @@ received_clipboard_handler(GtkClipboard *clipboard,
   }
 
   insert_text(ddisp, focus, text);
+}
+
+/*
+ * Callback for gtk_clipboard_request_image
+ */
+static void
+received_clipboard_image_handler(GtkClipboard *clipboard, 
+			        GdkPixbuf *pixbuf,
+			        gpointer data)
+{
+  DDisplay *ddisp = (DDisplay *)data;
+  Diagram  *dia = ddisp->diagram;
+  GList *list = dia->data->selected;
+  ObjectChange *change;
+
+  if (!pixbuf) {
+    message_error (_("No image from Clipboard to paste."));
+    return;
+  }
+
+  while (list) {
+    DiaObject *obj = (DiaObject *)list->data;
+
+    /* size before ... */
+    object_add_updates (obj, dia);
+    change = dia_object_set_pixbuf (obj, pixbuf);
+    if (change) {
+      undo_object_change(dia, obj, change);
+      /* ... and after the change */
+      object_add_updates (obj, dia);
+      diagram_modified (dia);
+      diagram_flush (dia);
+      break;
+    }
+  }
+
+  if (!change)
+    message_warning (_("No selected object can take an image."));
+}
+
+void
+edit_paste_image_callback (GtkAction *action)
+{
+  DDisplay *ddisp;
+
+  ddisp = ddisplay_active();
+  if (!ddisp) return;
+
+  gtk_clipboard_request_image (gtk_clipboard_get(GDK_NONE), 
+			       received_clipboard_image_handler, ddisp);
 }
 
 static PropDescription text_prop_singleton_desc[] = {
@@ -326,10 +377,10 @@ edit_paste_callback (GtkAction *action)
   if (textedit_mode(ddisp)) {
 #ifdef G_OS_WIN32
     gtk_clipboard_request_text(gtk_clipboard_get(GDK_NONE), 
-			       received_clipboard_handler, ddisp);
+			       received_clipboard_text_handler, ddisp);
 #else
     gtk_clipboard_request_text(gtk_clipboard_get(GDK_SELECTION_PRIMARY), 
-			       received_clipboard_handler, ddisp);
+			       received_clipboard_text_handler, ddisp);
 #endif
   } else {
     if (!cnp_exist_stored_objects()) {
@@ -546,10 +597,10 @@ edit_paste_text_callback (GtkAction *action)
 
 #ifdef G_OS_WIN32
   gtk_clipboard_request_text(gtk_clipboard_get(GDK_NONE), 
-			     received_clipboard_handler, ddisp);
+			     received_clipboard_text_handler, ddisp);
 #else
   gtk_clipboard_request_text(gtk_clipboard_get(GDK_SELECTION_PRIMARY), 
-			     received_clipboard_handler, ddisp);
+			     received_clipboard_text_handler, ddisp);
 #endif
 }
 

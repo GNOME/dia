@@ -35,6 +35,8 @@
 			<menuitem name="EditCuttext" action="EditCuttext" />
 			<menuitem name="EditPastetext" action="EditPastetext" />
 			<separator name="EditSep4" />
+			<menuitem name="EditPasteImage" action="EditPasteImage" />
+			<separator name="EditSep41" />
 			<menuitem name="DiagramLayers" action="DiagramLayers" />
 			<separator name="EditSep5" />
 			<separator name="EditExtensionStart" />

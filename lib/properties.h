@@ -352,6 +352,11 @@ void prop_list_add_list (GPtrArray *props, const GPtrArray *ptoadd);
 GPtrArray *prop_list_from_descs(const PropDescription *plist, 
                                 PropDescToPropPredicate pred);
 
+/* Swallows the property into a single property list. Can be given NULL. 
+   Don't free yourself the property afterwards; prop_list_free() the list 
+   instead.
+   You regain responsibility for the property if you g_ptr_array_destroy() the
+   list. */
 GPtrArray *prop_list_from_single(Property *prop);
 
 /* Some predicates: */
@@ -369,13 +374,6 @@ gboolean pdtpp_defaults(const PropDescription *pdesc);
 gboolean pdtpp_synthetic(const PropDescription *pdesc);
 gboolean pdtpp_from_object(const PropDescription *pdesc);
 
-
-/* Swallows the property into a single property list. Can be given NULL. 
-   Don't free yourself the property afterwards; prop_list_free() the list 
-   instead.
-   You regain responsibility for the property if you g_ptr_array_destroy() the
-   list. */
-GPtrArray *prop_list_of_single(Property *prop);
 
 /* Create a new property of the required type, with the required name.
    A PropDescription might be created on the fly. The property's value is not 
@@ -439,6 +437,8 @@ ObjectChange *object_apply_props_from_dialog (DiaObject *obj, WIDGET *dialog);
    Serve cold. */
 Property *object_prop_by_name(DiaObject *obj, const char *name);
 Property *object_prop_by_name_type(DiaObject *obj, const char *name, const char *type);
+/* Set the pixbuf property if there is one */
+ObjectChange *dia_object_set_pixbuf (DiaObject *object, GdkPixbuf *pixbuf);
 
 /* standard way to load/save properties of an object */
 void          object_load_props(DiaObject *obj, ObjectNode obj_node);
@@ -449,9 +449,6 @@ void          object_save_props(DiaObject *obj, ObjectNode obj_node);
 void          object_copy_props(DiaObject *dest, const DiaObject *src,
                                 gboolean is_default);
 
-/* Return a reference to objects property with 'name' or NULL */
-Property     *object_get_prop_by_name (DiaObject *obj, const char* name);
- 
 /* ************************************************************* */ 
 
 void stdprops_init(void);
