@@ -389,6 +389,7 @@ EXPORTS
  element_update_boundingbox
  element_update_handles
  element_update_connections_rectangle
+ element_update_connections_directions
 
  ellipse_bbox
 
