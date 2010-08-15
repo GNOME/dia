@@ -324,6 +324,46 @@ _test_move_handle (const DiaObjectType *type)
   if (o2)
     o2->ops->destroy (o2);
 }
+static void
+_test_connectionpoint_consistency (const DiaObjectType *type)
+{
+  Handle *h1 = NULL, *h2 = NULL;
+  Point pos = {0, 0};
+  Point center;
+  DiaObject *o = type->ops->create (&pos, type->default_user_data, &h1, &h2);
+  int i;
+
+  pos = o->position;
+  center.x = (o->bounding_box.right + o->bounding_box.left) / 2;
+  center.y = (o->bounding_box.bottom + o->bounding_box.top) / 2;
+  for (i = 0; i < o->num_connections; ++i) {
+    ConnectionPoint *cp = o->connections[i];
+    if (cp->directions == DIR_ALL)
+      continue; /* may use this as misplaced mainpoint check? */
+    if (   strcmp (type->name, "chronogram - reference") == 0
+        || strcmp (type->name, "SISSI - faraday") == 0
+        || strcmp (type->name, "SISSI - sissi_object") == 0
+        || strcmp (type->name, "SISSI - area") == 0
+        || strcmp (type->name, "SISSI - site") == 0
+        || strcmp (type->name, "SISSI - room") == 0
+        || strcmp (type->name, "") == 0
+        || strcmp (type->name, "GRAFCET - Transition") == 0
+        || strcmp (type->name, "Standard - Polygon") == 0
+        || strcmp (type->name, "GRAFCET - Action") == 0)
+      continue; /* undecided */
+    if (cp->pos.x > center.x)
+      g_assert ((cp->directions & DIR_WEST) == 0);
+    else if (cp->pos.x < center.x)
+      g_assert ((cp->directions & DIR_EAST) == 0);
+    if (cp->pos.y > center.y)
+      g_assert ((cp->directions & DIR_NORTH) == 0);
+    else if (cp->pos.y < center.y)
+      g_assert ((cp->directions & DIR_SOUTH) == 0);
+  }
+  /* finally */
+  o->ops->destroy (o);  
+}
+
 /*
  * A dictionary interface to all registered object(-types)
  */
@@ -356,6 +396,11 @@ _ot_item (gpointer key,
   
   testpath = g_strdup_printf ("%s/%s/%s", base, name, "MoveHandle");
   g_test_add_data_func (testpath, type, _test_move_handle);
+  g_free (testpath);
+
+  
+  testpath = g_strdup_printf ("%s/%s/%s", base, name, "ConnectionPoints");
+  g_test_add_data_func (testpath, type, _test_connectionpoint_consistency);
   g_free (testpath);
 #endif
 
