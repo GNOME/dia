@@ -1241,6 +1241,26 @@ objects_align_v_callback (GtkAction *action)
   undo_set_transactionpoint(dia->undo);
 }
 
+void
+objects_align_connected_callback (GtkAction *action)
+{
+  Diagram *dia;
+  GList *objects;
+
+  dia = ddisplay_active_diagram();
+  if (!dia) return;
+  objects = dia->data->selected;
+
+  object_add_updates_list(objects, dia);
+  object_list_align_connected(objects, dia, 0);
+  diagram_update_connections_selection(dia);
+  object_add_updates_list(objects, dia);
+  diagram_modified(dia);
+  diagram_flush(dia);
+
+  undo_set_transactionpoint(dia->undo);
+}
+
 /*! Open a file and show it in a new display */
 void
 dia_file_open (const gchar *filename,

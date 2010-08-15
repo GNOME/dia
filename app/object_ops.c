@@ -168,7 +168,8 @@ object_list_corner(GList *list)
 }
 
 static int
-object_list_sort_vertical(const void *o1, const void *o2) {
+object_list_sort_vertical(const void *o1, const void *o2)
+{
     DiaObject *obj1 = *(DiaObject **)o1;
     DiaObject *obj2 = *(DiaObject **)o2;
 
@@ -318,7 +319,8 @@ object_list_align_v(GList *objects, Diagram *dia, int align)
 
 
 static int
-object_list_sort_horizontal(const void *o1, const void *o2) {
+object_list_sort_horizontal(const void *o1, const void *o2) 
+{
   DiaObject *obj1 = *(DiaObject **)o1;
   DiaObject *obj2 = *(DiaObject **)o2;
 
@@ -462,6 +464,116 @@ object_list_align_h(GList *objects, Diagram *dia, int align)
   undo_move_objects(dia, orig_pos, dest_pos, g_list_copy(objects)); 
   if (sort_alloc)
     g_list_free(objects);
+}
+
+/*! Align objects at their connected points */
+void
+object_list_align_connected (GList *objects, Diagram *dia, int align)
+{
+  GList *list;
+  GList *connected;
+  Point *orig_pos;
+  Point *dest_pos;
+  DiaObject *obj, *o2;
+  int i, nobjs;
+  GList *to_be_moved = NULL;
+  GList *movelist = NULL;
+  GList *connections = NULL;
+
+  /* find all elements to be moved directly */
+  list = objects;
+  while (list != NULL) {
+    obj = list->data;
+    for (i = 0; i < obj->num_connections; ++i) {
+      ConnectionPoint *cp = obj->connections[i];
+      connected = cp->connected;
+      /* first of all remember the objects connected to anything */
+      if (connected && !g_list_find (to_be_moved, obj))
+        to_be_moved = g_list_append (to_be_moved, obj);
+      /* also list all the connection objects - our todo list */
+      while (connected != NULL) {
+        o2 = connected->data;
+        if (!g_list_find (connections, o2))
+          connections = g_list_append (connections, o2);
+        connected = g_list_next (connected);
+      }
+    }
+    list = g_list_next (list);
+  }
+  dia_log_message ("Moves %d - Connections %d\n", g_list_length (to_be_moved), g_list_length (connections));
+  /* for every connection check:
+   * - "matching" directions of both object connection points (this also gives
+   *    the direction of the move of the second object)
+   * - 
+   * - move every object only once
+   */
+  nobjs = g_list_length (to_be_moved);
+  orig_pos = g_new (Point, nobjs);
+  dest_pos = g_new (Point, nobjs);
+
+  list = connections;
+  while (list != NULL) {
+    DiaObject *con = list->data;
+    Handle *h1 = NULL, *h2 = NULL;
+
+    g_assert (con->num_handles >= 2);
+    for (i = 0; i < con->num_handles; ++i) {
+      if (con->handles[i]->id == HANDLE_MOVE_STARTPOINT)
+        h1 = con->handles[i];
+      else if (con->handles[i]->id == HANDLE_MOVE_ENDPOINT)
+        h2 = con->handles[i];
+    }
+    /* should this be an assert? */
+    if (h1 && h2 && h1->connected_to && h2->connected_to) {
+      ConnectionPoint *cps = h1->connected_to;
+      ConnectionPoint *cpe = h2->connected_to;
+
+      obj = cps->object;
+      o2 = cpe->object;
+      if (g_list_find(to_be_moved, o2) && !g_list_find (movelist, o2)) {
+        Point delta = {0, 0};
+        /* if we haven't moved it yet, check if we want to */
+        if (   (cps->directions == DIR_NORTH && cpe->directions == DIR_SOUTH)
+            || (cps->directions == DIR_SOUTH && cpe->directions == DIR_NORTH)) {
+          /* horizontal move */
+          delta.x = cps->pos.x - cpe->pos.x;
+        } else if (   (cps->directions == DIR_EAST && cpe->directions == DIR_WEST)
+                   || (cps->directions == DIR_WEST && cpe->directions == DIR_EAST)) {
+          /* vertical move */
+          delta.y = cps->pos.y - cpe->pos.y;
+        } else {
+          /* would need more context */
+          char dirs[] = "NESW";
+          int j;
+          for (j = 0; j < 4; ++j) if (cps->directions & (1<<j)) g_print ("%c", dirs[j]);
+          g_print ("(%s) -> ", obj->type->name);
+          for (j = 0; j < 4; ++j) if (cpe->directions & (1<<j)) g_print ("%c", dirs[j]);
+          g_print ("(%s)\n", o2->type->name);
+        }
+        if (delta.x != 0.0 || delta.y != 0) {
+          Point pos = o2->position;
+
+          point_add (&pos, &delta);
+
+          i = g_list_length (movelist);
+          orig_pos[i] = o2->position;
+          dest_pos[i] = pos;
+
+          dia_log_message ("Move '%s' by %g,%g\n", o2->type->name, delta.x, delta.y);
+          o2->ops->move (o2, &pos);
+          diagram_update_connections_object (dia, o2, FALSE);
+          movelist = g_list_append (movelist, o2);
+        }
+      }
+    }
+    
+    list = g_list_next (list);
+  }
+
+  /* eating all the passed in parameters */
+  undo_move_objects (dia, orig_pos, dest_pos, movelist);
+  g_list_free (to_be_moved);
+  g_list_free (connections);
 }
 
 /** Move the list in the given direction.

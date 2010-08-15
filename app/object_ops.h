@@ -46,6 +46,7 @@ void object_connect_display(DDisplay *ddisp, DiaObject *obj,
 Point object_list_corner(GList *list);
 void object_list_align_h(GList *objects, Diagram *dia, int align);
 void object_list_align_v(GList *objects, Diagram *dia, int align);
+void object_list_align_connected (GList *objects, Diagram *dia, int align);
 
 typedef enum {
   DIR_UP = 1,

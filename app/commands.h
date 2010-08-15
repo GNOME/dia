@@ -87,6 +87,7 @@ void objects_group_callback             (GtkAction *action);
 void objects_ungroup_callback           (GtkAction *action);
 void objects_align_h_callback           (GtkAction *action);
 void objects_align_v_callback           (GtkAction *action);
+void objects_align_connected_callback   (GtkAction *action);
 
 void dialogs_properties_callback (GtkAction *action);
 void dialogs_layers_callback     (GtkAction *action);

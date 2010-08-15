@@ -104,6 +104,7 @@
 				<menuitem name="ObjectsAlignSpreadoutvertically" action="ObjectsAlignSpreadoutvertically" />
 				<menuitem name="ObjectsAlignAdjacent" action="ObjectsAlignAdjacent" />
 				<menuitem name="ObjectsAlignStacked" action="ObjectsAlignStacked" />
+				<menuitem name="ObjectsAlignConnected" action="ObjectsAlignConnected" />
 			</menu>
 			<separator name="ObjectsSep4" />
 			<menuitem name="ObjectsProperties" action="ObjectsProperties" />
