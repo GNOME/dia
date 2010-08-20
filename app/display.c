@@ -46,6 +46,7 @@
 #include "dia-props.h"
 #include "render_gdk.h"
 #include "diatransform.h"
+#include "recent_files.h"
 
 static GHashTable *display_ht = NULL;
 static GdkCursor *current_cursor = NULL;
@@ -1220,7 +1221,9 @@ are_you_sure_close_dialog_respond(GtkWidget *widget, /* the dialog */
     /* save changes */
     if (!diagram_save(ddisp->diagram, ddisp->diagram->filename))
       close_ddisp = FALSE;
-  
+    else
+      recent_file_history_add(ddisp->diagram->filename);
+
     if (ddisp->update_id && close_ddisp) {
       g_source_remove (ddisp->update_id);
       ddisp->update_id = 0;
