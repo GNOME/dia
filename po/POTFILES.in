@@ -55,6 +55,7 @@ lib/orth_conn.h
 lib/plug-ins.c
 lib/prop_dict.c
 lib/prop_inttypes.c
+lib/prop_pixbuf.c
 lib/prop_text.c
 lib/prop_widgets.c
 lib/propdialogs.c
