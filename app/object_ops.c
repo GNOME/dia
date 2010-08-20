@@ -530,7 +530,8 @@ object_list_align_connected (GList *objects, Diagram *dia, int align)
 
       obj = cps->object;
       o2 = cpe->object;
-      if (g_list_find(to_be_moved, o2) && !g_list_find (movelist, o2)) {
+      if (   !g_list_find (movelist, o2)
+	  && g_list_find(to_be_moved, o2) && g_list_find(to_be_moved, obj)) {
         Point delta = {0, 0};
         /* if we haven't moved it yet, check if we want to */
         if (   (cps->directions == DIR_NORTH && cpe->directions == DIR_SOUTH)
