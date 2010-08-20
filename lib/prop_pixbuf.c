@@ -158,14 +158,12 @@ data_add_pixbuf (AttributeNode attr, GdkPixbuf *pixbuf)
     g_error_free (error);
     return;
   }
-  /* FIXME: is there enough space for the rest? */
+  /* g_base64_encode_close ... [needs] up to 5 bytes if line-breaking is enabled */
+  /* also make the array 0-terminated */
+  g_byte_array_append (ed.array, "\0\0\0\0\0", 6);
   ed.size += g_base64_encode_close (TRUE, (gchar *)&ed.array->data[ed.size], 
 				    &ed.state, &ed.save);
-  /* is the array 0-terminated? */
-  if (ed.array->data[ed.size] != 0) {
-    g_byte_array_append (ed.array, '\0', 1);
-    ed.array->data[ed.size] = (guint8)'\0';
-  }
+
   (void)xmlNewChild (comp_attr, NULL, (const xmlChar *)"data", ed.array->data);
 
   g_byte_array_free (ed.array, TRUE);
