@@ -26,3 +26,6 @@ all :	$(TESTS)
 
 check:	all
 	for %p in ($(TESTS)) do set PATH=..\lib;%PATH% && %p ..\objects\standard\\
+
+test: all
+	for %p in ($(TESTS)) do set PATH=..\lib;%PATH% && %p ..\objects\\
