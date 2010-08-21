@@ -405,6 +405,7 @@ objet_update_data(Objet *ob)
 
       h += ob->attributes->height*ob->attributes->numlines; 
 
+      text_calc_boundingbox(ob->attributes, NULL);
       w = MAX(w, ob->attributes->max_width);
   }
 
