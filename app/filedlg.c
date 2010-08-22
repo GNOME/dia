@@ -282,6 +282,8 @@ file_open_callback(gpointer data, guint action, GtkWidget *widget)
 					  GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
 					  GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
 					  NULL);
+    /* is activating gvfs really that easy - at least it works for samba shares*/
+    gtk_file_chooser_set_local_only (GTK_FILE_CHOOSER(opendlg), FALSE);
     gtk_dialog_set_default_response(GTK_DIALOG(opendlg), GTK_RESPONSE_ACCEPT);
     gtk_window_set_role(GTK_WINDOW(opendlg), "open_diagram");
     if (dia && dia->filename)
@@ -441,6 +443,10 @@ file_save_as_callback(gpointer data, guint action, GtkWidget *widget)
 					  GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
 					  GTK_STOCK_SAVE, GTK_RESPONSE_ACCEPT,
 					  NULL);
+    /* vfs saving is as easy - if you see 'bad file descriptor' there is
+     * something wrong with the permissions of the share ;) */
+    gtk_file_chooser_set_local_only (GTK_FILE_CHOOSER(savedlg), FALSE);
+
     gtk_dialog_set_default_response(GTK_DIALOG(savedlg), GTK_RESPONSE_ACCEPT);
     gtk_window_set_role(GTK_WINDOW(savedlg), "save_diagram");
     /* Need better way to make it a reasonable size.  Isn't there some*/
@@ -705,6 +711,10 @@ file_export_callback(gpointer data, guint action, GtkWidget *widget)
 					    GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
 					    GTK_STOCK_SAVE, GTK_RESPONSE_ACCEPT,
 					    NULL);
+    /* export via vfs gives: Permission denied - but only if you do not
+     * have write permissions ;) */
+    gtk_file_chooser_set_local_only (GTK_FILE_CHOOSER(exportdlg), FALSE);
+
     gtk_dialog_set_default_response(GTK_DIALOG(exportdlg), GTK_RESPONSE_ACCEPT);
     gtk_window_set_role(GTK_WINDOW(exportdlg), "export_diagram");
     g_signal_connect(GTK_OBJECT(exportdlg), "destroy",
