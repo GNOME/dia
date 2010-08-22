@@ -71,7 +71,7 @@
         <dia:point val="2,2"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="2,0.8975;12.2925,2.28"/>
+        <dia:rectangle val="2,0.9;12.52,2.28"/>
       </dia:attribute>
       <dia:attribute name="text">
         <dia:composite type="text">
@@ -104,7 +104,7 @@
         <dia:point val="2,3"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="2,2.475;21.2425,3.84056"/>
+        <dia:rectangle val="2,2.475;21.2675,3.83806"/>
       </dia:attribute>
       <dia:attribute name="text">
         <dia:composite type="text">
@@ -177,7 +177,7 @@ when messing with the std-props implementation.#</dia:string>
         <dia:point val="7,26"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="7,25.475;11.8975,26.8406"/>
+        <dia:rectangle val="7,25.475;11.9075,26.8381"/>
       </dia:attribute>
       <dia:attribute name="text">
         <dia:composite type="text">
@@ -241,7 +241,7 @@ when messing with the std-props implementation.#</dia:string>
         <dia:point val="7,6"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="7,5.475;11.96,7.54611"/>
+        <dia:rectangle val="7,5.475;11.97,7.54361"/>
       </dia:attribute>
       <dia:attribute name="text">
         <dia:composite type="text">
@@ -313,7 +313,7 @@ when messing with the std-props implementation.#</dia:string>
         <dia:point val="7,11"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="7,10.475;11.3075,12.5461"/>
+        <dia:rectangle val="7,10.475;11.3175,12.5436"/>
       </dia:attribute>
       <dia:attribute name="text">
         <dia:composite type="text">
@@ -348,7 +348,7 @@ when messing with the std-props implementation.#</dia:string>
         <dia:point val="2,22"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="2,20.8975;4.5425,22.28"/>
+        <dia:rectangle val="2,20.9;4.635,22.28"/>
       </dia:attribute>
       <dia:attribute name="meta">
         <dia:composite type="dict">
@@ -388,7 +388,7 @@ when messing with the std-props implementation.#</dia:string>
         <dia:point val="7,21"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="7,20.475;11.275,22.5461"/>
+        <dia:rectangle val="7,20.475;11.39,22.5436"/>
       </dia:attribute>
       <dia:attribute name="text">
         <dia:composite type="text">
@@ -471,7 +471,7 @@ when messing with the std-props implementation.#</dia:string>
         <dia:point val="7,16"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="7,15.475;12.465,16.8406"/>
+        <dia:rectangle val="7,15.475;12.495,16.8381"/>
       </dia:attribute>
       <dia:attribute name="text">
         <dia:composite type="text">
@@ -698,7 +698,7 @@ when messing with the std-props implementation.#</dia:string>
         <dia:point val="35,11"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="35,10.475;39.545,12.5461"/>
+        <dia:rectangle val="35,10.475;39.545,12.5436"/>
       </dia:attribute>
       <dia:attribute name="text">
         <dia:composite type="text">
@@ -730,10 +730,10 @@ when messing with the std-props implementation.#</dia:string>
     </dia:object>
     <dia:object type="chronogram - line" version="0" id="O14">
       <dia:attribute name="obj_pos">
-        <dia:point val="30,15"/>
+        <dia:point val="30,20"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="29.46,14.95;33.05,18.15"/>
+        <dia:rectangle val="29.46,19.95;33.05,23.15"/>
       </dia:attribute>
       <dia:attribute name="meta">
         <dia:composite type="dict">
@@ -749,7 +749,7 @@ when messing with the std-props implementation.#</dia:string>
         </dia:composite>
       </dia:attribute>
       <dia:attribute name="elem_corner">
-        <dia:point val="30,15"/>
+        <dia:point val="30,20"/>
       </dia:attribute>
       <dia:attribute name="elem_width">
         <dia:real val="3"/>
@@ -761,7 +761,7 @@ when messing with the std-props implementation.#</dia:string>
         <dia:string>#a#</dia:string>
       </dia:attribute>
       <dia:attribute name="events">
-        <dia:string>#@1.0 (3.0) 3.0 (4.0) #</dia:string>
+        <dia:string>#@1,0 (3,0) 3,0 (4,0) #</dia:string>
       </dia:attribute>
       <dia:attribute name="start_time">
         <dia:real val="0"/>
@@ -802,10 +802,10 @@ when messing with the std-props implementation.#</dia:string>
     </dia:object>
     <dia:object type="Standard - Text" version="1" id="O15">
       <dia:attribute name="obj_pos">
-        <dia:point val="35,16"/>
+        <dia:point val="35,21"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="35,15.475;41.6775,17.5461"/>
+        <dia:rectangle val="35,20.475;41.6775,22.5436"/>
       </dia:attribute>
       <dia:attribute name="text">
         <dia:composite type="text">
@@ -821,7 +821,7 @@ when messing with the std-props implementation.#</dia:string>
             <dia:real val="0.70555555966754013"/>
           </dia:attribute>
           <dia:attribute name="pos">
-            <dia:point val="35,16"/>
+            <dia:point val="35,21"/>
           </dia:attribute>
           <dia:attribute name="color">
             <dia:color val="#000000"/>
@@ -840,7 +840,7 @@ when messing with the std-props implementation.#</dia:string>
         <dia:point val="15,10"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="15,9.34708;19.0447,13.5277"/>
+        <dia:rectangle val="15,9.52685;18.091,13.3793"/>
       </dia:attribute>
       <dia:attribute name="meta">
         <dia:composite type="dict">
@@ -882,7 +882,7 @@ when messing with the std-props implementation.#</dia:string>
         <dia:point val="20,11"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="20,10.475;25.45,11.8406"/>
+        <dia:rectangle val="20,10.475;25.4625,11.8381"/>
       </dia:attribute>
       <dia:attribute name="text">
         <dia:composite type="text">
@@ -913,19 +913,19 @@ when messing with the std-props implementation.#</dia:string>
     </dia:object>
     <dia:object type="Database - Table" version="0" id="O18">
       <dia:attribute name="obj_pos">
-        <dia:point val="30,20"/>
+        <dia:point val="30,25"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="30,20;32.16,22.7"/>
+        <dia:rectangle val="30,25;32.2325,27.7"/>
       </dia:attribute>
       <dia:attribute name="meta">
         <dia:composite type="dict"/>
       </dia:attribute>
       <dia:attribute name="elem_corner">
-        <dia:point val="30,20"/>
+        <dia:point val="30,25"/>
       </dia:attribute>
       <dia:attribute name="elem_width">
-        <dia:real val="2.1600000000000001"/>
+        <dia:real val="2.2324999999999999"/>
       </dia:attribute>
       <dia:attribute name="elem_height">
         <dia:real val="2.7000000000000002"/>
@@ -1029,10 +1029,10 @@ when messing with the std-props implementation.#</dia:string>
     </dia:object>
     <dia:object type="Standard - Text" version="1" id="O19">
       <dia:attribute name="obj_pos">
-        <dia:point val="35,21"/>
+        <dia:point val="35,26"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="35,20.475;41.9325,21.8406"/>
+        <dia:rectangle val="35,25.475;41.9325,26.8381"/>
       </dia:attribute>
       <dia:attribute name="text">
         <dia:composite type="text">
@@ -1047,7 +1047,7 @@ when messing with the std-props implementation.#</dia:string>
             <dia:real val="0.70555555966754013"/>
           </dia:attribute>
           <dia:attribute name="pos">
-            <dia:point val="35,21"/>
+            <dia:point val="35,26"/>
           </dia:attribute>
           <dia:attribute name="color">
             <dia:color val="#000000"/>
@@ -1066,7 +1066,7 @@ when messing with the std-props implementation.#</dia:string>
         <dia:point val="15,15.0106"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="15,15.0106;19,18.2131"/>
+        <dia:rectangle val="15,15.0106;19,18.2457"/>
       </dia:attribute>
       <dia:attribute name="meta">
         <dia:composite type="dict">
@@ -1091,10 +1091,10 @@ when messing with the std-props implementation.#</dia:string>
         <dia:real val="4"/>
       </dia:attribute>
       <dia:attribute name="elem_height">
-        <dia:real val="3.2024613210611483"/>
+        <dia:real val="3.2351416468891081"/>
       </dia:attribute>
       <dia:attribute name="line_width">
-        <dia:real val="1.1754943508222875e-38"/>
+        <dia:real val="1.1754943508222875e-038"/>
       </dia:attribute>
       <dia:attribute name="line_colour">
         <dia:color val="#000000"/>
@@ -1114,7 +1114,7 @@ when messing with the std-props implementation.#</dia:string>
         <dia:point val="20,16"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="20,15.475;24.2375,16.8406"/>
+        <dia:rectangle val="20,15.475;24.2375,16.8381"/>
       </dia:attribute>
       <dia:attribute name="text">
         <dia:composite type="text">
@@ -1145,10 +1145,10 @@ when messing with the std-props implementation.#</dia:string>
     </dia:object>
     <dia:object type="Misc - Diagram" version="0" id="O22">
       <dia:attribute name="obj_pos">
-        <dia:point val="15.2,20.2"/>
+        <dia:point val="15.2,20.5393"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="15.2,20.2;25,26.8518"/>
+        <dia:rectangle val="15.2,20.5393;25,27.1906"/>
       </dia:attribute>
       <dia:attribute name="meta">
         <dia:composite type="dict">
@@ -1167,16 +1167,16 @@ when messing with the std-props implementation.#</dia:string>
         </dia:composite>
       </dia:attribute>
       <dia:attribute name="elem_corner">
-        <dia:point val="15.2,20.2"/>
+        <dia:point val="15.2,20.5393"/>
       </dia:attribute>
       <dia:attribute name="elem_width">
         <dia:real val="9.8000000000000007"/>
       </dia:attribute>
       <dia:attribute name="elem_height">
-        <dia:real val="6.6518285779883923"/>
+        <dia:real val="6.651216127147956"/>
       </dia:attribute>
       <dia:attribute name="line_width">
-        <dia:real val="1.1754943508222875e-38"/>
+        <dia:real val="1.1754943508222875e-038"/>
       </dia:attribute>
       <dia:attribute name="line_colour">
         <dia:color val="#000000"/>
@@ -1196,7 +1196,7 @@ when messing with the std-props implementation.#</dia:string>
         <dia:point val="20,20.9894"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="20,20.4644;24.2375,21.83"/>
+        <dia:rectangle val="20,20.4644;24.2375,21.8275"/>
       </dia:attribute>
       <dia:attribute name="text">
         <dia:composite type="text">
@@ -1212,6 +1212,140 @@ when messing with the std-props implementation.#</dia:string>
           </dia:attribute>
           <dia:attribute name="pos">
             <dia:point val="20,20.9894"/>
+          </dia:attribute>
+          <dia:attribute name="color">
+            <dia:color val="#000000"/>
+          </dia:attribute>
+          <dia:attribute name="alignment">
+            <dia:enum val="0"/>
+          </dia:attribute>
+        </dia:composite>
+      </dia:attribute>
+      <dia:attribute name="valign">
+        <dia:enum val="3"/>
+      </dia:attribute>
+    </dia:object>
+    <dia:object type="UML - Object" version="0" id="O24">
+      <dia:attribute name="obj_pos">
+        <dia:point val="30,15"/>
+      </dia:attribute>
+      <dia:attribute name="obj_bb">
+        <dia:rectangle val="29.95,14.95;33.54,18.5162"/>
+      </dia:attribute>
+      <dia:attribute name="meta">
+        <dia:composite type="dict"/>
+      </dia:attribute>
+      <dia:attribute name="elem_corner">
+        <dia:point val="30,15"/>
+      </dia:attribute>
+      <dia:attribute name="elem_width">
+        <dia:real val="3.4899999999999998"/>
+      </dia:attribute>
+      <dia:attribute name="elem_height">
+        <dia:real val="3.4662499999999987"/>
+      </dia:attribute>
+      <dia:attribute name="line_width">
+        <dia:real val="0.10000000000000001"/>
+      </dia:attribute>
+      <dia:attribute name="text_colour">
+        <dia:color val="#000000"/>
+      </dia:attribute>
+      <dia:attribute name="text_font">
+        <dia:font family="sans" style="0" name="Helvetica"/>
+      </dia:attribute>
+      <dia:attribute name="text_height">
+        <dia:real val="0.5"/>
+      </dia:attribute>
+      <dia:attribute name="line_colour">
+        <dia:color val="#000000"/>
+      </dia:attribute>
+      <dia:attribute name="fill_colour">
+        <dia:color val="#aeffae"/>
+      </dia:attribute>
+      <dia:attribute name="text">
+        <dia:composite type="text">
+          <dia:attribute name="string">
+            <dia:string>#Object#</dia:string>
+          </dia:attribute>
+          <dia:attribute name="font">
+            <dia:font family="sans" style="0" name="Helvetica"/>
+          </dia:attribute>
+          <dia:attribute name="height">
+            <dia:real val="0.5"/>
+          </dia:attribute>
+          <dia:attribute name="pos">
+            <dia:point val="31.745,16.3412"/>
+          </dia:attribute>
+          <dia:attribute name="color">
+            <dia:color val="#000000"/>
+          </dia:attribute>
+          <dia:attribute name="alignment">
+            <dia:enum val="1"/>
+          </dia:attribute>
+        </dia:composite>
+      </dia:attribute>
+      <dia:attribute name="stereotype">
+        <dia:string>#tab-me#</dia:string>
+      </dia:attribute>
+      <dia:attribute name="exstate">
+        <dia:string>##</dia:string>
+      </dia:attribute>
+      <dia:attribute name="attrib">
+        <dia:composite type="text">
+          <dia:attribute name="string">
+            <dia:string>#Second focus,
+same object ;)#</dia:string>
+          </dia:attribute>
+          <dia:attribute name="font">
+            <dia:font family="sans" style="0" name="Helvetica"/>
+          </dia:attribute>
+          <dia:attribute name="height">
+            <dia:real val="0.5"/>
+          </dia:attribute>
+          <dia:attribute name="pos">
+            <dia:point val="30.3125,17.4662"/>
+          </dia:attribute>
+          <dia:attribute name="color">
+            <dia:color val="#000000"/>
+          </dia:attribute>
+          <dia:attribute name="alignment">
+            <dia:enum val="0"/>
+          </dia:attribute>
+        </dia:composite>
+      </dia:attribute>
+      <dia:attribute name="is_active">
+        <dia:boolean val="false"/>
+      </dia:attribute>
+      <dia:attribute name="show_attribs">
+        <dia:boolean val="true"/>
+      </dia:attribute>
+      <dia:attribute name="multiple">
+        <dia:boolean val="false"/>
+      </dia:attribute>
+    </dia:object>
+    <dia:object type="Standard - Text" version="1" id="O25">
+      <dia:attribute name="obj_pos">
+        <dia:point val="35,16"/>
+      </dia:attribute>
+      <dia:attribute name="obj_bb">
+        <dia:rectangle val="35,15.4586;39.5589,18.282"/>
+      </dia:attribute>
+      <dia:attribute name="text">
+        <dia:composite type="text">
+          <dia:attribute name="string">
+            <dia:string>#UML - Object
+ - multi-line text
+ - double focus
+ - see left#</dia:string>
+          </dia:attribute>
+          <dia:attribute name="font">
+            <dia:font family="sans" style="0" name="Helvetica"/>
+          </dia:attribute>
+          <dia:attribute name="height">
+            <dia:real val="0.70555555966754013"/>
+          </dia:attribute>
+          <dia:attribute name="pos">
+            <dia:point val="35,16"/>
           </dia:attribute>
           <dia:attribute name="color">
             <dia:color val="#000000"/>

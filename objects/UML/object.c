@@ -52,8 +52,8 @@ struct _Objet {
   char *exstate;  /* used for explicit state */
   Text *attributes;
 
+  TextAttributes text_attrs; /* for both text objects */
   real line_width;
-  Color text_color;
   Color line_color;
   Color fill_color;
 
@@ -69,10 +69,10 @@ struct _Objet {
 
 #define OBJET_BORDERWIDTH 0.1
 #define OBJET_ACTIVEBORDERWIDTH 0.2
-#define OBJET_MARGIN_X 0.5
-#define OBJET_MARGIN_Y 0.5
-#define OBJET_MARGIN_M 0.4
-#define OBJET_FONTHEIGHT 0.8
+#define OBJET_MARGIN_X(o) (o->text_attrs.height*(0.5/0.8))
+#define OBJET_MARGIN_Y(o) (o->text_attrs.height*(0.5/0.8))
+#define OBJET_MARGIN_M(o) (o->text_attrs.height*(0.4/0.8))
+#define OBJET_FONTHEIGHT(o)  (o->text_attrs.height)
 
 static real objet_distance_from(Objet *ob, Point *point);
 static void objet_select(Objet *ob, Point *clicked_point,
@@ -146,8 +146,10 @@ static PropDescription objet_props[] = {
   PROP_STD_LINE_WIDTH_OPTIONAL,
   /* can't use PROP_STD_TEXT_COLOUR_OPTIONAL cause it has PROP_FLAG_DONT_SAVE. It is designed to fill the Text object - not some subset */
   PROP_STD_TEXT_COLOUR_OPTIONS(PROP_FLAG_VISIBLE|PROP_FLAG_STANDARD|PROP_FLAG_OPTIONAL),
+  PROP_STD_TEXT_FONT_OPTIONS(PROP_FLAG_VISIBLE|PROP_FLAG_STANDARD|PROP_FLAG_OPTIONAL),
+  PROP_STD_TEXT_HEIGHT_OPTIONS(PROP_FLAG_VISIBLE|PROP_FLAG_STANDARD|PROP_FLAG_OPTIONAL),
   PROP_STD_LINE_COLOUR_OPTIONAL, 
-  PROP_STD_FILL_COLOUR_OPTIONAL, 
+  PROP_STD_FILL_COLOUR_OPTIONAL,
   { "text", PROP_TYPE_TEXT, 0, N_("Text"), NULL, NULL },
   { "stereotype", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
     N_("Stereotype"), NULL, NULL },
@@ -177,7 +179,9 @@ objet_describe_props(Objet *ob)
 static PropOffset objet_offsets[] = {
   ELEMENT_COMMON_PROPERTIES_OFFSETS,
   { PROP_STDNAME_LINE_WIDTH, PROP_STDTYPE_LINE_WIDTH, offsetof(Objet, line_width) },
-  { "text_colour",PROP_TYPE_COLOUR,offsetof(Objet, text_color) },
+  { "text_font",PROP_TYPE_FONT,offsetof(Objet, text_attrs.font) },
+  { PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(Objet, text_attrs.height) },
+  { "text_colour",PROP_TYPE_COLOUR,offsetof(Objet, text_attrs.color) },
   { "line_colour",PROP_TYPE_COLOUR,offsetof(Objet, line_color) },
   { "fill_colour",PROP_TYPE_COLOUR,offsetof(Objet, fill_color) },
   { "name", PROP_TYPE_STRING, offsetof(Objet, exstate) },
@@ -195,6 +199,9 @@ static PropOffset objet_offsets[] = {
 static void
 objet_get_props(Objet * objet, GPtrArray *props)
 {
+  text_get_attributes(objet->text,&objet->text_attrs);
+  /* the aligement is _not_ part of the deal */
+  objet->text_attrs.alignment = ALIGN_CENTER;
   if (objet->attrib) g_free(objet->attrib);
   objet->attrib = text_get_string_copy(objet->attributes);
 
@@ -208,8 +215,13 @@ objet_set_props(Objet *objet, GPtrArray *props)
   object_set_props_from_offsets(&objet->element.object,
                                 objet_offsets,props);
   apply_textstr_properties(props,objet->attributes,"attrib",objet->attrib);
-  /* also update our text object with the new color */
-  text_set_color(objet->text, &objet->text_color);
+  /* also update our text object with the new color (font + height) */
+  /* the aligement is _not_ part of the deal */
+  objet->text_attrs.alignment = ALIGN_CENTER;
+  apply_textattr_properties(props,objet->text,"text",&objet->text_attrs);
+  objet->text_attrs.alignment = ALIGN_LEFT;
+  apply_textattr_properties(props,objet->attributes,"attrib",&objet->text_attrs);
+  objet->text_attrs.alignment = ALIGN_CENTER;
   g_free(objet->st_stereotype);
   objet->st_stereotype = NULL;
   objet_update_data(objet);
@@ -228,6 +240,8 @@ objet_select(Objet *ob, Point *clicked_point,
 {
   text_set_cursor(ob->text, clicked_point, interactive_renderer);
   text_grab_focus(ob->text, &ob->element.object);
+  if (ob->show_attributes) /* second focus: allows to <tab> between them */
+    text_grab_focus(ob->attributes, &ob->element.object);
   element_update_handles(&ob->element);
 }
 
@@ -284,19 +298,19 @@ objet_draw(Objet *ob, DiaRenderer *renderer)
   p2.x = x+w; p2.y = y+h;
 
   if (ob->is_multiple) {
-    p1.x += OBJET_MARGIN_M;
-    p2.y -= OBJET_MARGIN_M;
+    p1.x += OBJET_MARGIN_M(ob);
+    p2.y -= OBJET_MARGIN_M(ob);
     renderer_ops->fill_rect(renderer, 
 			     &p1, &p2,
 			     &ob->fill_color);
     renderer_ops->draw_rect(renderer, 
 			     &p1, &p2,
 			     &ob->line_color);
-    p1.x -= OBJET_MARGIN_M;
-    p1.y += OBJET_MARGIN_M;
-    p2.x -= OBJET_MARGIN_M;
-    p2.y += OBJET_MARGIN_M;
-    y += OBJET_MARGIN_M;
+    p1.x -= OBJET_MARGIN_M(ob);
+    p1.y += OBJET_MARGIN_M(ob);
+    p2.x -= OBJET_MARGIN_M(ob);
+    p2.y += OBJET_MARGIN_M(ob);
+    y += OBJET_MARGIN_M(ob);
   }
     
   renderer_ops->fill_rect(renderer, 
@@ -315,14 +329,14 @@ objet_draw(Objet *ob, DiaRenderer *renderer)
       renderer_ops->draw_string(renderer,
 				 ob->st_stereotype,
 				 &ob->st_pos, ALIGN_CENTER,
-				 &ob->text_color);
+				 &ob->text_attrs.color);
   }
 
   if ((ob->exstate != NULL) && (ob->exstate[0] != '\0')) {
       renderer_ops->draw_string(renderer,
 				 ob->exstate,
 				 &ob->ex_pos, ALIGN_CENTER,
-				 &ob->text_color);
+				 &ob->text_attrs.color);
   }
 
   /* Is there a better way to underline? */
@@ -338,13 +352,13 @@ objet_draw(Objet *ob, DiaRenderer *renderer)
     p2.x = p1.x + text_get_line_width(ob->text, i);
     renderer_ops->draw_line(renderer,
 			     &p1, &p2,
-			     &ob->text_color);
+			     &ob->text_attrs.color);
     p1.y = p2.y += ob->text->height;
   }
 
   if (ob->show_attributes) {
       p1.x = x; p2.x = x + w;
-      p1.y = p2.y = ob->attributes->position.y - ob->attributes->ascent - OBJET_MARGIN_Y;
+      p1.y = p2.y = ob->attributes->position.y - ob->attributes->ascent - OBJET_MARGIN_Y(ob);
       
       renderer_ops->set_linewidth(renderer, bw);
       renderer_ops->draw_line(renderer,
@@ -371,17 +385,17 @@ objet_update_data(Objet *ob)
   }
 
   font = ob->text->font;
-  h = elem->corner.y + OBJET_MARGIN_Y;
+  h = elem->corner.y + OBJET_MARGIN_Y(ob);
 
   if (ob->is_multiple) {
-    h += OBJET_MARGIN_M;
+    h += OBJET_MARGIN_M(ob);
   }
     
   if ((ob->stereotype != NULL) && (ob->stereotype[0] != '\0')) {
-      w = dia_font_string_width(ob->st_stereotype, font, OBJET_FONTHEIGHT);
-      h += OBJET_FONTHEIGHT;
+      w = dia_font_string_width(ob->st_stereotype, font, OBJET_FONTHEIGHT(ob));
+      h += OBJET_FONTHEIGHT(ob);
       ob->st_pos.y = h;
-      h += OBJET_MARGIN_Y/2.0;
+      h += OBJET_MARGIN_Y(ob)/2.0;
   }
 
   w = MAX(w, ob->text->max_width);
@@ -390,16 +404,16 @@ objet_update_data(Objet *ob)
   h += ob->text->height*ob->text->numlines;
 
   if ((ob->exstate != NULL) && (ob->exstate[0] != '\0')) {
-      w = MAX(w, dia_font_string_width(ob->exstate, font, OBJET_FONTHEIGHT));
-      h += OBJET_FONTHEIGHT;
+      w = MAX(w, dia_font_string_width(ob->exstate, font, OBJET_FONTHEIGHT(ob)));
+      h += OBJET_FONTHEIGHT(ob);
       ob->ex_pos.y = h;
   }
   
-  h += OBJET_MARGIN_Y;
+  h += OBJET_MARGIN_Y(ob);
 
   if (ob->show_attributes) {
-      h += OBJET_MARGIN_Y + ob->attributes->ascent;
-      p2.x = elem->corner.x + OBJET_MARGIN_X;
+      h += OBJET_MARGIN_Y(ob) + ob->attributes->ascent;
+      p2.x = elem->corner.x + OBJET_MARGIN_X(ob);
       p2.y = h;      
       text_set_position(ob->attributes, &p2);
 
@@ -409,7 +423,7 @@ objet_update_data(Objet *ob)
       w = MAX(w, ob->attributes->max_width);
   }
 
-  w += 2*OBJET_MARGIN_X; 
+  w += 2*OBJET_MARGIN_X(ob); 
 
   p1.x = elem->corner.x + w/2.0;
   text_set_position(ob->text, &p1);
@@ -418,7 +432,7 @@ objet_update_data(Objet *ob)
 
   
   if (ob->is_multiple) {
-    w += OBJET_MARGIN_M;
+    w += OBJET_MARGIN_M(ob);
   }
     
   elem->width = w;
@@ -455,12 +469,12 @@ objet_create(Point *startpoint,
 
   elem->corner = *startpoint;
 
-  ob->text_color = color_black;
+  ob->text_attrs.color = color_black;
   ob->line_width = attributes_get_default_linewidth();
   ob->line_color = attributes_get_foreground();
   ob->fill_color = attributes_get_background();
 
-  font = dia_font_new_from_style(DIA_FONT_SANS, OBJET_FONTHEIGHT);
+  font = dia_font_new_from_style(DIA_FONT_SANS, 0.8);
   
   ob->show_attributes = FALSE;
   ob->is_active = FALSE;
@@ -476,6 +490,7 @@ objet_create(Point *startpoint,
   ob->attributes = new_text("", font, 0.8, &p, &color_black, ALIGN_LEFT);
   ob->attrib = NULL;
   ob->text = new_text("", font, 0.8, &p, &color_black, ALIGN_CENTER);
+  text_get_attributes(ob->text,&ob->text_attrs);
 
   dia_font_unref(font);
   
