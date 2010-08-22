@@ -31,4 +31,9 @@ typedef enum {
   ALIGN_RIGHT
 } Alignment;
 
+typedef enum {
+  TEXTFIT_NEVER,
+  TEXTFIT_WHEN_NEEDED,
+  TEXTFIT_ALWAYS
+} TextFitting;
 #endif

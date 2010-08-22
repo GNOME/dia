@@ -70,6 +70,8 @@ struct _Diamond {
   Text *text;
   TextAttributes attrs;
   real padding;
+  
+  TextFitting text_fitting;
 };
 
 typedef struct _DiamondProperties {
@@ -154,6 +156,7 @@ static PropDescription diamond_props[] = {
   PROP_STD_TEXT_HEIGHT,
   PROP_STD_TEXT_COLOUR,
   PROP_STD_TEXT_ALIGNMENT,
+  PROP_STD_TEXT_FITTING,
   PROP_STD_SAVED_TEXT,
   
   { NULL, 0, 0, NULL, NULL, NULL, 0}
@@ -181,6 +184,7 @@ static PropOffset diamond_offsets[] = {
   {PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(Diamond,attrs.height)},
   {"text_colour",PROP_TYPE_COLOUR,offsetof(Diamond,attrs.color)},
   {"text_alignment",PROP_TYPE_ENUM,offsetof(Diamond,attrs.alignment)},
+  {PROP_STDNAME_TEXT_FITTING,PROP_TYPE_ENUM,offsetof(Diamond,text_fitting)},
   { NULL, 0, 0 },
 };
 
@@ -388,7 +392,9 @@ diamond_update_data(Diamond *diamond, AnchorShape horiz, AnchorShape vert)
   height = diamond->text->height * diamond->text->numlines +
     2 * diamond->padding + diamond->border_width;
 
-  if (height > (elem->width - width) * elem->height / elem->width) {
+  if (diamond->text_fitting == TEXTFIT_ALWAYS
+      || (   diamond->text_fitting == TEXTFIT_WHEN_NEEDED
+          && height > (elem->width - width) * elem->height / elem->width)) {
     /* increase size of the diamond while keeping its aspect ratio */
     real grad = elem->width/elem->height;
     if (grad < 1.0/4) grad = 1.0/4;
@@ -531,6 +537,9 @@ diamond_create(Point *startpoint,
   text_get_attributes(diamond->text,&diamond->attrs);
   dia_font_unref(font);
   
+  /* new default: let the user decide the size */
+  diamond->text_fitting = TEXTFIT_NEVER;
+
   element_init(elem, 8, NUM_CONNECTIONS);
 
   for (i=0;i<NUM_CONNECTIONS;i++) {
@@ -588,6 +597,10 @@ diamond_save(Diamond *diamond, ObjectNode obj_node, const char *filename)
   data_add_real(new_attribute(obj_node, "padding"), diamond->padding);
   
   data_add_text(new_attribute(obj_node, "text"), diamond->text);
+  
+  if (diamond->text_fitting != TEXTFIT_WHEN_NEEDED)
+    data_add_enum(new_attribute(obj_node, PROP_STDNAME_TEXT_FITTING),
+		  diamond->text_fitting);
 }
 
 static DiaObject *
@@ -649,6 +662,12 @@ diamond_load(ObjectNode obj_node, int version, const char *filename)
     diamond->text = data_text(attribute_first_data(attr));
   else /* paranoid */
     diamond->text = new_text_default(&obj->position, &diamond->border_color, ALIGN_CENTER);
+
+  /* old default: only growth, manual shrink */
+  diamond->text_fitting = TEXTFIT_WHEN_NEEDED;
+  attr = object_find_attribute(obj_node, PROP_STDNAME_TEXT_FITTING);
+  if (attr != NULL)
+    diamond->text_fitting = data_enum(attribute_first_data(attr));
 
   element_init(elem, 8, NUM_CONNECTIONS);
 

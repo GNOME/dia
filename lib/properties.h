@@ -478,6 +478,12 @@ static PropEnumData prop_std_text_align_data[] = {
   { N_("Right"), ALIGN_RIGHT },
   { NULL, 0 }
 };
+static PropEnumData prop_std_text_fitting_data[] = {
+  { N_("Never"), TEXTFIT_NEVER },
+  { N_("When Needed"), TEXTFIT_WHEN_NEEDED },
+  { N_("Always"), TEXTFIT_ALWAYS },
+  { NULL, 0 }
+};
 static PropEnumData prop_std_line_join_data[] = {
   { N_("Miter"), LINEJOIN_MITER },
   { N_("Round"), LINEJOIN_ROUND },
@@ -493,6 +499,7 @@ static PropEnumData prop_std_line_caps_data[] = {
 #else
 extern PropNumData prop_std_line_width_data, prop_std_text_height_data;
 extern PropEnumData prop_std_text_align_data[];
+extern PropEnumData prop_std_text_fitting_data[];
 extern PropEnumData prop_std_line_join_data[];
 extern PropEnumData prop_std_line_caps_data[];
 #endif
@@ -582,6 +589,11 @@ extern PropEnumData prop_std_line_caps_data[];
         PROP_STD_TEXT_COLOUR_OPTIONS(PROP_FLAG_VISIBLE|PROP_FLAG_DONT_SAVE|PROP_FLAG_STANDARD)
 #define PROP_STD_TEXT_COLOUR_OPTIONAL \
         PROP_STD_TEXT_COLOUR_OPTIONS(PROP_FLAG_VISIBLE|PROP_FLAG_DONT_SAVE|PROP_FLAG_STANDARD|PROP_FLAG_OPTIONAL)
+
+#define PROP_STDNAME_TEXT_FITTING "text_fitting"
+#define PROP_STD_TEXT_FITTING \
+  { PROP_STDNAME_TEXT_FITTING, PROP_TYPE_ENUM, PROP_FLAG_VISIBLE|PROP_FLAG_OPTIONAL, \
+    N_("Text fitting"), NULL, prop_std_text_fitting_data }
 
 /* Convenience macros */
 #define PROP_NOTEBOOK_BEGIN(name) \

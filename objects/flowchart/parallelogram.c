@@ -71,6 +71,8 @@ struct _Pgram {
   Text *text;
   TextAttributes attrs;
   real padding;
+
+  TextFitting text_fitting;
 };
 
 typedef struct _PgramProperties {
@@ -158,8 +160,9 @@ static PropDescription pgram_props[] = {
   PROP_STD_TEXT_HEIGHT,
   PROP_STD_TEXT_COLOUR,
   PROP_STD_TEXT_ALIGNMENT,
+  PROP_STD_TEXT_FITTING,
   PROP_STD_SAVED_TEXT,
-  
+
   { NULL, 0, 0, NULL, NULL, NULL, 0}
 };
 
@@ -186,6 +189,7 @@ static PropOffset pgram_offsets[] = {
   {PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(Pgram,attrs.height)},
   {"text_colour",PROP_TYPE_COLOUR,offsetof(Pgram,attrs.color)},
   {"text_alignment",PROP_TYPE_ENUM,offsetof(Pgram,attrs.alignment)},
+  {PROP_STDNAME_TEXT_FITTING,PROP_TYPE_ENUM,offsetof(Pgram,text_fitting)},
   { NULL, 0, 0 },
 };
 
@@ -401,12 +405,17 @@ pgram_update_data(Pgram *pgram, AnchorShape horiz, AnchorShape vert)
   text_calc_boundingbox(pgram->text, NULL);
   height = pgram->text->height * pgram->text->numlines + pgram->padding*2 +
     pgram->border_width;
-  if (height > elem->height) elem->height = height;
+  if (   pgram->text_fitting == TEXTFIT_ALWAYS
+      || (pgram->text_fitting == TEXTFIT_WHEN_NEEDED
+          && height > elem->height))
+    elem->height = height;
 
   avail_width = elem->width - (pgram->padding*2 + pgram->border_width +
     fabs(pgram->shear_grad) * (elem->height + pgram->text->height
 			       * pgram->text->numlines));
-  if (avail_width < pgram->text->max_width) {
+  if (   pgram->text_fitting == TEXTFIT_ALWAYS
+      || (pgram->text_fitting == TEXTFIT_WHEN_NEEDED
+          && avail_width < pgram->text->max_width)) {
     elem->width = (elem->width-avail_width) + pgram->text->max_width;
     avail_width = pgram->text->max_width;
   }
@@ -585,6 +594,9 @@ pgram_create(Point *startpoint,
   text_get_attributes(pgram->text,&pgram->attrs);
   dia_font_unref(font);
   
+  /* new default: let the user decide the size */
+  pgram->text_fitting = TEXTFIT_ALWAYS;
+
   element_init(elem, 8, NUM_CONNECTIONS);
 
   for (i=0;i<NUM_CONNECTIONS;i++) {
@@ -644,6 +656,9 @@ pgram_save(Pgram *pgram, ObjectNode obj_node, const char *filename)
   data_add_real(new_attribute(obj_node, "padding"), pgram->padding);
   
   data_add_text(new_attribute(obj_node, "text"), pgram->text);
+  if (pgram->text_fitting != TEXTFIT_WHEN_NEEDED)
+    data_add_enum(new_attribute(obj_node, PROP_STDNAME_TEXT_FITTING),
+		  pgram->text_fitting);
 }
 
 static DiaObject *
@@ -711,6 +726,12 @@ pgram_load(ObjectNode obj_node, int version, const char *filename)
     pgram->text = data_text(attribute_first_data(attr));
   else /* paranoid */
     pgram->text = new_text_default(&obj->position, &pgram->border_color, ALIGN_CENTER);
+
+  /* old default: only growth, manual shrink */
+  pgram->text_fitting = TEXTFIT_WHEN_NEEDED;
+  attr = object_find_attribute(obj_node, PROP_STDNAME_TEXT_FITTING);
+  if (attr != NULL)
+    pgram->text_fitting = data_enum(attribute_first_data(attr));
 
   element_init(elem, 8, NUM_CONNECTIONS);
 

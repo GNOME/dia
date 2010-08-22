@@ -70,6 +70,8 @@ struct _Ellipse {
   Text *text;
   TextAttributes attrs;
   real padding;
+
+  TextFitting text_fitting;
 };
 
 typedef struct _EllipseProperties {
@@ -153,6 +155,7 @@ static PropDescription ellipse_props[] = {
   PROP_STD_TEXT_HEIGHT,
   PROP_STD_TEXT_COLOUR,
   PROP_STD_TEXT_ALIGNMENT,
+  PROP_STD_TEXT_FITTING,
   PROP_STD_SAVED_TEXT,
   
   { NULL, 0, 0, NULL, NULL, NULL, 0}
@@ -180,6 +183,7 @@ static PropOffset ellipse_offsets[] = {
   {PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(Ellipse,attrs.height)},
   {"text_colour",PROP_TYPE_COLOUR,offsetof(Ellipse,attrs.color)},
   {"text_alignment",PROP_TYPE_ENUM,offsetof(Ellipse,attrs.alignment)},
+  {PROP_STDNAME_TEXT_FITTING,PROP_TYPE_ENUM,offsetof(Ellipse,text_fitting)},
   { NULL, 0, 0 },
 };
 
@@ -396,7 +400,9 @@ ellipse_update_data(Ellipse *ellipse, AnchorShape horiz, AnchorShape vert)
   radius1 = ellipse_radius(ellipse, p.x, p.y) - ellipse->border_width/2;
   radius2 = distance_point_point(&c, &p);
   
-  if (radius1 < radius2) {
+  if (   ellipse->text_fitting == TEXTFIT_ALWAYS
+      || (   ellipse->text_fitting == TEXTFIT_WHEN_NEEDED
+          && radius1 < radius2)) {
     /* increase size of the ellipse while keeping its aspect ratio */
     elem->width  *= radius2 / radius1;
     elem->height *= radius2 / radius1;
@@ -507,6 +513,9 @@ ellipse_create(Point *startpoint,
   text_get_attributes(ellipse->text,&ellipse->attrs);
   dia_font_unref(font);
   
+  /* new default: let the user decide the size */
+  ellipse->text_fitting = TEXTFIT_NEVER;
+
   element_init(elem, 8, NUM_CONNECTIONS);
 
   for (i=0;i<NUM_CONNECTIONS;i++) {
@@ -563,6 +572,10 @@ ellipse_save(Ellipse *ellipse, ObjectNode obj_node, const char *filename)
   data_add_real(new_attribute(obj_node, "padding"), ellipse->padding);
 
   data_add_text(new_attribute(obj_node, "text"), ellipse->text);
+
+  if (ellipse->text_fitting != TEXTFIT_WHEN_NEEDED)
+    data_add_enum(new_attribute(obj_node, PROP_STDNAME_TEXT_FITTING),
+		  ellipse->text_fitting);
 }
 
 static DiaObject *
@@ -624,6 +637,11 @@ ellipse_load(ObjectNode obj_node, int version, const char *filename)
     ellipse->text = data_text(attribute_first_data(attr));
   else
     ellipse->text = new_text_default(&obj->position, &ellipse->border_color, ALIGN_CENTER);
+  /* old default: only growth, manual shrink */
+  ellipse->text_fitting = TEXTFIT_WHEN_NEEDED;
+  attr = object_find_attribute(obj_node, PROP_STDNAME_TEXT_FITTING);
+  if (attr != NULL)
+    ellipse->text_fitting = data_enum(attribute_first_data(attr));
 
   element_init(elem, 8, NUM_CONNECTIONS);
 

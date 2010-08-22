@@ -70,6 +70,8 @@ struct _Box {
   Text *text;
   TextAttributes attrs;
   real padding;
+
+  TextFitting text_fitting;
 };
 
 typedef struct _BoxProperties {
@@ -156,6 +158,7 @@ static PropDescription box_props[] = {
   PROP_STD_TEXT_HEIGHT,
   PROP_STD_TEXT_COLOUR,
   PROP_STD_TEXT_ALIGNMENT,
+  PROP_STD_TEXT_FITTING,
   PROP_STD_SAVED_TEXT,
   
   { NULL, 0, 0, NULL, NULL, NULL, 0}
@@ -184,6 +187,7 @@ static PropOffset box_offsets[] = {
   {PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(Box,attrs.height)},
   {"text_colour",PROP_TYPE_COLOUR,offsetof(Box,attrs.color)},
   {"text_alignment",PROP_TYPE_ENUM,offsetof(Box,attrs.alignment)},
+  {PROP_STDNAME_TEXT_FITTING,PROP_TYPE_ENUM,offsetof(Box,text_fitting)},
   { NULL, 0, 0 },
 };
 
@@ -457,10 +461,16 @@ box_update_data(Box *box, AnchorShape horiz, AnchorShape vert)
    *  If elem->width (e.g. the new requested dimensions of this object
    *  from move_handle()) is smaller than the minimum width (i.e. the
    *  width calculated from text-width, padding and border), then
-   *  set the width to the minimum.  Else, keep the width.
+   *  set the width to the minimum.  Or else;)
    */
-  if (width > elem->width) elem->width = width;
-  if (height > elem->height) elem->height = height;
+  if (box->text_fitting != TEXTFIT_NEVER) {
+    if (   box->text_fitting == TEXTFIT_ALWAYS
+        || width > elem->width)
+      elem->width = width;
+    if (   box->text_fitting == TEXTFIT_ALWAYS
+        || height > elem->height)
+      elem->height = height;
+  }
 
   /* move shape if necessary ... */
   switch (horiz) {
@@ -638,6 +648,9 @@ box_create(Point *startpoint,
   text_get_attributes(box->text,&box->attrs);
   dia_font_unref(font);
   
+  /* new default: let the user decide the size */
+  box->text_fitting = TEXTFIT_ALWAYS;
+
   element_init(elem, 8, NUM_CONNECTIONS);
 
   for (i=0;i<NUM_CONNECTIONS;i++) {
@@ -698,6 +711,10 @@ box_save(Box *box, ObjectNode obj_node, const char *filename)
   data_add_real(new_attribute(obj_node, "padding"), box->padding);
   
   data_add_text(new_attribute(obj_node, "text"), box->text);
+
+  if (box->text_fitting != TEXTFIT_WHEN_NEEDED)
+    data_add_enum(new_attribute(obj_node, PROP_STDNAME_TEXT_FITTING),
+		  box->text_fitting);
 }
 
 static DiaObject *
@@ -764,6 +781,12 @@ box_load(ObjectNode obj_node, int version, const char *filename)
     box->text = data_text(attribute_first_data(attr));
   else /* paranoid */
     box->text = new_text_default(&obj->position, &box->border_color, ALIGN_CENTER);
+
+  /* old default: only growth, manual shrink */
+  box->text_fitting = TEXTFIT_WHEN_NEEDED;
+  attr = object_find_attribute(obj_node, PROP_STDNAME_TEXT_FITTING);
+  if (attr != NULL)
+    box->text_fitting = data_enum(attribute_first_data(attr));
 
   element_init(elem, 8, NUM_CONNECTIONS);
 
