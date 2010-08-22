@@ -84,6 +84,8 @@ Change *undo_parenting(Diagram *dia, DiaObject *parentobj, DiaObject *childobj,
 		       gboolean parent);
 Change *undo_move_object_other_layer(Diagram *diagram, GList *selected_list,
 				     gboolean moving_up);
+/* handle with care, just plain memory copy */
+Change *undo_change_memswap (Diagram *dia, gpointer dest, gsize size);
 
 #endif /* UNDO_H */
 

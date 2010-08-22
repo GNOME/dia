@@ -31,6 +31,7 @@
 #include "display.h"
 #include "widgets.h"
 #include "display.h"
+#include "undo.h"
 
 static GtkWidget *dialog = NULL;
 static GtkWidget *dynamic_check;
@@ -318,6 +319,16 @@ diagram_properties_respond(GtkWidget *widget,
   if (response_id == GTK_RESPONSE_OK ||
       response_id == GTK_RESPONSE_APPLY) {
     if (active_diagram) {
+      /* we do not bother for the actual change, just record the 
+       * whole possible change */
+      undo_change_memswap (active_diagram, 
+        &active_diagram->grid, sizeof(active_diagram->grid));
+      undo_change_memswap (active_diagram, 
+        &active_diagram->data->bg_color, sizeof(active_diagram->data->bg_color));
+      undo_change_memswap (active_diagram, 
+        &active_diagram->pagebreak_color, sizeof(active_diagram->pagebreak_color));
+      undo_set_transactionpoint(active_diagram->undo);
+
       active_diagram->grid.dynamic =
         gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dynamic_check));
       active_diagram->grid.width_x =

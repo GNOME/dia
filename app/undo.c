@@ -1282,3 +1282,53 @@ undo_move_object_other_layer(Diagram *dia, GList *selected_list,
   undo_push_change(dia->undo, change);
   return change;
 }
+
+typedef struct _MemSwapChange {
+  Change change;
+  
+  gsize   size;
+  guint8 *dest;   /* for 'write trough' */
+  guint8  mem[1]; /* real size during alloc */
+} MemSwapChange;
+static void
+_swap_mem(MemSwapChange *change, Diagram *dia)
+{
+  gsize  i;
+
+  for (i = 0; i < change->size; ++i) {
+    guint8 tmp = change->mem[i];
+    change->mem[i] = change->dest[i];
+    change->dest[i] = tmp;
+  }
+  diagram_add_update_all(dia);
+  diagram_flush(dia);
+}
+/*!
+ * \brief Record a memory region for undo (before actually changing it)
+ *
+ * @dia  : the Diagram to record the change for
+ * @dest : a pointer somewhere in the Diagram 
+ * @size : of the region to copy and restore
+ */
+Change *
+undo_change_memswap (Diagram *dia, gpointer dest, gsize size)
+{
+  MemSwapChange *change = (MemSwapChange *)g_malloc (sizeof(MemSwapChange)+size);
+  gsize i;
+  
+  change->change.apply = (UndoApplyFunc)_swap_mem;
+  change->change.revert = (UndoRevertFunc)_swap_mem;
+  /* just calling g_free() on the change is enough */
+  change->change.free = NULL;
+  
+  change->dest = dest;
+  change->size = size;
+  /* initialize for swap */
+  for (i = 0; i < size; ++i)
+    change->mem[i] = change->dest[i];
+
+  DEBUG_PRINTF(("UNDO: Push new memswap_change(%d) at %d\n", size, depth(dia->undo)));
+  undo_push_change(dia->undo, &change->change);
+
+  return &change->change;
+}

@@ -168,6 +168,9 @@ pagesetup_changed(GtkWidget *wid, PageSetup *ps)
 static void
 pagesetup_apply(GtkWidget *wid, PageSetup *ps)
 {
+  undo_change_memswap (ps->dia, &ps->dia->data->paper, sizeof(ps->dia->data->paper));
+  undo_set_transactionpoint(ps->dia->undo);
+
   g_free(ps->dia->data->paper.name);
   ps->dia->data->paper.name =
     g_strdup(dia_page_layout_get_paper(DIA_PAGE_LAYOUT(ps->paper)));
@@ -198,6 +201,7 @@ pagesetup_apply(GtkWidget *wid, PageSetup *ps)
   gtk_dialog_set_response_sensitive(GTK_DIALOG(ps->window), GTK_RESPONSE_APPLY, FALSE);
   ps->changed = FALSE;
 
+  
   /* update diagram -- this is needed to reposition page boundaries */
   diagram_set_modified(ps->dia, TRUE);
   diagram_add_update_all(ps->dia);
