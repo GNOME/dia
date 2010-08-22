@@ -105,6 +105,10 @@ static const gchar *
 xml_file_check_encoding(const gchar *filename, const gchar *default_enc)
 {
   int fd = g_open (filename, O_RDONLY, 0);
+  /* If the next call exits the program (without any message) check if
+   * you are loading an incompatible version of zlib*.dll, e.g. one
+   * built against a newer version of msvcrt*.dll
+   */
   gzFile zf = gzdopen(fd,"rb");  
   gchar *buf;
   gchar *p,*pmax;
