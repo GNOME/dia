@@ -96,6 +96,8 @@ struct _Custom {
   Text *text;
   TextAttributes attrs;
   real padding;
+  
+  TextFitting text_fitting;
 };
 
 typedef struct _CustomProperties {
@@ -235,6 +237,7 @@ static PropDescription custom_props_text[] = {
    */
   { "text", PROP_TYPE_TEXT, PROP_FLAG_OPTIONAL,
     N_("Text"), NULL, NULL },
+  PROP_STD_TEXT_FITTING,
 
   { "flip_horizontal", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE|PROP_FLAG_OPTIONAL,
     N_("Flip horizontal"), NULL, NULL },
@@ -277,11 +280,12 @@ static PropOffset custom_offsets_text[] = {
   {PROP_STDNAME_TEXT_HEIGHT, PROP_STDTYPE_TEXT_HEIGHT,offsetof(Custom,attrs.height)},
   {"text_colour",PROP_TYPE_COLOUR,offsetof(Custom,attrs.color)},
   {"text_alignment",PROP_TYPE_ENUM,offsetof(Custom,attrs.alignment)},
+  {PROP_STDNAME_TEXT_FITTING,PROP_TYPE_ENUM,offsetof(Custom,text_fitting)},
   { NULL, 0, 0 }
 };
 
-
-void custom_setup_properties (ShapeInfo *info, xmlNodePtr node)
+void
+custom_setup_properties (ShapeInfo *info, xmlNodePtr node)
 {
   xmlChar *str;
   xmlNodePtr cur;
@@ -752,10 +756,17 @@ custom_move_handle(Custom *custom, Handle *handle,
 		   HandleMoveReason reason, ModifierKeys modifiers)
 {
   AnchorShape horiz = ANCHOR_MIDDLE, vert = ANCHOR_MIDDLE;
+  Point corner;
+  real width, height;
 
   assert(custom!=NULL);
   assert(handle!=NULL);
   assert(to!=NULL);
+
+  /* remember ... */
+  corner = custom->element.corner;
+  width = custom->element.width;
+  height = custom->element.height;
 
   switch (reason) {
   case HANDLE_MOVE_USER:
@@ -789,6 +800,9 @@ custom_move_handle(Custom *custom, Handle *handle,
     break;
   }
   custom_update_data(custom, horiz, vert);
+
+  if (width != custom->element.width && height != custom->element.height)
+    return element_change_new (&corner, width, height, &custom->element);
 
   return NULL;
 }
@@ -1171,7 +1185,8 @@ custom_update_data(Custom *custom, AnchorShape horiz, AnchorShape vert)
 				   info->shape_bounds.top);
 
   /* resize shape if text does not fit inside text_bounds */
-  if ((info->has_text) && (info->resize_with_text)) {
+  if (   (info->has_text) 
+      && (custom->text_fitting != TEXTFIT_NEVER)) {
     real text_width, text_height;
     real xscale = 0.0, yscale = 0.0;
     Rectangle tb;
@@ -1185,7 +1200,9 @@ custom_update_data(Custom *custom, AnchorShape horiz, AnchorShape vert)
     transform_rect(custom, &info->text_bounds, &tb);
     xscale = text_width / (tb.right - tb.left);
     
-    if (xscale > 1.00000001) {
+    if (   custom->text_fitting == TEXTFIT_ALWAYS
+        || (   custom->text_fitting == TEXTFIT_WHEN_NEEDED
+	    && xscale > 1.00000001)) {
       elem->width  *= xscale;
       custom->xscale *= xscale;
       
@@ -1194,7 +1211,9 @@ custom_update_data(Custom *custom, AnchorShape horiz, AnchorShape vert)
     }
 
     yscale = text_height / (tb.bottom - tb.top);
-    if (yscale > 1.00000001) {
+    if (   custom->text_fitting == TEXTFIT_ALWAYS
+        || (   custom->text_fitting == TEXTFIT_WHEN_NEEDED
+	    && yscale > 1.00000001)) {
       elem->height *= yscale;
       custom->yscale *= yscale;
     }
@@ -1556,6 +1575,9 @@ custom_create(Point *startpoint,
                             info->text_align);
     text_get_attributes(custom->text,&custom->attrs);
     dia_font_unref(font);
+    
+    /* new default: shrink with textbox, too. */
+    custom->text_fitting = (info->resize_with_text ? TEXTFIT_ALWAYS : TEXTFIT_NEVER);
   }
   shape_info_realise(custom->info);
   element_init(elem, 8, info->nconnections);
@@ -1657,6 +1679,8 @@ custom_load_using_properties(ObjectNode obj_node, int version, const char *filen
     custom = (Custom*)obj;
     if (version < 1)
       custom->padding = 0.5 * M_SQRT1_2; /* old pading */
+    /* old default: only grow from text box, no auto-shrink. */
+    custom->text_fitting = (custom->info->resize_with_text ? TEXTFIT_WHEN_NEEDED : TEXTFIT_NEVER);
     object_load_props(obj,obj_node);
   
     custom_update_data(custom, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
