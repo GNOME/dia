@@ -178,7 +178,8 @@ parse_clevent(const gchar *events, real rise, real fall)
 	return clel;
       }
     } else { /* waitfor == LENGTH */
-      dt = strtod(p,(char **)&p1);
+      /* using g_strtod to support loacle and "C" formatted numbers */
+      dt = g_strtod(p,(char **)&p1);
       if (p1 == p) {
 	/* We were ready for a length argument, we got nothing.
 	   Maybe the user entered a zero-length argument ? */
