@@ -263,10 +263,17 @@ box_move_handle(Box *box, Handle *handle,
 		HandleMoveReason reason, ModifierKeys modifiers)
 {
   AnchorShape horiz = ANCHOR_MIDDLE, vert = ANCHOR_MIDDLE;
+  Point corner;
+  real width, height;
 
   assert(box!=NULL);
   assert(handle!=NULL);
   assert(to!=NULL);
+
+  /* remember ... */
+  corner = box->element.corner;
+  width = box->element.width;
+  height = box->element.height;
 
   element_move_handle(&box->element, handle->id, to, cp, reason, modifiers);
 
@@ -291,6 +298,9 @@ box_move_handle(Box *box, Handle *handle,
     break;
   }
   box_update_data(box, horiz, vert);
+
+  if (width != box->element.width && height != box->element.height)
+    return element_change_new (&corner, width, height, &box->element);
 
   return NULL;
 }

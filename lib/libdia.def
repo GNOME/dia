@@ -393,6 +393,7 @@ EXPORTS
  element_update_connections_directions
 
  ellipse_bbox
+ element_change_new
 
  filter_get_by_name
  filter_get_callbacks

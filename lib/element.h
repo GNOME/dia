@@ -64,6 +64,9 @@ void element_move_handle_aspect(Element *elem, HandleId id,
 void element_save(Element *elem, ObjectNode obj_node);
 void element_load(Element *elem, ObjectNode obj_node);
 
+ObjectChange *element_change_new (const Point *corner, 
+				  real width, real height,
+				  Element *elem);
 /* base property stuff ... */
 #ifdef G_OS_WIN32
 /* see lib/properties.h for the reason */

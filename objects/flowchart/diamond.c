@@ -272,10 +272,17 @@ diamond_move_handle(Diamond *diamond, Handle *handle,
 		    HandleMoveReason reason, ModifierKeys modifiers)
 {
   AnchorShape horiz = ANCHOR_MIDDLE, vert = ANCHOR_MIDDLE;
+  Point corner;
+  real width, height;
 
   assert(diamond!=NULL);
   assert(handle!=NULL);
   assert(to!=NULL);
+
+  /* remember ... */
+  corner = diamond->element.corner;
+  width = diamond->element.width;
+  height = diamond->element.height;
 
   element_move_handle(&diamond->element, handle->id, to, cp, 
 		      reason, modifiers);
@@ -301,6 +308,9 @@ diamond_move_handle(Diamond *diamond, Handle *handle,
     break;
   }
   diamond_update_data(diamond, horiz, vert);
+
+  if (width != diamond->element.width && height != diamond->element.height)
+    return element_change_new (&corner, width, height, &diamond->element);
 
   return NULL;
 }
@@ -354,7 +364,6 @@ diamond_draw(Diamond *diamond, DiaRenderer *renderer)
 
   text_draw(diamond->text, renderer);
 }
-
 
 static void
 diamond_update_data(Diamond *diamond, AnchorShape horiz, AnchorShape vert)

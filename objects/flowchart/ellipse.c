@@ -269,10 +269,17 @@ ellipse_move_handle(Ellipse *ellipse, Handle *handle,
 		    HandleMoveReason reason, ModifierKeys modifiers)
 {
   AnchorShape horiz = ANCHOR_MIDDLE, vert = ANCHOR_MIDDLE;
+  Point corner;
+  real width, height;
 
   assert(ellipse!=NULL);
   assert(handle!=NULL);
   assert(to!=NULL);
+
+  /* remember ... */
+  corner = ellipse->element.corner;
+  width = ellipse->element.width;
+  height = ellipse->element.height;
 
   element_move_handle(&ellipse->element, handle->id, to, cp, 
 		      reason, modifiers);
@@ -298,6 +305,9 @@ ellipse_move_handle(Ellipse *ellipse, Handle *handle,
     break;
   }
   ellipse_update_data(ellipse, horiz, vert);
+
+  if (width != ellipse->element.width && height != ellipse->element.height)
+    return element_change_new (&corner, width, height, &ellipse->element);
 
   return NULL;
 }

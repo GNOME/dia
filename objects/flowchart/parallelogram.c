@@ -275,10 +275,17 @@ pgram_move_handle(Pgram *pgram, Handle *handle,
 		  HandleMoveReason reason, ModifierKeys modifiers)
 {
   AnchorShape horiz = ANCHOR_MIDDLE, vert = ANCHOR_MIDDLE;
+  Point corner;
+  real width, height;
 
   assert(pgram!=NULL);
   assert(handle!=NULL);
   assert(to!=NULL);
+
+  /* remember ... */
+  corner = pgram->element.corner;
+  width = pgram->element.width;
+  height = pgram->element.height;
 
   element_move_handle(&pgram->element, handle->id, to, cp, reason, modifiers);
 
@@ -303,6 +310,9 @@ pgram_move_handle(Pgram *pgram, Handle *handle,
     break;
   }
   pgram_update_data(pgram, horiz, vert);
+
+  if (width != pgram->element.width && height != pgram->element.height)
+    return element_change_new (&corner, width, height, &pgram->element);
 
   return NULL;
 }

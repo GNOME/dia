@@ -445,7 +445,8 @@ element_save(Element *elem, ObjectNode obj_node)
 		 elem->height);
 }
 
-void element_load(Element *elem, ObjectNode obj_node)
+void 
+element_load(Element *elem, ObjectNode obj_node)
 {
   AttributeNode attr;
 
@@ -467,4 +468,47 @@ void element_load(Element *elem, ObjectNode obj_node)
   if (attr != NULL)
     elem->height = data_real( attribute_first_data(attr));
 
+}
+
+typedef struct _ElementChange {
+  ObjectChange object_change;
+
+  Element *element;
+  Point    corner;
+  real     width;
+  real     height;
+} ElementChange;
+static void
+_element_change_swap (ObjectChange *self,
+		      DiaObject *obj)
+{
+  ElementChange *ec = (ElementChange *)self;
+  Element *elem = ec->element;
+  Point tmppt;
+  real  tmp;
+
+  g_assert(obj == &(ec->element->object));
+
+  tmppt = ec->corner; ec->corner = elem->object.position; elem->object.position = tmppt;
+  tmp = ec->width; ec->width = elem->width; elem->width = tmp;
+  tmp = ec->height; ec->height = elem->height; elem->height = tmp;
+}
+ObjectChange *
+element_change_new (const Point *corner, 
+		    real width,
+		    real height,
+		    Element *elem)
+{
+  ElementChange *ec = g_new (ElementChange, 1);
+
+  ec->object_change.apply  = _element_change_swap;
+  ec->object_change.revert = _element_change_swap;
+  ec->object_change.free = NULL;
+
+  ec->element = elem;
+  ec->corner = elem->corner;
+  ec->width = elem->width;
+  ec->height = elem->height;
+
+  return &ec->object_change;
 }
