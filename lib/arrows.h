@@ -19,6 +19,7 @@
 #define ARROWS_H
 
 #include "diatypes.h"
+#include "diavar.h"
 #include "geometry.h"
 #include "color.h"
 #include "dia_xml.h"

@@ -29,9 +29,13 @@ stdprop_files = \
 	prop_sdarray.c \
 	prop_sdarray.h \
 	propdialogs.c  \
-	propregistry.c 
+	propregistry.c
 
-pkglib_LTLIBRARIES =     libdia.la
+if OS_WIN32
+lib_LTLIBRARIES = libdia.la
+else
+pkglib_LTLIBRARIES = libdia.la
+endif
 
 ICON_PNG_PAIRS= \
 	dia_broken_icon $(srcdir)/pixmaps/broken.png \
@@ -178,13 +182,17 @@ libdia_la_SOURCES =  \
 #		charconv.c \
 #		charconv.h 
 #		render.h \
-#		render.c 
+#		render.c
 
-libdia_la_LDFLAGS = -avoid-version --export-dynamic
+libdia_la_LDFLAGS = -avoid-version --export-dynamic $(NO_UNDEFINED)
+if OS_WIN32
+libdia_la_LDFLAGS += -export-symbols $(srcdir)/libdia.def
+endif
 libdia_la_LIBADD = $(GTK_LIBS)
 
 AM_CPPFLAGS = \
 	$(LIBART_CFLAGS) \
+	-DLIBDIA_COMPILATION \
 	-DLIBDIR=\"$(libdir)\" \
 	-DDATADIR=\"$(pkgdatadir)\"
 
