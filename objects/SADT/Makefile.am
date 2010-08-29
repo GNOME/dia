@@ -6,9 +6,11 @@ libsadt_objects_la_SOURCES = \
 			sadt.c \
 			arrow.c \
 			box.c \
-			annotation.c 
+			annotation.c
 
-libsadt_objects_la_LDFLAGS = -export-dynamic -module -avoid-version
+libsadt_objects_la_LDFLAGS = -export-dynamic -module -avoid-version $(NO_UNDEFINED)
+
+libsadt_objects_la_LIBADD = $(top_builddir)/lib/libdia.la
 
 INCLUDES = -I$(top_srcdir)/intl -I$(srcdir)/../../lib \
 	$(DEBUG_FLAGS) $(GTK_CFLAGS)

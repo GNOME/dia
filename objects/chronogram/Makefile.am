@@ -10,7 +10,9 @@ libchronogram_objects_la_SOURCES = \
 			chronoline_event.c
 
 
-libchronogram_objects_la_LDFLAGS = -export-dynamic -module -avoid-version
+libchronogram_objects_la_LDFLAGS = -export-dynamic -module -avoid-version $(NO_UNDEFINED)
+
+libchronogram_objects_la_LIBADD = $(top_builddir)/lib/libdia.la
 
 INCLUDES = -I$(top_srcdir)/intl -I$(srcdir)/../../lib \
 	$(DEBUG_FLAGS) $(GTK_CFLAGS) $(GNOME_CFLAGS) $(PANGOFT2_CFLAGS) $(UNICODE_CFLAGS)

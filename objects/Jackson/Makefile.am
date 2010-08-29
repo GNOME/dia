@@ -8,7 +8,9 @@ libjackson_objects_la_SOURCES = \
 			requirement.c \
 			phenomenon.c
 
-libjackson_objects_la_LDFLAGS = -export-dynamic -module -avoid-version
+libjackson_objects_la_LDFLAGS = -export-dynamic -module -avoid-version $(NO_UNDEFINED)
+
+libjackson_objects_la_LIBADD = $(top_builddir)/lib/libdia.la
 
 INCLUDES = -I$(top_srcdir)/intl -I$(srcdir)/../../lib \
 	$(DEBUG_FLAGS) $(GTK_CFLAGS)

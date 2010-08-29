@@ -16,7 +16,9 @@ libstandard_objects_la_SOURCES = \
 	beziergon.c \
 	tool-icons.h
 
-libstandard_objects_la_LDFLAGS = -export-dynamic -module -avoid-version
+libstandard_objects_la_LDFLAGS = -export-dynamic -module -avoid-version $(NO_UNDEFINED)
+
+libstandard_objects_la_LIBADD = $(top_builddir)/lib/libdia.la
 
 ICON_PNG_PAIRS= \
 	arc_icon $(srcdir)/pixmaps/arc.png \

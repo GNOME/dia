@@ -9,7 +9,9 @@ libkaos_objects_la_SOURCES = \
 			metabinrel.c \
 			metaandorrel.c
 
-libkaos_objects_la_LDFLAGS = -export-dynamic -module -avoid-version
+libkaos_objects_la_LDFLAGS = -export-dynamic -module -avoid-version $(NO_UNDEFINED)
+
+libkaos_objects_la_LIBADD = $(top_builddir)/lib/libdia.la
 
 INCLUDES = -I$(top_srcdir)/intl -I$(srcdir)/../../lib \
 	$(DEBUG_FLAGS) $(GTK_CFLAGS)

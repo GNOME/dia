@@ -8,7 +8,9 @@ liber_objects_la_SOURCES = \
 			participation.c \
 			er.c
 
-liber_objects_la_LDFLAGS = -export-dynamic -module -avoid-version
+liber_objects_la_LDFLAGS = -export-dynamic -module -avoid-version $(NO_UNDEFINED)
+
+liber_objects_la_LIBADD = $(top_builddir)/lib/libdia.la
 
 INCLUDES = -I$(top_srcdir)/intl -I$(srcdir)/../../lib \
 	$(DEBUG_FLAGS) $(GTK_CFLAGS) $(GNOME_CFLAGS) $(PANGOFT2_CFLAGS) $(UNICODE_CFLAGS)

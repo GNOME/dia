@@ -7,9 +7,11 @@ libnetwork_objects_la_SOURCES = \
 			      bus.c \
 			      radiocell.c \
 			      basestation.c \
-			      wanlink.c 
+			      wanlink.c
 
-libnetwork_objects_la_LDFLAGS = -export-dynamic -module -avoid-version
+libnetwork_objects_la_LDFLAGS = -export-dynamic -module -avoid-version $(NO_UNDEFINED)
+
+libnetwork_objects_la_LIBADD = $(top_builddir)/lib/libdia.la
 
 INCLUDES = -I$(top_srcdir)/intl -I$(srcdir)/../../lib \
 	$(DEBUG_FLAGS) $(GTK_CFLAGS)

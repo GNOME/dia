@@ -7,7 +7,9 @@ libfs_objects_la_SOURCES = \
 			flow-ortho.c \
 			function.c
 
-libfs_objects_la_LDFLAGS = -export-dynamic -module -avoid-version
+libfs_objects_la_LDFLAGS = -export-dynamic -module -avoid-version $(NO_UNDEFINED)
+
+libfs_objects_la_LIBADD = $(top_builddir)/lib/libdia.la
 
 INCLUDES = -I$(top_srcdir)/intl -I$(srcdir)/../../lib \
 	$(DEBUG_FLAGS) $(GTK_CFLAGS)

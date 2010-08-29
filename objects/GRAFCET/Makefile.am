@@ -15,7 +15,9 @@ libgrafcet_objects_la_SOURCES = \
 			vergent.c \
 			vector.c
 
-libgrafcet_objects_la_LDFLAGS = -export-dynamic -module -avoid-version
+libgrafcet_objects_la_LDFLAGS = -export-dynamic -module -avoid-version $(NO_UNDEFINED)
+
+libgrafcet_objects_la_LIBADD = $(top_builddir)/lib/libdia.la
 
 INCLUDES = -I$(top_srcdir)/intl -I$(srcdir)/../../lib \
 	$(DEBUG_FLAGS) $(GTK_CFLAGS)

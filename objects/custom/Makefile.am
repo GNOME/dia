@@ -11,7 +11,9 @@ libcustom_objects_la_SOURCES = \
 	custom_util.h \
 	custom.c
 
-libcustom_objects_la_LDFLAGS = -export-dynamic -module -avoid-version
+libcustom_objects_la_LDFLAGS = -export-dynamic -module -avoid-version $(NO_UNDEFINED)
+
+libcustom_objects_la_LIBADD = $(top_builddir)/lib/libdia.la
 
 shapedir = $(pkgdatadir)/shapes
 

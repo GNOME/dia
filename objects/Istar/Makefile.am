@@ -9,7 +9,9 @@ libistar_objects_la_SOURCES = \
 			other.c \
 			link.c
 
-libistar_objects_la_LDFLAGS = -export-dynamic -module -avoid-version
+libistar_objects_la_LDFLAGS = -export-dynamic -module -avoid-version $(NO_UNDEFINED)
+
+libistar_objects_la_LIBADD = $(top_builddir)/lib/libdia.la
 
 INCLUDES = -I$(top_srcdir)/intl -I$(srcdir)/../../lib \
 	$(DEBUG_FLAGS) $(GTK_CFLAGS)

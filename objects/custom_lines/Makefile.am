@@ -8,7 +8,9 @@ libcustom_lines_objects_la_SOURCES = \
 	line_info.c \
 	line_info.h
 
-libcustom_lines_objects_la_LDFLAGS = -export-dynamic -module -avoid-version
+libcustom_lines_objects_la_LDFLAGS = -export-dynamic -module -avoid-version $(NO_UNDEFINED)
+
+libcustom_lines_objects_la_LIBADD = $(top_builddir)/lib/libdia.la
 
 INCLUDES = \
 	-I$(srcdir)/../../lib \
