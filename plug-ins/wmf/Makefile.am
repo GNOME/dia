@@ -1,7 +1,7 @@
-plugin_sources = wmf.cpp 
+plugin_sources = wmf.cpp
 
 if !WITH_LIBEMF
-plugin_sources += wmf_gdi.cpp wmf_gdi.h
+plugin_sources += wmf_gdi.cpp wmf_gdi.h paginate_gdiprint.cpp paginate_gdiprint.h
 endif
 
 # Can't do without C++
@@ -10,8 +10,11 @@ pkglib_LTLIBRARIES = libwmf_filter.la
 endif
 
 libwmf_filter_la_SOURCES = $(plugin_sources)
-libwmf_filter_la_LDFLAGS = -export-dynamic -module -avoid-version 
-libwmf_filter_la_LIBADD = $(LIBEMF_LIBS)
+libwmf_filter_la_LDFLAGS = -export-dynamic -module -avoid-version $(NO_UNDEFINED)
+libwmf_filter_la_LIBADD = $(LIBEMF_LIBS)  $(top_builddir)/lib/libdia.la
+if OS_WIN32
+libwmf_filter_la_LIBADD += -lcomdlg32
+endif
 
 INCLUDES = -I$(top_srcdir)/intl -I$(top_srcdir)/lib \
   $(DEBUG_FLAGS) $(GTK_CFLAGS) $(LIBEMF_CFLAGS)

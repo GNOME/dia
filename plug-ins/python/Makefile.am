@@ -14,8 +14,8 @@ endif
 
 pkglib_LTLIBRARIES = $(libpython_plugin)
 
-libpython_plugin_la_LDFLAGS = -export-dynamic -module -avoid-version
-libpython_plugin_la_LIBADD = $(PYTHON_LIBS)
+libpython_plugin_la_LDFLAGS = -export-dynamic -module -avoid-version $(NO_UNDEFINED)
+libpython_plugin_la_LIBADD = $(PYTHON_LIBS) $(top_builddir)/lib/libdia.la
 libpython_plugin_la_SOURCES = \
 	pydia-color.c \
 	pydia-color.h \
