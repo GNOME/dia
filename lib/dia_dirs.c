@@ -32,6 +32,22 @@
 #endif
 #include <glib/gstdio.h>
 
+#if defined(G_OS_WIN32) && defined(PREFIX)
+static gchar *
+replace_prefix (const gchar *runtime_prefix,
+                const gchar *configure_time_path)
+{
+        if (runtime_prefix &&
+            strncmp (configure_time_path, PREFIX "/",
+                     strlen (PREFIX) + 1) == 0) {
+                return g_strconcat (runtime_prefix,
+                                    configure_time_path + strlen (PREFIX) + 1,
+                                    NULL);
+        } else
+                return g_strdup (configure_time_path);
+}
+#endif
+
 /** Get the name of a subdirectory of our data directory.
  *  This function does not create the subdirectory, just make the correct name.
  * @param subdir The name of the directory desired.
@@ -42,6 +58,8 @@ gchar *
 dia_get_data_directory(const gchar* subdir)
 {
 #ifdef G_OS_WIN32
+  gchar *tmpPath = NULL;
+  gchar *returnPath = NULL;
   /*
    * Calculate from executable path
    */
@@ -57,10 +75,20 @@ dia_get_data_directory(const gchar* subdir)
       if (strrchr(sLoc, G_DIR_SEPARATOR))
         strrchr(sLoc, G_DIR_SEPARATOR)[1] = 0;
     }
-  return g_strconcat (sLoc , subdir, NULL); 
+#if defined(PREFIX) && defined(DATADIR)
+  tmpPath = replace_prefix(sLoc, DATADIR);
+  if (strlen (subdir) == 0)
+    returnPath = g_strdup(tmpPath);
+  else
+    returnPath = g_build_path(G_DIR_SEPARATOR_S, tmpPath, subdir, NULL);
+  g_free(tmpPath);
+  return returnPath;
+#else
+  return g_strconcat (sLoc , subdir, NULL);
+#endif
 
 #else
-  if (strlen (subdir) == 0)		
+  if (strlen (subdir) == 0)
     return g_strconcat (DATADIR, NULL);
   else
     return g_strconcat (DATADIR, G_DIR_SEPARATOR_S, subdir, NULL);
@@ -77,6 +105,8 @@ gchar*
 dia_get_lib_directory(const gchar* subdir)
 {
 #ifdef G_OS_WIN32
+  gchar *tmpPath = NULL;
+  gchar *returnPath = NULL;
   /*
    * Calulate from executable path
    */
@@ -92,7 +122,46 @@ dia_get_lib_directory(const gchar* subdir)
       if (strrchr(sLoc, G_DIR_SEPARATOR))
         strrchr(sLoc, G_DIR_SEPARATOR)[1] = 0;
     }
-  return g_strconcat (sLoc , subdir, NULL); 
+#if defined(PREFIX) && defined(LIBDIR)
+  tmpPath = replace_prefix(sLoc, LIBDIR);
+  returnPath = g_build_path(G_DIR_SEPARATOR_S, tmpPath, subdir, NULL);
+  g_free(tmpPath);
+  return returnPath;
+#else
+  return g_strconcat (sLoc , subdir, NULL);
+#endif
+
+
+#else
+  return g_strconcat (LIBDIR, G_DIR_SEPARATOR_S, subdir, NULL);
+#endif
+}
+
+gchar*
+dia_get_locale_directory(void)
+{
+#ifdef G_OS_WIN32
+#if defined(PREFIX) && defined(LOCALEDIR)
+  /*
+   * Calulate from executable path
+   */
+  gchar sLoc [MAX_PATH+1];
+  HINSTANCE hInst = GetModuleHandle(NULL);
+
+  if (0 != GetModuleFileName(hInst, sLoc, MAX_PATH))
+    {
+	/* strip the name */
+      if (strrchr(sLoc, G_DIR_SEPARATOR))
+        strrchr(sLoc, G_DIR_SEPARATOR)[0] = 0;
+      /* and one dir (bin) */
+      if (strrchr(sLoc, G_DIR_SEPARATOR))
+        strrchr(sLoc, G_DIR_SEPARATOR)[1] = 0;
+    }
+  return replace_prefix(sLoc, LOCALEDIR);
+#else
+  return dia_get_lib_directory ("locale");
+#endif
+
 
 #else
   return g_strconcat (LIBDIR, G_DIR_SEPARATOR_S, subdir, NULL);

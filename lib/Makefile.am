@@ -194,7 +194,9 @@ AM_CPPFLAGS = \
 	$(LIBART_CFLAGS) \
 	-DLIBDIA_COMPILATION \
 	-DLIBDIR=\"$(libdir)\" \
-	-DDATADIR=\"$(pkgdatadir)\"
+	-DDATADIR=\"$(pkgdatadir)\" \
+	-DLOCALEDIR=\"$(localedir)\" \
+	-DPREFIX=\"$(prefix)\"
 
 sheetdir = $(pkgdatadir)/sheets
 

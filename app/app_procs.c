@@ -649,8 +649,8 @@ _setup_textdomains (void)
 #ifdef G_OS_WIN32
   /* calculate runtime directory */
   {
-    gchar* localedir = dia_get_lib_directory ("locale");
-    
+    gchar* localedir = dia_get_locale_directory ();
+
     bindtextdomain(GETTEXT_PACKAGE, localedir);
     g_free (localedir);
   }
