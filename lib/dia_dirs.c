@@ -37,14 +37,14 @@ static gchar *
 replace_prefix (const gchar *runtime_prefix,
                 const gchar *configure_time_path)
 {
-        if (runtime_prefix &&
-            strncmp (configure_time_path, PREFIX "/",
-                     strlen (PREFIX) + 1) == 0) {
-                return g_strconcat (runtime_prefix,
-                                    configure_time_path + strlen (PREFIX) + 1,
-                                    NULL);
-        } else
-                return g_strdup (configure_time_path);
+  if (runtime_prefix &&
+      strncmp (configure_time_path, PREFIX "/",
+               strlen (PREFIX) + 1) == 0) {
+    return g_strconcat (runtime_prefix,
+                        configure_time_path + strlen (PREFIX) + 1,
+                        NULL);
+  } else
+    return g_strdup (configure_time_path);
 }
 #endif
 
@@ -75,7 +75,7 @@ dia_get_data_directory(const gchar* subdir)
       if (strrchr(sLoc, G_DIR_SEPARATOR))
         strrchr(sLoc, G_DIR_SEPARATOR)[1] = 0;
     }
-#if defined(PREFIX) && defined(DATADIR)
+#  if defined(PREFIX) && defined(DATADIR)
   tmpPath = replace_prefix(sLoc, DATADIR);
   if (strlen (subdir) == 0)
     returnPath = g_strdup(tmpPath);
@@ -83,9 +83,9 @@ dia_get_data_directory(const gchar* subdir)
     returnPath = g_build_path(G_DIR_SEPARATOR_S, tmpPath, subdir, NULL);
   g_free(tmpPath);
   return returnPath;
-#else
+#  else
   return g_strconcat (sLoc , subdir, NULL);
-#endif
+#  endif
 
 #else
   if (strlen (subdir) == 0)
@@ -122,14 +122,14 @@ dia_get_lib_directory(const gchar* subdir)
       if (strrchr(sLoc, G_DIR_SEPARATOR))
         strrchr(sLoc, G_DIR_SEPARATOR)[1] = 0;
     }
-#if defined(PREFIX) && defined(LIBDIR)
+#  if defined(PREFIX) && defined(LIBDIR)
   tmpPath = replace_prefix(sLoc, LIBDIR);
   returnPath = g_build_path(G_DIR_SEPARATOR_S, tmpPath, subdir, NULL);
   g_free(tmpPath);
   return returnPath;
-#else
+#  else
   return g_strconcat (sLoc , subdir, NULL);
-#endif
+#  endif
 
 
 #else
@@ -141,7 +141,7 @@ gchar*
 dia_get_locale_directory(void)
 {
 #ifdef G_OS_WIN32
-#if defined(PREFIX) && defined(LOCALEDIR)
+#  if defined(PREFIX) && defined(LOCALEDIR)
   /*
    * Calulate from executable path
    */
@@ -158,13 +158,13 @@ dia_get_locale_directory(void)
         strrchr(sLoc, G_DIR_SEPARATOR)[1] = 0;
     }
   return replace_prefix(sLoc, LOCALEDIR);
-#else
+#  else
   return dia_get_lib_directory ("locale");
-#endif
+#  endif
 
 
 #else
-  return g_strconcat (LIBDIR, G_DIR_SEPARATOR_S, subdir, NULL);
+  return g_strconcat (LOCALEDIR, G_DIR_SEPARATOR_S, "", NULL);
 #endif
 }
 
