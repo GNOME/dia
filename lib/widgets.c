@@ -1056,8 +1056,19 @@ dia_color_selector_more_callback(GtkWidget *widget, gpointer userdata)
   GString *palette = g_string_new ("");
 
   gchar *old_color = dia_dynamic_menu_get_entry(ddm);
+  GtkWidget *parent;
+
   /* Force history to the old place */
   dia_dynamic_menu_select_entry(ddm, old_color);
+
+  /* avoid crashing if the property dialog is closed before the color dialog */
+  parent = widget;
+  while (parent && !GTK_IS_WINDOW (parent))
+    parent = gtk_widget_get_parent (parent);
+  if (parent) {
+    gtk_window_set_transient_for (GTK_WINDOW (dialog), GTK_WINDOW(parent));
+    gtk_window_set_destroy_with_parent (GTK_WINDOW (dialog), TRUE);
+  }
 
   if (ddm->default_entries != NULL) {
     GList *tmplist;
