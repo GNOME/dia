@@ -487,7 +487,7 @@ _element_change_swap (ObjectChange *self,
   Point tmppt;
   real  tmp;
 
-  g_assert(obj == &(ec->element->object));
+  g_assert(!obj || obj == &(ec->element->object));
 
   tmppt = ec->corner; ec->corner = elem->object.position; elem->object.position = tmppt;
   tmp = ec->width; ec->width = elem->width; elem->width = tmp;
