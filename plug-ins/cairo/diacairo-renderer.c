@@ -88,6 +88,8 @@ begin_render(DiaRenderer *self)
 
   cairo_scale (renderer->cr, renderer->scale, renderer->scale);
   cairo_translate (renderer->cr, -renderer->dia->extents.left, -renderer->dia->extents.top);
+  /* no more blurred UML diagrams */
+  cairo_set_antialias (renderer->cr, CAIRO_ANTIALIAS_NONE);
 
   /* clear background */
   if (renderer->with_alpha)
