@@ -207,11 +207,11 @@ export_data(DiagramData *data, const gchar *filename,
     height = (data->extents.bottom - data->extents.top) * renderer->scale + 0.5;
     DIAG_NOTE(g_message ("CairoScript Surface %dx%d\n", (int)width, (int)height));
     {
-      cairo_script_context_t *csc = cairo_script_context_create (filename_crt);
-      cairo_script_context_set_mode (csc, CAIRO_SCRIPT_MODE_ASCII);
-      renderer->surface = cairo_script_surface_create(csc, CAIRO_CONTENT_COLOR_ALPHA,
+      cairo_device_t *csdev = cairo_script_create (filename_crt);
+      cairo_script_set_mode (csdev, CAIRO_SCRIPT_MODE_ASCII);
+      renderer->surface = cairo_script_surface_create(csdev, CAIRO_CONTENT_COLOR_ALPHA,
 						      width, height);
-      cairo_script_context_destroy (csc);
+      cairo_device_destroy (csdev);
     }
     break;
 #endif
