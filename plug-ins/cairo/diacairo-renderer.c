@@ -70,6 +70,7 @@
 #include "diarenderer.h"
 #include "filter.h"
 #include "plug-ins.h"
+#include "object.h" /* only for object->ops->draw */
 
 #include "diacairo.h"
 
@@ -169,7 +170,25 @@ is_capable_to (DiaRenderer *renderer, RenderCapability cap)
     return TRUE;
   else if (RENDER_ALPHA == cap)
     return TRUE;
+  else if (RENDER_AFFINE == cap)
+    return TRUE;
   return FALSE;
+}
+
+static void
+draw_object (DiaRenderer *self, DiaObject *object, DiaMatrix *matrix)
+{
+  DiaCairoRenderer *renderer = DIA_CAIRO_RENDERER (self);
+  cairo_matrix_t before;
+  
+  if (matrix) {
+    cairo_get_matrix (renderer->cr, &before);
+    g_assert (sizeof(cairo_matrix_t) == sizeof(DiaMatrix));
+    cairo_transform (renderer->cr, (cairo_matrix_t *)matrix);
+  }
+  object->ops->draw(object, renderer);
+  if (matrix)
+    cairo_set_matrix (renderer->cr, &before);
 }
 
 static void
