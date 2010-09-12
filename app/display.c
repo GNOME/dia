@@ -617,8 +617,6 @@ ddisplay_obj_render(DiaObject *obj, DiaRenderer *renderer,
 		    gpointer data)
 {
   DDisplay *ddisp = (DDisplay *)data;
-  int i;
-
   DiaInteractiveRendererInterface *irenderer =
     DIA_GET_INTERACTIVE_RENDERER_INTERFACE (renderer);
   DiaHighlightType hltype = data_object_get_highlight(DIA_DIAGRAM_DATA(ddisp->diagram), obj);
@@ -630,9 +628,7 @@ ddisplay_obj_render(DiaObject *obj, DiaRenderer *renderer,
 
   if (ddisp->show_cx_pts && 
       obj->parent_layer != NULL && obj->parent_layer->connectable) {
-    for (i=0;i<obj->num_connections;i++) {
-      connectionpoint_draw(obj->connections[i], ddisp);
-    }
+    object_draw_connectionpoints(obj, ddisp);
   }
 }
 

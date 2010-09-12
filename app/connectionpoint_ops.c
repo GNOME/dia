@@ -29,7 +29,7 @@ static Color connectionpoint_color = { 0.4, 0.4, 1.0 };
 
 #define CP_SZ (CONNECTIONPOINT_SIZE/2)
 
-void
+static void
 connectionpoint_draw(ConnectionPoint *conpoint,
 		     DDisplay *ddisp)
 {
@@ -75,6 +75,16 @@ connectionpoint_draw(ConnectionPoint *conpoint,
 			x+CP_SZ,y-CP_SZ,
 			x-CP_SZ,y+CP_SZ,
 			&connectionpoint_color);
+}
+
+void 
+object_draw_connectionpoints(DiaObject *obj, DDisplay *ddisp)
+{
+  int i;
+
+  for (i=0;i<obj->num_connections;i++) {
+    connectionpoint_draw(obj->connections[i], ddisp);
+  }
 }
 
 void
