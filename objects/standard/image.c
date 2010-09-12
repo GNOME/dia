@@ -142,7 +142,7 @@ static PropDescription image_props[] = {
   ELEMENT_COMMON_PROPERTIES,
   { "image_file", PROP_TYPE_FILE, PROP_FLAG_VISIBLE,
     N_("Image file"), NULL, NULL},
-  { "inline_data", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE|PROP_FLAG_OPTIONAL,
+  { "inline_data", PROP_TYPE_BOOL, PROP_FLAG_DONT_MERGE|PROP_FLAG_VISIBLE|PROP_FLAG_OPTIONAL,
     N_("Inline data"), N_("Store image data in diagram"), NULL },
   { "pixbuf", PROP_TYPE_PIXBUF, PROP_FLAG_OPTIONAL,
     N_("Pixbuf"), N_("The Pixbuf reference"), NULL },
@@ -210,7 +210,8 @@ image_set_props(Image *image, GPtrArray *props)
       if (pixbuf)
 	g_object_unref (pixbuf);
     } else {
-      message_warning ("FIXME: handle pixbuf change!");
+      if (image->pixbuf)
+        message_warning ("FIXME: handle pixbuf change!");
     }
   }
 
