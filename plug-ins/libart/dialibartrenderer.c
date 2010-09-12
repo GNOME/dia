@@ -1334,13 +1334,6 @@ draw_image(DiaRenderer *self,
   }
 }
 
-
-static void
-draw_object (DiaRenderer *renderer, DiaObject *object)
-{
-  object->ops->draw(object, renderer);
-}
-
 static void
 renderer_init (DiaLibartRenderer *renderer, gpointer g_class)
 {
@@ -1516,8 +1509,6 @@ dia_libart_renderer_class_init (DiaLibartRendererClass *klass)
   renderer_class->draw_text_line = draw_text_line;
 
   renderer_class->draw_image = draw_image;
-
-  renderer_class->draw_object = draw_object;
 
   /* Interactive functions */
   renderer_class->get_text_width = get_text_width;
