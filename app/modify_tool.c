@@ -107,29 +107,6 @@ free_modify_tool(Tool *tool)
   g_free(mtool);
 }
 
-/*
-  This function is buggy. Fix it later!
-static void
-transitive_select(DDisplay *ddisp, Point *clickedpoint, DiaObject *obj)
-{
-  guint i;
-  GList *j;
-  DiaObject *obj1;
-
-  for(i = 0; i < obj->num_connections; i++) {
-    printf("%d\n", i);
-    j = obj->connections[i]->connected;
-    while(j != NULL && (obj1 = (DiaObject *)j->data) != NULL) {
-      diagram_select(ddisp->diagram, obj1);
-      obj1->ops->select(obj1, clickedpoint,
-			(Renderer *)ddisp->renderer);
-      transitive_select(ddisp, clickedpoint, obj1);
-      j = g_list_next(j);
-    }
-  }
-}
-*/
-
 static DiaObject *
 click_select_object(DDisplay *ddisp, Point *clickedpoint,
 		    GdkEventButton *event)
