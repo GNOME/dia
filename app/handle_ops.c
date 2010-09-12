@@ -18,6 +18,7 @@
 #include <config.h>
 
 #include "handle_ops.h"
+#include "handle.h"
 #include "color.h"
 
 /* This value is best left odd so that the handles are centered. */

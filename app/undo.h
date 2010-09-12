@@ -23,7 +23,6 @@ typedef struct _UndoStack UndoStack;
 typedef struct _Change Change;
 
 #include "diagram.h"
-#include "objchange.h"
 
 typedef void (*UndoApplyFunc)(Change *change, Diagram *dia);
 typedef void (*UndoRevertFunc)(Change *change, Diagram *dia);

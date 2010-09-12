@@ -18,8 +18,7 @@
 #ifndef DEFAULTS_H
 #define DEFAULTS_H
 
-#include "object.h"
-#include "diagram.h"
+#include "diatypes.h"
 
 void defaults_show(DiaObjectType *obj, gpointer user_data);
 

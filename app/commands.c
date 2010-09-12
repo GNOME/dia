@@ -82,6 +82,7 @@ ShellExecuteA (long        hwnd,
 #include "lib/parent.h"
 #include "dia-props.h"
 #include "authors.h"                /* master contributors data */
+#include "object.h"
 
 void 
 file_quit_callback (GtkAction *action)

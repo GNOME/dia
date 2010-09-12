@@ -565,9 +565,6 @@ gboolean         dia_object_is_selectable(DiaObject *obj);
 /* The below are for debugging purposes only. */
 gboolean   dia_object_sanity_check(const DiaObject *obj, const gchar *msg);
 
-/** A standard definition of a function that takes a DiaObject */
-typedef void (*DiaObjectFunc) (const DiaObject *obj);
-
 /** convenience functions for meta info */
 void   dia_object_set_meta (DiaObject *obj, const gchar *key, const gchar *value);
 gchar *dia_object_get_meta (DiaObject *obj, const gchar *key);

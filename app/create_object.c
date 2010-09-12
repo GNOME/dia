@@ -28,6 +28,7 @@
 #include "textedit.h"
 #include "parent.h"
 #include "message.h"
+#include "object.h"
 
 static void create_object_button_press(CreateObjectTool *tool, GdkEventButton *event,
 				     DDisplay *ddisp);

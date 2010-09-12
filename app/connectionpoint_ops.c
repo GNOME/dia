@@ -22,6 +22,8 @@
 #include "connectionpoint_ops.h"
 #include "object_ops.h"
 #include "color.h"
+#include "object.h"
+#include "connectionpoint.h"
 
 static Color connectionpoint_color = { 0.4, 0.4, 1.0 };
 

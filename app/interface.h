@@ -25,10 +25,8 @@
 #include "tool.h"
 #include "sheet.h"
 #include "app_procs.h"
-#include "arrows.h"
 #include "color_area.h"
 #include "linewidth_area.h"
-#include "attributes.h"
 
 /* Integrated UI Constants */
 #define  DIA_MAIN_WINDOW   "dia-main-window"

@@ -18,7 +18,7 @@
 #ifndef OBJECT_OPS_H
 #define OBJECT_OPS_H
 
-#include "object.h"
+#include "diatypes.h"
 #include "display.h"
 #include "diagram.h"
 

@@ -18,7 +18,7 @@
 #ifndef HANDLE_OPS_H
 #define HANDLE_OPS_H
 
-#include "handle.h"
+#include "diatypes.h"
 #include "display.h"
 
 void handle_draw(Handle *handle, DDisplay *ddisp);

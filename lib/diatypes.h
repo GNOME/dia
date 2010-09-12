@@ -194,4 +194,7 @@ typedef struct _DiaArrowSelectorClass  DiaArrowSelectorClass;
 typedef struct _DiaFileSelector       DiaFileSelector;
 typedef struct _DiaFileSelectorClass  DiaFileSelectorClass;
 
+/** A standard definition of a function that takes a DiaObject */
+typedef void (*DiaObjectFunc) (const DiaObject *obj);
+
 #endif

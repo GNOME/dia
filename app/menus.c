@@ -41,6 +41,7 @@
 #include "dia-app-icons.h"
 #include "widgets.h"
 #include "preferences.h"
+#include "filter.h"
 
 #define DIA_STOCK_GROUP "dia-stock-group"
 #define DIA_STOCK_UNGROUP "dia-stock-ungroup"

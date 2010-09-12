@@ -19,7 +19,6 @@
 #define CREATE_OBJECT_H
 
 #include "geometry.h"
-#include "object.h"
 #include "tool.h"
 
 typedef struct _CreateObjectTool CreateObjectTool;

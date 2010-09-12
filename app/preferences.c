@@ -41,6 +41,7 @@
 #include "interface.h"
 #include "lib/prefs.h"
 #include "persistence.h"
+#include "filter.h"
 
 #ifdef G_OS_WIN32
 #include <io.h> /* open, close */

@@ -18,7 +18,7 @@
 #ifndef CONNECTIONPOINT_OPS_H
 #define CONNECTIONPOINT_OPS_H
 
-#include "connectionpoint.h"
+#include "diatypes.h"
 #include "diagram.h"
 #include "display.h"
 

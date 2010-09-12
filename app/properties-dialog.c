@@ -26,6 +26,7 @@
 #include "intl.h"
 #include "properties-dialog.h"
 #include "object_ops.h"
+#include "object.h"
 #include "connectionpoint_ops.h"
 #include "undo.h"
 #include "message.h"

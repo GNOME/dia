@@ -26,6 +26,7 @@
 #include "intl.h"
 #include "object_ops.h"
 #include "textedit.h"
+#include "object.h"
 
 SelectionStyle selection_style = SELECT_REPLACE;
 

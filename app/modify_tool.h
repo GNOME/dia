@@ -20,7 +20,6 @@
 
 #include "geometry.h"
 #include "tool.h"
-#include "time.h"
 
 typedef struct _ModifyTool ModifyTool;
 

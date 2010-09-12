@@ -26,6 +26,7 @@
 #include "connectionpoint_ops.h"
 #include "handle_ops.h"
 #include "message.h"
+#include "object.h"
 
 #define OBJECT_CONNECT_DISTANCE 4.5
 

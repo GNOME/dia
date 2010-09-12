@@ -18,6 +18,7 @@
 #ifndef PREFERENCES_H
 #define PREFERENCES_H
 
+#include "diatypes.h"
 #include "diagramdata.h"
 
 #define DEFAULT_GRID_COLOR { 0.85, .90, .90 }

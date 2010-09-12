@@ -23,12 +23,9 @@
 typedef struct _Diagram Diagram;
 
 #include "geometry.h"
-#include "handle.h"
-#include "connectionpoint.h"
 #include "display.h"
 #include "diagramdata.h"
 #include "undo.h"
-#include "filter.h"
 #include "menus.h"
 #include "diagrid.h"
 
@@ -148,5 +145,3 @@ void diagram_redraw_all(void);
 void diagram_object_modified(Diagram *dia, DiaObject *object);
 
 #endif /* DIAGRAM_H */
-
-

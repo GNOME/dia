@@ -20,6 +20,7 @@
 #define PARENT_H
 
 #include <glib.h>
+#include "diatypes.h"
 #include "geometry.h"
 
 GList *parent_list_affected(GList *obj_list);

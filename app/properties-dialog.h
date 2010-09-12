@@ -18,7 +18,7 @@
 #ifndef PROPERTIES_H
 #define PROPERTIES_H
 
-#include "object.h"
+#include "diatypes.h"
 #include "diagram.h"
 
 void object_properties_show(Diagram *dia, DiaObject *obj);

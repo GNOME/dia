@@ -20,6 +20,8 @@
 #include <stdio.h>
 #include <math.h>
 
+#include <gtk/gtk.h>
+
 #include "modify_tool.h"
 #include "handle_ops.h"
 #include "object_ops.h"
@@ -36,7 +38,7 @@
 #include "parent.h"
 #include "diacanvas.h"
 #include "prop_text.h"
-#include "gtk/gtk.h"
+#include "object.h"
 
 
 static DiaObject *click_select_object(DDisplay *ddisp, Point *clickedpoint,

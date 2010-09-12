@@ -25,6 +25,7 @@
 #include "textedit_tool.h"
 #include "interface.h"
 #include "defaults.h"
+#include "object.h"
 
 Tool *active_tool = NULL;
 Tool *transient_tool = NULL;
