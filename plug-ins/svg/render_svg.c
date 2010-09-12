@@ -45,6 +45,7 @@
 #include "dia_xml_libxml.h"
 #include "object.h"
 #include "textline.h"
+#include "dia_svg.h"
 
 G_BEGIN_DECLS
 
@@ -257,6 +258,13 @@ draw_object(DiaRenderer *self,
   xmlNodePtr child, group;
 
   g_queue_push_tail (svg_renderer->parents, renderer->root);
+
+  if (matrix) {
+    gchar *s = dia_svg_from_matrix (matrix, renderer->scale);
+    xmlSetProp(renderer->root, (const xmlChar *)"transform", (xmlChar *) s);
+    g_free (s);
+  }
+
   /* modifying the root pointer so everything below us gets into the new node */
   renderer->root = group = xmlNewNode (renderer->svg_name_space, (const xmlChar *)"g");
 

@@ -739,22 +739,37 @@ read_items (xmlNodePtr startnode, DiaSvgStyle *parent_gs, const gchar *filename_
     if (!xmlStrcmp(node->name, (const xmlChar *)"g")) {
       GList *moreitems;
       DiaSvgStyle *group_gs;
+      DiaMatrix *matrix = NULL;
+      xmlChar *trans;
 
       /* We need to have/apply the groups style before the objects style */
       group_gs = g_new0 (DiaSvgStyle, 1);
       dia_svg_style_init (group_gs, parent_gs);
       dia_svg_parse_style (node, group_gs, user_scale);
 
+      trans = xmlGetProp (node, (xmlChar *)"transform");
+      if (trans) {
+        matrix = dia_svg_parse_transform ((gchar *)trans, user_scale);
+	xmlFree (trans);
+      }
+
       moreitems = read_items (node->xmlChildrenNode, group_gs, filename_svg);
 
       if (moreitems) {
-        DiaObject *group = group_create (moreitems);
+        DiaObject *group;
+
+	if (matrix) {
+	  group = group_create_with_matrix (moreitems, matrix);
+	  matrix = NULL;
+	} else
+	  group = group_create (moreitems);
 	/* group eats list */
         items = g_list_append (items, group);
       }
       if (group_gs->font)
         dia_font_unref (group_gs->font);
       g_free (group_gs);
+      g_free (matrix);
     } else if (!xmlStrcmp(node->name, (const xmlChar *)"rect")) {
       items = read_rect_svg(node, parent_gs, items);
     } else if (!xmlStrcmp(node->name, (const xmlChar *)"line")) {
@@ -782,7 +797,7 @@ read_items (xmlNodePtr startnode, DiaSvgStyle *parent_gs, const gchar *filename_
       if (moreitems) {
         items = g_list_concat (items, moreitems);
       }
-   }
+    }
   }
   return items;
 }

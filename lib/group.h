@@ -27,6 +27,7 @@ DIAVAR DiaObjectType group_type;
  * outside of the created group before calling group_create().
  */
 DiaObject *group_create(GList *objects);
+DiaObject *group_create_with_matrix(GList *objects, DiaMatrix *matrix);
 GList *group_objects(DiaObject *group);
 
 void group_destroy_shallow(DiaObject *group);

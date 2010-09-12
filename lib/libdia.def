@@ -436,6 +436,7 @@ EXPORTS
  get_units_name_list
 
  group_create
+ group_create_with_matrix
  group_destroy_shallow
  group_objects
  group_type
