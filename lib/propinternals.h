@@ -87,6 +87,7 @@ void do_get_props_from_offsets(void *base, GPtrArray *props,
 #include "prop_sdarray.h"
 #include "prop_dict.h"
 #include "prop_pixbuf.h"
+#include "prop_matrix.h"
 
 #endif /* PROPINTERNALS_H */
 

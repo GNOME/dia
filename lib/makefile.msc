@@ -25,7 +25,7 @@ PKG_LINK = $(GTK2_LIBS)  $(PANGOWIN32_LIBS) $(GLIB_LIBS) \
 	$(PANGOFT2_LIBS) \
 !ENDIF
 	$(LIBXML2_LIBS) $(ZLIB_LIBS) \
-	$(GDK_PIXBUF_LIBS) \
+	$(GDK_PIXBUF_LIBS) $(CAIRO_LIBS) \
 	$(INTL_LIBS)
 
 ICON_PNG_PAIRS = \
@@ -95,6 +95,7 @@ OBJECTS = \
 	prop_dict.obj \
 	prop_geomtypes.obj \
 	prop_inttypes.obj \
+	prop_matrix.obj \
 	prop_pixbuf.obj \
 	prop_sdarray.obj \
 	prop_text.obj \

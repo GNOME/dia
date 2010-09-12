@@ -14,6 +14,8 @@ stdprop_files = \
 	prop_basic.h \
 	prop_dict.c \
 	prop_dict.h \
+	prop_matrix.c \
+	prop_matrix.h \
 	prop_pixbuf.c \
 	prop_pixbuf.h \
 	prop_inttypes.c \

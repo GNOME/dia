@@ -52,6 +52,7 @@ stdprops_init(void)
   prop_sdarray_register();
   prop_dicttypes_register();
   prop_pixbuftypes_register();
+  prop_matrix_register();
 }
 
 /* --------------------------------------- */
