@@ -192,6 +192,7 @@ read_objects(xmlNodePtr objects,
 
       if (inner_objects) {
         obj = group_create(inner_objects);
+	object_load_props(obj,obj_node);
 
 #ifdef USE_NEWGROUP
 	/* Old group objects had objects recursively inside them.  Since
@@ -710,6 +711,7 @@ write_objects(GList *objects, xmlNodePtr objects_node,
 
     if (IS_GROUP(obj) && group_objects(obj) != NULL) {
       group_node = xmlNewChild(objects_node, NULL, (const xmlChar *)"group", NULL);
+      object_save_props (obj, group_node);
       write_objects(group_objects(obj), group_node,
 		    objects_hash, obj_nr, filename);
     } else {

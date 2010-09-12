@@ -26,6 +26,7 @@
 #include "group.h"
 #include "properties.h"
 #include "diarenderer.h"
+#include "message.h"
 
 struct _Group {
  /* DiaObject must be first because this is a 'subclass' of it. */
@@ -36,6 +37,10 @@ struct _Group {
   GList *objects;
 
   const PropDescription *pdesc;
+  
+  DiaMatrix *matrix;
+
+  gboolean self_only;
 };
 
 typedef struct _GroupPropChange GroupPropChange;
@@ -58,6 +63,7 @@ static ObjectChange* group_move(Group *group, Point *to);
 static void group_draw(Group *group, DiaRenderer *renderer);
 static void group_update_data(Group *group);
 static void group_update_handles(Group *group);
+static void group_update_connectionpoints(Group *group);
 static void group_destroy(Group *group);
 static DiaObject *group_copy(Group *group);
 static const PropDescription *group_describe_props(Group *group);
@@ -94,14 +100,24 @@ group_distance_from(Group *group, Point *point)
   real dist;
   GList *list;
   DiaObject *obj;
+  Point tp = *point;
 
   dist = 100000.0;
   
+  if (group->matrix) {
+    DiaMatrix mi = *group->matrix;
+
+    if (cairo_matrix_invert ((cairo_matrix_t *)&mi) != CAIRO_STATUS_SUCCESS)
+      g_warning ("Group::distance_from() matrix invert");
+    tp.x = point->x * mi.xx + point->y * mi.xy + mi.x0;
+    tp.y = point->x * mi.yx + point->y * mi.yy + mi.y0;
+  }
+
   list = group->objects;
   while (list != NULL) {
     obj = (DiaObject *) list->data;
     
-    dist = MIN(dist, obj->ops->distance_from(obj, point));
+    dist = MIN(dist, obj->ops->distance_from(obj, &tp));
 
     list = g_list_next(list);
   }
@@ -153,10 +169,102 @@ group_update_handles(Group *group)
   group->resize_handles[7].pos.y = bb->bottom;
 }
 
+/*! \brief Update connection points positions of contained objects
+ *  BEWARE: must only be called _once_ per update run!
+ */
+static void 
+group_update_connectionpoints(Group *group)
+{
+  /* FIXME: can't do it this way - lines are transformed twice than */
+  /* Also can't do it by just copying the original connection points
+   * into this object, e.g. connect() must work on the original cp.
+   * So time for some serious interface update ...
+   */
+  return;
+
+  if (group->matrix) {
+    DiaObject *obj = &group->object;
+    int i;
+
+    for (i = 0; i < obj->num_connections; ++i) {
+      ConnectionPoint *cp = obj->connections[i];
+      DiaMatrix *m = group->matrix;
+      Point p = cp->pos;
+
+      cp->pos.x = p.x * m->xx + p.y * m->xy + m->x0;
+      cp->pos.y = p.x * m->yx + p.y * m->yy + m->y0;
+    }
+  }
+}
+
 static ObjectChange*
 group_move_handle(Group *group, Handle *handle, Point *to, ConnectionPoint *cp,
 		      HandleMoveReason reason, ModifierKeys modifiers)
 {
+  DiaObject *obj = &group->object;
+  Rectangle *bb = &obj->bounding_box;
+  /* top and left handles are also changing the objects position */
+  Point pos = obj->position;
+  /* only flies, when the top left handle is the position */
+  gboolean also_move = (   group->resize_handles[0].pos.x == pos.x 
+                        && group->resize_handles[0].pos.y == pos.y);
+  Point top_left = group->resize_handles[0].pos;
+  Point delta;
+  /* before and after width and height */
+  real w0, h0, w1, h1;
+  
+  assert(handle->id>=HANDLE_RESIZE_NW);
+  assert(handle->id<=HANDLE_RESIZE_SE);
+
+  w0 = w1 = bb->right - bb->left;
+  h0 = h1 = bb->bottom - bb->top;
+
+  switch(handle->id) {
+  case HANDLE_RESIZE_NW:
+    delta.x = to->x - top_left.x;
+    delta.y = to->y - top_left.y;
+    w1 = w0 - delta.x;
+    h1 = h0 - delta.y;
+    break;
+  case HANDLE_RESIZE_NE:
+    w1 = to->x - pos.x;
+    /* fall through */
+  case HANDLE_RESIZE_N:
+    delta.y = to->y - top_left.y;
+    h1 = h0 - delta.y;
+    break;
+  case HANDLE_RESIZE_SW:
+    h1 = to->y - pos.y;
+    /* fall through */
+  case HANDLE_RESIZE_W:
+    delta.x = to->x - top_left.x;
+    w1 = w0 - delta.x;
+    break;
+  case HANDLE_RESIZE_SE:
+    w1 = to->x - top_left.x;
+    h1 = to->y - top_left.y;
+    break;
+  case HANDLE_RESIZE_S:
+    h1 = to->y - top_left.y;
+    break;
+  case HANDLE_RESIZE_E:
+    w1 = to->x - top_left.x;
+    break;
+  default:
+    message_error("Error, called group_move_handle() with wrong handle-id\n");
+  }
+
+  if (also_move)
+    object_list_move_delta(group->objects, &delta);
+  if (!group->matrix) {
+    group->matrix = g_new0 (DiaMatrix, 1);
+    group->matrix->xx = 1.0;
+    group->matrix->yy = 1.0;
+  }
+  group->matrix->xx *= (w1 / w0);
+  group->matrix->yy *= (h1 / h0);
+
+  group_update_data(group);
 
   return NULL;
 }
@@ -170,6 +278,9 @@ group_move(Group *group, Point *to)
   pos = group->object.position;
   point_sub(&delta, &pos);
   
+  /* We don't need any transformation of delta, because 
+   * group_update_data () maintains the relative position.
+   */
   object_list_move_delta(group->objects, &delta);
   
   group_update_data(group);
@@ -186,9 +297,8 @@ group_draw(Group *group, DiaRenderer *renderer)
   list = group->objects;
   while (list != NULL) {
     obj = (DiaObject *) list->data;
-    
-    DIA_RENDERER_GET_CLASS(renderer)->draw_object(renderer, obj, NULL);
 
+    DIA_RENDERER_GET_CLASS(renderer)->draw_object(renderer, obj, group->matrix);
     list = g_list_next(list);
   }
 }
@@ -225,6 +335,8 @@ group_destroy(Group *group)
   prop_desc_list_free_handler_chain((PropDescription *)group->pdesc);
   g_free((PropDescription *)group->pdesc);
 
+  g_free (group->matrix);
+
   object_destroy(obj);
 }
 
@@ -248,6 +360,8 @@ group_copy(Group *group)
     newobj->handles[i] = &newgroup->resize_handles[i];
     newgroup->resize_handles[i] = group->resize_handles[i];
   }
+  
+  newgroup->matrix = g_memdup(group->matrix, sizeof(DiaMatrix));
 
   newgroup->objects = object_copy_list(group->objects);
 
@@ -297,11 +411,52 @@ group_update_data(Group *group)
     /* Move group by the point of the first object, otherwise a group
        with all objects on grid might be moved off grid. */
     group->object.position = obj->position;
-    
+
+    if (group->matrix) {
+      Point p;
+      Rectangle box;
+      Rectangle *bb = &group->object.bounding_box;
+      DiaMatrix *m = group->matrix;
+
+      /* maintain obj->position */
+      m->x0 = obj->position.x - (m->xx * obj->position.x + m->xy  * obj->position.y);
+      m->y0 = obj->position.y - (m->yx * obj->position.x + m->yy  * obj->position.y);
+
+      /* recalculate bounding box */
+      /* need to consider all corners */
+      p.x = m->xx * bb->left + m->xy * bb->top + m->x0;
+      p.y = m->yx * bb->left + m->yy * bb->top + m->y0;
+      box.left = box.right = p.x;
+      box.top = box.bottom = p.y;
+
+      p.x = m->xx * bb->right + m->xy * bb->top + m->x0;
+      p.y = m->yx * bb->right + m->yy * bb->top + m->y0;
+      rectangle_add_point (&box, &p);
+
+      p.x = m->xx * bb->right + m->xy * bb->bottom + m->x0;
+      p.y = m->yx * bb->right + m->yy * bb->bottom + m->y0;
+      rectangle_add_point (&box, &p);
+
+      p.x  = m->xx * bb->left + m->xy * bb->bottom + m->x0;
+      p.y = m->yx * bb->left + m->yy * bb->bottom + m->y0;
+      rectangle_add_point (&box, &p);
+      /* the new one does not necessarily include the old one */
+      group->object.bounding_box = box;
+    }
+
+    group_update_connectionpoints(group);
     group_update_handles(group);
   }
 }
 
+DiaObject *
+group_create_with_matrix(GList *objects, DiaMatrix *matrix)
+{
+  Group *group = (Group *)group_create(objects);
+  group->matrix = matrix;
+  group_update_data(group);
+  return &group->object;
+}
 /* Make sure there are no connections from objects to objects
  * outside of the created group.
  */
@@ -323,6 +478,8 @@ group_create(GList *objects)
 
   group->objects = objects;
 
+  group->matrix = NULL;
+
   group->pdesc = NULL;
 
   /* Make new connections as references to object connections: */
@@ -337,7 +494,7 @@ group_create(GList *objects)
   }
   
   object_init(obj, 8, num_conn);
-  
+
   /* Make connectionpoints be that of the 'inner' objects: */
   num_conn = 0;
   list = objects;
@@ -353,7 +510,7 @@ group_create(GList *objects)
 
   for (i=0;i<8;i++) {
     obj->handles[i] = &group->resize_handles[i];
-    obj->handles[i]->type = HANDLE_NON_MOVABLE;
+    obj->handles[i]->type = HANDLE_MAJOR_CONTROL;
     obj->handles[i]->connect_type = HANDLE_NONCONNECTABLE;
     obj->handles[i]->connected_to = NULL;
   }
@@ -401,10 +558,21 @@ group_prop_event_deliver(Group *group, Property *prop)
   return FALSE;
 }
 
+static PropDescription _group_props[] = {
+  { "matrix", PROP_TYPE_MATRIX, PROP_FLAG_DONT_MERGE|PROP_FLAG_VISIBLE|PROP_FLAG_OPTIONAL|PROP_FLAG_NO_DEFAULTS,
+  N_("Transformation"), NULL, NULL },
+
+  PROP_DESC_END
+};
+
 static const PropDescription *
 group_describe_props(Group *group)
 {
   int i;
+
+  if (_group_props[0].quark == 0) {
+    prop_desc_list_calculate_quarks(_group_props);
+  }
   if (group->pdesc == NULL) {
 
     /* create list of property descriptions. this must be freed by the
@@ -418,16 +586,40 @@ group_describe_props(Group *group)
           prop_desc_insert_handler((PropDescription *)&group->pdesc[i],
                                    (PropEventHandler)group_prop_event_deliver);
       }
+      /* mix in our own single matrix property */
+      {
+        PropDescription *arr = g_new (PropDescription, i+2);
+	
+	arr[0] = _group_props[0];
+	memcpy (&arr[1], group->pdesc, (i+1) * sizeof(PropDescription));
+	for (i=1; arr[i].name != NULL; ++i) {
+	  /* these are not meant to be saved/loaded with the group */
+	  arr[i].flags |= (PROP_FLAG_DONT_SAVE|PROP_FLAG_OPTIONAL);
+	}
+	g_free ((PropDescription *)group->pdesc);
+	group->pdesc = arr;
+      }
     }
   }
 
   return group->pdesc;
 }
 
+static PropOffset _group_offsets[] = {
+  { "matrix", PROP_TYPE_MATRIX, offsetof(Group, matrix) },
+  { NULL }
+};
+
 static void
 group_get_props(Group *group, GPtrArray *props)
 {
   GList *tmp;
+
+  /* FIXME: need to somehow avoid to ask included groups for matrix, too. */
+  object_get_props_from_offsets(&group->object, _group_offsets, props);
+
+  if (group->self_only)
+    return;
 
   for (tmp = group->objects; tmp != NULL; tmp = tmp->next) {
     DiaObject *obj = tmp->data;
@@ -443,6 +635,12 @@ group_set_props(Group *group, GPtrArray *props)
 {
   GList *tmp;
 
+  /* FIXME: need to somehow avoid to set included groups for matrix, too. */
+  object_set_props_from_offsets(&group->object, _group_offsets, props);
+
+  if (group->self_only)
+    return;
+
   for (tmp = group->objects; tmp != NULL; tmp = tmp->next) {
     DiaObject *obj = tmp->data;
 
@@ -450,6 +648,7 @@ group_set_props(Group *group, GPtrArray *props)
       obj->ops->set_props(obj, props);
     }
   }
+  group_update_data (group);
 }
 
 GroupPropChange *
@@ -457,6 +656,7 @@ group_apply_properties_list(Group *group, GPtrArray *props)
 {
   GList *tmp = NULL;
   GList *clist = NULL;
+  ObjectChange *objchange;
   GroupPropChange *change = NULL;
   change = g_new0(GroupPropChange, 1);
 
@@ -472,11 +672,18 @@ group_apply_properties_list(Group *group, GPtrArray *props)
 
   for (tmp = group->objects; tmp != NULL; tmp = g_list_next(tmp)) {
     DiaObject *obj = (DiaObject*)tmp->data;
-    ObjectChange *objchange = NULL;
+    objchange = NULL;
     
     objchange = obj->ops->apply_properties_list(obj, props);
     clist = g_list_append(clist, objchange);
   }
+  /* finally ourself */
+  group->self_only = TRUE;
+  objchange = object_apply_props (&group->object, props);
+  group->self_only = FALSE;
+  clist = g_list_append(clist, objchange);
+
+  group_update_data (group);
 
   change->changes_per_object = clist;
 
@@ -525,7 +732,8 @@ group_prop_change_revert(GroupPropChange *change, DiaObject *obj)
   }
 }
 
-static void group_prop_change_free(GroupPropChange *change)
+static void 
+group_prop_change_free(GroupPropChange *change)
 {
   GList *tmp;
   for (tmp = change->changes_per_object; tmp != NULL;
