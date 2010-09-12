@@ -166,7 +166,8 @@ fileprop_get_widget(StringProperty *prop, PropDialog *dialog)
 static void 
 fileprop_reset_widget(StringProperty *prop, GtkWidget *widget)
 {
-  dia_file_selector_set_file(DIAFILESELECTOR(widget),prop->string_data);
+  if (prop->string_data)
+    dia_file_selector_set_file(DIAFILESELECTOR(widget),prop->string_data);
 }
 
 static void 
