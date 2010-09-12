@@ -207,6 +207,27 @@ draw_object (DiaRenderer *renderer,
 	     DiaObject   *object,
 	     DiaMatrix   *matrix) 
 {
+  if (matrix) {
+    /* visual complaints - not completely correct */
+    Point pt[4];
+    Rectangle *bb = &object->bounding_box;
+    Color red = { 1.0, 0.0, 0.0 };
+
+    pt[0].x = matrix->xx * bb->left + matrix->xy * bb->top + matrix->x0;
+    pt[0].y = matrix->yx * bb->left + matrix->yy * bb->top + matrix->y0;
+    pt[1].x = matrix->xx * bb->right + matrix->xy * bb->top + matrix->x0;
+    pt[1].y = matrix->yx * bb->right + matrix->yy * bb->top + matrix->y0;
+    pt[2].x = matrix->xx * bb->right + matrix->xy * bb->bottom + matrix->x0;
+    pt[2].y = matrix->yx * bb->right + matrix->yy * bb->bottom + matrix->y0;
+    pt[3].x = matrix->xx * bb->left + matrix->xy * bb->bottom + matrix->x0;
+    pt[3].y = matrix->yx * bb->left + matrix->yy * bb->bottom + matrix->y0;
+    
+    DIA_RENDERER_GET_CLASS(renderer)->set_linewidth(renderer, 0.0);
+    DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_DOTTED);
+    DIA_RENDERER_GET_CLASS(renderer)->draw_polygon(renderer, pt, 4, &red);
+    DIA_RENDERER_GET_CLASS(renderer)->draw_line(renderer, &pt[0], &pt[2], &red);
+    DIA_RENDERER_GET_CLASS(renderer)->draw_line(renderer, &pt[1], &pt[3], &red);
+  }
   object->ops->draw(object, renderer);
 }
 
