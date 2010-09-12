@@ -86,7 +86,7 @@ drs_render_layer (DiaRenderer *self, Layer *layer, gboolean active)
   list = layer->objects;
   while (list!=NULL) {
     obj = (DiaObject *) list->data;
-    renderer_class->draw_object(self, obj);
+    renderer_class->draw_object(self, obj, NULL);
     list = g_list_next(list);
   }
 

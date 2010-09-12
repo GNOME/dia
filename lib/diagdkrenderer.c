@@ -36,7 +36,6 @@
 #include "color.h"
 #include "font.h"
 #include "text.h"
-#include "object.h"
 #include "textline.h"
 
 #include "time.h"
@@ -120,7 +119,6 @@ static void draw_rounded_rect (DiaRenderer *renderer,
 static void fill_rounded_rect (DiaRenderer *renderer,
                                Point *ul_corner, Point *lr_corner,
                                Color *color, real radius);
-static void draw_object (DiaRenderer *renderer, DiaObject *object);
 
 static real get_text_width (DiaRenderer *renderer,
                             const gchar *text, int length);
@@ -249,7 +247,6 @@ dia_gdk_renderer_class_init(DiaGdkRendererClass *klass)
   renderer_class->draw_rect = draw_rect;
   renderer_class->draw_polyline  = draw_polyline;
   renderer_class->draw_polygon   = draw_polygon;
-  renderer_class->draw_object    = draw_object;
 
   /* highest level functions */
   renderer_class->draw_rounded_rect = draw_rounded_rect;
@@ -1049,13 +1046,6 @@ fill_rounded_rect (DiaRenderer *self,
     draw_fill_rounded_rect (self, ul_corner, lr_corner, color, radius, TRUE);
   else
     fill_rect (self, ul_corner, lr_corner, color);
-}
-
-
-static void
-draw_object (DiaRenderer *renderer, DiaObject *object)
-{
-  object->ops->draw(object, renderer);
 }
 
 static int

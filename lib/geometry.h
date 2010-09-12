@@ -114,6 +114,16 @@ struct _BezPoint {
   Point p3; /*!< main point for 'true' bezier point */
 };
 
+/*!
+ * \brief DiaMatrix used for affine transformation
+ *
+ * The struct is intentionally binary compatible with cairo_matrix_t.
+ */
+struct _DiaMatrix {
+  real xx; real yx;
+  real xy; real yy;
+  real x0; real y0;
+};
 
 #define ROUND(x) ((int) floor((x)+0.5))
 

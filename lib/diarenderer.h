@@ -32,8 +32,9 @@
 G_BEGIN_DECLS
 
 typedef enum {
-  RENDER_HOLES = (1<<0),
-  RENDER_ALPHA = (1<<1)
+  RENDER_HOLES  = (1<<0),
+  RENDER_ALPHA  = (1<<1),
+  RENDER_AFFINE = (1<<2)
 } RenderCapability;
 
 /*! GObject boiler plate, create runtime information */
@@ -79,8 +80,9 @@ struct _DiaRendererClass
   int (*get_width_pixels) (DiaRenderer*);
   /*! return width in pixels, only for interactive renderers */
   int (*get_height_pixels) (DiaRenderer*);
-  /*! simply calls the objects draw function, which calls this again */
-  void (*draw_object) (DiaRenderer*, DiaObject*);
+  /*! Calls the objects draw function, which calls this again 
+   *  Affine transforamtion is mostly done on the renderer side for matrix!=NULL */
+  void (*draw_object) (DiaRenderer*, DiaObject*, DiaMatrix*);
   /*! Returns the EXACT width of text in cm, using the current font.
      There has been some confusion as to the definition of this.
      It used to say the width was in pixels, but actual width returned

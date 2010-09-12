@@ -626,7 +626,7 @@ ddisplay_obj_render(DiaObject *obj, DiaRenderer *renderer,
   if (hltype != DIA_HIGHLIGHT_NONE && irenderer->draw_object_highlighted != NULL)
     irenderer->draw_object_highlighted(renderer, obj, hltype);
   else /* maybe the renderer does not support highlighting */
-    DIA_RENDERER_GET_CLASS(renderer)->draw_object(renderer, obj);
+    DIA_RENDERER_GET_CLASS(renderer)->draw_object(renderer, obj, NULL);
 
   if (ddisp->show_cx_pts && 
       obj->parent_layer != NULL && obj->parent_layer->connectable) {

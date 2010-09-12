@@ -77,7 +77,8 @@ G_END_DECLS
 static DiaSvgRenderer *new_svg_renderer(DiagramData *data, const char *filename);
 
 static void draw_object       (DiaRenderer *renderer,
-                               DiaObject *object);
+                               DiaObject   *object,
+			       DiaMatrix   *matrix);
 static void draw_rounded_rect (DiaRenderer *renderer, 
                                Point *ul_corner, Point *lr_corner,
                                Color *colour, real rounding);
@@ -243,7 +244,8 @@ new_svg_renderer(DiagramData *data, const char *filename)
 
 static void 
 draw_object(DiaRenderer *self,
-            DiaObject *object) 
+            DiaObject   *object,
+	    DiaMatrix   *matrix)
 {
   /* wrap in  <g></g> 
    * We could try to be smart and count the objects we using for the object.

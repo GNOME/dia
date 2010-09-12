@@ -108,6 +108,7 @@ typedef struct _Point Point;
 typedef struct _Rectangle Rectangle;
 typedef struct _IntRectangle IntRectangle;
 typedef struct _BezPoint BezPoint;
+typedef struct _DiaMatrix DiaMatrix;
 
 /* In group.h: */
 typedef struct _Group Group;

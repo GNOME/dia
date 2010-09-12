@@ -204,7 +204,8 @@ dia_renderer_get_type (void)
 
 static void
 draw_object (DiaRenderer *renderer,
-	   DiaObject *object) 
+	     DiaObject   *object,
+	     DiaMatrix   *matrix) 
 {
   object->ops->draw(object, renderer);
 }

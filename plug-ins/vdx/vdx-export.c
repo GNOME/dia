@@ -2154,11 +2154,14 @@ static void fill_bezier(DiaRenderer *self,
 /** Render a Dia object
  * @param self a renderer
  * @param object an object
+ * @param matrix NULL for identity
  * @note No work done here - perhaps should push/pop renderer state
  */
 
-static void draw_object(DiaRenderer *self,
-			DiaObject *object)
+static void 
+draw_object (DiaRenderer *self,
+	     DiaObject   *object,
+	     DiaMatrix   *matrix)
 {
     VDXRenderer *renderer = VDX_RENDERER(self);
 

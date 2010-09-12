@@ -171,7 +171,8 @@ static void draw_image(DiaRenderer *self,
 		       real width, real height,
 		       DiaImage *image);
 static void draw_object(DiaRenderer *self,
-			DiaObject *object);
+			DiaObject *object,
+			DiaMatrix *matrix);
 
 static void xfig_renderer_class_init (XfigRendererClass *klass);
 
@@ -1124,12 +1125,15 @@ draw_image(DiaRenderer *self,
 
 static void 
 draw_object(DiaRenderer *self,
-            DiaObject *object) 
+            DiaObject   *object,
+	    DiaMatrix   *matrix)
 {
   XfigRenderer *renderer = XFIG_RENDERER(self);
 
   if (!renderer->color_pass)
     fprintf(renderer->file, "6 0 0 0 0\n");
+  if (matrix)
+    g_warning ("XFigRenderer no transformations");
   object->ops->draw(object, DIA_RENDERER(renderer));
   if (!renderer->color_pass)
     fprintf(renderer->file, "-6\n");

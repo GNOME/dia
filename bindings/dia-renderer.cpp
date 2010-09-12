@@ -45,7 +45,7 @@ void
 dia::Renderer::draw_object (Object* o)
 {
     assert (self);
-    DIA_RENDERER_GET_CLASS(self)->draw_object (self, o->Self());
+    DIA_RENDERER_GET_CLASS(self)->draw_object (self, o->Self(), NULL);
 }
 // Returns the EXACT width of text in cm, using the current font.
 double 

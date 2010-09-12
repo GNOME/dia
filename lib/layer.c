@@ -39,7 +39,7 @@ normal_render(DiaObject *obj, DiaRenderer *renderer,
 	      int active_layer,
 	      gpointer data)
 {
-  DIA_RENDERER_GET_CLASS(renderer)->draw_object(renderer, obj);
+  DIA_RENDERER_GET_CLASS(renderer)->draw_object(renderer, obj, NULL);
 }
 
 

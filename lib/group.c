@@ -187,7 +187,7 @@ group_draw(Group *group, DiaRenderer *renderer)
   while (list != NULL) {
     obj = (DiaObject *) list->data;
     
-    DIA_RENDERER_GET_CLASS(renderer)->draw_object(renderer, obj);
+    DIA_RENDERER_GET_CLASS(renderer)->draw_object(renderer, obj, NULL);
 
     list = g_list_next(list);
   }

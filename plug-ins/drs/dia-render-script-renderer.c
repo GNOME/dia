@@ -95,7 +95,8 @@ drs_renderer_get_type (void)
  */ 
 static void 
 draw_object(DiaRenderer *self,
-            DiaObject *object) 
+            DiaObject   *object,
+	    DiaMatrix   *matrix)
 {
   DrsRenderer *renderer = DRS_RENDERER (self);
   xmlNodePtr node;
@@ -115,6 +116,8 @@ draw_object(DiaRenderer *self,
     props_node = xmlNewChild(node, NULL, (const xmlChar *)"properties", NULL);
     object_save_props (object, props_node);
   }
+  if (matrix)
+    g_warning ("DrsRender::draw_object ignored matrix!");
   /* TODO: special handling for group object? */
   {
     g_queue_push_tail (renderer->parents, renderer->root);
