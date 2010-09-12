@@ -397,20 +397,6 @@ DiaObject *object_copy_using_properties(DiaObject *obj);
  **  The structures used to define an object
  *****************************************/
 
-/**
- * \private This is currently unused
- *
- * This structure defines an affine transformation that has been applied
- * to this object.  Affine transformations done on a group are performed
- * on all objects in the group.
- */
-typedef struct _Affine {
-  real rotation;
-  real scale;
-  real translation;
-} Affine;
-
-
 /*!
   \brief _DiaObject vtable
 
@@ -471,7 +457,6 @@ struct _DiaObject {
    *  Do not access this field directly, but use dia_object_get_enclosing_box().
    */
   Rectangle         bounding_box;
-  Affine            affine; /*!< unused */
   
   int               num_handles;
   Handle          **handles;
