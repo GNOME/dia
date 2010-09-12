@@ -890,3 +890,85 @@ MORETOPARSE:
   }
   return points;
 }
+
+DiaMatrix *
+dia_svg_parse_transform(const gchar *trans, real scale)
+{
+  DiaMatrix *m = g_new0 (DiaMatrix, 1);
+  gchar *p = strchr (trans, '(');
+  gchar **list = g_strsplit (p+1, ",", -1);
+  int i = 0;
+
+  if (strncmp (trans, "matrix", 6) == 0) {
+    if (list[i])
+      m->xx = g_ascii_strtod (list[i], NULL), ++i;
+    if (list[i])
+      m->yx = g_ascii_strtod (list[i], NULL), ++i;
+    if (list[i])
+      m->xy = g_ascii_strtod (list[i], NULL), ++i;
+    if (list[i])
+      m->yy = g_ascii_strtod (list[i], NULL), ++i;
+    if (list[i])
+      m->x0 = g_ascii_strtod (list[i], NULL), ++i;
+    if (list[i])
+      m->y0 = g_ascii_strtod (list[i], NULL), ++i;
+  } else if (strncmp (trans, "translate", 9) == 0) {
+    m->xx = m->yy = 1.0;
+    if (list[i])
+      m->x0 = g_ascii_strtod (list[i], NULL), ++i;
+    if (list[i])
+      m->y0 = g_ascii_strtod (list[i], NULL), ++i;
+  } else if (strncmp (trans, "scale", 5) == 0) {
+    if (list[i])
+      m->xx = g_ascii_strtod (list[i], NULL), ++i;
+    if (list[i])
+      m->yy = g_ascii_strtod (list[i], NULL), ++i;
+    else
+      m->yy = m->xx;
+  } else if (strncmp (trans, "rotate", 6) == 0) {
+    real angle;
+    
+    if (list[i])
+      angle = g_ascii_strtod (list[i], NULL);
+    m->xx =  cos(G_PI*angle/180);
+    m->xy =  sin(G_PI*angle/180);
+    m->yx = -sin(G_PI*angle/180);
+    m->yy =  cos(G_PI*angle/180);
+  } else {
+    g_warning ("%s?", trans);
+    g_free (m);
+    m = NULL;
+  }
+  if (scale > 0 && m) {
+    m->x0 /= scale;
+    m->y0 /= scale;
+  }
+  g_strfreev(list);
+  return m;
+}
+
+gchar *
+dia_svg_from_matrix(const DiaMatrix *matrix, real scale)
+{
+  /*  transform="matrix(1,0,0,1,0,0)" */
+  gchar buf[G_ASCII_DTOSTR_BUF_SIZE];
+  GString *sm = g_string_new ("matrix(");
+  gchar *s;
+
+  g_ascii_formatd (buf, sizeof(buf), "%g", matrix->xx);
+  g_string_append (sm, buf); g_string_append (sm, ",");
+  g_ascii_formatd (buf, sizeof(buf), "%g", matrix->yx);
+  g_string_append (sm, buf); g_string_append (sm, ",");
+  g_ascii_formatd (buf, sizeof(buf), "%g", matrix->xy);
+  g_string_append (sm, buf); g_string_append (sm, ",");
+  g_ascii_formatd (buf, sizeof(buf), "%g", matrix->yy);
+  g_string_append (sm, buf); g_string_append (sm, ",");
+  g_ascii_formatd (buf, sizeof(buf), "%g", matrix->x0 * scale);
+  g_string_append (sm, buf); g_string_append (sm, ",");
+  g_ascii_formatd (buf, sizeof(buf), "%g", matrix->y0 * scale);
+  g_string_append (sm, buf); g_string_append (sm, ")");
+  
+  s = sm->str;
+  g_string_free (sm, FALSE);
+  return s;
+}
