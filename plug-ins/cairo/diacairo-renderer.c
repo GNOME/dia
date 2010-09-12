@@ -186,7 +186,7 @@ draw_object (DiaRenderer *self, DiaObject *object, DiaMatrix *matrix)
     g_assert (sizeof(cairo_matrix_t) == sizeof(DiaMatrix));
     cairo_transform (renderer->cr, (cairo_matrix_t *)matrix);
   }
-  object->ops->draw(object, renderer);
+  object->ops->draw(object, DIA_RENDERER (renderer));
   if (matrix)
     cairo_set_matrix (renderer->cr, &before);
 }
@@ -1031,6 +1031,7 @@ cairo_renderer_class_init (DiaCairoRendererClass *klass)
   /* renderer members */
   renderer_class->begin_render = begin_render;
   renderer_class->end_render   = end_render;
+  renderer_class->draw_object = draw_object;
 
   renderer_class->set_linewidth  = set_linewidth;
   renderer_class->set_linecaps   = set_linecaps;
