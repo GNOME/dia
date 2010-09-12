@@ -163,6 +163,7 @@ data_add_pixbuf (AttributeNode attr, GdkPixbuf *pixbuf)
   g_byte_array_append (ed.array, "\0\0\0\0\0", 6);
   ed.size += g_base64_encode_close (TRUE, (gchar *)&ed.array->data[ed.size], 
 				    &ed.state, &ed.save);
+  ed.array->data[ed.size] = '\0';
 
   (void)xmlNewChild (comp_attr, NULL, (const xmlChar *)"data", ed.array->data);
 
