@@ -40,6 +40,7 @@
 #include "prop_text.h"
 #include "prop_sdarray.h"
 #include "prop_dict.h"
+#include "prop_matrix.h"
 
 /*
  * New
@@ -188,6 +189,8 @@ static PyObject * PyDia_get_Rect (RectProperty *prop)
 { return PyDiaRectangle_New (&prop->rect_data, NULL); }
 static PyObject * PyDia_get_Arrow (ArrowProperty *prop)
 { return PyDiaArrow_New (&prop->arrow_data); }
+static PyObject * PyDia_get_Matrix (MatrixProperty *prop)
+{ return PyDiaMatrix_New (prop->matrix); }
 static PyObject * PyDia_get_Color (ColorProperty *prop)
 { return PyDiaColor_New (&prop->color_data); }
 static PyObject * PyDia_get_Font (FontProperty *prop)
@@ -277,6 +280,19 @@ PyDia_set_Arrow (Property *prop, PyObject *val)
       p->arrow_data.width = PyFloat_AsDouble(o);
     else
       p->arrow_data.width = DEFAULT_ARROW_SIZE;
+    return 0;
+  }
+  return -1;
+}
+static int
+PyDia_set_Matrix (Property *prop, PyObject *val)
+{
+  MatrixProperty *p = (MatrixProperty *)prop;
+  
+  if (val->ob_type == &PyDiaMatrix_Type) {
+    if (!p->matrix)
+      p->matrix = g_new (DiaMatrix, 1);
+    *p->matrix = ((PyDiaMatrix *)val)->matrix;
     return 0;
   }
   return -1;
@@ -557,6 +573,7 @@ struct {
   { PROP_TYPE_BEZPOINTARRAY, PyDia_get_BezPointArray, PyDia_set_BezPointArray },
   { PROP_TYPE_RECT, PyDia_get_Rect, PyDia_set_Rect },
   { PROP_TYPE_ARROW, PyDia_get_Arrow, PyDia_set_Arrow },
+  { PROP_TYPE_MATRIX, PyDia_get_Matrix, PyDia_set_Matrix },
   { PROP_TYPE_COLOUR, PyDia_get_Color, PyDia_set_Color },
   { PROP_TYPE_FONT, PyDia_get_Font },
   { PROP_TYPE_SARRAY, PyDia_get_Array, PyDia_set_Array },

@@ -575,6 +575,7 @@ initdia(void)
     PyDiaProperties_Type.ob_type = &PyType_Type;
     PyDiaError_Type.ob_type = &PyType_Type;
     PyDiaArrow_Type.ob_type = &PyType_Type;
+    PyDiaMatrix_Type.ob_type = &PyType_Type;
     PyDiaText_Type.ob_type = &PyType_Type;
     PyDiaPaperinfo_Type.ob_type = &PyType_Type;
 #endif
@@ -630,6 +631,8 @@ initdia(void)
 			 (void *)&PyDiaError_Type);
     PyDict_SetItemString(d, "Arrow",
 			 (void *)&PyDiaArrow_Type);
+    PyDict_SetItemString(d, "Matrix",
+			 (void *)&PyDiaMatrix_Type);
     PyDict_SetItemString(d, "Text",
 			 (void *)&PyDiaText_Type);
     PyDict_SetItemString(d, "Paperinfo",

@@ -48,4 +48,13 @@ extern PyTypeObject PyDiaArrow_Type;
 
 PyObject* PyDiaArrow_New (Arrow* arrow);
 
+typedef struct {
+    PyObject_HEAD
+    DiaMatrix matrix;
+} PyDiaMatrix;
+
+extern PyTypeObject PyDiaMatrix_Type;
+
+PyObject* PyDiaMatrix_New (DiaMatrix* arrow);
+
 #endif

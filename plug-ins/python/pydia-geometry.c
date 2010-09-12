@@ -130,6 +130,24 @@ PyObject* PyDiaArrow_New (Arrow* arrow)
   return (PyObject *)self;
 }
 
+PyObject*
+PyDiaMatrix_New (DiaMatrix *matrix)
+{
+  PyDiaMatrix *self;
+
+  self = PyObject_NEW(PyDiaMatrix, &PyDiaMatrix_Type);
+  if (!self) return NULL;
+  
+  if (matrix)
+    self->matrix = *matrix;
+  else {
+    /* identity matrix */
+    self->matrix.xx = self->matrix.yy = 1.0;
+    self->matrix.xy = self->matrix.yx = self->matrix.x0 = self->matrix.y0 = 0.0;
+  } 
+
+  return (PyObject *)self;
+}
 /*
  * Dealloc
  */
@@ -177,6 +195,13 @@ PyDiaArrow_Compare(PyDiaArrow *self,
 			 PyDiaArrow *other)
 {
   return memcmp (&self->arrow, &other->arrow, sizeof(Arrow));
+}
+
+static int
+PyDiaMatrix_Compare(PyDiaMatrix *self,
+		    PyDiaMatrix *other)
+{
+  return memcmp (&self->matrix, &other->matrix, sizeof(Matrix));
 }
 
 /*
@@ -310,6 +335,22 @@ PyDiaArrow_Str(PyDiaArrow *self)
                                 (float)(self->arrow.width), 
                                 (float)(self->arrow.length),
                                 (int)(self->arrow.type));
+    py_s = PyString_FromString(s);
+    g_free(s);
+    return py_s;
+}
+
+static PyObject *
+PyDiaMatrix_Str(PyDiaMatrix *self)
+{
+    PyObject* py_s;
+    gchar* s = g_strdup_printf ("(%f, %f, %f, %f, %f, %f)",
+                                (float)(self->matrix.xx),
+                                (float)(self->matrix.xy),
+                                (float)(self->matrix.yx),
+                                (float)(self->matrix.yy),
+                                (float)(self->matrix.x0),
+                                (float)(self->matrix.y0));
     py_s = PyString_FromString(s);
     g_free(s);
     return py_s;
@@ -590,5 +631,48 @@ PyTypeObject PyDiaArrow_Type = {
     (iternextfunc)0,
     0, /* tp_methods */
     PyDiaArrow_Members, /* tp_members */
+    0
+};
+
+static PyMemberDef PyDiaMatrix_Members[] = {
+    { "xx", T_DOUBLE, offsetof(PyDiaMatrix, matrix.xx), 0, "double" },
+    { "xy", T_DOUBLE, offsetof(PyDiaMatrix, matrix.xy), 0, "double" },
+    { "yx", T_DOUBLE, offsetof(PyDiaMatrix, matrix.yx), 0, "double" },
+    { "yy", T_DOUBLE, offsetof(PyDiaMatrix, matrix.yy), 0, "double" },
+    { "x0", T_DOUBLE, offsetof(PyDiaMatrix, matrix.x0), 0, "double" },
+    { "y0", T_DOUBLE, offsetof(PyDiaMatrix, matrix.y0), 0, "double" },
+    { NULL }
+};
+PyTypeObject PyDiaMatrix_Type = {
+    PyObject_HEAD_INIT(&PyType_Type)
+    0,
+    "dia.Matrix",
+    sizeof(PyDiaMatrix),
+    0,
+    (destructor)PyDiaGeometry_Dealloc,
+    (printfunc)0,
+    (getattrfunc)0,
+    (setattrfunc)0,
+    (cmpfunc)PyDiaMatrix_Compare,
+    (reprfunc)0,
+    0,
+    0,
+    0,
+    (hashfunc)PyDiaGeometry_Hash,
+    (ternaryfunc)0,
+    (reprfunc)PyDiaMatrix_Str,
+    PyObject_GenericGetAttr, /* tp_getattro */
+    (setattrofunc)0,
+    (PyBufferProcs *)0,
+    0L, /* Flags */
+    "Dia's matrix to do affine transformation",
+    (traverseproc)0,
+    (inquiry)0,
+    (richcmpfunc)0,
+    0, /* tp_weakliszoffset */
+    (getiterfunc)0,
+    (iternextfunc)0,
+    0, /* tp_methods */
+    PyDiaMatrix_Members, /* tp_members */
     0
 };
