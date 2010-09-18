@@ -453,6 +453,11 @@ DiaObject *
 group_create_with_matrix(GList *objects, DiaMatrix *matrix)
 {
   Group *group = (Group *)group_create(objects);
+  if (matrix->x0 != 0 || matrix->y0 != 0) {
+    Point delta = {matrix->x0, matrix->y0};
+    matrix->x0 = matrix->y0 = 0; /* offset used internally */
+    object_list_move_delta(group->objects, &delta);
+  }
   group->matrix = matrix;
   group_update_data(group);
   return &group->object;
