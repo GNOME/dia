@@ -396,7 +396,6 @@ largepackage_destroy(LargePackage *pkg)
   g_free(pkg->stereotype);
   g_free(pkg->st_stereotype);
   g_free(pkg->name);
-  dia_font_unref(pkg->font);
   
   element_destroy(&pkg->element);
 }
