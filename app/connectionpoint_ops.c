@@ -31,7 +31,8 @@ static Color connectionpoint_color = { 0.4, 0.4, 1.0 };
 
 static void
 connectionpoint_draw(ConnectionPoint *conpoint,
-		     DDisplay *ddisp)
+		     DDisplay        *ddisp,
+		     Color           *color)
 {
   int x,y;
   Point *point = &conpoint->pos;
@@ -40,27 +41,6 @@ connectionpoint_draw(ConnectionPoint *conpoint,
   DiaInteractiveRendererInterface *irenderer =
     DIA_GET_INTERACTIVE_RENDERER_INTERFACE (ddisp->renderer);
   
-  /* draw the "whole object"/center connpoints, but only when we don't
-   * have snap-to-grid */
-  if (conpoint->flags & CP_FLAG_ANYPLACE) {
-    if (!ddisp->mainpoint_magnetism) {
-      static Color midpoint_color = { 1.0, 0.0, 0.0 };
-      
-      ddisplay_transform_coords(ddisp, point->x, point->y, &x, &y);
-         
-      irenderer->draw_pixel_line (renderer,
-				  x-CP_SZ,y-CP_SZ,
-				  x+CP_SZ,y+CP_SZ,
-				  &midpoint_color);
-      
-      irenderer->draw_pixel_line (renderer,
-				  x+CP_SZ,y-CP_SZ,
-				  x-CP_SZ,y+CP_SZ,
-				  &midpoint_color);
-    }
-    return;
-  }
-
   ddisplay_transform_coords(ddisp, point->x, point->y, &x, &y);
 
   renderer_ops->set_linewidth (renderer, 0.0);
@@ -69,21 +49,27 @@ connectionpoint_draw(ConnectionPoint *conpoint,
   irenderer->draw_pixel_line (renderer,
 			x-CP_SZ,y-CP_SZ,
 			x+CP_SZ,y+CP_SZ,
-			&connectionpoint_color);
+			color);
 
   irenderer->draw_pixel_line (renderer,
 			x+CP_SZ,y-CP_SZ,
 			x-CP_SZ,y+CP_SZ,
-			&connectionpoint_color);
+			color);
 }
 
 void 
 object_draw_connectionpoints(DiaObject *obj, DDisplay *ddisp)
 {
   int i;
+  static Color midpoint_color = { 1.0, 0.0, 0.0 };
 
   for (i=0;i<obj->num_connections;i++) {
-    connectionpoint_draw(obj->connections[i], ddisp);
+    if ((obj->connections[i]->flags & CP_FLAG_ANYPLACE) == 0)
+      connectionpoint_draw(obj->connections[i], ddisp, &connectionpoint_color);
+    else if (!ddisp->mainpoint_magnetism)
+      /* draw the "whole object"/center connpoints, but only when we don't
+       * have snap-to-grid */
+      connectionpoint_draw(obj->connections[i], ddisp, &midpoint_color);
   }
 }
 
