@@ -139,15 +139,16 @@ struct _Association {
   
   Color text_color;
   Color line_color;
+  
+  DiaFont *font;
+  real     font_height;
+  real     line_width;
 };
 
-#define ASSOCIATION_WIDTH 0.1
-#define ASSOCIATION_TRIANGLESIZE 0.8
-#define ASSOCIATION_DIAMONDLEN 1.4
-#define ASSOCIATION_DIAMONDWIDTH 0.7
-#define ASSOCIATION_FONTHEIGHT 0.8
-#define ASSOCIATION_END_SPACE 0.2
-static DiaFont *assoc_font = NULL;
+#define ASSOCIATION_TRIANGLESIZE (assoc->font_height)
+#define ASSOCIATION_DIAMONDLEN (assoc->font_height*14./8.)
+#define ASSOCIATION_DIAMONDWIDTH (assoc->font_height*7./8.)
+#define ASSOCIATION_END_SPACE (assoc->font_height/4)
 
 static real association_distance_from(Association *assoc, Point *point);
 static void association_select(Association *assoc, Point *clicked_point,
@@ -177,7 +178,7 @@ static DiaObject *association_load(ObjectNode obj_node, int version,
 				const char *filename);
 
 static void association_update_data(Association *assoc);
-static coord get_aggregate_pos_diff(AssociationEnd *end);
+static coord get_aggregate_pos_diff(AssociationEnd *end, const Association *assoc);
 
 static ObjectTypeOps association_type_ops =
 {
@@ -231,6 +232,9 @@ static PropEnumData prop_assoc_type_data[] = {
 };
 
 static PropDescription association_props[] = {
+  PROP_STD_NOTEBOOK_BEGIN,
+  PROP_NOTEBOOK_PAGE("assoc", PROP_FLAG_DONT_MERGE, N_("General")),
+  ORTHCONN_COMMON_PROPERTIES,
   { "name", PROP_TYPE_STRING, PROP_FLAG_VISIBLE, N_("Name"), NULL, NULL },
   { "direction", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE, 
     N_("Direction"), NULL, prop_assoc_direction_data },
@@ -264,11 +268,15 @@ static PropDescription association_props[] = {
     N_(" "), NULL, 0 },
   PROP_MULTICOL_END("sides"),
 
-  ORTHCONN_COMMON_PROPERTIES,
+  PROP_NOTEBOOK_PAGE("style", PROP_FLAG_DONT_MERGE, N_("Style")),
   /* can't use PROP_STD_TEXT_COLOUR_OPTIONAL cause it has PROP_FLAG_DONT_SAVE. It is designed to fill the Text object - not some subset */
+  PROP_STD_TEXT_FONT_OPTIONS(PROP_FLAG_VISIBLE|PROP_FLAG_STANDARD|PROP_FLAG_OPTIONAL),
+  PROP_STD_TEXT_HEIGHT_OPTIONS(PROP_FLAG_VISIBLE|PROP_FLAG_STANDARD|PROP_FLAG_OPTIONAL),
   PROP_STD_TEXT_COLOUR_OPTIONS(PROP_FLAG_VISIBLE|PROP_FLAG_STANDARD|PROP_FLAG_OPTIONAL),
+  PROP_STD_LINE_WIDTH_OPTIONAL,
   PROP_STD_LINE_COLOUR_OPTIONAL, 
-  
+  PROP_STD_NOTEBOOK_END,
+
   PROP_DESC_END
 };
 
@@ -293,6 +301,9 @@ static PropOffset association_offsets[] = {
   PROP_OFFSET_MULTICOL_END("sides"),
 
   ORTHCONN_COMMON_PROPERTIES_OFFSETS,
+  { "text_font", PROP_TYPE_FONT, offsetof(Association, font) },
+  { PROP_STDNAME_TEXT_HEIGHT, PROP_STDTYPE_TEXT_HEIGHT, offsetof(Association, font_height) },
+  { PROP_STDNAME_LINE_WIDTH,PROP_TYPE_LENGTH,offsetof(Association, line_width) },
   { "line_colour",PROP_TYPE_COLOUR,offsetof(Association, line_color) },
   { "text_colour", PROP_TYPE_COLOUR, offsetof(Association, text_color) },
   { NULL, 0, 0 }
@@ -328,7 +339,7 @@ static real
 association_distance_from(Association *assoc, Point *point)
 {
   OrthConn *orth = &assoc->orth;
-  return orthconn_distance_from(orth, point, ASSOCIATION_WIDTH);
+  return orthconn_distance_from(orth, point, assoc->line_width);
 }
 
 static void
@@ -376,9 +387,9 @@ assoc_get_direction_poly (Association *assoc, Point* poly)
         poly[0].x -= assoc->text_width/2.0;
       poly[0].y = assoc->text_pos.y;
       poly[1].x = poly[0].x;
-      poly[1].y = poly[0].y - ASSOCIATION_FONTHEIGHT*0.5;
-      poly[2].x = poly[0].x + ASSOCIATION_FONTHEIGHT*0.5;
-      poly[2].y = poly[0].y - ASSOCIATION_FONTHEIGHT*0.5*0.5;
+      poly[1].y = poly[0].y - assoc->font_height*0.5;
+      poly[2].x = poly[0].x + assoc->font_height*0.5;
+      poly[2].y = poly[0].y - assoc->font_height*0.5*0.5;
       return TRUE;
     } else if (assoc->direction == ASSOC_LEFT) {
       poly[0].x = assoc->text_pos.x - 0.2;
@@ -386,9 +397,9 @@ assoc_get_direction_poly (Association *assoc, Point* poly)
         poly[0].x -= assoc->text_width/2.0;
       poly[0].y = assoc->text_pos.y;
       poly[1].x = poly[0].x;
-      poly[1].y = poly[0].y - ASSOCIATION_FONTHEIGHT*0.5;
-      poly[2].x = poly[0].x - ASSOCIATION_FONTHEIGHT*0.5;
-      poly[2].y = poly[0].y - ASSOCIATION_FONTHEIGHT*0.5*0.5;
+      poly[1].y = poly[0].y - assoc->font_height*0.5;
+      poly[2].x = poly[0].x - assoc->font_height*0.5;
+      poly[2].y = poly[0].y - assoc->font_height*0.5*0.5;
       return TRUE;
     }
   }
@@ -409,7 +420,7 @@ association_draw(Association *assoc, DiaRenderer *renderer)
   points = &orth->points[0];
   n = orth->numpoints;
   
-  renderer_ops->set_linewidth(renderer, ASSOCIATION_WIDTH);
+  renderer_ops->set_linewidth(renderer, assoc->line_width);
   renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
   renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
   renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
@@ -439,12 +450,12 @@ association_draw(Association *assoc, DiaRenderer *renderer)
     endarrow.type = ARROW_NONE;
   }
   renderer_ops->draw_polyline_with_arrows(renderer, points, n,
-					   ASSOCIATION_WIDTH,
+					   assoc->line_width,
 					   &assoc->line_color,
 					   &startarrow, &endarrow);
 
   /* Name: */
-  renderer_ops->set_font(renderer, assoc_font, ASSOCIATION_FONTHEIGHT);
+  renderer_ops->set_font(renderer, assoc->font, assoc->font_height);
  
   if (assoc->name != NULL) {
     pos = assoc->text_pos;
@@ -471,7 +482,7 @@ association_draw(Association *assoc, DiaRenderer *renderer)
 				end->text_align,
 				&assoc->text_color);
       g_free (role_name);
-      pos.y += ASSOCIATION_FONTHEIGHT;
+      pos.y += assoc->font_height;
     }
     if (end->multiplicity != NULL) {
       renderer_ops->draw_string(renderer, end->multiplicity,
@@ -532,11 +543,11 @@ association_set_state(Association *assoc, AssociationState *state)
   assoc->descent = 0.0;
   if (assoc->name != NULL) {
     assoc->text_width =
-      dia_font_string_width(assoc->name, assoc_font, ASSOCIATION_FONTHEIGHT);
+      dia_font_string_width(assoc->name, assoc->font, assoc->font_height);
     assoc->ascent = 
-      dia_font_ascent(assoc->name, assoc_font, ASSOCIATION_FONTHEIGHT);
+      dia_font_ascent(assoc->name, assoc->font, assoc->font_height);
     assoc->descent =     
-      dia_font_descent(assoc->name, assoc_font, ASSOCIATION_FONTHEIGHT);
+      dia_font_descent(assoc->name, assoc->font, assoc->font_height);
   } 
   
   assoc->direction = state->direction;
@@ -558,21 +569,21 @@ association_set_state(Association *assoc, AssociationState *state)
     end->multi_descent = 0.0;
     if (end->role != NULL && *end->role) {
       end->text_width = 
-          dia_font_string_width(end->role, assoc_font, ASSOCIATION_FONTHEIGHT);
+          dia_font_string_width(end->role, assoc->font, assoc->font_height);
       end->role_ascent =
-          dia_font_ascent(end->role, assoc_font, ASSOCIATION_FONTHEIGHT);
+          dia_font_ascent(end->role, assoc->font, assoc->font_height);
       end->role_descent =
-          dia_font_ascent(end->role, assoc_font, ASSOCIATION_FONTHEIGHT);          
+          dia_font_ascent(end->role, assoc->font, assoc->font_height);          
     }
     if (end->multiplicity != NULL) {
       end->text_width = MAX(end->text_width,
                             dia_font_string_width(end->multiplicity,
-                                                  assoc_font,
-                                                  ASSOCIATION_FONTHEIGHT) );
+                                                  assoc->font,
+                                                  assoc->font_height) );
       end->role_ascent = dia_font_ascent(end->multiplicity,
-                                         assoc_font,ASSOCIATION_FONTHEIGHT);
+                                         assoc->font,assoc->font_height);
       end->role_descent = dia_font_descent(end->multiplicity,
-                                           assoc_font,ASSOCIATION_FONTHEIGHT);
+                                           assoc->font,assoc->font_height);
     }
   }
 
@@ -625,10 +636,10 @@ association_update_data_end(Association *assoc, int endnum)
     end->text_pos.y -= end->role_descent;
     if (points[fp].x < points[sp].x) {
       end->text_align = ALIGN_LEFT;
-      end->text_pos.x += (get_aggregate_pos_diff(end) + ASSOCIATION_END_SPACE);
+      end->text_pos.x += (get_aggregate_pos_diff(end, assoc) + ASSOCIATION_END_SPACE);
     } else {
       end->text_align = ALIGN_RIGHT;    
-      end->text_pos.x -= (get_aggregate_pos_diff(end) + ASSOCIATION_END_SPACE);
+      end->text_pos.x -= (get_aggregate_pos_diff(end, assoc) + ASSOCIATION_END_SPACE);
     }
     break;
   case VERTICAL:
@@ -639,9 +650,9 @@ association_update_data_end(Association *assoc, int endnum)
     end->text_pos.y += end->role_ascent;
     if (points[fp].y > points[sp].y) {
       if (end->role!=NULL && *end->role)
-          end->text_pos.y -= ASSOCIATION_FONTHEIGHT;
+          end->text_pos.y -= assoc->font_height;
       if (end->multiplicity!=NULL)
-          end->text_pos.y -= ASSOCIATION_FONTHEIGHT;
+          end->text_pos.y -= assoc->font_height;
     }
 
     end->text_align = ALIGN_LEFT;
@@ -652,7 +663,7 @@ association_update_data_end(Association *assoc, int endnum)
       - (end->text_align == ALIGN_LEFT ? 0 : end->text_width);
   rect.right = rect.left + end->text_width;
   rect.top = end->text_pos.y - end->role_ascent;
-  rect.bottom = rect.top + 2*ASSOCIATION_FONTHEIGHT;
+  rect.bottom = rect.top + 2*assoc->font_height;
   
   rectangle_union(&obj->bounding_box, &rect);
   
@@ -694,13 +705,13 @@ association_update_data(Association *assoc)
   
   extra->start_trans = 
     extra->start_long = (assoc->end[0].aggregate == AGGREGATE_NONE?
-                         ASSOCIATION_WIDTH/2.0:
-                         (ASSOCIATION_WIDTH + ASSOCIATION_DIAMONDLEN)/2.0);
-  extra->middle_trans = ASSOCIATION_WIDTH/2.0;
+                         assoc->line_width/2.0:
+                         (assoc->line_width + ASSOCIATION_DIAMONDLEN)/2.0);
+  extra->middle_trans = assoc->line_width/2.0;
   extra->end_trans = 
     extra->end_long = (assoc->end[1].aggregate == AGGREGATE_NONE?
-                         ASSOCIATION_WIDTH/2.0:
-                         (ASSOCIATION_WIDTH + ASSOCIATION_DIAMONDLEN)/2.0);
+                         assoc->line_width/2.0:
+                         (assoc->line_width + ASSOCIATION_DIAMONDLEN)/2.0);
 
   if (assoc->end[0].arrow)
     extra->start_trans = MAX(extra->start_trans, ASSOCIATION_TRIANGLESIZE);
@@ -744,7 +755,7 @@ association_update_data(Association *assoc)
     rect.left -= assoc->text_width/2.0;
   rect.right = rect.left + assoc->text_width;
   rect.top = assoc->text_pos.y - assoc->ascent;
-  rect.bottom = rect.top + ASSOCIATION_FONTHEIGHT;
+  rect.bottom = rect.top + assoc->font_height;
 
   rectangle_union(&obj->bounding_box, &rect);
 
@@ -752,7 +763,8 @@ association_update_data(Association *assoc)
   association_update_data_end(assoc, 1);
 }
 
-static coord get_aggregate_pos_diff(AssociationEnd *end)
+static coord 
+get_aggregate_pos_diff(AssociationEnd *end, const Association *assoc)
 {
   coord width=0;
   if(end->arrow){
@@ -781,9 +793,6 @@ association_create(Point *startpoint,
   int i;
   int user_d;
 
-  if (assoc_font == NULL)
-    assoc_font = dia_font_new_from_style(DIA_FONT_MONOSPACE, ASSOCIATION_FONTHEIGHT);
-  
   assoc = g_malloc0(sizeof(Association));
   orth = &assoc->orth;
   obj = &orth->object;
@@ -794,7 +803,12 @@ association_create(Point *startpoint,
 
   orthconn_init(orth, startpoint);
   
+  /* old defaults */
+  assoc->font_height = 0.8;
+  assoc->font = dia_font_new_from_style(DIA_FONT_MONOSPACE, assoc->font_height);
+
   assoc->text_color = color_black;
+  assoc->line_width = 0.1; /* old default */
   assoc->line_color = attributes_get_foreground();
   assoc->name = NULL;
   assoc->assoc_type = AGGREGATE_NORMAL;
@@ -882,7 +896,7 @@ association_destroy(Association *assoc)
   int i;
   
   orthconn_destroy(&assoc->orth);
-
+  dia_font_unref(assoc->font);
   g_free(assoc->name);
 
   for (i=0;i<2;i++) {
@@ -909,7 +923,10 @@ association_copy(Association *assoc)
   newassoc->direction = assoc->direction;
   newassoc->show_direction = assoc->show_direction;
   newassoc->assoc_type = assoc->assoc_type;
+  newassoc->font = dia_font_copy (assoc->font);
+  newassoc->font_height = assoc->font_height;
   newassoc->text_color = assoc->text_color;
+  newassoc->line_width = assoc->line_width;
   newassoc->line_color = assoc->line_color;
   for (i=0;i<2;i++) {
     newassoc->end[i] = assoc->end[i];
@@ -994,14 +1011,14 @@ association_load(ObjectNode obj_node, int version, const char *filename)
       assoc->end[i].text_width = 0.0;
       if (assoc->end[i].role != NULL) {
         assoc->end[i].text_width = 
-          dia_font_string_width(assoc->end[i].role, assoc_font,
-                                ASSOCIATION_FONTHEIGHT);
+          dia_font_string_width(assoc->end[i].role, assoc->font,
+                                assoc->font_height);
       }
       if (assoc->end[i].multiplicity != NULL) {
         assoc->end[i].text_width =
           MAX(assoc->end[i].text_width,
               dia_font_string_width(assoc->end[i].multiplicity,
-                                    assoc_font, ASSOCIATION_FONTHEIGHT) );
+                                    assoc->font, assoc->font_height) );
       }
       composite = data_next(composite);
     }

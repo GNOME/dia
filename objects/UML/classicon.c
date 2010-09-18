@@ -52,6 +52,8 @@ struct _Classicon {
   TextAttributes attrs;
   Color line_color;
   Color fill_color;
+  
+  real line_width;
 };
 
 enum CLassIconStereotype {
@@ -61,7 +63,6 @@ enum CLassIconStereotype {
 };
 
 
-#define CLASSICON_LINEWIDTH 0.1
 #define CLASSICON_RADIOUS 1
 #define CLASSICON_FONTHEIGHT 0.8
 #define CLASSICON_MARGIN 0.5
@@ -134,8 +135,6 @@ static PropEnumData prop_classicon_type_data[] = {
 
 static PropDescription classicon_props[] = {
   ELEMENT_COMMON_PROPERTIES,
-  PROP_STD_LINE_COLOUR_OPTIONAL, 
-  PROP_STD_FILL_COLOUR_OPTIONAL, 
   /* how it used to be before 0.96+SVN */
   { "stereotype", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE|PROP_FLAG_OPTIONAL, N_("Stereotype"), NULL,  prop_classicon_type_data},
   /* one name, one type: but breaks forward-compatibiliy so kind of reverted */
@@ -146,7 +145,10 @@ static PropDescription classicon_props[] = {
   PROP_STD_TEXT_FONT,
   PROP_STD_TEXT_HEIGHT,
   PROP_STD_TEXT_COLOUR_OPTIONAL,
-  { "text", PROP_TYPE_TEXT, 0, N_("Text"), NULL, NULL }, 
+  { "text", PROP_TYPE_TEXT, 0, N_("Text"), NULL, NULL },
+  PROP_STD_LINE_WIDTH_OPTIONAL,
+  PROP_STD_LINE_COLOUR_OPTIONAL, 
+  PROP_STD_FILL_COLOUR_OPTIONAL, 
   
   PROP_DESC_END
 };
@@ -162,8 +164,6 @@ classicon_describe_props(Classicon *classicon)
 
 static PropOffset classicon_offsets[] = {
   ELEMENT_COMMON_PROPERTIES_OFFSETS,
-  { "line_colour",PROP_TYPE_COLOUR,offsetof(Classicon,line_color) },
-  { "fill_colour",PROP_TYPE_COLOUR,offsetof(Classicon,fill_color) },
   /* backward compatibility */
   { "stereotype", PROP_TYPE_ENUM, offsetof(Classicon, stereotype) },
   /* one name, one type! */
@@ -172,7 +172,10 @@ static PropOffset classicon_offsets[] = {
   { "text",PROP_TYPE_TEXT,offsetof(Classicon,text)},
   { "text_font",PROP_TYPE_FONT,offsetof(Classicon,attrs.font)},
   { PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(Classicon,attrs.height)},
+  { PROP_STDNAME_LINE_WIDTH,PROP_TYPE_LENGTH,offsetof(Classicon, line_width) },
   { "text_colour",PROP_TYPE_COLOUR,offsetof(Classicon,attrs.color)},
+  { "line_colour",PROP_TYPE_COLOUR,offsetof(Classicon,line_color) },
+  { "fill_colour",PROP_TYPE_COLOUR,offsetof(Classicon,fill_color) },
   { NULL, 0, 0 },
 };
 
@@ -272,7 +275,7 @@ classicon_draw(Classicon *icon, DiaRenderer *renderer)
 			      2*r, 2*r,
 			      &icon->fill_color);
 
-  renderer_ops->set_linewidth(renderer, CLASSICON_LINEWIDTH);
+  renderer_ops->set_linewidth(renderer, icon->line_width);
   renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
 
   renderer_ops->draw_ellipse(renderer,
@@ -435,6 +438,10 @@ classicon_create(Point *startpoint,
   int i;
   
   cicon = g_malloc0(sizeof(Classicon));
+
+  /* old default */
+  cicon->line_width = 0.1;
+
   elem = &cicon->element;
   obj = &elem->object;
   

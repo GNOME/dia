@@ -46,8 +46,12 @@ struct _Generalization {
   Alignment text_align;
   real text_width;
   
-  Color text_color;
-  Color line_color;
+  DiaFont *font;
+  real     font_height;
+  Color    text_color;
+
+  real     line_width;
+  Color    line_color;
 
   char *name;
   char *stereotype; /* excluding << and >> */
@@ -55,10 +59,7 @@ struct _Generalization {
 };
 
 #define GENERALIZATION_WIDTH 0.1
-#define GENERALIZATION_TRIANGLESIZE 0.8
-#define GENERALIZATION_FONTHEIGHT 0.8
-
-static DiaFont *genlz_font = NULL;
+#define GENERALIZATION_TRIANGLESIZE (genlz->font_height)
 
 static real generalization_distance_from(Generalization *genlz, Point *point);
 static void generalization_select(Generalization *genlz, Point *clicked_point,
@@ -126,13 +127,16 @@ static ObjectOps generalization_ops = {
 
 static PropDescription generalization_props[] = {
   ORTHCONN_COMMON_PROPERTIES,
-  /* can't use PROP_STD_TEXT_COLOUR_OPTIONAL cause it has PROP_FLAG_DONT_SAVE. It is designed to fill the Text object - not some subset */
-  PROP_STD_TEXT_COLOUR_OPTIONS(PROP_FLAG_VISIBLE|PROP_FLAG_STANDARD|PROP_FLAG_OPTIONAL),
-  PROP_STD_LINE_COLOUR_OPTIONAL, 
   { "name", PROP_TYPE_STRING, PROP_FLAG_VISIBLE|PROP_FLAG_OPTIONAL,
     N_("Name:"), NULL, NULL },
   { "stereotype", PROP_TYPE_STRING, PROP_FLAG_VISIBLE|PROP_FLAG_OPTIONAL,
     N_("Stereotype:"), NULL, NULL },
+  /* can't use PROP_STD_TEXT_COLOUR_OPTIONAL cause it has PROP_FLAG_DONT_SAVE. It is designed to fill the Text object - not some subset */
+  PROP_STD_TEXT_FONT_OPTIONS(PROP_FLAG_VISIBLE|PROP_FLAG_STANDARD|PROP_FLAG_OPTIONAL),
+  PROP_STD_TEXT_HEIGHT_OPTIONS(PROP_FLAG_VISIBLE|PROP_FLAG_STANDARD|PROP_FLAG_OPTIONAL),
+  PROP_STD_TEXT_COLOUR_OPTIONS(PROP_FLAG_VISIBLE|PROP_FLAG_STANDARD|PROP_FLAG_OPTIONAL),
+  PROP_STD_LINE_WIDTH_OPTIONAL,
+  PROP_STD_LINE_COLOUR_OPTIONAL, 
   PROP_DESC_END
 };
 
@@ -147,10 +151,13 @@ generalization_describe_props(Generalization *generalization)
 
 static PropOffset generalization_offsets[] = {
   ORTHCONN_COMMON_PROPERTIES_OFFSETS,
-  {"text_colour",PROP_TYPE_COLOUR,offsetof(Generalization,text_color)},
-  {"line_colour",PROP_TYPE_COLOUR,offsetof(Generalization,line_color)},
   { "name", PROP_TYPE_STRING, offsetof(Generalization, name) },
   { "stereotype", PROP_TYPE_STRING, offsetof(Generalization, stereotype) },
+  { "text_font", PROP_TYPE_FONT, offsetof(Generalization, font) },
+  { PROP_STDNAME_TEXT_HEIGHT, PROP_STDTYPE_TEXT_HEIGHT, offsetof(Generalization, font_height) },
+  {"text_colour",PROP_TYPE_COLOUR,offsetof(Generalization,text_color)},
+  { PROP_STDNAME_LINE_WIDTH,PROP_TYPE_LENGTH,offsetof(Generalization, line_width) },
+  {"line_colour",PROP_TYPE_COLOUR,offsetof(Generalization,line_color)},
   { NULL, 0, 0 }
 };
 
@@ -175,7 +182,7 @@ static real
 generalization_distance_from(Generalization *genlz, Point *point)
 {
   OrthConn *orth = &genlz->orth;
-  return orthconn_distance_from(orth, point, GENERALIZATION_WIDTH);
+  return orthconn_distance_from(orth, point, genlz->line_width);
 }
 
 static void
@@ -225,7 +232,7 @@ generalization_draw(Generalization *genlz, DiaRenderer *renderer)
   points = &orth->points[0];
   n = orth->numpoints;
   
-  renderer_ops->set_linewidth(renderer, GENERALIZATION_WIDTH);
+  renderer_ops->set_linewidth(renderer, genlz->line_width);
   renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
   renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
   renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
@@ -236,11 +243,11 @@ generalization_draw(Generalization *genlz, DiaRenderer *renderer)
 
   renderer_ops->draw_polyline_with_arrows(renderer,
 					   points, n,
-					   GENERALIZATION_WIDTH,
+					   genlz->line_width,
 					   &genlz->line_color,
 					   &arrow, NULL);
 
-  renderer_ops->set_font(renderer, genlz_font, GENERALIZATION_FONTHEIGHT);
+  renderer_ops->set_font(renderer, genlz->font, genlz->font_height);
   pos = genlz->text_pos;
   
   if (genlz->st_stereotype != NULL && genlz->st_stereotype[0] != '\0') {
@@ -249,7 +256,7 @@ generalization_draw(Generalization *genlz, DiaRenderer *renderer)
 			       &pos, genlz->text_align,
 			       &genlz->text_color);
 
-    pos.y += GENERALIZATION_FONTHEIGHT;
+    pos.y += genlz->font_height;
   }
   
   if (genlz->name != NULL && genlz->name[0] != '\0') {
@@ -285,33 +292,33 @@ generalization_update_data(Generalization *genlz)
   ascent = 0.0;
   
   if (genlz->name) {      
-    genlz->text_width = dia_font_string_width(genlz->name, genlz_font,
-                                              GENERALIZATION_FONTHEIGHT);
+    genlz->text_width = dia_font_string_width(genlz->name, genlz->font,
+                                              genlz->font_height);
     descent = dia_font_descent(genlz->name,
-                               genlz_font,GENERALIZATION_FONTHEIGHT);
+                               genlz->font,genlz->font_height);
     ascent = dia_font_ascent(genlz->name,
-                             genlz_font,GENERALIZATION_FONTHEIGHT);
+                             genlz->font,genlz->font_height);
   }
   if (genlz->stereotype) {
     genlz->text_width = MAX(genlz->text_width,
                             dia_font_string_width(genlz->stereotype,
-                                                  genlz_font,
-                                                  GENERALIZATION_FONTHEIGHT));
+                                                  genlz->font,
+                                                  genlz->font_height));
     if (!genlz->name) {
       descent = dia_font_descent(genlz->stereotype,
-                                genlz_font,GENERALIZATION_FONTHEIGHT);
+                                genlz->font,genlz->font_height);
     }
     ascent = dia_font_ascent(genlz->stereotype,
-                             genlz_font,GENERALIZATION_FONTHEIGHT);
+                             genlz->font,genlz->font_height);
   }
   
   extra = &orth->extra_spacing;
   
-  extra->start_trans = GENERALIZATION_WIDTH/2.0 + GENERALIZATION_TRIANGLESIZE;
+  extra->start_trans = genlz->line_width/2.0 + GENERALIZATION_TRIANGLESIZE;
   extra->start_long = 
     extra->middle_trans = 
     extra->end_trans = 
-    extra->end_long = GENERALIZATION_WIDTH/2.0;
+    extra->end_long = genlz->line_width/2.0;
   
   orthconn_update_boundingbox(orth);
 
@@ -344,7 +351,7 @@ generalization_update_data(Generalization *genlz)
     rect.left -= genlz->text_width/2.0;
   rect.right = rect.left + genlz->text_width;
   rect.top = genlz->text_pos.y - ascent;
-  rect.bottom = rect.top + 2*GENERALIZATION_FONTHEIGHT;
+  rect.bottom = rect.top + 2*genlz->font_height;
 
   rectangle_union(&obj->bounding_box, &rect);
 }
@@ -406,11 +413,13 @@ generalization_create(Point *startpoint,
   OrthConn *orth;
   DiaObject *obj;
 
-  if (genlz_font == NULL) {
-    genlz_font = dia_font_new_from_style(DIA_FONT_MONOSPACE, GENERALIZATION_FONTHEIGHT);
-  }
-  
   genlz = g_new0(Generalization, 1);
+
+  /* old defaults */
+  genlz->font_height = 0.8;
+  genlz->font = dia_font_new_from_style(DIA_FONT_MONOSPACE, genlz->font_height);
+  genlz->line_width = 0.1;
+
   orth = &genlz->orth;
   obj = (DiaObject *)genlz;
 
@@ -440,7 +449,7 @@ generalization_destroy(Generalization *genlz)
   g_free(genlz->name);
   g_free(genlz->stereotype);
   g_free(genlz->st_stereotype);
-
+  dia_font_unref(genlz->font);
   orthconn_destroy(&genlz->orth);
 }
 

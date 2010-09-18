@@ -48,18 +48,18 @@ struct _Realizes {
   Color text_color;
   Color line_color;
   
+  DiaFont *font;
+  real     font_height;
+  real     line_width;
+
   char *name;
   char *stereotype; /* excluding << and >> */
   char *st_stereotype; /* including << and >> */
 };
 
 
-#define REALIZES_WIDTH 0.1
-#define REALIZES_TRIANGLESIZE 0.8
+#define REALIZES_TRIANGLESIZE (realize->font_height)
 #define REALIZES_DASHLEN 0.4
-#define REALIZES_FONTHEIGHT 0.8
-
-static DiaFont *realize_font = NULL;
 
 static real realizes_distance_from(Realizes *realize, Point *point);
 static void realizes_select(Realizes *realize, Point *clicked_point,
@@ -127,13 +127,16 @@ static ObjectOps realizes_ops = {
 
 static PropDescription realizes_props[] = {
   ORTHCONN_COMMON_PROPERTIES,
-  PROP_STD_LINE_COLOUR_OPTIONAL, 
-  /* can't use PROP_STD_TEXT_COLOUR_OPTIONAL cause it has PROP_FLAG_DONT_SAVE. It is designed to fill the Text object - not some subset */
-  PROP_STD_TEXT_COLOUR_OPTIONS(PROP_FLAG_VISIBLE|PROP_FLAG_STANDARD|PROP_FLAG_OPTIONAL),
   { "name", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
     N_("Name:"), NULL, NULL },
   { "stereotype", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
     N_("Stereotype:"), NULL, NULL },  
+  /* can't use PROP_STD_TEXT_COLOUR_OPTIONAL cause it has PROP_FLAG_DONT_SAVE. It is designed to fill the Text object - not some subset */
+  PROP_STD_TEXT_FONT_OPTIONS(PROP_FLAG_VISIBLE|PROP_FLAG_STANDARD|PROP_FLAG_OPTIONAL),
+  PROP_STD_TEXT_HEIGHT_OPTIONS(PROP_FLAG_VISIBLE|PROP_FLAG_STANDARD|PROP_FLAG_OPTIONAL),
+  PROP_STD_TEXT_COLOUR_OPTIONS(PROP_FLAG_VISIBLE|PROP_FLAG_STANDARD|PROP_FLAG_OPTIONAL),
+  PROP_STD_LINE_WIDTH_OPTIONAL,
+  PROP_STD_LINE_COLOUR_OPTIONAL, 
   PROP_DESC_END
 };
 
@@ -148,10 +151,13 @@ realizes_describe_props(Realizes *realizes)
 
 static PropOffset realizes_offsets[] = {
   ORTHCONN_COMMON_PROPERTIES_OFFSETS,
-  { "line_colour", PROP_TYPE_COLOUR, offsetof(Realizes, line_color) },
-  { "text_colour", PROP_TYPE_COLOUR, offsetof(Realizes, text_color) },
   { "name", PROP_TYPE_STRING, offsetof(Realizes, name) },
   { "stereotype", PROP_TYPE_STRING, offsetof(Realizes, stereotype) },
+  { "text_font", PROP_TYPE_FONT, offsetof(Realizes, font) },
+  { PROP_STDNAME_TEXT_HEIGHT, PROP_STDTYPE_TEXT_HEIGHT, offsetof(Realizes, font_height) },
+  { "text_colour", PROP_TYPE_COLOUR, offsetof(Realizes, text_color) },
+  { PROP_STDNAME_LINE_WIDTH,PROP_TYPE_LENGTH,offsetof(Realizes, line_width) },
+  { "line_colour", PROP_TYPE_COLOUR, offsetof(Realizes, line_color) },
   { NULL, 0, 0 }
 };
 
@@ -177,7 +183,7 @@ static real
 realizes_distance_from(Realizes *realize, Point *point)
 {
   OrthConn *orth = &realize->orth;
-  return orthconn_distance_from(orth, point, REALIZES_WIDTH);
+  return orthconn_distance_from(orth, point, realize->line_width);
 }
 
 static void
@@ -225,7 +231,7 @@ realizes_draw(Realizes *realize, DiaRenderer *renderer)
   points = &orth->points[0];
   n = orth->numpoints;
   
-  renderer_ops->set_linewidth(renderer, REALIZES_WIDTH);
+  renderer_ops->set_linewidth(renderer, realize->line_width);
   renderer_ops->set_linestyle(renderer, LINESTYLE_DASHED);
   renderer_ops->set_dashlength(renderer, REALIZES_DASHLEN);
   renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
@@ -235,11 +241,11 @@ realizes_draw(Realizes *realize, DiaRenderer *renderer)
   arrow.width = REALIZES_TRIANGLESIZE;
   arrow.length = REALIZES_TRIANGLESIZE;
   renderer_ops->draw_polyline_with_arrows(renderer, points, n,
-					   REALIZES_WIDTH,
+					   realize->line_width,
 					   &realize->line_color,
 					   &arrow, NULL);
 
-  renderer_ops->set_font(renderer, realize_font, REALIZES_FONTHEIGHT);
+  renderer_ops->set_font(renderer, realize->font, realize->font_height);
   pos = realize->text_pos;
   
   if (realize->st_stereotype != NULL && realize->st_stereotype[0] != '\0') {
@@ -248,7 +254,7 @@ realizes_draw(Realizes *realize, DiaRenderer *renderer)
 			       &pos, realize->text_align,
 			       &realize->text_color);
 
-    pos.y += REALIZES_FONTHEIGHT;
+    pos.y += realize->font_height;
   }
   
   if (realize->name != NULL && realize->name[0] != '\0') {
@@ -280,21 +286,21 @@ realizes_update_data(Realizes *realize)
   }
 
   if (realize->name)
-    realize->text_width = dia_font_string_width(realize->name, realize_font,
-					    REALIZES_FONTHEIGHT);
+    realize->text_width = dia_font_string_width(realize->name, realize->font,
+					    realize->font_height);
   if (realize->stereotype)
     realize->text_width = MAX(realize->text_width,
 			      dia_font_string_width(realize->stereotype,
-						realize_font,
-						REALIZES_FONTHEIGHT));
+						realize->font,
+						realize->font_height));
 
   extra = &orth->extra_spacing;
   
-  extra->start_trans = REALIZES_WIDTH/2.0 + REALIZES_TRIANGLESIZE;
+  extra->start_trans = realize->line_width/2.0 + REALIZES_TRIANGLESIZE;
   extra->start_long = 
     extra->middle_trans = 
     extra->end_trans = 
-    extra->end_long = REALIZES_WIDTH/2.0;
+    extra->end_long = realize->line_width/2.0;
 
   orthconn_update_boundingbox(orth);
   
@@ -315,7 +321,7 @@ realizes_update_data(Realizes *realize)
     realize->text_pos.y = points[i].y;
     if (realize->name)
       realize->text_pos.y -=
-        dia_font_descent(realize->name,realize_font, REALIZES_FONTHEIGHT);
+        dia_font_descent(realize->name,realize->font, realize->font_height);
     break;
   case VERTICAL:
     realize->text_align = ALIGN_LEFT;
@@ -323,7 +329,7 @@ realizes_update_data(Realizes *realize)
     realize->text_pos.y = 0.5*(points[i].y+points[i+1].y);
     if (realize->name)
       realize->text_pos.y -=
-        dia_font_descent(realize->name, realize_font, REALIZES_FONTHEIGHT);
+        dia_font_descent(realize->name, realize->font, realize->font_height);
     break;
   }
 
@@ -334,8 +340,8 @@ realizes_update_data(Realizes *realize)
   rect.right = rect.left + realize->text_width;
   rect.top = realize->text_pos.y;
   if (realize->name)
-    rect.top -= dia_font_ascent(realize->name,realize_font, REALIZES_FONTHEIGHT);
-  rect.bottom = rect.top + 2*REALIZES_FONTHEIGHT;
+    rect.top -= dia_font_ascent(realize->name,realize->font, realize->font_height);
+  rect.bottom = rect.top + 2*realize->font_height;
 
   rectangle_union(&obj->bounding_box, &rect);
 }
@@ -396,12 +402,13 @@ realizes_create(Point *startpoint,
   DiaObject *obj;
   PolyBBExtras *extra;
 
-  if (realize_font == NULL) {
-    realize_font = 
-      dia_font_new_from_style (DIA_FONT_MONOSPACE, REALIZES_FONTHEIGHT);
-  }
-  
   realize = g_malloc0(sizeof(Realizes));
+  /* old defaults */
+  realize->font_height = 0.8;
+  realize->font =
+      dia_font_new_from_style (DIA_FONT_MONOSPACE, realize->font_height);
+  realize->line_width = 0.1;
+
   orth = &realize->orth;
   obj = &orth->object;
   extra = &orth->extra_spacing;
@@ -420,11 +427,11 @@ realizes_create(Point *startpoint,
   realize->st_stereotype = NULL;
   realize->text_width = 0;
 
-  extra->start_trans = REALIZES_WIDTH/2.0 + REALIZES_TRIANGLESIZE;
+  extra->start_trans = realize->line_width/2.0 + REALIZES_TRIANGLESIZE;
   extra->start_long = 
     extra->middle_trans = 
     extra->end_trans = 
-    extra->end_long = REALIZES_WIDTH/2.0;
+    extra->end_long = realize->line_width/2.0;
 
   realizes_update_data(realize);
   
@@ -439,6 +446,7 @@ realizes_destroy(Realizes *realize)
   g_free(realize->name);
   g_free(realize->stereotype);
   g_free(realize->st_stereotype);
+  dia_font_unref(realize->font);
   orthconn_destroy(&realize->orth);
 }
 

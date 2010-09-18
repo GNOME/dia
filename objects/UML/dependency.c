@@ -54,16 +54,16 @@ struct _Dependency {
   char *name;
   char *stereotype; /* excluding << and >> */
   char *st_stereotype; /* including << and >> */
+
+  DiaFont *font;
+  real     font_height;
+  real     line_width;
 };
 
 
-#define DEPENDENCY_WIDTH 0.1
-#define DEPENDENCY_ARROWLEN 0.8
-#define DEPENDENCY_ARROWWIDTH 0.5
+#define DEPENDENCY_ARROWLEN (dep->font_height)
+#define DEPENDENCY_ARROWWIDTH (dep->font_height*5./8.)
 #define DEPENDENCY_DASHLEN 0.4
-#define DEPENDENCY_FONTHEIGHT 0.8
-
-static DiaFont *dep_font = NULL;
 
 static real dependency_distance_from(Dependency *dep, Point *point);
 static void dependency_select(Dependency *dep, Point *clicked_point,
@@ -130,15 +130,18 @@ static ObjectOps dependency_ops = {
 
 static PropDescription dependency_props[] = {
   ORTHCONN_COMMON_PROPERTIES,
-  /* can't use PROP_STD_TEXT_COLOUR_OPTIONAL cause it has PROP_FLAG_DONT_SAVE. It is designed to fill the Text object - not some subset */
-  PROP_STD_TEXT_COLOUR_OPTIONS(PROP_FLAG_VISIBLE|PROP_FLAG_STANDARD|PROP_FLAG_OPTIONAL),
-  PROP_STD_LINE_COLOUR_OPTIONAL, 
   { "name", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
     N_("Name:"), NULL, NULL },
   { "stereotype", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
     N_("Stereotype:"), NULL, NULL },
   { "draw_arrow", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE,
     N_("Show arrow:"), NULL, NULL },
+  /* can't use PROP_STD_TEXT_COLOUR_OPTIONAL cause it has PROP_FLAG_DONT_SAVE. It is designed to fill the Text object - not some subset */
+  PROP_STD_TEXT_FONT_OPTIONS(PROP_FLAG_VISIBLE|PROP_FLAG_STANDARD|PROP_FLAG_OPTIONAL),
+  PROP_STD_TEXT_HEIGHT_OPTIONS(PROP_FLAG_VISIBLE|PROP_FLAG_STANDARD|PROP_FLAG_OPTIONAL),
+  PROP_STD_TEXT_COLOUR_OPTIONS(PROP_FLAG_VISIBLE|PROP_FLAG_STANDARD|PROP_FLAG_OPTIONAL),
+  PROP_STD_LINE_WIDTH_OPTIONAL,
+  PROP_STD_LINE_COLOUR_OPTIONAL, 
   PROP_DESC_END
 };
 
@@ -153,11 +156,14 @@ dependency_describe_props(Dependency *dependency)
 
 static PropOffset dependency_offsets[] = {
   ORTHCONN_COMMON_PROPERTIES_OFFSETS,
-  { "text_colour", PROP_TYPE_COLOUR, offsetof(Dependency, text_color) },
-  { "line_colour", PROP_TYPE_COLOUR, offsetof(Dependency, line_color) },
   { "name", PROP_TYPE_STRING, offsetof(Dependency, name) },
   { "stereotype", PROP_TYPE_STRING, offsetof(Dependency, stereotype) },
   { "draw_arrow", PROP_TYPE_BOOL, offsetof(Dependency, draw_arrow) },
+  { "text_colour", PROP_TYPE_COLOUR, offsetof(Dependency, text_color) },
+  { "text_font", PROP_TYPE_FONT, offsetof(Dependency, font) },
+  { PROP_STDNAME_TEXT_HEIGHT, PROP_STDTYPE_TEXT_HEIGHT, offsetof(Dependency, font_height) },
+  { PROP_STDNAME_LINE_WIDTH,PROP_TYPE_LENGTH,offsetof(Dependency, line_width) },
+  { "line_colour", PROP_TYPE_COLOUR, offsetof(Dependency, line_color) },
   { NULL, 0, 0 }
 };
 
@@ -182,7 +188,7 @@ static real
 dependency_distance_from(Dependency *dep, Point *point)
 {
   OrthConn *orth = &dep->orth;
-  return orthconn_distance_from(orth, point, DEPENDENCY_WIDTH);
+  return orthconn_distance_from(orth, point, dep->line_width);
 }
 
 static void
@@ -232,7 +238,7 @@ dependency_draw(Dependency *dep, DiaRenderer *renderer)
   points = &orth->points[0];
   n = orth->numpoints;
   
-  renderer_ops->set_linewidth(renderer, DEPENDENCY_WIDTH);
+  renderer_ops->set_linewidth(renderer, dep->line_width);
   renderer_ops->set_linestyle(renderer, LINESTYLE_DASHED);
   renderer_ops->set_dashlength(renderer, DEPENDENCY_DASHLEN);
   renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
@@ -244,11 +250,11 @@ dependency_draw(Dependency *dep, DiaRenderer *renderer)
 
   renderer_ops->draw_polyline_with_arrows(renderer,
 					   points, n,
-					   DEPENDENCY_WIDTH,
+					   dep->line_width,
 					   &dep->line_color,
 					   NULL, &arrow);
 
-  renderer_ops->set_font(renderer, dep_font, DEPENDENCY_FONTHEIGHT);
+  renderer_ops->set_font(renderer, dep->font, dep->font_height);
   pos = dep->text_pos;
   
   if (dep->st_stereotype != NULL && dep->st_stereotype[0] != '\0') {
@@ -257,7 +263,7 @@ dependency_draw(Dependency *dep, DiaRenderer *renderer)
 			       &pos, dep->text_align,
 			       &dep->text_color);
 
-    pos.y += DEPENDENCY_FONTHEIGHT;
+    pos.y += dep->font_height;
   }
   
   if (dep->name != NULL && dep->name[0] != '\0') {
@@ -288,21 +294,21 @@ dependency_update_data(Dependency *dep)
 
   dep->text_width = 0.0;
   if (dep->name)
-    dep->text_width = dia_font_string_width(dep->name, dep_font,
-					DEPENDENCY_FONTHEIGHT);
+    dep->text_width = dia_font_string_width(dep->name, dep->font,
+					dep->font_height);
   if (dep->stereotype)
     dep->text_width = MAX(dep->text_width,
-			  dia_font_string_width(dep->stereotype, dep_font,
-					    DEPENDENCY_FONTHEIGHT));
+			  dia_font_string_width(dep->stereotype, dep->font,
+					    dep->font_height));
   
   extra->start_trans = 
     extra->start_long = 
-    extra->middle_trans = DEPENDENCY_WIDTH/2.0;
+    extra->middle_trans = dep->line_width/2.0;
   
   extra->end_trans = 
     extra->end_long = (dep->draw_arrow?
-                       (DEPENDENCY_WIDTH + DEPENDENCY_ARROWLEN)/2.0:
-                       DEPENDENCY_WIDTH/2.0);
+                       (dep->line_width + DEPENDENCY_ARROWLEN)/2.0:
+                       dep->line_width/2.0);
 
   orthconn_update_boundingbox(orth);
   
@@ -323,8 +329,8 @@ dependency_update_data(Dependency *dep)
     dep->text_pos.y = points[i].y;
     if (dep->name)
       dep->text_pos.y -= dia_font_descent(dep->name,
-					  dep_font,
-					  DEPENDENCY_FONTHEIGHT);
+					  dep->font,
+					  dep->font_height);
     break;
   case VERTICAL:
     dep->text_align = ALIGN_LEFT;
@@ -333,8 +339,8 @@ dependency_update_data(Dependency *dep)
       0.5*(points[i].y+points[i+1].y);
     if (dep->name)
       dep->text_pos.y -= dia_font_descent(dep->name,
-					  dep_font,
-					  DEPENDENCY_FONTHEIGHT);
+					  dep->font,
+					  dep->font_height);
     break;
   }
 
@@ -346,9 +352,9 @@ dependency_update_data(Dependency *dep)
   rect.top = dep->text_pos.y;
   if (dep->name)
     rect.top -= dia_font_ascent(dep->name,
-				dep_font,
-				DEPENDENCY_FONTHEIGHT);
-  rect.bottom = rect.top + 2*DEPENDENCY_FONTHEIGHT;
+				dep->font,
+				dep->font_height);
+  rect.bottom = rect.top + 2*dep->font_height;
 
   rectangle_union(&obj->bounding_box, &rect);
 }
@@ -408,12 +414,14 @@ dependency_create(Point *startpoint,
   Dependency *dep;
   OrthConn *orth;
   DiaObject *obj;
-
-  if (dep_font == NULL) {
-      dep_font = dia_font_new_from_style(DIA_FONT_MONOSPACE, DEPENDENCY_FONTHEIGHT);
-  }
   
   dep = g_new0(Dependency, 1);
+
+  /* old defaults */
+  dep->font_height = 0.8;
+  dep->font = dia_font_new_from_style(DIA_FONT_MONOSPACE, dep->font_height);
+  dep->line_width = 0.1;
+
   orth = &dep->orth;
   obj = (DiaObject *)dep;
   
@@ -445,7 +453,7 @@ dependency_destroy(Dependency *dep)
   g_free(dep->name);
   g_free(dep->stereotype);
   g_free(dep->st_stereotype);
-
+  dia_font_unref(dep->font);
   orthconn_destroy(&dep->orth);
 }
 
@@ -463,5 +471,3 @@ dependency_load(ObjectNode obj_node, int version, const char *filename)
   }
   return obj;
 }
-
-

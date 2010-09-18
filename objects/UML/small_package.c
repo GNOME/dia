@@ -124,15 +124,15 @@ static ObjectOps smallpackage_ops = {
 
 static PropDescription smallpackage_props[] = {
   ELEMENT_COMMON_PROPERTIES,
-  PROP_STD_LINE_WIDTH_OPTIONAL,
-  PROP_STD_LINE_COLOUR_OPTIONAL, 
-  PROP_STD_FILL_COLOUR_OPTIONAL, 
   { "stereotype", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
   N_("Stereotype"), NULL, NULL },
   PROP_STD_TEXT_FONT,
   PROP_STD_TEXT_HEIGHT,
   PROP_STD_TEXT_COLOUR,
   { "text", PROP_TYPE_TEXT, 0, N_("Text"), NULL, NULL },     
+  PROP_STD_LINE_WIDTH_OPTIONAL,
+  PROP_STD_LINE_COLOUR_OPTIONAL, 
+  PROP_STD_FILL_COLOUR_OPTIONAL,
   PROP_DESC_END
 };
 
@@ -147,14 +147,14 @@ smallpackage_describe_props(SmallPackage *smallpackage)
 
 static PropOffset smallpackage_offsets[] = {
   ELEMENT_COMMON_PROPERTIES_OFFSETS,
-  { PROP_STDNAME_LINE_WIDTH, PROP_STDTYPE_LINE_WIDTH, offsetof(SmallPackage, line_width) },
-  {"line_colour", PROP_TYPE_COLOUR, offsetof(SmallPackage, line_color) },
-  {"fill_colour", PROP_TYPE_COLOUR, offsetof(SmallPackage, fill_color) },
   {"stereotype", PROP_TYPE_STRING, offsetof(SmallPackage , stereotype) },
   {"text",PROP_TYPE_TEXT,offsetof(SmallPackage,text)},
   {"text_font",PROP_TYPE_FONT,offsetof(SmallPackage,attrs.font)},
   {PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(SmallPackage,attrs.height)},
   {"text_colour",PROP_TYPE_COLOUR,offsetof(SmallPackage,attrs.color)},  
+  { PROP_STDNAME_LINE_WIDTH, PROP_STDTYPE_LINE_WIDTH, offsetof(SmallPackage, line_width) },
+  {"line_colour", PROP_TYPE_COLOUR, offsetof(SmallPackage, line_color) },
+  {"fill_colour", PROP_TYPE_COLOUR, offsetof(SmallPackage, fill_color) },
   { NULL, 0, 0 },
 };
 

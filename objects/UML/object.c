@@ -143,14 +143,8 @@ static ObjectOps objet_ops = {
 
 static PropDescription objet_props[] = {
   ELEMENT_COMMON_PROPERTIES,
-  PROP_STD_LINE_WIDTH_OPTIONAL,
-  /* can't use PROP_STD_TEXT_COLOUR_OPTIONAL cause it has PROP_FLAG_DONT_SAVE. It is designed to fill the Text object - not some subset */
-  PROP_STD_TEXT_COLOUR_OPTIONS(PROP_FLAG_VISIBLE|PROP_FLAG_STANDARD|PROP_FLAG_OPTIONAL),
-  PROP_STD_TEXT_FONT_OPTIONS(PROP_FLAG_VISIBLE|PROP_FLAG_STANDARD|PROP_FLAG_OPTIONAL),
-  PROP_STD_TEXT_HEIGHT_OPTIONS(PROP_FLAG_VISIBLE|PROP_FLAG_STANDARD|PROP_FLAG_OPTIONAL),
-  PROP_STD_LINE_COLOUR_OPTIONAL, 
-  PROP_STD_FILL_COLOUR_OPTIONAL,
-  { "text", PROP_TYPE_TEXT, 0, N_("Text"), NULL, NULL },
+  PROP_STD_NOTEBOOK_BEGIN,
+  PROP_NOTEBOOK_PAGE("assoc", PROP_FLAG_DONT_MERGE, N_("General")),
   { "stereotype", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
     N_("Stereotype"), NULL, NULL },
   { "exstate", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
@@ -161,9 +155,20 @@ static PropDescription objet_props[] = {
   { "is_active", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE,
     N_("Active object"),NULL,NULL},
   { "show_attribs", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE,
-    N_("Show attributes"),NULL,NULL}, 
+    N_("Show attributes"),NULL,NULL},
   { "multiple", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE,
-    N_("Multiple instance"),NULL,NULL}, 
+    N_("Multiple instance"),NULL,NULL},
+
+  PROP_NOTEBOOK_PAGE("style", PROP_FLAG_DONT_MERGE, N_("Style")),
+  PROP_STD_TEXT_FONT_OPTIONS(PROP_FLAG_VISIBLE|PROP_FLAG_STANDARD|PROP_FLAG_OPTIONAL),
+  PROP_STD_TEXT_HEIGHT_OPTIONS(PROP_FLAG_VISIBLE|PROP_FLAG_STANDARD|PROP_FLAG_OPTIONAL),
+  /* can't use PROP_STD_TEXT_COLOUR_OPTIONAL cause it has PROP_FLAG_DONT_SAVE. It is designed to fill the Text object - not some subset */
+  PROP_STD_TEXT_COLOUR_OPTIONS(PROP_FLAG_VISIBLE|PROP_FLAG_STANDARD|PROP_FLAG_OPTIONAL),
+  { "text", PROP_TYPE_TEXT, 0, N_("Text"), NULL, NULL },
+  PROP_STD_LINE_WIDTH_OPTIONAL,
+  PROP_STD_LINE_COLOUR_OPTIONAL, 
+  PROP_STD_FILL_COLOUR_OPTIONAL,
+  PROP_STD_NOTEBOOK_END,
   PROP_DESC_END
 };
 
@@ -178,21 +183,22 @@ objet_describe_props(Objet *ob)
 
 static PropOffset objet_offsets[] = {
   ELEMENT_COMMON_PROPERTIES_OFFSETS,
-  { PROP_STDNAME_LINE_WIDTH, PROP_STDTYPE_LINE_WIDTH, offsetof(Objet, line_width) },
-  { "text_font",PROP_TYPE_FONT,offsetof(Objet, text_attrs.font) },
-  { PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(Objet, text_attrs.height) },
-  { "text_colour",PROP_TYPE_COLOUR,offsetof(Objet, text_attrs.color) },
-  { "line_colour",PROP_TYPE_COLOUR,offsetof(Objet, line_color) },
-  { "fill_colour",PROP_TYPE_COLOUR,offsetof(Objet, fill_color) },
   { "name", PROP_TYPE_STRING, offsetof(Objet, exstate) },
   { "stereotype", PROP_TYPE_STRING, offsetof(Objet, stereotype) },
   { "text", PROP_TYPE_TEXT, offsetof(Objet, text) },
   { "exstate", PROP_TYPE_STRING, offsetof(Objet, exstate) },
-  { "attribstr", PROP_TYPE_MULTISTRING, offsetof(Objet, attrib)},
   { "attrib", PROP_TYPE_TEXT, offsetof(Objet, attributes)},
+  { "attribstr", PROP_TYPE_MULTISTRING, offsetof(Objet, attrib)},
   { "is_active", PROP_TYPE_BOOL, offsetof(Objet,is_active)},
   { "show_attribs", PROP_TYPE_BOOL, offsetof(Objet, show_attributes)},
   { "multiple", PROP_TYPE_BOOL, offsetof(Objet, is_multiple)},
+
+  { PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(Objet, text_attrs.height) },
+  { "text_colour",PROP_TYPE_COLOUR,offsetof(Objet, text_attrs.color) },
+  { "line_colour",PROP_TYPE_COLOUR,offsetof(Objet, line_color) },
+  { "fill_colour",PROP_TYPE_COLOUR,offsetof(Objet, fill_color) },
+  { PROP_STDNAME_LINE_WIDTH, PROP_STDTYPE_LINE_WIDTH, offsetof(Objet, line_width) },
+  { "text_font",PROP_TYPE_FONT,offsetof(Objet, text_attrs.font) },
   { NULL, 0, 0 },
 };
 

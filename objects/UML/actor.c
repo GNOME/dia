@@ -117,13 +117,13 @@ static ObjectOps actor_ops = {
 
 static PropDescription actor_props[] = {
   ELEMENT_COMMON_PROPERTIES,
-  PROP_STD_LINE_WIDTH_OPTIONAL,
   PROP_STD_TEXT_FONT,
   PROP_STD_TEXT_HEIGHT,
   PROP_STD_TEXT_COLOUR_OPTIONAL,
+  { "text", PROP_TYPE_TEXT, 0, N_("Text"), NULL, NULL },
+  PROP_STD_LINE_WIDTH_OPTIONAL,
   PROP_STD_LINE_COLOUR_OPTIONAL, 
   PROP_STD_FILL_COLOUR_OPTIONAL, 
-  { "text", PROP_TYPE_TEXT, 0, N_("Text"), NULL, NULL }, 
   PROP_DESC_END
 };
 
@@ -138,11 +138,11 @@ actor_describe_props(Actor *actor)
 
 static PropOffset actor_offsets[] = {
   ELEMENT_COMMON_PROPERTIES_OFFSETS,
-  { PROP_STDNAME_LINE_WIDTH, PROP_STDTYPE_LINE_WIDTH, offsetof(Actor, line_width) },
   {"text",PROP_TYPE_TEXT,offsetof(Actor,text)},
   {"text_font",PROP_TYPE_FONT,offsetof(Actor,attrs.font)},
   {PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(Actor,attrs.height)},
   {"text_colour",PROP_TYPE_COLOUR,offsetof(Actor,attrs.color)},
+  { PROP_STDNAME_LINE_WIDTH, PROP_STDTYPE_LINE_WIDTH, offsetof(Actor, line_width) },
   {"line_colour",PROP_TYPE_COLOUR,offsetof(Actor,line_color)},
   {"fill_colour",PROP_TYPE_COLOUR,offsetof(Actor,fill_color)},
   { NULL, 0, 0 },

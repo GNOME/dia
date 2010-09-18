@@ -52,6 +52,8 @@ struct _Node
 
   Color line_color;
   Color fill_color;
+  
+  real  line_width;
 };
 
 static const double NODE_BORDERWIDTH = 0.1;
@@ -121,8 +123,6 @@ static ObjectOps node_ops =
 
 static PropDescription node_props[] = {
   ELEMENT_COMMON_PROPERTIES,
-  PROP_STD_LINE_COLOUR_OPTIONAL, 
-  PROP_STD_FILL_COLOUR_OPTIONAL, 
   PROP_STD_TEXT_FONT,
   PROP_STD_TEXT_HEIGHT,
   PROP_STD_TEXT_COLOUR_OPTIONAL,
@@ -130,6 +130,9 @@ static PropDescription node_props[] = {
   { "name", PROP_TYPE_TEXT, PROP_FLAG_OPTIONAL, N_("Text"), NULL, NULL }, 
   /* new name matching "same name, same type"  rule */
   { "text", PROP_TYPE_TEXT, PROP_FLAG_NO_DEFAULTS|PROP_FLAG_LOAD_ONLY|PROP_FLAG_OPTIONAL, N_("Text"), NULL, NULL },
+  PROP_STD_LINE_WIDTH_OPTIONAL,
+  PROP_STD_LINE_COLOUR_OPTIONAL,
+  PROP_STD_FILL_COLOUR_OPTIONAL,
 
   PROP_DESC_END
 };
@@ -146,8 +149,6 @@ node_describe_props(Node *node)
 
 static PropOffset node_offsets[] = {
   ELEMENT_COMMON_PROPERTIES_OFFSETS,
-  {"line_colour",PROP_TYPE_COLOUR,offsetof(Node,line_color)},
-  {"fill_colour",PROP_TYPE_COLOUR,offsetof(Node,fill_color)},
   /* backward compatibility */
   {"name",PROP_TYPE_TEXT,offsetof(Node,name)},
   /* new name matching "same name, same type"  rule */
@@ -155,6 +156,9 @@ static PropOffset node_offsets[] = {
   {"text_font",PROP_TYPE_FONT,offsetof(Node,attrs.font)},
   {PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(Node,attrs.height)},
   {"text_colour",PROP_TYPE_COLOUR,offsetof(Node,attrs.color)},
+  { PROP_STDNAME_LINE_WIDTH, PROP_STDTYPE_LINE_WIDTH, offsetof(Node, line_width) },
+  {"line_colour",PROP_TYPE_COLOUR,offsetof(Node,line_color)},
+  {"fill_colour",PROP_TYPE_COLOUR,offsetof(Node,fill_color)},
   { NULL, 0, 0 },
 };
 
@@ -245,7 +249,7 @@ static void node_draw(Node *node, DiaRenderer *renderer)
   h = elem->height;
   
   renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
-  renderer_ops->set_linewidth(renderer, NODE_BORDERWIDTH);
+  renderer_ops->set_linewidth(renderer, node->line_width);
   renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
 
   /* Draw outer box */
@@ -331,6 +335,10 @@ static DiaObject *node_create(Point *startpoint, void *user_data, Handle **handl
   int i;
   
   node = g_malloc0(sizeof(Node));
+  
+  /* old defaults */
+  node->line_width = 0.1;
+
   elem = &node->element;
   obj = &elem->object;
   
@@ -359,7 +367,7 @@ static DiaObject *node_create(Point *startpoint, void *user_data, Handle **handl
     node->connections[i].connected = NULL;
   }
   node->connections[8].flags = CP_FLAGS_MAIN;
-  elem->extra_spacing.border_trans = NODE_BORDERWIDTH/2.0;
+  elem->extra_spacing.border_trans = node->line_width/2.0;
   node_update_data(node);
 
   *handle1 = NULL;

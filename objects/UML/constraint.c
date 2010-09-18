@@ -50,19 +50,19 @@ struct _Constraint {
 
   Color text_color;
   Color line_color;
+  
+  DiaFont *font;
+  real     font_height;
+  real     line_width;
 };
 
   
-#define CONSTRAINT_WIDTH 0.1
 #define CONSTRAINT_DASHLEN 0.4
-#define CONSTRAINT_FONTHEIGHT 0.8
-#define CONSTRAINT_ARROWLEN 0.8
-#define CONSTRAINT_ARROWWIDTH 0.5
+#define CONSTRAINT_ARROWLEN (constraint->font_height)
+#define CONSTRAINT_ARROWWIDTH (constraint->font_height*5./8.)
 
 #define HANDLE_MOVE_TEXT (HANDLE_CUSTOM1)
 
-
-static DiaFont *constraint_font = NULL;
 
 static ObjectChange* constraint_move_handle(Constraint *constraint, Handle *handle,
 					    Point *to, ConnectionPoint *cp,
@@ -127,8 +127,11 @@ static PropDescription constraint_props[] = {
     N_("Constraint:"), NULL, NULL },
   { "text_pos", PROP_TYPE_POINT, 0, NULL, NULL, NULL},
   /* can't use PROP_STD_TEXT_COLOUR_OPTIONAL cause it has PROP_FLAG_DONT_SAVE. It is designed to fill the Text object - not some subset */
+  PROP_STD_TEXT_FONT_OPTIONS(PROP_FLAG_VISIBLE|PROP_FLAG_STANDARD|PROP_FLAG_OPTIONAL),
+  PROP_STD_TEXT_HEIGHT_OPTIONS(PROP_FLAG_VISIBLE|PROP_FLAG_STANDARD|PROP_FLAG_OPTIONAL),
   PROP_STD_TEXT_COLOUR_OPTIONS(PROP_FLAG_VISIBLE|PROP_FLAG_STANDARD|PROP_FLAG_OPTIONAL),
-  PROP_STD_LINE_COLOUR_OPTIONAL, 
+  PROP_STD_LINE_WIDTH_OPTIONAL,
+  PROP_STD_LINE_COLOUR_OPTIONAL,
   PROP_DESC_END
 };
 
@@ -145,7 +148,10 @@ static PropOffset constraint_offsets[] = {
   CONNECTION_COMMON_PROPERTIES_OFFSETS,
   { "constraint", PROP_TYPE_STRING, offsetof(Constraint, text) },
   { "text_pos", PROP_TYPE_POINT, offsetof(Constraint, text_pos) },
+  { "text_font", PROP_TYPE_FONT, offsetof(Constraint, font) },
+  { PROP_STDNAME_TEXT_HEIGHT, PROP_STDTYPE_TEXT_HEIGHT, offsetof(Constraint, font_height) },
   { "text_colour",PROP_TYPE_COLOUR,offsetof(Constraint, text_color)},
+  { PROP_STDNAME_LINE_WIDTH,PROP_TYPE_LENGTH,offsetof(Constraint, line_width) },
   { "line_colour",PROP_TYPE_COLOUR,offsetof(Constraint, line_color)},
   { NULL, 0, 0 }
 };
@@ -176,7 +182,7 @@ constraint_distance_from(Constraint *constraint, Point *point)
   endpoints = &constraint->connection.endpoints[0];
   
   dist = distance_line_point(&endpoints[0], &endpoints[1], 
-                             CONSTRAINT_WIDTH, point);  
+                             constraint->line_width, point);  
   return dist;
 }
 
@@ -254,7 +260,7 @@ constraint_draw(Constraint *constraint, DiaRenderer *renderer)
 
   endpoints = &constraint->connection.endpoints[0];
   
-  renderer_ops->set_linewidth(renderer, CONSTRAINT_WIDTH);
+  renderer_ops->set_linewidth(renderer, constraint->line_width);
   renderer_ops->set_dashlength(renderer, CONSTRAINT_DASHLEN);
   renderer_ops->set_linestyle(renderer, LINESTYLE_DASHED);
   renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
@@ -265,12 +271,12 @@ constraint_draw(Constraint *constraint, DiaRenderer *renderer)
 
   renderer_ops->draw_line_with_arrows(renderer,
 				       &endpoints[0], &endpoints[1],
-				       CONSTRAINT_WIDTH,
+				       constraint->line_width,
 				       &constraint->line_color,
 				       NULL, &arrow);
   
-  renderer_ops->set_font(renderer, constraint_font,
-			  CONSTRAINT_FONTHEIGHT);
+  renderer_ops->set_font(renderer, constraint->font,
+			  constraint->font_height);
   renderer_ops->draw_string(renderer,
 			     constraint->brtext,
 			     &constraint->text_pos, ALIGN_LEFT,
@@ -288,18 +294,19 @@ constraint_create(Point *startpoint,
   DiaObject *obj;
   Point defaultlen = { 1.0, 1.0 };
 
-  if (constraint_font == NULL) {
-    constraint_font = 
-      dia_font_new_from_style (DIA_FONT_MONOSPACE, CONSTRAINT_FONTHEIGHT);
-  }
-  
   constraint = g_malloc0(sizeof(Constraint));
+
+  /* old defaults */
+  constraint->font_height = 0.8;
+  constraint->font =
+      dia_font_new_from_style (DIA_FONT_MONOSPACE, constraint->font_height);
+  constraint->line_width = 0.1;
 
   conn = &constraint->connection;
   conn->endpoints[0] = *startpoint;
   conn->endpoints[1] = *startpoint;
   point_add(&conn->endpoints[1], &defaultlen);
- 
+
   obj = &conn->object;
 
   obj->type = &constraint_type;
@@ -332,6 +339,7 @@ static void
 constraint_destroy(Constraint *constraint)
 {
   connection_destroy(&constraint->connection);
+  dia_font_unref(constraint->font);
   g_free(constraint->brtext);
   g_free(constraint->text);
 }
@@ -360,8 +368,8 @@ constraint_update_data(Constraint *constraint)
   obj->position = conn->endpoints[0];
 
   constraint->text_width = dia_font_string_width(constraint->brtext, 
-                                                 constraint_font, 
-                                                 CONSTRAINT_FONTHEIGHT);
+                                                 constraint->font, 
+                                                 constraint->font_height);
   
   constraint->text_handle.pos = constraint->text_pos;
 
@@ -372,8 +380,8 @@ constraint_update_data(Constraint *constraint)
 
   extra->start_long = 
     extra->start_trans = 
-    extra->end_long = CONSTRAINT_WIDTH/2.0;
-  extra->end_trans = MAX(CONSTRAINT_WIDTH,CONSTRAINT_ARROWLEN)/2.0;
+    extra->end_long = constraint->line_width/2.0;
+  extra->end_trans = MAX(constraint->line_width,CONSTRAINT_ARROWLEN)/2.0;
   
   connection_update_boundingbox(conn);
 
@@ -382,8 +390,8 @@ constraint_update_data(Constraint *constraint)
   rect.right = rect.left + constraint->text_width;
   rect.top = constraint->text_pos.y -
       dia_font_ascent(constraint->brtext,
-                      constraint_font, CONSTRAINT_FONTHEIGHT);
-  rect.bottom = rect.top + CONSTRAINT_FONTHEIGHT;
+                      constraint->font, constraint->font_height);
+  rect.bottom = rect.top + constraint->font_height;
   rectangle_union(&obj->bounding_box, &rect);
 }
 

@@ -58,6 +58,8 @@ struct _LargePackage {
   Color line_color;
   Color fill_color;
 
+  real     font_height;
+
   real topwidth;
   real topheight;
 };
@@ -66,7 +68,6 @@ struct _LargePackage {
  * older versions.
  */
 #define LARGEPACKAGE_BORDERWIDTH 0.1
-#define LARGEPACKAGE_FONTHEIGHT 0.8
 
 static real largepackage_distance_from(LargePackage *pkg, Point *point);
 static void largepackage_select(LargePackage *pkg, Point *clicked_point,
@@ -128,15 +129,17 @@ static ObjectOps largepackage_ops = {
 
 static PropDescription largepackage_props[] = {
   ELEMENT_COMMON_PROPERTIES,
+  { "name", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
+  N_("Name"), NULL, NULL },
+  { "stereotype", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
+  N_("Stereotype"), NULL, NULL },
+  /* can't use PROP_STD_TEXT_COLOUR_OPTIONAL cause it has PROP_FLAG_DONT_SAVE. It is designed to fill the Text object - not some subset */
+  PROP_STD_TEXT_FONT_OPTIONS(PROP_FLAG_VISIBLE|PROP_FLAG_STANDARD|PROP_FLAG_OPTIONAL),
+  PROP_STD_TEXT_HEIGHT_OPTIONS(PROP_FLAG_VISIBLE|PROP_FLAG_STANDARD|PROP_FLAG_OPTIONAL),
+  PROP_STD_TEXT_COLOUR_OPTIONS(PROP_FLAG_VISIBLE|PROP_FLAG_STANDARD|PROP_FLAG_OPTIONAL),
   PROP_STD_LINE_WIDTH_OPTIONAL,
   PROP_STD_LINE_COLOUR_OPTIONAL, 
   PROP_STD_FILL_COLOUR_OPTIONAL, 
-  /* can't use PROP_STD_TEXT_COLOUR_OPTIONAL cause it has PROP_FLAG_DONT_SAVE. It is designed to fill the Text object - not some subset */
-  PROP_STD_TEXT_COLOUR_OPTIONS(PROP_FLAG_VISIBLE|PROP_FLAG_STANDARD|PROP_FLAG_OPTIONAL),
-  { "stereotype", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
-  N_("Stereotype"), NULL, NULL },
-  { "name", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
-  N_("Name"), NULL, NULL },
   PROP_DESC_END
 };
 
@@ -151,12 +154,14 @@ largepackage_describe_props(LargePackage *largepackage)
 
 static PropOffset largepackage_offsets[] = {
   ELEMENT_COMMON_PROPERTIES_OFFSETS,
+  {"stereotype", PROP_TYPE_STRING, offsetof(LargePackage , stereotype) },
+  {"name", PROP_TYPE_STRING, offsetof(LargePackage , name) },
+  { "text_font", PROP_TYPE_FONT, offsetof(LargePackage, font) },
+  { PROP_STDNAME_TEXT_HEIGHT, PROP_STDTYPE_TEXT_HEIGHT, offsetof(LargePackage, font_height) },
+  {"text_colour",PROP_TYPE_COLOUR,offsetof(LargePackage,text_color)},
   { PROP_STDNAME_LINE_WIDTH, PROP_STDTYPE_LINE_WIDTH, offsetof(LargePackage, line_width) },
   {"line_colour",PROP_TYPE_COLOUR,offsetof(LargePackage,line_color)},
   {"fill_colour",PROP_TYPE_COLOUR,offsetof(LargePackage,fill_color)},
-  {"text_colour",PROP_TYPE_COLOUR,offsetof(LargePackage,text_color)},
-  {"stereotype", PROP_TYPE_STRING, offsetof(LargePackage , stereotype) },
-  {"name", PROP_TYPE_STRING, offsetof(LargePackage , name) },
 
   { NULL, 0, 0 },
 };
@@ -264,12 +269,12 @@ largepackage_draw(LargePackage *pkg, DiaRenderer *renderer)
 			   &pkg->line_color);
 
 
-  renderer_ops->set_font(renderer, pkg->font, LARGEPACKAGE_FONTHEIGHT);
+  renderer_ops->set_font(renderer, pkg->font, pkg->font_height);
 
   p1.x = x + 0.1;
-  p1.y = y - LARGEPACKAGE_FONTHEIGHT -
+  p1.y = y - pkg->font_height -
       dia_font_descent(pkg->st_stereotype,
-                       pkg->font, LARGEPACKAGE_FONTHEIGHT) - 0.1;
+                       pkg->font, pkg->font_height) - 0.1;
 
 
 
@@ -277,7 +282,7 @@ largepackage_draw(LargePackage *pkg, DiaRenderer *renderer)
     renderer_ops->draw_string(renderer, pkg->st_stereotype, &p1,
 			       ALIGN_LEFT, &pkg->text_color);
   }
-  p1.y += LARGEPACKAGE_FONTHEIGHT;
+  p1.y += pkg->font_height;
 
   if (pkg->name)
     renderer_ops->draw_string(renderer, pkg->name, &p1,
@@ -295,18 +300,18 @@ largepackage_update_data(LargePackage *pkg)
     pkg->st_stereotype = string_to_stereotype(pkg->stereotype);
   }
   
-  pkg->topheight = LARGEPACKAGE_FONTHEIGHT + 0.1*2;
+  pkg->topheight = pkg->font_height + 0.1*2;
 
   pkg->topwidth = 2.0;
   if (pkg->name != NULL)
     pkg->topwidth = MAX(pkg->topwidth,
                         dia_font_string_width(pkg->name, pkg->font,
-                                          LARGEPACKAGE_FONTHEIGHT)+2*0.1);
+                                          pkg->font_height)+2*0.1);
   if (pkg->st_stereotype != NULL && pkg->st_stereotype[0] != '\0') {
     pkg->topwidth = MAX(pkg->topwidth,
                         dia_font_string_width(pkg->st_stereotype, pkg->font,
-                                              LARGEPACKAGE_FONTHEIGHT)+2*0.1);
-    pkg->topheight += LARGEPACKAGE_FONTHEIGHT;
+                                              pkg->font_height)+2*0.1);
+    pkg->topheight += pkg->font_height;
   }
 
   if (elem->width < (pkg->topwidth + 0.2))
@@ -358,15 +363,17 @@ largepackage_create(Point *startpoint,
   pkg->text_color = color_black;
   pkg->line_color = attributes_get_foreground();
   pkg->fill_color = attributes_get_background();
-  pkg->font = dia_font_new_from_style(DIA_FONT_MONOSPACE,
-                                      LARGEPACKAGE_FONTHEIGHT);
-  
+  /* old defaults */
+  pkg->font_height = 0.8;
+  pkg->font = dia_font_new_from_style(DIA_FONT_MONOSPACE, pkg->font_height);
+  pkg->line_width = 0.1;
+
   pkg->stereotype = NULL;
   pkg->st_stereotype = NULL;
   pkg->name = g_strdup("");
 
   pkg->topwidth = 2.0;
-  pkg->topheight = LARGEPACKAGE_FONTHEIGHT*2 + 0.1*2;
+  pkg->topheight = pkg->font_height*2 + 0.1*2;
 
   for (i=0;i<NUM_CONNECTIONS;i++) {
     obj->connections[i] = &pkg->connections[i];
@@ -389,6 +396,7 @@ largepackage_destroy(LargePackage *pkg)
   g_free(pkg->stereotype);
   g_free(pkg->st_stereotype);
   g_free(pkg->name);
+  dia_font_unref(pkg->font);
   
   element_destroy(&pkg->element);
 }

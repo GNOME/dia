@@ -64,18 +64,18 @@ struct _Message {
   Color text_color;
   Color line_color;
 
+  DiaFont *font;
+  real     font_height;
+  real     line_width;
+
   MessageType type;
 };
 
-#define MESSAGE_WIDTH 0.1
 #define MESSAGE_DASHLEN 0.4
-#define MESSAGE_FONTHEIGHT 0.8
-#define MESSAGE_ARROWLEN 0.8
-#define MESSAGE_ARROWWIDTH 0.5
+#define MESSAGE_ARROWLEN (message->font_height)
+#define MESSAGE_ARROWWIDTH (message->font_height*5./8.)
 #define HANDLE_MOVE_TEXT (HANDLE_CUSTOM1)
 
-
-static DiaFont *message_font = NULL;
 
 static ObjectChange* message_move_handle(Message *message, Handle *handle,
 					 Point *to, ConnectionPoint *cp,
@@ -146,18 +146,20 @@ static PropEnumData prop_message_type_data[] = {
 
 static PropDescription message_props[] = {
   CONNECTION_COMMON_PROPERTIES,
-  /* can't use PROP_STD_TEXT_COLOUR_OPTIONAL cause it has PROP_FLAG_DONT_SAVE. It is designed to fill the Text object - not some subset */
-  PROP_STD_TEXT_COLOUR_OPTIONS(PROP_FLAG_VISIBLE|PROP_FLAG_STANDARD|PROP_FLAG_OPTIONAL),
-  PROP_STD_LINE_COLOUR_OPTIONAL, 
   /* how it used to be before 0.96+SVN */
   { "text", PROP_TYPE_STRING, PROP_FLAG_VISIBLE|PROP_FLAG_OPTIONAL, N_("Message:"), NULL, NULL },
   /* new name matching "same name, same type"  rule */
   { "message", PROP_TYPE_STRING, PROP_FLAG_NO_DEFAULTS|PROP_FLAG_LOAD_ONLY|PROP_FLAG_OPTIONAL, N_("Message:"), NULL, NULL },
-
   { "type", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE,
     N_("Message type:"), NULL, prop_message_type_data },
+  /* can't use PROP_STD_TEXT_COLOUR_OPTIONAL cause it has PROP_FLAG_DONT_SAVE. It is designed to fill the Text object - not some subset */
+  PROP_STD_TEXT_FONT_OPTIONS(PROP_FLAG_VISIBLE|PROP_FLAG_STANDARD|PROP_FLAG_OPTIONAL),
+  PROP_STD_TEXT_HEIGHT_OPTIONS(PROP_FLAG_VISIBLE|PROP_FLAG_STANDARD|PROP_FLAG_OPTIONAL),
+  PROP_STD_TEXT_COLOUR_OPTIONS(PROP_FLAG_VISIBLE|PROP_FLAG_STANDARD|PROP_FLAG_OPTIONAL),
   { "text_pos", PROP_TYPE_POINT, 0, 
     "text_pos:", NULL,NULL },
+  PROP_STD_LINE_WIDTH_OPTIONAL,
+  PROP_STD_LINE_COLOUR_OPTIONAL, 
   PROP_DESC_END
 };
 
@@ -172,14 +174,17 @@ message_describe_props(Message *mes)
 
 static PropOffset message_offsets[] = {
   CONNECTION_COMMON_PROPERTIES_OFFSETS,
-  { "line_colour",PROP_TYPE_COLOUR,offsetof(Message,line_color) },
-  { "text_colour",PROP_TYPE_COLOUR,offsetof(Message,text_color) },
   /* backward compatibility */
   { "text", PROP_TYPE_STRING, offsetof(Message, text) },
   /* new name matching "same name, same type"  rule */
   { "message", PROP_TYPE_STRING, offsetof(Message, text) },
   { "type", PROP_TYPE_ENUM, offsetof(Message, type) },
+  { "text_font", PROP_TYPE_FONT, offsetof(Message, font) },
+  { PROP_STDNAME_TEXT_HEIGHT, PROP_STDTYPE_TEXT_HEIGHT, offsetof(Message, font_height) },
+  { "text_colour",PROP_TYPE_COLOUR,offsetof(Message,text_color) },
   { "text_pos", PROP_TYPE_POINT, offsetof(Message,text_pos) }, 
+  { PROP_STDNAME_LINE_WIDTH,PROP_TYPE_LENGTH,offsetof(Message, line_width) },
+  { "line_colour",PROP_TYPE_COLOUR,offsetof(Message,line_color) },
   { NULL, 0, 0 }
 };
 
@@ -207,7 +212,7 @@ message_distance_from(Message *message, Point *point)
   
   endpoints = &message->connection.endpoints[0];
   
-  dist = distance_line_point(&endpoints[0], &endpoints[1], MESSAGE_WIDTH, point);
+  dist = distance_line_point(&endpoints[0], &endpoints[1], message->line_width, point);
   
   return dist;
 }
@@ -296,7 +301,7 @@ message_draw(Message *message, DiaRenderer *renderer)
 
   endpoints = &message->connection.endpoints[0];
   
-  renderer_ops->set_linewidth(renderer, MESSAGE_WIDTH);
+  renderer_ops->set_linewidth(renderer, message->line_width);
 
   renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
 
@@ -331,12 +336,12 @@ message_draw(Message *message, DiaRenderer *renderer)
 
   renderer_ops->draw_line_with_arrows(renderer,
 				       &p1, &p2,
-				       MESSAGE_WIDTH,
+				       message->line_width,
 				       &message->line_color,
 				       &arrow, NULL); 
 
-  renderer_ops->set_font(renderer, message_font,
-			  MESSAGE_FONTHEIGHT);
+  renderer_ops->set_font(renderer, message->font,
+			  message->font_height);
 
   if (message->type==MESSAGE_CREATE)
 	  mname = g_strdup_printf ("%s%s%s", UML_STEREOTYPE_START, "create", UML_STEREOTYPE_END);
@@ -369,12 +374,13 @@ message_create(Point *startpoint,
   LineBBExtras *extra;
   DiaObject *obj;
 
-  if (message_font == NULL) {
-    message_font = 
-      dia_font_new_from_style (DIA_FONT_SANS, MESSAGE_FONTHEIGHT);
-  }
-  
   message = g_malloc0(sizeof(Message));
+
+  /* old defaults */
+  message->font_height = 0.8;
+  message->font =
+      dia_font_new_from_style (DIA_FONT_SANS, message->font_height);
+  message->line_width = 0.1;
 
   conn = &message->connection;
   conn->endpoints[0] = *startpoint;
@@ -404,8 +410,8 @@ message_create(Point *startpoint,
   
   extra->start_long = 
     extra->start_trans = 
-    extra->end_long = MESSAGE_WIDTH/2.0;
-  extra->end_trans = MAX(MESSAGE_WIDTH,MESSAGE_ARROWLEN)/2.0;
+    extra->end_long = message->line_width/2.0;
+  extra->end_trans = MAX(message->line_width,MESSAGE_ARROWLEN)/2.0;
   
   message_update_data(message);
 
@@ -441,14 +447,14 @@ message_update_data(Message *message)
   connection_update_boundingbox(conn);
 
   message->text_width =
-    dia_font_string_width(message->text, message_font, MESSAGE_FONTHEIGHT);
+    dia_font_string_width(message->text, message->font, message->font_height);
 
   /* Add boundingbox for text: */
   rect.left = message->text_pos.x-message->text_width/2;
   rect.right = rect.left + message->text_width;
   rect.top = message->text_pos.y -
-      dia_font_ascent(message->text, message_font, MESSAGE_FONTHEIGHT);
-  rect.bottom = rect.top + MESSAGE_FONTHEIGHT;
+      dia_font_ascent(message->text, message->font, message->font_height);
+  rect.bottom = rect.top + message->font_height;
   rectangle_union(&obj->bounding_box, &rect);
 }
 

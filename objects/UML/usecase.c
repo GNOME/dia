@@ -129,17 +129,17 @@ static ObjectOps usecase_ops = {
 
 static PropDescription usecase_props[] = {
   ELEMENT_COMMON_PROPERTIES,
-  PROP_STD_LINE_WIDTH_OPTIONAL,
-  PROP_STD_LINE_COLOUR_OPTIONAL, 
-  PROP_STD_FILL_COLOUR_OPTIONAL, 
-  { "text_outside", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE,
-  N_("Text outside"), NULL, NULL },
   { "collaboration", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE,
   N_("Collaboration"), NULL, NULL },
+  { "text_outside", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE,
+  N_("Text outside"), NULL, NULL },
   PROP_STD_TEXT_FONT,
   PROP_STD_TEXT_HEIGHT,
   PROP_STD_TEXT_COLOUR_OPTIONAL,
   { "text", PROP_TYPE_TEXT, 0, N_("Text"), NULL, NULL }, 
+  PROP_STD_LINE_WIDTH_OPTIONAL,
+  PROP_STD_LINE_COLOUR_OPTIONAL, 
+  PROP_STD_FILL_COLOUR_OPTIONAL, 
   
   PROP_DESC_END
 };
@@ -155,15 +155,15 @@ usecase_describe_props(Usecase *usecase)
 
 static PropOffset usecase_offsets[] = {
   ELEMENT_COMMON_PROPERTIES_OFFSETS,
-  {PROP_STDNAME_LINE_WIDTH, PROP_STDTYPE_LINE_WIDTH, offsetof(Usecase, line_width)},
-  {"line_colour", PROP_TYPE_COLOUR, offsetof(Usecase, line_color) },
-  {"fill_colour", PROP_TYPE_COLOUR, offsetof(Usecase, fill_color) },
-  {"text_outside", PROP_TYPE_BOOL, offsetof(Usecase, text_outside) },
   {"collaboration", PROP_TYPE_BOOL, offsetof(Usecase, collaboration) },
+  {"text_outside", PROP_TYPE_BOOL, offsetof(Usecase, text_outside) },
   {"text",PROP_TYPE_TEXT,offsetof(Usecase,text)},
   {"text_font",PROP_TYPE_FONT,offsetof(Usecase,attrs.font)},
   {PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(Usecase,attrs.height)},
   {"text_colour",PROP_TYPE_COLOUR,offsetof(Usecase,attrs.color)},
+  {PROP_STDNAME_LINE_WIDTH, PROP_STDTYPE_LINE_WIDTH, offsetof(Usecase, line_width)},
+  {"line_colour", PROP_TYPE_COLOUR, offsetof(Usecase, line_color) },
+  {"fill_colour", PROP_TYPE_COLOUR, offsetof(Usecase, fill_color) },
   { NULL, 0, 0 },
 };
 

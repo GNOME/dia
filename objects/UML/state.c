@@ -66,6 +66,8 @@ struct _State {
   Color line_color;
   Color fill_color;
   
+  real line_width;
+  
   gchar* entry_action;
   gchar* do_action;
   gchar* exit_action;
@@ -145,16 +147,20 @@ static PropDescription state_props[] = {
       Warning: break this and you'll get angry UML users after you. */
   { "type", PROP_TYPE_INT, PROP_FLAG_NO_DEFAULTS|PROP_FLAG_LOAD_ONLY|PROP_FLAG_OPTIONAL,
     "hack", NULL, NULL },
-  
-  PROP_STD_LINE_COLOUR_OPTIONAL, 
-  PROP_STD_FILL_COLOUR_OPTIONAL, 
-  PROP_STD_TEXT_FONT,
-  PROP_STD_TEXT_HEIGHT,
-  PROP_STD_TEXT_COLOUR_OPTIONAL,
-  { "text", PROP_TYPE_TEXT, 0, N_("Text"), NULL, NULL }, 
+
   { "entry_action", PROP_TYPE_STRING, PROP_FLAG_OPTIONAL | PROP_FLAG_VISIBLE, N_("Entry action"), NULL, NULL },
   { "do_action", PROP_TYPE_STRING, PROP_FLAG_OPTIONAL | PROP_FLAG_VISIBLE, N_("Do action"), NULL, NULL },
   { "exit_action", PROP_TYPE_STRING, PROP_FLAG_OPTIONAL | PROP_FLAG_VISIBLE, N_("Exit action"),  NULL, NULL },
+
+  PROP_STD_TEXT_FONT,
+  PROP_STD_TEXT_HEIGHT,
+  PROP_STD_TEXT_COLOUR_OPTIONAL,
+  { "text", PROP_TYPE_TEXT, 0, N_("Text"), NULL, NULL },
+
+  PROP_STD_LINE_WIDTH_OPTIONAL,
+  PROP_STD_LINE_COLOUR_OPTIONAL,
+  PROP_STD_FILL_COLOUR_OPTIONAL,
+
   PROP_DESC_END
 };
 
@@ -169,12 +175,7 @@ state_describe_props(State *state)
 
 static PropOffset state_offsets[] = {
   ELEMENT_COMMON_PROPERTIES_OFFSETS,
-  {"line_colour",PROP_TYPE_COLOUR,offsetof(State,line_color)},
-  {"fill_colour",PROP_TYPE_COLOUR,offsetof(State,fill_color)},
-  {"text",PROP_TYPE_TEXT,offsetof(State,text)},
-  {"text_font",PROP_TYPE_FONT,offsetof(State,attrs.font)},
-  {PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(State,attrs.height)},
-  {"text_colour",PROP_TYPE_COLOUR,offsetof(State,attrs.color)},
+
   {"entry_action",PROP_TYPE_STRING,offsetof(State,entry_action)},
   {"do_action",PROP_TYPE_STRING,offsetof(State,do_action)},
   {"exit_action",PROP_TYPE_STRING,offsetof(State,exit_action)},
@@ -182,7 +183,16 @@ static PropOffset state_offsets[] = {
       if sizeof(enum) != sizeof(int), we're toast.             -- CC
       */
   { "type", PROP_TYPE_INT, offsetof(State, state_type) },
-  
+
+  {"text",PROP_TYPE_TEXT,offsetof(State,text)},
+  {"text_font",PROP_TYPE_FONT,offsetof(State,attrs.font)},
+  {PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(State,attrs.height)},
+  {"text_colour",PROP_TYPE_COLOUR,offsetof(State,attrs.color)},
+
+  { PROP_STDNAME_LINE_WIDTH,PROP_TYPE_LENGTH,offsetof(State, line_width) },
+  {"line_colour",PROP_TYPE_COLOUR,offsetof(State,line_color)},
+  {"fill_colour",PROP_TYPE_COLOUR,offsetof(State,fill_color)},
+
   { NULL, 0, 0 },
 };
 
@@ -278,7 +288,7 @@ state_draw(State *state, DiaRenderer *renderer)
   h = elem->height;
   
   renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
-  renderer_ops->set_linewidth(renderer, STATE_LINEWIDTH);
+  renderer_ops->set_linewidth(renderer, state->line_width);
   renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
 
   if (state->state_type!=STATE_NORMAL) {
@@ -387,7 +397,7 @@ state_update_data(State *state)
 
   elem->width = w;
   elem->height = h;
-  extra->border_trans = STATE_LINEWIDTH / 2.0;
+  extra->border_trans = state->line_width / 2.0;
 
   /* Update connections: */
   element_update_connections_rectangle(elem, state->connections);
@@ -413,6 +423,10 @@ state_create(Point *startpoint,
   int i;
   
   state = g_malloc0(sizeof(State));
+
+  /* old default */
+  state->line_width = 0.1;
+
   elem = &state->element;
   obj = &elem->object;
   

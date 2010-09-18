@@ -46,8 +46,12 @@ struct _Implements {
 
   Point circle_center; /* Calculated from diameter*/
 
-  Color text_color;
-  Color line_color;
+  DiaFont *font;
+  real     font_height;
+  Color    text_color;
+
+  real     line_width;
+  Color    line_color;
 
   gchar *text;
   Point text_pos;
@@ -56,13 +60,9 @@ struct _Implements {
 };
   
 #define IMPLEMENTS_WIDTH 0.1
-#define IMPLEMENTS_FONTHEIGHT 0.8
 
 #define HANDLE_CIRCLE_SIZE (HANDLE_CUSTOM1)
 #define HANDLE_MOVE_TEXT (HANDLE_CUSTOM2)
-
-
-static DiaFont *implements_font = NULL;
 
 static ObjectChange* implements_move_handle(Implements *implements, Handle *handle,
 					    Point *to, ConnectionPoint *cp,
@@ -124,15 +124,17 @@ static ObjectOps implements_ops = {
 
 static PropDescription implements_props[] = {
   CONNECTION_COMMON_PROPERTIES,
-  PROP_STD_LINE_COLOUR_OPTIONAL, 
-  /* can't use PROP_STD_TEXT_COLOUR_OPTIONAL cause it has PROP_FLAG_DONT_SAVE. It is designed to fill the Text object - not some subset */
-  PROP_STD_TEXT_COLOUR_OPTIONS(PROP_FLAG_VISIBLE|PROP_FLAG_STANDARD|PROP_FLAG_OPTIONAL),
   /* how it used to be before 0.96+SVN */
   { "text", PROP_TYPE_STRING, PROP_FLAG_VISIBLE|PROP_FLAG_OPTIONAL, N_("Interface:"), NULL, NULL },
   /* new name matching "same name, same type"  rule - reverted, forward compatibility seems more important */
   { "name", PROP_TYPE_STRING, PROP_FLAG_NO_DEFAULTS|PROP_FLAG_LOAD_ONLY|PROP_FLAG_OPTIONAL, N_("Interface:"), NULL, NULL },
-
+  /* can't use PROP_STD_TEXT_COLOUR_OPTIONAL cause it has PROP_FLAG_DONT_SAVE. It is designed to fill the Text object - not some subset */
+  PROP_STD_TEXT_FONT_OPTIONS(PROP_FLAG_VISIBLE|PROP_FLAG_STANDARD|PROP_FLAG_OPTIONAL),
+  PROP_STD_TEXT_HEIGHT_OPTIONS(PROP_FLAG_VISIBLE|PROP_FLAG_STANDARD|PROP_FLAG_OPTIONAL),
+  PROP_STD_TEXT_COLOUR_OPTIONS(PROP_FLAG_VISIBLE|PROP_FLAG_STANDARD|PROP_FLAG_OPTIONAL),
   { "text_pos", PROP_TYPE_POINT, 0, NULL, NULL, NULL },
+  PROP_STD_LINE_WIDTH_OPTIONAL,
+  PROP_STD_LINE_COLOUR_OPTIONAL,
   { "diameter", PROP_TYPE_REAL, 0, NULL, NULL, NULL },
   PROP_DESC_END
 };
@@ -147,10 +149,13 @@ implements_describe_props(Implements *implements)
 
 static PropOffset implements_offsets[] = {
   CONNECTION_COMMON_PROPERTIES_OFFSETS,
-  { "line_colour",PROP_TYPE_COLOUR,offsetof(Implements, line_color) },
-  { "text_colour",PROP_TYPE_COLOUR,offsetof(Implements, text_color) },
   { "text", PROP_TYPE_STRING, offsetof(Implements, text) },
+  { "text_font", PROP_TYPE_FONT, offsetof(Implements, font) },
+  { PROP_STDNAME_TEXT_HEIGHT, PROP_STDTYPE_TEXT_HEIGHT, offsetof(Implements, font_height) },
+  { "text_colour",PROP_TYPE_COLOUR,offsetof(Implements, text_color) },
   { "text_pos", PROP_TYPE_POINT, offsetof(Implements, text_pos) },
+  { PROP_STDNAME_LINE_WIDTH,PROP_TYPE_LENGTH,offsetof(Implements, line_width) },
+  { "line_colour",PROP_TYPE_COLOUR,offsetof(Implements, line_color) },
   { "diameter", PROP_TYPE_REAL, offsetof(Implements, circle_diameter) },
   { NULL, 0, 0 }
 };
@@ -178,7 +183,7 @@ implements_distance_from(Implements *implements, Point *point)
   
   endpoints = &implements->connection.endpoints[0];
   dist1 = distance_line_point( &endpoints[0], &endpoints[1],
-			      IMPLEMENTS_WIDTH, point);
+			      implements->line_width, point);
   dist2 = distance_point_point( &implements->circle_center, point)
     - implements->circle_diameter/2.0;
   if (dist2<0)
@@ -264,7 +269,7 @@ implements_draw(Implements *implements, DiaRenderer *renderer)
 
   endpoints = &implements->connection.endpoints[0];
   
-  renderer_ops->set_linewidth(renderer, IMPLEMENTS_WIDTH);
+  renderer_ops->set_linewidth(renderer, implements->line_width);
   renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
   renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
 
@@ -282,7 +287,7 @@ implements_draw(Implements *implements, DiaRenderer *renderer)
 			      &implements->line_color);
 
 
-  renderer_ops->set_font(renderer, implements_font, IMPLEMENTS_FONTHEIGHT);
+  renderer_ops->set_font(renderer, implements->font, implements->font_height);
   if (implements->text)
     renderer_ops->draw_string(renderer,
 			       implements->text,
@@ -301,12 +306,13 @@ implements_create(Point *startpoint,
   DiaObject *obj;
   Point defaultlen = { 1.0, 1.0 };
 
-  if (implements_font == NULL) {
-    implements_font = 
-      dia_font_new_from_style(DIA_FONT_MONOSPACE, IMPLEMENTS_FONTHEIGHT);
-  }
-  
   implements = g_malloc0(sizeof(Implements));
+
+  /* old defaults */
+  implements->font_height = 0.8;
+  implements->font =
+      dia_font_new_from_style(DIA_FONT_MONOSPACE, implements->font_height);
+  implements->line_width = 0.1;
 
   conn = &implements->connection;
   conn->endpoints[0] = *startpoint;
@@ -352,6 +358,7 @@ static void
 implements_destroy(Implements *implements)
 {
   connection_destroy(&implements->connection);
+  dia_font_unref(implements->font);
   g_free(implements->text);
 }
 
@@ -369,8 +376,8 @@ implements_update_data(Implements *implements)
   implements->text_width = 0.0;
   if (implements->text)
     implements->text_width = dia_font_string_width(implements->text,
-                                                   implements_font,
-                                                   IMPLEMENTS_FONTHEIGHT);
+                                                   implements->font,
+                                                   implements->font_height);
 
   if (connpoint_is_autogap(conn->endpoint_handles[0].connected_to) ||
       connpoint_is_autogap(conn->endpoint_handles[1].connected_to)) {
@@ -401,8 +408,8 @@ implements_update_data(Implements *implements)
   /* Boundingbox: */
   extra->start_long = 
     extra->start_trans = 
-    extra->end_long = IMPLEMENTS_WIDTH/2.0;
-  extra->end_trans = (IMPLEMENTS_WIDTH + implements->circle_diameter)/2.0;
+    extra->end_long = implements->line_width/2.0;
+  extra->end_trans = (implements->line_width + implements->circle_diameter)/2.0;
   
   connection_update_boundingbox(conn);
 
@@ -412,9 +419,9 @@ implements_update_data(Implements *implements)
   rect.top = implements->text_pos.y;
   if (implements->text)
     rect.top -= dia_font_ascent(implements->text,
-				implements_font,
-				IMPLEMENTS_FONTHEIGHT);
-  rect.bottom = rect.top + IMPLEMENTS_FONTHEIGHT;
+				implements->font,
+				implements->font_height);
+  rect.bottom = rect.top + implements->font_height;
   rectangle_union(&obj->bounding_box, &rect);
 }
 

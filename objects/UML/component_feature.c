@@ -73,9 +73,9 @@ struct _Compfeat {
   Handle text_handle;
   
   Color line_color;
+  real  line_width;
 };
 
-#define COMPPROP_WIDTH 0.1
 #define COMPPROP_FONTHEIGHT 0.8
 #define COMPPROP_DIAMETER 0.8
 #define COMPPROP_DEFAULTLEN 2.0
@@ -156,7 +156,6 @@ static PropEnumData prop_compfeat_type_data[] = {
 
 static PropDescription compfeat_props[] = {
   ORTHCONN_COMMON_PROPERTIES,
-  PROP_STD_LINE_COLOUR_OPTIONAL, 
   { "role", PROP_TYPE_ENUM, PROP_FLAG_NO_DEFAULTS, NULL, NULL, prop_compfeat_type_data },
   { "text", PROP_TYPE_TEXT, 0, N_("Text"), NULL, NULL },
   PROP_STD_TEXT_FONT,
@@ -164,6 +163,8 @@ static PropDescription compfeat_props[] = {
   PROP_STD_TEXT_COLOUR,
   PROP_STD_TEXT_ALIGNMENT,
   { "text_pos", PROP_TYPE_POINT, 0, NULL, NULL, NULL },
+  PROP_STD_LINE_WIDTH_OPTIONAL, 
+  PROP_STD_LINE_COLOUR_OPTIONAL, 
   PROP_DESC_END
 };
 
@@ -224,7 +225,6 @@ compfeat_describe_props(Compfeat *compfeat)
 
 static PropOffset compfeat_offsets[] = {
   ORTHCONN_COMMON_PROPERTIES_OFFSETS,
-  { "line_colour",PROP_TYPE_COLOUR,offsetof(Compfeat, line_color) },
   { "role", PROP_TYPE_ENUM, offsetof(Compfeat, role) },
   { "text", PROP_TYPE_TEXT, offsetof(Compfeat, text) },
   { "text_font", PROP_TYPE_FONT, offsetof(Compfeat, attrs.font) },
@@ -232,6 +232,8 @@ static PropOffset compfeat_offsets[] = {
   { "text_colour", PROP_TYPE_COLOUR, offsetof(Compfeat, attrs.color) },
   { "text_alignment", PROP_TYPE_ENUM, offsetof(Compfeat, attrs.alignment) },
   { "text_pos", PROP_TYPE_POINT, offsetof(Compfeat, text_pos) },
+  { PROP_STDNAME_LINE_WIDTH,PROP_TYPE_LENGTH,offsetof(Compfeat, line_width) },
+  { "line_colour",PROP_TYPE_COLOUR,offsetof(Compfeat, line_color) },
   { NULL, 0, 0 }
 };
 
@@ -261,7 +263,7 @@ static real
 compfeat_distance_from(Compfeat *compfeat, Point *point)
 {
   OrthConn *orth = &compfeat->orth;
-  return orthconn_distance_from(orth, point, COMPPROP_WIDTH);
+  return orthconn_distance_from(orth, point, compfeat->line_width);
 }
 
 static void
@@ -332,7 +334,7 @@ compfeat_draw(Compfeat *compfeat, DiaRenderer *renderer)
   points = &orth->points[0];
   n = orth->numpoints;
 
-  renderer_ops->set_linewidth(renderer, COMPPROP_WIDTH);
+  renderer_ops->set_linewidth(renderer, compfeat->line_width);
   renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
   renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
 
@@ -353,7 +355,7 @@ compfeat_draw(Compfeat *compfeat, DiaRenderer *renderer)
   endarrow.width = COMPPROP_DIAMETER;
   endarrow.type = compprop_arrow[compfeat->role];
   renderer_ops->draw_polyline_with_arrows(renderer, points, n,
- 					  COMPPROP_WIDTH,
+ 					  compfeat->line_width,
  					  &compfeat->line_color,
  					  &startarrow, &endarrow);
 
@@ -376,6 +378,7 @@ compfeat_create(Point *startpoint,
 
   compfeat = g_new0(Compfeat, 1);
   compfeat->role = compfeat->roletmp = GPOINTER_TO_INT(user_data);
+  compfeat->line_width = 0.1;
 
   orth = &compfeat->orth;
   obj = &orth->object;
@@ -452,8 +455,8 @@ compfeat_update_data(Compfeat *compfeat)
   /* Boundingbox: */
   extra->start_long =
     extra->start_trans =
-    extra->end_long = COMPPROP_WIDTH + COMPPROP_DIAMETER;
-  extra->end_trans = COMPPROP_WIDTH + COMPPROP_DIAMETER;
+    extra->end_long = compfeat->line_width + COMPPROP_DIAMETER;
+  extra->end_trans = compfeat->line_width + COMPPROP_DIAMETER;
 
   orthconn_update_boundingbox(orth);
   text_calc_boundingbox(compfeat->text, &rect);
