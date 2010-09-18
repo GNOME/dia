@@ -53,39 +53,39 @@ full: 	build \
 
 compile :
 	cd lib
-	nmake -f makefile.msc
+	nmake -nologo -f makefile.msc
 	cd ..\bindings
 # Comment out the following line, if you want to build without python	
-	nmake -f makefile.msc
+	nmake -nologo -f makefile.msc
 	cd ..\app
-	nmake -f makefile.msc
+	nmake -nologo -f makefile.msc
 	cd ..\objects
-	nmake -f makefile.msc
+	nmake -nologo -f makefile.msc
 	cd ..\plug-ins
-	nmake -f makefile.msc
+	nmake -nologo -f makefile.msc
 	cd python
 # Comment out the following line, if you want to build without python	
-	nmake -f makefile.msc
+	nmake -nologo -f makefile.msc
 	cd ..\..
 	cd tests
-	nmake -f makefile.msc
+	nmake -nologo -f makefile.msc
 	cd ..
 
 clean :
 	del config.h
 	cd lib
-	nmake -f makefile.msc clean
+	nmake -nologo -f makefile.msc clean
 	cd ..\app
-	nmake -f makefile.msc clean
+	nmake -nologo -f makefile.msc clean
 	cd ..\objects
-	nmake -f makefile.msc clean
+	nmake -nologo -f makefile.msc clean
 	cd ..\plug-ins
-	nmake -f makefile.msc clean
+	nmake -nologo -f makefile.msc clean
 	cd python
-	nmake -f makefile.msc clean
+	nmake -nologo -f makefile.msc clean
 	cd ..\..
 	cd tests
-	nmake -f makefile.msc clean
+	nmake -nologo -f makefile.msc clean
 	cd ..
 	
 build:
