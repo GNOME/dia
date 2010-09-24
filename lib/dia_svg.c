@@ -929,13 +929,21 @@ dia_svg_parse_transform(const gchar *trans, real scale)
     real angle;
     
     if (list[i])
-      angle = g_ascii_strtod (list[i], NULL);
+      angle = g_ascii_strtod (list[i], NULL), ++i;
+    else
+      g_warning ("transform=rotate no angle?");
     m->xx =  cos(G_PI*angle/180);
-    m->xy =  sin(G_PI*angle/180);
-    m->yx = -sin(G_PI*angle/180);
+    /* FIXME: swapped xy and yx - correct? */
+    m->xy = -sin(G_PI*angle/180);
+    m->yx =  sin(G_PI*angle/180);
     m->yy =  cos(G_PI*angle/180);
+    /* FIXME: check with real world data, I'm uncertain */
+    if (list[i])
+      m->x0 = g_ascii_strtod (list[i], NULL), ++i;
+    if (list[i])
+      m->y0 = g_ascii_strtod (list[i], NULL), ++i;
   } else {
-    g_warning ("%s?", trans);
+    g_warning ("SVG: %s?", trans);
     g_free (m);
     m = NULL;
   }
