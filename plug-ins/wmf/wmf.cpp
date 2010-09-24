@@ -37,6 +37,7 @@ extern "C" {
 #include "filter.h"
 #include "plug-ins.h"
 #include "dia_image.h"
+#include "object.h" // ObjectOps::draw
 #ifdef __cplusplus
 }
 #endif
@@ -332,8 +333,50 @@ is_capable_to (DiaRenderer *renderer, RenderCapability cap)
     return TRUE;
   else if (RENDER_ALPHA == cap)
     return TRUE;
+  else if (RENDER_AFFINE == cap)
+    return TRUE;
   return FALSE;
 }
+
+static gpointer parent_class = NULL;
+
+#if defined(G_OS_WIN32)
+static void
+draw_object (DiaRenderer *self, DiaObject *object, DiaMatrix *matrix)
+{
+    WmfRenderer *renderer = WMF_RENDERER (self);
+    W32::XFORM xFormPrev = {1.0, 0.0, 0.0, 1.0, 0.0, 0.0};
+    int mode = W32::GetGraphicsMode (renderer->hFileDC);
+    gboolean fallback = FALSE;
+
+    if (matrix) {
+        if (   W32::SetGraphicsMode (renderer->hFileDC, GM_ADVANCED)
+            && W32::GetWorldTransform (renderer->hFileDC, &xFormPrev)) {
+
+            W32::XFORM xForm;
+
+            xForm.eM11 = matrix->xx;
+            xForm.eM12 = matrix->yx;
+            xForm.eM21 = matrix->xy;
+            xForm.eM22 = matrix->yy;
+            xForm.eDx = matrix->x0;
+            xForm.eDy = matrix->y0;
+            if (!W32::SetWorldTransform (renderer->hFileDC, &xForm))
+                fallback = TRUE;
+        }
+    }
+
+    if (fallback)
+        DIA_RENDERER_CLASS (parent_class)->draw_object (self, object, matrix);
+    else
+        object->ops->draw(object, DIA_RENDERER (renderer));
+
+    if (matrix)
+        W32::SetWorldTransform (renderer->hFileDC, &xFormPrev);
+
+    W32::SetGraphicsMode (renderer->hFileDC, mode);
+}
+#endif
 
 static void
 set_linewidth(DiaRenderer *self, real linewidth)
@@ -1175,8 +1218,6 @@ fill_rounded_rect (DiaRenderer *self,
 /* GObject boiler plate */
 static void wmf_renderer_class_init (WmfRendererClass *klass);
 
-static gpointer parent_class = NULL;
-
 GType
 wmf_renderer_get_type (void)
 {
@@ -1226,6 +1267,9 @@ wmf_renderer_class_init (WmfRendererClass *klass)
   /* renderer members */
   renderer_class->begin_render = begin_render;
   renderer_class->end_render   = end_render;
+#ifdef G_OS_WIN32
+  renderer_class->draw_object  = draw_object;
+#endif
 
   renderer_class->set_linewidth  = set_linewidth;
   renderer_class->set_linecaps   = set_linecaps;
