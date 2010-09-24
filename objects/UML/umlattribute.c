@@ -223,15 +223,19 @@ uml_get_attribute_string (UMLAttribute *attribute)
 }
 
 /*!
- * The ownership of these connection points is quite complicated. Instead of being part of the UMLAttribute as one may expect
-  * at first, they are somewhat in between the DiaObject (see: DiaObject::connections and the concrete user, here UMLClass)
-  * and the UMLAttribute.
-  * But with taking undo state mangement into account it gets even worse. Deleted (to be restored connection points) live inside
-  * the UMLClassChange until they get reverted back to the object *or* get free'd by umlclass_change_free()
-  * Since the implementation of attributes/operations being settable via StdProps there are more places to keep this stuff
-  * consitent. So here comes a tolerant helper.
-  *
-  * NOTE: Same function as uml_operation_ensure_connection_points(), with C++ it would be a template function ;)
+ * The ownership of these connection points is quite complicated. Instead of being part of
+ * the UMLAttribute as one may expect at first, they are somewhat in between the DiaObject
+ * (see: DiaObject::connections and the concrete user, here UMLClass) and the UMLAttribute.
+ *
+ * But with taking undo state mangement into account it gets even worse. Deleted (to be
+ * restored connection points) live inside the UMLClassChange until they get reverted back
+ * to the object *or* get free'd by umlclass_change_free()
+ *
+ * Since the implementation of attributes/operations being settable via StdProps there are
+ * more places to keep this stuff consitent. So here comes a tolerant helper.
+ *
+ * NOTE: Same function as uml_operation_ensure_connection_points(),
+ * with C++ it would be a template function ;)
  */
 void
 uml_attribute_ensure_connection_points (UMLAttribute* attr, DiaObject* obj)
