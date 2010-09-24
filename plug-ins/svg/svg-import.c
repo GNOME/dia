@@ -604,13 +604,15 @@ read_rect_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list)
     start.x = get_value_as_cm((char *) str, NULL);
     xmlFree(str);
   }
-  else return list;
+  else 
+    start.x = 0.0;
   str = xmlGetProp(node, (const xmlChar *)"y");
   if (str) {
     start.y = get_value_as_cm((char *) str, NULL);
     xmlFree(str);
   }
-  else return list;
+  else 
+    start.y = 0.0;
   str = xmlGetProp(node, (const xmlChar *)"width");
   if (str) {
     width = get_value_as_cm((char *) str, NULL);
@@ -725,14 +727,25 @@ read_image_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list, const gc
  * Fill a GList* with objects which is to be put in a
  * diagram or a group by the caller. 
  * Can be called recusively to allow groups in groups.
+ *
+ * @param startnode the XML node to dive into
+ * @param parent_gs the graphic style inherited by parent
+ * @param defs_ht a map of objects filled from 'defs' to use as templates for 'use'
+ * @param filename_svg SVG filename for better error messages
  */
 static GList*
-read_items (xmlNodePtr startnode, DiaSvgStyle *parent_gs, const gchar *filename_svg)
+read_items (xmlNodePtr   startnode, 
+	    DiaSvgStyle *parent_gs,
+	    GHashTable  *defs_ht,
+	    const gchar *filename_svg)
 {
   xmlNodePtr node;
   GList *items = NULL;
 
+
   for (node = startnode; node != NULL; node = node->next) {
+    DiaObject *obj = NULL;
+
     if (xmlIsBlankNode(node)) continue;
     if (node->type != XML_ELEMENT_NODE) continue;
 
@@ -753,7 +766,7 @@ read_items (xmlNodePtr startnode, DiaSvgStyle *parent_gs, const gchar *filename_
 	xmlFree (trans);
       }
 
-      moreitems = read_items (node->xmlChildrenNode, group_gs, filename_svg);
+      moreitems = read_items (node->xmlChildrenNode, group_gs, defs_ht, filename_svg);
 
       if (moreitems) {
         DiaObject *group;
@@ -765,6 +778,8 @@ read_items (xmlNodePtr startnode, DiaSvgStyle *parent_gs, const gchar *filename_
 	  group = group_create (moreitems);
 	/* group eats list */
         items = g_list_append (items, group);
+	/* remember for meta */
+	obj = group;
       }
       if (group_gs->font)
         dia_font_unref (group_gs->font);
@@ -772,30 +787,93 @@ read_items (xmlNodePtr startnode, DiaSvgStyle *parent_gs, const gchar *filename_
       g_free (matrix);
     } else if (!xmlStrcmp(node->name, (const xmlChar *)"rect")) {
       items = read_rect_svg(node, parent_gs, items);
+      if (items)
+	obj = g_list_last(items)->data;
     } else if (!xmlStrcmp(node->name, (const xmlChar *)"line")) {
       items = read_line_svg(node, parent_gs, items);
+      if (items)
+	obj = g_list_last(items)->data;
     } else if (!xmlStrcmp(node->name, (const xmlChar *)"ellipse") || !xmlStrcmp(node->name, (const xmlChar *)"circle")) {
       items = read_ellipse_svg(node, parent_gs, items);
+      if (items)
+	obj = g_list_last(items)->data;
     } else if (!xmlStrcmp(node->name, (const xmlChar *)"polyline")) {
       /* Uh, oh, no : apparently a fill="" in a group above make this a polygon */
       items = read_poly_svg(node, parent_gs, items, parent_gs && parent_gs->fill >= 0 ?
                             "Standard - Polygon" : "Standard - PolyLine");
+      if (items)
+	obj = g_list_last(items)->data;
     } else if (!xmlStrcmp(node->name, (const xmlChar *)"polygon")) {
       items = read_poly_svg(node, parent_gs, items, "Standard - Polygon");
+      if (items)
+	obj = g_list_last(items)->data;
     } else if(!xmlStrcmp(node->name, (const xmlChar *)"text")) {
       items = read_text_svg(node, parent_gs, items);
+      if (items)
+	obj = g_list_last(items)->data;
     } else if(!xmlStrcmp(node->name, (const xmlChar *)"path")) {
       items = read_path_svg(node, parent_gs, items);
+      if (items)
+	obj = g_list_last(items)->data;
     } else if(!xmlStrcmp(node->name, (const xmlChar *)"image")) {
       items = read_image_svg(node, parent_gs, items, filename_svg);
+      if (items)
+	obj = g_list_last(items)->data;
+    } else if(!xmlStrcmp(node->name, (const xmlChar *)"defs")) {
+      /* everything below must have a name to make a difference */
+      DiaObject *otemp;
+      GList *list, *defs = read_items (node->xmlChildrenNode, parent_gs, defs_ht, filename_svg);
+
+      for (list = defs; list != NULL; list = g_list_next (list)) {
+	gchar *id;
+
+	otemp = list->data;
+	id = dia_object_get_meta (otemp, "id");
+	if (id) {
+	  /* pass ownership of name and object */
+	  g_hash_table_insert (defs_ht, id, otemp);
+	} else {
+	  /* just loose the object */
+	  otemp->ops->destroy (otemp);
+	  list->data = NULL;
+	}
+      }
+    } else if(!xmlStrcmp(node->name, (const xmlChar *)"use")) {
+      xmlChar *key = xmlGetProp (node, (const xmlChar *)"xlink:href");
+      
+      if (!key) /* this doesn't look right but ... */
+        key = xmlGetProp(node, (const xmlChar *)"href");
+
+      if (key && key[0] == '#') {
+	DiaObject *otemp = g_hash_table_lookup (defs_ht, key+1);
+
+	if (otemp) {
+	  DiaObject *onew = otemp->ops->copy (otemp);
+
+	  apply_style (onew, node, parent_gs);
+	  items = g_list_append (items, onew);
+	}
+	xmlFree (key);
+      }
+    } else if(!xmlStrcmp(node->name, (const xmlChar *)"pattern")) {
+      /* Patterns could be considered as groups, too But Dia does not
+       * have the facility to apply them (yet?). */
     } else {
       /* everything else is treated like a group _without grouping_, i.e. we dive into unknown stuff */
       /* this allows to import stuff generated by 'dot' with links for the nodes */
       GList *moreitems;
 
-      moreitems = read_items (node->xmlChildrenNode, parent_gs, filename_svg);
+      moreitems = read_items (node->xmlChildrenNode, parent_gs, defs_ht, filename_svg);
       if (moreitems) {
         items = g_list_concat (items, moreitems);
+      }
+    }
+    /* remember some additioanl stuff of the current object */
+    if (obj) {
+      xmlChar *id = xmlGetProp (node, (const xmlChar *)"id");
+      if (id) {
+	dia_object_set_meta (obj, "id", id);
+	xmlFree (id);
       }
     }
   }
@@ -891,8 +969,12 @@ import_svg(const gchar *filename, DiagramData *dia, void* user_data)
     if (sviewbox)
       xmlFree (sviewbox);
   }
-  
-  items = read_items (root->xmlChildrenNode, NULL, filename);
+
+  {
+    GHashTable *defs_ht = g_hash_table_new (g_str_hash, g_str_equal);
+    items = read_items (root->xmlChildrenNode, NULL, defs_ht, filename);
+    g_hash_table_destroy (defs_ht);
+  }
   for (item = items; item != NULL; item = g_list_next (item)) {
     DiaObject *obj = (DiaObject *)item->data;
     layer_add_object(dia->active_layer, obj);
