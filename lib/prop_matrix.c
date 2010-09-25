@@ -172,7 +172,7 @@ matrixprop_get_widget (MatrixProperty *prop, PropDialog *dialog)
   adj = gtk_adjustment_new(0.0, -180.0, 180.0, 1.0, 15.0, 0);
   ret = gtk_spin_button_new(GTK_ADJUSTMENT (adj), 1.0, 2);
   gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(ret),TRUE);
-  prophandler_connect(&prop->common, G_OBJECT(ret), "value_changed");
+  prophandler_connect(&prop->common, G_OBJECT(ret), "changed");
   
   return ret;
 }
