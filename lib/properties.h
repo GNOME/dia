@@ -240,6 +240,7 @@ struct _PropDescription {
 #define PROP_FLAG_MULTIVALUE 0x0040 /* Multiple values for prop in group */
 #define PROP_FLAG_WIDGET_ONLY 0x0080 /* only cosmetic property, no data */
 #define PROP_FLAG_OPTIONAL 0x0100 /* don't complain if it does not exist */
+#define PROP_FLAG_SELF_ONLY 0x0200 /* do not apply to object lists */
 
 typedef enum {PROP_UNION, PROP_INTERSECTION} PropMergeOption;
 

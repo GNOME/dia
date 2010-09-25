@@ -203,15 +203,30 @@ object_list_create_props_dialog(GList *objects, gboolean is_default)
 ObjectChange *
 object_apply_props_from_dialog(DiaObject *obj, WIDGET *dialog_widget)
 {
+  ObjectChange *change;
   PropDialog *dialog = prop_dialog_from_widget(dialog_widget);
+  GPtrArray *props = g_ptr_array_new ();
+  int i;
 
   prop_get_data_from_widgets(dialog);
+  /* only stuff which is actually changed */
+  for (i = 0; i < dialog->props->len; ++i) {
+    Property *p = g_ptr_array_index (dialog->props, i);
+    if (p->descr->flags & PROP_FLAG_WIDGET_ONLY)
+      continue;
+    if ((p->experience & PXP_NOTSET) == 0)
+      g_ptr_array_add(props, p);
+  }
+
   if (!obj->ops->apply_properties_list) {
     g_warning("using a fallback function to apply properties;"
               " undo may not work correctly");
-    return object_apply_props(obj, dialog->props);
-  } else
-    return obj->ops->apply_properties_list(obj, dialog->props);
+    change = object_apply_props(obj, props);
+  } else {
+    change = obj->ops->apply_properties_list(obj, props);
+  }
+  g_ptr_array_free(props, TRUE);
+  return change;
 }
 
 gboolean

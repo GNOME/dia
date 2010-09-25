@@ -129,6 +129,9 @@ static void
 commonprop_reset_widget(Property *prop, WIDGET *widget)
 {
   prop->real_ops->reset_widget(prop,widget);
+  /* reset widget ususally emits the change signal on property,
+   * but the property itself did not change */
+  prop->experience |= PXP_NOTSET;
   prop->experience |= PXP_RESET_WIDGET;
 }
 

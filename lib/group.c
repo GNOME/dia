@@ -39,8 +39,6 @@ struct _Group {
   const PropDescription *pdesc;
   
   DiaMatrix *matrix;
-
-  gboolean self_only;
 };
 
 typedef struct _GroupPropChange GroupPropChange;
@@ -579,7 +577,7 @@ group_prop_event_deliver(Group *group, Property *prop)
 }
 
 static PropDescription _group_props[] = {
-  { "matrix", PROP_TYPE_MATRIX, PROP_FLAG_DONT_MERGE|PROP_FLAG_VISIBLE|PROP_FLAG_OPTIONAL|PROP_FLAG_NO_DEFAULTS,
+  { "matrix", PROP_TYPE_MATRIX, PROP_FLAG_SELF_ONLY|PROP_FLAG_DONT_MERGE|PROP_FLAG_VISIBLE|PROP_FLAG_OPTIONAL|PROP_FLAG_NO_DEFAULTS,
   N_("Transformation"), NULL, NULL },
 
   PROP_DESC_END
@@ -634,40 +632,71 @@ static void
 group_get_props(Group *group, GPtrArray *props)
 {
   GList *tmp;
+  GPtrArray *props_list, *props_self;
+  int i;
 
-  /* FIXME: need to somehow avoid to ask included groups for matrix, too. */
-  object_get_props_from_offsets(&group->object, _group_offsets, props);
+  /* Need to split the passed in properties to self props
+   * and the ones really passed to the list of owned objects.
+   */
+  props_self = g_ptr_array_new();
+  props_list = g_ptr_array_new();
+  for (i=0; i < props->len; i++) {
+    Property *p = g_ptr_array_index(props,i);
 
-  if (group->self_only)
-    return;
+    if ((p->descr->flags & PROP_FLAG_SELF_ONLY) != 0)
+      g_ptr_array_add(props_self, p);
+    else
+      g_ptr_array_add(props_list, p);
+  }
+
+  object_get_props_from_offsets(&group->object, _group_offsets, props_self);
 
   for (tmp = group->objects; tmp != NULL; tmp = tmp->next) {
     DiaObject *obj = tmp->data;
 
     if (obj->ops->get_props) {
-      obj->ops->get_props(obj, props);
+      obj->ops->get_props(obj, props_list);
     }
   }
+
+  g_ptr_array_free(props_list, TRUE);
+  g_ptr_array_free(props_self, TRUE);
 }
 
 static void
 group_set_props(Group *group, GPtrArray *props)
 {
   GList *tmp;
+  GPtrArray *props_list, *props_self;
+  int i;
 
-  /* FIXME: need to somehow avoid to set included groups for matrix, too. */
-  object_set_props_from_offsets(&group->object, _group_offsets, props);
+  /* Need to split the passed in properties to self props
+   * and the ones really passed to the list of owned objects.
+   */
+  props_self = g_ptr_array_new();
+  props_list = g_ptr_array_new();
+  for (i=0; i < props->len; i++) {
+    Property *p = g_ptr_array_index(props,i);
 
-  if (group->self_only)
-    return;
+    if ((p->descr->flags & PROP_FLAG_SELF_ONLY) != 0)
+      g_ptr_array_add(props_self, p);
+    else
+      g_ptr_array_add(props_list, p);
+  }
+
+  object_set_props_from_offsets(&group->object, _group_offsets, props_self);
 
   for (tmp = group->objects; tmp != NULL; tmp = tmp->next) {
     DiaObject *obj = tmp->data;
 
     if (obj->ops->set_props) {
-      obj->ops->set_props(obj, props);
+      obj->ops->set_props(obj, props_list);
     }
   }
+
+  g_ptr_array_free(props_list, TRUE);
+  g_ptr_array_free(props_self, TRUE);
+
   group_update_data (group);
 }
 
@@ -678,6 +707,9 @@ group_apply_properties_list(Group *group, GPtrArray *props)
   GList *clist = NULL;
   ObjectChange *objchange;
   GroupPropChange *change = NULL;
+  GPtrArray *props_list, *props_self;
+  int i;
+
   change = g_new0(GroupPropChange, 1);
 
 
@@ -690,18 +722,35 @@ group_apply_properties_list(Group *group, GPtrArray *props)
 
   change->group = group;
 
+  /* Need to split the passed in properties to self props
+   * and the ones really passed to the list of owned objects.
+   */
+  props_self = g_ptr_array_new();
+  props_list = g_ptr_array_new();
+  for (i=0; i < props->len; ++i) {
+    Property *p = g_ptr_array_index(props,i);
+
+    if (p->experience & PXP_NOTSET)
+      continue;
+    else if ((p->descr->flags & PROP_FLAG_SELF_ONLY) != 0)
+      g_ptr_array_add(props_self, p);
+    else
+      g_ptr_array_add(props_list, p);
+  }
+
   for (tmp = group->objects; tmp != NULL; tmp = g_list_next(tmp)) {
     DiaObject *obj = (DiaObject*)tmp->data;
     objchange = NULL;
     
-    objchange = obj->ops->apply_properties_list(obj, props);
+    objchange = obj->ops->apply_properties_list(obj, props_list);
     clist = g_list_append(clist, objchange);
   }
   /* finally ourself */
-  group->self_only = TRUE;
-  objchange = object_apply_props (&group->object, props);
-  group->self_only = FALSE;
+  objchange = object_apply_props (&group->object, props_self);
   clist = g_list_append(clist, objchange);
+
+  g_ptr_array_free(props_list, TRUE);
+  g_ptr_array_free(props_self, TRUE);
 
   group_update_data (group);
 
