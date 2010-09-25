@@ -63,7 +63,7 @@ object_draw_connectionpoints(DiaObject *obj, DDisplay *ddisp)
   int i;
   static Color midpoint_color = { 1.0, 0.0, 0.0 };
 
-  for (i=0;i<obj->num_connections;i++) {
+  for (i=0;i<dia_object_get_num_connections(obj);i++) {
     if ((obj->connections[i]->flags & CP_FLAG_ANYPLACE) == 0)
       connectionpoint_draw(obj->connections[i], ddisp, &connectionpoint_color);
     else if (!ddisp->mainpoint_magnetism)
@@ -113,7 +113,7 @@ diagram_update_connections_object(Diagram *dia, DiaObject *obj,
   DiaObject *connected_obj;
   Handle *handle;
 
-  for (i=0;i<obj->num_connections;i++) {
+  for (i=0;i<dia_object_get_num_connections(obj);i++) {
     cp = obj->connections[i];
     if ((update_nonmoved) ||
 	(distance_point_point_manhattan(&cp->pos, &cp->last_pos) > CHANGED_TRESHOLD)) {

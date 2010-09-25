@@ -175,13 +175,12 @@ group_update_handles(Group *group)
 static void 
 group_update_connectionpoints(Group *group)
 {
+#if 0
   /* FIXME: can't do it this way - lines are transformed twice than */
   /* Also can't do it by just copying the original connection points
    * into this object, e.g. connect() must work on the original cp.
    * So time for some serious interface update ...
    */
-  return;
-
   if (group->matrix) {
     DiaObject *obj = &group->object;
     int i;
@@ -195,6 +194,7 @@ group_update_connectionpoints(Group *group)
       cp->pos.y = p.x * m->yx + p.y * m->yy + m->y0;
     }
   }
+#endif
 }
 
 static ObjectChange*
@@ -339,6 +339,21 @@ group_destroy(Group *group)
 
   object_destroy(obj);
 }
+/*! Accessor for visible/usable number of connections for app/ 
+ *
+ * Should probably become a DiaObject member when more objects need
+ * such special handling.
+ */
+int
+dia_object_get_num_connections (DiaObject *obj)
+{
+  if (IS_GROUP(obj)) {
+    if (((Group*)obj)->matrix)
+      return 0;
+  }
+
+  return obj->num_connections;
+}
 
 static DiaObject *
 group_copy(Group *group)
@@ -371,7 +386,7 @@ group_copy(Group *group)
   while (list != NULL) {
     listobj = (DiaObject *) list->data;
 
-    for (i=0;i<listobj->num_connections;i++) {
+    for (i=0;i<dia_object_get_num_connections(listobj);i++) {
       /* Make connectionpoints be that of the 'inner' objects: */
       newobj->connections[num_conn++] = listobj->connections[i];
     }
@@ -493,7 +508,7 @@ group_create(GList *objects)
   while (list != NULL) {
     part_obj = (DiaObject *) list->data;
 
-    num_conn += part_obj->num_connections;
+    num_conn += dia_object_get_num_connections(part_obj);
     
     list = g_list_next(list);
   }
@@ -506,7 +521,7 @@ group_create(GList *objects)
   while (list != NULL) {
     part_obj = (DiaObject *) list->data;
 
-    for (i=0;i<part_obj->num_connections;i++) {
+    for (i=0;i<dia_object_get_num_connections(part_obj);i++) {
       obj->connections[num_conn++] = part_obj->connections[i];
     }
     

@@ -569,6 +569,8 @@ gboolean   dia_object_sanity_check(const DiaObject *obj, const gchar *msg);
 void   dia_object_set_meta (DiaObject *obj, const gchar *key, const gchar *value);
 gchar *dia_object_get_meta (DiaObject *obj, const gchar *key);
 
+int dia_object_get_num_connections (DiaObject *obj);
+
 G_END_DECLS
 
 #endif /* OBJECT_H */

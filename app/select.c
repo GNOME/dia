@@ -135,7 +135,7 @@ select_connected_callback(gpointer data, guint action, GtkWidget *widget)
     DiaObject *obj = (DiaObject *)tmp->data;
     int i;
 
-    for (i = 0; i < obj->num_connections; i++) {
+    for (i = 0; i < dia_object_get_num_connections(obj); i++) {
       ConnectionPoint *connection = obj->connections[i];
       GList *conns = connection->connected;
 
@@ -175,7 +175,7 @@ select_transitively(Diagram *dia, DiaObject *obj)
     }      
   }
 
-  for (i = 0; i < obj->num_connections; i++) {
+  for (i = 0; i < dia_object_get_num_connections(obj); i++) {
     ConnectionPoint *connection = obj->connections[i];
     GList *conns = connection->connected;
 

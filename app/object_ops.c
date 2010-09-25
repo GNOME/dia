@@ -48,7 +48,7 @@ object_add_updates(DiaObject *obj, Diagram *dia)
   }
 
   /* Connection points */
-  for (i=0;i<obj->num_connections;i++) {
+  for (i=0;i<dia_object_get_num_connections(obj);++i) {
     connectionpoint_add_update(obj->connections[i], dia);
   }
 
@@ -105,7 +105,7 @@ object_find_connectpoint_display(DDisplay *ddisp, Point *pos,
       obj_here = diagram_find_clicked_object_except(ddisp->diagram, pos, 0.00001, avoid);
       if (obj_here != NULL) {
 	  int i;
-	  for (i = 0; i < obj_here->num_connections; i++) {
+	  for (i = 0; i < dia_object_get_num_connections(obj_here); ++i) {
 	      if (obj_here->connections[i]->flags & CP_FLAG_ANYPLACE) {
 		  g_list_free(avoid);
 		  return obj_here->connections[i];
@@ -485,7 +485,7 @@ object_list_align_connected (GList *objects, Diagram *dia, int align)
   list = objects;
   while (list != NULL) {
     obj = list->data;
-    for (i = 0; i < obj->num_connections; ++i) {
+    for (i = 0; i < dia_object_get_num_connections(obj); ++i) {
       ConnectionPoint *cp = obj->connections[i];
       connected = cp->connected;
       /* first of all remember the objects connected to anything */

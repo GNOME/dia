@@ -307,6 +307,7 @@ EXPORTS
  dia_object_set_meta
  dia_object_get_meta
  dia_object_set_pixbuf
+ dia_object_get_num_connections
 
  dia_plugin_can_unload
  dia_plugin_check_version
