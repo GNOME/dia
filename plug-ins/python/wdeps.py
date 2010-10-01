@@ -795,6 +795,10 @@ For more information read the source.
 		# no diagram at all
 		sys.exit (0)
 
+	SaveDot (deps, sGraph, bByUse, nSymbols, f)
+
+def SaveDot (deps, sGraph, bByUse, nSymbols, f) :
+	# build the graph
 	f.write ('digraph "' + sGraph + '" {\n')
 	f.write ('graph [fontsize=8.0 label="wdeps.py ' + string.join (sys.argv[1:], " ") 
 			+ '\\n' + time.ctime() + '"]\n') 
