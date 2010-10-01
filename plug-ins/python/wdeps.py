@@ -591,6 +591,7 @@ def main () :
 	bByUse = 0
 	bReduce = 0
 	bTred = 0
+	bSaveDt = 0
 	sOutFilename = None
 	sPickle = None
 
@@ -639,6 +640,8 @@ def main () :
 				nCutLeafs = 10000 # infinite ;)
 		elif arg == "--dump" :
 			bDump = 1
+		elif arg == "--dt" :
+			bSaveDt = 1
 		elif arg == "--reduce" :
 			bReduce = 1
 		elif arg == "--tred" :
@@ -794,8 +797,22 @@ For more information read the source.
 		DumpSymbols (deps, f)
 		# no diagram at all
 		sys.exit (0)
+	if bSaveDt :
+		SaveDt (deps, f)
+	else :
+		SaveDot (deps, sGraph, bByUse, nSymbols, f)
 
-	SaveDot (deps, sGraph, bByUse, nSymbols, f)
+def SaveDt (deps, f) :
+	""" see: http://dtangler.org """
+	deps_keys = deps.keys()
+	deps_keys.sort()
+	for sn in deps_keys :
+		node = deps[sn]
+		edge_keys = node.deps.keys()
+		if not edge_keys :
+			continue
+		edge_keys.sort()
+		f.write (sn + " : " + string.join (edge_keys, " ") + "\n")
 
 def SaveDot (deps, sGraph, bByUse, nSymbols, f) :
 	# build the graph
