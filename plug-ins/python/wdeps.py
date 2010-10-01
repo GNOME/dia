@@ -49,6 +49,31 @@ is :- "public: class utl::CUnit & __thiscall utl::CUnit::operator/=(class utl::C
 # a list of dlls to ignore dependencies of
 g_DontFollow = []
 
+def Demangle (symbols) :
+	demangled = []
+	for s in symbols :
+		m = rDemangle.match (s)
+		if m :
+			#print m.group("tor"), "::", m.group("sym")
+			dm = ""
+			names = string.split (m.group("sym"), "@")
+			# we must not append the .reverse() in the line above otherwise names would become None. WTF? Inplace operation?
+			names.reverse()
+			if m.group("tor") == "?0" : # constructor
+				dm =  string.join(names, "::") + "::" + names[-1]
+			elif  m.group("tor") == "?1" : # constructor
+				dm =  string.join(names, "::") + "::~" + names[-1]
+			elif  m.group("tor") != None and m.group("tor")[0] == "?" and m.group("tor")[1] in Operators.keys() : # constructor
+				dm =  string.join(names, "::") + "::operator" + Operators[m.group("tor")[1]]
+			else :
+				dm =  string.join(names, "::")
+			#print " => ", dm
+			demangled.append (dm)
+		else :
+			#print " <unmatched>: ", s
+			demangled.append (s)
+	return demangled
+
 class Node :
 	def __init__ (self, name, depth) :
 		self.name = name
@@ -74,29 +99,7 @@ class Edge :
 		self.delayLoad = delayLoad
 		if len(symbols) > g_maxWeight :
 			g_maxWeight = len(symbols)
-		demangled = []
-		for s in symbols :
-			m = rDemangle.match (s)
-			if m :
-				#print m.group("tor"), "::", m.group("sym")
-				dm = ""
-				names = string.split (m.group("sym"), "@")
-				# we must not append the .reverse() in the line above otherwise names would become None. WTF? Inplace operation?
-				names.reverse()
-				if m.group("tor") == "?0" : # constructor
-					dm =  string.join(names, "::") + "::" + names[-1]
-				elif  m.group("tor") == "?1" : # constructor
-					dm =  string.join(names, "::") + "::~" + names[-1]
-				elif  m.group("tor") != None and m.group("tor")[0] == "?" and m.group("tor")[1] in Operators.keys() : # constructor
-					dm =  string.join(names, "::") + "::operator" + Operators[m.group("tor")[1]]
-				else :
-					dm =  string.join(names, "::")
-				#print " => ", dm
-				demangled.append (dm)
-			else :
-				#print " <unmatched>: ", s
-				demangled.append (s)
-		self.symbols = demangled
+		self.symbols = Demangle(symbols)
 	def Weight (self) :
 		"As method to have let always be the number of symbols"
 		return len(self.symbols)
