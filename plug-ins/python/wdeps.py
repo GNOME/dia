@@ -266,6 +266,13 @@ def RemoveRegEx (deps, reg_ex) :
 			for k2 in node.deps.keys () :
 				if rr.match (k2) :
 					del node.deps[k2]
+def RemoveNonLocal (deps) :
+	"Remove everything not available in the current directory"
+	for k in deps.keys() :
+		node = deps[k]
+		for c in node.deps.keys() :
+			if not os.path.exists (c) :
+				del node.deps[c]
 def RemoveBySymbols (deps, list) :
 	"If a connection is conly caused by some symbol in 'list' it is removed"
 	for k in deps.keys() :
@@ -600,6 +607,7 @@ def main () :
 
 	nSymbols = 0
 	nCutLeafs = 0
+	bRemoveNonLocal = 0
 
 	if IsWin32() :
 		# check if we are running from the right environment
@@ -618,6 +626,7 @@ def main () :
 			elif arg == "--remove-crt" : dllsToRemove.extend (dllsCrts)
 			elif arg == "--remove-mfc" : dllsToRemove.extend (dllsMfc)
 			elif arg == "--remove-gtk" : dllsToRemove.extend (dllsGtk)
+			elif arg == "--remove-non-local" : bRemoveNonLocal = 1
 			elif string.find (arg, "--remove-regex=") == 0 :
 				regexRemoves.append (arg[len("--remove-regex="):])
 			elif string.find (arg, "--remove-symbols=") == 0 :
@@ -751,6 +760,9 @@ For more information read the source.
 
 	for rr in regexRemoves :
 		RemoveRegEx (deps, rr)
+
+	if bRemoveNonLocal :
+		RemoveNonLocal (deps)
 
 	while nCutLeafs > 0 :
 		# not always iterating here, CutLeafs does too
