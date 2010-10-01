@@ -536,6 +536,50 @@ def LookupColor (node) :
 		print "Dependency", node.name, 'level', node.depth
 		return "#cc0000" # scarlet ret (a bit darker)
 
+def DumpSymbols (deps, f) :
+	Symbols = {}
+	Modules = {}
+	Imports = {}
+	node_keys = deps.keys()
+	node_keys.sort()
+	for sn in node_keys :
+		node = deps[sn]
+		if len(node.deps.keys()) == 0 :
+			continue
+		f.write (sn + "\n")
+		Imports[sn] = 0
+		edge_keys = node.deps.keys()
+		edge_keys.sort()
+		for se in edge_keys :
+			edge = node.deps[se]
+			if edge.reduce :
+				f.write ("\t!" + node.name + " -> " + edge.name + "\n")
+				continue
+			if edge.delayLoad :
+				f.write ("\t" + node.name + " -> " + edge.name + " (delay load)\n")
+			else :
+				f.write ("\t" + node.name + " -> " + edge.name + "\n")
+			syms = edge.symbols
+			syms.sort()
+			for sy in syms :
+				f.write ("\t\t" + sy + "\n")
+				if Symbols.has_key(sy) : 
+					Symbols[sy] += 1 
+				else : 
+					Symbols[sy] = 1
+			Imports[sn] += len(syms)
+			if Modules.has_key (edge.name) :
+				Modules[edge.name].append (node.name)
+			else :
+				Modules[edge.name] = [node.name]
+	# symbols used by many modules are good candidates for refactoring
+	f.write ( "***** Modules with users (symbols) *****\n" )
+	for s, i in Sorted (Imports) :
+		if Modules.has_key (s) :
+			f.write (s + " (" + str(i) + ") : " + string.join (Modules[s], ",") + "\n")
+		else :
+			f.write (s + " (0) : <no users>\n")
+
 def main () :
 	deps = {}
 	dllsToRemove = []
@@ -747,50 +791,10 @@ For more information read the source.
 		pickle.dump(deps, open(sPickle,"w"))
 
 	if bDump :
-		Symbols = {}
-		Modules = {}
-		Imports = {}
-		node_keys = deps.keys()
-		node_keys.sort()
-		for sn in node_keys :
-			node = deps[sn]
-			if len(node.deps.keys()) == 0 :
-				continue
-			f.write (sn + "\n")
-			Imports[sn] = 0
-			edge_keys = node.deps.keys()
-			edge_keys.sort()
-			for se in edge_keys :
-				edge = node.deps[se]
-				if edge.reduce :
-					f.write ("\t!" + node.name + " -> " + edge.name + "\n")
-					continue
-				if edge.delayLoad :
-					f.write ("\t" + node.name + " -> " + edge.name + " (delay load)\n")
-				else :
-					f.write ("\t" + node.name + " -> " + edge.name + "\n")
-				syms = edge.symbols
-				syms.sort()
-				for sy in syms :
-					f.write ("\t\t" + sy + "\n")
-					if Symbols.has_key(sy) : 
-						Symbols[sy] += 1 
-					else : 
-						Symbols[sy] = 1
-				Imports[sn] += len(syms)
-				if Modules.has_key (edge.name) :
-					Modules[edge.name].append (node.name)
-				else :
-					Modules[edge.name] = [node.name]
-		# symbols used by many modules are good candidates for refactoring
-		f.write ( "***** Modules with users (symbols) *****\n" )
-		for s, i in Sorted (Imports) :
-			if Modules.has_key (s) :
-				f.write (s + " (" + str(i) + ") : " + string.join (Modules[s], ",") + "\n")
-			else :
-				f.write (s + " (0) : <no users>\n")
+		DumpSymbols (deps, f)
 		# no diagram at all
-		sys.exit(0)
+		sys.exit (0)
+
 	f.write ('digraph "' + sGraph + '" {\n')
 	f.write ('graph [fontsize=8.0 label="wdeps.py ' + string.join (sys.argv[1:], " ") 
 			+ '\\n' + time.ctime() + '"]\n') 
