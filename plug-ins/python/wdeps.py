@@ -152,9 +152,9 @@ def GetDepsWin32 (sFrom, dAll, nMaxDepth, nDepth=0) :
 			else :
 				# import by name
 				# The system dlls seem to follow a diferent pattern (or is this for know-dlls? Delay load?)  thus (?:[0123456789ABCDEF]{8}[ ]+)?
-				r2 = re.match ("^[ ]+(?:[0123456789ABCDEF]{8}[ ]+)?[0123456789ABCDEF]{1,5}[ ]+([\w@?$]+)$", s)
+				r2 = re.match ("^[ ]+(?:[\dA-F]{8}[ ]+)?[\dA-F]{1,5}[ ]+([\w@?$]+)$", s)
 				if not r2 :
-					r2 = re.match ("^[ ]+(?:[0123456789ABCDEF]{8}[ ]+)?Ordinal[ ]+([1234567890]+)$", s)
+					r2 = re.match ("^[ ]+(?:[\dA-F]{8}[ ]+)?Ordinal[ ]+([\d]+)$", s)
 				if r2 :
 					arr.append (r2.group(1))
 				elif s[:-1] == "" and name != None and len(arr) > 0 :
