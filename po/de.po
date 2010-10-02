@@ -18,9 +18,9 @@ msgstr ""
 "Project-Id-Version: dia-0-97\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=dia&component=general\n"
-"POT-Creation-Date: 2010-05-02 20:24+0000\n"
-"PO-Revision-Date: 2010-05-22 19:23+0100\n"
-"Last-Translator: Mario Blättermann <mariobl@gnome.org>\n"
+"POT-Creation-Date: 2010-09-21 23:41+0000\n"
+"PO-Revision-Date: 2010-10-01 23:53+0200\n"
+"Last-Translator: Christian Kirbach <Christian.Kirbach@googlemail.com>\n"
 "Language-Team: Deutsch <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -2812,39 +2812,39 @@ msgstr "Access-Requirer hinzufügen"
 
 #: ../objects/AADL/aadlbox.c:362
 msgid "Add In Data Port"
-msgstr "In Data Port hinzufügen"
+msgstr "Eingehenden Daten-Port hinzufügen"
 
 #: ../objects/AADL/aadlbox.c:364
 msgid "Add In Event Port"
-msgstr ""
+msgstr "Eingehenden Ereignis-Port hinzufügen"
 
 #: ../objects/AADL/aadlbox.c:366
 msgid "Add In Event Data Port"
-msgstr ""
+msgstr "Eingehenden Ereignis-Datenport hinzufügen"
 
 #: ../objects/AADL/aadlbox.c:368
 msgid "Add Out Data Port"
-msgstr ""
+msgstr "Ausgehenden Daten-Port hinzufügen"
 
 #: ../objects/AADL/aadlbox.c:370
 msgid "Add Out Event Port"
-msgstr ""
+msgstr "Ausgehenden Ereignis-Port hinzufügen"
 
 #: ../objects/AADL/aadlbox.c:372
 msgid "Add Out Event Data Port"
-msgstr ""
+msgstr "Ausgehenden Ereignis-Datenport hinzufügen"
 
 #: ../objects/AADL/aadlbox.c:374
 msgid "Add In Out Data Port"
-msgstr ""
+msgstr "Ein- und ausgehenden Daten-Port hinzufügen"
 
 #: ../objects/AADL/aadlbox.c:376
 msgid "Add In Out Event Port"
-msgstr ""
+msgstr "Ein- und ausgehenden Ereignis-Port hinzufügen"
 
 #: ../objects/AADL/aadlbox.c:378
 msgid "Add In Out Event Data Port"
-msgstr ""
+msgstr "Ein- und ausgehenden Ereignis-Datenport hinzufügen"
 
 #: ../objects/AADL/aadlbox.c:380
 msgid "Add Port Group"
@@ -2912,7 +2912,7 @@ msgstr "Primärschlüssel"
 
 #: ../objects/Database/table.c:146
 msgid "Nullable"
-msgstr ""
+msgstr "Nullierbar"
 
 #: ../objects/Database/table.c:148
 msgid "Unique"
@@ -3014,7 +3014,7 @@ msgstr "_Primärschlüssel"
 
 #: ../objects/Database/table_dialog.c:733
 msgid "N_ullable"
-msgstr ""
+msgstr "N_ullierbar"
 
 #: ../objects/Database/table_dialog.c:740
 msgid "Uni_que"
@@ -4490,7 +4490,7 @@ msgstr "Kausal"
 
 #: ../objects/Jackson/domain.c:98
 msgid "Biddable"
-msgstr ""
+msgstr "Fügsam"
 
 #: ../objects/Jackson/domain.c:99
 msgid "Lexical"
@@ -4767,11 +4767,11 @@ msgstr "Kein Schutz"
 
 #: ../objects/SISSI/classification.h:39 ../objects/SISSI/sissi_dialog.c:43
 msgid "Restricted Diffusion"
-msgstr ""
+msgstr "Eingeschränkte Streuung"
 
 #: ../objects/SISSI/classification.h:40 ../objects/SISSI/sissi_dialog.c:44
 msgid "Special Country Confidential"
-msgstr ""
+msgstr "Landesspezifisch vertraulich"
 
 #: ../objects/SISSI/classification.h:41
 msgid "Confidential"
@@ -4783,19 +4783,19 @@ msgstr "NATO-vertraulich"
 
 #: ../objects/SISSI/classification.h:43 ../objects/SISSI/sissi_dialog.c:46
 msgid "Personal Confidential"
-msgstr ""
+msgstr "Persönlich vertraulich"
 
 #: ../objects/SISSI/classification.h:44 ../objects/SISSI/sissi_dialog.c:47
 msgid "Medical Confidential"
-msgstr ""
+msgstr "Medizinisch vertraulich"
 
 #: ../objects/SISSI/classification.h:45
 msgid "Industrie Confidential"
-msgstr ""
+msgstr "Industriegeheimnis"
 
 #: ../objects/SISSI/classification.h:46
 msgid "Defense Confidential"
-msgstr ""
+msgstr "Verteidigungsgeheimnis"
 
 #: ../objects/SISSI/classification.h:47 ../objects/SISSI/sissi_dialog.c:49
 msgid "Secret"
@@ -4803,11 +4803,11 @@ msgstr "Geheim"
 
 #: ../objects/SISSI/classification.h:48
 msgid "Defense Secret"
-msgstr ""
+msgstr "Verteidigungsgeheimnis"
 
 #: ../objects/SISSI/classification.h:49 ../objects/SISSI/sissi_dialog.c:50
 msgid "Secret special country"
-msgstr ""
+msgstr "Landesspezifisches Geheimnis"
 
 #: ../objects/SISSI/classification.h:50 ../objects/SISSI/sissi_dialog.c:51
 msgid "NATO Secret"
@@ -4854,7 +4854,7 @@ msgstr ""
 
 #: ../objects/SISSI/sissi_dialog.c:48
 msgid "Industrial Confidential"
-msgstr ""
+msgstr "Industriegeheimnis"
 
 #: ../objects/SISSI/sissi_dialog.c:58
 msgid "No integrity"
@@ -4935,7 +4935,7 @@ msgstr "ORGANISATION"
 
 #: ../objects/SISSI/sissi_dialog.c:89
 msgid "Higher-tier organisation"
-msgstr ""
+msgstr "Höherrangige Organisation"
 
 #: ../objects/SISSI/sissi_dialog.c:90
 msgid "Structure of the organisation"
@@ -4947,7 +4947,7 @@ msgstr "Projekt- oder Systemorganisation"
 
 #: ../objects/SISSI/sissi_dialog.c:92
 msgid "Subcontractors / Suppliers / Manufacturers"
-msgstr ""
+msgstr "Subunternehmer / Zulieferer / Hersteller"
 
 #: ../objects/SISSI/sissi_dialog.c:97
 msgid "SITE"
@@ -5011,23 +5011,23 @@ msgstr "Einbruchmeldung"
 
 #: ../objects/SISSI/sissi_dialog.c:133
 msgid "Thermal action"
-msgstr ""
+msgstr "Hitzemaßnahme"
 
 #: ../objects/SISSI/sissi_dialog.c:137
 msgid "Fire action"
-msgstr ""
+msgstr "Feuermaßnahme"
 
 #: ../objects/SISSI/sissi_dialog.c:141
 msgid "Water action"
-msgstr ""
+msgstr "Wassermaßnahme"
 
 #: ../objects/SISSI/sissi_dialog.c:145
 msgid "Air action"
-msgstr ""
+msgstr "Luftmaßnahme"
 
 #: ../objects/SISSI/sissi_dialog.c:149
 msgid "Energy action"
-msgstr ""
+msgstr "Energiemaßnahme"
 
 #: ../objects/SISSI/sissi_dialog.c:153
 msgid "Intrusion action"
@@ -5097,7 +5097,7 @@ msgstr "Betriebssystem"
 
 #: ../objects/SISSI/sissi_dialog.c:181
 msgid "Service - maintenance or administration software"
-msgstr ""
+msgstr "Service - Wartungs- oder Verwaltungssoftware"
 
 #: ../objects/SISSI/sissi_dialog.c:182
 msgid "Packaged software or standard software"
@@ -6544,7 +6544,7 @@ msgstr "Bogeninformationen konnten nicht gelesen werden: %s\n"
 #. set new fill property on arc?
 #: ../plug-ins/xfig/xfig-import.c:889
 msgid "Filled arc treated as unfilled"
-msgstr ""
+msgstr "Gefüllter Bogen wird als nicht gefüllt betrachtet"
 
 #: ../plug-ins/xfig/xfig-import.c:893
 #, c-format
@@ -6939,11 +6939,11 @@ msgstr "Vertikales Parallelogramm"
 
 #: ../sheets/BPMN.sheet.in.h:1
 msgid "Activity Looping"
-msgstr ""
+msgstr "Aktivität endlos wiederholen"
 
 #: ../sheets/BPMN.sheet.in.h:2
 msgid "Ad-Hoc Collapsed Sub-Process"
-msgstr ""
+msgstr "Spontan eingeklappter Unterprozess"
 
 #. For: anthonym
 #: ../sheets/BPMN.sheet.in.h:4
@@ -6956,7 +6956,7 @@ msgstr "Geschäftsprozess-Modellierungssprache"
 
 #: ../sheets/BPMN.sheet.in.h:6
 msgid "Collapsed Sub-Process"
-msgstr ""
+msgstr "Eingeklappter Unterprozess"
 
 #: ../sheets/BPMN.sheet.in.h:7
 msgid "Compensation Collapsed Sub-Process"
@@ -6964,7 +6964,7 @@ msgstr ""
 
 #: ../sheets/BPMN.sheet.in.h:8
 msgid "Compensation Task"
-msgstr ""
+msgstr "Kompensationsaufgabe"
 
 #: ../sheets/BPMN.sheet.in.h:9
 msgid "Complex"
@@ -7064,7 +7064,7 @@ msgstr "Zwischenzeitliches Ereignis - Zeituhr"
 
 #: ../sheets/BPMN.sheet.in.h:33
 msgid "Looping Collapsed Sub-Process"
-msgstr ""
+msgstr "Eingeklappter Unterprozess wird endlos wiederholt"
 
 #: ../sheets/BPMN.sheet.in.h:34
 msgid "Multiple Instance Collapsed Sub-Process"
@@ -7072,7 +7072,7 @@ msgstr ""
 
 #: ../sheets/BPMN.sheet.in.h:35
 msgid "Multiple Instance Task"
-msgstr ""
+msgstr "Aufgabe mit mehreren Instanzen"
 
 #: ../sheets/BPMN.sheet.in.h:36
 msgid "Parallel (AND)"
@@ -7911,7 +7911,7 @@ msgstr "Übergang"
 
 #: ../sheets/Gane_and_Sarson.sheet.in.h:1
 msgid "Alternate external entity"
-msgstr ""
+msgstr "Externe Entität wechseln"
 
 #: ../sheets/Gane_and_Sarson.sheet.in.h:2
 msgid "Data store"
@@ -7919,16 +7919,17 @@ msgstr "Datenspeicher"
 
 #: ../sheets/Gane_and_Sarson.sheet.in.h:3
 msgid "External entity"
-msgstr ""
+msgstr "Externe Entität"
 
 #. Author: Nicholas Moore, 2005. mailto: shiny.nickel@gmail.com
 #: ../sheets/Gane_and_Sarson.sheet.in.h:5
 msgid "Gane and Sarson"
 msgstr "Gane and Sarson"
 
+# Ein Datenflussdiagramm
 #: ../sheets/Gane_and_Sarson.sheet.in.h:6
 msgid "Gane and Sarson DFD"
-msgstr ""
+msgstr "Gane and Sarson DFD"
 
 #: ../sheets/IsometricMap.sheet.in.h:1
 msgid "Block 1, 2:4"
@@ -8192,7 +8193,7 @@ msgstr "Ein KAOS-Hindernis"
 
 #: ../sheets/KAOS.sheet.in.h:15
 msgid "A KAOS obstruction"
-msgstr "Eine KOAS-Behinderung"
+msgstr "Eine KAOS-Behinderung"
 
 #: ../sheets/KAOS.sheet.in.h:16
 msgid "A KAOS operation"
@@ -8208,7 +8209,7 @@ msgstr "Eine KAOS-Ausgabe"
 
 #: ../sheets/KAOS.sheet.in.h:19
 msgid "A KAOS performs"
-msgstr ""
+msgstr "Eine KAOS-Ausführung"
 
 #: ../sheets/KAOS.sheet.in.h:20
 msgid "A KAOS requirement"
@@ -8220,7 +8221,7 @@ msgstr "Eine KAOS-Verantwortbarkeit"
 
 #: ../sheets/KAOS.sheet.in.h:22
 msgid "A KAOS softgoal"
-msgstr "Ein KOAS-Softziel"
+msgstr "Ein KAOS-Softziel"
 
 #: ../sheets/KAOS.sheet.in.h:23
 msgid "Objects to design KAOS diagrams"
@@ -8271,9 +8272,12 @@ msgstr "PAR"
 msgid "PAR on the floor"
 msgstr "Standscheinwerfer"
 
+# http://www.theatrecrafts.com/lx_lanterns.html
+# aber keine Ahnung wie dt. Übersetzung lautet
+# → http://www.ebzlighting.ch/products/buehnenscheinwerfer/spl_mini.php
 #: ../sheets/Lights.sheet.in.h:11
 msgid "Pebble Convex lantern"
-msgstr ""
+msgstr "PC-Scheinwerfer"
 
 #: ../sheets/Lights.sheet.in.h:12 ../sheets/ciscocomputer.sheet.in.h:39
 msgid "Scanner"
@@ -8387,7 +8391,7 @@ msgstr "Diverse Formen"
 
 #: ../sheets/Misc.sheet.in.h:6
 msgid "New-style group object, for testing"
-msgstr ""
+msgstr "Gruppenobjekt neuen Stils, zum Testen"
 
 #: ../sheets/Misc.sheet.in.h:7
 msgid "Resizable grid"
@@ -8435,15 +8439,15 @@ msgstr "Komponenten für pneumatische und hydraulische Schaltkreise"
 
 #: ../sheets/Pneumatic.sheet.in.h:8
 msgid "Double-effect jack"
-msgstr "Doppeleffektbuchse"
+msgstr "Zweiwegzylinder"
 
 #: ../sheets/Pneumatic.sheet.in.h:9
 msgid "Electric command (double coil)"
-msgstr "Elektrische Steuerung (doppelte Windung)"
+msgstr "Elektrische Steuerung (doppelte Spule)"
 
 #: ../sheets/Pneumatic.sheet.in.h:10
 msgid "Electric command (single coil)"
-msgstr "Elektrische Steuerung (einfache Windung)"
+msgstr "Elektrische Steuerung (einfache Spule)"
 
 #: ../sheets/Pneumatic.sheet.in.h:11
 msgid "Generic pressure source"
@@ -8475,11 +8479,11 @@ msgstr "Muskelkraftsteuerung"
 
 #: ../sheets/Pneumatic.sheet.in.h:18
 msgid "Normally-in simple-effect jack"
-msgstr "Im Ausgangszustand einlassende Einwegbuchse"
+msgstr "Im Ausgangszustand einlassender Einwegzylinder"
 
 #: ../sheets/Pneumatic.sheet.in.h:19
 msgid "Normally-out simple-effect jack"
-msgstr "Im Ausgangszustand auslassende Einwegbuchse"
+msgstr "Im Ausgangszustand auslassender Einwegzylinder"
 
 #: ../sheets/Pneumatic.sheet.in.h:20
 msgid "Pneumatic pressure source"
@@ -8487,7 +8491,7 @@ msgstr "Pneumatische Druckquelle"
 
 #: ../sheets/Pneumatic.sheet.in.h:21
 msgid "Pneumatic/Hydraulic"
-msgstr "Pneumatisch/Hydraulisch"
+msgstr "Pneumatik/Hydraulik"
 
 #: ../sheets/Pneumatic.sheet.in.h:22
 msgid "Push-button command"
@@ -8634,7 +8638,7 @@ msgstr "Kondensator"
 
 #: ../sheets/SISSI.sheet.in.h:15
 msgid "Current transducer"
-msgstr ""
+msgstr "Aktueller Signalgeber"
 
 #: ../sheets/SISSI.sheet.in.h:16
 msgid "Digital code"
@@ -9197,6 +9201,7 @@ msgstr "Daten-Center Switch invertiert"
 msgid "Data Switch Processor"
 msgstr "Daten-Switch-Prozessor"
 
+# A fault-tolerant Fibre Channel switch that typically has a high port count and may serve as a central switch to other fabrics.
 #: ../sheets/ciscohub.sheet.in.h:25
 msgid "Director-class Fibre Channel intelligent switch"
 msgstr ""
@@ -9215,7 +9220,7 @@ msgstr "Generischer Prozessor"
 
 #: ../sheets/ciscohub.sheet.in.h:30
 msgid "Hub subdued"
-msgstr ""
+msgstr "Hub (inaktiv)"
 
 #: ../sheets/ciscohub.sheet.in.h:31
 msgid "ISDN switch"
@@ -9267,7 +9272,7 @@ msgstr "Multilayer-Switch mit Silizium"
 
 #: ../sheets/ciscohub.sheet.in.h:43
 msgid "Multilayer Switch with Silicon subdued"
-msgstr "Multilayer-Switch ohne Silizium"
+msgstr "Multilayer-Switch mit Silizium (inaktiv)"
 
 #: ../sheets/ciscohub.sheet.in.h:44
 msgid "NetFlow router"
@@ -9311,7 +9316,7 @@ msgstr "Router- und Switch-Formen von Cisco"
 
 #: ../sheets/ciscohub.sheet.in.h:55
 msgid "Router subdued"
-msgstr ""
+msgstr "Router (inaktiv)"
 
 #: ../sheets/ciscohub.sheet.in.h:56
 msgid "Router with Firewall"
@@ -9367,7 +9372,7 @@ msgstr "Workgroup 5500"
 
 #: ../sheets/ciscohub.sheet.in.h:69
 msgid "Workgroup Fibre Channel intelligent switch"
-msgstr ""
+msgstr "Intelligenter Lichtwellenleiter-Switch für Arbeitsgruppen"
 
 #: ../sheets/ciscohub.sheet.in.h:70
 msgid "Workgroup Switch Voice-Enabled"
@@ -9379,7 +9384,7 @@ msgstr "Arbeitsgruppen-Switch"
 
 #: ../sheets/ciscohub.sheet.in.h:72
 msgid "Workgroup switch Subdued"
-msgstr "Arbeitsgruppen-Switch (flach)"
+msgstr "Arbeitsgruppen-Switch (inaktiv)"
 
 #: ../sheets/ciscohub.sheet.in.h:73
 msgid "iSCSI switch"
@@ -9387,7 +9392,7 @@ msgstr "iSCSI-Switch"
 
 #: ../sheets/ciscomisc.sheet.in.h:1
 msgid "Androgynous Person"
-msgstr "Zwitterartige Person"
+msgstr "Stilisierte Person"
 
 #: ../sheets/ciscomisc.sheet.in.h:2
 msgid "Antenna"
@@ -9395,15 +9400,15 @@ msgstr "Antenne"
 
 #: ../sheets/ciscomisc.sheet.in.h:3
 msgid "Branch office"
-msgstr "Branch-Office"
+msgstr "Zweigbüro"
 
 #: ../sheets/ciscomisc.sheet.in.h:4
 msgid "Branch office blue"
-msgstr "Branch-Office blau"
+msgstr "Zweigbüro blau"
 
 #: ../sheets/ciscomisc.sheet.in.h:5
 msgid "Branch office subdued"
-msgstr "Branch-Office"
+msgstr "Zweigbüro (inaktiv)"
 
 # Also wenn es um Cisco-Netzwerke geht, scheint mir das Auto fehl am Platz.
 # CHECK
@@ -9429,7 +9434,7 @@ msgstr "Generisches Gebäude blau"
 
 #: ../sheets/ciscomisc.sheet.in.h:12
 msgid "Generic Building subdued"
-msgstr "Generisches Gebäude"
+msgstr "Generisches Gebäude (inaktiv)"
 
 #: ../sheets/ciscomisc.sheet.in.h:13
 msgid "Government Building"
@@ -9493,7 +9498,7 @@ msgstr "Mittleres Gebäude blau"
 
 #: ../sheets/ciscomisc.sheet.in.h:29
 msgid "Medium Building subdued"
-msgstr ""
+msgstr "Mittleres Gebäude (inaktiv)"
 
 #: ../sheets/ciscomisc.sheet.in.h:31
 msgid "Miscellaneous shapes by Cisco"
@@ -9513,7 +9518,7 @@ msgstr "Laufender Mann"
 
 #: ../sheets/ciscomisc.sheet.in.h:35
 msgid "Running man subdued"
-msgstr "Laufender Mann"
+msgstr "Laufender Mann (inaktiv)"
 
 #: ../sheets/ciscomisc.sheet.in.h:36
 msgid "Running woman"
@@ -9557,7 +9562,7 @@ msgstr "Telecommuter-Haus"
 
 #: ../sheets/ciscomisc.sheet.in.h:47
 msgid "Telecommuter house subdued"
-msgstr "Telecommuter-Haus"
+msgstr "Telecommuter-Haus (inaktiv)"
 
 #: ../sheets/ciscomisc.sheet.in.h:48
 msgid "Truck"
@@ -9722,7 +9727,7 @@ msgstr "Verzeichnis-Server"
 
 #: ../sheets/cisconetwork.sheet.in.h:33
 msgid "Distributed Director"
-msgstr ""
+msgstr "Richtungsverteiler"
 
 #: ../sheets/cisconetwork.sheet.in.h:34
 msgid "Dual Mode AccessPoint"
@@ -9734,7 +9739,7 @@ msgstr "FDDI-Ring"
 
 #: ../sheets/cisconetwork.sheet.in.h:36
 msgid "File Engine"
-msgstr ""
+msgstr "Datei-Engine"
 
 #: ../sheets/cisconetwork.sheet.in.h:37
 msgid "Firewall"
@@ -9750,7 +9755,7 @@ msgstr "Firewall horizontal"
 
 #: ../sheets/cisconetwork.sheet.in.h:40
 msgid "Firewall subdued"
-msgstr "Brandschutzmauer (flach)"
+msgstr "Firewall (inaktiv)"
 
 #: ../sheets/cisconetwork.sheet.in.h:41
 msgid "General Appliance"
@@ -9910,7 +9915,7 @@ msgstr "Dienstkontrolle"
 
 #: ../sheets/cisconetwork.sheet.in.h:81
 msgid "Storage Solution Engine"
-msgstr ""
+msgstr "Engine für Speicherlösung"
 
 #: ../sheets/cisconetwork.sheet.in.h:82
 msgid "System controller"
@@ -9984,6 +9989,7 @@ msgstr "Drahtlose Brücke"
 msgid "Wireless Connectivity"
 msgstr "Kabellose Anschlussmöglichkeit"
 
+# The Cisco Wireless Location Appliance is the industry’s first location solution that simultaneously tracks thousands of devices from directly within the WLAN infrastructure
 #: ../sheets/cisconetwork.sheet.in.h:100
 msgid "Wireless Location Appliance"
 msgstr ""
