@@ -460,7 +460,7 @@ dllsSysWin32 = [
 	"ws2_32.dll", "ws2help.dll", "wsock32.dll", "ntdll.dll", "mpr.dll", 
 	"rpcrt4.dll", "shlwapi.dll", "netapi32.dll", "msimg32.dll", "oledlg.dll",
 	"setupapi.dll", "secur32.dll", "avifil32.dll", "msvfw32.dll", 
-	"uxtheme.dll"]
+	"uxtheme.dll", "dnsapi.dll"]
 dllsCrts = [
 	"msvcrt.dll", "msvcrtd.dll", "msvcp60.dll",
 #	"msvcrt20.dll",
@@ -602,6 +602,7 @@ def main () :
 	bReduce = 0
 	bTred = 0
 	bSaveDt = 0
+	bSaveXml = 0
 	sOutFilename = None
 	sPickle = None
 
@@ -654,6 +655,8 @@ def main () :
 			bDump = 1
 		elif arg == "--dt" :
 			bSaveDt = 1
+		elif arg == "--xml" :
+			bSaveXml = 1
 		elif arg == "--reduce" :
 			bReduce = 1
 		elif arg == "--tred" :
@@ -685,9 +688,9 @@ def main () :
 				# don't GetDeps here cause we need to first evaluate *all* parameters
 				if len(components) == 0 :
 					print "No DLL input found - wrong directory?"
-					sys.exit(1)
+					break
 				sGraph = components[0]
-			else :
+			elif len(arg)>0 :
 				sOutFilename = arg
 		print "arg is:", arg 
 	if len(sys.argv) < 2 :
@@ -736,7 +739,7 @@ For more information read the source.
 	if not sOutFilename :
 		f = sys.stdout
 	else :
-		# ... dot
+		# ... dot (or something)
 		f = open(sOutFilename, "w")
 
 	if bDump : # remember the command line
@@ -814,8 +817,37 @@ For more information read the source.
 		sys.exit (0)
 	if bSaveDt :
 		SaveDt (deps, f)
+	elif bSaveXml :
+		SaveXml (deps, f)
 	else :
 		SaveDot (deps, sGraph, bByUse, nSymbols, f)
+
+def SaveXml (deps, f) :
+	"simple XML dump"
+	f.write('<nodes count="%d">\n' % (len(deps.keys())))
+	f.write('\t'*1 + '<command>wdeps.py ' + string.join (sys.argv[1:], ' ') + '</command>\n')
+	deps_keys = deps.keys()
+	deps_keys.sort()
+	for sn in deps_keys :
+		node = deps[sn]
+		f.write('\t'*1 + '<node name="%s" symbols="%d">\n' % (sn, len(node.exports)))
+		edge_keys = node.deps.keys()
+		if edge_keys :
+			edge_keys.sort()
+			f.write('\t'*2 + '<edges count="%d">\n' % (len(edge_keys)))
+			for en in edge_keys :
+				edge = node.deps[en]
+				f.write('\t'*3 + '<edge name="%s" weight="%g">\n' % (en, edge.Weight()))
+				f.write('\t'*4 + '<symbols>\n')
+				symbols = edge.symbols
+				symbols.sort()
+				for sym in symbols :
+					f.write('\t'*5 + '<symbol name="%s"/>\n' % (sym))
+				f.write('\t'*4 + '</symbols>\n')
+				f.write('\t'*3 + '</edge>\n')
+			f.write('\t'*2 + '</edges>')
+		f.write('\t'*1 + '</node>\n')
+	f.write('</nodes>\n')
 
 def SaveDt (deps, f) :
 	""" see: http://dtangler.org """
@@ -904,4 +936,3 @@ def SaveDot (deps, sGraph, bByUse, nSymbols, f) :
 	f.write("}\n")
 
 if __name__ == '__main__': main()
-
