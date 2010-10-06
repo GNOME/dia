@@ -134,6 +134,18 @@ def GetDepsWin32 (sFrom, dAll, nMaxDepth, nDepth=0) :
 		sPath = sFrom
 		if g_path :
 			sPath = FindInPath (sFrom)
+
+		# first remember all exports
+		arr = []
+		f = os.popen ('dumpbin /exports "' + sPath + '"')
+		sDump = f.readlines()
+		for s in sDump :
+			# similiar regex as above, but we have three numbers
+			r2 = re.match ("^[ ]+(?:[0123456789ABCDEF]{1,5}[ ]+)(?:[0123456789ABCDEF]{1,5}[ ]+)?[0123456789ABCDEF]{8}[ ]+([\w@?$]+).*", s)
+			if r2 :
+				arr.append (r2.group(1))
+		node.AddExports (arr, 0)
+
 		f = os.popen ('dumpbin /imports "' + sPath + '"')
 		name = None
 		arr = []
@@ -297,6 +309,11 @@ def RemoveBySymbols (deps, list) :
 			else :
 				for s in kills :
 					edge.symbols.remove (s)
+		# remove the symbols also from the dependency edge is pointing to
+		for s in list :
+			if s in node.exports.keys() :
+				del node.exports[s]
+
 def Reduce (deps, f, bHintOnly = 1) :
 	"Automatically remove connections until there is only something reasonable left"
 	# first iteration: two components are connected in both directions
@@ -434,6 +451,17 @@ def TopMost (deps) :
 		if not used.has_key (k) :
 			topmost.append (k)
 	return topmost
+def CalculateUsed (deps) :
+	"Given the complete dependency tree calcualte the use count of every symbol"
+	for sn in deps.keys() :
+		node = deps[sn]
+		edge_keys = node.deps.keys()
+		for se in edge_keys :
+			edge = node.deps[se]
+			target = deps[se]
+			# every edges symbols
+			target.AddExports(edge.symbols, 1)
+
 def UnGlob (comps) :
 	import glob
 	comp_dict = {}
@@ -590,6 +618,43 @@ def DumpSymbols (deps, f) :
 		else :
 			f.write (s + " (0) : <no users>\n")
 
+def DumpUnusedSymbols (deps, f) :
+	for sd in deps.keys () :
+		node = deps[sd]
+		for se in node.deps.keys() :
+			edge = node.deps[se]
+			d = deps[se]
+			for ss in edge.symbols :
+				if ss in d.exports.keys() :
+					del d.exports[ss]
+	# after we have removed *all* used symbols
+	for sd in deps.keys () :
+		node = deps[sd]
+		unused = node.exports.keys()
+		f.write (sd + "\n")
+		unused.sort ()
+		for ss in unused :
+			f.write ("\t" + ss + "\n")
+
+def DumpSymbolsUse (deps, f) :
+	f.write ("*** Symbol Use Count ***\n")
+	CalculateUsed (deps)
+	node_keys = deps.keys()
+	node_keys.sort()
+	for sn in node_keys :
+		node = deps[sn]
+		used = 0
+		for k, v in node.exports.iteritems() :
+			if v > 0 :
+				used += 1
+		f.write (node.name + " (%d:%d)\n" % (used, len(node.exports)))
+		sorted_symbols = Sorted(node.exports)
+		for sym, cnt in sorted_symbols :
+			try :
+				f.write ("\t%d\t%s\n" % (cnt, sym))
+			except KeyError :
+				f.write ("\t?\t" + sym + "\n")
+
 def main () :
 	deps = {}
 	dllsToRemove = []
@@ -598,6 +663,8 @@ def main () :
 	nMaxDepth = 10000 # almost unlimited
 	components = []
 	bDump = 0
+	bDumpUnused = 0
+	bDumpSymbolUse = 0
 	bByUse = 0
 	bReduce = 0
 	bTred = 0
@@ -652,6 +719,12 @@ def main () :
 			else :
 				nCutLeafs = 10000 # infinite ;)
 		elif arg == "--dump" :
+			bDump = 1
+		elif arg == "--dump-symbol-use" :
+			bDumpSymbolUse = 1
+			bDump = 1
+		elif arg == "--dump-unused" :
+			bDumpUnused = 1
 			bDump = 1
 		elif arg == "--dt" :
 			bSaveDt = 1
@@ -811,7 +884,13 @@ For more information read the source.
 		import pickle
 		pickle.dump(deps, open(sPickle,"w"))
 
-	if bDump :
+	if bDumpSymbolUse :
+		DumpSymbolsUse (deps, f)
+		sys.exit (0)
+	elif bDumpUnused :
+		DumpUnusedSymbols (deps, f)
+		sys.exit (0)
+	elif bDump :
 		DumpSymbols (deps, f)
 		# no diagram at all
 		sys.exit (0)
