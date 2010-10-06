@@ -22,6 +22,7 @@
 #include <string.h>
 
 #include "paper.h"
+#include "diagramdata.h" /* for NewDiagramData */
 
 /* Paper definitions stolen from gnome-libs.
  * All measurements are in centimetres. */

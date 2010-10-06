@@ -18,12 +18,11 @@
 #ifndef DIAGRAM_H
 #define DIAGRAM_H
 
-#include <gtk/gtk.h>
+#include <glib.h>
 
 typedef struct _Diagram Diagram;
 
 #include "geometry.h"
-#include "display.h"
 #include "diagramdata.h"
 #include "undo.h"
 #include "menus.h"
@@ -85,8 +84,6 @@ void diagram_destroy(Diagram *dia);
 gboolean diagram_is_modified(Diagram *dia);
 void diagram_modified(Diagram *dia);
 void diagram_set_modified(Diagram *dia, int modified);
-void diagram_add_ddisplay(Diagram *dia, DDisplay *ddisp);
-void diagram_remove_ddisplay(Diagram *dia, DDisplay *ddisp);
 void diagram_add_object(Diagram *dia, DiaObject *obj);
 void diagram_add_object_list(Diagram *dia, GList *list);
 void diagram_selected_break_external(Diagram *dia);

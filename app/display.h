@@ -187,4 +187,7 @@ void ddisplay_im_context_preedit_reset(DDisplay *ddisp, Focus *focus);
 Focus *ddisplay_active_focus(DDisplay *ddisp);
 void ddisplay_set_active_focus(DDisplay *ddisp, Focus *focus);
 
+void diagram_add_ddisplay(Diagram *dia, DDisplay *ddisp);
+void diagram_remove_ddisplay(Diagram *dia, DDisplay *ddisp);
+
 #endif /* DDISPLAY_H */

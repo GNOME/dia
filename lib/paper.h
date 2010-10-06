@@ -35,9 +35,6 @@ struct _PaperInfo {
 			   * size is width*scaling, height*scaling */
 };
 
-/* DiagramData uses PaperInfo as a non-pointer, so we need to know the size */
-#include <diagramdata.h>
-
 int find_paper(const gchar* name);
 int get_default_paper(void);
 void get_paper_info(PaperInfo *paper, int i, NewDiagramData *data);

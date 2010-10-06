@@ -54,6 +54,7 @@
 #include "diapagelayout.h"
 #include "autosave.h"
 #include "newgroup.h"
+#include "display.h"
 
 #ifdef G_OS_WIN32
 #include <io.h>

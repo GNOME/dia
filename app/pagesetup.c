@@ -30,6 +30,7 @@
 #include "pagesetup.h"
 #include "intl.h"
 #include "diapagelayout.h"
+#include "display.h"
 
 typedef struct _PageSetup PageSetup;
 struct _PageSetup {
