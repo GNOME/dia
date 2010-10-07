@@ -460,12 +460,6 @@ grid_object_reallocate_cells (Grid_Object* grid_object)
   if (old_rows == new_rows && old_cols == new_cols)
     return;  /* no reallocation necessary */
 
-  /* obj->connections doesn't own the pointers, so just realloc; values
-   * will be updated later */
-  obj->num_connections = GRID_OBJECT_BASE_CONNECTION_POINTS + new_rows*new_cols;
-  obj->connections = (ConnectionPoint **) g_realloc(obj->connections,
-      		obj->num_connections * sizeof(ConnectionPoint *));
-
   /* If either new dimension is smaller, some connpoints will have to
    * be disconnected before reallocating */
 
@@ -484,6 +478,13 @@ grid_object_reallocate_cells (Grid_Object* grid_object)
       int cell = grid_cell(i, j, old_rows, old_cols);
       object_remove_connections_to(&grid_object->cells[cell]);
     }
+
+  /* must be done after disconnecting */
+  /* obj->connections doesn't own the pointers, so just realloc; values
+   * will be updated later */
+  obj->num_connections = GRID_OBJECT_BASE_CONNECTION_POINTS + new_rows*new_cols;
+  obj->connections = (ConnectionPoint **) g_realloc(obj->connections,
+      		obj->num_connections * sizeof(ConnectionPoint *));
 
   /* Can't use realloc; if grid has different dims, memory lays out
    * differently.  Must copy by hand. */
