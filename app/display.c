@@ -276,6 +276,7 @@ new_display(Diagram *dia)
 {
   DDisplay *ddisp;
   Rectangle visible;
+  int preset;
   
   ddisp = g_new0(DDisplay,1);
 
@@ -284,14 +285,29 @@ new_display(Diagram *dia)
   g_object_ref(dia);
 
   ddisp->grid.visible = prefs.grid.visible;
+  preset = GPOINTER_TO_INT (g_object_get_data (G_OBJECT(dia), "show-grid"));
+  if (preset != 0) 
+    ddisp->grid.visible = (preset > 0 ? TRUE : FALSE);
   ddisp->grid.snap = prefs.grid.snap;
+  preset = GPOINTER_TO_INT (g_object_get_data (G_OBJECT(dia), "snap-to-grid"));
+  if (preset != 0) 
+    ddisp->grid.snap = (preset > 0 ? TRUE : FALSE);
 
   ddisp->show_cx_pts = prefs.show_cx_pts;
+  preset = GPOINTER_TO_INT (g_object_get_data (G_OBJECT(dia), "show-connection-points"));
+  if (preset != 0) 
+    ddisp->show_cx_pts = (preset > 0 ? TRUE : FALSE);
 
   ddisp->autoscroll = TRUE;
   ddisp->mainpoint_magnetism = prefs.snap_object;
+  preset = GPOINTER_TO_INT (g_object_get_data (G_OBJECT(dia), "snap-to-object"));
+  if (preset != 0) 
+    ddisp->mainpoint_magnetism = (preset > 0 ? TRUE : FALSE);
 
   ddisp->aa_renderer = prefs.view_antialised;
+  preset = GPOINTER_TO_INT (g_object_get_data (G_OBJECT(dia), "antialiased"));
+  if (preset != 0) 
+    ddisp->aa_renderer = (preset > 0 ? TRUE : FALSE);
   
   ddisp->update_areas = NULL;
   ddisp->display_areas = NULL;

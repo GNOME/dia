@@ -610,7 +610,42 @@ diagram_data_load(const char *filename, DiagramData *data, void* user_data)
       }
     }
   }
+  /* parse some display settings */
+  if (diagram) {
+    attr = composite_find_attribute(diagramdata, "display");
+    if (attr != NULL) {
+      DataNode dispinfo;
 
+      dispinfo = attribute_first_data(attr);
+      /* using the diagramdata object as temporary storage is a bit hacky,
+       * and also the magic numbers (keeping 0 as dont care) */
+
+      attr = composite_find_attribute(dispinfo, "antialiased");
+      if (attr != NULL)
+	g_object_set_data(G_OBJECT(diagram), 
+	  "antialiased", GINT_TO_POINTER (data_boolean(attribute_first_data(attr)) ? 1 : -1));
+
+      attr = composite_find_attribute(dispinfo, "snap-to-grid");
+      if (attr != NULL)
+	g_object_set_data(G_OBJECT(diagram), 
+	  "snap-to-grid", GINT_TO_POINTER (data_boolean(attribute_first_data(attr)) ? 1 : -1));
+
+      attr = composite_find_attribute(dispinfo, "snap-to-object");
+      if (attr != NULL)
+        g_object_set_data(G_OBJECT(diagram), 
+	  "snap-to-object", GINT_TO_POINTER (data_boolean(attribute_first_data(attr)) ? 1 : -1));
+
+      attr = composite_find_attribute(dispinfo, "show-grid");
+      if (attr != NULL)
+        g_object_set_data(G_OBJECT(diagram), 
+	  "show-grid", GINT_TO_POINTER (data_boolean(attribute_first_data(attr)) ? 1 : -1));
+
+      attr = composite_find_attribute(dispinfo, "show-connection-points");
+      if (attr != NULL)
+        g_object_set_data(G_OBJECT(diagram), 
+	  "show-connection-points", GINT_TO_POINTER (data_boolean(attribute_first_data(attr)) ? 1 : -1));
+    }
+  }
   /* Read in all layers: */
   layer_node =
     find_node_named (doc->xmlRootNode->xmlChildrenNode, "layer");
@@ -919,7 +954,26 @@ diagram_data_write_doc(DiagramData *data, const char *filename)
       data_add_real(attr, diagram->guides.hguides[i]);
     attr = composite_add_attribute(guideinfo, "vguides");
     for (i = 0; i < diagram->guides.nvguides; i++)
-    data_add_real(attr, diagram->guides.vguides[i]);
+      data_add_real(attr, diagram->guides.vguides[i]);
+
+    if (g_slist_length(diagram->displays) == 1) {
+      xmlNodePtr dispinfo;
+      /* store some display attributes */
+      DDisplay *ddisp = diagram->displays->data;
+
+      attr = new_attribute((ObjectNode)tree, "display");
+      dispinfo = data_add_composite(attr, "display");
+      data_add_boolean(composite_add_attribute(dispinfo, "antialiased"),
+                       ddisp->aa_renderer);
+      data_add_boolean(composite_add_attribute(dispinfo, "snap-to-grid"),
+		       ddisp->grid.snap);
+      data_add_boolean(composite_add_attribute(dispinfo, "snap-to-object"),
+		       ddisp->mainpoint_magnetism);
+      data_add_boolean(composite_add_attribute(dispinfo, "show-grid"),
+		       ddisp->grid.visible);
+      data_add_boolean(composite_add_attribute(dispinfo, "show-connection-points"),
+		       ddisp->show_cx_pts);
+    }
   }
 
   objects_hash = g_hash_table_new(g_direct_hash, g_direct_equal);
