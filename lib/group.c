@@ -206,7 +206,7 @@ group_move_handle(Group *group, Handle *handle, Point *to, ConnectionPoint *cp,
   /* only flies, when the top left handle is the position */
   gboolean also_move = (   group->resize_handles[0].pos.x == pos.x 
                         && group->resize_handles[0].pos.y == pos.y);
-  Point top_left = group->resize_handles[0].pos;
+  Point top_left = { bb->left, bb->top };
   Point delta;
   /* before and after width and height */
   real w0, h0, w1, h1;
@@ -259,8 +259,8 @@ group_move_handle(Group *group, Handle *handle, Point *to, ConnectionPoint *cp,
     group->matrix->xx = 1.0;
     group->matrix->yy = 1.0;
   }
-  group->matrix->xx *= (w1 / w0);
-  group->matrix->yy *= (h1 / h0);
+
+  cairo_matrix_scale ((cairo_matrix_t *)group->matrix, w1 / w0, h1 / h0);
 
   group_update_data(group);
 
@@ -470,6 +470,11 @@ group_create_with_matrix(GList *objects, DiaMatrix *matrix)
     Point delta = {matrix->x0, matrix->y0};
     matrix->x0 = matrix->y0 = 0; /* offset used internally */
     object_list_move_delta(group->objects, &delta);
+  }
+  if (dia_matrix_is_identity (matrix)) {
+    /* just drop it as it has no effect */
+    g_free (matrix);
+    matrix = NULL;
   }
   group->matrix = matrix;
   group_update_data(group);
