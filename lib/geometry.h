@@ -125,6 +125,8 @@ struct _DiaMatrix {
   real x0; real y0;
 };
 
+gboolean dia_matrix_is_identity (const DiaMatrix *matix);
+
 #define ROUND(x) ((int) floor((x)+0.5))
 
 /* inline these functions if the platform supports it */

@@ -780,3 +780,18 @@ calculate_object_edge(Point *objmid, Point *end, DiaObject *obj)
   return mid2;
 }
 
+gboolean 
+dia_matrix_is_identity (const DiaMatrix *matrix)
+{
+  const real epsilon = 1e-6;
+  if (   fabs(matrix->xx - 1.0) < epsilon
+      && fabs(matrix->yy - 1.0) < epsilon
+      && fabs(matrix->xy) < epsilon
+      && fabs(matrix->yx) < epsilon
+      && fabs(matrix->x0) < epsilon
+      && fabs(matrix->y0) < epsilon)
+    return TRUE;
+
+  return FALSE;
+}
+
