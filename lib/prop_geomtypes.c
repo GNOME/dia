@@ -82,8 +82,8 @@ static void
 realprop_reset_widget(RealProperty *prop, WIDGET *widget)
 {
   GtkAdjustment *adj;
-  if (prop->common.extra_data) {
-    PropNumData *numdata = prop->common.extra_data;
+  if (prop->common.descr->extra_data) {
+    PropNumData *numdata = prop->common.descr->extra_data;
     adj = GTK_ADJUSTMENT(gtk_adjustment_new(prop->real_data,
                                             numdata->min, numdata->max,
                                             numdata->step, 
@@ -316,7 +316,7 @@ fontsizeprop_set_from_widget(FontsizeProperty *prop, WIDGET *widget)
 static void 
 fontsizeprop_load(FontsizeProperty *prop, AttributeNode attr, DataNode data)
 {
-  PropNumData *numdata = prop->common.extra_data;
+  PropNumData *numdata = prop->common.descr->extra_data;
   real value = data_real(data);
 
   if (numdata) {
@@ -345,7 +345,7 @@ static void
 fontsizeprop_set_from_offset(FontsizeProperty *prop,
                          void *base, guint offset, guint offset2)
 {
-  PropNumData *numdata = prop->common.extra_data;
+  PropNumData *numdata = prop->common.descr->extra_data;
   real value = prop->fontsize_data;
 
   if (numdata) {

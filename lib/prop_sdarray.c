@@ -100,7 +100,7 @@ arrayprop_load(ArrayProperty *prop, AttributeNode attr, DataNode data)
     GPtrArray *record = prop_list_from_descs(extra->record,
                                              prop->common.reason);
     if (!prop_list_load(record,composite, &err)) {
-      g_warning ("%s:%s", prop->common.name, err->message);
+      g_warning ("%s:%s", prop->common.descr->name, err->message);
       g_error_free (err);
       err = NULL;
     }

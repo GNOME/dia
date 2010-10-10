@@ -94,7 +94,7 @@ charprop_load(CharProperty *prop, AttributeNode attr, DataNode data)
     g_free(str);
   } else {
     g_warning("Could not read character data for attribute %s", 
-              prop->common.name);
+              prop->common.descr->name);
   }
 }
 
@@ -292,8 +292,8 @@ static void
 intprop_reset_widget(IntProperty *prop, WIDGET *widget)
 {
   GtkAdjustment *adj;
-  if (prop->common.extra_data) {
-    PropNumData *numdata = prop->common.extra_data;
+  if (prop->common.descr->extra_data) {
+    PropNumData *numdata = prop->common.descr->extra_data;
     adj = GTK_ADJUSTMENT(gtk_adjustment_new(prop->int_data,
                                             numdata->min, numdata->max,
                                             numdata->step, 10.0 * numdata->step, 0));
@@ -486,8 +486,8 @@ enumprop_get_widget(EnumProperty *prop, PropDialog *dialog)
 { 
   GtkWidget *ret;
 
-  if (prop->common.extra_data) {
-    PropEnumData *enumdata = prop->common.extra_data;
+  if (prop->common.descr->extra_data) {
+    PropEnumData *enumdata = prop->common.descr->extra_data;
     guint i;
 
     ret = gtk_combo_box_new_text ();
@@ -503,8 +503,8 @@ enumprop_get_widget(EnumProperty *prop, PropDialog *dialog)
 static void 
 enumprop_reset_widget(EnumProperty *prop, WIDGET *widget)
 {
-  if (prop->common.extra_data) {
-    PropEnumData *enumdata = prop->common.extra_data;
+  if (prop->common.descr->extra_data) {
+    PropEnumData *enumdata = prop->common.descr->extra_data;
     guint i, pos = 0;
 
     for (i = 0; enumdata[i].name != NULL; i++) {
@@ -526,7 +526,7 @@ enumprop_set_from_widget(EnumProperty *prop, WIDGET *widget)
 {
   if (GTK_IS_COMBO_BOX (widget)) {
     guint pos = gtk_combo_box_get_active (GTK_COMBO_BOX (widget));
-    PropEnumData *enumdata = prop->common.extra_data;
+    PropEnumData *enumdata = prop->common.descr->extra_data;
     
     g_return_if_fail (enumdata != NULL);
     
@@ -544,7 +544,7 @@ enumprop_load(EnumProperty *prop, AttributeNode attr, DataNode data)
     prop->enum_data = data_enum(data);
   else if (DATATYPE_INT == dt) {
     gboolean cast_ok = FALSE;
-    PropEnumData *enumdata = prop->common.extra_data;
+    PropEnumData *enumdata = prop->common.descr->extra_data;
     guint i, v = data_int(data);
     for (i = 0; enumdata[i].name != NULL; ++i) {
       if (v == enumdata[i].enumv) {

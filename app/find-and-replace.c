@@ -156,7 +156,7 @@ _match_prop (DiaObject *obj, const SearchData *sd, const gchar *replacement, Pro
 
   /* TODO: We could probably speed this up by using the type_quark,
    *       but I don't know enough yet to use it safely... */
-  prop_type = prop->type;
+  prop_type = prop->descr->type;
   if (!prop_type)
     return FALSE;
 
@@ -236,11 +236,11 @@ _match_all_props (DiaObject *obj, const SearchData *sd, const gchar *replacement
     gboolean is_match = FALSE;
     const gchar *prop_name;
 
-    if (!prop || !prop->name)
+    if (!prop || !prop->descr->name)
       continue;
 
     /* This extra step seems to be necessary to populate the property data. */
-    prop_name = prop->name;
+    prop_name = prop->descr->name;
     prop->ops->free (prop);
     prop = object_prop_by_name (obj, prop_name);
 

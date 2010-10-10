@@ -206,12 +206,12 @@ arrowprop_load(ArrowProperty *prop, AttributeNode attr, DataNode data)
   prop->arrow_data.width = DEFAULT_ARROW_SIZE;
   if (prop->arrow_data.type != ARROW_NONE) {
     ObjectNode obj_node = attr->parent;
-    gchar *str = g_strconcat(prop->common.name, "_length", NULL);
+    gchar *str = g_strconcat(prop->common.descr->name, "_length", NULL);
     if ((attr = object_find_attribute(obj_node, str)) &&
         (data = attribute_first_data(attr)))
       prop->arrow_data.length = data_real(data);
     g_free(str);
-    str = g_strconcat(prop->common.name, "_width", NULL);
+    str = g_strconcat(prop->common.descr->name, "_width", NULL);
     if ((attr = object_find_attribute(obj_node, str)) &&
         (data = attribute_first_data(attr)))
       prop->arrow_data.width = data_real(data);
@@ -225,11 +225,11 @@ arrowprop_save(ArrowProperty *prop, AttributeNode attr)
   data_add_enum(attr, prop->arrow_data.type);
   if (prop->arrow_data.type != ARROW_NONE) {
     ObjectNode obj_node = attr->parent;
-    gchar *str = g_strconcat(prop->common.name, "_length", NULL);
+    gchar *str = g_strconcat(prop->common.descr->name, "_length", NULL);
     attr = new_attribute(obj_node, str);
     g_free(str);
     data_add_real(attr, prop->arrow_data.length);
-    str = g_strconcat(prop->common.name, "_width", NULL);
+    str = g_strconcat(prop->common.descr->name, "_width", NULL);
     attr = new_attribute(obj_node, str);
     g_free(str);
     data_add_real(attr, prop->arrow_data.width);

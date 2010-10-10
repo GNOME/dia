@@ -150,7 +150,7 @@ prop_list_load(GPtrArray *props, DataNode data, GError **err)
 
   for (i = 0; i < props->len; i++) {
     Property *prop = g_ptr_array_index(props,i);
-    AttributeNode attr = object_find_attribute(data, prop->name);
+    AttributeNode attr = object_find_attribute(data, prop->descr->name);
     DataNode data = attr ? attribute_first_data(attr) : NULL;
     if ((!attr || !data) && prop->descr->flags & PROP_FLAG_OPTIONAL) {
       prop->experience |= PXP_NOTSET;
@@ -161,7 +161,7 @@ prop_list_load(GPtrArray *props, DataNode data, GError **err)
 	*err = g_error_new (DIA_ERROR,
                             DIA_ERROR_FORMAT,
 			    _("No attribute '%s' (%p) or no data (%p) in this attribute"),
-			    prop->name,attr,data);
+			    prop->descr->name,attr,data);
       prop->experience |= PXP_NOTSET;
       ret = FALSE;
       continue;
@@ -177,7 +177,7 @@ prop_list_save(GPtrArray *props, DataNode data)
   int i;
   for (i = 0; i < props->len; i++) {
     Property *prop = g_ptr_array_index(props,i);
-    AttributeNode attr = new_attribute(data,prop->name);
+    AttributeNode attr = new_attribute(data,prop->descr->name);
     prop->ops->save(prop,attr);
   }
 }

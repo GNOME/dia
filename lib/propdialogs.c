@@ -185,7 +185,7 @@ property_signal_handler(GtkObject *obj,
 	return;
 
     /* g_message("Received a signal for object %s from property %s",
-       obj->type->name,prop->name); */
+       obj->type->name,prop->descr->name); */
 
     /* obj is a scratch object ; we can do what we want with it. */
     prop_get_data_from_widgets(dialog);
@@ -214,7 +214,7 @@ prophandler_connect(const Property *prop,
 {
   if (0==strcmp(signal,"FIXME")) {
     g_warning("signal type unknown for this kind of property (name is %s), \n"
-              "handler ignored.",prop->name);
+              "handler ignored.",prop->descr->name);
     return;
   } 
 
@@ -332,7 +332,7 @@ _prop_list_extend_for_meta (GPtrArray *props)
   Property *p = g_ptr_array_index(props,0);
   GPtrArray *pex = prop_list_from_descs(extras,pdtpp_is_visible);
 
-  if (strcmp (p->type, PROP_TYPE_NOTEBOOK_BEGIN) != 0) {
+  if (strcmp (p->descr->type, PROP_TYPE_NOTEBOOK_BEGIN) != 0) {
     int i, olen = props->len;
     /* wrap everything into a first notebook page */
     g_ptr_array_set_size (props, olen + 2);
@@ -343,7 +343,7 @@ _prop_list_extend_for_meta (GPtrArray *props)
     g_ptr_array_index (props, 1) = g_ptr_array_index (pex, 1);
   } else {
     p = g_ptr_array_index (props, props->len - 1);
-    g_assert (strcmp (p->type, PROP_TYPE_NOTEBOOK_END) == 0);
+    g_assert (strcmp (p->descr->type, PROP_TYPE_NOTEBOOK_END) == 0);
     /* drop the end, we'll add it again below */
     g_ptr_array_set_size (props, props->len - 1);
   }

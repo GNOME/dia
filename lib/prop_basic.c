@@ -199,21 +199,18 @@ void initialize_property(Property *prop, const PropDescription *pdesc,
                          PropDescToPropPredicate reason)
 {
   prop->reason = reason;
-  prop->name = pdesc->name;
   prop->name_quark = pdesc->quark;
   if (!prop->name_quark) {
-    prop->name_quark = g_quark_from_string(prop->name);
+    prop->name_quark = g_quark_from_string(prop->descr->name);
     g_error("%s: late quark construction for property %s",
-            G_STRFUNC,prop->name);
+            G_STRFUNC,prop->descr->name);
   }
-  prop->type = pdesc->type;
   prop->type_quark = pdesc->type_quark;
   prop->ops = &commonprop_ops;
   prop->real_ops = pdesc->ops;
   /* if late quark construction, we'll have NULL here */
   prop->descr = pdesc;
   prop->reason = reason;
-  prop->extra_data = pdesc->extra_data;
   /* prop->self remains 0 until we get a widget from this. */
   prop->event_handler = pdesc->event_handler;
 

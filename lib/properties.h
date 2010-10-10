@@ -282,12 +282,9 @@ struct  _PropDescSArrayExtra {
 /* The Property itself */
 /* ******************* */ 
 struct _Property {
-  const gchar *name;
   GQuark name_quark; 
-  PropertyType type;
   GQuark type_quark;
   const PropDescription *descr;
-  gpointer extra_data;
   PropEventData self;
   PropEventHandler event_handler;
   PropDescToPropPredicate reason; /* why has this property been created from

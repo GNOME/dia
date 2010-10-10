@@ -658,7 +658,7 @@ PyDia_set_Array (Property *prop, PyObject *val)
 	setters[i] = (PyDiaPropSetFunc)prop_type_map[j].propset;
     }
     if (!setters[i]) {
-      g_debug("No setter for '%s'", ex->type);
+      g_debug("No setter for '%s'", ex->descr->type);
       g_free(setters);
       return -1;
     }
@@ -697,7 +697,7 @@ PyDia_set_Array (Property *prop, PyObject *val)
             /* use just the defaults, setters don't need to handle this */
 	  } else {
 	    g_debug ("Failed to set '%s::%s' from '%s'", 
-	      p->common.name, inner->name, v->ob_type->tp_name);
+	      p->common.descr->name, inner->descr->name, v->ob_type->tp_name);
 	    inner->ops->free(inner);
 	    ret = -1;
 	    break;
@@ -772,9 +772,9 @@ PyDiaProperty_GetAttr(PyDiaProperty *self, gchar *attr)
   if (!strcmp(attr, "__members__"))
     return Py_BuildValue("[ssss]", "name", "type", "value", "visible");
   else if (!strcmp(attr, "name"))
-    return PyString_FromString(self->property->name);
+    return PyString_FromString(self->property->descr->name);
   else if (!strcmp(attr, "type"))
-    return PyString_FromString(self->property->type);
+    return PyString_FromString(self->property->descr->type);
   else if (!strcmp(attr, "visible"))
     return PyInt_FromLong(0 != (self->property->descr->flags & PROP_FLAG_VISIBLE));
   else if (!strcmp(attr, "value")) {
@@ -785,7 +785,7 @@ PyDiaProperty_GetAttr(PyDiaProperty *self, gchar *attr)
       if (prop_type_map[i].quark == self->property->type_quark)
         return prop_type_map[i].propget(self->property);
     if (0 == (PROP_FLAG_WIDGET_ONLY & self->property->descr->flags))
-      g_debug ("No handler for type '%s'", self->property->type);
+      g_debug ("No handler for type '%s'", self->property->descr->type);
 
     Py_INCREF(Py_None);
     return Py_None;
@@ -810,7 +810,7 @@ int PyDiaProperty_ApplyToObject (DiaObject   *object,
     /* must be a Property object ? Or PyDiaRect etc ? */
     Property* inprop = ((PyDiaProperty*)val)->property;
 
-    if (0 == strcmp (prop->type, inprop->type)) {
+    if (0 == strcmp (prop->descr->type, inprop->descr->type)) {
       GPtrArray *plist;
       /* apply it */
       prop->ops->free (prop); /* release this one */
@@ -822,7 +822,7 @@ int PyDiaProperty_ApplyToObject (DiaObject   *object,
       return 0;
     } else {
       g_debug("PyDiaProperty_ApplyToObject : no property conversion %s -> %s",
-	             inprop->type, prop->type);
+	             inprop->descr->type, prop->descr->type);
     }
   } else {
     int i;
@@ -838,7 +838,7 @@ int PyDiaProperty_ApplyToObject (DiaObject   *object,
     }
     if (ret != 0)
       g_debug("PyDiaProperty_ApplyToObject : no conversion %s -> %s",
-	             key, prop->type);
+	             key, prop->descr->type);
   }
 
   if (0 == ret) {
@@ -862,8 +862,8 @@ PyDiaProperty_Str(PyDiaProperty *self)
 
   s = g_strdup_printf("<DiaProperty at %p, \"%s\", %s>",
                       self,
-                      self->property->name,
-                      self->property->type);
+                      self->property->descr->name,
+                      self->property->descr->type);
 
   py_s = PyString_FromString(s);
   g_free (s);

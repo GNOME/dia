@@ -563,7 +563,7 @@ group_prop_event_deliver(Group *group, Property *prop)
 
       /* I'm sorry. I haven't found a working less ugly solution :( */
       plist = obj->ops->describe_props(obj);
-      pdesc = prop_desc_list_find_prop(plist,prop->name);
+      pdesc = prop_desc_list_find_prop(plist,prop->descr->name);
       if (pdesc && pdesc->event_handler) {
         /* deliver */
         PropEventHandler hdl = prop_desc_find_real_handler(pdesc);
@@ -571,13 +571,13 @@ group_prop_event_deliver(Group *group, Property *prop)
           return hdl(obj,prop);
         } else {
           g_warning("dropped group event on prop %s, "
-                    "final handler was NULL",prop->name);
+                    "final handler was NULL",prop->descr->name);
           return FALSE;
         }
       }
     }
   }
-  g_warning("undelivered group property event for prop %s",prop->name); 
+  g_warning("undelivered group property event for prop %s",prop->descr->name); 
   return FALSE;
 }
 
