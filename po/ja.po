@@ -4,20 +4,23 @@
 # Akira TAGOH <tagoh@gnome.gr.jp>, 2001,2002.
 # Ryoichi INAGAKI <ryo1@bc.wakwak.com>, 2003.
 # Takeshi AIHANA <takeshi.aihana@gmail.com>, 2004,2006,2007,2009,2010.
-# Satoru SATOH <ss@gnome.gr.jp>, 2006
+# Satoru SATOH <ss@gnome.gr.jp>, 2006.
+# Takayuki KUSANO <AE5T-KSN@asahi-net.or.jp>, 2010.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: dia dia-0-97\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-25 06:20+0900\n"
-"PO-Revision-Date: 2010-01-25 06:19+0900\n"
-"Last-Translator: Takeshi AIHANA <takeshi.aihana@gmail.com>\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=dia&component=general\n"
+"POT-Creation-Date: 2010-10-02 12:38+0000\n"
+"PO-Revision-Date: 2010-10-12 21:55+0900\n"
+"Last-Translator: Takayuki KUSANO <AE5T-KSN@asahi-net.or.jp>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: ja\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
 # UML訳語集 http://www.umtp-japan.org/pdf/japanese.pdf
 #
@@ -30,12 +33,12 @@ msgstr "警告: レイヤの範囲 (%lu - %lu) が間違っています\n"
 #: ../app/app_procs.c:221
 #, c-format
 msgid "Warning: Layer %lu (%s) selected more than once.\n"
-msgstr "警告: レイヤ %lu (%s) を２回以上選択しました\n"
+msgstr "警告: レイヤ %lu (%s) を2回以上選択しました\n"
 
 #: ../app/app_procs.c:247
 #, c-format
 msgid "Warning: Layer %d (%s) selected more than once.\n"
-msgstr "警告: レイヤ %d (%s) を２回以上選択しました\n"
+msgstr "警告: レイヤ %d (%s) を2回以上選択しました\n"
 
 #: ../app/app_procs.c:256
 #, c-format
@@ -45,7 +48,7 @@ msgstr "警告: %s というレイヤはありません\n"
 #: ../app/app_procs.c:338
 #, c-format
 msgid "%s error: don't know how to export into %s\n"
-msgstr "%s エラー: %s へエキスポートする方法が不明です\n"
+msgstr "%s エラー: %s へエクスポートする方法が不明です\n"
 
 #: ../app/app_procs.c:347
 #, c-format
@@ -87,7 +90,7 @@ msgstr "フィルタまたはフォーマットを指定する: %s"
 #. &export_file_name
 #: ../app/app_procs.c:713
 msgid "Export loaded file and exit"
-msgstr "読み込んだファイルをエキスポートして終了する"
+msgstr "読み込んだファイルをエクスポートして終了する"
 
 #: ../app/app_procs.c:713
 msgid "OUTPUT"
@@ -101,7 +104,7 @@ msgstr "TYPE"
 
 #: ../app/app_procs.c:717
 msgid "Export graphics size"
-msgstr "指定したサイズのグラフィックスにエキスポートする"
+msgstr "指定したサイズのグラフィックスにエクスポートする"
 
 #: ../app/app_procs.c:717
 msgid "WxH"
@@ -112,7 +115,7 @@ msgid ""
 "Show only specified layers (e.g. when exporting). Can be either the layer "
 "name or a range of layer numbers (X-Y)"
 msgstr ""
-"指定したレイヤだけ表示する (例えばエキスポートする時など): レイヤ名またはレイ"
+"指定したレイヤだけ表示する (例えばエクスポートする時など): レイヤ名またはレイ"
 "ヤ番号の範囲 (X-Y) で指定する"
 
 #: ../app/app_procs.c:720
@@ -182,7 +185,7 @@ msgstr "読み込むデータがありません: %s\n"
 
 #: ../app/app_procs.c:834
 msgid "Can't connect to session manager!\n"
-msgstr "セッション・マネージャへ接続できません！\n"
+msgstr "セッション・マネージャへ接続できません!\n"
 
 #. TRANSLATOR: 2nd and 3rd %s are time and date respectively.
 #: ../app/app_procs.c:874
@@ -221,7 +224,7 @@ msgid ""
 "describing how you can cause this message to appear.\n"
 msgstr ""
 "これは致命的な問題です。この問題の再現方法を記述したバグ・レポートを\n"
-"bugzilla.gnome.org まで報告して下さい。\n"
+"bugzilla.gnome.org まで報告してください。\n"
 
 #: ../app/app_procs.c:1033
 msgid "Exiting Dia"
@@ -238,7 +241,7 @@ msgid ""
 "them?"
 msgstr ""
 "ダイアグラムが変更されています。本当に保存せずに Dia を終了してもよろしいです"
-"か？"
+"か?"
 
 #: ../app/app_procs.c:1103
 msgid "Quit Dia"
@@ -254,7 +257,7 @@ msgid ""
 "environment variable HOME points to an existing directory."
 msgstr ""
 "ユーザ用の Dia 設定フォルダを作成できませんでした。環境変数 $HOME が既存の"
-"フォルダを指しているか確認して下さい。"
+"フォルダを指しているか確認してください。"
 
 #: ../app/app_procs.c:1205
 msgid "Objects and filters internal to dia"
@@ -312,7 +315,7 @@ msgid ""
 "Please select those you wish to recover."
 msgstr ""
 "自動保存したファイルが存在します。\n"
-"戻したい状態のファイルを選択して下さい。"
+"戻したい状態のファイルを選択してください。"
 
 #: ../app/color_area.c:317 ../app/color_area.c:360
 msgid "Select foreground color"
@@ -324,7 +327,7 @@ msgstr "背景色の選択"
 
 #: ../app/commands.c:130
 msgid "No print plug-in found!"
-msgstr "印刷プラグインが見つかりませんでした！"
+msgstr "印刷プラグインが見つかりませんでした!"
 
 #: ../app/commands.c:150
 #, c-format
@@ -356,7 +359,8 @@ msgstr ""
 "Ryoichi INAGAKI <ryo1@bc.wakwak.com>\n"
 "Yukihiro Nakai <nakai@FreeBSD.org>\n"
 "Akira TAGOH <tagoh@gnome.gr.jp>\n"
-"日本GNOMEユーザー会 http://www.gnome.gr.jp"
+"草野 貴之 <AE5T-KSN@asahi-net.or.jp>\n"
+"日本GNOMEユーザー会 <http://www.gnome.gr.jp/>"
 
 #: ../app/commands.c:722
 msgid ""
@@ -382,12 +386,12 @@ msgstr ""
 "本プログラムは有用とは思いますが、\n"
 "頒布にあたっては市場性または特定の目的に対する適合性についての\n"
 "暗黙の保証を含めて、いかなる保証も行ないません。\n"
-"詳細には GNU 一般公衆利用許諾契約書をご覧下さい。\n"
+"詳細には GNU 一般公衆利用許諾契約書をご覧ください。\n"
 "\n"
 "あなたは本プログラムと一緒に GNU 一般公衆利用許諾契約書の写しを\n"
 "受け取っているはずです。そうでない場合は、Free Software \n"
 "Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, \n"
-"MA 02110-1301, USA まで連絡して下さい。\n"
+"MA 02110-1301, USA まで連絡してください。\n"
 
 #: ../app/commands.c:745
 msgid "A program for drawing structured diagrams."
@@ -401,13 +405,13 @@ msgstr "%d ページのダイアグラムを印刷しています。"
 #: ../app/confirm.c:71
 #, c-format
 msgid "You are about to export a diagram with %d pages."
-msgstr "%d ページのダイアグラムをエキスポートしています。"
+msgstr "%d ページのダイアグラムをエクスポートしています。"
 
 #: ../app/confirm.c:73
 #, c-format
 msgid ""
 "You are about to export a diagram which may require %s of memory.(%d pages)."
-msgstr "サイズが %s (%d ページ) のダイアログをエキスポートしています。"
+msgstr "サイズが %s (%d ページ) のダイアログをエクスポートしています。"
 
 #: ../app/confirm.c:81
 msgid ""
@@ -418,8 +422,8 @@ msgid ""
 msgstr ""
 "ページ設定ダイアログの倍率を変更することで、ダイアグラムのサイズを調節できま"
 "す。\n"
-"もしくは、\"全て選択\" して \"フィットさせる\" ことでオブジェクトなどの大きさ"
-"を変更できます。"
+"もしくは、\"すべて選択\" して \"フィットさせる\" ことでオブジェクトなどの大き"
+"さを変更できます。"
 
 #: ../app/confirm.c:85
 msgid "Confirm Diagram Size"
@@ -452,11 +456,11 @@ msgstr "グリッドのサイズを固定しない"
 
 #: ../app/dia-props.c:127
 msgid "x"
-msgstr "Ｘ方向"
+msgstr "X方向"
 
 #: ../app/dia-props.c:131
 msgid "y"
-msgstr "Ｙ方向"
+msgstr "Y方向"
 
 #: ../app/dia-props.c:136
 msgid "Spacing"
@@ -503,23 +507,23 @@ msgstr "ダイアグラムのプロパティ: %s"
 
 #: ../app/dia_embedd.c:348
 msgid "Could not initialize Bonobo!"
-msgstr "Bonobo を初期化できませんでした！"
+msgstr "Bonobo を初期化できませんでした!"
 
 #: ../app/diacanvas.c:121
 msgid "X position"
-msgstr "Ｘ位置"
+msgstr "X位置"
 
 #: ../app/diacanvas.c:122
 msgid "X position of child widget"
-msgstr "子ウィジェットのＸ位置"
+msgstr "子ウィジェットのX位置"
 
 #: ../app/diacanvas.c:131
 msgid "Y position"
-msgstr "Ｙ位置"
+msgstr "Y位置"
 
 #: ../app/diacanvas.c:132
 msgid "Y position of child widget"
-msgstr "子ウィジェットのＹ位置"
+msgstr "子ウィジェットのY位置"
 
 #: ../app/diagram.c:222
 #, c-format
@@ -560,15 +564,15 @@ msgstr "/オブジェクトの並び替え/挿入順(_I)"
 
 #: ../app/diagram_tree_menu.c:55
 msgid "/Sort objects/All by name"
-msgstr "/オブジェクトの並び替え/名前順で全て"
+msgstr "/オブジェクトの並び替え/名前順ですべて"
 
 #: ../app/diagram_tree_menu.c:57
 msgid "/Sort objects/All by type"
-msgstr "/オブジェクトの並び替え/種類順で全て"
+msgstr "/オブジェクトの並び替え/種類順ですべて"
 
 #: ../app/diagram_tree_menu.c:59
 msgid "/Sort objects/All as inserted"
-msgstr "/オブジェクトの並び替え/挿入順で全て"
+msgstr "/オブジェクトの並び替え/挿入順ですべて"
 
 #: ../app/diagram_tree_menu.c:61
 msgid "/Sort objects/_Default"
@@ -705,7 +709,7 @@ msgid ""
 "Either expand the parent object, or drop the object elsewhere."
 msgstr ""
 "ドロップしたオブジェクトをその比率に合わせることはできません。\n"
-"親オブジェクトを広げるか、別の場所にドロップして下さい。"
+"親オブジェクトを広げるか、別の場所にドロップしてください。"
 
 #. http://www.gnu.org/software/gettext/manual/html_chapter/gettext_10.html#SEC150
 #. * Althoug the single objects wont get triggered here some languages have variations on the other numbers
@@ -715,7 +719,6 @@ msgstr ""
 msgid "Selection of %d object"
 msgid_plural "Selection of %d objects"
 msgstr[0] "%d個のオブジェクトを選択しました"
-msgstr[1] "%d個のオブジェクトを選択しました"
 
 #: ../app/display.c:125
 #, c-format
@@ -743,7 +746,7 @@ msgid ""
 "has not been saved. Save changes now?"
 msgstr ""
 "'%s' というダイアログを保存していません。\n"
-"今すぐ保存しますか？"
+"今すぐ保存しますか?"
 
 #: ../app/display.c:1229
 msgid "Close Diagram"
@@ -789,7 +792,7 @@ msgstr "パス名"
 
 #: ../app/exit_dialog.c:142
 msgid "Select All"
-msgstr "全て選択"
+msgstr "すべて選択"
 
 #: ../app/exit_dialog.c:150
 msgid "Select None"
@@ -797,7 +800,7 @@ msgstr "選択の解除"
 
 #: ../app/exit_dialog.c:236
 msgid "Nothing selected for saving.  Would you like to try again?"
-msgstr "保存するダイアグラムを選択していませんが、選択し直しますか？"
+msgstr "保存するダイアグラムを選択していませんが、選択し直しますか?"
 
 #: ../app/filedlg.c:144 ../app/filedlg.c:152 ../app/filedlg.c:168
 #: ../app/filedlg.c:746 ../lib/widgets.c:1488
@@ -822,7 +825,7 @@ msgstr "種類の指定:"
 
 #: ../app/filedlg.c:337 ../app/filedlg.c:741 ../lib/widgets.c:1493
 msgid "All Files"
-msgstr "全てのファイル"
+msgstr "すべてのファイル"
 
 #: ../app/filedlg.c:370 ../plug-ins/postscript/paginate_psprint.c:408
 msgid ""
@@ -847,7 +850,7 @@ msgid ""
 "Do you want to overwrite it?"
 msgstr ""
 "ファイル '%s' は既に存在します。\n"
-"上書きしますか？"
+"上書きしますか?"
 
 #: ../app/filedlg.c:436
 msgid "Save Diagram"
@@ -875,16 +878,16 @@ msgid ""
 "to use to save '%s'"
 msgstr ""
 "'%s' の保存に使用する\n"
-"エキスポートのフィルタを\n"
+"エクスポートのフィルタを\n"
 "決定することができませんでした"
 
 #: ../app/filedlg.c:704
 msgid "Export Diagram"
-msgstr "ダイアグラムのエキスポート"
+msgstr "ダイアグラムのエクスポート"
 
 #: ../app/filedlg.c:720
 msgid "Export Options"
-msgstr "エキスポートのオプション"
+msgstr "エクスポートのオプション"
 
 #: ../app/find-and-replace.c:454
 msgid "_Search for:"
@@ -904,7 +907,7 @@ msgstr "単語全体にマッチさせる(_E)"
 
 #: ../app/find-and-replace.c:485
 msgid "Match _all properties (not just object name)"
-msgstr "全てのプロパティ (オブジェクト名は除く) にマッチさせる(_A)"
+msgstr "すべてのプロパティ (オブジェクト名は除く) にマッチさせる(_A)"
 
 #: ../app/find-and-replace.c:510
 msgid "Find"
@@ -916,7 +919,7 @@ msgstr "置き換え"
 
 #: ../app/find-and-replace.c:545
 msgid "Replace _All"
-msgstr "全て置き換え(_A)"
+msgstr "すべて置き換え(_A)"
 
 #. not adding the button in the list above to modify it's text;
 #. * the default "Find and Replace" is just too long for my taste ;)
@@ -1180,7 +1183,7 @@ msgstr "オブジェクト %2$s の親オブジェクト %1$s がありません
 
 #: ../app/load_save.c:417
 msgid "You must specify a file, not a directory.\n"
-msgstr "フォルダではなく、ファイルを指定して下さい。\n"
+msgstr "フォルダではなく、ファイルを指定してください。\n"
 
 #: ../app/load_save.c:424 ../plug-ins/dxf/dxf-import.c:1309
 #: ../plug-ins/wpg/wpg.c:1177 ../plug-ins/xfig/xfig-import.c:1270
@@ -1296,7 +1299,7 @@ msgstr "レイヤの一覧"
 
 #: ../app/menus.c:117
 msgid "_Export ..."
-msgstr "エキスポート(_E)..."
+msgstr "エクスポート(_E)..."
 
 #: ../app/menus.c:118
 msgid "_Diagram Properties"
@@ -1493,7 +1496,7 @@ msgstr "選択(_S)"
 
 #: ../app/menus.c:205
 msgid "All"
-msgstr "全て"
+msgstr "すべて"
 
 #: ../app/menus.c:206 ../lib/arrows.c:1884 ../objects/Jackson/domain.c:96
 #: ../objects/UML/association.c:221 ../objects/UML/association.c:227
@@ -1506,11 +1509,11 @@ msgstr "反転"
 
 #: ../app/menus.c:209
 msgid "Transitive"
-msgstr "Transitive"
+msgstr "到達可能"
 
 #: ../app/menus.c:210
 msgid "Connected"
-msgstr "Connected"
+msgstr "直接接続"
 
 #: ../app/menus.c:211
 msgid "Same Type"
@@ -1519,7 +1522,7 @@ msgstr "同じ種類"
 #. display_select_radio_entries go here
 #: ../app/menus.c:215
 msgid "Select By"
-msgstr "次で選択(_B)"
+msgstr "次で選択"
 
 #: ../app/menus.c:217
 msgid "_Input Methods"
@@ -1669,7 +1672,7 @@ msgstr "ファイル名"
 
 #: ../app/preferences.c:99 ../app/preferences.c:144
 msgid "any"
-msgstr "全て"
+msgstr "すべて"
 
 #: ../app/preferences.c:118
 msgid "User Interface"
@@ -1798,7 +1801,7 @@ msgstr "アンチエイリアス効果を付与する"
 #: ../app/preferences.c:221 ../objects/FS/function.c:698
 #: ../objects/FS/function.c:700 ../plug-ins/libart/export_png.c:328
 msgid "Export"
-msgstr " エキスポート "
+msgstr " エクスポート "
 
 #: ../app/preferences.c:223
 msgid "Portable Network Graphics"
@@ -1831,11 +1834,11 @@ msgstr "グリッドのサイズを固定しない"
 
 #: ../app/preferences.c:238
 msgid "X Size:"
-msgstr "Ｘ方向のサイズ:"
+msgstr "X方向のサイズ:"
 
 #: ../app/preferences.c:239
 msgid "Y Size:"
-msgstr "Ｙ方向のサイズ:"
+msgstr "Y方向のサイズ:"
 
 #: ../app/preferences.c:241
 msgid "Lines per major line"
@@ -1936,7 +1939,7 @@ msgstr "<- コピー"
 
 #: ../app/sheets_dialog.c:120 ../app/sheets_dialog_callbacks.c:182
 msgid "<- Copy All"
-msgstr "<- 全てコピー"
+msgstr "<- すべてコピー"
 
 #: ../app/sheets_dialog.c:127 ../app/sheets_dialog_callbacks.c:184
 msgid "<- Move"
@@ -1944,7 +1947,7 @@ msgstr "<- 移動"
 
 #: ../app/sheets_dialog.c:137 ../app/sheets_dialog_callbacks.c:186
 msgid "<- Move All"
-msgstr "<- 全て移動"
+msgstr "<- すべて移動"
 
 #: ../app/sheets_dialog.c:234
 msgid "Edit"
@@ -2042,7 +2045,7 @@ msgstr "コピー ->"
 
 #: ../app/sheets_dialog_callbacks.c:169
 msgid "Copy All ->"
-msgstr "全てコピー ->"
+msgstr "すべてコピー ->"
 
 #: ../app/sheets_dialog_callbacks.c:171
 msgid "Move ->"
@@ -2050,7 +2053,7 @@ msgstr "移動 ->"
 
 #: ../app/sheets_dialog_callbacks.c:173
 msgid "Move All ->"
-msgstr "全て移動 ->"
+msgstr "すべて移動 ->"
 
 #: ../app/sheets_dialog_callbacks.c:306
 #, c-format
@@ -2082,7 +2085,7 @@ msgstr ""
 #: ../app/sheets_dialog_callbacks.c:803
 #, c-format
 msgid "Filename must end with '%s': '%s'"
-msgstr "ファイル名の最後は '%s' にして下さい: '%s'"
+msgstr "ファイル名の最後は '%s' にしてください: '%s'"
 
 #: ../app/sheets_dialog_callbacks.c:811
 #, c-format
@@ -2091,7 +2094,7 @@ msgstr "%s の調査中にエラー: %s"
 
 #: ../app/sheets_dialog_callbacks.c:842
 msgid "Please export the diagram as a shape."
-msgstr "ダイアグラムをシェイプとしてエキスポートして下さい"
+msgstr "ダイアグラムをシェイプとしてエクスポートしてください"
 
 #: ../app/sheets_dialog_callbacks.c:845
 #, c-format
@@ -2100,7 +2103,7 @@ msgstr "シェイプ・ファイルを解釈できませんでした: '%s'"
 
 #: ../app/sheets_dialog_callbacks.c:916
 msgid "Sheet must have a Name"
-msgstr "シートに名前を付けて下さい"
+msgstr "シートに名前を付けてください"
 
 #: ../app/sheets_dialog_callbacks.c:1621 ../app/sheets_dialog_callbacks.c:1628
 #, c-format
@@ -2334,7 +2337,7 @@ msgstr "座標のないノードの座標値を取得しようとしています
 #: ../lib/dia_xml.c:608
 #, c-format
 msgid "Incorrect x Point value \"%s\" %f; discarding it."
-msgstr "不正なＸ座標値 \"%s\" %fです; この値は破棄します"
+msgstr "不正なX座標値 \"%s\" %fです; この値は破棄します"
 
 #: ../lib/dia_xml.c:615
 msgid "Error parsing point."
@@ -2344,7 +2347,7 @@ msgstr "座標の解析時にエラーが発生しました"
 #: ../lib/dia_xml.c:623
 #, c-format
 msgid "Incorrect y Point value \"%s\" %f; discarding it."
-msgstr "不正なＹ座標値 \"%s\" %fです; この値は破棄します"
+msgstr "不正なY座標値 \"%s\" %fです; この値は破棄します"
 
 #: ../lib/dia_xml.c:640
 msgid "Taking bezpoint value of non-point node."
@@ -2385,7 +2388,7 @@ msgstr "キャンセル"
 #: ../lib/filter.c:177
 #, c-format
 msgid "Multiple export filters with unique name %s"
-msgstr "%s という重複しない名前が付いた複数のエキスポート用フィルタ"
+msgstr "%s という重複しない名前が付いた複数のエクスポート用フィルタ"
 
 #: ../lib/font.c:84
 #, c-format
@@ -2584,12 +2587,12 @@ msgstr ""
 "\n"
 "必要であれば、\"シートとオブジェクト\" のダイアログを利用して\n"
 "新しいオブジェクトを '%s' から独自のバージョンに移動するか、\n"
-"または '%s' そのものを削除して下さい"
+"または '%s' そのものを削除してください"
 
 #: ../lib/sheet.c:371
 #, c-format
 msgid "%s: you should use object tags rather than shape tags now"
-msgstr "%s: シェイプのタグではなくオブジェクトのタグを指定して下さい"
+msgstr "%s: シェイプのタグではなくオブジェクトのタグを指定してください"
 
 #: ../lib/widgets.c:441
 msgid "Other fonts"
@@ -2624,7 +2627,7 @@ msgstr "点線"
 #. fs->sizebox = GTK_HBOX(box);
 #: ../lib/widgets.c:938
 msgid "Dash length: "
-msgstr "鎖線の長さ："
+msgstr "鎖線の長さ:"
 
 #: ../lib/widgets.c:1066
 msgid "Select color"
@@ -2661,8 +2664,8 @@ msgid ""
 "http://dia-installer.de."
 msgstr ""
 "GTK+ がインストールされていません。フルバージョンのインストーラを使って Dia "
-"をインストールして下さい。このインストーラは http://dia-installer.de にありま"
-"す。"
+"をインストールしてください。このインストーラは http://dia-installer.de にあり"
+"ます。"
 
 #. Installer message: Don't install over pre 0.95 versions
 #: ../installer/win32/gennsh.c:41
@@ -2670,7 +2673,8 @@ msgid ""
 "Please remove old Dia installations completely or install Dia to a different "
 "location."
 msgstr ""
-"古い Dia を全て削除するか、新しい Dia を別の場所にインストールして下さい。"
+"古い Dia をすべて削除するか、新しい Dia を別の場所にインストールしてくださ"
+"い。"
 
 #. Installer message:  License Page
 #: ../installer/win32/gennsh.c:44
@@ -2684,7 +2688,7 @@ msgid ""
 "information purposes only. $_CLICK"
 msgstr ""
 "$(^Name) は GPL ライセンスの下で配布されています (詳細はライセンスの全文を参"
-"照して下さい)。$_CLICK"
+"照してください)。$_CLICK"
 
 #. Installer message: Components page
 #: ../installer/win32/gennsh.c:50
@@ -2737,7 +2741,7 @@ msgid ""
 "$\rNote: Any non-standard plugins that you may have installed will be "
 "deleted.$\rDia user settings will not be affected."
 msgstr ""
-"古い Dia のフォルダを削除しますが、続行してもよろしいですか？$\r$\r注意: イン"
+"古い Dia のフォルダを削除しますが、続行してもよろしいですか?$\r$\r注意: イン"
 "ストールされている標準以外のプラグインも削除されます。$\rDia の設定には影響あ"
 "りません。"
 
@@ -2747,8 +2751,8 @@ msgid ""
 "The installation directory you specified already exists. Any contents$\rwill "
 "be deleted. Would you like to continue?"
 msgstr ""
-"指定したインストール先のフォルダは既に存在しています。その中にある全てのファ"
-"イル$\rを削除しますが、続行してもよろしいですか？"
+"指定したインストール先のフォルダは既に存在しています。その中にあるすべての"
+"ファイル$\rを削除しますが、続行してもよろしいですか?"
 
 #. Installer message: Uninstall Section Prompts. Keep $\r
 #: ../installer/win32/gennsh.c:80
@@ -2767,13 +2771,13 @@ msgstr "このアプリケーションをアンインストールする権限が
 #. Installer message: Uninstallation warning. Keep $INSTDIR
 #: ../installer/win32/gennsh.c:86
 msgid "This will completely delete $INSTDIR and all subdirectories. Continue?"
-msgstr "$INSTDIR とそのサブフォルダを全て削除します。続行しますか？"
+msgstr "$INSTDIR とそのサブフォルダをすべて削除します。続行しますか?"
 
 #. Installer message: Uninstallation warning. Keep $\PROFILE\.dia
 #: ../installer/win32/gennsh.c:89
 msgid ""
 "This will completely delete $PROFILE\\.dia and all subdirectories. Continue?"
-msgstr "$PROFILE\\.dia とサブフォルダを全て削除します。続行しますか？"
+msgstr "$PROFILE\\.dia とサブフォルダをすべて削除します。続行しますか?"
 
 #: ../objects/AADL/aadl.c:52
 msgid "Architecture Analysis & Design Language diagram objects"
@@ -5149,11 +5153,11 @@ msgstr "アクター"
 
 #: ../objects/UML/association.c:222
 msgid "From A to B"
-msgstr "ＡからＢへ"
+msgstr "AからBへ"
 
 #: ../objects/UML/association.c:223
 msgid "From B to A"
-msgstr "ＢからＡへ"
+msgstr "BからAへ"
 
 #: ../objects/UML/association.c:228
 msgid "Aggregation"
@@ -5177,7 +5181,7 @@ msgstr "読む方向を表す小さな矢印を表示します"
 
 #: ../objects/UML/association.c:245
 msgid "Side A"
-msgstr "Ａ側"
+msgstr "A側"
 
 #: ../objects/UML/association.c:249
 msgid "Multiplicity"
@@ -5194,7 +5198,7 @@ msgstr "矢印を表示する"
 
 #: ../objects/UML/association.c:256
 msgid "Side B"
-msgstr "Ｂ側"
+msgstr "B側"
 
 #: ../objects/UML/class.c:142 ../objects/UML/class.c:325
 #: ../objects/UML/class.c:1773 ../sheets/UML.sheet.in.h:6
@@ -5584,7 +5588,7 @@ msgid ""
 msgstr ""
 "このダイアグラムでは initial/final の状態オブジェクトを扱います。\n"
 "オプションは将来のバージョンで無くなる予定です。\n"
-"この代わりに、Initial/Final 状態オブジェクトを使用して下さい。\n"
+"この代わりに、Initial/Final 状態オブジェクトを使用してください。\n"
 
 #: ../objects/UML/state_term.c:127
 msgid "Is final"
@@ -5791,7 +5795,7 @@ msgid ""
 "svg:path data must start with moveto."
 msgstr ""
 "'%s' というファイルに間違ったパスが含まれています。\n"
-"svg:path データは moveto で始めて下さい。"
+"svg:path データは moveto で始めてください。"
 
 #: ../objects/flowchart/flowchart.c:37
 msgid "Flowchart objects"
@@ -5966,7 +5970,7 @@ msgid ""
 "Please choose a different name to save with cairo.\n"
 msgstr ""
 "出力ファイルの名前 ('%s') をロケールにエンコーディングできません。\n"
-"別の名前を選択してから保存して下さい。\n"
+"別の名前を選択してから保存してください。\n"
 
 #: ../plug-ins/cairo/diacairo.c:256 ../plug-ins/cairo/diacairo.c:272
 #, c-format
@@ -6032,7 +6036,7 @@ msgid ""
 "Image not exported to CGM."
 msgstr ""
 "画像の行の長さがセルの最大数を越えています\n"
-"(画像は CGM にエキスポートできません)"
+"(画像は CGM にエクスポートできません)"
 
 #: ../plug-ins/cgm/cgm.c:1362
 msgid "Computer Graphics Metafile"
@@ -6040,7 +6044,7 @@ msgstr "Computer Graphics メタファイル"
 
 #: ../plug-ins/cgm/cgm.c:1387
 msgid "Computer Graphics Metafile export filter"
-msgstr "Computer Graphics メタファイルのエキスポート用フィルタ"
+msgstr "Computer Graphics メタファイルのエクスポート用フィルタ"
 
 #: ../plug-ins/drs/dia-render-script.c:153
 msgid "DiaRenderScript"
@@ -6066,7 +6070,7 @@ msgstr "'%s' からのバイナリ DXF はサポートしていません\n"
 
 #: ../plug-ins/dxf/dxf.c:50
 msgid "Drawing Interchange File import and export filters"
-msgstr "Drawing Interchange ファイルのインポートとエキスポート用フィルタ"
+msgstr "Drawing Interchange ファイルのインポートとエクスポート用フィルタ"
 
 #: ../plug-ins/hpgl/hpgl.c:751
 msgid "HP Graphics Language"
@@ -6074,7 +6078,7 @@ msgstr "HP Graphics Language"
 
 #: ../plug-ins/hpgl/hpgl.c:776
 msgid "HP Graphics Language export filter"
-msgstr "HP Graphics Language のエキスポート用フィルタ"
+msgstr "HP Graphics Language のエクスポート用フィルタ"
 
 #: ../plug-ins/libart/dialibart.c:59
 msgid "Libart based rendering"
@@ -6095,7 +6099,7 @@ msgstr "PNG の出力中にエラーが起きました"
 #. Create a dialog
 #: ../plug-ins/libart/export_png.c:327
 msgid "PNG Export Options"
-msgstr "PNG エキスポートのオプション"
+msgstr "PNG エクスポートのオプション"
 
 #: ../plug-ins/libart/export_png.c:333
 msgid "Image width:"
@@ -6111,7 +6115,7 @@ msgstr "PNG (アンチエイリアス対応)"
 
 #: ../plug-ins/libart/dialibartrenderer.c:295
 msgid "gdk_renderer: Unsupported fill mode specified!\n"
-msgstr "gdk_renderer: 指定した塗りつぶしモードはサポートしていません！\n"
+msgstr "gdk_renderer: 指定した塗りつぶしモードはサポートしていません!\n"
 
 #: ../plug-ins/libart/dialibartrenderer.c:1476
 msgid "Renderer transformation"
@@ -6123,7 +6127,7 @@ msgstr "変換ポインタ"
 
 #: ../plug-ins/metapost/metapost.c:46
 msgid "TeX Metapost export filter"
-msgstr "TeX Metapost のエキスポート用フィルタ"
+msgstr "TeX Metapost のエクスポート用フィルタ"
 
 #: ../plug-ins/metapost/render_metapost.c:1262
 msgid "TeX Metapost macros"
@@ -6131,7 +6135,7 @@ msgstr "Tex Metapost マクロ"
 
 #: ../plug-ins/pgf/pgf.c:26
 msgid "LaTeX PGF export filter"
-msgstr "LaTeX PGF のエキスポート用フィルタ"
+msgstr "LaTeX PGF のエクスポート用フィルタ"
 
 #: ../plug-ins/pgf/render_pgf.c:1112
 #: ../plug-ins/pstricks/render_pstricks.c:733
@@ -6155,7 +6159,7 @@ msgstr ""
 
 #: ../plug-ins/pixbuf/pixbuf.c:199
 msgid "gdk-pixbuf based bitmap export/import"
-msgstr "gdk-pixbuf ビットマップのエキスポート/インポート"
+msgstr "gdk-pixbuf ビットマップのエクスポート/インポート"
 
 #: ../plug-ins/postscript/paginate_psprint.c:273
 msgid "Select Printer"
@@ -6217,7 +6221,7 @@ msgstr "Postscript の描画"
 
 #: ../plug-ins/pstricks/pstricks.c:26
 msgid "TeX Pstricks export filter"
-msgstr "TeX Pstricks のエキスポート用フィルタ"
+msgstr "TeX Pstricks のエクスポート用フィルタ"
 
 #: ../plug-ins/pstricks/render_pstricks.c:987
 msgid "TeX PSTricks macros"
@@ -6248,7 +6252,7 @@ msgstr "Dia シェイプ・ファイル"
 
 #: ../plug-ins/shape/shape.c:36
 msgid "dia shape export filter"
-msgstr "Dia シェイプのエキスポート用フィルタ"
+msgstr "Dia シェイプのエクスポート用フィルタ"
 
 #: ../plug-ins/svg/svg-import.c:258
 msgid ""
@@ -6256,7 +6260,7 @@ msgid ""
 "svg:path data must start with moveto."
 msgstr ""
 "パスが間違っています。\n"
-"svg:path データは moveto で始めて下さい。"
+"svg:path データは moveto で始めてください。"
 
 #: ../plug-ins/svg/svg-import.c:806
 msgid "Expected SVG Namespace not found in file"
@@ -6269,7 +6273,7 @@ msgstr "ルートの要素が '%s' でした -- 'svg' として読み込みま�
 
 #: ../plug-ins/svg/svg.c:50
 msgid "Scalable Vector Graphics import and export filters"
-msgstr "SVG のインポート/エキスポート用フィルタ"
+msgstr "SVG のインポート/エクスポート用フィルタ"
 
 #: ../plug-ins/vdx/vdx-export.c:1376 ../plug-ins/vdx/vdx-export.c:1385
 #, c-format
@@ -6338,7 +6342,7 @@ msgstr "オブジェクト %u を書き込めません"
 
 #: ../plug-ins/vdx/vdx.c:53
 msgid "Visio XML Format import and export filter"
-msgstr "Visio XML 形式のインポート/エキスポート用フィルタ"
+msgstr "Visio XML 形式のインポート/エクスポート用フィルタ"
 
 #: ../plug-ins/wmf/wmf.cpp:506
 #, c-format
@@ -6346,7 +6350,7 @@ msgid ""
 "Can not render unknown font:\n"
 "%s"
 msgstr ""
-"不明なフォントｗ描画できません:\n"
+"不明なフォントを描画できません:\n"
 "%s"
 
 #: ../plug-ins/wmf/wmf.cpp:1265
@@ -6368,7 +6372,7 @@ msgstr "印刷 (GDI) ..."
 
 #: ../plug-ins/wmf/wmf.cpp:1410
 msgid "WMF export filter"
-msgstr "WMF のエキスポート用フィルタ"
+msgstr "WMF のエクスポート用フィルタ"
 
 #: ../plug-ins/wpg/wpg.c:1190
 #, c-format
@@ -6381,7 +6385,7 @@ msgstr "WPG"
 
 #: ../plug-ins/wpg/wpg.c:1356
 msgid "WordPerfect Graphics export filter"
-msgstr "WordPerfect Graphics のエキスポート用フィルタ"
+msgstr "WordPerfect Graphics のエクスポート用フィルタ"
 
 #: ../plug-ins/xfig/xfig-export.c:461
 #, c-format
@@ -6597,7 +6601,7 @@ msgstr "XFIG ファイル形式"
 
 #: ../plug-ins/xfig/xfig.c:51
 msgid "Fig Format import and export filter"
-msgstr "FIG 形式のインポート/エキスポート用フィルタ"
+msgstr "FIG 形式のインポート/エクスポート用フィルタ"
 
 #: ../plug-ins/xslt/xslt.c:108
 #, c-format
@@ -6640,7 +6644,7 @@ msgstr ""
 
 #: ../plug-ins/xslt/xsltdialog.c:97
 msgid "Export through XSLT"
-msgstr "XSLT を介したエキスポート"
+msgstr "XSLT を介したエクスポート"
 
 #: ../plug-ins/xslt/xsltdialog.c:112
 msgid "From:"
@@ -7864,47 +7868,47 @@ msgstr "構造化分析と設計のデータ・フロー・ダイアグラム"
 
 #: ../sheets/IsometricMap.sheet.in.h:1
 msgid "Block 1, 2:4"
-msgstr "ブロック１ (2:4)"
+msgstr "ブロック1 (2:4)"
 
 #: ../sheets/IsometricMap.sheet.in.h:2
 msgid "Block 2, 2:8"
-msgstr "ブロック２ (2:8)"
+msgstr "ブロック2 (2:8)"
 
 #: ../sheets/IsometricMap.sheet.in.h:3
 msgid "Block 3, 4:4"
-msgstr "ブロック３ (4:4)"
+msgstr "ブロック3 (4:4)"
 
 #: ../sheets/IsometricMap.sheet.in.h:4
 msgid "Block 4, 4:8"
-msgstr "ブロック４ (4:8)"
+msgstr "ブロック4 (4:8)"
 
 #: ../sheets/IsometricMap.sheet.in.h:5
 msgid "Block 5, 3:3"
-msgstr "ブロック５ (3:3)"
+msgstr "ブロック5 (3:3)"
 
 #: ../sheets/IsometricMap.sheet.in.h:6
 msgid "Block 6, 4:6"
-msgstr "ブロック６ (4:6)"
+msgstr "ブロック6 (4:6)"
 
 #: ../sheets/IsometricMap.sheet.in.h:7
 msgid "Block 7"
-msgstr "ブロック７"
+msgstr "ブロック7"
 
 #: ../sheets/IsometricMap.sheet.in.h:8
 msgid "Car 1, Front View"
-msgstr "車１ (正面)"
+msgstr "車1 (正面)"
 
 #: ../sheets/IsometricMap.sheet.in.h:9
 msgid "Car 2, Rear View"
-msgstr "車２ (背面)"
+msgstr "車2 (背面)"
 
 #: ../sheets/IsometricMap.sheet.in.h:10
 msgid "Corner 1"
-msgstr "曲がり角１"
+msgstr "曲がり角1"
 
 #: ../sheets/IsometricMap.sheet.in.h:11
 msgid "Corner 2"
-msgstr "曲がり角２"
+msgstr "曲がり角2"
 
 #: ../sheets/IsometricMap.sheet.in.h:12
 msgid "Crossroads"
@@ -7950,23 +7954,23 @@ msgstr "道路"
 
 #: ../sheets/IsometricMap.sheet.in.h:24
 msgid "Roof1"
-msgstr "屋根１"
+msgstr "屋根1"
 
 #: ../sheets/IsometricMap.sheet.in.h:25
 msgid "T-Junction"
-msgstr "三差路 (Ｔ字)"
+msgstr "三差路 (T字)"
 
 #: ../sheets/IsometricMap.sheet.in.h:26
 msgid "Train 1, angled downward"
-msgstr "電車１ (下り)"
+msgstr "電車1 (下り)"
 
 #: ../sheets/IsometricMap.sheet.in.h:27
 msgid "Train 2, angled upward"
-msgstr "電車１ (上り)"
+msgstr "電車1 (上り)"
 
 #: ../sheets/IsometricMap.sheet.in.h:28
 msgid "Tree 1"
-msgstr "木１"
+msgstr "木1"
 
 #: ../sheets/Istar.sheet.in.h:1
 msgid "An i* agent"
@@ -10052,7 +10056,7 @@ msgstr "電話"
 
 #: ../sheets/ciscotelephony.sheet.in.h:35
 msgid "Phone 2"
-msgstr "電話２"
+msgstr "電話2"
 
 #: ../sheets/ciscotelephony.sheet.in.h:36
 msgid "Phone Appliance"
