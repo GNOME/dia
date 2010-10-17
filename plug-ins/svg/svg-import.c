@@ -994,6 +994,9 @@ import_svg(const gchar *filename, DiagramData *dia, void* user_data)
   }
   g_list_free (items);
   xmlFreeDoc(doc);
+  /* set 'display' setting */
+  g_object_set_data (G_OBJECT(dia), "show-connection-points", GINT_TO_POINTER(-1));
+
   return TRUE;
 }
 
