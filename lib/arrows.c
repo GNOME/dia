@@ -1606,18 +1606,22 @@ draw_rounded(DiaRenderer *renderer, Point *to, Point *from,
   
   len = sqrt(point_dot(&delta, &delta)); /* line length */
   rayon = (length / 2.0);
-  rapport = rayon / len;
+  if (len > 0.0) {
+    /* no length, no direction - but invalid coords */
+    rapport = rayon / len;
   
-  p.x += delta.x * rapport;
-  p.y += delta.y * rapport;
-  
+    p.x += delta.x * rapport;
+    p.y += delta.y * rapport;
+  }  
   angle_start = 90.0 - asin((p.y - to->y) / rayon) * (180.0 / 3.14);
   if (p.x - to->x < 0) { angle_start = 360.0 - angle_start;  }
   
   DIA_RENDERER_GET_CLASS(renderer)->draw_arc(renderer, &p, width, length, angle_start, angle_start - 180.0, fg_color);
   
-  p.x += delta.x * rapport;
-  p.y += delta.y * rapport;
+  if (len > 0.0) {
+    p.x += delta.x * rapport;
+    p.y += delta.y * rapport;
+  }
   DIA_RENDERER_GET_CLASS(renderer)->draw_line(renderer, &p, to, fg_color);
 }
 
@@ -1654,17 +1658,21 @@ draw_open_rounded(DiaRenderer *renderer, Point *to, Point *from,
   
   len = sqrt(point_dot(&delta, &delta)); /* line length */
   rayon = (length / 2.0);
-  rapport = rayon / len;
+  if (len > 0.0) {
+    /* no length, no direction - but invalid coords */
+    rapport = rayon / len;
   
-  p.x += delta.x * rapport;
-  p.y += delta.y * rapport;
-  
+    p.x += delta.x * rapport;
+    p.y += delta.y * rapport;
+  }  
   angle_start = 90.0 - asin((p.y - to->y) / rayon) * (180.0 / 3.14);
   if (p.x - to->x < 0) { angle_start = 360.0 - angle_start;  }
 
   p_line = p;
-  p_line.x += delta.x * rapport;
-  p_line.y += delta.y * rapport;
+  if (len > 0.0) {
+    p_line.x += delta.x * rapport;
+    p_line.y += delta.y * rapport;
+  }
   /*
   DIA_RENDERER_GET_CLASS(renderer)->set_linewidth(renderer, linewidth * 2.0);
   DIA_RENDERER_GET_CLASS(renderer)->draw_line(renderer, &p_line, to, bg_color);
@@ -1703,18 +1711,24 @@ draw_filled_dot_n_triangle(DiaRenderer *renderer, Point *to, Point *from,
   point_sub(&delta, to);	
   
   len = sqrt(point_dot(&delta, &delta)); /* line length */
-  
+ 
   /* dot */
   rayon = (width / 2.0);
-  rapport = rayon / len;
-  p_dot.x += delta.x * rapport;
-  p_dot.y += delta.y * rapport;
+
+  if (len > 0.0) {
+    /* no length, no direction - but invalid coords */
+    rapport = rayon / len;
+    p_dot.x += delta.x * rapport;
+    p_dot.y += delta.y * rapport;
+  }
   DIA_RENDERER_GET_CLASS(renderer)->fill_ellipse(renderer, &p_dot,
 						 width, width, fg_color);
   /* triangle */
-  rapport = width / len;
-  p_tri.x += delta.x * rapport;
-  p_tri.y += delta.y * rapport;
+  if (len > 0.0) {
+    rapport = width / len;
+    p_tri.x += delta.x * rapport;
+    p_tri.y += delta.y * rapport;
+  }
   calculate_arrow(poly, &p_tri, from, length, width);
   DIA_RENDERER_GET_CLASS(renderer)->fill_polygon(renderer, poly, 3, fg_color);
 }
