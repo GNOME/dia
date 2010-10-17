@@ -75,7 +75,6 @@
 #include "persistence.h"
 #include "sheets.h"
 #include "exit_dialog.h"
-#include "newgroup.h"
 #include "dialib.h"
 #include "diaerror.h"
 
@@ -1217,9 +1216,6 @@ internal_plugin_init(PluginInfo *info)
 
   /* register the group object type */
   object_register_type(&group_type);
-#ifdef USE_NEWGROUP
-  object_register_type(&newgroup_type);
-#endif
 
   /* register import filters */
   filter_register_import(&dia_import_filter);

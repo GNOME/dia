@@ -77,7 +77,6 @@ OBJECTS = \
 	dialib.obj \
 	layer.obj \
 	message.obj \
-	newgroup.obj \
 	neworth_conn.obj \
 	objchange.obj \
 	object.obj \

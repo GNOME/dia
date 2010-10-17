@@ -171,8 +171,6 @@ libdia_la_SOURCES =  \
 		debug.h \
 		prefs.c \
 		prefs.h \
-	        newgroup.c \
-	        newgroup.h \
 		dialib.c \
 		dialib.h \
 		\

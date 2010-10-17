@@ -1220,25 +1220,6 @@ void diagram_group_selected(Diagram *dia)
     return;
   }
   
-#ifdef USE_NEWGROUP
-  list = dia->data->selected;
-  current_parent = ((DiaObject *) list->data)->parent;
-  while (list != NULL) {
-    obj = (DiaObject *)list->data;
-    if (obj->parent != current_parent) {
-      message_warning(_("You cannot group objects that belong to different groups or have different parents"));
-      return;
-    }
-  }
-
-  group = ...
-
-  list = dia->data->selected;
-  while (list != NULL) {
-    obj = (DiaObject *)list->data;
-    
-  }
-#else
 #if 0
   /* the following is wrong as it screws up the selected list, see bug #153525
      * I just don't get what was originally intented so please speak up if you know  --hb
@@ -1271,7 +1252,6 @@ void diagram_group_selected(Diagram *dia)
   group = group_create(group_list);
   change = undo_group_objects(dia, group_list, group, orig_list);
   (change->apply)(change, dia);
-#endif
 
   /* Select the created group */
   diagram_select(dia, group);
