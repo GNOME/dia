@@ -528,16 +528,16 @@
       <literal>
         <![CDATA[
 <svg:g
- dia:subshape="true"
- dia:v_anchor="fixed.bottom"
- dia:h_anchor="fixed.left"
- dia:default_scale="1.0">
+ subshape="true"
+ v_anchor="fixed.bottom"
+ h_anchor="fixed.left"
+ default_scale="1.0">
  ]]>
       </literal>
     </literallayout>
     <variablelist>
       <varlistentry>
-        <term>dia:v_anchor<termdef>Supported values:
+        <term>v_anchor<termdef>Supported values:
             <parameter>"fixed.top"</parameter>
             <parameter>"fixed.bottom"</parameter>
             <parameter>"proportional"</parameter>
@@ -549,7 +549,7 @@
         </listitem>
       </varlistentry>
       <varlistentry>
-        <term>dia:h_anchor
+        <term>h_anchor
           <termdef>Supported values are:
             <parameter>"fixed.left"</parameter>
             <parameter>"fixed.right"</parameter>
@@ -561,7 +561,7 @@
         </listitem> 
       </varlistentry>
       <varlistentry>
-        <term>dia:default_scale</term>
+        <term>default_scale</term>
         <listitem>
           <simpara>currently unused</simpara>
         </listitem>

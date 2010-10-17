@@ -239,21 +239,18 @@ Adding indepentently resizable symbols into your custom shapes is possible by
 creating subshapes. This is done by some extra attributes on the group element.
 
 <svg:g
- dia:subshape="true"
- dia:v_anchor="fixed.bottom"
- dia:h_anchor="fixed.left"
- dia:default_scale="1.0">
+ subshape="true"
+ v_anchor="fixed.bottom"
+ h_anchor="fixed.left"
+ default_scale="1.0">
 
- dia:v_anchor             The vertical anchoring of the subshape. Supported values are:
-                          "fixed.top"
-                          "fixed.bottom"
-                          "proportional"
+ v_anchor       The vertical anchoring of the subshape. Supported values are:
+                "fixed.top", "fixed.bottom", "proportional"
  
- dia:h_anchor             The horizontal anchoring of the subshape. Supported values are:
-                          "fixed.left"
-                          "fixed.right"
-                          "proportional"
- dia:default_scale        currently unused
+ h_anchor       The horizontal anchoring of the subshape. Supported values are:
+                "fixed.left", "fixed.right", "proportional"
+
+ default_scale        currently unused
 
  
 Extented Attributes
