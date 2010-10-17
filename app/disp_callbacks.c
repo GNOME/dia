@@ -949,11 +949,7 @@ ddisplay_canvas_events (GtkWidget *canvas,
                   tool_select_former();
                 } else if ((kevent->state & (GDK_MOD1_MASK|GDK_CONTROL_MASK)) == 0 && 
 			   kevent->length != 0) {
-		  /* Find first editable */
-#ifdef NEW_TEXT_EDIT
-		  modify_edit_first_text(ddisp);
-                  return_val = FALSE;
-#endif
+		  /* Find first editable? */
                 }
           }
         }
