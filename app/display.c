@@ -48,7 +48,6 @@
 #include "diatransform.h"
 #include "recent_files.h"
 
-static GHashTable *display_ht = NULL;
 static GdkCursor *current_cursor = NULL;
 
 GdkCursor *default_cursor = NULL;
@@ -60,8 +59,6 @@ typedef struct _IRectangle {
   int top, bottom;
   int left,right;
 } IRectangle;
-
-static guint display_hash(DDisplay *ddisp);
 
 static void
 update_zoom_status(DDisplay *ddisp)
@@ -198,14 +195,8 @@ initialize_display_widgets(DDisplay *ddisp)
   ddisplay_update_scrollbars(ddisp);
   ddisplay_add_update_all(ddisp);
 
-  if (!display_ht)
-    display_ht = g_hash_table_new ((GHashFunc) display_hash, NULL);
-
   if (!app_is_embedded())
     ddisplay_set_cursor(ddisp, current_cursor);
-  
-  g_hash_table_insert (display_ht, ddisp->shell, ddisp);
-  g_hash_table_insert (display_ht, ddisp->canvas, ddisp);
 
   if (!input_methods_done) {
       im_menu_item = menus_get_action ("InputMethods");
@@ -334,12 +325,6 @@ new_display(Diagram *dia)
 
   initialize_display_widgets(ddisp);
   return ddisp;  /*  set the user data  */
-}
-
-static guint
-display_hash(DDisplay *ddisp)
-{
-  return (gulong) ddisp;
 }
 
 void
@@ -1386,9 +1371,6 @@ ddisplay_really_destroy(DDisplay *ddisp)
 
   g_object_unref (ddisp->renderer);
   ddisp->renderer = NULL;
-  
-  g_hash_table_remove(display_ht, ddisp->shell);
-  g_hash_table_remove(display_ht, ddisp->canvas);
 
   /* Free update_areas list: */
   ddisplay_free_update_areas(ddisp);
