@@ -25,9 +25,12 @@
 /*
 #define DEBUG_CAIRO
  */
-#ifdef DEBUG_CAIRO
+#if 1 /* def DEBUG_CAIRO */
 #  define DIAG_NOTE(action) action
-#  define DIAG_STATE(cr) { if (cairo_status (cr) != CAIRO_STATUS_SUCCESS) g_print ("%s:%d, %s\n", __FILE__, __LINE__, cairo_status_to_string (cairo_status(cr))); }
+#  define DIAG_STATE(cr) { \
+  if (cairo_status (cr) != CAIRO_STATUS_SUCCESS) \
+    g_warning ("%s:%d, %s\n", __FILE__, __LINE__, cairo_status_to_string (cairo_status(cr))); \
+}
 #else
 #  define DIAG_NOTE(action)
 #  define DIAG_STATE(cr)
