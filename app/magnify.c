@@ -63,7 +63,10 @@ magnify_button_release(MagnifyTool *tool, GdkEventButton *event,
       ddisplay_add_update_all(ddisp);
       ddisplay_flush(ddisp);
     } else if (!(event->state & GDK_CONTROL_MASK)) {
-      factor = (visible->right - visible->left) / diff;
+      /* the whole zoom rect should be visible, not just it's square equivalent */
+      real fh = fabs(p2.y - p1.y) / (visible->bottom - visible->top);
+      real fw = fabs(p2.x - p1.x) / (visible->right - visible->left);
+      factor = 1.0 / MAX(fh, fw);
       tl.x += (visible->right - visible->left)/(2.0*factor);
       tl.y += (visible->bottom - visible->top)/(2.0*factor);
       ddisplay_zoom(ddisp, &tl, factor);
