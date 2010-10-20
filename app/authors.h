@@ -52,7 +52,7 @@
 */
 
 static const int NUMBER_OF_ORIG_AUTHORS = 1;
-static const int NUMBER_OF_MAINTAINERS = 2;
+static const int NUMBER_OF_MAINTAINERS = 1;
 
 static const gchar *authors[] =	{
 
@@ -60,13 +60,11 @@ static const gchar *authors[] =	{
 
     "Alexander Larsson <alexl@redhat.com>",
 
-    /* current maintainer(s) */
-
+    /* current maintainer */
     "Hans Breuer <hans@breuer.org>",
-    "Lars R. Clausen <lrclause@cs.uiuc.edu>",
 
     /* other author(s) */
-
+    "Lars R. Clausen <lrclause@cs.uiuc.edu>",
     "Cyrille Chépélov <cyrille@chepelov.org>",
     "James Henstridge <james@daa.com.au>",
     "Jerome Abela <abela@solsoft.fr>",
