@@ -1454,6 +1454,8 @@ custom_update_data(Custom *custom, AnchorShape horiz, AnchorShape vert)
       custom_reposition_text(custom, &el->text);
       text_calc_boundingbox(el->text.object,&rect);
       /* padding only to be applied on the users text box */
+      /* but we need to restore the original position of the 'constant' object */
+      text_set_position(el->text.object, &el->text.anchor);
       break;
     default :
       g_assert_not_reached();
