@@ -41,7 +41,7 @@ const char*
 dia::Property< ::Property* >::get_name () const
 {
     if (self)
-        return self->name;
+        return self->descr->name;
     return "<null>::name";
 }
 //! read-only attribute giving the data type represented
@@ -49,7 +49,7 @@ const char*
 dia::Property< ::Property* >::get_type () const
 {
     if (self)
-        return self->type;
+        return self->descr->type;
     return "<null>::type";
 }
 /*!
@@ -66,11 +66,11 @@ dia::Property< ::Property* >::get (int* v) const
     g_return_val_if_fail (self != NULL, false);
     bool ret = true;
     
-    if (strcmp (self->type, PROP_TYPE_BOOL) == 0)
+    if (strcmp (self->descr->type, PROP_TYPE_BOOL) == 0)
 	*v = ((BoolProperty *)self)->bool_data;
-    else if (strcmp (self->type, PROP_TYPE_INT) == 0)
+    else if (strcmp (self->descr->type, PROP_TYPE_INT) == 0)
 	*v = ((IntProperty *)self)->int_data;
-    else if (strcmp (self->type, PROP_TYPE_ENUM) == 0)
+    else if (strcmp (self->descr->type, PROP_TYPE_ENUM) == 0)
 	*v = ((EnumProperty *)self)->enum_data;
     else
         ret = false;
@@ -82,7 +82,7 @@ bool
 dia::Property< ::Property* >::get (double* v) const
 {
     g_return_val_if_fail (self != NULL, false);
-    if (strcmp (self->type, PROP_TYPE_REAL) == 0) {
+    if (strcmp (self->descr->type, PROP_TYPE_REAL) == 0) {
 	*v = ((RealProperty *)self)->real_data;
 	return true;
     }
@@ -93,7 +93,7 @@ bool
 dia::Property< ::Property* >::get (const char** v) const
 {
     g_return_val_if_fail (self != NULL, false);
-    if (strcmp (self->type, PROP_TYPE_STRING) == 0) {
+    if (strcmp (self->descr->type, PROP_TYPE_STRING) == 0) {
 	*v = ((StringProperty*)self)->string_data;
 	if (*v == NULL)
 	  *v = "";
@@ -106,7 +106,7 @@ bool
 dia::Property< ::Property* >::get (::_Point* v) const 
 { 
     g_return_val_if_fail (self != NULL, false);
-    if (strcmp (self->type, PROP_TYPE_POINT) == 0) {
+    if (strcmp (self->descr->type, PROP_TYPE_POINT) == 0) {
 	*v = ((PointProperty *)self)->point_data;
 	return true;
     }
@@ -117,7 +117,7 @@ bool
 dia::Property< ::Property* >::get (::_Rectangle* v) const 
 { 
     g_return_val_if_fail (self != NULL, false);
-    if (strcmp (self->type, PROP_TYPE_RECT) == 0) {
+    if (strcmp (self->descr->type, PROP_TYPE_RECT) == 0) {
 	*v = ((RectProperty *)self)->rect_data;
 	return true;
     }
@@ -128,7 +128,7 @@ bool
 dia::Property< ::Property* >::get (const std::vector<IProperty*>** v) const 
 { 
     g_return_val_if_fail (self != NULL, false);
-    if (strcmp (self->type, PROP_TYPE_DARRAY) == 0) {
+    if (strcmp (self->descr->type, PROP_TYPE_DARRAY) == 0) {
 	// remove everything from an earlier call
 	std::vector<IProperty*>::iterator it;
 	// remove const from our cache
@@ -168,7 +168,7 @@ bool
 dia::Property< ::Property* >::get (::_Color* v) const 
 { 
     g_return_val_if_fail (self != NULL, false);
-    if (strcmp (self->type, PROP_TYPE_COLOUR) == 0) {
+    if (strcmp (self->descr->type, PROP_TYPE_COLOUR) == 0) {
 	*v = ((ColorProperty *)self)->color_data;
 	return true;
     }
@@ -206,11 +206,11 @@ dia::Properties::has_key (const char* name) const
 static bool
 set_prop (::Property* p, int v)
 {
-    if (strcmp (p->type, PROP_TYPE_BOOL) == 0)
+    if (strcmp (p->descr->type, PROP_TYPE_BOOL) == 0)
 	((BoolProperty *)p)->bool_data = (v != 0);
-    else if (strcmp (p->type, PROP_TYPE_INT) == 0)
+    else if (strcmp (p->descr->type, PROP_TYPE_INT) == 0)
 	((IntProperty *)p)->int_data = v;
-    else if (strcmp (p->type, PROP_TYPE_ENUM) == 0)
+    else if (strcmp (p->descr->type, PROP_TYPE_ENUM) == 0)
 	((EnumProperty *)p)->enum_data = v;
     else
         return false;
@@ -219,7 +219,7 @@ set_prop (::Property* p, int v)
 static bool
 set_prop (::Property* p, double v)
 {
-    if (strcmp (p->type, PROP_TYPE_REAL) == 0)
+    if (strcmp (p->descr->type, PROP_TYPE_REAL) == 0)
 	((RealProperty *)p)->real_data = v;
     else
         return false;
@@ -228,7 +228,7 @@ set_prop (::Property* p, double v)
 static bool
 set_prop (::Property* p, const char* v)
 {
-    if (strcmp (p->type, PROP_TYPE_COLOUR) == 0) {
+    if (strcmp (p->descr->type, PROP_TYPE_COLOUR) == 0) {
 	PangoColor color;
 	if (pango_color_parse(&color, v)) {
             ((ColorProperty*)p)->color_data.red = color.red / 65535.0; 
@@ -236,12 +236,12 @@ set_prop (::Property* p, const char* v)
             ((ColorProperty*)p)->color_data.blue = color.blue / 65535.0;
         }
     }
-    else if (strcmp (p->type, PROP_TYPE_STRING) == 0) {
+    else if (strcmp (p->descr->type, PROP_TYPE_STRING) == 0) {
 	g_free (((StringProperty*)p)->string_data);
         ((StringProperty*)p)->string_data = v ? g_strdup (v) : g_strdup ("");
         ((StringProperty*)p)->num_lines = 1;
     }
-    else if (strcmp (p->type, PROP_TYPE_TEXT) == 0) {
+    else if (strcmp (p->descr->type, PROP_TYPE_TEXT) == 0) {
 	g_free (((TextProperty*)p)->text_data);
         ((TextProperty*)p)->text_data = v ? g_strdup (v) : g_strdup ("");
         /* XXX: update size calculation ? */
@@ -286,7 +286,7 @@ set_prop (GPtrArray* to, ::ArrayProperty* kinds, int num, const std::vector<dia:
 	        // not sure if this is the right thing to do, reusing kinds
 		if (!set_prop (to, kinds, vv->size(), *vv))
 		{
-		    g_warning ("Type mismatch vector<>[%d] '%s'", vv->size(), ap->common.name);
+		    g_warning ("Type mismatch vector<>[%d] '%s'", vv->size(), ap->common.descr->name);
 		    g_ptr_array_free (record, TRUE);
 		    return false;
 		}
@@ -309,7 +309,7 @@ dia::Properties::setitem (const char* s, int n)
     if (p) {
         bool apply = true;
         if (!set_prop (p, n))
-            printf ("dia::Properties::setitem (%s, %d) type mismatch (%s)\n", s, n, p->type), apply = false;
+            printf ("dia::Properties::setitem (%s, %d) type mismatch (%s)\n", s, n, p->descr->type), apply = false;
 	if (apply) {
 	    GPtrArray *plist = prop_list_from_single (p);
 	    object->ops->set_props(object, plist);
@@ -329,7 +329,7 @@ dia::Properties::setitem (const char* s, double n)
     if (p) {
         bool apply = true;
         if (!set_prop (p, n))
-            printf ("dia::Properties::setitem (%s, %f) type mismatch (%s)\n", s, n, p->type), apply = false;
+            printf ("dia::Properties::setitem (%s, %f) type mismatch (%s)\n", s, n, p->descr->type), apply = false;
 	if (apply) {
 	    GPtrArray *plist = prop_list_from_single (p);
 	    object->ops->set_props(object, plist);
@@ -350,7 +350,7 @@ dia::Properties::setitem (const char* s, const char* v)
     if (p) {
         bool apply = true;
         if (!set_prop (p, v))
-            printf ("dia::Properties::setitem (%s, %s) type mismatch (%s)\n", s, v, p->type), apply = false;
+            printf ("dia::Properties::setitem (%s, %s) type mismatch (%s)\n", s, v, p->descr->type), apply = false;
 
 	if (apply) {
 	    GPtrArray *plist = prop_list_from_single (p);
@@ -370,20 +370,20 @@ dia::Properties::setitem (const char* s, const std::vector<double>& v)
     ::Property *p = object_prop_by_name (object, s);
     if (p) {
         bool apply = true;
-        if (strcmp (p->type, PROP_TYPE_COLOUR) == 0 && v.size() == 3) {
+        if (strcmp (p->descr->type, PROP_TYPE_COLOUR) == 0 && v.size() == 3) {
             ((ColorProperty*)p)->color_data.red   = v[0]; 
             ((ColorProperty*)p)->color_data.green = v[1]; 
             ((ColorProperty*)p)->color_data.blue  = v[2];
 	}
-	else if (strcmp (p->type, PROP_TYPE_LINESTYLE) == 0 && v.size() == 2) {
+	else if (strcmp (p->descr->type, PROP_TYPE_LINESTYLE) == 0 && v.size() == 2) {
 	    ((LinestyleProperty *)p)->style = (::LineStyle)(int)v[0];
 	    ((LinestyleProperty *)p)->dash = v[1];
 	}
-	else if (strcmp (p->type, PROP_TYPE_POINT) == 0 && v.size() == 2) {
+	else if (strcmp (p->descr->type, PROP_TYPE_POINT) == 0 && v.size() == 2) {
 	    ((PointProperty *)p)->point_data.x = v[0];
 	    ((PointProperty *)p)->point_data.y = v[1];
 	}
-	else if (strcmp (p->type, PROP_TYPE_POINTARRAY) == 0) {
+	else if (strcmp (p->descr->type, PROP_TYPE_POINTARRAY) == 0) {
 	    PointarrayProperty *ptp = (PointarrayProperty *)p;
 	    int len = v.size() / 2;
             g_array_set_size(ptp->pointarray_data,len);
@@ -392,7 +392,7 @@ dia::Properties::setitem (const char* s, const std::vector<double>& v)
 		g_array_index(ptp->pointarray_data,Point,i) = pt;
 	    }
 	}
-	else if (strcmp (p->type, PROP_TYPE_BEZPOINTARRAY) == 0) {
+	else if (strcmp (p->descr->type, PROP_TYPE_BEZPOINTARRAY) == 0) {
             BezPointarrayProperty *ptp = (BezPointarrayProperty *)p;
 	    // in the folded list the (variable size!) data is packed. So we need to calculate the real length during unpacking
 	    int i = 0;
@@ -425,7 +425,7 @@ dia::Properties::setitem (const char* s, const std::vector<double>& v)
 	}
 	else
             printf ("dia::Properties::setitem (%s, std::vector<double>) type or size (%d) mismatch (%s)\n", 
-	            s, static_cast<int>(v.size()), p->type), apply = false;
+	            s, static_cast<int>(v.size()), p->descr->type), apply = false;
 	if (apply) {
 	    GPtrArray *plist = prop_list_from_single (p);
 	    object->ops->set_props(object, plist);

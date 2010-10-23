@@ -742,3 +742,4 @@ EXPORTS
 
  dia_marshal_VOID__OBJECT_UINT_POINTER
 
+ dia_matrix_is_identity
