@@ -2525,7 +2525,7 @@ msgstr "Rechts"
 #: ../objects/chronogram/chronoline.c:181
 #: ../objects/chronogram/chronoref.c:160
 msgid "Line color"
-msgstr "Zeilenfarbe"
+msgstr "Rahmenfarbe"
 
 #: ../lib/properties.c:75 ../lib/properties.h:503 ../lib/properties.h:506
 msgid "Line style"
