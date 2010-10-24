@@ -29,6 +29,7 @@
 #include "connection.h"
 #include "diarenderer.h"
 #include "attributes.h"
+#include "properties.h"
 #include "network.h"
 
 #ifndef M_PI_2

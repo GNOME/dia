@@ -31,6 +31,7 @@
 
 #include "element.h"
 #include "message.h"
+#include "properties.h"
 
 #ifdef G_OS_WIN32
 /* defined in header */

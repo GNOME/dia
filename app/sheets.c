@@ -38,6 +38,7 @@
 #include "interface.h"
 #include "sheets.h"
 #include "sheets_dialog.h"
+#include "intl.h"
 #include "gtkhwrapbox.h"
 
 GtkWidget *sheets_dialog = NULL;

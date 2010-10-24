@@ -29,6 +29,7 @@
 #include "connectionpoint.h"
 #include "diarenderer.h"
 #include "attributes.h"
+#include "properties.h"
 #include "diamenu.h"
 
 #include "pixmaps/tree.xpm"

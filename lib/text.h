@@ -28,7 +28,7 @@ typedef enum {
 #include "diatypes.h"
 #include "textattr.h"
 #include "focus.h"
-#include "properties.h"
+#include "dia_xml.h" /* for AttributeNode */
 
 struct _Text {
   /* don't change these values directly, use the text_set* functions */

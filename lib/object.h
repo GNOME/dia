@@ -571,6 +571,15 @@ gchar *dia_object_get_meta (DiaObject *obj, const gchar *key);
 
 int dia_object_get_num_connections (DiaObject *obj);
 
+/* standard way to load/save properties of an object */
+void          object_load_props(DiaObject *obj, ObjectNode obj_node);
+void          object_save_props(DiaObject *obj, ObjectNode obj_node);
+
+/* standard way to copy the properties of an object into another (of the
+   same type) */
+void          object_copy_props(DiaObject *dest, const DiaObject *src,
+                                gboolean is_default);
+
 G_END_DECLS
 
 #endif /* OBJECT_H */

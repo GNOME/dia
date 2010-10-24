@@ -28,6 +28,7 @@
 #include "database.h"
 #include "arrows.h"
 #include "attributes.h"
+#include "properties.h"
 #include "diarenderer.h"
 #include "pixmaps/reference.xpm"
 

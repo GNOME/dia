@@ -30,6 +30,7 @@
 #include "diarenderer.h"
 #include "attributes.h"
 #include "diamenu.h"
+#include "properties.h"
 
 #include "pixmaps/bus.xpm"
 

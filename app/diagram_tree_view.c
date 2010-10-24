@@ -38,6 +38,7 @@
 #include "properties-dialog.h" /* object_list_properties_show */
 #include "dia-props.h" /* diagram_properties_show */
 #include "persistence.h"
+#include "intl.h"
 
 typedef struct _DiagramTreeView DiagramTreeView;
 struct _DiagramTreeView {

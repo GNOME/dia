@@ -75,7 +75,6 @@ struct _PropDialog { /* This is to be treated as opaque ! */
 
 struct _PropEventData {
   PropDialog *dialog;
-  guint my_index; /* in dialog->propwidgets */
   WIDGET *widget;
   Property *self; 
 };
@@ -285,7 +284,7 @@ struct _Property {
   GQuark name_quark; 
   GQuark type_quark;
   const PropDescription *descr;
-  PropEventData self;
+  PropEventData self_event_data;
   PropEventHandler event_handler;
   PropDescToPropPredicate reason; /* why has this property been created from
                                      the pdesc ? */
@@ -438,15 +437,6 @@ Property *object_prop_by_name(DiaObject *obj, const char *name);
 Property *object_prop_by_name_type(DiaObject *obj, const char *name, const char *type);
 /* Set the pixbuf property if there is one */
 ObjectChange *dia_object_set_pixbuf (DiaObject *object, GdkPixbuf *pixbuf);
-
-/* standard way to load/save properties of an object */
-void          object_load_props(DiaObject *obj, ObjectNode obj_node);
-void          object_save_props(DiaObject *obj, ObjectNode obj_node);
-
-/* standard way to copy the properties of an object into another (of the
-   same type) */
-void          object_copy_props(DiaObject *dest, const DiaObject *src,
-                                gboolean is_default);
 
 /* ************************************************************* */ 
 

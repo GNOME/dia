@@ -33,6 +33,7 @@
 #include "color.h"
 #include "object.h"
 #include "dia_dirs.h"
+#include "properties.h" /* stdprops_init() */
 
 static void
 stderr_message_internal(const char *title, enum ShowAgainStyle showAgain,

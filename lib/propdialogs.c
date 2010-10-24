@@ -221,7 +221,7 @@ prophandler_connect(const Property *prop,
   g_signal_connect (G_OBJECT (object),
                     signal,
                     G_CALLBACK (property_signal_handler),
-                    (gpointer)(&prop->self));
+                    (gpointer)(&prop->self_event_data));
 }
 
 void 
@@ -231,16 +231,15 @@ prop_dialog_add_property(PropDialog *dialog, Property *prop)
   PropWidgetAssoc pwa;
   GtkWidget *label;
 
-  prop->self.dialog = dialog;
-  prop->self.self = prop;
-  prop->self.my_index = dialog->prop_widgets->len;
+  prop->self_event_data.dialog = dialog;
+  prop->self_event_data.self = prop;
 
   if (prop->ops->get_widget) 
     widget = prop->ops->get_widget(prop,dialog);  
   if (!widget) 
     return; /* either property has no widget or it's a container */
 
-  prop->self.widget = widget;
+  prop->self_event_data.widget = widget;
   if (prop->ops->reset_widget) prop->ops->reset_widget(prop,widget);
   prop->experience |= PXP_NOTSET;
   

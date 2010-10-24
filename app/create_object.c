@@ -29,6 +29,7 @@
 #include "parent.h"
 #include "message.h"
 #include "object.h"
+#include "intl.h"
 
 static void create_object_button_press(CreateObjectTool *tool, GdkEventButton *event,
 				     DDisplay *ddisp);

@@ -27,6 +27,7 @@
 #include "orth_conn.h"
 #include "diarenderer.h"
 #include "attributes.h"
+#include "properties.h"
 
 #include "pixmaps/transition.xpm"
 

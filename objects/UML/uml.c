@@ -28,6 +28,7 @@
 #include "object.h"
 #include "uml.h"
 #include "plug-ins.h"
+#include "properties.h"
 
 extern DiaObjectType umlclass_type;
 extern DiaObjectType umlclass_template_type;
