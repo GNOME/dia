@@ -743,3 +743,8 @@ EXPORTS
  dia_marshal_VOID__OBJECT_UINT_POINTER
 
  dia_matrix_is_identity
+
+ dia_option_menu_add_item
+ dia_option_menu_get_active
+ dia_option_menu_new
+ dia_option_menu_set_active

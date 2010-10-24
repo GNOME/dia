@@ -34,7 +34,7 @@
 #endif
 
 #include <assert.h>
-#undef GTK_DISABLE_DEPRECATED /* GtkList, GtkOprionMenu, ... */
+#undef GTK_DISABLE_DEPRECATED /* GtkList, ... */
 #include <gtk/gtk.h>
 #include <math.h>
 #include <string.h>
@@ -43,7 +43,7 @@
 #include "objchange.h"
 #include "intl.h"
 #include "class.h"
-
+#include "diaoptionmenu.h"
 /**
  * \brief Very special user interface for UMLClass parametrization
  *
@@ -96,8 +96,7 @@ struct _UMLClassDialog {
   GtkEntry *attr_type;
   GtkEntry *attr_value;
   GtkTextView *attr_comment;
-  GtkMenu *attr_visible;
-  GtkOptionMenu *attr_visible_button;
+  GtkWidget *attr_visible;
   GtkToggleButton *attr_class_scope;
   
   GtkList *operations_list;
@@ -107,11 +106,9 @@ struct _UMLClassDialog {
   GtkEntry *op_stereotype;
   GtkTextView *op_comment;
 
-  GtkMenu *op_visible;
-  GtkOptionMenu *op_visible_button;
+  GtkWidget *op_visible;
   GtkToggleButton *op_class_scope;
-  GtkMenu *op_inheritance_type;
-  GtkOptionMenu *op_inheritance_type_button;
+  GtkWidget *op_inheritance_type;
   GtkToggleButton *op_query;  
   
   GtkList *parameters_list;
@@ -120,8 +117,7 @@ struct _UMLClassDialog {
   GtkEntry *param_type;
   GtkEntry *param_value;
   GtkTextView *param_comment;
-  GtkMenu *param_kind;
-  GtkOptionMenu *param_kind_button;
+  GtkWidget *param_kind;
   GtkWidget *param_new_button;
   GtkWidget *param_delete_button;
   GtkWidget *param_up_button;
@@ -249,25 +245,6 @@ umlclass_store_disconnects(UMLClassDialog *prop_dialog,
     }
     list = g_list_next(list);
   }
-}
-
-/** Add an option to an option menu item for a class.
- * @param menu The GtkMenu to add an item to.
- * @param label The I18N'd label to show in the menu.
- * @param umlclass The class object that the dialog is being built for.
- * @param user_data Arbitrary data, here typically an integer indicating the
- * option internally.
- */
-static void
-add_option_menu_item(GtkMenu *menu, gchar *label, GtkSignalFunc update_func,
-		     UMLClass *umlclass, gpointer user_data)
-{
-  GtkWidget *menuitem = gtk_menu_item_new_with_label (label);
-  gtk_signal_connect (GTK_OBJECT (menuitem), "activate",
-		      update_func, umlclass);
-  g_object_set_data(G_OBJECT(menuitem), "user_data", user_data);
-  gtk_menu_append (GTK_MENU (menu), menuitem);
-  gtk_widget_show (menuitem);  
 }
 
 /********************************************************
@@ -655,7 +632,6 @@ attributes_set_sensitive(UMLClassDialog *prop_dialog, gint val)
   gtk_widget_set_sensitive(GTK_WIDGET(prop_dialog->attr_type), val);
   gtk_widget_set_sensitive(GTK_WIDGET(prop_dialog->attr_value), val);
   gtk_widget_set_sensitive(GTK_WIDGET(prop_dialog->attr_comment), val);
-  gtk_widget_set_sensitive(GTK_WIDGET(prop_dialog->attr_visible_button), val);
   gtk_widget_set_sensitive(GTK_WIDGET(prop_dialog->attr_visible), val);
   gtk_widget_set_sensitive(GTK_WIDGET(prop_dialog->attr_class_scope), val);
 }
@@ -676,8 +652,7 @@ attributes_set_values(UMLClassDialog *prop_dialog, UMLAttribute *attr)
     set_comment(prop_dialog->attr_comment, "");
 
 
-  gtk_option_menu_set_history(prop_dialog->attr_visible_button,
-			      (gint)attr->visibility);
+  dia_option_menu_set_active(prop_dialog->attr_visible, attr->visibility);
   gtk_toggle_button_set_active(prop_dialog->attr_class_scope, attr->class_scope);
 }
 
@@ -705,9 +680,7 @@ attributes_get_values (UMLClassDialog *prop_dialog, UMLAttribute *attr)
   attr->value = g_strdup (gtk_entry_get_text(prop_dialog->attr_value));
   attr->comment = g_strdup (get_comment(prop_dialog->attr_comment));
 
-  attr->visibility = (UMLVisibility)
-		GPOINTER_TO_INT (g_object_get_data (
-					 G_OBJECT (gtk_menu_get_active (prop_dialog->attr_visible)), "user_data"));
+  attr->visibility = (UMLVisibility)dia_option_menu_get_active (prop_dialog->attr_visible);
     
   attr->class_scope = prop_dialog->attr_class_scope->active;
 }
@@ -1070,8 +1043,6 @@ attributes_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   GtkWidget *list;
   GtkWidget *frame;
   GtkWidget *omenu;
-  GtkWidget *menu;
-  GtkWidget *submenu;
   GtkWidget *scrolledwindow;
   GSList *group;
 
@@ -1202,27 +1173,13 @@ attributes_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
 
   label = gtk_label_new(_("Visibility:"));
 
-  omenu = gtk_option_menu_new ();
-  menu = gtk_menu_new ();
-  prop_dialog->attr_visible = GTK_MENU(menu);
-  prop_dialog->attr_visible_button = GTK_OPTION_MENU(omenu);
-  submenu = NULL;
-  group = NULL;
-    
-  add_option_menu_item(GTK_MENU(menu), _("Public"), 
-		       GTK_SIGNAL_FUNC (attributes_update), 
-		       umlclass, GINT_TO_POINTER(UML_PUBLIC));
-  add_option_menu_item(GTK_MENU(menu), _("Private"), 
-		       GTK_SIGNAL_FUNC (attributes_update),
-		       umlclass, GINT_TO_POINTER(UML_PRIVATE) );
-  add_option_menu_item(GTK_MENU(menu), _("Protected"), 
-		       GTK_SIGNAL_FUNC (attributes_update),
-		       umlclass, GINT_TO_POINTER(UML_PROTECTED) );
-  add_option_menu_item(GTK_MENU(menu), _("Implementation"), 
-		       GTK_SIGNAL_FUNC (attributes_update),
-		       umlclass, GINT_TO_POINTER(UML_IMPLEMENTATION) );
-  
-  gtk_option_menu_set_menu (GTK_OPTION_MENU (omenu), menu);
+  prop_dialog->attr_visible = omenu = dia_option_menu_new ();
+  g_signal_connect (G_OBJECT (omenu), "changed",
+		    G_CALLBACK (attributes_update), umlclass);
+  dia_option_menu_add_item(omenu, _("Public"), UML_PUBLIC);
+  dia_option_menu_add_item(omenu, _("Private"), UML_PRIVATE);
+  dia_option_menu_add_item(omenu, _("Protected"), UML_PROTECTED);
+  dia_option_menu_add_item(omenu, _("Implementation"), UML_IMPLEMENTATION);
 
   { 
     GtkWidget * align;
@@ -1262,7 +1219,6 @@ parameters_set_sensitive(UMLClassDialog *prop_dialog, gint val)
   gtk_widget_set_sensitive(GTK_WIDGET(prop_dialog->param_value), val);
   gtk_widget_set_sensitive(GTK_WIDGET(prop_dialog->param_comment), val);
   gtk_widget_set_sensitive(GTK_WIDGET(prop_dialog->param_kind), val);
-  gtk_widget_set_sensitive(GTK_WIDGET(prop_dialog->param_kind_button), val);
 }
 
 static void
@@ -1279,8 +1235,7 @@ parameters_set_values(UMLClassDialog *prop_dialog, UMLParameter *param)
   else
     set_comment(prop_dialog->param_comment, "");
 
-  gtk_option_menu_set_history(prop_dialog->param_kind_button,
-			      (gint)param->kind);
+  dia_option_menu_set_active(prop_dialog->param_kind, param->kind);
 }
 
 static void
@@ -1290,8 +1245,7 @@ parameters_clear_values(UMLClassDialog *prop_dialog)
   gtk_entry_set_text(prop_dialog->param_type, "");
   gtk_entry_set_text(prop_dialog->param_value, "");
   set_comment(prop_dialog->param_comment, "");
-  gtk_option_menu_set_history(prop_dialog->param_kind_button,
-			      (gint) UML_UNDEF_KIND);
+  dia_option_menu_set_active(prop_dialog->param_kind, UML_UNDEF_KIND);
 
 }
 
@@ -1310,7 +1264,7 @@ parameters_get_values (UMLClassDialog *prop_dialog, UMLParameter *param)
   param->value = g_strdup (gtk_entry_get_text(prop_dialog->param_value));
   param->comment = g_strdup (get_comment(prop_dialog->param_comment));
 
-  param->kind = (UMLParameterKind) GPOINTER_TO_INT(g_object_get_data(G_OBJECT(gtk_menu_get_active(prop_dialog->param_kind)), "user_data"));
+  param->kind = (UMLParameterKind) dia_option_menu_get_active(prop_dialog->param_kind);
 }
 
 static void
@@ -1544,11 +1498,9 @@ operations_set_sensitive(UMLClassDialog *prop_dialog, gint val)
   gtk_widget_set_sensitive(GTK_WIDGET(prop_dialog->op_type), val);
   gtk_widget_set_sensitive(GTK_WIDGET(prop_dialog->op_stereotype), val);
   gtk_widget_set_sensitive(GTK_WIDGET(prop_dialog->op_comment), val);
-  gtk_widget_set_sensitive(GTK_WIDGET(prop_dialog->op_visible_button), val);
   gtk_widget_set_sensitive(GTK_WIDGET(prop_dialog->op_visible), val);
   gtk_widget_set_sensitive(GTK_WIDGET(prop_dialog->op_class_scope), val);
   gtk_widget_set_sensitive(GTK_WIDGET(prop_dialog->op_inheritance_type), val);
-  gtk_widget_set_sensitive(GTK_WIDGET(prop_dialog->op_inheritance_type_button), val);
   gtk_widget_set_sensitive(GTK_WIDGET(prop_dialog->op_query), val);
 
   gtk_widget_set_sensitive(prop_dialog->param_new_button, val);
@@ -1581,12 +1533,10 @@ operations_set_values(UMLClassDialog *prop_dialog, UMLOperation *op)
   else
     set_comment(prop_dialog->op_comment, "");
 
-  gtk_option_menu_set_history(prop_dialog->op_visible_button,
-			      (gint)op->visibility);
+  dia_option_menu_set_active(prop_dialog->op_visible, op->visibility);
   gtk_toggle_button_set_active(prop_dialog->op_class_scope, op->class_scope);
   gtk_toggle_button_set_active(prop_dialog->op_query, op->query);
-  gtk_option_menu_set_history(prop_dialog->op_inheritance_type_button,
-			      (gint)op->inheritance_type);
+  dia_option_menu_set_active(prop_dialog->op_inheritance_type, op->inheritance_type);
 
   gtk_list_clear_items(prop_dialog->parameters_list, 0, -1);
   prop_dialog->current_param = NULL;
@@ -1643,12 +1593,10 @@ operations_get_values(UMLClassDialog *prop_dialog, UMLOperation *op)
   else
     op->stereotype = NULL;
 
-  op->visibility = (UMLVisibility)
-    GPOINTER_TO_INT(g_object_get_data(G_OBJECT(gtk_menu_get_active(prop_dialog->op_visible)), "user_data"));
+  op->visibility = (UMLVisibility)dia_option_menu_get_active(prop_dialog->op_visible);
     
   op->class_scope = prop_dialog->op_class_scope->active;
-  op->inheritance_type = (UMLInheritanceType)
-    GPOINTER_TO_INT(g_object_get_data(G_OBJECT(gtk_menu_get_active(prop_dialog->op_inheritance_type)), "user_data"));
+  op->inheritance_type = (UMLInheritanceType)dia_option_menu_get_active(prop_dialog->op_inheritance_type);
 
   op->query = prop_dialog->op_query->active;
 
@@ -1993,8 +1941,6 @@ operations_data_create_hbox (UMLClass *umlclass)
   GtkWidget *label;
   GtkWidget *entry;
   GtkWidget *omenu;
-  GtkWidget *menu;
-  GtkWidget *submenu;
   GtkWidget *scrolledwindow;
   GtkWidget *checkbox;
   GSList *group;
@@ -2047,27 +1993,13 @@ operations_data_create_hbox (UMLClass *umlclass)
 
   label = gtk_label_new(_("Visibility:"));
 
-  omenu = gtk_option_menu_new ();
-  menu = gtk_menu_new ();
-  prop_dialog->op_visible = GTK_MENU(menu);
-  prop_dialog->op_visible_button = GTK_OPTION_MENU(omenu);
-  submenu = NULL;
-  group = NULL;
-
-  add_option_menu_item(GTK_MENU(menu), _("Public"), 
-		       GTK_SIGNAL_FUNC (operations_update), umlclass, 
-		       GINT_TO_POINTER(UML_PUBLIC) );
-  add_option_menu_item(GTK_MENU(menu), _("Private"), 
-		       GTK_SIGNAL_FUNC (operations_update), umlclass, 
-		       GINT_TO_POINTER(UML_PRIVATE) );
-  add_option_menu_item(GTK_MENU(menu), _("Protected"),
-		       GTK_SIGNAL_FUNC (operations_update), umlclass, 
-		       GINT_TO_POINTER(UML_PROTECTED) );
-  add_option_menu_item(GTK_MENU(menu), _("Implementation"),
-		       GTK_SIGNAL_FUNC (operations_update), umlclass, 
-		       GINT_TO_POINTER(UML_IMPLEMENTATION) );
-  
-  gtk_option_menu_set_menu (GTK_OPTION_MENU (omenu), menu);
+  prop_dialog->op_visible = omenu = dia_option_menu_new ();
+  g_signal_connect (G_OBJECT (omenu), "changed",
+		    G_CALLBACK (operations_update), umlclass);
+  dia_option_menu_add_item(omenu, _("Public"), UML_PUBLIC);
+  dia_option_menu_add_item(omenu, _("Private"), UML_PRIVATE);
+  dia_option_menu_add_item(omenu, _("Protected"), UML_PROTECTED);
+  dia_option_menu_add_item(omenu, _("Implementation"), UML_IMPLEMENTATION);
 
   gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
 					/* left, right, top, bottom */
@@ -2077,24 +2009,12 @@ operations_data_create_hbox (UMLClass *umlclass)
 
   label = gtk_label_new(_("Inheritance type:"));
 
-  omenu = gtk_option_menu_new ();
-  menu = gtk_menu_new ();
-  prop_dialog->op_inheritance_type = GTK_MENU(menu);
-  prop_dialog->op_inheritance_type_button = GTK_OPTION_MENU(omenu);
-  submenu = NULL;
-  group = NULL;
-
-  add_option_menu_item(GTK_MENU(menu), _("Abstract"),
-		       GTK_SIGNAL_FUNC (operations_update),  umlclass, 
-		       GINT_TO_POINTER(UML_ABSTRACT) );
-  add_option_menu_item(GTK_MENU(menu), _("Polymorphic (virtual)"),
-		       GTK_SIGNAL_FUNC (operations_update), umlclass, 
-		       GINT_TO_POINTER(UML_POLYMORPHIC) );
-  add_option_menu_item(GTK_MENU(menu), _("Leaf (final)"),
-		       GTK_SIGNAL_FUNC (operations_update), umlclass, 
-		       GINT_TO_POINTER(UML_LEAF) );
-
-  gtk_option_menu_set_menu (GTK_OPTION_MENU (omenu), menu);
+  prop_dialog->op_inheritance_type = omenu = dia_option_menu_new ();
+  g_signal_connect (G_OBJECT (omenu), "changed",
+		    G_CALLBACK (operations_update), umlclass);
+  dia_option_menu_add_item(omenu, _("Abstract"), UML_ABSTRACT);
+  dia_option_menu_add_item(omenu, _("Polymorphic (virtual)"), UML_POLYMORPHIC);
+  dia_option_menu_add_item(omenu, _("Leaf (final)"), UML_LEAF);
 
   gtk_table_attach (GTK_TABLE (table), label, 2,3,1,2, GTK_FILL,0, 0,0);
   gtk_table_attach (GTK_TABLE (table), omenu, 3,4,1,2, GTK_FILL | GTK_EXPAND,0, 0,2);
@@ -2229,8 +2149,6 @@ operations_parameters_data_create_vbox (UMLClass *umlclass)
   GtkWidget *entry;
   GtkWidget *scrolledwindow;
   GtkWidget *omenu;
-  GtkWidget *menu;
-  GtkWidget *submenu;
   GSList *group;
   
   prop_dialog = umlclass->properties_dialog;
@@ -2305,27 +2223,13 @@ operations_parameters_data_create_vbox (UMLClass *umlclass)
 
   label = gtk_label_new(_("Direction:"));
 
-  omenu = gtk_option_menu_new ();
-  menu = gtk_menu_new ();
-  prop_dialog->param_kind = GTK_MENU(menu);
-  prop_dialog->param_kind_button = GTK_OPTION_MENU(omenu);
-  submenu = NULL;
-  group = NULL;
-    
-  add_option_menu_item(GTK_MENU(menu), _("Undefined"),
-		       GTK_SIGNAL_FUNC (operations_update), umlclass, 
-		       GINT_TO_POINTER(UML_UNDEF_KIND) );
-  add_option_menu_item(GTK_MENU(menu), _("In"),
-		       GTK_SIGNAL_FUNC (operations_update), umlclass, 
-		       GINT_TO_POINTER(UML_IN) );
-  add_option_menu_item(GTK_MENU(menu), _("Out"),
-		       GTK_SIGNAL_FUNC (operations_update), umlclass, 
-		       GINT_TO_POINTER(UML_OUT) );
-  add_option_menu_item(GTK_MENU(menu), _("In & Out"),
-		       GTK_SIGNAL_FUNC (operations_update), umlclass, 
-		       GINT_TO_POINTER(UML_INOUT) );
-
-  gtk_option_menu_set_menu (GTK_OPTION_MENU (omenu), menu);
+  prop_dialog->param_kind = omenu = dia_option_menu_new ();    
+  g_signal_connect (G_OBJECT (omenu), "changed",
+		    G_CALLBACK (operations_update), umlclass);
+  dia_option_menu_add_item(omenu, _("Undefined"), UML_UNDEF_KIND);
+  dia_option_menu_add_item(omenu, _("In"), UML_IN);
+  dia_option_menu_add_item(omenu, _("Out"), UML_OUT);
+  dia_option_menu_add_item(omenu, _("In & Out"), UML_INOUT);
 
   { 
     GtkWidget * align;

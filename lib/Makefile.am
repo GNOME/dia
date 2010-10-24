@@ -114,6 +114,8 @@ libdia_la_SOURCES =  \
 		dialogs.h \
 		widgets.c \
 		widgets.h \
+		diaoptionmenu.c \
+		diaoptionmenu.h \
 		units.c \
 		units.h \
 		dia_image.c \
