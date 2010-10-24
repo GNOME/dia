@@ -90,13 +90,13 @@ static struct _TestBeziers {
   BezPoint *pts;
   Rectangle box;
 } _test_beziers[] = {                   /* top, left, bottom, right */
-  { BEZ(1), { 0.5-T, 0.0-T, 2.0+T, 2.0+T } },
-  { BEZ(2), { 0.5-T,-2.0-T, 2.0+T, 0.0+T } },
-  { BEZ(3), {-1.5-T,-2.0-T, 0.0+T, 0.0+T } },
-  { BEZ(4), {-1.5-T, 0.0-T, 0.0+T, 2.0+T } },
+  { BEZ(1), { 0.0-T, 0.5-T, 2.0+T, 2.0+T } },
+  { BEZ(2), {-2.0-T, 0.5-T, 0.0+T, 2.0+T } },
+  { BEZ(3), {-2.0-T,-1.5-T, 0.0+T, 0.0+T } },
+  { BEZ(4), { 0.0-T,-1.5-T, 2.0+T, 0.0+T } },
   /* it only 'jumps' out of the box with a line width>0 */
-  { BEZ(5), { 0.5-T, 0.0-T, 2.0+T, 2.0+T } },
-  { BEZ(6), { 0.0-T, 0.2-T, 2.0+T, 1.8+T } },
+  { BEZ(5), { 0.0-T, 0.5-T, 2.0+T, 2.0+T } },
+  { BEZ(6), { 0.2-T, 0.0-T, 1.8+T, 2.0+T } },
   { BEZ(7), { 0.25-T,0.25-T, 1.75+T, 1.75+T} },
 };
 #undef BEZ
