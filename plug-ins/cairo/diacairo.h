@@ -25,16 +25,18 @@
 /*
 #define DEBUG_CAIRO
  */
-#if 1 /* def DEBUG_CAIRO */
+#ifdef DEBUG_CAIRO
 #  define DIAG_NOTE(action) action
-#  define DIAG_STATE(cr) { \
+#else
+#  define DIAG_NOTE(action)
+#endif
+/* Unconditional complain about cairo being in wrong state,
+ * it usually shows some wrong assumptions in Dia's code.
+ */
+#define DIAG_STATE(cr) { \
   if (cairo_status (cr) != CAIRO_STATUS_SUCCESS) \
     g_warning ("%s:%d, %s\n", __FILE__, __LINE__, cairo_status_to_string (cairo_status(cr))); \
 }
-#else
-#  define DIAG_NOTE(action)
-#  define DIAG_STATE(cr)
-#endif
 
 /* --- the renderer base class --- */
 G_BEGIN_DECLS
