@@ -25,6 +25,7 @@
 #include "handle.h"
 #include "connectionpoint.h"
 #include "boundingbox.h"
+#include "properties.h" /* win32: PropNumData */
 
 /*!
  * \class _Element

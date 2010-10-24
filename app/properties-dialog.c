@@ -20,6 +20,8 @@
 #include <config.h>
 #endif
 
+#include <string.h>
+
 #include <gtk/gtk.h>
 #include <gdk/gdkkeysyms.h>
 
@@ -30,7 +32,7 @@
 #include "connectionpoint_ops.h"
 #include "undo.h"
 #include "message.h"
-#include <string.h>
+#include "properties.h"
 
 static GtkWidget *dialog = NULL;
 static GtkWidget *dialog_vbox = NULL;

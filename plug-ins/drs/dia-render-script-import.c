@@ -28,6 +28,7 @@
 #include "diagramdata.h"
 #include "group.h"
 #include "message.h"
+#include "intl.h"
 
 #include <libxml/tree.h>
 
