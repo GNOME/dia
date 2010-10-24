@@ -45,12 +45,12 @@ lib/diaarrowchooser.c
 lib/diagramdata.c
 lib/dialinechooser.c
 lib/dialogs.c
+lib/diaoptionmenu.c
 lib/filter.c
 lib/font.c
 lib/group.c
 lib/layer.c
 lib/message.c
-lib/newgroup.c
 lib/object_defaults.c
 lib/orth_conn.h
 lib/plug-ins.c
