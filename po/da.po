@@ -11,15 +11,18 @@
 # konfigmappe (config directory)
 #
 # Specielle udtryk:
-# 'sheet' (om en gruppe objekter): objektsamling (husk opfølning om evt. ark)
-# 'spline': kurve  (nb ikke fundet i programmet. husk opfølning.)
+# 'sheet' (om en gruppe objekter): objektsamling (husk opfølgning om evt. ark)
+# 'spline': kurve  (nb ikke fundet i programmet. husk opfølgning.)
+#
+# konventioner:
+# null -> null
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: dia\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-20 21:10+0200\n"
-"PO-Revision-Date: 2010-03-10 12:42+0000\n"
+"POT-Creation-Date: 2010-10-29 00:15+0200\n"
+"PO-Revision-Date: 2010-10-03 12:42+0000\n"
 "Last-Translator: Joe Hansen <joedalton2@yahoo.dk>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
 "MIME-Version: 1.0\n"
@@ -106,23 +109,25 @@ msgid "TYPE"
 msgstr "TYPE"
 
 #: ../app/app_procs.c:717
-#, fuzzy
 msgid "Export graphics size"
-msgstr "Format at konvertere til"
+msgstr "Eksporter grafikstørrelse"
 
+# Bredde x højde
 #: ../app/app_procs.c:717
 msgid "WxH"
-msgstr ""
+msgstr "BxH"
 
 #: ../app/app_procs.c:719
 msgid ""
 "Show only specified layers (e.g. when exporting). Can be either the layer "
 "name or a range of layer numbers (X-Y)"
 msgstr ""
+"Vis kun angivne lag (f.eks. under eksport). Kan enten være lagnavnet eller "
+"et interval af lagnumre (X-Y)"
 
 #: ../app/app_procs.c:720
 msgid "LAYER,LAYER,..."
-msgstr ""
+msgstr "LAG,LAG,..."
 
 #: ../app/app_procs.c:722
 msgid "Don't show the splash screen"
@@ -134,11 +139,11 @@ msgstr "Opret ikke tomt diagram"
 
 #: ../app/app_procs.c:726
 msgid "Start integrated user interface (diagrams in tabs)"
-msgstr ""
+msgstr "Start integreret brugergrænseflade (diagrammer i faneblade)"
 
 #: ../app/app_procs.c:728
 msgid "Send error messages to stderr instead of showing dialogs."
-msgstr ""
+msgstr "Send fejlbeskeder til stderr frem for at vise dialoger."
 
 #: ../app/app_procs.c:730
 msgid "Directory containing input files"
@@ -158,7 +163,7 @@ msgstr "Vis forfattere og afslut"
 
 #: ../app/app_procs.c:736
 msgid "Generate verbose output"
-msgstr ""
+msgstr "Opret uddybende uddata"
 
 #: ../app/app_procs.c:738
 msgid "Display version and exit"
@@ -174,9 +179,9 @@ msgid "Invalid option?"
 msgstr "Ugyldig indstilling?"
 
 #: ../app/app_procs.c:796
-#, fuzzy, c-format
+#, c-format
 msgid "Filename conversion failed: %s\n"
-msgstr "Dia version %s, kompileret %s %s\n"
+msgstr "Filnavnsændring mislykkedes: %s\n"
 
 #: ../app/app_procs.c:809
 #, c-format
@@ -206,11 +211,12 @@ msgstr ""
 "Afslutter...\n"
 
 #: ../app/app_procs.c:916
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Couldn't find standard objects when looking for object-libs in '%s'; "
 "exiting...\n"
-msgstr "Kunne ikke finde standardobjekter i objektbiblioteket, afslutter...\n"
+msgstr ""
+"Kunne ikke finde standardobjekter i objektbiblioteket '%s'; afslutter...\n"
 
 #: ../app/app_procs.c:983
 msgid "Diagram1.dia"
@@ -226,9 +232,8 @@ msgstr ""
 "Beskriv hvordan du kan få denne besked til at vise sig.\n"
 
 #: ../app/app_procs.c:1033
-#, fuzzy
 msgid "Exiting Dia"
-msgstr "Afslut Dia"
+msgstr "Afslutter Dia"
 
 #. no standard buttons
 #: ../app/app_procs.c:1097
@@ -270,6 +275,8 @@ msgid ""
 "The original author of Dia was:\n"
 "\n"
 msgstr ""
+"Den oprindelige forfatter af Dia var:\n"
+"\n"
 
 #: ../app/app_procs.c:1266
 #, c-format
@@ -278,6 +285,9 @@ msgid ""
 "The current maintainers of Dia are:\n"
 "\n"
 msgstr ""
+"\n"
+"De aktuelle vedligeholdere af Dia er:\n"
+"\n"
 
 #: ../app/app_procs.c:1271
 #, c-format
@@ -286,6 +296,9 @@ msgid ""
 "Other authors are:\n"
 "\n"
 msgstr ""
+"\n"
+"Andre forfattere i projektet:\n"
+"\n"
 
 #: ../app/app_procs.c:1276
 #, c-format
@@ -294,6 +307,9 @@ msgid ""
 "Dia is documented by:\n"
 "\n"
 msgstr ""
+"\n"
+"Dia dokumenteres af:\n"
+"\n"
 
 #: ../app/autosave.c:90
 msgid "Recovering autosaved diagrams"
@@ -317,7 +333,7 @@ msgstr "Vælg baggrundsfarve"
 
 #: ../app/commands.c:130
 msgid "No print plug-in found!"
-msgstr ""
+msgstr "Intet udvidelsesmodul til udskrivning fundet!"
 
 #: ../app/commands.c:150
 #, c-format
@@ -373,18 +389,20 @@ msgstr "Et program til at tegne strukturerede diagrammer."
 #: ../app/confirm.c:69
 #, c-format
 msgid "You are about to print a diagram with %d pages."
-msgstr ""
+msgstr "Du skal til at udskrive et diagram med %d sider."
 
 #: ../app/confirm.c:71
 #, c-format
 msgid "You are about to export a diagram with %d pages."
-msgstr ""
+msgstr "Du skal til at eksportere et diagram med %d sider."
 
 #: ../app/confirm.c:73
 #, c-format
 msgid ""
 "You are about to export a diagram which may require %s of memory.(%d pages)."
 msgstr ""
+"Du skal til at eksportere et diagram som måske kræver %s hukommelse. (%d "
+"sider)."
 
 #: ../app/confirm.c:81
 msgid ""
@@ -395,14 +413,13 @@ msgid ""
 msgstr ""
 
 #: ../app/confirm.c:85
-#, fuzzy
 msgid "Confirm Diagram Size"
-msgstr "Dia-diagramformat"
+msgstr "Bekræft diagramstørrelse"
 
 #: ../app/create_object.c:71
-#, fuzzy, c-format
+#, c-format
 msgid "'%s' creation failed"
-msgstr "Transaktionsfil"
+msgstr "oprettelse af '%s' mislykkedes"
 
 #: ../app/defaults.c:43 ../app/defaults.c:150
 msgid "Object defaults"
@@ -687,16 +704,16 @@ msgstr ""
 #. * Althoug the single objects wont get triggered here some languages have variations on the other numbers
 #.
 #: ../app/display.c:115
-#, fuzzy, c-format
+#, c-format
 msgid "Selection of %d object"
 msgid_plural "Selection of %d objects"
-msgstr[0] "Objektsamlinger og objekter"
-msgstr[1] "Objektsamlinger og objekter"
+msgstr[0] "Samling af %d objekt"
+msgstr[1] "Samling af %d objekter"
 
 #: ../app/display.c:125
-#, fuzzy, c-format
+#, c-format
 msgid "Selected '%s'"
-msgstr "_Markér"
+msgstr "Valgt '%s'"
 
 #. we really should not come here but instead disable the menu command earlier
 #: ../app/display.c:1081
@@ -710,7 +727,7 @@ msgstr "<unavngivet>"
 #. no standard buttons
 #: ../app/display.c:1225
 msgid "Closing diagram without saving"
-msgstr ""
+msgstr "Lukker diagram uden at gemme"
 
 #: ../app/display.c:1227
 #, c-format
@@ -726,31 +743,28 @@ msgid "Close Diagram"
 msgstr "Luk diagram"
 
 #: ../app/display.c:1234
-#, fuzzy
 msgid "_Discard Changes"
-msgstr "Smid ændringer væk"
+msgstr "_Smid ændringer væk"
 
 #: ../app/exit_dialog.c:77
 msgid "Do Not Exit"
-msgstr ""
+msgstr "Afslut ikke"
 
 #: ../app/exit_dialog.c:79
 msgid "Exit Without Save"
-msgstr ""
+msgstr "Afslut uden at gemme"
 
 #: ../app/exit_dialog.c:81
-#, fuzzy
 msgid "Save Selected"
-msgstr "_Markér"
+msgstr "Gem valgt"
 
 #: ../app/exit_dialog.c:87
 msgid "The following are not saved:"
-msgstr ""
+msgstr "De følgende er ikke gemt:"
 
 #: ../app/exit_dialog.c:113
-#, fuzzy
 msgid "Save"
-msgstr "Skalér"
+msgstr "Gem"
 
 #. *** board of value **************
 #: ../app/exit_dialog.c:123 ../app/plugin-manager.c:262
@@ -763,29 +777,25 @@ msgid "Name"
 msgstr "Navn"
 
 #: ../app/exit_dialog.c:129
-#, fuzzy
 msgid "Path"
-msgstr "Drej"
+msgstr "Sti"
 
 #: ../app/exit_dialog.c:142
-#, fuzzy
 msgid "Select All"
-msgstr "/Markér/Alt"
+msgstr "Vælg alle"
 
 #: ../app/exit_dialog.c:150
-#, fuzzy
 msgid "Select None"
-msgstr "/Markér/Ingen"
+msgstr "Vælg ingen"
 
 #: ../app/exit_dialog.c:236
 msgid "Nothing selected for saving.  Would you like to try again?"
-msgstr ""
+msgstr "Intet valgt til gemning. Vil du prøve igen?"
 
 #: ../app/filedlg.c:144 ../app/filedlg.c:152 ../app/filedlg.c:168
 #: ../app/filedlg.c:746 ../lib/widgets.c:1488
-#, fuzzy
 msgid "Supported Formats"
-msgstr "Undertryk operationer"
+msgstr "Understøttede formater"
 
 #: ../app/filedlg.c:192 ../app/filedlg.c:604
 msgid "By extension"
@@ -804,19 +814,17 @@ msgid "Determine file type:"
 msgstr "Bestem filtype:"
 
 #: ../app/filedlg.c:337 ../app/filedlg.c:741 ../lib/widgets.c:1493
-#, fuzzy
 msgid "All Files"
-msgstr "Fil"
+msgstr "Alle filer"
 
 #: ../app/filedlg.c:370 ../plug-ins/postscript/paginate_psprint.c:408
-#, fuzzy
 msgid ""
 "Some characters in the filename are neither UTF-8\n"
 "nor your local encoding.\n"
 "Some things will break."
 msgstr ""
-"Nogle tegn i filnavnet er hverken UTF8 eller i det sprog, dette program "
-"bruger.\n"
+"Nogle tegn i filnavnet er hverken UTF8 eller i din\n"
+"lokale kodning.\n"
 "Noget vil opføre sig mærkeligt."
 
 #: ../app/filedlg.c:380 ../app/filedlg.c:651
@@ -911,9 +919,8 @@ msgstr "Erstat"
 #. * the default "Find and Replace" is just too long for my taste ;)
 #.
 #: ../app/find-and-replace.c:550
-#, fuzzy
 msgid "_Replace"
-msgstr "Erstat"
+msgstr "_Erstat"
 
 #: ../app/interface.c:153
 msgid ""
@@ -992,13 +999,12 @@ msgid "Image"
 msgstr "Billede"
 
 #: ../app/interface.c:244 ../app/menus.c:243
-#, fuzzy
 msgid "Outline"
-msgstr "Datalinje"
+msgstr "Omrids"
 
 #: ../app/interface.c:621 ../app/interface.c:857
 msgid "Pops up the Navigation window."
-msgstr ""
+msgstr "Viser navigationsvinduet."
 
 #: ../app/interface.c:819
 msgid "Diagram menu."
@@ -1010,24 +1016,20 @@ msgstr "Zoom"
 
 #: ../app/interface.c:937
 msgid "Toggles snap-to-grid for this window."
-msgstr "Slå \"Ret ind efter gitter\" til eller fra i dette vindue"
+msgstr "Slå \"Ret ind efter gitter\" til eller fra i dette vindue."
 
 #: ../app/interface.c:948
-#, fuzzy
 msgid "Toggles object snapping for this window."
-msgstr "Slå \"Ret ind efter gitter\" til eller fra i dette vindue"
+msgstr "Slå \"Ret ind efter objekt\" til eller fra i dette vindue."
 
 #: ../app/interface.c:1338
-#, fuzzy, c-format
+#, c-format
 msgid "No sheet named %s"
-msgstr "Objektsamlingsnavn:"
+msgstr "Intet ark med navn %s"
 
 #: ../app/interface.c:1376
-#, fuzzy
 msgid "Other sheets"
-msgstr ""
-"%s\n"
-"Bruger-objektsamling"
+msgstr "Andre ark"
 
 #: ../app/interface.c:1436 ../sheets/Flowchart.sheet.in.h:10
 msgid "Flowchart"
@@ -1096,37 +1098,33 @@ msgid "Delete Layer"
 msgstr "Slet lag"
 
 #: ../app/layer_dialog.c:306
-#, fuzzy
 msgid "Layers:"
-msgstr "Lag"
+msgstr "Lag:"
 
 #: ../app/layer_dialog.c:386
 msgid "Layers"
 msgstr "Lag"
 
 #: ../app/layer_dialog.c:400
-#, fuzzy
 msgid "Diagram:"
-msgstr "Diagrammer:"
+msgstr "Diagram:"
 
 #: ../app/layer_dialog.c:514 ../app/layer_dialog.c:1225
-#, fuzzy, c-format
+#, c-format
 msgid "New layer %d"
-msgstr "Nyt lag"
+msgstr "Nyt lag %d"
 
 #: ../app/layer_dialog.c:729
 msgid "none"
 msgstr "ingen"
 
 #: ../app/layer_dialog.c:1196
-#, fuzzy
 msgid "Edit Layer"
-msgstr "Hæv lag"
+msgstr "Rediger lag"
 
 #: ../app/layer_dialog.c:1196
-#, fuzzy
 msgid "Add Layer"
-msgstr "Nyt lag"
+msgstr "Tilføj lag"
 
 #: ../app/layer_dialog.c:1215
 msgid "Layer name:"
@@ -1151,22 +1149,22 @@ msgstr ""
 "Lænket objekt ikke fundet i dokumentet."
 
 #: ../app/load_save.c:300
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Error loading diagram.\n"
 "connection handle %d does not exist on '%s'."
 msgstr ""
 "Fejl ved indlæsning af diagram.\n"
-"Forbindelseshåndtag eksisterer ikke."
+"Forbindelseshåndtag %d findes ikke på '%s'."
 
 #: ../app/load_save.c:328
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Error loading diagram.\n"
 "connection point %d does not exist on '%s'."
 msgstr ""
 "Fejl ved indlæsning af diagram.\n"
-"Forbindelsespunkt eksisterer ikke."
+"Forbindelsespunkt %d findes ikke på '%s'."
 
 #: ../app/load_save.c:368
 #, fuzzy, c-format
@@ -2557,10 +2555,10 @@ msgstr "Linjefarve"
 msgid "Line style"
 msgstr "Linjestil"
 
+# Jeg kunne bedre lide "Fyldfarve", evt. "Farve til udfyldning"
 #: ../lib/properties.c:76 ../lib/properties.h:510 ../lib/properties.h:513
-#, fuzzy
 msgid "Fill color"
-msgstr "Fyldfarve"
+msgstr "Farve for udfyld"
 
 #: ../lib/properties.c:77 ../lib/properties.h:516 ../lib/properties.h:519
 msgid "Draw background"
@@ -2604,7 +2602,7 @@ msgstr "Tekstfarve"
 #: ../lib/proplist.c:163
 #, c-format
 msgid "No attribute '%s' (%p) or no data(%p) in this attribute"
-msgstr ""
+msgstr "Ingen attribut '%s' (%p) eller ingen data(%p) i denne attribut"
 
 #: ../lib/sheet.c:69 ../lib/sheet.c:84
 #, c-format
@@ -2612,6 +2610,8 @@ msgid ""
 "DiaObject '%s' needed in sheet '%s' was not found.\n"
 "It will not be available for use."
 msgstr ""
+"DiaObject '%s' krævet i ark '%s' blev ikke fundet.\n"
+"Objektet vil ikke være tilgængeligt til brug."
 
 #: ../lib/sheet.c:314
 #, c-format
@@ -2622,11 +2622,16 @@ msgid ""
 "Move new objects (if any) from '%s' into your custom sheet\n"
 "or remove '%s', using the 'Sheets and Objects' dialog."
 msgstr ""
+"Systemarket '%s' ser ud til at være nyere end din tilpassede\n"
+"version og er blevet indlæst som '%s' til denne session.\n"
+"\n"
+"Flyt nye objekter (hvis de findes) fra '%s' til dit tilpassede ark\n"
+"eller fjern '%s', med brug af dialogen 'Ark og objekter'."
 
 #: ../lib/sheet.c:371
 #, c-format
 msgid "%s: you should use object tags rather than shape tags now"
-msgstr ""
+msgstr "%s: Du bør bruge objektmærker frem for at forme mærker nu"
 
 #: ../lib/widgets.c:441
 msgid "Other fonts"
@@ -2719,25 +2724,24 @@ msgstr ""
 
 #. Installer message: Components page
 #: ../installer/win32/gennsh.c:50
-#, fuzzy
 msgid "Dia Diagram Editor (required)"
-msgstr "Dia - diagramtegning"
+msgstr "Dia - diagramredigering (påkrævet)"
 
 #. Installer message: Components page
 #: ../installer/win32/gennsh.c:53
-#, fuzzy
 msgid "Translations"
-msgstr "Oversættelse"
+msgstr "Oversættelser"
 
 #. Installer message: Component description
 #: ../installer/win32/gennsh.c:56
 msgid "Optional translations of the Dia user interface"
-msgstr ""
+msgstr "Valgfrie oversættelser af Dias brugergrænseflade"
 
+# Er "DLL'er" ikke bedre?
 #. Installer message: Component description
 #: ../installer/win32/gennsh.c:59
 msgid "Core Dia files and dlls"
-msgstr ""
+msgstr "Kernefiler til Dia og dll'er"
 
 #. Installer message: Component name
 #: ../installer/win32/gennsh.c:62
@@ -2750,16 +2754,18 @@ msgid ""
 "Support for the Python Scripting Language 2.3. Do not select this if Python "
 "is not installed."
 msgstr ""
+"Understøttelse af skriptsproget Python 2.3. Vælg ikke denne hvis Python ikke "
+"er installeret."
 
 #. Installer message: hyperlink text on finish page
 #: ../installer/win32/gennsh.c:68
 msgid "Visit the Dia for Windows Web Page"
-msgstr ""
+msgstr "Besøg Dia til Windows' hjemmeside"
 
 #. Installer message: Dia uninstaller entry in Control Panel
 #: ../installer/win32/gennsh.c:71
 msgid "Dia (remove only)"
-msgstr ""
+msgstr "Dia (fjern kun)"
 
 #. Installer message: confirmation question. Keep $\r
 #: ../installer/win32/gennsh.c:74
@@ -2768,6 +2774,10 @@ msgid ""
 "$\rNote: Any non-standard plugins that you may have installed will be "
 "deleted.$\rDia user settings will not be affected."
 msgstr ""
+"Din gamle Diamappe er ved at blive slettet. Ønsker du at fortsætte?$\r$"
+"\rBemærk: Alle udvidelsesmoduler, som ikke er standard og som du har "
+"installeret, vil blive slettet.$\rDias brugeropsætning vil ikke blive "
+"påvirket."
 
 #. Installer message: confirmatin question. Keep $\r
 #: ../installer/win32/gennsh.c:77
@@ -2775,6 +2785,8 @@ msgid ""
 "The installation directory you specified already exists. Any contents$\rwill "
 "be deleted. Would you like to continue?"
 msgstr ""
+"Installationsmappen du angav findes allerede. Alt indhold$\rvil blive "
+"slettet. Ønsker du at fortsætte?"
 
 #. Installer message: Uninstall Section Prompts. Keep $\r
 #: ../installer/win32/gennsh.c:80
@@ -2786,18 +2798,19 @@ msgstr ""
 #. Installer message: Uninstall error message
 #: ../installer/win32/gennsh.c:83
 msgid "You do not have permission to uninstall this application."
-msgstr ""
+msgstr "Du har ikke rettigheder til at afinstallere dette program."
 
 #. Installer message: Uninstallation warning. Keep $INSTDIR
 #: ../installer/win32/gennsh.c:86
 msgid "This will completely delete $INSTDIR and all subdirectories. Continue?"
-msgstr ""
+msgstr "Dette vil fuldstændig slette $INSTDIR og alle undermapper. Fortsæt?"
 
 #. Installer message: Uninstallation warning. Keep $\PROFILE\.dia
 #: ../installer/win32/gennsh.c:89
 msgid ""
 "This will completely delete $PROFILE\\.dia and all subdirectories. Continue?"
 msgstr ""
+"Dette vil fuldstændig slette $PROFILE\\.dia og alle undermapper. Fortsæt?"
 
 #: ../objects/AADL/aadl.c:52
 #, fuzzy
@@ -2810,9 +2823,8 @@ msgid "Declaration"
 msgstr "Forberedelse"
 
 #: ../objects/AADL/aadlbox.c:358
-#, fuzzy
 msgid "Add Access Provider"
-msgstr "Filserver"
+msgstr "Tilføj adgangsleverandør"
 
 #: ../objects/AADL/aadlbox.c:360
 #, fuzzy
@@ -2825,57 +2837,53 @@ msgstr "Tilføj inddataport"
 
 #: ../objects/AADL/aadlbox.c:364
 msgid "Add In Event Port"
-msgstr ""
+msgstr "Tilføj begivenhedsport"
 
 #: ../objects/AADL/aadlbox.c:366
 msgid "Add In Event Data Port"
-msgstr ""
+msgstr "Tilføj begivenhedsdataport"
 
 #: ../objects/AADL/aadlbox.c:368
 msgid "Add Out Data Port"
-msgstr ""
+msgstr "Fjern dataport"
 
 #: ../objects/AADL/aadlbox.c:370
 msgid "Add Out Event Port"
-msgstr ""
+msgstr "Fjern begivenhedsport"
 
 #: ../objects/AADL/aadlbox.c:372
 msgid "Add Out Event Data Port"
-msgstr ""
+msgstr "Fjern begivenhedsdataport"
 
 #: ../objects/AADL/aadlbox.c:374
 msgid "Add In Out Data Port"
-msgstr ""
+msgstr "Tilføj udgående dataport"
 
 #: ../objects/AADL/aadlbox.c:376
 msgid "Add In Out Event Port"
-msgstr ""
+msgstr "Tilføj indgående begivenhedsport"
 
 #: ../objects/AADL/aadlbox.c:378
 msgid "Add In Out Event Data Port"
-msgstr ""
+msgstr "Tilføj udgående begivenhedsdataport"
 
 #: ../objects/AADL/aadlbox.c:380
 msgid "Add Port Group"
 msgstr "Tilføj portgruppe"
 
 #: ../objects/AADL/aadlbox.c:382
-#, fuzzy
 msgid "Add Connection Point"
 msgstr "Tilføj forbindelsespunkt"
 
 #: ../objects/AADL/aadlbox.c:386
-#, fuzzy
 msgid "Delete Port"
-msgstr "Slet hjørne"
+msgstr "Slet port"
 
 #: ../objects/AADL/aadlbox.c:387
-#, fuzzy
 msgid "Edit Port Declaration"
-msgstr "Forberedelse"
+msgstr "Rediger porterklæring"
 
 #: ../objects/AADL/aadlbox.c:391
-#, fuzzy
 msgid "Delete Connection Point"
 msgstr "Slet forbindelsespunkt"
 
@@ -2928,7 +2936,7 @@ msgstr "Kommentar"
 
 #: ../objects/Database/table.c:144
 msgid "Primary key"
-msgstr "Primær tast"
+msgstr "Primærtast"
 
 #: ../objects/Database/table.c:146
 msgid "Nullable"
@@ -2948,11 +2956,11 @@ msgstr "Kommentarmærkning"
 
 #: ../objects/Database/table.c:189 ../objects/Database/table_dialog.c:976
 msgid "Underline primary keys"
-msgstr ""
+msgstr "Understreg primærtaster"
 
 #: ../objects/Database/table.c:191 ../objects/Database/table_dialog.c:981
 msgid "Use bold font for primary keys"
-msgstr ""
+msgstr "brug fed skriftype for primærtaster"
 
 #. property rows
 #: ../objects/Database/table.c:196 ../objects/SADT/arrow.c:136
@@ -3030,7 +3038,7 @@ msgstr "Kommentar:"
 
 #: ../objects/Database/table_dialog.c:726
 msgid "_Primary key"
-msgstr ""
+msgstr "_Primærtast"
 
 #: ../objects/Database/table_dialog.c:733
 msgid "N_ullable"
@@ -3038,7 +3046,7 @@ msgstr ""
 
 #: ../objects/Database/table_dialog.c:740
 msgid "Uni_que"
-msgstr ""
+msgstr "_Unik"
 
 #: ../objects/Database/table_dialog.c:928
 msgid "_Table"
@@ -3051,9 +3059,8 @@ msgstr "Tabelnavn:"
 #. XXX create a handler and disable the 'show documentation tag' checkbox
 #. if 'comment visible' is not active.
 #: ../objects/Database/table_dialog.c:966
-#, fuzzy
 msgid "Comment visible"
-msgstr "Synlige kommentarer"
+msgstr "Synlig kommentar"
 
 #: ../objects/Database/table_dialog.c:971 ../objects/UML/class_dialog.c:522
 msgid "Show documentation tag"
@@ -3093,11 +3100,11 @@ msgstr "Forgrundsfarve:"
 #. two chars at the beginning
 #: ../objects/Database/table_dialog.c:1383
 msgid "not null"
-msgstr ""
+msgstr "ikke null"
 
 #: ../objects/Database/table_dialog.c:1384
 msgid "null"
-msgstr ""
+msgstr "null"
 
 #: ../objects/Database/table_dialog.c:1385
 msgid "unique"
@@ -3138,9 +3145,8 @@ msgid "Delete segment"
 msgstr "Slet segment"
 
 #: ../objects/Database/reference.c:151 ../sheets/Database.sheet.in.h:4
-#, fuzzy
 msgid "Reference"
-msgstr "Indstillinger"
+msgstr "Reference"
 
 #: ../objects/ER/attribute.c:157
 msgid "Key:"
@@ -4413,19 +4419,16 @@ msgid "GRAFCET OR/AND vergent"
 msgstr "GRAFCET ELLER/OG bjælke"
 
 #: ../objects/Istar/actor.c:68 ../objects/Istar/link.c:150
-#, fuzzy
 msgid "Unspecified"
-msgstr "Udefineret"
+msgstr "Uangivet"
 
 #: ../objects/Istar/actor.c:69 ../objects/KAOS/other.c:75
-#, fuzzy
 msgid "Agent"
-msgstr "Justering:"
+msgstr "Agent"
 
 #: ../objects/Istar/actor.c:71 ../objects/UML/association.c:247
-#, fuzzy
 msgid "Role"
-msgstr "Rolle:"
+msgstr "Rolle"
 
 #: ../objects/Istar/goal.c:76 ../objects/KAOS/goal.c:79
 msgid "Softgoal"
@@ -4445,7 +4448,7 @@ msgstr "Samme type"
 #
 #: ../objects/Istar/istar.c:46
 msgid "Istar diagram"
-msgstr "Sortér _diagrammer"
+msgstr "Istardiagram"
 
 #: ../objects/Istar/link.c:151
 #, fuzzy
@@ -4477,7 +4480,7 @@ msgstr "Reducér"
 
 #: ../objects/Istar/other.c:74 ../sheets/BPMN.sheet.in.h:43
 msgid "Task"
-msgstr ""
+msgstr "Opgave"
 
 #: ../objects/Istar/other.c:477
 #, fuzzy
@@ -4490,12 +4493,11 @@ msgstr ""
 
 #: ../objects/Jackson/domain.c:80
 msgid "Designed Domain"
-msgstr ""
+msgstr "Designet domæne"
 
 #: ../objects/Jackson/domain.c:81
-#, fuzzy
 msgid "Machine Domain"
-msgstr "Macintosh-kvinde"
+msgstr "Maskinedomæne"
 
 #: ../objects/Jackson/domain.c:97
 #, fuzzy
@@ -4513,9 +4515,8 @@ msgid "Lexical"
 msgstr "Kemisk"
 
 #: ../objects/Jackson/domain.c:178 ../objects/Jackson/domain.c:179
-#, fuzzy
 msgid "Domain Type"
-msgstr "Samme type"
+msgstr "Domænetype"
 
 #: ../objects/Jackson/domain.c:183
 msgid "Domain Kind"
@@ -4527,14 +4528,12 @@ msgid "Optional kind which appears in the lower right corner of the Domain"
 msgstr "Identifikator som vises i nedre venstre hjørne af boksen"
 
 #: ../objects/Jackson/domain.c:539
-#, fuzzy
 msgid "Jackson domain"
-msgstr "Macintosh-kvinde"
+msgstr "Jacksondomæne"
 
 #: ../objects/Jackson/jackson.c:47
-#, fuzzy
 msgid "Jackson diagram"
-msgstr "Opret nyt diagram"
+msgstr "Jacksondiagram"
 
 #: ../objects/Jackson/phenomenon.c:136
 #, fuzzy
@@ -4542,9 +4541,8 @@ msgid "Shared"
 msgstr "Figur"
 
 #: ../objects/Jackson/phenomenon.c:137 ../objects/KAOS/goal.c:81
-#, fuzzy
 msgid "Requirement"
-msgstr "Repræsentér"
+msgstr "Krav"
 
 #. how it used to be before 0.96+SVN
 #. new name matching "same name, same type"  rule
@@ -4555,7 +4553,7 @@ msgstr "Meddelelse:"
 
 #: ../objects/KAOS/goal.c:82
 msgid "Assumption"
-msgstr ""
+msgstr "Antagelse"
 
 #: ../objects/KAOS/goal.c:83
 #, fuzzy
@@ -4567,9 +4565,8 @@ msgid "KAOS goal"
 msgstr ""
 
 #: ../objects/KAOS/kaos.c:49
-#, fuzzy
 msgid "KAOS diagram"
-msgstr "Nyt diagram:"
+msgstr "KAOS-diagram"
 
 #: ../objects/KAOS/metaandorrel.c:153
 #, fuzzy
@@ -8121,11 +8118,11 @@ msgstr "Blok 7"
 
 #: ../sheets/IsometricMap.sheet.in.h:8
 msgid "Car 1, Front View"
-msgstr ""
+msgstr "Bil 1, set forfra"
 
 #: ../sheets/IsometricMap.sheet.in.h:9
 msgid "Car 2, Rear View"
-msgstr ""
+msgstr "Bil 2, set bagfra"
 
 #: ../sheets/IsometricMap.sheet.in.h:10
 msgid "Corner 1"
@@ -8141,7 +8138,7 @@ msgstr "Vejkryds"
 
 #: ../sheets/IsometricMap.sheet.in.h:13
 msgid "Elevated Road"
-msgstr ""
+msgstr "Hævet vej"
 
 #: ../sheets/IsometricMap.sheet.in.h:14
 msgid "Factory"
@@ -8149,7 +8146,7 @@ msgstr "Fabrik"
 
 #: ../sheets/IsometricMap.sheet.in.h:15
 msgid "Footbridge, Pedestrian Bridge"
-msgstr ""
+msgstr "Bro til gående, fodgængerbro"
 
 #. use dc:description instead?
 #: ../sheets/IsometricMap.sheet.in.h:17
@@ -8158,12 +8155,12 @@ msgstr ""
 
 #: ../sheets/IsometricMap.sheet.in.h:18
 msgid "Long Straight Road Section"
-msgstr ""
+msgstr "Langt lige vejstykke"
 
 #. use dc:title instead?
 #: ../sheets/IsometricMap.sheet.in.h:20
 msgid "Map, Isometric"
-msgstr ""
+msgstr "Kort, isometrisk"
 
 #: ../sheets/IsometricMap.sheet.in.h:21
 msgid "One Way Road Sign"
@@ -8173,15 +8170,14 @@ msgstr "Ensrettet skilt"
 msgid "River"
 msgstr "Flod"
 
+# Vej, del af - Et stykke vej - Vejafsnit- Vejstykke
 #: ../sheets/IsometricMap.sheet.in.h:23
-#, fuzzy
 msgid "Road Section"
-msgstr "Rotation"
+msgstr "Vejsektion"
 
 #: ../sheets/IsometricMap.sheet.in.h:24
-#, fuzzy
 msgid "Roof1"
-msgstr "Rotor"
+msgstr "Loft1"
 
 #: ../sheets/IsometricMap.sheet.in.h:25
 msgid "T-Junction"
@@ -8189,11 +8185,11 @@ msgstr "T-kryds"
 
 #: ../sheets/IsometricMap.sheet.in.h:26
 msgid "Train 1, angled downward"
-msgstr ""
+msgstr "Tog 1, vinklet nedad"
 
 #: ../sheets/IsometricMap.sheet.in.h:27
 msgid "Train 2, angled upward"
-msgstr ""
+msgstr "Tog 2, vinklet opad"
 
 #: ../sheets/IsometricMap.sheet.in.h:28
 msgid "Tree 1"
@@ -8421,13 +8417,12 @@ msgid "Fresel lantern"
 msgstr ""
 
 #: ../sheets/Lights.sheet.in.h:6
-#, fuzzy
 msgid "Lights"
-msgstr "Højre"
+msgstr "Lys"
 
 #: ../sheets/Lights.sheet.in.h:7
 msgid "Moving head"
-msgstr ""
+msgstr "Bevægende hoved"
 
 #: ../sheets/Lights.sheet.in.h:8
 #, fuzzy
@@ -8752,13 +8747,12 @@ msgid "State"
 msgstr "Tilstand"
 
 #: ../sheets/SISSI.sheet.in.h:1
-#, fuzzy
 msgid "Air filter"
-msgstr "Tilføj hjørne"
+msgstr "Luftfilter"
 
 #: ../sheets/SISSI.sheet.in.h:2
 msgid "Air quality detector"
-msgstr ""
+msgstr "Måler af luftkvalitet"
 
 #: ../sheets/SISSI.sheet.in.h:3
 #, fuzzy
@@ -8838,9 +8832,8 @@ msgid "File cabinet"
 msgstr "Arkivskab"
 
 #: ../sheets/SISSI.sheet.in.h:21
-#, fuzzy
 msgid "Gate"
-msgstr "MAS gateway"
+msgstr "Port"
 
 #: ../sheets/SISSI.sheet.in.h:22
 #, fuzzy
@@ -8856,14 +8849,12 @@ msgid "Hub"
 msgstr "Hub"
 
 #: ../sheets/SISSI.sheet.in.h:25
-#, fuzzy
 msgid "Information"
-msgstr "Arbejdsstation"
+msgstr "Information"
 
 #: ../sheets/SISSI.sheet.in.h:26
-#, fuzzy
 msgid "Information system"
-msgstr "XSL-transformationsfilter"
+msgstr "Informationssystem"
 
 #: ../sheets/SISSI.sheet.in.h:28 ../sheets/ciscocomputer.sheet.in.h:21
 msgid "Laptop"
@@ -8874,19 +8865,18 @@ msgstr "Bærbar PC"
 msgid "Level detector"
 msgstr "Aktør"
 
+# lyssensor
 #: ../sheets/SISSI.sheet.in.h:30
-#, fuzzy
 msgid "Light detector"
-msgstr "Aktør"
+msgstr "Lysføler"
 
 #: ../sheets/SISSI.sheet.in.h:31
 msgid "Log analysis"
-msgstr ""
+msgstr "Loganalyse"
 
 #: ../sheets/SISSI.sheet.in.h:32
-#, fuzzy
 msgid "Magnetic storage"
-msgstr "Magnetbånd"
+msgstr "Magnetisk lager"
 
 #: ../sheets/SISSI.sheet.in.h:33 ../sheets/ciscocomputer.sheet.in.h:25
 msgid "Modem"
@@ -8896,13 +8886,15 @@ msgstr "Modem"
 msgid "Moisture extractor"
 msgstr ""
 
+# fugtighedsføler
 #: ../sheets/SISSI.sheet.in.h:35
 msgid "Moisture sensor"
-msgstr ""
+msgstr "Fugtighedssensor"
 
+# bevægelsesføler
 #: ../sheets/SISSI.sheet.in.h:36
 msgid "Movement detector"
-msgstr ""
+msgstr "Bevægelsessensor"
 
 #: ../sheets/SISSI.sheet.in.h:37 ../sheets/network.sheet.in.h:21
 msgid "Network cloud"
@@ -8918,9 +8910,8 @@ msgid "PDA"
 msgstr "PDA"
 
 #: ../sheets/SISSI.sheet.in.h:40
-#, fuzzy
 msgid "Paper storage"
-msgstr "Intern lagring"
+msgstr "Papirlager"
 
 #: ../sheets/SISSI.sheet.in.h:41
 msgid "Person"
@@ -8937,7 +8928,7 @@ msgstr ""
 
 #: ../sheets/SISSI.sheet.in.h:44
 msgid "Pump"
-msgstr ""
+msgstr "Pumpe"
 
 #: ../sheets/SISSI.sheet.in.h:45 ../sheets/ciscocomputer.sheet.in.h:37
 msgid "Relational Database"
@@ -8965,9 +8956,8 @@ msgid "Security area"
 msgstr "Sikkerhedsområde"
 
 #: ../sheets/SISSI.sheet.in.h:51
-#, fuzzy
 msgid "Sensor beam"
-msgstr "Føl"
+msgstr "Sensorstråle"
 
 #: ../sheets/SISSI.sheet.in.h:52
 msgid "Server"
@@ -9096,10 +9086,10 @@ msgstr "Lille pakke"
 msgid "UML"
 msgstr "UML"
 
+# eller case noget helt andet her?
 #: ../sheets/UML.sheet.in.h:32
-#, fuzzy
 msgid "Use case"
-msgstr "Brug situation"
+msgstr "Brug store/små bogstaver"
 
 #: ../sheets/chronogram.sheet.in.h:1
 msgid "Chronogram"
@@ -9118,9 +9108,8 @@ msgid "Time scale"
 msgstr "Tidsskala"
 
 #: ../sheets/ciscocomputer.sheet.in.h:1
-#, fuzzy
 msgid "BBS"
-msgstr "BBSM"
+msgstr "BBS"
 
 #: ../sheets/ciscocomputer.sheet.in.h:2
 msgid "Cisco - Computer"
@@ -9151,9 +9140,8 @@ msgid "Diskette"
 msgstr "Diskette"
 
 #: ../sheets/ciscocomputer.sheet.in.h:9
-#, fuzzy
 msgid "EtherClient"
-msgstr "Ethernetbus"
+msgstr "EtherClient"
 
 #: ../sheets/ciscocomputer.sheet.in.h:10
 #, fuzzy
@@ -9194,13 +9182,12 @@ msgid "IBM mainframe"
 msgstr "IBM-mainframe"
 
 #: ../sheets/ciscocomputer.sheet.in.h:19
-#, fuzzy
 msgid "IBM mainframe with FEP"
-msgstr "IBM-mainframe"
+msgstr "IBM-mainframe med FEP"
 
 #: ../sheets/ciscocomputer.sheet.in.h:20
 msgid "JBOD"
-msgstr ""
+msgstr "JBOD"
 
 #: ../sheets/ciscocomputer.sheet.in.h:22
 msgid "Macintosh"
@@ -9227,24 +9214,20 @@ msgid "PC"
 msgstr "PC"
 
 #: ../sheets/ciscocomputer.sheet.in.h:29
-#, fuzzy
 msgid "PC Adapter Card"
-msgstr "PC adapter card"
+msgstr "PC-adapterkort"
 
 #: ../sheets/ciscocomputer.sheet.in.h:30
-#, fuzzy
 msgid "PC Card"
-msgstr "PC-mand"
+msgstr "PC-kort"
 
 #: ../sheets/ciscocomputer.sheet.in.h:31
-#, fuzzy
 msgid "PC Router Card"
 msgstr "PC-routerkort"
 
 #: ../sheets/ciscocomputer.sheet.in.h:32
-#, fuzzy
 msgid "PC Software"
-msgstr "IP Softphone"
+msgstr "PC-software"
 
 #: ../sheets/ciscocomputer.sheet.in.h:33
 msgid "PC Video"
@@ -9252,7 +9235,7 @@ msgstr "PC-Video"
 
 #: ../sheets/ciscocomputer.sheet.in.h:34
 msgid "PC with Router-Based Software"
-msgstr ""
+msgstr "PC med routerbaseret software"
 
 #: ../sheets/ciscocomputer.sheet.in.h:38
 msgid "SUN workstation"
@@ -10909,1106 +10892,3 @@ msgstr "Sybase-dataserver"
 #: ../sheets/sybase.sheet.in.h:8
 msgid "Sybase replication server"
 msgstr "Sybase-replikeringsserver"
-
-#~ msgid "Show this help message"
-#~ msgstr "Vis denne hjælpemeddelelse"
-
-#~ msgid "Thank you for using Dia.\n"
-#~ msgstr "Tak for at du bruger Dia.\n"
-
-#~ msgid "[OPTION...] [FILE...]"
-#~ msgstr "[TILVALG...] [FIL...]"
-
-#~ msgid ""
-#~ "Error on option %s: %s.\n"
-#~ "Run '%s --help' to see a full list of available command line options.\n"
-#~ msgstr ""
-#~ "Fejl ved tilvalg %s: %s.\n"
-#~ "Kør '%s --help' for at se en komplet liste over mulige "
-#~ "kommandolinjetilvalg.\n"
-
-#, fuzzy
-#~ msgid "Export format to use"
-#~ msgstr "Filnavn for konverteret fil"
-
-#~ msgid "eps,png,wmf,cgm,dxf,fig"
-#~ msgstr "eps,png,wmf,cgm,dxf,fig"
-
-#~ msgid "Export file name to use"
-#~ msgstr "Filnavn for konverteret fil"
-
-#~ msgid "Quiet operation"
-#~ msgstr "Undertryk meddelelser"
-
-#~ msgid ""
-#~ "Error: No arguments found.\n"
-#~ "Run '%s --help' to see a full list of available command line options.\n"
-#~ msgstr ""
-#~ "Fejl: Ingen argumenter angivet.\n"
-#~ "Kør '%s --help' for at se en komplet liste over mulige "
-#~ "kommandolinjeflag.\n"
-
-#~ msgid "%s error: can specify only one of -t or -o."
-#~ msgstr "%s fejl: kan kun angive én af -f eller -o."
-
-#~ msgid ""
-#~ "%s error: must specify only one of -t or -o.\n"
-#~ "Run '%s --help' to see a full list of available command line options.\n"
-#~ msgstr ""
-#~ "%s fejl: enten -t eller -o skal angives.\n"
-#~ "Kør '%s --help' for at se en komplet liste over mulige "
-#~ "kommandolinjeflag.\n"
-
-#~ msgid "%s error: no input file."
-#~ msgstr "%s fejl: behøver gyldig indfil"
-
-#~ msgid "%s error: only one input file expected."
-#~ msgstr "%s Fejl: Der kan kun angives én indfil."
-
-#~ msgid "%s error: popt library not available on this system"
-#~ msgstr "%s Fejl: popt-biblioteket er ikke tilgængeligt på dette system."
-
-#~ msgid "Diagram modified!"
-#~ msgstr "Diagrammet er ændret!"
-
-#~ msgid "NULL tooldata in tool_select_update"
-#~ msgstr "NULL værktøjdata i tool_select_update"
-
-#~ msgid "Edit Layer Attributes"
-#~ msgstr "Egenskaber"
-
-#, fuzzy
-#~ msgid "_Diagram"
-#~ msgstr "Diagrammer:"
-
-#~ msgid ""
-#~ "Your local character set is UTF-8. Because of issues with libxml1 and the "
-#~ "support of files generated by previous versions of dia, you will "
-#~ "encounter  problems. Please report to dia-list@gnome.org if you see this "
-#~ "message."
-#~ msgstr ""
-#~ "Dit lokale tegnsæt er UTF-8. På grund af problemer med libxml1 og "
-#~ "understøttelsen for filer genereret af tidligere versioner af dia, vil du "
-#~ "møde problemer. Rapportér venligst til dia-list@gnome.org hvis du ser "
-#~ "denne besked."
-
-#~ msgid "abcdefghijk ABCDEFGHIJK"
-#~ msgstr "abcdefghijk-æøå ABCDEFGHIJK-ÆØÅ"
-
-#~ msgid "Font name"
-#~ msgstr "Skrifttypenavn"
-
-#~ msgid "The X string that represents this font."
-#~ msgstr "Den X-streng der repræsenterer denne skrifttype."
-
-#~ msgid "Preview text"
-#~ msgstr "Eksempeltekst"
-
-#~ msgid "The text to display in order to demonstrate the selected font."
-#~ msgstr "Teksten, der vises for at demonstrere den valgte skrifttype."
-
-#~ msgid "_Family:"
-#~ msgstr "_Familie:"
-
-#~ msgid "Si_ze:"
-#~ msgstr "_Størrelse:"
-
-#~ msgid "_Preview:"
-#~ msgstr "_Eksempel:"
-
-#~ msgid "Font Selection"
-#~ msgstr "Vælg skrifttype"
-
-#~ msgid "Could not deduce correct path for `%s'"
-#~ msgstr "Kunne ikke udlede korrekt sti for '%s'"
-
-#~ msgid ""
-#~ "Could not load plugin '%s'\n"
-#~ "%s"
-#~ msgstr ""
-#~ "Kunne ikke indlæse udvidelsesmodul '%s'\n"
-#~ "%s"
-
-#~ msgid "Could not find plugin init function in `%s'"
-#~ msgstr "Kunne ikke finde udvidelsesmodul-initialiseringsfunktion i '%s'"
-
-#~ msgid "Delete  connection point"
-#~ msgstr "Slet forbindelsespunkt"
-
-#~ msgid "Role:"
-#~ msgstr "Rolle:"
-
-#, fuzzy
-#~ msgid "Bond graph objects"
-#~ msgstr "Forbind grafobjekter"
-
-#~ msgid "Flip Horizontal"
-#~ msgstr "Vend vandret"
-
-#~ msgid "Flip Vertical"
-#~ msgstr "Vend lodret"
-
-#~ msgid "Add Segment"
-#~ msgstr "Tilføj segment"
-
-#~ msgid "Bad vertex bulge\n"
-#~ msgstr "Ugylding spids udbuling\n"
-
-#~ msgid "Scale: %f\n"
-#~ msgstr "Skalering: %f\n"
-
-#~ msgid "Unknown dxf code %d\n"
-#~ msgstr "Ukendt dfx-kode %d\n"
-
-#, fuzzy
-#~ msgid "GNOME Scalable Vector Graphic"
-#~ msgstr "Skalérbar vektorgrafik"
-
-#, fuzzy
-#~ msgid "Unexpected polyline object: %s\n"
-#~ msgstr "Kunne ikke læse info om polylinje: %s\n"
-
-#~ msgid "Dia"
-#~ msgstr "Dia"
-
-#, fuzzy
-#~ msgid "Copyright (C) 1998-2005 The Free Software Foundation and the authors"
-#~ msgstr ""
-#~ "Ophavsret (C) 1998-2002 The Free Software Foundation og forfatterne."
-
-#~ msgid "Diagram tree"
-#~ msgstr "Diagramtræ"
-
-#~ msgid "Modify object(s)"
-#~ msgstr "Ændr objekter"
-
-#~ msgid "Failed to save file '%s'.\n"
-#~ msgstr "Kunne ikke gemme fil '%s'.\n"
-
-#~ msgid "/File/_New"
-#~ msgstr "/Filer/_Ny"
-
-#~ msgid "/File/_Open..."
-#~ msgstr "/Filer/Å_bn..."
-
-#~ msgid "/File/---"
-#~ msgstr "/Fil/---"
-
-#~ msgid "/File/_Diagram tree"
-#~ msgstr "/File/_Diagramtræ"
-
-#~ msgid "/File/Sheets and Objects..."
-#~ msgstr "/Filer/Objekter og -samlinger..."
-
-#~ msgid "/File/_Preferences..."
-#~ msgstr "/Filer/_Indstillinger..."
-
-#~ msgid "/File/P_lugins..."
-#~ msgstr "/Filer/_Udvidelsesmoduler"
-
-#~ msgid "/File/_Quit"
-#~ msgstr "/Filer/_Afslut"
-
-#~ msgid "/_Help"
-#~ msgstr "/_Hjælp"
-
-#, fuzzy
-#~ msgid "/Help/_Contents"
-#~ msgstr "/Hjælp/_Om..."
-
-#~ msgid "/Help/---"
-#~ msgstr "/Hjælp/---"
-
-#~ msgid "/Help/_About..."
-#~ msgstr "/Hjælp/_Om..."
-
-#~ msgid "/File/_Save"
-#~ msgstr "/Filer/_Gem"
-
-#~ msgid "/File/Save _As..."
-#~ msgstr "/Filer/Gem _som..."
-
-#~ msgid "/File/_Export..."
-#~ msgstr "/Filer/_Eksportér..."
-
-#~ msgid "/File/Page Set_up..."
-#~ msgstr "/Filer/Side_opsætning..."
-
-#~ msgid "/File/_Print Diagram..."
-#~ msgstr "/File/_Udskriv diagram..."
-
-#~ msgid "/File/_Close"
-#~ msgstr "/Filer/_Luk"
-
-#~ msgid "/_Edit"
-#~ msgstr "/_Redigér"
-
-#~ msgid "/Edit/_Undo"
-#~ msgstr "/Redigér/Fortr_yd"
-
-#~ msgid "/Edit/_Redo"
-#~ msgstr "/Redigér/_Omgør"
-
-#~ msgid "/Edit/---"
-#~ msgstr "/Redigér/---"
-
-#~ msgid "/Edit/_Copy"
-#~ msgstr "/Redigér/_Kopiér"
-
-#~ msgid "/Edit/C_ut"
-#~ msgstr "/Redigér/K_lip"
-
-#~ msgid "/Edit/_Paste"
-#~ msgstr "/Redigér/_Indsæt"
-
-#~ msgid "/Edit/_Delete"
-#~ msgstr "/Redigér/_Slet"
-
-#~ msgid "/Edit/Copy Text"
-#~ msgstr "/Redigér/Kopiér tekst"
-
-#~ msgid "/Edit/Paste _Text"
-#~ msgstr "/Redigér/Indsæt _tekst"
-
-#, fuzzy
-#~ msgid "/Diagram/_Properties..."
-#~ msgstr "Diagramegenskaber..."
-
-#, fuzzy
-#~ msgid "/Diagram/_Layers..."
-#~ msgstr "/Dialoger/_Lag..."
-
-#~ msgid "/View/Zoom _In"
-#~ msgstr "/Vis/Forstør"
-
-#~ msgid "/View/Zoom _Out"
-#~ msgstr "/Vis/For_mindsk"
-
-#~ msgid "/View/_Zoom"
-#~ msgstr "/Vis/_Zoom"
-
-#, fuzzy
-#~ msgid "/View/Zoom/1600%"
-#~ msgstr "/Vis/Zoom/100%"
-
-#, fuzzy
-#~ msgid "/View/Zoom/800%"
-#~ msgstr "/Vis/Zoom/400%"
-
-#~ msgid "/View/Zoom/400%"
-#~ msgstr "/Vis/Zoom/400%"
-
-#~ msgid "/View/Zoom/283%"
-#~ msgstr "/Vis/Zoom/283%"
-
-#~ msgid "/View/Zoom/200%"
-#~ msgstr "/Vis/Zoom/200%"
-
-#~ msgid "/View/Zoom/141%"
-#~ msgstr "/Vis/Zoom/141%"
-
-#~ msgid "/View/Zoom/100%"
-#~ msgstr "/Vis/Zoom/100%"
-
-#~ msgid "/View/Zoom/85%"
-#~ msgstr "/Vis/Zoom/85%"
-
-#~ msgid "/View/Zoom/70.7%"
-#~ msgstr "/Vis/Zoom/70.7%"
-
-#~ msgid "/View/Zoom/50%"
-#~ msgstr "/Vis/Zoom/50%"
-
-#~ msgid "/View/Zoom/35.4%"
-#~ msgstr "/Vis/Zoom/35.4%"
-
-#~ msgid "/View/Zoom/25%"
-#~ msgstr "/Vis/Zoom/25%"
-
-#~ msgid "/View/---"
-#~ msgstr "/Vis/---"
-
-#~ msgid "/View/Show _Grid"
-#~ msgstr "/Vis/Vis _gitter"
-
-#~ msgid "/View/_Snap To Grid"
-#~ msgstr "/Vis/_Ret ind efter gitter"
-
-#~ msgid "/View/Show _Rulers"
-#~ msgstr "/Vis/Vis _linealer"
-
-#~ msgid "/View/Show _Connection Points"
-#~ msgstr "/Vis/Vis _tilslutningspunkter"
-
-#~ msgid "/View/New _View"
-#~ msgstr "/Vis/Ny _visning"
-
-#~ msgid "/View/Show _All"
-#~ msgstr "/Vis/Vis _alt"
-
-#~ msgid "/View/Re_draw"
-#~ msgstr "/Vis/Gentegn"
-
-#~ msgid "/_Objects"
-#~ msgstr "/_Objekter"
-
-#~ msgid "/Objects/Send to _Back"
-#~ msgstr "/Objekter/Send _bagerst"
-
-#~ msgid "/Objects/Bring to _Front"
-#~ msgstr "/Objekter/Hent _forrest"
-
-#~ msgid "/Objects/Send Backwards"
-#~ msgstr "/Objekter/Send _bagud"
-
-#~ msgid "/Objects/Bring Forwards"
-#~ msgstr "/Objekter/Hent _fremad"
-
-#~ msgid "/Objects/---"
-#~ msgstr "/Objekter/---"
-
-#~ msgid "/Objects/_Group"
-#~ msgstr "/Objekter/_Gruppér"
-
-#~ msgid "/Objects/_Ungroup"
-#~ msgstr "/Objekter/_Afgruppér"
-
-#~ msgid "/Objects/_Parent"
-#~ msgstr "/Objekter/_Dan forældre"
-
-#~ msgid "/Objects/_Unparent"
-#~ msgstr "/Objekter/Løsriv _forældre"
-
-#, fuzzy
-#~ msgid "/Objects/_Unparent Children"
-#~ msgstr "/Objekter/Løsriv _børn"
-
-#, fuzzy
-#~ msgid "/Objects/Align"
-#~ msgstr "/Objekter/Justér _lodret"
-
-#, fuzzy
-#~ msgid "/Objects/Align/Left"
-#~ msgstr "/Objekter/Justér vandret/Venstre"
-
-#, fuzzy
-#~ msgid "/Objects/Align/Center"
-#~ msgstr "/Objekter/Justér lodret/Midt"
-
-#, fuzzy
-#~ msgid "/Objects/Align/Right"
-#~ msgstr "/Objekter/Justér vandret/Højre"
-
-#, fuzzy
-#~ msgid "/Objects/Align/---"
-#~ msgstr "/Objekter/---"
-
-#, fuzzy
-#~ msgid "/Objects/Align/Top"
-#~ msgstr "/Objekter/Justér lodret/Øverst"
-
-#, fuzzy
-#~ msgid "/Objects/Align/Middle"
-#~ msgstr "/Objekter/Justér lodret/Midt"
-
-#, fuzzy
-#~ msgid "/Objects/Align/Bottom"
-#~ msgstr "/Objekter/Justér lodret/Bund"
-
-#, fuzzy
-#~ msgid "/Objects/Align/Adjacent"
-#~ msgstr "/Objekter/Justér lodret/Ved siden"
-
-#, fuzzy
-#~ msgid "/Objects/Align/Stacked"
-#~ msgstr "/Objekter/Justér _lodret"
-
-#~ msgid "/Objects/_Properties..."
-#~ msgstr "/Objekter/_Egenskaber..."
-
-#~ msgid "/Select/Invert"
-#~ msgstr "/Markér/Invertér"
-
-#~ msgid "/Select/---"
-#~ msgstr "/Markér/---"
-
-#~ msgid "/Select/Transitive"
-#~ msgstr "/Markér/Transitiv"
-
-#~ msgid "/Select/Connected"
-#~ msgstr "/Markér/Forbundne"
-
-#~ msgid "/Select/Same Type"
-#~ msgstr "/Markér/Samme type"
-
-#~ msgid "/Select/Replace"
-#~ msgstr "/Markér/Erstat"
-
-#, fuzzy
-#~ msgid "/Select/Intersection"
-#~ msgstr "/Markér/Kryds"
-
-#~ msgid "/Select/Remove"
-#~ msgstr "/Markér/Fjern"
-
-#, fuzzy
-#~ msgid "/Select/Inverse"
-#~ msgstr "/Markér/Invertér"
-
-#~ msgid "/_Tools"
-#~ msgstr "/_Værktøjer"
-
-#~ msgid "/Tools/Modify"
-#~ msgstr "/Værktøjer/Ændre"
-
-#~ msgid "/Tools/Magnify"
-#~ msgstr "/Værktøjer/Forstørrelse"
-
-#~ msgid "/Tools/Scroll"
-#~ msgstr "/Værktøjer/Rul"
-
-#~ msgid "/Tools/Text"
-#~ msgstr "/Værktøjer/Tekst"
-
-#~ msgid "/Tools/Box"
-#~ msgstr "/Værktøjer/Boks"
-
-#~ msgid "/Tools/Ellipse"
-#~ msgstr "/Værktøjer/Ellipse"
-
-#~ msgid "/Tools/Polygon"
-#~ msgstr "/Værktøjer/Polygon"
-
-#~ msgid "/Tools/Beziergon"
-#~ msgstr "/Værktøjer/Beziergon"
-
-#~ msgid "/Tools/---"
-#~ msgstr "/_Værktøjer/---"
-
-#~ msgid "/Tools/Line"
-#~ msgstr "/Værktøjer/Linje"
-
-#~ msgid "/Tools/Arc"
-#~ msgstr "/Værktøjer/Bue"
-
-#~ msgid "/Tools/Zigzagline"
-#~ msgstr "/Værktøjer/Zigzaglinje"
-
-#~ msgid "/Tools/Polyline"
-#~ msgstr "/Værktøjer/Polylinje"
-
-#~ msgid "/Tools/Bezierline"
-#~ msgstr "/Værktøjer/Bezierlinje"
-
-#~ msgid "/Tools/Image"
-#~ msgstr "/Værktøjer/Billede"
-
-#~ msgid "/_Input Methods"
-#~ msgstr "/_Indtastningsmetoder"
-
-#~ msgid "Diagram Menu"
-#~ msgstr "Diagram-menu"
-
-#~ msgid ""
-#~ "Can't find menu entry '%s'!\n"
-#~ "This is probably a i18n problem (try LANG=C)."
-#~ msgstr ""
-#~ "Menupunktet '%s' kan ikke findes!\n"
-#~ "Det er sikkert et i18n problem (prøv LANG=C)."
-
-#~ msgid "<Toolbox>/File/Plugins..."
-#~ msgstr "<Toolbox>/Filer/Udvidelsesmoduler..."
-
-#~ msgid "<Toolbox>/File/Quit"
-#~ msgstr "<Toolbox>/Filer/_Afslut"
-
-#, fuzzy
-#~ msgid "Macro Cell"
-#~ msgstr "Makrokald"
-
-#, fuzzy
-#~ msgid "Micro Cell"
-#~ msgstr "Makrokald"
-
-#, fuzzy
-#~ msgid "Cell Type:"
-#~ msgstr "Type:"
-
-#~ msgid "EML"
-#~ msgstr "EML"
-
-#~ msgid "Editor for EML Static Structure Diagrams."
-#~ msgstr "Redigerer for EML statiske strukturdiagrammer."
-
-#~ msgid "Instantiation. One process create others"
-#~ msgstr "Instantiering. En proces opretter andre"
-
-#~ msgid "Interaction between processes."
-#~ msgstr "Interaktion mellem processer."
-
-#~ msgid "3/3 distributor"
-#~ msgstr "3/3-fordeler"
-
-#~ msgid "5/3 distributor"
-#~ msgstr "5/3-fordeler"
-
-#~ msgid "Fill colour"
-#~ msgstr "Fyldfarve"
-
-#~ msgid "Line colour"
-#~ msgstr "Linjefarve"
-
-#~ msgid "Text colour"
-#~ msgstr "Tekstfarve"
-
-#, fuzzy
-#~ msgid "Implmentation"
-#~ msgstr "Implementering"
-
-#~ msgid "Cisco hub"
-#~ msgstr "Cisco hub"
-
-#~ msgid "Content switch module"
-#~ msgstr "Content switch module"
-
-#~ msgid "Voice switch"
-#~ msgstr "Stemme-switch"
-
-#~ msgid "Voice switch 2"
-#~ msgstr "Stemme-switch 2"
-
-#, fuzzy
-#~ msgid "Dot-Dot"
-#~ msgstr "Prik-prik"
-
-#~ msgid "SVX (interchangeable with End office)"
-#~ msgstr "SVX (interchangeable with End office)"
-
-#~ msgid "Telecommuter house/router"
-#~ msgstr "Telecommuter house/router"
-
-#~ msgid "6732 Multiservice access platform"
-#~ msgstr "6732 Multiservice access platform"
-
-#~ msgid "CDDI-FDDI"
-#~ msgstr "CDDI-FDDI"
-
-#~ msgid "DPT"
-#~ msgstr "DPT"
-
-#~ msgid "IPTC"
-#~ msgstr "IPTC"
-
-#~ msgid "NetRanger intrusion detection system"
-#~ msgstr "NetRanger intrusion detection system"
-
-#~ msgid "NetSonar security scanner"
-#~ msgstr "NetSonar sikkerheds-scanner"
-
-#~ msgid "ONS15500 DWDM platform"
-#~ msgstr "ONS15500 DWDM platform"
-
-#~ msgid "PAD X.28"
-#~ msgstr "PAD X.28"
-
-#~ msgid "7505"
-#~ msgstr "7505"
-
-#~ msgid "ATM router"
-#~ msgstr "ATM-router"
-
-#~ msgid "ATM tag sw gigabit router"
-#~ msgstr "ATM tag sw gigabit router"
-
-#~ msgid "Cisco - Router"
-#~ msgstr "Cisco - Router"
-
-#~ msgid "Gigabit switch router (ATM tag)"
-#~ msgstr "Gigabit switch router (ATM tag)"
-
-#~ msgid "Router in building"
-#~ msgstr "Router in building"
-
-#~ msgid "Router shapes by Cisco"
-#~ msgstr "Router-figurer fra Cisco"
-
-#~ msgid "Workgroup 5000 multilayer switch"
-#~ msgstr "Workgroup 5000 multilayer switch"
-
-#~ msgid "Workgroup 5002 multilayer switch"
-#~ msgstr "Workgroup 5002 multilayer switch"
-
-#~ msgid "Workgroup 5500 multilayer switch"
-#~ msgstr "Workgroup 5500 multilayer switch"
-
-#, fuzzy
-#~ msgid "Export to file format and exit.  Supported formats are: %s"
-#~ msgstr "Eksportér til filformat og afslut"
-
-#~ msgid "Close"
-#~ msgstr "Luk"
-
-#~ msgid "/Help/_Manual"
-#~ msgstr "/Hjælp/_Håndbog"
-
-#~ msgid "GdkPixbuf bitmap"
-#~ msgstr "GdkPixbuf-billede"
-
-#~ msgid "Unexpected SVG path element"
-#~ msgstr "Uventet element i SVG-stien"
-
-#~ msgid "Courier"
-#~ msgstr "Courier"
-
-#~ msgid "Could not find SVG namespace."
-#~ msgstr "Kunne ikke finde SVG-navnerum."
-
-#~ msgid "%s error: can specify only one of -f or -o."
-#~ msgstr "%s fejl: kan kun angive én af -f eller -o."
-
-#~ msgid "No object menu"
-#~ msgstr "Ingen objektmenu"
-
-#~ msgid "_New diagram"
-#~ msgstr "_Nyt diagram"
-
-#~ msgid "Show diagram tree"
-#~ msgstr "_Vis diagramtræ"
-
-#~ msgid "Modify sheets and their objects"
-#~ msgstr "Ændr objektsamlinger og deres objekter"
-
-#~ msgid "Zoom _In"
-#~ msgstr "Forst_ør"
-
-#~ msgid "Zoom in 50%"
-#~ msgstr "Forstør 50%"
-
-#~ msgid "Zoom _Out"
-#~ msgstr "For_mindsk"
-
-#~ msgid "Zoom out 50%"
-#~ msgstr "Formindsk 50%"
-
-#~ msgid "Show _All"
-#~ msgstr "Vis _alt"
-
-#~ msgid "Redraw"
-#~ msgstr "Gentegn"
-
-#~ msgid "Equal Distance"
-#~ msgstr "Samme afstand"
-
-#~ msgid "Align _Horizontal"
-#~ msgstr "Justér _vandret"
-
-#~ msgid "Align _Vertical"
-#~ msgstr "Justér _lodret"
-
-#~ msgid "/View/Diagram Properties..."
-#~ msgstr "/Vis/Egenskaber for diagram..."
-
-#~ msgid "/Objects/Align Horizontal/Center"
-#~ msgstr "/Objekter/Justér vandret/Midt"
-
-#~ msgid "/Objects/Align Horizontal/---"
-#~ msgstr "/Objekter/Justér vandret/---"
-
-#~ msgid "/Objects/Align Horizontal/Equal Distance"
-#~ msgstr "/Objekter/Justér vandret/Samme afstand"
-
-#~ msgid "/Objects/Align Horizontal/Adjacent"
-#~ msgstr "/Objekter/Justér vandret/Ved siden"
-
-#~ msgid "/Objects/Align Vertical/---"
-#~ msgstr "/Objekter/Justér lodret/---"
-
-#~ msgid "/Objects/Align Vertical/Equal Distance"
-#~ msgstr "/Objekter/Justér lodret/Samme afstand"
-
-#~ msgid "/_Dialogs"
-#~ msgstr "/_Dialoger"
-
-#~ msgid "Error occured while printing"
-#~ msgstr "Fejl under skrivning"
-
-#~ msgid "Could not open `%s' for writing"
-#~ msgstr "Kunne ikke åbne '%s' til skrivning"
-
-#~ msgid "Can't open history file for writing."
-#~ msgstr "Kan ikke åbne historikfil til skrivning."
-
-#~ msgid "Encapsulated Postscript (using builtin PS fonts)"
-#~ msgstr "Encapsulated postscript (med indbyggede PS skrifttyper)"
-
-#~ msgid "Diagram editor"
-#~ msgstr "Diagramtegner"
-
-#~ msgid "Select font"
-#~ msgstr "Vælg skrifttype"
-
-#~ msgid "Width: "
-#~ msgstr "Bredde: "
-
-#~ msgid "Helvetica"
-#~ msgstr "Helvetica"
-
-#~ msgid "Delete"
-#~ msgstr "Slet"
-
-#~ msgid "Arrow type none -- shouldn't happen\n"
-#~ msgstr "Ingen piltype. -- Skulle ikke kunne ske.\n"
-
-#~ msgid "Relay"
-#~ msgstr "Relæ"
-
-#~ msgid "This Dia version is compiled without libart/text support."
-#~ msgstr "Denne version af Dia er oversat uden understøttelse af libart/text."
-
-#~ msgid "/Dialogs/_Properties..."
-#~ msgstr "/Dialoger/_Egenskaber..."
-
-#~ msgid "Box with text inside"
-#~ msgstr "Boks med tekst i"
-
-#~ msgid "Diamond with text inside"
-#~ msgstr "Diamant med tekstindhold"
-
-#~ msgid "Ellipse with text inside"
-#~ msgstr "Ellipse med tekstindhold"
-
-#~ msgid "Parallelogram with text inside"
-#~ msgstr "Parallellogram med tekstindhold"
-
-#~ msgid "A connection point"
-#~ msgstr "Forbindelsespunkt"
-
-#~ msgid "Create Text"
-#~ msgstr "Opret tekst"
-
-#~ msgid "Create Polygon"
-#~ msgstr "Lav polygon"
-
-#~ msgid "Create Beziergon"
-#~ msgstr "Opret en beziergon"
-
-#~ msgid "Create Arc"
-#~ msgstr "Opret bue"
-
-#~ msgid "Create Zigzagline"
-#~ msgstr "Opret zigzaglinje"
-
-#~ msgid "Create Polyline"
-#~ msgstr "Opret polylinje"
-
-#~ msgid "Create Bezierline"
-#~ msgstr "Opret en bezierlinje"
-
-#~ msgid "Create Image"
-#~ msgstr "Opret billede"
-
-#~ msgid "Could not load XSLT library (%s) : %s"
-#~ msgstr "Kunne ikke indlæse XSLT-bibliotek (%s): %s"
-
-#~ msgid "A pnp bipolar transistor"
-#~ msgstr "Bipolar PNP-transistor"
-
-#~ msgid "A relay"
-#~ msgstr "Relæ"
-
-#~ msgid "Create a flow"
-#~ msgstr "Opret en strøm"
-
-#~ msgid "Create a function"
-#~ msgstr "Opret en funktion"
-
-#~ msgid "A macro call step"
-#~ msgstr "Trin af makrokald"
-
-#~ msgid "A macro entry step"
-#~ msgstr "Indledende trin i makro"
-
-#~ msgid "A macro exit step"
-#~ msgstr "Afsluttende trin for makro"
-
-#~ msgid "A regular step"
-#~ msgstr "Normalt trin"
-
-#~ msgid "A transition"
-#~ msgstr "Overgang"
-
-#~ msgid "An initial step"
-#~ msgstr "Første trin"
-
-#~ msgid "A Nand gate"
-#~ msgstr "NAND-port"
-
-#~ msgid "A Not"
-#~ msgstr "Ikke"
-
-#~ msgid "A Xor gate"
-#~ msgstr "XOR-port"
-
-#~ msgid "An And gate"
-#~ msgstr "OG-port"
-
-#~ msgid "Create a branch"
-#~ msgstr "Lav en forgrening"
-
-#~ msgid "Create a class"
-#~ msgstr "Lav en klasse"
-
-#~ msgid "Create a component"
-#~ msgstr "Lav en komponent"
-
-#~ msgid "Create a fork/union"
-#~ msgstr "fraspaltning/forening"
-
-#~ msgid "Create a initial/end state"
-#~ msgstr "start-/sluttilstand"
-
-#~ msgid "Create a lifeline"
-#~ msgstr "Lav en tidslinje"
-
-#~ msgid "Create a message"
-#~ msgstr "Lav en meddelelse"
-
-#~ msgid "Create a node"
-#~ msgstr "Lav et knudepunkt"
-
-#~ msgid "Create a note"
-#~ msgstr "Lav en note"
-
-#~ msgid "Create a state"
-#~ msgstr "Tilstand"
-
-#~ msgid "Create a template class"
-#~ msgstr "Lav en skabelonklasse"
-
-#~ msgid "Create a use case"
-#~ msgstr "Lav et brugstilfælde"
-
-#~ msgid "Create an actor"
-#~ msgstr "Lav en aktør"
-
-#~ msgid "Create an object"
-#~ msgstr "Lav et objekt"
-
-#~ msgid "Untitled-%d"
-#~ msgstr "Unavngivet-%d"
-
-#~ msgid ""
-#~ "The anti aliased renderer is buggy, and may cause\n"
-#~ "crashes.  We know there are bugs in it, so don't\n"
-#~ "bother submitting another report if it crashes"
-#~ msgstr ""
-#~ "Anti-alias-fremviseren er fejlbehæftet, og kan forårsage nedbrud.\n"
-#~ "Vi ved godt at der er fejl i den, så lad være med\n"
-#~ "at indsende en ny fejlrapport hvis den går ned."
-
-#~ msgid "Apply"
-#~ msgstr "Anvend"
-
-#~ msgid "Default width:"
-#~ msgstr "Forvalgt bredde:"
-
-#~ msgid "Default height:"
-#~ msgstr "Forvalgt højde:"
-
-#~ msgid "Remember last size:"
-#~ msgstr "Husk seneste størrelse"
-
-#~ msgid "Start at object edge"
-#~ msgstr "Start ved objektets kant"
-
-#~ msgid "End at object edge"
-#~ msgstr "Slut ved objektets kant"
-
-#~ msgid "/View/_Visible Grid"
-#~ msgstr "/Vis/_Synligt gitter"
-
-#~ msgid "Text padding:"
-#~ msgstr "Tekstspaltefyld:"
-
-#~ msgid "Font:"
-#~ msgstr "Skrifttype:"
-
-#~ msgid "Font size:"
-#~ msgstr "Skriftstørrelse:"
-
-#~ msgid "Corner rounding:"
-#~ msgstr "Hjørnerunding:"
-
-#~ msgid "Shear angle:"
-#~ msgstr "Forskydningsvinkel:"
-
-#~ msgid "Flow type:"
-#~ msgstr "Strømtype:"
-
-#~ msgid "Orthflow:"
-#~ msgstr "Ortstrøm:"
-
-#~ msgid "Orthflow type:"
-#~ msgstr "OrtStrømtype:"
-
-#~ msgid "Begin"
-#~ msgstr "Begynd"
-
-#~ msgid "End"
-#~ msgstr "Slut"
-
-#~ msgid "Image file:"
-#~ msgstr "Billedfil:"
-
-#~ msgid "Keep aspect ratio:"
-#~ msgstr "Behold bredde/højde forhold:"
-
-#~ msgid "Polygon import is not implemented yet"
-#~ msgstr "Polygon-import er ikke implementeret endnu"
-
-#~ msgid "Spline import is not implemented yet"
-#~ msgstr "Spline-import er ikke implementeret endnu"
-
-#~ msgid "Maintainer: James Henstridge"
-#~ msgstr "Vedligeholder: James Henstridge"
-
-#~ msgid "Print Diagram"
-#~ msgstr "Udskriv diagram"
-
-#~ msgid "An error occured while creating the print context"
-#~ msgstr "Fejl opstod ved oprettelsen af udskrivningssammenhæng"
-
-#~ msgid "yes"
-#~ msgstr "ja"
-
-#~ msgid "no"
-#~ msgstr "nej"
-
-#~ msgid "Load"
-#~ msgstr "Indlæs"
-
-# FIXME
-#~ msgid "Unload"
-#~ msgstr "Fjern"
-
-#~ msgid ""
-#~ "Warning no X Font for %s found, \n"
-#~ "using %s instead.\n"
-#~ msgstr ""
-#~ "Advarsel:  Fandt ingen X skrifttype for %s, \n"
-#~ "bruger %s i stedet.\n"
-
-#~ msgid "Warning: FreeType selected, but library wouldn't load: %d\n"
-#~ msgstr "Advarsel: FreeType valgt, men biblioteket ville ikke indlæses: %d\n"
-
-#~ msgid "Warning: No X fonts found.  The world is ending."
-#~ msgstr "Advarsel: Ingen X-skrifttyper fundet. Verden går under."
-
-#~ msgid "Font %s not found, using Courier instead.\n"
-#~ msgstr "Fandt ikke skrifttype %s, bruger Courier i stedet.\n"
-
-#~ msgid "Font %s has no style %s, using %s\n"
-#~ msgstr "Skrifttype %s har ingen %s-stil, bruger %s\n"
-
-#~ msgid "Quit, are you sure?"
-#~ msgstr "Afslut, er du sikker?"
-
-#~ msgid "Quit"
-#~ msgstr "Afslut"
-
-#~ msgid "Really close?"
-#~ msgstr "Virkelig lukke?"
-
-#, fuzzy
-#~ msgid "Down"
-#~ msgstr "Flyt ned"
-
-#~ msgid "_Remove"
-#~ msgstr "_Fjern"
-
-#~ msgid "`%s' is not a directory"
-#~ msgstr "'%s' er ikke et katalog"
-
-#, fuzzy
-#~ msgid "Sybase replication domain diagram objects"
-#~ msgstr ""
-#~ "Objekter til udforming af domæne-diagrammer for replikering i Sybase "
-#~ "databaser"
-
-#~ msgid "Error reading diagram file\n"
-#~ msgstr "Fejl under indlæsning af diagramfilen\n"
-
-#, fuzzy
-#~ msgid "multiple"
-#~ msgstr "Demultiplekser"
-
-#, fuzzy
-#~ msgid "Single"
-#~ msgstr "Simpel"
-
-#, fuzzy
-#~ msgid "Multiple"
-#~ msgstr "Multiplicér"
-
-#, fuzzy
-#~ msgid "Instantiation"
-#~ msgstr "En overgang"
-
-#, fuzzy
-#~ msgid "Bidirectional"
-#~ msgstr "Retning:"
-
-#, fuzzy
-#~ msgid "Interaction name:"
-#~ msgstr "Brugergrænseflade:"
-
-#, fuzzy
-#~ msgid "bidirectional"
-#~ msgstr "Retning:"
-
-#, fuzzy
-#~ msgid "Interface functions"
-#~ msgstr "Brugerfunktion"
-
-#, fuzzy
-#~ msgid "Function module:"
-#~ msgstr "Funktionheader"
-
-#, fuzzy
-#~ msgid "Interfaces"
-#~ msgstr "Brugergrænseflade:"
-
-#, fuzzy
-#~ msgid "Interface"
-#~ msgstr "Brugergrænseflade:"
-
-#, fuzzy
-#~ msgid "Interface name:"
-#~ msgstr "Brugergrænseflade:"
-
-#, fuzzy
-#~ msgid "Message parameter"
-#~ msgstr "Meddelelsestype:"
-
-#, fuzzy
-#~ msgid "Functions"
-#~ msgstr "Funktionskald"
-
-#, fuzzy
-#~ msgid "Messages"
-#~ msgstr "Meddelelse:"
-
-#, fuzzy
-#~ msgid "Process name:"
-#~ msgstr "Processér"
-
-#, fuzzy
-#~ msgid "Process reference name:"
-#~ msgstr "Reference til procestype"
-
-#, fuzzy
-#~ msgid "Module name:"
-#~ msgstr "Filnavn:"
-
-#~ msgid "abstract"
-#~ msgstr "abstrakt"
