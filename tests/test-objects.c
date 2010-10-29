@@ -221,15 +221,15 @@ _test_movement (const DiaObjectType *type)
   bbox2 = o->bounding_box;
   /* test fails e.g. for 'Cisco - Web cluster' probably due to bezier-bbox-issues: bug 568115 */
   if (   strcmp (type->name, "Cisco - IP Softphone") == 0 /* ok on win32 */
-      || strcmp (type->name, "Cisco - Router in building") == 0 /* height of 0.5 */
-      || strcmp (type->name, "Cisco - MCU") == 0 /* height of 0.8 */
+      || strcmp (type->name, "Cisco - Router in building") == 0 /* height off 0.5 */
+      || strcmp (type->name, "Cisco - MCU") == 0 /* height off 0.8 */
       || strcmp (type->name, "Cisco - Mac Woman") == 0 /* ok on win32 */
       /* more failing recently? */
-      || strcmp (type->name, "Cisco - SVX (interchangeable with End office)") == 0 /* height of 0.32 */
+      || strcmp (type->name, "Cisco - SVX (interchangeable with End office)") == 0 /* height off 0.32 */
       /* ... changed move condition (starting point)  */
-      || strcmp (type->name, "Cisco - ATM Tag Switch Router") == 0 /* height of 0.7 */
+      || strcmp (type->name, "Cisco - ATM Tag Switch Router") == 0 /* height off 0.7 */
       /* FIXME: this shape should be simple enough to actually fix the bug */
-      || strcmp (type->name, "Assorted - Heart") == 0 /* height of 0.05 */
+      || strcmp (type->name, "Assorted - Heart") == 0 /* height off 0.05 */
      )
     g_print ("SKIPPED! ");
   else
