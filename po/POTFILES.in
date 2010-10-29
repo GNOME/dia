@@ -43,6 +43,8 @@ lib/dia_dirs.c
 lib/dia_xml.c
 lib/diaarrowchooser.c
 lib/diagramdata.c
+lib/diadynamicmenu.c
+lib/diafontselector.c
 lib/dialinechooser.c
 lib/dialogs.c
 lib/diaoptionmenu.c
