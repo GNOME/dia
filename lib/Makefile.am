@@ -163,6 +163,8 @@ libdia_la_SOURCES =  \
 		diaarrowchooser.c \
 		dialinechooser.h \
 		dialinechooser.c \
+		diadynamicmenu.h \
+		diadynamicmenu.c \
 		persistence.c \
 		persistence.h \
 		diaerror.c \

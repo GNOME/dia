@@ -44,6 +44,7 @@
 #include "persistence.h"
 #include "diaarrowchooser.h"
 #include "dialinechooser.h"
+#include "diadynamicmenu.h"
 #include "widgets.h"
 #include "message.h"
 #include "attributes.h"

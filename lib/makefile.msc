@@ -114,6 +114,7 @@ OBJECTS = \
 	utils.obj \
 	widgets.obj \
 	diaoptionmenu.obj \
+	diadynamicmenu.obj \
 	\
 	diacellrendererproperty.obj \
 	\
