@@ -2,181 +2,207 @@
 # Copyright © 2000, 2001, 2002, 2003 Free Software Foundation, Inc.
 # Softcatalà  <gnome@softcatala.net>, 2000, 2001, 2002.
 # Aleix Badia <abadia@ica.es>, 2003.
-# Xavier Conde <xaviconde@eresmas.com>, 2003.
-# Jordi Mas <jmas@softcatala.org>, 2006.
-# Maria Soler Climent <mariasolercliment@gmail.com>, 2006.
+# Xavier Conde <xaviconde@eresmas.com>, 2003
+# Jordi Mas <jmas@softcatala.org>, 2006
+# Maria Soler Climent <mariasolercliment@gmail.com>, 2006
 # David Planella Molas <david.planella@gmail.com>, 2007, 2008, 2009.
-# Carles Ferrando Garcia <carles.ferrando@gmail.com>, 2009.
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.92.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-09 01:05+0100\n"
-"PO-Revision-Date: 2009-09-25 16:36+0200\n"
-"Last-Translator: Carles Ferrando Garcia <carles.ferrando@gmail.com>\n"
-"Language-Team: Català (València) <tradgnome@softcatala.org>\n"
+"POT-Creation-Date: 2010-10-29 22:08+0100\n"
+"PO-Revision-Date: 2009-02-22 15:00+0100\n"
+"Last-Translator: David Planella <david.planella@gmail.com>\n"
+"Language-Team: Catalan <tradgnome@softcatala.org>\n"
+"Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 0.3\n"
 
 #. This is not an errror
-#: ../app/app_procs.c:214
+#: ../app/app_procs.c:209
 #, c-format
 msgid "Warning: invalid layer range %lu - %lu\n"
 msgstr "Avís: rang de capes no vàlid %lu - %lu\n"
 
-#: ../app/app_procs.c:226
+#: ../app/app_procs.c:221
 #, c-format
 msgid "Warning: Layer %lu (%s) selected more than once.\n"
 msgstr "Avís: S'ha seleccionat la capa %lu (%s) més d'una vegada.\n"
 
-#: ../app/app_procs.c:252
+#: ../app/app_procs.c:247
 #, c-format
 msgid "Warning: Layer %d (%s) selected more than once.\n"
 msgstr "Avís: S'ha seleccionat la capa %d (%s) més d'una vegada.\n"
 
-#: ../app/app_procs.c:261
+#: ../app/app_procs.c:256
 #, c-format
 msgid "Warning: There is no layer named %s\n"
 msgstr "Avís: No hi ha cap capa anomenada %s\n"
 
-#: ../app/app_procs.c:343
+#: ../app/app_procs.c:338
 #, c-format
 msgid "%s error: don't know how to export into %s\n"
 msgstr "Error %s: es desconeix el procediment per exportar-ho a %s\n"
 
-#: ../app/app_procs.c:352
+#: ../app/app_procs.c:347
 #, c-format
 msgid "%s error: input and output file name is identical: %s"
 msgstr "Error %s: el fitxer d'entrada i d'eixida tenen el mateix nom: %s"
 
-#: ../app/app_procs.c:360
+#: ../app/app_procs.c:355
 #, c-format
 msgid "%s error: need valid input file %s\n"
 msgstr "Error %s: cal un fitxer d'entrada vàlid %s\n"
 
 #. if (!quiet)
-#: ../app/app_procs.c:385
+#: ../app/app_procs.c:383
 #, c-format
 msgid "%s --> %s\n"
 msgstr "%s --> %s\n"
 
 # c-format
-#: ../app/app_procs.c:560
+#: ../app/app_procs.c:558
 #, c-format
 msgid "Can't find output format/filter %s\n"
 msgstr "No es pot trobar el format/filtre d'eixida %s\n"
 
+#: ../app/app_procs.c:628
+#, c-format
+msgid "Input-directory '%s' must exist!\n"
+msgstr "El directori d'entrada «%s» ha d'existir\n"
+
+#: ../app/app_procs.c:645
+#, c-format
+msgid "Output-directory '%s' must exist!\n"
+msgstr "El directori d'eixida «%s» ha d'existir\n"
+
 #. Translators:  The argument is a list of options, not to be translated
-#: ../app/app_procs.c:638
+#: ../app/app_procs.c:695
 #, c-format
 msgid "Select the filter/format out of: %s"
 msgstr "Seleccioneu el filtre/format entre: %s"
 
 #. &export_file_name
-#: ../app/app_procs.c:656
+#: ../app/app_procs.c:713
 msgid "Export loaded file and exit"
 msgstr "Exporta el fitxer carregat i ix"
 
-#: ../app/app_procs.c:656
+#: ../app/app_procs.c:713
 msgid "OUTPUT"
-msgstr "EIXIDA"
+msgstr "SORTIDA"
 
 #. &export_file_format
 #. &export_format_string
-#: ../app/app_procs.c:658
+#: ../app/app_procs.c:715
 msgid "TYPE"
 msgstr "TIPUS"
 
 #
-#: ../app/app_procs.c:660
+#: ../app/app_procs.c:717
 msgid "Export graphics size"
 msgstr "Exporta la mida dels gràfics"
 
 # FIXME (dpm) AxL (Amplada per Llargada)?
-#: ../app/app_procs.c:660
+#: ../app/app_procs.c:717
 msgid "WxH"
 msgstr "WxH"
 
-#: ../app/app_procs.c:662
+#: ../app/app_procs.c:719
 msgid ""
 "Show only specified layers (e.g. when exporting). Can be either the layer "
 "name or a range of layer numbers (X-Y)"
 msgstr ""
-"Mostra només les capes especificades (p.ex. quan exportes). Pot ser el nom "
+"Mostra només les capes especificades (p.ex. quan exportis). Pot ser el nom "
 "de la capa o un rang de números de capes (X-Y)"
 
-#: ../app/app_procs.c:663
+#: ../app/app_procs.c:720
 msgid "LAYER,LAYER,..."
 msgstr "CAPA, CAPA, ..."
 
-#: ../app/app_procs.c:665
+#: ../app/app_procs.c:722
 msgid "Don't show the splash screen"
 msgstr "No mostres la pantalla de flaix"
 
-#: ../app/app_procs.c:667
+#: ../app/app_procs.c:724
 msgid "Don't create empty diagram"
 msgstr "No crees un diagrama buit"
 
-#: ../app/app_procs.c:669
+#: ../app/app_procs.c:726
 msgid "Start integrated user interface (diagrams in tabs)"
-msgstr "Inicia la interficie d'usuari"
+msgstr ""
 
-#: ../app/app_procs.c:671
+#: ../app/app_procs.c:728
 msgid "Send error messages to stderr instead of showing dialogs."
 msgstr "Envia els missatges d'error a stderr en comptes de mostrar diàlegs."
 
-#. &input_directory
-#: ../app/app_procs.c:673
+#: ../app/app_procs.c:730
 msgid "Directory containing input files"
 msgstr "Directori que conté els fitxers d'entrada"
 
-#: ../app/app_procs.c:673 ../app/app_procs.c:675
+#: ../app/app_procs.c:730 ../app/app_procs.c:732
 msgid "DIRECTORY"
 msgstr "DIRECTORI"
 
-#. &output_directory
-#: ../app/app_procs.c:675
+#: ../app/app_procs.c:732
 msgid "Directory containing output files"
 msgstr "Directori que conté els fitxers d'eixida"
 
-#: ../app/app_procs.c:677
+#: ../app/app_procs.c:734
 msgid "Display credits list and exit"
 msgstr "Mostra la llista de crèdits i ix"
 
-#: ../app/app_procs.c:679
+#: ../app/app_procs.c:736
 msgid "Generate verbose output"
 msgstr "Genera una eixida detallada"
 
-#: ../app/app_procs.c:681
+#: ../app/app_procs.c:738
 msgid "Display version and exit"
 msgstr "Mostra la versió i ix"
 
-#: ../app/app_procs.c:738
+#: ../app/app_procs.c:761
+msgid "[FILE...]"
+msgstr "[FITXER...]"
+
+#: ../app/app_procs.c:773
+#, fuzzy, c-format
+msgid "Invalid option?"
+msgstr "Operació manual"
+
+#: ../app/app_procs.c:796
+#, fuzzy, c-format
+msgid "Filename conversion failed: %s\n"
+msgstr "Dia versió %s, compilat %s %s\n"
+
+#: ../app/app_procs.c:809
+#, c-format
+msgid "Missing input: %s\n"
+msgstr ""
+
+#: ../app/app_procs.c:834
 msgid "Can't connect to session manager!\n"
 msgstr "No es pot connectar al gestor de sessions\n"
 
 #. TRANSLATOR: 2nd and 3rd %s are time and date respectively.
-#: ../app/app_procs.c:778
+#: ../app/app_procs.c:874
 #, c-format
 msgid "Dia version %s, compiled %s %s\n"
 msgstr "Dia versió %s, compilat %s %s\n"
 
-#: ../app/app_procs.c:780
+#: ../app/app_procs.c:876
 #, c-format
 msgid "Dia version %s\n"
 msgstr "Dia versió %s\n"
 
-#: ../app/app_procs.c:818
+#: ../app/app_procs.c:914
 msgid ""
 "Couldn't find standard objects when looking for object-libs; exiting...\n"
 msgstr ""
 "No s'han pogut trobar objectes estàndard en cercar biblioteques d'objectes; "
 "s'està eixint...\n"
 
-#: ../app/app_procs.c:820
+#: ../app/app_procs.c:916
 #, c-format
 msgid ""
 "Couldn't find standard objects when looking for object-libs in '%s'; "
@@ -186,11 +212,11 @@ msgstr ""
 "s'està eixint...\n"
 
 #
-#: ../app/app_procs.c:886
+#: ../app/app_procs.c:983
 msgid "Diagram1.dia"
 msgstr "Diagrama1.dia"
 
-#: ../app/app_procs.c:930
+#: ../app/app_procs.c:1018
 msgid ""
 "This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\n"
 "describing how you can cause this message to appear.\n"
@@ -199,16 +225,16 @@ msgstr ""
 "bugzilla.gnome.org\n"
 "en el qual descriviu com es pot provocar l'aparició d'este missatge.\n"
 
-#: ../app/app_procs.c:945
+#: ../app/app_procs.c:1033
 msgid "Exiting Dia"
 msgstr "S'està eixint del Dia"
 
 #. no standard buttons
-#: ../app/app_procs.c:1009
+#: ../app/app_procs.c:1097
 msgid "Quitting without saving modified diagrams"
 msgstr "S'està eixint sense alçar els diagrames modificats"
 
-#: ../app/app_procs.c:1011
+#: ../app/app_procs.c:1099
 msgid ""
 "Modified diagrams exist. Are you sure you want to quit Dia without saving "
 "them?"
@@ -216,16 +242,16 @@ msgstr ""
 "Hi ha diagrames que s'han modificat. Esteu segur que voleu eixir del Dia "
 "sense alçar-los?"
 
-#: ../app/app_procs.c:1015
+#: ../app/app_procs.c:1103
 msgid "Quit Dia"
 msgstr "Ix del Dia"
 
-#: ../app/app_procs.c:1084 ../app/app_procs.c:1091
+#: ../app/app_procs.c:1172 ../app/app_procs.c:1179
 msgid "Could not create per-user Dia config directory"
 msgstr ""
 "No s'ha pogut crear un directori de configuració per a l'usuari del Dia"
 
-#: ../app/app_procs.c:1094
+#: ../app/app_procs.c:1182
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
@@ -233,35 +259,11 @@ msgstr ""
 "No s'ha pogut crear un directori de configuració per a l'usuari del Dia. "
 "Assegureu-vos que la variable d'entorn HOME apunta a un directori existent. "
 
-#: ../app/app_procs.c:1117
+#: ../app/app_procs.c:1205
 msgid "Objects and filters internal to dia"
 msgstr "Objectes i filtres interns del Dia"
 
-#: ../app/app_procs.c:1150
-msgid "[FILE...]"
-msgstr "[FITXER...]"
-
-#: ../app/app_procs.c:1170
-#, c-format
-msgid "Input-directory '%s' must exist!\n"
-msgstr "El directori d'entrada «%s» ha d'existir\n"
-
-#: ../app/app_procs.c:1175
-#, c-format
-msgid "Output-directory '%s' must exist!\n"
-msgstr "El directori d'eixida «%s» ha d'existir\n"
-
-#: ../app/app_procs.c:1181
-#, c-format
-msgid "'%s' not found!\n"
-msgstr "No s'ha trobat «%s»!\n"
-
-#: ../app/app_procs.c:1189
-#, c-format
-msgid "'%s' not found in '%s'!\n"
-msgstr "No s'ha trobat «%s» a «%s»\n"
-
-#: ../app/app_procs.c:1238
+#: ../app/app_procs.c:1261
 #, c-format
 msgid ""
 "The original author of Dia was:\n"
@@ -270,7 +272,7 @@ msgstr ""
 "L'autor original del Dia és:\n"
 "\n"
 
-#: ../app/app_procs.c:1243
+#: ../app/app_procs.c:1266
 #, c-format
 msgid ""
 "\n"
@@ -281,7 +283,7 @@ msgstr ""
 "Les persones que mantenen el Dia actualment són:\n"
 "\n"
 
-#: ../app/app_procs.c:1248
+#: ../app/app_procs.c:1271
 #, c-format
 msgid ""
 "\n"
@@ -292,7 +294,7 @@ msgstr ""
 "Altres autors són:\n"
 "\n"
 
-#: ../app/app_procs.c:1253
+#: ../app/app_procs.c:1276
 #, c-format
 msgid ""
 "\n"
@@ -387,8 +389,8 @@ msgstr ""
 "\n"
 "Hauríeu d'haver rebut una còpia de la Llicència Pública General GNU\n"
 "juntament amb este programa; en cas contrari, escriviu a la Free\n"
-"Software Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-"
-"1307, USA.\n"
+"Software Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  "
+"02111-1307, USA.\n"
 
 #: ../app/commands.c:745
 msgid "A program for drawing structured diagrams."
@@ -702,7 +704,12 @@ msgstr ""
 msgid "Properties..."
 msgstr "Propietats..."
 
-#: ../app/disp_callbacks.c:1067
+#: ../app/disp_callbacks.c:248
+#, fuzzy
+msgid "Selection"
+msgstr "No seleccionis res"
+
+#: ../app/disp_callbacks.c:1072
 msgid ""
 "The object you dropped cannot fit into its parent. \n"
 "Either expand the parent object, or drop the object elsewhere."
@@ -758,7 +765,7 @@ msgstr "_Descarta els canvis"
 
 #: ../app/exit_dialog.c:77
 msgid "Do Not Exit"
-msgstr "No isques"
+msgstr "No surtis"
 
 #: ../app/exit_dialog.c:79
 msgid "Exit Without Save"
@@ -796,7 +803,7 @@ msgstr "Selecciona-ho tot"
 
 #: ../app/exit_dialog.c:150
 msgid "Select None"
-msgstr "No selecciones res"
+msgstr "No seleccionis res"
 
 #: ../app/exit_dialog.c:236
 msgid "Nothing selected for saving.  Would you like to try again?"
@@ -1133,10 +1140,12 @@ msgid "none"
 msgstr "cap"
 
 #: ../app/layer_dialog.c:1196
+#, fuzzy
 msgid "Edit Layer"
-msgstr "Edita la capa"
+msgstr "Puja la capa"
 
 #: ../app/layer_dialog.c:1196
+#, fuzzy
 msgid "Add Layer"
 msgstr "Nova capa"
 
@@ -1238,12 +1247,12 @@ msgstr "No es permet escriure els fitxers temporals a %s\n"
 #: ../app/load_save.c:1050 ../plug-ins/cairo/diacairo.c:121
 #: ../plug-ins/cgm/cgm.c:1154 ../plug-ins/drs/dia-render-script.c:121
 #: ../plug-ins/dxf/dxf-export.c:547 ../plug-ins/hpgl/hpgl.c:710
-#: ../plug-ins/libart/export_png.c:157
+#: ../plug-ins/libart/export_png.c:159
 #: ../plug-ins/metapost/render_metapost.c:1177
 #: ../plug-ins/pgf/render_pgf.c:1208 ../plug-ins/postscript/render_eps.c:105
 #: ../plug-ins/pstricks/render_pstricks.c:916
 #: ../plug-ins/shape/shape-export.c:137 ../plug-ins/svg/render_svg.c:199
-#: ../plug-ins/vdx/vdx-export.c:1849 ../plug-ins/wpg/wpg.c:1072
+#: ../plug-ins/vdx/vdx-export.c:1850 ../plug-ins/wpg/wpg.c:1072
 #: ../plug-ins/xfig/xfig-export.c:1151 ../plug-ins/xslt/xslt.c:99
 #, c-format
 msgid "Can't open output file %s: %s\n"
@@ -1307,8 +1316,9 @@ msgid "_Export ..."
 msgstr "_Exporta..."
 
 #: ../app/menus.c:118
+#, fuzzy
 msgid "_Diagram Properties"
-msgstr "Propietats del _diagrama"
+msgstr "Propietats del diagrama"
 
 #: ../app/menus.c:119
 msgid "Page Set_up..."
@@ -1338,24 +1348,29 @@ msgid "Paste _Text"
 msgstr "Enganxa el _text"
 
 #: ../app/menus.c:142
+#, fuzzy
 msgid "_Layers"
-msgstr "_Capes"
+msgstr "Capes"
 
 #: ../app/menus.c:143
+#, fuzzy
 msgid "Add Layer..."
-msgstr "Afegeix _capa..."
+msgstr "_Capes..."
 
 #: ../app/menus.c:144
+#, fuzzy
 msgid "Rename Layer..."
-msgstr "Canvia el nom a la capa..."
+msgstr "Puja la capa"
 
 #: ../app/menus.c:145
+#, fuzzy
 msgid "Move selection to layer above"
-msgstr "Mou la selecció a la capa de sobre"
+msgstr "Mou a la capa de sobre"
 
 #: ../app/menus.c:146
+#, fuzzy
 msgid "Move selection to layer below"
-msgstr "Mou la selecció a la capa de sota"
+msgstr "Mou a la capa de sota"
 
 #: ../app/menus.c:147
 msgid "_Layers..."
@@ -1807,7 +1822,7 @@ msgstr "mostra amb antialiàsing"
 #. Translators: Menu item Verb/Channel/Export
 #. Translators: Menu item Verb/Channel/Export/Export
 #: ../app/preferences.c:221 ../objects/FS/function.c:698
-#: ../objects/FS/function.c:700 ../plug-ins/libart/export_png.c:326
+#: ../objects/FS/function.c:700 ../plug-ins/libart/export_png.c:328
 msgid "Export"
 msgstr "Exporta"
 
@@ -1929,7 +1944,7 @@ msgstr ""
 #: ../app/sheets.c:399
 #, c-format
 msgid "Widget not found: %s"
-msgstr "No s'ha trobat el giny de la interfície gràfica: %s"
+msgstr "No s'ha trobat l'element de la interfície gràfica: %s"
 
 #: ../app/sheets.c:474
 msgid "SVG Shape"
@@ -1966,7 +1981,7 @@ msgstr "Edita"
 
 #: ../app/sheets_dialog.c:267
 msgid "Revert"
-msgstr "Desfés"
+msgstr "Reverteix"
 
 #: ../app/sheets_dialog.c:355
 msgid "New"
@@ -2324,7 +2339,7 @@ msgstr "Error intern: en establir el tipus de punt final de la corba Bézier"
 #: ../lib/create.c:50 ../lib/create.c:100 ../lib/create.c:127
 #: ../lib/create.c:161 ../lib/create.c:197 ../lib/create.c:224
 #: ../lib/create.c:260 ../lib/create.c:295 ../lib/create.c:338
-#: ../plug-ins/svg/svg-import.c:267 ../plug-ins/vdx/vdx-import.c:144
+#: ../plug-ins/svg/svg-import.c:267 ../plug-ins/vdx/vdx-import.c:145
 msgid "Can't find standard object"
 msgstr "No es pot trobar l'objecte estàndard"
 
@@ -2684,8 +2699,6 @@ msgid ""
 "GTK+ is not installed. Please use the full installer. It is available from "
 "http://dia-installer.de."
 msgstr ""
-"Gtk+ no està instal·lat. Si us plau utilitza l'instal·lador. Este és "
-"disponible a http://dia-installer.de"
 
 #. Installer message: Don't install over pre 0.95 versions
 #: ../installer/win32/gennsh.c:41
@@ -2693,13 +2706,12 @@ msgid ""
 "Please remove old Dia installations completely or install Dia to a different "
 "location."
 msgstr ""
-"Si us plau desinstal·leu Dia  completament o instal·leu Dia en una ubicació "
-"diferent."
 
 #. Installer message:  License Page
 #: ../installer/win32/gennsh.c:44
+#, fuzzy
 msgid "Next >"
-msgstr "Següent >"
+msgstr "Text"
 
 #. Installer message, keep the $(^Name) and $_CLICK, these will be replaced
 #: ../installer/win32/gennsh.c:47
@@ -2707,33 +2719,35 @@ msgid ""
 "$(^Name) is released under the GPL license. The license is provided here for "
 "information purposes only. $_CLICK"
 msgstr ""
-"$(^Name) és alliberat sota la llicència GNU GPL. Esta llicència es "
-"proporciona ací a efectes informatius. $_CLICK"
 
+#
 #. Installer message: Components page
 #: ../installer/win32/gennsh.c:50
+#, fuzzy
 msgid "Dia Diagram Editor (required)"
 msgstr "Editor de diagrames Dia"
 
 #. Installer message: Components page
 #: ../installer/win32/gennsh.c:53
+#, fuzzy
 msgid "Translations"
-msgstr "Traducció"
+msgstr "Translació"
 
 #. Installer message: Component description
 #: ../installer/win32/gennsh.c:56
 msgid "Optional translations of the Dia user interface"
-msgstr "Traduccions opcionals de la interfície d'usuari de Dia"
+msgstr ""
 
 #. Installer message: Component description
 #: ../installer/win32/gennsh.c:59
 msgid "Core Dia files and dlls"
-msgstr "Fitxers de Dia i dlls"
+msgstr ""
 
 #. Installer message: Component name
 #: ../installer/win32/gennsh.c:62
+#, fuzzy
 msgid "Python plug-in"
-msgstr "Connectors de python"
+msgstr "Connectors"
 
 #. Installer message: Component description
 #: ../installer/win32/gennsh.c:65
@@ -2741,18 +2755,16 @@ msgid ""
 "Support for the Python Scripting Language 2.3. Do not select this if Python "
 "is not installed."
 msgstr ""
-"Suport per al llenguatge python 2.3 . No seleccioneu esta opció si python no "
-"està instal·lat."
 
 #. Installer message: hyperlink text on finish page
 #: ../installer/win32/gennsh.c:68
 msgid "Visit the Dia for Windows Web Page"
-msgstr "Visiteu el lloc web de Dia"
+msgstr ""
 
 #. Installer message: Dia uninstaller entry in Control Panel
 #: ../installer/win32/gennsh.c:71
 msgid "Dia (remove only)"
-msgstr "Dia ( desinstal·lació sols)"
+msgstr ""
 
 #. Installer message: confirmation question. Keep $\r
 #: ../installer/win32/gennsh.c:74
@@ -2761,9 +2773,6 @@ msgid ""
 "$\rNote: Any non-standard plugins that you may have installed will be "
 "deleted.$\rDia user settings will not be affected."
 msgstr ""
-"Esteu a punt de desinstal·lar el directori de Dia. Voleu continuar ? $\r $"
-"\rNota: Qualsevol connector no estàndard que hageu instal·lat serà esborrat. "
-"$\r Les configuracions dels usuaris de Dia no es veuran afectades. "
 
 #. Installer message: confirmatin question. Keep $\r
 #: ../installer/win32/gennsh.c:77
@@ -2771,8 +2780,6 @@ msgid ""
 "The installation directory you specified already exists. Any contents$\rwill "
 "be deleted. Would you like to continue?"
 msgstr ""
-"El directori d'instal·lació que heu especificat ja existeix. Qualsevol "
-"contingut $\r serà suprimit. Voleu continuar ?"
 
 #. Installer message: Uninstall Section Prompts. Keep $\r
 #: ../installer/win32/gennsh.c:80
@@ -2780,28 +2787,22 @@ msgid ""
 "The uninstaller could not find registry entries for Dia.$\rIt is likely that "
 "another user installed this application."
 msgstr ""
-"El desinstal·lador sembla no poder trobar registres de Dia. $\rIt és com si "
-"un altre usuari haja instal·lat esta aplicació. "
 
 #. Installer message: Uninstall error message
 #: ../installer/win32/gennsh.c:83
 msgid "You do not have permission to uninstall this application."
-msgstr "No teniu permís per desinstal·lar esta aplicació."
+msgstr ""
 
 #. Installer message: Uninstallation warning. Keep $INSTDIR
 #: ../installer/win32/gennsh.c:86
 msgid "This will completely delete $INSTDIR and all subdirectories. Continue?"
 msgstr ""
-"Això esborrarà completament $INSTDIR i tots els subdirectoris. Voleu "
-"continuar ?"
 
 #. Installer message: Uninstallation warning. Keep $\PROFILE\.dia
 #: ../installer/win32/gennsh.c:89
 msgid ""
 "This will completely delete $PROFILE\\.dia and all subdirectories. Continue?"
 msgstr ""
-"Això esborrarà completament $PROFILE\\.dia i tots els subdirectoris. Voleu "
-"continuar ?"
 
 #: ../objects/AADL/aadl.c:52
 msgid "Architecture Analysis & Design Language diagram objects"
@@ -3575,7 +3576,7 @@ msgstr "Divideix"
 #. Translators: Menu item Verb/Branch/Separate/Separate/Release
 #: ../objects/FS/function.c:854
 msgid "Release"
-msgstr "Alliberament"
+msgstr "Deixa anar"
 
 #. Translators: Menu item Verb/Branch/Separate/Separate/Detach
 #: ../objects/FS/function.c:856
@@ -4647,7 +4648,7 @@ msgstr "Amplada de la línia de la graella"
 
 #: ../objects/Misc/libmisc.c:41
 msgid "Miscellaneous objects"
-msgstr "Objectes variats"
+msgstr "Objecte variats"
 
 #: ../objects/Misc/measure.c:169
 msgid "cm"
@@ -5747,7 +5748,8 @@ msgstr ""
 "@ temps    defineix el punter a un temps absolut.\n"
 "( duració  activa el senyal, després s'espera «duració».\n"
 ") duració  desactiva el senyal, després s'espera «duració».\n"
-"u duració  posa el senyal en estat «desconegut», després s'espera «duració».\n"
+"u duració  posa el senyal en estat «desconegut», després s'espera "
+"«duració».\n"
 "exemple : @ 1.0 (2.0)1.0(2.0)\n"
 
 #: ../objects/chronogram/chronoline.c:166
@@ -6059,31 +6061,31 @@ msgstr ""
 
 #: ../plug-ins/cairo/diacairo.c:329
 msgid "Cairo PostScript"
-msgstr "PostScript de Cairo"
+msgstr "PostScript de la Cairo"
 
 #: ../plug-ins/cairo/diacairo.c:340
 msgid "Cairo Portable Document Format"
-msgstr "Format de document PDF de Cairo"
+msgstr "Format de Document Portable de la Cairo"
 
 #: ../plug-ins/cairo/diacairo.c:355
 msgid "Cairo Scalable Vector Graphics"
-msgstr "Format gràfic SVG de Cairo"
+msgstr "Gràfics vectorials escalables de la Cairo"
 
 #: ../plug-ins/cairo/diacairo.c:366
 msgid "Cairo PNG"
-msgstr "Format gràfic PNG de Cairo"
+msgstr "PNG de la Cairo"
 
 #: ../plug-ins/cairo/diacairo.c:374
 msgid "Cairo PNG (with alpha)"
-msgstr "Format gràfic PNG de Cairo (amb transparència)"
+msgstr "PNG de la Cairo (amb transparència)"
 
 #: ../plug-ins/cairo/diacairo.c:384
 msgid "Cairo EMF"
-msgstr "Format gràfic EMF de Cairo"
+msgstr "EMF de la Cairo"
 
 #: ../plug-ins/cairo/diacairo.c:394
 msgid "Cairo WMF"
-msgstr "Format gràfic WMF de Cairo"
+msgstr "WMF de la Cairo"
 
 #: ../plug-ins/cairo/diacairo.c:416
 msgid "Copy _Diagram"
@@ -6105,11 +6107,11 @@ msgstr ""
 "La llargada de la imatge és superior a la llargada màxima de la cel·la.\n"
 "La imatge no es pot exportar a CGM."
 
-#: ../plug-ins/cgm/cgm.c:1361
+#: ../plug-ins/cgm/cgm.c:1362
 msgid "Computer Graphics Metafile"
 msgstr "Metafitxer d'imatges d'ordinador (CGM)"
 
-#: ../plug-ins/cgm/cgm.c:1386
+#: ../plug-ins/cgm/cgm.c:1387
 msgid "Computer Graphics Metafile export filter"
 msgstr "Filtre de Metafitxer d'imatges d'ordinador (CGM)"
 
@@ -6152,32 +6154,32 @@ msgstr "Filtre d'exportació del Llenguatge de gràfics de HP"
 msgid "Libart based rendering"
 msgstr "Renderització basada en la Libart"
 
-#: ../plug-ins/libart/export_png.c:165
+#: ../plug-ins/libart/export_png.c:167
 msgid "Could not create PNG write structure"
 msgstr "No s'ha pogut crear una estructura d'escriptura PNG"
 
-#: ../plug-ins/libart/export_png.c:174
+#: ../plug-ins/libart/export_png.c:176
 msgid "Could not create PNG header info structure"
 msgstr "No s'ha pogut crear l'estructura de la informació de capçalera del PNG"
 
-#: ../plug-ins/libart/export_png.c:182
+#: ../plug-ins/libart/export_png.c:184
 msgid "Error occurred while writing PNG"
 msgstr "S'ha produït un error en escriure el PNG"
 
 #. Create a dialog
-#: ../plug-ins/libart/export_png.c:325
+#: ../plug-ins/libart/export_png.c:327
 msgid "PNG Export Options"
 msgstr "Opcions d'exportació del PNG"
 
-#: ../plug-ins/libart/export_png.c:331
+#: ../plug-ins/libart/export_png.c:333
 msgid "Image width:"
 msgstr "Amplada de la imatge:"
 
-#: ../plug-ins/libart/export_png.c:334
+#: ../plug-ins/libart/export_png.c:336
 msgid "Image height:"
 msgstr "Alçada de la imatge:"
 
-#: ../plug-ins/libart/export_png.c:380
+#: ../plug-ins/libart/export_png.c:382
 msgid "PNG (anti-aliased)"
 msgstr "PNG (amb antialiàsing)"
 
@@ -6352,53 +6354,53 @@ msgstr ""
 msgid "Couldn't read file %s"
 msgstr "No s'ha pogut llegir el fitxer %s"
 
-#: ../plug-ins/vdx/vdx-export.c:1905
+#: ../plug-ins/vdx/vdx-export.c:1912
 msgid "Visio XML format"
 msgstr "Format XML del Visio"
 
-#: ../plug-ins/vdx/vdx-import.c:226 ../plug-ins/xfig/xfig-import.c:1046
+#: ../plug-ins/vdx/vdx-import.c:227 ../plug-ins/xfig/xfig-import.c:1046
 #, c-format
 msgid "Couldn't read color: %s\n"
 msgstr "No s'ha pogut llegir el color: %s\n"
 
-#: ../plug-ins/vdx/vdx-import.c:540
+#: ../plug-ins/vdx/vdx-import.c:541
 #, c-format
 msgid "Couldn't find shape %d\n"
 msgstr "No s'ha pogut trobar la forma %d\n"
 
-#: ../plug-ins/vdx/vdx-import.c:1046
+#: ../plug-ins/vdx/vdx-import.c:1047
 #, c-format
 msgid "Unexpected Ellipse object: %s\n"
 msgstr "Objecte el·lipse inesperat: %s\n"
 
-#: ../plug-ins/vdx/vdx-import.c:1060
+#: ../plug-ins/vdx/vdx-import.c:1061
 msgid "Can't rotate ellipse\n"
 msgstr "No s'ha pogut girar l'el·lipse\n"
 
-#: ../plug-ins/vdx/vdx-import.c:1391
+#: ../plug-ins/vdx/vdx-import.c:1392
 msgid "MoveTo not at start of Bezier\n"
 msgstr "MoveTo no s'ha executat a l'inici de la corba de Bézier\n"
 
-#: ../plug-ins/vdx/vdx-import.c:1739
+#: ../plug-ins/vdx/vdx-import.c:1740
 msgid "Invalid NURBS formula"
 msgstr "Fórmula NURBS no vàlida"
 
-#: ../plug-ins/vdx/vdx-import.c:1983
+#: ../plug-ins/vdx/vdx-import.c:1984
 #, c-format
 msgid "Couldn't write file %s"
 msgstr "No s'ha pogut escriure el fitxer %s"
 
-#: ../plug-ins/vdx/vdx-import.c:2068 ../plug-ins/vdx/vdx-import.c:2081
+#: ../plug-ins/vdx/vdx-import.c:2069 ../plug-ins/vdx/vdx-import.c:2082
 #, c-format
 msgid "Couldn't handle foreign object type %s"
 msgstr "No s'ha pogut gestionar el tipus d'objecte forani %s"
 
-#: ../plug-ins/vdx/vdx-import.c:2109
+#: ../plug-ins/vdx/vdx-import.c:2110
 #, c-format
 msgid "Couldn't make object dir %s"
 msgstr "No s'ha pogut crear el directori de l'objecte %s"
 
-#: ../plug-ins/vdx/vdx-import.c:3090
+#: ../plug-ins/vdx/vdx-import.c:3100
 msgid "Visio XML File Format"
 msgstr "Format de fitxer XML del Visio"
 
@@ -6615,7 +6617,7 @@ msgstr "S'ha produït un error en llegir la mida del paper: %s\n"
 #, c-format
 msgid "Unknown paper size `%s', using default\n"
 msgstr ""
-"Mida del paper «%s» desconeguda, s'està utilitzant la mida predeterminada\n"
+"Mida del paper «%s» desconeguda, s»està utilitzant la mida predeterminada\n"
 
 #: ../plug-ins/xfig/xfig-import.c:1165
 #, c-format
@@ -7509,11 +7511,11 @@ msgstr "Variable d'eixida negativa"
 
 #: ../sheets/Contact.sheet.in.h:9
 msgid "Power-saved 'reset' output variable"
-msgstr "Variable d'eixida «reinicia» amb protecció de potència"
+msgstr "Variable d'eixida «reset» amb protecció de potència"
 
 #: ../sheets/Contact.sheet.in.h:10
 msgid "Power-saved 'set' output variable"
-msgstr "Variable d'eixida «especifica» amb protecció de potència"
+msgstr "Variable d'eixida «set» amb protecció de potència"
 
 #: ../sheets/Contact.sheet.in.h:11
 msgid "Power-saved negative output variable"
@@ -10605,82 +10607,11 @@ msgstr "Servidor de dades del Sybase"
 msgid "Sybase replication server"
 msgstr "Servidor de replicació de Sybase"
 
-#
-#, fuzzy
-#~ msgid "Diagram"
-#~ msgstr "Diagrama:"
+#~ msgid "'%s' not found!\n"
+#~ msgstr "No s'ha trobat «%s»!\n"
 
-#, fuzzy
-#~ msgid "Layer"
-#~ msgstr "Capes"
-
-#, fuzzy
-#~ msgid "Layer(s)"
-#~ msgstr "Capes"
-
-#, fuzzy
-#~ msgid "Children"
-#~ msgstr "D_esassocia els fills"
-
-#, fuzzy
-#~ msgid "Object(s)"
-#~ msgstr "_Objectes"
-
-#, fuzzy
-#~ msgid "Select"
-#~ msgstr "_Selecciona"
-
-#, fuzzy
-#~ msgid "Properties"
-#~ msgstr "/_Propietats"
-
-#, fuzzy
-#~ msgid "_Diagram tree"
-#~ msgstr "Arbre del diagrama"
-
-#, fuzzy
-#~ msgid "Please select a .shape file"
-#~ msgstr "Selecciona el fitxer de forma SVG"
-
-#, fuzzy
-#~ msgid "Miter"
-#~ msgstr "Mesclador"
-
-#, fuzzy
-#~ msgid "Butt"
-#~ msgstr "Inferior"
-
-#, fuzzy
-#~ msgid "Projecting"
-#~ msgstr "Protegeix"
-
-#, fuzzy
-#~ msgid "Line join"
-#~ msgstr "Amplada de la línia"
-
-#, fuzzy
-#~ msgid "Line caps"
-#~ msgstr "Distàncies de la línia"
-
-#, fuzzy
-#~ msgid "Allow resizing"
-#~ msgstr "Triangle buit"
-
-#~ msgid "Flip Horizontal"
-#~ msgstr "Volteja horitzontalment"
-
-#~ msgid "Flip Vertical"
-#~ msgstr "Volteja verticalment"
-
-#~ msgid "Add Segment"
-#~ msgstr "Afegeix un segment"
-
-#~ msgid "Delete Segment"
-#~ msgstr "Suprimeix el segment"
-
-#, fuzzy
-#~ msgid "CairoScript"
-#~ msgstr "PostScript de Cairo"
+#~ msgid "'%s' not found in '%s'!\n"
+#~ msgstr "No s'ha trobat «%s» a «%s»\n"
 
 #~ msgid "active"
 #~ msgstr "actiu"
@@ -10706,6 +10637,18 @@ msgstr "Servidor de replicació de Sybase"
 
 #~ msgid "sheets from '%s'"
 #~ msgstr "fulls de «%s»"
+
+#~ msgid "Flip Horizontal"
+#~ msgstr "Volteja horitzontalment"
+
+#~ msgid "Flip Vertical"
+#~ msgstr "Volteja verticalment"
+
+#~ msgid "Add Segment"
+#~ msgstr "Afegeix un segment"
+
+#~ msgid "Delete Segment"
+#~ msgstr "Suprimeix el segment"
 
 #~ msgid "Edit Layer Attributes"
 #~ msgstr "Edita els atributs de la capa"
@@ -10817,7 +10760,8 @@ msgstr "Servidor de replicació de Sybase"
 #~ "%s"
 
 #~ msgid "Could not find plugin init function in `%s'"
-#~ msgstr "No s'ha pogut trobar la funció d'inicialització del connector a «%s»"
+#~ msgstr ""
+#~ "No s'ha pogut trobar la funció d'inicialització del connector a «%s»"
 
 #~ msgid "Role:"
 #~ msgstr "Rol:"
@@ -10887,6 +10831,9 @@ msgstr "Servidor de replicació de Sybase"
 
 #~ msgid "Could not deduce correct path for `%s'"
 #~ msgstr "No s'ha pogut esbrinar el camí correcte per a «%s»"
+
+#~ msgid "Diagram tree"
+#~ msgstr "Arbre del diagrama"
 
 #~ msgid "Modify object(s)"
 #~ msgstr "Modifica els objectes"
