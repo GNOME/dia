@@ -906,6 +906,7 @@ text_key_event(Focus *focus,
 
   switch(keyval) {
       case GDK_Up:
+      case GDK_KP_Up:
         text->cursor_row--;
         if (text->cursor_row<0)
           text->cursor_row = 0;
@@ -915,6 +916,7 @@ text_key_event(Focus *focus,
 
         break;
       case GDK_Down:
+      case GDK_KP_Down:
         text->cursor_row++;
         if (text->cursor_row >= text->numlines)
           text->cursor_row = text->numlines - 1;
@@ -924,6 +926,7 @@ text_key_event(Focus *focus,
     
         break;
       case GDK_Left:
+      case GDK_KP_Left:
         if (keystate & GDK_CONTROL_MASK)
 	  text_move_cursor(text, WORD_START);
 	else
@@ -932,6 +935,7 @@ text_key_event(Focus *focus,
           text->cursor_pos = 0;
         break;
       case GDK_Right:
+      case GDK_KP_Right:
         if (keystate & GDK_CONTROL_MASK)
 	  text_move_cursor(text, WORD_END);
 	else
@@ -940,12 +944,15 @@ text_key_event(Focus *focus,
           text->cursor_pos = text_get_line_strlen(text, text->cursor_row);
         break;
       case GDK_Home:
+      case GDK_KP_Home:
         text->cursor_pos = 0;
         break;
       case GDK_End:
+      case GDK_KP_End:
         text->cursor_pos = text_get_line_strlen(text, text->cursor_row);
         break;
       case GDK_Delete:
+      case GDK_KP_Delete:
         return_val = text_delete_key_handler(focus, change);
         break;
       case GDK_BackSpace:

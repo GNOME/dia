@@ -872,12 +872,14 @@ ddisplay_canvas_events (GtkWidget *canvas,
           
           switch(kevent->keyval) {
 	      case GDK_Home :
+	      case GDK_KP_Home :
 	        /* match upper left corner of the diagram with it's view */
 		ddisplay_set_origo(ddisp, ddisp->diagram->data->extents.left, ddisp->diagram->data->extents.top);
 		ddisplay_update_scrollbars(ddisp);
 		ddisplay_add_update_all(ddisp);
 	        break;
 	      case GDK_End :
+	      case GDK_KP_End :
 	        /* match lower right corner of the diagram with it's view */
 		visible = &ddisp->visible;
 		ddisplay_set_origo(ddisp, 
@@ -887,9 +889,11 @@ ddisplay_canvas_events (GtkWidget *canvas,
 		ddisplay_add_update_all(ddisp);
 	        break;
 	      case GDK_Page_Up :
+	      case GDK_KP_Page_Up :
 	        _scroll_page (ddisp, !(state & GDK_CONTROL_MASK) ? DIR_UP : DIR_LEFT);
 	        break;
 	      case GDK_Page_Down :
+	      case GDK_KP_Page_Down :
 	        _scroll_page (ddisp, !(state & GDK_CONTROL_MASK) ? DIR_DOWN : DIR_RIGHT);
 	        break;
               case GDK_Up:
