@@ -18,37 +18,14 @@
 #ifndef WIDGETS_H
 #define WIDGETS_H
 
-#include <config.h>
-
 #include <gdk/gdk.h>
-#include <gtk/gtkmenu.h>
-#include <gtk/gtkoptionmenu.h>
-#include <gtk/gtkdrawingarea.h>
-#include <gtk/gtkcolorsel.h>
-#include <gtk/gtkhbox.h>
-#include <gtk/gtkfilesel.h>
 #include <gtk/gtkspinbutton.h>
-#include <gtk/gtklabel.h>
-#include <gtk/gtkcolorseldialog.h>
-#include <gtk/gtkmenuitem.h>
 
 #include "diatypes.h"
 #include "font.h"
 #include "color.h"
 #include "arrows.h"
 #include "units.h"
-
-/* DiaFontSelector: */
-#define DIAFONTSELECTOR(obj)          G_TYPE_CHECK_INSTANCE_CAST (obj, dia_font_selector_get_type (), DiaFontSelector)
-#define DIAFONTSELECTOR_CLASS(klass)  G_TYPE_CHECK_CLASS_CAST (klass, dia_font_selector_get_type (), DiaFontSelectorClass)
-#define IS_DIAFONTSELECTOR(obj)       G_TYPE_CHECK_INSTANCE_TYPE (obj, dia_font_selector_get_type ())
-
-
-GType    dia_font_selector_get_type        (void);
-GtkWidget* dia_font_selector_new             (void);
-void       dia_font_selector_set_font        (DiaFontSelector *fs, DiaFont *font);
-void       dia_font_selector_set_preview     (DiaFontSelector *fs, gchar *text);
-DiaFont *     dia_font_selector_get_font        (DiaFontSelector *fs);
 
 /* DiaAlignmentSelector: */
 #define DIAALIGNMENTSELECTOR(obj)          G_TYPE_CHECK_INSTANCE_CAST (obj, dia_alignment_selector_get_type (), DiaAlignmentSelector)

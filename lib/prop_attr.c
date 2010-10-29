@@ -32,6 +32,7 @@
 #include "properties.h"
 #include "propinternals.h"
 #include "diaarrowchooser.h"
+#include "diafontselector.h"
 
 /***************************/
 /* The LINESTYLE property type.  */

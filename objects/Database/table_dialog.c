@@ -36,6 +36,7 @@
 #include <string.h>
 #include "database.h"
 #include "intl.h"
+#include "diafontselector.h"
 
 struct _TablePropDialog {
   GtkWidget * dialog;

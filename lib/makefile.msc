@@ -115,6 +115,7 @@ OBJECTS = \
 	widgets.obj \
 	diaoptionmenu.obj \
 	diadynamicmenu.obj \
+	diafontselector.obj \
 	\
 	diacellrendererproperty.obj \
 	\

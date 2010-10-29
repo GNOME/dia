@@ -44,6 +44,7 @@
 #include "intl.h"
 #include "class.h"
 #include "diaoptionmenu.h"
+#include "diafontselector.h"
 /**
  * \brief Very special user interface for UMLClass parametrization
  *

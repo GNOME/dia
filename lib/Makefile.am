@@ -165,6 +165,8 @@ libdia_la_SOURCES =  \
 		dialinechooser.c \
 		diadynamicmenu.h \
 		diadynamicmenu.c \
+		diafontselector.h \
+		diafontselector.c \
 		persistence.c \
 		persistence.h \
 		diaerror.c \
