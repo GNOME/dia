@@ -416,6 +416,8 @@ figText(XfigRenderer *renderer, const guchar *text)
   for (i = 0; i < len; i++) {
     if (text[i] > 127) {
       newlen += 3;
+    } else if ('\\'==text[i]) {
+      newlen += 1;
     }
   }
   returntext = g_malloc(sizeof(char)*(newlen+1));
