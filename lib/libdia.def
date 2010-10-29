@@ -179,7 +179,6 @@ EXPORTS
  destroy_object_list
 
  dia_alignment_selector_get_alignment
- dia_alignment_selector_get_type
  dia_alignment_selector_new
  dia_alignment_selector_set_alignment
  dia_arrow_chooser_new

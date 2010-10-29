@@ -28,16 +28,9 @@
 #include "units.h"
 
 /* DiaAlignmentSelector: */
-#define DIAALIGNMENTSELECTOR(obj)          G_TYPE_CHECK_INSTANCE_CAST (obj, dia_alignment_selector_get_type (), DiaAlignmentSelector)
-#define DIAALIGNMENTSELECTOR_CLASS(klass)  G_TYPE_CHECK_CLASS_CAST (klass, dia_alignment_selector_get_type (), DiaAlignmentSelectorClass)
-#define IS_DIAALIGNMENTSELECTOR(obj)       G_TYPE_CHECK_INSTANCE_TYPE (obj, dia_alignment_selector_get_type ())
-
-
-GType      dia_alignment_selector_get_type      (void);
 GtkWidget* dia_alignment_selector_new           (void);
-Alignment  dia_alignment_selector_get_alignment (DiaAlignmentSelector *as);
-void       dia_alignment_selector_set_alignment (DiaAlignmentSelector *as,
-						 Alignment align);
+Alignment  dia_alignment_selector_get_alignment (GtkWidget *as);
+void       dia_alignment_selector_set_alignment (GtkWidget *as, Alignment align);
 
 /* DiaLineStyleSelector: */
 #define DIALINESTYLESELECTOR(obj)          G_TYPE_CHECK_INSTANCE_CAST (obj, dia_line_style_selector_get_type (), DiaLineStyleSelector)

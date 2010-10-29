@@ -183,8 +183,6 @@ typedef struct _DiaSizeSelector       DiaSizeSelector;
 typedef struct _DiaSizeSelectorClass  DiaSizeSelectorClass;
 typedef struct _DiaFontSelector       DiaFontSelector;
 typedef struct _DiaFontSelectorClass  DiaFontSelectorClass;
-typedef struct _DiaAlignmentSelector       DiaAlignmentSelector;
-typedef struct _DiaAlignmentSelectorClass  DiaAlignmentSelectorClass;
 typedef struct _DiaLineStyleSelector       DiaLineStyleSelector;
 typedef struct _DiaLineStyleSelectorClass  DiaLineStyleSelectorClass;
 typedef struct _DiaColorSelector       DiaColorSelector;

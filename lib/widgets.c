@@ -28,6 +28,7 @@
 #include "diaarrowchooser.h"
 #include "dialinechooser.h"
 #include "diadynamicmenu.h"
+#include "diaoptionmenu.h"
 #include "persistence.h"
 #include "dia-lib-icons.h"
 
@@ -277,106 +278,28 @@ dia_size_selector_get_size(DiaSizeSelector *ss, real *width, real *height)
 }
 
 /************* DiaAlignmentSelector: ***************/
-struct _DiaAlignmentSelector
-{
-  GtkOptionMenu omenu;
-
-  GtkMenu *alignment_menu;
-};
-
-struct _DiaAlignmentSelectorClass
-{
-  GtkOptionMenuClass parent_class;
-};
-
-static void
-dia_alignment_selector_class_init (DiaAlignmentSelectorClass *class)
-{
-}
-
-static void
-dia_alignment_selector_init (DiaAlignmentSelector *fs)
-{
-  GtkWidget *menu;
-  GtkWidget *submenu;
-  GtkWidget *menuitem;
-  GSList *group;
-  
-  menu = gtk_menu_new ();
-  fs->alignment_menu = GTK_MENU(menu);
-  submenu = NULL;
-  group = NULL;
-
-  menuitem = gtk_radio_menu_item_new_with_label (group, _("Left"));
-  g_object_set_data(G_OBJECT(menuitem), "user_data", GINT_TO_POINTER(ALIGN_LEFT));
-  group = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM (menuitem));
-  gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
-  gtk_widget_show (menuitem);
-
-  menuitem = gtk_radio_menu_item_new_with_label (group, _("Center"));
-  g_object_set_data(G_OBJECT(menuitem), "user_data", GINT_TO_POINTER(ALIGN_CENTER));
-  group = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM (menuitem));
-  gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
-  gtk_widget_show (menuitem);
-
-  menuitem = gtk_radio_menu_item_new_with_label (group, _("Right"));
-  g_object_set_data(G_OBJECT(menuitem), "user_data", GINT_TO_POINTER(ALIGN_RIGHT));
-  group = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM (menuitem));
-  gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
-  gtk_widget_show (menuitem);
-  
-  gtk_menu_set_active(GTK_MENU (menu), DEFAULT_ALIGNMENT);
-  gtk_option_menu_set_menu (GTK_OPTION_MENU (fs), menu);
-}
-
-GtkType
-dia_alignment_selector_get_type        (void)
-{
-  static GtkType dfs_type = 0;
-
-  if (!dfs_type) {
-    static const GtkTypeInfo dfs_info = {
-      "DiaAlignmentSelector",
-      sizeof (DiaAlignmentSelector),
-      sizeof (DiaAlignmentSelectorClass),
-      (GtkClassInitFunc) dia_alignment_selector_class_init,
-      (GtkObjectInitFunc) dia_alignment_selector_init,
-      NULL,
-      NULL,
-      (GtkClassInitFunc) NULL,
-    };
-    
-    dfs_type = gtk_type_unique (gtk_option_menu_get_type (), &dfs_info);
-  }
-  
-  return dfs_type;
-}
-
 GtkWidget *
 dia_alignment_selector_new ()
 {
-  return GTK_WIDGET ( gtk_type_new (dia_alignment_selector_get_type ()));
+  GtkWidget *omenu = dia_option_menu_new ();
+  dia_option_menu_add_item(omenu, _("Left"), ALIGN_LEFT);
+  dia_option_menu_add_item(omenu, _("Center"), ALIGN_CENTER);
+  dia_option_menu_add_item(omenu, _("Right"), ALIGN_RIGHT);
+
+  return omenu;
 }
 
-
 Alignment 
-dia_alignment_selector_get_alignment(DiaAlignmentSelector *fs)
+dia_alignment_selector_get_alignment(GtkWidget *as)
 {
-  GtkWidget *menuitem;
-  void *align;
-  
-  menuitem = gtk_menu_get_active(fs->alignment_menu);
-  align = g_object_get_data(G_OBJECT(menuitem), "user_item");
-
-  return GPOINTER_TO_INT(align);
+  return (Alignment)dia_option_menu_get_active (GTK_WIDGET (as));
 }
 
 void
-dia_alignment_selector_set_alignment (DiaAlignmentSelector *as,
+dia_alignment_selector_set_alignment (GtkWidget *as,
 				      Alignment align)
 {
-  gtk_menu_set_active(GTK_MENU (as->alignment_menu), align);
-  gtk_option_menu_set_history (GTK_OPTION_MENU(as), align);
+  dia_option_menu_set_active (GTK_WIDGET (as), align);
 }
 
 /************* DiaLineStyleSelector: ***************/
