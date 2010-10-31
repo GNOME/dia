@@ -29,7 +29,7 @@
 #include <assert.h>
 #include <string.h>
 #include <gdk/gdkkeysyms.h>
-#undef GTK_DISABLE_DEPRECATED
+#undef GTK_DISABLE_DEPRECATED /* GtkListItem, gtk_list_new, ... */
 #include <gtk/gtk.h>
 
 #include "intl.h"
@@ -327,8 +327,8 @@ GtkWidget * create_layer_view_widget (void)
                                     GTK_ICON_SIZE_MENU);
 
   gtk_container_add (GTK_CONTAINER(hide_button), image);
-  gtk_signal_connect (GTK_OBJECT (hide_button), "clicked", 
-                      GTK_SIGNAL_FUNC (layer_view_hide_button_clicked), NULL);    
+  g_signal_connect (G_OBJECT (hide_button), "clicked", 
+                    G_CALLBACK (layer_view_hide_button_clicked), NULL);    
     
   gtk_box_pack_start (GTK_BOX (hbox), hide_button, FALSE, FALSE, 2);
     
@@ -359,9 +359,8 @@ GtkWidget * create_layer_view_widget (void)
   gtk_widget_show (scrolled_win);
   gtk_widget_show (list);
 
-  g_signal_connect (GTK_OBJECT (list), "event",
-		      (GtkSignalFunc) layer_list_events,
-		      NULL);
+  g_signal_connect (G_OBJECT (list), "event",
+		    G_CALLBACK (layer_list_events), NULL);
     
   return vbox;
 }
@@ -433,9 +432,8 @@ create_layer_dialog(void)
   gtk_widget_show (scrolled_win);
   gtk_widget_show (list);
 
-  g_signal_connect (GTK_OBJECT (list), "event",
-		      (GtkSignalFunc) layer_list_events,
-		      NULL);
+  g_signal_connect (G_OBJECT (list), "event",
+		    G_CALLBACK (layer_list_events), NULL);
 
   button_box = create_button_box(dialog, TRUE);
   
@@ -718,9 +716,8 @@ layer_dialog_update_diagram_list(void)
 
     menu_item = gtk_menu_item_new_with_label(filename);
 
-    g_signal_connect (GTK_OBJECT (menu_item), "activate",
-			(GtkSignalFunc) layer_dialog_select_diagram_callback,
-			(gpointer) dia);
+    g_signal_connect (G_OBJECT (menu_item), "activate",
+		      G_CALLBACK (layer_dialog_select_diagram_callback), dia);
 
     gtk_menu_append( GTK_MENU(new_menu), menu_item);
     gtk_widget_show (menu_item);
@@ -731,9 +728,8 @@ layer_dialog_update_diagram_list(void)
 
   if (dia_open_diagrams()==NULL) {
     menu_item = gtk_menu_item_new_with_label (_("none"));
-    g_signal_connect (GTK_OBJECT (menu_item), "activate",
-			(GtkSignalFunc) layer_dialog_select_diagram_callback,
-			(gpointer) NULL);
+    g_signal_connect (G_OBJECT (menu_item), "activate",
+		      G_CALLBACK (layer_dialog_select_diagram_callback), NULL);
     gtk_menu_append( GTK_MENU(new_menu), menu_item);
     gtk_widget_show (menu_item);
   }
@@ -1019,12 +1015,10 @@ dia_layer_widget_init(DiaLayerWidget *lw)
 
   gtk_container_add(GTK_CONTAINER(lw), hbox);
 
-  g_signal_connect (GTK_OBJECT (lw), "select",
-		      (GtkSignalFunc) dia_layer_select_callback,
-		      (gpointer) NULL);
-  g_signal_connect (GTK_OBJECT (lw), "deselect",
-		      (GtkSignalFunc) dia_layer_deselect_callback, 
-		      (gpointer) NULL);
+  g_signal_connect (G_OBJECT (lw), "select",
+		    G_CALLBACK (dia_layer_select_callback), NULL);
+  g_signal_connect (G_OBJECT (lw), "deselect",
+		    G_CALLBACK (dia_layer_deselect_callback), NULL);
 }
 
 GtkType

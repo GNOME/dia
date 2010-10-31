@@ -22,7 +22,7 @@
 #undef GTK_DISABLE_DEPRECATED /* gnome */
 #include <gnome.h>
 #else
-#undef GTK_DISABLE_DEPRECATED /* e.g. GTK_SIGNAL_FUNC */
+#undef GTK_DISABLE_DEPRECATED /* GtkPixmap, gtk_type_new, gtk_object_set_data_full */
 #include <gtk/gtk.h>
 #endif
 #include "gtkwrapbox.h"
@@ -311,7 +311,7 @@ origin_button_press(GtkWidget *widget, GdkEventButton *event, gpointer data)
 
   /* stop the signal emission so the button doesn't grab the
    * pointer from us */
-  gtk_signal_emit_stop_by_name(GTK_OBJECT(widget), "button_press_event");
+  g_signal_stop_emission_by_name (G_OBJECT(widget), "button_press_event");
 
   return FALSE;
 }
@@ -393,7 +393,7 @@ zoom_popup_menu(GtkWidget *button, GdkEventButton *event, gpointer user_data) {
 		 event->button, event->time);
   /* stop the signal emission so the button doesn't grab the
    * pointer from us */
-  gtk_signal_emit_stop_by_name(GTK_OBJECT(button), "button_press_event");
+  g_signal_stop_emission_by_name (G_OBJECT(button), "button_press_event");
 }
 
 static GtkWidget*
@@ -554,8 +554,8 @@ use_integrated_ui_for_display_shell(DDisplay *ddisp, char *title)
                                     GTK_ICON_SIZE_MENU);
 
   gtk_container_add (GTK_CONTAINER(close_button), image);
-  gtk_signal_connect (GTK_OBJECT (close_button), "clicked", 
-                      GTK_SIGNAL_FUNC (close_notebook_page_callback), ddisp->container);
+  g_signal_connect (G_OBJECT (close_button), "clicked", 
+                    G_CALLBACK (close_notebook_page_callback), ddisp->container);
   /* </from GEdit> */
 
   gtk_box_pack_start( GTK_BOX(tab_label_container), close_button, FALSE, FALSE, 0 );
@@ -1328,8 +1328,8 @@ fill_sheet_wbox(Sheet *sheet)
   if (active_tool != NULL &&
       active_tool->type == CREATE_OBJECT_TOOL &&
       first_button != NULL)
-    gtk_signal_emit_by_name(GTK_OBJECT(first_button), "toggled",
-			    GTK_BUTTON(first_button), NULL);
+    g_signal_emit_by_name(G_OBJECT(first_button), "toggled",
+			  GTK_BUTTON(first_button), NULL);
 }
 
 static void

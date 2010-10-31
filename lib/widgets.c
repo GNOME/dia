@@ -199,9 +199,8 @@ dia_size_selector_init (DiaSizeSelector *ss)
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ss->aspect_locked), TRUE);
   gtk_widget_show(GTK_WIDGET(ss->aspect_locked));
 
-  gtk_signal_connect (GTK_OBJECT (ss->aspect_locked), "clicked",
-                      (GtkSignalFunc) dia_size_selector_lock_pressed,
-                      ss);
+  g_signal_connect (G_OBJECT (ss->aspect_locked), "clicked",
+                    G_CALLBACK (dia_size_selector_lock_pressed), ss);
   /* Make sure that the aspect ratio stays the same */
   g_signal_connect(GTK_OBJECT(gtk_spin_button_get_adjustment(ss->width)), 
 		   "value_changed",
@@ -631,12 +630,10 @@ dia_color_selector_more_callback(GtkWidget *widget, gpointer userdata)
   
   gtk_widget_hide(dialog->help_button);
   
-  gtk_signal_connect (GTK_OBJECT (dialog->ok_button), "clicked",
-		      (GtkSignalFunc) dia_color_selector_more_ok,
-		      dialog);  
-  gtk_signal_connect_object(GTK_OBJECT (dialog->cancel_button), "clicked",
-			    (GtkSignalFunc) gtk_widget_destroy,
-			    GTK_OBJECT(dialog));
+  g_signal_connect (G_OBJECT (dialog->ok_button), "clicked",
+		    G_CALLBACK (dia_color_selector_more_ok), dialog);  
+  g_signal_connect_swapped (G_OBJECT (dialog->cancel_button), "clicked",
+			    gtk_widget_destroy, G_OBJECT(dialog));
   g_object_set_data(G_OBJECT(dialog), "ddm", ddm);
 
   gtk_widget_show(GTK_WIDGET(dialog));
@@ -999,9 +996,8 @@ dia_file_selector_browse_pressed(GtkWidget *widget, gpointer data)
     gtk_dialog_set_default_response(GTK_DIALOG(dialog), GTK_RESPONSE_ACCEPT);
     g_signal_connect(GTK_OBJECT(dialog), "response",
 		     G_CALLBACK(file_open_response_callback), NULL);     
-    gtk_signal_connect (GTK_OBJECT (fs->dialog), "destroy",
-			GTK_SIGNAL_FUNC (gtk_widget_destroyed),
-			&fs->dialog);
+    g_signal_connect (G_OBJECT (fs->dialog), "destroy",
+		      G_CALLBACK (gtk_widget_destroyed), &fs->dialog);
     
     filter = gtk_file_filter_new ();
     gtk_file_filter_set_name (filter, _("Supported Formats"));
@@ -1045,9 +1041,8 @@ dia_file_selector_init (DiaFileSelector *fs)
 
   fs->browse = GTK_BUTTON(gtk_button_new_with_label(_("Browse")));
   gtk_box_pack_start(GTK_BOX(fs), GTK_WIDGET(fs->browse), FALSE, TRUE, 0);
-  gtk_signal_connect (GTK_OBJECT (fs->browse), "clicked",
-                      (GtkSignalFunc) dia_file_selector_browse_pressed,
-                      fs);
+  g_signal_connect (G_OBJECT (fs->browse), "clicked",
+                    G_CALLBACK(dia_file_selector_browse_pressed), fs);
   gtk_widget_show(GTK_WIDGET(fs->browse));
 }
 

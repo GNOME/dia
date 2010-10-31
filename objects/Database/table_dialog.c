@@ -165,10 +165,8 @@ table_get_properties_dialog (Table * table, gboolean is_default)
 
     g_object_set_data (G_OBJECT (notebook), "user_data", (gpointer) table);
 
-    gtk_signal_connect (GTK_OBJECT (notebook),
-                        "destroy",
-                        GTK_SIGNAL_FUNC (destroy_prop_dialog),
-                        (gpointer) table);
+    g_signal_connect (G_OBJECT (notebook), "destroy",
+                      G_CALLBACK (destroy_prop_dialog), table);
 
     create_dialog_pages (GTK_NOTEBOOK (notebook), table);
     /* by default the table name entry is focused */
@@ -627,9 +625,8 @@ create_attribute_page (GtkNotebook * notebook, Table * table)
   gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (scrolledwindow), list);
   gtk_container_set_focus_vadjustment (GTK_CONTAINER (list),
                                        gtk_scrolled_window_get_vadjustment (GTK_SCROLLED_WINDOW (scrolledwindow)));
-  gtk_signal_connect (GTK_OBJECT (list), "selection_changed",
-                      GTK_SIGNAL_FUNC (attributes_list_selection_changed_cb),
-                      table);
+  g_signal_connect (G_OBJECT (list), "selection_changed",
+                    G_CALLBACK (attributes_list_selection_changed_cb), table);
   gtk_widget_show (list);
 
   /* vbox for the button on the right side of the attributes list */
@@ -637,33 +634,29 @@ create_attribute_page (GtkNotebook * notebook, Table * table)
 
   /* the "new" button */
   button = gtk_button_new_with_mnemonic (_("_New"));
-  gtk_signal_connect (GTK_OBJECT (button), "clicked",
-                      GTK_SIGNAL_FUNC (attributes_list_new_button_clicked_cb),
-                      table);
+  g_signal_connect (G_OBJECT (button), "clicked",
+                    G_CALLBACK (attributes_list_new_button_clicked_cb), table);
   gtk_box_pack_start (GTK_BOX (vbox2), button, FALSE, TRUE, 0);
   gtk_widget_show (button);
 
   /* the "delete" button */
   button = gtk_button_new_with_mnemonic (_("_Delete"));
-  gtk_signal_connect (GTK_OBJECT (button), "clicked",
-                      GTK_SIGNAL_FUNC (attributes_list_delete_button_clicked_cb),
-                      table);
+  g_signal_connect (G_OBJECT (button), "clicked",
+                    G_CALLBACK (attributes_list_delete_button_clicked_cb), table);
   gtk_box_pack_start (GTK_BOX (vbox2), button, FALSE, TRUE, 0);
   gtk_widget_show (button);
 
   /* the "Move up" button */
   button = gtk_button_new_with_mnemonic (_("Move up"));
-  gtk_signal_connect (GTK_OBJECT (button), "clicked",
-                      GTK_SIGNAL_FUNC (attributes_list_moveup_button_clicked_cb),
-                      table);
+  g_signal_connect (G_OBJECT (button), "clicked",
+                    G_CALLBACK (attributes_list_moveup_button_clicked_cb), table);
   gtk_box_pack_start (GTK_BOX (vbox2), button, FALSE, TRUE, 0);
   gtk_widget_show (button);
 
   /* the "Move down" button */
   button = gtk_button_new_with_mnemonic (_("Move down"));
-  gtk_signal_connect (GTK_OBJECT (button), "clicked",
-                      GTK_SIGNAL_FUNC (attributes_list_movedown_button_clicked_cb),
-                      table);
+  g_signal_connect (G_OBJECT (button), "clicked",
+                    G_CALLBACK (attributes_list_movedown_button_clicked_cb), table);
   gtk_box_pack_start (GTK_BOX (vbox2), button, FALSE, TRUE, 0);
   gtk_widget_show (button);
 
@@ -683,10 +676,10 @@ create_attribute_page (GtkNotebook * notebook, Table * table)
   label = gtk_label_new (_("Name:"));
   entry = gtk_entry_new ();
   prop_dialog->attribute_name = GTK_ENTRY (entry);
-  gtk_signal_connect (GTK_OBJECT (entry), "focus_out_event",
-                      GTK_SIGNAL_FUNC (current_attribute_update_event), table);
-  gtk_signal_connect (GTK_OBJECT (entry), "activate",
-                      GTK_SIGNAL_FUNC (current_attribute_update), table);
+  g_signal_connect (G_OBJECT (entry), "focus_out_event",
+                    G_CALLBACK (current_attribute_update_event), table);
+  g_signal_connect (G_OBJECT (entry), "activate",
+                    G_CALLBACK (current_attribute_update), table);
   gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
   gtk_table_attach (GTK_TABLE (gtk_table), label, 0, 1, 0, 1, GTK_FILL, 0, 0, 0);
   gtk_table_attach (GTK_TABLE (gtk_table), entry, 1, 2, 0, 1, GTK_FILL | GTK_EXPAND, 0, 0, 2);
@@ -695,10 +688,10 @@ create_attribute_page (GtkNotebook * notebook, Table * table)
   label = gtk_label_new (_("Type:"));
   entry = gtk_entry_new ();
   prop_dialog->attribute_type = GTK_ENTRY (entry);
-  gtk_signal_connect (GTK_OBJECT (entry), "focus_out_event",
-                      GTK_SIGNAL_FUNC (current_attribute_update_event), table);
-  gtk_signal_connect (GTK_OBJECT (entry), "activate",
-                      GTK_SIGNAL_FUNC (current_attribute_update), table);
+  g_signal_connect (G_OBJECT (entry), "focus_out_event",
+                    G_CALLBACK (current_attribute_update_event), table);
+  g_signal_connect (G_OBJECT (entry), "activate",
+                    G_CALLBACK (current_attribute_update), table);
   gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
   gtk_table_attach (GTK_TABLE (gtk_table), label, 0, 1, 1, 2, GTK_FILL, 0, 0, 0);
   gtk_table_attach (GTK_TABLE (gtk_table), entry, 1, 2, 1, 2, GTK_FILL | GTK_EXPAND, 0, 0, 2);
@@ -706,10 +699,10 @@ create_attribute_page (GtkNotebook * notebook, Table * table)
   label = gtk_label_new (_("Default:"));
   entry = gtk_entry_new ();
   prop_dialog->attribute_default_value = GTK_ENTRY (entry);
-  gtk_signal_connect (GTK_OBJECT (entry), "focus_out_event",
-                      GTK_SIGNAL_FUNC (current_attribute_update_event), table);
-  gtk_signal_connect (GTK_OBJECT (entry), "activate",
-                      GTK_SIGNAL_FUNC (current_attribute_update), table);
+  g_signal_connect (G_OBJECT (entry), "focus_out_event",
+                    G_CALLBACK (current_attribute_update_event), table);
+  g_signal_connect (G_OBJECT (entry), "activate",
+                    G_CALLBACK (current_attribute_update), table);
   gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
   gtk_table_attach (GTK_TABLE (gtk_table), label, 0, 1, 2, 3, GTK_FILL, 0, 0, 0);
   gtk_table_attach (GTK_TABLE (gtk_table), entry, 1, 2, 2, 3, GTK_FILL | GTK_EXPAND, 0, 0, 2);
@@ -724,8 +717,8 @@ create_attribute_page (GtkNotebook * notebook, Table * table)
   gtk_container_add (GTK_CONTAINER (scrolledwindow), entry);
   gtk_text_view_set_wrap_mode (GTK_TEXT_VIEW (entry), GTK_WRAP_WORD);
   gtk_text_view_set_cursor_visible (GTK_TEXT_VIEW (entry), TRUE);
-  gtk_signal_connect (GTK_OBJECT (entry), "focus_out_event",
-		      GTK_SIGNAL_FUNC (current_attribute_update_event), table);
+  g_signal_connect (G_OBJECT (entry), "focus_out_event",
+		    G_CALLBACK (current_attribute_update_event), table);
   gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
   gtk_table_attach (GTK_TABLE (gtk_table), label, 0, 1, 3, 4, GTK_FILL, 0, 0, 0);
   gtk_table_attach (GTK_TABLE (gtk_table), scrolledwindow, 1, 2, 3, 4, GTK_FILL | GTK_EXPAND, 0, 0, 2);
@@ -735,22 +728,22 @@ create_attribute_page (GtkNotebook * notebook, Table * table)
   gtk_box_pack_start (GTK_BOX (vbox2), gtk_table, FALSE, FALSE, 0);
 
   checkbox = gtk_check_button_new_with_mnemonic (_("_Primary key"));
-  gtk_signal_connect (GTK_OBJECT (checkbox), "toggled",
-              GTK_SIGNAL_FUNC (attribute_primary_key_toggled_cb), table);
+  g_signal_connect (G_OBJECT (checkbox), "toggled",
+              	    G_CALLBACK (attribute_primary_key_toggled_cb), table);
   prop_dialog->attribute_primary_key = GTK_TOGGLE_BUTTON (checkbox);
   gtk_table_attach (GTK_TABLE (gtk_table), checkbox, 0, 1, 0, 1,
                     GTK_FILL | GTK_EXPAND, 0, 0, 0);
 
   checkbox = gtk_check_button_new_with_mnemonic (_("N_ullable"));
-  gtk_signal_connect (GTK_OBJECT (checkbox), "toggled",
-              GTK_SIGNAL_FUNC (attribute_nullable_toggled_cb), table);
+  g_signal_connect (G_OBJECT (checkbox), "toggled",
+              	    G_CALLBACK (attribute_nullable_toggled_cb), table);
   prop_dialog->attribute_nullable = GTK_TOGGLE_BUTTON (checkbox);
   gtk_table_attach (GTK_TABLE (gtk_table), checkbox, 1, 2, 0, 1,
                     GTK_FILL | GTK_EXPAND, 0, 0, 0);
 
   checkbox = gtk_check_button_new_with_mnemonic (_("Uni_que"));
-  gtk_signal_connect (GTK_OBJECT (checkbox), "toggled",
-                      GTK_SIGNAL_FUNC (attribute_unique_toggled_cb), table);
+  g_signal_connect (G_OBJECT (checkbox), "toggled",
+                    G_CALLBACK (attribute_unique_toggled_cb), table);
   prop_dialog->attribute_unique = GTK_TOGGLE_BUTTON (checkbox);
   gtk_table_attach (GTK_TABLE (gtk_table), checkbox, 1, 2, 1, 2,
                     GTK_FILL | GTK_EXPAND, 0, 0, 0);
@@ -1177,9 +1170,8 @@ attributes_list_add_attribute (Table * table,
   g_free (attrstr);
 
   g_object_set_data (G_OBJECT (list_item), "user_data", attribute);
-  gtk_signal_connect (GTK_OBJECT (list_item), "destroy",
-                      GTK_SIGNAL_FUNC (attribute_list_item_destroy_cb),
-                      NULL);
+  g_signal_connect (G_OBJECT (list_item), "destroy",
+                    G_CALLBACK (attribute_list_item_destroy_cb), NULL);
   list = g_list_append (NULL, list_item);
   gtk_list_append_items (prop_dialog->attributes_list, list);
   if (select)

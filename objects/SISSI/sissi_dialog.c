@@ -737,9 +737,8 @@ gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(pScroll_others), prop_
   gtk_table_attach_defaults (GTK_TABLE (prop_dialog->table_others), (GtkWidget *)object_sissi->properties_dialog->name, 1,2,3,4);
 
   button = gtk_button_new_with_mnemonic (_("_New"));
-  gtk_signal_connect (GTK_OBJECT (button), "clicked",
-		      GTK_SIGNAL_FUNC(others_new_callback),
-		      object_sissi);
+  g_signal_connect (G_OBJECT (button), "clicked",
+		    G_CALLBACK (others_new_callback), object_sissi);
  
  gtk_table_attach_defaults (GTK_TABLE (prop_dialog->table_others), button, 2, 3, 3, 4);
 
@@ -869,9 +868,8 @@ static void document_create_page(GtkNotebook *notebook, ObjetSISSI *object_sissi
   
   
   button = gtk_button_new_with_mnemonic (_("_New"));
-  gtk_signal_connect (GTK_OBJECT (button), "clicked",
-		      GTK_SIGNAL_FUNC(document_new_callback),
-		      object_sissi);
+  g_signal_connect (G_OBJECT (button), "clicked",
+		    G_CALLBACK (document_new_callback), object_sissi);
  
  gtk_table_attach_defaults (GTK_TABLE (prop_dialog->table_document), button, 0, 1, 0, 1);
     
@@ -1160,14 +1158,10 @@ extern GtkWidget *object_sissi_get_properties_dialog(ObjetSISSI *object_sissi, g
 
     g_object_set_data(G_OBJECT(notebook), "user_data", (gpointer) object_sissi);
     
-    gtk_signal_connect (GTK_OBJECT (notebook),
-			"switch_page",
-			GTK_SIGNAL_FUNC(switch_page_callback),
-			(gpointer) object_sissi);
-    gtk_signal_connect (GTK_OBJECT (object_sissi->properties_dialog->dialog),
-		        "destroy",
-			GTK_SIGNAL_FUNC(destroy_properties_dialog),
-			(gpointer) object_sissi);
+    g_signal_connect (G_OBJECT (notebook), "switch_page",
+		      G_CALLBACK (switch_page_callback), object_sissi);
+    g_signal_connect (G_OBJECT (object_sissi->properties_dialog->dialog), "destroy",
+		      G_CALLBACK (destroy_properties_dialog), object_sissi);
     
     create_dialog_pages(GTK_NOTEBOOK( notebook ), object_sissi);
 

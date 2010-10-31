@@ -26,7 +26,7 @@
  * Opens a dialog for export options
  */
 
-#undef GTK_DISABLE_DEPRECATED /* gtk_signal_connect, GTK_OPTION_MENU, ... */
+#undef GTK_DISABLE_DEPRECATED /* GTK_OPTION_MENU, ... */
 #include "xslt.h"
 #include <stdio.h>
 
@@ -120,8 +120,8 @@ xslt_dialog_create(void) {
 	while(cur_f != NULL)
 	{
 		menuitem = gtk_radio_menu_item_new_with_label (group, cur_f->name);
-		gtk_signal_connect (GTK_OBJECT (menuitem), "activate",
-				    GTK_SIGNAL_FUNC (from_activate), cur_f);
+		g_signal_connect (G_OBJECT (menuitem), "activate",
+				  G_CALLBACK (from_activate), cur_f);
 		group = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM (menuitem));
 		gtk_menu_append (GTK_MENU (menu), menuitem);
 		gtk_widget_show (menuitem);
@@ -158,8 +158,8 @@ xslt_dialog_create(void) {
 		while(cur_to != NULL)
 		{
 			menuitem = gtk_radio_menu_item_new_with_label (group, cur_to->name);
-			gtk_signal_connect (GTK_OBJECT (menuitem), "activate",
-					    GTK_SIGNAL_FUNC (to_update), cur_to );
+			g_signal_connect (G_OBJECT (menuitem), "activate",
+					  G_CALLBACK (to_update), cur_to );
 			group = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM (menuitem));
 			gtk_menu_append (GTK_MENU (menu), menuitem);
 			gtk_widget_show (menuitem);

@@ -152,10 +152,10 @@ frame_beginprop_get_widget(FrameProperty *prop, PropDialog *dialog)
 
   prop_dialog_add_raw_with_flags(dialog, unfoldbutton, FALSE, FALSE);
   
-  gtk_signal_connect(GTK_OBJECT(foldbutton), "clicked", 
-		     GTK_SIGNAL_FUNC(frame_fold_unfold), info);
-  gtk_signal_connect(GTK_OBJECT(unfoldbutton), "clicked",
-		     GTK_SIGNAL_FUNC(frame_fold_unfold), info);
+  g_signal_connect(G_OBJECT (foldbutton), "clicked", 
+		   G_CALLBACK (frame_fold_unfold), info);
+  g_signal_connect(G_OBJECT (unfoldbutton), "clicked",
+		   G_CALLBACK (frame_fold_unfold), info);
 
   prop_dialog_container_push(dialog,vbox);
 
@@ -457,8 +457,8 @@ listprop_get_widget(ListProperty *prop, PropDialog *dialog)
   gtk_list_set_selection_mode(GTK_LIST(ret),GTK_SELECTION_BROWSE);
   gtk_list_unselect_all(GTK_LIST(ret));
   
-  gtk_signal_connect(GTK_OBJECT(ret), "select-child",
-                     GTK_SIGNAL_FUNC(listprop_select_child_signal), prop);
+  g_signal_connect(G_OBJECT(ret), "select-child",
+                   G_CALLBACK (listprop_select_child_signal), prop);
 
   prophandler_connect(&prop->common, G_OBJECT(ret), "selection-changed");
   return ret;

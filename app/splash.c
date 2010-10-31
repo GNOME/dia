@@ -1,6 +1,6 @@
 #include <config.h>
 
-#undef GTK_DISABLE_DEPRECATED /* GtkPixmap */
+#undef GTK_DISABLE_DEPRECATED /* gtk_pixmap_new */
 #include <gtk/gtk.h>
 #include <gdk-pixbuf/gdk-pixbuf.h>
 
@@ -78,12 +78,12 @@ app_splash_init (const gchar* fname)
 
   gtk_widget_show_all (splash);
 
-  signal_id = g_signal_connect_after(GTK_OBJECT(splash), "expose_event",
-				       GTK_SIGNAL_FUNC(splash_expose), NULL);
+  signal_id = g_signal_connect_after(G_OBJECT(splash), "expose_event",
+				     G_CALLBACK(splash_expose), NULL);
 
   /* splash_expose gets us out of this */
   gtk_main();
-  g_signal_handler_disconnect(GTK_OBJECT(splash), signal_id);
+  g_signal_handler_disconnect(G_OBJECT(splash), signal_id);
 }
 
 void

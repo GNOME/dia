@@ -25,7 +25,7 @@
 #include <config.h>
 #endif
 
-#undef GTK_DISABLE_DEPRECATED /* GtkOptionMenu, GtkSignal, ... */
+#undef GTK_DISABLE_DEPRECATED /* GtkOptionMenu, ... */
 #include "diapagelayout.h"
 #include "widgets.h"
 
@@ -37,6 +37,8 @@
 #include "preferences.h"
 #include "paper.h"
 #include "prefs.h"
+
+#include "lib/diamarshal.h"
 
 /* private class : noone wants to inherit and noone needs to mess with details */
 #define DIA_PAGE_LAYOUT_CLASS(klass) G_TYPE_CHECK_CLASS_CAST(klass, dia_page_layout_get_type(), DiaPageLayoutClass)
@@ -115,12 +117,13 @@ dia_page_layout_class_init(DiaPageLayoutClass *class)
   parent_class = gtk_type_class(gtk_table_get_type());
 
   pl_signals[CHANGED] =
-    gtk_signal_new("changed",
-		   GTK_RUN_FIRST,
-		   G_TYPE_FROM_CLASS (object_class),
-		   GTK_SIGNAL_OFFSET(DiaPageLayoutClass, changed),
-		   gtk_signal_default_marshaller,
-		   GTK_TYPE_NONE, 0);
+    g_signal_new("changed",
+		 G_TYPE_FROM_CLASS (object_class),
+		 G_SIGNAL_RUN_FIRST,
+		 G_STRUCT_OFFSET(DiaPageLayoutClass, changed),
+		 NULL, NULL,
+		 dia_marshal_VOID__VOID,
+		 G_TYPE_NONE, 0);
 #if 0 /* FIXME ?*/
   gtk_object_class_add_signals(object_class, pl_signals, LAST_SIGNAL);
 #endif
@@ -436,7 +439,7 @@ dia_page_layout_set_margins(DiaPageLayout *self,
   dia_unit_spinner_set_value(DIA_UNIT_SPINNER(self->rmargin), rmargin);
   self->block_changed = FALSE;
 
-  gtk_signal_emit(GTK_OBJECT(self), pl_signals[CHANGED]);
+  g_signal_emit(G_OBJECT(self), pl_signals[CHANGED], 0);
 }
 
 DiaPageOrientation
@@ -743,7 +746,7 @@ paper_size_change(GtkMenuItem *item, DiaPageLayout *self)
 	     get_paper_psheight(self->papernum));
   gtk_label_set_text(GTK_LABEL(self->paper_label), buf);
 
-  gtk_signal_emit(GTK_OBJECT(self), pl_signals[CHANGED]);
+  g_signal_emit(G_OBJECT(self), pl_signals[CHANGED], 0);
 }
 
 static void
@@ -773,7 +776,7 @@ orient_changed(DiaPageLayout *self)
   }
 
   if (!self->block_changed)
-    gtk_signal_emit(GTK_OBJECT(self), pl_signals[CHANGED]);
+    g_signal_emit(G_OBJECT(self), pl_signals[CHANGED], 0);
 }
 
 static void
@@ -781,7 +784,7 @@ margin_changed(DiaPageLayout *self)
 {
   gtk_widget_queue_draw(self->darea);
   if (!self->block_changed)
-    gtk_signal_emit(GTK_OBJECT(self), pl_signals[CHANGED]);
+    g_signal_emit(G_OBJECT(self), pl_signals[CHANGED], 0);
 }
 
 static void
@@ -797,14 +800,14 @@ scalemode_changed(DiaPageLayout *self)
     gtk_widget_set_sensitive(self->fith, FALSE);
   }
   if (!self->block_changed)
-    gtk_signal_emit(GTK_OBJECT(self), pl_signals[CHANGED]);
+    g_signal_emit(G_OBJECT(self), pl_signals[CHANGED], 0);
 }
 
 static void
 scale_changed(DiaPageLayout *self)
 {
   if (!self->block_changed)
-    gtk_signal_emit(GTK_OBJECT(self), pl_signals[CHANGED]);
+    g_signal_emit(G_OBJECT(self), pl_signals[CHANGED], 0);
 }
 
 static void
