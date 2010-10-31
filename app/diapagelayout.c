@@ -38,7 +38,8 @@
 #include "paper.h"
 #include "prefs.h"
 
-#include "lib/diamarshal.h"
+#include "diamarshal.h"
+#include "diaoptionmenu.h"
 
 /* private class : noone wants to inherit and noone needs to mess with details */
 #define DIA_PAGE_LAYOUT_CLASS(klass) G_TYPE_CHECK_CLASS_CAST(klass, dia_page_layout_get_type(), DiaPageLayoutClass)
@@ -133,7 +134,7 @@ dia_page_layout_class_init(DiaPageLayoutClass *class)
 
 static void darea_size_allocate(DiaPageLayout *self, GtkAllocation *alloc);
 static gint darea_expose_event(DiaPageLayout *self, GdkEventExpose *ev);
-static void paper_size_change(GtkMenuItem *item, DiaPageLayout *self);
+static void paper_size_change(GtkWidget *widget, DiaPageLayout *self);
 static void orient_changed(DiaPageLayout *self);
 static void margin_changed(DiaPageLayout *self);
 static void scalemode_changed(DiaPageLayout *self);
@@ -142,7 +143,7 @@ static void scale_changed(DiaPageLayout *self);
 static void
 dia_page_layout_init(DiaPageLayout *self)
 {
-  GtkWidget *frame, *box, *table, *menu, *menuitem, *wid;
+  GtkWidget *frame, *box, *table, *wid;
   GdkPixmap *pix;
   GdkBitmap *mask;
   GList *paper_names;
@@ -163,22 +164,18 @@ dia_page_layout_init(DiaPageLayout *self)
   gtk_container_add(GTK_CONTAINER(frame), box);
   gtk_widget_show(box);
 
-  self->paper_size = gtk_option_menu_new();
+  self->paper_size = dia_option_menu_new();
   gtk_box_pack_start(GTK_BOX(box), self->paper_size, TRUE, FALSE, 0);
 
-  menu = gtk_menu_new();
+  g_signal_connect (self->paper_size, "changed", 
+		    G_CALLBACK(paper_size_change), self);
 
   paper_names = get_paper_name_list();  
   for (i = 0; paper_names != NULL; 
        i++, paper_names = g_list_next(paper_names)) {
-    menuitem = gtk_menu_item_new_with_label(paper_names->data);
-    g_object_set_data (G_OBJECT (menuitem), "user_data", GINT_TO_POINTER(i));
-    g_signal_connect(GTK_OBJECT(menuitem), "activate",
-		     G_CALLBACK(paper_size_change), self);
-    gtk_container_add(GTK_CONTAINER(menu), menuitem);
-    gtk_widget_show(menuitem);
+
+    dia_option_menu_add_item (self->paper_size, paper_names->data, i);
   }
-  gtk_option_menu_set_menu(GTK_OPTION_MENU(self->paper_size), menu);
   gtk_widget_show(self->paper_size);
 
   self->paper_label = gtk_label_new("");
@@ -407,9 +404,7 @@ dia_page_layout_set_paper(DiaPageLayout *self, const gchar *paper)
   i = find_paper(paper);
   if (i == -1)
     i = find_paper(prefs.new_diagram.papertype);
-  gtk_option_menu_set_history(GTK_OPTION_MENU(self->paper_size), i);
-  gtk_menu_item_activate(
-	GTK_MENU_ITEM(GTK_OPTION_MENU(self->paper_size)->menu_item));
+  dia_option_menu_set_active (self->paper_size, i);
 }
 
 void
@@ -702,11 +697,11 @@ max_margin (float size)
 }
 
 static void
-paper_size_change(GtkMenuItem *item, DiaPageLayout *self)
+paper_size_change(GtkWidget *widget, DiaPageLayout *self)
 {
   gchar buf[512];
 
-  self->papernum = GPOINTER_TO_INT(g_object_get_data (G_OBJECT(item), "user_data"));
+  self->papernum = dia_option_menu_get_active (widget);
   size_page(self, &self->darea->allocation);
   gtk_widget_queue_draw(self->darea);
 
