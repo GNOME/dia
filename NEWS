@@ -1,3 +1,8 @@
+  * Groups can be scaled and rotated. This limited support for object
+    transformations can only be exploited with a limited number of
+    renderers, but SVG, PNG, PDF (via cairo), WMF (win32 only) and
+    plain SVG are fully supporting transofrmations. (bgo#59880, bgo#100886)
+
   * object meta info possible since 0.97 finally got an editor
     (see: Object Properties). Meta info can be used for 
     "<ObjectMenu>/Follow Link..."
