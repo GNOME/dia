@@ -1,6 +1,5 @@
 #include <config.h>
 
-#undef GTK_DISABLE_DEPRECATED /* gtk_pixmap_new */
 #include <gtk/gtk.h>
 #include <gdk-pixbuf/gdk-pixbuf.h>
 
@@ -21,13 +20,7 @@ get_logo_pixmap (void)
   g_free(datadir);
 
   if (logo) {
-    GdkPixmap *pixmap;
-    GdkBitmap *bitmap;
-
-    gdk_pixbuf_render_pixmap_and_mask(logo, &pixmap, &bitmap, 128);
-    gpixmap = gtk_pixmap_new(pixmap, bitmap);
-    g_object_unref(pixmap);
-    if (bitmap) g_object_unref(bitmap);
+    gpixmap = gtk_image_new_from_pixbuf (logo);
     g_object_unref (logo);
   }
   return gpixmap;

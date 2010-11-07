@@ -20,7 +20,6 @@
 
 #include <config.h>
 
-#undef GTK_DISABLE_DEPRECATED
 #include <gtk/gtk.h>
 #include <string.h>
 #include "aadl.h"

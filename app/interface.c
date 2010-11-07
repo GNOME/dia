@@ -22,7 +22,7 @@
 #undef GTK_DISABLE_DEPRECATED /* gnome */
 #include <gnome.h>
 #else
-#undef GTK_DISABLE_DEPRECATED /* GtkPixmap, gtk_type_new, gtk_object_set_data_full */
+#undef GTK_DISABLE_DEPRECATED /* GtkPixmap */
 #include <gtk/gtk.h>
 #endif
 #include "gtkwrapbox.h"
@@ -1102,17 +1102,8 @@ create_widget_from_xpm_or_gdkp(gchar **icon_data, GtkWidget *button)
     p = gdk_pixbuf_new_from_inline(-1, (guint8*)icon_data, TRUE, NULL);
     pixmapwidget = gtk_image_new_from_pixbuf(p);
   } else {
-    GdkBitmap *mask = NULL;
-    GtkStyle *style;
-    char **pixmap_data;
-    GdkPixmap *pixmap = NULL;
-
-    pixmap_data = icon_data;
-    style = gtk_widget_get_style(button);
-    pixmap = gdk_pixmap_colormap_create_from_xpm_d(NULL,
-						   gtk_widget_get_colormap(button), &mask,
-						   &style->bg[GTK_STATE_NORMAL], pixmap_data);
-    pixmapwidget = gtk_pixmap_new(pixmap, mask);
+    char **pixmap_data = icon_data;
+    pixmapwidget = gtk_image_new_from_pixbuf (gdk_pixbuf_new_from_xpm_data (pixmap_data));
   }
   return pixmapwidget;
 }
@@ -1292,7 +1283,7 @@ fill_sheet_wbox(Sheet *sheet)
       g_object_unref(pixmap);
       if (mask) g_object_unref(mask);
     } else {
-      pixmapwidget = gtk_type_new(gtk_pixmap_get_type());
+      pixmapwidget = g_object_new (gtk_pixmap_get_type(), NULL);
     }
 
     button = gtk_radio_button_new (tool_group);
@@ -1311,8 +1302,8 @@ fill_sheet_wbox(Sheet *sheet)
     data->type = CREATE_OBJECT_TOOL;
     data->extra_data = sheet_obj->object_type;
     data->user_data = sheet_obj->user_data;
-    gtk_object_set_data_full(GTK_OBJECT(button), "Dia::ToolButtonData",
-			     data, (GdkDestroyNotify)g_free);
+    g_object_set_data_full(G_OBJECT(button), "Dia::ToolButtonData",
+			   data, (GDestroyNotify)g_free);
     if (first_button == NULL) first_button = button;
     
     g_signal_connect (GTK_OBJECT (button), "clicked",

@@ -25,7 +25,6 @@
 #include <config.h>
 #endif
 
-#undef GTK_DISABLE_DEPRECATED /* GtkOptionMenu, ... */
 #include "diapagelayout.h"
 #include "widgets.h"
 
@@ -88,23 +87,24 @@ static void dia_page_layout_class_init(DiaPageLayoutClass *class);
 static void dia_page_layout_init(DiaPageLayout *self);
 static void dia_page_layout_destroy(GtkObject *object);
 
-GtkType
+GType
 dia_page_layout_get_type(void)
 {
-  static GtkType pl_type = 0;
+  static GType pl_type = 0;
 
   if (!pl_type) {
-    static const GtkTypeInfo pl_info = {
-      "DiaPageLayout",
-      sizeof(DiaPageLayout),
+    static const GTypeInfo pl_info = {
       sizeof(DiaPageLayoutClass),
-      (GtkClassInitFunc) dia_page_layout_class_init,
-      (GtkObjectInitFunc) dia_page_layout_init,
-      NULL,
-      NULL,
-      (GtkClassInitFunc) NULL,
+      NULL,		/* base_init */
+      NULL,		/* base_finalize */
+      (GClassInitFunc)dia_page_layout_class_init,
+      NULL,		/* class_finalize */
+      NULL,		/* class_data */
+      sizeof(DiaPageLayout),
+      0,		/* n_preallocs */
+      (GInstanceInitFunc) dia_page_layout_init,
     };
-    pl_type = gtk_type_unique(gtk_table_get_type(), &pl_info);
+    pl_type = g_type_register_static (gtk_table_get_type (), "DiaPageLayout", &pl_info, 0);
   }
   return pl_type;
 }
@@ -115,7 +115,7 @@ dia_page_layout_class_init(DiaPageLayoutClass *class)
   GtkObjectClass *object_class;
   
   object_class = (GtkObjectClass*) class;
-  parent_class = gtk_type_class(gtk_table_get_type());
+  parent_class = g_type_class_peek_parent (class);
 
   pl_signals[CHANGED] =
     g_signal_new("changed",
@@ -144,8 +144,6 @@ static void
 dia_page_layout_init(DiaPageLayout *self)
 {
   GtkWidget *frame, *box, *table, *wid;
-  GdkPixmap *pix;
-  GdkBitmap *mask;
   GList *paper_names;
   gint i;
 
@@ -194,12 +192,8 @@ dia_page_layout_init(DiaPageLayout *self)
   gtk_widget_show(box);
 
   self->orient_portrait = gtk_radio_button_new(NULL);
-  pix = gdk_pixmap_colormap_create_from_xpm_d(NULL,
-		gtk_widget_get_colormap(GTK_WIDGET(self)), &mask, NULL,
-		portrait_xpm);
-  wid = gtk_pixmap_new(pix, mask);
-  g_object_unref(pix);
-  g_object_unref(mask);
+  
+  wid = gtk_image_new_from_pixbuf (gdk_pixbuf_new_from_xpm_data (portrait_xpm));
   gtk_container_add(GTK_CONTAINER(self->orient_portrait), wid);
   gtk_widget_show(wid);
 
@@ -208,12 +202,7 @@ dia_page_layout_init(DiaPageLayout *self)
 
   self->orient_landscape = gtk_radio_button_new(
 	gtk_radio_button_get_group(GTK_RADIO_BUTTON(self->orient_portrait)));
-  pix = gdk_pixmap_colormap_create_from_xpm_d(NULL,
-		gtk_widget_get_colormap(GTK_WIDGET(self)), &mask, NULL,
-		landscape_xpm);
-  wid = gtk_pixmap_new(pix, mask);
-  g_object_unref(pix);
-  g_object_unref(mask);
+  wid = gtk_image_new_from_pixbuf (gdk_pixbuf_new_from_xpm_data (landscape_xpm));
   gtk_container_add(GTK_CONTAINER(self->orient_landscape), wid);
   gtk_widget_show(wid);
 
@@ -384,7 +373,7 @@ dia_page_layout_init(DiaPageLayout *self)
 GtkWidget *
 dia_page_layout_new(void)
 {
-  DiaPageLayout *self = gtk_type_new(dia_page_layout_get_type());
+  DiaPageLayout *self = g_object_new(dia_page_layout_get_type(), NULL);
 
   dia_page_layout_set_paper(self, "");
   return GTK_WIDGET(self);

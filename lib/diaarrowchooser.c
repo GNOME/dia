@@ -23,7 +23,7 @@
  * \ingroup diawidgets
  */
 #include <config.h>
-#undef GTK_DISABLE_DEPRECATED /* GtkDestroyNotify */
+
 #include <gtk/gtk.h>
 #include "intl.h"
 #include "widgets.h"
@@ -457,7 +457,7 @@ dia_arrow_chooser_new(gboolean left, DiaChangeArrowCallback callback,
   menu = gtk_menu_new();
   g_object_ref_sink(menu);
   g_object_set_data_full(G_OBJECT(chooser), button_menu_key, menu,
-			 (GtkDestroyNotify)g_object_unref);
+			 (GDestroyNotify)g_object_unref);
   /* although from ARROW_NONE to MAX_ARROW_TYPE-1 this is sorted by *index* to keep the order consistent with earlier releases */
   for (i = ARROW_NONE; i < MAX_ARROW_TYPE; ++i) {
     ArrowType arrow_type = arrow_type_from_index(i);
