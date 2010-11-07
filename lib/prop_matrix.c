@@ -167,12 +167,26 @@ static GtkWidget *
 matrixprop_get_widget (MatrixProperty *prop, PropDialog *dialog) 
 { 
   GtkObject *adj;
-  GtkWidget *ret;
+  GtkWidget *ret, *sb;
+  int i;
 
+  ret = gtk_hbox_new (FALSE,0);
+  /* angle */
   adj = gtk_adjustment_new(0.0, -180.0, 180.0, 1.0, 15.0, 0);
-  ret = gtk_spin_button_new(GTK_ADJUSTMENT (adj), 1.0, 2);
-  gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(ret),TRUE);
-  prophandler_connect(&prop->common, G_OBJECT(ret), "changed");
+  sb = gtk_spin_button_new(GTK_ADJUSTMENT (adj), 1.0, 2);
+  gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(sb),TRUE);
+  prophandler_connect(&prop->common, G_OBJECT(sb), "changed");
+  gtk_widget_show(sb);
+  gtk_box_pack_start(GTK_BOX(ret), sb, TRUE, TRUE, 0);
+  /* sx, sy */
+  for (i = 0; i < 2; ++i) {
+    adj = gtk_adjustment_new(0.0, 0.01, 100.0, 0.01, 1.0, 0);
+    sb = gtk_spin_button_new(GTK_ADJUSTMENT (adj), 1.0, 2);
+    gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(sb),TRUE);
+    prophandler_connect(&prop->common, G_OBJECT(sb), "changed");
+    gtk_widget_show(sb);
+    gtk_box_pack_start(GTK_BOX(ret), sb, TRUE, TRUE, 0);
+  }
   
   return ret;
 }
@@ -180,34 +194,68 @@ matrixprop_get_widget (MatrixProperty *prop, PropDialog *dialog)
 static void 
 matrixprop_reset_widget(MatrixProperty *prop, GtkWidget *widget)
 {
+  GList *children, *child;
+  GtkWidget *sb;
   GtkObject *adj;
-  real angle;
+  real angle, sx, sy;
+  int i = 0;
 
-  if (!prop->matrix)
+  if (!prop->matrix) {
     angle = 0;
-  else
-    angle = atan2 (prop->matrix->xy, prop->matrix->xx)*180/G_PI;
+    sx = sy = 1.0;
+  } else {
+    real a;
 
-  adj = gtk_adjustment_new(angle, -180.0, 180.0, 1.0, 15.0, 0);
-  gtk_spin_button_set_adjustment(GTK_SPIN_BUTTON(widget), GTK_ADJUSTMENT (adj));
+    dia_matrix_get_angle_and_scales (prop->matrix, &a, &sx, &sy);
+
+    angle = atan2 (prop->matrix->xy, prop->matrix->xx)*180/G_PI;
+    angle = -a*180/G_PI;
+  }
+
+  children = gtk_container_get_children (GTK_CONTAINER (widget));
+  for (child = children; child != NULL; child = g_list_next (child)) {
+    sb = child->data;
+    if (i == 0)
+      adj = gtk_adjustment_new(angle, -180.0, 180.0, 1.0, 15.0, 0);
+    else if (i == 1)
+      adj = gtk_adjustment_new(sx, 0.01, 100.0, 0.1, 1.0, 0);
+    else if (i == 2)
+      adj = gtk_adjustment_new(sy, 0.01, 100.0, 0.1, 1.0, 0);
+    else
+      g_assert_not_reached ();
+    gtk_spin_button_set_adjustment(GTK_SPIN_BUTTON(sb), GTK_ADJUSTMENT (adj));
+    ++i;
+  }
 }
 
 static void 
 matrixprop_set_from_widget(MatrixProperty *prop, GtkWidget *widget) 
 {
-  real angle = gtk_spin_button_get_value(GTK_SPIN_BUTTON(widget));
-  real old_angle = 0.0;
-  if (angle != 0.0) {
+  GList *children, *child;
+  GtkWidget *sb;
+  GtkObject *adj;
+  real angle = 0.0, sx = 1.0, sy = 1.0;
+  int i = 0;
+
+  children = gtk_container_get_children (GTK_CONTAINER (widget));
+  for (child = children; child != NULL; child = g_list_next (child)) {
+    sb = child->data;
+    if (i == 0)
+      angle = gtk_spin_button_get_value(GTK_SPIN_BUTTON(sb));
+    else if (i == 1)
+      sx = gtk_spin_button_get_value(GTK_SPIN_BUTTON(sb));
+    else if (i == 2)
+      sy = gtk_spin_button_get_value(GTK_SPIN_BUTTON(sb));
+    else
+      g_assert_not_reached ();
+    ++i;
+  }
+
+  if (angle != 0.0 || sx != 1.0 || sy != 1.0) {
     if (!prop->matrix) {
       prop->matrix = g_new0 (DiaMatrix, 1);
-
-      prop->matrix->xx = 1.0;
-      prop->matrix->yy = 1.0;
-    } else {
-      old_angle = atan2 (prop->matrix->xy, prop->matrix->xx);
-      old_angle = 180*old_angle/G_PI;
     }
-    cairo_matrix_rotate ((cairo_matrix_t *)prop->matrix, G_PI*(old_angle-angle)/180);
+    dia_matrix_set_angle_and_scales (prop->matrix, -angle/180.0*G_PI, sx, sy);
   } else {
     g_free (prop->matrix);
     prop->matrix = NULL;

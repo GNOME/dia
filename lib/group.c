@@ -197,7 +197,7 @@ group_update_connectionpoints(Group *group)
 
 static ObjectChange*
 group_move_handle(Group *group, Handle *handle, Point *to, ConnectionPoint *cp,
-		      HandleMoveReason reason, ModifierKeys modifiers)
+		  HandleMoveReason reason, ModifierKeys modifiers)
 {
   DiaObject *obj = &group->object;
   Rectangle *bb = &obj->bounding_box;
@@ -217,6 +217,10 @@ group_move_handle(Group *group, Handle *handle, Point *to, ConnectionPoint *cp,
   w0 = w1 = bb->right - bb->left;
   h0 = h1 = bb->bottom - bb->top;
 
+  /* Movement vs. scaling is still a bit bogus, e.g. if the object list
+   * position happens to be near a different than top-left handle we might
+   * only resize and not move the given handle at all.
+   */
   switch(handle->id) {
   case HANDLE_RESIZE_NW:
     delta.x = to->x - top_left.x;
@@ -260,8 +264,36 @@ group_move_handle(Group *group, Handle *handle, Point *to, ConnectionPoint *cp,
     group->matrix->yy = 1.0;
   }
 
-  cairo_matrix_scale ((cairo_matrix_t *)group->matrix, w1 / w0, h1 / h0);
+  /* The resizing is in the destination coordinate system, translate
+   * it to respective object scaling. BEWARE: this is not completely
+   * reversible, so we probably should deliver some extra undo information.
+   */
+  {
+    DiaMatrix inv = *group->matrix;
+    real sx0, sx;
+    real sy0, sy;
+    real angle;
 
+    inv.x0 = w0/2;
+    inv.y0 = h0/2;
+    if (cairo_matrix_invert ((cairo_matrix_t *)&inv) != CAIRO_STATUS_SUCCESS)
+      g_warning ("Group::move_handle() matrix invert");
+
+    dia_matrix_get_angle_and_scales (group->matrix, &angle, &sx0, &sy0);
+
+    cairo_matrix_transform_distance ((cairo_matrix_t *)&inv, &w0, &h0);
+    cairo_matrix_transform_distance ((cairo_matrix_t *)&inv, &w1, &h1);
+    /* with angle of 45 degree (+x*90) the below does not work out, because
+     * transformed height or width becomes zero so convert to even scale */
+    if ((fabs(w0) < 1e-3) || (fabs(h0) < 1e-3)) {
+      sx = sy = sqrt(w1*w1 + h1*h1) / sqrt(w0*w0 + h0*h0);
+    } else {
+      sx = w1/w0;
+      sy = h1/h0;
+    }
+
+    dia_matrix_set_angle_and_scales (group->matrix, angle, sx0 * sx, sy0 * sy);
+  }
   group_update_data(group);
 
   return NULL;

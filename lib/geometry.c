@@ -795,3 +795,65 @@ dia_matrix_is_identity (const DiaMatrix *matrix)
   return FALSE;
 }
 
+/**
+ * Splitting the givne matrix into angle and scales
+ *
+ * with     scale    rotate
+ *   xx yx    sx 0     cos(x) sin(x)
+ *   xy yy    0  sy   -sin(x) cos(x)
+ *
+ * rxx =  sx *  cos(a) + 0  * -sin(a)
+ * ryx =  sx *  sin(a) + 0  *  cos(a)
+ * rxy =  0  *  cos(a) + sy * -sin(a)
+ * ryy =  0  * -sin(a) + sy *  cos(a)
+ */
+gboolean
+dia_matrix_get_angle_and_scales (const DiaMatrix *m,
+                                 real            *a,
+				 real            *sx,
+				 real            *sy)
+{
+  const real epsilon = 1e-6;
+  gboolean no_skew;
+  real ratio; /* the ratio of the sx/sy */
+  real rxx, ryx, rxy, ryy;
+  real len1, len2;
+  real angle;
+  real c, s;
+
+  ratio = m->xx / m->yy;
+  /* correct for uniform scale */
+  rxx = m->xx / ratio;
+  ryx = m->yx / ratio;
+  rxy = m->xy;
+  ryy = m->yy;
+  /* w/o scale it would be len==1 */
+  len1 = sqrt(rxx * rxx + ryx * ryx);
+  len2 = sqrt(rxy * rxy + ryy * ryy);
+  no_skew = fabs(len1 - len2) < epsilon;
+  
+  angle = atan2(ryx, rxx);
+  if (a)
+    *a = angle;
+  c = fabs(cos(angle));
+  s = fabs(sin(angle));
+  if (sx)
+    *sx = fabs(c > s ? m->xx / c : m->yx / s);
+  if (sy)
+    *sy = fabs(s > c ? m->xy / s : m->yy / c);
+
+  return no_skew;
+}
+
+/**
+ * Scale in the coordinate system of the shape, afterwards rotate
+ */
+void 
+dia_matrix_set_angle_and_scales (DiaMatrix *m,
+                                 real       a,
+				 real       sx,
+				 real       sy)
+{
+  cairo_matrix_init_rotate ((cairo_matrix_t *)m, a);
+  cairo_matrix_scale ((cairo_matrix_t *)m, sx, sy);
+}
