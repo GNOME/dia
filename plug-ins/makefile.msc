@@ -32,8 +32,13 @@ PKG_DEF = ..\objects.def
 
 !INCLUDE $(TOP)\glib\build\win32\make.msc
 
-PKG_CFLAGS = -FImsvc_recommended_pragmas.h \
-	-DGTK_DISABLE_DEPRECATED \
+DEFINES = \
+	-DHAVE_CONFIG_H \
+	-DGTK_DISABLE_DEPRECATED
+
+INCLUDES = \
+	-FImsvc_recommended_pragmas.h \
+	-I. -I$(PRJ_TOP) \
 	$(GLIB_CFLAGS) $(GTK2_CFLAGS) \
 	-I. $(LIBXML2_CFLAGS) -I$(PRJ_TOP)\lib \
 
@@ -46,7 +51,7 @@ PKG_LINK = $(GTK2_LIBS) $(GLIB_LIBS) \
 # Special object definitions for the various plugins, if needed
 #
 !IFDEF OBJ_autolayout
-PKG_CFLAGS = $(PKG_CFLAGS) -I $(PRJ_TOP)\app
+DEPCFLAGS = -I $(PRJ_TOP)\app
 PKG_LINK = $(PKG_LINK) $(PRJ_TOP)\app\dia-app.lib
 OBJECTS = \
 	autolayout.obj \
@@ -55,7 +60,7 @@ OBJECTS = \
 !ENDIF
 
 !IFDEF OBJ_cairo
-PKG_CFLAGS = $(PKG_CFLAGS) $(CAIRO_CFLAGS) -DHAVE_PANGOCAIRO_H
+DEPCFLAGS = $(CAIRO_CFLAGS) -DHAVE_PANGOCAIRO_H
 PKG_LINK = $(PKG_LINK) $(CAIRO_LIBS) $(PANGOCAIRO_LIBS) gdi32.lib
 OBJECTS = \
 	diacairo.obj \
@@ -81,7 +86,7 @@ OBJECTS = \
 !ENDIF
 
 !IFDEF OBJ_libart
-PKG_CFLAGS = $(PKG_CFLAGS) -DHAVE_LIBART -DHAVE_LIBPNG $(LIBART_CFLAGS) $(PNG_CFLAGS)
+DEPCFLAGS = -DHAVE_LIBART -DHAVE_LIBPNG $(LIBART_CFLAGS) $(PNG_CFLAGS)
 PKG_LINK = $(PKG_LINK) $(LIBART_LIBS) $(PNG_LIBS) ..\..\app\dia-app.lib
 OBJECTS = \
   dialibart.obj \
@@ -165,7 +170,7 @@ OBJECTS = \
 !ENDIF
 
 !IFDEF OBJ_xslt
-EXTRACFLAGS = -DWIN32 $(LIBXSLT_CFLAGS)
+DEPCFLAGS = -DWIN32 $(LIBXSLT_CFLAGS)
 EXTRALIBS = $(LIBXSLT_LIBS)
 OBJECTS = xslt.obj \
 	xsltdialog.obj
@@ -176,8 +181,6 @@ OBJECTS = xslt.obj \
 OBJECTS = $(PACKAGE).obj
 !ENDIF
 
-CFLAGS = -I. -I$(PRJ_TOP) -DHAVE_CONFIG_H $(EXTRACFLAGS)
-
 $(PACKAGE).lib : $(OBJECTS)
 	lib /out:$(PACKAGE).lib $(OBJECTS)
 
@@ -186,12 +189,6 @@ $(PACKAGE).dll : $(OBJECTS) $(PKG_DEF)
 	$(PKG_LINK) $(EXTRALIBS) user32.lib advapi32.lib wsock32.lib $(LDFLAGS) /def:$(PKG_DEF)
 $(PRJ_TOP)\config.h: $(PRJ_TOP)\config.h.win32
 	copy $(PRJ_TOP)\config.h.win32 $(PRJ_TOP)\config.h
-
-.cpp.obj :
-	$(CC) $(CFLAGS) -c $(PKG_CFLAGS) $<
-
-.c.obj :
-	$(CC) $(CFLAGS) -c $(PKG_CFLAGS) $<
 
 !ENDIF
 
