@@ -278,7 +278,7 @@ dia_object_default_create (const DiaObjectType *type,
         {
 	  GPtrArray *props = prop_list_from_descs (
 	      object_get_prop_descriptions(def_obj), pdtpp_standard_or_defaults);
-          def_obj->ops->get_props(def_obj, props);
+          def_obj->ops->get_props((DiaObject *)def_obj, props);
           obj->ops->set_props(obj, props);
 	  obj->ops->move (obj, startpoint);
           prop_list_free(props);
