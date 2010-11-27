@@ -1,14 +1,15 @@
 # Thai translation of dia
-# Copyright (C) 2006-2008 Free Software Foundation, Inc.
+# Copyright (C) 2006-2010 Free Software Foundation, Inc.
 # This file is distributed under the same license as the dia package.
 # Tee Tanawatanakul <wallsfantasy@gmail.com>, 2006.
+# Theppitak Karoonboonyanan <thep@linux.thai.net>, 2008-2010.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: dia\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-01-28 12:03+0100\n"
-"PO-Revision-Date: 2008-10-25 21:50+0700\n"
+"PO-Revision-Date: 2010-11-27 15:07+0700\n"
 "Last-Translator: Theppiak Karoonboonyanan <thep@linux.thai.net>\n"
 "Language-Team: Thai <thai-l10n@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -20,22 +21,22 @@ msgstr ""
 #: ../app/app_procs.c:260
 #, c-format
 msgid "Warning: invalid layer range %lu - %lu\n"
-msgstr "คำเตือน: ช่วงของเลเยอร์ %lu - %lu ไม่ถูกต้อง\n"
+msgstr "คำเตือน: ช่วงของชั้นงาน %lu - %lu ไม่ถูกต้อง\n"
 
 #: ../app/app_procs.c:272
 #, c-format
 msgid "Warning: Layer %lu (%s) selected more than once.\n"
-msgstr "คำเตือน: เลเยอร์ %lu (%s) ถูกเลือกมากกว่าหนึ่งครั้ง\n"
+msgstr "คำเตือน: ชั้นงาน %lu (%s) ถูกเลือกมากกว่าหนึ่งครั้ง\n"
 
 #: ../app/app_procs.c:298
 #, c-format
 msgid "Warning: Layer %d (%s) selected more than once.\n"
-msgstr "คำเตือน: เลเยอร์ %d (%s) ถูกเลือกมากกว่าหนึ่งครั้ง\n"
+msgstr "คำเตือน: ชั้นงาน %d (%s) ถูกเลือกมากกว่าหนึ่งครั้ง\n"
 
 #: ../app/app_procs.c:307
 #, c-format
 msgid "Warning: There is no layer named %s\n"
-msgstr "คำเตือน: ไม่พบเลเยอร์ชื่อ %s\n"
+msgstr "คำเตือน: ไม่พบชั้นงานชื่อ %s\n"
 
 #: ../app/app_procs.c:389
 #, c-format
@@ -87,7 +88,7 @@ msgstr "TYPE"
 
 #: ../app/app_procs.c:692 ../app/app_procs.c:720
 msgid "Export graphics size"
-msgstr "นำออกขนาดกราฟิค"
+msgstr "ส่งออกขนาดกราฟิก"
 
 #: ../app/app_procs.c:692 ../app/app_procs.c:720
 msgid "WxH"
@@ -99,8 +100,8 @@ msgid ""
 "Show only specified layers (e.g. when exporting). Can be either the layer "
 "name or a range of layer numbers (X-Y)"
 msgstr ""
-"แสดงเฉพาะเลเยอร์ที่ระบุไว้ (เช่น ในขณะที่กำลังนำออก) สามารถระบุเป็นชื่อของเลเยอร์ "
-"หรือหมายเลขช่วงของเลเยอร์ (X-Y)"
+"แสดงเฉพาะชั้นงานที่ระบุไว้ (เช่น ในขณะส่งออก) สามารถระบุเป็นชื่อของชั้นงาน "
+"หรือหมายเลขช่วงของชั้นงาน (X-Y)"
 
 #: ../app/app_procs.c:695 ../app/app_procs.c:723
 msgid "LAYER,LAYER,..."
@@ -495,7 +496,7 @@ msgstr "/เรียงวัตถุ/ตาม_ชื่อ"
 
 #: ../app/diagram_tree_menu.c:49
 msgid "/Sort objects/by _type"
-msgstr "/เรียงวัตถุ/ตาม_ประเภท"
+msgstr "/เรียงวัตถุ/ตาม_ชนิด"
 
 #: ../app/diagram_tree_menu.c:51
 #, fuzzy
@@ -508,7 +509,7 @@ msgstr "/เรียงวัตถุ/ทั้งหมดตามชื่�
 
 #: ../app/diagram_tree_menu.c:56
 msgid "/Sort objects/All by type"
-msgstr "/เรียงวัตถุ/ทั้งหมดตามประเภท"
+msgstr "/เรียงวัตถุ/ทั้งหมดตามชนิด"
 
 #: ../app/diagram_tree_menu.c:58
 msgid "/Sort objects/All as inserted"
@@ -524,7 +525,7 @@ msgstr "/เรียงวัตถุ/ค่าปริยาย/ตาม_�
 
 #: ../app/diagram_tree_menu.c:63
 msgid "/Sort objects/Default/by _type"
-msgstr "/เรียงวัตถุ/ค่าปริยาย/ตาม_ประเภท"
+msgstr "/เรียงวัตถุ/ค่าปริยาย/ตาม_ชนิด"
 
 #: ../app/diagram_tree_menu.c:65
 msgid "/Sort objects/Default/as _inserted"
@@ -564,7 +565,7 @@ msgstr "/_คุณสมบัติ"
 
 #: ../app/diagram_tree_menu.c:85
 msgid "/_Hide this type"
-msgstr "/_ซ่อนประเภทนี้"
+msgstr "/_ซ่อนชนิดนี้"
 
 #: ../app/diagram_tree_window.c:80 ../app/preferences.c:110
 msgid "Diagram Tree"
@@ -735,14 +736,14 @@ msgstr "เกิดข้อผิดพลาดระหว่างการ
 #. Create a dialog
 #: ../app/export_png.c:301
 msgid "PNG Export Options"
-msgstr "ตัวเลือกการนำออกข้อมูล PNG"
+msgstr "ตัวเลือกการส่งออกข้อมูล PNG"
 
 #. Translators: Menu item Verb/Channel/Export
 #. Translators: Menu item Verb/Channel/Export/Export
 #: ../app/export_png.c:302 ../objects/FS/function.c:696
 #: ../objects/FS/function.c:698
 msgid "Export"
-msgstr "นำออก"
+msgstr "ส่งออก"
 
 #: ../app/export_png.c:307
 msgid "Image width:"
@@ -770,7 +771,7 @@ msgstr "ตัวเลือกการเปิด"
 
 #: ../app/filedlg.c:251 ../app/filedlg.c:632
 msgid "Determine file type:"
-msgstr "เลือกประเภทของแฟ้ม:"
+msgstr "เลือกชนิดของแฟ้ม:"
 
 #: ../app/filedlg.c:267 ../app/filedlg.c:645
 msgid "All Files"
@@ -778,7 +779,7 @@ msgstr "ทุกแฟ้ม"
 
 #: ../app/filedlg.c:272 ../app/filedlg.c:650
 msgid "Supported Formats"
-msgstr "ประเภทที่รองรับ"
+msgstr "ชนิดที่รองรับ"
 
 #: ../app/filedlg.c:307 ../app/paginate_psprint.c:406
 msgid ""
@@ -984,23 +985,23 @@ msgstr ""
 
 #: ../app/layer_dialog.c:101
 msgid "New Layer"
-msgstr "เลเยอร์ใหม่"
+msgstr "ชั้นงานใหม่"
 
 #: ../app/layer_dialog.c:102
 msgid "Raise Layer"
-msgstr "ยกเลเยอร์ขึ้น"
+msgstr "ยกชั้นงานขึ้น"
 
 #: ../app/layer_dialog.c:103
 msgid "Lower Layer"
-msgstr "กดเลเยอร์ลง"
+msgstr "ลดชั้นงานลง"
 
 #: ../app/layer_dialog.c:104
 msgid "Delete Layer"
-msgstr "ลบเลเยอร์"
+msgstr "ลบชั้นงาน"
 
 #: ../app/layer_dialog.c:225
 msgid "Layers"
-msgstr "เลเยอร์ต่างๆ"
+msgstr "ชั้นงานต่างๆ"
 
 #: ../app/layer_dialog.c:239
 msgid "Diagram:"
@@ -1009,7 +1010,7 @@ msgstr "แผนภูมิ:"
 #: ../app/layer_dialog.c:349
 #, c-format
 msgid "New layer %d"
-msgstr "เลเยอร์ใหม่ %d"
+msgstr "ชั้นงานใหม่ %d"
 
 #: ../app/layer_dialog.c:561
 msgid "none"
@@ -1017,11 +1018,11 @@ msgstr "ไม่มี"
 
 #: ../app/layer_dialog.c:983
 msgid "Edit Layer Attributes"
-msgstr "แก้ไขคุณลักษณะเลเยอร์"
+msgstr "แก้ไขคุณลักษณะชั้นงาน"
 
 #: ../app/layer_dialog.c:1002
 msgid "Layer name:"
-msgstr "ชื่อเลเยอร์:"
+msgstr "ชื่อชั้นงาน:"
 
 #: ../app/linewidth_area.c:246 ../lib/properties.h:481 ../lib/properties.h:484
 #: ../objects/chronogram/chronoline.c:181
@@ -1081,7 +1082,7 @@ msgid ""
 "Unknown file type."
 msgstr ""
 "โหลดแผนภูมิ %s ผิดพลาด\n"
-"ไม่รู้จักประเภทแฟ้ม"
+"ไม่รู้จักแฟ้มชนิดนี้"
 
 #: ../app/load_save.c:398
 #, c-format
@@ -1090,7 +1091,7 @@ msgid ""
 "Not a Dia file."
 msgstr ""
 "โหลดแผนภูมิ %s ผิดพลาด\n"
-"ไม่ใช่แฟ้มรูปแบบ Dia"
+"ไม่ใช่แฟ้ม Dia"
 
 #: ../app/load_save.c:604
 #, c-format
@@ -1101,7 +1102,7 @@ msgid ""
 msgstr ""
 "โหลดแผนภูมิผิดพลาด:\n"
 "%s\n"
-"แฟ้มประเภท Dia ที่ถูกต้อง จะต้องมีอย่างน้อยหนึ่งเลเยอร์"
+"แฟ้ม Dia ที่ถูกต้อง จะต้องมีอย่างน้อยหนึ่งชั้นงาน"
 
 #: ../app/load_save.c:912
 #, c-format
@@ -1151,7 +1152,7 @@ msgstr ""
 
 #: ../app/menus.c:82
 msgid "_Export ..."
-msgstr "_นำออก..."
+msgstr "_ส่งออก..."
 
 #: ../app/menus.c:83
 msgid "Page Set_up..."
@@ -1185,7 +1186,7 @@ msgstr "_แผนภูมิ"
 
 #: ../app/menus.c:105
 msgid "_Layers..."
-msgstr "_เลเยอร์"
+msgstr "_ชั้นงาน..."
 
 #: ../app/menus.c:107
 msgid "_View"
@@ -1246,7 +1247,7 @@ msgstr "มุมมอง_ใหม่"
 
 #: ../app/menus.c:127
 msgid "C_lone View"
-msgstr "ล_อกมุมมอง"
+msgstr "_สำเนามุมมอง"
 
 #: ../app/menus.c:132
 msgid "_Objects"
@@ -1639,7 +1640,7 @@ msgstr ""
 
 #: ../app/preferences.c:186
 msgid "Save hidden object types"
-msgstr "บันทึกวัตถุประเภทที่ซ่อนอยู่"
+msgstr "บันทึกชนิดที่ซ่อนอยู่ของวัตถุ"
 
 #: ../app/preferences.c:394 ../lib/prop_inttypes.c:158
 msgid "Yes"
@@ -1760,7 +1761,7 @@ msgstr "ใหม่"
 #: ../objects/UML/umlattribute.c:39 ../objects/UML/umlformalparameter.c:37
 #: ../objects/UML/umloperation.c:64 ../objects/UML/umlparameter.c:45
 msgid "Type"
-msgstr "ประเภท"
+msgstr "ชนิด"
 
 #: ../app/sheets_dialog.c:378
 msgid "Browse..."
@@ -1802,7 +1803,7 @@ msgstr "รายละเอียด:"
 #: ../objects/UML/class_dialog.c:1928 ../objects/UML/class_dialog.c:2166
 #: ../objects/UML/class_dialog.c:2692
 msgid "Type:"
-msgstr "ประเภท:"
+msgstr "ชนิด:"
 
 #: ../app/sheets_dialog.c:657
 msgid "Sheet"
@@ -1871,7 +1872,7 @@ msgid ""
 "Unassigned type"
 msgstr ""
 "%s\n"
-"ประเภทที่ยังไม่ถูกกำหนด"
+"ชนิดที่ยังไม่ถูกกำหนด"
 
 #: ../app/sheets_dialog_callbacks.c:801
 #, c-format
