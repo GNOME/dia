@@ -116,6 +116,7 @@ xml_file_check_encoding(const gchar *filename, const gchar *default_enc)
   gchar *tmp,*res;
   int uf;
   gboolean well_formed_utf8;
+  int write_ok;
 
   static char magic_xml[] = 
   {0x3c,0x3f,0x78,0x6d,0x6c,0x00}; /* "<?xml" in ASCII */
@@ -208,20 +209,26 @@ xml_file_check_encoding(const gchar *filename, const gchar *default_enc)
 
   res = g_strconcat(tmp,G_DIR_SEPARATOR_S,"dia-xml-fix-encodingXXXXXX",NULL);
   uf = g_mkstemp(res);
-  write(uf,buf,p-buf);
-  write(uf," encoding=\"",11);
-  write(uf,default_enc,strlen(default_enc));
-  write(uf,"\" ",2);
-  write(uf,p,pmax - p);
+  write_ok = (uf > 0);
+  write_ok = write_ok && (write(uf,buf,p-buf) > 0);
+  write_ok = write_ok && (write(uf," encoding=\"",11) > 0);
+  write_ok = write_ok && (write(uf,default_enc,strlen(default_enc)) > 0);
+  write_ok = write_ok && (write(uf,"\" ",2) > 0);
+  write_ok = write_ok && (write(uf,p,pmax - p) > 0);
 
-  while (1) {
+  while (write_ok) {
     len = gzread(zf,buf,BUFLEN);
     if (len <= 0) break;
-    write(uf,buf,len);
+    write_ok = write_ok && (write(uf,buf,len) > 0);
   }
   gzclose(zf);
-  close(uf);
+  if (uf > 0)
+    close(uf);
   g_free(buf);
+  if (!write_ok) {
+    g_free(res);
+    res = NULL;
+  }
   return res; /* caller frees the name and unlinks the file. */
 }
 
