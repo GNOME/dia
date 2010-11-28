@@ -634,7 +634,7 @@ compound_copy (Compound * comp)
   /* copy the properties */
   copy->num_arms = comp->num_arms;
   copy->line_width = comp->line_width;
-  copy->line_color = copy->line_color;
+  copy->line_color = comp->line_color;
 
   /* this will allocate the object's pointer arrays for handles and
      connection_points */
