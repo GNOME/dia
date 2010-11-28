@@ -236,7 +236,7 @@ received_clipboard_image_handler(GtkClipboard *clipboard,
   DDisplay *ddisp = (DDisplay *)data;
   Diagram  *dia = ddisp->diagram;
   GList *list = dia->data->selected;
-  ObjectChange *change;
+  ObjectChange *change = NULL;
 
   if (!pixbuf) {
     message_error (_("No image from Clipboard to paste."));
