@@ -257,6 +257,7 @@ received_clipboard_image_handler(GtkClipboard *clipboard,
       diagram_flush (dia);
       break;
     }
+    list = g_list_next (list);
   }
 
   if (!change)
