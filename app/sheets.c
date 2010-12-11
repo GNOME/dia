@@ -412,52 +412,7 @@ lookup_widget (GtkWidget   *widget,
   return found_widget;
 }
 
-#include "pixmaps/n_a.xpm"
-#include "pixmaps/line_break.xpm"
-
-/* This is only called by the code written by glade and at the moment
-   it is only used to create the static pixmap of the current sheet object. */
-
-GtkWidget *
-create_pixmap(GtkWidget *dialog, gchar *filename, gboolean arg3)
-{
-  GdkPixmap *pixmap, *mask;
-  GtkWidget *button;
-  GtkWidget *wrapbox;
-  GList *button_list;
-  SheetObjectMod *som;
-
-  button = sheets_dialog_get_active_button(&wrapbox, &button_list);
-  som = g_object_get_data(G_OBJECT(button), "sheet_object_mod");
-
-  if (som)
-    create_object_pixmap(&som->sheet_object, wrapbox, &pixmap, &mask);
-  else
-  {
-    GtkStyle *style;
-    gchar **icon;
-
-    style = gtk_widget_get_style(wrapbox);
-    
-    if ((gboolean)g_object_get_data(G_OBJECT(button), "is_hidden_button")
-        == TRUE)
-      icon = n_a_xpm;
-    else
-      icon = line_break_xpm;
-
-    pixmap =
-         gdk_pixmap_colormap_create_from_xpm_d(NULL,
-                                               gtk_widget_get_colormap(wrapbox),
-                                               &mask,
-                                               &style->bg[GTK_STATE_NORMAL],
-                                               icon);
-  }
-    
-  return gtk_pixmap_new(pixmap, mask);
-}
-
 /* The menu calls us here, after we've been instantiated */
-
 void
 sheets_dialog_show_callback(GtkAction *action)
 {
