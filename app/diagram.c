@@ -1287,13 +1287,13 @@ void diagram_ungroup_selected(Diagram *dia)
       diagram_unselect_object(dia, group);
 
       group_list = group_objects(group);
-      diagram_select_list(dia, group_list);
 
       group_index = layer_object_get_index(dia->data->active_layer, group);
 
       change = undo_ungroup_objects(dia, group_list, group, group_index);
       (change->apply)(change, dia);
 
+      diagram_select_list(dia, group_list);
       any_groups = 1;
     }
     selected = g_list_next(selected);
