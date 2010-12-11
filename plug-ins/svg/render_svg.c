@@ -391,7 +391,7 @@ node_set_text_style (xmlNodePtr      node,
   if (font) {
      tmp = g_strdup_printf("%s;font-family:%s;font-style:%s;"
                            "font-weight:%s",style,
-                           strcmp(family, "sans") == 0 ? "sanserif" : family,
+                           strcmp(family, "sans") == 0 ? "sans-serif" : family,
                            dia_font_get_slant_string(font),
                            dia_font_get_weight_string(font));
      g_free(style);

@@ -172,7 +172,7 @@ dia_svg_parse_style(xmlNodePtr node, DiaSvgStyle *s, real user_scale)
 	temp[i] = '\0';
 
 	if (!over) {
-	  if (strcmp (temp, "sanserif") == 0)
+	  if (strcmp (temp, "sanserif") == 0 || strcmp (temp, "sans-serif") == 0)
 	    family = g_strdup ("sans"); /* special name adaption */
 	  else
 	    family = g_strdup(temp);
