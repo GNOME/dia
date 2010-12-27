@@ -225,7 +225,7 @@ load_register_sheet(const gchar *dirname, const gchar *filename,
     xmlFreeDoc(doc); 
     return;
   }
-    if ((root->ns != ns) || (xmlStrcmp(root->name, (const xmlChar *)"sheet"))) {
+  if ((root->ns != ns) || (xmlStrcmp(root->name, (const xmlChar *)"sheet"))) {
     g_warning("root element was %s -- expecting sheet", 
               doc->xmlRootNode->name);
     xmlFreeDoc(doc);
