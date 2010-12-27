@@ -261,6 +261,7 @@ _dae_update_data(DiagramAsElement *dae)
   elem->extra_spacing.border_trans = dae->border_line_width/2.0;
   element_update_boundingbox(elem);
   element_update_handles(elem);
+  element_update_connections_rectangle(elem, dae->connections);
 
   /* adjust objects position, otherwise it'll jump on move */
   obj->position = elem->corner;
