@@ -637,6 +637,7 @@ ellipse_load(ObjectNode obj_node, int version, const char *filename)
     ellipse->text = data_text(attribute_first_data(attr));
   else
     ellipse->text = new_text_default(&obj->position, &ellipse->border_color, ALIGN_CENTER);
+  text_get_attributes(ellipse->text, &ellipse->attrs);
   /* old default: only growth, manual shrink */
   ellipse->text_fitting = TEXTFIT_WHEN_NEEDED;
   attr = object_find_attribute(obj_node, PROP_STDNAME_TEXT_FITTING);

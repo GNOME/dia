@@ -726,6 +726,7 @@ pgram_load(ObjectNode obj_node, int version, const char *filename)
     pgram->text = data_text(attribute_first_data(attr));
   else /* paranoid */
     pgram->text = new_text_default(&obj->position, &pgram->border_color, ALIGN_CENTER);
+  text_get_attributes(pgram->text, &pgram->attrs);
 
   /* old default: only growth, manual shrink */
   pgram->text_fitting = TEXTFIT_WHEN_NEEDED;

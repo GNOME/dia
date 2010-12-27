@@ -781,6 +781,7 @@ box_load(ObjectNode obj_node, int version, const char *filename)
     box->text = data_text(attribute_first_data(attr));
   else /* paranoid */
     box->text = new_text_default(&obj->position, &box->border_color, ALIGN_CENTER);
+  text_get_attributes(box->text,&box->attrs);
 
   /* old default: only growth, manual shrink */
   box->text_fitting = TEXTFIT_WHEN_NEEDED;

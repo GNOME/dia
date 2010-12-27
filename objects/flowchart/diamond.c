@@ -662,6 +662,7 @@ diamond_load(ObjectNode obj_node, int version, const char *filename)
     diamond->text = data_text(attribute_first_data(attr));
   else /* paranoid */
     diamond->text = new_text_default(&obj->position, &diamond->border_color, ALIGN_CENTER);
+  text_get_attributes(diamond->text, &diamond->attrs);
 
   /* old default: only growth, manual shrink */
   diamond->text_fitting = TEXTFIT_WHEN_NEEDED;
