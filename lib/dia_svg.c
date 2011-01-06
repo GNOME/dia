@@ -741,6 +741,14 @@ dia_svg_parse_path(const gchar *path_str, gchar **unparsed, gboolean *closed)
 	bez.p1.x += last_point.x;
 	bez.p1.y += last_point.y;
       }
+      /* Strictly speeaking it should not be necessary to assign the other 
+       * two points. But it helps hiding a serious limitation with the 
+       * standard bezier serialization, namely only saving one move-to
+       * and the rest as curve-to */
+#define INIT_LINE_TO_AS_CURVE_TO bez.p3 = bez.p1; bez.p2 = last_point
+
+      INIT_LINE_TO_AS_CURVE_TO;
+
       last_point = bez.p1;
       last_control = bez.p1;
 
@@ -753,6 +761,9 @@ dia_svg_parse_path(const gchar *path_str, gchar **unparsed, gboolean *closed)
       bez.p1.y = last_point.y;
       if (last_relative)
 	bez.p1.x += last_point.x;
+
+      INIT_LINE_TO_AS_CURVE_TO;
+
       last_point = bez.p1;
       last_control = bez.p1;
 
@@ -765,6 +776,11 @@ dia_svg_parse_path(const gchar *path_str, gchar **unparsed, gboolean *closed)
       path_chomp(path);
       if (last_relative)
 	bez.p1.y += last_point.y;
+
+      INIT_LINE_TO_AS_CURVE_TO;
+
+#undef INIT_LINE_TO_AS_CURVE_TO
+
       last_point = bez.p1;
       last_control = bez.p1;
 
