@@ -93,7 +93,8 @@ idle_handler (gpointer data)
         }
     }
     idle_id = 0;
-    return FALSE;
+    /* remove the idle handler if there is nothing to refresh */
+    return (new_timeout == 0);
 }
 
 void 
