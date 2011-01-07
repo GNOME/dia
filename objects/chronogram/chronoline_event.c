@@ -178,8 +178,7 @@ parse_clevent(const gchar *events, real rise, real fall)
 	return clel;
       }
     } else { /* waitfor == LENGTH */
-      /* using g_strtod to support loacle and "C" formatted numbers */
-      dt = g_strtod(p,(char **)&p1);
+      dt = g_ascii_strtod(p,(char **)&p1);
       if (p1 == p) {
 	/* We were ready for a length argument, we got nothing.
 	   Maybe the user entered a zero-length argument ? */
@@ -258,13 +257,28 @@ reparse_clevent(const gchar *events, CLEventList **lst,
 		int *chksum,real rise, real fall,real time_end)
 {
   int newsum;
+  gchar *ps;
 
   /* XXX: it might be better to simply drop this checksumming ? */
   newsum = __chksum(events,rise,fall,time_end);
   if ((newsum == *chksum) && (*lst)) return;
 
+  /* the string might contain ',' as a decimal separtor, fix it on the fly */
+  if (strchr(events, ',') != NULL) {
+    gchar *p;
+
+    ps = g_strdup(events);
+    for (p = ps; *p != '\0'; ++p) {
+      if (*p == ',')
+        *p = '.';
+    }
+  } else {
+    ps = events;
+  }
   destroy_clevent_list(*lst);
-  *lst = parse_clevent(events,rise,fall);
+  *lst = parse_clevent(ps,rise,fall);
+  if (ps != events)
+    g_free(ps);
   *chksum = newsum;
 }
 
