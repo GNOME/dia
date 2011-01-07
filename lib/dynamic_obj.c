@@ -27,7 +27,7 @@ typedef struct {
     guint timeout;
 } DynobjRec;
 
-static GList* dyn_obj_list;
+static GList* dyn_obj_list = NULL;
 
 void dynobj_list_add_object(DiaObject* obj, guint timeout) {
     DynobjRec *dor = g_new(DynobjRec,1);
@@ -87,7 +87,10 @@ static void accum_timeout(gpointer data, gpointer user_data) {
 guint dynobj_list_get_dynobj_rate(void) {
     guint timeout = 250;
 
-    g_list_foreach(dyn_obj_list,accum_timeout,&timeout);
+    if (dyn_obj_list)
+        g_list_foreach(dyn_obj_list,accum_timeout,&timeout);
+    else
+        timeout = 0; /* no objet to refresh, no timeout */
 
     return timeout;
 }
