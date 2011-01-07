@@ -37,6 +37,7 @@
 #include "pydia-font.h"
 #include "pydia-image.h"
 #include "pydia-error.h"
+#include "pydia-render.h"
 
 /*
  * The PyDiaRenderer is currently defined in Python only. The
@@ -326,6 +327,39 @@ set_font(DiaRenderer *renderer, DiaFont *font, real height)
 }
 
 static gpointer parent_class = NULL;
+
+static void
+draw_object (DiaRenderer *renderer, DiaObject *object, DiaMatrix *matrix)
+{
+  PyObject *func, *res, *arg, *self = PYDIA_RENDERER (renderer);
+
+  func = PyObject_GetAttrString (self, "draw_object");
+  if (func && PyCallable_Check(func)) {
+    PyObject *mat = NULL;
+
+    Py_INCREF(self);
+    Py_INCREF(func);
+    if (matrix)
+      mat = PyDiaMatrix_New (matrix);
+    else {
+      Py_INCREF(Py_None);
+      mat = Py_None;
+    }
+    arg = Py_BuildValue ("(OO)", PyDiaObject_New (object), mat );
+    if (arg) {
+      res = PyEval_CallObject (func, arg);
+      ON_RES(res, FALSE);
+    }
+    Py_XDECREF (arg);
+    Py_XDECREF (mat);
+    Py_DECREF(func);
+    Py_DECREF(self);
+  } else { /* member optional */
+    PyErr_Clear();
+    /* but should still call the base class */
+    DIA_RENDERER_CLASS (parent_class)->draw_object (renderer, object, matrix);
+  }
+}
 
 static void
 draw_line(DiaRenderer *renderer, 
@@ -798,6 +832,17 @@ PyDia_export_data(DiagramData *data, const gchar *filename,
   g_object_unref(renderer);
 }
 
+DiaRenderer *
+PyDia_new_renderer_wrapper (PyObject *self)
+{
+  DiaPyRenderer *wrapper;
+  
+  wrapper = g_object_new (DIA_TYPE_PY_RENDERER, NULL);
+  wrapper->self = self;
+  
+  return DIA_RENDERER (wrapper);
+}
+
 /*
  * GObject boiler plate
  */
@@ -856,6 +901,8 @@ dia_py_renderer_class_init (DiaPyRendererClass *klass)
   /* renderer members */
   renderer_class->begin_render = begin_render;
   renderer_class->end_render   = end_render;
+
+  renderer_class->draw_object  = draw_object;
 
   renderer_class->set_linewidth  = set_linewidth;
   renderer_class->set_linecaps   = set_linecaps;

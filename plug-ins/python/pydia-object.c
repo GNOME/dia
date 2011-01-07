@@ -24,6 +24,7 @@
 #include "pydia-handle.h"
 #include "pydia-geometry.h"
 #include "pydia-properties.h"
+#include "pydia-render.h"
 
 #include <structmember.h> /* PyMemberDef */
 
@@ -87,7 +88,33 @@ PyDiaObject_Destroy(PyDiaObject *self, PyObject *args)
     return Py_None;
 }
 
-/* draw */
+static PyObject *
+PyDiaObject_Draw(PyDiaObject *self, PyObject *args)
+{
+    PyObject* renderer;
+    DiaRenderer *wrapper;
+
+    if (!PyArg_ParseTuple(args, "O:Object.draw", &renderer))
+	return NULL;
+
+    /* We need to create the PythonRenderer wrapper to provide the gobject interface.
+     * This could be done much more efficient if it would somehow be cached for the
+     * whole rendering pass ...
+     */
+    wrapper = PyDia_new_renderer_wrapper (renderer);
+
+    if (!self->object->ops->draw) {
+	PyErr_SetString(PyExc_RuntimeError,"object does not implement method");
+	return NULL;
+    }
+
+    self->object->ops->draw(self->object, wrapper);
+
+    g_object_unref (wrapper);
+
+    Py_INCREF(Py_None);
+    return Py_None;
+}
 
 static PyObject *
 PyDiaObject_DistanceFrom(PyDiaObject *self, PyObject *args)
@@ -189,6 +216,9 @@ static PyMethodDef PyDiaObject_Methods[] = {
       "  Calculate the object's distance from the given point." },
     { "copy", (PyCFunction)PyDiaObject_Copy, METH_VARARGS,
       "copy() -> Object.  Create a new object copy." },
+    { "draw", (PyCFunction)PyDiaObject_Draw, METH_VARARGS,
+      "draw(dia.Renderer: r) -> None."
+      "  Draw the object with the given renderer" },
     { "move", (PyCFunction)PyDiaObject_Move, METH_VARARGS,
       "move(real: x, real: y) -> None."
       "  Move the entire object. The given point is the new object.obj_pos." },

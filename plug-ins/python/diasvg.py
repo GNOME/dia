@@ -46,6 +46,10 @@ class SvgRenderer :
 	def end_render (self) :
 		self.f.write('</svg>')
 		self.f.close()
+	def draw_object (self, object, matrix) :
+		self.f.write("<!-- " + object.type.name + " -->\n")
+		# don't forget to render the object
+		object.draw (self)
 	def set_linewidth (self, width) :
 		if width < 0.001 : # zero line width is invisble ?
 			self.line_width = 0.001
