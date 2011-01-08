@@ -21,17 +21,9 @@
 
 #ifndef PERSISTENCE_H
 #define PERSISTENCE_H
-#include "config.h"
 #include "geometry.h"
 
 #include <gtk/gtk.h>
-
-typedef struct {
-  int x, y;
-  int width, height;
-  gboolean isopen;
-  GtkWindow *window;
-} PersistentWindow;
 
 typedef void (NullaryFunc)();
 
@@ -43,20 +35,8 @@ void persistence_register_string_entry(gchar *role, GtkWidget *entry);
 gboolean persistence_change_string_entry(gchar *role, gchar *string,
 					 GtkWidget *widget);
 
-/** A persistently stored list of strings.
- * The list contains no duplicates.
- * If sorted is FALSE, any string added will be placed in front of the list
- * (possibly removing it from further down), thus making it an LRU list.
- * The list is not tied to any particular GTK widget, as it has uses
- * in a number of different places (though mostly in menus)
- */
-typedef struct _PersistentList {
-  const gchar *role;
-  gboolean sorted;
-  gint max_members;
-  GList *glist;
-  GList *listeners;
-} PersistentList;
+
+typedef struct _PersistentList PersistentList;
 
 typedef void (*PersistenceCallback)(GObject *, gpointer);
 
@@ -69,6 +49,7 @@ gboolean persistent_list_remove(const gchar *role, const gchar *item);
 void persistent_list_remove_all(const gchar *role);
 void persistent_list_add_listener(const gchar *role, PersistenceCallback func, 
 				  GObject *watch, gpointer userdata);
+void persistent_list_clear(const gchar *role);
 
 gboolean persistence_is_registered(gchar *role);
 

@@ -39,6 +39,30 @@
 #include <gtk/gtk.h>
 #include <libxml/tree.h>
 
+/* private data structures */
+/** A persistently stored list of strings.
+ * The list contains no duplicates.
+ * If sorted is FALSE, any string added will be placed in front of the list
+ * (possibly removing it from further down), thus making it an LRU list.
+ * The list is not tied to any particular GTK widget, as it has uses
+ * in a number of different places (though mostly in menus)
+ */
+struct _PersistentList {
+  const gchar *role;
+  gboolean sorted;
+  gint max_members;
+  GList *glist;
+  GList *listeners;
+};
+
+/** Some storage windo information */
+typedef struct {
+  int x, y;
+  int width, height;
+  gboolean isopen;
+  GtkWindow *window;
+} PersistentWindow;
+
 /* Hash table from window role (string) to PersistentWindow structure.
  */
 static GHashTable *persistent_windows, *persistent_entrystrings, *persistent_lists;
@@ -736,7 +760,6 @@ persistence_register_string_entry(gchar *role, GtkWidget *entry)
 }
 
 /* ********* LISTS ********** */
-
 /* Lists are used for e.g. recent files, selected fonts, etc. 
  * Anywhere where the user occasionally picks from a long list and
  * is likely to reuse the items.
@@ -899,6 +922,19 @@ persistent_list_add_listener(const gchar *role, PersistenceCallback func,
     listener->userdata = userdata;
     plist->listeners = g_list_append(plist->listeners, listener);
   }
+}
+
+/**
+ * Empty the list
+ */
+void
+persistent_list_clear(const gchar *role)
+{
+  PersistentList *plist = persistent_list_get(role);
+
+  g_list_foreach(plist->glist, (GFunc)g_free, NULL);
+  g_list_free(plist->glist);
+  plist->glist = NULL;
 }
 
 /* ********* INTEGERS ********** */

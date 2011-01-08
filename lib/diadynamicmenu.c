@@ -414,11 +414,10 @@ void
 dia_dynamic_menu_reset(GtkWidget *item, gpointer userdata)
 {
   DiaDynamicMenu *ddm = DIA_DYNAMIC_MENU(userdata);
-  PersistentList *plist = persistent_list_get(ddm->persistent_name);
   gchar *active = dia_dynamic_menu_get_entry(ddm);
-  g_list_foreach(plist->glist, (GFunc)g_free, NULL);
-  g_list_free(plist->glist);
-  plist->glist = NULL;
+
+  persistent_list_clear(ddm->persistent_name);
+
   dia_dynamic_menu_create_menu(ddm);
   if (active)
     dia_dynamic_menu_select_entry(ddm, active);
