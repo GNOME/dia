@@ -413,8 +413,12 @@ file_save_as_response_callback(GtkWidget *fs,
     g_object_set_data (G_OBJECT(fs), "user_data", NULL);
     g_object_unref (dia);
   }
-  gtk_widget_destroy(GTK_WIDGET(fs));
+  /* if we destroy it gtk_dialog_run wont give the response */
+  if (!g_object_get_data (G_OBJECT(fs), "dont-destroy"))
+    gtk_widget_destroy(GTK_WIDGET(fs));
 }
+
+static GtkWidget *file_save_as_dialog_prepare (Diagram *dia, DDisplay *ddisp);
 
 /**
  * Respond to the File/Save As.. menu
@@ -426,13 +430,39 @@ file_save_as_response_callback(GtkWidget *fs,
 void
 file_save_as_callback(gpointer data, guint action, GtkWidget *widget)
 {
-  DDisplay *ddisp;
-  Diagram *dia;
-  gchar *filename = NULL;
+  DDisplay  *ddisp;
+  Diagram   *dia;
+  GtkWidget *dlg;
 
   ddisp = ddisplay_active();
   if (!ddisp) return;
   dia = ddisp->diagram;
+
+  dlg = file_save_as_dialog_prepare(dia, ddisp);
+
+  gtk_widget_show(dlg);
+}
+
+gboolean
+file_save_as(Diagram *dia, DDisplay *ddisp)
+{
+  GtkWidget *dlg;
+  gint response;
+
+  dlg = file_save_as_dialog_prepare(dia, ddisp);
+
+  /* if we destroy it gtk_dialog_run wont give the response */
+  g_object_set_data (G_OBJECT(dlg), "dont-destroy", GINT_TO_POINTER (1));
+  response = gtk_dialog_run(GTK_DIALOG(dlg));
+  gtk_widget_destroy(GTK_WIDGET(dlg));
+
+  return (GTK_RESPONSE_ACCEPT == response);
+}
+
+static GtkWidget *
+file_save_as_dialog_prepare (Diagram *dia, DDisplay *ddisp)
+{
+  gchar *filename = NULL;
 
   if (!savedlg) {
     GtkWidget *compressbutton;
@@ -485,7 +515,7 @@ file_save_as_callback(gpointer data, guint action, GtkWidget *widget)
       g_object_ref(dia);
       g_object_set_data (G_OBJECT (savedlg), "user_data", dia);
       gtk_window_present (GTK_WINDOW(savedlg));
-      return;
+      return savedlg;
     }
   }
   if (dia && dia->filename)
@@ -506,7 +536,7 @@ file_save_as_callback(gpointer data, guint action, GtkWidget *widget)
   g_object_ref(dia);
   g_object_set_data (G_OBJECT (savedlg), "user_data", dia);
 
-  gtk_widget_show(savedlg);
+  return savedlg;
 }
 
 /**

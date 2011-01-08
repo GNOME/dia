@@ -47,6 +47,7 @@
 #include "render_gdk.h"
 #include "diatransform.h"
 #include "recent_files.h"
+#include "filedlg.h"
 
 static GdkCursor *current_cursor = NULL;
 
@@ -654,11 +655,20 @@ ddisplay_render_pixmap(DDisplay *ddisp, Rectangle *update)
   /* Erase background */
   g_return_if_fail (renderer->fill_pixel_rect != NULL);
   DIA_RENDERER_GET_CLASS(ddisp->renderer)->begin_render(ddisp->renderer);
-  renderer->fill_pixel_rect (ddisp->renderer,
-			     0, 0,
-		             dia_renderer_get_width_pixels (ddisp->renderer),
-			     dia_renderer_get_height_pixels (ddisp->renderer),
-			     &ddisp->diagram->data->bg_color);
+  if (update) {
+    int x0, y0, x1, y1;
+
+    ddisplay_transform_coords (ddisp, update->left, update->top, &x0, &y0);
+    ddisplay_transform_coords (ddisp, update->right, update->bottom, &x1, &y1);
+    renderer->fill_pixel_rect (ddisp->renderer,
+			       x0, y0, x1-x0, y1-y0,
+			       &ddisp->diagram->data->bg_color);
+  } else
+    renderer->fill_pixel_rect (ddisp->renderer,
+			       0, 0,
+		               dia_renderer_get_width_pixels (ddisp->renderer),
+			       dia_renderer_get_height_pixels (ddisp->renderer),
+			       &ddisp->diagram->data->bg_color);
 
   /* Draw grid */
   grid_draw(ddisp, update);
@@ -1216,9 +1226,17 @@ are_you_sure_close_dialog_respond(GtkWidget *widget, /* the dialog */
   switch (response_id) {
   case GTK_RESPONSE_YES :  
     /* save changes */
-    if (!diagram_save(ddisp->diagram, ddisp->diagram->filename))
+    if (ddisp->diagram->unsaved) {
+      /* we have to open the file dlg, close this one first */
+      gtk_widget_destroy(widget);
+      if (file_save_as(ddisp->diagram, ddisp))
+        ddisp_destroy (ddisp);
+      /* no way back */
+      return;
+    } else if (!diagram_save(ddisp->diagram, ddisp->diagram->filename))
       close_ddisp = FALSE;
-    else
+
+    if (close_ddisp) /* saving succeeded */
       recent_file_history_add(ddisp->diagram->filename);
 
     if (ddisp->update_id && close_ddisp) {

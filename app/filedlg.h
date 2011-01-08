@@ -29,4 +29,6 @@ void file_save_callback(gpointer data, guint action, GtkWidget *widget);
 void file_save_as_callback(gpointer data, guint action, GtkWidget *widget);
 void file_export_callback(gpointer data, guint action, GtkWidget *widget);
 
+gboolean file_save_as(Diagram *dia, DDisplay *ddisp);
+
 #endif
