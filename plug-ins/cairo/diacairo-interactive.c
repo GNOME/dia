@@ -173,6 +173,94 @@ get_text_width(DiaRenderer *object,
   text_line_destroy(text_line);
   return result;
 }
+/** Used as background? for text editing */
+static Color text_edit_color = {1.0, 1.0, 0.7 };
+
+real
+calculate_relative_luminance (const Color *c)
+{
+  real R, G, B;
+
+  R = (c->red <= 0.03928) ? c->red / 12.92 : pow((c->red+0.055)/1.055, 2.4);
+  G = (c->green <= 0.03928) ? c->green / 12.92 : pow((c->green+0.055)/1.055, 2.4);
+  B = (c->blue <= 0.03928) ? c->blue / 12.92 : pow((c->blue+0.055)/1.055, 2.4);
+
+  return 0.2126 * R + 0.7152 * G + 0.0722 * B;
+}
+static void 
+draw_text_line (DiaRenderer *self, TextLine *text_line,
+		Point *pos, Alignment alignment, Color *color)
+{
+  DiaCairoRenderer *renderer = DIA_CAIRO_RENDERER (self);
+  DiaCairoInteractiveRenderer *interactive = DIA_CAIRO_INTERACTIVE_RENDERER (self);
+
+  if (interactive->highlight_color) {
+    /* the high_light color is just taken as a hint, alternative needs
+     * to have some contrast to cursor color (curently hard coded black)
+     */
+    static Color alternate_color = { 0.5, 0.5, 0.4 };
+    real rl, cr1, cr2;
+
+    /* just draw the box */
+    real h = text_line_get_height (text_line);
+    real w = text_line_get_width (text_line);
+    real x = pos->x;
+    real y = pos->y;
+
+    y -= text_line_get_ascent(text_line);    
+    x -= text_line_get_alignment_adjustment (text_line, alignment);
+
+    rl = calculate_relative_luminance (color) + 0.05;
+    cr1 = calculate_relative_luminance (interactive->highlight_color) + 0.05;
+    cr1 = (cr1 > rl) ? cr1 / rl : rl / cr1;
+    cr2 = calculate_relative_luminance (&alternate_color) + 0.05;
+    cr2 = (cr2 > rl) ? cr2 / rl : rl / cr2;
+
+    /* use color giving the better contrast ratio, if necessary 
+     * http://www.w3.org/TR/2008/REC-WCAG20-20081211/#visual-audio-contrast-contrast
+     */
+    if (cr1 > cr2)
+      cairo_set_source_rgba (renderer->cr, 
+			   interactive->highlight_color->red,
+			   interactive->highlight_color->green,
+			   interactive->highlight_color->blue,
+			   1.0);
+    else
+      cairo_set_source_rgba (renderer->cr, 
+			   alternate_color.red,
+			   alternate_color.green,
+			   alternate_color.blue,
+			   1.0);
+
+    cairo_rectangle (renderer->cr, x, y, w, h);
+    cairo_fill (renderer->cr);
+  }
+  DIA_RENDERER_CLASS (parent_class)->draw_text_line (self, text_line, pos, alignment, color);
+}
+static void
+draw_object_highlighted (DiaRenderer     *self, 
+			 DiaObject       *object,
+			 DiaHighlightType type)
+{
+  DiaCairoInteractiveRenderer *interactive = DIA_CAIRO_INTERACTIVE_RENDERER (self);
+
+  switch (type) {
+  case DIA_HIGHLIGHT_TEXT_EDIT:
+    interactive->highlight_color = &text_edit_color;
+    break;
+  case DIA_HIGHLIGHT_CONNECTIONPOINT_MAIN:
+  case DIA_HIGHLIGHT_CONNECTIONPOINT:
+  case DIA_HIGHLIGHT_NONE:
+    interactive->highlight_color = NULL;
+    break;
+  }
+  /* usually this method would need to draw the object twice,
+   * once with highlight and once without. But due to our
+   * draw_text_line implemntation we only need one run */
+  object->ops->draw(object, self);
+  /* always reset when done with this object */
+  interactive->highlight_color = NULL;
+}
 static void 
 dia_cairo_interactive_renderer_iface_init (DiaInteractiveRendererInterface* iface)
 {
@@ -183,6 +271,7 @@ dia_cairo_interactive_renderer_iface_init (DiaInteractiveRendererInterface* ifac
   iface->fill_pixel_rect = fill_pixel_rect;
   iface->copy_to_window = copy_to_window;
   iface->set_size = set_size;
+  iface->draw_object_highlighted = draw_object_highlighted;
 }
 
 GType
@@ -305,6 +394,8 @@ cairo_interactive_renderer_class_init (DiaCairoInteractiveRendererClass *klass)
 
   /* mostly for cursor placement */
   renderer_class->get_text_width = get_text_width;
+  /* highlight for text editing is special */
+  renderer_class->draw_text_line = draw_text_line;
 }
 
 static void
