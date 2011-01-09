@@ -1,4 +1,5 @@
 _dia.la
+_dia.pyd
 dia-python.cpp
 dia.py
 
