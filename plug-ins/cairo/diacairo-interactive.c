@@ -28,6 +28,8 @@
 #include "intl.h"
 #include "color.h"
 #include "diatransform.h"
+#include "object.h"
+#include "textline.h"
 
 #define DIA_TYPE_CAIRO_INTERACTIVE_RENDERER           (dia_cairo_interactive_renderer_get_type ())
 #define DIA_CAIRO_INTERACTIVE_RENDERER(obj)           (G_TYPE_CHECK_INSTANCE_CAST ((obj), DIA_TYPE_CAIRO_INTERACTIVE_RENDERER, DiaCairoInteractiveRenderer))
@@ -146,6 +148,31 @@ cairo_interactive_renderer_finalize (GObject *object)
   G_OBJECT_CLASS (parent_class)->finalize (object);
 }
 
+/* Get the width of the given text in cm */
+static real
+get_text_width(DiaRenderer *object,
+               const gchar *text, int length)
+{
+  real result;
+  TextLine *text_line;
+
+  if (length != g_utf8_strlen(text, -1)) {
+    char *shorter;
+    int ulen;
+    ulen = g_utf8_offset_to_pointer(text, length)-text;
+    if (!g_utf8_validate(text, ulen, NULL)) {
+      g_warning ("Text at char %d not valid\n", length);
+    }
+    shorter = g_strndup(text, ulen);
+    text_line = text_line_new(shorter, object->font, object->font_height);
+    g_free (shorter);
+  } else {
+    text_line = text_line_new(text, object->font, object->font_height);
+  }
+  result = text_line_get_width(text_line);
+  text_line_destroy(text_line);
+  return result;
+}
 static void 
 dia_cairo_interactive_renderer_iface_init (DiaInteractiveRendererInterface* iface)
 {
@@ -275,6 +302,9 @@ cairo_interactive_renderer_class_init (DiaCairoInteractiveRendererClass *klass)
 
   renderer_class->begin_render = begin_render;
   renderer_class->end_render   = end_render;
+
+  /* mostly for cursor placement */
+  renderer_class->get_text_width = get_text_width;
 }
 
 static void
