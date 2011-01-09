@@ -223,18 +223,19 @@ export_data(DiagramData *data, const gchar *filename,
     /* NOT: renderer->with_alpha = TRUE; */
     {
       /* see wmf/wmf.cpp */
-      HDC  refDC = GetDC(NULL);
+      /* CreateEnhMetaFile() takes 0.01 mm, but the resulting clipboard 
+       * image is much too big, e.g. when pasting to PowerPoint. So instead
+       * of 1000 use sth smaller to scale? But that would need new scaling 
+       * for line thickness as well ... 
+       * Also there is something wrong with clipping if running on a dual screen
+       * sometimes parts of the diagram are clipped away. Not sure if this is
+       * hitting some internal width limits, maintianing the viewport ratio,
+       * but not the diagram boundaries.
+       */
       RECT bbox = { 0, 0, 
-#if 1 /* CreateEnhMetaFile() takes 0.01 mm */
                    (int)((data->extents.right - data->extents.left) * data->paper.scaling * 1000.0),
 		   (int)((data->extents.bottom - data->extents.top) * data->paper.scaling * 1000.0) };
-#else
-                   (int)((data->extents.right - data->extents.left) * renderer->scale 
-		          * 100 * GetDeviceCaps(refDC, HORZSIZE) / GetDeviceCaps(refDC, HORZRES)),
-		   (int)((data->extents.bottom - data->extents.top) * renderer->scale
-		          * 100 * GetDeviceCaps(refDC, VERTSIZE) / GetDeviceCaps(refDC, VERTRES)) };
-#endif
-      hFileDC = CreateEnhMetaFile (refDC, NULL, &bbox, "DiaCairo\0Diagram\0");
+      hFileDC = CreateEnhMetaFile (NULL, NULL, &bbox, "DiaCairo\0Diagram\0");
       renderer->surface = cairo_win32_printing_surface_create (hFileDC);
       /* CreateEnhMetaFile() takes resolution 0.01 mm,  */
       renderer->scale = 1000.0/25.4 * data->paper.scaling;
