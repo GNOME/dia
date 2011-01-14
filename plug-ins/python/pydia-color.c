@@ -84,11 +84,11 @@ PyDiaColor_Str(PyDiaColor *self)
 }
 
 static PyMemberDef PyDiaColor_Members[] = {
-    { "red", T_DOUBLE, offsetof(PyDiaColor, color.red), 0,
+    { "red", T_FLOAT, offsetof(PyDiaColor, color.red), 0,
       "double: red color component [0 .. 1.0]" },
-    { "green", T_DOUBLE, offsetof(PyDiaColor, color.green), 0,
+    { "green", T_FLOAT, offsetof(PyDiaColor, color.green), 0,
       "double: green color component [0 .. 1.0]" },
-    { "blue", T_DOUBLE, offsetof(PyDiaColor, color.blue), 0,
+    { "blue", T_FLOAT, offsetof(PyDiaColor, color.blue), 0,
       "double: blue color component [0 .. 1.0]" },
     { NULL }
 };
