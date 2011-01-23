@@ -86,6 +86,7 @@ static GtkWidget *
 stringprop_get_widget(StringProperty *prop, PropDialog *dialog) 
 { 
   GtkWidget *ret = gtk_entry_new();
+  gtk_entry_set_activates_default(GTK_ENTRY(ret), TRUE);
   prophandler_connect(&prop->common, G_OBJECT(ret), "changed");
   return ret;
 }

@@ -62,7 +62,8 @@ charprop_copy(CharProperty *src)
 static WIDGET *
 charprop_get_widget(CharProperty *prop, PropDialog *dialog) 
 { 
-  GtkWidget *ret = gtk_entry_new();  
+  GtkWidget *ret = gtk_entry_new();
+  gtk_entry_set_activates_default(GTK_ENTRY(ret), TRUE);
   prophandler_connect(&prop->common, G_OBJECT(ret), "changed");
   return ret;
 }

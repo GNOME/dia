@@ -1174,6 +1174,7 @@ dia_unit_spinner_new(GtkAdjustment *adjustment, DiaUnit adj_unit)
   }
   
   self = gtk_type_new(dia_unit_spinner_get_type());
+  gtk_entry_set_activates_default(GTK_ENTRY(self), TRUE);
   self->unit_num = adj_unit;
   
   gtk_spin_button_configure(GTK_SPIN_BUTTON(self),
