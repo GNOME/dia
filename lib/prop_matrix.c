@@ -80,7 +80,6 @@ DiaMatrix *
 data_matrix (DataNode data)
 {
   DiaMatrix *matrix;
-  gchar *str;
 
   matrix = g_new (DiaMatrix, 1);
   matrix->xx = _matrix_xml_get_value (data, "xx", 1.0);
@@ -233,7 +232,6 @@ matrixprop_set_from_widget(MatrixProperty *prop, GtkWidget *widget)
 {
   GList *children, *child;
   GtkWidget *sb;
-  GtkObject *adj;
   real angle = 0.0, sx = 1.0, sy = 1.0;
   int i = 0;
 

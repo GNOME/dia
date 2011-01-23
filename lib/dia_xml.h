@@ -105,5 +105,8 @@ void data_add_dict (AttributeNode attr, GHashTable *data);
 GdkPixbuf *data_pixbuf (DataNode data);
 void data_add_pixbuf (AttributeNode attr, GdkPixbuf *pixbuf);
 
+DiaMatrix *data_matrix(DataNode data);
+void data_add_matrix(AttributeNode attr, DiaMatrix *matrix);
+
 #endif /* DIA_XML_H */
 
