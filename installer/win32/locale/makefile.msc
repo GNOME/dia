@@ -2,6 +2,7 @@ GENNSH = ..\gennsh
 ICONV = iconv
 
 LOCALEFILES = \
+	es.nsh \
 	eu.nsh \
 	fi.nsh \
 	gl.nsh \
@@ -13,12 +14,16 @@ UTF8FILES = \
 	finnish.nsh \
 	galego.nsh \
 	korean.nsh \
-	chinese.nsh
+	chinese.nsh \
+	spanish.nsh
 	
 all: $(LOCALEFILES)	
 
 clean:
 	del $(LOCALEFILES) $(UTF8FILES)
+
+es.nsh: spanish.nsh
+	$(ICONV) -f UTF-8 -t ISO-8859-1 spanish.nsh > $@
 	
 eu.nsh: basque.nsh
 	$(ICONV) -f UTF-8 -t ISO-8859-1  basque.nsh  > $@
@@ -50,6 +55,10 @@ ko.nsh: korean.nsh
 
 chinese.nsh:	
 	SET LANG=zh_CN
+	$(GENNSH) > $@
+
+spanish.nsh:
+	SET LANG=es
 	$(GENNSH) > $@
 	
 zh.nsh: chinese.nsh	
