@@ -2,7 +2,7 @@
  * Copyright (C) 1998 Alexander Larsson
  *
  * gennsh.c
- * Copyright (C) 2009 Steffen Macke <sdteffen@sdteffen.de>
+ * Copyright (C) 2009,2011 Steffen Macke <sdteffen@sdteffen.de>
  *
  * gennsh is a program that allows to generate locale file for the
  * Dia for Windows installer
@@ -30,7 +30,7 @@
 int main(int argc, char *argv[])
 {
 
-  bindtextdomain("dia", "../../build/win32/locale");
+  bindtextdomain("dia", "../../../build/win32/locale");
   bind_textdomain_codeset("dia", "UTF-8");
   textdomain("dia");
 
@@ -87,4 +87,5 @@ int main(int argc, char *argv[])
 
   /* Installer message: Uninstallation warning. Keep $\PROFILE\.dia */
   printf("!define un.DIA_DOTDIA_WARNING \"%s\"\n", _("This will completely delete $PROFILE\.dia and all subdirectories. Continue?"));
+  return 0;
 }
