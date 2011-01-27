@@ -1,9 +1,9 @@
 ; Dia -- an diagram creation/manipulation program
-; Copyright (C) 1998-2010 Alexander Larsson, Lars Clausen and others
+; Copyright (C) 1998-2011 Alexander Larsson, Lars Clausen and others
 ;  
 ; dia-installer.nsi : Nullsoft Installation System (NSIS) script
 ; Copyright (C) 2000-2004 Herman Bloggs, Steffen Macke
-; Copyright (C) 2005-2010 Steffen Macke <sdteffen@sdteffen.de>
+; Copyright (C) 2005-2011 Steffen Macke <sdteffen@sdteffen.de>
 ;  
 ; This program is free software; you can redistribute it and/or modify
 ; it under the terms of the GNU General Public License as published by
@@ -103,10 +103,10 @@ XPStyle On
   
 VIAddVersionKey "ProductName" "Dia for Windows"
 VIAddVersionKey "CompanyName" "The Dia Developers"
-VIAddVersionKey "LegalCopyright" "(c) 2003-2009 Alexander Larsson and others"
+VIAddVersionKey "LegalCopyright" "(c) 2003-2011 Alexander Larsson and others"
 VIAddVersionKey "FileDescription" "Dia for Windows Installer"
-VIAddVersionKey "FileVersion" "0.97.0.3"
-VIProductVersion "0.97.0.3"
+VIAddVersionKey "FileVersion" "0.97.2.0"
+VIProductVersion "0.97.2.0"
 
 ;--------------------------------
 ;Modern UI Configuration
