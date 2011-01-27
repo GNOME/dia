@@ -2795,9 +2795,9 @@ msgid ""
 "$\rNote: Any non-standard plugins that you may have installed will be "
 "deleted.$\rDia user settings will not be affected."
 msgstr ""
-"Dia zaharraren direktorioa ezabatzera doa. Jarraitzea nahi duzu?\n"
-"Jakin ezazu instalatuta eduki dezakezun edozein plugin ez-estandar ere "
-"ezabatu egingo dela. \n"
+"Dia zaharraren direktorioa ezabatzera doa. Jarraitzea nahi duzu?$\r"
+"$\rJakin ezazu instalatuta eduki dezakezun edozein plugin ez-estandar ere "
+"ezabatu egingo dela. $\r"
 "Dia-ko erabiltailearen ezarpenei ez die eragingo."
 
 #. Installer message: confirmatin question. Keep $\r
@@ -2806,7 +2806,7 @@ msgid ""
 "The installation directory you specified already exists. Any contents$\rwill "
 "be deleted. Would you like to continue?"
 msgstr ""
-"Zehaztu duzun instalatiorako direktorioa badago lehendik ere. Bertako\n"
+"Zehaztu duzun instalatiorako direktorioa badago lehendik ere. Bertako$\r"
 "edozein eduki ezabatu egingo da. Jarraitzea nahi duzu?"
 
 #. Installer message: Uninstall Section Prompts. Keep $\r
@@ -2815,7 +2815,7 @@ msgid ""
 "The uninstaller could not find registry entries for Dia.$\rIt is likely that "
 "another user installed this application."
 msgstr ""
-"Desintalatzaileak ezin izan du Dia-ren sarrerako erregistrorik aurkitu. "
+"Desintalatzaileak ezin izan du Dia-ren sarrerako erregistrorik aurkitu.$\r "
 "Badirudi beste erabiltzaile batek instalatu duela aplikazio hau."
 
 #. Installer message: Uninstall error message
