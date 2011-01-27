@@ -1,0 +1,56 @@
+GENNSH = ..\gennsh
+ICONV = iconv
+
+LOCALEFILES = \
+	eu.nsh \
+	fi.nsh \
+	gl.nsh \
+	ko.nsh \
+	zh.nsh
+
+UTF8FILES = \
+	basque.nsh \
+	finnish.nsh \
+	galego.nsh \
+	korean.nsh \
+	chinese.nsh
+	
+all: $(LOCALEFILES)	
+
+clean:
+	del $(LOCALEFILES) $(UTF8FILES)
+	
+eu.nsh: basque.nsh
+	$(ICONV) -f UTF-8 -t ISO-8859-1  basque.nsh  > $@
+
+basque.nsh:
+	SET LANG=eu
+	$(GENNSH) > $@
+
+finnish.nsh:
+	SET LANG=fi
+	$(GENNSH) > $@
+	
+fi.nsh: finnish.nsh
+	$(ICONV) -f UTF-8 -t ISO-8859-1 finnish.nsh > $@
+	
+galego.nsh:
+	SET LANG=gl
+	$(GENNSH) > $@
+
+gl.nsh: galego.nsh
+	$(ICONV) -f UTF-8 -t ISO-8859-1 galego.nsh > $@
+
+korean.nsh:	
+	SET LANG=ko
+	$(GENNSH) > $@
+
+ko.nsh: korean.nsh
+	$(ICONV) -f UTF-8 -t ISO-2022-KR korean.nsh > $@
+
+chinese.nsh:	
+	SET LANG=zh_CN
+	$(GENNSH) > $@
+	
+zh.nsh: chinese.nsh	
+	$(ICONV) -f UTF-8 -t GB2312 chinese.nsh > $@

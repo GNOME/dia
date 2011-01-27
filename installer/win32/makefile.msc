@@ -1,0 +1,23 @@
+TOP = ..\..\..
+PRJ_TOP = ..\..
+!INCLUDE $(TOP)\glib\build\win32\make.msc
+
+PKG_CFLAGS = $(LIBXML2_CFLAGS) 
+
+PKG_LINK = $(INTL_LIBS)
+
+LDFLAGS = /link $(LINKDEBUG) /machine:ix86
+INSTALL = copy
+
+CFLAGS = -I. -I$(PRJ_TOP)
+
+## targets
+all : \
+	gennsh.exe
+	
+gennsh.exe : gennsh.c gennsh.obj
+	$(CC) $(CFLAGS) -Fegennsh.exe gennsh.obj \
+	$(LDFLAGS) $(PKG_LINK) /subsystem:console
+
+.c.obj :
+	$(CC) $(CFLAGS) -c $(PKG_CFLAGS) $<
