@@ -2,19 +2,29 @@ GENNSH = ..\gennsh
 ICONV = iconv
 
 LOCALEFILES = \
+	cs.nsh \
+	da.nsh \
 	es.nsh \
 	eu.nsh \
 	fi.nsh \
 	gl.nsh \
+	gr.nsh \
 #	ko.nsh \
+	pt.nsh \
+#	ro.nsh \
 	zh.nsh
 
 UTF8FILES = \
+	czech.nsh \
+	danish.nsh \
 	basque.nsh \
 	finnish.nsh \
 	galego.nsh \
+	greek.nsh \
 	korean.nsh \
 	chinese.nsh \
+	portuguese.nsh \
+	romanian.nsh \
 	spanish.nsh
 	
 all: $(LOCALEFILES)	
@@ -22,6 +32,20 @@ all: $(LOCALEFILES)
 clean:
 	del $(LOCALEFILES) $(UTF8FILES)
 
+da.nsh: danish.nsh
+	$(ICONV) -f UTF-8 -t WINDOWS-1252 danish.nsh > $@
+
+cs.nsh: czech.nsh
+	$(ICONV) -f UTF-8 -t WINDOWS-1250 czech.nsh > $@
+	
+czech.nsh:
+	SET LANG=cs
+	$(GENNSH) > $@
+	
+danish.nsh:
+	SET LANG=da
+	$(GENNSH) > $@
+	
 es.nsh: spanish.nsh
 	$(ICONV) -f UTF-8 -t ISO-8859-1 spanish.nsh > $@
 	
@@ -46,6 +70,13 @@ galego.nsh:
 gl.nsh: galego.nsh
 	$(ICONV) -f UTF-8 -t ISO-8859-1 galego.nsh > $@
 
+gr.nsh: greek.nsh
+	$(ICONV) -f UTF-8 -t WINDOWS-1253 greek.nsh > $@
+	
+greek.nsh:
+	SET LANG=gr
+	$(GENNSH) > $@
+	
 korean.nsh:	
 	SET LANG=ko
 	$(GENNSH) > $@
@@ -55,6 +86,20 @@ ko.nsh: korean.nsh
 
 chinese.nsh:	
 	SET LANG=zh_CN
+	$(GENNSH) > $@
+	
+pt.nsh: portuguese.nsh
+	$(ICONV) -f UTF-8 -t ISO-8859-1 portuguese.nsh > $@
+	
+portuguese.nsh:
+	SET LANG=pt
+	$(GENNSH) > $@
+	
+ro.nsh: romanian.nsh
+	$(ICONV) -f UTF-8 -t WINDOWS-1250 romanian.nsh > $@
+	
+romanian.nsh:
+	SET LANG=ro
 	$(GENNSH) > $@
 
 spanish.nsh:
