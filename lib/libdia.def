@@ -365,6 +365,7 @@ EXPORTS
  dia_unit_spinner_get_value
  dia_unit_spinner_new
  dia_unit_spinner_set_value
+ dia_unit_spinner_set_upper
 
 ; dia_svg_parse_style
 
