@@ -718,23 +718,23 @@ paper_size_change(GtkMenuItem *item, DiaPageLayout *self)
 			     get_paper_rmargin(self->papernum));
 
   if (GTK_TOGGLE_BUTTON(self->orient_portrait)->active) {
-    gtk_spin_button_get_adjustment(GTK_SPIN_BUTTON(self->tmargin))->upper =
-      max_margin(get_paper_psheight(self->papernum));
-    gtk_spin_button_get_adjustment(GTK_SPIN_BUTTON(self->bmargin))->upper =
-      max_margin(get_paper_psheight(self->papernum));
-    gtk_spin_button_get_adjustment(GTK_SPIN_BUTTON(self->lmargin))->upper =
-      max_margin(get_paper_pswidth(self->papernum));
-    gtk_spin_button_get_adjustment(GTK_SPIN_BUTTON(self->rmargin))->upper =
-      max_margin(get_paper_pswidth(self->papernum));
+    dia_unit_spinner_set_upper (DIA_UNIT_SPINNER(self->tmargin),
+      max_margin(get_paper_psheight(self->papernum)));
+    dia_unit_spinner_set_upper (DIA_UNIT_SPINNER(self->bmargin),
+      max_margin(get_paper_psheight(self->papernum)));
+    dia_unit_spinner_set_upper (DIA_UNIT_SPINNER(self->lmargin),
+      max_margin(get_paper_pswidth(self->papernum)));
+    dia_unit_spinner_set_upper (DIA_UNIT_SPINNER(self->rmargin),
+      max_margin(get_paper_pswidth(self->papernum)));
   } else {
-    gtk_spin_button_get_adjustment(GTK_SPIN_BUTTON(self->tmargin))->upper =
-      max_margin(get_paper_pswidth(self->papernum));
-    gtk_spin_button_get_adjustment(GTK_SPIN_BUTTON(self->bmargin))->upper =
-      max_margin(get_paper_pswidth(self->papernum));
-    gtk_spin_button_get_adjustment(GTK_SPIN_BUTTON(self->lmargin))->upper =
-      max_margin(get_paper_psheight(self->papernum));
-    gtk_spin_button_get_adjustment(GTK_SPIN_BUTTON(self->rmargin))->upper =
-      max_margin(get_paper_psheight(self->papernum));
+    dia_unit_spinner_set_upper (DIA_UNIT_SPINNER(self->tmargin),
+      max_margin(get_paper_pswidth(self->papernum)));
+    dia_unit_spinner_set_upper (DIA_UNIT_SPINNER(self->bmargin),
+      max_margin(get_paper_pswidth(self->papernum)));
+    dia_unit_spinner_set_upper (DIA_UNIT_SPINNER(self->lmargin),
+      max_margin(get_paper_psheight(self->papernum)));
+    dia_unit_spinner_set_upper (DIA_UNIT_SPINNER(self->rmargin),
+      max_margin(get_paper_psheight(self->papernum)));
   }
   self->block_changed = FALSE;
 
@@ -753,23 +753,23 @@ orient_changed(DiaPageLayout *self)
   gtk_widget_queue_draw(self->darea);
 
   if (GTK_TOGGLE_BUTTON(self->orient_portrait)->active) {
-    gtk_spin_button_get_adjustment(GTK_SPIN_BUTTON(self->tmargin))->upper =
-      max_margin(get_paper_psheight(self->papernum));
-    gtk_spin_button_get_adjustment(GTK_SPIN_BUTTON(self->bmargin))->upper =
-      max_margin(get_paper_psheight(self->papernum));
-    gtk_spin_button_get_adjustment(GTK_SPIN_BUTTON(self->lmargin))->upper =
-      max_margin(get_paper_pswidth(self->papernum));
-    gtk_spin_button_get_adjustment(GTK_SPIN_BUTTON(self->rmargin))->upper =
-      max_margin(get_paper_pswidth(self->papernum));
+    dia_unit_spinner_set_upper (DIA_UNIT_SPINNER(self->tmargin),
+      max_margin(get_paper_psheight(self->papernum)));
+    dia_unit_spinner_set_upper (DIA_UNIT_SPINNER(self->bmargin),
+      max_margin(get_paper_psheight(self->papernum)));
+    dia_unit_spinner_set_upper (DIA_UNIT_SPINNER(self->lmargin),
+      max_margin(get_paper_pswidth(self->papernum)));
+    dia_unit_spinner_set_upper (DIA_UNIT_SPINNER(self->rmargin),
+      max_margin(get_paper_pswidth(self->papernum)));
   } else {
-    gtk_spin_button_get_adjustment(GTK_SPIN_BUTTON(self->tmargin))->upper =
-      max_margin(get_paper_pswidth(self->papernum));
-    gtk_spin_button_get_adjustment(GTK_SPIN_BUTTON(self->bmargin))->upper =
-      max_margin(get_paper_pswidth(self->papernum));
-    gtk_spin_button_get_adjustment(GTK_SPIN_BUTTON(self->lmargin))->upper =
-      max_margin(get_paper_psheight(self->papernum));
-    gtk_spin_button_get_adjustment(GTK_SPIN_BUTTON(self->rmargin))->upper =
-      max_margin(get_paper_psheight(self->papernum));
+    dia_unit_spinner_set_upper (DIA_UNIT_SPINNER(self->tmargin),
+      max_margin(get_paper_pswidth(self->papernum)));
+    dia_unit_spinner_set_upper (DIA_UNIT_SPINNER(self->bmargin),
+      max_margin(get_paper_pswidth(self->papernum)));
+    dia_unit_spinner_set_upper (DIA_UNIT_SPINNER(self->lmargin),
+      max_margin(get_paper_psheight(self->papernum)));
+    dia_unit_spinner_set_upper (DIA_UNIT_SPINNER(self->rmargin),
+      max_margin(get_paper_psheight(self->papernum)));
   }
 
   if (!self->block_changed)

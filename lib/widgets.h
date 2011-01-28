@@ -165,6 +165,8 @@ GtkWidget *dia_unit_spinner_new       (GtkAdjustment *adjustment,
 				       DiaUnit adj_unit);
 void       dia_unit_spinner_set_value (DiaUnitSpinner *self, gdouble val);
 gdouble    dia_unit_spinner_get_value (DiaUnitSpinner *self);
+void       dia_unit_spinner_set_upper (DiaUnitSpinner *self, gdouble val);
+
 GList *    get_units_name_list(void);
 
 /* DiaDynamicMenu */

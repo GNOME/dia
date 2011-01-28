@@ -1722,6 +1722,17 @@ dia_unit_spinner_get_value(DiaUnitSpinner *self)
       (units[self->unit_num].factor / units[DIA_UNIT_CENTIMETER].factor);
 }
 
+/* Must manipulate the limit values through this to also consider unit.
+ * Given value is in centimeter. 
+ */
+void
+dia_unit_spinner_set_upper (DiaUnitSpinner *self, gdouble val)
+{
+  val /= (units[self->unit_num].factor / units[DIA_UNIT_CENTIMETER].factor);
+
+  gtk_adjustment_set_upper (
+    gtk_spin_button_get_adjustment(GTK_SPIN_BUTTON(self)), val);
+}
 GList *
 get_units_name_list(void)
 {
