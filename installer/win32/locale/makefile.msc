@@ -6,7 +6,7 @@ LOCALEFILES = \
 	eu.nsh \
 	fi.nsh \
 	gl.nsh \
-	ko.nsh \
+#	ko.nsh \
 	zh.nsh
 
 UTF8FILES = \

@@ -24,6 +24,7 @@
 
 #include <stdio.h>
 #include <libintl.h>
+#include <glib.h>
 
 #define _(String) gettext(String)
 
@@ -71,13 +72,13 @@ int main(int argc, char *argv[])
   printf("!define DIA_UNINSTALL_DESC \"%s\"\n", _("Dia (remove only)"));
 
   /* Installer message: confirmation question. Keep $\r */
-  printf("!define DIA_PROMPT_WIPEOUT \"%s\"\n", _("Your old Dia directory is about to be deleted. Would you like to continue?$\r$\rNote: Any non-standard plugins that you may have installed will be deleted.$\rDia user settings will not be affected."));
+  printf("!define DIA_PROMPT_WIPEOUT \"%s\"\n", g_strescape(_("Your old Dia directory is about to be deleted. Would you like to continue?$\r$\rNote: Any non-standard plugins that you may have installed will be deleted.$\rDia user settings will not be affected."), ""));
 
   /* Installer message: confirmatin question. Keep $\r */
-  printf("!define DIA_PROMPT_DIR_EXISTS \"%s\"\n", _("The installation directory you specified already exists. Any contents$\rwill be deleted. Would you like to continue?"));
+  printf("!define DIA_PROMPT_DIR_EXISTS \"%s\"\n", g_strescape(_("The installation directory you specified already exists. Any contents$\rwill be deleted. Would you like to continue?"), ""));
 
   /* Installer message: Uninstall Section Prompts. Keep $\r */
-  printf("!define un.DIA_UNINSTALL_ERROR_1 \"%s\"\n", _("The uninstaller could not find registry entries for Dia.$\rIt is likely that another user installed this application."));
+  printf("!define un.DIA_UNINSTALL_ERROR_1 \"%s\"\n", g_strescape(_("The uninstaller could not find registry entries for Dia.$\rIt is likely that another user installed this application."), ""));
 
   /* Installer message: Uninstall error message */
   printf("!define un.DIA_UNINSTALL_ERROR_2 \"%s\"\n", _("You do not have permission to uninstall this application."));

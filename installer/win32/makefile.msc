@@ -2,9 +2,12 @@ TOP = ..\..\..
 PRJ_TOP = ..\..
 !INCLUDE $(TOP)\glib\build\win32\make.msc
 
-PKG_CFLAGS = $(LIBXML2_CFLAGS) 
+PKG_CFLAGS = -FImsvc_recommended_pragmas.h \
+	-I.. -I..\.. \
+	$(GTK2_CFLAGS) \
+	$(LIBXML2_CFLAGS)  
 
-PKG_LINK = $(INTL_LIBS)
+PKG_LINK = $(INTL_LIBS) $(GLIB_LIBS)
 
 LDFLAGS = /link $(LINKDEBUG) /machine:ix86
 INSTALL = copy
