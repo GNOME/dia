@@ -627,6 +627,7 @@ create_integrated_ui_toolbar (void)
 static GtkActionGroup *
 create_or_ref_tool_actions (void)
 {
+  GtkIconFactory *icon_factory;
   GtkActionGroup *actions;
   GtkAction      *action;
   int           i;
@@ -641,17 +642,33 @@ create_or_ref_tool_actions (void)
   gtk_action_group_add_actions (actions, tool_entries, 
 				G_N_ELEMENTS (tool_entries), NULL);
 
+  icon_factory = gtk_icon_factory_new ();
+
   for (i = 0; i < num_tools; i++) {
     action = gtk_action_group_get_action (actions, tool_data[i].action_name);
     if (action != NULL) {
       g_signal_connect (G_OBJECT (action), "activate",
 			G_CALLBACK (tool_menu_select),
 			&tool_data[i].callback_data);
+
+      gtk_action_set_tooltip (action, tool_data[i].tool_desc);
+
+      {
+        GdkPixbuf *pb = tool_get_pixbuf (&tool_data[i]);
+	GtkIconSet *is = gtk_icon_set_new_from_pixbuf (pb);
+
+	/* not sure if the action name is unique enough */
+	gtk_icon_factory_add (icon_factory, tool_data[i].action_name, is);
+	gtk_action_set_stock_id (action, tool_data[i].action_name);
+
+	g_object_unref (pb);
+      }
     }
     else {
       g_warning ("couldn't find tool menu item %s", tool_data[i].action_name);
     }
   }
+  gtk_icon_factory_add_default (icon_factory);
   return actions;
 }
 
