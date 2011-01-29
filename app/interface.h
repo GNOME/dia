@@ -99,4 +99,6 @@ void fill_sheet_menu(void);
 
 void close_notebook_page_callback (GtkButton *button, gpointer user_data);
 
+GdkPixbuf *tool_get_pixbuf (ToolButton *tb);
+
 #endif /* INTERFACE_H */

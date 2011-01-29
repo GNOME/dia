@@ -1087,6 +1087,33 @@ tool_select_callback(GtkWidget *widget, gpointer data) {
 }
 */
 
+GdkPixbuf *
+tool_get_pixbuf (ToolButton *tb)
+{
+  GdkPixbuf *pixbuf;
+  gchar **icon_data;
+
+  if (tb->icon_data==NULL) {
+    DiaObjectType *type;
+    
+    type = object_get_type((char *)tb->callback_data.extra_data);
+    if (type == NULL)
+      icon_data = tool_data[0].icon_data;
+    else
+      icon_data = type->pixmap;
+  } else {
+    icon_data = tb->icon_data;
+  }
+  
+  if (strncmp((char*)icon_data, "GdkP", 4) == 0) {
+    pixbuf = gdk_pixbuf_new_from_inline(-1, (guint8*)icon_data, TRUE, NULL);
+  } else {
+    char **pixmap_data = icon_data;
+    pixbuf = gdk_pixbuf_new_from_xpm_data (pixmap_data);
+  }
+  return pixbuf;
+}
+
 /*
  * Don't look too deep into this function. It is doing bad things
  * with casts to conform to the historically interface. We know
