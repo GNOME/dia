@@ -49,6 +49,7 @@ GtkWidget *     menus_create_display_menubar     (GtkUIManager **ui_manager, Gtk
 GtkAccelGroup  * menus_get_accel_group  (void);
 GtkActionGroup * menus_get_action_group (void);
 
+GtkActionGroup *menus_get_tool_actions (void);
 GtkAction *     menus_get_action       (const gchar *name);
 void            menus_set_recent       (GtkActionGroup *actions);
 void            menus_clear_recent     (void);

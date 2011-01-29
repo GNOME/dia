@@ -271,7 +271,6 @@ static gboolean initialise = TRUE;
 /* integrated ui */
 static GtkUIManager *integrated_ui_manager = NULL;
 static GtkActionGroup *integrated_ui_actions = NULL;
-static GtkActionGroup *integrated_ui_tool_actions = NULL;
 static GtkAccelGroup *integrated_ui_accels = NULL;
 static GtkWidget *integrated_ui_menubar = NULL;
 static GtkWidget *integrated_ui_toolbar = NULL;
@@ -282,13 +281,13 @@ static GtkActionGroup *toolbox_actions = NULL;
 static GtkAccelGroup *toolbox_accels = NULL;
 static GtkWidget *toolbox_menubar = NULL;
 
+static GtkActionGroup *tool_actions = NULL;
 GtkActionGroup *recent_actions = NULL;
 static GSList *recent_merge_ids = NULL;
 
 /* diagram */
 static GtkUIManager *display_ui_manager = NULL;
 static GtkActionGroup *display_actions = NULL;
-static GtkActionGroup *display_tool_actions = NULL;
 static GtkAccelGroup *display_accels = NULL;
 static GtkWidget *display_menubar = NULL;
 
@@ -626,21 +625,18 @@ create_integrated_ui_toolbar (void)
  * The caller owns the return value.
  */
 static GtkActionGroup *
-create_tool_actions (void)
+create_or_ref_tool_actions (void)
 {
   GtkActionGroup *actions;
   GtkAction      *action;
   int           i;
-  gchar          *name;
-  static guint    cnt = 0;
 
-  name = g_strdup_printf ("tool-actions-%d", cnt);
-  actions = gtk_action_group_new (name);
+  if (tool_actions)
+    return g_object_ref (tool_actions);
+
+  actions = gtk_action_group_new ("tool-actions");
   gtk_action_group_set_translation_domain (actions, NULL);
   gtk_action_group_set_translate_func (actions, _dia_translate, NULL, NULL);
-  g_free (name);
-  name = NULL;
-  cnt++;
 
   gtk_action_group_add_actions (actions, tool_entries, 
 				G_N_ELEMENTS (tool_entries), NULL);
@@ -895,7 +891,7 @@ menus_init(void)
 
   /* the display menu */
   display_actions = create_or_ref_display_actions ();
-  display_tool_actions = create_tool_actions ();
+  tool_actions = create_or_ref_tool_actions ();
 
   display_ui_manager = gtk_ui_manager_new ();
   g_signal_connect (G_OBJECT (display_ui_manager), 
@@ -904,7 +900,7 @@ menus_init(void)
 		    NULL);
   gtk_ui_manager_set_add_tearoffs (display_ui_manager, DIA_SHOW_TEAROFFS);
   gtk_ui_manager_insert_action_group (display_ui_manager, display_actions, 0);
-  gtk_ui_manager_insert_action_group (display_ui_manager, display_tool_actions, 0);
+  gtk_ui_manager_insert_action_group (display_ui_manager, tool_actions, 0);
   if (!gtk_ui_manager_add_ui_from_string (display_ui_manager, ui_info, -1, &error)) {
     g_warning ("built-in menus failed: %s", error->message);
     g_error_free (error);
@@ -972,12 +968,12 @@ menus_get_integrated_ui_menubar (GtkWidget     **menubar,
                 G_CALLBACK (select_style_callback),
                 NULL);
 
-  integrated_ui_tool_actions = create_tool_actions ();
+  tool_actions = create_or_ref_tool_actions ();
 
   integrated_ui_manager = gtk_ui_manager_new ();
   gtk_ui_manager_set_add_tearoffs (integrated_ui_manager, DIA_SHOW_TEAROFFS);
   gtk_ui_manager_insert_action_group (integrated_ui_manager, integrated_ui_actions, 0);
-  gtk_ui_manager_insert_action_group (integrated_ui_manager, integrated_ui_tool_actions, 0);
+  gtk_ui_manager_insert_action_group (integrated_ui_manager, tool_actions, 0);
 
   uifile = build_ui_filename ("ui/integrated-ui.xml");
   if (!gtk_ui_manager_add_ui_from_file (integrated_ui_manager, uifile, &error)) {
@@ -1044,14 +1040,13 @@ GtkWidget *
 menus_create_display_menubar (GtkUIManager   **ui_manager, 
 			      GtkActionGroup **actions)
 {
-  GtkActionGroup *tool_actions;
   GtkWidget      *menu_bar;
   GError         *error = NULL;
   gchar          *uifile;
 
   
   *actions = create_or_ref_display_actions ();
-  tool_actions = create_tool_actions (); 
+  tool_actions = create_or_ref_tool_actions (); 
 
   *ui_manager = gtk_ui_manager_new ();
   gtk_ui_manager_set_add_tearoffs (*ui_manager, DIA_SHOW_TEAROFFS);
@@ -1085,6 +1080,12 @@ menus_get_action_group ()
   return is_integrated_ui ()? integrated_ui_actions : toolbox_actions;
 }
 
+GtkActionGroup *
+menus_get_tool_actions (void)
+{
+  return tool_actions;
+}
+
 GtkAction *
 menus_get_action (const gchar *name)
 {
@@ -1093,9 +1094,6 @@ menus_get_action (const gchar *name)
   if (is_integrated_ui ())
   {
     action = gtk_action_group_get_action (integrated_ui_actions, name);
-    if (action == NULL) {
-      action = gtk_action_group_get_action (integrated_ui_tool_actions, name);
-    }
   }
   else
   {
@@ -1103,10 +1101,9 @@ menus_get_action (const gchar *name)
     if (action == NULL) {
       action = gtk_action_group_get_action (display_actions, name);
     }
-    if (action == NULL) {
-      action = gtk_action_group_get_action (display_tool_actions, name);
-    }
   }
+  if (!action)
+    action = gtk_action_group_get_action (tool_actions, name);
   if (!action) {
     GList *groups, *list;
 
