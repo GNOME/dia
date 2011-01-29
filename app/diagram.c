@@ -629,21 +629,9 @@ diagram_update_menu_sensitivity (Diagram *dia)
   if ((action = menus_get_action ("SelectInverse")) != NULL)
     gtk_action_set_sensitive (action, !textedit_active);
 
-  /* Tools menu */
-  {
-    /* Keep in sync with menus.c(tool_entries) */
-    static gchar * action_names[] = {
-      "ToolsModify", "ToolsMagnify",  "ToolsTextedit",  "ToolsScroll", 
-      "ToolsText", "ToolsBox", "ToolsEllipse", "ToolsPolygon", "ToolsBeziergon",
-      "ToolsLine", "ToolsArc", "ToolsZigzagline", "ToolsPolyline","ToolsBezierline", 
-      "ToolsImage", "ToolsOutline", NULL
-    };
-    int i;
-    for (i = 0; action_names[i] != NULL; ++i) {
-      if ((action = menus_get_action (action_names[i])) != NULL)
-        gtk_action_set_sensitive (action, !textedit_active);
-    }
-  }
+  /* Tools menu - toolbox actions */
+  gtk_action_group_set_sensitive (menus_get_tool_actions (),  !textedit_active);
+
   /* View menu - should not need disabling yet */
 }
     
