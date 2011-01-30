@@ -176,7 +176,7 @@ get_text_width(DiaRenderer *object,
 /** Used as background? for text editing */
 static Color text_edit_color = {1.0, 1.0, 0.7 };
 
-real
+static real
 calculate_relative_luminance (const Color *c)
 {
   real R, G, B;
