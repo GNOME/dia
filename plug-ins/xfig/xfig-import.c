@@ -1255,6 +1255,7 @@ fig_read_meta_data(FILE *file, DiagramData *dia) {
 gboolean 
 import_fig(const gchar *filename, DiagramData *dia, void* user_data) {
     FILE *figfile;
+    char buf[BUFLEN];
     int figmajor, figminor;	
     int i;
 
@@ -1273,7 +1274,8 @@ import_fig(const gchar *filename, DiagramData *dia, void* user_data) {
     }
   
     /* First check magic bytes */
-    if (fscanf(figfile, "#FIG %d.%d\n", &figmajor, &figminor) != 2) {
+    if (fgets(buf, BUFLEN, figfile) == NULL ||
+        sscanf(buf, "#FIG %d.%d\n", &figmajor, &figminor) != 2) {
 	message_error(_("Doesn't look like a Fig file: %s\n"), strerror(errno));
 	fclose(figfile);
 	return FALSE;
