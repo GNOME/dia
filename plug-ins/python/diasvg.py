@@ -40,7 +40,7 @@ class SvgRenderer :
 <svg width="%.3fcm" height="%.3fcm" viewBox="%.3f %.3f %.3f %.3f"
  xmlns="http://www.w3.org/2000/svg"
  xmlns:xlink="http://www.w3.org/1999/xlink">
-''' % (r.right - r.left, r.bottom - r.top, r[0], r[1], r[2], r[3]))
+''' % (r.right - r.left, r.bottom - r.top, r[0], r[1], r[2] - r[0], r[3] - r[1]))
 		#self.f.write("<!-- %s -->\n" % (str(data.extents)))
 		#self.f.write("<!-- %s -->\n" % (data.active_layer.name))
 	def end_render (self) :
