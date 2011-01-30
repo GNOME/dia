@@ -1189,7 +1189,7 @@ msgstr "Ustawienia _strony..."
 
 #: ../app/menus.c:87 ../app/sheets_dialog.c:236
 msgid "_Edit"
-msgstr "/Edycja"
+msgstr "_Edycja"
 
 #: ../app/menus.c:94
 #
