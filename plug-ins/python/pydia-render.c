@@ -506,6 +506,36 @@ draw_rect(DiaRenderer *renderer,
   }
 }
 
+
+static void
+draw_rounded_rect(DiaRenderer *renderer, 
+	  Point *ul_corner, Point *lr_corner,
+	  Color *colour, real rounding)
+{
+  PyObject *func, *res, *arg, *self = PYDIA_RENDERER (renderer);
+
+  func = PyObject_GetAttrString (self, "draw_rounded_rect");
+  if (func && PyCallable_Check(func)) {
+    Py_INCREF(self);
+    Py_INCREF(func);
+    arg = Py_BuildValue ("(OOd)", PyDiaRectangle_New_FromPoints (ul_corner, lr_corner),
+                                 PyDiaColor_New (colour), rounding);
+    if (arg) {
+      res = PyEval_CallObject (func, arg);
+      ON_RES(res, FALSE);
+    }
+    Py_XDECREF (arg);
+    Py_DECREF(func);
+    Py_DECREF(self);
+  }
+  else { /* member optional */
+    PyErr_Clear();
+    /* XXX: implementing the same fallback as DiaRenderer would do */
+    DIA_RENDERER_CLASS (parent_class)->draw_rounded_rect (renderer, ul_corner, lr_corner, colour, rounding);
+  }
+}
+
+
 static void
 fill_rect(DiaRenderer *renderer, 
 	  Point *ul_corner, Point *lr_corner,
@@ -533,6 +563,34 @@ fill_rect(DiaRenderer *renderer,
     PyErr_Clear();
     PyErr_Warn (PyExc_RuntimeWarning, msg);
     g_free (msg);
+  }
+}
+
+static void
+fill_rounded_rect(DiaRenderer *renderer, 
+	  Point *ul_corner, Point *lr_corner,
+	  Color *colour, real rounding)
+{
+  PyObject *func, *res, *arg, *self = PYDIA_RENDERER (renderer);
+
+  func = PyObject_GetAttrString (self, "fill_rounded_rect");
+  if (func && PyCallable_Check(func)) {
+    Py_INCREF(self);
+    Py_INCREF(func);
+    arg = Py_BuildValue ("(OOd)", PyDiaRectangle_New_FromPoints (ul_corner, lr_corner),
+                                 PyDiaColor_New (colour), rounding);
+    if (arg) {
+      res = PyEval_CallObject (func, arg);
+      ON_RES(res, FALSE);
+    }
+    Py_XDECREF (arg);
+    Py_DECREF(func);
+    Py_DECREF(self);
+  }
+  else { /* member optional */
+    PyErr_Clear();
+    /* XXX: implementing the same fallback as DiaRenderer would do */
+    DIA_RENDERER_CLASS (parent_class)->fill_rounded_rect (renderer, ul_corner, lr_corner, colour, rounding);
   }
 }
 
@@ -932,5 +990,9 @@ dia_py_renderer_class_init (DiaPyRendererClass *klass)
 
   renderer_class->draw_bezier   = draw_bezier;
   renderer_class->fill_bezier   = fill_bezier;
+
+  /* highest level functions */
+  renderer_class->draw_rounded_rect = draw_rounded_rect;
+  renderer_class->fill_rounded_rect = fill_rounded_rect;
 }
 
