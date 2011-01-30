@@ -311,14 +311,17 @@ set_font(DiaRenderer *renderer, DiaFont *font, real height)
 
   func = PyObject_GetAttrString (self, "set_font");
   if (func && PyCallable_Check(func)) {
+    PyObject *ofont = PyDiaFont_New (font);
+
     Py_INCREF(self);
     Py_INCREF(func);
-    arg = Py_BuildValue ("(Od)", PyDiaFont_New (font), height);
+    arg = Py_BuildValue ("(Od)", ofont, height);
     if (arg) {
       res = PyEval_CallObject (func, arg);
       ON_RES(res, FALSE);
     }
     Py_XDECREF (arg);
+    Py_XDECREF (ofont);
     Py_DECREF(func);
     Py_DECREF(self);
   }
@@ -335,6 +338,7 @@ draw_object (DiaRenderer *renderer, DiaObject *object, DiaMatrix *matrix)
 
   func = PyObject_GetAttrString (self, "draw_object");
   if (func && PyCallable_Check(func)) {
+    PyObject *oobj = PyDiaObject_New (object);
     PyObject *mat = NULL;
 
     Py_INCREF(self);
@@ -345,12 +349,13 @@ draw_object (DiaRenderer *renderer, DiaObject *object, DiaMatrix *matrix)
       Py_INCREF(Py_None);
       mat = Py_None;
     }
-    arg = Py_BuildValue ("(OO)", PyDiaObject_New (object), mat );
+    arg = Py_BuildValue ("(OO)", oobj, mat);
     if (arg) {
       res = PyEval_CallObject (func, arg);
       ON_RES(res, FALSE);
     }
     Py_XDECREF (arg);
+    Py_XDECREF (oobj);
     Py_XDECREF (mat);
     Py_DECREF(func);
     Py_DECREF(self);
@@ -370,16 +375,21 @@ draw_line(DiaRenderer *renderer,
 
   func = PyObject_GetAttrString (self, "draw_line");
   if (func && PyCallable_Check(func)) {
+    PyObject *ostart = PyDiaPoint_New (start);
+    PyObject *oend = PyDiaPoint_New (end);
+    PyObject *ocolor = PyDiaColor_New (line_colour);
+
     Py_INCREF(self);
     Py_INCREF(func);
-    arg = Py_BuildValue ("(OOO)", PyDiaPoint_New (start),
-                                  PyDiaPoint_New (end),
-                                  PyDiaColor_New (line_colour));
+    arg = Py_BuildValue ("(OOO)", ostart, oend, ocolor);
     if (arg) {
       res = PyEval_CallObject (func, arg);
       ON_RES(res, FALSE);
     }
     Py_XDECREF (arg);
+    Py_XDECREF (ostart);
+    Py_XDECREF (oend);
+    Py_XDECREF (ocolor);
     Py_DECREF(func);
     Py_DECREF(self);
   }
@@ -401,15 +411,19 @@ draw_polyline(DiaRenderer *renderer,
 
   func = PyObject_GetAttrString (self, "draw_polyline");
   if (func && PyCallable_Check(func)) {
+    PyObject *optt = PyDiaPointTuple_New (points, num_points);
+    PyObject *ocolor = PyDiaColor_New (line_colour);
+
     Py_INCREF(self);
     Py_INCREF(func);
-    arg = Py_BuildValue ("(OO)", PyDiaPointTuple_New (points, num_points),
-                                 PyDiaColor_New (line_colour));
+    arg = Py_BuildValue ("(OO)", optt, ocolor);
     if (arg) {
       res = PyEval_CallObject (func, arg);
       ON_RES(res, FALSE);
     }
     Py_XDECREF (arg);
+    Py_XDECREF (optt);
+    Py_XDECREF (ocolor);
     Py_DECREF(func);
     Py_DECREF(self);
   }
@@ -429,15 +443,19 @@ draw_polygon(DiaRenderer *renderer,
 
   func = PyObject_GetAttrString (self, "draw_polygon");
   if (func && PyCallable_Check(func)) {
+    PyObject *optt = PyDiaPointTuple_New (points, num_points);
+    PyObject *ocolor = PyDiaColor_New (line_colour);
+
     Py_INCREF(self);
     Py_INCREF(func);
-    arg = Py_BuildValue ("(OO)", PyDiaPointTuple_New (points, num_points),
-                                 PyDiaColor_New (line_colour));
+    arg = Py_BuildValue ("(OO)", optt, ocolor);
     if (arg) {
       res = PyEval_CallObject (func, arg);
       ON_RES(res, FALSE);
     }
     Py_XDECREF (arg);
+    Py_XDECREF (optt);
+    Py_XDECREF (ocolor);
     Py_DECREF(func);
     Py_DECREF(self);
   }
@@ -457,15 +475,19 @@ fill_polygon(DiaRenderer *renderer,
 
   func = PyObject_GetAttrString (self, "fill_polygon");
   if (func && PyCallable_Check(func)) {
+    PyObject *optt = PyDiaPointTuple_New (points, num_points);
+    PyObject *ocolor = PyDiaColor_New (colour);
+
     Py_INCREF(self);
     Py_INCREF(func);
-    arg = Py_BuildValue ("(OO)", PyDiaPointTuple_New (points, num_points),
-                                 PyDiaColor_New (colour));
+    arg = Py_BuildValue ("(OO)", optt, ocolor);
     if (arg) {
       res = PyEval_CallObject (func, arg);
       ON_RES(res, FALSE);
     }
     Py_XDECREF (arg);
+    Py_XDECREF (optt);
+    Py_XDECREF (ocolor);
     Py_DECREF(func);
     Py_DECREF(self);
   }
@@ -487,15 +509,18 @@ draw_rect(DiaRenderer *renderer,
 
   func = PyObject_GetAttrString (self, "draw_rect");
   if (func && PyCallable_Check(func)) {
+    PyObject *orect = PyDiaRectangle_New_FromPoints (ul_corner, lr_corner);
+    PyObject *ocolor = PyDiaColor_New (colour);
     Py_INCREF(self);
     Py_INCREF(func);
-    arg = Py_BuildValue ("(OO)", PyDiaRectangle_New_FromPoints (ul_corner, lr_corner),
-                                 PyDiaColor_New (colour));
+    arg = Py_BuildValue ("(OO)", orect, ocolor);
     if (arg) {
       res = PyEval_CallObject (func, arg);
       ON_RES(res, FALSE);
     }
     Py_XDECREF (arg);
+    Py_XDECREF (orect);
+    Py_XDECREF (ocolor);
     Py_DECREF(func);
     Py_DECREF(self);
   }
@@ -506,7 +531,6 @@ draw_rect(DiaRenderer *renderer,
   }
 }
 
-
 static void
 draw_rounded_rect(DiaRenderer *renderer, 
 	  Point *ul_corner, Point *lr_corner,
@@ -516,15 +540,19 @@ draw_rounded_rect(DiaRenderer *renderer,
 
   func = PyObject_GetAttrString (self, "draw_rounded_rect");
   if (func && PyCallable_Check(func)) {
+    PyObject *orect = PyDiaRectangle_New_FromPoints (ul_corner, lr_corner);
+    PyObject *ocolor = PyDiaColor_New (colour);
+
     Py_INCREF(self);
     Py_INCREF(func);
-    arg = Py_BuildValue ("(OOd)", PyDiaRectangle_New_FromPoints (ul_corner, lr_corner),
-                                 PyDiaColor_New (colour), rounding);
+    arg = Py_BuildValue ("(OOd)", orect, ocolor, rounding);
     if (arg) {
       res = PyEval_CallObject (func, arg);
       ON_RES(res, FALSE);
     }
     Py_XDECREF (arg);
+    Py_XDECREF (ocolor);
+    Py_XDECREF (orect);
     Py_DECREF(func);
     Py_DECREF(self);
   }
@@ -545,15 +573,19 @@ fill_rect(DiaRenderer *renderer,
 
   func = PyObject_GetAttrString (self, "fill_rect");
   if (func && PyCallable_Check(func)) {
+    PyObject *orect = PyDiaRectangle_New_FromPoints (ul_corner, lr_corner);
+    PyObject *ocolor = PyDiaColor_New (colour);
+
     Py_INCREF(self);
     Py_INCREF(func);
-    arg = Py_BuildValue ("(OO)", PyDiaRectangle_New_FromPoints (ul_corner, lr_corner),
-                                 PyDiaColor_New (colour));
+    arg = Py_BuildValue ("(OO)", orect, ocolor);
     if (arg) {
       res = PyEval_CallObject (func, arg);
       ON_RES(res, FALSE);
     }
     Py_XDECREF (arg);
+    Py_XDECREF (orect);
+    Py_XDECREF (ocolor);
     Py_DECREF(func);
     Py_DECREF(self);
   }
@@ -575,15 +607,19 @@ fill_rounded_rect(DiaRenderer *renderer,
 
   func = PyObject_GetAttrString (self, "fill_rounded_rect");
   if (func && PyCallable_Check(func)) {
+    PyObject *orect = PyDiaRectangle_New_FromPoints (ul_corner, lr_corner);
+    PyObject *ocolor = PyDiaColor_New (colour);
+
     Py_INCREF(self);
     Py_INCREF(func);
-    arg = Py_BuildValue ("(OOd)", PyDiaRectangle_New_FromPoints (ul_corner, lr_corner),
-                                 PyDiaColor_New (colour), rounding);
+    arg = Py_BuildValue ("(OOd)", orect, ocolor, rounding);
     if (arg) {
       res = PyEval_CallObject (func, arg);
       ON_RES(res, FALSE);
     }
     Py_XDECREF (arg);
+    Py_XDECREF (orect);
+    Py_XDECREF (ocolor);
     Py_DECREF(func);
     Py_DECREF(self);
   }
@@ -605,16 +641,21 @@ draw_arc(DiaRenderer *renderer,
 
   func = PyObject_GetAttrString (self, "draw_arc");
   if (func && PyCallable_Check(func)) {
+    PyObject *opoint = PyDiaPoint_New (center);
+    PyObject *ocolor = PyDiaColor_New (colour);
+
     Py_INCREF(self);
     Py_INCREF(func);
-    arg = Py_BuildValue ("(OddddO)", PyDiaPoint_New (center),
+    arg = Py_BuildValue ("(OddddO)", opoint,
                                      width, height, angle1, angle2,
-                                     PyDiaColor_New (colour));
+                                     ocolor);
     if (arg) {
       res = PyEval_CallObject (func, arg);
       ON_RES(res, FALSE);
     }
     Py_XDECREF (arg);
+    Py_XDECREF (opoint);
+    Py_XDECREF (ocolor);
     Py_DECREF(func);
     Py_DECREF(self);
   }
@@ -638,16 +679,21 @@ fill_arc(DiaRenderer *renderer,
 
   func = PyObject_GetAttrString (self, "fill_arc");
   if (func && PyCallable_Check(func)) {
+    PyObject *opoint = PyDiaPoint_New (center);
+    PyObject *ocolor = PyDiaColor_New (colour);
+
     Py_INCREF(self);
     Py_INCREF(func);
-    arg = Py_BuildValue ("(OddddO)", PyDiaPoint_New (center),
+    arg = Py_BuildValue ("(OddddO)", opoint,
                                      width, height, angle1, angle2,
-                                     PyDiaColor_New (colour));
+                                     ocolor);
     if (arg) {
       res = PyEval_CallObject (func, arg);
       ON_RES(res, FALSE);
     }
     Py_XDECREF (arg);
+    Py_XDECREF (opoint);
+    Py_XDECREF (ocolor);
     Py_DECREF(func);
     Py_DECREF(self);
   }
@@ -670,16 +716,19 @@ draw_ellipse(DiaRenderer *renderer,
 
   func = PyObject_GetAttrString (self, "draw_ellipse");
   if (func && PyCallable_Check(func)) {
+    PyObject *opoint = PyDiaPoint_New (center);
+    PyObject *ocolor = PyDiaColor_New (colour);
+
     Py_INCREF(self);
     Py_INCREF(func);
-    arg = Py_BuildValue ("(OddO)", PyDiaPoint_New (center),
-                                   width, height,
-                                   PyDiaColor_New (colour));
+    arg = Py_BuildValue ("(OddO)", opoint, width, height, ocolor);
     if (arg) {
       res = PyEval_CallObject (func, arg);
       ON_RES(res, FALSE);
     }
     Py_XDECREF (arg);
+    Py_XDECREF (opoint);
+    Py_XDECREF (ocolor);
     Py_DECREF(func);
     Py_DECREF(self);
   }
@@ -702,16 +751,18 @@ fill_ellipse(DiaRenderer *renderer,
 
   func = PyObject_GetAttrString (self, "fill_ellipse");
   if (func && PyCallable_Check(func)) {
+    PyObject *opoint = PyDiaPoint_New (center);
+    PyObject *ocolor = PyDiaColor_New (colour);
     Py_INCREF(self);
     Py_INCREF(func);
-    arg = Py_BuildValue ("(OddO)", PyDiaPoint_New (center),
-                                   width, height,
-                                   PyDiaColor_New (colour));
+    arg = Py_BuildValue ("(OddO)", opoint, width, height, ocolor);
     if (arg) {
       res = PyEval_CallObject (func, arg);
       ON_RES(res, FALSE);
     }
     Py_XDECREF (arg);
+    Py_XDECREF (opoint);
+    Py_XDECREF (ocolor);
     Py_DECREF(func);
     Py_DECREF(self);
   }
@@ -734,15 +785,18 @@ draw_bezier(DiaRenderer *renderer,
 
   func = PyObject_GetAttrString (self, "draw_bezier");
   if (func && PyCallable_Check(func)) {
+    PyObject *obt = PyDiaBezPointTuple_New (points, num_points);
+    PyObject *ocolor = PyDiaColor_New (colour);
     Py_INCREF(self);
     Py_INCREF(func);
-    arg = Py_BuildValue ("(OO)", PyDiaBezPointTuple_New (points, num_points),
-                                 PyDiaColor_New (colour));
+    arg = Py_BuildValue ("(OO)", obt, ocolor);
     if (arg) {
       res = PyEval_CallObject (func, arg);
       ON_RES(res, FALSE);
     }
     Py_XDECREF (arg);
+    Py_XDECREF (obt);
+    Py_XDECREF (ocolor);
     Py_DECREF(func);
     Py_DECREF(self);
   }
@@ -763,15 +817,18 @@ fill_bezier(DiaRenderer *renderer,
 
   func = PyObject_GetAttrString (self, "fill_bezier");
   if (func && PyCallable_Check(func)) {
+    PyObject *obt = PyDiaBezPointTuple_New (points, num_points);
+    PyObject *ocolor = PyDiaColor_New (colour);
     Py_INCREF(self);
     Py_INCREF(func);
-    arg = Py_BuildValue ("(OO)", PyDiaBezPointTuple_New (points, num_points),
-                                 PyDiaColor_New (colour));
+    arg = Py_BuildValue ("(OO)", obt, ocolor);
     if (arg) {
       res = PyEval_CallObject (func, arg);
       ON_RES(res, FALSE);
     }
     Py_XDECREF (arg);
+    Py_XDECREF (obt);
+    Py_XDECREF (ocolor);
     Py_DECREF(func);
     Py_DECREF(self);
   }
@@ -804,17 +861,19 @@ draw_string(DiaRenderer *renderer,
 
   func = PyObject_GetAttrString (self, "draw_string");
   if (func && PyCallable_Check(func)) {
+    PyObject *opoint = PyDiaPoint_New (pos);
+    PyObject *ocolor = PyDiaColor_New (colour);
+
     Py_INCREF(self);
     Py_INCREF(func);
-    arg = Py_BuildValue ("(sOiO)", text,
-                                   PyDiaPoint_New (pos),
-                                   alignment,
-                                   PyDiaColor_New (colour));
+    arg = Py_BuildValue ("(sOiO)", text, opoint, alignment, ocolor);
     if (arg) {
       res = PyEval_CallObject (func, arg);
       ON_RES(res, FALSE);
     }
     Py_XDECREF (arg);
+    Py_XDECREF (opoint);
+    Py_XDECREF (ocolor);
     Py_DECREF(func);
     Py_DECREF(self);
   } else { /* member not optional */
@@ -836,20 +895,23 @@ draw_image(DiaRenderer *renderer,
 
   func = PyObject_GetAttrString (self, "draw_image");
   if (func && PyCallable_Check(func)) {
+    PyObject *opoint = PyDiaPoint_New (point);
+    PyObject *oimage = PyDiaImage_New (image);
+
     Py_INCREF(self);
     Py_INCREF(func);
-    arg = Py_BuildValue ("(OddO)", PyDiaPoint_New (point),
-                                   width, height,
-                                   PyDiaImage_New (image));
+    arg = Py_BuildValue ("(OddO)", opoint, width, height, oimage);
     if (arg) {
       res = PyEval_CallObject (func, arg);
       ON_RES(res, FALSE);
     }
     Py_XDECREF (arg);
+    Py_XDECREF (opoint);
+    Py_XDECREF (oimage);
     Py_DECREF(func);
     Py_DECREF(self);
   } else { /* member not optional */
-    gchar *msg = g_strdup_printf ("%s.draw_string() implmentation missing.",
+    gchar *msg = g_strdup_printf ("%s.draw_image() implmentation missing.",
 				  G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (renderer)));
     PyErr_Clear();
     PyErr_Warn (PyExc_RuntimeWarning, msg);
