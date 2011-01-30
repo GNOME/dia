@@ -418,9 +418,11 @@ diagram_data_load(const char *filename, DiagramData *data, void* user_data)
   }
   
   /* Destroy the default layer: */
-  g_ptr_array_remove(data->layers, data->active_layer);
-  layer_destroy(data->active_layer);
-  
+  if (layer_object_count(data->active_layer) == 0) {
+    g_ptr_array_remove(data->layers, data->active_layer);
+    layer_destroy(data->active_layer);
+  }
+
   diagramdata = 
     find_node_named (doc->xmlRootNode->xmlChildrenNode, "diagramdata");
 
