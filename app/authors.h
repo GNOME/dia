@@ -102,6 +102,7 @@ static const gchar *authors[] =	{
     "Moritz Kirmse <momomaniac@gmail.com>",
     "Robert Staudinger <robert.staudinger@gmail.com>",
     "Caolan McNamara <caolanm@redhat.com>",
+    "Josef Moellers <josef.moellers@gmx.de>",
     NULL
 };
 
