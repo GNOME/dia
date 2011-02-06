@@ -3,7 +3,7 @@
 ;  
 ; dia-installer.nsi : Nullsoft Installation System (NSIS) script
 ; Copyright (C) 2000-2004 Herman Bloggs, Steffen Macke
-; Copyright (C) 2005-2010 Steffen Macke <sdteffen@sdteffen.de>
+; Copyright (C) 2005-2011 Steffen Macke <sdteffen@sdteffen.de>
 ;  
 ; This program is free software; you can redistribute it and/or modify
 ; it under the terms of the GNU General Public License as published by
@@ -699,6 +699,10 @@ ${File} "..\..\shapes\Circuit\" "vresistor_de.png"
 ${File} "..\..\shapes\Circuit\" "vzener.png"
 ${File} "..\..\shapes\Circuit\" "vzener.shape"
 ${File} "..\..\shapes\Circuit\" "vzener.png"
+${File} "..\..\shapes\Circuit\" "xtal_h.png"
+${File} "..\..\shapes\Circuit\" "xtal_h.shape"
+${File} "..\..\shapes\Circuit\" "xtal_v.png"
+${File} "..\..\shapes\Circuit\" "xtal_v.shape"
 ${SetOutPath} "$INSTDIR\shapes\Cisco"
 ${File} "..\..\shapes\Cisco\" "1000.png"
 ${File} "..\..\shapes\Cisco\" "1000.shape"
