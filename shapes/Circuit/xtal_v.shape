@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
+	xmlns:svg="http://www.w3.org/2000/svg">
+  <name>Circuit - Vertical Xtal</name>
+  <description>A vertically aligned Xtal</description>
+  <icon>xtal_v.png</icon>
+  <default-width>3cm</default-width>
+  <default-height>3cm</default-height>
+  <connections>
+    <point x="1.5" y="0" />
+    <point x="1.5" y="3" />
+    <point x="1.5" y="1.5" />
+  </connections>
+  <svg:svg width="3" height="3">
+    <svg:polygon points=" 0.375,1.125 2.625,1.125 2.625,1.875 0.375,1.875"
+	style = "fill: none" />
+    <svg:line x1="1.5" y1="0" x2="1.5" y2="0.75" />
+    <svg:line x1="0.75" y1="0.75" x2="2.25" y2="0.75" />
+    <svg:line x1="0.75" y1="2.25" x2="2.25" y2="2.25" />
+    <svg:line x1="1.5" y1="2.25" x2="1.5" y2="3" />
+  </svg:svg>
+</shape>

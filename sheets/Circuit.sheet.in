@@ -104,5 +104,11 @@
     <object name="Circuit - Horizontal Jumper">
       <_description>Horizontal jumper</_description>
     </object>
+    <object name="Circuit - Horizontal Xtal">
+     <_description>Horizontal xtal</_description>
+    </object>
+    <object name="Circuit - Vertical Xtal">
+      <_description>Vertical xtal</_description>
+    </object>
   </contents>
 </sheet>

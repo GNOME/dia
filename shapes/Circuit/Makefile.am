@@ -63,7 +63,11 @@ SHAPES = \
 	hjumper.shape \
 	hjumper.png \
 	microphone_de.shape \
-	microphone_de.png
+	microphone_de.png \
+	xtal_h.shape \
+	xtal_h.png \
+	xtal_v.shape \
+	xtal_v.png
 
 EXTRA_DIST = $(SHAPES)
 
