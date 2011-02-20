@@ -8,21 +8,23 @@
 # Juan Manuel García Molina <juanma_gm@wanadoo.es>, 2000-2002.
 # Francisco Javier F. Serrador <serrador@cvs.gnome.org>, 2003-2006.
 # Jorge González <jorgegonz@svn.gnome.org>, 2007, 2008, 2009, 2010.
+# Daniel Mustieles <daniel.mustieles@gmail.com>, 2011.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: dia.HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=dia&component=general\n"
-"POT-Creation-Date: 2010-01-25 20:21+0000\n"
-"PO-Revision-Date: 2010-01-26 20:13+0100\n"
-"Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
+"POT-Creation-Date: 2011-01-28 20:44+0000\n"
+"PO-Revision-Date: 2011-02-20 18:55+0100\n"
+"Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "serrador@hispalinux.es>\n"
 "X-Generator: KBabel 1.11.4\n"
-"Plural-Forms:  nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. This is not an errror
 #: ../app/app_procs.c:209
@@ -134,7 +136,7 @@ msgstr "No crear un diagrama vacío"
 
 #: ../app/app_procs.c:726
 msgid "Start integrated user interface (diagrams in tabs)"
-msgstr "Iniciar interfaz de usuario integrada (diagramas en solapas)"
+msgstr "Iniciar interfaz de usuario integrada (diagramas en pestañas)"
 
 #: ../app/app_procs.c:728
 msgid "Send error messages to stderr instead of showing dialogs."
@@ -170,13 +172,11 @@ msgstr "[ARCHIVO…]"
 
 #: ../app/app_procs.c:773
 #, c-format
-#| msgid "Manual operation"
 msgid "Invalid option?"
 msgstr "¿Opción no válida?"
 
 #: ../app/app_procs.c:796
 #, c-format
-#| msgid "Dia version %s, compiled %s %s\n"
 msgid "Filename conversion failed: %s\n"
 msgstr "Falló la conversión del nombre del archivo: %s\n"
 
@@ -425,8 +425,8 @@ msgid ""
 msgstr ""
 "Puede ajustar el tamaño del diagrama cambiando la «Escala» en el diálogo "
 "«Configuración de página».\n"
-"Alternativamente use «Seleccionar todo» y «Mejor ajuste» para mover objetos en "
-"los límites deseados."
+"Alternativamente use «Seleccionar todo» y «Mejor ajuste» para mover objetos "
+"en los límites deseados."
 
 #: ../app/confirm.c:85
 msgid "Confirm Diagram Size"
@@ -713,7 +713,7 @@ msgstr "Propiedades…"
 msgid "Selection"
 msgstr "Selección"
 
-#: ../app/disp_callbacks.c:1072
+#: ../app/disp_callbacks.c:1074
 msgid ""
 "The object you dropped cannot fit into its parent. \n"
 "Either expand the parent object, or drop the object elsewhere."
@@ -737,20 +737,20 @@ msgid "Selected '%s'"
 msgstr "Seleccionados «%s»"
 
 #. we really should not come here but instead disable the menu command earlier
-#: ../app/display.c:1081
+#: ../app/display.c:1121
 msgid "No anti-aliased renderer found"
 msgstr "No se encontró el renderizador antialias"
 
-#: ../app/display.c:1219
+#: ../app/display.c:1259
 msgid "<unnamed>"
 msgstr "<sin nombre>"
 
 #. no standard buttons
-#: ../app/display.c:1225
+#: ../app/display.c:1265
 msgid "Closing diagram without saving"
 msgstr "Cerrando el diagrama sin guardar"
 
-#: ../app/display.c:1227
+#: ../app/display.c:1267
 #, c-format
 msgid ""
 "The diagram '%s'\n"
@@ -759,11 +759,11 @@ msgstr ""
 "Este diagrama «%s»\n"
 "no ha sido guardado. ¿Guardar los cambios ahora?"
 
-#: ../app/display.c:1229
+#: ../app/display.c:1269
 msgid "Close Diagram"
 msgstr "Cerrar el diagrama"
 
-#: ../app/display.c:1234
+#: ../app/display.c:1274
 msgid "_Discard Changes"
 msgstr "_Descartar los cambios"
 
@@ -1269,7 +1269,7 @@ msgstr "No se permite escribir archivos temporales en %s\n"
 #: ../plug-ins/pstricks/render_pstricks.c:916
 #: ../plug-ins/shape/shape-export.c:137 ../plug-ins/svg/render_svg.c:199
 #: ../plug-ins/vdx/vdx-export.c:1850 ../plug-ins/wpg/wpg.c:1072
-#: ../plug-ins/xfig/xfig-export.c:1151 ../plug-ins/xslt/xslt.c:99
+#: ../plug-ins/xfig/xfig-export.c:1153 ../plug-ins/xslt/xslt.c:99
 #, c-format
 msgid "Can't open output file %s: %s\n"
 msgstr "No se pudo abrir archivo de salida «%s»: %s\n"
@@ -1532,7 +1532,7 @@ msgstr "_Seleccionado"
 msgid "All"
 msgstr "Todo"
 
-#: ../app/menus.c:206 ../lib/arrows.c:1884 ../objects/Jackson/domain.c:96
+#: ../app/menus.c:206 ../lib/arrows.c:1898 ../objects/Jackson/domain.c:96
 #: ../objects/UML/association.c:221 ../objects/UML/association.c:227
 msgid "None"
 msgstr "Nada"
@@ -2207,157 +2207,157 @@ msgstr "Editor de diagramas"
 msgid "Edit your Diagrams"
 msgstr "Edite sus diagramas"
 
-#: ../lib/arrows.c:1885
+#: ../lib/arrows.c:1899
 msgid "Lines"
 msgstr "Líneas"
 
 # "Hueco" queda más cercano al significado de "Hollow" que "Vacío". Además así no se confunde con "Unfilled". RizOX.
-#: ../lib/arrows.c:1886
+#: ../lib/arrows.c:1900
 msgid "Hollow Triangle"
 msgstr "Triángulo hueco"
 
-#: ../lib/arrows.c:1887
+#: ../lib/arrows.c:1901
 msgid "Filled Triangle"
 msgstr "Triángulo relleno"
 
-#: ../lib/arrows.c:1888
+#: ../lib/arrows.c:1902
 msgid "Unfilled Triangle"
 msgstr "Triángulo sin relleno"
 
 # "Hueco" queda más cercano al significado de "Hollow" que "Vacío". Además así no se confunde con "Unfilled". RizOX.
-#: ../lib/arrows.c:1889
+#: ../lib/arrows.c:1903
 msgid "Hollow Diamond"
 msgstr "Diamante hueco"
 
-#: ../lib/arrows.c:1890
+#: ../lib/arrows.c:1904
 msgid "Filled Diamond"
 msgstr "Diamante relleno"
 
-#: ../lib/arrows.c:1891
+#: ../lib/arrows.c:1905
 msgid "Half Diamond"
 msgstr "Medio diamante"
 
-#: ../lib/arrows.c:1892
+#: ../lib/arrows.c:1906
 msgid "Half Head"
 msgstr "Media cabeza"
 
-#: ../lib/arrows.c:1893
+#: ../lib/arrows.c:1907
 msgid "Slashed Cross"
 msgstr "Cruz discontinua"
 
-#: ../lib/arrows.c:1894
+#: ../lib/arrows.c:1908
 msgid "Filled Ellipse"
 msgstr "Elipse rellena"
 
-#: ../lib/arrows.c:1895
+#: ../lib/arrows.c:1909
 msgid "Hollow Ellipse"
 msgstr "Elipse hueca"
 
-#: ../lib/arrows.c:1896
+#: ../lib/arrows.c:1910
 msgid "Filled Dot"
 msgstr "Punto relleno"
 
-#: ../lib/arrows.c:1897
+#: ../lib/arrows.c:1911
 msgid "Dimension Origin"
 msgstr "Origen de la dimensión"
 
-#: ../lib/arrows.c:1898
+#: ../lib/arrows.c:1912
 msgid "Blanked Dot"
 msgstr "Punto blanco"
 
-#: ../lib/arrows.c:1899
+#: ../lib/arrows.c:1913
 msgid "Double Hollow Triangle"
 msgstr "Triángulo doble hueco"
 
-#: ../lib/arrows.c:1900
+#: ../lib/arrows.c:1914
 msgid "Double Filled Triangle"
 msgstr "Triángulo doble relleno"
 
-#: ../lib/arrows.c:1901
+#: ../lib/arrows.c:1915
 msgid "Filled Dot and Triangle"
 msgstr "Punto relleno y triángulo"
 
-#: ../lib/arrows.c:1902
+#: ../lib/arrows.c:1916
 msgid "Filled Box"
 msgstr "Caja rellena"
 
-#: ../lib/arrows.c:1903
+#: ../lib/arrows.c:1917
 msgid "Blanked Box"
 msgstr "Caja blanca"
 
-#: ../lib/arrows.c:1904
+#: ../lib/arrows.c:1918
 msgid "Slashed"
 msgstr "Con barras"
 
-#: ../lib/arrows.c:1905
+#: ../lib/arrows.c:1919
 msgid "Integral Symbol"
 msgstr "Símbolo de la integral"
 
-#: ../lib/arrows.c:1906
+#: ../lib/arrows.c:1920
 msgid "Crow Foot"
 msgstr "Filigrana"
 
-#: ../lib/arrows.c:1907
+#: ../lib/arrows.c:1921
 msgid "Cross"
 msgstr "Cruz"
 
 # Corrección: "ó" al estar al lado de número/s. RizOX.
-#: ../lib/arrows.c:1908
+#: ../lib/arrows.c:1922
 msgid "1-or-many"
 msgstr "1 ó muchos"
 
 # Corrección: "ó" al estar al lado de número/s. RizOX.
-#: ../lib/arrows.c:1909
+#: ../lib/arrows.c:1923
 msgid "0-or-many"
 msgstr "0 ó muchos"
 
 # Corrección: "ó" al estar al lado de número/s. RizOX.
-#: ../lib/arrows.c:1910
+#: ../lib/arrows.c:1924
 msgid "1-or-0"
 msgstr "1 ó 0"
 
-#: ../lib/arrows.c:1911
+#: ../lib/arrows.c:1925
 msgid "1 exactly"
 msgstr "1 exactamente"
 
-#: ../lib/arrows.c:1912
+#: ../lib/arrows.c:1926
 msgid "Filled Concave"
 msgstr "Cóncavo relleno"
 
-#: ../lib/arrows.c:1913
+#: ../lib/arrows.c:1927
 msgid "Blanked Concave"
 msgstr "Cóncavo vacío"
 
 # La traducción "ronda" es incorrecta, existiendo varias opciones dependientes del contexto. Me inclino por "curva" en vez de "redonda", "circular" o "romo". RizOX.
-#: ../lib/arrows.c:1914
+#: ../lib/arrows.c:1928
 msgid "Round"
 msgstr "Curva"
 
 # La traducción "ronda" es incorrecta, existiendo varias opciones dependientes del contexto. Me inclino por "curva" en vez de "redonda", "circular" o "romo". RizOX.
-#: ../lib/arrows.c:1915
+#: ../lib/arrows.c:1929
 msgid "Open Round"
 msgstr "Curva abierta"
 
-#: ../lib/arrows.c:1916
+#: ../lib/arrows.c:1930
 msgid "Backslash"
 msgstr "Barra invertida"
 
-#: ../lib/arrows.c:1917
+#: ../lib/arrows.c:1931
 msgid "Infinite Line"
 msgstr "Línea infinita"
 
-#: ../lib/arrows.c:2045
+#: ../lib/arrows.c:2059
 msgid "Arrow head of unknown type"
 msgstr "Cabezas de flechas de tipo desconocido"
 
-#: ../lib/arrows.c:2053
+#: ../lib/arrows.c:2067
 #, c-format
 msgid "Arrow head of type %s has too small dimensions, removing.\n"
 msgstr ""
 "Las dimensiones de la cabeza de flecha de tipo %s son muy pequeñas, se ha "
 "eliminado.\n"
 
-#: ../lib/arrows.c:2186
+#: ../lib/arrows.c:2200
 msgid "unknown arrow"
 msgstr "flecha desconocida"
 
@@ -2728,7 +2728,7 @@ msgid "Reset menu"
 msgstr "Restaurar menú"
 
 #. Installer message if no GTK+ was found
-#: ../installer/win32/gennsh.c:38
+#: ../installer/win32/gennsh.c:39
 msgid ""
 "GTK+ is not installed. Please use the full installer. It is available from "
 "http://dia-installer.de."
@@ -2737,7 +2737,7 @@ msgstr ""
 "http://dia-installer.de."
 
 #. Installer message: Don't install over pre 0.95 versions
-#: ../installer/win32/gennsh.c:41
+#: ../installer/win32/gennsh.c:42
 msgid ""
 "Please remove old Dia installations completely or install Dia to a different "
 "location."
@@ -2746,12 +2746,12 @@ msgstr ""
 "ubicación diferente."
 
 #. Installer message:  License Page
-#: ../installer/win32/gennsh.c:44
+#: ../installer/win32/gennsh.c:45
 msgid "Next >"
 msgstr "Sigueinte >"
 
 #. Installer message, keep the $(^Name) and $_CLICK, these will be replaced
-#: ../installer/win32/gennsh.c:47
+#: ../installer/win32/gennsh.c:48
 msgid ""
 "$(^Name) is released under the GPL license. The license is provided here for "
 "information purposes only. $_CLICK"
@@ -2760,32 +2760,32 @@ msgstr ""
 "solamente con propósito de informar. $_CLICK"
 
 #. Installer message: Components page
-#: ../installer/win32/gennsh.c:50
+#: ../installer/win32/gennsh.c:51
 msgid "Dia Diagram Editor (required)"
 msgstr "Editor de diagramas Dia (requerido)"
 
 #. Installer message: Components page
-#: ../installer/win32/gennsh.c:53
+#: ../installer/win32/gennsh.c:54
 msgid "Translations"
 msgstr "Traducciones"
 
 #. Installer message: Component description
-#: ../installer/win32/gennsh.c:56
+#: ../installer/win32/gennsh.c:57
 msgid "Optional translations of the Dia user interface"
 msgstr "Traducciones opcionales de la interfaz de usuario de Dia"
 
 #. Installer message: Component description
-#: ../installer/win32/gennsh.c:59
+#: ../installer/win32/gennsh.c:60
 msgid "Core Dia files and dlls"
 msgstr "Archivos del núcleo de Dia y dlls"
 
 #. Installer message: Component name
-#: ../installer/win32/gennsh.c:62
+#: ../installer/win32/gennsh.c:63
 msgid "Python plug-in"
 msgstr "Complemento de Python"
 
 #. Installer message: Component description
-#: ../installer/win32/gennsh.c:65
+#: ../installer/win32/gennsh.c:66
 msgid ""
 "Support for the Python Scripting Language 2.3. Do not select this if Python "
 "is not installed."
@@ -2794,17 +2794,17 @@ msgstr ""
 "Python ya está instalado."
 
 #. Installer message: hyperlink text on finish page
-#: ../installer/win32/gennsh.c:68
+#: ../installer/win32/gennsh.c:69
 msgid "Visit the Dia for Windows Web Page"
 msgstr "Visite la página web de Dia para Windows"
 
 #. Installer message: Dia uninstaller entry in Control Panel
-#: ../installer/win32/gennsh.c:71
+#: ../installer/win32/gennsh.c:72
 msgid "Dia (remove only)"
 msgstr "Dia (sólo eliminar)"
 
 #. Installer message: confirmation question. Keep $\r
-#: ../installer/win32/gennsh.c:74
+#: ../installer/win32/gennsh.c:75
 msgid ""
 "Your old Dia directory is about to be deleted. Would you like to continue?$\r"
 "$\rNote: Any non-standard plugins that you may have installed will be "
@@ -2816,7 +2816,7 @@ msgstr ""
 "Los ajustes de usuario de Dia no se verán afectados."
 
 #. Installer message: confirmatin question. Keep $\r
-#: ../installer/win32/gennsh.c:77
+#: ../installer/win32/gennsh.c:78
 msgid ""
 "The installation directory you specified already exists. Any contents$\rwill "
 "be deleted. Would you like to continue?"
@@ -2826,7 +2826,7 @@ msgstr ""
 "se eliminará. ¿Quiere continuar?"
 
 #. Installer message: Uninstall Section Prompts. Keep $\r
-#: ../installer/win32/gennsh.c:80
+#: ../installer/win32/gennsh.c:81
 msgid ""
 "The uninstaller could not find registry entries for Dia.$\rIt is likely that "
 "another user installed this application."
@@ -2835,18 +2835,18 @@ msgstr ""
 "Probablemente otro usuario ha instalado esta aplicación."
 
 #. Installer message: Uninstall error message
-#: ../installer/win32/gennsh.c:83
+#: ../installer/win32/gennsh.c:84
 msgid "You do not have permission to uninstall this application."
 msgstr "No tiene permiso para desinstalar esta aplicación."
 
 #. Installer message: Uninstallation warning. Keep $INSTDIR
-#: ../installer/win32/gennsh.c:86
+#: ../installer/win32/gennsh.c:87
 msgid "This will completely delete $INSTDIR and all subdirectories. Continue?"
 msgstr ""
 "Esto borrará completamente $INSTDIR y todos sus subdirectorios. ¿Continuar?"
 
 #. Installer message: Uninstallation warning. Keep $\PROFILE\.dia
-#: ../installer/win32/gennsh.c:89
+#: ../installer/win32/gennsh.c:90
 msgid ""
 "This will completely delete $PROFILE\\.dia and all subdirectories. Continue?"
 msgstr ""
@@ -2996,7 +2996,7 @@ msgid "Use bold font for primary keys"
 msgstr "Usar negrita para las claves primarias"
 
 #. property rows
-#: ../objects/Database/table.c:196 ../objects/SADT/arrow.c:136
+#: ../objects/Database/table.c:196 ../objects/SADT/arrow.c:137
 #: ../objects/UML/class.c:179 ../objects/UML/class_dialog.c:570
 msgid "Normal"
 msgstr "Normal"
@@ -3159,7 +3159,7 @@ msgstr "Final de la descripción"
 
 #: ../objects/Database/reference.c:144 ../objects/ER/participation.c:408
 #: ../objects/FS/flow-ortho.c:626 ../objects/GRAFCET/vector.c:314
-#: ../objects/SADT/arrow.c:459 ../objects/UML/association.c:854
+#: ../objects/SADT/arrow.c:464 ../objects/UML/association.c:854
 #: ../objects/UML/component_feature.c:190 ../objects/UML/dependency.c:376
 #: ../objects/UML/generalization.c:372 ../objects/UML/realizes.c:363
 #: ../objects/UML/transition.c:172 ../objects/standard/bezier.c:731
@@ -3169,7 +3169,7 @@ msgstr "Añadir segmento"
 
 #: ../objects/Database/reference.c:145 ../objects/ER/participation.c:409
 #: ../objects/FS/flow-ortho.c:627 ../objects/GRAFCET/vector.c:315
-#: ../objects/SADT/arrow.c:460 ../objects/UML/association.c:855
+#: ../objects/SADT/arrow.c:465 ../objects/UML/association.c:855
 #: ../objects/UML/component_feature.c:191 ../objects/UML/dependency.c:377
 #: ../objects/UML/generalization.c:373 ../objects/UML/realizes.c:364
 #: ../objects/UML/transition.c:173 ../objects/standard/bezier.c:732
@@ -4468,14 +4468,14 @@ msgstr "Tipo de divergencia:"
 
 #: ../objects/GRAFCET/vergent.c:407 ../objects/Istar/other.c:471
 #: ../objects/Jackson/domain.c:533 ../objects/KAOS/goal.c:574
-#: ../objects/KAOS/other.c:527 ../objects/SADT/box.c:449
+#: ../objects/KAOS/other.c:527 ../objects/SADT/box.c:454
 #: ../objects/standard/line.c:223
 msgid "Add connection point"
 msgstr "Añadir punto de conexión"
 
 #: ../objects/GRAFCET/vergent.c:408 ../objects/Istar/other.c:472
 #: ../objects/Jackson/domain.c:534 ../objects/KAOS/goal.c:575
-#: ../objects/KAOS/other.c:528 ../objects/SADT/box.c:450
+#: ../objects/KAOS/other.c:528 ../objects/SADT/box.c:455
 #: ../objects/standard/line.c:224
 msgid "Delete connection point"
 msgstr "Borrar punto de conexión"
@@ -4777,31 +4777,31 @@ msgstr "Añadir manejador"
 msgid "Delete Handle"
 msgstr "Borrar manejador"
 
-#: ../objects/SADT/arrow.c:137
+#: ../objects/SADT/arrow.c:138
 msgid "Import resource (not shown upstairs)"
 msgstr "Importar recurso (no mostrado arriba)"
 
-#: ../objects/SADT/arrow.c:138
+#: ../objects/SADT/arrow.c:139
 msgid "Imply resource (not shown downstairs)"
 msgstr "Implicar recurso (no mostrado debajo)"
 
-#: ../objects/SADT/arrow.c:139
+#: ../objects/SADT/arrow.c:140
 msgid "Dotted arrow"
 msgstr "Flecha punteada"
 
-#: ../objects/SADT/arrow.c:140
+#: ../objects/SADT/arrow.c:141
 msgid "disable arrow heads"
 msgstr "desactivar cabezas de flechas"
 
-#: ../objects/SADT/arrow.c:146
+#: ../objects/SADT/arrow.c:148
 msgid "Flow style:"
 msgstr "Estilo de flujo:"
 
-#: ../objects/SADT/arrow.c:148
+#: ../objects/SADT/arrow.c:150
 msgid "Automatically gray vertical flows:"
 msgstr "Flujos verticales grises automáticamente:"
 
-#: ../objects/SADT/arrow.c:149
+#: ../objects/SADT/arrow.c:151
 msgid ""
 "To improve the ease of reading, flows which begin and end vertically can be "
 "rendered gray"
@@ -4809,26 +4809,26 @@ msgstr ""
 "Para mejorar la calidad de la lectura, los flujos que empiezan y acaban "
 "verticalmente se pueden mostrar en gris."
 
-#: ../objects/SADT/arrow.c:465
+#: ../objects/SADT/arrow.c:470
 msgid "SADT Arrow"
 msgstr "Flecha SADT"
 
-#: ../objects/SADT/box.c:139 ../objects/custom/custom_object.c:226
+#: ../objects/SADT/box.c:140 ../objects/custom/custom_object.c:226
 #: ../objects/flowchart/box.c:154 ../objects/flowchart/diamond.c:152
 #: ../objects/flowchart/ellipse.c:151 ../objects/flowchart/parallelogram.c:156
 msgid "Text padding"
 msgstr "Relleno de texto"
 
-#: ../objects/SADT/box.c:146
+#: ../objects/SADT/box.c:149
 msgid "Activity/Data identifier"
 msgstr "Identificador de actividad/dato"
 
-#: ../objects/SADT/box.c:147
+#: ../objects/SADT/box.c:150
 msgid "The identifier which appears in the lower right corner of the Box"
 msgstr ""
 "El identificador que se muestra en la esquina inferior derecha de la caja"
 
-#: ../objects/SADT/box.c:455
+#: ../objects/SADT/box.c:460
 msgid "SADT box"
 msgstr "Caja SADT"
 
@@ -5872,12 +5872,12 @@ msgid "Custom XML shapes loader"
 msgstr "Cargador de formas personalizadas XML"
 
 #: ../objects/custom/custom_object.c:207 ../objects/custom/custom_object.c:239
-#: ../objects/custom/custom_object.c:1780
+#: ../objects/custom/custom_object.c:1782
 msgid "Flip horizontal"
 msgstr "Invertir horizontal"
 
 #: ../objects/custom/custom_object.c:209 ../objects/custom/custom_object.c:241
-#: ../objects/custom/custom_object.c:1781
+#: ../objects/custom/custom_object.c:1783
 msgid "Flip vertical"
 msgstr "Invertir vertical"
 
@@ -5885,7 +5885,7 @@ msgstr "Invertir vertical"
 msgid "Scale of the subshapes"
 msgstr "Escala de las subformas"
 
-#: ../objects/custom/custom_object.c:1818
+#: ../objects/custom/custom_object.c:1820
 #: ../objects/custom_lines/custom_linetypes.c:263
 #, c-format
 msgid "Cannot open icon file %s for object type '%s'."
@@ -6510,18 +6510,18 @@ msgstr "WPG"
 msgid "WordPerfect Graphics export filter"
 msgstr "Filtro de exportación de WordPerfect Graphics"
 
-#: ../plug-ins/xfig/xfig-export.c:461
+#: ../plug-ins/xfig/xfig-export.c:463
 #, c-format
 msgid "FIG format has no equivalent of arrow style %s, using simple arrow.\n"
 msgstr ""
 "Formato FIG no tiene un estilo de flecha equivalente a %s, usando flecha "
 "simple.\n"
 
-#: ../plug-ins/xfig/xfig-export.c:484
+#: ../plug-ins/xfig/xfig-export.c:486
 msgid "No more user-definable colors - using black"
 msgstr "No más colores definibles por el usuario - se usará el negro"
 
-#: ../plug-ins/xfig/xfig-export.c:1205
+#: ../plug-ins/xfig/xfig-export.c:1207
 msgid "XFig format"
 msgstr "Formato XFig"
 
