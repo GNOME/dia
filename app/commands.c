@@ -260,8 +260,37 @@ received_clipboard_image_handler(GtkClipboard *clipboard,
     list = g_list_next (list);
   }
 
-  if (!change)
-    message_warning (_("No selected object can take an image."));
+  if (!change) {
+    gint x, y;
+    Point pt;
+    DiaObjectType *type;
+    Handle *handle1;
+    Handle *handle2;
+    DiaObject *obj;
+
+    gdk_window_get_pointer (gtk_widget_get_window (ddisp->canvas),
+			    &x, &y, NULL);
+    ddisplay_untransform_coords (ddisp, x, y, &pt.x, &pt.y);
+
+    snap_to_grid(ddisp, &pt.x, &pt.y);
+
+    if (   ((type = object_get_type ("Standard - Image")) != NULL)
+        && ((obj = dia_object_default_create (type, &pt, 
+					     type->default_user_data,
+					     &handle1, &handle2)) != NULL)) {
+      /* as above, transfer the data */
+      change = dia_object_set_pixbuf (obj, pixbuf);
+      if (change) /* ... but drop undo info */
+	change->free (change);
+      diagram_add_object (dia, obj);
+      diagram_select(dia, obj);
+      object_add_updates(obj, dia);
+      ddisplay_do_update_menu_sensitivity(ddisp);
+      diagram_flush(dia);
+    } else {
+      message_warning (_("No selected object can take an image."));
+    }
+  }
 }
 
 void

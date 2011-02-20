@@ -133,7 +133,7 @@ static const GtkActionEntry display_entries[] =
     { "EditCuttext", NULL, N_("Cut Text"), "<control><shift>X", NULL, G_CALLBACK (edit_cut_text_callback) },
     { "EditPastetext", NULL, N_("Paste _Text"), "<control><shift>V", NULL, G_CALLBACK (edit_paste_text_callback) } ,
 
-    { "EditPasteImage", NULL, N_("Paste _Image"), NULL, NULL, G_CALLBACK (edit_paste_image_callback) },
+    { "EditPasteImage", NULL, N_("Paste _Image"), "<control><alt>V", NULL, G_CALLBACK (edit_paste_image_callback) },
 
   { "Layers", NULL, N_("_Layers"), NULL, NULL, NULL }, 
     { "LayerAdd", DIA_STOCK_LAYER_ADD, N_("Add Layer…"), NULL, NULL, G_CALLBACK (layers_add_layer_callback) },
