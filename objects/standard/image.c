@@ -447,7 +447,7 @@ image_update_data(Image *image)
   image->connections[8].pos.x = elem->corner.x + elem->width / 2.0;
   image->connections[8].pos.y = elem->corner.y + elem->height / 2.0;
   
-  extra->border_trans = image->border_width / 2.0;
+  extra->border_trans = (image->draw_border ? image->border_width / 2.0 : 0.0);
   element_update_boundingbox(elem);
   
   obj->position = elem->corner;
@@ -560,6 +560,16 @@ image_copy(Image *image)
     dia_image_add_ref(image->image);
   newimage->image = image->image;
 
+  /* not sure if we only want a reference, but it would be safe when 
+   * someday editing doe not work inplace, but creates new pixbufs 
+   * for every single undoable step */
+  newimage->inline_data = image->inline_data;
+  if (image->pixbuf)
+    newimage->pixbuf = g_object_ref(image->pixbuf);
+  else
+    newimage->pixbuf = image->pixbuf;
+
+  newimage->mtime = image->mtime;
   newimage->draw_border = image->draw_border;
   newimage->keep_aspect = image->keep_aspect;
 
