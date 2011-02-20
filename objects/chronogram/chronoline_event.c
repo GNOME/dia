@@ -23,6 +23,7 @@
 
 #include <stdlib.h>
 #include <math.h>
+#include <string.h>
 #include "chronoline_event.h"
 #include "message.h"
 
