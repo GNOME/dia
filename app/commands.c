@@ -282,6 +282,9 @@ received_clipboard_image_handler(GtkClipboard *clipboard,
       change = dia_object_set_pixbuf (obj, pixbuf);
       if (change) /* ... but drop undo info */
 	change->free (change);
+      /* allow undo of the whole thing */
+      undo_insert_objects(dia, g_list_prepend(NULL, obj), 1); 
+
       diagram_add_object (dia, obj);
       diagram_select(dia, obj);
       object_add_updates(obj, dia);
