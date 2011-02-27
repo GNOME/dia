@@ -178,7 +178,7 @@ export_png_ok(GtkButton *button, gpointer userdata)
   }
 
   /* set error handling ... */
-  if (setjmp(png->jmpbuf)) {
+  if (setjmp(png_jmpbuf(png))) {
     fclose(fp);
     png_destroy_write_struct(&png, &info);
     message_error(_("Error occurred while writing PNG"));
