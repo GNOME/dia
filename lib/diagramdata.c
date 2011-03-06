@@ -131,6 +131,7 @@ diagram_data_init(DiagramData *data)
   data->active_text_edit = NULL;
 }
 
+
 /** Deallocate memory owned by a DiagramData object.
  * @param object A DiagramData object to finalize.
  */
@@ -152,6 +153,43 @@ diagram_data_finalize(GObject *object)
   g_list_free(data->selected);
   data->selected = NULL; /* for safety */
   data->selected_count_private = 0;
+}
+
+
+DiagramData *
+diagram_data_clone (DiagramData *data)
+{
+  DiagramData *clone;
+  guint i;
+  
+  clone = g_object_new (DIA_TYPE_DIAGRAM_DATA, NULL);
+  
+  clone->extents = data->extents;
+  clone->bg_color = data->bg_color;
+  clone->paper = data->paper; /* so ugly */
+  clone->paper.name = g_strdup (data->paper.name);
+  clone->is_compressed = data->is_compressed;
+  
+  layer_destroy(g_ptr_array_index(clone->layers, 0));
+  g_ptr_array_remove(clone->layers, clone->active_layer);
+
+  for (i=0; i < data->layers->len; ++i) {
+    Layer *src_layer = g_ptr_array_index(data->layers, i);
+    Layer *dest_layer = new_layer (layer_get_name (src_layer), clone);
+  
+    /* copy layer, init the active one */
+    dest_layer->extents = src_layer->extents;
+    dest_layer->objects = object_copy_list (src_layer->objects);
+    dest_layer->visible = src_layer->visible;
+    dest_layer->connectable = src_layer->connectable;
+    g_ptr_array_add (clone->layers, dest_layer);
+    if (src_layer == data->active_layer)
+      clone->active_layer = dest_layer;
+      
+    /* the rest should be initialized by construction */
+  }
+
+  return clone;  
 }
 
 /** Initialize the DiagramData class data.
