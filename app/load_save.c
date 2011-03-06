@@ -1140,8 +1140,39 @@ diagram_cleanup_autosave(Diagram *dia)
   dia->autosaved = FALSE;
 }
 
+typedef struct {
+  DiagramData *clone;
+  gchar       *filename;
+} AutoSaveInfo;
+/*!
+ * Efficient and easy to implement autosave in a thread:
+ *  - make a copy (cow?) of the whole diagram, pixbufs would not be copied but only referenced
+ *  - pass it to a saving thread as data and release it afterwards
+ *  - should show some progress, or at least not start another autosave before the previous one finished
+ *  - still must check thread safety of every function called by diagram_data_raw_save()
+ *    - e.g. all (message_*) to vanish (or make it use thread local storage?)
+ *    - no use of static data (no write access)
+ *    - ...
+ *  - the editing could continue after the synchronuous copying, which should be vastly faster
+ *    than the in memory XML creation (diagram_data_write_doc) and the writing to a possibly
+ *    slow storage (xmlDiaSaveFile)
+ */
+static gpointer
+_autosave_in_thread (gpointer data)
+{
+  AutoSaveInfo *asi = (AutoSaveInfo *)asi;
+
+  diagram_data_raw_save(asi->clone, asi->filename);
+  g_object_unref (asi->clone);
+  g_free (asi->filename);
+  g_free (asi);
+
+  return NULL;
+}
+
 /** Absolutely autosave a diagram.
- * Called after a periodic check at the first idleness.
+ * Called (in the GUI thread) after a periodic check at the first idleness.
+ *
  */
 void
 diagram_autosave(Diagram *dia)
@@ -1161,8 +1192,29 @@ diagram_autosave(Diagram *dia)
       if (dia->autosavefilename != NULL) 
 	g_free(dia->autosavefilename);
       dia->autosavefilename = save_filename;
+#ifdef AUTOSAVE_IN_THREAD /* G_THREADS_ENABLED */
+      if (g_thread_supported ()) {
+        AutoSaveInfo *asi = g_new (AutoSaveInfo, 1);
+        GError *error = NULL;
+
+	asi->clone = diagram_data_clone (dia->data);
+	asi->filename = g_strdup (save_filename);
+
+        if (!g_thread_create (_autosave_in_thread, asi, FALSE, &error)) {
+	  message_error (error->message);
+	  g_error_free (error);
+	}
+	/* FIXME: need better synchronization */
+        dia->autosaved = TRUE;
+      } else {
+	/* no extra threads supporte, stay in this one */
+        diagram_data_raw_save(dia->data, save_filename);
+        dia->autosaved = TRUE;
+      }
+#else
       diagram_data_raw_save(dia->data, save_filename);
       dia->autosaved = TRUE;
+#endif
       return;
     }
     diagrams = g_list_next(diagrams);
