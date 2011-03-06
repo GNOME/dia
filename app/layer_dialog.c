@@ -1216,6 +1216,7 @@ layer_dialog_edit_layer (DiaLayerWidget *layer_widget, Diagram *dia, Layer *laye
   gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, FALSE, 0);
   gtk_widget_show (label);
   dialog->name_entry = gtk_entry_new ();
+  gtk_entry_set_activates_default(GTK_ENTRY (dialog->name_entry), TRUE);
   gtk_box_pack_start (GTK_BOX (hbox), dialog->name_entry, TRUE, TRUE, 0);
   if (layer_widget)
     gtk_entry_set_text (GTK_ENTRY (dialog->name_entry), layer_widget->layer->name);
