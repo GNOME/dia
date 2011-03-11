@@ -19,6 +19,7 @@
 #include <config.h>
 #include <string.h> /* memmove */
 
+#include "intl.h"
 #include "geometry.h"
 #include "dia_image.h"
 #include "message.h"
@@ -227,8 +228,8 @@ dia_image_draw(DiaImage *image, GdkWindow *window, GdkGC *gc,
 
   if (width < 1 || height < 1)
     return;
-  if (gdk_pixbuf_get_width(image->image) != width ||
-      gdk_pixbuf_get_height(image->image) != height) {
+  if (gdk_pixbuf_get_width(image->image) > width ||
+      gdk_pixbuf_get_height(image->image) > height) {
     /* Using TILES to make it look more like PostScript */
 #ifdef SCALING_CACHE
     if (image->scaled == NULL ||
@@ -257,6 +258,69 @@ dia_image_draw(DiaImage *image, GdkWindow *window, GdkGC *gc,
 #ifndef SCALING_CACHE
   g_object_unref(scaled);
 #endif
+}
+
+static gchar *
+_guess_format (const gchar *filename)
+{
+  const char* test = strrchr (filename, '.');
+  GSList* formats = gdk_pixbuf_get_formats ();
+  GSList* sl;
+  gchar *type = NULL;
+
+  if (test)
+    ++test;
+  else
+    test = "png";
+
+  for (sl = formats; sl != NULL; sl = g_slist_next (sl)) {
+    GdkPixbufFormat* format = (GdkPixbufFormat*)sl->data;
+
+    if (gdk_pixbuf_format_is_writable (format)) {
+      gchar* name = gdk_pixbuf_format_get_name (format);
+      gchar **extensions = gdk_pixbuf_format_get_extensions (format);
+      int i;
+
+      for (i = 0; extensions[i] != NULL; ++i) {
+        const gchar *ext = extensions[i];
+        if (strcmp (test, ext) == 0) {
+	  type = g_strdup (name);
+	  break;
+	}
+      }
+      g_strfreev (extensions);
+    }
+    g_slist_free (formats);
+    if (type)
+      break;
+  }
+  return type;
+}
+
+gboolean
+dia_image_save(DiaImage *image, const gchar *filename)
+{
+  gboolean saved = FALSE;
+
+  if (image->image) {
+    GError *error = NULL;
+    gchar *type = _guess_format (filename);
+    
+    if (type)
+      saved = gdk_pixbuf_save (image->image, filename, type, &error, NULL);
+    if (saved) {
+      g_free (image->filename);
+      image->filename = g_strdup (filename);
+    } else {
+      message_warning(_("Could not save file:\n%s\n%s"),
+		      dia_message_filename(filename),
+                      error->message);
+      g_error_free (error);
+    }
+
+    g_free (type);
+  }
+  return saved;
 }
 
 /** Get the width of an image.

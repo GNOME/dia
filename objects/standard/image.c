@@ -182,7 +182,7 @@ static void
 image_get_props(Image *image, GPtrArray *props)
 {
   if (image->inline_data)
-    image->pixbuf = dia_image_pixbuf (image->image);
+    image->pixbuf = (GdkPixbuf *)dia_image_pixbuf (image->image);
   object_get_props_from_offsets(&image->element.object, image_offsets, props);
 }
 
@@ -192,7 +192,8 @@ image_set_props(Image *image, GPtrArray *props)
   struct stat st;
   time_t mtime = 0;
   char *old_file = image->file ? g_strdup(image->file) : "";
-  GdkPixbuf *old_pixbuf = dia_image_pixbuf (image->image);
+  const GdkPixbuf *old_pixbuf = dia_image_pixbuf (image->image);
+  gboolean was_inline = image->inline_data;
 
   object_set_props_from_offsets(&image->element.object, image_offsets, props);
 
@@ -206,7 +207,7 @@ image_set_props(Image *image, GPtrArray *props)
       if (image->image)
         g_object_unref (image->image);
       image->image = dia_image_new_from_pixbuf (image->pixbuf ? image->pixbuf : pixbuf);
-      image->pixbuf = dia_image_pixbuf (image->image);
+      image->pixbuf = (GdkPixbuf *)dia_image_pixbuf (image->image);
       if (pixbuf)
 	g_object_unref (pixbuf);
     } else {
@@ -222,14 +223,18 @@ image_set_props(Image *image, GPtrArray *props)
     mtime = st.st_mtime;
 
   /* handle changing the image. */
-  if (image->file && (strcmp(image->file, old_file) != 0 || image->mtime != mtime)) {
+  if (image->file && image->pixbuf && was_inline && !image->inline_data) {
+    /* export inline data */
+    if (was_inline && !image->inline_data)
+      /* if saving fails we keep it inline */
+      image->inline_data = !dia_image_save (image->image, image->file);
+  } else if (image->file && (strcmp(image->file, old_file) != 0 || image->mtime != mtime)) {
     Element *elem = &image->element;
     DiaImage *img = NULL;
 
-    img = dia_image_load(image->file);
-    if (img)
+    if ((img = dia_image_load(image->file)) != NULL)
       image->image = img;
-    else
+    else if (!image->pixbuf) /* dont overwrite inlined */
       image->image = dia_image_get_broken();
     elem->height = (elem->width*(float)dia_image_height(image->image))/
       (float)dia_image_width(image->image);
@@ -661,7 +666,7 @@ image_save(Image *image, ObjectNode obj_node, const char *filename)
     data_add_boolean (new_attribute(obj_node, "inline_data"), image->inline_data);
 
     /* just to be sure to get the currently visible */
-    pixbuf = dia_image_pixbuf (image->image);
+    pixbuf = (GdkPixbuf *)dia_image_pixbuf (image->image);
     if (pixbuf != image->pixbuf && image->pixbuf != NULL)
       message_warning (_("Inconsistent pixbuf during image save."));
     if (pixbuf)
