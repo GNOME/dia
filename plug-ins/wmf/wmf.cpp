@@ -27,9 +27,6 @@
 #include <glib.h>
 #include <glib/gstdio.h>
 
-#ifdef __cplusplus
-extern "C" {
-#endif
 #include "intl.h"
 #include "message.h"
 #include "geometry.h"
@@ -37,10 +34,6 @@ extern "C" {
 #include "filter.h"
 #include "plug-ins.h"
 #include "dia_image.h"
-
-#ifdef __cplusplus
-}
-#endif
 
 #include "paginate_gdiprint.h"
 
