@@ -27,9 +27,6 @@
 #include <glib.h>
 #include <glib/gstdio.h>
 
-#ifdef __cplusplus
-extern "C" {
-#endif
 #include "intl.h"
 #include "message.h"
 #include "geometry.h"
@@ -38,9 +35,6 @@ extern "C" {
 #include "plug-ins.h"
 #include "dia_image.h"
 #include "object.h" // ObjectOps::draw
-#ifdef __cplusplus
-}
-#endif
 
 #include "paginate_gdiprint.h"
 
