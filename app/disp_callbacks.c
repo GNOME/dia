@@ -47,9 +47,6 @@
 #include "dia_dirs.h"
 #include "object.h"
 
-/* This contains the point that was clicked to get this menu */
-static Point object_menu_clicked_point;
-
 typedef struct {
 	GdkEvent *event; /* Button down event which may be holding */
 	DDisplay *ddisp; /* DDisplay where event occurred */
@@ -67,15 +64,17 @@ object_menu_proxy(GtkWidget *widget, gpointer data)
   ObjectChange *obj_change;
   DiaObject *obj;
   DDisplay *ddisp = ddisplay_active();
+  Point last_clicked_pos;
 
   if (!ddisp) return;
 
+  last_clicked_pos = ddisplay_get_clicked_position(ddisp);
   obj = (DiaObject *)ddisp->diagram->data->selected->data;
   dia_menu_item = (DiaMenuItem *) data;
 
 
   object_add_updates(obj, ddisp->diagram);
-  obj_change = (dia_menu_item->callback)(obj, &object_menu_clicked_point,
+  obj_change = (dia_menu_item->callback)(obj, &last_clicked_pos,
 					 dia_menu_item->callback_data);
   object_add_updates(obj, ddisp->diagram);
   diagram_update_connections_object(ddisp->diagram, obj, TRUE);
@@ -254,6 +253,7 @@ popup_object_menu(DDisplay *ddisp, GdkEventButton *bevent)
   GList *selected_list;
   int i;
   int num_items;
+  Point last_clicked_pos;
   
   diagram = ddisp->diagram;
   if (g_list_length (diagram->data->selected) < 1)
@@ -268,6 +268,7 @@ popup_object_menu(DDisplay *ddisp, GdkEventButton *bevent)
     return;
   }
   
+  last_clicked_pos = ddisplay_get_clicked_position(ddisp);
   obj = (DiaObject *)g_list_first(selected_list)->data;
   
   /* Possibly react differently at a handle? */
@@ -275,7 +276,7 @@ popup_object_menu(DDisplay *ddisp, GdkEventButton *bevent)
   /* Get its menu, and remember the # of object-generated items */
   if (    g_list_length (diagram->data->selected) > 1
       ||  obj->ops->get_object_menu == NULL
-      || (obj->ops->get_object_menu)(obj, &object_menu_clicked_point) == NULL) {
+      || (obj->ops->get_object_menu)(obj, &last_clicked_pos) == NULL) {
     dia_menu = &empty_menu;
     if (dia_menu->title &&
 	(0 != strcmp(dia_menu->title,obj->type->name))) {
@@ -287,7 +288,7 @@ popup_object_menu(DDisplay *ddisp, GdkEventButton *bevent)
       dia_menu->title = obj->type->name;
     num_items = 0;
   } else {
-    dia_menu = (obj->ops->get_object_menu)(obj, &object_menu_clicked_point);
+    dia_menu = (obj->ops->get_object_menu)(obj, &last_clicked_pos);
     num_items = dia_menu->num_items;
   }
 
@@ -708,10 +709,7 @@ ddisplay_canvas_events (GtkWidget *canvas,
         display_set_active(ddisp);
         bevent = (GdkEventButton *) event;
 
-        ddisplay_untransform_coords(ddisp,
-                                    (int)bevent->x, (int)bevent->y,
-                                    &object_menu_clicked_point.x,
-                                    &object_menu_clicked_point.y);
+	ddisplay_set_clicked_point (ddisp, bevent->x, bevent->y);
 
         switch (bevent->button)
         {

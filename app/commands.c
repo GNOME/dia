@@ -268,10 +268,7 @@ received_clipboard_image_handler(GtkClipboard *clipboard,
     Handle *handle2;
     DiaObject *obj;
 
-    gdk_window_get_pointer (gtk_widget_get_window (ddisp->canvas),
-			    &x, &y, NULL);
-    ddisplay_untransform_coords (ddisp, x, y, &pt.x, &pt.y);
-
+    pt = ddisplay_get_clicked_position(ddisp);
     snap_to_grid(ddisp, &pt.x, &pt.y);
 
     if (   ((type = object_get_type ("Standard - Image")) != NULL)
@@ -288,11 +285,18 @@ received_clipboard_image_handler(GtkClipboard *clipboard,
       diagram_add_object (dia, obj);
       diagram_select(dia, obj);
       object_add_updates(obj, dia);
+
       ddisplay_do_update_menu_sensitivity(ddisp);
       diagram_flush(dia);
     } else {
       message_warning (_("No selected object can take an image."));
     }
+  }
+  /* although freed above it is still the indicator of diagram modification */
+  if (change) {
+    diagram_update_extents(dia);
+    undo_set_transactionpoint(dia->undo);
+    diagram_modified(dia);
   }
 }
 

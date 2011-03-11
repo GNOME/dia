@@ -248,6 +248,8 @@ copy_display(DDisplay *orig_ddisp)
   ddisp->display_areas = orig_ddisp->display_areas;
   ddisp->update_id = 0;
 
+  ddisp->clicked_position.x = ddisp->clicked_position.y = 0.0;
+  
   diagram_add_ddisplay(dia, ddisp);
   g_signal_connect (dia, "selection_changed", G_CALLBACK(selection_changed), ddisp);
   ddisp->origo = orig_ddisp->origo;
@@ -304,6 +306,8 @@ new_display(Diagram *dia)
   ddisp->update_areas = NULL;
   ddisp->display_areas = NULL;
   ddisp->update_id = 0;
+
+  ddisp->clicked_position.x = ddisp->clicked_position.y = 0.0;
 
   diagram_add_ddisplay(dia, ddisp);
   g_signal_connect (dia, "selection_changed", G_CALLBACK(selection_changed), ddisp);
@@ -1097,6 +1101,28 @@ ddisplay_present_object(DDisplay *ddisp, DiaObject *obj)
   }
   return FALSE;
 }
+
+/*!
+ * Remember the last clicked point given in pixel coodinates
+ */
+void 
+ddisplay_set_clicked_point(DDisplay *ddisp, int x, int y)
+{
+  Point pt;
+
+  ddisplay_untransform_coords(ddisp, x, y, &pt.x, &pt.y);
+  
+  ddisp->clicked_position = pt;
+}
+
+/*! Get the last clicked point in diagram coordinates
+ */
+Point
+ddisplay_get_clicked_position(DDisplay *ddisp)
+{
+  return ddisp->clicked_position;
+}
+
 
 /**
  * Kind of dirty way to init an antialiased renderer, there should be some plug-in interface to do this.

@@ -107,6 +107,9 @@ struct _DDisplay {
 
   /* Private field, indicates which text, if any, is being edited */
   Focus *active_focus;
+  
+  /* Rember the last clicked point per display, but in diagram coordinates */
+  Point clicked_position;
 };
 
 extern GdkCursor *default_cursor;
@@ -159,6 +162,9 @@ void ddisplay_close(DDisplay *ddisp);
 void ddisplay_set_title(DDisplay *ddisp, char *title);
 void ddisplay_set_cursor(DDisplay *ddisp, GdkCursor *cursor);
 void ddisplay_set_all_cursor(GdkCursor *cursor);
+
+void  ddisplay_set_clicked_point(DDisplay *ddisp, int x, int y);
+Point ddisplay_get_clicked_position(DDisplay *ddisp);
 
 gboolean display_get_rulers_showing(DDisplay *ddisp);
 void display_rulers_show (DDisplay *ddisp);
