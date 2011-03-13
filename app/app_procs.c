@@ -659,7 +659,14 @@ _setup_textdomains (void)
     g_free (localedir);
   }
 #else
-  bindtextdomain(GETTEXT_PACKAGE, LOCALEDIR);
+  const gchar *localedir;
+  
+  localedir = g_getenv("DIA_LOCALE_PATH");
+  if(localedir != NULL) {
+    bindtextdomain(GETTEXT_PACKAGE, localedir);
+  } else {
+    bindtextdomain(GETTEXT_PACKAGE, LOCALEDIR);
+  }
 #endif
 
 #if defined ENABLE_NLS && defined HAVE_BIND_TEXTDOMAIN_CODESET
