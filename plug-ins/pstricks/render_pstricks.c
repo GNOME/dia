@@ -822,7 +822,10 @@ draw_image(DiaRenderer *self,
     img_height = dia_image_height(image);
 
     rgb_data = dia_image_rgb_data(image);
-  
+    if (!rgb_data) {
+        message_warning (_("Not enough memory for image drawing."));
+        return;
+    }
     ratio = height/width;
 
     fprintf(renderer->file, "\\pscustom{\\code{gsave\n");

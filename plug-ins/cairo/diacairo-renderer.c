@@ -789,11 +789,15 @@ draw_image(DiaRenderer *self,
   if (dia_image_rgba_data (image))
     {
       const guint8 *p1 = dia_image_rgba_data (image);
-      /* we need to make a copy to rearrange channels 
-       * (also need to use malloc, cause Cairo insists to free() it)
-       */
-      guint8 *p2 = data = g_malloc (h * rs);
+      /* we need to make a copy to rearrange channels ... */
+      guint8 *p2 = data = g_try_malloc (h * rs);
       int i;
+
+      if (!data) 
+        {
+          message_warning (_("Not enough memory for image drawing."));
+	  return;
+        }
 
       for (i = 0; i < (h * rs) / 4; i++)
         {
@@ -816,14 +820,20 @@ draw_image(DiaRenderer *self,
     }
   else
     {
-      guint8 *p, *p2;
+      guint8 *p = NULL, *p2;
       guint8 *p1 = data = dia_image_rgb_data (image);
-      /* need to copy to be owned by cairo/pixman, urgh.
-       * Also cairo wants RGB24 32 bit aligned
-       */
+      /* cairo wants RGB24 32 bit aligned, so copy ... */
       int x, y;
 
-      p = p2 = g_malloc(h*w*4);
+      if (data)
+	p = p2 = g_try_malloc(h*w*4);
+	
+      if (!p)
+        {
+          message_warning (_("Not enough memory for image drawing."));
+	  return;
+        }
+
       for (y = 0; y < h; y++)
         {
           for (x = 0; x < w; x++)

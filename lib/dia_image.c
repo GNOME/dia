@@ -376,7 +376,10 @@ dia_image_rgb_data(const DiaImage *image)
   int height = dia_image_height(image);
   int rowstride = dia_image_rowstride(image);
   int size = height*rowstride;
-  guint8 *rgb_pixels = g_malloc(size);
+  guint8 *rgb_pixels = g_try_malloc(size);
+
+  if (!rgb_pixels)
+    return NULL;
 
   if (gdk_pixbuf_get_has_alpha(image->image)) {
     guint8 *pixels = gdk_pixbuf_get_pixels(image->image);
@@ -418,7 +421,9 @@ dia_image_mask_data(const DiaImage *image)
   size = gdk_pixbuf_get_width(image->image)*
     gdk_pixbuf_get_height(image->image);
 
-  mask = g_malloc(size);
+  mask = g_try_malloc(size);
+  if (!mask)
+    return NULL;
 
   /* Pick every fourth byte (the alpha channel) into mask */
   for (i = 0; i < size; i++)

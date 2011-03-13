@@ -1106,6 +1106,10 @@ draw_image(DiaRenderer *self,
     ystep = height/img_height;
 
     rgb_data = dia_image_rgb_data(image);
+    if (!rgb_data) {
+        message_warning (_("Not enough memory for image drawing."));
+        return;
+    }
     mask_data = dia_image_mask_data(image);
 
     fprintf(renderer->file, "  pickup pensquare scaled %sx scaled %s;\n",

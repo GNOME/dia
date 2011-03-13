@@ -1320,6 +1320,10 @@ draw_image(DiaRenderer *self,
     } else {
       guint8 *img_data = dia_image_rgb_data(image);
 
+      if (!img_data) {
+        message_warning (_("Not enough memory for image drawing."));
+        return;
+      }
       art_rgb_affine(renderer->rgb_buffer,
 		     0, 0,
 		     renderer->pixel_width,

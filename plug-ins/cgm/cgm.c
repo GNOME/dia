@@ -1109,6 +1109,10 @@ draw_image(DiaRenderer *self,
     }
 
     ptr = pImg = dia_image_rgb_data(image);
+    if (!pImg) {
+      message_warning (_("Not enough memory for image drawing."));
+      return;
+    }
 
     while (lines > 0) {
 	chunk = MIN(rowlen * lines, maxlen);

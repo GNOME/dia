@@ -887,6 +887,10 @@ draw_image(DiaRenderer *self,
             width, height, bmp.Width, bmp.Height, point->x, point->y));
 
   pDiaImg = dia_image_rgb_data(image);
+  if (!pDiaImg) {
+    message_warning (_("Not enough memory for image drawing."));
+    return;
+  }
   stride = dia_image_rowstride(image);
   pOut = g_new(guint8, bmp.Width * bmp.Height * 2); /* space for worst case RLE */
   p = pOut;
