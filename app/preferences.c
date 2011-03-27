@@ -530,11 +530,19 @@ prefs_get_property_widget(DiaPrefData *data)
     break;
   case PREF_CHOICE: {
     GList *names;
+#if GTK_CHECK_VERSION(2,24,0)
+    widget = gtk_combo_box_text_new ();
+#else
     widget = gtk_combo_box_new_text ();
+#endif
     for (names = (data->choice_list_function)(data); 
          names != NULL;
 	 names = g_list_next(names)) {
+#if GTK_CHECK_VERSION(2,24,0)
+      gtk_combo_box_text_append_text (GTK_COMBO_BOX (widget), (gchar *)names->data);
+#else
       gtk_combo_box_append_text (GTK_COMBO_BOX (widget), (gchar *)names->data);
+#endif
     }
     break;
   }

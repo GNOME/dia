@@ -187,8 +187,16 @@ create_open_menu(void)
   GList *tmp;
   
 
+#if GTK_CHECK_VERSION(2,24,0)
+  menu = gtk_combo_box_text_new ();
+#else
   menu = gtk_combo_box_new_text ();
+#endif
+#if GTK_CHECK_VERSION(2,24,0)
+  gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(menu), _("By extension"));
+#else
   gtk_combo_box_append_text(GTK_COMBO_BOX(menu), _("By extension"));
+#endif
   
   for (tmp = filter_get_import_filters(); tmp != NULL; tmp = tmp->next) {
     DiaImportFilter *ifilter = tmp->data;
@@ -197,7 +205,11 @@ create_open_menu(void)
     if (!ifilter)
       continue;
     filter_label = filter_get_import_filter_label(ifilter);
+#if GTK_CHECK_VERSION(2,24,0)
+    gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT(menu), filter_label);
+#else
     gtk_combo_box_append_text (GTK_COMBO_BOX(menu), filter_label);
+#endif
     g_free(filter_label);
   }
   g_signal_connect(GTK_OBJECT(menu), "changed",
@@ -634,8 +646,16 @@ create_export_menu(void)
   GtkWidget *menu;
   GList *tmp;
 
+#if GTK_CHECK_VERSION(2,24,0)
+  menu = gtk_combo_box_text_new ();
+#else
   menu = gtk_combo_box_new_text ();
+#endif
+#if GTK_CHECK_VERSION(2,24,0)
+  gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(menu), _("By extension"));
+#else
   gtk_combo_box_append_text(GTK_COMBO_BOX(menu), _("By extension"));
+#endif
   
   for (tmp = filter_get_export_filters(); tmp != NULL; tmp = tmp->next) {
     DiaExportFilter *ef = tmp->data;
@@ -644,7 +664,11 @@ create_export_menu(void)
     if (!ef)
       continue;
     filter_label = filter_get_export_filter_label(ef);
+#if GTK_CHECK_VERSION(2,24,0)
+    gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT(menu), filter_label);
+#else
     gtk_combo_box_append_text (GTK_COMBO_BOX(menu), filter_label);
+#endif
     g_free(filter_label);
   }
   g_signal_connect(GTK_OBJECT(menu), "changed",

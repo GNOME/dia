@@ -491,9 +491,17 @@ enumprop_get_widget(EnumProperty *prop, PropDialog *dialog)
     PropEnumData *enumdata = prop->common.descr->extra_data;
     guint i;
 
+#if GTK_CHECK_VERSION(2,24,0)
+    ret = gtk_combo_box_text_new ();
+#else
     ret = gtk_combo_box_new_text ();
+#endif
     for (i = 0; enumdata[i].name != NULL; i++)
+#if GTK_CHECK_VERSION(2,24,0)
+      gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (ret), _(enumdata[i].name)); 
+#else
       gtk_combo_box_append_text (GTK_COMBO_BOX (ret), _(enumdata[i].name)); 
+#endif
     prophandler_connect(&prop->common, G_OBJECT (ret), "changed");
   } else {
     ret = gtk_entry_new(); /* should use spin button/option menu */
