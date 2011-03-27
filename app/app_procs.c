@@ -949,11 +949,7 @@ app_init (int argc, char **argv)
     recent_file_history_init();
 
     /* Set up autosave to check every 5 minutes */
-#if GLIB_CHECK_VERSION(2,14,0)
     g_timeout_add_seconds(5*60, autosave_check_autosave, NULL);
-#else
-    g_timeout_add(5*60*1000, autosave_check_autosave, NULL);
-#endif
 
 #if 0 /* do we really open these automatically in the next session? */
     persistence_register_window_create("diagram_tree", 
