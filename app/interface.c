@@ -23,6 +23,10 @@
 #include <gnome.h>
 #else
 #undef GTK_DISABLE_DEPRECATED /* GtkPixmap */
+/* GtkRuler is deprecated by gtk-2-24, gone with gtk-3-0 because it is 
+ * deemed to be too specialized for maintenance in Gtk. Maybe Dia is 
+ * too specialized to be ported?
+ */
 #include <gtk/gtk.h>
 #endif
 #include "gtkwrapbox.h"
@@ -1003,6 +1007,28 @@ create_display_shell(DDisplay *ddisp,
 
   /*  set the focus to the canvas area  */
   gtk_widget_grab_focus (ddisp->canvas);
+}
+
+/**
+ * Adapt the rulers to current field of view
+ *
+ * @param ddisp The display to hide the rulers on.
+ */
+void 
+ddisplay_update_rulers (DDisplay        *ddisp,
+                        const Rectangle *extents,
+		        const Rectangle *visible)
+{
+  gtk_ruler_set_range  (GTK_RULER (ddisp->hrule),
+			visible->left,
+			visible->right,
+			0.0f /* position*/,
+			MAX(extents->right, visible->right)/* max_size*/);
+  gtk_ruler_set_range  (GTK_RULER (ddisp->vrule),
+			visible->top,
+			visible->bottom,
+			0.0f /*        position*/,
+			MAX(extents->bottom, visible->bottom)/* max_size*/);
 }
 
 void

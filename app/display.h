@@ -169,6 +169,7 @@ Point ddisplay_get_clicked_position(DDisplay *ddisp);
 gboolean display_get_rulers_showing(DDisplay *ddisp);
 void display_rulers_show (DDisplay *ddisp);
 void display_rulers_hide (DDisplay *ddisp);
+void ddisplay_update_rulers (DDisplay *ddisp, const Rectangle *extents, const Rectangle *visible);
 
 gboolean ddisplay_scroll(DDisplay *ddisp, Point *delta);
 gboolean ddisplay_autoscroll(DDisplay *ddisp, int x, int y);

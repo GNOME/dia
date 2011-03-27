@@ -757,16 +757,7 @@ ddisplay_set_origo(DDisplay *ddisp, coord x, coord y)
   visible->right = ddisp->origo.x + ddisplay_untransform_length(ddisp, width);
   visible->bottom = ddisp->origo.y + ddisplay_untransform_length(ddisp, height);
 
-  gtk_ruler_set_range  (GTK_RULER (ddisp->hrule),
-			visible->left,
-			visible->right,
-			0.0f /* position*/,
-			MAX(extents->right, visible->right)/* max_size*/);
-  gtk_ruler_set_range  (GTK_RULER (ddisp->vrule),
-			visible->top,
-			visible->bottom,
-			0.0f /*        position*/,
-			MAX(extents->bottom, visible->bottom)/* max_size*/);
+  ddisplay_update_rulers (ddisp, extents, visible);
 }
 
 void
