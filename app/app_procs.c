@@ -749,7 +749,11 @@ app_init (int argc, char **argv)
 
   argv0 = (argc > 0) ? argv[0] : "(none)";
 
+#if GTK_CHECK_VERSION(2,24,0)
+  /* ... use setlocale directly? */
+#else
   gtk_set_locale();
+#endif
   setlocale(LC_NUMERIC, "C");
   _setup_textdomains ();
 
