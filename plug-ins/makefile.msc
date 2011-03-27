@@ -3,7 +3,7 @@
 # dummy sissi
 PLUGINS = cairo cgm dxf hpgl libart metapost pgf pixbuf \
 	postscript pstricks shape svg vdx wmf wpg xfig xslt \
-	drs
+	drs stress
 
 # The main target
 all : sub-all
@@ -135,6 +135,12 @@ OBJECTS = \
 OBJECTS = \
   shape.obj \
   shape-export.obj
+!ENDIF
+
+!IFDEF OBJ_stress
+OBJECTS = \
+  stress.obj \
+  stress-memory.obj
 !ENDIF
 
 !IFDEF OBJ_svg
