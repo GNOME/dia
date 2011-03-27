@@ -82,7 +82,7 @@ exit_dialog_make (GtkWindow * parent_window,
                                                       EXIT_DIALOG_EXIT_SAVE_SELECTED,
                                                       NULL);
 
-    GtkBox * vbox = GTK_BOX (GTK_DIALOG(dialog)->vbox);
+    GtkBox * vbox = GTK_BOX (gtk_dialog_get_content_area (GTK_DIALOG(dialog)));
 
     GtkWidget * label = gtk_label_new (_("The following are not saved:"));
 

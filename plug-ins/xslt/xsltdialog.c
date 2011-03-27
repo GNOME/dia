@@ -105,7 +105,7 @@ xslt_dialog_create(void) {
 	gtk_dialog_set_default_response (GTK_DIALOG(dialog), GTK_RESPONSE_OK);
 
   
-	box = GTK_DIALOG(dialog)->vbox;
+	box = gtk_dialog_get_content_area(GTK_DIALOG(dialog));
   
 	vbox = gtk_vbox_new(FALSE, 5);
 	gtk_container_set_border_width (GTK_CONTAINER (vbox), 5);

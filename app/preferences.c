@@ -599,7 +599,7 @@ prefs_create_dialog(void)
   gtk_dialog_set_default_response (GTK_DIALOG(prefs_dialog), GTK_RESPONSE_OK);
   gtk_window_set_resizable (GTK_WINDOW (prefs_dialog), TRUE);
 
-  dialog_vbox = GTK_DIALOG (prefs_dialog)->vbox;
+  dialog_vbox = gtk_dialog_get_content_area (GTK_DIALOG (prefs_dialog));
   
   gtk_window_set_role (GTK_WINDOW (prefs_dialog), "preferences_window");
 

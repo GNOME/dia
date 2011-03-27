@@ -268,7 +268,7 @@ diagram_print_ps(DiagramData *dia, const gchar* original_filename)
 		   G_CALLBACK(gtk_main_quit), NULL);
   g_signal_connect(GTK_OBJECT(dialog), "delete_event",
 		   G_CALLBACK(gtk_true), NULL);
-  vbox = GTK_DIALOG(dialog)->vbox;
+  vbox = gtk_dialog_get_content_area(GTK_DIALOG(dialog));
 
   frame = gtk_frame_new(_("Select Printer"));
   gtk_container_set_border_width(GTK_CONTAINER(frame), 5);

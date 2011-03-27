@@ -89,7 +89,7 @@ autosave_make_restore_dialog(GList *files)
   GtkWidget *ok, *cancel;
   GtkWidget *dialog = dialog_make(_("Recovering autosaved diagrams"),
 				  NULL, NULL, &ok, &cancel);
-  GtkWidget *vbox = GTK_DIALOG(dialog)->vbox;
+  GtkWidget *vbox = gtk_dialog_get_content_area(GTK_DIALOG(dialog));
   GtkWidget *selectarea = gtk_clist_new(1);
   GList *iter;
   gchar **filearray = (gchar**)g_new(gchar *, g_list_length(files)+1);

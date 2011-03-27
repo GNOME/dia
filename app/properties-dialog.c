@@ -67,7 +67,7 @@ create_dialog(GtkWidget *parent)
 
   gtk_dialog_set_default_response (GTK_DIALOG(dialog), GTK_RESPONSE_OK);
 
-  dialog_vbox = GTK_DIALOG(dialog)->vbox;
+  dialog_vbox = gtk_dialog_get_content_area (GTK_DIALOG(dialog));
 
   gtk_window_set_role(GTK_WINDOW (dialog), "properties_window");
 

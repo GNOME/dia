@@ -395,7 +395,7 @@ create_layer_dialog(void)
                       G_CALLBACK(gtk_widget_destroyed), 
 		      &(layer_dialog->dialog));
 
-  vbox = GTK_DIALOG(dialog)->vbox;
+  vbox = gtk_dialog_get_content_area(GTK_DIALOG(dialog));
 
   hbox = gtk_hbox_new(FALSE, 1);
   
@@ -1207,7 +1207,7 @@ layer_dialog_edit_layer (DiaLayerWidget *layer_widget, Diagram *dia, Layer *laye
   /*  the main vbox  */
   vbox = gtk_vbox_new (FALSE, 1);
   gtk_container_set_border_width (GTK_CONTAINER (vbox), 2);
-  gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog->dialog)->vbox), vbox, TRUE, TRUE, 0);
+  gtk_box_pack_start (GTK_BOX (gtk_dialog_get_content_area (GTK_DIALOG (dialog->dialog))), vbox, TRUE, TRUE, 0);
 
   /*  the name entry hbox, label and entry  */
   hbox = gtk_hbox_new (FALSE, 1);

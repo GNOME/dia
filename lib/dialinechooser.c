@@ -321,7 +321,7 @@ dia_line_chooser_init (DiaLineChooser *lchooser)
 
   wid = dia_line_style_selector_new();
   gtk_container_set_border_width(GTK_CONTAINER(wid), 5);
-  gtk_box_pack_start(GTK_BOX(GTK_DIALOG(lchooser->dialog)->vbox), wid,
+  gtk_box_pack_start(GTK_BOX(gtk_dialog_get_content_area (GTK_DIALOG(lchooser->dialog))), wid,
 		     TRUE, TRUE, 0);
   gtk_widget_show(wid);
   lchooser->selector = DIALINESTYLESELECTOR(wid);

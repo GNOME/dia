@@ -46,7 +46,7 @@ dialog_make(char *title, char *okay_text, char *cancel_text,
   GtkWidget *dialog = gtk_dialog_new();
   GtkWidget *label = gtk_label_new(title);
 
-  gtk_container_add(GTK_CONTAINER(GTK_DIALOG(dialog)->vbox), label);
+  gtk_container_add(GTK_CONTAINER(gtk_dialog_get_content_area(GTK_DIALOG(dialog))), label);
 
   *okay_button = gtk_button_new_with_label((okay_text!=NULL?okay_text:_("OK")));
   *cancel_button = gtk_button_new_with_label((cancel_text!=NULL?cancel_text:_("Cancel")));
@@ -73,7 +73,7 @@ dialog_add_spinbutton(GtkWidget *dialog, char *title,
 
   gtk_box_pack_start (GTK_BOX(box), label, TRUE, TRUE, 0);
   gtk_box_pack_start (GTK_BOX(box), entry, TRUE, TRUE, 0);
-  gtk_container_add(GTK_CONTAINER(GTK_DIALOG(dialog)->vbox), box);
+  gtk_container_add(GTK_CONTAINER(gtk_dialog_get_content_area(GTK_DIALOG(dialog))), box);
 
   return GTK_SPIN_BUTTON(entry);
 }

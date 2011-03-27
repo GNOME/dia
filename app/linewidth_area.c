@@ -267,7 +267,7 @@ linewidth_create_dialog()
   gtk_box_pack_start(GTK_BOX (hbox), linewidth_button, TRUE, TRUE, 0);
   gtk_widget_show (linewidth_button);
   gtk_widget_show(hbox);
-  gtk_box_pack_start (GTK_BOX(GTK_DIALOG (linewidth_dialog)->vbox), hbox, TRUE, TRUE, 0);
+  gtk_box_pack_start (GTK_BOX(gtk_dialog_get_content_area(GTK_DIALOG (linewidth_dialog))), hbox, TRUE, TRUE, 0);
   
   gtk_widget_show (linewidth_button);
 

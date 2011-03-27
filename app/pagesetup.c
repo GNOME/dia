@@ -82,7 +82,7 @@ create_page_setup_dlg(Diagram *dia)
 			GTK_STOCK_OK, GTK_RESPONSE_OK,
 			NULL);
   gtk_dialog_set_default_response (GTK_DIALOG(ps->window), GTK_RESPONSE_OK);
-  vbox = GTK_DIALOG(ps->window)->vbox;
+  vbox = gtk_dialog_get_content_area(GTK_DIALOG(ps->window));
   gtk_dialog_set_response_sensitive(GTK_DIALOG(ps->window), GTK_RESPONSE_APPLY, FALSE);
   ps->changed = FALSE;
 

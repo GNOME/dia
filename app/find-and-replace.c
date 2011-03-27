@@ -448,7 +448,7 @@ fnr_dialog_setup_common (GtkWidget *dialog, gboolean is_replace, DDisplay *ddisp
   g_signal_connect(GTK_OBJECT(dialog), "delete_event",
 		   G_CALLBACK(gtk_true), NULL);
 
-  vbox = GTK_DIALOG(dialog)->vbox;
+  vbox = gtk_dialog_get_content_area(GTK_DIALOG(dialog));
 
   hbox = gtk_hbox_new (FALSE, 12);
   label = gtk_label_new_with_mnemonic (_("_Search for:"));

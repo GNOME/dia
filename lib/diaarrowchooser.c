@@ -395,7 +395,7 @@ dia_arrow_chooser_dialog_new(DiaArrowChooser *chooser)
 
   wid = dia_arrow_selector_new();
   gtk_container_set_border_width(GTK_CONTAINER(wid), 5);
-  gtk_box_pack_start(GTK_BOX(GTK_DIALOG(chooser->dialog)->vbox), wid,
+  gtk_box_pack_start(GTK_BOX(gtk_dialog_get_content_area(GTK_DIALOG(chooser->dialog))), wid,
                      TRUE, TRUE, 0);
   gtk_widget_show(wid);
   chooser->selector = DIA_ARROW_SELECTOR(wid);

@@ -204,7 +204,7 @@ get_plugin_manager(void)
 
   gtk_dialog_set_default_response (GTK_DIALOG(dialog), GTK_RESPONSE_CLOSE);
 
-  vbox = GTK_DIALOG(dialog)->vbox;
+  vbox = gtk_dialog_get_content_area (GTK_DIALOG (dialog));
 
   /* don't destroy dialog when window manager close button pressed */
   g_signal_connect(G_OBJECT (dialog), "response",
