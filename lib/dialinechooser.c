@@ -123,6 +123,7 @@ dia_line_preview_expose(GtkWidget *widget, GdkEventExpose *event)
   GdkGCValues gcvalues;
   gint8 dash_list[6];
   int line_width = 2;
+  GtkStyle *style;
 
 #if GTK_CHECK_VERSION(2,18,0)
   if (gtk_widget_is_drawable(widget)) {
@@ -135,7 +136,8 @@ dia_line_preview_expose(GtkWidget *widget, GdkEventExpose *event)
     y = (widget->allocation.y + misc->ypad);
 
     win = gtk_widget_get_window (widget);
-    gc = widget->style->fg_gc[widget->state];
+    style = gtk_widget_get_style (widget);
+    gc = style->fg_gc[widget->state];
 
     /* increase line width */
     gdk_gc_get_values(gc, &gcvalues);

@@ -228,16 +228,17 @@ dia_arrow_preview_expose(GtkWidget *widget, GdkEventExpose *event)
     renderer_ops->set_linewidth(renderer, linewidth);
     {
       Color color_bg, color_fg;
+      GtkStyle *style = gtk_widget_get_style (widget);
       /* the text colors are the best approximation to what we had */
 #if GTK_CHECK_VERSION(2,18,0)
-      GdkColor bg = widget->style->base[gtk_widget_get_state(widget)];
+      GdkColor bg = style->base[gtk_widget_get_state(widget)];
 #else
-      GdkColor bg = widget->style->base[GTK_WIDGET_STATE(widget)];
+      GdkColor bg = style->base[GTK_WIDGET_STATE(widget)];
 #endif
 #if GTK_CHECK_VERSION(2,18,0)
-      GdkColor fg = widget->style->text[gtk_widget_get_state(widget)];
+      GdkColor fg = style->text[gtk_widget_get_state(widget)];
 #else
-      GdkColor fg = widget->style->text[GTK_WIDGET_STATE(widget)];
+      GdkColor fg = style->text[GTK_WIDGET_STATE(widget)];
 #endif
 
       GDK_COLOR_TO_DIA(bg, color_bg);

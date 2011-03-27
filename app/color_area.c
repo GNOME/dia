@@ -119,6 +119,7 @@ color_area_draw ()
   gint def_width, def_height;
   gint swap_width, swap_height;
   GdkColor  mask_pattern;
+  GtkStyle *style;
 
   /* Check we haven't gotten initial expose yet,
    * no point in drawing anything
@@ -128,7 +129,8 @@ color_area_draw ()
 
   gdk_drawable_get_size (color_area_pixmap, &width, &height);
 
-  win_bg = &(color_area->style->bg[GTK_STATE_NORMAL]);
+  style = gtk_widget_get_style(color_area);
+  win_bg = &(style->bg[GTK_STATE_NORMAL]);
   col = attributes_get_foreground();
   color_convert(&col, &fg);
   col = attributes_get_background();
@@ -157,13 +159,13 @@ color_area_draw ()
 		      (width - rect_w), (height - rect_h), rect_w, rect_h);
 
   if (active_color == FOREGROUND)
-    gtk_paint_shadow (color_area->style, color_area_pixmap, GTK_STATE_NORMAL,
+    gtk_paint_shadow (style, color_area_pixmap, GTK_STATE_NORMAL,
                       GTK_SHADOW_OUT,
                       NULL, color_area, NULL,
 		      (width - rect_w), (height - rect_h),
                       rect_w, rect_h);
   else
-    gtk_paint_shadow (color_area->style, color_area_pixmap, GTK_STATE_NORMAL,
+    gtk_paint_shadow (style, color_area_pixmap, GTK_STATE_NORMAL,
                       GTK_SHADOW_IN,
                       NULL, color_area, NULL,
 		      (width - rect_w), (height - rect_h),
@@ -176,13 +178,13 @@ color_area_draw ()
 		      0, 0, rect_w, rect_h);
 
   if (active_color == FOREGROUND)
-    gtk_paint_shadow (color_area->style, color_area_pixmap, GTK_STATE_NORMAL,
+    gtk_paint_shadow (style, color_area_pixmap, GTK_STATE_NORMAL,
                       GTK_SHADOW_IN,
                       NULL, color_area, NULL,
                       0, 0,
                       rect_w, rect_h);
   else
-    gtk_paint_shadow (color_area->style, color_area_pixmap, GTK_STATE_NORMAL,
+    gtk_paint_shadow (style, color_area_pixmap, GTK_STATE_NORMAL,
                       GTK_SHADOW_OUT,
                       NULL, color_area, NULL,
                       0, 0,

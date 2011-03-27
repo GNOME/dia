@@ -107,6 +107,7 @@ navigation_popup_new (DDisplay *ddisp)
   GtkWidget * image;
   GdkPixmap * pixmap;
   GdkBitmap * mask = NULL;
+  GtkStyle  * style;
 
   button = gtk_button_new ();
   gtk_container_set_border_width (GTK_CONTAINER (button), 0);
@@ -117,10 +118,11 @@ navigation_popup_new (DDisplay *ddisp)
   g_signal_connect (G_OBJECT (button), "released",
                     G_CALLBACK (on_button_navigation_popup_released), NULL);
 
+  style = gtk_widget_get_style (button);
   pixmap = gdk_pixmap_colormap_create_from_xpm_d(NULL,
                                                  gtk_widget_get_colormap(button),
                                                  &mask,
-                                                 &(button->style->bg[GTK_STATE_NORMAL]),
+                                                 &(style->bg[GTK_STATE_NORMAL]),
                                                  nav_xpm);
 
   image = gtk_image_new_from_pixmap (pixmap, mask);
@@ -148,6 +150,7 @@ on_button_navigation_popup_pressed (GtkButton * button, gpointer _ddisp)
   Rectangle rect;/*diagram's extents*/
   real zoom;/*zoom factor for thumbnail rendering*/
 
+  GtkStyle *style;
 
   memset (nav, 0, sizeof(NavigationWindow));
   /*--Retrieve the diagram's data*/
@@ -262,8 +265,9 @@ on_button_navigation_popup_pressed (GtkButton * button, gpointer _ddisp)
   /*buffer to draw the thumbnail on*/
   nav->buffer = gdk_pixmap_new (gtk_widget_get_window (drawing_area),
                                 nav->width, nav->height, -1);
+  style = gtk_widget_get_style (drawing_area);
   gdk_draw_rectangle (nav->buffer,
-                      drawing_area->style->black_gc, TRUE,
+                      style->black_gc, TRUE,
                       0, 0, nav->width, nav->height);
 
   {/*--Render the thumbnail*/
@@ -310,12 +314,13 @@ reset_sc_adj (GtkAdjustment * adj, gdouble lower, gdouble upper, gdouble page)
 static gboolean
 on_da_expose_event (GtkWidget * widget, GdkEventExpose * event, gpointer unused)
 {
+  GtkStyle *style = gtk_widget_get_style (widget);
   /*refresh the part outdated by the event*/
   gdk_draw_drawable (gtk_widget_get_window (widget),
 #if GTK_CHECK_VERSION(2,18,0)
-                     widget->style->fg_gc[gtk_widget_get_state (widget)],
+                     style->fg_gc[gtk_widget_get_state (widget)],
 #else
-                     widget->style->fg_gc[GTK_WIDGET_STATE (widget)],
+                     style->fg_gc[GTK_WIDGET_STATE (widget)],
 #endif
                      GDK_PIXMAP(nav->buffer),
                      event->area.x, event->area.y,
@@ -350,6 +355,7 @@ on_da_motion_notify_event (GtkWidget * drawing_area, GdkEventMotion * event, gpo
 {
   GtkAdjustment * adj;
   gboolean value_changed;
+  GtkStyle *style;
 
   int w = nav->frame_w;
   int h = nav->frame_h;
@@ -397,11 +403,12 @@ on_da_motion_notify_event (GtkWidget * drawing_area, GdkEventMotion * event, gpo
 
 /*--Draw the miniframe*/
 /*refresh from the buffer*/
+  style = gtk_widget_get_style (drawing_area);
   gdk_draw_drawable (gtk_widget_get_window (drawing_area),
 #if GTK_CHECK_VERSION(2,18,0)
-                     drawing_area->style->fg_gc[gtk_widget_get_state (drawing_area)],
+                     style->fg_gc[gtk_widget_get_state (drawing_area)],
 #else
-                     drawing_area->style->fg_gc[GTK_WIDGET_STATE (drawing_area)],
+                     style->fg_gc[GTK_WIDGET_STATE (drawing_area)],
 #endif
                      GDK_PIXMAP(nav->buffer),
                      0, 0, 0, 0, nav->width, nav->height);

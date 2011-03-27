@@ -72,6 +72,7 @@ linewidth_area_draw (GtkWidget *linewidth_area)
   int width, height;
   int i;
   int x_offs;
+  GtkStyle *style;
   
   if (!linewidth_area_pixmap)     /* we haven't gotten initial expose yet,
                                * no point in drawing anything */
@@ -88,7 +89,8 @@ linewidth_area_draw (GtkWidget *linewidth_area)
 
   gdk_drawable_get_size (linewidth_area_pixmap, &width, &height);
 
-  win_bg = &(linewidth_area->style->bg[GTK_STATE_NORMAL]);
+  style = gtk_widget_get_style (linewidth_area);
+  win_bg = &(style->bg[GTK_STATE_NORMAL]);
   line = color_gdk_black;
 
   gdk_gc_set_foreground (linewidth_area_gc, win_bg);

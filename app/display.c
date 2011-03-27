@@ -530,7 +530,7 @@ ddisplay_add_display_area(DDisplay *ddisp,
     bottom = dia_renderer_get_height_pixels (ddisp->renderer); 
   
   /* draw some rectangles to show where updates are...*/
-  /*  gdk_draw_rectangle(gtk_widget_get_window(ddisp->canvas), ddisp->canvas->style->black_gc, TRUE, left, top, right-left,bottom-top); */
+  /*  gdk_draw_rectangle(gtk_widget_get_window(ddisp->canvas), gtk_widget_get_style(ddisp->canvas)->black_gc, TRUE, left, top, right-left,bottom-top); */
 
   /* Temporarily just do a union of all Irectangles: */
   if (ddisp->display_areas==NULL) {
