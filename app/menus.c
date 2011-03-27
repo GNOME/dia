@@ -478,10 +478,7 @@ integrated_ui_toolbar_zoom_combo_selection_changed (GtkComboBox *combo,
         float zoom_percent;
         gchar * text;
 #if GTK_CHECK_VERSION(2,24,0)
-	if (gtk_combo_box_get_has_entry (combo))
-	  text = g_strdup (gtk_entry_get_text (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (combo)))));
-	else
-	  text = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT (combo));
+	text = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT (combo));
 #else
 	text = gtk_combo_box_get_active_text (combo);
 #endif
