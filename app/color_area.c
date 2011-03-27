@@ -222,7 +222,7 @@ color_selection_ok (GtkWidget               *w,
   GdkColor color;
   Color col;
 
-  colorsel=GTK_COLOR_SELECTION(cs->colorsel);
+  colorsel=GTK_COLOR_SELECTION(gtk_color_selection_dialog_get_color_selection(cs));
 
   gtk_color_selection_get_current_color(colorsel,&color);
   GDK_COLOR_TO_DIA(color, col);
@@ -279,7 +279,7 @@ color_selection_changed (GtkWidget *w,
   GdkColor color;
   Color col;
 
-  colorsel=GTK_COLOR_SELECTION(cs->colorsel);
+  colorsel=GTK_COLOR_SELECTION(gtk_color_selection_dialog_get_color_selection(cs));
 
   gtk_color_selection_get_current_color(colorsel,&color);
   GDK_COLOR_TO_DIA(color, col);
@@ -320,7 +320,8 @@ color_area_edit (void)
     color_select_active = 1;
 
     gtk_color_selection_set_has_palette (
-	GTK_COLOR_SELECTION (GTK_COLOR_SELECTION_DIALOG (window)->colorsel),
+	GTK_COLOR_SELECTION (gtk_color_selection_dialog_get_color_selection (
+				GTK_COLOR_SELECTION_DIALOG (window))),
 	TRUE);
 
     gtk_window_set_position (GTK_WINDOW (window), GTK_WIN_POS_MOUSE);
@@ -334,7 +335,7 @@ color_area_edit (void)
 			window);
     
     g_signal_connect (
-	G_OBJECT (GTK_COLOR_SELECTION_DIALOG (window)->colorsel),
+	G_OBJECT (gtk_color_selection_dialog_get_color_selection (GTK_COLOR_SELECTION_DIALOG (window))),
 	"color_changed",
 	G_CALLBACK(color_selection_changed),
 	window);
@@ -367,7 +368,8 @@ color_area_edit (void)
   DIA_COLOR_TO_GDK(col, color);
 
   gtk_color_selection_set_current_color(
-	GTK_COLOR_SELECTION (GTK_COLOR_SELECTION_DIALOG (color_select)->colorsel),
+	GTK_COLOR_SELECTION (gtk_color_selection_dialog_get_color_selection (
+				GTK_COLOR_SELECTION_DIALOG (color_select))),
 	&color);
 
 }
