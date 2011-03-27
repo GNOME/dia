@@ -461,12 +461,10 @@ parse_svg_node(ShapeInfo *info, xmlNodePtr node, xmlNsPtr svg_ns,
           /* add elements from the group element, but make it a subshape */
         GraphicElementSubShape *subshape = g_new0(GraphicElementSubShape, 1);
         ShapeInfo* tmpinfo = g_new0(ShapeInfo, 1);
-        DiaSvgStyle tmp_s;
         xmlChar *v_anchor_attr = xmlGetProp(node, (const xmlChar*)"v_anchor");
         xmlChar *h_anchor_attr = xmlGetProp(node, (const xmlChar*)"h_anchor");
       
-        dia_svg_style_init (&tmp_s, style);
-        parse_svg_node(tmpinfo, node, svg_ns, &tmp_s, filename);
+        parse_svg_node(tmpinfo, node, svg_ns, &s, filename);
         
         tmpinfo->shape_bounds.top = DBL_MAX;
         tmpinfo->shape_bounds.left = DBL_MAX;
