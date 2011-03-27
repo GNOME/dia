@@ -719,7 +719,6 @@ help_manual_callback (GtkAction *action)
   GDir *dp;
   const char *dentry;
   GError *error = NULL;
-#if GTK_CHECK_VERSION(2,14,0)
   GdkScreen *screen;
   DDisplay *ddisp;
   ddisp = ddisplay_active();
@@ -728,7 +727,6 @@ help_manual_callback (GtkAction *action)
   if (gtk_show_uri(screen, "ghelp:dia", gtk_get_current_event_time (), NULL)) {
     return;
   }
-#endif
 
   helpdir = dia_get_data_directory("help");
   if (!helpdir) {
@@ -778,13 +776,8 @@ help_manual_callback (GtkAction *action)
 # define SW_SHOWNORMAL 1
   ShellExecuteA (0, "open", helpindex, NULL, helpdir, SW_SHOWNORMAL);
 #else
-# if GTK_CHECK_VERSION(2,14,0)
   command = g_strdup_printf("file://%s", helpindex);
   gtk_show_uri(screen, command, gtk_get_current_event_time (), NULL);
-# else
-  command = getenv("BROWSER");
-  command = g_strdup_printf("%s 'file://%s' &", command ? command : "xdg-open", helpindex);
-# endif
   system(command);
   g_free(command);
 #endif
@@ -800,7 +793,6 @@ activate_url (GtkWidget   *parent,
 #ifdef G_OS_WIN32
   ShellExecuteA (0, "open", link, NULL, NULL, SW_SHOWNORMAL);
 #else
-# if GTK_CHECK_VERSION(2,14,0)
   GdkScreen *screen;
   
   if (parent)
@@ -808,12 +800,6 @@ activate_url (GtkWidget   *parent,
   else
     screen = gdk_screen_get_default ();
   gtk_show_uri(screen, link, gtk_get_current_event_time (), NULL);
-# else
-  gchar *command = getenv("BROWSER");
-  command = g_strdup_printf("%s '%s' &", command ? command : "xdg-open", link);
-  system(command);
-  g_free(command);
-# endif
 #endif
 }
 
