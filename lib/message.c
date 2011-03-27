@@ -43,7 +43,8 @@ typedef struct {
 } DiaMessageInfo;
 
 static void
-gtk_message_toggle_repeats(GtkWidget *button, gpointer *userdata) {
+gtk_message_toggle_repeats(GtkWidget *button, gpointer *userdata) 
+{
   DiaMessageInfo *msginfo = (DiaMessageInfo*)userdata;
   if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(button)))
     gtk_widget_show(msginfo->repeat_view);
@@ -204,6 +205,9 @@ gtk_message_internal(const char* title, enum ShowAgainStyle showAgain,
 				 g_list_length(msginfo->repeats));
       gtk_label_set_text(GTK_LABEL(msginfo->repeat_label), newlabel);
     }
+    /* for repeated messages, show the last one */
+    g_object_set (msginfo->dialog, "text", buf, NULL);
+
     gtk_widget_show(msginfo->repeat_label);
     gtk_widget_show(msginfo->show_repeats);
   }
@@ -214,7 +218,7 @@ gtk_message_internal(const char* title, enum ShowAgainStyle showAgain,
     gtk_text_buffer_insert_at_cursor(textbuffer, buf, -1);
   }
 
-  msginfo->repeats = g_list_append(msginfo->repeats, g_strdup(buf));
+  msginfo->repeats = g_list_prepend(msginfo->repeats, g_strdup(buf));
 
   if (askForShowAgain) {
     gtk_widget_show(msginfo->no_show_again);
