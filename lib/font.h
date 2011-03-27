@@ -25,6 +25,8 @@
 #include "dia-enums.h"
 #include "geometry.h"
 
+G_BEGIN_DECLS
+
 /* Do NOT put these strings through the .po mechanism. If you need to add
    non-Roman alternatives, please insert them in the list */
 #define BASIC_SANS_FONT "arial, helvetica, helv, sans"
@@ -199,5 +201,6 @@ real* dia_font_get_sizes(const char* string, DiaFont *font, real height,
 /* -------- Font and string functions - scaled versions.
    Use these version in Renderers, exclusively. */
 
+G_END_DECLS
 
 #endif /* FONT_H */
