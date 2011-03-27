@@ -85,7 +85,7 @@ get_cursor(DiaCursorType ctype) {
     } else {
       DDisplay *active_display = ddisplay_active (); 
       if (active_display != NULL) 
-	new_cursor = create_cursor(active_display->canvas->window,
+	new_cursor = create_cursor(gtk_widget_get_window(active_display->canvas),
 				   cursors[ctype].data,
 				   cursors[ctype].width,
 				   cursors[ctype].height,

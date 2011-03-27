@@ -30,7 +30,7 @@ magnify_button_press(MagnifyTool *tool, GdkEventButton *event,
   tool->y = tool->oldy = event->y;
   tool->box_active = TRUE;
   tool->moved = FALSE;
-  gdk_pointer_grab (ddisp->canvas->window, FALSE,
+  gdk_pointer_grab (gtk_widget_get_window(ddisp->canvas), FALSE,
 		    GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON1_MOTION_MASK | GDK_BUTTON_RELEASE_MASK,
 		    NULL, NULL, event->time);
 }
@@ -98,7 +98,7 @@ magnify_motion(MagnifyTool *tool, GdkEventMotion *event,
     tool->moved = TRUE;
 
     if (tool->gc == NULL) {
-      tool->gc = gdk_gc_new(ddisp->canvas->window);
+      tool->gc = gdk_gc_new(gtk_widget_get_window(ddisp->canvas));
       gdk_gc_set_line_attributes(tool->gc, 1, GDK_LINE_ON_OFF_DASH, 
 				 GDK_CAP_BUTT, GDK_JOIN_MITER);
       gdk_gc_set_foreground(tool->gc, &color_gdk_white);
@@ -108,13 +108,13 @@ magnify_motion(MagnifyTool *tool, GdkEventMotion *event,
     tl.x = MIN(tool->x, tool->oldx); tl.y = MIN(tool->y, tool->oldy);
     br.x = MAX(tool->x, tool->oldx); br.y = MAX(tool->y, tool->oldy);
 
-    gdk_draw_rectangle (ddisp->canvas->window,
+    gdk_draw_rectangle (gtk_widget_get_window(ddisp->canvas),
 			tool->gc, FALSE, tl.x, tl.y, br.x - tl.x, br.y - tl.y);
 
     tl.x = MIN(tool->x, event->x); tl.y = MIN(tool->y, event->y);
     br.x = MAX(tool->x, event->x); br.y = MAX(tool->y, event->y);
 
-    gdk_draw_rectangle (ddisp->canvas->window,
+    gdk_draw_rectangle (gtk_widget_get_window(ddisp->canvas),
 			tool->gc, FALSE, tl.x, tl.y, br.x - tl.x, br.y - tl.y);
 
     tool->oldx = event->x;

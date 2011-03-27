@@ -195,7 +195,7 @@ dia_arrow_preview_expose(GtkWidget *widget, GdkEventExpose *event)
     x = (widget->allocation.x + misc->xpad);
     y = (widget->allocation.y + misc->ypad);
 
-    win = widget->window;
+    win = gtk_widget_get_window (widget);
 
     to.y = from.y = height/2;
     if (arrow->left) {

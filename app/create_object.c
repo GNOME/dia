@@ -108,7 +108,7 @@ create_object_button_press(CreateObjectTool *tool, GdkEventButton *event,
     tool->moving = TRUE;
     tool->last_to = handle2->pos;
     
-    gdk_pointer_grab (ddisp->canvas->window, FALSE,
+    gdk_pointer_grab (gtk_widget_get_window(ddisp->canvas), FALSE,
 		      GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON1_MOTION_MASK | GDK_BUTTON_RELEASE_MASK,
 		      NULL, NULL, event->time);
     ddisplay_set_all_cursor(get_cursor(CURSOR_SCROLL));

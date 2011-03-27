@@ -176,7 +176,7 @@ dia_canvas_send_configure (DiaCanvas *darea)
 
   widget = GTK_WIDGET (darea);
 
-  event->configure.window = g_object_ref (widget->window);
+  event->configure.window = g_object_ref (gtk_widget_get_window(widget));
   event->configure.send_event = TRUE;
   event->configure.x = widget->allocation.x;
   event->configure.y = widget->allocation.y;
@@ -359,10 +359,10 @@ dia_canvas_realize (GtkWidget *widget)
       
   widget->window = gdk_window_new (gtk_widget_get_parent_window (widget), &attributes, 
 				   attributes_mask);
-  gdk_window_set_user_data (widget->window, widget);
+  gdk_window_set_user_data (gtk_widget_get_window(widget), widget);
       
-  widget->style = gtk_style_attach (widget->style, widget->window);
-  gtk_style_set_background (widget->style, widget->window, GTK_STATE_NORMAL);
+  widget->style = gtk_style_attach (widget->style, gtk_widget_get_window(widget));
+  gtk_style_set_background (widget->style, gtk_widget_get_window(widget), GTK_STATE_NORMAL);
 
   dia_canvas_send_configure (DIA_CANVAS (widget));
 }
@@ -430,7 +430,7 @@ dia_canvas_size_allocate (GtkWidget     *widget,
 #else
   if (GTK_WIDGET_REALIZED (widget)) {
 #endif
-    gdk_window_move_resize (widget->window,
+    gdk_window_move_resize (gtk_widget_get_window(widget),
 			    allocation->x, 
 			    allocation->y,
 			    allocation->width, 

@@ -530,7 +530,7 @@ ddisplay_add_display_area(DDisplay *ddisp,
     bottom = dia_renderer_get_height_pixels (ddisp->renderer); 
   
   /* draw some rectangles to show where updates are...*/
-  /*  gdk_draw_rectangle(ddisp->canvas->window, ddisp->canvas->style->black_gc, TRUE, left, top, right-left,bottom-top); */
+  /*  gdk_draw_rectangle(gtk_widget_get_window(ddisp->canvas), ddisp->canvas->style->black_gc, TRUE, left, top, right-left,bottom-top); */
 
   /* Temporarily just do a union of all Irectangles: */
   if (ddisp->display_areas==NULL) {
@@ -595,7 +595,7 @@ ddisplay_update_handler(DDisplay *ddisp)
 
     g_return_val_if_fail (renderer->copy_to_window, FALSE);
     renderer->copy_to_window(ddisp->renderer, 
-                             ddisp->canvas->window,
+                             gtk_widget_get_window(ddisp->canvas),
                              ir->left, ir->top,
                              ir->right - ir->left, ir->bottom - ir->top);
     
@@ -1176,7 +1176,7 @@ ddisplay_set_renderer(DDisplay *ddisp, int aa_renderer)
     ddisp->renderer = new_gdk_renderer(ddisp);
   }
 
-  dia_renderer_set_size(ddisp->renderer, ddisp->canvas->window, width, height);
+  dia_renderer_set_size(ddisp->renderer, gtk_widget_get_window(ddisp->canvas), width, height);
 }
 
 void
@@ -1190,7 +1190,7 @@ ddisplay_resize_canvas(DDisplay *ddisp,
       ddisp->renderer = new_gdk_renderer(ddisp);
   }
 
-  dia_renderer_set_size(ddisp->renderer, ddisp->canvas->window, width, height);
+  dia_renderer_set_size(ddisp->renderer, gtk_widget_get_window(ddisp->canvas), width, height);
 
   ddisplay_set_origo(ddisp, ddisp->origo.x, ddisp->origo.y);
 
@@ -1482,8 +1482,8 @@ ddisplay_set_all_cursor(GdkCursor *cursor)
 void
 ddisplay_set_cursor(DDisplay *ddisp, GdkCursor *cursor)
 {
-  if (ddisp->canvas->window)
-    gdk_window_set_cursor(ddisp->canvas->window, cursor);
+  if (gtk_widget_get_window(ddisp->canvas))
+    gdk_window_set_cursor(gtk_widget_get_window(ddisp->canvas), cursor);
 }
 
 /** Returns whether the rulers are currently showing on the display.

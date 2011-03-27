@@ -134,7 +134,7 @@ dia_line_preview_expose(GtkWidget *widget, GdkEventExpose *event)
     x = (widget->allocation.x + misc->xpad);
     y = (widget->allocation.y + misc->ypad);
 
-    win = widget->window;
+    win = gtk_widget_get_window (widget);
     gc = widget->style->fg_gc[widget->state];
 
     /* increase line width */

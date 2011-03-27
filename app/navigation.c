@@ -232,7 +232,7 @@ on_button_navigation_popup_pressed (GtkButton * button, gpointer _ddisp)
   gtk_widget_show (popup_window);
 
   /*miniframe style*/
-  nav->gc = gdk_gc_new (drawing_area->window);
+  nav->gc = gdk_gc_new (gtk_widget_get_window (drawing_area));
   gdk_gc_set_line_attributes (nav->gc,
                               FRAME_THICKNESS,
                               GDK_LINE_SOLID, GDK_CAP_BUTT, GDK_JOIN_MITER);
@@ -253,14 +253,14 @@ on_button_navigation_popup_pressed (GtkButton * button, gpointer _ddisp)
   }
 
   /*grab the pointer*/
-  gdk_pointer_grab (drawing_area->window, TRUE,
+  gdk_pointer_grab (gtk_widget_get_window (drawing_area), TRUE,
                     GDK_BUTTON_RELEASE_MASK | GDK_BUTTON_MOTION_MASK,
-                    drawing_area->window,
+                    gtk_widget_get_window (drawing_area),
                     nav->cursor,
                     GDK_CURRENT_TIME);
 
   /*buffer to draw the thumbnail on*/
-  nav->buffer = gdk_pixmap_new (drawing_area->window,
+  nav->buffer = gdk_pixmap_new (gtk_widget_get_window (drawing_area),
                                 nav->width, nav->height, -1);
   gdk_draw_rectangle (nav->buffer,
                       drawing_area->style->black_gc, TRUE,
@@ -311,7 +311,7 @@ static gboolean
 on_da_expose_event (GtkWidget * widget, GdkEventExpose * event, gpointer unused)
 {
   /*refresh the part outdated by the event*/
-  gdk_draw_drawable (widget->window,
+  gdk_draw_drawable (gtk_widget_get_window (widget),
 #if GTK_CHECK_VERSION(2,18,0)
                      widget->style->fg_gc[gtk_widget_get_state (widget)],
 #else
@@ -335,7 +335,7 @@ on_da_expose_event (GtkWidget * widget, GdkEventExpose * event, gpointer unused)
     y = (adj->value - adj->lower) / (adj->upper - adj->lower) * (nav->height) +1;
 
     /*draw directly on the window, do not buffer the miniframe*/
-    gdk_draw_rectangle (widget->window,
+    gdk_draw_rectangle (gtk_widget_get_window (widget),
                         nav->gc, FALSE,
                         x, y, nav->frame_w, nav->frame_h);
 
@@ -397,7 +397,7 @@ on_da_motion_notify_event (GtkWidget * drawing_area, GdkEventMotion * event, gpo
 
 /*--Draw the miniframe*/
 /*refresh from the buffer*/
-  gdk_draw_drawable (drawing_area->window,
+  gdk_draw_drawable (gtk_widget_get_window (drawing_area),
 #if GTK_CHECK_VERSION(2,18,0)
                      drawing_area->style->fg_gc[gtk_widget_get_state (drawing_area)],
 #else
@@ -406,7 +406,7 @@ on_da_motion_notify_event (GtkWidget * drawing_area, GdkEventMotion * event, gpo
                      GDK_PIXMAP(nav->buffer),
                      0, 0, 0, 0, nav->width, nav->height);
 /*draw directly on the window, do not buffer the miniframe*/
-  gdk_draw_rectangle (drawing_area->window,
+  gdk_draw_rectangle (gtk_widget_get_window (drawing_area),
                       nav->gc, FALSE,
                       x, y, w, h);
   return FALSE;

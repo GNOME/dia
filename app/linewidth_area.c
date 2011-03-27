@@ -111,7 +111,7 @@ linewidth_area_draw (GtkWidget *linewidth_area)
 		      active_linewidth+4, height-1);
   }
 
-  gdk_draw_drawable (linewidth_area->window, linewidth_area_gc, linewidth_area_pixmap,
+  gdk_draw_drawable (gtk_widget_get_window(linewidth_area), linewidth_area_gc, linewidth_area_pixmap,
 		     0, 0, 0, 0, width, height);
 }
 
@@ -128,7 +128,7 @@ linewidth_area_events (GtkWidget *widget,
     case GDK_CONFIGURE:
       cevent = (GdkEventConfigure *)  event;
       if (cevent->width > 1) {
-	linewidth_area_pixmap = gdk_pixmap_new (widget->window,
+	linewidth_area_pixmap = gdk_pixmap_new (gtk_widget_get_window(widget),
 						cevent->width,
 						cevent->height, -1);
       }

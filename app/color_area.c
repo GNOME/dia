@@ -205,7 +205,7 @@ color_area_draw ()
   /*  draw the widget  */
   gdk_gc_set_clip_mask (color_area_gc, color_area_mask);
   gdk_gc_set_clip_origin (color_area_gc, 0, 0);
-  gdk_draw_drawable (color_area->window, color_area_gc, color_area_pixmap,
+  gdk_draw_drawable (gtk_widget_get_window(color_area), color_area_gc, color_area_pixmap,
 		   0, 0, 0, 0, width, height);
 
   /*  reset the clip mask  */
@@ -386,10 +386,10 @@ color_area_events (GtkWidget *widget,
 	  g_object_unref (color_area_mask);
 	}
 
-	color_area_pixmap = gdk_pixmap_new (color_area->window,
+	color_area_pixmap = gdk_pixmap_new (gtk_widget_get_window(color_area),
 					  color_area->allocation.width,
 					  color_area->allocation.height, -1);
-        color_area_mask = gdk_pixmap_new (color_area->window,
+        color_area_mask = gdk_pixmap_new (gtk_widget_get_window(color_area),
 					color_area->allocation.width,
 					color_area->allocation.height, 1);
       break;
@@ -402,7 +402,7 @@ color_area_events (GtkWidget *widget,
 	{
 	  if (!color_area_gc)
 	    {
-	      color_area_gc = gdk_gc_new (color_area->window);
+	      color_area_gc = gdk_gc_new (gtk_widget_get_window(color_area));
 	      mask_gc = gdk_gc_new (color_area_mask);
 	    }
 

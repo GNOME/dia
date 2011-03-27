@@ -374,7 +374,7 @@ ddisplay_realize(GtkWidget *widget, gpointer data)
   ddisp = (DDisplay *)data;
 
   gtk_im_context_set_client_window(GTK_IM_CONTEXT(ddisp->im_context),
-                                   GDK_WINDOW(ddisp->shell->window));
+                                   gtk_widget_get_window(ddisp->shell));
 }
 
 void
@@ -389,7 +389,7 @@ ddisplay_unrealize (GtkWidget *widget, gpointer data)
 
   if (ddisp->im_context)
     gtk_im_context_set_client_window(GTK_IM_CONTEXT(ddisp->im_context),
-                                     GDK_WINDOW(ddisp->shell->window));
+                                     gtk_widget_get_window(ddisp->shell));
 }
 
 void
@@ -596,7 +596,7 @@ ddisplay_canvas_events (GtkWidget *canvas,
   
   return_val = FALSE;
  
-  if (!canvas->window) 
+  if (!gtk_widget_get_window(canvas)) 
     return FALSE;
 
   switch (event->type)
@@ -798,7 +798,7 @@ ddisplay_canvas_events (GtkWidget *canvas,
 
       case GDK_MOTION_NOTIFY:
 	/*  get the pointer position  */
-	gdk_window_get_pointer (canvas->window, &tx, &ty, &tmask);
+	gdk_window_get_pointer (gtk_widget_get_window(canvas), &tx, &ty, &tmask);
 	hold_remove_handler();
 
         mevent = (GdkEventMotion *) event;

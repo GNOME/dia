@@ -204,7 +204,7 @@ static int do_if_clicked_handle(DDisplay *ddisp, ModifyTool *tool,
     tool->last_to = handle->pos;
     tool->handle = handle;
     tool->object = obj;
-    gdk_pointer_grab (ddisp->canvas->window, FALSE,
+    gdk_pointer_grab (gtk_widget_get_window(ddisp->canvas), FALSE,
                       GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON1_MOTION_MASK | GDK_BUTTON_RELEASE_MASK,
                       NULL, NULL, event->time);
     tool->start_at = handle->pos;
@@ -242,7 +242,7 @@ modify_button_press(ModifyTool *tool, GdkEventButton *event,
     tool->move_compensate = clicked_obj->position;
     point_sub(&tool->move_compensate, &clickedpoint);
     tool->break_connections = TRUE;
-    gdk_pointer_grab (ddisp->canvas->window, FALSE,
+    gdk_pointer_grab (gtk_widget_get_window(ddisp->canvas), FALSE,
                       GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON1_MOTION_MASK | GDK_BUTTON_RELEASE_MASK,
                       NULL, NULL, event->time);
     tool->start_at = clickedpoint;
@@ -256,18 +256,18 @@ modify_button_press(ModifyTool *tool, GdkEventButton *event,
     tool->y1 = tool->y2 = (int) event->y;
 
     if (tool->gc == NULL) {
-      tool->gc = gdk_gc_new(ddisp->canvas->window);
+      tool->gc = gdk_gc_new(gtk_widget_get_window(ddisp->canvas));
       gdk_gc_set_line_attributes(tool->gc, 1, GDK_LINE_ON_OFF_DASH, 
 				 GDK_CAP_BUTT, GDK_JOIN_MITER);
       gdk_gc_set_foreground(tool->gc, &color_gdk_white);
       gdk_gc_set_function(tool->gc, GDK_XOR);
     }
 
-    gdk_draw_rectangle (ddisp->canvas->window, tool->gc, FALSE,
+    gdk_draw_rectangle (gtk_widget_get_window (ddisp->canvas), tool->gc, FALSE,
 			tool->x1, tool->y1,
 			tool->x2 - tool->x1, tool->y2 - tool->y1);
 
-    gdk_pointer_grab (ddisp->canvas->window, FALSE,
+    gdk_pointer_grab (gtk_widget_get_window (ddisp->canvas), FALSE,
                       GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON1_MOTION_MASK | GDK_BUTTON_RELEASE_MASK,
                       NULL, NULL, event->time);
   }
@@ -585,7 +585,7 @@ modify_motion(ModifyTool *tool, GdkEventMotion *event,
 
     if (!auto_scroll && !tool->auto_scrolled)
     {
-      gdk_draw_rectangle (ddisp->canvas->window, tool->gc, FALSE,
+      gdk_draw_rectangle (gtk_widget_get_window (ddisp->canvas), tool->gc, FALSE,
 			  tool->x1, tool->y1,
 			  tool->x2 - tool->x1, tool->y2 - tool->y1);
     }
@@ -601,7 +601,7 @@ modify_motion(ModifyTool *tool, GdkEventMotion *event,
 			      MAX(tool->start_box.y, tool->end_box.y),
 			      &tool->x2, &tool->y2);
 
-    gdk_draw_rectangle (ddisp->canvas->window, tool->gc, FALSE,
+    gdk_draw_rectangle (gtk_widget_get_window (ddisp->canvas), tool->gc, FALSE,
 			tool->x1, tool->y1,
 			tool->x2 - tool->x1, tool->y2 - tool->y1);
     break;
@@ -739,7 +739,7 @@ modify_button_release(ModifyTool *tool, GdkEventButton *event,
     gdk_pointer_ungrab (event->time);
     /* Remove last box: */
     if (!tool->auto_scrolled) {
-      gdk_draw_rectangle (ddisp->canvas->window, tool->gc, FALSE,
+      gdk_draw_rectangle (gtk_widget_get_window (ddisp->canvas), tool->gc, FALSE,
 			tool->x1, tool->y1,
 			tool->x2 - tool->x1, tool->y2 - tool->y1);
     }

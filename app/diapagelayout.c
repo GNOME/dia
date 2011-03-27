@@ -603,7 +603,7 @@ darea_size_allocate(DiaPageLayout *self, GtkAllocation *allocation)
 static gint
 darea_expose_event(DiaPageLayout *self, GdkEventExpose *event)
 {
-  GdkWindow *window= self->darea->window;
+  GdkWindow *window = gtk_widget_get_window(self->darea);
   gfloat val;
   gint num;
 
