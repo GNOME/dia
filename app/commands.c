@@ -840,7 +840,11 @@ help_about_callback (GtkAction *action)
   gchar *filename = g_build_filename (dirname, "dia-splash.png", NULL);
   GdkPixbuf *logo = gdk_pixbuf_new_from_file(filename, NULL);
 
+#if GTK_CHECK_VERSION(2,24,0)
+  /* rely on gtk_show_uri doing the right thing internally */
+#else
   gtk_about_dialog_set_url_hook ((GtkAboutDialogActivateLinkFunc)activate_url, NULL, NULL);
+#endif
   gtk_show_about_dialog (NULL,
 	"logo", logo,
         "name", "Dia",
