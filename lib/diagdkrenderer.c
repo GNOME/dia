@@ -804,8 +804,8 @@ draw_image (DiaRenderer *object,
     int org_width = gdk_pixbuf_get_width(org);
     int org_height = gdk_pixbuf_get_height(org);
     
-    real_width = dia_transform_length(renderer->transform, width);
-    real_height = dia_transform_length(renderer->transform, height);
+    real_width = ROUND(dia_transform_length(renderer->transform, width));
+    real_height = ROUND(dia_transform_length(renderer->transform, height));
     dia_transform_coords(renderer->transform, point->x, point->y,
 			 &real_x, &real_y);
 
