@@ -24,6 +24,7 @@
 
 #include "geometry.h"
 
+G_BEGIN_DECLS
 
 void dia_image_init(void);
 
@@ -54,6 +55,8 @@ guint8 *dia_image_mask_data(const DiaImage *image);
 const guint8 *dia_image_rgba_data(const DiaImage *image);
 const char *dia_image_filename(const DiaImage *image);
 const GdkPixbuf* dia_image_pixbuf (const DiaImage *image);
+
+G_END_DECLS
 
 #endif /* DIA_IMAGE_H */
 
