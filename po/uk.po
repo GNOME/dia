@@ -10,15 +10,15 @@ msgstr ""
 "Project-Id-Version: uk\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-03-28 00:26+0300\n"
-"PO-Revision-Date: 2011-03-27 14:59+0300\n"
+"PO-Revision-Date: 2011-03-28 17:13+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<"
+"=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Lokalize 1.2\n"
 
 #. This is not an errror
@@ -38,9 +38,9 @@ msgid "Warning: Layer %d (%s) selected more than once.\n"
 msgstr "Попередження: Шар %d (%s) вибрано більше ніж один раз.\n"
 
 #: ../app/app_procs.c:255
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: There is no layer named %s.\n"
-msgstr "Попередження: Шару з назвою %s не існує\n"
+msgstr "Попередження: шару з назвою %s не існує\n"
 
 #: ../app/app_procs.c:337
 #, c-format
@@ -48,7 +48,7 @@ msgid "%s error: don't know how to export into %s\n"
 msgstr "помилка %s: спосіб експорту у %s невідомий\n"
 
 #: ../app/app_procs.c:346
-#, fuzzy, c-format
+#, c-format
 msgid "%s error: input and output filenames are identical: %s"
 msgstr "помилка %s: назви файлів вводу і виводу однакові: %s"
 
@@ -69,12 +69,12 @@ msgid "Can't find output format/filter %s\n"
 msgstr "Не вдалося знайти формат або фільтр виведення %s\n"
 
 #: ../app/app_procs.c:623
-#, fuzzy, c-format
+#, c-format
 msgid "Input directory '%s' must exist!\n"
 msgstr "Каталог вхідних даних «%s» має існувати!\n"
 
 #: ../app/app_procs.c:640
-#, fuzzy, c-format
+#, c-format
 msgid "Output directory '%s' must exist!\n"
 msgstr "Каталог вихідних даних «%s» має існувати!\n"
 
@@ -124,7 +124,6 @@ msgid "Don't show the splash screen"
 msgstr "Не показувати заставки"
 
 #: ../app/app_procs.c:719
-#, fuzzy
 msgid "Don't create an empty diagram"
 msgstr "Не створювати порожньої діаграми"
 
@@ -217,7 +216,6 @@ msgid "Diagram1.dia"
 msgstr "Діаграма1.dia"
 
 #: ../app/app_procs.c:1022
-#, fuzzy
 msgid ""
 "This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\n"
 "describing how you caused this message to appear.\n"
@@ -248,12 +246,10 @@ msgid "Quit Dia"
 msgstr "Вийти з Діа"
 
 #: ../app/app_procs.c:1180 ../app/app_procs.c:1187
-#, fuzzy
 msgid "Could not create per-user Dia configuration directory"
 msgstr "Не вдалося створити теку конфігурації Діа для користувача"
 
 #: ../app/app_procs.c:1190
-#, fuzzy
 msgid ""
 "Could not create per-user Dia configuration directory. Please make sure that "
 "the environment variable HOME points to an existing directory."
@@ -262,7 +258,6 @@ msgstr ""
 "змінна оточення HOME вказує на існуючу теку."
 
 #: ../app/app_procs.c:1213
-#, fuzzy
 msgid "Objects and filters internal to Dia"
 msgstr "Внутрішні об'єкти та фільтри Діа"
 
@@ -329,7 +324,6 @@ msgid "Select background color"
 msgstr "Вибір кольору тла"
 
 #: ../app/commands.c:125
-#, fuzzy
 msgid "No print plugin found!"
 msgstr "Не знайдено додатків друку!"
 
@@ -340,11 +334,11 @@ msgstr "Діаграма%d.dia"
 
 #: ../app/commands.c:242
 msgid "No image from Clipboard to paste."
-msgstr ""
+msgstr "У буфері немає зображення, яке можна було б вставити."
 
 #: ../app/commands.c:292
 msgid "No selected object can take an image."
-msgstr ""
+msgstr "Немає позначеного об’єкта для додавання зображення."
 
 #: ../app/commands.c:425
 msgid "No existing object to paste.\n"
@@ -545,18 +539,15 @@ msgid "Trying to group with no selected objects."
 msgstr "Спроба групування без позначених об’єктів."
 
 #: ../app/diagram_tree_view.c:163
-#, fuzzy
 msgid "Diagram"
-msgstr "Діаграма:"
+msgstr "Діаграма"
 
 #: ../app/diagram_tree_view.c:170
 #: ../plug-ins/drs/dia-render-script-import.c:232
-#, fuzzy
 msgid "Layer"
-msgstr "Шари"
+msgstr "Шар"
 
 #: ../app/diagram_tree_view.c:176
-#, fuzzy
 msgid "Layer(s)"
 msgstr "Шари"
 
@@ -577,23 +568,17 @@ msgstr "Тип"
 msgid "Position"
 msgstr "Розміщати"
 
-#
 #: ../app/diagram_tree_view.c:185
-#, fuzzy
 msgid "Children"
-msgstr "Зробити _об'єкти-нащадки не вкладеним"
+msgstr "Дочірні"
 
-#
 #: ../app/diagram_tree_view.c:189
-#, fuzzy
 msgid "Object(s)"
-msgstr "_Об'єкти"
+msgstr "Об'єкти"
 
-#
 #: ../app/diagram_tree_view.c:445
-#, fuzzy
 msgid "Select"
-msgstr "Виді_лення"
+msgstr "Вибрати"
 
 #. Translators: Menu item Verb/Support/Position/Locate
 #. Translators: Menu item Verb/Signal/Sense/Locate
@@ -603,9 +588,8 @@ msgid "Locate"
 msgstr "Розташовувати"
 
 #: ../app/diagram_tree_view.c:447
-#, fuzzy
 msgid "Properties"
-msgstr "/В_ластивості"
+msgstr "Властивості"
 
 #. *** board of value **************
 #: ../app/diagram_tree_view.c:497 ../app/exit_dialog.c:123
@@ -688,13 +672,12 @@ msgstr ""
 "Інформацію про скасування дії було вилучено."
 
 #: ../app/disp_callbacks.c:127
-#, fuzzy
 msgid "Properties…"
-msgstr "/В_ластивості"
+msgstr "Властивості…"
 
 #: ../app/disp_callbacks.c:166
 msgid "Follow link…"
-msgstr ""
+msgstr "Перейти за посиланням…"
 
 #: ../app/disp_callbacks.c:286
 msgid "Selection"
@@ -726,7 +709,6 @@ msgstr "Позначено «%s»"
 
 #. we really should not come here but instead disable the menu command earlier
 #: ../app/display.c:1149
-#, fuzzy
 msgid "No antialiased renderer found"
 msgstr "Не знайдено засобу згладжування зображення"
 
@@ -1036,15 +1018,14 @@ msgid "Flowchart"
 msgstr "Блок-схема"
 
 #: ../app/interface.c:1543
-#, fuzzy
 msgid ""
 "Foreground & background colors for new objects.  The small black and white "
 "squares reset colors.  The small arrows swap colors.  Double-click to change "
 "colors."
 msgstr ""
 "Кольори переднього плану і тла. Маленькі білий та чорний квадратики скидають "
-"кольори. Маленька стрілка міняє їх місцями. Подвійне натиснення мишкою "
-"дозволяє вибрати колір."
+"кольори. Маленька стрілка міняє їх місцями. Подвійне клацання кнопкою миші "
+"надає змогу вибрати колір."
 
 #: ../app/interface.c:1557
 msgid ""
@@ -1056,31 +1037,28 @@ msgstr ""
 "точно."
 
 #: ../app/interface.c:1600
-#, fuzzy
 msgid ""
 "Arrow style at the beginning of new lines.  Click to pick an arrow, or set "
 "arrow parameters with Details…"
 msgstr ""
-"Стиль стрілки на початку нових ліній. Натисніть для вибору стрілки, або "
-"встановлення властивостей у Подробиці…"
+"Стиль стрілки на початку нових ліній. Натисніть для вибору стрілки або "
+"встановіть властивості за допомогою кнопки «Параметри…»"
 
 #: ../app/interface.c:1605
-#, fuzzy
 msgid ""
 "Line style for new lines.  Click to pick a line style, or set line style "
 "parameters with Details…"
 msgstr ""
-"Стиль лінії на початку нових ліній. Натисніть для вибору лінії, або "
-"встановлення властивостей у Подробиці…"
+"Стиль лінії на початку нових ліній. Натисніть для вибору лінії або встановіть "
+"властивості за допомогою кнопки «Параметри…»"
 
 #: ../app/interface.c:1621
-#, fuzzy
 msgid ""
 "Arrow style at the end of new lines.  Click to pick an arrow, or set arrow "
 "parameters with Details…"
 msgstr ""
-"Стиль стрілки в кінці нових ліній. Натисніть для вибору стрілки, або "
-"встановлення властивостей у Подробиці…"
+"Стиль стрілки в кінці нових ліній. Натисніть для вибору стрілки або "
+"встановіть властивості за допомогою кнопки «Параметри…»"
 
 #: ../app/interface.c:1680 ../app/interface.c:1804 ../dia.desktop.in.in.h:3
 msgid "Diagram Editor"
@@ -1154,7 +1132,7 @@ msgstr ""
 "Зв'язаний об'єкт не знайдено у документі."
 
 #: ../app/load_save.c:267
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Error loading diagram.\n"
 "Connection handle %d does not exist on '%s'."
@@ -1163,7 +1141,7 @@ msgstr ""
 "Обробника з’єднання %d не існує на «%s»."
 
 #: ../app/load_save.c:285
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Error loading diagram.\n"
 "Connection point %d does not exist on '%s'."
@@ -1266,14 +1244,12 @@ msgid "_File"
 msgstr "_Файл"
 
 #: ../app/menus.c:79
-#, fuzzy
 msgid "Create a new diagram"
-msgstr "Не створювати порожньої діаграми"
+msgstr "Створити діаграму"
 
 #: ../app/menus.c:80
-#, fuzzy
 msgid "Open a diagram file"
-msgstr "Стиснути файл діаграми"
+msgstr "Відкрити файл діаграми"
 
 #
 #: ../app/menus.c:82
@@ -1281,19 +1257,16 @@ msgid "_Help"
 msgstr "_Довідка"
 
 #: ../app/menus.c:92
-#, fuzzy
 msgid "Sheets and Objects…"
-msgstr "Категорії та об'єкти"
+msgstr "Категорії та об'єкти…"
 
 #: ../app/menus.c:94
-#, fuzzy
 msgid "Plugins…"
-msgstr "Модулі"
+msgstr "Додатки…"
 
 #: ../app/menus.c:95
-#, fuzzy
 msgid "_Diagram Tree…"
-msgstr "Дерево діаграми"
+msgstr "_Ієрархія діаграми…"
 
 #: ../app/menus.c:101
 msgid "Show Toolbar"
@@ -1308,56 +1281,48 @@ msgid "Show Layers"
 msgstr "Показати шари"
 
 #: ../app/menus.c:109
-#, fuzzy
 msgid "Save the diagram"
-msgstr "Збереження діаграми"
+msgstr "Зберегти діаграму"
 
 #: ../app/menus.c:110
 msgid "Save the diagram with a new name"
-msgstr ""
+msgstr "Зберегти діаграму з новою назвою"
 
 #: ../app/menus.c:111
-#, fuzzy
 msgid "_Export…"
-msgstr "Експорт"
+msgstr "_Експортувати…"
 
 #: ../app/menus.c:111
-#, fuzzy
 msgid "Export the diagram"
-msgstr "Експорт діаграми"
+msgstr "Експортувати діаграму"
 
 #: ../app/menus.c:112
 msgid "_Diagram Properties"
 msgstr "В_ластивості діаграми"
 
 #: ../app/menus.c:113
-#, fuzzy
 msgid "Page Set_up…"
-msgstr "Параметри сторінки"
+msgstr "П_араметри сторінки…"
 
 #: ../app/menus.c:114
-#, fuzzy
 msgid "Print the diagram"
-msgstr "Пересування вікном діаграми"
+msgstr "Надрукувати діаграму"
 
 #: ../app/menus.c:117
 msgid "_Edit"
 msgstr "З_міни"
 
 #: ../app/menus.c:121
-#, fuzzy
 msgid "Copy selection"
-msgstr "Позначене"
+msgstr "Копіювати позначене"
 
 #: ../app/menus.c:122
-#, fuzzy
 msgid "Cut selection"
-msgstr "Позначене"
+msgstr "Вирізати позначене"
 
 #: ../app/menus.c:123
-#, fuzzy
 msgid "Paste selection"
-msgstr "Виявлення води"
+msgstr "Вставити позначене"
 
 #
 #: ../app/menus.c:124
@@ -1381,40 +1346,33 @@ msgstr "Вирізати текст"
 msgid "Paste _Text"
 msgstr "Вставити _текст"
 
-#
 #: ../app/menus.c:136
-#, fuzzy
 msgid "Paste _Image"
-msgstr "Вставити _текст"
+msgstr "Вставити _зображення"
 
 #: ../app/menus.c:138
 msgid "_Layers"
 msgstr "_Шари"
 
 #: ../app/menus.c:139
-#, fuzzy
 msgid "Add Layer…"
-msgstr "Додати шар"
+msgstr "Додати шар…"
 
 #: ../app/menus.c:140
-#, fuzzy
 msgid "Rename Layer…"
 msgstr "Перейменувати шар…"
 
 #: ../app/menus.c:141
-#, fuzzy
 msgid "Move Selection to Layer above"
 msgstr "Пересунути позначене на вищий шар"
 
 #: ../app/menus.c:142
-#, fuzzy
 msgid "Move Selection to Layer below"
 msgstr "Пересунути позначене на шар нижче"
 
 #: ../app/menus.c:143
-#, fuzzy
 msgid "_Layers…"
-msgstr "_Шари"
+msgstr "_Шари…"
 
 #
 #: ../app/menus.c:145
@@ -1422,14 +1380,12 @@ msgid "_View"
 msgstr "П_ерегляд"
 
 #: ../app/menus.c:146
-#, fuzzy
 msgid "Zoom in"
-msgstr "Вказівник масштабування"
+msgstr "Збільшити"
 
 #: ../app/menus.c:147
-#, fuzzy
 msgid "Zoom out"
-msgstr "Вказівник масштабування"
+msgstr "Зменшити"
 
 #: ../app/menus.c:148
 msgid "_Zoom"
@@ -1481,9 +1437,8 @@ msgstr "25"
 
 #. Show All, Best Fit.  Same as the Gimp, Ctrl+E
 #: ../app/menus.c:162
-#, fuzzy
 msgid "Zoom fit"
-msgstr "Вказівник масштабування"
+msgstr "Підібрати за розмірами"
 
 #
 #. "display_toggle_entries" items go here
@@ -1638,7 +1593,6 @@ msgid "Modify"
 msgstr "Модифікувати"
 
 #: ../app/menus.c:227
-#, fuzzy
 msgid "Edit Text"
 msgstr "Редагувати текст"
 
@@ -1646,9 +1600,7 @@ msgstr "Редагувати текст"
 msgid "Scroll"
 msgstr "Гортати"
 
-#
 #: ../app/menus.c:249
-#, fuzzy
 msgid "_Antialiased"
 msgstr "З_гладжування"
 
@@ -1657,17 +1609,13 @@ msgstr "З_гладжування"
 msgid "Show _Grid"
 msgstr "Показати _сітку"
 
-#
 #: ../app/menus.c:251
-#, fuzzy
 msgid "_Snap to Grid"
 msgstr "Прив'_язувати до сітки"
 
-#
 #: ../app/menus.c:252
-#, fuzzy
 msgid "Snap to _Objects"
-msgstr "Прив'_язувати до сітки"
+msgstr "П_рив'язувати до об’єктів"
 
 #
 #: ../app/menus.c:253
@@ -1746,14 +1694,12 @@ msgid "Toggles object snapping."
 msgstr "Увімкнути або вимкнути прив'язку до об'єктів."
 
 #: ../app/modify_tool.c:367
-#, fuzzy
 msgid "Couldn't get GTK+ settings"
-msgstr "Не вдалося отримати налаштування GTK"
+msgstr "Не вдалося отримати налаштування GTK+"
 
 #: ../app/plugin-manager.c:200
-#, fuzzy
 msgid "Plugins"
-msgstr "Модулі"
+msgstr "Додатки"
 
 #: ../app/plugin-manager.c:255
 msgid "Loaded"
@@ -1769,7 +1715,6 @@ msgid "Load at Startup"
 msgstr "Завантаження на початку"
 
 #: ../app/plugin-manager.c:284
-#, fuzzy
 msgid "Filename"
 msgstr "Назва файла"
 
@@ -1826,7 +1771,6 @@ msgid "Length unit:"
 msgstr "Одиниця довжини:"
 
 #: ../app/preferences.c:185
-#, fuzzy
 msgid "Font size unit:"
 msgstr "Одиниця розміру шрифту:"
 
@@ -1921,14 +1865,12 @@ msgid "PostScript"
 msgstr "PostScript"
 
 #: ../app/preferences.c:228 ../plug-ins/wmf/wmf.cpp:1458
-#, fuzzy
 msgid "Windows Metafile"
-msgstr "Метафайл Windows"
+msgstr "Метафайл Windows (WMF)"
 
 #: ../app/preferences.c:230 ../plug-ins/wmf/wmf.cpp:1467
-#, fuzzy
 msgid "Enhanced Metafile"
-msgstr "Вдосконалений метафайл"
+msgstr "Вдосконалений метафайл (EMF)"
 
 #: ../app/preferences.c:235
 msgid "Snap to"
@@ -1947,14 +1889,12 @@ msgid "Y Size:"
 msgstr "Розмір Y:"
 
 #: ../app/preferences.c:239
-#, fuzzy
 msgid "Visual Spacing X:"
-msgstr "Видимий проміжок"
+msgstr "Видимий проміжок за X:"
 
 #: ../app/preferences.c:240
-#, fuzzy
 msgid "Visual Spacing Y:"
-msgstr "Видимий проміжок"
+msgstr "Видимий проміжок за Y:"
 
 #: ../app/preferences.c:242
 msgid "Lines per major line"
@@ -2039,44 +1979,36 @@ msgid "Select SVG Shape File"
 msgstr "Вибрати файл з формою SVG"
 
 #: ../app/sheets_dialog_callbacks.c:164
-#, fuzzy
 msgid "Copy →"
-msgstr "Копіювати ->"
+msgstr "Копіювати →"
 
 #: ../app/sheets_dialog_callbacks.c:166
-#, fuzzy
 msgid "Copy All →"
-msgstr "Копіювати все ->"
+msgstr "Копіювати все →"
 
 #: ../app/sheets_dialog_callbacks.c:168
-#, fuzzy
 msgid "Move →"
-msgstr "Перемістити ->"
+msgstr "Пересунути →"
 
 #: ../app/sheets_dialog_callbacks.c:170
-#, fuzzy
 msgid "Move All →"
-msgstr "Перемістити все ->"
+msgstr "Пересунути все →"
 
 #: ../app/sheets_dialog_callbacks.c:177
-#, fuzzy
 msgid "← Copy"
-msgstr "<- Копіювати"
+msgstr "← Копіювати"
 
 #: ../app/sheets_dialog_callbacks.c:179
-#, fuzzy
 msgid "← Copy All"
-msgstr "<- Копіювати все"
+msgstr "← Копіювати все"
 
 #: ../app/sheets_dialog_callbacks.c:181
-#, fuzzy
 msgid "← Move"
-msgstr "<- Перемістити"
+msgstr "← Пересунути"
 
 #: ../app/sheets_dialog_callbacks.c:183
-#, fuzzy
 msgid "← Move All"
-msgstr "<- Перемістити все"
+msgstr "← Пересунути все"
 
 #: ../app/sheets_dialog_callbacks.c:289 ../app/sheets_dialog_callbacks.c:1072
 msgid "Line Break"
@@ -2110,9 +2042,8 @@ msgstr ""
 "Не призначений тип"
 
 #: ../app/sheets_dialog_callbacks.c:771
-#, fuzzy
 msgid "Please select a .shape file"
-msgstr "Вибрати файл з формою SVG"
+msgstr "Будь ласка, вкажіть файл .shape"
 
 #: ../app/sheets_dialog_callbacks.c:778
 #, c-format
@@ -2171,7 +2102,6 @@ msgid "add shapes here"
 msgstr "додати форми тут"
 
 #: ../app/splash.c:50
-#, fuzzy
 msgid "Loading…"
 msgstr "Завантаження…"
 
@@ -2181,9 +2111,8 @@ msgid "Dia v %s"
 msgstr "Діа версії %s"
 
 #: ../dia.desktop.in.in.h:1
-#, fuzzy
 msgid "Dia"
-msgstr "День"
+msgstr "Діа"
 
 #: ../dia.desktop.in.in.h:2
 msgid "Dia Diagram Editor"
@@ -2331,9 +2260,9 @@ msgid "Arrow head of unknown type"
 msgstr "Верхів'я стрілки невідомого типу"
 
 #: ../lib/arrows.c:2059
-#, fuzzy, c-format
+#, c-format
 msgid "Arrow head of type %s has too small dimensions; removing.\n"
-msgstr "Верхів'я стрілки типу %s замале, його вилучено.\n"
+msgstr "Кінчик стрілки типу %s замалий, його вилучено.\n"
 
 #: ../lib/arrows.c:2192
 msgid "unknown arrow"
@@ -2352,9 +2281,9 @@ msgid "Can't find standard object"
 msgstr "Стандартний об'єкт не знайдено"
 
 #: ../lib/dia_dirs.c:328
-#, fuzzy, c-format
+#, c-format
 msgid "Too many \"..\"s in filename %s\n"
-msgstr "Забагато .. у назві файла %s\n"
+msgstr "Забагато «..» у назві файла %s\n"
 
 #: ../lib/dia_xml.c:197
 #, c-format
@@ -2422,9 +2351,8 @@ msgid "Line Style Properties"
 msgstr "Властивості стилю лінії"
 
 #: ../lib/dialinechooser.c:342
-#, fuzzy
 msgid "Details…"
-msgstr "Подробиці…"
+msgstr "Параметри…"
 
 #: ../lib/dialogs.c:51 ../plug-ins/postscript/paginate_psprint.c:314
 msgid "OK"
@@ -2445,9 +2373,8 @@ msgid "Can't load font %s.\n"
 msgstr "Не вдалося завантажити шрифт %s.\n"
 
 #: ../lib/group.c:618
-#, fuzzy
 msgid "Transformation"
-msgstr "Інформація"
+msgstr "Перетворення"
 
 #: ../lib/message.c:92 ../lib/message.c:278
 msgid "Warning"
@@ -2485,13 +2412,12 @@ msgstr ""
 
 #. base property stuff...
 #: ../lib/orth_conn.h:92
-#, fuzzy
 msgid "Autoroute"
-msgstr "IAD маршрутизатор"
+msgstr "Автомаршрутизація"
 
 #: ../lib/orth_conn.h:103
 msgid "Autorouting"
-msgstr ""
+msgstr "Автомаршрутизація"
 
 #: ../lib/plug-ins.c:111
 msgid "???"
@@ -2565,6 +2491,8 @@ msgid ""
 "Failed to load image form diagram:\n"
 "%s"
 msgstr ""
+"Не вдалося завантажити зображення з діаграми:\n"
+"%s"
 
 #: ../lib/prop_pixbuf.c:157
 #, c-format
@@ -2572,10 +2500,12 @@ msgid ""
 "Saving inline pixbuf failed:\n"
 "%s"
 msgstr ""
+"Не вдалося зберегти вбудований буфер растрового зображення:\n"
+"%s"
 
 #: ../lib/prop_pixbuf.c:241
 msgid "Cant create image data from scratch!"
-msgstr ""
+msgstr "Не вдалося створити дані зображення!"
 
 #: ../lib/prop_text.c:473
 #, c-format
@@ -2584,13 +2514,12 @@ msgstr "Група з %d об'єктів"
 
 #: ../lib/propdialogs.c:324 ../objects/UML/association.c:236
 #: ../objects/UML/object.c:147
-#, fuzzy
 msgid "General"
-msgstr "Генератор змінного струму"
+msgstr "Загальне"
 
 #: ../lib/propdialogs.c:325
 msgid "Meta"
-msgstr ""
+msgstr "Метадані"
 
 #: ../lib/properties.c:67 ../lib/properties.h:465 ../lib/widgets.c:284
 msgid "Left"
@@ -2606,34 +2535,32 @@ msgid "Right"
 msgstr "Праворуч"
 
 #: ../lib/properties.c:74 ../lib/properties.h:471
-#, fuzzy
 msgid "Never"
-msgstr "Повернути"
+msgstr "Ніколи"
 
 #: ../lib/properties.c:75 ../lib/properties.h:472
 msgid "When Needed"
-msgstr ""
+msgstr "Якщо потрібно"
 
 #: ../lib/properties.c:76 ../lib/properties.h:473
 msgid "Always"
-msgstr ""
+msgstr "Завжди"
 
 #: ../lib/properties.c:80 ../lib/properties.h:477
 msgid "Miter"
-msgstr ""
+msgstr "Накласти"
 
 #: ../lib/properties.c:82 ../lib/properties.h:479
 msgid "Bevel"
-msgstr ""
+msgstr "Фаска"
 
 #: ../lib/properties.c:86 ../lib/properties.h:483
 msgid "Butt"
-msgstr ""
+msgstr "Обрізок"
 
 #: ../lib/properties.c:88 ../lib/properties.h:485
-#, fuzzy
 msgid "Projecting"
-msgstr "Без захисту"
+msgstr "Проектування"
 
 #: ../lib/properties.c:95 ../lib/properties.h:506 ../lib/properties.h:509
 #: ../objects/chronogram/chronoline.c:181
@@ -2689,24 +2616,21 @@ msgid "Text color"
 msgstr "Колір тексту"
 
 #: ../lib/properties.h:518 ../lib/properties.h:521
-#, fuzzy
 msgid "Line join"
-msgstr "Ширина лінії"
+msgstr "З’єднання ліній"
 
 #: ../lib/properties.h:524 ../lib/properties.h:527
-#, fuzzy
 msgid "Line caps"
-msgstr "Проміжки лінії"
+msgstr "Кінчики ліній"
 
 #: ../lib/properties.h:585
-#, fuzzy
 msgid "Text fitting"
-msgstr "Заповнення тексту"
+msgstr "Заповнення текстом"
 
 #: ../lib/proplist.c:163
-#, fuzzy, c-format
+#, c-format
 msgid "No attribute '%s' (%p) or no data (%p) in this attribute"
-msgstr "Відсутня властивість «%s» (%p) або дані (%p) для цієї властивості"
+msgstr "Немає властивості «%s» (%p) або даних (%p) для цієї властивості"
 
 #: ../lib/sheet.c:70 ../lib/sheet.c:85
 #, c-format
@@ -2768,7 +2692,6 @@ msgid "Select color"
 msgstr "Вибір кольору"
 
 #: ../lib/widgets.c:645
-#, fuzzy
 msgid "More colors…"
 msgstr "Інші кольори…"
 
@@ -2990,22 +2913,18 @@ msgid "Number of arms"
 msgstr "Кількість плечей"
 
 #: ../objects/Database/compound.c:221
-#, fuzzy
 msgid "Flip arms vertically"
 msgstr "Віддзеркалити плечі вертикально"
 
 #: ../objects/Database/compound.c:223
-#, fuzzy
 msgid "Flip arms horizontally"
 msgstr "Віддзеркалити плечі горизонтально"
 
 #: ../objects/Database/compound.c:225
-#, fuzzy
 msgid "Center mount point vertically"
 msgstr "Центрувати точку прив’язки вертикально"
 
 #: ../objects/Database/compound.c:227
-#, fuzzy
 msgid "Center mount point horizontally"
 msgstr "Центрувати точку прив’язки горизонтально"
 
@@ -3042,9 +2961,8 @@ msgid "Unique"
 msgstr "Унікальність"
 
 #: ../objects/Database/table.c:151
-#, fuzzy
 msgid "Default value"
-msgstr "Типове значення:"
+msgstr "Типове значення"
 
 #: ../objects/Database/table.c:189
 msgid "Visible comments"
@@ -3069,9 +2987,8 @@ msgid "Normal"
 msgstr "Нормальний"
 
 #: ../objects/Database/table.c:202
-#, fuzzy
 msgid "Table name"
-msgstr "Назва таблиці:"
+msgstr "Назва таблиці"
 
 #: ../objects/Database/table.c:207 ../objects/Database/table.c:209
 #: ../objects/Database/table.c:211 ../objects/Database/reference.c:121
@@ -3149,9 +3066,8 @@ msgid "Type:"
 msgstr "Тип:"
 
 #: ../objects/Database/table_dialog.c:699
-#, fuzzy
 msgid "Default:"
-msgstr "Типові:"
+msgstr "Типове:"
 
 #: ../objects/Database/table_dialog.c:711
 #: ../objects/Database/table_dialog.c:955
@@ -4617,7 +4533,6 @@ msgid "Domain Kind"
 msgstr "Ознака області"
 
 #: ../objects/Jackson/domain.c:184
-#, fuzzy
 msgid "Optional kind which appears in the lower-right corner of the Domain"
 msgstr "Додаткова властивість, що з'являється у нижньому правому куті Домену"
 
@@ -4741,9 +4656,8 @@ msgid "Show hours"
 msgstr "Показувати години"
 
 #: ../objects/Misc/diagram_as_object.c:112
-#, fuzzy
 msgid "Diagram file"
-msgstr "Файл діаграми Діа"
+msgstr "Файл діаграми"
 
 #: ../objects/Misc/grid_object.c:140
 msgid "Rows"
@@ -4754,14 +4668,12 @@ msgid "Columns"
 msgstr "Стовпчики"
 
 #: ../objects/Misc/grid_object.c:144
-#, fuzzy
 msgid "Grid line color"
 msgstr "Колір ліній сітки"
 
 #: ../objects/Misc/grid_object.c:146
-#, fuzzy
 msgid "Grid line width"
-msgstr "Ширина ліній сітки"
+msgstr "Товщина ліній сітки"
 
 #: ../objects/Misc/libmisc.c:42
 msgid "Miscellaneous objects"
@@ -4867,7 +4779,6 @@ msgid "Activity/Data identifier"
 msgstr "Ідентифікатор діяльності/даних"
 
 #: ../objects/SADT/box.c:150
-#, fuzzy
 msgid "The identifier which appears in the lower-right corner of the Box"
 msgstr "Ідентифікатор, який розташований у нижньому правому куті об'єкта"
 
@@ -4908,9 +4819,8 @@ msgid "Medical Confidential"
 msgstr "Медичне конфіденційне"
 
 #: ../objects/SISSI/classification.h:45
-#, fuzzy
 msgid "Industry Confidential"
-msgstr "Індустріальне конфіденційне"
+msgstr "Промисловість (конфіденційне)"
 
 #: ../objects/SISSI/classification.h:46
 msgid "Defense Confidential"
@@ -5064,9 +4974,8 @@ msgid "Project or system organisation"
 msgstr "Проект або система організації"
 
 #: ../objects/SISSI/sissi_dialog.c:92
-#, fuzzy
 msgid "Subcontractors/Suppliers/Manufacturers"
-msgstr "Підрядники / Постачальники / Виробники"
+msgstr "Підрядники/Постачальники/Виробники"
 
 #: ../objects/SISSI/sissi_dialog.c:97
 msgid "SITE"
@@ -5101,9 +5010,8 @@ msgid "Power"
 msgstr "Потужність"
 
 #: ../objects/SISSI/sissi_dialog.c:105
-#, fuzzy
 msgid "Cooling/Pollution"
-msgstr "Охолодження / забруднення"
+msgstr "Охолодження/Розсіювання"
 
 #: ../objects/SISSI/sissi_dialog.c:109
 msgid "Thermal detection"
@@ -5186,9 +5094,8 @@ msgid "Developer"
 msgstr "Розробник"
 
 #: ../objects/SISSI/sissi_dialog.c:166
-#, fuzzy
 msgid "Operator/Maintenance"
-msgstr "Оператор / обслуговування"
+msgstr "Оператор/Обслуговування"
 
 #: ../objects/SISSI/sissi_dialog.c:171 ../sheets/network.sheet.in.h:20
 msgid "Network"
@@ -5215,7 +5122,6 @@ msgid "Operating System"
 msgstr "Операційна система"
 
 #: ../objects/SISSI/sissi_dialog.c:181
-#, fuzzy
 msgid "Service — maintenance or administration software"
 msgstr "Сервіс — обслуговування чи адміністрування програм"
 
@@ -5240,7 +5146,6 @@ msgid "HARDWARE"
 msgstr "ОБЛАДНАННЯ"
 
 #: ../objects/SISSI/sissi_dialog.c:191
-#, fuzzy
 msgid "Data processing equipment (active)"
 msgstr "Обладнання для обробки даних (активне)"
 
@@ -5369,9 +5274,8 @@ msgid "Side B"
 msgstr "Сторона Б"
 
 #: ../objects/UML/association.c:271 ../objects/UML/object.c:162
-#, fuzzy
 msgid "Style"
-msgstr "С_тиль"
+msgstr "Стиль"
 
 #: ../objects/UML/class.c:143 ../objects/UML/class.c:331
 #: ../objects/UML/class.c:1827 ../sheets/UML.sheet.in.h:6
@@ -5430,9 +5334,8 @@ msgid "Comment line length"
 msgstr "Довжина рядка коментаря"
 
 #: ../objects/UML/class.c:174 ../objects/UML/class.c:326
-#, fuzzy
 msgid "Allow resizing"
-msgstr "Порожній трикутник"
+msgstr "Дозволити зміну розміру"
 
 #: ../objects/UML/class.c:184 ../objects/UML/class_dialog.c:553
 msgid "Polymorphic"
@@ -5443,7 +5346,6 @@ msgid "Class Name"
 msgstr "Назва класу"
 
 #: ../objects/UML/class.c:190
-#, fuzzy
 msgid "Abstract Class Name"
 msgstr "Назва абстрактного класу"
 
@@ -5752,7 +5654,6 @@ msgstr "Скасувати дію"
 #. Would like to create a state_term instead, but making the connections
 #. * is a pain
 #: ../objects/UML/state.c:493
-#, fuzzy
 msgid ""
 "This diagram uses the State object for initial/final states.\n"
 "This option will go away in future versions.\n"
@@ -5843,7 +5744,6 @@ msgid "Event specification"
 msgstr "Специфікація подій"
 
 #: ../objects/chronogram/chronoline.c:158
-#, fuzzy
 msgid ""
 "@ time    set the pointer to an absolute time.\n"
 "( duration  set the signal up, then wait 'duration'.\n"
@@ -6069,22 +5969,20 @@ msgid "Image file"
 msgstr "Файл зображення"
 
 #: ../objects/standard/image.c:146
-#, fuzzy
 msgid "Inline data"
-msgstr "Дані часу"
+msgstr "Вбудовані дані"
 
 #: ../objects/standard/image.c:146
 msgid "Store image data in diagram"
-msgstr ""
+msgstr "Зберегти дані зображення у діаграмі"
 
 #: ../objects/standard/image.c:148
 msgid "Pixbuf"
-msgstr ""
+msgstr "Растровий буфер"
 
 #: ../objects/standard/image.c:148
-#, fuzzy
 msgid "The Pixbuf reference"
-msgstr "Налаштування"
+msgstr "Посилання на растровий буфер"
 
 #: ../objects/standard/image.c:150
 msgid "Draw border"
@@ -6096,18 +5994,18 @@ msgstr "Зберігати пропорції"
 
 #: ../objects/standard/image.c:671
 msgid "Inconsistent pixbuf during image save."
-msgstr ""
+msgstr "Непослідовність растрового буфера під час збереження зображення."
 
 #. Found file in same dir as diagram.
 #. Found file in current dir.
 #: ../objects/standard/image.c:768 ../objects/standard/image.c:779
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The image file '%s' was not found in the specified directory.\n"
 "Using the file '%s' instead.\n"
 msgstr ""
-"Файл зображення «%s» не знайдено в цій теці.\n"
-"Замість нього використовується файл «%s»\n"
+"Файл зображення «%s» не знайдено у вказаному каталозі.\n"
+"Замість нього використовується файл «%s».\n"
 
 #. Didn't find file in current dir.
 #: ../objects/standard/image.c:785 ../objects/standard/image.c:807
@@ -6166,13 +6064,13 @@ msgid "Visible rect pointer"
 msgstr "Видимий вказівник прямокутника"
 
 #: ../plug-ins/cairo/diacairo.c:133
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Can't convert output filename '%s' to locale encoding.\n"
 "Please choose a different name to save with Cairo.\n"
 msgstr ""
 "Перетворення вихідної назви файла «%s»  у локальне кодування неможливе.\n"
-"Будь ласка оберіть іншу назву для збереження з cairo.\n"
+"Будь ласка оберіть іншу назву для збереження з Cairo.\n"
 
 #: ../plug-ins/cairo/diacairo.c:277 ../plug-ins/cairo/diacairo.c:293
 #, c-format
@@ -6201,9 +6099,8 @@ msgid "Cairo Scalable Vector Graphics"
 msgstr "SVG (векторна графіка)"
 
 #: ../plug-ins/cairo/diacairo.c:380
-#, fuzzy
 msgid "CairoScript"
-msgstr "PostScript Cairo"
+msgstr "CairoScript"
 
 #: ../plug-ins/cairo/diacairo.c:391
 msgid "Cairo PNG"
@@ -6226,12 +6123,10 @@ msgid "Copy _Diagram"
 msgstr "Копіювати _діаграму"
 
 #: ../plug-ins/cairo/diacairo.c:450
-#, fuzzy
 msgid "Print (GTK+)…"
 msgstr "Друк (GTK)…"
 
 #: ../plug-ins/cairo/diacairo.c:497
-#, fuzzy
 msgid "Cairo-based Rendering"
 msgstr "Відображення за допомогою Cairo"
 
@@ -6248,7 +6143,7 @@ msgstr ""
 #: ../plug-ins/postscript/diapsrenderer.c:719
 #: ../plug-ins/pstricks/render_pstricks.c:826 ../plug-ins/wpg/wpg.c:891
 msgid "Not enough memory for image drawing."
-msgstr ""
+msgstr "Недостатньо пам’яті для малювання зображення."
 
 #: ../plug-ins/cgm/cgm.c:1366
 msgid "Computer Graphics Metafile"
@@ -6260,7 +6155,7 @@ msgstr "Фільтр експорту в Computer Graphics Metafile"
 
 #: ../plug-ins/drs/dia-render-script-import.c:224
 msgid "Broken file?"
-msgstr ""
+msgstr "Файл пошкоджено?"
 
 #: ../plug-ins/drs/dia-render-script.c:156
 #: ../plug-ins/drs/dia-render-script.c:161
@@ -6298,7 +6193,6 @@ msgid "HP Graphics Language export filter"
 msgstr "Фільтр експорту в HP Graphics Language"
 
 #: ../plug-ins/libart/dialibart.c:59
-#, fuzzy
 msgid "Libart-based rendering"
 msgstr "Показ за допомогою Libart"
 
@@ -6328,7 +6222,6 @@ msgid "Image height:"
 msgstr "Висота зображення:"
 
 #: ../plug-ins/libart/export_png.c:382
-#, fuzzy
 msgid "PNG (antialiased)"
 msgstr "PNG (зі згладжуванням)"
 
@@ -6358,9 +6251,8 @@ msgstr "Фільтр експорту файлів LaTeX PGF"
 
 #: ../plug-ins/pgf/render_pgf.c:1112
 #: ../plug-ins/pstricks/render_pstricks.c:733
-#, fuzzy
 msgid "Not valid UTF-8"
-msgstr "Неправильний UTF8"
+msgstr "Некоректні дані UTF-8"
 
 #: ../plug-ins/pgf/render_pgf.c:1262
 msgid "LaTeX PGF macros"
@@ -6378,7 +6270,6 @@ msgstr ""
 "%s"
 
 #: ../plug-ins/pixbuf/pixbuf.c:199
-#, fuzzy
 msgid "gdk-pixbuf-based bitmap export/import"
 msgstr "растровий імпорт/експорт оснований на gdk-pixbuf"
 
@@ -6416,30 +6307,26 @@ msgid "Printing error: command '%s' caused sigpipe."
 msgstr "Помилка друку: команда «%s» призвела до SIGPIPE."
 
 #: ../plug-ins/postscript/render_eps.c:150
-#, fuzzy
 msgid "Encapsulated PostScript (using Pango fonts)"
-msgstr "Encapsulated Postscript (з використанням шрифтів Pango)"
+msgstr "Encapsulated PostScript (з використанням шрифтів Pango)"
 
 #: ../plug-ins/postscript/render_eps.c:159
 msgid "Encapsulated Postscript with preview (using Pango fonts)"
-msgstr "Encapsulated Postscript з переглядом (з використанням шрифтів Pango)"
+msgstr "Encapsulated PostScript з переглядом (з використанням шрифтів Pango)"
 
 #: ../plug-ins/postscript/render_eps.c:169
-#, fuzzy
 msgid "Encapsulated PostScript (using PostScript Latin-1 fonts)"
-msgstr "Encapsulated Postscript (з використанням шрифтів Latin-1)"
+msgstr "Encapsulated PostScript (з використанням шрифтів Latin-1)"
 
 #: ../plug-ins/postscript/postscript.c:46
 msgid "Print (PS)"
 msgstr "Друк (PS)"
 
 #: ../plug-ins/postscript/postscript.c:70
-#, fuzzy
 msgid "PostScript Rendering"
-msgstr "Показ Postscript"
+msgstr "Показ PostScript"
 
 #: ../plug-ins/pstricks/pstricks.c:26
-#, fuzzy
 msgid "TeX PSTricks export filter"
 msgstr "Фільтр експорту файлів TeX PSTricks"
 
@@ -6463,7 +6350,6 @@ msgstr ""
 "буде завантажити у Діа"
 
 #: ../plug-ins/shape/shape-export.c:493
-#, fuzzy
 msgid "Can't export PNG icon without export plugin!"
 msgstr "Експорт до PNG неможливий без додатка експортування!"
 
@@ -6472,9 +6358,8 @@ msgid "Dia Shape File"
 msgstr "Файл форми Діа"
 
 #: ../plug-ins/shape/shape.c:36
-#, fuzzy
 msgid "Dia shape export filter"
-msgstr "фільтр експорту файлів форми dia"
+msgstr "Фільтр експорту файлів форми Діа"
 
 #: ../plug-ins/svg/svg-import.c:258
 msgid ""
@@ -6489,9 +6374,9 @@ msgid "Expected SVG Namespace not found in file"
 msgstr "У файлі не знайдено очікуваного простору назви SVG"
 
 #: ../plug-ins/svg/svg-import.c:942
-#, fuzzy, c-format
+#, c-format
 msgid "root element was '%s' — expecting 'svg'."
-msgstr "кореневий елемент був «%s», а очікувався 'svg'."
+msgstr "кореневий елемент був «%s», мало бути — «svg»."
 
 #: ../plug-ins/svg/svg.c:50
 msgid "Scalable Vector Graphics import and export filters"
@@ -6544,9 +6429,9 @@ msgid "Couldn't handle foreign object type %s"
 msgstr "Не вдалося керувати стороннім типом об'єктів %s"
 
 #: ../plug-ins/vdx/vdx-import.c:2096
-#, fuzzy, c-format
+#, c-format
 msgid "Couldn't make object directory %s"
-msgstr "Не вдалося створити теку об'єкта %s"
+msgstr "Не вдалося створити каталог об’єктів %s"
 
 #: ../plug-ins/vdx/vdx-import.c:3086
 msgid "Visio XML File Format"
@@ -6567,7 +6452,7 @@ msgid "Visio XML Format import and export filter"
 msgstr "Фільтр імпорту та експорту формату Visio XML"
 
 #: ../plug-ins/wmf/wmf.cpp:552
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Cannot render unknown font:\n"
 "%s"
@@ -6581,7 +6466,6 @@ msgid "Couldn't open: '%s' for writing.\n"
 msgstr "Не вдалося відкрити: «%s» для записування.\n"
 
 #: ../plug-ins/wmf/wmf.cpp:1489
-#, fuzzy
 msgid "Print (GDI)…"
 msgstr "Друк (GDI)…"
 
@@ -6603,24 +6487,22 @@ msgid "WordPerfect Graphics export filter"
 msgstr "Фільтр експорту в WordPerfect Graphics"
 
 #: ../plug-ins/xfig/xfig-export.c:464
-#, fuzzy, c-format
+#, c-format
 msgid "Fig format has no equivalent of arrow style %s; using simple arrow.\n"
 msgstr ""
-"Формат FIG не має аналога для стилю стрілок %s, використовується проста "
+"Формат Fig не має аналога для стилю стрілок %s, використовується проста "
 "стрілка.\n"
 
 #: ../plug-ins/xfig/xfig-export.c:487
-#, fuzzy
 msgid "No more user-definable colors — using black"
 msgstr "Недостатньо визначених користувачем кольорів — використовується чорний"
 
 #: ../plug-ins/xfig/xfig-export.c:1211
-#, fuzzy
 msgid "Xfig format"
-msgstr "Формат XFig"
+msgstr "Формат Xfig"
 
 #: ../plug-ins/xfig/xfig-import.c:111
-#, fuzzy, c-format
+#, c-format
 msgid "Color index %d too high; only 512 colors allowed. Using black instead."
 msgstr ""
 "Номер кольору %d завеликий, підтримуються лише 512 кольорів. Замінено на "
@@ -6631,7 +6513,6 @@ msgid "Patterns are not supported by Dia"
 msgstr "Шаблони не підтримуються Діа"
 
 #: ../plug-ins/xfig/xfig-import.c:166
-#, fuzzy
 msgid "Triple-dotted lines are not supported by Dia; using double-dotted"
 msgstr "Трьохточкові лінії не підтримуються Діа, використовуються двоточкові."
 
@@ -6655,9 +6536,9 @@ msgid "Unknown arrow type %d\n"
 msgstr "Невідомий тип стрілки %d\n"
 
 #: ../plug-ins/xfig/xfig-import.c:379
-#, fuzzy, c-format
+#, c-format
 msgid "Depth %d out of range; only 0–%d allowed.\n"
-msgstr "Глибина %d за межами доступних, підтримуються тільки значення 0-%d.\n"
+msgstr "Глибина %d за межами доступних, підтримуються лише значення 0-%d.\n"
 
 #: ../plug-ins/xfig/xfig-import.c:426
 #, c-format
@@ -6675,9 +6556,8 @@ msgid "Couldn't read flipped bit: %s\n"
 msgstr "Не вдалося прочитати віддзеркалений біт: %s\n"
 
 #: ../plug-ins/xfig/xfig-import.c:527
-#, fuzzy
 msgid "Negative corner radius; negating"
-msgstr "Від'ємний радіус кута, змінюється знак"
+msgstr "Від'ємний радіус кута, змінюємо знак"
 
 #: ../plug-ins/xfig/xfig-import.c:570
 #, c-format
@@ -6721,18 +6601,18 @@ msgid "Couldn't read text info: %s\n"
 msgstr "Не вдалося прочитати інформацію про текст: %s\n"
 
 #: ../plug-ins/xfig/xfig-import.c:1019
-#, fuzzy, c-format
+#, c-format
 msgid "Couldn't identify Fig object: %s\n"
-msgstr "Не вдалося ідентифікувати FIG об'єкт: %s\n"
+msgstr "Не вдалося ідентифікувати Fig-об'єкт: %s\n"
 
 #: ../plug-ins/xfig/xfig-import.c:1027
 msgid "Compound end outside compound\n"
 msgstr "Кінець з'єднання за межами з'єднання\n"
 
 #: ../plug-ins/xfig/xfig-import.c:1051
-#, fuzzy, c-format
+#, c-format
 msgid "Color number %d out of range 0–%d.  Discarding color.\n"
-msgstr "Номер кольору %d знаходиться за межами 0..%d.  Колір відкинуто.\n"
+msgstr "Номер кольору %d знаходиться за межами 0–%d.  Колір відкинуто.\n"
 
 #: ../plug-ins/xfig/xfig-import.c:1097
 #, c-format
@@ -6791,14 +6671,13 @@ msgstr "Помилка при зчитуванні прозорого кольо
 
 #: ../plug-ins/xfig/xfig-import.c:1234 ../plug-ins/xfig/xfig-import.c:1292
 #: ../plug-ins/xfig/xfig-import.c:1310
-#, fuzzy, c-format
+#, c-format
 msgid "Error reading Fig file: %s\n"
-msgstr "Помилка зчитування FIG-файла: %s\n"
+msgstr "Помилка зчитування Fig-файла: %s\n"
 
 #: ../plug-ins/xfig/xfig-import.c:1236 ../plug-ins/xfig/xfig-import.c:1294
-#, fuzzy
 msgid "Premature end of Fig file\n"
-msgstr "Передчасне завершення FIG файла\n"
+msgstr "Передчасне завершення Fig-файла\n"
 
 #: ../plug-ins/xfig/xfig-import.c:1245
 #, c-format
@@ -6811,14 +6690,13 @@ msgid "Doesn't look like a Fig file: %s\n"
 msgstr "Не схоже на файл Fig: %s\n"
 
 #: ../plug-ins/xfig/xfig-import.c:1285
-#, fuzzy, c-format
+#, c-format
 msgid "This is a Fig version %d.%d file. It may not be importable.\n"
-msgstr "Цей файл FIG версії %d.%d, можливо він не буде розпізнаний\n"
+msgstr "Це файл Fig версії %d.%d. Можливо, його не вдасться обробити.\n"
 
 #: ../plug-ins/xfig/xfig-import.c:1333
-#, fuzzy
 msgid "Xfig File Format"
-msgstr "Формат файла XFig"
+msgstr "Формат файла Xfig"
 
 #: ../plug-ins/xfig/xfig.c:51
 msgid "Fig Format import and export filter"
@@ -6859,7 +6737,6 @@ msgid "XSL Transformation filter"
 msgstr "Фільтр перетворення XSL"
 
 #: ../plug-ins/xslt/xslt.c:363
-#, fuzzy
 msgid "No valid configuration files found for the XSLT plugin; not loading."
 msgstr ""
 "Не знайдено коректного конфігураційного файла для додаткового модуля XSLT, "
@@ -6941,12 +6818,10 @@ msgid "Chevron"
 msgstr "Шеврон"
 
 #: ../sheets/Assorted.sheet.in.h:8
-#, fuzzy
 msgid "Curved eight-point star"
 msgstr "Викривлена восьмикутна зірка"
 
 #: ../sheets/Assorted.sheet.in.h:9
-#, fuzzy
 msgid "Curved four-point star"
 msgstr "Викривлена чотирикутна зірка"
 
@@ -6959,33 +6834,28 @@ msgid "Down arrow"
 msgstr "Стрілка вниз"
 
 #: ../sheets/Assorted.sheet.in.h:12
-#, fuzzy
 msgid "Eight-point star"
 msgstr "Восьмикутна зірка"
 
 #: ../sheets/Assorted.sheet.in.h:13
-#, fuzzy
 msgid "Five-point star"
-msgstr "П'ятикутна зірка"
+msgstr "Зірка з п’ятьма променями"
 
 #: ../sheets/Assorted.sheet.in.h:14
-#, fuzzy
 msgid "Four-point star"
-msgstr "Чотирикутна зірка"
+msgstr "Зірка з чотирма променями"
 
 #: ../sheets/Assorted.sheet.in.h:15
 msgid "Heart"
 msgstr "Серце"
 
 #: ../sheets/Assorted.sheet.in.h:16
-#, fuzzy
 msgid "Heptagon. Seven-point shape"
-msgstr "Семикутник. Семисторонній багатогранник."
+msgstr "Семикутник"
 
 #: ../sheets/Assorted.sheet.in.h:17
-#, fuzzy
 msgid "Hexagon. Six-point shape"
-msgstr "Шестикутник. Шестигранній багатогранник."
+msgstr "Шестикутник"
 
 #: ../sheets/Assorted.sheet.in.h:18
 msgid "Horizontal parallelogram"
@@ -7024,18 +6894,16 @@ msgid "Notched right arrow"
 msgstr "Зубчата стрілка праворуч"
 
 #: ../sheets/Assorted.sheet.in.h:27
-#, fuzzy
 msgid "Octogon. Eight-point shape"
-msgstr "Октогон. Восьмигранний багатогранник"
+msgstr "Восьмикутник"
 
 #: ../sheets/Assorted.sheet.in.h:28
 msgid "Pentagon block arrow"
 msgstr "П'ятигранний блок стрілка"
 
 #: ../sheets/Assorted.sheet.in.h:29
-#, fuzzy
 msgid "Pentagon. Five-point shape"
-msgstr "П'ятигранник. П'ятигранний багатогранник"
+msgstr "П'ятикутник"
 
 #: ../sheets/Assorted.sheet.in.h:30
 msgid "Perfect circle"
@@ -7066,19 +6934,16 @@ msgid "Right arrow"
 msgstr "Стрілка праворуч"
 
 #: ../sheets/Assorted.sheet.in.h:37
-#, fuzzy
 msgid "Seven-point star"
 msgstr "Семикутна зірка"
 
 #: ../sheets/Assorted.sheet.in.h:38
-#, fuzzy
 msgid "Sharp eight-point star"
 msgstr "Гостра восьмикутна зірка"
 
 #: ../sheets/Assorted.sheet.in.h:39
-#, fuzzy
 msgid "Six-point star"
-msgstr "Шестикутна зірка"
+msgstr "Зірка з шістьма променями"
 
 #: ../sheets/Assorted.sheet.in.h:40
 msgid "Sun"
@@ -7154,37 +7019,30 @@ msgid "End Event"
 msgstr "Кінцева подія"
 
 #: ../sheets/BPMN.sheet.in.h:12
-#, fuzzy
 msgid "End Event — Cancel"
 msgstr "Кінець події — Скасування"
 
 #: ../sheets/BPMN.sheet.in.h:13
-#, fuzzy
 msgid "End Event — Compensation"
 msgstr "Кінцева подія — Компенсування"
 
 #: ../sheets/BPMN.sheet.in.h:14
-#, fuzzy
 msgid "End Event — Error"
 msgstr "Кінець події — Помилка"
 
 #: ../sheets/BPMN.sheet.in.h:15
-#, fuzzy
 msgid "End Event — Link"
 msgstr "Кінцева подія — Посилання"
 
 #: ../sheets/BPMN.sheet.in.h:16
-#, fuzzy
 msgid "End Event — Message"
 msgstr "Кінець події — Повідомлення"
 
 #: ../sheets/BPMN.sheet.in.h:17
-#, fuzzy
 msgid "End Event — Multiple"
 msgstr "Кінець події — Множення"
 
 #: ../sheets/BPMN.sheet.in.h:18
-#, fuzzy
 msgid "End Event — Terminate"
 msgstr "Кінець події — Переривання"
 
@@ -7213,42 +7071,34 @@ msgid "Intermediate Event"
 msgstr "Проміжна подія"
 
 #: ../sheets/BPMN.sheet.in.h:25
-#, fuzzy
 msgid "Intermediate Event — Cancel"
 msgstr "Проміжна подія — Скасування"
 
 #: ../sheets/BPMN.sheet.in.h:26
-#, fuzzy
 msgid "Intermediate Event — Compensation"
 msgstr "Проміжна подія — Компенсація"
 
 #: ../sheets/BPMN.sheet.in.h:27
-#, fuzzy
 msgid "Intermediate Event — Error"
 msgstr "Проміжна подія — Помилка"
 
 #: ../sheets/BPMN.sheet.in.h:28
-#, fuzzy
 msgid "Intermediate Event — Link"
 msgstr "Проміжна подія — Посилання"
 
 #: ../sheets/BPMN.sheet.in.h:29
-#, fuzzy
 msgid "Intermediate Event — Message"
 msgstr "Проміжна подія — Повідомлення"
 
 #: ../sheets/BPMN.sheet.in.h:30
-#, fuzzy
 msgid "Intermediate Event — Multiple"
 msgstr "Проміжна подія — Множення"
 
 #: ../sheets/BPMN.sheet.in.h:31
-#, fuzzy
 msgid "Intermediate Event — Rule"
 msgstr "Проміжна подія — Правило"
 
 #: ../sheets/BPMN.sheet.in.h:32
-#, fuzzy
 msgid "Intermediate Event — Timer"
 msgstr "Проміжна подія — Таймер"
 
@@ -7273,27 +7123,22 @@ msgid "Start Event"
 msgstr "Початкова подія"
 
 #: ../sheets/BPMN.sheet.in.h:38
-#, fuzzy
 msgid "Start Event — Link"
 msgstr "Початкова подія — Посилання"
 
 #: ../sheets/BPMN.sheet.in.h:39
-#, fuzzy
 msgid "Start Event — Message"
 msgstr "Початкова подія — Повідомлення"
 
 #: ../sheets/BPMN.sheet.in.h:40
-#, fuzzy
 msgid "Start Event — Multiple"
 msgstr "Почати подію — Множення"
 
 #: ../sheets/BPMN.sheet.in.h:41
-#, fuzzy
 msgid "Start Event — Rule"
 msgstr "Почати подію — Правило"
 
 #: ../sheets/BPMN.sheet.in.h:42
-#, fuzzy
 msgid "Start Event — Timer"
 msgstr "Початкова подія — Таймер"
 
@@ -7535,9 +7380,8 @@ msgid "Horizontal jumper"
 msgstr "Горизонтальний перемикач"
 
 #: ../sheets/Circuit.sheet.in.h:5
-#, fuzzy
 msgid "Horizontal xtal"
-msgstr "Горизонтальна опора"
+msgstr "Горизонтальний п’єзоелемент"
 
 #: ../sheets/Circuit.sheet.in.h:6
 msgid "Horizontally aligned LED"
@@ -7564,7 +7408,6 @@ msgid "Horizontally aligned inductor (European)"
 msgstr "Горизонтально орієнтована індуктивність (Європа)"
 
 #: ../sheets/Circuit.sheet.in.h:12
-#, fuzzy
 msgid "Horizontally aligned power source"
 msgstr "Горизонтально орієнтоване джерело живлення"
 
@@ -7617,9 +7460,8 @@ msgid "Speaker"
 msgstr "Гучномовець"
 
 #: ../sheets/Circuit.sheet.in.h:28
-#, fuzzy
 msgid "Vertical xtal"
-msgstr "Вертикальна опора"
+msgstr "Вертикальний п’єзоелемент"
 
 #: ../sheets/Circuit.sheet.in.h:29
 msgid "Vertically aligned LED"
@@ -7646,7 +7488,6 @@ msgid "Vertically aligned inductor (European)"
 msgstr "Вертикально орієнтована індуктивність (Європа)"
 
 #: ../sheets/Circuit.sheet.in.h:35
-#, fuzzy
 msgid "Vertically aligned power source"
 msgstr "Вертикально орієнтоване джерело живлення"
 
@@ -7763,22 +7604,18 @@ msgid "High pass filter"
 msgstr "Фільтр високих частот"
 
 #: ../sheets/Cybernetics.sheet.in.h:12
-#, fuzzy
 msgid "Integrator — input bottom"
 msgstr "Інтегратор — вхід знизу"
 
 #: ../sheets/Cybernetics.sheet.in.h:13
-#, fuzzy
 msgid "Integrator — input left"
 msgstr "Інтегратор — вхід зліва"
 
 #: ../sheets/Cybernetics.sheet.in.h:14
-#, fuzzy
 msgid "Integrator — input right"
 msgstr "Інтегратор — вхід справа"
 
 #: ../sheets/Cybernetics.sheet.in.h:15
-#, fuzzy
 msgid "Integrator — input top"
 msgstr "Інтегратор — вхід зверху"
 
@@ -7799,22 +7636,18 @@ msgid "Saturation characteristic"
 msgstr "Функція насичення"
 
 #: ../sheets/Cybernetics.sheet.in.h:20
-#, fuzzy
 msgid "Sensor — bottom"
 msgstr "Датчик — знизу"
 
 #: ../sheets/Cybernetics.sheet.in.h:21
-#, fuzzy
 msgid "Sensor — left"
 msgstr "Датчик — зліва"
 
 #: ../sheets/Cybernetics.sheet.in.h:22
-#, fuzzy
 msgid "Sensor — right"
 msgstr "Датчик — справа"
 
 #: ../sheets/Cybernetics.sheet.in.h:23
-#, fuzzy
 msgid "Sensor — top"
 msgstr "Датчик — зверху"
 
@@ -8229,9 +8062,8 @@ msgid "Road Section"
 msgstr "Частка дороги"
 
 #: ../sheets/IsometricMap.sheet.in.h:24
-#, fuzzy
 msgid "Roof 1"
-msgstr "Дах1"
+msgstr "Дах 1"
 
 #: ../sheets/IsometricMap.sheet.in.h:25
 msgid "T-Junction"
@@ -8458,7 +8290,6 @@ msgid "Ellipsoidal Reflector Spotlight"
 msgstr "Промінь еліпсоїдального рефлектора"
 
 #: ../sheets/Lights.sheet.in.h:5
-#, fuzzy
 msgid "Fresnel lantern"
 msgstr "Освітлювач Френеля"
 
@@ -8511,9 +8342,8 @@ msgid "Boolean Logic"
 msgstr "Булева логіка"
 
 #: ../sheets/Logic.sheet.in.h:3
-#, fuzzy
 msgid "Cross-connector"
-msgstr "З'єднання на перехресті"
+msgstr "Крос-конектор"
 
 #: ../sheets/Logic.sheet.in.h:4 ../sheets/SISSI.sheet.in.h:27
 msgid "Inverter"
@@ -8588,9 +8418,8 @@ msgid "Measure distance"
 msgstr "Вимірювана відстань"
 
 #: ../sheets/Misc.sheet.in.h:4
-#, fuzzy
 msgid "Miscellaneous"
-msgstr "Різноманітні форми"
+msgstr "Різне"
 
 #: ../sheets/Misc.sheet.in.h:5
 msgid "Miscellaneous Shapes"
@@ -8613,12 +8442,10 @@ msgid "Tree"
 msgstr "Дерево"
 
 #: ../sheets/Misc.sheet.in.h:10
-#, fuzzy
 msgid "expanded node"
 msgstr "Розширений вузол"
 
 #: ../sheets/Misc.sheet.in.h:11
-#, fuzzy
 msgid "expansible node"
 msgstr "Придатний до розширення вузол"
 
@@ -8787,7 +8614,6 @@ msgid "State"
 msgstr "Стан"
 
 #: ../sheets/SISSI.sheet.in.h:1
-#, fuzzy
 msgid "Air conditioner"
 msgstr "Кондиціонер"
 
@@ -9060,9 +8886,8 @@ msgid "Editor for UML Static Structure Diagrams"
 msgstr "Редактор статичних структурних діаграм UML"
 
 #: ../sheets/UML.sheet.in.h:15
-#, fuzzy
 msgid "Fork/Union"
-msgstr "Розгалуження/об'єднання"
+msgstr "Розгалуження/Об'єднання"
 
 #: ../sheets/UML.sheet.in.h:16
 msgid "Generalization, class inheritance"
@@ -9073,9 +8898,8 @@ msgid "Implements, class implements a specific interface"
 msgstr "Здійснення — клас який здійснює певний інтерфейс"
 
 #: ../sheets/UML.sheet.in.h:18
-#, fuzzy
 msgid "Initial/End state"
-msgstr "Початковий/кінцевий стан"
+msgstr "Початковий/Кінцевий стан"
 
 #: ../sheets/UML.sheet.in.h:19
 msgid "Large package"
@@ -9142,7 +8966,6 @@ msgid "Cisco CA"
 msgstr "Cisco цент сертифікації (CA)"
 
 #: ../sheets/ciscocomputer.sheet.in.h:3
-#, fuzzy
 msgid "Cisco — Computer"
 msgstr "Cisco — комп'ютер"
 
@@ -9375,7 +9198,6 @@ msgid "Cisco Hub"
 msgstr "Cisco — Повторювач"
 
 #: ../sheets/ciscohub.sheet.in.h:17
-#, fuzzy
 msgid "Cisco — Switch"
 msgstr "Cisco — комутатор"
 
@@ -9620,7 +9442,6 @@ msgid "Car"
 msgstr "Машина"
 
 #: ../sheets/ciscomisc.sheet.in.h:7
-#, fuzzy
 msgid "Cisco — Miscellaneous"
 msgstr "Cisco — різне"
 
@@ -9873,7 +9694,6 @@ msgid "Channelized Pipe"
 msgstr "Канальна труба"
 
 #: ../sheets/cisconetwork.sheet.in.h:20
-#, fuzzy
 msgid "Cisco — Network"
 msgstr "Cisco — мережа"
 
@@ -10234,7 +10054,6 @@ msgid "Cellular Phone"
 msgstr "Стільниковий телефон"
 
 #: ../sheets/ciscotelephony.sheet.in.h:9
-#, fuzzy
 msgid "Cisco — Telephony"
 msgstr "Cisco — телефонія"
 
@@ -10547,84 +10366,68 @@ msgid "Jigsaw"
 msgstr "Головоломка"
 
 #: ../sheets/jigsaw.sheet.in.h:2
-#, fuzzy
 msgid "Jigsaw — part_iiii"
-msgstr "Головоломка, частина "
+msgstr "Складанка — частинка_iiii"
 
 #: ../sheets/jigsaw.sheet.in.h:3
-#, fuzzy
 msgid "Jigsaw — part_iiio"
-msgstr "Головоломка, частина iiio"
+msgstr "Складанка — _частина iiio"
 
 #: ../sheets/jigsaw.sheet.in.h:4
-#, fuzzy
 msgid "Jigsaw — part_iioi"
-msgstr "Головоломка, частина iioi"
+msgstr "Складанка — _частина iioi"
 
 #: ../sheets/jigsaw.sheet.in.h:5
-#, fuzzy
 msgid "Jigsaw — part_iioo"
-msgstr "Головоломка, частина iioo"
+msgstr "Складанка — _частина iioo"
 
 #: ../sheets/jigsaw.sheet.in.h:6
-#, fuzzy
 msgid "Jigsaw — part_ioii"
-msgstr "Головоломка, частина iioo"
+msgstr "Складанка — _частина iioo"
 
 #: ../sheets/jigsaw.sheet.in.h:7
-#, fuzzy
 msgid "Jigsaw — part_ioio"
-msgstr "Головоломка, частина ioio"
+msgstr "Складанка — _частина ioio"
 
 #: ../sheets/jigsaw.sheet.in.h:8
-#, fuzzy
 msgid "Jigsaw — part_iooi"
-msgstr "Головоломка, частина iooi"
+msgstr "Складанка — _частина iooi"
 
 #: ../sheets/jigsaw.sheet.in.h:9
-#, fuzzy
 msgid "Jigsaw — part_iooo"
-msgstr "Головоломка, частина iooo"
+msgstr "Складанка — _частина iooo"
 
 #: ../sheets/jigsaw.sheet.in.h:10
-#, fuzzy
 msgid "Jigsaw — part_oiii"
-msgstr "Головоломка, частина oiii"
+msgstr "Складанка — _частина oiii"
 
 #: ../sheets/jigsaw.sheet.in.h:11
-#, fuzzy
 msgid "Jigsaw — part_oiio"
-msgstr "Головоломка, частина oiio"
+msgstr "Складанка — _частина oiio"
 
 #: ../sheets/jigsaw.sheet.in.h:12
-#, fuzzy
 msgid "Jigsaw — part_oioi"
-msgstr "Головоломка, частина oioi"
+msgstr "Складанка — _частина oioi"
 
 #: ../sheets/jigsaw.sheet.in.h:13
-#, fuzzy
 msgid "Jigsaw — part_oioo"
-msgstr "Головоломка, частина oioo"
+msgstr "Складанка — _частина oioo"
 
 #: ../sheets/jigsaw.sheet.in.h:14
-#, fuzzy
 msgid "Jigsaw — part_ooii"
-msgstr "Головоломка, частина ooii"
+msgstr "Складанка — _частина ooii"
 
 #: ../sheets/jigsaw.sheet.in.h:15
-#, fuzzy
 msgid "Jigsaw — part_ooio"
-msgstr "Головоломка, частина ooio"
+msgstr "Складанка — _частина ooio"
 
 #: ../sheets/jigsaw.sheet.in.h:16
-#, fuzzy
 msgid "Jigsaw — part_oooi"
-msgstr "Головоломка, частина oooi"
+msgstr "Складанка — _частина oooi"
 
 #: ../sheets/jigsaw.sheet.in.h:17
-#, fuzzy
 msgid "Jigsaw — part_oooo"
-msgstr "Головоломка, частина oooo"
+msgstr "Складанка — _частина oooo"
 
 #: ../sheets/jigsaw.sheet.in.h:18
 msgid "Pieces of a jigsaw"
