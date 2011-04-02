@@ -539,7 +539,7 @@ prefs_get_property_widget(DiaPrefData *data)
          names != NULL;
 	 names = g_list_next(names)) {
 #if GTK_CHECK_VERSION(2,24,0)
-      gtk_combo_box_text_append_text (GTK_COMBO_BOX (widget), (gchar *)names->data);
+      gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (widget), (gchar *)names->data);
 #else
       gtk_combo_box_append_text (GTK_COMBO_BOX (widget), (gchar *)names->data);
 #endif
