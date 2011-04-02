@@ -211,7 +211,7 @@ pixbufprop_set_from_offset(PixbufProperty *prop,
 static void
 _pixbuf_toggled(GtkWidget *wid)
 {
-  if (GTK_TOGGLE_BUTTON(wid)->active)
+  if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(wid)))
     gtk_label_set_text(GTK_LABEL(GTK_BIN(wid)->child), _("Yes"));
   else
     gtk_label_set_text(GTK_LABEL(GTK_BIN(wid)->child), _("No"));
@@ -236,7 +236,7 @@ pixbufprop_reset_widget(PixbufProperty *prop, GtkWidget *widget)
 static void 
 pixbufprop_set_from_widget(PixbufProperty *prop, GtkWidget *widget) 
 {
-  if (GTK_TOGGLE_BUTTON(widget)->active) {
+  if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(widget))) {
     if (!prop->pixbuf)
       message_warning (_("Cant create image data from scratch!"));
   } else {

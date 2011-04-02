@@ -429,7 +429,7 @@ dia_page_layout_set_margins(DiaPageLayout *self,
 DiaPageOrientation
 dia_page_layout_get_orientation(DiaPageLayout *self)
 {
-  if (GTK_TOGGLE_BUTTON(self->orient_portrait)->active)
+  if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(self->orient_portrait)))
     return DIA_PAGE_ORIENT_PORTRAIT;
   else
     return DIA_PAGE_ORIENT_LANDSCAPE;
@@ -454,7 +454,7 @@ dia_page_layout_set_orientation(DiaPageLayout *self,
 gboolean
 dia_page_layout_get_fitto(DiaPageLayout *self)
 {
-  return GTK_TOGGLE_BUTTON(self->fitto)->active;
+  return gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(self->fitto));
 }
 
 void
@@ -507,7 +507,7 @@ dia_page_layout_get_effective_area(DiaPageLayout *self, gfloat *width,
 {
   gfloat h, w, scaling;
 
-  if (GTK_TOGGLE_BUTTON(self->orient_portrait)->active) {
+  if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(self->orient_portrait))) {
     w = get_paper_pswidth(self->papernum);
     h = get_paper_psheight(self->papernum);
   } else {
@@ -572,7 +572,7 @@ size_page(DiaPageLayout *self, GtkAllocation *a)
   self->height = a->height - 3;
 
   /* change to correct metrics */
-  if (GTK_TOGGLE_BUTTON(self->orient_portrait)->active) {
+  if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(self->orient_portrait))) {
     if (self->width * get_paper_psheight(self->papernum) >
 	self->height * get_paper_pswidth(self->papernum))
       self->width = self->height * get_paper_pswidth(self->papernum) /
@@ -632,7 +632,7 @@ darea_expose_event(DiaPageLayout *self, GdkEventExpose *event)
   gdk_gc_set_foreground(self->gc, &self->blue);
 
   /* draw margins */
-  if (GTK_TOGGLE_BUTTON(self->orient_portrait)->active) {
+  if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(self->orient_portrait))) {
     val = dia_unit_spinner_get_value(DIA_UNIT_SPINNER(self->tmargin));
     num = self->y + val * self->height /get_paper_psheight(self->papernum);
     gdk_draw_line(window, self->gc, self->x+1, num, self->x+self->width-2,num);
@@ -704,7 +704,7 @@ paper_size_change(GtkWidget *widget, DiaPageLayout *self)
   dia_unit_spinner_set_value(DIA_UNIT_SPINNER(self->rmargin),
 			     get_paper_rmargin(self->papernum));
 
-  if (GTK_TOGGLE_BUTTON(self->orient_portrait)->active) {
+  if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(self->orient_portrait))) {
     dia_unit_spinner_set_upper (DIA_UNIT_SPINNER(self->tmargin),
       max_margin(get_paper_psheight(self->papernum)));
     dia_unit_spinner_set_upper (DIA_UNIT_SPINNER(self->bmargin),
@@ -739,7 +739,7 @@ orient_changed(DiaPageLayout *self)
   size_page(self, &self->darea->allocation);
   gtk_widget_queue_draw(self->darea);
 
-  if (GTK_TOGGLE_BUTTON(self->orient_portrait)->active) {
+  if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(self->orient_portrait))) {
     dia_unit_spinner_set_upper (DIA_UNIT_SPINNER(self->tmargin),
       max_margin(get_paper_psheight(self->papernum)));
     dia_unit_spinner_set_upper (DIA_UNIT_SPINNER(self->bmargin),
@@ -774,7 +774,7 @@ margin_changed(DiaPageLayout *self)
 static void
 scalemode_changed(DiaPageLayout *self)
 {
-  if (GTK_TOGGLE_BUTTON(self->fitto)->active) {
+  if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(self->fitto))) {
     gtk_widget_set_sensitive(self->scaling, FALSE);
     gtk_widget_set_sensitive(self->fitw, TRUE);
     gtk_widget_set_sensitive(self->fith, TRUE);

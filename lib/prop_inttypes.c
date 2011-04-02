@@ -155,7 +155,7 @@ static const PropertyOps charprop_ops = {
 static void
 bool_toggled(GtkWidget *wid)
 {
-  if (GTK_TOGGLE_BUTTON(wid)->active)
+  if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(wid)))
     gtk_label_set_text(GTK_LABEL(GTK_BIN(wid)->child), _("Yes"));
   else
     gtk_label_set_text(GTK_LABEL(GTK_BIN(wid)->child), _("No"));
@@ -200,7 +200,7 @@ boolprop_reset_widget(BoolProperty *prop, WIDGET *widget)
 static void 
 boolprop_set_from_widget(BoolProperty *prop, WIDGET *widget) 
 {
-  prop->bool_data = GTK_TOGGLE_BUTTON(widget)->active;
+  prop->bool_data = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(widget));
 }
 
 static void 

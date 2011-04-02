@@ -424,7 +424,7 @@ prefs_get_value_from_widget(GtkWidget * widget, DiaPrefData *data,
   switch(data->type) {
   case PREF_BOOLEAN: {
       int prev = *((int *)ptr);
-      *((int *)ptr) = GTK_TOGGLE_BUTTON(widget)->active;
+      *((int *)ptr) = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(widget));
       changed = (prev != *((int *)ptr));
     }
     break;
@@ -474,7 +474,7 @@ prefs_get_value_from_widget(GtkWidget * widget, DiaPrefData *data,
 static void
 prefs_boolean_toggle(GtkWidget *widget, gpointer data)
 {
-  guint active = GTK_TOGGLE_BUTTON(widget)->active;
+  gboolean active = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(widget));
   gtk_button_set_label(GTK_BUTTON(widget), active ? _("Yes") : _("No"));
 }
 
