@@ -154,8 +154,8 @@ _node_set_color (xmlNodePtr node, const char *name, const Color *color)
   gchar *value;
   
   value = g_strdup_printf ("#%02x%02x%02x",
-		           (int)ceil(255*color->red), (int)ceil(255*color->green),
-		           (int)ceil(255*color->blue));
+		           (int)(255*color->red), (int)(255*color->green),
+		           (int)(255*color->blue));
   xmlSetProp(node, (const xmlChar *)name, (xmlChar *)value);
   g_free (value);
 }
