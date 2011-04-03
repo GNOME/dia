@@ -30,7 +30,7 @@ TOP = ..\..\..
 PRJ_TOP = ..\..
 PKG_DEF = ..\objects.def
 
-!INCLUDE $(TOP)\glib\build\win32\make.msc
+!INCLUDE $(PRJ_TOP)\dia-make.msc
 
 DEFINES = \
 	-DHAVE_CONFIG_H \
