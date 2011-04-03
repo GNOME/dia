@@ -297,6 +297,7 @@ static WIDGET *
 colorprop_get_widget(ColorProperty *prop, PropDialog *dialog)
 { 
   GtkWidget *ret = dia_color_selector_new();
+  dia_color_selector_set_use_alpha (ret, TRUE);
   prophandler_connect(&prop->common, G_OBJECT(ret), "value-changed");
   return ret;
 }
