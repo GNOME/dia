@@ -53,7 +53,10 @@ OBJECTS = \
 	create.obj \
 	debug.obj \
 	diaarrowchooser.obj \
+	diaarrowselector.obj \
+	diacolorselector.obj \
 	dialinechooser.obj \
+	dialinestyleselector.obj \
 	dialogs.obj \
 	diatransform.obj \
 	dia_dirs.obj \

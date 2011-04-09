@@ -161,6 +161,9 @@ libdia_la_SOURCES =  \
 		render_pixmap.c \
 		diaarrowchooser.h \
 		diaarrowchooser.c \
+		diaarrowselector.c \
+		diacolorselector.c \
+		dialinestyleselector.c \
 		dialinechooser.h \
 		dialinechooser.c \
 		diadynamicmenu.h \

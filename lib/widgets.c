@@ -19,17 +19,12 @@
 #include <config.h>
 #include <string.h>
 #include "intl.h"
-#undef GTK_DISABLE_DEPRECATED /* GtkOptionMenu, ... */
 #include "widgets.h"
 #include "units.h"
 #include "message.h"
 #include "dia_dirs.h"
-#include "arrows.h"
-#include "diaarrowchooser.h"
-#include "dialinechooser.h"
 #include "diadynamicmenu.h"
 #include "diaoptionmenu.h"
-#include "persistence.h"
 #include "dia-lib-icons.h"
 
 #include <stdlib.h>
@@ -69,18 +64,11 @@ enum {
 static guint dss_signals[DSS_LAST_SIGNAL] = { 0 };
 
 static void
-dia_size_selector_unrealize(GtkWidget *widget)
-{
-  (* GTK_WIDGET_CLASS (gtk_type_class(gtk_hbox_get_type ()))->unrealize) (widget);
-}
-
-static void
 dia_size_selector_class_init (DiaSizeSelectorClass *class)
 {
   GtkWidgetClass *widget_class;
   
   widget_class = (GtkWidgetClass*) class;
-  widget_class->unrealize = dia_size_selector_unrealize;
 
   dss_signals[DSS_VALUE_CHANGED]
       = g_signal_new("value-changed",
@@ -210,27 +198,28 @@ dia_size_selector_init (DiaSizeSelector *ss)
 		   G_CALLBACK(dia_size_selector_ratio_callback), (gpointer)ss);
 }
 
-GtkType
+GType
 dia_size_selector_get_type (void)
 {
-  static GtkType dss_type = 0;
+  static GType dss_type = 0;
 
   if (!dss_type) {
-    static const GtkTypeInfo dss_info = {
-      "DiaSizeSelector",
-      sizeof (DiaSizeSelector),
+    static const GTypeInfo dss_info = {
       sizeof (DiaSizeSelectorClass),
-      (GtkClassInitFunc) dia_size_selector_class_init,
-      (GtkObjectInitFunc) dia_size_selector_init,
-      NULL,
-      NULL,
-      (GtkClassInitFunc) NULL,
+      (GBaseInitFunc)NULL,
+      (GBaseFinalizeFunc)NULL,
+      (GClassInitFunc)dia_size_selector_class_init,
+      NULL, /* class_finalize */
+      NULL, /* class_data */
+      sizeof (DiaSizeSelector),
+      0, /* n_preallocs */
+      (GInstanceInitFunc) dia_size_selector_init
     };
     
-    dss_type = gtk_type_unique (gtk_hbox_get_type (), &dss_info);
-
+    dss_type = g_type_register_static (gtk_hbox_get_type (),
+				       "DiaSizeSelector",
+				       &dss_info, 0);
   }
-  
   return dss_type;
 }
 
@@ -239,7 +228,7 @@ dia_size_selector_new (real width, real height)
 {
   GtkWidget *wid;
 
-  wid = GTK_WIDGET ( gtk_type_new (dia_size_selector_get_type ()));
+  wid = GTK_WIDGET ( g_object_new (dia_size_selector_get_type (), NULL));
   dia_size_selector_set_size(DIA_SIZE_SELECTOR(wid), width, height);
   return wid;
 }
@@ -301,752 +290,6 @@ dia_alignment_selector_set_alignment (GtkWidget *as,
   dia_option_menu_set_active (GTK_WIDGET (as), align);
 }
 
-/************* DiaLineStyleSelector: ***************/
-struct _DiaLineStyleSelector
-{
-  GtkVBox vbox;
-
-  GtkOptionMenu *omenu;
-  GtkMenu *linestyle_menu;
-  GtkLabel *lengthlabel;
-  GtkSpinButton *dashlength;
-    
-};
-
-struct _DiaLineStyleSelectorClass
-{
-  GtkVBoxClass parent_class;
-};
-
-enum {
-    DLS_VALUE_CHANGED,
-    DLS_LAST_SIGNAL
-};
-
-static guint dls_signals[DLS_LAST_SIGNAL] = { 0 };
-
-static void
-dia_line_style_selector_class_init (DiaLineStyleSelectorClass *class)
-{
-  dls_signals[DLS_VALUE_CHANGED]
-      = g_signal_new("value-changed",
-		     G_TYPE_FROM_CLASS(class),
-		     G_SIGNAL_RUN_FIRST,
-		     0, NULL, NULL,
-		     g_cclosure_marshal_VOID__VOID,
-		     G_TYPE_NONE, 0);
-}
-
-static void
-set_linestyle_sensitivity(DiaLineStyleSelector *fs)
-{
-  int state;
-  GtkWidget *menuitem;
-  if (!fs->linestyle_menu) return;
-  menuitem = gtk_menu_get_active(fs->linestyle_menu);
-  state = (GPOINTER_TO_INT(g_object_get_data(G_OBJECT(menuitem), "user_data"))
-	   != LINESTYLE_SOLID);
-
-  gtk_widget_set_sensitive(GTK_WIDGET(fs->lengthlabel), state);
-  gtk_widget_set_sensitive(GTK_WIDGET(fs->dashlength), state);
-}
-
-static void
-linestyle_type_change_callback(GtkMenu *menu, gpointer data)
-{
-  set_linestyle_sensitivity(DIALINESTYLESELECTOR(data));
-  g_signal_emit(DIALINESTYLESELECTOR(data),
-		dls_signals[DLS_VALUE_CHANGED], 0);
-}
-
-static void
-linestyle_dashlength_change_callback(GtkSpinButton *sb, gpointer data)
-{
-  g_signal_emit(DIALINESTYLESELECTOR(data),
-		dls_signals[DLS_VALUE_CHANGED], 0);
-}
-
-static void
-dia_line_style_selector_init (DiaLineStyleSelector *fs)
-{
-  GtkWidget *menu;
-  GtkWidget *submenu;
-  GtkWidget *menuitem, *ln;
-  GtkWidget *label;
-  GtkWidget *length;
-  GtkWidget *box;
-  GSList *group;
-  GtkAdjustment *adj;
-  gint i;
-  
-  menu = gtk_option_menu_new();
-  fs->omenu = GTK_OPTION_MENU(menu);
-
-  menu = gtk_menu_new ();
-  fs->linestyle_menu = GTK_MENU(menu);
-  submenu = NULL;
-  group = NULL;
-
-  for (i = 0; i <= LINESTYLE_DOTTED; i++) {
-    menuitem = gtk_menu_item_new();
-    g_object_set_data(G_OBJECT(menuitem), "user_data", GINT_TO_POINTER(i));
-    ln = dia_line_preview_new(i);
-    gtk_container_add(GTK_CONTAINER(menuitem), ln);
-    gtk_widget_show(ln);
-    gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
-    gtk_widget_show(menuitem);
-  }
-#if 0
-  menuitem = gtk_radio_menu_item_new_with_label (group, _("Solid"));
-  g_object_set_data(G_OBJECT(menuitem), "user_data", GINT_TO_POINTER(LINESTYLE_SOLID));
-  group = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM (menuitem));
-  gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
-  gtk_widget_show (menuitem);
-
-  menuitem = gtk_radio_menu_item_new_with_label (group, _("Dashed"));
-  g_object_set_data(G_OBJECT(menuitem), "user_data", GINT_TO_POINTER(LINESTYLE_DASHED));
-  group = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM (menuitem));
-  gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
-  gtk_widget_show (menuitem);
-
-  menuitem = gtk_radio_menu_item_new_with_label (group, _("Dash-Dot"));
-  g_object_set_data(G_OBJECT(menuitem), "user_data", GINT_TO_POINTER(LINESTYLE_DASH_DOT));
-  group = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM (menuitem));
-  gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
-  gtk_widget_show (menuitem);
-
-  menuitem = gtk_radio_menu_item_new_with_label (group, _("Dash-Dot-Dot"));
-  g_object_set_data(G_OBJECT(menuitem), "user_data", GINT_TO_POINTER(LINESTYLE_DASH_DOT_DOT));
-  group = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM (menuitem));
-  gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
-  gtk_widget_show (menuitem);
-  
-  menuitem = gtk_radio_menu_item_new_with_label (group, _("Dotted"));
-  g_object_set_data(G_OBJECT(menuitem), "user_data", GINT_TO_POINTER(LINESTYLE_DOTTED));
-  group = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM (menuitem));
-  gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
-  gtk_widget_show (menuitem);
-#endif
-  
-  gtk_menu_set_active(GTK_MENU (menu), DEFAULT_LINESTYLE);
-  gtk_option_menu_set_menu (GTK_OPTION_MENU (fs->omenu), menu);
-  g_signal_connect(GTK_OBJECT(menu), "selection-done", 
-		   G_CALLBACK(linestyle_type_change_callback), fs);
- 
-  gtk_box_pack_start(GTK_BOX(fs), GTK_WIDGET(fs->omenu), FALSE, TRUE, 0);
-  gtk_widget_show(GTK_WIDGET(fs->omenu));
-
-  box = gtk_hbox_new(FALSE,0);
-  /*  fs->sizebox = GTK_HBOX(box); */
-
-  label = gtk_label_new(_("Dash length: "));
-  fs->lengthlabel = GTK_LABEL(label);
-  gtk_box_pack_start(GTK_BOX(box), label, TRUE, TRUE, 0);
-  gtk_widget_show(label);
-
-  adj = (GtkAdjustment *)gtk_adjustment_new(0.1, 0.00, 10.0, 0.1, 1.0, 0);
-  length = gtk_spin_button_new(adj, DEFAULT_LINESTYLE_DASHLEN, 2);
-  gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(length), TRUE);
-  gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(length), TRUE);
-  fs->dashlength = GTK_SPIN_BUTTON(length);
-  gtk_box_pack_start(GTK_BOX (box), length, TRUE, TRUE, 0);
-  gtk_widget_show (length);
-
-  g_signal_connect(GTK_OBJECT(length), "changed", 
-		   G_CALLBACK(linestyle_dashlength_change_callback), fs);
-
-  set_linestyle_sensitivity(fs);
-  gtk_box_pack_start(GTK_BOX(fs), box, TRUE, TRUE, 0);
-  gtk_widget_show(box);
-  
-}
-
-GtkType
-dia_line_style_selector_get_type        (void)
-{
-  static GtkType dfs_type = 0;
-
-  if (!dfs_type) {
-    static const GtkTypeInfo dfs_info = {
-      "DiaLineStyleSelector",
-      sizeof (DiaLineStyleSelector),
-      sizeof (DiaLineStyleSelectorClass),
-      (GtkClassInitFunc) dia_line_style_selector_class_init,
-      (GtkObjectInitFunc) dia_line_style_selector_init,
-      NULL,
-      NULL,
-      (GtkClassInitFunc) NULL,
-    };
-    
-    dfs_type = gtk_type_unique (gtk_vbox_get_type (), &dfs_info);
-  }
-  
-  return dfs_type;
-}
-
-GtkWidget *
-dia_line_style_selector_new ()
-{
-  return GTK_WIDGET ( gtk_type_new (dia_line_style_selector_get_type ()));
-}
-
-
-void 
-dia_line_style_selector_get_linestyle(DiaLineStyleSelector *fs, 
-				      LineStyle *ls, real *dl)
-{
-  GtkWidget *menuitem;
-  void *align;
-  
-  menuitem = gtk_menu_get_active(fs->linestyle_menu);
-  align = g_object_get_data(G_OBJECT(menuitem), "user_data");
-  *ls = GPOINTER_TO_INT(align);
-  if (dl!=NULL) {
-    *dl = gtk_spin_button_get_value(fs->dashlength);
-  }
-}
-
-void
-dia_line_style_selector_set_linestyle (DiaLineStyleSelector *as,
-				       LineStyle linestyle, real dashlength)
-{
-  gtk_menu_set_active(GTK_MENU (as->linestyle_menu), linestyle);
-  gtk_option_menu_set_history (GTK_OPTION_MENU(as->omenu), linestyle);
-/* TODO restore this later */
-/*  gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(gtk_menu_get_active(GTK_MENU(as->linestyle_menu))), TRUE);*/
-  set_linestyle_sensitivity(DIALINESTYLESELECTOR(as));
-  gtk_spin_button_set_value(GTK_SPIN_BUTTON(as->dashlength), dashlength);
-}
-
-
-
-/************* DiaColorSelector: ***************/
-struct _DiaColorSelector
-{
-  GtkHBox         hbox; /* just contaning the other two widgets */
-  DiaDynamicMenu *ddm; /* the widget previously alone */
-  GtkColorButton *color_button; /* to reflect alpha */
-  gboolean        use_alpha;
-};
-struct _DiaColorSelectorClass
-{
-  GtkHBoxClass parent_class;
-};
-enum {
-  DIA_COLORSEL_VALUE_CHANGED,
-  DIA_COLORSEL_LAST_SIGNAL
-};
-static guint dia_colorsel_signals[DIA_COLORSEL_LAST_SIGNAL] = { 0 };
-
-static GtkWidget *dia_color_selector_menu_new (DiaColorSelector *cs);
-
-static void
-dia_color_selector_class_init (DiaColorSelector *class)
-{
-  dia_colorsel_signals[DIA_COLORSEL_VALUE_CHANGED]
-      = g_signal_new("value_changed",
-		     G_TYPE_FROM_CLASS(class),
-		     G_SIGNAL_RUN_FIRST,
-		     0, NULL, NULL,
-		     g_cclosure_marshal_VOID__VOID,
-		     G_TYPE_NONE, 0);
-}
-static void
-dia_color_selector_color_set (GtkColorButton *button, gpointer user_data)
-{
-  DiaColorSelector *cs = DIACOLORSELECTOR(user_data);
-  gchar *entry;
-  GdkColor gcol;
-
-  gtk_color_button_get_color (button, &gcol);
-
-  entry = g_strdup_printf("#%02X%02X%02X", gcol.red/256, gcol.green/256, gcol.blue/256);
-  dia_dynamic_menu_select_entry(cs->ddm, entry);
-  g_free(entry);
-
-  g_signal_emit (G_OBJECT (cs), dia_colorsel_signals[DIA_COLORSEL_VALUE_CHANGED], 0);
-}
-static void
-dia_color_selector_value_changed (DiaDynamicMenu *ddm, gpointer user_data)
-{
-  DiaColorSelector *cs = DIACOLORSELECTOR(user_data);
-  gchar *entry = dia_dynamic_menu_get_entry(cs->ddm);
-  GdkColor gcol;
-
-  gdk_color_parse (entry, &gcol);
-  g_free(entry);
-  gtk_color_button_set_color (cs->color_button, &gcol);
-
-  g_signal_emit (G_OBJECT (cs), dia_colorsel_signals[DIA_COLORSEL_VALUE_CHANGED], 0);
-}
-static void
-dia_color_selector_init (DiaColorSelector *cs)
-{
-  cs->ddm = DIA_DYNAMIC_MENU(dia_color_selector_menu_new(cs));
-  cs->color_button = GTK_COLOR_BUTTON (gtk_color_button_new ());
-  
-  gtk_widget_show (GTK_WIDGET (cs->ddm));
-
-  /* default off */
-  gtk_color_button_set_use_alpha (cs->color_button, cs->use_alpha);
-  /* delegate color changes to compound object */
-  g_signal_connect (G_OBJECT (cs->color_button), "color-set", 
-		    G_CALLBACK (dia_color_selector_color_set), cs);
-  /* listen to menu selction to update the button */
-  g_signal_connect (G_OBJECT (cs->ddm), "value-changed",
-		    G_CALLBACK (dia_color_selector_value_changed), cs);
-
-  if (cs->use_alpha)
-    gtk_widget_show (GTK_WIDGET (cs->color_button));
-
-  gtk_box_pack_start(GTK_BOX(cs), GTK_WIDGET(cs->ddm), TRUE, TRUE, 0);
-  gtk_box_pack_start(GTK_BOX(cs), GTK_WIDGET(cs->color_button), TRUE, TRUE, 0);
-}
-void
-dia_color_selector_set_use_alpha (GtkWidget *widget, gboolean use_alpha)
-{
-  DiaColorSelector *cs = DIACOLORSELECTOR(widget);
-
-  if (use_alpha)
-    gtk_widget_show (GTK_WIDGET (cs->color_button));
-  else
-    gtk_widget_hide (GTK_WIDGET (cs->color_button));
-  cs->use_alpha = use_alpha;
-  gtk_color_button_set_use_alpha (cs->color_button, cs->use_alpha);
-}
-GType
-dia_color_selector_get_type (void)
-{
-  static GType dcs_type = 0;
-
-  if (!dcs_type) {
-    static const GTypeInfo dcs_info = {
-      sizeof (DiaColorSelectorClass),
-      (GBaseInitFunc)NULL,
-      (GBaseFinalizeFunc)NULL,
-      (GClassInitFunc) dia_color_selector_class_init,
-      NULL, /* class_finalize */
-      NULL, /* class_data */
-      sizeof (DiaColorSelector),
-      0, /* n_preallocs */
-      (GInstanceInitFunc) dia_color_selector_init
-    };
-    
-    dcs_type = g_type_register_static (gtk_hbox_get_type (),
-				       "DiaColorSelector", 
-				       &dcs_info, 0);
-  }
-  
-  return dcs_type;
-}
-
-static GtkWidget *
-dia_color_selector_create_string_item(DiaDynamicMenu *ddm, gchar *string)
-{
-  GtkWidget *item = gtk_menu_item_new_with_label(string);
-  gint r, g, b, a;
-  gchar *markup;
-  
-  sscanf(string, "#%2x%2x%2x%2x", &r, &g, &b, &a);
-
-  markup = g_strdup_printf("#%02X%02X%02X", r, g, b);
-
-  /* See http://web.umr.edu/~rhall/commentary/color_readability.htm for
-   * explanation of this formula */
-  if (r*299+g*587+b*114 > 500 * 256) {
-    gchar *label = g_strdup_printf("<span foreground=\"black\" background=\"%s\">%s</span>", markup, string);
-    gtk_label_set_markup(GTK_LABEL(gtk_bin_get_child(GTK_BIN(item))), label);
-    g_free(label);
-  } else {
-    gchar *label = g_strdup_printf("<span foreground=\"white\" background=\"%s\">%s</span>", markup, string);
-    gtk_label_set_markup(GTK_LABEL(gtk_bin_get_child(GTK_BIN(item))), label);
-    g_free(label);
-  }
-  
-  g_free(markup);
-  return item;
-}
-
-static void
-dia_color_selector_more_ok(GtkWidget *ok, gpointer userdata)
-{
-  DiaColorSelector *cs = g_object_get_data(G_OBJECT(userdata), "dia-cs");
-  GtkWidget *colorsel = GTK_WIDGET(userdata);
-  GdkColor gcol;
-  guint galpha;
-  gchar *entry;
-
-  gtk_color_selection_get_current_color(
-	GTK_COLOR_SELECTION(
-	    GTK_COLOR_SELECTION_DIALOG(colorsel)->colorsel),
-	&gcol);
-
-  galpha = gtk_color_selection_get_current_alpha(
-        GTK_COLOR_SELECTION(
-            GTK_COLOR_SELECTION_DIALOG(colorsel)->colorsel));
-
-  entry = g_strdup_printf("#%02X%02X%02X", gcol.red/256, gcol.green/256, gcol.blue/256);
-  dia_dynamic_menu_select_entry(cs->ddm, entry);
-  g_free(entry);
-  /* update color button */
-  gtk_color_button_set_color (cs->color_button, &gcol);
-  gtk_color_button_set_alpha (cs->color_button, galpha);
-
-  gtk_widget_destroy(colorsel);
-}
-
-static void
-dia_color_selector_more_callback(GtkWidget *widget, gpointer userdata)
-{
-  GtkColorSelectionDialog *dialog = GTK_COLOR_SELECTION_DIALOG (gtk_color_selection_dialog_new(_("Select color")));
-  DiaColorSelector *cs = DIACOLORSELECTOR(userdata);
-  GtkColorSelection *colorsel = GTK_COLOR_SELECTION(dialog->colorsel);
-  GString *palette = g_string_new ("");
-
-  gchar *old_color = dia_dynamic_menu_get_entry(cs->ddm);
-  GtkWidget *parent;
-
-  gtk_color_selection_set_has_opacity_control(colorsel, cs->use_alpha);
-
-  if (cs->use_alpha) {
-    gtk_color_selection_set_previous_alpha (colorsel, 65535);
-    gtk_color_selection_set_current_alpha (colorsel, gtk_color_button_get_alpha (cs->color_button));
-  }
-  /* Force history to the old place */
-  dia_dynamic_menu_select_entry(cs->ddm, old_color);
-
-  /* avoid crashing if the property dialog is closed before the color dialog */
-  parent = widget;
-  while (parent && !GTK_IS_WINDOW (parent))
-    parent = gtk_widget_get_parent (parent);
-  if (parent) {
-    gtk_window_set_transient_for (GTK_WINDOW (dialog), GTK_WINDOW(parent));
-    gtk_window_set_destroy_with_parent (GTK_WINDOW (dialog), TRUE);
-  }
-
-  if (dia_dynamic_menu_get_default_entries(cs->ddm) != NULL) {
-    GList *tmplist;
-    int index = 0;
-    gboolean advance = TRUE;
-
-    for (tmplist = dia_dynamic_menu_get_default_entries(cs->ddm); 
-         tmplist != NULL || advance; 
-         tmplist = g_list_next(tmplist)) {
-      const gchar* spec;
-      GdkColor color;
-
-      /* handle both lists */
-      if (!tmplist && advance) {
-        advance = FALSE;
-        tmplist = persistent_list_get_glist(dia_dynamic_menu_get_persistent_name(cs->ddm));
-        if (!tmplist)
-          break;
-      }
-
-      spec = tmplist->data;
-
-      gdk_color_parse (spec, &color);
-#if 0
-      /* the easy way if the Gtk Team would decide to make it public */
-      gtk_color_selection_set_palette_color (colorsel, index, &color);
-#else
-      g_string_append (palette, spec);
-      g_string_append (palette, ":");
-#endif
-      if (0 == strcmp (spec, old_color)) {
-        gtk_color_selection_set_previous_color (colorsel, &color);
-        gtk_color_selection_set_current_color (colorsel, &color);
-      }
-      index++;
-    }
-  }
-
-  g_object_set (gtk_widget_get_settings (GTK_WIDGET (colorsel)), "gtk-color-palette", palette->str, NULL);
-  gtk_color_selection_set_has_palette (colorsel, TRUE);
-  g_string_free (palette, TRUE);
-  g_free(old_color);
-  
-  gtk_widget_hide(dialog->help_button);
-  
-  g_signal_connect (G_OBJECT (dialog->ok_button), "clicked",
-		    G_CALLBACK (dia_color_selector_more_ok), dialog);  
-  g_signal_connect_swapped (G_OBJECT (dialog->cancel_button), "clicked",
-			    G_CALLBACK(gtk_widget_destroy), G_OBJECT(dialog));
-  g_object_set_data(G_OBJECT(dialog), "dia-cs", cs);
-
-  gtk_widget_show(GTK_WIDGET(dialog));
-}
-
-static GtkWidget *
-dia_color_selector_menu_new (DiaColorSelector *cs)
-{
-  GtkWidget *otheritem = gtk_menu_item_new_with_label(_("More colors…"));
-  GtkWidget *ddm = dia_dynamic_menu_new(dia_color_selector_create_string_item,
-					NULL,
-					GTK_MENU_ITEM(otheritem),
-					"color-menu");
-  dia_dynamic_menu_add_default_entry(DIA_DYNAMIC_MENU(ddm),
-				     "#000000");
-  dia_dynamic_menu_add_default_entry(DIA_DYNAMIC_MENU(ddm),
-				     "#FFFFFF");
-  dia_dynamic_menu_add_default_entry(DIA_DYNAMIC_MENU(ddm),
-				     "#FF0000");
-  dia_dynamic_menu_add_default_entry(DIA_DYNAMIC_MENU(ddm),
-				     "#00FF00");
-  dia_dynamic_menu_add_default_entry(DIA_DYNAMIC_MENU(ddm),
-				     "#0000FF");
-  g_signal_connect(G_OBJECT(otheritem), "activate",
-		   G_CALLBACK(dia_color_selector_more_callback), cs);
-  gtk_widget_show(otheritem);
-  return ddm;
-}
-
-GtkWidget *
-dia_color_selector_new ()
-{
-  return GTK_WIDGET ( gtk_type_new (dia_color_selector_get_type ()));
-}
-void
-dia_color_selector_get_color(GtkWidget *widget, Color *color)
-{
-  DiaColorSelector *cs = DIACOLORSELECTOR(widget);
-  gchar *entry = dia_dynamic_menu_get_entry(cs->ddm);
-  gint r, g, b;
-
-  sscanf(entry, "#%2x%2x%2x", &r, &g, &b);
-  g_free(entry);
-  color->red = r / 255.0;
-  color->green = g / 255.0;
-  color->blue = b / 255.0;
-
-  if (cs->use_alpha) {
-    color->alpha = gtk_color_button_get_alpha (cs->color_button) / 65535.0;
-  } else {
-    color->alpha = 1.0;
-  }
-}
-
-void
-dia_color_selector_set_color (GtkWidget *widget,
-			      const Color *color)
-{
-  DiaColorSelector *cs = DIACOLORSELECTOR(widget);
-  gint red, green, blue, alpha;
-  gchar *entry;
-  red = color->red * 255;
-  green = color->green * 255;
-  blue = color->blue * 255;
-  alpha = color->alpha * 255;
-  if (color->red > 1.0 || color->green > 1.0 || color->blue > 1.0 || color->alpha > 1.0) {
-    printf("Color out of range: r %f, g %f, b %f, a %f\n",
-	   color->red, color->green, color->blue, color->alpha);
-    red = MIN(red, 255);
-    green = MIN(green, 255);
-    blue = MIN(blue, 255);
-    alpha = MIN(alpha, 255);
-  }
-  entry = g_strdup_printf("#%02X%02X%02X", red, green, blue);
-  dia_dynamic_menu_select_entry(DIA_DYNAMIC_MENU(cs->ddm), entry);
-  g_free (entry);
-
-  if (cs->use_alpha) {
-    GdkColor gcol;
-
-    color_convert (color, &gcol);
-    gtk_color_button_set_color (cs->color_button, &gcol);
-    gtk_color_button_set_alpha (cs->color_button, MIN(color->alpha * 65535, 65535));
-  }
-}
-
-
-/************* DiaArrowSelector: ***************/
-
-/* FIXME: Should these structs be in widgets.h instead? */
-struct _DiaArrowSelector
-{
-  GtkVBox vbox;
-
-  GtkHBox *sizebox;
-  GtkLabel *sizelabel;
-  DiaSizeSelector *size;
-  
-  GtkOptionMenu *omenu;
-};
-
-struct _DiaArrowSelectorClass
-{
-  GtkVBoxClass parent_class;
-};
-
-enum {
-    DAS_VALUE_CHANGED,
-    DAS_LAST_SIGNAL
-};
-
-static guint das_signals[DAS_LAST_SIGNAL] = {0};
-
-static void
-dia_arrow_selector_class_init (DiaArrowSelectorClass *class)
-{
-  das_signals[DAS_VALUE_CHANGED]
-      = g_signal_new("value_changed",
-		     G_TYPE_FROM_CLASS(class),
-		     G_SIGNAL_RUN_FIRST,
-		     0, NULL, NULL,
-		     g_cclosure_marshal_VOID__VOID,
-		     G_TYPE_NONE, 0);
-}
-  
-static void
-set_size_sensitivity(DiaArrowSelector *as)
-{
-  int state;
-  gchar *entryname = dia_dynamic_menu_get_entry(DIA_DYNAMIC_MENU(as->omenu));
-
-  state = (entryname != NULL) && (0 != g_ascii_strcasecmp(entryname, "None"));
-  g_free(entryname);
-
-  gtk_widget_set_sensitive(GTK_WIDGET(as->sizelabel), state);
-  gtk_widget_set_sensitive(GTK_WIDGET(as->size), state);
-}
-
-static void
-arrow_type_change_callback(DiaDynamicMenu *ddm, gpointer userdata)
-{
-  set_size_sensitivity(DIA_ARROW_SELECTOR(userdata));
-  g_signal_emit(DIA_ARROW_SELECTOR(userdata),
-		das_signals[DAS_VALUE_CHANGED], 0);
-}
-
-static void
-arrow_size_change_callback(DiaSizeSelector *size, gpointer userdata)
-{
-  g_signal_emit(DIA_ARROW_SELECTOR(userdata),
-		das_signals[DAS_VALUE_CHANGED], 0);
-}
-
-static GtkWidget *
-create_arrow_menu_item(DiaDynamicMenu *ddm, gchar *name)
-{
-  ArrowType atype = arrow_type_from_name(name);
-  GtkWidget *item = gtk_menu_item_new();
-  GtkWidget *preview = dia_arrow_preview_new(atype, FALSE);
-  
-  gtk_widget_show(preview);
-  gtk_container_add(GTK_CONTAINER(item), preview);
-  gtk_widget_show(item);
-  return item;
-}
-
-static void
-dia_arrow_selector_init (DiaArrowSelector *as,
-			 gpointer g_class)
-{
-  GtkWidget *omenu;
-  GtkWidget *box;
-  GtkWidget *label;
-  GtkWidget *size;
-  
-  GList *arrow_names = get_arrow_names();
-  omenu = dia_dynamic_menu_new_listbased(create_arrow_menu_item,
-					 as,
-					 _("More arrows"),
-					 arrow_names,
-					 "arrow-menu");
-  dia_dynamic_menu_add_default_entry(DIA_DYNAMIC_MENU(omenu), "None");
-  dia_dynamic_menu_add_default_entry(DIA_DYNAMIC_MENU(omenu), "Lines");
-  dia_dynamic_menu_add_default_entry(DIA_DYNAMIC_MENU(omenu), "Filled Concave");
-  as->omenu = GTK_OPTION_MENU(omenu);
-  gtk_box_pack_start(GTK_BOX(as), omenu, FALSE, TRUE, 0);
-  gtk_widget_show(omenu);
-
-  g_signal_connect(DIA_DYNAMIC_MENU(omenu),
-		   "value-changed", G_CALLBACK(arrow_type_change_callback),
-		   as);
-
-  box = gtk_hbox_new(FALSE,0);
-  as->sizebox = GTK_HBOX(box);
-
-  label = gtk_label_new(_("Size: "));
-  as->sizelabel = GTK_LABEL(label);
-  gtk_box_pack_start(GTK_BOX(box), label, TRUE, TRUE, 0);
-  gtk_widget_show(label);
-
-  size = dia_size_selector_new(0.0, 0.0);
-  as->size = DIA_SIZE_SELECTOR(size);
-  gtk_box_pack_start(GTK_BOX(box), size, TRUE, TRUE, 0);
-  gtk_widget_show(size);
-  g_signal_connect(size, "value-changed",
-		   G_CALLBACK(arrow_size_change_callback), as);
-
-  set_size_sensitivity(as);
-  gtk_box_pack_start(GTK_BOX(as), box, TRUE, TRUE, 0);
-
-  gtk_widget_show(box);
-}
-
-GType
-dia_arrow_selector_get_type        (void)
-{
-  static GType dfs_type = 0;
-
-  if (!dfs_type) {
-    static const GTypeInfo dfs_info = {
-      /*      sizeof (DiaArrowSelector),*/
-      sizeof (DiaArrowSelectorClass),
-      (GBaseInitFunc) NULL,
-      (GBaseFinalizeFunc) NULL,
-      (GClassInitFunc) dia_arrow_selector_class_init,
-      NULL, /* class_finalize */
-      NULL, /* class_data */
-      sizeof (DiaArrowSelector),
-      0,    /* n_preallocs */
-      (GInstanceInitFunc)dia_arrow_selector_init,  /* init */
-      /*
-      (GtkObjectInitFunc) dia_arrow_selector_init,
-      NULL,
-      NULL,
-      (GtkClassInitFunc) NULL,
-      */
-    };
-    
-    dfs_type = g_type_register_static (GTK_TYPE_VBOX,
-				       "DiaArrowSelector",
-				       &dfs_info, 0);
-  }
-  
-  return dfs_type;
-}
-
-GtkWidget *
-dia_arrow_selector_new ()
-{
-  return GTK_WIDGET ( g_object_new (DIA_TYPE_ARROW_SELECTOR, NULL));
-}
-
-
-Arrow 
-dia_arrow_selector_get_arrow(DiaArrowSelector *as)
-{
-  Arrow at;
-  gchar *arrowname = dia_dynamic_menu_get_entry(DIA_DYNAMIC_MENU(as->omenu));
-
-  at.type = arrow_type_from_name(arrowname);
-  g_free(arrowname);
-  dia_size_selector_get_size(as->size, &at.width, &at.length);
-  return at;
-}
-
-void
-dia_arrow_selector_set_arrow (DiaArrowSelector *as,
-			      Arrow arrow)
-{
-  dia_dynamic_menu_select_entry(DIA_DYNAMIC_MENU(as->omenu),
-				arrow_get_name_from_type(arrow.type));
-  set_size_sensitivity(as);
-  dia_size_selector_set_size(DIA_SIZE_SELECTOR(as->size), arrow.width, arrow.length);
-}
-
 /************* DiaFileSelector: ***************/
 struct _DiaFileSelector
 {
@@ -1088,7 +331,7 @@ dia_file_selector_unrealize(GtkWidget *widget)
     fs->pattern = NULL;
   }
 
-  (* GTK_WIDGET_CLASS (gtk_type_class(gtk_hbox_get_type ()))->unrealize) (widget);
+  (* GTK_WIDGET_CLASS (g_type_class_peek_parent (G_OBJECT_GET_CLASS (fs)))->unrealize) (widget);
 }
 
 static void
@@ -1207,34 +450,35 @@ dia_file_selector_init (DiaFileSelector *fs)
 }
 
 
-GtkType
+GType
 dia_file_selector_get_type (void)
 {
-  static GtkType dfs_type = 0;
+  static GType dfs_type = 0;
 
   if (!dfs_type) {
-    static const GtkTypeInfo dfs_info = {
-      "DiaFileSelector",
-      sizeof (DiaFileSelector),
+    static const GTypeInfo dfs_info = {
       sizeof (DiaFileSelectorClass),
-      (GtkClassInitFunc) dia_file_selector_class_init,
-      (GtkObjectInitFunc) dia_file_selector_init,
-      NULL,
-      NULL,
-      (GtkClassInitFunc) NULL,
+      (GBaseInitFunc)NULL,
+      (GBaseFinalizeFunc)NULL,
+      (GClassInitFunc)dia_file_selector_class_init,
+      NULL, /* class_finalize */
+      NULL, /* class_data */
+      sizeof (DiaFileSelector),
+      0, /* n_preallocs */
+      (GInstanceInitFunc)dia_file_selector_init,
     };
     
-    dfs_type = gtk_type_unique (gtk_hbox_get_type (), &dfs_info);
-
-  }
-  
+    dfs_type = g_type_register_static (gtk_hbox_get_type (), 
+				       "DiaFileSelector",
+				       &dfs_info, 0);
+  }  
   return dfs_type;
 }
 
 GtkWidget *
 dia_file_selector_new ()
 {
-  return GTK_WIDGET ( gtk_type_new (dia_file_selector_get_type ()));
+  return GTK_WIDGET ( g_object_new (dia_file_selector_get_type (), NULL));
 }
 
 void
@@ -1320,8 +564,7 @@ dia_unit_spinner_init(DiaUnitSpinner *self)
   GtkSpinButton. All the normal work is done by the spin button, we
   simply modify how the text in the GtkEntry is treated.
 */
-static gboolean
-dia_unit_spinner_input(DiaUnitSpinner *self, gdouble *value);
+static gboolean dia_unit_spinner_input(DiaUnitSpinner *self, gdouble *value);
 static gboolean dia_unit_spinner_output(DiaUnitSpinner *self);
 
 GtkWidget *
@@ -1333,7 +576,7 @@ dia_unit_spinner_new(GtkAdjustment *adjustment, DiaUnit adj_unit)
     g_return_val_if_fail (GTK_IS_ADJUSTMENT (adjustment), NULL);
   }
   
-  self = gtk_type_new(dia_unit_spinner_get_type());
+  self = g_object_new(dia_unit_spinner_get_type(), NULL);
   gtk_entry_set_activates_default(GTK_ENTRY(self), TRUE);
   self->unit_num = adj_unit;
   

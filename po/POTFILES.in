@@ -42,10 +42,13 @@ lib/create.c
 lib/dia_dirs.c
 lib/dia_xml.c
 lib/diaarrowchooser.c
+lib/diaarrowselector.c
+lib/diacolorselector.c
 lib/diagramdata.c
 lib/diadynamicmenu.c
 lib/diafontselector.c
 lib/dialinechooser.c
+lib/dialinestyleselector.c
 lib/dialogs.c
 lib/diaoptionmenu.c
 lib/filter.c
