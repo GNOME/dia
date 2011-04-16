@@ -344,7 +344,7 @@
         <para>
 	  Due to limitations in the implementation some operations on single objects
 	  in a selection were still only modifying the single object. Since dia 0.97
-	  these inconsitency got resolved so the properties dialog allows to change
+	  these inconsistency got resolved so the properties dialog allows to change
 	  multiple objects properties at once - without first grouping them. 
 	</para>
         <para>
