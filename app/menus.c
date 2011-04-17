@@ -465,6 +465,7 @@ integrated_ui_toolbar_zoom_activate (GtkWidget *item,
     }
 }
 
+/* "DiaZoomCombo" probably could work for both UI cases */
 static void
 integrated_ui_toolbar_zoom_combo_selection_changed (GtkComboBox *combo,
                                                     gpointer     user_data)
