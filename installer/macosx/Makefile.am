@@ -2,3 +2,6 @@
 
 EXTRA_DIST = osx-app.sh osx-build.sh osx-dmg.sh
 
+Info.plist: Info.plist.in
+	sed -e 's/@VERSION/'$(VERSION)'/;' < $< > $@
+
