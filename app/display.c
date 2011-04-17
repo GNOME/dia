@@ -1652,6 +1652,10 @@ ddisplay_im_context_preedit_reset(DDisplay *ddisp, Focus *focus)
 Focus *
 ddisplay_active_focus(DDisplay *ddisp)
 {
+  /* The functions doing the transition rely on this being slightly
+   * out of sync with get_active_focus(). But we would not need the
+   * pointer, because the return value is only checked being !=NULL
+   */
   return ddisp ? ddisp->active_focus : NULL;
 }
 
