@@ -156,6 +156,14 @@ diagram_data_finalize(GObject *object)
 }
 
 
+/**
+ * Create a copy of the whole diagram data
+ *
+ * This is kind of a deep copy, everything not immutable gets duplicated.
+ * Still this is supposed to be relatively fast, because the most expensive
+ * objects have immutuable properties, namely the pixbufs in DiaImage are
+ * only referenced.
+ */
 DiagramData *
 diagram_data_clone (DiagramData *data)
 {
@@ -190,6 +198,41 @@ diagram_data_clone (DiagramData *data)
   }
 
   return clone;  
+}
+
+/**
+ * Create a new diagram data object only containing the selected objects
+ */
+DiagramData *
+diagram_data_clone_selected (DiagramData *data)
+{
+  DiagramData *clone;
+  guint i;
+  Layer *dest_layer;
+  GList *sorted;
+
+  clone = g_object_new (DIA_TYPE_DIAGRAM_DATA, NULL);
+  
+  clone->extents = data->extents;
+  clone->bg_color = data->bg_color;
+  clone->paper = data->paper; /* so ugly */
+  clone->paper.name = g_strdup (data->paper.name);
+  clone->is_compressed = data->is_compressed;
+
+  /* the selection - if any - can only be on the active layer */
+  dest_layer = g_ptr_array_index(clone->layers, 0);
+  g_free (dest_layer->name);
+  dest_layer->name = layer_get_name (data->active_layer);
+
+  sorted = data_get_sorted_selected (data);
+  dest_layer->objects = object_copy_list (sorted);
+  g_list_free (sorted);
+  dest_layer->visible = data->active_layer->visible;
+  dest_layer->connectable = data->active_layer->connectable;
+  
+  data_update_extents (clone);
+  
+  return clone;
 }
 
 /** Initialize the DiagramData class data.

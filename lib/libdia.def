@@ -153,6 +153,7 @@ EXPORTS
  data_font
 
  diagram_data_clone
+ diagram_data_clone_selected
  data_foreach_object
  data_get_sorted_selected
  data_get_sorted_selected_remove

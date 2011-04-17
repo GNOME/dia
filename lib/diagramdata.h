@@ -177,6 +177,7 @@ void layer_render(Layer *layer, DiaRenderer *renderer, Rectangle *update,
 		  int active_layer);
 
 DiagramData *diagram_data_clone (DiagramData *data);
+DiagramData *diagram_data_clone_selected (DiagramData *data);
 
 int layer_object_get_index(Layer *layer, DiaObject *obj);
 DiaObject *layer_object_get_nth(Layer *layer, guint index);
