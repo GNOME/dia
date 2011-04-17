@@ -26,8 +26,13 @@
 #include <sys/types.h>
 #include <math.h>
 #include <glib.h>
+#include <glib/gstdio.h>
 #include <gdk-pixbuf/gdk-pixbuf.h>
 #include <gtk/gtk.h>
+
+#ifdef G_OS_WIN32
+#include <io.h>
+#endif
 
 #include <textedit.h>
 #include <focus.h>
@@ -327,6 +332,96 @@ make_text_prop_singleton(GPtrArray **props, TextProperty **prop)
   (*prop)->text_data = NULL;
 }
 
+static GtkTargetEntry target_entries[] = {
+  { "image/svg", GTK_TARGET_OTHER_APP, 1 },
+  { "image/png", GTK_TARGET_OTHER_APP, 2 },
+  { "image/bmp", GTK_TARGET_OTHER_APP, 3 },
+#ifdef G_OS_WIN32
+  /* this is not working on win32 either, maybe we need to register it with
+   * CF_ENHMETAFILE in Gtk+? Change order? Direct use of SetClipboardData()?
+   */
+  { "image/emf", GTK_TARGET_OTHER_APP, 4 },
+  { "image/wmf", GTK_TARGET_OTHER_APP, 5 },
+#endif
+};
+
+/** This gets called by Gtk+ if some other application is asking
+ * for the clipboard content.
+ */
+static void
+_clipboard_get_data_callback (GtkClipboard     *clipboard,
+			      GtkSelectionData *selection_data,
+			      guint             info,
+			      gpointer          owner_or_user_data)
+{
+  DiagramData *dia = owner_or_user_data; /* todo: check it's still valid */
+  const gchar *ext = strchr (target_entries[info-1].target, '/')+1;
+  gchar *tmplate = g_strdup_printf ("dia-cb-XXXXXX.%s", ext);
+  gchar *outfname = NULL;
+  GError *error = NULL;
+  DiaExportFilter *ef = NULL;
+  int fd;
+  
+  if ((fd = g_file_open_tmp (tmplate, &outfname, &error)) != -1) {
+    ef = filter_guess_export_filter (outfname);
+    close (fd);
+  } else {
+    g_warning (error->message);
+    g_error_free (error);
+    error = NULL;
+  }
+  g_free (tmplate);
+
+  if (ef) {
+#if 0 /* would like to use alpha, but it gets a black backgound than */
+    /* for png use alpha-rendering if available */
+    if (strcmp(ext, "png") != 0 && filter_get_by_name ("cairo-alpha-png") != NULL)
+      ef = filter_get_by_name ("cairo-alpha-png");
+#endif
+    ef->export_func(DIA_DIAGRAM_DATA(dia), outfname, "clipboard-copy", ef->user_data);
+    /* if we have a vector format, don't convert it to pixbuf */
+    if (strcmp (ext, "svg") != 0 && strcmp (ext, "emf") != 0 && strcmp (ext, "wmf") != 0) {
+      GdkPixbuf *pixbuf = gdk_pixbuf_new_from_file(outfname, &error);
+      if (pixbuf) {
+	gtk_selection_data_set_pixbuf (selection_data, pixbuf);
+	g_object_unref (pixbuf);
+      }
+    } else {
+      struct stat st;
+      FILE *f;
+      
+      if (   g_stat (outfname, &st) == 0 
+	  && ((f = g_fopen (outfname, "rb")) != NULL)) {
+	gchar *buf = g_try_malloc (st.st_size);
+
+	if (buf) {
+	  if (fread (buf, st.st_size, 1, f) == st.st_size)
+	    gtk_selection_data_set (selection_data,
+	                            gdk_atom_intern_static_string (target_entries[info-1].target), 8,
+	                            buf, st.st_size);
+	}
+	g_free (buf);
+	fclose (f);
+	g_unlink (outfname);
+      }
+    }
+  }
+  if (error) {
+    message_warning (error->message);
+    g_error_free (error);
+  }
+}
+
+/** GtkClipboardClearFunc */
+static void
+_clipboard_clear_data_callback (GtkClipboard *clipboard,
+                                gpointer      owner_or_user_data)
+{
+  DiagramData *dia = owner_or_user_data; /* todo: check it's still valid */
+
+  if (dia)
+    g_object_unref (dia);
+}
 
 void
 edit_copy_callback (GtkAction *action)
@@ -336,6 +431,7 @@ edit_copy_callback (GtkAction *action)
 
   ddisp = ddisplay_active();
   if (!ddisp) return;
+  
   if (textedit_mode(ddisp)) {
     Focus *focus = get_active_focus((DiagramData *) ddisp->diagram);
     DiaObject *obj = focus_get_object(focus);
@@ -350,7 +446,9 @@ edit_copy_callback (GtkAction *action)
     obj->ops->get_props(obj, textprops);
     
     /* GTK docs claim the selection clipboard is ignored on Win32.
-     * The "clipboard" clipboard is mostly ignored in Unix
+     * The "clipboard" clipboard is (was) mostly ignored in Unix.
+     * Nowadays the notation of one system global clipboard is common
+     * for many programs on Linux, too.
      */
 #ifdef G_OS_WIN32
     gtk_clipboard_set_text(gtk_clipboard_get(GDK_NONE),
@@ -361,6 +459,21 @@ edit_copy_callback (GtkAction *action)
 #endif
     prop_list_free(textprops);
   } else {
+    /* create a diagram of currently selected to the clipboard - it's rendered on request */
+    DiagramData *data = diagram_data_clone_selected (ddisp->diagram->data);
+
+    /* arbitrary scaling from the display, deliberately ignoring
+     * the paper scaling, like the display code does
+     */
+    data->paper.scaling = (ddisp->zoom_factor / 20.0);
+
+    gtk_clipboard_set_with_data (gtk_clipboard_get(GDK_NONE),
+                                 target_entries, G_N_ELEMENTS (target_entries),
+				 _clipboard_get_data_callback,
+				 _clipboard_clear_data_callback,
+				 data);
+
+    /* just internal copy of the selected objects */
     copy_list = parent_list_affected(diagram_get_sorted_selected(ddisp->diagram));
     
     cnp_store_objects(object_copy_list(copy_list), 1);
