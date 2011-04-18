@@ -20,7 +20,7 @@
 # Copyright (C) 2005 Kees Cook
 # Copyright (C) 2005-2009 Michael Wybrow
 # Copyright (C) 2007-2009 Jean-Olivier Irisson
-# Copyright (C) 2010 Steffen Macke
+# Copyright (C) 2010,2011 Steffen Macke
 #
 # Released under GNU GPL, read the file 'COPYING' for more information
 #
@@ -107,7 +107,7 @@ do
 	shift 1
 done
 
-echo -e "\n\033[1mCREATE INKSCAPE APP BUNDLE\033[0m\n"
+echo -e "\n\033[1mCREATE DIA APP BUNDLE\033[0m\n"
 
 # Safety tests
 
@@ -134,11 +134,6 @@ fi
 
 if [ ! -e "$LIBPREFIX" ]; then
 	echo "Cannot find the directory containing the libraires: $LIBPREFIX" >&2
-	exit 1
-fi
-
-if [ ! -e "$LIBPREFIX/share/themes/Clearlooks-Quicksilver" ]; then
-	echo "Missing Clearlooks -- please install gtk2-clearlooks and try again." >&2
 	exit 1
 fi
 
@@ -188,29 +183,6 @@ mkdir -p "$pkglib"
 mkdir -p "$pkglocale"
 mkdir -p "$pkgpython"
 
-mkdir -p "$pkgresources/Dutch.lprj"
-mkdir -p "$pkgresources/English.lprj"
-mkdir -p "$pkgresources/French.lprj"
-mkdir -p "$pkgresources/German.lprj"
-mkdir -p "$pkgresources/Italian.lprj"
-mkdir -p "$pkgresources/Spanish.lprj"
-mkdir -p "$pkgresources/fi.lprj"
-mkdir -p "$pkgresources/no.lprj"
-mkdir -p "$pkgresources/sv.lprj"
-
-# Build and add the launcher
-#----------------------------------------------------------
-(
-	# Build fails if CC happens to be set (to anything other than CompileC)
-	unset CC
-	
-	cd "$resdir/ScriptExec"
-	echo -e "\033[1mBuilding launcher...\033[0m\n"
-	xcodebuild $XCODEFLAGS clean build
-)
-cp "$resdir/$SCRIPTEXECDIR/ScriptExec" "$pkgexec/Dia"
-
-
 # Copy all files into the bundle
 #----------------------------------------------------------
 echo -e "\n\033[1mFilling app bundle...\033[0m\n"
@@ -221,7 +193,8 @@ binary_dir=`dirname "$binary"`
 # Dia's binary
 binpath="$pkgbin/dia-bin"
 cp -v "$binary" "$binpath"
-# TODO Add a "$verbose" variable and command line switch, which sets wether these commands are verbose or not
+cp "dia" "$pkgbin/dia"
+cp -R "$LIBPREFIX/dia" "$pkgresources/lib/dia"
 
 # Share files
 rsync -av "$binary_dir/../share/$binary_name"/* "$pkgresources/"
