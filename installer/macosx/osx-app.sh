@@ -27,11 +27,6 @@
 # Thanks to GNUnet's "build_app" script for help with library dep resolution.
 #		https://gnunet.org/svn/GNUnet/contrib/OSX/build_app
 # 
-# NB:
-# When packaging Dia for OS X, configure should be run with the 
-# "--enable-osxapp" option which sets the correct paths for support
-# files inside the app bundle.
-# 
 
 # Defaults
 strip=false
@@ -173,12 +168,16 @@ resdir=`pwd`
 pkgexec="$package/Contents/MacOS"
 pkgbin="$package/Contents/Resources/bin"
 pkglib="$package/Contents/Resources/lib"
+pkgdata="$package/Contents/Resources/data"
+pkgdia="$package/Contents/Resources/dia"
 pkglocale="$package/Contents/Resources/locale"
 pkgpython="$package/Contents/Resources/python/site-packages/"
 pkgresources="$package/Contents/Resources"
 
 mkdir -p "$pkgexec"
 mkdir -p "$pkgbin"
+mkdir -p "$pkgdata"
+mkdir -p "$pkgdia"
 mkdir -p "$pkglib"
 mkdir -p "$pkglocale"
 mkdir -p "$pkgpython"
@@ -194,12 +193,16 @@ binary_dir=`dirname "$binary"`
 binpath="$pkgbin/dia-bin"
 cp -v "$binary" "$binpath"
 cp "dia" "$pkgbin/dia"
-cp -R "$LIBPREFIX/dia" "$pkgresources/lib/dia"
 
 # Share files
 rsync -av "$binary_dir/../share/$binary_name"/* "$pkgresources/"
 cp "$plist" "$package/Contents/Info.plist"
 rsync -av "$binary_dir/../share/locale"/* "$pkgresources/locale"
+
+rsync -av "$binary_dir/../lib/dia"/* "$pkgdia/"
+rsync -av "$binary_dir/../share/dia/ui"/* "$pkgdata/"
+
+cp -rp "$binary_dir/../lib/gdk-pixbuf-2.0" "$pkglib"
 
 # Copy GTK shared mime information
 mkdir -p "$pkgresources/share"
@@ -207,8 +210,6 @@ cp -rp "$LIBPREFIX/share/mime" "$pkgresources/share/"
 
 # Icons and the rest of the script framework
 rsync -av --exclude ".svn" "$resdir"/Resources/* "$pkgresources/"
-
-# Update the ImageMagick path in startup script.
 
 # PkgInfo must match bundle type and creator code from Info.plist
 echo "APPLInks" > $package/Contents/PkgInfo
