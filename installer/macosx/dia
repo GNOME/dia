@@ -1,8 +1,7 @@
 #!/bin/sh
 #
 # Author: Aaron Voisine <aaron@voisine.org>
-# Dia Modifications: Steffen Macke <sdteffen@sdteffen.de>
-# Inkscape Modifications:
+# Dia Modifications:
 #	Michael Wybrow <mjwybrow@users.sourceforge.net>
 #	Jean-Olivier Irisson <jo.irisson@gmail.com>
 #
@@ -22,7 +21,7 @@ TOP="`dirname \"$CWD\"`"
 #	Fink
 #	MacPorts (former DarwinPorts)
 #	LaTeX distribution for Mac OS X
-export PATH="/usr/texbin:/opt/local/bin:/sw/bin/:/Library/Frameworks/Python.framework/Versions/Current/bin:/usr/local/bin:$CWD:$PATH"
+#export PATH="/usr/texbin:/opt/local/bin:/sw/bin/:/Library/Frameworks/Python.framework/Versions/Current/bin:/usr/local/bin:$CWD:$PATH"
 
 # Setup PYTHONPATH to use python modules shipped with Dia
 ARCH=`arch`
@@ -33,6 +32,13 @@ export PYTHONPATH="$TOP/python/site-packages/$ARCH/$PYTHON_VERS"
 # No longer required if path rewriting has been conducted.
 export DYLD_LIBRARY_PATH="$TOP/lib"
 
+export DIA_BASE_PATH="$TOP"
+export DIA_LIB_PATH="$TOP/dia"
+export DIA_SHEET_PATH="$TOP/sheets"
+export DIA_SHAPE_PATH="$TOP/shapes"
+export DIA_XSLT_PATH="$TOP/xslt"
+export DIA_LOCALE_PATH="$TOP/locale"
+
 mkdir -p "${HOME}/.dia-etc"
 
 export FONTCONFIG_PATH="$TOP/etc/fonts"
@@ -41,64 +47,12 @@ export GTK_IM_MODULE_FILE="$HOME/.dia-etc/gtk.immodules"
 export GDK_PIXBUF_MODULE_FILE="$HOME/.dia-etc/gdk-pixbuf.loaders"
 export GTK_DATA_PREFIX="$TOP"
 export GTK_EXE_PREFIX="$TOP"
-export GNOME_VFS_MODULE_CONFIG_PATH="$TOP/etc/gnome-vfs-2.0/modules"
-export GNOME_VFS_MODULE_PATH="$TOP/lib/gnome-vfs-2.0/modules"
 export XDG_DATA_DIRS="$TOP/share"
-export ASPELL_CONF="prefix $TOP;"
-
-# Note: This requires the path with the exact ImageMagic version number.
-#        Also, that ImageMagick will only work if it does not find a 
-#        version installed into the same PREFIX as it was originally 
-#        installed.  Luckily, this is very unlikely given the extra long 
-#        and strangely named install prefix we use.
-#        The actual version is inserted by the packaging script.
-export MAGICK_CONFIGURE_PATH="$TOP/lib/ImageMagick-IMAGEMAGICKVER/config:$TOP/share/ImageMagick-IMAGEMAGICKVER/config"
-export MAGICK_CODER_FILTER_PATH="$TOP/lib/ImageMagick-IMAGEMAGICKVER/modules-Q16/filters"
-export MAGICK_CODER_MODULE_PATH="$TOP/lib/ImageMagick-IMAGEMAGICKVER/modules-Q16/coders"
-
-export INKSCAPE_SHAREDIR="$TOP"
-# TODO: move the share directory to a its own folder to make things a bit cleaner in the app bundle
-export INKSCAPE_PLUGINDIR="$TOP/lib/dia"
-export INKSCAPE_LOCALEDIR="$TOP/locale"
 
 # Handle the case where the directory storing Dia has special characters
 # ('#', '&', '|') in the name.  These need to be escaped to work properly for 
 # various configuration files.
 ESCAPEDTOP=`echo "$TOP" | sed 's/#/\\\\\\\\#/' | sed 's/&/\\\\\\&/g' | sed 's/|/\\\\\\|/g'`
-
-# Set GTK theme (only if there is no .gtkrc-2.0 in the user's home)
-if [[ ! -e "$HOME/.gtkrc-2.0" ]]; then
-	# Appearance setting
-	aquaStyle=`defaults read "Apple Global Domain" AppleAquaColorVariant 2>/dev/null`
-	# 1 for aqua, 6 for graphite, inexistant if the default color was never changed
-	if [[ "$aquaStyle" == "" ]]; then
-		aquaStyle=1		# set aqua as default
-	fi
-
-	# Highlight Color setting
-	hiliColor=`defaults read "Apple Global Domain" AppleHighlightColor 2>/dev/null`
-	# a RGB value, with components between 0 and 1, also inexistant if it was not changed
-	if [[ "$hiliColor" == "" ]]; then
-		hiliColor="0.709800 0.835300 1.000000"	# set blue as default
-	fi
-
-	# Menu items color
-	if [[ aquaStyle -eq 1 ]]; then
-		menuColor="#4a76cd"	# blue
-	else
-		menuColor="#7c8da4"	# graphite
-	fi
-	# Format highlight color as a GTK rgb value
-	hiliColorFormated=`echo $hiliColor | awk -F " " '{print "\\\{"$1","$2","$3"\\\}"}'`
-
-	# echo $menuColor
-	# echo $hiliColorFormated
-
-	# Modify the gtkrc
-	#	- with the correct colors
-	#	- to point to the correct scrollbars folder
-	export GTK2_RC_FILES="$HOME/.dia-etc/gtkrc"
-fi
 
 # If the AppleCollationOrder preference doesn't exist, we fall back to using
 # the AppleLocale preference.
@@ -112,8 +66,7 @@ fi
 
 # NOTE: Have to add ".UTF-8" to the LANG since omitting causes Dia
 #       to crash on startup in locale_from_utf8().
-export LANG="`grep \"\`echo $LANGSTR\`_\" /usr/share/locale/locale.alias | \
-	tail -n1 | sed 's/\./ /' | awk '{print $2}'`.UTF-8"
+export LANG="$LANGSTR.UTF8"
 echo "Setting Language: $LANG" 1>&2
 
 sed 's|${HOME}|'"$HOME|g" "$TOP/etc/pango/pangorc" > "${HOME}/.dia-etc/pangorc"
@@ -125,4 +78,4 @@ sed 's|${CWD}|'"$ESCAPEDTOP|g" "$TOP/etc/gtk-2.0/gtk.immodules" \
 sed 's|${CWD}|'"$ESCAPEDTOP|g" "$TOP/etc/gtk-2.0/gdk-pixbuf.loaders" \
     > "${HOME}/.dia-etc/gdk-pixbuf.loaders"
 
-exec "$CWD/dia-bin" "$@"
+exec "$CWD/dia-bin" --integrated

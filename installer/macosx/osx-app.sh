@@ -232,6 +232,7 @@ mkdir -p $pkgetc/fonts
 cp $LIBPREFIX/etc/fonts/fonts.dtd $pkgetc/fonts/
 cp -r $LIBPREFIX/etc/fonts/conf.avail $pkgetc/fonts/
 cp -r $LIBPREFIX/etc/fonts/conf.d $pkgetc/fonts/
+cp $LIBPREFIX/etc/fonts/fonts.conf $pkgetc/fonts/
 
 mkdir -p $pkgetc/gtk-2.0
 sed -e "s,$LIBPREFIX,\${CWD},g" $LIBPREFIX/etc/gtk-2.0/gdk-pixbuf.loaders > $pkgetc/gtk-2.0/gdk-pixbuf.loaders
@@ -365,15 +366,6 @@ if [ "$PATHLENGTH" -ge "50" ]; then
 	# If the LIBPREFIX path is long enough to allow 
 	# path rewriting, then do this.
 	rewritelibpaths
-else
-	echo "Could not rewrite dylb paths for bundled libraries.  This requires" >&2
-	echo "Macports to be installed in a PREFIX of at least 50 characters in length." >&2
-	echo "" >&2
-	echo "The package will still work if the following line is uncommented in" >&2
-	echo "Dia.app/Contents/Resources/bin/dia:" >&2
-	echo '        export DYLD_LIBRARY_PATH="$TOP/lib"' >&2
-	exit 1
-
 fi
 
 exit 0
