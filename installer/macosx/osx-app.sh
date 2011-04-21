@@ -193,6 +193,8 @@ binary_dir=`dirname "$binary"`
 binpath="$pkgbin/dia-bin"
 cp -v "$binary" "$binpath"
 cp "dia" "$pkgbin/dia"
+cp "Dia.icns" "$pkgresources/"
+cp "../../data/dia-splash.png" "pkgresources/"
 
 # Share files
 rsync -av "$binary_dir/../share/$binary_name"/* "$pkgresources/"
