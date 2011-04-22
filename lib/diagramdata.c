@@ -207,7 +207,6 @@ DiagramData *
 diagram_data_clone_selected (DiagramData *data)
 {
   DiagramData *clone;
-  guint i;
   Layer *dest_layer;
   GList *sorted;
 

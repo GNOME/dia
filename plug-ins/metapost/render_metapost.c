@@ -1246,11 +1246,13 @@ export_metapost(DiagramData *data, const gchar *filename,
     initial_color.red=0.;
     initial_color.green=0.;
     initial_color.blue=0.;
+    initial_color.alpha=1.;
     set_line_color(renderer,&initial_color);
     
     initial_color.red=1.;
     initial_color.green=1.;
     initial_color.blue=1.;
+    initial_color.alpha=1.;
     set_fill_color(renderer,&initial_color);
 
     data_render(data, DIA_RENDERER(renderer), NULL, NULL, NULL);
