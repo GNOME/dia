@@ -384,7 +384,7 @@ dia_file_selector_browse_pressed(GtkWidget *widget, gpointer data)
   gchar *filename;
   GtkWidget *toplevel = gtk_widget_get_toplevel (widget);
 
-  if (!GTK_WIDGET_TOPLEVEL(toplevel) || !GTK_WINDOW(toplevel))
+  if (toplevel && !GTK_WINDOW(toplevel))
     toplevel = NULL;
 
   if (fs->dialog == NULL) {
