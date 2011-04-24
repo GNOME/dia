@@ -368,47 +368,5 @@
 
     </sect2>
 
-    <sect2 id="diagram-tree-options">
-      <title>Diagram Tree</title>
-      <figure>
-        <title>Diagram Tree</title>
-        <screenshot>
-          <screeninfo>Diagram Tree</screeninfo>
-          <graphic format="PNG" fileref="graphics/file-preferences-tree" srccredit="Mark Dexter" />
-        </screenshot>
-      </figure>  
-      <para>
-        This tab refers to the Diagram Tree window, which can be opened 
-        from the Toolbox menu bar using the 
-        <menuchoice>
-          <guimenu>
-            File
-          </guimenu>
-          <guimenuitem>
-            Diagram Tree
-          </guimenuitem>
-	</menuchoice> choice or by pressing F8.
-        In the Diagram Tree window, you can right-click on an object and select
-        "Hide this type" from the context menu. This removes objects of this 
-        type from the Diagram Tree window. See <link linkend="diagram-tree">
-        Objects and the Toolbox / Diagram Tree</link> for more information.
-      </para>
-      <para> 
-        The Save Hidden object types box controls whether "Hide this type" is permanent
-        or only for the current <application>Dia</application> session.
-        If the Save hidden object types box is checked, then the program will
-        remember which types you have selected to hide in the Diagram Tree. When 
-        <application>Dia</application> is restarted, these object types will
-        continue to be hidden in this window. If this box is unchecked, any time
-        the program restarts, all objects will again display in the Diagram Tree window.
-      </para>
-      <note>
-        <para>
-          You can restore hidden object types by selecting the type from the list
-          in the "Show object type" option in the context menu of the Diagram Tree
-          window.
-        </para>
-      </note>
-    </sect2>
   </sect1>
 </chapter>

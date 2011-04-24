@@ -125,7 +125,6 @@ pngfigures = \
 	graphics/toolbox-magnify.png \
 	graphics/diagram-properties.png \
 	graphics/toolbox-modify.png \
-	graphics/diagram-tree-sort.png \
 	graphics/toolbox-scroll.png \
 	graphics/diagram-tree.png \
 	graphics/toolbox-special.png \
@@ -134,7 +133,6 @@ pngfigures = \
 	graphics/file-preferences-diagram.png \
 	graphics/file-preferences-favorites.png \
 	graphics/uml-shapes.png \
-	graphics/file-preferences-tree.png \
 	graphics/view-menu.png \
 	graphics/file-preferences-ui.png \
 	graphics/view-zoom.png \

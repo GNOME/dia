@@ -1017,27 +1017,24 @@
           </guimenuitem>
         </menuchoice> from the Toolbox menu bar or by pressing F8
         when the Toolbox is in focus.
-        When this is toggled on, the Diagram Tree window displays. 
-        The window closes when this is toggled off.
       </para>
 
     </sect2>
     <sect2 id="working-diagram-tree">
       <title>Working With the Diagram Tree</title>
       <para>
-        Actions on the Diagram Tree affect the diagram canvas. If you double-click
-        on a diagram name in the list, that diagram window comes into focus
-        on your desktop. 
-        If you click an object on the list, that object is selected in the
-        diagram on the canvas, just as if you had clicked on it on the canvas.  
-        If you right-click on the Diagram tree list, a context menu
-        displays with six options, as shown in the figure below. 
+        Some actions on the Diagram Tree affect the diagram itself. By selecting
+        objects in the tree, you can modify multiple of them at once.
+        You can sort the objects in the tree by type or name. click on the
+        respective table header.
+        If you right-click on the Diagram Tree list, a context menu
+        displays with three options. 
 
         <figure>
           <title>Diagram Tree</title>
           <screenshot>
             <screeninfo>Diagram Tree</screeninfo>
-            <graphic format="PNG" fileref="graphics/diagram-tree" srccredit="Mark Dexter" />
+            <graphic format="PNG" fileref="graphics/diagram-tree" srccredit="Hans Breuer" />
           </screenshot>
         </figure>  
 
@@ -1046,92 +1043,21 @@
       <itemizedlist>
         <listitem>
           <para>
-            Locate will bring the selected object into view on the canvas.
+            Select will transfer the current the selection in the tree to the diagram.
+          </para>
+        </listitem> 
+        <listitem>
+          <para>
+            Locate will bring the selected object(s) into view on the canvas.
             This can be useful if you are trying to find an object in a large 
             diagram.
           </para>
         </listitem> 
         <listitem>
           <para>
-            Properties will display the properties dialog for the selected object. 
+            Properties will display the properties dialog for the selected object(s). 
             See <link linkend="object-properties">Object Properties</link> for 
             more information.
-          </para>
-        </listitem> 
-        <listitem>
-          <para>
-            Hide this type will cause all objects of this type to be removed from the
-            list. They are still in the diagram, just not visible in this window.
-          </para>
-        </listitem> 
-        <listitem>
-          <para>
-            Show object type will display a list of any object types you have hidden
-            using Hide this type. You can select a hidden object type to restore it
-            to the list.
-          </para>
-        </listitem> 
-        <listitem>
-          <para>
-            Sort objects brings up a sub-menu of sort options as shown in the figure
-            below.
-            <figure>
-              <title>Diagram Tree Sort Options</title>
-              <screenshot>
-                <screeninfo>Diagram Tree Sort Options</screeninfo>
-                <graphic format="PNG" fileref="graphics/diagram-tree-sort" srccredit="Mark Dexter" />
-              </screenshot>
-            </figure>
-          </para>
-          <para>
-            <itemizedlist>
-              <listitem>
-                <simpara>
-                  by name: sorts list by the text entered into the object.
-                </simpara>
-              </listitem>
-              <listitem>
-                <simpara>
-                  by type: sorts list by the object type (Box, Line, etc.).
-                </simpara>
-              </listitem>
-              <listitem>
-                <simpara>
-                  as inserted: sorts list in the order the objects were added to the diagram.
-                </simpara>
-              </listitem>
-              <listitem>
-                <simpara>
-                  All by name: same as by name except that it sorts all open diagrams, not
-                  just the selected one.
-                </simpara>
-              </listitem>
-              <listitem>
-                <simpara>
-                  All by type: same as by type except that it sorts all open diagrams, not
-                  just the selected one.
-                </simpara>
-              </listitem>
-              <listitem>
-                <simpara>
-                  All as inserted: same as as inserted except that it sorts all open diagrams, not
-                  just the selected one.
-                </simpara>
-              </listitem>
-              <listitem>
-                <simpara>
-                  Default: allows you to select which of the three sort types (by name, by type, 
-                  or as inserted) to use by default. Initial default is as inserted.
-                </simpara>
-              </listitem>
-            </itemizedlist>
-          </para>
-        </listitem> 
-        <listitem>
-          <para>
-            Sort diagrams allows you to sort diagrams if you have more than one
-            diagram open during the session. The sort options are by name or as inserted
-            (meaning the order in which the diagrams were opened). 
           </para>
         </listitem> 
       </itemizedlist>
