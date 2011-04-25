@@ -279,7 +279,7 @@
           <title>Line Arrows</title>
           <screenshot>
             <screeninfo>Line Arrows</screeninfo>
-            <graphic format="PNG" fileref="graphics/line-arrows" srccredit="Mark Dexter" />
+            <graphic format="PNG" fileref="graphics/line-arrows" srccredit="Hans Breuer" />
           </screenshot>
         </figure>
         <para>
@@ -291,13 +291,6 @@
     </sect2>
     <sect2 id="image">
       <title>Image</title>
-      <figure>
-        <title>Image</title>
-        <screenshot>
-          <screeninfo>Image</screeninfo>
-          <graphic format="PNG" fileref="graphics/toolbox-image" srccredit="Mark Dexter" />
-        </screenshot>
-      </figure>  
       <para>
         A diagram can contain images as well as shapes.
         To add an image, click on the Image icon and click on the canvas.
@@ -306,6 +299,13 @@
         Click "OK" and then the image will display on the diagram. 
         You can resize the image as desired using the object handles.
       </para>
+      <figure>
+        <title>Image</title>
+        <screenshot>
+          <screeninfo>Image</screeninfo>
+          <graphic format="PNG" fileref="graphics/standard-image-properties" srccredit="Hans Breuer" />
+        </screenshot>
+      </figure>
       <para>The following image are usually supported for inclusion in
         <application>Dia</application> diagrams:
         <itemizedlist>
@@ -318,6 +318,21 @@
         The exact list depends on your system configuration (the concrete import
         format filters available to gdk-pixbuf).
       </para>
+      <para>
+	With Dia 0.98 there is an additional way to create image shapes.
+	Choosing
+        <menuchoice>
+          <guimenu>Edit</guimenu>
+          <guimenuitem>Paste Image</guimenuitem>
+        </menuchoice>
+	will either update the image data in a selected image object or create a
+	new image object contaioning the content of the clipboard.
+      </para>
+      <tip><para>
+	Images can be stored embedded in the diagram ("inline data").
+	You should handle this option with care, because embedding images increases
+	not only the files size, but also the load and save times for the diagram.
+      </para></tip>
     </sect2>
     <sect2 id="outline">
       <title>Outline</title>

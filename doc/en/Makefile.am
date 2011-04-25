@@ -115,6 +115,7 @@ pngfigures = \
 	graphics/stacked.png \
 	graphics/defaults-box.png \
 	graphics/standard-line-properties.png \
+	graphics/standard-image-properties.png \
 	graphics/defaults-text.png \
 	graphics/toolbox-basic.png \
 	graphics/toolbox-image.png \
