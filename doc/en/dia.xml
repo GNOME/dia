@@ -129,19 +129,25 @@
 
   <releaseinfo>
 
-   This is version 0.97.0 of the Dia manual.
+   This is version 0.97.2 of the Dia manual.
 
   </releaseinfo>
   <revhistory>
-    <revision>
+  <revision>
+    <revnumber>0.97.2</revnumber>
+    <date>2011-04-25</date>
+    <authorinitials>hb</authorinitials>
+    <revremark>Actually describing noteable new features/behaviour of dia-0-97.x</revremark>
+  </revision>
+  <revision>
     <revnumber>0.97.0</revnumber>
-    <date>2008-27-05</date>
+    <date>2009-02-20</date>
     <authorinitials>sdteffen</authorinitials>
     <revremark>Bumping dates and revisions to show progress for 0.97 release</revremark>
   </revision>
   <revision>
     <revnumber>0.5-2</revnumber>
-    <date>2008-27-05</date>
+    <date>2008-05-27</date>
     <authorinitials>HDG</authorinitials>
     <revremark>dropping HTML entities, making dia-1.xml independant from dia-cmdline.xml,
     dropping file extension from graphics</revremark>
