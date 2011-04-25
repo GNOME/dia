@@ -75,6 +75,8 @@ pngfigures = \
 	graphics/line-styles.png \
 	graphics/line-caps.png \
 	graphics/align-top.png \
+	graphics/align-connected.png \
+	graphics/align-connected-before.png \
 	graphics/line-width.png \
 	graphics/arrow-style.png \
 	graphics/line_icon.png \

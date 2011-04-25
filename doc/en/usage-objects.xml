@@ -529,7 +529,7 @@
           <title>Objects / Align Options</title>
           <screenshot>
             <screeninfo>Objects / Align Options</screeninfo>
-            <graphic format="PNG" fileref="graphics/align-menu" srccredit="Mark Dexter" />
+            <graphic format="PNG" fileref="graphics/align-menu" srccredit="Hans Breuer" />
           </screenshot>
         </figure>     
       </para>
@@ -683,7 +683,36 @@
           </screenshot>
         </figure>      
       </sect3>
+
+      <sect3 id="align-connected">
+        <title>Align Connected</title>
+        <para>
+	The Align Connected command tries to align connected objects, so that the 
+	connecting lines are either horizontal or vertical afterwards.
+        </para>
+        <figure>
+          <title>Before Align Connected</title>
+          <screenshot>
+            <screeninfo>Before Align Connected</screeninfo>
+            <graphic format="PNG" fileref="graphics/align-connected-before" srccredit="Hans Breuer" />
+          </screenshot>
+        </figure>   
+        <figure>
+          <title>After Align Connected</title>
+          <screenshot>
+            <screeninfo>After Align Connected</screeninfo>
+            <graphic format="PNG" fileref="graphics/align-connected" srccredit="Hans Breuer" />
+          </screenshot>
+        </figure>   
+	<note><para>
+	  The algorithm used to align connected objects is not fool proof, infact it
+	  is very simple. If the resulting alignment does not match your expectations
+	  use Undo to revert it. A different selection of objects may producae a result
+	  more to your liking.
+	</para></note>
+      </sect3>
     </sect2>
+
     <sect2 id="grouping-objects">
       <title>Grouping Objects</title>
       <para>
