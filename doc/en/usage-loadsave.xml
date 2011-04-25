@@ -69,9 +69,9 @@
      </para>
     </sect2>
     <sect2 id="loadsave-filetypes-import">
-    <title>Import Formats</title>
+    <title>Import/Export Formats</title>
      <para>
-      <application>Dia</application> is able to import the following file types:
+      <application>Dia</application> is able to import and export the following file types:
       <itemizedlist>
        <listitem>
         <para>
@@ -81,6 +81,11 @@
        <listitem>
         <para>
 	 AutoCad Drawing eXchange Format (.dxf)
+	</para>
+       </listitem>
+       <listitem>
+        <para>
+	 Visio XML File Format (.vdx)
 	</para>
        </listitem>
        <listitem>
@@ -98,7 +103,7 @@
     </sect2>
 <!-- Add loadsave-filestypes-dif section in future -->
     <sect2 id="loadsave-filetypes-export">
-    <title>Exporting: Support for Other Formats</title>
+    <title>Exporting Only Formats</title>
      <para>
      <application>Dia</application> supports exporting to many other types of
      file, such as:
@@ -110,18 +115,8 @@
       </listitem>
       <listitem>
        <para>
-        Dia Native Diagram (.dia)
-       </para>
-      </listitem>
-      <listitem>
-       <para>
         Dia Shape File (.shape)
        </para>
-      </listitem>
-      <listitem>
-       <para>
-         AutoCad Drawing eXchange Format (.dxf)
-       </para>	
       </listitem>
       <listitem>
        <para>
@@ -135,17 +130,17 @@
       </listitem>
       <listitem>
        <para>
+        Postscript (.ps)
+       </para>
+      </listitem>
+      <listitem>
+       <para>
+        Portable Document Format (.pdf)
+       </para>
+      </listitem>
+      <listitem>
+       <para>
         Portable Network Graphics (.png)
-       </para>
-      </listitem>
-      <listitem>
-       <para>
-        Scalable Vector Graphics (.svg)
-       </para>
-      </listitem>
-      <listitem>
-       <para>
-        Scalable Vector Graphics gzip compressed (.svgz)
        </para>
       </listitem>
       <listitem>
@@ -191,7 +186,8 @@
      </para>
      <para>
       To create a file in one of these formats, select
-       <menuchoice>                                                                             <guimenu>File</guimenu>
+       <menuchoice>                                                                             
+	 <guimenu>File</guimenu>
          <guimenuitem>Export...</guimenuitem>
        </menuchoice>
       from the <interface>Main Popup Menu</interface>. Choose a name
