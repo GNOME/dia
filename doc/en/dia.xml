@@ -79,6 +79,7 @@
    <author><firstname>Alan</firstname><surname>Horkan</surname></author>
    <author><firstname>Thomas</firstname><surname>Harding</surname></author>
    <author><firstname>Mark</firstname><surname>Dexter</surname></author>
+   <author><firstname>Hans</firstname><surname>Breuer</surname></author>
   </authorgroup>
 
 
@@ -133,6 +134,12 @@
 
   </releaseinfo>
   <revhistory>
+  <revision>
+    <revnumber>0.97+git</revnumber>
+    <date>2011-04-25</date>
+    <authorinitials>hb</authorinitials>
+    <revremark>Work in progress for dia-0-98</revremark>
+  </revision>
   <revision>
     <revnumber>0.97.2</revnumber>
     <date>2011-04-25</date>

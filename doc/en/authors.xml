@@ -2,19 +2,14 @@
 <title>Authors</title>
   <para>
    <application>Dia</application> was created by Alexander Larsson and is
-   currently maintained by Lars Clausen and other dedicated volunteers.  
+   currently maintained by Hans Breuer and other dedicated volunteers.  
    To find more information about <application>Dia</application>, 
    please visit the official web page, <ulink
    url="http://live.gnome.org/Dia" type="http">
    live.gnome.org/Dia</ulink>.  Please send all comments,
    suggestions, and bug reports to the <ulink url="http://bugs.gnome.org"
-   type="http">GNOME bug tracking database</ulink>. (Instructions for
-   submitting bug reports can be found <ulink
-   url="http://bugs.gnome.org/Reporting.html" type="http">on-line</ulink>.)
-   If you are using GNOME 1.1 or later, you can also use <application>Bug
-   Report Tool</application> (<command>bug-buddy</command>), available in the
-   <guisubmenu>Utilities</guisubmenu> submenu of <guimenu>Main Menu</guimenu>,
-   for submitting bug reports.  You can also sign up to the 
+   type="http">GNOME bug tracking database</ulink>. 
+   You can also sign up to the 
    <application>Dia</application> 
    <ulink url="http://mail.gnome.org/mailman/listinfo/dia-list">mailing 
    list</ulink>.    
@@ -27,12 +22,6 @@
    (<email>horkana@tcd.ie</email>.
     It was significantly expanded and revised
     in August 2007 by Mark Dexter (<email>dextercowley@gmail.com</email>.
-   Please send all comments and suggestions regarding this manual to the
-   <ulink type="http" url="http://developer.gnome.org/projects/gdp/">GNOME Documentation
-   Project</ulink> by sending an email to <email>docs@gnome.org</email>. You
-   can also add your comments online by using the <ulink type="http"
-   url="http://developer.gnome.org/projects/gdp/doctable/">GNOME Documentation Status
-   Table</ulink>.
   </para>
  
   <!-- For translations: uncomment this:
