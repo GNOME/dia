@@ -949,7 +949,7 @@
         </screenshot>
       </figure>
       <para>
-        The Colors selector box contains 6 zones:
+        The Colors selector box contains 7 zones:
         <orderedlist>
           <listitem>
             <para>
@@ -987,6 +987,12 @@
             <para>
               In the lower right there is a predefined color palette.
               Click on any of these to choose the color.
+            </para>
+          </listitem>
+          <listitem>
+            <para>
+            To control the transparency of the color you can use the slider in
+	    the middle right. 
             </para>
           </listitem>
           <listitem>
