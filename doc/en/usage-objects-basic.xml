@@ -240,17 +240,11 @@
       </sect3>
       <sect3 id="line-colors">
         <title>Line Color</title>
-        <figure>
-          <title>Line Colors</title>
-          <screenshot>
-            <screeninfo>Line Colors</screeninfo>
-            <graphic format="PNG" fileref="graphics/line-colors" srccredit="Mark Dexter" />
-          </screenshot>
-        </figure>
         <para>
           Line colors are edited by opening the Line color drop-down listbox and either
           selecting one of the choices on the list or "More colors...", which opens the
-          Select color dialog. 
+          Select color dialog. To change transparency you can also use the color button
+          to the left of the color drop-down listbox.
           See <link linkend="colors">Colors</link> for more information on 
           selecting colors.
         </para>
@@ -261,14 +255,21 @@
           <title>Line Styles</title>
           <screenshot>
             <screeninfo>Line Styles</screeninfo>
-            <graphic format="PNG" fileref="graphics/line-styles" srccredit="Mark Dexter" />
+            <graphic format="PNG" fileref="graphics/line-styles" srccredit="Hans Breuer" />
           </screenshot>
         </figure>
         <para>
-          The style of the line (solid, dots, etc.) can be changed 
-          to one of the five options shown above using 
+          The style of the line (solid, dots, etc.) can be changed by using 
           the Line style drop-down listbox. If you select a line style with dashes, 
           you may also enter a dash length, measured in centimeters.
+          The line caps can be changed by the respective combobox. 
+        <figure>
+          <title>Line Caps</title>
+          <screenshot>
+            <screeninfo>Line Caps</screeninfo>
+            <graphic format="PNG" fileref="graphics/line-caps" srccredit="Hans Breuer" />
+          </screenshot>
+        </figure>
         </para>
       </sect3>
 

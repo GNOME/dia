@@ -67,13 +67,13 @@ pngfigures = \
 	graphics/align-center.png \
 	graphics/line-buttons.png \
 	graphics/align-left.png \
-	graphics/line-colors.png \
 	graphics/align-menu.png \
 	graphics/line-connect.png \
 	graphics/align-middle.png \
 	graphics/line-handles.png \
 	graphics/align-right.png \
 	graphics/line-styles.png \
+	graphics/line-caps.png \
 	graphics/align-top.png \
 	graphics/line-width.png \
 	graphics/arrow-style.png \
