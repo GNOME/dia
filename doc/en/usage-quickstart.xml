@@ -29,6 +29,17 @@
       and clicking on the Dia icon.  Or, you can type <command>dia</command> in
       a console window or xterm.
     </para>
+    <figure>
+      <title>Dia tabbed diagramming</title>
+      <screenshot>
+        <screeninfo>Dia tabbed diagramming
+        </screeninfo>
+        <graphic format="PNG" fileref="graphics/dia--integrated" srccredit="Hans Breuer" />
+      </screenshot>
+      <blockquote>
+        <simpara>Create the tabbed interface by <command>dia --integrated</command>.</simpara>
+      </blockquote>
+    </figure>
   </sect1>
   <sect1 id="creating-canvas">
     <title>Creating a Canvas</title>
@@ -49,10 +60,10 @@
       <screenshot>
         <screeninfo>Dia Startup
         </screeninfo>
-        <graphic format="PNG" fileref="graphics/dia-startup" srccredit="Mark Dexter" />
+        <graphic format="PNG" fileref="graphics/dia-startup" srccredit="Hans Breuer" />
       </screenshot>
       <blockquote>
-        <simpara>Dia startup showing blank canvas above and Toolbox to right.</simpara>
+        <simpara>Dia startup showing blank canvas above and Toolbox.</simpara>
       </blockquote>
     </figure>
   </sect1>
@@ -160,7 +171,7 @@
         </listitem>
         <listitem>
           <simpara>
-            Native Dia Format (.dia)
+            Portable Document Format (.pdf)
           </simpara>
         </listitem>
         <listitem>
