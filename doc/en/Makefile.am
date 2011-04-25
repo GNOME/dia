@@ -117,7 +117,6 @@ pngfigures = \
 	graphics/standard-line-properties.png \
 	graphics/defaults-text.png \
 	graphics/toolbox-basic.png \
-	graphics/delete-text.png \
 	graphics/toolbox-image.png \
 	graphics/dia-startup.png \
 	graphics/toolbox-lower.png \

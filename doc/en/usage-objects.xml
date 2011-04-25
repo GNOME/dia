@@ -70,6 +70,34 @@
         </para>
       </tip>
     </sect2>
+    <sect2 id="toolbox-textedit">
+      <title>Textedit Control</title>
+      <figure>
+        <title>Textedit Control</title>
+        <screenshot>
+          <screeninfo>Textedit Control</screeninfo>
+          <graphic format="PNG" fileref="graphics/toolbox-textedit" srccredit="Hans Breuer" />
+        </screenshot>
+      </figure> 
+      <para>
+	The Textedit control is new with Dia from version 0.97 - it indicates being 
+	in text edit mode. Together with an appropriate object selection it is one way
+	to start text modification.
+      </para>
+      <para>
+	An object supporting in-canvas text editing can be in two different selection modes.
+	The normal selection is the same for all objects, it allows to manipulate the objects
+	position, grouping etc.. Some object can enter a second selection mode, which allows
+	to edit their text from the canvas. 
+      </para>
+      <tip>
+        <para>
+	There are multiple ways to enter text edit mode. You can press-and-hold the left mouse button,
+	activate text editing by Enter or F2 key or select the respective object after activating
+	Textedit from the toolbox.
+        </para>
+      </tip>
+    </sect2>
     <sect2 id="toolbox-magnify">
       <title>Magnify Control</title>
       <figure>
@@ -443,12 +471,22 @@
     <sect2 id="entering-text">
       <title>Entering Text</title>
       <para>
-        Text can be entered by selecting the object and then typing the text. 
+        Text can be entered by selecting the object, entering text edit mode and then 
+	typing the text.
         The font, size, alignment, and other formatting properties can be changed by 
-        double-clicking the object.
+        double-clicking the object, when not in text edit mode.
       </para>
       <para>
-        Here are some important tips regarding short-cut keys when entering text.
+	Many Dia objects suport in-canvas editing of text. Dia versions before 0.97
+	had not explicit distinction between a selected object and it's text edit mode.
+	As a result numerous workarounds were needed to support canvas and text editing
+	with the same set of keys, e.g. the Delete key was not deleting the character
+	right to the cursor, but instead the whole object.
+      </para>
+      <para>
+	With Dia 0.97 and later there is a dedicated <link linkend="toolbox-textedit">text edit mode</link>.
+	You can enter it by hitting Enter or F2 key while an appropriate object is selected.
+        To leave text editing just click outside of the editable area or hit the Escape key.
       </para>
       <figure>
         <title>Edit Menu Text Commands</title>
@@ -459,8 +497,8 @@
       </figure>  
       <tip>
         <para>
-          The normal Copy / Cut / Paste keys (Ctrl+C, Ctrl+X, Ctrl+V) work on 
-          entire objects, not on text. The Edit menu contains the commands 
+          While in text edit mode the normal Copy / Paste keys (Ctrl+C, Ctrl+V) work on 
+          the entire text. The Edit menu also contains the commands 
           Copy Text, Cut Text (Shift+Ctrl+X), and Paste Text (Shift+Ctrl+V) 
           to copy, cut, and paste just the text contents of an object. 
           Note that when you paste text into an object, the text is 
@@ -471,27 +509,12 @@
       <tip>
         <para>
           You cannot select a section of text inside an object with the mouse (this
-          moves the object). You can insert characters at the current cursor position 
+          moves the cursor). You can insert characters at the current cursor position 
           just by typing. You can delete the character to the left of the mouse using 
-          Backspace. IMPORTANT: The Del key deletes the entire object, not the text 
-          to the right of the cursor. Use Shift+Del, Ctrl+Del, or Alt+Del to delete 
-          the text to the right of the cursor. (Use Ctrl+Z or 
-          <menuchoice>
-            <guimenu>Edit</guimenu>
-            <guimenuitem>Undo</guimenuitem>
-          </menuchoice>  if you delete 
-          an object by mistake.) To delete all of the text in an object, use the 
-          Cut (Shift+Ctrl+X). 
+          Backspace. The Del key deletes the character right to the cursor. 
+	  To delete all of the text in an object, use the Cut (Shift+Ctrl+X). 
         </para>
       </tip>
-      <figure>
-        <title>Deleting Text</title>
-        <screenshot>
-          <screeninfo>Deleting Text</screeninfo>
-          <graphic format="PNG" fileref="graphics/delete-text" srccredit="Mark Dexter" />
-        </screenshot>
-      </figure>  
-
     </sect2>
     <sect2 id="aligning-objects">
       <title>Aligning Objects</title>
