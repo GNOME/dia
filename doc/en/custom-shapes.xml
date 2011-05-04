@@ -203,7 +203,7 @@
         attribute should be of the form:
         <literallayout>
           <literal>
-            &lt;svg:whatever style="name1: value1; name2: value2; ... name42: value42"/&gt;
+&lt;svg:whatever style="name1: value1; name2: value2; ... name42: value42"/&gt;
           </literal>
         </literallayout>
       </para>
@@ -289,7 +289,8 @@
             the trick:
             <literallayout>
               <literal>
-                &lt;svg:rect style="stroke-width: 0" x="..." y="..." width="..." height="..."/&gt;
+&lt;svg:rect style="stroke-width: 0" x="..." y="..." width="..." 
+  height="..."/&gt;
               </literal>
             </literallayout>
           </para>
@@ -611,11 +612,13 @@
   <name>Circuit with identifiers</name>
   <name xml:lang="es">Circuito con identificadores</name>
   <description>Components for circuit diagrams</description>
-  <description xml:lang="es">Componentes para diagramas de circuitos</description>
+  <description xml:lang="es">Componentes para diagramas de circuitos
+  </description>
   <contents>
     <object name="Circuit with identifiers - NPN Transistor">
      <description>A bipolar npn transistor</description>
-     <description xml:lang="es">Un transistor bipolar npn identificable</description>
+     <description xml:lang="es">Un transistor bipolar npn identificable
+     </description>
     </object>
     <object name="UML - Objet">
      <description>An UML object</description>
