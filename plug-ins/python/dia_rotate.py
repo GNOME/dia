@@ -1,6 +1,6 @@
 # PyDia Rotation 
 # Copyright (c) 2003, Hans Breuer <hans@breuer.org>
-# Copyright (c) 2009  Steffen Macke <sdteffen@sdteffen.de
+# Copyright (c) 2009, 2011  Steffen Macke <sdteffen@sdteffen.de
 #
 #  This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -25,7 +25,7 @@ class CRotateDialog :
 		import gtk
 		win = gtk.Window()
 		win.connect("delete_event", self.on_delete)
-		win.set_title("Rotation")
+		win.set_title("Rotate counter-clockwise")
 
 		self.diagram = d
 		self.data = data
@@ -39,6 +39,11 @@ class CRotateDialog :
 		box2.set_border_width(10)
 		box1.pack_start(box2)
 		box2.show()
+
+		label1 = gtk.Label()
+		label1.set_text('Rotation around (0,0). Rotation angle in degrees:')
+		box2.pack_start(label1)
+		label1.show()
 
 		self.entry = gtk.Entry()
 		self.entry.set_text("0.0")
@@ -67,10 +72,10 @@ class CRotateDialog :
 		angle = float(s)
 		if angle >= 0 and angle <= 360 :
 			SimpleRotate (self.data, angle)
-			self.data.update_extents ()
+			self.data.update_extents()
 			self.diagram.flush()
 		else :
-			dia.message(1, "Value out of range!")
+			dia.message(1, "Please enter an angle between 0 and 360 degrees.")
 		self.win.destroy ()
 
 	def on_delete (self, *args) :
@@ -88,7 +93,22 @@ def SimpleRotate(data, angle) :
 	if len(objs) == 0 :
 		objs = data.active_layer.objects
 	scaleFailed = {}
+	ptype = dia.get_object_type('Standard - Polygon')
 	for o in objs :
+		if o.type.name == 'Standard - Box' :			
+			r = o.properties['obj_bb'].value
+			p = ptype.create(0,0)
+			p = p[0]
+			p.properties['poly_points'] = [(r.left, r.top), (r.right, r.top), (r.right, r.bottom), (r.left, r.bottom)]
+			p.properties['line_width'] = o.properties['line_width']
+			p.properties['line_colour'] = o.properties['line_colour']
+			p.properties['line_style'] = o.properties['line_style']
+			p.properties['line_colour'] = o.properties['line_colour']
+			p.properties['fill_colour'] = o.properties['fill_colour']
+			p.properties['show_background'] = o.properties['show_background']
+			data.active_layer.add_object(p)
+			data.active_layer.remove_object(o)
+			o = p
 		for h in o.handles:
 			x = math.cos(angle_rad)*(h.pos.x+xm)-math.sin(angle_rad)*(h.pos.y+ym)
 			y = math.sin(angle_rad)*(h.pos.x+xm)+math.cos(angle_rad)*(h.pos.y)
