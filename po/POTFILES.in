@@ -39,6 +39,7 @@ lib/attributes.c
 lib/bezier_conn.c
 lib/create.c
 lib/dia_dirs.c
+lib/dia_image.c
 lib/dia_xml.c
 lib/diaarrowchooser.c
 lib/diaarrowselector.c
@@ -188,6 +189,7 @@ objects/standard/standard.c
 objects/standard/textobj.c
 objects/standard/zigzagline.c
 plug-ins/cairo/diacairo-interactive.c
+plug-ins/cairo/diacairo-renderer.c
 plug-ins/cairo/diacairo.c
 plug-ins/cgm/cgm.c
 plug-ins/drs/dia-render-script-import.c
@@ -219,6 +221,7 @@ plug-ins/python/pydia-render.c
 plug-ins/python/python.c
 plug-ins/shape/shape-export.c
 plug-ins/shape/shape.c
+plug-ins/stress/stress.c
 plug-ins/svg/render_svg.c
 plug-ins/svg/svg-import.c
 plug-ins/svg/svg.c
