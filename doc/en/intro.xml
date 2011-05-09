@@ -30,4 +30,22 @@
     </figure>
   </para>
  </sect1>
+ <sect1 id="news">
+  <title>New in this version</title>
+  <itemizedlist>
+   <listitem>
+    Transparency with <link linkend="colors">colors</link>
+   </listitem>
+   <listitem>
+    Transformations, see <link linkend="grouping-objects">Grouping Objecs</link> - ToDo update
+    for 0.97: property change working on selection, 0.98: transformations of groups
+   </listitem>
+   <listitem>
+    Object meta info editor, see <link linkend="changing-properties">Changing Properties</link>
+   </listitem>
+   <listitem>
+    Embedded images <link linkend="image">...</link>
+   </listitem>
+  </itemizedlist>
+ </sect1>  
 </chapter>                                                                       

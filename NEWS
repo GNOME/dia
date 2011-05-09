@@ -1,4 +1,15 @@
-  * Groups can be scaled and rotated. This limited support for object
+  * Transparency
+  
+  * Improved clipboard support
+
+  * Embedded Images
+
+  * Text fitting options
+    - Always: grow and shrink object based on it's text content
+    - When Needed: only grow objects when text content does not fit (old default)
+    - Never: text space and object shape are completely independent
+
+  * Transformations: Groups can be scaled and rotated. This limited support for object
     transformations can only be exploited with a limited number of
     renderers, but SVG, PNG, PDF (via cairo), WMF (win32 only) and
     plain SVG are fully supporting transformations. (bgo#59880, bgo#100886)
