@@ -1188,40 +1188,19 @@ view_diagram_properties_callback (GtkAction *action)
 void
 view_main_toolbar_callback (GtkAction *action)
 {
-  if (gtk_toggle_action_get_active (GTK_TOGGLE_ACTION(action)) == TRUE)
-  {
-    integrated_ui_main_toolbar_show ();
-  }
-  else
-  {
-    integrated_ui_main_toolbar_hide ();
-  }
+  integrated_ui_toolbar_show (gtk_toggle_action_get_active (GTK_TOGGLE_ACTION(action)));
 }
 
 void
 view_main_statusbar_callback (GtkAction *action)
 {
-  if (gtk_toggle_action_get_active (GTK_TOGGLE_ACTION(action)) == TRUE)
-  {
-    integrated_ui_main_statusbar_show ();
-  }
-  else
-  {
-    integrated_ui_main_statusbar_hide ();
-  }
+  integrated_ui_statusbar_show (gtk_toggle_action_get_active (GTK_TOGGLE_ACTION(action)));
 }
 
 void
 view_layers_callback (GtkAction *action)
 {
-  if (gtk_toggle_action_get_active (GTK_TOGGLE_ACTION(action)) == TRUE)
-  {
-    integrated_ui_layer_view_show ();
-  }
-  else
-  {
-    integrated_ui_layer_view_hide ();
-  }
+  integrated_ui_layer_view_show (gtk_toggle_action_get_active (GTK_TOGGLE_ACTION(action)));
 }
 
 void 

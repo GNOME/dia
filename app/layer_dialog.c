@@ -279,7 +279,7 @@ layer_dialog_delete(GtkWidget *widget, gpointer data)
 static void
 layer_view_hide_button_clicked (void * not_used)
 {
-  integrated_ui_layer_view_hide ();
+  integrated_ui_layer_view_show (FALSE);
 }
 
 GtkWidget * create_layer_view_widget (void)

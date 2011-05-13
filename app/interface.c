@@ -1778,8 +1778,8 @@ create_integrated_ui (void)
 
   /* NOTE: These functions use ui.xxx assignments above and so must come after
    *       the user interface components are set.                              */
-  integrated_ui_main_toolbar_show ();
-  integrated_ui_main_statusbar_show ();
+  integrated_ui_toolbar_show (TRUE);
+  integrated_ui_statusbar_show (TRUE);
 
   /* For access outside here: */
   g_object_set_data (G_OBJECT (ui.main_window), DIA_MAIN_NOTEBOOK, notebook);
@@ -1900,7 +1900,8 @@ interface_get_toolbox_shell(void)
 /* Indicate if the integrated UI toolbar is showing.
  * @return TRUE if showing, FALSE if not showing or doesn't exist 
  */ 
-gboolean integrated_ui_main_toolbar_is_showing (void)
+gboolean 
+integrated_ui_toolbar_is_showing (void)
 {
   if (ui.toolbar)
   {
@@ -1913,36 +1914,27 @@ gboolean integrated_ui_main_toolbar_is_showing (void)
   return FALSE;
 }
 
-/* show() integrated UI main toolbar and set pulldown menu action. */
-void integrated_ui_main_toolbar_show (void)
+/* show integrated UI main toolbar and set pulldown menu action. */
+void 
+integrated_ui_toolbar_show (gboolean show)
 {
-  if (ui.toolbar)
-  {
+  if (ui.toolbar) {
     GtkAction *action = NULL;
-    gtk_widget_show (GTK_WIDGET (ui.toolbar));
+    if (show)
+      gtk_widget_show (GTK_WIDGET (ui.toolbar));
+    else
+      gtk_widget_hide (GTK_WIDGET (ui.toolbar));
     action = menus_get_action (VIEW_MAIN_TOOLBAR_ACTION);
     if (action)
-      gtk_toggle_action_set_active (GTK_TOGGLE_ACTION (action), TRUE);
-  }
-}
-
-/* hide() integrated UI main toolbar and reset pulldown menu action. */
-void integrated_ui_main_toolbar_hide (void)
-{
-  if (ui.toolbar)
-  {
-    GtkAction *action = NULL;
-    gtk_widget_hide (GTK_WIDGET (ui.toolbar));
-    action = menus_get_action (VIEW_MAIN_TOOLBAR_ACTION);
-    if (action)
-      gtk_toggle_action_set_active (GTK_TOGGLE_ACTION (action), FALSE);
+      gtk_toggle_action_set_active (GTK_TOGGLE_ACTION (action), show);
   }
 }
 
 /* Indicate if the integrated UI Layer View is showing.
  * @return TRUE if showing, FALSE if not showing or doesn't exist 
  */ 
-gboolean integrated_ui_layer_view_is_showing (void)
+gboolean 
+integrated_ui_layer_view_is_showing (void)
 {
   if (ui.layer_view)
   {
@@ -1955,38 +1947,25 @@ gboolean integrated_ui_layer_view_is_showing (void)
   return FALSE;
 }
 
-void integrated_ui_layer_view_show (void)
+void 
+integrated_ui_layer_view_show (gboolean show)
 {
-  if (ui.layer_view)
-  {
-    GtkAction *action = NULL;
-    gtk_widget_show (ui.layer_view); 
+  if (ui.layer_view) {
+    GtkAction *action;
+    if (show)
+      gtk_widget_show (ui.layer_view);
+    else
+      gtk_widget_hide (ui.layer_view);
     action = menus_get_action (VIEW_LAYERS_ACTION);
     if (action) 
-    {
-      gtk_toggle_action_set_active (GTK_TOGGLE_ACTION (action), TRUE);
-    }
-  }
-}
-
-void integrated_ui_layer_view_hide (void)
-{
-  if (ui.layer_view)
-  {
-    GtkAction *action = NULL;
-    gtk_widget_hide (ui.layer_view); 
-    action = menus_get_action (VIEW_LAYERS_ACTION);
-    if (action)
-    {
-      gtk_toggle_action_set_active (GTK_TOGGLE_ACTION (action), FALSE);
-    }
+      gtk_toggle_action_set_active (GTK_TOGGLE_ACTION (action), show);
   }
 }
 
 /* Indicate if the integrated UI statusbar is showing.
  * @return TRUE if showing, FALSE if not showing or doesn't exist 
  */ 
-gboolean integrated_ui_main_statusbar_is_showing (void)
+gboolean integrated_ui_statusbar_is_showing (void)
 {
   if (ui.statusbar)
   {
@@ -2000,30 +1979,18 @@ gboolean integrated_ui_main_statusbar_is_showing (void)
 }
 
 /* show() integrated UI main statusbar and set pulldown menu action. */
-void integrated_ui_main_statusbar_show (void)
+void 
+integrated_ui_statusbar_show (gboolean show)
 {
   if (ui.statusbar)
   {
-    GtkAction *action = NULL;
-    gtk_widget_show (GTK_WIDGET (ui.statusbar));
+    GtkAction *action;
+    if (show)
+      gtk_widget_show (GTK_WIDGET (ui.statusbar));
+    else
+      gtk_widget_hide (GTK_WIDGET (ui.statusbar));
     action = menus_get_action (VIEW_MAIN_STATUSBAR_ACTION);
     if (action)
-      gtk_toggle_action_set_active (GTK_TOGGLE_ACTION (action), TRUE);
+      gtk_toggle_action_set_active (GTK_TOGGLE_ACTION (action), show);
   }
 }
-
-/* hide() integrated UI main statusbar and reset pulldown menu action. */
-void integrated_ui_main_statusbar_hide (void)
-{
-  if (ui.statusbar)
-  {
-    GtkAction *action = NULL;
-    gtk_widget_hide (GTK_WIDGET (ui.statusbar));
-    action = menus_get_action (VIEW_MAIN_STATUSBAR_ACTION);
-    if (action)
-      gtk_toggle_action_set_active (GTK_TOGGLE_ACTION (action), FALSE);
-  }
-}
-
-
-
