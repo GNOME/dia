@@ -108,6 +108,9 @@ _change_list_revert (ObjectChange *change_list, DiaObject *obj)
   ObjectChangeList *list = (ObjectChangeList *)change_list;
   guint i;
   
+  if (list->changes->len < 1)
+    return; /* avoid overflow below */
+
   for (i = list->changes->len - 1;/* i >= 0 */; --i) {
     ObjectChange * change = (ObjectChange *)g_ptr_array_index(list->changes, i);
     
