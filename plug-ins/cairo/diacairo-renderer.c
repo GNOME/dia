@@ -74,6 +74,8 @@
 
 #include "diacairo.h"
 
+static void ensure_minimum_one_device_unit(DiaCairoRenderer *renderer, real *value);
+
 /* 
  * render functions 
  */ 
@@ -81,6 +83,7 @@ static void
 begin_render(DiaRenderer *self)
 {
   DiaCairoRenderer *renderer = DIA_CAIRO_RENDERER (self);
+  real onedu = 0.0;
 
   if (renderer->surface)
     renderer->cr = cairo_create (renderer->surface);
@@ -88,7 +91,11 @@ begin_render(DiaRenderer *self)
     g_assert (renderer->cr);
 
   cairo_scale (renderer->cr, renderer->scale, renderer->scale);
-  cairo_translate (renderer->cr, -renderer->dia->extents.left, -renderer->dia->extents.top);
+  /* to ensure no clipping at top/left we need some extra gymnastics,
+   * otherwise a box with a line witdh one one pixel might loose the
+   * top/left border as in bug #147386 */
+  ensure_minimum_one_device_unit (renderer, &onedu);
+  cairo_translate (renderer->cr, -renderer->dia->extents.left + onedu, -renderer->dia->extents.top + onedu);
   /* no more blurred UML diagrams */
   cairo_set_antialias (renderer->cr, CAIRO_ANTIALIAS_NONE);
 

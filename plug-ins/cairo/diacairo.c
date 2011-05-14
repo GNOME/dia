@@ -160,9 +160,8 @@ export_data(DiagramData *data, const gchar *filename,
   case OUTPUT_PNG :
     /* quite arbitrary, but consistent with ../pixbuf ;-) */
     renderer->scale = 20.0 * data->paper.scaling; 
-    width  = (data->extents.right - data->extents.left) * renderer->scale + 0.5;
-    height = (data->extents.bottom - data->extents.top) * renderer->scale + 0.5;
-
+    width  = ceil((data->extents.right - data->extents.left) * renderer->scale) + 1;
+    height = ceil((data->extents.bottom - data->extents.top) * renderer->scale) + 1;
     DIAG_NOTE(g_message ("PNG Surface %dx%d\n", (int)width, (int)height));
     /* use case screwed by API shakeup. We need to special case */
     renderer->surface = cairo_image_surface_create(
@@ -190,8 +189,8 @@ export_data(DiagramData *data, const gchar *filename,
   case OUTPUT_SVG :
     /* quite arbitrary, but consistent with ../pixbuf ;-) */
     renderer->scale = 20.0 * data->paper.scaling; 
-    width  = (data->extents.right - data->extents.left) * renderer->scale + 0.5;
-    height = (data->extents.bottom - data->extents.top) * renderer->scale + 0.5;
+    width  = ceil((data->extents.right - data->extents.left) * renderer->scale) + 1;
+    height = ceil((data->extents.bottom - data->extents.top) * renderer->scale) + 1;
     DIAG_NOTE(g_message ("SVG Surface %dx%d\n", (int)width, (int)height));
     /* use case screwed by API shakeup. We need to special case */
     renderer->surface = cairo_svg_surface_create(
@@ -245,8 +244,8 @@ export_data(DiagramData *data, const gchar *filename,
   default :
     /* quite arbitrary, but consistent with ../pixbuf ;-) */
     renderer->scale = 20.0 * data->paper.scaling; 
-    width  = (data->extents.right - data->extents.left) * renderer->scale;
-    height = (data->extents.bottom - data->extents.top) * renderer->scale;
+    width  = ceil((data->extents.right - data->extents.left) * renderer->scale) + 1;
+    height = ceil((data->extents.bottom - data->extents.top) * renderer->scale) + 1;
     DIAG_NOTE(g_message ("Image Surface %dx%d\n", (int)width, (int)height)); 
     renderer->surface = cairo_image_surface_create (CAIRO_FORMAT_A8, (int)width, (int)height);
   }
