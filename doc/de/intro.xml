@@ -1,0 +1,29 @@
+<chapter label="1" id="intro-chapter">
+<title>Einleitung</title>
+ <sect1 id="intro">
+  <title>Einleitung</title>
+  <para>
+   <application>Dia</application> ist eine Anwendung zur Erstellung von
+   technischen Diagrammen. Dia erlaubt es unter anderem, über mehrere Seiten 
+   verteilte Diagramme zu drucken, es exportiert in viele Formate (u.a. PDF,
+   VDX, SVG, EPS, CGM und PNG) und bietet die Möglichkeit, benutzerdefinierte
+   Objekte zur Symbolpalette hinzuzufügen.
+   <application>Dia</application> bietet die Möglichkeit, UML-Diagramme, 
+   Netzwerkpläne und Flussdiagramme zu erstellen (Eine Vielzahl an weiteren
+   Diagrammtypen wird unterstützt).
+  </para>
+  <para>
+   Dieses Dokument beschreibt <application>Dia</application> in der Version 
+   &VERSION;.
+    <figure>
+      <title>Flussdiagramm-Beispiel</title>
+        <screenshot>
+          <screeninfo>Dies ist ein einfaches Flussdiagramm, das mit 
+          <application>Dia</application> erstellt wurde.
+          </screeninfo>
+          <graphic format="PNG" fileref="graphics/beispiel-flussdiagramm" srccredit="Steffen Macke" />
+        </screenshot>
+    </figure>
+  </para>
+ </sect1>
+</chapter>                                                                       

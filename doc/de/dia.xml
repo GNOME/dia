@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE book
+
+  PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd"
+
+  [
+
+    <!ENTITY VERSION "0.97.1">
+
+    <!ENTITY INTRODUCTION SYSTEM "intro.xml">
+
+    <!ENTITY QUICKSTART SYSTEM "usage-quickstart.xml">
+
+    <!ENTITY CANVAS SYSTEM "usage-canvas.xml">
+
+    <!ENTITY OBJECTS SYSTEM "usage-objects.xml">
+    
+    <!ENTITY BASIC-OBJECTS SYSTEM "usage-objects-basic.xml">
+    
+    <!ENTITY SPECIAL-OBJECTS SYSTEM "usage-objects-special.xml">
+
+    <!ENTITY SELECTING-OBJECTS SYSTEM "usage-objects-selecting.xml">
+
+    <!ENTITY LOADING-SAVING SYSTEM "usage-loadsave.xml">
+
+    <!ENTITY AUTHORS SYSTEM "authors.xml">
+
+    <!ENTITY LICENSE SYSTEM "license.xml">
+
+    <!ENTITY DIA-1 SYSTEM "dia-1.xml">
+
+    <!ENTITY LICENSE-DOCUMENTATION SYSTEM "license-documentation.xml">
+
+  ]
+
+>
+
+<book id="index" lang="de"> <!-- please do not change the id -->
+
+ <bookinfo>
+
+  <title>Dia-Handbuch</title>
+
+  <copyright>
+
+   <year>2004</year>
+   <year>2009</year>
+   <year>2010</year>
+   <year>2011</year>
+   
+   <holder>Kevin Breit</holder>
+
+   <holder>Henry House</holder>
+
+   <holder>Judith Samson</holder>
+
+   <holder>Alan Horkan</holder>
+   
+   <holder>Mark Dexter</holder>
+
+   <holder>Steffen Macke</holder>
+   
+  </copyright>                                                  
+  <authorgroup>
+   <author><firstname>Kevin</firstname><surname>Breit</surname></author>
+   <author><firstname>Henry</firstname><surname>House</surname></author>
+   <author><firstname>Judith</firstname><surname>Samson</surname></author>
+   <author><firstname>Alan</firstname><surname>Horkan</surname></author>
+   <author><firstname>Thomas</firstname><surname>Harding</surname></author>
+   <author><firstname>Mark</firstname><surname>Dexter</surname></author>
+   <author><firstname>Steffen</firstname><surname>Macke</surname></author>
+  </authorgroup>
+
+  <legalnotice id="legal-notice">
+  
+   <para>
+	Es wird die Erlaubnis gewährt, dieses Dokument zu kopieren, zu
+	verteilen und/oder zu modifizieren, unter den Bestimmungen der GNU Free
+	Documentation License, Version 1.2 oder jeder späteren Version,
+	veröffentlicht von der Free Software Foundation; ohne unveränderliche
+	Abschnitte, ohne vordere Umschlagtexte und ohne hintere Umschlagtexte.
+	Eine Kopie der Lizenz wird im Abschnitt mit dem Titel "GNU Free
+	Documentation License" bereitgestellt.
+   </para>
+
+	<para>
+	  CSS Stylesheets, die in diesem Dokument referenziert werden und die Grafiken,
+	  die in diesen Stylesheets referenziert werden, unterliegen einer
+	  anderen Lizenz.
+	</para>
+
+  </legalnotice>                                                                
+
+  <releaseinfo>
+
+   Dies ist Version 0.97.2 des Dia-Handbuches.
+
+  </releaseinfo>
+  <revhistory>
+  <revision>
+    <revnumber>0.97.2</revnumber>
+    <date>2011-05-13</date>
+    <authorinitials>sdteffen</authorinitials>
+    <revremark>Zweite, erweiterte deutsche Version des Dia-Handbuches</revremark>
+  </revision>
+    <revision>
+    <revnumber>0.97.1</revnumber>
+    <date>2009-12-12</date>
+    <authorinitials>sdteffen</authorinitials>
+    <revremark>Erste deutsche Version des Dia-Handbuches</revremark>
+  </revision>  
+  </revhistory>
+
+ </bookinfo>
+
+&INTRODUCTION;
+
+&QUICKSTART;
+
+&CANVAS;
+
+&OBJECTS;
+
+&BASIC-OBJECTS;
+
+&SPECIAL-OBJECTS;
+
+&SELECTING-OBJECTS;
+
+&LOADING-SAVING;
+
+&AUTHORS;
+
+&LICENSE;
+
+&LICENSE-DOCUMENTATION;
+
+</book>

@@ -1,0 +1,101 @@
+<chapter label="8" id="loadsave-chapter">
+<title>Diagramme laden und speichern</title>
+<sect1 id="loadsave-intro">
+ <title>Einleitung Laden und Speichern</title>
+  <para>
+   <application>Dia</application> folgt demselben Modell wie die meisten Desktop-Anwendungen: Sie müssen alle Zeichenflächen, die Sie später weiterverwenden wollen, explizit speichern. Um eine Datei zu speichern, wählen Sie <menuchoice> <guimenu>Datei</guimenu> <guimenuitem>Speichern</guimenuitem> </menuchoice> aus dem <interface>Menü</interface>. Es wird der Speicherdialog angezeigt. Ihr Diagramm wird im <application>Dia</application> XML-Format gespeichert. Da die Dateiendung nicht verändert wird, ist es eine gute Idee darauf zu achten, dass der Dateiname auf &quot;.dia&quot; endet.</para>
+  <para>Um ein zuvor von <application>Dia</application> oder einer anderen Anwendung gespeichertes Diagramm zu laden, wählen Sie <menuchoice><guimenu>Datei</guimenu> <guimenuitem>Öffnen</guimenuitem></menuchoice> aus dem <interface>Menü</interface>. Im Dialog <interface>Diagramm öffnen</interface> wählen Sie die gewünschte Datei und klicken auf <guibutton>Öffnen</guibutton>. Der Dialog <interface>Diagramm öffnen</interface> enthält eine Auswahlliste <guimenu>Dateityp bestimmen</guimenu>. Falls <application>Dia</application> das Dateiformat nicht automatisch erkennen kann, wählen Sie den gewünschten Dateityp (beispielsweise <application>Dia</application> XML).</para>
+  <para>Eine alternative Möglichkeit, Dateien zu laden, ist es <application>Dia</application> über die Kommandozeile zu starten und die zu öffnende Datei als Argument anzugeben.</para>
+ </sect1>
+   <sect1 id="loadsave-filetypes">
+   <title>Dateitypen</title>
+    <para>Einige Worte über Dateitypen. Sie sollten sich bewusst sein, dass nicht alle Exportformate von <application>Dia</application> geladen werden können und dass ein Export meist mit einem gewissen Informationsverlust einhergeht.</para>
+    <sect2 id="loadsave-filetypes-dia">
+    <title>Native Dia Diagrammdateien</title>
+     <para>Das einzige Format, das garantiert verlustfrei ist, ist <application>Dia</application> XML. Glücklicherweise ist es unwahrscheinlich, dass Sie versentlich ein Diagramm in ein verlustbehaftetes Format exportieren, da <menuchoice><guimenu>Datei</guimenu> <guimenuitem>Speichern</guimenuitem></menuchoice> immer Dateien im <application>Dia</application> XML Format erzeugt.</para>
+     <para>Dateien im <application>Dia</application> XML format können mit dem Gzip-Algorithmus komprimiert werden, um Speicherplatz zu sparen. Das ist hilfreich, da die XML-Dateien sonst sehr schnell sehr gross werden. Kompression von komprimierten <application>Dia</application> XML-Dateien in Archivdateien wird die Dateigröße nicht signifikant verringern.</para>
+    </sect2>
+    <sect2 id="loadsave-filetypes-import">
+    <title>Importformate</title>
+     <para>
+      <application>Dia</application> ist in der Lage, die folgenden Dateiformate zu importieren:<itemizedlist>
+       <listitem>
+        <para>Skalierbare Vektorgrafik (SVG)</para>
+       </listitem>
+       <listitem>
+        <para>Drawing Interchange Format (.dxf)</para>
+       </listitem>
+       <listitem>
+        <para>XFig Dateiformat (.fig)</para>
+       </listitem>
+       <listitem>
+        <para>Verschiedene Rastergrafikformate (.bmp, .gif, .jpg, .png, .pnm, .ra, .tif)</para>
+       </listitem>
+      </itemizedlist> 
+     </para>
+    </sect2>
+<!-- Add loadsave-filestypes-dif section in future -->
+    <sect2 id="loadsave-filetypes-export">
+    <title>Exportieren: Unterstützung anderer Formate</title>
+     <para>
+     <application>Dia</application> unterstützt den Export in zahlreichen Dateiformaten, wie beispielsweise:<itemizedlist>
+      <listitem>
+       <para>Computer Graphics Metadatei (.cgm)</para>
+      </listitem>
+      <listitem>
+       <para>Native Dia Diagrammdateien (.dia)</para>
+      </listitem>
+      <listitem>
+       <para>Dia Form-Datei (.shape)</para>
+      </listitem>
+      <listitem>
+       <para>Drawing Interchange Format (.dxf)</para>	
+      </listitem>
+      <listitem>
+       <para>HP Graphics Language Exportfilter (.plt, .hpgl)</para>
+      </listitem>
+      <listitem>
+       <para>Gekapseltes PostScript (.eps, .epsi)</para>
+      </listitem>
+      <listitem>
+       <para>
+        Portable Network Graphics (.png)
+       </para>
+      </listitem>
+      <listitem>
+       <para>Skalierbare Vektorgrafik (SVG)</para>
+      </listitem>
+      <listitem>
+       <para>komprimierte Skalierbare Vektorgrafik (.svgz)</para>
+      </listitem>
+      <listitem>
+       <para>TeX Metapost Makros (.mp)</para>
+      </listitem>
+      <listitem>
+       <para>TeX PSTrick Makros (.tex)</para>
+      </listitem>	
+      <listitem>
+       <para>WordPerfect Grafik (.wpg)</para>
+      </listitem>
+      <listitem>
+       <para>XFig Dateiformat (.fig)</para>
+      </listitem> 
+      <listitem>
+       <para>XSL Transformation (.code)</para>
+      </listitem>
+     </itemizedlist>
+     <application>Dia</application> kann die Dateien in den meisten dieser Formate nicht laden. Diese Formate sind nützlich, um Diagramme in anderen Applikationen einzubinden oder um sie an Nutzer von Betriebssystemen, die <application>Dia</application> nicht unterstützt.<!--Lets go through later and make this a variablelist, as well as describe
+     the strengths of each of these formats  -->
+<!--      Computer Graphics Metafile, HPGL, EPS, PNG, SVG,
+      TeX, and WPG formats are supported for crating files
+      only&mdash;<application>Dia</application> cannot load files in these
+      formats. These formats are useful for diagrams that you need to use
+      in another application (e.g., the World-wide Web) or distribute to
+      users of an operating system that <application>Dia</application>
+      does not support.
+-->
+     </para>
+     <para>Um eine solche Datei zu erzeugen, wählen Sie <menuchoice><guimenu>Datei</guimenu><guimenuitem>Exportieren...</guimenuitem></menuchoice> aus dem <interface>Menü</interface>. Im <interface>Speichern</interface>-Dialog wählen Sie einen Namen und das gewünschte Format. Die entsprechende Dateiendung wird automatisch angehängt.</para>
+   </sect2>
+  </sect1>
+</chapter> 

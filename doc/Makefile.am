@@ -1,6 +1,6 @@
 docname = dia
 
-SUBDIRS = en fr eu pl
+SUBDIRS = en fr eu pl de
 
 EXTRA_DIST = \
 	custom-shapes \

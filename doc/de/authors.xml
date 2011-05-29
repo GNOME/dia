@@ -1,0 +1,41 @@
+<chapter label="13" id="authors-chap">
+<title>Autoren</title>
+  <para>
+   <application>Dia</application> wurde ursprünglich von
+   Alexander Larsson entwickelt und wird momentan von Hans Breuer
+   und Anderen gepflegt.  
+   Um mehr über <application>Dia</application>, 
+   zu erfahren, besuchen Sie <ulink url="http://dia-installer.de" 
+   type="http">dia-installer.de</ulink> oder <ulink
+   url="http://live.gnome.org/Dia" type="http">
+   live.gnome.org/Dia</ulink>.  Bitte tragen Sie sämtliche
+   Kommentare, Vorschläge und Fehlerberichtet in der <ulink url="http://bugs.gnome.org"
+   type="http">GNOME Fehlerdatenbank</ulink> ein. (Eine
+   Anleitung dazu finden Sie <ulink
+   url="http://bugs.gnome.org/Reporting.html" type="http">online</ulink>.)
+   Alternativ können Sie sich an die  
+   <application>Dia</application> 
+   <ulink url="http://mail.gnome.org/mailman/listinfo/dia-list">Mailingliste</ulink>
+   wenden.    
+  </para>
+ 
+  <para>
+   Dieses Handbuch wurde von  Henry House (<email>hajhouse@houseag.com</email>)
+   , Judith Samson (<email>judith@samsonsource.com</email>), Kevin Breit
+   (<email>battery841@mypad.com</email>) und Alan Horkan 
+   (<email>horkana@tcd.ie</email> geschrieben.
+    Es wurde im August 2007 von Mark Dexter erheblich erweitert und überarbeitet 
+    (<email>dextercowley@gmail.com</email>.
+   Bitte senden Sie alle Kommentare und Anregungen zu diesem Handbuch an das
+   <ulink type="http" url="http://developer.gnome.org/projects/gdp/">GNOME Documentation
+   Project</ulink>. Dazu könnnen Sie eine Email an <email>docs@gnome.org</email> senden
+   oder Kommentare online über die <ulink type="http"
+   url="http://developer.gnome.org/projects/gdp/doctable/">GNOME Dokumentation Status
+   Tabelle</ulink> absetzen.
+  </para>
+ 
+  <para>
+   Ins Deutsche übersetzt von Steffen Macke (<email>sdteffen@gmail.com</email>).
+  </para>
+ 
+</chapter>

@@ -1,0 +1,296 @@
+<chapter label="2" id="quickstart-chapter">
+  <title>Schnellstart</title>
+  <para>
+    Dieses Schnellstart-Kapitel soll Ihnen helfen, Diagramme zu erstellen, ohne das
+    komplette Handbuch zu lesen.
+  </para>
+  <sect1 id="what-can-you-do">
+    <title>Was können Sie tun?</title>
+    <para>
+      <application>Dia</application> ist eine Zeichenanwendung, die es erlaubt,
+      eine Vielzahl an Diagrammen zu erstellen. <application>Dia</application> 
+      ist einfach zu erlernen und dabei flexibel genug, um erfahrenen Anwendern
+      die Erzeugung hochgradig angepasster Diagramme zu ermöglichen. Im folgenden
+      sind zwei einfache Diagramme dargestellt, die schnell mit 
+      <application>Dia</application> gezeichnet werden können.
+      <figure>
+        <title>Netzwerk-Beispieldiagramm</title>
+        <screenshot>
+          <screeninfo>Dieses Diagramm eines Heimnetzwerkes wurde in weniger als
+            5 Minuten mit <application>Dia</application> erstellt.
+          </screeninfo>
+          <graphic format="PNG" fileref="graphics/beispiel-netzwerkdiagramm" srccredit="Steffen Macke" />
+        </screenshot>
+      </figure>
+    </para>
+  </sect1>
+  <sect1 id="starting-dia">  <title>Dia starten</title>
+    <para>
+      Sie können Dia aus dem Hauptmenü (Startmenü) starten, indem Sie auf das
+      Dia-Symbol klicken. Alternativ können Sie auf ein im Dia-Format vorliegendes
+      Diagramm klicken, oder <command>dia</command> in der Kommandozeile eingeben.
+    </para>
+  </sect1>
+  <sect1 id="creating-canvas">
+    <title>Zeichenfläche erzeugen</title>
+    <para>
+      Alle Diagramme werden auf Ihrer eigenen <emphasis>Zeichenfläche</emphasis>
+      gezeichnet. Wenn Sie Dia zum ersten Mal starten, wird automatisch eine
+      leere Zeichenfläche angelegt. Sie können jederzeit eine neue Zeichenfläche
+      erzeugen, indem Sie den Menüpunkt
+      <menuchoice>
+        <guimenu>Datei</guimenu>
+        <guimenuitem>Neues Diagramm</guimenuitem>
+      </menuchoice>
+      aufrufen.
+      Die Zeichenfläche kann in verschiedener Hinischt angepasst werden,
+      beispielsweise durch eine Änderung der Hintergrundfarbe oder mit
+      Gitternetzlinien. Das Kapitel <link linkend="canvas-chapter">Die 
+      Zeichenfläche</link> enthält weitere Informationen zur Anpassung der 
+      Zeichenfläche.
+    </para>
+    <figure>
+      <title>Leere Zeichenfläche</title>
+      <screenshot>
+        <screeninfo>Leere Zeichenfläche
+        </screeninfo>
+        <graphic format="PNG" fileref="graphics/dia-start" srccredit="Steffen Macke" />
+      </screenshot>
+      <blockquote>
+        <simpara>Dia mit leerer Zeichenfläche und Werkzeugkasten links.</simpara>
+      </blockquote>
+    </figure>
+  </sect1>
+  <sect1 id="making-diagram">
+    <title>Ein Diagramm erstellen</title>
+    <para>
+      Ein Diagramm besteht aus Objekten. Objekte sind Symbole oder Linien in
+      unterschiedlichen Formen und Farben. Objekte können einfache 
+      Linienzeichnungen, Texte oder Farbbilder sein. Einige Objekte erlauben
+      die Texteingabe und -darstellung im Objekt.
+    </para>
+    <para>
+      Diagramme mit Dia zu erzeugen, ist einfach. Der Werkzeugkasten enthält
+      eine Palette von Objekten, unter anderem einfache Formen, Linien und
+      spezialisierte Objekte. Um ein Objekt zur Zeichenfläche hinzuzufügen,
+      klicken Sie zunächst auf das gewünschte Objekt und anschliessend auf den
+      Punkt in der Zeichenfläche, an dem das Objekt eingefügt werden soll.
+      Nach dem Klick erscheint das Objekt auf der Zeichenfläche. Im Kapitel 
+      <link linkend="adding-objects"> 
+        Objekte hinzufügen </link> finden Sie weitere Informationen zu diesem
+        Thema.
+    </para>
+    <para>
+      Auf der Zeichenfläche können Objekte durch klicken und ziehen mit der Maus
+      bewegt werden. Durch klicken und ziehen der grünen und roten "TODO_handles"
+      kann die Objektgröße verändert werden. In den Kapitel
+       <link linkend="moving-objects"> Objekte bewegen </link> und 
+      <link linkend="resizing-objects"> Objektgrößen verändern </link> finden
+      Sie weiterführende Informationen.
+    </para>
+    <para>
+      Objekte können durch Linien verbunden werden. Ziehen Sie einfach ein
+      Linienende auf einen Verbindungspunkt eines Objektes (durch ein kleines 
+      blaues "x" markiert). Sobald Objekte verbunden sind, verlängert bzw.
+      verkürzt sich die Verbindungslinie, wenn die Objekte bewegt werden. Somit
+      bleiben die Objekte verbunden. Das Kapitel                                                                     
+      See <link linkend="connecting-objects">
+        Objekte mit Linien verbinden</link> beschreibt detailliert, wie sich
+        Objekte verbinden lassen.  
+    </para>
+    <para>
+      Im Werkzeugkasten können Sie durch einen Doppelklick auf ein Objekt dessen
+      vorbelegte Eigenschaften ansehen und bearbeiten. Dadurch können Sie
+      verschiedene Voreinstellungen für das Objekt definieren. Für Objekte, die
+      Texte enthalten, lassen sich Textausrichtung und Schriftarten anpassen.
+      Für Standardobjekte lassen sich Transparenz, Eckenrundung und das 
+      Seitenverhältnis anpassen. Im Kapitel 
+      <link linkend="default-properties">Quellen der vorbelegten Eigenschaften
+      </link> können Sie weitere Details nachlesen. 
+    </para>
+    <para>
+      Dia enthält einen Standardsatz von allgemeinen Polygon- und Linienobjekten 
+      (mehr dazu im Kapitel <link linkend="objects-chapter"> Objekte
+      </link>). Weiterhin enthält Dia eine Anzahl von vordefinierten Objekten
+      für unterschiedliche Zwecke - unter anderem Flussdiagramme, UML Diagramme,
+      Netzwerkpläne und viele andere. Weitere Informationen dazu lesen Sie im
+      Kapitel 
+      <link linkend="special-object-categories"> Spezielle Objekte 
+      </link>.
+      Sollte das gewünschte Objekt in Ihrer Dia-Installation fehlen, finden Sie
+      es eventuell im Internet in der <ulink type="http" 
+      href="http://dia-installer.de/shapes_de.html">
+      Fundgrube für Dia-Objekte</ulink>. Die dort gelisteten Objekte lassen sich
+      über den grafischen Assistenten <application>diashapes</application>
+      komfortabel installieren.
+    </para>
+    <para>
+      Viele typische Aufgaben in Dia erfordern die Auswahl eines oder mehrerer
+      Objekte. Dia unterstützt mehrere Arten der schnellen Objektauswahl - im
+      Kapitel 
+      <link linkend="selecting-chapter"> Objekte auswählen 
+      </link> erfahren Sie näheres.
+    </para>
+    <para>
+      Dia kann auf unterschiedliche Weise an Ihre Anforderungen angepasst werden.
+      <!--  todo Details dazu sind im Kapitel <link linkend="usage-customization"> 
+        Anpassung </link> zusammengefasst. -->
+    </para>
+    <para>
+      Folien ermöglichen es, ein Diagramm in mehrere übereinanderliegende
+      Ebenen zu gliedern und diese Ebenen unabhängig voneinander zu bearbeiten.
+      <!-- todo Wie das funktioniert, erfahren Sie im Kapitel <link linkend="layers-chapter"> 
+      Folien verwalten
+      </link> . -->
+    </para>
+    <para>
+      Dia macht es Nutzern einfach, eigene (benutzerdefinierte) Objekte
+      zu erstellen. Das Kapitel
+     <!-- todo <link linkend="custom-shapes-chapter"> Benutzerdefinierte Objekte
+      </link> erklärt, wie Sie die solche Objekte erstellen. -->
+    </para>
+  </sect1>
+  <sect1 id="save-print-diagram">
+    <title>Speichern und Drucken von Diagrammen</title>
+    <para>
+      Dia bietet die Standard-Funktionen zum speichern und drucken, zu finden
+      sind sie im Datei-Menü. Die Auswahl des Menüpunktes
+      <menuchoice>
+        <guimenu>
+          Datei
+        </guimenu>
+        <guimenuitem>
+          Seiteneinrichtung
+        </guimenuitem></menuchoice>
+      erlaubt es Papiergröße, -ausrichtung und Druckränder zu wählen. Der
+      Seiteneinrichtungsdialog erlaubt es auch, zu wählen, ob ein Diagramm
+      massstäblich (Prozenteingabe) gedruckt werden soll oder ob es auf eine
+      feste größe (in Zentimetern) skaliert werden soll.
+    </para>
+    <para>
+      Dia unterstützt eine Vielzahl von Formaten, die sich exzellent zur
+      Veröffentlichung im Internet eignen.
+      Unter anderem:
+      <itemizedlist>
+        <listitem>
+          <simpara>
+            Computer Graphics Metafile (.cgm)
+          </simpara>
+        </listitem>
+        <listitem>
+          <simpara>
+            Eingebettetes Postscript (.eps)
+          </simpara>
+        </listitem>
+        <listitem>
+          <simpara>
+            Dia Format (.dia)
+          </simpara>
+        </listitem>
+        <listitem>
+          <simpara>
+            Portable Network Graphics (.png)
+          </simpara>
+        </listitem>
+        <listitem>
+          <simpara>
+            Visio (.vdx)
+          </simpara>
+        </listitem>
+        <listitem>
+          <simpara>
+            Scalable Vector Graphics  (.svg)
+          </simpara>
+        </listitem>
+      </itemizedlist>
+    </para>
+    <para>
+      Im Kapitel <link linkend="loadsave-chapter"> Laden und Speichern von 
+      Diagrammen 
+      </link> finden Sie weitere Informationen zu den von Dia unterstützten
+      Dateiformaten.
+    </para>
+  </sect1>
+  <sect1 id="quickstart-commandline">                                                     
+    <title>Dia in der Kommandozeile ausführen</title>
+    <para>
+      Dia kann von der Kommandozeile ausgeführt werden.
+      Dadurch kann Dia in Stapelverarbeitungsdateien genutzt werden. 
+      <!--  todo Unter 
+      <link linkend="commandline"> 
+        Dia-Kommandozeile </link> finden Sie weitere Information zu diesem Thema. -->
+    </para>
+  </sect1>
+  <sect1 id="who-appeal-too">                                                     
+    <title>Wem nützt Dia?</title>
+    <para>
+      Dia kann von vielen Leuten in unterschiedlichen Branchen genutzt werden.
+      <itemizedlist>
+        <listitem>
+          <para>
+            Ein Systementwickler kann 
+            <ulink url="http://en.wikipedia.org/wiki/SADT">SADT</ulink>-Diagramme 
+            zur Systemanalyse und -entwurf erstellen.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            Ein Anforderungsingenieur kann beispielsweise 
+            <ulink url="http://en.wikipedia.org/wiki/KAOS_(software_development)">RE-KAOS</ulink>,
+            RE-Jackson oder RE-I*-Diagramme erzeugen.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            Ein Softwareentwickler kann verschiende Arten von   
+            <ulink url="http://en.wikipedia.org/wiki/Unified_Modeling_Language">UML</ulink>-Diagramme
+            zeichnen und diese mit der Flexibilität eines universellen 
+            Zeichenprogrammes erweitern. Auch Programmablaufpläne können mit Dia
+            erzeugt werden.
+          </para>
+        </listitem>
+
+        <listitem>
+          <para>
+            Ein Datenbankspezialist kann Relationen in  
+            <ulink url="http://en.wikipedia.org/wiki/Entity-relationship_model">ER</ulink>-Diagramme
+            visualisieren.
+          </para>
+        </listitem>
+
+        <listitem>
+          <para>
+            Ein Betriebsingenieur kann 
+            <ulink url="http://en.wikipedia.org/wiki/Control_theory">Kybernetik</ulink>-Diagramme
+            erzeugen.
+          </para>
+        </listitem>
+
+        <listitem>
+          <para>
+            Ein Netzwerkadministrator kann einen Überblick des Firmennetzwerkes
+            entwerfen.
+          </para>
+        </listitem>                                                             
+        <listitem>
+          <para>
+            Ein Elektroingenieur kann <application>Dia</application> nutzen, um
+            elektrische Schaltkreise zu erläutern.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            Ein Maschinenbauingenieur kann hydraulische und pneumatische Schemata
+            zeichnen.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            Ein Bauingenieur kann statische Systeme mit <application>Dia</application>
+            skizzieren.
+          </para>
+        </listitem>
+      </itemizedlist>
+    </para>
+  </sect1>
+</chapter>                                              

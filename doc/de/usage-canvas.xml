@@ -1,0 +1,352 @@
+<chapter label="3" id="canvas-chapter">
+<title>Die Zeichenfläche</title>
+ <sect1 id="canvas">
+  <title>Einführung zur Zeichenfläche</title>
+   <para>
+    Dias Zeichenfläche ist der Fensterbereich, der das Diagramm enthält. Alle
+    Zeichenobjekte werden auf der Zeichenfläche platziert und arrangiert.
+   </para>
+  </sect1>
+  <sect1 id="gridlines">
+  <title>Gitternetzlinien</title>
+   <para>
+    Gitternetzlinien sind mit den Linien des Millimeterpapiers vergleichbar.
+    Sie erlauben es dem Nutzer, Zeichenobjekte auszurichten. Die Gitternetzlinien
+    können durch die Auswahl von 
+    <menuchoice>
+     <guimenu>
+      Ansicht
+     </guimenu>
+     <guimenuitem>
+      Gitter anzeigen
+     </guimenuitem>
+    </menuchoice> im Menü temporär deaktiviert werden. 
+  </para>
+  <para>
+  Gitternetzlinien können über den im Menü unter 
+    <menuchoice>
+     <guimenu>
+      Datei
+     </guimenu>
+     <guimenuitem>
+      Diagrammeigenschaften</guimenuitem></menuchoice>
+   erreichbaren Dialog (siehe untenstehende Abbildung) angepasst werden.
+       <figure>
+      <title>Diagrammeigenschaften / Gitter</title>
+     <screenshot>
+      <screeninfo>Diagrammeigenschaften / Gitter</screeninfo>
+      <graphic format="PNG" fileref="graphics/diagrammeigenschaften-gitter" 
+   srccredit=
+      "Steffen Macke" />
+    </screenshot>
+    </figure>
+  Falls das Häkchen bei "Dynamisches Gitter" gesetzt ist, passen sich
+  die Gitternetzlinien automatisch an, sobald Sie in das Diagramm hinein- oder
+  hinauszoomen. Der auf der Zeichenfläche sichtbare Abstand der Gitternetzlinien
+  bleibt dabei konstant. Ausserdem deaktiviert das Dynamische Gitter die anderen 
+  Gitternetzkonfigurationsoptionen.
+   </para>
+  <para>
+   Wenn das Dynamische Gitter deaktiviert ist, bleibt der Abstand der 
+   Gitternetzlinien konstant. Sobald Sie in das Diagramm hinein- oder herauszoomen
+   wird sich der auf der Zeichenfläche sichtbare Abstand der Gitternetzlinien
+   verändern, das Gitter wird dichter oder weniger dicht erscheinen.
+   </para>
+  <para>
+   Der horizontale (X) und vertikale (Y) Abstand der Gitternetzlinien kann in 
+   Zentimetern eingegeben werden oder durch die Knöpfe mit Pfeilsymbol vergrößert
+   bzw. verkleinert werden. Neben den sichtbaren Gitternetzlinien bitet Dia
+   unsichtbare Gitternetzlinien, die ebenfalls zur Ausrichtung von
+   Zeichenobjekten genutzt werden können. Der Wert "Sichtbarer Abstand"
+   gibt das Verhältnis von sichtbaren zu unsichtbaren Gitternetzlinien an. 
+   Beträgt der Wert 1, so sind alle Gitternetzlinien sichtbar. Beträgt er 2, so
+   ist jede zweite Gitternetzlinie sichtbar.
+   </para>
+  <para>
+  Durch das Setzen des Häkchens bei "Sechseckgitter" kann ein 
+  Sechseckgitter statt des Rechteckgitters genutzt werden. Die Gittergröße
+  wird ebenfalls in Zentimetern angegeben.
+  </para>
+  <para>
+  Das "Einrasten am Gitter" kann über einen Knopf in der Werkzeugleiste
+  über der Zeichenfläche ein- und ausgeschaltet werden. Ist es eingeschaltet,
+  so werden Zeichenobjekte bei der Bewegung gezwungen, sich an den Gitternetzlinien
+  auszurichten. 
+    <figure>
+      <title>Knopf "Einrasten am Gitter"</title>
+     <screenshot>
+      <screeninfo>Umschaltknopf "Einrasten am Gitter"</screeninfo>
+      <graphic format="PNG" fileref="graphics/einrasten-am-gitter-knopf" 
+   srccredit=
+      "Steffen Macke" />
+    </screenshot>
+    </figure> 
+  </para>
+  </sect1>
+  <sect1 id="Rulers">
+  <title>Lineale</title>
+   <para>
+    Lineale am oberen und linken Rand der Zeichenfläche angezeigt. Sie zeigen
+    die Größe der Zeichenfläche in Zentimetern. Dabei muss ein angezeigter 
+    Zentimeter nicht unbedingt einen Zentimeter auf dem Bildschirm entsprechen.
+    Wie groß ein Zentimeter der Zeichenfläche auf dem Bildschirm erscheint, ist
+    vom gewählten Zoomfaktor und der Monitorauflösung in DPI abhöngig. Bei
+    einer Monitorauflösung von 96 DPI und einem Zoomfaktor von 185% wird
+    beispielsweise wird ein Zentimeter auf der Zeichenfläche ein Zentimeter auf 
+    dem Monitor entsprechen. Unabhängig von diesen Einstellungen können Sie mit
+    dem Bildschirmlineal immer die Größe der Zeichenobjekte abmessen.   
+   </para>
+  <note>
+     <para>
+       Wenn Sie ein Diagramm drucken und die Skalierung auf 100% einstellen,
+       wird das Diagramm immer massstabsgetreu gedruckt - unabhöngig von der
+       Auflösung des Druckers oder dem Zoomfaktor der Zeichenfläche.
+     </para>
+    </note>
+     <para>
+     Jedes Lineal hat einen beweglichen Pfeil, der die exakte Mauskoordinate 
+     angibt. Wenn der Nutzer beispielsweise die Maus nach oben bewegt, wird sich
+     der Pfeil des rechten Lineals mitbewegen. Diese Pfeile sind nützlichen, wenn
+     Zeichenobjekte an einer exakt an einem definierten Punkt positioniert werden 
+     müssen.
+ </para>
+  <figure>
+      <title>Lineal mit rot eingekreisten Pfeilen</title>
+     <screenshot>
+      <screeninfo>Lineal mit rot eingekreisten Pfeilen</screeninfo>
+      <graphic format="PNG" fileref="graphics/lineal-pfeile" 
+   srccredit=
+      "Mark Dexter" />
+    </screenshot>
+    </figure>  
+   <para>
+    Lineale können durch die Auswahl von
+    <menuchoice>
+     <guimenu>
+      Ansicht
+     </guimenu>
+     <guimenuitem>
+      Lineale anzeigen
+     </guimenuitem>
+    </menuchoice> temporär ausgeblendet werden. Anders als Gitternetzlinien 
+    können Lineale nicht per Voreinstellung für neue Dokumente deaktiviert
+    werden.  
+   </para>
+  </sect1>
+  <sect1 id="background-color">
+  <title>Hintergrundfarbe</title>
+   <para>
+    Die Option "Hintergrundfarbe" erlaubt es Ihnen, die Farbe der
+    Zeichenfläche zu ändern. Die voreingestellte Farbe ist Weiss. Sie können
+    die Farbe durch die Auswahl von
+    <menuchoice>
+      <guimenu>
+        Datei
+      </guimenu>
+        <guimenuitem>
+        Diagrammeigenschaften
+      </guimenuitem>
+    </menuchoice>
+    und die Auswahl des Reiters "Farben". Die Hintergrundfarbe ist die erste
+    Option. Die Hintergrundfarbe kann durch das Öffnen der Auswahlliste mit
+    Ihrer Standardfarbauswahl geändert werden. Unter <link linkend="colors"> 
+  Objekte / Farben </link> finden Sie weitere Informationen zur Farbauswahl.
+  </para> 
+    <figure>
+      <title>Hintergrundfarbe ändern</title>
+     <screenshot>
+      <screeninfo>Hintergrundfarbe ändern</screeninfo>
+      <graphic format="PNG" fileref="graphics/diagrammeigenschaften-farben" 
+   srccredit=
+      "Steffen Macke" />
+    </screenshot>
+    </figure>  
+  <note>
+  <para>
+    Die Gitternetzlinien werden Ihre Farbe automatisch ändern, um sichtbar zu 
+    bleiben, wenn Schwarz als Hintergrundfarbe gewählt wird.
+  </para> </note>
+  </sect1>
+  <sect1 id="zooming">
+  <title>Zoomen</title>
+   <para>
+    Zoomen erlaubt es dem Nutzer, heranzuzoomen (Dinge größer zu machen) oder
+    wegzuzoomen (Dinge kleiner zu machen). Heranzoomen ist nützlich, wenn 
+    Sie versuchen, sehr präzise zu zeichnen. Wegzoomen ist hilfreich, wenn
+    Sie einen größeren Ausschnitt des Diagrames sehen wollen.
+   </para>
+   <para>
+    Die Zeichenfläche kann bis 2500% heran- und bis 5% weggezoomt werden.
+    Es gibt unterschiedliche Möglichkeiten, zu zoomen.
+   <figure>
+      <title>Vergrößern-Werkzeug</title>
+     <screenshot>
+      <screeninfo>Vergrößern-Werkzeug</screeninfo>
+      <graphic format="PNG" fileref="graphics/toolbox-magnify" 
+   srccredit=
+      "Mark Dexter" />
+    </screenshot>
+    </figure>  
+  </para>
+  <para>
+  Der Werkzeugkasten enthält ein Vergrößern-Werkzeug. Wenn Sie das Werkzeug
+  auswählen und irgendwo auf die Zeichenfläche klicken, wird mit Faktor 2 
+  herangezoomt (beispielsweise von 100% auf 200%) und die Zeichenfläche um den 
+  Klickpunkt zentriert. Halten Sie die Shift-Taste während des Klicks gedrückt,
+  so wird der Vorgang umgekehrt (mit Faktor 2 weggezoomt).
+  </para>
+   <figure>
+      <title>Zoomen der Zeichenfläche</title>
+     <screenshot>
+      <screeninfo>Zoomen der Zeichenfläche</screeninfo>
+      <graphic format="PNG" fileref="graphics/zeichenflaeche-zoomen" 
+   srccredit=
+      "Steffen Macke" />
+    </screenshot>
+    </figure>  
+   <para>
+  Dia besitzt eine Zoom-Auswahlliste in der Werkzeugleiste. Diese Auswahlliste
+  erlaubt es, einen Zoomfaktor einzugeben oder aus einer Liste vorgegebener
+  Faktoren zu wählen.
+  </para>
+   <figure>
+      <title>Zoom-Optionen im Menü Ansicht</title>
+     <screenshot>
+      <screeninfo>Zoom-Optionen im Menü Ansicht</screeninfo>
+      <graphic format="PNG" fileref="graphics/zoom-menue" 
+   srccredit=
+      "Steffen Macke" />
+    </screenshot>
+    </figure>  
+    <para>
+  Das Menü Ansicht hat Optionen für Heranzoomen (Strg++), Wegzoomen (Strg+-),
+  eine Auswahl von Zoomfaktoren und Einpassen (Strg+E).
+  </para>
+  <tip>
+  <para>
+  Die Tastenkombination Strg+E (Einpassen) ist sehr nützlich, um das gesamte 
+  Diagramm in das Fenster einzupassen. Sie ermöglicht auch eine schnelle Prüfung,
+  um zu sehen, ob es Objekte ausserhalb der momentan sichtbaren Zeichenfläche 
+  gibt.
+  </para>
+  </tip>
+  </sect1>
+ 
+    <sect1 id="view-menu">
+  <title>Andere Ansichts-Optionen</title>
+ <para>
+      <figure>
+        <title>Menü Ansicht</title>
+       <screenshot>
+        <screeninfo>Menü Ansicht</screeninfo>
+        <graphic format="PNG" fileref="graphics/ansicht-menue" 
+     srccredit=   "Steffen Macke" />
+        </screenshot>
+      </figure>
+   </para>
+   <para>
+ Neben den oben erwähnten Zoom-Optionen bietet das Menü Ansicht weitere
+ nützliche Funktionen. Diese werden im Folgenden diskutiert.
+ </para>
+ <itemizedlist>
+ <listitem>
+   <para>
+  Vollbild (F11) schaltet zwischen dem normalen Fenster und der Vollbild-Ansicht um.
+  </para>
+  </listitem>
+   <listitem>
+   <para>
+  Kantenglättung schaltet die Kantenglättung ein und aus.
+  </para>
+  </listitem>
+   <listitem>
+   <para>
+  Gitter anzeigen schaltet die Gitternetzlinien ein und aus.
+  </para>
+  </listitem>
+   <listitem>
+   <para>
+  Am Gitter einrasten schaltet das Einrasten am Gitter ein und aus.
+  </para>
+  </listitem>
+    <listitem>
+   <para>
+  An Objekten einrasten schaltet das Einrasten an Objekten ein und aus. Wenn
+  diese Option aktiviert ist, können Linien durch Ziehen des Linienendpunktes auf
+  ein Objekt mit dem Hauptverbindungspunkt des Objektes verbunden werden. Wenn
+  diese Option deaktiviert ist, müssen Linienenden auf den Hauptverbindungspunkt
+  gezogen werden, um eine Verbindung herzustellen.
+  </para>
+  </listitem>
+    <listitem>
+   <para>
+  Lineale anzeigen schaltet die Linealanzeige ein oder aus.
+  </para>
+  </listitem>
+    <listitem>
+   <para>
+  Verbindungspunkte anzeigen schaltet die Verbindungspunktanzeige ein oder aus.
+  </para>
+  </listitem>
+    <listitem>
+   <para>
+  Neue Ansicht öffnet einen neuen Reiter, der das gleiche Diagramm anzeigt. Dies
+  kann nützlich sein, wenn Sie verschiedene Teile des Diagramms gleichzeitig
+  sehen und bearbeiten wollen.
+  </para>
+  <tip>
+  <para>
+  Wenn Sie "Neue Ansicht" oder "Ansicht klonen" nutzen, um das Diagramm in einem
+  zweiten Reiter zu öffnen, werden Änderungen sofort im anderen Reiter angezeigt.
+  Falls Sie das Diagramm in zwei Instanzen öffnen (z.B. mit Datei / Öffnen), 
+  müssen Sie die Änderungen der einen Instanz speichern und die zweite Instanz
+  neu laden, um die Änderungen in der zweiten Instanz zu sehen. Deshalb sollten
+  Sie normalerweise "Neue Ansicht" oder "Ansicht klonen" bevorzugen. 
+  </para>
+  </tip>
+  </listitem>
+    <listitem>
+   <para>
+  Ansicht klonen verhält sich wie "Neue Ansicht", kopiert aber Zoom und 
+  Zeichenfläche der Ausgangsansicht, statt die voreingestellten Werte zu
+  verwenden.
+  </para>
+  </listitem>
+    <listitem>
+   <para>
+  Einpassen zoomt automatisch zum größtmöglichen Zoomfaktor, der es erlaubt das
+  komplette Diagramm im Fenster darzustellen.
+  </para>
+  </listitem>
+ <listitem>
+   <para>
+  Aktualisieren zeichnet das Diagramm auf die Zeichenfläche. Dies ist 
+  normalerweise nicht notwendig. Falls der Zeichenflächeninhalt einmal nicht
+  aktuell ist (beispielsweise ein Teil einer gelöschten Linie noch sichtbar ist),
+  wählen Sie "Aktualisieren".
+  </para>
+  </listitem>
+  </itemizedlist>
+  </sect1>
+   <sect1 id="undo-redo">
+  <title>Rückgängig und Wiederholen</title>
+   <para>
+  <application>Dia</application> unterstützt Rückgängig und Wiederholen bei
+  den meisten Operationen. Um eine Operation rückgängig zu machen, drücken Sie
+  Strg+Z oder wählen Sie 
+  <menuchoice><guimenu>Bearbeiten</guimenu>
+            <guimenuitem>Rückgängig</guimenuitem></menuchoice> aus dem Menü. 
+            Um eine Operation zu wiederholen, drücken Sie Strg+Shift+Z oder
+            wählen Sie 
+      <menuchoice><guimenu>Bearbeiten</guimenu>
+            <guimenuitem>Wiederholen</guimenuitem></menuchoice> im Menü.
+  </para>
+  </sect1>
+</chapter>
+
+
+<!--
+Local Variables:
+sgml-parent-document: "dia.xml"
+End:
+-->

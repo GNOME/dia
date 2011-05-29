@@ -1,0 +1,468 @@
+<chapter label="6" id="special-objects-chapter">
+  <title>Spezialisierte Objekte</title>
+  <sect1 id="special-objects">
+    <title>Spezialisierte Objekte</title>
+    <para>
+      Dias spezialisierte Objekte sind zur Darstellung konkreter Symboliken
+      entworfen worden. Die spezialisierten Objekte ind sind "Objektbögen" 
+      genannte Kategorien eingeteilt. Der mittlere Abschnitt des Werkzeugkastens
+      erlaubt die Auswahl eines Objektbogens mit spezialisierten Objekten.
+      Wählen Sie einen Objektbogen, so wird dieser im Werkzeugkasten angezeigt
+      und Sie können seine Objekte wie die Standardobjekte in ein Diagramm
+      einfügen.  
+      <application>Dia</application> unterstützt zahlreiche vordefinierte
+      Objektkategorien.
+    </para>
+    <para>
+      Die vordefinierten Objektbögen gruppieren verwandte Objekte, so dass Sie
+      vermutlich die Objekte, die Sie gemeinsam nutzen wollen in einem
+      Objektbogen vereint finden. Es ist allerdings auch einfach möglich, eine
+      Objektbögen zu erstellen oder die vordefinierten Objektbögen zu verändern.
+      Unter
+      <link linkend="sheets-objects">Objektbägen und Objekte organisieren</link>
+      finden Sie weitere Informationen dazu.
+    </para>
+    <para>
+      Es ist ohne Programmierkenntnisse möglich, eigene Objekte zu erstellen.
+      <!--  todo Unter <link linkend="custom-shapes-chapter"> 
+        Benutzerdefinierte Symbole</link> finden Sie weitere Informationen dazu.-->
+    </para>   
+
+    <sect2 id="special-object-categories">
+      <title>Kategorien von spezialisierten Objekten</title> 
+
+      <!-- Please try to keep the list Alphabetically sorted.  -->
+
+      <sect3 id="special-assorted"> 
+        <title>Vermischtes</title>
+
+        <figure>
+          <title>Vermischtes</title>
+          <screenshot>
+            <screeninfo>Vermischte Symbole</screeninfo>
+            <graphic format="PNG" fileref="graphics/assorted-shapes" srccredit="Mark Dexter" />
+          </screenshot>
+        </figure>
+        <para>
+          Gemischte einfache geometrische Figuren. Die Auswahl der Symbole soll
+          den Nutzern einen Satz an Grundfiguren auf einfache und komfortable 
+          Art bereitstellen. Somit muss der Nutzer keine Zeit zur Erstellung
+          dieser grundlegenden Symbole aufwenden. Der Objektbogen enthält
+          Symbole mit festen Seitenverhältnissen wie Kreise, Quadrate und
+          verschiedene Arten von Dreiecken und Kreuzen. Diese Objekte erlauben
+          keine Texteingabe in den Objekten.
+        </para>
+      </sect3>
+      <sect3>
+        <title>Chemietechnik</title>
+
+        <para>
+          Eine Auswahl von Symbolen zur Darstellung von Prozessen in der
+          Chemietechnik
+        </para>
+
+      </sect3>
+      <sect3>
+        <title>Chronogramm</title>
+
+        <para>
+          Objekte zur zeitlichen Darstellung in Zeit- und Datenskalen.
+        </para>
+
+      </sect3>
+      <sect3>
+        <title>Schaltkreis</title>
+
+        <para>
+          Ein Objektbogen mit Symbolen zur Darstellung von elektrischen 
+          Schaltkreisen.
+        </para>
+
+      </sect3>
+      <sect3>
+        <title>Cisco - Computer</title>
+
+        <figure>
+          <title>Cisco - Computer</title>
+          <screenshot>
+            <screeninfo>Cisco - Computer</screeninfo>
+            <graphic format="PNG" fileref="graphics/cisco-computer-shapes" srccredit="Mark Dexter" />
+          </screenshot>
+        </figure>
+
+        <para>
+          Der Objekbogen "Cisco - Computer" beinhaltet zahlreiche Objekte zur
+  		   aus der Computertechnik. Unterschiedliche Rechner wie Server,
+  		   Arbeitsplatzrechner und mobile Geräte lassen sich symbolisch darstellen.
+        </para>
+
+      </sect3>
+      <sect3>
+        <title>Cisco - Versch.</title>
+
+        <figure>
+          <title>Cisco - Verschiedenes</title>
+          <screenshot>
+            <screeninfo>Cisco - Verschiedenes</screeninfo>
+            <graphic format="PNG" fileref="graphics/cisco-misc-shapes" srccredit="Mark Dexter" />
+          </screenshot>
+        </figure>
+
+        <para>
+          Der Objektbogen "Cisco - Versch." umfasst eine bunte Auswahl von
+          Symbolen, wie Gebäude, Personen, Satelliten, Antennen.  
+        </para>
+
+      </sect3>
+      <sect3>
+        <title>Cisco - Netzwerk</title>
+
+        <figure>
+          <title>Cisco - Netwerk</title>
+          <screenshot>
+            <screeninfo>Cisco - Netwerk</screeninfo>
+            <graphic format="PNG" fileref="graphics/cisco-network-shapes" srccredit="Mark Dexter" />
+          </screenshot>
+        </figure>
+
+        <para>
+          Der Objektbogen "Cisco - Netzwerk" umfasst eine breite Palette von
+          Netzwerkgeräten der Firma CISCO.  
+        </para>
+
+      </sect3>
+      <sect3>
+        <title>Cisco - Switch</title>
+
+        <figure>
+          <title>Cisco - Switch</title>
+          <screenshot>
+            <screeninfo>Cisco - Switch</screeninfo>
+            <graphic format="PNG" fileref="graphics/cisco-switch-shapes" srccredit="Mark Dexter" />
+          </screenshot>
+        </figure>
+
+        <para>
+          Der Objektbogen "Cisco - Switch" umfasst eine Auswahl von 
+          Switch-Netzwerkgeräten der Firma CISCO.  
+        </para>
+
+      </sect3>
+      <sect3>
+        <title>Cisco - Telefon</title>
+
+        <figure>
+          <title>Cisco - Telefon</title>
+          <screenshot>
+            <screeninfo>Cisco - Telefon</screeninfo>
+            <graphic format="PNG" fileref="graphics/cisco-telephony-shapes" srccredit="Mark Dexter" />
+          </screenshot>
+        </figure>
+
+        <para>
+          Der Objektbogen "Cisco - Telefon" beeinhaltet Symbole aus der 
+          Telefontechnik.  
+        </para>
+
+      </sect3>
+      <sect3>
+        <title>Bauwesen</title>
+
+        <para>
+          Der Objektbogen umfasst etliche Symbole aus dem Bauingenieurwesen, 
+          so zum Beispiel zu Bautechnik, Statik und Prozesstechnik.  
+        </para>
+
+      </sect3>
+      <sect3>
+        <title>Kybernetik</title>
+
+        <para>
+          Symbole zur Erstellung von kybernetischen Schaltkreisen.
+        </para>
+
+      </sect3>
+
+      <sect3>
+        <title>Electronic</title>
+
+        <para>
+       	  Schaltkreissymbole aus der Elektrotechnik. 
+        </para>
+
+      </sect3>
+      <sect3>
+        <title>ER</title>
+
+        <para>
+          Erlaubt die Erstellung von ER-Diagrammen (Entity Relationship).
+          Entitäten und Beziehungen von relationalen Datenbankmodellen lassen
+          sich in derartigen Diagrammen beschreiben.
+        </para>
+
+      </sect3>
+      <sect3>
+        <title>Flussdiagramm</title>
+
+        <figure>
+          <title>Flussdiagramm</title>
+          <screenshot>
+            <screeninfo>Flussdiagramm</screeninfo>
+            <graphic format="PNG" fileref="graphics/flowchart-shapes" srccredit="Mark Dexter" />
+          </screenshot>
+        </figure>
+        <para>
+          Ein Objektbogen mit Symbolen, die oft in Flussdiagrammen genutzt
+          werden. Flussdiagramme werden häufig in der elektronischen
+          Datenverarbeitung, Marketing oder der Ökonomie genutzt. Sie
+          sind für halblineare Darstellungen jeglicher Art, die eine gewisse
+          Planung erfordern, hilfreich. Die Mehrzahl der Objekte im
+          Objektbogen "Flussdiagramm" erlaubt die Texteingabe.
+        </para>
+
+      </sect3>
+      <sect3>
+        <title>FS (Funktionsstruktur)</title>
+
+        <para>
+          Erlaubt die Erstellung von Funktionsstrukturdiagrammen. Bitte beachten
+          Sie, dass die Objekte ein Kontextmenü aufweisen, dass über einen
+          rechten Mausklick auf das Objekt im Diagramm zugänglich ist.        
+        </para>
+
+      </sect3>
+      <sect3>
+        <title>GRAFCET</title>
+
+        <para>
+          GRAFCET - beziehungsweiseIEC 61131-3 SFC Diagramme - werden in der
+          grafischen Programmierung und zur Dokumetation sequentielL Prozesse
+          in der Prozessautomatisierung genutzt.
+        </para>
+        <para>
+          Das Diagramm zeigt Schritt, Aktion, Übergang un die zum Übergang
+          gehörenden Bedingungen.  
+        </para>
+
+      </sect3>
+      <sect3>
+        <title>RE-i*</title>
+
+        <para>
+          RE-i*, auch Istar genannt, ist ein agentenbasiertes Rahmenwerk zur
+          Anforderungsmodellierung.  
+        </para>
+
+      </sect3>
+      <sect3>
+        <title>RE-Jackson</title>
+
+        <para>
+          Das Jackson Software Design (JSD) ist eine Entwurfsmethode für
+          Softwaresysteme.  
+        </para>
+
+      </sect3>
+      <sect3>
+        <title>RE-KAOS</title>
+
+        <para>
+          Anforderungsermittlung mit Hilfe von KAOS-Diagrammen.  
+          <!-- provide a help description that is actually helpful! -->
+        </para>
+
+      </sect3>
+
+      <sect3>
+        <title>Karte, isometrisch</title>
+
+        <para>
+          Bausteine, um schematische Karten in einer isometrischen Projektion
+          zu erstellen. Hilfreich, um Navigationsskizzen zu erstellen. 
+        </para>
+
+      </sect3>
+      <sect3>
+        <title>Diverse</title>
+
+        <figure>
+          <title>Diverse</title>
+          <screenshot>
+            <screeninfo>Diverse</screeninfo>
+            <graphic format="PNG" fileref="graphics/misc-shapes" srccredit="Hans Breuer" />
+          </screenshot>
+        </figure>
+        <para>
+          Diverse Objekte, die in keine der anderen Kategorien passen. Unter
+          anderem Symbole zur Darstellung eines Dateisytems, ein
+          konfigurierbares Gitter und eine analoge Uhr, die sich laufend
+          aktualisiert.   
+        </para>
+
+      </sect3>
+      <sect3>
+        <title>MSE</title>
+
+        <para>
+          Verschiedene Symbole aus der Kommunikationstechnik, die zur Erstellung 
+          von "Mobile Subscriber Equipment"-Diagrammen
+          genutzt werden.  
+        </para>
+
+      </sect3>
+      <sect3>
+        <title>Netzwerk</title>
+
+        <figure>
+          <title>Netzwerk</title>
+          <screenshot>
+            <screeninfo>Netzwerk</screeninfo>
+            <graphic format="PNG" fileref="graphics/network-shapes" srccredit="Mark Dexter" />
+          </screenshot>
+        </figure>
+        <para>
+          Objekte, die von Netzwerkadministratoren zum Entwurf und der
+          Dokumentation von Computernetzwerken genutzt werden.
+        </para>
+
+      </sect3>
+      <sect3>
+        <title>Leiter</title>
+
+        <para>
+          Symbole aus der grafischen PLC-Programmierung. Die Schaltkreisobjekte
+          werden in der Prozessautomatisierung eingesetzt.
+        </para>
+
+      </sect3>
+      <sect3>
+        <title>Pneumatik/Hydraulik</title>
+
+        <para>
+          Symbole zur Darstellung von pneumatischen und hydraulischen
+          Systemen.
+        </para>
+
+      </sect3>
+      <sect3>
+        <title>SADT</title>
+
+        <para>
+          Symbole zur Erstellung von SADT/IDEF0-Diagrammen (Strukturanalyse).  
+        </para>
+
+      </sect3>
+      <sect3>
+        <title>SDL</title>
+
+        <para>
+          Symbole zur Erstellung von SDL-Diagrammen (Specification and 
+          Description Language). SDL-Diagramme werden genutzt, um das Verhalten
+          von interaktiven Systemen über die Zeit zu beschreiben.
+          SDL wird häufig in der Telekommunikation genutzt, kann aber auch
+          zur generellen Beschreibung von Prozesssteuerungen und
+          Echtzeitanwendungen genutzt werden.  
+        </para>
+
+      </sect3>
+      <sect3>
+        <title>Sybase</title>
+
+        <para>
+          Symbole zur Beschreibung von Systemen aus Sybase-Datenbanken und
+          -Servern.
+        </para>
+
+      </sect3>
+      <sect3>
+        <title>UML</title>
+
+        <figure>
+          <title>UML</title>
+          <screenshot>
+            <screeninfo>UML</screeninfo>
+            <graphic format="PNG" fileref="graphics/uml-shapes" srccredit="Mark Dexter" />
+          </screenshot>
+        </figure>
+        <para>
+          Unified Modeling Language (UML). UML ist eine häufig genutzte 
+          Spezifikation zur visuellen Beschreibung in der objektorientierten
+          Programmierung - insbesondere für größere Projekte. 
+          Einige der UML-Objekte, wie beispielsweise die UML-Klasse im
+          folgenden Bild, weisen zahlreiche Eigenschaften auf, die sich über
+          den Eigenschaftendialog bearbeiten lassen. 
+        </para>
+        <para>
+          <figure>
+            <title>Eigenschaften der UML-KLasse</title>
+            <screenshot>
+              <screeninfo>Eigenschaften der UML-Klasse</screeninfo>
+              <graphic format="PNG" fileref="graphics/eigenschaften-uml-klasse" srccredit="Steffen Macke" />
+            </screenshot>
+          </figure>      
+        </para>     
+
+      </sect3>
+
+
+
+    </sect2>
+    <sect2 id="sheets-objects">
+      <title>Objekte und Objektbögen organisieren</title>
+      <para>
+        Die Gruppierung der Objekte in Objektbögen kann angepasst werden.
+        Falls Sie beispielsweise überwiegend Objekte aus einem Objektbogen
+        nutzen, aber einzelne Objekte aus weiteren Bögen benutzen, können
+        Sie einen kombinierten Objektbogen erstellen, der alle genutzten
+        Objekte enthält.
+        Das Kopieren der Objekte von einem Objektbogen in einen anderen wird
+        im Folgenden erläutert:
+      </para>
+      <orderedlist>
+        <listitem>
+          <para>
+            Wählen Sie den Menüpunkt 
+            <menuchoice><guimenu>Datei</guimenu>
+              <guimenuitem>Objektbögen und Objekte</guimenuitem></menuchoice>. 
+              Dadurch wird der unten dargestellte Dialog angezeigt.
+          </para>
+          <para>
+            <figure>
+              <title>Objektbögen und Objekte</title>
+              <screenshot>
+                <screeninfo>Objektbögen und Objekte</screeninfo>
+                <graphic format="PNG" fileref="graphics/objektboegen-objekte" srccredit="Steffen Macke" />
+              </screenshot>
+            </figure>
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            Mit der Auswahlliste auf der linken Seite wählen Sie den Objektbogen,
+            aus dem heraus Sie kopieren wollen. Mit der rechten Auswahlliste
+            wählen Sie den Objektbogen, in den hinein Sie kopieren wollen.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            Klicken Sie zunächst auf das Objekt, das Sie kopieren möchten und
+            anschliessend auf den Kopieren-Knopf.        
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            Wiederholen Sie die oben genannten Schritte für alle Objekte, die
+            Sie kopieren möchten. Sobald Sie fertig sind, klicken Sie auf
+            "Anwenden", um Ihre Änderungen zu speichern. 
+          </para>
+        </listitem>
+      </orderedlist>
+      <para>
+        Die kopierten Objekte werden von jetzt an im rechten Objektbogen
+        erscheinen. Sie können auch Objekte aus einem Objektbogen entfernen
+        oder in andere Bögen verschieben. Über die "Hoch"- und "Runter"-Knöpfe
+        lässt sich die Reihenfolge der Objekte in einem Objektbogen anpassen.
+      </para>
+    </sect2>
+  </sect1>
+</chapter>                   

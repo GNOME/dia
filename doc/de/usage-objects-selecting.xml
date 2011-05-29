@@ -1,0 +1,226 @@
+<chapter label="7" id="selecting-chapter">
+  <title>Objekte auswählen</title>
+  <sect1 id="selecting-introduction">
+    <title>Grundsätzliches zur Objektauswahl</title>
+    <para>
+      Die Auswahl eines oder mehrerer Objekte ist eine häufig wiederkehrende
+      Aufgabe bei der Arbeit mit <application>Dia</application>. Wann immer
+      Sie Objekte verschieben, kopieren, löschen oder anderweitig bearbeiten
+      wollen, müssen Sie es zunächst auswählen. Sie können auch mit einer
+      Auswahl mehrerer Objekte arbeiten - zum Beispiel, um eine Gruppe
+      zusammengehörender Objekte zu verschieben und dabei die Anordnung der
+      Objekte untereinander unverändert zu lassen oder um die Eigenschaften
+      einer Gruppe von Objekten zu ändern.
+    </para>
+    <para>
+      Objekte können auf unterschiedliche Art ausgewählt werden, beispielsweise
+      durch einen Mausklick, die Auwahl einer Fläche oder über den Menüpunkt
+      <menuchoice><guimenu>Auswahl</guimenu></menuchoice>. In diesem
+      Kapitel lernen Sie verschiedene Arten der Objektauswahl kennen.
+    </para>
+  </sect1>
+
+
+  <sect1 id="how-to-select">
+    <title>Wie Objekte ausgewählt werden</title>
+    <sect2 id="basic-selection">
+      <title>Ein einzelnes Objekt auswählen</title>
+      <para>
+        Um ein einzelnes Objekt auszuwählen, können Sie das Werkzeug &quot;Objekte
+        verändern&quot; wählen und anschliessend auf das gewünschte Objekt klicken.
+        Neu auf der Zeichenfläche platzierte Objekte werden automatisch
+        ausgewählt.
+      </para>
+      <para>
+        Sobald ein Objekt ausgewählt ist, werden sein Handgriffe (kleine
+        grüne und rote Quadrate) angezeigt. Sobald das Objekt ausgewählt wurde,
+        können Sie mit ihm arbeiten. Um den Eigenschaften-Dialog des Objektes
+        aufzurufen, können sie das Objekt doppelklicken oder nach einem
+        Rechtsklick den Punkt &quot;Eigenschaften&quot; des Kontextmenüs wählen. 
+      </para>
+      <figure>
+        <title>Ausgewähltes Objekt</title>
+        <screenshot>
+          <screeninfo>Ausgewähltes Objekt</screeninfo>
+          <graphic format="PNG" fileref="graphics/ausgewaehltes-objekt" srccredit="Steffen Macke"/>
+        </screenshot>
+      </figure>  
+    </sect2>
+    <sect2 id="basic-deselection">
+      <title>Objektauswahl aufheben</title>
+      <para>
+        Die Auswahl eines oder mehrerer Objekte kann durch einen Klick auf einen
+        leeren Teil der Zeichenfläche oder durch die Auswahl anderer Objekte
+        aufgehoben werden. Dadurch werden die grünen und roten Handgriffe
+        des Objektes ausgeblendet. Auch durch die Auswahl einer anderen Ebene
+        oder das Anlegen einer neuen Ebene über den Menüpunkt &quot;Ebenen&quot;
+        wird die komplette Objektauswahl aufgehoben.
+      </para>
+
+    </sect2>
+
+    <sect2 id="multi-selection">
+      <title>Mehrere Objekte auswählen</title>
+      <para>
+        Die Auswahl mehrerer Objekte ist nützlich, wenn Sie die gleiche Operation 
+        mit zwei oder mehr Objekten durchführen wollen. Nach der Auwahl können
+        Sie diese Objekten auf unterschiedliche Art bearbeiten. Im Abschnitt
+        <link linkend="working-with-selected">Arbeit mit ausgewählten Objekten</link>
+        finden Sie dazu weitere Informationen.
+      </para>
+      <para>
+
+        <application>Dia</application> bietet verschiedene Möglichkeiten, um
+        mehrere Objekte auszuwählen. Diese werden im Folgenden beschrieben.
+        Beachten Sie, dass ein Klick auf einen leeren Teil der Zeichenfläche
+        oder ein Klick auf ein nicht ausgewähltes Objekt die Auswahl aller
+        gewählten Objekte aufhebt.
+      </para>
+
+      <sect3 id="shift-click">
+        <title>Shift+Klick Auswahl</title>
+
+        <para>
+          Eine einfache Methode, um zwei oder mehr Objekte gleichzeitig
+          auszuwählen, ist es, bei gewähltem Werkzeug &quot;Objekte verändern&quot;, die 
+          Shift-Taste gedrückt zu halten, während Sie mit der Maus auf die
+          gewünschten Objekte klicken (Shift-Klick). Dabei sorgt ein Shift-Klick auf ein
+          bisher nicht ausgewähltes Objekt dafür, dass dieses der zur Auswahl
+          hinzugefügt wird, währen ein Shift-Klick auf ein bereits ausgewähltes
+          Objekt dazu führt, dass dieses aus der Auswahl entfernt wird.
+        </para>
+        <tip><para>
+          Sie können Shift-Klick mit jeder im Folgenden beschriebenen Methode
+          kombinieren, um weitere Objekte zur Auswahl hinzuzufügen oder
+          bereits ausgewählte Objekte wieder abzuwählen.
+          </para></tip>
+        <note>
+          <para>
+            Wenn Sie mehrere Objekte ausgewählt haben, ist es weiterhin möglich,
+            einzelne Objekte zu bearbeiten ohne die anderen gewählten Objekte
+            zu beeinflussen. Im Abschnitt
+            <link linkend="working-with-selected">Arbeit mit ausgewählten Objekten</link>
+            finden Sie weitere Informationen dazu.
+          </para>
+        </note>
+      </sect3>
+      <sect3 id="select-area">
+        <title>Rechteckauswahl</title>
+        <para>
+          Sie können alle Objete innerhalb eines rechteckigen Bereiches der
+          Zeichenfläche auswählen, indem Sie den Mauszeiger links oberhalb
+          des linken oberen Objektes platzieren und dann bei gedrückter Maustaste
+          den Mauszeiger nach rechts unten bewegen, bis alle gewünschten Objekte
+          sich in dem erzeugten Auswahlrechteck befinden. Das Auswahlrechteck
+          wird temporär durch eine dünne gestrichelte Linie angedeutet - diese
+          Linie wird nicht Bestandteil des Diagramms. Beachten Sie, dass nur die
+          Objekte ausgewählt werden, die sich komplett
+          im Auswahlrechteck befinden. Objekte, die sich nur teilweise im
+          Auswahlrechteck befinden, werden nicht ausgewählt. Die folgende
+          Grafik verdeutlicht den Rechteckauswahlmechanismus an einem Beispiel.        
+        </para>
+        <figure>
+          <title>Rechteckauswahlbeispiel</title>
+          <screenshot> <screeninfo>Rechteckauswahlbeispiel</screeninfo> <graphic format="PNG" fileref="graphics/select-area" srccredit="Mark Dexter"/> </screenshot> <blockquote> <simpara>Nur Objekte, die sich komplett im Rechteck befinden, sind ausgewählt.</simpara> </blockquote>
+        </figure>  
+        <tip>
+          <para>Sie können mehrere Regionen mit der Rechteckauswahl selektieren. Vorher ausgewählte Objekte werden ausgewählt bleiben, solange Sie die Auswahl nicht verwerfen (beispielsweise durch einen Doppelklick auf eine leere Region der Zeichenfläche oder durch einen Klick auf ein nicht gewähltes Objekt ohne die Shift-Taste) Wie oben erwähnt, können Sie jederzeit mit Shift+Klick einzelne Objekte an- oder abwählen.</para> </tip>
+        <tip>
+          <para>Normalerweise führt die Auswahl von oben-links nach unten-rechts zum selben Ergebnis wie ein &quot;entgegengesetztes Ziehen&quot; - ausgehend von der Ecke unten-rechts zur Ecke rechts-oben. Allerdings können Sie eine Option in <application>Dia</application> aktivieren, die es erlaubt nur schneidende Objekte zu wählen, wenn Sie &quot;entgegengesetzt Ziehen&quot;.</para></tip>  
+
+
+      </sect3>
+      <sect3 id="select-all">
+        <title>Alles auswählen</title>
+        <para>Das unten gezeigte Auwahlmenü bietet sechs Optionen zur Auswahl mehrerer Objekte. Die erste Option ist &quot;Alle&quot;.</para>
+        <figure>
+          <title>Menü &quot;Auswahl&quot;</title>
+          <screenshot>
+            <screeninfo>Menü &quot;Auswahl&quot;</screeninfo>
+            <graphic format="PNG" fileref="graphics/menue-auswahl" srccredit="Steffen Macke"/>
+          </screenshot>
+        </figure>   
+
+
+        <para>Sie können alle Objekte auf der Zeichenfläche durch die Auswahl des Menüpunktes <menuchoice><guimenu>Auswahl</guimenu> <guimenuitem>Alles</guimenuitem></menuchoice> oder mit Strg+A selektieren. Dadurch werden alle Objekte ausgewählt, egal ob sie momentan sichtbar sind oder nicht.</para>
+        <note>
+          <para>Wie mit jeder anderen Auswahlmethode werden nur die Objekte der aktuellen Ebene gewählt - sofern Sie mit Ebenen arbeiten. <!-- todo Unter <link linkend="layers-chapter">Ebenen verwalten</link> finden Sie weitere Informationen zur Arbeit mit Ebenen. --></para>
+        </note>
+      </sect3>
+
+      <sect3 id="select-none">
+        <title>Nichts auswählen</title>
+        <para>
+          <menuchoice><guimenu>Auswahl</guimenu> <guimenuitem>Keine</guimenuitem></menuchoice> wird alle Objekte abwählen. Hat denselben Effekt wie ein Doppelklick auf eine leere Region der Zeichenfläche.</para>
+      </sect3>
+
+
+      <sect3 id="select-invert">
+        <title>Auswahl umkehren</title>    
+
+
+        <para>Diese Auswahl erlaubt es alle Objekte bis auf die aktuell selektierten Objekte auszuwählen. Stellen Sie sich beispielsweise vor, dass Sie 20 Objekte haben und alle bis auf zwei auswählen möchten. Sie können dies tun, imdem Sie (1) die beiden Objekte, die ausschliessen wollen wählen und dann (2) den Menüpunkt <menuchoice><guimenu>Auswahl</guimenu> <guimenuitem>Umkehren</guimenuitem></menuchoice> wählen oder Strg+I drücken. Dadurch werden die zwei momentan gewählten Objekte abgewählt und die 18 nicht ausgewählten Objekte selektiert.</para>
+
+        <tip>
+          <para>Eine weitere Möglichkeit, dies zu tun, ist, den Menüpunkt <menuchoice><guimenu>Auswahl</guimenu> <guimenuitem>Alle</guimenuitem></menuchoice> (oder Strg+A zu drücken) und dann die zwei nicht benötigten Objekte mit Shift+Klick abzuwählen.</para>
+        </tip>
+
+
+      </sect3>
+      <sect3 id="selection-transitive">
+        <title>Transitive Auwahl</title>
+        <para>Objekte in <application>Dia</application> können durch Linien verbunden werden. Die transitive Auwahl erlaubt es Objekte danach auszuwählen, wie sie miteinander verbunden sind.</para>
+        <para>Die Option &quot;transitive Auswahl&quot; wählt alle Objekte, die direkt oder indirekt mit dem aktuell ausgewählten Objekten verbunden sind. Um diese Option zu nutzen, selektieren Sie ein oder mehrere Objekte und wählen <menuchoice><guimenu>Auswahl</guimenu> <guimenuitem>Transitiv</guimenuitem></menuchoice> aus dem Menü. Alle Objekte, die mit den initial ausgewählten Objekten verbunden sind, werden zur Auswahl hinzugefügt.</para>
+
+      </sect3>
+      <sect3 id="selection-connected">
+        <title>Verbundene auswählen</title>
+
+        <para>Diese Option ähnelt der Transitiven mit der Ausnahme, dass nur die direkt mit den ausgewählten Objekten verbundenen Objekte zur Auswahl hinzugefügt werden. Um diese Option zu nutzen, wählen Sie zunächst ein oder mehrere Objekte aus. Dann wählen Sie <menuchoice> <guimenu>Auswahl</guimenu> <guimenuitem>Verbundene</guimenuitem> </menuchoice> Alle Objekte, die direkt mit den momentan ausgewählten Objekten verbunden sind, werden zur Auswahl hinzugefügt.</para>
+        <note>
+          <para>Die &quot;Verbundene Auswahl&quot; erstreckt sich nur über eine Ebene. Falls beispielsweise Rechteck A über eine Linie mit Rechteck B verbunden ist und Rechteck A ausgewählt ist, wird <menuchoice> <guimenu>Auswahl</guimenu> <guimenuitem>Verbundene</guimenuitem> </menuchoice> nur die Linie auswählen. Durch einen weiteren Aufruf von <menuchoice> <guimenu>Auswahl</guimenu> <guimenuitem>Verbundene</guimenuitem> </menuchoice> wird auch Rechteck B zur Auswahl hinzugefügt.</para>
+          <para>Sie können über den Menüpunkt <menuchoice> <guimenu>Auswahl</guimenu> <guimenuitem>Transitiv</guimenuitem> </menuchoice> alle verbundenen Objekte in einem Schritt auswählen.</para>
+        </note>
+      </sect3>
+
+      <sect3 id="selection-same-type">
+        <title>Auswahl &quot;Gleicher Typ&quot;</title>                                            
+        <para>Diese Option erlaubt es Ihnen alle Objekte auszuwählen, die vom gleichen Typ wie das momentan gewählte Objekt sind. Um diese Option zu nutzen, selektieren Sie ein oder mehrere Objekte und wählen <menuchoice><guimenu>Auswahl</guimenu> <guimenuitem>Gleicher Typ</guimenuitem></menuchoice> aus dem Menü. Alle Objekte, die vom gleichen Typ sind wie eines der gewählten Objekte, werden zur Auswahl hinzugefügt.</para>
+        <para>Falls Sie beispielsweise alle Linienobjekte in Ihrem Diagramm auswählen wollen, selektieren Sie ein Linienobjekt und wählen dann <menuchoice><guimenu>Auswahl</guimenu> <guimenuitem>Gleicher Typ</guimenuitem></menuchoice> aus dem Menü, um alle anderen Linienobjekte auszuwählen.</para>
+        <tip>
+          <para>Der Menüpunkt <menuchoice><guimenu>Auswahl</guimenu> <guimenuitem>Gleicher Typ</guimenuitem></menuchoice> kann mit dem Menüpunkt <menuchoice><guimenu>Objekte</guimenu> <guimenuitem>Gruppieren</guimenuitem></menuchoice> um schnell die Eigenschaften aller Objekte eines Typs in Ihrem Diagramm zu ändern. <!-- todo Unter <link linkend="changing-group-properties">Eigenschaften einer Gruppe von Objekten ändern</link> finden Sie weitere Informationen zu diesem Thema. --></para>
+        </tip>
+        <note>
+          <para>Die Objekttypen müssen exakt übereinstimmen. Eine Linie und eine Zickzacklinie sind beispielsweise unterschiedliche Typen.</para></note>
+      </sect3>
+    </sect2>
+  </sect1>
+  <sect1 id="working-with-selected">
+    <title>Arbeit mit ausgewählten Objekten</title>
+    <para>Sobald Sie Objekte ausgewählt haben, können Sie mehrere Dinge mit diesen Objekten tun.</para>
+    <sect2 id="working-with-all">
+      <title>Operationen mit allen gewählten Objekten</title>
+      <para>Die folgenden Operationen können mit allen gewählten Objekten in einem Schritt durchgeführt werden.</para>
+      <sect3 id="move-selected">
+        <title>Ausgewählte Objekte verschieben</title>
+        <para>Sie können die gewählten Objekte als Gruppe verschieben, ohne die relative Position der Objekte zueinander zu verändern. Um dies zu tun, klicken Sie in ein Objekt, das Bestandteil der Auswahl ist und ziehen die Auswahl an die gewünschte neue Position. Achten Sie darauf, dass nicht auf einen Handgriff klicken.</para>
+      </sect3>
+      <sect3 id="copy-selected0">
+        <title>Kopieren, Ausschneiden, Einfügen, Duplizieren, Löschen</title>
+        <para>Sie können die genannten Operationen aus dem Menü &quot;Bearbeiten&quot; auch mit einer Auswahl von Objekten durchführen. Falls Sie beispielsweise die gewählten Objekte duplizieren wollen, wählen Sie Bearbeiten / Duplizieren oder drücken Sie Strg+D. Eine Kopie der gewählten Objekte wird auf der Zeichenfläche eingefügt - links unterhalb der ursprünglich gewählten Objekte. Beachten Sie, dass, falls Sie mehrere Objekte duplizieren oder einfügen, nur die neu eingefügten Objekte ausgewählt bleiben.</para>
+      </sect3>
+      <sect3 id="individual-selected">
+        <title>Mit individuellen Objekten arbeiten</title>
+        <para>Durch Beschränkungen in der Implementierung werden einige Operationen mit Einzelobjekten in einer Auswahl weiterhin nur die Einzelobjekte verändern. Seit Dia 0.97 wurde diese Inkonsistenz aufgehoben und der Eigenschaftendialog erlaubt es, mehrere Objekte gleichzeitig zu ändern - ohne dieser zunächst zu gruppieren.</para>
+        <para>Die Handgriffe der Einzelobjekte verändern Ihr Verhalten, wenn eine Auswahl existiert (sie werden deshalb etwas dunkler dargestellt). Statt die Größe eines einzelnen Objektes zu ändern, können die Handgriffe genutzt werden, um alle ausgewählten Objekte zu bewegen oder am Gitter einzurasten - unter <link linkend="gridlines">Am Gitter einrasten</link> finden Sie weitere Details dazu.</para>
+        <tip>
+          <para>Wenn Sie den Eigenschaften-Dialog aufrufen, achten Sie darauf, den Doppelklick nicht auf der leeren Zeichenfläche durchzuführen, sonst werden alle Objekte abgewählt.</para>
+        </tip>
+      </sect3>
+      <sect3 id="copy-selected">
+        <title>Eine Objektgruppe erzeugen</title>
+        <para>Wie oben erwähnt, ist es einfach, Objekte auszuwählen und ebenso einfach, eine Auswahl versehentlich durch einen Doppelklick auf eine leere Stelle der Zeichenläche zu verlieren. Falls Sie eine bestimmte Auswahl von Objekten permanent so gruppieren wollen, dass Sie diese Auswahl nicht versehentlich verlieren können, sollten Sie eine Objektgruppe erzeugen. Wählen Sie <menuchoice> <guimenu>Objekte</guimenu> <guimenuitem>Gruppieren</guimenuitem> </menuchoice> um aus einer Auswahl von Objekte eine Gruppe zu erzeugen Um eine Gruppierung aufzuheben, selektieren Sie die Gruppe und wählen dann <menuchoice> <guimenu>Objekte</guimenu> <guimenuitem>Gruppierung aufheben</guimenuitem></menuchoice> aus dem Menü. Unter <link linkend="grouping-objects">Objekte Gruppieren</link> finden Sie weitere Informationen zu Objektgruppen.</para>
+      </sect3>
+    </sect2>
+  </sect1>
+</chapter>

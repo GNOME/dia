@@ -679,6 +679,7 @@ data/icons/48x48/apps/Makefile
 data/icons/scalable/Makefile
 data/icons/scalable/apps/Makefile
 doc/Makefile
+doc/de/Makefile
 doc/en/Makefile
 doc/eu/Makefile
 doc/pl/Makefile
