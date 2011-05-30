@@ -11,21 +11,21 @@
 # Jens Seidel <jseidel@cvs.gnome.org>, 2006.
 # Hans Breuer <hans@breuer.org>, 2007, 2009.
 # Mario Blättermann <mariobl@gnome.org>, 2009, 2010.
-# Christian Kirbach <Christian.Kirbach@googlemail.com>, 2010.
+# Christian Kirbach <Christian.Kirbach@googlemail.com>, 2010, 2011.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: dia-0-97\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
-"product=dia&component=general\n"
-"POT-Creation-Date: 2010-09-21 23:41+0000\n"
-"PO-Revision-Date: 2010-10-01 23:53+0200\n"
+"product=dia&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2011-05-29 08:48+0000\n"
+"PO-Revision-Date: 2011-05-29 21:28+0200\n"
 "Last-Translator: Christian Kirbach <Christian.Kirbach@googlemail.com>\n"
 "Language-Team: Deutsch <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "X-Poedit-Language: German\n"
 "X-Poedit-Country: GERMANY\n"
 
@@ -87,35 +87,35 @@ msgid "Output-directory '%s' must exist!\n"
 msgstr "Ausgabeordner »%s« muss existieren!\n"
 
 #. Translators:  The argument is a list of options, not to be translated
-#: ../app/app_procs.c:695
+#: ../app/app_procs.c:702
 #, c-format
 msgid "Select the filter/format out of: %s"
 msgstr "Ausgabeformat/-filter auswählen: %s"
 
 #. &export_file_name
-#: ../app/app_procs.c:713
+#: ../app/app_procs.c:720
 msgid "Export loaded file and exit"
 msgstr "Die geöffnete Datei exportieren und beenden"
 
-#: ../app/app_procs.c:713
+#: ../app/app_procs.c:720
 msgid "OUTPUT"
 msgstr "AUSGABE"
 
 #. &export_file_format
 #. &export_format_string
-#: ../app/app_procs.c:715
+#: ../app/app_procs.c:722
 msgid "TYPE"
 msgstr "TYP"
 
-#: ../app/app_procs.c:717
+#: ../app/app_procs.c:724
 msgid "Export graphics size"
 msgstr "Grafikgröße für Export"
 
-#: ../app/app_procs.c:717
+#: ../app/app_procs.c:724
 msgid "WxH"
 msgstr "BxH"
 
-#: ../app/app_procs.c:719
+#: ../app/app_procs.c:726
 msgid ""
 "Show only specified layers (e.g. when exporting). Can be either the layer "
 "name or a range of layer numbers (X-Y)"
@@ -123,92 +123,92 @@ msgstr ""
 "Nur angegebene Ebenen anzeigen (z.B. für den Export). Dies kann entweder der "
 "Ebenenname oder ein Bereich von Ebenennummern (X-Y) sein."
 
-#: ../app/app_procs.c:720
+#: ../app/app_procs.c:727
 msgid "LAYER,LAYER,..."
 msgstr "EBENE,EBENE, …"
 
-#: ../app/app_procs.c:722
+#: ../app/app_procs.c:729
 msgid "Don't show the splash screen"
 msgstr "Den Startbildschirm nicht anzeigen"
 
-#: ../app/app_procs.c:724
+#: ../app/app_procs.c:731
 msgid "Don't create empty diagram"
 msgstr "Kein leeres Diagramm erzeugen"
 
-#: ../app/app_procs.c:726
+#: ../app/app_procs.c:733
 msgid "Start integrated user interface (diagrams in tabs)"
 msgstr "Integrierte Benutzerschnittstelle starten (Diagramme in Reitern)"
 
-#: ../app/app_procs.c:728
+#: ../app/app_procs.c:735
 msgid "Send error messages to stderr instead of showing dialogs."
 msgstr "Fehlermeldungen an stderr schicken, statt Dialoge anzuzeigen"
 
-#: ../app/app_procs.c:730
+#: ../app/app_procs.c:737
 msgid "Directory containing input files"
 msgstr "Ordner, der Eingabedateien enthält"
 
-#: ../app/app_procs.c:730 ../app/app_procs.c:732
+#: ../app/app_procs.c:737 ../app/app_procs.c:739
 msgid "DIRECTORY"
 msgstr "ORDNER"
 
-#: ../app/app_procs.c:732
+#: ../app/app_procs.c:739
 msgid "Directory containing output files"
 msgstr "Ordner mit Ausgabedateien"
 
-#: ../app/app_procs.c:734
+#: ../app/app_procs.c:741
 msgid "Display credits list and exit"
 msgstr "Mitwirkende anzeigen und beenden"
 
-#: ../app/app_procs.c:736
+#: ../app/app_procs.c:743
 msgid "Generate verbose output"
 msgstr "Umfangreiche Ausgaben generieren"
 
-#: ../app/app_procs.c:738
+#: ../app/app_procs.c:745
 msgid "Display version and exit"
 msgstr "Die Dia-Version anzeigen und beenden"
 
-#: ../app/app_procs.c:761
+#: ../app/app_procs.c:768
 msgid "[FILE...]"
 msgstr "[DATEI...]"
 
-#: ../app/app_procs.c:773
+#: ../app/app_procs.c:780
 #, c-format
 msgid "Invalid option?"
 msgstr "Ungültige Option?"
 
-#: ../app/app_procs.c:796
+#: ../app/app_procs.c:803
 #, c-format
 msgid "Filename conversion failed: %s\n"
 msgstr "Umwandlung des Dateinamens ist fehlgeschlagen: %s\n"
 
-#: ../app/app_procs.c:809
+#: ../app/app_procs.c:816
 #, c-format
 msgid "Missing input: %s\n"
 msgstr "Fehlende Eingabe: %s\n"
 
-#: ../app/app_procs.c:834
+#: ../app/app_procs.c:841
 msgid "Can't connect to session manager!\n"
 msgstr "Es kann keine Verbindung zum Sitzungsmanager hergestellt werden\n"
 
 #. TRANSLATOR: 2nd and 3rd %s are time and date respectively.
-#: ../app/app_procs.c:874
+#: ../app/app_procs.c:881
 #, c-format
 msgid "Dia version %s, compiled %s %s\n"
 msgstr "Dia-Version %s, kompiliert %s %s\n"
 
-#: ../app/app_procs.c:876
+#: ../app/app_procs.c:883
 #, c-format
 msgid "Dia version %s\n"
 msgstr "Dia-Version %s\n"
 
-#: ../app/app_procs.c:914
+#: ../app/app_procs.c:921
 msgid ""
 "Couldn't find standard objects when looking for object-libs; exiting...\n"
 msgstr ""
 "Standardobjekte wurden bei der Suche nach Objektbibliotheken nicht gefunden. "
 "Abbruch...\n"
 
-#: ../app/app_procs.c:916
+#: ../app/app_procs.c:923
 #, c-format
 msgid ""
 "Couldn't find standard objects when looking for object-libs in '%s'; "
@@ -217,11 +217,11 @@ msgstr ""
 "Standardobjekte wurden bei der Suche nach Objektbibliotheken  in »%s« nicht "
 "gefunden. Abbruch …\n"
 
-#: ../app/app_procs.c:983
+#: ../app/app_procs.c:990
 msgid "Diagram1.dia"
 msgstr "Diagramm1.dia"
 
-#: ../app/app_procs.c:1018
+#: ../app/app_procs.c:1025
 msgid ""
 "This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\n"
 "describing how you can cause this message to appear.\n"
@@ -230,16 +230,16 @@ msgstr ""
 "bugzilla.gnome.org einen Fehlerbericht ein, in dem Sie beschreiben,\n"
 "was zu dieser Meldung geführt hat.\n"
 
-#: ../app/app_procs.c:1033
+#: ../app/app_procs.c:1040
 msgid "Exiting Dia"
 msgstr "Dia beenden"
 
 #. no standard buttons
-#: ../app/app_procs.c:1097
+#: ../app/app_procs.c:1104
 msgid "Quitting without saving modified diagrams"
 msgstr "Beenden und Änderungen verwerfen"
 
-#: ../app/app_procs.c:1099
+#: ../app/app_procs.c:1106
 msgid ""
 "Modified diagrams exist. Are you sure you want to quit Dia without saving "
 "them?"
@@ -247,15 +247,15 @@ msgstr ""
 "Es sind noch nicht gespeicherte Diagramme vorhanden.\n"
 "Wollen Sie Dia beenden, ohne diese zu speichern?"
 
-#: ../app/app_procs.c:1103
+#: ../app/app_procs.c:1110
 msgid "Quit Dia"
 msgstr "Dia beenden"
 
-#: ../app/app_procs.c:1172 ../app/app_procs.c:1179
+#: ../app/app_procs.c:1179 ../app/app_procs.c:1186
 msgid "Could not create per-user Dia config directory"
 msgstr "Der Benutzer-Konfigurationsordner konnte nicht erstellt werden"
 
-#: ../app/app_procs.c:1182
+#: ../app/app_procs.c:1189
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
@@ -264,11 +264,11 @@ msgstr ""
 "stellen Sie sicher, dass die HOME-Variable auf einen existierenden Ordner "
 "zeigt."
 
-#: ../app/app_procs.c:1205
+#: ../app/app_procs.c:1212
 msgid "Objects and filters internal to dia"
 msgstr "Interne Dia-Objekte und -Filter"
 
-#: ../app/app_procs.c:1261
+#: ../app/app_procs.c:1268
 #, c-format
 msgid ""
 "The original author of Dia was:\n"
@@ -277,7 +277,7 @@ msgstr ""
 "Der ursprüngliche Autor von Dia war:\n"
 "\n"
 
-#: ../app/app_procs.c:1266
+#: ../app/app_procs.c:1273
 #, c-format
 msgid ""
 "\n"
@@ -288,7 +288,7 @@ msgstr ""
 "Die derzeitigen Betreuer von Dia sind:\n"
 "\n"
 
-#: ../app/app_procs.c:1271
+#: ../app/app_procs.c:1278
 #, c-format
 msgid ""
 "\n"
@@ -299,7 +299,7 @@ msgstr ""
 "Andere Autoren sind:\n"
 "\n"
 
-#: ../app/app_procs.c:1276
+#: ../app/app_procs.c:1283
 #, c-format
 msgid ""
 "\n"
@@ -713,7 +713,7 @@ msgstr "Eigenschaften …"
 msgid "Selection"
 msgstr "Auswahl"
 
-#: ../app/disp_callbacks.c:1072
+#: ../app/disp_callbacks.c:1074
 msgid ""
 "The object you dropped cannot fit into its parent. \n"
 "Either expand the parent object, or drop the object elsewhere."
@@ -737,20 +737,20 @@ msgid "Selected '%s'"
 msgstr "»%s« ausgewählt"
 
 #. we really should not come here but instead disable the menu command earlier
-#: ../app/display.c:1081
+#: ../app/display.c:1121
 msgid "No anti-aliased renderer found"
 msgstr "Kein Renderer für Kantenglättung gefunden"
 
-#: ../app/display.c:1219
+#: ../app/display.c:1259
 msgid "<unnamed>"
 msgstr "<namenlos>"
 
 #. no standard buttons
-#: ../app/display.c:1225
+#: ../app/display.c:1265
 msgid "Closing diagram without saving"
 msgstr "Diagramm schließen, ohne zu speichern"
 
-#: ../app/display.c:1227
+#: ../app/display.c:1267
 #, c-format
 msgid ""
 "The diagram '%s'\n"
@@ -759,11 +759,11 @@ msgstr ""
 "Das Diagramm »%s« wurde nicht gespeichert.\n"
 "Änderungen jetzt speichern?"
 
-#: ../app/display.c:1229
+#: ../app/display.c:1269
 msgid "Close Diagram"
 msgstr "Diagramm schließen"
 
-#: ../app/display.c:1234
+#: ../app/display.c:1274
 msgid "_Discard Changes"
 msgstr "Änderungen verwerfen"
 
@@ -1251,7 +1251,7 @@ msgstr "Keine Schreiberlaubnis für temporäre Dateien in »%s«\n"
 #: ../plug-ins/pstricks/render_pstricks.c:916
 #: ../plug-ins/shape/shape-export.c:137 ../plug-ins/svg/render_svg.c:199
 #: ../plug-ins/vdx/vdx-export.c:1850 ../plug-ins/wpg/wpg.c:1072
-#: ../plug-ins/xfig/xfig-export.c:1151 ../plug-ins/xslt/xslt.c:99
+#: ../plug-ins/xfig/xfig-export.c:1153 ../plug-ins/xslt/xslt.c:99
 #, c-format
 msgid "Can't open output file %s: %s\n"
 msgstr "Die Ausgabedatei »%s« konnte nicht geöffnet werden: %s\n"
@@ -1512,7 +1512,7 @@ msgstr "Aus_wahl"
 msgid "All"
 msgstr "Alle"
 
-#: ../app/menus.c:206 ../lib/arrows.c:1884 ../objects/Jackson/domain.c:96
+#: ../app/menus.c:206 ../lib/arrows.c:1898 ../objects/Jackson/domain.c:96
 #: ../objects/UML/association.c:221 ../objects/UML/association.c:227
 msgid "None"
 msgstr "Keine"
@@ -2170,148 +2170,148 @@ msgstr "Dia Diagrammeditor"
 msgid "Edit your Diagrams"
 msgstr "Diagramme bearbeiten"
 
-#: ../lib/arrows.c:1885
+#: ../lib/arrows.c:1899
 msgid "Lines"
 msgstr "Linien"
 
-#: ../lib/arrows.c:1886
+#: ../lib/arrows.c:1900
 msgid "Hollow Triangle"
 msgstr "Unausgefülltes Dreieck"
 
-#: ../lib/arrows.c:1887
+#: ../lib/arrows.c:1901
 msgid "Filled Triangle"
 msgstr "Gefülltes Dreieck"
 
-#: ../lib/arrows.c:1888
+#: ../lib/arrows.c:1902
 msgid "Unfilled Triangle"
 msgstr "Unausgefülltes Dreieck"
 
-#: ../lib/arrows.c:1889
+#: ../lib/arrows.c:1903
 msgid "Hollow Diamond"
 msgstr "Unausgefüllter Diamant"
 
-#: ../lib/arrows.c:1890
+#: ../lib/arrows.c:1904
 msgid "Filled Diamond"
 msgstr "Gefüllter Diamant"
 
-#: ../lib/arrows.c:1891
+#: ../lib/arrows.c:1905
 msgid "Half Diamond"
 msgstr "Halber Diamant"
 
-#: ../lib/arrows.c:1892
+#: ../lib/arrows.c:1906
 msgid "Half Head"
 msgstr "Halber Pfeil"
 
-#: ../lib/arrows.c:1893
+#: ../lib/arrows.c:1907
 msgid "Slashed Cross"
 msgstr "Kreuz"
 
-#: ../lib/arrows.c:1894
+#: ../lib/arrows.c:1908
 msgid "Filled Ellipse"
 msgstr "Gefüllte Ellipse"
 
-#: ../lib/arrows.c:1895
+#: ../lib/arrows.c:1909
 msgid "Hollow Ellipse"
 msgstr "Unausgefüllte Ellipse"
 
-#: ../lib/arrows.c:1896
+#: ../lib/arrows.c:1910
 msgid "Filled Dot"
 msgstr "Gefüllter Punkt"
 
-#: ../lib/arrows.c:1897
+#: ../lib/arrows.c:1911
 msgid "Dimension Origin"
 msgstr "Dimensionsursprung"
 
-#: ../lib/arrows.c:1898
+#: ../lib/arrows.c:1912
 msgid "Blanked Dot"
 msgstr "Unausgefüllter Punkt"
 
-#: ../lib/arrows.c:1899
+#: ../lib/arrows.c:1913
 msgid "Double Hollow Triangle"
 msgstr "Doppelt unausgefülltes Dreieck"
 
-#: ../lib/arrows.c:1900
+#: ../lib/arrows.c:1914
 msgid "Double Filled Triangle"
 msgstr "Doppelt gefülltes Dreieck"
 
-#: ../lib/arrows.c:1901
+#: ../lib/arrows.c:1915
 msgid "Filled Dot and Triangle"
 msgstr "Gefüllter Punkt und Dreieck"
 
-#: ../lib/arrows.c:1902
+#: ../lib/arrows.c:1916
 msgid "Filled Box"
 msgstr "Gefüllter Kasten"
 
-#: ../lib/arrows.c:1903
+#: ../lib/arrows.c:1917
 msgid "Blanked Box"
 msgstr "Unausgefüllter Kasten"
 
-#: ../lib/arrows.c:1904
+#: ../lib/arrows.c:1918
 msgid "Slashed"
 msgstr "Gestrichelt"
 
-#: ../lib/arrows.c:1905
+#: ../lib/arrows.c:1919
 msgid "Integral Symbol"
 msgstr "Integralsymbol"
 
-#: ../lib/arrows.c:1906
+#: ../lib/arrows.c:1920
 msgid "Crow Foot"
 msgstr "Krähenfuß"
 
-#: ../lib/arrows.c:1907
+#: ../lib/arrows.c:1921
 msgid "Cross"
 msgstr "Kreuz"
 
-#: ../lib/arrows.c:1908
+#: ../lib/arrows.c:1922
 msgid "1-or-many"
 msgstr "1-oder-viele"
 
-#: ../lib/arrows.c:1909
+#: ../lib/arrows.c:1923
 msgid "0-or-many"
 msgstr "0-oder-viele"
 
-#: ../lib/arrows.c:1910
+#: ../lib/arrows.c:1924
 msgid "1-or-0"
 msgstr "1-oder-0"
 
-#: ../lib/arrows.c:1911
+#: ../lib/arrows.c:1925
 msgid "1 exactly"
 msgstr "1 genau"
 
-#: ../lib/arrows.c:1912
+#: ../lib/arrows.c:1926
 msgid "Filled Concave"
 msgstr "Gefüllte Aushöhlung"
 
-#: ../lib/arrows.c:1913
+#: ../lib/arrows.c:1927
 msgid "Blanked Concave"
 msgstr "Leere Aushöhlung"
 
-#: ../lib/arrows.c:1914
+#: ../lib/arrows.c:1928
 msgid "Round"
 msgstr "Rund"
 
-#: ../lib/arrows.c:1915
+#: ../lib/arrows.c:1929
 msgid "Open Round"
 msgstr "Offen, rund"
 
-#: ../lib/arrows.c:1916
+#: ../lib/arrows.c:1930
 msgid "Backslash"
 msgstr "Backslash"
 
-#: ../lib/arrows.c:1917
+#: ../lib/arrows.c:1931
 msgid "Infinite Line"
 msgstr "Unendliche Linie"
 
-#: ../lib/arrows.c:2045
+#: ../lib/arrows.c:2059
 msgid "Arrow head of unknown type"
 msgstr "Pfeilspitze unbekannten Typs"
 
-#: ../lib/arrows.c:2053
+#: ../lib/arrows.c:2067
 #, c-format
 msgid "Arrow head of type %s has too small dimensions, removing.\n"
 msgstr "Pfeilspize des Typs %s ist zu klein, gelöscht.\n"
 
-#: ../lib/arrows.c:2186
+#: ../lib/arrows.c:2200
 msgid "unknown arrow"
 msgstr "Unbekannter Pfeil"
 
@@ -2674,7 +2674,7 @@ msgid "Reset menu"
 msgstr "Menü zurücksetzen"
 
 #. Installer message if no GTK+ was found
-#: ../installer/win32/gennsh.c:38
+#: ../installer/win32/gennsh.c:39
 msgid ""
 "GTK+ is not installed. Please use the full installer. It is available from "
 "http://dia-installer.de."
@@ -2683,7 +2683,7 @@ msgstr ""
 "Installationspaket von http://dia-installer.de."
 
 #. Installer message: Don't install over pre 0.95 versions
-#: ../installer/win32/gennsh.c:41
+#: ../installer/win32/gennsh.c:42
 msgid ""
 "Please remove old Dia installations completely or install Dia to a different "
 "location."
@@ -2692,12 +2692,12 @@ msgstr ""
 "Sie Dia an einem anderen Ort."
 
 #. Installer message:  License Page
-#: ../installer/win32/gennsh.c:44
+#: ../installer/win32/gennsh.c:45
 msgid "Next >"
 msgstr "Weiter >"
 
 #. Installer message, keep the $(^Name) and $_CLICK, these will be replaced
-#: ../installer/win32/gennsh.c:47
+#: ../installer/win32/gennsh.c:48
 msgid ""
 "$(^Name) is released under the GPL license. The license is provided here for "
 "information purposes only. $_CLICK"
@@ -2706,32 +2706,32 @@ msgstr ""
 "zu Informationszwecken angezeigt. $_CLICK"
 
 #. Installer message: Components page
-#: ../installer/win32/gennsh.c:50
+#: ../installer/win32/gennsh.c:51
 msgid "Dia Diagram Editor (required)"
 msgstr "Dia Diagrammeditor (notwendig)"
 
 #. Installer message: Components page
-#: ../installer/win32/gennsh.c:53
+#: ../installer/win32/gennsh.c:54
 msgid "Translations"
 msgstr "Übersetzungen"
 
 #. Installer message: Component description
-#: ../installer/win32/gennsh.c:56
+#: ../installer/win32/gennsh.c:57
 msgid "Optional translations of the Dia user interface"
 msgstr "Optionale Übersetzungen der Dia-Benutzeroberfläche"
 
 #. Installer message: Component description
-#: ../installer/win32/gennsh.c:59
+#: ../installer/win32/gennsh.c:60
 msgid "Core Dia files and dlls"
 msgstr "Dia-Kerndateien und DLLs"
 
 #. Installer message: Component name
-#: ../installer/win32/gennsh.c:62
+#: ../installer/win32/gennsh.c:63
 msgid "Python plug-in"
 msgstr "Python-Plugin"
 
 #. Installer message: Component description
-#: ../installer/win32/gennsh.c:65
+#: ../installer/win32/gennsh.c:66
 msgid ""
 "Support for the Python Scripting Language 2.3. Do not select this if Python "
 "is not installed."
@@ -2740,17 +2740,17 @@ msgstr ""
 "wenn Python nicht installiert ist."
 
 #. Installer message: hyperlink text on finish page
-#: ../installer/win32/gennsh.c:68
+#: ../installer/win32/gennsh.c:69
 msgid "Visit the Dia for Windows Web Page"
 msgstr "Webseite von Dia für Windows besuchen"
 
 #. Installer message: Dia uninstaller entry in Control Panel
-#: ../installer/win32/gennsh.c:71
+#: ../installer/win32/gennsh.c:72
 msgid "Dia (remove only)"
 msgstr "Dia (nur entfernen)"
 
 #. Installer message: confirmation question. Keep $\r
-#: ../installer/win32/gennsh.c:74
+#: ../installer/win32/gennsh.c:75
 msgid ""
 "Your old Dia directory is about to be deleted. Would you like to continue?$\r"
 "$\rNote: Any non-standard plugins that you may have installed will be "
@@ -2761,7 +2761,7 @@ msgstr ""
 "gelöscht.$\rDie Dia-Benutzereinstellungen sind davon nicht betroffen."
 
 #. Installer message: confirmatin question. Keep $\r
-#: ../installer/win32/gennsh.c:77
+#: ../installer/win32/gennsh.c:78
 msgid ""
 "The installation directory you specified already exists. Any contents$\rwill "
 "be deleted. Would you like to continue?"
@@ -2770,7 +2770,7 @@ msgstr ""
 "Inhalt$\rwird entfernt. Wollen Sie wirklich fortsetzen?"
 
 #. Installer message: Uninstall Section Prompts. Keep $\r
-#: ../installer/win32/gennsh.c:80
+#: ../installer/win32/gennsh.c:81
 msgid ""
 "The uninstaller could not find registry entries for Dia.$\rIt is likely that "
 "another user installed this application."
@@ -2779,17 +2779,17 @@ msgstr ""
 "werden.$\rIt Es scheint, dass ein anderer Benutzer Dia installiert hat."
 
 #. Installer message: Uninstall error message
-#: ../installer/win32/gennsh.c:83
+#: ../installer/win32/gennsh.c:84
 msgid "You do not have permission to uninstall this application."
 msgstr "Sie haben nicht die nötigen Rechte, diese Anwendung zu deinstallieren."
 
 #. Installer message: Uninstallation warning. Keep $INSTDIR
-#: ../installer/win32/gennsh.c:86
+#: ../installer/win32/gennsh.c:87
 msgid "This will completely delete $INSTDIR and all subdirectories. Continue?"
 msgstr "$INSTDIR und alle Unterordner werden entfernt. Fortsetzen?"
 
 #. Installer message: Uninstallation warning. Keep $\PROFILE\.dia
-#: ../installer/win32/gennsh.c:89
+#: ../installer/win32/gennsh.c:90
 msgid ""
 "This will completely delete $PROFILE\\.dia and all subdirectories. Continue?"
 msgstr "$PROFILE\\.dia und alle Unterordner werden entfernt. Fortsetzen?"
@@ -2935,7 +2935,7 @@ msgid "Use bold font for primary keys"
 msgstr "Fettschrift für Primärschlüssel verwenden"
 
 #. property rows
-#: ../objects/Database/table.c:196 ../objects/SADT/arrow.c:136
+#: ../objects/Database/table.c:196 ../objects/SADT/arrow.c:137
 #: ../objects/UML/class.c:179 ../objects/UML/class_dialog.c:570
 msgid "Normal"
 msgstr "Normal"
@@ -3098,7 +3098,7 @@ msgstr "Ende der Beschreibung"
 
 #: ../objects/Database/reference.c:144 ../objects/ER/participation.c:408
 #: ../objects/FS/flow-ortho.c:626 ../objects/GRAFCET/vector.c:314
-#: ../objects/SADT/arrow.c:459 ../objects/UML/association.c:854
+#: ../objects/SADT/arrow.c:464 ../objects/UML/association.c:854
 #: ../objects/UML/component_feature.c:190 ../objects/UML/dependency.c:376
 #: ../objects/UML/generalization.c:372 ../objects/UML/realizes.c:363
 #: ../objects/UML/transition.c:172 ../objects/standard/bezier.c:731
@@ -3108,7 +3108,7 @@ msgstr "Segment hinzufügen"
 
 #: ../objects/Database/reference.c:145 ../objects/ER/participation.c:409
 #: ../objects/FS/flow-ortho.c:627 ../objects/GRAFCET/vector.c:315
-#: ../objects/SADT/arrow.c:460 ../objects/UML/association.c:855
+#: ../objects/SADT/arrow.c:465 ../objects/UML/association.c:855
 #: ../objects/UML/component_feature.c:191 ../objects/UML/dependency.c:377
 #: ../objects/UML/generalization.c:373 ../objects/UML/realizes.c:364
 #: ../objects/UML/transition.c:173 ../objects/standard/bezier.c:732
@@ -4395,14 +4395,14 @@ msgstr "Randtyp:"
 
 #: ../objects/GRAFCET/vergent.c:407 ../objects/Istar/other.c:471
 #: ../objects/Jackson/domain.c:533 ../objects/KAOS/goal.c:574
-#: ../objects/KAOS/other.c:527 ../objects/SADT/box.c:449
+#: ../objects/KAOS/other.c:527 ../objects/SADT/box.c:454
 #: ../objects/standard/line.c:223
 msgid "Add connection point"
 msgstr "Verbindungspunkt hinzufügen"
 
 #: ../objects/GRAFCET/vergent.c:408 ../objects/Istar/other.c:472
 #: ../objects/Jackson/domain.c:534 ../objects/KAOS/goal.c:575
-#: ../objects/KAOS/other.c:528 ../objects/SADT/box.c:450
+#: ../objects/KAOS/other.c:528 ../objects/SADT/box.c:455
 #: ../objects/standard/line.c:224
 msgid "Delete connection point"
 msgstr "Verbindungspunkt entfernen"
@@ -4702,31 +4702,31 @@ msgstr "Anfasser hinzufügen"
 msgid "Delete Handle"
 msgstr "Anfasser löschen"
 
-#: ../objects/SADT/arrow.c:137
+#: ../objects/SADT/arrow.c:138
 msgid "Import resource (not shown upstairs)"
 msgstr "Importierte Quelle (nicht oberhalb angezeigt)"
 
-#: ../objects/SADT/arrow.c:138
+#: ../objects/SADT/arrow.c:139
 msgid "Imply resource (not shown downstairs)"
 msgstr "Eingenommene Quelle (nicht unterhalb angezeigt)"
 
-#: ../objects/SADT/arrow.c:139
+#: ../objects/SADT/arrow.c:140
 msgid "Dotted arrow"
 msgstr "Gepunkteter Pfeil"
 
-#: ../objects/SADT/arrow.c:140
+#: ../objects/SADT/arrow.c:141
 msgid "disable arrow heads"
 msgstr "Pfeilköpfe ausschalten"
 
-#: ../objects/SADT/arrow.c:146
+#: ../objects/SADT/arrow.c:148
 msgid "Flow style:"
 msgstr "Flussstil:"
 
-#: ../objects/SADT/arrow.c:148
+#: ../objects/SADT/arrow.c:150
 msgid "Automatically gray vertical flows:"
 msgstr "Vertikale Flüsse automatisch ausgrauen:"
 
-#: ../objects/SADT/arrow.c:149
+#: ../objects/SADT/arrow.c:151
 msgid ""
 "To improve the ease of reading, flows which begin and end vertically can be "
 "rendered gray"
@@ -4734,26 +4734,26 @@ msgstr ""
 "Um die Lesbarkeit zu verbessern, können Ströme die vertikal beginnen und "
 "enden grau dargestellt werden"
 
-#: ../objects/SADT/arrow.c:465
+#: ../objects/SADT/arrow.c:470
 msgid "SADT Arrow"
 msgstr "SADT Pfeil"
 
-#: ../objects/SADT/box.c:139 ../objects/custom/custom_object.c:226
+#: ../objects/SADT/box.c:140 ../objects/custom/custom_object.c:226
 #: ../objects/flowchart/box.c:154 ../objects/flowchart/diamond.c:152
 #: ../objects/flowchart/ellipse.c:151 ../objects/flowchart/parallelogram.c:156
 msgid "Text padding"
 msgstr "Textabstand"
 
-#: ../objects/SADT/box.c:146
+#: ../objects/SADT/box.c:149
 msgid "Activity/Data identifier"
 msgstr "Aktivitäts-/Datenmerkmal"
 
 # CHECK Translation
-#: ../objects/SADT/box.c:147
+#: ../objects/SADT/box.c:150
 msgid "The identifier which appears in the lower right corner of the Box"
 msgstr "Der Bezeichner, der in der rechten, unteren Ecke des Kastens erscheint"
 
-#: ../objects/SADT/box.c:455
+#: ../objects/SADT/box.c:460
 msgid "SADT box"
 msgstr "SADT Box"
 
@@ -5077,7 +5077,7 @@ msgstr "Netzwerk"
 
 #: ../objects/SISSI/sissi_dialog.c:172
 msgid "Medium and support"
-msgstr ""
+msgstr "Medium und Unterstützung"
 
 #: ../objects/SISSI/sissi_dialog.c:173
 msgid "Passive or active relay"
@@ -5801,12 +5801,12 @@ msgid "Custom XML shapes loader"
 msgstr "Lader für benutzerspezifische XML Formen"
 
 #: ../objects/custom/custom_object.c:207 ../objects/custom/custom_object.c:239
-#: ../objects/custom/custom_object.c:1780
+#: ../objects/custom/custom_object.c:1782
 msgid "Flip horizontal"
 msgstr "Horizontal spiegeln"
 
 #: ../objects/custom/custom_object.c:209 ../objects/custom/custom_object.c:241
-#: ../objects/custom/custom_object.c:1781
+#: ../objects/custom/custom_object.c:1783
 msgid "Flip vertical"
 msgstr "Vertikal spiegeln"
 
@@ -5814,7 +5814,7 @@ msgstr "Vertikal spiegeln"
 msgid "Scale of the subshapes"
 msgstr "Maßstab der Unterformen"
 
-#: ../objects/custom/custom_object.c:1818
+#: ../objects/custom/custom_object.c:1820
 #: ../objects/custom_lines/custom_linetypes.c:263
 #, c-format
 msgid "Cannot open icon file %s for object type '%s'."
@@ -6032,7 +6032,7 @@ msgid "Clipboard copy failed"
 msgstr "Kopieren in die Zwischenablage ist fehlgeschlagen"
 
 #: ../plug-ins/cairo/diacairo.c:311 ../plug-ins/postscript/postscript.c:39
-#: ../plug-ins/wmf/wmf.cpp:1388
+#: ../plug-ins/wmf/wmf.cpp:1381
 msgid "Nothing to print"
 msgstr "Nichts zu drucken"
 
@@ -6395,7 +6395,7 @@ msgstr "Object %u konnte nicht geschrieben werden"
 msgid "Visio XML Format import and export filter"
 msgstr "Visio XML-Format Import- und Exportfilter"
 
-#: ../plug-ins/wmf/wmf.cpp:506
+#: ../plug-ins/wmf/wmf.cpp:499
 #, c-format
 msgid ""
 "Can not render unknown font:\n"
@@ -6404,24 +6404,24 @@ msgstr ""
 "Unbekannte Schrift kann nicht dargestellt werden:\n"
 "%s"
 
-#: ../plug-ins/wmf/wmf.cpp:1265
+#: ../plug-ins/wmf/wmf.cpp:1258
 #, c-format
 msgid "Couldn't open: '%s' for writing.\n"
 msgstr "»%s« konnte nicht zum Schreiben geöffnet werden.\n"
 
-#: ../plug-ins/wmf/wmf.cpp:1364
+#: ../plug-ins/wmf/wmf.cpp:1357
 msgid "Windows Meta File"
 msgstr "Windows Metadatei"
 
-#: ../plug-ins/wmf/wmf.cpp:1373
+#: ../plug-ins/wmf/wmf.cpp:1366
 msgid "Enhanced Meta File"
 msgstr "Weiterentwickelte Metadatei"
 
-#: ../plug-ins/wmf/wmf.cpp:1395
+#: ../plug-ins/wmf/wmf.cpp:1388
 msgid "Print (GDI) ..."
 msgstr "Drucken (GDI) …"
 
-#: ../plug-ins/wmf/wmf.cpp:1410
+#: ../plug-ins/wmf/wmf.cpp:1403
 msgid "WMF export filter"
 msgstr "WMF-Exportfilter"
 
@@ -6438,20 +6438,20 @@ msgstr "WPG"
 msgid "WordPerfect Graphics export filter"
 msgstr "WordPerfect Grafik-Exportfilter"
 
-#: ../plug-ins/xfig/xfig-export.c:461
+#: ../plug-ins/xfig/xfig-export.c:463
 #, c-format
 msgid "FIG format has no equivalent of arrow style %s, using simple arrow.\n"
 msgstr ""
 "Das FIG-Format bietet kein Äquivalent zum Pfeilstils %s, einfacher Pfeil "
 "wird verwendet.\n"
 
-#: ../plug-ins/xfig/xfig-export.c:484
+#: ../plug-ins/xfig/xfig-export.c:486
 msgid "No more user-definable colors - using black"
 msgstr ""
 "Es sind keine benutzerdefinierbaren Farben mehr vorhanden - es wird schwarz "
 "verwendet"
 
-#: ../plug-ins/xfig/xfig-export.c:1205
+#: ../plug-ins/xfig/xfig-export.c:1207
 msgid "XFig format"
 msgstr "XFig Format"
 
@@ -7068,7 +7068,7 @@ msgstr "Eingeklappter Unterprozess wird endlos wiederholt"
 
 #: ../sheets/BPMN.sheet.in.h:34
 msgid "Multiple Instance Collapsed Sub-Process"
-msgstr ""
+msgstr "Eingeklappter Unterprozess mit mehreren Instanzen"
 
 #: ../sheets/BPMN.sheet.in.h:35
 msgid "Multiple Instance Task"
@@ -8088,7 +8088,7 @@ msgstr "Eine i*-Aufgabe"
 
 #: ../sheets/Istar.sheet.in.h:13
 msgid "An i* unspecified actor"
-msgstr ""
+msgstr "Ein nicht angegebener i*-Akteur"
 
 #: ../sheets/Istar.sheet.in.h:14
 msgid "An i* unspecified link"
