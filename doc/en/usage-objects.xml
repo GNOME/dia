@@ -1065,7 +1065,7 @@
     <sect2 id="open-diagram-tree">
       <title>Opening the Diagram Tree</title>
       <para>
-        The Diagram Tree is toggled on or off by selecting 
+        The Diagram Tree is shown by selecting 
         <menuchoice>
           <guimenu>
             File
