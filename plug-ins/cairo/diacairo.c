@@ -234,10 +234,29 @@ export_data(DiagramData *data, const gchar *filename,
       RECT bbox = { 0, 0, 
                    (int)((data->extents.right - data->extents.left) * data->paper.scaling * 1000.0),
 		   (int)((data->extents.bottom - data->extents.top) * data->paper.scaling * 1000.0) };
-      hFileDC = CreateEnhMetaFile (NULL, NULL, &bbox, "DiaCairo\0Diagram\0");
-      renderer->surface = cairo_win32_printing_surface_create (hFileDC);
+      RECT clip;
       /* CreateEnhMetaFile() takes resolution 0.01 mm,  */
+      hFileDC = CreateEnhMetaFile (NULL, NULL, &bbox, "DiaCairo\0Diagram\0");
+
+#if 0
+      /* On Windows 7/64 with two wide screen monitors, the clipping of the resulting 
+       * metafile is too small. Scaling the bbox or via SetWorldTransform() does not help. 
+       * Maybe we need to explitily set the clipping for cairo?
+       */
+      GetClipBox (hFileDC, &clip); /* this is the display resolution */
+      if (clip.right / (real)bbox.right > clip.bottom / (real)bbox.bottom)
+	clip.right = clip.bottom * bbox.right / bbox.bottom;
+      else
+	clip.bottom = clip.bottom * bbox.right / bbox.bottom;
+
+      IntersectClipRect(hFileDC, clip.left, clip.top, clip.right, clip.bottom);
+#endif
+      renderer->surface = cairo_win32_printing_surface_create (hFileDC);
+
       renderer->scale = 1000.0/25.4 * data->paper.scaling;
+      if (LOBYTE (g_win32_get_windows_version()) > 0x05 ||
+	  LOWORD (g_win32_get_windows_version()) > 0x0105)
+	renderer->scale *= 0.72; /* Works w/o for XP, but not on Vista/Win7 */
     }
     break;
 #endif
