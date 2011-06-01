@@ -356,7 +356,11 @@ _clipboard_get_data_callback (GtkClipboard     *clipboard,
 {
   DiagramData *dia = owner_or_user_data; /* todo: check it's still valid */
   const gchar *ext = strchr (target_entries[info-1].target, '/')+1;
-  gchar *tmplate = g_strdup_printf ("dia-cb-XXXXXX.%s", ext);
+  /* Although asked for bmp, deliver png because of potentially better renderer
+   * Dropping 'bmp' in target would exclude many win32 programs, but gtk+ can
+   * convert from png on demand ... */
+  gchar *tmplate = g_strdup_printf ("dia-cb-XXXXXX.%s", 
+                     (strcmp (ext, "bmp") == 0) ? "png" : ext);
   gchar *outfname = NULL;
   GError *error = NULL;
   DiaExportFilter *ef = NULL;
