@@ -31,7 +31,8 @@
       </note>
       <para>
         The text object, and several other objects, offers direct text entry in the
-        diagram.  Text can be entered by selecting the object and then typing the text. The font,
+        diagram.  Text can be entered by selecting the object for 
+	<link linkend="entering-text">text editing</link> and then typing the text. The font,
         size, and other formatting properties can be changed by double-clicking the
         object.
       </para>
