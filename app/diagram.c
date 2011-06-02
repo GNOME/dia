@@ -603,6 +603,8 @@ diagram_update_menu_sensitivity (Diagram *dia)
     gtk_action_set_sensitive (action, !textedit_active && selected_count > 1);
   if ((action = menus_get_action ("ObjectsAlignStacked")) != NULL)
     gtk_action_set_sensitive (action, !textedit_active && selected_count > 1);
+  if ((action = menus_get_action ("ObjectsAlignConnected")) != NULL)
+    gtk_action_set_sensitive (action, !textedit_active && selected_count > 1);
 
   /* Select menu */
   if ((action = menus_get_action ("SelectAll")) != NULL)
