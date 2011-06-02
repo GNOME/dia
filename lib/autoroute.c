@@ -44,6 +44,7 @@ static real autoroute_layout_orthogonal(Point *to,
 static real autoroute_layout_opposite(Point *to, 
 					guint *num_points, Point **points);
 static Point autolayout_adjust_for_gap(Point *pos, int dir, ConnectionPoint *cp);
+static void autolayout_adjust_for_arrow(Point *pos, int dir, real adjust);
 static guint autolayout_normalize_points(guint startdir, guint enddir,
 					 Point start, Point end,
 					 Point *newend);
@@ -100,7 +101,9 @@ autoroute_layout_orthconn(OrthConn *conn,
 	Point startpoint, endpoint;
 	Point otherpoint;
 	startpoint = autolayout_adjust_for_gap(&frompos, startdir, startconn);
+	autolayout_adjust_for_arrow(&startpoint, startdir, conn->extra_spacing.start_trans);
 	endpoint = autolayout_adjust_for_gap(&topos, enddir, endconn);
+	autolayout_adjust_for_arrow(&endpoint, enddir, conn->extra_spacing.end_trans);
 	/*
 	printf("Startdir %d enddir %d orgstart %.2f, %.2f orgend %.2f, %.2f start %.2f, %.2f end %.2f, %.2f\n",
 	       startdir, enddir,
@@ -138,6 +141,11 @@ autoroute_layout_orthconn(OrthConn *conn,
 							this_layout, 
 							this_num_points);
 	    best_num_points = this_num_points;
+            /* revert adjusting start and end point */
+	    autolayout_adjust_for_arrow(&best_layout[0], startdir, 
+	                                -conn->extra_spacing.start_trans);
+	    autolayout_adjust_for_arrow(&best_layout[best_num_points-1], enddir, 
+	                                -conn->extra_spacing.end_trans);
 	  } else {
 	      g_free(this_layout);
 	  }
@@ -233,6 +241,33 @@ autolayout_adjust_for_gap(Point *pos, int dir, ConnectionPoint *cp)
     g_warning("Impossible direction %d\n", dir);
   }
   return calculate_object_edge(pos, &dir_other, object);
+}
+
+/**
+ * Adjust the original position to move away from a potential arrow
+ *
+ * We could do some similar by making MIN_DIST depend on the arrow size,
+ * but this one is much more easy, not touchun the autolayout algorithm at 
+ * all. Needs to be called twice - second time with negative adjust - to
+ * move the point back to where it was.
+ */
+static void 
+autolayout_adjust_for_arrow(Point *pos, int dir, real adjust)
+{
+  switch (dir) {
+  case DIR_NORTH:
+    pos->y -= adjust;
+    break;
+  case DIR_EAST:
+    pos->x += adjust;
+    break;
+  case DIR_SOUTH:
+    pos->y += adjust;
+    break;
+  case DIR_WEST:
+    pos->x -= adjust;
+    break;
+  }
 }
 
 /** Lay out autorouting where start and end lines are parallel pointing the
