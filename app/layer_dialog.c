@@ -39,6 +39,8 @@
 #include "widgets.h"
 #include "interface.h"
 
+#include "dia-application.h" /* dia_diagram_change */
+
 #include "dia-app-icons.h"
 
 /* DiaLayerWidget: */
@@ -1101,6 +1103,8 @@ edit_layer_ok_callback (GtkWidget *w, gpointer client_data)
 
   g_free (layer->name);
   layer->name = g_strdup (gtk_entry_get_text (GTK_ENTRY (dialog->name_entry)));
+  /* reflect name change on listeners */
+  dia_diagram_change (dialog->layer_widget->dia, DIAGRAM_CHANGE_LAYER, layer);
   
   diagram_add_update_all (dialog->layer_widget->dia);
   diagram_flush (dialog->layer_widget->dia);

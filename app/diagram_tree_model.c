@@ -413,6 +413,8 @@ _object_add (DiagramData      *dia,
   GtkTreePath *path;
   GtkTreeIter _iter;
   GtkTreeIter *iter = &_iter;
+  /* a bit backward: the first child is in the diagram, but not the tree yet */
+  gboolean had_child = layer_object_count (layer) > 1;
 
   g_return_if_fail (DIA_DIAGRAM(dia) != NULL);
 
@@ -425,6 +427,9 @@ _object_add (DiagramData      *dia,
   path = _dtm_get_path (GTK_TREE_MODEL (dtm), iter);
   if (path) {
     gtk_tree_model_row_inserted (GTK_TREE_MODEL (dtm), path, iter);
+    /* enforce update */
+    if (!had_child && gtk_tree_path_up (path))
+      gtk_tree_model_row_has_child_toggled (GTK_TREE_MODEL (dtm), path, &_iter);
     gtk_tree_path_free (path);
   }
 }
@@ -437,6 +442,7 @@ _object_remove(DiagramData      *dia,
   GtkTreePath *path;
   GtkTreeIter _iter;
   GtkTreeIter *iter = &_iter;
+  gboolean last_child = layer_object_count (layer) == 0;
 
   g_return_if_fail (DIA_DIAGRAM(dia) != NULL);
   
@@ -447,6 +453,13 @@ _object_remove(DiagramData      *dia,
   path = _dtm_get_path (GTK_TREE_MODEL (dtm), iter);
   gtk_tree_model_row_deleted (GTK_TREE_MODEL (dtm), path);
   gtk_tree_path_free (path);
+  /* enforce update - but the arrow on layer does not vanish */
+  if (last_child) {
+    NODE_OBJECT(iter)  = NULL;
+    path = _dtm_get_path (GTK_TREE_MODEL (dtm), iter);
+    gtk_tree_model_row_has_child_toggled (GTK_TREE_MODEL (dtm), path, iter);
+    gtk_tree_path_free (path);
+  }
 }
 /* start listening for diagram specific object changes */
 static void

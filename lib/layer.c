@@ -275,18 +275,17 @@ layer_add_objects_first(Layer *layer, GList *obj_list)
 void
 layer_remove_object(Layer *layer, DiaObject *obj)
 {
+  /* send a signal that we'll remove a object from the diagram */
+  data_emit (layer_get_parent_diagram(layer), layer, obj, "object_remove");
+
   layer->objects = g_list_remove(layer->objects, obj);
   dynobj_list_remove_object(obj);
   set_parent_layer(obj, NULL);
-
-  /* send a signal that we have removed a object from the diagram */
-  data_emit (layer_get_parent_diagram(layer), layer, obj, "object_remove");
 }
 
 /** Remove a list of objects from a layer.
  * @param layer The layer to remove the objects from.
  * @param obj The objects to remove.
- * @bug This should call layer_remove_object repeatedly.
  */
 void
 layer_remove_objects(Layer *layer, GList *obj_list)
@@ -294,15 +293,10 @@ layer_remove_objects(Layer *layer, GList *obj_list)
   DiaObject *obj;
   while (obj_list != NULL) {
     obj = (DiaObject *) obj_list->data;
-    
-    /* send a signal that we will remove an object from the diagram */
-    data_emit (layer_get_parent_diagram(layer), layer, obj, "object_remove");
 
-    layer->objects = g_list_remove(layer->objects, obj);
-    
+    layer_remove_object (layer, obj);
+
     obj_list = g_list_next(obj_list);
-    dynobj_list_remove_object(obj);
-    set_parent_layer(obj, NULL);
   }
 }
 

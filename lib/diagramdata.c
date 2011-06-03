@@ -332,6 +332,7 @@ data_add_layer(DiagramData *data, Layer *layer)
 {
   g_ptr_array_add(data->layers, layer);
   layer->parent_diagram = data;
+  data_emit (data, layer, NULL, "object_add");
   layer_update_extents(layer);
   data_update_extents(data);
 }
@@ -353,6 +354,7 @@ data_add_layer_at(DiagramData *data, Layer *layer, int pos)
   }
   
   layer->parent_diagram = data;
+  data_emit (data, layer, NULL, "object_add");
   layer_update_extents(layer);
   data_update_extents(data);
 }
@@ -406,6 +408,7 @@ data_delete_layer(DiagramData *data, Layer *layer)
   if (data->active_layer == layer) {
     data_remove_all_selected(data);
   }
+  data_emit (data, layer, NULL, "object_remove");
   layer->parent_diagram = NULL;
   g_ptr_array_remove(data->layers, layer);
 
