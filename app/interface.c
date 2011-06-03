@@ -55,7 +55,6 @@
 
 #include <gdk-pixbuf/gdk-pixbuf.h>
 #include "dia-app-icons.h"
-#include "diacanvas.h"
 
 #include "pixmaps/swap.xpm"
 #include "pixmaps/default.xpm"
@@ -633,7 +632,7 @@ use_integrated_ui_for_display_shell(DDisplay *ddisp, char *title)
   gtk_widget_show(navigation_button);
 
   /*  Canvas  */
-  ddisp->canvas = dia_canvas_new();
+  ddisp->canvas = gtk_drawing_area_new();
   
   /* Dia's canvas does it's double buffering alone so switch off GTK's */
   gtk_widget_set_double_buffered (ddisp->canvas, FALSE);
@@ -867,12 +866,9 @@ create_display_shell(DDisplay *ddisp,
 
   /*  Canvas  */
   /*  ddisp->canvas = gtk_drawing_area_new ();*/
-  ddisp->canvas = dia_canvas_new();
+  ddisp->canvas = gtk_drawing_area_new();
   /* Dia's canvas does it' double buffering alone so switch off GTK's */
   gtk_widget_set_double_buffered (ddisp->canvas, FALSE);
-#if 0 /* the following call forces the minimum diagram window size. But it seems to be superfluous otherwise. */
-  dia_canvas_set_size(DIA_CANVAS (ddisp->canvas), width, height);
-#endif
   gtk_widget_set_events (ddisp->canvas, CANVAS_EVENT_MASK);
   GTK_WIDGET_SET_FLAGS (ddisp->canvas, GTK_CAN_FOCUS);
   g_signal_connect (GTK_OBJECT (ddisp->canvas), "event",

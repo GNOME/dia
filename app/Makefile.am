@@ -189,8 +189,6 @@ dia_core_files = \
 	dynamic_refresh.c \
 	navigation.h \
 	navigation.c \
-	diacanvas.c \
-	diacanvas.h \
 	highlight.c \
 	highlight.h \
 	textedit.c \

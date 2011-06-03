@@ -36,7 +36,6 @@
 #include "textline.h"
 
 #include "parent.h"
-#include "diacanvas.h"
 #include "prop_text.h"
 #include "object.h"
 

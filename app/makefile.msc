@@ -31,7 +31,6 @@ OBJECTS = \
 	cursor.obj \
 	cut_n_paste.obj \
 	defaults.obj \
-	diacanvas.obj \
 	diagram.obj \
 	diapagelayout.obj \
 	dia-props.obj \
