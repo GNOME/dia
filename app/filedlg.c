@@ -360,6 +360,12 @@ file_save_as_response_callback(GtkWidget *fs,
     dia = g_object_get_data (G_OBJECT(fs), "user_data");
 
     filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(fs));
+    if (!filename) {
+      /* Not getting a filename looks like a contract violation in Gtk+ to me.
+       * Still Dia would be crashing (bug #651949) - instead simply go back to the dialog. */
+      gtk_window_present (GTK_WINDOW (fs));
+      return;
+    }
 
     if (g_stat(filename, &stat_struct) == 0) {
       GtkWidget *dialog = NULL;
