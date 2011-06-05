@@ -121,31 +121,31 @@ dia_line_style_selector_init (DiaLineStyleSelector *fs)
     gtk_widget_show(menuitem);
   }
 #if 0
-  menuitem = gtk_radio_menu_item_new_with_label (group, _("Solid"));
+  menuitem = gtk_radio_menu_item_new_with_label (group, Q_("line|Solid"));
   g_object_set_data(G_OBJECT(menuitem), "user_data", GINT_TO_POINTER(LINESTYLE_SOLID));
   group = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM (menuitem));
   gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
   gtk_widget_show (menuitem);
 
-  menuitem = gtk_radio_menu_item_new_with_label (group, _("Dashed"));
+  menuitem = gtk_radio_menu_item_new_with_label (group, Q_("line|Dashed"));
   g_object_set_data(G_OBJECT(menuitem), "user_data", GINT_TO_POINTER(LINESTYLE_DASHED));
   group = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM (menuitem));
   gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
   gtk_widget_show (menuitem);
 
-  menuitem = gtk_radio_menu_item_new_with_label (group, _("Dash-Dot"));
+  menuitem = gtk_radio_menu_item_new_with_label (group, Q_("line|Dash-Dot"));
   g_object_set_data(G_OBJECT(menuitem), "user_data", GINT_TO_POINTER(LINESTYLE_DASH_DOT));
   group = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM (menuitem));
   gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
   gtk_widget_show (menuitem);
 
-  menuitem = gtk_radio_menu_item_new_with_label (group, _("Dash-Dot-Dot"));
+  menuitem = gtk_radio_menu_item_new_with_label (group, Q_("line|Dash-Dot-Dot"));
   g_object_set_data(G_OBJECT(menuitem), "user_data", GINT_TO_POINTER(LINESTYLE_DASH_DOT_DOT));
   group = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM (menuitem));
   gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
   gtk_widget_show (menuitem);
   
-  menuitem = gtk_radio_menu_item_new_with_label (group, _("Dotted"));
+  menuitem = gtk_radio_menu_item_new_with_label (group, Q_("line|Dotted"));
   g_object_set_data(G_OBJECT(menuitem), "user_data", GINT_TO_POINTER(LINESTYLE_DOTTED));
   group = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM (menuitem));
   gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
