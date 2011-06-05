@@ -664,7 +664,11 @@ class Importer :
 	def Render(self,data) :
 		layer = data.active_layer
 		for o in self.objects :
-			od = o.Create()
+			try :
+				od = o.Create()
+			except TypeError, e :
+				od = None
+				dia.message(1, "SVG import limited, consider another importer.\n(Error: " + str(e) + ")")
 			if od :
 				if o.translation :
 					pos = od.properties["obj_pos"].value
