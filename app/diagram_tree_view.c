@@ -179,7 +179,7 @@ _dtv_query_tooltip (GtkWidget  *widget,
         gchar *em = g_markup_printf_escaped ("<b>%s</b>: %s\n", _("Type"), object->type->name);
         g_string_append (markup, em);
         g_free (em);
-        g_string_append_printf (markup, "<b>%s</b>: %g,%g\n", _("Position"), 
+        g_string_append_printf (markup, "<b>%s</b>: %g,%g\n", Q_("object|Position"), 
 			        object->position.x, object->position.y);
 	g_string_append_printf (markup, "%d %s", 
 	                        g_list_length (object->children), _("Children"));
