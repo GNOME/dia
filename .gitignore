@@ -7,6 +7,7 @@ Makefile.in
 *.lo
 *.obj
 *.opt
+*.out
 *.pdb
 *.dll
 *.exp
@@ -37,6 +38,7 @@ ltmain.sh
 missing
 mkinstalldirs
 stamp-h1
-
-
+doc/*/graphics/*.eps
+doc/*/.epsfigures
+doc/*/dia_html
 /build/win32/Thumbs.db
