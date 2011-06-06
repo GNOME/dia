@@ -27,6 +27,7 @@
 #include <string.h>
 
 #include <gtk/gtk.h>
+#include <glib/gi18n.h>
 
 #include <lib/object.h>
 
@@ -172,8 +173,9 @@ _dtv_query_tooltip (GtkWidget  *widget,
         g_free (em);
         g_free (name);
       } else if (diagram) {
-	g_string_append_printf (markup, "%d %s", 
-			        data_layer_count (DIA_DIAGRAM_DATA(diagram)), _("Layer(s)"));
+	int layers = data_layer_count (DIA_DIAGRAM_DATA (diagram));
+	g_string_append_printf (markup, g_dngettext (GETTEXT_PACKAGE, "%d Layer", "%d Layers",
+			        layers), layers);
       }
       if (object) {
         gchar *em = g_markup_printf_escaped ("<b>%s</b>: %s\n", _("Type"), object->type->name);
@@ -185,8 +187,9 @@ _dtv_query_tooltip (GtkWidget  *widget,
 	                        g_list_length (object->children), _("Children"));
         /* and some dia_object_get_meta ? */
       } else if (layer) {
-	g_string_append_printf (markup, "%d %s", 
-	                        layer_object_count (layer), _("Object(s)"));
+	int objects = layer_object_count (layer);
+	g_string_append_printf (markup, g_dngettext (GETTEXT_PACKAGE, "%d Object", "%d Objects",
+	                        objects), objects);
       }
 
       if (markup->len > 0) {
