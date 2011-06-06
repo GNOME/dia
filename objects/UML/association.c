@@ -719,10 +719,10 @@ association_update_data(Association *assoc)
       i--;
   }
   dir = assoc->orth.orientation[i];
-  /* also adapt for degenerated segement */
-  if (VERTICAL == dir && points[i].y == points[i+1].y)
+  /* also adapt for degenerated segment */
+  if (VERTICAL == dir && fabs(points[i].y - points[i+1].y) < 1e-6)
     dir = HORIZONTAL;
-  else if (HORIZONTAL == dir && points[i].x == points[i+1].x)
+  else if (HORIZONTAL == dir && fabs(points[i].x - points[i+1].x) < 1e-6)
     dir = VERTICAL;
 
   switch (dir) {
