@@ -178,6 +178,35 @@ object_list_sort_vertical(const void *o1, const void *o2)
 	(obj2->bounding_box.bottom+obj2->bounding_box.top)/2;
 }
 
+/**
+ * Separate list of objects into connected and not connected ones
+ */
+static void
+filter_connected (const GList *objects, GList **connected, GList **unconnected)
+{
+  GList *list;
+  
+  for (list = objects; list != NULL; list = g_list_next (list)) {
+    DiaObject *obj = list->data;
+    Handle *handle;
+    gboolean is_connected = FALSE;
+    int i;
+
+    for (i = 0; i < obj->num_handles; ++i) {
+      if (obj->handles[i]->connected_to)
+        is_connected = TRUE;
+    }
+
+    if (is_connected) {
+      if (connected)
+        *connected = g_list_append (*connected, obj);
+    } else {
+      if (unconnected)
+        *unconnected = g_list_append (*unconnected, obj);
+    }
+  }
+}
+
 /*
   Align objects by moving them vertically:
 */
@@ -193,8 +222,10 @@ object_list_align_v(GList *objects, Diagram *dia, int align)
   real top, bottom, freespc;
   int nobjs;
   int i;
-  gboolean sort_alloc = FALSE;
+  GList *unconnected = NULL;
 
+  filter_connected (objects, NULL, &unconnected);
+  objects = unconnected;
   if (objects==NULL)
     return;
 
@@ -240,8 +271,9 @@ object_list_align_v(GList *objects, Diagram *dia, int align)
       for (i = 0; i < nobjs; i++) {
 	  list = g_list_append(list, object_array[i]);
       }
-      objects = list;
-      sort_alloc = TRUE; /* Must remember to free the list */
+      g_assert (objects == unconnected);
+      g_list_free (unconnected);
+      objects = unconnected = list;
       g_free(object_array);
   }
 
@@ -314,8 +346,7 @@ object_list_align_v(GList *objects, Diagram *dia, int align)
   }
   
   undo_move_objects(dia, orig_pos, dest_pos, g_list_copy(objects));
-  if (sort_alloc)
-    g_list_free(objects);
+  g_list_free (unconnected);
 }
 
 
@@ -344,8 +375,10 @@ object_list_align_h(GList *objects, Diagram *dia, int align)
   real left, right, freespc = 0;
   int nobjs;
   int i;
-  gboolean sort_alloc = FALSE;
+  GList *unconnected = NULL;
 
+  filter_connected (objects, NULL, &unconnected);
+  objects = unconnected;
   if (objects==NULL)
     return;
 
@@ -391,8 +424,9 @@ object_list_align_h(GList *objects, Diagram *dia, int align)
     for (i = 0; i < nobjs; i++) {
       list = g_list_append(list, object_array[i]);
     }
-    objects = list;
-    sort_alloc = TRUE;
+    g_assert (objects == unconnected);
+    g_list_free (unconnected);
+    objects = unconnected = list;
     g_free(object_array);
   }
 
@@ -463,8 +497,7 @@ object_list_align_h(GList *objects, Diagram *dia, int align)
   }
     
   undo_move_objects(dia, orig_pos, dest_pos, g_list_copy(objects)); 
-  if (sort_alloc)
-    g_list_free(objects);
+  g_list_free (unconnected);
 }
 
 /*! Align objects at their connected points */
@@ -472,36 +505,17 @@ void
 object_list_align_connected (GList *objects, Diagram *dia, int align)
 {
   GList *list;
-  GList *connected;
   Point *orig_pos;
   Point *dest_pos;
   DiaObject *obj, *o2;
   int i, nobjs;
+  GList *connected = NULL;
   GList *to_be_moved = NULL;
   GList *movelist = NULL;
-  GList *connections = NULL;
 
   /* find all elements to be moved directly */
-  list = objects;
-  while (list != NULL) {
-    obj = list->data;
-    for (i = 0; i < dia_object_get_num_connections(obj); ++i) {
-      ConnectionPoint *cp = obj->connections[i];
-      connected = cp->connected;
-      /* first of all remember the objects connected to anything */
-      if (connected && !g_list_find (to_be_moved, obj))
-        to_be_moved = g_list_append (to_be_moved, obj);
-      /* also list all the connection objects - our todo list */
-      while (connected != NULL) {
-        o2 = connected->data;
-        if (!g_list_find (connections, o2))
-          connections = g_list_append (connections, o2);
-        connected = g_list_next (connected);
-      }
-    }
-    list = g_list_next (list);
-  }
-  dia_log_message ("Moves %d - Connections %d\n", g_list_length (to_be_moved), g_list_length (connections));
+  filter_connected (objects, &connected, &to_be_moved);
+  dia_log_message ("Moves %d - Connections %d\n", g_list_length (to_be_moved), g_list_length (connected));
   /* for every connection check:
    * - "matching" directions of both object connection points (this also gives
    *    the direction of the move of the second object)
@@ -512,7 +526,7 @@ object_list_align_connected (GList *objects, Diagram *dia, int align)
   orig_pos = g_new (Point, nobjs);
   dest_pos = g_new (Point, nobjs);
 
-  list = connections;
+  list = connected;
   while (list != NULL) {
     DiaObject *con = list->data;
     Handle *h1 = NULL, *h2 = NULL;
@@ -575,7 +589,7 @@ object_list_align_connected (GList *objects, Diagram *dia, int align)
   /* eating all the passed in parameters */
   undo_move_objects (dia, orig_pos, dest_pos, movelist);
   g_list_free (to_be_moved);
-  g_list_free (connections);
+  g_list_free (connected);
 }
 
 /** Move the list in the given direction.

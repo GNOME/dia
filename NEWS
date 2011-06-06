@@ -4,6 +4,12 @@
 
   * Embedded Images
 
+  * Object alignment algorithms improved
+    - there is a new command "Align connected" aligning on the coneected
+      connection points, not the object bounding box.
+    - all align/spead-out commands now filter out connected objects (i.e. the
+      objects which will be moved as a side-effect).
+
   * Text fitting options
     - Always: grow and shrink object based on it's text content
     - When Needed: only grow objects when text content does not fit (old default)
