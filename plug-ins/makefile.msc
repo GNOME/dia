@@ -195,6 +195,8 @@ $(PACKAGE).dll : $(OBJECTS) $(PKG_DEF)
 	$(PKG_LINK) $(EXTRALIBS) user32.lib advapi32.lib wsock32.lib $(LDFLAGS) /def:$(PKG_DEF)
 $(PRJ_TOP)\config.h: $(PRJ_TOP)\config.h.win32
 	copy $(PRJ_TOP)\config.h.win32 $(PRJ_TOP)\config.h
+.cpp.obj :
+	$(CC) $(CFLAGS) -c $(PKG_CFLAGS) $<
 
 !ENDIF
 

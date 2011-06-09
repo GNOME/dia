@@ -39,6 +39,11 @@
 #include "paginate_gdiprint.h"
 
 #if defined HAVE_WINDOWS_H || defined G_OS_WIN32
+#ifdef _MSC_VER
+#ifndef _DLL
+#error "fwrite will fail with wrong crt"
+#endif
+#endif
   namespace W32 {
    // at least Rectangle conflicts ...
 #  define WIN32_LEAN_AND_MEAN
@@ -300,7 +305,8 @@ end_render(DiaRenderer *self)
 	}
 
 	/* write file */
-	fwrite(pData,1,nSize,f);
+	if (fwrite(pData,1,nSize,f) != nSize)
+	  message_error (_("Couldn't write file %s\n%s"), renderer->sFileName, strerror(errno)); 
 	fclose(f);
     
 	g_free(pData);
