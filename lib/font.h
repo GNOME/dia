@@ -124,7 +124,7 @@ DiaFont* dia_font_new_from_legacy_name(const char *name);
 
     /* Get a simple font name from a font.
        Name will be valid for the duration of the DiaFont* lifetime. */ 
-G_CONST_RETURN char* dia_font_get_legacy_name(const DiaFont* font);
+const char* dia_font_get_legacy_name(const DiaFont* font);
 
     /* Same attributes */
 DiaFont *dia_font_copy(const DiaFont* font);
@@ -136,9 +136,9 @@ void dia_font_unref(DiaFont* font);
 DiaFontStyle dia_font_get_style(const DiaFont* font);
 
     /* Retrieves the family of the font. Caller must NOT free. */
-G_CONST_RETURN char* dia_font_get_family(const DiaFont* font);
+const char* dia_font_get_family(const DiaFont* font);
 /* Acessor for the PangoFontDescription */
-G_CONST_RETURN PangoFontDescription *dia_font_get_description (const DiaFont* font);
+const PangoFontDescription *dia_font_get_description (const DiaFont* font);
 
     /* Retrieves the height of the font */
 real dia_font_get_height(const DiaFont* font);
@@ -160,13 +160,13 @@ void dia_font_set_any_family(DiaFont* font, const char* family);
 
     /* FIXME: what do we do with this, actually ?
        Name lives for as long as the DiaFont lives. */
-G_CONST_RETURN char *dia_font_get_psfontname(const DiaFont *font);
+const char *dia_font_get_psfontname(const DiaFont *font);
 
     /* returns a static string suitable for SVG */
-G_CONST_RETURN char *dia_font_get_weight_string(const DiaFont* font);
+const char *dia_font_get_weight_string(const DiaFont* font);
 
     /* returns a static string suitable for SVG */
-G_CONST_RETURN char *dia_font_get_slant_string(const DiaFont* font);
+const char *dia_font_get_slant_string(const DiaFont* font);
 
     /* uses an SVG style string */
 void dia_font_set_weight_from_string(DiaFont* font, const char* weight);

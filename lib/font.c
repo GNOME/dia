@@ -414,13 +414,13 @@ dia_font_get_style(const DiaFont* font)
   return style;
 }
 
-G_CONST_RETURN char*
+const char*
 dia_font_get_family(const DiaFont* font)
 {
   return pango_font_description_get_family(font->pfd);
 }
 
-G_CONST_RETURN PangoFontDescription *
+const PangoFontDescription *
 dia_font_get_description(const DiaFont* font)
 {
   return font->pfd;
@@ -447,7 +447,7 @@ dia_font_set_height(DiaFont* font, real height)
 }
 
 
-G_CONST_RETURN char*
+const char*
 dia_font_get_psfontname(const DiaFont *font)
 {
   /* This hack corrects a couple fonts that were misnamed in
@@ -537,7 +537,7 @@ static const WeightName weight_names[] = {
   {0,NULL}
 };
 
-G_CONST_RETURN char *
+const char *
 dia_font_get_weight_string(const DiaFont* font)
 {
     const WeightName* p;
@@ -577,7 +577,7 @@ static const SlantName slant_names[] = {
   { 0, NULL} 
 };
 
-G_CONST_RETURN char *
+const char *
 dia_font_get_slant_string(const DiaFont* font)
 {
   const SlantName* p;
@@ -947,7 +947,7 @@ dia_font_new_from_legacy_name(const char* name)
   return retval;
 }
 
-G_CONST_RETURN char*
+const char*
 dia_font_get_legacy_name(const DiaFont *font)
 {
   const char* matched_name = NULL;

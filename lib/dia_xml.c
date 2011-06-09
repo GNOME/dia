@@ -240,7 +240,7 @@ xml_file_check_encoding(const gchar *filename, const gchar *default_enc)
 xmlDocPtr
 xmlDiaParseFile(const char *filename)
 {
-  G_CONST_RETURN char *local_charset = NULL;
+  const char *local_charset = NULL;
   
   if (   !g_get_charset(&local_charset)
       && local_charset) {
