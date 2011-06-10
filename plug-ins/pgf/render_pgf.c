@@ -1156,12 +1156,13 @@ draw_string(DiaRenderer *self,
     fprintf(renderer->file,"\\node");
     switch (alignment) {
     case ALIGN_LEFT:
-	fprintf(renderer->file,"[anchor=west]");
+	fprintf(renderer->file,"[anchor=base west,inner sep=0pt,outer sep=0pt]");
 	break;
     case ALIGN_CENTER:
+	fprintf(renderer->file,"[anchor=base,inner sep=0pt, outer sep=0pt]");
 	break;
     case ALIGN_RIGHT:
-	fprintf(renderer->file,"[anchor=east]");
+	fprintf(renderer->file,"[anchor=base east,inner sep=0pt, outer sep=0pt]");
 	break;
     }
     fprintf(renderer->file," at (%s\\du,%s\\du){%s};\n",
