@@ -627,7 +627,6 @@ shapes/Misc/Makefile
 shapes/MSE/Makefile
 shapes/network/Makefile
 shapes/Pneumatic/Makefile
-shapes/RDP/Makefile
 shapes/SDL/Makefile
 shapes/sybase/Makefile
 app/Makefile
