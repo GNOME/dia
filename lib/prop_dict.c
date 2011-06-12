@@ -211,7 +211,7 @@ edited (GtkCellRendererText *cell,
 
   gtk_tree_model_get_iter (model, &iter, path);
   gtk_tree_store_set (GTK_TREE_STORE (model), &iter, VALUE_COLUMN, new_text, -1);
-
+  g_object_set_data (G_OBJECT (model), "modified", GINT_TO_POINTER (1));
   gtk_tree_path_free (path);
 }
 
@@ -259,7 +259,9 @@ dictprop_get_widget (DictProperty *prop, PropDialog *dialog)
   GtkWidget *ret;
   ret = _create_view (_create_model (prop));
   gtk_widget_show_all (ret);
-  /* FIXME: prophandler_connect(&prop->common, G_OBJECT(ret), "value_changed"); */
+  /* prophandler_connect(&prop->common, G_OBJECT(ret), "value_changed");
+   * It's not so easy, we are maintaining our own changed state via edited signal
+   */
   return ret;
 }
 static void 
@@ -276,6 +278,8 @@ dictprop_reset_widget(DictProperty *prop, GtkWidget *widget)
   if (!prop->dict)
     prop->dict = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
   g_hash_table_foreach (prop->dict, _keyvalue_fill_model, model);
+
+  g_object_set_data (G_OBJECT (model), "modified", GINT_TO_POINTER (0));
 
   /* also add the well known ? */
   for (wkk = _well_known; wkk->name != NULL; ++wkk) {
@@ -316,8 +320,9 @@ dictprop_set_from_widget(DictProperty *prop, GtkWidget *widget)
           g_hash_table_insert (prop->dict, key, val);
 	else /* delete stuff which has no value any longer */
 	  g_hash_table_remove (prop->dict, key);
-	/* FIXME: enough to replace prophandler_connect() ? */
-	prop->common.experience &= ~PXP_NOTSET;
+	/* enough to replace prophandler_connect() ? */
+	if (g_object_get_data (G_OBJECT (model), "modified"))
+	  prop->common.experience &= ~PXP_NOTSET;
       }
     } while (gtk_tree_model_iter_next (model, &iter));
   }

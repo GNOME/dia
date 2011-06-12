@@ -217,7 +217,9 @@ object_apply_props_from_dialog(DiaObject *obj, WIDGET *dialog_widget)
     if ((p->experience & PXP_NOTSET) == 0)
       g_ptr_array_add(props, p);
   }
-
+  /* with an empty list there is no change at all but simply
+   * returning NULL is against the contract ...
+   */
   if (!obj->ops->apply_properties_list) {
     g_warning("using a fallback function to apply properties;"
               " undo may not work correctly");
