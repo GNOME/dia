@@ -88,7 +88,7 @@ static void aadlbus_draw(Aadlbox *aadlbox, DiaRenderer *renderer)
   aadlbox_draw(aadlbox, renderer);
 }
 
-void
+static void
 aadlbus_project_point_on_nearest_border(Aadlbox *aadlbox,Point *p,
 					       real *angle)
 {
