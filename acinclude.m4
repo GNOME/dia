@@ -395,9 +395,87 @@ AC_SUBST(FT2_CFLAGS)
 AC_SUBST(FT2_LIBS)
 ])
 
-##
-## SWIG check from http://autoconf-archive.cryp.to/ac_pkg_swig.html
-##
+
+##### http://autoconf-archive.cryp.to/ac_pkg_swig.html
+#
+# SYNOPSIS
+#
+#   AC_PROG_SWIG([major.minor.micro])
+#
+# DESCRIPTION
+#
+#   This macro searches for a SWIG installation on your system. If
+#   found you should call SWIG via $(SWIG). You can use the optional
+#   first argument to check if the version of the available SWIG is
+#   greater than or equal to the value of the argument. It should have
+#   the format: N[.N[.N]] (N is a number between 0 and 999. Only the
+#   first N is mandatory.)
+#
+#   If the version argument is given (e.g. 1.3.17), AC_PROG_SWIG checks
+#   that the swig package is this version number or higher.
+#
+#   In configure.in, use as:
+#
+#     AC_PROG_SWIG(1.3.17)
+#     SWIG_ENABLE_CXX
+#     SWIG_MULTI_MODULE_SUPPORT
+#     SWIG_PYTHON
+#
+# LAST MODIFICATION
+#
+#   2006-10-22
+#
+# COPYLEFT
+#
+#   Copyright (c) 2006 Sebastian Huber <sebastian-huber@web.de>
+#   Copyright (c) 2006 Alan W. Irwin <irwin@beluga.phys.uvic.ca>
+#   Copyright (c) 2006 Rafael Laboissiere <rafael@laboissiere.net>
+#   Copyright (c) 2006 Andrew Collier <colliera@ukzn.ac.za>
+#
+#   This program is free software; you can redistribute it and/or
+#   modify it under the terms of the GNU General Public License as
+#   published by the Free Software Foundation; either version 2 of the
+#   License, or (at your option) any later version.
+#
+#   This program is distributed in the hope that it will be useful, but
+#   WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+#   General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with this program; if not, write to the Free Software
+#   Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
+#   02111-1307, USA.
+#
+#   As a special exception, the respective Autoconf Macro's copyright
+#   owner gives unlimited permission to copy, distribute and modify the
+#   configure scripts that are the output of Autoconf when processing
+#   the Macro. You need not follow the terms of the GNU General Public
+#   License when using or distributing such scripts, even though
+#   portions of the text of the Macro appear in them. The GNU General
+#   Public License (GPL) does govern all other use of the material that
+#   constitutes the Autoconf Macro.
+#
+#   This special exception to the GPL applies to versions of the
+#   Autoconf Macro released by the Autoconf Macro Archive. When you
+#   make and distribute a modified version of the Autoconf Macro, you
+#   may extend this special exception to the GPL to apply to your
+#   modified version as well.
+
+AC_DEFUN([SWIG_VERSION_GOOD],[
+	AC_MSG_NOTICE([SWIG executable is '$SWIG'])
+        SWIG_LIB=`$SWIG -swiglib`
+        AC_MSG_NOTICE([SWIG library directory is '$SWIG_LIB'])
+        SWIG_VERSION=`echo $(( $available_major * 100 * 100 + $available_minor * 100 + $available_patch ))`
+        AC_MSG_NOTICE([SWIG version is '$SWIG_VERSION'])
+        # AM_CONDITIONAL(SWIG_NEW_OPTIONS, test "$SWIG_VERSION" \> 10331)
+])
+
+AC_DEFUN([SWIG_VERSION_BAD],[
+	AC_MSG_WARN([SWIG version >= $1 is required.  You have $swig_version.  You should look at http://www.swig.org])
+        SWIG='echo "Error: SWIG version >= $1 is required.  You have '"$swig_version"'.  You should look at http://www.swig.org" ; false'
+])
+
 AC_DEFUN([AC_PROG_SWIG],[
         AC_PATH_PROG([SWIG],[swig])
         if test -z "$SWIG" ; then
@@ -440,16 +518,44 @@ AC_DEFUN([AC_PROG_SWIG],[
                         if test -z "$available_patch" ; then
                                 [available_patch=0]
                         fi
-                        if test $available_major -ne $required_major \
-                                -o $available_minor -ne $required_minor \
-                                -o $available_patch -lt $required_patch ; then
-                                AC_MSG_WARN([SWIG version >= $1 is required.  You have $swig_version.  You should look at http://www.swig.org])
-                                SWIG='echo "Error: SWIG version >= $1 is required.  You have '"$swig_version"'.  You should look at http://www.swig.org" ; false'
-                        else
-                                AC_MSG_NOTICE([SWIG executable is '$SWIG'])
-                                SWIG_LIB=`$SWIG -swiglib`
-                                AC_MSG_NOTICE([SWIG library directory is '$SWIG_LIB'])
-                        fi
+
+
+ 
+			if test $available_major -gt $required_major; then  
+				# the available major is greater than  required major --GOOD
+				SWIG_VERSION_GOOD()	
+                         
+			elif test $available_major -lt $required_major ; then  
+				# the avialable major is less than required major -- BAD
+				SWIG_VERSION_BAD()
+			else  
+				# the available and require major are equal check the minor and patch versions.
+				
+				if test $available_minor -gt $required_minor ; then 
+					# GOOD
+					SWIG_VERSION_GOOD()
+				elif test $avaialble_minor -lt $required_minor ; then  
+					# BAD
+					SWIG_VERSION_BAD()
+				else  
+					# the minor version are also equal
+
+					if test $available_patch -gt $required_patch ; then   
+						# GOOD						
+					 	SWIG_VERSION_GOOD()
+					elif test $available_minor -lt $required_minor ; then 
+						# BAD
+						SWIG_VERSION_BAD()
+					else 
+						# all the available major, minor and patch levels are the same as the required -- GOOD
+						SWIG_VERSION_GOOD()
+					fi
+				fi
+			fi	
+	
+	
+                               
+
                 else
                         AC_MSG_WARN([cannot determine SWIG version])
                         SWIG='echo "Error: Cannot determine SWIG version.  You should look at http://www.swig.org" ; false'
@@ -457,4 +563,3 @@ AC_DEFUN([AC_PROG_SWIG],[
         fi
         AC_SUBST([SWIG_LIB])
 ])
-
