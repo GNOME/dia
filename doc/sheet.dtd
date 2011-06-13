@@ -8,9 +8,13 @@
 <!ATTLIST description
   xml:lang NMTOKEN #IMPLIED 'C' >
 
+<!ELEMENT alias (#PCDATA)* >
+<!ATTLIST alias
+  name CDATA #REQUIRED >
+
 <!ELEMENT contents (object | shape | br)* >
 
-<!ELEMENT object (description)* >
+<!ELEMENT object (description | alias)* >
 <!ATTLIST object
   name CDATA #REQUIRED
   intdata CDATA #IMPLIED >

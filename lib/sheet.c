@@ -38,6 +38,7 @@
 #include "sheet.h"
 #include "message.h"
 #include "object.h"
+#include "object-alias.h"
 #include "dia_dirs.h"
 
 static GSList *sheets = NULL;
@@ -360,6 +361,8 @@ load_register_sheet(const gchar *dirname, const gchar *filename,
 
     gboolean has_intdata = FALSE;
     gboolean has_icon_on_sheet = FALSE;
+    
+    xmlChar *ot_name = NULL;
 
     if (xmlIsBlankNode(node)) continue;
 
@@ -389,6 +392,8 @@ load_register_sheet(const gchar *dirname, const gchar *filename,
     chardata = (gchar *) xmlGetProp(node, (const xmlChar *)"chardata");
     /* TODO.... */
     if (chardata) xmlFree(chardata);
+   
+    ot_name = xmlGetProp(node, (xmlChar *)"name");
     
     for (subnode = node->xmlChildrenNode; 
          subnode != NULL ; 
@@ -425,13 +430,14 @@ load_register_sheet(const gchar *dirname, const gchar *filename,
           }
           has_icon_on_sheet = TRUE;
           if (tmp) xmlFree(tmp);
+      } else if (subnode->ns == ns && !xmlStrcmp(subnode->name, (const xmlChar *)"alias")) {
+        if (ot_name)
+          object_register_alias_type (object_get_type ((char *)ot_name), subnode); 
       }
     }
 
-    tmp = xmlGetProp(node, (xmlChar *)"name");
-
     sheet_obj = g_new(SheetObject,1);
-    sheet_obj->object_type = g_strdup((char *) tmp);
+    sheet_obj->object_type = g_strdup((char *) ot_name);
     sheet_obj->description = g_strdup(objdesc);
     xmlFree(objdesc); objdesc = NULL;
 
@@ -444,14 +450,14 @@ load_register_sheet(const gchar *dirname, const gchar *filename,
     sheet_obj->line_break = set_line_break;
     set_line_break = FALSE;
 
-    if ((otype = object_get_type((char *) tmp)) == NULL) {
+    if ((otype = object_get_type((char *) ot_name)) == NULL) {
       /* Don't complain. This does happen when disabling plug-ins too.
       g_warning("object_get_type(%s) returned NULL", tmp); */
       if (sheet_obj->description) g_free(sheet_obj->description);
       g_free(sheet_obj->pixmap_file);
       g_free(sheet_obj->object_type);
       g_free(sheet_obj);
-      if (tmp) xmlFree(tmp);
+      if (tmp) xmlFree(ot_name);
       continue; 
     }	  
     
@@ -468,7 +474,8 @@ load_register_sheet(const gchar *dirname, const gchar *filename,
     else
       sheet_obj->user_data_type = USER_DATA_IS_INTDATA;
 
-    if (tmp) xmlFree(tmp);
+    if (ot_name)
+      xmlFree(ot_name);
       
     /* we don't need to fix up the icon and descriptions for simple objects,
        since they don't have their own description, and their icon is 

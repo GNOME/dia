@@ -90,6 +90,8 @@ libdia_la_SOURCES =  \
 		handle.h \
 		object.h \
 		object.c \
+		object-alias.h \
+		object-alias.c \
 		object_defaults.c \
 		connection.c \
 		connection.h \
