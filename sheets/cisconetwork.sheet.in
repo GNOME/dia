@@ -77,7 +77,11 @@
 <object name="Cisco - IOS SLB"><_description>IOS SLB</_description></object>
 <object name="Cisco - MUX"><_description>MUX</_description></object>
 <object name="Cisco - General appliance"><_description>General Appliance</_description></object>
-<object name="Cisco - PAD X.28"><_description>PAD</_description></object>
+<object name="Cisco - PAD X.28">
+  <!-- compatibility 
+  <alias name="Cisco - PAD"/> -->
+  <_description>PAD</_description>
+</object>
 <object name="Cisco - CDDI-FDDI"><_description>CDDI/FDDI Concentrator</_description></object>
 <object name="Cisco - FDDI Ring"><_description>FDDI Ring</_description></object>
 <object name="Cisco - TokenRing"><_description>TokenRing</_description></object>
