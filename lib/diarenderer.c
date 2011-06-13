@@ -1281,6 +1281,7 @@ draw_arc_with_arrows (DiaRenderer *renderer,
   Point start_arrow_end;
   Point end_arrow_head;
   Point end_arrow_end;
+  gboolean clockwise; /* calculated from angles */
 
   if (!find_center_point(&center, startpoint, endpoint, midpoint)) {
     /* Degenerate circle -- should have been caught by the drawer? */
@@ -1288,7 +1289,18 @@ draw_arc_with_arrows (DiaRenderer *renderer,
   }
 
   righthand = is_right_hand (startpoint, midpoint, endpoint);
-  
+  /* calculate original direction */
+  angle1 = -atan2(new_startpoint.y - center.y, new_startpoint.x - center.x)*180.0/G_PI;
+  while (angle1 < 0.0) angle1 += 360.0;
+  angle2 = -atan2(new_endpoint.y - center.y, new_endpoint.x - center.x)*180.0/G_PI;
+  while (angle2 < 0.0) angle2 += 360.0;
+  if (righthand) {
+    real tmp = angle1;
+    angle1 = angle2;
+    angle2 = tmp;
+  }
+  clockwise = (angle2 > angle1);
+
   width = 2*distance_point_point(&center, startpoint);
 
   if (start_arrow != NULL && start_arrow->type != ARROW_NONE) {
@@ -1343,10 +1355,6 @@ draw_arc_with_arrows (DiaRenderer *renderer,
    * approximation of the original arc arrow lines not on the arc itself. 
    * The one thing we need to deal with is calculating the (new) angles 
    * and get rid of the arc drawing altogether if got degenerated.
-   *
-   * Why shouldn't we recalculate the whole thing from the new start/endpoints?
-   * Done this way the arc does not come out the back of the arrows.
-   *  -LC, 20/2/2006
    */
   angle1 = -atan2(new_startpoint.y - center.y, new_startpoint.x - center.x)*180.0/G_PI;
   while (angle1 < 0.0) angle1 += 360.0;
@@ -1357,18 +1365,11 @@ draw_arc_with_arrows (DiaRenderer *renderer,
     angle1 = angle2;
     angle2 = tmp;
   }
-  /* now with the angles we can bring the startpoint back to the arc, but there must be a less expensive way to do this? */
-  if (start_arrow != NULL && start_arrow->type != ARROW_NONE) {
-    new_startpoint.x = cos (G_PI * angle1 / 180.0) * width / 2.0 + center.x;
-    new_startpoint.y = sin (G_PI * angle1 / 180.0) * width / 2.0 + center.y;
-  }
-  if (end_arrow != NULL && end_arrow->type != ARROW_NONE) {
-    new_endpoint.x = cos (G_PI * angle1 / 180.0) * width / 2.0 + center.x;
-    new_endpoint.y = sin (G_PI * angle1 / 180.0) * width / 2.0 + center.y;
-  }
 
-  DIA_RENDERER_GET_CLASS(renderer)->draw_arc(renderer, &center, width, width,
-					     angle1, angle2, color);
+  /* Only draw it if the original direction is preserved */
+  if ((angle2 > angle1) == clockwise)
+    DIA_RENDERER_GET_CLASS(renderer)->draw_arc(renderer, &center, width, width,
+					       angle1, angle2, color);
 
   if (start_arrow != NULL && start_arrow->type != ARROW_NONE)
     arrow_draw(renderer, start_arrow->type,
