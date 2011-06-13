@@ -193,6 +193,15 @@ in_angle(real angle, real startangle, real endangle)
   return (angle>=startangle) && (angle<=endangle);
 }
 
+/* Degenerated arc is a line */
+static gboolean
+arc_is_line (Arc *arc)
+{
+  if (fabs(arc->curve_distance) <= 0.01)
+    return TRUE;
+  return FALSE;
+}
+
 static real
 arc_distance_from(Arc *arc, Point *point)
 {
@@ -202,6 +211,10 @@ arc_distance_from(Arc *arc, Point *point)
   real d, d2;
   
   endpoints = &arc->connection.endpoints[0];
+
+  if (arc_is_line (arc))
+    return distance_line_point (&endpoints[0], &endpoints[1],
+                                arc->line_width, point);
 
   from_center = *point;
   point_sub(&from_center, &arc->center);
@@ -561,7 +574,7 @@ arc_draw(Arc *arc, DiaRenderer *renderer)
   renderer_ops->set_linecaps(renderer, arc->line_caps);
   
   /* Special case when almost line: */
-  if (fabs(arc->curve_distance) <= 0.01) {
+  if (arc_is_line (arc)) {
           TRACE(printf("drawing like a line\n")); 
     renderer_ops->draw_line_with_arrows(renderer,
 					 &gaptmp[0], &gaptmp[1],
@@ -707,8 +720,8 @@ arc_update_data(Arc *arc)
   lensq = (x2-x1)*(x2-x1) + (y2-y1)*(y2-y1);
   radius = lensq/(8*arc->curve_distance) + arc->curve_distance/2.0;
 
-  if (lensq == 0.0)
-	alpha = 1.0; /* arbitrary, but /not/ 1/0  */
+  if (lensq == 0.0 || arc_is_line (arc))
+    alpha = 1.0; /* arbitrary, but /not/ 1/0  */
   else
     alpha = (radius - arc->curve_distance) / sqrt(lensq);
 
