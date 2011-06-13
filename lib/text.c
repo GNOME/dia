@@ -33,6 +33,7 @@
 #include "objchange.h"
 #include "textline.h"
 #include "attributes.h"
+#include "object.h"
 
 static int text_key_event(Focus *focus, 
 			  guint keystate, guint keysym,
@@ -57,6 +58,13 @@ struct TextObjectChange {
   int pos;
   int row;
   gchar *str;
+
+  /* the owning object ... */
+  DiaObject *obj;
+  /* ... and it's size position properties, which might change
+   * as a side-effect of changing the text
+   */
+  GPtrArray *props;
 };
 
 #define CURSOR_HEIGHT_RATIO 20
@@ -166,7 +174,8 @@ text_get_descent(Text *text)
 }
 
 static ObjectChange *text_create_change(Text *text, TextChangeType type,
-					gunichar ch, int pos, int row);
+					gunichar ch, int pos, int row,
+					DiaObject *obj);
 
 static void
 calc_width(Text *text)
@@ -872,7 +881,7 @@ text_delete_key_handler(Focus *focus, ObjectChange ** change)
   if (text->cursor_pos >= text_get_line_strlen(text, row)) {
     if (row+1 < text->numlines) {
       *change = text_create_change(text, TYPE_JOIN_ROW, 'Q',
-				   text->cursor_pos, row);
+				   text->cursor_pos, row, focus->obj);
     } else {
       return FALSE;
     }
@@ -882,7 +891,7 @@ text_delete_key_handler(Focus *focus, ObjectChange ** change)
       utf = g_utf8_next_char (utf);
     c = g_utf8_get_char (utf);
     *change = text_create_change (text, TYPE_DELETE_FORWARD, c,
-				  text->cursor_pos, text->cursor_row);
+				  text->cursor_pos, text->cursor_row, focus->obj);
   }
   text_delete_forward(text);
   return TRUE;;
@@ -961,7 +970,8 @@ text_key_event(Focus *focus,
         if (text->cursor_pos <= 0) {
           if (row > 0) {
             *change = text_create_change(text, TYPE_JOIN_ROW, 'Q',
-                                         text_get_line_strlen(text, row-1), row-1);
+                                         text_get_line_strlen(text, row-1), row-1,
+					 focus->obj);
           } else {
             return_val = FALSE;
             break;
@@ -973,7 +983,8 @@ text_key_event(Focus *focus,
           c = g_utf8_get_char (utf);
           *change = text_create_change (text, TYPE_DELETE_BACKWARD, c,
                                         text->cursor_pos - 1,
-                                        text->cursor_row);
+                                        text->cursor_row,
+					focus->obj);
         }
         text_delete_backward(text);
         break;
@@ -981,7 +992,8 @@ text_key_event(Focus *focus,
       case GDK_KP_Enter:
         return_val = TRUE;
         *change = text_create_change(text, TYPE_SPLIT_ROW, 'Q',
-                                     text->cursor_pos, text->cursor_row);
+                                     text->cursor_pos, text->cursor_row,
+				     focus->obj);
         text_split_line(text);
         break;
       case GDK_Shift_L:
@@ -1006,7 +1018,8 @@ text_key_event(Focus *focus,
             c = g_utf8_get_char (utf);
             
             step = text_create_change (text, TYPE_INSERT_CHAR, c,
-                                          text->cursor_pos, text->cursor_row);
+                                       text->cursor_pos, text->cursor_row,
+				       focus->obj);
 	    change_list_add (*change, step);
             text_insert_char (text, c);
           }
@@ -1029,11 +1042,12 @@ int text_is_empty(Text *text)
 }
 
 int
-text_delete_all(Text *text, ObjectChange **change)
+text_delete_all(Text *text, ObjectChange **change, DiaObject *obj)
 {
   if (!text_is_empty(text)) {
     *change = text_create_change(text, TYPE_DELETE_ALL,
-				 0, text->cursor_pos, text->cursor_row);
+				 0, text->cursor_pos, text->cursor_row,
+				 obj);
     
     text_set_string(text, "");
     calc_ascent_descent(text);
@@ -1144,6 +1158,11 @@ static void
 text_change_apply(struct TextObjectChange *change, DiaObject *obj)
 {
   Text *text = change->text;
+
+  /* remember previous position/size */
+  if (change->obj->ops->get_props)
+    change->obj->ops->get_props(change->obj, change->props);
+
   switch (change->type) {
   case TYPE_INSERT_CHAR:
     text->cursor_pos = change->pos;
@@ -1212,20 +1231,54 @@ text_change_revert(struct TextObjectChange *change, DiaObject *obj)
     text->cursor_row = change->row;
     break;
   }
+  /* restore previous position/size */
+  if (change->obj->ops->set_props)
+    change->obj->ops->set_props(change->obj, change->props);
 }
 
 static void
-text_change_free(struct TextObjectChange *change) {
+text_change_free(struct TextObjectChange *change) 
+{
   g_free(change->str);
+  prop_list_free(change->props);
+}
+
+/* If some object does not properly resize when undoing
+ * text changes consider adding some additional properties.
+ *
+ * The list can contain more properties than supported by
+ * the specific object, the'll get ignored than.
+ */
+static PropDescription _prop_descs[] = {
+  { "elem_corner", PROP_TYPE_POINT },
+  { "elem_width", PROP_TYPE_REAL },
+  { "elem_height", PROP_TYPE_REAL },
+    PROP_DESC_END
+};
+
+static GPtrArray *
+make_posision_and_size_prop_list (void)
+{
+  GPtrArray *props;
+
+  props = prop_list_from_descs(_prop_descs,pdtpp_true);
+
+  return props;
 }
 
 static ObjectChange *
 text_create_change(Text *text, TextChangeType type,
-		   gunichar ch, int pos, int row)
+		   gunichar ch, int pos, int row, DiaObject *obj)
 {
   struct TextObjectChange *change;
 
   change = g_new0(struct TextObjectChange, 1);
+
+  change->obj = obj;
+  change->props = make_posision_and_size_prop_list ();
+  /* remember previous position/size */
+  if (change->obj->ops->get_props)
+    change->obj->ops->get_props(change->obj, change->props);
 
   change->obj_change.apply = (ObjectChangeApplyFunc) text_change_apply;
   change->obj_change.revert = (ObjectChangeRevertFunc) text_change_revert;

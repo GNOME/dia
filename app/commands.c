@@ -733,7 +733,7 @@ edit_cut_text_callback (GtkAction *action)
 
   prop_list_free(textprops);
 
-  if (text_delete_all(focus->text, &change)) { 
+  if (text_delete_all(focus->text, &change, obj)) { 
     object_add_updates(obj, ddisp->diagram);
     undo_object_change(ddisp->diagram, obj, change);
     undo_set_transactionpoint(ddisp->diagram->undo);
