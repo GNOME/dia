@@ -82,8 +82,8 @@ SHAPES = \
 	sun.shape \
 	trapezoid.png \
 	trapezoid.shape \
-	triangle-isoceles.png \
-	triangle-isoceles.shape \
+	triangle-isosceles.png \
+	triangle-isosceles.shape \
 	triangle-rightangle.png \
 	triangle-rightangle.shape 
 

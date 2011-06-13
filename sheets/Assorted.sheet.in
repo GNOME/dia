@@ -23,7 +23,11 @@ have been included to save users the effort of flipping them
 
 <!-- Triangles -->
 <object name="Geometric - Right Angle Triangle"><_description>Right angle triangle</_description></object> 
-<object name="Geometric - Isoceles Triangle"><_description>Isoceles triangle</_description></object>
+<object name="Geometric - Isosceles Triangle">
+  <!-- mainatain original typo for compatibility -->
+  <alias name="Geometric - Isoceles Triangle"/>
+  <_description>Isosceles triangle</_description>
+</object>
 <!-- I am not sure if a Perfect Equilateral Triangle is doable -->
 
 <object name="Geometric - Perfect Square"><_description>Perfect square, height equals width</_description></object> 
