@@ -247,6 +247,9 @@ DiaPrefData prefs_data[] =
   { "render_bounding_boxes", PREF_BOOLEAN,PREF_OFFSET(render_bounding_boxes),
     &default_false,0,"render bounding boxes",NULL, TRUE},
 
+  { "fixed_icon_size", PREF_BOOLEAN,PREF_OFFSET(fixed_icon_size),
+    &default_true,0,"ensure fixed icon size",NULL, TRUE},
+
   /* There's really no reason to not pretty format it, and allowing non-pretty
      can lead to problems with long lines, CVS etc. 
   { "pretty_formated_xml", PREF_BOOLEAN,PREF_OFFSET(pretty_formated_xml),

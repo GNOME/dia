@@ -65,7 +65,9 @@ struct DiaPreferences {
   } pagebreak;
 
   int render_bounding_boxes;
-    
+
+  int fixed_icon_size;
+
   int toolbox_on_top;
 
   int use_integrated_ui;
