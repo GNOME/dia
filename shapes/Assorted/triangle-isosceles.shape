@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg">
 <!-- Author: Alan Horkan, 2002, mailto:horkana@tcd.ie -->
-  <name>Geometric - Isosceles Triangle</name><!-- Triangle with two sides of equal length -->
-  <icon>triangle-isoceles.png</icon>
+  <name>Geometric - Isosceles Triangle</name>
+  <!-- Triangle with two sides of equal length -->
+  <icon>triangle-isosceles.png</icon>
   <connections>
     <point x="5.5" y="4"/>
     <point x="6.5" y="6"/>
