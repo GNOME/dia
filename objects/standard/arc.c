@@ -718,7 +718,10 @@ arc_update_data(Arc *arc)
   y2 = endpoints[1].y;
   
   lensq = (x2-x1)*(x2-x1) + (y2-y1)*(y2-y1);
-  radius = lensq/(8*arc->curve_distance) + arc->curve_distance/2.0;
+  if (arc->curve_distance > 0.01)
+    radius = lensq/(8*arc->curve_distance) + arc->curve_distance/2.0;
+  else
+    radius = 0.0; /* not really but used for bbox calculation below */
 
   if (lensq == 0.0 || arc_is_line (arc))
     alpha = 1.0; /* arbitrary, but /not/ 1/0  */
@@ -933,6 +936,17 @@ arc_load(ObjectNode obj_node, int version, const char *filename)
   arc->middle_handle.type = HANDLE_MINOR_CONTROL;
   arc->middle_handle.connect_type = HANDLE_NONCONNECTABLE;
   arc->middle_handle.connected_to = NULL;
+
+  /* older versions did not prohibit everything reduced to a single point
+   * and afterwards failed on all the calculations producing nan.
+   */
+  if (distance_point_point (&arc->connection.endpoints[0], 
+                            &arc->connection.endpoints[1]) < 0.02) {
+    arc->curve_distance = 0.0;
+    arc->connection.endpoints[0].x -= 0.01;
+    arc->connection.endpoints[1].x += 0.01;
+    arc_update_handles (arc);
+  }
 
   arc_update_data(arc);
 
