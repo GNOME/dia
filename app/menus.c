@@ -1110,18 +1110,6 @@ menus_create_display_menubar (GtkUIManager   **ui_manager,
   return menu_bar;
 }
 
-GtkAccelGroup *
-menus_get_accel_group ()
-{
-  return is_integrated_ui ()? integrated_ui_accels : toolbox_accels;
-}
-
-GtkActionGroup *
-menus_get_action_group ()
-{
-  return is_integrated_ui ()? integrated_ui_actions : toolbox_actions;
-}
-
 GtkActionGroup *
 menus_get_tool_actions (void)
 {
