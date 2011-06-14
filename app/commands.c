@@ -206,6 +206,7 @@ insert_text(DDisplay *ddisp, Focus *focus, const gchar *text)
 
   if (any_modified) {
     diagram_modified(ddisp->diagram);
+    diagram_update_extents(ddisp->diagram);
     undo_set_transactionpoint(ddisp->diagram->undo);
   }
 }

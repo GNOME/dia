@@ -389,7 +389,7 @@ handle_key_event(DDisplay *ddisp, Focus *focus, guint keysym,
   modified = (focus->key_event)(focus, keysym, str, strlen,
 				&obj_change);
 
-      /* Make sure object updates its data and its connected: */
+  /* Make sure object updates its data and its connected: */
   p = obj->position;
   (obj->ops->move)(obj,&p);  
   diagram_update_connections_object(ddisp->diagram,obj,TRUE);
@@ -401,6 +401,7 @@ handle_key_event(DDisplay *ddisp, Focus *focus, guint keysym,
       undo_object_change(ddisp->diagram, obj, obj_change);
       undo_set_transactionpoint(ddisp->diagram->undo);
     }
+    diagram_update_extents(ddisp->diagram);
     diagram_modified(ddisp->diagram);
   }
 
