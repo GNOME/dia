@@ -71,32 +71,32 @@ typedef struct _DxfData
     char value[DXF_LINE_LENGTH];
 } DxfData;
 
-gboolean import_dxf(const gchar *filename, DiagramData *dia, void* user_data);
-gboolean read_dxf_codes(FILE *filedxf, DxfData *data);
-DiaObject *read_entity_line_dxf(FILE *filedxf, DxfData *data, DiagramData *dia);
-DiaObject *read_entity_circle_dxf(FILE *filedxf, DxfData *data, DiagramData *dia);
-DiaObject *read_entity_ellipse_dxf(FILE *filedxf, DxfData *data, DiagramData *dia);
-DiaObject *read_entity_arc_dxf(FILE *filedxf, DxfData *data, DiagramData *dia);
-DiaObject *read_entity_solid_dxf(FILE *filedxf, DxfData *data, DiagramData *dia);
-DiaObject *read_entity_polyline_dxf(FILE *filedxf, DxfData *data, DiagramData *dia);
-DiaObject *read_entity_text_dxf(FILE *filedxf, DxfData *data, DiagramData *dia);
-void read_entity_measurement_dxf(FILE *filedxf, DxfData *data,
+static gboolean import_dxf(const gchar *filename, DiagramData *dia, void* user_data);
+static gboolean read_dxf_codes(FILE *filedxf, DxfData *data);
+static DiaObject *read_entity_line_dxf(FILE *filedxf, DxfData *data, DiagramData *dia);
+static DiaObject *read_entity_circle_dxf(FILE *filedxf, DxfData *data, DiagramData *dia);
+static DiaObject *read_entity_ellipse_dxf(FILE *filedxf, DxfData *data, DiagramData *dia);
+static DiaObject *read_entity_arc_dxf(FILE *filedxf, DxfData *data, DiagramData *dia);
+static DiaObject *read_entity_solid_dxf(FILE *filedxf, DxfData *data, DiagramData *dia);
+static DiaObject *read_entity_polyline_dxf(FILE *filedxf, DxfData *data, DiagramData *dia);
+static DiaObject *read_entity_text_dxf(FILE *filedxf, DxfData *data, DiagramData *dia);
+static void read_entity_measurement_dxf(FILE *filedxf, DxfData *data,
                                  DiagramData *dia);
-void read_entity_scale_dxf(FILE *filedxf, DxfData *data, DiagramData *dia);
-void read_entity_textsize_dxf(FILE *filedxf, DxfData *data, DiagramData *dia);
-void read_entity_mesurement_dxf(FILE *filedxf, DxfData *data, DiagramData *dia);
-void read_table_layer_dxf(FILE *filedxf, DxfData *data, DiagramData *dia);
-void read_section_header_dxf(FILE *filedxf, DxfData *data, DiagramData *dia);
-void read_section_classes_dxf(FILE *filedxf, DxfData *data, DiagramData *dia);
-void read_section_tables_dxf(FILE *filedxf, DxfData *data, DiagramData *dia);
-void read_section_entities_dxf(FILE *filedxf, DxfData *data, DiagramData *dia);
-void read_section_blocks_dxf(FILE *filedxf, DxfData *data, DiagramData *dia);
-Layer *layer_find_by_name(char *layername, DiagramData *dia);
-LineStyle get_dia_linestyle_dxf(char *dxflinestyle);
+static void read_entity_scale_dxf(FILE *filedxf, DxfData *data, DiagramData *dia);
+static void read_entity_textsize_dxf(FILE *filedxf, DxfData *data, DiagramData *dia);
+static void read_entity_mesurement_dxf(FILE *filedxf, DxfData *data, DiagramData *dia);
+static void read_table_layer_dxf(FILE *filedxf, DxfData *data, DiagramData *dia);
+static void read_section_header_dxf(FILE *filedxf, DxfData *data, DiagramData *dia);
+static void read_section_classes_dxf(FILE *filedxf, DxfData *data, DiagramData *dia);
+static void read_section_tables_dxf(FILE *filedxf, DxfData *data, DiagramData *dia);
+static void read_section_entities_dxf(FILE *filedxf, DxfData *data, DiagramData *dia);
+static void read_section_blocks_dxf(FILE *filedxf, DxfData *data, DiagramData *dia);
+static Layer *layer_find_by_name(char *layername, DiagramData *dia);
+static LineStyle get_dia_linestyle_dxf(char *dxflinestyle);
 
 /* returns the layer with the given name */
 /* TODO: merge this with other layer code? */
-Layer *
+static Layer *
 layer_find_by_name(char *layername, DiagramData *dia) 
 {
     Layer *matching_layer, *layer;
@@ -123,7 +123,7 @@ layer_find_by_name(char *layername, DiagramData *dia)
 
 /* returns the matching dia linestyle for a given dxf linestyle */
 /* if no matching style is found, LINESTYLE solid is returned as a default */
-LineStyle 
+static LineStyle
 get_dia_linestyle_dxf(char *dxflinestyle) 
 {
     if (strcmp(dxflinestyle, "DASHED") == 0)
@@ -139,7 +139,7 @@ get_dia_linestyle_dxf(char *dxflinestyle)
 }
 
 /* reads a line entity from the dxf file and creates a line object in dia*/
-DiaObject *
+static DiaObject *
 read_entity_line_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
 {
     /* line data */
@@ -219,7 +219,7 @@ read_entity_line_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
 }
 
 /* reads a solid entity from the dxf file and creates a polygon object in dia*/
-DiaObject *
+static DiaObject *
 read_entity_solid_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
 {
    /* polygon data */
@@ -335,7 +335,8 @@ read_entity_solid_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
    return NULL;
 }
 
-static int is_equal( double a, double b )
+static int
+is_equal( double a, double b )
 {
    double epsilon = 0.00001;
    
@@ -349,7 +350,7 @@ static int is_equal( double a, double b )
 }
 
 /* reads a polyline entity from the dxf file and creates a polyline object in dia*/
-DiaObject *
+static DiaObject *
 read_entity_polyline_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
 {
     int i;
@@ -557,7 +558,7 @@ read_entity_polyline_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
 }
 
 /* reads a circle entity from the dxf file and creates a circle object in dia*/
-DiaObject *
+static DiaObject *
 read_entity_circle_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
 {
     /* circle data */
@@ -625,7 +626,7 @@ read_entity_circle_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
 }
 
 /* reads a circle entity from the dxf file and creates a circle object in dia*/
-DiaObject *
+static DiaObject *
 read_entity_arc_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
 {
     /* arc data */
@@ -709,7 +710,7 @@ read_entity_arc_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
 }
 
 /* reads an ellipse entity from the dxf file and creates an ellipse object in dia*/
-DiaObject *
+static DiaObject *
 read_entity_ellipse_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
 {
     /* ellipse data */
@@ -782,7 +783,7 @@ static PropDescription dxf_text_prop_descs[] = {
     { "text", PROP_TYPE_TEXT },
     PROP_DESC_END};
 
-DiaObject *
+static DiaObject *
 read_entity_text_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
 {
     RGB_t color;
@@ -934,7 +935,7 @@ read_entity_text_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
 }
 
 /* reads the layer table from the dxf file and creates the layers */
-void 
+static void
 read_table_layer_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
 {
     do {
@@ -950,7 +951,7 @@ read_table_layer_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
 }
 
 /* reads a scale entity from the dxf file */
-void 
+static void
 read_entity_scale_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
 {
    if(read_dxf_codes(filedxf, data) == FALSE)
@@ -970,8 +971,8 @@ read_entity_scale_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
 }
 
 /* reads a scale entity from the dxf file */
-void read_entity_measurement_dxf(FILE *filedxf, DxfData *data,
-                                 DiagramData *dia)
+static void 
+read_entity_measurement_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
 {
    if(read_dxf_codes(filedxf, data) == FALSE)
       return;
@@ -994,7 +995,7 @@ void read_entity_measurement_dxf(FILE *filedxf, DxfData *data,
 }
 
 /* reads a textsize entity from the dxf file */
-void 
+static void
 read_entity_textsize_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
 {
    if(read_dxf_codes(filedxf, data) == FALSE)
@@ -1013,7 +1014,7 @@ read_entity_textsize_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
 }
 
 /* reads the headers section of the dxf file */
-void 
+static void
 read_section_header_dxf(FILE *filedxf, DxfData *data, DiagramData *dia) 
 {
     if(read_dxf_codes(filedxf, data) == FALSE){
@@ -1036,7 +1037,7 @@ read_section_header_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
 }
 
 /* reads the classes section of the dxf file */
-void 
+static void
 read_section_classes_dxf(FILE *filedxf, DxfData *data, DiagramData *dia) 
 {
     if(read_dxf_codes(filedxf, data) == FALSE){
@@ -1057,7 +1058,7 @@ read_section_classes_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
 }
 
 /* reads the tables section of the dxf file */
-void 
+static void
 read_section_tables_dxf(FILE *filedxf, DxfData *data, DiagramData *dia) 
 {
     if(read_dxf_codes(filedxf, data) == FALSE){
@@ -1076,7 +1077,7 @@ read_section_tables_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
 }
 
 /* reads the entities section of the dxf file */
-void 
+static void
 read_section_entities_dxf(FILE *filedxf, DxfData *data, DiagramData *dia) 
 {
     if (read_dxf_codes(filedxf, data) == FALSE){
@@ -1108,7 +1109,7 @@ read_section_entities_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
 }
 
 /* reads the blocks section of the dxf file */
-void 
+static void
 read_section_blocks_dxf(FILE *filedxf, DxfData *data, DiagramData *dia) 
 {
     int group_items = 0, group = 0;
@@ -1194,7 +1195,7 @@ read_section_blocks_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
 }
 
 /* imports the given dxf-file, returns TRUE if successful */
-gboolean
+static gboolean
 import_dxf(const gchar *filename, DiagramData *dia, void* user_data)
 {
     FILE *filedxf;
