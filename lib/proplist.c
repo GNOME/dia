@@ -218,8 +218,67 @@ prop_list_add_list (GPtrArray *props, const GPtrArray *ptoadd)
 }
 
 GPtrArray *
-prop_list_from_single(Property *prop) {
+prop_list_from_single(Property *prop)
+{
   GPtrArray *plist = g_ptr_array_new();
   g_ptr_array_add(plist,prop);
   return plist;
+}
+
+void
+prop_list_add_line_width  (GPtrArray *plist, real line_width)
+{
+  Property *prop = make_new_prop (PROP_STDNAME_LINE_WIDTH, PROP_STDTYPE_LINE_WIDTH, 0);
+
+  ((RealProperty *)prop)->real_data = line_width;
+  g_ptr_array_add (plist, prop);
+}
+void
+prop_list_add_line_style  (GPtrArray *plist, LineStyle line_style, real dash)
+{
+  Property *prop = make_new_prop ("line_style", PROP_TYPE_LINESTYLE, 0);
+
+  ((LinestyleProperty *)prop)->style = line_style;
+  ((LinestyleProperty *)prop)->dash = dash;
+  g_ptr_array_add (plist, prop);
+}
+void
+prop_list_add_line_colour (GPtrArray *plist, const Color *color)
+{
+  Property *prop = make_new_prop ("line_colour", PROP_TYPE_COLOUR, 0);
+
+  ((ColorProperty *)prop)->color_data = *color;
+  g_ptr_array_add (plist, prop);
+}
+void
+prop_list_add_fill_colour (GPtrArray *plist, const Color *color)
+{
+  Property *prop = make_new_prop ("fill_colour", PROP_TYPE_COLOUR, 0);
+
+  ((ColorProperty *)prop)->color_data = *color;
+  g_ptr_array_add (plist, prop);
+}
+void
+prop_list_add_show_background (GPtrArray *plist, gboolean fill)
+{
+  Property *prop = make_new_prop ("show_background", PROP_TYPE_BOOL, 0);
+
+  ((BoolProperty *)prop)->bool_data = fill;
+  g_ptr_array_add (plist, prop);
+}
+void
+prop_list_add_point (GPtrArray *plist, const char *name, const Point *point)
+{
+  Property *prop = make_new_prop (name, PROP_TYPE_POINT, 0);
+
+  ((PointProperty *)prop)->point_data = *point;
+  g_ptr_array_add (plist, prop);
+}
+void
+prop_list_add_real (GPtrArray *plist, const char *name, real value)
+{
+  Property *prop = make_new_prop (name, PROP_TYPE_REAL, 0);
+
+  ((RealProperty *)prop)->real_data = value;
+  g_ptr_array_add (plist, prop);
 }

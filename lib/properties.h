@@ -357,6 +357,17 @@ GPtrArray *prop_list_from_descs(const PropDescription *plist,
    list. */
 GPtrArray *prop_list_from_single(Property *prop);
 
+/* Convenience functions to construct a prop list from standard properties */
+void prop_list_add_line_width  (GPtrArray *plist, real line_width);
+void prop_list_add_line_style  (GPtrArray *plist, LineStyle line_style, real dash);
+void prop_list_add_line_colour (GPtrArray *plist, const Color *color);
+void prop_list_add_fill_colour (GPtrArray *plist, const Color *color);
+void prop_list_add_show_background (GPtrArray *plist, gboolean fill);
+/* usually three variants: start_point, end_point, elem_corner */
+void prop_list_add_point (GPtrArray *plist, const char *name, const Point *point);
+/* quite generic, e.g. elem_width, elem_height, curve_distance */
+void prop_list_add_real (GPtrArray *plist, const char *name, real value);
+
 /* Some predicates: */
 gboolean pdtpp_true(const PropDescription *pdesc); /* always true */
 gboolean pdtpp_is_visible(const PropDescription *pdesc); 
