@@ -352,14 +352,15 @@ draw_line(DiaRenderer *self,
 	  Color *line_colour)
 {
     DxfRenderer *renderer = DXF_RENDERER(self);
+    gchar buf[G_ASCII_DTOSTR_BUF_SIZE];
 
     fprintf(renderer->file, "  0\nLINE\n");
     fprintf(renderer->file, "  8\n%s\n", renderer->layername);
     fprintf(renderer->file, "  6\n%s\n", renderer->lcurrent.style);
-    fprintf(renderer->file, " 10\n%f\n", start->x);
-    fprintf(renderer->file, " 20\n%f\n", (-1)*start->y);
-    fprintf(renderer->file, " 11\n%f\n", end->x);
-    fprintf(renderer->file, " 21\n%f\n", (-1)*end->y);
+    fprintf(renderer->file, " 10\n%s\n", g_ascii_formatd (buf, sizeof(buf), "%g", start->x));
+    fprintf(renderer->file, " 20\n%s\n", g_ascii_formatd (buf, sizeof(buf), "%g", (-1)*start->y));
+    fprintf(renderer->file, " 11\n%s\n", g_ascii_formatd (buf, sizeof(buf), "%g", end->x));
+    fprintf(renderer->file, " 21\n%s\n", g_ascii_formatd (buf, sizeof(buf), "%g", (-1)*end->y));
     fprintf(renderer->file, " 39\n%d\n", (int)(renderer->lcurrent.width)); /* Thickness */
     fprintf(renderer->file, " 62\n%d\n", dxf_color (line_colour));
 }
@@ -371,20 +372,23 @@ draw_polyline(DiaRenderer *self,
 {
     DxfRenderer *renderer = DXF_RENDERER(self);
     int i;
+    gchar buf[G_ASCII_DTOSTR_BUF_SIZE];
+    gchar buf2[G_ASCII_DTOSTR_BUF_SIZE];
 
     fprintf(renderer->file, "  0\nPOLYLINE\n");
     fprintf(renderer->file, "  6\n%s\n", renderer->lcurrent.style);
     fprintf(renderer->file, "  8\n%s\n", renderer->layername);
     /* start and end width are the same */
-    fprintf(renderer->file, " 41\n%f\n", renderer->lcurrent.width);
-    fprintf(renderer->file, " 41\n%f\n", renderer->lcurrent.width);
+    fprintf(renderer->file, " 41\n%s\n", g_ascii_formatd (buf, sizeof(buf), "%g", renderer->lcurrent.width));
+    fprintf(renderer->file, " 42\n%s\n", g_ascii_formatd (buf, sizeof(buf), "%g", renderer->lcurrent.width));
     fprintf(renderer->file, " 62\n%d\n", dxf_color (color));
     /* vertices-follow flag */
     fprintf(renderer->file, " 66\n1\n");
 
     for (i = 0; i < num_points; ++i)
-        fprintf(renderer->file, "  0\nVERTEX\n 10\n%f\n 20\n%f\n",
-	        points[i].x, -points[i].y);
+        fprintf(renderer->file, "  0\nVERTEX\n 10\n%s\n 20\n%s\n",
+	        g_ascii_formatd (buf, sizeof(buf), "%g", points[i].x), 
+		g_ascii_formatd (buf2, sizeof(buf2), "%g", -points[i].y));
 
     fprintf(renderer->file, "  0\nSEQEND\n");
 }
@@ -402,11 +406,15 @@ fill_rect (DiaRenderer *self,
     {lr_corner->x, -ul_corner->y} 
   };
   int i;
+  gchar buf[G_ASCII_DTOSTR_BUF_SIZE];
+  gchar buf2[G_ASCII_DTOSTR_BUF_SIZE];
   
   fprintf(renderer->file, "  0\nSOLID\n");
   fprintf(renderer->file, " 62\n%d\n", dxf_color (color));
   for (i = 0; i < 4; ++i)
-    fprintf(renderer->file, " %d\n%f\n %d\n%f\n", 10+i, pts[i].x, 20+i, pts[i].y);
+    fprintf(renderer->file, " %d\n%s\n %d\n%s\n", 
+            10+i, g_ascii_formatd (buf, sizeof(buf), "%g", pts[i].x), 
+	    20+i, g_ascii_formatd (buf2, sizeof(buf2), "%g", pts[i].y));
 }
 
 static void 
@@ -425,18 +433,19 @@ draw_arc(DiaRenderer *self,
 	 Color *colour)
 {
     DxfRenderer *renderer = DXF_RENDERER(self);
+    gchar buf[G_ASCII_DTOSTR_BUF_SIZE];
 
     if(height != 0.0){
         fprintf(renderer->file, "  0\nARC\n");
         fprintf(renderer->file, "  8\n%s\n", renderer->layername);
         fprintf(renderer->file, "  6\n%s\n", renderer->lcurrent.style);
-        fprintf(renderer->file, " 10\n%f\n", center->x);
-        fprintf(renderer->file, " 20\n%f\n", (-1)*center->y);
-        fprintf(renderer->file, " 40\n%f\n", width/2); /* radius */
+        fprintf(renderer->file, " 10\n%s\n", g_ascii_formatd (buf, sizeof(buf), "%g", center->x));
+        fprintf(renderer->file, " 20\n%s\n", g_ascii_formatd (buf, sizeof(buf), "%g", (-1)*center->y));
+        fprintf(renderer->file, " 40\n%s\n", g_ascii_formatd (buf, sizeof(buf), "%g", width/2)); /* radius */
         fprintf(renderer->file, " 39\n%d\n", (int)(10*renderer->lcurrent.width)); /* Thickness */
-        fprintf(renderer->file, " 50\n%f\n", (angle1/360 ) * 2 * M_PI); /*start angle */
-        fprintf(renderer->file, " 51\n%f\n", (angle2/360 ) * 2 * M_PI); /* end angle */		
-    }          
+        fprintf(renderer->file, " 50\n%s\n", g_ascii_formatd (buf, sizeof(buf), "%g", (angle1/360 ) * 2 * M_PI)); /*start angle */
+        fprintf(renderer->file, " 51\n%f\n", g_ascii_formatd (buf, sizeof(buf), "%g", (angle2/360 ) * 2 * M_PI)); /* end angle */		
+    }
 }
 
 static void
@@ -456,28 +465,29 @@ draw_ellipse(DiaRenderer *self,
 	     Color *colour)
 {
     DxfRenderer *renderer = DXF_RENDERER(self);
+    gchar buf[G_ASCII_DTOSTR_BUF_SIZE];
 
     /* draw a circle instead of an ellipse, if it's one */
     if(width == height){
         fprintf(renderer->file, "  0\nCIRCLE\n");
         fprintf(renderer->file, "  8\n%s\n", renderer->layername);
         fprintf(renderer->file, "  6\n%s\n", renderer->lcurrent.style);
-        fprintf(renderer->file, " 10\n%f\n", center->x);
-        fprintf(renderer->file, " 20\n%f\n", (-1)*center->y);
-        fprintf(renderer->file, " 40\n%f\n", height/2);
+        fprintf(renderer->file, " 10\n%s\n", g_ascii_formatd (buf, sizeof(buf), "%g", center->x));
+        fprintf(renderer->file, " 20\n%s\n", g_ascii_formatd (buf, sizeof(buf), "%g", (-1)*center->y));
+        fprintf(renderer->file, " 40\n%s\n", g_ascii_formatd (buf, sizeof(buf), "%g", height/2));
         fprintf(renderer->file, " 39\n%d\n", (int)(10*renderer->lcurrent.width)); /* Thickness */
     }
     else if(height != 0.0){
         fprintf(renderer->file, "  0\nELLIPSE\n");
         fprintf(renderer->file, "  8\n%s\n", renderer->layername);
         fprintf(renderer->file, "  6\n%s\n", renderer->lcurrent.style);
-        fprintf(renderer->file, " 10\n%f\n", center->x);
-        fprintf(renderer->file, " 20\n%f\n", (-1)*center->y);
-        fprintf(renderer->file, " 11\n%f\n", width/2); /* Endpoint major axis relative to center X*/            
-        fprintf(renderer->file, " 40\n%f\n", height/width); /*Ratio major/minor axis*/
+        fprintf(renderer->file, " 10\n%s\n", g_ascii_formatd (buf, sizeof(buf), "%g", center->x));
+        fprintf(renderer->file, " 20\n%s\n", g_ascii_formatd (buf, sizeof(buf), "%g", (-1)*center->y));
+        fprintf(renderer->file, " 11\n%s\n", g_ascii_formatd (buf, sizeof(buf), "%g", width/2)); /* Endpoint major axis relative to center X*/            
+        fprintf(renderer->file, " 40\n%s\n", g_ascii_formatd (buf, sizeof(buf), "%g", height/width)); /*Ratio major/minor axis*/
         fprintf(renderer->file, " 39\n%d\n", (int)(10*renderer->lcurrent.width)); /* Thickness */
-        fprintf(renderer->file, " 41\n%f\n", 0.0); /*Start Parameter full ellipse */
-        fprintf(renderer->file, " 42\n%f\n", 2.0*3.14); /* End Parameter full ellipse */		
+        fprintf(renderer->file, " 41\n%s\n", g_ascii_formatd (buf, sizeof(buf), "%g", 0.0)); /*Start Parameter full ellipse */
+        fprintf(renderer->file, " 42\n%s\n", g_ascii_formatd (buf, sizeof(buf), "%g", 2.0*3.14)); /* End Parameter full ellipse */		
     }
 }
 
@@ -498,14 +508,15 @@ draw_string(DiaRenderer *self,
 	    Color *colour)
 {
     DxfRenderer *renderer = DXF_RENDERER(self);
+    gchar buf[G_ASCII_DTOSTR_BUF_SIZE];
 
     fprintf(renderer->file, "  0\nTEXT\n");
     fprintf(renderer->file, "  8\n%s\n", renderer->layername);
     fprintf(renderer->file, "  6\n%s\n", renderer->lcurrent.style);
-    fprintf(renderer->file, " 10\n%f\n", pos->x);
-    fprintf(renderer->file, " 20\n%f\n", (-1)*pos->y);
-    fprintf(renderer->file, " 40\n%f\n", renderer->tcurrent.font_height); /* Text height */
-    fprintf(renderer->file, " 50\n%f\n", 0.0); /* Text rotation */
+    fprintf(renderer->file, " 10\n%s\n", g_ascii_formatd (buf, sizeof(buf), "%g", pos->x));
+    fprintf(renderer->file, " 20\n%s\n", g_ascii_formatd (buf, sizeof(buf), "%g", (-1)*pos->y));
+    fprintf(renderer->file, " 40\n%s\n", g_ascii_formatd (buf, sizeof(buf), "%g", renderer->tcurrent.font_height)); /* Text height */
+    fprintf(renderer->file, " 50\n%s\n", g_ascii_formatd (buf, sizeof(buf), "%g", 0.0)); /* Text rotation */
     switch(alignment) {
     case ALIGN_LEFT :
 	fprintf(renderer->file, " 72\n%d\n", 0);
@@ -540,6 +551,8 @@ export_dxf(DiagramData *data, const gchar *filename,
     FILE *file;
     int i;
     Layer *layer;
+    gchar buf[G_ASCII_DTOSTR_BUF_SIZE];
+    gchar buf2[G_ASCII_DTOSTR_BUF_SIZE];
 
     file = g_fopen(filename, "w");
 
@@ -555,10 +568,12 @@ export_dxf(DiagramData *data, const gchar *filename,
     
     /* drawing limits */
     fprintf(file, "  0\nSECTION\n  2\nHEADER\n");
-    fprintf(file, "  9\n$EXTMIN\n 10\n%f\n 20\n%f\n", 
-      data->extents.left, -data->extents.bottom);
-    fprintf(file, "  9\n$EXTMAX\n 10\n%f\n 20\n%f\n", 
-      data->extents.right, -data->extents.top);
+    fprintf(file, "  9\n$EXTMIN\n 10\n%s\n 20\n%s\n", 
+      g_ascii_formatd (buf, sizeof(buf), "%g", data->extents.left), 
+      g_ascii_formatd (buf2, sizeof(buf2), "%g", -data->extents.bottom));
+    fprintf(file, "  9\n$EXTMAX\n 10\n%s\n 20\n%s\n", 
+      g_ascii_formatd (buf, sizeof(buf), "%g", data->extents.right),
+      g_ascii_formatd (buf2, sizeof(buf2), "%g", -data->extents.top));
     fprintf(file, "  0\nENDSEC\n");    
 
     /* write layer description */
@@ -566,13 +581,11 @@ export_dxf(DiagramData *data, const gchar *filename,
     for (i=0; i<data->layers->len; i++) {
       layer = (Layer *) g_ptr_array_index(data->layers, i);
       fprintf(file,"0\nLAYER\n2\n%s\n",layer->name);
-      if(layer->visible){
-		fprintf(file,"62\n%d\n",i+1);
-      }
-      else {
-      	fprintf(file,"62\n%d\n",(-1)*(i+1));
-      }
-  	}
+      if(layer->visible)
+	fprintf(file,"62\n%d\n",i+1);
+      else
+        fprintf(file,"62\n%d\n",(-1)*(i+1));
+    }
     fprintf(file, "0\nENDTAB\n0\nENDSEC\n");    
     
     /* write graphics */
