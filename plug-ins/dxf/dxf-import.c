@@ -138,15 +138,6 @@ get_dia_linestyle_dxf(char *dxflinestyle)
     return LINESTYLE_SOLID;
 }
 
-static PropDescription dxf_prop_descs[] = {
-    { "start_point", PROP_TYPE_POINT },
-    { "end_point", PROP_TYPE_POINT },
-    { "line_colour", PROP_TYPE_COLOUR },
-    { PROP_STDNAME_LINE_WIDTH, PROP_STDTYPE_LINE_WIDTH },
-    { "line_style", PROP_TYPE_LINESTYLE},
-    PROP_DESC_END};
-
-
 /* reads a line entity from the dxf file and creates a line object in dia*/
 DiaObject *
 read_entity_line_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
@@ -161,10 +152,6 @@ read_entity_line_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
     Color line_colour = { 0.0, 0.0, 0.0, 1.0 };
     RGB_t color;
     GPtrArray *props;
-    PointProperty *ptprop;
-    LinestyleProperty *lsprop;
-    ColorProperty *cprop;
-    RealProperty *rprop;
 
     real line_width = DEFAULT_LINE_WIDTH;
     LineStyle style = LINESTYLE_SOLID;
@@ -172,6 +159,8 @@ read_entity_line_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
     
     end.x=0;
     end.y=0;
+
+    props = g_ptr_array_new();
 
     do {
         if(read_dxf_codes(filedxf, data) == FALSE){
@@ -211,24 +200,11 @@ read_entity_line_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
     line_obj = otype->ops->create(&start, otype->default_user_data,
                                   &h1, &h2);
 		
-    props = prop_list_from_descs(dxf_prop_descs,pdtpp_true);
-    g_assert(props->len == 5);
-
-    ptprop = g_ptr_array_index(props,0);
-    ptprop->point_data = start;
-
-    ptprop = g_ptr_array_index(props,1);
-    ptprop->point_data = end;
-
-    cprop = g_ptr_array_index(props,2);
-    cprop->color_data = line_colour;
-
-    rprop = g_ptr_array_index(props,3);
-    rprop->real_data = line_width;
-
-    lsprop = g_ptr_array_index(props,4);
-    lsprop->style = style;
-    lsprop->dash = 1.0;
+    prop_list_add_point (props, "start_point", &start);
+    prop_list_add_point (props, "end_point", &end);
+    prop_list_add_line_colour (props, &line_colour);
+    prop_list_add_line_width (props, line_width);
+    prop_list_add_line_style (props, style, 1.0);
 
     line_obj->ops->set_props(line_obj, props);
 
@@ -241,14 +217,6 @@ read_entity_line_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
     /* don't add it it twice */
     return NULL;
 }
-
-static PropDescription dxf_solid_prop_descs[] = {
-     { "line_colour", PROP_TYPE_COLOUR },
-     { PROP_STDNAME_LINE_WIDTH, PROP_STDTYPE_LINE_WIDTH },
-     { "line_style", PROP_TYPE_LINESTYLE },
-     { "fill_colour", PROP_TYPE_COLOUR },
-     { "show_background", PROP_TYPE_BOOL },
-   PROP_DESC_END};
 
 /* reads a solid entity from the dxf file and creates a polygon object in dia*/
 DiaObject *
@@ -266,10 +234,6 @@ read_entity_solid_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
    Color fill_colour = { 0.5, 0.5, 0.5, 1.0 };
 
    GPtrArray *props;
-   LinestyleProperty *lsprop;
-   ColorProperty *cprop, *fprop;
-   RealProperty *rprop;
-   BoolProperty *bprop;
    
    real line_width = 0.001;
    LineStyle style = LINESTYLE_SOLID;
@@ -351,24 +315,13 @@ read_entity_solid_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
 
    polygon_obj = otype->ops->create( NULL, pcd, &h1, &h2 );
 
-   props = prop_list_from_descs( dxf_solid_prop_descs, pdtpp_true );
-   g_assert(props->len == 5);
+   props = g_ptr_array_new ();
 
-   cprop = g_ptr_array_index( props,0 );
-   cprop->color_data = fill_colour;
-
-   rprop = g_ptr_array_index( props,1 );
-   rprop->real_data = line_width;
-
-   lsprop = g_ptr_array_index( props,2 );
-   lsprop->style = style;
-   lsprop->dash = 1.0;
-
-   fprop = g_ptr_array_index( props, 3 );
-   fprop->color_data = fill_colour;
-
-   bprop = g_ptr_array_index( props, 4 );
-   bprop->bool_data = TRUE;
+   prop_list_add_line_colour (props, &fill_colour);
+   prop_list_add_line_width (props, line_width);
+   prop_list_add_line_style (props, style, 1.0);
+   prop_list_add_fill_colour (props, &fill_colour);
+   prop_list_add_show_background (props, TRUE);
 
    polygon_obj->ops->set_props( polygon_obj, props );
 
@@ -381,12 +334,6 @@ read_entity_solid_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
 
    return NULL;
 }
-
-static PropDescription dxf_polyline_prop_descs[] = {
-     { "line_colour", PROP_TYPE_COLOUR },
-     { PROP_STDNAME_LINE_WIDTH, PROP_STDTYPE_LINE_WIDTH },
-     { "line_style", PROP_TYPE_LINESTYLE },
-   PROP_DESC_END};
 
 static int is_equal( double a, double b )
 {
@@ -419,10 +366,7 @@ read_entity_polyline_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
     Color line_colour = { 0.0, 0.0, 0.0, 1.0 };
 
     GPtrArray *props;
-    LinestyleProperty *lsprop;
-    ColorProperty *cprop;
-    RealProperty *rprop;
-   
+
     real line_width = DEFAULT_LINE_WIDTH;
     real radius, start_angle = 0;
     LineStyle style = LINESTYLE_SOLID;
@@ -594,18 +538,11 @@ read_entity_polyline_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
 
     polyline_obj = otype->ops->create( NULL, pcd, &h1, &h2 );
 
-    props = prop_list_from_descs( dxf_polyline_prop_descs, pdtpp_true );
-    g_assert( props->len == 3 );
+    props = g_ptr_array_new ();
 
-    cprop = g_ptr_array_index( props,0 );
-    cprop->color_data = line_colour;
-
-    rprop = g_ptr_array_index( props,1 );
-    rprop->real_data = line_width;
-
-    lsprop = g_ptr_array_index( props,2 );
-    lsprop->style = style;
-    lsprop->dash = 1.0;
+    prop_list_add_line_colour (props, &line_colour);
+    prop_list_add_line_width (props, line_width);
+    prop_list_add_line_style (props, style, 1.0);
 
     polyline_obj->ops->set_props( polyline_obj, props );
 
@@ -619,17 +556,9 @@ read_entity_polyline_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
     return NULL; /* don't add it twice */
 }
 
-static PropDescription dxf_ellipse_prop_descs[] = {
-    { "elem_corner", PROP_TYPE_POINT },
-    { "elem_width", PROP_TYPE_REAL },
-    { "elem_height", PROP_TYPE_REAL },
-    { "line_colour", PROP_TYPE_COLOUR },
-    { PROP_STDNAME_LINE_WIDTH, PROP_STDTYPE_LINE_WIDTH },
-    { "show_background", PROP_TYPE_BOOL},
-    PROP_DESC_END};
-
 /* reads a circle entity from the dxf file and creates a circle object in dia*/
-DiaObject *read_entity_circle_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
+DiaObject *
+read_entity_circle_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
 {
     /* circle data */
     Point center = {0, 0};
@@ -641,10 +570,6 @@ DiaObject *read_entity_circle_dxf(FILE *filedxf, DxfData *data, DiagramData *dia
     DiaObject *ellipse_obj;
     Color line_colour = { 0.0, 0.0, 0.0, 1.0 };
 
-    PointProperty *ptprop;
-    RealProperty *rprop;
-    BoolProperty *bprop;
-    ColorProperty *cprop;
     GPtrArray *props;
 
     real line_width = DEFAULT_LINE_WIDTH;
@@ -679,21 +604,14 @@ DiaObject *read_entity_circle_dxf(FILE *filedxf, DxfData *data, DiagramData *dia
     ellipse_obj = otype->ops->create(&center, otype->default_user_data,
                                      &h1, &h2);
 	
-    props = prop_list_from_descs(dxf_ellipse_prop_descs,pdtpp_true);
-    g_assert(props->len == 6);
+    props = g_ptr_array_new ();
 
-    ptprop = g_ptr_array_index(props,0);
-    ptprop->point_data = center;
-    rprop = g_ptr_array_index(props,1);
-    rprop->real_data = radius * 2.0;
-    rprop = g_ptr_array_index(props,2);
-    rprop->real_data = radius * 2.0;
-    cprop = g_ptr_array_index(props,3);
-    cprop->color_data = line_colour;
-    rprop = g_ptr_array_index(props,4);
-    rprop->real_data = line_width;
-    bprop = g_ptr_array_index(props,5);
-    bprop->bool_data = FALSE;
+    prop_list_add_point (props, "elem_corner", &center);
+    prop_list_add_real (props, "elem_width", radius * 2.0);
+    prop_list_add_real (props, "elem_height", radius * 2.0);
+    prop_list_add_line_colour (props, &line_colour);
+    prop_list_add_line_width (props, line_width);
+    prop_list_add_show_background (props, FALSE);
     
     ellipse_obj->ops->set_props(ellipse_obj, props);
     prop_list_free(props);
@@ -706,16 +624,9 @@ DiaObject *read_entity_circle_dxf(FILE *filedxf, DxfData *data, DiagramData *dia
     return NULL; /* don't add it twice */
 }
 
-static PropDescription dxf_arc_prop_descs[] = {
-    { "start_point", PROP_TYPE_POINT },
-    { "end_point", PROP_TYPE_POINT },
-    { "curve_distance", PROP_TYPE_REAL },
-    { "line_colour", PROP_TYPE_COLOUR },
-    { PROP_STDNAME_LINE_WIDTH, PROP_STDTYPE_LINE_WIDTH },
-    PROP_DESC_END};
-
 /* reads a circle entity from the dxf file and creates a circle object in dia*/
-DiaObject *read_entity_arc_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
+DiaObject *
+read_entity_arc_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
 {
     /* arc data */
     Point start, end;
@@ -728,10 +639,6 @@ DiaObject *read_entity_arc_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
   
     DiaObject *arc_obj;
     Color line_colour = { 0.0, 0.0, 0.0, 1.0 };
-
-    ColorProperty *cprop;
-    PointProperty *ptprop;
-    RealProperty *rprop;
     GPtrArray *props;
 
     real line_width = DEFAULT_LINE_WIDTH;
@@ -783,19 +690,12 @@ DiaObject *read_entity_arc_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
     arc_obj = otype->ops->create(&center, otype->default_user_data,
                                      &h1, &h2);
     
-    props = prop_list_from_descs(dxf_arc_prop_descs,pdtpp_true);
-    g_assert(props->len == 5);
-
-    ptprop = g_ptr_array_index(props,0);
-    ptprop->point_data = start;
-    ptprop = g_ptr_array_index(props,1);
-    ptprop->point_data = end;
-    rprop = g_ptr_array_index(props,2);
-    rprop->real_data = curve_distance;
-    cprop = g_ptr_array_index(props,3);
-    cprop->color_data = line_colour;
-    rprop = g_ptr_array_index(props,4);
-    rprop->real_data = line_width;
+    props = g_ptr_array_new ();
+    prop_list_add_point (props, "start_point", &start);
+    prop_list_add_point (props, "end_point", &end);
+    prop_list_add_real (props, "curve_distance", curve_distance);
+    prop_list_add_line_colour (props, &line_colour);
+    prop_list_add_line_width (props, line_width);
     
     arc_obj->ops->set_props(arc_obj, props);
     prop_list_free(props);
@@ -822,10 +722,6 @@ read_entity_ellipse_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
     
     DiaObject *ellipse_obj; 
     Color line_colour = { 0.0, 0.0, 0.0, 1.0 };
-    PointProperty *ptprop;
-    RealProperty *rprop;
-    BoolProperty *bprop;
-    ColorProperty *cprop;
     GPtrArray *props;
 
     real line_width = DEFAULT_LINE_WIDTH;
@@ -861,22 +757,15 @@ read_entity_ellipse_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
     center.y -= (width*ratio_width_height);
     ellipse_obj = otype->ops->create(&center, otype->default_user_data,
                                      &h1, &h2);
-        
-    props = prop_list_from_descs(dxf_ellipse_prop_descs,pdtpp_true);
-    g_assert(props->len == 6);
 
-    ptprop = g_ptr_array_index(props,0);
-    ptprop->point_data = center;
-    rprop = g_ptr_array_index(props,1);
-    rprop->real_data = width;
-    rprop = g_ptr_array_index(props,2);
-    rprop->real_data = width * ratio_width_height;
-    cprop = g_ptr_array_index(props,3);
-    cprop->color_data = line_colour;
-    rprop = g_ptr_array_index(props,4);
-    rprop->real_data = line_width;
-    bprop = g_ptr_array_index(props,5);
-    bprop->bool_data = FALSE;
+    props = g_ptr_array_new ();
+
+    prop_list_add_point (props, "elem_corner", &center);
+    prop_list_add_real (props, "elem_width", width);
+    prop_list_add_real (props, "elem_height", width * ratio_width_height);
+    prop_list_add_line_colour (props, &line_colour);
+    prop_list_add_line_width (props, line_width);
+    prop_list_add_show_background (props, FALSE);
     
     ellipse_obj->ops->set_props(ellipse_obj, props);
     prop_list_free(props);
