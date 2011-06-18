@@ -39,6 +39,9 @@
 #include "diarenderer.h"
 #include "filter.h"
 
+/* used to be 10 and inconsistent with import and even here */
+#define MAGIC_THICKNESS_FACTOR (1.0)
+
 #define DXF_TYPE_RENDERER           (dxf_renderer_get_type ())
 #define DXF_RENDERER(obj)           (G_TYPE_CHECK_INSTANCE_CAST ((obj), DXF_TYPE_RENDERER, DxfRenderer))
 #define DXF_RENDERER_CLASS(klass)   (G_TYPE_CHECK_CLASS_CAST ((klass), DXF_TYPE_RENDERER, DxfRendererClass))
@@ -258,7 +261,7 @@ end_render(DiaRenderer *self)
 {
     DxfRenderer *renderer = DXF_RENDERER(self);
 
-    fprintf(renderer->file, "0\nENDSEC\n0\nEOF\n");
+    fprintf(renderer->file, "  0\nENDSEC\n  0\nEOF\n");
     fclose(renderer->file);
 }
 
@@ -361,8 +364,12 @@ draw_line(DiaRenderer *self,
     fprintf(renderer->file, " 20\n%s\n", g_ascii_formatd (buf, sizeof(buf), "%g", (-1)*start->y));
     fprintf(renderer->file, " 11\n%s\n", g_ascii_formatd (buf, sizeof(buf), "%g", end->x));
     fprintf(renderer->file, " 21\n%s\n", g_ascii_formatd (buf, sizeof(buf), "%g", (-1)*end->y));
-    fprintf(renderer->file, " 39\n%d\n", (int)(renderer->lcurrent.width)); /* Thickness */
+    fprintf(renderer->file, " 39\n%d\n", (int)(MAGIC_THICKNESS_FACTOR*renderer->lcurrent.width)); /* Thickness */
     fprintf(renderer->file, " 62\n%d\n", dxf_color (line_colour));
+#if 0 /* approximately right effect, but only with one out of three DXF viewers */
+    /* Lineweight given in 100th of mm */
+    fprintf(renderer->file, "370\n%d\n", (int)(renderer->lcurrent.width * 1000.0));
+#endif
 }
 
 static void
@@ -410,6 +417,7 @@ fill_rect (DiaRenderer *self,
   gchar buf2[G_ASCII_DTOSTR_BUF_SIZE];
   
   fprintf(renderer->file, "  0\nSOLID\n");
+  fprintf(renderer->file, "  8\n%s\n", renderer->layername);
   fprintf(renderer->file, " 62\n%d\n", dxf_color (color));
   for (i = 0; i < 4; ++i)
     fprintf(renderer->file, " %d\n%s\n %d\n%s\n", 
@@ -418,11 +426,36 @@ fill_rect (DiaRenderer *self,
 }
 
 static void 
-fill_polygon (DiaRenderer *renderer,
+fill_polygon (DiaRenderer *self,
               Point *points, int num_points,
               Color *color)
 {
-  /* not implemented, but no complaints by base class either */
+  DxfRenderer *renderer = DXF_RENDERER(self);
+  /* We could emulate all polygons with multiple SOLID but it might not be 
+   * worth the effort. Following the easy part of polygons with 3 or 4 points.
+   */
+  int idx3[4] = {0, 1, 2, 2}; /* repeating last point is by specification 
+                                    and should not be necessary but it helps
+				    limited importers */
+  int idx4[4] = {0, 1, 3, 2}; /* SOLID point order differs from Dia's */
+  int *idx;
+  int i;
+  gchar buf[G_ASCII_DTOSTR_BUF_SIZE];
+  gchar buf2[G_ASCII_DTOSTR_BUF_SIZE];
+
+  if (num_points == 3)
+    idx = idx3;
+  else if (num_points == 4)
+    idx = idx4;
+  else
+    return; /* dont even try */
+  fprintf(renderer->file, "  0\nSOLID\n");
+  fprintf(renderer->file, "  8\n%s\n", renderer->layername);
+  fprintf(renderer->file, " 62\n%d\n", dxf_color (color));
+  for (i = 0; i < 4; ++i)
+    fprintf(renderer->file, " %d\n%s\n %d\n%s\n", 
+            10+i, g_ascii_formatd (buf, sizeof(buf), "%g", points[idx[i]].x), 
+	    20+i, g_ascii_formatd (buf2, sizeof(buf2), "%g", -points[idx[i]].y));
 }
 
 static void
@@ -435,17 +468,21 @@ draw_arc(DiaRenderer *self,
     DxfRenderer *renderer = DXF_RENDERER(self);
     gchar buf[G_ASCII_DTOSTR_BUF_SIZE];
 
-    if(height != 0.0){
+    if(width != 0.0){
         fprintf(renderer->file, "  0\nARC\n");
         fprintf(renderer->file, "  8\n%s\n", renderer->layername);
         fprintf(renderer->file, "  6\n%s\n", renderer->lcurrent.style);
         fprintf(renderer->file, " 10\n%s\n", g_ascii_formatd (buf, sizeof(buf), "%g", center->x));
         fprintf(renderer->file, " 20\n%s\n", g_ascii_formatd (buf, sizeof(buf), "%g", (-1)*center->y));
         fprintf(renderer->file, " 40\n%s\n", g_ascii_formatd (buf, sizeof(buf), "%g", width/2)); /* radius */
-        fprintf(renderer->file, " 39\n%d\n", (int)(10*renderer->lcurrent.width)); /* Thickness */
-        fprintf(renderer->file, " 50\n%s\n", g_ascii_formatd (buf, sizeof(buf), "%g", (angle1/360 ) * 2 * M_PI)); /*start angle */
-        fprintf(renderer->file, " 51\n%f\n", g_ascii_formatd (buf, sizeof(buf), "%g", (angle2/360 ) * 2 * M_PI)); /* end angle */		
+        fprintf(renderer->file, " 39\n%d\n", (int)(MAGIC_THICKNESS_FACTOR*renderer->lcurrent.width)); /* Thickness */
+	/* From specification: "output in degrees to DXF files". But radians work for all
+	 * importers I tested. Also there seems to be a problem with arcs to be drawn counter-clockwise
+	 */
+        fprintf(renderer->file, " 50\n%s\n", g_ascii_formatd (buf, sizeof(buf), "%g", (angle1/360 ) * 2 * M_PI)); /* start angle */
+        fprintf(renderer->file, " 51\n%s\n", g_ascii_formatd (buf, sizeof(buf), "%g", (angle2/360 ) * 2 * M_PI)); /* end angle */		
     }
+    fprintf(renderer->file, " 62\n%d\n", dxf_color (colour));
 }
 
 static void
@@ -455,7 +492,7 @@ fill_arc(DiaRenderer *self,
 	 real angle1, real angle2,
 	 Color *colour)
 {
-    draw_arc(self, center, width, height, angle1, angle2, colour);
+    /* emulate by SOLID? */
 }
 
 static void
@@ -475,7 +512,7 @@ draw_ellipse(DiaRenderer *self,
         fprintf(renderer->file, " 10\n%s\n", g_ascii_formatd (buf, sizeof(buf), "%g", center->x));
         fprintf(renderer->file, " 20\n%s\n", g_ascii_formatd (buf, sizeof(buf), "%g", (-1)*center->y));
         fprintf(renderer->file, " 40\n%s\n", g_ascii_formatd (buf, sizeof(buf), "%g", height/2));
-        fprintf(renderer->file, " 39\n%d\n", (int)(10*renderer->lcurrent.width)); /* Thickness */
+        fprintf(renderer->file, " 39\n%d\n", (int)(MAGIC_THICKNESS_FACTOR*renderer->lcurrent.width)); /* Thickness */
     }
     else if(height != 0.0){
         fprintf(renderer->file, "  0\nELLIPSE\n");
@@ -485,10 +522,11 @@ draw_ellipse(DiaRenderer *self,
         fprintf(renderer->file, " 20\n%s\n", g_ascii_formatd (buf, sizeof(buf), "%g", (-1)*center->y));
         fprintf(renderer->file, " 11\n%s\n", g_ascii_formatd (buf, sizeof(buf), "%g", width/2)); /* Endpoint major axis relative to center X*/            
         fprintf(renderer->file, " 40\n%s\n", g_ascii_formatd (buf, sizeof(buf), "%g", height/width)); /*Ratio major/minor axis*/
-        fprintf(renderer->file, " 39\n%d\n", (int)(10*renderer->lcurrent.width)); /* Thickness */
+        fprintf(renderer->file, " 39\n%d\n", (int)(MAGIC_THICKNESS_FACTOR*renderer->lcurrent.width)); /* Thickness */
         fprintf(renderer->file, " 41\n%s\n", g_ascii_formatd (buf, sizeof(buf), "%g", 0.0)); /*Start Parameter full ellipse */
         fprintf(renderer->file, " 42\n%s\n", g_ascii_formatd (buf, sizeof(buf), "%g", 2.0*3.14)); /* End Parameter full ellipse */		
     }
+    fprintf(renderer->file, " 62\n%d\n", dxf_color (colour));
 }
 
 static void
@@ -497,7 +535,7 @@ fill_ellipse(DiaRenderer *self,
 	     real width, real height,
 	     Color *colour)
 {
-    draw_ellipse(self, center, width, height, colour);
+    /* emulate by SOLID? */
 }
 
 
@@ -531,7 +569,7 @@ draw_string(DiaRenderer *self,
     }    
     fprintf(renderer->file, "  7\n%s\n", "0"); /* Text style */
     fprintf(renderer->file, "  1\n%s\n", text);
-    fprintf(renderer->file, " 39\n%d\n", (int)(10*renderer->lcurrent.width)); /* Thickness */
+    fprintf(renderer->file, " 39\n%d\n", (int)(MAGIC_THICKNESS_FACTOR*renderer->lcurrent.width)); /* Thickness */
     fprintf(renderer->file, " 62\n%d\n", dxf_color(colour));
 }
 
@@ -577,19 +615,22 @@ export_dxf(DiagramData *data, const gchar *filename,
     fprintf(file, "  0\nENDSEC\n");    
 
     /* write layer description */
-    fprintf(file,"0\nSECTION\n2\nTABLES\n0\nTABLE\n");
+    fprintf(file,"  0\nSECTION\n  2\nTABLES\n  0\nTABLE\n");
+    /* some dummy entry to make it work for more DXF viewers */
+    fprintf(file,"  2\nLAYER\n 70\n255\n");
+
     for (i=0; i<data->layers->len; i++) {
       layer = (Layer *) g_ptr_array_index(data->layers, i);
-      fprintf(file,"0\nLAYER\n2\n%s\n",layer->name);
+      fprintf(file,"  0\nLAYER\n  2\n%s\n",layer->name);
       if(layer->visible)
-	fprintf(file,"62\n%d\n",i+1);
+	fprintf(file," 62\n%d\n",i+1);
       else
-        fprintf(file,"62\n%d\n",(-1)*(i+1));
+        fprintf(file," 62\n%d\n",(-1)*(i+1));
     }
-    fprintf(file, "0\nENDTAB\n0\nENDSEC\n");    
+    fprintf(file, "  0\nENDTAB\n  0\nENDSEC\n");    
     
     /* write graphics */
-    fprintf(file,"0\nSECTION\n2\nENTITIES\n");
+    fprintf(file,"  0\nSECTION\n  2\nENTITIES\n");
     
     init_attributes(renderer);
 

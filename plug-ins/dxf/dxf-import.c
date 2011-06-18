@@ -264,12 +264,12 @@ read_entity_solid_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
             p[1].x = g_ascii_strtod(data->value, NULL) * coord_scale * measure_scale;
 	   /*printf( "P1.x: %f ", p[1].x );*/
             break;
-        case 12: 
-            p[2].x = g_ascii_strtod(data->value, NULL) * coord_scale * measure_scale;
+        case 12: /* bot only swapped, but special for only 3 points given */
+            p[2].x = p[3].x = g_ascii_strtod(data->value, NULL) * coord_scale * measure_scale;
 	   /*printf( "P2.x: %f ", p[2].x );*/
             break;
-        case 13: 
-            p[3].x = g_ascii_strtod(data->value, NULL) * coord_scale * measure_scale;
+        case 13: /* SOLID order swapped compared to Dia's */
+            p[2].x = g_ascii_strtod(data->value, NULL) * coord_scale * measure_scale;
 	   /*printf( "P3.x: %f ", p[3].x );*/
             break;
         case 20: 
@@ -281,11 +281,11 @@ read_entity_solid_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
 	   /*printf( "P1.y: %f ", p[1].y );*/
             break;
         case 22: 
-            p[2].y = (-1)*g_ascii_strtod(data->value, NULL) * coord_scale * measure_scale;
+            p[2].y = p[3].y = (-1)*g_ascii_strtod(data->value, NULL) * coord_scale * measure_scale;
 	   /*printf( "P2.y: %f ", p[2].y );*/
             break;
         case 23: 
-            p[3].y = (-1)*g_ascii_strtod(data->value, NULL) * coord_scale * measure_scale;
+            p[2].y = (-1)*g_ascii_strtod(data->value, NULL) * coord_scale * measure_scale;
 	   /*printf( "P3.y: %f\n", p[3].y );*/
             break;
         case 39: 
@@ -569,6 +569,7 @@ read_entity_circle_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
     Handle *h1, *h2;
     
     DiaObject *ellipse_obj;
+    RGB_t color;
     Color line_colour = { 0.0, 0.0, 0.0, 1.0 };
 
     GPtrArray *props;
@@ -595,6 +596,13 @@ read_entity_circle_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
             break;
         case 40: 
             radius = g_ascii_strtod(data->value, NULL) * coord_scale * measure_scale;
+            break;
+	case 62 :
+            color = pal_get_rgb (atoi(data->value));
+	    line_colour.red = color.r / 255.0;
+	    line_colour.green = color.g / 255.0;
+	    line_colour.blue = color.b / 255.0;
+	    line_colour.alpha = 1.0;
             break;
         }
         
@@ -639,6 +647,7 @@ read_entity_arc_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
     Handle *h1, *h2;
   
     DiaObject *arc_obj;
+    RGB_t color;
     Color line_colour = { 0.0, 0.0, 0.0, 1.0 };
     GPtrArray *props;
 
@@ -670,6 +679,13 @@ read_entity_arc_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
             break;
         case 51:
             end_angle = g_ascii_strtod(data->value, NULL)*M_PI/180.0;
+            break;
+	case 62 :
+            color = pal_get_rgb (atoi(data->value));
+	    line_colour.red = color.r / 255.0;
+	    line_colour.green = color.g / 255.0;
+	    line_colour.blue = color.b / 255.0;
+	    line_colour.alpha = 1.0;
             break;
         }
     } while(data->code != 0);
@@ -722,6 +738,7 @@ read_entity_ellipse_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
     Handle *h1, *h2;
     
     DiaObject *ellipse_obj; 
+    RGB_t color;
     Color line_colour = { 0.0, 0.0, 0.0, 1.0 };
     GPtrArray *props;
 
@@ -750,6 +767,13 @@ read_entity_ellipse_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
             break;
         case 40: 
             width = g_ascii_strtod(data->value, NULL) * WIDTH_SCALE; /* XXX what scale */
+            break;
+	case 62 :
+            color = pal_get_rgb (atoi(data->value));
+	    line_colour.red = color.r / 255.0;
+	    line_colour.green = color.g / 255.0;
+	    line_colour.blue = color.b / 255.0;
+	    line_colour.alpha = 1.0;
             break;
         }
     } while(data->code != 0);
