@@ -224,9 +224,25 @@ set_string(Text *text, const char *string)
 {
   int numlines, i;
   const char *s,*s2;
-  
-  s = string;
-  
+  char *fallback = NULL;
+
+  if (string == NULL) {
+    text_set_line_text(text, 0, "");
+    return;
+  }
+
+  if (!g_utf8_validate (string, -1, NULL)) {
+    GError *error = NULL;
+    s = fallback = g_locale_to_utf8 (string, -1, NULL, NULL, &error);
+    if (!s) {
+      g_warning ("Invalid string data, neither UTF-8 nor locale: %s", error->message);
+      g_error_free (error);
+      text_set_line_text(text, 0, "");
+      return;
+    }
+  } else {
+    s = string;
+  }
   numlines = 1;
   if (s != NULL) 
     while ( (s = g_utf8_strchr(s, -1, '\n')) != NULL ) {
@@ -241,12 +257,7 @@ set_string(Text *text, const char *string)
     text->lines[i] = text_line_new("", text->font, text->height);
   }
 
-  s = string;
-
-  if (string == NULL) {
-    text_set_line_text(text, 0, "");
-    return;
-  }
+  s = fallback ? fallback : string;
 
   for (i = 0; i < numlines; i++) {
     gchar *string_line;
@@ -270,6 +281,7 @@ set_string(Text *text, const char *string)
   if (text->cursor_pos > text_get_line_strlen(text, text->cursor_row)) {
     text->cursor_pos = text_get_line_strlen(text, text->cursor_row);
   }
+  g_free (fallback);
 }
 
 void
