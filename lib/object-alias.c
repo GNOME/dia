@@ -53,6 +53,8 @@
 #include "dia_dirs.h"
 #include "propinternals.h"
 
+#include "object-alias.h"
+
 /* DiaObjectType _alias_type must be dynamically 
  *
  * The hash table is mapping the alias name to the real type.
@@ -125,12 +127,11 @@ _alias_create (Point *startpoint,
 static DiaObject *
 _alias_load (ObjectNode obj_node, int version, const char *filename)
 {
-  DiaObject *obj;
+  DiaObject *obj = NULL;
   xmlChar *str;
 
   str = xmlGetProp(obj_node, (const xmlChar *)"type");
   if (str) {
-    DiaObjectType *alias_type = object_get_type ((char *)str);
     DiaObjectType *real_type = _alias_lookup ((char *)str);
     Point apoint = {0, 0};
     Handle *h1, *h2;
@@ -142,7 +143,7 @@ _alias_load (ObjectNode obj_node, int version, const char *filename)
     object_load_props (obj, obj_node);
 #ifdef MODIFY_OBJECTS_TYPE
     /* now modify the object for some behavior change */
-    obj->type = alias_type; /* also changes the name */
+    obj->type = object_get_type ((char *)str); /* also changes the name */
 #endif
     xmlFree(str);
   }
@@ -178,7 +179,7 @@ object_register_alias_type (DiaObjectType *type, ObjectNode alias_node)
     
     if (!_alias_types_ht)
       _alias_types_ht = g_hash_table_new (g_str_hash, g_str_equal);
-    g_hash_table_insert (_alias_types_ht, g_strdup (name), type);
+    g_hash_table_insert (_alias_types_ht, g_strdup ((char *)name), type);
 
     xmlFree (name);
   }
