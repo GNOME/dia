@@ -278,6 +278,7 @@ Section $(DIA_SECTION_TITLE) SecDia
 
 ${SetOutPath} "$INSTDIR"
 ${File} "..\..\data\" "dia-splash.png"
+${File} "..\..\" "COPYING"
 
 ${SetOutPath} "$INSTDIR\bin"
 ; jEdit replacement: (^.*\\)(.*)$ 
