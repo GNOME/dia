@@ -58,7 +58,7 @@ static HoldTimeoutData hold_data = {NULL, NULL, 0};
 	
 
 static void
-object_menu_proxy(GtkWidget *widget, gpointer data)
+object_menu_item_proxy(GtkWidget *widget, gpointer data)
 {
   DiaMenuItem *dia_menu_item;
   ObjectChange *obj_change;
@@ -211,7 +211,7 @@ create_object_menu(DiaMenu *dia_menu)
     if ( dia_menu->items[i].callback ) {
           /* only connect signal handler if there is actually a callback */
       g_signal_connect (G_OBJECT (menu_item), "activate",
-                        G_CALLBACK (object_menu_proxy), &dia_menu->items[i]);
+                        G_CALLBACK (object_menu_item_proxy), &dia_menu->items[i]);
     } else { 
       if ( item->callback_data ) { 
             /* This menu item is a submenu if it has no callback, but does
@@ -302,11 +302,11 @@ popup_object_menu(DDisplay *ddisp, GdkEventButton *bevent)
 			     item->active & DIAMENU_ACTIVE);
     if (item->active & DIAMENU_TOGGLE) {
       g_signal_handlers_block_by_func (G_OBJECT (GTK_CHECK_MENU_ITEM (item->app_data)),
-				      G_CALLBACK (object_menu_proxy), item);
+				      G_CALLBACK (object_menu_item_proxy), item);
       gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(item->app_data),
 				      item->active & DIAMENU_TOGGLE_ON);
       g_signal_handlers_unblock_by_func (G_OBJECT (GTK_CHECK_MENU_ITEM(item->app_data)),
-					G_CALLBACK (object_menu_proxy), item);
+					G_CALLBACK (object_menu_item_proxy), item);
     }
   }
 
