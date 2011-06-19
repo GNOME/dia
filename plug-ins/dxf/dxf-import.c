@@ -94,6 +94,36 @@ static void read_section_blocks_dxf(FILE *filedxf, DxfData *data, DiagramData *d
 static Layer *layer_find_by_name(char *layername, DiagramData *dia);
 static LineStyle get_dia_linestyle_dxf(char *dxflinestyle);
 
+GHashTable *_color_by_layer_ht = NULL;
+
+static
+_dxf_color_set_by_layer (const Layer *layer, int color_index)
+{
+  if (!_color_by_layer_ht) /* lazy creation */
+    _color_by_layer_ht = g_hash_table_new (g_direct_hash, g_direct_equal); 
+  g_hash_table_insert (_color_by_layer_ht, (void *)layer, GINT_TO_POINTER (color_index));
+} 
+static int
+_dxf_color_get_by_layer (const Layer *layer)
+{
+  int color_index;
+
+  if (!_color_by_layer_ht)
+    return 0;
+  color_index = GPOINTER_TO_INT (g_hash_table_lookup (_color_by_layer_ht, layer));
+  if (color_index > 0)
+    return color_index;
+  return 0;
+}
+static void
+_color_init_from_rgb (Color *color, RGB_t rgb)
+{
+  color->red   = rgb.r / 255.0;
+  color->green = rgb.g / 255.0;
+  color->blue  = rgb.b / 255.0;
+  color->alpha = 1.0;
+}
+
 /* returns the layer with the given name */
 /* TODO: merge this with other layer code? */
 static Layer *
@@ -169,7 +199,9 @@ read_entity_line_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
         switch(data->code){
         case 6:	 style = get_dia_linestyle_dxf(data->value);
             break;		
-        case  8: layer = layer_find_by_name(data->value, dia);
+        case  8: 
+	    layer = layer_find_by_name(data->value, dia);
+	    color = pal_get_rgb (_dxf_color_get_by_layer (layer));
             break;
         case 10:
             start.x = g_ascii_strtod(data->value, NULL) * coord_scale * measure_scale;
@@ -189,17 +221,14 @@ read_entity_line_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
             break;
 	case 62 :
             color = pal_get_rgb (atoi(data->value));
-	    line_colour.red = color.r / 255.0;
-	    line_colour.green = color.g / 255.0;
-	    line_colour.blue = color.b / 255.0;
-	    line_colour.alpha = 1.0;
             break;
         }	
     } while(data->code != 0);
 
+    _color_init_from_rgb (&line_colour, color);
     line_obj = otype->ops->create(&start, otype->default_user_data,
                                   &h1, &h2);
-		
+
     prop_list_add_point (props, "start_point", &start);
     prop_list_add_point (props, "end_point", &end);
     prop_list_add_line_colour (props, &line_colour);
@@ -254,6 +283,7 @@ read_entity_solid_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
 	   break;		
         case  8: 
 	   layer = layer_find_by_name(data->value, dia);
+	   color = pal_get_rgb (_dxf_color_get_by_layer (layer));
 	   /*printf( "layer: %s ", data->value );*/
 	   break;
         case 10:
@@ -294,10 +324,6 @@ read_entity_solid_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
             break;
         case 62: 
             color = pal_get_rgb (atoi(data->value));
-	    fill_colour.red = color.r / 255.0;
-	    fill_colour.green = color.g / 255.0;
-	    fill_colour.blue = color.b / 255.0;
-	    fill_colour.alpha = 1.0;
             break;
         }	
     } while(data->code != 0);
@@ -314,6 +340,8 @@ read_entity_solid_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
    memcpy( pcd->points, p, sizeof( Point ) * pcd->num_points );
 
    polygon_obj = otype->ops->create( NULL, pcd, &h1, &h2 );
+
+    _color_init_from_rgb (&fill_colour, color);
 
    props = g_ptr_array_new ();
 
@@ -400,6 +428,7 @@ read_entity_polyline_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
                 break;		
             case  8: 
                 layer = layer_find_by_name(data->value, dia);
+	        color = pal_get_rgb (_dxf_color_get_by_layer (layer));
                     /*printf( "layer: %s ", data->value );*/
                 break;
             case 10:
@@ -435,10 +464,6 @@ read_entity_polyline_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
                 break;
             case 62: 
                 color = pal_get_rgb (atoi(data->value));
-                line_colour.red = color.r / 255.0;
-                line_colour.green = color.g / 255.0;
-                line_colour.blue = color.b / 255.0;
-                line_colour.alpha = 1.0;
                 break;
             case 70:
                 closed = 1 & atoi( data->value );
@@ -539,6 +564,8 @@ read_entity_polyline_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
 
     polyline_obj = otype->ops->create( NULL, pcd, &h1, &h2 );
 
+    _color_init_from_rgb (&line_colour, color);
+
     props = g_ptr_array_new ();
 
     prop_list_add_line_colour (props, &line_colour);
@@ -584,6 +611,7 @@ read_entity_circle_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
         switch(data->code){
         case  8: 
             layer = layer_find_by_name(data->value, dia);
+	    color = pal_get_rgb (_dxf_color_get_by_layer (layer));
             break;
         case 10: 
             center.x = g_ascii_strtod(data->value, NULL) * coord_scale * measure_scale;
@@ -599,10 +627,6 @@ read_entity_circle_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
             break;
 	case 62 :
             color = pal_get_rgb (atoi(data->value));
-	    line_colour.red = color.r / 255.0;
-	    line_colour.green = color.g / 255.0;
-	    line_colour.blue = color.b / 255.0;
-	    line_colour.alpha = 1.0;
             break;
         }
         
@@ -613,6 +637,8 @@ read_entity_circle_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
     ellipse_obj = otype->ops->create(&center, otype->default_user_data,
                                      &h1, &h2);
 	
+    _color_init_from_rgb (&line_colour, color);
+
     props = g_ptr_array_new ();
 
     prop_list_add_point (props, "elem_corner", &center);
@@ -661,6 +687,7 @@ read_entity_arc_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
         switch(data->code){
         case  8: 
             layer = layer_find_by_name(data->value, dia);
+	    color = pal_get_rgb (_dxf_color_get_by_layer (layer));
             break;
         case 10: 
             center.x = g_ascii_strtod(data->value, NULL) * coord_scale * measure_scale;
@@ -682,10 +709,6 @@ read_entity_arc_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
             break;
 	case 62 :
             color = pal_get_rgb (atoi(data->value));
-	    line_colour.red = color.r / 255.0;
-	    line_colour.green = color.g / 255.0;
-	    line_colour.blue = color.b / 255.0;
-	    line_colour.alpha = 1.0;
             break;
         }
     } while(data->code != 0);
@@ -707,6 +730,8 @@ read_entity_arc_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
     arc_obj = otype->ops->create(&center, otype->default_user_data,
                                      &h1, &h2);
     
+    _color_init_from_rgb (&line_colour, color);
+
     props = g_ptr_array_new ();
     prop_list_add_point (props, "start_point", &start);
     prop_list_add_point (props, "end_point", &end);
@@ -752,6 +777,7 @@ read_entity_ellipse_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
         switch(data->code){
         case  8: 
             layer = layer_find_by_name(data->value, dia);
+	    color = pal_get_rgb (_dxf_color_get_by_layer (layer));
             break;
         case 10: 
             center.x = g_ascii_strtod(data->value, NULL) * coord_scale * measure_scale;
@@ -770,10 +796,6 @@ read_entity_ellipse_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
             break;
 	case 62 :
             color = pal_get_rgb (atoi(data->value));
-	    line_colour.red = color.r / 255.0;
-	    line_colour.green = color.g / 255.0;
-	    line_colour.blue = color.b / 255.0;
-	    line_colour.alpha = 1.0;
             break;
         }
     } while(data->code != 0);
@@ -782,6 +804,8 @@ read_entity_ellipse_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
     center.y -= (width*ratio_width_height);
     ellipse_obj = otype->ops->create(&center, otype->default_user_data,
                                      &h1, &h2);
+
+    _color_init_from_rgb (&line_colour, color);
 
     props = g_ptr_array_new ();
 
@@ -853,7 +877,9 @@ read_entity_text_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
 		
 	   /*printf( "Found text: %s\n", textvalue );*/
             break;
-        case  8: layer = layer_find_by_name(data->value, dia);
+        case  8: 
+	    layer = layer_find_by_name(data->value, dia);
+	    color = pal_get_rgb (_dxf_color_get_by_layer (layer));
             break;
         case 10: 
             location.x = g_ascii_strtod(data->value, NULL) * coord_scale * measure_scale;
@@ -877,11 +903,7 @@ read_entity_text_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
 	   /*printf( "text height %f\n", height );*/
             break;
 	 case 62: 
-	   color = pal_get_rgb (atoi(data->value));
-	   text_colour.red = color.r / 255.0;
-	   text_colour.green = color.g / 255.0;
-	   text_colour.blue = color.b / 255.0;
-	   text_colour.alpha = 1.0;
+	    color = pal_get_rgb (atoi(data->value));
             break;
         case 72: 
 	   switch(atoi(data->value))
@@ -930,7 +952,7 @@ read_entity_text_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
     } while(data->code != 0);
   
     location.y += y_offset * height;
-   
+    _color_init_from_rgb (&text_colour, color);
     text_obj = otype->ops->create(&location, otype->default_user_data,
                                   &h1, &h2);
     props = prop_list_from_descs(dxf_text_prop_descs,pdtpp_true);
@@ -962,16 +984,25 @@ read_entity_text_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
 static void
 read_table_layer_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
 {
-    do {
-        if(read_dxf_codes(filedxf, data) == FALSE){
-            return;
-        }
-        else {
-            if(data->code == 2){
-	       layer_find_by_name( data->value, dia );
-            }
-        }
-    } while ((data->code != 0) || (strcmp(data->value, "ENDTAB") != 0));
+     Layer *layer = NULL;
+     int color_index;
+
+     do {
+	if (read_dxf_codes(filedxf, data) == FALSE)
+	    return;
+	switch (data->code) {
+	case 2 : /* layer name */
+	    layer = layer_find_by_name( data->value, dia );
+	    break;
+	case 62 : /* Color number, if negative layer is off */
+	    color_index = atoi(data->value);
+	    if (layer && color_index < 0)
+		layer->visible = FALSE;
+	    else
+	        _dxf_color_set_by_layer (layer, color_index);
+	    break;
+	} 
+     } while ((data->code != 0) || (strcmp(data->value, "ENDTAB") != 0));
 }
 
 /* reads a scale entity from the dxf file */
@@ -1323,7 +1354,10 @@ import_dxf(const gchar *filename, DiagramData *dia, void* user_data)
     }while((data->code != 0) || (strcmp(data->value, "EOF") != 0));
     
     g_free(data);
-    
+    if (_color_by_layer_ht) {
+        g_hash_table_destroy (_color_by_layer_ht);
+        _color_by_layer_ht = NULL;
+    }
     return TRUE;
 }
 
