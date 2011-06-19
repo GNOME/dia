@@ -479,8 +479,9 @@ draw_arc(DiaRenderer *self,
 	/* From specification: "output in degrees to DXF files". But radians work for all
 	 * importers I tested. Also there seems to be a problem with arcs to be drawn counter-clockwise
 	 */
-        fprintf(renderer->file, " 50\n%s\n", g_ascii_formatd (buf, sizeof(buf), "%g", (angle1/360 ) * 2 * M_PI)); /* start angle */
-        fprintf(renderer->file, " 51\n%s\n", g_ascii_formatd (buf, sizeof(buf), "%g", (angle2/360 ) * 2 * M_PI)); /* end angle */		
+	fprintf(renderer->file, " 100\nAcDbArc\n");
+        fprintf(renderer->file, " 50\n%s\n", g_ascii_formatd (buf, sizeof(buf), "%g", (angle1 ))); /* start angle */
+        fprintf(renderer->file, " 51\n%s\n", g_ascii_formatd (buf, sizeof(buf), "%g", (angle2 ))); /* end angle */		
     }
     fprintf(renderer->file, " 62\n%d\n", dxf_color (colour));
 }
