@@ -36,7 +36,8 @@
 
 #define DEFAULT_WIDTH 0.25
 
-#define HANDLE_MIDDLE HANDLE_CUSTOM1
+#define HANDLE_MIDDLE (HANDLE_CUSTOM1)
+#define HANDLE_CENTER (HANDLE_CUSTOM2)
 
 /* If you wan debug spew */
 #define TRACE(fun) /* fun */
@@ -47,6 +48,7 @@ struct _Arc {
   Connection connection;
 
   Handle middle_handle;
+  Handle center_handle;
 
   Color arc_color;
   real curve_distance;
@@ -266,6 +268,8 @@ arc_update_handles(Arc *arc)
     middle_pos->x -= arc->curve_distance*dy/dist;
     middle_pos->y += arc->curve_distance*dx/dist;
   }
+  /* just mirroring the center position */
+  arc->center_handle.pos = arc->center;
 }
 
 static real
@@ -339,6 +343,10 @@ arc_move_handle(Arc *arc, Handle *handle,
     if (handle->id == HANDLE_MIDDLE) {
       p1 = &arc->connection.endpoints[0];
       p2 = &arc->connection.endpoints[1];
+    } else if (handle->id == HANDLE_CENTER) {
+      p1 = &arc->connection.endpoints[0];
+      p2 = &arc->connection.endpoints[1];
+      /* TODO: special movement, e.g. change the radius */
     } else {
       p1 = &arc->middle_handle.pos;
       p2 = &arc->connection.endpoints[(handle == (&arc->connection.endpoint_handles[0])) ? 1 : 0];
@@ -352,7 +360,8 @@ arc_move_handle(Arc *arc, Handle *handle,
           TRACE(printf("curve_dist: %.2f \n",arc->curve_distance));
           arc->curve_distance = arc_compute_curve_distance(arc, &arc->connection.endpoints[0], &arc->connection.endpoints[1], to);
           TRACE(printf("curve_dist: %.2f \n",arc->curve_distance));
-
+  } else if (handle->id == HANDLE_CENTER) {
+          /* we can move the handle only on the line through center and middle */
   } else {
         Point best;
         TRACE(printf("Modifiers: %d \n",modifiers));
@@ -593,6 +602,39 @@ arc_draw(Arc *arc, DiaRenderer *renderer)
 				      &arc->arc_color,
 				      &arc->start_arrow,
 				      &arc->end_arrow);
+  if (renderer->is_interactive &&
+      dia_object_is_selected(&arc->connection.object)) {
+    /* draw the central angle */
+    Color line_color = { 0.0, 0.0, 0.6, 1.0 };
+
+    renderer_ops->set_linewidth(renderer, 0);
+    renderer_ops->set_linestyle(renderer, LINESTYLE_DOTTED);
+    renderer_ops->set_dashlength(renderer, 1);
+    renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
+    renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
+    
+    renderer_ops->draw_line(renderer, &endpoints[0], &arc->center, &line_color);
+    renderer_ops->draw_line(renderer, &endpoints[1], &arc->center, &line_color);
+  }
+}
+
+/* helper function to initialize the extra handles */
+static void
+_arc_setup_handles(Arc *arc)
+{
+  DiaObject *obj = &arc->connection.object;
+
+  obj->handles[2] = &arc->middle_handle;
+  arc->middle_handle.id = HANDLE_MIDDLE;
+  arc->middle_handle.type = HANDLE_MINOR_CONTROL;
+  arc->middle_handle.connect_type = HANDLE_NONCONNECTABLE;
+  arc->middle_handle.connected_to = NULL;
+
+  obj->handles[3] = &arc->center_handle;
+  arc->center_handle.id = HANDLE_CENTER;
+  arc->center_handle.type = HANDLE_NON_MOVABLE;
+  arc->center_handle.connect_type = HANDLE_NONCONNECTABLE;
+  arc->center_handle.connected_to = NULL;
 }
 
 static DiaObject *
@@ -626,13 +668,9 @@ arc_create(Point *startpoint,
   obj->type = &arc_type;;
   obj->ops = &arc_ops;
   
-  connection_init(conn, 3, 0);
+  connection_init(conn, 4, 0);
 
-  obj->handles[2] = &arc->middle_handle;
-  arc->middle_handle.id = HANDLE_MIDDLE;
-  arc->middle_handle.type = HANDLE_MINOR_CONTROL;
-  arc->middle_handle.connect_type = HANDLE_NONCONNECTABLE;
-  arc->middle_handle.connected_to = NULL;
+  _arc_setup_handles (arc);
 
   arc_update_data(arc);
 
@@ -675,9 +713,11 @@ arc_copy(Arc *arc)
   newarc->angle1 = arc->angle1;
   newarc->angle2 = arc->angle2;
 
-  newobj->handles[2] = &newarc->middle_handle;
-  
+  newobj->handles[2] = &newarc->middle_handle;  
   newarc->middle_handle = arc->middle_handle;
+
+  newobj->handles[3] = &newarc->center_handle;  
+  newarc->center_handle = arc->center_handle;
 
   arc_update_data(arc);
 
@@ -830,6 +870,9 @@ arc_update_data(Arc *arc)
     arrow_bbox(&arc->end_arrow, arc->line_width, &to, &from, &bbox);
     rectangle_union(&obj->bounding_box, &bbox);
   }
+  /* if selected put the centerpoint in the box, too. */
+  obj->enclosing_box = obj->bounding_box;
+  rectangle_add_point(&obj->enclosing_box, &arc->center);
 
   obj->position = conn->endpoints[0];
 }
@@ -929,13 +972,9 @@ arc_load(ObjectNode obj_node, int version, const char *filename)
   load_arrow(obj_node, &arc->end_arrow, "end_arrow",
 	     "end_arrow_length", "end_arrow_width");
 
-  connection_init(conn, 3, 0);
+  connection_init(conn, 4, 0);
 
-  obj->handles[2] = &arc->middle_handle;
-  arc->middle_handle.id = HANDLE_MIDDLE;
-  arc->middle_handle.type = HANDLE_MINOR_CONTROL;
-  arc->middle_handle.connect_type = HANDLE_NONCONNECTABLE;
-  arc->middle_handle.connected_to = NULL;
+  _arc_setup_handles (arc);
 
   /* older versions did not prohibit everything reduced to a single point
    * and afterwards failed on all the calculations producing nan.
