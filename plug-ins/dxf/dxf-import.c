@@ -1283,6 +1283,8 @@ import_dxf(const gchar *filename, DiagramData *dia, void* user_data)
 		  /*printf( "reading section objects\n" );*/
                     read_section_entities_dxf(filedxf, data, dia);
 		}
+            } else if(data->code == 999) {
+	      /* Don't complain on comments, but silently ignore */
 	    }
 	   else
 	     g_warning("Unknown dxf code %d", data->code);
