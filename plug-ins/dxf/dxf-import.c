@@ -56,7 +56,7 @@ Point extent_min, extent_max;
 Point limit_min, limit_max;
 
 /* maximum line length */
-#define DXF_LINE_LENGTH 256
+#define DXF_LINE_LENGTH 257
 
 typedef struct _DxfLayerData 
 {
@@ -985,7 +985,33 @@ read_entity_scale_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
      {
       case 40: 
 	coord_scale = g_ascii_strtod(data->value, NULL);
+	if (coord_scale > 0.0)
+	  coord_scale = 1.0 / coord_scale;
 	g_message("Scale: %f", coord_scale );
+	break;
+      
+      default:
+	break;
+     }	
+   
+}
+
+static void
+read_entitiy_lengthunit_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
+{
+   real e; /* undocumented ... */
+
+   if(read_dxf_codes(filedxf, data) == FALSE)
+      return;
+
+   switch(data->code)
+     {
+      case 70: 
+	/* 1 = Scientific; 2 = Decimal; 3 = Engineering;
+         * 4 = Architectural; 5 = Fractional; 6 = Windows desktop 
+	 */
+	e = atoi(data->value);
+	g_message("LengthUnit: %f", coord_scale );
 	break;
       
       default:
@@ -1029,6 +1055,8 @@ read_entity_textsize_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
      {
       case 40:
 	text_scale = g_ascii_strtod(data->value, NULL);
+	if (text_scale > 0.0)
+	  text_scale = 1.0 / text_scale;
 	/*printf( "Text Size: %f\n", text_scale );*/
 	break;		
       default:
@@ -1047,6 +1075,9 @@ read_section_header_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
     do {
        if((data->code == 9) && (strcmp(data->value, "$DIMSCALE") == 0)) {
 	  read_entity_scale_dxf(filedxf, data, dia);
+	} else if((data->code == 9) && (strcmp(data->value, "DIMLUNIT") == 0)) {
+	  /* nothing documented */
+	  read_entitiy_lengthunit_dxf(filedxf, data, dia);
         } else if((data->code == 9) && (strcmp(data->value, "$TEXTSIZE") == 0)) {
 	  read_entity_textsize_dxf(filedxf, data, dia);
         } else if((data->code == 9) && (strcmp(data->value, "$MEASUREMENT") == 0)) {
@@ -1297,7 +1328,9 @@ import_dxf(const gchar *filename, DiagramData *dia, void* user_data)
 }
 
 /* reads a code/value pair from the DXF file */
-gboolean read_dxf_codes(FILE *filedxf, DxfData *data){
+static gboolean 
+read_dxf_codes(FILE *filedxf, DxfData *data)
+{
     int i;
     char *c;
     
