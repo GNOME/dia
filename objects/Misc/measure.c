@@ -94,7 +94,7 @@ static void measure_update_data (Measure *measure);
 static void measure_destroy (Measure *measure);
 static DiaMenu *measure_get_object_menu(Measure *measure,
 					Point *clickedpoint);
-static PropDescription *measure_describe_props(Measure *measure);
+static const PropDescription *measure_describe_props(Measure *measure);
 static void measure_get_props(Measure *measure, GPtrArray *props);
 static void measure_set_props(Measure *measure, GPtrArray *props);
 
@@ -278,7 +278,7 @@ measure_draw(Measure *measure, DiaRenderer *renderer)
 					&measure->line_color);
 }
 /*! A standard props compliant object needs to describe its parameters */
-static PropDescription *
+static const PropDescription *
 measure_describe_props (Measure *measure)
 {
   if (measure_props[0].quark == 0)
