@@ -80,11 +80,9 @@ static DiaObject *read_entity_arc_dxf(FILE *filedxf, DxfData *data, DiagramData 
 static DiaObject *read_entity_solid_dxf(FILE *filedxf, DxfData *data, DiagramData *dia);
 static DiaObject *read_entity_polyline_dxf(FILE *filedxf, DxfData *data, DiagramData *dia);
 static DiaObject *read_entity_text_dxf(FILE *filedxf, DxfData *data, DiagramData *dia);
-static void read_entity_measurement_dxf(FILE *filedxf, DxfData *data,
-                                 DiagramData *dia);
+static void read_entity_measurement_dxf(FILE *filedxf, DxfData *data, DiagramData *dia);
 static void read_entity_scale_dxf(FILE *filedxf, DxfData *data, DiagramData *dia);
 static void read_entity_textsize_dxf(FILE *filedxf, DxfData *data, DiagramData *dia);
-static void read_entity_mesurement_dxf(FILE *filedxf, DxfData *data, DiagramData *dia);
 static void read_table_layer_dxf(FILE *filedxf, DxfData *data, DiagramData *dia);
 static void read_section_header_dxf(FILE *filedxf, DxfData *data, DiagramData *dia);
 static void read_section_classes_dxf(FILE *filedxf, DxfData *data, DiagramData *dia);
@@ -96,7 +94,7 @@ static LineStyle get_dia_linestyle_dxf(char *dxflinestyle);
 
 GHashTable *_color_by_layer_ht = NULL;
 
-static
+static void
 _dxf_color_set_by_layer (const Layer *layer, int color_index)
 {
   if (!_color_by_layer_ht) /* lazy creation */
