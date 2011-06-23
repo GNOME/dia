@@ -826,7 +826,9 @@ dia_font_get_sizes(const char* string, DiaFont *font, real height,
     *width = 0.0;
   } else {
     /* take the bigger rectangle to avoid cutting of any part of the string */
-    *width = pdu_to_dcm(logical_rect.width > ink_rect.width ? logical_rect.width : ink_rect.width) / global_zoom_factor;
+    /* also respect that Dia is assuming to start from zero */
+    int full_width = ink_rect.width + ink_rect.x;
+    *width = pdu_to_dcm(logical_rect.width > full_width ? logical_rect.width : full_width) / global_zoom_factor;
   }
   return offsets;
 }
