@@ -758,7 +758,7 @@ arc_update_data(Arc *arc)
   y2 = endpoints[1].y;
   
   lensq = (x2-x1)*(x2-x1) + (y2-y1)*(y2-y1);
-  if (arc->curve_distance > 0.01)
+  if (fabs(arc->curve_distance) > 0.01)
     radius = lensq/(8*arc->curve_distance) + arc->curve_distance/2.0;
   else
     radius = 0.0; /* not really but used for bbox calculation below */

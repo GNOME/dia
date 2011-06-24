@@ -1367,7 +1367,7 @@ draw_arc_with_arrows (DiaRenderer *renderer,
   }
 
   /* Only draw it if the original direction is preserved */
-  if ((angle2 > angle1) == clockwise)
+  if (is_right_hand (&new_startpoint, midpoint, &new_endpoint) == righthand)
     DIA_RENDERER_GET_CLASS(renderer)->draw_arc(renderer, &center, width, width,
 					       angle1, angle2, color);
 
