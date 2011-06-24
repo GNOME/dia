@@ -353,9 +353,9 @@ _dae_load (ObjectNode obj_node, int version, const char *filename)
   dae = (DiagramAsElement*)obj;
   if (strlen(dae->filename) && !g_path_is_absolute (dae->filename)) {
     gchar *dirname = g_path_get_dirname (filename);
-    gchar *filename = g_build_filename (dirname, dae->filename, NULL);
+    gchar *fname = g_build_filename (dirname, dae->filename, NULL);
     g_free (dae->filename);
-    dae->filename = filename;
+    dae->filename = fname;
     g_free (dirname);
 
     /* need to update again with new filenames */
