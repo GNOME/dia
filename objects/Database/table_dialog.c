@@ -1072,6 +1072,7 @@ create_style_page (GtkNotebook * notebook, Table * table)
   gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.5);
   gtk_table_attach (GTK_TABLE (gtk_table), label, 0, 1, 0, 1, GTK_EXPAND | GTK_FILL, 0, 0, 2);
   text_color = dia_color_selector_new();
+  dia_color_selector_set_use_alpha (text_color, TRUE);
   dia_color_selector_set_color(text_color, &table->text_color);
   prop_dialog->text_color = (DiaColorSelector *)text_color;
   gtk_table_attach (GTK_TABLE (gtk_table), text_color, 1, 2, 0, 1, GTK_EXPAND | GTK_FILL, 0, 3, 2);
@@ -1080,6 +1081,7 @@ create_style_page (GtkNotebook * notebook, Table * table)
   gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.5);
   gtk_table_attach (GTK_TABLE (gtk_table), label, 0, 1, 1, 2, GTK_EXPAND | GTK_FILL, 0, 0, 2);
   line_color = dia_color_selector_new();
+  dia_color_selector_set_use_alpha (line_color, TRUE);
   dia_color_selector_set_color(line_color, &table->line_color);
   prop_dialog->line_color = (DiaColorSelector *)line_color;
   gtk_table_attach (GTK_TABLE (gtk_table), line_color, 1, 2, 1, 2, GTK_EXPAND | GTK_FILL, 0, 3, 2);
@@ -1088,6 +1090,7 @@ create_style_page (GtkNotebook * notebook, Table * table)
   gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.5);
   gtk_table_attach (GTK_TABLE (gtk_table), label, 0, 1, 2, 3, GTK_EXPAND | GTK_FILL, 0, 0, 2);
   fill_color = dia_color_selector_new();
+  dia_color_selector_set_use_alpha (fill_color, TRUE);
   dia_color_selector_set_color(fill_color, &table->fill_color);
   prop_dialog->fill_color = (DiaColorSelector *)fill_color;
   gtk_table_attach (GTK_TABLE (gtk_table), fill_color, 1, 2, 2, 3, GTK_EXPAND | GTK_FILL, 0, 3, 2);
