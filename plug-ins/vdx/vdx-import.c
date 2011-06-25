@@ -976,7 +976,7 @@ plot_polyline(const struct vdx_Geom *Geom, const struct vdx_XForm *XForm,
     if (count > 2)
     {
         /* If we had to break the Geom partway, it's not a polygon */
-        if (Geom->NoFill || done)
+        if (!Fill || !Fill->FillPattern || Geom->NoFill || done)
         {
             /* Yes, it is end_arrow followed by start_arrow */
             newobj = create_standard_polyline(count, points,
