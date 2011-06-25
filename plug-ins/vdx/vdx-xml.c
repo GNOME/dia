@@ -4885,7 +4885,7 @@ vdx_write_object(FILE *file, unsigned int depth, const void *p)
 
     case vdx_types_Text:
         Text = (const struct vdx_Text *)(p);
-        fprintf(file, "%s<Text IX='%u'>", pad, Text->IX);
+        fprintf(file, "%s<Text>", pad);
         *pad = 0;
         break;
 
@@ -5074,13 +5074,9 @@ vdx_write_object(FILE *file, unsigned int depth, const void *p)
 
     case vdx_types_cp:
         cp = (const struct vdx_cp *)(p);
-        fprintf(file, "%s<cp IX='%u'", pad, cp->IX);
+        fprintf(file, "<cp IX='%u'/>", cp->IX);
         if (!child)
-        {
-            fprintf(file, "/>\n");
             return;
-        }
-        fprintf(file, ">\n");
         break;
 
     case vdx_types_fld:
@@ -5096,24 +5092,16 @@ vdx_write_object(FILE *file, unsigned int depth, const void *p)
 
     case vdx_types_pp:
         pp = (const struct vdx_pp *)(p);
-        fprintf(file, "%s<pp IX='%u'", pad, pp->IX);
+        fprintf(file, "<pp IX='%u'/>", pp->IX);
         if (!child)
-        {
-            fprintf(file, "/>\n");
             return;
-        }
-        fprintf(file, ">\n");
         break;
 
     case vdx_types_tp:
         tp = (const struct vdx_tp *)(p);
-        fprintf(file, "%s<tp IX='%u'", pad, tp->IX);
+        fprintf(file, "<tp IX='%u'/>", tp->IX);
         if (!child)
-        {
-            fprintf(file, "/>\n");
             return;
-        }
-        fprintf(file, ">\n");
         break;
 
     case vdx_types_text:
