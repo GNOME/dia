@@ -2676,11 +2676,17 @@ vdx_plot_shape(struct vdx_Shape *Shape, GSList *objects,
         more = Geom->any.children;
         do
         {
-            objects =
-                g_slist_append(objects,
-                               plot_geom(Geom, XForm, XForm1D, Fill, Line,
-                                         Foreign, ForeignData, theDoc, &more,
-                                         &current));
+	    DiaObject *object = plot_geom(Geom, XForm, XForm1D, Fill, Line,
+                                          Foreign, ForeignData, theDoc, &more,
+                                          &current);
+            /* object can be NULL for Text */
+	    if (object)
+	    {
+		gchar *id = g_strdup_printf ("%d", Shape->ID);
+		objects = g_slist_append(objects, object);
+		dia_object_set_meta (object, "id", id);
+		g_free (id);
+	    }
             if (more && theDoc->debug_comments)
             {
                 g_debug("Additional Geom");
@@ -2693,10 +2699,15 @@ vdx_plot_shape(struct vdx_Shape *Shape, GSList *objects,
        so it appears on top */
     if (Text && find_child(vdx_types_text, Text))
     {
-        objects =
-            g_slist_append(objects,
-                           plot_text(Text, XForm, Char, Para,
-                                     TextBlock, TextXForm, theDoc));
+        DiaObject *object = plot_text(Text, XForm, Char, Para,
+                                      TextBlock, TextXForm, theDoc);
+	if (object)
+	{
+	    gchar *id = g_strdup_printf ("%d", Shape->ID);
+            objects = g_slist_append(objects, object);
+	    dia_object_set_meta (object, "id", id);
+	    g_free (id);
+	}
     }
 
     /* Wipe the child XForm list to avoid double-free */
