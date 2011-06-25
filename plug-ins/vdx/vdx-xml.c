@@ -3517,52 +3517,74 @@ vdx_write_object(FILE *file, unsigned int depth, const void *p)
             fprintf(file, " Del='%u'",
                     Char->Del);
         fprintf(file, ">\n");
-        fprintf(file, "%s  <AsianFont>%u</AsianFont>\n", pad,
-                Char->AsianFont);
-        fprintf(file, "%s  <Case>%u</Case>\n", pad,
-                Char->Case);
+	if (Char->AsianFont)
+          fprintf(file, "%s  <AsianFont>%u</AsianFont>\n", pad,
+                  Char->AsianFont);
+	if (Char->Case)
+          fprintf(file, "%s  <Case>%u</Case>\n", pad,
+                  Char->Case);
         fprintf(file, "%s  <Color>%s</Color>\n", pad,
                 vdx_string_color(Char->Color));
-        fprintf(file, "%s  <ColorTrans>%f</ColorTrans>\n", pad,
-                Char->ColorTrans);
-        fprintf(file, "%s  <ComplexScriptFont>%u</ComplexScriptFont>\n", pad,
-                Char->ComplexScriptFont);
-        fprintf(file, "%s  <ComplexScriptSize>%f</ComplexScriptSize>\n", pad,
-                Char->ComplexScriptSize);
-        fprintf(file, "%s  <DblUnderline>%u</DblUnderline>\n", pad,
-                Char->DblUnderline);
-        fprintf(file, "%s  <DoubleStrikethrough>%u</DoubleStrikethrough>\n", pad,
-                Char->DoubleStrikethrough);
+	if (Char->ColorTrans)
+          fprintf(file, "%s  <ColorTrans>%f</ColorTrans>\n", pad,
+                  Char->ColorTrans);
+	if (Char->ComplexScriptFont)
+          fprintf(file, "%s  <ComplexScriptFont>%u</ComplexScriptFont>\n", pad,
+                  Char->ComplexScriptFont);
+	if (Char->ComplexScriptSize)
+          fprintf(file, "%s  <ComplexScriptSize>%f</ComplexScriptSize>\n", pad,
+                  Char->ComplexScriptSize);
+	if (Char->DblUnderline)
+          fprintf(file, "%s  <DblUnderline>%u</DblUnderline>\n", pad,
+                  Char->DblUnderline);
+	if (Char->DoubleStrikethrough)
+          fprintf(file, "%s  <DoubleStrikethrough>%u</DoubleStrikethrough>\n", pad,
+                  Char->DoubleStrikethrough);
+	/* although stated as such, not optional! */
         fprintf(file, "%s  <Font>%u</Font>\n", pad,
                 Char->Font);
-        fprintf(file, "%s  <FontScale>%f</FontScale>\n", pad,
-                Char->FontScale);
-        fprintf(file, "%s  <Highlight>%u</Highlight>\n", pad,
-                Char->Highlight);
-        fprintf(file, "%s  <LangID>%u</LangID>\n", pad,
-                Char->LangID);
-        fprintf(file, "%s  <Letterspace>%f</Letterspace>\n", pad,
-                Char->Letterspace);
-        fprintf(file, "%s  <Locale>%u</Locale>\n", pad,
-                Char->Locale);
-        fprintf(file, "%s  <LocalizeFont>%u</LocalizeFont>\n", pad,
-                Char->LocalizeFont);
-        fprintf(file, "%s  <Overline>%u</Overline>\n", pad,
-                Char->Overline);
-        fprintf(file, "%s  <Perpendicular>%u</Perpendicular>\n", pad,
-                Char->Perpendicular);
-        fprintf(file, "%s  <Pos>%u</Pos>\n", pad,
-                Char->Pos);
-        fprintf(file, "%s  <RTLText>%u</RTLText>\n", pad,
-                Char->RTLText);
-        fprintf(file, "%s  <Size>%f</Size>\n", pad,
-                Char->Size);
-        fprintf(file, "%s  <Strikethru>%u</Strikethru>\n", pad,
-                Char->Strikethru);
-        fprintf(file, "%s  <Style>%u</Style>\n", pad,
-                Char->Style);
-        fprintf(file, "%s  <UseVertical>%u</UseVertical>\n", pad,
-                Char->UseVertical);
+	if (Char->FontScale)
+          fprintf(file, "%s  <FontScale>%f</FontScale>\n", pad,
+                  Char->FontScale);
+	if (Char->Highlight)
+          fprintf(file, "%s  <Highlight>%u</Highlight>\n", pad,
+                  Char->Highlight);
+	if (Char->LangID)
+          fprintf(file, "%s  <LangID>%u</LangID>\n", pad,
+                  Char->LangID);
+	if (Char->Letterspace)
+          fprintf(file, "%s  <Letterspace>%f</Letterspace>\n", pad,
+                  Char->Letterspace);
+	if (Char->Locale)
+          fprintf(file, "%s  <Locale>%u</Locale>\n", pad,
+                  Char->Locale);
+	if (Char->LocalizeFont)
+          fprintf(file, "%s  <LocalizeFont>%u</LocalizeFont>\n", pad,
+                  Char->LocalizeFont);
+	if (Char->Overline)
+          fprintf(file, "%s  <Overline>%u</Overline>\n", pad,
+                  Char->Overline);
+	if (Char->Perpendicular)
+          fprintf(file, "%s  <Perpendicular>%u</Perpendicular>\n", pad,
+                  Char->Perpendicular);
+	if (Char->Pos)
+          fprintf(file, "%s  <Pos>%u</Pos>\n", pad,
+                  Char->Pos);
+	if (Char->RTLText)
+          fprintf(file, "%s  <RTLText>%u</RTLText>\n", pad,
+                  Char->RTLText);
+	if (Char->Size)
+          fprintf(file, "%s  <Size>%f</Size>\n", pad,
+                  Char->Size);
+	if (Char->Strikethru)
+          fprintf(file, "%s  <Strikethru>%u</Strikethru>\n", pad,
+                  Char->Strikethru);
+	if (Char->Style)
+          fprintf(file, "%s  <Style>%u</Style>\n", pad,
+                  Char->Style);
+	if (Char->UseVertical)
+          fprintf(file, "%s  <UseVertical>%u</UseVertical>\n", pad,
+                  Char->UseVertical);
         break;
 
     case vdx_types_ColorEntry:
@@ -3921,34 +3943,46 @@ vdx_write_object(FILE *file, unsigned int depth, const void *p)
         fprintf(file, "%s<Fill>\n", pad);
         fprintf(file, "%s  <FillBkgnd>%s</FillBkgnd>\n", pad,
                 vdx_string_color(Fill->FillBkgnd));
-        fprintf(file, "%s  <FillBkgndTrans>%f</FillBkgndTrans>\n", pad,
-                Fill->FillBkgndTrans);
+	if (Fill->FillBkgndTrans)
+          fprintf(file, "%s  <FillBkgndTrans>%f</FillBkgndTrans>\n", pad,
+                  Fill->FillBkgndTrans);
         fprintf(file, "%s  <FillForegnd>%s</FillForegnd>\n", pad,
                 vdx_string_color(Fill->FillForegnd));
-        fprintf(file, "%s  <FillForegndTrans>%f</FillForegndTrans>\n", pad,
-                Fill->FillForegndTrans);
-        fprintf(file, "%s  <FillPattern>%u</FillPattern>\n", pad,
-                Fill->FillPattern);
-        fprintf(file, "%s  <ShapeShdwObliqueAngle>%f</ShapeShdwObliqueAngle>\n", pad,
-                Fill->ShapeShdwObliqueAngle);
-        fprintf(file, "%s  <ShapeShdwOffsetX>%f</ShapeShdwOffsetX>\n", pad,
-                Fill->ShapeShdwOffsetX);
-        fprintf(file, "%s  <ShapeShdwOffsetY>%f</ShapeShdwOffsetY>\n", pad,
-                Fill->ShapeShdwOffsetY);
-        fprintf(file, "%s  <ShapeShdwScaleFactor>%f</ShapeShdwScaleFactor>\n", pad,
-                Fill->ShapeShdwScaleFactor);
-        fprintf(file, "%s  <ShapeShdwType>%u</ShapeShdwType>\n", pad,
-                Fill->ShapeShdwType);
-        fprintf(file, "%s  <ShdwBkgnd>%u</ShdwBkgnd>\n", pad,
-                Fill->ShdwBkgnd);
-        fprintf(file, "%s  <ShdwBkgndTrans>%f</ShdwBkgndTrans>\n", pad,
-                Fill->ShdwBkgndTrans);
+	if (Fill->FillForegndTrans)
+          fprintf(file, "%s  <FillForegndTrans>%f</FillForegndTrans>\n", pad,
+                  Fill->FillForegndTrans);
+	if (Fill->FillPattern)
+          fprintf(file, "%s  <FillPattern>%u</FillPattern>\n", pad,
+                  Fill->FillPattern);
+	if (Fill->ShapeShdwObliqueAngle)
+          fprintf(file, "%s  <ShapeShdwObliqueAngle>%f</ShapeShdwObliqueAngle>\n", pad,
+                  Fill->ShapeShdwObliqueAngle);
+	if (Fill->ShapeShdwOffsetX)
+          fprintf(file, "%s  <ShapeShdwOffsetX>%f</ShapeShdwOffsetX>\n", pad,
+                  Fill->ShapeShdwOffsetX);
+	if (Fill->ShapeShdwOffsetY)
+          fprintf(file, "%s  <ShapeShdwOffsetY>%f</ShapeShdwOffsetY>\n", pad,
+                  Fill->ShapeShdwOffsetY);
+	if (Fill->ShapeShdwScaleFactor)
+          fprintf(file, "%s  <ShapeShdwScaleFactor>%f</ShapeShdwScaleFactor>\n", pad,
+                  Fill->ShapeShdwScaleFactor);
+	if (Fill->ShapeShdwType)
+          fprintf(file, "%s  <ShapeShdwType>%u</ShapeShdwType>\n", pad,
+                  Fill->ShapeShdwType);
+	if (Fill->ShdwBkgnd)
+          fprintf(file, "%s  <ShdwBkgnd>%u</ShdwBkgnd>\n", pad,
+                  Fill->ShdwBkgnd);
+	if (Fill->ShdwBkgndTrans)
+          fprintf(file, "%s  <ShdwBkgndTrans>%f</ShdwBkgndTrans>\n", pad,
+                  Fill->ShdwBkgndTrans);
         fprintf(file, "%s  <ShdwForegnd>%s</ShdwForegnd>\n", pad,
                 vdx_string_color(Fill->ShdwForegnd));
-        fprintf(file, "%s  <ShdwForegndTrans>%f</ShdwForegndTrans>\n", pad,
-                Fill->ShdwForegndTrans);
-        fprintf(file, "%s  <ShdwPattern>%u</ShdwPattern>\n", pad,
-                Fill->ShdwPattern);
+	if (Fill->ShdwForegndTrans)
+          fprintf(file, "%s  <ShdwForegndTrans>%f</ShdwForegndTrans>\n", pad,
+                  Fill->ShdwForegndTrans);
+	if (Fill->ShdwPattern)
+          fprintf(file, "%s  <ShdwPattern>%u</ShdwPattern>\n", pad,
+                  Fill->ShdwPattern);
         break;
 
     case vdx_types_FontEntry:
@@ -4241,26 +4275,35 @@ vdx_write_object(FILE *file, unsigned int depth, const void *p)
     case vdx_types_Line:
         Line = (const struct vdx_Line *)(p);
         fprintf(file, "%s<Line>\n", pad);
-        fprintf(file, "%s  <BeginArrow>%u</BeginArrow>\n", pad,
-                Line->BeginArrow);
-        fprintf(file, "%s  <BeginArrowSize>%u</BeginArrowSize>\n", pad,
-                Line->BeginArrowSize);
-        fprintf(file, "%s  <EndArrow>%u</EndArrow>\n", pad,
-                Line->EndArrow);
-        fprintf(file, "%s  <EndArrowSize>%u</EndArrowSize>\n", pad,
-                Line->EndArrowSize);
-        fprintf(file, "%s  <LineCap>%u</LineCap>\n", pad,
-                Line->LineCap);
+	if (Line->BeginArrow)
+          fprintf(file, "%s  <BeginArrow>%u</BeginArrow>\n", pad,
+                  Line->BeginArrow);
+	if (Line->BeginArrowSize)
+          fprintf(file, "%s  <BeginArrowSize>%u</BeginArrowSize>\n", pad,
+                  Line->BeginArrowSize);
+	if (Line->EndArrow)
+          fprintf(file, "%s  <EndArrow>%u</EndArrow>\n", pad,
+                  Line->EndArrow);
+	if (Line->EndArrowSize)
+          fprintf(file, "%s  <EndArrowSize>%u</EndArrowSize>\n", pad,
+                  Line->EndArrowSize);
+	if (Line->LineCap)
+          fprintf(file, "%s  <LineCap>%u</LineCap>\n", pad,
+                  Line->LineCap);
         fprintf(file, "%s  <LineColor>%s</LineColor>\n", pad,
                 vdx_string_color(Line->LineColor));
-        fprintf(file, "%s  <LineColorTrans>%f</LineColorTrans>\n", pad,
-                Line->LineColorTrans);
-        fprintf(file, "%s  <LinePattern>%u</LinePattern>\n", pad,
-                Line->LinePattern);
-        fprintf(file, "%s  <LineWeight>%f</LineWeight>\n", pad,
-                Line->LineWeight);
-        fprintf(file, "%s  <Rounding>%f</Rounding>\n", pad,
-                Line->Rounding);
+	if (Line->LineColorTrans)
+          fprintf(file, "%s  <LineColorTrans>%f</LineColorTrans>\n", pad,
+                  Line->LineColorTrans);
+	if (Line->LinePattern)
+          fprintf(file, "%s  <LinePattern>%u</LinePattern>\n", pad,
+                  Line->LinePattern);
+	if (Line->LineWeight)
+          fprintf(file, "%s  <LineWeight>%f</LineWeight>\n", pad,
+                  Line->LineWeight);
+	if (Line->Rounding)
+          fprintf(file, "%s  <Rounding>%f</Rounding>\n", pad,
+                  Line->Rounding);
         break;
 
     case vdx_types_LineTo:
@@ -4514,33 +4557,47 @@ vdx_write_object(FILE *file, unsigned int depth, const void *p)
     case vdx_types_Para:
         Para = (const struct vdx_Para *)(p);
         fprintf(file, "%s<Para IX='%u'>\n", pad, Para->IX);
-        fprintf(file, "%s  <Bullet>%u</Bullet>\n", pad,
-                Para->Bullet);
-        fprintf(file, "%s  <BulletFont>%u</BulletFont>\n", pad,
-                Para->BulletFont);
-        fprintf(file, "%s  <BulletFontSize>%s</BulletFontSize>\n", pad,
-                vdx_convert_xml_string(Para->BulletFontSize));
-        fprintf(file, "%s  <BulletStr>%s</BulletStr>\n", pad,
-                vdx_convert_xml_string(Para->BulletStr));
-        fprintf(file, "%s  <Flags>%u</Flags>\n", pad,
-                Para->Flags);
+	if (Para->Bullet)
+          fprintf(file, "%s  <Bullet>%u</Bullet>\n", pad,
+                  Para->Bullet);
+	if (Para->BulletFont)
+          fprintf(file, "%s  <BulletFont>%u</BulletFont>\n", pad,
+                  Para->BulletFont);
+	if (Para->BulletFontSize)
+          fprintf(file, "%s  <BulletFontSize>%s</BulletFontSize>\n", pad,
+                  vdx_convert_xml_string(Para->BulletFontSize));
+	if (Para->BulletStr)
+          fprintf(file, "%s  <BulletStr>%s</BulletStr>\n", pad,
+                  vdx_convert_xml_string(Para->BulletStr));
+	if (Para->Flags)
+          fprintf(file, "%s  <Flags>%u</Flags>\n", pad,
+                  Para->Flags);
+	/* just to be sure */
         fprintf(file, "%s  <HorzAlign>%u</HorzAlign>\n", pad,
                 Para->HorzAlign);
-        fprintf(file, "%s  <IndFirst>%f</IndFirst>\n", pad,
-                Para->IndFirst);
-        fprintf(file, "%s  <IndLeft>%f</IndLeft>\n", pad,
-                Para->IndLeft);
-        fprintf(file, "%s  <IndRight>%f</IndRight>\n", pad,
-                Para->IndRight);
-        fprintf(file, "%s  <LocalizeBulletFont>%u</LocalizeBulletFont>\n", pad,
-                Para->LocalizeBulletFont);
-        fprintf(file, "%s  <SpAfter>%f</SpAfter>\n", pad,
-                Para->SpAfter);
-        fprintf(file, "%s  <SpBefore>%f</SpBefore>\n", pad,
-                Para->SpBefore);
-        fprintf(file, "%s  <SpLine>%f</SpLine>\n", pad,
+	if (Para->IndFirst)
+          fprintf(file, "%s  <IndFirst>%f</IndFirst>\n", pad,
+                  Para->IndFirst);
+	if (Para->IndLeft)
+          fprintf(file, "%s  <IndLeft>%f</IndLeft>\n", pad,
+                  Para->IndLeft);
+	if (Para->IndRight)
+          fprintf(file, "%s  <IndRight>%f</IndRight>\n", pad,
+                  Para->IndRight);
+	if (Para->LocalizeBulletFont)
+          fprintf(file, "%s  <LocalizeBulletFont>%u</LocalizeBulletFont>\n", pad,
+                  Para->LocalizeBulletFont);
+	if (Para->SpAfter)
+          fprintf(file, "%s  <SpAfter>%f</SpAfter>\n", pad,
+                  Para->SpAfter);
+	if (Para->SpBefore)
+          fprintf(file, "%s  <SpBefore>%f</SpBefore>\n", pad,
+                  Para->SpBefore);
+	if (Para->SpLine)
+          fprintf(file, "%s  <SpLine>%f</SpLine>\n", pad,
                 Para->SpLine);
-        fprintf(file, "%s  <TextPosAfterBullet>%u</TextPosAfterBullet>\n", pad,
+	if (Para->TextPosAfterBullet)
+          fprintf(file, "%s  <TextPosAfterBullet>%u</TextPosAfterBullet>\n", pad,
                 Para->TextPosAfterBullet);
         break;
 
@@ -4915,20 +4972,27 @@ vdx_write_object(FILE *file, unsigned int depth, const void *p)
     case vdx_types_TextXForm:
         TextXForm = (const struct vdx_TextXForm *)(p);
         fprintf(file, "%s<TextXForm>\n", pad);
-        fprintf(file, "%s  <TxtAngle>%f</TxtAngle>\n", pad,
-                TextXForm->TxtAngle);
-        fprintf(file, "%s  <TxtHeight>%f</TxtHeight>\n", pad,
-                TextXForm->TxtHeight);
-        fprintf(file, "%s  <TxtLocPinX>%f</TxtLocPinX>\n", pad,
-                TextXForm->TxtLocPinX);
-        fprintf(file, "%s  <TxtLocPinY>%f</TxtLocPinY>\n", pad,
-                TextXForm->TxtLocPinY);
-        fprintf(file, "%s  <TxtPinX>%f</TxtPinX>\n", pad,
-                TextXForm->TxtPinX);
-        fprintf(file, "%s  <TxtPinY>%f</TxtPinY>\n", pad,
-                TextXForm->TxtPinY);
-        fprintf(file, "%s  <TxtWidth>%f</TxtWidth>\n", pad,
-                TextXForm->TxtWidth);
+	if (TextXForm->TxtAngle)
+          fprintf(file, "%s  <TxtAngle>%f</TxtAngle>\n", pad,
+                  TextXForm->TxtAngle);
+	if (TextXForm->TxtHeight)
+          fprintf(file, "%s  <TxtHeight>%f</TxtHeight>\n", pad,
+                  TextXForm->TxtHeight);
+	if (TextXForm->TxtLocPinX)
+          fprintf(file, "%s  <TxtLocPinX>%f</TxtLocPinX>\n", pad,
+                  TextXForm->TxtLocPinX);
+	if (TextXForm->TxtLocPinY)
+          fprintf(file, "%s  <TxtLocPinY>%f</TxtLocPinY>\n", pad,
+                  TextXForm->TxtLocPinY);
+	if (TextXForm->TxtPinX)
+          fprintf(file, "%s  <TxtPinX>%f</TxtPinX>\n", pad,
+                  TextXForm->TxtPinX);
+	if (TextXForm->TxtPinY)
+          fprintf(file, "%s  <TxtPinY>%f</TxtPinY>\n", pad,
+                  TextXForm->TxtPinY);
+	if (TextXForm->TxtWidth)
+          fprintf(file, "%s  <TxtWidth>%f</TxtWidth>\n", pad,
+                  TextXForm->TxtWidth);
         break;
 
     case vdx_types_User:
@@ -5037,26 +5101,36 @@ vdx_write_object(FILE *file, unsigned int depth, const void *p)
     case vdx_types_XForm:
         XForm = (const struct vdx_XForm *)(p);
         fprintf(file, "%s<XForm>\n", pad);
-        fprintf(file, "%s  <Angle>%f</Angle>\n", pad,
-                XForm->Angle);
-        fprintf(file, "%s  <FlipX>%u</FlipX>\n", pad,
-                XForm->FlipX);
-        fprintf(file, "%s  <FlipY>%u</FlipY>\n", pad,
-                XForm->FlipY);
-        fprintf(file, "%s  <Height>%f</Height>\n", pad,
-                XForm->Height);
-        fprintf(file, "%s  <LocPinX>%f</LocPinX>\n", pad,
-                XForm->LocPinX);
-        fprintf(file, "%s  <LocPinY>%f</LocPinY>\n", pad,
-                XForm->LocPinY);
-        fprintf(file, "%s  <PinX>%f</PinX>\n", pad,
-                XForm->PinX);
-        fprintf(file, "%s  <PinY>%f</PinY>\n", pad,
-                XForm->PinY);
-        fprintf(file, "%s  <ResizeMode>%u</ResizeMode>\n", pad,
-                XForm->ResizeMode);
-        fprintf(file, "%s  <Width>%f</Width>\n", pad,
-                XForm->Width);
+	if (XForm->Angle)
+          fprintf(file, "%s  <Angle>%f</Angle>\n", pad,
+                  XForm->Angle);
+	if (XForm->FlipX)
+          fprintf(file, "%s  <FlipX>%u</FlipX>\n", pad,
+                  XForm->FlipX);
+	if (XForm->FlipY)
+          fprintf(file, "%s  <FlipY>%u</FlipY>\n", pad,
+                  XForm->FlipY);
+	if (XForm->Height)
+          fprintf(file, "%s  <Height>%f</Height>\n", pad,
+                  XForm->Height);
+	if (XForm->LocPinX)
+          fprintf(file, "%s  <LocPinX>%f</LocPinX>\n", pad,
+                  XForm->LocPinX);
+	if (XForm->LocPinY)
+          fprintf(file, "%s  <LocPinY>%f</LocPinY>\n", pad,
+                  XForm->LocPinY);
+	if (XForm->PinX)
+          fprintf(file, "%s  <PinX>%f</PinX>\n", pad,
+                  XForm->PinX);
+	if (XForm->PinY)
+          fprintf(file, "%s  <PinY>%f</PinY>\n", pad,
+                  XForm->PinY);
+	if (XForm->ResizeMode)
+          fprintf(file, "%s  <ResizeMode>%u</ResizeMode>\n", pad,
+                  XForm->ResizeMode);
+	if (XForm->Width)
+          fprintf(file, "%s  <Width>%f</Width>\n", pad,
+                  XForm->Width);
         break;
 
     case vdx_types_XForm1D:
