@@ -45,6 +45,7 @@
 #include "filter.h"
 #include "object.h"
 #include "properties.h"
+#include "prop_pixbuf.h"
 #include "dia_image.h"
 #include "group.h"
 
@@ -1402,95 +1403,6 @@ static void draw_string(DiaRenderer *self,
     g_slist_free(Shape.any.children);
 }
 
-/** Reads binary file and converts to Base64 data
- * @param filename file to read
- * @returns Base64 encoded data (or NULL if problem)
- * @note glibc 2.12 offers g_base64_encode()
- */
-static char *
-read_base64_file(const char *filename)
-{
-    FILE *f;
-    char *b64 = 0;
-    char *s = 0;
-    int c = 0;
-    char map[64];
-    unsigned int buf_len = 0;
-    unsigned char buf[3];
-    struct stat stat_buf;
-
-    if (g_stat(filename, &stat_buf))
-    {
-        message_error(_("Couldn't read file %s"), filename); 
-        return 0;
-    }
-    b64 = g_new0(char, stat_buf.st_size*4/3+5);
-    s = b64;
-
-    f = g_fopen(filename, "r+b");
-    if (!f)
-    {
-        message_error(_("Couldn't read file %s"), filename); 
-        return 0;
-    }
-
-    /* Construct Base64 mapping table */
-    for(c=0; c<26; c++) map[c] = 'A' + c;
-    for(c=0; c<26; c++) map[c+26] = 'a' + c;
-    for(c=0; c<10; c++) map[c+52] = '0' + c;
-    map[62] = '+';
-    map[63] = '/';
-
-    while((c = fgetc(f)) != EOF)
-    {
-        buf[buf_len++] = (unsigned char)c;
-        if (buf_len == 3)
-        {
-            *s++ = map[buf[0] >> 2];
-            *s++ = map[((buf[0] & 3) << 4) + (buf[1] >> 4)];
-            *s++ = map[((buf[1] & 15) << 2) + (buf[2] >> 6)];
-            *s++ = map[buf[2] & 63];
-            buf_len = 0;
-        }
-    }
-
-    if (buf_len == 1)
-    {
-        *s++ = map[buf[0] >> 2];
-        *s++ = map[((buf[0] & 3) << 4)];
-        *s++ = '=';
-        *s++ = '=';
-    }
-    if (buf_len == 2)
-    {
-        *s++ = map[buf[0] >> 2];
-        *s++ = map[((buf[0] & 3) << 4) + (buf[1] >> 4)];
-        *s++ = map[((buf[1] & 15) << 2)];
-        *s++ = '=';
-    }
-
-    fclose(f);
-    *s = 0;
-    return b64;
-
-    /* Deal with any chunks left over */
-    if (buf_len)
-    {
-        fputc(buf[0] << 2 | buf[1] >> 4, f);
-        if (buf_len > 1)
-        {
-            fputc(buf[1] << 4 | buf[2] >> 2, f);
-            if (buf_len > 2)
-            {
-                /* This one can't happen */
-                fputc(buf[2] << 6 | buf[3], f);
-            }
-        }
-    }
-
-    fclose(f);
-}
-
 /** Render a Dia bitmap
  * @param self a renderer
  * @param point top left
@@ -1512,8 +1424,6 @@ static void draw_image(DiaRenderer *self,
     struct vdx_ForeignData ForeignData;
     struct vdx_text text;
     char NameU[VDX_NAMEU_LEN];
-    const char *filename = NULL;
-    const char *suffix = NULL;
 
     if (renderer->first_pass) 
     {
@@ -1568,23 +1478,14 @@ static void draw_image(DiaRenderer *self,
     ForeignData.CompressionLevel = 1.0;
     ForeignData.ObjectHeight = visio_length(height);
     ForeignData.ObjectWidth = visio_length(width);
-    
-    filename = dia_image_filename(image);
-    if ((suffix = strrchr(filename, '.')))
-    {
-        suffix++;
-        if (!g_ascii_strncasecmp(suffix, "png", 3)) { ForeignData.CompressionType = "PNG"; }
-        if (!g_ascii_strncasecmp(suffix, "gif", 3)) { ForeignData.CompressionType = "GIF"; }
-        if (!g_ascii_strncasecmp(suffix, "jpg", 3) || !g_ascii_strncasecmp(suffix, "jpeg", 4)) 
-        { ForeignData.CompressionType = "JPEG"; }
-        if (!g_ascii_strncasecmp(suffix, "tif", 3) || !g_ascii_strncasecmp(suffix, "tiff", 4)) 
-        { ForeignData.CompressionType = "TIFF"; }
-    }
+
+    /* no more choice - see pixbuf_encode_base64 */
+    ForeignData.CompressionType = "PNG";
 
     /* And the data itself */
     memset(&text, 0, sizeof(text));
     text.any.type = vdx_types_text;
-    text.text = read_base64_file(filename);
+    text.text = pixbuf_encode_base64 (dia_image_pixbuf (image));
     if (!text.text) return;     /* Problem reading file */
 
     /* Setup children */

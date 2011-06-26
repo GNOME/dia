@@ -143,11 +143,11 @@ _pixbuf_encode (const gchar *buf,
 
   return TRUE;
 }
-void
-data_add_pixbuf (AttributeNode attr, GdkPixbuf *pixbuf)
+/** Reusable variant of pixbuf to base64 string conversion
+ */
+gchar *
+pixbuf_encode_base64 (const GdkPixbuf *pixbuf)
 {
-  ObjectNode composite = data_add_composite(attr, "pixbuf");
-  AttributeNode comp_attr = composite_add_attribute (composite, "data");
   GError *error = NULL;
   EncodeData ed = { 0, };
 
@@ -156,7 +156,7 @@ data_add_pixbuf (AttributeNode attr, GdkPixbuf *pixbuf)
   if (!gdk_pixbuf_save_to_callback (pixbuf, _pixbuf_encode, &ed, "png", &error, NULL)) {
     message_error (_("Saving inline pixbuf failed:\n%s"), error->message);
     g_error_free (error);
-    return;
+    return NULL;
   }
   /* g_base64_encode_close ... [needs] up to 5 bytes if line-breaking is enabled */
   /* also make the array 0-terminated */
@@ -165,9 +165,21 @@ data_add_pixbuf (AttributeNode attr, GdkPixbuf *pixbuf)
 				    &ed.state, &ed.save);
   ed.array->data[ed.size] = '\0';
 
-  (void)xmlNewChild (comp_attr, NULL, (const xmlChar *)"data", ed.array->data);
+  return g_byte_array_free (ed.array, FALSE);
+}
+void
+data_add_pixbuf (AttributeNode attr, GdkPixbuf *pixbuf)
+{
+  ObjectNode composite = data_add_composite(attr, "pixbuf");
+  AttributeNode comp_attr = composite_add_attribute (composite, "data");
+  gchar *b64;
 
-  g_byte_array_free (ed.array, TRUE);
+  b64 = pixbuf_encode_base64 (pixbuf);
+
+  if (b64)
+    (void)xmlNewChild (comp_attr, NULL, (const xmlChar *)"data", b64);
+
+  g_free (b64);
 }
 
 static void 

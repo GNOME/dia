@@ -280,6 +280,8 @@ EXPORTS
  dia_image_pixbuf
  dia_image_new_from_pixbuf
 
+ pixbuf_encode_base64
+
  dia_interactive_renderer_interface_get_type
  
  dialog_make
