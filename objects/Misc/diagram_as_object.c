@@ -208,9 +208,15 @@ _dae_draw(DiagramAsElement *dae, DiaRenderer *renderer)
 	    ef = filter_guess_export_filter (imgfname);
 	  close(fd);
 	  if (ef) {
+	    DiaImage *tmp_image;
 	    ef->export_func (dae->data, imgfname, dae->filename, ef->user_data);
 	    /* TODO: change export_func to return success or GError* */
-	    dae->image = dia_image_load (imgfname);
+	    tmp_image = dia_image_load (imgfname);
+	    /* some extra gymnastics to create an image w/o filename */
+	    if (tmp_image) {
+	      dae->image = dia_image_new_from_pixbuf ((GdkPixbuf *)dia_image_pixbuf (tmp_image));
+	      g_object_unref (tmp_image);
+	    }
 	  }
 	  g_unlink (imgfname);
 	  g_free (imgfname);
