@@ -167,13 +167,6 @@ create_vdx_beziergon(int num_points,
     return new_obj;
 }
 
-/* These are for later */
-
-static PropDescription vdx_simple_prop_descs_line[] = {
-    { PROP_STDNAME_LINE_WIDTH, PROP_STDTYPE_LINE_WIDTH },
-    { "line_colour", PROP_TYPE_COLOUR },
-    PROP_DESC_END};
-
 /* Not in standard includes */
 
 typedef enum _Valign Valign;
@@ -615,29 +608,22 @@ vdx_simple_properties(DiaObject *obj,
                       const struct vdx_Fill *Fill, const struct vdx_Line *Line,
                       const VDXDocument* theDoc)
 {
-    GPtrArray *props = prop_list_from_descs(vdx_simple_prop_descs_line,
-                                            pdtpp_true);
-    RealProperty *rprop = 0;
-    ColorProperty *cprop = 0;
+    GPtrArray *props = g_ptr_array_new ();
     unsigned int debug_id;
-
-    if (props->len != 2)
-    {
-        g_debug("vdx_simple_properties() - props->len != 4");
-        return;
-    }
 
     if (Line)
     {
-        rprop = g_ptr_array_index(props,0);
-        rprop->real_data = Line->LineWeight * vdx_Line_Scale;
+        Color color;
 
-        cprop = g_ptr_array_index(props,1);
-        cprop->color_data = Line->LineColor;
-	cprop->color_data.alpha = 1.0 - Line->LineColorTrans;
+        prop_list_add_line_width (props,Line->LineWeight * vdx_Line_Scale);
+
+        color = Line->LineColor;
+	color.alpha = 1.0 - Line->LineColorTrans;
 
         if (!Line->LinePattern)
-        { cprop->color_data = vdx_parse_color("#FFFFFF", theDoc); }
+	    color = vdx_parse_color("#FFFFFF", theDoc);
+
+        prop_list_add_line_colour (props, &color);
 
         if (Line->LinePattern)
         {
@@ -662,10 +648,7 @@ vdx_simple_properties(DiaObject *obj,
 
     if (Fill && Fill->FillPattern)
     {
-        cprop =
-            (ColorProperty *)make_new_prop("fill_colour",
-                                           PROP_TYPE_COLOUR,
-                                           PROP_FLAG_DONT_SAVE);
+        Color color;
 
         /* Dia can't do fill patterns, so we have to choose either the
            foreground or background colour.
@@ -673,13 +656,23 @@ vdx_simple_properties(DiaObject *obj,
 
         if (Fill->FillPattern == 1)
 	{
-            cprop->color_data = Fill->FillForegnd;
-	    cprop->color_data.alpha = 1.0 - Fill->FillForegndTrans;
+            color = Fill->FillForegnd;
+	    color.alpha = 1.0 - Fill->FillForegndTrans;
 	}
         else
 	{
-            cprop->color_data = Fill->FillBkgnd;
-	    cprop->color_data.alpha = 1.0 - Fill->FillBkgndTrans;
+            color = Fill->FillBkgnd;
+	    color.alpha = 1.0 - Fill->FillBkgndTrans;
+	}
+
+	if (!Line)
+	{
+	    /* Mostly a matter of rountrip - if set NoLine we still need line
+	     * properties because Dia can't do NoLine, just hide it by tiniting
+	     * the line with fill color and setting it's width to 0
+	     */
+	    prop_list_add_line_width (props, 0.0);
+	    prop_list_add_line_colour (props, &color);
 	}
 
         if (theDoc->debug_comments)
@@ -688,7 +681,7 @@ vdx_simple_properties(DiaObject *obj,
                     vdx_string_color(Fill->FillForegnd),
                     vdx_string_color(Fill->FillBkgnd));
         }
-        g_ptr_array_add(props,cprop);
+	prop_list_add_fill_colour (props, &color);
     }
     else
     {
@@ -698,48 +691,6 @@ vdx_simple_properties(DiaObject *obj,
         bprop->bool_data = FALSE;
 
         g_ptr_array_add(props,bprop);
-    }
-
-    if (!cprop) { g_debug("No colour"); }
-
-    /* Debugging using colour */
-    if (cprop && theDoc->debug_shape_ids)
-    {
-        gboolean debug_colour = FALSE;
-        g_debug("Colour %d", theDoc->shape_id);
-        if (theDoc->debug_shape_ids[0] == 0)
-        {
-            /* An empty list means every shape */
-            debug_colour = TRUE;
-        }
-        else
-        {
-            /* Check if current shape in list */
-            for(debug_id = 0; theDoc->debug_shape_ids[debug_id]; debug_id++)
-            {
-                if (theDoc->debug_shape_ids[debug_id] == theDoc->shape_id)
-                {
-                    debug_colour = TRUE;
-                }
-            }
-        }
-
-        if (!debug_colour)
-        {
-            /* Everything else is black */
-            cprop->color_data.red = 0;
-            cprop->color_data.green = 0;
-            cprop->color_data.blue = 0;
-            cprop->color_data.alpha = 1.0;
-        }
-        else
-        {
-            /* Construct a colour that gives you the shape ID */
-            cprop->color_data.red = 1;
-            cprop->color_data.green = (theDoc->shape_id >> 8)/255.0;
-            cprop->color_data.blue = (theDoc->shape_id & 0xff)/255.0;
-            cprop->color_data.alpha = 1.0;
-        }
     }
 
     obj->ops->set_props(obj, props);
