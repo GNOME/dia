@@ -48,6 +48,7 @@
 
 #include "diasvgrenderer.h"
 #include "textline.h"
+#include "prop_pixbuf.h" /* pixbuf_encode_base64() */
 
 #define DTOSTR_BUF_SIZE G_ASCII_DTOSTR_BUF_SIZE
 #define dia_svg_dtostr(buf,d)                                  \
@@ -749,8 +750,18 @@ draw_image(DiaRenderer *self,
   xmlSetProp(node, (const xmlChar *)"height", (xmlChar *) d_buf);
 
   /* if the image file location is relative to the SVG file's store 
-   * a relative path */
-  if ((uri = dia_relativize_filename (renderer->filename, dia_image_filename(image))) != NULL)
+   * a relative path - if it does not have a path: inline it */
+  if (strcmp (dia_image_filename(image), "(null)") == 0) {
+    gchar *b64 = pixbuf_encode_base64 (dia_image_pixbuf (image));
+    gchar *uri;
+
+    if (b64)
+      uri = g_strdup_printf ("data:image/png;base64,%s", b64);
+    else
+      uri = g_strdup ("(null)");
+    xmlSetProp(node, (const xmlChar *)"xlink:href", (xmlChar *) uri);
+    g_free (b64);    
+  } else if ((uri = dia_relativize_filename (renderer->filename, dia_image_filename(image))) != NULL)
     xmlSetProp(node, (const xmlChar *)"xlink:href", (xmlChar *) uri);
   else if ((uri = g_filename_to_uri(dia_image_filename(image), NULL, NULL)) != NULL)
     xmlSetProp(node, (const xmlChar *)"xlink:href", (xmlChar *) uri);
