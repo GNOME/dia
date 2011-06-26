@@ -676,7 +676,6 @@ read_image_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list, const gc
   xmlChar *str;
   real x = 0, y = 0, width = 0, height = 0;
   DiaObject *new_obj;
-  gchar *filename = NULL;
 
   str = xmlGetProp(node, (const xmlChar *)"x");
   if (str) {
@@ -704,21 +703,40 @@ read_image_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list, const gc
   if (!str) /* this doesn't look right but it appears to work w/o namespace --hb */
     str = xmlGetProp(node, (const xmlChar *)"href");
   if (str) {
-    filename = g_filename_from_uri((gchar *) str, NULL, NULL);
-    if (!filename || !g_path_is_absolute (filename)) {
-      /* if image file path is relative use the main path */
-      gchar *dir = g_path_get_dirname (filename_svg);
-      gchar *absfn = g_build_path (G_DIR_SEPARATOR_S, 
-	                           dir, filename ? filename : (gchar *)str, NULL);
+    if (strncmp ((char *)str, "data:image/", 11) == 0) {
+      /* inline data - skip format description like: data:image/png;base64, */
+      const char* data = strchr((char *)str, ',');
+      
+      if (data) {
+        GdkPixbuf *pixbuf = pixbuf_decode_base64 (data+1);
 
-      g_free (filename);
-      g_free (dir);
-      filename = absfn;
+	if (pixbuf) {
+	  ObjectChange *change;
+
+	  new_obj = create_standard_image(x, y, width, height, NULL);
+	  change = dia_object_set_pixbuf (new_obj, pixbuf);
+	  if (change) /* throw it away, noone needs it here  */
+	    change->free (change);
+	  g_object_unref (pixbuf);
+	}
+      }
+    } else {
+      gchar *filename = g_filename_from_uri((gchar *) str, NULL, NULL);
+      if (!filename || !g_path_is_absolute (filename)) {
+        /* if image file path is relative use the main path */
+        gchar *dir = g_path_get_dirname (filename_svg);
+        gchar *absfn = g_build_path (G_DIR_SEPARATOR_S, 
+	                             dir, filename ? filename : (gchar *)str, NULL);
+
+        g_free (filename);
+        g_free (dir);
+        filename = absfn;
+      }
+      new_obj = create_standard_image(x, y, width, height, filename ? filename : "<broken>");
+      g_free(filename);
     }
     xmlFree(str);
   }
-  new_obj = create_standard_image(x, y, width, height, filename ? filename : "<broken>");
-  g_free(filename);
 
   return g_list_append (list, new_obj);
 }

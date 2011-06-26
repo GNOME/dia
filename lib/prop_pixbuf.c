@@ -63,6 +63,49 @@ pixbufprop_copy(PixbufProperty *src)
   return prop;
 }
 
+/** Convert Base64 to pixbuf
+ * @param b64 Base64 encoded data
+ */
+GdkPixbuf *
+pixbuf_decode_base64 (const char *b64)
+{
+  /* see lib/prop_pixbuf.c(data_pixbuf) for a very similiar implementation */
+  GdkPixbuf *pixbuf = NULL;
+  GdkPixbufLoader *loader;
+  GError *error = NULL;
+
+  loader = gdk_pixbuf_loader_new ();
+  if (loader) {
+    gint state = 0;
+    guint save = 0;
+#   define BUF_SIZE 4096
+    guchar buf[BUF_SIZE];
+    gchar *in = (gchar *)b64; /* direct access, not involving another xmlStrDup/xmlFree */
+    gssize len = strlen (b64);
+	
+    do {
+      gsize step = g_base64_decode_step (in,
+					 len > BUF_SIZE ? BUF_SIZE : len,
+					 buf, &state, &save);
+      if (!gdk_pixbuf_loader_write (loader, buf, step, &error))
+	break;
+
+      in += BUF_SIZE;
+      len -= BUF_SIZE;
+    } while (len > 0);
+    if (gdk_pixbuf_loader_close (loader, error ? NULL : &error)) {
+      pixbuf = g_object_ref (gdk_pixbuf_loader_get_pixbuf (loader));
+    } else {
+      message_warning (_("Failed to load image form diagram:\n%s"), error->message);
+      g_error_free (error);
+    }
+
+    g_object_unref (loader);
+  }
+  return pixbuf;
+# undef BUF_SIZE
+}
+
 GdkPixbuf *
 data_pixbuf (DataNode data)
 {
