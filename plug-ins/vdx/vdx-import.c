@@ -634,6 +634,7 @@ vdx_simple_properties(DiaObject *obj,
 
         cprop = g_ptr_array_index(props,1);
         cprop->color_data = Line->LineColor;
+	cprop->color_data.alpha = 1.0 - Line->LineColorTrans;
 
         if (!Line->LinePattern)
         { cprop->color_data = vdx_parse_color("#FFFFFF", theDoc); }
@@ -671,9 +672,15 @@ vdx_simple_properties(DiaObject *obj,
            I've chosen the background colour for all patterns except solid */
 
         if (Fill->FillPattern == 1)
+	{
             cprop->color_data = Fill->FillForegnd;
+	    cprop->color_data.alpha = 1.0 - Fill->FillForegndTrans;
+	}
         else
+	{
             cprop->color_data = Fill->FillBkgnd;
+	    cprop->color_data.alpha = 1.0 - Fill->FillBkgndTrans;
+	}
 
         if (theDoc->debug_comments)
         {

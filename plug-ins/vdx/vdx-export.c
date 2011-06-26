@@ -510,6 +510,7 @@ create_Line(VDXRenderer *renderer, Color *color, struct vdx_Line *Line,
         break;
     }
     Line->LineColor = *color;
+    Line->LineColorTrans = 1.0 - color->alpha;
     Line->LineWeight = renderer->linewidth / vdx_Line_Scale;
     if (start_arrow || end_arrow) 
     {
@@ -531,6 +532,7 @@ create_Fill(VDXRenderer *renderer, Color *color, struct vdx_Fill *Fill)
     memset(Fill, 0, sizeof(*Fill));
     Fill->any.type = vdx_types_Fill;
     Fill->FillForegnd = *color;
+    Fill->FillForegndTrans = 1.0 - color->alpha;
     Fill->FillPattern = 1;      /* Solid fill */
 }
 
