@@ -859,6 +859,7 @@ static void fill_polygon(DiaRenderer *self,
     /* A Line (colour etc) */
     create_Fill(renderer, color, &Fill);
 
+    Geom.NoLine = 1;
     /* Setup children */
     Geom.any.children = g_slist_append(Geom.any.children, &MoveTo);
     for (i=0; i<num_points; i++)
@@ -1239,6 +1240,7 @@ static void fill_ellipse(DiaRenderer *self,
     /* Standard Geom object */
     memset(&Geom, 0, sizeof(Geom));
     Geom.any.type = vdx_types_Geom;
+    Geom.NoLine = 1;
 
     /* One child - Ellipse */
     memset(&Ellipse, 0, sizeof(Ellipse));
