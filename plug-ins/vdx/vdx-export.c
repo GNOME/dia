@@ -462,15 +462,16 @@ vdxCheckFont(VDXRenderer *renderer)
     int i;
 
     const char *cmp_font;
-    const char *font = dia_font_get_legacy_name(renderer->font);
+    const char *font = dia_font_get_family(renderer->font);
     for (i = 0; i < renderer->Fonts->len; i++) 
     {
         cmp_font = g_array_index(renderer->Fonts, char *, i);
-        if (!strcmp(cmp_font, font)) return i;
+        if (!strcmp(cmp_font, font))
+	  return i;
     }
     /* Grow table */
     g_array_append_val(renderer->Fonts, font);
-    return renderer->Fonts->len;
+    return renderer->Fonts->len - 1;
 }
 
 /** Create a Visio line style object
@@ -1287,10 +1288,15 @@ static void draw_string(DiaRenderer *self,
     Point a;
     struct vdx_Shape Shape;
     struct vdx_XForm XForm;
+    struct vdx_Para Para;
     struct vdx_Char Char;
     struct vdx_Text Text;
+    struct vdx_pp pp;
+    struct vdx_cp cp;
     struct vdx_text my_text;
     char NameU[VDX_NAMEU_LEN];
+    DiaFontStyle font_style;
+    real text_width;
 
     if (renderer->first_pass) 
     {
@@ -1315,13 +1321,35 @@ static void draw_string(DiaRenderer *self,
     /* XForm describes bounding box */
     memset(&XForm, 0, sizeof(XForm));
     XForm.any.type = vdx_types_XForm;
-    a = visio_point(*pos);
+    /* Align by math until we find the right tags */
+    a = *pos;
+    text_width = dia_font_string_width(text, renderer->font, renderer->fontheight);
+    /* apparently text_width is not useable to scale the text, tried with
+     * TextXForm.TxtWidth. But is needed to place the text box. If the text
+     * happens to overflow the box width a new line gets created. Ensure the
+     * text fits and the box is properly aligned, too.
+     */
+    text_width *= 1.2;
+    a.y += dia_font_descent(text, renderer->font, renderer->fontheight);
+    switch (alignment) {
+    case ALIGN_LEFT:
+      /* nothing to do this appears to be default */
+      break;
+    case ALIGN_CENTER:
+      a.x -= text_width / 2.0;
+      break;
+    case ALIGN_RIGHT:
+      a.x -= text_width;
+      break;
+    }
+    a = visio_point(a);
     XForm.PinX = a.x;
     XForm.PinY = a.y;
     XForm.Angle = 0;
     /* Hack to give it an approximate bounding box */
     XForm.Height = renderer->fontheight/vdx_Font_Size_Conversion;
-    XForm.Width = strlen(text)*renderer->fontheight/vdx_Font_Size_Conversion;
+    /* some arbitrary resizing of the paragraph box to make the text always fit */
+    XForm.Width = visio_length(text_width);
 
     /* Character properties */
     memset(&Char, 0, sizeof(Char));
@@ -1330,10 +1358,24 @@ static void draw_string(DiaRenderer *self,
     Char.Color = *color;
     Char.FontScale = 1;
     Char.Size = renderer->fontheight/vdx_Font_Size_Conversion;
+    /* Fontstyle: bold=1, italic=2, ... */
+    font_style = dia_font_get_style(renderer->font);
+    Char.Style = DIA_FONT_STYLE_GET_WEIGHT(font_style) >= DIA_FONT_MEDIUM ? 1 : 0 +
+                 DIA_FONT_STYLE_GET_SLANT(font_style) ? 2 : 0;
+    /* ... reference the above */
+    memset(&cp, 0, sizeof(cp));
+    cp.any.type = vdx_types_cp;
 
     /* Text object - no attributes */
     memset(&Text, 0, sizeof(Text));
     Text.any.type = vdx_types_Text;
+
+    memset(&Para, 0, sizeof(Para));
+    Para.any.type = vdx_types_Para;
+    Para.HorzAlign = alignment; /* compatible enum : Left, Center, Right */
+    /* pp - Paragraph properties */
+    memset(&pp, 0, sizeof(pp));
+    pp.any.type = vdx_types_pp;
 
     /* text object (XML pseudo-tag) - no attributes */
     memset(&my_text, 0, sizeof(my_text));
@@ -1341,10 +1383,13 @@ static void draw_string(DiaRenderer *self,
     my_text.text = (char *)text;
 
     /* Construct the children */
+    Text.any.children = g_slist_append(Text.any.children, &pp);
+    Text.any.children = g_slist_append(Text.any.children, &cp);
     Text.any.children = g_slist_append(Text.any.children, &my_text);
 
     Shape.any.children = g_slist_append(Shape.any.children, &XForm);
     Shape.any.children = g_slist_append(Shape.any.children, &Char);
+    Shape.any.children = g_slist_append(Shape.any.children, &Para);
     Shape.any.children = g_slist_append(Shape.any.children, &Text);
 
     vdx_write_object(renderer->file, renderer->xml_depth, &Shape);
@@ -1690,7 +1735,8 @@ write_header(DiagramData *data, VDXRenderer *renderer)
             memset(&Font, 0, sizeof(Font));
             Font.any.type = vdx_types_FontEntry;
             f = g_array_index(renderer->Fonts, char *, i);
-            
+
+            Font.ID = i;
             /* Assume want stndard fonts names converted */
             if (!strcmp(f, "Helvetica")) f = "Arial";
             if (!strcmp(f, "Times")) f = "Times New Roman";
@@ -1772,7 +1818,7 @@ write_header(DiagramData *data, VDXRenderer *renderer)
     memset(&Para, 0, sizeof(Para));
     Para.any.type = vdx_types_Para;
     Para.SpLine = -1.2;
-    Para.HorzAlign = 1;
+    Para.HorzAlign = 0; /* left align in the box */
     Para.BulletStr = "&#xe000;";
     Para.BulletFontSize = "-1";
 
