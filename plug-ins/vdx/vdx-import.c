@@ -1967,53 +1967,47 @@ plot_nurbs(const struct vdx_Geom *Geom, const struct vdx_XForm *XForm,
     return newobj;
 }
 
-/** Converts Base64 data to binary and writes to file
- * @param filename file to write
+/** Convert Base64 to pixbuf
  * @param b64 Base64 encoded data
  */
-
-static void
-write_base64_file(const char *filename, const char *b64)
+static GdkPixbuf *
+pixbuf_create_from_base64 (const char *b64)
 {
-#define BUF_SIZE 4096
-    FILE *f;
-    const gchar *in = b64;
-    guchar buf[BUF_SIZE];
+  /* see lib/prop_pixbuf.c(data_pixbuf) for a very similiar implementation */
+  GdkPixbuf *pixbuf = NULL;
+  GdkPixbufLoader *loader;
+  GError *error = NULL;
+
+  loader = gdk_pixbuf_loader_new ();
+  if (loader) {
     gint state = 0;
     guint save = 0;
-    gssize len;
+#   define BUF_SIZE 4096
+    guchar buf[BUF_SIZE];
+    gchar *in = (gchar *)b64; /* direct access, not involving another xmlStrDup/xmlFree */
+    gssize len = strlen (b64);
+	
+    do {
+      gsize step = g_base64_decode_step (in,
+					 len > BUF_SIZE ? BUF_SIZE : len,
+					 buf, &state, &save);
+      if (!gdk_pixbuf_loader_write (loader, buf, step, &error))
+	break;
 
-    if (!filename || !b64)
-    {
-        g_debug("write_base64_file() called with null parameters");
-        return;
+      in += BUF_SIZE;
+      len -= BUF_SIZE;
+    } while (len > 0);
+    if (gdk_pixbuf_loader_close (loader, error ? NULL : &error)) {
+      pixbuf = g_object_ref (gdk_pixbuf_loader_get_pixbuf (loader));
+    } else {
+      message_warning (_("Failed to load image form diagram:\n%s"), error->message);
+      g_error_free (error);
     }
 
-    f = g_fopen(filename, "w+b");
-    if (!f)
-    {
-        message_error(_("Couldn't write file %s"), filename);
-        return;
-    }
-
-    len = strlen (b64);
-    do
-    {
-        gsize ret = g_base64_decode_step (in,
-					  len > BUF_SIZE ? BUF_SIZE : len,
-					  buf, &state, &save);
-	if (fwrite (buf, sizeof(guchar), ret, f) != ret)
-	{
-	    message_error(_("Couldn't write file %s"), filename); 
-	    break;
-	}
-	in += BUF_SIZE;
-	len -= BUF_SIZE;
-    }
-    while (len > 0);
-
-    fclose(f);
-#undef BUF_SIZE
+    g_object_unref (loader);
+  }
+  return pixbuf;
+# undef BUF_SIZE
 }
 
 /** Plots a bitmap
@@ -2035,16 +2029,11 @@ plot_image(const struct vdx_Geom *Geom, const struct vdx_XForm *XForm,
 
     Point p;
     float h, w;
-    static char *image_dir = 0;
 
     GSList *item;
     struct vdx_any *Any;
     struct vdx_text *text;
     const char *base64_data = 0;
-    static unsigned int file_counter = 0;
-    char suffix[5];
-    int i;
-    char *filename;
 
     *more = 0;
     /* We can only take a few formats */
@@ -2053,7 +2042,7 @@ plot_image(const struct vdx_Geom *Geom, const struct vdx_XForm *XForm,
         if (ForeignData->ForeignType &&
             !strcmp(ForeignData->ForeignType, "Bitmap"))
         {
-            strcpy(suffix, "BMP");
+            /* BMP */
         }
         else
         {
@@ -2063,48 +2052,6 @@ plot_image(const struct vdx_Geom *Geom, const struct vdx_XForm *XForm,
             return 0;
         }
     }
-    else
-    {
-        if (strcmp(ForeignData->CompressionType, "GIF") &&
-            strcmp(ForeignData->CompressionType, "JPEG") &&
-            strcmp(ForeignData->CompressionType, "PNG") &&
-            strcmp(ForeignData->CompressionType, "TIFF"))
-        {
-            message_error(_("Couldn't handle foreign object type %s"),
-                          ForeignData->CompressionType);
-            return 0;
-        }
-        strcpy(suffix, ForeignData->CompressionType);
-    }
-
-    /* Create the filename for the embedded object */
-
-    file_counter++;
-    for (i=0; suffix[i]; i++)
-    {
-        suffix[i] = tolower(suffix[i]);
-    }
-
-    if (!image_dir)
-    {
-        /* Security: don't trust tempnam to be unique, but use it as a
-           directory name. If the mkdir succeeds, we can't be subject
-           to a symlink attack (assuming /tmp is sticky) */
-        /* Functional: Dia includes bitmaps by reference, and we're
-           putting these bitmaps in a temporary location, so they'll be lost
-           on reboot. We could write them to the directory the file came
-           from or the current directory - both are problematic */
-        image_dir = (char *)tempnam(0, "dia");
-        if (!image_dir) return 0;
-        if (g_mkdir(image_dir, 0700))
-        {
-            message_error(_("Couldn't make object directory %s"), image_dir);
-            return 0;
-        }
-    }
-    filename = g_new(char, strlen(image_dir) + strlen(suffix) + 10);
-    sprintf(filename, "%s/%d.%s", image_dir, file_counter, suffix);
-    g_debug("Writing file %s", filename);
 
     /* Find the data in Base64 encoding in the body of ForeignData */
     for (item = ForeignData->any.children; item; item = item->next)
@@ -2118,8 +2065,6 @@ plot_image(const struct vdx_Geom *Geom, const struct vdx_XForm *XForm,
         }
     }
 
-    write_base64_file(filename, base64_data);
-
     /* Positioning data */
     p.x = Foreign->ImgOffsetX;
     p.y = Foreign->ImgOffsetY;
@@ -2130,9 +2075,18 @@ plot_image(const struct vdx_Geom *Geom, const struct vdx_XForm *XForm,
     /* Visio supplies bottom left, but Dia needs top left */
     p.y -= h;
 
-    newobj = create_standard_image(p.x, p.y, w, h, filename);
+    newobj = create_standard_image(p.x, p.y, w, h, NULL);
+    {
+	GPtrArray *props = g_ptr_array_new ();
+	PixbufProperty *prop = (PixbufProperty *)make_new_prop ("pixbuf", PROP_TYPE_PIXBUF, PROP_FLAG_DONT_SAVE);
 
-    g_free(filename);
+	/* In error prop->pixbuf is NULL, aka. broken image */
+	prop->pixbuf = pixbuf_create_from_base64 (base64_data);
+	g_ptr_array_add (props, prop);
+
+	newobj->ops->set_props(newobj, props);
+	prop_list_free(props);
+    }
     return newobj;
 }
 

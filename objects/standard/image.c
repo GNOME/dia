@@ -191,7 +191,7 @@ image_set_props(Image *image, GPtrArray *props)
 {
   struct stat st;
   time_t mtime = 0;
-  char *old_file = image->file ? g_strdup(image->file) : "";
+  char *old_file = image->file ? g_strdup(image->file) : NULL;
   const GdkPixbuf *old_pixbuf = dia_image_pixbuf (image->image);
   gboolean was_inline = image->inline_data;
 
@@ -228,7 +228,7 @@ image_set_props(Image *image, GPtrArray *props)
     if (was_inline && !image->inline_data)
       /* if saving fails we keep it inline */
       image->inline_data = !dia_image_save (image->image, image->file);
-  } else if (image->file && (strcmp(image->file, old_file) != 0 || image->mtime != mtime)) {
+  } else if (image->file && ((old_file && strcmp(image->file, old_file) != 0) || image->mtime != mtime)) {
     Element *elem = &image->element;
     DiaImage *img = NULL;
 

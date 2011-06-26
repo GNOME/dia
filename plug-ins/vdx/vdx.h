@@ -92,7 +92,4 @@ vdx_write_object(FILE *file, unsigned int depth, const void *p);
 const char *
 vdx_convert_xml_string(const char *s);
 
-char *
-tempnam(const char *dir, const char *pfx);
-
 #endif
