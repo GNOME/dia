@@ -106,7 +106,7 @@ _alias_create (Point *startpoint,
   DiaObjectType *alias_type = (DiaObjectType *)user_data;
   DiaObjectType *real_type;
   
-  g_return_val_if_fail (alias_type != NULL || alias_type->name != NULL, NULL);
+  g_return_val_if_fail (alias_type != NULL && alias_type->name != NULL, NULL);
 
   real_type = _alias_lookup (alias_type->name);
   if (!real_type)
