@@ -208,24 +208,16 @@ bus_move_handle(Bus *bus, Handle *handle,
 {
   Connection *conn = &bus->connection;
   Point *endpoints;
-  static real *parallel=NULL;
-  static real *perp=NULL;
-  static int max_num=0;
+  real *parallel=NULL;
+  real *perp=NULL;
   Point vhat, vhatperp;
   Point u;
   real vlen, vlen2;
   real len_scale;
   int i;
 
-  if (bus->num_handles>max_num) {
-    if (parallel!=NULL) {
-      g_free(parallel);
-      g_free(perp);
-    }
-    parallel = g_malloc(sizeof(real)*bus->num_handles);
-    perp = g_malloc(sizeof(real)*bus->num_handles);
-    max_num = bus->num_handles;
-  }
+  parallel = (real *)g_alloca (bus->num_handles * sizeof(real));
+  perp = (real *)g_alloca (bus->num_handles * sizeof(real));
 
   if (handle->id == HANDLE_BUS) {
     handle->pos = *to;
