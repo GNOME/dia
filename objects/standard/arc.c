@@ -268,8 +268,9 @@ arc_update_handles(Arc *arc)
     middle_pos->x -= arc->curve_distance*dy/dist;
     middle_pos->y += arc->curve_distance*dx/dist;
   }
-  /* just mirroring the center position */
+  /* just update it from the calculated position */
   arc->center_handle.pos = arc->center;
+
 }
 
 static real
@@ -327,6 +328,22 @@ arc_find_radial(const Arc *arc, const Point *to, Point *best)
         
 }
 
+static gboolean
+point_projection_is_between (const Point *c,
+			     const Point *a,
+			     const Point *b)
+{
+  real len = distance_point_point (a, b);
+  real r;
+
+  if (len > 0) {
+    real r = ((a->y - c->y) * (a->y - b->y) - (a->x - c->x) * (b->x - a->x)) / (len * len);
+    return (r >= 0 && r <= 1.0);
+  }
+  /* identity of three points ? */
+  return (c->x == a->x && c->y == a->y);
+}
+
 static ObjectChange*
 arc_move_handle(Arc *arc, Handle *handle,
 		Point *to, ConnectionPoint *cp,
@@ -346,7 +363,7 @@ arc_move_handle(Arc *arc, Handle *handle,
     } else if (handle->id == HANDLE_CENTER) {
       p1 = &arc->connection.endpoints[0];
       p2 = &arc->connection.endpoints[1];
-      /* TODO: special movement, e.g. change the radius */
+      /* special movement, let the center point snap to grid */
     } else {
       p1 = &arc->middle_handle.pos;
       p2 = &arc->connection.endpoints[(handle == (&arc->connection.endpoint_handles[0])) ? 1 : 0];
@@ -361,7 +378,28 @@ arc_move_handle(Arc *arc, Handle *handle,
           arc->curve_distance = arc_compute_curve_distance(arc, &arc->connection.endpoints[0], &arc->connection.endpoints[1], to);
           TRACE(printf("curve_dist: %.2f \n",arc->curve_distance));
   } else if (handle->id == HANDLE_CENTER) {
-          /* we can move the handle only on the line through center and middle */
+          /* We can move the handle only on the line through center and middle
+	   * Intersecting chord theorem says a*a=b*c
+	   *   with a = dist(p1,p2)/2
+	   *        b = curve_distance
+	   *        c = 2*radius-b or c = r + d
+	   *   with Pythagoras r^2 = d^2 + a^2
+	   *        d = sqrt(r^2-a^2)
+	   */
+	  Point p0 = arc->connection.endpoints[0];
+	  Point p1 = arc->connection.endpoints[1];
+	  Point p2 = { (p0.x + p1.x) / 2.0, (p0.y + p1.y) / 2.0 };
+	  real a = distance_point_point (&p0, &p1)/2.0;
+	  real r = (  distance_point_point (&p0, to) + distance_point_point (&p1, to)) / 2.0;
+	  real d = sqrt(r*r-a*a);
+	  real cd;
+	  /* If the new point lies between midpoint and the chords center the angles is >180,
+	   * so c is smaller than r */
+	  if (point_projection_is_between (to, &arc->middle_handle.pos, &p2))
+	    d = -d;
+	  cd  = a*a / (r+d);
+	  /* the sign of curve_distance, i.e. if the arc angle is clockwise, does not change */
+	  arc->curve_distance = (arc->curve_distance > 0) ? cd : -cd;
   } else {
         Point best;
         TRACE(printf("Modifiers: %d \n",modifiers));
@@ -632,7 +670,7 @@ _arc_setup_handles(Arc *arc)
 
   obj->handles[3] = &arc->center_handle;
   arc->center_handle.id = HANDLE_CENTER;
-  arc->center_handle.type = HANDLE_NON_MOVABLE;
+  arc->center_handle.type = HANDLE_MINOR_CONTROL;
   arc->center_handle.connect_type = HANDLE_NONCONNECTABLE;
   arc->center_handle.connected_to = NULL;
 }
