@@ -1160,7 +1160,7 @@ typedef struct {
 static gpointer
 _autosave_in_thread (gpointer data)
 {
-  AutoSaveInfo *asi = (AutoSaveInfo *)asi;
+  AutoSaveInfo *asi = (AutoSaveInfo *)data;
 
   diagram_data_raw_save(asi->clone, asi->filename);
   g_object_unref (asi->clone);
