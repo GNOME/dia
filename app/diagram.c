@@ -1421,7 +1421,6 @@ diagram_place_down_selected(Diagram *dia)
   g_assert(g_list_length (dia->data->selected) == g_list_length(sorted_list));
 
   new_list = g_list_copy(orig_list);
-  tmp = new_list;
   stmp = sorted_list;
 
   for (tmp = new_list; tmp != NULL; tmp = g_list_next(tmp)) {
