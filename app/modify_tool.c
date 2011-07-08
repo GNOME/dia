@@ -398,13 +398,24 @@ modify_motion(ModifyTool *tool, GdkEventMotion *event,
   ConnectionPoint *connectionpoint = NULL;
   ObjectChange *objchange = NULL;
 
-  if (tool->state==STATE_NONE)
-    return; /* Fast path... */
-
-  auto_scroll = ddisplay_autoscroll(ddisp, event->x, event->y);
-  
   ddisplay_untransform_coords(ddisp, event->x, event->y, &to.x, &to.y);
 
+  if (tool->state==STATE_NONE) {
+    DiaObject *obj = NULL;
+    Handle *handle = NULL;
+    real dist;
+    dist = diagram_find_closest_handle (ddisp->diagram, &handle, &obj, &to);
+    if  (handle && handle->type != HANDLE_NON_MOVABLE
+      && handle->id >= HANDLE_RESIZE_NW && handle->id <= HANDLE_RESIZE_SE
+      && handle_is_clicked(ddisp, handle, &to)
+      && g_list_length (ddisp->diagram->data->selected) == 1)
+      ddisplay_set_all_cursor(get_cursor(CURSOR_DIRECTION_0 + handle->id));
+    else
+      ddisplay_set_all_cursor(get_cursor(CURSOR_POINT));
+    return; /* Fast path... */
+  }
+  auto_scroll = ddisplay_autoscroll(ddisp, event->x, event->y);
+  
   if (!modify_move_already(tool, ddisp, &to)) return;
 
   switch (tool->state) {

@@ -293,6 +293,8 @@ create_create_object_tool(DiaObjectType *objtype, void *user_data,
   tool->user_data = user_data;
   tool->moving = FALSE;
   tool->invert_persistence = invert_persistence;
+
+  ddisplay_set_all_cursor(get_cursor(CURSOR_CREATE));
   
   return (Tool *) tool;
 }

@@ -33,6 +33,8 @@
 #include "pixmaps/magnify-plus-mask.xbm"
 #include "pixmaps/magnify-minus-data.xbm"
 #include "pixmaps/magnify-minus-mask.xbm"
+#include "pixmaps/cursor-create-data.xbm"
+#include "pixmaps/cursor-create-mask.xbm"
 
 static struct {
   /* Can't use a union because it can't be statically initialized
@@ -46,30 +48,44 @@ static struct {
   int hot_y;
   GdkCursor *cursor;
 } cursors[MAX_CURSORS] = {
-  { GDK_LEFT_PTR },
-  { GDK_FLEUR },
-  { DIA_CURSOR,
+  { GDK_LEFT_PTR }, /* CURSOR_POINT */
+  { DIA_CURSOR, /* CURSOR_CREATE */
+    cursor_create_data_bits,
+    cursor_create_data_width, cursor_create_data_height,
+    cursor_create_mask_bits,
+    0, 0},  
+  { GDK_FLEUR }, /* CURSOR_SCROLL */
+  { DIA_CURSOR, /* CURSOR_GRAB */
     hand_open_data_bits,
     hand_open_data_width, hand_open_data_height,
     hand_open_mask_bits,
     hand_open_data_width/2, hand_open_data_height/2},
-  { DIA_CURSOR, 
+  { DIA_CURSOR, /* CURSOR_GRABBING */
     hand_closed_data_bits,
     hand_closed_data_width, hand_closed_data_height,
     hand_closed_mask_bits,
     hand_closed_data_width/2, hand_closed_data_height/2},
-  { DIA_CURSOR,
+  { DIA_CURSOR, /* CURSOR_ZOOM_OUT */
     magnify_minus_data_bits,
     magnify_minus_data_width, magnify_minus_data_height,
     magnify_minus_mask_bits,
     magnify_minus_data_x_hot, magnify_minus_data_y_hot},
-  { DIA_CURSOR,
+  { DIA_CURSOR, /* CURSOR_ZOOM_IN */
     magnify_plus_data_bits,
     magnify_plus_data_width, magnify_plus_data_height,
     magnify_plus_mask_bits,
     magnify_plus_data_x_hot, magnify_plus_data_y_hot},
-  { GDK_CROSS_REVERSE },
-  { GDK_XTERM },
+  { GDK_CROSS_REVERSE }, /* CURSOR_CONNECT */
+  { GDK_XTERM }, /* CURSOR_XTERM */
+  /* for safety reasons these should be last and must be in the same order HANDLE_RESIZE_* */
+  { GDK_TOP_LEFT_CORNER },/* CURSOR_DIRECTION_0 + NW */
+  { GDK_TOP_SIDE },/* N */
+  { GDK_TOP_RIGHT_CORNER },/* NE */
+  { GDK_LEFT_SIDE },/* W */
+  { GDK_RIGHT_SIDE },/* E */
+  { GDK_BOTTOM_LEFT_CORNER },/* SE */
+  { GDK_BOTTOM_SIDE },/* S */
+  { GDK_BOTTOM_RIGHT_CORNER }, /* SW */
 };
 
 GdkCursor *

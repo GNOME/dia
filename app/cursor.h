@@ -22,6 +22,7 @@
 
 typedef enum {
   CURSOR_POINT,
+  CURSOR_CREATE,
   CURSOR_SCROLL,
   CURSOR_GRAB,
   CURSOR_GRABBING,
@@ -29,6 +30,8 @@ typedef enum {
   CURSOR_ZOOM_IN,
   CURSOR_CONNECT,
   CURSOR_XTERM,
+  CURSOR_DIRECTION_0, /* there are eight of them */
+  CURSOR_DIRECTION_7 = CURSOR_DIRECTION_0 + 7,
   MAX_CURSORS
 } DiaCursorType;
 

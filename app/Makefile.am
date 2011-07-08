@@ -232,6 +232,8 @@ EXTRA_DIST = \
 	pixmaps/portrait.xpm \
 	pixmaps/landscape.xpm \
 	\
+	pixmaps/cursor-create-data.xbm \
+	pixmaps/cursor-create-mask.xbm \
 	pixmaps/hand-open-data.xbm \
 	pixmaps/hand-open-mask.xbm \
 	pixmaps/hand-closed-data.xbm \
