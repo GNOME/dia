@@ -465,7 +465,7 @@ static DiaCallbackFilter cb_clipboard = {
 
 static DiaCallbackFilter cb_gtk_print = {
     "FilePrintGTK",
-    N_("Print (GTK) ..."),
+    N_("Print (GTK) \342\200\246"),
     "/InvisibleMenu/File/FilePrint",
     cairo_print_callback,
     (void*)OUTPUT_PDF

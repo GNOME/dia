@@ -284,7 +284,7 @@ dia_color_selector_more_callback(GtkWidget *widget, gpointer userdata)
 static GtkWidget *
 dia_color_selector_menu_new (DiaColorSelector *cs)
 {
-  GtkWidget *otheritem = gtk_menu_item_new_with_label(_("More colors..."));
+  GtkWidget *otheritem = gtk_menu_item_new_with_label(_("More colors\342\200\246"));
   GtkWidget *ddm = dia_dynamic_menu_new(dia_color_selector_create_string_item,
 					NULL,
 					GTK_MENU_ITEM(otheritem),

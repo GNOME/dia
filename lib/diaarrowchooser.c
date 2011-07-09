@@ -475,7 +475,7 @@ dia_arrow_chooser_new(gboolean left, DiaChangeArrowCallback callback,
     gtk_menu_shell_append (GTK_MENU_SHELL (menu), mi);
     gtk_widget_show(mi);
   }
-  mi = gtk_menu_item_new_with_label(_dia_translate("Details...", NULL));
+  mi = gtk_menu_item_new_with_label(_dia_translate("Details\342\200\246", NULL));
   g_signal_connect(G_OBJECT(mi), "activate",
 		   G_CALLBACK(dia_arrow_chooser_dialog_show), chooser);
   gtk_menu_shell_append (GTK_MENU_SHELL (menu), mi);
