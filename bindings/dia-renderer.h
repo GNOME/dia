@@ -50,7 +50,7 @@ public :
 
     //! called before any rendering takes palce
     //! \ingroup RendererRequired
-    virtual void begin_render ();
+    virtual void begin_render (const Rectangle *);
     //! finished rendering
     //! \ingroup RendererRequired
     virtual void end_render ();

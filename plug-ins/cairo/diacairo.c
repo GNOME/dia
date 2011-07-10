@@ -173,11 +173,17 @@ export_data(DiagramData *data, const gchar *filename,
 #endif
 #ifdef CAIRO_HAS_PDF_SURFACE
   case OUTPUT_PDF :
-#define DPI 72.0 /* 600.0? */
+#define DPI 300.0 /* 600.0? */
     /* I just don't get how the scaling is supposed to work, dpi versus page size ? */
     renderer->scale = data->paper.scaling * (72.0 / 2.54);
-    width = data->paper.width * (72.0 / 2.54) + 0.5;
-    height = data->paper.height * (72.0 / 2.54) + 0.5;
+    /* Dia's paper.width already contains the scale, cairo needs it without 
+     * Similar for margins, Dia's without, but cairo wants them. The full
+     * extents don't matter here, because we do cairo_pdf_set_size() for every page.
+     */
+    width = (data->paper.lmargin + data->paper.width * data->paper.scaling + data->paper.rmargin)
+          * (72.0 / 2.54) + 0.5;
+    height = (data->paper.tmargin + data->paper.height * data->paper.scaling + data->paper.bmargin)
+           * (72.0 / 2.54) + 0.5;
     DIAG_NOTE(g_message ("PDF Surface %dx%d\n", (int)width, (int)height));
     renderer->surface = cairo_pdf_surface_create (filename_crt,
                                                   width, height);
@@ -273,7 +279,11 @@ export_data(DiagramData *data, const gchar *filename,
   DIAG_NOTE(g_message("export_data extents %f,%f -> %f,%f", 
             data->extents.left, data->extents.top, data->extents.right, data->extents.bottom));
 
-  data_render(data, DIA_RENDERER(renderer), NULL, NULL, NULL);
+  if (OUTPUT_PDF == kind)
+    data_render_paginated(data, DIA_RENDERER(renderer), NULL);
+  else
+    data_render(data, DIA_RENDERER(renderer), NULL, NULL, NULL);
+
 #if defined CAIRO_HAS_PNG_FUNCTIONS
   if (OUTPUT_PNGA == kind || OUTPUT_PNG == kind)
     {
@@ -374,7 +384,8 @@ static const gchar *pdf_extensions[] = { "pdf", NULL };
 static DiaExportFilter pdf_export_filter = {
     N_("Cairo Portable Document Format"),
     pdf_extensions,
-    export_print_data,
+    /* not using export_print_data() due to bug 599401 */
+    export_data,
     (void*)OUTPUT_PDF,
     "cairo-pdf"
 };

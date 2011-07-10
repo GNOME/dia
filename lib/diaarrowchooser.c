@@ -224,7 +224,7 @@ dia_arrow_preview_expose(GtkWidget *widget, GdkEventExpose *event)
     renderer = new_pixmap_renderer(win, width, height);
     renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
     renderer_pixmap_set_pixmap(renderer, win, x, y, width, height);
-    renderer_ops->begin_render(renderer);
+    renderer_ops->begin_render(renderer, NULL);
     renderer_ops->set_linewidth(renderer, linewidth);
     {
       Color color_bg, color_fg;

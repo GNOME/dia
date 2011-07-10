@@ -170,7 +170,9 @@ typedef void (*ObjectRenderer)(DiaObject *obj, DiaRenderer *renderer,
 			       gpointer data);
 void data_render(DiagramData *data, DiaRenderer *renderer, Rectangle *update,
 		 ObjectRenderer obj_renderer /* Can be NULL */,
-		 gpointer gdata);  
+		 gpointer gdata);
+void data_render_paginated(DiagramData *data, DiaRenderer *renderer, gpointer user_data);
+
 void layer_render(Layer *layer, DiaRenderer *renderer, Rectangle *update,
 		  ObjectRenderer obj_renderer /* Can be NULL */,
 		  gpointer data,

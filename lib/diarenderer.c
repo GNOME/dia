@@ -52,7 +52,7 @@ static void dia_renderer_class_init (DiaRendererClass *klass);
 static int get_width_pixels (DiaRenderer *);
 static int get_height_pixels (DiaRenderer *);
 
-static void begin_render (DiaRenderer *);
+static void begin_render (DiaRenderer *, const Rectangle *update);
 static void end_render (DiaRenderer *);
 
 static void set_linewidth (DiaRenderer *renderer, real linewidth);
@@ -309,7 +309,7 @@ dia_renderer_class_init (DiaRendererClass *klass)
 }
 
 static void 
-begin_render (DiaRenderer *object)
+begin_render (DiaRenderer *object, const Rectangle *update)
 {
   g_warning ("%s::begin_render not implemented!", 
              G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (object)));

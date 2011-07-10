@@ -184,6 +184,58 @@ static PropDescription svg_text_prop_descs[] = {
     { "text", PROP_TYPE_TEXT },
     PROP_DESC_END};
 
+
+/* <use/> has x and y attributes, use to position */
+static void
+use_position (DiaObject *obj, xmlNodePtr node)
+{
+    Point pos = {0, 0};
+    xmlChar *str;
+
+    str = xmlGetProp(node, (const xmlChar *)"x");
+    if (str) {
+        pos.x = get_value_as_cm((char *) str, NULL);
+        xmlFree(str);
+    }
+
+    str = xmlGetProp(node, (const xmlChar *)"y");
+    if (str) {
+        pos.y = get_value_as_cm((char *) str, NULL);
+        xmlFree(str);
+    }
+    /* assuming the original is at 0,0 */
+    obj->ops->move(obj, &pos);
+
+    str = xmlGetProp(node, (const xmlChar *)"transform");
+    if (str) {
+        DiaMatrix *m = dia_svg_parse_transform ((const gchar *)str, user_scale);
+
+	if (m) {
+	    GPtrArray *props = g_ptr_array_new ();
+	    PointProperty *pp;
+	    RealProperty  *pr;
+
+	    prop_list_add_point (props, "obj_pos", &pos); 
+	    prop_list_add_real (props, "width", 1.0);
+	    prop_list_add_real (props, "height", 1.0);
+	    obj->ops->get_props (obj, props);
+	    /* try to transform the object without the full matrix  */
+	    pp = g_ptr_array_index (props, 0);
+	    pp->point_data.x +=  m->x0;
+	    pp->point_data.y +=  m->x0;
+	    pr = g_ptr_array_index (props, 1);
+	    pr->real_data *= m->xx;
+	    pr = g_ptr_array_index (props, 2);
+	    pr->real_data *= m->yy;
+	    obj->ops->set_props (obj, props);
+
+	    prop_list_free (props);
+	    g_free (m);
+	}
+        xmlFree(str);
+    }
+}
+
 /* apply SVG style to object */
 static void
 apply_style(DiaObject *obj, xmlNodePtr node, DiaSvgStyle *parent_style) 
@@ -741,6 +793,19 @@ read_image_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list, const gc
   return g_list_append (list, new_obj);
 }
 
+/* GFunc for foreach */
+static void
+add_def (gpointer       data,
+         gpointer       user_data)
+{
+  DiaObject  *obj = (DiaObject *)data;
+  GHashTable *defs_ht = (GHashTable *)user_data;
+  gchar *id = dia_object_get_meta (obj, "id");
+  if (id) /* pass ownership of name and object */
+    g_hash_table_insert (defs_ht, id, obj);
+  else
+    obj->ops->destroy (obj);
+}
 
 /*!
  * Fill a GList* with objects which is to be put in a
@@ -804,6 +869,15 @@ read_items (xmlNodePtr   startnode,
         dia_font_unref (group_gs->font);
       g_free (group_gs);
       g_free (matrix);
+    } else if (!xmlStrcmp(node->name, (const xmlChar *)"symbol")) {
+      /* ignore ‘viewBox’ and ‘preserveAspectRatio’ */
+      GList *moreitems = read_items (node->xmlChildrenNode, parent_gs, defs_ht, filename_svg);
+
+      /* only one object or create a group */
+      if (g_list_length (moreitems))
+	obj = group_create (moreitems);
+      else
+	obj = g_list_last(items)->data;
     } else if (!xmlStrcmp(node->name, (const xmlChar *)"rect")) {
       items = read_rect_svg(node, parent_gs, items);
       if (items)
@@ -844,6 +918,7 @@ read_items (xmlNodePtr   startnode,
       GList *list, *defs = read_items (node->xmlChildrenNode, parent_gs, defs_ht, filename_svg);
 
       for (list = defs; list != NULL; list = g_list_next (list)) {
+#if 0
 	gchar *id;
 
 	otemp = list->data;
@@ -851,11 +926,18 @@ read_items (xmlNodePtr   startnode,
 	if (id) {
 	  /* pass ownership of name and object */
 	  g_hash_table_insert (defs_ht, id, otemp);
+	} else if (IS_GROUP (otemp)) {
+	  /* defs in groups, I don't get the benefit */
+	  GList *moredefs = group_objects (otemp);
+
+	  g_list_foreach (moredefs, add_def, defs_ht);
+	  group_destroy_shallow (otemp);
 	} else {
 	  /* just loose the object */
 	  otemp->ops->destroy (otemp);
 	  list->data = NULL;
 	}
+#endif
       }
     } else if(!xmlStrcmp(node->name, (const xmlChar *)"use")) {
       xmlChar *key = xmlGetProp (node, (const xmlChar *)"xlink:href");
@@ -869,6 +951,7 @@ read_items (xmlNodePtr   startnode,
 	if (otemp) {
 	  DiaObject *onew = otemp->ops->copy (otemp);
 
+	  use_position (onew, node);
 	  apply_style (onew, node, parent_gs);
 	  items = g_list_append (items, onew);
 	}
@@ -905,6 +988,8 @@ read_items (xmlNodePtr   startnode,
       xmlChar *val = xmlGetProp (node, (const xmlChar *)"id");
       if (val) {
 	dia_object_set_meta (obj, "id", val);
+	if (defs_ht) /* FIXME: adding everything with id */
+	  g_hash_table_insert (defs_ht, g_strdup ((char *)val), obj);
 	xmlFree (val);
       }
     }

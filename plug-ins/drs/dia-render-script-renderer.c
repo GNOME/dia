@@ -129,7 +129,7 @@ draw_object(DiaRenderer *self,
 }
 
 static void
-begin_render(DiaRenderer *self)
+begin_render(DiaRenderer *self, const Rectangle *update)
 {
   DrsRenderer *renderer = DRS_RENDERER (self);
   xmlNodePtr node;

@@ -82,7 +82,7 @@ static int hasArrow(Arrow *arrow)
   return (!arrow || ARROW_NONE==arrow->type) ? 0 : 1;
 }
 
-static void begin_render(DiaRenderer *self);
+static void begin_render(DiaRenderer *self, const Rectangle *update);
 static void end_render(DiaRenderer *renderer);
 static void set_linewidth(DiaRenderer *self, real linewidth);
 static void set_linecaps(DiaRenderer *self, LineCaps mode);
@@ -477,7 +477,7 @@ figArrow(XfigRenderer *renderer, Arrow *arrow, real line_width)
 }
 
 static void 
-begin_render(DiaRenderer *self) 
+begin_render(DiaRenderer *self, const Rectangle *update) 
 {
   XfigRenderer *renderer = XFIG_RENDERER(self);
 
@@ -1175,7 +1175,7 @@ export_fig(DiagramData *data, const gchar *filename,
 
   renderer->color_pass = TRUE;
 
-  DIA_RENDERER_GET_CLASS(renderer)->begin_render(DIA_RENDERER(renderer));
+  DIA_RENDERER_GET_CLASS(renderer)->begin_render(DIA_RENDERER(renderer), NULL);
   
   for (i=0; i<data->layers->len; i++) {
     layer = (Layer *) g_ptr_array_index(data->layers, i);
@@ -1189,7 +1189,7 @@ export_fig(DiagramData *data, const gchar *filename,
 
   renderer->color_pass = FALSE;
 
-  DIA_RENDERER_GET_CLASS(renderer)->begin_render(DIA_RENDERER(renderer));
+  DIA_RENDERER_GET_CLASS(renderer)->begin_render(DIA_RENDERER(renderer), NULL);
   
   for (i=0; i<data->layers->len; i++) {
     layer = (Layer *) g_ptr_array_index(data->layers, i);

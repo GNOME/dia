@@ -99,7 +99,7 @@ drs_data_render (DiagramData *data, DiaRenderer *renderer)
 {
   int i;
   
-  DIA_RENDERER_GET_CLASS(renderer)->begin_render(renderer);
+  DIA_RENDERER_GET_CLASS(renderer)->begin_render(renderer, NULL);
   for (i=0; i<data->layers->len; i++) {
     Layer *layer = (Layer *) g_ptr_array_index(data->layers, i);
     drs_render_layer (renderer, layer, layer == data->active_layer);

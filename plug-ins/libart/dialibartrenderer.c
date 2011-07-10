@@ -111,7 +111,7 @@ get_height_pixels (DiaRenderer *self)
 }
 
 static void
-begin_render(DiaRenderer *self)
+begin_render(DiaRenderer *self, const Rectangle *update)
 {
 #ifdef HAVE_FREETYPE
   /* pango_ft2_get_context API docs :

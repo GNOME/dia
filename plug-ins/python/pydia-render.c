@@ -82,7 +82,7 @@ struct _DiaPyRendererClass
  * Members overwritable by Python scripts
  */
 static void
-begin_render(DiaRenderer *renderer)
+begin_render(DiaRenderer *renderer, const Rectangle *update)
 {
   PyObject *func, *res, *arg, *self = PYDIA_RENDERER (renderer);
 

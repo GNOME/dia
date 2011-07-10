@@ -164,7 +164,7 @@ hpgl_scale(HpglRenderer *renderer, real val)
 
 /* render functions */ 
 static void
-begin_render(DiaRenderer *object)
+begin_render(DiaRenderer *object, const Rectangle *update)
 {
     HpglRenderer *renderer = HPGL_RENDERER (object);
     int i;

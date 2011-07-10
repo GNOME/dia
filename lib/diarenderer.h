@@ -97,7 +97,7 @@ struct _DiaRendererClass
    */
   /*! Called before rendering begins.
      Can be used to do various pre-rendering setup. */
-  void (*begin_render) (DiaRenderer *);
+  void (*begin_render) (DiaRenderer *, const Rectangle *update);
   /*! Called after all rendering is done.
      Used to do various clean-ups.*/
   void (*end_render) (DiaRenderer *);

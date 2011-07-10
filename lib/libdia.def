@@ -173,6 +173,7 @@ EXPORTS
  data_real
  data_remove_all_selected
  data_render
+ data_render_paginated
  data_select
  data_set_active_layer
  data_string

@@ -121,7 +121,7 @@ struct _DxfRenderer
 };
 
 
-static void begin_render(DiaRenderer *self);
+static void begin_render(DiaRenderer *self, const Rectangle *update);
 static void end_render(DiaRenderer *self);
 static void set_linewidth(DiaRenderer *self, real linewidth);
 static void set_linecaps(DiaRenderer *self, LineCaps mode);
@@ -252,7 +252,7 @@ init_attributes( DxfRenderer *renderer )
 }
 
 static void
-begin_render(DiaRenderer *self)
+begin_render(DiaRenderer *self, const Rectangle *update)
 {
 }
 
@@ -635,8 +635,8 @@ export_dxf(DiagramData *data, const gchar *filename,
     
     init_attributes(renderer);
 
-    DIA_RENDERER_GET_CLASS(renderer)->begin_render(DIA_RENDERER(renderer));
-  
+    DIA_RENDERER_GET_CLASS(renderer)->begin_render(DIA_RENDERER(renderer), NULL);
+
     for (i=0; i<data->layers->len; i++) {
         layer = (Layer *) g_ptr_array_index(data->layers, i);
 	    renderer->layername = layer->name;

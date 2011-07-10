@@ -80,22 +80,51 @@ static void ensure_minimum_one_device_unit(DiaCairoRenderer *renderer, real *val
  * render functions 
  */ 
 static void
-begin_render(DiaRenderer *self)
+begin_render(DiaRenderer *self, const Rectangle *update)
 {
   DiaCairoRenderer *renderer = DIA_CAIRO_RENDERER (self);
   real onedu = 0.0;
+  real lmargin = 0.0, tmargin = 0.0;
+  gboolean paginated = renderer->surface && /* only with our own pagination, not GtkPrint */
+    cairo_surface_get_type (renderer->surface) == CAIRO_SURFACE_TYPE_PDF && !renderer->skip_show_page;
 
-  if (renderer->surface)
+  if (renderer->surface && !renderer->cr)
     renderer->cr = cairo_create (renderer->surface);
   else
     g_assert (renderer->cr);
 
-  cairo_scale (renderer->cr, renderer->scale, renderer->scale);
+  /* remember current state, so we can start from new with every page */
+  cairo_save (renderer->cr);
+
+  if (paginated && renderer->dia) {
+    DiagramData *data = renderer->dia;
+    /* Dia's paper.width already contains the scale, cairo needs it without 
+     * Similar for margins, Dia's without, but cairo wants them?
+     */
+    real width = (data->paper.lmargin + data->paper.width * data->paper.scaling + data->paper.rmargin)
+          * (72.0 / 2.54) + 0.5;
+    real height = (data->paper.tmargin + data->paper.height * data->paper.scaling + data->paper.bmargin)
+           * (72.0 / 2.54) + 0.5;
+    /* "Changes the size of a PDF surface for the current (and
+     * subsequent) pages." Pagination setup? */
+    cairo_pdf_surface_set_size (renderer->surface, width, height);
+    lmargin = data->paper.lmargin / data->paper.scaling;
+    tmargin = data->paper.tmargin / data->paper.scaling;
+  }
+
   /* to ensure no clipping at top/left we need some extra gymnastics,
    * otherwise a box with a line witdh one one pixel might loose the
    * top/left border as in bug #147386 */
   ensure_minimum_one_device_unit (renderer, &onedu);
-  cairo_translate (renderer->cr, -renderer->dia->extents.left + onedu, -renderer->dia->extents.top + onedu);
+
+  cairo_scale (renderer->cr, renderer->scale, renderer->scale);
+  if (update && paginated) {
+    cairo_rectangle (renderer->cr, lmargin, tmargin,
+                     update->right - update->left, update->bottom - update->top);
+    cairo_clip (renderer->cr);
+    cairo_translate (renderer->cr, -update->left + lmargin, -update->top + tmargin);
+  } else
+    cairo_translate (renderer->cr, -renderer->dia->extents.left + onedu, -renderer->dia->extents.top + onedu);
   /* no more blurred UML diagrams */
   cairo_set_antialias (renderer->cr, CAIRO_ANTIALIAS_NONE);
 
@@ -164,9 +193,8 @@ end_render(DiaRenderer *self)
  
   if (!renderer->skip_show_page)
     cairo_show_page (renderer->cr);
-  DIAG_STATE(renderer->cr)
-  if (renderer->surface)
-    cairo_surface_destroy (renderer->surface);
+  /* pop current state, so we can start from new with every page */
+  cairo_restore (renderer->cr);
   DIAG_STATE(renderer->cr)
 }
 
@@ -1028,6 +1056,8 @@ cairo_renderer_finalize (GObject *object)
   DiaCairoRenderer *renderer = DIA_CAIRO_RENDERER (object);
 
   cairo_destroy (renderer->cr);
+  if (renderer->surface)
+    cairo_surface_destroy (renderer->surface);
 #ifdef HAVE_PANGOCAIRO_H
   if (renderer->layout)
     g_object_unref (renderer->layout);  

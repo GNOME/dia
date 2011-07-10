@@ -64,7 +64,7 @@ NOT WORKING (exporting macros):
 #define pstricks_dtostr(buf,d) \
 	g_ascii_formatd(buf,sizeof(buf),"%f",d)
 
-static void begin_render(DiaRenderer *self);
+static void begin_render(DiaRenderer *self, const Rectangle *update);
 static void end_render(DiaRenderer *self);
 static void set_linewidth(DiaRenderer *self, real linewidth);
 static void set_linecaps(DiaRenderer *self, LineCaps mode);
@@ -238,7 +238,7 @@ set_fill_color(PstricksRenderer *renderer,Color *color)
 }
 
 static void
-begin_render(DiaRenderer *self)
+begin_render(DiaRenderer *self, const Rectangle *update)
 {
 }
 

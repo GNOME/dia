@@ -136,11 +136,11 @@ svg_renderer_get_type (void)
 }
 
 static void
-begin_render (DiaRenderer *self)
+begin_render (DiaRenderer *self, const Rectangle *update)
 {
   SvgRenderer *renderer = SVG_RENDERER (self);
   g_assert (g_queue_is_empty (renderer->parents));
-  DIA_RENDERER_CLASS (parent_class)->begin_render (DIA_RENDERER (self));
+  DIA_RENDERER_CLASS (parent_class)->begin_render (DIA_RENDERER (self), NULL);
 }
 
 static void

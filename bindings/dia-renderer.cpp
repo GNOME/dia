@@ -56,10 +56,10 @@ dia::Renderer::get_text_width (const gchar *text, int length) const
 }
 // called before any rendering takes palce
 void 
-dia::Renderer::begin_render ()
+dia::Renderer::begin_render (const Rectangle *update)
 {
     assert (self);
-    DIA_RENDERER_GET_CLASS(self)->begin_render (self);
+    DIA_RENDERER_GET_CLASS(self)->begin_render (self, update);
 }
 // finished rendering
 void 

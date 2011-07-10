@@ -725,7 +725,7 @@ data_render(DiagramData *data, DiaRenderer *renderer, Rectangle *update,
   guint i, active_layer;
 
   if (!renderer->is_interactive) 
-    (DIA_RENDERER_GET_CLASS(renderer)->begin_render)(renderer);
+    (DIA_RENDERER_GET_CLASS(renderer)->begin_render)(renderer, update);
   
   for (i=0; i<data->layers->len; i++) {
     layer = (Layer *) g_ptr_array_index(data->layers, i);
@@ -736,6 +736,51 @@ data_render(DiagramData *data, DiaRenderer *renderer, Rectangle *update,
   
   if (!renderer->is_interactive) 
     (DIA_RENDERER_GET_CLASS(renderer)->end_render)(renderer);
+}
+
+/** Call data_render() for every used page in the diagram */
+void
+data_render_paginated (DiagramData *data, DiaRenderer *renderer, gpointer user_data)
+{
+  Rectangle *extents;
+  gdouble width, height;
+  gdouble x, y, initx, inity;
+  gint xpos, ypos;
+  guint nobjs = 0;
+
+  /* the usable area of the page */
+  width = data->paper.width;
+  height = data->paper.height;
+
+  /* get extents, and make them multiples of width / height */
+  extents = &data->extents;
+  initx = extents->left;
+  inity = extents->top;
+  /* make page boundaries align with origin */
+  if (!data->paper.fitto) {
+    initx = floor(initx / width)  * width;
+    inity = floor(inity / height) * height;
+  }
+
+  /* iterate through all the pages in the diagram */
+  for (y = inity, ypos = 0; y < extents->bottom; y += height, ypos++) {
+    /* ensure we are not producing pages for epsilon */
+    if ((extents->bottom - y) < 1e-6)
+      break;
+    for (x = initx, xpos = 0; x < extents->right; x += width, xpos++) {
+      Rectangle page_bounds;
+
+      if ((extents->right - x) < 1e-6)
+	break;
+
+      page_bounds.left = x;
+      page_bounds.right = x + width;
+      page_bounds.top = y;
+      page_bounds.bottom = y + height;
+
+      data_render (data, renderer, &page_bounds, NULL, user_data);
+    }
+  }
 }
 
 void 

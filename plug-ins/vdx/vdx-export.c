@@ -98,7 +98,7 @@ struct _VDXRenderer
 };
 
 
-static void begin_render(DiaRenderer *self);
+static void begin_render(DiaRenderer *self, const Rectangle *update);
 static void end_render(DiaRenderer *renderer);
 static void set_linewidth(DiaRenderer *self, real linewidth);
 static void set_linecaps(DiaRenderer *self, LineCaps mode);
@@ -268,7 +268,7 @@ vdx_renderer_class_init (VDXRendererClass *klass)
  */
 
 static void 
-begin_render(DiaRenderer *self) 
+begin_render(DiaRenderer *self, const Rectangle *update)
 {
     VDXRenderer *renderer = VDX_RENDERER(self);
     Color c;
@@ -1814,7 +1814,7 @@ export_vdx(DiagramData *data, const gchar *filename,
     
     renderer->version = 2002;   /* For now */
 
-    DIA_RENDERER_GET_CLASS(renderer)->begin_render(DIA_RENDERER(renderer));
+    DIA_RENDERER_GET_CLASS(renderer)->begin_render(DIA_RENDERER(renderer), NULL);
   
     /* First run through without drawing to setup tables */
     for (i=0; i<data->layers->len; i++) 
@@ -1830,7 +1830,7 @@ export_vdx(DiagramData *data, const gchar *filename,
 
     renderer->first_pass = FALSE;
 
-    DIA_RENDERER_GET_CLASS(renderer)->begin_render(DIA_RENDERER(renderer));
+    DIA_RENDERER_GET_CLASS(renderer)->begin_render(DIA_RENDERER(renderer), NULL);
 
     /* Now render */
 

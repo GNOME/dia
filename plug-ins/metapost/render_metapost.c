@@ -153,7 +153,7 @@ static _slant_lookup_entry SLANT_LOOKUP_TABLE[] =
 static void end_draw_op(MetapostRenderer *renderer);
 static void draw_with_linestyle(MetapostRenderer *renderer);
 
-static void begin_render(DiaRenderer *self);
+static void begin_render(DiaRenderer *self, const Rectangle *update);
 static void end_render(DiaRenderer *self);
 static void set_linewidth(DiaRenderer *self, real linewidth);
 static void set_linecaps(DiaRenderer *self, LineCaps mode);
@@ -346,7 +346,7 @@ set_fill_color(MetapostRenderer *renderer,Color *color)
 
 
 static void
-begin_render(DiaRenderer *self)
+begin_render(DiaRenderer *self, const Rectangle *update)
 {
 }
 

@@ -68,7 +68,7 @@ lazy_setcolor(DiaPsRenderer *renderer,
 }
 
 static void
-begin_render(DiaRenderer *self)
+begin_render(DiaRenderer *self, const Rectangle *update)
 {
   DiaPsRenderer *renderer = DIA_PS_RENDERER(self);
   time_t time_now;

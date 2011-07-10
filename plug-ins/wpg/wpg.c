@@ -259,7 +259,7 @@ WriteFillAttr(WpgRenderer *renderer, Color* colour, gboolean bFill)
  * render functions 
  */ 
 static void
-begin_render(DiaRenderer *self)
+begin_render(DiaRenderer *self, const Rectangle *update)
 {
   WpgRenderer *renderer = WPG_RENDERER (self);
 #if 0

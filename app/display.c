@@ -658,7 +658,7 @@ ddisplay_render_pixmap(DDisplay *ddisp, Rectangle *update)
 
   /* Erase background */
   g_return_if_fail (renderer->fill_pixel_rect != NULL);
-  DIA_RENDERER_GET_CLASS(ddisp->renderer)->begin_render(ddisp->renderer);
+  DIA_RENDERER_GET_CLASS(ddisp->renderer)->begin_render(ddisp->renderer, update);
   if (update) {
     int x0, y0, x1, y1;
 

@@ -255,7 +255,7 @@ my_log(WmfRenderer* renderer, const char* format, ...)
  * renderer interface implementation
  */
 static void
-begin_render(DiaRenderer *self)
+begin_render(DiaRenderer *self, const Rectangle *)
 {
     WmfRenderer *renderer = WMF_RENDERER (self);
 
