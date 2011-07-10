@@ -1178,6 +1178,7 @@ draw_text_line(DiaRenderer *self, TextLine *text_line,
 
    rowstride = 32*((width+31)/31);
 #if 1 /* with 8 bit pixmap we would probably need to set the whole gray palette */
+   gdk_gc_set_colormap (gc, gdk_colormap_get_system ());
    gdk_gc_set_foreground (gc, &color_gdk_black);
    gdk_gc_set_background (gc, &color_gdk_white);
    gdk_draw_rectangle (GDK_DRAWABLE (pixmap), gc, TRUE, 0, 0, width, height); 
