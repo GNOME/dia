@@ -211,7 +211,7 @@ draw_object (DiaRenderer *renderer,
     /* visual complaints - not completely correct */
     Point pt[4];
     Rectangle *bb = &object->bounding_box;
-    Color red = { 1.0, 0.0, 0.0 };
+    Color red = { 1.0, 0.0, 0.0, 1.0 };
 
     pt[0].x = matrix->xx * bb->left + matrix->xy * bb->top + matrix->x0;
     pt[0].y = matrix->yx * bb->left + matrix->yy * bb->top + matrix->y0;
