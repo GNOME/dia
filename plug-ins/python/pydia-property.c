@@ -41,6 +41,7 @@
 #include "prop_sdarray.h"
 #include "prop_dict.h"
 #include "prop_matrix.h"
+#include "prop_pixbuf.h"
 
 /*
  * New
@@ -200,6 +201,9 @@ static PyObject * PyDia_get_Array (ArrayProperty *prop);
 
 static PyObject * PyDia_get_Dict (DictProperty *prop);
 static int PyDia_set_Dict (Property *prop, PyObject *val);
+
+static PyObject * PyDia_get_Pixbuf (PixbufProperty *prop);
+static int PyDia_set_Pixbuf (Property *prop, PyObject *val);
 
 static int
 PyDia_set_Bool (Property *prop, PyObject *val)
@@ -580,7 +584,8 @@ struct {
   { PROP_TYPE_FONT, PyDia_get_Font },
   { PROP_TYPE_SARRAY, PyDia_get_Array, PyDia_set_Array },
   { PROP_TYPE_DARRAY, PyDia_get_Array, PyDia_set_Array },
-  { PROP_TYPE_DICT, PyDia_get_Dict, PyDia_set_Dict }
+  { PROP_TYPE_DICT, PyDia_get_Dict, PyDia_set_Dict },
+  { PROP_TYPE_PIXBUF, PyDia_get_Pixbuf, PyDia_set_Pixbuf }
 };
 
 static void
@@ -759,6 +764,34 @@ PyDia_set_Dict (Property *prop, PyObject *val)
 	                   g_strdup (PyString_AsString (key)), 
 			   g_strdup (PyString_AsString (value)));
     }
+    return 0;
+  }
+  return -1;
+}
+
+static PyObject *
+PyDia_get_Pixbuf (PixbufProperty *prop)
+{
+  PyObject *pb;
+
+  if (!prop->pixbuf) {
+    Py_INCREF(Py_None);
+    return Py_None;
+  }
+  pb = PyCObject_FromVoidPtrAndDesc (prop->pixbuf, NULL, NULL);
+  
+  return pb;
+}
+static int
+PyDia_set_Pixbuf (Property *prop, PyObject *val)
+{
+  PixbufProperty *p = (PixbufProperty *)prop;
+
+  if PyCObject_Check(val) {
+    gpointer pp = PyCObject_AsVoidPtr (val);
+
+    /* FIXME: refernce counting? */
+    p->pixbuf = pp;
     return 0;
   }
   return -1;
