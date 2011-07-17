@@ -10,7 +10,7 @@
    visible (true|false) #REQUIRED 
    active (true|false) #IMPLIED>
 
-<!ELEMENT dia:object ((dia:attribute)*, dia:connections?)>
+<!ELEMENT dia:object ((dia:attribute)*, dia:connections?, dia:childnode?)>
 <!ATTLIST dia:object
    type CDATA #REQUIRED
    version NMTOKEN #REQUIRED
@@ -24,11 +24,17 @@
    to IDREF #REQUIRED
    connection NMTOKEN #REQUIRED>
 
-<!ELEMENT dia:group (dia:object | dia:group)*>
+<!ELEMENT dia:childnode EMPTY>
+<!ATTLIST dia:childnode
+   parent IDREF #REQUIRED>
+
+<!ELEMENT dia:group (dia:object | dia:group | dia:attribute)*>
+<!ATTLIST dia:group
+   matrix CDATA #IMPLIED>
 
 <!ELEMENT dia:attribute (dia:composite | dia:int | dia:enum | dia:real |
 		    dia:boolean | dia:color | dia:point | dia:rectangle | 
-		    dia:string | dia:font)*>
+		    dia:string | dia:font | dia:matrix)*>
 <!ATTLIST dia:attribute  name CDATA #REQUIRED >
 
 <!ELEMENT dia:composite (dia:attribute|dia:composite)*>
@@ -48,6 +54,15 @@
 
 <!ELEMENT  dia:color EMPTY>
 <!ATTLIST dia:color  val CDATA #REQUIRED>
+
+<!ELEMENT  dia:matrix EMPTY>
+<!ATTLIST dia:matrix
+   x0 CDATA #IMPLIED
+   y0 CDATA #IMPLIED
+   xx CDATA #IMPLIED
+   xy CDATA #IMPLIED
+   yx CDATA #IMPLIED
+   yy CDATA #IMPLIED>
 
 <!ELEMENT dia:point EMPTY>
 <!ATTLIST dia:point  val CDATA #REQUIRED>
