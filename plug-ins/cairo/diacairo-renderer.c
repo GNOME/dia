@@ -112,12 +112,12 @@ begin_render(DiaRenderer *self, const Rectangle *update)
     tmargin = data->paper.tmargin / data->paper.scaling;
   }
 
+  cairo_scale (renderer->cr, renderer->scale, renderer->scale);
   /* to ensure no clipping at top/left we need some extra gymnastics,
    * otherwise a box with a line witdh one one pixel might loose the
    * top/left border as in bug #147386 */
   ensure_minimum_one_device_unit (renderer, &onedu);
 
-  cairo_scale (renderer->cr, renderer->scale, renderer->scale);
   if (update && paginated) {
     cairo_rectangle (renderer->cr, lmargin, tmargin,
                      update->right - update->left, update->bottom - update->top);
