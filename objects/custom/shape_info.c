@@ -34,6 +34,7 @@
 #include "custom_util.h"
 #include "custom_object.h"
 #include "dia_image.h"
+#include "prop_pixbuf.h" /* pixbuf_decode_base64() */
 #include "message.h"
 #include "intl.h"
 #include "prefs.h"
@@ -438,16 +439,28 @@ parse_svg_node(ShapeInfo *info, xmlNodePtr node, xmlNsPtr svg_ns,
       if (!str) /* this doesn't look right but it appears to work w/o namespace --hb */
         str = xmlGetProp(node, (const xmlChar *)"href");
       if (str) {
-        gchar *imgfn = g_filename_from_uri((gchar *) str, NULL, NULL);
+        gchar *imgfn = NULL;
+        const char* data = strchr((char *)str, ',');
 
-        if (!imgfn)
-	  /* despite it's name it ensures an absolute filename */
-          imgfn = custom_get_relative_filename(filename, (gchar *) str);
+	/* first check for inlined data */
+	if (data) {
+	  GdkPixbuf *pixbuf = pixbuf_decode_base64 (data+1);
 
-        image->image = dia_image_load(imgfn);
+	  if (pixbuf) {
+	    image->image = dia_image_new_from_pixbuf (pixbuf);
+	    g_object_unref (pixbuf);
+	  }
+	} else {
+	  gchar *imgfn = g_filename_from_uri((gchar *) str, NULL, NULL);
+          if (!imgfn)
+	    /* despite it's name it ensures an absolute filename */
+            imgfn = custom_get_relative_filename(filename, (gchar *) str);
+
+          image->image = dia_image_load(imgfn);
+	}
         /* w/o the image we would crash later */
         if (!image->image) {
-          g_warning("failed to load image file %s", imgfn ? imgfn : "(NULL)");
+          g_warning("failed to load image file %s", imgfn ? imgfn : "(data:)");
           image->image = dia_image_get_broken();
         }
         g_free(imgfn);

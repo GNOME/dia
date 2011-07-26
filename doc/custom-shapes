@@ -191,6 +191,8 @@ The recognised drawing elements are:
   independent. The filename is relative to the shape file placement. In the
   above example PNG and shape need to be in the same directory.
 
+  Inlined image data is also supported with xlink:href="data:image/png;base64,..."
+
 <svg:circle cx="..." cy="..." r="..."/>
   This is a circle with centre (cx,cy) and radius r.
 
