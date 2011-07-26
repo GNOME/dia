@@ -169,7 +169,7 @@ add_follow_link_menu_item (GtkMenu *menu)
   gtk_widget_show(menu_item);
 }
 static void
-create_object_menu(DiaMenu *dia_menu)
+create_object_menu(DiaMenu *dia_menu, gboolean root_menu)
 {
   int i;
   GtkWidget *menu;
@@ -219,7 +219,7 @@ create_object_menu(DiaMenu *dia_menu)
              * DiaMenu pointer for the submenu. */
         if ( ((DiaMenu*)item->callback_data)->app_data == NULL ) {
               /* Create the popup menu items for the submenu. */
-          create_object_menu((DiaMenu*)(item->callback_data) ) ;
+          create_object_menu((DiaMenu*)(item->callback_data), FALSE) ;
           gtk_menu_item_set_submenu( GTK_MENU_ITEM (menu_item), 
                                      GTK_WIDGET(((DiaMenu*)(item->callback_data))->app_data));
         }
@@ -227,9 +227,11 @@ create_object_menu(DiaMenu *dia_menu)
     }
   }
 
-  /* Finally add a Properties... menu item for objects*/
-  add_properties_menu_item(GTK_MENU (menu), i > 0);
-  add_follow_link_menu_item(GTK_MENU (menu));
+  if (root_menu) {
+    /* Finally add a Properties... menu item for objects*/
+    add_properties_menu_item(GTK_MENU (menu), i > 0);
+    add_follow_link_menu_item(GTK_MENU (menu));
+  }
 
   dia_menu->app_data = menu;
   dia_menu->app_data_free = dia_menu_free;
@@ -293,7 +295,7 @@ popup_object_menu(DDisplay *ddisp, GdkEventButton *bevent)
   }
 
   if (dia_menu->app_data == NULL) {
-    create_object_menu(dia_menu);
+    create_object_menu(dia_menu, TRUE);
   }
   /* Update active/nonactive menuitems */
   for (i=0;i<num_items;i++) {
