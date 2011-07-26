@@ -362,6 +362,70 @@ wanlink_load(ObjectNode obj_node, int version, const char *filename)
     return obj;
 }
 
+typedef real  Vector[3];
+typedef Vector  Matrix[3];
+
+static void
+_transform_point (Matrix m, Point *src, Point *dest)
+{
+  real xx, yy, ww;
+
+  xx = m[0][0] * src->x + m[0][1] * src->y + m[0][2];
+  yy = m[1][0] * src->x + m[1][1] * src->y + m[1][2];
+  ww = m[2][0] * src->x + m[2][1] * src->y + m[2][2];
+
+  if (!ww)
+    ww = 1.0;
+
+  dest->x = xx / ww;
+  dest->y = yy / ww;
+}
+static void
+_identity_matrix (Matrix m)
+{
+  int i, j;
+
+  for (i = 0; i < 3; i++)
+    for (j = 0; j < 3; j++)
+      m[i][j] = (i == j) ? 1 : 0;
+
+}
+static void
+_mult_matrix (Matrix m1, Matrix m2)
+{
+  Matrix result;
+  int i, j, k;
+
+  for (i = 0; i < 3; i++)
+    for (j = 0; j < 3; j++)
+      {
+	result [i][j] = 0.0;
+	for (k = 0; k < 3; k++)
+	  result [i][j] += m1 [i][k] * m2[k][j];
+      }
+
+  /*  copy the result into matrix 2  */
+  for (i = 0; i < 3; i++)
+    for (j = 0; j < 3; j++)
+      m2 [i][j] = result [i][j];
+}
+static void
+_rotate_matrix (Matrix m, real theta)
+{
+  Matrix rotate;
+  real cos_theta, sin_theta;
+
+  cos_theta = cos (theta);
+  sin_theta = sin (theta);
+
+  _identity_matrix (rotate);
+  rotate[0][0] = cos_theta;
+  rotate[0][1] = -sin_theta;
+  rotate[1][0] = sin_theta;
+  rotate[1][1] = cos_theta;
+  _mult_matrix (rotate, m);
+}
+
 static void
 wanlink_update_data(WanLink *wanlink)
 {
@@ -417,8 +481,8 @@ wanlink_update_data(WanLink *wanlink)
   wanlink->poly[5].y = (len * 0.55);
   
   /* rotate */
-  identity_matrix (m);
-  rotate_matrix (m, angle);
+  _identity_matrix (m);
+  _rotate_matrix (m, angle);
 
   obj->bounding_box.top = origin.y;
   obj->bounding_box.left = origin.x;
@@ -428,8 +492,8 @@ wanlink_update_data(WanLink *wanlink)
   {
       Point new_pt;
       
-      transform_point (m, &wanlink->poly[i], 
-		       &new_pt);
+      _transform_point (m, &wanlink->poly[i], 
+		        &new_pt);
       point_add (&new_pt, &origin);
       wanlink->poly[i] = new_pt;
       if (wanlink->poly [i].y < obj->bounding_box.top)

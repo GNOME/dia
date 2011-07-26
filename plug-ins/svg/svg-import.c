@@ -289,6 +289,9 @@ apply_style(DiaObject *obj, xmlNodePtr node, DiaSvgStyle *parent_style)
       g_free(gs);
 }
 
+/* all the basic SVG elements allow their own transformation which
+ * is not directly supported by Dia and also not especially useful 
+ */
 /* read a path */
 static GList *
 read_path_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list) 
@@ -301,7 +304,14 @@ read_path_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list)
     GArray *bezpoints = NULL;
     gboolean closed = FALSE;
     gint i;
-    
+    DiaMatrix *matrix = NULL;
+
+    str = (char *) xmlGetProp(node, (const xmlChar *)"transform");
+    if (str) {
+      matrix = dia_svg_parse_transform (str, user_scale);
+      xmlFree (str);
+    }
+
     pathdata = str = (char *) xmlGetProp(node, (const xmlChar *)"d");
     do {
       bezpoints = dia_svg_parse_path (pathdata, &unparsed, &closed);
@@ -331,6 +341,8 @@ read_path_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list)
 	  bcd->points[i].p2.y /= user_scale;
 	  bcd->points[i].p3.x /= user_scale;
 	  bcd->points[i].p3.y /= user_scale;
+	  if (matrix)
+	    transform_bezpoint (&bcd->points[i], matrix);
 	}
 	new_obj = otype->ops->create(NULL, bcd, &h1, &h2);
 	if (!closed)
@@ -347,6 +359,8 @@ read_path_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list)
 
     if (bezpoints)
       g_array_free (bezpoints, TRUE);
+    if (matrix)
+      g_free (matrix);
 
     xmlFree (str);
 
@@ -367,6 +381,13 @@ read_text_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list)
     gchar *multiline = NULL;
     DiaSvgStyle *gs;
     gboolean any_tspan = FALSE;
+    DiaMatrix *matrix = NULL;
+
+    str = (char *) xmlGetProp(node, (const xmlChar *)"transform");
+    if (str) {
+      matrix = dia_svg_parse_transform (str, user_scale);
+      xmlFree (str);
+    }
 
     gs = g_new(DiaSvgStyle, 1);
     dia_svg_style_init (gs, parent_style);
@@ -419,6 +440,11 @@ read_text_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list)
       str = xmlNodeGetContent(node);
     }
     if(str || multiline) {
+      if (matrix) {
+        /* TODO: transform the text, too - when it is supported */
+	transform_point (&point, matrix);
+	g_free (matrix);
+      }
       new_obj = otype->ops->create(&point, otype->default_user_data,
 				 &h1, &h2);
       list = g_list_append (list, new_obj);
@@ -481,6 +507,13 @@ read_poly_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list, char *obj
     xmlChar *str;
     char *tmp;
     int i;
+    DiaMatrix *matrix = NULL;
+
+    str = (char *) xmlGetProp(node, (const xmlChar *)"transform");
+    if (str) {
+      matrix = dia_svg_parse_transform (str, user_scale);
+      xmlFree (str);
+    }
     
     str = xmlGetProp(node, (const xmlChar *)"points");
     tmp = (char *) str;
@@ -504,8 +537,12 @@ read_poly_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list, char *obj
     for (i = 0; i < pcd->num_points; i++) {
       points[i].x = rarr[2*i];
       points[i].y = rarr[2*i+1];
+      if (matrix)
+        transform_point (&points[i], matrix);
     }
     g_array_free(arr, TRUE);
+    if (matrix)
+      g_free (matrix);
   
     pcd->points = points;
     new_obj = otype->ops->create(NULL, pcd,
@@ -530,19 +567,24 @@ read_ellipse_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list)
   Handle *h1, *h2;
   GPtrArray *props;
   Point start = {0, 0};
+  DiaMatrix *matrix = NULL;
+
+  str = (char *) xmlGetProp(node, (const xmlChar *)"transform");
+  if (str) {
+    matrix = dia_svg_parse_transform (str, user_scale);
+    xmlFree (str);
+  }
   
   str = xmlGetProp(node, (const xmlChar *)"cx");
   if (str) {
     start.x = get_value_as_cm((char *) str, NULL);
     xmlFree(str);
   }
-  else return list;
   str = xmlGetProp(node, (const xmlChar *)"cy");
   if (str) {
     start.y = get_value_as_cm((char *) str, NULL);
     xmlFree(str);
   }
-  else return list;
   str = xmlGetProp(node, (const xmlChar *)"rx");
   if (str) {
     width = get_value_as_cm((char *) str, NULL)*2;
@@ -553,20 +595,24 @@ read_ellipse_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list)
     height = get_value_as_cm((char *) str, NULL)*2;
     xmlFree(str);
   }
-  str = xmlGetProp(node, (const xmlChar *)"ry");
-  if (str) {
-    height = get_value_as_cm((char *) str, NULL)*2;
-    xmlFree(str);
-  }
+  /* not part of ellipse attributes, just here for circle */
   str = xmlGetProp(node, (const xmlChar *)"r");
   if (str) {
     width = height = get_value_as_cm((char *) str, NULL)*2;
     xmlFree(str);
   }
-  if (width <= 0.0 || height <= 0.0) {
-    g_debug ("Ellipse too small %gx%g", width, height);
-    return list;
+  if (matrix) {
+    /* TODO: transform angle - when it is supported */
+    Point wh = {width, height};
+    transform_point (&wh, matrix);
+    width = wh.x;
+    height = wh.y;
+    transform_point (&start, matrix);
+    g_free (matrix);
   }
+  /* A negative value is an error [...]. A value of zero disables rendering of the element. */
+  if (width <= 0.0 || height <= 0.0)
+    return list;
   new_obj = otype->ops->create(&start, otype->default_user_data,
 				 &h1, &h2);
   apply_style(new_obj, node, parent_style);			
@@ -589,31 +635,44 @@ read_line_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list)
   PointProperty *ptprop;
   GPtrArray *props;
   Point start, end;
+  DiaMatrix *matrix = NULL;
+
+  str = (char *) xmlGetProp(node, (const xmlChar *)"transform");
+  if (str) {
+    matrix = dia_svg_parse_transform (str, user_scale);
+    xmlFree (str);
+  }
 
   str = xmlGetProp(node, (const xmlChar *)"x1");
   if (str) {
     start.x = get_value_as_cm((char *) str, NULL);
     xmlFree(str);
-  }
-  else return list;
+  } else
+    start.x = 0.0;
   str = xmlGetProp(node, (const xmlChar *)"y1");
   if (str) {
     start.y = get_value_as_cm((char *) str, NULL);
     xmlFree(str);
-  }
-  else return list;
+  } else
+    start.y;
   str = xmlGetProp(node, (const xmlChar *)"x2");
   if (str) {
     end.x = get_value_as_cm((char *) str, NULL);
     xmlFree(str);
-  }
-  else return list;
+  } else
+    end.x = start.x;
   str = xmlGetProp(node, (const xmlChar *)"y2");
   if (str) {
     end.y = get_value_as_cm((char *) str, NULL);
     xmlFree(str);
+  } else
+    end.y = start.y;
+
+  if (matrix) {
+    transform_point (&start, matrix);
+    transform_point (&end, matrix);
+    g_free (matrix);
   }
-  else return list;
 
   new_obj = otype->ops->create(&start, otype->default_user_data,
 				 &h1, &h2);
@@ -642,7 +701,7 @@ static GList *
 read_rect_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list) 
 {
   xmlChar *str;
-  real width, height;
+  real width = 0.0, height = 0.0;
   DiaObjectType *otype = object_get_type("Standard - Box");
   DiaObject *new_obj;
   Handle *h1, *h2;
@@ -651,33 +710,36 @@ read_rect_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list)
   GPtrArray *props;
   Point start,end;
   real corner_radius = 0.0;
+  DiaMatrix *matrix = NULL;
+
+  str = (char *) xmlGetProp(node, (const xmlChar *)"transform");
+  if (str) {
+    matrix = dia_svg_parse_transform (str, user_scale);
+    xmlFree (str);
+  }
 
   str = xmlGetProp(node, (const xmlChar *)"x");
   if (str) {
     start.x = get_value_as_cm((char *) str, NULL);
     xmlFree(str);
-  }
-  else 
+  } else 
     start.x = 0.0;
   str = xmlGetProp(node, (const xmlChar *)"y");
   if (str) {
     start.y = get_value_as_cm((char *) str, NULL);
     xmlFree(str);
-  }
-  else 
+  } else 
     start.y = 0.0;
   str = xmlGetProp(node, (const xmlChar *)"width");
   if (str) {
     width = get_value_as_cm((char *) str, NULL);
     xmlFree(str);
   }
-  else return list;
   str = xmlGetProp(node, (const xmlChar *)"height");
   if (str) {
     height = get_value_as_cm((char *) str, NULL);
     xmlFree(str);
   }
-  else return list;
   str = xmlGetProp(node, (const xmlChar *)"rx");
   if (str) {
     corner_radius = get_value_as_cm((char *) str, NULL);
@@ -693,7 +755,16 @@ read_rect_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list)
     }
     xmlFree(str);
   }
-  
+
+  if (matrix) {
+    /* TODO: for rotated rects we would need to create a polygon */
+    transform_point (&start, matrix);
+    transform_point (&end, matrix);
+    g_free (matrix);
+  }
+  /* A negative value is an error [...]. A value of zero disables rendering of the element. */
+  if (width <= 0.0 || height <= 0.0)
+    return list; /* just ignore it w/o much complaints */
   new_obj = otype->ops->create(&start, otype->default_user_data,
 				 &h1, &h2);
   list = g_list_append (list, new_obj);
@@ -728,6 +799,13 @@ read_image_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list, const gc
   xmlChar *str;
   real x = 0, y = 0, width = 0, height = 0;
   DiaObject *new_obj;
+  DiaMatrix *matrix = NULL;
+
+  str = (char *) xmlGetProp(node, (const xmlChar *)"transform");
+  if (str) {
+    matrix = dia_svg_parse_transform (str, user_scale);
+    xmlFree (str);
+  }
 
   str = xmlGetProp(node, (const xmlChar *)"x");
   if (str) {
@@ -750,7 +828,22 @@ read_image_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list, const gc
     xmlFree(str);
   }
   /* TODO: aspect ratio? */
- 
+
+  if (matrix) {
+    /* TODO: transform angle - when it is supported */
+    Point xy = {x, y};
+    Point wh = {width, height};
+
+    transform_point (&xy, matrix);
+    transform_point (&wh, matrix);
+    width = wh.x;
+    height = wh.y;
+    x = xy.x;
+    y = xy.y;
+
+    g_free (matrix);
+  }
+
   str = xmlGetProp(node, (const xmlChar *)"xlink:href");
   if (!str) /* this doesn't look right but it appears to work w/o namespace --hb */
     str = xmlGetProp(node, (const xmlChar *)"href");

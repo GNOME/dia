@@ -412,130 +412,26 @@ distance_ellipse_point(const Point *centre, real width, real height,
     return dist - rad;
 }
 
-
 void
-transform_point (Matrix m, Point *src, Point *dest)
+transform_point (Point *pt, const DiaMatrix *m)
 {
-  real xx, yy, ww;
+  real x, y;
 
-  xx = m[0][0] * src->x + m[0][1] * src->y + m[0][2];
-  yy = m[1][0] * src->x + m[1][1] * src->y + m[1][2];
-  ww = m[2][0] * src->x + m[2][1] * src->y + m[2][2];
+  g_return_if_fail (pt != NULL && m != NULL);
 
-  if (!ww)
-    ww = 1.0;
+  x = pt->x;
+  y = pt->y;
 
-  dest->x = xx / ww;
-  dest->y = yy / ww;
+  pt->x = x * m->xx + y * m->xy + m->x0;
+  pt->y = x * m->yx + y * m->yy + m->y0;
 }
-
 void
-mult_matrix (Matrix m1, Matrix m2)
+transform_bezpoint (BezPoint *bpt, const DiaMatrix *m)
 {
-  Matrix result;
-  int i, j, k;
-
-  for (i = 0; i < 3; i++)
-    for (j = 0; j < 3; j++)
-      {
-	result [i][j] = 0.0;
-	for (k = 0; k < 3; k++)
-	  result [i][j] += m1 [i][k] * m2[k][j];
-      }
-
-  /*  copy the result into matrix 2  */
-  for (i = 0; i < 3; i++)
-    for (j = 0; j < 3; j++)
-      m2 [i][j] = result [i][j];
+  transform_point (&bpt->p1, m);
+  transform_point (&bpt->p2, m);
+  transform_point (&bpt->p3, m);
 }
-
-void
-identity_matrix (Matrix m)
-{
-  int i, j;
-
-  for (i = 0; i < 3; i++)
-    for (j = 0; j < 3; j++)
-      m[i][j] = (i == j) ? 1 : 0;
-
-}
-
-void
-translate_matrix (Matrix m, real x, real y)
-{
-  Matrix trans;
-
-  identity_matrix (trans);
-  trans[0][2] = x;
-  trans[1][2] = y;
-  mult_matrix (trans, m);
-}
-
-void
-scale_matrix (Matrix m, real x, real y)
-{
-  Matrix scale;
-
-  identity_matrix (scale);
-  scale[0][0] = x;
-  scale[1][1] = y;
-  mult_matrix (scale, m);
-}
-
-void
-rotate_matrix (Matrix m, real theta)
-{
-  Matrix rotate;
-  real cos_theta, sin_theta;
-
-  cos_theta = cos (theta);
-  sin_theta = sin (theta);
-
-  identity_matrix (rotate);
-  rotate[0][0] = cos_theta;
-  rotate[0][1] = -sin_theta;
-  rotate[1][0] = sin_theta;
-  rotate[1][1] = cos_theta;
-  mult_matrix (rotate, m);
-}
-
-void
-xshear_matrix (Matrix m, real shear)
-{
-  Matrix shear_m;
-
-  identity_matrix (shear_m);
-  shear_m[0][1] = shear;
-  mult_matrix (shear_m, m);
-}
-
-void
-yshear_matrix (Matrix m, real shear)
-{
-  Matrix shear_m;
-
-  identity_matrix (shear_m);
-  shear_m[1][0] = shear;
-  mult_matrix (shear_m, m);
-}
-
-/*  find the determinate for a 3x3 matrix  */
-G_GNUC_UNUSED static real
-determinate (Matrix m)
-{
-  int i;
-  double det = 0;
-
-  for (i = 0; i < 3; i ++)
-    {
-      det += m[0][i] * m[1][(i+1)%3] * m[2][(i+2)%3];
-      det -= m[2][i] * m[1][(i+1)%3] * m[0][(i+2)%3];
-    }
-
-  return det;
-}
-
-
 
 void
 point_convex(Point *dst, const Point *src1, const Point *src2, real alpha)

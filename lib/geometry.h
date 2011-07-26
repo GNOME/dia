@@ -363,17 +363,8 @@ real distance_bez_shape_point(const BezPoint *b, guint npoints,
 real distance_ellipse_point(const Point *centre, real width, real height,
 			    real line_width, const Point *point);
 
-typedef real  Vector[3];
-typedef Vector  Matrix[3];
-
-void          transform_point             (Matrix, Point *, Point *);
-void          mult_matrix                 (Matrix, Matrix);
-void          identity_matrix             (Matrix);
-void          translate_matrix            (Matrix, real, real);
-void          scale_matrix                (Matrix, real, real);
-void          rotate_matrix               (Matrix, real);
-void          xshear_matrix               (Matrix, real);
-void          yshear_matrix               (Matrix, real);
+void transform_point (Point *pt, const DiaMatrix *m);
+void transform_bezpoint (BezPoint *bpt, const DiaMatrix *m);
 
 real dot2(Point *p1, Point *p2);
 void line_coef(real *a, real *b, real *c, Point *p1, Point *p2);
