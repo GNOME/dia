@@ -805,11 +805,15 @@ PyDiaProperty_GetAttr(PyDiaProperty *self, gchar *attr)
 {
 
   if (!strcmp(attr, "__members__"))
-    return Py_BuildValue("[ssss]", "name", "type", "value", "visible");
+    return Py_BuildValue("[ssss]", "name", "type", "value", "visible", "description", "tooltip");
   else if (!strcmp(attr, "name"))
     return PyString_FromString(self->property->descr->name);
   else if (!strcmp(attr, "type"))
     return PyString_FromString(self->property->descr->type);
+  else if (!strcmp(attr, "description"))
+    return PyString_FromString(self->property->descr->description);
+  else if (!strcmp(attr, "tooltip"))
+    return PyString_FromString(self->property->descr->tooltip);
   else if (!strcmp(attr, "visible"))
     return PyInt_FromLong(0 != (self->property->descr->flags & PROP_FLAG_VISIBLE));
   else if (!strcmp(attr, "value")) {

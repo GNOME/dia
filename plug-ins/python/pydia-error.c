@@ -177,6 +177,18 @@ PyTypeObject PyDiaError_Type = {
     (hashfunc)PyDiaError_Hash,
     (ternaryfunc)0,
     (reprfunc)PyDiaError_Str,
-    0L,0L,0L,0L,
-    NULL
+    (getattrofunc)0L,
+    (setattrofunc)0L,
+    (PyBufferProcs *)0L,
+    0L, /* Flags */
+    "The error object is just a helper to redirect errors to messages",
+    (traverseproc)0,
+    (inquiry)0,
+    (richcmpfunc)0,
+    0, /* tp_weakliszoffset */
+    (getiterfunc)0,
+    (iternextfunc)0,
+    PyDiaError_Methods, /* tp_methods */
+    NULL, /* tp_members */
+    0
 };

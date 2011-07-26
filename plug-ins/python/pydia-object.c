@@ -25,6 +25,7 @@
 #include "pydia-geometry.h"
 #include "pydia-properties.h"
 #include "pydia-render.h"
+#include "pydia-menuitem.h"
 
 #include <structmember.h> /* PyMemberDef */
 
@@ -157,6 +158,35 @@ PyDiaObject_Copy(PyDiaObject *self, PyObject *args)
 }
 
 static PyObject *
+PyDiaObject_GetMenu(PyDiaObject *self, PyObject *args)
+{
+    PyObject *ret, *items;
+    Point clicked = { 0, 0 };
+    DiaMenu *m;
+    int i;
+    
+
+    if (!PyArg_ParseTuple(args, ":Object.get_object_menu"))
+	return NULL;
+	
+    if (!self->object->ops->get_object_menu ||
+        !(m = self->object->ops->get_object_menu (self->object, &clicked))) {
+        Py_INCREF(Py_None);
+        return Py_None;
+    }    ;
+
+    ret = PyTuple_New (2);
+    PyTuple_SetItem(ret, 0, PyString_FromString (m->title ? m->title : ""));
+    items = PyList_New(0);
+    for (i = 0; i < m->num_items; ++i) {
+        DiaMenuItem *mi = &m->items[i];
+	if (mi->text && mi->callback)
+	  PyList_Append(items, PyDiaMenuitem_New (mi));
+    }
+    PyTuple_SetItem(ret, 1, items);
+    return ret;
+}
+static PyObject *
 PyDiaObject_Move(PyDiaObject *self, PyObject *args)
 {
     Point point;
@@ -219,6 +249,8 @@ static PyMethodDef PyDiaObject_Methods[] = {
     { "draw", (PyCFunction)PyDiaObject_Draw, METH_VARARGS,
       "draw(dia.Renderer: r) -> None."
       "  Draw the object with the given renderer" },
+    { "get_object_menu", (PyCFunction)PyDiaObject_GetMenu, METH_VARARGS,
+      "get_object_menu() -> Tuple.  Returns a named list of Menuitem(s)." },
     { "move", (PyCFunction)PyDiaObject_Move, METH_VARARGS,
       "move(real: x, real: y) -> None."
       "  Move the entire object. The given point is the new object.obj_pos." },

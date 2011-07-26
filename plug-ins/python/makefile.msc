@@ -35,6 +35,7 @@ OBJECTS = \
 	pydia-handle.obj \
 	pydia-image.obj \
 	pydia-layer.obj \
+	pydia-menuitem.obj \
 	pydia-object.obj \
 	pydia-paperinfo.obj \
 	pydia-properties.obj \

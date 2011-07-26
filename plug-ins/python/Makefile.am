@@ -41,6 +41,8 @@ libpython_plugin_la_SOURCES = \
 	pydia-image.h \
 	pydia-layer.c \
 	pydia-layer.h \
+	pydia-menuitem.c \
+	pydia-menuitem.h \
 	pydia-object.c \
 	pydia-object.h \
 	pydia-paperinfo.c \

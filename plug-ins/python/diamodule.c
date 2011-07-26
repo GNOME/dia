@@ -38,6 +38,7 @@
 #include "pydia-error.h"
 #include "pydia-text.h"
 #include "pydia-paperinfo.h"
+#include "pydia-menuitem.h"
 
 #include "lib/dialib.h"
 #include "lib/object.h"
@@ -578,6 +579,7 @@ initdia(void)
     PyDiaMatrix_Type.ob_type = &PyType_Type;
     PyDiaText_Type.ob_type = &PyType_Type;
     PyDiaPaperinfo_Type.ob_type = &PyType_Type;
+    PyDiaMenuitem_Type.ob_type = &PyType_Type;
 #endif
 
     m = Py_InitModule3("dia", dia_methods, dia_module_doc);
@@ -637,6 +639,8 @@ initdia(void)
 			 (void *)&PyDiaText_Type);
     PyDict_SetItemString(d, "Paperinfo",
 			 (void *)&PyDiaPaperinfo_Type);
+    PyDict_SetItemString(d, "Menuitem",
+			 (void *)&PyDiaMenuitem_Type);
 
     if (PyErr_Occurred())
 	Py_FatalError("can't initialise module dia");
