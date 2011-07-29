@@ -195,7 +195,7 @@ static void
 calc_ascent_descent(Text *text)
 {
   real sig_a = 0.0,sig_d = 0.0;
-  guint i;
+  gint i;
     
   for ( i = 0; i < text->numlines; i++) {
     sig_a += text_line_get_ascent(text->lines[i]);
@@ -226,19 +226,12 @@ set_string(Text *text, const char *string)
   const char *s,*s2;
   char *fallback = NULL;
 
-  if (string == NULL) {
-    text_set_line_text(text, 0, "");
-    return;
-  }
-
-  if (!g_utf8_validate (string, -1, NULL)) {
+  if (string && !g_utf8_validate (string, -1, NULL)) {
     GError *error = NULL;
     s = fallback = g_locale_to_utf8 (string, -1, NULL, NULL, &error);
-    if (!s) {
+    if (!fallback) {
       g_warning ("Invalid string data, neither UTF-8 nor locale: %s", error->message);
-      g_error_free (error);
-      text_set_line_text(text, 0, "");
-      return;
+      string = NULL;
     }
   } else {
     s = string;
@@ -258,6 +251,10 @@ set_string(Text *text, const char *string)
   }
 
   s = fallback ? fallback : string;
+  if (s == NULL) {
+    text_set_line_text(text, 0, "");
+    return;
+  }
 
   for (i = 0; i < numlines; i++) {
     gchar *string_line;
