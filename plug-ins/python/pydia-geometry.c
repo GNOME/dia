@@ -201,7 +201,7 @@ static int
 PyDiaMatrix_Compare(PyDiaMatrix *self,
 		    PyDiaMatrix *other)
 {
-  return memcmp (&self->matrix, &other->matrix, sizeof(Matrix));
+  return memcmp (&self->matrix, &other->matrix, sizeof(DiaMatrix));
 }
 
 /*
