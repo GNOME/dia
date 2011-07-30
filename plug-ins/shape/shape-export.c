@@ -161,6 +161,7 @@ new_shape_renderer(DiagramData *data, const char *filename)
 
   renderer->svg_name_space = xmlNewNs(renderer->root,
                                       (const xmlChar *)"http://www.w3.org/2000/svg", (const xmlChar *)"svg");
+  xmlNewNs(renderer->root, (const xmlChar *)"http://www.w3.org/1999/xlink", (const xmlChar *)"xlink");
   renderer->doc->xmlRootNode = renderer->root;
 
   dirname = g_path_get_dirname(filename);
