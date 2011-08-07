@@ -288,7 +288,8 @@ begin_render(DiaRenderer *self, const Rectangle *update)
 
     renderer->Colors = g_array_new(FALSE, TRUE, sizeof (Color));
     renderer->Fonts = g_array_new(FALSE, TRUE, sizeof (char *));
-    renderer->shapeid = 0;
+    /* Visio does not like <shape ID='0'> */
+    renderer->shapeid = 1;
     /* renderer->version = 0; */
 
     /* Black and white are 0 and 1 respectively */
