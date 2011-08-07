@@ -155,9 +155,10 @@ parse_path(ShapeInfo *info, const char *path_str, DiaSvgStyle *s, const char* fi
   GArray *points;
   gchar *pathdata = (gchar *)path_str, *unparsed;
   gboolean closed = FALSE;
+  Point current_point = {0.0, 0.0};
 
   do {
-    points = dia_svg_parse_path (pathdata, &unparsed, &closed);
+    points = dia_svg_parse_path (pathdata, &unparsed, &closed, &current_point);
 
     if (points->len > 0) {
       if (g_array_index(points, BezPoint, 0).type != BEZ_MOVE_TO) {

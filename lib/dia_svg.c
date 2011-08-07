@@ -570,6 +570,7 @@ _path_arc(GArray *points, double cpx, double cpy,
  *                 the string was completely parsed.  This should be used for
  *                 calling the function until it is fully parsed.
  * @param closed Whether the path was closed.
+ * @param current_point to retain it over splitting
  * @returns Array of BezPoint objects, or NULL if an error occurred.
  *          The caller is responsible for freeing the array.
  * @bug This function is way too long (324 lines). So dont touch it. please!
@@ -580,7 +581,7 @@ _path_arc(GArray *points, double cpx, double cpy,
  * NOPE: Dia is capable to handle beziers and the file has given us some so WHY should be break it in to pieces ???
  */
 GArray*
-dia_svg_parse_path(const gchar *path_str, gchar **unparsed, gboolean *closed)
+dia_svg_parse_path(const gchar *path_str, gchar **unparsed, gboolean *closed, Point *current_point)
 {
   enum {
     PATH_MOVE, PATH_LINE, PATH_HLINE, PATH_VLINE, PATH_CURVE,
@@ -596,6 +597,10 @@ dia_svg_parse_path(const gchar *path_str, gchar **unparsed, gboolean *closed)
 
   *closed = FALSE;
   *unparsed = NULL;
+
+  /* when splitting into pieces, we have to maintain current_point accross them */
+  if (current_point)
+    last_point = *current_point;
 
   points = g_array_new(FALSE, FALSE, sizeof(BezPoint));
   g_array_set_size(points, 0);
@@ -744,6 +749,10 @@ dia_svg_parse_path(const gchar *path_str, gchar **unparsed, gboolean *closed)
     /* actually parse the path component */
     switch (last_type) {
     case PATH_MOVE:
+#ifndef MULTI_MOVE_BEZIER
+      if (points->len > 1)
+	g_warning ("Only first point should be 'move'");
+#endif
       bez.type = BEZ_MOVE_TO;
       bez.p1.x = g_ascii_strtod(path, &path);
       path_chomp(path);
@@ -756,7 +765,12 @@ dia_svg_parse_path(const gchar *path_str, gchar **unparsed, gboolean *closed)
       last_point = bez.p1;
       last_control = bez.p1;
       last_open = bez.p1;
-      g_array_append_val(points, bez);
+#ifndef MULTI_MOVE_BEZIER
+      if (points->len == 1) /* stupid svg, but we can handle it */
+	g_array_index(points,BezPoint,0) = bez;
+      else
+#endif
+        g_array_append_val(points, bez);
       break;
     case PATH_LINE:
       bez.type = BEZ_LINE_TO;
@@ -917,7 +931,7 @@ dia_svg_parse_path(const gchar *path_str, gchar **unparsed, gboolean *closed)
     path_chomp(path);
 MORETOPARSE:
     if (need_next_element) {
-      /* check if there really is mor to be parsed */
+      /* check if there really is more to be parsed */
       if (path[0] != 0)
 	*unparsed = path;
       break; /* while */
@@ -931,6 +945,8 @@ MORETOPARSE:
   if (points->len < 2) {
     g_array_set_size(points, 0);
   }
+  if (current_point)
+    *current_point = last_point;
   return points;
 }
 

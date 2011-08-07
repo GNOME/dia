@@ -305,6 +305,7 @@ read_path_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list)
     gboolean closed = FALSE;
     gint i;
     DiaMatrix *matrix = NULL;
+    Point current_point = {0.0, 0.0};
 
     str = (char *) xmlGetProp(node, (const xmlChar *)"transform");
     if (str) {
@@ -314,7 +315,7 @@ read_path_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list)
 
     pathdata = str = (char *) xmlGetProp(node, (const xmlChar *)"d");
     do {
-      bezpoints = dia_svg_parse_path (pathdata, &unparsed, &closed);
+      bezpoints = dia_svg_parse_path (pathdata, &unparsed, &closed, &current_point);
 
       if (bezpoints && bezpoints->len > 0) {
         if (g_array_index(bezpoints, BezPoint, 0).type != BEZ_MOVE_TO) {
