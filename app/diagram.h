@@ -28,6 +28,8 @@ typedef struct _Diagram Diagram;
 #include "menus.h"
 #include "diagrid.h"
 
+G_BEGIN_DECLS
+
 GType diagram_get_type (void) G_GNUC_CONST;
 
 #define DIA_TYPE_DIAGRAM           (diagram_get_type ())
@@ -141,4 +143,7 @@ void diagram_redraw_all(void);
 
 void diagram_object_modified(Diagram *dia, DiaObject *object);
 
+G_END_DECLS
+
 #endif /* DIAGRAM_H */
+

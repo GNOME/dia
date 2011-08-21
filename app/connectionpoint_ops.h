@@ -22,6 +22,8 @@
 #include "diagram.h"
 #include "display.h"
 
+G_BEGIN_DECLS
+
 void object_draw_connectionpoints(DiaObject *obj, DDisplay *ddisp);
 void connectionpoint_add_update(ConnectionPoint *conpoint,
 				Diagram *dia);
@@ -31,4 +33,7 @@ void diagram_update_connections_object(Diagram *dia, DiaObject *obj,
 void ddisplay_connect_selected(DDisplay *ddisp);
 void diagram_unconnect_selected(Diagram *dia);
 
+G_END_DECLS
+
 #endif /* CONNECTIONPOINT_OPS_H */
+

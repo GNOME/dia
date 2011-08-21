@@ -22,6 +22,8 @@
 
 #include "diatypes.h"
 
+G_BEGIN_DECLS
+
 typedef void (*ObjectChangeApplyFunc)(ObjectChange *change, DiaObject *obj);
 typedef void (*ObjectChangeRevertFunc)(ObjectChange *change, DiaObject *obj);
 typedef void (*ObjectChangeFreeFunc)(ObjectChange *change);
@@ -78,4 +80,7 @@ ObjectChange *new_object_state_change(DiaObject *obj,
 ObjectChange *change_list_create (void);
 void change_list_add (ObjectChange *change_list, ObjectChange *change);
 
+G_END_DECLS
+
 #endif /* OBJCHANGE_H */
+

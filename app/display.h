@@ -29,6 +29,8 @@ typedef struct _DDisplay DDisplay;
 #include "menus.h"
 #include "diarenderer.h"
 
+G_BEGIN_DECLS
+
 /** Defines the pixels per cm, default is 20 pixels = 1 cm */
 /** This is close to, but not quite the same as, the physical display size
  * in most cases */
@@ -197,4 +199,7 @@ void ddisplay_set_active_focus(DDisplay *ddisp, Focus *focus);
 void diagram_add_ddisplay(Diagram *dia, DDisplay *ddisp);
 void diagram_remove_ddisplay(Diagram *dia, DDisplay *ddisp);
 
+G_END_DECLS
+
 #endif /* DDISPLAY_H */
+
