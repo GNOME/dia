@@ -337,7 +337,9 @@ dia_svg_parse_style(xmlNodePtr node, DiaSvgStyle *s, real user_scale)
 	  s->dashlength = 1.0;
 	else {
 	  s->dashlength = g_ascii_strtod(ptr, &ptr);
-	  if (user_scale > 0)
+	  if (s->dashlength <= 0.0) /* e.g. "none" */
+	    s->linestyle = LINESTYLE_SOLID;
+	  else if (user_scale > 0)
 	    s->dashlength /= user_scale;
 	}
       }
