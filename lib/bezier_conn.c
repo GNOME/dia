@@ -664,7 +664,16 @@ bezierconn_update_data(BezierConn *bez)
   
   /* handle the case of whole points array update (via set_prop) */
   if (3*bez->numpoints-2 != obj->num_handles) {
+    /* also maintain potential connections */
+    ConnectionPoint *cps = bez->object.handles[0]->connected_to;
+    ConnectionPoint *cpe = bez->object.handles[obj->num_handles-1]->connected_to;
+
     g_assert(0 == obj->num_connections);
+
+    if (cps)
+      object_unconnect (&bez->object, bez->object.handles[0]);
+    if (cpe)
+      object_unconnect (&bez->object, bez->object.handles[obj->num_handles-1]);
 
     for (i = 0; i < obj->num_handles; i++)
       g_free(obj->handles[i]);
@@ -674,6 +683,11 @@ bezierconn_update_data(BezierConn *bez)
     obj->handles = g_new(Handle*, obj->num_handles); 
 
     new_handles(bez, bez->numpoints);
+    /* we may assign NULL once more here */
+    if (cps)
+      object_connect(&bez->object, bez->object.handles[0], cps);
+    if (cpe)
+      object_connect(&bez->object, bez->object.handles[obj->num_handles-1], cpe);
   }
 
   /* Update handles: */
