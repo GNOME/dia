@@ -323,6 +323,9 @@ OBJECTS = \
 	branch.obj \
 	class.obj \
 	class_dialog.obj \
+	class_attributes_dialog.obj \
+	class_operations_dialog.obj \
+	class_templates_dialog.obj \
 	classicon.obj \
 	component.obj \
 	component_feature.obj \

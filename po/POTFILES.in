@@ -132,7 +132,10 @@ objects/UML/activity.c
 objects/UML/actor.c
 objects/UML/association.c
 objects/UML/class.c
+objects/UML/class_attributes_dialog.c
 objects/UML/class_dialog.c
+objects/UML/class_operations_dialog.c
+objects/UML/class_templates_dialog.c
 objects/UML/classicon.c
 objects/UML/component.c
 objects/UML/component_feature.c

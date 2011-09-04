@@ -6,7 +6,11 @@ libuml_objects_la_SOURCES = \
 			uml.c \
 			class.c \
 			class.h \
+			class_dialog.h \
 			class_dialog.c \
+			class_attributes_dialog.c \
+			class_operations_dialog.c \
+			class_templates_dialog.c \
 			note.c \
 			actor.c \
 			usecase.c \
