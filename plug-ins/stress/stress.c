@@ -27,7 +27,7 @@
 
 #include "stress-memory.h"
 
-static void
+static ObjectChange *
 stress_memory_callback (DiagramData *data,
                        const gchar *filename,
                        guint flags, /* further additions */
@@ -51,6 +51,7 @@ stress_memory_callback (DiagramData *data,
   } else {
     message_error ("Failed to calculate available memory.");
   }
+  return NULL;
 }
 
 static DiaCallbackFilter cb_stress_memory = {

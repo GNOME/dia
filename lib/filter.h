@@ -75,10 +75,10 @@ struct _DiaImportFilter {
 };
 
 /* gets called as menu callback */
-typedef void (* DiaCallbackFunc) (DiagramData *dia,
-                                  const gchar *filename, /* the original filename */
-                                  guint flags, /* further additions */
-                                  void* user_data);
+typedef ObjectChange * (* DiaCallbackFunc) (DiagramData *dia,
+					    const gchar *filename, /* the original filename */
+					    guint flags, /* further additions */
+					    void* user_data);
 
 struct _DiaCallbackFilter {
   const gchar *action;

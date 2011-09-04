@@ -8,7 +8,7 @@ GtkPrintOperation *
 create_print_operation (DiagramData *data, 
 			const char *name);
 
-void
+ObjectChange *
 cairo_print_callback (DiagramData *dia,
                       const gchar *filename,
                       guint flags, /* further additions */

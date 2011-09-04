@@ -42,6 +42,7 @@
 #include "widgets.h"
 #include "preferences.h"
 #include "filter.h"
+#include "objchange.h"
 
 #define DIA_STOCK_GROUP "dia-stock-group"
 #define DIA_STOCK_UNGROUP "dia-stock-ungroup"
@@ -1233,11 +1234,24 @@ plugin_callback (GtkWidget *widget, gpointer data)
   if (cbf->callback) {
     DDisplay *ddisp = NULL;
     DiagramData* diadata = NULL;
+    ObjectChange *change;
     /* stuff from the toolbox menu should never get a diagram to modify */
     if (strncmp (cbf->menupath, TOOLBOX_MENU, strlen (TOOLBOX_MENU)) != 0) {
       ddisp = ddisplay_active();
       diadata = ddisp ? ddisp->diagram->data : NULL;
     }
-    cbf->callback (diadata, ddisp ? ddisp->diagram->filename : NULL, 0, cbf->user_data);
+    change = cbf->callback (diadata, ddisp ? ddisp->diagram->filename : NULL, 0, cbf->user_data);
+    if (change != NULL) {
+      if (ddisp) {
+        undo_object_change(ddisp->diagram, NULL, change);
+        diagram_modified(ddisp->diagram);
+        diagram_update_extents(ddisp->diagram);
+        undo_set_transactionpoint(ddisp->diagram->undo);
+      } else { /* no diagram to keep the change, throw it away */
+        if (change->free)
+          change->free(change);
+        g_free(change);
+      }   
+    }
   }
 }

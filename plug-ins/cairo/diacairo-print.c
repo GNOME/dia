@@ -233,7 +233,7 @@ create_print_operation (DiagramData *data, const char *name)
   return operation;
 }
 
-void
+ObjectChange *
 cairo_print_callback (DiagramData *data,
                       const gchar *filename,
                       guint flags, /* further additions */
@@ -248,4 +248,5 @@ cairo_print_callback (DiagramData *data,
     message_error (error->message);
     g_error_free (error);
   }
+  return NULL;
 }

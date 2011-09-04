@@ -155,6 +155,7 @@ void
 change_list_add (ObjectChange *change_list, ObjectChange *change)
 {
   ObjectChangeList *list = (ObjectChangeList *)change_list;
-  
-  g_ptr_array_add (list->changes, change);
+
+  if (change)
+    g_ptr_array_add (list->changes, change);
 }

@@ -81,6 +81,9 @@ EXPORTS
 
  calculate_arrow_point
 
+ change_list_add
+ change_list_create
+
  color_convert
  color_equals
  color_init

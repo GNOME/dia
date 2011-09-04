@@ -851,39 +851,59 @@ struct ObjectChangeChange {
   ObjectChange *obj_change;
 };
 
-
+static void
+_connections_update_func (gpointer data, gpointer user_data)
+{
+  DiaObject *obj = data;
+  Diagram   *dia = (Diagram *)user_data;
+  
+  diagram_update_connections_object(dia, obj, TRUE);
+}
 static void
 object_change_apply(struct ObjectChangeChange *change,
 		    Diagram *dia)
 {
-  object_add_updates(change->obj, dia);
+  if (change->obj)
+    object_add_updates(change->obj, dia);
+
   change->obj_change->apply(change->obj_change, change->obj);
-  { /* Make sure object updates its data: */
+
+  if (change->obj) {
+    /* Make sure object updates its data: */
     Point p = change->obj->position;
     (change->obj->ops->move)(change->obj,&p);
-  }
-  object_add_updates(change->obj, dia);
-  
-  diagram_update_connections_object(dia, change->obj, TRUE);
 
-  properties_update_if_shown(dia, change->obj);
+    object_add_updates(change->obj, dia);
+    diagram_update_connections_object(dia, change->obj, TRUE);
+    properties_update_if_shown(dia, change->obj);
+  } else {
+    /* pretty big hammer - update all connections */
+    data_foreach_object (DIA_DIAGRAM_DATA (dia), _connections_update_func, dia);
+    diagram_add_update_all(dia);
+  }
 }
 
 static void
 object_change_revert(struct ObjectChangeChange *change,
 		     Diagram *dia)
 {
-  object_add_updates(change->obj, dia);
+  if (change->obj)
+    object_add_updates(change->obj, dia);
+
   change->obj_change->revert(change->obj_change, change->obj);
-  { /* Make sure object updates its data: */
+
+  if (change->obj) {
+    /* Make sure object updates its data: */
     Point p = change->obj->position;
     (change->obj->ops->move)(change->obj,&p);
-  }
-  object_add_updates(change->obj, dia);
-  
-  diagram_update_connections_object(dia, change->obj, TRUE);
 
-  properties_update_if_shown(dia, change->obj);
+    object_add_updates(change->obj, dia);  
+    diagram_update_connections_object(dia, change->obj, TRUE);
+    properties_update_if_shown(dia, change->obj);
+  } else {
+    data_foreach_object (DIA_DIAGRAM_DATA (dia), _connections_update_func, dia);
+    diagram_add_update_all(dia);
+  }
 }
 
 static void

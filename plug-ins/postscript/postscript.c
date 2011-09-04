@@ -29,7 +29,7 @@
 #include "render_eps.h"
 #include "paginate_psprint.h"
 
-static void
+static ObjectChange *
 print_callback (DiagramData *data,
                 const gchar *filename,
                 guint flags, /* further additions */
@@ -39,6 +39,7 @@ print_callback (DiagramData *data,
     message_error (_("Nothing to print"));
   else
     diagram_print_ps (data, filename ? filename : "output.ps");
+  return NULL;
 }
 
 static DiaCallbackFilter cb_ps_print = {

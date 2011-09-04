@@ -342,13 +342,13 @@ PyDia_RegisterImport(PyObject *self, PyObject *args)
  * It needs to be registered before via Python function 
  * dia.register_action (or dia.register_callback)
  */
-static void
+static ObjectChange *
 PyDia_callback_func (DiagramData *dia, const gchar *filename, guint flags, void *user_data)
 {
     PyObject *diaobj, *res, *arg, *func = user_data;
     if (!func || !PyCallable_Check (func)) {
         g_warning ("Callback called without valid callback function.");
-        return;
+        return NULL;
     }
   
     if (dia)
@@ -369,6 +369,8 @@ PyDia_callback_func (DiagramData *dia, const gchar *filename, guint flags, void 
 
     Py_DECREF(func);
     Py_XDECREF(diaobj);
+
+    return NULL;
 }
 
 static PyObject *

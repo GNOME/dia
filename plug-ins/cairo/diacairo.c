@@ -453,16 +453,18 @@ static DiaExportFilter wmf_export_filter = {
     FILTER_DONT_GUESS /* don't use this if not asked explicit */
 };
 
-void
+static ObjectChange *
 cairo_clipboard_callback (DiagramData *data,
                           const gchar *filename,
                           guint flags, /* further additions */
                           void *user_data)
 {
-  g_return_if_fail ((OutputKind)user_data == OUTPUT_CLIPBOARD);
-  g_return_if_fail (data != NULL);
+  g_return_val_if_fail ((OutputKind)user_data == OUTPUT_CLIPBOARD, NULL);
+  g_return_val_if_fail (data != NULL, NULL);
   /* filename is not necessary */
-  export_data (data, filename, filename, user_data); 
+  export_data (data, filename, filename, user_data);
+
+  return NULL;
 }
 
 static DiaCallbackFilter cb_clipboard = {

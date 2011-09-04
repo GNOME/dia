@@ -1478,7 +1478,7 @@ static DiaExportFilter emf_export_filter = {
 };
 
 #ifdef G_OS_WIN32
-static void
+static ObjectChange *
 print_callback (DiagramData *data,
                 const gchar *filename,
 		guint        flags,
@@ -1488,6 +1488,7 @@ print_callback (DiagramData *data,
     message_error (_("Nothing to print"));
   else
     diagram_print_gdi (data, filename);
+  return NULL;
 }
 
 static DiaCallbackFilter cb_gdi_print = {
