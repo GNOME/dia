@@ -655,6 +655,7 @@ plug-ins/pstricks/Makefile
 plug-ins/pgf/Makefile
 plug-ins/python/Makefile
 plug-ins/shape/Makefile
+plug-ins/stress/Makefile
 plug-ins/svg/Makefile
 plug-ins/vdx/Makefile
 plug-ins/wmf/Makefile

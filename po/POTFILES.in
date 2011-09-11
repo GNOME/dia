@@ -224,7 +224,6 @@ plug-ins/python/pydia-render.c
 plug-ins/python/python.c
 plug-ins/shape/shape-export.c
 plug-ins/shape/shape.c
-plug-ins/stress/stress.c
 plug-ins/svg/render_svg.c
 plug-ins/svg/svg-import.c
 plug-ins/svg/svg.c
