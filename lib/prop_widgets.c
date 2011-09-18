@@ -124,8 +124,8 @@ frame_fold_unfold(GtkWidget *button1, gpointer userdata)
 static WIDGET *
 frame_beginprop_get_widget(FrameProperty *prop, PropDialog *dialog) 
 { 
-  gchar *foldstring = g_strdup_printf("%s <<<", prop->common.descr->description);
-  gchar *unfoldstring = g_strdup_printf("%s >>>", prop->common.descr->description);
+  gchar *foldstring = g_strdup_printf("%s <<<", _(prop->common.descr->description));
+  gchar *unfoldstring = g_strdup_printf("%s >>>", _(prop->common.descr->description));
   GtkWidget *frame = gtk_frame_new(NULL);
   GtkWidget *vbox = gtk_vbox_new(FALSE,2);
   GtkWidget *foldbutton = gtk_button_new_with_label(foldstring);
