@@ -48,8 +48,12 @@ class SvgRenderer :
 		self.f.close()
 	def draw_object (self, object, matrix) :
 		self.f.write("<!-- " + object.type.name + " -->\n")
+		if object.properties.has_key('meta') and object.properties['meta'].value.has_key('url'):
+			self.f.write('<a xlink:href="%s">' % (object.properties['meta'].value['url']))
 		# don't forget to render the object
 		object.draw (self)
+		if object.properties.has_key('meta') and object.properties['meta'].value.has_key('url'):
+			self.f.write('</a>')
 	def set_linewidth (self, width) :
 		if width < 0.001 : # zero line width is invisble ?
 			self.line_width = 0.001
