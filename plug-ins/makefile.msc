@@ -3,7 +3,7 @@
 # dummy sissi
 PLUGINS = cairo cgm dxf hpgl libart metapost pgf pixbuf \
 	postscript pstricks shape svg vdx wmf wpg xfig xslt \
-	drs stress
+	drs stress layout
 
 # The main target
 all : sub-all
@@ -83,6 +83,13 @@ OBJECTS = \
   dxf.obj \
   dxf-export.obj \
   dxf-import.obj
+!ENDIF
+
+!IFDEF OBJ_layout
+DEPCFLAGS = -GX -I $(PRJ_TOP)\app $(OGDF_CFLAGS)
+PKG_LINK = $(PKG_LINK) $(PRJ_TOP)\app\dia-app.lib $(OGDF_LIBS)
+OBJECTS = \
+	layout.obj
 !ENDIF
 
 !IFDEF OBJ_libart
