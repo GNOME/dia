@@ -175,8 +175,18 @@ component_set_props(Component *component, GPtrArray *props)
 static real
 component_distance_from(Component *cmp, Point *point)
 {
-  DiaObject *obj = &cmp->element.object;
-  return distance_rectangle_point(&obj->bounding_box, point);
+  Element *elem = &cmp->element;
+  real x = elem->corner.x;
+  real y = elem->corner.y;
+  real cw2 = COMPONENT_CWIDTH/2.0;
+  real h2 = elem->height / 2.0;
+  Rectangle r1 = { x + cw2, y, x + elem->width - cw2, y + elem->height };
+  Rectangle r2 = { x, y + h2 - COMPONENT_CHEIGHT * 1.5, x + cw2, y + h2 - COMPONENT_CHEIGHT * 0.5 };
+  Rectangle r3 = { x, y + h2 + COMPONENT_CHEIGHT * 0.5, x + cw2, y + h2 + COMPONENT_CHEIGHT * 1.5 };
+  real d1 = distance_rectangle_point(&r1, point);
+  real d2 = distance_rectangle_point(&r2, point);
+  real d3 = distance_rectangle_point(&r3, point);
+  return MIN(d1, MIN(d2, d3));
 }
 
 static void
@@ -362,8 +372,8 @@ component_update_data(Component *cmp)
 		   elem->corner.y + elem->height / 2.0 + ch,
 		   DIR_WEST);
   connpoint_update(&cmp->connections[10],
-		   elem->corner.x + (elem->width-cw2)/2,
-		   elem->corner.y + elem->height / 2.0 + ch,
+		   elem->corner.x + cw2 + (elem->width - cw2) / 2,
+		   elem->corner.y + elem->height / 2.0,
 		   DIR_ALL);
 
   element_update_boundingbox(elem);
