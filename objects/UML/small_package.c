@@ -183,8 +183,19 @@ smallpackage_set_props(SmallPackage *smallpackage,
 static real
 smallpackage_distance_from(SmallPackage *pkg, Point *point)
 {
-  DiaObject *obj = &pkg->element.object;
-  return distance_rectangle_point(&obj->bounding_box, point);
+  /* need to calculate the distance from both rects to make the autogap
+   * use the right boundaries
+   */
+  Element *elem = &pkg->element;
+  real x = elem->corner.x;
+  real y = elem->corner.y;
+  Rectangle r1 = { x, y, x + elem->width, y + elem->height };
+  Rectangle r2 = { x, y - SMALLPACKAGE_TOPHEIGHT, x + SMALLPACKAGE_TOPWIDTH, y };
+  real d1 = distance_rectangle_point(&r1, point);
+  real d2 = distance_rectangle_point(&r2, point);
+
+  /* always return  the value closest to zero or below */
+  return MIN(d1, d2);
 }
 
 static void
