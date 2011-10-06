@@ -167,8 +167,20 @@ note_set_props(Note *note, GPtrArray *props)
 static real
 note_distance_from(Note *note, Point *point)
 {
-  DiaObject *obj = &note->element.object;
-  return distance_rectangle_point(&obj->bounding_box, point);
+  Element *elem = &note->element;
+  real x = elem->corner.x;
+  real y = elem->corner.y;
+  real w = elem->width;
+  real h = elem->height;
+  Point pts[] = {
+    { x, y },
+    { x + w - NOTE_CORNER, y },
+    { x + w, y + NOTE_CORNER },
+    { x + w, y + h },
+    { x, y + h }
+  };
+  /* not using the line_width parameter to the arrow on the line */
+  return distance_polygon_point(pts, G_N_ELEMENTS(pts), 0.0, point);
 }
 
 static void
