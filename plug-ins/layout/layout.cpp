@@ -281,7 +281,7 @@ layout_callback (DiagramData *data,
 	    try {
 	      coords.resize (n);
 	    } catch (std::bad_alloc& ex) {
-	      g_warning (ex.what());
+	      g_warning ("%s", ex.what());
 	      continue;
 	    }
 	    g->GetEdgeBends (e, &coords[0], n);
@@ -306,7 +306,7 @@ layout_callback (DiagramData *data,
       N_(#name), \
       "/DisplayMenu/Layout/LayoutFirst", \
       layout_callback, \
-      #name \
+      (void*)#name \
     }
       
 static DiaCallbackFilter cb_layout[] = {
@@ -335,7 +335,7 @@ static DiaCallbackFilter cb_layout[] = {
     AN_ENTRY(UpwardPlanarization),
     //Borked: AN_ENTRY(Visibility),
     AN_ENTRY(NotAvailable),
-    NULL
+    { NULL, }
 };
 
 static gboolean
@@ -361,8 +361,8 @@ dia_plugin_init(PluginInfo *info)
 {
   int i = 0;
 
-  if (!dia_plugin_info_init(info, "OGDF Layout",
-                            _("Layout Algorithms"),
+  if (!dia_plugin_info_init(info, "Layout",
+                            _("OGDF Layout Algorithms"),
                             _plugin_can_unload,
                             _plugin_unload))
     return DIA_PLUGIN_INIT_ERROR;

@@ -204,6 +204,7 @@ plug-ins/dxf/dxf-export.c
 plug-ins/dxf/dxf-import.c
 plug-ins/dxf/dxf.c
 plug-ins/hpgl/hpgl.c
+plug-ins/layout/layout.cpp
 plug-ins/libart/dialibart.c
 plug-ins/libart/export_png.c
 plug-ins/libart/render_libart.c

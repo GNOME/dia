@@ -5,6 +5,8 @@ data/sheets-new-dialog.xml
 data/sheets-remove-dialog.xml
 sheets/EML.sheet.in
 po-checktrans.py
+plug-ins/layout/ogdf-simple.cpp
+plug-ins/layout/ogdf-simple.h
 plug-ins/python/otypes.py
 plug-ins/python/autolayoutforce.py
 plug-ins/python/gtkcons.py

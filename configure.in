@@ -269,6 +269,30 @@ AC_SUBST(LIBEMF_CFLAGS)
 AC_SUBST(LIBEMF_LIBS)
 AM_CONDITIONAL(WITH_LIBEMF, test "$emf_ok" = yes)
 
+dnl Not necessarily installed somewhere in a typical place
+AC_ARG_ENABLE([ogdf],
+	AS_HELP_STRING([--enable-ogdf], [enable plugin using OGDF (www.ogdf.net)]),
+	,
+	enable_ogdf=yes)
+if test "$enable_ogdf" = "yes"; then
+	dnl FIXME: get prefix from command line
+	ogdf_prefix=~/devel/OGDF
+	CPPFLAGS="${CPPFLAGS} -I $ogdf_prefix"
+	AC_LANG_PUSH([C++])
+	AC_CHECK_HEADER(ogdf/basic/Graph.h, ogdf_ok=yes, ogdf_ok=no)
+	AC_LANG_POP([C++])
+	if test "$ogdf_ok" = yes; then
+		OGDF_CFLAGS="-I ${ogdf_prefix}"
+		OGDF_LIBS="-L${ogdf_prefix}/_release -lOGDF -lstdc++"
+		AC_DEFINE(HAVE_OGDF,1,[OGDF library available])
+	fi
+else
+	ogdf_ok=no
+fi
+AC_SUBST(OGDF_CFLAGS)
+AC_SUBST(OGDF_LIBS)
+AM_CONDITIONAL(HAVE_OGDF, test "$ogdf_ok" = yes)
+
 dnl
 dnl Debugging
 dnl
@@ -647,6 +671,7 @@ plug-ins/cairo/Makefile
 plug-ins/drs/Makefile
 plug-ins/dxf/Makefile
 plug-ins/hpgl/Makefile
+plug-ins/layout/Makefile
 plug-ins/libart/Makefile
 plug-ins/metapost/Makefile
 plug-ins/pixbuf/Makefile

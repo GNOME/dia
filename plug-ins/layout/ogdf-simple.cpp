@@ -38,7 +38,9 @@
 
 #include <ogdf/orthogonal/OrthoLayout.h>
 
+#ifdef _MSC_VER
 #define DLL_EXPORT __declspec(dllexport)
+#endif
 #include "ogdf-simple.h"
 
 namespace {

@@ -35,7 +35,14 @@ OGDF_LIBS = $(TOP)\..\other\ogdf\src\ogdf.lib
 
 Build on *NIX
 -------------
-Makefile.am
-HAVE_OGDF
-OGDF_CFLAGS
-OGDF_LIBS
+ * ogdf_prefix is hard-coded to ~/devel/OGDF
+ * HAVE_OGDF is defined 
+ * OGDF_CFLAGS defined by configure
+ * OGDF_LIBS defined by configure
+
+/~/devel/OGDF/_release/libOGDF.a(CombinatorialEmbedding.o): relocation R_X86_64_32 against `.bss' 
+	can not be used when making a shared object; recompile with -fPIC
+add
+	compilerParams = -fPIC -I.
+to makeMakefile.config, run
+	./makeMakefile.sh	
