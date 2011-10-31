@@ -290,7 +290,6 @@ color_selection_changed (GtkWidget *w,
   GDK_COLOR_TO_DIA(color, col);
 
   alpha = gtk_color_selection_get_current_alpha(colorsel);
-  printf ("col.alpha = %f, alpha = %u\n", col.alpha, alpha);
   col.alpha = alpha / 65535.0;
 
   if (edit_color == FOREGROUND) {
@@ -383,7 +382,6 @@ color_area_edit (void)
 	GTK_COLOR_SELECTION (gtk_color_selection_dialog_get_color_selection (
 				GTK_COLOR_SELECTION_DIALOG (color_select))),
 	&color);
-  printf ("col.alpha = %f\n", col.alpha);
   gtk_color_selection_set_current_alpha(
         GTK_COLOR_SELECTION (GTK_COLOR_SELECTION_DIALOG (color_select)->colorsel),
         (guint)(col.alpha * 65535.0));
