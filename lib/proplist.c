@@ -143,14 +143,14 @@ prop_list_copy_empty(GPtrArray *plist)
 }
 
 gboolean 
-prop_list_load(GPtrArray *props, DataNode data, GError **err)
+prop_list_load(GPtrArray *props, DataNode data_node, GError **err)
 {
   int i;
   gboolean ret = TRUE;
 
   for (i = 0; i < props->len; i++) {
     Property *prop = g_ptr_array_index(props,i);
-    AttributeNode attr = object_find_attribute(data, prop->descr->name);
+    AttributeNode attr = object_find_attribute(data_node, prop->descr->name);
     DataNode data = attr ? attribute_first_data(attr) : NULL;
     if ((!attr || !data) && prop->descr->flags & PROP_FLAG_OPTIONAL) {
       prop->experience |= PXP_NOTSET;
