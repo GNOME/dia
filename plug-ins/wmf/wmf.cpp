@@ -1501,8 +1501,9 @@ static DiaCallbackFilter cb_gdi_print = {
 #endif
 
 /* --- dia plug-in interface --- */
-
+extern "C" {
 DIA_PLUGIN_CHECK_INIT
+}
 
 PluginInitResult
 dia_plugin_init(PluginInfo *info)
