@@ -159,7 +159,8 @@ undo_delete_lowest_transaction(UndoStack *stack)
     stack->depth--;
     DEBUG_PRINTF(("Decreasing stack depth to: %d\n", stack->depth));
   }
-  change->prev = NULL;
+  if (change) /* play safe */
+    change->prev = NULL;
 }
 
 void
