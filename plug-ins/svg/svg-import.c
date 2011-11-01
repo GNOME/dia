@@ -655,7 +655,7 @@ read_line_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list)
     start.y = get_value_as_cm((char *) str, NULL);
     xmlFree(str);
   } else
-    start.y;
+    start.y = 0.0;
   str = xmlGetProp(node, (const xmlChar *)"x2");
   if (str) {
     end.x = get_value_as_cm((char *) str, NULL);
