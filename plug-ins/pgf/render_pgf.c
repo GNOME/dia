@@ -61,7 +61,7 @@ TODO:
 #endif
 #include <errno.h>
 
-#include <glib/gprintf.h>
+#include <glib.h>
 #include <glib/gstdio.h>
 
 #include "intl.h"

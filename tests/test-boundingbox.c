@@ -28,9 +28,6 @@
 #include <glib.h>
 #include <glib-object.h>
 
-#if GLIB_CHECK_VERSION(2,16,0)
-#include <glib/gtestutils.h>
-#endif
 #include "dialib.h"
 
 /*
