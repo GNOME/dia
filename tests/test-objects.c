@@ -28,8 +28,6 @@
 #include <glib.h>
 #include <glib-object.h>
 
-#include <glib/gtestutils.h>
-
 #include "object.h"
 #include "plug-ins.h"
 #include "dialib.h"

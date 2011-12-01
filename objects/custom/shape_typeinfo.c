@@ -27,7 +27,7 @@
 #include "custom_util.h"
 #include <string.h>
 #include <stdarg.h>
-#include <glib/gstrfuncs.h>
+#include <glib.h>
 #include <glib/gstdio.h>
 #include <libxml/parser.h>
 
