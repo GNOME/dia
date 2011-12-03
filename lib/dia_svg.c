@@ -991,8 +991,10 @@ dia_svg_parse_transform(const gchar *trans, real scale)
     
     if (list[i])
       angle = g_ascii_strtod (list[i], NULL), ++i;
-    else
+    else {
+      angle = 0;
       g_warning ("transform=rotate no angle?");
+    }
     m->xx =  cos(G_PI*angle/180);
     /* FIXME: swapped xy and yx - correct? */
     m->xy = -sin(G_PI*angle/180);
