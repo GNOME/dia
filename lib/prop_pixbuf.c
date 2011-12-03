@@ -220,7 +220,7 @@ data_add_pixbuf (AttributeNode attr, GdkPixbuf *pixbuf)
   b64 = pixbuf_encode_base64 (pixbuf);
 
   if (b64)
-    (void)xmlNewChild (comp_attr, NULL, (const xmlChar *)"data", b64);
+    (void)xmlNewChild (comp_attr, NULL, (const xmlChar *)"data", (xmlChar *)b64);
 
   g_free (b64);
 }
