@@ -35,8 +35,8 @@ struct _Color {
 void color_init(void);
 Color *color_new_rgb(float r, float g, float b);
 Color *color_new_rgba(float r, float g, float b, float alpha);
-void color_convert(Color *color, GdkColor *gdkcolor);
-gboolean color_equals(Color *color1, Color *color2);
+void color_convert(const Color *color, GdkColor *gdkcolor);
+gboolean color_equals(const Color *color1, const Color *color2);
 
 #ifdef G_OS_WIN32
 static Color color_black = { 0.0f, 0.0f, 0.0f, 1.0f };

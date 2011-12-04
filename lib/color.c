@@ -94,7 +94,7 @@ color_new_rgba(float r, float g, float b, float alpha)
  * @param gdkcolor Return value: GDK color object to fill in.
  */
 void
-color_convert(Color *color, GdkColor *gdkcolor)
+color_convert(const Color *color, GdkColor *gdkcolor)
 {
   gdkcolor->red = (guint16)(color->red*65535);
   gdkcolor->green = (guint16)(color->green*65535);
@@ -114,7 +114,7 @@ color_convert(Color *color, GdkColor *gdkcolor)
  * @returns TRUE if the color objects are the same color.
  */
 gboolean
-color_equals(Color *color1, Color *color2)
+color_equals(const Color *color1, const Color *color2)
 {
   return (color1->red == color2->red) &&
     (color1->green == color2->green) &&
