@@ -22,7 +22,7 @@
 #include "diagram.h"
 
 
-void create_layer_dialog(void);
+void layer_dialog_create(void);
 void layer_dialog_update_diagram_list(void);
 void layer_dialog_show(void);
 void layer_dialog_set_diagram(Diagram *dia);

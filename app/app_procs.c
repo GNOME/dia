@@ -942,7 +942,7 @@ app_init (int argc, char **argv)
       create_toolbox();
       /* for the integrated ui case it is integrated */
       persistence_register_window_create("layer_window",
-				         (NullaryFunc*)&create_layer_dialog);
+				         (NullaryFunc*)&layer_dialog_create);
     }
       
     /*fill recent file menu */

@@ -368,7 +368,7 @@ GtkWidget * create_layer_view_widget (void)
 }
 
 void
-create_layer_dialog(void)
+layer_dialog_create(void)
 {
   GtkWidget *dialog;
   GtkWidget *vbox;
@@ -689,7 +689,7 @@ layer_dialog_update_diagram_list(void)
     if (!dia_open_diagrams())
       return; /* shortcut; maybe session end w/o this dialog */
     else
-      create_layer_dialog();
+      layer_dialog_create();
   }
   g_assert(layer_dialog != NULL); /* must be valid now */
   /* oh this options: here integrated UI ;( */
@@ -760,7 +760,7 @@ layer_dialog_show()
   if (is_integrated_ui () == FALSE)
   {   
   if (layer_dialog == NULL || layer_dialog->dialog == NULL)
-    create_layer_dialog();
+    layer_dialog_create();
   g_assert(layer_dialog != NULL); /* must be valid now */
   gtk_window_present(GTK_WINDOW(layer_dialog->dialog));
   }
@@ -793,7 +793,7 @@ layer_dialog_set_diagram(Diagram *dia)
     active_layer = dia->data->active_layer;
 
   if (layer_dialog == NULL || layer_dialog->dialog == NULL) 
-    create_layer_dialog(); /* May have been destroyed */
+    layer_dialog_create(); /* May have been destroyed */
   g_assert(layer_dialog != NULL); /* must be valid now */
 
   gtk_container_foreach (GTK_CONTAINER(layer_dialog->layer_list),
