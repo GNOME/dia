@@ -33,7 +33,7 @@
 static const char *button_menu_key = "dia-button-menu";
 static const char *menuitem_enum_key = "dia-menuitem-value";
 
-static gchar*
+static const gchar*
 _dia_translate (const gchar* term, gpointer data)
 {
   const gchar* trans = term;
