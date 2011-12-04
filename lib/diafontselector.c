@@ -286,8 +286,8 @@ dia_font_selector_set_style_menu(DiaFontSelector *fs,
 {
   int select = 0;
   PangoFontFace **faces = NULL;
-  guint nfaces = 0;
-  guint i=0;
+  int nfaces = 0;
+  int i=0;
   GtkWidget *menu = NULL;
   long stylebits = 0;
   int menu_item_nr = 0;
