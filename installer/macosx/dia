@@ -30,7 +30,7 @@ export PYTHONPATH="$TOP/python/site-packages/$ARCH/$PYTHON_VERS"
 # NB: we are only preprending some stuff to the default python path so if the directory does not exist it should not harm the rest
 
 # No longer required if path rewriting has been conducted.
-export DYLD_LIBRARY_PATH="$TOP/lib"
+export DYLD_FALLBACK_LIBRARY_PATH="$TOP/lib"
 
 export DIA_BASE_PATH="$TOP"
 export DIA_LIB_PATH="$TOP/dia"
