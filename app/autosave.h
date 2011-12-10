@@ -19,6 +19,8 @@
 #ifndef AUTOSAVE_H
 #define AUTOSAVE_H
 
-extern gboolean autosave_check_autosave(gpointer data);
+#include <glib.h>
+
+gboolean autosave_check_autosave(gpointer data);
 
 #endif

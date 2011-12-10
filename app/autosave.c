@@ -30,20 +30,9 @@
 #include <config.h>
 #endif
 
-#include <stdio.h>
-#include <sys/types.h>
-#ifdef HAVE_UNISTD_H
-#include <unistd.h>
-#endif
-
-#include "intl.h"
-#include "dia_dirs.h"
+#include "autosave.h"
 #include "diagram.h"
 #include "load_save.h"
-#include "dialogs.h"
-#include <gtk/gtk.h>
-
-gboolean autosave_check_autosave(gpointer data);
 
 static void
 autosave_save_diagram(gpointer data)
@@ -77,57 +66,3 @@ autosave_check_autosave(gpointer data)
   }
   return TRUE;
 }
-
-/* This is old stuff for a restore dialog */
-#if 0
-/* Doesn't work with autosave files stored in the files dir */
-
-/** Create a dialog that asks for files to be restore */
-static void
-autosave_make_restore_dialog(GList *files)
-{
-  GtkWidget *ok, *cancel;
-  GtkWidget *dialog = dialog_make(_("Recovering autosaved diagrams"),
-				  NULL, NULL, &ok, &cancel);
-  GtkWidget *vbox = gtk_dialog_get_content_area(GTK_DIALOG(dialog));
-  GtkWidget *selectarea = gtk_clist_new(1);
-  GList *iter;
-  gchar **filearray = (gchar**)g_new(gchar *, g_list_length(files)+1);
-  int i;
-
-  gtk_box_pack_start(GTK_BOX(vbox), gtk_label_new(_("Autosaved files exist.\nPlease select those you wish to recover.")), TRUE, TRUE, 0);
-
-  for (i = 0, iter = files; iter != NULL; i++, iter = g_list_next(iter)) {
-    filearray[i] = (gchar *)iter->data;
-  }
-  filearray[i] = 0;
-  gtk_clist_append(GTK_CLIST(selectarea), filearray);
-
-  gtk_box_pack_start(GTK_BOX(vbox), selectarea, TRUE, TRUE, 0);
-  gtk_widget_show_all(dialog);
-}
-
-/** If autosave files exist, ask the user if they should be restored
- */
-void
-autosave_restore_documents(void)
-{
-  gchar *savedir = dia_config_filename("autosave" G_DIR_SEPARATOR_S);
-  GDir *dir = g_dir_open(savedir, 0, NULL);
-  const char *ent;
-  GList *files = NULL;
-
-  if (dir == NULL) return;
-  while ((ent = g_dir_read_name(dir)) != NULL) {
-    printf("Found autosave file %s\n", ent);
-    files = g_list_prepend(files, g_strdup(ent));
-  }
-
-  if (files != NULL) {
-    autosave_make_restore_dialog(files);
-  }
-  g_dir_close(dir);
-  g_free(savedir);
-  g_list_free(files);
-}
-#endif
