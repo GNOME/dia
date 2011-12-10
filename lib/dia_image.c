@@ -23,7 +23,6 @@
 #include "geometry.h"
 #include "dia_image.h"
 #include "message.h"
-#include <gtk/gtkwidget.h>
 #include <gdk-pixbuf/gdk-pixbuf.h>
 
 #include "dia-lib-icons.h"
@@ -108,18 +107,6 @@ dia_image_finalize(GObject* object)
 }
 
 gboolean _dia_image_initialized = FALSE;
-
-/** Perform required initialization to handle images with GDK.
- *  Should not be called in non-interactive use.
- */
-void 
-dia_image_init(void)
-{
-  if (!_dia_image_initialized) {
-    gtk_widget_set_default_colormap(gdk_rgb_get_cmap());
-    _dia_image_initialized = TRUE;
-  }
-}
 
 /** Get the image to put in place of a image that cannot be read.
  * @returns A statically allocated image.
@@ -220,14 +207,13 @@ dia_image_unref(DiaImage *image)
  * @param width Width in pixels of rendering in window.
  * @param height Height in pixels of rendering in window.
  */
-void 
-dia_image_draw(DiaImage *image, GdkWindow *window, GdkGC *gc,
-	       int x, int y, int width, int height)
+GdkPixbuf * 
+dia_image_get_scaled_pixbuf(DiaImage *image, int width, int height)
 {
   GdkPixbuf *scaled;
 
   if (width < 1 || height < 1)
-    return;
+    return NULL;
   if (gdk_pixbuf_get_width(image->image) > width ||
       gdk_pixbuf_get_height(image->image) > height) {
     /* Using TILES to make it look more like PostScript */
@@ -249,15 +235,8 @@ dia_image_draw(DiaImage *image, GdkWindow *window, GdkGC *gc,
   } else {
     scaled = image->image;
   }
-
-  /* Once we can render Alpha, we'll do it! */
-  gdk_draw_pixbuf(window, gc, scaled,
-		  0, 0, x, y, width, height, 
-		  GDK_RGB_DITHER_NORMAL, 0, 0);
-
-#ifndef SCALING_CACHE
-  g_object_unref(scaled);
-#endif
+  /* always adding a reference */
+  return g_object_ref (scaled);
 }
 
 static gchar *

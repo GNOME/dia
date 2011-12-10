@@ -866,8 +866,14 @@ draw_image (DiaRenderer *object,
       }
     } else {
       /* otherwise still using the caching variant */
-      dia_image_draw(image,  renderer->pixmap, renderer->gc, real_x, real_y,
-		     real_width, real_height);
+      GdkPixbuf *scaled = dia_image_get_scaled_pixbuf (image, real_width, real_height);
+      if (scaled) {
+	gdk_draw_pixbuf(renderer->pixmap, renderer->gc, scaled,
+		        0, 0, real_x, real_y, real_width, real_height, 
+		        GDK_RGB_DITHER_NORMAL, 0, 0);
+
+        g_object_unref (scaled);
+      }
     }
   }
 }

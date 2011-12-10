@@ -26,8 +26,6 @@
 
 G_BEGIN_DECLS
 
-void dia_image_init(void);
-
 DiaImage *dia_image_get_broken(void);
 
 DiaImage *dia_image_load(const gchar *filename);
@@ -56,7 +54,8 @@ guint8 *dia_image_mask_data(const DiaImage *image);
  */
 const guint8 *dia_image_rgba_data(const DiaImage *image);
 const char *dia_image_filename(const DiaImage *image);
-const GdkPixbuf* dia_image_pixbuf (const DiaImage *image);
+const GdkPixbuf *dia_image_pixbuf (const DiaImage *image);
+GdkPixbuf *dia_image_get_scaled_pixbuf (DiaImage *image, int width, int height);
 
 G_END_DECLS
 

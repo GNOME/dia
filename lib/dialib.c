@@ -29,7 +29,6 @@
 #include "dialib.h"
 #include "message.h"
 #include "utils.h"
-#include "dia_image.h"
 #include "color.h"
 #include "object.h"
 #include "dia_dirs.h"
@@ -108,7 +107,7 @@ libdia_init (guint flags)
   if (flags & DIA_INTERACTIVE) {
     char *diagtkrc;
 
-    dia_image_init();
+    gtk_widget_set_default_colormap(gdk_rgb_get_cmap());
 
     diagtkrc = dia_config_filename("diagtkrc");
     dia_log_message ("Config from %s", diagtkrc);

@@ -269,7 +269,6 @@ EXPORTS
  dia_get_canonical_path
 
  dia_image_add_ref
- dia_image_draw
  dia_image_filename
  dia_image_get_broken
  dia_image_height
