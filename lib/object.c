@@ -22,8 +22,6 @@
 #include <stdio.h>
 #include <string.h>
 
-#include <gtk/gtk.h>
-
 #include "object.h"
 #include "diagramdata.h" /* for Layer */
 #include "message.h"

@@ -284,8 +284,7 @@ dia_get_canonical_path(const gchar *path)
   return ret;
 }
 
-/** Returns an filename in UTF-8 encoding from filename in filesystem
- *  encoding.  In GTK < 2.6, invalid sequences are not [???]
+/** Returns an filename in UTF-8 encoding from filename in filesystem encoding.
  * @param filename A filename string as gotten from the filesystem.
  * @returns UTF-8 encoded copy of the filename.
  * The value returned is a pointer to static array.

@@ -43,7 +43,6 @@
 
 #include "pixmaps/requirement.xpm"
 
-typedef struct _RequirementPropertiesDialog RequirementPropertiesDialog;
 typedef struct _Requirement Requirement;
 typedef struct _RequirementState RequirementState;
 
@@ -60,14 +59,6 @@ struct _Requirement {
   TextAttributes attrs;
 
   int init;
-};
-
-
-struct _RequirementPropertiesDialog {
-  GtkWidget *dialog;
-
-  GtkToggleButton *text_out;
-  GtkToggleButton *collaboration;
 };
 
 

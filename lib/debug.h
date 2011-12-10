@@ -24,7 +24,6 @@
 #include <config.h>
 
 #include <stdio.h>
-#include <gtk/gtk.h>
 #include <stdarg.h>
 
 gboolean dia_assert_true(gboolean val, gchar *format, ...);
