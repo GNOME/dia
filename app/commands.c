@@ -767,8 +767,10 @@ edit_delete_callback (GtkAction *action)
   DDisplay *ddisp;
 
   /* Avoid crashing while moving or resizing and deleting ... */
-  if (gdk_pointer_is_grabbed ())
+  if (gdk_pointer_is_grabbed ()) {
     gdk_beep ();    /* ... no matter how much sense it makes. */
+    return;
+  }
 
   ddisp = ddisplay_active();
   if (!ddisp) return;
