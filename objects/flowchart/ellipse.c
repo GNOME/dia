@@ -513,8 +513,8 @@ ellipse_create(Point *startpoint,
   text_get_attributes(ellipse->text,&ellipse->attrs);
   dia_font_unref(font);
   
-  /* new default: let the user decide the size */
-  ellipse->text_fitting = TEXTFIT_NEVER;
+  /* new default: let the user decide the size? */
+  ellipse->text_fitting = TEXTFIT_ALWAYS;
 
   element_init(elem, 8, NUM_CONNECTIONS);
 
