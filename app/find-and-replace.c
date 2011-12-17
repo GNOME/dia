@@ -485,6 +485,9 @@ fnr_dialog_setup_common (GtkWidget *dialog, gboolean is_replace, DDisplay *ddisp
   match_all_properties = gtk_check_button_new_with_mnemonic (_("Match _all properties (not just object name)"));
   gtk_box_pack_start (GTK_BOX (vbox), match_all_properties, FALSE, FALSE, 6);
   g_object_set_data (G_OBJECT (dialog), "match-all-properties", match_all_properties);
+  if (is_replace)
+    gtk_widget_set_sensitive (GTK_WIDGET (match_all_properties), FALSE);
+    
 
   gtk_widget_show_all (vbox);
 }
