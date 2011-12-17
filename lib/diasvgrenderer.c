@@ -686,9 +686,11 @@ draw_text_line(DiaRenderer *self, TextLine *text_line,
   style = (char*)get_fill_style(renderer, colour);
   /* return value must not be freed */
   renderer->linewidth = saved_width;
+#if 0 /* would need a unit: https://bugzilla.mozilla.org/show_bug.cgi?id=707071#c4 */
   tmp = g_strdup_printf("%s; font-size: %s", style,
 			dia_svg_dtostr(d_buf, text_line_get_height(text_line)));
   style = tmp;
+#endif
   /* This is going to break for non-LTR texts, as SVG thinks 'start' is
    * 'right' for those. */
   switch (alignment) {
@@ -723,6 +725,11 @@ draw_text_line(DiaRenderer *self, TextLine *text_line,
   xmlSetProp(node, (const xmlChar *)"x", (xmlChar *) d_buf);
   dia_svg_dtostr(d_buf, pos->y);
   xmlSetProp(node, (const xmlChar *)"y", (xmlChar *) d_buf);
+
+  /* font-size as single attribute can work like the other length w/o unit */
+  dia_svg_dtostr(d_buf, text_line_get_height(text_line));
+  xmlSetProp(node, (const xmlChar *)"font-size", (xmlChar *) d_buf);
+  
   dia_svg_dtostr(d_buf, text_line_get_width(text_line));
   xmlSetProp(node, (const xmlChar*)"textLength", (xmlChar *) d_buf);
 }

@@ -383,10 +383,16 @@ node_set_text_style (xmlNodePtr      node,
     style = g_strconcat(style, ";text-anchor:end", NULL);
     break;
   }
+#if 0 /* would need a unit according to https://bugzilla.mozilla.org/show_bug.cgi?id=707071#c4 */
   tmp = g_strdup_printf("%s;font-size:%s", style,
 			dia_svg_dtostr(d_buf, font_size) );
   g_free (style);
   style = tmp;
+#else
+  /* font-size as attribute can work like the other length w/o unit */
+  dia_svg_dtostr(d_buf, font_size);
+  xmlSetProp(node, (const xmlChar *)"font-size", (xmlChar *) d_buf);
+#endif
 
   if (font) {
      tmp = g_strdup_printf("%s;font-family:%s;font-style:%s;"
