@@ -55,6 +55,15 @@
   * bugs fixed:
     http://bugzilla.gnome.org/buglist.cgi?product=dia&target_milestone=0.98
 
+dia-0.97.2: 2011-12-18
+
+  * a lot of updated translations
+
+  * bugs fixed:
+    http://bugzilla.gnome.org/buglist.cgi?product=dia&target_milestone=0.97.2
+
+  * More colors for SADT
+
 dia-0.97.1: 2010-01-24
 
   * updated translations
