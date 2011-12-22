@@ -103,10 +103,10 @@ XPStyle On
   
 VIAddVersionKey "ProductName" "Dia for Windows"
 VIAddVersionKey "CompanyName" "The Dia Developers"
-VIAddVersionKey "LegalCopyright" "(c) 2003-2009 Alexander Larsson and others"
+VIAddVersionKey "LegalCopyright" "(c) 2003-2011 Alexander Larsson and others"
 VIAddVersionKey "FileDescription" "Dia for Windows Installer"
-VIAddVersionKey "FileVersion" "0.97.0.3"
-VIProductVersion "0.97.0.3"
+VIAddVersionKey "FileVersion" "0.98.0.3"
+VIProductVersion "0.98.0.3"
 
 ;--------------------------------
 ;Modern UI Configuration
@@ -283,13 +283,13 @@ ${File} "..\..\" "COPYING"
 ${SetOutPath} "$INSTDIR\bin"
 ; jEdit replacement: (^.*\\)(.*)$ 
 ; \${File} "$1" "$2"
-${File} "..\..\build\win32\bin\" "dia.exe"
-${File} "..\..\build\win32\bin\" "diaw.exe"
+${File} "..\..\app\" "dia.exe"
+${File} "..\..\app\" "diaw.exe"
 ${File} "..\..\app\" "dia-win-remote.exe"
-${File} "..\..\build\win32\bin\" "dia-app.dll"
+${File} "..\..\app\" "dia-app.dll"
 ${File} "..\..\..\bin\" "libart_lgpl_2-2.dll"
 ${File} "..\..\..\bin\" "libcairo-2.dll"
-${File} "..\..\build\win32\bin\" "libdia.dll"
+${File} "..\..\lib\" "libdia.dll"
 ${File} "..\..\..\bin\" "iconv.dll"
 ${File} "..\..\..\bin\" "intl.dll"
 ${File} "..\..\..\bin\" "libxml2.dll"
