@@ -37,7 +37,7 @@ export DIA_LIB_PATH="$TOP/dia"
 export DIA_SHEET_PATH="$TOP/sheets"
 export DIA_SHAPE_PATH="$TOP/shapes"
 export DIA_XSLT_PATH="$TOP/xslt"
-export DIA_LOCALE_PATH="$TOP/locale"
+export DIA_LOCALE_PATH="$TOP/share/locale"
 
 mkdir -p "${HOME}/.dia-etc"
 

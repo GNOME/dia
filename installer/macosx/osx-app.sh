@@ -128,7 +128,7 @@ fi
 
 
 if [ ! -e "$LIBPREFIX" ]; then
-	echo "Cannot find the directory containing the libraires: $LIBPREFIX" >&2
+	echo "Cannot find the directory containing the libraries: $LIBPREFIX" >&2
 	exit 1
 fi
 
@@ -170,7 +170,7 @@ pkgbin="$package/Contents/Resources/bin"
 pkglib="$package/Contents/Resources/lib"
 pkgdata="$package/Contents/Resources/data"
 pkgdia="$package/Contents/Resources/dia"
-pkglocale="$package/Contents/Resources/locale"
+pkglocale="$package/Contents/Resources/share/locale"
 pkgpython="$package/Contents/Resources/python/site-packages/"
 pkgresources="$package/Contents/Resources"
 
@@ -194,24 +194,25 @@ binpath="$pkgbin/dia-bin"
 cp -v "$binary" "$binpath"
 cp "dia" "$pkgbin/dia"
 cp "Dia.icns" "$pkgresources/"
-cp "../../data/dia-splash.png" "pkgresources/"
+cp "../../data/dia-splash.png" "$pkgresources/"
 
 # Share files
 rsync -av "$binary_dir/../share/$binary_name"/* "$pkgresources/"
 cp "$plist" "$package/Contents/Info.plist"
-rsync -av "$binary_dir/../share/locale"/* "$pkgresources/locale"
+rsync -av "$binary_dir/../share/locale"/* "$pkgresources/share/locale"
 
 rsync -av "$binary_dir/../lib/dia"/* "$pkgdia/"
 rsync -av "$binary_dir/../share/dia/ui"/* "$pkgdata/"
 
 cp -rp "$binary_dir/../lib/gdk-pixbuf-2.0" "$pkglib"
+cp -rp "$binary_dir/../lib/pango" "$pkglib"
 
 # Copy GTK shared mime information
 mkdir -p "$pkgresources/share"
-cp -rp "$LIBPREFIX/share/mime" "$pkgresources/share/"
+cp -rp "$binary_dir/../share/mime" "$pkgresources/share/"
 
 # Icons and the rest of the script framework
-rsync -av --exclude ".svn" "$resdir"/Resources/* "$pkgresources/"
+#rsync -av --exclude ".svn" "$resdir"/Resources/* "$pkgresources/"
 
 # PkgInfo must match bundle type and creator code from Info.plist
 echo "APPLInks" > $package/Contents/PkgInfo
@@ -219,9 +220,10 @@ echo "APPLInks" > $package/Contents/PkgInfo
 # Pull in extra requirements for Pango and GTK
 pkgetc="$package/Contents/Resources/etc"
 mkdir -p $pkgetc/pango
-cp $LIBPREFIX/etc/pango/pangox.aliases $pkgetc/pango/
+cp $binary_dir/../etc/pango/pangox.aliases $pkgetc/pango/
 # Need to adjust path and quote in case of spaces in path.
-sed -e "s,$LIBPREFIX,\"\${CWD},g" -e 's,\.so ,.so" ,g' $LIBPREFIX/etc/pango/pango.modules > $pkgetc/pango/pango.modules
+sed -e "s,$LIBPREFIX,\"\${CWD}/lib,g" -e 's,\.so ,.so" ,g' $binary_dir/../etc/pango/pango.modules > $pkgetc/pango/pango.modules
+
 cat > $pkgetc/pango/pangorc <<END_PANGO
 [Pango]
 ModuleFiles=\${HOME}/.dia-etc/pango.modules
@@ -231,22 +233,22 @@ END_PANGO
 
 # We use a modified fonts.conf file so only need the dtd
 mkdir -p $pkgetc/fonts
-cp $LIBPREFIX/etc/fonts/fonts.dtd $pkgetc/fonts/
-cp -r $LIBPREFIX/etc/fonts/conf.avail $pkgetc/fonts/
-cp -r $LIBPREFIX/etc/fonts/conf.d $pkgetc/fonts/
-cp $LIBPREFIX/etc/fonts/fonts.conf $pkgetc/fonts/
+cp $binary_dir/../etc/fonts/fonts.dtd $pkgetc/fonts/
+cp -r $binary_dir/../etc/fonts/conf.avail $pkgetc/fonts/
+cp -r $binary_dir/etc/fonts/conf.d $pkgetc/fonts/
+cp $binary_dir/../etc/fonts/fonts.conf $pkgetc/fonts/
 
 mkdir -p $pkgetc/gtk-2.0
-sed -e "s,$LIBPREFIX,\${CWD},g" $LIBPREFIX/etc/gtk-2.0/gdk-pixbuf.loaders > $pkgetc/gtk-2.0/gdk-pixbuf.loaders
-sed -e "s,$LIBPREFIX,\${CWD},g" $LIBPREFIX/etc/gtk-2.0/gtk.immodules > $pkgetc/gtk-2.0/gtk.immodules
+sed -e "s,$LIBPREFIX,\${CWD}/lib,g" $binary_dir/../etc/gtk-2.0/gdk-pixbuf.loaders > $pkgetc/gtk-2.0/gdk-pixbuf.loaders
+sed -e "s,$LIBPREFIX,\${CWD},g" $binary_dir/../etc/gtk-2.0/gtk.immodules > $pkgetc/gtk-2.0/gtk.immodules
 
 pango_version=`pkg-config --variable=pango_module_version pango`
 mkdir -p $pkglib/pango/$pango_version/modules
-cp $LIBPREFIX/lib/pango/$pango_version/modules/*.so $pkglib/pango/$pango_version/modules/
+cp $binary_dir/../lib/pango/$pango_version/modules/*.so $pkglib/pango/$pango_version/modules/
 
 gtk_version=`pkg-config --variable=gtk_binary_version gtk+-2.0`
 mkdir -p $pkglib/gtk-2.0/$gtk_version/{engines,immodules,loaders,printbackends}
-cp -r $LIBPREFIX/lib/gtk-2.0/$gtk_version/* $pkglib/gtk-2.0/$gtk_version/
+cp -r $binary_dir/../lib/gtk-2.0/$gtk_version/* $pkglib/gtk-2.0/$gtk_version/
 
 # Find out libs we need from fink, darwinports, or from a custom install
 # (i.e. $LIBPREFIX), then loop until no changes.
