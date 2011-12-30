@@ -262,7 +262,11 @@
       </listitem>
 
       <listitem>
-	<para><literal>tex</literal> (TeX PSTricks macros)</para>
+	<para><literal>pstricks-tex</literal> (TeX PSTricks macros)</para>
+      </listitem>
+
+      <listitem>
+	<para><literal>pgf-tex</literal> (TeX PGF/tikz macros)</para>
       </listitem>
 
       <listitem>
