@@ -1,23 +1,39 @@
-  * Transparency
-  
+  * optional OGDF based automatic layout plug-in
+    Providing a bunch of automatic graph layout algorithms based on OGDF (www.ogdf.net)
+    See plug-ins/layout/readme.txt for build details.
+
+  * Transparency (aka. Alpha support)
+    Almost every place where a color can be selected now also allows to
+    choose the transparency value. If the the plugin/importer/exporter does
+    not support transparency, it will try to emulate (GDK renderer) or just ignore
+    the transparency.
+
   * Improved clipboard support
+    - global clipboard copy (selected) support, that is for every copy within
+      Dia the selection can be rendered as bitmap with diplay scale if another
+      application asks for it. All attempts to find a common vector exchange
+      format via clipboard were failing.
+    - Edit/Paste Image to either replace the pixels of a selected image or
+      add a new image to the diagram
 
   * Embedded Images
+    - images from clipboard don't have a filename, embedded by default
+    - embedded image support for shapes, SVG, DXF, VDX
 
   * Object alignment algorithms improved
     - there is a new command "Align connected" aligning on the coneected
       connection points, not the object bounding box.
-    - all align/spead-out commands now filter out connected objects (i.e. the
-      objects which will be moved as a side-effect).
+    - all align/spread-out commands are now filtering on connected objects (i.e. 
+      leaving out the objects which will be moved as a side-effect).
 
-  * Text fitting options
+  * Text fitting options for Flowchart objects
     - Always: grow and shrink object based on it's text content
     - When Needed: only grow objects when text content does not fit (old default)
     - Never: text space and object shape are completely independent
 
-  * Transformations: Groups can be scaled and rotated. This limited support for object
-    transformations can only be exploited with a limited number of
-    renderers, but SVG, PNG, PDF (via cairo), WMF (win32 only) and
+  * Transformations: Groups can be scaled and rotated. 
+    This limited support for object transformations can only be exploited with some 
+    of the existing renderers, but SVG, PNG, PDF (via cairo), WMF (win32 only) and
     plain SVG are fully supporting transformations. (bgo#59880, bgo#100886)
 
   * object meta info possible since 0.97 finally got an editor
@@ -32,23 +48,55 @@
     - sortable by name or typename
     - tooltips showing more detailed information about the objects at hand
 
-  * new object "Diagram as Element" allows to embbed diagrams
+  * new object "Diagram as Element" allows to refernce external diagrams
 
-  * more color for SADT/IDEF0 objects
+  * update of VDX plug-in
+    - in-memory base64 encoding for export case
+    - line width issue with import (round-trip)
+    - transparency/alpha support for export and import
+    - text alignment corrections
+    - use NoLine=1 to avoid extra lines
+    - fix <Text>, <cp/>, <pp/> and <tp/> tags
+    - use embedded image rather than temporary file for image
+    - don't close Polyline with FillPattern=None(0)
+    - remember shape ID in object meta info
+    
+  * update of SVG plug-in
+    - font-size issue with Firefox (SVG contained invalid CSS)
+    - export images inline if there is no filename
+    - embedded image support for import
+    - some more transform support
+    - retain current point over path split
+
+  * update of DXF plug-in
+    - finally also color-by-layer
+    - better size by changing scales during import to the reciprocal
+    - don't complain about 999 comment code
+    - adding AcDbArc to ARC export makes it work
+    - respect specialties of SOLID and THICKNESS round-trip
+    - produce DXF independent of locale
 
   * PyDia inline API documentation overhaul and easier access to it,
     see e.g. "<Toolbox>/Help/PyDia HTML Docs"
 
-  * LineCaps and LineJoin switchable for Standard objects
+  * Standard object improvements
+    - LineCaps and LineJoin switchable for Standard objects
+    - Standard - Arc: movable center point
 
   * more diagrams describing internal behavior
 
-  * allow to render "holes" with some renderers, for details see:
+  * support to render "holes" with some renderers, for details see:
     https://bugzilla.gnome.org/show_bug.cgi?id=568168
 
-  * Allow to increase the width of 'UML - CLass' to help grid aligning
+  * allow to increase the width of 'UML - CLass' to help grid aligning
 
-  * A lot less deprecated function use, still a long way to go for gtk+3
+  * a lot less deprecated function use, still a long way to go for gtk+3
+    http://people.gnome.org/~fpeters/299.html and
+    https://bugzilla.gnome.org/show_bug.cgi?id=575016    
+
+  * a bunch of changes suggested by Static Code Analysis
+    Commits are marked with [scan-build] as in http://clang-analyzer.llvm.org/scan-build.html
+    The only user visible change should be less apparently random bugs.
 
   * removed incomplete RDP (Petri net) shape set
 
@@ -77,6 +125,7 @@ dia-0.97: 2009-05-03
 
 dia-0.97-pre3: 2009-04-11
 
+  * integrated UI does not need a restart anymore (it must be selected on the 
   * integrated UI does not need a restart anymore (it must be selected on the 
     command line with 'dia --integrated' ;)
   * even more bugs fixed:
