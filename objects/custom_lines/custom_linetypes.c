@@ -101,37 +101,54 @@ ensure_standard_types (void)
 }
 
 static DiaObject *
+_custom_zigzagline_load (ObjectNode obj_node, int version, const char *filename, DiaObjectType *delegate)
+{
+  DiaObject *obj;
+  DiaObjectType *ot;
+  LineInfo *line_info;
+  xmlChar *typestr;
+
+  typestr = (char *) xmlGetProp(obj_node, (const xmlChar *)"type");
+  ot = object_get_type (typestr);
+  line_info = ot->default_user_data;
+
+  if (typestr)
+    xmlFree(typestr);
+
+  obj = delegate->ops->load (obj_node, version, filename);
+  obj->type = line_info->object_type;
+
+  return obj;
+}
+static DiaObject *
 custom_zigzagline_load (ObjectNode obj_node, int version, const char *filename)
 {
   ensure_standard_types ();
-  
   if (!zigzag_ot) {
     g_warning ("Can't delegate to 'Standard - ZigZagLine'");
     return NULL;
   }
-  return zigzag_ot->ops->load (obj_node, version, filename);
+  return _custom_zigzagline_load(obj_node, version, filename, zigzag_ot);
 }
 static DiaObject *
 custom_polyline_load (ObjectNode obj_node, int version, const char *filename)
 {
   ensure_standard_types ();
-
   if (!polyline_ot) {
     g_warning ("Can't delegate to 'Standard - PolyLine'");
     return NULL;
   }
-  return polyline_ot->ops->load (obj_node, version, filename);
+  return _custom_zigzagline_load(obj_node, version, filename, polyline_ot);
 }
 static DiaObject *
 custom_bezierline_load (ObjectNode obj_node, int version, const char *filename)
 {
   ensure_standard_types ();
-  
   if (!bezier_ot) {
     g_warning ("Can't delegate to 'Standard - BezierLine'");
     return NULL;
   }
-  return bezier_ot->ops->load (obj_node, version, filename);
+  return _custom_zigzagline_load(obj_node, version, filename, bezier_ot);
 }
 
 static void 
