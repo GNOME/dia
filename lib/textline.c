@@ -23,8 +23,6 @@
 #include <glib.h>
 #include <math.h>
 
-#include <gdk/gdkkeysyms.h>
-
 #include "propinternals.h"
 #include "text.h"
 #include "message.h"
