@@ -146,9 +146,9 @@ xslt_ok(void)
 		return;
 	}
 
-
+	/* Returns the number of byte written or -1 in case of failure. */
 	err = xsltSaveResultToFile(out, doc, codestyle);
-	if(err != 0) {
+	if(err < 0) {
 		message_error(_("Error while saving result: %s\n"), 
 			      dia_message_filename(filename));
 		return;
