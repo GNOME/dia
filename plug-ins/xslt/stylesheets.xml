@@ -5,6 +5,7 @@
     <implementation name="C++" stylesheet="dia-uml2c++.xsl"/>
     <implementation name="cpp" stylesheet="dia-uml2cpp.xsl"/>
     <implementation name="Component List" stylesheet="dia-uml2componentlist.xsl"/>
+    <implementation name="haXe" stylesheet="dia-uml2haxe.xsl"/>
     <implementation name="IDL" stylesheet="dia-uml2idl.xsl"/>        
     <implementation name="Java" stylesheet="dia-uml2java.xsl"/>
     <implementation name="OWL" stylesheet="dia-uml2owl.xsl"/>        
