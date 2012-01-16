@@ -15,8 +15,8 @@ msgstr ""
 "Project-Id-Version: dia\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=dia&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2011-12-11 15:57+0000\n"
-"PO-Revision-Date: 2012-01-09 10:23+0100\n"
+"POT-Creation-Date: 2012-01-09 09:37+0000\n"
+"PO-Revision-Date: 2012-01-16 10:25+0100\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -855,22 +855,22 @@ msgstr "Shoda j_en celých slov"
 msgid "Match _all properties (not just object name)"
 msgstr "Shoda všech vl_astností (nejen názvu objektu)"
 
-#: ../app/find-and-replace.c:508
+#: ../app/find-and-replace.c:511
 msgid "Find"
 msgstr "Hledat"
 
-#: ../app/find-and-replace.c:538 ../app/menus.c:259
+#: ../app/find-and-replace.c:541 ../app/menus.c:259
 msgid "Replace"
 msgstr "Nahradit"
 
-#: ../app/find-and-replace.c:541
+#: ../app/find-and-replace.c:544
 msgid "Replace _All"
 msgstr "Nahradit _vše"
 
 #. not adding the button in the list above to modify it's text;
 #. * the default "Find and Replace" is just too long for my taste ;)
 #.
-#: ../app/find-and-replace.c:546
+#: ../app/find-and-replace.c:549
 msgid "_Replace"
 msgstr "Nah_radit"
 
@@ -1804,7 +1804,7 @@ msgstr "Export"
 msgid "Portable Network Graphics"
 msgstr "Portable Network Graphics"
 
-#: ../app/preferences.c:224 ../plug-ins/svg/render_svg.c:497
+#: ../app/preferences.c:224 ../plug-ins/svg/render_svg.c:503
 #: ../plug-ins/svg/svg-import.c:1205
 msgid "Scalable Vector Graphics"
 msgstr "Scalable Vector Graphics"
@@ -2515,7 +2515,7 @@ msgstr ""
 
 #: ../lib/prop_pixbuf.c:296
 msgid "Cant create image data from scratch!"
-msgstr ""
+msgstr "Nelze vytvořit obrazová data úplně od nuly!"
 
 #: ../lib/prop_text.c:473
 #, c-format
@@ -5832,7 +5832,7 @@ msgid "Flip Vertical"
 msgstr "Převrátit svisle"
 
 #: ../objects/custom/custom_object.c:1802
-#: ../objects/custom_lines/custom_linetypes.c:264
+#: ../objects/custom_lines/custom_linetypes.c:281
 #, c-format
 msgid "Cannot open icon file %s for object type '%s'."
 msgstr "Nelze otevřít soubor s ikonou %s pro typ objektu „%s“."
@@ -5845,11 +5845,11 @@ msgstr "Vlastní čáry"
 msgid "Custom XML lines loader"
 msgstr "Vlastní načítání čar XML"
 
-#: ../objects/custom_lines/custom_linetypes.c:227
+#: ../objects/custom_lines/custom_linetypes.c:244
 msgid "INTERNAL: CustomLines: Illegal line type in LineInfo object."
 msgstr "INTERNÍ: Vlastní čáry: Neplatný typ čáry v objektu LineInfo."
 
-#: ../objects/custom_lines/custom_linetypes.c:252
+#: ../objects/custom_lines/custom_linetypes.c:269
 #, c-format
 msgid "INTERNAL: CustomLines: Illegal line type in LineInfo object %s."
 msgstr "INTERNÍ: Vlastní čáry: Neplatný typ čáry v objektu LineInfo %s."
