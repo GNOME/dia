@@ -9,15 +9,15 @@
 # Francisco Javier F. Serrador <serrador@cvs.gnome.org>, 2003-2006.
 # Jorge Gonzalez <jorgegonz@svn.gnome.org>, 2007.
 # Jorge González <jorgegonz@svn.gnome.org>, 2007, 2009, 2011.
-# Daniel Mustieles <daniel.mustieles@gmail.com>, 2011.
+# Daniel Mustieles <daniel.mustieles@gmail.com>, 2011, 2012.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: dia.HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=dia&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2011-12-17 14:29+0000\n"
-"PO-Revision-Date: 2011-12-22 14:07+0100\n"
+"POT-Creation-Date: 2011-12-22 13:13+0000\n"
+"PO-Revision-Date: 2012-02-06 12:52+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -530,7 +530,6 @@ msgstr "Capa"
 
 #: ../app/diagram_tree_view.c:177
 #, c-format
-#| msgid "Add Layer"
 msgid "%d Layer"
 msgid_plural "%d Layers"
 msgstr[0] "%d capa"
@@ -549,7 +548,6 @@ msgstr "Tipo"
 # Posicionar? FVD
 # Creo que está correcto según se ve en los menús: "Soportar/Posición/...". RizOX.
 #: ../app/diagram_tree_view.c:184
-#| msgid "Position"
 msgid "object|Position"
 msgstr "objeto|Posición"
 
@@ -559,7 +557,6 @@ msgstr "Hijos"
 
 #: ../app/diagram_tree_view.c:191
 #, c-format
-#| msgid "Object"
 msgid "%d Object"
 msgid_plural "%d Objects"
 msgstr[0] "%d objeto"
@@ -698,7 +695,6 @@ msgstr "Seleccionados «%s»"
 
 #. we really should not come here but instead disable the menu command earlier
 #: ../app/display.c:1149
-#| msgid "No anti-aliased renderer found"
 msgid "No antialiased renderer found"
 msgstr "No se encontró el renderizador antialias"
 
@@ -1017,10 +1013,6 @@ msgstr "Diagrama de flujo"
 # Corregido: lleva doble espacio antes de cada frase.
 # "Pulse doble" o "Pulse dos veces" me suena más natural. RizOX.
 #: ../app/interface.c:1539
-#| msgid ""
-#| "Foreground & background colors for new objects.  The small black and "
-#| "white squares reset colors.  The small arrows swap colors.  Double click "
-#| "to change colors."
 msgid ""
 "Foreground & background colors for new objects.  The small black and white "
 "squares reset colors.  The small arrows swap colors.  Double-click to change "
@@ -1042,9 +1034,6 @@ msgstr ""
 
 # La coma antes del "o" no queda bien en la frase en español. RizOX.
 #: ../app/interface.c:1596
-#| msgid ""
-#| "Arrow style at the beginning of new lines.  Click to pick an arrow, or "
-#| "set arrow parameters with Details..."
 msgid ""
 "Arrow style at the beginning of new lines.  Click to pick an arrow, or set "
 "arrow parameters with Details…"
@@ -1054,9 +1043,6 @@ msgstr ""
 
 # La coma antes del "o" no queda bien en la frase en español. Añadido el doble espacio del comienzo de frase según original en inglés. RizOX.
 #: ../app/interface.c:1601
-#| msgid ""
-#| "Line style for new lines.  Click to pick a line style, or set line style "
-#| "parameters with Details..."
 msgid ""
 "Line style for new lines.  Click to pick a line style, or set line style "
 "parameters with Details…"
@@ -1066,9 +1052,6 @@ msgstr ""
 
 # La coma antes del "o" no queda bien en la frase en español. Añadido el doble espacio del comienzo de frase según original en inglés. Cambiado "con Detalles" por "en Detalles" para mantener la coherencia con la traducción de las anteriores entradas. RizOX.
 #: ../app/interface.c:1617
-#| msgid ""
-#| "Arrow style at the end of new lines.  Click to pick an arrow, or set "
-#| "arrow parameters with Details..."
 msgid ""
 "Arrow style at the end of new lines.  Click to pick an arrow, or set arrow "
 "parameters with Details…"
@@ -1779,7 +1762,6 @@ msgid "Length unit:"
 msgstr "Unidad de longitud:"
 
 #: ../app/preferences.c:185
-#| msgid "Font-size unit:"
 msgid "Font size unit:"
 msgstr "Unidad de tamaño de la tipografía:"
 
@@ -1899,12 +1881,10 @@ msgid "Y Size:"
 msgstr "Tamaño Y:"
 
 #: ../app/preferences.c:239
-#| msgid "Visible spacing"
 msgid "Visual Spacing X:"
 msgstr "Espaciado X visual:"
 
 #: ../app/preferences.c:240
-#| msgid "Visible spacing"
 msgid "Visual Spacing Y:"
 msgstr "Espaciado Y visual:"
 
@@ -1996,42 +1976,34 @@ msgid "Select SVG Shape File"
 msgstr "Seleccionar archivo de forma SVG"
 
 #: ../app/sheets_dialog_callbacks.c:164
-#| msgid "Copy →"
 msgid "Copy ->"
 msgstr "Copiar →"
 
 #: ../app/sheets_dialog_callbacks.c:166
-#| msgid "Copy All →"
 msgid "Copy All ->"
 msgstr "Copiar todo →"
 
 #: ../app/sheets_dialog_callbacks.c:168
-#| msgid "Move"
 msgid "Move ->"
 msgstr "Mover →"
 
 #: ../app/sheets_dialog_callbacks.c:170
-#| msgid "Move All →"
 msgid "Move All ->"
 msgstr "Mover todo →"
 
 #: ../app/sheets_dialog_callbacks.c:177
-#| msgid "← Copy"
 msgid "<- Copy"
 msgstr "← Copiar"
 
 #: ../app/sheets_dialog_callbacks.c:179
-#| msgid "← Copy All"
 msgid "<- Copy All"
 msgstr "← Copiar todo"
 
 #: ../app/sheets_dialog_callbacks.c:181
-#| msgid "Move"
 msgid "<- Move"
 msgstr "← Mover"
 
 #: ../app/sheets_dialog_callbacks.c:183
-#| msgid "← Move All"
 msgid "<- Move All"
 msgstr "← Mover todo"
 
@@ -2131,7 +2103,6 @@ msgid "add shapes here"
 msgstr "añadir formas aquí"
 
 #: ../app/splash.c:50
-#| msgid "Loading…"
 msgid "Loading …"
 msgstr "Cargando…"
 
@@ -2299,7 +2270,6 @@ msgstr "Cabezas de flechas de tipo desconocido"
 
 #: ../lib/arrows.c:2059
 #, c-format
-#| msgid "Arrow head of type %s has too small dimensions, removing.\n"
 msgid "Arrow head of type %s has too small dimensions; removing.\n"
 msgstr ""
 "Las dimensiones de la cabeza de flecha de tipo %s son muy pequeñas; "
@@ -2411,7 +2381,6 @@ msgid "Select color"
 msgstr "Seleccione color"
 
 #: ../lib/diacolorselector.c:287
-#| msgid "More colors"
 msgid "More colors…"
 msgstr "Más colores…"
 
@@ -2438,27 +2407,22 @@ msgid "Details…"
 msgstr "Detalles…"
 
 #: ../lib/dialinestyleselector.c:124
-#| msgid "Solid"
 msgid "line|Solid"
 msgstr "línea|Sólida"
 
 #: ../lib/dialinestyleselector.c:130
-#| msgid "Dashed"
 msgid "line|Dashed"
 msgstr "línea|Discontinua"
 
 #: ../lib/dialinestyleselector.c:136
-#| msgid "Dash-Dot"
 msgid "line|Dash-Dot"
 msgstr "línea|Línea-Punto"
 
 #: ../lib/dialinestyleselector.c:142
-#| msgid "Dash-Dot-Dot"
 msgid "line|Dash-Dot-Dot"
 msgstr "línea|Línea-Punto-Punto"
 
 #: ../lib/dialinestyleselector.c:148
-#| msgid "Dotted"
 msgid "line|Dotted"
 msgstr "línea|Punteada"
 
@@ -2528,14 +2492,13 @@ msgstr ""
 
 #. base property stuff...
 #: ../lib/orth_conn.h:92
-#, fuzzy
 #| msgid "Author"
 msgid "Autoroute"
-msgstr "Autor"
+msgstr "Autoenrutado"
 
 #: ../lib/orth_conn.h:103
 msgid "Autorouting"
-msgstr ""
+msgstr "Autoenrutando"
 
 #: ../lib/plug-ins.c:111
 msgid "???"
@@ -2617,6 +2580,8 @@ msgid ""
 "Saving inline pixbuf failed:\n"
 "%s"
 msgstr ""
+"Falló al guardar el pixbuf en línea:\n"
+"%s"
 
 #: ../lib/prop_pixbuf.c:296
 msgid "Cant create image data from scratch!"
@@ -2632,13 +2597,10 @@ msgstr "Grupo con %d objetos"
 msgid "General"
 msgstr "General"
 
-# Yo pondría "Desagregar" para refinar más la opción "Separar". No tiene mucho sentido "Separar/Separar". Según el diccionario inglés es el contrapuesto a "Attach" (Anexar o Agregar). RizOX.
-# Y Desprender?
 #: ../lib/propdialogs.c:325
-#, fuzzy
 #| msgid "Detach"
 msgid "Meta"
-msgstr "Desprender"
+msgstr "Meta"
 
 #: ../lib/properties.c:67 ../lib/properties.h:476 ../lib/widgets.c:273
 msgid "Left"
@@ -2667,26 +2629,23 @@ msgid "Always"
 msgstr "Siempre"
 
 #: ../lib/properties.c:80 ../lib/properties.h:488
-#, fuzzy
 #| msgid "Mixer"
 msgid "Miter"
-msgstr "Mezclador"
+msgstr "Mitra"
 
 #: ../lib/properties.c:82 ../lib/properties.h:490
 msgid "Bevel"
 msgstr "Bisel"
 
 #: ../lib/properties.c:86 ../lib/properties.h:494
-#, fuzzy
 #| msgid "Bottom"
 msgid "Butt"
-msgstr "Inferior"
+msgstr "Cabo"
 
 #: ../lib/properties.c:88 ../lib/properties.h:496
-#, fuzzy
 #| msgid "Protect"
 msgid "Projecting"
-msgstr "Proteger"
+msgstr "Proyectando"
 
 #: ../lib/properties.c:95 ../lib/properties.h:517 ../lib/properties.h:520
 #: ../objects/chronogram/chronoline.c:181
@@ -2748,7 +2707,7 @@ msgstr "Unión de línea"
 
 #: ../lib/properties.h:535 ../lib/properties.h:538
 msgid "Line caps"
-msgstr ""
+msgstr "Finales de línea"
 
 #: ../lib/properties.h:596
 msgid "Text fitting"
@@ -5274,7 +5233,6 @@ msgid "Operating System"
 msgstr "Sistema operativo"
 
 #: ../objects/SISSI/sissi_dialog.c:181
-#| msgid "Service — maintenance or administration software"
 msgid "Service - maintenance or administration software"
 msgstr "Servicio - mantenimiento o administración de software"
 
@@ -5817,10 +5775,6 @@ msgstr "Acción de salida"
 #. Would like to create a state_term instead, but making the connections
 #. * is a pain
 #: ../objects/UML/state.c:493
-#| msgid ""
-#| "This diagram uses the State object for initial/final states.\n"
-#| "That option will go away in future versions.\n"
-#| "Please use the Initial/Final State object instead\n"
 msgid ""
 "This diagram uses the State object for initial/final states.\n"
 "This option will go away in future versions.\n"
@@ -6303,7 +6257,6 @@ msgid "Copy _Diagram"
 msgstr "Cerrar el _diagrama"
 
 #: ../plug-ins/cairo/diacairo.c:481
-#| msgid "Print (GTK+)…"
 msgid "Print (GTK) …"
 msgstr "Imprimir (GTK)…"
 
@@ -6368,10 +6321,9 @@ msgstr "Filtro de exportación de HP Graphics Language"
 
 #: ../plug-ins/layout/layout.cpp:211
 msgid "Please select edges and nodes to layout."
-msgstr ""
+msgstr "Seleccione los bordes y los nodos que disponer"
 
 #: ../plug-ins/layout/layout.cpp:219
-#| msgid "'%s' creation failed"
 msgid "Graph creation failed"
 msgstr "Falló la creación del gráfico"
 
@@ -6396,17 +6348,14 @@ msgid "Failed algorithm."
 msgstr "Falló el algoritmo."
 
 #: ../plug-ins/layout/layout.cpp:250
-#| msgid "Air conditioner"
 msgid "Failed precondition."
 msgstr "Falló la precondición."
 
 #: ../plug-ins/layout/layout.cpp:251
-#| msgid "Dashed"
 msgid "OGDF crashed."
 msgstr "Falló OGDF."
 
 #: ../plug-ins/layout/layout.cpp:252
-#| msgid "unknown arrow"
 msgid "Unknown reason"
 msgstr "Razón desconocida"
 
@@ -6416,10 +6365,12 @@ msgid ""
 "Layout '%s' failed.\n"
 "%s"
 msgstr ""
+"Falló la distribución «%s».\n"
+"%s"
 
 #: ../plug-ins/layout/layout.cpp:365
 msgid "OGDF Layout Algorithms"
-msgstr ""
+msgstr "Algoritmos OGDF de distribución"
 
 #: ../plug-ins/libart/dialibart.c:59
 msgid "Libart-based rendering"
@@ -6594,7 +6545,6 @@ msgstr "No se encontró en el archivo el espacio de nombres SVG esperado"
 
 #: ../plug-ins/svg/svg-import.c:1140
 #, c-format
-#| msgid "root element was '%s' — expecting 'svg'."
 msgid "root element was '%s' -- expecting 'svg'."
 msgstr "el elemento raíz era «%s»; se esperaba «svg»."
 
@@ -6659,7 +6609,6 @@ msgstr "Filtro de exportación e importación para el formato Visio XML"
 
 #: ../plug-ins/wmf/wmf.cpp:309
 #, c-format
-#| msgid "Couldn't write file %s"
 msgid ""
 "Couldn't write file %s\n"
 "%s"
@@ -6682,7 +6631,6 @@ msgid "Couldn't open: '%s' for writing.\n"
 msgstr "No se pudo abrir: «%s» para escritura.\n"
 
 #: ../plug-ins/wmf/wmf.cpp:1496
-#| msgid "Print (GDI)…"
 msgid "Print (GDI) ..."
 msgstr "Imprimir (GDI)…"
 
@@ -6711,7 +6659,6 @@ msgstr ""
 "simple.\n"
 
 #: ../plug-ins/xfig/xfig-export.c:487
-#| msgid "No more user-definable colors - using black"
 msgid "No more user-definable colors - using black"
 msgstr "No más colores definibles por el usuario; se usará el negro"
 
@@ -6721,8 +6668,6 @@ msgstr "Formato XFig"
 
 #: ../plug-ins/xfig/xfig-import.c:111
 #, c-format
-#| msgid ""
-#| "Color index %d too high, only 512 colors allowed. Using black instead."
 msgid "Color index %d too high; only 512 colors allowed. Using black instead."
 msgstr ""
 "Índice del color %d demasiado alto; sólo se permiten 512 colores. Se usará "
@@ -6759,7 +6704,6 @@ msgstr "Tipo de flecha desconocida %d\n"
 
 #: ../plug-ins/xfig/xfig-import.c:382
 #, c-format
-#| msgid "Depth %d out of range; only 0–%d allowed.\n"
 msgid "Depth %d of of range, only 0-%d allowed.\n"
 msgstr "La profundidad %d está fuera del rango, sólo se permite 0..%d.\n"
 
@@ -6836,7 +6780,6 @@ msgstr "Fin de compuesto fuera de compuesto\n"
 
 #: ../plug-ins/xfig/xfig-import.c:1054
 #, c-format
-#| msgid "Color number %d out of range 0–%d.  Discarding color.\n"
 msgid "Color number %d out of range 0..%d.  Discarding color.\n"
 msgstr ""
 "El número de colores %d está fuera del rango 0..%d. Descartando el color.\n"
@@ -6965,7 +6908,6 @@ msgid "XSL Transformation filter"
 msgstr "Filtro de TransArray XSL"
 
 #: ../plug-ins/xslt/xslt.c:363
-#| msgid "No valid configuration files found for the XSLT plugin, not loading."
 msgid "No valid configuration files found for the XSLT plugin; not loading."
 msgstr ""
 "No se encontraron archivos de configuración válidos para la extensión XSLT, "
@@ -7094,7 +7036,6 @@ msgid "Horizontal parallelogram"
 msgstr "Paralelogramo horizontal"
 
 #: ../sheets/Assorted.sheet.in.h:19
-#| msgid "Isoceles triangle"
 msgid "Isosceles triangle"
 msgstr "Triángulo isósceles"
 
@@ -7617,7 +7558,6 @@ msgid "Horizontal jumper"
 msgstr "Jumper horizontal"
 
 #: ../sheets/Circuit.sheet.in.h:5
-#| msgid "Horizontal rest"
 msgid "Horizontal xtal"
 msgstr "xtal horizontal"
 
@@ -7698,7 +7638,6 @@ msgid "Speaker"
 msgstr "Altavoz"
 
 #: ../sheets/Circuit.sheet.in.h:28
-#| msgid "Vertical rest"
 msgid "Vertical xtal"
 msgstr "xtal vertical"
 
