@@ -976,7 +976,7 @@ fig_read_text(FILE *file) {
     tprop->attr.position.x = x/FIG_UNIT;
     tprop->attr.position.y = y/FIG_UNIT;
 
-    if (font_flags & 4) {
+    if ((font_flags & 4) == 0) {
 	switch (font) {
 	case 0: tprop->attr.font = dia_font_new_from_legacy_name("Times-Roman"); break;
 	case 1: tprop->attr.font = dia_font_new_from_legacy_name("Times-Roman"); break;
@@ -990,8 +990,8 @@ fig_read_text(FILE *file) {
     } else {
 	if (font == -1) {
 	    /* "Default font" - wazzat? */
-	    tprop->attr.font = dia_font_new_from_legacy_name("Times Roman");
-	} else if (font < 0 || font > 34) {
+	    tprop->attr.font = dia_font_new_from_legacy_name("Times-Roman");
+	} else if (font < 0 || font >= num_fig_fonts()) {
 	    message_warning("Can't find Postscript font nr. %d, using sans\n", font);
 	    tprop->attr.font = dia_font_new_from_legacy_name("Helvetica");
 	} else {

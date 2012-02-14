@@ -72,3 +72,9 @@ char *fig_fonts[] =
   "ZapfDingbats",
   NULL
 };
+
+int
+num_fig_fonts (void)
+{
+  return G_N_ELEMENTS(fig_fonts)-1;
+}

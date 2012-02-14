@@ -4,6 +4,8 @@
 extern Color fig_default_colors[];
 extern char *fig_fonts[];
 
+int num_fig_fonts (void);
+
 #define FIG_MAX_DEFAULT_COLORS 32
 #define FIG_MAX_USER_COLORS 512
 #define FIG_MAX_DEPTHS 1000
