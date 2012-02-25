@@ -1,5 +1,5 @@
 # dia ja.po.
-# Copyright (C) 1999-2007,2009 Free Software Foundation, Inc.
+# Copyright (C) 1999-2007,2009,2010,2012 Free Software Foundation, Inc.
 # Yukihiro Nakai <nakai@FreeBSD.org>, 1999,2000.
 # Akira TAGOH <tagoh@gnome.gr.jp>, 2001,2002.
 # Ryoichi INAGAKI <ryo1@bc.wakwak.com>, 2003.
@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: dia master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=dia&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2011-10-09 15:13+0000\n"
-"PO-Revision-Date: 2011-09-21 00:55+0900\n"
+"POT-Creation-Date: 2012-02-14 21:35+0000\n"
+"PO-Revision-Date: 2012-02-25 16:08+0900\n"
 "Last-Translator: OKANO Takayoshi <kano@na.rim.or.jp>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
 "MIME-Version: 1.0\n"
@@ -306,23 +306,11 @@ msgstr ""
 "ドキュメント担当:\n"
 "\n"
 
-#: ../app/autosave.c:90
-msgid "Recovering autosaved diagrams"
-msgstr "自動保存したダイアグラムをリストア中"
-
-#: ../app/autosave.c:98
-msgid ""
-"Autosaved files exist.\n"
-"Please select those you wish to recover."
-msgstr ""
-"自動保存したファイルが存在します。\n"
-"戻したい状態のファイルを選択してください。"
-
-#: ../app/color_area.c:327 ../app/color_area.c:374
+#: ../app/color_area.c:326 ../app/color_area.c:373
 msgid "Select foreground color"
 msgstr "前景色の選択"
 
-#: ../app/color_area.c:328 ../app/color_area.c:375
+#: ../app/color_area.c:327 ../app/color_area.c:374
 msgid "Select background color"
 msgstr "背景色の選択"
 
@@ -347,11 +335,11 @@ msgstr ""
 msgid "No existing object to paste.\n"
 msgstr "貼り付けるオブジェクトがありません。\n"
 
-#: ../app/commands.c:851 ../app/commands.c:889
+#: ../app/commands.c:853 ../app/commands.c:891
 msgid "Could not find help directory"
 msgstr "ヘルプが見つかりませんでした"
 
-#: ../app/commands.c:858
+#: ../app/commands.c:860
 #, c-format
 msgid ""
 "Could not open help directory:\n"
@@ -360,7 +348,7 @@ msgstr ""
 "ヘルプを格納したフォルダーが見つかりませんでした:\n"
 "%s"
 
-#: ../app/commands.c:927
+#: ../app/commands.c:929
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr ""
 "相花 毅 <takeshi.aihana@gmail.com>\n"
@@ -371,7 +359,7 @@ msgstr ""
 "草野 貴之 <AE5T-KSN@asahi-net.or.jp>\n"
 "日本GNOMEユーザー会 <http://www.gnome.gr.jp/>"
 
-#: ../app/commands.c:929
+#: ../app/commands.c:931
 msgid ""
 "This program is free software; you can redistribute it and/or modify\n"
 "it under the terms of the GNU General Public License as published by\n"
@@ -402,7 +390,7 @@ msgstr ""
 "Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, \n"
 "MA 02110-1301, USA まで連絡してください。\n"
 
-#: ../app/commands.c:956
+#: ../app/commands.c:958
 msgid "A program for drawing structured diagrams."
 msgstr "構造化ダイアグラムを描画するためのプログラムです。"
 
@@ -884,22 +872,22 @@ msgstr "単語全体にマッチさせる(_E)"
 msgid "Match _all properties (not just object name)"
 msgstr "すべてのプロパティ (オブジェクト名は除く) にマッチさせる(_A)"
 
-#: ../app/find-and-replace.c:508
+#: ../app/find-and-replace.c:511
 msgid "Find"
 msgstr "検索"
 
-#: ../app/find-and-replace.c:538 ../app/menus.c:259
+#: ../app/find-and-replace.c:541 ../app/menus.c:259
 msgid "Replace"
 msgstr "置き換え"
 
-#: ../app/find-and-replace.c:541
+#: ../app/find-and-replace.c:544
 msgid "Replace _All"
 msgstr "すべて置き換え(_A)"
 
 #. not adding the button in the list above to modify it's text;
 #. * the default "Find and Replace" is just too long for my taste ;)
 #.
-#: ../app/find-and-replace.c:546
+#: ../app/find-and-replace.c:549
 msgid "_Replace"
 msgstr "置き換え(_R)"
 
@@ -932,7 +920,7 @@ msgstr "ダイアグラムの周辺をスクロールします"
 #. new name matching "same name, same type"  rule
 #: ../app/interface.c:181 ../app/menus.c:228 ../lib/properties.c:101
 #: ../lib/properties.h:562 ../objects/AADL/aadlbox.c:153
-#: ../objects/Jackson/requirement.c:144 ../objects/UML/activity.c:129
+#: ../objects/Jackson/requirement.c:135 ../objects/UML/activity.c:129
 #: ../objects/UML/actor.c:123 ../objects/UML/classicon.c:148
 #: ../objects/UML/component.c:130 ../objects/UML/component_feature.c:160
 #: ../objects/UML/node.c:130 ../objects/UML/node.c:132
@@ -1016,7 +1004,7 @@ msgstr "%s というシートはありません"
 msgid "Other sheets"
 msgstr "他のシート"
 
-#: ../app/interface.c:1479 ../sheets/Flowchart.sheet.in.h:10
+#: ../app/interface.c:1479 ../sheets/Flowchart.sheet.in.h:1
 msgid "Flowchart"
 msgstr "フローチャート"
 
@@ -1062,7 +1050,7 @@ msgstr ""
 "新しい線オブジェクトの矢印の終点スタイルで、クリックして矢印を選択するか、[詳"
 "細…] で矢印のパラメーターを設定します"
 
-#: ../app/interface.c:1676 ../app/interface.c:1800 ../dia.desktop.in.in.h:3
+#: ../app/interface.c:1676 ../app/interface.c:1800 ../dia.desktop.in.in.h:2
 msgid "Diagram Editor"
 msgstr "ダイアグラムエディター"
 
@@ -1853,7 +1841,7 @@ msgstr " エクスポート "
 msgid "Portable Network Graphics"
 msgstr "PNG 画像:"
 
-#: ../app/preferences.c:224 ../plug-ins/svg/render_svg.c:497
+#: ../app/preferences.c:224 ../plug-ins/svg/render_svg.c:503
 #: ../plug-ins/svg/svg-import.c:1205
 msgid "Scalable Vector Graphics"
 msgstr "スケーラブルベクターグラフィックス (SVG):"
@@ -2120,7 +2108,7 @@ msgstr "Dia バージョン %s"
 msgid "Dia"
 msgstr "日間"
 
-#: ../dia.desktop.in.in.h:2
+#: ../dia.desktop.in.in.h:3
 msgid "Dia Diagram Editor"
 msgstr "Dia ダイアグラムエディター"
 
@@ -2134,124 +2122,124 @@ msgstr "矢印あり"
 
 #: ../lib/arrows.c:1892
 msgid "Hollow Triangle"
-msgstr "\"三角形 (中抜き)\""
+msgstr "三角形 (中抜き)"
 
 #: ../lib/arrows.c:1893
 msgid "Filled Triangle"
-msgstr "\"三角形 (塗りつぶし)\""
+msgstr "三角形 (塗りつぶし)"
 
 #: ../lib/arrows.c:1894
 msgid "Unfilled Triangle"
-msgstr "\"三角形 (塗りつぶさない)\""
+msgstr "三角形 (塗りつぶさない)"
 
 #: ../lib/arrows.c:1895
 msgid "Hollow Diamond"
-msgstr "\"菱形 (塗りつぶさない)\""
+msgstr "菱形 (塗りつぶさない)"
 
 #: ../lib/arrows.c:1896
 msgid "Filled Diamond"
-msgstr "\"菱形 (塗りつぶし)\""
+msgstr "菱形 (塗りつぶし)"
 
 #: ../lib/arrows.c:1897
 msgid "Half Diamond"
-msgstr "\"菱形 (半分)\""
+msgstr "菱形 (半分)"
 
 #: ../lib/arrows.c:1898
 msgid "Half Head"
-msgstr "\"半分の矢印\""
+msgstr "半分の矢印"
 
 #: ../lib/arrows.c:1899
 msgid "Slashed Cross"
-msgstr "\"交差したスラッシュ\""
+msgstr "交差したスラッシュ"
 
 #: ../lib/arrows.c:1900
 msgid "Filled Ellipse"
-msgstr "\"楕円 (塗りつぶさない)\""
+msgstr "楕円 (塗りつぶさない)"
 
 #: ../lib/arrows.c:1901
 msgid "Hollow Ellipse"
-msgstr "\"楕円 (中抜き)\""
+msgstr "楕円 (中抜き)"
 
 #: ../lib/arrows.c:1902
 msgid "Filled Dot"
-msgstr "\"点 (塗りつぶし)\""
+msgstr "点 (塗りつぶし)"
 
 #: ../lib/arrows.c:1903
 msgid "Dimension Origin"
-msgstr "\"寸法線の始点\""
+msgstr "寸法線の始点"
 
 #: ../lib/arrows.c:1904
 msgid "Blanked Dot"
-msgstr "\"点 (中抜き)\""
+msgstr "点 (中抜き)"
 
 #: ../lib/arrows.c:1905
 msgid "Double Hollow Triangle"
-msgstr "\"三角形二つ (中抜き)\""
+msgstr "三角形二つ (中抜き)"
 
 #: ../lib/arrows.c:1906
 msgid "Double Filled Triangle"
-msgstr "\"三角形二つ (塗りつぶし)\""
+msgstr "三角形二つ (塗りつぶし)"
 
 #: ../lib/arrows.c:1907
 msgid "Filled Dot and Triangle"
-msgstr "\"点と三角形 (塗りつぶし)\""
+msgstr "点と三角形 (塗りつぶし)"
 
 #: ../lib/arrows.c:1908
 msgid "Filled Box"
-msgstr "\"矩形 (塗りつぶし)\""
+msgstr "矩形 (塗りつぶし)"
 
 #: ../lib/arrows.c:1909
 msgid "Blanked Box"
-msgstr "\"矩形 (中抜き)\""
+msgstr "矩形 (中抜き)"
 
 #: ../lib/arrows.c:1910
 msgid "Slashed"
-msgstr "\"スラッシュ\""
+msgstr "スラッシュ"
 
 #: ../lib/arrows.c:1911
 msgid "Integral Symbol"
-msgstr "\"積分の記号\""
+msgstr "積分の記号"
 
 #: ../lib/arrows.c:1912
 msgid "Crow Foot"
-msgstr "\"カラスの足\""
+msgstr "カラスの足"
 
 #: ../lib/arrows.c:1913
 msgid "Cross"
-msgstr "\"十字架\""
+msgstr "十字架"
 
 #: ../lib/arrows.c:1914
 msgid "1-or-many"
-msgstr "\"1 とその他\""
+msgstr "1 とその他"
 
 #: ../lib/arrows.c:1915
 msgid "0-or-many"
-msgstr "\"0 とその他\""
+msgstr "0 とその他"
 
 #: ../lib/arrows.c:1916
 msgid "1-or-0"
-msgstr "\"1 と 0\""
+msgstr "1 と 0"
 
 #: ../lib/arrows.c:1917
 msgid "1 exactly"
-msgstr "\"1 と 1\""
+msgstr "1 と 1"
 
 #: ../lib/arrows.c:1918
 msgid "Filled Concave"
-msgstr "\"切り込み (塗りつぶし)\""
+msgstr "切り込み (塗りつぶし)"
 
 #: ../lib/arrows.c:1919
 msgid "Blanked Concave"
-msgstr "\"切り込み (中抜き)\""
+msgstr "切り込み (中抜き)"
 
 #: ../lib/arrows.c:1920 ../lib/properties.c:81 ../lib/properties.c:87
 #: ../lib/properties.h:489 ../lib/properties.h:495
 msgid "Round"
-msgstr "\"円形 (半分)\""
+msgstr "円形 (半分)"
 
 #: ../lib/arrows.c:1921
 msgid "Open Round"
-msgstr "\"開いた円形 (半分)\""
+msgstr "開いた円形 (半分)"
 
 #: ../lib/arrows.c:1922
 msgid "Backslash"
@@ -2285,12 +2273,21 @@ msgstr "内部エラー: ベジェ曲線の端点の種類の設定"
 msgid "Can't find standard object"
 msgstr "標準オブジェクトが見つかりません"
 
-#: ../lib/dia_dirs.c:328
+#: ../lib/dia_dirs.c:327
 #, c-format
 msgid "Too many \"..\"s in filename %s\n"
 msgstr "ファイル名 %s に含まれる \"..\" が多すぎます\n"
 
-#: ../lib/dia_image.c:315 ../plug-ins/pixbuf/pixbuf.c:93
+#. pathologic case - pixbuf not even supporting PNG?
+#: ../lib/dia_image.c:295
+#, c-format
+msgid ""
+"Unsupported file format for saving:\n"
+"%s\n"
+"%s"
+msgstr ""
+
+#: ../lib/dia_image.c:298 ../plug-ins/pixbuf/pixbuf.c:93
 #, c-format
 msgid ""
 "Could not save file:\n"
@@ -2439,7 +2436,7 @@ msgstr "%s という重複しない名前が付いた複数のエクスポート
 msgid "Can't load font %s.\n"
 msgstr "%s というフォントを読み込めません。\n"
 
-#: ../lib/group.c:618
+#: ../lib/group.c:617
 #, fuzzy
 #| msgid "Translation"
 msgid "Transformation"
@@ -2541,7 +2538,7 @@ msgstr "変更日"
 msgid "URL"
 msgstr "URL"
 
-#: ../lib/prop_dict.c:235 ../sheets/ciscomisc.sheet.in.h:18
+#: ../lib/prop_dict.c:235 ../sheets/ciscomisc.sheet.in.h:43
 msgid "Key"
 msgstr "キー"
 
@@ -2983,7 +2980,7 @@ msgstr "エンティティ/リレーションシップのテーブルダイア�
 #: ../objects/Database/table.c:204 ../objects/UML/class.c:149
 #: ../objects/UML/class.c:192 ../objects/UML/class_dialog.c:486
 #: ../objects/UML/umlattribute.c:43 ../objects/UML/umloperation.c:66
-#: ../objects/UML/umlparameter.c:49 ../sheets/SDL.sheet.in.h:3
+#: ../objects/UML/umlparameter.c:49 ../sheets/SDL.sheet.in.h:18
 msgid "Comment"
 msgstr "コメント"
 
@@ -3053,7 +3050,7 @@ msgstr "コメントを表示する"
 
 #. init data
 #: ../objects/Database/table.c:257 ../objects/Database/table.c:364
-#: ../sheets/Database.sheet.in.h:5
+#: ../sheets/Database.sheet.in.h:3
 msgid "Table"
 msgstr "テーブル"
 
@@ -3251,7 +3248,7 @@ msgstr "派生する:"
 msgid "Multivalue:"
 msgstr "複数値:"
 
-#: ../objects/ER/attribute.c:436 ../sheets/ER.sheet.in.h:1
+#: ../objects/ER/attribute.c:436 ../sheets/ER.sheet.in.h:6
 msgid "Attribute"
 msgstr "属性"
 
@@ -3264,7 +3261,7 @@ msgid "Associative:"
 msgstr "連携する:"
 
 #: ../objects/ER/entity.c:415 ../objects/UML/classicon.c:132
-#: ../sheets/ER.sheet.in.h:4
+#: ../sheets/ER.sheet.in.h:3
 msgid "Entity"
 msgstr "エンティティ"
 
@@ -3292,7 +3289,7 @@ msgstr "回転する:"
 msgid "Identifying:"
 msgstr "識別:"
 
-#: ../objects/ER/relationship.c:459 ../sheets/ER.sheet.in.h:6
+#: ../objects/ER/relationship.c:459 ../sheets/ER.sheet.in.h:5
 msgid "Relationship"
 msgstr "リレーションシップ"
 
@@ -3503,7 +3500,7 @@ msgstr "サポート"
 #. Translators: Menu item Verb/Support/Stop
 #. Translators: Menu item Verb/Support/Stop/Stop
 #: ../objects/FS/function.c:771 ../objects/FS/function.c:773
-#: ../sheets/SDL.sheet.in.h:19
+#: ../sheets/SDL.sheet.in.h:16
 msgid "Stop"
 msgstr "停止"
 
@@ -3562,7 +3559,7 @@ msgid "Mount"
 msgstr "埋め込み"
 
 #. Translators: Menu item Verb/Support/Secure/Lock
-#: ../objects/FS/function.c:799 ../sheets/ciscomisc.sheet.in.h:19
+#: ../objects/FS/function.c:799 ../sheets/ciscomisc.sheet.in.h:42
 msgid "Lock"
 msgstr "ロック"
 
@@ -3644,7 +3641,7 @@ msgstr "合体"
 #. Translators: Menu item Verb/Branch
 #. Translators: Menu item Verb/Branch/Branch
 #: ../objects/FS/function.c:843 ../objects/FS/function.c:845
-#: ../sheets/UML.sheet.in.h:5
+#: ../sheets/UML.sheet.in.h:30
 msgid "Branch"
 msgstr "分岐"
 
@@ -3849,7 +3846,7 @@ msgid "Expose"
 msgstr "エキスポーズ"
 
 #. Translators: Menu item Verb/Provision/Extract
-#: ../objects/FS/function.c:947 ../sheets/Flowchart.sheet.in.h:9
+#: ../objects/FS/function.c:947 ../sheets/Flowchart.sheet.in.h:22
 msgid "Extract"
 msgstr "展開"
 
@@ -4038,7 +4035,7 @@ msgid "Differentiate"
 msgstr "差別化"
 
 #. Translators: Menu item Verb/Convert/Process
-#: ../objects/FS/function.c:1037 ../sheets/AADL.sheet.in.h:8
+#: ../objects/FS/function.c:1037 ../sheets/AADL.sheet.in.h:3
 #: ../sheets/Gane_and_Sarson.sheet.in.h:7
 msgid "Process"
 msgstr "プロセス"
@@ -4353,7 +4350,7 @@ msgstr "ユーザー/デバイス関数"
 msgid "Wish Fn"
 msgstr "希望する関数"
 
-#: ../objects/GRAFCET/action.c:137 ../sheets/SDL.sheet.in.h:9
+#: ../objects/GRAFCET/action.c:137 ../sheets/SDL.sheet.in.h:11
 msgid "Macro call"
 msgstr "マクロ呼出し"
 
@@ -4389,19 +4386,19 @@ msgstr "状況の色"
 msgid "GRAFCET diagram objects"
 msgstr "GRAFCET ダイアグラムのオブジェクト"
 
-#: ../objects/GRAFCET/step.c:148 ../sheets/GRAFCET.sheet.in.h:13
+#: ../objects/GRAFCET/step.c:148 ../sheets/GRAFCET.sheet.in.h:3
 msgid "Regular step"
 msgstr "通常のステップ"
 
-#: ../objects/GRAFCET/step.c:149 ../sheets/GRAFCET.sheet.in.h:6
+#: ../objects/GRAFCET/step.c:149 ../sheets/GRAFCET.sheet.in.h:4
 msgid "Initial step"
 msgstr "初期のステップ"
 
-#: ../objects/GRAFCET/step.c:150 ../sheets/GRAFCET.sheet.in.h:8
+#: ../objects/GRAFCET/step.c:150 ../sheets/GRAFCET.sheet.in.h:5
 msgid "Macro entry step"
 msgstr "マクロエントリのステップ"
 
-#: ../objects/GRAFCET/step.c:151 ../sheets/GRAFCET.sheet.in.h:9
+#: ../objects/GRAFCET/step.c:151 ../sheets/GRAFCET.sheet.in.h:6
 msgid "Macro exit step"
 msgstr "マクロ終了のステップ"
 
@@ -4536,7 +4533,7 @@ msgstr "正の Contrib"
 msgid "Negative contrib"
 msgstr "負の Contrib"
 
-#: ../objects/Istar/link.c:153 ../sheets/UML.sheet.in.h:10
+#: ../objects/Istar/link.c:153 ../sheets/UML.sheet.in.h:6
 msgid "Dependency"
 msgstr "依存関係"
 
@@ -4552,7 +4549,7 @@ msgstr "Means-Ends"
 msgid "Resource"
 msgstr "リソース"
 
-#: ../objects/Istar/other.c:74 ../sheets/BPMN.sheet.in.h:43
+#: ../objects/Istar/other.c:74 ../sheets/BPMN.sheet.in.h:33
 msgid "Task"
 msgstr "タスク"
 
@@ -4774,7 +4771,7 @@ msgid "pi"
 msgstr "pi"
 
 #. PROP_FLAG_VISIBLE|
-#: ../objects/Misc/measure.c:185 ../sheets/ChemEng.sheet.in.h:28
+#: ../objects/Misc/measure.c:185 ../sheets/ChemEng.sheet.in.h:8
 msgid "Measurement"
 msgstr "測定子"
 
@@ -5164,7 +5161,7 @@ msgstr "Developer"
 msgid "Operator/Maintenance"
 msgstr "Operator / Maintenance"
 
-#: ../objects/SISSI/sissi_dialog.c:171 ../sheets/network.sheet.in.h:20
+#: ../objects/SISSI/sissi_dialog.c:171 ../sheets/network.sheet.in.h:1
 msgid "Network"
 msgstr "ネットワーク"
 
@@ -5180,7 +5177,7 @@ msgstr "Passive or active relay"
 msgid "Communication interface"
 msgstr "通信インターフェース"
 
-#: ../objects/SISSI/sissi_dialog.c:179 ../sheets/SISSI.sheet.in.h:54
+#: ../objects/SISSI/sissi_dialog.c:179 ../sheets/SISSI.sheet.in.h:21
 msgid "Software"
 msgstr "ソフトウェア"
 
@@ -5288,7 +5285,7 @@ msgstr "文書のタイトル"
 
 # UML訳語集 http://www.umtp-japan.org/pdf/japanese.pdf
 #: ../objects/UML/actor.c:356 ../objects/UML/actor.c:358
-#: ../sheets/UML.sheet.in.h:2
+#: ../sheets/UML.sheet.in.h:15
 msgid "Actor"
 msgstr "アクター"
 
@@ -5348,7 +5345,7 @@ msgid "Style"
 msgstr "スタイル(_S)"
 
 #: ../objects/UML/class.c:143 ../objects/UML/class.c:331
-#: ../objects/UML/class.c:1827 ../sheets/UML.sheet.in.h:6
+#: ../objects/UML/class.c:1827 ../sheets/UML.sheet.in.h:3
 msgid "Class"
 msgstr "クラス"
 
@@ -5592,7 +5589,7 @@ msgstr "オペレーションのデータ"
 msgid "_Templates"
 msgstr "テンプレート(_T)"
 
-#: ../objects/UML/class_templates_dialog.c:374 ../sheets/UML.sheet.in.h:29
+#: ../objects/UML/class_templates_dialog.c:374 ../sheets/UML.sheet.in.h:4
 msgid "Template class"
 msgstr "テンプレートクラス"
 
@@ -5608,19 +5605,19 @@ msgstr "境界"
 msgid "Is object"
 msgstr "オブジェクト"
 
-#: ../objects/UML/component_feature.c:150 ../sheets/UML.sheet.in.h:14
+#: ../objects/UML/component_feature.c:150 ../sheets/UML.sheet.in.h:21
 msgid "Facet"
 msgstr "Facet"
 
-#: ../objects/UML/component_feature.c:151 ../sheets/UML.sheet.in.h:26
+#: ../objects/UML/component_feature.c:151 ../sheets/UML.sheet.in.h:22
 msgid "Receptacle"
 msgstr "Receptacle"
 
-#: ../objects/UML/component_feature.c:152 ../sheets/UML.sheet.in.h:13
+#: ../objects/UML/component_feature.c:152 ../sheets/UML.sheet.in.h:23
 msgid "Event Source"
 msgstr "Event Source"
 
-#: ../objects/UML/component_feature.c:153 ../sheets/UML.sheet.in.h:12
+#: ../objects/UML/component_feature.c:153 ../sheets/UML.sheet.in.h:24
 msgid "Event Sink"
 msgstr "Event Sink"
 
@@ -5762,7 +5759,7 @@ msgstr "アクション"
 msgid "Action to perform when this transition is taken"
 msgstr "この遷移を受け取った際に実行するアクションです"
 
-#: ../objects/UML/transition.c:146 ../sheets/cisconetwork.sheet.in.h:43
+#: ../objects/UML/transition.c:146 ../sheets/cisconetwork.sheet.in.h:22
 msgid "Guard"
 msgstr "ガード"
 
@@ -5806,7 +5803,7 @@ msgstr "欄外のテキスト"
 msgid "Chronogram diagram objects"
 msgstr "クロノグラフダイアグラムのオブジェクト"
 
-#: ../objects/chronogram/chronoline.c:150 ../sheets/AADL.sheet.in.h:4
+#: ../objects/chronogram/chronoline.c:150 ../sheets/AADL.sheet.in.h:5
 msgid "Data"
 msgstr "データ"
 
@@ -5916,7 +5913,7 @@ msgid "Flip Vertical"
 msgstr "垂直方向に折り返し"
 
 #: ../objects/custom/custom_object.c:1802
-#: ../objects/custom_lines/custom_linetypes.c:264
+#: ../objects/custom_lines/custom_linetypes.c:281
 #, c-format
 msgid "Cannot open icon file %s for object type '%s'."
 msgstr "オブジェクトの種類 '%2$s' のアイコンファイル %1$s を開けません"
@@ -5929,13 +5926,13 @@ msgstr "CustomLines"
 msgid "Custom XML lines loader"
 msgstr "カスタム XML ラインのローダー"
 
-#: ../objects/custom_lines/custom_linetypes.c:227
+#: ../objects/custom_lines/custom_linetypes.c:244
 msgid "INTERNAL: CustomLines: Illegal line type in LineInfo object."
 msgstr ""
 "INTERNAL: CustomLines: LineInfo オブジェクトの中にある線の種類が間違っていま"
 "す"
 
-#: ../objects/custom_lines/custom_linetypes.c:252
+#: ../objects/custom_lines/custom_linetypes.c:269
 #, c-format
 msgid "INTERNAL: CustomLines: Illegal line type in LineInfo object %s."
 msgstr ""
@@ -6420,11 +6417,11 @@ msgid "Select Printer"
 msgstr "印刷先の選択"
 
 #: ../plug-ins/postscript/paginate_psprint.c:285
-#: ../sheets/ciscocomputer.sheet.in.h:36
+#: ../sheets/ciscocomputer.sheet.in.h:37
 msgid "Printer"
 msgstr "プリンター"
 
-#: ../plug-ins/postscript/paginate_psprint.c:299 ../sheets/Misc.sheet.in.h:1
+#: ../plug-ins/postscript/paginate_psprint.c:299 ../sheets/Misc.sheet.in.h:5
 msgid "File"
 msgstr "ファイル"
 
@@ -6607,7 +6604,7 @@ msgstr "'%s' を書き込みモードで開けませんでした\n"
 msgid "Print (GDI) ..."
 msgstr "印刷 (GDI) ..."
 
-#: ../plug-ins/wmf/wmf.cpp:1511
+#: ../plug-ins/wmf/wmf.cpp:1512
 msgid "WMF export filter"
 msgstr "WMF のエクスポート用フィルター"
 
@@ -6902,605 +6899,605 @@ msgstr "AADL"
 msgid "AADL Shapes"
 msgstr "AADL のシェイプ"
 
-#: ../sheets/AADL.sheet.in.h:3
-msgid "Bus"
-msgstr "バス"
-
-#: ../sheets/AADL.sheet.in.h:5
-msgid "Device"
-msgstr "デバイス"
+#: ../sheets/AADL.sheet.in.h:4
+msgid "Thread"
+msgstr "スレッド"
 
 #: ../sheets/AADL.sheet.in.h:6
+msgid "Processor"
+msgstr "プロセッサ"
+
+#: ../sheets/AADL.sheet.in.h:7
 msgid "Memory"
 msgstr "メモリ"
 
-#: ../sheets/AADL.sheet.in.h:7
-msgid "Package"
-msgstr "パッケージ"
+#: ../sheets/AADL.sheet.in.h:8
+msgid "Bus"
+msgstr "バス"
 
 #: ../sheets/AADL.sheet.in.h:9
-msgid "Processor"
-msgstr "プロセッサ"
+msgid "System"
+msgstr "システム"
 
 #: ../sheets/AADL.sheet.in.h:10
 msgid "Subprogram"
 msgstr "サブルーチン"
 
 #: ../sheets/AADL.sheet.in.h:11
-msgid "System"
-msgstr "システム"
-
-#: ../sheets/AADL.sheet.in.h:12
-msgid "Thread"
-msgstr "スレッド"
-
-#: ../sheets/AADL.sheet.in.h:13
 msgid "Thread Group"
 msgstr "スレッドグループ"
+
+#: ../sheets/AADL.sheet.in.h:12
+msgid "Device"
+msgstr "デバイス"
+
+#: ../sheets/AADL.sheet.in.h:13
+msgid "Package"
+msgstr "パッケージ"
+
+#. Please talk to me before making any changes to this sheet
+#: ../sheets/Assorted.sheet.in.h:2
+msgid "Assorted"
+msgstr "基本図形"
 
 #. Sheet Name: Assorted, was Geometric, maybe Basic Shapes instead?
 #. Leave as is for now, renaming too much hassle.
 #. Will probably need to split into seperate sheets soon anyway.
-#: ../sheets/Assorted.sheet.in.h:4
+#: ../sheets/Assorted.sheet.in.h:6
 msgid ""
 "An Assorted Collection of Polygons, Beziergons and other Miscellaneous "
 "Geometric Shapes"
 msgstr "多角形、ベジェ曲線とその他いろいろな幾何学シェイプを集めた基本図形"
 
-#. Please talk to me before making any changes to this sheet
-#: ../sheets/Assorted.sheet.in.h:6
-msgid "Assorted"
-msgstr "基本図形"
-
 #: ../sheets/Assorted.sheet.in.h:7
-msgid "Chevron"
-msgstr "シェブロン"
-
-#: ../sheets/Assorted.sheet.in.h:8
-msgid "Curved eight-point star"
-msgstr "カーブのかかった八点星"
-
-#: ../sheets/Assorted.sheet.in.h:9
-msgid "Curved four-point star"
-msgstr "カーブのかかった四点星"
-
-#: ../sheets/Assorted.sheet.in.h:10
-msgid "Diamond"
-msgstr "菱形"
-
-#: ../sheets/Assorted.sheet.in.h:11
-msgid "Down arrow"
-msgstr "下向きの矢印"
-
-#: ../sheets/Assorted.sheet.in.h:12
-msgid "Eight-point star"
-msgstr "八点星"
-
-#: ../sheets/Assorted.sheet.in.h:13
-msgid "Five-point star"
-msgstr "五点星"
-
-#: ../sheets/Assorted.sheet.in.h:14
-msgid "Four-point star"
-msgstr "四点星"
-
-#: ../sheets/Assorted.sheet.in.h:15
-msgid "Heart"
-msgstr "ハート"
-
-#: ../sheets/Assorted.sheet.in.h:16
-msgid "Heptagon. Seven-point shape"
-msgstr "七角形"
-
-#: ../sheets/Assorted.sheet.in.h:17
-msgid "Hexagon. Six-point shape"
-msgstr "六角形"
-
-#: ../sheets/Assorted.sheet.in.h:18
-msgid "Horizontal parallelogram"
-msgstr "平行四辺形 (横向き)"
-
-#: ../sheets/Assorted.sheet.in.h:19
-msgid "Isosceles triangle"
-msgstr "二等辺三角形"
-
-#: ../sheets/Assorted.sheet.in.h:20
-msgid "Left arrow"
-msgstr "左向きの矢印"
-
-#: ../sheets/Assorted.sheet.in.h:21
-msgid "Left-right arrow"
-msgstr "左-右 矢印"
-
-#: ../sheets/Assorted.sheet.in.h:22
-msgid "Left-right-up arrow"
-msgstr "左-右-上 矢印"
-
-#: ../sheets/Assorted.sheet.in.h:23
-msgid "Left-up arrow"
-msgstr "左-上 矢印"
-
-#: ../sheets/Assorted.sheet.in.h:24
-msgid "Maltese cross"
-msgstr "マルタ十字"
-
-#: ../sheets/Assorted.sheet.in.h:25
-msgid "Notched left arrow"
-msgstr "切り込み入り左向きの矢印"
-
-#: ../sheets/Assorted.sheet.in.h:26
-msgid "Notched right arrow"
-msgstr "切り込み入り右向きの矢印"
-
-#: ../sheets/Assorted.sheet.in.h:27
-msgid "Octogon. Eight-point shape"
-msgstr "八角形"
-
-#: ../sheets/Assorted.sheet.in.h:28
-msgid "Pentagon block arrow"
-msgstr "五角形の矢印"
-
-#: ../sheets/Assorted.sheet.in.h:29
-msgid "Pentagon. Five-point shape"
-msgstr "五角形"
-
-#: ../sheets/Assorted.sheet.in.h:30
-msgid "Perfect circle"
-msgstr "円"
-
-#: ../sheets/Assorted.sheet.in.h:31
-msgid "Perfect square, height equals width"
-msgstr "正方形"
-
-#: ../sheets/Assorted.sheet.in.h:32
-msgid "Quad arrow"
-msgstr "十字矢印"
-
-#: ../sheets/Assorted.sheet.in.h:33
-msgid "Quarter circle"
-msgstr "四分円"
-
-#: ../sheets/Assorted.sheet.in.h:34
-msgid "Quarter moon"
-msgstr "三日月"
-
-#: ../sheets/Assorted.sheet.in.h:35
 msgid "Right angle triangle"
 msgstr "直角三角形"
 
-#: ../sheets/Assorted.sheet.in.h:36
-msgid "Right arrow"
-msgstr "右向きの矢印"
+#: ../sheets/Assorted.sheet.in.h:8
+msgid "Isosceles triangle"
+msgstr "二等辺三角形"
 
-#: ../sheets/Assorted.sheet.in.h:37
-msgid "Seven-point star"
-msgstr "七点星"
+#: ../sheets/Assorted.sheet.in.h:9
+msgid "Perfect square, height equals width"
+msgstr "正方形"
 
-#: ../sheets/Assorted.sheet.in.h:38
-msgid "Sharp eight-point star"
-msgstr "シャープな八点星"
+#: ../sheets/Assorted.sheet.in.h:10
+msgid "Perfect circle"
+msgstr "円"
 
-#: ../sheets/Assorted.sheet.in.h:39
-msgid "Six-point star"
-msgstr "六点星"
+#: ../sheets/Assorted.sheet.in.h:11
+msgid "Quarter circle"
+msgstr "四分円"
 
-#: ../sheets/Assorted.sheet.in.h:40
-msgid "Sun"
-msgstr "太陽"
+#: ../sheets/Assorted.sheet.in.h:12
+msgid "Diamond"
+msgstr "菱形"
 
-#: ../sheets/Assorted.sheet.in.h:41
-msgid "Swiss cross"
-msgstr "スイス十字"
+#: ../sheets/Assorted.sheet.in.h:13
+msgid "Pentagon. Five-point shape"
+msgstr "五角形"
 
-#: ../sheets/Assorted.sheet.in.h:42
-msgid "Trapezoid"
-msgstr "台形"
+#: ../sheets/Assorted.sheet.in.h:14
+msgid "Hexagon. Six-point shape"
+msgstr "六角形"
 
-#: ../sheets/Assorted.sheet.in.h:43
-msgid "Turn-up arrow"
-msgstr "上に曲げた矢印"
+#: ../sheets/Assorted.sheet.in.h:15
+msgid "Heptagon. Seven-point shape"
+msgstr "七角形"
 
-#: ../sheets/Assorted.sheet.in.h:44
-msgid "Up arrow"
-msgstr "上向きの矢印"
+#: ../sheets/Assorted.sheet.in.h:16
+msgid "Octogon. Eight-point shape"
+msgstr "八角形"
 
-#: ../sheets/Assorted.sheet.in.h:45
-msgid "Up-down arrow"
-msgstr "上-下 矢印"
+#: ../sheets/Assorted.sheet.in.h:17
+msgid "Horizontal parallelogram"
+msgstr "平行四辺形 (横向き)"
 
-#: ../sheets/Assorted.sheet.in.h:46
-msgid "Up-down-left arrow"
-msgstr "上-下-左 矢印"
-
-#: ../sheets/Assorted.sheet.in.h:47
+#: ../sheets/Assorted.sheet.in.h:18
 msgid "Vertical parallelogram"
 msgstr "平行四辺形 (縦向き)"
 
-#: ../sheets/BPMN.sheet.in.h:1
-msgid "Activity Looping"
-msgstr "Activity Looping"
+#: ../sheets/Assorted.sheet.in.h:19
+msgid "Trapezoid"
+msgstr "台形"
 
-#: ../sheets/BPMN.sheet.in.h:2
-msgid "Ad-Hoc Collapsed Sub-Process"
-msgstr "Ad-Hoc Collapsed Sub-Process"
+#: ../sheets/Assorted.sheet.in.h:20
+msgid "Four-point star"
+msgstr "四点星"
+
+#: ../sheets/Assorted.sheet.in.h:21
+msgid "Curved four-point star"
+msgstr "カーブのかかった四点星"
+
+#: ../sheets/Assorted.sheet.in.h:22
+msgid "Five-point star"
+msgstr "五点星"
+
+#: ../sheets/Assorted.sheet.in.h:23
+msgid "Six-point star"
+msgstr "六点星"
+
+#: ../sheets/Assorted.sheet.in.h:24
+msgid "Seven-point star"
+msgstr "七点星"
+
+#: ../sheets/Assorted.sheet.in.h:25
+msgid "Eight-point star"
+msgstr "八点星"
+
+#: ../sheets/Assorted.sheet.in.h:26
+msgid "Sharp eight-point star"
+msgstr "シャープな八点星"
+
+#: ../sheets/Assorted.sheet.in.h:27
+msgid "Curved eight-point star"
+msgstr "カーブのかかった八点星"
+
+#: ../sheets/Assorted.sheet.in.h:28
+msgid "Swiss cross"
+msgstr "スイス十字"
+
+#: ../sheets/Assorted.sheet.in.h:29
+msgid "Maltese cross"
+msgstr "マルタ十字"
+
+#: ../sheets/Assorted.sheet.in.h:30
+msgid "Down arrow"
+msgstr "下向きの矢印"
+
+#: ../sheets/Assorted.sheet.in.h:31
+msgid "Up arrow"
+msgstr "上向きの矢印"
+
+#: ../sheets/Assorted.sheet.in.h:32
+msgid "Left arrow"
+msgstr "左向きの矢印"
+
+#: ../sheets/Assorted.sheet.in.h:33
+msgid "Right arrow"
+msgstr "右向きの矢印"
+
+#: ../sheets/Assorted.sheet.in.h:34
+msgid "Notched left arrow"
+msgstr "切り込み入り左向きの矢印"
+
+#: ../sheets/Assorted.sheet.in.h:35
+msgid "Notched right arrow"
+msgstr "切り込み入り右向きの矢印"
+
+#: ../sheets/Assorted.sheet.in.h:36
+msgid "Left-up arrow"
+msgstr "左-上 矢印"
+
+#: ../sheets/Assorted.sheet.in.h:37
+msgid "Turn-up arrow"
+msgstr "上に曲げた矢印"
+
+#: ../sheets/Assorted.sheet.in.h:38
+msgid "Left-right arrow"
+msgstr "左-右 矢印"
+
+#: ../sheets/Assorted.sheet.in.h:39
+msgid "Up-down arrow"
+msgstr "上-下 矢印"
+
+#: ../sheets/Assorted.sheet.in.h:40
+msgid "Quad arrow"
+msgstr "十字矢印"
+
+#: ../sheets/Assorted.sheet.in.h:41
+msgid "Left-right-up arrow"
+msgstr "左-右-上 矢印"
+
+#: ../sheets/Assorted.sheet.in.h:42
+msgid "Up-down-left arrow"
+msgstr "上-下-左 矢印"
+
+#: ../sheets/Assorted.sheet.in.h:43
+msgid "Pentagon block arrow"
+msgstr "五角形の矢印"
+
+#: ../sheets/Assorted.sheet.in.h:44
+msgid "Chevron"
+msgstr "シェブロン"
+
+#: ../sheets/Assorted.sheet.in.h:45
+msgid "Heart"
+msgstr "ハート"
+
+#: ../sheets/Assorted.sheet.in.h:46
+msgid "Sun"
+msgstr "太陽"
+
+#: ../sheets/Assorted.sheet.in.h:47
+msgid "Quarter moon"
+msgstr "三日月"
 
 #. For: anthonym
-#: ../sheets/BPMN.sheet.in.h:4
+#: ../sheets/BPMN.sheet.in.h:2
 msgid "BPMN"
 msgstr "BPMN"
 
-#: ../sheets/BPMN.sheet.in.h:5
+#: ../sheets/BPMN.sheet.in.h:3
 msgid "Business Process Modeling Notation"
 msgstr "ビジネスプロセスモデリング記法"
 
+#: ../sheets/BPMN.sheet.in.h:4
+msgid "Start Event"
+msgstr "Start Event"
+
+#: ../sheets/BPMN.sheet.in.h:5
+msgid "Start Event — Message"
+msgstr "Start Event — Message"
+
 #: ../sheets/BPMN.sheet.in.h:6
-msgid "Collapsed Sub-Process"
-msgstr "Collapsed Sub-Process"
+msgid "Start Event — Timer"
+msgstr "Start Event — Timer"
 
 #: ../sheets/BPMN.sheet.in.h:7
-msgid "Compensation Collapsed Sub-Process"
-msgstr "Compensation Collapsed Sub-Process"
+msgid "Start Event — Rule"
+msgstr "Start Event — Rule"
 
 #: ../sheets/BPMN.sheet.in.h:8
-msgid "Compensation Task"
-msgstr "Compensation Task"
+msgid "Start Event — Link"
+msgstr "Start Event — Link"
 
 #: ../sheets/BPMN.sheet.in.h:9
-msgid "Complex"
-msgstr "Complex"
+msgid "Start Event — Multiple"
+msgstr "Start Event — Multiple"
 
 #: ../sheets/BPMN.sheet.in.h:10
-msgid "Data Object"
-msgstr "Data Object"
-
-#: ../sheets/BPMN.sheet.in.h:11
-msgid "End Event"
-msgstr "End Event"
-
-#: ../sheets/BPMN.sheet.in.h:12
-msgid "End Event — Cancel"
-msgstr "End Event — Cancel"
-
-#: ../sheets/BPMN.sheet.in.h:13
-msgid "End Event — Compensation"
-msgstr "End Event — Compensation"
-
-#: ../sheets/BPMN.sheet.in.h:14
-msgid "End Event — Error"
-msgstr "End Event — Error"
-
-#: ../sheets/BPMN.sheet.in.h:15
-msgid "End Event — Link"
-msgstr "End Event — Link"
-
-#: ../sheets/BPMN.sheet.in.h:16
-msgid "End Event — Message"
-msgstr "End Event — Message"
-
-#: ../sheets/BPMN.sheet.in.h:17
-msgid "End Event — Multiple"
-msgstr "End Event — Multiple"
-
-#: ../sheets/BPMN.sheet.in.h:18
-msgid "End Event — Terminate"
-msgstr "End Event — Terminate"
-
-#: ../sheets/BPMN.sheet.in.h:19
-msgid "Exclusive (XOR) Data Based"
-msgstr "Exclusive (XOR) Data Based"
-
-#: ../sheets/BPMN.sheet.in.h:20
-msgid "Exclusive (XOR) Event Based"
-msgstr "Exclusive (XOR) Event Based"
-
-#: ../sheets/BPMN.sheet.in.h:21
-msgid "Gateway"
-msgstr "Gateway"
-
-#: ../sheets/BPMN.sheet.in.h:22
-msgid "Group"
-msgstr "Group"
-
-#: ../sheets/BPMN.sheet.in.h:23
-msgid "Inclusive (OR)"
-msgstr "Inclusive (OR)"
-
-#: ../sheets/BPMN.sheet.in.h:24
 msgid "Intermediate Event"
 msgstr "Intermediate Event"
 
-#: ../sheets/BPMN.sheet.in.h:25
-msgid "Intermediate Event — Cancel"
-msgstr "Intermediate Event — Cancel"
-
-#: ../sheets/BPMN.sheet.in.h:26
-msgid "Intermediate Event — Compensation"
-msgstr "Intermediate Event — Compensation"
-
-#: ../sheets/BPMN.sheet.in.h:27
-msgid "Intermediate Event — Error"
-msgstr "Intermediate Event — Error"
-
-#: ../sheets/BPMN.sheet.in.h:28
-msgid "Intermediate Event — Link"
-msgstr "Intermediate Event — Link"
-
-#: ../sheets/BPMN.sheet.in.h:29
+#: ../sheets/BPMN.sheet.in.h:11
 msgid "Intermediate Event — Message"
 msgstr "Intermediate Event — Message"
 
-#: ../sheets/BPMN.sheet.in.h:30
-msgid "Intermediate Event — Multiple"
-msgstr "Intermediate Event — Multiple"
-
-#: ../sheets/BPMN.sheet.in.h:31
-msgid "Intermediate Event — Rule"
-msgstr "Intermediate Event — Rule"
-
-#: ../sheets/BPMN.sheet.in.h:32
+#: ../sheets/BPMN.sheet.in.h:12
 msgid "Intermediate Event — Timer"
 msgstr "Intermediate Event — Timer"
 
-#: ../sheets/BPMN.sheet.in.h:33
-msgid "Looping Collapsed Sub-Process"
-msgstr "Looping Collapsed Sub-Process"
+#: ../sheets/BPMN.sheet.in.h:13
+msgid "Intermediate Event — Error"
+msgstr "Intermediate Event — Error"
+
+#: ../sheets/BPMN.sheet.in.h:14
+msgid "Intermediate Event — Cancel"
+msgstr "Intermediate Event — Cancel"
+
+#: ../sheets/BPMN.sheet.in.h:15
+msgid "Intermediate Event — Compensation"
+msgstr "Intermediate Event — Compensation"
+
+#: ../sheets/BPMN.sheet.in.h:16
+msgid "Intermediate Event — Rule"
+msgstr "Intermediate Event — Rule"
+
+#: ../sheets/BPMN.sheet.in.h:17
+msgid "Intermediate Event — Link"
+msgstr "Intermediate Event — Link"
+
+#: ../sheets/BPMN.sheet.in.h:18
+msgid "Intermediate Event — Multiple"
+msgstr "Intermediate Event — Multiple"
+
+#: ../sheets/BPMN.sheet.in.h:19
+msgid "End Event"
+msgstr "End Event"
+
+#: ../sheets/BPMN.sheet.in.h:20
+msgid "End Event — Message"
+msgstr "End Event — Message"
+
+#: ../sheets/BPMN.sheet.in.h:21
+msgid "End Event — Error"
+msgstr "End Event — Error"
+
+#: ../sheets/BPMN.sheet.in.h:22
+msgid "End Event — Cancel"
+msgstr "End Event — Cancel"
+
+#: ../sheets/BPMN.sheet.in.h:23
+msgid "End Event — Compensation"
+msgstr "End Event — Compensation"
+
+#: ../sheets/BPMN.sheet.in.h:24
+msgid "End Event — Link"
+msgstr "End Event — Link"
+
+#: ../sheets/BPMN.sheet.in.h:25
+msgid "End Event — Multiple"
+msgstr "End Event — Multiple"
+
+#: ../sheets/BPMN.sheet.in.h:26
+msgid "End Event — Terminate"
+msgstr "End Event — Terminate"
+
+#: ../sheets/BPMN.sheet.in.h:27
+msgid "Gateway"
+msgstr "Gateway"
+
+#: ../sheets/BPMN.sheet.in.h:28
+msgid "Exclusive (XOR) Data Based"
+msgstr "Exclusive (XOR) Data Based"
+
+#: ../sheets/BPMN.sheet.in.h:29
+msgid "Exclusive (XOR) Event Based"
+msgstr "Exclusive (XOR) Event Based"
+
+#: ../sheets/BPMN.sheet.in.h:30
+msgid "Inclusive (OR)"
+msgstr "Inclusive (OR)"
+
+#: ../sheets/BPMN.sheet.in.h:31
+msgid "Complex"
+msgstr "Complex"
+
+#: ../sheets/BPMN.sheet.in.h:32
+msgid "Parallel (AND)"
+msgstr "Parallel (AND)"
 
 #: ../sheets/BPMN.sheet.in.h:34
-msgid "Multiple Instance Collapsed Sub-Process"
-msgstr "Multiple Instance Collapsed Sub-Process"
+msgid "Activity Looping"
+msgstr "Activity Looping"
 
 #: ../sheets/BPMN.sheet.in.h:35
 msgid "Multiple Instance Task"
 msgstr "Multiple Instance Task"
 
 #: ../sheets/BPMN.sheet.in.h:36
-msgid "Parallel (AND)"
-msgstr "Parallel (AND)"
+msgid "Compensation Task"
+msgstr "Compensation Task"
 
 #: ../sheets/BPMN.sheet.in.h:37
-msgid "Start Event"
-msgstr "Start Event"
+msgid "Collapsed Sub-Process"
+msgstr "Collapsed Sub-Process"
 
 #: ../sheets/BPMN.sheet.in.h:38
-msgid "Start Event — Link"
-msgstr "Start Event — Link"
+msgid "Looping Collapsed Sub-Process"
+msgstr "Looping Collapsed Sub-Process"
 
 #: ../sheets/BPMN.sheet.in.h:39
-msgid "Start Event — Message"
-msgstr "Start Event — Message"
+msgid "Multiple Instance Collapsed Sub-Process"
+msgstr "Multiple Instance Collapsed Sub-Process"
 
 #: ../sheets/BPMN.sheet.in.h:40
-msgid "Start Event — Multiple"
-msgstr "Start Event — Multiple"
+msgid "Ad-Hoc Collapsed Sub-Process"
+msgstr "Ad-Hoc Collapsed Sub-Process"
 
 #: ../sheets/BPMN.sheet.in.h:41
-msgid "Start Event — Rule"
-msgstr "Start Event — Rule"
+msgid "Compensation Collapsed Sub-Process"
+msgstr "Compensation Collapsed Sub-Process"
 
 #: ../sheets/BPMN.sheet.in.h:42
-msgid "Start Event — Timer"
-msgstr "Start Event — Timer"
+msgid "Group"
+msgstr "Group"
 
-#: ../sheets/BPMN.sheet.in.h:44
-msgid "Text Annotation"
-msgstr "Text Annotation"
-
-#: ../sheets/BPMN.sheet.in.h:45
+#: ../sheets/BPMN.sheet.in.h:43
 msgid "Transaction"
 msgstr "Transaction"
 
-#: ../sheets/ChemEng.sheet.in.h:1
-msgid "AC Generator"
-msgstr "AC ジェネレーター"
+#: ../sheets/BPMN.sheet.in.h:44
+msgid "Data Object"
+msgstr "Data Object"
 
-#: ../sheets/ChemEng.sheet.in.h:2
-msgid "Air Cooler"
-msgstr "空冷式クーラー"
-
-#: ../sheets/ChemEng.sheet.in.h:3
-msgid "Autoclave"
-msgstr "オートクレーブ"
-
-#: ../sheets/ChemEng.sheet.in.h:4
-msgid "Axial Flow Fan"
-msgstr "Axial Flow Fan"
-
-#: ../sheets/ChemEng.sheet.in.h:5
-msgid "Basic Filter"
-msgstr "ベーシックフィルター"
-
-#: ../sheets/ChemEng.sheet.in.h:6
-msgid "Centrifugal Pump or Fan"
-msgstr "磁気浮上遠心ポンプ/ファン"
-
-#: ../sheets/ChemEng.sheet.in.h:7
-msgid "Centrifuge"
-msgstr "遠心分離器"
+#: ../sheets/BPMN.sheet.in.h:45
+msgid "Text Annotation"
+msgstr "Text Annotation"
 
 #. For: zenith
-#: ../sheets/ChemEng.sheet.in.h:9
+#: ../sheets/ChemEng.sheet.in.h:2
 msgid "ChemEng"
 msgstr "化学工学"
 
-#: ../sheets/ChemEng.sheet.in.h:10
-msgid "Clarifier or Settling Tank"
-msgstr "浄化/定着タンク"
-
-#: ../sheets/ChemEng.sheet.in.h:11
+#: ../sheets/ChemEng.sheet.in.h:3
 msgid "Collection for chemical engineering"
 msgstr "化学工学のコレクション"
 
-#: ../sheets/ChemEng.sheet.in.h:12
-msgid "Compressor or Turbine"
-msgstr "コンプレッサー/タービン"
-
-#: ../sheets/ChemEng.sheet.in.h:13
-msgid "Covered tank"
-msgstr "カバー付きのタンク"
-
-#: ../sheets/ChemEng.sheet.in.h:14
-msgid "Cyclone and hydrocyclone"
-msgstr "サイクロンとハイドロサイクロン"
-
-#: ../sheets/ChemEng.sheet.in.h:15
-msgid "Double-Pipe Exchanger"
-msgstr "二本のパイプが付いたエクスチェンジャー"
-
-#: ../sheets/ChemEng.sheet.in.h:16
-msgid "Ejector or Injector"
-msgstr "イジェクター/インジェクター"
-
-#: ../sheets/ChemEng.sheet.in.h:17
+#: ../sheets/ChemEng.sheet.in.h:4
 msgid "Fan or Stirrer"
 msgstr "ファン/かくはん器"
 
-#: ../sheets/ChemEng.sheet.in.h:18
-msgid "Fixed-Sheet Exchanger"
-msgstr "シート固定エクスチェンジャー"
-
-#: ../sheets/ChemEng.sheet.in.h:19
-msgid "Floating-Head or U-Tube Exchanger"
-msgstr "Floating-Head or U-Tube Exchanger"
-
-#: ../sheets/ChemEng.sheet.in.h:20
-msgid "Fluid Contacting Vessel, simple"
-msgstr "Fluid Contacting Vessel, simple"
-
-#: ../sheets/ChemEng.sheet.in.h:21
-msgid "Forced-Flow Air Cooler"
-msgstr "Forced-Flow Air Cooler"
-
-#: ../sheets/ChemEng.sheet.in.h:22
-msgid "Gas Holder, basic"
-msgstr "Gas Holder, basic"
-
-#: ../sheets/ChemEng.sheet.in.h:23
-msgid "Heating/Cooling Coil"
-msgstr "Heating/Cooling Coil"
-
-#: ../sheets/ChemEng.sheet.in.h:24
-msgid "Heating/Cooling Coil, vertical"
-msgstr "Heating/Cooling Coil, vertical"
-
-#: ../sheets/ChemEng.sheet.in.h:25
-msgid "Induced-Flow Air Cooler"
-msgstr "Induced-Flow Air Cooler"
-
-#: ../sheets/ChemEng.sheet.in.h:26
-msgid "Kettle Reboiler"
-msgstr "Kettle Reboiler"
-
-#: ../sheets/ChemEng.sheet.in.h:27
-msgid "Knock-out Drum (with demister pad)"
-msgstr "Knock-out Drum (with demister pad)"
-
-#: ../sheets/ChemEng.sheet.in.h:29
-msgid "Mixer"
-msgstr "ミキサー"
-
-#: ../sheets/ChemEng.sheet.in.h:30
-msgid "Open Tank"
-msgstr "タンクを開く"
-
-#: ../sheets/ChemEng.sheet.in.h:31
-msgid "Plate Exchanger"
-msgstr "プレートエクスチェンジャー"
-
-#: ../sheets/ChemEng.sheet.in.h:32
-msgid "Pneumatic Line"
-msgstr "空気圧管路"
-
-#: ../sheets/ChemEng.sheet.in.h:33
-msgid "Pneumatic Line, vertical"
-msgstr "空気圧管路 (垂直)"
-
-#: ../sheets/ChemEng.sheet.in.h:34
-msgid "Positive Displacement Rotary Pump or Compressor"
-msgstr "Positive Displacement Rotary Pump or Compressor"
-
-#: ../sheets/ChemEng.sheet.in.h:35
-msgid "Pressure Relief Valve"
-msgstr "Pressure Relief Valve"
-
-#: ../sheets/ChemEng.sheet.in.h:36
-msgid "Reactor or Absorption Vessel, simple"
-msgstr "Reactor or Absorption Vessel, simple"
-
-#: ../sheets/ChemEng.sheet.in.h:37
-msgid "Reciprocating Compressor or Pump"
-msgstr "Reciprocating Compressor or Pump"
-
-#: ../sheets/ChemEng.sheet.in.h:38
-msgid "Regulable Valve"
-msgstr "調整可能なバルブ"
-
-#: ../sheets/ChemEng.sheet.in.h:39
-msgid "Regulable Valve, vertical"
-msgstr "調整可能なバルブ (垂直)"
-
-#: ../sheets/ChemEng.sheet.in.h:40
-msgid "Sealed Tank"
-msgstr "タンクをふさぐ"
-
-#: ../sheets/ChemEng.sheet.in.h:41
-msgid "Simple Furnace"
-msgstr "シンプルな炉"
-
-#: ../sheets/ChemEng.sheet.in.h:42
-msgid "Simple Heat Exchanger"
-msgstr "シンプルなヒートエクスチェンジャー"
-
-#: ../sheets/ChemEng.sheet.in.h:43
-msgid "Simple Heat Exchanger, vertical"
-msgstr "シンプルなヒートエクスチェンジャー (垂直)"
-
-#: ../sheets/ChemEng.sheet.in.h:44
-msgid "Simple Vessel"
-msgstr "シンプルなベセル"
-
-#: ../sheets/ChemEng.sheet.in.h:45
-msgid "Spray Drier"
-msgstr "スプレー式ドライヤー"
-
-#: ../sheets/ChemEng.sheet.in.h:46
+#: ../sheets/ChemEng.sheet.in.h:5
 msgid "Spraying Device"
 msgstr "スプレー式デバイス"
 
-#: ../sheets/ChemEng.sheet.in.h:47
-msgid "Storage Sphere"
-msgstr "ストレージ領域"
+#: ../sheets/ChemEng.sheet.in.h:6
+msgid "Pneumatic Line"
+msgstr "空気圧管路"
 
-#: ../sheets/ChemEng.sheet.in.h:48
-msgid "Tank with Fixed Roof"
-msgstr "Tank with Fixed Roof"
+#: ../sheets/ChemEng.sheet.in.h:7
+msgid "Pneumatic Line, vertical"
+msgstr "空気圧管路 (垂直)"
 
-#: ../sheets/ChemEng.sheet.in.h:49
-msgid "Tank with Floating Roof"
-msgstr "Tank with Floating Roof"
+#: ../sheets/ChemEng.sheet.in.h:9
+msgid "Simple Heat Exchanger"
+msgstr "シンプルなヒートエクスチェンジャー"
 
-#: ../sheets/ChemEng.sheet.in.h:50
-msgid "Tray Column, detailed"
-msgstr "Tray Column, detailed"
+#: ../sheets/ChemEng.sheet.in.h:10
+msgid "Simple Heat Exchanger, vertical"
+msgstr "シンプルなヒートエクスチェンジャー (垂直)"
 
-#: ../sheets/ChemEng.sheet.in.h:51
-msgid "Tray Column, simple"
-msgstr "Tray Column, simple"
-
-#: ../sheets/ChemEng.sheet.in.h:52
-msgid "Valve"
-msgstr "バルブ"
-
-#: ../sheets/ChemEng.sheet.in.h:53
-msgid "Valve, vertical"
-msgstr "バルブ (垂直)"
-
-#: ../sheets/ChemEng.sheet.in.h:54
+#: ../sheets/ChemEng.sheet.in.h:11
 msgid "Water Cooler"
 msgstr "水冷式クーラー"
 
-#: ../sheets/ChemEng.sheet.in.h:55
+#: ../sheets/ChemEng.sheet.in.h:12
 msgid "Water Cooler, vertical"
 msgstr "水冷式クーラー (垂直)"
+
+#: ../sheets/ChemEng.sheet.in.h:13
+msgid "Fixed-Sheet Exchanger"
+msgstr "シート固定エクスチェンジャー"
+
+#: ../sheets/ChemEng.sheet.in.h:14
+msgid "Floating-Head or U-Tube Exchanger"
+msgstr "Floating-Head or U-Tube Exchanger"
+
+#: ../sheets/ChemEng.sheet.in.h:15
+msgid "Kettle Reboiler"
+msgstr "Kettle Reboiler"
+
+#: ../sheets/ChemEng.sheet.in.h:16
+msgid "Air Cooler"
+msgstr "空冷式クーラー"
+
+#: ../sheets/ChemEng.sheet.in.h:17
+msgid "Forced-Flow Air Cooler"
+msgstr "Forced-Flow Air Cooler"
+
+#: ../sheets/ChemEng.sheet.in.h:18
+msgid "Induced-Flow Air Cooler"
+msgstr "Induced-Flow Air Cooler"
+
+#: ../sheets/ChemEng.sheet.in.h:19
+msgid "Plate Exchanger"
+msgstr "プレートエクスチェンジャー"
+
+#: ../sheets/ChemEng.sheet.in.h:20
+msgid "Double-Pipe Exchanger"
+msgstr "二本のパイプが付いたエクスチェンジャー"
+
+#: ../sheets/ChemEng.sheet.in.h:21
+msgid "Heating/Cooling Coil"
+msgstr "Heating/Cooling Coil"
+
+#: ../sheets/ChemEng.sheet.in.h:22
+msgid "Heating/Cooling Coil, vertical"
+msgstr "Heating/Cooling Coil, vertical"
+
+#: ../sheets/ChemEng.sheet.in.h:23
+msgid "Simple Furnace"
+msgstr "シンプルな炉"
+
+#: ../sheets/ChemEng.sheet.in.h:24
+msgid "Simple Vessel"
+msgstr "シンプルなベセル"
+
+#: ../sheets/ChemEng.sheet.in.h:25
+msgid "Knock-out Drum (with demister pad)"
+msgstr "Knock-out Drum (with demister pad)"
+
+#: ../sheets/ChemEng.sheet.in.h:26
+msgid "Tray Column, simple"
+msgstr "Tray Column, simple"
+
+#: ../sheets/ChemEng.sheet.in.h:27
+msgid "Tray Column, detailed"
+msgstr "Tray Column, detailed"
+
+#: ../sheets/ChemEng.sheet.in.h:28
+msgid "Fluid Contacting Vessel, simple"
+msgstr "Fluid Contacting Vessel, simple"
+
+#: ../sheets/ChemEng.sheet.in.h:29
+msgid "Reactor or Absorption Vessel, simple"
+msgstr "Reactor or Absorption Vessel, simple"
+
+#: ../sheets/ChemEng.sheet.in.h:30
+msgid "Autoclave"
+msgstr "オートクレーブ"
+
+#: ../sheets/ChemEng.sheet.in.h:31
+msgid "Open Tank"
+msgstr "タンクを開く"
+
+#: ../sheets/ChemEng.sheet.in.h:32
+msgid "Clarifier or Settling Tank"
+msgstr "浄化/定着タンク"
+
+#: ../sheets/ChemEng.sheet.in.h:33
+msgid "Sealed Tank"
+msgstr "タンクをふさぐ"
+
+#: ../sheets/ChemEng.sheet.in.h:34
+msgid "Covered tank"
+msgstr "カバー付きのタンク"
+
+#: ../sheets/ChemEng.sheet.in.h:35
+msgid "Tank with Fixed Roof"
+msgstr "Tank with Fixed Roof"
+
+#: ../sheets/ChemEng.sheet.in.h:36
+msgid "Tank with Floating Roof"
+msgstr "Tank with Floating Roof"
+
+#: ../sheets/ChemEng.sheet.in.h:37
+msgid "Storage Sphere"
+msgstr "ストレージ領域"
+
+#: ../sheets/ChemEng.sheet.in.h:38
+msgid "Gas Holder, basic"
+msgstr "Gas Holder, basic"
+
+#: ../sheets/ChemEng.sheet.in.h:39
+msgid "Centrifugal Pump or Fan"
+msgstr "磁気浮上遠心ポンプ/ファン"
+
+#: ../sheets/ChemEng.sheet.in.h:40
+msgid "Positive Displacement Rotary Pump or Compressor"
+msgstr "Positive Displacement Rotary Pump or Compressor"
+
+#: ../sheets/ChemEng.sheet.in.h:41
+msgid "Reciprocating Compressor or Pump"
+msgstr "Reciprocating Compressor or Pump"
+
+#: ../sheets/ChemEng.sheet.in.h:42
+msgid "Axial Flow Fan"
+msgstr "Axial Flow Fan"
+
+#: ../sheets/ChemEng.sheet.in.h:43
+msgid "Compressor or Turbine"
+msgstr "コンプレッサー/タービン"
+
+#: ../sheets/ChemEng.sheet.in.h:44
+msgid "Ejector or Injector"
+msgstr "イジェクター/インジェクター"
+
+#: ../sheets/ChemEng.sheet.in.h:45
+msgid "AC Generator"
+msgstr "AC ジェネレーター"
+
+#: ../sheets/ChemEng.sheet.in.h:46
+msgid "Valve"
+msgstr "バルブ"
+
+#: ../sheets/ChemEng.sheet.in.h:47
+msgid "Valve, vertical"
+msgstr "バルブ (垂直)"
+
+#: ../sheets/ChemEng.sheet.in.h:48
+msgid "Regulable Valve"
+msgstr "調整可能なバルブ"
+
+#: ../sheets/ChemEng.sheet.in.h:49
+msgid "Regulable Valve, vertical"
+msgstr "調整可能なバルブ (垂直)"
+
+#: ../sheets/ChemEng.sheet.in.h:50
+msgid "Basic Filter"
+msgstr "ベーシックフィルター"
+
+#: ../sheets/ChemEng.sheet.in.h:51
+msgid "Mixer"
+msgstr "ミキサー"
+
+#: ../sheets/ChemEng.sheet.in.h:52
+msgid "Cyclone and hydrocyclone"
+msgstr "サイクロンとハイドロサイクロン"
+
+#: ../sheets/ChemEng.sheet.in.h:53
+msgid "Spray Drier"
+msgstr "スプレー式ドライヤー"
+
+#: ../sheets/ChemEng.sheet.in.h:54
+msgid "Centrifuge"
+msgstr "遠心分離器"
+
+#: ../sheets/ChemEng.sheet.in.h:55
+msgid "Pressure Relief Valve"
+msgstr "Pressure Relief Valve"
 
 #: ../sheets/Circuit.sheet.in.h:1
 msgid "Circuit"
@@ -7511,316 +7508,316 @@ msgid "Components for circuit diagrams"
 msgstr "回路ダイアグラムのコンポーネント"
 
 #: ../sheets/Circuit.sheet.in.h:3
+msgid "Vertically aligned resistor"
+msgstr "抵抗 (縦向き)"
+
+#: ../sheets/Circuit.sheet.in.h:4
+msgid "Horizontally aligned inductor"
+msgstr "インダクター (横向き)"
+
+#: ../sheets/Circuit.sheet.in.h:5
+msgid "Vertically aligned inductor"
+msgstr "インダクター (縦向き)"
+
+#: ../sheets/Circuit.sheet.in.h:6
+msgid "Horizontally aligned resistor"
+msgstr "抵抗 (横向き)"
+
+#: ../sheets/Circuit.sheet.in.h:7
+msgid "Vertically aligned resistor (European)"
+msgstr "ヨーロッパ式の抵抗 (縦向き)"
+
+#: ../sheets/Circuit.sheet.in.h:8
+msgid "Horizontally aligned inductor (European)"
+msgstr "ヨーロッパ式のインダクター (横向き)"
+
+#: ../sheets/Circuit.sheet.in.h:9
+msgid "Vertically aligned inductor (European)"
+msgstr "ヨーロッパ式のインダクター (縦向き)"
+
+#: ../sheets/Circuit.sheet.in.h:10
+msgid "Horizontally aligned resistor (European)"
+msgstr "ヨーロッパ式の抵抗 (横向き)"
+
+#: ../sheets/Circuit.sheet.in.h:11
+msgid "Horizontally aligned capacitor"
+msgstr "コンデンサー (横向き)"
+
+#: ../sheets/Circuit.sheet.in.h:12
+msgid "Vertically aligned capacitor"
+msgstr "コンデンサー (縦向き)"
+
+#.
+#.
+#: ../sheets/Circuit.sheet.in.h:15
+msgid "NPN bipolar transistor"
+msgstr "NPN 接合バイポーラトランジスタ"
+
+#.
+#.
+#: ../sheets/Circuit.sheet.in.h:18
+msgid "PNP bipolar transistor"
+msgstr "PNP 接合バイポーラトランジスタ"
+
+#: ../sheets/Circuit.sheet.in.h:19
+msgid "Horizontally aligned diode"
+msgstr "ダイオード (横向き)"
+
+#: ../sheets/Circuit.sheet.in.h:20
+msgid "Vertically aligned diode"
+msgstr "ダイオード (縦向き)"
+
+#: ../sheets/Circuit.sheet.in.h:21
+msgid "Horizontally aligned zener diode"
+msgstr "定電圧ダイオード (横向き)"
+
+#: ../sheets/Circuit.sheet.in.h:22
+msgid "Vertically aligned zener diode"
+msgstr "定電圧ダイオード (縦向き)"
+
+#: ../sheets/Circuit.sheet.in.h:23
 msgid "Ground point"
 msgstr "アース端子"
 
-#: ../sheets/Circuit.sheet.in.h:4
+#: ../sheets/Circuit.sheet.in.h:24
+msgid "Operational amplifier"
+msgstr "オペアンプ"
+
+#: ../sheets/Circuit.sheet.in.h:25
+msgid "Horizontally aligned fuse"
+msgstr "ヒューズ (横向き)"
+
+#: ../sheets/Circuit.sheet.in.h:26
+msgid "Vertically aligned fuse"
+msgstr "ヒューズ (縦向き)"
+
+#: ../sheets/Circuit.sheet.in.h:27
+msgid "Horizontally aligned power source"
+msgstr "電源 (横向き)"
+
+#: ../sheets/Circuit.sheet.in.h:28
+msgid "Vertically aligned power source"
+msgstr "電源 (縦向き)"
+
+#: ../sheets/Circuit.sheet.in.h:29
+msgid "Lamp"
+msgstr "ランプ"
+
+#: ../sheets/Circuit.sheet.in.h:30 ../sheets/ciscomisc.sheet.in.h:55
+msgid "Speaker"
+msgstr "スピーカー"
+
+#: ../sheets/Circuit.sheet.in.h:31 ../sheets/ciscomisc.sheet.in.h:53
+msgid "Microphone"
+msgstr "マイクロフォン"
+
+#: ../sheets/Circuit.sheet.in.h:32
+msgid "Horizontally aligned LED"
+msgstr "LED (横向き)"
+
+#: ../sheets/Circuit.sheet.in.h:33
+msgid "Vertically aligned LED"
+msgstr "LED (縦向き)"
+
+#: ../sheets/Circuit.sheet.in.h:34
+msgid "NMOS transistor"
+msgstr "NMOS トランジスタ"
+
+#: ../sheets/Circuit.sheet.in.h:35
+msgid "PMOS transistor"
+msgstr "PMOS トランジスタ"
+
+#: ../sheets/Circuit.sheet.in.h:36
 msgid "Horizontal jumper"
 msgstr "水平用ジャンパー (横向き)"
 
-#: ../sheets/Circuit.sheet.in.h:5
+#: ../sheets/Circuit.sheet.in.h:37
 #, fuzzy
 #| msgid "Horizontal rest"
 msgid "Horizontal xtal"
 msgstr "水平レスト"
 
-#: ../sheets/Circuit.sheet.in.h:6
-msgid "Horizontally aligned LED"
-msgstr "LED (横向き)"
-
-#: ../sheets/Circuit.sheet.in.h:7
-msgid "Horizontally aligned capacitor"
-msgstr "コンデンサー (横向き)"
-
-#: ../sheets/Circuit.sheet.in.h:8
-msgid "Horizontally aligned diode"
-msgstr "ダイオード (横向き)"
-
-#: ../sheets/Circuit.sheet.in.h:9
-msgid "Horizontally aligned fuse"
-msgstr "ヒューズ (横向き)"
-
-#: ../sheets/Circuit.sheet.in.h:10
-msgid "Horizontally aligned inductor"
-msgstr "インダクター (横向き)"
-
-#: ../sheets/Circuit.sheet.in.h:11
-msgid "Horizontally aligned inductor (European)"
-msgstr "ヨーロッパ式のインダクター (横向き)"
-
-#: ../sheets/Circuit.sheet.in.h:12
-msgid "Horizontally aligned power source"
-msgstr "電源 (横向き)"
-
-#: ../sheets/Circuit.sheet.in.h:13
-msgid "Horizontally aligned resistor"
-msgstr "抵抗 (横向き)"
-
-#: ../sheets/Circuit.sheet.in.h:14
-msgid "Horizontally aligned resistor (European)"
-msgstr "ヨーロッパ式の抵抗 (横向き)"
-
-#: ../sheets/Circuit.sheet.in.h:15
-msgid "Horizontally aligned zener diode"
-msgstr "定電圧ダイオード (横向き)"
-
-#: ../sheets/Circuit.sheet.in.h:16
-msgid "Lamp"
-msgstr "ランプ"
-
-#: ../sheets/Circuit.sheet.in.h:17 ../sheets/ciscomisc.sheet.in.h:30
-msgid "Microphone"
-msgstr "マイクロフォン"
-
-#: ../sheets/Circuit.sheet.in.h:18
-msgid "NMOS transistor"
-msgstr "NMOS トランジスタ"
-
-#.
-#.
-#: ../sheets/Circuit.sheet.in.h:21
-msgid "NPN bipolar transistor"
-msgstr "NPN 接合バイポーラトランジスタ"
-
-#: ../sheets/Circuit.sheet.in.h:22
-msgid "Operational amplifier"
-msgstr "オペアンプ"
-
-#: ../sheets/Circuit.sheet.in.h:23
-msgid "PMOS transistor"
-msgstr "PMOS トランジスタ"
-
-#.
-#.
-#: ../sheets/Circuit.sheet.in.h:26
-msgid "PNP bipolar transistor"
-msgstr "PNP 接合バイポーラトランジスタ"
-
-#: ../sheets/Circuit.sheet.in.h:27 ../sheets/ciscomisc.sheet.in.h:42
-msgid "Speaker"
-msgstr "スピーカー"
-
-#: ../sheets/Circuit.sheet.in.h:28
+#: ../sheets/Circuit.sheet.in.h:38
 #, fuzzy
 #| msgid "Vertical rest"
 msgid "Vertical xtal"
 msgstr "垂直レスト"
 
-#: ../sheets/Circuit.sheet.in.h:29
-msgid "Vertically aligned LED"
-msgstr "LED (縦向き)"
-
-#: ../sheets/Circuit.sheet.in.h:30
-msgid "Vertically aligned capacitor"
-msgstr "コンデンサー (縦向き)"
-
-#: ../sheets/Circuit.sheet.in.h:31
-msgid "Vertically aligned diode"
-msgstr "ダイオード (縦向き)"
-
-#: ../sheets/Circuit.sheet.in.h:32
-msgid "Vertically aligned fuse"
-msgstr "ヒューズ (縦向き)"
-
-#: ../sheets/Circuit.sheet.in.h:33
-msgid "Vertically aligned inductor"
-msgstr "インダクター (縦向き)"
-
-#: ../sheets/Circuit.sheet.in.h:34
-msgid "Vertically aligned inductor (European)"
-msgstr "ヨーロッパ式のインダクター (縦向き)"
-
-#: ../sheets/Circuit.sheet.in.h:35
-msgid "Vertically aligned power source"
-msgstr "電源 (縦向き)"
-
-#: ../sheets/Circuit.sheet.in.h:36
-msgid "Vertically aligned resistor"
-msgstr "抵抗 (縦向き)"
-
-#: ../sheets/Circuit.sheet.in.h:37
-msgid "Vertically aligned resistor (European)"
-msgstr "ヨーロッパ式の抵抗 (縦向き)"
-
-#: ../sheets/Circuit.sheet.in.h:38
-msgid "Vertically aligned zener diode"
-msgstr "定電圧ダイオード (縦向き)"
-
 #: ../sheets/Contact.sheet.in.h:1
-msgid "'if not' (normally closed) ladder contact"
-msgstr "'if not' (正常に閉じている) ラダー接続"
-
-#: ../sheets/Contact.sheet.in.h:2
-msgid "'if' (normally open) ladder contact"
-msgstr "'if' (正常に開いている) ラダー接続"
-
-#: ../sheets/Contact.sheet.in.h:3
-msgid "'jump' output variable"
-msgstr "'jump' 出力変数"
-
-#: ../sheets/Contact.sheet.in.h:4
-msgid "'reset' output variable"
-msgstr "'reset' 出力変数"
-
-#: ../sheets/Contact.sheet.in.h:5
-msgid "'set' output variable"
-msgstr "'set' 出力変数"
-
-#: ../sheets/Contact.sheet.in.h:6
-msgid "Components for LADDER circuits"
-msgstr "LADDER 回路のコンポーネント"
-
-#: ../sheets/Contact.sheet.in.h:7
 msgid "Ladder"
 msgstr "ラダー回路"
 
-#: ../sheets/Contact.sheet.in.h:8
-msgid "Negative output variable"
-msgstr "負の出力変数"
+#: ../sheets/Contact.sheet.in.h:2
+msgid "Components for LADDER circuits"
+msgstr "LADDER 回路のコンポーネント"
 
-#: ../sheets/Contact.sheet.in.h:9
-msgid "Power-saved 'reset' output variable"
-msgstr "パワーセーブ 'reset' 出力変数"
+#: ../sheets/Contact.sheet.in.h:3
+msgid "'if' (normally open) ladder contact"
+msgstr "'if' (正常に開いている) ラダー接続"
 
-#: ../sheets/Contact.sheet.in.h:10
-msgid "Power-saved 'set' output variable"
-msgstr "パワーセーブ 'set' 出力変数"
+#: ../sheets/Contact.sheet.in.h:4
+msgid "'if not' (normally closed) ladder contact"
+msgstr "'if not' (正常に閉じている) ラダー接続"
 
-#: ../sheets/Contact.sheet.in.h:11
-msgid "Power-saved negative output variable"
-msgstr "パワーセーブの負の出力変数"
-
-#: ../sheets/Contact.sheet.in.h:12
-msgid "Power-saved simple output variable"
-msgstr "パワーセーブのシンプル出力変数"
-
-#: ../sheets/Contact.sheet.in.h:13
-msgid "Receptivity output variable"
-msgstr "Receptivity 出力変数"
-
-#: ../sheets/Contact.sheet.in.h:14
+#: ../sheets/Contact.sheet.in.h:5
 msgid "Simple output variable"
 msgstr "シンプル出力変数"
 
+#: ../sheets/Contact.sheet.in.h:6
+msgid "Negative output variable"
+msgstr "負の出力変数"
+
+#: ../sheets/Contact.sheet.in.h:7
+msgid "'set' output variable"
+msgstr "'set' 出力変数"
+
+#: ../sheets/Contact.sheet.in.h:8
+msgid "'reset' output variable"
+msgstr "'reset' 出力変数"
+
+#: ../sheets/Contact.sheet.in.h:9
+msgid "'jump' output variable"
+msgstr "'jump' 出力変数"
+
+#: ../sheets/Contact.sheet.in.h:10
+msgid "Receptivity output variable"
+msgstr "Receptivity 出力変数"
+
+#: ../sheets/Contact.sheet.in.h:11
+msgid "Power-saved simple output variable"
+msgstr "パワーセーブのシンプル出力変数"
+
+#: ../sheets/Contact.sheet.in.h:12
+msgid "Power-saved negative output variable"
+msgstr "パワーセーブの負の出力変数"
+
+#: ../sheets/Contact.sheet.in.h:13
+msgid "Power-saved 'set' output variable"
+msgstr "パワーセーブ 'set' 出力変数"
+
+#: ../sheets/Contact.sheet.in.h:14
+msgid "Power-saved 'reset' output variable"
+msgstr "パワーセーブ 'reset' 出力変数"
+
 #: ../sheets/Cybernetics.sheet.in.h:1
-msgid "Constant factor below -1"
-msgstr "定係数 &lt; -1"
-
-#: ../sheets/Cybernetics.sheet.in.h:2
-msgid "Constant factor between 0 and -1"
-msgstr "-1 &lt; 定係数 &lt; 0 "
-
-#: ../sheets/Cybernetics.sheet.in.h:3
-msgid "Constant factor between 0 and 1"
-msgstr "0 &lt; 定係数 &lt; 1"
-
-#: ../sheets/Cybernetics.sheet.in.h:4
-msgid "Constant factor greater 1"
-msgstr "1 &lt; 定係数"
-
-#: ../sheets/Cybernetics.sheet.in.h:5
-msgid "Constant negative shift on the y-axis"
-msgstr "Y-軸に対する負の方向へのシフト"
-
-#: ../sheets/Cybernetics.sheet.in.h:6
-msgid "Constant positive shift on the y-axis"
-msgstr "Y-軸に対する正の方向へのシフト"
-
-#: ../sheets/Cybernetics.sheet.in.h:7
 msgid "Cybernetics"
 msgstr "サイバネティックス"
 
-#: ../sheets/Cybernetics.sheet.in.h:8
+#: ../sheets/Cybernetics.sheet.in.h:2
 msgid "Elements of cybernetic circuits"
 msgstr "サイバネティックス回路の部品"
 
-#: ../sheets/Cybernetics.sheet.in.h:9
-msgid "Full wave rectifier (absolute value)"
-msgstr "全波整流回路 (絶対値)"
-
-#: ../sheets/Cybernetics.sheet.in.h:10
-msgid "Half wave rectifier or ramp input"
-msgstr "半波整流回路/ランプの入力"
-
-#: ../sheets/Cybernetics.sheet.in.h:11
-msgid "High pass filter"
-msgstr "高域通過フィルター"
-
-#: ../sheets/Cybernetics.sheet.in.h:12
-msgid "Integrator — input bottom"
-msgstr "積分器 — 入力 (下)"
-
-#: ../sheets/Cybernetics.sheet.in.h:13
-msgid "Integrator — input left"
-msgstr "積分器 — 入力 (左)"
-
-#: ../sheets/Cybernetics.sheet.in.h:14
-msgid "Integrator — input right"
-msgstr "積分器 — 入力 (右)"
-
-#: ../sheets/Cybernetics.sheet.in.h:15
-msgid "Integrator — input top"
-msgstr "積分器 — 入力 (上)"
-
-#: ../sheets/Cybernetics.sheet.in.h:16
-msgid "Low pass filter"
-msgstr "低域通過フィルター"
-
-#: ../sheets/Cybernetics.sheet.in.h:17
-msgid "Product"
-msgstr "産物"
-
-#: ../sheets/Cybernetics.sheet.in.h:18
-msgid "Relay characteristic (sigma)"
-msgstr "リレー特性 (Σ)"
-
-#: ../sheets/Cybernetics.sheet.in.h:19
-msgid "Saturation characteristic"
-msgstr "彩度特性"
-
-#: ../sheets/Cybernetics.sheet.in.h:20
-msgid "Sensor — bottom"
-msgstr "センサー — 下"
-
-#: ../sheets/Cybernetics.sheet.in.h:21
+#: ../sheets/Cybernetics.sheet.in.h:3
 msgid "Sensor — left"
 msgstr "センサー — 左"
 
-#: ../sheets/Cybernetics.sheet.in.h:22
+#: ../sheets/Cybernetics.sheet.in.h:4
 msgid "Sensor — right"
 msgstr "センサー — 右"
 
-#: ../sheets/Cybernetics.sheet.in.h:23
+#: ../sheets/Cybernetics.sheet.in.h:5
+msgid "Sensor — bottom"
+msgstr "センサー — 下"
+
+#: ../sheets/Cybernetics.sheet.in.h:6
 msgid "Sensor — top"
 msgstr "センサー — 上"
 
-#: ../sheets/Cybernetics.sheet.in.h:24
-msgid "Sigmoid characteristic"
-msgstr "シグモイド特性"
-
-#: ../sheets/Cybernetics.sheet.in.h:25
-msgid "Sine characteristic or input"
-msgstr "Sin 特性または入力"
-
-#: ../sheets/Cybernetics.sheet.in.h:26
-msgid "Sum"
-msgstr "サム (合計)"
-
-#: ../sheets/Cybernetics.sheet.in.h:27
-msgid "Sum, subtracting bottom input"
-msgstr "サム (下の入力との減算)"
-
-#: ../sheets/Cybernetics.sheet.in.h:28
+#: ../sheets/Cybernetics.sheet.in.h:7
 msgid "Sum, subtracting left input"
 msgstr "サム (左の入力との減算)"
 
-#: ../sheets/Cybernetics.sheet.in.h:29
+#: ../sheets/Cybernetics.sheet.in.h:8
 msgid "Sum, subtracting right input"
 msgstr "サム (右の入力との減算)"
 
-#: ../sheets/Cybernetics.sheet.in.h:30
+#: ../sheets/Cybernetics.sheet.in.h:9
+msgid "Sum, subtracting bottom input"
+msgstr "サム (下の入力との減算)"
+
+#: ../sheets/Cybernetics.sheet.in.h:10
 msgid "Sum, subtracting top input"
 msgstr "サム (上の入力との減算)"
+
+#: ../sheets/Cybernetics.sheet.in.h:11
+msgid "Integrator — input left"
+msgstr "積分器 — 入力 (左)"
+
+#: ../sheets/Cybernetics.sheet.in.h:12
+msgid "Integrator — input right"
+msgstr "積分器 — 入力 (右)"
+
+#: ../sheets/Cybernetics.sheet.in.h:13
+msgid "Integrator — input bottom"
+msgstr "積分器 — 入力 (下)"
+
+#: ../sheets/Cybernetics.sheet.in.h:14
+msgid "Integrator — input top"
+msgstr "積分器 — 入力 (上)"
+
+#: ../sheets/Cybernetics.sheet.in.h:15
+msgid "Sum"
+msgstr "サム (合計)"
+
+#: ../sheets/Cybernetics.sheet.in.h:16
+msgid "Product"
+msgstr "産物"
+
+#: ../sheets/Cybernetics.sheet.in.h:17
+msgid "High pass filter"
+msgstr "高域通過フィルター"
+
+#: ../sheets/Cybernetics.sheet.in.h:18
+msgid "Low pass filter"
+msgstr "低域通過フィルター"
+
+#: ../sheets/Cybernetics.sheet.in.h:19
+msgid "Sine characteristic or input"
+msgstr "Sin 特性または入力"
+
+#: ../sheets/Cybernetics.sheet.in.h:20
+msgid "Sigmoid characteristic"
+msgstr "シグモイド特性"
+
+#: ../sheets/Cybernetics.sheet.in.h:21
+msgid "Saturation characteristic"
+msgstr "彩度特性"
+
+#: ../sheets/Cybernetics.sheet.in.h:22
+msgid "Relay characteristic (sigma)"
+msgstr "リレー特性 (Σ)"
+
+#: ../sheets/Cybernetics.sheet.in.h:23
+msgid "Half wave rectifier or ramp input"
+msgstr "半波整流回路/ランプの入力"
+
+#: ../sheets/Cybernetics.sheet.in.h:24
+msgid "Full wave rectifier (absolute value)"
+msgstr "全波整流回路 (絶対値)"
+
+#: ../sheets/Cybernetics.sheet.in.h:25
+msgid "Constant positive shift on the y-axis"
+msgstr "Y-軸に対する正の方向へのシフト"
+
+#: ../sheets/Cybernetics.sheet.in.h:26
+msgid "Constant negative shift on the y-axis"
+msgstr "Y-軸に対する負の方向へのシフト"
+
+#: ../sheets/Cybernetics.sheet.in.h:27
+msgid "Constant factor greater 1"
+msgstr "1 &lt; 定係数"
+
+#: ../sheets/Cybernetics.sheet.in.h:28
+msgid "Constant factor between 0 and 1"
+msgstr "0 &lt; 定係数 &lt; 1"
+
+#: ../sheets/Cybernetics.sheet.in.h:29
+msgid "Constant factor between 0 and -1"
+msgstr "-1 &lt; 定係数 &lt; 0 "
+
+#: ../sheets/Cybernetics.sheet.in.h:30
+msgid "Constant factor below -1"
+msgstr "定係数 &lt; -1"
 
 #: ../sheets/Cybernetics.sheet.in.h:31
 msgid "Template for custom characteristics"
@@ -7831,328 +7828,322 @@ msgid "Time delay"
 msgstr "遅延"
 
 #: ../sheets/Database.sheet.in.h:1
-msgid "Attribute compound"
-msgstr "属性の合成"
-
-#: ../sheets/Database.sheet.in.h:2
 msgid "Database"
 msgstr "データベース"
 
-#: ../sheets/Database.sheet.in.h:3
+#: ../sheets/Database.sheet.in.h:2
 msgid "Editor for Database Table Relation Diagrams"
 msgstr "データベーステーブルのリレーションダイアグラムの編集"
 
-#: ../sheets/ER.sheet.in.h:2
+#: ../sheets/Database.sheet.in.h:5
+msgid "Attribute compound"
+msgstr "属性の合成"
+
+#: ../sheets/ER.sheet.in.h:1
 msgid "ER"
 msgstr "ER"
 
-#: ../sheets/ER.sheet.in.h:3
+#: ../sheets/ER.sheet.in.h:2
 msgid "Editor for Entity Relations Diagrams"
 msgstr "エンティティリレーションダイアグラムの編集"
 
-#: ../sheets/ER.sheet.in.h:5
-msgid "Participation"
-msgstr "パーティシペーション"
-
-#: ../sheets/ER.sheet.in.h:7
+#: ../sheets/ER.sheet.in.h:4
 msgid "Weak entity"
 msgstr "ウィークエンティティ"
 
+#: ../sheets/ER.sheet.in.h:7
+msgid "Participation"
+msgstr "パーティシペーション"
+
 #: ../sheets/Electric.sheet.in.h:1
-msgid "Components for electric circuits"
-msgstr "電子回路用のコンポーネント"
-
-#: ../sheets/Electric.sheet.in.h:2 ../sheets/Pneumatic.sheet.in.h:7
-msgid "Connection point"
-msgstr "接続点"
-
-#: ../sheets/Electric.sheet.in.h:3
 msgid "Electric"
 msgstr "電気回路"
 
-#: ../sheets/Electric.sheet.in.h:4
-msgid "Lamp or indicator light (horizontal)"
-msgstr "ランプ/表示器 (横向き)"
+#: ../sheets/Electric.sheet.in.h:2
+msgid "Components for electric circuits"
+msgstr "電子回路用のコンポーネント"
 
-#: ../sheets/Electric.sheet.in.h:5
-msgid "Lamp or indicator light (vertical)"
-msgstr "ランプ/表示器 (縦向き)"
-
-#: ../sheets/Electric.sheet.in.h:6
-msgid "Normally closed contact (horizontal)"
-msgstr "標準的な閉コンタクト (横向き)"
-
-#: ../sheets/Electric.sheet.in.h:7
-msgid "Normally closed contact (vertical)"
-msgstr "標準的な閉コンタクト (縦向き)"
-
-#: ../sheets/Electric.sheet.in.h:8
-msgid "Normally closed position switch (horizontal)"
-msgstr "標準的な閉スイッチ (横向き)"
-
-#: ../sheets/Electric.sheet.in.h:9
-msgid "Normally closed position switch (vertical)"
-msgstr "標準的な閉スイッチ (縦向き)"
-
-#: ../sheets/Electric.sheet.in.h:10
+#: ../sheets/Electric.sheet.in.h:3
 msgid "Normally open contact (horizontal)"
 msgstr "標準的な開コンタクト (横向き)"
 
-#: ../sheets/Electric.sheet.in.h:11
-msgid "Normally open contact (vertical)"
-msgstr "標準的な開コンタクト (縦向き)"
+#: ../sheets/Electric.sheet.in.h:4
+msgid "Normally closed contact (horizontal)"
+msgstr "標準的な閉コンタクト (横向き)"
 
-#: ../sheets/Electric.sheet.in.h:12
+#: ../sheets/Electric.sheet.in.h:5
 msgid "Normally open position switch (horizontal)"
 msgstr "標準的な開スイッチ (横向き)"
 
-#: ../sheets/Electric.sheet.in.h:13
+#: ../sheets/Electric.sheet.in.h:6
+msgid "Normally closed position switch (horizontal)"
+msgstr "標準的な閉スイッチ (横向き)"
+
+#: ../sheets/Electric.sheet.in.h:7
+msgid "Normally open contact (vertical)"
+msgstr "標準的な開コンタクト (縦向き)"
+
+#: ../sheets/Electric.sheet.in.h:8
+msgid "Normally closed contact (vertical)"
+msgstr "標準的な閉コンタクト (縦向き)"
+
+#: ../sheets/Electric.sheet.in.h:9
 msgid "Normally open position switch (vertical)"
 msgstr "標準的な開スイッチ (縦向き)"
 
-#: ../sheets/Electric.sheet.in.h:14
+#: ../sheets/Electric.sheet.in.h:10
+msgid "Normally closed position switch (vertical)"
+msgstr "標準的な閉スイッチ (縦向き)"
+
+#: ../sheets/Electric.sheet.in.h:11
+msgid "The command organ of a relay (horizontal)"
+msgstr "リレーのコマンド起点 (横向き)"
+
+#: ../sheets/Electric.sheet.in.h:12
 msgid "Relay (horizontal)"
 msgstr "リレー (横向き)"
+
+#: ../sheets/Electric.sheet.in.h:13
+msgid "Lamp or indicator light (horizontal)"
+msgstr "ランプ/表示器 (横向き)"
+
+#: ../sheets/Electric.sheet.in.h:14
+msgid "The command organ of a relay (vertical)"
+msgstr "リレーのコマンド起点 (縦向き)"
 
 #: ../sheets/Electric.sheet.in.h:15
 msgid "Relay (vertical)"
 msgstr "リレー (縦向き)"
 
 #: ../sheets/Electric.sheet.in.h:16
-msgid "The command organ of a relay (horizontal)"
-msgstr "リレーのコマンド起点 (横向き)"
+msgid "Lamp or indicator light (vertical)"
+msgstr "ランプ/表示器 (縦向き)"
 
-#: ../sheets/Electric.sheet.in.h:17
-msgid "The command organ of a relay (vertical)"
-msgstr "リレーのコマンド起点 (縦向き)"
+#: ../sheets/Electric.sheet.in.h:17 ../sheets/Pneumatic.sheet.in.h:22
+msgid "Connection point"
+msgstr "接続点"
 
 #: ../sheets/FS.sheet.in.h:1
-msgid "Editor for Function Structure Diagrams."
-msgstr "関数構造体ダイアグラムのエディター"
-
-#: ../sheets/FS.sheet.in.h:2
 msgid "FS"
 msgstr "FS"
+
+#: ../sheets/FS.sheet.in.h:2
+msgid "Editor for Function Structure Diagrams."
+msgstr "関数構造体ダイアグラムのエディター"
 
 #: ../sheets/FS.sheet.in.h:3
 msgid "Flow"
 msgstr "フロー"
 
 #: ../sheets/FS.sheet.in.h:4
-msgid "Function"
-msgstr "関数呼びだし"
-
-#: ../sheets/FS.sheet.in.h:5
 msgid "Orthogonal polyline flow"
 msgstr "直角連続線のフロー"
 
-#. XXX
+#: ../sheets/FS.sheet.in.h:5
+msgid "Function"
+msgstr "関数呼びだし"
+
 #: ../sheets/Flowchart.sheet.in.h:2
-msgid "Collate"
-msgstr "照合"
+msgid "Objects to draw flowcharts"
+msgstr "フローチャートを描画するためのオブジェクト"
 
 #: ../sheets/Flowchart.sheet.in.h:3
-msgid "Connector"
-msgstr "接続子"
+msgid "Process/Auxiliary Operation"
+msgstr "処理"
 
 #: ../sheets/Flowchart.sheet.in.h:4
-msgid "Data source"
-msgstr "データのソース"
+msgid "Input/Output"
+msgstr "入出力装置"
 
-#: ../sheets/Flowchart.sheet.in.h:5 ../sheets/SDL.sheet.in.h:4
+#: ../sheets/Flowchart.sheet.in.h:5 ../sheets/SDL.sheet.in.h:14
 msgid "Decision"
 msgstr "判断"
 
 #: ../sheets/Flowchart.sheet.in.h:6
-msgid "Delay"
-msgstr "遅延"
+msgid "Connector"
+msgstr "接続子"
 
 #: ../sheets/Flowchart.sheet.in.h:8
-msgid "Document"
-msgstr "文書"
-
-#: ../sheets/Flowchart.sheet.in.h:11
-msgid "Input/Output"
-msgstr "入出力装置"
-
-#: ../sheets/Flowchart.sheet.in.h:12
-msgid "Internal storage"
-msgstr "主記憶装置"
-
-#: ../sheets/Flowchart.sheet.in.h:13
-msgid "Magnetic disk"
-msgstr "磁気ディスク"
-
-#: ../sheets/Flowchart.sheet.in.h:14
-msgid "Magnetic drum"
-msgstr "磁気ドラム"
-
-#: ../sheets/Flowchart.sheet.in.h:15
-msgid "Magnetic tape"
-msgstr "磁気テープ"
-
-#: ../sheets/Flowchart.sheet.in.h:16
-msgid "Manual input"
-msgstr "手動入力"
-
-#: ../sheets/Flowchart.sheet.in.h:17
-msgid "Manual operation"
-msgstr "手動操作"
-
-#: ../sheets/Flowchart.sheet.in.h:18
-msgid "Merge"
-msgstr "融合"
-
-#: ../sheets/Flowchart.sheet.in.h:19
-msgid "Objects to draw flowcharts"
-msgstr "フローチャートを描画するためのオブジェクト"
-
-#. XXX
-#: ../sheets/Flowchart.sheet.in.h:21
-msgid "Off page connector"
-msgstr "オフページコネクター"
-
-#: ../sheets/Flowchart.sheet.in.h:22
-msgid "Offline storage"
-msgstr "オフラインストレージ"
-
-#: ../sheets/Flowchart.sheet.in.h:23
-msgid "Or"
-msgstr "論理和"
-
-#: ../sheets/Flowchart.sheet.in.h:24
-msgid "Predefined process"
-msgstr "定義済み処理"
-
-#: ../sheets/Flowchart.sheet.in.h:25
-msgid "Preparation"
-msgstr "準備"
-
-#: ../sheets/Flowchart.sheet.in.h:26
-msgid "Process/Auxiliary Operation"
-msgstr "処理"
-
-#: ../sheets/Flowchart.sheet.in.h:27
-msgid "Punched card"
-msgstr "パンチカード"
-
-#: ../sheets/Flowchart.sheet.in.h:28
-msgid "Punched tape"
-msgstr "パンチテープ"
-
-#: ../sheets/Flowchart.sheet.in.h:29
-msgid "Sort"
-msgstr "ソート"
-
-#. XXX
-#: ../sheets/Flowchart.sheet.in.h:31
-msgid "Summing junction"
-msgstr "評価の分岐"
-
-#: ../sheets/Flowchart.sheet.in.h:32
-msgid "Terminal Interrupt"
-msgstr "端子"
-
-#: ../sheets/Flowchart.sheet.in.h:33
 msgid "Transaction file"
 msgstr "処理ファイル"
 
-#: ../sheets/Flowchart.sheet.in.h:34
+#. XXX
+#: ../sheets/Flowchart.sheet.in.h:10
+msgid "Off page connector"
+msgstr "オフページコネクター"
+
+#: ../sheets/Flowchart.sheet.in.h:11
+msgid "Document"
+msgstr "文書"
+
+#: ../sheets/Flowchart.sheet.in.h:12
+msgid "Manual operation"
+msgstr "手動操作"
+
+#: ../sheets/Flowchart.sheet.in.h:13
+msgid "Preparation"
+msgstr "準備"
+
+#: ../sheets/Flowchart.sheet.in.h:14
+msgid "Manual input"
+msgstr "手動入力"
+
+#: ../sheets/Flowchart.sheet.in.h:15
+msgid "Predefined process"
+msgstr "定義済み処理"
+
+#: ../sheets/Flowchart.sheet.in.h:16
+msgid "Terminal Interrupt"
+msgstr "端子"
+
+#: ../sheets/Flowchart.sheet.in.h:17
+msgid "Magnetic disk"
+msgstr "磁気ディスク"
+
+#: ../sheets/Flowchart.sheet.in.h:18
+msgid "Magnetic drum"
+msgstr "磁気ドラム"
+
+#: ../sheets/Flowchart.sheet.in.h:19
+msgid "Magnetic tape"
+msgstr "磁気テープ"
+
+#: ../sheets/Flowchart.sheet.in.h:20
+msgid "Internal storage"
+msgstr "主記憶装置"
+
+#: ../sheets/Flowchart.sheet.in.h:21
+msgid "Merge"
+msgstr "融合"
+
+#: ../sheets/Flowchart.sheet.in.h:23
+msgid "Delay"
+msgstr "遅延"
+
+#. XXX
+#: ../sheets/Flowchart.sheet.in.h:25
+msgid "Summing junction"
+msgstr "評価の分岐"
+
+#. XXX
+#: ../sheets/Flowchart.sheet.in.h:27
+msgid "Collate"
+msgstr "照合"
+
+#: ../sheets/Flowchart.sheet.in.h:28
+msgid "Sort"
+msgstr "ソート"
+
+#: ../sheets/Flowchart.sheet.in.h:29
+msgid "Or"
+msgstr "論理和"
+
+#: ../sheets/Flowchart.sheet.in.h:30
+msgid "Punched card"
+msgstr "パンチカード"
+
+#: ../sheets/Flowchart.sheet.in.h:31
+msgid "Punched tape"
+msgstr "パンチテープ"
+
+#: ../sheets/Flowchart.sheet.in.h:32
 msgid "Transmittal tape"
 msgstr "伝送テープ"
 
+#: ../sheets/Flowchart.sheet.in.h:33
+msgid "Offline storage"
+msgstr "オフラインストレージ"
+
+#: ../sheets/Flowchart.sheet.in.h:34
+msgid "Data source"
+msgstr "データのソース"
+
 #: ../sheets/GRAFCET.sheet.in.h:1
-msgid "AND vergent"
-msgstr "論理積分岐"
-
-#: ../sheets/GRAFCET.sheet.in.h:2
-msgid "Action to associate to a step"
-msgstr "ステップに対するアクション"
-
-#: ../sheets/GRAFCET.sheet.in.h:3
-msgid "Arc (upward)"
-msgstr "弧 (上向き)"
-
-#: ../sheets/GRAFCET.sheet.in.h:4
-msgid "Condition (of an action)"
-msgstr "(アクションの) 条件"
-
-#: ../sheets/GRAFCET.sheet.in.h:5
 msgid "GRAFCET"
 msgstr "GRAFCET"
 
-#: ../sheets/GRAFCET.sheet.in.h:10
-msgid "Macro sub-program call step"
-msgstr "マクロサブプログラム呼び出しステップ"
-
-#: ../sheets/GRAFCET.sheet.in.h:11
-msgid "OR vergent"
-msgstr "論理和分岐"
-
-#: ../sheets/GRAFCET.sheet.in.h:12
+#: ../sheets/GRAFCET.sheet.in.h:2
 msgid "Objects to design GRAFCET charts"
 msgstr "GRAFCET チャートを設計するためのオブジェクト"
 
-#: ../sheets/GRAFCET.sheet.in.h:14 ../sheets/UML.sheet.in.h:30
+#: ../sheets/GRAFCET.sheet.in.h:8
+msgid "Macro sub-program call step"
+msgstr "マクロサブプログラム呼び出しステップ"
+
+#: ../sheets/GRAFCET.sheet.in.h:9
+msgid "Action to associate to a step"
+msgstr "ステップに対するアクション"
+
+#: ../sheets/GRAFCET.sheet.in.h:10
+msgid "Condition (of an action)"
+msgstr "(アクションの) 条件"
+
+#: ../sheets/GRAFCET.sheet.in.h:11 ../sheets/UML.sheet.in.h:32
 msgid "Transition"
 msgstr "トランジション"
 
-#: ../sheets/Gane_and_Sarson.sheet.in.h:1
-msgid "Alternate external entity"
-msgstr "別の外部エンティティ"
+#: ../sheets/GRAFCET.sheet.in.h:12
+msgid "OR vergent"
+msgstr "論理和分岐"
 
-#: ../sheets/Gane_and_Sarson.sheet.in.h:2
-msgid "Data store"
-msgstr "データの格納"
+#: ../sheets/GRAFCET.sheet.in.h:13
+msgid "AND vergent"
+msgstr "論理積分岐"
 
-#: ../sheets/Gane_and_Sarson.sheet.in.h:3
-msgid "External entity"
-msgstr "外部エンティティ"
+#: ../sheets/GRAFCET.sheet.in.h:14
+msgid "Arc (upward)"
+msgstr "弧 (上向き)"
 
 #. Author: Nicholas Moore, 2005. mailto: shiny.nickel@gmail.com
-#: ../sheets/Gane_and_Sarson.sheet.in.h:5
+#: ../sheets/Gane_and_Sarson.sheet.in.h:2
 msgid "Gane and Sarson"
 msgstr "構造化分析と設計"
 
-#: ../sheets/Gane_and_Sarson.sheet.in.h:6
+#: ../sheets/Gane_and_Sarson.sheet.in.h:3
 msgid "Gane and Sarson DFD"
 msgstr "構造化分析と設計のデータフローダイアグラム"
 
-#: ../sheets/IsometricMap.sheet.in.h:1
-msgid "Block 1, 2:4"
-msgstr "ブロック1 (2:4)"
+#: ../sheets/Gane_and_Sarson.sheet.in.h:4
+msgid "Alternate external entity"
+msgstr "別の外部エンティティ"
 
+#: ../sheets/Gane_and_Sarson.sheet.in.h:5
+msgid "Data store"
+msgstr "データの格納"
+
+#: ../sheets/Gane_and_Sarson.sheet.in.h:6
+msgid "External entity"
+msgstr "外部エンティティ"
+
+#. use dc:title instead?
 #: ../sheets/IsometricMap.sheet.in.h:2
-msgid "Block 2, 2:8"
-msgstr "ブロック2 (2:8)"
+msgid "Map, Isometric"
+msgstr "地図 (Isometric)"
 
-#: ../sheets/IsometricMap.sheet.in.h:3
-msgid "Block 3, 4:4"
-msgstr "ブロック3 (4:4)"
-
+#. use dc:description instead?
 #: ../sheets/IsometricMap.sheet.in.h:4
-msgid "Block 4, 4:8"
-msgstr "ブロック4 (4:8)"
+msgid "Isometric Directional Map Shapes"
+msgstr "Isometric Directional Map のシェイプ"
 
 #: ../sheets/IsometricMap.sheet.in.h:5
-msgid "Block 5, 3:3"
-msgstr "ブロック5 (3:3)"
+msgid "Road Section"
+msgstr "道路"
 
 #: ../sheets/IsometricMap.sheet.in.h:6
-msgid "Block 6, 4:6"
-msgstr "ブロック6 (4:6)"
+msgid "Long Straight Road Section"
+msgstr "直線"
 
 #: ../sheets/IsometricMap.sheet.in.h:7
-msgid "Block 7"
-msgstr "ブロック7"
+msgid "Crossroads"
+msgstr "交差点"
 
 #: ../sheets/IsometricMap.sheet.in.h:8
-msgid "Car 1, Front View"
-msgstr "車1 (正面)"
+msgid "T-Junction"
+msgstr "三差路 (T字)"
 
 #: ../sheets/IsometricMap.sheet.in.h:9
-msgid "Car 2, Rear View"
-msgstr "車2 (背面)"
+msgid "Elevated Road"
+msgstr "高架道路"
 
 #: ../sheets/IsometricMap.sheet.in.h:10
 msgid "Corner 1"
@@ -8163,1466 +8154,1476 @@ msgid "Corner 2"
 msgstr "曲がり角2"
 
 #: ../sheets/IsometricMap.sheet.in.h:12
-msgid "Crossroads"
-msgstr "交差点"
-
-#: ../sheets/IsometricMap.sheet.in.h:13
-msgid "Elevated Road"
-msgstr "高架道路"
-
-#: ../sheets/IsometricMap.sheet.in.h:14
-msgid "Factory"
-msgstr "工場"
-
-#: ../sheets/IsometricMap.sheet.in.h:15
-msgid "Footbridge, Pedestrian Bridge"
-msgstr "歩道橋"
-
-#. use dc:description instead?
-#: ../sheets/IsometricMap.sheet.in.h:17
-msgid "Isometric Directional Map Shapes"
-msgstr "Isometric Directional Map のシェイプ"
-
-#: ../sheets/IsometricMap.sheet.in.h:18
-msgid "Long Straight Road Section"
-msgstr "直線"
-
-#. use dc:title instead?
-#: ../sheets/IsometricMap.sheet.in.h:20
-msgid "Map, Isometric"
-msgstr "地図 (Isometric)"
-
-#: ../sheets/IsometricMap.sheet.in.h:21
-msgid "One Way Road Sign"
-msgstr "一方通行"
-
-#: ../sheets/IsometricMap.sheet.in.h:22
 msgid "River"
 msgstr "川"
 
-#: ../sheets/IsometricMap.sheet.in.h:23
-msgid "Road Section"
-msgstr "道路"
-
-#: ../sheets/IsometricMap.sheet.in.h:24
+#: ../sheets/IsometricMap.sheet.in.h:13
 msgid "Roof 1"
 msgstr "屋根 1"
 
-#: ../sheets/IsometricMap.sheet.in.h:25
-msgid "T-Junction"
-msgstr "三差路 (T字)"
+#: ../sheets/IsometricMap.sheet.in.h:14
+msgid "Block 1, 2:4"
+msgstr "ブロック1 (2:4)"
 
-#: ../sheets/IsometricMap.sheet.in.h:26
+#: ../sheets/IsometricMap.sheet.in.h:15
+msgid "Block 2, 2:8"
+msgstr "ブロック2 (2:8)"
+
+#: ../sheets/IsometricMap.sheet.in.h:16
+msgid "Block 3, 4:4"
+msgstr "ブロック3 (4:4)"
+
+#: ../sheets/IsometricMap.sheet.in.h:17
+msgid "Block 4, 4:8"
+msgstr "ブロック4 (4:8)"
+
+#: ../sheets/IsometricMap.sheet.in.h:18
+msgid "Block 5, 3:3"
+msgstr "ブロック5 (3:3)"
+
+#: ../sheets/IsometricMap.sheet.in.h:19
+msgid "Block 6, 4:6"
+msgstr "ブロック6 (4:6)"
+
+#: ../sheets/IsometricMap.sheet.in.h:20
+msgid "Block 7"
+msgstr "ブロック7"
+
+#: ../sheets/IsometricMap.sheet.in.h:21
+msgid "Factory"
+msgstr "工場"
+
+#: ../sheets/IsometricMap.sheet.in.h:22
+msgid "Car 1, Front View"
+msgstr "車1 (正面)"
+
+#: ../sheets/IsometricMap.sheet.in.h:23
+msgid "Car 2, Rear View"
+msgstr "車2 (背面)"
+
+#: ../sheets/IsometricMap.sheet.in.h:24
 msgid "Train 1, angled downward"
 msgstr "電車1 (下り)"
 
-#: ../sheets/IsometricMap.sheet.in.h:27
+#: ../sheets/IsometricMap.sheet.in.h:25
 msgid "Train 2, angled upward"
 msgstr "電車1 (上り)"
 
-#: ../sheets/IsometricMap.sheet.in.h:28
+#: ../sheets/IsometricMap.sheet.in.h:26
 msgid "Tree 1"
 msgstr "木1"
 
+#: ../sheets/IsometricMap.sheet.in.h:27
+msgid "Footbridge, Pedestrian Bridge"
+msgstr "歩道橋"
+
+#: ../sheets/IsometricMap.sheet.in.h:28
+msgid "One Way Road Sign"
+msgstr "一方通行"
+
 #: ../sheets/Istar.sheet.in.h:1
-msgid "An i* agent"
-msgstr "An i* agent"
+msgid "RE-i*"
+msgstr "RE-i*"
 
 #: ../sheets/Istar.sheet.in.h:2
-msgid "An i* decomposition link"
-msgstr "An i* decomposition link"
+msgid "Objects to design i* diagrams"
+msgstr "i* ダイアグラムを設計するためのオブジェクト"
 
 #: ../sheets/Istar.sheet.in.h:3
-msgid "An i* dependency link"
-msgstr "An i* dependency link"
+msgid "An i* softgoal"
+msgstr "An i* softgoal"
 
 #: ../sheets/Istar.sheet.in.h:4
 msgid "An i* goal"
 msgstr "An i* goal"
 
 #: ../sheets/Istar.sheet.in.h:5
-msgid "An i* means-ends link"
-msgstr "An i* means-ends link"
-
-#: ../sheets/Istar.sheet.in.h:6
-msgid "An i* negative contribution"
-msgstr "An i* negative contribution"
-
-#: ../sheets/Istar.sheet.in.h:7
-msgid "An i* position"
-msgstr "An i* position"
-
-#: ../sheets/Istar.sheet.in.h:8
-msgid "An i* positive contribution"
-msgstr "An i* positive contribution"
-
-#: ../sheets/Istar.sheet.in.h:9
 msgid "An i* resource"
 msgstr "An i* resource"
+
+#: ../sheets/Istar.sheet.in.h:6
+msgid "An i* task"
+msgstr "An i* task"
+
+#: ../sheets/Istar.sheet.in.h:7
+msgid "An i* unspecified actor"
+msgstr "An i* unspecified actor"
+
+#: ../sheets/Istar.sheet.in.h:8
+msgid "An i* agent"
+msgstr "An i* agent"
+
+#: ../sheets/Istar.sheet.in.h:9
+msgid "An i* position"
+msgstr "An i* position"
 
 #: ../sheets/Istar.sheet.in.h:10
 msgid "An i* role"
 msgstr "An i* role"
 
 #: ../sheets/Istar.sheet.in.h:11
-msgid "An i* softgoal"
-msgstr "An i* softgoal"
-
-#: ../sheets/Istar.sheet.in.h:12
-msgid "An i* task"
-msgstr "An i* task"
-
-#: ../sheets/Istar.sheet.in.h:13
-msgid "An i* unspecified actor"
-msgstr "An i* unspecified actor"
-
-#: ../sheets/Istar.sheet.in.h:14
 msgid "An i* unspecified link"
 msgstr "An i* unspecified link"
 
+#: ../sheets/Istar.sheet.in.h:12
+msgid "An i* positive contribution"
+msgstr "An i* positive contribution"
+
+#: ../sheets/Istar.sheet.in.h:13
+msgid "An i* negative contribution"
+msgstr "An i* negative contribution"
+
+#: ../sheets/Istar.sheet.in.h:14
+msgid "An i* dependency link"
+msgstr "An i* dependency link"
+
 #: ../sheets/Istar.sheet.in.h:15
-msgid "Objects to design i* diagrams"
-msgstr "i* ダイアグラムを設計するためのオブジェクト"
+msgid "An i* decomposition link"
+msgstr "An i* decomposition link"
 
 #: ../sheets/Istar.sheet.in.h:16
-msgid "RE-i*"
-msgstr "RE-i*"
+msgid "An i* means-ends link"
+msgstr "An i* means-ends link"
 
 #: ../sheets/Jackson.sheet.in.h:1
-msgid "A Jackson designed domain"
-msgstr "Jackson 設計ドメイン"
-
-#: ../sheets/Jackson.sheet.in.h:2
-msgid "A Jackson given domain"
-msgstr "A Jackson 指定ドメイン"
-
-#: ../sheets/Jackson.sheet.in.h:3
-msgid "A Jackson machine domain"
-msgstr "Jackson マシンドメイン"
-
-#: ../sheets/Jackson.sheet.in.h:4
-msgid "A Jackson requirement"
-msgstr "A Jackson requirement"
-
-#: ../sheets/Jackson.sheet.in.h:5
-msgid "A Jackson requirement phenomenon"
-msgstr "A Jackson requirement phenomenon"
-
-#: ../sheets/Jackson.sheet.in.h:6
-msgid "A Jackson shared phenomenon"
-msgstr "A Jackson shared phenomenon"
-
-#: ../sheets/Jackson.sheet.in.h:7
-msgid "Objects to design Jackson diagrams"
-msgstr "Jackson ダイアグラムを設計するためのオブジェクト"
-
-#: ../sheets/Jackson.sheet.in.h:8
 msgid "RE-Jackson"
 msgstr "RE-Jackson"
 
+#: ../sheets/Jackson.sheet.in.h:2
+msgid "Objects to design Jackson diagrams"
+msgstr "Jackson ダイアグラムを設計するためのオブジェクト"
+
+#: ../sheets/Jackson.sheet.in.h:3
+msgid "A Jackson given domain"
+msgstr "A Jackson 指定ドメイン"
+
+#: ../sheets/Jackson.sheet.in.h:4
+msgid "A Jackson designed domain"
+msgstr "Jackson 設計ドメイン"
+
+#: ../sheets/Jackson.sheet.in.h:5
+msgid "A Jackson machine domain"
+msgstr "Jackson マシンドメイン"
+
+#: ../sheets/Jackson.sheet.in.h:6
+msgid "A Jackson requirement"
+msgstr "A Jackson requirement"
+
+#: ../sheets/Jackson.sheet.in.h:7
+msgid "A Jackson shared phenomenon"
+msgstr "A Jackson shared phenomenon"
+
+#: ../sheets/Jackson.sheet.in.h:8
+msgid "A Jackson requirement phenomenon"
+msgstr "A Jackson requirement phenomenon"
+
 #: ../sheets/KAOS.sheet.in.h:1
-msgid "A KAOS AND refinement"
-msgstr "A KAOS AND refinement"
-
-#: ../sheets/KAOS.sheet.in.h:2
-msgid "A KAOS OR refinement"
-msgstr "A KAOS OR refinement"
-
-#: ../sheets/KAOS.sheet.in.h:3
-msgid "A KAOS agent"
-msgstr "KAOS エージェント"
-
-#: ../sheets/KAOS.sheet.in.h:4
-msgid "A KAOS assumption"
-msgstr "KAOS 仮定"
-
-#: ../sheets/KAOS.sheet.in.h:5
-msgid "A KAOS binary conflict"
-msgstr "KAOS バイナリ衝突"
-
-#: ../sheets/KAOS.sheet.in.h:6
-msgid "A KAOS capable-of"
-msgstr "KAOS capable-of"
-
-#: ../sheets/KAOS.sheet.in.h:7
-msgid "A KAOS complete AND refinement"
-msgstr "KAOS complete AND refinement"
-
-#: ../sheets/KAOS.sheet.in.h:8
-msgid "A KAOS complete OR refinement"
-msgstr "KAOS complete OR refinement"
-
-#: ../sheets/KAOS.sheet.in.h:9
-msgid "A KAOS contribution"
-msgstr "KAOS contribution"
-
-#: ../sheets/KAOS.sheet.in.h:10
-msgid "A KAOS control link"
-msgstr "KAOS control link"
-
-#: ../sheets/KAOS.sheet.in.h:11
-msgid "A KAOS goal"
-msgstr "KAOS ゴール"
-
-#: ../sheets/KAOS.sheet.in.h:12
-msgid "A KAOS input"
-msgstr "KAOS 入力"
-
-#: ../sheets/KAOS.sheet.in.h:13
-msgid "A KAOS monitor link"
-msgstr "KAOS リンクの監視"
-
-#: ../sheets/KAOS.sheet.in.h:14
-msgid "A KAOS obstacle"
-msgstr "KAOS 障害"
-
-#: ../sheets/KAOS.sheet.in.h:15
-msgid "A KAOS obstruction"
-msgstr "KAOS 障害物"
-
-#: ../sheets/KAOS.sheet.in.h:16
-msgid "A KAOS operation"
-msgstr "KAOS オペレーション"
-
-#: ../sheets/KAOS.sheet.in.h:17
-msgid "A KAOS operationalization"
-msgstr "KAOS operationalization"
-
-#: ../sheets/KAOS.sheet.in.h:18
-msgid "A KAOS output"
-msgstr "KAOS 出力"
-
-#: ../sheets/KAOS.sheet.in.h:19
-msgid "A KAOS performs"
-msgstr "KAOS 実行"
-
-#: ../sheets/KAOS.sheet.in.h:20
-msgid "A KAOS requirement"
-msgstr "KAOS 条件"
-
-#: ../sheets/KAOS.sheet.in.h:21
-msgid "A KAOS responsibility"
-msgstr "KAOS 責任"
-
-#: ../sheets/KAOS.sheet.in.h:22
-msgid "A KAOS softgoal"
-msgstr "KAOS ソフトゴール"
-
-#: ../sheets/KAOS.sheet.in.h:23
-msgid "Objects to design KAOS diagrams"
-msgstr "KAOS ダイアグラムを設計するためのオブジェクト"
-
-#: ../sheets/KAOS.sheet.in.h:24
 msgid "RE-KAOS"
 msgstr "RE-KAOS"
 
+#: ../sheets/KAOS.sheet.in.h:2
+msgid "Objects to design KAOS diagrams"
+msgstr "KAOS ダイアグラムを設計するためのオブジェクト"
+
+#: ../sheets/KAOS.sheet.in.h:3
+msgid "A KAOS softgoal"
+msgstr "KAOS ソフトゴール"
+
+#: ../sheets/KAOS.sheet.in.h:4
+msgid "A KAOS goal"
+msgstr "KAOS ゴール"
+
+#: ../sheets/KAOS.sheet.in.h:5
+msgid "A KAOS requirement"
+msgstr "KAOS 条件"
+
+#: ../sheets/KAOS.sheet.in.h:6
+msgid "A KAOS assumption"
+msgstr "KAOS 仮定"
+
+#: ../sheets/KAOS.sheet.in.h:7
+msgid "A KAOS obstacle"
+msgstr "KAOS 障害"
+
+#: ../sheets/KAOS.sheet.in.h:8
+msgid "A KAOS AND refinement"
+msgstr "A KAOS AND refinement"
+
+#: ../sheets/KAOS.sheet.in.h:9
+msgid "A KAOS complete AND refinement"
+msgstr "KAOS complete AND refinement"
+
+#: ../sheets/KAOS.sheet.in.h:10
+msgid "A KAOS OR refinement"
+msgstr "A KAOS OR refinement"
+
+#: ../sheets/KAOS.sheet.in.h:11
+msgid "A KAOS complete OR refinement"
+msgstr "KAOS complete OR refinement"
+
+#: ../sheets/KAOS.sheet.in.h:12
+msgid "A KAOS operationalization"
+msgstr "KAOS operationalization"
+
+#: ../sheets/KAOS.sheet.in.h:13
+msgid "A KAOS contribution"
+msgstr "KAOS contribution"
+
+#: ../sheets/KAOS.sheet.in.h:14
+msgid "A KAOS obstruction"
+msgstr "KAOS 障害物"
+
+#: ../sheets/KAOS.sheet.in.h:15
+msgid "A KAOS binary conflict"
+msgstr "KAOS バイナリ衝突"
+
+#: ../sheets/KAOS.sheet.in.h:16
+msgid "A KAOS agent"
+msgstr "KAOS エージェント"
+
+#: ../sheets/KAOS.sheet.in.h:17
+msgid "A KAOS responsibility"
+msgstr "KAOS 責任"
+
+#: ../sheets/KAOS.sheet.in.h:18
+msgid "A KAOS monitor link"
+msgstr "KAOS リンクの監視"
+
+#: ../sheets/KAOS.sheet.in.h:19
+msgid "A KAOS control link"
+msgstr "KAOS control link"
+
+#: ../sheets/KAOS.sheet.in.h:20
+msgid "A KAOS capable-of"
+msgstr "KAOS capable-of"
+
+#: ../sheets/KAOS.sheet.in.h:21
+msgid "A KAOS performs"
+msgstr "KAOS 実行"
+
+#: ../sheets/KAOS.sheet.in.h:22
+msgid "A KAOS operation"
+msgstr "KAOS オペレーション"
+
+#: ../sheets/KAOS.sheet.in.h:23
+msgid "A KAOS input"
+msgstr "KAOS 入力"
+
+#: ../sheets/KAOS.sheet.in.h:24
+msgid "A KAOS output"
+msgstr "KAOS 出力"
+
 #: ../sheets/Lights.sheet.in.h:1
-msgid "ACL"
-msgstr "ACL"
-
-#: ../sheets/Lights.sheet.in.h:2
-msgid "Black light"
-msgstr "バックライト"
-
-#: ../sheets/Lights.sheet.in.h:3
-msgid "Blinders"
-msgstr "Blinders"
-
-#: ../sheets/Lights.sheet.in.h:4
-msgid "Ellipsoidal Reflector Spotlight"
-msgstr "Ellipsoidal Reflector Spotlight"
-
-#: ../sheets/Lights.sheet.in.h:5
-msgid "Fresnel lantern"
-msgstr "Fresnel lantern"
-
-#: ../sheets/Lights.sheet.in.h:6
 msgid "Lights"
 msgstr "Lights"
 
-#: ../sheets/Lights.sheet.in.h:7
-msgid "Moving head"
-msgstr "Moving head"
-
-#: ../sheets/Lights.sheet.in.h:8
+#: ../sheets/Lights.sheet.in.h:2
 msgid "Objects to design simple lighting plots"
 msgstr "Objects to design simple lighting plots"
 
-#: ../sheets/Lights.sheet.in.h:9
+#: ../sheets/Lights.sheet.in.h:3
 msgid "PAR"
 msgstr "PAR"
 
-#: ../sheets/Lights.sheet.in.h:10
+#: ../sheets/Lights.sheet.in.h:4
 msgid "PAR on the floor"
 msgstr "PAR on the floor"
 
-#: ../sheets/Lights.sheet.in.h:11
+#: ../sheets/Lights.sheet.in.h:5
+msgid "ACL"
+msgstr "ACL"
+
+#: ../sheets/Lights.sheet.in.h:6
 msgid "Pebble Convex lantern"
 msgstr "Pebble Convex lantern"
 
-#: ../sheets/Lights.sheet.in.h:12 ../sheets/ciscocomputer.sheet.in.h:39
-msgid "Scanner"
-msgstr "スキャナー"
+#: ../sheets/Lights.sheet.in.h:7
+msgid "Fresnel lantern"
+msgstr "Fresnel lantern"
 
-#: ../sheets/Lights.sheet.in.h:13
+#: ../sheets/Lights.sheet.in.h:8
 msgid "Striplight"
 msgstr "Striplight"
 
-#: ../sheets/Lights.sheet.in.h:14
+#: ../sheets/Lights.sheet.in.h:9
+msgid "Ellipsoidal Reflector Spotlight"
+msgstr "Ellipsoidal Reflector Spotlight"
+
+#: ../sheets/Lights.sheet.in.h:10
+msgid "Blinders"
+msgstr "Blinders"
+
+#: ../sheets/Lights.sheet.in.h:11
+msgid "Black light"
+msgstr "バックライト"
+
+#: ../sheets/Lights.sheet.in.h:12
 msgid "Stroboscope light"
 msgstr "Stroboscope light"
+
+#: ../sheets/Lights.sheet.in.h:13
+msgid "Moving head"
+msgstr "Moving head"
+
+#: ../sheets/Lights.sheet.in.h:14 ../sheets/ciscocomputer.sheet.in.h:29
+msgid "Scanner"
+msgstr "スキャナー"
 
 #: ../sheets/Lights.sheet.in.h:15
 msgid "Structure"
 msgstr "Structure"
 
 #: ../sheets/Logic.sheet.in.h:1
-msgid "AND gate"
-msgstr "AND ゲート"
+msgid "Logic"
+msgstr "論理回路"
 
 #: ../sheets/Logic.sheet.in.h:2
 msgid "Boolean Logic"
 msgstr "ブール論理"
 
 #: ../sheets/Logic.sheet.in.h:3
-msgid "Cross-connector"
-msgstr "交差"
-
-#: ../sheets/Logic.sheet.in.h:4 ../sheets/SISSI.sheet.in.h:27
-msgid "Inverter"
-msgstr "インバーター"
-
-#: ../sheets/Logic.sheet.in.h:5
-msgid "Logic"
-msgstr "論理回路"
-
-#: ../sheets/Logic.sheet.in.h:6
-msgid "NAND gate"
-msgstr "NAND ゲート"
-
-#: ../sheets/Logic.sheet.in.h:7
-msgid "NOR gate"
-msgstr "NOR ゲート"
-
-#: ../sheets/Logic.sheet.in.h:8
-msgid "NOT"
-msgstr "NOT"
-
-#: ../sheets/Logic.sheet.in.h:9
 msgid "OR gate"
 msgstr "OR ゲート"
 
-#: ../sheets/Logic.sheet.in.h:10
-msgid "Simple buffer"
-msgstr "シンプルバッファー"
+#: ../sheets/Logic.sheet.in.h:4
+msgid "AND gate"
+msgstr "AND ゲート"
 
-#: ../sheets/Logic.sheet.in.h:11
+#: ../sheets/Logic.sheet.in.h:5
 msgid "XOR gate"
 msgstr "XOR ゲート"
 
+#: ../sheets/Logic.sheet.in.h:6
+msgid "Simple buffer"
+msgstr "シンプルバッファー"
+
+#: ../sheets/Logic.sheet.in.h:7 ../sheets/SISSI.sheet.in.h:61
+msgid "Inverter"
+msgstr "インバーター"
+
+#: ../sheets/Logic.sheet.in.h:8
+msgid "NAND gate"
+msgstr "NAND ゲート"
+
+#: ../sheets/Logic.sheet.in.h:9
+msgid "NOR gate"
+msgstr "NOR ゲート"
+
+#: ../sheets/Logic.sheet.in.h:10
+msgid "NOT"
+msgstr "NOT"
+
+#: ../sheets/Logic.sheet.in.h:11
+msgid "Cross-connector"
+msgstr "交差"
+
 #: ../sheets/MSE.sheet.in.h:1
-msgid "Demultiplexer"
-msgstr "デマルチプレクサー"
-
-#: ../sheets/MSE.sheet.in.h:2
-msgid "Large extension node"
-msgstr "ラージエクステンションノード"
-
-#: ../sheets/MSE.sheet.in.h:3
 msgid "MSE"
 msgstr "MSE"
 
-#: ../sheets/MSE.sheet.in.h:4
-msgid "Multiplexer"
-msgstr "マルチプレクサー"
-
-#: ../sheets/MSE.sheet.in.h:5
-msgid "Node center"
-msgstr "ノードセンター"
-
-#: ../sheets/MSE.sheet.in.h:6
-msgid "Small extension node"
-msgstr "小さい拡張ノード"
-
-#: ../sheets/MSE.sheet.in.h:7
-msgid "Tactical satellite communications terminal"
-msgstr "戦略衛星通信端末"
-
-#: ../sheets/MSE.sheet.in.h:8
+#: ../sheets/MSE.sheet.in.h:2
 msgid "U.S. Army Mobile Subscriber Equipment Components"
 msgstr "U.S. Army 移動体装備のコンポーネント"
 
-#: ../sheets/Misc.sheet.in.h:2
-msgid "Folder"
-msgstr "フォルダー"
+#: ../sheets/MSE.sheet.in.h:3
+msgid "Node center"
+msgstr "ノードセンター"
 
-#: ../sheets/Misc.sheet.in.h:3
-msgid "Measure distance"
-msgstr "測定距離"
+#: ../sheets/MSE.sheet.in.h:4
+msgid "Large extension node"
+msgstr "ラージエクステンションノード"
 
-#: ../sheets/Misc.sheet.in.h:4
+#: ../sheets/MSE.sheet.in.h:5
+msgid "Small extension node"
+msgstr "小さい拡張ノード"
+
+#: ../sheets/MSE.sheet.in.h:6
+msgid "Tactical satellite communications terminal"
+msgstr "戦略衛星通信端末"
+
+#: ../sheets/MSE.sheet.in.h:7
+msgid "Multiplexer"
+msgstr "マルチプレクサー"
+
+#: ../sheets/MSE.sheet.in.h:8
+msgid "Demultiplexer"
+msgstr "デマルチプレクサー"
+
+#: ../sheets/Misc.sheet.in.h:1
 #, fuzzy
 #| msgid "Miscellaneous Shapes"
 msgid "Miscellaneous"
 msgstr "その他のシェイプ"
 
-#: ../sheets/Misc.sheet.in.h:5
+#: ../sheets/Misc.sheet.in.h:2
 msgid "Miscellaneous Shapes"
 msgstr "その他のシェイプ"
 
+#: ../sheets/Misc.sheet.in.h:3
+msgid "Tree"
+msgstr "ツリー"
+
+#: ../sheets/Misc.sheet.in.h:4
+msgid "Folder"
+msgstr "フォルダー"
+
 #: ../sheets/Misc.sheet.in.h:6
-msgid "New-style group object, for testing"
-msgstr "新しいスタイルのグループオブジェクト (テスト用)"
+msgid "expansible node"
+msgstr "展開可能なノード"
 
 #: ../sheets/Misc.sheet.in.h:7
-msgid "Resizable grid"
-msgstr "Resizable grid"
+msgid "expanded node"
+msgstr "展開したノード"
 
 #: ../sheets/Misc.sheet.in.h:8
 msgid "Traditional clock"
 msgstr "アナログ時計"
 
 #: ../sheets/Misc.sheet.in.h:9
-msgid "Tree"
-msgstr "ツリー"
+msgid "Measure distance"
+msgstr "測定距離"
 
 #: ../sheets/Misc.sheet.in.h:10
-msgid "expanded node"
-msgstr "展開したノード"
+msgid "Resizable grid"
+msgstr "Resizable grid"
 
 #: ../sheets/Misc.sheet.in.h:11
-msgid "expansible node"
-msgstr "展開可能なノード"
+msgid "New-style group object, for testing"
+msgstr "新しいスタイルのグループオブジェクト (テスト用)"
 
 #: ../sheets/Pneumatic.sheet.in.h:1
-msgid "2/2 distributor"
-msgstr "2/2 分配器"
+msgid "Pneumatic/Hydraulic"
+msgstr "気学と水力学"
 
 #: ../sheets/Pneumatic.sheet.in.h:2
-msgid "3/2 distributor"
-msgstr "3/2 分配器"
-
-#: ../sheets/Pneumatic.sheet.in.h:3
-msgid "4/2 distributor"
-msgstr "4/2 分配器"
-
-#: ../sheets/Pneumatic.sheet.in.h:4
-msgid "5/2 distributor"
-msgstr "5/2 分配器"
-
-#: ../sheets/Pneumatic.sheet.in.h:5
-msgid "Air exhaust orifice"
-msgstr "エア排気口"
-
-#: ../sheets/Pneumatic.sheet.in.h:6
 msgid "Components for pneumatic and hydraulic circuits"
 msgstr "気学/水力学回路のコンポーネント"
 
-#: ../sheets/Pneumatic.sheet.in.h:8
+#: ../sheets/Pneumatic.sheet.in.h:3
 msgid "Double-effect jack"
 msgstr "Double-effect jack"
 
-#: ../sheets/Pneumatic.sheet.in.h:9
-msgid "Electric command (double coil)"
-msgstr "Electric command (double coil)"
+#: ../sheets/Pneumatic.sheet.in.h:4
+msgid "Normally-in simple-effect jack"
+msgstr "Normally-in simple-effect jack"
 
-#: ../sheets/Pneumatic.sheet.in.h:10
-msgid "Electric command (single coil)"
-msgstr "Electric command (single coil)"
+#: ../sheets/Pneumatic.sheet.in.h:5
+msgid "Normally-out simple-effect jack"
+msgstr "Normally-out simple-effect jack"
 
-#: ../sheets/Pneumatic.sheet.in.h:11
+#: ../sheets/Pneumatic.sheet.in.h:6
 msgid "Generic pressure source"
 msgstr "Generic pressure source"
 
-#: ../sheets/Pneumatic.sheet.in.h:12
+#: ../sheets/Pneumatic.sheet.in.h:7
 msgid "Hydraulic pressure source"
 msgstr "Hydraulic pressure source"
 
+#: ../sheets/Pneumatic.sheet.in.h:8
+msgid "Pneumatic pressure source"
+msgstr "気圧のソース"
+
+#: ../sheets/Pneumatic.sheet.in.h:9
+msgid "Air exhaust orifice"
+msgstr "エア排気口"
+
+#: ../sheets/Pneumatic.sheet.in.h:10
+msgid "2/2 distributor"
+msgstr "2/2 分配器"
+
+#: ../sheets/Pneumatic.sheet.in.h:11
+msgid "3/2 distributor"
+msgstr "3/2 分配器"
+
+#: ../sheets/Pneumatic.sheet.in.h:12
+msgid "4/2 distributor"
+msgstr "4/2 分配器"
+
 #: ../sheets/Pneumatic.sheet.in.h:13
-msgid "Indirect command by hydraulic driver"
-msgstr "Indirect command by hydraulic driver"
+msgid "5/2 distributor"
+msgstr "5/2 分配器"
 
 #: ../sheets/Pneumatic.sheet.in.h:14
-msgid "Indirect command by pneumatic driver"
-msgstr "Indirect command by pneumatic driver"
+msgid "Muscular command"
+msgstr "Muscular command"
 
 #: ../sheets/Pneumatic.sheet.in.h:15
-msgid "Mechanical command by spring"
-msgstr "Mechanical command by spring"
+msgid "Push-button command"
+msgstr "プッシュボタン式コマンド"
 
 #: ../sheets/Pneumatic.sheet.in.h:16
 msgid "Mechanical command by tappet"
 msgstr "Mechanical command by tappet"
 
 #: ../sheets/Pneumatic.sheet.in.h:17
-msgid "Muscular command"
-msgstr "Muscular command"
+msgid "Mechanical command by spring"
+msgstr "Mechanical command by spring"
 
 #: ../sheets/Pneumatic.sheet.in.h:18
-msgid "Normally-in simple-effect jack"
-msgstr "Normally-in simple-effect jack"
+msgid "Electric command (single coil)"
+msgstr "Electric command (single coil)"
 
 #: ../sheets/Pneumatic.sheet.in.h:19
-msgid "Normally-out simple-effect jack"
-msgstr "Normally-out simple-effect jack"
+msgid "Electric command (double coil)"
+msgstr "Electric command (double coil)"
 
 #: ../sheets/Pneumatic.sheet.in.h:20
-msgid "Pneumatic pressure source"
-msgstr "気圧のソース"
+msgid "Indirect command by hydraulic driver"
+msgstr "Indirect command by hydraulic driver"
 
 #: ../sheets/Pneumatic.sheet.in.h:21
-msgid "Pneumatic/Hydraulic"
-msgstr "気学と水力学"
-
-#: ../sheets/Pneumatic.sheet.in.h:22
-msgid "Push-button command"
-msgstr "プッシュボタン式コマンド"
+msgid "Indirect command by pneumatic driver"
+msgstr "Indirect command by pneumatic driver"
 
 #: ../sheets/SADT.sheet.in.h:1
-msgid "Activity/data box"
-msgstr "データボックス"
-
-#: ../sheets/SADT.sheet.in.h:2
-msgid "Activity/data flow arrow"
-msgstr "データフローの矢印"
-
-#: ../sheets/SADT.sheet.in.h:3
-msgid "Flow label"
-msgstr "フローラベル"
-
-#: ../sheets/SADT.sheet.in.h:4
-msgid "Objects to design SADT diagrams"
-msgstr "SADT ダイアグラムを設計するためのオブジェクト"
-
-#: ../sheets/SADT.sheet.in.h:5
 msgid "SADT/IDEF0"
 msgstr "SADT/IDEF0"
 
+#: ../sheets/SADT.sheet.in.h:2
+msgid "Objects to design SADT diagrams"
+msgstr "SADT ダイアグラムを設計するためのオブジェクト"
+
+#: ../sheets/SADT.sheet.in.h:3
+msgid "Activity/data flow arrow"
+msgstr "データフローの矢印"
+
+#: ../sheets/SADT.sheet.in.h:4
+msgid "Activity/data box"
+msgstr "データボックス"
+
+#: ../sheets/SADT.sheet.in.h:5
+msgid "Flow label"
+msgstr "フローラベル"
+
 #: ../sheets/SDL.sheet.in.h:1
-msgid "Action being executed"
-msgstr "実行したアクション"
-
-#: ../sheets/SDL.sheet.in.h:2
-msgid "Block type reference"
-msgstr "ブロック種の参照"
-
-#: ../sheets/SDL.sheet.in.h:5
-msgid "Function call"
-msgstr "関数呼びだし"
-
-#: ../sheets/SDL.sheet.in.h:6
-msgid "Function header"
-msgstr "関数のヘッダー"
-
-#: ../sheets/SDL.sheet.in.h:7
-msgid "Generic text note"
-msgstr "一般的なテキスト"
-
-#: ../sheets/SDL.sheet.in.h:8
-msgid "In/Out connector"
-msgstr "入出力コネクター"
-
-#: ../sheets/SDL.sheet.in.h:10
-msgid "Procedure return"
-msgstr "プロシージャの返り値"
-
-#: ../sheets/SDL.sheet.in.h:11
-msgid "Process type reference"
-msgstr "プロセス種の参照"
-
-#: ../sheets/SDL.sheet.in.h:12
-msgid "Receive message"
-msgstr "メッセージの受信"
-
-#: ../sheets/SDL.sheet.in.h:13
 msgid "SDL"
 msgstr "SDL"
 
-#: ../sheets/SDL.sheet.in.h:14
+#: ../sheets/SDL.sheet.in.h:2
+msgid "Specification and Description Language."
+msgstr "Specification and Description Language"
+
+#: ../sheets/SDL.sheet.in.h:3
+msgid "Block type reference"
+msgstr "ブロック種の参照"
+
+#: ../sheets/SDL.sheet.in.h:4
+msgid "Service type reference"
+msgstr "サービス種の参照"
+
+#: ../sheets/SDL.sheet.in.h:5
+msgid "Process type reference"
+msgstr "プロセス種の参照"
+
+#: ../sheets/SDL.sheet.in.h:6 ../sheets/UML.sheet.in.h:28
+msgid "State"
+msgstr "状態"
+
+#: ../sheets/SDL.sheet.in.h:7
+msgid "Function header"
+msgstr "関数のヘッダー"
+
+#: ../sheets/SDL.sheet.in.h:8
+msgid "Send message"
+msgstr "メッセージの送信"
+
+#: ../sheets/SDL.sheet.in.h:9
+msgid "Receive message"
+msgstr "メッセージの受信"
+
+#: ../sheets/SDL.sheet.in.h:10
+msgid "Function call"
+msgstr "関数呼びだし"
+
+#: ../sheets/SDL.sheet.in.h:12
+msgid "Action being executed"
+msgstr "実行したアクション"
+
+#: ../sheets/SDL.sheet.in.h:13
 msgid "Save state"
 msgstr "状態保存"
 
 #: ../sheets/SDL.sheet.in.h:15
-msgid "Send message"
-msgstr "メッセージの送信"
-
-#: ../sheets/SDL.sheet.in.h:16
-msgid "Service type reference"
-msgstr "サービス種の参照"
+msgid "In/Out connector"
+msgstr "入出力コネクター"
 
 #: ../sheets/SDL.sheet.in.h:17
-msgid "Specification and Description Language."
-msgstr "Specification and Description Language"
+msgid "Procedure return"
+msgstr "プロシージャの返り値"
 
-#: ../sheets/SDL.sheet.in.h:18 ../sheets/UML.sheet.in.h:28
-msgid "State"
-msgstr "状態"
+#: ../sheets/SDL.sheet.in.h:19
+msgid "Generic text note"
+msgstr "一般的なテキスト"
 
 #: ../sheets/SISSI.sheet.in.h:1
-msgid "Air conditioner"
-msgstr "エアコン"
-
-#: ../sheets/SISSI.sheet.in.h:2
-msgid "Air filter"
-msgstr "空気フィルター"
-
-#: ../sheets/SISSI.sheet.in.h:3
-msgid "Air quality detector"
-msgstr "Air quality detector"
-
-#: ../sheets/SISSI.sheet.in.h:4
-msgid "Alarm center"
-msgstr "Alarm center"
-
-#: ../sheets/SISSI.sheet.in.h:5
-msgid "Axial Ventilator"
-msgstr "Axial Ventilator"
-
-#: ../sheets/SISSI.sheet.in.h:6
-msgid "Backup"
-msgstr "バックアップ"
-
-#: ../sheets/SISSI.sheet.in.h:7
-msgid "Badge reader"
-msgstr "Badge reader"
-
-#: ../sheets/SISSI.sheet.in.h:8
-msgid "Badge reader/keyboard"
-msgstr "Badge reader/keyboard"
-
-#: ../sheets/SISSI.sheet.in.h:9
-msgid "Biometric reader"
-msgstr "Biometric reader"
-
-#: ../sheets/SISSI.sheet.in.h:10
-msgid "Cell phone"
-msgstr "携帯電話"
-
-#: ../sheets/SISSI.sheet.in.h:11
-msgid "Centrifugal Ventilator"
-msgstr "Centrifugal Ventilator"
-
-#: ../sheets/SISSI.sheet.in.h:12
-msgid "Cipher machine"
-msgstr "Cipher machine"
-
-#: ../sheets/SISSI.sheet.in.h:13
-msgid "Circulation pump"
-msgstr "Circulation pump"
-
-#: ../sheets/SISSI.sheet.in.h:14
-msgid "Condensator"
-msgstr "Condensator"
-
-#: ../sheets/SISSI.sheet.in.h:15
-msgid "Current transducer"
-msgstr "Current transducer"
-
-#: ../sheets/SISSI.sheet.in.h:16
-msgid "Digital code"
-msgstr "Digital code"
-
-#: ../sheets/SISSI.sheet.in.h:17
-msgid "Enthalpy transducer"
-msgstr "Enthalpy transducer"
-
-#: ../sheets/SISSI.sheet.in.h:18
-msgid "Extinguisher"
-msgstr "Extinguisher"
-
-#: ../sheets/SISSI.sheet.in.h:19
-msgid "Faraday cage"
-msgstr "Faraday cage"
-
-#: ../sheets/SISSI.sheet.in.h:20 ../sheets/ciscomisc.sheet.in.h:9
-msgid "File cabinet"
-msgstr "ファイル棚"
-
-#: ../sheets/SISSI.sheet.in.h:21
-msgid "Gate"
-msgstr "ゲート"
-
-#: ../sheets/SISSI.sheet.in.h:22
-msgid "Geographic site"
-msgstr "Geographic site"
-
-#: ../sheets/SISSI.sheet.in.h:23
-msgid "Glass-break sensor"
-msgstr "Glass-break sensor"
-
-#: ../sheets/SISSI.sheet.in.h:24 ../sheets/ciscohub.sheet.in.h:29
-msgid "Hub"
-msgstr "ハブ"
-
-#: ../sheets/SISSI.sheet.in.h:25
-msgid "Information"
-msgstr "情報"
-
-#: ../sheets/SISSI.sheet.in.h:26
-msgid "Information system"
-msgstr "情報システム"
-
-#: ../sheets/SISSI.sheet.in.h:28 ../sheets/ciscocomputer.sheet.in.h:21
-msgid "Laptop"
-msgstr "ラップトップ"
-
-#: ../sheets/SISSI.sheet.in.h:29
-msgid "Level detector"
-msgstr "Level detector"
-
-#: ../sheets/SISSI.sheet.in.h:30
-msgid "Light detector"
-msgstr "Light detector"
-
-#: ../sheets/SISSI.sheet.in.h:31
-msgid "Log analysis"
-msgstr "Log analysis"
-
-#: ../sheets/SISSI.sheet.in.h:32
-msgid "Magnetic storage"
-msgstr "磁気ストレージ"
-
-#: ../sheets/SISSI.sheet.in.h:33 ../sheets/ciscocomputer.sheet.in.h:25
-msgid "Modem"
-msgstr "モデム"
-
-#: ../sheets/SISSI.sheet.in.h:34
-msgid "Moisture extractor"
-msgstr "Moisture extractor"
-
-#: ../sheets/SISSI.sheet.in.h:35
-msgid "Moisture sensor"
-msgstr "Moisture sensor"
-
-#: ../sheets/SISSI.sheet.in.h:36
-msgid "Movement detector"
-msgstr "Movement detector"
-
-#: ../sheets/SISSI.sheet.in.h:37 ../sheets/network.sheet.in.h:21
-msgid "Network cloud"
-msgstr "ネットワーク網"
-
-#: ../sheets/SISSI.sheet.in.h:38
 msgid "Objects to design sissi diagrams"
 msgstr "SISSI ダイアグラムを設計するためのオブジェクト"
 
-#: ../sheets/SISSI.sheet.in.h:39 ../sheets/ciscocomputer.sheet.in.h:35
+#: ../sheets/SISSI.sheet.in.h:2
+msgid "Workstation"
+msgstr "ワークステーション"
+
+#: ../sheets/SISSI.sheet.in.h:3 ../sheets/ciscocomputer.sheet.in.h:43
+msgid "Relational Database"
+msgstr "リレーショナルデータベース"
+
+#: ../sheets/SISSI.sheet.in.h:4
+msgid "Server"
+msgstr "サーバー"
+
+#: ../sheets/SISSI.sheet.in.h:5 ../sheets/ciscocomputer.sheet.in.h:36
+msgid "Laptop"
+msgstr "ラップトップ"
+
+#: ../sheets/SISSI.sheet.in.h:6 ../sheets/ciscocomputer.sheet.in.h:34
 msgid "PDA"
 msgstr "PDA"
 
-#: ../sheets/SISSI.sheet.in.h:40
+#: ../sheets/SISSI.sheet.in.h:7 ../sheets/ciscocomputer.sheet.in.h:49
+msgid "Storage array"
+msgstr "記憶装置"
+
+#: ../sheets/SISSI.sheet.in.h:8 ../sheets/ciscohub.sheet.in.h:3
+msgid "Router"
+msgstr "ルーター"
+
+#: ../sheets/SISSI.sheet.in.h:9 ../sheets/network.sheet.in.h:18
+msgid "Network cloud"
+msgstr "ネットワーク網"
+
+#: ../sheets/SISSI.sheet.in.h:10 ../sheets/network.sheet.in.h:37
+msgid "Telephone"
+msgstr "電話"
+
+#: ../sheets/SISSI.sheet.in.h:11
+msgid "Cell phone"
+msgstr "携帯電話"
+
+#: ../sheets/SISSI.sheet.in.h:12 ../sheets/ciscohub.sheet.in.h:21
+msgid "Hub"
+msgstr "ハブ"
+
+#: ../sheets/SISSI.sheet.in.h:13 ../sheets/ciscocomputer.sheet.in.h:40
+msgid "Modem"
+msgstr "モデム"
+
+#: ../sheets/SISSI.sheet.in.h:14
+msgid "Cipher machine"
+msgstr "Cipher machine"
+
+#: ../sheets/SISSI.sheet.in.h:15
+msgid "Magnetic storage"
+msgstr "磁気ストレージ"
+
+#: ../sheets/SISSI.sheet.in.h:16
 msgid "Paper storage"
 msgstr "Paper storage"
 
-#: ../sheets/SISSI.sheet.in.h:41
+#: ../sheets/SISSI.sheet.in.h:17
 msgid "Person"
 msgstr "人物"
 
-#: ../sheets/SISSI.sheet.in.h:42
+#: ../sheets/SISSI.sheet.in.h:18 ../sheets/ciscomisc.sheet.in.h:48
+msgid "File cabinet"
+msgstr "ファイル棚"
+
+#: ../sheets/SISSI.sheet.in.h:19
+msgid "Safe"
+msgstr "安全"
+
+#: ../sheets/SISSI.sheet.in.h:20
+msgid "Backup"
+msgstr "バックアップ"
+
+#: ../sheets/SISSI.sheet.in.h:22
+msgid "Log analysis"
+msgstr "Log analysis"
+
+#: ../sheets/SISSI.sheet.in.h:23
+msgid "Information system"
+msgstr "情報システム"
+
+#: ../sheets/SISSI.sheet.in.h:24
+msgid "Information"
+msgstr "情報"
+
+#: ../sheets/SISSI.sheet.in.h:25
+msgid "Room"
+msgstr "部屋"
+
+#: ../sheets/SISSI.sheet.in.h:26
+msgid "Faraday cage"
+msgstr "Faraday cage"
+
+#: ../sheets/SISSI.sheet.in.h:27
+msgid "Security area"
+msgstr "セキュリティエリア"
+
+#: ../sheets/SISSI.sheet.in.h:28
+msgid "Geographic site"
+msgstr "Geographic site"
+
+#: ../sheets/SISSI.sheet.in.h:29
+msgid "Gate"
+msgstr "ゲート"
+
+#: ../sheets/SISSI.sheet.in.h:30
+msgid "Video camera"
+msgstr "ビデオカメラ"
+
+#: ../sheets/SISSI.sheet.in.h:31
+msgid "Glass-break sensor"
+msgstr "Glass-break sensor"
+
+#: ../sheets/SISSI.sheet.in.h:32
+msgid "Sensor beam"
+msgstr "センサービーム"
+
+#: ../sheets/SISSI.sheet.in.h:33
+msgid "Condensator"
+msgstr "Condensator"
+
+#: ../sheets/SISSI.sheet.in.h:34
 msgid "Power transducer"
 msgstr "Power transducer"
+
+#: ../sheets/SISSI.sheet.in.h:35
+msgid "Current transducer"
+msgstr "Current transducer"
+
+#: ../sheets/SISSI.sheet.in.h:36
+msgid "Enthalpy transducer"
+msgstr "Enthalpy transducer"
+
+#: ../sheets/SISSI.sheet.in.h:37
+msgid "Smoke detector"
+msgstr "Smoke detector"
+
+#: ../sheets/SISSI.sheet.in.h:38
+msgid "Moisture sensor"
+msgstr "Moisture sensor"
+
+#: ../sheets/SISSI.sheet.in.h:39
+msgid "Light detector"
+msgstr "Light detector"
+
+#: ../sheets/SISSI.sheet.in.h:40
+msgid "Movement detector"
+msgstr "Movement detector"
+
+#: ../sheets/SISSI.sheet.in.h:41
+msgid "Video movement detector"
+msgstr "Video movement detector"
+
+#: ../sheets/SISSI.sheet.in.h:42
+msgid "Level detector"
+msgstr "Level detector"
 
 #: ../sheets/SISSI.sheet.in.h:43
 msgid "Pressure transducer"
 msgstr "Pressure transducer"
 
 #: ../sheets/SISSI.sheet.in.h:44
-msgid "Pump"
-msgstr "Pump"
+msgid "Air quality detector"
+msgstr "Air quality detector"
 
-#: ../sheets/SISSI.sheet.in.h:45 ../sheets/ciscocomputer.sheet.in.h:37
-msgid "Relational Database"
-msgstr "リレーショナルデータベース"
-
-#: ../sheets/SISSI.sheet.in.h:46
-msgid "Revolving door"
-msgstr "Revolving door"
-
-#: ../sheets/SISSI.sheet.in.h:47
-msgid "Room"
-msgstr "部屋"
-
-#: ../sheets/SISSI.sheet.in.h:48 ../sheets/ciscohub.sheet.in.h:53
-msgid "Router"
-msgstr "ルーター"
-
-#: ../sheets/SISSI.sheet.in.h:49
-msgid "Safe"
-msgstr "安全"
-
-#: ../sheets/SISSI.sheet.in.h:50
-msgid "Security area"
-msgstr "セキュリティエリア"
-
-#: ../sheets/SISSI.sheet.in.h:51
-msgid "Sensor beam"
-msgstr "センサービーム"
-
-#: ../sheets/SISSI.sheet.in.h:52
-msgid "Server"
-msgstr "サーバー"
-
-#: ../sheets/SISSI.sheet.in.h:53
-msgid "Smoke detector"
-msgstr "Smoke detector"
-
-#: ../sheets/SISSI.sheet.in.h:55 ../sheets/ciscocomputer.sheet.in.h:42
-msgid "Storage array"
-msgstr "記憶装置"
-
-#: ../sheets/SISSI.sheet.in.h:56 ../sheets/network.sheet.in.h:33
-msgid "Telephone"
-msgstr "電話"
-
-#: ../sheets/SISSI.sheet.in.h:57
-msgid "Vehicle detector"
-msgstr "Vehicle detector"
-
-#: ../sheets/SISSI.sheet.in.h:58
-msgid "Ventilator"
-msgstr "Ventilator"
-
-#: ../sheets/SISSI.sheet.in.h:59
-msgid "Vibration sensor"
-msgstr "Vibration sensor"
-
-#: ../sheets/SISSI.sheet.in.h:60
-msgid "Video camera"
-msgstr "ビデオカメラ"
-
-#: ../sheets/SISSI.sheet.in.h:61
-msgid "Video movement detector"
-msgstr "Video movement detector"
-
-#: ../sheets/SISSI.sheet.in.h:62
+#: ../sheets/SISSI.sheet.in.h:45
 msgid "Voltage detector"
 msgstr "Voltage detector"
 
+#: ../sheets/SISSI.sheet.in.h:46
+msgid "Vehicle detector"
+msgstr "Vehicle detector"
+
+#: ../sheets/SISSI.sheet.in.h:47
+msgid "Vibration sensor"
+msgstr "Vibration sensor"
+
+#: ../sheets/SISSI.sheet.in.h:48
+msgid "Digital code"
+msgstr "Digital code"
+
+#: ../sheets/SISSI.sheet.in.h:49
+msgid "Moisture extractor"
+msgstr "Moisture extractor"
+
+#: ../sheets/SISSI.sheet.in.h:50
+msgid "Air filter"
+msgstr "空気フィルター"
+
+#: ../sheets/SISSI.sheet.in.h:51
+msgid "Badge reader/keyboard"
+msgstr "Badge reader/keyboard"
+
+#: ../sheets/SISSI.sheet.in.h:52
+msgid "Badge reader"
+msgstr "Badge reader"
+
+#: ../sheets/SISSI.sheet.in.h:53
+msgid "Biometric reader"
+msgstr "Biometric reader"
+
+#: ../sheets/SISSI.sheet.in.h:54
+msgid "Pump"
+msgstr "Pump"
+
+#: ../sheets/SISSI.sheet.in.h:55
+msgid "Circulation pump"
+msgstr "Circulation pump"
+
+#: ../sheets/SISSI.sheet.in.h:56
+msgid "Revolving door"
+msgstr "Revolving door"
+
+#: ../sheets/SISSI.sheet.in.h:57
+msgid "Axial Ventilator"
+msgstr "Axial Ventilator"
+
+#: ../sheets/SISSI.sheet.in.h:58
+msgid "Centrifugal Ventilator"
+msgstr "Centrifugal Ventilator"
+
+#: ../sheets/SISSI.sheet.in.h:59
+msgid "Ventilator"
+msgstr "Ventilator"
+
+#: ../sheets/SISSI.sheet.in.h:60
+msgid "Extinguisher"
+msgstr "Extinguisher"
+
+#: ../sheets/SISSI.sheet.in.h:62
+msgid "Air conditioner"
+msgstr "エアコン"
+
 #: ../sheets/SISSI.sheet.in.h:63
-msgid "Workstation"
-msgstr "ワークステーション"
+msgid "Alarm center"
+msgstr "Alarm center"
 
 #: ../sheets/UML.sheet.in.h:1
-msgid "Activity"
-msgstr "アクティビティ"
+msgid "UML"
+msgstr "UML"
 
-#: ../sheets/UML.sheet.in.h:3
-msgid "Aggregation, one class is part of another"
-msgstr "アグリゲーション"
-
-#: ../sheets/UML.sheet.in.h:4
-msgid "Association, two classes are associated"
-msgstr "アソシエーション"
-
-#: ../sheets/UML.sheet.in.h:7
-msgid "Class stereotype icon"
-msgstr "クラスステレオタイプのアイコン"
-
-#: ../sheets/UML.sheet.in.h:8
-msgid "Component"
-msgstr "コンポーネント"
-
-#: ../sheets/UML.sheet.in.h:9
-msgid "Constraint, place a constraint on something"
-msgstr "制約"
-
-#: ../sheets/UML.sheet.in.h:11
+#: ../sheets/UML.sheet.in.h:2
 msgid "Editor for UML Static Structure Diagrams"
 msgstr "UML Static 構造体ダイアグラムのエディター"
 
-#: ../sheets/UML.sheet.in.h:15
-#, fuzzy
-#| msgid "Fork/union"
-msgid "Fork/Union"
-msgstr "Fork/ユニオン"
+#: ../sheets/UML.sheet.in.h:5
+msgid "Note"
+msgstr "注意"
 
-#: ../sheets/UML.sheet.in.h:16
+#: ../sheets/UML.sheet.in.h:7
+msgid "Realizes, implements a specific interface"
+msgstr "特定のインターフェースの具現化と実装"
+
+#: ../sheets/UML.sheet.in.h:8
 msgid "Generalization, class inheritance"
 msgstr "クラス派生の一般論"
 
-#: ../sheets/UML.sheet.in.h:17
+#: ../sheets/UML.sheet.in.h:9
+msgid "Association, two classes are associated"
+msgstr "アソシエーション"
+
+#: ../sheets/UML.sheet.in.h:10
+msgid "Aggregation, one class is part of another"
+msgstr "アグリゲーション"
+
+#: ../sheets/UML.sheet.in.h:11
 msgid "Implements, class implements a specific interface"
 msgstr "特定のインターフェースの実装とクラスの実装"
 
+#: ../sheets/UML.sheet.in.h:12
+msgid "Constraint, place a constraint on something"
+msgstr "制約"
+
+#: ../sheets/UML.sheet.in.h:13
+msgid "Small package"
+msgstr "小さなパッケージ"
+
+#: ../sheets/UML.sheet.in.h:14
+msgid "Large package"
+msgstr "大きなパッケージ"
+
+#: ../sheets/UML.sheet.in.h:16
+msgid "Use case"
+msgstr "ユースケース"
+
+#: ../sheets/UML.sheet.in.h:17
+msgid "Lifeline"
+msgstr "ライフライン"
+
 #: ../sheets/UML.sheet.in.h:18
+msgid "Object"
+msgstr "オブジェクト名"
+
+#: ../sheets/UML.sheet.in.h:19
+msgid "Message"
+msgstr "メッセージ"
+
+#: ../sheets/UML.sheet.in.h:20
+msgid "Component"
+msgstr "コンポーネント"
+
+#: ../sheets/UML.sheet.in.h:25
+msgid "Node"
+msgstr "ノード"
+
+#: ../sheets/UML.sheet.in.h:26
+msgid "Class stereotype icon"
+msgstr "クラスステレオタイプのアイコン"
+
+#: ../sheets/UML.sheet.in.h:27
 #, fuzzy
 #| msgid "Initial/end state"
 msgid "Initial/End state"
 msgstr "Initial/End 状態"
 
-#: ../sheets/UML.sheet.in.h:19
-msgid "Large package"
-msgstr "大きなパッケージ"
-
-#: ../sheets/UML.sheet.in.h:20
-msgid "Lifeline"
-msgstr "ライフライン"
-
-#: ../sheets/UML.sheet.in.h:21
-msgid "Message"
-msgstr "メッセージ"
-
-#: ../sheets/UML.sheet.in.h:22
-msgid "Node"
-msgstr "ノード"
-
-#: ../sheets/UML.sheet.in.h:23
-msgid "Note"
-msgstr "注意"
-
-#: ../sheets/UML.sheet.in.h:24
-msgid "Object"
-msgstr "オブジェクト名"
-
-#: ../sheets/UML.sheet.in.h:25
-msgid "Realizes, implements a specific interface"
-msgstr "特定のインターフェースの具現化と実装"
-
-#: ../sheets/UML.sheet.in.h:27
-msgid "Small package"
-msgstr "小さなパッケージ"
+#: ../sheets/UML.sheet.in.h:29
+msgid "Activity"
+msgstr "アクティビティ"
 
 #: ../sheets/UML.sheet.in.h:31
-msgid "UML"
-msgstr "UML"
-
-#: ../sheets/UML.sheet.in.h:32
-msgid "Use case"
-msgstr "ユースケース"
+#, fuzzy
+#| msgid "Fork/union"
+msgid "Fork/Union"
+msgstr "Fork/ユニオン"
 
 #: ../sheets/chronogram.sheet.in.h:1
 msgid "Chronogram"
 msgstr "クロノグラフ"
 
 #: ../sheets/chronogram.sheet.in.h:2
-msgid "Data line"
-msgstr "データライン"
-
-#: ../sheets/chronogram.sheet.in.h:3
 msgid "Objects to design chronogram charts"
 msgstr "クロノグラフ表を設計するためのオブジェクト"
 
-#: ../sheets/chronogram.sheet.in.h:4
+#: ../sheets/chronogram.sheet.in.h:3
 msgid "Time scale"
 msgstr "タイムスケール"
 
-# Note:
-# Cisco 用語集: http://www.cisco.com/japanese/warp/public/3/jp/service/info/tips/terms/p.shtml
+#: ../sheets/chronogram.sheet.in.h:4
+msgid "Data line"
+msgstr "データライン"
+
 #: ../sheets/ciscocomputer.sheet.in.h:1
-msgid "BBS"
-msgstr "BBS"
-
-#: ../sheets/ciscocomputer.sheet.in.h:2
-msgid "Cisco CA"
-msgstr "Cisco CA"
-
-#: ../sheets/ciscocomputer.sheet.in.h:3
 msgid "Cisco — Computer"
 msgstr "Cisco — コンピューター"
 
-#: ../sheets/ciscocomputer.sheet.in.h:4
-msgid "CiscoSecurity"
-msgstr "CiscoSecurity"
-
-#: ../sheets/ciscocomputer.sheet.in.h:5
-msgid "CiscoWorks workstation"
-msgstr "CiscoWorks ワークステーション"
-
-#: ../sheets/ciscocomputer.sheet.in.h:6
+#: ../sheets/ciscocomputer.sheet.in.h:2
 msgid "Computer shapes by Cisco"
 msgstr "コンピューター (Cisco)"
 
-#: ../sheets/ciscocomputer.sheet.in.h:7
-msgid "Disk subsystem"
-msgstr "ディスクサブシステム"
-
-#: ../sheets/ciscocomputer.sheet.in.h:8
-msgid "Diskette"
-msgstr "ディスク"
-
-#: ../sheets/ciscocomputer.sheet.in.h:9
-msgid "EtherClient"
-msgstr "イーサクライアント"
-
-#: ../sheets/ciscocomputer.sheet.in.h:10
-msgid "FC Storage"
-msgstr "FC ストレージ"
-
-#: ../sheets/ciscocomputer.sheet.in.h:11
-msgid "File Server"
-msgstr "ファイルサーバー"
-
-#: ../sheets/ciscocomputer.sheet.in.h:12
-msgid "Front End Processor"
-msgstr "フロントエンドプロセッサ"
-
-#: ../sheets/ciscocomputer.sheet.in.h:13
-msgid "HP Mini"
-msgstr "HP Mini"
-
-#: ../sheets/ciscocomputer.sheet.in.h:14
-msgid "Handheld"
-msgstr "携帯型"
-
-#: ../sheets/ciscocomputer.sheet.in.h:15
-msgid "Host"
-msgstr "ホスト"
-
-#: ../sheets/ciscocomputer.sheet.in.h:16
-msgid "IBM Mini (AS400)"
-msgstr "IBM Mini (AS400)"
-
-#: ../sheets/ciscocomputer.sheet.in.h:17
-msgid "IBM Tower"
-msgstr "IBM タワー"
-
-#: ../sheets/ciscocomputer.sheet.in.h:18
-msgid "IBM mainframe"
-msgstr "IBM メインフレーム"
-
-#: ../sheets/ciscocomputer.sheet.in.h:19
-msgid "IBM mainframe with FEP"
-msgstr "IBM メインフレーム (FEP 付き)"
-
-#: ../sheets/ciscocomputer.sheet.in.h:20
-msgid "JBOD"
-msgstr "JBOD"
-
-#: ../sheets/ciscocomputer.sheet.in.h:22
-msgid "Macintosh"
-msgstr "Macintosh"
-
-#: ../sheets/ciscocomputer.sheet.in.h:23
-msgid "MicroWebserver"
-msgstr "マイクロウェブサーバー"
-
-#: ../sheets/ciscocomputer.sheet.in.h:24
-msgid "Mini VAX"
-msgstr "Mini VAX"
-
-#: ../sheets/ciscocomputer.sheet.in.h:26 ../sheets/network.sheet.in.h:19
-msgid "Monitor"
-msgstr "モニター"
-
-#: ../sheets/ciscocomputer.sheet.in.h:27
-msgid "Newton"
-msgstr "ニュートン"
-
-#: ../sheets/ciscocomputer.sheet.in.h:28
+#: ../sheets/ciscocomputer.sheet.in.h:3
 msgid "PC"
 msgstr "PC"
 
-#: ../sheets/ciscocomputer.sheet.in.h:29
-msgid "PC Adapter Card"
-msgstr "PC アダプターのカード"
+#: ../sheets/ciscocomputer.sheet.in.h:4
+msgid "Macintosh"
+msgstr "Macintosh"
 
-#: ../sheets/ciscocomputer.sheet.in.h:30
-msgid "PC Card"
-msgstr "PC カード"
-
-#: ../sheets/ciscocomputer.sheet.in.h:31
-msgid "PC Router Card"
-msgstr "PC ルーターのカード"
-
-#: ../sheets/ciscocomputer.sheet.in.h:32
-msgid "PC Software"
-msgstr "PC のソフトウェア"
-
-#: ../sheets/ciscocomputer.sheet.in.h:33
-msgid "PC Video"
-msgstr "PC ビデオ"
-
-#: ../sheets/ciscocomputer.sheet.in.h:34
-msgid "PC with Router-Based Software"
-msgstr "ルーターベースのソフトウェアを載せた PC"
-
-#: ../sheets/ciscocomputer.sheet.in.h:38
-msgid "SUN workstation"
-msgstr "SUN ワークステーション"
-
-#: ../sheets/ciscocomputer.sheet.in.h:40
-msgid "Server with PC Router"
-msgstr "ルーター機能付きサーバー"
-
-#: ../sheets/ciscocomputer.sheet.in.h:41
-msgid "Software-Based Router on File Server"
-msgstr "ソフトウェアベースのルーター (ファイルサーバー)"
-
-#: ../sheets/ciscocomputer.sheet.in.h:43
-msgid "Supercomputer"
-msgstr "スーパーコンピューター"
-
-#: ../sheets/ciscocomputer.sheet.in.h:44
-msgid "Tablet"
-msgstr "タブレット"
-
-#: ../sheets/ciscocomputer.sheet.in.h:45
-msgid "Tape array"
-msgstr "テープアレイ"
-
-#: ../sheets/ciscocomputer.sheet.in.h:46
+#: ../sheets/ciscocomputer.sheet.in.h:5
 msgid "Terminal"
 msgstr "端末"
 
-#: ../sheets/ciscocomputer.sheet.in.h:47
-msgid "WWW server"
-msgstr "WWW サーバー"
+#: ../sheets/ciscocomputer.sheet.in.h:6
+msgid "SUN workstation"
+msgstr "SUN ワークステーション"
 
-#: ../sheets/ciscocomputer.sheet.in.h:48
-msgid "Web browser"
-msgstr "Web ブラウザー"
+#: ../sheets/ciscocomputer.sheet.in.h:7
+msgid "CiscoWorks workstation"
+msgstr "CiscoWorks ワークステーション"
 
-#: ../sheets/ciscocomputer.sheet.in.h:49
-msgid "Web cluster"
-msgstr "Web クラスター"
+#: ../sheets/ciscocomputer.sheet.in.h:8
+msgid "PC Router Card"
+msgstr "PC ルーターのカード"
 
-#: ../sheets/ciscocomputer.sheet.in.h:50
-msgid "Wireless"
-msgstr "無線"
+#: ../sheets/ciscocomputer.sheet.in.h:9
+msgid "PC Software"
+msgstr "PC のソフトウェア"
 
-#: ../sheets/ciscocomputer.sheet.in.h:51
+#: ../sheets/ciscocomputer.sheet.in.h:10
+msgid "PC with Router-Based Software"
+msgstr "ルーターベースのソフトウェアを載せた PC"
+
+#: ../sheets/ciscocomputer.sheet.in.h:11
 msgid "Workgroup director"
 msgstr "ワークグループディレクター"
 
+#: ../sheets/ciscocomputer.sheet.in.h:12
+msgid "CiscoSecurity"
+msgstr "CiscoSecurity"
+
+#: ../sheets/ciscocomputer.sheet.in.h:13
+msgid "Cisco CA"
+msgstr "Cisco CA"
+
+#: ../sheets/ciscocomputer.sheet.in.h:14
+msgid "WWW server"
+msgstr "WWW サーバー"
+
+#: ../sheets/ciscocomputer.sheet.in.h:15
+msgid "Web browser"
+msgstr "Web ブラウザー"
+
+#: ../sheets/ciscocomputer.sheet.in.h:16
+msgid "File Server"
+msgstr "ファイルサーバー"
+
+#: ../sheets/ciscocomputer.sheet.in.h:17
+msgid "Software-Based Router on File Server"
+msgstr "ソフトウェアベースのルーター (ファイルサーバー)"
+
+#: ../sheets/ciscocomputer.sheet.in.h:18
+msgid "Server with PC Router"
+msgstr "ルーター機能付きサーバー"
+
+#: ../sheets/ciscocomputer.sheet.in.h:19
+msgid "IBM Tower"
+msgstr "IBM タワー"
+
+#: ../sheets/ciscocomputer.sheet.in.h:20
+msgid "IBM Mini (AS400)"
+msgstr "IBM Mini (AS400)"
+
+#: ../sheets/ciscocomputer.sheet.in.h:21
+msgid "Front End Processor"
+msgstr "フロントエンドプロセッサ"
+
+#: ../sheets/ciscocomputer.sheet.in.h:22
+msgid "IBM mainframe"
+msgstr "IBM メインフレーム"
+
+#: ../sheets/ciscocomputer.sheet.in.h:23
+msgid "IBM mainframe with FEP"
+msgstr "IBM メインフレーム (FEP 付き)"
+
+#: ../sheets/ciscocomputer.sheet.in.h:24
+msgid "HP Mini"
+msgstr "HP Mini"
+
+#: ../sheets/ciscocomputer.sheet.in.h:25
+msgid "Supercomputer"
+msgstr "スーパーコンピューター"
+
+#: ../sheets/ciscocomputer.sheet.in.h:26
+msgid "Web cluster"
+msgstr "Web クラスター"
+
+#: ../sheets/ciscocomputer.sheet.in.h:27
+msgid "Mini VAX"
+msgstr "Mini VAX"
+
+#: ../sheets/ciscocomputer.sheet.in.h:28
+msgid "PC Card"
+msgstr "PC カード"
+
+#: ../sheets/ciscocomputer.sheet.in.h:30
+msgid "Tablet"
+msgstr "タブレット"
+
+#: ../sheets/ciscocomputer.sheet.in.h:31
+msgid "EtherClient"
+msgstr "イーサクライアント"
+
+#: ../sheets/ciscocomputer.sheet.in.h:32
+msgid "Handheld"
+msgstr "携帯型"
+
+#: ../sheets/ciscocomputer.sheet.in.h:33
+msgid "Wireless"
+msgstr "無線"
+
+#: ../sheets/ciscocomputer.sheet.in.h:35
+msgid "Newton"
+msgstr "ニュートン"
+
+#: ../sheets/ciscocomputer.sheet.in.h:38 ../sheets/network.sheet.in.h:4
+msgid "Monitor"
+msgstr "モニター"
+
+#: ../sheets/ciscocomputer.sheet.in.h:39
+msgid "PC Video"
+msgstr "PC ビデオ"
+
+# Note:
+# Cisco 用語集: http://www.cisco.com/japanese/warp/public/3/jp/service/info/tips/terms/p.shtml
+#: ../sheets/ciscocomputer.sheet.in.h:41
+msgid "BBS"
+msgstr "BBS"
+
+#: ../sheets/ciscocomputer.sheet.in.h:42
+msgid "MicroWebserver"
+msgstr "マイクロウェブサーバー"
+
+#: ../sheets/ciscocomputer.sheet.in.h:44
+msgid "Diskette"
+msgstr "ディスク"
+
+#: ../sheets/ciscocomputer.sheet.in.h:45
+msgid "Host"
+msgstr "ホスト"
+
+#: ../sheets/ciscocomputer.sheet.in.h:46
+msgid "Tape array"
+msgstr "テープアレイ"
+
+#: ../sheets/ciscocomputer.sheet.in.h:47
+msgid "Disk subsystem"
+msgstr "ディスクサブシステム"
+
+#: ../sheets/ciscocomputer.sheet.in.h:48
+msgid "JBOD"
+msgstr "JBOD"
+
+#: ../sheets/ciscocomputer.sheet.in.h:50
+msgid "FC Storage"
+msgstr "FC ストレージ"
+
+#: ../sheets/ciscocomputer.sheet.in.h:51
+msgid "PC Adapter Card"
+msgstr "PC アダプターのカード"
+
 #: ../sheets/ciscohub.sheet.in.h:1
-msgid "100BaseT Hub"
-msgstr "100BaseT のハブ"
-
-#: ../sheets/ciscohub.sheet.in.h:2
-msgid "7500ARS (7513) Router"
-msgstr "7500ARS (7513) ルーター"
-
-#: ../sheets/ciscohub.sheet.in.h:3
-msgid "7505 Router"
-msgstr "7505 ルーター"
-
-#: ../sheets/ciscohub.sheet.in.h:4
-msgid "7507 Router"
-msgstr "7507 ルーター"
-
-#: ../sheets/ciscohub.sheet.in.h:5
-msgid "ASIC Processor"
-msgstr "ASIC プロセッサ"
-
-#: ../sheets/ciscohub.sheet.in.h:6
-msgid "ATM 3800"
-msgstr "ATM 3800"
-
-#: ../sheets/ciscohub.sheet.in.h:7
-msgid "ATM Fast Gigabit Etherswitch"
-msgstr "ATM 高速ギガビットイーサスイッチ"
-
-#: ../sheets/ciscohub.sheet.in.h:8
-msgid "ATM Switch"
-msgstr "ATM スイッチ"
-
-#: ../sheets/ciscohub.sheet.in.h:9
-msgid "ATM Tag Switch Router"
-msgstr "ATM タグスイッチルーター"
-
-#: ../sheets/ciscohub.sheet.in.h:10
-msgid "Access Gateway"
-msgstr "アクセスゲートウェイ"
-
-#: ../sheets/ciscohub.sheet.in.h:11
-msgid "BBSM"
-msgstr "BBSM"
-
-#: ../sheets/ciscohub.sheet.in.h:12
-msgid "Broadband router"
-msgstr "ブロードバンドルーター"
-
-#: ../sheets/ciscohub.sheet.in.h:13
-msgid "CSM-S"
-msgstr "CSM-S"
-
-#: ../sheets/ciscohub.sheet.in.h:14
-msgid "Carrier Routing System"
-msgstr "キャリアのルーティングシステム"
-
-#: ../sheets/ciscohub.sheet.in.h:15
-msgid "Cisco 1000"
-msgstr "Cisco 1000"
-
-#: ../sheets/ciscohub.sheet.in.h:16
-msgid "Cisco Hub"
-msgstr "Cisco ハブ"
-
-#: ../sheets/ciscohub.sheet.in.h:17
 msgid "Cisco — Switch"
 msgstr "Cisco — スイッチ"
 
-#: ../sheets/ciscohub.sheet.in.h:18
-msgid "Content Router"
-msgstr "コンテンツルーター"
-
-#: ../sheets/ciscohub.sheet.in.h:19
-msgid "Content Service Module"
-msgstr "コンテンツサービスモジュール"
-
-#: ../sheets/ciscohub.sheet.in.h:20
-msgid "Content Service Switch 1100"
-msgstr "コンテンツサービススイッチ 1100"
-
-#: ../sheets/ciscohub.sheet.in.h:21
-msgid "Content Switch"
-msgstr "コンテンツスイッチ"
-
-#: ../sheets/ciscohub.sheet.in.h:22
-msgid "Data Center Switch"
-msgstr "データセンターのスイッチ"
-
-#: ../sheets/ciscohub.sheet.in.h:23
-msgid "Data Center Switch Reversed"
-msgstr "データセンターのスイッチ (逆向き)"
-
-#: ../sheets/ciscohub.sheet.in.h:24
-msgid "Data Switch Processor"
-msgstr "データスイッチプロセッサ"
-
-#: ../sheets/ciscohub.sheet.in.h:25
-msgid "Director-class Fibre Channel intelligent switch"
-msgstr "ディレクタークラスの Fibre Channel インテリジェントスイッチ"
-
-#: ../sheets/ciscohub.sheet.in.h:26
-msgid "Edge Label Switch Router"
-msgstr "エッジラベルのスイッチルーター"
-
-#: ../sheets/ciscohub.sheet.in.h:27
-msgid "Edge Label Switch Router with NetFlow"
-msgstr "エッジラベルのスイッチルーター (NetFlow 付き)"
-
-#: ../sheets/ciscohub.sheet.in.h:28
-msgid "Generic Processor"
-msgstr "一般的なプロセッサ"
-
-#: ../sheets/ciscohub.sheet.in.h:30
-msgid "Hub subdued"
-msgstr "ハブ (灰色)"
-
-#: ../sheets/ciscohub.sheet.in.h:31
-msgid "ISDN switch"
-msgstr "ISDN スイッチ"
-
-#: ../sheets/ciscohub.sheet.in.h:32
-msgid "LAN2LAN Switch"
-msgstr "LAN2LAN スイッチ"
-
-#: ../sheets/ciscohub.sheet.in.h:33
-msgid "Label Switch Router"
-msgstr "ラベルスイッチのルーター"
-
-#: ../sheets/ciscohub.sheet.in.h:34
-msgid "Layer 2 Remote Switch"
-msgstr "レイヤー 2 リモートスイッチ"
-
-#: ../sheets/ciscohub.sheet.in.h:35
-msgid "MGX 8220"
-msgstr "MGX 8220"
-
-#: ../sheets/ciscohub.sheet.in.h:36
-msgid "MGX 8240"
-msgstr "MGX 8240"
-
-#: ../sheets/ciscohub.sheet.in.h:37
-msgid "MGX 8260"
-msgstr "MGX 8260"
-
-#: ../sheets/ciscohub.sheet.in.h:38
-msgid "Multi-Fabric Server Switch"
-msgstr "Multi-Fabric サーバースイッチ"
-
-#: ../sheets/ciscohub.sheet.in.h:39
-msgid "MultiSwitch Device"
-msgstr "マルチスイッチのデバイス"
-
-#: ../sheets/ciscohub.sheet.in.h:40
-msgid "Multilayer Remote Switch"
-msgstr "マルチレイヤーのリモートスイッチ"
-
-#: ../sheets/ciscohub.sheet.in.h:41
-msgid "Multilayer Switch"
-msgstr "マルチレイヤーのスイッチ"
-
-#: ../sheets/ciscohub.sheet.in.h:42
-msgid "Multilayer Switch with Silicon"
-msgstr "マルチレイヤーのスイッチ (シリコン)"
-
-#: ../sheets/ciscohub.sheet.in.h:43
-msgid "Multilayer Switch with Silicon subdued"
-msgstr "マルチレイヤーのシリコンスイッチ (灰色)"
-
-#: ../sheets/ciscohub.sheet.in.h:44
-msgid "NetFlow router"
-msgstr "NetFlow ルーター"
-
-#: ../sheets/ciscohub.sheet.in.h:45
-msgid "NetRanger"
-msgstr "NetRanger"
-
-#: ../sheets/ciscohub.sheet.in.h:46
-msgid "NetSonar"
-msgstr "NetSonar"
-
-#: ../sheets/ciscohub.sheet.in.h:47
-msgid "Optical Services Router"
-msgstr "Optical Services ルーター"
-
-#: ../sheets/ciscohub.sheet.in.h:48
-msgid "PXF"
-msgstr "PXF"
-
-#: ../sheets/ciscohub.sheet.in.h:49
-msgid "Programmable Switch"
-msgstr "プログラム可能なスイッチ"
-
-#: ../sheets/ciscohub.sheet.in.h:50
-msgid "RateMUX"
-msgstr "RateMUX"
-
-#: ../sheets/ciscohub.sheet.in.h:51
-msgid "Route Switch Processor"
-msgstr "ルートスイッチのプロセッサ"
-
-#: ../sheets/ciscohub.sheet.in.h:52
-msgid "Route Switch Processor with Si"
-msgstr "ルートスイッチのプロセッサ (Si)"
-
-#: ../sheets/ciscohub.sheet.in.h:54
+#: ../sheets/ciscohub.sheet.in.h:2
 msgid "Router and switch shapes by Cisco"
 msgstr "ハブとスイッチ (Cisco スタイル)"
 
-#: ../sheets/ciscohub.sheet.in.h:55
+#: ../sheets/ciscohub.sheet.in.h:4
 msgid "Router subdued"
 msgstr "ルーター (灰色)"
 
-#: ../sheets/ciscohub.sheet.in.h:56
-msgid "Router with Firewall"
-msgstr "ルーター (ファイアウォール付き)"
-
-#: ../sheets/ciscohub.sheet.in.h:57
+#: ../sheets/ciscohub.sheet.in.h:5
 msgid "Router with Silicon Switch"
 msgstr "ルーター (シリコンスイッチ付き)"
 
-#: ../sheets/ciscohub.sheet.in.h:58
-msgid "Server Switch"
-msgstr "サーバースイッチ"
+#: ../sheets/ciscohub.sheet.in.h:6
+msgid "NetFlow router"
+msgstr "NetFlow ルーター"
 
-#: ../sheets/ciscohub.sheet.in.h:59
-msgid "Small Hub"
-msgstr "小さなハブ"
+#: ../sheets/ciscohub.sheet.in.h:7
+msgid "Broadband router"
+msgstr "ブロードバンドルーター"
 
-#: ../sheets/ciscohub.sheet.in.h:60
-msgid "Storage Router"
-msgstr "ストレージのルーター"
-
-#: ../sheets/ciscohub.sheet.in.h:61
-msgid "Switch Processor"
-msgstr "スイッチプロセッサ"
-
-#: ../sheets/ciscohub.sheet.in.h:62
-msgid "Universal Gateway"
-msgstr "ユニバーサルゲートウェイ"
-
-#: ../sheets/ciscohub.sheet.in.h:63
-msgid "Virtual Layer Switch"
-msgstr "バーチャルレイヤーのスイッチ"
-
-#: ../sheets/ciscohub.sheet.in.h:64
+#: ../sheets/ciscohub.sheet.in.h:8
 msgid "Wavelength router"
 msgstr "Wavelength ルーター"
 
-#: ../sheets/ciscohub.sheet.in.h:65
+#: ../sheets/ciscohub.sheet.in.h:9
 msgid "Wireless router"
 msgstr "無線ルーター"
 
-#: ../sheets/ciscohub.sheet.in.h:66
-msgid "Workgroup 5000"
-msgstr "ワークグループ 5000"
+#: ../sheets/ciscohub.sheet.in.h:10
+msgid "7507 Router"
+msgstr "7507 ルーター"
 
-#: ../sheets/ciscohub.sheet.in.h:67
-msgid "Workgroup 5002"
-msgstr "ワークグループ 5002"
+#: ../sheets/ciscohub.sheet.in.h:11
+msgid "7505 Router"
+msgstr "7505 ルーター"
 
-#: ../sheets/ciscohub.sheet.in.h:68
-msgid "Workgroup 5500"
-msgstr "ワークグループ 5500"
+#: ../sheets/ciscohub.sheet.in.h:12
+msgid "7500ARS (7513) Router"
+msgstr "7500ARS (7513) ルーター"
 
-#: ../sheets/ciscohub.sheet.in.h:69
-msgid "Workgroup Fibre Channel intelligent switch"
-msgstr "ワークグループ Fibre Channel インテリジェントスイッチ"
+#: ../sheets/ciscohub.sheet.in.h:13
+msgid "Edge Label Switch Router with NetFlow"
+msgstr "エッジラベルのスイッチルーター (NetFlow 付き)"
 
-#: ../sheets/ciscohub.sheet.in.h:70
-msgid "Workgroup Switch Voice-Enabled"
-msgstr "ワークグループスイッチ (通話可能)"
+#: ../sheets/ciscohub.sheet.in.h:14
+msgid "Edge Label Switch Router"
+msgstr "エッジラベルのスイッチルーター"
 
-#: ../sheets/ciscohub.sheet.in.h:71
+#: ../sheets/ciscohub.sheet.in.h:15
+msgid "Router with Firewall"
+msgstr "ルーター (ファイアウォール付き)"
+
+#: ../sheets/ciscohub.sheet.in.h:16
+msgid "Optical Services Router"
+msgstr "Optical Services ルーター"
+
+#: ../sheets/ciscohub.sheet.in.h:17
+msgid "Content Router"
+msgstr "コンテンツルーター"
+
+#: ../sheets/ciscohub.sheet.in.h:18
+msgid "Carrier Routing System"
+msgstr "キャリアのルーティングシステム"
+
+#: ../sheets/ciscohub.sheet.in.h:19
+msgid "Storage Router"
+msgstr "ストレージのルーター"
+
+#: ../sheets/ciscohub.sheet.in.h:20
+msgid "NetSonar"
+msgstr "NetSonar"
+
+#: ../sheets/ciscohub.sheet.in.h:22
+msgid "Hub subdued"
+msgstr "ハブ (灰色)"
+
+#: ../sheets/ciscohub.sheet.in.h:23
+msgid "Cisco Hub"
+msgstr "Cisco ハブ"
+
+#: ../sheets/ciscohub.sheet.in.h:24
+msgid "Small Hub"
+msgstr "小さなハブ"
+
+#: ../sheets/ciscohub.sheet.in.h:25
+msgid "100BaseT Hub"
+msgstr "100BaseT のハブ"
+
+#: ../sheets/ciscohub.sheet.in.h:26
 msgid "Workgroup switch"
 msgstr "ワークグループスイッチ"
 
-#: ../sheets/ciscohub.sheet.in.h:72
+#: ../sheets/ciscohub.sheet.in.h:27
 msgid "Workgroup switch Subdued"
 msgstr "ワークグループスイッチ (灰色)"
 
-#: ../sheets/ciscohub.sheet.in.h:73
+#: ../sheets/ciscohub.sheet.in.h:28
+msgid "Workgroup Switch Voice-Enabled"
+msgstr "ワークグループスイッチ (通話可能)"
+
+#: ../sheets/ciscohub.sheet.in.h:29
+msgid "BBSM"
+msgstr "BBSM"
+
+#: ../sheets/ciscohub.sheet.in.h:30
+msgid "ATM Tag Switch Router"
+msgstr "ATM タグスイッチルーター"
+
+#: ../sheets/ciscohub.sheet.in.h:31
+msgid "Switch Processor"
+msgstr "スイッチプロセッサ"
+
+#: ../sheets/ciscohub.sheet.in.h:32
+msgid "Route Switch Processor"
+msgstr "ルートスイッチのプロセッサ"
+
+#: ../sheets/ciscohub.sheet.in.h:33
+msgid "Route Switch Processor with Si"
+msgstr "ルートスイッチのプロセッサ (Si)"
+
+#: ../sheets/ciscohub.sheet.in.h:34
+msgid "PXF"
+msgstr "PXF"
+
+#: ../sheets/ciscohub.sheet.in.h:35
+msgid "ASIC Processor"
+msgstr "ASIC プロセッサ"
+
+#: ../sheets/ciscohub.sheet.in.h:36
+msgid "Generic Processor"
+msgstr "一般的なプロセッサ"
+
+#: ../sheets/ciscohub.sheet.in.h:37
+msgid "Data Center Switch"
+msgstr "データセンターのスイッチ"
+
+#: ../sheets/ciscohub.sheet.in.h:38
+msgid "Data Center Switch Reversed"
+msgstr "データセンターのスイッチ (逆向き)"
+
+#: ../sheets/ciscohub.sheet.in.h:39
+msgid "Data Switch Processor"
+msgstr "データスイッチプロセッサ"
+
+#: ../sheets/ciscohub.sheet.in.h:40
+msgid "Content Switch"
+msgstr "コンテンツスイッチ"
+
+#: ../sheets/ciscohub.sheet.in.h:41
+msgid "Content Service Module"
+msgstr "コンテンツサービスモジュール"
+
+#: ../sheets/ciscohub.sheet.in.h:42
+msgid "CSM-S"
+msgstr "CSM-S"
+
+#: ../sheets/ciscohub.sheet.in.h:43
+msgid "Access Gateway"
+msgstr "アクセスゲートウェイ"
+
+#: ../sheets/ciscohub.sheet.in.h:44
+msgid "ATM Switch"
+msgstr "ATM スイッチ"
+
+#: ../sheets/ciscohub.sheet.in.h:45
+msgid "ATM 3800"
+msgstr "ATM 3800"
+
+#: ../sheets/ciscohub.sheet.in.h:46
+msgid "Cisco 1000"
+msgstr "Cisco 1000"
+
+#: ../sheets/ciscohub.sheet.in.h:47
+msgid "ISDN switch"
+msgstr "ISDN スイッチ"
+
+#: ../sheets/ciscohub.sheet.in.h:48
+msgid "Label Switch Router"
+msgstr "ラベルスイッチのルーター"
+
+#: ../sheets/ciscohub.sheet.in.h:49
+msgid "MultiSwitch Device"
+msgstr "マルチスイッチのデバイス"
+
+#: ../sheets/ciscohub.sheet.in.h:50
+msgid "LAN2LAN Switch"
+msgstr "LAN2LAN スイッチ"
+
+#: ../sheets/ciscohub.sheet.in.h:51
+msgid "Multilayer Switch"
+msgstr "マルチレイヤーのスイッチ"
+
+#: ../sheets/ciscohub.sheet.in.h:52
+msgid "Multilayer Switch with Silicon"
+msgstr "マルチレイヤーのスイッチ (シリコン)"
+
+#: ../sheets/ciscohub.sheet.in.h:53
+msgid "Multilayer Switch with Silicon subdued"
+msgstr "マルチレイヤーのシリコンスイッチ (灰色)"
+
+#: ../sheets/ciscohub.sheet.in.h:54
+msgid "Programmable Switch"
+msgstr "プログラム可能なスイッチ"
+
+#: ../sheets/ciscohub.sheet.in.h:55
+msgid "Content Service Switch 1100"
+msgstr "コンテンツサービススイッチ 1100"
+
+#: ../sheets/ciscohub.sheet.in.h:56
+msgid "ATM Fast Gigabit Etherswitch"
+msgstr "ATM 高速ギガビットイーサスイッチ"
+
+#: ../sheets/ciscohub.sheet.in.h:57
+msgid "RateMUX"
+msgstr "RateMUX"
+
+#: ../sheets/ciscohub.sheet.in.h:58
+msgid "Workgroup 5500"
+msgstr "ワークグループ 5500"
+
+#: ../sheets/ciscohub.sheet.in.h:59
+msgid "Workgroup 5000"
+msgstr "ワークグループ 5000"
+
+#: ../sheets/ciscohub.sheet.in.h:60
+msgid "Workgroup 5002"
+msgstr "ワークグループ 5002"
+
+#: ../sheets/ciscohub.sheet.in.h:61
+msgid "NetRanger"
+msgstr "NetRanger"
+
+#: ../sheets/ciscohub.sheet.in.h:62
+msgid "MGX 8220"
+msgstr "MGX 8220"
+
+#: ../sheets/ciscohub.sheet.in.h:63
+msgid "MGX 8240"
+msgstr "MGX 8240"
+
+#: ../sheets/ciscohub.sheet.in.h:64
+msgid "MGX 8260"
+msgstr "MGX 8260"
+
+#: ../sheets/ciscohub.sheet.in.h:65
+msgid "Universal Gateway"
+msgstr "ユニバーサルゲートウェイ"
+
+#: ../sheets/ciscohub.sheet.in.h:66
 msgid "iSCSI switch"
 msgstr "iSCSI スイッチ"
 
+#: ../sheets/ciscohub.sheet.in.h:67
+msgid "Workgroup Fibre Channel intelligent switch"
+msgstr "ワークグループ Fibre Channel インテリジェントスイッチ"
+
+#: ../sheets/ciscohub.sheet.in.h:68
+msgid "Director-class Fibre Channel intelligent switch"
+msgstr "ディレクタークラスの Fibre Channel インテリジェントスイッチ"
+
+#: ../sheets/ciscohub.sheet.in.h:69
+msgid "Multi-Fabric Server Switch"
+msgstr "Multi-Fabric サーバースイッチ"
+
+#: ../sheets/ciscohub.sheet.in.h:70
+msgid "Server Switch"
+msgstr "サーバースイッチ"
+
+#: ../sheets/ciscohub.sheet.in.h:71
+msgid "Multilayer Remote Switch"
+msgstr "マルチレイヤーのリモートスイッチ"
+
+#: ../sheets/ciscohub.sheet.in.h:72
+msgid "Layer 2 Remote Switch"
+msgstr "レイヤー 2 リモートスイッチ"
+
+#: ../sheets/ciscohub.sheet.in.h:73
+msgid "Virtual Layer Switch"
+msgstr "バーチャルレイヤーのスイッチ"
+
 #: ../sheets/ciscomisc.sheet.in.h:1
-msgid "Androgynous Person"
-msgstr "人間 (中性)"
-
-#: ../sheets/ciscomisc.sheet.in.h:2
-msgid "Antenna"
-msgstr "アンテナ"
-
-#: ../sheets/ciscomisc.sheet.in.h:3
-msgid "Branch office"
-msgstr "ブランチオフィス"
-
-#: ../sheets/ciscomisc.sheet.in.h:4
-msgid "Branch office blue"
-msgstr "ブランチオフィス (青色)"
-
-#: ../sheets/ciscomisc.sheet.in.h:5
-msgid "Branch office subdued"
-msgstr "ブランチオフィス (灰色)"
-
-#: ../sheets/ciscomisc.sheet.in.h:6
-msgid "Car"
-msgstr "車"
-
-#: ../sheets/ciscomisc.sheet.in.h:7
 msgid "Cisco — Miscellaneous"
 msgstr "Cisco — その他"
 
+#: ../sheets/ciscomisc.sheet.in.h:2
+msgid "Miscellaneous shapes by Cisco"
+msgstr "その他のシェイプ (Cisco)"
+
+#: ../sheets/ciscomisc.sheet.in.h:3
+msgid "Government Building"
+msgstr "公的な建物"
+
+#: ../sheets/ciscomisc.sheet.in.h:4
+msgid "University"
+msgstr "大学"
+
+#: ../sheets/ciscomisc.sheet.in.h:5
+msgid "Small Business"
+msgstr "小さな仕事"
+
+#: ../sheets/ciscomisc.sheet.in.h:6
+msgid "Home office"
+msgstr "自宅のオフィス"
+
+#: ../sheets/ciscomisc.sheet.in.h:7
+msgid "Branch office"
+msgstr "ブランチオフィス"
+
 #: ../sheets/ciscomisc.sheet.in.h:8
-msgid "CiscoWorks Man"
-msgstr "CiscoWorks 男性"
+msgid "Branch office subdued"
+msgstr "ブランチオフィス (灰色)"
+
+#: ../sheets/ciscomisc.sheet.in.h:9
+msgid "Branch office blue"
+msgstr "ブランチオフィス (青色)"
 
 #: ../sheets/ciscomisc.sheet.in.h:10
 msgid "Generic Building"
 msgstr "一般的な建物"
 
 #: ../sheets/ciscomisc.sheet.in.h:11
-msgid "Generic Building blue"
-msgstr "一般的な建物 (青色)"
-
-#: ../sheets/ciscomisc.sheet.in.h:12
 msgid "Generic Building subdued"
 msgstr "一般的な建物 (灰色)"
 
+#: ../sheets/ciscomisc.sheet.in.h:12
+msgid "Generic Building blue"
+msgstr "一般的な建物 (青色)"
+
 #: ../sheets/ciscomisc.sheet.in.h:13
-msgid "Government Building"
-msgstr "公的な建物"
+msgid "Medium Building"
+msgstr "中くらいの建物"
 
 #: ../sheets/ciscomisc.sheet.in.h:14
-msgid "Headphones"
-msgstr "ヘッドフォン"
+msgid "Medium Building subdued"
+msgstr "中くらいの建物 (灰色)"
 
 #: ../sheets/ciscomisc.sheet.in.h:15
-msgid "Home office"
-msgstr "自宅のオフィス"
+msgid "Medium Building blue"
+msgstr "中くらいの建物 (青色)"
 
 #: ../sheets/ciscomisc.sheet.in.h:16
 msgid "House"
@@ -9632,1131 +9633,1137 @@ msgstr "一般的な家"
 msgid "House blue"
 msgstr "一般的な家 (青色)"
 
-#: ../sheets/ciscomisc.sheet.in.h:20
-msgid "Lock and Key"
-msgstr "ロックしたキー"
+#: ../sheets/ciscomisc.sheet.in.h:18
+msgid "Telecommuter house"
+msgstr "テレコミューター付きの家"
 
-#: ../sheets/ciscomisc.sheet.in.h:21
+#: ../sheets/ciscomisc.sheet.in.h:19
+msgid "Telecommuter house subdued"
+msgstr "テレコミューター付きの家 (灰色)"
+
+#: ../sheets/ciscomisc.sheet.in.h:20
 msgid "MDU"
 msgstr "MDU"
 
-#: ../sheets/ciscomisc.sheet.in.h:22
-msgid "Mac Woman"
-msgstr "Mac を操作する女性"
-
-#: ../sheets/ciscomisc.sheet.in.h:23
+#: ../sheets/ciscomisc.sheet.in.h:21
 msgid "Man"
 msgstr "男性"
+
+#: ../sheets/ciscomisc.sheet.in.h:22
+msgid "Man red"
+msgstr "男性 (赤色)"
+
+#: ../sheets/ciscomisc.sheet.in.h:23
+msgid "Man gold"
+msgstr "男性 (金色)"
 
 #: ../sheets/ciscomisc.sheet.in.h:24
 msgid "Man blue"
 msgstr "男性 (青色)"
 
 #: ../sheets/ciscomisc.sheet.in.h:25
-msgid "Man gold"
-msgstr "男性 (金色)"
-
-#: ../sheets/ciscomisc.sheet.in.h:26
-msgid "Man red"
-msgstr "男性 (赤色)"
-
-#: ../sheets/ciscomisc.sheet.in.h:27
-msgid "Medium Building"
-msgstr "中くらいの建物"
-
-#: ../sheets/ciscomisc.sheet.in.h:28
-msgid "Medium Building blue"
-msgstr "中くらいの建物 (青色)"
-
-#: ../sheets/ciscomisc.sheet.in.h:29
-msgid "Medium Building subdued"
-msgstr "中くらいの建物 (灰色)"
-
-#: ../sheets/ciscomisc.sheet.in.h:31
-msgid "Miscellaneous shapes by Cisco"
-msgstr "その他のシェイプ (Cisco)"
-
-#: ../sheets/ciscomisc.sheet.in.h:32
-msgid "PC Man"
-msgstr "PC を操作する男性"
-
-#: ../sheets/ciscomisc.sheet.in.h:33
-msgid "PC Man left"
-msgstr "PC を操作する男性 (左側)"
-
-#: ../sheets/ciscomisc.sheet.in.h:34
-msgid "Running man"
-msgstr "走っている男性"
-
-#: ../sheets/ciscomisc.sheet.in.h:35
-msgid "Running man subdued"
-msgstr "走っている男性 (灰色)"
-
-#: ../sheets/ciscomisc.sheet.in.h:36
-msgid "Running woman"
-msgstr "走っている男性"
-
-#: ../sheets/ciscomisc.sheet.in.h:37
-msgid "Satellite"
-msgstr "衛星放送"
-
-#: ../sheets/ciscomisc.sheet.in.h:38
-msgid "Satellite dish"
-msgstr "衛星放送アンテナ"
-
-#: ../sheets/ciscomisc.sheet.in.h:39
-msgid "Sitting Woman"
-msgstr "座っている女性"
-
-#: ../sheets/ciscomisc.sheet.in.h:40
-msgid "Sitting Woman right"
-msgstr "座っている女性 (右側)"
-
-#: ../sheets/ciscomisc.sheet.in.h:41
-msgid "Small Business"
-msgstr "小さな仕事"
-
-#: ../sheets/ciscomisc.sheet.in.h:43
 msgid "Standing Man"
 msgstr "立っている男性"
 
-#: ../sheets/ciscomisc.sheet.in.h:44
+#: ../sheets/ciscomisc.sheet.in.h:26
 msgid "Standing woman"
 msgstr "立っている女性"
 
-#: ../sheets/ciscomisc.sheet.in.h:45
-msgid "Telecommuter"
-msgstr "テレコミューター"
-
-#: ../sheets/ciscomisc.sheet.in.h:46
-msgid "Telecommuter house"
-msgstr "テレコミューター付きの家"
-
-#: ../sheets/ciscomisc.sheet.in.h:47
-msgid "Telecommuter house subdued"
-msgstr "テレコミューター付きの家 (灰色)"
-
-#: ../sheets/ciscomisc.sheet.in.h:48
-msgid "Truck"
-msgstr "トラック"
-
-#: ../sheets/ciscomisc.sheet.in.h:49
-msgid "University"
-msgstr "大学"
-
-#: ../sheets/ciscomisc.sheet.in.h:50
-msgid "Video Camera"
-msgstr "ビデオカメラ"
-
-#: ../sheets/ciscomisc.sheet.in.h:51
-msgid "Video Camera right"
-msgstr "ビデオカメラ (右側)"
-
-#: ../sheets/ciscomisc.sheet.in.h:52
+#: ../sheets/ciscomisc.sheet.in.h:27
 msgid "Woman"
 msgstr "男性"
 
-#: ../sheets/ciscomisc.sheet.in.h:53
-msgid "Woman blue"
-msgstr "男性 (青色)"
-
-#: ../sheets/ciscomisc.sheet.in.h:54
-msgid "Woman gold"
-msgstr "女性 (金色)"
-
-#: ../sheets/ciscomisc.sheet.in.h:55
+#: ../sheets/ciscomisc.sheet.in.h:28
 msgid "Woman red"
 msgstr "女性 (金色)"
 
+#: ../sheets/ciscomisc.sheet.in.h:29
+msgid "Woman gold"
+msgstr "女性 (金色)"
+
+#: ../sheets/ciscomisc.sheet.in.h:30
+msgid "Woman blue"
+msgstr "男性 (青色)"
+
+#: ../sheets/ciscomisc.sheet.in.h:31
+msgid "Running man"
+msgstr "走っている男性"
+
+#: ../sheets/ciscomisc.sheet.in.h:32
+msgid "Running man subdued"
+msgstr "走っている男性 (灰色)"
+
+#: ../sheets/ciscomisc.sheet.in.h:33
+msgid "Telecommuter"
+msgstr "テレコミューター"
+
+#: ../sheets/ciscomisc.sheet.in.h:34
+msgid "Running woman"
+msgstr "走っている男性"
+
+#: ../sheets/ciscomisc.sheet.in.h:35
+msgid "CiscoWorks Man"
+msgstr "CiscoWorks 男性"
+
+#: ../sheets/ciscomisc.sheet.in.h:36
+msgid "PC Man left"
+msgstr "PC を操作する男性 (左側)"
+
+#: ../sheets/ciscomisc.sheet.in.h:37
+msgid "PC Man"
+msgstr "PC を操作する男性"
+
+#: ../sheets/ciscomisc.sheet.in.h:38
+msgid "Sitting Woman"
+msgstr "座っている女性"
+
+#: ../sheets/ciscomisc.sheet.in.h:39
+msgid "Sitting Woman right"
+msgstr "座っている女性 (右側)"
+
+#: ../sheets/ciscomisc.sheet.in.h:40
+msgid "Mac Woman"
+msgstr "Mac を操作する女性"
+
+#: ../sheets/ciscomisc.sheet.in.h:41
+msgid "Androgynous Person"
+msgstr "人間 (中性)"
+
+#: ../sheets/ciscomisc.sheet.in.h:44
+msgid "Lock and Key"
+msgstr "ロックしたキー"
+
+#: ../sheets/ciscomisc.sheet.in.h:45
+msgid "Satellite dish"
+msgstr "衛星放送アンテナ"
+
+#: ../sheets/ciscomisc.sheet.in.h:46
+msgid "Satellite"
+msgstr "衛星放送"
+
+#: ../sheets/ciscomisc.sheet.in.h:47
+msgid "Antenna"
+msgstr "アンテナ"
+
+#: ../sheets/ciscomisc.sheet.in.h:49
+msgid "Car"
+msgstr "車"
+
+#: ../sheets/ciscomisc.sheet.in.h:50
+msgid "Truck"
+msgstr "トラック"
+
+#: ../sheets/ciscomisc.sheet.in.h:51
+msgid "Video Camera"
+msgstr "ビデオカメラ"
+
+#: ../sheets/ciscomisc.sheet.in.h:52
+msgid "Video Camera right"
+msgstr "ビデオカメラ (右側)"
+
+#: ../sheets/ciscomisc.sheet.in.h:54
+msgid "Headphones"
+msgstr "ヘッドフォン"
+
 #: ../sheets/cisconetwork.sheet.in.h:1
-msgid "10700"
-msgstr "10700"
-
-#: ../sheets/cisconetwork.sheet.in.h:2
-msgid "15200"
-msgstr "15200"
-
-#: ../sheets/cisconetwork.sheet.in.h:3
-msgid "15800"
-msgstr "15800"
-
-#: ../sheets/cisconetwork.sheet.in.h:4
-msgid "3174 (desktop) cluster controller"
-msgstr "3174 (デスクトップ式) クラスターコントローラー"
-
-#: ../sheets/cisconetwork.sheet.in.h:5
-msgid "3X74 (floor) cluster controller"
-msgstr "3X74 (フロア式) クラスターコントローラー"
-
-#: ../sheets/cisconetwork.sheet.in.h:6
-msgid "Access Server"
-msgstr "アクセスサーバー"
-
-#: ../sheets/cisconetwork.sheet.in.h:7
-msgid "AccessPoint"
-msgstr "アクセスポイント"
-
-#: ../sheets/cisconetwork.sheet.in.h:8
-msgid "Automatic Protection Switching"
-msgstr "自動保護スイッチ"
-
-#: ../sheets/cisconetwork.sheet.in.h:9
-msgid "BBFW"
-msgstr "BBFW"
-
-#: ../sheets/cisconetwork.sheet.in.h:10
-msgid "BBFW media"
-msgstr "BBFW メディア"
-
-#: ../sheets/cisconetwork.sheet.in.h:11
-msgid "Breakout box"
-msgstr "ブレイクアウトボックス"
-
-#: ../sheets/cisconetwork.sheet.in.h:12
-msgid "Bridge"
-msgstr "ブリッジ"
-
-#: ../sheets/cisconetwork.sheet.in.h:13
-msgid "CDDI/FDDI Concentrator"
-msgstr "CDDI/FDDI コネクター"
-
-#: ../sheets/cisconetwork.sheet.in.h:14
-msgid "CDM Content Distribution Manager"
-msgstr "CDM コンテンツ配信マネージャー"
-
-#: ../sheets/cisconetwork.sheet.in.h:15
-msgid "CSU/DSU"
-msgstr "CSU/DSU"
-
-#: ../sheets/cisconetwork.sheet.in.h:16
-msgid "Cable Modem"
-msgstr "ケーブルモデム"
-
-#: ../sheets/cisconetwork.sheet.in.h:17
-msgid "Catalyst Access Gateway"
-msgstr "Catalyst アクセスゲートウェイ"
-
-#: ../sheets/cisconetwork.sheet.in.h:18
-msgid "Centri Firewall"
-msgstr "Centri ファイアウォール"
-
-#: ../sheets/cisconetwork.sheet.in.h:19
-msgid "Channelized Pipe"
-msgstr "チャンネル化したパイプ"
-
-#: ../sheets/cisconetwork.sheet.in.h:20
 msgid "Cisco — Network"
 msgstr "Cisco — ネットワーク"
 
-#: ../sheets/cisconetwork.sheet.in.h:21
-msgid "Cloud"
-msgstr "雲"
-
-#: ../sheets/cisconetwork.sheet.in.h:22
-msgid "Cloud Dark"
-msgstr "雲 (黒色)"
-
-#: ../sheets/cisconetwork.sheet.in.h:23
-msgid "Cloud Gold"
-msgstr "雲 (金色)"
-
-#: ../sheets/cisconetwork.sheet.in.h:24
-msgid "Cloud White"
-msgstr "雲 (白色)"
-
-#: ../sheets/cisconetwork.sheet.in.h:25
-msgid "Concatenated Payload"
-msgstr "連結ペイロード"
-
-#: ../sheets/cisconetwork.sheet.in.h:26
-msgid "Content Engine (Cache Director)"
-msgstr "コンテンツエンジン (Cache Director)"
-
-#: ../sheets/cisconetwork.sheet.in.h:27
-msgid "Content Transformation Engine (CTE)"
-msgstr "コンテンツ変換エンジン (CTE)"
-
-#: ../sheets/cisconetwork.sheet.in.h:28
-msgid "DSLAM"
-msgstr "DSLAM"
-
-#: ../sheets/cisconetwork.sheet.in.h:29
-msgid "DWDM Filter"
-msgstr "DWDM フィルター"
-
-#: ../sheets/cisconetwork.sheet.in.h:30
-msgid "Detector"
-msgstr "ディテクター"
-
-#: ../sheets/cisconetwork.sheet.in.h:31
-msgid "Digital Cross-Connect"
-msgstr "デジタル交差接続"
-
-#: ../sheets/cisconetwork.sheet.in.h:32
-msgid "Directory Server"
-msgstr "ディレクトリサーバー"
-
-#: ../sheets/cisconetwork.sheet.in.h:33
-msgid "Distributed Director"
-msgstr "分散ディレクター"
-
-#: ../sheets/cisconetwork.sheet.in.h:34
-msgid "Dual Mode AccessPoint"
-msgstr "デュアルモードのアクセスポイント"
-
-#: ../sheets/cisconetwork.sheet.in.h:35
-msgid "FDDI Ring"
-msgstr "FDDI リング"
-
-#: ../sheets/cisconetwork.sheet.in.h:36
-msgid "File Engine"
-msgstr "ファイルエンジン"
-
-#: ../sheets/cisconetwork.sheet.in.h:37
-msgid "Firewall"
-msgstr "ファイアウォール"
-
-#: ../sheets/cisconetwork.sheet.in.h:38
-msgid "Firewall Service Module"
-msgstr "ファイアウォールサービスのモジュール"
-
-#: ../sheets/cisconetwork.sheet.in.h:39
-msgid "Firewall horizontal"
-msgstr "ファイアウォール (水平方向)"
-
-#: ../sheets/cisconetwork.sheet.in.h:40
-msgid "Firewall subdued"
-msgstr "ファイアウォール (灰色)"
-
-#: ../sheets/cisconetwork.sheet.in.h:41
-msgid "General Appliance"
-msgstr "一般的な装置"
-
-#: ../sheets/cisconetwork.sheet.in.h:42
-msgid "Generic Gateway"
-msgstr "一般的なゲートウェイ"
-
-#: ../sheets/cisconetwork.sheet.in.h:44
-msgid "IOS Firewall"
-msgstr "IOS ファイアウォール"
-
-#: ../sheets/cisconetwork.sheet.in.h:45
-msgid "IOS SLB"
-msgstr "IOS SLB"
-
-#: ../sheets/cisconetwork.sheet.in.h:46
-msgid "IP"
-msgstr "IP"
-
-#: ../sheets/cisconetwork.sheet.in.h:47
-msgid "IP DSL Switch"
-msgstr "IP DSL スイッチ"
-
-#: ../sheets/cisconetwork.sheet.in.h:48
-msgid "IP Old-style"
-msgstr "IP (旧式)"
-
-#: ../sheets/cisconetwork.sheet.in.h:49
-msgid "IP Transport Concentrator"
-msgstr "IP 転送コンセントレーター"
-
-#: ../sheets/cisconetwork.sheet.in.h:50
-msgid "IPTV broadcast server"
-msgstr "IPTV ブロードキャストサーバー"
-
-#: ../sheets/cisconetwork.sheet.in.h:51
-msgid "IPTV content manager"
-msgstr "IPTV コンテンツマネージャー"
-
-#: ../sheets/cisconetwork.sheet.in.h:52
-msgid "LAN to LAN"
-msgstr "LAN-LAN"
-
-#: ../sheets/cisconetwork.sheet.in.h:53
-msgid "Lightweight AP"
-msgstr "軽量な AP"
-
-#: ../sheets/cisconetwork.sheet.in.h:54
-msgid "LocalDirector"
-msgstr "LocalDirector"
-
-#: ../sheets/cisconetwork.sheet.in.h:55
-msgid "Location server"
-msgstr "ロケーションサーバー"
-
-#: ../sheets/cisconetwork.sheet.in.h:56
-msgid "LongReach CPE"
-msgstr "LongReach CPE"
-
-#: ../sheets/cisconetwork.sheet.in.h:57
-msgid "MAS Gateway"
-msgstr "MAS ゲートウェイ"
-
-#: ../sheets/cisconetwork.sheet.in.h:58
-msgid "MAU"
-msgstr "MAU"
-
-#: ../sheets/cisconetwork.sheet.in.h:59
-msgid "ME 1100"
-msgstr "ME 1100"
-
-#: ../sheets/cisconetwork.sheet.in.h:60
-msgid "MUX"
-msgstr "MUX"
-
-#: ../sheets/cisconetwork.sheet.in.h:61
-msgid "Metro 1500"
-msgstr "Metro 1500"
-
-#: ../sheets/cisconetwork.sheet.in.h:62
-msgid "NAT"
-msgstr "NAT"
-
-#: ../sheets/cisconetwork.sheet.in.h:63
-msgid "Network Management"
-msgstr "ネットワーク管理"
-
-#: ../sheets/cisconetwork.sheet.in.h:64
+#: ../sheets/cisconetwork.sheet.in.h:2
 msgid "Network shapes by Cisco"
 msgstr "ネットワーク (Cisco)"
 
-#: ../sheets/cisconetwork.sheet.in.h:65
-msgid "ONS15104"
-msgstr "ONS15104"
+#: ../sheets/cisconetwork.sheet.in.h:3
+msgid "Network Management"
+msgstr "ネットワーク管理"
 
-#: ../sheets/cisconetwork.sheet.in.h:66
-msgid "ONS15540"
-msgstr "ONS15540"
+#: ../sheets/cisconetwork.sheet.in.h:4
+msgid "Detector"
+msgstr "ディテクター"
 
-#: ../sheets/cisconetwork.sheet.in.h:67
-msgid "Optical Amplifier"
-msgstr "光学アンプ"
-
-#: ../sheets/cisconetwork.sheet.in.h:68
-msgid "Optical Cross-Connect"
-msgstr "光学交差接続"
-
-#: ../sheets/cisconetwork.sheet.in.h:69
-msgid "Optical Fiber"
-msgstr "光学ファイバー"
-
-#: ../sheets/cisconetwork.sheet.in.h:70
-msgid "Optical Transport"
-msgstr "光学転送"
-
-#. compatibility
-#. <alias name="Cisco - PAD"/>
-#: ../sheets/cisconetwork.sheet.in.h:73
-msgid "PAD"
-msgstr "PAD"
-
-#: ../sheets/cisconetwork.sheet.in.h:74
-msgid "PIX Firewall"
-msgstr "PIX ファイアウォール"
-
-#: ../sheets/cisconetwork.sheet.in.h:75
-msgid "PIX Firewall Left"
-msgstr "PIX ファイアウォール (左向き)"
-
-#: ../sheets/cisconetwork.sheet.in.h:76
+#: ../sheets/cisconetwork.sheet.in.h:5
 msgid "Protocol Translator"
 msgstr "プロトコル転送"
 
-#: ../sheets/cisconetwork.sheet.in.h:77
-msgid "RPS"
-msgstr "RPS"
+#: ../sheets/cisconetwork.sheet.in.h:6
+msgid "IP"
+msgstr "IP"
 
-#: ../sheets/cisconetwork.sheet.in.h:78
-msgid "Repeater"
-msgstr "リピーター"
+#: ../sheets/cisconetwork.sheet.in.h:7
+msgid "IP Old-style"
+msgstr "IP (旧式)"
 
-#: ../sheets/cisconetwork.sheet.in.h:79
-msgid "SSL Terminator"
-msgstr "SSL ターミネータ"
+#: ../sheets/cisconetwork.sheet.in.h:8
+msgid "NAT"
+msgstr "NAT"
 
-#: ../sheets/cisconetwork.sheet.in.h:80
-msgid "STB (set top box)"
-msgstr "セットトップボックス (STB)"
-
-#: ../sheets/cisconetwork.sheet.in.h:81
-msgid "Security appliance"
-msgstr "セキュリティ装置"
-
-#: ../sheets/cisconetwork.sheet.in.h:82
-msgid "Service Control"
-msgstr "サービスコントロール"
-
-#: ../sheets/cisconetwork.sheet.in.h:83
-msgid "Storage Solution Engine"
-msgstr "ストレージソリューションエンジン"
-
-#: ../sheets/cisconetwork.sheet.in.h:84
-msgid "System controller"
-msgstr "システムコントローラー"
-
-#: ../sheets/cisconetwork.sheet.in.h:85
-msgid "TV"
-msgstr "TV"
-
-#: ../sheets/cisconetwork.sheet.in.h:86
-msgid "Terminal Server"
-msgstr "ターミナルサーバー"
-
-#: ../sheets/cisconetwork.sheet.in.h:87
-msgid "TokenRing"
-msgstr "トークンリング"
-
-#: ../sheets/cisconetwork.sheet.in.h:88
-msgid "TransPath"
-msgstr "伝送路"
-
-#: ../sheets/cisconetwork.sheet.in.h:89
-msgid "UPS"
-msgstr "UPS"
-
-#: ../sheets/cisconetwork.sheet.in.h:90
+#: ../sheets/cisconetwork.sheet.in.h:9
 msgid "VIP"
 msgstr "VIP"
 
-#: ../sheets/cisconetwork.sheet.in.h:91
+#: ../sheets/cisconetwork.sheet.in.h:10
+msgid "Terminal Server"
+msgstr "ターミナルサーバー"
+
+#: ../sheets/cisconetwork.sheet.in.h:11
+msgid "Access Server"
+msgstr "アクセスサーバー"
+
+#: ../sheets/cisconetwork.sheet.in.h:12
+msgid "System controller"
+msgstr "システムコントローラー"
+
+#: ../sheets/cisconetwork.sheet.in.h:13
+msgid "Directory Server"
+msgstr "ディレクトリサーバー"
+
+#: ../sheets/cisconetwork.sheet.in.h:14
+msgid "Firewall"
+msgstr "ファイアウォール"
+
+#: ../sheets/cisconetwork.sheet.in.h:15
+msgid "Firewall subdued"
+msgstr "ファイアウォール (灰色)"
+
+#: ../sheets/cisconetwork.sheet.in.h:16
+msgid "Firewall horizontal"
+msgstr "ファイアウォール (水平方向)"
+
+#: ../sheets/cisconetwork.sheet.in.h:17
+msgid "Firewall Service Module"
+msgstr "ファイアウォールサービスのモジュール"
+
+#: ../sheets/cisconetwork.sheet.in.h:18
+msgid "IOS Firewall"
+msgstr "IOS ファイアウォール"
+
+#: ../sheets/cisconetwork.sheet.in.h:19
+msgid "PIX Firewall"
+msgstr "PIX ファイアウォール"
+
+#: ../sheets/cisconetwork.sheet.in.h:20
+msgid "PIX Firewall Left"
+msgstr "PIX ファイアウォール (左向き)"
+
+#: ../sheets/cisconetwork.sheet.in.h:21
+msgid "Centri Firewall"
+msgstr "Centri ファイアウォール"
+
+#: ../sheets/cisconetwork.sheet.in.h:23
+msgid "Security appliance"
+msgstr "セキュリティ装置"
+
+#: ../sheets/cisconetwork.sheet.in.h:24
+msgid "VPN Concentrator"
+msgstr "VPN コネクター"
+
+#: ../sheets/cisconetwork.sheet.in.h:25
+msgid "VPN Gateway"
+msgstr "VPN ゲートウェイ"
+
+#: ../sheets/cisconetwork.sheet.in.h:26
+msgid "LAN to LAN"
+msgstr "LAN-LAN"
+
+#: ../sheets/cisconetwork.sheet.in.h:27
+msgid "SSL Terminator"
+msgstr "SSL ターミネータ"
+
+#: ../sheets/cisconetwork.sheet.in.h:28
+msgid "IP DSL Switch"
+msgstr "IP DSL スイッチ"
+
+#: ../sheets/cisconetwork.sheet.in.h:29
+msgid "DSLAM"
+msgstr "DSLAM"
+
+#: ../sheets/cisconetwork.sheet.in.h:30
+msgid "Cable Modem"
+msgstr "ケーブルモデム"
+
+#: ../sheets/cisconetwork.sheet.in.h:31
+msgid "Wireless Connectivity"
+msgstr "無線接続"
+
+#: ../sheets/cisconetwork.sheet.in.h:32
+msgid "Wireless Transport"
+msgstr "無線伝送"
+
+#: ../sheets/cisconetwork.sheet.in.h:33
+msgid "AccessPoint"
+msgstr "アクセスポイント"
+
+#: ../sheets/cisconetwork.sheet.in.h:34
+msgid "Wireless Bridge"
+msgstr "無線ブリッジ"
+
+#: ../sheets/cisconetwork.sheet.in.h:35
+msgid "Dual Mode AccessPoint"
+msgstr "デュアルモードのアクセスポイント"
+
+#: ../sheets/cisconetwork.sheet.in.h:36
+msgid "Wi-Fi Tag"
+msgstr "Wi-Fi タグ"
+
+#: ../sheets/cisconetwork.sheet.in.h:37
+msgid "Wireless Location Appliance"
+msgstr "無線ロケーション装置"
+
+#: ../sheets/cisconetwork.sheet.in.h:38
+msgid "Location server"
+msgstr "ロケーションサーバー"
+
+#: ../sheets/cisconetwork.sheet.in.h:39
+msgid "Lightweight AP"
+msgstr "軽量な AP"
+
+#: ../sheets/cisconetwork.sheet.in.h:40
+msgid "WLAN controller"
+msgstr "WLAN コントローラー"
+
+#: ../sheets/cisconetwork.sheet.in.h:41
+msgid "BBFW"
+msgstr "BBFW"
+
+#: ../sheets/cisconetwork.sheet.in.h:42
+msgid "BBFW media"
+msgstr "BBFW メディア"
+
+#: ../sheets/cisconetwork.sheet.in.h:43
+msgid "Channelized Pipe"
+msgstr "チャンネル化したパイプ"
+
+#: ../sheets/cisconetwork.sheet.in.h:44
+msgid "Concatenated Payload"
+msgstr "連結ペイロード"
+
+#: ../sheets/cisconetwork.sheet.in.h:45
+msgid "Optical Cross-Connect"
+msgstr "光学交差接続"
+
+#: ../sheets/cisconetwork.sheet.in.h:46
+msgid "Optical Transport"
+msgstr "光学転送"
+
+#: ../sheets/cisconetwork.sheet.in.h:47
+msgid "Optical Fiber"
+msgstr "光学ファイバー"
+
+#: ../sheets/cisconetwork.sheet.in.h:48
+msgid "Optical Amplifier"
+msgstr "光学アンプ"
+
+#: ../sheets/cisconetwork.sheet.in.h:49
+msgid "Digital Cross-Connect"
+msgstr "デジタル交差接続"
+
+#: ../sheets/cisconetwork.sheet.in.h:50
+msgid "IP Transport Concentrator"
+msgstr "IP 転送コンセントレーター"
+
+#: ../sheets/cisconetwork.sheet.in.h:51
+msgid "DWDM Filter"
+msgstr "DWDM フィルター"
+
+#: ../sheets/cisconetwork.sheet.in.h:52
+msgid "WDM"
+msgstr "WDM"
+
+#: ../sheets/cisconetwork.sheet.in.h:53
+msgid "15200"
+msgstr "15200"
+
+#: ../sheets/cisconetwork.sheet.in.h:54
+msgid "15800"
+msgstr "15800"
+
+#: ../sheets/cisconetwork.sheet.in.h:55
+msgid "ONS15104"
+msgstr "ONS15104"
+
+#: ../sheets/cisconetwork.sheet.in.h:56
+msgid "10700"
+msgstr "10700"
+
+#: ../sheets/cisconetwork.sheet.in.h:57
+msgid "Metro 1500"
+msgstr "Metro 1500"
+
+#: ../sheets/cisconetwork.sheet.in.h:58
+msgid "ONS15540"
+msgstr "ONS15540"
+
+#: ../sheets/cisconetwork.sheet.in.h:59
+msgid "Automatic Protection Switching"
+msgstr "自動保護スイッチ"
+
+#: ../sheets/cisconetwork.sheet.in.h:60
+msgid "RPS"
+msgstr "RPS"
+
+#: ../sheets/cisconetwork.sheet.in.h:61
+msgid "UPS"
+msgstr "UPS"
+
+#: ../sheets/cisconetwork.sheet.in.h:62
+msgid "LongReach CPE"
+msgstr "LongReach CPE"
+
+#: ../sheets/cisconetwork.sheet.in.h:63
+msgid "3X74 (floor) cluster controller"
+msgstr "3X74 (フロア式) クラスターコントローラー"
+
+#: ../sheets/cisconetwork.sheet.in.h:64
+msgid "3174 (desktop) cluster controller"
+msgstr "3174 (デスクトップ式) クラスターコントローラー"
+
+#: ../sheets/cisconetwork.sheet.in.h:65
+msgid "CSU/DSU"
+msgstr "CSU/DSU"
+
+#: ../sheets/cisconetwork.sheet.in.h:66
+msgid "WAN"
+msgstr "WAN"
+
+#: ../sheets/cisconetwork.sheet.in.h:67
+msgid "Cloud"
+msgstr "雲"
+
+#: ../sheets/cisconetwork.sheet.in.h:68
+msgid "Cloud Gold"
+msgstr "雲 (金色)"
+
+#: ../sheets/cisconetwork.sheet.in.h:69
+msgid "Cloud White"
+msgstr "雲 (白色)"
+
+#: ../sheets/cisconetwork.sheet.in.h:70
+msgid "Cloud Dark"
+msgstr "雲 (黒色)"
+
+#: ../sheets/cisconetwork.sheet.in.h:71
+msgid "Distributed Director"
+msgstr "分散ディレクター"
+
+#: ../sheets/cisconetwork.sheet.in.h:72
+msgid "LocalDirector"
+msgstr "LocalDirector"
+
+#: ../sheets/cisconetwork.sheet.in.h:73
+msgid "IOS SLB"
+msgstr "IOS SLB"
+
+#: ../sheets/cisconetwork.sheet.in.h:74
+msgid "MUX"
+msgstr "MUX"
+
+#: ../sheets/cisconetwork.sheet.in.h:75
+msgid "General Appliance"
+msgstr "一般的な装置"
+
+#. compatibility
+#. <alias name="Cisco - PAD"/>
+#: ../sheets/cisconetwork.sheet.in.h:78
+msgid "PAD"
+msgstr "PAD"
+
+#: ../sheets/cisconetwork.sheet.in.h:79
+msgid "CDDI/FDDI Concentrator"
+msgstr "CDDI/FDDI コネクター"
+
+#: ../sheets/cisconetwork.sheet.in.h:80
+msgid "FDDI Ring"
+msgstr "FDDI リング"
+
+#: ../sheets/cisconetwork.sheet.in.h:81
+msgid "TokenRing"
+msgstr "トークンリング"
+
+#: ../sheets/cisconetwork.sheet.in.h:82
+msgid "MAU"
+msgstr "MAU"
+
+#: ../sheets/cisconetwork.sheet.in.h:83
+msgid "Repeater"
+msgstr "リピーター"
+
+#: ../sheets/cisconetwork.sheet.in.h:84
+msgid "Bridge"
+msgstr "ブリッジ"
+
+#: ../sheets/cisconetwork.sheet.in.h:85
+msgid "Breakout box"
+msgstr "ブレイクアウトボックス"
+
+#: ../sheets/cisconetwork.sheet.in.h:86
+msgid "STB (set top box)"
+msgstr "セットトップボックス (STB)"
+
+#: ../sheets/cisconetwork.sheet.in.h:87
+msgid "TV"
+msgstr "TV"
+
+#: ../sheets/cisconetwork.sheet.in.h:88
+msgid "IPTV broadcast server"
+msgstr "IPTV ブロードキャストサーバー"
+
+#: ../sheets/cisconetwork.sheet.in.h:89
+msgid "IPTV content manager"
+msgstr "IPTV コンテンツマネージャー"
+
+#: ../sheets/cisconetwork.sheet.in.h:90
 msgid "VN2900"
 msgstr "VN2900"
+
+#: ../sheets/cisconetwork.sheet.in.h:91
+msgid "VN5902"
+msgstr "VN5902"
 
 #: ../sheets/cisconetwork.sheet.in.h:92
 msgid "VN5900"
 msgstr "VN5900"
 
 #: ../sheets/cisconetwork.sheet.in.h:93
-msgid "VN5902"
-msgstr "VN5902"
+msgid "Catalyst Access Gateway"
+msgstr "Catalyst アクセスゲートウェイ"
 
 #: ../sheets/cisconetwork.sheet.in.h:94
-msgid "VPN Concentrator"
-msgstr "VPN コネクター"
+msgid "Generic Gateway"
+msgstr "一般的なゲートウェイ"
 
 #: ../sheets/cisconetwork.sheet.in.h:95
-msgid "VPN Gateway"
-msgstr "VPN ゲートウェイ"
+msgid "TransPath"
+msgstr "伝送路"
 
 #: ../sheets/cisconetwork.sheet.in.h:96
-msgid "WAN"
-msgstr "WAN"
-
-#: ../sheets/cisconetwork.sheet.in.h:97
-msgid "WDM"
-msgstr "WDM"
-
-#: ../sheets/cisconetwork.sheet.in.h:98
-msgid "WLAN controller"
-msgstr "WLAN コントローラー"
-
-#: ../sheets/cisconetwork.sheet.in.h:99
-msgid "Wi-Fi Tag"
-msgstr "Wi-Fi タグ"
-
-#: ../sheets/cisconetwork.sheet.in.h:100
-msgid "Wireless Bridge"
-msgstr "無線ブリッジ"
-
-#: ../sheets/cisconetwork.sheet.in.h:101
-msgid "Wireless Connectivity"
-msgstr "無線接続"
-
-#: ../sheets/cisconetwork.sheet.in.h:102
-msgid "Wireless Location Appliance"
-msgstr "無線ロケーション装置"
-
-#: ../sheets/cisconetwork.sheet.in.h:103
-msgid "Wireless Transport"
-msgstr "無線伝送"
-
-#: ../sheets/cisconetwork.sheet.in.h:104
 msgid "uBR910 Cable DSU"
 msgstr "uBR910 Cable DSU"
 
+#: ../sheets/cisconetwork.sheet.in.h:97
+msgid "Storage Solution Engine"
+msgstr "ストレージソリューションエンジン"
+
+#: ../sheets/cisconetwork.sheet.in.h:98
+msgid "Content Engine (Cache Director)"
+msgstr "コンテンツエンジン (Cache Director)"
+
+#: ../sheets/cisconetwork.sheet.in.h:99
+msgid "CDM Content Distribution Manager"
+msgstr "CDM コンテンツ配信マネージャー"
+
+#: ../sheets/cisconetwork.sheet.in.h:100
+msgid "Content Transformation Engine (CTE)"
+msgstr "コンテンツ変換エンジン (CTE)"
+
+#: ../sheets/cisconetwork.sheet.in.h:101
+msgid "ME 1100"
+msgstr "ME 1100"
+
+#: ../sheets/cisconetwork.sheet.in.h:102
+msgid "MAS Gateway"
+msgstr "MAS ゲートウェイ"
+
+#: ../sheets/cisconetwork.sheet.in.h:103
+msgid "File Engine"
+msgstr "ファイルエンジン"
+
+#: ../sheets/cisconetwork.sheet.in.h:104
+msgid "Service Control"
+msgstr "サービスコントロール"
+
 #: ../sheets/ciscotelephony.sheet.in.h:1
-msgid "6701"
-msgstr "6701"
-
-#: ../sheets/ciscotelephony.sheet.in.h:2
-msgid "6705"
-msgstr "6705"
-
-#: ../sheets/ciscotelephony.sheet.in.h:3
-msgid "6732"
-msgstr "6732"
-
-#: ../sheets/ciscotelephony.sheet.in.h:4
-msgid "ADM"
-msgstr "ADM"
-
-#: ../sheets/ciscotelephony.sheet.in.h:5
-msgid "ATA"
-msgstr "ATA"
-
-#: ../sheets/ciscotelephony.sheet.in.h:6
-msgid "BTS 10200"
-msgstr "BTS 10200"
-
-#: ../sheets/ciscotelephony.sheet.in.h:7
-msgid "CallManager"
-msgstr "CallManager"
-
-#: ../sheets/ciscotelephony.sheet.in.h:8
-msgid "Cellular Phone"
-msgstr "携帯電話"
-
-#: ../sheets/ciscotelephony.sheet.in.h:9
 msgid "Cisco — Telephony"
 msgstr "Cisco — 電話"
 
-#: ../sheets/ciscotelephony.sheet.in.h:10
-msgid "Class 4/5 switch"
-msgstr "クラス 4/5 スイッチ"
-
-#: ../sheets/ciscotelephony.sheet.in.h:11
-msgid "End Office"
-msgstr "End Office"
-
-#: ../sheets/ciscotelephony.sheet.in.h:12
-msgid "Fax"
-msgstr "FAX"
-
-#: ../sheets/ciscotelephony.sheet.in.h:13
-msgid "Gatekeeper"
-msgstr "ゲートキーパー"
-
-#: ../sheets/ciscotelephony.sheet.in.h:14
-msgid "Generic softswitch"
-msgstr "一般的なソフトスイッチ"
-
-#: ../sheets/ciscotelephony.sheet.in.h:15
-msgid "H.323"
-msgstr "H.323"
-
-#: ../sheets/ciscotelephony.sheet.in.h:16
-msgid "HootPhone"
-msgstr "HootPhone"
-
-#: ../sheets/ciscotelephony.sheet.in.h:17
-msgid "IAD router"
-msgstr "IAD ルーター"
-
-#: ../sheets/ciscotelephony.sheet.in.h:18
-msgid "ICM"
-msgstr "ICM"
-
-#: ../sheets/ciscotelephony.sheet.in.h:19
-msgid "ICS"
-msgstr "ICS"
-
-#: ../sheets/ciscotelephony.sheet.in.h:20
-msgid "IP Phone"
-msgstr "IP 電話"
-
-#: ../sheets/ciscotelephony.sheet.in.h:21
-msgid "IP Softphone"
-msgstr "IP ソフトウェア電話"
-
-#: ../sheets/ciscotelephony.sheet.in.h:22
-msgid "IP Telephony Router"
-msgstr "IP 電話ルーター"
-
-#: ../sheets/ciscotelephony.sheet.in.h:23
-msgid "ITP"
-msgstr "ITP"
-
-#: ../sheets/ciscotelephony.sheet.in.h:24
-msgid "IntelliSwitch Stack"
-msgstr "IntelliSwitch スタック"
-
-#: ../sheets/ciscotelephony.sheet.in.h:25
-msgid "MCU"
-msgstr "MCU"
-
-#: ../sheets/ciscotelephony.sheet.in.h:26
-msgid "MGX 8000 Series Voice Gateway"
-msgstr "MGX 8000 サービスの音声ゲートウェイ"
-
-#: ../sheets/ciscotelephony.sheet.in.h:27
-msgid "MoH server (Music on Hold)"
-msgstr "MoH サーバー (Music on Hold)"
-
-#: ../sheets/ciscotelephony.sheet.in.h:28
-msgid "Mobile Access IP Phone"
-msgstr "モバイルアクセス IP 電話"
-
-#: ../sheets/ciscotelephony.sheet.in.h:29
-msgid "Mobile Access Router"
-msgstr "モバイルアクセスルーター"
-
-#: ../sheets/ciscotelephony.sheet.in.h:30
-msgid "Octel"
-msgstr "Octel"
-
-#: ../sheets/ciscotelephony.sheet.in.h:31
-msgid "PBX"
-msgstr "PBX"
-
-#: ../sheets/ciscotelephony.sheet.in.h:32
-msgid "PBX Switch"
-msgstr "PBX スイッチ"
-
-#: ../sheets/ciscotelephony.sheet.in.h:33
-msgid "Pager"
-msgstr "ページャー"
-
-#: ../sheets/ciscotelephony.sheet.in.h:34
-msgid "Phone"
-msgstr "電話"
-
-#: ../sheets/ciscotelephony.sheet.in.h:35
-msgid "Phone 2"
-msgstr "電話2"
-
-#: ../sheets/ciscotelephony.sheet.in.h:36
-msgid "Phone Appliance"
-msgstr "電話機"
-
-#: ../sheets/ciscotelephony.sheet.in.h:37
-msgid "Phone Ethernet"
-msgstr "電話イーサネット"
-
-#: ../sheets/ciscotelephony.sheet.in.h:38
-msgid "Phone Feature"
-msgstr "電話の機能"
-
-#: ../sheets/ciscotelephony.sheet.in.h:39
-msgid "Phone/Fax"
-msgstr "電話/FAX"
-
-#: ../sheets/ciscotelephony.sheet.in.h:40
-msgid "Radio Tower"
-msgstr "電波塔"
-
-#: ../sheets/ciscotelephony.sheet.in.h:41
-msgid "SC2200 (Signalling Controller)"
-msgstr "SC2200 (シグナル発生コントローラー)"
-
-#: ../sheets/ciscotelephony.sheet.in.h:42
-msgid "SC2200/VSC3000 host"
-msgstr "SC2200/VSC3000 ホスト"
-
-#: ../sheets/ciscotelephony.sheet.in.h:43
-msgid "SIP Proxy Server"
-msgstr "SIP プロキシサーバー"
-
-#: ../sheets/ciscotelephony.sheet.in.h:44
-msgid "SONET MUX"
-msgstr "SONET MUX"
-
-#: ../sheets/ciscotelephony.sheet.in.h:45
-msgid "STP"
-msgstr "STP"
-
-#: ../sheets/ciscotelephony.sheet.in.h:46
-msgid "Softphone"
-msgstr "ソフトウェア電話"
-
-#: ../sheets/ciscotelephony.sheet.in.h:47
-msgid "TDM router"
-msgstr "TDM ルーター"
-
-#: ../sheets/ciscotelephony.sheet.in.h:48
+#: ../sheets/ciscotelephony.sheet.in.h:2
 msgid "Telephony shapes by Cisco"
 msgstr "電話 (Cisco スタイル)"
 
-#: ../sheets/ciscotelephony.sheet.in.h:49
+#: ../sheets/ciscotelephony.sheet.in.h:3
+msgid "Phone"
+msgstr "電話"
+
+#: ../sheets/ciscotelephony.sheet.in.h:4
+msgid "Phone 2"
+msgstr "電話2"
+
+#: ../sheets/ciscotelephony.sheet.in.h:5
+msgid "Phone Ethernet"
+msgstr "電話イーサネット"
+
+#: ../sheets/ciscotelephony.sheet.in.h:6
+msgid "Phone Appliance"
+msgstr "電話機"
+
+#: ../sheets/ciscotelephony.sheet.in.h:7
+msgid "Phone Feature"
+msgstr "電話の機能"
+
+#: ../sheets/ciscotelephony.sheet.in.h:8
+msgid "Phone/Fax"
+msgstr "電話/FAX"
+
+#: ../sheets/ciscotelephony.sheet.in.h:9
+msgid "HootPhone"
+msgstr "HootPhone"
+
+#: ../sheets/ciscotelephony.sheet.in.h:10
+msgid "IP Phone"
+msgstr "IP 電話"
+
+#: ../sheets/ciscotelephony.sheet.in.h:11
+msgid "IP Softphone"
+msgstr "IP ソフトウェア電話"
+
+#: ../sheets/ciscotelephony.sheet.in.h:12
+msgid "Softphone"
+msgstr "ソフトウェア電話"
+
+#: ../sheets/ciscotelephony.sheet.in.h:13
+msgid "Cellular Phone"
+msgstr "携帯電話"
+
+#: ../sheets/ciscotelephony.sheet.in.h:14
+msgid "Mobile Access IP Phone"
+msgstr "モバイルアクセス IP 電話"
+
+#: ../sheets/ciscotelephony.sheet.in.h:15
+msgid "Pager"
+msgstr "ページャー"
+
+#: ../sheets/ciscotelephony.sheet.in.h:16
+msgid "Fax"
+msgstr "FAX"
+
+#: ../sheets/ciscotelephony.sheet.in.h:17
 msgid "Turret"
 msgstr "ターレット"
 
-#: ../sheets/ciscotelephony.sheet.in.h:50
-msgid "Unity Express"
-msgstr "Unity Express"
+#: ../sheets/ciscotelephony.sheet.in.h:18
+msgid "Octel"
+msgstr "Octel"
 
-#: ../sheets/ciscotelephony.sheet.in.h:51
-msgid "Unity server"
-msgstr "Unity サーバー"
+#: ../sheets/ciscotelephony.sheet.in.h:19
+msgid "Radio Tower"
+msgstr "電波塔"
 
-#: ../sheets/ciscotelephony.sheet.in.h:52
-msgid "Virtual switch controller (VSC 3000)"
-msgstr "仮想スイッチコントローラー (VSC 3000)"
+#: ../sheets/ciscotelephony.sheet.in.h:20
+msgid "PBX"
+msgstr "PBX"
 
-#: ../sheets/ciscotelephony.sheet.in.h:53
-msgid "Voice-Enabled ATM Switch"
-msgstr "ATM スイッチ (通話可能)"
+#: ../sheets/ciscotelephony.sheet.in.h:21
+msgid "PBX Switch"
+msgstr "PBX スイッチ"
 
-#: ../sheets/ciscotelephony.sheet.in.h:54
+#: ../sheets/ciscotelephony.sheet.in.h:22
+msgid "Class 4/5 switch"
+msgstr "クラス 4/5 スイッチ"
+
+#: ../sheets/ciscotelephony.sheet.in.h:23
+msgid "SONET MUX"
+msgstr "SONET MUX"
+
+#: ../sheets/ciscotelephony.sheet.in.h:24
+msgid "ADM"
+msgstr "ADM"
+
+#: ../sheets/ciscotelephony.sheet.in.h:25
+msgid "ITP"
+msgstr "ITP"
+
+#: ../sheets/ciscotelephony.sheet.in.h:26
+msgid "ATA"
+msgstr "ATA"
+
+#: ../sheets/ciscotelephony.sheet.in.h:27
+msgid "SIP Proxy Server"
+msgstr "SIP プロキシサーバー"
+
+#: ../sheets/ciscotelephony.sheet.in.h:28
+msgid "Gatekeeper"
+msgstr "ゲートキーパー"
+
+#: ../sheets/ciscotelephony.sheet.in.h:29
+msgid "MGX 8000 Series Voice Gateway"
+msgstr "MGX 8000 サービスの音声ゲートウェイ"
+
+#: ../sheets/ciscotelephony.sheet.in.h:30
+msgid "End Office"
+msgstr "End Office"
+
+#: ../sheets/ciscotelephony.sheet.in.h:31
 msgid "Voice-Enabled Access Server"
 msgstr "アクセスサーバー (通話可能)"
 
-#: ../sheets/ciscotelephony.sheet.in.h:55
+#: ../sheets/ciscotelephony.sheet.in.h:32
 msgid "Voice-Enabled Router"
 msgstr "ルーター (通話可能)"
+
+#: ../sheets/ciscotelephony.sheet.in.h:33
+msgid "Voice-Enabled ATM Switch"
+msgstr "ATM スイッチ (通話可能)"
+
+#: ../sheets/ciscotelephony.sheet.in.h:34
+msgid "CallManager"
+msgstr "CallManager"
+
+#: ../sheets/ciscotelephony.sheet.in.h:35
+msgid "IP Telephony Router"
+msgstr "IP 電話ルーター"
+
+#: ../sheets/ciscotelephony.sheet.in.h:36
+msgid "Mobile Access Router"
+msgstr "モバイルアクセスルーター"
+
+#: ../sheets/ciscotelephony.sheet.in.h:37
+msgid "H.323"
+msgstr "H.323"
+
+#: ../sheets/ciscotelephony.sheet.in.h:38
+msgid "STP"
+msgstr "STP"
+
+#: ../sheets/ciscotelephony.sheet.in.h:39
+msgid "BTS 10200"
+msgstr "BTS 10200"
+
+#: ../sheets/ciscotelephony.sheet.in.h:40
+msgid "Generic softswitch"
+msgstr "一般的なソフトスイッチ"
+
+#: ../sheets/ciscotelephony.sheet.in.h:41
+msgid "SC2200/VSC3000 host"
+msgstr "SC2200/VSC3000 ホスト"
+
+#: ../sheets/ciscotelephony.sheet.in.h:42
+msgid "Virtual switch controller (VSC 3000)"
+msgstr "仮想スイッチコントローラー (VSC 3000)"
+
+#: ../sheets/ciscotelephony.sheet.in.h:43
+msgid "SC2200 (Signalling Controller)"
+msgstr "SC2200 (シグナル発生コントローラー)"
+
+#: ../sheets/ciscotelephony.sheet.in.h:44
+msgid "MoH server (Music on Hold)"
+msgstr "MoH サーバー (Music on Hold)"
+
+#: ../sheets/ciscotelephony.sheet.in.h:45
+msgid "TDM router"
+msgstr "TDM ルーター"
+
+#: ../sheets/ciscotelephony.sheet.in.h:46
+msgid "6701"
+msgstr "6701"
+
+#: ../sheets/ciscotelephony.sheet.in.h:47
+msgid "6705"
+msgstr "6705"
+
+#: ../sheets/ciscotelephony.sheet.in.h:48
+msgid "6732"
+msgstr "6732"
+
+#: ../sheets/ciscotelephony.sheet.in.h:49
+msgid "IAD router"
+msgstr "IAD ルーター"
+
+#: ../sheets/ciscotelephony.sheet.in.h:50
+msgid "ICS"
+msgstr "ICS"
+
+#: ../sheets/ciscotelephony.sheet.in.h:51
+msgid "ICM"
+msgstr "ICM"
+
+#: ../sheets/ciscotelephony.sheet.in.h:52
+msgid "IntelliSwitch Stack"
+msgstr "IntelliSwitch スタック"
+
+#: ../sheets/ciscotelephony.sheet.in.h:53
+msgid "Unity server"
+msgstr "Unity サーバー"
+
+#: ../sheets/ciscotelephony.sheet.in.h:54
+msgid "Unity Express"
+msgstr "Unity Express"
+
+#: ../sheets/ciscotelephony.sheet.in.h:55
+msgid "MCU"
+msgstr "MCU"
 
 #: ../sheets/ciscotelephony.sheet.in.h:56
 msgid "uMG series"
 msgstr "uMG シリーズ"
 
 #: ../sheets/civil.sheet.in.h:1
-msgid "Aerator with bubbles"
-msgstr "噴霧式通気装置"
-
-#: ../sheets/civil.sheet.in.h:2
-msgid "Backflow preventer"
-msgstr "逆流防止装置"
-
-#: ../sheets/civil.sheet.in.h:3
-msgid "Basin"
-msgstr "水ばち"
-
-#: ../sheets/civil.sheet.in.h:4
-msgid "Bivalent vertical rest"
-msgstr "Bivalent vertical rest"
-
-#: ../sheets/civil.sheet.in.h:5
 msgid "Civil"
 msgstr "土木"
 
-#: ../sheets/civil.sheet.in.h:6
+#: ../sheets/civil.sheet.in.h:2
 msgid "Civil Engineering Components"
 msgstr "土木工学用の部品"
 
+#: ../sheets/civil.sheet.in.h:3
+msgid "Vertical rest"
+msgstr "垂直レスト"
+
+#: ../sheets/civil.sheet.in.h:4
+msgid "Horizontal rest"
+msgstr "水平レスト"
+
+#: ../sheets/civil.sheet.in.h:5
+msgid "Bivalent vertical rest"
+msgstr "Bivalent vertical rest"
+
+#: ../sheets/civil.sheet.in.h:6
+msgid "Reference line"
+msgstr "参照線"
+
 #: ../sheets/civil.sheet.in.h:7
-msgid "Container"
-msgstr "コンテナー"
+msgid "Water level"
+msgstr "水位"
 
 #: ../sheets/civil.sheet.in.h:8
-msgid "Final-settling basin"
-msgstr "最終沈殿池"
+msgid "Soil"
+msgstr "地盤"
 
 #: ../sheets/civil.sheet.in.h:9
-msgid "Frequency converter"
-msgstr "周波数変換器"
+msgid "Horizontally aligned arrow"
+msgstr "矢印 (横向き)"
 
 #: ../sheets/civil.sheet.in.h:10
-msgid "Gas bottle"
-msgstr "ガスボンベ"
+msgid "Vertically aligned arrow"
+msgstr "矢印(縦)"
 
 #: ../sheets/civil.sheet.in.h:11
 msgid "Horizontal limiting line"
 msgstr "限界線 (水平)"
 
 #: ../sheets/civil.sheet.in.h:12
-msgid "Horizontal rest"
-msgstr "水平レスト"
-
-#: ../sheets/civil.sheet.in.h:13
-msgid "Horizontally aligned arrow"
-msgstr "矢印 (横向き)"
-
-#: ../sheets/civil.sheet.in.h:14
-msgid "Horizontally aligned compressor"
-msgstr "圧縮機 (横向き)"
-
-#: ../sheets/civil.sheet.in.h:15
-msgid "Horizontally aligned pump"
-msgstr "ポンプ (横向き)"
-
-#: ../sheets/civil.sheet.in.h:16
-msgid "Horizontally aligned valve"
-msgstr "バルブ (横向き)"
-
-#: ../sheets/civil.sheet.in.h:17
-msgid "Motor"
-msgstr "モーター"
-
-#: ../sheets/civil.sheet.in.h:18
-msgid "Preliminary clarification tank"
-msgstr "予備タンク"
-
-#: ../sheets/civil.sheet.in.h:19
-msgid "Reference line"
-msgstr "参照線"
-
-#: ../sheets/civil.sheet.in.h:20
-msgid "Rotor"
-msgstr "ローター"
-
-#: ../sheets/civil.sheet.in.h:21
-msgid "Soil"
-msgstr "地盤"
-
-#: ../sheets/civil.sheet.in.h:22
 msgid "Vertical limiting line"
 msgstr "限界線 (垂直方向)"
 
-#: ../sheets/civil.sheet.in.h:23
-msgid "Vertical rest"
-msgstr "垂直レスト"
+#: ../sheets/civil.sheet.in.h:13
+msgid "Horizontally aligned pump"
+msgstr "ポンプ (横向き)"
 
-#: ../sheets/civil.sheet.in.h:24
-msgid "Vertically aligned arrow"
-msgstr "矢印(縦)"
-
-#: ../sheets/civil.sheet.in.h:25
-msgid "Vertically aligned compressor"
-msgstr "圧縮機(縦)"
-
-#: ../sheets/civil.sheet.in.h:26
-msgid "Vertically aligned propeller"
-msgstr "プロペラ(縦)"
-
-#: ../sheets/civil.sheet.in.h:27
+#: ../sheets/civil.sheet.in.h:14
 msgid "Vertically aligned pump"
 msgstr "ポンプ(縦)"
 
-#: ../sheets/civil.sheet.in.h:28
+#: ../sheets/civil.sheet.in.h:15
+msgid "Horizontally aligned compressor"
+msgstr "圧縮機 (横向き)"
+
+#: ../sheets/civil.sheet.in.h:16
+msgid "Vertically aligned compressor"
+msgstr "圧縮機(縦)"
+
+#: ../sheets/civil.sheet.in.h:17
 msgid "Vertically aligned valve"
 msgstr "バルブ(縦)"
 
+#: ../sheets/civil.sheet.in.h:18
+msgid "Horizontally aligned valve"
+msgstr "バルブ (横向き)"
+
+#: ../sheets/civil.sheet.in.h:19
+msgid "Backflow preventer"
+msgstr "逆流防止装置"
+
+#: ../sheets/civil.sheet.in.h:20
+msgid "Motor"
+msgstr "モーター"
+
+#: ../sheets/civil.sheet.in.h:21
+msgid "Gas bottle"
+msgstr "ガスボンベ"
+
+#: ../sheets/civil.sheet.in.h:22
+msgid "Frequency converter"
+msgstr "周波数変換器"
+
+#: ../sheets/civil.sheet.in.h:23
+msgid "Vertically aligned propeller"
+msgstr "プロペラ(縦)"
+
+#: ../sheets/civil.sheet.in.h:24
+msgid "Aerator with bubbles"
+msgstr "噴霧式通気装置"
+
+#: ../sheets/civil.sheet.in.h:25
+msgid "Rotor"
+msgstr "ローター"
+
+#: ../sheets/civil.sheet.in.h:26
+msgid "Final-settling basin"
+msgstr "最終沈殿池"
+
+#: ../sheets/civil.sheet.in.h:27
+msgid "Preliminary clarification tank"
+msgstr "予備タンク"
+
+#: ../sheets/civil.sheet.in.h:28
+msgid "Basin"
+msgstr "水ばち"
+
 #: ../sheets/civil.sheet.in.h:29
-msgid "Water level"
-msgstr "水位"
+msgid "Container"
+msgstr "コンテナー"
 
 #: ../sheets/jigsaw.sheet.in.h:1
 msgid "Jigsaw"
 msgstr "ジグゾー"
 
 #: ../sheets/jigsaw.sheet.in.h:2
-msgid "Jigsaw — part_iiii"
-msgstr "ジグゾー — 凹凹凹凹"
-
-#: ../sheets/jigsaw.sheet.in.h:3
-msgid "Jigsaw — part_iiio"
-msgstr "ジグゾー — 凹凹凹凸"
-
-#: ../sheets/jigsaw.sheet.in.h:4
-msgid "Jigsaw — part_iioi"
-msgstr "ジグゾー — 凹凹凸凹"
-
-#: ../sheets/jigsaw.sheet.in.h:5
-msgid "Jigsaw — part_iioo"
-msgstr "ジグゾー — 凹凹凸凸"
-
-#: ../sheets/jigsaw.sheet.in.h:6
-msgid "Jigsaw — part_ioii"
-msgstr "ジグゾー — 凹凸凹凹"
-
-#: ../sheets/jigsaw.sheet.in.h:7
-msgid "Jigsaw — part_ioio"
-msgstr "ジグゾー — 凹凸凹凸"
-
-#: ../sheets/jigsaw.sheet.in.h:8
-msgid "Jigsaw — part_iooi"
-msgstr "ジグゾー — 凹凸凸凹"
-
-#: ../sheets/jigsaw.sheet.in.h:9
-msgid "Jigsaw — part_iooo"
-msgstr "ジグゾー — 凹凸凸凸"
-
-#: ../sheets/jigsaw.sheet.in.h:10
-msgid "Jigsaw — part_oiii"
-msgstr "ジグゾー — 凸凹凹凹"
-
-#: ../sheets/jigsaw.sheet.in.h:11
-msgid "Jigsaw — part_oiio"
-msgstr "ジグゾー — 凸凹凹凸"
-
-#: ../sheets/jigsaw.sheet.in.h:12
-msgid "Jigsaw — part_oioi"
-msgstr "ジグゾー — 凸凹凸凹"
-
-#: ../sheets/jigsaw.sheet.in.h:13
-msgid "Jigsaw — part_oioo"
-msgstr "ジグゾー — 凸凹凸凸"
-
-#: ../sheets/jigsaw.sheet.in.h:14
-msgid "Jigsaw — part_ooii"
-msgstr "ジグゾー — 凸凸凹凹"
-
-#: ../sheets/jigsaw.sheet.in.h:15
-msgid "Jigsaw — part_ooio"
-msgstr "ジグゾー — 凸凸凹凸"
-
-#: ../sheets/jigsaw.sheet.in.h:16
-msgid "Jigsaw — part_oooi"
-msgstr "ジグゾー — 凸凸凸凹"
-
-#: ../sheets/jigsaw.sheet.in.h:17
-msgid "Jigsaw — part_oooo"
-msgstr "ジグゾー — 凸凸凸凸"
-
-#: ../sheets/jigsaw.sheet.in.h:18
 msgid "Pieces of a jigsaw"
 msgstr "ジグゾーのピース"
 
-#: ../sheets/network.sheet.in.h:1
-msgid "24 Port Patch Panel"
-msgstr "24 ポートパッチパネル"
+#: ../sheets/jigsaw.sheet.in.h:3
+msgid "Jigsaw — part_oioi"
+msgstr "ジグゾー — 凸凹凸凹"
+
+#: ../sheets/jigsaw.sheet.in.h:4
+msgid "Jigsaw — part_ioio"
+msgstr "ジグゾー — 凹凸凹凸"
+
+#: ../sheets/jigsaw.sheet.in.h:5
+msgid "Jigsaw — part_iiii"
+msgstr "ジグゾー — 凹凹凹凹"
+
+#: ../sheets/jigsaw.sheet.in.h:6
+msgid "Jigsaw — part_oooo"
+msgstr "ジグゾー — 凸凸凸凸"
+
+#: ../sheets/jigsaw.sheet.in.h:7
+msgid "Jigsaw — part_oooi"
+msgstr "ジグゾー — 凸凸凸凹"
+
+#: ../sheets/jigsaw.sheet.in.h:8
+msgid "Jigsaw — part_iooo"
+msgstr "ジグゾー — 凹凸凸凸"
+
+#: ../sheets/jigsaw.sheet.in.h:9
+msgid "Jigsaw — part_oioo"
+msgstr "ジグゾー — 凸凹凸凸"
+
+#: ../sheets/jigsaw.sheet.in.h:10
+msgid "Jigsaw — part_ooio"
+msgstr "ジグゾー — 凸凸凹凸"
+
+#: ../sheets/jigsaw.sheet.in.h:11
+msgid "Jigsaw — part_iioo"
+msgstr "ジグゾー — 凹凹凸凸"
+
+#: ../sheets/jigsaw.sheet.in.h:12
+msgid "Jigsaw — part_oiio"
+msgstr "ジグゾー — 凸凹凹凸"
+
+#: ../sheets/jigsaw.sheet.in.h:13
+msgid "Jigsaw — part_ooii"
+msgstr "ジグゾー — 凸凸凹凹"
+
+#: ../sheets/jigsaw.sheet.in.h:14
+msgid "Jigsaw — part_iooi"
+msgstr "ジグゾー — 凹凸凸凹"
+
+#: ../sheets/jigsaw.sheet.in.h:15
+msgid "Jigsaw — part_oiii"
+msgstr "ジグゾー — 凸凹凹凹"
+
+#: ../sheets/jigsaw.sheet.in.h:16
+msgid "Jigsaw — part_ioii"
+msgstr "ジグゾー — 凹凸凹凹"
+
+#: ../sheets/jigsaw.sheet.in.h:17
+msgid "Jigsaw — part_iioi"
+msgstr "ジグゾー — 凹凹凸凹"
+
+#: ../sheets/jigsaw.sheet.in.h:18
+msgid "Jigsaw — part_iiio"
+msgstr "ジグゾー — 凹凹凹凸"
 
 #: ../sheets/network.sheet.in.h:2
-msgid "3 1/2 inch diskette"
-msgstr "3.5 インチディスク"
-
-#: ../sheets/network.sheet.in.h:3
-msgid "ATM switch symbol"
-msgstr "ATM スイッチの記号"
-
-#: ../sheets/network.sheet.in.h:4
-msgid "Antenna for wireless transmission"
-msgstr "無線アンテナ"
-
-#: ../sheets/network.sheet.in.h:5
-msgid "Bigtower PC"
-msgstr "PC (フルタワー)"
-
-#: ../sheets/network.sheet.in.h:6
-msgid "Computer"
-msgstr "コンピューター"
-
-#: ../sheets/network.sheet.in.h:7
-msgid "Desktop PC"
-msgstr "PC (デスクトップ)"
-
-#: ../sheets/network.sheet.in.h:8
-msgid "Digitizing board"
-msgstr "ディジタイザ"
-
-#: ../sheets/network.sheet.in.h:9
-msgid "Ethernet bus"
-msgstr "イーサネットバス"
-
-#: ../sheets/network.sheet.in.h:10
-msgid "External DAT drive"
-msgstr "外部 DAT ドライブ"
-
-#: ../sheets/network.sheet.in.h:11
-msgid "Firewall router"
-msgstr "ファイアウォールのルーター"
-
-#: ../sheets/network.sheet.in.h:12
-msgid "Laptop PC"
-msgstr "PC (ラップトップ)"
-
-#: ../sheets/network.sheet.in.h:13
-msgid "Miditower PC"
-msgstr "PC (ミドルタワー)"
-
-#: ../sheets/network.sheet.in.h:14
-msgid "Minitower PC"
-msgstr "PC (ミニタワー)"
-
-#: ../sheets/network.sheet.in.h:15
-msgid "Mobile phone"
-msgstr "携帯電話"
-
-#: ../sheets/network.sheet.in.h:16
-msgid "Mobile telephony base station"
-msgstr "携帯電話ベースステーション"
-
-#: ../sheets/network.sheet.in.h:17
-msgid "Mobile telephony cell"
-msgstr "携帯電話セル"
-
-#: ../sheets/network.sheet.in.h:18
-msgid "Modular switching system"
-msgstr "モジューラ式スイッチングシステム"
-
-#: ../sheets/network.sheet.in.h:22
 msgid "Objects to design network diagrams with"
 msgstr "ネットワーク構成をデザインするためのオブジェクト"
 
-#: ../sheets/network.sheet.in.h:23
-msgid "Plotter"
-msgstr "プロッター"
+#: ../sheets/network.sheet.in.h:3
+msgid "Computer"
+msgstr "コンピューター"
 
-#: ../sheets/network.sheet.in.h:24
-msgid "RJ45 wall-plug"
-msgstr "RJ45 (壁差し型)"
-
-#: ../sheets/network.sheet.in.h:25
-msgid "Router symbol"
-msgstr "ルーターの記号"
-
-#: ../sheets/network.sheet.in.h:26
-msgid "Simple modem"
-msgstr "モデム"
-
-#: ../sheets/network.sheet.in.h:27
-msgid "Simple printer"
-msgstr "プリンター"
-
-#: ../sheets/network.sheet.in.h:28
-msgid "Speaker with integrated amplifier"
-msgstr "アンプ付きスピーカー"
-
-#: ../sheets/network.sheet.in.h:29
-msgid "Speaker without amplifier"
-msgstr "アンプ無しスピーカー"
-
-#: ../sheets/network.sheet.in.h:30
-msgid "Stackable hub or switch"
-msgstr "棚型のハブ/スイッチ"
-
-#: ../sheets/network.sheet.in.h:31
+#: ../sheets/network.sheet.in.h:5
 msgid "Storage"
 msgstr "記憶装置"
 
-#: ../sheets/network.sheet.in.h:32
-msgid "Switch symbol"
-msgstr "スイッチの記号"
+#: ../sheets/network.sheet.in.h:6
+msgid "Ethernet bus"
+msgstr "イーサネットバス"
 
-#: ../sheets/network.sheet.in.h:34
-msgid "UNIX workstation"
-msgstr "UNIX ワークステーション"
+#: ../sheets/network.sheet.in.h:7
+msgid "Simple printer"
+msgstr "プリンター"
 
-#: ../sheets/network.sheet.in.h:35
+#: ../sheets/network.sheet.in.h:8
 msgid "WAN connection"
 msgstr "WAN 接続"
 
-#: ../sheets/network.sheet.in.h:36
+#: ../sheets/network.sheet.in.h:9
 msgid "WAN link"
 msgstr "WAN リンク"
 
-#: ../sheets/network.sheet.in.h:37
+#: ../sheets/network.sheet.in.h:10
+msgid "Stackable hub or switch"
+msgstr "棚型のハブ/スイッチ"
+
+#: ../sheets/network.sheet.in.h:11
+msgid "Modular switching system"
+msgstr "モジューラ式スイッチングシステム"
+
+#: ../sheets/network.sheet.in.h:12
+msgid "24 Port Patch Panel"
+msgstr "24 ポートパッチパネル"
+
+#: ../sheets/network.sheet.in.h:13
+msgid "RJ45 wall-plug"
+msgstr "RJ45 (壁差し型)"
+
+#: ../sheets/network.sheet.in.h:14
 msgid "Wall-plug for the scEAD cabling system"
 msgstr "壁差し型の scEAD ケーブルシステム"
 
-#: ../sheets/network.sheet.in.h:38
+#: ../sheets/network.sheet.in.h:15
+msgid "Simple modem"
+msgstr "モデム"
+
+#: ../sheets/network.sheet.in.h:16
+msgid "Antenna for wireless transmission"
+msgstr "無線アンテナ"
+
+#: ../sheets/network.sheet.in.h:17
+msgid "Mobile telephony base station"
+msgstr "携帯電話ベースステーション"
+
+#: ../sheets/network.sheet.in.h:19
+msgid "Mobile telephony cell"
+msgstr "携帯電話セル"
+
+#: ../sheets/network.sheet.in.h:20
+msgid "Router symbol"
+msgstr "ルーターの記号"
+
+#: ../sheets/network.sheet.in.h:21
+msgid "Switch symbol"
+msgstr "スイッチの記号"
+
+#: ../sheets/network.sheet.in.h:22
+msgid "ATM switch symbol"
+msgstr "ATM スイッチの記号"
+
+#: ../sheets/network.sheet.in.h:23
+msgid "Firewall router"
+msgstr "ファイアウォールのルーター"
+
+#: ../sheets/network.sheet.in.h:24
 msgid "Workstation monitor"
 msgstr "ワークステーションのモニター"
 
-#: ../sheets/network.sheet.in.h:39
+#: ../sheets/network.sheet.in.h:25
+msgid "UNIX workstation"
+msgstr "UNIX ワークステーション"
+
+#: ../sheets/network.sheet.in.h:26
+msgid "Desktop PC"
+msgstr "PC (デスクトップ)"
+
+#: ../sheets/network.sheet.in.h:27
+msgid "Laptop PC"
+msgstr "PC (ラップトップ)"
+
+#: ../sheets/network.sheet.in.h:28
+msgid "Bigtower PC"
+msgstr "PC (フルタワー)"
+
+#: ../sheets/network.sheet.in.h:29
+msgid "Miditower PC"
+msgstr "PC (ミドルタワー)"
+
+#: ../sheets/network.sheet.in.h:30
+msgid "Minitower PC"
+msgstr "PC (ミニタワー)"
+
+#: ../sheets/network.sheet.in.h:31
+msgid "Speaker with integrated amplifier"
+msgstr "アンプ付きスピーカー"
+
+#: ../sheets/network.sheet.in.h:32
+msgid "Speaker without amplifier"
+msgstr "アンプ無しスピーカー"
+
+#: ../sheets/network.sheet.in.h:33
+msgid "3 1/2 inch diskette"
+msgstr "3.5 インチディスク"
+
+#: ../sheets/network.sheet.in.h:34
 msgid "ZIP disk"
 msgstr "ZIP ディスク"
 
+#: ../sheets/network.sheet.in.h:35
+msgid "External DAT drive"
+msgstr "外部 DAT ドライブ"
+
+#: ../sheets/network.sheet.in.h:36
+msgid "Mobile phone"
+msgstr "携帯電話"
+
+#: ../sheets/network.sheet.in.h:38
+msgid "Plotter"
+msgstr "プロッター"
+
+#: ../sheets/network.sheet.in.h:39
+msgid "Digitizing board"
+msgstr "ディジタイザ"
+
 #: ../sheets/sybase.sheet.in.h:1
-msgid "Log transfer manager or rep agent"
-msgstr "ログ転送マネージャー/複製エージェント"
+msgid "Sybase"
+msgstr "Sybase"
 
 #: ../sheets/sybase.sheet.in.h:2
 msgid "Objects to design Sybase replication domain diagrams with"
 msgstr "Sybase 複製ドメインダイアグラムを設計するためのオブジェクト"
 
 #: ../sheets/sybase.sheet.in.h:3
-msgid "Replication server manager"
-msgstr "複製サーバーマネージャー"
-
-#: ../sheets/sybase.sheet.in.h:4
-msgid "Stable storage device"
-msgstr "安定した記憶装置"
-
-#: ../sheets/sybase.sheet.in.h:5
-msgid "Sybase"
-msgstr "Sybase"
-
-#: ../sheets/sybase.sheet.in.h:6
-msgid "Sybase client application"
-msgstr "Sybase クライアントアプリケーション"
-
-#: ../sheets/sybase.sheet.in.h:7
 msgid "Sybase dataserver"
 msgstr "Sybase データサーバー"
 
-#: ../sheets/sybase.sheet.in.h:8
+#: ../sheets/sybase.sheet.in.h:4
 msgid "Sybase replication server"
 msgstr "Sybase 複製サーバー"
+
+#: ../sheets/sybase.sheet.in.h:5
+msgid "Log transfer manager or rep agent"
+msgstr "ログ転送マネージャー/複製エージェント"
+
+#: ../sheets/sybase.sheet.in.h:6
+msgid "Stable storage device"
+msgstr "安定した記憶装置"
+
+#: ../sheets/sybase.sheet.in.h:7
+msgid "Sybase client application"
+msgstr "Sybase クライアントアプリケーション"
+
+#: ../sheets/sybase.sheet.in.h:8
+msgid "Replication server manager"
+msgstr "複製サーバーマネージャー"
+
+#~ msgid "Recovering autosaved diagrams"
+#~ msgstr "自動保存したダイアグラムをリストア中"
+
+#~ msgid ""
+#~ "Autosaved files exist.\n"
+#~ "Please select those you wish to recover."
+#~ msgstr ""
+#~ "自動保存したファイルが存在します。\n"
+#~ "戻したい状態のファイルを選択してください。"
 
 #~ msgid "'%s' not found!\n"
 #~ msgstr "'%s' というフォルダーはありません！\n"
