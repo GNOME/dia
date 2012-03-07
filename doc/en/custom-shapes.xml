@@ -21,6 +21,9 @@
     <para>
       A number of connection points can be associated with the shape, which
       are specified in the same coordinate system as the shape description.
+      One of the connection points should be marked as the main connection
+      point. This main connection point will be used if a line is dragged
+      onto the object but not on one of it's connection points.
     </para>
     <para>
       <emphasis>A</emphasis> text box can be associated with the shape. 
@@ -57,7 +60,7 @@
     <icon>npn.xpm</icon>
     <connections>
       <point x="0" y="0"/>
-      <point x="6" y="-4"/>
+      <point x="6" y="-4" main="yes"/>
       <point x="6" y="4"/>
     </connections>
 
