@@ -10,7 +10,7 @@
 
   * Improved clipboard support
     - global clipboard copy (selected) support, that is for every copy within
-      Dia the selection can be rendered as bitmap with diplay scale if another
+      Dia the selection can be rendered as bitmap with display scale if another
       application asks for it. All attempts to find a common vector exchange
       format via clipboard were failing.
     - Edit/Paste Image to either replace the pixels of a selected image or
