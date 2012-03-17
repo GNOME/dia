@@ -37,6 +37,7 @@ export DIA_LIB_PATH="$TOP/dia"
 export DIA_SHEET_PATH="$TOP/sheets"
 export DIA_SHAPE_PATH="$TOP/shapes"
 export DIA_XSLT_PATH="$TOP/xslt"
+export DIA_SHAREDIR="$TOP"
 export DIA_LOCALE_PATH="$TOP/share/locale"
 
 mkdir -p "${HOME}/.dia-etc"
@@ -53,6 +54,42 @@ export XDG_DATA_DIRS="$TOP/share"
 # ('#', '&', '|') in the name.  These need to be escaped to work properly for 
 # various configuration files.
 ESCAPEDTOP=`echo "$TOP" | sed 's/#/\\\\\\\\#/' | sed 's/&/\\\\\\&/g' | sed 's/|/\\\\\\|/g'`
+
+# Set GTK theme (only if there is no .gtkrc-2.0 in the user's home)
+if [[ ! -e "$HOME/.gtkrc-2.0" ]]; then
+	# Appearance setting
+	aquaStyle=`defaults read "Apple Global Domain" AppleAquaColorVariant 2>/dev/null`
+	# 1 for aqua, 6 for graphite, inexistant if the default color was never changed
+	if [[ "$aquaStyle" == "" ]]; then
+		aquaStyle=1		# set aqua as default
+	fi
+
+	# Highlight Color setting
+	hiliColor=`defaults read "Apple Global Domain" AppleHighlightColor 2>/dev/null`
+	# a RGB value, with components between 0 and 1, also inexistant if it was not changed
+	if [[ "$hiliColor" == "" ]]; then
+		hiliColor="0.709800 0.835300 1.000000"	# set blue as default
+	fi
+
+	# Menu items color
+	if [[ aquaStyle -eq 1 ]]; then
+		menuColor="#4a76cd"	# blue
+	else
+		menuColor="#7c8da4"	# graphite
+	fi
+	# Format highlight color as a GTK rgb value
+	hiliColorFormated=`echo $hiliColor | awk -F " " '{print "\\\{"$1","$2","$3"\\\}"}'`
+
+	# echo $menuColor
+	# echo $hiliColorFormated
+
+	# Modify the gtkrc
+	#	- with the correct colors
+	#	- to point to the correct scrollbars folder
+	sed 's/OSX_HILI_COLOR_PLACEHOLDER/'$hiliColorFormated'/g' "$DIA_SHAREDIR/themes/Clearlooks-Quicksilver-OSX/gtk-2.0/pre_gtkrc" | sed 's/OSX_MENU_COLOR_PLACEHOLDER/\"'$menuColor'\"/g' | sed 's/AQUASTYLE_PLACEHOLDER/'$aquaStyle'/g' | sed 's|${THEMEDIR}|'"$ESCAPEDTOP/themes/Clearlooks-Quicksilver-OSX/gtk-2.0|g" > "${HOME}/.dia-etc/gtkrc"
+
+	export GTK2_RC_FILES="$HOME/.dia-etc/gtkrc"
+fi
 
 # If the AppleCollationOrder preference doesn't exist, we fall back to using
 # the AppleLocale preference.
