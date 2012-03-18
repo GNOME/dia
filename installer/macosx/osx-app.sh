@@ -20,7 +20,7 @@
 # Copyright (C) 2005 Kees Cook
 # Copyright (C) 2005-2009 Michael Wybrow
 # Copyright (C) 2007-2009 Jean-Olivier Irisson
-# Copyright (C) 2010,2011 Steffen Macke
+# Copyright (C) 2010-2012 Steffen Macke
 #
 # Released under GNU GPL, read the file 'COPYING' for more information
 #
@@ -132,6 +132,12 @@ if [ ! -e "$LIBPREFIX" ]; then
 	exit 1
 fi
 
+if ! pkg-config --exists gtk-engines-2; then
+	echo "Missing gtk-engines2 -- please install gtk-engines2 and try again." >&2
+	exit 1
+fi
+
+
 # Handle some version specific details.
 VERSION=`/usr/bin/sw_vers | grep ProductVersion | cut -f2 -d'.'`
 if [ "$VERSION" -ge "4" ]; then
@@ -193,7 +199,6 @@ binary_dir=`dirname "$binary"`
 binpath="$pkgbin/dia-bin"
 cp -v "$binary" "$binpath"
 cp "dia" "$pkgbin/dia"
-cp "Dia.icns" "$pkgresources/"
 cp "../../data/dia-splash.png" "$pkgresources/"
 
 # Share files
@@ -212,17 +217,17 @@ mkdir -p "$pkgresources/share"
 cp -rp "$binary_dir/../share/mime" "$pkgresources/share/"
 
 # Icons and the rest of the script framework
-#rsync -av --exclude ".svn" "$resdir"/Resources/* "$pkgresources/"
+rsync -av --exclude ".svn" "$resdir"/Resources/* "$pkgresources/"
 
 # PkgInfo must match bundle type and creator code from Info.plist
-echo "APPLInks" > $package/Contents/PkgInfo
+echo "APPL????" > $package/Contents/PkgInfo
 
 # Pull in extra requirements for Pango and GTK
 pkgetc="$package/Contents/Resources/etc"
 mkdir -p $pkgetc/pango
 cp $binary_dir/../etc/pango/pangox.aliases $pkgetc/pango/
 # Need to adjust path and quote in case of spaces in path.
-sed -e "s,$LIBPREFIX,\"\${CWD}/lib,g" -e 's,\.so ,.so" ,g' $binary_dir/../etc/pango/pango.modules > $pkgetc/pango/pango.modules
+sed -e "s,$LIBPREFIX,\"\${CWD},g" -e 's,\.so ,.so" ,g' $binary_dir/../etc/pango/pango.modules > $pkgetc/pango/pango.modules
 
 cat > $pkgetc/pango/pangorc <<END_PANGO
 [Pango]
@@ -235,11 +240,10 @@ END_PANGO
 mkdir -p $pkgetc/fonts
 cp $binary_dir/../etc/fonts/fonts.dtd $pkgetc/fonts/
 cp -r $binary_dir/../etc/fonts/conf.avail $pkgetc/fonts/
-cp -r $binary_dir/etc/fonts/conf.d $pkgetc/fonts/
-cp $binary_dir/../etc/fonts/fonts.conf $pkgetc/fonts/
+cp -r $binary_dir/../etc/fonts/conf.d $pkgetc/fonts/
 
 mkdir -p $pkgetc/gtk-2.0
-sed -e "s,$LIBPREFIX,\${CWD}/lib,g" $binary_dir/../etc/gtk-2.0/gdk-pixbuf.loaders > $pkgetc/gtk-2.0/gdk-pixbuf.loaders
+sed -e "s,$LIBPREFIX,\${CWD},g" $binary_dir/../etc/gtk-2.0/gdk-pixbuf.loaders > $pkgetc/gtk-2.0/gdk-pixbuf.loaders
 sed -e "s,$LIBPREFIX,\${CWD},g" $binary_dir/../etc/gtk-2.0/gtk.immodules > $pkgetc/gtk-2.0/gtk.immodules
 
 pango_version=`pkg-config --variable=pango_module_version pango`
@@ -250,6 +254,7 @@ gtk_version=`pkg-config --variable=gtk_binary_version gtk+-2.0`
 mkdir -p $pkglib/gtk-2.0/$gtk_version/{engines,immodules,loaders,printbackends}
 cp -r $binary_dir/../lib/gtk-2.0/$gtk_version/* $pkglib/gtk-2.0/$gtk_version/
 
+
 # Find out libs we need from fink, darwinports, or from a custom install
 # (i.e. $LIBPREFIX), then loop until no changes.
 a=1
@@ -257,7 +262,7 @@ nfiles=0
 endl=true
 while $endl; do
 	echo -e "\033[1mLooking for dependencies.\033[0m Round" $a
-	libs="`otool -L $pkglib/gtk-2.0/$gtk_version/{engines,immodules,loaders,printbackends}/*.{dylib,so} $pkglib/pango/$pango_version/modules/* $pkglib/gnome-vfs-2.0/modules/* $package/Contents/Resources/lib/* $pkglib/ImageMagick-$IMAGEMAGICKVER/modules-Q16/{filters,coders}/*.so $binary 2>/dev/null | fgrep compatibility | cut -d\( -f1 | grep $LIBPREFIX | sort | uniq`"
+	libs="`otool -L $pkglib/gtk-2.0/$gtk_version/{engines,immodules,loaders,printbackends}/*.{dylib,so} $pkglib/gdk-pixbuf-2.0/$gtk_version/loaders/* $pkglib/pango/$pango_version/modules/* $pkglib/gnome-vfs-2.0/modules/* $package/Contents/Resources/lib/* $binary 2>/dev/null | fgrep compatibility | cut -d\( -f1 | grep $LIBPREFIX | sort | uniq`"
 	cp -f $libs $package/Contents/Resources/lib
 	let "a+=1"	
 	nnfiles=`ls $package/Contents/Resources/lib | wc -l`
@@ -322,31 +327,37 @@ fixlib () {
 rewritelibpaths () {
 	# 
 	# Fix package deps
-	(cd "$package/Contents/Resources/lib/gtk-2.0/2.10.0/loaders"
+	(cd "$package/Contents/Resources/lib/gtk-2.0/$gtk_version/loaders"
 	for file in *.so; do
 		echo "Rewriting dylib paths for $file..."
 		fixlib "$file" "`pwd`"
 	done
 	)
-	(cd "$package/Contents/Resources/lib/gtk-2.0/2.10.0/engines"
+	(cd "$package/Contents/Resources/lib/gtk-2.0/$gtk_version/engines"
 	for file in *.so; do
 		echo "Rewriting dylib paths for $file..."
 		fixlib "$file" "`pwd`"
 	done
 	)
-	(cd "$package/Contents/Resources/lib/gtk-2.0/2.10.0/immodules"
+	(cd "$package/Contents/Resources/lib/gtk-2.0/$gtk_version/immodules"
 	for file in *.so; do
 		echo "Rewriting dylib paths for $file..."
 		fixlib "$file" "`pwd`"
 	done
 	)
-	(cd "$package/Contents/Resources/lib/gtk-2.0/2.10.0/printbackends"
+	(cd "$package/Contents/Resources/lib/gtk-2.0/$gtk_version/printbackends"
 	for file in *.so; do
 		echo "Rewriting dylib paths for $file..."
 		fixlib "$file" "`pwd`"
 	done
 	)
-	(cd "$package/Contents/Resources/lib/pango/1.6.0/modules"
+	(cd "$package/Contents/Resources/lib/gdk-pixbuf-2.0/$gtk_version/loaders"
+	for file in *.so; do
+		echo "Rewriting dylib paths for $file..."
+		fixlib "$file" "`pwd`"
+	done
+	)
+	(cd "$package/Contents/Resources/lib/pango/$pango_version/modules"
 	for file in *.so; do
 		echo "Rewriting dylib paths for $file..."
 		fixlib "$file" "`pwd`"
