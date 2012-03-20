@@ -711,6 +711,15 @@ doc/pl/Makefile
 doc/fr/Makefile
 installer/Makefile
 installer/macosx/Makefile
+installer/macosx/Resources/Makefile
+installer/macosx/Resources/etc/Makefile
+installer/macosx/Resources/etc/fonts/Makefile
+installer/macosx/Resources/themes/Makefile
+installer/macosx/Resources/themes/CL/Makefile
+installer/macosx/Resources/themes/CL/gtk-2.0/Makefile
+installer/macosx/Resources/themes/CL/gtk-2.0/Scrollbars/Makefile
+installer/macosx/Resources/themes/CL/gtk-2.0/Scrollbars_1/Makefile
+installer/macosx/Resources/themes/CL/gtk-2.0/Scrollbars_6/Makefile
 installer/win32/Makefile
 installer/win32/locale/Makefile
 dia.keys
