@@ -677,13 +677,15 @@ draw_text_line(DiaRenderer *self, TextLine *text_line,
  
   saved_width = renderer->linewidth;
   renderer->linewidth = 0.001;
-  style = (char*)get_fill_style(renderer, colour);
   /* return value must not be freed */
   renderer->linewidth = saved_width;
 #if 0 /* would need a unit: https://bugzilla.mozilla.org/show_bug.cgi?id=707071#c4 */
-  tmp = g_strdup_printf("%s; font-size: %s", style,
+  style = g_strdup_printf("%s; font-size: %s", get_fill_style(renderer, colour),
 			dia_svg_dtostr(d_buf, text_line_get_height(text_line)));
-  style = tmp;
+#else
+  /* get_fill_style: the return value of this function must not be saved 
+   * anywhere. And of course it must not be free'd */
+  style = g_strdup (get_fill_style(renderer, colour));
 #endif
   /* This is going to break for non-LTR texts, as SVG thinks 'start' is
    * 'right' for those. */
