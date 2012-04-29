@@ -294,7 +294,7 @@ get_plugin_manager(void)
 }
 
 void
-file_plugins_callback(gpointer data, guint action, GtkWidget *widget)
+file_plugins_callback(GtkAction *action)
 {
   GtkWidget *pm = get_plugin_manager();
 

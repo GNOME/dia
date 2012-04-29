@@ -1092,23 +1092,6 @@ tool_setup_drag_source(GtkWidget *button, ToolButtonData *tooldata,
 			     pixmap, mask);
 }
 
-/*
-void 
-tool_select_callback(GtkWidget *widget, gpointer data) {
-  ToolButtonData *tooldata = (ToolButtonData *)data;
-
-  if (tooldata == NULL) {
-    g_warning("NULL tooldata in tool_select_callback");
-    return;
-  }
-
-  if (tooldata->type != -1) {
-    tool_select (tooldata->type, tooldata->extra_data, 
-                 tooldata->user_data,widget);    
-  }
-}
-*/
-
 GdkPixbuf *
 tool_get_pixbuf (ToolButton *tb)
 {

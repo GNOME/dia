@@ -24,10 +24,10 @@
 
 #include <gtk/gtk.h>
 
-void file_open_callback(gpointer data, guint action, GtkWidget *widget);
-void file_save_callback(gpointer data, guint action, GtkWidget *widget);
-void file_save_as_callback(gpointer data, guint action, GtkWidget *widget);
-void file_export_callback(gpointer data, guint action, GtkWidget *widget);
+void file_open_callback(GtkAction *action);
+void file_save_callback(GtkAction *action);
+void file_save_as_callback(GtkAction *action);
+void file_export_callback(GtkAction *action);
 
 gboolean file_save_as(Diagram *dia, DDisplay *ddisp);
 

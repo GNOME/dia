@@ -268,7 +268,7 @@ file_open_response_callback(GtkWidget *fs,
  * This is either with or without diagram
  */
 void
-file_open_callback(gpointer data, guint action, GtkWidget *widget)
+file_open_callback(GtkAction *action)
 {
   if (!opendlg) {
     DDisplay *ddisp;
@@ -446,7 +446,7 @@ static GtkWidget *file_save_as_dialog_prepare (Diagram *dia, DDisplay *ddisp);
  * change. Maybe we should also indicate the refernced diagram in the dialog.
  */
 void
-file_save_as_callback(gpointer data, guint action, GtkWidget *widget)
+file_save_as_callback(GtkAction *action)
 {
   DDisplay  *ddisp;
   Diagram   *dia;
@@ -563,7 +563,7 @@ file_save_as_dialog_prepare (Diagram *dia, DDisplay *ddisp)
  * Delegates to Save As if there is no filename set yet.
  */
 void
-file_save_callback(gpointer data, guint action, GtkWidget *widget)
+file_save_callback(GtkAction *action)
 {
   Diagram *diagram;
 
@@ -571,7 +571,7 @@ file_save_callback(gpointer data, guint action, GtkWidget *widget)
   if (!diagram) return;
 
   if (diagram->unsaved) {
-    file_save_as_callback(data, action, widget);
+    file_save_as_callback(action);
   } else {
     gchar *filename = g_filename_from_utf8(diagram->filename, -1, NULL, NULL, NULL);
     diagram_update_extents(diagram);
@@ -750,7 +750,7 @@ file_export_response_callback(GtkWidget *fs,
  * React to <Display>/File/Export
  */
 void
-file_export_callback(gpointer data, guint action, GtkWidget *widget)
+file_export_callback(GtkAction *action)
 {
   DDisplay *ddisp;
   Diagram *dia;

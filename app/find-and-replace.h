@@ -23,8 +23,8 @@
 #ifndef FIND_AND_REPLACE_H
 #define FIND_AND_REPLACE_H
 
-void edit_find_callback (gpointer data, guint action, GtkWidget *widget);
-void edit_replace_callback (gpointer data, guint action, GtkWidget *widget);
+void edit_find_callback (GtkAction *action);
+void edit_replace_callback (GtkAction *action);
 
 #endif /* FIND_AND_REPLACE_H */
 

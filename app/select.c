@@ -31,7 +31,7 @@
 SelectionStyle selection_style = SELECT_REPLACE;
 
 void
-select_all_callback(gpointer data, guint action, GtkWidget *widget)
+select_all_callback(GtkAction *action)
 {
   Diagram *dia;
   GList *objects;
@@ -58,7 +58,7 @@ select_all_callback(gpointer data, guint action, GtkWidget *widget)
 }
 
 void
-select_none_callback(gpointer data, guint action, GtkWidget *widget)
+select_none_callback(GtkAction *action)
 {
   Diagram * dia;
   DDisplay * ddisp = ddisplay_active();
@@ -74,7 +74,7 @@ select_none_callback(gpointer data, guint action, GtkWidget *widget)
 }
 
 void
-select_invert_callback(gpointer data, guint action, GtkWidget *widget)
+select_invert_callback(GtkAction *action)
 {
   Diagram *dia;
   GList *tmp;
@@ -105,7 +105,7 @@ select_invert_callback(gpointer data, guint action, GtkWidget *widget)
  * objects, but only in the active layer.
  */
 void
-select_connected_callback(gpointer data, guint action, GtkWidget *widget)
+select_connected_callback(GtkAction *action)
 {
   Diagram *dia;
   DDisplay * ddisp = ddisplay_active();
@@ -199,7 +199,7 @@ select_transitively(Diagram *dia, DiaObject *obj)
  * object, but only in the active layer.
  */
 void
-select_transitive_callback(gpointer data, guint action, GtkWidget *widget)
+select_transitive_callback(GtkAction *action)
 {
   DDisplay *ddisp = ddisplay_active();
   Diagram *dia;
@@ -220,7 +220,7 @@ select_transitive_callback(gpointer data, guint action, GtkWidget *widget)
 }
 
 void
-select_same_type_callback(gpointer data, guint action, GtkWidget *widget)
+select_same_type_callback(GtkAction *action)
 {
   /* For now, do a brute force version:  Check vs. all earlier selected.
      Later, we should really sort the selecteds first to avoid n^2 */

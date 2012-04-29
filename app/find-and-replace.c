@@ -496,7 +496,7 @@ fnr_dialog_setup_common (GtkWidget *dialog, gboolean is_replace, DDisplay *ddisp
  * React to <Display>/Edit/Find
  */
 void
-edit_find_callback(gpointer data, guint action, GtkWidget *widget)
+edit_find_callback(GtkAction *action)
 {
   DDisplay *ddisp;
   GtkWidget *dialog;
@@ -525,7 +525,7 @@ edit_find_callback(gpointer data, guint action, GtkWidget *widget)
  * React to <Display>/Edit/Replace
  */
 void
-edit_replace_callback(gpointer data, guint action, GtkWidget *widget)
+edit_replace_callback(GtkAction *action)
 {
   DDisplay *ddisp;
   GtkWidget *dialog;

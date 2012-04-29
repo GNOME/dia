@@ -31,12 +31,12 @@ typedef enum {
 
 extern SelectionStyle selection_style;
 
-void select_all_callback(gpointer data, guint action, GtkWidget *widget);
-void select_none_callback(gpointer data, guint action, GtkWidget *widget);
-void select_invert_callback(gpointer data, guint action, GtkWidget *widget);
-void select_connected_callback(gpointer data, guint action, GtkWidget *widget);
-void select_transitive_callback(gpointer data, guint action, GtkWidget*widget);
-void select_same_type_callback(gpointer data, guint action, GtkWidget *widget);
+void select_all_callback(GtkAction *action);
+void select_none_callback(GtkAction *action);
+void select_invert_callback(GtkAction *action);
+void select_connected_callback(GtkAction *action);
+void select_transitive_callback(GtkAction *action);
+void select_same_type_callback(GtkAction *action);
 void select_style_callback(GtkAction *action, GtkRadioAction *current, gpointer user_data);
 
 #endif
