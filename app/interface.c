@@ -792,11 +792,6 @@ create_display_shell(DDisplay *ddisp,
   g_signal_connect (GTK_OBJECT (ddisp->shell), "unrealize",
 		    G_CALLBACK (ddisplay_unrealize),
 		      ddisp);
-/*FIXME?:
-  g_signal_connect (GTK_OBJECT (ddisp->shell), "size_allocate",
-		    G_CALLBACK (ddisplay_size_allocate),
-		      ddisp);
-*/
 
   /*  the table containing all widgets  */
   table = gtk_table_new (4, 3, FALSE);

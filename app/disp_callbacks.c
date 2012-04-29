@@ -395,22 +395,6 @@ ddisplay_unrealize (GtkWidget *widget, gpointer data)
 }
 
 void
-ddisplay_size_allocate (GtkWidget *widget,
-			GtkAllocation *allocation,
-			gpointer data)
-{
-  g_return_if_fail (widget != NULL);
-  g_return_if_fail (allocation != NULL);
-  g_return_if_fail (data != NULL);
-
-#if 0
-  g_print ("ddisp::size_allocate: %d,%d -> %d,%d\n", allocation->width, allocation->height,
-	   widget->allocation.width, widget->allocation.height);
-#endif
-  widget->allocation = *allocation;
-}
-
-void
 ddisplay_popup_menu(DDisplay *ddisp, GdkEventButton *event)
 {
   GtkWidget *menu;
