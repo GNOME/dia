@@ -38,6 +38,7 @@
 #include <focus.h>
 #include "confirm.h"
 #include "dia-application.h"
+#include "menus.h"
 
 /** Functions called on menu selects.
  *  Note that GTK (at least up to 2.12) doesn't disable the keyboard shortcuts

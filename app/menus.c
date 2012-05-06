@@ -43,6 +43,7 @@
 #include "preferences.h"
 #include "filter.h"
 #include "objchange.h"
+#include "toolbox.h"
 
 #define DIA_STOCK_GROUP "dia-stock-group"
 #define DIA_STOCK_UNGROUP "dia-stock-ungroup"

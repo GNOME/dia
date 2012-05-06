@@ -34,6 +34,7 @@
 #include "highlight.h"
 #include "textedit.h"
 #include "textline.h"
+#include "menus.h"
 
 #include "parent.h"
 #include "prop_text.h"
@@ -75,7 +76,7 @@ create_modify_tool(void)
   tool->tool.double_click_func = (DoubleClickFunc) &modify_double_click;
   tool->gc = NULL;
   tool->state = STATE_NONE;
-  tool->break_connections = 0;
+  tool->break_connections = FALSE;
   tool->auto_scrolled = FALSE;
 
   tool->orig_pos = NULL;
@@ -240,7 +241,8 @@ modify_button_press(ModifyTool *tool, GdkEventButton *event,
     tool->object = clicked_obj;
     tool->move_compensate = clicked_obj->position;
     point_sub(&tool->move_compensate, &clickedpoint);
-    tool->break_connections = TRUE;
+    tool->break_connections = TRUE; /* unconnect when not grabbing handles, just setting to
+				      * FALSE is not enough. Need to refine the move op, too. */
     gdk_pointer_grab (gtk_widget_get_window(ddisp->canvas), FALSE,
                       GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON1_MOTION_MASK | GDK_BUTTON_RELEASE_MASK,
                       NULL, NULL, event->time);

@@ -29,7 +29,7 @@
 #include "intl.h"
 
 #include "display.h"
-#include "group.h"
+#include "disp_callbacks.h"
 #include "interface.h"
 #include "focus.h"
 #include "color.h"

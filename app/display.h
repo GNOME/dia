@@ -26,7 +26,6 @@ typedef struct _DDisplay DDisplay;
 #include "geometry.h"
 #include "diagram.h"
 #include "grid.h"
-#include "menus.h"
 #include "diarenderer.h"
 
 G_BEGIN_DECLS

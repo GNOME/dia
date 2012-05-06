@@ -70,6 +70,7 @@ OBJECTS = \
 	textedit.obj \
 	textedit_tool.obj \
 	tool.obj \
+	toolbox.obj \
 	undo.obj \
 	\
 	diagram_tree_model.obj \

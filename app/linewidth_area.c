@@ -23,7 +23,6 @@
 #include "linewidth_area.h"
 #include "attributes.h"
 #include "persistence.h"
-#include "interface.h"
 #include "intl.h"
 
 #if !defined(rint)
@@ -40,7 +39,7 @@
 #define AREA_WIDTH X_OFFSET(NUMLINES+1)
 #define AREA_HEIGHT 42
 
-static void linewidth_create_dialog(void);
+static void linewidth_create_dialog(GtkWindow *toplevel);
 
 static int active_linewidth = 2;
 static GdkGC *linewidth_area_gc = NULL;
@@ -154,7 +153,7 @@ linewidth_area_events (GtkWidget *widget,
 
     case GDK_2BUTTON_PRESS:
       if (linewidth_dialog == NULL)
-        linewidth_create_dialog();
+        linewidth_create_dialog(gtk_widget_get_toplevel (widget));
       else
         gtk_widget_grab_focus(linewidth_button);
       gtk_spin_button_set_value(GTK_SPIN_BUTTON(linewidth_button), attributes_get_default_linewidth());
@@ -238,14 +237,14 @@ dialog_destroyed(GtkWidget *widget, gpointer data)
 }
 
 static void
-linewidth_create_dialog()
+linewidth_create_dialog(GtkWindow *toplevel)
 {
   GtkWidget *hbox;
   GtkWidget *label;
   GtkAdjustment *adj;
 
   linewidth_dialog = gtk_dialog_new_with_buttons(
-	_("Line width"), GTK_WINDOW(interface_get_toolbox_shell()),
+	_("Line width"), toplevel,
 	0,
 	GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
 	GTK_STOCK_OK, GTK_RESPONSE_OK, 

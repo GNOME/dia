@@ -41,6 +41,7 @@
 #include "intl.h"
 #include "gtkhwrapbox.h"
 #include "preferences.h"
+#include "toolbox.h" /* just for interface_current_sheet_name */
 
 GtkWidget *sheets_dialog = NULL;
 GSList *sheets_mods_list = NULL;

@@ -25,7 +25,6 @@ typedef struct _Diagram Diagram;
 #include "geometry.h"
 #include "diagramdata.h"
 #include "undo.h"
-#include "menus.h"
 #include "diagrid.h"
 
 G_BEGIN_DECLS

@@ -41,7 +41,6 @@
 #include "preferences.h"
 #include "scroll_tool.h"
 #include "commands.h"
-#include "highlight.h"
 #include "textedit.h"
 #include "lib/parent.h"
 #include "dia_dirs.h"
@@ -376,7 +375,7 @@ ddisplay_realize(GtkWidget *widget, gpointer data)
   ddisp = (DDisplay *)data;
 
   gtk_im_context_set_client_window(GTK_IM_CONTEXT(ddisp->im_context),
-                                   gtk_widget_get_window(ddisp->shell));
+                                   gtk_widget_get_window(widget));
 }
 
 void
@@ -391,7 +390,7 @@ ddisplay_unrealize (GtkWidget *widget, gpointer data)
 
   if (ddisp->im_context)
     gtk_im_context_set_client_window(GTK_IM_CONTEXT(ddisp->im_context),
-                                     gtk_widget_get_window(ddisp->shell));
+                                     gtk_widget_get_window(widget));
 }
 
 void

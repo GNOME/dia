@@ -20,13 +20,7 @@
 
 #include "display.h"
 
-#include "menus.h"
-#include "disp_callbacks.h"
-#include "tool.h"
-#include "sheet.h"
 #include "app_procs.h"
-#include "color_area.h"
-#include "linewidth_area.h"
 
 /* Integrated UI Constants */
 #define  DIA_MAIN_WINDOW   "dia-main-window"
@@ -65,36 +59,8 @@ extern GtkWidget *modify_tool_button;
 
 void view_zoom_set (float zoom_factor); /* zoom_factor is 10 * percentage */
 
-typedef struct _ToolButton ToolButton;
-
-typedef struct _ToolButtonData ToolButtonData;
-
-struct _ToolButtonData
-{
-  ToolType type;
-  gpointer extra_data;
-  gpointer user_data; /* Used by create_object_tool */
-  GtkWidget *widget;
-};
-
-struct _ToolButton
-{
-  gchar **icon_data;
-  char  *tool_desc;
-  char	*tool_accelerator;
-  char  *action_name;
-  ToolButtonData callback_data;
-};
-
-extern const int num_tools;
-extern ToolButton tool_data[];
-extern gchar *interface_current_sheet_name;
-
-void tool_select_update (GtkWidget *w, gpointer   data);
 void fill_sheet_menu(void);
 
 void close_notebook_page_callback (GtkButton *button, gpointer user_data);
-
-GdkPixbuf *tool_get_pixbuf (ToolButton *tb);
 
 #endif /* INTERFACE_H */
