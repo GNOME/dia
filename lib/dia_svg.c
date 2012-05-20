@@ -127,7 +127,7 @@ _parse_color(gint32 *color, const char *str)
 	return FALSE;
     } else {
       gchar* sz = g_strndup (str, se - str);
-      gboolean ret = pango_color_parse (&pc, str);
+      gboolean ret = pango_color_parse (&pc, sz);
 
       if (ret)
 	*color = ((0xFF<<24) & 0xFF000000) | ((pc.red >> 8) << 16) | ((pc.green >> 8) << 8) | (pc.blue >> 8);
@@ -136,6 +136,21 @@ _parse_color(gint32 *color, const char *str)
     }
   }
   return TRUE;
+}
+
+gboolean
+dia_svg_parse_color (const gchar *str, Color *color)
+{
+  gint32 c;
+  gboolean ret = _parse_color (&c, str);
+
+  if (ret) {
+    color->red   = ((c & 0xff0000) >> 16) / 255.0;
+    color->green = ((c & 0x00ff00) >> 8) / 255.0;
+    color->blue  =  (c & 0x0000ff) / 255.0;
+    color->alpha = 1.0;
+  }
+  return ret;
 }
 
 enum
@@ -773,6 +788,10 @@ dia_svg_parse_path(const gchar *path_str, gchar **unparsed, gboolean *closed, Po
       else
 #endif
         g_array_append_val(points, bez);
+      /* [SVG11 8.3.2] If a moveto is followed by multiple pairs of coordinates, 
+       * the subsequent pairs are treated as implicit lineto commands 
+       */
+      last_type = PATH_LINE;
       break;
     case PATH_LINE:
       bez.type = BEZ_LINE_TO;
