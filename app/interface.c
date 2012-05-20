@@ -417,9 +417,6 @@ use_integrated_ui_for_display_shell(DDisplay *ddisp, char *title)
   /* Create a new tab page */
   ddisp->container = gtk_vbox_new(FALSE, 0);
 
-  /* Create a new tab page */
-  ddisp->container = gtk_vbox_new(FALSE, 0);
-
   /* <from GEdit> */
   /* don't allow focus on the close button */
   close_button = gtk_button_new();
