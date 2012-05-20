@@ -208,7 +208,7 @@ use_position (DiaObject *obj, xmlNodePtr node)
 
     str = xmlGetProp(node, (const xmlChar *)"transform");
     if (str) {
-        DiaMatrix *m = dia_svg_parse_transform ((const gchar *)str, user_scale);
+        DiaMatrix *m = dia_svg_parse_transform ((char *)str, user_scale);
 
 	if (m) {
 	    GPtrArray *props = g_ptr_array_new ();
@@ -300,20 +300,22 @@ read_path_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list)
     DiaObject *new_obj;
     Handle *h1, *h2;
     BezierCreateData *bcd;
-    gchar *str, *pathdata, *unparsed = NULL;
+    xmlChar *str;
+    char *pathdata, *unparsed = NULL;
     GArray *bezpoints = NULL;
     gboolean closed = FALSE;
     gint i;
     DiaMatrix *matrix = NULL;
     Point current_point = {0.0, 0.0};
 
-    str = (char *) xmlGetProp(node, (const xmlChar *)"transform");
+    str = xmlGetProp(node, (const xmlChar *)"transform");
     if (str) {
-      matrix = dia_svg_parse_transform (str, user_scale);
+      matrix = dia_svg_parse_transform ((char *)str, user_scale);
       xmlFree (str);
     }
 
-    pathdata = str = (char *) xmlGetProp(node, (const xmlChar *)"d");
+    str = xmlGetProp(node, (const xmlChar *)"d");
+    pathdata = (char *)str;
     do {
       bezpoints = dia_svg_parse_path (pathdata, &unparsed, &closed, &current_point);
 
@@ -384,9 +386,9 @@ read_text_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list)
     gboolean any_tspan = FALSE;
     DiaMatrix *matrix = NULL;
 
-    str = (char *) xmlGetProp(node, (const xmlChar *)"transform");
+    str = xmlGetProp(node, (const xmlChar *)"transform");
     if (str) {
-      matrix = dia_svg_parse_transform (str, user_scale);
+      matrix = dia_svg_parse_transform ((char *)str, user_scale);
       xmlFree (str);
     }
 
@@ -510,9 +512,9 @@ read_poly_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list, char *obj
     int i;
     DiaMatrix *matrix = NULL;
 
-    str = (char *) xmlGetProp(node, (const xmlChar *)"transform");
+    str = xmlGetProp(node, (const xmlChar *)"transform");
     if (str) {
-      matrix = dia_svg_parse_transform (str, user_scale);
+      matrix = dia_svg_parse_transform ((char *)str, user_scale);
       xmlFree (str);
     }
     
@@ -570,9 +572,9 @@ read_ellipse_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list)
   Point start = {0, 0};
   DiaMatrix *matrix = NULL;
 
-  str = (char *) xmlGetProp(node, (const xmlChar *)"transform");
+  str = xmlGetProp(node, (const xmlChar *)"transform");
   if (str) {
-    matrix = dia_svg_parse_transform (str, user_scale);
+    matrix = dia_svg_parse_transform ((char *)str, user_scale);
     xmlFree (str);
   }
   
@@ -638,9 +640,9 @@ read_line_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list)
   Point start, end;
   DiaMatrix *matrix = NULL;
 
-  str = (char *) xmlGetProp(node, (const xmlChar *)"transform");
+  str = xmlGetProp(node, (const xmlChar *)"transform");
   if (str) {
-    matrix = dia_svg_parse_transform (str, user_scale);
+    matrix = dia_svg_parse_transform ((char *)str, user_scale);
     xmlFree (str);
   }
 
@@ -713,9 +715,9 @@ read_rect_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list)
   real corner_radius = 0.0;
   DiaMatrix *matrix = NULL;
 
-  str = (char *) xmlGetProp(node, (const xmlChar *)"transform");
+  str = xmlGetProp(node, (const xmlChar *)"transform");
   if (str) {
-    matrix = dia_svg_parse_transform (str, user_scale);
+    matrix = dia_svg_parse_transform ((char *)str, user_scale);
     xmlFree (str);
   }
 
@@ -802,9 +804,9 @@ read_image_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list, const gc
   DiaObject *new_obj;
   DiaMatrix *matrix = NULL;
 
-  str = (char *) xmlGetProp(node, (const xmlChar *)"transform");
+  str = xmlGetProp(node, (const xmlChar *)"transform");
   if (str) {
-    matrix = dia_svg_parse_transform (str, user_scale);
+    matrix = dia_svg_parse_transform ((char *)str, user_scale);
     xmlFree (str);
   }
 
@@ -940,7 +942,7 @@ read_items (xmlNodePtr   startnode,
 
       trans = xmlGetProp (node, (xmlChar *)"transform");
       if (trans) {
-        matrix = dia_svg_parse_transform ((gchar *)trans, user_scale);
+        matrix = dia_svg_parse_transform ((char *)trans, user_scale);
 	xmlFree (trans);
       }
 
@@ -1069,7 +1071,7 @@ read_items (xmlNodePtr   startnode,
 	  for (subs = moreitems; subs != NULL; subs = g_list_next(subs)) {
 	    DiaObject *sub = subs->data;
 
-	    dia_object_set_meta (sub, "url", href);
+	    dia_object_set_meta (sub, "url", (char *)href);
 	  }
 	}
         items = g_list_concat (items, moreitems);
@@ -1081,7 +1083,7 @@ read_items (xmlNodePtr   startnode,
     if (obj) {
       xmlChar *val = xmlGetProp (node, (const xmlChar *)"id");
       if (val) {
-	dia_object_set_meta (obj, "id", val);
+	dia_object_set_meta (obj, "id", (char *)val);
 	if (defs_ht) /* FIXME: adding everything with id */
 	  g_hash_table_insert (defs_ht, g_strdup ((char *)val), obj);
 	xmlFree (val);
