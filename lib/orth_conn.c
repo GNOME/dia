@@ -260,7 +260,7 @@ orthconn_distance_from(OrthConn *orth, Point *point, real line_width)
 
 
 static void
-adjust_handle_count_to(OrthConn *orth, guint count) {
+adjust_handle_count_to(OrthConn *orth, gint count) {
   /* This will shrink or expand orth->handles as necessary (so that 
      orth->numhandles matches orth->numpoints-1, most probably), by adding or
      removing minor handles and keeping the endpoint handles at the 

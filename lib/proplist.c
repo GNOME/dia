@@ -96,7 +96,7 @@ prop_list_from_descs(const PropDescription *plist,
 void
 prop_list_free(GPtrArray *plist)
 {
-  int i;
+  guint i;
   if (!plist) return;
 
   for (i = 0; i < plist->len; i++) {
@@ -110,7 +110,7 @@ prop_list_free(GPtrArray *plist)
 GPtrArray *
 prop_list_copy(GPtrArray *src)
 {
-  int i;
+  guint i;
   GPtrArray *dest;
   
   dest = g_ptr_array_new();
@@ -128,7 +128,7 @@ prop_list_copy(GPtrArray *src)
 GPtrArray *
 prop_list_copy_empty(GPtrArray *plist)
 {
-  int i;
+  guint i;
   GPtrArray *dest;
   
   dest = g_ptr_array_new();
@@ -145,7 +145,7 @@ prop_list_copy_empty(GPtrArray *plist)
 gboolean 
 prop_list_load(GPtrArray *props, DataNode data_node, GError **err)
 {
-  int i;
+  guint i;
   gboolean ret = TRUE;
 
   for (i = 0; i < props->len; i++) {
@@ -174,7 +174,7 @@ prop_list_load(GPtrArray *props, DataNode data_node, GError **err)
 void 
 prop_list_save(GPtrArray *props, DataNode data)
 {
-  int i;
+  guint i;
   for (i = 0; i < props->len; i++) {
     Property *prop = g_ptr_array_index(props,i);
     AttributeNode attr = new_attribute(data,prop->descr->name);
@@ -185,7 +185,7 @@ prop_list_save(GPtrArray *props, DataNode data)
 Property *
 find_prop_by_name(const GPtrArray *props, const gchar *name) 
 {
-  int i;
+  guint i;
   GQuark prop_quark = g_quark_from_string(name);
 
   for (i = 0; i < props->len; i++) {

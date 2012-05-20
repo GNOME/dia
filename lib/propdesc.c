@@ -139,7 +139,7 @@ prop_desc_lists_union(GList *plists)
     int i;
 
     for (i = 0; plist[i].name != NULL; i++) {
-      int j;
+      guint j;
 
       if (plist[i].flags & PROP_FLAG_DONT_MERGE)
         continue; /* exclude anything that can't be merged */

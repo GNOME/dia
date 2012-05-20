@@ -206,7 +206,7 @@ object_apply_props_from_dialog(DiaObject *obj, WIDGET *dialog_widget)
   ObjectChange *change;
   PropDialog *dialog = prop_dialog_from_widget(dialog_widget);
   GPtrArray *props = g_ptr_array_new ();
-  int i;
+  guint i;
 
   prop_get_data_from_widgets(dialog);
   /* only stuff which is actually changed */

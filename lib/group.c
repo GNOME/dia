@@ -669,7 +669,7 @@ group_get_props(Group *group, GPtrArray *props)
 {
   GList *tmp;
   GPtrArray *props_list, *props_self;
-  int i;
+  guint i;
 
   /* Need to split the passed in properties to self props
    * and the ones really passed to the list of owned objects.
@@ -704,7 +704,7 @@ group_set_props(Group *group, GPtrArray *props)
 {
   GList *tmp;
   GPtrArray *props_list, *props_self;
-  int i;
+  guint i;
 
   /* Need to split the passed in properties to self props
    * and the ones really passed to the list of owned objects.
@@ -744,7 +744,7 @@ group_apply_properties_list(Group *group, GPtrArray *props)
   ObjectChange *objchange;
   GroupPropChange *change = NULL;
   GPtrArray *props_list, *props_self;
-  int i;
+  guint i;
 
   change = g_new0(GroupPropChange, 1);
 

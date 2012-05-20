@@ -111,7 +111,7 @@ arrayprop_load(ArrayProperty *prop, AttributeNode attr, DataNode data)
 static void 
 arrayprop_save(ArrayProperty *prop, AttributeNode attr) 
 {
-  int i;
+  guint i;
   const PropDescCommonArrayExtra *extra = prop->common.descr->extra_data;
   
   for (i = 0; i < prop->records->len; i++) {

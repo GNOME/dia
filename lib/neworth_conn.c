@@ -264,7 +264,7 @@ neworthconn_update_midpoints(NewOrthConn *orth)
 
 
 static void
-adjust_handle_count_to(NewOrthConn *orth, guint count) {
+adjust_handle_count_to(NewOrthConn *orth, gint count) {
   /* This will shrink or expand orth->handles as necessary (so that 
      orth->numhandles matches orth->numpoints-1, most probably), by adding or
      removing minor handles and keeping the endpoint handles at the 
