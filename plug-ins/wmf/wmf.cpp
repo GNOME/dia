@@ -59,9 +59,14 @@ typedef W32::LOGFONTW LOGFONTW;
 #include <pango/pangowin32.h>
 
 #elif HAVE_LIBEMF
+/* We have to define STRICT to make libemf/64 work. Otherwise there is
+wmf.cpp:1383:40: error: cast from 'void*' to 'W32::HDC' loses precision
+ */
+#define STRICT
   namespace W32 {
 #  include <emf.h>
   }
+#undef STRICT
 #else
 #  include "wmf_gdi.h"
 #  define DIRECT_WMF
