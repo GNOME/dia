@@ -196,7 +196,7 @@ pixbuf_encode_base64 (const GdkPixbuf *pixbuf)
 
   ed.array = g_byte_array_new ();
 
-  if (!gdk_pixbuf_save_to_callback (pixbuf, _pixbuf_encode, &ed, "png", &error, NULL)) {
+  if (!gdk_pixbuf_save_to_callback ((GdkPixbuf *)pixbuf, _pixbuf_encode, &ed, "png", &error, NULL)) {
     message_error (_("Saving inline pixbuf failed:\n%s"), error->message);
     g_error_free (error);
     return NULL;
