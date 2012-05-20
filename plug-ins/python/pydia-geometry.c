@@ -360,14 +360,16 @@ PyDiaMatrix_Str(PyDiaMatrix *self)
  * sequence interface (query only) 
  */
 /* Point */
-static int
-point_length(PyDiaRectangle *self)
+static gssize
+point_length(PyObject *self)
 {
   return 2;
 }
 static PyObject *
-point_item(PyDiaPoint* self, int i)
+point_item(PyObject* o, gssize i)
 {
+  PyDiaPoint* self = (PyDiaPoint*)o;
+
   switch (i) {
   case 0 : return PyFloat_FromDouble(self->pt.x);
   case 1 : return PyFloat_FromDouble(self->pt.y);
@@ -377,7 +379,7 @@ point_item(PyDiaPoint* self, int i)
   }
 }
 static PyObject *
-point_slice(PyDiaPoint* self, int i, int j)
+point_slice(PyObject *o, gssize i, gssize j)
 {
   PyObject *ret;
 
@@ -389,33 +391,35 @@ point_slice(PyDiaPoint* self, int i, int j)
     j = 1;
   ret = PyTuple_New(j - i + 1);
   if (ret) {
-    int k;
+    gssize k;
     for (k = i; k <= j && k < 2; k++)
-      PyTuple_SetItem(ret, k - i, point_item(self, k)); 
+      PyTuple_SetItem(ret, k - i, point_item(o, k)); 
   }
   return ret;
 }
 
 static PySequenceMethods point_as_sequence = {
-	(inquiry)point_length, /*sq_length*/
+	point_length, /*sq_length*/
 	(binaryfunc)0, /*sq_concat*/
-	(intargfunc)0, /*sq_repeat*/
-	(intargfunc)point_item, /*sq_item*/
-	(intintargfunc)point_slice, /*sq_slice*/
+	0, /*sq_repeat*/
+	point_item, /*sq_item*/
+	point_slice, /*sq_slice*/
 	0,		/*sq_ass_item*/
 	0,		/*sq_ass_slice*/
 	(objobjproc)0 /*sq_contains*/
 };
 
 /* Rect */
-static int
-rect_length(PyDiaRectangle *self)
+static gssize
+rect_length(PyObject *o)
 {
   return 4;
 }
 static PyObject *
-rect_item(PyDiaRectangle* self, int i)
+rect_item(PyObject *o, gssize i)
 {
+  PyDiaRectangle* self = (PyDiaRectangle *)o;
+
   switch (i) {
   case 0 : return PyDiaRectangle_GetAttr(self, "left");
   case 1 : return PyDiaRectangle_GetAttr(self, "top");
@@ -427,7 +431,7 @@ rect_item(PyDiaRectangle* self, int i)
   }
 }
 static PyObject *
-rect_slice(PyDiaRectangle* self, int i, int j)
+rect_slice(PyObject* o, gssize i, gssize j)
 {
   PyObject *ret;
 
@@ -441,17 +445,17 @@ rect_slice(PyDiaRectangle* self, int i, int j)
   if (ret) {
     int k;
     for (k = i; k <= j && k < 4; k++)
-      PyTuple_SetItem(ret, k - i, rect_item(self, k)); 
+      PyTuple_SetItem(ret, k - i, rect_item(o, k)); 
   }
   return ret;
 }
 
 static PySequenceMethods rect_as_sequence = {
-	(inquiry)rect_length, /*sq_length*/
+	rect_length, /*sq_length*/
 	(binaryfunc)0, /*sq_concat*/
-	(intargfunc)0, /*sq_repeat*/
-	(intargfunc)rect_item, /*sq_item*/
-	(intintargfunc)rect_slice, /*sq_slice*/
+	0, /*sq_repeat*/
+	rect_item, /*sq_item*/
+	rect_slice, /*sq_slice*/
 	0,		/*sq_ass_item*/
 	0,		/*sq_ass_slice*/
 	(objobjproc)0 /*sq_contains*/
