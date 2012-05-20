@@ -376,6 +376,8 @@ layer_find_objects_containing_rectangle(Layer *layer, Rectangle *rect)
   GList *selected_list;
   DiaObject *obj;
 
+  g_return_val_if_fail  (layer != NULL, NULL);
+
   selected_list = NULL;
   list = layer->objects;
   while (list != NULL) {
