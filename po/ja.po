@@ -10,16 +10,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia master\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
-"product=dia&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2012-02-14 21:35+0000\n"
-"PO-Revision-Date: 2012-02-25 16:08+0900\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=dia&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2012-05-03 10:42+0000\n"
+"PO-Revision-Date: 2012-05-04 18:04+0900\n"
 "Last-Translator: OKANO Takayoshi <kano@na.rim.or.jp>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
+"Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: ja\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 # UML訳語集 http://www.umtp-japan.org/pdf/japanese.pdf
@@ -111,12 +110,8 @@ msgid "WxH"
 msgstr "WxH"
 
 #: ../app/app_procs.c:714
-msgid ""
-"Show only specified layers (e.g. when exporting). Can be either the layer "
-"name or a range of layer numbers (X-Y)"
-msgstr ""
-"指定したレイヤーだけ表示する (例えばエクスポートする時など): レイヤー名または"
-"レイヤー番号の範囲 (X-Y) で指定する"
+msgid "Show only specified layers (e.g. when exporting). Can be either the layer name or a range of layer numbers (X-Y)"
+msgstr "指定したレイヤーだけ表示する (例えばエクスポートする時など): レイヤー名またはレイヤー番号の範囲 (X-Y) で指定する"
 
 #: ../app/app_procs.c:715
 msgid "LAYER,LAYER,..."
@@ -132,8 +127,7 @@ msgstr "空のダイアグラムを生成しない"
 
 #: ../app/app_procs.c:721
 msgid "Start integrated user interface (diagrams in tabs)"
-msgstr ""
-"埋め込み型のユーザーインターフェースで起動する (ダイアグラムをタブ化する)"
+msgstr "埋め込み型のユーザーインターフェースで起動する (ダイアグラムをタブ化する)"
 
 #: ../app/app_procs.c:723
 msgid "Send error messages to stderr instead of showing dialogs."
@@ -200,20 +194,13 @@ msgid "Dia version %s\n"
 msgstr "Dia バージョン %s\n"
 
 #: ../app/app_procs.c:921
-msgid ""
-"Couldn't find standard objects when looking for object-libs; exiting...\n"
-msgstr ""
-"オブジェクトのライブラリから標準オブジェクトを見つけられなかったので終了しま"
-"す...\n"
+msgid "Couldn't find standard objects when looking for object-libs; exiting...\n"
+msgstr "オブジェクトのライブラリから標準オブジェクトを見つけられなかったので終了します...\n"
 
 #: ../app/app_procs.c:923
 #, c-format
-msgid ""
-"Couldn't find standard objects when looking for object-libs in '%s'; "
-"exiting...\n"
-msgstr ""
-"オブジェクトのライブラリ '%s' から標準オブジェクトを見つけられなかったので終"
-"了します...\n"
+msgid "Couldn't find standard objects when looking for object-libs in '%s'; exiting...\n"
+msgstr "オブジェクトのライブラリ '%s' から標準オブジェクトを見つけられなかったので終了します...\n"
 
 #: ../app/app_procs.c:987
 msgid "Diagram1.dia"
@@ -237,12 +224,8 @@ msgid "Quitting without saving modified diagrams"
 msgstr "編集中のダイアグラムを保存せずに終了します"
 
 #: ../app/app_procs.c:1103
-msgid ""
-"Modified diagrams exist. Are you sure you want to quit Dia without saving "
-"them?"
-msgstr ""
-"ダイアグラムが変更されています。本当に保存せずに Dia を終了してもよろしいです"
-"か?"
+msgid "Modified diagrams exist. Are you sure you want to quit Dia without saving them?"
+msgstr "ダイアグラムが変更されています。本当に保存せずに Dia を終了してもよろしいですか?"
 
 #: ../app/app_procs.c:1107
 msgid "Quit Dia"
@@ -253,12 +236,8 @@ msgid "Could not create per-user Dia configuration directory"
 msgstr "Dia のユーザー設定フォルダーを作成できませんでした"
 
 #: ../app/app_procs.c:1190
-msgid ""
-"Could not create per-user Dia configuration directory. Please make sure that "
-"the environment variable HOME points to an existing directory."
-msgstr ""
-"ユーザー用の Dia 設定フォルダーを作成できませんでした。環境変数 $HOME が既存"
-"のフォルダーを指しているか確認してください。"
+msgid "Could not create per-user Dia configuration directory. Please make sure that the environment variable HOME points to an existing directory."
+msgstr "ユーザー用の Dia 設定フォルダーを作成できませんでした。環境変数 $HOME が既存のフォルダーを指しているか確認してください。"
 
 #: ../app/app_procs.c:1213
 msgid "Objects and filters internal to Dia"
@@ -406,21 +385,16 @@ msgstr "%d ページのダイアグラムをエクスポートしています。
 
 #: ../app/confirm.c:69
 #, c-format
-msgid ""
-"You are about to export a diagram which may require %s of memory.(%d pages)."
-msgstr "サイズが %s (%d ページ) のダイアログをエクスポートしています。"
+msgid "You are about to export a diagram which may require %s of memory.(%d pages)."
+msgstr "サイズが %s (%d ページ) のダイアグラムをエクスポートしています。"
 
 #: ../app/confirm.c:77
 msgid ""
-"You can adjust the size of the diagram by changing the 'Scaling' in the "
-"'Page Setup' dialog.\n"
-"Alternatively use 'Select All' and 'Best Fit' to move objects/handles into "
-"the intended bounds."
+"You can adjust the size of the diagram by changing the 'Scaling' in the 'Page Setup' dialog.\n"
+"Alternatively use 'Select All' and 'Best Fit' to move objects/handles into the intended bounds."
 msgstr ""
-"ページ設定ダイアログの倍率を変更することで、ダイアグラムのサイズを調節できま"
-"す。\n"
-"もしくは、\"すべて選択\" して \"フィットさせる\" ことでオブジェクトなどの大き"
-"さを変更できます。"
+"ページ設定ダイアログの倍率を変更することで、ダイアグラムのサイズを調節できます。\n"
+"もしくは、\"すべて選択\" して \"フィットさせる\" ことでオブジェクトなどの大きさを変更できます。"
 
 #: ../app/confirm.c:81
 msgid "Confirm Diagram Size"
@@ -717,7 +691,7 @@ msgid ""
 "The diagram '%s'\n"
 "has not been saved. Save changes now?"
 msgstr ""
-"'%s' というダイアログを保存していません。\n"
+"'%s' というダイアグラムを保存していません。\n"
 "今すぐ保存しますか?"
 
 #: ../app/display.c:1307
@@ -826,13 +800,8 @@ msgid "Compress diagram files"
 msgstr "ファイルを圧縮する"
 
 #: ../app/filedlg.c:511
-msgid ""
-"Compression reduces file size to less than 1/10th size and speeds up loading "
-"and saving.  Some text programs cannot manipulate compressed files."
-msgstr ""
-"圧縮すると、ファイルサイズを 1/10 以下に減らして読み込みと保存の高速化につな"
-"がります (注意: 圧縮したファイルを処理できないテキスト処理プログラムがいくつ"
-"かあります)"
+msgid "Compression reduces file size to less than 1/10th size and speeds up loading and saving.  Some text programs cannot manipulate compressed files."
+msgstr "圧縮すると、ファイルサイズを 1/10 以下に減らして読み込みと保存の高速化につながります (注意: 圧縮したファイルを処理できないテキスト処理プログラムがいくつかあります)"
 
 #: ../app/filedlg.c:741
 #, c-format
@@ -1009,46 +978,24 @@ msgid "Flowchart"
 msgstr "フローチャート"
 
 #: ../app/interface.c:1539
-msgid ""
-"Foreground & background colors for new objects.  The small black and white "
-"squares reset colors.  The small arrows swap colors.  Double-click to change "
-"colors."
-msgstr ""
-"新しいオブジェクトの前景色と背景色で、小さい方の黒と白の四角をクリックすると"
-"色をリセットし、小さな矢印をクリックすると双方の色を交換します (ダブルクリッ"
-"クすると色を変更できます)"
+msgid "Foreground & background colors for new objects.  The small black and white squares reset colors.  The small arrows swap colors.  Double-click to change colors."
+msgstr "新しいオブジェクトの前景色と背景色で、小さい方の黒と白の四角をクリックすると色をリセットし、小さな矢印をクリックすると双方の色を交換します (ダブルクリックすると色を変更できます)"
 
 #: ../app/interface.c:1553
-msgid ""
-"Line widths.  Click on a line to set the default line width for new "
-"objects.  Double-click to set the line width more precisely."
-msgstr ""
-"新しいオブジェクトの線の太さで、線をクリックするとデフォルトの太さをセットし"
-"ます (ダブルクリックするとより詳細に設定できます)"
+msgid "Line widths.  Click on a line to set the default line width for new objects.  Double-click to set the line width more precisely."
+msgstr "新しいオブジェクトの線の太さで、線をクリックするとデフォルトの太さをセットします (ダブルクリックするとより詳細に設定できます)"
 
 #: ../app/interface.c:1596
-msgid ""
-"Arrow style at the beginning of new lines.  Click to pick an arrow, or set "
-"arrow parameters with Details…"
-msgstr ""
-"新しい線オブジェクトの矢印の始点スタイルで、クリックして矢印を選択するか、[詳"
-"細…] で矢印のパラメーターを設定します"
+msgid "Arrow style at the beginning of new lines.  Click to pick an arrow, or set arrow parameters with Details…"
+msgstr "新しい線オブジェクトの矢印の始点スタイルで、クリックして矢印を選択するか、[詳細…] で矢印のパラメーターを設定します"
 
 #: ../app/interface.c:1601
-msgid ""
-"Line style for new lines.  Click to pick a line style, or set line style "
-"parameters with Details…"
-msgstr ""
-"新しい線オブジェクトの線種で、クリックして線種を選択するか、[詳細…] で線種の"
-"パラメーターを設定します"
+msgid "Line style for new lines.  Click to pick a line style, or set line style parameters with Details…"
+msgstr "新しい線オブジェクトの線種で、クリックして線種を選択するか、[詳細…] で線種のパラメーターを設定します"
 
 #: ../app/interface.c:1617
-msgid ""
-"Arrow style at the end of new lines.  Click to pick an arrow, or set arrow "
-"parameters with Details…"
-msgstr ""
-"新しい線オブジェクトの矢印の終点スタイルで、クリックして矢印を選択するか、[詳"
-"細…] で矢印のパラメーターを設定します"
+msgid "Arrow style at the end of new lines.  Click to pick an arrow, or set arrow parameters with Details…"
+msgstr "新しい線オブジェクトの矢印の終点スタイルで、クリックして矢印を選択するか、[詳細…] で矢印のパラメーターを設定します"
 
 #: ../app/interface.c:1676 ../app/interface.c:1800 ../dia.desktop.in.in.h:2
 msgid "Diagram Editor"
@@ -2752,22 +2699,13 @@ msgstr "参照"
 
 #. Installer message if no GTK+ was found
 #: ../installer/win32/gennsh.c:39
-msgid ""
-"GTK+ is not installed. Please use the full installer. It is available from "
-"http://dia-installer.de."
-msgstr ""
-"GTK+ がインストールされていません。フルバージョンのインストーラーを使って "
-"Dia をインストールしてください。このインストーラーは http://dia-installer.de "
-"にあります。"
+msgid "GTK+ is not installed. Please use the full installer. It is available from http://dia-installer.de."
+msgstr "GTK+ がインストールされていません。フルバージョンのインストーラーを使って Dia をインストールしてください。このインストーラーは http://dia-installer.de にあります。"
 
 #. Installer message: Don't install over pre 0.95 versions
 #: ../installer/win32/gennsh.c:42
-msgid ""
-"Please remove old Dia installations completely or install Dia to a different "
-"location."
-msgstr ""
-"古い Dia をすべて削除するか、新しい Dia を別の場所にインストールしてくださ"
-"い。"
+msgid "Please remove old Dia installations completely or install Dia to a different location."
+msgstr "古い Dia をすべて削除するか、新しい Dia を別の場所にインストールしてください。"
 
 #. Installer message:  License Page
 #: ../installer/win32/gennsh.c:45
@@ -2776,12 +2714,8 @@ msgstr "次へ >"
 
 #. Installer message, keep the $(^Name) and $_CLICK, these will be replaced
 #: ../installer/win32/gennsh.c:48
-msgid ""
-"$(^Name) is released under the GPL license. The license is provided here for "
-"information purposes only. $_CLICK"
-msgstr ""
-"$(^Name) は GPL ライセンスの下で配布されています (詳細はライセンスの全文を参"
-"照してください)。$_CLICK"
+msgid "$(^Name) is released under the GPL license. The license is provided here for information purposes only. $_CLICK"
+msgstr "$(^Name) は GPL ライセンスの下で配布されています (詳細はライセンスの全文を参照してください)。$_CLICK"
 
 #. Installer message: Components page
 #: ../installer/win32/gennsh.c:51
@@ -2810,12 +2744,8 @@ msgstr "Python のプラグイン"
 
 #. Installer message: Component description
 #: ../installer/win32/gennsh.c:66
-msgid ""
-"Support for the Python Scripting Language 2.3. Do not select this if Python "
-"is not installed."
-msgstr ""
-"Python スクリプト言語のバージョン 2.3 対応のプラグインです (Python がインス"
-"トールされていない場合は選択しないこと)"
+msgid "Support for the Python Scripting Language 2.3. Do not select this if Python is not installed."
+msgstr "Python スクリプト言語のバージョン 2.3 対応のプラグインです (Python がインストールされていない場合は選択しないこと)"
 
 #. Installer message: hyperlink text on finish page
 #: ../installer/win32/gennsh.c:69
@@ -2829,32 +2759,18 @@ msgstr "Dia (削除だけ)"
 
 #. Installer message: confirmation question. Keep $\r
 #: ../installer/win32/gennsh.c:75
-msgid ""
-"Your old Dia directory is about to be deleted. Would you like to continue?$\r"
-"$\rNote: Any non-standard plugins that you may have installed will be "
-"deleted.$\rDia user settings will not be affected."
-msgstr ""
-"古い Dia のフォルダーを削除しますが、続行してもよろしいですか?$\r$\r注意: イ"
-"ンストールされている標準以外のプラグインも削除されます。$\rDia の設定には影響"
-"ありません。"
+msgid "Your old Dia directory is about to be deleted. Would you like to continue?$\r$\rNote: Any non-standard plugins that you may have installed will be deleted.$\rDia user settings will not be affected."
+msgstr "古い Dia のフォルダーを削除しますが、続行してもよろしいですか?$\r$\r注意: インストールされている標準以外のプラグインも削除されます。$\rDia の設定には影響ありません。"
 
 #. Installer message: confirmatin question. Keep $\r
 #: ../installer/win32/gennsh.c:78
-msgid ""
-"The installation directory you specified already exists. Any contents$\rwill "
-"be deleted. Would you like to continue?"
-msgstr ""
-"指定したインストール先のフォルダーは既に存在しています。その中にあるすべての"
-"ファイル$\rを削除しますが、続行してもよろしいですか?"
+msgid "The installation directory you specified already exists. Any contents$\rwill be deleted. Would you like to continue?"
+msgstr "指定したインストール先のフォルダーは既に存在しています。その中にあるすべてのファイル$\rを削除しますが、続行してもよろしいですか?"
 
 #. Installer message: Uninstall Section Prompts. Keep $\r
 #: ../installer/win32/gennsh.c:81
-msgid ""
-"The uninstaller could not find registry entries for Dia.$\rIt is likely that "
-"another user installed this application."
-msgstr ""
-"レジストリの中に Dia のエントリを見つけることができませんでした。$\rDia を別"
-"のユーザーがインストールしている可能性があります。"
+msgid "The uninstaller could not find registry entries for Dia.$\rIt is likely that another user installed this application."
+msgstr "レジストリの中に Dia のエントリを見つけることができませんでした。$\rDia を別のユーザーがインストールしている可能性があります。"
 
 #. Installer message: Uninstall error message
 #: ../installer/win32/gennsh.c:84
@@ -2868,8 +2784,7 @@ msgstr "$INSTDIR とそのサブフォルダーをすべて削除します。続
 
 #. Installer message: Uninstallation warning. Keep $\PROFILE\.dia
 #: ../installer/win32/gennsh.c:90
-msgid ""
-"This will completely delete $PROFILE\\.dia and all subdirectories. Continue?"
+msgid "This will completely delete $PROFILE\\.dia and all subdirectories. Continue?"
 msgstr "$PROFILE\\.dia とサブフォルダーをすべて削除します。続行しますか?"
 
 #: ../objects/AADL/aadl.c:52
@@ -3267,7 +3182,7 @@ msgstr "エンティティ"
 
 #: ../objects/ER/er.c:44
 msgid "Entity/Relationship diagram objects"
-msgstr "エンティティ/リレーションシップのダイアログオブジェクト"
+msgstr "エンティティ/リレーションシップのダイアグラムオブジェクト"
 
 #: ../objects/ER/participation.c:118
 msgid "Total:"
@@ -4816,11 +4731,8 @@ msgid "Automatically gray vertical flows:"
 msgstr "自動的に灰色の垂直フローにする:"
 
 #: ../objects/SADT/arrow.c:151
-msgid ""
-"To improve the ease of reading, flows which begin and end vertically can be "
-"rendered gray"
-msgstr ""
-"見やすさを向上するために、始点と終点の垂直方向のフローを灰色で描画します"
+msgid "To improve the ease of reading, flows which begin and end vertically can be rendered gray"
+msgstr "見やすさを向上するために、始点と終点の垂直方向のフローを灰色で描画します"
 
 #: ../objects/SADT/arrow.c:470
 msgid "SADT Arrow"
@@ -5769,7 +5681,7 @@ msgstr "イベントが発行された時にこの遷移を受け取るための
 
 #: ../objects/UML/uml.c:67
 msgid "Unified Modelling Language diagram objects UML 1.3"
-msgstr "UML ダイアログのオブジェクト (UML 1.3)"
+msgstr "UML ダイアグラムのオブジェクト (UML 1.3)"
 
 #: ../objects/UML/umlattribute.c:47
 msgid "Abstract (?)"
@@ -5928,16 +5840,12 @@ msgstr "カスタム XML ラインのローダー"
 
 #: ../objects/custom_lines/custom_linetypes.c:244
 msgid "INTERNAL: CustomLines: Illegal line type in LineInfo object."
-msgstr ""
-"INTERNAL: CustomLines: LineInfo オブジェクトの中にある線の種類が間違っていま"
-"す"
+msgstr "INTERNAL: CustomLines: LineInfo オブジェクトの中にある線の種類が間違っています"
 
 #: ../objects/custom_lines/custom_linetypes.c:269
 #, c-format
 msgid "INTERNAL: CustomLines: Illegal line type in LineInfo object %s."
-msgstr ""
-"INTERNAL: CustomLines: LineInfo オブジェクト (%s) の中にある線の種類が間違っ"
-"ています"
+msgstr "INTERNAL: CustomLines: LineInfo オブジェクト (%s) の中にある線の種類が間違っています"
 
 #: ../objects/custom/shape_info.c:165
 #, c-format
@@ -6484,9 +6392,7 @@ msgstr "Python スクリプトのサポート"
 
 #: ../plug-ins/shape/shape-export.c:480
 msgid "Shape files must end in .shape, or they cannot be loaded by Dia"
-msgstr ""
-"シェイプファイルの拡張子は .shape にするか、または Dia で読み込めるファイルで"
-"はありません"
+msgstr "シェイプファイルの拡張子は .shape にするか、または Dia で読み込めるファイルではありません"
 
 #: ../plug-ins/shape/shape-export.c:494
 #, fuzzy
@@ -6624,9 +6530,7 @@ msgstr "WordPerfect Graphics のエクスポート用フィルター"
 #: ../plug-ins/xfig/xfig-export.c:464
 #, c-format
 msgid "Fig format has no equivalent of arrow style %s; using simple arrow.\n"
-msgstr ""
-"Fig フォーマットには矢印スタイル %s と同等なものがありません (標準の矢印を使"
-"用します)\n"
+msgstr "Fig フォーマットには矢印スタイル %s と同等なものがありません (標準の矢印を使用します)\n"
 
 #: ../plug-ins/xfig/xfig-export.c:487
 msgid "No more user-definable colors - using black"
@@ -6745,8 +6649,7 @@ msgstr "Compound end outside compound\n"
 #: ../plug-ins/xfig/xfig-import.c:1054
 #, c-format
 msgid "Color number %d out of range 0..%d.  Discarding color.\n"
-msgstr ""
-"色番号 %d は上限を越えているので (有効範囲は 0〜%d)、小さな番号の色にします\n"
+msgstr "色番号 %d は上限を越えているので (有効範囲は 0〜%d)、小さな番号の色にします\n"
 
 #: ../plug-ins/xfig/xfig-import.c:1101
 #, c-format
@@ -6827,8 +6730,7 @@ msgstr "FIG ファイルではないようです: %s\n"
 #, fuzzy, c-format
 #| msgid "This is a FIG version %d.%d file, I may not understand it\n"
 msgid "This is a Fig version %d.%d file. It may not be importable.\n"
-msgstr ""
-"これは FIG バージョン %d.%d のファイルです (認識できないかもしれません)\n"
+msgstr "これは FIG バージョン %d.%d のファイルです (認識できないかもしれません)\n"
 
 #: ../plug-ins/xfig/xfig-import.c:1337
 msgid "Xfig File Format"
@@ -6876,8 +6778,7 @@ msgstr "XSL 変換用フィルター"
 #, fuzzy
 #| msgid "No valid configuration files found for the XSLT plugin, not loading."
 msgid "No valid configuration files found for the XSLT plugin; not loading."
-msgstr ""
-"XSLT プラグインの適切な設定ファイルが見つからないか、読み込まれていません"
+msgstr "XSLT プラグインの適切な設定ファイルが見つからないか、読み込まれていません"
 
 #: ../plug-ins/xslt/xsltdialog.c:99
 msgid "Export through XSLT"
@@ -6944,9 +6845,7 @@ msgstr "基本図形"
 #. Leave as is for now, renaming too much hassle.
 #. Will probably need to split into seperate sheets soon anyway.
 #: ../sheets/Assorted.sheet.in.h:6
-msgid ""
-"An Assorted Collection of Polygons, Beziergons and other Miscellaneous "
-"Geometric Shapes"
+msgid "An Assorted Collection of Polygons, Beziergons and other Miscellaneous Geometric Shapes"
 msgstr "多角形、ベジェ曲線とその他いろいろな幾何学シェイプを集めた基本図形"
 
 #: ../sheets/Assorted.sheet.in.h:7
@@ -10786,12 +10685,8 @@ msgstr "複製サーバーマネージャー"
 #~ msgid "Y position of child widget"
 #~ msgstr "子ウィジェットのY位置"
 
-#~ msgid ""
-#~ "You cannot group objects that belong to different groups or have "
-#~ "different parents"
-#~ msgstr ""
-#~ "別のグループに所属しているオブジェクト、または親が異なるオブジェクトはグ"
-#~ "ループ化できません。"
+#~ msgid "You cannot group objects that belong to different groups or have different parents"
+#~ msgstr "別のグループに所属しているオブジェクト、または親が異なるオブジェクトはグループ化できません。"
 
 #~ msgid "/_Sort objects"
 #~ msgstr "/オブジェクトの並び替え(_S)"
