@@ -1,6 +1,7 @@
 ## Process this file with automake to produce Makefile.in
+sampledir = $(pkgdatadir)/samples
 
-EXTRA_DIST = \
+sample_DATA = \
 	Circuit.dia \
 	ER-demo.dia \
 	UML-demo.dia \
@@ -14,7 +15,9 @@ EXTRA_DIST = \
 	UMLPackages.dia \
 	TexChars.dia \
 	Metapost-Testcase.dia \
-	CompositeAction.dia \
+	CompositeAction.dia
+
+EXTRA_DIST = $(sample_DATA) \
 	dia_gnome_icon.png \
 	dia_logo.png
 
