@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=dia&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2012-05-03 10:42+0000\n"
-"PO-Revision-Date: 2012-05-04 18:04+0900\n"
-"Last-Translator: OKANO Takayoshi <kano@na.rim.or.jp>\n"
+"POT-Creation-Date: 2012-06-11 20:24+0000\n"
+"PO-Revision-Date: 2012-06-15 21:20+0900\n"
+"Last-Translator: Hiroyuki Ono <sp7r3uy9@bird.ocn.ne.jp>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
@@ -1789,7 +1789,7 @@ msgid "Portable Network Graphics"
 msgstr "PNG 画像:"
 
 #: ../app/preferences.c:224 ../plug-ins/svg/render_svg.c:503
-#: ../plug-ins/svg/svg-import.c:1205
+#: ../plug-ins/svg/svg-import.c:1207
 msgid "Scalable Vector Graphics"
 msgstr "スケーラブルベクターグラフィックス (SVG):"
 
@@ -1797,11 +1797,11 @@ msgstr "スケーラブルベクターグラフィックス (SVG):"
 msgid "PostScript"
 msgstr "PostScript:"
 
-#: ../app/preferences.c:228 ../plug-ins/wmf/wmf.cpp:1464
+#: ../app/preferences.c:228 ../plug-ins/wmf/wmf.cpp:1469
 msgid "Windows Metafile"
 msgstr "Windows メタファイル:"
 
-#: ../app/preferences.c:230 ../plug-ins/wmf/wmf.cpp:1473
+#: ../app/preferences.c:230 ../plug-ins/wmf/wmf.cpp:1478
 msgid "Enhanced Metafile"
 msgstr "拡張メタファイル:"
 
@@ -2101,7 +2101,7 @@ msgstr "交差したスラッシュ"
 
 #: ../lib/arrows.c:1900
 msgid "Filled Ellipse"
-msgstr "楕円 (塗りつぶさない)"
+msgstr "楕円 (塗りつぶし)"
 
 #: ../lib/arrows.c:1901
 msgid "Hollow Ellipse"
@@ -2216,7 +2216,7 @@ msgstr "内部エラー: ベジェ曲線の端点の種類の設定"
 #: ../lib/create.c:50 ../lib/create.c:100 ../lib/create.c:127
 #: ../lib/create.c:161 ../lib/create.c:197 ../lib/create.c:224
 #: ../lib/create.c:260 ../lib/create.c:295 ../lib/create.c:338
-#: ../plug-ins/svg/svg-import.c:331 ../plug-ins/vdx/vdx-import.c:145
+#: ../plug-ins/svg/svg-import.c:333 ../plug-ins/vdx/vdx-import.c:145
 msgid "Can't find standard object"
 msgstr "標準オブジェクトが見つかりません"
 
@@ -6088,7 +6088,7 @@ msgid "Clipboard copy failed"
 msgstr "クリップボードへのコピーに失敗しました"
 
 #: ../plug-ins/cairo/diacairo.c:359 ../plug-ins/postscript/postscript.c:39
-#: ../plug-ins/wmf/wmf.cpp:1488
+#: ../plug-ins/wmf/wmf.cpp:1493
 msgid "Nothing to print"
 msgstr "印刷するものがありません"
 
@@ -6408,7 +6408,7 @@ msgstr "Dia シェイプファイル"
 msgid "Dia shape export filter"
 msgstr "Dia シェイプのエクスポート用フィルター"
 
-#: ../plug-ins/svg/svg-import.c:322
+#: ../plug-ins/svg/svg-import.c:324
 msgid ""
 "Invalid path data.\n"
 "svg:path data must start with moveto."
@@ -6416,11 +6416,11 @@ msgstr ""
 "パスが間違っています。\n"
 "svg:path データは moveto で始めてください。"
 
-#: ../plug-ins/svg/svg-import.c:1120
+#: ../plug-ins/svg/svg-import.c:1122
 msgid "Expected SVG Namespace not found in file"
 msgstr "ファイルの中に SVG 名前空間がありませんでした"
 
-#: ../plug-ins/svg/svg-import.c:1140
+#: ../plug-ins/svg/svg-import.c:1142
 #, c-format
 msgid "root element was '%s' -- expecting 'svg'."
 msgstr "ルートの要素が '%s' でした -- 'svg' であるべきです."
@@ -6483,7 +6483,7 @@ msgstr "オブジェクト %u を書き込めません"
 msgid "Visio XML Format import and export filter"
 msgstr "Visio XML 形式のインポート/エクスポート用フィルター"
 
-#: ../plug-ins/wmf/wmf.cpp:309
+#: ../plug-ins/wmf/wmf.cpp:314
 #, c-format
 msgid ""
 "Couldn't write file %s\n"
@@ -6492,7 +6492,7 @@ msgstr ""
 "ファイル %s を書き込めませんでした\n"
 "%s"
 
-#: ../plug-ins/wmf/wmf.cpp:558
+#: ../plug-ins/wmf/wmf.cpp:563
 #, c-format
 msgid ""
 "Cannot render unknown font:\n"
@@ -6501,16 +6501,16 @@ msgstr ""
 "不明なフォントを描画できません:\n"
 "%s"
 
-#: ../plug-ins/wmf/wmf.cpp:1365
+#: ../plug-ins/wmf/wmf.cpp:1370
 #, c-format
 msgid "Couldn't open: '%s' for writing.\n"
 msgstr "'%s' を書き込みモードで開けませんでした\n"
 
-#: ../plug-ins/wmf/wmf.cpp:1496
+#: ../plug-ins/wmf/wmf.cpp:1501
 msgid "Print (GDI) ..."
 msgstr "印刷 (GDI) ..."
 
-#: ../plug-ins/wmf/wmf.cpp:1512
+#: ../plug-ins/wmf/wmf.cpp:1517
 msgid "WMF export filter"
 msgstr "WMF のエクスポート用フィルター"
 
