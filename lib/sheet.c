@@ -354,7 +354,7 @@ load_register_sheet(const gchar *dirname, const gchar *filename,
     gchar *iconname = NULL;
 
     int subdesc_score = -1;
-    gchar *objdesc = NULL;
+    xmlChar *objdesc = NULL;
 
     gint intdata = 0;
     gchar *chardata = NULL;
@@ -414,8 +414,8 @@ load_register_sheet(const gchar *dirname, const gchar *filename,
 
 	if (subdesc_score < 0 || score < subdesc_score) {
 	  subdesc_score = score;
-	  if (objdesc) free(objdesc);
-	  objdesc = (gchar *) xmlNodeGetContent(subnode);
+	  if (objdesc) xmlFree(objdesc);
+	  objdesc = xmlNodeGetContent(subnode);
 	}
 	  
       } else if (subnode->ns == ns && !xmlStrcmp(subnode->name, (const xmlChar *)"icon")) {
@@ -438,7 +438,7 @@ load_register_sheet(const gchar *dirname, const gchar *filename,
 
     sheet_obj = g_new(SheetObject,1);
     sheet_obj->object_type = g_strdup((char *) ot_name);
-    sheet_obj->description = g_strdup(objdesc);
+    sheet_obj->description = g_strdup((gchar *)objdesc);
     xmlFree(objdesc); objdesc = NULL;
 
     sheet_obj->pixmap = NULL;
