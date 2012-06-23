@@ -479,7 +479,7 @@ grid_object_reallocate_cells (Grid_Object* grid_object)
 
   /* implicit: if (new_cols < old_cols) */
   for (i = new_cols; i < old_cols; ++i)
-    for (j = 0; j < old_cols && j < new_cols; ++j) /* don't double-delete */
+    for (j = 0; j < old_rows && j < new_rows; ++j) /* don't double-delete */
     {
       int cell = grid_cell(i, j, old_rows, old_cols);
       object_remove_connections_to(&grid_object->cells[cell]);
