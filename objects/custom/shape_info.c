@@ -355,6 +355,12 @@ parse_svg_node(ShapeInfo *info, xmlNodePtr node, xmlNsPtr svg_ns,
         xmlFree(str);
       } else text->anchor.y = 0;
 
+      str = xmlGetProp(node, (const xmlChar *)"font-size");
+      if (str) {
+        text->s.font_height = g_ascii_strtod((gchar *) str, NULL);
+        xmlFree(str);
+      } else text->s.font_height = 0.8;
+
       str = xmlNodeGetContent(node);
       if (str) {
         text->string = g_strdup((gchar *) str);

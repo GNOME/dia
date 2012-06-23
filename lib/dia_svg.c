@@ -400,7 +400,10 @@ dia_svg_parse_style(xmlNodePtr node, DiaSvgStyle *s, real user_scale)
   if (family || style || weight) {
     if (s->font)
       dia_font_unref (s->font);
-    s->font = dia_font_new_from_style(DIA_FONT_SANS,s->font_height/*bogus*/);
+    /* given font_height is bogus, especially if not given at all
+     * or without unit ... see bug 665648 about invalid CSS
+     */
+    s->font = dia_font_new_from_style(DIA_FONT_SANS, s->font_height > 0 ? s->font_height : 1.0);
     if (family) {
       dia_font_set_any_family(s->font,family);
       g_free(family);

@@ -385,6 +385,7 @@ read_text_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list)
     DiaSvgStyle *gs;
     gboolean any_tspan = FALSE;
     DiaMatrix *matrix = NULL;
+    real font_height = 0.0;
 
     str = xmlGetProp(node, (const xmlChar *)"transform");
     if (str) {
@@ -407,6 +408,16 @@ read_text_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list)
     str = xmlGetProp(node, (const xmlChar *)"y");
     if (str) {
       point.y = get_value_as_cm((char *) str, NULL);
+      xmlFree(str);
+    }
+
+    /* font-size can be given in the style (with absolute unit) or
+     * with it's own attribute. The latter is preferred - also by
+     * Dia's own export.
+     */
+    str = xmlGetProp(node, (const xmlChar *)"font-size");
+    if (str) {
+      font_height = get_value_as_cm((char *) str, NULL);
       xmlFree(str);
     }
 
@@ -469,7 +480,13 @@ read_text_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list)
       /* FIXME: looks like a leak but without this an imported svg is 
        * crashing on release */
       prop->attr.font = dia_font_ref (gs->font);
-      prop->attr.height = gs->font_height;
+      if (font_height > 0.0) {
+        /* font-size should be the line-height according to SVG spec,
+	 * but see node_set_text_style() - round-trip first */
+	real font_scale = dia_font_get_height (prop->attr.font) / dia_font_get_size (prop->attr.font); 
+        prop->attr.height = font_height * font_scale;
+      } else
+        prop->attr.height = gs->font_height;
       /* when operating with default values foreground and background are intentionally swapped
        * to avoid getting white text by default */
       switch (gs->fill) {
