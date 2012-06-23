@@ -2,7 +2,8 @@
 		 aspectratio?|textbox?|ext_attributes?|svg:svg)* >
 <!ATTLIST shape
   xmlns CDATA #FIXED 'http://www.daa.com.au/~james/dia-shape-ns'
-  xmlns:svg CDATA #FIXED 'http://www.w3.org/2000/svg' >
+  xmlns:svg CDATA #FIXED 'http://www.w3.org/2000/svg'
+  xmlns:xlink CDATA #FIXED 'http://www.w3.org/1999/xlink' >
 
 <!ELEMENT name (#PCDATA)* >
 
@@ -48,7 +49,7 @@
   description CDATA #IMPLIED >
 
 <!ELEMENT svg:svg (svg:g | svg:line | svg:polyline | svg:polygon | svg:rect |
-                   svg:circle | svg:ellipse | svg:path | svg:text)* >
+                   svg:circle | svg:ellipse | svg:path | svg:image | svg:text)* >
 <!ATTLIST svg:svg
   width CDATA #IMPLIED
   height CDATA #IMPLIED
@@ -56,7 +57,7 @@
   viewBox CDATA #IMPLIED >
 
 <!ELEMENT svg:g (svg:g | svg:line | svg:polyline | svg:polygon | svg:rect | 
-                 svg:circle | svg:ellipse | svg:path | svg:text )* >
+                 svg:circle | svg:ellipse | svg:path | svg:image | svg:text )* >
 <!ATTLIST svg:g
   style CDATA #IMPLIED >
 
@@ -114,3 +115,11 @@
   d CDATA #REQUIRED
   style CDATA #IMPLIED
   stroke-dasharray CDATA #IMPLIED >
+
+<!ELEMENT svg:text (#PCDATA)* >
+<!ATTLIST svg:text
+  x CDATA #REQUIRED
+  y CDATA #REQUIRED
+  style CDATA #IMPLIED
+  textLength CDATA #IMPLIED
+  font-size CDATA #IMPLIED >
