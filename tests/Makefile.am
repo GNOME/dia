@@ -10,7 +10,10 @@ tests:
 #	@test -z "${TEST_PROGS}" || ${GTESTER} --verbose ${TEST_PROGS}
 
 test: $(TEST_PROGS)
+	../app/run_dia.sh ../samples/render-test.dia --export=rt.shape && \
+	xmllint --dtdvalid ../doc/shape.dtd rt.shape
 	./objects ../objects//
+
 
 # rum make test as part of make check
 check-local: test
