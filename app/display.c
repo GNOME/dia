@@ -530,8 +530,11 @@ ddisplay_add_display_area(DDisplay *ddisp,
     bottom = dia_renderer_get_height_pixels (ddisp->renderer); 
   
   /* draw some rectangles to show where updates are...*/
-  /*  gdk_draw_rectangle(gtk_widget_get_window(ddisp->canvas), gtk_widget_get_style(ddisp->canvas)->black_gc, TRUE, left, top, right-left,bottom-top); */
-
+  /*
+  gdk_draw_rectangle(gtk_widget_get_window(ddisp->canvas), 
+		     gtk_widget_get_style(ddisp->canvas)->black_gc, TRUE, 
+		     left, top, right-left,bottom-top);
+   */
   /* Temporarily just do a union of all Irectangles: */
   if (ddisp->display_areas==NULL) {
     r = g_new(IRectangle,1);
@@ -612,9 +615,16 @@ ddisplay_update_handler(DDisplay *ddisp)
 void
 ddisplay_flush(DDisplay *ddisp)
 {
-  /* if no update is queued, queue update */
+  /* if no update is queued, queue update
+   *
+   * GTK+ handles resize with higher priority than redraw
+   * http://developer.gnome.org/gtk/2.24/gtk-General.html#GTK-PRIORITY-REDRAW:CAPS
+   * GDK_PRIORITY_REDRAW = (G_PRIORITY_HIGH_IDLE + 20) with gtk-2-22
+   * GTK_PRIORITY_RESIZE = (G_PRIORITY_HIGH_IDLE + 10)
+   * Dia's canvas rendering is in between
+   */
   if (!ddisp->update_id)
-    ddisp->update_id = g_idle_add_full (G_PRIORITY_DEFAULT_IDLE, (GSourceFunc)ddisplay_update_handler, ddisp, NULL);
+    ddisp->update_id = g_idle_add_full (G_PRIORITY_HIGH_IDLE+15, (GSourceFunc)ddisplay_update_handler, ddisp, NULL);
 }
 
 static void
