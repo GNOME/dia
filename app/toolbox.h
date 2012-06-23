@@ -30,4 +30,4 @@ GdkPixbuf *tool_get_pixbuf (ToolButton *tb);
 
 void toolbox_setup_drag_dest (GtkWidget *canvas);
 GtkWidget *toolbox_create(void);
-GtkActionGroup *create_or_ref_tool_actions (void);
+
