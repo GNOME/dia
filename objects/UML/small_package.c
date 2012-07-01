@@ -77,8 +77,7 @@ static DiaObject *smallpackage_create(Point *startpoint,
 				   Handle **handle1,
 				   Handle **handle2);
 static void smallpackage_destroy(SmallPackage *pkg);
-static DiaObject *smallpackage_load(ObjectNode obj_node, int version,
-				 const char *filename);
+static DiaObject *smallpackage_load(ObjectNode obj_node, int version,DiaContext *ctx);
 
 static PropDescription *smallpackage_describe_props(SmallPackage *smallpackage);
 static void smallpackage_get_props(SmallPackage *smallpackage, GPtrArray *props);
@@ -412,10 +411,10 @@ smallpackage_destroy(SmallPackage *pkg)
 }
 
 static DiaObject *
-smallpackage_load(ObjectNode obj_node, int version, const char *filename)
+smallpackage_load(ObjectNode obj_node, int version,DiaContext *ctx)
 {
   DiaObject *obj = object_load_using_properties(&smallpackage_type,
-                                                obj_node,version,filename);
+                                                obj_node,version,ctx);
   AttributeNode attr;
   /* For compatibility with previous dia files. If no line_width, use
    * SMALLPACKAGE_BORDERWIDTH, that was the previous line width.

@@ -32,7 +32,6 @@
 #include "connectionpoint.h"
 #include "diarenderer.h"
 #include "attributes.h"
-#include "widgets.h"
 #include "properties.h"
 
 #include "pixmaps/relationship.xpm"
@@ -91,8 +90,7 @@ static DiaObject *relationship_copy(Relationship *relationship);
 
 static void relationship_save(Relationship *relationship,
 			      ObjectNode obj_node, const char *filename);
-static DiaObject *relationship_load(ObjectNode obj_node, int version,
-				 const char *filename);
+static DiaObject *relationship_load(ObjectNode obj_node, int version,DiaContext *ctx);
 static PropDescription *
 relationship_describe_props(Relationship *relationship);
 static void
@@ -557,7 +555,7 @@ relationship_save(Relationship *relationship, ObjectNode obj_node,
 }
 
 static DiaObject *
-relationship_load(ObjectNode obj_node, int version, const char *filename)
+relationship_load(ObjectNode obj_node, int version,DiaContext *ctx)
 {
   Relationship *relationship;
   Element *elem;
@@ -572,55 +570,55 @@ relationship_load(ObjectNode obj_node, int version, const char *filename)
   obj->type = &relationship_type;
   obj->ops = &relationship_ops;
 
-  element_load(elem, obj_node);
+  element_load(elem, obj_node, ctx);
   
   relationship->border_width = 0.1;
   attr = object_find_attribute(obj_node, "border_width");
   if (attr != NULL)
-    relationship->border_width =  data_real( attribute_first_data(attr) );
+    relationship->border_width =  data_real(attribute_first_data(attr), ctx);
 
   relationship->border_color = color_black;
   attr = object_find_attribute(obj_node, "border_color");
   if (attr != NULL)
-    data_color(attribute_first_data(attr), &relationship->border_color);
+    data_color(attribute_first_data(attr), &relationship->border_color, ctx);
   
   relationship->inner_color = color_white;
   attr = object_find_attribute(obj_node, "inner_color");
   if (attr != NULL)
-    data_color(attribute_first_data(attr), &relationship->inner_color);
+    data_color(attribute_first_data(attr), &relationship->inner_color, ctx);
 
   relationship->name = NULL;
   attr = object_find_attribute(obj_node, "name");
   if (attr != NULL)
-    relationship->name = data_string(attribute_first_data(attr));
+    relationship->name = data_string(attribute_first_data(attr), ctx);
 
   relationship->left_cardinality = NULL;
   attr = object_find_attribute(obj_node, "left_card");
   if (attr != NULL)
-    relationship->left_cardinality = data_string(attribute_first_data(attr));
+    relationship->left_cardinality = data_string(attribute_first_data(attr), ctx);
 
   relationship->right_cardinality = NULL;
   attr = object_find_attribute(obj_node, "right_card");
   if (attr != NULL)
-    relationship->right_cardinality = data_string(attribute_first_data(attr));
+    relationship->right_cardinality = data_string(attribute_first_data(attr), ctx);
 
   attr = object_find_attribute(obj_node, "identifying");
   if (attr != NULL)
-    relationship->identifying = data_boolean(attribute_first_data(attr));
+    relationship->identifying = data_boolean(attribute_first_data(attr), ctx);
 
   attr = object_find_attribute(obj_node, "rotated");
   if (attr != NULL)
-    relationship->rotate = data_boolean(attribute_first_data(attr));
+    relationship->rotate = data_boolean(attribute_first_data(attr), ctx);
 
   relationship->font = NULL;
   attr = object_find_attribute (obj_node, "font");
   if (attr != NULL)
-	  relationship->font = data_font (attribute_first_data (attr));
+    relationship->font = data_font (attribute_first_data (attr), ctx);
 
   relationship->font_height = FONT_HEIGHT;
   attr = object_find_attribute(obj_node, "font_height");
   if (attr != NULL)
-    relationship->font_height = data_real(attribute_first_data(attr));
+    relationship->font_height = data_real(attribute_first_data(attr), ctx);
 
   element_init(elem, 8, NUM_CONNECTIONS);
 
@@ -631,16 +629,14 @@ relationship_load(ObjectNode obj_node, int version, const char *filename)
   }
   relationship->connections[8].flags = CP_FLAGS_MAIN;
 
-  if (relationship->font == NULL) {
+  if (relationship->font == NULL)
     relationship->font = dia_font_new_from_style(DIA_FONT_MONOSPACE,
                                                  FONT_HEIGHT);
-  }
 
   relationship_update_data(relationship);
 
-  for (i=0;i<8;i++) {
+  for (i=0;i<8;i++)
     obj->handles[i]->type = HANDLE_NON_MOVABLE;
-  }
 
   return &relationship->element.object;
 }

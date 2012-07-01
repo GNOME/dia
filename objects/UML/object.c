@@ -87,8 +87,7 @@ static DiaObject *objet_create(Point *startpoint,
 			    Handle **handle1,
 			    Handle **handle2);
 static void objet_destroy(Objet *ob);
-static DiaObject *objet_load(ObjectNode obj_node, int version,
-			  const char *filename);
+static DiaObject *objet_load(ObjectNode obj_node, int version,DiaContext *ctx);
 static PropDescription *objet_describe_props(Objet *objet);
 static void objet_get_props(Objet *objet, GPtrArray *props);
 static void objet_set_props(Objet *objet, GPtrArray *props);
@@ -536,10 +535,10 @@ objet_destroy(Objet *ob)
 }
 
 static DiaObject *
-objet_load(ObjectNode obj_node, int version, const char *filename)
+objet_load(ObjectNode obj_node, int version,DiaContext *ctx)
 {
   DiaObject * obj = object_load_using_properties(&objet_type,
-                                                 obj_node,version,filename);
+                                                 obj_node,version,ctx);
   AttributeNode attr;
   /* For compatibility with previous dia files. If no line_width, use
    * OBJET_BORDERWIDTH, that was the previous line width.

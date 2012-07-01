@@ -102,8 +102,7 @@ static DiaObject *lifeline_create(Point *startpoint,
 static real lifeline_distance_from(Lifeline *lifeline, Point *point);
 static void lifeline_update_data(Lifeline *lifeline);
 static void lifeline_destroy(Lifeline *lifeline);
-static DiaObject *lifeline_load(ObjectNode obj_node, int version,
-			     const char *filename);
+static DiaObject *lifeline_load(ObjectNode obj_node, int version,DiaContext *ctx);
 static PropDescription *lifeline_describe_props(Lifeline *lifeline);
 
 static void lifeline_get_props(Lifeline * lifeline, GPtrArray *props);
@@ -739,11 +738,11 @@ lifeline_update_data(Lifeline *lifeline)
 }
 
 static DiaObject *
-lifeline_load(ObjectNode obj_node, int version, const char *filename)
+lifeline_load(ObjectNode obj_node, int version,DiaContext *ctx)
 {
   Lifeline *lifeline;
   DiaObject *obj = object_load_using_properties(&lifeline_type,
-                                                obj_node,version,filename);
+                                                obj_node,version,ctx);
 
   lifeline = (Lifeline*)obj;
   return obj;

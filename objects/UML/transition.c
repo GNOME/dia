@@ -66,8 +66,7 @@ static DiaObject *transition_create(Point *startpoint,
                                     void *user_data,
                                     Handle **handle1,
                                     Handle **handle2);
-static DiaObject *transition_load(ObjectNode obj_node, int version,
-                                  const char *filename);
+static DiaObject *transition_load(ObjectNode obj_node, int version,DiaContext *ctx);
 
 static void transition_destroy(Transition* transition);
 static void transition_draw(Transition* transition, DiaRenderer* ddisp);
@@ -242,11 +241,10 @@ transition_create(Point *startpoint,
   return obj;
 }
 
-static DiaObject *transition_load(ObjectNode obj_node, int version,
-                                  const char *filename)
+static DiaObject *transition_load(ObjectNode obj_node, int version,DiaContext *ctx)
 {
   DiaObject *obj = object_load_using_properties(&uml_transition_type,
-                                                obj_node,version,filename);
+                                                obj_node,version,ctx);
   if (version == 0) {
     AttributeNode attr;
     /* In old objects with no autorouting, set it to false. */

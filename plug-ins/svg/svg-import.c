@@ -50,7 +50,7 @@
 #include "font.h"
 #include "attributes.h"
 
-gboolean import_svg(const gchar *filename, DiagramData *dia, void* user_data);
+gboolean import_svg(const gchar *filename, DiagramData *dia, DiaContext *ctx, void* user_data);
 static GList *read_ellipse_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list);
 static GList *read_rect_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list);
 static GList *read_line_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list);
@@ -1112,7 +1112,7 @@ read_items (xmlNodePtr   startnode,
 
 /* imports the given SVG file, returns TRUE if successful */
 gboolean
-import_svg(const gchar *filename, DiagramData *dia, void* user_data) 
+import_svg(const gchar *filename, DiagramData *dia, DiaContext *ctx, void* user_data) 
 {
   xmlDocPtr doc = xmlDoParseFile(filename);
   xmlNsPtr svg_ns;
@@ -1120,8 +1120,8 @@ import_svg(const gchar *filename, DiagramData *dia, void* user_data)
   GList *items, *item;
 
   if (!doc) {
-    message_warning("parse error for %s", 
-		    dia_message_filename(filename));
+    dia_context_add_message(ctx, _("Parse error for %s"), 
+		            dia_context_get_filename (ctx));
     return FALSE;
   }
   /* skip (emacs) comments */

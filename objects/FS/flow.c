@@ -88,8 +88,7 @@ static void flow_destroy(Flow *flow);
 static DiaObject *flow_copy(Flow *flow);
 static void flow_save(Flow *flow, ObjectNode obj_node,
 		      const char *filename);
-static DiaObject *flow_load(ObjectNode obj_node, int version,
-			 const char *filename);
+static DiaObject *flow_load(ObjectNode obj_node, int version,DiaContext *ctx);
 static PropDescription *flow_describe_props(Flow *mes);
 static void
 flow_get_props(Flow * flow, GPtrArray *props);
@@ -516,7 +515,7 @@ flow_save(Flow *flow, ObjectNode obj_node, const char *filename)
 }
 
 static DiaObject *
-flow_load(ObjectNode obj_node, int version, const char *filename)
+flow_load(ObjectNode obj_node, int version, DiaContext *ctx)
 {
   Flow *flow;
   AttributeNode attr;
@@ -533,14 +532,14 @@ flow_load(ObjectNode obj_node, int version, const char *filename)
   obj->type = &flow_type;
   obj->ops = &flow_ops;
 
-  connection_load(conn, obj_node);
+  connection_load(conn, obj_node, ctx);
   
   connection_init(conn, 3, 0);
 
   flow->text = NULL;
   attr = object_find_attribute(obj_node, "text");
   if (attr != NULL)
-    flow->text = data_text(attribute_first_data(attr));
+    flow->text = data_text(attribute_first_data(attr), ctx);
   else { /* pathologic */
     DiaFont *font = dia_font_new_from_style(DIA_FONT_SANS, FLOW_FONTHEIGHT);
 
@@ -550,7 +549,7 @@ flow_load(ObjectNode obj_node, int version, const char *filename)
 
   attr = object_find_attribute(obj_node, "type");
   if (attr != NULL)
-    flow->type = (FlowType)data_int(attribute_first_data(attr));
+    flow->type = (FlowType)data_int(attribute_first_data(attr), ctx);
 
   flow->text_handle.id = HANDLE_MOVE_TEXT;
   flow->text_handle.type = HANDLE_MINOR_CONTROL;

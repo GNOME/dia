@@ -86,21 +86,21 @@ linestyleprop_set_from_widget(LinestyleProperty *prop, WIDGET *widget)
 }
 
 static void 
-linestyleprop_load(LinestyleProperty *prop, AttributeNode attr, DataNode data)
+linestyleprop_load(LinestyleProperty *prop, AttributeNode attr, DataNode data, DiaContext *ctx)
 {
-  prop->style = data_enum(data);
+  prop->style = data_enum(data, ctx);
   prop->dash = 1.0;
   /* don't bother checking dash length if we have a solid line. */
   if (prop->style != LINESTYLE_SOLID) {
     data = data_next(data);
     if (data)
-      prop->dash = data_real(data);
+      prop->dash = data_real(data, ctx);
     else {
       ObjectNode obj_node = attr->parent;
       /* backward compatibility */
       if ((attr = object_find_attribute(obj_node, "dashlength")) &&
           (data = attribute_first_data(attr)))
-        prop->dash = data_real(data);
+        prop->dash = data_real(data, ctx);
     }
   }
 }
@@ -197,12 +197,12 @@ arrowprop_set_from_widget(ArrowProperty *prop, WIDGET *widget)
 }
 
 static void 
-arrowprop_load(ArrowProperty *prop, AttributeNode attr, DataNode data)
+arrowprop_load(ArrowProperty *prop, AttributeNode attr, DataNode data, DiaContext *ctx)
 {
   /* Maybe it would be better to store arrows as a single composite
    * attribute rather than three seperate attributes. This would break
    * binary compatibility though.*/
-  prop->arrow_data.type = data_enum(data);
+  prop->arrow_data.type = data_enum(data, ctx);
   prop->arrow_data.length = DEFAULT_ARROW_SIZE;
   prop->arrow_data.width = DEFAULT_ARROW_SIZE;
   if (prop->arrow_data.type != ARROW_NONE) {
@@ -210,12 +210,12 @@ arrowprop_load(ArrowProperty *prop, AttributeNode attr, DataNode data)
     gchar *str = g_strconcat(prop->common.descr->name, "_length", NULL);
     if ((attr = object_find_attribute(obj_node, str)) &&
         (data = attribute_first_data(attr)))
-      prop->arrow_data.length = data_real(data);
+      prop->arrow_data.length = data_real(data, ctx);
     g_free(str);
     str = g_strconcat(prop->common.descr->name, "_width", NULL);
     if ((attr = object_find_attribute(obj_node, str)) &&
         (data = attribute_first_data(attr)))
-      prop->arrow_data.width = data_real(data);
+      prop->arrow_data.width = data_real(data, ctx);
     g_free(str);
   }
 }
@@ -317,9 +317,9 @@ colorprop_set_from_widget(ColorProperty *prop, WIDGET *widget)
 }
 
 static void 
-colorprop_load(ColorProperty *prop, AttributeNode attr, DataNode data)
+colorprop_load(ColorProperty *prop, AttributeNode attr, DataNode data, DiaContext *ctx)
 {
-  data_color(data,&prop->color_data);
+  data_color(data,&prop->color_data, ctx);
 }
 
 static void 
@@ -416,11 +416,11 @@ fontprop_set_from_widget(FontProperty *prop, WIDGET *widget)
 }
 
 static void 
-fontprop_load(FontProperty *prop, AttributeNode attr, DataNode data)
+fontprop_load(FontProperty *prop, AttributeNode attr, DataNode data, DiaContext *ctx)
 {
   if (prop->font_data)
     dia_font_unref(prop->font_data);
-  prop->font_data = data_font(data);
+  prop->font_data = data_font(data, ctx);
 }
 
 static void 

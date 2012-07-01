@@ -66,14 +66,15 @@ static void GHFuncUnknownObjects(gpointer key,
 				 gpointer user_data);
 static GList *read_objects(xmlNodePtr objects,
 			   GHashTable *objects_hash,
-			   const char *filename, DiaObject *parent,
+			   DiaContext *ctx, 
+			   DiaObject  *parent,
 			   GHashTable *unknown_objects_hash);
 static void hash_free_string(gpointer       key,
 			     gpointer       value,
 			     gpointer       user_data);
 static xmlNodePtr find_node_named (xmlNodePtr p, const char *name);
-static gboolean diagram_data_load(const char *filename, DiagramData *data,
-				  void* user_data);
+static gboolean diagram_data_load(const gchar *filename, DiagramData *data,
+				  DiaContext *ctx, void* user_data);
 static gboolean write_objects(GList *objects, xmlNodePtr objects_node,
 			      GHashTable *objects_hash, int *obj_nr, 
 			      const char *filename);
@@ -114,7 +115,9 @@ GHFuncUnknownObjects(gpointer key,
  */
 static GList *
 read_objects(xmlNodePtr objects, 
-             GHashTable *objects_hash,const char *filename, DiaObject *parent,
+             GHashTable *objects_hash,
+	     DiaContext *ctx, 
+	     DiaObject *parent,
 	     GHashTable *unknown_objects_hash)
 {
   GList *list;
@@ -159,7 +162,7 @@ read_objects(xmlNodePtr objects,
       }
       else
       {
-        obj = type->ops->load(obj_node, version, filename);
+        obj = type->ops->load(obj_node, version, ctx);
         list = g_list_append(list, obj);
 
         if (parent)
@@ -176,7 +179,7 @@ read_objects(xmlNodePtr objects,
         {
           if (xmlStrcmp(child_node->name, (const xmlChar *)"children") == 0)
           {
-	    GList *children_read = read_objects(child_node, objects_hash, filename, obj, unknown_objects_hash);
+	    GList *children_read = read_objects(child_node, objects_hash, ctx, obj, unknown_objects_hash);
             list = g_list_concat(list, children_read);
             break;
           }
@@ -188,11 +191,11 @@ read_objects(xmlNodePtr objects,
     } else if (xmlStrcmp(obj_node->name, (const xmlChar *)"group")==0
                && obj_node->children) {
       /* don't create empty groups */
-      GList *inner_objects = read_objects(obj_node, objects_hash, filename, NULL, unknown_objects_hash);
+      GList *inner_objects = read_objects(obj_node, objects_hash, ctx, NULL, unknown_objects_hash);
 
       if (inner_objects) {
         obj = group_create(inner_objects);
-	object_load_props(obj,obj_node);
+	object_load_props(obj, obj_node, ctx);
 	list = g_list_append(list, obj);
       }
     } else {
@@ -352,7 +355,7 @@ find_node_named (xmlNodePtr p, const char *name)
 }
 
 static gboolean
-diagram_data_load(const char *filename, DiagramData *data, void* user_data)
+diagram_data_load(const gchar *filename, DiagramData *data, DiaContext *ctx, void* user_data)
 {
   GHashTable *objects_hash;
   int fd;
@@ -372,15 +375,14 @@ diagram_data_load(const char *filename, DiagramData *data, void* user_data)
   g_return_val_if_fail(data!=NULL, FALSE);
 
   if (g_file_test (filename, G_FILE_TEST_IS_DIR)) {
-    message_error(_("You must specify a file, not a directory.\n"));
+    dia_context_add_message(ctx, _("You must specify a file, not a directory."));
     return FALSE;
   }
 
   fd = g_open(filename, O_RDONLY, 0);
 
   if (fd==-1) {
-    message_error(_("Couldn't open: '%s' for reading.\n"),
-		  dia_message_filename(filename));
+    dia_context_add_message(ctx, _("Couldn't open: '%s' for reading.\n"), filename);
     return FALSE;
   }
 
@@ -394,11 +396,11 @@ diagram_data_load(const char *filename, DiagramData *data, void* user_data)
   /* Note that this closing and opening means we can't read from a pipe */
   close(fd);
 
-  doc = xmlDiaParseFile(filename);
+  doc = diaXmlParseFile (filename, ctx, TRUE);
 
   if (doc == NULL){
-    message_error(_("Error loading diagram %s.\nUnknown file type."),
-		  dia_message_filename(filename));
+    /* this was talking about unknown file type but it could as well be broken XML */
+    dia_context_add_message(ctx, _("Error loading diagram %s."), filename);
     return FALSE;
   }
   
@@ -430,13 +432,13 @@ diagram_data_load(const char *filename, DiagramData *data, void* user_data)
   data->bg_color = prefs.new_diagram.bg_color;
   attr = composite_find_attribute(diagramdata, "background");
   if (attr != NULL)
-    data_color(attribute_first_data(attr), &data->bg_color);
+    data_color(attribute_first_data(attr), &data->bg_color, ctx);
 
   if (diagram) {
     diagram->pagebreak_color = prefs.new_diagram.pagebreak_color;
     attr = composite_find_attribute(diagramdata, "pagebreak");
     if (attr != NULL)
-      data_color(attribute_first_data(attr), &diagram->pagebreak_color);
+      data_color(attribute_first_data(attr), &diagram->pagebreak_color, ctx);
   }
   /* load paper information from diagramdata section */
   attr = composite_find_attribute(diagramdata, "paper");
@@ -446,7 +448,7 @@ diagram_data_load(const char *filename, DiagramData *data, void* user_data)
     attr = composite_find_attribute(paperinfo, "name");
     if (attr != NULL) {
       g_free(data->paper.name);
-      data->paper.name = data_string(attribute_first_data(attr));
+      data->paper.name = data_string(attribute_first_data(attr), ctx);
     }
     if (data->paper.name == NULL || data->paper.name[0] == '\0') {
       data->paper.name = g_strdup(prefs.new_diagram.papertype);
@@ -460,41 +462,41 @@ diagram_data_load(const char *filename, DiagramData *data, void* user_data)
     
     attr = composite_find_attribute(paperinfo, "tmargin");
     if (attr != NULL)
-      data->paper.tmargin = data_real(attribute_first_data(attr));
+      data->paper.tmargin = data_real(attribute_first_data(attr), ctx);
     attr = composite_find_attribute(paperinfo, "bmargin");
     if (attr != NULL)
-      data->paper.bmargin = data_real(attribute_first_data(attr));
+      data->paper.bmargin = data_real(attribute_first_data(attr), ctx);
     attr = composite_find_attribute(paperinfo, "lmargin");
     if (attr != NULL)
-      data->paper.lmargin = data_real(attribute_first_data(attr));
+      data->paper.lmargin = data_real(attribute_first_data(attr), ctx);
     attr = composite_find_attribute(paperinfo, "rmargin");
     if (attr != NULL)
-      data->paper.rmargin = data_real(attribute_first_data(attr));
+      data->paper.rmargin = data_real(attribute_first_data(attr), ctx);
 
     attr = composite_find_attribute(paperinfo, "is_portrait");
     data->paper.is_portrait = TRUE;
     if (attr != NULL)
-      data->paper.is_portrait = data_boolean(attribute_first_data(attr));
+      data->paper.is_portrait = data_boolean(attribute_first_data(attr), ctx);
 
     attr = composite_find_attribute(paperinfo, "scaling");
     data->paper.scaling = 1.0;
     if (attr != NULL)
-      data->paper.scaling = data_real(attribute_first_data(attr));
+      data->paper.scaling = data_real(attribute_first_data(attr), ctx);
 
     attr = composite_find_attribute(paperinfo, "fitto");
     data->paper.fitto = FALSE;
     if (attr != NULL)
-      data->paper.fitto = data_boolean(attribute_first_data(attr));
+      data->paper.fitto = data_boolean(attribute_first_data(attr), ctx);
 
     attr = composite_find_attribute(paperinfo, "fitwidth");
     data->paper.fitwidth = 1;
     if (attr != NULL)
-      data->paper.fitwidth = data_int(attribute_first_data(attr));
+      data->paper.fitwidth = data_int(attribute_first_data(attr), ctx);
 
     attr = composite_find_attribute(paperinfo, "fitheight");
     data->paper.fitheight = 1;
     if (attr != NULL)
-      data->paper.fitheight = data_int(attribute_first_data(attr));
+      data->paper.fitheight = data_int(attribute_first_data(attr), ctx);
 
     /* calculate effective width/height */
     dia_page_layout_get_paper_size(data->paper.name,
@@ -521,25 +523,25 @@ diagram_data_load(const char *filename, DiagramData *data, void* user_data)
 
       attr = composite_find_attribute(gridinfo, "dynamic");
       if (attr != NULL)
-         diagram->grid.dynamic = data_boolean(attribute_first_data(attr));
+         diagram->grid.dynamic = data_boolean(attribute_first_data(attr), ctx);
 
       attr = composite_find_attribute(gridinfo, "width_x");
       if (attr != NULL)
-        diagram->grid.width_x = data_real(attribute_first_data(attr));
+        diagram->grid.width_x = data_real(attribute_first_data(attr), ctx);
       attr = composite_find_attribute(gridinfo, "width_y");
       if (attr != NULL)
-        diagram->grid.width_y = data_real(attribute_first_data(attr));
+        diagram->grid.width_y = data_real(attribute_first_data(attr), ctx);
       attr = composite_find_attribute(gridinfo, "visible_x");
       if (attr != NULL)
-        diagram->grid.visible_x = data_int(attribute_first_data(attr));
+        diagram->grid.visible_x = data_int(attribute_first_data(attr), ctx);
       attr = composite_find_attribute(gridinfo, "visible_y");
       if (attr != NULL)
-        diagram->grid.visible_y = data_int(attribute_first_data(attr));
+        diagram->grid.visible_y = data_int(attribute_first_data(attr), ctx);
 
       diagram->grid.colour = prefs.new_diagram.grid_color;
       attr = composite_find_attribute(diagramdata, "color");
       if (attr != NULL)
-        data_color(attribute_first_data(attr), &diagram->grid.colour);
+        data_color(attribute_first_data(attr), &diagram->grid.colour, ctx);
     }
   }
   if (diagram) {
@@ -558,7 +560,7 @@ diagram_data_load(const char *filename, DiagramData *data, void* user_data)
     
         guide = attribute_first_data(attr);
         for (i = 0; i < diagram->guides.nhguides; i++, guide = data_next(guide))
-	  diagram->guides.hguides[i] = data_real(guide);
+	  diagram->guides.hguides[i] = data_real(guide, ctx);
       }
       attr = composite_find_attribute(guideinfo, "vguides");
       if (attr != NULL) {
@@ -568,7 +570,7 @@ diagram_data_load(const char *filename, DiagramData *data, void* user_data)
     
         guide = attribute_first_data(attr);
         for (i = 0; i < diagram->guides.nvguides; i++, guide = data_next(guide))
-	  diagram->guides.vguides[i] = data_real(guide);
+	  diagram->guides.vguides[i] = data_real(guide, ctx);
       }
     }
   }
@@ -585,27 +587,27 @@ diagram_data_load(const char *filename, DiagramData *data, void* user_data)
       attr = composite_find_attribute(dispinfo, "antialiased");
       if (attr != NULL)
 	g_object_set_data(G_OBJECT(diagram), 
-	  "antialiased", GINT_TO_POINTER (data_boolean(attribute_first_data(attr)) ? 1 : -1));
+	  "antialiased", GINT_TO_POINTER (data_boolean(attribute_first_data(attr), ctx) ? 1 : -1));
 
       attr = composite_find_attribute(dispinfo, "snap-to-grid");
       if (attr != NULL)
 	g_object_set_data(G_OBJECT(diagram), 
-	  "snap-to-grid", GINT_TO_POINTER (data_boolean(attribute_first_data(attr)) ? 1 : -1));
+	  "snap-to-grid", GINT_TO_POINTER (data_boolean(attribute_first_data(attr), ctx) ? 1 : -1));
 
       attr = composite_find_attribute(dispinfo, "snap-to-object");
       if (attr != NULL)
         g_object_set_data(G_OBJECT(diagram), 
-	  "snap-to-object", GINT_TO_POINTER (data_boolean(attribute_first_data(attr)) ? 1 : -1));
+	  "snap-to-object", GINT_TO_POINTER (data_boolean(attribute_first_data(attr), ctx) ? 1 : -1));
 
       attr = composite_find_attribute(dispinfo, "show-grid");
       if (attr != NULL)
         g_object_set_data(G_OBJECT(diagram), 
-	  "show-grid", GINT_TO_POINTER (data_boolean(attribute_first_data(attr)) ? 1 : -1));
+	  "show-grid", GINT_TO_POINTER (data_boolean(attribute_first_data(attr), ctx) ? 1 : -1));
 
       attr = composite_find_attribute(dispinfo, "show-connection-points");
       if (attr != NULL)
         g_object_set_data(G_OBJECT(diagram), 
-	  "show-connection-points", GINT_TO_POINTER (data_boolean(attribute_first_data(attr)) ? 1 : -1));
+	  "show-connection-points", GINT_TO_POINTER (data_boolean(attribute_first_data(attr), ctx) ? 1 : -1));
     }
   }
   /* Read in all layers: */
@@ -641,7 +643,7 @@ diagram_data_load(const char *filename, DiagramData *data, void* user_data)
     }
     /* Read in all objects: */
     
-    list = read_objects(layer_node, objects_hash, filename, NULL, unknown_objects_hash);
+    list = read_objects(layer_node, objects_hash, ctx, NULL, unknown_objects_hash);
     layer_add_objects (layer, list);
     read_connections( list, layer_node, objects_hash);
 

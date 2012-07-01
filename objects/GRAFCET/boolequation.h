@@ -60,12 +60,6 @@ extern void boolequation_set_value(Boolequation *rcep, const gchar *value);
 extern void save_boolequation(ObjectNode obj_node, const gchar *attrname,
 			     Boolequation *rcep);
 
-extern Boolequation *load_boolequation(ObjectNode obj_node,
-				     const gchar *attrname,
-				     const gchar *defaultvalue,
-				     DiaFont *font,
-				     real fontheight,
-				     Color *color);
 extern void boolequation_set_pos(Boolequation *rcep, Point *pos);
 extern void boolequation_draw(Boolequation *rcep, DiaRenderer *renderer);
 extern void boolequation_calc_boundingbox(Boolequation *rcep, Rectangle *box);

@@ -65,8 +65,7 @@ static DiaObject *participation_create(Point *startpoint,
 static DiaObject *participation_copy(Participation *dep);
 static void participation_save(Participation *dep, ObjectNode obj_node,
 			       const char *filename);
-static DiaObject *participation_load(ObjectNode obj_node, int version,
-				  const char *filename);
+static DiaObject *participation_load(ObjectNode obj_node, int version,DiaContext *ctx);
 static void participation_update_data(Participation *dep);
 static PropDescription *
 participation_describe_props(Participation *participation);
@@ -358,7 +357,7 @@ participation_save(Participation *participation, ObjectNode obj_node,
 }
 
 static DiaObject *
-participation_load(ObjectNode obj_node, int version, const char *filename)
+participation_load(ObjectNode obj_node, int version,DiaContext *ctx)
 {
   AttributeNode attr;
   Participation *participation;
@@ -373,11 +372,11 @@ participation_load(ObjectNode obj_node, int version, const char *filename)
   obj->type = &participation_type;
   obj->ops = &participation_ops;
 
-  orthconn_load(orth, obj_node);
+  orthconn_load(orth, obj_node, ctx);
 
   attr = object_find_attribute(obj_node, "total");
   if (attr != NULL)
-    participation->total = data_boolean(attribute_first_data(attr));
+    participation->total = data_boolean(attribute_first_data(attr), ctx);
 
   participation_update_data(participation);
 

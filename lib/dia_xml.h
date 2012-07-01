@@ -23,6 +23,7 @@
 #include "color.h"
 #include "font.h"
 #include "diavar.h"
+#include "diacontext.h"
 #include <libxml/tree.h>
 
 /*
@@ -69,18 +70,18 @@ AttributeNode composite_find_attribute(DataNode composite_node,
 int attribute_num_data(AttributeNode attribute);
 DataNode attribute_first_data(AttributeNode attribute);
 DataNode data_next(DataNode data);
-DataType data_type(DataNode data);
-int data_int(DataNode data);
-int data_enum(DataNode data);
-real data_real(DataNode data);
-int data_boolean(DataNode data);
-void data_color(DataNode data, Color *col);
-void data_point(DataNode data, Point *point);
-void data_bezpoint(DataNode data, BezPoint *point);
-void data_rectangle(DataNode data, Rectangle *rect);
-char *data_string(DataNode data);
-char *data_filename(DataNode data);
-DiaFont *data_font(DataNode data);
+DataType data_type(DataNode data, DiaContext *ctx);
+int data_int(DataNode data, DiaContext *ctx);
+int data_enum(DataNode data, DiaContext *ctx);
+real data_real(DataNode data, DiaContext *ctx);
+int data_boolean(DataNode data, DiaContext *ctx);
+void data_color(DataNode data, Color *col, DiaContext *ctx);
+void data_point(DataNode data, Point *point, DiaContext *ctx);
+void data_bezpoint(DataNode data, BezPoint *point, DiaContext *ctx);
+void data_rectangle(DataNode data, Rectangle *rect, DiaContext *ctx);
+char *data_string(DataNode data, DiaContext *ctx);
+char *data_filename(DataNode data, DiaContext *ctx);
+DiaFont *data_font(DataNode data, DiaContext *ctx);
 
 AttributeNode new_attribute(ObjectNode obj_node, const char *attrname);
 AttributeNode composite_add_attribute(DataNode composite_node,
@@ -99,7 +100,7 @@ void data_add_font(AttributeNode attr, const DiaFont *font);
 DataNode data_add_composite(AttributeNode attr, 
                             const char *type); /* can be NULL */
 
-GHashTable *data_dict (DataNode data);
+GHashTable *data_dict (DataNode data, DiaContext *ctx);
 void data_add_dict (AttributeNode attr, GHashTable *data);
 
 GdkPixbuf *data_pixbuf (DataNode data);
@@ -107,6 +108,8 @@ void data_add_pixbuf (AttributeNode attr, GdkPixbuf *pixbuf);
 
 DiaMatrix *data_matrix(DataNode data);
 void data_add_matrix(AttributeNode attr, DiaMatrix *matrix);
+
+xmlDocPtr diaXmlParseFile(const char *filename, DiaContext *ctx, gboolean try_harder);
 
 #endif /* DIA_XML_H */
 

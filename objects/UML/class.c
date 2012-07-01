@@ -64,8 +64,7 @@ static DiaObject *umlclass_copy(UMLClass *umlclass);
 
 static void umlclass_save(UMLClass *umlclass, ObjectNode obj_node,
 			  const char *filename);
-static DiaObject *umlclass_load(ObjectNode obj_node, int version,
-			     const char *filename);
+static DiaObject *umlclass_load(ObjectNode obj_node, int version, DiaContext *ctx);
 
 static DiaMenu * umlclass_object_menu(DiaObject *obj, Point *p);
 static ObjectChange *umlclass_show_comments_callback(DiaObject *obj, Point *pos, gpointer data);
@@ -2223,8 +2222,8 @@ umlclass_save(UMLClass *umlclass, ObjectNode obj_node,
   }
 }
 
-static DiaObject *umlclass_load(ObjectNode obj_node, int version,
-			     const char *filename)
+static DiaObject *
+umlclass_load(ObjectNode obj_node, int version, DiaContext *ctx)
 {
   UMLClass *umlclass;
   Element *elem;
@@ -2241,7 +2240,7 @@ static DiaObject *umlclass_load(ObjectNode obj_node, int version,
   obj->type = &umlclass_type;
   obj->ops = &umlclass_ops;
 
-  element_load(elem, obj_node);
+  element_load(elem, obj_node, ctx);
 
 #ifdef UML_MAINPOINT
   element_init(elem, 8, UMLCLASS_CONNECTIONPOINTS + 1);
@@ -2260,10 +2259,10 @@ static DiaObject *umlclass_load(ObjectNode obj_node, int version,
   fill_in_fontdata(umlclass);
   
   /* kind of dirty, object_load_props() may leave us in an inconsistent state --hb */
-  object_load_props(obj,obj_node);
+  object_load_props(obj,obj_node, ctx);
 
   /* parameters loaded via StdProp dont belong here anymore. In case of strings they 
-   * will produce leaks. Otherwise the are just wasteing time (at runtime and while 
+   * will produce leaks. Otherwise they are just wasting time (at runtime and while 
    * reading the code). Except maybe for some compatibility stuff. 
    * Although that *could* probably done via StdProp too.                      --hb
    */
@@ -2272,12 +2271,12 @@ static DiaObject *umlclass_load(ObjectNode obj_node, int version,
   umlclass->wrap_operations = FALSE;
   attr_node = object_find_attribute(obj_node, "wrap_operations");
   if (attr_node != NULL)
-    umlclass->wrap_operations = data_boolean(attribute_first_data(attr_node));
+    umlclass->wrap_operations = data_boolean(attribute_first_data(attr_node), ctx);
   
   umlclass->wrap_after_char = UMLCLASS_WRAP_AFTER_CHAR;
   attr_node = object_find_attribute(obj_node, "wrap_after_char");
   if (attr_node != NULL)
-    umlclass->wrap_after_char = data_int(attribute_first_data(attr_node));
+    umlclass->wrap_after_char = data_int(attribute_first_data(attr_node), ctx);
 
   /* if it uses the new name the value is already set by object_load_props() above */
   umlclass->comment_line_length = UMLCLASS_COMMENT_LINE_LENGTH;
@@ -2286,43 +2285,43 @@ static DiaObject *umlclass_load(ObjectNode obj_node, int version,
   if (attr_node == NULL)
     attr_node = object_find_attribute(obj_node,"Comment_line_length");
   if (attr_node != NULL)
-    umlclass->comment_line_length = data_int(attribute_first_data(attr_node));
+    umlclass->comment_line_length = data_int(attribute_first_data(attr_node), ctx);
 
   /* compatibility with 0.94 and before as well as the temporary state with only 'comment_line_length' */
   umlclass->comment_tagging = (attr_node != NULL);
   attr_node = object_find_attribute(obj_node, "comment_tagging");
   if (attr_node != NULL)
-    umlclass->comment_tagging = data_boolean(attribute_first_data(attr_node));
+    umlclass->comment_tagging = data_boolean(attribute_first_data(attr_node), ctx);
   
   /* Loads the line width */
   umlclass->line_width = UMLCLASS_BORDER;
   attr_node = object_find_attribute(obj_node, PROP_STDNAME_LINE_WIDTH);
   if(attr_node != NULL)
-    umlclass->line_width = data_real(attribute_first_data(attr_node));
+    umlclass->line_width = data_real(attribute_first_data(attr_node), ctx);
 
   umlclass->line_color = color_black;
   /* support the old name ... */
   attr_node = object_find_attribute(obj_node, "foreground_color");
   if(attr_node != NULL)
-    data_color(attribute_first_data(attr_node), &umlclass->line_color); 
+    data_color(attribute_first_data(attr_node), &umlclass->line_color, ctx);
   umlclass->text_color = umlclass->line_color;
   /* ... but prefer the new one */
   attr_node = object_find_attribute(obj_node, "line_color");
   if(attr_node != NULL)
-    data_color(attribute_first_data(attr_node), &umlclass->line_color); 
+    data_color(attribute_first_data(attr_node), &umlclass->line_color, ctx); 
   attr_node = object_find_attribute(obj_node, "text_color");
   if(attr_node != NULL)
-    data_color(attribute_first_data(attr_node), &umlclass->text_color); 
-  
+    data_color(attribute_first_data(attr_node), &umlclass->text_color, ctx);
+
   umlclass->fill_color = color_white;
   /* support the old name ... */
   attr_node = object_find_attribute(obj_node, "background_color");
   if(attr_node != NULL)
-    data_color(attribute_first_data(attr_node), &umlclass->fill_color); 
+    data_color(attribute_first_data(attr_node), &umlclass->fill_color, ctx);
   /* ... but prefer the new one */
   attr_node = object_find_attribute(obj_node, "fill_color");
   if(attr_node != NULL)
-    data_color(attribute_first_data(attr_node), &umlclass->fill_color); 
+    data_color(attribute_first_data(attr_node), &umlclass->fill_color, ctx);
 
   /* Attribute info: */
   list = umlclass->attributes;
@@ -2348,8 +2347,8 @@ static DiaObject *umlclass_load(ObjectNode obj_node, int version,
   umlclass->template = FALSE;
   attr_node = object_find_attribute(obj_node, "template");
   if (attr_node != NULL)
-    umlclass->template = data_boolean(attribute_first_data(attr_node));
-  
+    umlclass->template = data_boolean(attribute_first_data(attr_node), ctx);
+
   fill_in_fontdata(umlclass);
   
   umlclass->stereotype_string = NULL;

@@ -42,8 +42,6 @@
 #include "diarenderer.h"
 #include "attributes.h"
 #include "text.h"
-#include "widgets.h"
-#include "message.h"
 #include "connpoint_line.h"
 #include "color.h"
 #include "properties.h"
@@ -111,7 +109,7 @@ static DiaObject *goal_create(Point *startpoint,
 			  Handle **handle2);
 static void goal_destroy(Goal *goal);
 static DiaObject *goal_load(ObjectNode obj_node, int version,
-                            const char *filename);
+                            DiaContext *ctx);
 static DiaMenu *goal_get_object_menu(Goal *goal, Point *clickedpoint);
 
 static PropDescription *goal_describe_props(Goal *goal);
@@ -121,7 +119,7 @@ static void goal_set_props(Goal *goal, GPtrArray *props);
 static ObjectTypeOps kaos_goal_type_ops =
 {
   (CreateFunc) goal_create,
-  (LoadFunc)   goal_load/*using_properties*/,
+  (LoadFunc)   goal_load,
   (SaveFunc)   object_save_using_properties,
   (GetDefaultsFunc)   NULL,
   (ApplyDefaultsFunc) NULL,
@@ -677,10 +675,10 @@ goal_destroy(Goal *goal)
 
 
 static DiaObject *
-goal_load(ObjectNode obj_node, int version, const char *filename)
+goal_load(ObjectNode obj_node, int version, DiaContext *ctx)
 {
   return object_load_using_properties(&kaos_goal_type,
-                                      obj_node,version,filename);
+                                      obj_node,version,ctx);
 }
 
 

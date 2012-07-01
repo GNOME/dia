@@ -81,8 +81,7 @@ static void dependency_destroy(Dependency *dep);
 static DiaMenu *dependency_get_object_menu(Dependency *dep,
 					   Point *clickedpoint);
 
-static DiaObject *dependency_load(ObjectNode obj_node, int version,
-			       const char *filename);
+static DiaObject *dependency_load(ObjectNode obj_node, int version,DiaContext *ctx);
 static PropDescription *dependency_describe_props(Dependency *dependency);
 static void dependency_get_props(Dependency * dependency, GPtrArray *props);
 static void dependency_set_props(Dependency * dependency, GPtrArray *props);
@@ -458,10 +457,10 @@ dependency_destroy(Dependency *dep)
 }
 
 static DiaObject *
-dependency_load(ObjectNode obj_node, int version, const char *filename)
+dependency_load(ObjectNode obj_node, int version,DiaContext *ctx)
 {
   DiaObject *obj = object_load_using_properties(&dependency_type,
-                                                obj_node,version,filename);
+                                                obj_node,version,ctx);
   if (version == 0) {
     AttributeNode attr;
     /* In old objects with no autorouting, set it to false. */

@@ -113,7 +113,7 @@ static void
 mount_point_move_change_free (MountPointMoveChange *);
 
 static DiaObject * compound_create (Point *, void *, Handle **, Handle **);
-static DiaObject * compound_load (ObjectNode, int, const char *);
+static DiaObject * compound_load (ObjectNode obj_node, int version,DiaContext *ctx);
 static void compound_save (Compound *, ObjectNode, const char *);
 static void compound_destroy (Compound *);
 static void compound_draw (Compound *, DiaRenderer *);
@@ -432,7 +432,7 @@ compound_create (Point * start_point, void * user_data,
 }
 
 static DiaObject *
-compound_load (ObjectNode obj_node, int version, const char *filename)
+compound_load (ObjectNode obj_node, int version, DiaContext *ctx)
 {
   Compound * comp;
   DiaObject * obj;
@@ -443,7 +443,7 @@ compound_load (ObjectNode obj_node, int version, const char *filename)
   comp = g_new0 (Compound, 1);
   obj = &comp->object;
   /* load the objects position and bounding box */
-  object_load (obj, obj_node);
+  object_load (obj, obj_node, ctx);
   /* init the object */
   obj->type = &compound_type;
   obj->ops = &compound_ops;
@@ -458,7 +458,7 @@ compound_load (ObjectNode obj_node, int version, const char *filename)
   data = attribute_first_data (attr);
   /* init our mount_point */
   setup_mount_point (&comp->mount_point, obj, NULL);
-  data_point (data, &comp->mount_point.pos);
+  data_point (data, &comp->mount_point.pos, ctx);
   obj->connections[0] = &comp->mount_point;
   /* now init the handles */
   comp->num_arms = num_handles-1;
@@ -473,7 +473,7 @@ compound_load (ObjectNode obj_node, int version, const char *filename)
       obj->handles[i] = &comp->handles[i];
       setup_handle (obj->handles[i], HANDLE_ARM,
                     HANDLE_MINOR_CONTROL, HANDLE_CONNECTABLE_NOBREAK);
-      data_point (data, &obj->handles[i]->pos);
+      data_point (data, &obj->handles[i]->pos, ctx);
       data = data_next (data);
     }
 
@@ -482,12 +482,12 @@ compound_load (ObjectNode obj_node, int version, const char *filename)
   if (attr == NULL)
     comp->line_width = 0.1;
   else
-    comp->line_width = data_real (attribute_first_data (attr));
+    comp->line_width = data_real (attribute_first_data (attr), ctx);
   attr = object_find_attribute (obj_node, "line_colour");
   if (attr == NULL)
     comp->line_color = color_black;
   else
-    data_color (attribute_first_data (attr), &comp->line_color);
+    data_color (attribute_first_data (attr), &comp->line_color, ctx);
 
   compound_update_data (comp);
   compound_sanity_check (comp, "Loaded");

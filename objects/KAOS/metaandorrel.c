@@ -101,8 +101,7 @@ static DiaObject *maor_create(Point *startpoint,
 static real maor_distance_from(Maor *maor, Point *point);
 static void maor_update_data(Maor *maor);
 static void maor_destroy(Maor *maor);
-static DiaObject *maor_load(ObjectNode obj_node, int version,
-			    const char *filename);
+static DiaObject *maor_load(ObjectNode obj_node, int version,DiaContext *ctx);
 
 static PropDescription *maor_describe_props(Maor *mes);
 static void maor_get_props(Maor * maor, GPtrArray *props);
@@ -634,8 +633,8 @@ maor_update_data(Maor *maor)
 }
 
 static DiaObject *
-maor_load(ObjectNode obj_node, int version, const char *filename)
+maor_load(ObjectNode obj_node, int version,DiaContext *ctx)
 {
   return object_load_using_properties(&kaos_maor_type,
-                                      obj_node,version,filename);
+                                      obj_node,version,ctx);
 }

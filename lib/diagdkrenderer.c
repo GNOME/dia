@@ -32,7 +32,6 @@
 
 #include "diagdkrenderer.h"
 #include "dia_image.h"
-#include "message.h"
 #include "color.h"
 #include "font.h"
 #include "text.h"
@@ -506,7 +505,7 @@ set_fillstyle (DiaRenderer *object, FillStyle mode)
   case FILLSTYLE_SOLID:
     break;
   default:
-    message_error("gdk_renderer: Unsupported fill mode specified!\n");
+    g_warning("gdk_renderer: Unsupported fill mode specified!\n");
   }
 }
 

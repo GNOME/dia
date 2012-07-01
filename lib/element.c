@@ -30,7 +30,6 @@
 #include <string.h> /* memcpy() */
 
 #include "element.h"
-#include "message.h"
 #include "properties.h"
 
 #ifdef G_OS_WIN32
@@ -254,7 +253,7 @@ element_move_handle(Element *elem, HandleId id,
       elem->height = p.y;
     break;
   default:
-    message_error("Error, called element_move_handle() with wrong handle-id\n");
+    g_warning("element_move_handle() called with wrong handle-id\n");
   }
   return NULL;
 }
@@ -338,7 +337,7 @@ element_move_handle_aspect(Element *elem, HandleId id,
     move_y = 0.0;
     break;
   default:
-    message_error("Error, called element_move_handle() with wrong handle-id\n");
+    g_warning("element_move_handle() called with wrong handle-id\n");
   }
 
   /* Which of the two versions to use: */
@@ -447,27 +446,27 @@ element_save(Element *elem, ObjectNode obj_node)
 }
 
 void 
-element_load(Element *elem, ObjectNode obj_node)
+element_load(Element *elem, ObjectNode obj_node, DiaContext *ctx)
 {
   AttributeNode attr;
 
-  object_load(&elem->object, obj_node);
+  object_load(&elem->object, obj_node, ctx);
 
   elem->corner.x = 0.0;
   elem->corner.y = 0.0;
   attr = object_find_attribute(obj_node, "elem_corner");
   if (attr != NULL)
-    data_point( attribute_first_data(attr), &elem->corner );
+    data_point(attribute_first_data(attr), &elem->corner, ctx);
 
   elem->width = 1.0;
   attr = object_find_attribute(obj_node, "elem_width");
   if (attr != NULL)
-    elem->width = data_real( attribute_first_data(attr));
+    elem->width = data_real(attribute_first_data(attr), ctx);
 
   elem->height = 1.0;
   attr = object_find_attribute(obj_node, "elem_height");
   if (attr != NULL)
-    elem->height = data_real( attribute_first_data(attr));
+    elem->height = data_real( attribute_first_data(attr), ctx);
 
 }
 

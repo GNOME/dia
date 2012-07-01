@@ -174,8 +174,7 @@ static AssociationState *association_get_state(Association *assoc);
 static void association_set_state(Association *assoc,
 				  AssociationState *state);
 
-static DiaObject *association_load(ObjectNode obj_node, int version,
-				const char *filename);
+static DiaObject *association_load(ObjectNode obj_node, int version, DiaContext *ctx);
 
 static void association_update_data(Association *assoc);
 static coord get_aggregate_pos_diff(AssociationEnd *end, const Association *assoc);
@@ -944,7 +943,7 @@ association_copy(Association *assoc)
 }
 
 static DiaObject *
-association_load(ObjectNode obj_node, int version, const char *filename)
+association_load(ObjectNode obj_node, int version, DiaContext *ctx)
 {
   Association *assoc;
   AttributeNode attr;
@@ -954,7 +953,7 @@ association_load(ObjectNode obj_node, int version, const char *filename)
   int i;
   
   /* first calls our _create() method */
-  obj = object_load_using_properties(&association_type, obj_node, version, filename);
+  obj = object_load_using_properties(&association_type, obj_node, version, ctx);
   assoc = (Association *)obj;
   orth = &assoc->orth;
   /* ... butnot orthconn_load()  */
@@ -965,7 +964,7 @@ association_load(ObjectNode obj_node, int version, const char *filename)
     /* vesrion 1 used to name it differently */
     attr = object_find_attribute(obj_node, "autorouting");
     if (attr != NULL)
-      orth->autorouting = data_boolean(attribute_first_data(attr));
+      orth->autorouting = data_boolean(attribute_first_data(attr), ctx);
 
     attr = object_find_attribute(obj_node, "ends");
     composite = attribute_first_data(attr);
@@ -974,7 +973,7 @@ association_load(ObjectNode obj_node, int version, const char *filename)
       assoc->end[i].role = NULL;
       attr = composite_find_attribute(composite, "role");
       if (attr != NULL) {
-        assoc->end[i].role = data_string(attribute_first_data(attr));
+        assoc->end[i].role = data_string(attribute_first_data(attr), ctx);
       }
       if (   assoc->end[i].role != NULL 
           && 0 == strcmp(assoc->end[i].role, "")) {
@@ -985,7 +984,7 @@ association_load(ObjectNode obj_node, int version, const char *filename)
       assoc->end[i].multiplicity = NULL;
       attr = composite_find_attribute(composite, "multiplicity");
       if (attr != NULL) {
-        assoc->end[i].multiplicity = data_string(attribute_first_data(attr));
+        assoc->end[i].multiplicity = data_string(attribute_first_data(attr), ctx);
       }
       if (   assoc->end[i].multiplicity != NULL
 	  && 0 == strcmp(assoc->end[i].multiplicity, "")) {
@@ -996,17 +995,17 @@ association_load(ObjectNode obj_node, int version, const char *filename)
       assoc->end[i].arrow = FALSE;
       attr = composite_find_attribute(composite, "arrow");
       if (attr != NULL)
-        assoc->end[i].arrow = data_boolean(attribute_first_data(attr));
+        assoc->end[i].arrow = data_boolean(attribute_first_data(attr), ctx);
 
       assoc->end[i].aggregate = AGGREGATE_NONE;
       attr = composite_find_attribute(composite, "aggregate");
       if (attr != NULL)
-        assoc->end[i].aggregate = data_enum(attribute_first_data(attr));
-  
+        assoc->end[i].aggregate = data_enum(attribute_first_data(attr), ctx);
+
       assoc->end[i].visibility = FALSE;
       attr = composite_find_attribute(composite, "visibility");
       if (attr != NULL)
-        assoc->end[i].visibility =  data_enum( attribute_first_data(attr) );
+        assoc->end[i].visibility = data_enum(attribute_first_data(attr), ctx);
 
       assoc->end[i].text_width = 0.0;
       if (assoc->end[i].role != NULL) {

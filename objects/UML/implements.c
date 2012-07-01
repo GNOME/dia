@@ -83,8 +83,7 @@ static PropDescription *implements_describe_props(Implements *implements);
 static void implements_get_props(Implements * implements, GPtrArray *props);
 static void implements_set_props(Implements * implements, GPtrArray *props);
 
-static DiaObject *implements_load(ObjectNode obj_node, int version,
-			       const char *filename);
+static DiaObject *implements_load(ObjectNode obj_node, int version,DiaContext *ctx);
 
 
 static ObjectTypeOps implements_type_ops =
@@ -426,8 +425,8 @@ implements_update_data(Implements *implements)
 }
 
 static DiaObject *
-implements_load(ObjectNode obj_node, int version, const char *filename)
+implements_load(ObjectNode obj_node, int version,DiaContext *ctx)
 {
   return object_load_using_properties(&implements_type,
-                                      obj_node,version,filename);
+                                      obj_node,version,ctx);
 }

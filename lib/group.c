@@ -25,7 +25,6 @@
 #include "group.h"
 #include "properties.h"
 #include "diarenderer.h"
-#include "message.h"
 
 struct _Group {
  /* DiaObject must be first because this is a 'subclass' of it. */
@@ -252,7 +251,7 @@ group_move_handle(Group *group, Handle *handle, Point *to, ConnectionPoint *cp,
     w1 = to->x - top_left.x;
     break;
   default:
-    message_error("Error, called group_move_handle() with wrong handle-id\n");
+    g_warning("group_move_handle() called with wrong handle-id\n");
   }
 
   if (also_move)

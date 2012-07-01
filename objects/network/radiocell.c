@@ -77,8 +77,7 @@ static void radiocell_update_data(RadioCell *radiocell);
 static PropDescription *radiocell_describe_props(RadioCell *radiocell);
 static void radiocell_get_props(RadioCell *radiocell, GPtrArray *props);
 static void radiocell_set_props(RadioCell *radiocell, GPtrArray *props);
-static DiaObject *radiocell_load(ObjectNode obj_node, int version,
-			      const char *filename);
+static DiaObject *radiocell_load(ObjectNode obj_node, int version,DiaContext *ctx);
 
 static ObjectTypeOps radiocell_type_ops =
 {
@@ -371,8 +370,8 @@ radiocell_destroy(RadioCell *radiocell)
 }
 
 static DiaObject *
-radiocell_load(ObjectNode obj_node, int version, const char *filename)
+radiocell_load(ObjectNode obj_node, int version,DiaContext *ctx)
 {
   return object_load_using_properties(&radiocell_type,
-                                      obj_node, version, filename);
+                                      obj_node, version,ctx);
 }

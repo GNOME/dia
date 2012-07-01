@@ -94,8 +94,7 @@ static void function_destroy(Function *pkg);
 static DiaObject *function_copy(Function *pkg);
 static void function_save(Function *pkg, ObjectNode obj_node,
 			  const char *filename);
-static DiaObject *function_load(ObjectNode obj_node, int version,
-			     const char *filename);
+static DiaObject *function_load(ObjectNode obj_node, int version, DiaContext *ctx);
 static void function_update_data(Function *pkg);
 static DiaMenu *function_get_object_menu(Function *func, Point *clickedpoint) ;
 static PropDescription *function_describe_props(Function *mes);
@@ -540,7 +539,7 @@ function_save(Function *pkg, ObjectNode obj_node, const char *filename)
 }
 
 static DiaObject *
-function_load(ObjectNode obj_node, int version, const char *filename)
+function_load(ObjectNode obj_node, int version, DiaContext *ctx)
 {
   Function *pkg;
   AttributeNode attr;
@@ -555,12 +554,12 @@ function_load(ObjectNode obj_node, int version, const char *filename)
   obj->type = &function_type;
   obj->ops = &function_ops;
 
-  element_load(elem, obj_node);
+  element_load(elem, obj_node, ctx);
   
   pkg->text = NULL;
   attr = object_find_attribute(obj_node, "text");
   if (attr != NULL)
-    pkg->text = data_text(attribute_first_data(attr));
+    pkg->text = data_text(attribute_first_data(attr), ctx);
   else { /* paranoid */
     DiaFont *font = dia_font_new_from_style (DIA_FONT_SANS,FUNCTION_FONTHEIGHT);
     pkg->text = new_text("", font, FUNCTION_FONTHEIGHT, &obj->position, &color_black, ALIGN_CENTER);
@@ -569,13 +568,13 @@ function_load(ObjectNode obj_node, int version, const char *filename)
 
   attr = object_find_attribute(obj_node, "is_wish");
   if (attr != NULL)
-    pkg->is_wish = data_boolean(attribute_first_data(attr));
+    pkg->is_wish = data_boolean(attribute_first_data(attr), ctx);
   else
     pkg->is_wish = FALSE;
 
   attr = object_find_attribute(obj_node, "is_user");
   if (attr != NULL)
-    pkg->is_user = data_boolean(attribute_first_data(attr));
+    pkg->is_user = data_boolean(attribute_first_data(attr), ctx);
   else
     pkg->is_user = FALSE;
 

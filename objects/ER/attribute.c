@@ -32,7 +32,6 @@
 #include "connectionpoint.h"
 #include "diarenderer.h"
 #include "attributes.h"
-#include "widgets.h"
 #include "properties.h"
 
 #include "pixmaps/attribute.xpm"
@@ -110,8 +109,7 @@ attribute_set_props(Attribute *attribute, GPtrArray *props);
 
 static void attribute_save(Attribute *attribute, ObjectNode obj_node,
 			   const char *filename);
-static DiaObject *attribute_load(ObjectNode obj_node, int version,
-			      const char *filename);
+static DiaObject *attribute_load(ObjectNode obj_node, int version,DiaContext *ctx);
 
 static ObjectTypeOps attribute_type_ops =
 {
@@ -528,8 +526,7 @@ attribute_save(Attribute *attribute, ObjectNode obj_node,
 		attribute->font_height);
 }
 
-static DiaObject *attribute_load(ObjectNode obj_node, int version,
-			      const char *filename)
+static DiaObject *attribute_load(ObjectNode obj_node, int version,DiaContext *ctx)
 {
   Attribute *attribute;
   Element *elem;
@@ -544,43 +541,43 @@ static DiaObject *attribute_load(ObjectNode obj_node, int version,
   obj->type = &attribute_type;
   obj->ops = &attribute_ops;
 
-  element_load(elem, obj_node);
+  element_load(elem, obj_node, ctx);
 
   attribute->border_width = 0.1;
   attr = object_find_attribute(obj_node, "border_width");
   if (attr != NULL)
-    attribute->border_width =  data_real( attribute_first_data(attr) );
+    attribute->border_width =  data_real(attribute_first_data(attr), ctx);
 
   attribute->border_color = color_black;
   attr = object_find_attribute(obj_node, "border_color");
   if (attr != NULL)
-    data_color(attribute_first_data(attr), &attribute->border_color);
+    data_color(attribute_first_data(attr), &attribute->border_color, ctx);
   
   attribute->inner_color = color_white;
   attr = object_find_attribute(obj_node, "inner_color");
   if (attr != NULL)
-    data_color(attribute_first_data(attr), &attribute->inner_color);
+    data_color(attribute_first_data(attr), &attribute->inner_color, ctx);
   
   attribute->name = NULL;
   attr = object_find_attribute(obj_node, "name");
   if (attr != NULL)
-    attribute->name = data_string(attribute_first_data(attr));
+    attribute->name = data_string(attribute_first_data(attr), ctx);
 
   attr = object_find_attribute(obj_node, "key");
   if (attr != NULL)
-    attribute->key = data_boolean(attribute_first_data(attr));
+    attribute->key = data_boolean(attribute_first_data(attr), ctx);
 
   attr = object_find_attribute(obj_node, "weak_key");
   if (attr != NULL)
-    attribute->weakkey = data_boolean(attribute_first_data(attr));
+    attribute->weakkey = data_boolean(attribute_first_data(attr), ctx);
   
   attr = object_find_attribute(obj_node, "derived");
   if (attr != NULL)
-    attribute->derived = data_boolean(attribute_first_data(attr));
+    attribute->derived = data_boolean(attribute_first_data(attr), ctx);
 
   attr = object_find_attribute(obj_node, "multivalued");
   if (attr != NULL)
-    attribute->multivalue = data_boolean(attribute_first_data(attr));
+    attribute->multivalue = data_boolean(attribute_first_data(attr), ctx);
 
   if (attribute->font != NULL) {
     /* This shouldn't happen, but doesn't hurt */
@@ -589,12 +586,12 @@ static DiaObject *attribute_load(ObjectNode obj_node, int version,
   }
   attr = object_find_attribute (obj_node, "font");
   if (attr != NULL)
-	  attribute->font = data_font (attribute_first_data (attr));
+    attribute->font = data_font (attribute_first_data (attr), ctx);
 
   attribute->font_height = FONT_HEIGHT;
   attr = object_find_attribute (obj_node, "font_height");
   if (attr != NULL)
-    attribute->font_height = data_real( attribute_first_data(attr) );
+    attribute->font_height = data_real(attribute_first_data(attr), ctx);
 
   element_init(elem, 8, NUM_CONNECTIONS);
 
@@ -605,19 +602,17 @@ static DiaObject *attribute_load(ObjectNode obj_node, int version,
   }
   attribute->connections[8].flags = CP_FLAGS_MAIN;
 
-  if (attribute->font == NULL) {
-	  attribute->font = dia_font_new_from_style(DIA_FONT_MONOSPACE,
+  if (attribute->font == NULL)
+    attribute->font = dia_font_new_from_style(DIA_FONT_MONOSPACE,
                                               attribute->font_height);
-  }
 
   attribute->name_width = dia_font_string_width(attribute->name,
                                                 attribute->font,
                                                 attribute->font_height);
   attribute_update_data(attribute);
 
-  for (i=0;i<8;i++) {
+  for (i=0;i<8;i++)
     obj->handles[i]->type = HANDLE_NON_MOVABLE;
-  }
 
   return &attribute->element.object;
 }

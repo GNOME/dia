@@ -45,8 +45,6 @@
 #include "diarenderer.h"
 #include "attributes.h"
 #include "text.h"
-#include "widgets.h"
-#include "message.h"
 #include "sheet.h"
 #include "properties.h"
 #include "dia_image.h"
@@ -157,7 +155,7 @@ static PropDescription *custom_describe_props(Custom *custom);
 static void custom_get_props(Custom *custom, GPtrArray *props);
 static void custom_set_props(Custom *custom, GPtrArray *props);
 
-static DiaObject *custom_load_using_properties(ObjectNode obj_node, int version, const char *filename);
+static DiaObject *custom_load_using_properties(ObjectNode obj_node, int version,DiaContext *ctx);
 
 static ObjectTypeOps custom_type_ops =
   {
@@ -1670,7 +1668,7 @@ custom_copy(Custom *custom)
 }
 
 static DiaObject *
-custom_load_using_properties(ObjectNode obj_node, int version, const char *filename)
+custom_load_using_properties(ObjectNode obj_node, int version,DiaContext *ctx)
 {
   Custom *custom;
   DiaObject *obj;
@@ -1684,7 +1682,7 @@ custom_load_using_properties(ObjectNode obj_node, int version, const char *filen
       custom->padding = 0.5 * M_SQRT1_2; /* old pading */
     /* old default: only grow from text box, no auto-shrink. */
     custom->text_fitting = (custom->info->resize_with_text ? TEXTFIT_WHEN_NEEDED : TEXTFIT_NEVER);
-    object_load_props(obj,obj_node);
+    object_load_props(obj,obj_node,ctx);
   
     custom_update_data(custom, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
     custom->old_subscale = custom->subscale;

@@ -94,7 +94,8 @@ static DiaObject *aadlthreadgroup_create(Point *startpoint, void *user_data, Han
   return obj;
 }
 
-static DiaObject *aadlthreadgroup_load(ObjectNode obj_node, int version, const char *filename)
+static DiaObject *
+aadlthreadgroup_load(ObjectNode obj_node, int version, DiaContext *ctx)
 {
   DiaObject *obj;
   Point startpoint = {0.0,0.0};
@@ -102,7 +103,7 @@ static DiaObject *aadlthreadgroup_load(ObjectNode obj_node, int version, const c
   
   obj = aadlthreadgroup_create(&startpoint, &aadlthreadgroup_specific, 
 			       &handle1,&handle2);
-  aadlbox_load(obj_node, version, filename, (Aadlbox *) obj);
+  aadlbox_load(obj_node, version, ctx, (Aadlbox *) obj);
   return obj;
 }
 

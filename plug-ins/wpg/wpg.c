@@ -352,7 +352,7 @@ set_linecaps(DiaRenderer *self, LineCaps mode)
   case LINECAPS_PROJECTING:
     break;
   default:
-    message_error("WpgRenderer : Unsupported fill mode specified!\n");
+    g_warning("WpgRenderer : Unsupported fill mode specified!\n");
   }
 }
 
@@ -369,7 +369,7 @@ set_linejoin(DiaRenderer *self, LineJoin mode)
   case LINEJOIN_BEVEL:
     break;
   default:
-    message_error("WpgRenderer : Unsupported fill mode specified!\n");
+    g_warning("WpgRenderer : Unsupported fill mode specified!\n");
   }
 }
 
@@ -401,7 +401,7 @@ set_linestyle(DiaRenderer *self, LineStyle mode)
     renderer->LineAttr.Type = WPG_LA_DOTS;
     break;
   default:
-    message_error("WpgRenderer : Unsupported fill mode specified!\n");
+    g_warning("WpgRenderer : Unsupported fill mode specified!\n");
   }
 }
 
@@ -428,7 +428,7 @@ set_fillstyle(DiaRenderer *self, FillStyle mode)
     renderer->FillAttr.Type = WPG_FA_SOLID;
     break;
   default:
-    message_error("WpgRenderer : Unsupported fill mode specified!\n");
+    g_warning("WpgRenderer : Unsupported fill mode specified!\n");
   }
 }
 
@@ -1169,7 +1169,7 @@ import_object(DiaRenderer* self, DiagramData *dia,
 } 
 
 static gboolean
-import_data (const gchar *filename, DiagramData *dia, void* user_data)
+import_data (const gchar *filename, DiagramData *dia, DiaContext *ctx, void* user_data)
 {
   FILE* f;
   gboolean bRet;
@@ -1178,8 +1178,7 @@ import_data (const gchar *filename, DiagramData *dia, void* user_data)
   f = g_fopen(filename, "rb");
 
   if (NULL == f) {
-    message_error(_("Couldn't open: '%s' for reading.\n"), 
-		  dia_message_filename(filename));
+    dia_context_add_message(ctx, _("Couldn't open: '%s' for reading.\n"), filename);
     bRet = FALSE;
   }
   
@@ -1191,8 +1190,7 @@ import_data (const gchar *filename, DiagramData *dia, void* user_data)
             && fhead.fid[2] == 'P' && fhead.fid[3] == 'C'
             && (1 == fhead.MajorVersion) && (0 == fhead.MinorVersion));
     if (!bRet)
-      message_error(_("File: %s type/version unsupported.\n"), 
-		    dia_message_filename(filename));
+      dia_context_add_message(ctx, _("File: %s type/version unsupported.\n"), filename);
   }
 
   if (bRet) {

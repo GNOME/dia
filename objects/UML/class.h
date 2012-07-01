@@ -27,7 +27,6 @@
 #include "object.h"
 #include "element.h"
 #include "connectionpoint.h"
-#include "widgets.h"
 
 #include "uml.h"
 

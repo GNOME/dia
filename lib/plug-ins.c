@@ -36,10 +36,10 @@
 #include <libxml/tree.h>
 #include "dia_xml_libxml.h"
 #include "dia_xml.h"
+#include "intl.h"
+#include "message.h" /* only for dia_log_message() */
 
 #include "plug-ins.h"
-#include "intl.h"
-#include "message.h"
 #include "dia_dirs.h"
 
 #ifdef G_OS_WIN32
@@ -300,7 +300,7 @@ for_each_in_dir(const gchar *directory, ForEachInDirDoFunc dofunc,
 
   dp = g_dir_open(directory, 0, &error);
   if (dp == NULL) {
-    message_warning(_("Could not open `%s'\n`%s'"), directory, error->message);
+    g_warning("Could not open `%s'\n`%s'", directory, error->message);
     g_error_free (error);
     return;
   }
@@ -438,12 +438,14 @@ static void
 ensure_pluginrc(void)
 {
   gchar *filename;
+  DiaContext *ctx = dia_context_new (_("Plugin Configuration"));
 
   if (pluginrc)
     return;
   filename = dia_config_filename("pluginrc");
+  dia_context_set_filename (ctx, filename);
   if (g_file_test (filename,  G_FILE_TEST_IS_REGULAR))
-    pluginrc = xmlDiaParseFile(filename);
+    pluginrc = diaXmlParseFile(filename, ctx, FALSE);
   else
     pluginrc = NULL;
   
@@ -455,6 +457,7 @@ ensure_pluginrc(void)
     xmlDocSetRootElement(pluginrc,
 			 xmlNewDocNode(pluginrc, NULL, (const xmlChar *)"plugins", NULL));
   }
+  dia_context_release (ctx);
 }
 
 static void

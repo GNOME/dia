@@ -205,6 +205,13 @@ EXPORTS
  dia_color_selector_set_use_alpha
  dia_config_filename
 
+ dia_context_add_message
+ dia_context_get_filename
+ dia_context_new
+ dia_context_release
+ dia_context_set_errno
+ dia_context_set_filename
+
  dia_dynamic_menu_get_type
  dia_dynamic_menu_new
  dia_dynamic_menu_new_stringbased
@@ -739,7 +746,7 @@ EXPORTS
  text_line_get_descent
  text_line_get_alignment_adjustment
 
- xmlDiaParseFile
+ diaXmlParseFile
  xmlDiaSaveFile
  xmlDoParseFile
 

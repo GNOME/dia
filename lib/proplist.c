@@ -143,7 +143,7 @@ prop_list_copy_empty(GPtrArray *plist)
 }
 
 gboolean 
-prop_list_load(GPtrArray *props, DataNode data_node, GError **err)
+prop_list_load(GPtrArray *props, DataNode data_node, DiaContext *ctx)
 {
   guint i;
   gboolean ret = TRUE;
@@ -157,16 +157,14 @@ prop_list_load(GPtrArray *props, DataNode data_node, GError **err)
       continue;
     }
     if ((!attr) || (!data)) {
-      if (err && !*err)
-	*err = g_error_new (DIA_ERROR,
-                            DIA_ERROR_FORMAT,
-			    _("No attribute '%s' (%p) or no data (%p) in this attribute"),
-			    prop->descr->name,attr,data);
+      dia_context_add_message(ctx,
+			      _("No attribute '%s' (%p) or no data (%p) in this attribute"),
+			      prop->descr->name,attr,data);
       prop->experience |= PXP_NOTSET;
       ret = FALSE;
       continue;
     }
-    prop->ops->load(prop,attr,data);
+    prop->ops->load(prop,attr,data,ctx);
   }
   return ret;
 }

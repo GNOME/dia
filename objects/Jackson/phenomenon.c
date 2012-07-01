@@ -90,8 +90,7 @@ static DiaObject *message_create(Point *startpoint,
 static real message_distance_from(Message *message, Point *point);
 static void message_update_data(Message *message);
 static void message_destroy(Message *message);
-static DiaObject *message_load(ObjectNode obj_node, int version,
-			    const char *filename);
+static DiaObject *message_load(ObjectNode obj_node, int version,DiaContext *ctx);
 
 static PropDescription *message_describe_props(Message *mes);
 static void message_get_props(Message * message, GPtrArray *props);
@@ -405,10 +404,10 @@ message_update_data(Message *message)
 
 
 static DiaObject *
-message_load(ObjectNode obj_node, int version, const char *filename)
+message_load(ObjectNode obj_node, int version,DiaContext *ctx)
 {
   return object_load_using_properties(&jackson_phenomenon_type,
-                                      obj_node,version,filename);
+                                      obj_node,version,ctx);
 }
 
 

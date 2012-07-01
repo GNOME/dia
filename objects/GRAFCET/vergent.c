@@ -32,8 +32,6 @@
 #include "connectionpoint.h"
 #include "diarenderer.h"
 #include "attributes.h"
-#include "widgets.h"
-#include "message.h"
 #include "color.h"
 #include "properties.h"
 #include "geometry.h"
@@ -71,8 +69,7 @@ static DiaObject *vergent_create(Point *startpoint,
 static real vergent_distance_from(Vergent *vergent, Point *point);
 static void vergent_update_data(Vergent *vergent);
 static void vergent_destroy(Vergent *vergent);
-static DiaObject *vergent_load(ObjectNode obj_node, int version,
-                            const char *filename);
+static DiaObject *vergent_load(ObjectNode obj_node, int version,DiaContext *ctx);
 static PropDescription *vergent_describe_props(Vergent *vergent);
 static void vergent_get_props(Vergent *vergent, 
                               GPtrArray *props);
@@ -491,10 +488,10 @@ vergent_destroy(Vergent *vergent)
 }
 
 static DiaObject *
-vergent_load(ObjectNode obj_node, int version, const char *filename)
+vergent_load(ObjectNode obj_node, int version,DiaContext *ctx)
 {
   return object_load_using_properties(&vergent_type,
-                                      obj_node,version,filename);
+                                      obj_node,version,ctx);
 }
 
 

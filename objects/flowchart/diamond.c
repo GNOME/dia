@@ -35,8 +35,6 @@
 #include "diarenderer.h"
 #include "attributes.h"
 #include "text.h"
-#include "widgets.h"
-#include "message.h"
 #include "properties.h"
 
 #include "pixmaps/diamond.xpm"
@@ -103,7 +101,7 @@ static void diamond_get_props(Diamond *diamond, GPtrArray *props);
 static void diamond_set_props(Diamond *diamond, GPtrArray *props);
 
 static void diamond_save(Diamond *diamond, ObjectNode obj_node, const char *filename);
-static DiaObject *diamond_load(ObjectNode obj_node, int version, const char *filename);
+static DiaObject *diamond_load(ObjectNode obj_node, int version,DiaContext *ctx);
 
 static ObjectTypeOps diamond_type_ops =
 {
@@ -604,7 +602,7 @@ diamond_save(Diamond *diamond, ObjectNode obj_node, const char *filename)
 }
 
 static DiaObject *
-diamond_load(ObjectNode obj_node, int version, const char *filename)
+diamond_load(ObjectNode obj_node, int version,DiaContext *ctx)
 {
   Diamond *diamond;
   Element *elem;
@@ -619,47 +617,47 @@ diamond_load(ObjectNode obj_node, int version, const char *filename)
   obj->type = &diamond_type;
   obj->ops = &diamond_ops;
 
-  element_load(elem, obj_node);
+  element_load(elem, obj_node, ctx);
   
   diamond->border_width = 0.1;
   attr = object_find_attribute(obj_node, "border_width");
   if (attr != NULL)
-    diamond->border_width =  data_real( attribute_first_data(attr) );
+    diamond->border_width =  data_real(attribute_first_data(attr), ctx);
 
   diamond->border_color = color_black;
   attr = object_find_attribute(obj_node, "border_color");
   if (attr != NULL)
-    data_color(attribute_first_data(attr), &diamond->border_color);
-  
+    data_color(attribute_first_data(attr), &diamond->border_color, ctx);
+
   diamond->inner_color = color_white;
   attr = object_find_attribute(obj_node, "inner_color");
   if (attr != NULL)
-    data_color(attribute_first_data(attr), &diamond->inner_color);
+    data_color(attribute_first_data(attr), &diamond->inner_color, ctx);
   
   diamond->show_background = TRUE;
   attr = object_find_attribute(obj_node, "show_background");
   if (attr != NULL)
-    diamond->show_background = data_boolean( attribute_first_data(attr) );
+    diamond->show_background = data_boolean(attribute_first_data(attr), ctx);
 
   diamond->line_style = LINESTYLE_SOLID;
   attr = object_find_attribute(obj_node, "line_style");
   if (attr != NULL)
-    diamond->line_style =  data_enum( attribute_first_data(attr) );
+    diamond->line_style =  data_enum(attribute_first_data(attr), ctx);
 
   diamond->dashlength = DEFAULT_LINESTYLE_DASHLEN;
   attr = object_find_attribute(obj_node, "dashlength");
   if (attr != NULL)
-    diamond->dashlength = data_real(attribute_first_data(attr));
+    diamond->dashlength = data_real(attribute_first_data(attr), ctx);
 
   diamond->padding = default_properties.padding;
   attr = object_find_attribute(obj_node, "padding");
   if (attr != NULL)
-    diamond->padding =  data_real( attribute_first_data(attr) );
+    diamond->padding =  data_real(attribute_first_data(attr), ctx);
   
   diamond->text = NULL;
   attr = object_find_attribute(obj_node, "text");
   if (attr != NULL)
-    diamond->text = data_text(attribute_first_data(attr));
+    diamond->text = data_text(attribute_first_data(attr), ctx);
   else /* paranoid */
     diamond->text = new_text_default(&obj->position, &diamond->border_color, ALIGN_CENTER);
   text_get_attributes(diamond->text, &diamond->attrs);
@@ -668,7 +666,7 @@ diamond_load(ObjectNode obj_node, int version, const char *filename)
   diamond->text_fitting = TEXTFIT_WHEN_NEEDED;
   attr = object_find_attribute(obj_node, PROP_STDNAME_TEXT_FITTING);
   if (attr != NULL)
-    diamond->text_fitting = data_enum(attribute_first_data(attr));
+    diamond->text_fitting = data_enum(attribute_first_data(attr), ctx);
 
   element_init(elem, 8, NUM_CONNECTIONS);
 

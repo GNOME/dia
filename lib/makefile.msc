@@ -55,6 +55,7 @@ OBJECTS = \
 	diaarrowchooser.obj \
 	diaarrowselector.obj \
 	diacolorselector.obj \
+	diacontext.obj \
 	dialinechooser.obj \
 	dialinestyleselector.obj \
 	dialogs.obj \
@@ -173,5 +174,12 @@ font-height.exe : font-height.obj
 	$(PKG_LINK) $(LDFLAGS) gdi32.lib user32.lib $(LDFLAGS) /subsystem:console
 
 splint :
-	sp -weak $(CFLAGS) *.c >sp.log
-	
+	sp -weak -fcnuse $(CFLAGS) proplist.c >sp.log
+
+!IFDEF SCA
+#sca : $(OBJECTS)
+#	clang -analyze $(INCLUDES) $(DEFINES)
+# Not using $(CFLAGS) for msvc either
+.c.obj :
+	clang --analyze $(INCLUDES) $(DEFINES) $(PKG_CFLAGS) $<
+!ENDIF

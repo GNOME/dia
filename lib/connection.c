@@ -24,7 +24,6 @@
 #include <assert.h>
 
 #include "connection.h"
-#include "message.h"
 
 /** Adjust connection endings for autogap.  This function actually moves the
  * ends of the connection, but only when the end is connected to 
@@ -97,7 +96,7 @@ connection_move_handle(Connection *conn, HandleId id,
     conn->endpoints[1] = *to;
     break;
   default:
-    message_error("Internal error in connection_move_handle.\n");
+    g_warning("Internal error in connection_move_handle.\n");
     break;
   }
   return NULL;
@@ -221,18 +220,18 @@ connection_save(Connection *conn, ObjectNode obj_node)
  * @param obj_node The XML node to load from.
  */
 void
-connection_load(Connection *conn, ObjectNode obj_node)
+connection_load(Connection *conn, ObjectNode obj_node, DiaContext *ctx)
 {
   AttributeNode attr;
   DataNode data;
 
-  object_load(&conn->object, obj_node);
+  object_load(&conn->object, obj_node, ctx);
 
   attr = object_find_attribute(obj_node, "conn_endpoints");
   if (attr != NULL) {
     data = attribute_first_data(attr);
-    data_point( data , &conn->endpoints[0] );
+    data_point(data, &conn->endpoints[0], ctx);
     data = data_next(data);
-    data_point( data , &conn->endpoints[1] );
+    data_point(data, &conn->endpoints[1], ctx);
   }
 }

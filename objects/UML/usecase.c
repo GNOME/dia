@@ -84,8 +84,7 @@ static DiaObject *usecase_create(Point *startpoint,
 			      Handle **handle1,
 			      Handle **handle2);
 static void usecase_destroy(Usecase *usecase);
-static DiaObject *usecase_load(ObjectNode obj_node, int version,
-			    const char *filename);
+static DiaObject *usecase_load(ObjectNode obj_node, int version,DiaContext *ctx);
 static void usecase_update_data(Usecase *usecase);
 static PropDescription *usecase_describe_props(Usecase *usecase);
 static void usecase_get_props(Usecase *usecase, GPtrArray *props);
@@ -463,10 +462,10 @@ usecase_destroy(Usecase *usecase)
 }
 
 static DiaObject *
-usecase_load(ObjectNode obj_node, int version, const char *filename)
+usecase_load(ObjectNode obj_node, int version,DiaContext *ctx)
 {
   DiaObject *obj = object_load_using_properties(&usecase_type,
-                                                obj_node,version,filename);
+                                                obj_node,version,ctx);
   AttributeNode attr;
   /* For compatibility with previous dia files. If no line_width, use
    * USECASE_LINEWIDTH, that was the previous line width.

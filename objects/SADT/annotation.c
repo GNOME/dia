@@ -75,8 +75,7 @@ static DiaObject *annotation_create(Point *startpoint,
 static real annotation_distance_from(Annotation *annotation, Point *point);
 static void annotation_update_data(Annotation *annotation);
 static void annotation_destroy(Annotation *annotation);
-static DiaObject *annotation_load(ObjectNode obj_node, int version,
-			       const char *filename);
+static DiaObject *annotation_load(ObjectNode obj_node, int version,DiaContext *ctx);
 static PropDescription *annotation_describe_props(Annotation *annotation);
 static void annotation_get_props(Annotation *annotation, 
                                  GPtrArray *props);
@@ -421,8 +420,8 @@ annotation_update_data(Annotation *annotation)
 }
 
 static DiaObject *
-annotation_load(ObjectNode obj_node, int version, const char *filename)
+annotation_load(ObjectNode obj_node, int version,DiaContext *ctx)
 {
   return object_load_using_properties(&sadtannotation_type,
-                                      obj_node,version,filename);
+                                      obj_node,version,ctx);
 }

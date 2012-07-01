@@ -33,7 +33,7 @@
 #define WIDGET GtkWidget
 #include "properties.h"
 #include "propinternals.h"
-#include "message.h"
+#include "diacontext.h"
 
 /***************************/
 /* The CHAR property type. */
@@ -86,9 +86,9 @@ charprop_set_from_widget(CharProperty *prop, WIDGET *widget)
 }
 
 static void 
-charprop_load(CharProperty *prop, AttributeNode attr, DataNode data)
+charprop_load(CharProperty *prop, AttributeNode attr, DataNode data, DiaContext *ctx)
 {
-  gchar *str = data_string(data);
+  gchar *str = data_string(data, ctx);
   
   if (str && str[0]) {
     prop->char_data = g_utf8_get_char(str);
@@ -204,9 +204,9 @@ boolprop_set_from_widget(BoolProperty *prop, WIDGET *widget)
 }
 
 static void 
-boolprop_load(BoolProperty *prop, AttributeNode attr, DataNode data)
+boolprop_load(BoolProperty *prop, AttributeNode attr, DataNode data, DiaContext *ctx)
 {
-  prop->bool_data = data_boolean(data);
+  prop->bool_data = data_boolean(data,ctx);
 }
 
 static void 
@@ -314,9 +314,9 @@ intprop_set_from_widget(IntProperty *prop, WIDGET *widget)
 }
 
 static void 
-intprop_load(IntProperty *prop, AttributeNode attr, DataNode data)
+intprop_load(IntProperty *prop, AttributeNode attr, DataNode data, DiaContext *ctx)
 {
-  prop->int_data = data_int(data);
+  prop->int_data = data_int(data,ctx);
 }
 
 static void 
@@ -398,13 +398,13 @@ intarrayprop_copy(IntarrayProperty *src)
 }
 
 static void 
-intarrayprop_load(IntarrayProperty *prop, AttributeNode attr, DataNode data)
+intarrayprop_load(IntarrayProperty *prop, AttributeNode attr, DataNode data, DiaContext *ctx)
 {
   guint nvals = attribute_num_data(attr);
   guint i;
   g_array_set_size(prop->intarray_data,nvals);
   for (i=0; (i < nvals) && data; i++, data = data_next(data)) 
-    g_array_index(prop->intarray_data,gint,i) = data_int(data);
+    g_array_index(prop->intarray_data,gint,i) = data_int(data,ctx);
   if (i != nvals) 
     g_warning("attribute_num_data() and actual data count mismatch "
               "(shouldn't happen)");
@@ -546,15 +546,15 @@ enumprop_set_from_widget(EnumProperty *prop, WIDGET *widget)
 }
 
 static void 
-enumprop_load(EnumProperty *prop, AttributeNode attr, DataNode data)
+enumprop_load(EnumProperty *prop, AttributeNode attr, DataNode data, DiaContext *ctx)
 {
-  DataType dt = data_type (data);
+  DataType dt = data_type (data, ctx);
   if (DATATYPE_ENUM == dt)
-    prop->enum_data = data_enum(data);
+    prop->enum_data = data_enum(data, ctx);
   else if (DATATYPE_INT == dt) {
     gboolean cast_ok = FALSE;
     PropEnumData *enumdata = prop->common.descr->extra_data;
-    guint i, v = data_int(data);
+    guint i, v = data_int(data,ctx);
     for (i = 0; enumdata[i].name != NULL; ++i) {
       if (v == enumdata[i].enumv) {
         prop->enum_data = v;
@@ -564,7 +564,7 @@ enumprop_load(EnumProperty *prop, AttributeNode attr, DataNode data)
     }
     if (!cast_ok) {
       prop->enum_data = enumdata[0].enumv;
-      message_warning (_("Property cast from int to enum out of range"));
+      dia_context_add_message (ctx, _("Property cast from int to enum out of range"));
     }
   }
 }
@@ -641,14 +641,14 @@ enumarrayprop_copy(EnumarrayProperty *src)
 }
 
 static void 
-enumarrayprop_load(EnumarrayProperty *prop, AttributeNode attr, DataNode data)
+enumarrayprop_load(EnumarrayProperty *prop, AttributeNode attr, DataNode data, DiaContext *ctx)
 {
   guint nvals = attribute_num_data(attr);
   guint i;
   g_array_set_size(prop->enumarray_data,nvals);
 
   for (i=0; (i < nvals) && data; i++, data = data_next(data)) 
-    g_array_index(prop->enumarray_data,gint,i) = data_enum(data);
+    g_array_index(prop->enumarray_data,gint,i) = data_enum(data, ctx);
   if (i != nvals) 
     g_warning("attribute_num_data() and actual data count mismatch "
               "(shouldn't happen)");

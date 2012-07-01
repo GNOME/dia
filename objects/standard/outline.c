@@ -76,7 +76,7 @@ static DiaObject *outline_create (Point *startpoint,
 				  Handle **handle1,
 				  Handle **handle2);
 static DiaObject *
-outline_load(ObjectNode obj_node, int version, const char *filename);
+outline_load(ObjectNode obj_node, int version,DiaContext *ctx);
 
 static ObjectTypeOps outline_type_ops =
 {
@@ -190,10 +190,10 @@ outline_create (Point *startpoint,
   return obj;
 }
 static DiaObject *
-outline_load(ObjectNode obj_node, int version, const char *filename)
+outline_load(ObjectNode obj_node, int version,DiaContext *ctx)
 {
   return object_load_using_properties(&outline_type,
-                                      obj_node,version,filename);
+                                      obj_node,version,ctx);
 }
 
 /* Class/Object implementation */

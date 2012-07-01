@@ -68,8 +68,7 @@ static DiaObject *note_create(Point *startpoint,
 			   Handle **handle1,
 			   Handle **handle2);
 static void note_destroy(Note *note);
-static DiaObject *note_load(ObjectNode obj_node, int version,
-			 const char *filename);
+static DiaObject *note_load(ObjectNode obj_node, int version,DiaContext *ctx);
 
 static PropDescription *note_describe_props(Note *note);
 static void note_get_props(Note *note, GPtrArray *props);
@@ -363,10 +362,10 @@ note_destroy(Note *note)
 }
 
 static DiaObject *
-note_load(ObjectNode obj_node, int version, const char *filename)
+note_load(ObjectNode obj_node, int version,DiaContext *ctx)
 {
   DiaObject * obj = object_load_using_properties(&note_type,
-                                                 obj_node,version,filename);
+                                                 obj_node,version,ctx);
   AttributeNode attr;
   /* For compatibility with previous dia files. If no line_width, use
    * NOTE_BORDERWIDTH, that was the previous line width.

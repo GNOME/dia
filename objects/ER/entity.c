@@ -32,7 +32,6 @@
 #include "connectionpoint.h"
 #include "diarenderer.h"
 #include "attributes.h"
-#include "widgets.h"
 #include "properties.h"
 
 #include "pixmaps/entity.xpm"
@@ -92,8 +91,7 @@ static void entity_set_props(Entity *entity, GPtrArray *props);
 
 static void entity_save(Entity *entity, ObjectNode obj_node,
 			const char *filename);
-static DiaObject *entity_load(ObjectNode obj_node, int version,
-			   const char *filename);
+static DiaObject *entity_load(ObjectNode obj_node, int version,DiaContext *ctx);
 
 static ObjectTypeOps entity_type_ops =
 {
@@ -499,7 +497,7 @@ entity_save(Entity *entity, ObjectNode obj_node, const char *filename)
 }
 
 static DiaObject *
-entity_load(ObjectNode obj_node, int version, const char *filename)
+entity_load(ObjectNode obj_node, int version,DiaContext *ctx)
 {
   Entity *entity;
   Element *elem;
@@ -514,35 +512,35 @@ entity_load(ObjectNode obj_node, int version, const char *filename)
   obj->type = &entity_type;
   obj->ops = &entity_ops;
 
-  element_load(elem, obj_node);
-  
+  element_load(elem, obj_node, ctx);
+
   entity->border_width = 0.1;
   attr = object_find_attribute(obj_node, "border_width");
   if (attr != NULL)
-    entity->border_width =  data_real( attribute_first_data(attr) );
+    entity->border_width =  data_real(attribute_first_data(attr), ctx);
 
   entity->border_color = color_black;
   attr = object_find_attribute(obj_node, "border_color");
   if (attr != NULL)
-    data_color(attribute_first_data(attr), &entity->border_color);
+    data_color(attribute_first_data(attr), &entity->border_color, ctx);
   
   entity->inner_color = color_white;
   attr = object_find_attribute(obj_node, "inner_color");
   if (attr != NULL)
-    data_color(attribute_first_data(attr), &entity->inner_color);
+    data_color(attribute_first_data(attr), &entity->inner_color, ctx);
   
   entity->name = NULL;
   attr = object_find_attribute(obj_node, "name");
   if (attr != NULL)
-    entity->name = data_string(attribute_first_data(attr));
+    entity->name = data_string(attribute_first_data(attr), ctx);
 
   attr = object_find_attribute(obj_node, "weak");
   if (attr != NULL)
-    entity->weak = data_boolean(attribute_first_data(attr));
+    entity->weak = data_boolean(attribute_first_data(attr), ctx);
 
   attr = object_find_attribute(obj_node, "associative");
   if (attr != NULL)
-    entity->associative = data_boolean(attribute_first_data(attr));
+    entity->associative = data_boolean(attribute_first_data(attr), ctx);
 
   if (entity->font != NULL) {
     /* This shouldn't happen, but doesn't hurt */
@@ -551,12 +549,12 @@ entity_load(ObjectNode obj_node, int version, const char *filename)
   }
   attr = object_find_attribute (obj_node, "font");
   if (attr != NULL)
-    entity->font = data_font (attribute_first_data (attr));
+    entity->font = data_font (attribute_first_data (attr), ctx);
 
   entity->font_height = FONT_HEIGHT;
   attr = object_find_attribute(obj_node, "font_height");
   if (attr != NULL)
-    entity->font_height = data_real(attribute_first_data(attr));
+    entity->font_height = data_real(attribute_first_data(attr), ctx);
 
   element_init(elem, 8, NUM_CONNECTIONS);
 
@@ -567,18 +565,16 @@ entity_load(ObjectNode obj_node, int version, const char *filename)
   }
   entity->connections[8].flags = CP_FLAGS_MAIN;
 
-  if (entity->font == NULL) {
+  if (entity->font == NULL)
     entity->font = dia_font_new_from_style(DIA_FONT_MONOSPACE,1.0);
-  }
 
   entity->name_width =
     dia_font_string_width(entity->name, entity->font, entity->font_height);
 
   entity_update_data(entity);
 
-  for (i=0;i<8;i++) {
+  for (i=0;i<8;i++)
     obj->handles[i]->type = HANDLE_NON_MOVABLE;
-  }
 
   return &entity->element.object;
 }

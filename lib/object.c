@@ -602,7 +602,7 @@ object_save(DiaObject *obj, ObjectNode obj_node)
  * @param obj_node An XML node to load the data from.
  */
 void 
-object_load(DiaObject *obj, ObjectNode obj_node)
+object_load(DiaObject *obj, ObjectNode obj_node, DiaContext *ctx)
 {
   AttributeNode attr;
 
@@ -610,17 +610,17 @@ object_load(DiaObject *obj, ObjectNode obj_node)
   obj->position.y = 0.0;
   attr = object_find_attribute(obj_node, "obj_pos");
   if (attr != NULL)
-    data_point( attribute_first_data(attr), &obj->position );
+    data_point(attribute_first_data(attr), &obj->position, ctx);
 
   obj->bounding_box.left = obj->bounding_box.right = 0.0;
   obj->bounding_box.top = obj->bounding_box.bottom = 0.0;
   attr = object_find_attribute(obj_node, "obj_bb");
   if (attr != NULL)
-    data_rectangle( attribute_first_data(attr), &obj->bounding_box );
+    data_rectangle(attribute_first_data(attr), &obj->bounding_box, ctx);
 
   attr = object_find_attribute(obj_node, "meta");
   if (attr != NULL)
-    obj->meta = data_dict (attribute_first_data(attr));
+    obj->meta = data_dict (attribute_first_data(attr), ctx);
 }
 
 /** Returns the layer that the given object belongs to.
@@ -806,14 +806,14 @@ object_flags_set(DiaObject *obj, gint flags)
 DiaObject *
 object_load_using_properties(const DiaObjectType *type,
                              ObjectNode obj_node, int version,
-                             const char *filename)
+                             DiaContext *ctx)
 {
   DiaObject *obj;
   Point startpoint = {0.0,0.0};
   Handle *handle1,*handle2;
   
   obj = type->ops->create(&startpoint,NULL, &handle1,&handle2);
-  object_load_props(obj,obj_node);
+  object_load_props(obj,obj_node,ctx);
   return obj;
 }
 

@@ -82,8 +82,7 @@ static DiaObject *classicon_create(Point *startpoint,
 				Handle **handle1,
 				Handle **handle2);
 static void classicon_destroy(Classicon *cicon);
-static DiaObject *classicon_load(ObjectNode obj_node, int version,
-			      const char *filename);
+static DiaObject *classicon_load(ObjectNode obj_node, int version,DiaContext *ctx);
 static PropDescription *classicon_describe_props(Classicon *classicon);
 static void classicon_get_props(Classicon *classicon, GPtrArray *props);
 static void classicon_set_props(Classicon *classicon, GPtrArray *props);
@@ -495,10 +494,10 @@ classicon_destroy(Classicon *cicon)
 }
 
 static DiaObject *
-classicon_load(ObjectNode obj_node, int version, const char *filename)
+classicon_load(ObjectNode obj_node, int version,DiaContext *ctx)
 {
   return object_load_using_properties(&classicon_type,
-                                      obj_node,version,filename);
+                                      obj_node,version,ctx);
 }
 
 

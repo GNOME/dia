@@ -32,8 +32,6 @@
 #include "connectionpoint.h"
 #include "diarenderer.h"
 #include "attributes.h"
-#include "widgets.h"
-#include "message.h"
 #include "color.h"
 #include "properties.h"
 
@@ -88,7 +86,7 @@ static DiaMenu *sadtarrow_get_object_menu(Sadtarrow *sadtarrow,
 					   Point *clickedpoint);
 
 static DiaObject *sadtarrow_load(ObjectNode obj_node, int version,
-			       const char *filename);
+				 DiaContext *ctx);
 static PropDescription *sadtarrow_describe_props(Sadtarrow *sadtarrow);
 static void sadtarrow_get_props(Sadtarrow *sadtarrow, 
                                  GPtrArray *props);
@@ -99,7 +97,7 @@ static void sadtarrow_set_props(Sadtarrow *sadtarrow,
 static ObjectTypeOps sadtarrow_type_ops =
 {
   (CreateFunc)sadtarrow_create,   /* create */
-  (LoadFunc)  sadtarrow_load/*using properties*/,     /* load */
+  (LoadFunc)  sadtarrow_load,     /* load */
   (SaveFunc)  object_save_using_properties, /* save */
   (GetDefaultsFunc)   NULL,
   (ApplyDefaultsFunc) NULL
@@ -487,9 +485,9 @@ sadtarrow_get_object_menu(Sadtarrow *sadtarrow, Point *clickedpoint)
 }
 
 static DiaObject *
-sadtarrow_load(ObjectNode obj_node, int version, const char *filename)
+sadtarrow_load(ObjectNode obj_node, int version, DiaContext *ctx)
 {
   return object_load_using_properties(&sadtarrow_type,
-                                      obj_node,version,filename);
+                                      obj_node,version,ctx);
 }
 

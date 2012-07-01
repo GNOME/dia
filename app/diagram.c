@@ -43,6 +43,7 @@
 #include "textedit.h"
 #include "lib/diamarshal.h"
 #include "parent.h"
+#include "diacontext.h"
 
 static GList *open_diagrams = NULL;
 
@@ -261,13 +262,17 @@ diagram_load_into(Diagram         *diagram,
 		  const char      *filename,
 		  DiaImportFilter *ifilter)
 {
+  /* ToDo: move context further up in the callstack and to sth useful with it's content */
+  DiaContext *ctx = dia_context_new(_("Load Into"));
+
   gboolean was_default = diagram->is_default;
   if (!ifilter)
     ifilter = filter_guess_import_filter(filename);
   if (!ifilter)  /* default to native format */
     ifilter = &dia_import_filter;
 
-  if (ifilter->import_func(filename, diagram->data, ifilter->user_data)) {
+  dia_context_set_filename (ctx, filename);
+  if (ifilter->import_func(filename, diagram->data, ctx, ifilter->user_data)) {
     if (ifilter != &dia_import_filter) {
       /* When loading non-Dia files, change filename to reflect that saving
        * will produce a Dia file. See bug #440093 */
@@ -296,9 +301,12 @@ diagram_load_into(Diagram         *diagram,
 	  strcmp(filename, diagram->filename) == 0 ? FALSE : was_default;
     }
     diagram_set_modified(diagram, TRUE);
+    dia_context_release(ctx);
     return TRUE;
-  } else
+  } else {
+    dia_context_release(ctx);
     return FALSE;
+  }
 }
 
 Diagram *

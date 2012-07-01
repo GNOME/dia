@@ -30,7 +30,6 @@
 #include "connectionpoint.h"
 #include "diarenderer.h"
 #include "attributes.h"
-#include "widgets.h"
 #include "arrows.h"
 #include "connpoint_line.h"
 #include "properties.h"
@@ -83,7 +82,7 @@ static void line_get_props(Line *line, GPtrArray *props);
 static void line_set_props(Line *line, GPtrArray *props);
 
 static void line_save(Line *line, ObjectNode obj_node, const char *filename);
-static DiaObject *line_load(ObjectNode obj_node, int version, const char *filename);
+static DiaObject *line_load(ObjectNode obj_node, int version, DiaContext *ctx);
 static DiaMenu *line_get_object_menu(Line *line, Point *clickedpoint);
 
 void Line_adjust_for_absolute_gap(Line *line, Point *gap_endpoints);
@@ -573,7 +572,7 @@ line_save(Line *line, ObjectNode obj_node, const char *filename)
 }
 
 static DiaObject *
-line_load(ObjectNode obj_node, int version, const char *filename)
+line_load(ObjectNode obj_node, int version, DiaContext *ctx)
 {
   Line *line;
   Connection *conn;
@@ -588,51 +587,51 @@ line_load(ObjectNode obj_node, int version, const char *filename)
   obj->type = &line_type;
   obj->ops = &line_ops;
 
-  connection_load(conn, obj_node);
+  connection_load(conn, obj_node, ctx);
 
   line->line_color = color_black;
   attr = object_find_attribute(obj_node, "line_color");
   if (attr != NULL)
-    data_color(attribute_first_data(attr), &line->line_color);
+    data_color(attribute_first_data(attr), &line->line_color, ctx);
 
   line->line_width = 0.1;
   attr = object_find_attribute(obj_node, PROP_STDNAME_LINE_WIDTH);
   if (attr != NULL)
-    line->line_width = data_real(attribute_first_data(attr));
+    line->line_width = data_real(attribute_first_data(attr), ctx);
 
   line->line_style = LINESTYLE_SOLID;
   attr = object_find_attribute(obj_node, "line_style");
   if (attr != NULL)
-    line->line_style = data_enum(attribute_first_data(attr));
+    line->line_style = data_enum(attribute_first_data(attr), ctx);
 
   line->line_caps = LINECAPS_BUTT;
   attr = object_find_attribute(obj_node, "line_caps");
   if (attr != NULL)
-    line->line_caps = data_enum(attribute_first_data(attr));
+    line->line_caps = data_enum(attribute_first_data(attr), ctx);
 
   load_arrow(obj_node, &line->start_arrow, 
-	     "start_arrow", "start_arrow_length", "start_arrow_width");
+	     "start_arrow", "start_arrow_length", "start_arrow_width", ctx);
 
   load_arrow(obj_node, &line->end_arrow, 
-	     "end_arrow", "end_arrow_length", "end_arrow_width");
+	     "end_arrow", "end_arrow_length", "end_arrow_width", ctx);
 
   line->absolute_start_gap = 0.0;
   attr = object_find_attribute(obj_node, "absolute_start_gap");
   if (attr != NULL)
-    line->absolute_start_gap =  data_real( attribute_first_data(attr) );
+    line->absolute_start_gap =  data_real(attribute_first_data(attr), ctx);
   line->absolute_end_gap = 0.0;
   attr = object_find_attribute(obj_node, "absolute_end_gap");
   if (attr != NULL)
-    line->absolute_end_gap =  data_real( attribute_first_data(attr) );
+    line->absolute_end_gap =  data_real(attribute_first_data(attr), ctx);
 
   line->dashlength = DEFAULT_LINESTYLE_DASHLEN;
   attr = object_find_attribute(obj_node, "dashlength");
   if (attr != NULL)
-    line->dashlength = data_real(attribute_first_data(attr));
+    line->dashlength = data_real(attribute_first_data(attr), ctx);
 
   connection_init(conn, 2, 0);
 
-  line->cpl = connpointline_load(obj,obj_node,"numcp",1,NULL);
+  line->cpl = connpointline_load(obj,obj_node,"numcp",1,NULL, ctx);
   line_update_data(line);
 
   return &line->connection.object;

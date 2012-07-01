@@ -34,8 +34,6 @@
 #include "connectionpoint.h"
 #include "diarenderer.h"
 #include "attributes.h"
-#include "widgets.h"
-#include "message.h"
 #include "properties.h"
 
 #include "grafcet.h"
@@ -71,8 +69,7 @@ static void arc_destroy(Arc *arc);
 static DiaMenu *arc_get_object_menu(Arc *arc,
 					   Point *clickedpoint);
 
-static DiaObject *arc_load(ObjectNode obj_node, int version,
-			       const char *filename);
+static DiaObject *arc_load(ObjectNode obj_node, int version,DiaContext *ctx);
 static PropDescription *arc_describe_props(Arc *arc);
 static void arc_get_props(Arc *arc, 
                                  GPtrArray *props);
@@ -338,10 +335,10 @@ arc_get_object_menu(Arc *arc, Point *clickedpoint)
 
 
 static DiaObject *
-arc_load(ObjectNode obj_node, int version, const char *filename)
+arc_load(ObjectNode obj_node, int version,DiaContext *ctx)
 {
   DiaObject *obj = object_load_using_properties(&grafcet_arc_type,
-                                                obj_node,version,filename);
+                                                obj_node,version,ctx);
   if (version == 0) {
     AttributeNode attr;
     /* In old objects with no autorouting, set it to false. */

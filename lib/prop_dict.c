@@ -90,7 +90,7 @@ dictprop_copy(DictProperty *src)
 }
 
 static void 
-dictprop_load(DictProperty *prop, AttributeNode attr, DataNode data)
+dictprop_load(DictProperty *prop, AttributeNode attr, DataNode data, DiaContext *ctx)
 {
   DataNode kv;
   guint nvals = attribute_num_data(attr);
@@ -102,7 +102,7 @@ dictprop_load(DictProperty *prop, AttributeNode attr, DataNode data)
     xmlChar *key = xmlGetProp(kv, (const xmlChar *)"name");
 
     if (key) {
-      gchar *value = data_string(attribute_first_data (kv));
+      gchar *value = data_string(attribute_first_data (kv), ctx);
       if (value)
         g_hash_table_insert (prop->dict, g_strdup((gchar *)key), value);
       xmlFree (key);
@@ -349,7 +349,7 @@ prop_dicttypes_register(void)
 }
 
 GHashTable *
-data_dict (DataNode data)
+data_dict (DataNode data, DiaContext *ctx)
 {
   GHashTable *ht = NULL;
   int nvals = attribute_num_data (data);
@@ -363,7 +363,7 @@ data_dict (DataNode data)
       xmlChar *key = xmlGetProp(kv, (const xmlChar *)"name");
 
       if (key) {
-        val = data_string (attribute_first_data (kv));
+        val = data_string (attribute_first_data (kv), ctx);
         if (val)
           g_hash_table_insert (ht, g_strdup ((gchar *)key), val);
 	xmlFree (key);

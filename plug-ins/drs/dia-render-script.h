@@ -19,4 +19,4 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-gboolean import_drs (const gchar *filename, DiagramData *dia, void* user_data);
+gboolean import_drs (const gchar *filename, DiagramData *dia, DiaContext *ctx, void* user_data);

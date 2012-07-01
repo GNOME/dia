@@ -595,30 +595,6 @@ void save_boolequation(ObjectNode obj_node, const gchar *attrname,
   data_add_string(new_attribute(obj_node,attrname),(gchar *)booleq->value);
 }
 
-Boolequation *
-load_boolequation(ObjectNode obj_node,
-		 const gchar *attrname,
-		 const gchar *defaultvalue,
-		 DiaFont *font,
-		 real fontheight, Color *color)
-{
-  gchar *value = NULL;
-  Boolequation *booleq;
-  AttributeNode attr;
-
-  booleq = boolequation_create(NULL,font,fontheight,color);
-  attr = object_find_attribute(obj_node,attrname);
-  if (attr) 
-    value = data_string(attribute_first_data(attr));
-  else if (defaultvalue)
-    value = g_strdup (defaultvalue);
-  if (value) 
-    boolequation_set_value(booleq,value);
-  g_free(value);
-
-  return booleq;
-}
- 
 void 
 boolequation_draw(Boolequation *booleq, DiaRenderer *renderer)
 {

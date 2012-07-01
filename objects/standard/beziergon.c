@@ -32,9 +32,7 @@
 #include "connectionpoint.h"
 #include "diarenderer.h"
 #include "attributes.h"
-#include "widgets.h"
 #include "diamenu.h"
-#include "message.h"
 #include "properties.h"
 #include "create.h"
 
@@ -82,8 +80,7 @@ static void beziergon_set_props(Beziergon *beziergon, GPtrArray *props);
 
 static void beziergon_save(Beziergon *beziergon, ObjectNode obj_node,
 			  const char *filename);
-static DiaObject *beziergon_load(ObjectNode obj_node, int version,
-			     const char *filename);
+static DiaObject *beziergon_load(ObjectNode obj_node, int version, DiaContext *ctx);
 static DiaMenu *beziergon_get_object_menu(Beziergon *beziergon,
 					  Point *clickedpoint);
 
@@ -403,7 +400,7 @@ beziergon_save(Beziergon *beziergon, ObjectNode obj_node,
 }
 
 static DiaObject *
-beziergon_load(ObjectNode obj_node, int version, const char *filename)
+beziergon_load(ObjectNode obj_node, int version, DiaContext *ctx)
 {
   Beziergon *beziergon;
   BezierShape *bezier;
@@ -418,42 +415,42 @@ beziergon_load(ObjectNode obj_node, int version, const char *filename)
   obj->type = &beziergon_type;
   obj->ops = &beziergon_ops;
 
-  beziershape_load(bezier, obj_node);
+  beziershape_load(bezier, obj_node, ctx);
 
   beziergon->line_color = color_black;
   attr = object_find_attribute(obj_node, "line_color");
   if (attr != NULL)
-    data_color(attribute_first_data(attr), &beziergon->line_color);
+    data_color(attribute_first_data(attr), &beziergon->line_color, ctx);
 
   beziergon->line_width = 0.1;
   attr = object_find_attribute(obj_node, PROP_STDNAME_LINE_WIDTH);
   if (attr != NULL)
-    beziergon->line_width = data_real(attribute_first_data(attr));
+    beziergon->line_width = data_real(attribute_first_data(attr), ctx);
 
   beziergon->inner_color = color_white;
   attr = object_find_attribute(obj_node, "inner_color");
   if (attr != NULL)
-    data_color(attribute_first_data(attr), &beziergon->inner_color);
+    data_color(attribute_first_data(attr), &beziergon->inner_color, ctx);
   
   beziergon->show_background = TRUE;
   attr = object_find_attribute(obj_node, "show_background");
   if (attr != NULL)
-    beziergon->show_background = data_boolean( attribute_first_data(attr) );
+    beziergon->show_background = data_boolean(attribute_first_data(attr), ctx);
 
   beziergon->line_style = LINESTYLE_SOLID;
   attr = object_find_attribute(obj_node, "line_style");
   if (attr != NULL)
-    beziergon->line_style = data_enum(attribute_first_data(attr));
+    beziergon->line_style = data_enum(attribute_first_data(attr), ctx);
 
   beziergon->line_join = LINEJOIN_MITER;
   attr = object_find_attribute(obj_node, "line_join");
   if (attr != NULL)
-    beziergon->line_join = data_enum(attribute_first_data(attr));
+    beziergon->line_join = data_enum(attribute_first_data(attr), ctx);
 
   beziergon->dashlength = DEFAULT_LINESTYLE_DASHLEN;
   attr = object_find_attribute(obj_node, "dashlength");
   if (attr != NULL)
-    beziergon->dashlength = data_real(attribute_first_data(attr));
+    beziergon->dashlength = data_real(attribute_first_data(attr), ctx);
 
   beziergon_update_data(beziergon);
 

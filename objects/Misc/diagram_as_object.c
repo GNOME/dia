@@ -75,7 +75,7 @@ _dae_create (Point *startpoint,
 	     Handle **handle1,
 	     Handle **handle2);
 static DiaObject *
-_dae_load (ObjectNode obj_node, int version, const char *filename);
+_dae_load (ObjectNode obj_node, int version, DiaContext *ctx);
 static void
 _dae_save (DiaObject *obj, ObjectNode obj_node, const char *filename);
 
@@ -249,10 +249,15 @@ _dae_update_data(DiagramAsElement *dae)
     dae->data = g_object_new (DIA_TYPE_DIAGRAM_DATA, NULL);
 
     inf = filter_guess_import_filter(dae->filename);
-    if (inf && inf->import_func(dae->filename, dae->data, inf->user_data)) {
-      dae->scale = dae->element.width / (dae->data->extents.right - dae->data->extents.left);
-      dae->element.height = (dae->data->extents.bottom - dae->data->extents.top) * dae->scale;
-      dae->mtime = statbuf.st_mtime;
+    if (inf) {
+      DiaContext *ctx = dia_context_new (diagram_as_element_type.name);
+
+      if (inf->import_func(dae->filename, dae->data, ctx, inf->user_data)) {
+        dae->scale = dae->element.width / (dae->data->extents.right - dae->data->extents.left);
+        dae->element.height = (dae->data->extents.bottom - dae->data->extents.top) * dae->scale;
+        dae->mtime = statbuf.st_mtime;
+      }
+      dia_context_release (ctx);
     }
     /* invalidate possibly cached image */
     if (dae->image) {
@@ -348,17 +353,17 @@ _dae_create (Point *startpoint,
 }
 
 static DiaObject *
-_dae_load (ObjectNode obj_node, int version, const char *filename)
+_dae_load (ObjectNode obj_node, int version, DiaContext *ctx)
 {
   DiaObject *obj;
   DiagramAsElement *dae;
  
   obj = object_load_using_properties (&diagram_as_element_type,
-                                       obj_node, version, filename);
+                                       obj_node, version, ctx);
   /* filename de-normalization */
   dae = (DiagramAsElement*)obj;
   if (strlen(dae->filename) && !g_path_is_absolute (dae->filename)) {
-    gchar *dirname = g_path_get_dirname (filename);
+    gchar *dirname = g_path_get_dirname (dia_context_get_filename(ctx));
     gchar *fname = g_build_filename (dirname, dae->filename, NULL);
     g_free (dae->filename);
     dae->filename = fname;

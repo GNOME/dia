@@ -55,7 +55,7 @@ static DiaObject *measure_create (Point *startpoint,
 				  Handle **handle1,
 				  Handle **handle2);
 static DiaObject *
-measure_load(ObjectNode obj_node, int version, const char *filename);
+measure_load(ObjectNode obj_node, int version,DiaContext *ctx);
 
 static ObjectTypeOps measure_type_ops =
 {
@@ -159,10 +159,10 @@ measure_create (Point *startpoint,
   return obj;
 }
 static DiaObject *
-measure_load(ObjectNode obj_node, int version, const char *filename)
+measure_load(ObjectNode obj_node, int version,DiaContext *ctx)
 {
   return object_load_using_properties(&measure_type,
-                                      obj_node,version,filename);
+                                      obj_node,version,ctx);
 }
 static PropNumData scale_range = {1e-9, 1e9, 1 };
 static PropEnumData unit_data[] = {

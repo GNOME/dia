@@ -43,7 +43,6 @@
 #include <glib/gstdio.h>
 
 #include "intl.h"
-#include "message.h"
 #include "geometry.h"
 #include "filter.h"
 #include "object.h"
@@ -57,8 +56,6 @@
 #define BUFLEN 512
 
 static Color fig_colors[FIG_MAX_USER_COLORS];
-
-gboolean import_fig(const gchar *filename, DiagramData *dia, void* user_data);
 
 /** Eats the rest of the line.
  */
@@ -99,7 +96,7 @@ skip_comments(FILE *file) {
 }
 
 static Color
-fig_color(int color_index) 
+fig_color(int color_index, DiaContext *ctx)
 {
     if (color_index <= -1) 
         return color_black; /* Default color */
@@ -108,16 +105,18 @@ fig_color(int color_index)
     else if (color_index < FIG_MAX_USER_COLORS) 
 	return fig_colors[color_index-FIG_MAX_DEFAULT_COLORS];
     else {
-	message_error(_("Color index %d too high; only 512 colors allowed. Using black instead."),
-		      color_index);
+        dia_context_add_message(ctx, 
+	  _("Color index %d too high; only 512 colors allowed. Using black instead."),
+	  color_index);
 	return color_black;
     }
 }
 
 static Color
-fig_area_fill_color(int area_fill, int color_index) {
+fig_area_fill_color(int area_fill, int color_index, DiaContext *ctx)
+{
     Color col;
-    col = fig_color(color_index);
+    col = fig_color(color_index, ctx);
     if (area_fill == -1) return col;
     if (area_fill >= 0 && area_fill <= 20) {
 	if (color_index == -1 || color_index == 0) {
@@ -138,7 +137,7 @@ fig_area_fill_color(int area_fill, int color_index) {
 	col.blue += (0xff-col.blue)*(area_fill-20)/20;
 	col.alpha = 1.0;
     } else {
-	message_warning(_("Patterns are not supported by Dia"));
+	dia_context_add_message(ctx, _("Patterns are not supported by Dia"));
     }
     
     return col;
@@ -152,7 +151,7 @@ static PropDescription xfig_simple_prop_descs_line[] = {
     PROP_DESC_END};
 
 static LineStyle 
-fig_line_style_to_dia(int line_style) 
+fig_line_style_to_dia(int line_style, DiaContext *ctx) 
 {
     switch (line_style) {
     case 0:
@@ -166,11 +165,11 @@ fig_line_style_to_dia(int line_style)
     case 4:
         return LINESTYLE_DASH_DOT_DOT;
     case 5:
-        message_warning(_("Triple-dotted lines are not supported by Dia; "
-			  "using double-dotted"));
+	dia_context_add_message(ctx, _("Triple-dotted lines are not supported by Dia; "
+			               "using double-dotted"));
         return LINESTYLE_DASH_DOT_DOT;
     default:
-        message_error(_("Line style %d should not appear\n"), line_style);
+        dia_context_add_message(ctx, _("Line style %d should not appear"), line_style);
         return LINESTYLE_SOLID;
     }
 }
@@ -182,7 +181,9 @@ fig_simple_properties(DiaObject *obj,
 		      int thickness,
 		      int pen_color,
 		      int fill_color,
-		      int area_fill) {
+		      int area_fill,
+		      DiaContext *ctx)
+{
     GPtrArray *props = prop_list_from_descs(xfig_simple_prop_descs_line,
                                             pdtpp_true);
     RealProperty *rprop;
@@ -194,7 +195,7 @@ fig_simple_properties(DiaObject *obj,
     rprop->real_data = thickness/FIG_ALT_UNIT;
     
     cprop = g_ptr_array_index(props,1);
-    cprop->color_data = fig_color(pen_color);
+    cprop->color_data = fig_color(pen_color, ctx);
 
 
     if (line_style != -1) {
@@ -203,7 +204,7 @@ fig_simple_properties(DiaObject *obj,
                                                PROP_TYPE_LINESTYLE,
                                                PROP_FLAG_DONT_SAVE);
         lsprop->dash = dash_length/FIG_ALT_UNIT;
-        lsprop->style = fig_line_style_to_dia(line_style);
+        lsprop->style = fig_line_style_to_dia(line_style, ctx);
 
         g_ptr_array_add(props,lsprop);
     }
@@ -220,7 +221,7 @@ fig_simple_properties(DiaObject *obj,
             (ColorProperty *)make_new_prop("fill_colour",
                                            PROP_TYPE_COLOUR,
                                            PROP_FLAG_DONT_SAVE);
-        cprop->color_data = fig_area_fill_color(area_fill, fill_color);
+        cprop->color_data = fig_area_fill_color(area_fill, fill_color, ctx);
 
         g_ptr_array_add(props,cprop);
     }
@@ -230,7 +231,8 @@ fig_simple_properties(DiaObject *obj,
 }
 
 static int
-fig_read_n_points(FILE *file, int n, Point **points) {
+fig_read_n_points(FILE *file, int n, Point **points, DiaContext *ctx)
+{
     int i;
     GArray *points_list = g_array_sized_new(FALSE, FALSE, sizeof(Point), n);
 
@@ -238,8 +240,8 @@ fig_read_n_points(FILE *file, int n, Point **points) {
 	int x,y;
 	Point p;
 	if (fscanf(file, " %d %d ", &x, &y) != 2) {
-	    message_error(_("Error while reading %dth of %d points: %s\n"),
-			  i, n, strerror(errno));
+	    dia_context_set_errno(ctx, errno);
+	    dia_context_add_message(ctx, _("Error while reading %dth of %d points"), i, n);
 	    g_array_free(points_list, TRUE);
 	    return FALSE;
 	}
@@ -255,7 +257,8 @@ fig_read_n_points(FILE *file, int n, Point **points) {
 }
 
 static Arrow *
-fig_read_arrow(FILE *file) {
+fig_read_arrow(FILE *file, DiaContext *ctx)
+{
     int arrow_type, style;
     real thickness, width, height;
     Arrow *arrow;
@@ -266,7 +269,7 @@ fig_read_arrow(FILE *file) {
     if (fscanf(file, "%d %d %lf %lf %lf\n",
 	       &arrow_type, &style, &thickness,
 	       &width, &height) != 5) {
-	message_error(_("Error while reading arrowhead\n"));
+	dia_context_add_message(ctx, _("Error while reading arrowhead"));
 	setlocale(LC_NUMERIC,old_locale);
 	return NULL;
     }
@@ -288,7 +291,7 @@ fig_read_arrow(FILE *file) {
 	arrow->type = (style?ARROW_FILLED_DIAMOND:ARROW_HOLLOW_DIAMOND);
 	break;
     default:
-	message_error(_("Unknown arrow type %d\n"), arrow_type);
+	dia_context_add_message(ctx, _("Unknown arrow type %d\n"), arrow_type);
 	g_free(arrow);
 	return NULL;
     }
@@ -377,9 +380,10 @@ static int compound_depth;
  * @param depth A depth as in the Fig format, max 999
  */
 static void
-add_at_depth(DiaObject *newobj, int depth) {
+add_at_depth(DiaObject *newobj, int depth, DiaContext *ctx)
+{
     if (depth < 0 || depth >= FIG_MAX_DEPTHS) {
-	message_error(_("Depth %d of of range, only 0-%d allowed.\n"),
+	dia_context_add_message(ctx, _("Depth %d of of range, only 0-%d allowed.\n"),
 		      depth, FIG_MAX_DEPTHS-1);
 	depth = FIG_MAX_DEPTHS - 1;
     }
@@ -390,7 +394,8 @@ add_at_depth(DiaObject *newobj, int depth) {
 }
 
 static DiaObject *
-fig_read_ellipse(FILE *file) {
+fig_read_ellipse(FILE *file, DiaContext *ctx)
+{
     int sub_type;
     int line_style;
     int thickness;
@@ -426,7 +431,8 @@ fig_read_ellipse(FILE *file) {
 	       &radius_x, &radius_y,
 	       &start_x, &start_y,
 	       &end_x, &end_y) < 19) {
-	message_error(_("Couldn't read ellipse info: %s\n"), strerror(errno));
+	dia_context_set_errno(ctx, errno);
+	dia_context_add_message(ctx, _("Couldn't read ellipse info."));
 	setlocale(LC_NUMERIC, old_locale);
 	return NULL;
     }
@@ -440,7 +446,7 @@ fig_read_ellipse(FILE *file) {
 				     (2*radius_y)/FIG_UNIT);
     if (newobj == NULL) return NULL;
     fig_simple_properties(newobj, line_style, style_val, thickness,
-			  pen_color, fill_color, area_fill);
+			  pen_color, fill_color, area_fill, ctx);
 
     /* Pen style field (not used) */
     /* Style_val (size of dots and dashes) in 1/80 inch */
@@ -448,13 +454,14 @@ fig_read_ellipse(FILE *file) {
     /* Angle -- can't rotate yet */
 
     /* Depth field */
-    add_at_depth(newobj, depth);
+    add_at_depth(newobj, depth, ctx);
 
     return newobj;
 }
 
 static DiaObject *
-fig_read_polyline(FILE *file) {
+fig_read_polyline(FILE *file, DiaContext *ctx) 
+{
     int sub_type;
     int line_style;
     int thickness;
@@ -494,22 +501,24 @@ fig_read_polyline(FILE *file) {
 	       &forward_arrow,
 	       &backward_arrow,
 	       &npoints) != 15) {
-	message_error(_("Couldn't read polyline info: %s\n"), strerror(errno));
+	dia_context_set_errno(ctx, errno);
+	dia_context_add_message(ctx, _("Couldn't read polyline info.\n"));
 	goto exit;
     }
 
     if (forward_arrow == 1) {
-	forward_arrow_info = fig_read_arrow(file);
+	forward_arrow_info = fig_read_arrow(file, ctx);
     }
 
     if (backward_arrow == 1) {
-	backward_arrow_info = fig_read_arrow(file);
+	backward_arrow_info = fig_read_arrow(file, ctx);
     }
 
     if (sub_type == 5) { /* image has image name before npoints */
 	/* Despite what the specs say */
 	if (fscanf(file, " %d", &flipped) != 1) {
-	    message_error(_("Couldn't read flipped bit: %s\n"), strerror(errno));
+	    dia_context_set_errno(ctx, errno);
+	    dia_context_add_message(ctx, _("Couldn't read flipped bit."));
 	    goto exit;
 	}
 
@@ -517,7 +526,7 @@ fig_read_polyline(FILE *file) {
 
     }
 
-    if (!fig_read_n_points(file, npoints, &points)) {
+    if (!fig_read_n_points(file, npoints, &points, ctx)) {
 	goto exit;
     }
      
@@ -527,7 +536,7 @@ fig_read_polyline(FILE *file) {
 	    (RealProperty *)make_new_prop("corner_radius",
 					  PROP_TYPE_REAL,PROP_FLAG_DONT_SAVE);
 	if (radius < 0) {
-	    message_warning(_("Negative corner radius; negating"));
+	    dia_context_add_message(ctx, _("Negative corner radius; negating"));
 	    rprop->real_data = -radius/FIG_ALT_UNIT;
 	} else {
 	    rprop->real_data = radius/FIG_ALT_UNIT;
@@ -570,19 +579,19 @@ fig_read_polyline(FILE *file) {
 	if (newobj == NULL) goto exit;
 	break;
     default: 
-	message_error(_("Unknown polyline subtype: %d\n"), sub_type);
+	dia_context_add_message(ctx, _("Unknown polyline subtype: %d\n"), sub_type);
 	goto exit;
     }
 
     fig_simple_properties(newobj, line_style, style_val, thickness,
-			  pen_color, fill_color, area_fill);
+			  pen_color, fill_color, area_fill, ctx);
     /* Pen style field (not used) */
     /* Style_val (size of dots and dashes) in 1/80 inch*/
     /* Join style */
     /* Cap style */
      
     /* Depth field */
-    add_at_depth(newobj, depth);
+    add_at_depth(newobj, depth, ctx);
  exit:
     setlocale(LC_NUMERIC, old_locale);
     prop_list_free(props);
@@ -684,7 +693,8 @@ static real matrix_catmull_to_bezier[4][4] =
      {0,      0,   5,   5/6.0}};
 
 static DiaObject *
-fig_read_spline(FILE *file) {
+fig_read_spline(FILE *file, DiaContext *ctx)
+{
     int sub_type;
     int line_style;
     int thickness;
@@ -720,26 +730,27 @@ fig_read_spline(FILE *file) {
 	       &forward_arrow,
 	       &backward_arrow,
 	       &npoints) != 13) {
-	message_error(_("Couldn't read spline info: %s\n"), strerror(errno));
+	dia_context_set_errno(ctx, errno);
+	dia_context_add_message(ctx, _("Couldn't read spline info."));
 	goto exit;
     }
 
     if (forward_arrow == 1) {
-	forward_arrow_info = fig_read_arrow(file);
+	forward_arrow_info = fig_read_arrow(file, ctx);
     }
 
     if (backward_arrow == 1) {
-	backward_arrow_info = fig_read_arrow(file);
+	backward_arrow_info = fig_read_arrow(file, ctx);
     }
 
-    if (!fig_read_n_points(file, npoints, &points)) {
+    if (!fig_read_n_points(file, npoints, &points, ctx)) {
 	goto exit;
     }
      
     switch (sub_type) {
     case 0: /* Open approximated spline */
     case 1: /* Closed approximated spline */
-	message_warning(_("Cannot convert approximated spline yet."));
+	dia_context_add_message(ctx, _("Cannot convert approximated spline yet."));
 	goto exit;
     case 2: /* Open interpolated spline */
     case 3: /* Closed interpolated spline */
@@ -752,12 +763,12 @@ fig_read_spline(FILE *file) {
 	    gboolean interpolated = TRUE;
 	    for (i = 0; i < npoints; i++) {
 		if (fscanf(file, " %lf ", &f) != 1) {
-		    message_error(_("Couldn't read spline info: %s\n"),
-				  strerror(errno));
+		    dia_context_set_errno(ctx, errno);
+		    dia_context_add_message(ctx, _("Couldn't read spline info."));
 		    goto exit;
 		}
 		if (f != -1.0 && f != 0.0) {
-		    message_warning(_("Cannot convert approximated spline yet."));
+		    dia_context_add_message(ctx, _("Cannot convert approximated spline yet."));
 		    interpolated = FALSE;
 		}
 	    }
@@ -795,18 +806,18 @@ fig_read_spline(FILE *file) {
 	if (newobj == NULL) goto exit;
 	break;
     default: 
-	message_error(_("Unknown spline subtype: %d\n"), sub_type);
+	dia_context_add_message(ctx, _("Unknown spline subtype: %d\n"), sub_type);
 	goto exit;
     }
 
     fig_simple_properties(newobj, line_style, style_val, thickness,
-			  pen_color, fill_color, area_fill);
+			  pen_color, fill_color, area_fill, ctx);
     /* Pen style field (not used) */
     /* Style_val (size of dots and dashes) in 1/80 inch*/
     /* Cap style */
      
     /* Depth field */
-    add_at_depth(newobj, depth);
+    add_at_depth(newobj, depth, ctx);
  exit:
     setlocale(LC_NUMERIC, old_locale);
     prop_list_free(props);
@@ -817,7 +828,8 @@ fig_read_spline(FILE *file) {
 }
 
 static DiaObject *
-fig_read_arc(FILE *file) {
+fig_read_arc(FILE *file, DiaContext *ctx)
+{
     int sub_type;
     int line_style;
     int thickness;
@@ -860,16 +872,17 @@ fig_read_arc(FILE *file) {
 	       &x1, &y1,
 	       &x2, &y2,
 	       &x3, &y3) != 21) {
-	message_error(_("Couldn't read arc info: %s\n"), strerror(errno));
+	dia_context_set_errno(ctx, errno);
+	dia_context_add_message(ctx, _("Couldn't read arc info."));
 	goto exit;
     }
 
     if (forward_arrow == 1) {
-	forward_arrow_info = fig_read_arrow(file);
+	forward_arrow_info = fig_read_arrow(file, ctx);
     }
 
     if (backward_arrow == 1) {
-	backward_arrow_info = fig_read_arrow(file);
+	backward_arrow_info = fig_read_arrow(file, ctx);
     }
 
     radius = sqrt((x1-center_x)*(x1-center_x)+(y1-center_y)*(y1-center_y))/FIG_UNIT;
@@ -889,16 +902,16 @@ fig_read_arc(FILE *file) {
 	if (newobj == NULL) goto exit;
 	if (sub_type == 2) {
 		/* set new fill property on arc? */
-		message_warning (_("Filled arc treated as unfilled"));
+		dia_context_add_message(ctx, _("Filled arc treated as unfilled"));
 	}
 	break;
     default: 
-	message_error(_("Unknown polyline arc: %d\n"), sub_type);
+	dia_context_add_message(ctx, _("Unknown polyline arc: %d\n"), sub_type);
 	goto exit;
     }
 
     fig_simple_properties(newobj, line_style, style_val, thickness,
-			  pen_color, fill_color, area_fill);
+			  pen_color, fill_color, area_fill, ctx);
 
     /* Pen style field (not used) */
     /* Style_val (size of dots and dashes) in 1/80 inch*/
@@ -906,7 +919,7 @@ fig_read_arc(FILE *file) {
     /* Cap style */
      
     /* Depth field */
-    add_at_depth(newobj, depth);
+    add_at_depth(newobj, depth, ctx);
 
  exit:
     setlocale(LC_NUMERIC, old_locale);
@@ -924,7 +937,8 @@ static PropDescription xfig_text_descs[] = {
 };
 
 static DiaObject *
-fig_read_text(FILE *file) {
+fig_read_text(FILE *file, DiaContext *ctx)
+{
     GPtrArray *props = NULL;
     TextProperty *tprop;
 
@@ -957,7 +971,8 @@ fig_read_text(FILE *file) {
 	       &length,
 	       &x,
 	       &y) != 12) {
-	message_error(_("Couldn't read text info: %s\n"), strerror(errno));
+	dia_context_set_errno(ctx, errno);
+	dia_context_add_message(ctx, _("Couldn't read text info."));
 	setlocale(LC_NUMERIC, old_locale);
 	return NULL;
     }
@@ -984,7 +999,8 @@ fig_read_text(FILE *file) {
 	case 3: tprop->attr.font = dia_font_new_from_legacy_name("Times-Italic"); break;
 	case 4: tprop->attr.font = dia_font_new_from_legacy_name("Helvetica"); break;
 	case 5: tprop->attr.font = dia_font_new_from_legacy_name("Courier"); break;
-	default: message_warning("Can't find LaTeX font nr. %d, using sans\n", font);
+	default:
+	    dia_context_add_message(ctx, _("Can't find LaTeX font nr. %d, using sans"), font);
 	    tprop->attr.font = dia_font_new_from_legacy_name("Helvetica");
 	}
     } else {
@@ -992,18 +1008,19 @@ fig_read_text(FILE *file) {
 	    /* "Default font" - wazzat? */
 	    tprop->attr.font = dia_font_new_from_legacy_name("Times-Roman");
 	} else if (font < 0 || font >= num_fig_fonts()) {
-	    message_warning("Can't find Postscript font nr. %d, using sans\n", font);
+	    dia_context_set_errno(ctx, errno);
+	    dia_context_add_message(ctx, _("Can't find Postscript font nr. %d, using sans"), font);
 	    tprop->attr.font = dia_font_new_from_legacy_name("Helvetica");
 	} else {
 	    tprop->attr.font = dia_font_new_from_legacy_name(fig_fonts[font]);
 	}
     }
     tprop->attr.height = font_size*2.54/72.0;
-    tprop->attr.color = fig_color(color);
+    tprop->attr.color = fig_color(color, ctx);
     newobj->ops->set_props(newobj, props);
     
     /* Depth field */
-    add_at_depth(newobj, depth);
+    add_at_depth(newobj, depth, ctx);
 
  exit:
     setlocale(LC_NUMERIC, old_locale);
@@ -1013,13 +1030,15 @@ fig_read_text(FILE *file) {
 }
 
 static gboolean
-fig_read_object(FILE *file) {
+fig_read_object(FILE *file, DiaContext *ctx)
+{
     int objecttype;
     DiaObject *item = NULL;
 
     if (fscanf(file, "%d ", &objecttype) != 1) {
 	if (!feof(file)) {
-	    message_error(_("Couldn't identify Fig object: %s\n"), strerror(errno));
+	    dia_context_set_errno(ctx, errno);
+	    dia_context_add_message(ctx, _("Couldn't identify Fig object."));
 	}
 	return FALSE;
     }
@@ -1027,7 +1046,7 @@ fig_read_object(FILE *file) {
     switch (objecttype) {
     case -6: { /* End of compound */
 	if (compound_stack == NULL) {
-	    message_error(_("Compound end outside compound\n"));
+	    dia_context_add_message(ctx, _("Compound end outside compound\n"));
 	    return FALSE;
 	}
 
@@ -1046,12 +1065,13 @@ fig_read_object(FILE *file) {
 	Color color;
 
 	if (fscanf(file, " %d #%xd", &colornumber, &colorvalues) != 2) {
-	    message_error(_("Couldn't read color: %s\n"), strerror(errno));
+	    dia_context_set_errno(ctx, errno);
+	    dia_context_add_message(ctx, _("Couldn't read color: %s\n"));
 	    return FALSE;
 	}
 
 	if (colornumber < 32 || colornumber > FIG_MAX_USER_COLORS) {
-	    message_error(_("Color number %d out of range 0..%d.  Discarding color.\n"),
+	    dia_context_add_message(ctx, _("Color number %d out of range 0..%d.  Discarding color.\n"),
 			  colornumber, FIG_MAX_USER_COLORS);
 	    return FALSE;
 	}
@@ -1065,32 +1085,32 @@ fig_read_object(FILE *file) {
 	break;
     }
     case 1: { /* Ellipse which is a generalization of circle. */
-	item = fig_read_ellipse(file);
+	item = fig_read_ellipse(file, ctx);
 	if (item == NULL) {
 	    return FALSE;
 	}
 	break;
     }
     case 2: /* Polyline which includes polygon and box. */
-	item = fig_read_polyline(file);
+	item = fig_read_polyline(file, ctx);
 	if (item == NULL) {
 	    return FALSE;
 	}
 	break;
     case 3: /* Spline which includes closed/open control/interpolated spline. */
-	item = fig_read_spline(file);
+	item = fig_read_spline(file, ctx);
 	if (item == NULL) {
 	    return FALSE;
 	}
 	break;
     case 4: /* Text. */
-	item = fig_read_text(file);
+	item = fig_read_text(file, ctx);
 	if (item == NULL) {
 	    return FALSE;
 	}
 	break;
     case 5: /* Arc. */
-	item = fig_read_arc(file);
+	item = fig_read_arc(file, ctx);
 	if (item == NULL) {
 	    return FALSE;
 	}
@@ -1098,7 +1118,8 @@ fig_read_object(FILE *file) {
     case 6: {/* Compound object which is composed of one or more objects. */
 	int dummy;
 	if (fscanf(file, " %d %d %d %d\n", &dummy, &dummy, &dummy, &dummy) != 4) {
-	    message_error(_("Couldn't read group extend: %s\n"), strerror(errno));
+	    dia_context_set_errno(ctx, errno);
+	    dia_context_add_message(ctx, _("Couldn't read group extend."));
 	    return FALSE;
 	}
 	/* Group extends don't really matter */
@@ -1109,7 +1130,7 @@ fig_read_object(FILE *file) {
 	break;
     }
     default:
-	message_error(_("Unknown object type %d\n"), objecttype);
+	dia_context_add_message(ctx, _("Unknown object type %d\n"), objecttype);
 	return FALSE;
 	break;
     }
@@ -1122,7 +1143,8 @@ fig_read_object(FILE *file) {
 }
 
 static int
-fig_read_line_choice(FILE *file, char *choice1, char *choice2) {
+fig_read_line_choice(FILE *file, char *choice1, char *choice2, DiaContext *ctx)
+{
     char buf[BUFLEN];
 
     if (!fgets(buf, BUFLEN, file)) {
@@ -1133,17 +1155,18 @@ fig_read_line_choice(FILE *file, char *choice1, char *choice2) {
     g_strstrip(buf); /* And any other whitespace */
     if (!g_ascii_strcasecmp(buf, choice1)) return 0;
     if (!g_ascii_strcasecmp(buf, choice2)) return 1;
-    message_warning(_("`%s' is not one of `%s' or `%s'\n"), buf, choice1, choice2);
+    dia_context_add_message(ctx, _("`%s' is not one of `%s' or `%s'\n"), buf, choice1, choice2);
     return 0;
 }
 
 static int
-fig_read_paper_size(FILE *file, DiagramData *dia) {
+fig_read_paper_size(FILE *file, DiagramData *dia, DiaContext *ctx) {
     char buf[BUFLEN];
     int paper;
 
     if (!fgets(buf, BUFLEN, file)) {
-	message_error(_("Error reading paper size: %s\n"), strerror(errno));
+	dia_context_set_errno(ctx, errno);
+	dia_context_add_message(ctx, _("Error reading paper size."));
 	return FALSE;
     }
 
@@ -1154,19 +1177,21 @@ fig_read_paper_size(FILE *file, DiagramData *dia) {
 	return TRUE;
     }
 
-    message_warning(_("Unknown paper size `%s', using default\n"), buf);
+    dia_context_add_message(ctx, _("Unknown paper size `%s', using default\n"), buf);
     return TRUE;
 }
 
 int figversion;
 
 static int
-fig_read_meta_data(FILE *file, DiagramData *dia) {
+fig_read_meta_data(FILE *file, DiagramData *dia, DiaContext *ctx)
+{
     if (figversion >= 300) { /* Might exist earlier */
 	int portrait;
 
-	if ((portrait = fig_read_line_choice(file, "Portrait", "Landscape")) == -1) {
-	    message_error(_("Error reading paper orientation: %s\n"), strerror(errno));
+	if ((portrait = fig_read_line_choice(file, "Portrait", "Landscape", ctx)) == -1) {
+	    dia_context_set_errno(ctx, errno);
+	    dia_context_add_message(ctx, _("Error reading paper orientation."));
 	    return FALSE;
 	}
 	dia->paper.is_portrait = portrait;
@@ -1175,8 +1200,9 @@ fig_read_meta_data(FILE *file, DiagramData *dia) {
     if (figversion >= 300) { /* Might exist earlier */
 	int justify;
 
-	if ((justify = fig_read_line_choice(file, "Center", "Flush Left")) == -1) {
-	    message_error(_("Error reading justification: %s\n"), strerror(errno));
+	if ((justify = fig_read_line_choice(file, "Center", "Flush Left", ctx)) == -1) {
+	    dia_context_set_errno(ctx, errno);
+	    dia_context_add_message(ctx, _("Error reading justification."));
 	    return FALSE;
 	}
 	/* Don't know what to do with this */
@@ -1185,15 +1211,16 @@ fig_read_meta_data(FILE *file, DiagramData *dia) {
     if (figversion >= 300) { /* Might exist earlier */
 	int units;
 
-	if ((units = fig_read_line_choice(file, "Metric", "Inches")) == -1) {
-	    message_error(_("Error reading units: %s\n"), strerror(errno));
+	if ((units = fig_read_line_choice(file, "Metric", "Inches", ctx)) == -1) {
+	    dia_context_set_errno(ctx, errno);
+	    dia_context_add_message(ctx, _("Error reading units."));
 	    return FALSE;
 	}
 	/* Don't know what to do with this */
     }
 
     if (figversion >= 302) {
-	if (!fig_read_paper_size(file, dia)) return FALSE;
+	if (!fig_read_paper_size(file, dia, ctx)) return FALSE;
     }
 
     {
@@ -1202,7 +1229,8 @@ fig_read_meta_data(FILE *file, DiagramData *dia) {
 
 	old_locale = setlocale(LC_NUMERIC, "C");
 	if (fscanf(file, "%lf\n", &mag) != 1) {
-	    message_error(_("Error reading magnification: %s\n"), strerror(errno));
+	    dia_context_set_errno(ctx, errno);
+	    dia_context_add_message(ctx, _("Error reading magnification."));
 	    setlocale(LC_NUMERIC, old_locale);
 	    return FALSE;
 	}
@@ -1214,8 +1242,9 @@ fig_read_meta_data(FILE *file, DiagramData *dia) {
     if (figversion >= 302) {
 	int multiple;
 
-	if ((multiple = fig_read_line_choice(file, "Single", "Multiple")) == -1) {
-	    message_error(_("Error reading multipage indicator: %s\n"), strerror(errno));
+	if ((multiple = fig_read_line_choice(file, "Single", "Multiple", ctx)) == -1) {
+	    dia_context_set_errno(ctx, errno);
+	    dia_context_add_message(ctx, _("Error reading multipage indicator."));
 	    return FALSE;
 	}
 
@@ -1226,7 +1255,8 @@ fig_read_meta_data(FILE *file, DiagramData *dia) {
 	int transparent;
 
 	if (fscanf(file, "%d\n", &transparent) != 1) {
-	    message_error(_("Error reading transparent color: %s\n"), strerror(errno));
+	    dia_context_set_errno(ctx, errno);
+	    dia_context_add_message(ctx, _("Error reading transparent color."));
 	    return FALSE;
 	}
     
@@ -1235,9 +1265,10 @@ fig_read_meta_data(FILE *file, DiagramData *dia) {
 
     if (!skip_comments(file)) {
 	if (!feof(file)) {
-	    message_error(_("Error reading Fig file: %s\n"), strerror(errno));
+	    dia_context_set_errno(ctx, errno);
+	    dia_context_add_message(ctx, _("Error reading Fig file."));
 	} else {
-	    message_error(_("Premature end of Fig file\n"));
+	    dia_context_add_message(ctx, _("Premature end of Fig file\n"));
 	}
 	return FALSE;
     }
@@ -1246,7 +1277,8 @@ fig_read_meta_data(FILE *file, DiagramData *dia) {
 	int resolution, coord_system;
 
 	if (fscanf(file, "%d %d\n", &resolution, &coord_system) != 2) {
-	    message_error(_("Error reading resolution: %s\n"), strerror(errno));
+	    dia_context_set_errno(ctx, errno);
+	    dia_context_add_message(ctx, _("Error reading resolution."));
 	    return FALSE;
 	}
     
@@ -1256,8 +1288,9 @@ fig_read_meta_data(FILE *file, DiagramData *dia) {
 }
 
 /* imports the given fig-file, returns TRUE if successful */
-gboolean 
-import_fig(const gchar *filename, DiagramData *dia, void* user_data) {
+static gboolean 
+import_fig(const gchar *filename, DiagramData *dia, DiaContext *ctx, void* user_data)
+{
     FILE *figfile;
     char buf[BUFLEN];
     int figmajor, figminor;	
@@ -1272,36 +1305,40 @@ import_fig(const gchar *filename, DiagramData *dia, void* user_data) {
 
     figfile = g_fopen(filename,"r");
     if(figfile == NULL){
-	message_error(_("Couldn't open: '%s' for reading.\n"), 
-		      dia_message_filename(filename));
+	dia_context_add_message(ctx, _("Couldn't open: '%s' for reading.\n"), 
+		                dia_context_get_filename(ctx));
 	return FALSE;
     }
   
     /* First check magic bytes */
     if (fgets(buf, BUFLEN, figfile) == NULL ||
         sscanf(buf, "#FIG %d.%d\n", &figmajor, &figminor) != 2) {
-	message_error(_("Doesn't look like a Fig file: %s\n"), strerror(errno));
+	
+	dia_context_set_errno (ctx, errno);
+	dia_context_add_message(ctx, _("Doesn't look like a Fig file"));
 	fclose(figfile);
 	return FALSE;
     }
 	
     if (figmajor != 3 || figminor != 2) {
-	message_warning(_("This is a Fig version %d.%d file. It may not be importable.\n"), figmajor, figminor);
+	dia_context_add_message(ctx, _("This is a Fig version %d.%d file.\n It may not be importable."), 
+				figmajor, figminor);
     }
 
     figversion = figmajor*100+figminor;
 
     if (!skip_comments(figfile)) {
 	if (!feof(figfile)) {
-	    message_error(_("Error reading Fig file: %s\n"), strerror(errno));
+	    dia_context_set_errno (ctx, errno);
+	    dia_context_add_message(ctx, _("Error reading Fig file."));
 	} else {
-	    message_error(_("Premature end of Fig file\n"));
+	    dia_context_add_message(ctx, _("Premature end of Fig file"));
 	}
 	fclose(figfile);
 	return FALSE;
     }
 
-    if (!fig_read_meta_data(figfile, dia)) {
+    if (!fig_read_meta_data(figfile, dia, ctx)) {
 	fclose(figfile);
 	return FALSE;
     }
@@ -1311,12 +1348,13 @@ import_fig(const gchar *filename, DiagramData *dia, void* user_data) {
     do {
 	if (!skip_comments(figfile)) {
 	    if (!feof(figfile)) {
-		message_error(_("Error reading Fig file: %s\n"), strerror(errno));
+	        dia_context_set_errno (ctx, errno);
+		dia_context_add_message(ctx, _("Error reading Fig file."));
 	    } else {
 		break;
 	    }
 	}
-	if (! fig_read_object(figfile)) {
+	if (! fig_read_object(figfile, ctx)) {
 	    fclose(figfile);
 	    break;
 	}

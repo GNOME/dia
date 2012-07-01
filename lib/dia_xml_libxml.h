@@ -24,9 +24,6 @@
 #include <libxml/tree.h>
 #include <libxml/parser.h>
 
-/* for potentially broken files */
-xmlDocPtr xmlDiaParseFile(const char *filename); 
-
 /* use this one instead of xmlParseFile */
 xmlDocPtr xmlDoParseFile(const char *filename); 
 

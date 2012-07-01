@@ -48,7 +48,7 @@ static PropDescription * reference_describe_props (TableReference *);
 static void reference_get_props (TableReference *, GPtrArray *);
 static void reference_set_props (TableReference *, GPtrArray *);
 static void reference_update_data (TableReference *);
-static DiaObject * reference_load (ObjectNode, int, const char *);
+static DiaObject * reference_load (ObjectNode obj_node, int version,DiaContext *ctx);
 static void update_desc_data (Point *, Alignment *,
                               Point *, Point *, Orientation, real, real);
 static void get_desc_bbox (Rectangle *, gchar *, real, Point *, Alignment,
@@ -206,10 +206,10 @@ reference_destroy (TableReference * ref)
 }
 
 static DiaObject *
-reference_load (ObjectNode obj_node, int version, const char *filename)
+reference_load (ObjectNode obj_node, int version,DiaContext *ctx)
 {
   DiaObject * obj = object_load_using_properties (&reference_type,
-                                                  obj_node, version, filename);
+                                                  obj_node, version,ctx);
   return obj;
 }
 

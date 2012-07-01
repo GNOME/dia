@@ -83,8 +83,7 @@ static PropDescription *constraint_describe_props(Constraint *constraint);
 static void constraint_get_props(Constraint * constraint, GPtrArray *props);
 static void constraint_set_props(Constraint * constraint, GPtrArray *props);
 
-static DiaObject *constraint_load(ObjectNode obj_node, int version,
-			       const char *filename);
+static DiaObject *constraint_load(ObjectNode obj_node, int version,DiaContext *ctx);
 
 static ObjectTypeOps constraint_type_ops =
 {
@@ -397,8 +396,8 @@ constraint_update_data(Constraint *constraint)
 
 
 static DiaObject *
-constraint_load(ObjectNode obj_node, int version, const char *filename)
+constraint_load(ObjectNode obj_node, int version,DiaContext *ctx)
 {
   return object_load_using_properties(&constraint_type,
-                                      obj_node,version,filename);
+                                      obj_node,version,ctx);
 }

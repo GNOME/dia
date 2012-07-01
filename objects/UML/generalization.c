@@ -81,8 +81,7 @@ static PropDescription *generalization_describe_props(Generalization *generaliza
 static void generalization_get_props(Generalization * generalization, GPtrArray *props);
 static void generalization_set_props(Generalization * generalization, GPtrArray *props);
 
-static DiaObject *generalization_load(ObjectNode obj_node, int version,
-				   const char *filename);
+static DiaObject *generalization_load(ObjectNode obj_node, int version,DiaContext *ctx);
 
 static void generalization_update_data(Generalization *genlz);
 
@@ -454,11 +453,10 @@ generalization_destroy(Generalization *genlz)
 }
 
 static DiaObject *
-generalization_load(ObjectNode obj_node, int version,
-		    const char *filename)
+generalization_load(ObjectNode obj_node, int version,DiaContext *ctx)
 {
   DiaObject *obj = object_load_using_properties(&generalization_type,
-						obj_node,version,filename);
+						obj_node,version,ctx);
   if (version == 0) {
     AttributeNode attr;
     /* In old objects with no autorouting, set it to false. */

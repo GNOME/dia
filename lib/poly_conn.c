@@ -25,7 +25,6 @@
 #include <string.h> /* memcpy() */
 
 #include "poly_conn.h"
-#include "message.h"
 #include "diarenderer.h"
 
 enum change_type {
@@ -100,7 +99,7 @@ polyconn_move_handle(PolyConn *poly, Handle *handle,
     poly->points[handle_nr] = *to;
     break;
   default:
-    message_error("Internal error in polyconn_move_handle.\n");
+    g_warning("Internal error in polyconn_move_handle.\n");
     break;
   }
 
@@ -455,7 +454,7 @@ polyconn_save(PolyConn *poly, ObjectNode obj_node)
 }
 
 void
-polyconn_load(PolyConn *poly, ObjectNode obj_node) /* NOTE: Does object_init() */
+polyconn_load(PolyConn *poly, ObjectNode obj_node, DiaContext *ctx) /* NOTE: Does object_init() */
 {
   int i;
   AttributeNode attr;
@@ -463,7 +462,7 @@ polyconn_load(PolyConn *poly, ObjectNode obj_node) /* NOTE: Does object_init() *
   
   DiaObject *obj = &poly->object;
 
-  object_load(obj, obj_node);
+  object_load(obj, obj_node, ctx);
 
   attr = object_find_attribute(obj_node, "poly_points");
 
@@ -477,7 +476,7 @@ polyconn_load(PolyConn *poly, ObjectNode obj_node) /* NOTE: Does object_init() *
   data = attribute_first_data(attr);
   poly->points = g_malloc(poly->numpoints*sizeof(Point));
   for (i=0;i<poly->numpoints;i++) {
-    data_point(data, &poly->points[i]);
+    data_point(data, &poly->points[i], ctx);
     data = data_next(data);
   }
 

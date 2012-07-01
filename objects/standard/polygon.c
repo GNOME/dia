@@ -29,9 +29,7 @@
 #include "connectionpoint.h"
 #include "diarenderer.h"
 #include "attributes.h"
-#include "widgets.h"
 #include "diamenu.h"
-#include "message.h"
 #include "properties.h"
 
 #include "tool-icons.h"
@@ -86,8 +84,7 @@ static void polygon_set_props(Polygon *polygon, GPtrArray *props);
 
 static void polygon_save(Polygon *polygon, ObjectNode obj_node,
 			  const char *filename);
-static DiaObject *polygon_load(ObjectNode obj_node, int version,
-			     const char *filename);
+static DiaObject *polygon_load(ObjectNode obj_node, int version, DiaContext *ctx);
 static DiaMenu *polygon_get_object_menu(Polygon *polygon, Point *clickedpoint);
 
 static ObjectTypeOps polygon_type_ops =
@@ -377,7 +374,7 @@ polygon_save(Polygon *polygon, ObjectNode obj_node,
 }
 
 static DiaObject *
-polygon_load(ObjectNode obj_node, int version, const char *filename)
+polygon_load(ObjectNode obj_node, int version, DiaContext *ctx)
 {
   Polygon *polygon;
   PolyShape *poly;
@@ -392,42 +389,42 @@ polygon_load(ObjectNode obj_node, int version, const char *filename)
   obj->type = &polygon_type;
   obj->ops = &polygon_ops;
 
-  polyshape_load(poly, obj_node);
+  polyshape_load(poly, obj_node, ctx);
 
   polygon->line_color = color_black;
   attr = object_find_attribute(obj_node, "line_color");
   if (attr != NULL)
-    data_color(attribute_first_data(attr), &polygon->line_color);
+    data_color(attribute_first_data(attr), &polygon->line_color, ctx);
 
   polygon->line_width = 0.1;
   attr = object_find_attribute(obj_node, PROP_STDNAME_LINE_WIDTH);
   if (attr != NULL)
-    polygon->line_width = data_real(attribute_first_data(attr));
+    polygon->line_width = data_real(attribute_first_data(attr), ctx);
 
   polygon->inner_color = color_white;
   attr = object_find_attribute(obj_node, "inner_color");
   if (attr != NULL)
-    data_color(attribute_first_data(attr), &polygon->inner_color);
+    data_color(attribute_first_data(attr), &polygon->inner_color, ctx);
   
   polygon->show_background = TRUE;
   attr = object_find_attribute(obj_node, "show_background");
   if (attr != NULL)
-    polygon->show_background = data_boolean( attribute_first_data(attr) );
+    polygon->show_background = data_boolean(attribute_first_data(attr), ctx);
 
   polygon->line_style = LINESTYLE_SOLID;
   attr = object_find_attribute(obj_node, "line_style");
   if (attr != NULL)
-    polygon->line_style = data_enum(attribute_first_data(attr));
+    polygon->line_style = data_enum(attribute_first_data(attr), ctx);
 
   polygon->line_join = LINEJOIN_MITER;
   attr = object_find_attribute(obj_node, "line_join");
   if (attr != NULL)
-    polygon->line_join = data_enum(attribute_first_data(attr));
+    polygon->line_join = data_enum(attribute_first_data(attr), ctx);
 
   polygon->dashlength = DEFAULT_LINESTYLE_DASHLEN;
   attr = object_find_attribute(obj_node, "dashlength");
   if (attr != NULL)
-    polygon->dashlength = data_real(attribute_first_data(attr));
+    polygon->dashlength = data_real(attribute_first_data(attr), ctx);
 
   polygon_update_data(polygon);
 

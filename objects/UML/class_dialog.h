@@ -1,3 +1,4 @@
+#include "widgets.h"
 /**
  * \brief Very special user interface for UMLClass parametrization
  *

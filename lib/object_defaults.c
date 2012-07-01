@@ -34,7 +34,7 @@
 #include "dia_xml_libxml.h"
 #include "dia_xml.h"
 #include "object.h"
-#include "message.h"
+#include "diacontext.h"
 #include "dia_dirs.h"
 #include "propinternals.h"
  
@@ -86,7 +86,7 @@ _obj_destroy (gpointer val)
  * Create all the default objects.
  */
 gboolean
-dia_object_defaults_load (const gchar *filename, gboolean create_lazy)
+dia_object_defaults_load (const gchar *filename, gboolean create_lazy, DiaContext *ctx)
 {
   xmlDocPtr doc;
   xmlNsPtr name_space;
@@ -109,14 +109,18 @@ dia_object_defaults_load (const gchar *filename, gboolean create_lazy)
     {
       gchar *default_filename = dia_config_filename("defaults.dia");
 
+      dia_context_set_filename(ctx, default_filename);
       if (g_file_test(default_filename, G_FILE_TEST_EXISTS))
-        doc = xmlDiaParseFile(default_filename);
+        doc = diaXmlParseFile (default_filename, ctx, FALSE);
       else
         doc = NULL;
       g_free (default_filename);
     } 
   else
-      doc = xmlDiaParseFile(filename);
+    {
+      dia_context_set_filename (ctx, filename);
+      doc = diaXmlParseFile (filename, ctx, FALSE);
+    }
 
   if (!doc)
       return FALSE;
@@ -125,9 +129,8 @@ dia_object_defaults_load (const gchar *filename, gboolean create_lazy)
   if (xmlStrcmp (doc->xmlRootNode->name, (const xmlChar *)"diagram") 
       || (name_space == NULL))
     {
-      message_error(_("Error loading defaults '%s'.\n"
-                      "Not a Dia diagram file."),
-		    dia_message_filename(filename));
+      dia_context_add_message(ctx, _("Error loading defaults '%s'.\n"
+				     "Not a Dia diagram file."), filename);
       xmlFreeDoc (doc);
       return FALSE;
     }
@@ -161,7 +164,7 @@ dia_object_defaults_load (const gchar *filename, gboolean create_lazy)
 			        obj = type->ops->load (
 					obj_node,
 					version ? atoi(version) : 0,
-					filename);
+					ctx);
 			      if (obj)
 			        g_hash_table_insert (defaults_hash,
 			                             obj->type->name, obj);
@@ -170,13 +173,13 @@ dia_object_defaults_load (const gchar *filename, gboolean create_lazy)
 		      else
 		        {
 #if 0 /* lots of complaining about missing attributes */
-			  object_load_props(obj, obj_node); /* leaks ?? */
+			  object_load_props(obj, obj_node, ctx); /* leaks ?? */
 #else
 			  DiaObject *def_obj;
 			  def_obj = obj->type->ops->load (
 					obj_node,
 			                version ? atoi(version) : 0,
-					filename);
+					ctx);
 			  if (def_obj->ops->set_props)
 			    { 
 			      object_copy_props (obj, def_obj, TRUE);
@@ -200,7 +203,6 @@ dia_object_defaults_load (const gchar *filename, gboolean create_lazy)
 	}
       layer_node = layer_node->next;
     }
-
   xmlFreeDoc(doc);
   return TRUE;
 }

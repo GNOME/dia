@@ -55,7 +55,7 @@
 static real         table_calculate_namebox_data (Table *);
 static real         table_init_attributesbox_height (Table *);
 static DiaObject *  table_create (Point *, void *, Handle **, Handle **);
-static DiaObject *  table_load (ObjectNode, int, const char *);
+static DiaObject *  table_load (ObjectNode obj_node, int version, DiaContext *ctx);
 static void         table_save (Table *, ObjectNode, const char *);
 static void         table_destroy (Table *);
 static real         table_distance_from (Table *, Point *);
@@ -413,7 +413,7 @@ table_create (Point * startpoint,
 }
 
 static DiaObject *
-table_load (ObjectNode obj_node, int version, const char *filename)
+table_load (ObjectNode obj_node, int version, DiaContext *ctx)
 {
   Table * table;
   Element * elem;
@@ -427,10 +427,10 @@ table_load (ObjectNode obj_node, int version, const char *filename)
   obj->type = &table_type;
   obj->ops = &table_ops;
 
-  element_load (elem, obj_node);
+  element_load (elem, obj_node, ctx);
   element_init (elem, 8, TABLE_CONNECTIONPOINTS);
 
-  object_load_props(obj,obj_node);
+  object_load_props(obj,obj_node, ctx);
 
   /* fill in defaults if not given in the loaded file */
   if (object_find_attribute (obj_node, "line_colour") == NULL)

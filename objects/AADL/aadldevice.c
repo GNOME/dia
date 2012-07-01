@@ -163,14 +163,15 @@ static DiaObject *aadldevice_create(Point *startpoint, void *user_data, Handle *
   return obj;
 }
 
-static DiaObject *aadldevice_load(ObjectNode obj_node, int version, const char *filename)
+static DiaObject *
+aadldevice_load(ObjectNode obj_node, int version, DiaContext *ctx)
 {
   DiaObject *obj;
   Point startpoint = {0.0,0.0};
   Handle *handle1,*handle2;
   
   obj = aadldevice_create(&startpoint,&aadldevice_specific, &handle1,&handle2);
-  aadlbox_load(obj_node, version, filename, (Aadlbox *) obj);
+  aadlbox_load(obj_node, version, ctx, (Aadlbox *) obj);
   return obj;
 }
 

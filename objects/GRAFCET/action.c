@@ -32,8 +32,6 @@
 #include "connectionpoint.h"
 #include "diarenderer.h"
 #include "attributes.h"
-#include "widgets.h"
-#include "message.h"
 #include "color.h"
 #include "properties.h"
 #include "geometry.h"
@@ -81,8 +79,7 @@ static DiaObject *action_create(Point *startpoint,
 static real action_distance_from(Action *action, Point *point);
 static void action_update_data(Action *action);
 static void action_destroy(Action *action);
-static DiaObject *action_load(ObjectNode obj_node, int version,
-			       const char *filename);
+static DiaObject *action_load(ObjectNode obj_node, int version,DiaContext *ctx);
 static PropDescription *action_describe_props(Action *action);
 static void action_get_props(Action *action, 
                                  GPtrArray *props);
@@ -453,10 +450,10 @@ action_destroy(Action *action)
 }
  
 static DiaObject *
-action_load(ObjectNode obj_node, int version, const char *filename)
+action_load(ObjectNode obj_node, int version,DiaContext *ctx)
 {
   return object_load_using_properties(&action_type,
-                                      obj_node,version,filename);
+                                      obj_node,version,ctx);
 }
 
 

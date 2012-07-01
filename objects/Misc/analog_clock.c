@@ -35,8 +35,6 @@
 #include "connectionpoint.h"
 #include "diarenderer.h"
 #include "attributes.h"
-#include "widgets.h"
-#include "message.h"
 #include "color.h"
 #include "properties.h"
 #include "dynamic_obj.h"
@@ -84,7 +82,7 @@ static DiaObject *analog_clock_create(Point *startpoint,
                                    Handle **handle2);
 static void analog_clock_destroy(Analog_Clock *analog_clock);
 static DiaObject *analog_clock_load(ObjectNode obj_node, int version, 
-                                 const char *filename);
+                                    DiaContext *ctx);
 static PropDescription *analog_clock_describe_props(
   Analog_Clock *analog_clock);
 static void analog_clock_get_props(Analog_Clock *analog_clock, 
@@ -95,7 +93,7 @@ static void analog_clock_set_props(Analog_Clock *analog_clock,
 static ObjectTypeOps analog_clock_type_ops =
 {
   (CreateFunc) analog_clock_create,
-  (LoadFunc)   analog_clock_load/*using properties*/,
+  (LoadFunc)   analog_clock_load,
   (SaveFunc)   object_save_using_properties,
   (GetDefaultsFunc)   NULL,
   (ApplyDefaultsFunc) NULL
@@ -471,8 +469,8 @@ analog_clock_destroy(Analog_Clock *analog_clock)
 }
 
 static DiaObject *
-analog_clock_load(ObjectNode obj_node, int version, const char *filename)
+analog_clock_load(ObjectNode obj_node, int version, DiaContext *ctx)
 {
   return object_load_using_properties(&analog_clock_type,
-                                      obj_node,version,filename);  
+                                      obj_node,version,ctx);  
 }

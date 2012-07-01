@@ -52,7 +52,7 @@ void beziershape_destroy(BezierShape *bezier);
 void beziershape_copy(BezierShape *from, BezierShape *to);
 void beziershape_save(BezierShape *bezier, ObjectNode obj_node);
 /* NOTE: Does object_init() */
-void beziershape_load(BezierShape *bezier, ObjectNode obj_node);
+void beziershape_load(BezierShape *bezier, ObjectNode obj_node, DiaContext *ctx);
 ObjectChange *beziershape_add_segment(BezierShape *bezier, int segment,
 				      Point *point);
 ObjectChange *beziershape_remove_segment(BezierShape *bezier, int point);

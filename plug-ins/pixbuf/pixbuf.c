@@ -100,7 +100,7 @@ export_data(DiagramData *data, const gchar *filename,
 }
 
 static gboolean
-import_data (const gchar *filename, DiagramData *data, void* user_data)
+import_data (const gchar *filename, DiagramData *data, DiaContext *ctx, void* user_data)
 {
   DiaObjectType *otype = object_get_type("Standard - Image");
   gint width, height;
@@ -108,7 +108,10 @@ import_data (const gchar *filename, DiagramData *data, void* user_data)
   if (!otype) /* this would be really broken */
     return FALSE;
 
-  g_assert (user_data);
+  if (!user_data) {
+    dia_context_add_message(ctx, _("Calling error, missing user_data."));
+    return FALSE;
+  }
 
   if (gdk_pixbuf_get_file_info (filename, &width, &height))
     {
@@ -142,7 +145,8 @@ import_data (const gchar *filename, DiagramData *data, void* user_data)
     }
   else
     {
-      message_warning ("Pixbuf[%s] can't load:\n%s", (gchar*)user_data, filename);
+      dia_context_add_message(ctx, _("Pixbuf[%s] can't load:\n%s"), 
+			      (gchar*)user_data, dia_context_get_filename(ctx));
     }
 
   return FALSE;

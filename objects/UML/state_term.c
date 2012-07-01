@@ -73,8 +73,7 @@ static DiaObject *state_create(Point *startpoint,
 			   Handle **handle1,
 			   Handle **handle2);
 static void state_destroy(State *state);
-static DiaObject *state_load(ObjectNode obj_node, int version,
-			    const char *filename);
+static DiaObject *state_load(ObjectNode obj_node, int version,DiaContext *ctx);
 static PropDescription *state_describe_props(State *state);
 static void state_get_props(State *state, GPtrArray *props);
 static void state_set_props(State *state, GPtrArray *props);
@@ -323,10 +322,10 @@ state_destroy(State *state)
 }
 
 static DiaObject *
-state_load(ObjectNode obj_node, int version, const char *filename)
+state_load(ObjectNode obj_node, int version,DiaContext *ctx)
 {
   return object_load_using_properties(&state_term_type,
-                                      obj_node,version,filename);
+                                      obj_node,version,ctx);
 }
 
 

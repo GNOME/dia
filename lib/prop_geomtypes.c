@@ -103,9 +103,9 @@ realprop_set_from_widget(RealProperty *prop, WIDGET *widget)
 }
 
 static void 
-realprop_load(RealProperty *prop, AttributeNode attr, DataNode data)
+realprop_load(RealProperty *prop, AttributeNode attr, DataNode data, DiaContext *ctx)
 {
-  prop->real_data = data_real(data);
+  prop->real_data = data_real(data, ctx);
 }
 
 static void 
@@ -216,9 +216,9 @@ lengthprop_set_from_widget(LengthProperty *prop, WIDGET *widget)
 }
 
 static void 
-lengthprop_load(LengthProperty *prop, AttributeNode attr, DataNode data)
+lengthprop_load(LengthProperty *prop, AttributeNode attr, DataNode data, DiaContext *ctx)
 {
-  prop->length_data = data_real(data);
+  prop->length_data = data_real(data, ctx);
 }
 
 static void 
@@ -314,10 +314,10 @@ fontsizeprop_set_from_widget(FontsizeProperty *prop, WIDGET *widget)
 }
 
 static void 
-fontsizeprop_load(FontsizeProperty *prop, AttributeNode attr, DataNode data)
+fontsizeprop_load(FontsizeProperty *prop, AttributeNode attr, DataNode data, DiaContext *ctx)
 {
   PropNumData *numdata = prop->common.descr->extra_data;
-  real value = data_real(data);
+  real value = data_real(data, ctx);
 
   if (numdata) {
     if (value < numdata->min)
@@ -405,9 +405,9 @@ pointprop_copy(PointProperty *src)
 }
 
 static void 
-pointprop_load(PointProperty *prop, AttributeNode attr, DataNode data)
+pointprop_load(PointProperty *prop, AttributeNode attr, DataNode data, DiaContext *ctx)
 {
-  data_point(data,&prop->point_data);
+  data_point(data,&prop->point_data, ctx);
 }
 
 static void 
@@ -482,13 +482,13 @@ pointarrayprop_copy(PointarrayProperty *src)
 }
 
 static void 
-pointarrayprop_load(PointarrayProperty *prop, AttributeNode attr, DataNode data)
+pointarrayprop_load(PointarrayProperty *prop, AttributeNode attr, DataNode data, DiaContext *ctx)
 {
   guint nvals = attribute_num_data(attr);
   guint i;
   g_array_set_size(prop->pointarray_data,nvals);
   for (i=0; (i < nvals) && data; i++, data = data_next(data)) 
-    data_point(data,&g_array_index(prop->pointarray_data,Point,i));
+    data_point(data,&g_array_index(prop->pointarray_data,Point,i),ctx);
   if (i != nvals) 
     g_warning("attribute_num_data() and actual data count mismatch "
               "(shouldn't happen)");
@@ -569,9 +569,9 @@ bezpointprop_copy(BezPointProperty *src)
 }
 
 static void 
-bezpointprop_load(BezPointProperty *prop, AttributeNode attr, DataNode data)
+bezpointprop_load(BezPointProperty *prop, AttributeNode attr, DataNode data, DiaContext *ctx)
 {
-  data_bezpoint(data,&prop->bezpoint_data);
+  data_bezpoint(data,&prop->bezpoint_data,ctx);
 }
 
 static void 
@@ -647,7 +647,8 @@ bezpointarrayprop_copy(BezPointarrayProperty *src)
 
 static void 
 bezpointarrayprop_load(BezPointarrayProperty *prop, 
-                       AttributeNode attr, DataNode data)
+                       AttributeNode attr, DataNode data,
+		       DiaContext *ctx)
 {
   guint nvals = attribute_num_data(attr);
   guint i;
@@ -655,7 +656,7 @@ bezpointarrayprop_load(BezPointarrayProperty *prop,
   g_array_set_size(prop->bezpointarray_data,nvals);
 
   for (i=0; (i < nvals) && data; i++, data = data_next(data)) 
-    data_bezpoint(data,&g_array_index(prop->bezpointarray_data,BezPoint,i));
+    data_bezpoint(data,&g_array_index(prop->bezpointarray_data,BezPoint,i),ctx);
   if (i != nvals) 
     g_warning("attribute_num_data() and actual data count mismatch "
               "(shouldn't happen)");
@@ -736,9 +737,9 @@ rectprop_copy(RectProperty *src)
 }
 
 static void 
-rectprop_load(RectProperty *prop, AttributeNode attr, DataNode data)
+rectprop_load(RectProperty *prop, AttributeNode attr, DataNode data, DiaContext *ctx)
 {
-  data_rectangle(data,&prop->rect_data);
+  data_rectangle(data,&prop->rect_data,ctx);
 }
 
 static void 
@@ -804,11 +805,11 @@ endpointsprop_copy(EndpointsProperty *src)
 }
 
 static void 
-endpointsprop_load(EndpointsProperty *prop, AttributeNode attr, DataNode data)
+endpointsprop_load(EndpointsProperty *prop, AttributeNode attr, DataNode data, DiaContext *ctx)
 {
-  data_point(data,&prop->endpoints_data[0]);
+  data_point(data,&prop->endpoints_data[0], ctx);
   data = data_next(data);
-  data_point(data,&prop->endpoints_data[1]);
+  data_point(data,&prop->endpoints_data[1], ctx);
 }
 
 static void 
@@ -877,9 +878,10 @@ connpoint_lineprop_copy(Connpoint_LineProperty *src)
 }
 
 static void 
-connpoint_lineprop_load(Connpoint_LineProperty *prop, AttributeNode attr, DataNode data)
+connpoint_lineprop_load(Connpoint_LineProperty *prop, AttributeNode attr, 
+			DataNode data, DiaContext *ctx)
 {
-  prop->connpoint_line_data = data_int(data);
+  prop->connpoint_line_data = data_int(data,ctx);
 }
 
 static void 

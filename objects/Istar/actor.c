@@ -36,8 +36,6 @@
 #include "diarenderer.h"
 #include "attributes.h"
 #include "text.h"
-#include "widgets.h"
-#include "message.h"
 #include "properties.h"
 
 #include "pixmaps/actor.xpm"
@@ -102,7 +100,7 @@ static PropDescription *actor_describe_props(Actor *actor);
 static void actor_get_props(Actor *actor, GPtrArray *props);
 static void actor_set_props(Actor *actor, GPtrArray *props);
 
-static DiaObject *actor_load(ObjectNode obj_node, int version, const char *filename);
+static DiaObject *actor_load(ObjectNode obj_node, int version,DiaContext *ctx);
 
 static ObjectTypeOps actor_type_ops =
 {
@@ -504,10 +502,10 @@ actor_destroy(Actor *actor)
 }
 
 static DiaObject *
-actor_load(ObjectNode obj_node, int version, const char *filename)
+actor_load(ObjectNode obj_node, int version,DiaContext *ctx)
 {
   return object_load_using_properties(&istar_actor_type,
-                                      obj_node,version,filename);
+                                      obj_node,version,ctx);
 }
 
 

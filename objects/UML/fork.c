@@ -65,8 +65,7 @@ static DiaObject *fork_create(Point *startpoint,
 			     Handle **handle1,
 			     Handle **handle2);
 static void fork_destroy(Fork *branch);
-static DiaObject *fork_load(ObjectNode obj_node, int version,
-			   const char *filename);
+static DiaObject *fork_load(ObjectNode obj_node, int version,DiaContext *ctx);
 
 static PropDescription *fork_describe_props(Fork *branch);
 static void fork_get_props(Fork *branch, GPtrArray *props);
@@ -297,10 +296,10 @@ static void fork_destroy(Fork *branch)
   element_destroy(&branch->element);
 }
 
-static DiaObject *fork_load(ObjectNode obj_node, int version, const char *filename)
+static DiaObject *fork_load(ObjectNode obj_node, int version,DiaContext *ctx)
 {
   return object_load_using_properties(&fork_type,
-                                      obj_node,version,filename);
+                                      obj_node,version,ctx);
 }
 
 

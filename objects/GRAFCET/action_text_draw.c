@@ -31,7 +31,6 @@
 #include "diarenderer.h"
 #include "text.h"
 #include "action_text_draw.h"
-#include "message.h"
 
 /* This used to be really horrible code. Really. 
    Now it's just a code fork. */

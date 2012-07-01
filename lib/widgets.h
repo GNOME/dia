@@ -37,10 +37,6 @@ void       dia_alignment_selector_set_alignment (GtkWidget *as, Alignment align)
 #define DIALINESTYLESELECTOR_CLASS(klass)  G_TYPE_CHECK_CLASS_CAST (klass, dia_line_style_selector_get_type (), DiaLineStyleSelectorClass)
 #define IS_DIALINESTYLESELECTOR(obj)       G_TYPE_CHECK_INSTANCE_TYPE (obj, dia_line_style_selector_get_type ())
 
-#define DEFAULT_LINESTYLE LINESTYLE_SOLID
-#define DEFAULT_LINESTYLE_DASHLEN 1.0
-
-
 GType      dia_line_style_selector_get_type      (void);
 GtkWidget* dia_line_style_selector_new           (void);
 void       dia_line_style_selector_get_linestyle (DiaLineStyleSelector *as,

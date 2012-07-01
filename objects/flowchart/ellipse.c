@@ -35,8 +35,6 @@
 #include "diarenderer.h"
 #include "attributes.h"
 #include "text.h"
-#include "widgets.h"
-#include "message.h"
 #include "properties.h"
 
 #include "pixmaps/ellipse.xpm"
@@ -102,7 +100,7 @@ static void ellipse_get_props(Ellipse *ellipse, GPtrArray *props);
 static void ellipse_set_props(Ellipse *ellipse, GPtrArray *props);
 
 static void ellipse_save(Ellipse *ellipse, ObjectNode obj_node, const char *filename);
-static DiaObject *ellipse_load(ObjectNode obj_node, int version, const char *filename);
+static DiaObject *ellipse_load(ObjectNode obj_node, int version,DiaContext *ctx);
 
 static ObjectTypeOps ellipse_type_ops =
 {
@@ -579,7 +577,7 @@ ellipse_save(Ellipse *ellipse, ObjectNode obj_node, const char *filename)
 }
 
 static DiaObject *
-ellipse_load(ObjectNode obj_node, int version, const char *filename)
+ellipse_load(ObjectNode obj_node, int version,DiaContext *ctx)
 {
   Ellipse *ellipse;
   Element *elem;
@@ -594,47 +592,47 @@ ellipse_load(ObjectNode obj_node, int version, const char *filename)
   obj->type = &fc_ellipse_type;
   obj->ops = &ellipse_ops;
 
-  element_load(elem, obj_node);
+  element_load(elem, obj_node, ctx);
   
   ellipse->border_width = 0.1;
   attr = object_find_attribute(obj_node, "border_width");
   if (attr != NULL)
-    ellipse->border_width =  data_real( attribute_first_data(attr) );
+    ellipse->border_width =  data_real(attribute_first_data(attr), ctx);
 
   ellipse->border_color = color_black;
   attr = object_find_attribute(obj_node, "border_color");
   if (attr != NULL)
-    data_color(attribute_first_data(attr), &ellipse->border_color);
+    data_color(attribute_first_data(attr), &ellipse->border_color, ctx);
   
   ellipse->inner_color = color_white;
   attr = object_find_attribute(obj_node, "inner_color");
   if (attr != NULL)
-    data_color(attribute_first_data(attr), &ellipse->inner_color);
+    data_color(attribute_first_data(attr), &ellipse->inner_color, ctx);
   
   ellipse->show_background = TRUE;
   attr = object_find_attribute(obj_node, "show_background");
   if (attr != NULL)
-    ellipse->show_background = data_boolean( attribute_first_data(attr) );
+    ellipse->show_background = data_boolean( attribute_first_data(attr), ctx);
 
   ellipse->line_style = LINESTYLE_SOLID;
   attr = object_find_attribute(obj_node, "line_style");
   if (attr != NULL)
-    ellipse->line_style =  data_enum( attribute_first_data(attr) );
+    ellipse->line_style =  data_enum(attribute_first_data(attr), ctx);
 
   ellipse->dashlength = DEFAULT_LINESTYLE_DASHLEN;
   attr = object_find_attribute(obj_node, "dashlength");
   if (attr != NULL)
-    ellipse->dashlength = data_real(attribute_first_data(attr));
+    ellipse->dashlength = data_real(attribute_first_data(attr), ctx);
 
   ellipse->padding = default_properties.padding;
   attr = object_find_attribute(obj_node, "padding");
   if (attr != NULL)
-    ellipse->padding =  data_real( attribute_first_data(attr) );
+    ellipse->padding =  data_real(attribute_first_data(attr), ctx);
   
   ellipse->text = NULL;
   attr = object_find_attribute(obj_node, "text");
   if (attr != NULL)
-    ellipse->text = data_text(attribute_first_data(attr));
+    ellipse->text = data_text(attribute_first_data(attr), ctx);
   else
     ellipse->text = new_text_default(&obj->position, &ellipse->border_color, ALIGN_CENTER);
   text_get_attributes(ellipse->text, &ellipse->attrs);
@@ -642,7 +640,7 @@ ellipse_load(ObjectNode obj_node, int version, const char *filename)
   ellipse->text_fitting = TEXTFIT_WHEN_NEEDED;
   attr = object_find_attribute(obj_node, PROP_STDNAME_TEXT_FITTING);
   if (attr != NULL)
-    ellipse->text_fitting = data_enum(attribute_first_data(attr));
+    ellipse->text_fitting = data_enum(attribute_first_data(attr), ctx);
 
   element_init(elem, 8, NUM_CONNECTIONS);
 

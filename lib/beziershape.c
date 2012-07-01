@@ -27,7 +27,6 @@
 #include <string.h> /* memcpy() */
 
 #include "beziershape.h"
-#include "message.h"
 #include "diarenderer.h"
 
 #define HANDLE_BEZMAJOR  (HANDLE_CUSTOM1)
@@ -210,7 +209,7 @@ beziershape_move_handle(BezierShape *bezier, Handle *handle,
     }
     break;
   default:
-    message_error("Internal error in beziershape_move_handle.");
+    g_warning("Internal error in beziershape_move_handle.");
     break;
   }
   return NULL;
@@ -923,7 +922,7 @@ beziershape_save(BezierShape *bezier, ObjectNode obj_node)
 }
 
 void
-beziershape_load(BezierShape *bezier, ObjectNode obj_node)
+beziershape_load(BezierShape *bezier, ObjectNode obj_node, DiaContext *ctx)
 {
   int i;
   AttributeNode attr;
@@ -931,7 +930,7 @@ beziershape_load(BezierShape *bezier, ObjectNode obj_node)
   
   DiaObject *obj = &bezier->object;
 
-  object_load(obj, obj_node);
+  object_load(obj, obj_node, ctx);
 
   attr = object_find_attribute(obj_node, "bez_points");
 
@@ -947,18 +946,18 @@ beziershape_load(BezierShape *bezier, ObjectNode obj_node)
   if (bezier->numpoints != 0) {
     bezier->points = g_new(BezPoint, bezier->numpoints);
     bezier->points[0].type = BEZ_MOVE_TO;
-    data_point(data, &bezier->points[0].p1);
+    data_point(data, &bezier->points[0].p1, ctx);
     bezier->points[0].p3 = bezier->points[0].p1;
     data = data_next(data);
 
     for (i = 1; i < bezier->numpoints; i++) {
       bezier->points[i].type = BEZ_CURVE_TO;
-      data_point(data, &bezier->points[i].p1);
+      data_point(data, &bezier->points[i].p1, ctx);
       data = data_next(data);
-      data_point(data, &bezier->points[i].p2);
+      data_point(data, &bezier->points[i].p2, ctx);
       data = data_next(data);
       if (i < bezier->numpoints - 1) {
-	data_point(data, &bezier->points[i].p3);
+	data_point(data, &bezier->points[i].p3, ctx);
 	data = data_next(data);
       } else
 	bezier->points[i].p3 = bezier->points[0].p1;
@@ -973,7 +972,7 @@ beziershape_load(BezierShape *bezier, ObjectNode obj_node)
   } else {
     data = attribute_first_data(attr);
     for (i = 0; i < bezier->numpoints; i++) {
-      bezier->corner_types[i] = data_enum(data);
+      bezier->corner_types[i] = data_enum(data, ctx);
       data = data_next(data);
     }
   }

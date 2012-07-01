@@ -87,8 +87,7 @@ static PropDescription *tree_describe_props(Tree *tree);
 static void tree_get_props(Tree *tree, GPtrArray *props);
 static void tree_set_props(Tree *tree, GPtrArray *props);
 static void tree_save(Tree *tree, ObjectNode obj_node, const char *filename);
-static DiaObject *tree_load(ObjectNode obj_node, int version,
-			const char *filename);
+static DiaObject *tree_load(ObjectNode obj_node, int version,DiaContext *ctx);
 static DiaMenu *tree_get_object_menu(Tree *tree, Point *clickedpoint);
 
 static ObjectChange *
@@ -633,7 +632,7 @@ tree_save(Tree *tree, ObjectNode obj_node, const char *filename)
 }
 
 static DiaObject *
-tree_load(ObjectNode obj_node, int version, const char *filename)
+tree_load(ObjectNode obj_node, int version,DiaContext *ctx)
 {
   Tree *tree;
   Connection *conn;
@@ -652,7 +651,7 @@ tree_load(ObjectNode obj_node, int version, const char *filename)
   obj->type = &tree_type;
   obj->ops = &tree_ops;
 
-  connection_load(conn, obj_node);
+  connection_load(conn, obj_node, ctx);
 
   attr = object_find_attribute(obj_node, "tree_handles");
 
@@ -671,7 +670,7 @@ tree_load(ObjectNode obj_node, int version, const char *filename)
     tree->handles[i]->type = HANDLE_MINOR_CONTROL;
     tree->handles[i]->connect_type = HANDLE_CONNECTABLE_NOBREAK;
     tree->handles[i]->connected_to = NULL;
-    data_point(data, &tree->handles[i]->pos);
+    data_point(data, &tree->handles[i]->pos, ctx);
     obj->handles[2+i] = tree->handles[i];
 
     data = data_next(data);
@@ -680,7 +679,7 @@ tree_load(ObjectNode obj_node, int version, const char *filename)
   tree->line_color = color_black;
   attr = object_find_attribute(obj_node, "line_color");
   if (attr != NULL)
-    data_color(attribute_first_data(attr), &tree->line_color);
+    data_color(attribute_first_data(attr), &tree->line_color, ctx);
 
   extra->start_trans = 
     extra->end_trans = 

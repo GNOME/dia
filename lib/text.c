@@ -27,7 +27,6 @@
 
 #include "propinternals.h"
 #include "text.h"
-#include "message.h"
 #include "diarenderer.h"
 #include "diagramdata.h"
 #include "objchange.h"
@@ -682,8 +681,8 @@ text_set_cursor(Text *text, Point *clicked_point,
     text->cursor_pos = 0;
 
     if (!renderer->is_interactive) {
-      message_error("Internal error: Select gives non interactive renderer!\n"
-		    "val: %d\n", renderer->is_interactive);
+      g_warning("Internal error: Select gives non interactive renderer!\n"
+		"val: %d\n", renderer->is_interactive);
       return;
     }
 
@@ -1091,7 +1090,7 @@ data_add_text(AttributeNode attr, Text *text)
 
 
 Text *
-data_text(AttributeNode text_attr)
+data_text(AttributeNode text_attr, DiaContext *ctx)
 {
   char *string = NULL;
   DiaFont *font;
@@ -1104,33 +1103,33 @@ data_text(AttributeNode text_attr)
 
   attr = composite_find_attribute(text_attr, "string");
   if (attr != NULL)
-    string = data_string(attribute_first_data(attr));
+    string = data_string(attribute_first_data(attr), ctx);
 
   height = 1.0;
   attr = composite_find_attribute(text_attr, "height");
   if (attr != NULL)
-    height = data_real(attribute_first_data(attr));
+    height = data_real(attribute_first_data(attr), ctx);
 
   attr = composite_find_attribute(text_attr, "font");
   if (attr != NULL) {
-    font = data_font(attribute_first_data(attr));
+    font = data_font(attribute_first_data(attr), ctx);
   } else {
     font = dia_font_new_from_style(DIA_FONT_SANS,1.0);
   }
   
   attr = composite_find_attribute(text_attr, "pos");
   if (attr != NULL)
-    data_point(attribute_first_data(attr), &pos);
+    data_point(attribute_first_data(attr), &pos, ctx);
 
   col = color_black;
   attr = composite_find_attribute(text_attr, "color");
   if (attr != NULL)
-    data_color(attribute_first_data(attr), &col);
+    data_color(attribute_first_data(attr), &col, ctx);
 
   align = ALIGN_LEFT;
   attr = composite_find_attribute(text_attr, "alignment");
   if (attr != NULL)
-    align = data_enum(attribute_first_data(attr));
+    align = data_enum(attribute_first_data(attr), ctx);
   
   text = new_text(string ? string : "", font, height, &pos, &col, align);
   if (font) dia_font_unref(font);

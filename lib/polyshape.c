@@ -526,7 +526,7 @@ polyshape_save(PolyShape *poly, ObjectNode obj_node)
 }
 
 void
-polyshape_load(PolyShape *poly, ObjectNode obj_node) /* NOTE: Does object_init() */
+polyshape_load(PolyShape *poly, ObjectNode obj_node, DiaContext *ctx) /* NOTE: Does object_init() */
 {
   int i;
   AttributeNode attr;
@@ -534,7 +534,7 @@ polyshape_load(PolyShape *poly, ObjectNode obj_node) /* NOTE: Does object_init()
   
   DiaObject *obj = &poly->object;
 
-  object_load(obj, obj_node);
+  object_load(obj, obj_node, ctx);
 
   attr = object_find_attribute(obj_node, "poly_points");
 
@@ -548,7 +548,7 @@ polyshape_load(PolyShape *poly, ObjectNode obj_node) /* NOTE: Does object_init()
   data = attribute_first_data(attr);
   poly->points = g_new(Point, poly->numpoints);
   for (i=0;i<poly->numpoints;i++) {
-    data_point(data, &poly->points[i]);
+    data_point(data, &poly->points[i], ctx);
     data = data_next(data);
   }
 

@@ -29,8 +29,6 @@
 #include "connectionpoint.h"
 #include "diarenderer.h"
 #include "attributes.h"
-#include "widgets.h"
-#include "message.h"
 #include "properties.h"
 
 #include "tool-icons.h"
@@ -92,7 +90,7 @@ static void box_get_props(Box *box, GPtrArray *props);
 static void box_set_props(Box *box, GPtrArray *props);
 
 static void box_save(Box *box, ObjectNode obj_node, const char *filename);
-static DiaObject *box_load(ObjectNode obj_node, int version, const char *filename);
+static DiaObject *box_load(ObjectNode obj_node, int version, DiaContext *ctx);
 static DiaMenu *box_get_object_menu(Box *box, Point *clickedpoint);
 
 static ObjectTypeOps box_type_ops =
@@ -551,7 +549,7 @@ box_save(Box *box, ObjectNode obj_node, const char *filename)
 }
 
 static DiaObject *
-box_load(ObjectNode obj_node, int version, const char *filename)
+box_load(ObjectNode obj_node, int version, DiaContext *ctx)
 {
   Box *box;
   Element *elem;
@@ -566,47 +564,47 @@ box_load(ObjectNode obj_node, int version, const char *filename)
   obj->type = &box_type;
   obj->ops = &box_ops;
 
-  element_load(elem, obj_node);
+  element_load(elem, obj_node, ctx);
   
   box->border_width = 0.1;
   attr = object_find_attribute(obj_node, "border_width");
   if (attr != NULL)
-    box->border_width =  data_real( attribute_first_data(attr) );
+    box->border_width =  data_real(attribute_first_data(attr), ctx);
 
   box->border_color = color_black;
   attr = object_find_attribute(obj_node, "border_color");
   if (attr != NULL)
-    data_color(attribute_first_data(attr), &box->border_color);
+    data_color(attribute_first_data(attr), &box->border_color, ctx);
   
   box->inner_color = color_white;
   attr = object_find_attribute(obj_node, "inner_color");
   if (attr != NULL)
-    data_color(attribute_first_data(attr), &box->inner_color);
+    data_color(attribute_first_data(attr), &box->inner_color, ctx);
   
   box->show_background = TRUE;
   attr = object_find_attribute(obj_node, "show_background");
   if (attr != NULL)
-    box->show_background = data_boolean( attribute_first_data(attr) );
+    box->show_background = data_boolean(attribute_first_data(attr), ctx);
 
   box->line_style = LINESTYLE_SOLID;
   attr = object_find_attribute(obj_node, "line_style");
   if (attr != NULL)
-    box->line_style =  data_enum( attribute_first_data(attr) );
+    box->line_style =  data_enum(attribute_first_data(attr), ctx);
 
   box->dashlength = DEFAULT_LINESTYLE_DASHLEN;
   attr = object_find_attribute(obj_node, "dashlength");
   if (attr != NULL)
-    box->dashlength = data_real(attribute_first_data(attr));
+    box->dashlength = data_real(attribute_first_data(attr), ctx);
 
   box->corner_radius = 0.0;
   attr = object_find_attribute(obj_node, "corner_radius");
   if (attr != NULL)
-    box->corner_radius =  data_real( attribute_first_data(attr) );
+    box->corner_radius =  data_real(attribute_first_data(attr), ctx);
 
   box->aspect = FREE_ASPECT;
   attr = object_find_attribute(obj_node, "aspect");
   if (attr != NULL)
-    box->aspect = data_enum(attribute_first_data(attr));
+    box->aspect = data_enum(attribute_first_data(attr), ctx);
 
   element_init(elem, 8, NUM_CONNECTIONS);
 

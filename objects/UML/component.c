@@ -73,8 +73,7 @@ static DiaObject *component_create(Point *startpoint,
 				   Handle **handle1,
 				   Handle **handle2);
 static void component_destroy(Component *cmp);
-static DiaObject *component_load(ObjectNode obj_node, int version,
-				 const char *filename);
+static DiaObject *component_load(ObjectNode obj_node, int version,DiaContext *ctx);
 
 static PropDescription *component_describe_props(Component *component);
 static void component_get_props(Component *component, GPtrArray *props);
@@ -452,10 +451,10 @@ component_destroy(Component *cmp)
 }
 
 static DiaObject *
-component_load(ObjectNode obj_node, int version, const char *filename)
+component_load(ObjectNode obj_node, int version,DiaContext *ctx)
 {
   return object_load_using_properties(&component_type,
-                                      obj_node,version,filename);
+                                      obj_node,version,ctx);
 }
 
 

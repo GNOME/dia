@@ -154,7 +154,7 @@ data_pixbuf (DataNode data)
 }
 
 static void 
-pixbufprop_load(PixbufProperty *prop, AttributeNode attr, DataNode data)
+pixbufprop_load(PixbufProperty *prop, AttributeNode attr, DataNode data, DiaContext *ctx)
 {
   prop->pixbuf = data_pixbuf (data);
 }

@@ -24,7 +24,7 @@
 #include <string.h>
 
 #include <glib.h>
-#include "message.h"
+#include "diacontext.h"
 #include "boundingbox.h"
 
 #ifdef G_OS_WIN32
@@ -2045,10 +2045,10 @@ arrow_draw(DiaRenderer *renderer, ArrowType type,
  * legal head type.
  */
 static void
-sanitize_arrow(Arrow *arrow)
+sanitize_arrow(Arrow *arrow, DiaContext *ctx)
 {
   if (arrow->type < 0 || arrow->type > MAX_ARROW_TYPE) {
-    message_warning(_("Arrow head of unknown type"));
+    dia_context_add_message(ctx, _("Arrow head of unknown type"));
     arrow->type = ARROW_NONE;
     arrow->width = DEFAULT_ARROW_WIDTH;
     arrow->length = DEFAULT_ARROW_LENGTH;
@@ -2056,8 +2056,8 @@ sanitize_arrow(Arrow *arrow)
 
   if (arrow->length < MIN_ARROW_DIMENSION ||
       arrow->width < MIN_ARROW_DIMENSION) {
-    message_warning(_("Arrow head of type %s has too small dimensions; removing.\n"),
-		    arrow_get_name_from_type(arrow->type));
+    dia_context_add_message(ctx, _("Arrow head of type %s has too small dimensions; removing.\n"),
+		            arrow_get_name_from_type(arrow->type));
     arrow->type = ARROW_NONE;
     arrow->width = DEFAULT_ARROW_WIDTH;
     arrow->length = DEFAULT_ARROW_LENGTH;
@@ -2092,7 +2092,7 @@ save_arrow(ObjectNode obj_node, Arrow *arrow, gchar *type_attribute,
  */
 void
 load_arrow(ObjectNode obj_node, Arrow *arrow, gchar *type_attribute, 
-	   gchar *length_attribute, gchar *width_attribute)
+	   gchar *length_attribute, gchar *width_attribute, DiaContext *ctx)
 {
   AttributeNode attr;
 
@@ -2101,15 +2101,15 @@ load_arrow(ObjectNode obj_node, Arrow *arrow, gchar *type_attribute,
   arrow->width = DEFAULT_ARROW_WIDTH;
   attr = object_find_attribute(obj_node, type_attribute);
   if (attr != NULL)
-    arrow->type = data_enum(attribute_first_data(attr));
+    arrow->type = data_enum(attribute_first_data(attr),ctx);
   attr = object_find_attribute(obj_node, length_attribute);
   if (attr != NULL)
-    arrow->length = data_real(attribute_first_data(attr));
+    arrow->length = data_real(attribute_first_data(attr),ctx);
   attr = object_find_attribute(obj_node, width_attribute);
   if (attr != NULL)
-    arrow->width = data_real(attribute_first_data(attr));
+    arrow->width = data_real(attribute_first_data(attr),ctx);
 
-  sanitize_arrow(arrow);
+  sanitize_arrow(arrow, ctx);
 }
 
 /** Returns the arrow type that corresponds to a given name.

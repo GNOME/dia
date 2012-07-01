@@ -38,8 +38,6 @@
 #include "diarenderer.h"
 #include "attributes.h"
 #include "text.h"
-#include "widgets.h"
-#include "message.h"
 #include "connpoint_line.h"
 #include "color.h"
 #include "properties.h"
@@ -89,7 +87,7 @@ static DiaObject *sadtbox_create(Point *startpoint,
 			  Handle **handle2);
 static void sadtbox_destroy(Box *box);
 static DiaObject *sadtbox_load(ObjectNode obj_node, int version, 
-                            const char *filename);
+                               DiaContext *ctx);
 static DiaMenu *sadtbox_get_object_menu(Box *box, Point *clickedpoint);
 
 static PropDescription *sadtbox_describe_props(Box *box);
@@ -99,7 +97,7 @@ static void sadtbox_set_props(Box *box, GPtrArray *props);
 static ObjectTypeOps sadtbox_type_ops =
 {
   (CreateFunc) sadtbox_create,
-  (LoadFunc)   sadtbox_load/*using_properties*/,
+  (LoadFunc)   sadtbox_load,
   (SaveFunc)   object_save_using_properties,
   (GetDefaultsFunc)   NULL,
   (ApplyDefaultsFunc) NULL,
@@ -553,9 +551,9 @@ sadtbox_destroy(Box *box)
 
 
 static DiaObject *
-sadtbox_load(ObjectNode obj_node, int version, const char *filename)
+sadtbox_load(ObjectNode obj_node, int version, DiaContext *ctx)
 {
   return object_load_using_properties(&sadtbox_type,
-                                      obj_node,version,filename);
+                                      obj_node,version,ctx);
 }
 

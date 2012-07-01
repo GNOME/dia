@@ -950,7 +950,7 @@ aadlbox_save(Aadlbox *aadlbox, ObjectNode obj_node, const char *filename)
 }
 
 /* *NOT A CALLBACK* --> Must be called by inherited class (see aadldata.c) */
-void aadlbox_load(ObjectNode obj_node, int version, const char *filename,
+void aadlbox_load(ObjectNode obj_node, int version, DiaContext *ctx,
 		   Aadlbox *aadlbox)
 {
   AttributeNode attr;
@@ -971,13 +971,13 @@ void aadlbox_load(ObjectNode obj_node, int version, const char *filename,
     
     Point p;
     attr = composite_find_attribute(composite, "point");
-    data_point( attribute_first_data(attr), &p);
+    data_point(attribute_first_data(attr), &p, ctx);
     
     attr = composite_find_attribute(composite, "port_type");
-    type = data_enum(attribute_first_data(attr));
+    type = data_enum(attribute_first_data(attr), ctx);
     
     attr = composite_find_attribute(composite, "port_declaration");
-    declaration = data_string(attribute_first_data(attr));
+    declaration = data_string(attribute_first_data(attr), ctx);
   
     port = g_new0(Aadlport,1);
     port->handle = g_new0(Handle,1);
@@ -996,7 +996,7 @@ void aadlbox_load(ObjectNode obj_node, int version, const char *filename,
   
   for (i=0; i<num; i++) {
     Point p;
-    data_point( data, &p );
+    data_point(data, &p, ctx);
 
     connection = g_new0(ConnectionPoint,1);
     aadlbox_add_connection(aadlbox, &p, connection);
@@ -1004,5 +1004,5 @@ void aadlbox_load(ObjectNode obj_node, int version, const char *filename,
     data = data_next(data);
   }
   
-  object_load_props(&aadlbox->element.object,obj_node);
+  object_load_props(&aadlbox->element.object,obj_node, ctx);
 }

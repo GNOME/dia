@@ -29,8 +29,6 @@
 #include "connectionpoint.h"
 #include "diarenderer.h"
 #include "attributes.h"
-#include "widgets.h"
-#include "message.h"
 #include "properties.h"
 #include "autoroute.h"
 
@@ -78,8 +76,7 @@ static void zigzagline_set_props(Zigzagline *zigzagline, GPtrArray *props);
 
 static void zigzagline_save(Zigzagline *zigzagline, ObjectNode obj_node,
 			    const char *filename);
-static DiaObject *zigzagline_load(ObjectNode obj_node, int version,
-			       const char *filename);
+static DiaObject *zigzagline_load(ObjectNode obj_node, int version, DiaContext *ctx);
 
 static ObjectTypeOps zigzagline_type_ops =
 {
@@ -455,7 +452,7 @@ zigzagline_save(Zigzagline *zigzagline, ObjectNode obj_node,
 }
 
 static DiaObject *
-zigzagline_load(ObjectNode obj_node, int version, const char *filename)
+zigzagline_load(ObjectNode obj_node, int version, DiaContext *ctx)
 {
   Zigzagline *zigzagline;
   OrthConn *orth;
@@ -470,48 +467,48 @@ zigzagline_load(ObjectNode obj_node, int version, const char *filename)
   obj->type = &zigzagline_type;
   obj->ops = &zigzagline_ops;
 
-  orthconn_load(orth, obj_node);
+  orthconn_load(orth, obj_node, ctx);
 
   zigzagline->line_color = color_black;
   attr = object_find_attribute(obj_node, "line_color");
   if (attr != NULL)
-    data_color(attribute_first_data(attr), &zigzagline->line_color);
+    data_color(attribute_first_data(attr), &zigzagline->line_color, ctx);
 
   zigzagline->line_width = 0.1;
   attr = object_find_attribute(obj_node, PROP_STDNAME_LINE_WIDTH);
   if (attr != NULL)
-    zigzagline->line_width = data_real(attribute_first_data(attr));
+    zigzagline->line_width = data_real(attribute_first_data(attr), ctx);
 
   zigzagline->line_style = LINESTYLE_SOLID;
   attr = object_find_attribute(obj_node, "line_style");
   if (attr != NULL)
-    zigzagline->line_style = data_enum(attribute_first_data(attr));
+    zigzagline->line_style = data_enum(attribute_first_data(attr), ctx);
 
   zigzagline->line_join = LINEJOIN_MITER;
   attr = object_find_attribute(obj_node, "line_join");
   if (attr != NULL)
-    zigzagline->line_join = data_enum(attribute_first_data(attr));
+    zigzagline->line_join = data_enum(attribute_first_data(attr), ctx);
 
   zigzagline->line_caps = LINECAPS_BUTT;
   attr = object_find_attribute(obj_node, "line_caps");
   if (attr != NULL)
-    zigzagline->line_caps = data_enum(attribute_first_data(attr));
+    zigzagline->line_caps = data_enum(attribute_first_data(attr), ctx);
 
   load_arrow(obj_node, &zigzagline->start_arrow, "start_arrow",
-	     "start_arrow_length", "start_arrow_width");
+	     "start_arrow_length", "start_arrow_width", ctx);
 
   load_arrow(obj_node, &zigzagline->end_arrow, "end_arrow",
-	     "end_arrow_length", "end_arrow_width");
+	     "end_arrow_length", "end_arrow_width", ctx);
 
   zigzagline->dashlength = DEFAULT_LINESTYLE_DASHLEN;
   attr = object_find_attribute(obj_node, "dashlength");
   if (attr != NULL)
-    zigzagline->dashlength = data_real(attribute_first_data(attr));
+    zigzagline->dashlength = data_real(attribute_first_data(attr), ctx);
 
   zigzagline->corner_radius = 0.0;
   attr = object_find_attribute(obj_node, "corner_radius");
   if (attr != NULL)
-    zigzagline->corner_radius =  data_real( attribute_first_data(attr) );
+    zigzagline->corner_radius = data_real(attribute_first_data(attr), ctx);
 
   zigzagline_update_data(zigzagline);
 

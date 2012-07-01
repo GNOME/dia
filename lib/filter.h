@@ -23,7 +23,8 @@
 
 #include "diatypes.h"
 #include <glib.h>
-#include <diagramdata.h>
+#include "diagramdata.h"
+#include "diacontext.h"
 
 G_BEGIN_DECLS
 
@@ -54,8 +55,8 @@ struct _DiaExportFilter {
 };
 
 /* returns FALSE on error loading diagram */
-typedef gboolean (* DiaImportFunc) (const gchar *filename, DiagramData *dia, 
-                                    void* user_data);
+typedef gboolean (* DiaImportFunc) (const gchar* filename, DiagramData *dia, 
+                                    DiaContext *ctx, void* user_data);
 
 struct _DiaImportFilter {
   const gchar *description;

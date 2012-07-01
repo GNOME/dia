@@ -97,8 +97,7 @@ static DiaObject *link_create(Point *startpoint,
 static real link_distance_from(Link *link, Point *point);
 static void link_update_data(Link *link);
 static void link_destroy(Link *link);
-static DiaObject *link_load(ObjectNode obj_node, int version,
-			    const char *filename);
+static DiaObject *link_load(ObjectNode obj_node, int version,DiaContext *ctx);
 
 static PropDescription *link_describe_props(Link *mes);
 static void link_get_props(Link * link, GPtrArray *props);
@@ -656,7 +655,7 @@ link_update_data(Link *link)
 }
 
 static DiaObject *
-link_load(ObjectNode obj_node, int version, const char *filename)
+link_load(ObjectNode obj_node, int version,DiaContext *ctx)
 {
-  return object_load_using_properties(&istar_link_type,obj_node,version,filename);
+  return object_load_using_properties(&istar_link_type,obj_node,version,ctx);
 }

@@ -35,8 +35,6 @@
 #include "diarenderer.h"
 #include "attributes.h"
 #include "text.h"
-#include "widgets.h"
-#include "message.h"
 #include "properties.h"
 
 #include "pixmaps/pgram.xpm"
@@ -104,7 +102,7 @@ static void pgram_get_props(Pgram *pgram, GPtrArray *props);
 static void pgram_set_props(Pgram *pgram, GPtrArray *props);
 
 static void pgram_save(Pgram *pgram, ObjectNode obj_node, const char *filename);
-static DiaObject *pgram_load(ObjectNode obj_node, int version, const char *filename);
+static DiaObject *pgram_load(ObjectNode obj_node, int version,DiaContext *ctx);
 
 static ObjectTypeOps pgram_type_ops =
 {
@@ -662,7 +660,7 @@ pgram_save(Pgram *pgram, ObjectNode obj_node, const char *filename)
 }
 
 static DiaObject *
-pgram_load(ObjectNode obj_node, int version, const char *filename)
+pgram_load(ObjectNode obj_node, int version,DiaContext *ctx)
 {
   Pgram *pgram;
   Element *elem;
@@ -677,53 +675,53 @@ pgram_load(ObjectNode obj_node, int version, const char *filename)
   obj->type = &pgram_type;
   obj->ops = &pgram_ops;
 
-  element_load(elem, obj_node);
+  element_load(elem, obj_node, ctx);
   
   pgram->border_width = 0.1;
   attr = object_find_attribute(obj_node, "border_width");
   if (attr != NULL)
-    pgram->border_width =  data_real( attribute_first_data(attr) );
+    pgram->border_width =  data_real(attribute_first_data(attr), ctx);
 
   pgram->border_color = color_black;
   attr = object_find_attribute(obj_node, "border_color");
   if (attr != NULL)
-    data_color(attribute_first_data(attr), &pgram->border_color);
+    data_color(attribute_first_data(attr), &pgram->border_color, ctx);
   
   pgram->inner_color = color_white;
   attr = object_find_attribute(obj_node, "inner_color");
   if (attr != NULL)
-    data_color(attribute_first_data(attr), &pgram->inner_color);
+    data_color(attribute_first_data(attr), &pgram->inner_color, ctx);
   
   pgram->show_background = TRUE;
   attr = object_find_attribute(obj_node, "show_background");
   if (attr != NULL)
-    pgram->show_background = data_boolean( attribute_first_data(attr) );
+    pgram->show_background = data_boolean(attribute_first_data(attr), ctx);
 
   pgram->line_style = LINESTYLE_SOLID;
   attr = object_find_attribute(obj_node, "line_style");
   if (attr != NULL)
-    pgram->line_style =  data_enum( attribute_first_data(attr) );
+    pgram->line_style =  data_enum(attribute_first_data(attr), ctx);
 
   pgram->dashlength = DEFAULT_LINESTYLE_DASHLEN;
   attr = object_find_attribute(obj_node, "dashlength");
   if (attr != NULL)
-    pgram->dashlength = data_real(attribute_first_data(attr));
+    pgram->dashlength = data_real(attribute_first_data(attr), ctx);
 
   pgram->shear_angle = 0.0;
   attr = object_find_attribute(obj_node, "shear_angle");
   if (attr != NULL)
-    pgram->shear_angle =  data_real( attribute_first_data(attr) );
+    pgram->shear_angle =  data_real(attribute_first_data(attr), ctx);
   pgram->shear_grad = tan(M_PI/2.0 - M_PI/180.0 * pgram->shear_angle);
 
   pgram->padding = default_properties.padding;
   attr = object_find_attribute(obj_node, "padding");
   if (attr != NULL)
-    pgram->padding =  data_real( attribute_first_data(attr) );
+    pgram->padding =  data_real(attribute_first_data(attr), ctx);
   
   pgram->text = NULL;
   attr = object_find_attribute(obj_node, "text");
   if (attr != NULL)
-    pgram->text = data_text(attribute_first_data(attr));
+    pgram->text = data_text(attribute_first_data(attr), ctx);
   else /* paranoid */
     pgram->text = new_text_default(&obj->position, &pgram->border_color, ALIGN_CENTER);
   text_get_attributes(pgram->text, &pgram->attrs);
@@ -732,7 +730,7 @@ pgram_load(ObjectNode obj_node, int version, const char *filename)
   pgram->text_fitting = TEXTFIT_WHEN_NEEDED;
   attr = object_find_attribute(obj_node, PROP_STDNAME_TEXT_FITTING);
   if (attr != NULL)
-    pgram->text_fitting = data_enum(attribute_first_data(attr));
+    pgram->text_fitting = data_enum(attribute_first_data(attr), ctx);
 
   element_init(elem, 8, NUM_CONNECTIONS);
 

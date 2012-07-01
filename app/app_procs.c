@@ -326,6 +326,7 @@ do_convert(const char *infname,
 {
   DiaImportFilter *inf;
   DiagramData *diagdata = NULL;
+  DiaContext *ctx;
 
   inf = filter_guess_import_filter(infname);
   if (!inf) 
@@ -349,8 +350,9 @@ do_convert(const char *infname,
   }
   
   diagdata = g_object_new (DIA_TYPE_DIAGRAM_DATA, NULL);
+  ctx = dia_context_new(_("Import"));
 
-  if (!inf->import_func(infname,diagdata,inf->user_data)) {
+  if (!inf->import_func(infname, diagdata, ctx, inf->user_data)) {
     g_critical(_("%s error: need valid input file %s\n"),
             argv0, infname);
     exit(1);
@@ -382,6 +384,7 @@ do_convert(const char *infname,
                       _("%s --> %s\n"),
                         infname,outfname);
   g_object_unref(diagdata);
+  dia_context_release(ctx);
   return TRUE;
 }
 
@@ -913,8 +916,11 @@ app_init (int argc, char **argv)
   load_all_sheets();     /* new mechanism */
 
   dia_log_message ("object defaults");
-  dia_object_defaults_load (NULL, TRUE /* prefs.object_defaults_create_lazy */);
-
+  {
+    DiaContext *ctx = dia_context_new (_("Object Defaults"));
+    dia_object_defaults_load (NULL, TRUE /* prefs.object_defaults_create_lazy */, ctx);
+    dia_context_release (ctx);
+  }
   debug_break();
 
   if (object_get_type("Standard - Box") == NULL) {

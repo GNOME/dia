@@ -32,8 +32,6 @@
 #include "connectionpoint.h"
 #include "diarenderer.h"
 #include "attributes.h"
-#include "widgets.h"
-#include "message.h"
 #include "color.h"
 #include "properties.h"
 #include "geometry.h"
@@ -81,7 +79,7 @@ static real condition_distance_from(Condition *condition, Point *point);
 static void condition_update_data(Condition *condition);
 static void condition_destroy(Condition *condition);
 static DiaObject *condition_load(ObjectNode obj_node, int version,
-			       const char *filename);
+				 DiaContext *context);
 static PropDescription *condition_describe_props(Condition *condition);
 static void condition_get_props(Condition *condition, 
                                 GPtrArray *props);
@@ -91,7 +89,7 @@ static void condition_set_props(Condition *condition,
 static ObjectTypeOps condition_type_ops =
 {
   (CreateFunc)condition_create,   /* create */
-  (LoadFunc)  condition_load /*using_properties*/,     /* load */
+  (LoadFunc)  condition_load,     /* load */
   (SaveFunc)  object_save_using_properties,      /* save */
   (GetDefaultsFunc)   NULL,
   (ApplyDefaultsFunc) NULL
@@ -386,10 +384,10 @@ condition_destroy(Condition *condition)
 }
 
 static DiaObject *
-condition_load(ObjectNode obj_node, int version, const char *filename)
+condition_load(ObjectNode obj_node, int version, DiaContext *ctx)
 {
   return object_load_using_properties(&condition_type,
-                                      obj_node,version,filename);
+                                      obj_node,version,ctx);
 }
 
 

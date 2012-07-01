@@ -81,8 +81,7 @@ static PropDescription *realizes_describe_props(Realizes *realizes);
 static void realizes_get_props(Realizes * realizes, GPtrArray *props);
 static void realizes_set_props(Realizes * realizes, GPtrArray *props);
 
-static DiaObject *realizes_load(ObjectNode obj_node, int version,
-			     const char *filename);
+static DiaObject *realizes_load(ObjectNode obj_node, int version,DiaContext *ctx);
 
 static void realizes_update_data(Realizes *realize);
 
@@ -451,10 +450,10 @@ realizes_destroy(Realizes *realize)
 }
 
 static DiaObject *
-realizes_load(ObjectNode obj_node, int version, const char *filename)
+realizes_load(ObjectNode obj_node, int version,DiaContext *ctx)
 {
   DiaObject *obj = object_load_using_properties(&realizes_type,
-                                                obj_node,version,filename);
+                                                obj_node,version,ctx);
   if (version == 0) {
     AttributeNode attr;
     /* In old objects with no autorouting, set it to false. */

@@ -32,9 +32,7 @@
 #include "connectionpoint.h"
 #include "diarenderer.h"
 #include "attributes.h"
-#include "widgets.h"
 #include "diamenu.h"
-#include "message.h"
 #include "properties.h"
 #include "create.h"
 
@@ -80,8 +78,7 @@ static void bezierline_set_props(Bezierline *bezierline, GPtrArray *props);
 
 static void bezierline_save(Bezierline *bezierline, ObjectNode obj_node,
 			  const char *filename);
-static DiaObject *bezierline_load(ObjectNode obj_node, int version,
-			     const char *filename);
+static DiaObject *bezierline_load(ObjectNode obj_node, int version, DiaContext *ctx);
 static DiaMenu *bezierline_get_object_menu(Bezierline *bezierline, Point *clickedpoint);
 
 static void compute_gap_points(Bezierline *bezierline, Point *gap_points);
@@ -637,7 +634,7 @@ bezierline_save(Bezierline *bezierline, ObjectNode obj_node,
 }
 
 static DiaObject *
-bezierline_load(ObjectNode obj_node, int version, const char *filename)
+bezierline_load(ObjectNode obj_node, int version, DiaContext *ctx)
 {
   Bezierline *bezierline;
   BezierConn *bez;
@@ -652,52 +649,52 @@ bezierline_load(ObjectNode obj_node, int version, const char *filename)
   obj->type = &bezierline_type;
   obj->ops = &bezierline_ops;
 
-  bezierconn_load(bez, obj_node);
+  bezierconn_load(bez, obj_node, ctx);
 
   bezierline->line_color = color_black;
   attr = object_find_attribute(obj_node, "line_color");
   if (attr != NULL)
-    data_color(attribute_first_data(attr), &bezierline->line_color);
+    data_color(attribute_first_data(attr), &bezierline->line_color, ctx);
 
   bezierline->line_width = 0.1;
   attr = object_find_attribute(obj_node, PROP_STDNAME_LINE_WIDTH);
   if (attr != NULL)
-    bezierline->line_width = data_real(attribute_first_data(attr));
+    bezierline->line_width = data_real(attribute_first_data(attr), ctx);
 
   bezierline->line_style = LINESTYLE_SOLID;
   attr = object_find_attribute(obj_node, "line_style");
   if (attr != NULL)
-    bezierline->line_style = data_enum(attribute_first_data(attr));
+    bezierline->line_style = data_enum(attribute_first_data(attr), ctx);
 
   bezierline->line_join = LINEJOIN_MITER;
   attr = object_find_attribute(obj_node, "line_join");
   if (attr != NULL)
-    bezierline->line_join = data_enum(attribute_first_data(attr));
+    bezierline->line_join = data_enum(attribute_first_data(attr), ctx);
 
   bezierline->line_caps = LINECAPS_BUTT;
   attr = object_find_attribute(obj_node, "line_caps");
   if (attr != NULL)
-    bezierline->line_caps = data_enum(attribute_first_data(attr));
+    bezierline->line_caps = data_enum(attribute_first_data(attr), ctx);
 
   bezierline->dashlength = DEFAULT_LINESTYLE_DASHLEN;
   attr = object_find_attribute(obj_node, "dashlength");
   if (attr != NULL)
-    bezierline->dashlength = data_real(attribute_first_data(attr));
+    bezierline->dashlength = data_real(attribute_first_data(attr), ctx);
 
   load_arrow(obj_node, &bezierline->start_arrow, "start_arrow",
-	     "start_arrow_length", "start_arrow_width");
+	     "start_arrow_length", "start_arrow_width", ctx);
 
   load_arrow(obj_node, &bezierline->end_arrow, "end_arrow",
-	     "end_arrow_length", "end_arrow_width");
+	     "end_arrow_length", "end_arrow_width", ctx);
 
   bezierline->absolute_start_gap = 0.0;
   attr = object_find_attribute(obj_node, "absolute_start_gap");
   if (attr != NULL)
-    bezierline->absolute_start_gap =  data_real( attribute_first_data(attr) );
+    bezierline->absolute_start_gap =  data_real(attribute_first_data(attr), ctx);
   bezierline->absolute_end_gap = 0.0;
   attr = object_find_attribute(obj_node, "absolute_end_gap");
   if (attr != NULL)
-    bezierline->absolute_end_gap =  data_real( attribute_first_data(attr) );
+    bezierline->absolute_end_gap =  data_real(attribute_first_data(attr), ctx);
   
   /* if "screws up the bounding box if auto_gap" it must be fixed there
    * not by copying some meaningless bounding_box before this function call!

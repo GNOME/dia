@@ -309,7 +309,7 @@ object_copy_props(DiaObject *dest, const DiaObject *src, gboolean is_default)
 }
 
 void
-object_load_props(DiaObject *obj, ObjectNode obj_node)
+object_load_props(DiaObject *obj, ObjectNode obj_node, DiaContext *ctx)
 {
   GPtrArray *props;
   GError *err = NULL;
@@ -321,9 +321,8 @@ object_load_props(DiaObject *obj, ObjectNode obj_node)
   props = prop_list_from_descs(object_get_prop_descriptions(obj),
                                pdtpp_do_load);  
 
-  if (!prop_list_load(props,obj_node, &err)) {
-    g_warning ("%s: %s", obj->type->name, err->message);
-    g_error_free(err);
+  if (!prop_list_load(props,obj_node, ctx)) {
+    /* context already has the message */
   }
 
   obj->ops->set_props(obj, props);

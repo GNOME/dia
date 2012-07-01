@@ -226,14 +226,14 @@ static DiaObject *aadlbus_create(Point *startpoint, void *user_data, Handle **ha
   return obj;
 }
 
-static DiaObject *aadlbus_load(ObjectNode obj_node, int version, const char *filename)
+static DiaObject *aadlbus_load(ObjectNode obj_node, int version,DiaContext *ctx)
 {
   DiaObject *obj;
   Point startpoint = {0.0,0.0};
   Handle *handle1,*handle2;
   
   obj = aadlbus_create(&startpoint,&aadlbus_specific, &handle1,&handle2);
-  aadlbox_load(obj_node, version, filename, (Aadlbox *) obj);
+  aadlbox_load(obj_node, version, ctx, (Aadlbox *) obj);
   return obj;
 }
 

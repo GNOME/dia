@@ -61,7 +61,8 @@ ObjectChange *connpointline_remove_points(ConnPointLine *cpl,
 					  int count);
 ConnPointLine *connpointline_load(DiaObject *obj,ObjectNode obj_node,
 				  const gchar *name, int default_nc,
-				  int *realconncount);
+				  int *realconncount,
+				  DiaContext *ctx);
 void connpointline_save(ConnPointLine *cpl,ObjectNode obj_node,
 			const gchar *name);
 ConnPointLine *connpointline_copy(DiaObject *newobj,ConnPointLine *cpl,

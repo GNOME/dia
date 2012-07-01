@@ -82,7 +82,7 @@ _alias_create (Point *startpoint,
 	       Handle **handle1,
 	       Handle **handle2);
 static DiaObject *
-_alias_load (ObjectNode obj_node, int version, const char *filename);
+_alias_load (ObjectNode obj_node, int version, const char *filename, DiaContext *ctx);
 static void
 _alias_save (DiaObject *obj, ObjectNode obj_node, const char *filename);
 
@@ -125,7 +125,7 @@ _alias_create (Point *startpoint,
 }
 
 static DiaObject *
-_alias_load (ObjectNode obj_node, int version, const char *filename)
+_alias_load (ObjectNode obj_node, int version, const char *filename, DiaContext *ctx)
 {
   DiaObject *obj = NULL;
   xmlChar *str;
@@ -140,7 +140,7 @@ _alias_load (ObjectNode obj_node, int version, const char *filename)
      * just another reason to pass in the exlplicit this-pointer in every method.
      */
     obj = real_type->ops->create (&apoint, real_type->default_user_data, &h1, &h2);
-    object_load_props (obj, obj_node);
+    object_load_props (obj, obj_node, ctx);
 #ifdef MODIFY_OBJECTS_TYPE
     /* now modify the object for some behavior change */
     obj->type = object_get_type ((char *)str); /* also changes the name */

@@ -40,8 +40,6 @@
 #include <libxml/xmlmemory.h>
 
 #include "geometry.h"
-#include "intl.h"
-#include "message.h"
 #include "dia_xml_libxml.h"
 #include "dia_image.h"
 #include "dia_dirs.h"
@@ -212,7 +210,7 @@ set_fillstyle(DiaRenderer *self, FillStyle mode)
   case FILLSTYLE_SOLID:
     break;
   default:
-    message_error("svg_renderer: Unsupported fill mode specified!\n");
+    g_warning("svg_renderer: Unsupported fill mode specified!\n");
   }
 }
 

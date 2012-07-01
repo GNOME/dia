@@ -29,9 +29,7 @@
 #include "connectionpoint.h"
 #include "diarenderer.h"
 #include "attributes.h"
-#include "widgets.h"
 #include "diamenu.h"
-#include "message.h"
 #include "properties.h"
 
 #include "create.h"
@@ -77,8 +75,7 @@ static void polyline_set_props(Polyline *polyline, GPtrArray *props);
 
 static void polyline_save(Polyline *polyline, ObjectNode obj_node,
 			  const char *filename);
-static DiaObject *polyline_load(ObjectNode obj_node, int version,
-			     const char *filename);
+static DiaObject *polyline_load(ObjectNode obj_node, int version, DiaContext *ctx);
 static DiaMenu *polyline_get_object_menu(Polyline *polyline, Point *clickedpoint);
 void polyline_calculate_gap_endpoints(Polyline *polyline, Point *gap_endpoints);
 static void polyline_exchange_gap_points(Polyline *polyline,  Point *gap_points);
@@ -528,7 +525,7 @@ polyline_save(Polyline *polyline, ObjectNode obj_node,
 }
 
 static DiaObject *
-polyline_load(ObjectNode obj_node, int version, const char *filename)
+polyline_load(ObjectNode obj_node, int version, DiaContext *ctx)
 {
   Polyline *polyline;
   PolyConn *poly;
@@ -543,58 +540,57 @@ polyline_load(ObjectNode obj_node, int version, const char *filename)
   obj->type = &polyline_type;
   obj->ops = &polyline_ops;
 
-  polyconn_load(poly, obj_node);
+  polyconn_load(poly, obj_node, ctx);
 
   polyline->line_color = color_black;
   attr = object_find_attribute(obj_node, "line_color");
   if (attr != NULL)
-    data_color(attribute_first_data(attr), &polyline->line_color);
+    data_color(attribute_first_data(attr), &polyline->line_color, ctx);
 
   polyline->line_width = 0.1;
   attr = object_find_attribute(obj_node, PROP_STDNAME_LINE_WIDTH);
   if (attr != NULL)
-    polyline->line_width = data_real(attribute_first_data(attr));
+    polyline->line_width = data_real(attribute_first_data(attr), ctx);
 
   polyline->line_style = LINESTYLE_SOLID;
   attr = object_find_attribute(obj_node, "line_style");
   if (attr != NULL)
-    polyline->line_style = data_enum(attribute_first_data(attr));
+    polyline->line_style = data_enum(attribute_first_data(attr), ctx);
 
   polyline->line_join = LINEJOIN_MITER;
   attr = object_find_attribute(obj_node, "line_join");
   if (attr != NULL)
-    polyline->line_join = data_enum(attribute_first_data(attr));
+    polyline->line_join = data_enum(attribute_first_data(attr), ctx);
 
   polyline->line_caps = LINECAPS_BUTT;
   attr = object_find_attribute(obj_node, "line_caps");
   if (attr != NULL)
-    polyline->line_caps = data_enum(attribute_first_data(attr));
+    polyline->line_caps = data_enum(attribute_first_data(attr), ctx);
 
   polyline->dashlength = DEFAULT_LINESTYLE_DASHLEN;
   attr = object_find_attribute(obj_node, "dashlength");
   if (attr != NULL)
-    polyline->dashlength = data_real(attribute_first_data(attr));
+    polyline->dashlength = data_real(attribute_first_data(attr), ctx);
 
   load_arrow(obj_node, &polyline->start_arrow, "start_arrow",
-	     "start_arrow_length", "start_arrow_width");
+	     "start_arrow_length", "start_arrow_width", ctx);
 
   load_arrow(obj_node, &polyline->end_arrow, "end_arrow",
-	     "end_arrow_length", "end_arrow_width");
+	     "end_arrow_length", "end_arrow_width", ctx);
 
   polyline->absolute_start_gap = 0.0;
   attr = object_find_attribute(obj_node, "absolute_start_gap");
   if (attr != NULL)
-    polyline->absolute_start_gap =  data_real( attribute_first_data(attr) );
+    polyline->absolute_start_gap =  data_real(attribute_first_data(attr), ctx);
   polyline->absolute_end_gap = 0.0;
   attr = object_find_attribute(obj_node, "absolute_end_gap");
   if (attr != NULL)
-    polyline->absolute_end_gap =  data_real( attribute_first_data(attr) );
-
+    polyline->absolute_end_gap =  data_real(attribute_first_data(attr), ctx);
 
   polyline->corner_radius = 0.0;
   attr = object_find_attribute(obj_node, "corner_radius");
   if (attr != NULL)
-    polyline->corner_radius =  data_real( attribute_first_data(attr) );
+    polyline->corner_radius =  data_real(attribute_first_data(attr), ctx);
 
   polyline_update_data(polyline);
 

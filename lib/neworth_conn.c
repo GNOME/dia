@@ -28,7 +28,6 @@
 
 #include "neworth_conn.h"
 #include "connectionpoint.h"
-#include "message.h"
 #include "diamenu.h"
 #include "handle.h"
 #include "diarenderer.h"
@@ -202,7 +201,7 @@ neworthconn_move_handle(NewOrthConn *orth, Handle *handle,
     } 
     break;
   default:
-    message_error("Internal error in neworthconn_move_handle.\n");
+    g_warning("Internal error in neworthconn_move_handle.\n");
     break;
   }
 
@@ -601,7 +600,8 @@ neworthconn_save(NewOrthConn *orth, ObjectNode obj_node)
 }
 
 void
-neworthconn_load(NewOrthConn *orth, ObjectNode obj_node) /* NOTE: Does object_init() */
+neworthconn_load(NewOrthConn *orth, ObjectNode obj_node,
+		 DiaContext *ctx) /* NOTE: Does object_init() */
 {
   int i;
   AttributeNode attr;
@@ -610,7 +610,7 @@ neworthconn_load(NewOrthConn *orth, ObjectNode obj_node) /* NOTE: Does object_in
   
   DiaObject *obj = &orth->object;
 
-  object_load(obj, obj_node);
+  object_load(obj, obj_node, ctx);
 
   attr = object_find_attribute(obj_node, "orth_points");
 
@@ -626,7 +626,7 @@ neworthconn_load(NewOrthConn *orth, ObjectNode obj_node) /* NOTE: Does object_in
   data = attribute_first_data(attr);
   orth->points = g_malloc((orth->numpoints)*sizeof(Point));
   for (i=0;i<orth->numpoints;i++) {
-    data_point(data, &orth->points[i]);
+    data_point(data, &orth->points[i], ctx);
     data = data_next(data);
   }
 
@@ -635,7 +635,7 @@ neworthconn_load(NewOrthConn *orth, ObjectNode obj_node) /* NOTE: Does object_in
   data = attribute_first_data(attr);
   orth->orientation = g_malloc((orth->numpoints-1)*sizeof(Orientation));
   for (i=0;i<orth->numpoints-1;i++) {
-    orth->orientation[i] = data_enum(data);
+    orth->orientation[i] = data_enum(data, ctx);
     data = data_next(data);
   }
 

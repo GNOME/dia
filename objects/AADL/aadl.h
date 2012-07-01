@@ -196,7 +196,7 @@ void aadlbox_set_props(Aadlbox *aadlbox, GPtrArray *props);
 DiaObject *aadlbox_copy(DiaObject *obj);
 DiaMenu * aadlbox_get_object_menu(Aadlbox *aadlbox, Point *clickedpoint);
 void aadlbox_save(Aadlbox *aadlbox, ObjectNode obj_node, const char *filename);
-void aadlbox_load(ObjectNode obj_node, int version, const char *filename,
+void aadlbox_load(ObjectNode obj_node, int version, DiaContext *ctx,
 			Aadlbox *aadlbox);
 
 /* aadldata.c */

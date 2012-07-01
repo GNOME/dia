@@ -36,4 +36,9 @@ typedef enum {
   TEXTFIT_WHEN_NEEDED,
   TEXTFIT_ALWAYS
 } TextFitting;
+
+/* Used to be in widgets.h polluting a lot of object implementations */
+#define DEFAULT_LINESTYLE LINESTYLE_SOLID
+#define DEFAULT_LINESTYLE_DASHLEN 1.0
+
 #endif

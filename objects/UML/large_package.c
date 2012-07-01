@@ -88,8 +88,7 @@ static void largepackage_update_data(LargePackage *pkg);
 static PropDescription *largepackage_describe_props(LargePackage *largepackage);
 static void largepackage_get_props(LargePackage *largepackage, GPtrArray *props);
 static void largepackage_set_props(LargePackage *largepackage, GPtrArray *props);
-static DiaObject *largepackage_load(ObjectNode obj_node, int version, 
-                                 const char *filename);
+static DiaObject *largepackage_load(ObjectNode obj_node, int version,DiaContext *ctx);
 
 static ObjectTypeOps largepackage_type_ops =
 {
@@ -412,10 +411,10 @@ largepackage_destroy(LargePackage *pkg)
 }
 
 static DiaObject *
-largepackage_load(ObjectNode obj_node, int version, const char *filename)
+largepackage_load(ObjectNode obj_node, int version,DiaContext *ctx)
 {
   DiaObject *obj = object_load_using_properties(&largepackage_type,
-                                                obj_node,version,filename);
+                                                obj_node,version,ctx);
   AttributeNode attr;
   /* For compatibility with previous dia files. If no line_width, use
    * LARGEPACKAGE_BORDERWIDTH, that was the previous line width.

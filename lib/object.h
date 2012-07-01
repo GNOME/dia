@@ -32,6 +32,7 @@
 #include "objchange.h"
 #include "dia_xml.h"
 #include "text.h"
+#include "diacontext.h"
 
 G_BEGIN_DECLS
 
@@ -107,7 +108,7 @@ typedef DiaObject* (*CreateFunc) (Point *startpoint,
  *                 error messages.
  */
 typedef DiaObject* (*LoadFunc) (ObjectNode obj_node, int version,
-				const char *filename);
+				DiaContext *ctx);
 
 /** This function save the object's data to file fd. No header is required.
  *  The data should be written using the functions in lib/files.h
@@ -350,7 +351,7 @@ void object_destroy(DiaObject *obj); /* Unconnects handles, so don't
 void object_copy(DiaObject *from, DiaObject *to);
 
 void object_save(DiaObject *obj, ObjectNode obj_node);
-void object_load(DiaObject *obj, ObjectNode obj_node);
+void object_load(DiaObject *obj, ObjectNode obj_node, DiaContext *ctx);
 
 GList *object_copy_list(GList *list);
 ObjectChange* object_list_move_delta_r(GList *objects, Point *delta, gboolean affected);
@@ -387,8 +388,8 @@ gboolean object_flags_set(DiaObject* obj, gint flags);
    can be completely described, loaded and saved through standard properties.
 */
 DiaObject *object_load_using_properties(const DiaObjectType *type,
-                                     ObjectNode obj_node, int version,
-                                     const char *filename);
+					ObjectNode obj_node, int version,
+					DiaContext *ctx);
 void object_save_using_properties(DiaObject *obj, ObjectNode obj_node, 
                                   const char *filename);
 DiaObject *object_copy_using_properties(DiaObject *obj);
@@ -548,7 +549,8 @@ struct _DiaObjectType {
 
 
 gboolean       dia_object_defaults_load (const gchar *filename,
-                                         gboolean create_lazy);
+                                         gboolean create_lazy,
+					 DiaContext *ctx);
 DiaObject  *dia_object_default_get  (const DiaObjectType *type, gpointer user_data);
 DiaObject  *dia_object_default_create (const DiaObjectType *type,
                                     Point *startpoint,
@@ -572,7 +574,7 @@ gchar *dia_object_get_meta (DiaObject *obj, const gchar *key);
 int dia_object_get_num_connections (DiaObject *obj);
 
 /* standard way to load/save properties of an object */
-void          object_load_props(DiaObject *obj, ObjectNode obj_node);
+void          object_load_props(DiaObject *obj, ObjectNode obj_node, DiaContext *ctx);
 void          object_save_props(DiaObject *obj, ObjectNode obj_node);
 
 /* standard way to copy the properties of an object into another (of the

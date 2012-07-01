@@ -159,7 +159,7 @@ find_child_named (xmlNodePtr node, const char *name)
  * Can be called recusively to allow groups in groups.
  */
 static GList*
-read_items (xmlNodePtr startnode)
+read_items (xmlNodePtr startnode, DiaContext *ctx)
 {
   xmlNodePtr node;
   GList *items = NULL;
@@ -180,7 +180,7 @@ read_items (xmlNodePtr startnode)
       if (ot && !ot->ops) {
 	GList *moreitems;
         /* FIXME: 'render' is also the grouping element */
-	moreitems = read_items (render->children);
+	moreitems = read_items (render->children, ctx);
 	if (moreitems) {
 	  DiaObject *group = group_create (moreitems);
 	    /* group eats list */
@@ -195,7 +195,7 @@ read_items (xmlNodePtr startnode)
                             ot->default_user_data, 
 			    &handle1,&handle2);
 	if (o) {
-	  object_load_props (o, props);
+	  object_load_props (o, props, ctx);
 	  items = g_list_append (items, o);
 	}
       } else {
@@ -210,7 +210,7 @@ read_items (xmlNodePtr startnode)
 
 /* imports the given DRS file, returns TRUE if successful */
 gboolean
-import_drs (const gchar *filename, DiagramData *dia, void* user_data) 
+import_drs (const gchar *filename, DiagramData *dia, DiaContext *ctx, void* user_data) 
 {
   GList *item, *items;
   xmlDocPtr doc = xmlParseFile(filename);
@@ -222,7 +222,7 @@ import_drs (const gchar *filename, DiagramData *dia, void* user_data)
       root = node;
 
   if (!root || !(root = find_child_named (root, "diagram"))) {
-    message_warning (_("Broken file?"));
+    dia_context_add_message (ctx, _("Broken file?"));
     return FALSE;
   }
 
@@ -241,7 +241,7 @@ import_drs (const gchar *filename, DiagramData *dia, void* user_data)
 	xmlFree (str);
       }
 
-      items = read_items (node->children);
+      items = read_items (node->children, ctx);
       for (item = items; item != NULL; item = g_list_next (item)) {
         DiaObject *obj = (DiaObject *)item->data;
         layer_add_object(layer, obj);

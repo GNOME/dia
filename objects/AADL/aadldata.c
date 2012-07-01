@@ -179,14 +179,14 @@ static DiaObject *aadldata_create(Point *startpoint, void *user_data, Handle **h
   return obj;
 }
 
-static DiaObject *aadldata_load(ObjectNode obj_node, int version, const char *filename)
+static DiaObject *aadldata_load(ObjectNode obj_node, int version, DiaContext *ctx)
 {
   DiaObject *obj;
   Point startpoint = {0.0,0.0};
   Handle *handle1,*handle2;
   
   obj = aadldata_create(&startpoint,&aadldata_specific, &handle1,&handle2);
-  aadlbox_load(obj_node, version, filename, (Aadlbox *) obj);
+  aadlbox_load(obj_node, version, ctx, (Aadlbox *) obj);
   
   return obj;
 }

@@ -72,8 +72,7 @@ static void wanlink_get_props(WanLink *wanlink, GPtrArray *props);
 static void wanlink_set_props(WanLink *wanlink, GPtrArray *props);
 static void wanlink_save(WanLink *wanlink, ObjectNode obj_node,
 			 const char *filename);
-static DiaObject *wanlink_load(ObjectNode obj_node, int version,
-			    const char *filename);
+static DiaObject *wanlink_load(ObjectNode obj_node, int version,DiaContext *ctx);
 static void wanlink_update_data(WanLink *wanlink);
 
 static ObjectTypeOps wanlink_type_ops =
@@ -322,7 +321,7 @@ wanlink_save(WanLink *wanlink, ObjectNode obj_node,
 }
 
 static DiaObject *
-wanlink_load(ObjectNode obj_node, int version, const char *filename)
+wanlink_load(ObjectNode obj_node, int version,DiaContext *ctx)
 {
     WanLink *wanlink;
     Connection *conn;
@@ -338,25 +337,25 @@ wanlink_load(ObjectNode obj_node, int version, const char *filename)
     obj->type = &wanlink_type;
     obj->ops = &wanlink_ops;
 
-    connection_load(conn, obj_node);
+    connection_load(conn, obj_node, ctx);
     connection_init(conn, 2, 0);
     
     attr = object_find_attribute(obj_node, "width");
     if (attr != NULL) {
 	data = attribute_first_data(attr);
-	wanlink->width = data_real( data);
+	wanlink->width = data_real(data, ctx);
     }
 
     wanlink->line_color = color_black;
     attr = object_find_attribute(obj_node, "line_color");
     if (attr != NULL)
-        data_color(attribute_first_data(attr), &wanlink->line_color);
+      data_color(attribute_first_data(attr), &wanlink->line_color, ctx);
     /* both colors where black at the time this was hardcoded ... */
     wanlink->fill_color = color_black;
     attr = object_find_attribute(obj_node, "fill_color");
     if (attr != NULL)
-        data_color(attribute_first_data(attr), &wanlink->fill_color);
-    
+      data_color(attribute_first_data(attr), &wanlink->fill_color, ctx);
+
     wanlink_update_data (wanlink);
     
     return obj;

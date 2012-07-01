@@ -75,8 +75,7 @@ static DiaObject *node_create(Point *startpoint,
 				   Handle **handle1,
 				   Handle **handle2);
 static void node_destroy(Node *node);
-static DiaObject *node_load(ObjectNode obj_node, int version,
-				 const char *filename);
+static DiaObject *node_load(ObjectNode obj_node, int version,DiaContext *ctx);
 
 static PropDescription *node_describe_props(Node *node);
 static void node_get_props(Node *node, GPtrArray *props);
@@ -381,8 +380,8 @@ static void node_destroy(Node *node)
   element_destroy(&node->element);
 }
 
-static DiaObject *node_load(ObjectNode obj_node, int version, const char *filename)
+static DiaObject *node_load(ObjectNode obj_node, int version,DiaContext *ctx)
 {
   return object_load_using_properties(&node_type,
-                                      obj_node,version,filename);
+                                      obj_node,version,ctx);
 }

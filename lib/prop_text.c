@@ -180,10 +180,10 @@ fileprop_set_from_widget(StringProperty *prop, GtkWidget *widget)
 }
 
 static void 
-stringprop_load(StringProperty *prop, AttributeNode attr, DataNode data)
+stringprop_load(StringProperty *prop, AttributeNode attr, DataNode data, DiaContext *ctx)
 {
   g_free(prop->string_data);
-  prop->string_data = data_string(data);
+  prop->string_data = data_string(data, ctx);
   if (prop->string_data == NULL) {
     prop->string_data = g_strdup("");
   }
@@ -253,7 +253,7 @@ stringlistprop_copy(StringListProperty *src)
 }
 
 static void 
-stringlistprop_load(StringListProperty *prop, AttributeNode attr, DataNode data)
+stringlistprop_load(StringListProperty *prop, AttributeNode attr, DataNode data, DiaContext *ctx)
 {
   g_warning("stringlistprop_load not implemented");
 }
@@ -388,11 +388,11 @@ textprop_free(TextProperty *prop)
 }
 
 static void 
-textprop_load(TextProperty *prop, AttributeNode attr, DataNode data)
+textprop_load(TextProperty *prop, AttributeNode attr, DataNode data, DiaContext *ctx)
 {
   Text *text;
   g_free(prop->text_data);
-  text = data_text(data);
+  text = data_text(data, ctx);
   text_get_attributes(text,&prop->attr);
   prop->text_data = text_get_string_copy(text);
   text_destroy(text);

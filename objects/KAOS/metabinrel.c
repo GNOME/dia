@@ -109,8 +109,7 @@ static DiaObject *mbr_create(Point *startpoint,
 static real mbr_distance_from(Mbr *mbr, Point *point);
 static void mbr_update_data(Mbr *mbr);
 static void mbr_destroy(Mbr *mbr);
-static DiaObject *mbr_load(ObjectNode obj_node, int version,
-			    const char *filename);
+static DiaObject *mbr_load(ObjectNode obj_node, int version,DiaContext *ctx);
 
 static PropDescription *mbr_describe_props(Mbr *mes);
 static void mbr_get_props(Mbr * mbr, GPtrArray *props);
@@ -582,8 +581,8 @@ mbr_update_data(Mbr *mbr)
 }
 
 static DiaObject *
-mbr_load(ObjectNode obj_node, int version, const char *filename)
+mbr_load(ObjectNode obj_node, int version,DiaContext *ctx)
 {
   return object_load_using_properties(&kaos_mbr_type,
-                                      obj_node,version,filename);
+                                      obj_node,version,ctx);
 }

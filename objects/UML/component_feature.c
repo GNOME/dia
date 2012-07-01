@@ -104,8 +104,7 @@ static DiaMenu *compfeat_get_object_menu(Compfeat *compfeat,
 static PropDescription *compfeat_describe_props(Compfeat *compfeat);
 static void compfeat_get_props(Compfeat * compfeat, GPtrArray *props);
 static void compfeat_set_props(Compfeat * compfeat, GPtrArray *props);
-static DiaObject *compfeat_load(ObjectNode obj_node, int version,
-			     const char *filename);
+static DiaObject *compfeat_load(ObjectNode obj_node, int version,DiaContext *ctx);
 
 
 static ObjectTypeOps compfeat_type_ops =
@@ -464,10 +463,10 @@ compfeat_update_data(Compfeat *compfeat)
 }
 
 static DiaObject *
-compfeat_load(ObjectNode obj_node, int version, const char *filename)
+compfeat_load(ObjectNode obj_node, int version,DiaContext *ctx)
 {
   DiaObject *obj = object_load_using_properties(&compfeat_type,
-                                                obj_node,version,filename);
+                                                obj_node,version,ctx);
   if (version == 0) {
     AttributeNode attr;
     /* In old objects with no autorouting, set it to false. */

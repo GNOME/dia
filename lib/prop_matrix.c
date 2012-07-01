@@ -102,7 +102,7 @@ data_matrix (DataNode data)
 }
 
 static void 
-matrixprop_load(MatrixProperty *prop, AttributeNode attr, DataNode data)
+matrixprop_load(MatrixProperty *prop, AttributeNode attr, DataNode data, DiaContext *ctx)
 {
   prop->matrix = data_matrix (data);
 }

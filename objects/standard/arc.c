@@ -28,7 +28,6 @@
 #include "connectionpoint.h"
 #include "diarenderer.h"
 #include "attributes.h"
-#include "widgets.h"
 #include "arrows.h"
 #include "properties.h"
 
@@ -88,7 +87,7 @@ static void arc_get_props(Arc *arc, GPtrArray *props);
 static void arc_set_props(Arc *arc, GPtrArray *props);
 
 static void arc_save(Arc *arc, ObjectNode obj_node, const char *filename);
-static DiaObject *arc_load(ObjectNode obj_node, int version, const char *filename);
+static DiaObject *arc_load(ObjectNode obj_node, int version, DiaContext *ctx);
 static int arc_compute_midpoint(Arc *arc, const Point * ep0, const Point * ep1 , Point * midpoint);
 static void calculate_arc_object_edge(Arc *arc, real ang_start, real ang_end, DiaObject *obj, Point *target, gboolean clockwiseness);
 static void arc_get_point_at_angle(Arc *arc, Point* point, real angle);
@@ -957,7 +956,7 @@ arc_save(Arc *arc, ObjectNode obj_node, const char *filename)
 }
 
 static DiaObject *
-arc_load(ObjectNode obj_node, int version, const char *filename)
+arc_load(ObjectNode obj_node, int version,DiaContext *ctx)
 {
   Arc *arc;
   Connection *conn;
@@ -972,43 +971,43 @@ arc_load(ObjectNode obj_node, int version, const char *filename)
   obj->type = &arc_type;
   obj->ops = &arc_ops;
 
-  connection_load(conn, obj_node);
+  connection_load(conn, obj_node, ctx);
 
   arc->arc_color = color_black;
   attr = object_find_attribute(obj_node, "arc_color");
   if (attr != NULL)
-    data_color(attribute_first_data(attr), &arc->arc_color);
+    data_color(attribute_first_data(attr), &arc->arc_color, ctx);
 
   arc->curve_distance = 0.1;
   attr = object_find_attribute(obj_node, "curve_distance");
   if (attr != NULL)
-    arc->curve_distance = data_real(attribute_first_data(attr));
+    arc->curve_distance = data_real(attribute_first_data(attr), ctx);
 
   arc->line_width = 0.1;
   attr = object_find_attribute(obj_node, PROP_STDNAME_LINE_WIDTH);
   if (attr != NULL)
-    arc->line_width = data_real(attribute_first_data(attr));
+    arc->line_width = data_real(attribute_first_data(attr), ctx);
 
   arc->line_style = LINESTYLE_SOLID;
   attr = object_find_attribute(obj_node, "line_style");
   if (attr != NULL)
-    arc->line_style = data_enum(attribute_first_data(attr));
+    arc->line_style = data_enum(attribute_first_data(attr), ctx);
 
   arc->dashlength = DEFAULT_LINESTYLE_DASHLEN;
   attr = object_find_attribute(obj_node, "dashlength");
   if (attr != NULL)
-    arc->dashlength = data_real(attribute_first_data(attr));
+    arc->dashlength = data_real(attribute_first_data(attr), ctx);
 
   arc->line_caps = LINECAPS_BUTT;
   attr = object_find_attribute(obj_node, "line_caps");
   if (attr != NULL)
-    arc->line_caps = data_enum(attribute_first_data(attr));
+    arc->line_caps = data_enum(attribute_first_data(attr), ctx);
 
   load_arrow(obj_node, &arc->start_arrow, "start_arrow",
-	     "start_arrow_length", "start_arrow_width");
+	     "start_arrow_length", "start_arrow_width", ctx);
 
   load_arrow(obj_node, &arc->end_arrow, "end_arrow",
-	     "end_arrow_length", "end_arrow_width");
+	     "end_arrow_length", "end_arrow_width", ctx);
 
   connection_init(conn, 4, 0);
 

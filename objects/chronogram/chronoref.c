@@ -38,8 +38,6 @@
 #include "diarenderer.h"
 #include "attributes.h"
 #include "text.h"
-#include "widgets.h"
-#include "message.h"
 #include "connpoint_line.h"
 #include "color.h"
 #include "properties.h"
@@ -89,7 +87,7 @@ static DiaObject *chronoref_create(Point *startpoint,
 			  Handle **handle2);
 static void chronoref_destroy(Chronoref *chronoref);
 static DiaObject *chronoref_load(ObjectNode obj_node, int version, 
-                              const char *filename);
+				 DiaContext *ctx);
 static PropDescription *chronoref_describe_props(Chronoref *chronoref);
 static void chronoref_get_props(Chronoref *chronoref, 
                                  GPtrArray *props);
@@ -465,8 +463,8 @@ chronoref_destroy(Chronoref *chronoref)
 }
 
 static DiaObject *
-chronoref_load(ObjectNode obj_node, int version, const char *filename)
+chronoref_load(ObjectNode obj_node, int version, DiaContext *ctx)
 {
   return object_load_using_properties(&chronoref_type,
-                                      obj_node,version,filename);  
+                                      obj_node,version,ctx);  
 }

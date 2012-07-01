@@ -77,9 +77,7 @@ static DiaObject *basestation_create(Point *startpoint,
                                   Handle **handle1,
                                   Handle **handle2);
 static void basestation_destroy(Basestation *basestation);
-static DiaObject *basestation_load(ObjectNode obj_node,
-                                int version,
-                                const char *filename);
+static DiaObject *basestation_load(ObjectNode obj_node, int version,DiaContext *ctx);
 static PropDescription
     *basestation_describe_props(Basestation *basestation);
 static void basestation_get_props(Basestation *basestation,
@@ -439,8 +437,8 @@ basestation_destroy(Basestation *basestation)
 }
 
 static DiaObject *
-basestation_load(ObjectNode obj_node, int version, const char *filename)
+basestation_load(ObjectNode obj_node, int version,DiaContext *ctx)
 {
   return object_load_using_properties(&basestation_type,
-                                      obj_node, version, filename);
+                                      obj_node, version,ctx);
 }

@@ -47,6 +47,7 @@
 #include "dia_xml.h"
 #include "intl.h"
 #include "textattr.h"
+#include "diacontext.h"
 
 G_BEGIN_DECLS
 
@@ -105,7 +106,7 @@ typedef void (* PropertyType_ResetWidget)(const Property *prop, WIDGET *widget);
 /* Set the value of the property from the current value of the widget */
 typedef void (* PropertyType_SetFromWidget)(Property *prop, WIDGET *widget);
 /* load/save a property */
-typedef void (*PropertyType_Load)(Property *prop, AttributeNode attr, DataNode data);
+typedef void (*PropertyType_Load)(Property *prop, AttributeNode attr, DataNode data, DiaContext *ctx);
 typedef void (*PropertyType_Save)(Property *prop, AttributeNode attr);
 
 /* If a property descriptor can be merged with another 

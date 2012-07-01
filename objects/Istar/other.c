@@ -41,8 +41,6 @@
 #include "diarenderer.h"
 #include "attributes.h"
 #include "text.h"
-#include "widgets.h"
-#include "message.h"
 #include "connpoint_line.h"
 #include "color.h"
 #include "properties.h"
@@ -102,7 +100,7 @@ static DiaObject *other_create(Point *startpoint,
 			  Handle **handle2);
 static void other_destroy(Other *other);
 static DiaObject *other_load(ObjectNode obj_node, int version,
-                            const char *filename);
+                             DiaContext *ctx);
 static DiaMenu *other_get_object_menu(Other *other, Point *clickedpoint);
 
 static PropDescription *other_describe_props(Other *other);
@@ -112,7 +110,7 @@ static void other_set_props(Other *other, GPtrArray *props);
 static ObjectTypeOps istar_other_type_ops =
 {
   (CreateFunc) other_create,
-  (LoadFunc)   other_load/*using_properties*/,
+  (LoadFunc)   other_load,
   (SaveFunc)   object_save_using_properties,
   (GetDefaultsFunc)   NULL,
   (ApplyDefaultsFunc) NULL,
@@ -572,10 +570,10 @@ other_destroy(Other *other)
 
 
 static DiaObject *
-other_load(ObjectNode obj_node, int version, const char *filename)
+other_load(ObjectNode obj_node, int version, DiaContext *ctx)
 {
   return object_load_using_properties(&istar_other_type,
-                                      obj_node,version,filename);
+                                      obj_node,version,ctx);
 }
 
 

@@ -55,7 +55,7 @@ void bezierconn_set_points(BezierConn *poly, int num_points, BezPoint *points);
 void bezierconn_destroy(BezierConn *bez);
 void bezierconn_copy(BezierConn *from, BezierConn *to);
 void bezierconn_save(BezierConn *bez, ObjectNode obj_node);
-void bezierconn_load(BezierConn *bez, ObjectNode obj_node);  /* NOTE: Does object_init() */
+void bezierconn_load(BezierConn *bez, ObjectNode obj_node, DiaContext *ctx);  /* NOTE: Does object_init() */
 ObjectChange *bezierconn_add_segment(BezierConn *bez, int segment, Point *point);
 ObjectChange *bezierconn_remove_segment(BezierConn *bez, int point);
 ObjectChange *bezierconn_set_corner_type(BezierConn *bez,

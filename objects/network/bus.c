@@ -87,8 +87,7 @@ static PropDescription *bus_describe_props(Bus *bus);
 static void bus_get_props(Bus *bus, GPtrArray *props);
 static void bus_set_props(Bus *bus, GPtrArray *props);
 static void bus_save(Bus *bus, ObjectNode obj_node, const char *filename);
-static DiaObject *bus_load(ObjectNode obj_node, int version,
-			const char *filename);
+static DiaObject *bus_load(ObjectNode obj_node, int version, DiaContext *ctx);
 static DiaMenu *bus_get_object_menu(Bus *bus, Point *clickedpoint);
 
 static ObjectChange *
@@ -641,7 +640,7 @@ bus_save(Bus *bus, ObjectNode obj_node, const char *filename)
 }
 
 static DiaObject *
-bus_load(ObjectNode obj_node, int version, const char *filename)
+bus_load(ObjectNode obj_node, int version,DiaContext *ctx)
 {
   Bus *bus;
   Connection *conn;
@@ -660,7 +659,7 @@ bus_load(ObjectNode obj_node, int version, const char *filename)
   obj->type = &bus_type;
   obj->ops = &bus_ops;
 
-  connection_load(conn, obj_node);
+  connection_load(conn, obj_node, ctx);
 
   attr = object_find_attribute(obj_node, "bus_handles");
 
@@ -679,7 +678,7 @@ bus_load(ObjectNode obj_node, int version, const char *filename)
     bus->handles[i]->type = HANDLE_MINOR_CONTROL;
     bus->handles[i]->connect_type = HANDLE_CONNECTABLE_NOBREAK;
     bus->handles[i]->connected_to = NULL;
-    data_point(data, &bus->handles[i]->pos);
+    data_point(data, &bus->handles[i]->pos, ctx);
     obj->handles[2+i] = bus->handles[i];
 
     data = data_next(data);
@@ -688,7 +687,7 @@ bus_load(ObjectNode obj_node, int version, const char *filename)
   bus->line_color = color_black;
   attr = object_find_attribute(obj_node, "line_color");
   if (attr != NULL)
-    data_color(attribute_first_data(attr), &bus->line_color);
+    data_color(attribute_first_data(attr), &bus->line_color, ctx);
 
   extra->start_trans = 
     extra->end_trans = 

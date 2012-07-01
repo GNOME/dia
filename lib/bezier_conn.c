@@ -28,8 +28,6 @@
 #include <string.h> /* memcpy() */
 
 #include "bezier_conn.h"
-#include "intl.h"
-#include "message.h"
 #include "diarenderer.h"
 
 #define HANDLE_BEZMAJOR  (HANDLE_CUSTOM1)
@@ -222,7 +220,7 @@ bezierconn_move_handle(BezierConn *bez, Handle *handle,
     }
     break;
   default:
-    message_error("Internal error in bezierconn_move_handle.\n");
+    g_warning("Internal error in bezierconn_move_handle.\n");
     break;
   }
   return NULL;
@@ -635,7 +633,7 @@ bezierconn_set_corner_type(BezierConn *bez, Handle *handle,
     mid_handle = bez->object.handles[handle_nr];
     break;
   default:
-    message_warning(_("Internal error: Setting corner type of endpoint of bezier"));
+    g_warning("Internal error: Setting corner type of endpoint of bezier");
     return NULL;
   }
 
@@ -975,7 +973,7 @@ bezierconn_save(BezierConn *bez, ObjectNode obj_node)
  * @bug Couldn't this use the setup_handles function defined above?
  */
 void
-bezierconn_load(BezierConn *bez, ObjectNode obj_node)
+bezierconn_load(BezierConn *bez, ObjectNode obj_node, DiaContext *ctx)
 {
   int i;
   AttributeNode attr;
@@ -983,7 +981,7 @@ bezierconn_load(BezierConn *bez, ObjectNode obj_node)
   
   DiaObject *obj = &bez->object;
 
-  object_load(obj, obj_node);
+  object_load(obj, obj_node, ctx);
 
   attr = object_find_attribute(obj_node, "bez_points");
 
@@ -998,16 +996,16 @@ bezierconn_load(BezierConn *bez, ObjectNode obj_node)
   if (bez->numpoints != 0) {
     bez->points = g_new(BezPoint, bez->numpoints);
     bez->points[0].type = BEZ_MOVE_TO;
-    data_point(data, &bez->points[0].p1);
+    data_point(data, &bez->points[0].p1, ctx);
     data = data_next(data);
 
     for (i = 1; i < bez->numpoints; i++) {
       bez->points[i].type = BEZ_CURVE_TO;
-      data_point(data, &bez->points[i].p1);
+      data_point(data, &bez->points[i].p1, ctx);
       data = data_next(data);
-      data_point(data, &bez->points[i].p2);
+      data_point(data, &bez->points[i].p2, ctx);
       data = data_next(data);
-      data_point(data, &bez->points[i].p3);
+      data_point(data, &bez->points[i].p3, ctx);
       data = data_next(data);
     }
   }
@@ -1023,7 +1021,7 @@ bezierconn_load(BezierConn *bez, ObjectNode obj_node)
   } else {
     data = attribute_first_data(attr);
     for (i = 0; i < bez->numpoints; i++) {
-      bez->corner_types[i] = data_enum(data);
+      bez->corner_types[i] = data_enum(data, ctx);
       data = data_next(data);
     }
   }

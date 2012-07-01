@@ -35,7 +35,6 @@
 #include "connectionpoint.h"
 #include "diarenderer.h"
 #include "attributes.h"
-#include "widgets.h"
 #include "properties.h"
 
 #include "grafcet.h"
@@ -101,7 +100,7 @@ static void step_destroy(Step *step);
 static void step_been_renamed(const gchar *sid);
 
 static DiaObject *step_load(ObjectNode obj_node, int version,
-			   const char *filename);
+			    DiaContext *ctx);
 static PropDescription *step_describe_props(Step *step);
 static void step_get_props(Step *step, 
                                  GPtrArray *props);
@@ -111,7 +110,7 @@ static void step_set_props(Step *step,
 static ObjectTypeOps step_type_ops =
 {
   (CreateFunc) step_create,
-  (LoadFunc)   step_load/*using properties*/,
+  (LoadFunc)   step_load,
   (SaveFunc)   object_save_using_properties,
   (GetDefaultsFunc)   NULL,
   (ApplyDefaultsFunc) NULL,
@@ -559,10 +558,10 @@ step_destroy(Step *step)
 }
 
 static DiaObject *
-step_load(ObjectNode obj_node, int version, const char *filename)
+step_load(ObjectNode obj_node, int version, DiaContext *ctx)
 {
   return object_load_using_properties(&step_type,
-                                      obj_node,version,filename);
+                                      obj_node,version,ctx);
 }
  
 

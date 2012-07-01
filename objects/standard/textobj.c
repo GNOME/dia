@@ -30,7 +30,6 @@
 #include "font.h"
 #include "text.h"
 #include "attributes.h"
-#include "widgets.h"
 #include "properties.h"
 
 #include "tool-icons.h"
@@ -85,8 +84,7 @@ static void textobj_set_props(Textobj *textobj, GPtrArray *props);
 
 static void textobj_save(Textobj *textobj, ObjectNode obj_node,
 			 const char *filename);
-static DiaObject *textobj_load(ObjectNode obj_node, int version,
-			    const char *filename);
+static DiaObject *textobj_load(ObjectNode obj_node, int version, DiaContext *ctx);
 static void textobj_valign_point(Textobj *textobj, Point* p, real factor);
 
 static ObjectTypeOps textobj_type_ops =
@@ -368,7 +366,7 @@ textobj_save(Textobj *textobj, ObjectNode obj_node, const char *filename)
 }
 
 static DiaObject *
-textobj_load(ObjectNode obj_node, int version, const char *filename)
+textobj_load(ObjectNode obj_node, int version, DiaContext *ctx)
 {
   Textobj *textobj;
   DiaObject *obj;
@@ -381,11 +379,11 @@ textobj_load(ObjectNode obj_node, int version, const char *filename)
   obj->type = &textobj_type;
   obj->ops = &textobj_ops;
 
-  object_load(obj, obj_node);
+  object_load(obj, obj_node, ctx);
 
   attr = object_find_attribute(obj_node, "text");
   if (attr != NULL) {
-    textobj->text = data_text( attribute_first_data(attr) );
+    textobj->text = data_text(attribute_first_data(attr), ctx);
   } else {
     DiaFont* font = dia_font_new_from_style(DIA_FONT_MONOSPACE,1.0);
     textobj->text = new_text("", font, 1.0,
@@ -397,7 +395,7 @@ textobj_load(ObjectNode obj_node, int version, const char *filename)
 
   attr = object_find_attribute(obj_node, "valign");
   if (attr != NULL)
-    textobj->vert_align = data_enum( attribute_first_data(attr) );
+    textobj->vert_align = data_enum(attribute_first_data(attr), ctx);
   else if (version == 0) {
     textobj->vert_align = VALIGN_FIRST_LINE;
   }
@@ -406,10 +404,10 @@ textobj_load(ObjectNode obj_node, int version, const char *filename)
   textobj->fill_color = attributes_get_background();
   attr = object_find_attribute(obj_node, "fill_color");
   if (attr)
-    data_color(attribute_first_data(attr), &textobj->fill_color);
+    data_color(attribute_first_data(attr), &textobj->fill_color, ctx);
   attr = object_find_attribute(obj_node, "show_background");
   if (attr)
-    textobj->show_background = data_boolean( attribute_first_data(attr) );
+    textobj->show_background = data_boolean(attribute_first_data(attr), ctx);
   else
     textobj->show_background = FALSE;
 

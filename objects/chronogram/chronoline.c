@@ -38,8 +38,6 @@
 #include "diarenderer.h"
 #include "attributes.h"
 #include "text.h"
-#include "widgets.h"
-#include "message.h"
 #include "connpoint_line.h"
 #include "color.h"
 #include "properties.h"
@@ -98,7 +96,7 @@ static DiaObject *chronoline_create(Point *startpoint,
 			  Handle **handle2);
 static void chronoline_destroy(Chronoline *chronoline);
 static DiaObject *chronoline_load(ObjectNode obj_node, int version, 
-                               const char *filename);
+				  DiaContext *ctx);
 static PropDescription *chronoline_describe_props(Chronoline *chronoline);
 static void chronoline_get_props(Chronoline *chronoline, 
                                  GPtrArray *props);
@@ -658,8 +656,8 @@ chronoline_destroy(Chronoline *chronoline)
 }
 
 static DiaObject *
-chronoline_load(ObjectNode obj_node, int version, const char *filename)
+chronoline_load(ObjectNode obj_node, int version, DiaContext *ctx)
 {
   return object_load_using_properties(&chronoline_type,
-                                      obj_node,version,filename);  
+                                      obj_node,version,ctx);  
 }

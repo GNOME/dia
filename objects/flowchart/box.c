@@ -35,8 +35,6 @@
 #include "diarenderer.h"
 #include "attributes.h"
 #include "text.h"
-#include "widgets.h"
-#include "message.h"
 #include "properties.h"
 
 #include "pixmaps/box.xpm"
@@ -102,7 +100,7 @@ static void box_get_props(Box *box, GPtrArray *props);
 static void box_set_props(Box *box, GPtrArray *props);
 
 static void box_save(Box *box, ObjectNode obj_node, const char *filename);
-static DiaObject *box_load(ObjectNode obj_node, int version, const char *filename);
+static DiaObject *box_load(ObjectNode obj_node, int version,DiaContext *ctx);
 
 static ObjectTypeOps box_type_ops =
 {
@@ -718,7 +716,7 @@ box_save(Box *box, ObjectNode obj_node, const char *filename)
 }
 
 static DiaObject *
-box_load(ObjectNode obj_node, int version, const char *filename)
+box_load(ObjectNode obj_node, int version,DiaContext *ctx)
 {
   Box *box;
   Element *elem;
@@ -733,52 +731,51 @@ box_load(ObjectNode obj_node, int version, const char *filename)
   obj->type = &fc_box_type;
   obj->ops = &box_ops;
 
-  element_load(elem, obj_node);
+  element_load(elem, obj_node, ctx);
 
   box->border_width = 0.1;
   attr = object_find_attribute(obj_node, "border_width");
   if (attr != NULL)
-    box->border_width =  data_real( attribute_first_data(attr) );
+    box->border_width =  data_real(attribute_first_data(attr), ctx);
   box->border_color = color_black;
   attr = object_find_attribute(obj_node, "border_color");
   if (attr != NULL)
-    data_color(attribute_first_data(attr), &box->border_color);
+    data_color(attribute_first_data(attr), &box->border_color, ctx);
   
   box->inner_color = color_white;
   attr = object_find_attribute(obj_node, "inner_color");
   if (attr != NULL)
-    data_color(attribute_first_data(attr), &box->inner_color);
+    data_color(attribute_first_data(attr), &box->inner_color, ctx);
   
   box->show_background = TRUE;
   attr = object_find_attribute(obj_node, "show_background");
   if (attr != NULL)
-    box->show_background = data_boolean( attribute_first_data(attr) );
+    box->show_background = data_boolean(attribute_first_data(attr), ctx);
 
   box->line_style = LINESTYLE_SOLID;
   attr = object_find_attribute(obj_node, "line_style");
   if (attr != NULL)
-    box->line_style =  data_enum( attribute_first_data(attr) );
+    box->line_style =  data_enum(attribute_first_data(attr), ctx);
 
   box->dashlength = DEFAULT_LINESTYLE_DASHLEN;
   attr = object_find_attribute(obj_node, "dashlength");
   if (attr != NULL)
-    box->dashlength = data_real(attribute_first_data(attr));
+    box->dashlength = data_real(attribute_first_data(attr), ctx);
 
   box->corner_radius = 0.0;
   attr = object_find_attribute(obj_node, "corner_radius");
   if (attr != NULL)
-    box->corner_radius =  data_real( attribute_first_data(attr) );
+    box->corner_radius =  data_real(attribute_first_data(attr), ctx);
 
   box->padding = default_properties.padding;
   attr = object_find_attribute(obj_node, "padding");
   if (attr != NULL)
-    box->padding =  data_real( attribute_first_data(attr) );
-  
+    box->padding =  data_real(attribute_first_data(attr), ctx);
 
   box->text = NULL;
   attr = object_find_attribute(obj_node, "text");
   if (attr != NULL)
-    box->text = data_text(attribute_first_data(attr));
+    box->text = data_text(attribute_first_data(attr), ctx);
   else /* paranoid */
     box->text = new_text_default(&obj->position, &box->border_color, ALIGN_CENTER);
   text_get_attributes(box->text,&box->attrs);
@@ -787,7 +784,7 @@ box_load(ObjectNode obj_node, int version, const char *filename)
   box->text_fitting = TEXTFIT_WHEN_NEEDED;
   attr = object_find_attribute(obj_node, PROP_STDNAME_TEXT_FITTING);
   if (attr != NULL)
-    box->text_fitting = data_enum(attribute_first_data(attr));
+    box->text_fitting = data_enum(attribute_first_data(attr), ctx);
 
   element_init(elem, 8, NUM_CONNECTIONS);
 

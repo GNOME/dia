@@ -160,7 +160,8 @@ cpl_inplacecreate(DiaObject *obj, int nc, int *realconncount)
 
 ConnPointLine *
 connpointline_load(DiaObject *obj,ObjectNode obj_node,
-		   const gchar *name, int default_nc,int *realconncount)
+		   const gchar *name, int default_nc,int *realconncount,
+		   DiaContext *ctx)
 {
   ConnPointLine *cpl;
   int nc = default_nc;
@@ -168,7 +169,7 @@ connpointline_load(DiaObject *obj,ObjectNode obj_node,
 
   attr = object_find_attribute(obj_node, name);
   if (attr != NULL)
-    nc = data_int(attribute_first_data(attr));
+    nc = data_int(attribute_first_data(attr), ctx);
   cpl = connpointline_create(obj,nc);
 
   if (realconncount) (*realconncount) += cpl->num_connections;

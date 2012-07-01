@@ -85,7 +85,7 @@ arrayprop_copy(ArrayProperty *src)
 }
 
 static void 
-arrayprop_load(ArrayProperty *prop, AttributeNode attr, DataNode data)
+arrayprop_load(ArrayProperty *prop, AttributeNode attr, DataNode data, DiaContext *ctx)
 {
   const PropDescCommonArrayExtra *extra = prop->common.descr->extra_data;
   DataNode composite;
@@ -99,10 +99,8 @@ arrayprop_load(ArrayProperty *prop, AttributeNode attr, DataNode data)
        composite = data_next(composite)) {
     GPtrArray *record = prop_list_from_descs(extra->record,
                                              prop->common.reason);
-    if (!prop_list_load(record,composite, &err)) {
-      g_warning ("%s:%s", prop->common.descr->name, err->message);
-      g_error_free (err);
-      err = NULL;
+    if (!prop_list_load(record,composite, ctx)) {
+      /* context already has the message */
     }
     g_ptr_array_add(prop->records,record);
   }

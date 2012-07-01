@@ -84,8 +84,7 @@ static DiaObject *req_create(Point *startpoint,
 			      Handle **handle1,
 			      Handle **handle2);
 static void req_destroy(Requirement *req);
-static DiaObject *req_load(ObjectNode obj_node, int version,
-			    const char *filename);
+static DiaObject *req_load(ObjectNode obj_node, int version,DiaContext *ctx);
 static void req_update_data(Requirement *req);
 static PropDescription *req_describe_props(Requirement *req);
 static void req_get_props(Requirement *req, GPtrArray *props);
@@ -431,10 +430,10 @@ req_destroy(Requirement *req)
 }
 
 static DiaObject *
-req_load(ObjectNode obj_node, int version, const char *filename)
+req_load(ObjectNode obj_node, int version,DiaContext *ctx)
 {
   return object_load_using_properties(&jackson_requirement_type,
-                                      obj_node,version,filename);
+                                      obj_node,version,ctx);
 }
 
 

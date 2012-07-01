@@ -114,8 +114,7 @@ static void
 orthflow_set_props(Orthflow * orthflow, GPtrArray *props);
 static void orthflow_save(Orthflow *orthflow, ObjectNode obj_node,
 			  const char *filename);
-static DiaObject *orthflow_load(ObjectNode obj_node, int version,
-			     const char *filename);
+static DiaObject *orthflow_load(ObjectNode obj_node, int version,DiaContext *ctx);
 static DiaMenu *orthflow_get_object_menu(Orthflow *orthflow, Point *clickedpoint) ;
 
 
@@ -550,7 +549,7 @@ orthflow_save(Orthflow *orthflow, ObjectNode obj_node, const char *filename)
 }
 
 static DiaObject *
-orthflow_load(ObjectNode obj_node, int version, const char *filename)
+orthflow_load(ObjectNode obj_node, int version, DiaContext *ctx)
 {
   Orthflow *orthflow;
   AttributeNode attr;
@@ -567,12 +566,12 @@ orthflow_load(ObjectNode obj_node, int version, const char *filename)
   obj->type = &orthflow_type;
   obj->ops = &orthflow_ops;
 
-  orthconn_load(orth, obj_node);
+  orthconn_load(orth, obj_node, ctx);
 
   orthflow->text = NULL;
   attr = object_find_attribute(obj_node, "text");
   if (attr != NULL)
-    orthflow->text = data_text(attribute_first_data(attr));
+    orthflow->text = data_text(attribute_first_data(attr), ctx);
   else { /* paranoid */
     DiaFont *font = dia_font_new_from_style(DIA_FONT_SANS, ORTHFLOW_FONTHEIGHT);
 
@@ -582,7 +581,7 @@ orthflow_load(ObjectNode obj_node, int version, const char *filename)
 
   attr = object_find_attribute(obj_node, "type");
   if (attr != NULL)
-    orthflow->type = (OrthflowType)data_int(attribute_first_data(attr));
+    orthflow->type = (OrthflowType)data_int(attribute_first_data(attr), ctx);
 
   orthflow->text_handle.id = HANDLE_MOVE_TEXT;
   orthflow->text_handle.type = HANDLE_MINOR_CONTROL;

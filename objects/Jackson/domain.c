@@ -42,8 +42,6 @@
 #include "diarenderer.h"
 #include "attributes.h"
 #include "text.h"
-#include "widgets.h"
-#include "message.h"
 #include "connpoint_line.h"
 #include "color.h"
 #include "properties.h"
@@ -129,7 +127,7 @@ static DiaObject *jackson_box_create(Point *startpoint,
 			  Handle **handle2);
 static void jackson_box_destroy(Box *box);
 static DiaObject *jackson_box_load(ObjectNode obj_node, int version,
-                            const char *filename);
+				   DiaContext *ctx);
 static DiaMenu *jackson_box_get_object_menu(Box *box, Point *clickedpoint);
 
 static PropDescription *jackson_box_describe_props(Box *box);
@@ -139,7 +137,7 @@ static void jackson_box_set_props(Box *box, GPtrArray *props);
 static ObjectTypeOps jackson_domain_type_ops =
 {
   (CreateFunc) jackson_box_create,
-  (LoadFunc)   jackson_box_load/*using_properties*/,
+  (LoadFunc)   jackson_box_load,
   (SaveFunc)   object_save_using_properties,
   (GetDefaultsFunc)   NULL,
   (ApplyDefaultsFunc) NULL,
@@ -638,11 +636,8 @@ jackson_box_destroy(Box *box)
 
 
 static DiaObject *
-jackson_box_load(ObjectNode obj_node, int version, const char *filename)
+jackson_box_load(ObjectNode obj_node, int version, DiaContext *ctx)
 {
   return object_load_using_properties(&jackson_domain_type,
-                                      obj_node,version,filename);
+                                      obj_node,version,ctx);
 }
-
-
-

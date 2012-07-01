@@ -102,7 +102,7 @@ static inline int isinf_ld (long double x) { return isnan (x - x); }
  *       better than this. I dont. --hb
  */
 static const gchar *
-xml_file_check_encoding(const gchar *filename, const gchar *default_enc)
+xml_file_check_encoding(const gchar *filename, const gchar *default_enc, DiaContext *ctx)
 {
   int fd = g_open (filename, O_RDONLY, 0);
   /* If the next call exits the program (without any message) check if
@@ -194,9 +194,10 @@ xml_file_check_encoding(const gchar *filename, const gchar *default_enc)
   }
 
   if (0 != strcmp(default_enc,"UTF-8")) {
-    message_warning(_("The file %s has no encoding specification;\n"
-                      "assuming it is encoded in %s"),
-		    dia_message_filename(filename), default_enc);
+    dia_context_add_message (ctx, 
+                             _("The file %s has no encoding specification;\n"
+			     "assuming it is encoded in %s"),
+			     dia_context_get_filename(ctx), default_enc);
   } else {
     gzclose(zf); /* we apply the standard here. */
     g_free(buf);
@@ -238,14 +239,14 @@ xml_file_check_encoding(const gchar *filename, const gchar *default_enc)
  * @see xmlParseFile() in the XML2 library for details on the return value.
  */
 xmlDocPtr
-xmlDiaParseFile(const char *filename)
+xmlDiaParseFile(const char *filename, DiaContext *ctx)
 {
   const char *local_charset = NULL;
   
   if (   !g_get_charset(&local_charset)
       && local_charset) {
     /* we're not in an UTF-8 environment. */ 
-    const gchar *fname = xml_file_check_encoding(filename,local_charset);
+    const gchar *fname = xml_file_check_encoding(filename,local_charset, ctx);
     if (fname != filename) {
       /* We've got a corrected file to parse. */
       xmlDocPtr ret = xmlDoParseFile(fname);
@@ -270,7 +271,36 @@ xmlDiaParseFile(const char *filename)
 xmlDocPtr
 xmlDoParseFile(const char *filename)
 {
-  return xmlParseFile(filename);
+  xmlDocPtr doc;
+  xmlErrorPtr err;
+
+  doc = xmlParseFile(filename);
+  if (!doc)
+    err = xmlGetLastError ();
+
+  return doc;
+}
+
+/** Parse an xml file from a filename given in Dia's/GLib's filename encoding 
+ * @param filename A file to parse. On win32 the filename encoding is utf-8 since GLib 2.6
+ * @param ctx If something goes wrong during parsing ctx will include according messages
+ * @return An XML document.
+ */
+xmlDocPtr 
+diaXmlParseFile(const char *filename, DiaContext *ctx, gboolean try_harder)
+{
+  xmlDocPtr doc;
+  xmlErrorPtr err;
+  
+  doc = xmlParseFile(filename);
+  if (!doc) {
+    err = xmlGetLastError ();
+
+    dia_context_add_message (ctx, "%s", err->message);
+    if (err->code == XML_ERR_INVALID_CHAR && try_harder) /* fallback to temporary file with encoding approach */
+      doc = xmlDiaParseFile (filename, ctx);
+  }
+  return doc;
 }
 
 /** Find a named attribute node in an XML object node.
@@ -406,7 +436,7 @@ data_next(DataNode data)
  *  (but profile first).
  */
 DataType
-data_type(DataNode data)
+data_type(DataNode data, DiaContext *ctx)
 {
   const char *name;
 
@@ -439,7 +469,7 @@ data_type(DataNode data)
     return DATATYPE_PIXBUF;
   }
 
-  message_error("Unknown type of DataNode");
+  dia_context_add_message (ctx, _("Unknown type of DataNode '%s'"), name);
   return 0;
 }
 
@@ -449,13 +479,13 @@ data_type(DataNode data)
  *  integer node, an error message is displayed and 0 is returned.
  */
 int
-data_int(DataNode data)
+data_int(DataNode data, DiaContext *ctx)
 {
   xmlChar *val;
   int res;
   
-  if (data_type(data)!=DATATYPE_INT) {
-    message_error("Taking int value of non-int node.");
+  if (data_type(data, ctx)!=DATATYPE_INT) {
+    dia_context_add_message (ctx, _("Taking int value of non-int node."));
     return 0;
   }
 
@@ -471,13 +501,14 @@ data_int(DataNode data)
  * @returns The enum value found in the node.  If the node is not an
  *  enum node, an error message is displayed and 0 is returned.
  */
-int data_enum(DataNode data)
+int
+data_enum(DataNode data, DiaContext *ctx)
 {
   xmlChar *val;
   int res;
   
-  if (data_type(data)!=DATATYPE_ENUM) {
-    message_error("Taking enum value of non-enum node.");
+  if (data_type(data, ctx)!=DATATYPE_ENUM) {
+    dia_context_add_message (ctx, "Taking enum value of non-enum node.");
     return 0;
   }
 
@@ -494,13 +525,13 @@ int data_enum(DataNode data)
  *  real-type node, an error message is displayed and 0.0 is returned.
  */
 real
-data_real(DataNode data)
+data_real(DataNode data, DiaContext *ctx)
 {
   xmlChar *val;
   real res;
 
-  if (data_type(data)!=DATATYPE_REAL) {
-    message_error("Taking real value of non-real node.");
+  if (data_type(data, ctx)!=DATATYPE_REAL) {
+    dia_context_add_message (ctx, "Taking real value of non-real node.");
     return 0;
   }
 
@@ -517,13 +548,13 @@ data_real(DataNode data)
  *  boolean node, an error message is displayed and FALSE is returned.
  */
 int
-data_boolean(DataNode data)
+data_boolean(DataNode data, DiaContext *ctx)
 {
   xmlChar *val;
   int res;
   
-  if (data_type(data)!=DATATYPE_BOOLEAN) {
-    message_error("Taking boolean value of non-boolean node.");
+  if (data_type(data, ctx)!=DATATYPE_BOOLEAN) {
+    dia_context_add_message (ctx, "Taking boolean value of non-boolean node.");
     return 0;
   }
 
@@ -544,8 +575,8 @@ data_boolean(DataNode data)
  * @returns The value of the digit, i.e. 0-15.  If a non-gex digit is given
  *  an error message is displayed to the user, and 0 is returned.
  */
-static int 
-hex_digit(char c)
+static int
+hex_digit(char c, DiaContext *ctx)
 {
   if ((c>='0') && (c<='9'))
     return c-'0';
@@ -553,7 +584,7 @@ hex_digit(char c)
     return (c-'a') + 10;
   if ((c>='A') && (c<='F'))
     return (c-'A') + 10;
-  message_error("wrong hex digit %c", c);
+  dia_context_add_message (ctx, "wrong hex digit %c", c);
   return 0;
 }
 
@@ -565,13 +596,13 @@ hex_digit(char c)
  * @note Could be cool to use RGBA data here, even if we can't display it yet.
  */
 void
-data_color(DataNode data, Color *col)
+data_color(DataNode data, Color *col, DiaContext *ctx)
 {
   xmlChar *val;
   int r=0, g=0, b=0, a=0;
   
-  if (data_type(data)!=DATATYPE_COLOR) {
-    message_error("Taking color value of non-color node.");
+  if (data_type(data, ctx)!=DATATYPE_COLOR) {
+    dia_context_add_message (ctx, "Taking color value of non-color node.");
     return;
   }
 
@@ -581,11 +612,11 @@ data_color(DataNode data, Color *col)
   /*        0123456 */
 
   if ((val) && (xmlStrlen(val)>=7)) {
-    r = hex_digit(val[1])*16 + hex_digit(val[2]);
-    g = hex_digit(val[3])*16 + hex_digit(val[4]);
-    b = hex_digit(val[5])*16 + hex_digit(val[6]);
+    r = hex_digit(val[1], ctx)*16 + hex_digit(val[2], ctx);
+    g = hex_digit(val[3], ctx)*16 + hex_digit(val[4], ctx);
+    b = hex_digit(val[5], ctx)*16 + hex_digit(val[6], ctx);
     if (xmlStrlen(val) >= 9) {
-      a = hex_digit(val[7])*16 + hex_digit(val[8]);
+      a = hex_digit(val[7], ctx)*16 + hex_digit(val[8], ctx);
     } else {
       a = 0xff;
     }
@@ -606,14 +637,14 @@ data_color(DataNode data, Color *col)
  *  user, and `point' is unchanged.
  */
 void
-data_point(DataNode data, Point *point)
+data_point(DataNode data, Point *point, DiaContext *ctx)
 {
   xmlChar *val;
   gchar *str;
   real ax,ay;
 
-  if (data_type(data)!=DATATYPE_POINT) {
-    message_error(_("Taking point value of non-point node."));
+  if (data_type(data, ctx)!=DATATYPE_POINT) {
+    dia_context_add_message (ctx, _("Taking point value of non-point node."));
     return;
   }
   
@@ -651,12 +682,12 @@ data_point(DataNode data, Point *point)
  *  not contain a valid bezpoint zero initialization is performed.
  */
 void 
-data_bezpoint(DataNode data, BezPoint *point)
+data_bezpoint(DataNode data, BezPoint *point, DiaContext *ctx)
 {
   xmlChar *val;
   gchar *str;
-  if (data_type(data)!=DATATYPE_BEZPOINT) {
-    message_error(_("Taking bezpoint value of non-point node."));
+  if (data_type(data, ctx)!=DATATYPE_BEZPOINT) {
+    dia_context_add_message (ctx, _("Taking bezpoint value of non-point node."));
     return;
   }
   val = xmlGetProp(data, (const xmlChar *)"type");
@@ -720,13 +751,13 @@ data_bezpoint(DataNode data, BezPoint *point)
  *  user, and `rect' is unchanged.
  */
 void
-data_rectangle(DataNode data, Rectangle *rect)
+data_rectangle(DataNode data, Rectangle *rect, DiaContext *ctx)
 {
   xmlChar *val;
   gchar *str;
   
-  if (data_type(data)!=DATATYPE_RECTANGLE) {
-    message_error("Taking rectangle value of non-rectangle node.");
+  if (data_type(data, ctx)!=DATATYPE_RECTANGLE) {
+    dia_context_add_message (ctx, _("Taking rectangle value of non-rectangle node."));
     return;
   }
   
@@ -738,7 +769,7 @@ data_rectangle(DataNode data, Rectangle *rect)
     str++;
 
   if (*str==0){
-    message_error("Error parsing rectangle.");
+    dia_context_add_message (ctx, _("Error parsing rectangle."));
     xmlFree(val);
     return;
   }
@@ -749,7 +780,7 @@ data_rectangle(DataNode data, Rectangle *rect)
     str++;
 
   if (*str==0){
-    message_error("Error parsing rectangle.");
+    dia_context_add_message (ctx, _("Error parsing rectangle."));
     xmlFree(val);
     return;
   }
@@ -760,7 +791,7 @@ data_rectangle(DataNode data, Rectangle *rect)
     str++;
 
   if (*str==0){
-    message_error("Error parsing rectangle.");
+    dia_context_add_message (ctx, _("Error parsing rectangle."));
     xmlFree(val);
     return;
   }
@@ -778,14 +809,14 @@ data_rectangle(DataNode data, Rectangle *rect)
  * @note For historical reasons, strings in Dia XML are surrounded by ##.
  */
 gchar *
-data_string(DataNode data)
+data_string(DataNode data, DiaContext *ctx)
 {
   xmlChar *val;
   gchar *str, *p,*str2;
   int len;
   
-  if (data_type(data)!=DATATYPE_STRING) {
-    message_error("Taking string value of non-string node.");
+  if (data_type(data, ctx)!=DATATYPE_STRING) {
+    dia_context_add_message (ctx, _("Taking string value of non-string node."));
     return NULL;
   }
 
@@ -811,7 +842,7 @@ data_string(DataNode data)
 	  *p++ = '\\';
 	  break;
 	default:
-	  message_error("Error in string tag.");
+	  dia_context_add_message (ctx, _("Error in string tag."));
 	}
       } else {
 	*p++ = *val;
@@ -829,7 +860,7 @@ data_string(DataNode data)
     p = (char *)xmlNodeListGetString(data->doc, data->xmlChildrenNode, TRUE);
     
     if (*p!='#')
-      message_error("Error in file, string not starting with #\n");
+      dia_context_add_message (ctx, _("Error in file, string not starting with #"));
     
     len = strlen(p)-1; /* Ignore first '#' */
       
@@ -855,9 +886,9 @@ data_string(DataNode data)
  * @bug data_string() can return NULL, what does g_filename_from_utf8 do then?
  */
 char *
-data_filename(DataNode data)
+data_filename(DataNode data, DiaContext *ctx)
 {
-  char *utf8 = data_string(data);
+  char *utf8 = data_string(data, ctx);
   char *filename = g_filename_from_utf8(utf8, -1, NULL, NULL, NULL);
   g_free(utf8);
   return filename;
@@ -871,13 +902,13 @@ data_filename(DataNode data)
  *  resulting value should be freed after use.
  */
 DiaFont *
-data_font(DataNode data)
+data_font(DataNode data, DiaContext *ctx)
 {
   xmlChar *family;
   DiaFont *font;
   
-  if (data_type(data)!=DATATYPE_FONT) {
-    message_error("Taking font value of non-font node.");
+  if (data_type(data, ctx)!=DATATYPE_FONT) {
+    dia_context_add_message (ctx, _("Taking font value of non-font node."));
     return NULL;
   }
 

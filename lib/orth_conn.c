@@ -219,7 +219,7 @@ orthconn_move_handle(OrthConn *orth, Handle *handle,
     } 
     break;
   default:
-    message_error("Internal error in orthconn_move_handle.\n");
+    g_warning("Internal error in orthconn_move_handle.\n");
     break;
   }
 
@@ -629,7 +629,8 @@ orthconn_save(OrthConn *orth, ObjectNode obj_node)
 }
 
 void
-orthconn_load(OrthConn *orth, ObjectNode obj_node) /* NOTE: Does object_init() */
+orthconn_load(OrthConn *orth, ObjectNode obj_node,
+	      DiaContext *ctx) /* NOTE: Does object_init() */
 {
   int i;
   AttributeNode attr;
@@ -639,7 +640,7 @@ orthconn_load(OrthConn *orth, ObjectNode obj_node) /* NOTE: Does object_init() *
   
   DiaObject *obj = &orth->object;
 
-  object_load(obj, obj_node);
+  object_load(obj, obj_node, ctx);
 
   attr = object_find_attribute(obj_node, "version");
   if (attr != NULL)
@@ -659,7 +660,7 @@ orthconn_load(OrthConn *orth, ObjectNode obj_node) /* NOTE: Does object_init() *
   data = attribute_first_data(attr);
   orth->points = g_malloc0((orth->numpoints)*sizeof(Point));
   for (i=0;i<orth->numpoints;i++) {
-    data_point(data, &orth->points[i]);
+    data_point(data, &orth->points[i], ctx);
     data = data_next(data);
   }
 
@@ -668,14 +669,14 @@ orthconn_load(OrthConn *orth, ObjectNode obj_node) /* NOTE: Does object_init() *
   data = attribute_first_data(attr);
   orth->orientation = g_malloc0((orth->numpoints-1)*sizeof(Orientation));
   for (i=0;i<orth->numpoints-1;i++) {
-    orth->orientation[i] = data_enum(data);
+    orth->orientation[i] = data_enum(data, ctx);
     data = data_next(data);
   }
 
   orth->autorouting = TRUE;
   attr = object_find_attribute(obj_node, "autorouting");
   if (attr != NULL)
-    orth->autorouting = data_boolean(attribute_first_data(attr));
+    orth->autorouting = data_boolean(attribute_first_data(attr), ctx);
   else if (version == 0) {
     /* Version 0 orthconns have no autorouting. */
     orth->autorouting = FALSE;

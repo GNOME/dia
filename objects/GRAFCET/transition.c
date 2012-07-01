@@ -32,8 +32,6 @@
 #include "connectionpoint.h"
 #include "diarenderer.h"
 #include "attributes.h"
-#include "widgets.h"
-#include "message.h"
 #include "color.h"
 #include "properties.h"
 #include "geometry.h"
@@ -92,7 +90,7 @@ static void transition_update_data(Transition *transition);
 static void transition_destroy(Transition *transition);
 
 static DiaObject *transition_load(ObjectNode obj_node, int version,
-			       const char *filename);
+				  DiaContext *ctx);
 static PropDescription *transition_describe_props(Transition *transition);
 static void transition_get_props(Transition *transition, 
                                  GPtrArray *props);
@@ -102,7 +100,7 @@ static void transition_set_props(Transition *transition,
 static ObjectTypeOps transition_type_ops =
 {
   (CreateFunc)transition_create,   /* create */
-  (LoadFunc)  transition_load /*using_properties*/,
+  (LoadFunc)  transition_load,
   (SaveFunc)  object_save_using_properties,      /* save */
   (GetDefaultsFunc)   NULL,
   (ApplyDefaultsFunc) NULL
@@ -446,10 +444,10 @@ transition_destroy(Transition *transition)
 }
 
 static DiaObject *
-transition_load(ObjectNode obj_node, int version, const char *filename)
+transition_load(ObjectNode obj_node, int version, DiaContext *ctx)
 {
   return object_load_using_properties(&transition_type,
-                                      obj_node,version,filename);
+                                      obj_node,version,ctx);
 }
 
 

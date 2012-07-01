@@ -23,6 +23,7 @@
 #include "geometry.h"
 #include "color.h"
 #include "dia_xml.h"
+#include "diacontext.h"
 
 /* NOTE: Add new arrow types at the end, or the enums
    will change order leading to file incompatibilities. */
@@ -106,7 +107,7 @@ calculate_arrow_point(const Arrow *arrow, const Point *to, const Point *from,
 void save_arrow(ObjectNode obj_node, Arrow *arrow, gchar *type_attribute,
 		gchar *length_attribute, gchar *width_attribute);
 void load_arrow(ObjectNode obj_node, Arrow *arrow, gchar *type_attribute, 
-		gchar *length_attribute, gchar *width_attribute);
+		gchar *length_attribute, gchar *width_attribute, DiaContext *ctx);
 
 /** Returns the ArrowType for a given name of an arrow, or 0 if not found. */
 ArrowType arrow_type_from_name(const gchar *name);

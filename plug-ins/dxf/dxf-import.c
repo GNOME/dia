@@ -71,7 +71,7 @@ typedef struct _DxfData
     char value[DXF_LINE_LENGTH];
 } DxfData;
 
-static gboolean import_dxf(const gchar *filename, DiagramData *dia, void* user_data);
+static gboolean import_dxf(const gchar *filename, DiagramData *dia, DiaContext *ctx, void* user_data);
 static gboolean read_dxf_codes(FILE *filedxf, DxfData *data);
 static DiaObject *read_entity_line_dxf(FILE *filedxf, DxfData *data, DiagramData *dia);
 static DiaObject *read_entity_circle_dxf(FILE *filedxf, DxfData *data, DiagramData *dia);
@@ -1280,15 +1280,15 @@ read_section_blocks_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
 
 /* imports the given dxf-file, returns TRUE if successful */
 static gboolean
-import_dxf(const gchar *filename, DiagramData *dia, void* user_data)
+import_dxf(const gchar *filename, DiagramData *dia, DiaContext *ctx, void* user_data)
 {
     FILE *filedxf;
     DxfData *data;
     
     filedxf = g_fopen(filename,"r");
     if(filedxf == NULL){
-        message_error(_("Couldn't open: '%s' for reading.\n"), 
-		      dia_message_filename(filename));
+        dia_context_add_message(ctx, _("Couldn't open: '%s' for reading.\n"),
+				dia_context_get_filename (ctx));
         return FALSE;
     }
     
@@ -1297,15 +1297,15 @@ import_dxf(const gchar *filename, DiagramData *dia, void* user_data)
     do {
         if(read_dxf_codes(filedxf, data) == FALSE) {
             g_free(data);
-	    message_error(_("read_dxf_codes failed on '%s'\n"),
-			  dia_message_filename(filename) );
+	    dia_context_add_message(ctx, _("read_dxf_codes failed on '%s'"),
+			            dia_context_get_filename(ctx) );
             return FALSE;
         }
         else {
             if (0 == data->code && strstr(data->codeline, "AutoCAD Binary DXF")) {
                 g_free(data);
-	        message_error(_("Binary DXF from '%s' not supported\n"),
-			      dia_message_filename(filename) );
+	        dia_context_add_message(ctx, _("Binary DXF from '%s' not supported"),
+			                dia_context_get_filename(ctx));
                 return FALSE;
             }
 	    if (0 == data->code) {

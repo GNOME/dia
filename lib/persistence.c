@@ -34,7 +34,9 @@
 #include "dia_dirs.h"
 #include "dia_xml_libxml.h"
 #include "dia_xml.h"
-#include "message.h"
+#include "message.h" /* only for dia_log_message() */
+#include "diacontext.h"
+#include "intl.h"
 
 #include <gtk/gtk.h>
 #include <libxml/tree.h>
@@ -79,36 +81,36 @@ _dia_hash_table_str_any_new (void)
 
 /* *********************** LOADING FUNCTIONS *********************** */
 
-typedef void (*PersistenceLoadFunc)(gchar *role, xmlNodePtr node);
+typedef void (*PersistenceLoadFunc)(gchar *role, xmlNodePtr node, DiaContext *ctx);
 
 static void
-persistence_load_window(gchar *role, xmlNodePtr node)
+persistence_load_window(gchar *role, xmlNodePtr node, DiaContext *ctx)
 {
   AttributeNode attr;
   PersistentWindow *wininfo = g_new0(PersistentWindow, 1);
 
   attr = composite_find_attribute(node, "xpos");
   if (attr != NULL)
-    wininfo->x = data_int(attribute_first_data(attr));
+    wininfo->x = data_int(attribute_first_data(attr), ctx);
   attr = composite_find_attribute(node, "ypos");
   if (attr != NULL)
-    wininfo->y = data_int(attribute_first_data(attr));
+    wininfo->y = data_int(attribute_first_data(attr), ctx);
   attr = composite_find_attribute(node, "width");
   if (attr != NULL)
-    wininfo->width = data_int(attribute_first_data(attr));
+    wininfo->width = data_int(attribute_first_data(attr), ctx);
   attr = composite_find_attribute(node, "height");
   if (attr != NULL)
-    wininfo->height = data_int(attribute_first_data(attr));
+    wininfo->height = data_int(attribute_first_data(attr), ctx);
   attr = composite_find_attribute(node, "isopen");
   if (attr != NULL)
-    wininfo->isopen = data_boolean(attribute_first_data(attr));
+    wininfo->isopen = data_boolean(attribute_first_data(attr), ctx);
 
   g_hash_table_insert(persistent_windows, role, wininfo);
 }
 
 /** Load a persistent string into the strings hashtable */
 static void
-persistence_load_entrystring(gchar *role, xmlNodePtr node)
+persistence_load_entrystring(gchar *role, xmlNodePtr node, DiaContext *ctx)
 {
   AttributeNode attr;
   gchar *string = NULL;
@@ -116,7 +118,7 @@ persistence_load_entrystring(gchar *role, xmlNodePtr node)
   /* Find the contents? */
   attr = composite_find_attribute(node, "stringvalue");
   if (attr != NULL)
-    string = data_string(attribute_first_data(attr));
+    string = data_string(attribute_first_data(attr), ctx);
   else 
     return;
 
@@ -125,7 +127,7 @@ persistence_load_entrystring(gchar *role, xmlNodePtr node)
 }
 
 static void
-persistence_load_list(gchar *role, xmlNodePtr node)
+persistence_load_list(gchar *role, xmlNodePtr node, DiaContext *ctx)
 {
   AttributeNode attr;
   gchar *string = NULL;
@@ -133,7 +135,7 @@ persistence_load_list(gchar *role, xmlNodePtr node)
   /* Find the contents? */
   attr = composite_find_attribute(node, "listvalue");
   if (attr != NULL)
-    string = data_string(attribute_first_data(attr));
+    string = data_string(attribute_first_data(attr), ctx);
   else 
     return;
 
@@ -159,7 +161,7 @@ persistence_load_list(gchar *role, xmlNodePtr node)
 }
 
 static void
-persistence_load_integer(gchar *role, xmlNodePtr node)
+persistence_load_integer(gchar *role, xmlNodePtr node, DiaContext *ctx)
 {
   AttributeNode attr;
 
@@ -167,13 +169,13 @@ persistence_load_integer(gchar *role, xmlNodePtr node)
   attr = composite_find_attribute(node, "intvalue");
   if (attr != NULL) {
     gint *integer = g_new(gint, 1);
-    *integer = data_int(attribute_first_data(attr));
+    *integer = data_int(attribute_first_data(attr), ctx);
     g_hash_table_insert(persistent_integers, role, integer);
   }
 }
 
 static void
-persistence_load_real(gchar *role, xmlNodePtr node)
+persistence_load_real(gchar *role, xmlNodePtr node, DiaContext *ctx)
 {
   AttributeNode attr;
 
@@ -181,13 +183,13 @@ persistence_load_real(gchar *role, xmlNodePtr node)
   attr = composite_find_attribute(node, "realvalue");
   if (attr != NULL) {
     real *realval = g_new(real, 1);
-    *realval = data_real(attribute_first_data(attr));
+    *realval = data_real(attribute_first_data(attr), ctx);
     g_hash_table_insert(persistent_reals, role, realval);
   }
 }
 
 static void
-persistence_load_boolean(gchar *role, xmlNodePtr node)
+persistence_load_boolean(gchar *role, xmlNodePtr node, DiaContext *ctx)
 {
   AttributeNode attr;
 
@@ -195,26 +197,26 @@ persistence_load_boolean(gchar *role, xmlNodePtr node)
   attr = composite_find_attribute(node, "booleanvalue");
   if (attr != NULL) {
     gboolean *booleanval = g_new(gboolean, 1);
-    *booleanval = data_boolean(attribute_first_data(attr));
+    *booleanval = data_boolean(attribute_first_data(attr), ctx);
     g_hash_table_insert(persistent_booleans, role, booleanval);
   }
 }
 
 static void
-persistence_load_string(gchar *role, xmlNodePtr node)
+persistence_load_string(gchar *role, xmlNodePtr node, DiaContext *ctx)
 {
   AttributeNode attr;
 
   /* Find the contents? */
   attr = composite_find_attribute(node, "stringvalue");
   if (attr != NULL) {
-    gchar *stringval = data_string(attribute_first_data(attr));
+    gchar *stringval = data_string(attribute_first_data(attr), ctx);
     g_hash_table_insert(persistent_strings, role, stringval);
   }
 }
 
 static void
-persistence_load_color(gchar *role, xmlNodePtr node)
+persistence_load_color(gchar *role, xmlNodePtr node, DiaContext *ctx)
 {
   AttributeNode attr;
 
@@ -222,7 +224,7 @@ persistence_load_color(gchar *role, xmlNodePtr node)
   attr = composite_find_attribute(node, "colorvalue");
   if (attr != NULL) {
     Color *colorval = g_new(Color, 1);
-    data_color(attribute_first_data(attr), colorval);
+    data_color(attribute_first_data(attr), colorval, ctx);
     g_hash_table_insert(persistent_colors, role, colorval);
   }
 }
@@ -230,10 +232,10 @@ persistence_load_color(gchar *role, xmlNodePtr node)
 static GHashTable *type_handlers;
 
 /** Load the named type of entries using the given function.
- * func is a void (*func)(gchar *role, xmlNodePtr *node)
+ * func is a void (*func)(gchar *role, xmlNodePtr *node, DiaContext *ctx)
  */
 static void
-persistence_load_type(xmlNodePtr node)
+persistence_load_type(xmlNodePtr node, DiaContext *ctx)
 {
   const gchar *typename = (gchar *) node->name;
   gchar *name;
@@ -249,7 +251,7 @@ persistence_load_type(xmlNodePtr node)
     return;
   }
   
-  (*func)(name, node);
+  (*func)(name, node, ctx);
 }
 
 static void
@@ -305,6 +307,7 @@ persistence_load()
 {
   xmlDocPtr doc;
   gchar *filename = dia_config_filename("persistence");
+  DiaContext *ctx;
 
   persistence_init();
 
@@ -312,7 +315,9 @@ persistence_load()
     g_free (filename);
     return;
   }
-  doc = xmlDiaParseFile(filename);
+  ctx = dia_context_new(_("Persistence"));
+  dia_context_set_filename(ctx, filename);
+  doc = diaXmlParseFile(filename, ctx, FALSE);
   if (doc != NULL) {
     if (doc->xmlRootNode != NULL) {
       xmlNsPtr namespace = xmlSearchNs(doc, doc->xmlRootNode, (const xmlChar *)"dia");
@@ -320,13 +325,14 @@ persistence_load()
 	  namespace != NULL) {
 	xmlNodePtr child_node = doc->xmlRootNode->children;
 	for (; child_node != NULL; child_node = child_node->next) {
-	  persistence_load_type(child_node);
+	  persistence_load_type(child_node, ctx);
 	}
       }
     }
     xmlFreeDoc(doc);
   }
   g_free(filename);
+  dia_context_release(ctx);
 }
 
 /* *********************** SAVING FUNCTIONS *********************** */

@@ -65,8 +65,7 @@ static DiaObject *branch_create(Point *startpoint,
 			     Handle **handle1,
 			     Handle **handle2);
 static void branch_destroy(Branch *branch);
-static DiaObject *branch_load(ObjectNode obj_node, int version,
-			   const char *filename);
+static DiaObject *branch_load(ObjectNode obj_node, int version,DiaContext *ctx);
 
 static PropDescription *branch_describe_props(Branch *branch);
 static void branch_get_props(Branch *branch, GPtrArray *props);
@@ -295,10 +294,10 @@ static void branch_destroy(Branch *branch)
   element_destroy(&branch->element);
 }
 
-static DiaObject *branch_load(ObjectNode obj_node, int version, const char *filename)
+static DiaObject *branch_load(ObjectNode obj_node, int version,DiaContext *ctx)
 {
   return object_load_using_properties(&branch_type,
-                                      obj_node,version,filename);
+                                      obj_node,version,ctx);
 }
 
 

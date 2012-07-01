@@ -55,8 +55,6 @@
 #include "bezier_conn.h"
 #include "connection.h"
 
-gboolean import_vdx(const gchar *filename, DiagramData *dia, void* user_data);
-
 void static vdx_get_colors(xmlNodePtr cur, VDXDocument* theDoc);
 void static vdx_get_facenames(xmlNodePtr cur, VDXDocument* theDoc);
 void static vdx_get_fonts(xmlNodePtr cur, VDXDocument* theDoc);
@@ -2854,9 +2852,8 @@ vdx_free(VDXDocument *theDoc)
  * @param user_data unused
  * @returns TRUE if successful, FALSE otherwise
  */
-
-gboolean
-import_vdx(const gchar *filename, DiagramData *dia, void* user_data)
+static gboolean
+import_vdx(const gchar *filename, DiagramData *dia, DiaContext *ctx, void* user_data)
 {
     xmlDocPtr doc = xmlDoParseFile(filename);
     xmlNodePtr root, cur;
@@ -2868,8 +2865,8 @@ import_vdx(const gchar *filename, DiagramData *dia, void* user_data)
     char* old_locale;
 
     if (!doc) {
-        message_warning("parse error for %s",
-                        dia_message_filename(filename));
+        dia_context_add_message(ctx, "Parse error for %s",
+                                dia_context_get_filename(ctx));
         return FALSE;
     }
     /* skip comments */
@@ -2879,12 +2876,12 @@ import_vdx(const gchar *filename, DiagramData *dia, void* user_data)
     }
     if (!root || xmlIsBlankNode(root))
     {
-        g_warning("Nothing in document!");
+        dia_context_add_message(ctx, _("Nothing in document!"));
         return FALSE;
     }
     if (strcmp((char *)root->name, "VisioDocument"))
     {
-        g_warning("%s not VisioDocument", root->name);
+        dia_context_add_message(ctx, _("Expecting VisioDocument, got %s"), root->name);
         return FALSE;
     }
     if (root->ns && root->ns->href &&

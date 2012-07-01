@@ -34,7 +34,6 @@
 #include "connectionpoint.h"
 #include "diarenderer.h"
 #include "attributes.h"
-#include "widgets.h"
 #include "dia_image.h"
 #include "message.h"
 #include "properties.h"
@@ -98,7 +97,7 @@ static void image_get_props(Image *image, GPtrArray *props);
 static void image_set_props(Image *image, GPtrArray *props);
 
 static void image_save(Image *image, ObjectNode obj_node, const char *filename);
-static DiaObject *image_load(ObjectNode obj_node, int version, const char *filename);
+static DiaObject *image_load(ObjectNode obj_node, int version, DiaContext *ctx);
 
 static ObjectTypeOps image_type_ops =
 {
@@ -675,7 +674,7 @@ image_save(Image *image, ObjectNode obj_node, const char *filename)
 }
 
 static DiaObject *
-image_load(ObjectNode obj_node, int version, const char *filename)
+image_load(ObjectNode obj_node, int version, DiaContext *ctx)
 {
   Image *image;
   Element *elem;
@@ -691,41 +690,41 @@ image_load(ObjectNode obj_node, int version, const char *filename)
   obj->type = &image_type;
   obj->ops = &image_ops;
 
-  element_load(elem, obj_node);
+  element_load(elem, obj_node, ctx);
   
   image->border_width = 0.1;
   attr = object_find_attribute(obj_node, "border_width");
   if (attr != NULL)
-    image->border_width =  data_real( attribute_first_data(attr) );
+    image->border_width =  data_real(attribute_first_data(attr), ctx);
 
   image->border_color = color_black;
   attr = object_find_attribute(obj_node, "border_color");
   if (attr != NULL)
-    data_color(attribute_first_data(attr), &image->border_color);
+    data_color(attribute_first_data(attr), &image->border_color, ctx);
   
   image->line_style = LINESTYLE_SOLID;
   attr = object_find_attribute(obj_node, "line_style");
   if (attr != NULL)
-    image->line_style =  data_enum( attribute_first_data(attr) );
+    image->line_style =  data_enum(attribute_first_data(attr), ctx);
 
   image->dashlength = DEFAULT_LINESTYLE_DASHLEN;
   attr = object_find_attribute(obj_node, "dashlength");
   if (attr != NULL)
-    image->dashlength = data_real(attribute_first_data(attr));
+    image->dashlength = data_real(attribute_first_data(attr), ctx);
 
   image->draw_border = TRUE;
   attr = object_find_attribute(obj_node, "draw_border");
   if (attr != NULL)
-    image->draw_border =  data_boolean( attribute_first_data(attr) );
+    image->draw_border =  data_boolean(attribute_first_data(attr), ctx);
 
   image->keep_aspect = TRUE;
   attr = object_find_attribute(obj_node, "keep_aspect");
   if (attr != NULL)
-    image->keep_aspect =  data_boolean( attribute_first_data(attr) );
+    image->keep_aspect =  data_boolean(attribute_first_data(attr), ctx);
 
   attr = object_find_attribute(obj_node, "file");
   if (attr != NULL) {
-    image->file =  data_filename( attribute_first_data(attr) );
+    image->file =  data_filename(attribute_first_data(attr), ctx);
   } else {
     image->file = g_strdup("");
   }
@@ -742,7 +741,7 @@ image_load(ObjectNode obj_node, int version, const char *filename)
   image->image = NULL;
   
   if (strcmp(image->file, "")!=0) {
-    diafile_dir = get_directory(filename);
+    diafile_dir = get_directory(dia_context_get_filename(ctx));
 
     if (g_path_is_absolute(image->file)) { /* Absolute pathname */
       image->image = dia_image_load(image->file);

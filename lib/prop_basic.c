@@ -143,9 +143,9 @@ commonprop_set_from_widget(Property *prop, WIDGET *widget)
 }
 
 static void 
-commonprop_load(Property *prop, AttributeNode attr, DataNode data)
+commonprop_load(Property *prop, AttributeNode attr, DataNode data, DiaContext *ctx)
 {
-  prop->real_ops->load(prop,attr,data);
+  prop->real_ops->load(prop,attr,data,ctx);
   prop->experience |= PXP_LOADED;
 }
 
@@ -272,7 +272,7 @@ noopprop_set_from_widget(NoopProperty *prop, WIDGET *widget)
 }
 
 void 
-noopprop_load(NoopProperty *prop, AttributeNode attr, DataNode data)
+noopprop_load(NoopProperty *prop, AttributeNode attr, DataNode data, DiaContext *ctx)
 {
 }
 
@@ -366,7 +366,7 @@ invalidprop_set_from_widget(InvalidProperty *prop, WIDGET *widget)
 }
 
 void 
-invalidprop_load(InvalidProperty *prop, AttributeNode attr, DataNode data)
+invalidprop_load(InvalidProperty *prop, AttributeNode attr, DataNode data, DiaContext *ctx)
 {  
   g_assert_not_reached();
 }
@@ -460,7 +460,8 @@ unimplementedprop_set_from_widget(UnimplementedProperty *prop, WIDGET *widget)
 
 void 
 unimplementedprop_load(UnimplementedProperty *prop, 
-                       AttributeNode attr, DataNode data) 
+                       AttributeNode attr, DataNode data,
+		       DiaContext *ctx) 
 {
  g_warning("%s: for property %s",G_STRFUNC,prop->common.descr->name); 
 }

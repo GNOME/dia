@@ -36,8 +36,6 @@
 #include "connectionpoint.h"
 #include "diarenderer.h"
 #include "attributes.h"
-#include "widgets.h"
-#include "message.h"
 #include "color.h"
 #include "properties.h"
 
@@ -83,7 +81,7 @@ static DiaObject *grid_object_create(Point *startpoint,
 static void grid_object_reallocate_cells (Grid_Object* grid_object);
 static void grid_object_destroy(Grid_Object *grid_object);
 static DiaObject *grid_object_load(ObjectNode obj_node, int version, 
-                                 const char *filename);
+                                   DiaContext *ctx);
 static PropDescription *grid_object_describe_props(
   Grid_Object *grid_object);
 static void grid_object_get_props(Grid_Object *grid_object, 
@@ -94,7 +92,7 @@ static void grid_object_set_props(Grid_Object *grid_object,
 static ObjectTypeOps grid_object_type_ops =
 {
   (CreateFunc) grid_object_create,
-  (LoadFunc)   grid_object_load/*using properties*/,
+  (LoadFunc)   grid_object_load,
   (SaveFunc)   object_save_using_properties,
   (GetDefaultsFunc)   NULL,
   (ApplyDefaultsFunc) NULL
@@ -518,8 +516,8 @@ grid_object_destroy(Grid_Object *grid_object)
 }
 
 static DiaObject *
-grid_object_load(ObjectNode obj_node, int version, const char *filename)
+grid_object_load(ObjectNode obj_node, int version, DiaContext *ctx)
 {
   return object_load_using_properties(&grid_object_type,
-                                      obj_node,version,filename);  
+                                      obj_node,version,ctx);  
 }
