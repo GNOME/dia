@@ -43,6 +43,7 @@
 #include "interface.h"
 #include "recent_files.h"
 #include "confirm.h"
+#include "diacontext.h"
 
 #include "filedlg.h"
 
@@ -734,9 +735,14 @@ file_export_response_callback(GtkWidget *fs,
     if (!ef)
       ef = filter_guess_export_filter(filename);
     if (ef) {
+      DiaContext *ctx = dia_context_new ("file-export");
+
       g_object_ref(dia->data);
-      ef->export_func(dia->data, filename, dia->filename, ef->user_data);
+      dia_context_set_filename (ctx, filename);
+      ef->export_func(dia->data, ctx,
+		      filename, dia->filename, ef->user_data);
       g_object_unref(dia->data);
+      dia_context_release (ctx);
     } else
       message_error(_("Could not determine which export filter\n"
 		      "to use to save '%s'"), dia_message_filename(filename));

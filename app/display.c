@@ -1165,6 +1165,7 @@ void
 ddisplay_set_renderer(DDisplay *ddisp, int aa_renderer)
 {
   int width, height;
+  GdkWindow *window = gtk_widget_get_window(ddisp->canvas);
 
   /* dont mix new renderer with old updates */
   if (ddisp->update_id) {
@@ -1186,7 +1187,8 @@ ddisplay_set_renderer(DDisplay *ddisp, int aa_renderer)
     ddisp->renderer = new_gdk_renderer(ddisp);
   }
 
-  dia_renderer_set_size(ddisp->renderer, gtk_widget_get_window(ddisp->canvas), width, height);
+  if (window)
+    dia_renderer_set_size(ddisp->renderer, window, width, height);
 }
 
 void

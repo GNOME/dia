@@ -356,6 +356,7 @@ _clipboard_get_data_callback (GtkClipboard     *clipboard,
 			      guint             info,
 			      gpointer          owner_or_user_data)
 {
+  DiaContext *ctx = dia_context_new (_("Clipboard Copy"));
   DiagramData *dia = owner_or_user_data; /* todo: check it's still valid */
   const gchar *ext = strchr (target_entries[info-1].target, '/')+1;
   /* Although asked for bmp, deliver png because of potentially better renderer
@@ -384,7 +385,9 @@ _clipboard_get_data_callback (GtkClipboard     *clipboard,
     if (strcmp(ext, "png") != 0 && filter_get_by_name ("cairo-alpha-png") != NULL)
       ef = filter_get_by_name ("cairo-alpha-png");
 #endif
-    ef->export_func(DIA_DIAGRAM_DATA(dia), outfname, "clipboard-copy", ef->user_data);
+    dia_context_set_filename (ctx, outfname);
+    ef->export_func(DIA_DIAGRAM_DATA(dia), ctx,
+		    outfname, "clipboard-copy", ef->user_data);
     /* if we have a vector format, don't convert it to pixbuf */
     if (strcmp (ext, "svg") != 0 && strcmp (ext, "emf") != 0 && strcmp (ext, "wmf") != 0) {
       GdkPixbuf *pixbuf = gdk_pixbuf_new_from_file(outfname, &error);
@@ -413,9 +416,10 @@ _clipboard_get_data_callback (GtkClipboard     *clipboard,
     }
   }
   if (error) {
-    message_warning (error->message);
+    dia_context_add_message (ctx, error->message);
     g_error_free (error);
   }
+  dia_context_release (ctx);
 }
 
 /** GtkClipboardClearFunc */

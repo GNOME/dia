@@ -416,7 +416,7 @@ set_linecaps(DiaRenderer *self, LineCaps mode)
       renderer->fnPenStyle |= PS_ENDCAP_SQUARE;
       break;
     default:
-	message_error("WmfRenderer : Unsupported fill mode specified!\n");
+	g_warning("WmfRenderer : Unsupported fill mode specified!\n");
     }
 }
 
@@ -442,7 +442,7 @@ set_linejoin(DiaRenderer *self, LineJoin mode)
       renderer->fnPenStyle |= PS_JOIN_BEVEL;
       break;
     default:
-      message_error("WmfRenderer : Unsupported fill mode specified!\n");
+      g_warning("WmfRenderer : Unsupported fill mode specified!\n");
     }
 }
 
@@ -472,7 +472,7 @@ set_linestyle(DiaRenderer *self, LineStyle mode)
       renderer->fnPenStyle |= PS_DOT;
       break;
     default:
-	message_error("WmfRenderer : Unsupported fill mode specified!\n");
+	g_warning("WmfRenderer : Unsupported fill mode specified!\n");
     }
     
     if (renderer->platform_is_nt)
@@ -514,7 +514,7 @@ set_fillstyle(DiaRenderer *self, FillStyle mode)
     case FILLSTYLE_SOLID:
 	break;
     default:
-	message_error("WmfRenderer : Unsupported fill mode specified!\n");
+	g_warning("WmfRenderer : Unsupported fill mode specified!\n");
     }
 }
 
@@ -1318,9 +1318,10 @@ wmf_renderer_class_init (WmfRendererClass *klass)
 }
 
 /* plug-in export api */
-static void
-export_data(DiagramData *data, const gchar *filename, 
-            const gchar *diafilename, void* user_data)
+static gboolean
+export_data(DiagramData *data, DiaContext *ctx,
+	    const gchar *filename, const gchar *diafilename,
+	    void* user_data)
 {
     WmfRenderer *renderer;
     W32::HDC  file = NULL;
@@ -1367,9 +1368,9 @@ export_data(DiagramData *data, const gchar *filename,
                     "Dia\0Diagram\0"); // pointer to an optional description string 
 #endif
     if (file == NULL) {
-        message_error(_("Couldn't open: '%s' for writing.\n"), 
-	              dia_message_filename(filename));
-        return;
+	dia_context_add_message_with_errno (ctx, errno, _("Can't open output file %s"), 
+					    dia_context_get_filename(ctx));
+	return FALSE;
     }
 
     renderer = (WmfRenderer*)g_object_new(WMF_TYPE_RENDERER, NULL);
@@ -1462,6 +1463,8 @@ export_data(DiagramData *data, const gchar *filename,
     g_object_unref(renderer);
     
     W32::ReleaseDC (NULL, refDC);
+
+    return TRUE;
 }
 
 static const gchar *wmf_extensions[] = { "wmf", NULL };
@@ -1489,10 +1492,16 @@ print_callback (DiagramData *data,
 		guint        flags,
 		void        *user_data)
 {
+  /* Todo: get the context from caller */
+  DiaContext *ctx = dia_context_new ("PrintGDI");
+
   if (!data)
-    message_error (_("Nothing to print"));
+    dia_context_add_message (ctx, _("Nothing to print"));
   else
-    diagram_print_gdi (data, filename);
+    diagram_print_gdi (data, filename, ctx);
+
+  dia_context_release (ctx);
+
   return NULL;
 }
 

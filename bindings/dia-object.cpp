@@ -51,10 +51,10 @@ dia::ObjectType::create(double x, double y, dia::Handle** h1, dia::Handle** h2) 
  * Allows to load an object from storage. Not sure if this becomes useful for language bindings.
  */
 dia::Object* 
-dia::ObjectType::load (ObjectNode node, int version, const char* filename) const
+dia::ObjectType::load (ObjectNode node, int version, DiaContext *ctx) const
 {
     assert (self);
-    return new dia::Object (self->ops->load (node, version, filename));
+    return new dia::Object (self->ops->load (node, version, ctx));
 }
 /*! Allows to save an Object to ObjectNode file filename.
  * . Not sure if this becomes useful for language bindings.

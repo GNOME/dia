@@ -297,10 +297,12 @@ PyObject* dia_IProperty_value_get (dia::IProperty* self) {
 %extend _DiaExportFilter {
   // don't use 'export' as this produces nothing w/o warning
   void do_export (dia::DiagramData *dia, const gchar *filename) {
+    DiaContext *ctx = dia_context_new ("Export");
     if (dia)
-      self->export_func (dia->Self(), filename, filename, self->user_data);
+      self->export_func (dia->Self(), ctx, filename, filename, self->user_data);
     else
       g_warning ( "%s no data", G_STRFUNC);
+    dia_context_release (ctx);
   }
 };
 

@@ -82,7 +82,7 @@ static gboolean write_connections(GList *objects, xmlNodePtr layer_node,
 				  GHashTable *objects_hash);
 static xmlDocPtr diagram_data_write_doc(DiagramData *data, const char *filename);
 static int diagram_data_raw_save(DiagramData *data, const char *filename);
-static int diagram_data_save(DiagramData *data, const char *filename);
+static gboolean diagram_data_save(DiagramData *data, DiaContext *ctx, const char *filename);
 
 
 static void
@@ -998,8 +998,8 @@ diagram_data_raw_save(DiagramData *data, const char *filename)
  * @returns TRUE on successfull save, FALSE otherwise.  If a failure is
  * indicated, an error message will already have been given to the user.
  */
-static int
-diagram_data_save(DiagramData *data, const char *user_filename)
+static gboolean
+diagram_data_save(DiagramData *data, DiaContext *ctx, const char *user_filename)
 {
   FILE *file;
   char *bakname=NULL,*tmpname=NULL,*dirname=NULL,*p;
@@ -1014,8 +1014,8 @@ diagram_data_save(DiagramData *data, const char *user_filename)
   /* not going to work with 'My Docments' - read-only but still useable, see bug #504469 */
   if (   g_file_test(filename, G_FILE_TEST_EXISTS)
       && g_access(filename, W_OK) != 0) {
-    message_error(_("Not allowed to write to output file %s\n"), 
-		  dia_message_filename(filename));
+    dia_context_add_message (ctx, _("Not allowed to write to output file %s\n"), 
+			     dia_context_get_filename(ctx));
     goto CLEANUP;
   }
 #endif
@@ -1024,7 +1024,7 @@ diagram_data_save(DiagramData *data, const char *user_filename)
     GError *error = NULL;
     filename = g_file_read_link(user_filename, &error);
     if (!filename) {
-      message_error("%s", error->message);
+      dia_context_add_message (ctx, "%s", error->message);
       g_error_free(error);
       goto CLEANUP;
     }
@@ -1046,8 +1046,8 @@ diagram_data_save(DiagramData *data, const char *user_filename)
   /* Check that we can create the other files */
   if (   g_file_test(dirname, G_FILE_TEST_EXISTS) 
       && g_access(dirname, W_OK) != 0) {
-    message_error(_("Not allowed to write temporary files in %s\n"), 
-		  dia_message_filename(dirname));
+    dia_context_add_message (ctx, _("Not allowed to write temporary files in %s\n"), 
+			    dia_message_filename(dirname));
     goto CLEANUP;
   }
 #endif
@@ -1068,8 +1068,9 @@ diagram_data_save(DiagramData *data, const char *user_filename)
   /* Now write the data in the temporary file name. */
 
   if (file==NULL) {
-    message_error(_("Can't open output file %s: %s\n"), 
-		  dia_message_filename(tmpname), strerror(errno));
+    dia_context_add_message_with_errno (ctx, errno,
+					_("Can't open output file %s"),
+					dia_message_filename(tmpname));
     goto CLEANUP;
   }
   fclose(file);
@@ -1079,8 +1080,8 @@ diagram_data_save(DiagramData *data, const char *user_filename)
   if (ret < 0) {
     /* Save failed; we clean our stuff up, without touching the file named
        "filename" if it existed. */
-    message_error(_("Internal error %d writing file %s\n"), 
-		  ret, dia_message_filename(tmpname));
+    dia_context_add_message(ctx, _("Internal error %d writing file %s\n"),
+			    ret, dia_message_filename(tmpname));
     g_unlink(tmpname);
     goto CLEANUP;
   }
@@ -1090,9 +1091,9 @@ diagram_data_save(DiagramData *data, const char *user_filename)
   g_rename(filename,bakname);
   ret = g_rename(tmpname,filename);
   if (ret < 0) {
-    message_error(_("Can't rename %s to final output file %s: %s\n"), 
-		  dia_message_filename(filename), 
-		  dia_message_filename(filename), strerror(errno));
+    dia_context_add_message_with_errno(ctx, errno, _("Can't rename %s to final output file %s: %s\n"), 
+				       dia_message_filename(tmpname),
+				       dia_context_get_filename(ctx));
   }
 CLEANUP:
   if (filename != user_filename)
@@ -1106,19 +1107,21 @@ CLEANUP:
 int
 diagram_save(Diagram *dia, const char *filename)
 {
-  gboolean res = diagram_data_save(dia->data, filename);
+  DiaContext *ctx = dia_context_new (_("Diagram Save"));
+  gboolean res = FALSE;
 
-  if (!res) {
-    return res;
+  if (diagram_data_save(dia->data, ctx, filename)) {
+    dia->unsaved = FALSE;
+    undo_mark_save(dia->undo);
+    diagram_set_modified (dia, FALSE);
+
+    diagram_cleanup_autosave(dia);
+
+    res = TRUE;
   }
+  dia_context_release (ctx);
 
-  dia->unsaved = FALSE;
-  undo_mark_save(dia->undo);
-  diagram_set_modified (dia, FALSE);
-
-  diagram_cleanup_autosave(dia);
-
-  return TRUE;
+  return res;
 }
 
 /* Autosave stuff.  Needs to use low-level save to avoid setting and resetting flags */
@@ -1224,11 +1227,12 @@ diagram_autosave(Diagram *dia)
 }
 
 /* --- filter interfaces --- */
-static void
-export_native(DiagramData *data, const gchar *filename,
-	      const gchar *diafilename, void* user_data)
+static gboolean
+export_native(DiagramData *data, DiaContext *ctx,
+	      const gchar *filename, const gchar *diafilename,
+	      void* user_data)
 {
-  diagram_data_save(data, filename);
+  return diagram_data_save(data, ctx, filename);
 }
 
 static const gchar *extensions[] = { "dia", NULL };

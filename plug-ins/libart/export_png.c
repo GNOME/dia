@@ -305,9 +305,10 @@ export_png_ratio(GtkAdjustment *limits, gpointer userdata)
   in_progress = FALSE;
 }
 
-static void
-export_png(DiagramData *data, const gchar *filename, 
-           const gchar *diafilename, void* user_data)
+static gboolean
+export_png(DiagramData *data, DiaContext *ctx,
+	   const gchar *filename, const gchar *diafilename,
+	   void* user_data)
 {
   /* Create the callback data.  Can't be stack allocated, as the function
      returns before the callback is called.  Must be freed by the

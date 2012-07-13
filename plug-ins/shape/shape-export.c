@@ -132,15 +132,6 @@ new_shape_renderer(DiagramData *data, const char *filename)
   char *sheetname;
   char *basename;
 
-  file = g_fopen(filename, "w");
-
-  if (file==NULL) {
-      message_error(_("Can't open output file %s: %s\n"), 
-		    dia_message_filename(filename), strerror(errno));
-    return NULL;
-  }
-  fclose(file);
-
   shape_renderer = g_object_new(SHAPE_TYPE_RENDERER, NULL);
   renderer = DIA_SVG_RENDERER (shape_renderer);
 
@@ -460,9 +451,10 @@ draw_ellipse(DiaRenderer *self,
   add_ellipse_connection_points(renderer, center, width, height);
 }
 
-static void
-export_shape(DiagramData *data, const gchar *filename, 
-             const gchar *diafilename, void* user_data)
+static gboolean
+export_shape(DiagramData *data, DiaContext *ctx,
+	     const gchar *filename, const gchar *diafilename,
+	     void* user_data)
 {
     DiaSvgRenderer *renderer;
     int i;
@@ -475,10 +467,9 @@ export_shape(DiagramData *data, const gchar *filename,
 
     /* create the png preview shown in the toolbox */
     point = strrchr(filename, '.');
-    if (point == NULL ||
-	strcmp(point, ".shape")) {
-	message_warning(_("Shape files must end in .shape, or they cannot be loaded by Dia"));
-	return;
+    if (point == NULL || strcmp(point, ".shape") != 0) {
+	dia_context_add_message(ctx, _("Shape files must end in .shape, or they cannot be loaded by Dia"));
+	return FALSE;
     }
     i = (int)(point-filename);
     point = g_strndup(filename, i);
@@ -491,26 +482,28 @@ export_shape(DiagramData *data, const gchar *filename,
       exportfilter = filter_guess_export_filter(png_filename);
 
     if (!exportfilter) {
-      message_warning(_("Can't export PNG icon without export plugin!"));
+      dia_context_add_message(ctx, _("Can't export PNG icon without export plugin!"));
     } else {
       /* get the scaling right */
       old_scaling = data->paper.scaling;
       scaling_x = 22/((ext->right - ext->left) * 20);
       scaling_y = 22/((ext->bottom - ext->top) * 20);
       data->paper.scaling = MIN(scaling_x, scaling_y);
-      exportfilter->export_func(data, png_filename, diafilename, exportfilter->user_data);
+      exportfilter->export_func(data, ctx, png_filename, diafilename, exportfilter->user_data);
       data->paper.scaling = old_scaling;
     }
+    g_free(png_filename);
+
     /* create the shape */
     if((renderer = new_shape_renderer(data, filename))) {
       data_render(data, DIA_RENDERER(renderer), NULL, NULL, NULL);
       g_object_unref (renderer);
+      return TRUE;
     }
 
     /* Create a sheet entry if applicable (../../sheets exists) */
-    
 
-    g_free(png_filename);
+    return FALSE;
 }
 
 static const gchar *extensions[] = { "shape", NULL };

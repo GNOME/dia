@@ -40,7 +40,6 @@
 #include <glib/gstdio.h>
 
 #include "intl.h"
-#include "message.h"
 #include "geometry.h"
 #include "diarenderer.h"
 #include "filter.h"
@@ -213,7 +212,7 @@ set_linecaps(DiaRenderer *object, LineCaps mode)
     case LINECAPS_PROJECTING:
 	break;
     default:
-	message_error("HpglRenderer: Unsupported fill mode specified!\n");
+	g_warning("HpglRenderer: Unsupported fill mode specified!");
     }
 }
 
@@ -230,7 +229,7 @@ set_linejoin(DiaRenderer *object, LineJoin mode)
     case LINEJOIN_BEVEL:
 	break;
     default:
-	message_error("HpglRenderer : Unsupported fill mode specified!\n");
+	g_warning("HpglRenderer : Unsupported fill mode specified!");
     }
 }
 
@@ -262,7 +261,7 @@ set_linestyle(DiaRenderer *object, LineStyle mode)
       fprintf(renderer->file, "LT1;\n");
       break;
     default:
-	message_error("HpglRenderer : Unsupported fill mode specified!\n");
+	g_warning("HpglRenderer : Unsupported fill mode specified!");
     }
 }
 
@@ -286,7 +285,7 @@ set_fillstyle(DiaRenderer *object, FillStyle mode)
     case FILLSTYLE_SOLID:
 	break;
     default:
-	message_error("HpglRenderer : Unsupported fill mode specified!\n");
+	g_warning("HpglRenderer : Unsupported fill mode specified!");
     }
 }
 
@@ -695,9 +694,10 @@ hpgl_renderer_class_init (HpglRendererClass *klass)
 }
 
 /* plug-in interface : export function */
-static void
-export_data(DiagramData *data, const gchar *filename, 
-            const gchar *diafilename, void* user_data)
+static gboolean
+export_data(DiagramData *data, DiaContext *ctx,
+	    const gchar *filename, const gchar *diafilename,
+	    void* user_data)
 {
     HpglRenderer *renderer;
     FILE *file;
@@ -706,10 +706,10 @@ export_data(DiagramData *data, const gchar *filename,
 
     file = g_fopen(filename, "w"); /* "wb" for binary! */
 
-    if (file == NULL) {
-	message_error(_("Can't open output file %s: %s\n"), 
-		      dia_message_filename(filename), strerror(errno));
-	return;
+    if (!file) {
+	dia_context_add_message_with_errno(ctx, errno, _("Can't open output file %s."), 
+					   dia_context_get_filename(ctx));
+	return FALSE;
     }
 
     renderer = g_object_new(HPGL_TYPE_RENDERER, NULL);
@@ -744,6 +744,8 @@ export_data(DiagramData *data, const gchar *filename,
     data_render(data, DIA_RENDERER(renderer), NULL, NULL, NULL);
 
     g_object_unref(renderer);
+
+    return TRUE;
 }
 
 static const gchar *extensions[] = { "plt", "hpgl", NULL };

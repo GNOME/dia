@@ -192,15 +192,6 @@ new_svg_renderer(DiagramData *data, const char *filename)
   Rectangle *extent;
   xmlDtdPtr dtd;
  
-  file = g_fopen(filename, "w");
-
-  if (file==NULL) {
-    message_error(_("Can't open output file %s: %s\n"), 
-		  dia_message_filename(filename), strerror(errno));
-    return NULL;
-  }
-  fclose(file);
-
   /* we need access to our base object */
   renderer = DIA_SVG_RENDERER (g_object_new(SVG_TYPE_RENDERER, NULL));
 
@@ -486,16 +477,19 @@ draw_text (DiaRenderer *self, Text *text)
   }
 }
 
-static void
-export_svg(DiagramData *data, const gchar *filename, 
-           const gchar *diafilename, void* user_data)
+static gboolean
+export_svg(DiagramData *data, DiaContext *ctx,
+	   const gchar *filename, const gchar *diafilename,
+	   void* user_data)
 {
   DiaSvgRenderer *renderer;
 
   if ((renderer = new_svg_renderer(data, filename))) {
     data_render(data, DIA_RENDERER(renderer), NULL, NULL, NULL);
     g_object_unref(renderer);
+    return TRUE;
   }
+  return FALSE;
 }
 
 static const gchar *extensions[] = { "svg", NULL };

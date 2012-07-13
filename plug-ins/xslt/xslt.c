@@ -53,9 +53,9 @@ fromxsl_t *xsl_from;
 static char *diafilename = NULL;
 static char *filename = NULL;
 
-static void
-export_xslt(DiagramData *data, const gchar *f, 
-            const gchar *diaf, void* user_data)
+static gboolean
+export_xslt(DiagramData *data, DiaContext *ctx,
+	    const gchar *f, const gchar *diaf, void* user_data)
 {
 	if(filename != NULL)
 		g_free(filename);

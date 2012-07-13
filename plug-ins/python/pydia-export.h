@@ -16,6 +16,7 @@ extern PyTypeObject PyDiaExportFilter_Type;
 PyObject *PyDiaExportFilter_New(DiaExportFilter *filter);
 
 /* first callback for file exports */
-void PyDia_export_data(DiagramData *data, const gchar *filename, const gchar *diafilename, void *user_data);
+gboolean PyDia_export_data(DiagramData *data, DiaContext *ctx,
+			   const gchar *filename, const gchar *diafilename, void *user_data);
 
 #endif

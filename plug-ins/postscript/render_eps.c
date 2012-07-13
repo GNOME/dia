@@ -68,44 +68,60 @@
 #include "diapsft2renderer.h"
 #endif
 
-static void export_eps(DiagramData *data, const gchar *filename, 
-		       const gchar *diafilename, void* user_data);
-static void export_render_eps(DiaPsRenderer *renderer, 
-			      DiagramData *data, const gchar *filename, 
-			      const gchar *diafilename, void* user_data);
+static gboolean export_eps(DiagramData *data, DiaContext *ctx,
+			   const gchar *filename, const gchar *diafilename, 
+			   void* user_data);
+static gboolean export_render_eps(DiaPsRenderer *renderer, 
+				  DiagramData *data, DiaContext *ctx,
+				  const gchar *filename, const gchar *diafilename, 
+				  void* user_data);
 
 #ifdef HAVE_FREETYPE
-static void export_ft2_eps(DiagramData *data, const gchar *filename, 
-		    const gchar *diafilename, void* user_data);
-static void
-export_ft2_eps(DiagramData *data, const gchar *filename, 
-	       const gchar *diafilename, void* user_data) {
-  export_render_eps(g_object_new (DIA_TYPE_PS_FT2_RENDERER, NULL),
-		    data, filename, diafilename, user_data);
+static gboolean export_ft2_eps(DiagramData *data, DiaContext *ctx,
+			       const gchar *filename, const gchar *diafilename,
+			       void* user_data);
+static gboolean
+export_ft2_eps(DiagramData *data, DiaContext *ctx,
+	       const gchar *filename, const gchar *diafilename,
+	       void* user_data)
+{
+  gboolean ret;
+  DiaPsRenderer *renderer = g_object_new (DIA_TYPE_PS_FT2_RENDERER, NULL);
+
+  ret = export_render_eps(renderer, data, ctx, filename, diafilename, user_data);
+  g_object_unref (renderer);
+
+  return ret;
 }
 #endif
 
-static void
-export_eps(DiagramData *data, const gchar *filename, 
-           const gchar *diafilename, void* user_data)
+static gboolean
+export_eps(DiagramData *data, DiaContext *ctx,
+	   const gchar *filename, const gchar *diafilename,
+	   void* user_data)
 {
-  export_render_eps(g_object_new (DIA_TYPE_PS_RENDERER, NULL),
-		    data, filename, diafilename, user_data);
+  gboolean ret;
+  DiaPsRenderer *renderer = g_object_new (DIA_TYPE_PS_RENDERER, NULL);
+
+  ret = export_render_eps(renderer, data, ctx, filename, diafilename, user_data);
+  g_object_unref (renderer);
+
+  return ret;
 }
 
-static void
+static gboolean
 export_render_eps(DiaPsRenderer *renderer, 
-		  DiagramData *data, const gchar *filename, 
-		  const gchar *diafilename, void* user_data)
+		  DiagramData *data, DiaContext *ctx,
+		  const gchar *filename, const gchar *diafilename,
+		  void* user_data)
 {
   FILE *outfile;
 
   outfile = g_fopen(filename, "w");
   if (outfile == NULL) {
-    message_error(_("Can't open output file %s: %s\n"), 
-		  dia_message_filename(filename), strerror(errno));
-    g_object_unref(renderer);
-    return;
+    dia_context_add_message_with_errno (ctx, errno, _("Can't open output file %s"), 
+					dia_context_get_filename(ctx));
+    return FALSE;
   }
   renderer->file = outfile;
   renderer->scale = 28.346 * data->paper.scaling;
@@ -121,8 +137,9 @@ export_render_eps(DiaPsRenderer *renderer,
 
     data_render(data, DIA_RENDERER(renderer), NULL, NULL, NULL);
   }
-  g_object_unref (renderer);
   fclose(outfile);
+
+  return TRUE;
 }
 
 DiaRenderer *

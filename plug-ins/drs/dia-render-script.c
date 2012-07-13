@@ -59,7 +59,6 @@
 #include "intl.h"
 #include "filter.h"
 #include "plug-ins.h"
-#include "message.h"
 #include "diagramdata.h"
 #include "dia_xml_libxml.h"
 
@@ -108,9 +107,10 @@ drs_data_render (DiagramData *data, DiaRenderer *renderer)
 }
 
 /* dia export funtion */
-static void
-export_data(DiagramData *data, const gchar *filename, 
-            const gchar *diafilename, void* user_data)
+static gboolean
+export_data(DiagramData *data, DiaContext *ctx,
+	    const gchar *filename, const gchar *diafilename,
+	    void* user_data)
 {
   DrsRenderer *renderer;
   xmlDtdPtr dtd;
@@ -121,9 +121,9 @@ export_data(DiagramData *data, const gchar *filename,
     FILE *file = g_fopen(filename, "w");
 
     if (!file) {
-      message_error(_("Can't open output file %s: %s\n"), 
-		    dia_message_filename(filename), strerror(errno));
-      return;
+      dia_context_add_message_with_errno (ctx, errno, _("Can't open output file %s."), 
+					  dia_context_get_filename(ctx));
+      return FALSE;
     }
     fclose(file);
   }
@@ -149,6 +149,8 @@ export_data(DiagramData *data, const gchar *filename,
   xmlFreeDoc(doc);
 
   g_object_unref(renderer);
+
+  return TRUE;
 }
 
 static const gchar *extensions[] = { "drs", NULL };

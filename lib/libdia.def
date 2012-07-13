@@ -206,10 +206,10 @@ EXPORTS
  dia_config_filename
 
  dia_context_add_message
+ dia_context_add_message_with_errno
  dia_context_get_filename
  dia_context_new
  dia_context_release
- dia_context_set_errno
  dia_context_set_filename
 
  dia_dynamic_menu_get_type

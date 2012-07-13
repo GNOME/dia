@@ -26,7 +26,6 @@
 #include <locale.h>
 
 #include "intl.h"
-#include "message.h"
 #include "geometry.h"
 
 #include "pydia-object.h" /* for PyObject_HEAD_INIT */
@@ -919,9 +918,9 @@ draw_image(DiaRenderer *renderer,
   }
 }
 
-void
-PyDia_export_data(DiagramData *data, const gchar *filename, 
-                  const gchar *diafilename, void* user_data)
+gboolean
+PyDia_export_data(DiagramData *data, DiaContext *ctx,
+		  const gchar *filename, const gchar *diafilename, void* user_data)
 {
   DiaPyRenderer *renderer;
 
@@ -930,9 +929,9 @@ PyDia_export_data(DiagramData *data, const gchar *filename,
     file = g_fopen(filename, "w"); /* "wb" for binary! */
 
     if (file == NULL) {
-      message_error(_("Couldn't open '%s' for writing.\n"), 
-		    dia_message_filename(filename));
-      return;
+      dia_context_add_message_with_errno(ctx, errno, _("Couldn't open '%s' for writing.\n"), 
+				         dia_context_get_filename(ctx));
+      return FALSE;
     }
     else
       fclose (file);
@@ -950,6 +949,8 @@ PyDia_export_data(DiagramData *data, const gchar *filename,
   data_render(data, DIA_RENDERER(renderer), NULL, NULL, NULL);
 
   g_object_unref(renderer);
+
+  return TRUE;
 }
 
 DiaRenderer *

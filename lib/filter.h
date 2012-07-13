@@ -32,8 +32,9 @@ enum FilterFlags {
   FILTER_DONT_GUESS = (1<<0)
 };
 
-typedef void (* DiaExportFunc) (DiagramData *dia, const gchar *filename,
-				const gchar *diafilename, void* user_data);
+typedef gboolean (* DiaExportFunc) (DiagramData *dia,  DiaContext *ctx,
+				    const gchar *filename, const char *diagram_filename,
+				    void* user_data);
 
 struct _DiaExportFilter {
   const gchar *description;

@@ -240,8 +240,8 @@ fig_read_n_points(FILE *file, int n, Point **points, DiaContext *ctx)
 	int x,y;
 	Point p;
 	if (fscanf(file, " %d %d ", &x, &y) != 2) {
-	    dia_context_set_errno(ctx, errno);
-	    dia_context_add_message(ctx, _("Error while reading %dth of %d points"), i, n);
+	    dia_context_add_message_with_errno (ctx, errno,
+						_("Error while reading %dth of %d points"), i, n);
 	    g_array_free(points_list, TRUE);
 	    return FALSE;
 	}
@@ -431,8 +431,7 @@ fig_read_ellipse(FILE *file, DiaContext *ctx)
 	       &radius_x, &radius_y,
 	       &start_x, &start_y,
 	       &end_x, &end_y) < 19) {
-	dia_context_set_errno(ctx, errno);
-	dia_context_add_message(ctx, _("Couldn't read ellipse info."));
+	dia_context_add_message_with_errno(ctx, errno, _("Couldn't read ellipse info."));
 	setlocale(LC_NUMERIC, old_locale);
 	return NULL;
     }
@@ -501,8 +500,7 @@ fig_read_polyline(FILE *file, DiaContext *ctx)
 	       &forward_arrow,
 	       &backward_arrow,
 	       &npoints) != 15) {
-	dia_context_set_errno(ctx, errno);
-	dia_context_add_message(ctx, _("Couldn't read polyline info.\n"));
+	dia_context_add_message_with_errno(ctx, errno, _("Couldn't read polyline info.\n"));
 	goto exit;
     }
 
@@ -517,8 +515,7 @@ fig_read_polyline(FILE *file, DiaContext *ctx)
     if (sub_type == 5) { /* image has image name before npoints */
 	/* Despite what the specs say */
 	if (fscanf(file, " %d", &flipped) != 1) {
-	    dia_context_set_errno(ctx, errno);
-	    dia_context_add_message(ctx, _("Couldn't read flipped bit."));
+	    dia_context_add_message_with_errno(ctx, errno, _("Couldn't read flipped bit."));
 	    goto exit;
 	}
 
@@ -730,8 +727,7 @@ fig_read_spline(FILE *file, DiaContext *ctx)
 	       &forward_arrow,
 	       &backward_arrow,
 	       &npoints) != 13) {
-	dia_context_set_errno(ctx, errno);
-	dia_context_add_message(ctx, _("Couldn't read spline info."));
+	dia_context_add_message_with_errno(ctx, errno, _("Couldn't read spline info."));
 	goto exit;
     }
 
@@ -763,8 +759,7 @@ fig_read_spline(FILE *file, DiaContext *ctx)
 	    gboolean interpolated = TRUE;
 	    for (i = 0; i < npoints; i++) {
 		if (fscanf(file, " %lf ", &f) != 1) {
-		    dia_context_set_errno(ctx, errno);
-		    dia_context_add_message(ctx, _("Couldn't read spline info."));
+		    dia_context_add_message_with_errno(ctx, errno,_("Couldn't read spline info."));
 		    goto exit;
 		}
 		if (f != -1.0 && f != 0.0) {
@@ -872,8 +867,7 @@ fig_read_arc(FILE *file, DiaContext *ctx)
 	       &x1, &y1,
 	       &x2, &y2,
 	       &x3, &y3) != 21) {
-	dia_context_set_errno(ctx, errno);
-	dia_context_add_message(ctx, _("Couldn't read arc info."));
+	dia_context_add_message_with_errno(ctx, errno, _("Couldn't read arc info."));
 	goto exit;
     }
 
@@ -971,8 +965,7 @@ fig_read_text(FILE *file, DiaContext *ctx)
 	       &length,
 	       &x,
 	       &y) != 12) {
-	dia_context_set_errno(ctx, errno);
-	dia_context_add_message(ctx, _("Couldn't read text info."));
+	dia_context_add_message_with_errno(ctx, errno, _("Couldn't read text info."));
 	setlocale(LC_NUMERIC, old_locale);
 	return NULL;
     }
@@ -1008,7 +1001,6 @@ fig_read_text(FILE *file, DiaContext *ctx)
 	    /* "Default font" - wazzat? */
 	    tprop->attr.font = dia_font_new_from_legacy_name("Times-Roman");
 	} else if (font < 0 || font >= num_fig_fonts()) {
-	    dia_context_set_errno(ctx, errno);
 	    dia_context_add_message(ctx, _("Can't find Postscript font nr. %d, using sans"), font);
 	    tprop->attr.font = dia_font_new_from_legacy_name("Helvetica");
 	} else {
@@ -1037,8 +1029,7 @@ fig_read_object(FILE *file, DiaContext *ctx)
 
     if (fscanf(file, "%d ", &objecttype) != 1) {
 	if (!feof(file)) {
-	    dia_context_set_errno(ctx, errno);
-	    dia_context_add_message(ctx, _("Couldn't identify Fig object."));
+	    dia_context_add_message_with_errno(ctx, errno, _("Couldn't identify Fig object."));
 	}
 	return FALSE;
     }
@@ -1065,8 +1056,7 @@ fig_read_object(FILE *file, DiaContext *ctx)
 	Color color;
 
 	if (fscanf(file, " %d #%xd", &colornumber, &colorvalues) != 2) {
-	    dia_context_set_errno(ctx, errno);
-	    dia_context_add_message(ctx, _("Couldn't read color: %s\n"));
+	    dia_context_add_message_with_errno(ctx, errno, _("Couldn't read color: %s\n"));
 	    return FALSE;
 	}
 
@@ -1118,8 +1108,7 @@ fig_read_object(FILE *file, DiaContext *ctx)
     case 6: {/* Compound object which is composed of one or more objects. */
 	int dummy;
 	if (fscanf(file, " %d %d %d %d\n", &dummy, &dummy, &dummy, &dummy) != 4) {
-	    dia_context_set_errno(ctx, errno);
-	    dia_context_add_message(ctx, _("Couldn't read group extend."));
+	    dia_context_add_message_with_errno(ctx, errno, _("Couldn't read group extend."));
 	    return FALSE;
 	}
 	/* Group extends don't really matter */
@@ -1165,8 +1154,7 @@ fig_read_paper_size(FILE *file, DiagramData *dia, DiaContext *ctx) {
     int paper;
 
     if (!fgets(buf, BUFLEN, file)) {
-	dia_context_set_errno(ctx, errno);
-	dia_context_add_message(ctx, _("Error reading paper size."));
+	dia_context_add_message_with_errno(ctx, errno, _("Error reading paper size."));
 	return FALSE;
     }
 
@@ -1190,7 +1178,6 @@ fig_read_meta_data(FILE *file, DiagramData *dia, DiaContext *ctx)
 	int portrait;
 
 	if ((portrait = fig_read_line_choice(file, "Portrait", "Landscape", ctx)) == -1) {
-	    dia_context_set_errno(ctx, errno);
 	    dia_context_add_message(ctx, _("Error reading paper orientation."));
 	    return FALSE;
 	}
@@ -1201,7 +1188,6 @@ fig_read_meta_data(FILE *file, DiagramData *dia, DiaContext *ctx)
 	int justify;
 
 	if ((justify = fig_read_line_choice(file, "Center", "Flush Left", ctx)) == -1) {
-	    dia_context_set_errno(ctx, errno);
 	    dia_context_add_message(ctx, _("Error reading justification."));
 	    return FALSE;
 	}
@@ -1212,7 +1198,6 @@ fig_read_meta_data(FILE *file, DiagramData *dia, DiaContext *ctx)
 	int units;
 
 	if ((units = fig_read_line_choice(file, "Metric", "Inches", ctx)) == -1) {
-	    dia_context_set_errno(ctx, errno);
 	    dia_context_add_message(ctx, _("Error reading units."));
 	    return FALSE;
 	}
@@ -1229,8 +1214,7 @@ fig_read_meta_data(FILE *file, DiagramData *dia, DiaContext *ctx)
 
 	old_locale = setlocale(LC_NUMERIC, "C");
 	if (fscanf(file, "%lf\n", &mag) != 1) {
-	    dia_context_set_errno(ctx, errno);
-	    dia_context_add_message(ctx, _("Error reading magnification."));
+	    dia_context_add_message_with_errno(ctx, errno, _("Error reading magnification."));
 	    setlocale(LC_NUMERIC, old_locale);
 	    return FALSE;
 	}
@@ -1243,7 +1227,6 @@ fig_read_meta_data(FILE *file, DiagramData *dia, DiaContext *ctx)
 	int multiple;
 
 	if ((multiple = fig_read_line_choice(file, "Single", "Multiple", ctx)) == -1) {
-	    dia_context_set_errno(ctx, errno);
 	    dia_context_add_message(ctx, _("Error reading multipage indicator."));
 	    return FALSE;
 	}
@@ -1255,8 +1238,7 @@ fig_read_meta_data(FILE *file, DiagramData *dia, DiaContext *ctx)
 	int transparent;
 
 	if (fscanf(file, "%d\n", &transparent) != 1) {
-	    dia_context_set_errno(ctx, errno);
-	    dia_context_add_message(ctx, _("Error reading transparent color."));
+	    dia_context_add_message_with_errno(ctx, errno, _("Error reading transparent color."));
 	    return FALSE;
 	}
     
@@ -1265,8 +1247,7 @@ fig_read_meta_data(FILE *file, DiagramData *dia, DiaContext *ctx)
 
     if (!skip_comments(file)) {
 	if (!feof(file)) {
-	    dia_context_set_errno(ctx, errno);
-	    dia_context_add_message(ctx, _("Error reading Fig file."));
+	    dia_context_add_message_with_errno(ctx, errno, _("Error reading Fig file."));
 	} else {
 	    dia_context_add_message(ctx, _("Premature end of Fig file\n"));
 	}
@@ -1277,8 +1258,7 @@ fig_read_meta_data(FILE *file, DiagramData *dia, DiaContext *ctx)
 	int resolution, coord_system;
 
 	if (fscanf(file, "%d %d\n", &resolution, &coord_system) != 2) {
-	    dia_context_set_errno(ctx, errno);
-	    dia_context_add_message(ctx, _("Error reading resolution."));
+	    dia_context_add_message_with_errno(ctx, errno, _("Error reading resolution."));
 	    return FALSE;
 	}
     
@@ -1304,18 +1284,17 @@ import_fig(const gchar *filename, DiagramData *dia, DiaContext *ctx, void* user_
     }
 
     figfile = g_fopen(filename,"r");
-    if(figfile == NULL){
-	dia_context_add_message(ctx, _("Couldn't open: '%s' for reading.\n"), 
+    if (figfile == NULL) {
+	dia_context_add_message_with_errno(ctx, errno, _("Couldn't open: '%s' for reading.\n"), 
 		                dia_context_get_filename(ctx));
 	return FALSE;
     }
   
     /* First check magic bytes */
     if (fgets(buf, BUFLEN, figfile) == NULL ||
-        sscanf(buf, "#FIG %d.%d\n", &figmajor, &figminor) != 2) {
-	
-	dia_context_set_errno (ctx, errno);
-	dia_context_add_message(ctx, _("Doesn't look like a Fig file"));
+        sscanf(buf, "#FIG %d.%d\n", &figmajor, &figminor) != 2)
+    {
+	dia_context_add_message_with_errno(ctx, errno, _("Doesn't look like a Fig file"));
 	fclose(figfile);
 	return FALSE;
     }
@@ -1329,8 +1308,7 @@ import_fig(const gchar *filename, DiagramData *dia, DiaContext *ctx, void* user_
 
     if (!skip_comments(figfile)) {
 	if (!feof(figfile)) {
-	    dia_context_set_errno (ctx, errno);
-	    dia_context_add_message(ctx, _("Error reading Fig file."));
+	    dia_context_add_message_with_errno(ctx, errno, _("Error reading Fig file."));
 	} else {
 	    dia_context_add_message(ctx, _("Premature end of Fig file"));
 	}
@@ -1348,8 +1326,7 @@ import_fig(const gchar *filename, DiagramData *dia, DiaContext *ctx, void* user_
     do {
 	if (!skip_comments(figfile)) {
 	    if (!feof(figfile)) {
-	        dia_context_set_errno (ctx, errno);
-		dia_context_add_message(ctx, _("Error reading Fig file."));
+		dia_context_add_message_with_errno(ctx, errno, _("Error reading Fig file."));
 	    } else {
 		break;
 	    }

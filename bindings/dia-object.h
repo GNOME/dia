@@ -34,7 +34,7 @@ public :
     //! create a default initialized object 
     Object* create (double x, double y, dia::Handle** h1 = 0, dia::Handle** h2 = 0) const;
     //! load an object from storage
-    Object* load (ObjectNode node, int version, const char* filename) const;
+    Object* load (ObjectNode node, int version, DiaContext *ctx) const;
     //! save an object to file filename
     void save (Object* o, ObjectNode node, const char* filename) const;
     //! OPTIONAL: open the defaults dialog

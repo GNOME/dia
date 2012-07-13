@@ -371,15 +371,15 @@ do_convert(const char *infname,
    */
   if (size) {
     if (ef == filter_get_by_name ("png-libart")) /* the warning we get is appropriate, don't cast */
-      ef->export_func(diagdata, outfname, infname, size);
+      ef->export_func(diagdata, ctx, outfname, infname, size);
     else {
       g_warning ("--size parameter unsupported for %s filter", 
                  ef->unique_name ? ef->unique_name : "selected");
-      ef->export_func(diagdata, outfname, infname, ef->user_data);
+      ef->export_func(diagdata, ctx, outfname, infname, ef->user_data);
     }
   }
   else
-    ef->export_func(diagdata, outfname, infname, ef->user_data);
+    ef->export_func(diagdata, ctx, outfname, infname, ef->user_data);
   /* if (!quiet) */ fprintf(stdout,
                       _("%s --> %s\n"),
                         infname,outfname);

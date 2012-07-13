@@ -39,7 +39,6 @@
 #include <glib/gstdio.h>
 
 #include "intl.h"
-#include "message.h"
 #include "geometry.h"
 #include "diarenderer.h"
 #include "filter.h"
@@ -154,9 +153,9 @@ static void draw_image(DiaRenderer *self,
 
 static void vdx_renderer_class_init (VDXRendererClass *klass);
 
-static void
-export_vdx(DiagramData *data, const gchar *filename, 
-           const gchar *diafilename, void* user_data);
+static gboolean export_vdx(DiagramData *data, DiaContext *ctx,
+			   const gchar *filename, const gchar *diafilename,
+			   void* user_data);
 
 static int
 vdxCheckColor(VDXRenderer *renderer, Color *color); 
@@ -1514,7 +1513,7 @@ static void draw_image(DiaRenderer *self,
  */
 
 const char *
-vdx_string_color(Color c)
+vdx_string_color(const Color c)
 {
     static char buf[8];
     sprintf(buf, "#%.2X%.2X%.2X", 
@@ -1785,9 +1784,10 @@ write_trailer(DiagramData *data, VDXRenderer *renderer)
  * @note Must know if 2002 or 2003 before start
  */
 
-static void
-export_vdx(DiagramData *data, const gchar *filename, 
-           const gchar *diafilename, void* user_data)
+static gboolean
+export_vdx(DiagramData *data, DiaContext *ctx,
+	   const gchar *filename, const gchar *diafilename,
+	   void* user_data)
 {
     FILE *file;
     VDXRenderer *renderer;
@@ -1798,9 +1798,9 @@ export_vdx(DiagramData *data, const gchar *filename,
     file = g_fopen(filename, "w");
 
     if (file == NULL) {
-        message_error(_("Can't open output file %s: %s\n"), 
-                      dia_message_filename(filename), strerror(errno));
-        return;
+	dia_context_add_message_with_errno (ctx, errno, _("Can't open output file %s"), 
+					    dia_context_get_filename(ctx));
+	return FALSE;
     }
 
     /* ugly, but still better than creatin corrupt files */

@@ -62,7 +62,7 @@ namespace W32 {
 
 static guint
 print_page(DiagramData *data, DiaExportFilter* pExp, W32::HANDLE hDC,
-           Rectangle *bounds, gint xpos, gint ypos)
+           Rectangle *bounds, gint xpos, gint ypos, DiaContext *ctx)
 {
   guint nobjs = 0;
   DiagramData page_data = *data; /* ugliness! */
@@ -77,14 +77,14 @@ print_page(DiagramData *data, DiaExportFilter* pExp, W32::HANDLE hDC,
 
   /* render the region */
   W32::StartPage((W32::HDC)hDC);
-  pExp->export_func(&page_data, "", "", (W32::HDC)hDC);
+  pExp->export_func(&page_data, ctx, "", "", (W32::HDC)hDC);
   W32::EndPage((W32::HDC)hDC);
 
   return nobjs;
 }
 
 static void
-paginate_gdiprint(DiagramData *data, DiaExportFilter* pExp, W32::HANDLE hDC)
+paginate_gdiprint(DiagramData *data, DiaExportFilter* pExp, W32::HANDLE hDC, DiaContext *ctx)
 {
   Rectangle *extents;
   gdouble width, height;
@@ -122,7 +122,7 @@ paginate_gdiprint(DiagramData *data, DiaExportFilter* pExp, W32::HANDLE hDC)
       page_bounds.top = y;
       page_bounds.bottom = y + height;
 
-      nobjs += print_page(data, pExp, hDC, &page_bounds, xpos, ypos);
+      nobjs += print_page(data, pExp, hDC, &page_bounds, xpos, ypos, ctx);
     }
   }
 }
@@ -133,7 +133,7 @@ static W32::HGLOBAL hDevNames = NULL;
 
 extern "C"
 void
-diagram_print_gdi(DiagramData *data, const gchar *filename)
+diagram_print_gdi(DiagramData *data, const gchar *filename, DiaContext *ctx)
 {
   W32::PRINTDLG printDlg;
   W32::DOCINFO  docInfo;
@@ -144,7 +144,7 @@ diagram_print_gdi(DiagramData *data, const gchar *filename)
   pExp = filter_get_by_name("wmf");
 
   if (!pExp) {
-    message_error("Can't print without the WMF plugin installed");
+    dia_context_add_message (ctx, "Can't print without the WMF plugin installed");
     return;
   }
 
@@ -221,7 +221,7 @@ diagram_print_gdi(DiagramData *data, const gchar *filename)
   if (0 >= W32::StartDoc(printDlg.hDC, &docInfo))
     ERROR_RETURN(W32::GetLastError());
   for (i = 0; i < printDlg.nCopies; i++)
-    paginate_gdiprint(data, pExp, printDlg.hDC);
+    paginate_gdiprint(data, pExp, printDlg.hDC, ctx);
 
   /* clean up */
   if (0 >= W32::EndDoc(printDlg.hDC))

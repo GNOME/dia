@@ -272,7 +272,7 @@ set_linecaps(DiaRenderer *self, LineCaps mode)
     cairo_set_line_cap (renderer->cr, CAIRO_LINE_CAP_SQUARE); /* ?? */
     break;
   default:
-    message_error("DiaCairoRenderer : Unsupported caps mode specified!\n");
+    g_warning("DiaCairoRenderer : Unsupported caps mode specified!\n");
   }
   DIAG_STATE(renderer->cr)
 }
@@ -295,7 +295,7 @@ set_linejoin(DiaRenderer *self, LineJoin mode)
     cairo_set_line_join (renderer->cr, CAIRO_LINE_JOIN_BEVEL);
     break;
   default:
-    message_error("DiaCairoRenderer : Unsupported join mode specified!\n");
+    g_warning("DiaCairoRenderer : Unsupported join mode specified!\n");
   }
   DIAG_STATE(renderer->cr)
 }
@@ -343,7 +343,7 @@ set_linestyle(DiaRenderer *self, LineStyle mode)
     cairo_set_dash (renderer->cr, dash, 2, 0);
     break;
   default:
-    message_error("DiaCairoRenderer : Unsupported line style specified!\n");
+    g_warning("DiaCairoRenderer : Unsupported line style specified!\n");
   }
   DIAG_STATE(renderer->cr)
 }
@@ -377,7 +377,7 @@ set_fillstyle(DiaRenderer *self, FillStyle mode)
       */
     break;
   default:
-    message_error("DiaCairoRenderer : Unsupported fill mode specified!\n");
+    g_warning("DiaCairoRenderer : Unsupported fill mode specified!\n");
   }
   DIAG_STATE(DIA_CAIRO_RENDERER (self)->cr)
 }

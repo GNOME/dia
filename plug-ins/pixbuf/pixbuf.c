@@ -35,18 +35,18 @@
 #include "prop_geomtypes.h"
 #include "object.h"
 
-static Rectangle rect;
-static real zoom = 1.0;
-
-static void
-export_data(DiagramData *data, const gchar *filename, 
-            const gchar *diafilename, void* user_data)
+static gboolean
+export_data(DiagramData *data, DiaContext *ctx,
+	    const gchar *filename, const gchar *diafilename,
+	    void* user_data)
 {
   DiaGdkRenderer *renderer;
   GdkColor color;
   int width, height;
   GdkPixbuf* pixbuf = NULL;
   GError* error = NULL;
+  Rectangle rect;
+  real zoom = 1.0;
   const char* format = (const char*)user_data;
 
   rect.left = data->extents.left;
@@ -85,18 +85,20 @@ export_data(DiagramData *data, const gchar *filename,
     }
   else
     {
-      message_error ("Failed to create pixbuf from drawable.");
+      dia_context_add_message(ctx, _("Failed to create pixbuf from drawable."));
     }
 
   if (error)
     {
-      message_warning(_("Could not save file:\n%s\n%s"),
-		      dia_message_filename(filename),
-                      error->message);
+      dia_context_add_message(ctx, _("Could not save file:\n%s"),
+		              dia_context_get_filename(ctx),
+			      error->message);
       g_error_free (error);
     }
 
   g_object_unref (renderer);
+
+  return TRUE;
 }
 
 static gboolean

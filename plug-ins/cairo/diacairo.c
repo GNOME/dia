@@ -72,7 +72,6 @@
 #endif
 
 #include "intl.h"
-#include "message.h"
 #include "geometry.h"
 #include "dia_image.h"
 #include "diarenderer.h"
@@ -101,9 +100,10 @@ typedef enum OutputKind
 #endif
 
 /* dia export funtion */
-static void
-export_data(DiagramData *data, const gchar *filename, 
-            const gchar *diafilename, void* user_data)
+static gboolean
+export_data(DiagramData *data, DiaContext *ctx,
+	    const gchar *filename, const gchar *diafilename,
+            void* user_data)
 {
   DiaCairoRenderer *renderer;
   FILE *file;
@@ -122,18 +122,18 @@ export_data(DiagramData *data, const gchar *filename,
     file = g_fopen(filename, "wb"); /* "wb" for binary! */
 
     if (file == NULL) {
-      message_error(_("Can't open output file %s: %s\n"), 
-		    dia_message_filename(filename), strerror(errno));
-      return;
+      dia_context_add_message_with_errno(ctx, errno, _("Can't open output file %s."), 
+					 dia_context_get_filename(ctx));
+      return FALSE;
     }
     fclose (file);
 #ifdef G_OS_WIN32
     filename_crt =  g_locale_from_utf8 (filename, -1, NULL, NULL, NULL);
     if (!filename_crt) {
-      message_error(_("Can't convert output filename '%s' to locale encoding.\n"
-                      "Please choose a different name to save with Cairo.\n"), 
-		    dia_message_filename(filename), strerror(errno));
-      return;
+      dia_context_add_message(ctx, _("Can't convert output filename '%s' to locale encoding.\n"
+				     "Please choose a different name to save with Cairo.\n"),
+			      dia_context_get_filename(ctx));
+      return FALSE;
     }
 #endif
   } /* != CLIPBOARD */
@@ -302,7 +302,7 @@ export_data(DiagramData *data, const gchar *filename,
       fwrite(pData,1,nSize,f);
       fclose(f);
     } else {
-      message_error (_("Can't write %d bytes to %s"), nSize, filename);
+      dia_context_add_message(ctx, _("Can't write %d bytes to %s"), nSize, filename);
     }
     DeleteEnhMetaFile (hEmf);
     g_free (pData);
@@ -318,7 +318,7 @@ export_data(DiagramData *data, const gchar *filename,
       fwrite(pData,1,nSize,f);
       fclose(f);
     } else {
-      message_error (_("Can't write %d bytes to %s"), nSize, filename);
+      dia_context_add_message(ctx, _("Can't write %d bytes to %s"), nSize, filename);
     }
     ReleaseDC(NULL, hdc);
     DeleteEnhMetaFile (hEmf);
@@ -331,7 +331,7 @@ export_data(DiagramData *data, const gchar *filename,
         && CloseClipboard ()) {
       hEmf = NULL; /* data now owned by clipboard */
     } else {
-      message_error (_("Clipboard copy failed"));
+      dia_context_add_message(ctx, _("Clipboard copy failed"));
       DeleteEnhMetaFile (hEmf);
     }
   }
@@ -339,11 +339,13 @@ export_data(DiagramData *data, const gchar *filename,
   g_object_unref(renderer);
   if (filename != filename_crt)
     g_free (filename_crt);
+  return TRUE;
 }
 
-static void
-export_print_data (DiagramData *data, const gchar *filename_utf8, 
-                   const gchar *diafilename, void* user_data)
+static gboolean
+export_print_data (DiagramData *data, DiaContext *ctx,
+		   const gchar *filename_utf8, const gchar *diafilename,
+		   void* user_data)
 {
   OutputKind kind = (OutputKind)user_data;
   GtkPrintOperation *op = create_print_operation (data, filename_utf8);
@@ -356,16 +358,18 @@ export_print_data (DiagramData *data, const gchar *filename_utf8,
 # endif
 
   if (!data) {
-    message_error (_("Nothing to print"));
-    return;
+    dia_context_add_message(ctx, _("Nothing to print"));
+    return FALSE;
   }
 
   gtk_print_operation_set_export_filename (op, filename_utf8 ? filename_utf8 : "output.pdf");
   res = gtk_print_operation_run (op, GTK_PRINT_OPERATION_ACTION_EXPORT, NULL, &error);
   if (GTK_PRINT_OPERATION_RESULT_ERROR == res) {
-    message_error (error->message);
+    dia_context_add_message(ctx, "%s", error->message);
     g_error_free (error);
+    return FALSE;
   }
+  return TRUE;
 }
 
 #ifdef CAIRO_HAS_PS_SURFACE
@@ -459,10 +463,14 @@ cairo_clipboard_callback (DiagramData *data,
                           guint flags, /* further additions */
                           void *user_data)
 {
+  DiaContext *ctx = dia_context_new(_("Cairo Clipboard Copy"));
+
   g_return_val_if_fail ((OutputKind)user_data == OUTPUT_CLIPBOARD, NULL);
   g_return_val_if_fail (data != NULL, NULL);
+
   /* filename is not necessary */
-  export_data (data, filename, filename, user_data);
+  export_data (data, ctx, filename, filename, user_data);
+  dia_context_release (ctx);
 
   return NULL;
 }

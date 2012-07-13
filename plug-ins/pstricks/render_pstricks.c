@@ -381,7 +381,7 @@ set_fillstyle(DiaRenderer *self, FillStyle mode)
     case FILLSTYLE_SOLID:
 	break;
     default:
-	message_error("pstricks_renderer: Unsupported fill mode specified!\n");
+	g_warning("pstricks_renderer: Unsupported fill mode specified!\n");
     }
 }
 
@@ -894,9 +894,10 @@ draw_image(DiaRenderer *self,
 }
 
 /* --- export filter interface --- */
-static void
-export_pstricks(DiagramData *data, const gchar *filename, 
-                const gchar *diafilename, void* user_data)
+static gboolean
+export_pstricks(DiagramData *data, DiaContext *ctx,
+		const gchar *filename, const gchar *diafilename,
+		void* user_data)
 {
     PstricksRenderer *renderer;
     FILE *file;
@@ -915,9 +916,10 @@ export_pstricks(DiagramData *data, const gchar *filename,
  
     file = g_fopen(filename, "wb");
 
-    if (file==NULL) {
-	message_error(_("Can't open output file %s: %s\n"), 
-		      dia_message_filename(filename), strerror(errno));
+    if (file == NULL) {
+	dia_context_add_message_with_errno (ctx, errno, _("Can't open output file %s"), 
+					    dia_context_get_filename(ctx));
+	return FALSE;
     }
 
     renderer = g_object_new(PSTRICKS_TYPE_RENDERER, NULL);
@@ -983,6 +985,8 @@ export_pstricks(DiagramData *data, const gchar *filename,
     data_render(data, DIA_RENDERER(renderer), NULL, NULL, NULL);
 
     g_object_unref(renderer);
+
+    return TRUE;
 }
 
 static const gchar *extensions[] = { "tex", NULL };
