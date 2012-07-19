@@ -15,6 +15,9 @@
 
 G_BEGIN_DECLS
 
+typedef struct _DiaLibartRenderer DiaLibartRenderer;
+typedef struct _DiaLibartRendererClass DiaLibartRendererClass;
+
 #define DIA_TYPE_LIBART_RENDERER           (dia_libart_renderer_get_type ())
 #define DIA_LIBART_RENDERER(obj)           (G_TYPE_CHECK_INSTANCE_CAST ((obj), DIA_TYPE_LIBART_RENDERER, DiaLibartRenderer))
 #define DIA_LIBART_RENDERER_CLASS(klass)   (G_TYPE_CHECK_CLASS_CAST ((klass), DIA_TYPE_LIBART_RENDERER, DiaLibartRendererClass))

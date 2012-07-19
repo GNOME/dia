@@ -62,15 +62,13 @@ typedef struct _DiaImage DiaImage;
 /* In diagdkrenderer.h: */
 typedef struct _DiaGdkRenderer DiaGdkRenderer;
 typedef struct _DiaGdkRendererClass DiaGdkRendererClass;
-typedef struct _DDisp DDisp;
-
-/* In dialibartrenderer.h: */
-typedef struct _DiaLibartRenderer DiaLibartRenderer;
-typedef struct _DiaLibartRendererClass DiaLibartRendererClass;
 
 /* In diamenu.h: */
 typedef struct _DiaMenuItem DiaMenuItem;
 typedef struct _DiaMenu DiaMenu;
+
+/* In diacontext.h */
+typedef struct _DiaContext DiaContext;
 
 /* In diarenderer.h: */
 typedef struct _BezierApprox BezierApprox;
@@ -158,12 +156,6 @@ typedef struct _PropDescCommonArrayExtra PropDescCommonArrayExtra;
 typedef struct _PropDescDArrayExtra PropDescDArrayExtra;
 typedef struct _PropDescSArrayExtra PropDescSArrayExtra;
 typedef struct _PropOffset PropOffset;
-
-/* In ps-utf8.h: */
-typedef struct _PSFontDescriptor PSFontDescriptor;
-typedef struct _PSEncodingPage PSEncodingPage;
-typedef struct _PSUnicoder PSUnicoder;
-typedef struct _PSUnicoderCallbacks PSUnicoderCallbacks;
 
 /* In sheet.h: */
 typedef struct _Sheet Sheet;
