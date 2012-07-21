@@ -184,6 +184,8 @@ libdia_la_SOURCES =  \
 		prefs.h \
 		dialib.c \
 		dialib.h \
+		diacontext.c \
+		diacontext.h \
 		\
 		diacellrendererproperty.c \
 		diacellrendererproperty.h \
