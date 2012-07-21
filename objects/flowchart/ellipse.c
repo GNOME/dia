@@ -400,9 +400,9 @@ ellipse_update_data(Ellipse *ellipse, AnchorShape horiz, AnchorShape vert)
   radius1 = ellipse_radius(ellipse, p.x, p.y) - ellipse->border_width/2;
   radius2 = distance_point_point(&c, &p);
   
-  if (   ellipse->text_fitting == TEXTFIT_ALWAYS
-      || (   ellipse->text_fitting == TEXTFIT_WHEN_NEEDED
-          && radius1 < radius2)) {
+  if (   radius1 < radius2
+      && (   ellipse->text_fitting == TEXTFIT_ALWAYS
+          || ellipse->text_fitting == TEXTFIT_WHEN_NEEDED)) {
     /* increase size of the ellipse while keeping its aspect ratio */
     elem->width  *= radius2 / radius1;
     elem->height *= radius2 / radius1;
