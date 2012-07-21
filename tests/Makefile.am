@@ -10,8 +10,8 @@ tests:
 #	@test -z "${TEST_PROGS}" || ${GTESTER} --verbose ${TEST_PROGS}
 
 test: $(TEST_PROGS)
-	../app/run_dia.sh ../samples/render-test.dia --export=rt.shape && \
-	xmllint --dtdvalid ../doc/shape.dtd rt.shape
+	../app/run_dia.sh $(top_srcdir)/samples/render-test.dia --export=rt.shape && \
+	xmllint --dtdvalid $(top_srcdir)/doc/shape.dtd rt.shape && rm rt.shape && rm rt.png
 	./objects ../objects//
 
 
