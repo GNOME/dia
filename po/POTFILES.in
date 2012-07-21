@@ -60,6 +60,7 @@ lib/layer.c
 lib/message.c
 lib/object_defaults.c
 lib/orth_conn.h
+lib/persistence.c
 lib/plug-ins.c
 lib/propdialogs.c
 lib/prop_dict.c

@@ -25,6 +25,7 @@
 #include <string.h>
 #include <math.h>
 #include <glib.h>
+#include <errno.h>
 #include <glib/gstdio.h>
 
 #include "intl.h"
