@@ -138,15 +138,6 @@ objects/SADT/annotation.c
 objects/SADT/arrow.c
 objects/SADT/box.c
 objects/SADT/sadt.c
-objects/SISSI/area.c
-objects/SISSI/classification.h
-objects/SISSI/faraday.c
-objects/SISSI/room.c
-objects/SISSI/sissi.c
-objects/SISSI/sissi_dialog.c
-objects/SISSI/sissi.h
-objects/SISSI/sissi_object.c
-objects/SISSI/site.c
 objects/standard/arc.c
 objects/standard/bezier.c
 objects/standard/beziergon.c
@@ -274,6 +265,5 @@ sheets/network.sheet.in
 sheets/Pneumatic.sheet.in
 sheets/SADT.sheet.in
 sheets/SDL.sheet.in
-sheets/SISSI.sheet.in
 sheets/sybase.sheet.in
 sheets/UML.sheet.in

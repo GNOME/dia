@@ -1,4 +1,4 @@
-SUBDIRS = UML ER GRAFCET Jackson Istar KAOS SISSI
+SUBDIRS = UML ER GRAFCET Jackson Istar KAOS
 
 # To create a .sheet.in file from a .sheet file, run
 # sed 's!<description!<_description!;s!</description!</_description!;s!<name!<_name!;s!</name!</_name!;' 
@@ -25,8 +25,7 @@ sheet_DATA = $(SHEETS)
 	 	-c $(top_srcdir)/po/.intltool-merge-cache
 
 EXTRA_DIST = $(sheet_in_files) \
-	checktrans checktrans.py \
-	SISSI.sheet.in 
+	checktrans checktrans.py
 
 CLEANFILES = sheet-translation-report $(SHEETS) 
 

@@ -705,6 +705,9 @@ draw_text_line(DiaRenderer *self, TextLine *text_line,
   case ALIGN_RIGHT:
     tmp = g_strconcat(style, "; text-anchor:end", NULL);
     break;
+  default:
+    tmp = g_strdup("");
+    break;
   }
   g_free (style);
   style = tmp;
