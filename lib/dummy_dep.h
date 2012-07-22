@@ -21,7 +21,6 @@
 #include "font.h"
 #include "text.h"
 #include "orth_conn.h"
-#include "neworth_conn.h"
 #include "arrows.h"
 #include "utils.h"
 #include "poly_conn.h"
@@ -59,7 +58,6 @@ void *dummy_dep[] G_GNUC_UNUSED = {
   new_object_state_change, /* objchange.o */
   intl_score_locale, /* intl.o */
   connpointline_create, /* connpoint_line.o */
-  neworthconn_update_data, /* neworth_conn.o */
   object_create_props_dialog, /* properties.o */
   dynobj_list_get_dynobj_rate, /* dynamic_obj.o */
   connpoint_update, /* connectionpoint.c */

@@ -20,6 +20,7 @@
 
 #include "diatypes.h"
 #include "object.h"
+#include "connpoint_line.h"
 #include "boundingbox.h"
 
 typedef enum {
@@ -52,6 +53,7 @@ struct _OrthConn {
    * problematic, as they can only move freely in one direction.)
    * The array of pointers is ordered in segment order.
    */
+  ConnPointLine *midpoints;
   PolyBBExtras extra_spacing;
   gboolean autorouting; /* True if this line is autorouted. */
 };

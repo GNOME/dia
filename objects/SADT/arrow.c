@@ -28,7 +28,7 @@
 
 #include "intl.h"
 #include "object.h"
-#include "neworth_conn.h"
+#include "orth_conn.h"
 #include "connectionpoint.h"
 #include "diarenderer.h"
 #include "attributes.h"
@@ -60,7 +60,7 @@ typedef enum { SADT_ARROW_NORMAL,
 	       SADT_ARROW_DISABLED } Sadtarrow_style;
 
 typedef struct _Sadtarrow {
-  NewOrthConn orth;
+  OrthConn orth;
 
   Sadtarrow_style style;
   gboolean autogray;
@@ -106,7 +106,8 @@ static ObjectTypeOps sadtarrow_type_ops =
 DiaObjectType sadtarrow_type =
 {
   "SADT - arrow",   /* name */
-  0,                         /* version */
+  /* Version 0 had no autorouting and so shouldn't have it set by default. */
+  1,                         /* version */
   (char **) arrow_xpm,      /* pixmap */
   
   &sadtarrow_type_ops       /* ops */
@@ -140,7 +141,7 @@ PropEnumData flow_style[] = {
   { NULL }};
 
 static PropDescription sadtarrow_props[] = {
-  NEWORTHCONN_COMMON_PROPERTIES,
+  ORTHCONN_COMMON_PROPERTIES,
 
   { "arrow_style", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE,
     N_("Flow style:"), NULL, flow_style },
@@ -162,7 +163,7 @@ sadtarrow_describe_props(Sadtarrow *sadtarrow)
 }    
 
 static PropOffset sadtarrow_offsets[] = {
-  NEWORTHCONN_COMMON_PROPERTIES_OFFSETS,
+  ORTHCONN_COMMON_PROPERTIES_OFFSETS,
   { "arrow_style", PROP_TYPE_ENUM, offsetof(Sadtarrow,style)},
   { "autogray",PROP_TYPE_BOOL, offsetof(Sadtarrow,autogray)},
   { "line_colour", PROP_TYPE_COLOUR, offsetof(Sadtarrow, line_color) },
@@ -188,15 +189,15 @@ sadtarrow_set_props(Sadtarrow *sadtarrow, GPtrArray *props)
 static real
 sadtarrow_distance_from(Sadtarrow *sadtarrow, Point *point)
 {
-  NewOrthConn *orth = &sadtarrow->orth;
-  return neworthconn_distance_from(orth, point, ARROW_LINE_WIDTH);
+  OrthConn *orth = &sadtarrow->orth;
+  return orthconn_distance_from(orth, point, ARROW_LINE_WIDTH);
 }
 
 static void
 sadtarrow_select(Sadtarrow *sadtarrow, Point *clicked_point,
 		  DiaRenderer *interactive_renderer)
 {
-  neworthconn_update_data(&sadtarrow->orth);
+  orthconn_update_data(&sadtarrow->orth);
 }
 
 static ObjectChange*
@@ -209,7 +210,7 @@ sadtarrow_move_handle(Sadtarrow *sadtarrow, Handle *handle,
   assert(handle!=NULL);
   assert(to!=NULL);
 
-  change = neworthconn_move_handle(&sadtarrow->orth, handle, to, cp, 
+  change = orthconn_move_handle(&sadtarrow->orth, handle, to, cp, 
 				   reason, modifiers);
   sadtarrow_update_data(sadtarrow);
 
@@ -222,7 +223,7 @@ sadtarrow_move(Sadtarrow *sadtarrow, Point *to)
 {
   ObjectChange *change;
 
-  change = neworthconn_move(&sadtarrow->orth, to);
+  change = orthconn_move(&sadtarrow->orth, to);
   sadtarrow_update_data(sadtarrow);
 
   return change;
@@ -240,7 +241,7 @@ static void
 sadtarrow_draw(Sadtarrow *sadtarrow, DiaRenderer *renderer)
 {
   DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
-  NewOrthConn *orth = &sadtarrow->orth;
+  OrthConn *orth = &sadtarrow->orth;
   Point *points;
   int n;
   Color col;
@@ -372,7 +373,7 @@ sadtarrow_create(Point *startpoint,
 		  Handle **handle2)
 {
   Sadtarrow *sadtarrow;
-  NewOrthConn *orth;
+  OrthConn *orth;
   DiaObject *obj;
 
   sadtarrow = g_malloc0(sizeof(Sadtarrow));
@@ -382,7 +383,7 @@ sadtarrow_create(Point *startpoint,
   obj->type = &sadtarrow_type;
   obj->ops = &sadtarrow_ops;
   
-  neworthconn_init(orth, startpoint);
+  orthconn_init(orth, startpoint);
 
   sadtarrow_update_data(sadtarrow);
 
@@ -398,16 +399,16 @@ sadtarrow_create(Point *startpoint,
 static void
 sadtarrow_destroy(Sadtarrow *sadtarrow)
 {
-  neworthconn_destroy(&sadtarrow->orth);
+  orthconn_destroy(&sadtarrow->orth);
 }
 
 static void
 sadtarrow_update_data(Sadtarrow *sadtarrow)
 {
-  NewOrthConn *orth = &sadtarrow->orth;
+  OrthConn *orth = &sadtarrow->orth;
   PolyBBExtras *extra = &orth->extra_spacing;
 
-  neworthconn_update_data(&sadtarrow->orth);
+  orthconn_update_data(&sadtarrow->orth);
 
   extra->start_long = 
     extra->middle_trans = ARROW_LINE_WIDTH / 2.0;
@@ -437,14 +438,14 @@ sadtarrow_update_data(Sadtarrow *sadtarrow)
   default: 
     break;
   }
-  neworthconn_update_boundingbox(orth);
+  orthconn_update_boundingbox(orth);
 }
 
 static ObjectChange *
 sadtarrow_add_segment_callback(DiaObject *obj, Point *clicked, gpointer data)
 {
   ObjectChange *change;
-  change = neworthconn_add_segment((NewOrthConn *)obj, clicked);
+  change = orthconn_add_segment((OrthConn *)obj, clicked);
   sadtarrow_update_data((Sadtarrow *)obj);
   return change;
 }
@@ -453,7 +454,7 @@ static ObjectChange *
 sadtarrow_delete_segment_callback(DiaObject *obj, Point *clicked, gpointer data)
 {
   ObjectChange *change;
-  change = neworthconn_delete_segment((NewOrthConn *)obj, clicked);
+  change = orthconn_delete_segment((OrthConn *)obj, clicked);
   sadtarrow_update_data((Sadtarrow *)obj);
   return change;
 }
@@ -461,7 +462,7 @@ sadtarrow_delete_segment_callback(DiaObject *obj, Point *clicked, gpointer data)
 static DiaMenuItem object_menu_items[] = {
   { N_("Add segment"), sadtarrow_add_segment_callback, NULL, 1 },
   { N_("Delete segment"), sadtarrow_delete_segment_callback, NULL, 1 },
-  /*  ORTHCONN_COMMON_MENUS,*/
+  ORTHCONN_COMMON_MENUS,
 };
 
 static DiaMenu object_menu = {
@@ -474,12 +475,12 @@ static DiaMenu object_menu = {
 static DiaMenu *
 sadtarrow_get_object_menu(Sadtarrow *sadtarrow, Point *clickedpoint)
 {
-  NewOrthConn *orth;
+  OrthConn *orth;
 
   orth = &sadtarrow->orth;
   /* Set entries sensitive/selected etc here */
-  object_menu_items[0].active = neworthconn_can_add_segment(orth, clickedpoint);
-  object_menu_items[1].active = neworthconn_can_delete_segment(orth, clickedpoint);
+  object_menu_items[0].active = orthconn_can_add_segment(orth, clickedpoint);
+  object_menu_items[1].active = orthconn_can_delete_segment(orth, clickedpoint);
   /*  orthconn_update_object_menu(orth, clickedpoint, &object_menu_items[2]);*/
   return &object_menu;
 }
@@ -487,7 +488,15 @@ sadtarrow_get_object_menu(Sadtarrow *sadtarrow, Point *clickedpoint)
 static DiaObject *
 sadtarrow_load(ObjectNode obj_node, int version, DiaContext *ctx)
 {
-  return object_load_using_properties(&sadtarrow_type,
-                                      obj_node,version,ctx);
+  DiaObject *obj = object_load_using_properties(&sadtarrow_type,
+						obj_node,version,ctx);
+  if (version == 0) {
+    AttributeNode attr;
+    /* In old objects with no autorouting, set it to false. */
+    attr = object_find_attribute(obj_node, "autorouting");
+    if (attr == NULL)
+      ((OrthConn*)obj)->autorouting = FALSE;
+  }
+  return obj;
 }
 

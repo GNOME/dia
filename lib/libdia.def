@@ -507,21 +507,6 @@ EXPORTS
 
  new_object_state_change
 
- neworthconn_add_segment
- neworthconn_can_add_segment
- neworthconn_can_delete_segment
- neworthconn_copy
- neworthconn_delete_segment
- neworthconn_destroy
- neworthconn_distance_from
- neworthconn_init
- neworthconn_load
- neworthconn_move
- neworthconn_move_handle
- neworthconn_save
- neworthconn_update_boundingbox
- neworthconn_update_data
-
  object_add_connectionpoint
  object_add_handle
  object_apply_props
