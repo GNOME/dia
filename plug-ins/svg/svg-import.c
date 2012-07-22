@@ -914,10 +914,12 @@ add_def (gpointer       data,
   DiaObject  *obj = (DiaObject *)data;
   GHashTable *defs_ht = (GHashTable *)user_data;
   gchar *id = dia_object_get_meta (obj, "id");
-  if (id) /* pass ownership of name and object */
+  if (id) { /* pass ownership of name and object */
     g_hash_table_insert (defs_ht, id, obj);
-  else
+  } else {
     obj->ops->destroy (obj);
+    g_free (obj);
+  }
 }
 
 /*!
@@ -1048,6 +1050,7 @@ read_items (xmlNodePtr   startnode,
 	} else {
 	  /* just loose the object */
 	  otemp->ops->destroy (otemp);
+	  g_free (otemp);
 	  list->data = NULL;
 	}
 #endif

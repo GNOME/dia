@@ -85,6 +85,8 @@ PyDiaObject_Destroy(PyDiaObject *self, PyObject *args)
     }
 
     self->object->ops->destroy(self->object);
+    g_free(self->object);
+    self->object = NULL;
     Py_INCREF(Py_None);
     return Py_None;
 }

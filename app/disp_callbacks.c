@@ -1097,6 +1097,7 @@ ddisplay_drop_object(DDisplay *ddisp, gint x, gint y, DiaObjectType *otype,
       message_error(_("The object you dropped cannot fit into its parent. \nEither expand the parent object, or drop the object elsewhere."));
       obj->parent->children = g_list_remove(obj->parent->children, obj);
       obj->ops->destroy (obj);
+      g_free (obj);
       return NULL;
     }
 

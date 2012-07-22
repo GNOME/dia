@@ -75,6 +75,7 @@ _obj_destroy (gpointer val)
   DiaObject *obj = (DiaObject *)val;
 
   obj->ops->destroy (obj);
+  g_free (obj);
 }
 
 /**

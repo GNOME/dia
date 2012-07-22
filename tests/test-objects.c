@@ -111,6 +111,7 @@ _test_creation (const DiaObjectType *type)
 
   /* finally */
   o->ops->destroy (o);
+  g_free (o);
 }
 
 static void
@@ -158,7 +159,9 @@ _test_copy (const DiaObjectType *type)
 
   /* finally */
   o->ops->destroy (o);
+  g_free (o);
   oc->ops->destroy (oc);
+  g_free (oc);
 }
 
 /* samll helper to just throw it away */
@@ -234,6 +237,7 @@ _test_movement (const DiaObjectType *type)
 
   /* finally */
   o->ops->destroy (o);
+  g_free (o);
 }
 
 static void
@@ -265,6 +269,7 @@ _test_change (const DiaObjectType *type)
   }
   /* finally */
   o->ops->destroy (o);
+  g_free (o);
 }
 static void
 _test_move_handle (const DiaObjectType *type)
@@ -337,8 +342,11 @@ _test_move_handle (const DiaObjectType *type)
     }
   /* finally */
   o->ops->destroy (o);
-  if (o2)
+  g_free (o);
+  if (o2) {
     o2->ops->destroy (o2);
+    g_free (o2);
+  }
 }
 static void
 _test_connectionpoint_consistency (const DiaObjectType *type)
@@ -382,6 +390,7 @@ _test_connectionpoint_consistency (const DiaObjectType *type)
   }
   /* finally */
   o->ops->destroy (o);  
+  g_free (o);
 }
 
 /*
