@@ -458,7 +458,7 @@ parse_svg_node(ShapeInfo *info, xmlNodePtr node, xmlNsPtr svg_ns,
 	    g_object_unref (pixbuf);
 	  }
 	} else {
-	  gchar *imgfn = g_filename_from_uri((gchar *) str, NULL, NULL);
+	  imgfn = g_filename_from_uri((gchar *) str, NULL, NULL);
           if (!imgfn)
 	    /* despite it's name it ensures an absolute filename */
             imgfn = custom_get_relative_filename(filename, (gchar *) str);
