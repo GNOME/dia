@@ -47,8 +47,6 @@ struct _BezierConn {
 
 void bezierconn_update_data(BezierConn *bez);
 void bezierconn_update_boundingbox(BezierConn *bez);
-void bezierconn_simple_draw(BezierConn *bez, DiaRenderer *renderer,
-			    real width);
 void bezierconn_draw_control_lines(BezierConn *bez, DiaRenderer *renderer);
 void bezierconn_init(BezierConn *bez, int num_points);
 void bezierconn_set_points(BezierConn *poly, int num_points, BezPoint *points);

@@ -711,44 +711,6 @@ bezierconn_update_boundingbox(BezierConn *bez)
                   &bez->object.bounding_box);
 }
 
-/** Draw the main line of a bezier conn.
- * Note that this sets the linestyle, linejoin and linecaps to hardcoded
- * values.
- * @param bez The bezier conn to draw.
- * @param renderer The renderer to draw with.
- * @param width The linewidth of the bezier.
- */
-void
-bezierconn_simple_draw(BezierConn *bez, DiaRenderer *renderer, real width)
-{
-  BezPoint *points;
-  
-  g_assert(bez != NULL);
-  g_assert(renderer != NULL);
-
-  points = &bez->points[0];
-  
-  DIA_RENDERER_GET_CLASS(renderer)->set_linewidth(renderer, width);
-  DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_SOLID);
-  DIA_RENDERER_GET_CLASS(renderer)->set_linejoin(renderer, LINEJOIN_ROUND);
-  DIA_RENDERER_GET_CLASS(renderer)->set_linecaps(renderer, LINECAPS_BUTT);
-
-  if (DIA_RENDERER_GET_CLASS(renderer)->is_capable_to(renderer, RENDER_HOLES)) {
-    DIA_RENDERER_GET_CLASS(renderer)->draw_bezier(renderer, points, bez->numpoints, &color_black);
-  } else {
-    int i, from = 0, len;
-    
-    do {
-      for (i = from+1; i < bez->numpoints; ++i)
-        if (points[i].type == BEZ_MOVE_TO)
-          break;
-      len = i - from;
-      DIA_RENDERER_GET_CLASS(renderer)->draw_bezier(renderer, &points[from], len, &color_black);
-      from += len;
-    } while (from < bez->numpoints);
-  }
-}
-
 /** Draw the control lines from the points of the bezier conn.
  * Note that the control lines are hardcoded to be dotted with dash length 1.
  * @param bez The bezier conn to draw control lines for.

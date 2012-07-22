@@ -40,7 +40,6 @@ struct _PolyConn {
 
 void polyconn_update_data(PolyConn *poly);
 void polyconn_update_boundingbox(PolyConn *poly);
-void polyconn_simple_draw(PolyConn *poly, DiaRenderer *renderer, real width);
 void polyconn_init(PolyConn *poly, int num_points);
 void polyconn_set_points(PolyConn *poly, int num_points, Point *points);
 void polyconn_destroy(PolyConn *poly);

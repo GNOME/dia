@@ -404,33 +404,6 @@ orthconn_update_boundingbox(OrthConn *orth)
                 &orth->object.bounding_box);
 }
 
-void
-orthconn_simple_draw(OrthConn *orth, DiaRenderer *renderer, real width)
-{
-  Point *points;
-  
-  assert(orth != NULL);
-  assert(renderer != NULL);
-
-  if (!orth->points) {
-    g_warning("very sick OrthConn object...");
-    return;
-  }
-
-  /* When not autorouting, need to take gap into account here. */
-  points = &orth->points[0];
-  
-  DIA_RENDERER_GET_CLASS(renderer)->set_linewidth(renderer, width);
-  DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_SOLID);
-  DIA_RENDERER_GET_CLASS(renderer)->set_linejoin(renderer, LINEJOIN_MITER);
-  DIA_RENDERER_GET_CLASS(renderer)->set_linecaps(renderer, LINECAPS_BUTT);
-
-  DIA_RENDERER_GET_CLASS(renderer)->draw_polyline(renderer, points, 
-						  orth->numpoints,
-						  &color_black);
-}
-
-
 int
 orthconn_can_delete_segment(OrthConn *orth, Point *clickedpoint)
 {

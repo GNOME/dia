@@ -382,26 +382,6 @@ polyshape_update_boundingbox(PolyShape *poly)
 }
 
 void
-polyshape_simple_draw(PolyShape *poly, DiaRenderer *renderer, real width)
-{
-  Point *points;
-  
-  assert(poly != NULL);
-  assert(renderer != NULL);
-
-  points = &poly->points[0];
-  
-  DIA_RENDERER_GET_CLASS(renderer)->set_linewidth(renderer, width);
-  DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_SOLID);
-  DIA_RENDERER_GET_CLASS(renderer)->set_linejoin(renderer, LINEJOIN_ROUND);
-  DIA_RENDERER_GET_CLASS(renderer)->set_linecaps(renderer, LINECAPS_BUTT);
-
-  DIA_RENDERER_GET_CLASS(renderer)->draw_polygon(renderer, points, poly->numpoints,
-			       &color_black);
-}
-
-
-void
 polyshape_init(PolyShape *poly, int num_points)
 {
   DiaObject *obj;

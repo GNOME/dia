@@ -60,8 +60,6 @@ struct _OrthConn {
 
 void orthconn_update_data(OrthConn *orth);
 void orthconn_update_boundingbox(OrthConn *orth);
-void orthconn_simple_draw(OrthConn *orth, DiaRenderer *renderer,
-			  real width);
 void orthconn_init(OrthConn *orth, Point *startpoint);
 void orthconn_destroy(OrthConn *orth);
 void orthconn_set_points(OrthConn *orth, int num_points, Point *points);

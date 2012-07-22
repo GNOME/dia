@@ -324,26 +324,6 @@ polyconn_update_boundingbox(PolyConn *poly)
 }
 
 void
-polyconn_simple_draw(PolyConn *poly, DiaRenderer *renderer, real width)
-{
-  Point *points;
-  
-  assert(poly != NULL);
-  assert(renderer != NULL);
-
-  points = &poly->points[0];
-  
-  DIA_RENDERER_GET_CLASS(renderer)->set_linewidth(renderer, width);
-  DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_SOLID);
-  DIA_RENDERER_GET_CLASS(renderer)->set_linejoin(renderer, LINEJOIN_ROUND);
-  DIA_RENDERER_GET_CLASS(renderer)->set_linecaps(renderer, LINECAPS_BUTT);
-
-  DIA_RENDERER_GET_CLASS(renderer)->draw_polyline(renderer, points, poly->numpoints,
-			       &color_black);
-}
-
-
-void
 polyconn_init(PolyConn *poly, int num_points)
 {
   DiaObject *obj;
