@@ -210,6 +210,7 @@ _dae_draw(DiagramAsElement *dae, DiaRenderer *renderer)
 	  if (ef) {
 	    DiaContext *ctx = dia_context_new ("Diagram as Object");
 
+	    dia_context_set_filename (ctx, imgfname);
 	    if (ef->export_func (dae->data, ctx, imgfname, dae->filename, ef->user_data)) {
 	      DiaImage *tmp_image = dia_image_load (imgfname);
 
@@ -256,11 +257,13 @@ _dae_update_data(DiagramAsElement *dae)
     if (inf) {
       DiaContext *ctx = dia_context_new (diagram_as_element_type.name);
 
+      dia_context_set_filename (ctx, dae->filename);
       if (inf->import_func(dae->filename, dae->data, ctx, inf->user_data)) {
         dae->scale = dae->element.width / (dae->data->extents.right - dae->data->extents.left);
         dae->element.height = (dae->data->extents.bottom - dae->data->extents.top) * dae->scale;
         dae->mtime = statbuf.st_mtime;
       }
+      /* FIXME: where to put the message in case of an error? */
       dia_context_release (ctx);
     }
     /* invalidate possibly cached image */
