@@ -238,7 +238,7 @@ xml_file_check_encoding(const gchar *filename, const gchar *default_enc, DiaCont
  * @returns An XML document parsed from the file.
  * @see xmlParseFile() in the XML2 library for details on the return value.
  */
-xmlDocPtr
+static xmlDocPtr
 xmlDiaParseFile(const char *filename, DiaContext *ctx)
 {
   const char *local_charset = NULL;
