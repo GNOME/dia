@@ -481,7 +481,7 @@ sadtarrow_get_object_menu(Sadtarrow *sadtarrow, Point *clickedpoint)
   /* Set entries sensitive/selected etc here */
   object_menu_items[0].active = orthconn_can_add_segment(orth, clickedpoint);
   object_menu_items[1].active = orthconn_can_delete_segment(orth, clickedpoint);
-  /*  orthconn_update_object_menu(orth, clickedpoint, &object_menu_items[2]);*/
+  orthconn_update_object_menu(orth, clickedpoint, &object_menu_items[2]);
   return &object_menu;
 }
 
