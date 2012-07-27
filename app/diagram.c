@@ -657,12 +657,8 @@ diagram_remove_ddisplay(Diagram *dia, DDisplay *ddisp)
 {
   dia->displays = g_slist_remove(dia->displays, ddisp);
 
-  if (g_slist_length(dia->displays) == 0) {
-    if (!app_is_embedded()) {
-      /* Don't delete embedded diagram when last view is closed */
-      diagram_destroy(dia);
-    }
-  }
+  if (g_slist_length(dia->displays) == 0)
+    diagram_destroy(dia);
 }
 
 void

@@ -188,7 +188,7 @@ initialize_display_widgets(DDisplay *ddisp)
     filename++;
   }
   create_display_shell(ddisp, prefs.new_view.width, prefs.new_view.height,
-		       filename, prefs.new_view.use_menu_bar, !app_is_embedded());
+		       filename, prefs.new_view.use_menu_bar);
 
   ddisplay_update_statusbar (ddisp);
 
@@ -196,8 +196,7 @@ initialize_display_widgets(DDisplay *ddisp)
   ddisplay_update_scrollbars(ddisp);
   ddisplay_add_update_all(ddisp);
 
-  if (!app_is_embedded())
-    ddisplay_set_cursor(ddisp, current_cursor);
+  ddisplay_set_cursor(ddisp, current_cursor);
 
   if (!input_methods_done) {
       im_menu_item = menus_get_action ("InputMethods");

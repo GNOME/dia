@@ -1292,8 +1292,3 @@ print_credits(gboolean credits)
       exit(0);
   }
 }
-
-int app_is_embedded(void)
-{
-  return 0;
-}

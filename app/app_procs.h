@@ -26,7 +26,6 @@ void app_init(int argc, char **argv);
  * Returns TRUE if the application exits.
  */
 gboolean app_exit(void);
-int app_is_embedded(void);
 
 void app_splash_init(const gchar* name);
 void app_splash_done(void);

@@ -44,7 +44,7 @@ int is_integrated_ui (void);
 
 void create_display_shell(DDisplay *ddisp,
 			  int width, int height,
-			  char *title, int use_mbar, int top_level_window);
+			  char *title, int use_mbar);
 
 void create_toolbox (void);
 void toolbox_show(void);

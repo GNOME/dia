@@ -572,12 +572,11 @@ use_integrated_ui_for_display_shell(DDisplay *ddisp, char *title)
  * @param height Diagram Height
  * @param title Window title
  * @param use_mbar Flag to indicate whether to add a menubar to the window
- * @param top_level_window
  */
 void
 create_display_shell(DDisplay *ddisp,
 		     int width, int height,
-		     char *title, int use_mbar, int top_level_window)
+		     char *title, int use_mbar)
 {
   GtkWidget *table, *widget;
   GtkWidget *navigation_button;
@@ -608,24 +607,21 @@ create_display_shell(DDisplay *ddisp,
   ddisp->vsbdata = GTK_ADJUSTMENT (gtk_adjustment_new (0, 0, height, 1, (height-1)/4, height-1));
 
   /*  The toplevel shell */
-  if (top_level_window) {
-    ddisp->shell = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-    gtk_window_set_title (GTK_WINDOW (ddisp->shell), title);
-    gtk_window_set_role (GTK_WINDOW (ddisp->shell), "diagram_window");
-    gtk_window_set_icon_name (GTK_WINDOW (ddisp->shell), "dia");
-    gtk_window_set_default_size(GTK_WINDOW (ddisp->shell), width, height);
-    /* set_icon_name needs registered theme icons, not always available: provide fallback */
-    if (!gtk_window_get_icon (GTK_WINDOW (ddisp->shell))) {
-      static GdkPixbuf *pixbuf = NULL;
+  ddisp->shell = gtk_window_new (GTK_WINDOW_TOPLEVEL);
+  gtk_window_set_title (GTK_WINDOW (ddisp->shell), title);
+  gtk_window_set_role (GTK_WINDOW (ddisp->shell), "diagram_window");
+  gtk_window_set_icon_name (GTK_WINDOW (ddisp->shell), "dia");
+  gtk_window_set_default_size(GTK_WINDOW (ddisp->shell), width, height);
+  /* set_icon_name needs registered theme icons, not always available: provide fallback */
+  if (!gtk_window_get_icon (GTK_WINDOW (ddisp->shell))) {
+    static GdkPixbuf *pixbuf = NULL;
 
-      if (!pixbuf)
-        pixbuf = gdk_pixbuf_new_from_inline(-1, dia_diagram_icon, FALSE, NULL);
-      if (pixbuf)
-        gtk_window_set_icon (GTK_WINDOW (ddisp->shell), pixbuf);
-    }
-  } else {
-    ddisp->shell = gtk_event_box_new ();
+    if (!pixbuf)
+      pixbuf = gdk_pixbuf_new_from_inline(-1, dia_diagram_icon, FALSE, NULL);
+    if (pixbuf)
+      gtk_window_set_icon (GTK_WINDOW (ddisp->shell), pixbuf);
   }
+
   g_object_set_data (G_OBJECT (ddisp->shell), "user_data", (gpointer) ddisp);
   gtk_widget_set_events (ddisp->shell,
 			 GDK_POINTER_MOTION_MASK |
@@ -738,8 +734,8 @@ create_display_shell(DDisplay *ddisp,
 
   /* TODO rob use per window accel */
   ddisp->accel_group = menus_get_display_accels ();
-  if (top_level_window)
-    gtk_window_add_accel_group(GTK_WINDOW(ddisp->shell), ddisp->accel_group);
+  gtk_window_add_accel_group(GTK_WINDOW(ddisp->shell), ddisp->accel_group);
+
   if (use_mbar) 
   {
     ddisp->menu_bar = menus_create_display_menubar (&ddisp->ui_manager, &ddisp->actions);
@@ -866,18 +862,15 @@ toolbox_destroy (GtkWidget *widget, gpointer data)
 static gboolean
 toolbox_delete (GtkWidget *widget, GdkEvent *event, gpointer data)
 {
-  if (!app_is_embedded()) {
-    gulong handlerid;
-    /** Stop toolbox_destroy from being called */
-    handlerid = g_signal_handler_find(widget, G_SIGNAL_MATCH_FUNC,
-				      0, 0, NULL, toolbox_destroy, NULL);
-    if (handlerid != 0)
-      g_signal_handler_disconnect (GTK_OBJECT (widget), handlerid);
+  gulong handlerid;
+  /** Stop toolbox_destroy from being called */
+  handlerid = g_signal_handler_find(widget, G_SIGNAL_MATCH_FUNC,
+				    0, 0, NULL, toolbox_destroy, NULL);
+  if (handlerid != 0)
+    g_signal_handler_disconnect (GTK_OBJECT (widget), handlerid);
 
-    /** If the app didn't exit, don't close the window */
-    return (!app_exit());
-  }
-  return FALSE;
+  /** If the app didn't exit, don't close the window */
+  return (!app_exit());
 }
 
 static void
