@@ -1151,6 +1151,12 @@ menus_get_action (const gchar *name)
   return action;
 }
 
+static int
+cmp_action_names (const void *a, const void *b)
+{
+  return strcmp (gtk_action_get_name (GTK_ACTION (a)), gtk_action_get_name (GTK_ACTION (b)));
+}
+
 void
 menus_set_recent (GtkActionGroup *actions)
 {
@@ -1177,6 +1183,9 @@ menus_set_recent (GtkActionGroup *actions)
   list = gtk_action_group_list_actions (actions);
   g_return_if_fail (list);
 
+  /* sort it by the action name to preserve out order */
+  list = g_list_sort (list, cmp_action_names);
+
   recent_actions = actions;
   g_object_ref (G_OBJECT (recent_actions));
   gtk_ui_manager_insert_action_group (ui_manager, 
@@ -1184,13 +1193,15 @@ menus_set_recent (GtkActionGroup *actions)
                     10 /* insert at back */ );
 
   do {
+    const gchar* aname = gtk_action_get_name (GTK_ACTION (list->data));
+
     id = gtk_ui_manager_new_merge_id (ui_manager);
     recent_merge_ids = g_slist_prepend (recent_merge_ids, (gpointer) id);
 
     gtk_ui_manager_add_ui (ui_manager, id, 
                  recent_path, 
-                 gtk_action_get_name (GTK_ACTION (list->data)), 
-                 gtk_action_get_name (GTK_ACTION (list->data)), 
+                 aname, 
+                 aname, 
                  GTK_UI_MANAGER_AUTO, 
                  TRUE);
 
