@@ -1015,6 +1015,10 @@ menus_get_integrated_ui_menubar (GtkWidget     **menubar,
   tool_actions = create_or_ref_tool_actions ();
 
   integrated_ui_manager = gtk_ui_manager_new ();
+  g_signal_connect (G_OBJECT (integrated_ui_manager), 
+                    "connect_proxy",
+		    G_CALLBACK (_ui_manager_connect_proxy),
+		    NULL);
   gtk_ui_manager_set_add_tearoffs (integrated_ui_manager, DIA_SHOW_TEAROFFS);
   gtk_ui_manager_insert_action_group (integrated_ui_manager, integrated_ui_actions, 0);
   gtk_ui_manager_insert_action_group (integrated_ui_manager, tool_actions, 0);
