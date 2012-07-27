@@ -32,6 +32,4 @@ void app_splash_done(void);
 
 gboolean app_is_interactive(void);
 
-void dia_redirect_console (void);
-
 #endif /* APP_PROCS_H */

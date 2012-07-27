@@ -13,6 +13,8 @@
 #include "app_procs.h"
 #include "interface.h"
 
+static void dia_redirect_console (void);
+
 /* In case we build this as a windowed application */
 
 #ifdef __GNUC__
