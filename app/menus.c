@@ -79,7 +79,7 @@ static const GtkActionEntry common_entries[] =
 {
   { "File", NULL, N_("_File"), NULL, NULL, NULL },
     { "FileNew", GTK_STOCK_NEW, NULL, "<control>N", N_("Create a new diagram"), G_CALLBACK (file_new_callback) },
-    { "FileOpen", GTK_STOCK_OPEN, NULL,"<control>O", N_("Open a diagram file"), G_CALLBACK (file_open_callback) },
+    { "FileOpen", GTK_STOCK_OPEN, N_("_Open\342\200\246"),"<control>O", N_("Open a diagram file"), G_CALLBACK (file_open_callback) },
     { "FileQuit", GTK_STOCK_QUIT, NULL, "<control>Q", NULL, G_CALLBACK (file_quit_callback) }, 
   { "Help", NULL, N_("_Help"), NULL, NULL, NULL },
     { "HelpContents", GTK_STOCK_HELP, NULL, "F1", NULL, G_CALLBACK (help_manual_callback) },
@@ -94,7 +94,7 @@ static const GtkActionEntry toolbox_entries[] =
     { "FileSheets", NULL, N_("Sheets and Objects\342\200\246"), "F9", NULL, G_CALLBACK (sheets_dialog_show_callback) },
     { "FilePrefs", GTK_STOCK_PREFERENCES, NULL, NULL, NULL, G_CALLBACK (file_preferences_callback) },
     { "FilePlugins", NULL, N_("Plugins\342\200\246"), NULL, NULL, G_CALLBACK (file_plugins_callback) },
-    { "FileTree", NULL, N_("_Diagram Tree\342\200\246"), "F8", NULL, G_CALLBACK (diagram_tree_show) }
+    { "FileTree", NULL, N_("_Diagram Tree"), "F8", NULL, G_CALLBACK (diagram_tree_show) }
 };
 
 static const GtkToggleActionEntry integrated_ui_view_toggle_entries[] = 
@@ -108,11 +108,11 @@ static const GtkToggleActionEntry integrated_ui_view_toggle_entries[] =
 static const GtkActionEntry display_entries[] =
 {
     { "FileSave", GTK_STOCK_SAVE, NULL, "<control>S", N_("Save the diagram"), G_CALLBACK (file_save_callback) },
-    { "FileSaveas", GTK_STOCK_SAVE_AS, NULL, "<control><shift>S", N_("Save the diagram with a new name"), G_CALLBACK (file_save_as_callback) },
+    { "FileSaveas", GTK_STOCK_SAVE_AS, N_("Save _As\342\200\246"), "<control><shift>S", N_("Save the diagram with a new name"), G_CALLBACK (file_save_as_callback) },
     { "FileExport", GTK_STOCK_CONVERT, N_("_Export\342\200\246"), NULL, N_("Export the diagram"), G_CALLBACK (file_export_callback) },
     { "DiagramProperties", GTK_STOCK_PROPERTIES, N_("_Diagram Properties"), "<shift><alt>Return", NULL, G_CALLBACK (view_diagram_properties_callback) },
     { "FilePagesetup", NULL, N_("Page Set_up\342\200\246"), NULL, NULL, G_CALLBACK (file_pagesetup_callback) },
-    { "FilePrint", GTK_STOCK_PRINT, NULL, "<control>P", N_("Print the diagram"), G_CALLBACK (file_print_callback) },
+    { "FilePrint", GTK_STOCK_PRINT, N_("_Print\342\200\246"), "<control>P", N_("Print the diagram"), G_CALLBACK (file_print_callback) },
     { "FileClose", GTK_STOCK_CLOSE, NULL, "<control>W", NULL, G_CALLBACK (file_close_callback) },
 
   { "Edit", NULL, N_("_Edit"), NULL, NULL, NULL },
@@ -125,8 +125,8 @@ static const GtkActionEntry display_entries[] =
     { "EditDuplicate", NULL, N_("_Duplicate"), "<control>D", NULL, G_CALLBACK (edit_duplicate_callback) },
     { "EditDelete", GTK_STOCK_DELETE, NULL, "Delete", NULL, G_CALLBACK (edit_delete_callback) },
 
-    { "EditFind", GTK_STOCK_FIND, NULL, "<control>F", NULL, G_CALLBACK (edit_find_callback) },
-    { "EditReplace", GTK_STOCK_FIND_AND_REPLACE, NULL, "<control>H", NULL, G_CALLBACK (edit_replace_callback) },
+    { "EditFind", GTK_STOCK_FIND, N_("_Find\342\200\246"), "<control>F", NULL, G_CALLBACK (edit_find_callback) },
+    { "EditReplace", GTK_STOCK_FIND_AND_REPLACE, N_("_Replace\342\200\246"), "<control>H", NULL, G_CALLBACK (edit_replace_callback) },
 
     /* the following used to bind to <control><shift>C which collides with Unicode input. 
      * <control><alt> doesn't work either */
