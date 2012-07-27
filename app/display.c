@@ -807,6 +807,19 @@ ddisplay_zoom(DDisplay *ddisp, Point *point, real magnify)
   update_zoom_status (ddisp);
 }
 
+/* Zoom around the middle point of the visible area
+ */
+void
+ddisplay_zoom_middle(DDisplay *ddisp, real magnify)
+{
+  Point middle;
+  Rectangle *visible;
+
+  visible = &ddisp->visible;
+  middle.x = visible->left*0.5 + visible->right*0.5;
+  middle.y = visible->top*0.5 + visible->bottom*0.5;
+}
+
 /*
    When using the mouse wheel button to zoom in and out, it is more 
    intuitive to maintain the drawing zoom center-point based on the 
@@ -819,7 +832,7 @@ ddisplay_zoom_centered(DDisplay *ddisp, Point *point, real magnify)
   Rectangle *visible;
   real width, height;
   /* cursor position ratios */
-  real rx,ry; 
+  real rx,ry;
 
   if ((ddisp->zoom_factor <= DDISPLAY_MIN_ZOOM) && (magnify<=1.0))
     return;

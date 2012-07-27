@@ -179,19 +179,13 @@ view_zoom_set (float factor)
 {
   DDisplay *ddisp;
   real scale;
-  Point middle;
-  Rectangle *visible;
 
   ddisp = ddisplay_active();
   if (!ddisp) return;
 
-  visible = &ddisp->visible;
-  middle.x = visible->left*0.5 + visible->right*0.5;
-  middle.y = visible->top*0.5 + visible->bottom*0.5;
-
   scale = ((real) factor)/1000.0 * DDISPLAY_NORMAL_ZOOM;
 
-  ddisplay_zoom(ddisp, &middle, scale / ddisp->zoom_factor);  
+  ddisplay_zoom_middle(ddisp, scale / ddisp->zoom_factor);
 }
 
 static void
@@ -207,9 +201,6 @@ zoom_activate_callback(GtkWidget *item, gpointer user_data)
   }
 
   if (sscanf(zoom_text, "%f", &zoom_amount) == 1) {
-    Point middle;
-    Rectangle *visible;
-
     /* Set limits to avoid crashes, see bug #483384 */
     if (zoom_amount < .1) {
       zoom_amount = .1;
@@ -221,10 +212,7 @@ zoom_activate_callback(GtkWidget *item, gpointer user_data)
     g_free(zoomamount);
     magnify = (zoom_amount*DDISPLAY_NORMAL_ZOOM/100.0)/ddisp->zoom_factor;
     if (fabs(magnify - 1.0) > 0.000001) {
-      visible = &ddisp->visible;
-      middle.x = visible->left*0.5 + visible->right*0.5;
-      middle.y = visible->top*0.5 + visible->bottom*0.5;
-      ddisplay_zoom(ddisp, &middle, magnify);
+      ddisplay_zoom_middle(ddisp, magnify);
     }
   }
 }

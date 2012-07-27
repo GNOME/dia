@@ -979,32 +979,22 @@ void
 view_zoom_in_callback (GtkAction *action)
 {
   DDisplay *ddisp;
-  Point middle;
-  Rectangle *visible;
 
   ddisp = ddisplay_active();
   if (!ddisp) return;
-  visible = &ddisp->visible;
-  middle.x = visible->left*0.5 + visible->right*0.5;
-  middle.y = visible->top*0.5 + visible->bottom*0.5;
   
-  ddisplay_zoom(ddisp, &middle, M_SQRT2);
+  ddisplay_zoom_middle(ddisp, M_SQRT2);
 }
 
 void
 view_zoom_out_callback (GtkAction *action)
 {
   DDisplay *ddisp;
-  Point middle;
-  Rectangle *visible;
   
   ddisp = ddisplay_active();
   if (!ddisp) return;
-  visible = &ddisp->visible;
-  middle.x = visible->left*0.5 + visible->right*0.5;
-  middle.y = visible->top*0.5 + visible->bottom*0.5;
   
-  ddisplay_zoom(ddisp, &middle, M_SQRT1_2);
+  ddisplay_zoom_middle(ddisp, M_SQRT1_2);
 }
 
 void 
