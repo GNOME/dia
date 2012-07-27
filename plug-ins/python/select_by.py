@@ -104,7 +104,8 @@ def select_by_selected (data, name) :
 	if not bFoundAny :
 		dia.message(0, "No selected object has the property '%s'." % name)
 	data.update_extents ()
- 
+	d.flush()
+
 def select_by_fill_color_cb (data, flags) :
 	select_by_selected (data, "fill_colour")
 def select_by_line_color_cb (data, flags) :
