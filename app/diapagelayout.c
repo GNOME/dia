@@ -298,7 +298,7 @@ dia_page_layout_init(DiaPageLayout *self)
   gtk_widget_show(self->scaling);
 
   self->fitto = gtk_radio_button_new_with_label(
-			GTK_RADIO_BUTTON(self->scale)->group, _("Fit to:"));
+			gtk_radio_button_get_group(GTK_RADIO_BUTTON(self->scale)), _("Fit to:"));
   gtk_table_attach(GTK_TABLE(table), self->fitto, 0,1, 1,2,
 		   GTK_FILL, GTK_FILL|GTK_EXPAND, 0, 0);
   gtk_widget_show(self->fitto);

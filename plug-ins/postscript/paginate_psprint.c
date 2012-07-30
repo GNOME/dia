@@ -295,7 +295,7 @@ diagram_print_ps(DiagramData *dia, const gchar* original_filename)
   g_signal_connect(G_OBJECT(iscmd), "toggled",
 		   G_CALLBACK(change_entry_state), cmd);
 
-  isofile = gtk_radio_button_new_with_label(GTK_RADIO_BUTTON(iscmd)->group,
+  isofile = gtk_radio_button_new_with_label(gtk_radio_button_get_group(GTK_RADIO_BUTTON(iscmd)),
 					    _("File"));
   gtk_table_attach(GTK_TABLE(table), isofile, 0,1, 1,2,
 		   GTK_FILL, GTK_FILL|GTK_EXPAND, 0, 0);
