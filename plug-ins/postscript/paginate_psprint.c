@@ -262,11 +262,11 @@ diagram_print_ps(DiagramData *dia, const gchar* original_filename)
   /* the dialog has it's own reference to the diagram */
   g_object_ref(dia);
   g_object_set_data(G_OBJECT(dialog), "diagram", dia);
-  g_signal_connect(GTK_OBJECT(dialog), "destroy",
+  g_signal_connect(G_OBJECT(dialog), "destroy",
 		   G_CALLBACK(diagram_print_destroy), NULL);
-  g_signal_connect(GTK_OBJECT(dialog), "delete_event",
+  g_signal_connect(G_OBJECT(dialog), "delete_event",
 		   G_CALLBACK(gtk_main_quit), NULL);
-  g_signal_connect(GTK_OBJECT(dialog), "delete_event",
+  g_signal_connect(G_OBJECT(dialog), "delete_event",
 		   G_CALLBACK(gtk_true), NULL);
   vbox = gtk_dialog_get_content_area(GTK_DIALOG(dialog));
 
@@ -292,7 +292,7 @@ diagram_print_ps(DiagramData *dia, const gchar* original_filename)
 		   GTK_FILL|GTK_EXPAND, GTK_FILL|GTK_EXPAND, 0, 0);
   gtk_widget_show(cmd);
 
-  g_signal_connect(GTK_OBJECT(iscmd), "toggled",
+  g_signal_connect(G_OBJECT(iscmd), "toggled",
 		   G_CALLBACK(change_entry_state), cmd);
 
   isofile = gtk_radio_button_new_with_label(GTK_RADIO_BUTTON(iscmd)->group,
@@ -306,13 +306,13 @@ diagram_print_ps(DiagramData *dia, const gchar* original_filename)
   gtk_table_attach(GTK_TABLE(table), ofile, 1,2, 1,2,
 		   GTK_FILL|GTK_EXPAND, GTK_FILL|GTK_EXPAND, 0, 0);
   gtk_widget_show(ofile);
-  g_signal_connect(GTK_OBJECT(isofile), "toggled",
+  g_signal_connect(G_OBJECT(isofile), "toggled",
 		   G_CALLBACK(change_entry_state), ofile);
 
   box = GTK_DIALOG(dialog)->action_area;
 
   button = gtk_button_new_with_label(_("OK"));
-  g_signal_connect(GTK_OBJECT(button), "clicked", 
+  g_signal_connect(G_OBJECT(button), "clicked", 
 		   G_CALLBACK(ok_pressed), &cont);
 #if GTK_CHECK_VERSION(2,18,0)
   gtk_widget_set_can_default (GTK_WIDGET (button), TRUE);
@@ -324,7 +324,7 @@ diagram_print_ps(DiagramData *dia, const gchar* original_filename)
   gtk_widget_show(button);
 
   button = gtk_button_new_with_label(_("Cancel"));
-  g_signal_connect(GTK_OBJECT(button), "clicked", 
+  g_signal_connect(G_OBJECT(button), "clicked", 
 		   G_CALLBACK(gtk_main_quit), NULL);
 #if GTK_CHECK_VERSION(2,18,0)
   gtk_widget_set_can_default (GTK_WIDGET (button), TRUE);

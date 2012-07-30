@@ -238,7 +238,7 @@ tool_setup_drag_source(GtkWidget *button, ToolButtonData *tooldata,
   gtk_drag_source_set(button, GDK_BUTTON1_MASK,
 		      display_target_table, display_n_targets,
 		      GDK_ACTION_DEFAULT|GDK_ACTION_COPY);
-  g_signal_connect(GTK_OBJECT(button), "drag_data_get",
+  g_signal_connect(G_OBJECT(button), "drag_data_get",
 		   G_CALLBACK(tool_drag_data_get), tooldata);
   if (pixmap)
     gtk_drag_source_set_icon(button, gtk_widget_get_colormap(button),
@@ -340,9 +340,9 @@ fill_sheet_wbox(Sheet *sheet)
 			   data, (GDestroyNotify)g_free);
     if (first_button == NULL) first_button = button;
     
-    g_signal_connect (GTK_OBJECT (button), "clicked",
+    g_signal_connect (G_OBJECT (button), "clicked",
 		      G_CALLBACK (tool_select_update), data);
-    g_signal_connect (GTK_OBJECT (button), "button_press_event",
+    g_signal_connect (G_OBJECT (button), "button_press_event",
 		      G_CALLBACK (tool_button_press), data);
 
     tool_setup_drag_source(button, data, pixmap, mask);
@@ -703,11 +703,11 @@ create_tools(GtkWidget *parent)
     
     gtk_container_add (GTK_CONTAINER (button), pixmapwidget);
     
-    g_signal_connect (GTK_OBJECT (button), "clicked",
+    g_signal_connect (G_OBJECT (button), "clicked",
 		      G_CALLBACK (tool_select_update),
 			&tool_data[i].callback_data);
     
-    g_signal_connect (GTK_OBJECT (button), "button_press_event",
+    g_signal_connect (G_OBJECT (button), "button_press_event",
 		      G_CALLBACK (tool_button_press),
 			&tool_data[i].callback_data);
 

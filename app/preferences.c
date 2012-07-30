@@ -490,7 +490,7 @@ prefs_get_property_widget(DiaPrefData *data)
   switch(data->type) {
   case PREF_BOOLEAN:
     widget = gtk_toggle_button_new_with_label (_("No"));
-    g_signal_connect (GTK_OBJECT (widget), "toggled",
+    g_signal_connect (G_OBJECT (widget), "toggled",
 		      G_CALLBACK (prefs_boolean_toggle), NULL);
     break;
   case PREF_INT:
@@ -609,9 +609,9 @@ prefs_create_dialog(void)
   g_signal_connect(G_OBJECT (prefs_dialog), "response",
                    G_CALLBACK (prefs_respond), NULL);
 
-  g_signal_connect (GTK_OBJECT (prefs_dialog), "delete_event",
+  g_signal_connect (G_OBJECT (prefs_dialog), "delete_event",
 		    G_CALLBACK(gtk_widget_hide), NULL);
-  g_signal_connect (GTK_OBJECT (prefs_dialog), "destroy",
+  g_signal_connect (G_OBJECT (prefs_dialog), "destroy",
 		    G_CALLBACK(gtk_widget_destroyed), &prefs_dialog);
 
   notebook = gtk_notebook_new ();

@@ -445,7 +445,7 @@ fnr_dialog_setup_common (GtkWidget *dialog, gboolean is_replace, DDisplay *ddisp
 		   G_CALLBACK(fnr_respond), ddisp);
   g_signal_connect(G_OBJECT(dialog), "delete_event",
 		   G_CALLBACK(gtk_widget_hide), NULL);
-  g_signal_connect(GTK_OBJECT(dialog), "delete_event",
+  g_signal_connect(G_OBJECT(dialog), "delete_event",
 		   G_CALLBACK(gtk_true), NULL);
 
   vbox = gtk_dialog_get_content_area(GTK_DIALOG(dialog));

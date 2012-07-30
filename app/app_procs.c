@@ -838,9 +838,9 @@ app_init (int argc, char **argv)
       g_warning(_("Can't connect to session manager!\n"));
     }
     else {
-      g_signal_connect(GTK_OBJECT (client), "save_yourself",
+      g_signal_connect(G_OBJECT (client), "save_yourself",
 		       G_CALLBACK (save_state), NULL);
-      g_signal_connect(GTK_OBJECT (client), "die",
+      g_signal_connect(G_OBJECT (client), "die",
 		       G_CALLBACK (session_die), NULL);
     }
 

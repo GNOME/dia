@@ -222,7 +222,7 @@ zoom_add_zoom_amount(GtkWidget *menu, gchar *text, DDisplay *ddisp)
 {
   GtkWidget *menuitem = gtk_menu_item_new_with_label(text);
   gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuitem);
-  g_signal_connect(GTK_OBJECT(menuitem), 
+  g_signal_connect(G_OBJECT(menuitem), 
 		     "activate", G_CALLBACK(zoom_activate_callback),
 		     ddisp);
   g_object_set_data(G_OBJECT(menuitem), "zoomamount", text);
@@ -252,7 +252,7 @@ create_zoom_widget(DDisplay *ddisp) {
 
   combo = gtk_hbox_new(FALSE, 0);
   entry = gtk_entry_new();
-  g_signal_connect (GTK_OBJECT (entry), "activate",
+  g_signal_connect (G_OBJECT (entry), "activate",
 		    G_CALLBACK(zoom_activate_callback),
 		      ddisp);
   gtk_box_pack_start(GTK_BOX(combo), entry, TRUE, TRUE, 0);
@@ -283,7 +283,7 @@ create_zoom_widget(DDisplay *ddisp) {
 
   gtk_widget_show_all(menu);
 
-  g_signal_connect (GTK_OBJECT (button), "button_press_event",
+  g_signal_connect (G_OBJECT (button), "button_press_event",
 		    G_CALLBACK(zoom_popup_menu),
 		      menu);
 
@@ -355,14 +355,14 @@ create_canvas (DDisplay *ddisp)
 
   gtk_widget_set_events (canvas, CANVAS_EVENT_MASK);
   GTK_WIDGET_SET_FLAGS (canvas, GTK_CAN_FOCUS);
-  g_signal_connect (GTK_OBJECT (canvas), "event",
+  g_signal_connect (G_OBJECT (canvas), "event",
                     G_CALLBACK(ddisplay_canvas_events),
                     ddisp);
 
   toolbox_setup_drag_dest (canvas);
-  g_signal_connect (GTK_OBJECT (canvas), "drag_drop",
+  g_signal_connect (G_OBJECT (canvas), "drag_drop",
 		    G_CALLBACK(display_drop_callback), NULL);
-  g_signal_connect (GTK_OBJECT (canvas), "drag_data_received",
+  g_signal_connect (G_OBJECT (canvas), "drag_data_received",
 		    G_CALLBACK(display_data_received_callback), ddisp);
   g_object_set_data (G_OBJECT (canvas), "user_data", (gpointer) ddisp);
 
@@ -435,16 +435,16 @@ use_integrated_ui_for_display_shell(DDisplay *ddisp, char *title)
                          GDK_POINTER_MOTION_HINT_MASK |
                          GDK_FOCUS_CHANGE_MASK);
 
-  g_signal_connect (GTK_OBJECT (ddisp->container), "focus_out_event",
+  g_signal_connect (G_OBJECT (ddisp->container), "focus_out_event",
 		    G_CALLBACK (ddisplay_focus_out_event),
 		      ddisp);
-  g_signal_connect (GTK_OBJECT (ddisp->container), "focus_in_event",
+  g_signal_connect (G_OBJECT (ddisp->container), "focus_in_event",
 		    G_CALLBACK (ddisplay_focus_in_event),
 		      ddisp);
-  g_signal_connect (GTK_OBJECT (ddisp->container), "realize",
+  g_signal_connect (G_OBJECT (ddisp->container), "realize",
 		    G_CALLBACK (ddisplay_realize),
                       ddisp);
-  g_signal_connect (GTK_OBJECT (ddisp->container), "unrealize",
+  g_signal_connect (G_OBJECT (ddisp->container), "unrealize",
 		    G_CALLBACK (ddisplay_unrealize),
 		      ddisp);
 
@@ -471,14 +471,14 @@ use_integrated_ui_for_display_shell(DDisplay *ddisp, char *title)
   gtk_frame_set_shadow_type (GTK_FRAME (ddisp->origin), GTK_SHADOW_OUT);
 
   ddisp->hrule = gtk_hruler_new ();
-  g_signal_connect_swapped (GTK_OBJECT (ddisp->container), "motion_notify_event",
+  g_signal_connect_swapped (G_OBJECT (ddisp->container), "motion_notify_event",
                             G_CALLBACK(GTK_WIDGET_GET_CLASS (ddisp->hrule)->motion_notify_event),
-                            GTK_OBJECT (ddisp->hrule));
+                            G_OBJECT (ddisp->hrule));
 
   ddisp->vrule = gtk_vruler_new ();
-  g_signal_connect_swapped (GTK_OBJECT (ddisp->container), "motion_notify_event",
+  g_signal_connect_swapped (G_OBJECT (ddisp->container), "motion_notify_event",
 			    G_CALLBACK(GTK_WIDGET_GET_CLASS (ddisp->vrule)->motion_notify_event),
-                            GTK_OBJECT (ddisp->vrule));
+                            G_OBJECT (ddisp->vrule));
 
   /* Get the width/height of the Notebook child area */
   /* TODO: Fix width/height hardcoded values */
@@ -495,10 +495,10 @@ use_integrated_ui_for_display_shell(DDisplay *ddisp, char *title)
   GTK_WIDGET_UNSET_FLAGS (ddisp->vsb, GTK_CAN_FOCUS);
 
   /*  set up the scrollbar observers  */
-  g_signal_connect (GTK_OBJECT (ddisp->hsbdata), "value_changed",
+  g_signal_connect (G_OBJECT (ddisp->hsbdata), "value_changed",
 		    G_CALLBACK(ddisplay_hsb_update),
 		      ddisp);
-  g_signal_connect (GTK_OBJECT (ddisp->vsbdata), "value_changed",
+  g_signal_connect (G_OBJECT (ddisp->vsbdata), "value_changed",
 		    G_CALLBACK(ddisplay_vsb_update),
 		      ddisp);
 
@@ -629,22 +629,22 @@ create_display_shell(DDisplay *ddisp,
 			 GDK_FOCUS_CHANGE_MASK);
                       /* GDK_ALL_EVENTS_MASK */
 
-  g_signal_connect (GTK_OBJECT (ddisp->shell), "delete_event",
+  g_signal_connect (G_OBJECT (ddisp->shell), "delete_event",
 		    G_CALLBACK (ddisplay_delete),
                       ddisp);
-  g_signal_connect (GTK_OBJECT (ddisp->shell), "destroy",
+  g_signal_connect (G_OBJECT (ddisp->shell), "destroy",
 		    G_CALLBACK (ddisplay_destroy),
                       ddisp);
-  g_signal_connect (GTK_OBJECT (ddisp->shell), "focus_out_event",
+  g_signal_connect (G_OBJECT (ddisp->shell), "focus_out_event",
 		    G_CALLBACK (ddisplay_focus_out_event),
 		      ddisp);
-  g_signal_connect (GTK_OBJECT (ddisp->shell), "focus_in_event",
+  g_signal_connect (G_OBJECT (ddisp->shell), "focus_in_event",
 		    G_CALLBACK (ddisplay_focus_in_event),
 		      ddisp);
-  g_signal_connect (GTK_OBJECT (ddisp->shell), "realize",
+  g_signal_connect (G_OBJECT (ddisp->shell), "realize",
 		    G_CALLBACK (ddisplay_realize),
                       ddisp);
-  g_signal_connect (GTK_OBJECT (ddisp->shell), "unrealize",
+  g_signal_connect (G_OBJECT (ddisp->shell), "unrealize",
 		    G_CALLBACK (ddisplay_unrealize),
 		      ddisp);
 
@@ -675,7 +675,7 @@ create_display_shell(DDisplay *ddisp,
       gtk_container_add(GTK_CONTAINER(ddisp->origin), widget);
       gtk_widget_set_tooltip_text(widget, _("Diagram menu."));
       gtk_widget_show(widget);
-      g_signal_connect(GTK_OBJECT(ddisp->origin), "button_press_event",
+      g_signal_connect(G_OBJECT(ddisp->origin), "button_press_event",
 		     G_CALLBACK(origin_button_press), ddisp);
   }
   else {
@@ -685,14 +685,14 @@ create_display_shell(DDisplay *ddisp,
   
 
   ddisp->hrule = gtk_hruler_new ();
-  g_signal_connect_swapped (GTK_OBJECT (ddisp->shell), "motion_notify_event",
+  g_signal_connect_swapped (G_OBJECT (ddisp->shell), "motion_notify_event",
                              G_CALLBACK(GTK_WIDGET_GET_CLASS (ddisp->hrule)->motion_notify_event),
-                             GTK_OBJECT (ddisp->hrule));
+                             G_OBJECT (ddisp->hrule));
 
   ddisp->vrule = gtk_vruler_new ();
-  g_signal_connect_swapped (GTK_OBJECT (ddisp->shell), "motion_notify_event",
+  g_signal_connect_swapped (G_OBJECT (ddisp->shell), "motion_notify_event",
 			    G_CALLBACK(GTK_WIDGET_GET_CLASS (ddisp->vrule)->motion_notify_event),
-                             GTK_OBJECT (ddisp->vrule));
+                             G_OBJECT (ddisp->vrule));
 
   ddisp->hsb = gtk_hscrollbar_new (ddisp->hsbdata);
   GTK_WIDGET_UNSET_FLAGS (ddisp->hsb, GTK_CAN_FOCUS);
@@ -700,10 +700,10 @@ create_display_shell(DDisplay *ddisp,
   GTK_WIDGET_UNSET_FLAGS (ddisp->vsb, GTK_CAN_FOCUS);
 
   /*  set up the scrollbar observers  */
-  g_signal_connect (GTK_OBJECT (ddisp->hsbdata), "value_changed",
+  g_signal_connect (G_OBJECT (ddisp->hsbdata), "value_changed",
 		    G_CALLBACK(ddisplay_hsb_update),
 		      ddisp);
-  g_signal_connect (GTK_OBJECT (ddisp->vsbdata), "value_changed",
+  g_signal_connect (G_OBJECT (ddisp->vsbdata), "value_changed",
 		    G_CALLBACK(ddisplay_vsb_update),
 		      ddisp);
 
@@ -867,7 +867,7 @@ toolbox_delete (GtkWidget *widget, GdkEvent *event, gpointer data)
   handlerid = g_signal_handler_find(widget, G_SIGNAL_MATCH_FUNC,
 				    0, 0, NULL, toolbox_destroy, NULL);
   if (handlerid != 0)
-    g_signal_handler_disconnect (GTK_OBJECT (widget), handlerid);
+    g_signal_handler_disconnect (G_OBJECT (widget), handlerid);
 
   /** If the app didn't exit, don't close the window */
   return (!app_exit());
@@ -920,11 +920,11 @@ create_integrated_ui (void)
  
   app_set_icon (GTK_WINDOW (window));
 
-  g_signal_connect (GTK_OBJECT (window), "delete_event",
+  g_signal_connect (G_OBJECT (window), "delete_event",
 		    G_CALLBACK (toolbox_delete),
 		      window);
 
-  g_signal_connect (GTK_OBJECT (window), "destroy",
+  g_signal_connect (G_OBJECT (window), "destroy",
 		    G_CALLBACK (toolbox_destroy),
 		      window);
 
@@ -959,7 +959,7 @@ create_integrated_ui (void)
   wrapbox = toolbox_create();
   gtk_box_pack_start (GTK_BOX (hbox), wrapbox, FALSE, TRUE, 0);
 
-  g_signal_connect (GTK_OBJECT (wrapbox), "drag_data_received",
+  g_signal_connect (G_OBJECT (wrapbox), "drag_data_received",
 		    G_CALLBACK (dia_dnd_file_drag_data_received),
                     NULL); /* userdata == NULL here intentionally */
 
@@ -1031,11 +1031,11 @@ create_toolbox ()
     }
   }
 
-  g_signal_connect (GTK_OBJECT (window), "delete_event",
+  g_signal_connect (G_OBJECT (window), "delete_event",
 		    G_CALLBACK (toolbox_delete),
 		      window);
 
-  g_signal_connect (GTK_OBJECT (window), "destroy",
+  g_signal_connect (G_OBJECT (window), "destroy",
 		    G_CALLBACK (toolbox_destroy),
 		      window);
 
@@ -1049,7 +1049,7 @@ create_toolbox ()
 
   wrapbox = toolbox_create();
   gtk_box_pack_end (GTK_BOX (main_vbox), wrapbox, TRUE, TRUE, 0);
-  g_signal_connect (GTK_OBJECT (wrapbox), "drag_data_received",
+  g_signal_connect (G_OBJECT (wrapbox), "drag_data_received",
 		    G_CALLBACK (dia_dnd_file_drag_data_received),
                     NULL); /* userdata == NULL here intentionally */
   gtk_widget_show (main_vbox);

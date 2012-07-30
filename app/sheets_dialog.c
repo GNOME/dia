@@ -90,8 +90,8 @@ create_sheets_main_dialog (void)
   sheets_main_dialog = GTK_WIDGET (gtk_builder_get_object (builder, "sheets_main_dialog"));
   g_object_set_data (G_OBJECT(sheets_main_dialog), "_sheet_dialogs_builder", builder);
 
-  g_signal_connect (GTK_OBJECT (sheets_main_dialog), "destroy",
-		      G_CALLBACK (sheets_dialog_destroyed), NULL);
+  g_signal_connect (G_OBJECT (sheets_main_dialog), "destroy",
+		    G_CALLBACK (sheets_dialog_destroyed), NULL);
 
   optionmenu_right = GTK_WIDGET (gtk_builder_get_object (builder, "optionmenu_right"));
   optionmenu_right_menu = gtk_menu_new ();
@@ -159,8 +159,8 @@ create_sheets_new_dialog (void)
   sheets_new_dialog = GTK_WIDGET (gtk_builder_get_object (builder, "sheets_new_dialog"));
   g_object_set_data (G_OBJECT(sheets_new_dialog), "_sheet_dialogs_builder", builder);
 
-  g_signal_connect (GTK_OBJECT (sheets_new_dialog), "destroy",
-		      G_CALLBACK (sheets_dialog_destroyed), NULL);
+  g_signal_connect (G_OBJECT (sheets_new_dialog), "destroy",
+		    G_CALLBACK (sheets_dialog_destroyed), NULL);
 
   g_signal_connect (gtk_builder_get_object (builder,"radiobutton_svg_shape"), "toggled",
                       G_CALLBACK (on_sheets_new_dialog_radiobutton_svg_shape_toggled),
@@ -192,8 +192,8 @@ create_sheets_edit_dialog (void)
   sheets_edit_dialog = GTK_WIDGET (gtk_builder_get_object (builder,"sheets_edit_dialog"));
   g_object_set_data (G_OBJECT(sheets_edit_dialog), "_sheet_dialogs_builder", builder);
 
-  g_signal_connect (GTK_OBJECT (sheets_edit_dialog), "destroy",
-		      G_CALLBACK (sheets_dialog_destroyed), NULL);
+  g_signal_connect (G_OBJECT (sheets_edit_dialog), "destroy",
+		    G_CALLBACK (sheets_dialog_destroyed), NULL);
 
   g_signal_connect (gtk_builder_get_object (builder, "entry_object_description"), "changed",
                       G_CALLBACK (on_sheets_edit_dialog_entry_object_description_changed),
@@ -225,8 +225,8 @@ create_sheets_remove_dialog (void)
   sheets_remove_dialog = GTK_WIDGET (gtk_builder_get_object (builder, "sheets_remove_dialog"));
   g_object_set_data (G_OBJECT(sheets_remove_dialog), "_sheet_dialogs_builder", builder);
 
-  g_signal_connect (GTK_OBJECT (sheets_remove_dialog), "destroy",
-		      G_CALLBACK (sheets_dialog_destroyed), NULL);
+  g_signal_connect (G_OBJECT (sheets_remove_dialog), "destroy",
+		    G_CALLBACK (sheets_dialog_destroyed), NULL);
   g_signal_connect (gtk_builder_get_object (builder,"radiobutton_object"), "toggled",
                       G_CALLBACK (on_sheets_remove_dialog_radiobutton_object_toggled),
                       NULL);
@@ -253,11 +253,11 @@ create_sheets_shapeselection_dialog (void)
   GtkWidget *cancel_button1;
 
   sheets_shapeselection_dialog = gtk_file_selection_new (_("Select SVG Shape File"));
-  gtk_object_set_data (GTK_OBJECT (sheets_shapeselection_dialog), "sheets_shapeselection_dialog", sheets_shapeselection_dialog);
+  gtk_object_set_data (G_OBJECT (sheets_shapeselection_dialog), "sheets_shapeselection_dialog", sheets_shapeselection_dialog);
   gtk_container_set_border_width (GTK_CONTAINER (sheets_shapeselection_dialog), 10);
 
   ok_button = GTK_FILE_SELECTION (sheets_shapeselection_dialog)->ok_button;
-  gtk_object_set_data (GTK_OBJECT (sheets_shapeselection_dialog), "ok_button", ok_button);
+  gtk_object_set_data (G_OBJECT (sheets_shapeselection_dialog), "ok_button", ok_button);
   gtk_widget_show (ok_button);
 #if GTK_CHECK_VERSION(2,18,0)
   gtk_widget_set_can_default (GTK_WIDGET (ok_button), TRUE);
@@ -266,7 +266,7 @@ create_sheets_shapeselection_dialog (void)
 #endif
 
   cancel_button1 = GTK_FILE_SELECTION (sheets_shapeselection_dialog)->cancel_button;
-  gtk_object_set_data (GTK_OBJECT (sheets_shapeselection_dialog), "cancel_button1", cancel_button1);
+  gtk_object_set_data (G_OBJECT (sheets_shapeselection_dialog), "cancel_button1", cancel_button1);
   gtk_widget_show (cancel_button1);
 #if GTK_CHECK_VERSION(2,18,0)
   gtk_widget_set_can_default (GTK_WIDGET (cancel_button1), TRUE);
@@ -274,12 +274,12 @@ create_sheets_shapeselection_dialog (void)
   GTK_WIDGET_SET_FLAGS (cancel_button1, GTK_CAN_DEFAULT);
 #endif
 
-  g_signal_connect (GTK_OBJECT (ok_button), "clicked",
-                      G_CALLBACK (on_sheets_shapeselection_dialog_button_ok_clicked),
-                      NULL);
-  g_signal_connect (GTK_OBJECT (cancel_button1), "clicked",
-                      G_CALLBACK (on_sheets_shapeselection_dialog_button_cancel_clicked),
-                      NULL);
+  g_signal_connect (G_OBJECT (ok_button), "clicked",
+                    G_CALLBACK (on_sheets_shapeselection_dialog_button_ok_clicked),
+                    NULL);
+  g_signal_connect (G_OBJECT (cancel_button1), "clicked",
+                    G_CALLBACK (on_sheets_shapeselection_dialog_button_cancel_clicked),
+                    NULL);
 
   return sheets_shapeselection_dialog;
 }

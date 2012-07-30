@@ -213,7 +213,7 @@ create_open_menu(void)
 #endif
     g_free(filter_label);
   }
-  g_signal_connect(GTK_OBJECT(menu), "changed",
+  g_signal_connect(G_OBJECT(menu), "changed",
 	           G_CALLBACK(import_adapt_extension_callback), NULL);
   return menu;
 }
@@ -308,7 +308,7 @@ file_open_callback(GtkAction *action)
       g_free(fnabs);
       g_free(filename);
     }
-    g_signal_connect(GTK_OBJECT(opendlg), "destroy",
+    g_signal_connect(G_OBJECT(opendlg), "destroy",
 		     G_CALLBACK(gtk_widget_destroyed), &opendlg);
   } else {
     gtk_widget_set_sensitive(opendlg, TRUE);
@@ -343,7 +343,7 @@ file_open_callback(GtkAction *action)
 				      options);
 
     gtk_widget_show(options);
-    g_signal_connect(GTK_OBJECT(opendlg), "response",
+    g_signal_connect(G_OBJECT(opendlg), "response",
 		     G_CALLBACK(file_open_response_callback), omenu);
 
     /* set up the gtk file (name) filters */
@@ -514,7 +514,7 @@ file_save_as_dialog_prepare (Diagram *dia, DDisplay *ddisp)
 			   "programs cannot manipulate compressed files."));
     g_signal_connect (GTK_FILE_CHOOSER(savedlg),
 		      "response", G_CALLBACK(file_save_as_response_callback), compressbutton);
-    g_signal_connect(GTK_OBJECT(savedlg), "destroy",
+    g_signal_connect(G_OBJECT(savedlg), "destroy",
 		     G_CALLBACK(gtk_widget_destroyed), &savedlg);
   } else {
     GtkWidget *compressbutton = gtk_file_chooser_get_extra_widget(GTK_FILE_CHOOSER(savedlg));
@@ -678,7 +678,7 @@ create_export_menu(void)
 #endif
     g_free(filter_label);
   }
-  g_signal_connect(GTK_OBJECT(menu), "changed",
+  g_signal_connect(G_OBJECT(menu), "changed",
 	           G_CALLBACK(export_adapt_extension_callback), NULL);
   return menu;
 }
@@ -783,7 +783,7 @@ file_export_callback(GtkAction *action)
 
     gtk_dialog_set_default_response(GTK_DIALOG(exportdlg), GTK_RESPONSE_ACCEPT);
     gtk_window_set_role(GTK_WINDOW(exportdlg), "export_diagram");
-    g_signal_connect(GTK_OBJECT(exportdlg), "destroy",
+    g_signal_connect(G_OBJECT(exportdlg), "destroy",
 		     G_CALLBACK(gtk_widget_destroyed), &exportdlg);
   }
   if (!gtk_file_chooser_get_extra_widget(GTK_FILE_CHOOSER(exportdlg))) {

@@ -166,7 +166,7 @@ prop_dialog_container_pop(PropDialog *dialog)
 }
 
 static void 
-property_signal_handler(GtkObject *obj,
+property_signal_handler(GObject *obj,
                         gpointer func_data)
 {
   PropEventData *ped = (PropEventData *)func_data;

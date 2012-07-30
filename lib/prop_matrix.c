@@ -165,7 +165,7 @@ matrixprop_set_from_offset(MatrixProperty *prop,
 static GtkWidget *
 matrixprop_get_widget (MatrixProperty *prop, PropDialog *dialog) 
 { 
-  GtkObject *adj;
+  GtkWidget *adj;
   GtkWidget *ret, *sb;
   int i;
 
@@ -195,7 +195,7 @@ matrixprop_reset_widget(MatrixProperty *prop, GtkWidget *widget)
 {
   GList *children, *child;
   GtkWidget *sb;
-  GtkObject *adj;
+  GtkAdjustment *adj;
   real angle, sx, sy;
   int i = 0;
 

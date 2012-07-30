@@ -36,16 +36,16 @@ void
 tool_select_former(void) 
 {
   if (former_button) {
-    g_signal_emit_by_name(GTK_OBJECT(former_button), "clicked",
-                            GTK_BUTTON(former_button), NULL);
+    g_signal_emit_by_name(G_OBJECT(former_button), "clicked",
+                          GTK_BUTTON(former_button), NULL);
   }
 }
 
 void
 tool_reset(void)
 {
-  g_signal_emit_by_name(GTK_OBJECT(modify_tool_button), "clicked",
-			  GTK_BUTTON(modify_tool_button), NULL);
+  g_signal_emit_by_name(G_OBJECT(modify_tool_button), "clicked",
+			GTK_BUTTON(modify_tool_button), NULL);
 }
 
 void

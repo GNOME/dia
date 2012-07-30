@@ -341,9 +341,9 @@ color_area_edit (void)
 		      G_CALLBACK(color_selection_delete),
 			window);
     
-    g_signal_connect (GTK_OBJECT (window), "destroy",
+    g_signal_connect (G_OBJECT (window), "destroy",
 		      G_CALLBACK(color_selection_destroy),
-			window);
+		      window);
     
     g_signal_connect (
 	G_OBJECT (gtk_color_selection_dialog_get_color_selection (GTK_COLOR_SELECTION_DIALOG (window))),

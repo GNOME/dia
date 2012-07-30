@@ -257,9 +257,9 @@ export_png_ok(GtkButton *button, gpointer userdata)
  error:
   g_object_unref(renderer);
   if (button != NULL) {
-    g_signal_handlers_disconnect_matched (GTK_OBJECT(export_png_okay_button), 
+    g_signal_handlers_disconnect_matched (G_OBJECT(export_png_okay_button), 
 					  G_SIGNAL_MATCH_DATA, 0, 0, NULL, NULL, userdata);
-    g_signal_handlers_disconnect_matched (GTK_OBJECT(export_png_cancel_button), 
+    g_signal_handlers_disconnect_matched (G_OBJECT(export_png_cancel_button), 
 					  G_SIGNAL_MATCH_DATA, 0, 0, NULL, NULL, userdata);
   }
   g_free(cbdata->filename);
@@ -277,9 +277,9 @@ export_png_cancel(GtkButton *button, gpointer userdata)
 {
   struct png_callback_data *cbdata = (struct png_callback_data *)userdata;
 
-  g_signal_handlers_disconnect_matched (GTK_OBJECT(export_png_okay_button), 
+  g_signal_handlers_disconnect_matched (G_OBJECT(export_png_okay_button), 
 					G_SIGNAL_MATCH_DATA, 0, 0, NULL, NULL, userdata);
-  g_signal_handlers_disconnect_matched (GTK_OBJECT(export_png_cancel_button), 
+  g_signal_handlers_disconnect_matched (G_OBJECT(export_png_cancel_button), 
 					G_SIGNAL_MATCH_DATA, 0, 0, NULL, NULL, userdata);
 
   gtk_widget_hide(export_png_dialog);
@@ -338,10 +338,10 @@ export_png(DiagramData *data, DiaContext *ctx,
 			    0.0, 10000.0, 0);
 
     /* Make sure that the aspect ratio stays the same */
-    g_signal_connect(GTK_OBJECT(gtk_spin_button_get_adjustment(export_png_width_entry)), 
+    g_signal_connect(G_OBJECT(gtk_spin_button_get_adjustment(export_png_width_entry)), 
 		       "value_changed",
 		     G_CALLBACK(export_png_ratio), (gpointer)export_png_height_entry);
-    g_signal_connect(GTK_OBJECT(gtk_spin_button_get_adjustment(export_png_height_entry)), 
+    g_signal_connect(G_OBJECT(gtk_spin_button_get_adjustment(export_png_height_entry)), 
 		       "value_changed",
 		       G_CALLBACK(export_png_ratio), (gpointer)export_png_width_entry);
 
@@ -365,9 +365,9 @@ export_png(DiagramData *data, DiaContext *ctx,
     /*  gtk_spin_button_set_value(export_png_height_entry, (float)height);*/
     
     /* Set OK and Cancel buttons to call the relevant callbacks with cbdata */
-    g_signal_connect(GTK_OBJECT(export_png_okay_button), "clicked",
+    g_signal_connect(G_OBJECT(export_png_okay_button), "clicked",
 		     G_CALLBACK(export_png_ok), (gpointer)cbdata);
-    g_signal_connect(GTK_OBJECT(export_png_cancel_button), "clicked",
+    g_signal_connect(G_OBJECT(export_png_cancel_button), "clicked",
 		     G_CALLBACK(export_png_cancel), (gpointer)cbdata);
     
     /* Show the whole thing */

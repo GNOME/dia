@@ -193,7 +193,7 @@ linewidth_area_create (void)
   linewidth_area = gtk_drawing_area_new ();
   gtk_widget_set_size_request (linewidth_area, AREA_WIDTH, AREA_HEIGHT);
   gtk_widget_set_events (linewidth_area, GDK_EXPOSURE_MASK | GDK_BUTTON_PRESS_MASK);
-  g_signal_connect (GTK_OBJECT (linewidth_area), "event",
+  g_signal_connect (G_OBJECT (linewidth_area), "event",
 		    G_CALLBACK(linewidth_area_events),
 		      NULL);
 
@@ -275,9 +275,9 @@ linewidth_create_dialog(GtkWindow *toplevel)
   g_signal_connect_after(G_OBJECT (linewidth_button), "activate",
                    G_CALLBACK (linewidth_dialog_ok), NULL);
 
-  g_signal_connect (GTK_OBJECT (linewidth_dialog), "delete_event",
+  g_signal_connect (G_OBJECT (linewidth_dialog), "delete_event",
 		    G_CALLBACK(gtk_widget_hide), NULL);
-  g_signal_connect (GTK_OBJECT (linewidth_dialog), "destroy",
+  g_signal_connect (G_OBJECT (linewidth_dialog), "destroy",
 		    G_CALLBACK(dialog_destroyed), &linewidth_dialog);
 
   persistence_register_window (GTK_WINDOW (linewidth_dialog));

@@ -62,7 +62,7 @@ static void create_dialog()
   no_defaults_dialog = gtk_label_new(_("This object has no defaults."));
   gtk_widget_show (no_defaults_dialog);
 
-  g_object_ref_sink(GTK_OBJECT(no_defaults_dialog));
+  g_object_ref_sink(G_OBJECT(no_defaults_dialog));
 }
 
 static gint
@@ -132,7 +132,7 @@ defaults_show(DiaObjectType *objtype, gpointer user_data)
   /* don't destroy dialog when window manager close button pressed */
   g_signal_connect(G_OBJECT(dialog), "delete_event",
 		   G_CALLBACK(gtk_widget_hide), NULL);
-  g_signal_connect(GTK_OBJECT(dialog), "delete_event",
+  g_signal_connect(G_OBJECT(dialog), "delete_event",
 		   G_CALLBACK(gtk_true), NULL);
 
   gtk_box_pack_start(GTK_BOX(dialog_vbox), defaults, TRUE, TRUE, 0);

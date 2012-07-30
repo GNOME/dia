@@ -667,16 +667,16 @@ persistence_register_window(GtkWindow *window)
     g_object_ref(window);
   }
 
-  g_signal_connect(GTK_OBJECT(window), "configure-event",
+  g_signal_connect(G_OBJECT(window), "configure-event",
 		   G_CALLBACK(persistence_window_event_handler), NULL);
-  g_signal_connect(GTK_OBJECT(window), "map-event",
+  g_signal_connect(G_OBJECT(window), "map-event",
 		   G_CALLBACK(persistence_window_event_handler), NULL);
-  g_signal_connect(GTK_OBJECT(window), "unmap-event",
+  g_signal_connect(G_OBJECT(window), "unmap-event",
 		   G_CALLBACK(persistence_window_event_handler), NULL);
 
-  g_signal_connect(GTK_OBJECT(window), "hide",
+  g_signal_connect(G_OBJECT(window), "hide",
 		   G_CALLBACK(persistence_hide_show_window), NULL);
-  g_signal_connect(GTK_OBJECT(window), "show",
+  g_signal_connect(G_OBJECT(window), "show",
 		   G_CALLBACK(persistence_hide_show_window), NULL);
 }
 

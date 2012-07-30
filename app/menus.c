@@ -605,9 +605,9 @@ create_integrated_ui_toolbar (void)
   w = gtk_bin_get_child (GTK_BIN (w));
   gtk_entry_set_width_chars (GTK_ENTRY (w), 6);
   
-  g_signal_connect (GTK_OBJECT (w), "activate",
-		            G_CALLBACK(integrated_ui_toolbar_zoom_activate),
-		            NULL);
+  g_signal_connect (G_OBJECT (w), "activate",
+		    G_CALLBACK(integrated_ui_toolbar_zoom_activate),
+		    NULL);
   
   /* Seperator */
   sep = gtk_separator_tool_item_new ();

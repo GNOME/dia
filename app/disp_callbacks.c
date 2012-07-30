@@ -124,7 +124,7 @@ add_properties_menu_item (GtkMenu *menu, gboolean separator)
   }
 
   menu_item = gtk_menu_item_new_with_label(_("Properties\342\200\246"));
-  g_signal_connect(GTK_OBJECT(menu_item), "activate", G_CALLBACK(dialogs_properties_callback), NULL);
+  g_signal_connect(G_OBJECT(menu_item), "activate", G_CALLBACK(dialogs_properties_callback), NULL);
   gtk_menu_shell_append (GTK_MENU_SHELL (menu), menu_item);
   gtk_widget_show(menu_item);
 }
@@ -163,7 +163,7 @@ static void
 add_follow_link_menu_item (GtkMenu *menu)
 {
   GtkWidget *menu_item = gtk_menu_item_new_with_label(_("Follow link…"));
-  g_signal_connect(GTK_OBJECT(menu_item), "activate", G_CALLBACK(_follow_link_callback), NULL);
+  g_signal_connect(G_OBJECT(menu_item), "activate", G_CALLBACK(_follow_link_callback), NULL);
   gtk_menu_shell_append (GTK_MENU_SHELL (menu), menu_item);
   gtk_widget_show(menu_item);
 }

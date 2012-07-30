@@ -211,9 +211,9 @@ get_plugin_manager(void)
 		   G_CALLBACK(pm_respond), NULL);
   g_signal_connect(G_OBJECT(dialog), "delete_event",
 		   G_CALLBACK(gtk_widget_hide), NULL);
-  g_signal_connect(GTK_OBJECT(dialog), "delete_event",
+  g_signal_connect(G_OBJECT(dialog), "delete_event",
 		   G_CALLBACK(gtk_true), NULL);
-  g_signal_connect(GTK_OBJECT(dialog), "destroy",
+  g_signal_connect(G_OBJECT(dialog), "destroy",
 		   G_CALLBACK(gtk_widget_destroyed), &dialog);
 
   scrolled_window = gtk_scrolled_window_new (NULL, NULL);

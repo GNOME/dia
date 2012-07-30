@@ -575,7 +575,7 @@ diagram_tree_show (void)
     /* expand all rows after the treeview widget has been realized */
     g_signal_connect (dtv, "realize",
 		      G_CALLBACK (gtk_tree_view_expand_all), NULL);
-    g_signal_connect (GTK_OBJECT (window), "destroy",
+    g_signal_connect (G_OBJECT (window), "destroy",
 		      G_CALLBACK (gtk_widget_destroyed),
 		      &window);
 

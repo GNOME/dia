@@ -190,10 +190,10 @@ dia_size_selector_init (DiaSizeSelector *ss)
   g_signal_connect (G_OBJECT (ss->aspect_locked), "clicked",
                     G_CALLBACK (dia_size_selector_lock_pressed), ss);
   /* Make sure that the aspect ratio stays the same */
-  g_signal_connect(GTK_OBJECT(gtk_spin_button_get_adjustment(ss->width)), 
+  g_signal_connect(G_OBJECT(gtk_spin_button_get_adjustment(ss->width)), 
 		   "value_changed",
 		   G_CALLBACK(dia_size_selector_ratio_callback), (gpointer)ss);
-  g_signal_connect(GTK_OBJECT(gtk_spin_button_get_adjustment(ss->height)), 
+  g_signal_connect(G_OBJECT(gtk_spin_button_get_adjustment(ss->height)), 
 		   "value_changed",
 		   G_CALLBACK(dia_size_selector_ratio_callback), (gpointer)ss);
 }
@@ -397,7 +397,7 @@ dia_file_selector_browse_pressed(GtkWidget *widget, gpointer data)
 				   GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
 				   NULL);
     gtk_dialog_set_default_response(GTK_DIALOG(dialog), GTK_RESPONSE_ACCEPT);
-    g_signal_connect(GTK_OBJECT(dialog), "response",
+    g_signal_connect(G_OBJECT(dialog), "response",
 		     G_CALLBACK(file_open_response_callback), NULL);     
     g_signal_connect (G_OBJECT (fs->dialog), "destroy",
 		      G_CALLBACK (gtk_widget_destroyed), &fs->dialog);
@@ -438,7 +438,7 @@ dia_file_selector_init (DiaFileSelector *fs)
 
   fs->entry = GTK_ENTRY(gtk_entry_new());
   gtk_box_pack_start(GTK_BOX(fs), GTK_WIDGET(fs->entry), FALSE, TRUE, 0);
-  g_signal_connect(GTK_OBJECT(fs->entry), "changed",
+  g_signal_connect(G_OBJECT(fs->entry), "changed",
 		   G_CALLBACK(dia_file_selector_entry_changed), fs);
   gtk_widget_show(GTK_WIDGET(fs->entry));
 

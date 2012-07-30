@@ -288,9 +288,9 @@ sheets_dialog_wrapbox_add_line_break(GtkWidget *wrapbox)
 
   gtk_widget_set_tooltip_text(button, _("Line Break"));
 
-  g_signal_connect(GTK_OBJECT(button), "toggled",
+  g_signal_connect(G_OBJECT(button), "toggled",
 		   G_CALLBACK(on_sheets_dialog_object_button_toggled),
-                     wrapbox);
+                   wrapbox);
 }
 
 static void
@@ -338,9 +338,9 @@ sheets_dialog_create_object_button(SheetObjectMod *som, SheetMod *sm,
   g_object_set_data(G_OBJECT(button), "sheet_mod", sm);
   g_object_set_data(G_OBJECT(button), "sheet_object_mod", som);
 
-  g_signal_connect(GTK_OBJECT(button), "toggled",
+  g_signal_connect(G_OBJECT(button), "toggled",
 		   G_CALLBACK(on_sheets_dialog_object_button_toggled),
-                     wrapbox);
+                   wrapbox);
   return button;
 }
 
@@ -376,9 +376,9 @@ on_sheets_dialog_optionmenu_activate   (GtkMenuItem     *menuitem,
     radio_group = gtk_radio_button_get_group(GTK_RADIO_BUTTON(hidden_button));
   }
 
-  g_signal_connect(GTK_OBJECT(hidden_button), "toggled",
+  g_signal_connect(G_OBJECT(hidden_button), "toggled",
 		   G_CALLBACK(on_sheets_dialog_object_button_toggled),
-                     wrapbox);
+                   wrapbox);
   g_object_set_data(G_OBJECT(hidden_button), "is_hidden_button",
                     (gpointer)TRUE);
   g_object_set_data(G_OBJECT(wrapbox), "hidden_button", hidden_button);
