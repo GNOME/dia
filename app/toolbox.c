@@ -40,8 +40,6 @@
 
 #include "toolbox.h"
 
-#include "pixmaps/swap.xpm"
-#include "pixmaps/default.xpm"
 #include "pixmaps/missing.xpm"
 
 #include <gdk-pixbuf/gdk-pixbuf.h>
@@ -492,15 +490,6 @@ create_color_area (GtkWidget *parent)
   gtk_widget_ensure_style(parent);
   style = gtk_widget_get_style(parent);
 
-  default_pixmap =
-    gdk_pixmap_colormap_create_from_xpm_d(NULL,
-		gtk_widget_get_colormap(parent), &default_mask, 
-		&style->bg[GTK_STATE_NORMAL], default_xpm);
-  swap_pixmap =
-    gdk_pixmap_colormap_create_from_xpm_d(NULL,
-		gtk_widget_get_colormap(parent), &swap_mask, 
-		&style->bg[GTK_STATE_NORMAL], swap_xpm);
-
   frame = gtk_frame_new (NULL);
   gtk_frame_set_shadow_type (GTK_FRAME (frame), GTK_SHADOW_OUT);
   gtk_wrap_box_pack_wrapped(GTK_WRAP_BOX(parent), frame, TRUE, TRUE, FALSE, FALSE, TRUE);
@@ -513,9 +502,7 @@ create_color_area (GtkWidget *parent)
   alignment = gtk_alignment_new (0.5, 0.5, 0.0, 0.0);
   gtk_container_set_border_width (GTK_CONTAINER (alignment), 3);
   
-  col_area = color_area_create (54, 42, 
-                                default_pixmap, default_mask, 
-                                swap_pixmap, swap_mask);
+  col_area = color_area_create (54, 42, parent, style);
   gtk_container_add (GTK_CONTAINER (alignment), col_area);
 
 

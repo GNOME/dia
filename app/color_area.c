@@ -459,16 +459,25 @@ color_area_events (GtkWidget *widget,
   return FALSE;
 }
 
+#include "pixmaps/swap.xpm"
+#include "pixmaps/default.xpm"
 
 GtkWidget *
 color_area_create (int        width,
 		   int        height,
-		   GdkPixmap *default_pmap,
-		   GdkBitmap *default_msk,
-		   GdkPixmap *swap_pmap,
-		   GdkBitmap *swap_msk)
+		   GtkWidget *parent,
+		   GtkStyle  *style)
 {
   GtkWidget *event_box;
+
+  default_pixmap =
+    gdk_pixmap_colormap_create_from_xpm_d(NULL,
+		gtk_widget_get_colormap(parent), &default_mask, 
+		&style->bg[GTK_STATE_NORMAL], default_xpm);
+  swap_pixmap =
+    gdk_pixmap_colormap_create_from_xpm_d(NULL,
+		gtk_widget_get_colormap(parent), &swap_mask, 
+		&style->bg[GTK_STATE_NORMAL], swap_xpm);
 
   attributes_set_foreground(persistence_register_color("fg_color", &color_black));
   attributes_set_background(persistence_register_color("bg_color", &color_white));
@@ -480,10 +489,6 @@ color_area_create (int        width,
   g_signal_connect (G_OBJECT (color_area), "event",
 		       G_CALLBACK(color_area_events),
 		       NULL);
-  default_pixmap = default_pmap;
-  default_mask   = default_msk;
-  swap_pixmap    = swap_pmap;
-  swap_mask      = swap_msk;
 
   gtk_widget_show(color_area);
   gtk_container_add(GTK_CONTAINER(event_box), color_area);

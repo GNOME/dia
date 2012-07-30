@@ -20,11 +20,6 @@
 
 #include <gtk/gtk.h>
 
-GtkWidget *color_area_create (int        width,
-			      int        height,
-			      GdkPixmap *default_pmap,
-			      GdkBitmap *default_msk,
-			      GdkPixmap *swap_pmap,
-			      GdkBitmap *swap_msk);
+GtkWidget *color_area_create (int width, int height, GtkWidget *parent, GtkStyle *style);
 
 #endif /* COLOR_AREA_H */
