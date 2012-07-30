@@ -32,8 +32,7 @@ DiaImage *dia_image_load(const gchar *filename);
 DiaImage *dia_image_new_from_pixbuf(GdkPixbuf *pixbuf);
 void dia_image_add_ref(DiaImage *image);
 void dia_image_unref(DiaImage *image);
-void dia_image_draw(DiaImage *image, GdkWindow *window, GdkGC *gc,
-		    int x, int y, int width, int height);
+
 gboolean dia_image_save(DiaImage *image, const gchar *filename);
 
 int dia_image_width(const DiaImage *image);
