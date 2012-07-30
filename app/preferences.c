@@ -646,7 +646,7 @@ prefs_create_dialog(void)
 #ifdef SCROLLED_PAGES
     gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(notebook_page),
 					  table);
-    gtk_viewport_set_shadow_type(GTK_VIEWPORT(GTK_BIN(notebook_page)->child),
+    gtk_viewport_set_shadow_type(GTK_VIEWPORT(gtk_bin_get_child(GTK_BIN(notebook_page))),
 				 GTK_SHADOW_NONE);
 #endif /* SCROLLED_PAGES */
 

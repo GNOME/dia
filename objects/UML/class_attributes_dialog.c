@@ -103,7 +103,7 @@ _attributes_get_current_values(UMLClassDialog *prop_dialog)
       g_object_get_data(G_OBJECT(prop_dialog->current_attr), "user_data");
     if (current_attr != NULL) {
       attributes_get_values(prop_dialog, current_attr);
-      label = GTK_LABEL(GTK_BIN(prop_dialog->current_attr)->child);
+      label = GTK_LABEL(gtk_bin_get_child(GTK_BIN(prop_dialog->current_attr)));
       new_str = uml_get_attribute_string(current_attr);
       gtk_label_set_text (label, new_str);
       g_free (new_str);

@@ -99,7 +99,7 @@ parameters_get_current_values(UMLClassDialog *prop_dialog)
       g_object_get_data(G_OBJECT(prop_dialog->current_param), "user_data");
     if (current_param != NULL) {
       parameters_get_values(prop_dialog, current_param);
-      label = GTK_LABEL(GTK_BIN(prop_dialog->current_param)->child);
+      label = GTK_LABEL(gtk_bin_get_child(GTK_BIN(prop_dialog->current_param)));
       new_str = uml_get_parameter_string(current_param);
       gtk_label_set_text(label, new_str);
       g_free(new_str);
@@ -436,7 +436,7 @@ _operations_get_current_values(UMLClassDialog *prop_dialog)
       g_object_get_data(G_OBJECT(prop_dialog->current_op), "user_data");
     if (current_op != NULL) {
       operations_get_values(prop_dialog, current_op);
-      label = GTK_LABEL(GTK_BIN(prop_dialog->current_op)->child);
+      label = GTK_LABEL(gtk_bin_get_child(GTK_BIN(prop_dialog->current_op)));
       new_str = uml_get_operation_string(current_op);
       gtk_label_set_text (label, new_str);
       g_free (new_str);

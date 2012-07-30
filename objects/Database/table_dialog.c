@@ -837,7 +837,7 @@ attributes_page_update_cur_attr_item (TablePropDialog * prop_dialog)
       if (attr != NULL)
         {
           attributes_page_values_to_attribute (prop_dialog, attr);
-          label = GTK_LABEL (GTK_BIN (prop_dialog->cur_attr_list_item)->child);
+          label = GTK_LABEL (gtk_bin_get_child(GTK_BIN (prop_dialog->cur_attr_list_item)));
           str = table_get_attribute_string (attr);
           gtk_label_set_text (label, str);
           g_free (str);
