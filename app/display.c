@@ -718,25 +718,25 @@ ddisplay_update_scrollbars(DDisplay *ddisp)
 
   hsbdata = ddisp->hsbdata;
   /* Horizontal: */
-  hsbdata->lower = MIN(extents->left, visible->left);
-  hsbdata->upper = MAX(extents->right, visible->right);
-  hsbdata->page_size = visible->right - visible->left - 0.0001;
+  gtk_adjustment_set_lower (hsbdata, MIN(extents->left, visible->left));
+  gtk_adjustment_set_upper (hsbdata, MAX(extents->right, visible->right));
+  gtk_adjustment_set_page_size (hsbdata, visible->right - visible->left - 0.0001);
   /* remove some to fix strange behaviour in gtk_range_adjustment_changed */
-  hsbdata->page_increment = (visible->right - visible->left) / 2.0;
-  hsbdata->step_increment = (visible->right - visible->left) / 10.0;
-  hsbdata->value = visible->left;
+  gtk_adjustment_set_page_increment (hsbdata, (visible->right - visible->left) / 2.0);
+  gtk_adjustment_set_step_increment (hsbdata, (visible->right - visible->left) / 10.0);
+  gtk_adjustment_set_value (hsbdata, visible->left);
 
   g_signal_emit_by_name (G_OBJECT (ddisp->hsbdata), "changed");
 
   /* Vertical: */
   vsbdata = ddisp->vsbdata;
-  vsbdata->lower = MIN(extents->top, visible->top);
-  vsbdata->upper = MAX(extents->bottom, visible->bottom);
-  vsbdata->page_size = visible->bottom - visible->top - 0.00001;
+  gtk_adjustment_set_lower (vsbdata, MIN(extents->top, visible->top));
+  gtk_adjustment_set_upper (vsbdata, MAX(extents->bottom, visible->bottom));
+  gtk_adjustment_set_page_size (vsbdata, visible->bottom - visible->top - 0.00001);
   /* remove some to fix strange behaviour in gtk_range_adjustment_changed */
-  vsbdata->page_increment = (visible->bottom - visible->top) / 2.0;
-  vsbdata->step_increment = (visible->bottom - visible->top) / 10.0;
-  vsbdata->value = visible->top;
+  gtk_adjustment_set_page_increment (vsbdata, (visible->bottom - visible->top) / 2.0);
+  gtk_adjustment_set_step_increment (vsbdata, (visible->bottom - visible->top) / 10.0);
+  gtk_adjustment_set_value (vsbdata, visible->top);
 
   g_signal_emit_by_name (G_OBJECT (ddisp->vsbdata), "changed");
 }

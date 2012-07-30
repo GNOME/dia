@@ -819,9 +819,9 @@ create_display_shell(DDisplay *ddisp,
 
     width = ddisp->hrule->allocation.width;
 
-    ddisp->hsbdata->upper          = width;
-    ddisp->hsbdata->page_increment = (width - 1) / 4;
-    ddisp->hsbdata->page_size      = width - 1;
+    gtk_adjustment_set_upper (ddisp->hsbdata, width);
+    gtk_adjustment_set_page_increment (ddisp->hsbdata, (width - 1) / 4);
+    gtk_adjustment_set_page_size (ddisp->hsbdata, width - 1);
 
     gtk_adjustment_changed (GTK_ADJUSTMENT(ddisp->hsbdata));
   }

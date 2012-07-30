@@ -469,14 +469,17 @@ dia_page_layout_set_fitto(DiaPageLayout *self, gboolean fitto)
 gfloat
 dia_page_layout_get_scaling(DiaPageLayout *self)
 {
-  return GTK_SPIN_BUTTON(self->scaling)->adjustment->value / 100.0;
+  GtkAdjustment *adj = gtk_spin_button_get_adjustment (GTK_SPIN_BUTTON(self->scaling));
+  
+  return gtk_adjustment_get_value (adj) / 100.0;
 }
 
 void
 dia_page_layout_set_scaling(DiaPageLayout *self, gfloat scaling)
 {
-  GTK_SPIN_BUTTON(self->scaling)->adjustment->value = scaling * 100.0;
-  gtk_adjustment_value_changed(GTK_SPIN_BUTTON(self->scaling)->adjustment);
+  GtkAdjustment *adj = gtk_spin_button_get_adjustment (GTK_SPIN_BUTTON(self->scaling));
+
+  gtk_adjustment_set_value (adj, scaling * 100.0);
 }
 
 void
@@ -506,6 +509,7 @@ dia_page_layout_get_effective_area(DiaPageLayout *self, gfloat *width,
 				   gfloat *height)
 {
   gfloat h, w, scaling;
+  GtkAdjustment *adj = gtk_spin_button_get_adjustment (GTK_SPIN_BUTTON(self->scaling));
 
   if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(self->orient_portrait))) {
     w = get_paper_pswidth(self->papernum);
@@ -522,7 +526,7 @@ dia_page_layout_get_effective_area(DiaPageLayout *self, gfloat *width,
   g_return_if_fail (w > 0.0);
   w -= dia_unit_spinner_get_value(DIA_UNIT_SPINNER(self->rmargin));
   g_return_if_fail (w > 0.0);
-  scaling = GTK_SPIN_BUTTON(self->scaling)->adjustment->value / 100.0;
+  scaling = gtk_adjustment_get_value (adj) / 100.0;
   h /= scaling;
   w /= scaling;
 
