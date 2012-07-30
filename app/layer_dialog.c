@@ -442,11 +442,12 @@ layer_dialog_create(void)
   gtk_box_pack_start (GTK_BOX (vbox), button_box, FALSE, FALSE, 2);
   gtk_widget_show (button_box);
 
-  gtk_container_set_border_width(GTK_CONTAINER(GTK_DIALOG(dialog)->action_area),
+  gtk_container_set_border_width(GTK_CONTAINER(
+				 gtk_dialog_get_action_area (GTK_DIALOG(dialog))),
 				 2);
 
   button = gtk_button_new_from_stock (GTK_STOCK_CLOSE);
-  gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->action_area), 
+  gtk_box_pack_start (GTK_BOX (gtk_dialog_get_action_area (GTK_DIALOG(dialog))), 
 		      button, TRUE, TRUE, 0);
   g_signal_connect_swapped(G_OBJECT (button), "clicked",
 			   G_CALLBACK(gtk_widget_hide),
@@ -1241,7 +1242,7 @@ layer_dialog_edit_layer (DiaLayerWidget *layer_widget, Diagram *dia, Layer *laye
 #else
   GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
 #endif
-  gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog->dialog)->action_area), 
+  gtk_box_pack_start (GTK_BOX (gtk_dialog_get_action_area (GTK_DIALOG (dialog->dialog))), 
 		      button, TRUE, TRUE, 0);
   if (layer_widget)
     g_signal_connect (G_OBJECT (button), "clicked",
@@ -1262,7 +1263,7 @@ layer_dialog_edit_layer (DiaLayerWidget *layer_widget, Diagram *dia, Layer *laye
 #else
   GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
 #endif
-  gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog->dialog)->action_area), 
+  gtk_box_pack_start (GTK_BOX (gtk_dialog_get_action_area (GTK_DIALOG (dialog->dialog))), 
 		      button, TRUE, TRUE, 0);
   g_signal_connect (G_OBJECT (button), "clicked",
 		    G_CALLBACK(edit_layer_cancel_callback),

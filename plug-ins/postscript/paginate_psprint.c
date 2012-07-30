@@ -309,7 +309,7 @@ diagram_print_ps(DiagramData *dia, const gchar* original_filename)
   g_signal_connect(G_OBJECT(isofile), "toggled",
 		   G_CALLBACK(change_entry_state), ofile);
 
-  box = GTK_DIALOG(dialog)->action_area;
+  box = gtk_dialog_get_action_area(GTK_DIALOG(dialog));
 
   button = gtk_button_new_with_label(_("OK"));
   g_signal_connect(G_OBJECT(button), "clicked", 
