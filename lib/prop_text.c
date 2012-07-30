@@ -28,6 +28,7 @@
 #endif
 
 #include <gtk/gtk.h>
+#include <gdk/gdk.h>
 #include <gdk/gdkkeysyms.h>
 #include "widgets.h"
 #include "properties.h"

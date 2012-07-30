@@ -19,7 +19,7 @@
 #define WIDGETS_H
 
 #include <gdk/gdk.h>
-#include <gtk/gtkspinbutton.h>
+#include <gtk/gtk.h>
 
 #include "diatypes.h"
 #include "font.h"

@@ -1,7 +1,5 @@
 
-#include <gtk/gtkversion.h>
-
-#include <gtk/gtkprintoperation.h>
+#include <gtk/gtk.h>
 #include "diagramdata.h"
 
 GtkPrintOperation *

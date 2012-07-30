@@ -26,7 +26,7 @@
 #define __DIA_CELL_RENDERER_PROPERTY_H__
 
 
-#include <gtk/gtkcellrenderer.h>
+#include <gtk/gtk.h>
 #include "diatypes.h"
 
 #define DIA_TYPE_CELL_RENDERER_PROPERTY            (dia_cell_renderer_property_get_type ())

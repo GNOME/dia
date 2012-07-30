@@ -19,7 +19,6 @@
 #define DDISPLAY_H
 
 #include <gtk/gtk.h>
-#include <gtk/gtkimcontext.h>
 
 typedef struct _DDisplay DDisplay;
 

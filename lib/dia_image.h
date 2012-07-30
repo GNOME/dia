@@ -19,7 +19,7 @@
 #define DIA_IMAGE_H
 
 #include "diatypes.h"
-#include <gdk/gdktypes.h>
+#include <gdk/gdk.h>
 #include <gdk-pixbuf/gdk-pixbuf.h>
 
 #include "geometry.h"

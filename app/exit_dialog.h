@@ -22,8 +22,7 @@
 #ifndef EXIT_DIALOG_H
 #define EXIT_DIALOG_H
 
-#include <gtk/gtkwidget.h>
-#include <gtk/gtkwindow.h>
+#include <gtk/gtk.h>
 
 G_BEGIN_DECLS
 
