@@ -103,7 +103,13 @@ ICON_PNG_PAIRS = \
 	dia_objects_layer_below pixmaps\objects-layer-below.png \
 	dia_layers pixmaps\layers.png \
 	dia_layer_add pixmaps\layer-add.png \
-	dia_layer_rename pixmaps\layer-rename.png
+	dia_layer_rename pixmaps\layer-rename.png \
+	\
+	dia_cursor_create pixmaps\cursor-create.png \
+	dia_cursor_hand_open pixmaps\cursor-hand-open.png \
+	dia_cursor_hand_closed pixmaps\cursor-hand-closed.png \
+	dia_cursor_magnify_minus pixmaps\cursor-magnify-minus.png \
+	dia_cursor_magnify_plus pixmaps\cursor-magnify-plus.png \
 
 dia-app-icons.h : makefile.msc pixmaps\*.png
 	gdk-pixbuf-csource --build-list \

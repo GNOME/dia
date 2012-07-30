@@ -37,6 +37,3 @@ typedef enum {
 
 /* Preferred way to get a cursor */
 GdkCursor *get_cursor(DiaCursorType ctype);
-GdkCursor *create_cursor(GdkWindow *window,
-			 const gchar *data, int width, int height,
-			 const gchar *mask, int hot_x, int hot_y);

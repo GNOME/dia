@@ -25,56 +25,34 @@
 #include "display.h"
 #include "cursor.h"
 
-#include "pixmaps/hand-open-data.xbm"
-#include "pixmaps/hand-open-mask.xbm"
-#include "pixmaps/hand-closed-data.xbm"
-#include "pixmaps/hand-closed-mask.xbm"
-#include "pixmaps/magnify-plus-data.xbm"
-#include "pixmaps/magnify-plus-mask.xbm"
-#include "pixmaps/magnify-minus-data.xbm"
-#include "pixmaps/magnify-minus-mask.xbm"
-#include "pixmaps/cursor-create-data.xbm"
-#include "pixmaps/cursor-create-mask.xbm"
+#include "dia-app-icons.h"
 
 static struct {
   /* Can't use a union because it can't be statically initialized
      (except for the first element) */
   int gdk_cursor_number;
-  gchar *data;
-  int width;
-  int height;
-  gchar *mask;
+  const gchar *data;
   int hot_x;
   int hot_y;
   GdkCursor *cursor;
 } cursors[MAX_CURSORS] = {
   { GDK_LEFT_PTR }, /* CURSOR_POINT */
   { DIA_CURSOR, /* CURSOR_CREATE */
-    cursor_create_data_bits,
-    cursor_create_data_width, cursor_create_data_height,
-    cursor_create_mask_bits,
+    dia_cursor_create,
     0, 0},  
   { GDK_FLEUR }, /* CURSOR_SCROLL */
   { DIA_CURSOR, /* CURSOR_GRAB */
-    hand_open_data_bits,
-    hand_open_data_width, hand_open_data_height,
-    hand_open_mask_bits,
-    hand_open_data_width/2, hand_open_data_height/2},
+    dia_cursor_hand_open,
+    10, 10 },
   { DIA_CURSOR, /* CURSOR_GRABBING */
-    hand_closed_data_bits,
-    hand_closed_data_width, hand_closed_data_height,
-    hand_closed_mask_bits,
-    hand_closed_data_width/2, hand_closed_data_height/2},
+    dia_cursor_hand_closed,
+    10, 10 },
   { DIA_CURSOR, /* CURSOR_ZOOM_OUT */
-    magnify_minus_data_bits,
-    magnify_minus_data_width, magnify_minus_data_height,
-    magnify_minus_mask_bits,
-    magnify_minus_data_x_hot, magnify_minus_data_y_hot},
+    dia_cursor_magnify_minus,
+    8, 8 },
   { DIA_CURSOR, /* CURSOR_ZOOM_IN */
-    magnify_plus_data_bits,
-    magnify_plus_data_width, magnify_plus_data_height,
-    magnify_plus_mask_bits,
-    magnify_plus_data_x_hot, magnify_plus_data_y_hot},
+    dia_cursor_magnify_plus,
+    8, 8 },
   { GDK_CROSS_REVERSE }, /* CURSOR_CONNECT */
   { GDK_XTERM }, /* CURSOR_XTERM */
   /* for safety reasons these should be last and must be in the same order HANDLE_RESIZE_* */
@@ -87,6 +65,11 @@ static struct {
   { GDK_BOTTOM_SIDE },/* S */
   { GDK_BOTTOM_RIGHT_CORNER }, /* SW */
 };
+
+
+static GdkCursor *create_cursor(GdkWindow *window,
+				const gchar *data, 
+				int hot_x, int hot_y);
 
 GdkCursor *
 get_cursor(DiaCursorType ctype) {
@@ -103,9 +86,6 @@ get_cursor(DiaCursorType ctype) {
       if (active_display != NULL) 
 	new_cursor = create_cursor(gtk_widget_get_window(active_display->canvas),
 				   cursors[ctype].data,
-				   cursors[ctype].width,
-				   cursors[ctype].height,
-				   cursors[ctype].mask,
 				   cursors[ctype].hot_x,
 				   cursors[ctype].hot_y);
     }
@@ -117,28 +97,22 @@ get_cursor(DiaCursorType ctype) {
 
 GdkCursor *
 create_cursor(GdkWindow *window,
-	      const gchar *data, int width, int height,
-	      const gchar *mask, int hot_x, int hot_y)
+	      const gchar *data,
+	      int hot_x, int hot_y)
 {
-  GdkBitmap *dbit, *mbit;
-  GdkColor black, white;
+  GdkPixbuf *pixbuf;
   GdkCursor *cursor;
+  GdkDisplay *display;
 
   g_return_val_if_fail(window != NULL, NULL);
+  display = gdk_drawable_get_display (GDK_DRAWABLE (window));
 
-  dbit = gdk_bitmap_create_from_data(window, data, width, height);
-  mbit = gdk_bitmap_create_from_data(window, mask, width, height);
-  g_assert(dbit != NULL && mbit != NULL);
+  pixbuf = gdk_pixbuf_new_from_inline(-1, data, FALSE, NULL);
 
-  /* For some odd reason, black and white is inverted */
-  gdk_color_black(gdk_window_get_colormap(window), &white);
-  gdk_color_white(gdk_window_get_colormap(window), &black);
-
-  cursor = gdk_cursor_new_from_pixmap(dbit, mbit, &white, &black, hot_x,hot_y);
+  cursor = gdk_cursor_new_from_pixbuf (display, pixbuf, hot_x,hot_y);
   g_assert(cursor != NULL);
 
-  g_object_unref(dbit);
-  g_object_unref(mbit);
+  g_object_unref(pixbuf);
 
   return cursor;
 }

@@ -50,6 +50,12 @@ ICON_PNG_PAIRS= \
 	dia_layers $(srcdir)/pixmaps/layers.png \
 	dia_layer_add $(srcdir)/pixmaps/layer-add.png \
 	dia_layer_rename $(srcdir)/pixmaps/layer-rename.png
+	\
+	dia_cursor_create $(srcdir)/pixmaps/cursor-create.png \
+	dia_cursor_hand_open $(srcdir)/pixmaps/cursor-hand-open.png \
+	dia_cursor_hand_closed $(srcdir)/pixmaps/cursor-hand-closed.png \
+	dia_cursor_magnify_minus $(srcdir)/pixmaps/cursor-magnify-minus.png \
+	dia_cursor_magnify_plus $(srcdir)/pixmaps/cursor-magnify-plus.png \
 	
 
 ICON_PNGS= \
@@ -61,7 +67,12 @@ ICON_PNGS= \
 	pixmaps/off-grid.png \
 	pixmaps/visible.png \
 	pixmaps/visible-empty.png \
-        \
+	\
+	pixmaps/cursor-create.png \
+	pixmaps/cursor-hand-open.png \
+	pixmaps/cursor-hand-closed.png \
+	pixmaps/cursor-magnify-minus.png \
+	pixmaps/cursor-magnify-plus.png \
 	\
 	pixmaps/arrow-22.png \
 	pixmaps/scroll-22.png \
@@ -234,16 +245,6 @@ EXTRA_DIST = \
 	pixmaps/portrait.xpm \
 	pixmaps/landscape.xpm \
 	\
-	pixmaps/cursor-create-data.xbm \
-	pixmaps/cursor-create-mask.xbm \
-	pixmaps/hand-open-data.xbm \
-	pixmaps/hand-open-mask.xbm \
-	pixmaps/hand-closed-data.xbm \
-	pixmaps/hand-closed-mask.xbm \
-	pixmaps/magnify-plus-data.xbm \
-	pixmaps/magnify-plus-mask.xbm \
-	pixmaps/magnify-minus-data.xbm \
-	pixmaps/magnify-minus-mask.xbm \
 	\
 	pixmaps/missing.xpm \
 	pixmaps/n_a.xpm \
