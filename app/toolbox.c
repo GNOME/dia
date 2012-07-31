@@ -18,7 +18,6 @@
 
 #include <config.h>
 
-#undef GTK_DISABLE_DEPRECATED /* GtkPixmap */
 #include <gtk/gtk.h>
 #include "gtkwrapbox.h"
 #include "gtkhwrapbox.h"
@@ -231,7 +230,7 @@ tool_drag_data_get (GtkWidget *widget, GdkDragContext *context,
 
 static void
 tool_setup_drag_source(GtkWidget *button, ToolButtonData *tooldata,
-		       GdkPixmap *pixmap, GdkBitmap *mask)
+		       GdkPixbuf *pixbuf)
 {
   g_return_if_fail(tooldata->type == CREATE_OBJECT_TOOL);
 
@@ -240,9 +239,8 @@ tool_setup_drag_source(GtkWidget *button, ToolButtonData *tooldata,
 		      GDK_ACTION_DEFAULT|GDK_ACTION_COPY);
   g_signal_connect(G_OBJECT(button), "drag_data_get",
 		   G_CALLBACK(tool_drag_data_get), tooldata);
-  if (pixmap)
-    gtk_drag_source_set_icon(button, gtk_widget_get_colormap(button),
-			     pixmap, mask);
+  if (pixbuf)
+    gtk_drag_source_set_icon_pixbuf (button, pixbuf);
 }
 
 static void
@@ -268,18 +266,14 @@ fill_sheet_wbox(Sheet *sheet)
   style = gtk_widget_get_style(sheet_wbox);
   for (tmp = sheet->objects; tmp != NULL; tmp = tmp->next) {
     SheetObject *sheet_obj = tmp->data;
-    GdkPixmap *pixmap = NULL;
-    GdkBitmap *mask = NULL;
-    GtkWidget *pixmapwidget;
+    GdkPixbuf *pixbuf = NULL;
+    GtkWidget *image;
     GtkWidget *button;
     ToolButtonData *data;
 
     if (sheet_obj->pixmap != NULL) {
-      pixmap = gdk_pixmap_colormap_create_from_xpm_d(NULL,
-			gtk_widget_get_colormap(sheet_wbox), &mask, 
-			&style->bg[GTK_STATE_NORMAL], sheet_obj->pixmap);
+      pixbuf = gdk_pixbuf_new_from_xpm_data (sheet_obj->pixmap);
     } else if (sheet_obj->pixmap_file != NULL) {
-      GdkPixbuf *pixbuf;
       GError* gerror = NULL;
       
       pixbuf = gdk_pixbuf_new_from_file(sheet_obj->pixmap_file, &gerror);
@@ -295,12 +289,8 @@ fill_sheet_wbox(Sheet *sheet)
 	    g_object_unref (pixbuf);
 	    pixbuf = cropped;
 	  }
-          gdk_pixbuf_render_pixmap_and_mask_for_colormap(pixbuf, gtk_widget_get_colormap(sheet_wbox), &pixmap, &mask, 1.0);
-          g_object_unref(pixbuf);
       } else {
-          pixmap = gdk_pixmap_colormap_create_from_xpm_d(NULL,
-			gtk_widget_get_colormap(sheet_wbox), &mask, 
-			&style->bg[GTK_STATE_NORMAL], missing);
+          pixbuf = gdk_pixbuf_new_from_xpm_data (missing);
 
           message_warning("failed to load icon for file\n %s\n cause=%s",
                           sheet_obj->pixmap_file,gerror?gerror->message:"[NULL]");
@@ -308,16 +298,12 @@ fill_sheet_wbox(Sheet *sheet)
     } else {
       DiaObjectType *type;
       type = object_get_type(sheet_obj->object_type);
-      pixmap = gdk_pixmap_colormap_create_from_xpm_d(NULL,
-			gtk_widget_get_colormap(sheet_wbox), &mask, 
-			&style->bg[GTK_STATE_NORMAL], type->pixmap);
+      pixbuf = gdk_pixbuf_new_from_xpm_data (type->pixmap);
     }
-    if (pixmap) {
-      pixmapwidget = gtk_pixmap_new(pixmap, mask);
-      g_object_unref(pixmap);
-      if (mask) g_object_unref(mask);
+    if (pixbuf) {
+      image = gtk_image_new_from_pixbuf (pixbuf);
     } else {
-      pixmapwidget = g_object_new (gtk_pixmap_get_type(), NULL);
+      image = gtk_image_new ();
     }
 
     button = gtk_radio_button_new (tool_group);
@@ -325,8 +311,8 @@ fill_sheet_wbox(Sheet *sheet)
     gtk_container_set_border_width (GTK_CONTAINER (button), 0);
     tool_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (button));
 
-    gtk_container_add (GTK_CONTAINER (button), pixmapwidget);
-    gtk_widget_show(pixmapwidget);
+    gtk_container_add (GTK_CONTAINER (button), image);
+    gtk_widget_show(image);
 
     gtk_wrap_box_pack_wrapped(GTK_WRAP_BOX(sheet_wbox), button,
 		      FALSE, TRUE, FALSE, TRUE, sheet_obj->line_break);
@@ -345,7 +331,8 @@ fill_sheet_wbox(Sheet *sheet)
     g_signal_connect (G_OBJECT (button), "button_press_event",
 		      G_CALLBACK (tool_button_press), data);
 
-    tool_setup_drag_source(button, data, pixmap, mask);
+    tool_setup_drag_source(button, data, pixbuf);
+    g_object_unref(pixbuf);
 
     gtk_widget_set_tooltip_text (button, gettext(sheet_obj->description));
   }
@@ -480,10 +467,6 @@ create_color_area (GtkWidget *parent)
   GtkWidget *alignment;
   GtkWidget *col_area;
   GtkWidget *line_area;
-  GdkPixmap *default_pixmap;
-  GdkBitmap *default_mask;
-  GdkPixmap *swap_pixmap;
-  GdkBitmap *swap_mask;
   GtkStyle *style;
   GtkWidget *hbox;
 
@@ -645,17 +628,18 @@ tool_get_pixbuf (ToolButton *tb)
  * the difference between char* and char** - most of the time ;)
  */
 static GtkWidget *
-create_widget_from_xpm_or_gdkp(gchar **icon_data, GtkWidget *button) 
+create_widget_from_xpm_or_gdkp(gchar **icon_data, GtkWidget *button, GdkPixbuf **pb_out) 
 {
   GtkWidget *pixmapwidget;
 
   if (strncmp((char*)icon_data, "GdkP", 4) == 0) {
     GdkPixbuf *p;
-    p = gdk_pixbuf_new_from_inline(-1, (guint8*)icon_data, TRUE, NULL);
+    *pb_out = p = gdk_pixbuf_new_from_inline(-1, (guint8*)icon_data, TRUE, NULL);
     pixmapwidget = gtk_image_new_from_pixbuf(p);
   } else {
     char **pixmap_data = icon_data;
-    pixmapwidget = gtk_image_new_from_pixbuf (gdk_pixbuf_new_from_xpm_data (pixmap_data));
+    *pb_out = gdk_pixbuf_new_from_xpm_data (pixmap_data);
+    pixmapwidget = gtk_image_new_from_pixbuf (*pb_out);
   }
   return pixmapwidget;
 }
@@ -664,9 +648,8 @@ static void
 create_tools(GtkWidget *parent)
 {
   GtkWidget *button;
-  GtkWidget *pixmapwidget;
-  GdkPixmap *pixmap = NULL;
-  GdkBitmap *mask = NULL;
+  GdkPixbuf *pixbuf = NULL;
+  GtkWidget *image;
   /* GtkStyle *style; */
   char **pixmap_data;
   int i;
@@ -693,15 +676,15 @@ create_tools(GtkWidget *parent)
 	pixmap_data = tool_data[0].icon_data;
       else
 	pixmap_data = type->pixmap;
-      pixmapwidget = create_widget_from_xpm_or_gdkp(pixmap_data, button);
+      image = create_widget_from_xpm_or_gdkp(pixmap_data, button, &pixbuf);
     } else {
-      pixmapwidget = create_widget_from_xpm_or_gdkp(tool_data[i].icon_data, button);
+      image = create_widget_from_xpm_or_gdkp(tool_data[i].icon_data, button, &pixbuf);
     }
     
     /* GTKBUG:? padding changes */
-    gtk_misc_set_padding(GTK_MISC(pixmapwidget), 2, 2);
+    gtk_misc_set_padding(GTK_MISC(image), 2, 2);
     
-    gtk_container_add (GTK_CONTAINER (button), pixmapwidget);
+    gtk_container_add (GTK_CONTAINER (button), image);
     
     g_signal_connect (G_OBJECT (button), "clicked",
 		      G_CALLBACK (tool_select_update),
@@ -712,11 +695,10 @@ create_tools(GtkWidget *parent)
 			&tool_data[i].callback_data);
 
     if (tool_data[i].callback_data.type == CREATE_OBJECT_TOOL)
-      tool_setup_drag_source(button, &tool_data[i].callback_data,
-			     pixmap, mask);
+      tool_setup_drag_source(button, &tool_data[i].callback_data, pixbuf);
 
-    if (pixmap) g_object_unref(pixmap);
-    if (mask) g_object_unref(mask);
+    if (pixbuf)
+      g_object_unref(pixbuf);
 
     tool_data[i].callback_data.widget = button;
 
@@ -738,7 +720,7 @@ create_tools(GtkWidget *parent)
 				gettext(tool_data[i].tool_desc));
     }
     
-    gtk_widget_show (pixmapwidget);
+    gtk_widget_show (image);
     gtk_widget_show (button);
   }
 }
