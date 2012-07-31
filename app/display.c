@@ -817,6 +817,8 @@ ddisplay_zoom_middle(DDisplay *ddisp, real magnify)
   visible = &ddisp->visible;
   middle.x = visible->left*0.5 + visible->right*0.5;
   middle.y = visible->top*0.5 + visible->bottom*0.5;
+
+  ddisplay_zoom (ddisp, &middle, magnify);
 }
 
 /*
