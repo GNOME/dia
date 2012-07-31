@@ -77,7 +77,7 @@ dia_dnd_file_drag_data_received (GtkWidget        *widget,
         Diagram *diagram = NULL;
         gchar *sPath = NULL, *pFrom, *pTo; 
 
-        pFrom = strstr((gchar *) data->data, "file:");
+        pFrom = strstr((gchar *) gtk_selection_data_get_data(data), "file:");
         while (pFrom) {
           GError *error = NULL;
 
@@ -313,10 +313,10 @@ display_data_received_callback (GtkWidget *widget,
 				guint time, 
 				DDisplay *ddisp)
 {
-  if (data->format == 8 && data->length == sizeof(ToolButtonData *) &&
+  if (gtk_selection_data_get_format(data) == 8 &&
+      gtk_selection_data_get_length(data) == sizeof(ToolButtonData *) &&
       gtk_drag_get_source_widget(context) != NULL) {
-    ToolButtonData *tooldata = *(ToolButtonData **)data->data;
-
+    ToolButtonData *tooldata = *(ToolButtonData **)gtk_selection_data_get_data(data);
     /* g_message("Tool drop %s at (%d, %d)", (gchar *)tooldata->extra_data, x, y);*/
     ddisplay_drop_object(ddisp, x, y,
 			 object_get_type((gchar *)tooldata->extra_data),

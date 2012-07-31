@@ -223,7 +223,8 @@ tool_drag_data_get (GtkWidget *widget, GdkDragContext *context,
 		    guint32 time, ToolButtonData *tooldata)
 {
   if (info == 0) {
-    gtk_selection_data_set(selection_data, selection_data->target,
+    gtk_selection_data_set(selection_data, 
+			   gtk_selection_data_get_target(selection_data),
 			   8, (guchar *)&tooldata, sizeof(ToolButtonData *));
   }
 }
