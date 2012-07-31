@@ -1528,7 +1528,7 @@ void display_rulers_show (DDisplay *ddisp)
 {
   if (ddisp)
   {
-    GtkWidget *parent = GTK_WIDGET (ddisp->origin->parent);
+    GtkWidget *parent = gtk_widget_get_parent (GTK_WIDGET (ddisp->origin));
 
     gtk_widget_show (ddisp->origin);
     gtk_widget_show (ddisp->hrule);
@@ -1556,7 +1556,7 @@ void display_rulers_hide (DDisplay *ddisp)
 {
   if (ddisp)
   {
-    GtkWidget *parent = GTK_WIDGET (ddisp->origin->parent);
+    GtkWidget *parent = gtk_widget_get_parent (GTK_WIDGET (ddisp->origin));
 
     gtk_widget_hide (ddisp->origin);
     gtk_widget_hide (ddisp->hrule);
