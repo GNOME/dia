@@ -53,9 +53,6 @@
 #include "dia-app-icons.h"
 
 static void
-use_integrated_ui_for_display_shell(DDisplay *ddisp, char *title);
-
-static void
 dia_dnd_file_drag_data_received (GtkWidget        *widget,
                                  GdkDragContext   *context,
                                  gint              x,
@@ -472,30 +469,23 @@ static void
 use_integrated_ui_for_display_shell(DDisplay *ddisp, char *title)
 {
   GtkWidget *table;
-  /* GtkWidget *status_hbox; */
-  /* GtkWidget *zoom_hbox, *zoom_label; */
   GtkWidget *label;                /* Text label for the notebook page */
   GtkWidget *tab_label_container;  /* Container to hold text label & close button */
   int width, height;               /* Width/Heigth of the diagram */
   GtkWidget *image;
   GtkWidget *close_button;         /* Close button for the notebook page */
-  /* GtkWidget *widget; */
   GtkRcStyle *rcstyle;
   gint       notebook_page_index;
-	
+
   ddisp->is_standalone_window = FALSE;
 
   ddisp->shell = GTK_WIDGET (ui.main_window);
-
-  /* Statusbar */
   ddisp->modified_status = GTK_WIDGET (ui.statusbar);
  
   tab_label_container = gtk_hbox_new(FALSE,3);
-  
   label = gtk_label_new( title );
   gtk_box_pack_start( GTK_BOX(tab_label_container), label, FALSE, FALSE, 0 );
   gtk_widget_show (label);
-
   /* Create a new tab page */
   ddisp->container = gtk_vbox_new(FALSE, 0);
 
@@ -567,16 +557,12 @@ use_integrated_ui_for_display_shell(DDisplay *ddisp, char *title)
                     GTK_EXPAND | GTK_SHRINK | GTK_FILL, 0, 0);
 
   ddisp->common_toolbar = ui.toolbar;
-
   /* Stand-alone window menubar */
   ddisp->menu_bar = NULL;
-
   /* Stand-alone window Zoom status/menu */
   ddisp->zoom_status = NULL;
-
   /* Stand-alone window Grid on/off button */
   ddisp->grid_status = NULL;
-
   /* Stand-alone window Object Snapping button */
   ddisp->mainpoint_status = NULL;
 
@@ -589,7 +575,6 @@ use_integrated_ui_for_display_shell(DDisplay *ddisp, char *title)
   gtk_notebook_set_current_page (ui.diagram_notebook, notebook_page_index);
 
   integrated_ui_toolbar_grid_snap_synchronize_to_display (ddisp);
-
   integrated_ui_toolbar_object_snap_synchronize_to_display (ddisp);
 
   /* TODO: Figure out how to detect if anti-aliased renderer was set */
@@ -629,7 +614,6 @@ create_display_shell(DDisplay *ddisp,
  
   ddisp->is_standalone_window = TRUE;
   ddisp->container            = NULL;
-
 
   s_width = gdk_screen_width ();
   s_height = gdk_screen_height ();
@@ -1004,21 +988,11 @@ create_toolbox ()
   gtk_window_set_default_size(GTK_WINDOW(window), 146, 349);
 
   app_set_icon (GTK_WINDOW (window));
-  if (!gtk_window_get_icon (GTK_WINDOW (window))) {
-    GdkPixbuf *pixbuf = gdk_pixbuf_new_from_inline (-1, dia_app_icon, FALSE, NULL);
-    if (pixbuf) {
-      gtk_window_set_icon (GTK_WINDOW (window), pixbuf);
-      g_object_unref (pixbuf);
-    }
-  }
 
   g_signal_connect (G_OBJECT (window), "delete_event",
-		    G_CALLBACK (toolbox_delete),
-		      window);
-
+		    G_CALLBACK (toolbox_delete), window);
   g_signal_connect (G_OBJECT (window), "destroy",
-		    G_CALLBACK (toolbox_destroy),
-		      window);
+		    G_CALLBACK (toolbox_destroy), window);
 
   main_vbox = gtk_vbox_new (FALSE, 1);
   gtk_container_set_border_width (GTK_CONTAINER (main_vbox), 1);

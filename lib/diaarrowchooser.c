@@ -44,20 +44,6 @@ _dia_translate (const gchar* term, gpointer data)
     /* ... than gtk */
     if (term == trans)
       trans = dgettext ("gtk20", term);
-#if 0
-    /* FIXME: final fallback */
-    if (term == trans) { /* FIXME: translation to be updated */
-      gchar* kludge = g_strdup_printf ("/%s", term);
-      trans = dgettext (GETTEXT_PACKAGE, kludge);
-      if (kludge == trans)
-	trans = term;
-      else
-	++trans;
-      g_free (kludge);
-    }
-    if (term == trans)
-      trans = g_strdup_printf ("XXX: %s", term);
-#endif
   }
   return trans;
 }
