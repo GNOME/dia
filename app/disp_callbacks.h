@@ -20,13 +20,6 @@
 
 #include "display.h"
 
-#define CANVAS_EVENT_MASK   \
-         GDK_EXPOSURE_MASK | GDK_POINTER_MOTION_MASK | \
-	 GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | \
-	 GDK_BUTTON_RELEASE_MASK | GDK_STRUCTURE_MASK | \
-	 GDK_ENTER_NOTIFY_MASK | GDK_KEY_PRESS_MASK |  \
-	 GDK_KEY_RELEASE_MASK
-
 gint ddisplay_focus_in_event (GtkWidget *widget, GdkEventFocus *event,
 			      gpointer data);
 gint ddisplay_focus_out_event (GtkWidget *widget, GdkEventFocus *event,

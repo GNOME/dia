@@ -353,8 +353,17 @@ create_canvas (DDisplay *ddisp)
   /* Dia's canvas does it's double buffering alone so switch off GTK's */
   gtk_widget_set_double_buffered (canvas, FALSE);
 
-  gtk_widget_set_events (canvas, CANVAS_EVENT_MASK);
+  gtk_widget_set_events (canvas,
+			 GDK_EXPOSURE_MASK | 
+			 GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK |
+			 GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK | 
+			 GDK_STRUCTURE_MASK | GDK_ENTER_NOTIFY_MASK |
+			 GDK_KEY_PRESS_MASK | GDK_KEY_RELEASE_MASK);
+#if GTK_CHECK_VERSION(2,18,0)
+  gtk_widget_set_can_focus (canvas, TRUE);
+#else
   GTK_WIDGET_SET_FLAGS (canvas, GTK_CAN_FOCUS);
+#endif
   g_signal_connect (G_OBJECT (canvas), "event",
                     G_CALLBACK(ddisplay_canvas_events),
                     ddisp);
