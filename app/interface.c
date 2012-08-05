@@ -388,6 +388,23 @@ _ddisplay_setup_rulers (DDisplay *ddisp, GtkWidget *shell, GtkWidget *table)
   gtk_table_attach (GTK_TABLE (table), ddisp->vrule, 0, 1, 1, 2,
                     GTK_FILL, GTK_EXPAND | GTK_SHRINK | GTK_FILL, 0, 0);
 }
+static void
+_ddisplay_setup_events (DDisplay *ddisp, GtkWidget *shell)
+{
+  gtk_widget_set_events (shell,
+                         GDK_POINTER_MOTION_MASK |
+                         GDK_POINTER_MOTION_HINT_MASK |
+                         GDK_FOCUS_CHANGE_MASK);
+
+  g_signal_connect (G_OBJECT (shell), "focus_out_event",
+		    G_CALLBACK (ddisplay_focus_out_event), ddisp);
+  g_signal_connect (G_OBJECT (shell), "focus_in_event",
+		    G_CALLBACK (ddisplay_focus_in_event), ddisp);
+  g_signal_connect (G_OBJECT (shell), "realize",
+		    G_CALLBACK (ddisplay_realize), ddisp);
+  g_signal_connect (G_OBJECT (shell), "unrealize",
+		    G_CALLBACK (ddisplay_unrealize), ddisp);
+}
 
 /**
  * @param ddisp The diagram display object that a window is created for
@@ -450,23 +467,7 @@ use_integrated_ui_for_display_shell(DDisplay *ddisp, char *title)
   gtk_widget_show (image);
 
   /* Set events for new tab page */
-  gtk_widget_set_events (ddisp->container,
-                         GDK_POINTER_MOTION_MASK |
-                         GDK_POINTER_MOTION_HINT_MASK |
-                         GDK_FOCUS_CHANGE_MASK);
-
-  g_signal_connect (G_OBJECT (ddisp->container), "focus_out_event",
-		    G_CALLBACK (ddisplay_focus_out_event),
-		      ddisp);
-  g_signal_connect (G_OBJECT (ddisp->container), "focus_in_event",
-		    G_CALLBACK (ddisplay_focus_in_event),
-		      ddisp);
-  g_signal_connect (G_OBJECT (ddisp->container), "realize",
-		    G_CALLBACK (ddisplay_realize),
-                      ddisp);
-  g_signal_connect (G_OBJECT (ddisp->container), "unrealize",
-		    G_CALLBACK (ddisplay_unrealize),
-		      ddisp);
+  _ddisplay_setup_events (ddisp, ddisp->container);
 
   notebook_page_index = gtk_notebook_append_page (GTK_NOTEBOOK(ui.diagram_notebook),
                                                   ddisp->container,
@@ -631,30 +632,13 @@ create_display_shell(DDisplay *ddisp,
   }
 
   g_object_set_data (G_OBJECT (ddisp->shell), "user_data", (gpointer) ddisp);
-  gtk_widget_set_events (ddisp->shell,
-			 GDK_POINTER_MOTION_MASK |
-			 GDK_POINTER_MOTION_HINT_MASK |
-			 GDK_FOCUS_CHANGE_MASK);
-                      /* GDK_ALL_EVENTS_MASK */
 
+  _ddisplay_setup_events (ddisp, ddisp->shell);
+  /* following two not shared with integrated UI */
   g_signal_connect (G_OBJECT (ddisp->shell), "delete_event",
-		    G_CALLBACK (ddisplay_delete),
-                      ddisp);
+		    G_CALLBACK (ddisplay_delete), ddisp);
   g_signal_connect (G_OBJECT (ddisp->shell), "destroy",
-		    G_CALLBACK (ddisplay_destroy),
-                      ddisp);
-  g_signal_connect (G_OBJECT (ddisp->shell), "focus_out_event",
-		    G_CALLBACK (ddisplay_focus_out_event),
-		      ddisp);
-  g_signal_connect (G_OBJECT (ddisp->shell), "focus_in_event",
-		    G_CALLBACK (ddisplay_focus_in_event),
-		      ddisp);
-  g_signal_connect (G_OBJECT (ddisp->shell), "realize",
-		    G_CALLBACK (ddisplay_realize),
-                      ddisp);
-  g_signal_connect (G_OBJECT (ddisp->shell), "unrealize",
-		    G_CALLBACK (ddisplay_unrealize),
-		      ddisp);
+		    G_CALLBACK (ddisplay_destroy), ddisp);
 
   /*  the table containing all widgets  */
   table = gtk_table_new (4, 3, FALSE);
