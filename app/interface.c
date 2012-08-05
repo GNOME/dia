@@ -405,6 +405,33 @@ _ddisplay_setup_events (DDisplay *ddisp, GtkWidget *shell)
   g_signal_connect (G_OBJECT (shell), "unrealize",
 		    G_CALLBACK (ddisplay_unrealize), ddisp);
 }
+static void
+_ddisplay_setup_scrollbars (DDisplay *ddisp, GtkWidget *table, int width, int height)
+{
+  /*  The adjustment datums  */
+  ddisp->hsbdata = GTK_ADJUSTMENT (gtk_adjustment_new (0, 0, width, 1, (width-1)/4, width-1));
+  ddisp->vsbdata = GTK_ADJUSTMENT (gtk_adjustment_new (0, 0, height, 1, (height-1)/4, height-1));
+
+  ddisp->hsb = gtk_hscrollbar_new (ddisp->hsbdata);
+  GTK_WIDGET_UNSET_FLAGS (ddisp->hsb, GTK_CAN_FOCUS);
+  ddisp->vsb = gtk_vscrollbar_new (ddisp->vsbdata);
+  GTK_WIDGET_UNSET_FLAGS (ddisp->vsb, GTK_CAN_FOCUS);
+
+  /*  set up the scrollbar observers  */
+  g_signal_connect (G_OBJECT (ddisp->hsbdata), "value_changed",
+		    G_CALLBACK(ddisplay_hsb_update), ddisp);
+  g_signal_connect (G_OBJECT (ddisp->vsbdata), "value_changed",
+		    G_CALLBACK(ddisplay_vsb_update), ddisp);
+
+  /* harder to change position in the table, but we did not do it for years ;) */
+  gtk_table_attach (GTK_TABLE (table), ddisp->hsb, 0, 2, 2, 3,
+                    GTK_EXPAND | GTK_SHRINK | GTK_FILL, GTK_FILL, 0, 0);
+  gtk_table_attach (GTK_TABLE (table), ddisp->vsb, 2, 3, 0, 2,
+                    GTK_FILL, GTK_EXPAND | GTK_SHRINK | GTK_FILL, 0, 0);
+
+  gtk_widget_show (ddisp->hsb);
+  gtk_widget_show (ddisp->vsb);
+}
 
 /**
  * @param ddisp The diagram display object that a window is created for
@@ -497,23 +524,7 @@ use_integrated_ui_for_display_shell(DDisplay *ddisp, char *title)
   /* TODO: Fix width/height hardcoded values */
   width = 100;
   height = 100;
-
-  /*  The adjustment datums  */
-  ddisp->hsbdata = GTK_ADJUSTMENT (gtk_adjustment_new (0, 0, width, 1, (width-1)/4, width-1));
-  ddisp->vsbdata = GTK_ADJUSTMENT (gtk_adjustment_new (0, 0, height, 1, (height-1)/4, height-1));
-
-  ddisp->hsb = gtk_hscrollbar_new (ddisp->hsbdata);
-  GTK_WIDGET_UNSET_FLAGS (ddisp->hsb, GTK_CAN_FOCUS);
-  ddisp->vsb = gtk_vscrollbar_new (ddisp->vsbdata);
-  GTK_WIDGET_UNSET_FLAGS (ddisp->vsb, GTK_CAN_FOCUS);
-
-  /*  set up the scrollbar observers  */
-  g_signal_connect (G_OBJECT (ddisp->hsbdata), "value_changed",
-		    G_CALLBACK(ddisplay_hsb_update),
-		      ddisp);
-  g_signal_connect (G_OBJECT (ddisp->vsbdata), "value_changed",
-		    G_CALLBACK(ddisplay_vsb_update),
-		      ddisp);
+  _ddisplay_setup_scrollbars (ddisp, table, width, height);
 
   /*  Popup button between scrollbars for navigation window  */
   navigation_button = navigation_popup_new(ddisp);
@@ -529,10 +540,6 @@ use_integrated_ui_for_display_shell(DDisplay *ddisp, char *title)
   gtk_table_attach (GTK_TABLE (table), ddisp->canvas, 1, 2, 1, 2,
                     GTK_EXPAND | GTK_SHRINK | GTK_FILL,
                     GTK_EXPAND | GTK_SHRINK | GTK_FILL, 0, 0);
-  gtk_table_attach (GTK_TABLE (table), ddisp->hsb, 0, 2, 2, 3,
-                    GTK_EXPAND | GTK_SHRINK | GTK_FILL, GTK_FILL, 0, 0);
-  gtk_table_attach (GTK_TABLE (table), ddisp->vsb, 2, 3, 0, 2,
-                    GTK_FILL, GTK_EXPAND | GTK_SHRINK | GTK_FILL, 0, 0);
   gtk_table_attach (GTK_TABLE (table), navigation_button, 2, 3, 2, 3,
                     GTK_FILL, GTK_FILL, 0, 0);
 
@@ -552,8 +559,6 @@ use_integrated_ui_for_display_shell(DDisplay *ddisp, char *title)
 
   gtk_widget_show (ddisp->container);
   gtk_widget_show (table);
-  gtk_widget_show (ddisp->hsb);
-  gtk_widget_show (ddisp->vsb);
   display_rulers_show (ddisp);
   gtk_widget_show (ddisp->canvas);
 
@@ -610,10 +615,6 @@ create_display_shell(DDisplay *ddisp,
     width = s_width;
   if (height > s_height)
     height = s_height;
-
-  /*  The adjustment datums  */
-  ddisp->hsbdata = GTK_ADJUSTMENT (gtk_adjustment_new (0, 0, width, 1, (width-1)/4, width-1));
-  ddisp->vsbdata = GTK_ADJUSTMENT (gtk_adjustment_new (0, 0, height, 1, (height-1)/4, height-1));
 
   /*  The toplevel shell */
   ddisp->shell = gtk_window_new (GTK_WINDOW_TOPLEVEL);
@@ -676,19 +677,7 @@ create_display_shell(DDisplay *ddisp,
   }
   
   _ddisplay_setup_rulers (ddisp, ddisp->shell, table);
-
-  ddisp->hsb = gtk_hscrollbar_new (ddisp->hsbdata);
-  GTK_WIDGET_UNSET_FLAGS (ddisp->hsb, GTK_CAN_FOCUS);
-  ddisp->vsb = gtk_vscrollbar_new (ddisp->vsbdata);
-  GTK_WIDGET_UNSET_FLAGS (ddisp->vsb, GTK_CAN_FOCUS);
-
-  /*  set up the scrollbar observers  */
-  g_signal_connect (G_OBJECT (ddisp->hsbdata), "value_changed",
-		    G_CALLBACK(ddisplay_hsb_update),
-		      ddisp);
-  g_signal_connect (G_OBJECT (ddisp->vsbdata), "value_changed",
-		    G_CALLBACK(ddisplay_vsb_update),
-		      ddisp);
+  _ddisplay_setup_scrollbars (ddisp, table, width, height);
 
   /*  Popup button between scrollbars for navigation window  */
   navigation_button = navigation_popup_new(ddisp);
@@ -704,10 +693,6 @@ create_display_shell(DDisplay *ddisp,
   gtk_table_attach (GTK_TABLE (table), ddisp->canvas, 1, 2, 1, 2,
                     GTK_EXPAND | GTK_SHRINK | GTK_FILL,
                     GTK_EXPAND | GTK_SHRINK | GTK_FILL, 0, 0);
-  gtk_table_attach (GTK_TABLE (table), ddisp->hsb, 0, 2, 2, 3,
-                    GTK_EXPAND | GTK_SHRINK | GTK_FILL, GTK_FILL, 0, 0);
-  gtk_table_attach (GTK_TABLE (table), ddisp->vsb, 2, 3, 0, 2,
-                    GTK_FILL, GTK_EXPAND | GTK_SHRINK | GTK_FILL, 0, 0);
   gtk_table_attach (GTK_TABLE (table), navigation_button, 2, 3, 2, 3,
                     GTK_FILL, GTK_FILL, 0, 0);
 
@@ -768,8 +753,6 @@ create_display_shell(DDisplay *ddisp,
   gtk_table_attach (GTK_TABLE (table), status_hbox, 0, 3, 3, 4,
                     GTK_FILL, GTK_FILL, 0, 0);
 
-  gtk_widget_show (ddisp->hsb);
-  gtk_widget_show (ddisp->vsb);
   display_rulers_show (ddisp);
   gtk_widget_show (ddisp->zoom_status);
   gtk_widget_show (zoom_hbox);
