@@ -440,7 +440,21 @@ _ddisplay_setup_scrollbars (DDisplay *ddisp, GtkWidget *table, int width, int he
   gtk_widget_show (ddisp->hsb);
   gtk_widget_show (ddisp->vsb);
 }
+static void
+_ddisplay_setup_navigation (DDisplay *ddisp, GtkWidget *table)
+{
+  GtkWidget *navigation_button;
 
+  /*  Popup button between scrollbars for navigation window  */
+  navigation_button = navigation_popup_new(ddisp);
+  gtk_widget_set_tooltip_text(navigation_button,
+                       _("Pops up the Navigation window."));
+  gtk_widget_show(navigation_button);
+
+  /* harder to change position in the table, but we did not do it for years ;) */
+  gtk_table_attach (GTK_TABLE (table), navigation_button, 2, 3, 2, 3,
+                    GTK_FILL, GTK_FILL, 0, 0);
+}
 /**
  * @param ddisp The diagram display object that a window is created for
  * @param title
@@ -449,7 +463,6 @@ static void
 use_integrated_ui_for_display_shell(DDisplay *ddisp, char *title)
 {
   GtkWidget *table;
-  GtkWidget *navigation_button;
   /* GtkWidget *status_hbox; */
   /* GtkWidget *zoom_hbox, *zoom_label; */
   GtkWidget *label;                /* Text label for the notebook page */
@@ -533,23 +546,16 @@ use_integrated_ui_for_display_shell(DDisplay *ddisp, char *title)
   width = 100;
   height = 100;
   _ddisplay_setup_scrollbars (ddisp, table, width, height);
-
-  /*  Popup button between scrollbars for navigation window  */
-  navigation_button = navigation_popup_new(ddisp);
-  gtk_widget_set_tooltip_text(navigation_button,
-                       _("Pops up the Navigation window."));
-  gtk_widget_show(navigation_button);
+  _ddisplay_setup_navigation (ddisp, table);
 
   ddisp->canvas = create_canvas (ddisp);
 
-  /*  place all the widgets  */
+  /*  place all remaining widgets  */
   gtk_table_attach (GTK_TABLE (table), ddisp->origin, 0, 1, 0, 1,
                     GTK_FILL, GTK_FILL, 0, 0);
   gtk_table_attach (GTK_TABLE (table), ddisp->canvas, 1, 2, 1, 2,
                     GTK_EXPAND | GTK_SHRINK | GTK_FILL,
                     GTK_EXPAND | GTK_SHRINK | GTK_FILL, 0, 0);
-  gtk_table_attach (GTK_TABLE (table), navigation_button, 2, 3, 2, 3,
-                    GTK_FILL, GTK_FILL, 0, 0);
 
   ddisp->common_toolbar = ui.toolbar;
 
@@ -601,7 +607,6 @@ create_display_shell(DDisplay *ddisp,
 		     char *title, int use_mbar)
 {
   GtkWidget *table, *widget;
-  GtkWidget *navigation_button;
   GtkWidget *status_hbox;
   GtkWidget *root_vbox = NULL;
   GtkWidget *zoom_hbox, *zoom_label;
@@ -690,23 +695,16 @@ create_display_shell(DDisplay *ddisp,
   
   _ddisplay_setup_rulers (ddisp, ddisp->shell, table);
   _ddisplay_setup_scrollbars (ddisp, table, width, height);
-
-  /*  Popup button between scrollbars for navigation window  */
-  navigation_button = navigation_popup_new(ddisp);
-  gtk_widget_set_tooltip_text(navigation_button,
-                       _("Pops up the Navigation window."));
-  gtk_widget_show(navigation_button);
+  _ddisplay_setup_navigation (ddisp, table);
 
   ddisp->canvas = create_canvas (ddisp);
 
-  /*  pack all the widgets  */
+  /*  pack all remaining widgets  */
   gtk_table_attach (GTK_TABLE (table), ddisp->origin, 0, 1, 0, 1,
                     GTK_FILL, GTK_FILL, 0, 0);
   gtk_table_attach (GTK_TABLE (table), ddisp->canvas, 1, 2, 1, 2,
                     GTK_EXPAND | GTK_SHRINK | GTK_FILL,
                     GTK_EXPAND | GTK_SHRINK | GTK_FILL, 0, 0);
-  gtk_table_attach (GTK_TABLE (table), navigation_button, 2, 3, 2, 3,
-                    GTK_FILL, GTK_FILL, 0, 0);
 
   /* TODO rob use per window accel */
   ddisp->accel_group = menus_get_display_accels ();
