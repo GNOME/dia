@@ -369,6 +369,26 @@ create_canvas (DDisplay *ddisp)
   return canvas;
 }
 
+/* Shared helper functions for both UI cases
+ */
+static void
+_ddisplay_setup_rulers (DDisplay *ddisp, GtkWidget *shell, GtkWidget *table)
+{
+  ddisp->hrule = gtk_hruler_new ();
+  g_signal_connect_swapped (G_OBJECT (shell), "motion_notify_event",
+                            G_CALLBACK(GTK_WIDGET_GET_CLASS (ddisp->hrule)->motion_notify_event),
+                            G_OBJECT (ddisp->hrule));
+  ddisp->vrule = gtk_vruler_new ();
+  g_signal_connect_swapped (G_OBJECT (shell), "motion_notify_event",
+			    G_CALLBACK(GTK_WIDGET_GET_CLASS (ddisp->vrule)->motion_notify_event),
+                            G_OBJECT (ddisp->vrule));
+  /* harder to change position in the table, but we did not do it for years ;) */
+  gtk_table_attach (GTK_TABLE (table), ddisp->hrule, 1, 2, 0, 1,
+                    GTK_EXPAND | GTK_SHRINK | GTK_FILL, GTK_FILL, 0, 0);
+  gtk_table_attach (GTK_TABLE (table), ddisp->vrule, 0, 1, 1, 2,
+                    GTK_FILL, GTK_EXPAND | GTK_SHRINK | GTK_FILL, 0, 0);
+}
+
 /**
  * @param ddisp The diagram display object that a window is created for
  * @param title
@@ -470,15 +490,7 @@ use_integrated_ui_for_display_shell(DDisplay *ddisp, char *title)
   ddisp->origin = gtk_frame_new (NULL);
   gtk_frame_set_shadow_type (GTK_FRAME (ddisp->origin), GTK_SHADOW_OUT);
 
-  ddisp->hrule = gtk_hruler_new ();
-  g_signal_connect_swapped (G_OBJECT (ddisp->container), "motion_notify_event",
-                            G_CALLBACK(GTK_WIDGET_GET_CLASS (ddisp->hrule)->motion_notify_event),
-                            G_OBJECT (ddisp->hrule));
-
-  ddisp->vrule = gtk_vruler_new ();
-  g_signal_connect_swapped (G_OBJECT (ddisp->container), "motion_notify_event",
-			    G_CALLBACK(GTK_WIDGET_GET_CLASS (ddisp->vrule)->motion_notify_event),
-                            G_OBJECT (ddisp->vrule));
+  _ddisplay_setup_rulers (ddisp, ddisp->container, table);
 
   /* Get the width/height of the Notebook child area */
   /* TODO: Fix width/height hardcoded values */
@@ -513,10 +525,6 @@ use_integrated_ui_for_display_shell(DDisplay *ddisp, char *title)
   /*  place all the widgets  */
   gtk_table_attach (GTK_TABLE (table), ddisp->origin, 0, 1, 0, 1,
                     GTK_FILL, GTK_FILL, 0, 0);
-  gtk_table_attach (GTK_TABLE (table), ddisp->hrule, 1, 2, 0, 1,
-                    GTK_EXPAND | GTK_SHRINK | GTK_FILL, GTK_FILL, 0, 0);
-  gtk_table_attach (GTK_TABLE (table), ddisp->vrule, 0, 1, 1, 2,
-                    GTK_FILL, GTK_EXPAND | GTK_SHRINK | GTK_FILL, 0, 0);
   gtk_table_attach (GTK_TABLE (table), ddisp->canvas, 1, 2, 1, 2,
                     GTK_EXPAND | GTK_SHRINK | GTK_FILL,
                     GTK_EXPAND | GTK_SHRINK | GTK_FILL, 0, 0);
@@ -683,16 +691,7 @@ create_display_shell(DDisplay *ddisp,
       gtk_frame_set_shadow_type (GTK_FRAME (ddisp->origin), GTK_SHADOW_OUT);
   }
   
-
-  ddisp->hrule = gtk_hruler_new ();
-  g_signal_connect_swapped (G_OBJECT (ddisp->shell), "motion_notify_event",
-                             G_CALLBACK(GTK_WIDGET_GET_CLASS (ddisp->hrule)->motion_notify_event),
-                             G_OBJECT (ddisp->hrule));
-
-  ddisp->vrule = gtk_vruler_new ();
-  g_signal_connect_swapped (G_OBJECT (ddisp->shell), "motion_notify_event",
-			    G_CALLBACK(GTK_WIDGET_GET_CLASS (ddisp->vrule)->motion_notify_event),
-                             G_OBJECT (ddisp->vrule));
+  _ddisplay_setup_rulers (ddisp, ddisp->shell, table);
 
   ddisp->hsb = gtk_hscrollbar_new (ddisp->hsbdata);
   GTK_WIDGET_UNSET_FLAGS (ddisp->hsb, GTK_CAN_FOCUS);
@@ -718,10 +717,6 @@ create_display_shell(DDisplay *ddisp,
   /*  pack all the widgets  */
   gtk_table_attach (GTK_TABLE (table), ddisp->origin, 0, 1, 0, 1,
                     GTK_FILL, GTK_FILL, 0, 0);
-  gtk_table_attach (GTK_TABLE (table), ddisp->hrule, 1, 2, 0, 1,
-                    GTK_EXPAND | GTK_SHRINK | GTK_FILL, GTK_FILL, 0, 0);
-  gtk_table_attach (GTK_TABLE (table), ddisp->vrule, 0, 1, 1, 2,
-                    GTK_FILL, GTK_EXPAND | GTK_SHRINK | GTK_FILL, 0, 0);
   gtk_table_attach (GTK_TABLE (table), ddisp->canvas, 1, 2, 1, 2,
                     GTK_EXPAND | GTK_SHRINK | GTK_FILL,
                     GTK_EXPAND | GTK_SHRINK | GTK_FILL, 0, 0);
