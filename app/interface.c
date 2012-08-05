@@ -349,7 +349,7 @@ static GtkWidget *
 create_canvas (DDisplay *ddisp)
 {
   GtkWidget *canvas = gtk_drawing_area_new();
-  
+
   /* Dia's canvas does it's double buffering alone so switch off GTK's */
   gtk_widget_set_double_buffered (canvas, FALSE);
 
@@ -413,9 +413,17 @@ _ddisplay_setup_scrollbars (DDisplay *ddisp, GtkWidget *table, int width, int he
   ddisp->vsbdata = GTK_ADJUSTMENT (gtk_adjustment_new (0, 0, height, 1, (height-1)/4, height-1));
 
   ddisp->hsb = gtk_hscrollbar_new (ddisp->hsbdata);
+#if GTK_CHECK_VERSION(2,18,0)
+  gtk_widget_set_can_focus (ddisp->hsb, FALSE);
+#else
   GTK_WIDGET_UNSET_FLAGS (ddisp->hsb, GTK_CAN_FOCUS);
+#endif
   ddisp->vsb = gtk_vscrollbar_new (ddisp->vsbdata);
+#if GTK_CHECK_VERSION(2,18,0)
+  gtk_widget_set_can_focus (ddisp->vsb, FALSE);
+#else
   GTK_WIDGET_UNSET_FLAGS (ddisp->vsb, GTK_CAN_FOCUS);
+#endif
 
   /*  set up the scrollbar observers  */
   g_signal_connect (G_OBJECT (ddisp->hsbdata), "value_changed",
@@ -663,7 +671,11 @@ create_display_shell(DDisplay *ddisp,
   /*  scrollbars, rulers, canvas, menu popup button  */
   if (!use_mbar) {
       ddisp->origin = gtk_button_new();
+#if GTK_CHECK_VERSION(2,18,0)
+      gtk_widget_set_can_focus (ddisp->origin, FALSE);
+#else
       GTK_WIDGET_UNSET_FLAGS(ddisp->origin, GTK_CAN_FOCUS);
+#endif
       widget = gtk_arrow_new(GTK_ARROW_RIGHT, GTK_SHADOW_OUT);
       gtk_container_add(GTK_CONTAINER(ddisp->origin), widget);
       gtk_widget_set_tooltip_text(widget, _("Diagram menu."));
