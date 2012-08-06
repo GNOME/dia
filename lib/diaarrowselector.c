@@ -18,7 +18,6 @@
 
 #include <config.h>
 
-#undef GTK_DISABLE_DEPRECATED /* GtkOptionMenu, ... */
 #include <gtk/gtk.h>
 
 #include "intl.h"
@@ -38,7 +37,7 @@ struct _DiaArrowSelector
   GtkLabel *sizelabel;
   DiaSizeSelector *size;
   
-  GtkOptionMenu *omenu;
+  GtkWidget *omenu;
 };
 
 struct _DiaArrowSelectorClass
@@ -98,8 +97,10 @@ create_arrow_menu_item(DiaDynamicMenu *ddm, gchar *name)
 {
   ArrowType atype = arrow_type_from_name(name);
   GtkWidget *item = gtk_menu_item_new();
-  GtkWidget *preview = dia_arrow_preview_new(atype, FALSE);
-  
+  GtkWidget *preview;
+
+  preview = dia_arrow_preview_new(atype, FALSE);
+
   gtk_widget_show(preview);
   gtk_container_add(GTK_CONTAINER(item), preview);
   gtk_widget_show(item);
@@ -116,6 +117,7 @@ dia_arrow_selector_init (DiaArrowSelector *as,
   GtkWidget *size;
   
   GList *arrow_names = get_arrow_names();
+  as->omenu = 
   omenu = dia_dynamic_menu_new_listbased(create_arrow_menu_item,
 					 as,
 					 _("More arrows"),
@@ -124,7 +126,7 @@ dia_arrow_selector_init (DiaArrowSelector *as,
   dia_dynamic_menu_add_default_entry(DIA_DYNAMIC_MENU(omenu), "None");
   dia_dynamic_menu_add_default_entry(DIA_DYNAMIC_MENU(omenu), "Lines");
   dia_dynamic_menu_add_default_entry(DIA_DYNAMIC_MENU(omenu), "Filled Concave");
-  as->omenu = GTK_OPTION_MENU(omenu);
+
   gtk_box_pack_start(GTK_BOX(as), omenu, FALSE, TRUE, 0);
   gtk_widget_show(omenu);
 
@@ -160,7 +162,6 @@ dia_arrow_selector_get_type        (void)
 
   if (!dfs_type) {
     static const GTypeInfo dfs_info = {
-      /*      sizeof (DiaArrowSelector),*/
       sizeof (DiaArrowSelectorClass),
       (GBaseInitFunc) NULL,
       (GBaseFinalizeFunc) NULL,
@@ -170,12 +171,6 @@ dia_arrow_selector_get_type        (void)
       sizeof (DiaArrowSelector),
       0,    /* n_preallocs */
       (GInstanceInitFunc)dia_arrow_selector_init,  /* init */
-      /*
-      (GtkObjectInitFunc) dia_arrow_selector_init,
-      NULL,
-      NULL,
-      (GtkClassInitFunc) NULL,
-      */
     };
     
     dfs_type = g_type_register_static (GTK_TYPE_VBOX,
