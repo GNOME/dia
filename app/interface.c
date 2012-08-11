@@ -22,11 +22,6 @@
 #undef GTK_DISABLE_DEPRECATED /* gnome */
 #include <gnome.h>
 #else
-#undef GTK_DISABLE_DEPRECATED /* GtkPixmap */
-/* GtkRuler is deprecated by gtk-2-24, gone with gtk-3-0 because it is 
- * deemed to be too specialized for maintenance in Gtk. Maybe Dia is 
- * too specialized to be ported?
- */
 #include <gtk/gtk.h>
 #endif
 
@@ -48,6 +43,7 @@
 #include "persistence.h"
 #include "widgets.h"
 #include "message.h"
+#include "ruler.h"
 
 #include <gdk-pixbuf/gdk-pixbuf.h>
 #include "dia-app-icons.h"
@@ -380,14 +376,9 @@ create_canvas (DDisplay *ddisp)
 static void
 _ddisplay_setup_rulers (DDisplay *ddisp, GtkWidget *shell, GtkWidget *table)
 {
-  ddisp->hrule = gtk_hruler_new ();
-  g_signal_connect_swapped (G_OBJECT (shell), "motion_notify_event",
-                            G_CALLBACK(GTK_WIDGET_GET_CLASS (ddisp->hrule)->motion_notify_event),
-                            G_OBJECT (ddisp->hrule));
-  ddisp->vrule = gtk_vruler_new ();
-  g_signal_connect_swapped (G_OBJECT (shell), "motion_notify_event",
-			    G_CALLBACK(GTK_WIDGET_GET_CLASS (ddisp->vrule)->motion_notify_event),
-                            G_OBJECT (ddisp->vrule));
+  ddisp->hrule = dia_ruler_new (GTK_ORIENTATION_HORIZONTAL, shell);
+  ddisp->vrule = dia_ruler_new (GTK_ORIENTATION_VERTICAL, shell);
+
   /* harder to change position in the table, but we did not do it for years ;) */
   gtk_table_attach (GTK_TABLE (table), ddisp->hrule, 1, 2, 0, 1,
                     GTK_EXPAND | GTK_SHRINK | GTK_FILL, GTK_FILL, 0, 0);
@@ -806,12 +797,12 @@ ddisplay_update_rulers (DDisplay        *ddisp,
                         const Rectangle *extents,
 		        const Rectangle *visible)
 {
-  gtk_ruler_set_range  (GTK_RULER (ddisp->hrule),
+  dia_ruler_set_range  (ddisp->hrule,
 			visible->left,
 			visible->right,
 			0.0f /* position*/,
 			MAX(extents->right, visible->right)/* max_size*/);
-  gtk_ruler_set_range  (GTK_RULER (ddisp->vrule),
+  dia_ruler_set_range  (ddisp->vrule,
 			visible->top,
 			visible->bottom,
 			0.0f /*        position*/,

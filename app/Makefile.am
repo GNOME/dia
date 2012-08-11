@@ -155,6 +155,8 @@ dia_core_files = \
 	cut_n_paste.h \
 	render_gdk.c \
 	render_gdk.h \
+	ruler.c \
+	ruler.h \
 	tool.c \
 	tool.h \
 	diapagelayout.c \

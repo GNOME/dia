@@ -61,6 +61,7 @@ OBJECTS = \
 	properties-dialog.obj \
 	recent_files.obj \
 	render_gdk.obj \
+	ruler.obj \
 	scroll_tool.obj \
 	select.obj \
 	sheets.obj \
