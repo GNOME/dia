@@ -247,7 +247,6 @@ EXTRA_DIST = \
 	pixmaps/portrait.xpm \
 	pixmaps/landscape.xpm \
 	\
-	\
 	pixmaps/missing.xpm \
 	pixmaps/n_a.xpm \
 	pixmaps/line_break.xpm \

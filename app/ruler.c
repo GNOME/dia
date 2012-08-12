@@ -1,6 +1,8 @@
 /* Dia -- an diagram creation/manipulation program
  * Copyright (C) 1998 Alexander Larsson
  *
+ * ruler.c - Dia specific reimplementation (C) 2012 Hans Breuer
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
@@ -18,20 +20,208 @@
 
 #include <config.h>
 
-#undef GTK_DISABLE_DEPRECATED /* GtkRuler */
 /* GtkRuler is deprecated by gtk-2-24, gone with gtk-3-0 because it is 
  * deemed to be too specialized for maintenance in Gtk. Maybe Dia is 
  * too specialized to be ported?
+ *
+ * Or maybe not - at least the ruler part can be reimplemented quite
+ * easily with already exisiting application specific logic.
  */
-#include <gtk/gtk.h>
 
 #include "ruler.h"
+#if GTK_CHECK_VERSION(2,24,0)
+#include "grid.h"
+#include "display.h"
+
+typedef struct _DiaRulerClass
+{
+  GtkDrawingAreaClass parent_class;
+} DiaRulerClass;
+
+typedef struct _DiaRuler
+{
+  GtkDrawingArea parent;
+
+  DDisplay *ddisp;
+
+  GtkOrientation orientation;
+  gdouble lower;
+  gdouble upper;
+  gdouble position;
+  gdouble max_size;
+} DiaRuler;
+
+GType dia_ruler_get_type (void);
+#define DIA_TYPE_RULER (dia_ruler_get_type ())
+#define DIA_RULER(obj) (G_TYPE_CHECK_INSTANCE_CAST ((obj), DIA_TYPE_RULER, DiaRuler))
+
+G_DEFINE_TYPE (DiaRuler, dia_ruler, GTK_TYPE_DRAWING_AREA)
+
+static gboolean
+dia_ruler_draw (GtkWidget *widget,
+		cairo_t   *cr)
+{
+  DiaRuler *ruler = DIA_RULER(widget);
+
+  if (gtk_widget_is_drawable (widget))
+    {
+      GtkStyle *style = gtk_widget_get_style (widget);
+      PangoLayout *layout;
+      int x = 0, y = 0, dx, dy, width, height;
+      real pos;
+
+      layout = gtk_widget_create_pango_layout (widget, "012456789");
+
+      width = gtk_widget_get_allocated_width (widget);
+      height = gtk_widget_get_allocated_height (widget);
+      dx = (ruler->orientation == GTK_ORIENTATION_VERTICAL) ? width/3 : 0;
+      dy = (ruler->orientation == GTK_ORIENTATION_HORIZONTAL) ? height/3 : 0;
+
+      gdk_cairo_set_source_color (cr, &style->text[gtk_widget_get_state(widget)]);
+      cairo_set_line_width (cr, 1);
+
+      pos = ruler->lower;
+      for (x = 0, y = 0; x < width && y < height;)
+        {
+	  gboolean is_major;
+	  int n;
+
+	  if (!grid_step (ruler->ddisp, ruler->orientation, &pos,
+	                  (ruler->orientation == GTK_ORIENTATION_HORIZONTAL) ? &x : &y,
+			  &is_major))
+	    break;
+
+	  /* ticks */
+	  n = (is_major ? 1 : 2);
+	  /* + .5 for pixel aligned lines */
+	  cairo_move_to (cr, x + 3*dx + .5, y + 3*dy + .5);
+	  cairo_line_to (cr, x + n*dx + .5, y + n*dy + .5);
+	  cairo_stroke (cr);
+
+	  /* label */
+	  if (is_major)
+	    {
+	      gchar text[G_ASCII_DTOSTR_BUF_SIZE];
+
+	      g_snprintf (text, sizeof(text)-1, "%g", pos);
+	      pango_layout_set_text (layout, text, -1);
+	      pango_layout_context_changed (layout);
+	      cairo_save (cr);
+	      if (ruler->orientation == GTK_ORIENTATION_VERTICAL)
+	        {
+		  cairo_translate (cr, x, y);
+		  cairo_rotate (cr, -G_PI/2.0);
+		  cairo_move_to (cr, 2, 0);
+		}
+	      else
+		{
+		  cairo_move_to (cr, x+2, y);
+		}
+	      pango_cairo_show_layout (cr, layout);
+	      cairo_restore (cr);
+	    }
+	}
+      /* arrow */
+      if (ruler->position > ruler->lower && ruler->position < ruler->upper)
+	{
+	  real pos = ruler->position;
+	  if (ruler->orientation == GTK_ORIENTATION_VERTICAL)
+	    {
+	      ddisplay_transform_coords (ruler->ddisp, 0, pos, &x, &y);
+	      cairo_move_to (cr, 3*dx, y);
+	      cairo_line_to (cr,   dx, y - dx);
+	      cairo_line_to (cr,   dx, y + dx);
+	      cairo_fill (cr);
+	    }
+	  else
+	    {
+	      ddisplay_transform_coords (ruler->ddisp, pos, 0, &x, &y);
+	      cairo_move_to (cr, x, 3*dy);
+	      cairo_line_to (cr, x + dy, dy);
+	      cairo_line_to (cr, x - dy, dy);
+	      cairo_fill (cr);
+	    }
+	}
+    }
+  return FALSE;
+}
+
+/* Wrapper can go with Gtk+-3.0 */
+static gboolean
+dia_ruler_expose_event (GtkWidget      *widget,
+                        GdkEventExpose *event)
+{
+  if (gtk_widget_is_drawable (widget))
+    {
+      GdkWindow *window = gtk_widget_get_window(widget);
+      cairo_t *cr = gdk_cairo_create (window);
+
+      dia_ruler_draw (widget, cr);
+
+      cairo_destroy (cr);
+    }
+  return FALSE;
+}
+
+static gboolean
+dia_ruler_motion_notify (GtkWidget      *widget,
+                         GdkEventMotion *event)
+{
+  DiaRuler *ruler = DIA_RULER (widget);
+  gint x;
+  gint y;
+  real tmp;
+
+  gdk_event_request_motions (event);
+  x = event->x;
+  y = event->y;
+
+  if (ruler->orientation == GTK_ORIENTATION_HORIZONTAL)
+    ddisplay_untransform_coords (ruler->ddisp, x, y, &ruler->position, &tmp);
+  else
+    ddisplay_untransform_coords (ruler->ddisp, x, y, &tmp, &ruler->position);
+  /* FIXME: might be a bit too expensive */
+  if (gtk_widget_is_drawable (GTK_WIDGET (ruler)))
+    gtk_widget_queue_draw (GTK_WIDGET (ruler));
+
+  return FALSE;
+}
+
+static void
+dia_ruler_class_init (DiaRulerClass *klass)
+{
+  GtkWidgetClass *widget_class  = GTK_WIDGET_CLASS (klass);
+
+#if GTK_CHECK_VERSION(2,24,0)
+  widget_class->expose_event = dia_ruler_expose_event;
+#endif
+}
+
+static void
+dia_ruler_init (DiaRuler *rule)
+{
+}
+#endif /* GTK_CHECK_VERSION(2.24.0) */
 
 GtkWidget *
-dia_ruler_new (GtkOrientation orientation, GtkWidget *shell)
+dia_ruler_new (GtkOrientation orientation, GtkWidget *shell, DDisplay *ddisp)
 {
-  GtkWidget *rule;
+  GtkWidget *rule = NULL;
 
+#if GTK_CHECK_VERSION(2,24,0)
+  rule = g_object_new (DIA_TYPE_RULER, NULL);
+  /* FIXME: calculate from style settings  */
+  gtk_widget_set_size_request (rule, 15, 15);
+
+  DIA_RULER(rule)->orientation = orientation;
+  DIA_RULER(rule)->ddisp = ddisp;
+
+  gtk_widget_set_events (rule, GDK_EXPOSURE_MASK);
+
+  g_signal_connect_swapped (G_OBJECT (shell), "motion_notify_event",
+                            G_CALLBACK (dia_ruler_motion_notify),
+                            G_OBJECT (rule));
+#else
   if (orientation == GTK_ORIENTATION_HORIZONTAL)
     rule = gtk_hruler_new ();
   else if (orientation == GTK_ORIENTATION_VERTICAL)
@@ -40,15 +230,28 @@ dia_ruler_new (GtkOrientation orientation, GtkWidget *shell)
   g_signal_connect_swapped (G_OBJECT (shell), "motion_notify_event",
                             G_CALLBACK(GTK_WIDGET_GET_CLASS (rule)->motion_notify_event),
                             G_OBJECT (rule));
+#endif
   return rule;
 }
 
 void 
-dia_ruler_set_range (GtkWidget *ruler,
+dia_ruler_set_range (GtkWidget *self,
                      gdouble    lower,
                      gdouble    upper,
                      gdouble    position,
                      gdouble    max_size)
 {
-  gtk_ruler_set_range (GTK_RULER (ruler), lower, upper, position, max_size);
+#if GTK_CHECK_VERSION(2,24,0)
+  DiaRuler *ruler = DIA_RULER(self);
+
+  ruler->lower = lower;
+  ruler->upper = upper;
+  ruler->position = position;
+  ruler->max_size = max_size;
+
+  if (gtk_widget_is_drawable (GTK_WIDGET (ruler)))
+    gtk_widget_queue_draw (GTK_WIDGET (ruler));
+#else
+  gtk_ruler_set_range (GTK_RULER (self), lower, upper, position, max_size);
+#endif
 }

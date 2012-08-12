@@ -50,6 +50,38 @@ calculate_dynamic_grid(DDisplay *ddisp, real *width_x, real *width_y)
   *width_y = ret;
 }
 
+gboolean
+grid_step (DDisplay *ddisp, GtkOrientation orientation,
+	   real *start, int *ipos, gboolean *is_major)
+{
+  real  length;
+  real  pos, tmp;
+  guint major_lines = ddisp->diagram->grid.major_lines;
+  int   x, y;
+  int   major_count = 1;
+
+  /* length from the diagram settings - but always dynamic */
+  calculate_dynamic_grid (ddisp, &length, &length);
+  pos = ceil(*start / length) * length;
+
+  pos += length;
+  if (major_lines) {
+    major_count = ROUND (pos/length);
+    if(major_count < 0) major_count -= major_lines * major_count;
+    major_count %= major_lines;
+  }
+  ddisplay_transform_coords(ddisp,
+			    orientation == GTK_ORIENTATION_HORIZONTAL ? pos : 0,
+			    orientation == GTK_ORIENTATION_VERTICAL ? pos : 0,
+			    &x, &y);
+
+  *start = pos;
+  *ipos = (orientation == GTK_ORIENTATION_HORIZONTAL ? x : y);
+  *is_major = (major_count == 0);
+
+  return TRUE;
+}
+
 static void
 grid_draw_horizontal_lines(DDisplay *ddisp, Rectangle *update, real length) 
 {
@@ -223,7 +255,7 @@ grid_draw_hex(DDisplay *ddisp, Rectangle *update, real length)
 				 &ddisp->diagram->grid.colour);
       horiz_pos += 3 * length;
     }
-	
+
     vert_pos += sqrt(3) * length;
   }
 

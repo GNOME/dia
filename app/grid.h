@@ -34,4 +34,7 @@ void grid_draw(DDisplay *ddisp, Rectangle *update);
 void pagebreak_draw(DDisplay *ddisp, Rectangle *update);
 void snap_to_grid(DDisplay *ddisp, coord *x, coord *y);
 
+gboolean grid_step (DDisplay *ddisp, GtkOrientation orientation,
+		    real *start, int *ipos, gboolean *is_major);
+
 #endif /* GRID_H */

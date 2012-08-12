@@ -58,7 +58,11 @@ dia_dnd_file_drag_data_received (GtkWidget        *widget,
                                  guint             time,
 				 DDisplay         *ddisp)
 {
+#if GTK_CHECK_VERSION(2,22,0)
+  switch (gdk_drag_context_get_selected_action(context))
+#else
   switch (context->action)
+#endif
     {
     case GDK_ACTION_DEFAULT:
     case GDK_ACTION_COPY:
@@ -376,8 +380,8 @@ create_canvas (DDisplay *ddisp)
 static void
 _ddisplay_setup_rulers (DDisplay *ddisp, GtkWidget *shell, GtkWidget *table)
 {
-  ddisp->hrule = dia_ruler_new (GTK_ORIENTATION_HORIZONTAL, shell);
-  ddisp->vrule = dia_ruler_new (GTK_ORIENTATION_VERTICAL, shell);
+  ddisp->hrule = dia_ruler_new (GTK_ORIENTATION_HORIZONTAL, shell, ddisp);
+  ddisp->vrule = dia_ruler_new (GTK_ORIENTATION_VERTICAL, shell, ddisp);
 
   /* harder to change position in the table, but we did not do it for years ;) */
   gtk_table_attach (GTK_TABLE (table), ddisp->hrule, 1, 2, 0, 1,
