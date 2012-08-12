@@ -635,28 +635,6 @@ ddisplay_canvas_events (GtkWidget *canvas,
         ddisplay_flush (ddisp);
         break;
 
-      case GDK_CONFIGURE:
-        if (ddisp->renderer != NULL) {
-	  width = dia_renderer_get_width_pixels (ddisp->renderer);
-	  height = dia_renderer_get_height_pixels (ddisp->renderer);
-          new_size = ((width != ddisp->canvas->allocation.width) ||
-                      (height != ddisp->canvas->allocation.height));
-        } else {
-          new_size = TRUE;
-        }
-        if (new_size) {
-          ddisplay_resize_canvas(ddisp,
-                                 ddisp->canvas->allocation.width,
-                                 ddisp->canvas->allocation.height);
-          ddisplay_update_scrollbars(ddisp);
-        }
-	/* If the UI is not integrated, resizing should set the resized
-	 * window as active.  With integrated UI, there is only one window.
-	 */
-        if (is_integrated_ui () == 0)
-          display_set_active(ddisp);
-        break;
-
       case GDK_FOCUS_CHANGE: {
 	GdkEventFocus *focus = (GdkEventFocus*)event;
 	hold_remove_handler();

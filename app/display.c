@@ -192,10 +192,6 @@ initialize_display_widgets(DDisplay *ddisp)
 
   ddisplay_update_statusbar (ddisp);
 
-  ddisplay_set_origo(ddisp, ddisp->visible.left, ddisp->visible.top);
-  ddisplay_update_scrollbars(ddisp);
-  ddisplay_add_update_all(ddisp);
-
   ddisplay_set_cursor(ddisp, current_cursor);
 
   if (!input_methods_done) {
@@ -558,6 +554,8 @@ ddisplay_update_handler(DDisplay *ddisp)
   Rectangle *r, totrect;
   DiaInteractiveRendererInterface *renderer;
 
+  g_return_val_if_fail (ddisp->renderer != NULL, FALSE);
+
   /* Renders updates to pixmap + copies display_areas to canvas(screen) */
   renderer = DIA_GET_INTERACTIVE_RENDERER_INTERFACE (ddisp->renderer);
 
@@ -624,6 +622,10 @@ ddisplay_flush(DDisplay *ddisp)
    */
   if (!ddisp->update_id)
     ddisp->update_id = g_idle_add_full (G_PRIORITY_HIGH_IDLE+15, (GSourceFunc)ddisplay_update_handler, ddisp, NULL);
+  if (ddisp->display_areas) {
+    IRectangle *r = (IRectangle *)ddisp->display_areas->data;
+    g_print ("DispUpdt: %4d,%3d - %4d,%3d\n", r->left, r->top, r->right, r->bottom);
+  }
 }
 
 static void
@@ -747,6 +749,8 @@ ddisplay_set_origo(DDisplay *ddisp, coord x, coord y)
   Rectangle *extents = &ddisp->diagram->data->extents;
   Rectangle *visible = &ddisp->visible;
   int width, height;
+
+  g_return_if_fail (ddisp->renderer != NULL);
 
   /*  updaterar origo+visible+rulers */
   ddisp->origo.x = x;

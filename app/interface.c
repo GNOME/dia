@@ -342,6 +342,50 @@ close_notebook_page_callback (GtkButton *button,
   ddisplay_close (ddisp);
 }
 
+/*!
+ * Called when the widget's window "size, position or stacking"
+ * changes. Needs GDK_STRUCTURE_MASK set.
+ */
+static gboolean
+canvas_configure_event (GtkWidget         *widget,
+			GdkEventConfigure *cevent,
+			DDisplay          *ddisp)
+{
+  gboolean new_size = FALSE;
+  int width, height;
+
+  g_return_val_if_fail (widget == ddisp->canvas, FALSE);
+
+
+  if (ddisp->renderer) {
+    width = dia_renderer_get_width_pixels (ddisp->renderer);
+    height = dia_renderer_get_height_pixels (ddisp->renderer);
+  } else {
+    /* We can continue even without a renderer here because
+     * ddisplay_resize_canvas () does the setup for us.
+     */
+    width = height = 0;
+  }
+
+  /* Only do this when size is really changing */
+  if (width != cevent->width || height != cevent->height) {
+    g_print ("Canvas size change...\n");
+    ddisplay_resize_canvas (ddisp, cevent->width, cevent->height);
+    ddisplay_update_scrollbars(ddisp);
+    /* on resize stop further propagation - does not help */
+    new_size = TRUE;
+  }
+
+  /* If the UI is not integrated, resizing should set the resized
+   * window as active.  With integrated UI, there is only one window.
+   */
+  if (is_integrated_ui () == 0)
+    display_set_active(ddisp);
+
+  /* continue propagation with FALSE */
+  return new_size;
+}
+
 static GtkWidget *
 create_canvas (DDisplay *ddisp)
 {
@@ -356,6 +400,8 @@ create_canvas (DDisplay *ddisp)
 			 GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK | 
 			 GDK_STRUCTURE_MASK | GDK_ENTER_NOTIFY_MASK |
 			 GDK_KEY_PRESS_MASK | GDK_KEY_RELEASE_MASK);
+  g_signal_connect (G_OBJECT (canvas), "configure-event",
+		    G_CALLBACK (canvas_configure_event), ddisp);
 #if GTK_CHECK_VERSION(2,18,0)
   gtk_widget_set_can_focus (canvas, TRUE);
 #else
@@ -571,13 +617,6 @@ use_integrated_ui_for_display_shell(DDisplay *ddisp, char *title)
 
   integrated_ui_toolbar_grid_snap_synchronize_to_display (ddisp);
   integrated_ui_toolbar_object_snap_synchronize_to_display (ddisp);
-
-  /* TODO: Figure out how to detect if anti-aliased renderer was set */
-  /** For the distributed display this is called when the ddisp->canvas is shown.
-   * The show causes a GDK_CONFIGURE event but this is not happening here.  If this
-   * is not set a seg-fault occurs when dia_renderer_get_width_pixels() is called
-   */
-  ddisplay_set_renderer(ddisp, ddisp->aa_renderer);
 
   /*  set the focus to the canvas area  */
   gtk_widget_grab_focus (ddisp->canvas);
