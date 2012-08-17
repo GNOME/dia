@@ -10,6 +10,7 @@
 # Jorge Gonzalez <jorgegonz@svn.gnome.org>, 2007.
 # Jorge González <jorgegonz@svn.gnome.org>, 2007, 2009, 2011.
 # miguel <bokerones.fritos@gmail.com>, 2012.
+# miguel rodriguez nuñez <bokerones.fritos@gmail.com>, 2012.
 # Daniel Mustieles <daniel.mustieles@gmail.com>, 2011, 2012.
 #
 msgid ""
@@ -17,8 +18,8 @@ msgstr ""
 "Project-Id-Version: dia.HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=dia&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2012-07-29 20:48+0000\n"
-"PO-Revision-Date: 2012-08-16 11:54+0200\n"
+"POT-Creation-Date: 2012-08-16 09:59+0000\n"
+"PO-Revision-Date: 2012-08-17 10:48+0200\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "Language: \n"
@@ -2575,14 +2576,12 @@ msgid "Unknown type of DataNode '%s'"
 msgstr "Tipo de DataNode desconocido «%s»"
 
 #: ../lib/dia_xml.c:488
-#, fuzzy
-#| msgid "Taking point value of non-point node."
 msgid "Taking int value of non-int node."
-msgstr "Tomando el valor del punto de un nodo que no es un punto."
+msgstr "Tomar el valor entero de un nodo que no es entero."
 
 #: ../lib/dia_xml.c:647
 msgid "Taking point value of non-point node."
-msgstr "Tomando el valor del punto de un nodo que no es un punto."
+msgstr "Tomar el valor del punto de un nodo que no es un punto."
 
 #: ../lib/dia_xml.c:658
 #, c-format
@@ -2601,51 +2600,43 @@ msgstr "Valor incorrecto del punto y «%s» %f; se descarta."
 
 #: ../lib/dia_xml.c:690
 msgid "Taking bezpoint value of non-point node."
-msgstr "Tomando el valor del punto de un nodo que no es un punto."
+msgstr "Tomar el valor del punto de un nodo que no es un punto."
 
 #: ../lib/dia_xml.c:708
 msgid "Error parsing bezpoint p1."
-msgstr "Error analizando el punto p1."
+msgstr "Error al analizar el punto p1."
 
 #: ../lib/dia_xml.c:722
 msgid "Error parsing bezpoint p2."
-msgstr "Error analizando el punto p2."
+msgstr "Error al analizar el punto p2."
 
 #: ../lib/dia_xml.c:736
 msgid "Error parsing bezpoint p3."
-msgstr "Error analizando el punto p3."
+msgstr "Error al analizar el punto p3."
 
 #: ../lib/dia_xml.c:760
-#, fuzzy
-#| msgid "Taking point value of non-point node."
 msgid "Taking rectangle value of non-rectangle node."
-msgstr "Tomando el valor del punto de un nodo que no es un punto."
+msgstr "Tomar el valor de un rectángulo de un nodo que no es rectángulo."
 
 #: ../lib/dia_xml.c:772 ../lib/dia_xml.c:783 ../lib/dia_xml.c:794
 msgid "Error parsing rectangle."
 msgstr "Error analizando el rectángulo."
 
 #: ../lib/dia_xml.c:819
-#, fuzzy
-#| msgid "Taking point value of non-point node."
 msgid "Taking string value of non-string node."
-msgstr "Tomando el valor del punto de un nodo que no es un punto."
+msgstr "Tomar una cadena de un nodo que no es cadena."
 
 #: ../lib/dia_xml.c:845
-#, fuzzy
-#| msgid "Error parsing point."
 msgid "Error in string tag."
-msgstr "Error analizando el punto."
+msgstr "Error en la etiqueta de cadena."
 
 #: ../lib/dia_xml.c:863
 msgid "Error in file, string not starting with #"
 msgstr "Error en el archivo, la cadena no empieza por #"
 
 #: ../lib/dia_xml.c:911
-#, fuzzy
-#| msgid "Taking point value of non-point node."
 msgid "Taking font value of non-font node."
-msgstr "Tomando el valor del punto de un nodo que no es un punto."
+msgstr "Tomar una tipografía de un nodo que no es tipografía."
 
 #: ../lib/filter.c:177
 #, c-format
@@ -5876,10 +5867,8 @@ msgid "Cairo WMF"
 msgstr "Cairo WMF"
 
 #: ../plug-ins/cairo/diacairo.c:466
-#, fuzzy
-#| msgid "Cairo Clipboard"
 msgid "Cairo Clipboard Copy"
-msgstr "Portapapeles Cairo"
+msgstr "Copiar al portapapeles Cairo"
 
 #: ../plug-ins/cairo/diacairo.c:480
 msgid "Copy _Diagram"
@@ -5950,16 +5939,14 @@ msgid "Drawing Interchange File"
 msgstr "Drawing Interchange File"
 
 #: ../plug-ins/dxf/dxf-import.c:1300
-#, fuzzy, c-format
-#| msgid "read_dxf_codes failed on '%s'\n"
+#, c-format
 msgid "read_dxf_codes failed on '%s'"
-msgstr "falló read_dxf_codes en «%s»\n"
+msgstr "falló read_dxf_codes en «%s»"
 
 #: ../plug-ins/dxf/dxf-import.c:1307
-#, fuzzy, c-format
-#| msgid "Binary DXF from '%s' not supported\n"
+#, c-format
 msgid "Binary DXF from '%s' not supported"
-msgstr "DXF binario desde «%s» no soportado\n"
+msgstr "DXF binario desde «%s» no soportado"
 
 #: ../plug-ins/hpgl/hpgl.c:753
 msgid "HP Graphics Language"
@@ -6280,10 +6267,8 @@ msgid "Couldn't handle foreign object type %s"
 msgstr "No se pudo manejar el objeto extraño tipo %s"
 
 #: ../plug-ins/vdx/vdx-import.c:2879
-#, fuzzy
-#| msgid "Nothing to print"
 msgid "Nothing in document!"
-msgstr "Nada que imprimir"
+msgstr "No hay nada en el documento."
 
 #: ../plug-ins/vdx/vdx-import.c:2884
 #, c-format
@@ -6379,21 +6364,19 @@ msgstr ""
 "Dia no soporta las líneas triplemente punteadas, se utilizará doble punteado"
 
 #: ../plug-ins/xfig/xfig-import.c:172
-#, fuzzy, c-format
-#| msgid "Line style %d should not appear\n"
+#, c-format
 msgid "Line style %d should not appear"
-msgstr "El estilo de línea %d no debería aparecer\n"
+msgstr "El estilo de línea %d no debería aparecer"
 
 #: ../plug-ins/xfig/xfig-import.c:244
 #, c-format
 msgid "Error while reading %dth of %d points"
 msgstr "Error al leer el punto %dº de %d"
 
+#
 #: ../plug-ins/xfig/xfig-import.c:272
-#, fuzzy
-#| msgid "Error while reading arrowhead\n"
 msgid "Error while reading arrowhead"
-msgstr "Error leyendo cabeza de flecha\n"
+msgstr "Error al leer la punta de flecha."
 
 #: ../plug-ins/xfig/xfig-import.c:294
 #, c-format
@@ -6406,16 +6389,12 @@ msgid "Depth %d of of range, only 0-%d allowed.\n"
 msgstr "La profundidad %d está fuera del rango, sólo se permite 0..%d.\n"
 
 #: ../plug-ins/xfig/xfig-import.c:434
-#, fuzzy
-#| msgid "Couldn't read ellipse info: %s\n"
 msgid "Couldn't read ellipse info."
-msgstr "No se pudo leer inArray de elipse: %s\n"
+msgstr "No se pudo leer la información de la elipse."
 
 #: ../plug-ins/xfig/xfig-import.c:503
-#, fuzzy
-#| msgid "Couldn't read polyline info: %s\n"
 msgid "Couldn't read polyline info.\n"
-msgstr "No se pudo leer inArray de polilínea %s\n"
+msgstr "No se pudo leer la información de la polilínea.\n"
 
 #: ../plug-ins/xfig/xfig-import.c:518
 msgid "Couldn't read flipped bit."
@@ -6433,10 +6412,8 @@ msgstr "Subtipo de polilínea desconocido: %d\n"
 
 # spline-->spline. FVD
 #: ../plug-ins/xfig/xfig-import.c:730 ../plug-ins/xfig/xfig-import.c:762
-#, fuzzy
-#| msgid "Couldn't read spline info: %s\n"
 msgid "Couldn't read spline info."
-msgstr "No se pudo leer la inArray de la línea spline: %s\n"
+msgstr "No se pudo leer la información de la línea spline."
 
 #. Open approximated spline
 #. Closed approximated spline
@@ -6450,10 +6427,8 @@ msgid "Unknown spline subtype: %d\n"
 msgstr "Subtipo de línea spline desconocido: %d\n"
 
 #: ../plug-ins/xfig/xfig-import.c:870
-#, fuzzy
-#| msgid "Couldn't read arc info: %s\n"
 msgid "Couldn't read arc info."
-msgstr "No se pudo leer la innformación del arco: %s\n"
+msgstr "No se pudo leer la información del arco."
 
 #. set new fill property on arc?
 #: ../plug-ins/xfig/xfig-import.c:899
@@ -6466,10 +6441,8 @@ msgid "Unknown polyline arc: %d\n"
 msgstr "Arco polilínea desconocido: %d\n"
 
 #: ../plug-ins/xfig/xfig-import.c:968
-#, fuzzy
-#| msgid "Couldn't read text info: %s\n"
 msgid "Couldn't read text info."
-msgstr "No se pudo leer la inArray del texto: %s\n"
+msgstr "No se pudo leer la información del texto."
 
 #: ../plug-ins/xfig/xfig-import.c:996
 #, c-format
@@ -6482,10 +6455,8 @@ msgid "Can't find Postscript font nr. %d, using sans"
 msgstr "No se pudo encontrar la tipografia Postscript número %d, se usará sans"
 
 #: ../plug-ins/xfig/xfig-import.c:1032
-#, fuzzy
-#| msgid "Couldn't identify Fig object: %s\n"
 msgid "Couldn't identify Fig object."
-msgstr "No se pudo identificar el objeto Fig: %s\n"
+msgstr "No se pudo identificar el objeto Fig."
 
 #: ../plug-ins/xfig/xfig-import.c:1040
 msgid "Compound end outside compound\n"
@@ -6498,10 +6469,8 @@ msgstr ""
 "El número de colores %d está fuera del rango 0..%d. Descartando el color.\n"
 
 #: ../plug-ins/xfig/xfig-import.c:1111
-#, fuzzy
-#| msgid "Couldn't read group extend: %s\n"
 msgid "Couldn't read group extend."
-msgstr "No se pudo leer grupo extendido %s\n"
+msgstr "No se pudo leer grupo extendido."
 
 #: ../plug-ins/xfig/xfig-import.c:1122
 #, c-format
@@ -6514,10 +6483,8 @@ msgid "`%s' is not one of `%s' or `%s'\n"
 msgstr "`%s' no es uno de `%s' o `%s'\n"
 
 #: ../plug-ins/xfig/xfig-import.c:1157
-#, fuzzy
-#| msgid "Error reading paper size: %s\n"
 msgid "Error reading paper size."
-msgstr "Error leyendo tamaño de papel: %s\n"
+msgstr "Error al leer el tamaño de papel."
 
 #: ../plug-ins/xfig/xfig-import.c:1168
 #, c-format
@@ -6525,47 +6492,39 @@ msgid "Unknown paper size `%s', using default\n"
 msgstr "Tamaño de papel `%s' desconocido, usando la opción por defecto\n"
 
 #: ../plug-ins/xfig/xfig-import.c:1181
-#, fuzzy
-#| msgid "Error reading paper orientation: %s\n"
 msgid "Error reading paper orientation."
-msgstr "Error leyendo orientación de papel: %s\n"
+msgstr "Error al leer la orientación de papel."
 
 #: ../plug-ins/xfig/xfig-import.c:1191
-#, fuzzy
 #| msgid "Error reading justification: %s\n"
 msgid "Error reading justification."
-msgstr "Error leyendo justificación: %s\n"
+msgstr "Error al leer la justificación."
 
 #: ../plug-ins/xfig/xfig-import.c:1201
-#, fuzzy
 #| msgid "Error reading units: %s\n"
 msgid "Error reading units."
-msgstr "Error leyendo unidades: %s\n"
+msgstr "Error al leer las unidades."
 
 #: ../plug-ins/xfig/xfig-import.c:1217
-#, fuzzy
 #| msgid "Error reading magnification: %s\n"
 msgid "Error reading magnification."
-msgstr "Error leyendo aumento: %s\n"
+msgstr "Error al leer el aumento."
 
 #: ../plug-ins/xfig/xfig-import.c:1230
-#, fuzzy
 #| msgid "Error reading multipage indicator: %s\n"
 msgid "Error reading multipage indicator."
-msgstr "Error leyendo indicador de múltiples páginas: %s\n"
+msgstr "Error al leer el indicador de múltiples páginas."
 
 #: ../plug-ins/xfig/xfig-import.c:1241
-#, fuzzy
 #| msgid "Error reading transparent color: %s\n"
 msgid "Error reading transparent color."
-msgstr "Error leyendo color transparente: %s\n"
+msgstr "Error al leer el color transparente."
 
 #: ../plug-ins/xfig/xfig-import.c:1250 ../plug-ins/xfig/xfig-import.c:1311
 #: ../plug-ins/xfig/xfig-import.c:1329
-#, fuzzy
 #| msgid "Error reading Fig file: %s\n"
 msgid "Error reading Fig file."
-msgstr "Error leyendo archivo Fig: %s\n"
+msgstr "Error al leer el archivo Fig."
 
 #: ../plug-ins/xfig/xfig-import.c:1252
 msgid "Premature end of Fig file\n"
@@ -6580,12 +6539,14 @@ msgid "Doesn't look like a Fig file"
 msgstr "No parece un archivo Fig"
 
 #: ../plug-ins/xfig/xfig-import.c:1303
-#, fuzzy, c-format
+#, c-format
 #| msgid "This is a Fig version %d.%d file. It may not be importable.\n"
 msgid ""
 "This is a Fig version %d.%d file.\n"
 " It may not be importable."
-msgstr "Esto es un archivo Fig versión %d.%d. Puede no ser importable\n"
+msgstr ""
+"Esto es un archivo Fig versión %d.%d.\n"
+"Puede no ser importable."
 
 #: ../plug-ins/xfig/xfig-import.c:1313
 msgid "Premature end of Fig file"
