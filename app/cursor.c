@@ -105,7 +105,11 @@ create_cursor(GdkWindow *window,
   GdkDisplay *display;
 
   g_return_val_if_fail(window != NULL, NULL);
+#if GTK_CHECK_VERSION (2,24,0)
+  display = gdk_window_get_display (window);
+#else
   display = gdk_drawable_get_display (GDK_DRAWABLE (window));
+#endif
 
   pixbuf = gdk_pixbuf_new_from_inline(-1, data, FALSE, NULL);
 
