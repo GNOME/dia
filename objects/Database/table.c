@@ -176,7 +176,7 @@ static PropDescription table_props[] =
     ELEMENT_COMMON_PROPERTIES,
 
     PROP_STD_NOTEBOOK_BEGIN,
-    PROP_NOTEBOOK_PAGE("table", PROP_FLAG_DONT_MERGE | PROP_FLAG_NO_DEFAULTS, N_("Table")),
+    PROP_NOTEBOOK_PAGE("table", PROP_FLAG_DONT_MERGE, N_("Table")),
     { "name", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
       N_("Name"), NULL, NULL },
     { "comment", PROP_TYPE_STRING, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
@@ -199,7 +199,7 @@ static PropDescription table_props[] =
     { "attributes", PROP_TYPE_DARRAY, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL | PROP_FLAG_DONT_MERGE | PROP_FLAG_NO_DEFAULTS,
       "", NULL, &table_attribute_extra },
 
-    PROP_NOTEBOOK_PAGE("style", PROP_FLAG_DONT_MERGE | PROP_FLAG_NO_DEFAULTS, N_("Style")),
+    PROP_NOTEBOOK_PAGE("style", PROP_FLAG_DONT_MERGE, N_("Style")),
     PROP_FRAME_BEGIN("fonts", 0, N_("Fonts")),
     PROP_MULTICOL_BEGIN("table"),
     PROP_MULTICOL_COLUMN("font"),
