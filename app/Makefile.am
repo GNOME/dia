@@ -49,13 +49,13 @@ ICON_PNG_PAIRS= \
 	dia_objects_layer_below $(srcdir)/pixmaps/objects-layer-below.png \
 	dia_layers $(srcdir)/pixmaps/layers.png \
 	dia_layer_add $(srcdir)/pixmaps/layer-add.png \
-	dia_layer_rename $(srcdir)/pixmaps/layer-rename.png
+	dia_layer_rename $(srcdir)/pixmaps/layer-rename.png \
 	\
 	dia_cursor_create $(srcdir)/pixmaps/cursor-create.png \
 	dia_cursor_hand_open $(srcdir)/pixmaps/cursor-hand-open.png \
 	dia_cursor_hand_closed $(srcdir)/pixmaps/cursor-hand-closed.png \
 	dia_cursor_magnify_minus $(srcdir)/pixmaps/cursor-magnify-minus.png \
-	dia_cursor_magnify_plus $(srcdir)/pixmaps/cursor-magnify-plus.png \
+	dia_cursor_magnify_plus $(srcdir)/pixmaps/cursor-magnify-plus.png
 	
 
 ICON_PNGS= \
