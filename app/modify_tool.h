@@ -30,30 +30,6 @@ enum ModifyToolState {
   STATE_BOX_SELECT
 };
 
-struct _ModifyTool {
-  Tool tool;
-
-  enum ModifyToolState state;
-  int break_connections;
-  Point move_compensate;
-  DiaObject *object;
-  Handle *handle;
-  Point last_to;
-  Point start_at;
-  time_t start_time;
-
-  GdkGC *gc;
-
-  int x1, y1, x2, y2;
-  Point start_box;
-  Point end_box;
-
-  gboolean auto_scrolled; /* TRUE if the diagram auto scrolled last time 
-                             modify_motion was called */
-  /* Undo info: */
-  Point *orig_pos;
-};
-
 Tool *create_modify_tool(void);
 void free_modify_tool(Tool *tool);
 

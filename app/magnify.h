@@ -22,19 +22,6 @@
 
 typedef struct _MagnifyTool MagnifyTool;
 
-struct _MagnifyTool {
-  Tool tool;
-
-  GdkGC *gc;
-
-  int box_active;
-  int moved;
-  int x, y;
-  int oldx, oldy;
-
-  gboolean zoom_out;
-};
-
 Tool *create_magnify_tool(void);
 void free_magnify_tool(Tool *tool);
 void set_zoom_out(Tool *tool);

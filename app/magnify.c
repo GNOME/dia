@@ -22,6 +22,17 @@
 #include "magnify.h"
 #include "cursor.h"
 
+struct _MagnifyTool {
+  Tool tool;
+  GdkGC *gc;
+  int box_active;
+  int moved;
+  int x, y;
+  int oldx, oldy;
+
+  gboolean zoom_out;
+};
+
 static void
 magnify_button_press(MagnifyTool *tool, GdkEventButton *event,
 		     DDisplay *ddisp)
