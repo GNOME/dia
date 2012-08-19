@@ -72,8 +72,13 @@ dia_ruler_draw (GtkWidget *widget,
 
       layout = gtk_widget_create_pango_layout (widget, "012456789");
 
+#if GTK_CHECK_VERSION(3,0,0)
       width = gtk_widget_get_allocated_width (widget);
       height = gtk_widget_get_allocated_height (widget);
+#else
+      width = widget->allocation.width;
+      height = widget->allocation.height;
+#endif
       dx = (ruler->orientation == GTK_ORIENTATION_VERTICAL) ? width/3 : 0;
       dy = (ruler->orientation == GTK_ORIENTATION_HORIZONTAL) ? height/3 : 0;
 
