@@ -30,6 +30,8 @@ stdprop_files = \
 	prop_widgets.h \
 	prop_sdarray.c \
 	prop_sdarray.h \
+	prop_sdarray_widget.c \
+	prop_sdarray_widget.h \
 	propdialogs.c  \
 	propregistry.c
 
@@ -184,6 +186,9 @@ libdia_la_SOURCES =  \
 		dialib.h \
 		diacontext.c \
 		diacontext.h \
+		\
+		diacellrendererenum.c \
+		diacellrendererenum.h \
 		\
 		diacellrendererproperty.c \
 		diacellrendererproperty.h \

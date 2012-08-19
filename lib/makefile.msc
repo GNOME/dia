@@ -54,6 +54,7 @@ OBJECTS = \
 	debug.obj \
 	diaarrowchooser.obj \
 	diaarrowselector.obj \
+	diacellrendererenum.obj \
 	diacolorselector.obj \
 	diacontext.obj \
 	dialinechooser.obj \
@@ -101,6 +102,7 @@ OBJECTS = \
 	prop_matrix.obj \
 	prop_pixbuf.obj \
 	prop_sdarray.obj \
+	prop_sdarray_widget.obj \
 	prop_text.obj \
 	prop_widgets.obj \
 	propdesc.obj \

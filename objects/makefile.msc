@@ -111,9 +111,8 @@ OBJECTS = \
 	compound.obj \
 	database.obj \
 	reference.obj \
-	table.obj \
-	table_dialog.obj	
-PKG_LINK = $(PKG_LINK) $(GTK2_LIBS) 
+	table.obj
+PKG_LINK = $(PKG_LINK) 
 !ENDIF
 
 !IFDEF OBJ_eml

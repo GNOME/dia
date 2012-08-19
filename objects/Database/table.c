@@ -68,7 +68,6 @@ static ObjectChange * table_move_handle (Table *, Handle *,
 static PropDescription * table_describe_props (Table *);
 static void         table_get_props (Table *, GPtrArray *);
 static void         table_set_props (Table *, GPtrArray *);
-ObjectChange *_table_dialog_apply_changes (Table * table, GtkWidget * widget);
 
 static void         table_draw (Table *, DiaRenderer *);
 static real         table_draw_namebox (Table *, DiaRenderer *, Element *);
@@ -123,8 +122,8 @@ static ObjectOps table_ops =
     (CopyFunc)                  table_copy,
     (MoveFunc)                  table_move,
     (MoveHandleFunc)            table_move_handle,
-    (GetPropertiesFunc)         table_get_properties_dialog,
-    (ApplyPropertiesDialogFunc) _table_dialog_apply_changes,
+    (GetPropertiesFunc) object_create_props_dialog,
+    (ApplyPropertiesDialogFunc) object_apply_props_from_dialog,
     (ObjectMenuFunc)            table_object_menu,
     (DescribePropsFunc)         table_describe_props,
     (GetPropsFunc)              table_get_props,
@@ -142,13 +141,13 @@ static PropDescription table_attribute_props[] =
     { "comment", PROP_TYPE_STRING, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
       N_("Comment"), NULL, NULL },
     { "primary_key", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
-      N_("Primary key"), NULL, NULL },
+      N_("Primary"), NULL, N_("Primary key") },
     { "nullable", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
       N_("Nullable"), NULL, NULL },
     { "unique", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
       N_("Unique"), NULL, NULL },
     { "default_value", PROP_TYPE_STRING, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
-      N_("Default value"), NULL, NULL },
+      N_("Default"), NULL, N_("Default value") },
 
     PROP_DESC_END
   };
@@ -176,24 +175,32 @@ static PropDescription table_props[] =
   {
     ELEMENT_COMMON_PROPERTIES,
 
-    PROP_STD_TEXT_COLOUR_OPTIONS(PROP_FLAG_VISIBLE | PROP_FLAG_STANDARD | PROP_FLAG_OPTIONAL),
-    PROP_STD_LINE_COLOUR_OPTIONAL,
-    PROP_STD_FILL_COLOUR_OPTIONAL,
-    PROP_STD_LINE_WIDTH_OPTIONAL,
-
+    PROP_STD_NOTEBOOK_BEGIN,
+    PROP_NOTEBOOK_PAGE("table", PROP_FLAG_DONT_MERGE | PROP_FLAG_NO_DEFAULTS, N_("Table")),
     { "name", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
       N_("Name"), NULL, NULL },
     { "comment", PROP_TYPE_STRING, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
       N_("Comment"), NULL, NULL },
+
+    PROP_MULTICOL_BEGIN("visibilities"),
+    PROP_MULTICOL_COLUMN("first"),
     { "visible_comment", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
       N_("Visible comments"), NULL, NULL },
-    { "tagging_comment", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
-      N_("Comment tagging"), NULL, NULL },
     { "underline_primary_key", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
       N_("Underline primary keys"), NULL, NULL },
+    PROP_MULTICOL_COLUMN("second"),
+    { "tagging_comment", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
+      N_("Comment tagging"), NULL, NULL },
     { "bold_primary_keys", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
       N_("Use bold font for primary keys"), NULL, NULL },
+    PROP_MULTICOL_END("visibilities"),
 
+    PROP_NOTEBOOK_PAGE("attribute", PROP_FLAG_DONT_MERGE | PROP_FLAG_NO_DEFAULTS, N_("Attributes")),
+    { "attributes", PROP_TYPE_DARRAY, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL | PROP_FLAG_DONT_MERGE | PROP_FLAG_NO_DEFAULTS,
+      "", NULL, &table_attribute_extra },
+
+    PROP_NOTEBOOK_PAGE("style", PROP_FLAG_DONT_MERGE | PROP_FLAG_NO_DEFAULTS, N_("Style")),
+    PROP_FRAME_BEGIN("fonts", 0, N_("Fonts")),
     PROP_MULTICOL_BEGIN("table"),
     PROP_MULTICOL_COLUMN("font"),
     { "normal_font", PROP_TYPE_FONT, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
@@ -210,9 +217,14 @@ static PropDescription table_props[] =
     { "comment_font_height", PROP_TYPE_REAL, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
       N_(" "), NULL, NULL },
     PROP_MULTICOL_END("table"),
+    PROP_FRAME_END("fonts", 0),
 
-    { "attributes", PROP_TYPE_DARRAY, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL | PROP_FLAG_DONT_MERGE | PROP_FLAG_NO_DEFAULTS,
-      N_("Attributes"), NULL, &table_attribute_extra },
+    PROP_STD_TEXT_COLOUR_OPTIONS(PROP_FLAG_VISIBLE | PROP_FLAG_STANDARD | PROP_FLAG_OPTIONAL),
+    PROP_STD_LINE_COLOUR_OPTIONAL,
+    PROP_STD_FILL_COLOUR_OPTIONAL,
+    PROP_STD_LINE_WIDTH_OPTIONAL,
+
+    PROP_STD_NOTEBOOK_END,
 
     PROP_DESC_END
   };
@@ -369,9 +381,6 @@ table_create (Point * startpoint,
   table->bold_primary_key = FALSE;
   table->attributes = NULL;
 
-  /* init property dialog pointer */
-  table->prop_dialog = NULL;
-
   /* init colors */
   table->text_color = attributes_get_foreground ();
   table->line_color = attributes_get_foreground ();
@@ -498,10 +507,6 @@ table_destroy (Table * table)
   dia_font_unref (table->primary_key_font);
   dia_font_unref (table->name_font);
   dia_font_unref (table->comment_font);
-
-  if (table->prop_dialog != NULL) {
-    table_dialog_free (table->prop_dialog);
-  }
 }
 
 static void
@@ -907,16 +912,6 @@ table_set_props (Table *table, GPtrArray *props)
       table_compute_width_height (table);
       table_update_positions (table);
     }
-}
-
-ObjectChange *
-_table_dialog_apply_changes (Table * table, GtkWidget * widget)
-{
-  /* fallback, if it isn't our dialog, e.g. during multiple selection change */
-  if (!table->prop_dialog)
-    return object_apply_props_from_dialog(&table->element.object, widget);
-  else
-    return table_dialog_apply_changes(table, widget);
 }
 
 /**
@@ -1405,4 +1400,181 @@ table_init_fonts (Table * table)
       table->comment_font =
         dia_font_new_from_style (DIA_FONT_SANS | DIA_FONT_ITALIC, 0.7);
     }
+}
+
+/* TableState & TableChange functions ------------------------------------- */
+
+TableState *
+table_state_new (Table * table)
+{
+  TableState * state = g_new0 (TableState, 1);
+  GList * list;
+
+  state->name = g_strdup (table->name);
+  state->comment = g_strdup (table->comment);
+  state->visible_comment = table->visible_comment;
+  state->tagging_comment = table->tagging_comment;
+  state->underline_primary_key = table->underline_primary_key;
+  state->bold_primary_key = table->bold_primary_key;
+  state->border_width = table->border_width;
+
+  list = table->attributes;
+  while (list != NULL)
+    {
+      TableAttribute * attr = (TableAttribute *) list->data;
+      TableAttribute * copy = table_attribute_copy (attr);
+
+      copy->left_connection = attr->left_connection;
+      copy->right_connection = attr->right_connection;
+
+      state->attributes = g_list_append (state->attributes, copy);
+      list = g_list_next (list);
+    }
+
+  return state;
+}
+
+/**
+ * Set the values stored in state to the passed table and reinit the table
+ * object. The table-state object will be free.
+ */
+static void
+table_state_set (TableState * state, Table * table)
+{
+  table->name = state->name;
+  table->comment = state->comment;
+  table->visible_comment = state->visible_comment;
+  table->tagging_comment = state->tagging_comment;
+  table->border_width = state->border_width;
+  table->underline_primary_key = state->underline_primary_key;
+  table->bold_primary_key = state->bold_primary_key;
+  table->border_width = state->border_width;
+  table->attributes = state->attributes;
+
+  g_free (state);
+
+  table_update_connectionpoints (table);
+  table_update_primary_key_font (table);
+  table_compute_width_height (table);
+  table_update_positions (table);
+}
+
+static void
+table_state_free (TableState * state)
+{
+  GList * list;
+
+  g_free (state->name);
+  g_free (state->comment);
+
+  list = state->attributes;
+  while (list != NULL)
+    {
+      TableAttribute * attr = (TableAttribute *) list->data;
+      table_attribute_free (attr);
+      list = g_list_next (list);
+    }
+  g_list_free (state->attributes);
+
+  g_free (state);
+}
+
+/**
+ * Called to UNDO a change on the table object.
+ */
+static void
+table_change_revert (TableChange *change, DiaObject *obj)
+{
+  TableState *old_state;
+  GList *list;
+
+  old_state = table_state_new(change->obj);
+
+  table_state_set(change->saved_state, change->obj);
+  
+  list = change->disconnected;
+  while (list) {
+    Disconnect *dis = (Disconnect *)list->data;
+
+    object_connect(dis->other_object, dis->other_handle, dis->cp);
+
+    list = g_list_next(list);
+  }
+  
+  change->saved_state = old_state;
+  change->applied = FALSE;
+}
+
+static void
+table_change_free (TableChange *change)
+{
+  GList * free_list, * lst;
+
+  table_state_free (change->saved_state);
+
+  free_list = (change->applied == TRUE)
+    ? change->deleted_cp
+    : change->added_cp;
+
+  lst = free_list;
+  while (lst)
+    {
+      ConnectionPoint * cp = (ConnectionPoint *) lst->data;
+      g_assert (cp->connected == NULL);
+      object_remove_connections_to (cp);
+      g_free (cp);
+
+      lst = g_list_next (lst);
+    }
+  g_list_free (free_list);
+}
+
+/**
+ * Called to REDO a change on the table object.
+ */
+static void
+table_change_apply (TableChange * change, DiaObject * obj)
+{
+  TableState * old_state;
+  GList * lst;
+
+  g_print ("apply (o: 0x%08x) (c: 0x%08x)\n", GPOINTER_TO_UINT(obj), GPOINTER_TO_UINT(change));
+
+  /* first the get the current state for later use */
+  old_state = table_state_new (change->obj);
+  /* now apply the change */
+  table_state_set (change->saved_state, change->obj);
+
+  lst = change->disconnected;
+  while (lst)
+    {
+      Disconnect * dis = (Disconnect *) lst->data;
+      object_unconnect (dis->other_object, dis->other_handle);
+      lst = g_list_next (lst);
+    }
+  change->saved_state = old_state;
+  change->applied = TRUE;
+}
+
+TableChange * 
+table_change_new (Table * table, TableState * saved_state,
+                  GList * added, GList * deleted,
+                  GList * disconnects)
+{
+  TableChange * change;
+
+  change = g_new (TableChange, 1);
+
+  change->obj_change.apply = (ObjectChangeApplyFunc) table_change_apply;
+  change->obj_change.revert = (ObjectChangeRevertFunc) table_change_revert;
+  change->obj_change.free = (ObjectChangeFreeFunc) table_change_free;
+
+  change->obj = table;
+  change->added_cp = added;
+  change->deleted_cp = deleted;
+  change->disconnected = disconnects;
+  change->applied = TRUE;
+  change->saved_state = saved_state;
+
+  return change;
 }

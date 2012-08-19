@@ -19,8 +19,6 @@
 #ifndef DATABASE_H
 #define DATABASE_H
 
-#include <gtk/gtk.h>
-#include "widgets.h"
 #include "element.h"
 #include "connectionpoint.h"
 #include "orth_conn.h"
@@ -31,7 +29,6 @@
 
 typedef struct _Table Table;
 typedef struct _TableAttribute TableAttribute;
-typedef struct _TablePropDialog TablePropDialog;
 typedef struct _TableReference TableReference;
 typedef struct _TableState TableState;
 typedef struct _TableChange TableChange;
@@ -54,7 +51,6 @@ struct _Table {
   GList * attributes; /**< the attributes of this database table */
 
   /* fonts */
-
   real normal_font_height;
   DiaFont * normal_font;
 
@@ -68,7 +64,6 @@ struct _Table {
   DiaFont * comment_font;
 
   /* colors */
-
   Color line_color;
   Color fill_color;
   Color text_color;
@@ -76,19 +71,12 @@ struct _Table {
   real border_width;
 
   /* computed variables */
-
   gboolean destroyed;
 
   real namebox_height;
   real attributesbox_height;
   real maxwidth_attr_name;
-
-  /* the property dialog pointer */
-
-  TablePropDialog * prop_dialog;
 };
-
-void table_dialog_free (TablePropDialog *dialog);
 
 struct _TableAttribute {
   gchar * name;          /* column name */
@@ -162,11 +150,6 @@ struct _TableReference {
   Alignment ep_desc_text_align; /* end-point */
 };
 
-/* in table_dialog.c */
-extern GtkWidget * table_get_properties_dialog (Table *, gboolean);
-/* in table_dialog.c */
-extern ObjectChange * table_dialog_apply_changes (Table *, GtkWidget *);
-
 /* in table.c */
 extern TableAttribute * table_attribute_new (void);
 /* in table.c */
@@ -182,9 +165,7 @@ extern void table_update_connectionpoints (Table *);
 extern void table_update_positions (Table *);
 /* in table.c */
 extern void table_compute_width_height (Table *);
-/* in table_dialog.c */
 extern TableState * table_state_new (Table *);
-/* in table_dialog.c */
 extern TableChange * table_change_new (Table *, TableState *,
                                        GList *, GList *, GList *);
 /* in table.c */

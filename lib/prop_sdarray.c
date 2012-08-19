@@ -33,6 +33,7 @@
 #include "widgets.h"
 #include "properties.h"
 #include "propinternals.h"
+#include "prop_sdarray_widget.h"
 
 /******************************************/
 /* The SARRAY and DARRAY property types.  */
@@ -239,31 +240,24 @@ darrayprop_set_from_offset(ArrayProperty *prop,
 /*!
  * Create a dialog containing the list of array properties
  */
-static void
-darray_prop_edit (GtkWidget *widget, gpointer data)
-{
-  ArrayProperty *prop G_GNUC_UNUSED = data;
-  
-}
-
 static WIDGET *
 arrayprop_get_widget(ArrayProperty *prop, PropDialog *dialog) 
-{ 
-  GtkWidget *ret = gtk_button_new_with_label (prop->common.descr->tooltip);
-  g_signal_connect (G_OBJECT (ret), "clicked",
-                    G_CALLBACK (darray_prop_edit), prop);
-  
+{
+  GtkWidget *ret = _arrayprop_get_widget (prop, dialog);
+
   return ret;  
 }
 
 static void 
-arrayprop_reset_widget(NoopProperty *prop, WIDGET *widget)
+arrayprop_reset_widget(ArrayProperty *prop, WIDGET *widget)
 {
+  _arrayprop_reset_widget (prop, widget);
 }
 
 static void 
-arrayprop_set_from_widget(NoopProperty *prop, WIDGET *widget) 
+arrayprop_set_from_widget(ArrayProperty *prop, WIDGET *widget) 
 {
+  _arrayprop_set_from_widget (prop, widget);
 }
 
 static gboolean 
