@@ -651,6 +651,7 @@ shapes/MSE/Makefile
 shapes/network/Makefile
 shapes/Pneumatic/Makefile
 shapes/SDL/Makefile
+shapes/Shape_Design/Makefile
 shapes/sybase/Makefile
 app/Makefile
 app/pixmaps/Makefile

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <name>Shape Design - Connection Point</name>
+  <icon>connectionpoint.png</icon>
+  <connections>
+    <point x="1" y="1" main="yes"/>
+  </connections>
+  <default-width>0.5cm</default-width>
+  <default-height>0.5cm</default-height>
+  <aspectratio type="fixed"/>
+  <svg:svg>
+    <svg:line x1="0" y1="0" x2="2" y2="2"/>
+    <svg:line x1="0" y1="2" x2="2" y2="0"/>
+  </svg:svg>
+</shape>

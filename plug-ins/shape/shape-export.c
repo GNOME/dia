@@ -46,6 +46,9 @@
 /* this matches the setting `100%' setting in dia. */
 #define DPCM 20
 
+#define CONNECTION_POINT_SHAPE "Shape Design - Connection Point"
+#define MAIN_CONNECTION_POINT_SHAPE "Shape Design - Main Connection Point"
+
 #include <libxml/entities.h>
 #include <libxml/tree.h>
 #include <libxml/xmlmemory.h>
@@ -58,6 +61,7 @@
 #include "intl.h"
 #include "message.h"
 #include "diagramdata.h"
+#include "object.h"
 
 G_BEGIN_DECLS
 
@@ -77,6 +81,8 @@ struct _ShapeRenderer
   DiaSvgRenderer parent_instance;
 
   xmlNodePtr connection_root;
+  /* True, if Shape_Design connection points are used */
+  gboolean design_connection;
 };
 
 struct _ShapeRendererClass
@@ -94,6 +100,10 @@ static void end_render(DiaRenderer *self);
 static void draw_line(DiaRenderer *self, 
 		      Point *start, Point *end, 
 		      Color *line_colour);
+static void 
+draw_object(DiaRenderer *self,
+              DiaObject   *object,
+	          DiaMatrix   *matrix);		      
 static void draw_polyline(DiaRenderer *self, 
 			  Point *points, int num_points, 
 			  Color *line_colour);
@@ -110,7 +120,8 @@ static void draw_ellipse(DiaRenderer *self,
 
 /* helper functions */
 static void add_connection_point(ShapeRenderer *renderer, 
-                                 Point *point);
+                                 Point *point, gboolean design_connection, 
+                                 gboolean main_point);
 static void add_rectangle_connection_points(ShapeRenderer *renderer,
                                             Point *ul_corner, Point *lr_corner);
 static void add_ellipse_connection_points(ShapeRenderer *renderer,
@@ -122,9 +133,7 @@ new_shape_renderer(DiagramData *data, const char *filename)
 {
   ShapeRenderer *shape_renderer;
   DiaSvgRenderer *renderer;
-  FILE *file;
   char *point;
-  xmlNsPtr name_space;
   xmlNodePtr xml_node_ptr;
   gint i;
   gchar *png_filename;
@@ -147,7 +156,7 @@ new_shape_renderer(DiagramData *data, const char *filename)
   renderer->doc = xmlNewDoc((const xmlChar *)"1.0");
   renderer->doc->encoding = xmlStrdup((const xmlChar *)"UTF-8");
   renderer->root = xmlNewDocNode(renderer->doc, NULL, (const xmlChar *)"shape", NULL);
-  name_space = xmlNewNs(renderer->root,
+  xmlNewNs(renderer->root,
                         (const xmlChar *)"http://www.daa.com.au/~james/dia-shape-ns", NULL);
 
   renderer->svg_name_space = xmlNewNs(renderer->root,
@@ -177,6 +186,7 @@ new_shape_renderer(DiagramData *data, const char *filename)
   g_free(basename);
   g_free(png_filename);
   shape_renderer->connection_root = xmlNewChild(renderer->root, NULL, (const xmlChar *)"connections", NULL);
+  shape_renderer->design_connection = FALSE;
   xml_node_ptr = xmlNewChild(renderer->root, NULL, (const xmlChar *)"aspectratio",NULL);
   xmlSetProp(xml_node_ptr, (const xmlChar *)"type", (const xmlChar *)"fixed");
   renderer->root = xmlNewChild(renderer->root, renderer->svg_name_space, (const xmlChar *)"svg", NULL);
@@ -236,6 +246,7 @@ shape_renderer_class_init (ShapeRendererClass *klass)
   /* dia svg renderer overwrites */
   renderer_class->end_render = end_render;
   renderer_class->draw_line = draw_line;
+  renderer_class->draw_object = draw_object;
   renderer_class->draw_polyline = draw_polyline;
   renderer_class->draw_polygon = draw_polygon;
   renderer_class->draw_rect = draw_rect;
@@ -244,6 +255,28 @@ shape_renderer_class_init (ShapeRendererClass *klass)
 
 /* member implementations */
 /* full overwrite */
+static void 
+draw_object(DiaRenderer *self,
+            DiaObject   *object,
+	    DiaMatrix   *matrix)
+{
+  Point center;
+  ShapeRenderer *renderer = SHAPE_RENDERER(self);
+  gboolean main_point = (0 == strncmp(MAIN_CONNECTION_POINT_SHAPE, 
+  	               object->type->name, strlen(MAIN_CONNECTION_POINT_SHAPE)));
+
+  if ((0 == strncmp(CONNECTION_POINT_SHAPE, object->type->name, 
+  	 strlen(CONNECTION_POINT_SHAPE))) || main_point) {
+	  /* add user defined connection point */
+	  center.x = (object->bounding_box.left + object->bounding_box.right)/2;
+	  center.y = (object->bounding_box.top + object->bounding_box.bottom)/2;
+	  add_connection_point(renderer, &center, TRUE, main_point);
+  } else {
+  	/* use base class implementation */
+    DIA_RENDERER_CLASS(parent_class)->draw_object (self, object, matrix);
+  }
+}
+
 static void
 end_render(DiaRenderer *self)
 {
@@ -268,16 +301,32 @@ end_render(DiaRenderer *self)
 
 static void
 add_connection_point (ShapeRenderer *renderer, 
-                      Point *point) 
+                      Point *point, gboolean design_connection, 
+                      gboolean main) 
 {
   xmlNodePtr node;
   gchar buf[G_ASCII_DTOSTR_BUF_SIZE];
+  
+  /* Use connection points, drop the auto ones */
+  if(design_connection && !renderer->design_connection) {
+	  renderer->design_connection = design_connection;
+	  node = renderer->connection_root->parent;
+	  xmlUnlinkNode(renderer->connection_root);
+	  xmlFree(renderer->connection_root);
+	  xmlNewChild(node, NULL, (const xmlChar *)"connections", NULL);
+  }
+  if(!design_connection && renderer->design_connection)
+  	return;
   
   node = xmlNewChild(renderer->connection_root, NULL, (const xmlChar *)"point", NULL);
   g_ascii_formatd(buf, sizeof(buf), "%g", point->x);
   xmlSetProp(node, (const xmlChar *)"x", (xmlChar *) buf);
   g_ascii_formatd(buf, sizeof(buf), "%g", point->y);
   xmlSetProp(node, (const xmlChar *)"y", (xmlChar *) buf);
+  if (main) {
+	  xmlSetProp(node, (const xmlChar *)"main", (xmlChar *)"yes");
+  }
+  
 }
 
 static void
@@ -292,11 +341,11 @@ draw_line(DiaRenderer *self,
   DIA_RENDERER_CLASS(parent_class)->draw_line (self, start, end, line_colour);
 
   /* do our own stuff */
-  add_connection_point(renderer, start);
-  add_connection_point(renderer, end);
+  add_connection_point(renderer, start, FALSE, FALSE);
+  add_connection_point(renderer, end, FALSE, FALSE);
   center.x = (start->x + end->x)/2;
   center.y = (start->y + end->y)/2;
-  add_connection_point(renderer, &center);
+  add_connection_point(renderer, &center, FALSE, FALSE);
 
 }
 
@@ -324,14 +373,14 @@ draw_polyline(DiaRenderer *self,
     g_string_append_printf(str, "%s,%s ",
 			   g_ascii_formatd(px_buf, sizeof(px_buf), "%g", points[i].x),
 			   g_ascii_formatd(py_buf, sizeof(py_buf), "%g", points[i].y) );
-    add_connection_point(SHAPE_RENDERER(self), &points[i]);
+    add_connection_point(SHAPE_RENDERER(self), &points[i], FALSE, FALSE);
   }
   xmlSetProp(node, (const xmlChar *)"points", (xmlChar *) str->str);
   g_string_free(str, TRUE);
   for(i = 1; i < num_points; i++) {
     center.x = (points[i].x + points[i-1].x)/2;
     center.y = (points[i].y + points[i-1].y)/2;
-    add_connection_point(SHAPE_RENDERER(renderer), &center);
+    add_connection_point(SHAPE_RENDERER(renderer), &center, FALSE, FALSE);
   }
 }
 
@@ -360,12 +409,12 @@ draw_polygon(DiaRenderer *self,
     g_string_append_printf(str, "%s,%s ",
 			   g_ascii_formatd(px_buf, sizeof(px_buf), "%g", points[i].x),
 			   g_ascii_formatd(py_buf, sizeof(py_buf), "%g", points[i].y) );
-    add_connection_point(SHAPE_RENDERER(self), &points[i]);
+    add_connection_point(SHAPE_RENDERER(self), &points[i], FALSE, FALSE);
   }
   for(i = 1; i < num_points; i++) {
     center.x = (points[i].x + points[i-1].x)/2;
     center.y = (points[i].y + points[i-1].y)/2;
-    add_connection_point(SHAPE_RENDERER(self), &center);
+    add_connection_point(SHAPE_RENDERER(self), &center, FALSE, FALSE);
   }
   xmlSetProp(node, (const xmlChar *)"points", (xmlChar *) str->str);
   g_string_free(str, TRUE);
@@ -381,25 +430,25 @@ add_rectangle_connection_points (ShapeRenderer *renderer,
   center_x = (ul_corner->x + lr_corner->x)/2;
   center_y = (ul_corner->y + lr_corner->y)/2;
     
-  add_connection_point(renderer, ul_corner);
-  add_connection_point(renderer, lr_corner);
+  add_connection_point(renderer, ul_corner, FALSE, FALSE);
+  add_connection_point(renderer, lr_corner, FALSE, FALSE);
   connection.x = ul_corner->x;
   connection.y = lr_corner->y;
-  add_connection_point(renderer, &connection);
+  add_connection_point(renderer, &connection, FALSE, FALSE);
   connection.y = center_y;
-  add_connection_point(renderer, &connection);
+  add_connection_point(renderer, &connection, FALSE, FALSE);
   
   connection.x = lr_corner->x;
   connection.y = ul_corner->y;
-  add_connection_point(renderer, &connection);
+  add_connection_point(renderer, &connection, FALSE, FALSE);
   connection.y = center_y;
-  add_connection_point(renderer, &connection);
+  add_connection_point(renderer, &connection, FALSE, FALSE);
   
   connection.x = center_x;
   connection.y = lr_corner->y;
-  add_connection_point(renderer, &connection);
+  add_connection_point(renderer, &connection, FALSE, FALSE);
   connection.y = ul_corner->y;
-  add_connection_point(renderer, &connection);
+  add_connection_point(renderer, &connection, FALSE, FALSE);
 }   
     
 
@@ -425,15 +474,15 @@ add_ellipse_connection_points (ShapeRenderer *renderer,
   
   connection.x = center->x;
   connection.y = center->y + height/2;
-  add_connection_point(renderer, &connection);
+  add_connection_point(renderer, &connection, FALSE, FALSE);
   connection.y = center->y - height/2;
-  add_connection_point(renderer, &connection);
+  add_connection_point(renderer, &connection, FALSE, FALSE);
   
   connection.y = center->y;
   connection.x = center->x - width/2;
-  add_connection_point(renderer, &connection);
+  add_connection_point(renderer, &connection, FALSE, FALSE);
   connection.x = center->x + width/2;
-  add_connection_point(renderer, &connection);
+  add_connection_point(renderer, &connection, FALSE, FALSE);
 }
 
 static void
