@@ -132,13 +132,9 @@ extern PropDescDArrayExtra umlformalparameter_extra;
 /** Properties of UMLClass */
 static PropDescription umlclass_props[] = {
   ELEMENT_COMMON_PROPERTIES,
-  PROP_STD_LINE_WIDTH_OPTIONAL,
-  /* can't use PROP_STD_TEXT_COLOUR_OPTIONAL cause it has PROP_FLAG_DONT_SAVE. It is designed to fill the Text object - not some subset */
-  PROP_STD_TEXT_COLOUR_OPTIONS(PROP_FLAG_VISIBLE|PROP_FLAG_STANDARD|PROP_FLAG_OPTIONAL),
-  PROP_STD_LINE_COLOUR_OPTIONAL,
-  PROP_STD_FILL_COLOUR_OPTIONAL,
 
   PROP_STD_NOTEBOOK_BEGIN,
+
   PROP_NOTEBOOK_PAGE("class", PROP_FLAG_DONT_MERGE, N_("Class")),
   { "name", PROP_TYPE_STRING, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL | PROP_FLAG_NO_DEFAULTS,
   N_("Name"), NULL, NULL },
@@ -146,37 +142,61 @@ static PropDescription umlclass_props[] = {
   N_("Stereotype"), NULL, NULL },
   { "comment", PROP_TYPE_STRING, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
   N_("Comment"), NULL, NULL },
+
+  PROP_MULTICOL_BEGIN("visibilities"),
+  PROP_MULTICOL_COLUMN("visible"),
   { "abstract", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
   N_("Abstract"), NULL, NULL },
-  { "template", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL | PROP_FLAG_NO_DEFAULTS,
-  N_("Template"), NULL, NULL },
-
-  { "suppress_attributes", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL | PROP_FLAG_DONT_MERGE,
-  N_("Suppress Attributes"), NULL, NULL },
-  { "suppress_operations", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL | PROP_FLAG_DONT_MERGE,
-  N_("Suppress Operations"), NULL, NULL },
   { "visible_attributes", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL | PROP_FLAG_DONT_MERGE,
   N_("Visible Attributes"), NULL, NULL },
   { "visible_operations", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL | PROP_FLAG_DONT_MERGE,
   N_("Visible Operations"), NULL, NULL },
-  { "visible_comments", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
-  N_("Visible Comments"), NULL, NULL },
   { "wrap_operations", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
   N_("Wrap Operations"), NULL, NULL },
-  { "wrap_after_char", PROP_TYPE_INT, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
-  N_("Wrap after char"), NULL, NULL },
-  { "comment_line_length", PROP_TYPE_INT, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
-  N_("Comment line length"), NULL, NULL},
+  { "visible_comments", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
+  N_("Visible Comments"), NULL, NULL },
   { "comment_tagging", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
   N_("Comment tagging"), NULL, NULL},
   { "allow_resizing", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
   N_("Allow resizing"), NULL, NULL},
 
+  PROP_MULTICOL_COLUMN("suppress"),
+  { "template", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL | PROP_FLAG_NO_DEFAULTS,
+  N_("Template"), NULL, NULL },
+  { "suppress_attributes", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL | PROP_FLAG_DONT_MERGE,
+  N_("Suppress Attributes"), NULL, NULL },
+  { "suppress_operations", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL | PROP_FLAG_DONT_MERGE,
+  N_("Suppress Operations"), NULL, NULL },
+  { "wrap_after_char", PROP_TYPE_INT, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
+  N_("Wrap after char"), NULL, NULL },
+  { "comment_line_length", PROP_TYPE_INT, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
+  N_("Comment line length"), NULL, NULL},
+  { "align_comment_tagging", PROP_TYPE_STATIC, PROP_FLAG_VISIBLE|PROP_FLAG_DONT_SAVE|PROP_FLAG_DONT_MERGE,
+    "", NULL, NULL },
+  { "align_allow_resizing", PROP_TYPE_STATIC, PROP_FLAG_VISIBLE|PROP_FLAG_DONT_SAVE|PROP_FLAG_DONT_MERGE,
+    "", NULL, NULL },
+
+  PROP_MULTICOL_END("visibilities"),
+
+  PROP_NOTEBOOK_PAGE("attribute", PROP_FLAG_DONT_MERGE | PROP_FLAG_NO_DEFAULTS, N_("Attributes")),
+  /* these are used during load, but currently not during save */
+  { "attributes", PROP_TYPE_DARRAY, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL | PROP_FLAG_DONT_MERGE | PROP_FLAG_NO_DEFAULTS,
+    "", NULL, NULL /* umlattribute_extra */ },
+
+  PROP_NOTEBOOK_PAGE("operations", PROP_FLAG_DONT_MERGE | PROP_FLAG_NO_DEFAULTS, N_("Operations")),
+  { "operations", PROP_TYPE_DARRAY, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL | PROP_FLAG_DONT_MERGE | PROP_FLAG_NO_DEFAULTS,
+    "", NULL, NULL /* umloperations_extra */ },
+
+  PROP_NOTEBOOK_PAGE("templates", PROP_FLAG_DONT_MERGE | PROP_FLAG_NO_DEFAULTS, N_("Template Parameters")),
+  /* the naming is questionable, but kept for compatibility */
+  { "templates", PROP_TYPE_DARRAY, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL | PROP_FLAG_DONT_MERGE | PROP_FLAG_NO_DEFAULTS,
+  N_(""), NULL, NULL /* umlformalparameters_extra */ },
+
   /* all this just to make the defaults selectable ... */
-  PROP_NOTEBOOK_PAGE("font", PROP_FLAG_DONT_MERGE, N_("Font")),
+  PROP_NOTEBOOK_PAGE("style", PROP_FLAG_DONT_MERGE, N_("Style")),
+  PROP_FRAME_BEGIN("fonts", 0, N_("Fonts")),
   PROP_MULTICOL_BEGIN("class"),
   PROP_MULTICOL_COLUMN("font"),
-  /* FIXME: apparently multicol does not work correctly, this should be FIRST column */
   { "normal_font", PROP_TYPE_FONT, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
   N_("Normal"), NULL, NULL },
   { "polymorphic_font", PROP_TYPE_FONT, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
@@ -204,16 +224,15 @@ static PropDescription umlclass_props[] = {
   { "comment_font_height", PROP_TYPE_REAL, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
   N_(" "), NULL, NULL },
   PROP_MULTICOL_END("class"),
-  PROP_STD_NOTEBOOK_END,
+  PROP_FRAME_END("fonts", 0),
 
-  /* these are used during load, but currently not during save */
-  { "attributes", PROP_TYPE_DARRAY, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL | PROP_FLAG_DONT_MERGE | PROP_FLAG_NO_DEFAULTS,
-  N_("Attributes"), NULL, NULL /* umlattribute_extra */ }, 
-  { "operations", PROP_TYPE_DARRAY, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL | PROP_FLAG_DONT_MERGE | PROP_FLAG_NO_DEFAULTS,
-  N_("Operations"), NULL, NULL /* umloperations_extra */ }, 
-  /* the naming is questionable, but kept for compatibility */
-  { "templates", PROP_TYPE_DARRAY, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL | PROP_FLAG_DONT_MERGE | PROP_FLAG_NO_DEFAULTS,
-  N_("Template Parameters"), NULL, NULL /* umlformalparameters_extra */ }, 
+  PROP_STD_LINE_WIDTH_OPTIONAL,
+  /* can't use PROP_STD_TEXT_COLOUR_OPTIONAL cause it has PROP_FLAG_DONT_SAVE. It is designed to fill the Text object - not some subset */
+  PROP_STD_TEXT_COLOUR_OPTIONS(PROP_FLAG_VISIBLE|PROP_FLAG_STANDARD|PROP_FLAG_OPTIONAL),
+  PROP_STD_LINE_COLOUR_OPTIONAL,
+  PROP_STD_FILL_COLOUR_OPTIONAL,
+
+  PROP_STD_NOTEBOOK_END,
 
   PROP_DESC_END
 };
