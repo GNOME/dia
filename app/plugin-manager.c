@@ -109,13 +109,17 @@ can_unload (GtkTreeViewColumn *tree_column,
                      LOADED_COLUMN, &loaded, -1);
   if (!loaded || (loaded && dia_plugin_can_unload(info)))
     {
-      cell->mode = GTK_CELL_RENDERER_MODE_ACTIVATABLE;
-      GTK_CELL_RENDERER_TOGGLE(cell)->activatable = TRUE;
+      g_object_set (cell, 
+		    "mode", GTK_CELL_RENDERER_MODE_ACTIVATABLE,
+		    "activatable", TRUE,
+		    NULL);
     }
   else
     {
-      cell->mode = GTK_CELL_RENDERER_MODE_INERT;
-      GTK_CELL_RENDERER_TOGGLE(cell)->activatable = FALSE;
+      g_object_set (cell,
+		    "mode", GTK_CELL_RENDERER_MODE_INERT,
+		    "activatable", FALSE,
+		    NULL);
     }
 }
 
@@ -171,13 +175,17 @@ can_inhibit (GtkTreeViewColumn *tree_column,
   if (   0 == strcmp(dia_plugin_get_name(info), "Standard")
       || 0 == strcmp(dia_plugin_get_name(info), "Internal"))
     {
-      cell->mode = GTK_CELL_RENDERER_MODE_INERT;
-      GTK_CELL_RENDERER_TOGGLE(cell)->activatable = FALSE;
+      g_object_set (cell,
+		    "mode", GTK_CELL_RENDERER_MODE_INERT,
+		    "activatable", FALSE,
+		    NULL);
     }
   else
     {
-      cell->mode = GTK_CELL_RENDERER_MODE_ACTIVATABLE;
-      GTK_CELL_RENDERER_TOGGLE(cell)->activatable = TRUE;
+      g_object_set (cell, 
+		    "mode", GTK_CELL_RENDERER_MODE_ACTIVATABLE,
+		    "activatable", TRUE,
+		    NULL);
     }
 }
 
