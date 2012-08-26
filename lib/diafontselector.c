@@ -154,10 +154,9 @@ dia_font_selector_init (DiaFontSelector *fs)
   }
   g_free (families);
   
-  fs->font_omenu =
-      DIA_DYNAMIC_MENU(dia_dynamic_menu_new_listbased(dia_font_selector_create_string_item,
+  fs->font_omenu = dia_dynamic_menu_new_listbased(dia_font_selector_create_string_item,
 				     fs, _("Other fonts"),
-				     fontnames, "font-menu"));
+				     fontnames, "font-menu");
   g_signal_connect(DIA_DYNAMIC_MENU(fs->font_omenu), "value-changed",
 		   G_CALLBACK(dia_font_selector_fontmenu_callback), fs);
   dia_dynamic_menu_add_default_entry(DIA_DYNAMIC_MENU(fs->font_omenu),
@@ -183,24 +182,27 @@ dia_font_selector_init (DiaFontSelector *fs)
   gtk_box_pack_start(GTK_BOX(fs), GTK_WIDGET(fs->style_omenu), TRUE, TRUE, 0);
 }
 
-GtkType
+GType
 dia_font_selector_get_type        (void)
 {
-  static GtkType dfs_type = 0;
+  static GType dfs_type = 0;
 
   if (!dfs_type) {
-    static const GtkTypeInfo dfs_info = {
-      "DiaFontSelector",
-      sizeof (DiaFontSelector),
+    static const GTypeInfo dfs_info = {
       sizeof (DiaFontSelectorClass),
-      (GtkClassInitFunc) dia_font_selector_class_init,
-      (GtkObjectInitFunc) dia_font_selector_init,
-      NULL,
-      NULL,
-      (GtkClassInitFunc) NULL
+      (GBaseInitFunc) NULL,
+      (GBaseFinalizeFunc) NULL,
+      (GClassInitFunc) dia_font_selector_class_init,
+      NULL,           /* class_finalize */
+      NULL,           /* class_data */
+      sizeof (DiaFontSelector),
+      0,              /* n_preallocs */
+      (GInstanceInitFunc) dia_font_selector_init,
     };
     
-    dfs_type = gtk_type_unique (gtk_hbox_get_type (), &dfs_info);
+    dfs_type = g_type_register_static (gtk_hbox_get_type (), 
+				       "DiaFontSelector",
+				       &dfs_info, 0);
   }
   
   return dfs_type;
@@ -209,7 +211,7 @@ dia_font_selector_get_type        (void)
 GtkWidget *
 dia_font_selector_new ()
 {
-  return GTK_WIDGET ( gtk_type_new (dia_font_selector_get_type ()));
+  return GTK_WIDGET ( g_object_new (dia_font_selector_get_type (), NULL));
 }
 
 static PangoFontFamily *
@@ -239,7 +241,7 @@ dia_font_selector_fontmenu_callback(DiaDynamicMenu *ddm, gpointer data)
   DiaFontSelector *fs = DIAFONTSELECTOR(data);
   char *fontname = dia_dynamic_menu_get_entry(ddm);
   dia_font_selector_set_styles(fs, fontname, -1);
-  g_signal_emit(GTK_OBJECT(fs),
+  g_signal_emit(G_OBJECT(fs),
 		dfontsel_signals[DFONTSEL_VALUE_CHANGED], 0);
   g_free(fontname);
 }
@@ -248,7 +250,7 @@ static void
 dia_font_selector_stylemenu_callback(GtkMenu *menu, gpointer data)
 {
   DiaFontSelector *fs = DIAFONTSELECTOR(data);
-  g_signal_emit(GTK_OBJECT(fs),
+  g_signal_emit(G_OBJECT(fs),
 		dfontsel_signals[DFONTSEL_VALUE_CHANGED], 0);
 }
 
@@ -381,7 +383,7 @@ dia_font_selector_set_font(DiaFontSelector *fs, DiaFont *font)
   const gchar *fontname = dia_font_get_family(font);
   /* side effect: adds fontname to presistence list */
   dia_dynamic_menu_select_entry(DIA_DYNAMIC_MENU(fs->font_omenu), fontname);
-  g_signal_emit(GTK_OBJECT(fs),
+  g_signal_emit(G_OBJECT(fs),
 		dfontsel_signals[DFONTSEL_VALUE_CHANGED], 0);
   dia_font_selector_set_styles(fs, fontname, dia_font_get_style (font));
 }

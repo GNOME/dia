@@ -176,7 +176,7 @@ dia_line_style_selector_init (DiaLineStyleSelector *fs)
   gtk_box_pack_start(GTK_BOX (box), length, TRUE, TRUE, 0);
   gtk_widget_show (length);
 
-  g_signal_connect(GTK_OBJECT(length), "changed", 
+  g_signal_connect(G_OBJECT(length), "changed", 
 		   G_CALLBACK(linestyle_dashlength_change_callback), fs);
 
   set_linestyle_sensitivity(fs);
@@ -185,33 +185,36 @@ dia_line_style_selector_init (DiaLineStyleSelector *fs)
   
 }
 
-GtkType
+GType
 dia_line_style_selector_get_type (void)
 {
-  static GtkType dfs_type = 0;
+  static GType dfs_type = 0;
 
   if (!dfs_type) {
-    static const GtkTypeInfo dfs_info = {
-      "DiaLineStyleSelector",
-      sizeof (DiaLineStyleSelector),
+    static const GTypeInfo dfs_info = {
       sizeof (DiaLineStyleSelectorClass),
-      (GtkClassInitFunc) dia_line_style_selector_class_init,
-      (GtkObjectInitFunc) dia_line_style_selector_init,
-      NULL,
-      NULL,
-      (GtkClassInitFunc) NULL,
+      (GBaseInitFunc) NULL,
+      (GBaseFinalizeFunc) NULL,
+      (GClassInitFunc) dia_line_style_selector_class_init,
+      NULL, /* class_finalize */
+      NULL, /* class_data */
+      sizeof (DiaLineStyleSelector),
+      0,    /* n_preallocs */
+      (GInstanceInitFunc) dia_line_style_selector_init,
     };
     
-    dfs_type = gtk_type_unique (gtk_vbox_get_type (), &dfs_info);
+    dfs_type = g_type_register_static (gtk_vbox_get_type (), 
+				       "DiaLineStyleSelector",
+				       &dfs_info, 0);
   }
-  
+
   return dfs_type;
 }
 
 GtkWidget *
 dia_line_style_selector_new ()
 {
-  return GTK_WIDGET ( gtk_type_new (dia_line_style_selector_get_type ()));
+  return GTK_WIDGET ( g_object_new (dia_line_style_selector_get_type (), NULL));
 }
 
 

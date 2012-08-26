@@ -70,23 +70,27 @@ enum {
 
 static guint ddm_signals[DDM_LAST_SIGNAL] = { 0 };
 
-GtkType
+GType
 dia_dynamic_menu_get_type(void)
 {
-  static GtkType us_type = 0;
+  static GType us_type = 0;
 
   if (!us_type) {
-    static const GtkTypeInfo us_info = {
-      "DiaDynamicMenu",
-      sizeof(DiaDynamicMenu),
+    static const GTypeInfo us_info = {
       sizeof(DiaDynamicMenuClass),
-      (GtkClassInitFunc) dia_dynamic_menu_class_init,
-      (GtkObjectInitFunc) dia_dynamic_menu_init,
-      NULL,
-      NULL,
-      (GtkClassInitFunc) NULL,
+      (GBaseInitFunc) NULL,
+      (GBaseFinalizeFunc) NULL,
+      (GClassInitFunc) dia_dynamic_menu_class_init,
+      NULL,           /* class_finalize */
+      NULL,           /* class_data */
+      sizeof(DiaDynamicMenu),
+      0,              /* n_preallocs */
+      (GInstanceInitFunc)dia_dynamic_menu_init,
     };
-    us_type = gtk_type_unique(gtk_option_menu_get_type(), &us_info);
+    us_type = g_type_register_static(
+			gtk_option_menu_get_type(),
+			"DiaDynamicMenu",
+			&us_info, 0);
   }
   return us_type;
 }
@@ -144,7 +148,7 @@ dia_dynamic_menu_new(DDMCreateItemFunc create,
 
   g_assert(persist != NULL);
 
-  ddm = DIA_DYNAMIC_MENU ( gtk_type_new (dia_dynamic_menu_get_type ()));
+  ddm = DIA_DYNAMIC_MENU ( g_object_new (dia_dynamic_menu_get_type (), NULL));
   
   ddm->create_func = create;
   ddm->userdata = userdata;
