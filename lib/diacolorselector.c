@@ -179,15 +179,14 @@ dia_color_selector_more_ok(GtkWidget *ok, gpointer userdata)
   GdkColor gcol;
   guint galpha;
   gchar *entry;
+  GtkWidget *cs2 = gtk_color_selection_dialog_get_color_selection (GTK_COLOR_SELECTION_DIALOG(colorsel));
 
   gtk_color_selection_get_current_color(
-	GTK_COLOR_SELECTION(
-	    GTK_COLOR_SELECTION_DIALOG(colorsel)->colorsel),
+	GTK_COLOR_SELECTION(cs2),
 	&gcol);
 
   galpha = gtk_color_selection_get_current_alpha(
-        GTK_COLOR_SELECTION(
-            GTK_COLOR_SELECTION_DIALOG(colorsel)->colorsel));
+        GTK_COLOR_SELECTION(cs2));
 
   entry = g_strdup_printf("#%02X%02X%02X", gcol.red/256, gcol.green/256, gcol.blue/256);
   dia_dynamic_menu_select_entry(cs->ddm, entry);
@@ -204,8 +203,9 @@ dia_color_selector_more_callback(GtkWidget *widget, gpointer userdata)
 {
   GtkColorSelectionDialog *dialog = GTK_COLOR_SELECTION_DIALOG (gtk_color_selection_dialog_new(_("Select color")));
   DiaColorSelector *cs = DIACOLORSELECTOR(userdata);
-  GtkColorSelection *colorsel = GTK_COLOR_SELECTION(dialog->colorsel);
+  GtkColorSelection *colorsel = GTK_COLOR_SELECTION(gtk_color_selection_dialog_get_color_selection (dialog));
   GString *palette = g_string_new ("");
+  GtkWidget *button;
 
   gchar *old_color = dia_dynamic_menu_get_entry(cs->ddm);
   GtkWidget *parent;
@@ -269,13 +269,18 @@ dia_color_selector_more_callback(GtkWidget *widget, gpointer userdata)
   gtk_color_selection_set_has_palette (colorsel, TRUE);
   g_string_free (palette, TRUE);
   g_free(old_color);
-  
-  gtk_widget_hide(dialog->help_button);
-  
-  g_signal_connect (G_OBJECT (dialog->ok_button), "clicked",
-		    G_CALLBACK (dia_color_selector_more_ok), dialog);  
-  g_signal_connect_swapped (G_OBJECT (dialog->cancel_button), "clicked",
+
+  g_object_get (G_OBJECT (dialog), "help-button", &button, NULL);
+  gtk_widget_hide(button);
+
+  g_object_get (G_OBJECT (dialog), "ok-button", &button, NULL);
+  g_signal_connect (G_OBJECT (button), "clicked",
+		    G_CALLBACK (dia_color_selector_more_ok), dialog);
+
+  g_object_get (G_OBJECT (dialog), "ok-button", &button, NULL);
+  g_signal_connect_swapped (G_OBJECT (button), "clicked",
 			    G_CALLBACK(gtk_widget_destroy), G_OBJECT(dialog));
+
   g_object_set_data(G_OBJECT(dialog), "dia-cs", cs);
 
   gtk_widget_show(GTK_WIDGET(dialog));
@@ -302,6 +307,7 @@ dia_color_selector_menu_new (DiaColorSelector *cs)
   g_signal_connect(G_OBJECT(otheritem), "activate",
 		   G_CALLBACK(dia_color_selector_more_callback), cs);
   gtk_widget_show(otheritem);
+
   return ddm;
 }
 

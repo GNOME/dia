@@ -306,6 +306,8 @@ color_area_edit (void)
   Color col;
   GtkWidget *window;
   GdkColor color;
+  GtkColorSelectionDialog *csd;
+  GtkColorSelection *colorsel;
 
   if (!color_select_active) {
     stored_foreground  = attributes_get_foreground();
@@ -320,54 +322,12 @@ color_area_edit (void)
     edit_color = BACKGROUND;
   }
 
-  if (! color_select) {
-    window = color_select = 
-      gtk_color_selection_dialog_new(edit_color==FOREGROUND?
-				     _("Select foreground color"):
-				     _("Select background color"));
-    color_select_active = 1;
-    gtk_color_selection_set_has_opacity_control(
-        GTK_COLOR_SELECTION (GTK_COLOR_SELECTION_DIALOG (window)->colorsel),
-        TRUE);
+  if (color_select) {
+    window = color_select;
+    csd = GTK_COLOR_SELECTION_DIALOG (window);
+    colorsel = GTK_COLOR_SELECTION (
+		   gtk_color_selection_dialog_get_color_selection (csd));
 
-    gtk_color_selection_set_has_palette (
-	GTK_COLOR_SELECTION (gtk_color_selection_dialog_get_color_selection (
-				GTK_COLOR_SELECTION_DIALOG (window))),
-	TRUE);
-
-    gtk_window_set_position (GTK_WINDOW (window), GTK_WIN_POS_MOUSE);
-    
-    g_signal_connect (G_OBJECT (window), "delete_event",
-		      G_CALLBACK(color_selection_delete),
-			window);
-    
-    g_signal_connect (G_OBJECT (window), "destroy",
-		      G_CALLBACK(color_selection_destroy),
-		      window);
-    
-    g_signal_connect (
-	G_OBJECT (gtk_color_selection_dialog_get_color_selection (GTK_COLOR_SELECTION_DIALOG (window))),
-	"color_changed",
-	G_CALLBACK(color_selection_changed),
-	window);
-    
-    g_signal_connect (
-	G_OBJECT (GTK_COLOR_SELECTION_DIALOG (window)->ok_button),
-	"clicked",
-	G_CALLBACK(color_selection_ok),
-	window);
-
-    g_signal_connect (
-	G_OBJECT (GTK_COLOR_SELECTION_DIALOG (window)->cancel_button),
-	"clicked",
-	G_CALLBACK(color_selection_cancel),
-	window);
-
-
-    /* Make sure window is shown before setting its colors: */
-    gtk_widget_show_now (color_select);
-      
-  } else {
     gtk_window_set_title(GTK_WINDOW(color_select),
 			 edit_color==FOREGROUND?
 			 _("Select foreground color"):
@@ -375,16 +335,54 @@ color_area_edit (void)
     if (! color_select_active) {
       gtk_widget_show (color_select);
     }
+  } else {
+    GtkButton *button;
+
+    window = color_select = 
+      gtk_color_selection_dialog_new(edit_color==FOREGROUND?
+				     _("Select foreground color"):
+				     _("Select background color"));
+    csd = GTK_COLOR_SELECTION_DIALOG (window);
+    colorsel = GTK_COLOR_SELECTION (
+		   gtk_color_selection_dialog_get_color_selection (csd));
+
+    color_select_active = 1;
+    gtk_color_selection_set_has_opacity_control (colorsel, TRUE);
+
+    gtk_color_selection_set_has_palette (colorsel, TRUE);
+
+    gtk_window_set_position (GTK_WINDOW (window), GTK_WIN_POS_MOUSE);
+    
+    g_signal_connect (G_OBJECT (window), "delete_event",
+		      G_CALLBACK(color_selection_delete),
+		      window);
+    
+    g_signal_connect (G_OBJECT (window), "destroy",
+		      G_CALLBACK(color_selection_destroy),
+		      window);
+    
+    g_signal_connect (G_OBJECT (colorsel),
+		      "color_changed",
+		      G_CALLBACK(color_selection_changed),
+		      window);
+
+    g_object_get (G_OBJECT (window), "ok-button", &button, NULL);
+    g_signal_connect (button, "clicked",
+		      G_CALLBACK(color_selection_ok),
+		      window);
+
+    g_object_get (G_OBJECT (window), "cancel-button", &button, NULL);
+    g_signal_connect (button, "clicked",
+		      G_CALLBACK(color_selection_cancel),
+		      window);
+
+    /* Make sure window is shown before setting its colors: */
+    gtk_widget_show_now (color_select);      
   }
   DIA_COLOR_TO_GDK(col, color);
 
-  gtk_color_selection_set_current_color(
-	GTK_COLOR_SELECTION (gtk_color_selection_dialog_get_color_selection (
-				GTK_COLOR_SELECTION_DIALOG (color_select))),
-	&color);
-  gtk_color_selection_set_current_alpha(
-        GTK_COLOR_SELECTION (GTK_COLOR_SELECTION_DIALOG (color_select)->colorsel),
-        (guint)(col.alpha * 65535.0));
+  gtk_color_selection_set_current_color(colorsel, &color);
+  gtk_color_selection_set_current_alpha(colorsel, (guint)(col.alpha * 65535.0));
 }
 
 static gint
@@ -494,4 +492,3 @@ color_area_create (int        width,
   gtk_container_add(GTK_CONTAINER(event_box), color_area);
   return event_box;
 }
-
