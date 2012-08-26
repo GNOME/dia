@@ -561,7 +561,6 @@ ddisplay_canvas_events (GtkWidget *canvas,
 			GdkEvent  *event,
 			DDisplay *ddisp)
 {
-  GdkEventExpose *eevent;
   GdkEventMotion *mevent;
   GdkEventButton *bevent;
   GdkEventKey *kevent;
@@ -587,15 +586,6 @@ ddisplay_canvas_events (GtkWidget *canvas,
 
   switch (event->type)
   {
-      case GDK_EXPOSE:
-        eevent = (GdkEventExpose *) event;
-        ddisplay_add_display_area(ddisp,
-                                  eevent->area.x, eevent->area.y,
-                                  eevent->area.x + eevent->area.width,
-                                  eevent->area.y + eevent->area.height);
-        ddisplay_flush(ddisp);
-        break;
-
       case GDK_SCROLL:
         sevent = (GdkEventScroll *) event;
 

@@ -386,6 +386,23 @@ canvas_configure_event (GtkWidget         *widget,
   return new_size;
 }
 
+/* Got when an area previously obscured need to be redrawn.
+ * Needs GDK_EXPOSURE_MASK.
+ * Gone with gtk+-3.0 or better replaced by "draw".
+ */
+static gboolean
+canvas_expose_event (GtkWidget      *widget,
+		     GdkEventExpose *event,
+		     DDisplay       *ddisp)
+{
+  ddisplay_add_display_area (ddisp,
+			     event->area.x, event->area.y,
+			     event->area.x + event->area.width,
+			     event->area.y + event->area.height);
+  ddisplay_flush(ddisp);
+  return FALSE;
+}
+
 static GtkWidget *
 create_canvas (DDisplay *ddisp)
 {
@@ -402,6 +419,8 @@ create_canvas (DDisplay *ddisp)
 			 GDK_KEY_PRESS_MASK | GDK_KEY_RELEASE_MASK);
   g_signal_connect (G_OBJECT (canvas), "configure-event",
 		    G_CALLBACK (canvas_configure_event), ddisp);
+  g_signal_connect (G_OBJECT (canvas), "expose-event",
+		    G_CALLBACK (canvas_expose_event), ddisp);
 #if GTK_CHECK_VERSION(2,18,0)
   gtk_widget_set_can_focus (canvas, TRUE);
 #else
