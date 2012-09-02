@@ -796,10 +796,10 @@ draw_rounded_polyline (DiaRenderer *renderer,
     
     /* adjust the radius if it would cause odd rendering */
     min_radius = MIN(radius, calculate_min_radius(&p1,&p2,&p4));
-    fillet(&p1,&p2,&p3,&p4, min_radius, &c, &start_angle, &stop_angle);
-    klass->draw_arc(renderer, &c, min_radius*2, min_radius*2,
-		    start_angle,
-		    stop_angle, color);
+    if (fillet(&p1,&p2,&p3,&p4, min_radius, &c, &start_angle, &stop_angle))
+      klass->draw_arc(renderer, &c, min_radius*2, min_radius*2,
+		      start_angle,
+		      stop_angle, color);
     klass->draw_line(renderer, &p1, &p2, color);
     p1.x = p3.x; p1.y = p3.y;
     p2.x = p4.x; p2.y = p4.y;

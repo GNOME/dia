@@ -510,8 +510,10 @@ void point_perp(Point *p, real a, real b, real c, Point *perp) {
    The start angle is pa
    The end angle is aa,
    The points p1-p4 will be modified as necessary */
-void fillet(Point *p1, Point *p2, Point *p3, Point *p4,
-                   real r, Point *c, real *pa, real *aa) {
+gboolean
+fillet(Point *p1, Point *p2, Point *p3, Point *p4,
+       real r, Point *c, real *pa, real *aa)
+{
   real a1, b1, c1;  /* Coefficients for L1 */
   real a2, b2, c2;  /* Coefficients for L2 */
   real d, d1, d2;
@@ -525,21 +527,19 @@ void fillet(Point *p1, Point *p2, Point *p3, Point *p4,
   line_coef(&a2,&b2,&c2,p3,p4);
 
   if ( (a1*b2) == (a2*b1) ) /* Parallel or coincident lines */
-  {
-    return;
-  }
+    return FALSE;
 
   mp.x = (p3->x + p4->x) / 2.0;          /* Find midpoint of p3 p4 */
   mp.y = (p3->y + p4->y) / 2.0;
   d1 = line_to_point(a1, b1, c1, &mp);    /* Find distance p1 p2 to
                                              midpoint p3 p4 */
-  if ( d1 == 0.0 ) return;                /* p1p2 to p3 */
+  if ( d1 == 0.0 ) return FALSE;          /* p1p2 to p3 */
 
   mp.x = (p1->x + p2->x) / 2.0;          /* Find midpoint of p1 p2 */
   mp.y = (p1->y + p2->y) / 2.0;
   d2 = line_to_point(a2, b2, c2, &mp);    /* Find distance p3 p4 to
                                              midpoint p1 p2 */
-  if ( d2 == 0.0 ) return;
+  if ( d2 == 0.0 ) return FALSE;
 
   rr = r;
   if ( d1 <= 0.0 ) rr = -rr;
@@ -582,6 +582,7 @@ void fillet(Point *p1, Point *p2, Point *p3, Point *p4,
   }
   *pa = start_angle;
   *aa = stop_angle;
+  return TRUE;
 }
 
 int 
