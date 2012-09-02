@@ -116,8 +116,8 @@ static const GtkActionEntry display_entries[] =
     { "FileClose", GTK_STOCK_CLOSE, NULL, "<control>W", NULL, G_CALLBACK (file_close_callback) },
 
   { "Edit", NULL, N_("_Edit"), NULL, NULL, NULL },
-    { "EditUndo", GTK_STOCK_UNDO, NULL, "<control>Z", NULL, G_CALLBACK (edit_undo_callback) },
-    { "EditRedo", GTK_STOCK_REDO, NULL, "<control><shift>Z", NULL, G_CALLBACK (edit_redo_callback) },
+    { "EditUndo", GTK_STOCK_UNDO, NULL, "<control>Z", N_("Undo"), G_CALLBACK (edit_undo_callback) },
+    { "EditRedo", GTK_STOCK_REDO, NULL, "<control><shift>Z", N_("Redo"), G_CALLBACK (edit_redo_callback) },
 
     { "EditCopy", GTK_STOCK_COPY, NULL, "<control>C", N_("Copy selection"), G_CALLBACK (edit_copy_callback) },
     { "EditCut", GTK_STOCK_CUT, NULL, "<control>X", N_("Cut selection"), G_CALLBACK (edit_cut_callback) },
@@ -210,6 +210,9 @@ static const GtkActionEntry display_entries[] =
     /* display_select_radio_entries go here */
 
     { "SelectBy", NULL, N_("Select By"), NULL, NULL, NULL },
+
+  /* For placment of the toplevel Layout menu and it's accelerator */
+  { "Layout", NULL, N_("L_ayout"), NULL, NULL, NULL },
 
   { "InputMethods", NULL, N_("_Input Methods"), NULL, NULL, NULL },
 

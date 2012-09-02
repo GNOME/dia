@@ -136,6 +136,9 @@
 			<separator name="SelectSep4" />
 			<separator name="SelectExtensionStart" />
 		</menu>
+		<menu name="Layout" action="Layout">
+			<separator name="LayoutExtensionStart" />
+		</menu>
 		<menu name="Tools" action="Tools">
 			<menuitem name="ToolsModify" action="ToolsModify" />
 			<menuitem name="ToolsTextedit" action="ToolsTextedit" />
