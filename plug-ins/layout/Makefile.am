@@ -1,4 +1,8 @@
-plugin_sources = layout.cpp ogdf-simple.h
+plugin_sources = \
+	dia-graph.h \
+	dia-grap.cpp \
+	layout.cpp \
+	ogdf-simple.h
 
 if HAVE_OGDF
 plugin_sources += ogdf-simple.cpp

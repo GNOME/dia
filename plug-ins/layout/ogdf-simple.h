@@ -1,5 +1,5 @@
 /*!
- * A very simple inteface to use graph layout algorithms with Dia
+ * A very simple interface to use graph layout algorithms with Dia
  *
  * For OGDF ( http://www.ogdf.net ) main problem to solve is the 
  * compiler mismatch on Windows.

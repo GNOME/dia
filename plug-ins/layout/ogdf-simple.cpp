@@ -16,6 +16,7 @@
 #include <ogdf/misclayout/CircularLayout.h>
 #include <ogdf/energybased/DavidsonHarelLayout.h>
 #include <ogdf/energybased/StressMajorizationSimple.h>
+#include <ogdf/energybased/MultilevelLayout.h>
 #include <ogdf/layered/SugiyamaLayout.h>
 #include <ogdf/layered/OptimalHierarchyLayout.h>
 #include <ogdf/upward/DominanceLayout.h>
@@ -30,6 +31,9 @@
 #include <ogdf/planarlayout/PlanarStraightLayout.h>
 #include <ogdf/planarity/PlanarizationLayout.h>
 #include <ogdf/planarity/PlanarizationGridLayout.h>
+// new with v2012.06
+#include <ogdf/planarlayout/FPPLayout.h>
+#include <ogdf/planarlayout/SchnyderLayout.h>
 
 #include <ogdf/energybased/multilevelmixer/MMMExampleFastLayout.h>
 #include <ogdf/energybased/multilevelmixer/MMMExampleNiceLayout.h>
@@ -200,6 +204,8 @@ KGraph::RealLayout (const char *module)
     }
     else if (strcmp ("FMME", module) == 0)
         m_pLayout = new ogdf::FastMultipoleMultilevelEmbedder ();
+    else if (strcmp ("FPP", module) == 0)
+        m_pLayout = new ogdf::FPPLayout ();
     else if (strcmp ("GEM", module) == 0)
     {
         ogdf::GEMLayout *pLayout = new ogdf::GEMLayout ();
@@ -226,6 +232,8 @@ KGraph::RealLayout (const char *module)
 	m_pLayout = new ogdf::PlanarizationGridLayout();
     else if (strcmp ("RadialTree", module) == 0)
         m_pLayout = new ogdf::RadialTreeLayout ();
+    else if (strcmp ("Schnyder", module) == 0)
+        m_pLayout = new ogdf::SchnyderLayout ();
     else if (strcmp ("SpringEmbedderFR", module) == 0)
     {
         ogdf::SpringEmbedderFR *pLayout = new ogdf::SpringEmbedderFR ();
@@ -251,8 +259,14 @@ KGraph::RealLayout (const char *module)
         pLayout->setRanking (new ogdf::OptimalRanking ());
         m_pLayout = new ogdf::SugiyamaLayout ();
     }
-    else if (strcmp ("Tree", module) == 0)
+    else if (strcmp ("TreeStraight", module) == 0)
         m_pLayout = new ogdf::TreeLayout ();
+    else if (strcmp ("TreeOrthogonal", module) == 0)
+    {
+        ogdf::TreeLayout *pLayout = new ogdf::TreeLayout ();
+        pLayout->orthogonalLayout(true);
+        m_pLayout = pLayout;
+    }
     else if (strcmp ("UpwardPlanarization", module) == 0)
         m_pLayout = new ogdf::UpwardPlanarizationLayout ();
     else if (strcmp ("Visibility", module) == 0)
@@ -294,6 +308,11 @@ KGraph::Layout (const char *module)
 	{
 	case ogdf::pvcTree : return NO_TREE;
 	case ogdf::pvcForest : return NO_FOREST;
+	case ogdf::pvcConnected :
+	case ogdf::pvcOrthogonal :
+	case ogdf::pvcClusterPlanar :
+	case ogdf::pvcSelfLoop :
+	case ogdf::pvcPlanar :
 	default : return  FAILED_PRECONDITION;
 	}
     }

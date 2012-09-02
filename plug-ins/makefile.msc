@@ -89,7 +89,8 @@ OBJECTS = \
 DEPCFLAGS = -GX -I $(PRJ_TOP)\app $(OGDF_CFLAGS)
 PKG_LINK = $(PKG_LINK) $(PRJ_TOP)\app\dia-app.lib $(OGDF_LIBS)
 OBJECTS = \
-	layout.obj
+	layout.obj \
+	dia-graph.obj
 !ENDIF
 
 !IFDEF OBJ_libart

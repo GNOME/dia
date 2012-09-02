@@ -32,6 +32,7 @@
 #include "connectionpoint_ops.h"
 
 #include "ogdf-simple.h"
+#include "dia-graph.h"
 
 #include <vector>
 
@@ -185,14 +186,18 @@ _obj_set_bends (DiaObject *obj, std::vector<double>& coords)
   return NULL;
 }
 
+typedef IGraph *(*GraphCreateFunc)();
+
 static ObjectChange *
 layout_callback (DiagramData *data,
                  const gchar *filename,
                  guint flags, /* further additions */
-                 void *user_data)
+                 void *user_data,
+		 GraphCreateFunc func)
 {
   ObjectChange *changes = NULL;
   GList *nodes = NULL, *edges = NULL, *list;
+  const char *algorithm = (const char*)user_data;
 
   /* from the selection create two lists */
   list = data_get_sorted_selected (data);
@@ -210,11 +215,8 @@ layout_callback (DiagramData *data,
   if (g_list_length (edges) < 1 || g_list_length (nodes) < 2) {
     message_warning (_("Please select edges and nodes to layout."));
   } else {
-#ifdef HAVE_OGDF
-    IGraph *g = CreateGraph ();
-#else
-    IGraph *g = NULL;
-#endif
+    IGraph *g = func ? func () : NULL;
+
     if (!g)
       message_error (_("Graph creation failed"));
     else {
@@ -239,7 +241,7 @@ layout_callback (DiagramData *data,
           g->AddEdge (g_list_index (nodes, src), g_list_index (nodes, dst), NULL, 0);
       }
       IGraph::eResult res;
-      if ((res = g->Layout ((const char*)user_data)) != IGraph::SUCCESS) {
+      if ((res = g->Layout (algorithm)) != IGraph::SUCCESS) {
 	const char *sErr;
 	switch (res) {
 	case IGraph::NO_MODULE : sErr = _("No such module."); break;
@@ -300,42 +302,72 @@ layout_callback (DiagramData *data,
   return changes;
 }
 
-#define AN_ENTRY(name) \
+static ObjectChange *
+layout_callback1 (DiagramData *data,
+                  const gchar *filename,
+                  guint flags, /* further additions */
+                  void *user_data)
+{
+  return layout_callback (data, filename, flags, user_data, dia_graph_create);
+}
+static ObjectChange *
+layout_callback2 (DiagramData *data,
+                  const gchar *filename,
+                  guint flags, /* further additions */
+                  void *user_data)
+{
+#ifdef HAVE_OGDF
+  return layout_callback (data, filename, flags, user_data, CreateGraph);
+#else
+  return NULL;
+#endif
+}
+
+#define AN_ENTRY(group, name, func) \
     { \
       #name "Layout", \
       N_(#name), \
-      "/DisplayMenu/Layout/LayoutFirst", \
-      layout_callback, \
+      "/DisplayMenu/Layout/" #group "/" #group "LayoutFirst", \
+      layout_callback ##func, \
       (void*)#name \
     }
       
 static DiaCallbackFilter cb_layout[] = {
-    AN_ENTRY(Balloon),
-    AN_ENTRY(Circular),
-    AN_ENTRY(DavidsonHarel),
-    AN_ENTRY(Dominance),
-    //Borked: AN_ENTRY(Fast),
-    AN_ENTRY(FMME),
-    AN_ENTRY(FMMM),
-    AN_ENTRY(GEM),
-    AN_ENTRY(MixedForce),
-    AN_ENTRY(MixedModel),
-    //Borked: AN_ENTRY(Nice),
-    //Borked: AN_ENTRY(NoTwist),
-    AN_ENTRY(Planarization),
-    AN_ENTRY(PlanarDraw),
-    AN_ENTRY(PlanarStraight),
-    AN_ENTRY(PlanarizationGrid),
-    AN_ENTRY(RadialTree),
-    AN_ENTRY(SpringEmbedderFR),
-    AN_ENTRY(SpringEmbedderKK),
-    //Borked: AN_ENTRY(StressMajorization),
-    AN_ENTRY(Sugiyama),
-    AN_ENTRY(Tree),
-    AN_ENTRY(UpwardPlanarization),
-    //Borked: AN_ENTRY(Visibility),
-    AN_ENTRY(NotAvailable),
-    { NULL, }
+#ifdef HAVE_OGDF
+    AN_ENTRY(Test, NotAvailable, 2),
+    AN_ENTRY(Misc, Balloon, 2),
+    AN_ENTRY(Misc, Circular, 2),
+    AN_ENTRY(Energy-based, DavidsonHarel, 2),
+    AN_ENTRY(Upward, Dominance, 2),
+    //Borked(crash): AN_ENTRY(Fast, 2),
+    AN_ENTRY(Multilevel, FMME, 2),
+    AN_ENTRY(Multilevel, FMMM, 2),
+    AN_ENTRY(Planar, FPP, 2),
+    AN_ENTRY(Energy-based, GEM, 2),
+    AN_ENTRY(Multilevel, MixedForce, 2),
+    AN_ENTRY(Planar, MixedModel, 2),
+    //Borked(crash): AN_ENTRY(Nice, 2),
+    //Borked(crash): AN_ENTRY(NoTwist, 2),
+    AN_ENTRY(Orthogonal, Planarization, 2),
+    AN_ENTRY(Planar, PlanarDraw, 2),
+    AN_ENTRY(Planar, PlanarStraight, 2),
+    AN_ENTRY(Orthogonal, PlanarizationGrid, 2),
+    AN_ENTRY(Tree, RadialTree, 2),
+    AN_ENTRY(Planar, Schnyder, 2),
+    AN_ENTRY(Energy-based, SpringEmbedderFR, 2),
+    AN_ENTRY(Energy-based, SpringEmbedderKK, 2),
+    //Borked(huge): 
+    AN_ENTRY(Energy-based, StressMajorization, 2),
+    AN_ENTRY(Upward, Sugiyama, 2),
+    AN_ENTRY(Tree, TreeStraight, 2),
+    AN_ENTRY(Tree, TreeOrthogonal, 2),
+    AN_ENTRY(Upward, UpwardPlanarization, 2),
+    AN_ENTRY(Upward, Visibility, 2),
+#endif
+    AN_ENTRY(Size, Grow, 1),
+    AN_ENTRY(Size, Shrink, 1),
+    AN_ENTRY(Size, Heighten, 1),
+    AN_ENTRY(Size, Widen, 1),
 };
 
 static gboolean
@@ -359,7 +391,7 @@ DIA_PLUGIN_CHECK_INIT
 PluginInitResult
 dia_plugin_init(PluginInfo *info)
 {
-  int i = 0;
+  int i;
 
   if (!dia_plugin_info_init(info, "Layout",
                             _("OGDF Layout Algorithms"),
@@ -367,12 +399,9 @@ dia_plugin_init(PluginInfo *info)
                             _plugin_unload))
     return DIA_PLUGIN_INIT_ERROR;
 
-  while (cb_layout[i].action) {
-#ifdef HAVE_OGDF
-    // no point in adding these without OGDF yet 
+  // to have it sorted like above we have to start from the end
+  for (i = G_N_ELEMENTS (cb_layout) - 1; i >= 0; --i) {
     filter_register_callback (&cb_layout[i]);
-#endif
-    ++i;
   }
 
   return DIA_PLUGIN_INIT_OK;
