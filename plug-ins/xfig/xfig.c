@@ -41,6 +41,7 @@ static void
 _plugin_unload (PluginInfo *info)
 {
     filter_unregister_export(&xfig_export_filter);
+    filter_unregister_import(&xfig_import_filter);
 }
 
 

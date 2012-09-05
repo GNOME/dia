@@ -43,6 +43,7 @@ static void
 _plugin_unload (PluginInfo *info)
 {
     filter_unregister_export(&vdx_export_filter);
+    filter_unregister_import(&vdx_import_filter);
 }
 
 
