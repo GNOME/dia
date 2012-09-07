@@ -63,7 +63,7 @@ linestyleprop_copy(LinestyleProperty *src)
 
 static WIDGET *
 linestyleprop_get_widget(LinestyleProperty *prop, PropDialog *dialog)
-{ 
+{
   GtkWidget *ret = dia_line_style_selector_new();
   prophandler_connect(&prop->common, G_OBJECT(ret), "value-changed");
   return ret;
@@ -177,7 +177,7 @@ arrowprop_copy(ArrowProperty *src)
 
 static WIDGET *
 arrowprop_get_widget(ArrowProperty *prop, PropDialog *dialog)
-{ 
+{
   GtkWidget *ret = dia_arrow_selector_new();
   prophandler_connect(&prop->common, G_OBJECT(ret), "value-changed");
   return ret;
