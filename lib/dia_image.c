@@ -313,6 +313,7 @@ dia_image_save(DiaImage *image, const gchar *filename)
 int 
 dia_image_width(const DiaImage *image)
 {
+  g_return_val_if_fail (image != NULL, 0);
   return gdk_pixbuf_get_width(image->image);
 }
 
@@ -323,6 +324,7 @@ dia_image_width(const DiaImage *image)
 int 
 dia_image_height(const DiaImage *image)
 {
+  g_return_val_if_fail (image != NULL, 0);
   return gdk_pixbuf_get_height(image->image);
 }
 
@@ -333,6 +335,7 @@ dia_image_height(const DiaImage *image)
 int
 dia_image_rowstride(const DiaImage *image)
 {
+  g_return_val_if_fail (image != NULL, 0);
   return gdk_pixbuf_get_rowstride(image->image);
 }
 /** Direct const access to the underlying GdkPixbuf
@@ -423,6 +426,7 @@ dia_image_mask_data(const DiaImage *image)
 const guint8 *
 dia_image_rgba_data(const DiaImage *image)
 {
+  g_return_val_if_fail (image != NULL, 0);
   if (gdk_pixbuf_get_has_alpha(image->image)) {
     const guint8 *pixels = gdk_pixbuf_get_pixels(image->image);
     
