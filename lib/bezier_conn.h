@@ -33,8 +33,13 @@ typedef enum {
   BEZ_CORNER_CUSP
 } BezCornerType;
 
-/** This is a subclass of DiaObject used to help implementing objects
+/*!
+ * \brief Helper class to implement bezier connections
+ *
+ * This is a subclass of DiaObject used to help implementing objects
  * that connect points with polygonal line-segments.
+ *
+ * \extends _DiaObject
  */
 struct _BezierConn {
   DiaObject object; /**< inheritance */

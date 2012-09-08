@@ -32,7 +32,6 @@ static const Rectangle invalid_extents = { -1.0,-1.0,-1.0,-1.0 };
  * @param renderer The renderer to render on.
  * @param active_layer The layer containing the object.
  * @param data The diagram containing the layer.
- * @bug The active_layer and data variables can be inferred from the object.
  */
 static void
 normal_render(DiaObject *obj, DiaRenderer *renderer,
@@ -99,9 +98,6 @@ layer_render(Layer *layer, DiaRenderer *renderer, Rectangle *update,
  * @param name Name of the new layer.
  * @param parent The DiagramData that the layer will belong to,.
  * @return A new Layer object.
- * @bug Must determine if a NULL name is ok.
- * @bug Even though this sets parent diagram, it doesn't call the
- * update_extents functions that add_layer does.
  */
 Layer *
 new_layer(gchar *name, DiagramData *parent)
@@ -190,7 +186,7 @@ layer_get_name (Layer *layer)
 /** Add an object to the top of a layer.
  * @param layer The layer to add the object to.
  * @param obj The object to add.  This must not already be part of another layer.
- * @bug This should just call layer_add_object_at().
+ * \memberof _Layer
  */
 void
 layer_add_object(Layer *layer, DiaObject *obj)
@@ -206,6 +202,7 @@ layer_add_object(Layer *layer, DiaObject *obj)
  * @param layer The layer to add the object to.
  * @param obj The object to add.  This must not be part of another layer.
  * @param pos The top-to-bottom position this object should be inserted at.
+ * \memberof _Layer
  */
 void
 layer_add_object_at(Layer *layer, DiaObject *obj, int pos)
@@ -221,7 +218,7 @@ layer_add_object_at(Layer *layer, DiaObject *obj, int pos)
  * @param layer The layer to add objects to.
  * @param obj_list The list of objects to add.  These must not already
  *  be part of another layer.
- * @bug Determine if the list is kept by g_list_concat.
+ * \memberof _Layer
  */
 void
 layer_add_objects(Layer *layer, GList *obj_list)
@@ -245,7 +242,7 @@ layer_add_objects(Layer *layer, GList *obj_list)
  * @param layer The layer to add objects to.
  * @param obj_list The list of objects to add.  These must not already
  *  be part of another layer.
- * @bug Determine if the list is kept by g_list_concat.
+ * \memberof _Layer
  */
 void
 layer_add_objects_first(Layer *layer, GList *obj_list)
@@ -270,7 +267,7 @@ layer_add_objects_first(Layer *layer, GList *obj_list)
 /** Remove an object from a layer.
  * @param layer The layer to remove the object from.
  * @param obj The object to remove.
- * @bug Why don't the layer_add functions deal with dynobj?
+ * \memberof _Layer
  */
 void
 layer_remove_object(Layer *layer, DiaObject *obj)
@@ -285,7 +282,8 @@ layer_remove_object(Layer *layer, DiaObject *obj)
 
 /** Remove a list of objects from a layer.
  * @param layer The layer to remove the objects from.
- * @param obj The objects to remove.
+ * @param obj_list The objects to remove.
+ * \memberof _Layer
  */
 void
 layer_remove_objects(Layer *layer, GList *obj_list)
@@ -305,6 +303,7 @@ layer_remove_objects(Layer *layer, GList *obj_list)
  * @param rect The rectangle to intersect with.
  * @return List of objects whose bounding box intersect the rectangle.  The
  *  list should be freed by the caller.
+ * \memberof _Layer
  */
 GList *
 layer_find_objects_intersecting_rectangle(Layer *layer, Rectangle *rect)

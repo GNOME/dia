@@ -17,7 +17,11 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-/** \file boundingbox.h Boundingbox calculation (helpers) */
+/*! 
+ * \file boundingbox.h Boundingbox calculation (helpers) 
+ * \defgroup bbox Bounding box calculation
+ * \ingroup Objects
+ */
 
 #ifndef BOUNDINGBOX_H
 #define BOUNDINGBOX_H
@@ -25,17 +29,29 @@
 #include "diatypes.h"
 #include "geometry.h"
 
+/*!
+ * \brief Polygon/Polyline bounding box extras
+ * \ingroup bbox
+ */
 struct _PolyBBExtras {
   real start_long, start_trans;
   real middle_trans;
   real end_long, end_trans;
 };
 
+/*!
+ * \brief Line bounding box extras
+ * \ingroup bbox
+ */
 struct _LineBBExtras {
   real start_long, start_trans;
   real end_long, end_trans;
 };
 
+/*!
+ * \brief Element bounding box extras
+ * \ingroup bbox
+ */
 struct _ElementBBExtras {
   real border_trans;
 };

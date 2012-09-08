@@ -31,14 +31,20 @@
 
 #define HANDLE_CORNER (HANDLE_CUSTOM1)
 
-/* This is a subclass of DiaObject used to help implementing objects
+/*!
+ * \brief Base class for bezier shaped elements
+ *
+ * This is a subclass of DiaObject used to help implementing objects
  * that form a polygon-like shape of line-segments.
+ *
+ * \extends _DiaObject
  */
 struct _BezierShape {
-  /* DiaObject must be first because this is a 'subclass' of it. */
+  /*! \protected DiaObject must be first because this is a 'subclass' of it. */
   DiaObject object;
-
+  /*! \protected Number of points in points array */
   int numpoints; /* >= 2 */
+  /*! \protected Array of points describing the object */
   BezPoint *points;
   BezCornerType *corner_types;
   ElementBBExtras extra_spacing;

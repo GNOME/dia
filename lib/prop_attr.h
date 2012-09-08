@@ -28,22 +28,38 @@
 #include "properties.h"
 #include "dia_xml.h"
 
+/*!
+ * \brief Property for LineStyle
+ * \extends _Property
+ */
 typedef struct {
   Property common;
   LineStyle style;
   real dash;
 } LinestyleProperty;
 
+/*!
+ * \brief Property for _Arrow
+ * \extends _Property
+ */
 typedef struct {
   Property common;
   Arrow arrow_data;
 } ArrowProperty;
 
+/*!
+ * \brief Property for _Color
+ * \extends _Property
+ */
 typedef struct {
   Property common;
   Color color_data;
 } ColorProperty;
 
+/*!
+ * \brief Property for _DiaFont
+ * \extends _Property
+ */
 typedef struct {
   Property common;
   DiaFont *font_data;

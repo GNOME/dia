@@ -58,7 +58,14 @@ struct _PropWidgetAssoc {
   WIDGET *widget;
 };
 
-struct _PropDialog { /* This is to be treated as opaque ! */
+/*!
+ * \brief User interface representation of a set of standard properties
+ *
+ * This is to be treated as opaque !
+ *
+ * \ingroup StdProps
+ */
+struct _PropDialog {
   WIDGET *widget; /* widget of self */
 
   GPtrArray *props; /* of Property * */
@@ -89,24 +96,25 @@ struct _PropEventHandlerChain {
 
 /* PropertyType operations : */
 
-/* allocate a new, empty property. */
+/*! allocate a new, empty property. */
 typedef Property * (*PropertyType_New) (const PropDescription *pdesc,
                                     PropDescToPropPredicate reason);
-/* free the property -- must skip NULL values. */
+/*! free the property -- must skip NULL values. */
 typedef void (* PropertyType_Free)(Property *prop);
-/* Copy the data member of the property. -- must skip NULL values. */
+/*! Copy the data member of the property. -- must skip NULL values. */
 typedef Property *(* PropertyType_Copy)(Property *src);
-/* Create a widget capable of editing the property. Add it to the last container (or
+/*! Create a widget capable of editing the property. Add it to the last container (or
    add/remove container levels). */
 typedef WIDGET *(* PropertyType_GetWidget)(Property *prop,
                                        PropDialog *dialog);
 
-/* Get the value of the property into the widget */
+/*! Get the value of the property into the widget */
 typedef void (* PropertyType_ResetWidget)(const Property *prop, WIDGET *widget);
-/* Set the value of the property from the current value of the widget */
+/*! Set the value of the property from the current value of the widget */
 typedef void (* PropertyType_SetFromWidget)(Property *prop, WIDGET *widget);
-/* load/save a property */
+/*! load a property from XML node */
 typedef void (*PropertyType_Load)(Property *prop, AttributeNode attr, DataNode data, DiaContext *ctx);
+/*! save a property to XML node */
 typedef void (*PropertyType_Save)(Property *prop, AttributeNode attr);
 
 /* If a property descriptor can be merged with another 
@@ -118,21 +126,35 @@ typedef void (*PropertyType_SetFromOffset)(Property *prop,
                                          void *base, guint offset, guint offset2);
 typedef int (*PropertyType_GetDataSize)(Property *prop);
 
-
+/*!
+ * \brief Virtual function table for Property objects
+ *
+ * \ingroup StdProps
+ */
 struct _PropertyOps {
+  /*! Creating a new property from scratch */
   PropertyType_New  new_prop;
+  /*! Destroying the property */
   PropertyType_Free free;
+  /*! Cloning the property - making a deep copy */
   PropertyType_Copy copy;
+  /*! Loading the property from storage */
   PropertyType_Load load;
+  /*! Saving the property to storage */
   PropertyType_Save save;
+  /*! Delivering an editor / a viewer widget for the property */
   PropertyType_GetWidget get_widget;
+  /*! Initializing the widget from the property */
   PropertyType_ResetWidget reset_widget;
+  /*! Setting the property from the widget */
   PropertyType_SetFromWidget set_from_widget;
-
+  /*! Return true if multiple properties of the same type should be edited/set at once */
   PropertyType_CanMerge can_merge;
-  
+  /*! \protected Transfering data from the object to the property */
   PropertyType_GetFromOffset get_from_offset;
+  /*! \protected Transfering data from the property to the object */
   PropertyType_SetFromOffset set_from_offset;
+  /*! \protected Calculating the raw size of the property */
   PropertyType_GetDataSize get_data_size;
 };
 
@@ -203,9 +225,21 @@ typedef const gchar *PropertyType;
 
 /* **************************************************************** */
 
+/*!
+ * \brief Description of the property type
+ *
+ * Every property has it's own static property description.
+ *
+ * \ingroup StdProps
+ */
 struct _PropDescription {
+  /*! The name of the specific property. */
   const gchar *name;
+  /*! The property type - properties with same type should have the same name to allow
+   * editing them as one in a multiple object selection.
+   */
   PropertyType type;
+  /*! Combination of values from */
   guint flags;
   const gchar *description;
   const gchar *tooltip;
@@ -231,16 +265,19 @@ struct _PropDescription {
   const PropertyOps *ops;      
 };
 
-#define PROP_FLAG_VISIBLE   0x0001
-#define PROP_FLAG_DONT_SAVE 0x0002
-#define PROP_FLAG_DONT_MERGE 0x0004 /* in case group properties are edited */
-#define PROP_FLAG_NO_DEFAULTS 0x0008 /* don't edit this in defaults dlg. */
-#define PROP_FLAG_LOAD_ONLY 0x0010 /* for loading old formats */
-#define PROP_FLAG_STANDARD 0x0020 /* One of the default toolbox props */
-#define PROP_FLAG_MULTIVALUE 0x0040 /* Multiple values for prop in group */
-#define PROP_FLAG_WIDGET_ONLY 0x0080 /* only cosmetic property, no data */
-#define PROP_FLAG_OPTIONAL 0x0100 /* don't complain if it does not exist */
-#define PROP_FLAG_SELF_ONLY 0x0200 /* do not apply to object lists */
+/*! PropFlags */
+/*! @{ */
+#define PROP_FLAG_VISIBLE   0x0001 /*!< should be visible in an editor */
+#define PROP_FLAG_DONT_SAVE 0x0002 /*!< not to be saved at all */
+#define PROP_FLAG_DONT_MERGE 0x0004 /*!< in case group properties are edited */
+#define PROP_FLAG_NO_DEFAULTS 0x0008 /*!< don't edit this in defaults dialog */
+#define PROP_FLAG_LOAD_ONLY 0x0010 /*!< for loading old formats */
+#define PROP_FLAG_STANDARD 0x0020 /*!< one of the default toolbox props */
+#define PROP_FLAG_MULTIVALUE 0x0040 /*!< multiple values for prop in group */
+#define PROP_FLAG_WIDGET_ONLY 0x0080 /*!< only cosmetic property, no data */
+#define PROP_FLAG_OPTIONAL 0x0100 /*!< don't complain if it does not exist */
+#define PROP_FLAG_SELF_ONLY 0x0200 /*!< do not apply to object lists */
+/*! @} */
 
 typedef enum {PROP_UNION, PROP_INTERSECTION} PropMergeOption;
 
@@ -277,18 +314,22 @@ struct  _PropDescSArrayExtra {
   guint array_len;
 };
 
-
-/* ******************* */
-/* The Property itself */
-/* ******************* */ 
+/*!
+ * \brief Base class for all DiaObject properties
+ * \ingroup StdProps
+ */
 struct _Property {
+  /*! Calculated unique key for the name of the property */
   GQuark name_quark; 
+  /*! Calculated unique key for the type of the property */
   GQuark type_quark;
+  /*! Description of the property - almost alway constant (exception is Group) */
   const PropDescription *descr;
   PropEventData self_event_data;
   PropEventHandler event_handler;
-  PropDescToPropPredicate reason; /* why has this property been created from
-                                     the pdesc ? */
+  /*! why has this property been created from the pdesc ? */
+  PropDescToPropPredicate reason;
+  /*! property experience, e.g. loaded, \sa PropExperience */
   guint experience;       /* flags PXP_.... */
  
   const PropertyOps *ops;       /* points to common_prop_ops */

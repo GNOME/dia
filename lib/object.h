@@ -88,7 +88,9 @@ typedef enum {
  * @param handle2    : (return) Handle dragged on creation
  *  both handle1 and handle2 can be NULL
  * @return A newly created object.
-*/
+ *
+ * \public \memberof _DiaObjectType
+ */
 typedef DiaObject* (*CreateFunc) (Point *startpoint,
 			       void *user_data,
 			       Handle **handle1,
@@ -106,6 +108,8 @@ typedef DiaObject* (*CreateFunc) (Point *startpoint,
  * @param version The version of the object found in the XML file.
  * @param filename The name of the file we're loading from, for use in 
  *                 error messages.
+ *
+ * \public \memberof _DiaObjectType
  */
 typedef DiaObject* (*LoadFunc) (ObjectNode obj_node, int version,
 				DiaContext *ctx);
@@ -117,6 +121,8 @@ typedef DiaObject* (*LoadFunc) (ObjectNode obj_node, int version,
  * @param obj_node An XML node to save it in.
  * @param filename The name of the file we're saving to, for use in error
  *                 messages.
+ *
+ * \public \memberof _DiaObjectType
  */
 typedef void (*SaveFunc) (DiaObject* obj, ObjectNode obj_node,
 			  const char *filename);
@@ -128,45 +134,59 @@ typedef void (*SaveFunc) (DiaObject* obj, ObjectNode obj_node,
  *  This is one of the object class functions.
  * @return a dialog that the user can use to edit the defaults for new
  * objects of this type.
-*/
+ *
+ * \public \memberof _DiaObjectType
+ */
 typedef GtkWidget *(*GetDefaultsFunc) ();
 
 /** Function called when the user clicks Apply on an edit defaults dialog.
  * This is currently not used by any object.
  * This is one of the object class functions.
+ *
+ * \public \memberof _DiaObjectType
  */
 typedef void *(*ApplyDefaultsFunc) ();
 
 /*** Object operations ***/
 
-/** Function called before an object is deleted.
- *  This function must call the parent class's DestroyFunc, and then free
- *  the memory associated with the object, but not the object itself
- *  Must also unconnect itself from all other objects.
- *  (This is by calling object_destroy, or letting the super-class call it)
- *  This is one of the object_ops functions.
- * @param obj An object to destroy.
+/*!
+ * \brief DiaObject destructor
+ * This function must call the parent class's DestroyFunc, and then free
+ * the memory associated with the object, but not the object itself
+ * Must also unconnect itself from all other objects.
+ * (This is by calling object_destroy, or letting the super-class call it)
+ * This is one of the object_ops functions.
+ * @param obj Explicit this pointer
+ *
+ * \public \memberof _DiaObject
  */
 typedef void (*DestroyFunc) (DiaObject* obj);
 
 
-/** Function responsible for drawing the object.
- *  Every drawing must be done through the use of the Renderer, so that we
- *  can render the picture on screen, in an eps file, ...
- *  This is one of the object_ops functions.
+/*!
+ * \brief Function responsible for drawing the object.
+ *
+ * Every drawing must be done through the use of the Renderer, so that we
+ * can render the picture on screen, in an eps file, ...
+ *
  * @param The object to draw.
  * @param The renderer object to draw with.
+ *
+ * \public \memberof _DiaObject
  */
 typedef void (*DrawFunc) (DiaObject* obj, DiaRenderer* ddisp);
 
 
-/** This function must return the distance between the DiaObject and the Point.
- *  Several functions are provided in geometry.h to facilitate this calculus.
- *  This is one of the object_ops functions.
+/*! 
+ * \brief calculates the distance between the DiaObject and the Point.
+ *
+ * Several functions are provided in geometry.h to facilitate this calculus.
+ *
  * @param obj The object.
  * @param point A point to give the distance to.
  * @return The distance from the point to the nearest part of the object.
  *         If the point is inside a closed object, return 0.0.
+ * \public \memberof _DiaObject
  */
 typedef real (*DistanceFunc) (DiaObject* obj, Point* point);
 
@@ -434,8 +454,6 @@ struct _ObjectOps {
 };
 
 /*!
-  \class _DiaObject
- 
   \brief Base class for all of Dia's objects, i.e. diagram building blocks
 
   The base class in the DiaObject hierarchy.
@@ -456,18 +474,22 @@ struct _DiaObject {
    *  the objects without interactive bits and preferably no larger.
    *  The bounding_box will always contain this box.
    *  Do not access this field directly, but use dia_object_get_enclosing_box().
+   *
+   * \protected Use dia_object_get_bounding_box()
    */
   Rectangle         bounding_box;
-  
+  /*! Number of Handle(s) of this object */
   int               num_handles;
+  /*! Array of handles of this object with fixed index */
   Handle          **handles;
-  
+  /*! Number of ConnectionPoint this object has */
   int               num_connections;
+  /*! Array of ConnectionPoint* - indexing fixed by meaning */
   ConnectionPoint **connections;
-  
+
   ObjectOps *ops; /*!< pointer to the vtable */
 
-  Layer *parent_layer; /*< Back-pointer to the owning layer.
+  Layer *parent_layer; /*!< Back-pointer to the owning layer.
 			   This may only be set by functions internal to
 			   the layer, and accessed via 
 			   dia_object_get_parent_layer() */
@@ -486,7 +508,7 @@ struct _DiaObject {
    *  objects.
    */
   Rectangle         enclosing_box;
-  /** Metainfo of the object, should not be manipulated directy */
+  /*! Metainfo of the object, should not be manipulated directy. Use dia_object_set_meta() */
   GHashTable       *meta;
 };
 
@@ -516,7 +538,7 @@ struct _ObjectTypeOps {
  */
 struct _DiaObjectType {
 
-  char *name; /*!< The type name should follow a pattern of '<module> - <class>' like "UML - Class" */
+  char *name; /*!< The type name should follow a pattern of '\<module\> - \<class\>' like "UML - Class" */
   int version; /*!< DiaObjects must be backward compatible, i.e. support possibly older versions formats */ 
 
   char **pixmap; /* Also put a pixmap in the sheet_object.

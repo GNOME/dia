@@ -32,9 +32,11 @@ static void text_line_dirty_cache(TextLine *text_line);
 static void text_line_cache_values(TextLine *text_line);
 static void clear_layout_offset (TextLine *text_line);
 
-/** Sets this object to display a particular string.
+/*!
+ * \brief Sets this object to display a particular string.
  * @param text_line The object to change.
  * @param string The string to display.  This string will be copied.
+ * \memberof TextLine
  */
 void
 text_line_set_string(TextLine *text_line, const gchar *string)
@@ -51,9 +53,11 @@ text_line_set_string(TextLine *text_line, const gchar *string)
   }
 }
 
-/** Sets the font used by this object.
+/*!
+ * \brief Sets the font used by this object.
  * @param text_line The object to change.
  * @param font The font to use for displaying this object.
+ * \memberof TextLine
  */
 void
 text_line_set_font(TextLine *text_line, DiaFont *font)
@@ -69,10 +73,12 @@ text_line_set_font(TextLine *text_line, DiaFont *font)
   }
 }
 
-/** Sets the font height used by this object.
+/*!
+ * \brief Sets the font height used by this object.
  * @param text_line The object to change.
  * @param height The font height to use for displaying this object 
  * (in cm, from baseline to baseline)
+ * \memberof TextLine
  */
 void
 text_line_set_height(TextLine *text_line, real height)
@@ -83,10 +89,12 @@ text_line_set_height(TextLine *text_line, real height)
   }
 }
 
-/** Creates a new TextLine object from its components.
+/*!
+ * \brief Creates a new TextLine object from its components.
  * @param string the string to display
  * @param font the font to display the string with.
  * @param height the height of the font, in cm from baseline to baseline.
+ * \memberof TextLine
  */
 TextLine *
 text_line_new(const gchar *string, DiaFont *font, real height)
@@ -100,15 +108,21 @@ text_line_new(const gchar *string, DiaFont *font, real height)
   return text_line;
 }
 
+/*!
+ * \brief Make a deep copy of the given TextLine
+ * \memberof TextLine
+ */
 TextLine *
 text_line_copy(const TextLine *text_line)
 {
   return text_line_new(text_line->chars, text_line->font, text_line->height);
 }
 
-/** Destroy a text_line object, deallocating all memory used and unreffing
- * reffed objects.
+/*!
+ * \brief Destroy a text_line object
+ * This is deallocating all memory used and unreffing reffed objects.
  * @param text_line the object to kill.
+ * \memberof TextLine
  */
 void
 text_line_destroy(TextLine *text_line)
@@ -124,10 +138,14 @@ text_line_destroy(TextLine *text_line)
   g_free(text_line);
 }
 
-/** Calculate the bounding box size of this object.  Since a text object has no
+/*!
+ * \brief TextLine bounding box caclulation
+ *
+ * Calculate the bounding box size of this object.  Since a text object has no
  * position or alignment, this collapses to just a size. 
  * @param text_line
  * @param size A place to store the width and height of the text.
+ * \memberof TextLine
  */
 void
 text_line_calc_boundingbox_size(TextLine *text_line, Point *size)
@@ -177,11 +195,14 @@ text_line_get_descent(const TextLine *text_line)
   return text_line->descent;
 }
 
-/** Return the amount this text line would need to be shifted in order to
+/*!
+ * \brief Calculate TextLine adjustment for Alignment
+ *
+ * Return the amount this text line would need to be shifted in order to
  * implement the given alignment.
  * @param text_line a line of text
  * @param alignment how to align it.
- * @returns The amount (in diagram lengths) to shift the x positiion of
+ * @return The amount (in diagram lengths) to shift the x positiion of
  * rendering this such that it looks aligned when printed with x at the left.
  * Always a positive number.
  */
@@ -268,7 +289,10 @@ text_line_cache_values(TextLine *text_line)
   }
 }
 
-/** Adjust a line of glyphs to match the sizes stored in the TextLine
+/*!
+ * \brief Move glyphs to approximate a desired total width
+ *
+ * Adjust a line of glyphs to match the sizes stored in the TextLine
  * @param line The TextLine object that corresponds to the glyphs.
  * @param glyphs The one set of glyphs contained in layout created for
  * this TextLine during rendering.  The values in here will be changed.

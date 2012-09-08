@@ -50,7 +50,16 @@ typedef enum {
 
 GType dia_renderer_get_type (void) G_GNUC_CONST;
 
-/*! \brief The member variables part of _DiaRenderer */
+/*!
+ * \brief The member variables part of _DiaRenderer
+ *
+ * The Dia renderers are already realized with the GObject type system.
+ * Most of the renderers are only used for export, but there are also
+ * some renderers cabable of interaction (i.e. display). These are
+ * extended versions providing the _DiaInteractiveRendererInterface
+ *
+ * \ingroup Renderers
+ */
 struct _DiaRenderer
 {
   GObject parent_instance; /*!< inheritance in object oriented C */
@@ -65,8 +74,6 @@ struct _DiaRenderer
 };
 
 /*!
- * \class _DiaRendererClass
- *
  * \brief Base class for all of Dia's render facilities
  *
  * Renderers work in close cooperation with DiaObject. They provide the way to
@@ -272,45 +279,64 @@ struct _DiaRendererClass
 #define DIA_TYPE_INTERACTIVE_RENDERER_INTERFACE     (dia_interactive_renderer_interface_get_type ())
 #define DIA_GET_INTERACTIVE_RENDERER_INTERFACE(obj) (G_TYPE_INSTANCE_GET_INTERFACE ((obj), DIA_TYPE_INTERACTIVE_RENDERER_INTERFACE, DiaInteractiveRendererInterface))
 
+/*!
+ * \brief Interface to be provide by interactive renderers
+ *
+ * The interactive renderer interface extends a renderer with clipping
+ * and drawing with pixel coordinates.
+ *
+ * \ingroup Renderers
+ */
 struct _DiaInteractiveRendererInterface
 {
   GTypeInterface base_iface;
 
-  /* Clear the current clipping region. */
+  /*! Clear the current clipping region. */
   void (*set_size)            (DiaRenderer *renderer, gpointer, int, int);
 
-  /* Clear the current clipping region. */
+  /*! Clear the current clipping region. */
   void (*clip_region_clear)    (DiaRenderer *renderer);
 
-  /* Add a rectangle to the current clipping region. */
+  /*! Add a rectangle to the current clipping region. */
   void (*clip_region_add_rect) (DiaRenderer *renderer, Rectangle *rect);
 
-  /* Draw a line from start to end, using color and the current line style */
+  /*! Draw a line from start to end, using color and the current line style */
   void (*draw_pixel_line)      (DiaRenderer *renderer,
                                 int x1, int y1, int x2, int y2,
                                 Color *color);
-  /* Draw a rectangle, given its upper-left and lower-right corners in pixels. */
+  /*! Draw a rectangle, given its upper-left and lower-right corners in pixels. */
   void (*draw_pixel_rect)      (DiaRenderer *renderer,
                                 int x, int y, int width, int height,
                                 Color *color);
-  /* Fill a rectangle, given its upper-left and lower-right corners in pixels. */
+  /*! Fill a rectangle, given its upper-left and lower-right corners in pixels. */
   void (*fill_pixel_rect)      (DiaRenderer *renderer,
                                 int x, int y, int width, int height,
                                 Color *color);
-
+  /*! Copy already rendered content to the given window */
   void (*copy_to_window)      (DiaRenderer *renderer,
                                gpointer     window, 
                                int x, int y, int width, int height);
-
+  /*! Support for drawing selected objects highlighted */
   void (*draw_object_highlighted) (DiaRenderer *renderer,
 				   DiaObject *object,
 				   DiaHighlightType type);
 };
 
 GType dia_interactive_renderer_interface_get_type (void) G_GNUC_CONST;
-
+/*!
+ * \brief Size adjustment to the given window
+ * \memberof DiaInteractiveRendererInterface
+ */
 void dia_renderer_set_size          (DiaRenderer*, gpointer window, int, int);
+/*!
+ * \brief Get the width in pixels
+ * \memberof DiaInteractiveRendererInterface
+ */
 int  dia_renderer_get_width_pixels  (DiaRenderer*);
+/*!
+ * \brief Get the height in pixels
+ * \memberof DiaInteractiveRendererInterface
+ */
 int  dia_renderer_get_height_pixels (DiaRenderer*);
 
 G_END_DECLS

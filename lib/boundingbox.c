@@ -112,7 +112,6 @@ bicubicbezier_extrema(const real p[4],real u[2])
  * direction the arrow points from.
  * @param extra_long ???
  * @param extra_trans ???
- * @bug I don't know what the last two arguments do.
  */
 static void
 add_arrow_rectangle(Rectangle *rect,
@@ -225,7 +224,6 @@ line_bbox(const Point *p1, const Point *p2,
  * @param height The height of the ellipse.
  * @param extra Extra information required.
  * @param rect The bounding box that the ellipse fits inside.
- * @bug describe what the extra information is.
  */
 void
 ellipse_bbox(const Point *centre, real width, real height,
@@ -264,7 +262,6 @@ alloc_polybezier_space(int numpoints)
 /** Free the scratch space allocated above.
  * @param points Previously allocated list of points.
  * @note Doesn't actually free it, as alloc_polybezier_space does that.
- * @bug Should explain the strange freeing model, or fix it.
  */
 static void
 free_polybezier_space(BezPoint *points)
@@ -277,7 +274,6 @@ free_polybezier_space(BezPoint *points)
  * @param closed Whether the polyline is closed or not.
  * @param rect Return value: The bounding box that includes the points and
  * extra spacing.
- * @bug Surely doesn't need to use bezier code, but remember extra stuff.
  */
 void
 polyline_bbox(const Point *pts, int numpoints, 
@@ -309,7 +305,6 @@ polyline_bbox(const Point *pts, int numpoints,
  * @param extra Extra spacing information.
  * @param closed True if the bezier points form a closed line.
  * @param rect Return value: The enclosing rectangle will be stored here.
- * @bug This function is way too long (214 lines) and should be split.
  */
 void 
 polybezier_bbox(const BezPoint *pts, int numpoints,
@@ -544,7 +539,6 @@ polybezier_bbox(const BezPoint *pts, int numpoints,
  * @param rin A rectangle to find bbox for.
  * @param extra Extra information required to find bbox.
  * @param rout Return value: The enclosing bounding box.
- * @bug Describe extra info better.
  */
 void 
 rectangle_bbox(const Rectangle *rin,

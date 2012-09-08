@@ -60,16 +60,14 @@ connection_adjust_for_autogap(Connection *connection)
   }
 }
 
-/** Function called to move one of the handles associated with the
- *  object. 
- *  This is an object_ops function.
- * @param obj The object whose handle is being moved.
- * @param handle The handle being moved.
- * @param pos The position it has been moved to (corrected for
+/** Function called to move one of the handles associated with the object. 
+ * @param conn The object whose handle is being moved.
+ * @param id The handle being moved.
+ * @param to The position it has been moved to (corrected for
  *   vertical/horizontal only movement).
  * @param cp If non-NULL, the connectionpoint found at this position.
  *   If @a cp is NULL, there may or may not be a connectionpoint.
- * @param The reason the handle was moved.
+ * @param reason The reason the handle was moved.
  *     - HANDLE_MOVE_USER means the user is dragging the point.
  *     - HANDLE_MOVE_USER_FINAL means the user let go of the point.
  *     - HANDLE_MOVE_CONNECTED means it was moved because something
@@ -82,6 +80,7 @@ connection_adjust_for_autogap(Connection *connection)
  * @return An @a ObjectChange* with additional undo information, or
  *  (in most cases) NULL.  Undo for moving the handle itself is handled
  *  elsewhere.
+ * \memberof _Connection
  */
 ObjectChange*
 connection_move_handle(Connection *conn, HandleId id,
@@ -218,6 +217,7 @@ connection_save(Connection *conn, ObjectNode obj_node)
 /** Load a connections data from XML.
  * @param conn A fresh connection object to load into.
  * @param obj_node The XML node to load from.
+ * @param ctx The context in which this function is called
  */
 void
 connection_load(Connection *conn, ObjectNode obj_node, DiaContext *ctx)

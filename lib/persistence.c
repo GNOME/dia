@@ -16,7 +16,8 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-/* persistence.c -- functions that handle persistent stores, such as 
+/*!
+ * \file persistence.c -- functions that handle persistent stores, such as 
  * window positions and sizes, font menu, document history etc.
  */
 
@@ -42,8 +43,10 @@
 #include <libxml/tree.h>
 
 /* private data structures */
-/** A persistently stored list of strings.
- * The list contains no duplicates.
+/*!
+ * \brief A persistently stored list of strings.
+ *
+ * The persitent list contains no duplicates.
  * If sorted is FALSE, any string added will be placed in front of the list
  * (possibly removing it from further down), thus making it an LRU list.
  * The list is not tied to any particular GTK widget, as it has uses
@@ -57,7 +60,7 @@ struct _PersistentList {
   GList *listeners;
 };
 
-/** Some storage windo information */
+/*! \brief Some storage window information */
 typedef struct {
   int x, y;
   int width, height;
@@ -512,7 +515,8 @@ persistence_store_window_info(GtkWindow *window, PersistentWindow *wininfo,
   }
 }
 
-/** Update the persistent information for a window.
+/*!
+ * \brief Update the persistent information for a window.
  * @param window The GTK window object being stored.
  * @param isclosed Whether the window should be stored as closed or not.
  * In some cases, the window's open/close state is not updated by the time
@@ -550,12 +554,15 @@ persistence_update_window(GtkWindow *window, gboolean isclosed)
   wininfo->isopen = !isclosed;
 }
 
-/** Handler for window-related events that should cause persistent storage
- * changes.
+/*!
+ * \brief Event handler for window persitence
+ *
+ * Handler for window-related events that should cause persistent storage changes.
  * @param window The GTK window to store for.
  * @param event the GDK event that caused us to be called.  Note that the 
  * window state hasn't been updated by the event yet.
  * @param data Userdata passed when adding signal handler.
+ * @return Always FALSE to continue processing of events
  */
 static gboolean
 persistence_window_event_handler(GtkWindow *window, GdkEvent *event, gpointer data)
@@ -583,8 +590,9 @@ persistence_window_event_handler(GtkWindow *window, GdkEvent *event, gpointer da
   return FALSE;
 }
 
-/** 
- * Handler for when a window has been opened or closed.
+/*!
+ * \brief Handler for when a window has been opened or closed.
+ *
  * @param window The GTK window to store for.
  * @param data Userdata passed when adding signal handler.
  */
@@ -599,7 +607,9 @@ persistence_hide_show_window(GtkWindow *window, gpointer data)
   return FALSE;
 }
 
-/**
+/*!
+ * \brief Check stored window information against screen size
+ *
  * If the screen size has changed some persistent info maybe out of the visible area.
  * This function checks that stored coordinates are at least paritally visible on some
  * monitor. In GDK parlance a screen can have multiple monitors.
@@ -625,7 +635,10 @@ wininfo_in_range (const PersistentWindow *wininfo)
   return (rres.width * rres.height > 0);
 }
 
-/* Call this function after the window has a role assigned to use any
+/*!
+ * \brief Register a window with a role for persitence
+ *
+ * Call this function after the window has a role assigned to use any
  * persistence information about the window.
  */
 void
@@ -680,12 +693,15 @@ persistence_register_window(GtkWindow *window)
 		   G_CALLBACK(persistence_hide_show_window), NULL);
 }
 
-/** Call this function at start-up to have a window creation function
+/*!
+ * \brief Restore a window position from it's stored information
+ *
+ * Call this function at start-up to have a window creation function
  * called if the window should be opened at startup.
  * If no persistence information is available for the given role,
  * nothing happens.
  * @arg role The role of the window, as will be set by gtk_window_set_role()
- * @arg createfunc A 0-argument function that creates the window.  This
+ * @arg func A 0-argument function that creates the window.  This
  * function will be called if the persistence information indicates that the
  * window should be open.  The function should create and show the window.
  */
@@ -722,7 +738,10 @@ persistence_update_string_entry(GtkWidget *widget, GdkEvent *event,
   return FALSE;
 }
 
-/** Change the contents of the persistently stored string entry.
+/*!
+ * \brief Cancel modification of a persistent string entry
+ *
+ * Change the contents of the persistently stored string entry.
  * If widget is non-null, it is updated to reflect the change.
  * This can be used e.g. for when a dialog is cancelled and the old
  * contents should be restored.
@@ -742,7 +761,9 @@ persistence_change_string_entry(gchar *role, gchar *string,
   return FALSE;
 }
 
-/** Register a string in a GtkEntry for persistence.
+/*!
+ * \brief Register a string in a GtkEntry for persistence.
+ *
  * This should include not only a unique name, but some way to update
  * whereever the string is used.
  */
@@ -828,10 +849,11 @@ persistent_list_cut_length(GList *list, guint length)
   return list;
 }
 
-/** Add a new entry to this persistent list.
+/*!
+ * \brief Add a new entry to this persistent list.
  * @param role The name of a persistent list.
  * @param item An entry to add.
- * @returns FALSE if the entry already existed in the list, TRUE otherwise.
+ * @return FALSE if the entry already existed in the list, TRUE otherwise.
  */
 gboolean
 persistent_list_add(const gchar *role, const gchar *item)
@@ -874,9 +896,10 @@ persistent_list_set_max_length(const gchar *role, gint max)
   plist->glist = persistent_list_cut_length(plist->glist, max);
 }
 
-/** Remove an item from the persistent list.
+/*!
+ * \brief Remove an item from the persistent list.
  * @param role The name of the persistent list.
- * @param role The entry to remove.
+ * @param item The entry to remove.
  * @returns TRUE if the item existed in the list, FALSE otherwise.
  */
 gboolean
@@ -906,11 +929,15 @@ typedef struct {
   gpointer userdata;
 } ListenerData;
 
-/** Add a listener to updates on the list, so that if another
+/*!
+ * \brief Add a listener to a persitence list
+ *
+ * Add a listener to updates on the list, so that if another
  * instance changes the list, menus and such can be updated.
  * @param role The name of the persistent list to watch.
  * @param func A function to call when the list is updated, takes
  * the given userdata.
+ * @param watch GObject to watch
  * @param userdata Data passed back into the callback function.
  */
 void
@@ -930,8 +957,8 @@ persistent_list_add_listener(const gchar *role, PersistenceCallback func,
   }
 }
 
-/**
- * Empty the list
+/*!
+ * \brief Empty the list
  */
 void
 persistent_list_clear(const gchar *role)
@@ -1039,7 +1066,7 @@ persistence_set_real(gchar *role, real newvalue)
 
 
 /* ********* BOOLEANS ********** */
-/** Returns true if the given role has been registered. */
+/*! \brief Returns true if the given role has been registered. */
 gboolean
 persistence_boolean_is_registered(const gchar *role)
 {
@@ -1099,7 +1126,8 @@ persistence_set_boolean(const gchar *role, gboolean newvalue)
 }
 
 /* ********* STRINGS ********** */
-/** Register a string in persistence.
+/*!
+ * \brief Register a string in persistence.
  * @param role The name used to refer to the string.  Must be unique within
  *             registered strings (and preferably with all registered items)
  * @param defaultvalue A value to use if the role does not exist yet.
@@ -1154,7 +1182,10 @@ persistence_set_string(gchar *role, const gchar *newvalue)
 }
 
 /* ********* COLORS ********** */
-/* Remember that colors returned are private, not to be deallocated.
+/*!
+ * \brief Register a _Color for persistence
+ *
+ * Remember that colors returned are private, not to be deallocated.
  * They will be smashed in some undefined way by persistence_set_color */
 Color *
 persistence_register_color(gchar *role, Color *defaultvalue)

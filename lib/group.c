@@ -26,16 +26,19 @@
 #include "properties.h"
 #include "diarenderer.h"
 
+/*!
+ * \brief Allow grouping other objects and hiding them from the diagram
+ */
 struct _Group {
- /* DiaObject must be first because this is a 'subclass' of it. */
+  /*! \protected DiaObject must be first because this is a 'subclass' of it. */
   DiaObject object;
-  
+  /*! \protected To move handles use Group::move_handle() */
   Handle resize_handles[8];
-
+  /*! \protected To group objects use group_create() */
   GList *objects;
-
+  /*! \protected Description of the contained properties */
   const PropDescription *pdesc;
-  
+  /*! Optional transformation matrix */
   DiaMatrix *matrix;
 };
 
@@ -510,7 +513,10 @@ group_create_with_matrix(GList *objects, DiaMatrix *matrix)
   group_update_data(group);
   return &group->object;
 }
-/* Make sure there are no connections from objects to objects
+/*!
+ * \brief Grouping of objects
+ *
+ * Make sure there are no connections from objects to objects
  * outside of the created group.
  */
 DiaObject *

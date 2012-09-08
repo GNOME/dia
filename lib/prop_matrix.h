@@ -29,6 +29,10 @@
 #include "properties.h"
 #include "dia_xml.h"
 
+/*!
+ * \brief Property for _DiaMatrix
+ * \extends _Property
+ */
 typedef struct {
   Property common;
   DiaMatrix *matrix; /* just the reference */

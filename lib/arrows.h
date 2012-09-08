@@ -27,26 +27,33 @@
 
 /* NOTE: Add new arrow types at the end, or the enums
    will change order leading to file incompatibilities. */
+/*!
+ * \defgroup ObjectArrows All objects derived from _Connection can end in Arrow
+ * \ingroup ObjectParts
+ */
 
-/* Comments in curly braces mention ISO 10303-AP201 names */
-
+/*!
+ * \brief Enumeration of arrow kinds
+ * \ingroup ObjectArrows
+ * Comments in curly braces mention ISO 10303-AP201 names 
+ */
 typedef enum {
-  ARROW_NONE = 0,
-  ARROW_LINES,             /* {open arrow} */
-  ARROW_HOLLOW_TRIANGLE,   /* {blanked arrow} */
-  ARROW_FILLED_TRIANGLE,   /* {filled arrow} */
-  ARROW_HOLLOW_DIAMOND,    
-  ARROW_FILLED_DIAMOND,
+  ARROW_NONE = 0,          /*!< No arrow */
+  ARROW_LINES,             /*!< {open arrow} */
+  ARROW_HOLLOW_TRIANGLE,   /*!< {blanked arrow} */
+  ARROW_FILLED_TRIANGLE,   /*!< {filled arrow} */
+  ARROW_HOLLOW_DIAMOND,    /*!< outline of a diamond */
+  ARROW_FILLED_DIAMOND,    /*!< filled diamond, no outline */
   ARROW_HALF_HEAD,
-  ARROW_SLASHED_CROSS,     /* Vertical + diagonal line */
+  ARROW_SLASHED_CROSS,     /*!< Vertical + diagonal line */
   ARROW_FILLED_ELLIPSE,
   ARROW_HOLLOW_ELLIPSE,
   ARROW_DOUBLE_HOLLOW_TRIANGLE,
   ARROW_DOUBLE_FILLED_TRIANGLE,
-  ARROW_UNFILLED_TRIANGLE,       /* {unfilled arrow} */
-  ARROW_FILLED_DOT,              /* {filled dot} Ellipse + vertical line */ 
-  ARROW_DIMENSION_ORIGIN,        /* {dimension origin} Ellipse + vert line */ 
-  ARROW_BLANKED_DOT,             /* {blanked dot} Empty ellipse + vert line */
+  ARROW_UNFILLED_TRIANGLE,       /*!< {unfilled arrow} */
+  ARROW_FILLED_DOT,              /*!< {filled dot} Ellipse + vertical line */ 
+  ARROW_DIMENSION_ORIGIN,        /*!< {dimension origin} Ellipse + vert line */ 
+  ARROW_BLANKED_DOT,             /*!< {blanked dot} Empty ellipse + vert line */
   ARROW_FILLED_BOX,              /* {filled box} Box + vertical line */
   ARROW_BLANKED_BOX,             /* {blanked box} Box + vertical line */
   ARROW_SLASH_ARROW,             /* {slash arrow} Vertical + diagonal line*/
@@ -82,10 +89,14 @@ typedef enum {
  */
 #define MIN_ARROW_DIMENSION 0.001
 
+/*!
+ * \brief Definition of line ends
+ * \ingroup ObjectArrows
+ */
 struct _Arrow {
-  ArrowType type;
-  real length;
-  real width;
+  ArrowType type; /*!< arrow kind */
+  real length;    /*!< arrow length */
+  real width;     /*!< arrow width */
 };
 
 
@@ -95,10 +106,14 @@ void arrow_draw(DiaRenderer *renderer, ArrowType type,
 		Color *fg_color, Color *bg_color);
 
 /** following the signature pattern of lib/boundingbox.h 
- * the arrow bounding box is returned in rect */
+ * the arrow bounding box is returned in rect
+ * \ingroup ObjectArrows
+ */
 void arrow_bbox (const Arrow *arrow, real line_width, const Point *to, const Point *from, 
                  Rectangle *rect);
-
+/*! Calculate the new line end point in case of an Arrow 
+ * \ingroup ObjectArrows
+ */
 void
 calculate_arrow_point(const Arrow *arrow, const Point *to, const Point *from,
 		      Point *move_arrow, Point *move_line,
@@ -109,10 +124,17 @@ void save_arrow(ObjectNode obj_node, Arrow *arrow, gchar *type_attribute,
 void load_arrow(ObjectNode obj_node, Arrow *arrow, gchar *type_attribute, 
 		gchar *length_attribute, gchar *width_attribute, DiaContext *ctx);
 
-/** Returns the ArrowType for a given name of an arrow, or 0 if not found. */
+/*! Returns the ArrowType for a given name of an arrow, or 0 if not found.
+ * \ingroup ObjectArrows
+ */
 ArrowType arrow_type_from_name(const gchar *name);
-/** Returns the index in arrow_types of the given arrow type. */
+/*! Returns the index in arrow_types of the given arrow type.
+ * \ingroup ObjectArrows
+ */
 gint arrow_index_from_type(ArrowType type);
+/*! Convert an arrow index back to the ArrowType
+ * \ingroup ObjectArrows
+ */
 ArrowType arrow_type_from_index(gint index);
 const gchar *arrow_get_name_from_type(ArrowType type);
 GList *get_arrow_names(void);

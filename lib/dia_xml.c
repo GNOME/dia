@@ -93,6 +93,7 @@ static inline int isinf_ld (long double x) { return isnan (x - x); }
  *  it untouched to libxml2.
  * @param filename The name of the file to check.
  * @param default_enc The default encoding to use if none is given.
+ * @param ctx The context in which this function is called
  * @return The filename given if it seems ok, or the name of a new file
  *          with fixed contents, or NULL if we couldn't read the file.  The
  *          caller should free this string and unlink the file if it is not
@@ -237,6 +238,7 @@ xml_file_check_encoding(const gchar *filename, const gchar *default_enc, DiaCont
  * @param filename The name of the file to read.
  * @returns An XML document parsed from the file.
  * @see xmlParseFile() in the XML2 library for details on the return value.
+ * @param ctx The context in which this function is called
  */
 static xmlDocPtr
 xmlDiaParseFile(const char *filename, DiaContext *ctx)
@@ -284,6 +286,7 @@ xmlDoParseFile(const char *filename)
 /** Parse an xml file from a filename given in Dia's/GLib's filename encoding 
  * @param filename A file to parse. On win32 the filename encoding is utf-8 since GLib 2.6
  * @param ctx If something goes wrong during parsing ctx will include according messages
+ * @param try_harder If set an additional attempt is done with guessed encoding
  * @return An XML document.
  */
 xmlDocPtr 
@@ -344,8 +347,6 @@ object_find_attribute(ObjectNode obj_node,
  * @param composite_node The composite node to search.
  * @param attrname The name of the attribute node to find.
  * @return The desired node, or NULL if none exists in `composite_node'.
- * @bug Describe in more detail how a composite node differs from an
- *   object node.
  */
 AttributeNode
 composite_find_attribute(DataNode composite_node,
@@ -428,12 +429,11 @@ data_next(DataNode data)
 
 /** Get the type of a data node.
  * @param data The data node.
+ * @param ctx The context in which this function is called
  * @return The type that the data node defines, or 0 on error.  In case of 
  *  error, an error message is displayed.
  * @note This function does a number of strcmp calls, which may not be the
  *  fastest way to check if a node is of the expected type.
- * @bug Make functions that check quickly if a node is of a specific type
- *  (but profile first).
  */
 DataType
 data_type(DataNode data, DiaContext *ctx)
@@ -477,6 +477,7 @@ data_type(DataNode data, DiaContext *ctx)
  * @param data The data node to read from.
  * @returns The integer value found in the node.  If the node is not an
  *  integer node, an error message is displayed and 0 is returned.
+ * @param ctx The context in which this function is called
  */
 int
 data_int(DataNode data, DiaContext *ctx)
@@ -500,6 +501,7 @@ data_int(DataNode data, DiaContext *ctx)
  * @param data The data node to read from.
  * @returns The enum value found in the node.  If the node is not an
  *  enum node, an error message is displayed and 0 is returned.
+ * @param ctx The context in which this function is called
  */
 int
 data_enum(DataNode data, DiaContext *ctx)
@@ -523,6 +525,7 @@ data_enum(DataNode data, DiaContext *ctx)
  * @param data The data node to read from.
  * @returns The real value found in the node.  If the node is not a
  *  real-type node, an error message is displayed and 0.0 is returned.
+ * @param ctx The context in which this function is called
  */
 real
 data_real(DataNode data, DiaContext *ctx)
@@ -546,6 +549,7 @@ data_real(DataNode data, DiaContext *ctx)
  * @param data The data node to read from.
  * @returns The boolean value found in the node.  If the node is not a
  *  boolean node, an error message is displayed and FALSE is returned.
+ * @param ctx The context in which this function is called
  */
 int
 data_boolean(DataNode data, DiaContext *ctx)
@@ -573,7 +577,8 @@ data_boolean(DataNode data, DiaContext *ctx)
 /** Return the integer value of a hex digit.
  * @param c A hex digit, one of 0-9, a-f or A-F.
  * @returns The value of the digit, i.e. 0-15.  If a non-gex digit is given
- *  an error message is displayed to the user, and 0 is returned.
+ *  an error is registered in ctx, and 0 is returned.
+ * @param ctx The context in which this function is called
  */
 static int
 hex_digit(char c, DiaContext *ctx)
@@ -591,9 +596,10 @@ hex_digit(char c, DiaContext *ctx)
 /** Return the value of a color-type data node.
  * @param data The XML node to read from
  * @param col A place to store the resulting RGB values.  If the node does
- *  not contain a valid color value, an error message is displayed to the
- *  user, and `col' is unchanged.
+ *  not contain a valid color value, an error message is registered in ctx
+ *  and `col' is unchanged.
  * @note Could be cool to use RGBA data here, even if we can't display it yet.
+ * @param ctx The context in which this function is called
  */
 void
 data_color(DataNode data, Color *col, DiaContext *ctx)
@@ -633,8 +639,9 @@ data_color(DataNode data, Color *col, DiaContext *ctx)
 /** Return the value of a point-type data node.
  * @param data The XML node to read from
  * @param point A place to store the resulting x, y values.  If the node does
- *  not contain a valid point value, an error message is displayed to the
- *  user, and `point' is unchanged.
+ *  not contain a valid point value, an error message is registered in ctx
+ *  and `point' is unchanged.
+ * @param ctx The context in which this function is called
  */
 void
 data_point(DataNode data, Point *point, DiaContext *ctx)
@@ -680,6 +687,7 @@ data_point(DataNode data, Point *point, DiaContext *ctx)
  * @param data The XML node to read from
  * @param point A place to store the resulting values.  If the node does
  *  not contain a valid bezpoint zero initialization is performed.
+ * @param ctx The context in which this function is called
  */
 void 
 data_bezpoint(DataNode data, BezPoint *point, DiaContext *ctx)
@@ -749,6 +757,7 @@ data_bezpoint(DataNode data, BezPoint *point, DiaContext *ctx)
  * @param rect A place to store the resulting values.  If the node does
  *  not contain a valid rectangle value, an error message is displayed to the
  *  user, and `rect' is unchanged.
+ * @param ctx The context in which this function is called
  */
 void
 data_rectangle(DataNode data, Rectangle *rect, DiaContext *ctx)
@@ -807,6 +816,7 @@ data_rectangle(DataNode data, Rectangle *rect, DiaContext *ctx)
  *  string node, an error message is displayed and NULL is returned.  The
  *  returned valuee should be freed after use.
  * @note For historical reasons, strings in Dia XML are surrounded by ##.
+ * @param ctx The context in which this function is called
  */
 gchar *
 data_string(DataNode data, DiaContext *ctx)
@@ -879,6 +889,7 @@ data_string(DataNode data, DiaContext *ctx)
 
 /** Return the value of a filename-type data node.
  * @param data The data node to read from.
+ * @param ctx The context in which this function is called
  * @return The filename value found in the node.  If the node is not a
  *  filename node, an error message is displayed and NULL is returned.
  *  The resulting string is in the local filesystem's encoding rather than
@@ -897,6 +908,7 @@ data_filename(DataNode data, DiaContext *ctx)
 /** Return the value of a font-type data node.  This handles both the current
  * format (family and style) and the old format (name).
  * @param data The data node to read from.
+ * @param ctx The context in which this function is called
  * @return The font value found in the node.  If the node is not a
  *  font node, an error message is displayed and NULL is returned.  The
  *  resulting value should be freed after use.
@@ -937,8 +949,6 @@ data_font(DataNode data, DiaContext *ctx)
  * @param obj_node The object node to create the attribute node under.
  * @param attrname The name of the attribute node.
  * @return A new attribute node.
- * @bug Should have utility functions that creates the node and sets
- *  the value based on type.
  */
 AttributeNode
 new_attribute(ObjectNode obj_node,
@@ -955,7 +965,6 @@ new_attribute(ObjectNode obj_node,
  * @param composite_node The composite node.
  * @param attrname The name of the new attribute node.
  * @return The attribute node added.
- * @bug This does exactly the same as new_attribute.
  */
 AttributeNode
 composite_add_attribute(DataNode composite_node,
@@ -1194,8 +1203,8 @@ data_add_string(AttributeNode attr, const char *str)
 }
 
 /** Add filename data to an attribute node.
- * @param attr The attribute node.
- * @param filename The value to set.  This should be n the local filesystem
+ * @param data The data node.
+ * @param str The filename value to set. This should be n the local filesystem
  *  encoding, not utf-8.
  */
 void
@@ -1255,7 +1264,7 @@ int pretty_formated_xml = TRUE;
  * @param filename The file to save to.
  * @param cur The XML document structure.
  * @return The return value of xmlSaveFormatFileEnc.
- * @bug Get the proper defn of the return value from libxml2.
+ * @todo Get the proper defn of the return value from libxml2.
  */
 int
 xmlDiaSaveFile(const char *filename,

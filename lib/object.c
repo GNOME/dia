@@ -91,7 +91,7 @@ object_destroy(DiaObject *obj)
  * @param to The object being copied to.  This object does not need to
  *           have been object_init'ed, but if it is, its handles and
  *           connections arrays will be freed.
- * @bugs Any existing children list will not be freed and will leak.
+ * @bug Any existing children list will not be freed and will leak.
  */
 void
 object_copy(DiaObject *from, DiaObject *to)
@@ -138,7 +138,7 @@ pointer_hash(gpointer some_pointer)
  * @param list_orig The original list.  This list will not be changed,
  *                  nor will its objects.
  * @return A list with the list_orig copies copied.
- * @bugs Any children of an object in the list that are not themselves
+ * @bug Any children of an object in the list that are not themselves
  *       in the list will cause a NULL entry in the children list.
  */
 GList *
@@ -244,9 +244,7 @@ object_copy_list(GList *list_orig)
  * @param delta How far to move the objects.
  * @param affected Whether to check parent boundaries???
  * @return Undo information for the move, or NULL if no objects moved.
- * @bugs If a parent and is child are both in the list, is the child moved
- *       twice?
- * @bugs The return Change object only contains info for a single object.
+ * @bug The return Change object only contains info for a single object.
  */
 ObjectChange*
 object_list_move_delta_r(GList *objects, Point *delta, gboolean affected)
@@ -291,7 +289,6 @@ object_list_move_delta_r(GList *objects, Point *delta, gboolean affected)
 /** Move a set of objects a given amount.
  * @param objects The list ob objects to move.
  * @param delta The amount to move them.
- * @bugs Why does this work?  Seems like some objects are moved more than once.
  */
 extern ObjectChange*
 object_list_move_delta(GList *objects, Point *delta)
@@ -600,6 +597,7 @@ object_save(DiaObject *obj, ObjectNode obj_node)
  *  basic data (currently position and bounding box).
  * @param obj An object to load into.
  * @param obj_node An XML node to load the data from.
+ * @param ctx The context in which this function is called
  */
 void 
 object_load(DiaObject *obj, ObjectNode obj_node, DiaContext *ctx)
@@ -799,8 +797,7 @@ object_flags_set(DiaObject *obj, gint flags)
  * @param type The type of the object, used for creation.
  * @param obj_node The XML node defining the object.
  * @param version The version of the object found in the XML structure.
- * @param filename The name of the file that the XML came from, for error
- *                 messages.
+ * @param ctx The context in which this function is called
  * @return A newly created object with properties loaded.
  */
 DiaObject *
@@ -882,6 +879,7 @@ const Rectangle *dia_object_get_enclosing_box(const DiaObject *obj) {
 
 /** Check that a DiaObject maintains its invariants and constrains.
  * @param obj An object to check
+ * @param msg Comment on the sanity
  * @return TRUE if the object is OK. */
 gboolean  
 dia_object_sanity_check(const DiaObject *obj, const gchar *msg) {

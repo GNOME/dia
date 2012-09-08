@@ -16,7 +16,10 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-/** \file color.h Diagram and object tinting */
+/*!
+ * \file color.h Diagram and object tinting
+ * \ingroup ObjectParts
+ */
 
 #ifndef COLOR_H
 #define COLOR_H
@@ -25,11 +28,12 @@
 #include <gdk/gdk.h>
 #include "diavar.h"
 
+/*! \brief Dia's internal color representation */
 struct _Color {
-  float red;
-  float green;
-  float blue;
-  float alpha;
+  float red;   /*!< 0..1 */
+  float green; /*!< 0..1 */
+  float blue;  /*!< 0..1 */
+  float alpha; /*!< 0..1 */
 };
 
 void color_init(void);

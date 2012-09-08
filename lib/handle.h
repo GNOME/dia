@@ -16,14 +16,20 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-/*! \file handle.h - describing the different behavious of handles, used e.g. to resize objects */
+/*! 
+ * \file handle.h - describing the different behavious of handles, used e.g. to resize objects
+ * \ingroup ObjectConnects
+ */
 #ifndef HANDLE_H
 #define HANDLE_H
 
 #include "diatypes.h"
 #include "geometry.h"
 
-/*! Some object resizing depends on the placement of the handle */
+/*!
+ * \brief Some object resizing depends on the placement of the handle
+ * \ingroup ObjectConnects
+ */
 typedef enum {
   HANDLE_RESIZE_NW, /*!< north/west or top/left */
   HANDLE_RESIZE_N,  /*!< north or top */
@@ -48,7 +54,10 @@ typedef enum {
   HANDLE_CUSTOM9
 } HandleId;
 
-/*! HandleType is used for color coding the different handles */
+/*!
+ * \brief HandleType is used for color coding the different handles
+ * \ingroup ObjectConnects
+ */
 typedef enum {
   HANDLE_NON_MOVABLE,
   HANDLE_MAJOR_CONTROL,
@@ -57,7 +66,10 @@ typedef enum {
   NUM_HANDLE_TYPES /* Must be last */
 }  HandleType;
 
-/*! When an objects move_handle() function is called this is passed in */
+/*! 
+ * \brief When an objects move_handle() function is called this is passed in
+ * \ingroup ObjectConnects
+ */
 typedef enum {
   HANDLE_MOVE_USER,
   HANDLE_MOVE_USER_FINAL,
@@ -66,7 +78,10 @@ typedef enum {
   HANDLE_MOVE_CREATE_FINAL  /*!< finish of initial drag */
 } HandleMoveReason;
 
-/*! If the handle is connectable or not */
+/*!
+ * \brief If the handle is connectable or not
+ * \ingroup ObjectConnects
+ */
 typedef enum {
   HANDLE_NONCONNECTABLE,     /*!< not connectable */
   HANDLE_CONNECTABLE,        /*!< connectable */
@@ -75,6 +90,7 @@ typedef enum {
 
 /*!
  * \brief A handle is used to resize objects or to connet to them.
+ * \ingroup ObjectConnects
  */
 struct _Handle {
   HandleId id; /*!< gives (mostly) the placement relative to the object */

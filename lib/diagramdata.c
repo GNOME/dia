@@ -550,8 +550,6 @@ data_get_layers_extents_union(DiagramData *data)
 
 /** Change diagram scaling so that the extents are exactly visible.
  * @param data The diagram to adjust.
- * @bug Consider making it a teeny bit larger, or check that *all* objects
- *  calculate their extents correctly.
  */
 static void
 data_adapt_scaling_to_extents(DiagramData *data)
@@ -600,9 +598,11 @@ data_compute_extents(DiagramData *data)
   return (!rectangle_equals(&data->extents,&old_extents));
 }
 
-/** Update the extents of a diagram and adjust scaling if needed.
+/*!
+ * \brief Update the extents of a diagram and adjust scaling if needed.
  * @param data Diagram to update.
  * @return TRUE if the diagram extents changed.
+ * \memberof _DiagramData
  */
 gboolean
 data_update_extents(DiagramData *data)
@@ -616,11 +616,12 @@ data_update_extents(DiagramData *data)
   return changed;
 }
 
-/** Get a list of selected objects in layer ordering.
+/*!
+ * \brief Get a list of selected objects in layer ordering.
  * @param data The diagram to get objects from.
  * @return A list of all currently selected objects.  These all reside in
  *  the currently active layer.  This list should be freed after use.
- * @bug Does selection update correctly when the layer changes?
+ * \memberof _DiagramData
  */
 GList *
 data_get_sorted_selected(DiagramData *data)
@@ -714,7 +715,6 @@ data_emit(DiagramData *data, Layer *layer, DiaObject* obj,
  * @param update The area that needs updating.
  * @param obj_renderer If non-NULL, an alternative renderer of objects.
  * @param gdata User data passed on to inner calls.
- * @bug Describe obj_renderer better.
  */
 void
 data_render(DiagramData *data, DiaRenderer *renderer, Rectangle *update,

@@ -53,8 +53,11 @@ GType diagram_data_get_type (void) G_GNUC_CONST;
 #define DIA_IS_DIAGRAM_DATA(obj)        (G_TYPE_CHECK_INSTANCE_TYPE ((obj), DIA_TYPE_DIAGRAM_DATA))
 #define DIA_DIAGRAM_DATA_GET_CLASS(obj) (G_TYPE_INSTANCE_GET_CLASS ((obj), DIA_TYPE_DIAGRAM_DATA, DiagramDataClass))
 
-/*
- * \brief Base class for diagrams. This is the only stuff plug-ins should see about diagrams.
+/*!
+ * \brief Base class for diagrams. This gets passed to plug-ins to work on diagrams.
+ *
+ * Dia's diagram object is the container of _Layer, the managment object of _DiaObject selections
+ * and text foci (_Focus) as well a highlithing state resulting from selections.
  */
 struct _DiagramData {
   GObject parent_instance; /*!< inheritance in C */

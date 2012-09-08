@@ -30,10 +30,14 @@
 #include "properties.h"
 #include "dia_xml.h"
 
+/*!
+ * \brief Property for an Array of _Property
+ * \extends _Property
+ */
 typedef struct {
-  Property common;
-  GPtrArray *ex_props; /* "example" properties. */
-  GPtrArray *records; /* subprops[i] is a GPtrArray of (Property *) */  
+  Property common;     /*!< inheritance */
+  GPtrArray *ex_props; /*!< "example" properties. */
+  GPtrArray *records;  /*!< subprops[i] is a GPtrArray of (Property *) */  
 } ArrayProperty;
 
 void prop_sdarray_register(void);

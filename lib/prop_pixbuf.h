@@ -31,6 +31,10 @@
 #include "properties.h"
 #include "dia_xml.h"
 
+/*!
+ * \brief Property for Pixbuf
+ * \extends _Property
+ */
 typedef struct {
   Property common;
   GdkPixbuf *pixbuf; /* just the reference */

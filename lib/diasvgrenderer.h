@@ -14,11 +14,18 @@ G_BEGIN_DECLS
 
 GType dia_svg_renderer_get_type (void) G_GNUC_CONST;
 
+/*!
+ * \brief Base class for SVG generation
+ *
+ * Used for Shape cration and one of the SVG exporters
+ *
+ * \extends _DiaRenderer
+ */
 struct _DiaSvgRenderer
 {
   DiaRenderer parent_instance;
 
-  /*< protected >*/
+  /*! \protected filename used for saving */
   char *filename;
 
   xmlDocPtr doc;
@@ -33,7 +40,7 @@ struct _DiaSvgRenderer
   const char *linecap;
   const char *linejoin;
   char *linestyle; /* not const -- must free */
-  real scale;  /* 1.0 for shape output, more for svg output,  */
+  real scale;  /*!< scale=1.0 for shape output, more for svg output,  */
 };
 
 struct _DiaSvgRendererClass

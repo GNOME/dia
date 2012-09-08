@@ -18,16 +18,18 @@
 #ifndef TEXTLINE_H
 #define TEXTLINE_H
 
-/** The TextLine object is a single line of text with related information,
- * such as font and font size.  It can edited directly in the diagram.
- * 
- * TODO: Actually make it editable:)
- */
-
 #include <glib.h>
 #include "diatypes.h"
 #include "properties.h"
 
+/*!
+ * \brief Helper class to cache text drawing and related calculations
+ *
+ * The TextLine object is a single line of text with related information,
+ * such as font and font size.  It can (not) be edited directly in the diagram.
+ *
+ * TODO: Actually make it editable:)
+ */
 struct _TextLine {
   /* don't change these values directly, use the text_line_set* functions */
   

@@ -28,24 +28,26 @@
 #include "properties.h" /* win32: PropNumData */
 
 /*!
- * \class _Element
  * \brief Beside OrthCon one of the most use object classes
  *
  * This is a subclass of DiaObject used to help implementing objects
  * of a type with 8 handles. 
+ *
+ * \extends _DiaObject
  */
 struct _Element {
-  DiaObject object; /*!< inheritance */
+  DiaObject object; /* inheritance */
   
   Handle resize_handles[8]; /*!< not only for resizing but may also be used for connections */
 
-  Point corner;
-  real width;
-  real height;
-
-  ElementBBExtras extra_spacing;
+  Point corner; /*!< upper-left corner of the Element */
+  real width;   /*!< width of the object (with 0 line width) */
+  real height;  /*!< height of the object (with 0 line width) */
+  /*! extra data used for bounding box calculation */
+  ElementBBExtras extra_spacing; /*!< filled from line width */
 };
 
+/*! \protected Update internal state after property change */
 void element_update_handles(Element *elem);
 void element_update_connections_rectangle(Element *elem,
 					  ConnectionPoint *cps);

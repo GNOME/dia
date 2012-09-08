@@ -28,7 +28,9 @@
  * \brief Base class for simple (straight) lines connecting object
  *
  * This is a subclass of DiaObject used to help implementing objects
- * of a line-like type. 
+ * of a line-like type.
+ *
+ * \extends _DiaObject
  */
 struct _Connection {
   DiaObject object; /*!< inheritance */

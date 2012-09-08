@@ -15,7 +15,10 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
-/*! \file connectionpoint.h -- Connection Points together with Handles allow to connect objects */
+/*!
+ * \file connectionpoint.h -- Connection Points together with Handles allow to connect objects
+ * \ingroup ObjectConnects
+ */
 #ifndef CONNECTIONPOINT_H
 #define CONNECTIONPOINT_H
 
@@ -28,7 +31,9 @@
 
 /*! \brief Connections directions, used as hints to e.g. zigzaglines 
  * Ordered this way to let *2 be rotate clockwise, /2 rotate counterclockwise.
- * Used as bits */
+ * Used as bits
+ * \ingroup ObjectConnects
+ */
 typedef enum {
   DIR_NONE  = 0,
   DIR_NORTH = (1<<0),
@@ -43,22 +48,26 @@ typedef enum {
   DIR_ALL       = (DIR_NORTH|DIR_SOUTH|DIR_EAST|DIR_WEST)
 } ConnectionPointDirection;
 
-/*! \brief Additional behaviour flags for connection points */
+/*!
+ * \brief Additional behaviour flags for connection points
+ * \ingroup ObjectConnects
+ */
 typedef enum {
   CP_FLAG_ANYPLACE = (1<<0), /*!< Set if this connpoint is the one that
-			                 is connected to when a connection is
-			                 dropped on an object. */
+			          is connected to when a connection is
+			          dropped on an object. */
   CP_FLAG_AUTOGAP =  (1<<1), /*!< Set if this connpoint is internal
-			                and so should force a gap on the lines. */
+			          and so should force a gap on the lines. */
 
-/*! Most non-connection objects want exactly one CP with this, in the middle. */
+  /*! Most non-connection objects want exactly one CP with this, in the middle. */
   CP_FLAGS_MAIN	=   (CP_FLAG_ANYPLACE|CP_FLAG_AUTOGAP) /*!< Use this for the central CP that
-			              takes connections from all over the
-			              object and has autogap. */
+							    takes connections from all over the
+							    object and has autogap. */
 } ConnectionPointFlags;
 
 /*!
  * \brief To connect object with other objects handles
+ * \ingroup ObjectConnects
  */
 struct _ConnectionPoint {
   Point pos;         /*!< position of this connection point */
@@ -70,19 +79,25 @@ struct _ConnectionPoint {
 };
 
 /** 
- * Returns the available directions on a slope.
+ * \brief Returns the available directions on a slope.
  * The right-hand side of the line is assumed to be within the object,
  * and thus not available. 
+ * \ingroup ObjectConnects
  */
 gint find_slope_directions(Point from, Point to);
-/** Update the object-settable parts of a connectionpoints.
- * p: A ConnectionPoint pointer (non-NULL).
- * x: The x coordinate of the connectionpoint.
- * y: The y coordinate of the connectionpoint.
- * dirs: The directions that are open for connections on this point.
+/*!
+ * \brief Update the object-settable parts of a connectionpoints.
+ * @param p A ConnectionPoint pointer (non-NULL).
+ * @param x The x coordinate of the connectionpoint.
+ * @param y The y coordinate of the connectionpoint.
+ * @param dirs The directions that are open for connections on this point.
+ * \ingroup ObjectConnects
  */
 void connpoint_update(ConnectionPoint *p, real x, real y, gint dirs);
-
+/*!
+ * \brief Adaptive rendering to the boundary of the connected object
+ * \ingroup ObjectConnects
+ */
 gboolean connpoint_is_autogap(ConnectionPoint *cp);
 
 

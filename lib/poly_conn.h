@@ -24,8 +24,13 @@
 
 #define HANDLE_CORNER (HANDLE_CUSTOM1)
 
-/* This is a subclass of DiaObject used to help implementing objects
+/*!
+ * \brief helper for implementing polyline connections
+ * 
+ * This is a subclass of DiaObject used to help implementing objects
  * that connect points with polygonal line-segments.
+ *
+ * \extends _DiaObject
  */
 struct _PolyConn {
   /* DiaObject must be first because this is a 'subclass' of it. */

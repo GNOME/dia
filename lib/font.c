@@ -48,6 +48,10 @@
 
 static PangoContext* pango_context = NULL;
 
+/*!
+ * \brief Opaque type to represent a font
+ * \ingroup ObjectParts
+ */
 struct _DiaFont 
 {
   GObject parent_instance;

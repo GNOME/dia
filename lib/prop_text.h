@@ -41,6 +41,10 @@ typedef struct {
   GList *string_list;
 } StringListProperty;
 
+/*!
+ * \brief Property for _Text including attributes
+ * \extends _Property
+ */
 typedef struct {
   Property common;
   gchar *text_data;

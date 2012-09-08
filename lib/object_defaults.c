@@ -83,6 +83,7 @@ _obj_destroy (gpointer val)
  * @param create_lazy if FALSE creates default objects for
  *             every known type. Otherwise default objects
  *             are created on demand
+ * @param ctx The context in which this function is called
  * 
  * Create all the default objects.
  */
@@ -211,6 +212,7 @@ dia_object_defaults_load (const gchar *filename, gboolean create_lazy, DiaContex
 /**
  * dia_object_default_get :
  * @param type The type of the object for which you want the defaults object.
+ * @param user_data unused
  *
  * Allows to edit one defaults object properties
  */

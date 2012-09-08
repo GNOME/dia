@@ -16,7 +16,11 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-/*! \file objchange.h -- Forming the basic of undo support to be implemented in objects */
+/*! 
+ * \file objchange.h -- Forming the basic of undo support to be implemented in objects 
+ * \defgroup ObjChange Objects support for undo/redo
+ * \ingroup Objects
+ */
 #ifndef OBJCHANGE_H
 #define OBJCHANGE_H
 
@@ -28,11 +32,15 @@ typedef void (*ObjectChangeApplyFunc)(ObjectChange *change, DiaObject *obj);
 typedef void (*ObjectChangeRevertFunc)(ObjectChange *change, DiaObject *obj);
 typedef void (*ObjectChangeFreeFunc)(ObjectChange *change);
 
-/*
+/*!
+   \brief Return value of object changing functions and methods of DiaObject
+
    FIXME: ObjectChange functions should not require the changed object
    as an argument. Every change object should keep track of the
    relevant object instead. The second argument in the above typedefs
    is deprecated and should not be relied on.
+
+   \ingroup ObjChange
  */
 struct _ObjectChange {
   /*! If apply == transaction_point_pointer then this is a transaction
@@ -58,6 +66,8 @@ struct _ObjectState {
   the object and it's handles positions.
   
   The calling function owns the returned reference.
+
+  \ingroup ObjChange
 */
 typedef ObjectState * (*GetStateFunc) (DiaObject* obj);
 
@@ -68,16 +78,26 @@ typedef ObjectState * (*GetStateFunc) (DiaObject* obj);
 
   The called function owns the reference and is
   responsible for freeing it.
+
+  \ingroup ObjChange
 */
 typedef void (*SetStateFunc) (DiaObject* obj, ObjectState *state);
 
-
+/*! Create a single change from the ObjectState 
+ * \ingroup ObjChange
+ */
 ObjectChange *new_object_state_change(DiaObject *obj,
 				      ObjectState *old_state,
 				      GetStateFunc get_state,
 				      SetStateFunc set_state );
 
+/*! Create a list of ObjectChange for single step undo/redo 
+ * \ingroup ObjChange
+ */
 ObjectChange *change_list_create (void);
+/*! Add another ObjectChange to the list of changes
+ * \ingroup ObjChange
+ */
 void change_list_add (ObjectChange *change_list, ObjectChange *change);
 
 G_END_DECLS

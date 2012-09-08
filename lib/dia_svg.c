@@ -164,7 +164,6 @@ enum
  * @param s The SVG style object to fill out.  This should previously be
  *          initialized to some default values.
  * @param user_scale, if >0 scalable values (font-size, stroke-width, ...) are divided by this, otherwise ignored
- * @bug This function is way too long (213 lines). So dont touch it :)
  */
 void
 dia_svg_parse_style(xmlNodePtr node, DiaSvgStyle *s, real user_scale)
@@ -491,7 +490,6 @@ _path_arc_segment(GArray* points,
  * @param x
  * @param y
  * @param last_p2
- * @bug Also here don't know what the parameters mean.
  */
 static void
 _path_arc(GArray *points, double cpx, double cpy,
@@ -598,7 +596,8 @@ _path_arc(GArray *points, double cpx, double cpy,
  * zigzaglines into their appropriate objects?  Could either be done by
  * returning an object or by having functions that try parsing as
  * specific simple paths.
- * NOPE: Dia is capable to handle beziers and the file has given us some so WHY should be break it in to pieces ???
+ * NOPE: Dia is capable to handle beziers and the file has given us some so 
+ * WHY should be break it in to pieces ???
  */
 GArray*
 dia_svg_parse_path(const gchar *path_str, gchar **unparsed, gboolean *closed, Point *current_point)

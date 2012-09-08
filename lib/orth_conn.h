@@ -32,8 +32,13 @@ typedef enum {
 
 #define HANDLE_MIDPOINT (HANDLE_CUSTOM1)
 
-/* This is a subclass of DiaObject used to help implementing objects
+/*!
+ * \brief Helper for orthogonal connection implementations
+ *
+ * This is a subclass of DiaObject used to help implementing objects
  * that connect points with orthogonal line-segments.
+ *
+ * \extends _DiaObject
  */
 struct _OrthConn {
   /* DiaObject must be first because this is a 'subclass' of it. */

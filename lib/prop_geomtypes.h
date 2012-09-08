@@ -28,46 +28,82 @@
 #include "properties.h"
 #include "geometry.h"
 
+/*!
+ * \brief Property for real
+ * \extends _Property
+ */
 typedef struct {
   Property common;
   real real_data;
 } RealProperty;
 
+/*!
+ * \brief Property for length
+ * \extends _Property
+ */
 typedef struct {
   Property common;
   real length_data;
 } LengthProperty;
 
+/*!
+ * \brief Property for fontsize \sa _DiaFont
+ * \extends _Property
+ */
 typedef struct {
   Property common;
   real fontsize_data;
 } FontsizeProperty;
 
+/*!
+ * \brief Property for _Point
+ * \extends _Property
+ */
 typedef struct {
   Property common;
   Point point_data;
 } PointProperty;
 
+/*!
+ * \brief Property for an array of _Point
+ * \extends _Property
+ */
 typedef struct {
   Property common;
   GArray *pointarray_data;
 } PointarrayProperty;
 
+/*!
+ * \brief Property for _BezPoint
+ * \extends _Property
+ */
 typedef struct {
   Property common;
   BezPoint bezpoint_data;
 } BezPointProperty;
 
+/*!
+ * \brief Property for an array of _BezPoint
+ * \extends _Property
+ */
 typedef struct {
   Property common;
   GArray *bezpointarray_data;
 } BezPointarrayProperty;
 
+/*!
+ * \brief Property for _Rectangle
+ * \extends _Property
+ */
 typedef struct {
   Property common;
   Rectangle rect_data;
 } RectProperty;
 
+/*!
+ * \brief Property for end points
+ * \extends _Property
+ */
 typedef struct {
   Property common;
   Point endpoints_data[2];

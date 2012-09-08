@@ -117,9 +117,9 @@ void new_handles(BezierConn *bez, int num_points);
 
 /** Function called to move one of the handles associated with the
  *  bezierconn. 
- * @param obj The object whose handle is being moved.
+ * @param bez The object whose handle is being moved.
  * @param handle The handle being moved.
- * @param pos The position it has been moved to (corrected for
+ * @param to The position it has been moved to (corrected for
  *   vertical/horizontal only movement).
  * @param cp If non-NULL, the connectionpoint found at this position.
  *   If @a cp is NULL, there may or may not be a connectionpoint.
@@ -228,10 +228,11 @@ bezierconn_move_handle(BezierConn *bez, Handle *handle,
 
 
 /** Function called to move the entire object.
- * @param obj The object being moved.
- * @param pos Where the object is being moved to.  This is the first point
+ * @param bez The object being moved.
+ * @param to Where the object is being moved to.  This is the first point
  * of the points array.
  * @return NULL
+ * \memberof _BezierConn
  */
 ObjectChange*
 bezierconn_move(BezierConn *bez, Point *to)
@@ -285,7 +286,8 @@ bezierconn_closest_segment(BezierConn *bez, Point *point, real line_width)
  * @param bez A bezierconn object
  * @param point A point to find distances from
  * @return The handle on `bez' closest to `point'.
- * @bug Why isn't this just a function on object that scans the handles?
+ *
+ * \memberof _BezierConn Conceptually this is a member function 
  */
 Handle *
 bezierconn_closest_handle(BezierConn *bez, Point *point)
@@ -322,7 +324,7 @@ bezierconn_closest_handle(BezierConn *bez, Point *point)
   return closest;
 }
 
-/** Retrun the major handle for the control point with the handle closest to
+/** Return the major handle for the control point with the handle closest to
  * a given point.
  * @param bez A bezier connection
  * @param point A point
@@ -363,7 +365,6 @@ bezierconn_distance_from(BezierConn *bez, Point *point, real line_width)
  * @param handle1 The handle that will be put on the bezier line.
  * @param handle2 The handle that will be put before handle1
  * @param handle3 The handle that will be put after handle1
- * @bug check that the handle ordering is correctly described.
  */
 static void
 add_handles(BezierConn *bez, int pos, BezPoint *point,
@@ -545,7 +546,6 @@ bezierconn_remove_segment(BezierConn *bez, int pos)
  * @param bez A bezierconn to straighten a corner of
  * @param comp_nr The index into the corner_types array of the corner to
  *                straighten.
- * @bug what happens if we're going from symmetric to smooth?
  */
 static void
 bezierconn_straighten_corner(BezierConn *bez, int comp_nr)
@@ -901,7 +901,6 @@ bezierconn_destroy(BezierConn *bez)
 /** Save the data defined by a bezierconn object to XML.
  * @param bez The object to save.
  * @param obj_node The XML node to save it into
- * @bug shouldn't this have version?
  */
 void
 bezierconn_save(BezierConn *bez, ObjectNode obj_node)
@@ -931,8 +930,7 @@ bezierconn_save(BezierConn *bez, ObjectNode obj_node)
  * Does object_init() on the bezierconn object.
  * @param bez A newly allocated bezierconn object to load into.
  * @param obj_node The XML node to load from.
- * @bug shouldn't this have version?
- * @bug Couldn't this use the setup_handles function defined above?
+ * @param ctx The context in which this function is called
  */
 void
 bezierconn_load(BezierConn *bez, ObjectNode obj_node, DiaContext *ctx)
@@ -1094,8 +1092,6 @@ bezierconn_point_change_revert(struct PointChange *change, DiaObject *obj)
  * @param handle3 The third (right-hand) handle.
  * @param connected_to3 What the third handle is connected to.
  * @return Newly created undo information.
- * @bug Describe what the state of the point and handles should be at start.
- * @bug Can these handles be connected to anything at all?
  */
 static ObjectChange *
 bezierconn_create_point_change(BezierConn *bez, enum change_type type,

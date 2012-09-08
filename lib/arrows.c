@@ -1927,7 +1927,7 @@ struct ArrowDesc {
 /** following the signature pattern of lib/boundingbox.h 
  * the arrow bounding box is added to the given rect 
  * @param arrow the arrow
- * @param linewidth arrows use the same line width
+ * @param line_width arrows use the same line width
  * @param to The point that the arrow points to.
  * @param from Where the arrow points from (e.g. end of stem)
  * @param rect the preintialized bounding box

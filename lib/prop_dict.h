@@ -29,9 +29,13 @@
 #include "properties.h"
 #include "dia_xml.h"
 
+/*!
+ * \brief Property for key=value storage
+ * \extends _Property
+ */
 typedef struct {
   Property common;
-  GHashTable *dict; /* subprops[i] is a GPtrArray of (Property *) */  
+  GHashTable *dict; /*!< subprops[i] is a GPtrArray of (Property *) */  
 } DictProperty;
 
 void prop_dicttypes_register(void);

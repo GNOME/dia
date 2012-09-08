@@ -25,6 +25,12 @@
 #include "dia-enums.h"
 #include "geometry.h"
 
+/*! 
+ \file font.h -- services based on font definitions 
+ \defgroup FontServices Dia's font definiton based on Pango model
+ \ingroup ObjectParts
+ */
+
 G_BEGIN_DECLS
 
 /* Do NOT put these strings through the .po mechanism. If you need to add
@@ -34,7 +40,7 @@ G_BEGIN_DECLS
 #define BASIC_MONOSPACE_FONT "courier new, courier, monospace, fixed"
 
 
-/** 
+/*
  * In a goodly selection of fonts, 500 is very common, yet Pango doesn't name it.
  * I am calling 500 'medium' and 600 'demibold'.
  * We should really have a more flexible system where 300 or 400 is normal, 
@@ -100,7 +106,8 @@ struct _DiaFontClass {
     GObjectClass parent_class;
 };
 
-/* Set the PangoContext used to render text.
+/*! Set the PangoContext used to render text.
+ * \ingroup FontServices
  */
 void dia_font_init(PangoContext* pcontext);
 /* Start using a new context (for AA rendering) */
@@ -109,21 +116,36 @@ void dia_font_push_context(PangoContext *pcontext);
 void dia_font_pop_context(void);
 /* Retrieve the current context (used for the font widget) */
 PangoContext *dia_font_get_context(void);
-                             
-    /* Get a font matching family,style,height. MUST be freed with
-       dia_font_unref(). */
+
+/*!
+ * \brief Font creation for object implementation
+ * \ingroup FontServices
+ * Get a font matching family,style,height. MUST be freed with dia_font_unref().
+ */
 DiaFont* dia_font_new(const char *family, DiaFontStyle style,
                       real height);
 
-    /* Get a font matching style. This is the preferred method to
-     * create default fonts within objects. */
+/*!
+ * \brief Font creation for object implementation
+ * Get a font matching style. This is the preferred method to
+ * create default fonts within objects.
+ * \ingroup FontServices
+ */
 DiaFont* dia_font_new_from_style(DiaFontStyle style, real height);
 
-    /* Get a font from a legacy font name */ 
+/*!
+ * \brief Font creation for object implementation
+ * Get a font from a legacy font name 
+ * \ingroup FontServices
+ */ 
 DiaFont* dia_font_new_from_legacy_name(const char *name);
 
-    /* Get a simple font name from a font.
-       Name will be valid for the duration of the DiaFont* lifetime. */ 
+/*!
+ * \brief Font creation for object implementation
+ * Get a simple font name from a font.
+ * Name will be valid for the duration of the DiaFont* lifetime. 
+ * \ingroup FontServices
+ */ 
 const char* dia_font_get_legacy_name(const DiaFont* font);
 
     /* Same attributes */
@@ -140,22 +162,41 @@ const char* dia_font_get_family(const DiaFont* font);
 /* Acessor for the PangoFontDescription */
 const PangoFontDescription *dia_font_get_description (const DiaFont* font);
 
-    /* Retrieves the height of the font */
+/*! 
+ * \brief Retrieves the height of the font
+ * \memberof DiaFont
+ */
 real dia_font_get_height(const DiaFont* font);
-    /* Change the height inside a font record. */
+/*! 
+ * \brief Change the height inside a font record.
+ * \memberof DiaFont
+ */
 void dia_font_set_height(DiaFont* font, real height);
-    /* Delivers the size of the font */                         
+/*! 
+ * \brief Delivers the size of the font
+ * \memberof DiaFont
+ */
 real dia_font_get_size(const DiaFont* font);
-
-    /* Changes the slant of an existing font */
+/*! 
+ * \brief Changes the slant of an existing font
+ * \memberof DiaFont
+ */
 void dia_font_set_slant(DiaFont* font, DiaFontSlant slant);
-    /* Changes the weight of an existing font */
+/*! 
+ * \brief Changes the weight of an existing font
+ * \memberof DiaFont
+ */
 void dia_font_set_weight(DiaFont* font, DiaFontWeight weight);
-    /* Changes the family of an existing font to one of the three standard
-       families */
+/*! 
+ * \brief Changes the family of an existing font to one of the three standard families
+ * \memberof DiaFont
+ */
 void dia_font_set_family(DiaFont* font, DiaFontFamily family);
-    /* Changes the family of an existing font to any family, but the name could
-       be system-dependent. */
+/*! 
+ * \brief Changes the family of an existing font to any family
+ * The name is system configuration dependent, but font files are portable nowadays.
+ * \memberof DiaFont
+ */
 void dia_font_set_any_family(DiaFont* font, const char* family);
 
     /* FIXME: what do we do with this, actually ?

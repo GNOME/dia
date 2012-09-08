@@ -17,17 +17,27 @@ G_BEGIN_DECLS
 GType dia_gdk_renderer_get_type (void) G_GNUC_CONST;
 void dia_gdk_renderer_set_dashes(DiaGdkRenderer *renderer, int offset);
 
+/*!
+ * \brief Dia's first display renderer
+ *
+ * The GdkRenderer is using the native windowing system drawing functions provided by the
+ * respective GDK backend. With newer GTK+ versions it is deprecated, with GTK+3.0 it is gone.
+ *
+ * \extends _DiaRenderer
+ *
+ * \todo move the GdkRenderer out of the code into a plug-in (as done with LibartRenderer
+ */
 struct _DiaGdkRenderer
 {
   DiaRenderer parent_instance;
 
   /*< private >*/
-  DiaTransform *transform;        /* Our link to the display settings */
-  GdkPixmap *pixmap;              /* The pixmap shown in this display  */
-  guint32 width;                  /* The width of the pixmap in pixels */
-  guint32 height;                 /* The height of the pixmap in pixels */
-  GdkGC *gc;
-  GdkRegion *clip_region;
+  DiaTransform *transform;        /*!< Our link to the display settings */
+  GdkPixmap *pixmap;              /*!< The pixmap shown in this display  */
+  guint32 width;                  /*!< The width of the pixmap in pixels */
+  guint32 height;                 /*!< The height of the pixmap in pixels */
+  GdkGC *gc;                      /*!< The Gdk graphics context used */
+  GdkRegion *clip_region;         /*!< Clipping region in effect when interactive */
 
   /* line attributes: */
   int line_width;
@@ -41,7 +51,7 @@ struct _DiaGdkRenderer
 
   /** If non-NULL, this rendering is a highlighting with the given color. */
   Color *highlight_color;
-  
+
   real   current_alpha;
 };
 
