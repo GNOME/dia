@@ -523,6 +523,7 @@ _plugin_unload (PluginInfo *info)
   filter_unregister_export(&wmf_export_filter);
   /* filter_unregister_callback (&cb_clipboard); */
 #endif
+  /* filter_unregister_callback (&cb_gtk_print); */
 }
 
 /* --- dia plug-in interface --- */
@@ -561,9 +562,6 @@ dia_plugin_init(PluginInfo *info)
   filter_register_export(&emf_export_filter);
   filter_register_export(&wmf_export_filter);
   filter_register_callback (&cb_clipboard);
-#endif
-#ifdef CAIRO_HAS_WIN32X_SURFACE
-  filter_register_export(&cb_export_filter);
 #endif
 
   filter_register_callback (&cb_gtk_print);
