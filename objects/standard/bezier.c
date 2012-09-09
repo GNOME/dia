@@ -42,6 +42,11 @@
 
 typedef struct _Bezierline Bezierline;
 
+/*!
+ * \brief Standard - BezierLine : a bezier curve object
+ * \ingroup StandardObjects
+ * \extends _BezierConn
+ */
 struct _Bezierline {
   BezierConn bez;
 

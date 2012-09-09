@@ -16,6 +16,8 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
+ /*! \file arc.c -- Implementation of "Standard - Arc" */
+
 #include <config.h>
 
 #define _BSD_SOURCE 1 /* to get finite */
@@ -43,19 +45,24 @@
 
 typedef struct _Arc Arc;
 
+/*!
+ * \brief Standard - Arc : a portion of the circumference of a circle
+ * \extends _Connection
+ * \ingroup StandardObjects
+ */
 struct _Arc {
-  Connection connection;
+  Connection connection; /*!< inheritance */
 
-  Handle middle_handle;
-  Handle center_handle;
+  Handle middle_handle; /*!< _Handle on the middle of the cicumference portion */
+  Handle center_handle; /*!< Handle on he center of the full circle */
 
-  Color arc_color;
-  real curve_distance;
-  real line_width;
-  LineStyle line_style;
-  LineCaps line_caps;
-  real dashlength;
-  Arrow start_arrow, end_arrow;
+  Color arc_color; /*!< Color of the Arc */
+  real curve_distance; /*!< distance between middle_handle and chord */
+  real line_width; /*!< line width for the Arc */
+  LineStyle line_style; /*!< line style for the Arc */
+  LineCaps line_caps; /*!< line ends of the Arc */
+  real dashlength; /*!< part of the linestyle if not LINESTYLE_SOLID */
+  Arrow start_arrow, end_arrow; /*!< arrows */
 
   /* Calculated parameters: */
   real radius;

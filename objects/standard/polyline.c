@@ -38,6 +38,10 @@
 
 #define DEFAULT_WIDTH 0.15
 
+/*!
+ * \brief Standard - PolyLine
+ * \extends _PolyConn
+ */
 typedef struct _Polyline {
   PolyConn poly;
 

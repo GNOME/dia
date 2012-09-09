@@ -45,6 +45,11 @@ enum _Valign {
         VALIGN_FIRST_LINE
 };
 typedef struct _Textobj Textobj;
+/*!
+ * \brief Standard - Text
+ * \extends _DiaObject
+ * \ingroup StandardObjects
+ */
 struct _Textobj {
   DiaObject object;
   

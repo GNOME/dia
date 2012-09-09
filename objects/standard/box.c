@@ -47,6 +47,11 @@ typedef enum {
 
 typedef struct _Box Box;
 
+/*!
+ * \brief Standard - Box : rectangular box
+ * \extends _Element
+ * \ingroup StandardObjects
+ */
 struct _Box {
   Element element;
 

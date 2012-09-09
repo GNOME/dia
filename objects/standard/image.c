@@ -47,6 +47,11 @@
 
 typedef struct _Image Image;
 
+/*!
+ * \brief Standard - Image : rectangular image
+ * \extends _Element
+ * \ingroup StandardObjects
+ */
 struct _Image {
   Element element;
 

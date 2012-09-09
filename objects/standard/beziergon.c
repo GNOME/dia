@@ -40,8 +40,11 @@
 
 #define DEFAULT_WIDTH 0.15
 
-typedef struct _BeziergonProperties BeziergonProperties;
-
+/*!
+ * \brief Standard - Beziergon: closed shape with bezier
+ * \extends _BezierShape
+ * \ingroup StandardObjects
+ */
 typedef struct _Beziergon {
   BezierShape bezier;
 
@@ -53,6 +56,8 @@ typedef struct _Beziergon {
   real dashlength;
   real line_width;
 } Beziergon;
+
+typedef struct _BeziergonProperties BeziergonProperties;
 
 static struct _BeziergonProperties {
   gboolean show_background;

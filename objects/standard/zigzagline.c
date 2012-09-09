@@ -38,6 +38,11 @@
 
 #define HANDLE_MIDDLE HANDLE_CUSTOM1
 
+/*!
+ * \brief Standard - ZigZagLine : orthogonal connection object
+ * \extends _OrthConn
+ * \ingroup StandardObjects
+ */
 typedef struct _Zigzagline {
   OrthConn orth;
 

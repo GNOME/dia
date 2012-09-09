@@ -20,6 +20,8 @@
  */
 
 /*!
+ * \file outline.c - finally rotated text, somwhat
+ *
  * A prototype for text effects with the standard renderer interface.
  * It should be possible to do all those fancy text effects like outline, rotate, ...
  * by converting text to pathes before rendering.
@@ -42,9 +44,14 @@
 #endif
 
 #define NUM_HANDLES 2
-/* Object definition */
+
+/*!
+ * \brief Standard - Outline
+ * \extends _DiaObject
+ * \ingroup StandardObjects
+ */
 typedef struct _Outline {
-  DiaObject object;
+  DiaObject object; /*!< inheritance */
   
   char *name;
   real rotation;
@@ -247,7 +254,13 @@ outine_update_handles(Outline *outline)
   obj->handles[1]->id = HANDLE_RESIZE_SE;
   obj->handles[1]->pos = outline->ink_rect[2];
 }
-/*! Not in the object interface but very important anyway. Used to recalculate the object data after a change  */
+/*!
+ * \brief Object update function called after property change
+ * 
+ * Not in the object interface but very important anyway.
+ * Used to recalculate the object data after a change
+ * \protected \memberof Outline
+ */
 static void
 outline_update_data (Outline *outline)
 {
@@ -323,6 +336,11 @@ outline_update_data (Outline *outline)
   /* the cairo context is only used in this fuinction */
   cairo_destroy (cr);
 }
+/*!
+ * \brief Object drawing to the given renderer
+ *
+ * \memberof Outline
+ */
 static void 
 outline_draw(Outline *outline, DiaRenderer *renderer)
 {
@@ -433,14 +451,26 @@ outline_draw(Outline *outline, DiaRenderer *renderer)
   if (i - n - 1 > 0)
     DIA_RENDERER_GET_CLASS (renderer)->draw_bezier (renderer, &pts[n], i - n - 1, &outline->line_color);
 }
-/* returning used to crash Dia, the method needed to be NULL if there is nothing to do */
+/*!
+ * \brief Optionally deliver an object specific menu
+ *
+ * returning NULL used to crash Dia, the method itself needed to be NULL if there is nothing to do
+ *
+ * \memberof Outline
+ */
 static DiaMenu *
 outline_get_object_menu(Outline *outline, Point *clickedpoint)
 {
   return NULL;
 }
 
-/*! A standard props compliant object needs to describe its parameters */
+/*!
+ * \brief Descibe the object parameters (bot it's values)
+ *
+ * A standard props compliant object needs to describe its parameters
+ *
+ * \memberof Outline
+ */
 static PropDescription *
 outline_describe_props (Outline *outline)
 {
@@ -448,22 +478,38 @@ outline_describe_props (Outline *outline)
     prop_desc_list_calculate_quarks(outline_props);
   return outline_props;
 }
+/*!
+ * \brief Fill a properties vector reflecting the current state of the object
+ * \memberof Outline
+ */
 static void 
 outline_get_props (Outline *outline, GPtrArray *props)
 {
   object_get_props_from_offsets(&outline->object, outline_offsets, props);
 }
+/*!
+ * \brief Set the object state from the given proeprty vector
+ * \memberof Outline
+ */
 static void 
 outline_set_props (Outline *outline, GPtrArray *props)
 {
   object_set_props_from_offsets(&outline->object, outline_offsets, props);
   outline_update_data (outline);
 }
+/*!
+ * \brief Calculate the distance of the whole object to the given point
+ * \memberof Outline
+ */
 static real
 outline_distance_from (Outline *outline, Point *point)
 {
   return distance_polygon_point (&outline->ink_rect[0], 4, outline->line_width, point);
 }
+/*!
+ * \brief Move one of the objects handles
+ * \memberof Outline
+ */
 static ObjectChange* 
 outline_move_handle (Outline *outline,
                      Handle *handle,
@@ -499,6 +545,14 @@ outline_move_handle (Outline *outline,
   }
   return NULL;
 }
+/*!
+ * \brief Move the whole object to the given position
+ * 
+ * If the object position does not change the whole object should not either.
+ * This is used as a kludge to call the protected update_data() function
+ *
+ * \memberof Outline
+ */
 static ObjectChange* 
 outline_move (Outline *outline, Point *to)
 {
@@ -509,6 +563,10 @@ outline_move (Outline *outline, Point *to)
   outline_update_data (outline);
   return NULL;
 }
+/*!
+ * \brief Create a deep copy of the object
+ * \memberof Outline
+ */
 static DiaObject *
 outline_copy (Outline *from)
 {
@@ -530,6 +588,10 @@ outline_copy (Outline *from)
 
   return &to->object;
 }
+/*!
+ * \brief Destruction of the object
+ * \memberof Outline
+ */
 static void 
 outline_destroy (Outline *outline)
 {
@@ -539,6 +601,10 @@ outline_destroy (Outline *outline)
   object_destroy(&outline->object);
   /* but not the object itself? */
 }
+/*!
+ * \brief Change the object state regarding selection 
+ * \memberof Outline
+ */
 static void 
 outline_select (Outline *outline, Point *clicked_point,
 		DiaRenderer *interactive_renderer)
@@ -547,4 +613,3 @@ outline_select (Outline *outline, Point *clicked_point,
 }
 
 #endif /* HAVE_CAIRO */
-

@@ -45,6 +45,11 @@ typedef enum {
 
 typedef struct _Ellipse Ellipse;
 
+/*!
+ * \brief Standard - Ellipse
+ * \extends _Element
+ * \ingroup StandardObjects
+ */
 struct _Ellipse {
   Element element;
 

@@ -40,6 +40,11 @@
 
 typedef struct _LineProperties LineProperties;
 
+/*!
+ * \brief Standard - Line
+ * \extends _Connection
+ * \ingroup StandardObjects
+ */
 typedef struct _Line {
   Connection connection;
 

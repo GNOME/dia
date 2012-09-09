@@ -25,6 +25,16 @@
 #include "intl.h"
 #include "plug-ins.h"
 
+/*!
+\defgroup StandardObjects Standard Objects
+\ingroup Objects
+
+The minimal set of objects available to Dia is defined in the directory objects/standard.
+Although implmented as a plug-in Dia wont start without it being loaded.
+These objects are not only referenced directly in the toolbox and application menu,
+but they also are required for most of Dia's diagram importers.
+*/
+
 extern DiaObjectType *_arc_type;
 extern DiaObjectType *_box_type;
 extern DiaObjectType *_ellipse_type;

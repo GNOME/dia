@@ -46,6 +46,10 @@ Fix crashes:)
 
 #define DEFAULT_WIDTH 0.15
 
+/*!
+ * \brief Standard - Polygon
+ * \extends _PolyShape
+ */
 typedef struct _Polygon {
   PolyShape poly;
 
