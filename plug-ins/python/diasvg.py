@@ -1,8 +1,6 @@
 #  PyDia SVG Renderer
 #  Copyright (c) 2003, 2004 Hans Breuer <hans@breuer.org>
 #
-#  A full blown SVG(Z) renderer. As of this writing less bugs in the output
-#  than the Dia SVG renderer written in C
 
 #    This program is free software; you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
@@ -20,6 +18,15 @@
 
 import sys, string, dia
 
+##
+# \brief The second SvgRenderer implemntation for Dia
+#
+# A full blown SVG(Z) renderer. As of the initial writing less bugs in the output
+# than the Dia SVG renderer written in C. Nowadays the _SvgRenderer is on par,
+# but this one is still easier to extend and experiment with.
+#
+# \extends _DiaPyRenderer
+# \ingroup ExportFilters
 class SvgRenderer :
 	def __init__ (self) :
 		self.f = None

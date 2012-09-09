@@ -71,11 +71,14 @@ G_BEGIN_DECLS
 #define SHAPE_IS_RENDERER(obj)        (G_TYPE_CHECK_INSTANCE_TYPE ((obj), SHAPE_TYPE_RENDERER))
 #define SHAPE_RENDERER_GET_CLASS(obj) (G_TYPE_INSTANCE_GET_CLASS ((obj), SHAPE_TYPE_RENDERER, ShapeRendererClass))
 
-GType shape_renderer_get_type (void) G_GNUC_CONST;
-
 typedef struct _ShapeRenderer ShapeRenderer;
 typedef struct _ShapeRendererClass ShapeRendererClass;
 
+/*!
+ * \brief Shape export for use as \ref Shapes
+ *
+ * \extends _DiaSvgRenderer
+ */
 struct _ShapeRenderer
 {
   DiaSvgRenderer parent_instance;
@@ -102,8 +105,8 @@ static void draw_line(DiaRenderer *self,
 		      Color *line_colour);
 static void 
 draw_object(DiaRenderer *self,
-              DiaObject   *object,
-	          DiaMatrix   *matrix);		      
+            DiaObject   *object,
+	    DiaMatrix   *matrix);
 static void draw_polyline(DiaRenderer *self, 
 			  Point *points, int num_points, 
 			  Color *line_colour);
@@ -127,6 +130,9 @@ static void add_rectangle_connection_points(ShapeRenderer *renderer,
 static void add_ellipse_connection_points(ShapeRenderer *renderer,
                                           Point *center,
                                           real width, real height);      
+
+/* Moved to reduce confusion of Doxygen */
+GType shape_renderer_get_type (void) G_GNUC_CONST;
 
 static DiaSvgRenderer *
 new_shape_renderer(DiagramData *data, const char *filename)

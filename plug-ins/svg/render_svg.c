@@ -55,16 +55,20 @@ G_BEGIN_DECLS
 #define SVG_IS_RENDERER(obj)        (G_TYPE_CHECK_INSTANCE_TYPE ((obj), SVG_TYPE_RENDERER))
 #define SVG_RENDERER_GET_CLASS(obj) (G_TYPE_INSTANCE_GET_CLASS ((obj), SVG_TYPE_RENDERER, SvgRendererClass))
 
-GType svg_renderer_get_type (void) G_GNUC_CONST;
-
 typedef struct _SvgRenderer SvgRenderer;
 typedef struct _SvgRendererClass SvgRendererClass;
 
+/*!
+ * \brief Svg renderer written in C
+ *
+ * \extends _DiaSvgRenderer
+ * \bug Doxygen chokes on this file and simply ignores dox after parents
+ */
 struct _SvgRenderer
 {
   DiaSvgRenderer parent_instance;
   
-  /* track the parents while grouping in draw_object() */
+  /*! track the parents while grouping in draw_object() */
   GQueue *parents;
 };
 
@@ -74,6 +78,9 @@ struct _SvgRendererClass
 };
 
 G_END_DECLS
+
+/* Moved because it disturbs Doxygen */
+GType svg_renderer_get_type (void) G_GNUC_CONST;
 
 static DiaSvgRenderer *new_svg_renderer(DiagramData *data, const char *filename);
 
@@ -182,7 +189,15 @@ svg_renderer_class_init (SvgRendererClass *klass)
   renderer_class->draw_text_line  = draw_text_line;
 }
 
-
+/*!
+ * \brief Cration and intialization of the SvgRenderer
+ *
+ * Using the same base class as the Shape renderer, but with slightly
+ * different parameters. Here we want to be as compatible as feasible
+ * with the SVG specification to support proper diagram exchage.
+ *
+ * \memberof SvgRenderer
+ */
 static DiaSvgRenderer *
 new_svg_renderer(DiagramData *data, const char *filename)
 {
@@ -234,15 +249,19 @@ new_svg_renderer(DiagramData *data, const char *filename)
   return renderer;
 }
 
+/*!
+ * \brief Wrap every object in \<g\>\</g\> and apply transformation
+ *
+ * We could try to be smart and count the objects we using for the object.
+ * If it is only one the grouping is superfluous and should be removed.
+ *
+ * \memberof ScgRenderer
+ */
 static void 
 draw_object(DiaRenderer *self,
             DiaObject   *object,
 	    DiaMatrix   *matrix)
 {
-  /* wrap in  <g></g> 
-   * We could try to be smart and count the objects we using for the object.
-   * If it is only one the grouping is superfluous and should be removed.
-   */
   DiaSvgRenderer *renderer = DIA_SVG_RENDERER (self);
   SvgRenderer *svg_renderer = SVG_RENDERER (self);
   int n_children = 0;
@@ -278,6 +297,10 @@ draw_object(DiaRenderer *self,
   }
 }
 
+/*!
+ * \brief creation of rectangles with corner radius
+ * \memberof SvgRenderer
+ */
 static void
 draw_rounded_rect(DiaRenderer *self, 
                   Point *ul_corner, Point *lr_corner,
@@ -305,6 +328,10 @@ draw_rounded_rect(DiaRenderer *self,
   xmlSetProp(node, (const xmlChar *)"ry", (xmlChar *) buf);
 }
 
+/*!
+ * \brief creation of filled rectangles with corner radius
+ * \memberof SvgRenderer
+ */
 static void
 fill_rounded_rect(DiaRenderer *self, 
                   Point *ul_corner, Point *lr_corner,
@@ -401,6 +428,14 @@ node_set_text_style (xmlNodePtr      node,
   g_free(style);
 }
 
+/*!
+ * \brief Support rendering of raw text
+ *
+ * This is the only function in the renderer interface using the
+ * font passed in by set_font() method.
+ *
+ * \memberof SvgRenderer
+ */
 static void
 draw_string(DiaRenderer *self,
 	    const char *text,
@@ -421,6 +456,10 @@ draw_string(DiaRenderer *self,
   xmlSetProp(node, (xmlChar *)"y", (xmlChar *)d_buf);
 }
 
+/*!
+ * \brief Support rendering of the _TextLine object
+ * \memberof SvgRenderer
+ */
 static void
 draw_text_line(DiaRenderer *self, TextLine *text_line,
 	       Point *pos, Alignment alignment, Color *colour)
@@ -445,6 +484,15 @@ draw_text_line(DiaRenderer *self, TextLine *text_line,
   xmlSetProp(node, (const xmlChar*)"textLength", (xmlChar *) d_buf);
 }
 
+/*!
+ * \brief multi-line text creation
+ *
+ * The most high-level member function for text support. Still the
+ * others have to be implemented because some _DiaObject dimplementations
+ * use the more low-level variants.
+ *
+ * \memberof SvgRenderer
+ */
 static void
 draw_text (DiaRenderer *self, Text *text)
 {
@@ -477,6 +525,10 @@ draw_text (DiaRenderer *self, Text *text)
   }
 }
 
+/*!
+ * \brief Callback function registered for export
+ * \ingroup ExportFilters
+ */
 static gboolean
 export_svg(DiagramData *data, DiaContext *ctx,
 	   const gchar *filename, const gchar *diafilename,

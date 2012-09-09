@@ -17,6 +17,16 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
+/*!
+ * \file pydia-render.c Wrapper to implement _DiaRenderer in Python
+ *
+ * The PyDiaRenderer is currently defined in Python only. The
+ * DiaPyRenderer is using it's interface to map the gobject
+ * DiaRenderer to it. A next step could be to let Python code
+ * directly inherit from DiaPyRenderer.
+ * To do that probably some code from pygtk.gobject needs to
+ * be borrowed/shared
+ */
 #include <config.h>
 
 #include <Python.h>
@@ -38,14 +48,6 @@
 #include "pydia-error.h"
 #include "pydia-render.h"
 
-/*
- * The PyDiaRenderer is currently defined in Python only. The
- * DiaPyRenderer is using it's interface to map the gobject
- * DiaRenderer to it. A next step could be to let Python code
- * directly inherit from DiaPyRenderer.
- * To do that probably some code from pygtk.gobject needs to
- * be borrowed/shared
- */
 #include "diarenderer.h"
 
 #define DIA_TYPE_PY_RENDERER           (dia_py_renderer_get_type ())
@@ -54,11 +56,23 @@
 #define DIA_IS_PY_RENDERER(obj)        (G_TYPE_CHECK_INSTANCE_TYPE ((obj), DIA_TYPE_PY_RENDERER))
 #define DIA_PY_RENDERER_GET_CLASS(obj) (G_TYPE_INSTANCE_GET_CLASS ((obj), DIA_TYPE_PY_RENDERER, DiaPyRendererClass))
 
-GType dia_py_renderer_get_type (void) G_GNUC_CONST;
-
 typedef struct _DiaPyRenderer DiaPyRenderer;
 typedef struct _DiaPyRendererClass DiaPyRendererClass;
 
+/*!
+ * \brief Wrapper class to allow renderer implementation in Python
+ *
+ * The DiaPyRenderer class serves basically two use cases.
+ * - the assumed to be obvious one is to implement a drawing exporter
+ *   in Python. See diasvg.SvgRenderer for an example.
+ * - the other use case is implemented with codegen.ObjRenderer
+ *   which does not deal with graphical information at all, but instead
+ *   takes the _DiagramData object given in begin_render() and iterates
+ *   over layers and objects to extract textual information.
+ *
+ * \extends _DiaRenderer
+ * \ingroup PyDia
+ */
 struct _DiaPyRenderer
 {
   DiaRenderer parent_instance;
@@ -77,8 +91,20 @@ struct _DiaPyRendererClass
 #define PYDIA_RENDERER(renderer) \
 	(DIA_PY_RENDERER(renderer)->self)
 
-/*
- * Members overwritable by Python scripts
+/* Moved here to avoid Doxygen picking up the wrong definitions */
+GType dia_py_renderer_get_type (void) G_GNUC_CONST;
+
+/*!
+ * \brief Begin rendering with Python
+ *
+ * @param renderer Explicit this pointer
+ * @param update The rectangle to update or NULL for everything
+ *
+ * The Python side of the begin_render() method has a different signature.
+ * It gets passed in a PyDia wrapped _DiagramData object and a filename
+ * to store to.
+ *
+ * \memberof _DiaPyRenderer
  */
 static void
 begin_render(DiaRenderer *renderer, const Rectangle *update)
@@ -104,6 +130,11 @@ begin_render(DiaRenderer *renderer, const Rectangle *update)
   }
 }
 
+/*!
+ * \brief Finalize drawing/exporting
+ *
+ * \memberof _DiaPyRenderer
+ */
 static void
 end_render(DiaRenderer *renderer)
 {
@@ -126,6 +157,13 @@ end_render(DiaRenderer *renderer)
   setlocale(LC_NUMERIC, DIA_PY_RENDERER(renderer)->old_locale);
 }
 
+/*!
+ * \brief Set linewidth for later use
+ *
+ * Optional on the PyDia side.
+ *
+ * \memberof _DiaPyRenderer
+ */
 static void
 set_linewidth(DiaRenderer *renderer, real linewidth)
 {  
@@ -148,6 +186,13 @@ set_linewidth(DiaRenderer *renderer, real linewidth)
     PyErr_Clear();
 }
 
+/*!
+ * \brief Set linecaps for later use
+ *
+ * Optional on the PyDia side.
+ *
+ * \memberof _DiaPyRenderer
+ */
 static void
 set_linecaps(DiaRenderer *renderer, LineCaps mode)
 {
@@ -181,6 +226,13 @@ set_linecaps(DiaRenderer *renderer, LineCaps mode)
     PyErr_Clear();
 }
 
+/*!
+ * \brief Set linejoin for later use
+ *
+ * Optional on the PyDia side.
+ *
+ * \memberof _DiaPyRenderer
+ */
 static void
 set_linejoin(DiaRenderer *renderer, LineJoin mode)
 {
@@ -214,6 +266,13 @@ set_linejoin(DiaRenderer *renderer, LineJoin mode)
     PyErr_Clear();
 }
 
+/*!
+ * \brief Set linestyle for later use
+ *
+ * Optional on the PyDia side.
+ *
+ * \memberof _DiaPyRenderer
+ */
 static void
 set_linestyle(DiaRenderer *renderer, LineStyle mode)
 {
@@ -252,6 +311,13 @@ set_linestyle(DiaRenderer *renderer, LineStyle mode)
     PyErr_Clear();
 }
 
+/*!
+ * \brief Set dash length for later use
+ *
+ * Optional on the PyDia side.
+ *
+ * \memberof _DiaPyRenderer
+ */
 static void
 set_dashlength(DiaRenderer *renderer, real length)
 {  
@@ -274,6 +340,13 @@ set_dashlength(DiaRenderer *renderer, real length)
     PyErr_Clear();
 }
 
+/*!
+ * \brief Set fillstyle for later use
+ *
+ * Optional on the PyDia side.
+ *
+ * \memberof _DiaPyRenderer
+ */
 static void
 set_fillstyle(DiaRenderer *renderer, FillStyle mode)
 {
@@ -303,6 +376,13 @@ set_fillstyle(DiaRenderer *renderer, FillStyle mode)
     PyErr_Clear();
 }
 
+/*!
+ * \brief Set font for later use
+ *
+ * Optional on the PyDia side.
+ *
+ * \memberof _DiaPyRenderer
+ */
 static void
 set_font(DiaRenderer *renderer, DiaFont *font, real height)
 {
@@ -330,6 +410,34 @@ set_font(DiaRenderer *renderer, DiaFont *font, real height)
 
 static gpointer parent_class = NULL;
 
+/*!
+ * \brief Draw object
+ *
+ * Optional on the PyDia side. If not implemented the base class method
+ * will be called.
+ *
+ * Intercepting this method on the Python side allows to create per 
+ * object information in the drawing. It is also necessary if the PyDia 
+ * renderer should support transformations.
+ *
+ * If implementing a drawing exposrt filter and overwriting draw_object()
+ * the following code shall be used. Otherwise no draw/fill method will
+ * be called at all.
+ *
+ * \code
+	# don't forget to render the object
+	object.draw (self)
+ * \endcode
+ *
+ * Not calling the object draw method is only usefull when a non-drawing
+ * export - e.g. code generation \sa codegen.py - is implemented.
+ *
+ * @param renderer Self
+ * @param object The object to draw
+ * @param matrix The transformation matrix to use or NULL for no transformation
+ *
+ * \memberof _DiaPyRenderer
+ */
 static void
 draw_object (DiaRenderer *renderer, DiaObject *object, DiaMatrix *matrix)
 {
@@ -365,6 +473,14 @@ draw_object (DiaRenderer *renderer, DiaObject *object, DiaMatrix *matrix)
   }
 }
 
+/*!
+ * \brief Draw line
+ *
+ * Not optional on the PyDia side. If not implemented a runtime warning 
+ * will be generated when called.
+ *
+ * \memberof _DiaPyRenderer
+ */
 static void
 draw_line(DiaRenderer *renderer, 
           Point *start, Point *end, 
@@ -401,6 +517,13 @@ draw_line(DiaRenderer *renderer,
   }
 }
 
+/*!
+ * \brief Draw polyline
+ *
+ * Optional on the PyDia side. If not implemented fallback to base class member.
+ *
+ * \memberof _DiaPyRenderer
+ */
 static void
 draw_polyline(DiaRenderer *renderer, 
 	      Point *points, int num_points, 
@@ -433,6 +556,13 @@ draw_polyline(DiaRenderer *renderer,
   }
 }
 
+/*!
+ * \brief Draw polygon
+ *
+ * Optional on the PyDia side. If not implemented fallback to base class member.
+ *
+ * \memberof _DiaPyRenderer
+ */
 static void
 draw_polygon(DiaRenderer *renderer, 
 	     Point *points, int num_points, 
@@ -465,6 +595,14 @@ draw_polygon(DiaRenderer *renderer,
   }
 }
 
+/*!
+ * \brief Fill polygon
+ *
+ * Not optional on the PyDia side. If not implemented a runtime warning 
+ * will be generated when called.
+ *
+ * \memberof _DiaPyRenderer
+ */
 static void
 fill_polygon(DiaRenderer *renderer, 
 	     Point *points, int num_points, 
@@ -563,6 +701,14 @@ draw_rounded_rect(DiaRenderer *renderer,
 }
 
 
+/*!
+ * \brief Fill rectangle
+ *
+ * Not optional on the PyDia side. If not implemented a runtime warning 
+ * will be generated when called.
+ *
+ * \memberof _DiaPyRenderer
+ */
 static void
 fill_rect(DiaRenderer *renderer, 
 	  Point *ul_corner, Point *lr_corner,
@@ -667,6 +813,14 @@ draw_arc(DiaRenderer *renderer,
   }
 }
 
+/*!
+ * \brief Fill arc
+ *
+ * Not optional on the PyDia side. If not implemented a runtime warning 
+ * will be generated when called.
+ *
+ * \memberof _DiaPyRenderer
+ */
 static void
 fill_arc(DiaRenderer *renderer, 
 	 Point *center,
@@ -705,6 +859,14 @@ fill_arc(DiaRenderer *renderer,
   }
 }
 
+/*!
+ * \brief Draw ellipse
+ *
+ * Not optional on the PyDia side. If not implemented a runtime warning 
+ * will be generated when called.
+ *
+ * \memberof _DiaPyRenderer
+ */
 static void
 draw_ellipse(DiaRenderer *renderer, 
 	     Point *center,
@@ -740,6 +902,14 @@ draw_ellipse(DiaRenderer *renderer,
   }
 }
 
+/*!
+ * \brief Fill ellipse
+ *
+ * Not optional on the PyDia side. If not implemented a runtime warning 
+ * will be generated when called.
+ *
+ * \memberof _DiaPyRenderer
+ */
 static void
 fill_ellipse(DiaRenderer *renderer, 
 	     Point *center,
@@ -838,6 +1008,14 @@ fill_bezier(DiaRenderer *renderer,
   }
 }
 
+/*!
+ * \brief Draw string
+ *
+ * Not optional on the PyDia side. If not implemented a runtime warning 
+ * will be generated when called.
+ *
+ * \memberof _DiaPyRenderer
+ */
 static void
 draw_string(DiaRenderer *renderer,
 	    const char *text,
@@ -884,6 +1062,14 @@ draw_string(DiaRenderer *renderer,
   }
 }
 
+/*!
+ * \brief Draw image
+ *
+ * Not optional on the PyDia side. If not implemented a runtime warning 
+ * will be generated when called.
+ *
+ * \memberof _DiaPyRenderer
+ */
 static void
 draw_image(DiaRenderer *renderer,
 	   Point *point,

@@ -28,6 +28,10 @@
 #include <stdio.h>
 #include <vector>
 
+/*!
+ * \brief A simple x,y coodinate
+ * \ingroup LayoutPlugin
+ */
 struct Point
 {
   double x;
@@ -35,6 +39,10 @@ struct Point
   Point (double _x, double _y) : x(_x), y(_y) {}
 };
 
+/*!
+ * \brief Another node representation
+ * \ingroup LayoutPlugin
+ */
 struct Node
 {
   Point center;
@@ -44,9 +52,18 @@ struct Node
 };
 
 typedef std::vector<Node> Nodes;
+/*!
+ * \brief The Edge object is just stroing bends here
+ * \ingroup LayoutPlugin
+ */
 typedef std::vector<Point> Edge;
 typedef std::vector<Edge> Edges;
 
+/*!
+ * \brief Implementing the IGraph interface for simple layout algorithms
+ *
+ * \ingroup LayoutPlugin
+ */
 class DiaGraph : public IGraph
 {
 public :
@@ -93,6 +110,11 @@ DiaGraph::AddEdge (int srcNode, int destNode, double* points, int len)
   return pos;
 }
 
+/*!
+ * \brief Invoke the given layout algoritm
+ *
+ * \ingroup LayoutPlugin
+ */
 IGraph::eResult
 DiaGraph::Layout (const char *module)
 {

@@ -25,7 +25,7 @@
  * \brief Abstract graph interface to be fed by Dia
  *
  * This interface must not expose any allocation/deallocations and it shall
- * not let pass any exceptions, because the consumer probaly can't catch them. 
+ * not let pass any exceptions, because the consumer probaly can't catch them.
  */
 class IGraph
 {

@@ -15,7 +15,10 @@
 #   along with this program; if not, write to the Free Software
 #   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-# translate dot ( http://www.graphviz.org/ ) to Dia format
+##
+# \file dot2dia.py \brief translate dot ( http://www.graphviz.org/ ) to Dia format
+# \ingroup ImportFilters
+
 import re, string, sys
 
 # FIXME: keywords are case indepentend
@@ -47,6 +50,8 @@ def DictFromString (s) :
 			d[m.group ("key")] = StripQuotes(m.group ("val"))
 	return d
 
+##
+# \brief Accumulating information with _DiaObject
 class Object :
 	""" will end as a Dia Object """
 	def __init__ (self, typename, parms) :
@@ -57,7 +62,8 @@ class Object :
 			return float(self.parms['fontsize']) * cmPoints
 		except :
 			return 0.6
-
+##
+# \brief The nodes of the graph - finally represented as _Ellipse
 class Node(Object) :
 	def __init__ (self, name, parms) :
 		Object.__init__(self, "Standard - Ellipse", parms)
@@ -82,6 +88,8 @@ class Node(Object) :
 			print "No size on '%s'" % (self.name,)
 		return w,h
 
+##
+# \brief The edges of the graph - finally represented as _Bezierline
 class Edge(Object) :
 	def __init__ (self, src, dest, parms) :
 		Object.__init__(self, "Standard - BezierLine", parms)
@@ -140,6 +148,8 @@ def MergeParms (d, extra) :
 		if not d.has_key(k) :
 			d[k] = extra[k]
 
+##
+# \brief Parsing the given dot file
 def Parse(sFile) :
 	f = open(sFile, 'r')
 	s = f.read()
@@ -179,6 +189,13 @@ def Parse(sFile) :
 			edges.append(Edge(StripQuotes(m.group("n1")), StripQuotes(m.group("n2")), DictFromString(m.group("dict"))))
 	return [nodes, edges]
 
+##
+# \brief Adding a label for the edges
+# 
+# This function could be improved if Dia would allow to
+# attach labels to arbitrary objects. For the time being
+# only the initial postion does match, but relayouting the
+# graph in Dia will loose the position
 def AddLabel (layer, pos, label, fontsize, center=0) :
 	""" create a Text object an put it into the layer """
 	textType = dia.get_object_type("Standard - Text")
@@ -191,6 +208,8 @@ def AddLabel (layer, pos, label, fontsize, center=0) :
 		obj.properties["text_vert_alignment"] = 2
 	layer.add_object(obj)
 
+##
+# \brief Callback registered for the ImportFilter
 def ImportFile (sFile, diagramData) :
 	""" read the dot file and create diagram objects """
 	nodes, edges = Parse(sFile)

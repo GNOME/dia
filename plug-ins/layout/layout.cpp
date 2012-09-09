@@ -18,6 +18,14 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
+ 
+/*!
+ * \file layout.cpp - plugin for automatic diagram layout
+ */
+/*!
+ * \defgroup LayoutPlugin
+ * \ingroup Plugins
+ */
 #include <config.h>
 
 #include "intl.h"
@@ -188,6 +196,10 @@ _obj_set_bends (DiaObject *obj, std::vector<double>& coords)
 
 typedef IGraph *(*GraphCreateFunc)();
 
+/*!
+ * \brief Calback function invoking layout algorithms from Dia's menu
+ * \ingroup LayoutPlugin
+ */
 static ObjectChange *
 layout_callback (DiagramData *data,
                  const gchar *filename,
