@@ -1,7 +1,7 @@
 A Dia plug-in offering automatic layout facilities
 --------------------------------------------------
 
-This plug-on is based on OGDF (www.ogdf.net).
+This plug-on is based on OGDF (www.ogdf.net) - v. 2012.07 (Sakura).
 "OGDF is a self-contained C++ class library for the automatic layout of diagrams."
 
 The plug-in uses a self-devolved wrapper over OGDF (ogdf-simple(h|cpp)), mostly to 
@@ -45,4 +45,5 @@ Build on *NIX
 add
 	compilerParams = -fPIC -I.
 to makeMakefile.config, run
-	./makeMakefile.sh	
+	./makeMakefile.sh
+

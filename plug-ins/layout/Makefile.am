@@ -1,6 +1,6 @@
 plugin_sources = \
 	dia-graph.h \
-	dia-grap.cpp \
+	dia-graph.cpp \
 	layout.cpp \
 	ogdf-simple.h
 
