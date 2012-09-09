@@ -315,6 +315,7 @@ parse_svg_node(ShapeInfo *info, xmlNodePtr node, xmlNsPtr svg_ns,
       g_array_free(arr, TRUE);
     } else if (!xmlStrcmp(node->name, (const xmlChar *)"rect")) {
       GraphicElementRect *rect = g_new0(GraphicElementRect, 1);
+      real corner_radius = 0.0;
 
       el = (GraphicElement *)rect;
       rect->type = GE_RECT;
@@ -338,6 +339,22 @@ parse_svg_node(ShapeInfo *info, xmlNodePtr node, xmlNsPtr svg_ns,
         rect->corner2.y = rect->corner1.y + g_ascii_strtod((gchar *) str, NULL);
         xmlFree(str);
       }
+      str = xmlGetProp(node, (const xmlChar *)"rx");
+      if (str) {
+        corner_radius = g_ascii_strtod((gchar *) str, NULL);
+        xmlFree(str);
+      }
+      str = xmlGetProp(node, (const xmlChar *)"ry");
+      if (str) {
+        if(corner_radius != 0.0) {
+          /* calculate the mean value of rx and ry */
+          corner_radius = (corner_radius+g_ascii_strtod((gchar *) str, NULL))/2;
+        } else {
+          corner_radius = g_ascii_strtod((gchar *) str, NULL);
+        }
+        xmlFree(str);
+      }
+      rect->corner_radius = corner_radius;
     } else if (!xmlStrcmp(node->name, (const xmlChar *)"text")) {
 
       GraphicElementText *text = g_new(GraphicElementText, 1);
@@ -465,14 +482,14 @@ parse_svg_node(ShapeInfo *info, xmlNodePtr node, xmlNsPtr svg_ns,
 
           image->image = dia_image_load(imgfn);
 	}
-        /* w/o the image we would crash later */
-        if (!image->image) {
+        if (!image->image)
           g_warning("failed to load image file %s", imgfn ? imgfn : "(data:)");
-          image->image = dia_image_get_broken();
-        }
         g_free(imgfn);
         xmlFree(str);
       }
+      /* w/o the image we would crash later */
+      if (!image->image)
+        image->image = dia_image_get_broken();
     } else if (!xmlStrcmp(node->name, (const xmlChar *)"g")) {
       if (!is_subshape(node)) {
           /* add elements from the group element */
@@ -586,6 +603,7 @@ update_bounds(ShapeInfo *info)
     case GE_RECT:
       check_point(info, &(el->rect.corner1));
       check_point(info, &(el->rect.corner2));
+      /* el->rect.corner_radius has no infulence on the bounding rectangle */
       break;
     case GE_TEXT:
       check_point(info, &(el->text.anchor));
@@ -693,6 +711,7 @@ load_shape_info(const gchar *filename, ShapeInfo *preload)
   info->default_width = 0.0;
   info->default_height = 0.0;
   info->main_cp = -1;
+  info->object_flags = 0;
 
   i = 0;
   for (node = root->xmlChildrenNode; node != NULL; node = node->next) {
@@ -760,6 +779,8 @@ load_shape_info(const gchar *filename, ShapeInfo *preload)
       info->nconnections = arr->len;
       info->connections = (Point *)arr->data;
       g_array_free(arr, FALSE);
+    } else if (node->ns == shape_ns && !xmlStrcmp(node->name, (const xmlChar *)"can-parent")) {
+      info->object_flags |= DIA_OBJECT_CAN_PARENT;
     } else if (node->ns == shape_ns && !xmlStrcmp(node->name, (const xmlChar *)"textbox")) {
       xmlChar *str;
       

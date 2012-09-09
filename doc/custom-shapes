@@ -91,6 +91,10 @@ distorted.  The three possibilities are:
 The last option allows you to specify a range of allowable amounts of
 distortion, which may be useful in some cases.
 
+The can-parent element allows to enable parenting for a shape. This is
+only useful for rectangular shapes, which should work as a container
+of other shapes or objects. So typical shapes wont have it.
+
 The textbox element allows you to associate some text with
 the shape.  The syntax is:
   <textbox x1="left" y1="top" x2="right" y2="bottom"/>
@@ -178,9 +182,12 @@ The recognised drawing elements are:
   This is a polygon.  The points argument has the same format as the
   polyline.
 
-<svg:rect x1="..." y1="..." width="..." height="..."/>
+<svg:rect x1="..." y1="..." width="..." height="..." rx="..." ry="..."/>
   This is a rectangle.  The upper left corner is (x1,y1), and the lower
   right corner is (x1+width,y1+height).
+  To get rounded corners either rx or ry or both can be given for the
+  single supported corner radius. If both are given the average gets
+  used.
 
 <svg:image x1="..." y1="..." width="..." height="..." xlink:href="..." />
   This is an external image.  The upper left corner is (x1,y1), and the 

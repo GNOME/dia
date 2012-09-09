@@ -80,6 +80,7 @@ struct _GraphicElementPoly {
 struct _GraphicElementRect {
   SHAPE_INFO_COMMON;
   Point corner1, corner2;
+  real corner_radius;
 };
 
 struct _GraphicElementEllipse {
@@ -176,6 +177,7 @@ struct _ShapeInfo {
   int nconnections;
   Point *connections;
   int main_cp; /* The cp that gets connections from the whole object */
+  int object_flags;
   Rectangle shape_bounds;
   gboolean has_text;
   gboolean resize_with_text;

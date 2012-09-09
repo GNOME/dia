@@ -518,6 +518,24 @@ transform_length(Custom *custom, real length)
 }
 
 static void
+transform_size(Custom *custom, real w1, real h1, real *w2, real *h2)
+{
+  if (custom->current_subshape != NULL) {
+    GraphicElementSubShape* subshape = custom->current_subshape;
+    g_assert (custom->subscale > 0.0 && subshape->default_scale > 0.0);
+    if (w2)
+      *w2 = w1 * custom->subscale * subshape->default_scale;
+    if (h2)
+      *h2 = h1 * custom->subscale * subshape->default_scale;
+  } else {
+    if (w2)
+      *w2 = w1 * fabs(custom->xscale);
+    if (h2)
+      *h2 = h1 * fabs(custom->yscale);
+  }
+}
+
+static void
 transform_coord(Custom *custom, const Point *p1, Point *out)
 {
   if (custom->current_subshape != NULL) {
@@ -906,9 +924,11 @@ custom_draw_element(GraphicElement* el, Custom *custom, DiaRenderer *renderer,
 {
   DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Point p1, p2;
+  real width, height;
   real coord;
   int i;
-    
+  real radius;
+
   if (el->any.s.line_width != (*cur_line)) {
     (*cur_line) = el->any.s.line_width;
     renderer_ops->set_linewidth(renderer,
@@ -975,6 +995,7 @@ custom_draw_element(GraphicElement* el, Custom *custom, DiaRenderer *renderer,
   case GE_RECT:
     transform_coord(custom, &el->rect.corner1, &p1);
     transform_coord(custom, &el->rect.corner2, &p2);
+    radius = transform_length(custom, el->rect.corner_radius);
     if (p1.x > p2.x) {
       coord = p1.x;
       p1.x = p2.x;
@@ -985,10 +1006,11 @@ custom_draw_element(GraphicElement* el, Custom *custom, DiaRenderer *renderer,
       p1.y = p2.y;
       p2.y = coord;
     }
+    /* the renderer implementation will use simple rect with a small enough radius */
     if (custom->show_background && el->any.s.fill != DIA_SVG_COLOUR_NONE)
-      renderer_ops->fill_rect(renderer, &p1, &p2, bg);
+      renderer_ops->fill_rounded_rect(renderer, &p1, &p2, bg, radius);
     if (el->any.s.stroke != DIA_SVG_COLOUR_NONE)
-      renderer_ops->draw_rect(renderer, &p1, &p2, fg);
+      renderer_ops->draw_rounded_rect(renderer, &p1, &p2, fg, radius);
     break;
   case GE_TEXT:
     text_set_height (el->text.object, transform_length (custom, el->text.s.font_height));
@@ -999,23 +1021,19 @@ custom_draw_element(GraphicElement* el, Custom *custom, DiaRenderer *renderer,
     break;
   case GE_ELLIPSE:
     transform_coord(custom, &el->ellipse.center, &p1);
+    transform_size(custom, el->ellipse.width, el->ellipse.height, &width, &height);
     if (custom->show_background && el->any.s.fill != DIA_SVG_COLOUR_NONE)
-      renderer_ops->fill_ellipse(renderer, &p1,
-				   el->ellipse.width * fabs(custom->xscale),
-				   el->ellipse.height * fabs(custom->yscale),
-				   bg);
+      renderer_ops->fill_ellipse(renderer, &p1, width,  height, bg);
     if (el->any.s.stroke != DIA_SVG_COLOUR_NONE)
-      renderer_ops->draw_ellipse(renderer, &p1,
-				   el->ellipse.width * fabs(custom->xscale),
-				   el->ellipse.height * fabs(custom->yscale),
-				   fg);
+      renderer_ops->draw_ellipse(renderer, &p1, width, height, fg);
     break;
   case GE_IMAGE:
     transform_coord(custom, &el->image.topleft, &p1);
+    /* to scale correctly also for subshape some extra hoops */
+    transform_size(custom, el->image.width, el->image.height, &width, &height);
     renderer_ops->draw_image(renderer, &p1,
-			       el->image.width * fabs(custom->xscale),
-			       el->image.height * fabs(custom->yscale),
-			       el->image.image);
+			     width, height,
+			     el->image.image);
     break;
   case GE_PATH:
     g_array_set_size(barr, el->path.npoints);
@@ -1351,7 +1369,16 @@ custom_update_data(Custom *custom, AnchorShape horiz, AnchorShape vert)
   for (tmp = custom->info->display_list; tmp != NULL; tmp = tmp->next) {
     GraphicElement *el = tmp->data;
     Rectangle rect;
+    /* Line width handling/behavior for custom objects is special. Instead of
+     * directly using the given width some ratio with the shape global custom
+     * border_width gets calculated - to allow influencing all line width used
+     * in a complex shape (and not brea backward compatibility). With
     real lwfactor = custom->border_width / 2;
+     * we get traces in the diagram at high zoom levels, so use something more
+     * safe for the bounding box calculation     
+     */
+    real lwfactor = el->any.s.line_width == custom->border_width 
+                  ? 1.0 : custom->border_width;
 
     switch(el->type) {
     case GE_SUBSHAPE :
@@ -1540,7 +1567,7 @@ custom_create(Point *startpoint,
   custom = g_new0_ext (Custom, info->ext_attr_size);
   elem = &custom->element;
   obj = &elem->object;
-  
+
   obj->type = info->object_type;
 
   obj->ops = &custom_ops;
@@ -1552,6 +1579,8 @@ custom_create(Point *startpoint,
 
   custom->info = info;
   
+  obj->flags |= info->object_flags;
+
   custom->old_subscale = 1.0;
   custom->subscale = 1.0;
   custom->current_subshape = NULL;
@@ -1638,6 +1667,7 @@ custom_copy(Custom *custom)
 
   element_copy(elem, newelem);
   newcustom->info = custom->info;
+  newobj->flags = custom->element.object.flags;
 
   newcustom->padding = custom->padding;
   newcustom->current_subshape = NULL; /* it's temporary state, don't copy from wrong object */
