@@ -1263,6 +1263,12 @@ plugin_callback (GtkWidget *widget, gpointer data)
     if (change != NULL) {
       if (ddisp) {
         undo_object_change(ddisp->diagram, NULL, change);
+	/*
+	 * - can not call object_add_update() w/o object
+	 * - could call object_add_updates_list() with the selected objects,
+	 *   but that would just be an educated guess (layout working on selection)
+	 */
+	diagram_add_update_all(ddisp->diagram);
         diagram_modified(ddisp->diagram);
         diagram_update_extents(ddisp->diagram);
         undo_set_transactionpoint(ddisp->diagram->undo);
