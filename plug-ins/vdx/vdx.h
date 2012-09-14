@@ -78,13 +78,13 @@ static const ArrowType vdx_Arrows[] = { ARROW_NONE,
 #define DEG_TO_RAD M_PI/180.0                  /* Degrees to radians */
 
 Color
-vdx_parse_color(const char *s, const VDXDocument *theDoc);
+vdx_parse_color(const char *s, const VDXDocument *theDoc, DiaContext *ctx);
 
 const char *
 vdx_string_color(const Color c);
 
 void *
-vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p);
+vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p, DiaContext *ctx);
 
 void
 vdx_write_object(FILE *file, unsigned int depth, const void *p);

@@ -39,7 +39,6 @@
 #include <locale.h>
 
 #include "intl.h"
-#include "message.h"
 #include "geometry.h"
 #include "filter.h"
 #include "object.h"
@@ -55,11 +54,11 @@
 #include "bezier_conn.h"
 #include "connection.h"
 
-void static vdx_get_colors(xmlNodePtr cur, VDXDocument* theDoc);
-void static vdx_get_facenames(xmlNodePtr cur, VDXDocument* theDoc);
-void static vdx_get_fonts(xmlNodePtr cur, VDXDocument* theDoc);
-void static vdx_get_masters(xmlNodePtr cur, VDXDocument* theDoc);
-void static vdx_get_stylesheets(xmlNodePtr cur, VDXDocument* theDoc);
+void static vdx_get_colors(xmlNodePtr cur, VDXDocument* theDoc, DiaContext *ctx);
+void static vdx_get_facenames(xmlNodePtr cur, VDXDocument* theDoc, DiaContext *ctx);
+void static vdx_get_fonts(xmlNodePtr cur, VDXDocument* theDoc, DiaContext *ctx);
+void static vdx_get_masters(xmlNodePtr cur, VDXDocument* theDoc, DiaContext *ctx);
+void static vdx_get_stylesheets(xmlNodePtr cur, VDXDocument* theDoc, DiaContext *ctx);
 void static vdx_free(VDXDocument *theDoc);
 
 /* Note: we can hold pointers to parts of the parsed XML during import, but
@@ -125,12 +124,14 @@ create_standard_line(Point *points,
 /** Creates a beziergon with cusp corners
  * @param num_points number of points
  * @param points array of points
- * @returns A Standard - Beziergon object
+ * @param ctx to accummulate warning/error messages
+ * @return A Standard - Beziergon object
  */
-
 static DiaObject *
 create_vdx_beziergon(int num_points,
-                     BezPoint *points) {
+                     BezPoint *points,
+                     DiaContext *ctx)
+{
     DiaObjectType *otype = object_get_type("Standard - Beziergon");
     DiaObject *new_obj;
     Handle *h1, *h2;
@@ -140,7 +141,7 @@ create_vdx_beziergon(int num_points,
 
 
     if (otype == NULL){
-	message_error(_("Can't find standard object"));
+	dia_context_add_message(ctx, _("Can't find standard object"));
 	return NULL;
     }
 
@@ -189,11 +190,11 @@ static PropDescription vdx_text_descs[] = {
 /** Turns a VDX colour definition into a Dia Color.
  * @param s a string from the VDX
  * @param theDoc the current document (with its colour table)
- * @returns A Dia Color object
+ * @param ctx the context for error/warning messages
+ * @return A Dia Color object
  */
-
 Color
-vdx_parse_color(const char *s, const VDXDocument *theDoc)
+vdx_parse_color(const char *s, const VDXDocument *theDoc, DiaContext *ctx)
 {
     int colorvalues;
     Color c = {0, 0, 0, 0};
@@ -218,7 +219,7 @@ vdx_parse_color(const char *s, const VDXDocument *theDoc)
     /* Colour 0 is always black, so don't warn (OmniGraffle) */
     if (*s != '0')
     {
-        message_warning(_("Couldn't read color: %s\n"), s);
+        dia_context_add_message(ctx, _("Couldn't read color: %s\n"), s);
         g_debug("Couldn't read color: %s", s);
     }
     return c;
@@ -227,10 +228,10 @@ vdx_parse_color(const char *s, const VDXDocument *theDoc)
 /** Reads the colour table from the start of a VDX document
  * @param cur the current XML node
  * @param theDoc the current document (with its colour table)
+ * @param ctx the context for error/warning messages
  */
-
 static void
-vdx_get_colors(xmlNodePtr cur, VDXDocument* theDoc)
+vdx_get_colors(xmlNodePtr cur, VDXDocument* theDoc, DiaContext *ctx)
 {
     xmlNodePtr ColorEntry;
     theDoc->Colors = g_array_new(FALSE, TRUE, sizeof (Color));
@@ -242,9 +243,9 @@ vdx_get_colors(xmlNodePtr cur, VDXDocument* theDoc)
 
         if (xmlIsBlankNode(ColorEntry)) { continue; }
 
-        vdx_read_object(ColorEntry, theDoc, &temp_ColorEntry);
+        vdx_read_object(ColorEntry, theDoc, &temp_ColorEntry, ctx);
         /* Just in case Color entries aren't consecutive starting at 0 */
-        color = vdx_parse_color(temp_ColorEntry.RGB, theDoc);
+        color = vdx_parse_color(temp_ColorEntry.RGB, theDoc, ctx);
         if (theDoc->Colors->len <= temp_ColorEntry.IX)
         {
             theDoc->Colors =
@@ -258,10 +259,10 @@ vdx_get_colors(xmlNodePtr cur, VDXDocument* theDoc)
 /** Reads the face table from the start of a VDX document
  * @param cur the current XML node
  * @param theDoc the current document
+ * @param ctx the context for error/warning messages
  */
-
 static void
-vdx_get_facenames(xmlNodePtr cur, VDXDocument* theDoc)
+vdx_get_facenames(xmlNodePtr cur, VDXDocument* theDoc, DiaContext *ctx)
 {
     xmlNodePtr Face;
     theDoc->FaceNames =
@@ -272,7 +273,7 @@ vdx_get_facenames(xmlNodePtr cur, VDXDocument* theDoc)
 
         if (xmlIsBlankNode(Face)) { continue; }
 
-        vdx_read_object(Face, theDoc, &FaceName);
+        vdx_read_object(Face, theDoc, &FaceName, ctx);
         /* FaceNames need not be numbered consecutively, or start at 0,
            so make room for the new one in the array */
         if (theDoc->FaceNames->len <= FaceName.ID)
@@ -288,10 +289,10 @@ vdx_get_facenames(xmlNodePtr cur, VDXDocument* theDoc)
 /** Reads the font table from the start of a VDX document
  * @param cur the current XML node
  * @param theDoc the current document
+ * @param ctx the context for error/warning messages
  */
-
 static void
-vdx_get_fonts(xmlNodePtr cur, VDXDocument* theDoc)
+vdx_get_fonts(xmlNodePtr cur, VDXDocument* theDoc, DiaContext *ctx)
 {
     xmlNodePtr Font;
     theDoc->Fonts = g_array_new(FALSE, FALSE, sizeof (struct vdx_FontEntry));
@@ -301,7 +302,7 @@ vdx_get_fonts(xmlNodePtr cur, VDXDocument* theDoc)
 
         if (xmlIsBlankNode(Font)) { continue; }
 
-        vdx_read_object(Font, theDoc, &FontEntry);
+        vdx_read_object(Font, theDoc, &FontEntry, ctx);
         /* Defensive, in case Fonts are sometimes not consecutive from 0 */
         if (theDoc->Fonts->len <= FontEntry.ID)
         {
@@ -315,10 +316,10 @@ vdx_get_fonts(xmlNodePtr cur, VDXDocument* theDoc)
 /** Reads the masters table from the start of a VDX document
  * @param cur the current XML node
  * @param theDoc the current document
+ * @param ctx the context for error/warning messages
  */
-
 static void
-vdx_get_masters(xmlNodePtr cur, VDXDocument* theDoc)
+vdx_get_masters(xmlNodePtr cur, VDXDocument* theDoc, DiaContext *ctx)
 {
     xmlNodePtr Master;
     theDoc->Masters = g_array_new (FALSE, TRUE,
@@ -330,7 +331,7 @@ vdx_get_masters(xmlNodePtr cur, VDXDocument* theDoc)
 
         if (xmlIsBlankNode(Master)) { continue; }
 
-        vdx_read_object(Master, theDoc, &newMaster);
+        vdx_read_object(Master, theDoc, &newMaster, ctx);
         /* Masters need not be numbered consecutively,
            so make room for the new one in the array */
         if (theDoc->Masters->len <= newMaster.ID)
@@ -346,10 +347,10 @@ vdx_get_masters(xmlNodePtr cur, VDXDocument* theDoc)
 /** Reads the stylesheet table from the start of a VDX document
  * @param cur the current XML node
  * @param theDoc the current document
+ * @param ctx the context for error/warning messages
  */
-
 static void
-vdx_get_stylesheets(xmlNodePtr cur, VDXDocument* theDoc)
+vdx_get_stylesheets(xmlNodePtr cur, VDXDocument* theDoc, DiaContext *ctx)
 {
     xmlNodePtr StyleSheet;
     theDoc->StyleSheets = g_array_new (FALSE, TRUE,
@@ -361,7 +362,7 @@ vdx_get_stylesheets(xmlNodePtr cur, VDXDocument* theDoc)
 
         if (xmlIsBlankNode(StyleSheet)) { continue; }
 
-        vdx_read_object(StyleSheet, theDoc, &newSheet);
+        vdx_read_object(StyleSheet, theDoc, &newSheet, ctx);
         /* StyleSheets need not be numbered consecutively,
            so make room for the new one in the array */
         if (theDoc->StyleSheets->len <= newSheet.ID)
@@ -494,10 +495,11 @@ get_style_child(unsigned int type, unsigned int style, VDXDocument* theDoc)
  * @param id shape id (0 for first, as no shape has id 0)
  * @param Shapes shape list
  * @param depth only print warning at top level
- * @returns The Shape or NULL
+ * @param ctx to accummulate warning/error messages
+ * @return The Shape or NULL
  */
 static struct vdx_Shape *
-get_shape_by_id(unsigned int id, struct vdx_Shapes *Shapes, unsigned int depth)
+get_shape_by_id(unsigned int id, struct vdx_Shapes *Shapes, unsigned int depth, DiaContext *ctx)
 {
     struct vdx_Shape *Shape;
     struct vdx_Shapes *SubShapes;
@@ -524,14 +526,14 @@ get_shape_by_id(unsigned int id, struct vdx_Shapes *Shapes, unsigned int depth)
                                                         Shape);
             if (SubShapes)
             {
-                Shape = get_shape_by_id(id, SubShapes, depth+1);
+                Shape = get_shape_by_id(id, SubShapes, depth+1, ctx);
                 if (Shape) return Shape;
             }
         }
     }
     if (!depth)
     {
-        message_error(_("Couldn't find shape %d\n"), id);
+        dia_context_add_message(ctx, _("Couldn't find shape %d\n"), id);
         g_debug("Couldn't find shape %d", id);
     }
     return 0;
@@ -542,10 +544,11 @@ get_shape_by_id(unsigned int id, struct vdx_Shapes *Shapes, unsigned int depth)
  * @param master the master number
  * @param shape the mastershape number
  * @param theDoc the document
- * @returns The master's shape child
+ * @param ctx to accummulate warning/error messages
+ * @return The master's shape child
  */
 static struct vdx_Shape *
-get_master_shape(unsigned int master, unsigned int shape, VDXDocument* theDoc)
+get_master_shape(unsigned int master, unsigned int shape, VDXDocument* theDoc, DiaContext *ctx)
 {
     struct vdx_Master theMaster;
     struct vdx_Shapes *Shapes;
@@ -564,7 +567,7 @@ get_master_shape(unsigned int master, unsigned int shape, VDXDocument* theDoc)
     Shapes = find_child(vdx_types_Shapes, &theMaster);
     if (!Shapes) return NULL;
 
-    return get_shape_by_id(shape, Shapes,0);
+    return get_shape_by_id(shape, Shapes, 0, ctx);
 }
 
 /** Convert a Visio point to a Dia one
@@ -598,13 +601,13 @@ dia_length(double length, const VDXDocument* theDoc)
  * @param Fill any fill
  * @param Line any line
  * @param theDoc the document
- * @bug dash length not yet done - much other work needed
+ * @param ctx the context for error/warning messages
+ * @todo dash length not yet done - much other work needed
  */
-
 static void
 vdx_simple_properties(DiaObject *obj,
                       const struct vdx_Fill *Fill, const struct vdx_Line *Line,
-                      const VDXDocument* theDoc)
+                      const VDXDocument* theDoc, DiaContext *ctx)
 {
     GPtrArray *props = g_ptr_array_new ();
     unsigned int debug_id;
@@ -619,7 +622,7 @@ vdx_simple_properties(DiaObject *obj,
 	color.alpha = 1.0 - Line->LineColorTrans;
 
         if (!Line->LinePattern)
-	    color = vdx_parse_color("#FFFFFF", theDoc);
+	    color = vdx_parse_color("#FFFFFF", theDoc, ctx);
 
         prop_list_add_line_colour (props, &color);
 
@@ -816,13 +819,13 @@ make_arrow(const struct vdx_Line *Line, char start_end,
  * @param Fill any fill
  * @param Line any line
  * @param theDoc the document
- * @returns the new object
+ * @param ctx the context for error/warning messages
+ * @return the new object
  */
-
 static DiaObject *
 plot_polyline(const struct vdx_Geom *Geom, const struct vdx_XForm *XForm,
               const struct vdx_Fill *Fill, const struct vdx_Line *Line,
-              VDXDocument* theDoc, const GSList **more, Point *current)
+              VDXDocument* theDoc, const GSList **more, Point *current, DiaContext *ctx)
 {
     DiaObject *newobj = NULL;
     const GSList *item;
@@ -958,7 +961,7 @@ plot_polyline(const struct vdx_Geom *Geom, const struct vdx_XForm *XForm,
         }
     }
     if (newobj)
-        vdx_simple_properties(newobj, Fill, Line, theDoc);
+        vdx_simple_properties(newobj, Fill, Line, theDoc, ctx);
     g_free(end_arrow_p);
     g_free(start_arrow_p);
     return newobj;
@@ -970,13 +973,13 @@ plot_polyline(const struct vdx_Geom *Geom, const struct vdx_XForm *XForm,
  * @param Fill any fill
  * @param Line any line
  * @param theDoc the document
- * @returns the new object
+ * @param ctx the context for error/warning messages
+ * @return the new object
  */
-
 static DiaObject *
 plot_ellipse(const struct vdx_Geom *Geom, const struct vdx_XForm *XForm,
              const struct vdx_Fill *Fill, const struct vdx_Line *Line,
-             VDXDocument* theDoc, const GSList **more, Point *current)
+             VDXDocument* theDoc, const GSList **more, Point *current, DiaContext *ctx)
 {
     DiaObject *newobj = NULL;
     const GSList *item;
@@ -1006,7 +1009,7 @@ plot_ellipse(const struct vdx_Geom *Geom, const struct vdx_XForm *XForm,
     }
     else
     {
-        message_error(_("Unexpected Ellipse object: %s\n"),
+        dia_context_add_message(ctx, _("Unexpected Ellipse object: %s\n"),
                       vdx_Types[(unsigned int)Any->type]);
         g_debug("Unexpected Ellipse object: %s",
                 vdx_Types[(unsigned int)Any->type]);
@@ -1020,13 +1023,13 @@ plot_ellipse(const struct vdx_Geom *Geom, const struct vdx_XForm *XForm,
 
     p = dia_point(apply_XForm(*current, XForm), theDoc);
     if (fabs(XForm->Angle > EPSILON))
-	message_error(_("Can't rotate ellipse\n"));
+	dia_context_add_message(ctx, _("Can't rotate ellipse\n"));
 
     newobj =
         create_standard_ellipse(p.x, p.y, dia_length(Ellipse->A, theDoc),
                                 dia_length(Ellipse->D, theDoc));
 
-    vdx_simple_properties(newobj, Fill, Line, theDoc);
+    vdx_simple_properties(newobj, Fill, Line, theDoc, ctx);
 
     return newobj;
 }
@@ -1311,13 +1314,13 @@ ellipticalarc_to_bezier(Point p0, Point p3, Point p4, double C, double D,
  * @param Fill any fill
  * @param Line any line
  * @param theDoc the document
- * @returns the new object
+ * @param ctx the context for error/warning messages
+ * @return the new object
  */
-
 static DiaObject *
 plot_bezier(const struct vdx_Geom *Geom, const struct vdx_XForm *XForm,
             const struct vdx_Fill *Fill, const struct vdx_Line *Line,
-            VDXDocument* theDoc, const GSList **more, Point *current)
+            VDXDocument* theDoc, const GSList **more, Point *current, DiaContext *ctx)
 {
     DiaObject *newobj = NULL;
     const GSList *item;
@@ -1351,7 +1354,7 @@ plot_bezier(const struct vdx_Geom *Geom, const struct vdx_XForm *XForm,
         Any = (struct vdx_any *)(item->data);
         if (Any->type != vdx_types_MoveTo && ! num_points)
         {
-            message_error(_("MoveTo not at start of Bezier\n"));
+            dia_context_add_message(ctx, _("MoveTo not at start of Bezier\n"));
             g_debug("MoveTo not at start of Bezier");
             *more = 0; /* FIXME */
             return 0;
@@ -1473,7 +1476,7 @@ plot_bezier(const struct vdx_Geom *Geom, const struct vdx_XForm *XForm,
         }
         else
         {
-            newobj = create_vdx_beziergon(num_points, bezpoints);
+            newobj = create_vdx_beziergon(num_points, bezpoints, ctx);
         }
     }
     else
@@ -1521,7 +1524,7 @@ plot_bezier(const struct vdx_Geom *Geom, const struct vdx_XForm *XForm,
     }
     g_free(bezpoints);
     if (newobj)
-        vdx_simple_properties(newobj, Fill, Line, theDoc);
+        vdx_simple_properties(newobj, Fill, Line, theDoc, ctx);
     g_free(end_arrow_p);
     g_free(start_arrow_p);
     return newobj;
@@ -1626,13 +1629,13 @@ NURBS_C(unsigned int k, float u, unsigned int n,
  * @param Fill any fill
  * @param Line any line
  * @param theDoc the document
- * @returns the new object
+ * @param ctx the context for error/warning messages
+ * @return the new object
  */
-
 static DiaObject *
 plot_nurbs(const struct vdx_Geom *Geom, const struct vdx_XForm *XForm,
            const struct vdx_Fill *Fill, const struct vdx_Line *Line,
-           VDXDocument* theDoc, const GSList **more, Point *current)
+           VDXDocument* theDoc, const GSList **more, Point *current, DiaContext *ctx)
 {
     DiaObject *newobj = NULL;
     const GSList *item, *item2;
@@ -1701,7 +1704,7 @@ plot_nurbs(const struct vdx_Geom *Geom, const struct vdx_XForm *XForm,
         }
         if (n % 4 || ! n)
         {
-            message_error(_("Invalid NURBS formula"));
+            dia_context_add_message(ctx, _("Invalid NURBS formula"));
             g_debug("Invalid NURBS formula");
             return 0;
         }
@@ -1842,11 +1845,11 @@ plot_nurbs(const struct vdx_Geom *Geom, const struct vdx_XForm *XForm,
                         vdx_Types[(unsigned int)Any->type]);
             if (Any->type == vdx_types_LineTo)
                 return plot_polyline(Geom, XForm, Fill, Line, theDoc, more,
-                                     current);
+                                     current, ctx);
             if (Any->type == vdx_types_EllipticalArcTo ||
                 Any->type == vdx_types_ArcTo)
                 return plot_bezier(Geom, XForm, Fill, Line, theDoc,
-                                   more, current);
+                                   more, current, ctx);
             return 0;
         }
     }
@@ -1919,7 +1922,7 @@ plot_nurbs(const struct vdx_Geom *Geom, const struct vdx_XForm *XForm,
     g_free(weight);
     g_free(knot);
 
-    vdx_simple_properties(newobj, Fill, Line, theDoc);
+    vdx_simple_properties(newobj, Fill, Line, theDoc, ctx);
     return newobj;
 }
 
@@ -1929,14 +1932,14 @@ plot_nurbs(const struct vdx_Geom *Geom, const struct vdx_XForm *XForm,
  * @param Foreign the object location
  * @param ForeignData the object
  * @param theDoc the document
- * @returns the new object
+ * @param ctx the context for error/warning messages
+ * @return the new object
  */
-
 static DiaObject *
 plot_image(const struct vdx_Geom *Geom, const struct vdx_XForm *XForm,
            const struct vdx_Foreign *Foreign,
            const struct vdx_ForeignData *ForeignData,
-           VDXDocument* theDoc, const GSList **more, Point *current)
+           VDXDocument* theDoc, const GSList **more, Point *current, DiaContext *ctx)
 {
     DiaObject *newobj = NULL;
 
@@ -1959,7 +1962,7 @@ plot_image(const struct vdx_Geom *Geom, const struct vdx_XForm *XForm,
         }
         else
         {
-            message_error(_("Couldn't handle foreign object type %s"),
+            dia_context_add_message(ctx, _("Couldn't handle foreign object type %s"),
                           ForeignData->ForeignType ? ForeignData->ForeignType
                           : "Unknown");
             return 0;
@@ -2025,7 +2028,8 @@ plot_geom(const struct vdx_Geom *Geom, const struct vdx_XForm *XForm,
           const struct vdx_Fill *Fill, const struct vdx_Line *Line,
           const struct vdx_Foreign *Foreign,
           const struct vdx_ForeignData *ForeignData,
-          VDXDocument* theDoc, const GSList **more, Point *current)
+          VDXDocument* theDoc, const GSList **more, Point *current,
+          DiaContext *ctx)
 {
     const GSList *item;
     gboolean all_lines = TRUE;  /* Flag for line/polyline */
@@ -2117,21 +2121,20 @@ plot_geom(const struct vdx_Geom *Geom, const struct vdx_XForm *XForm,
     case vdx_dia_line:
     case vdx_dia_polyline:
     case vdx_dia_polygon:
-        return plot_polyline(Geom, XForm, Fill, Line, theDoc, more, current);
+        return plot_polyline(Geom, XForm, Fill, Line, theDoc, more, current, ctx);
         break;
     case vdx_dia_ellipse:
-        return plot_ellipse(Geom, XForm, Fill, Line, theDoc, more, current);
+        return plot_ellipse(Geom, XForm, Fill, Line, theDoc, more, current, ctx);
         break;
     case vdx_dia_beziergon:
     case vdx_dia_bezier:
-        return plot_bezier(Geom, XForm, Fill, Line, theDoc, more, current);
+        return plot_bezier(Geom, XForm, Fill, Line, theDoc, more, current, ctx);
         break;
     case vdx_dia_image:
-        return plot_image(Geom, XForm, Foreign, ForeignData, theDoc, more,
-            current);
+        return plot_image(Geom, XForm, Foreign, ForeignData, theDoc, more, current, ctx);
         break;
     case vdx_dia_nurbs:
-        return plot_nurbs(Geom, XForm, Fill, Line, theDoc, more, current);
+        return plot_nurbs(Geom, XForm, Fill, Line, theDoc, more, current, ctx);
         break;
     default:
         g_debug("Not yet implemented");
@@ -2317,13 +2320,13 @@ plot_text(const struct vdx_Text *Text, const struct vdx_XForm *XForm,
  * @param objects list of plotted objects
  * @param group_XForm a transform to apply to all objects, or NULL
  * @param theDoc the document
- * @returns list of objects to add
+ * @param ctx the context for error/warning messages
+ * @return list of objects to add
  */
-
 static GSList *
 vdx_plot_shape(struct vdx_Shape *Shape, GSList *objects,
                struct vdx_XForm* group_XForm,
-               VDXDocument* theDoc)
+               VDXDocument* theDoc, DiaContext *ctx)
 {
     struct vdx_Fill *Fill = 0;
     struct vdx_Fill *ShapeFill = 0;
@@ -2387,12 +2390,12 @@ vdx_plot_shape(struct vdx_Shape *Shape, GSList *objects,
         if (Shape->MasterShape_exists)
         {
             MasterShape = get_master_shape(Shape->Master, Shape->MasterShape,
-                                           theDoc);
+                                           theDoc, ctx);
         }
         else
         {
             /* Get the first shape and use that */
-            MasterShape = get_master_shape(Shape->Master, 0, theDoc);
+            MasterShape = get_master_shape(Shape->Master, 0, theDoc, ctx);
         }
 
         if (MasterShape)
@@ -2520,7 +2523,7 @@ vdx_plot_shape(struct vdx_Shape *Shape, GSList *objects,
                 }
                 if (theDoc->debug_comments)
                     g_debug("Child shape %d", theShape->ID);
-                members = vdx_plot_shape(theShape, members, XForm, theDoc);
+                members = vdx_plot_shape(theShape, members, XForm, theDoc, ctx);
             }
         }
         for (child = members; child; child = child->next)
@@ -2545,7 +2548,7 @@ vdx_plot_shape(struct vdx_Shape *Shape, GSList *objects,
         {
 	    DiaObject *object = plot_geom(Geom, XForm, XForm1D, Fill, Line,
                                           Foreign, ForeignData, theDoc, &more,
-                                          &current);
+                                          &current, ctx);
             /* object can be NULL for Text */
 	    if (object)
 	    {
@@ -2587,11 +2590,11 @@ vdx_plot_shape(struct vdx_Shape *Shape, GSList *objects,
  * @param PageSheet the page property sheet
  * @param theDoc the document
  * @param dia the growing diagram
+ * @param ctx the context for error/warning messages
  */
-
 static void
 vdx_parse_shape(xmlNodePtr Shape, struct vdx_PageSheet *PageSheet,
-                VDXDocument* theDoc, DiagramData *dia)
+                VDXDocument* theDoc, DiagramData *dia, DiaContext *ctx)
 {
     /* All decoding is done in Visio-space */
     struct vdx_Shape theShape = { {0, }, };
@@ -2612,7 +2615,7 @@ vdx_parse_shape(xmlNodePtr Shape, struct vdx_PageSheet *PageSheet,
         theShape.FillStyle = PageSheet->FillStyle;
         theShape.LineStyle = PageSheet->LineStyle;
     }
-    vdx_read_object(Shape, theDoc, &theShape);
+    vdx_read_object(Shape, theDoc, &theShape, ctx);
 
     /* Avoid very bad shapes */
     if (!theShape.Type)
@@ -2664,7 +2667,7 @@ vdx_parse_shape(xmlNodePtr Shape, struct vdx_PageSheet *PageSheet,
     diaLayer = (Layer *)g_ptr_array_index(dia->layers, dia_layer_num);
 
     /* Draw the shape (or group) and get list of created objects */
-    objects = vdx_plot_shape(&theShape, objects, 0, theDoc);
+    objects = vdx_plot_shape(&theShape, objects, 0, theDoc, ctx);
 
     /* Add the objects straight into the diagram */
     /* This isn't strictly correct as a child object can be on a
@@ -2759,10 +2762,10 @@ vdx_setup_layers(struct vdx_PageSheet* PageSheet, VDXDocument* theDoc,
  * @param cur current XML node
  * @param theDoc the document
  * @param dia the growing diagram
+ * @param ctx the context for error/warning messages
  */
-
 static void
-vdx_get_pages(xmlNodePtr cur, VDXDocument* theDoc, DiagramData *dia)
+vdx_get_pages(xmlNodePtr cur, VDXDocument* theDoc, DiagramData *dia, DiaContext *ctx)
 {
     xmlNodePtr Page;
     xmlNodePtr Shapes;
@@ -2780,7 +2783,7 @@ vdx_get_pages(xmlNodePtr cur, VDXDocument* theDoc, DiagramData *dia)
             xmlNodePtr Shape;
             if (xmlIsBlankNode(Shapes)) { continue; }
             if (!strcmp((char *)Shapes->name, "PageSheet")) {
-                vdx_read_object(Shapes, theDoc, &PageSheet);
+                vdx_read_object(Shapes, theDoc, &PageSheet, ctx);
                 vdx_setup_layers(&PageSheet, theDoc, dia);
                 continue;
             }
@@ -2792,7 +2795,7 @@ vdx_get_pages(xmlNodePtr cur, VDXDocument* theDoc, DiagramData *dia)
             for (Shape = Shapes->xmlChildrenNode; Shape; Shape=Shape->next)
             {
                 if (xmlIsBlankNode(Shape)) { continue; }
-                vdx_parse_shape(Shape, &PageSheet, theDoc, dia);
+                vdx_parse_shape(Shape, &PageSheet, theDoc, dia, ctx);
             }
         }
         for (attr = Page->properties; attr; attr = attr->next)
@@ -2942,12 +2945,12 @@ import_vdx(const gchar *filename, DiagramData *dia, DiaContext *ctx, void* user_
     {
         if (xmlIsBlankNode(cur)) { continue; }
         s = (const char *)cur->name;
-        if (!strcmp(s, "Colors")) vdx_get_colors(cur, theDoc);
-        if (!strcmp(s, "FaceNames")) vdx_get_facenames(cur, theDoc);
-        if (!strcmp(s, "Fonts")) vdx_get_fonts(cur, theDoc);
-        if (!strcmp(s, "Masters")) vdx_get_masters(cur, theDoc);
-        if (!strcmp(s, "StyleSheets")) vdx_get_stylesheets(cur, theDoc);
-        if (!strcmp(s, "Pages")) vdx_get_pages(cur, theDoc, dia);
+        if (!strcmp(s, "Colors")) vdx_get_colors(cur, theDoc, ctx);
+        if (!strcmp(s, "FaceNames")) vdx_get_facenames(cur, theDoc, ctx);
+        if (!strcmp(s, "Fonts")) vdx_get_fonts(cur, theDoc, ctx);
+        if (!strcmp(s, "Masters")) vdx_get_masters(cur, theDoc, ctx);
+        if (!strcmp(s, "StyleSheets")) vdx_get_stylesheets(cur, theDoc, ctx);
+        if (!strcmp(s, "Pages")) vdx_get_pages(cur, theDoc, dia, ctx);
         /* if (!theDoc->ok) break; */
     }
 

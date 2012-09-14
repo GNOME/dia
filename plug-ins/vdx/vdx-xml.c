@@ -45,11 +45,11 @@
  * @param cur the current XML node
  * @param theDoc the current document (with its colour table)
  * @param p a pointer to the storage to use, or NULL to allocate some
- * @returns An internal representation, or NULL if unknown
+ * @param ctx the context for error/warning messages
+ * @return an internal representation, or NULL if unknown
  */
-
 void *
-vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
+vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p, DiaContext *ctx)
 {
     xmlNodePtr child;
     xmlAttrPtr attr;
@@ -108,7 +108,7 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
                 s->TagName = atoi((char *)child->children->content); }
             else s->any.children =
                      g_slist_append(s->any.children,
-                                    vdx_read_object(child, theDoc, 0));
+                                    vdx_read_object(child, theDoc, 0, ctx));
         }
         return s;
     }
@@ -143,7 +143,7 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
                 s->AlignTop = atof((char *)child->children->content); }
             else s->any.children =
                      g_slist_append(s->any.children,
-                                    vdx_read_object(child, theDoc, 0));
+                                    vdx_read_object(child, theDoc, 0, ctx));
         }
         return s;
     }
@@ -175,7 +175,7 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
                 s->Y = atof((char *)child->children->content); }
             else s->any.children =
                      g_slist_append(s->any.children,
-                                    vdx_read_object(child, theDoc, 0));
+                                    vdx_read_object(child, theDoc, 0, ctx));
         }
         return s;
     }
@@ -204,7 +204,7 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
                 s->Case = atoi((char *)child->children->content); }
             else if (!strcmp((char *)child->name, "Color"))
             { if (child->children && child->children->content)
-                s->Color = vdx_parse_color((char *)child->children->content, theDoc); }
+                s->Color = vdx_parse_color((char *)child->children->content, theDoc, ctx); }
             else if (!strcmp((char *)child->name, "ColorTrans"))
             { if (child->children && child->children->content)
                 s->ColorTrans = atof((char *)child->children->content); }
@@ -267,7 +267,7 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
                 s->UseVertical = atoi((char *)child->children->content); }
             else s->any.children =
                      g_slist_append(s->any.children,
-                                    vdx_read_object(child, theDoc, 0));
+                                    vdx_read_object(child, theDoc, 0, ctx));
         }
         return s;
     }
@@ -290,7 +290,7 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
             if (xmlIsBlankNode(child)) { continue; }
             else s->any.children =
                      g_slist_append(s->any.children,
-                                    vdx_read_object(child, theDoc, 0));
+                                    vdx_read_object(child, theDoc, 0, ctx));
         }
         return s;
     }
@@ -310,7 +310,7 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
                 s->ColorEntry = atoi((char *)child->children->content); }
             else s->any.children =
                      g_slist_append(s->any.children,
-                                    vdx_read_object(child, theDoc, 0));
+                                    vdx_read_object(child, theDoc, 0, ctx));
         }
         return s;
     }
@@ -349,7 +349,7 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
             if (xmlIsBlankNode(child)) { continue; }
             else s->any.children =
                      g_slist_append(s->any.children,
-                                    vdx_read_object(child, theDoc, 0));
+                                    vdx_read_object(child, theDoc, 0, ctx));
         }
         return s;
     }
@@ -396,7 +396,7 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
                 s->Y = atof((char *)child->children->content); }
             else s->any.children =
                      g_slist_append(s->any.children,
-                                    vdx_read_object(child, theDoc, 0));
+                                    vdx_read_object(child, theDoc, 0, ctx));
         }
         return s;
     }
@@ -416,7 +416,7 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
                 s->Connect = atoi((char *)child->children->content); }
             else s->any.children =
                      g_slist_append(s->any.children,
-                                    vdx_read_object(child, theDoc, 0));
+                                    vdx_read_object(child, theDoc, 0, ctx));
         }
         return s;
     }
@@ -466,7 +466,7 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
                 s->YDyn = atof((char *)child->children->content); }
             else s->any.children =
                      g_slist_append(s->any.children,
-                                    vdx_read_object(child, theDoc, 0));
+                                    vdx_read_object(child, theDoc, 0, ctx));
         }
         return s;
     }
@@ -489,7 +489,7 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
             if (xmlIsBlankNode(child)) { continue; }
             else s->any.children =
                      g_slist_append(s->any.children,
-                                    vdx_read_object(child, theDoc, 0));
+                                    vdx_read_object(child, theDoc, 0, ctx));
         }
         return s;
     }
@@ -509,7 +509,7 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
                 s->CustomProp = (char *)child->children->content; }
             else s->any.children =
                      g_slist_append(s->any.children,
-                                    vdx_read_object(child, theDoc, 0));
+                                    vdx_read_object(child, theDoc, 0, ctx));
         }
         return s;
     }
@@ -547,7 +547,7 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
                 s->ViewMarkup = atoi((char *)child->children->content); }
             else s->any.children =
                      g_slist_append(s->any.children,
-                                    vdx_read_object(child, theDoc, 0));
+                                    vdx_read_object(child, theDoc, 0, ctx));
         }
         return s;
     }
@@ -603,7 +603,7 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
                 s->Title = (char *)child->children->content; }
             else s->any.children =
                      g_slist_append(s->any.children,
-                                    vdx_read_object(child, theDoc, 0));
+                                    vdx_read_object(child, theDoc, 0, ctx));
         }
         return s;
     }
@@ -664,7 +664,7 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
                 s->SnapSettings = atoi((char *)child->children->content); }
             else s->any.children =
                      g_slist_append(s->any.children,
-                                    vdx_read_object(child, theDoc, 0));
+                                    vdx_read_object(child, theDoc, 0, ctx));
         }
         return s;
     }
@@ -699,7 +699,7 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
             if (xmlIsBlankNode(child)) { continue; }
             else s->any.children =
                      g_slist_append(s->any.children,
-                                    vdx_read_object(child, theDoc, 0));
+                                    vdx_read_object(child, theDoc, 0, ctx));
         }
         return s;
     }
@@ -737,7 +737,7 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
                 s->Y = atof((char *)child->children->content); }
             else s->any.children =
                      g_slist_append(s->any.children,
-                                    vdx_read_object(child, theDoc, 0));
+                                    vdx_read_object(child, theDoc, 0, ctx));
         }
         return s;
     }
@@ -775,7 +775,7 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
                 s->Y = atof((char *)child->children->content); }
             else s->any.children =
                      g_slist_append(s->any.children,
-                                    vdx_read_object(child, theDoc, 0));
+                                    vdx_read_object(child, theDoc, 0, ctx));
         }
         return s;
     }
@@ -807,7 +807,7 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
                 s->TheText = atoi((char *)child->children->content); }
             else s->any.children =
                      g_slist_append(s->any.children,
-                                    vdx_read_object(child, theDoc, 0));
+                                    vdx_read_object(child, theDoc, 0, ctx));
         }
         return s;
     }
@@ -843,7 +843,7 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
             if (xmlIsBlankNode(child)) { continue; }
             else s->any.children =
                      g_slist_append(s->any.children,
-                                    vdx_read_object(child, theDoc, 0));
+                                    vdx_read_object(child, theDoc, 0, ctx));
         }
         return s;
     }
@@ -863,7 +863,7 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
                 s->EventItem = atoi((char *)child->children->content); }
             else s->any.children =
                      g_slist_append(s->any.children,
-                                    vdx_read_object(child, theDoc, 0));
+                                    vdx_read_object(child, theDoc, 0, ctx));
         }
         return s;
     }
@@ -899,7 +899,7 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
             if (xmlIsBlankNode(child)) { continue; }
             else s->any.children =
                      g_slist_append(s->any.children,
-                                    vdx_read_object(child, theDoc, 0));
+                                    vdx_read_object(child, theDoc, 0, ctx));
         }
         return s;
     }
@@ -919,7 +919,7 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
                 s->FaceName = atoi((char *)child->children->content); }
             else s->any.children =
                      g_slist_append(s->any.children,
-                                    vdx_read_object(child, theDoc, 0));
+                                    vdx_read_object(child, theDoc, 0, ctx));
         }
         return s;
     }
@@ -969,7 +969,7 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
                 s->Value = atof((char *)child->children->content); }
             else s->any.children =
                      g_slist_append(s->any.children,
-                                    vdx_read_object(child, theDoc, 0));
+                                    vdx_read_object(child, theDoc, 0, ctx));
         }
         return s;
     }
@@ -986,13 +986,13 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
             if (xmlIsBlankNode(child)) { continue; }
             if (!strcmp((char *)child->name, "FillBkgnd"))
             { if (child->children && child->children->content)
-                s->FillBkgnd = vdx_parse_color((char *)child->children->content, theDoc); }
+                s->FillBkgnd = vdx_parse_color((char *)child->children->content, theDoc, ctx); }
             else if (!strcmp((char *)child->name, "FillBkgndTrans"))
             { if (child->children && child->children->content)
                 s->FillBkgndTrans = atof((char *)child->children->content); }
             else if (!strcmp((char *)child->name, "FillForegnd"))
             { if (child->children && child->children->content)
-                s->FillForegnd = vdx_parse_color((char *)child->children->content, theDoc); }
+                s->FillForegnd = vdx_parse_color((char *)child->children->content, theDoc, ctx); }
             else if (!strcmp((char *)child->name, "FillForegndTrans"))
             { if (child->children && child->children->content)
                 s->FillForegndTrans = atof((char *)child->children->content); }
@@ -1022,7 +1022,7 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
                 s->ShdwBkgndTrans = atof((char *)child->children->content); }
             else if (!strcmp((char *)child->name, "ShdwForegnd"))
             { if (child->children && child->children->content)
-                s->ShdwForegnd = vdx_parse_color((char *)child->children->content, theDoc); }
+                s->ShdwForegnd = vdx_parse_color((char *)child->children->content, theDoc, ctx); }
             else if (!strcmp((char *)child->name, "ShdwForegndTrans"))
             { if (child->children && child->children->content)
                 s->ShdwForegndTrans = atof((char *)child->children->content); }
@@ -1031,7 +1031,7 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
                 s->ShdwPattern = atoi((char *)child->children->content); }
             else s->any.children =
                      g_slist_append(s->any.children,
-                                    vdx_read_object(child, theDoc, 0));
+                                    vdx_read_object(child, theDoc, 0, ctx));
         }
         return s;
     }
@@ -1072,7 +1072,7 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
             if (xmlIsBlankNode(child)) { continue; }
             else s->any.children =
                      g_slist_append(s->any.children,
-                                    vdx_read_object(child, theDoc, 0));
+                                    vdx_read_object(child, theDoc, 0, ctx));
         }
         return s;
     }
@@ -1092,7 +1092,7 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
                 s->FontEntry = atoi((char *)child->children->content); }
             else s->any.children =
                      g_slist_append(s->any.children,
-                                    vdx_read_object(child, theDoc, 0));
+                                    vdx_read_object(child, theDoc, 0, ctx));
         }
         return s;
     }
@@ -1121,7 +1121,7 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
                 s->ImgWidth = atof((char *)child->children->content); }
             else s->any.children =
                      g_slist_append(s->any.children,
-                                    vdx_read_object(child, theDoc, 0));
+                                    vdx_read_object(child, theDoc, 0, ctx));
         }
         return s;
     }
@@ -1172,7 +1172,7 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
             if (xmlIsBlankNode(child)) { continue; }
             else s->any.children =
                      g_slist_append(s->any.children,
-                                    vdx_read_object(child, theDoc, 0));
+                                    vdx_read_object(child, theDoc, 0, ctx));
         }
         return s;
     }
@@ -1204,7 +1204,7 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
                 s->NoSnap = atoi((char *)child->children->content); }
             else s->any.children =
                      g_slist_append(s->any.children,
-                                    vdx_read_object(child, theDoc, 0));
+                                    vdx_read_object(child, theDoc, 0, ctx));
         }
         return s;
     }
@@ -1239,7 +1239,7 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
                 s->SelectMode = atoi((char *)child->children->content); }
             else s->any.children =
                      g_slist_append(s->any.children,
-                                    vdx_read_object(child, theDoc, 0));
+                                    vdx_read_object(child, theDoc, 0, ctx));
         }
         return s;
     }
@@ -1277,7 +1277,7 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
                 s->HeaderRight = (char *)child->children->content; }
             else s->any.children =
                      g_slist_append(s->any.children,
-                                    vdx_read_object(child, theDoc, 0));
+                                    vdx_read_object(child, theDoc, 0, ctx));
         }
         return s;
     }
@@ -1341,7 +1341,7 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
             if (xmlIsBlankNode(child)) { continue; }
             else s->any.children =
                      g_slist_append(s->any.children,
-                                    vdx_read_object(child, theDoc, 0));
+                                    vdx_read_object(child, theDoc, 0, ctx));
         }
         return s;
     }
@@ -1364,7 +1364,7 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
                 s->HelpTopic = (char *)child->children->content; }
             else s->any.children =
                      g_slist_append(s->any.children,
-                                    vdx_read_object(child, theDoc, 0));
+                                    vdx_read_object(child, theDoc, 0, ctx));
         }
         return s;
     }
@@ -1414,7 +1414,7 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
                 s->SubAddress = (char *)child->children->content; }
             else s->any.children =
                      g_slist_append(s->any.children,
-                                    vdx_read_object(child, theDoc, 0));
+                                    vdx_read_object(child, theDoc, 0, ctx));
         }
         return s;
     }
@@ -1434,7 +1434,7 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
             if (xmlIsBlankNode(child)) { continue; }
             else s->any.children =
                      g_slist_append(s->any.children,
-                                    vdx_read_object(child, theDoc, 0));
+                                    vdx_read_object(child, theDoc, 0, ctx));
         }
         return s;
     }
@@ -1472,7 +1472,7 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
                 s->Transparency = atof((char *)child->children->content); }
             else s->any.children =
                      g_slist_append(s->any.children,
-                                    vdx_read_object(child, theDoc, 0));
+                                    vdx_read_object(child, theDoc, 0, ctx));
         }
         return s;
     }
@@ -1504,7 +1504,7 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
                 s->Y = atof((char *)child->children->content); }
             else s->any.children =
                      g_slist_append(s->any.children,
-                                    vdx_read_object(child, theDoc, 0));
+                                    vdx_read_object(child, theDoc, 0, ctx));
         }
         return s;
     }
@@ -1557,7 +1557,7 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
                 s->Visible = atoi((char *)child->children->content); }
             else s->any.children =
                      g_slist_append(s->any.children,
-                                    vdx_read_object(child, theDoc, 0));
+                                    vdx_read_object(child, theDoc, 0, ctx));
         }
         return s;
     }
@@ -1577,7 +1577,7 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
                 s->LayerMember = (char *)child->children->content; }
             else s->any.children =
                      g_slist_append(s->any.children,
-                                    vdx_read_object(child, theDoc, 0));
+                                    vdx_read_object(child, theDoc, 0, ctx));
         }
         return s;
     }
@@ -1639,7 +1639,7 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
                 s->ShapeSplittable = atoi((char *)child->children->content); }
             else s->any.children =
                      g_slist_append(s->any.children,
-                                    vdx_read_object(child, theDoc, 0));
+                                    vdx_read_object(child, theDoc, 0, ctx));
         }
         return s;
     }
@@ -1671,7 +1671,7 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
                 s->LineCap = atoi((char *)child->children->content); }
             else if (!strcmp((char *)child->name, "LineColor"))
             { if (child->children && child->children->content)
-                s->LineColor = vdx_parse_color((char *)child->children->content, theDoc); }
+                s->LineColor = vdx_parse_color((char *)child->children->content, theDoc, ctx); }
             else if (!strcmp((char *)child->name, "LineColorTrans"))
             { if (child->children && child->children->content)
                 s->LineColorTrans = atof((char *)child->children->content); }
@@ -1686,7 +1686,7 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
                 s->Rounding = atof((char *)child->children->content); }
             else s->any.children =
                      g_slist_append(s->any.children,
-                                    vdx_read_object(child, theDoc, 0));
+                                    vdx_read_object(child, theDoc, 0, ctx));
         }
         return s;
     }
@@ -1715,7 +1715,7 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
                 s->Y = atof((char *)child->children->content); }
             else s->any.children =
                      g_slist_append(s->any.children,
-                                    vdx_read_object(child, theDoc, 0));
+                                    vdx_read_object(child, theDoc, 0, ctx));
         }
         return s;
     }
@@ -1771,7 +1771,7 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
             if (xmlIsBlankNode(child)) { continue; }
             else s->any.children =
                      g_slist_append(s->any.children,
-                                    vdx_read_object(child, theDoc, 0));
+                                    vdx_read_object(child, theDoc, 0, ctx));
         }
         return s;
     }
@@ -1848,7 +1848,7 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
                 s->WalkPreference = atoi((char *)child->children->content); }
             else s->any.children =
                      g_slist_append(s->any.children,
-                                    vdx_read_object(child, theDoc, 0));
+                                    vdx_read_object(child, theDoc, 0, ctx));
         }
         return s;
     }
@@ -1874,7 +1874,7 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
                 s->Y = atof((char *)child->children->content); }
             else s->any.children =
                      g_slist_append(s->any.children,
-                                    vdx_read_object(child, theDoc, 0));
+                                    vdx_read_object(child, theDoc, 0, ctx));
         }
         return s;
     }
@@ -1915,7 +1915,7 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
                 s->Y = atof((char *)child->children->content); }
             else s->any.children =
                      g_slist_append(s->any.children,
-                                    vdx_read_object(child, theDoc, 0));
+                                    vdx_read_object(child, theDoc, 0, ctx));
         }
         return s;
     }
@@ -1957,7 +1957,7 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
             if (xmlIsBlankNode(child)) { continue; }
             else s->any.children =
                      g_slist_append(s->any.children,
-                                    vdx_read_object(child, theDoc, 0));
+                                    vdx_read_object(child, theDoc, 0, ctx));
         }
         return s;
     }
@@ -2055,7 +2055,7 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
                 s->RouteStyle = atoi((char *)child->children->content); }
             else s->any.children =
                      g_slist_append(s->any.children,
-                                    vdx_read_object(child, theDoc, 0));
+                                    vdx_read_object(child, theDoc, 0, ctx));
         }
         return s;
     }
@@ -2111,7 +2111,7 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
                 s->UIVisibility = atoi((char *)child->children->content); }
             else s->any.children =
                      g_slist_append(s->any.children,
-                                    vdx_read_object(child, theDoc, 0));
+                                    vdx_read_object(child, theDoc, 0, ctx));
         }
         return s;
     }
@@ -2143,7 +2143,7 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
             if (xmlIsBlankNode(child)) { continue; }
             else s->any.children =
                      g_slist_append(s->any.children,
-                                    vdx_read_object(child, theDoc, 0));
+                                    vdx_read_object(child, theDoc, 0, ctx));
         }
         return s;
     }
@@ -2205,7 +2205,7 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
                 s->TextPosAfterBullet = atoi((char *)child->children->content); }
             else s->any.children =
                      g_slist_append(s->any.children,
-                                    vdx_read_object(child, theDoc, 0));
+                                    vdx_read_object(child, theDoc, 0, ctx));
         }
         return s;
     }
@@ -2234,7 +2234,7 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
                 s->Y = atof((char *)child->children->content); }
             else s->any.children =
                      g_slist_append(s->any.children,
-                                    vdx_read_object(child, theDoc, 0));
+                                    vdx_read_object(child, theDoc, 0, ctx));
         }
         return s;
     }
@@ -2255,7 +2255,7 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
             if (xmlIsBlankNode(child)) { continue; }
             else s->any.children =
                      g_slist_append(s->any.children,
-                                    vdx_read_object(child, theDoc, 0));
+                                    vdx_read_object(child, theDoc, 0, ctx));
         }
         return s;
     }
@@ -2317,7 +2317,7 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
                 s->ScaleY = atoi((char *)child->children->content); }
             else s->any.children =
                      g_slist_append(s->any.children,
-                                    vdx_read_object(child, theDoc, 0));
+                                    vdx_read_object(child, theDoc, 0, ctx));
         }
         return s;
     }
@@ -2370,7 +2370,7 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
                 s->PrintScale = atoi((char *)child->children->content); }
             else s->any.children =
                      g_slist_append(s->any.children,
-                                    vdx_read_object(child, theDoc, 0));
+                                    vdx_read_object(child, theDoc, 0, ctx));
         }
         return s;
     }
@@ -2426,7 +2426,7 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
                 s->Verify = atoi((char *)child->children->content); }
             else s->any.children =
                      g_slist_append(s->any.children,
-                                    vdx_read_object(child, theDoc, 0));
+                                    vdx_read_object(child, theDoc, 0, ctx));
         }
         return s;
     }
@@ -2494,7 +2494,7 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
                 s->LockWidth = atoi((char *)child->children->content); }
             else s->any.children =
                      g_slist_append(s->any.children,
-                                    vdx_read_object(child, theDoc, 0));
+                                    vdx_read_object(child, theDoc, 0, ctx));
         }
         return s;
     }
@@ -2541,7 +2541,7 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
                 s->YRulerOrigin = atof((char *)child->children->content); }
             else s->any.children =
                      g_slist_append(s->any.children,
-                                    vdx_read_object(child, theDoc, 0));
+                                    vdx_read_object(child, theDoc, 0, ctx));
         }
         return s;
     }
@@ -2579,7 +2579,7 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
                 s->Y = atof((char *)child->children->content); }
             else s->any.children =
                      g_slist_append(s->any.children,
-                                    vdx_read_object(child, theDoc, 0));
+                                    vdx_read_object(child, theDoc, 0, ctx));
         }
         return s;
     }
@@ -2643,7 +2643,7 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
                 s->Data3 = atoi((char *)child->children->content); }
             else s->any.children =
                      g_slist_append(s->any.children,
-                                    vdx_read_object(child, theDoc, 0));
+                                    vdx_read_object(child, theDoc, 0, ctx));
         }
         return s;
     }
@@ -2660,7 +2660,7 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
             if (xmlIsBlankNode(child)) { continue; }
             else s->any.children =
                      g_slist_append(s->any.children,
-                                    vdx_read_object(child, theDoc, 0));
+                                    vdx_read_object(child, theDoc, 0, ctx));
         }
         return s;
     }
@@ -2689,7 +2689,7 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
                 s->Y = atof((char *)child->children->content); }
             else s->any.children =
                      g_slist_append(s->any.children,
-                                    vdx_read_object(child, theDoc, 0));
+                                    vdx_read_object(child, theDoc, 0, ctx));
         }
         return s;
     }
@@ -2727,7 +2727,7 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
                 s->Y = atof((char *)child->children->content); }
             else s->any.children =
                      g_slist_append(s->any.children,
-                                    vdx_read_object(child, theDoc, 0));
+                                    vdx_read_object(child, theDoc, 0, ctx));
         }
         return s;
     }
@@ -2756,7 +2756,7 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
                 s->HideForApply = atoi((char *)child->children->content); }
             else s->any.children =
                      g_slist_append(s->any.children,
-                                    vdx_read_object(child, theDoc, 0));
+                                    vdx_read_object(child, theDoc, 0, ctx));
         }
         return s;
     }
@@ -2794,7 +2794,7 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
             if (xmlIsBlankNode(child)) { continue; }
             else s->any.children =
                      g_slist_append(s->any.children,
-                                    vdx_read_object(child, theDoc, 0));
+                                    vdx_read_object(child, theDoc, 0, ctx));
         }
         return s;
     }
@@ -2820,7 +2820,7 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
                 s->Position = atof((char *)child->children->content); }
             else s->any.children =
                      g_slist_append(s->any.children,
-                                    vdx_read_object(child, theDoc, 0));
+                                    vdx_read_object(child, theDoc, 0, ctx));
         }
         return s;
     }
@@ -2840,7 +2840,7 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
             if (xmlIsBlankNode(child)) { continue; }
             else s->any.children =
                      g_slist_append(s->any.children,
-                                    vdx_read_object(child, theDoc, 0));
+                                    vdx_read_object(child, theDoc, 0, ctx));
         }
         return s;
     }
@@ -2872,7 +2872,7 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
                 s->tp = atoi((char *)child->children->content); }
             else s->any.children =
                      g_slist_append(s->any.children,
-                                    vdx_read_object(child, theDoc, 0));
+                                    vdx_read_object(child, theDoc, 0, ctx));
         }
         return s;
     }
@@ -2916,7 +2916,7 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
                 s->VerticalAlign = atoi((char *)child->children->content); }
             else s->any.children =
                      g_slist_append(s->any.children,
-                                    vdx_read_object(child, theDoc, 0));
+                                    vdx_read_object(child, theDoc, 0, ctx));
         }
         return s;
     }
@@ -2954,7 +2954,7 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
                 s->TxtWidth = atof((char *)child->children->content); }
             else s->any.children =
                      g_slist_append(s->any.children,
-                                    vdx_read_object(child, theDoc, 0));
+                                    vdx_read_object(child, theDoc, 0, ctx));
         }
         return s;
     }
@@ -2986,7 +2986,7 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
                 s->Value = atof((char *)child->children->content); }
             else s->any.children =
                      g_slist_append(s->any.children,
-                                    vdx_read_object(child, theDoc, 0));
+                                    vdx_read_object(child, theDoc, 0, ctx));
         }
         return s;
     }
@@ -3033,7 +3033,7 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
                 s->Masters = atoi((char *)child->children->content); }
             else s->any.children =
                      g_slist_append(s->any.children,
-                                    vdx_read_object(child, theDoc, 0));
+                                    vdx_read_object(child, theDoc, 0, ctx));
         }
         return s;
     }
@@ -3142,7 +3142,7 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
                 s->TabSplitterPos = atof((char *)child->children->content); }
             else s->any.children =
                      g_slist_append(s->any.children,
-                                    vdx_read_object(child, theDoc, 0));
+                                    vdx_read_object(child, theDoc, 0, ctx));
         }
         return s;
     }
@@ -3170,7 +3170,7 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
                 s->Window = atoi((char *)child->children->content); }
             else s->any.children =
                      g_slist_append(s->any.children,
-                                    vdx_read_object(child, theDoc, 0));
+                                    vdx_read_object(child, theDoc, 0, ctx));
         }
         return s;
     }
@@ -3217,7 +3217,7 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
                 s->Width = atof((char *)child->children->content); }
             else s->any.children =
                      g_slist_append(s->any.children,
-                                    vdx_read_object(child, theDoc, 0));
+                                    vdx_read_object(child, theDoc, 0, ctx));
         }
         return s;
     }
@@ -3246,7 +3246,7 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
                 s->EndY = atof((char *)child->children->content); }
             else s->any.children =
                      g_slist_append(s->any.children,
-                                    vdx_read_object(child, theDoc, 0));
+                                    vdx_read_object(child, theDoc, 0, ctx));
         }
         return s;
     }
@@ -3266,7 +3266,7 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
             if (xmlIsBlankNode(child)) { continue; }
             else s->any.children =
                      g_slist_append(s->any.children,
-                                    vdx_read_object(child, theDoc, 0));
+                                    vdx_read_object(child, theDoc, 0, ctx));
         }
         return s;
     }
@@ -3286,7 +3286,7 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
             if (xmlIsBlankNode(child)) { continue; }
             else s->any.children =
                      g_slist_append(s->any.children,
-                                    vdx_read_object(child, theDoc, 0));
+                                    vdx_read_object(child, theDoc, 0, ctx));
         }
         return s;
     }
@@ -3306,7 +3306,7 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
             if (xmlIsBlankNode(child)) { continue; }
             else s->any.children =
                      g_slist_append(s->any.children,
-                                    vdx_read_object(child, theDoc, 0));
+                                    vdx_read_object(child, theDoc, 0, ctx));
         }
         return s;
     }
@@ -3326,7 +3326,7 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
             if (xmlIsBlankNode(child)) { continue; }
             else s->any.children =
                      g_slist_append(s->any.children,
-                                    vdx_read_object(child, theDoc, 0));
+                                    vdx_read_object(child, theDoc, 0, ctx));
         }
         return s;
     }
@@ -3341,7 +3341,7 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         return s;
     }
 
-    message_error(_("Can't decode object %s"), (char*)cur->name);
+    dia_context_add_message(ctx, _("Can't decode object %s"), (char*)cur->name);
     return 0;
 }
 
