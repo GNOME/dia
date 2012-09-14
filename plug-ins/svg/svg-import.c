@@ -36,7 +36,6 @@
 #include <float.h>
 
 #include "intl.h"
-#include "message.h"
 #include "geometry.h"
 #include "filter.h"
 #include "object.h"
@@ -56,7 +55,7 @@ static GList *read_rect_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *l
 static GList *read_line_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list);
 static GList *read_poly_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list, char *object_type);
 static GList *read_text_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list);
-static GList *read_path_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list);
+static GList *read_path_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list, DiaContext *ctx);
 static GPtrArray *make_element_props(real xpos, real ypos, real width, real height);
 
 /* TODO: use existing implementation in dia source */
@@ -294,7 +293,7 @@ apply_style(DiaObject *obj, xmlNodePtr node, DiaSvgStyle *parent_style)
  */
 /* read a path */
 static GList *
-read_path_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list) 
+read_path_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list, DiaContext *ctx)
 {
     DiaObjectType *otype;
     DiaObject *new_obj;
@@ -321,8 +320,8 @@ read_path_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list)
 
       if (bezpoints && bezpoints->len > 0) {
         if (g_array_index(bezpoints, BezPoint, 0).type != BEZ_MOVE_TO) {
-          message_warning (_("Invalid path data.\n"
-	                     "svg:path data must start with moveto."));
+          dia_context_add_message(ctx, _("Invalid path data.\n"
+					 "svg:path data must start with moveto."));
 	  break;
         } else if (!closed)
 	  otype = object_get_type("Standard - BezierLine");
@@ -330,7 +329,7 @@ read_path_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list)
 	  otype = object_get_type("Standard - Beziergon");
 
 	if (otype == NULL){
-	  message_error(_("Can't find standard object"));
+	  dia_context_add_message(ctx, _("Can't find standard object"));
 	  break;
         }
 	bcd = g_new(BezierCreateData, 1);
@@ -931,12 +930,15 @@ add_def (gpointer       data,
  * @param parent_gs the graphic style inherited by parent
  * @param defs_ht a map of objects filled from 'defs' to use as templates for 'use'
  * @param filename_svg SVG filename for better error messages
+ * @param ctx context to keep error messages grouped
+ * @return a list of _DiaObject
  */
 static GList*
 read_items (xmlNodePtr   startnode, 
 	    DiaSvgStyle *parent_gs,
 	    GHashTable  *defs_ht,
-	    const gchar *filename_svg)
+	    const gchar *filename_svg,
+	    DiaContext  *ctx)
 {
   xmlNodePtr node;
   GList *items = NULL;
@@ -965,7 +967,7 @@ read_items (xmlNodePtr   startnode,
 	xmlFree (trans);
       }
 
-      moreitems = read_items (node->xmlChildrenNode, group_gs, defs_ht, filename_svg);
+      moreitems = read_items (node->xmlChildrenNode, group_gs, defs_ht, filename_svg, ctx);
 
       if (moreitems) {
         DiaObject *group;
@@ -986,7 +988,7 @@ read_items (xmlNodePtr   startnode,
       g_free (matrix);
     } else if (!xmlStrcmp(node->name, (const xmlChar *)"symbol")) {
       /* ignore ‘viewBox’ and ‘preserveAspectRatio’ */
-      GList *moreitems = read_items (node->xmlChildrenNode, parent_gs, defs_ht, filename_svg);
+      GList *moreitems = read_items (node->xmlChildrenNode, parent_gs, defs_ht, filename_svg, ctx);
 
       /* only one object or create a group */
       if (g_list_length (moreitems))
@@ -1020,7 +1022,7 @@ read_items (xmlNodePtr   startnode,
       if (items)
 	obj = g_list_last(items)->data;
     } else if(!xmlStrcmp(node->name, (const xmlChar *)"path")) {
-      items = read_path_svg(node, parent_gs, items);
+      items = read_path_svg(node, parent_gs, items, ctx);
       if (items)
 	obj = g_list_last(items)->data;
     } else if(!xmlStrcmp(node->name, (const xmlChar *)"image")) {
@@ -1030,7 +1032,7 @@ read_items (xmlNodePtr   startnode,
     } else if(!xmlStrcmp(node->name, (const xmlChar *)"defs")) {
       /* everything below must have a name to make a difference */
       DiaObject *otemp;
-      GList *list, *defs = read_items (node->xmlChildrenNode, parent_gs, defs_ht, filename_svg);
+      GList *list, *defs = read_items (node->xmlChildrenNode, parent_gs, defs_ht, filename_svg, ctx);
 
       for (list = defs; list != NULL; list = g_list_next (list)) {
 #if 0
@@ -1083,7 +1085,7 @@ read_items (xmlNodePtr   startnode,
       /* on of the non-grouping elements is <a>, extract possible links */
       xmlChar *href = xmlGetProp (node, (const xmlChar *)"href");
 
-      moreitems = read_items (node->xmlChildrenNode, parent_gs, defs_ht, filename_svg);
+      moreitems = read_items (node->xmlChildrenNode, parent_gs, defs_ht, filename_svg, ctx);
       if (moreitems) {
 	if (href) {
 	  GList *subs;
@@ -1139,7 +1141,7 @@ import_svg(const gchar *filename, DiagramData *dia, DiaContext *ctx, void* user_
     xmlFreeDoc(doc);
     return FALSE;
 #else
-    message_warning(_("Expected SVG Namespace not found in file"));
+    dia_context_add_message(ctx, _("Expected SVG Namespace not found in file"));
 #endif
   }
   /* search for some svg in the file, this allows us to read the
@@ -1159,7 +1161,7 @@ import_svg(const gchar *filename, DiagramData *dia, DiaContext *ctx, void* user_
   }
 
   if (root->ns != svg_ns && 0 != xmlStrcmp(root->name, (const xmlChar *)"svg")) {
-    message_warning(_("root element was '%s' -- expecting 'svg'."), root->name);
+    dia_context_add_message(ctx, _("root element was '%s' -- expecting 'svg'."), root->name);
     xmlFreeDoc(doc);
     return FALSE;
   }
@@ -1205,7 +1207,7 @@ import_svg(const gchar *filename, DiagramData *dia, DiaContext *ctx, void* user_
 
   {
     GHashTable *defs_ht = g_hash_table_new (g_str_hash, g_str_equal);
-    items = read_items (root->xmlChildrenNode, NULL, defs_ht, filename);
+    items = read_items (root->xmlChildrenNode, NULL, defs_ht, filename, ctx);
     g_hash_table_destroy (defs_ht);
   }
   for (item = items; item != NULL; item = g_list_next (item)) {
