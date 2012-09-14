@@ -219,7 +219,7 @@ vdx_parse_color(const char *s, const VDXDocument *theDoc, DiaContext *ctx)
     /* Colour 0 is always black, so don't warn (OmniGraffle) */
     if (*s != '0')
     {
-        dia_context_add_message(ctx, _("Couldn't read color: %s\n"), s);
+        dia_context_add_message(ctx, _("Couldn't read color: %s"), s);
         g_debug("Couldn't read color: %s", s);
     }
     return c;
@@ -533,7 +533,7 @@ get_shape_by_id(unsigned int id, struct vdx_Shapes *Shapes, unsigned int depth, 
     }
     if (!depth)
     {
-        dia_context_add_message(ctx, _("Couldn't find shape %d\n"), id);
+        dia_context_add_message(ctx, _("Couldn't find shape %d"), id);
         g_debug("Couldn't find shape %d", id);
     }
     return 0;
@@ -1009,7 +1009,7 @@ plot_ellipse(const struct vdx_Geom *Geom, const struct vdx_XForm *XForm,
     }
     else
     {
-        dia_context_add_message(ctx, _("Unexpected Ellipse object: %s\n"),
+        dia_context_add_message(ctx, _("Unexpected Ellipse object: %s"),
                       vdx_Types[(unsigned int)Any->type]);
         g_debug("Unexpected Ellipse object: %s",
                 vdx_Types[(unsigned int)Any->type]);
@@ -1023,7 +1023,7 @@ plot_ellipse(const struct vdx_Geom *Geom, const struct vdx_XForm *XForm,
 
     p = dia_point(apply_XForm(*current, XForm), theDoc);
     if (fabs(XForm->Angle > EPSILON))
-	dia_context_add_message(ctx, _("Can't rotate ellipse\n"));
+	dia_context_add_message(ctx, _("Can't rotate ellipse"));
 
     newobj =
         create_standard_ellipse(p.x, p.y, dia_length(Ellipse->A, theDoc),
@@ -1354,7 +1354,7 @@ plot_bezier(const struct vdx_Geom *Geom, const struct vdx_XForm *XForm,
         Any = (struct vdx_any *)(item->data);
         if (Any->type != vdx_types_MoveTo && ! num_points)
         {
-            dia_context_add_message(ctx, _("MoveTo not at start of Bezier\n"));
+            dia_context_add_message(ctx, _("MoveTo not at start of Bezier"));
             g_debug("MoveTo not at start of Bezier");
             *more = 0; /* FIXME */
             return 0;
@@ -2868,7 +2868,7 @@ import_vdx(const gchar *filename, DiagramData *dia, DiaContext *ctx, void* user_
     char* old_locale;
 
     if (!doc) {
-        dia_context_add_message(ctx, "Parse error for %s",
+        dia_context_add_message(ctx, _("Parse error for %s"),
                                 dia_context_get_filename(ctx));
         return FALSE;
     }
