@@ -16,7 +16,7 @@ Import and export facilties of Dia can be extended by plug-ins
 Additionally there is the possibility to extend Dia with arbitrary
 functionality by registering actions in the menu. Again by
  - writing plug-ins in C/C++ (e.g. \ref LayoutPlugin)
- - or with Python (\ref PyDia)
+ - or with Python (e.g. \ref arrange.py)
 
  */
 

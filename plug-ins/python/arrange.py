@@ -28,6 +28,11 @@ def DeepCalc (dict, key, seen = None) :
 		DeepCalc (dict, k, seen)
 	return len(seen.keys())
 
+##
+# \brief Callback function to be invoked by Dia's menu
+#
+# Implements a simple layout algorithm based on object connections
+#
 def arrange_connected (data, flags) :
 	objs = data.get_sorted_selected()
 	if len(objs) == 0 :
@@ -108,9 +113,14 @@ def arrange_connected (data, flags) :
 		offsets[y] += 1
 	data.update_extents ()
 
+##
+# \file arrange.py \brief Arrange Objects Plugin
+#
 # this module is loaded by some other plug-ins but can also work on it's own
 # if it is loaded first as Dia plug-in and later as Python module everything works
 # fine due to Pythoninitializing the module only once
+#
+# \ingroup PyDia
 dia.register_callback ("Arrange Objects", 
                        "<Display>/Objects/Arrange", 
                        arrange_connected)
