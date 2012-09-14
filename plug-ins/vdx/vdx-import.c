@@ -2259,12 +2259,29 @@ plot_text(const struct vdx_Text *Text, const struct vdx_XForm *XForm,
         }
     }
 
+#if 0 /* this is not utf-8 safe - see bug 683700 */ 
     /* Remove trailing line breaks */
     while (tprop->text_data[0] &&
            isspace(tprop->text_data[strlen(tprop->text_data)-1]))
     {
         tprop->text_data[strlen(tprop->text_data)-1] = 0;
     }
+#else
+    {
+        char *s = tprop->text_data;
+        char *srep = NULL;
+        while ( (s = g_utf8_strchr(s, -1, '\n')) != NULL ) {
+            srep = s;
+            s = g_utf8_next_char(s);
+            if (*s)
+                srep = NULL;
+            else
+                break;
+        }
+        if (srep)
+            *srep = '\0';
+    }
+#endif
 
     /* Other standard text properties */
     tprop->attr.alignment = alignment;
