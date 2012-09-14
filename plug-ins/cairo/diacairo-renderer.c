@@ -641,8 +641,14 @@ _ellipse(DiaRenderer *self,
   DIAG_NOTE(g_message("%s_ellipse %fx%f center @ %f,%f", 
             fill ? "fill" : "draw", width, height, center->x, center->y));
 
+  /* avoid screwing cairo context - I'd say restore should fix it again, but it doesn't
+   * (dia.exe:3152): DiaCairo-WARNING **: diacairo-renderer.c:254, invalid matrix (not invertible)
+   */
+  if (!(width > 0. && height > 0.))
+    return;
+
   cairo_set_source_rgba (renderer->cr, color->red, color->green, color->blue, color->alpha);
-  
+
   cairo_save (renderer->cr);
   /* don't create a line from the current point to the beginning 
    * of the ellipse */
