@@ -539,10 +539,11 @@ fill_ellipse(DiaRenderer *self,
 }
 
 static void
-draw_bezier(DiaRenderer *self, 
-	    BezPoint *points,
-	    int numpoints,
-	    Color *colour)
+_bezier(DiaRenderer *self, 
+	BezPoint *points,
+	int numpoints,
+	Color *colour,
+	gboolean fill)
 {
   DiaSvgRenderer *renderer = DIA_SVG_RENDERER (self);
   int i;
@@ -557,7 +558,8 @@ draw_bezier(DiaRenderer *self,
 
   node = xmlNewChild(renderer->root, renderer->svg_name_space, (const xmlChar *)"path", NULL);
   
-  xmlSetProp(node, (const xmlChar *)"style", (xmlChar *) get_draw_style(renderer, colour));
+  xmlSetProp(node, (const xmlChar *)"style",
+	     (xmlChar *)(fill ? get_fill_style(renderer, colour) : get_draw_style(renderer, colour)));
 
   str = g_string_new(NULL);
 
@@ -571,10 +573,16 @@ draw_bezier(DiaRenderer *self,
   for (i = 1; i < numpoints; i++)
     switch (points[i].type) {
     case BEZ_MOVE_TO:
-      g_warning("only first BezPoint shoul be a BEZ_MOVE_TO");
-      g_string_printf(str, "M %s %s",
-		      dia_svg_dtostr(p1x_buf, (gdouble) points[i].p1.x),
-		      dia_svg_dtostr(p1y_buf, (gdouble) points[i].p1.y) );
+      if (!DIA_RENDERER_GET_CLASS (self)->is_capable_to(self, RENDER_HOLES)) {
+        g_warning("only first BezPoint should be a BEZ_MOVE_TO");
+        g_string_printf(str, "M %s %s",
+		        dia_svg_dtostr(p1x_buf, (gdouble) points[i].p1.x),
+		        dia_svg_dtostr(p1y_buf, (gdouble) points[i].p1.y) );
+      } else {
+        g_string_append_printf(str, "M %s %s",
+		        dia_svg_dtostr(p1x_buf, (gdouble) points[i].p1.x),
+		        dia_svg_dtostr(p1y_buf, (gdouble) points[i].p1.y) );
+      }
       break;
     case BEZ_LINE_TO:
       g_string_append_printf(str, " L %s,%s",
@@ -591,8 +599,19 @@ draw_bezier(DiaRenderer *self,
 			dia_svg_dtostr(p3y_buf, (gdouble) points[i].p3.y) );
       break;
     }
+  if (fill)
+    g_string_append(str, "z");
   xmlSetProp(node, (const xmlChar *)"d", (xmlChar *) str->str);
   g_string_free(str, TRUE);
+}
+
+static void
+draw_bezier(DiaRenderer *self, 
+	    BezPoint *points,
+	    int numpoints,
+	    Color *colour)
+{
+  _bezier(self, points, numpoints, colour, FALSE);
 }
 
 static void
@@ -601,56 +620,7 @@ fill_bezier(DiaRenderer *self,
 	    int numpoints,
 	    Color *colour)
 {
-  DiaSvgRenderer *renderer = DIA_SVG_RENDERER (self);
-  int i;
-  xmlNodePtr node;
-  GString *str;
-  gchar p1x_buf[DTOSTR_BUF_SIZE];
-  gchar p1y_buf[DTOSTR_BUF_SIZE];
-  gchar p2x_buf[DTOSTR_BUF_SIZE];
-  gchar p2y_buf[DTOSTR_BUF_SIZE];
-  gchar p3x_buf[DTOSTR_BUF_SIZE];
-  gchar p3y_buf[DTOSTR_BUF_SIZE];
-
-  node = xmlNewChild(renderer->root, renderer->svg_name_space, (const xmlChar *)"path", NULL);
-  
-  xmlSetProp(node, (const xmlChar *)"style", (xmlChar *) get_fill_style(renderer, colour));
-
-  str = g_string_new(NULL);
-
-  if (points[0].type != BEZ_MOVE_TO)
-    g_warning("first BezPoint must be a BEZ_MOVE_TO");
-
-  g_string_printf(str, "M %s %s",
-		   dia_svg_dtostr(p1x_buf, (gdouble) points[0].p1.x),
-		   dia_svg_dtostr(p1y_buf, (gdouble) points[0].p1.y) );
- 
-  for (i = 1; i < numpoints; i++)
-    switch (points[i].type) {
-    case BEZ_MOVE_TO:
-      g_warning("only first BezPoint should be a BEZ_MOVE_TO");
-      g_string_printf(str, "M %s %s",
-		      dia_svg_dtostr(p1x_buf, (gdouble) points[i].p1.x),
-		      dia_svg_dtostr(p1y_buf, (gdouble) points[i].p1.y) );
-      break;
-    case BEZ_LINE_TO:
-      g_string_append_printf(str, " L %s,%s",
-			dia_svg_dtostr(p1x_buf, (gdouble) points[i].p1.x),
-			dia_svg_dtostr(p1y_buf, (gdouble) points[i].p1.y) );
-      break;
-    case BEZ_CURVE_TO:
-      g_string_append_printf(str, " C %s,%s %s,%s %s,%s",
-			dia_svg_dtostr(p1x_buf, (gdouble) points[i].p1.x),
-			dia_svg_dtostr(p1y_buf, (gdouble) points[i].p1.y),
-			dia_svg_dtostr(p2x_buf, (gdouble) points[i].p2.x),
-			dia_svg_dtostr(p2y_buf, (gdouble) points[i].p2.y),
-			dia_svg_dtostr(p3x_buf, (gdouble) points[i].p3.x),
-			dia_svg_dtostr(p3y_buf, (gdouble) points[i].p3.y) );
-      break;
-    }
-  g_string_append(str, "z");
-  xmlSetProp(node, (const xmlChar *)"d", (xmlChar *) str->str);
-  g_string_free(str, TRUE);
+  _bezier(self, points, numpoints, colour, TRUE);
 }
 
 static void
