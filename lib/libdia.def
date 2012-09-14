@@ -503,7 +503,6 @@ EXPORTS
  message_notice
  message_warning
  set_message_func
- format_string_length_upper_bound
 
  new_object_state_change
 

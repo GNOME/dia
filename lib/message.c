@@ -153,7 +153,7 @@ message_create_dialog(const gchar *title, DiaMessageInfo *msginfo, gchar *buf)
 static void
 gtk_message_internal(const char* title, enum ShowAgainStyle showAgain,
 		     const char *fmt,
-                     va_list *args,  va_list *args2)
+                     va_list args, va_list args2)
 {
   static gchar *buf = NULL;
   static gint   alloc = 0;
@@ -177,8 +177,7 @@ gtk_message_internal(const char* title, enum ShowAgainStyle showAgain,
     message_hash_table = g_hash_table_new(g_str_hash, g_str_equal);
   }
 
-  len = format_string_length_upper_bound (fmt, args);
-
+  len = g_printf_string_upper_bound (fmt, args);
   if (len >= alloc) {
     if (buf)
       g_free (buf);
@@ -188,7 +187,7 @@ gtk_message_internal(const char* title, enum ShowAgainStyle showAgain,
     buf = g_new (char, alloc);
   }
   
-  vsprintf (buf, fmt, *args2);
+  vsprintf (buf, fmt, args2);
 
   msginfo = (DiaMessageInfo*)g_hash_table_lookup(message_hash_table, fmt);
   if (msginfo == NULL) {
@@ -247,7 +246,7 @@ message(const char *title, const char *format, ...)
 
   va_start (args, format);
   va_start (args2, format);
-  message_internal(title, ALWAYS_SHOW, format, &args, &args2);
+  message_internal(title, ALWAYS_SHOW, format, args, args2);
   va_end (args);
   va_end (args2);
 }
@@ -263,7 +262,7 @@ message_notice(const char *format, ...)
 
   va_start (args, format);
   va_start (args2, format);
-  message_internal(_("Notice"), SUGGEST_NO_SHOW_AGAIN, format, &args, &args2);
+  message_internal(_("Notice"), SUGGEST_NO_SHOW_AGAIN, format, args, args2);
   va_end (args);
   va_end (args2);
 }
@@ -279,7 +278,7 @@ message_warning(const char *format, ...)
 
   va_start (args, format);
   va_start (args2, format);
-  message_internal(_("Warning"), SUGGEST_SHOW_AGAIN, format, &args, &args2);
+  message_internal(_("Warning"), SUGGEST_SHOW_AGAIN, format, args, args2);
   va_end (args);
   va_end (args2);
 }
@@ -294,7 +293,7 @@ message_error(const char *format, ...)
 
   va_start (args, format);
   va_start (args2, format);
-  message_internal(_("Error"), ALWAYS_SHOW, format, &args, &args2);
+  message_internal(_("Error"), ALWAYS_SHOW, format, args, args2);
   va_end (args);
   va_end (args2);
 }

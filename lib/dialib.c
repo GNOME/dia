@@ -36,13 +36,13 @@
 
 static void
 stderr_message_internal(const char *title, enum ShowAgainStyle showAgain,
-			const char *fmt, va_list *args,  va_list *args2)
+			const char *fmt, va_list args,  va_list args2)
 {
   static gchar *buf = NULL;
   static gint   alloc = 0;
   gint len;
 
-  len = format_string_length_upper_bound (fmt, args);
+  len = g_printf_string_upper_bound (fmt, args);
 
   if (len >= alloc) {
     if (buf)
@@ -53,7 +53,7 @@ stderr_message_internal(const char *title, enum ShowAgainStyle showAgain,
     buf = g_new (char, alloc);
   }
   
-  vsprintf (buf, fmt, *args2);
+  vsprintf (buf, fmt, args2);
   
   fprintf(stderr,
           "%s: %s\n", 
