@@ -43,7 +43,6 @@
 #include <glib/gstdio.h>
 
 #include "intl.h"
-#include "message.h"
 #include "geometry.h"
 #include "dia_image.h"
 #include "diarenderer.h"
@@ -101,6 +100,8 @@ struct _WpgRenderer
   WPGTextStyle TextStyle;
 
   WPGColorRGB* pPal;
+
+  DiaContext* ctx;
 };
 
 struct _WpgRendererClass
@@ -888,7 +889,7 @@ draw_image(DiaRenderer *self,
 
   pDiaImg = dia_image_rgb_data(image);
   if (!pDiaImg) {
-    message_warning (_("Not enough memory for image drawing."));
+    dia_context_add_message(renderer->ctx, _("Not enough memory for image drawing."));
     return;
   }
   stride = dia_image_rowstride(image);
@@ -935,7 +936,7 @@ draw_image(DiaRenderer *self,
 	      bmp.Width * bmp.Height, p - pOut));
 
   if ((p - pOut) > 32767) {
-    message_warning("WmfRenderer : Bitmap size exceeds blocksize. Ignored.");
+    dia_context_add_message(renderer->ctx, "Bitmap size exceeds blocksize. Ignored.");
   }
   else {
     WriteRecHead(renderer, WPG_BITMAP2, sizeof(WPGBitmap2) + (p - pOut));
@@ -1082,6 +1083,7 @@ export_data(DiagramData *data, DiaContext *ctx,
   renderer = g_object_new (WPG_TYPE_RENDERER, NULL);
 
   renderer->file = file;
+  renderer->ctx = ctx;
 
   extent = &data->extents;
 

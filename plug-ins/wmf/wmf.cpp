@@ -29,7 +29,6 @@
 #include <glib/gstdio.h>
 
 #include "intl.h"
-#include "message.h"
 #include "geometry.h"
 #include "diarenderer.h"
 #include "filter.h"
@@ -132,6 +131,8 @@ struct _WmfRenderer
 
     gboolean use_pango;
     PangoContext* pango_context;
+
+    DiaContext* ctx;
 };
 
 struct _WmfRendererClass
@@ -312,7 +313,8 @@ end_render(DiaRenderer *self)
 
 	/* write file */
 	if (fwrite(pData,1,nSize,f) != nSize)
-	  message_error (_("Couldn't write file %s\n%s"), renderer->sFileName, strerror(errno)); 
+	  dia_context_add_message_with_errno(renderer->ctx, errno, _("Couldn't write file %s\n%s"),
+					     dia_context_get_filename (renderer->ctx)); 
 	fclose(f);
     
 	g_free(pData);
@@ -561,7 +563,7 @@ set_font(DiaRenderer *self, DiaFont *font, real height)
 	else
 	{
 	    gchar *desc = pango_font_description_to_string (dia_font_get_description (font));
-	    message_warning (_("Cannot render unknown font:\n%s"), desc);
+	    dia_context_add_message(renderer->ctx, _("Cannot render unknown font:\n%s"), desc);
 	    g_free (desc);
 	}
 #else
@@ -1378,6 +1380,7 @@ export_data(DiagramData *data, DiaContext *ctx,
 
     renderer->hFileDC = file;
     renderer->sFileName = g_strdup(filename);
+    renderer->ctx = ctx;
     if (user_data == (void*)1) {
 	renderer->target_emf = TRUE;
 	renderer->hPrintDC = 0;

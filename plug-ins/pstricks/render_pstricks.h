@@ -58,6 +58,8 @@ struct _PstricksRenderer
     LineStyle saved_line_style;
     real dash_length;
     real dot_length;
+
+    DiaContext *ctx;
 };
 
 extern DiaExportFilter pstricks_export_filter;

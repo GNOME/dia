@@ -22,8 +22,6 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-
-
 /*
  * This was basically borrowed from the pstricks plug-in.
  *
@@ -47,7 +45,6 @@
 
 #include "intl.h"
 #include "render_metapost.h"
-#include "message.h"
 #include "diagramdata.h"
 #include "filter.h"
 #include "dia_image.h"
@@ -1108,7 +1105,7 @@ draw_image(DiaRenderer *self,
 
     rgb_data = dia_image_rgb_data(image);
     if (!rgb_data) {
-        message_warning (_("Not enough memory for image drawing."));
+        dia_context_add_message(renderer->ctx, _("Not enough memory for image drawing."));
         return;
     }
     mask_data = dia_image_mask_data(image);
@@ -1187,6 +1184,7 @@ export_metapost(DiagramData *data, DiaContext *ctx,
     renderer = g_object_new(METAPOST_TYPE_RENDERER, NULL);
 
     renderer->file = file;
+    renderer->ctx = ctx;
 
     renderer->dash_length = 1.0;
     renderer->dot_length = 0.2;

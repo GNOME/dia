@@ -23,7 +23,6 @@
 
 #include "dialibartrenderer.h"
 
-#include "message.h"
 #include "color.h"
 #include "font.h"
 #include "intl.h"
@@ -1323,7 +1322,7 @@ draw_image(DiaRenderer *self,
       guint8 *img_data = dia_image_rgb_data(image);
 
       if (!img_data) {
-        message_warning (_("Not enough memory for image drawing."));
+        dia_context_add_message(renderer->ctx, _("Not enough memory for image drawing."));
         return;
       }
       art_rgb_affine(renderer->rgb_buffer,

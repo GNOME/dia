@@ -34,7 +34,6 @@
 #include <glib/gstdio.h>
 
 #include "intl.h"
-#include "message.h"
 #include "geometry.h"
 #include "filter.h"
 #include "plug-ins.h"
@@ -242,6 +241,7 @@ struct _CgmRenderer
 
     TextAttrCGM    tcurrent, tinfile;
 
+    DiaContext *ctx;
 };
 
 
@@ -1115,14 +1115,15 @@ draw_image(DiaRenderer *self,
     guint8 *pImg, *ptr;
 
     if (rowlen > maxlen) {
-	message_error(_("Image row length larger than maximum cell array.\n"
-			"Image not exported to CGM."));
+	dia_context_add_message(renderer->ctx, 
+				_("Image row length larger than maximum cell array.\n"
+				  "Image not exported to CGM."));
 	return;
     }
 
     ptr = pImg = dia_image_rgb_data(image);
     if (!pImg) {
-      message_warning (_("Not enough memory for image drawing."));
+      dia_context_add_message(renderer->ctx, _("Not enough memory for image drawing."));
       return;
     }
 
@@ -1176,6 +1177,7 @@ export_cgm(DiagramData *data, DiaContext *ctx,
     renderer = g_object_new(CGM_TYPE_RENDERER, NULL);
 
     renderer->file = file;
+    renderer->ctx = ctx;
 
     /* write BEGMF */
     len = strlen(dia_version_string);

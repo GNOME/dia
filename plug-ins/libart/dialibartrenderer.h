@@ -50,6 +50,7 @@ struct _DiaLibartRenderer
   double dot_length;
   Color *highlight_color;
 #endif
+  DiaContext *ctx;
 };
 
 struct _DiaLibartRendererClass

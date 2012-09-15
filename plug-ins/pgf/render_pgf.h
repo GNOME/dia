@@ -58,6 +58,8 @@ struct _PgfRenderer
     LineStyle saved_line_style;
     real dash_length;
     real dot_length;
+
+    DiaContext *ctx;
 };
 
 extern DiaExportFilter pgf_export_filter;

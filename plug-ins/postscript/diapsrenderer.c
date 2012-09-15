@@ -28,7 +28,6 @@
 #include <time.h>
 
 #include "diapsrenderer.h"
-#include "message.h"
 #include "dia_image.h"
 #include "font.h"
 #include "textline.h"
@@ -608,7 +607,7 @@ fill_bezier(DiaRenderer *self,
 }
 
 static char*
-ps_convert_string(const char *text)
+ps_convert_string(const char *text, DiaContext *ctx)
 {
   char *buffer;
   gchar *localestr;
@@ -619,7 +618,7 @@ ps_convert_string(const char *text)
   localestr = g_convert(text, -1, "LATIN1", "UTF-8", NULL, NULL, &error);
 
   if (localestr == NULL) {
-    message_error("Can't convert string %s: %s\n", text, error->message);
+    dia_context_add_message(ctx, "Can't convert string %s: %s\n", text, error->message);
     localestr = g_strdup(text);
   }
 
@@ -683,7 +682,7 @@ draw_string(DiaRenderer *self,
 
   lazy_setcolor(renderer,color);
 
-  buffer = ps_convert_string(text);
+  buffer = ps_convert_string(text, renderer->ctx);
 
   fprintf(renderer->file, "(%s) ", buffer);
   g_free(buffer);
@@ -716,7 +715,7 @@ draw_image(DiaRenderer *self,
 
   rgb_data = dia_image_rgb_data(image);
   if (!rgb_data) {
-    message_warning (_("Not enough memory for image drawing."));
+    dia_context_add_message(renderer->ctx, _("Not enough memory for image drawing."));
     return;
   }
   mask_data = dia_image_mask_data(image);

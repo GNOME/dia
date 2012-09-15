@@ -87,6 +87,7 @@ export_ft2_eps(DiagramData *data, DiaContext *ctx,
   gboolean ret;
   DiaPsRenderer *renderer = g_object_new (DIA_TYPE_PS_FT2_RENDERER, NULL);
 
+  renderer->ctx = ctx;
   ret = export_render_eps(renderer, data, ctx, filename, diafilename, user_data);
   g_object_unref (renderer);
 
@@ -102,6 +103,7 @@ export_eps(DiagramData *data, DiaContext *ctx,
   gboolean ret;
   DiaPsRenderer *renderer = g_object_new (DIA_TYPE_PS_RENDERER, NULL);
 
+  renderer->ctx = ctx;
   ret = export_render_eps(renderer, data, ctx, filename, diafilename, user_data);
   g_object_unref (renderer);
 

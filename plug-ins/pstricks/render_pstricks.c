@@ -724,13 +724,13 @@ fill_bezier(DiaRenderer *self,
  * shouldn't produce broken output either ...
  */
 static gchar *
-tex_escape_string(const gchar *src)
+tex_escape_string(const gchar *src, DiaContext *ctx)
 {
     GString *dest = g_string_sized_new(g_utf8_strlen(src, -1));
     gchar *p;
 
     if (!g_utf8_validate(src, -1, NULL)) {
-	message_error(_("Not valid UTF-8"));
+	dia_context_add_message(ctx, _("Not valid UTF-8"));
 	return g_strdup(src);
     }
 
@@ -774,7 +774,7 @@ draw_string(DiaRenderer *self,
 
     /* only escape the string if it is not starting with \tex */
     if (strncmp (text, "\\tex", 4) != 0)
-      escaped = tex_escape_string(text);
+      escaped = tex_escape_string(text, renderer->ctx);
 
     set_line_color(renderer,color);
 
@@ -823,7 +823,7 @@ draw_image(DiaRenderer *self,
 
     rgb_data = dia_image_rgb_data(image);
     if (!rgb_data) {
-        message_warning (_("Not enough memory for image drawing."));
+        dia_context_add_message(renderer->ctx, _("Not enough memory for image drawing."));
         return;
     }
     ratio = height/width;
@@ -926,6 +926,7 @@ export_pstricks(DiagramData *data, DiaContext *ctx,
 
     renderer->pagenum = 1;
     renderer->file = file;
+    renderer->ctx = ctx;
 
     renderer->dash_length = 1.0;
     renderer->dot_length = 0.2;

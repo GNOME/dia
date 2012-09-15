@@ -66,7 +66,6 @@ TODO:
 
 #include "intl.h"
 #include "render_pgf.h"
-#include "message.h"
 #include "diagramdata.h"
 #include "dia_image.h"
 #include "filter.h"
@@ -1104,13 +1103,13 @@ draw_bezier_with_arrows(DiaRenderer *self, BezPoint *points, int num_points,
  * shouldn't produce broken output either ...
  */
 static gchar *
-tex_escape_string(const gchar *src)
+tex_escape_string(const gchar *src, DiaContext *ctx)
 {
     GString *dest = g_string_sized_new(g_utf8_strlen(src, -1));
     gchar *p;
 
     if (!g_utf8_validate(src, -1, NULL)) {
-	message_error(_("Not valid UTF-8"));
+	dia_context_add_message(ctx, _("Not valid UTF-8"));
 	return g_strdup(src);
     }
 
@@ -1148,7 +1147,7 @@ draw_string(DiaRenderer *self,
 	    Color *color)
 {
     PgfRenderer *renderer = PGF_RENDERER(self);
-    gchar *escaped = tex_escape_string(text);
+    gchar *escaped = tex_escape_string(text, renderer->ctx);
     gchar px_buf[DTOSTR_BUF_SIZE];
     gchar py_buf[DTOSTR_BUF_SIZE];
 
@@ -1211,6 +1210,7 @@ export_pgf(DiagramData *data, DiaContext *ctx,
 
     renderer->pagenum = 1;
     renderer->file = file;
+    renderer->ctx = ctx;
 
     renderer->dash_length = 1.0;
     renderer->dot_length = 0.2;

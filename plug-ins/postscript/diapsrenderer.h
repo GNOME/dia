@@ -49,6 +49,7 @@ struct _DiaPsRenderer
   double scale;
   Rectangle extent;
 
+  DiaContext *ctx;
 };
 
 struct _DiaPsRendererClass

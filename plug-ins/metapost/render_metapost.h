@@ -63,6 +63,8 @@ struct _MetapostRenderer
   char *mp_weight;
   char *mp_slant;
   real mp_font_height;
+
+  DiaContext *ctx;
 };
 
 struct _MetapostRendererClass
