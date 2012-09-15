@@ -59,7 +59,6 @@
 
 #include "intl.h"
 #include "render_eps.h"
-#include "message.h"
 #include "diagramdata.h"
 #include "font.h"
 #include "diapsrenderer.h"

@@ -33,7 +33,6 @@
 #include <glib/gstdio.h>
 
 #include "intl.h"
-#include "message.h"
 #include "geometry.h"
 #include "diarenderer.h"
 #include "filter.h"

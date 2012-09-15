@@ -59,7 +59,6 @@
 #include "diasvgrenderer.h"
 #include "filter.h"
 #include "intl.h"
-#include "message.h"
 #include "diagramdata.h"
 #include "object.h"
 

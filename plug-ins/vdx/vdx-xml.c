@@ -27,7 +27,6 @@
 #include <string.h>
 #include <libxml/tree.h>
 #include "intl.h"
-#include "message.h"
 #include "geometry.h"
 #include "filter.h"
 #include "object.h"
@@ -5184,7 +5183,7 @@ vdx_write_object(FILE *file, unsigned int depth, const void *p)
         break;
 
     default:
-         message_error(_("Can't write object %u"), Any->type);
+         g_warning("Can't write object %u", Any->type);
     }
     while(child)
     {

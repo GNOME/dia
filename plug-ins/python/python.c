@@ -28,7 +28,6 @@
 #include "intl.h"
 #include "plug-ins.h"
 #include "dia_dirs.h"
-#include "message.h"
 
 #include "pydia-error.h"
 

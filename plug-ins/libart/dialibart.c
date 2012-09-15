@@ -23,7 +23,6 @@
 #include <stdio.h>
 
 #include "intl.h"
-#include "message.h"
 #include "filter.h"
 #include "plug-ins.h"
 

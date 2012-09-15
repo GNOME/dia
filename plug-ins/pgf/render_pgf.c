@@ -462,7 +462,8 @@ set_fillstyle(DiaRenderer *self, FillStyle mode)
     case FILLSTYLE_SOLID:
 	break;
     default:
-	message_error("pgf_renderer: Unsupported fill mode specified!\n");
+	g_warning ("%s: Unsupported fill mode specified!",
+		   G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (self)));
     }
 }
 

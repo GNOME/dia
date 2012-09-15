@@ -26,7 +26,6 @@
 #include <gdk-pixbuf/gdk-pixbuf.h>
 
 #include "intl.h"
-#include "message.h"
 #include "geometry.h"
 #include "diagdkrenderer.h"
 #include "filter.h"

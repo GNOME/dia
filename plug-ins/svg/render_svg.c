@@ -40,7 +40,6 @@
 #include "diasvgrenderer.h"
 #include "filter.h"
 #include "intl.h"
-#include "message.h"
 #include "diagramdata.h"
 #include "dia_xml_libxml.h"
 #include "object.h"
