@@ -31,6 +31,7 @@
 #include "attributes.h"
 #include "properties.h"
 #include "autoroute.h"
+#include "create.h"
 
 #include "tool-icons.h"
 
@@ -254,6 +255,7 @@ zigzagline_create(Point *startpoint,
   Zigzagline *zigzagline;
   OrthConn *orth;
   DiaObject *obj;
+  Point dummy = {0, 0};
 
   /*zigzagline_init_defaults();*/
   zigzagline = g_malloc0(sizeof(Zigzagline));
@@ -262,8 +264,16 @@ zigzagline_create(Point *startpoint,
   
   obj->type = &zigzagline_type;
   obj->ops = &zigzagline_ops;
-  
-  orthconn_init(orth, startpoint);
+
+  if (startpoint)
+    orthconn_init(orth, startpoint);
+  else
+    orthconn_init(orth, &dummy);
+
+  if (user_data) {
+    MultipointCreateData *pcd = (MultipointCreateData *)user_data;
+    orthconn_set_points (orth, pcd->num_points, pcd->points);
+  }
 
   zigzagline->line_width =  attributes_get_default_linewidth();
   zigzagline->line_color = attributes_get_foreground();
@@ -274,7 +284,7 @@ zigzagline_create(Point *startpoint,
   zigzagline->start_arrow = attributes_get_default_start_arrow();
   zigzagline->end_arrow = attributes_get_default_end_arrow();
   zigzagline->corner_radius = 0.0;
-  
+
   *handle1 = orth->handles[0];
   *handle2 = orth->handles[orth->numpoints-2];
 
@@ -383,9 +393,74 @@ zigzagline_delete_segment_callback(DiaObject *obj, Point *clicked, gpointer data
   return change;
 }
 
+/*!
+ * \brief Upgrade the _Zigzagline to a _Bezierline
+ *
+ * Accessible through the object's context menu this function substitutes 
+ * the _Zigzagline with a _Bezierline. The function creates a favorable
+ * representation of the original _OrthConn data of the given object.
+ *
+ * @param obj  explicit this pointer
+ * @param clicked  last clicked point on the canvas or NULL
+ * @param data a pointer to extra data, unused here
+ * @return  undo/redo information as _ObjectChange
+ *
+ * \memberof _Zigzagline
+ */
+static ObjectChange *
+_convert_to_bezierline_callback (DiaObject *obj, Point *clicked, gpointer data)
+{
+  DiaObject *poly;
+  Zigzagline *zigzagline = (Zigzagline *)obj;
+  OrthConn *orth = &zigzagline->orth;
+  BezPoint *bp;
+  int i, j, num_points;
+  DiaObject *bezier;
+
+  num_points = (orth->numpoints + 1) / 2;
+  bp = g_new(BezPoint, num_points);
+  bp[0].type = BEZ_MOVE_TO;
+  bp[0].p1 = orth->points[0];
+
+  for (i = 1, j = 1; i < num_points && j < orth->numpoints; ++i) {
+    bp[i].type = BEZ_CURVE_TO;
+    bp[i].p1 = orth->points[j++];
+    bp[i].p2 = orth->points[j++];
+    if (j + 2 < orth->numpoints) {
+      /* if we have more than two points left, use the middle of the segment */
+      Point p = { (orth->points[j-1].x + orth->points[j].x) / 2.0,
+		  (orth->points[j-1].y + orth->points[j].y) / 2.0 };
+      bp[i].p3 = p;
+    } else if (j + 2 == orth->numpoints) {
+      /* if we one extra point left, use the middle of two segments */
+      Point p1 = { (orth->points[j-2].x + orth->points[j-1].x) / 2.0,
+		   (orth->points[j-2].y + orth->points[j-1].y) / 2.0 };
+      Point p2 = { (orth->points[j-1].x + orth->points[j].x) / 2.0,
+		   (orth->points[j-1].y + orth->points[j].y) / 2.0 };
+      Point p =  { (p1.x + p2.x) / 2.0, (p1.y + p2.y) / 2.0 };
+      bp[i].p3 = p;
+      /* also adapt the previous control point */
+      bp[i].p2 = p1;
+      /* and do the final bezpoint */
+      bp[i+1].type = BEZ_CURVE_TO;
+      bp[i+1].p1 = p2;
+      bp[i+1].p2 = orth->points[j];
+      bp[i+1].p3 = orth->points[j+1];
+      break;
+    } else {
+      bp[i].p3 = orth->points[j++];
+    }
+  }
+  bezier = create_standard_bezierline(num_points, bp, &zigzagline->end_arrow, &zigzagline->start_arrow);
+  g_free(bp);
+
+  return object_substitute (obj, bezier);
+}
+
 static DiaMenuItem object_menu_items[] = {
   { N_("Add segment"), zigzagline_add_segment_callback, NULL, 1 },
   { N_("Delete segment"), zigzagline_delete_segment_callback, NULL, 1 },
+  { N_("Upgrade to Bezierline"), _convert_to_bezierline_callback, NULL, 1 },
   ORTHCONN_COMMON_MENUS,
 };
 
@@ -405,7 +480,8 @@ zigzagline_get_object_menu(Zigzagline *zigzagline, Point *clickedpoint)
   /* Set entries sensitive/selected etc here */
   object_menu_items[0].active = orthconn_can_add_segment(orth, clickedpoint);
   object_menu_items[1].active = orthconn_can_delete_segment(orth, clickedpoint);
-  orthconn_update_object_menu(orth, clickedpoint, &object_menu_items[2]);
+  object_menu_items[2].active = TRUE;
+  orthconn_update_object_menu(orth, clickedpoint, &object_menu_items[3]);
 
   return &object_menu;
 }

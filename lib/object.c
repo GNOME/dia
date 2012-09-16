@@ -324,11 +324,12 @@ typedef struct _ObjectChangeExchange
   gboolean      applied;
 } ObjectChangeExchange;
 
-Handle *
+static Handle *
 _find_connectable (DiaObject *obj, int *num)
 {
-  int n = *num;
-  for (; n < obj->num_handles; ++n) {
+  int dir = *num >= 0 ? 1 : -1;
+  int n = (*num >= 0 ? *num : -*num);
+  for (; n < obj->num_handles && n >= 0; n+=dir) {
     if (obj->handles[n]->connect_type!=HANDLE_NONCONNECTABLE) {
       *num = n;
       return obj->handles[n];
@@ -336,7 +337,22 @@ _find_connectable (DiaObject *obj, int *num)
   }
   return NULL;
 }
-
+/*!
+ * Bezierlines don't have just two connectable handles, but every 
+ * major handle is connectable. To let us find the correct handles
+ * for connection transfer this function checks if there is
+ * a higher handle index connectable.
+ */
+static int
+_more_connectable (DiaObject *obj, int num)
+{
+  int n;
+  for (n = num+1; n < obj->num_handles; ++n) {
+    if (obj->handles[n]->connect_type!=HANDLE_NONCONNECTABLE)
+      return TRUE;
+  }
+  return FALSE;
+}
 static PropDescription _style_prop_descs[] = {
   PROP_STD_LINE_WIDTH,
   PROP_STD_LINE_COLOUR,
@@ -386,8 +402,12 @@ _object_exchange (ObjectChange *change, DiaObject *obj)
       subst->ops->move_handle(subst, h2, &h2->pos, cp, HANDLE_MOVE_CONNECTED, 0);
     }
     ++n1;
-    ++n2;
     h1 = _find_connectable (obj, &n1);
+    /* if we are at the end of the input line change search direction to backward */
+    if (h1 && !_more_connectable(obj, n1))
+      n2 = -(subst->num_handles-1);
+    else
+      ++n2;
     h2 = _find_connectable (subst, &n2);
   }
   /* disconnect the rest - sorry: no undo for that */
