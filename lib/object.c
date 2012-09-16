@@ -290,7 +290,7 @@ object_list_move_delta_r(GList *objects, Point *delta, gboolean affected)
  * @param objects The list ob objects to move.
  * @param delta The amount to move them.
  */
-extern ObjectChange*
+ObjectChange*
 object_list_move_delta(GList *objects, Point *delta)
 {
   GList *list;
@@ -314,6 +314,158 @@ object_list_move_delta(GList *objects, Point *delta)
     list = g_list_next(list);
   }
   return objchange;
+}
+
+typedef struct _ObjectChangeExchange
+{
+  ObjectChange change;
+  DiaObject    *orig;
+  DiaObject    *subst;
+  gboolean      applied;
+} ObjectChangeExchange;
+
+Handle *
+_find_connectable (DiaObject *obj, int *num)
+{
+  int n = *num;
+  for (; n < obj->num_handles; ++n) {
+    if (obj->handles[n]->connect_type!=HANDLE_NONCONNECTABLE) {
+      *num = n;
+      return obj->handles[n];
+    }
+  }
+  return NULL;
+}
+
+static PropDescription _style_prop_descs[] = {
+  PROP_STD_LINE_WIDTH,
+  PROP_STD_LINE_COLOUR,
+  PROP_STD_LINE_STYLE,
+  PROP_STD_LINE_JOIN,
+  PROP_STD_LINE_CAPS,
+  PROP_STD_FILL_COLOUR,
+  PROP_STD_TEXT,
+  PROP_DESC_END
+};
+
+static void
+_object_exchange (ObjectChange *change, DiaObject *obj)
+{
+  ObjectChangeExchange *c = (ObjectChangeExchange *)change;
+  Layer *layer = dia_object_get_parent_layer (obj);
+  DiagramData *dia = layer ? layer_get_parent_diagram(layer) : NULL;
+  DiaObject *subst = (obj == c->orig) ? c->subst : c->orig;
+  DiaObject *parent_object = obj->parent;
+  Handle *h1, *h2;
+  int n1 = 0, n2 = 0;
+  GPtrArray *props;
+  int obj_index = 0;
+
+  props = prop_list_from_descs (_style_prop_descs, pdtpp_true);
+  /* removing from the diagram first, to have the right update areas */
+  if (layer) {
+    obj_index = layer_object_get_index (layer, obj);
+    layer_remove_object (layer, obj);
+    if (dia)
+      data_unselect(dia, obj);
+  }
+  if (obj->ops->get_props)
+    obj->ops->get_props(obj, props);
+  /* transfer connections where possible - first find the right handles */
+  h1 = _find_connectable (obj, &n1);
+  h2 = _find_connectable (subst, &n2);
+  while (h1 && h2) {
+    /* The connection point of the other object - beware self connections */
+    ConnectionPoint *cp = h1->connected_to;
+
+    if (cp) {
+      h2->pos = h1->pos;
+      object_unconnect (obj, h1);
+      object_connect (subst, h2, cp);
+      /* make the object update it's data - e.g. autorouting */
+      subst->ops->move_handle(subst, h2, &h2->pos, cp, HANDLE_MOVE_CONNECTED, 0);
+    }
+    ++n1;
+    ++n2;
+    h1 = _find_connectable (obj, &n1);
+    h2 = _find_connectable (subst, &n2);
+  }
+  /* disconnect the rest - sorry: no undo for that */
+  object_unconnect_all (obj);
+  /* transfer parenting information */
+  if (parent_object) {
+    GList *sibling = g_list_find (parent_object->children, obj);
+    parent_object->children = g_list_insert_before (parent_object->children, sibling, subst);
+    parent_object->children = g_list_remove (parent_object->children, obj);
+  }
+  /* apply style properties */
+  if (subst->ops->get_props)
+    subst->ops->set_props(subst, props);
+  prop_list_free(props);
+  /* adding to the diagram last, to have the right update areas */
+  if (layer) {
+    layer_add_object_at (layer, subst, obj_index);
+    if (dia)
+      data_select(dia, subst);
+  }
+}
+/* It is adviced to not use the passed in object at all */
+static void
+_object_exchange_apply (ObjectChange *change, DiaObject *obj)
+{
+  ObjectChangeExchange *c = (ObjectChangeExchange *)change;
+
+  g_return_if_fail (c->applied == 0);
+  _object_exchange (change, c->orig);
+  c->applied = 1;
+}
+/* It is adviced to not use the passed in object at all */
+static void
+_object_exchange_revert (ObjectChange *change, DiaObject *obj)
+{
+  ObjectChangeExchange *c = (ObjectChangeExchange *)change;
+
+  g_return_if_fail (c->applied != 0);
+  _object_exchange (change, c->subst);
+  c->applied = 0;
+}
+static void
+_object_exchange_free (ObjectChange *change)
+{
+  ObjectChangeExchange *c = (ObjectChangeExchange *)change;
+  DiaObject *obj = c->applied ? c->orig : c->subst;
+
+  if (obj) {
+    obj->ops->destroy(obj);
+    g_free(obj);
+  }
+}
+/*!
+ * \brief Replace an object with another one
+ *
+ * The type of an object can not change dynamically. To substitute one
+ * object with another this function help. It does it's best to transfer
+ * all the existing object relations, e.g. connections, parent_layer 
+ * and parenting information.
+ *
+ * @param obj   the original object which will be replace
+ * @param subst the sunstitute object
+ * @return      _ObjectChange containing undo/redo information
+ */
+ObjectChange *
+object_substitute (DiaObject *obj, DiaObject *subst)
+{
+  ObjectChangeExchange *change = g_new0(ObjectChangeExchange, 1);
+
+  change->change.apply  = _object_exchange_apply;
+  change->change.revert = _object_exchange_revert;
+  change->change.free   = _object_exchange_free;
+  change->orig  = obj;
+  change->subst = subst;
+
+  _object_exchange_apply ((ObjectChange*)change, obj);
+
+  return (ObjectChange*)change;
 }
 
 /** Destroy a list of objects by calling ops->destroy on each in turn.

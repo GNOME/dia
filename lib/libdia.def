@@ -540,6 +540,7 @@ EXPORTS
  object_save_props
  object_save_using_properties
  object_set_props_from_offsets
+ object_substitute
  object_toggle_prop
  object_unconnect
 
@@ -556,6 +557,7 @@ EXPORTS
  orthconn_move
  orthconn_move_handle
  orthconn_save
+ orthconn_set_points
  orthconn_toggle_autorouting_callback
  orthconn_update_boundingbox
  orthconn_update_data

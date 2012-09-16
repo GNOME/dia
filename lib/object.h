@@ -376,12 +376,8 @@ void object_load(DiaObject *obj, ObjectNode obj_node, DiaContext *ctx);
 GList *object_copy_list(GList *list);
 ObjectChange* object_list_move_delta_r(GList *objects, Point *delta, gboolean affected);
 ObjectChange* object_list_move_delta(GList *objects, Point *delta);
-/** Rotate an object around a point.  If center is NULL, the position of
- * the object is used. */
-ObjectChange* object_list_rotate(GList *objects, Point *center, real angle);
-/** Scale an object around a point.  If center is NULL, the position of
- * the object is used. */
-ObjectChange* object_list_scale(GList *objects, Point *center, real factor);
+ObjectChange *object_substitute (DiaObject *obj, DiaObject *subst);
+
 void destroy_object_list(GList *list);
 void object_add_handle(DiaObject *obj, Handle *handle);
 void object_add_handle_at(DiaObject *obj, Handle *handle, int pos);
