@@ -147,14 +147,13 @@ static PropDescription create_line_prop_descs[] = {
     PROP_DESC_END};
 
 DiaObject *
-create_standard_polyline(int num_points, 
-			 Point *points,
-			 Arrow *end_arrow,
-			 Arrow *start_arrow) {
-    DiaObjectType *otype = object_get_type("Standard - PolyLine");
+create_standard_zigzagline(int num_points, const Point *points,
+			   const Arrow *end_arrow, const Arrow *start_arrow)
+{
+    DiaObjectType *otype = object_get_type("Standard - ZigZagLine");
     DiaObject *new_obj;
     Handle *h1, *h2;
-    MultipointCreateData *pcd;
+    MultipointCreateData pcd;
     GPtrArray *props;
 
     if (otype == NULL){
@@ -162,14 +161,46 @@ create_standard_polyline(int num_points,
 	return NULL;
     }
 
-    pcd = g_new(MultipointCreateData, 1);
-    pcd->num_points = num_points;
-    pcd->points = points;
+    pcd.num_points = num_points;
+    pcd.points = points;
 
-    new_obj = otype->ops->create(NULL, pcd,
-				 &h1, &h2);
+    new_obj = otype->ops->create(NULL, &pcd, &h1, &h2);
 
-    g_free(pcd);
+    props = prop_list_from_descs(create_line_prop_descs,pdtpp_true);
+    g_assert(props->len == 2);
+    
+    if (start_arrow != NULL)
+	((ArrowProperty *)g_ptr_array_index(props, 0))->arrow_data = *start_arrow;
+    if (end_arrow != NULL)
+	((ArrowProperty *)g_ptr_array_index(props, 1))->arrow_data = *end_arrow;
+
+    new_obj->ops->set_props(new_obj, props);
+    prop_list_free(props);
+    
+    return new_obj;
+}
+
+DiaObject *
+create_standard_polyline(int num_points, 
+			 Point *points,
+			 Arrow *end_arrow,
+			 Arrow *start_arrow)
+{
+    DiaObjectType *otype = object_get_type("Standard - PolyLine");
+    DiaObject *new_obj;
+    Handle *h1, *h2;
+    MultipointCreateData pcd;
+    GPtrArray *props;
+
+    if (otype == NULL){
+	message_error(_("Can't find standard object"));
+	return NULL;
+    }
+
+    pcd.num_points = num_points;
+    pcd.points = points;
+
+    new_obj = otype->ops->create(NULL, &pcd, &h1, &h2);
 
     props = prop_list_from_descs(create_line_prop_descs,pdtpp_true);
     g_assert(props->len == 2);
@@ -191,20 +222,17 @@ create_standard_polygon(int num_points,
     DiaObjectType *otype = object_get_type("Standard - Polygon");
     DiaObject *new_obj;
     Handle *h1, *h2;
-    MultipointCreateData *pcd;
+    MultipointCreateData pcd;
 
     if (otype == NULL){
 	message_error(_("Can't find standard object"));
 	return NULL;
     }
 
-    pcd = g_new(MultipointCreateData, 1);
-    pcd->num_points = num_points;
-    pcd->points = points;
+    pcd.num_points = num_points;
+    pcd.points = points;
 
-    new_obj = otype->ops->create(NULL, pcd, &h1, &h2);
-
-    g_free(pcd);
+    new_obj = otype->ops->create(NULL, &pcd, &h1, &h2);
     
     return new_obj;
 }
@@ -217,7 +245,7 @@ create_standard_bezierline(int num_points,
     DiaObjectType *otype = object_get_type("Standard - BezierLine");
     DiaObject *new_obj;
     Handle *h1, *h2;
-    BezierCreateData *bcd;
+    BezierCreateData bcd;
     GPtrArray *props;
 
     if (otype == NULL){
@@ -225,15 +253,11 @@ create_standard_bezierline(int num_points,
 	return NULL;
     }
 
-    bcd = g_new(BezierCreateData, 1);
-    bcd->num_points = num_points;
-    bcd->points = points;
+    bcd.num_points = num_points;
+    bcd.points = points;
 
-    new_obj = otype->ops->create(NULL, bcd,
-				 &h1, &h2);
+    new_obj = otype->ops->create(NULL, &bcd, &h1, &h2);
 
-    g_free(bcd);
-    
     props = prop_list_from_descs(create_line_prop_descs,pdtpp_true);
     g_assert(props->len == 2);
     
@@ -254,21 +278,17 @@ create_standard_beziergon(int num_points,
     DiaObjectType *otype = object_get_type("Standard - Beziergon");
     DiaObject *new_obj;
     Handle *h1, *h2;
-    BezierCreateData *bcd;
+    BezierCreateData bcd;
 
     if (otype == NULL){
 	message_error(_("Can't find standard object"));
 	return NULL;
     }
 
-    bcd = g_new(BezierCreateData, 1);
-    bcd->num_points = num_points;
-    bcd->points = points;
+    bcd.num_points = num_points;
+    bcd.points = points;
 
-    new_obj = otype->ops->create(NULL, bcd,
-				 &h1, &h2);
-
-    g_free(bcd);
+    new_obj = otype->ops->create(NULL, &bcd, &h1, &h2);
     
     return new_obj;
 }

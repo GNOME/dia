@@ -129,6 +129,7 @@ EXPORTS
  create_standard_polygon
  create_standard_polyline
  create_standard_text
+ create_standard_zigzagline
 
  data_add_boolean
  data_add_color

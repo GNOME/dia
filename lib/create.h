@@ -62,6 +62,9 @@ DiaObject *create_standard_box(real xpos, real ypos, real width, real height);
 /*! Create a _Polyline with arrows */
 DiaObject *create_standard_polyline(int num_points,  Point *points,
 				    Arrow *end_arrow, Arrow *start_arrow);
+/*! Create an _OrthConn with arrows */
+DiaObject *create_standard_zigzagline(int num_points, const Point *points,
+				      const Arrow *end_arrow, const Arrow *start_arrow);
 DiaObject *create_standard_polygon(int num_points, Point *points);
 /*! Create a _Bezierline with arrows */
 DiaObject *create_standard_bezierline(int num_points, BezPoint *points,
