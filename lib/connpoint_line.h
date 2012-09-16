@@ -21,6 +21,11 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
+/*! 
+ \file connpoint_line.h - services for extra connection points 
+ \ingroup ObjectParts
+ */
+
 #ifndef __CONNPOINT_LINE_H
 #define __CONNPOINT_LINE_H
 
@@ -34,11 +39,23 @@
 #include "object.h"
 #include "dia_xml.h"
 
-typedef struct {
-  Point start,end;
+/*!
+ * \brief Helper class to have dynamic _ConnectionPoint on a line
+ *
+ * ConnPointLine can be used to implement dynamic conection points for
+ * a _DiaObject. It supports unddo/redo, load/save to standard props
+ * and obviously connections to it.
+ *
+ * \ingroup ObjectParts
+ */
+typedef struct _ConnPointLine {
+  /*! Placement of the line. */
+  Point start, end;
+  /*! _DiaObject owning this  ConnPointLine */
   DiaObject *parent;
-  
+  /*! The current number of connection - read only */
   int num_connections;
+  /*! The list of _ConnectionPoint */
   GSList *connections;
 } ConnPointLine;
 
@@ -77,7 +94,3 @@ int connpointline_adjust_count(ConnPointLine *cpl,
 			       int newcount, Point *where);
 
 #endif /* __CONNPOINT_LINE_H */
-
-
-
-
