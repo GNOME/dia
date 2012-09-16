@@ -17,6 +17,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
+/*! \file line.c -- Implements the "Standard - Line" object */
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif
@@ -33,6 +34,7 @@
 #include "arrows.h"
 #include "connpoint_line.h"
 #include "properties.h"
+#include "create.h"
 
 #include "tool-icons.h"
 
@@ -41,7 +43,12 @@
 typedef struct _LineProperties LineProperties;
 
 /*!
- * \brief Standard - Line
+ * \brief Standard - Line: a straight _Connection
+ *
+ * The Standard - Line object implements a straight connection between two points.
+ * The object can grow addtional _ConnectionPoint though the internal use 
+ * of ConnPointLine.
+ *
  * \extends _Connection
  * \ingroup StandardObjects
  */
@@ -208,6 +215,11 @@ line_init_defaults() {
   }
 }
 
+/*!
+ * \brief Add a connection point to the line
+ *
+ * \memberof Line
+ */
 static ObjectChange *
 line_add_connpoint_callback(DiaObject *obj, Point *clicked, gpointer data) 
 {
@@ -217,6 +229,11 @@ line_add_connpoint_callback(DiaObject *obj, Point *clicked, gpointer data)
   return oc;
 }
 
+/*!
+ * \brief Remove a connection point from the line
+ *
+ * \memberof Line
+ */
 static ObjectChange *
 line_remove_connpoint_callback(DiaObject *obj, Point *clicked, gpointer data) 
 {
@@ -226,10 +243,95 @@ line_remove_connpoint_callback(DiaObject *obj, Point *clicked, gpointer data)
   return oc;
 }
 
+/*!
+ * \brief Upgrade the Line to a Polyline
+ *
+ * Convert the _Line to a _Polyline with the position clicked as third point.
+ * Further object properties are preserved by the use of object_substitute()
+ *
+ * @param obj  self pointer
+ * @param clicked  last clicked point on canvas or NULL
+ * @param data  here unuesed user_data pointer
+ * @return an _ObjectChange to support undo/redo
+ *
+ * \memberof Line
+ */
+static ObjectChange *
+_convert_to_polyline_callback (DiaObject *obj, Point *clicked, gpointer data)
+{
+  DiaObject *poly;
+  Line *line = (Line *)obj;
+  Point points[3];
+
+  points[0] = line->connection.endpoints[0];
+  points[2] = line->connection.endpoints[1];
+  if (clicked) {
+    points[1] = *clicked;
+  } else {
+    points[1].x = (points[0].x + points[2].x) / 2;
+    points[1].y = (points[0].y + points[2].y) / 2;
+  }
+
+  poly = create_standard_polyline (3, points, &line->end_arrow, &line->start_arrow);
+  g_return_val_if_fail (poly != NULL, NULL);
+  return object_substitute (obj, poly);
+}
+
+/*!
+ * \brief Upgrade the Line to a Zigzagline
+ *
+ * Convert the _Line to a _Zigzagline with the position clicked (if near enough)
+ * for the new segment. The result of this function is more favorable for connected
+ * lines by autorouting.
+ *
+ * Further object properties are preserved by the use of object_substitute()
+ *
+ * @param obj  self pointer
+ * @param clicked  last clicked point on canvas or NULL
+ * @param data  here unuesed user_data pointer
+ * @return an _ObjectChange to support undo/redo
+ *
+ * \memberof Line
+ */
+static ObjectChange *
+_convert_to_zigzagline_callback (DiaObject *obj, Point *clicked, gpointer data)
+{
+  DiaObject *zigzag;
+  Line *line = (Line *)obj;
+  Point points[4];
+
+  if (clicked) {
+    points[0] = line->connection.endpoints[0];
+    points[3] = line->connection.endpoints[1];
+    /* not sure if we really want to give it a direction at all */
+    if (fabs(((points[0].x + points[3].x)/2) - clicked->x) > fabs(((points[0].y + points[3].y)/2) - clicked->y)) {
+      points[1].x = points[2].x = clicked->x;
+      points[1].y = points[0].y;
+      points[2].y = points[3].y;
+    } else {
+      points[1].y = points[2].y = clicked->y;
+      points[1].x = points[0].x;
+      points[2].x = points[3].x;
+    }
+    zigzag = create_standard_zigzagline (4, points, &line->end_arrow, &line->start_arrow);
+  } else {
+    points[0] = line->connection.endpoints[0];
+    points[3] = line->connection.endpoints[1];
+    points[1].x = points[2].x = (points[0].x + points[3].x) / 2.0;
+    points[1].y = points[0].y;
+    points[2].y = points[3].y;
+    zigzag = create_standard_zigzagline (4, points, &line->end_arrow, &line->start_arrow);
+  }
+
+  g_return_val_if_fail (zigzag != NULL, NULL);
+  return object_substitute (obj, zigzag);
+}
+
 static DiaMenuItem object_menu_items[] = {
   { N_("Add connection point"), line_add_connpoint_callback, NULL, 1 },
-  { N_("Delete connection point"), line_remove_connpoint_callback, 
-    NULL, 1 },
+  { N_("Delete connection point"), line_remove_connpoint_callback, NULL, 1 },
+  { N_("Upgrade to Polyline"), _convert_to_polyline_callback, NULL, 1 },
+  { N_("Upgrade to Zigzagline"), _convert_to_zigzagline_callback, NULL, 1 }
 };
 
 static DiaMenu object_menu = {
@@ -255,9 +357,14 @@ line_get_object_menu(Line *line, Point *clickedpoint)
 
 
 
-/** Calculate the absolute gap -- this gap is 'transient', in that
+/*!
+ * \brief Gap calculation for _Line
+ *
+ * Calculate the absolute gap -- this gap is 'transient', in that
  * the actual end of the line is not moved, but it is made to look like
  * it is shorter.
+ *
+ * \protected \memberof Line
  */
 static void
 line_adjust_for_absolute_gap(Line *line, Point *gap_endpoints)
