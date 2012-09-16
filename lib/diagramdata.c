@@ -42,6 +42,7 @@ static void diagram_data_init (DiagramData *object);
 enum {
   OBJECT_ADD,
   OBJECT_REMOVE,
+  SELECTION_CHANGED,
   LAST_SIGNAL
 };
 
@@ -92,6 +93,11 @@ _diagram_data_object_add (DiagramData* dia,Layer* layer,DiaObject* obj)
 
 static void
 _diagram_data_object_remove (DiagramData* dia,Layer* layer,DiaObject* obj)
+{
+}
+
+static void
+_diagram_data_selection_changed (DiagramData* dia, int n)
 {
 }
 
@@ -267,6 +273,16 @@ diagram_data_class_init(DiagramDataClass *klass)
               2,
               G_TYPE_POINTER,
               G_TYPE_POINTER);
+
+  diagram_data_signals[SELECTION_CHANGED] =
+    g_signal_new ("selection_changed",
+	          G_TYPE_FROM_CLASS (klass),
+	          G_SIGNAL_RUN_FIRST,
+	          G_STRUCT_OFFSET (DiagramDataClass, selection_changed),
+	          NULL, NULL,
+	          dia_marshal_VOID__INT,
+		  G_TYPE_NONE, 1,
+		  G_TYPE_INT);
 
   object_class->finalize = diagram_data_finalize;
   klass->object_add = _diagram_data_object_add;
@@ -476,6 +492,7 @@ data_select(DiagramData *data, DiaObject *obj)
     return; /* should this be an error?`*/
   data->selected = g_list_prepend(data->selected, obj);
   data->selected_count_private++;
+  g_signal_emit (data, diagram_data_signals[SELECTION_CHANGED], 0, data->selected_count_private);
 }
 
 /** Deselect an object in a diagram.  Note that other objects may still be
@@ -490,6 +507,7 @@ data_unselect(DiagramData *data, DiaObject *obj)
     return; /* should this be an error?`*/
   data->selected = g_list_remove(data->selected, obj);
   data->selected_count_private--;
+  g_signal_emit (data, diagram_data_signals[SELECTION_CHANGED], 0, data->selected_count_private);
 }
 
 /** Clears the list of selected objects.
@@ -502,6 +520,7 @@ data_remove_all_selected(DiagramData *data)
   g_list_free(data->selected); /* Remove previous selection */
   data->selected = NULL;
   data->selected_count_private = 0;
+  g_signal_emit (data, diagram_data_signals[SELECTION_CHANGED], 0, data->selected_count_private);
 }
 
 /** Return TRUE if the diagram has visible layers.

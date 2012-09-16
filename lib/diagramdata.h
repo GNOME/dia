@@ -99,6 +99,7 @@ typedef struct _DiagramDataClass {
   /* Signals */
   void (* object_add)        (DiagramData*, Layer*, DiaObject*);
   void (* object_remove)     (DiagramData*, Layer*, DiaObject*);
+  void (* selection_changed) (DiagramData*, int);
 
 } DiagramDataClass;
 

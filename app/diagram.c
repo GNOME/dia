@@ -63,7 +63,6 @@ static gboolean diagram_init(Diagram *obj, const char *filename);
 static void diagram_update_for_filename(Diagram *dia);
 
 enum {
-  SELECTION_CHANGED,
   REMOVED,
   LAST_SIGNAL
 };
@@ -141,11 +140,6 @@ _diagram_removed (Diagram* dia)
 }
 
 static void
-_diagram_selection_changed (Diagram* dia, int n)
-{
-}
-
-static void
 diagram_class_init (DiagramClass *klass)
 {
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
@@ -161,18 +155,7 @@ diagram_class_init (DiagramClass *klass)
 	          dia_marshal_VOID__VOID,
 		  G_TYPE_NONE, 0);
 
-  diagram_signals[SELECTION_CHANGED] =
-    g_signal_new ("selection_changed",
-	          G_TYPE_FROM_CLASS (klass),
-	          G_SIGNAL_RUN_FIRST,
-	          G_STRUCT_OFFSET (DiagramClass, selection_changed),
-	          NULL, NULL,
-	          dia_marshal_VOID__INT,
-		  G_TYPE_NONE, 1,
-		  G_TYPE_INT);
-
   klass->removed = _diagram_removed;
-  klass->selection_changed = _diagram_selection_changed;
 
   object_class->finalize = diagram_finalize;
   object_class->dispose = diagram_dispose;
@@ -182,6 +165,25 @@ GList *
 dia_open_diagrams(void)
 {
   return open_diagrams;
+}
+
+static void
+_object_add (Diagram   *dia,
+	     Layer     *layer,
+             DiaObject *obj,
+	     gpointer   user_data)
+{
+  if (obj)
+    object_add_updates(obj, dia);
+}
+static void
+_object_remove(Diagram   *dia,
+	       Layer     *layer,
+               DiaObject *obj,
+	       gpointer   user_data)
+{
+  if (obj)
+    object_add_updates(obj, dia);
 }
 
 /** Initializes a diagram with standard info and sets it to be called
@@ -254,6 +256,10 @@ diagram_init(Diagram *dia, const char *filename)
     layer_dialog_update_diagram_list();
 
   g_free(newfilename);
+
+  g_signal_connect (G_OBJECT(dia), "object_add", G_CALLBACK(_object_add), dia);
+  g_signal_connect (G_OBJECT(dia), "object_remove", G_CALLBACK(_object_remove), dia);
+
   return TRUE;
 }
 
@@ -748,7 +754,6 @@ diagram_remove_all_selected(Diagram *diagram, int delete_empty)
   object_add_updates_list(diagram->data->selected, diagram);
   textedit_remove_focus_all(diagram);
   data_remove_all_selected(diagram->data);
-  g_signal_emit (diagram, diagram_signals[SELECTION_CHANGED], 0, g_list_length (diagram->data->selected));
 }
 
 void
@@ -757,8 +762,6 @@ diagram_unselect_object(Diagram *diagram, DiaObject *obj)
   object_add_updates(obj, diagram);
   textedit_remove_focus(obj, diagram);
   data_unselect(DIA_DIAGRAM_DATA(diagram), obj);
-  g_signal_emit (diagram, diagram_signals[SELECTION_CHANGED], 0,
-		 g_list_length (DIA_DIAGRAM_DATA(diagram)->selected));
 }
 
 void
@@ -768,7 +771,7 @@ diagram_unselect_objects(Diagram *dia, GList *obj_list)
   DiaObject *obj;
 
   /* otherwise we would signal objects step by step */
-  g_signal_handlers_block_by_func (dia, _diagram_selection_changed, NULL);
+  g_signal_handlers_block_by_func (dia, DIA_DIAGRAM_DATA_GET_CLASS (dia)->selection_changed, NULL);
   list = obj_list;
   while (list != NULL) {
     obj = (DiaObject *) list->data;
@@ -779,8 +782,8 @@ diagram_unselect_objects(Diagram *dia, GList *obj_list)
 
     list = g_list_next(list);
   }
-  g_signal_handlers_unblock_by_func (dia, _diagram_selection_changed, NULL);
-  g_signal_emit (dia, diagram_signals[SELECTION_CHANGED], 0, g_list_length (dia->data->selected));
+  g_signal_handlers_unblock_by_func (dia, DIA_DIAGRAM_DATA_GET_CLASS (dia)->selection_changed, NULL);
+  g_signal_emit_by_name (dia, "selection_changed", 0, g_list_length (dia->data->selected));
 }
 
 /** Make a single object selected.
@@ -796,8 +799,6 @@ diagram_select(Diagram *diagram, DiaObject *obj)
     data_select(diagram->data, obj);
     obj->ops->selectf(obj, NULL, NULL);
     object_add_updates(obj, diagram);
-    g_signal_emit (diagram, diagram_signals[SELECTION_CHANGED], 0,
-		   g_list_length (diagram->data->selected));
   }
 }
 
@@ -806,7 +807,7 @@ diagram_select_list(Diagram *dia, GList *list)
 {
   g_return_if_fail (dia && list);
   /* otherwise we would signal objects step by step */
-  g_signal_handlers_block_by_func (dia, _diagram_selection_changed, NULL);
+  g_signal_handlers_block_by_func (dia, DIA_DIAGRAM_DATA_GET_CLASS (dia)->selection_changed, NULL);
   while (list != NULL) {
     DiaObject *obj = (DiaObject *)list->data;
 
@@ -817,8 +818,8 @@ diagram_select_list(Diagram *dia, GList *list)
   if (get_active_focus((DiagramData*) dia) == NULL) {
     textedit_activate_first(ddisplay_active());
   }
-  g_signal_handlers_unblock_by_func (dia, _diagram_selection_changed, NULL);
-  g_signal_emit (dia, diagram_signals[SELECTION_CHANGED], 0, g_list_length (dia->data->selected));
+  g_signal_handlers_unblock_by_func (dia, DIA_DIAGRAM_DATA_GET_CLASS (dia)->selection_changed, NULL);
+  g_signal_emit_by_name (dia, "selection_changed", 0, g_list_length (dia->data->selected));
 }
 
 int

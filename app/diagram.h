@@ -70,7 +70,6 @@ typedef struct _DiagramClass {
 	
   /* signals */
   void (* removed)           (Diagram*);
-  void (* selection_changed) (Diagram*, int);
 	
 } DiagramClass;
 
