@@ -60,6 +60,23 @@ static Point *autolayout_unnormalize_points(guint dir,
 					    Point *points,
 					    guint num_points);
 
+static int
+autolayout_calc_intersects (const Rectangle *r1, const Rectangle *r2,
+			    const Point *points, guint num_points)
+{
+  guint i, n = 0;
+
+  /* ignoring the first and last line assuming a proper 'outer' algorithm */
+  for (i = 1; i < num_points - 2; ++i) {
+    Rectangle rt = { points[i].x, points[i].y, points[i+1].x, points[i+1].y };
+    if (r1)
+      n += (rectangle_intersects (r1, &rt) ? 1 : 0);
+    if (r2)
+      n += (rectangle_intersects (r2, &rt) ? 1 : 0);
+  }
+
+  return n;
+}
 /*!
  * \brief Apply a good route (or none) to the given _OrthConn
  *
@@ -84,6 +101,8 @@ autoroute_layout_orthconn(OrthConn *conn,
 			  ConnectionPoint *startconn, ConnectionPoint *endconn)
 {
   real min_badness = MAX_BADNESS;
+  guint best_intersects = G_MAXINT;
+  guint intersects;
   Point *best_layout = NULL;
   guint best_num_points = 0;
   int startdir, enddir;
@@ -144,24 +163,33 @@ autoroute_layout_orthconn(OrthConn *conn,
 						     &this_layout);
 	}
 	if (this_layout != NULL) {
-	  if (this_badness-min_badness < -0.00001) {
+	  /* this_layout is eaten by unnormalize */
+	  Point *unnormalized = autolayout_unnormalize_points(startdir, startpoint,
+							       this_layout, this_num_points);
+
+	  intersects = autolayout_calc_intersects (
+	    startconn ? dia_object_get_bounding_box (startconn->object) : NULL,
+	    endconn ? dia_object_get_bounding_box (endconn->object) : NULL,
+	    unnormalized, this_num_points);
+
+	  if (   intersects <= best_intersects
+	      && this_badness-min_badness < -0.00001) {
 	    /*
 	    printf("Dir %d to %d badness %f < %f\n", startdir, enddir,
 		   this_badness, min_badness);
 	    */
 	    min_badness = this_badness;
 	    if (best_layout != NULL) g_free(best_layout);
-	    best_layout = autolayout_unnormalize_points(startdir, startpoint,
-							this_layout, 
-							this_num_points);
+	    best_layout = unnormalized;
 	    best_num_points = this_num_points;
             /* revert adjusting start and end point */
 	    autolayout_adjust_for_arrow(&best_layout[0], startdir, 
 	                                -conn->extra_spacing.start_trans);
 	    autolayout_adjust_for_arrow(&best_layout[best_num_points-1], enddir, 
 	                                -conn->extra_spacing.end_trans);
+	    best_intersects = intersects;
 	  } else {
-	      g_free(this_layout);
+	    g_free(unnormalized);
 	  }
 	}
       }
