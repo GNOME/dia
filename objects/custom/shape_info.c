@@ -97,14 +97,16 @@ shape_info_getbyname(const gchar *name)
   return NULL;
 }
 
-/**
- * shape_info_realise :
- * @info : the shape to realise
+/*!
+ * \brief After laoding and before drawing ShapeInfo needs to be realised
+ * @param : the shape to realise
  * 
  * Puts the ShapeInfo into a form suitable for actual use (lazy loading)
  *
+ * \extends _ShapeInfo
  */
-void shape_info_realise(ShapeInfo* info)
+void
+shape_info_realise(ShapeInfo* info)
 {
   GList* tmp;
   
@@ -210,6 +212,14 @@ is_subshape(xmlNode* node)
   return res;
 }
 
+/*!
+ * \brief Parse the SVG node from a shape file
+ * 
+ * Fill the ShapeInfo display list with GraphicElement each got from
+ * a single node within the shape's SVG part.
+ *
+ * \extends _ShapeInfo
+ */
 static void
 parse_svg_node(ShapeInfo *info, xmlNodePtr node, xmlNsPtr svg_ns,
                DiaSvgStyle *style, const gchar *filename)
@@ -661,6 +671,14 @@ update_bounds(ShapeInfo *info)
   }
 }
 
+/*!
+ * \brief Contructor for ShapeInfo from file
+ * 
+ * Load the full shape info from file potentially reusing the preloaded
+ * ShapeInfo loaded by shape_typeinfo_load()
+ *
+ * \extends _ShapeInfo
+ */
 static ShapeInfo *
 load_shape_info(const gchar *filename, ShapeInfo *preload)
 {

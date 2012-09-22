@@ -31,7 +31,10 @@
 #include <glib/gstdio.h>
 #include <libxml/parser.h>
 
-/*
+/*!
+ * \defgroup ObjectCustom Custom Shapes
+ * \ingroup Shapes
+ *
  * Instead of parsing the complete shape file at start-up we read only
  * the minimal info required to register the type. This should speed
  * up startup a lot and also spare some memory for shapes never used
@@ -40,7 +43,7 @@
  * There are so many shapes in dia that on my computer there is a difference
  * of 16MB vs. 36MB total memory consumption with none vs. all of them loaded.
  *
- * The startup time ...
+ * The startup time is significantly reduced by the lazy loading via XML SAX, too.
  */
 
 typedef enum {
@@ -171,6 +174,13 @@ _warning (void *ctx,
   va_end(args);
 }
 
+/*!
+ * \brief Partial load of ShapeInfo jsut for speed
+ * This functions loads the first BLOCKSSIZE block of a shape file
+ * to extract just the type information from it.
+ * \extends ShapeInfo
+ * \ingroup ObjectCustom
+ */
 gboolean
 shape_typeinfo_load (ShapeInfo* info)
 {

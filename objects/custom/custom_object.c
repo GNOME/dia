@@ -62,26 +62,44 @@ typedef enum {
 
 typedef struct _Custom Custom;
 
+/*!
+ * \brief Custom shape representation as DiaObject
+ *
+ * The custom shape object gets created with varying content given from the
+ * shape file. It currently only spports two different sets of properties,
+ * depending on the use of \code <textbox/> \endcode .
+ *
+ * \extends _Element
+ * \ingroup ObjectCustom
+ */
 struct _Custom {
   Element element;
 
+  /*! ShapeInfo giving the object it's drawing info */
   ShapeInfo *info;
-  /* transformation coords */
+  /*! transformation coords */
   real xscale, yscale;
   real xoffs,  yoffs;
 
-  /* The subscale variables
+  /*!
+   * The subscale variables
    * The old_subscale is used for interactive 
    * (shift-pressed) scaling
+   * @{
    */
   real subscale;
   real old_subscale;
-  /* this is sort of a hack, passing a temporary value
-     using this field, but otherwise 
-     subshapes are going to need major code refactoring: */
+  /*! @} */
+  /*!
+   * \brief Pointer changing during the drawing of the display list
+   * this is sort of a hack, passing a temporary value
+   * using this field, but otherwise 
+   * subshapes are going to need major code refactoring: 
+   */
   GraphicElementSubShape* current_subshape;
-  
+  /*! Connection points need to be dynamically allocated */
   ConnectionPoint *connections;
+  /*! width calculate from line_width */
   real border_width;
   Color border_color;
   Color inner_color;
@@ -96,32 +114,6 @@ struct _Custom {
   real padding;
   
   TextFitting text_fitting;
-};
-
-typedef struct _CustomProperties {
-  Color *fg_color;
-  Color *bg_color;
-  gboolean show_background;
-  real border_width;
-
-  real padding;
-  DiaFont *font;
-  real font_size;
-  Alignment alignment;
-  Color *font_color;
-} CustomProperties;
-
-
-static CustomProperties default_properties = {
-  NULL,
-  NULL,
-  TRUE, /* show_background */
-  0.0,  /* border_width */
-  0.1, /* pading */
-  NULL, /* no font */
-  0.8, /* it's size */
-  ALIGN_CENTER, /* it's alignment */
-  NULL, /* no font color */
 };
 
 static real custom_distance_from(Custom *custom, Point *point);
@@ -1588,10 +1580,10 @@ custom_create(Point *startpoint,
   custom->border_width = attributes_get_default_linewidth();
   custom->border_color = attributes_get_foreground();
   custom->inner_color = attributes_get_background();
-  custom->show_background = default_properties.show_background;
+  custom->show_background = TRUE;
   attributes_get_default_line_style(&custom->line_style, &custom->dashlength);
 
-  custom->padding = default_properties.padding;
+  custom->padding = 0.1;
 
   custom->flip_h = FALSE;
   custom->flip_v = FALSE;

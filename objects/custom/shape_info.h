@@ -164,20 +164,27 @@ typedef enum {
 #define DEFAULT_BORDER 0.25
 
 typedef struct _ShapeInfo ShapeInfo;
+/*!
+ * \brief Type information for a DiaObject created from shape file
+ *
+ * \ingroup ObjectCustom
+ */
 struct _ShapeInfo {
+  /*! The objects type name */
   gchar *name;
+  /*! The icon file to use */
   gchar *icon;
 
-  /* info required to load the real data on demand */
+  /*! the filename is info required to load the real data on demand */
   gchar *filename;
   gboolean loaded;
   
-  /* everything below could be put into it's own struct to also spare memory when the shapes are not created */
-  
+  /*! everything below could be put into it's own struct to also spare memory when the shapes are not created */
+  /* @{ */
   int nconnections;
   Point *connections;
-  int main_cp; /* The cp that gets connections from the whole object */
-  int object_flags;
+  int main_cp; /*!< the cp that gets connections from the whole object */
+  int object_flags; /*!< set of PropFlags e.g. parenting */
   Rectangle shape_bounds;
   gboolean has_text;
   gboolean resize_with_text;
@@ -187,7 +194,7 @@ struct _ShapeInfo {
   ShapeAspectType aspect_type;
   real aspect_min, aspect_max;
 
-  real default_width; /* unit cm as everything else internally in Dia */
+  real default_width; /*!< unit cm as everything else internally in Dia */
   real default_height;
 
 
@@ -203,6 +210,7 @@ struct _ShapeInfo {
 
   PropDescription *props;
   PropOffset *prop_offsets;
+  /* @} */
 };
 
 /* there is no destructor for ShapeInfo at the moment */
