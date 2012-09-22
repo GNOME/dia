@@ -414,9 +414,7 @@ DiaObject *object_copy_using_properties(DiaObject *obj);
  **  The structures used to define an object
  *****************************************/
 
-/*!
-  \brief _DiaObject vtable
-
+/*
   This structure gives access to the functions used to manipulate an object
   See information above on the use of the functions
 */
@@ -464,7 +462,10 @@ struct _ObjectOps {
 struct _DiaObject {
   DiaObjectType    *type; /*!< pointer to the registered type */
   Point             position; /*!<  often but not necessarily the upper left corner of the object */
-  /** The area that contains all parts of the 'real' object, i.e. the parts
+  /*!
+   * \brief Rectangle containing the whole object
+   *   
+   * The area that contains all parts of the 'real' object, i.e. the parts
    *  that would be printed, exported to pixmaps etc.  This is also used to
    *  determine the size of autofit scaling, so it should be as large as
    *  the objects without interactive bits and preferably no larger.
@@ -483,7 +484,7 @@ struct _DiaObject {
   /*! Array of ConnectionPoint* - indexing fixed by meaning */
   ConnectionPoint **connections;
 
-  ObjectOps *ops; /*!< pointer to the vtable */
+  ObjectOps *ops; /* pointer to the vtable */
 
   Layer *parent_layer; /*!< Back-pointer to the owning layer.
 			   This may only be set by functions internal to
@@ -508,7 +509,7 @@ struct _DiaObject {
   GHashTable       *meta;
 };
 
-/*!
+/*
  * \brief Vtable for _DiaObjectType
  */
 struct _ObjectTypeOps {
@@ -537,14 +538,14 @@ struct _DiaObjectType {
   char *name; /*!< The type name should follow a pattern of '\<module\> - \<class\>' like "UML - Class" */
   int version; /*!< DiaObjects must be backward compatible, i.e. support possibly older versions formats */ 
 
-  char **pixmap; /* Also put a pixmap in the sheet_object.
+  char **pixmap; /*! Also put a pixmap in the sheet_object.
 		    This one is used if not in sheet but in toolbar.
 		    Stored in xpm format */
   
-  ObjectTypeOps *ops; /*!< pointer to the vtable */
+  ObjectTypeOps *ops; /* pointer to the vtable */
 
-  char *pixmap_file; /* fallback if pixmap is NULL */
-  void *default_user_data; /* use this if no user data is specified in
+  char *pixmap_file; /*! fallback if pixmap is NULL */
+  void *default_user_data; /*! use this if no user data is specified in
 			      the .sheet file */
 };
 

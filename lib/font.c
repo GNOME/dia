@@ -50,7 +50,7 @@ static PangoContext* pango_context = NULL;
 
 /*!
  * \brief Opaque type to represent a font
- * \ingroup ObjectParts
+ * \ingroup ObjectFonts
  */
 struct _DiaFont 
 {

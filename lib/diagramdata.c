@@ -162,13 +162,15 @@ diagram_data_finalize(GObject *object)
 }
 
 
-/**
- * Create a copy of the whole diagram data
+/*!
+ * \brief Create a copy of the whole diagram data
  *
  * This is kind of a deep copy, everything not immutable gets duplicated.
  * Still this is supposed to be relatively fast, because the most expensive
  * objects have immutuable properties, namely the pixbufs in DiaImage are
  * only referenced.
+ *
+ * \memberof _DiagramData
  */
 DiagramData *
 diagram_data_clone (DiagramData *data)
@@ -206,8 +208,9 @@ diagram_data_clone (DiagramData *data)
   return clone;  
 }
 
-/**
- * Create a new diagram data object only containing the selected objects
+/*!
+ * \brief Create a new diagram data object only containing the selected objects
+ * \memberof _DiagramData
  */
 DiagramData *
 diagram_data_clone_selected (DiagramData *data)
@@ -289,9 +292,11 @@ diagram_data_class_init(DiagramDataClass *klass)
   klass->object_remove = _diagram_data_object_remove;
 }
 
-/** Raise a layer up one in a diagram.
+/*!
+ * \brief Raise a layer up one in a diagram.
  * @param data The diagram that the layer belongs to.
  * @param layer The layer to raise.
+ * \memberof _DiagramData
  */
 void
 data_raise_layer(DiagramData *data, Layer *layer)
@@ -313,9 +318,11 @@ data_raise_layer(DiagramData *data, Layer *layer)
   }
 }
 
-/** Lower a layer by one in a diagram.
+/*!
+ * \brief Lower a layer by one in a diagram.
  * @param data The diagram that the layer belongs to.
  * @param layer The layer to lower.
+ * \memberof _DiagramData
  */
 void
 data_lower_layer(DiagramData *data, Layer *layer)
@@ -339,9 +346,11 @@ data_lower_layer(DiagramData *data, Layer *layer)
   }
 }
 
-/** Add a layer object to a diagram.
+/*!
+ * \brief Add a layer object to a diagram.
  * @param data The diagram to add the layer to.
  * @param layer The layer to add.
+ * \memberof _DiagramData
  */
 void
 data_add_layer(DiagramData *data, Layer *layer)
@@ -353,6 +362,16 @@ data_add_layer(DiagramData *data, Layer *layer)
   data_update_extents(data);
 }
 
+/*!
+ * \brief Add a layer at a defined postion in the stack
+ *
+ * If the given pos is out of range the layer is added at the top of the stack.
+ *
+ * @param data the diagram
+ * @param layer layer to add
+ * @param pos the position in the layer stack
+ * \memberof _DiagramData
+ */
 void
 data_add_layer_at(DiagramData *data, Layer *layer, int pos)
 {
@@ -375,6 +394,15 @@ data_add_layer_at(DiagramData *data, Layer *layer, int pos)
   data_update_extents(data);
 }
 
+/*!
+ * \brief Get the index of a layer contained in the diagram
+ *
+ * @param data the diagram
+ * @param layer the layer
+ * @return the zero based index or -1 if not found
+ *
+ * \memberof _DiagramData
+ */
 int
 data_layer_get_index (const DiagramData *data, const Layer *layer)
 {
@@ -388,6 +416,15 @@ data_layer_get_index (const DiagramData *data, const Layer *layer)
   }
   return -1;
 }
+/*!
+ * \brief Get the layer at position index
+ *
+ * @param data the diagram
+ * @param index the layer position
+ * @return the _Layer or NULL if not found
+ *
+ * \memberof _DiagramData
+ */
 Layer *
 data_layer_get_nth (const DiagramData *data, guint index)
 {
@@ -401,9 +438,12 @@ data_layer_count(const DiagramData *data)
   return data->layers->len;
 }
 
-/** Set which layer is the active layer in a diagram.
+/*!
+ * \brief Set which layer is the active layer in a diagram.
  * @param data The diagram in which to set the active layer.
  * @param layer The layer that should be active.
+ *
+ * \memberof _DiagramData
  */
 void
 data_set_active_layer(DiagramData *data, Layer *layer)
@@ -411,9 +451,11 @@ data_set_active_layer(DiagramData *data, Layer *layer)
   data->active_layer = layer;
 }
 
-/** Delete a layer from a diagram.
+/*!
+ * \brief Delete a layer from a diagram.
  * @param data The diagram to delete the layer from.
  * @param layer The layer to delete.
+ * \memberof _DiagramData
  */
 void
 data_delete_layer(DiagramData *data, Layer *layer)
@@ -480,10 +522,14 @@ data_object_get_highlight(DiagramData *data, DiaObject *obj)
   return type;
 }
 
-/** Select an object in a diagram.  Note that this does not unselect other
- *  objects currently selected in the diagram.
+/*!
+ * \brief Select an object in a diagram
+ *
+ * Note that this does not unselect other objects currently selected in the diagram.
  * @param data The diagram to select in.
- * @param obj The object to select.
+ * @param obj The object to select
+ *
+ * \memberof _DiagramData
  */
 void
 data_select(DiagramData *data, DiaObject *obj)
@@ -495,10 +541,14 @@ data_select(DiagramData *data, DiaObject *obj)
   g_signal_emit (data, diagram_data_signals[SELECTION_CHANGED], 0, data->selected_count_private);
 }
 
-/** Deselect an object in a diagram.  Note that other objects may still be
- *  selected after this function is done.
+/*!
+ * \brief Deselect an object in a diagram
+ *
+ * Note that other objects may still be selected after this function is done.
  * @param data The diagram to deselect in.
  * @param obj The object to deselect.
+ *
+ * \memberof _DiagramData
  */
 void
 data_unselect(DiagramData *data, DiaObject *obj)
@@ -510,9 +560,11 @@ data_unselect(DiagramData *data, DiaObject *obj)
   g_signal_emit (data, diagram_data_signals[SELECTION_CHANGED], 0, data->selected_count_private);
 }
 
-/** Clears the list of selected objects.
+/*!
+ * \brief Clears the list of selected objects.
  * Does *not* remove these objects from the object list, despite its name.
  * @param data The diagram to unselect all objects in.
+ * \memberof _DiagramData
  */
 void
 data_remove_all_selected(DiagramData *data)
@@ -523,9 +575,11 @@ data_remove_all_selected(DiagramData *data)
   g_signal_emit (data, diagram_data_signals[SELECTION_CHANGED], 0, data->selected_count_private);
 }
 
-/** Return TRUE if the diagram has visible layers.
+/*!
+ * \brief Return TRUE if the diagram has visible layers.
  * @param data The diagram to check.
  * @return TRUE if at least one layer in the diagram is visible.
+ * \protected \memberof _DiagramData
  */
 static gboolean
 data_has_visible_layers(DiagramData *data)
@@ -538,8 +592,10 @@ data_has_visible_layers(DiagramData *data)
   return FALSE;
 }
 
-/** Set the diagram extents field to the union of the extents of the layers.
+/*!
+ * \brief Set the diagram extents field to the union of the extents of the layers.
  * @param data The diagram to get the extents for.
+ * \protected \memberof _DiagramData
  */
 static void
 data_get_layers_extents_union(DiagramData *data)
@@ -567,8 +623,10 @@ data_get_layers_extents_union(DiagramData *data)
   data->extents = new_extents;
 }
 
-/** Change diagram scaling so that the extents are exactly visible.
+/*!
+ * \brief Change diagram scaling so that the extents are exactly visible.
  * @param data The diagram to adjust.
+ * \protected \memberof _DiagramData
  */
 static void
 data_adapt_scaling_to_extents(DiagramData *data)
@@ -586,9 +644,11 @@ data_adapt_scaling_to_extents(DiagramData *data)
   data->paper.height = (float)(pheight / data->paper.scaling);
 }
 
-/** Adjust the extents field of a diagram.
+/*!
+ * \brief Adjust the extents field of a diagram.
  * @param data The diagram to adjust.
  * @return TRUE if the extents changed.
+ * \protected \memberof _DiagramData
  */
 static gboolean
 data_compute_extents(DiagramData *data)
@@ -668,12 +728,15 @@ data_get_sorted_selected(DiagramData *data)
   return sorted_list;
 }
 
-/** Remove the currently selected objects from the list of objects.
+/*!
+ * \brief Remove the currently selected objects from the list of objects.
+ *
  * The selected objects are returned in a newly created GList.
  * @param data The diagram to get and remove the selected objects from.
  * @return A list of all selected objects in the current diagram.  This list
  *  should be freed after use.  Unlike data_get_sorted_selected, the
  *  objects in the list are not in the diagram anymore.
+ * \memberof _DiagramData
  */
 GList *
 data_get_sorted_selected_remove(DiagramData *data)
@@ -708,11 +771,13 @@ data_get_sorted_selected_remove(DiagramData *data)
 }
 
 
-/** Emits a GObject signal on DiagramData
- *  @param data The DiagramData that emits the signal.
- *  @param layer The Layer that the fired signal carries.
- *  @param obj The DiaObject that the fired signal carries.
- *  @param signal_name The name of the signal.
+/*!
+ * \brief Emits a GObject signal on DiagramData
+ * @param data The DiagramData that emits the signal.
+ * @param layer The Layer that the fired signal carries.
+ * @param obj The DiaObject that the fired signal carries.
+ * @param signal_name The name of the signal.
+ * \memberof _DiagramData
  */
 void 
 data_emit(DiagramData *data, Layer *layer, DiaObject* obj, 
@@ -728,12 +793,14 @@ data_emit(DiagramData *data, Layer *layer, DiaObject* obj,
 }
 
 
-/** Render a diagram.
+/*!
+ * \brief Render a diagram
  * @param data The diagram to render.
  * @param renderer The renderer to render on.
- * @param update The area that needs updating.
+ * @param update The area that needs updating or NULL
  * @param obj_renderer If non-NULL, an alternative renderer of objects.
  * @param gdata User data passed on to inner calls.
+ * \memberof _DiagramData
  */
 void
 data_render(DiagramData *data, DiaRenderer *renderer, Rectangle *update,
@@ -757,7 +824,13 @@ data_render(DiagramData *data, DiaRenderer *renderer, Rectangle *update,
     (DIA_RENDERER_GET_CLASS(renderer)->end_render)(renderer);
 }
 
-/** Call data_render() for every used page in the diagram */
+/*!
+ * \brief Calls data_render() for paginated formats
+ *
+ * Call data_render() for every used page in the diagram
+ *
+ * \memberof _DiagramData
+ */
 void
 data_render_paginated (DiagramData *data, DiaRenderer *renderer, gpointer user_data)
 {
@@ -802,6 +875,13 @@ data_render_paginated (DiagramData *data, DiaRenderer *renderer, gpointer user_d
   }
 }
 
+/*!
+ * \brief Visit all objects within the diagram
+ * @param data the diagram
+ * @param func per object callback function
+ * @param user_data data passed to the callback function
+ * \memberof _DiagramData
+ */
 void 
 data_foreach_object (DiagramData *data, GFunc func, gpointer user_data)
 {
@@ -812,4 +892,3 @@ data_foreach_object (DiagramData *data, GFunc func, gpointer user_data)
     g_list_foreach (layer->objects, func, user_data);
   }  
 }
-

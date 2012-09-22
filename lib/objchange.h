@@ -18,8 +18,10 @@
 
 /*! 
  * \file objchange.h -- Forming the basic of undo support to be implemented in objects 
+ */
+/*!
  * \defgroup ObjChange Objects support for undo/redo
- * \ingroup Objects
+ * \ingroup ObjectServices
  */
 #ifndef OBJCHANGE_H
 #define OBJCHANGE_H

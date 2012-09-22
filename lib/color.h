@@ -18,9 +18,11 @@
 
 /*!
  * \file color.h Diagram and object tinting
+ */
+/*!
+ * \defgroup ObjectColors Colors for DiaObject
  * \ingroup ObjectParts
  */
-
 #ifndef COLOR_H
 #define COLOR_H
 
@@ -28,7 +30,10 @@
 #include <gdk/gdk.h>
 #include "diavar.h"
 
-/*! \brief Dia's internal color representation */
+/*!
+ * \brief Dia's internal color representation
+ * \ingroup ObjectColors
+ */
 struct _Color {
   float red;   /*!< 0..1 */
   float green; /*!< 0..1 */

@@ -126,7 +126,7 @@ typedef void (*PropertyType_SetFromOffset)(Property *prop,
                                          void *base, guint offset, guint offset2);
 typedef int (*PropertyType_GetDataSize)(Property *prop);
 
-/*!
+/*
  * \brief Virtual function table for Property objects
  *
  * \ingroup StdProps
@@ -239,21 +239,31 @@ struct _PropDescription {
    * editing them as one in a multiple object selection.
    */
   PropertyType type;
-  /*! Combination of values from */
+  /*! Combination of values from \ref PropFlags */
   guint flags;
   const gchar *description;
   const gchar *tooltip;
 
-  /* Holds some extra data whose meaning is dependent on the property type.
+  /*!
+   * \brief Additional type specifc range information
+   *
+   * Holds some extra data whose meaning is dependent on the property type.
    * For example, int or float may use bounds for a spin button, and enums
-   * may use a list of string names for enumeration values. */
+   * may use a list of string names for enumeration values.
+   *
+   * See: \ref _PropEnumData, \ref _PropNumData
+   */
   gpointer extra_data;
 
-  /* if the property widget can send events when it's somehow interacted with,
-     control will be passed to object_type-supplied event_handler, and 
-     event->dialog->obj_copy will be current with the dialog's values.
-     When control comes back, event->dialog->obj_copy's properties will be 
-     brought back into the dialog. */
+  /*! 
+   * \brief Optional event handler
+   *
+   * If the property widget can send events when it's somehow interacted with,
+   * control will be passed to object_type-supplied event_handler, and 
+   * event->dialog->obj_copy will be current with the dialog's values.
+   * When control comes back, event->dialog->obj_copy's properties will be 
+   * brought back into the dialog.
+   */
   PropEventHandler event_handler;
 
   GQuark quark; /* quark for property name -- helps speed up lookups. */
@@ -265,28 +275,53 @@ struct _PropDescription {
   const PropertyOps *ops;      
 };
 
-/*! PropFlags */
-/*! @{ */
-#define PROP_FLAG_VISIBLE   0x0001 /*!< should be visible in an editor */
-#define PROP_FLAG_DONT_SAVE 0x0002 /*!< not to be saved at all */
-#define PROP_FLAG_DONT_MERGE 0x0004 /*!< in case group properties are edited */
-#define PROP_FLAG_NO_DEFAULTS 0x0008 /*!< don't edit this in defaults dialog */
-#define PROP_FLAG_LOAD_ONLY 0x0010 /*!< for loading old formats */
-#define PROP_FLAG_STANDARD 0x0020 /*!< one of the default toolbox props */
-#define PROP_FLAG_MULTIVALUE 0x0040 /*!< multiple values for prop in group */
-#define PROP_FLAG_WIDGET_ONLY 0x0080 /*!< only cosmetic property, no data */
-#define PROP_FLAG_OPTIONAL 0x0100 /*!< don't complain if it does not exist */
-#define PROP_FLAG_SELF_ONLY 0x0200 /*!< do not apply to object lists */
-/*! @} */
+/*!
+ * \brief Behavior definition for Property
+ *
+ * With PropFlags the behavior of properties are further defined. A combination
+ * of flags is given to PropDescription::flags during declaration of a new property.
+ *
+ * \ingroup StdProps
+ */
+typedef enum {
+  PROP_FLAG_VISIBLE     = 0x0001, /*!< should be visible in an editor */
+  PROP_FLAG_DONT_SAVE   = 0x0002, /*!< not to be saved at all */
+  PROP_FLAG_DONT_MERGE  = 0x0004, /*!< in case group properties are edited */
+  PROP_FLAG_NO_DEFAULTS = 0x0008, /*!< don't edit this in defaults dialog */
+  PROP_FLAG_LOAD_ONLY   = 0x0010, /*!< for loading old formats */
+  PROP_FLAG_STANDARD    = 0x0020, /*!< one of the default toolbox props */
+  PROP_FLAG_MULTIVALUE  = 0x0040, /*!< multiple values for prop in group */
+  PROP_FLAG_WIDGET_ONLY = 0x0080, /*!< only cosmetic property, no data */
+  PROP_FLAG_OPTIONAL    = 0x0100, /*!< don't complain if it does not exist */
+  PROP_FLAG_SELF_ONLY   = 0x0200 /*!< do not apply to object lists */
+} PropFlags;
 
 typedef enum {PROP_UNION, PROP_INTERSECTION} PropMergeOption;
 
 #define PROP_DESC_END { NULL, 0, 0, NULL, NULL, NULL, 0 }
 
 /* extra data pointers for various property types */
+/*!
+ * \brief Provide limits and step size for RealProperty
+ *
+ * Setting PropDescription::extra_data to an instance of this type
+ * allows to give limits and step size to the specified numeric property.
+ *
+ * \ingroup StdProps
+ */
 struct _PropNumData {
   gfloat min, max, step;
 };
+/*!
+ * \brief Provide names and values for EnumProperty
+ *
+ * An array of PropEnumData is necessary to initailize the range
+ * of the EnumProperty. It has to be NULL terminated by seting a
+ * NULL name to the last array value. Set PropDescription::extra_data
+ * to the type specific extension.
+ *
+ * \ingroup StdProps
+ */
 struct _PropEnumData {
   const gchar *name;
   guint enumv;
@@ -353,26 +388,26 @@ struct _Property {
 /* Operations on property descriptors and property descriptor lists. */
 
 void prop_desc_list_calculate_quarks(PropDescription *plist);
-/* plist must have all quarks calculated in advance */
+/*! plist must have all quarks calculated in advance */
 const PropDescription *prop_desc_list_find_prop(const PropDescription *plist, 
                                                 const gchar *name);
-/* finds the real handler in case there are several levels of indirection */
+/*! finds the real handler in case there are several levels of indirection */
 PropEventHandler prop_desc_find_real_handler(const PropDescription *pdesc);
-/* free a handler indirection list */
+/*! free a handler indirection list */
 void prop_desc_free_handler_chain(PropDescription *pdesc);
-/* free a handler indirection list in a list of descriptors */
+/*! free a handler indirection list in a list of descriptors */
 void prop_desc_list_free_handler_chain(PropDescription *pdesc);
-/* insert an event handler */
+/*! insert an event handler */
 void prop_desc_insert_handler(PropDescription *pdesc, 
                               PropEventHandler handler);
 
-/* operations on lists of property description lists */
+/*! operations on lists of property description lists */
 PropDescription *prop_desc_lists_union(GList *plists);
 PropDescription *prop_desc_lists_intersection(GList *plists);
 
 
 /* ********************************************* */
-/* Functions for dealing with the Type Registry  */
+/*! Functions for dealing with the Type Registry  */
 void prop_type_register(PropertyType type, const PropertyOps *ops);
 const PropertyOps *prop_type_get_ops(PropertyType type);
 
@@ -382,11 +417,11 @@ const PropertyOps *prop_type_get_ops(PropertyType type);
 void       prop_list_free(GPtrArray *plist);
 
 
-/* copies the whole property structure, including the data. */
+/*! copies the whole property structure, including the data. */
 GPtrArray *prop_list_copy(GPtrArray *plist);
-/* copies the whole property structure, excluding the data. */
+/*! copies the whole property structure, excluding the data. */
 GPtrArray *prop_list_copy_empty(GPtrArray *plist);
-/* Appends copies of the properties in the second list to the first. */
+/*! Appends copies of the properties in the second list to the first. */
 void prop_list_add_list (GPtrArray *props, const GPtrArray *ptoadd);
 
 GPtrArray *prop_list_from_descs(const PropDescription *plist, 

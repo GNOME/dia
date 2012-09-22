@@ -23,7 +23,6 @@
 
 /*! 
  \file connpoint_line.h - services for extra connection points 
- \ingroup ObjectParts
  */
 
 #ifndef __CONNPOINT_LINE_H

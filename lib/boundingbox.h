@@ -18,9 +18,11 @@
  */
 
 /*! 
- * \file boundingbox.h Boundingbox calculation (helpers) 
- * \defgroup bbox Bounding box calculation
- * \ingroup Objects
+ * \file boundingbox.h Boundingbox calculation (helpers)
+ */
+/*!
+ * \defgroup ObjectBBox Bounding box calculation
+ * \ingroup ObjectServices
  */
 
 #ifndef BOUNDINGBOX_H
@@ -31,7 +33,7 @@
 
 /*!
  * \brief Polygon/Polyline bounding box extras
- * \ingroup bbox
+ * \ingroup ObjectBBox
  */
 struct _PolyBBExtras {
   real start_long, start_trans;
@@ -41,7 +43,7 @@ struct _PolyBBExtras {
 
 /*!
  * \brief Line bounding box extras
- * \ingroup bbox
+ * \ingroup ObjectBBox
  */
 struct _LineBBExtras {
   real start_long, start_trans;
@@ -50,7 +52,7 @@ struct _LineBBExtras {
 
 /*!
  * \brief Element bounding box extras
- * \ingroup bbox
+ * \ingroup ObjectBBox
  */
 struct _ElementBBExtras {
   real border_trans;
@@ -61,23 +63,45 @@ void bicubicbezier2D_bbox(const Point *p0,const Point *p1,
                           const PolyBBExtras *extra,
                           Rectangle *rect);
 
+/*!
+ * \brief Bounding box calculation for a straight line
+ * The calcualtion includes line width and arrwos with the right extra
+ * \ingroup ObjectBBox
+ */
 void line_bbox(const Point *p1, const Point *p2,
                const LineBBExtras *extra,
                Rectangle *rect);
 
+/*!
+ * \brief Bounding box calculation for a rectangle
+ * The calcualtion includes line width with the right extra
+ * \ingroup ObjectBBox
+ */
 void rectangle_bbox(const Rectangle *rin,
                     const ElementBBExtras *extra,
                     Rectangle *rout);
 
-void circle_bbox(const Point *centre, real radius, 
-                 Rectangle *rect);
-
+/*!
+ * \brief Bounding box calculation for an ellipse
+ * The calcualtion includes line width with the right extra
+ * \ingroup ObjectBBox
+ */
 void ellipse_bbox(const Point *centre, real width, real height,
                   const ElementBBExtras *extra,
                   Rectangle *rect);
+/*!
+ * \brief Bounding box calculation for a polyline
+ * The calcualtion includes line width and arrwos with the right extra
+ * \ingroup ObjectBBox
+ */
 void polyline_bbox(const Point *pts, int numpoints,
                    const PolyBBExtras *extra, gboolean closed,
                    Rectangle *rect);
+/*!
+ * \brief Bounding box calculation for a bezier
+ * The calcualtion includes line width and arrwos with the right extra
+ * \ingroup ObjectBBox
+ */
 void polybezier_bbox(const BezPoint *pts, int numpoints,
                      const PolyBBExtras *extra, gboolean closed,
                      Rectangle *rect);

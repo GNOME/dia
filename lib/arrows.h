@@ -28,7 +28,7 @@
 /* NOTE: Add new arrow types at the end, or the enums
    will change order leading to file incompatibilities. */
 /*!
- * \defgroup ObjectArrows All objects derived from _Connection can end in Arrow
+ * \defgroup ObjectArrows Arrows for Connection
  * \ingroup ObjectParts
  */
 

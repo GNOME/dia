@@ -27,11 +27,12 @@
 
 static const Rectangle invalid_extents = { -1.0,-1.0,-1.0,-1.0 };
 
-/** The default object renderer.
+/*! The default object renderer.
  * @param obj An object to render.
  * @param renderer The renderer to render on.
  * @param active_layer The layer containing the object.
  * @param data The diagram containing the layer.
+ * \ingroup DiagramStructure
  */
 static void
 normal_render(DiaObject *obj, DiaRenderer *renderer,
@@ -44,8 +45,10 @@ normal_render(DiaObject *obj, DiaRenderer *renderer,
 
 int render_bounding_boxes = FALSE;
 
-/** Render all components of a single layer.  This function also handles
- *  rendering of bounding boxes for debugging purposes.
+/*!
+ * \brief Render all components of a single layer.
+ *
+ * This function also handles rendering of bounding boxes for debugging purposes.
  * @param layer The layer to render.
  * @param renderer The renderer to draw things with.
  * @param update The rectangle that requires update.  Only objects that
@@ -53,6 +56,7 @@ int render_bounding_boxes = FALSE;
  * @param obj_renderer A function that will render an object.
  * @param data The diagram that the layer belongs to.
  * @param active_layer Which number layer in the diagram is currently active.
+ * \memberof _Layer
  */
 void
 layer_render(Layer *layer, DiaRenderer *renderer, Rectangle *update,
@@ -94,10 +98,12 @@ layer_render(Layer *layer, DiaRenderer *renderer, Rectangle *update,
   }
 }
 
-/** Create a new layer in this diagram.
+/*!
+ * \brief Create a new layer in this diagram.
  * @param name Name of the new layer.
  * @param parent The DiagramData that the layer will belong to,.
  * @return A new Layer object.
+ * \memberof _Layer
  */
 Layer *
 new_layer(gchar *name, DiagramData *parent)
@@ -122,8 +128,10 @@ new_layer(gchar *name, DiagramData *parent)
   return layer;
 }
 
-/** Destroy a layer object.
+/*!
+ * \brief Destroy a layer object.
  * @param layer The layer object to deallocate entirely.
+ * \memberof _Layer
  */
 void
 layer_destroy(Layer *layer)
@@ -133,25 +141,29 @@ layer_destroy(Layer *layer)
   g_free(layer);
 }
 
-/** Set the parent layer of an object.
+/*!
+ * \brief Set the parent layer of an object.
  * @param element A DiaObject that should be part of a layer.
  * @param user_data The layer it should be part of.
+ * \protected \memberof _Layer
  */
 static void
 set_parent_layer(gpointer element, gpointer user_data) 
 {
   ((DiaObject*)element)->parent_layer = (Layer*)user_data;
   /* FIXME: even group members need a parent_layer and what about parent objects  ??? 
-      * Now I know again why I always try to avoid back-pointers )-; --hb.
-      * If the group objects didn't actually leave the diagram, this wouldn't
-      * be a problem.  --LC */
+   * Now I know again why I always try to avoid back-pointers )-; --hb.
+   * If the group objects didn't actually leave the diagram, this wouldn't
+   * be a problem.  --LC */
 }
 
-/** Get the index of an object in a layer.
+/*!
+ * \brief Get the index of an object in a layer.
  * @param layer The layer the object is (should be) in.
  * @param obj The object to look for.
  * @return The index of the object in the layers list of objects.  This is also
  *  the vertical position of the object.
+ * \memberof _Layer
  */
 int
 layer_object_get_index(Layer *layer, DiaObject *obj)
@@ -159,10 +171,11 @@ layer_object_get_index(Layer *layer, DiaObject *obj)
   return (int)g_list_index(layer->objects, (gpointer) obj);
 }
 
-/**
- * Get the object a index or NULL
+/*!
+ * \brief Get the object a index or NULL
  * @param layer The layer to query for the nth object
  * @param index The zero-based indexed of the object
+ * \memberof _Layer
  */
 DiaObject *
 layer_object_get_nth (Layer *layer, guint index)
@@ -183,7 +196,8 @@ layer_get_name (Layer *layer)
 {
   return g_strdup (layer->name);
 }
-/** Add an object to the top of a layer.
+/*!
+ * \brief Add an object to the top of a layer.
  * @param layer The layer to add the object to.
  * @param obj The object to add.  This must not already be part of another layer.
  * \memberof _Layer
@@ -198,7 +212,8 @@ layer_add_object(Layer *layer, DiaObject *obj)
   data_emit (layer_get_parent_diagram(layer), layer, obj, "object_add");
 }
 
-/** Add an object to a layer at a specific position.
+/*!
+ * \brief Add an object to a layer at a specific position.
  * @param layer The layer to add the object to.
  * @param obj The object to add.  This must not be part of another layer.
  * @param pos The top-to-bottom position this object should be inserted at.
@@ -214,7 +229,8 @@ layer_add_object_at(Layer *layer, DiaObject *obj, int pos)
   data_emit (layer_get_parent_diagram(layer), layer, obj, "object_add");
 }
 
-/** Add a list of objects to the end of a layer.
+/*!
+ * \brief Add a list of objects to the end of a layer.
  * @param layer The layer to add objects to.
  * @param obj_list The list of objects to add.  These must not already
  *  be part of another layer.
@@ -238,7 +254,8 @@ layer_add_objects(Layer *layer, GList *obj_list)
   }
 }
 
-/** Add a list of objects to the top of a layer.
+/*!
+ * \brief Add a list of objects to the top of a layer.
  * @param layer The layer to add objects to.
  * @param obj_list The list of objects to add.  These must not already
  *  be part of another layer.
@@ -264,7 +281,8 @@ layer_add_objects_first(Layer *layer, GList *obj_list)
 
 }
 
-/** Remove an object from a layer.
+/*!
+ * \brief Remove an object from a layer.
  * @param layer The layer to remove the object from.
  * @param obj The object to remove.
  * \memberof _Layer
@@ -280,7 +298,8 @@ layer_remove_object(Layer *layer, DiaObject *obj)
   set_parent_layer(obj, NULL);
 }
 
-/** Remove a list of objects from a layer.
+/*!
+ * Remove a list of objects from a layer.
  * @param layer The layer to remove the objects from.
  * @param obj_list The objects to remove.
  * \memberof _Layer
@@ -298,7 +317,8 @@ layer_remove_objects(Layer *layer, GList *obj_list)
   }
 }
 
-/** Find the objects that intersect a given rectangle.
+/*!
+ * \brief Find the objects that intersect a given rectangle.
  * @param layer The layer to search in.
  * @param rect The rectangle to intersect with.
  * @return List of objects whose bounding box intersect the rectangle.  The
@@ -332,11 +352,13 @@ layer_find_objects_intersecting_rectangle(Layer *layer, Rectangle *rect)
   return selected_list;
 }
 
-/** Find objects entirely contained in a rectangle.
+/*!
+ * \brief Find objects entirely contained in a rectangle.
  * @param layer The layer to search for objects in.
  * @param rect The rectangle that the objects should be in.
  * @return A list containing the objects that are entirely contained in the
  *  rectangle.  The list should be freed by the caller.
+ * \memberof _Layer
  */
 GList *
 layer_find_objects_in_rectangle(Layer *layer, Rectangle *rect)
@@ -362,11 +384,13 @@ layer_find_objects_in_rectangle(Layer *layer, Rectangle *rect)
   return selected_list;
 }
 
-/** Find objects entirely containing a rectangle.
+/*!
+ * \brief Find objects entirely containing a rectangle.
  * @param layer The layer to search for objects in.
  * @param rect The rectangle that the objects should surround.
  * @return A list containing the objects that entirely contain the
  *  rectangle.  The list should be freed by the caller.
+ * \memberof _Layer
  */
 GList *
 layer_find_objects_containing_rectangle(Layer *layer, Rectangle *rect)
@@ -395,7 +419,9 @@ layer_find_objects_containing_rectangle(Layer *layer, Rectangle *rect)
 }
 
 
-/** Find the object closest to the given point in the layer,
+/*!
+ * \brief Find the object closest to the given point in the layer
+ *
  * no further away than maxdist, and not included in avoid.
  * Stops it if finds an object that includes the point.
  * @param layer The layer to search in.
@@ -404,6 +430,7 @@ layer_find_objects_containing_rectangle(Layer *layer, Rectangle *rect)
  * @param avoid A list of objects that cannot be returned by this search.
  * @return The closest object, or NULL if no allowed objects are closer than
  *  maxdist.
+ * \memberof _Layer
  */
 DiaObject *
 layer_find_closest_object_except(Layer *layer, Point *pos,
@@ -442,9 +469,10 @@ layer_find_closest_object_except(Layer *layer, Point *pos,
   return closest;
 }
 
-/** Find the object closest to the given point in the layer,
- * no further away than maxdist.
- * Stops it if finds an object that includes the point.
+/*!
+ * \brief Find the object closest to the given point in the layer,
+ *
+ * no further away than maxdist. Stops it if finds an object that includes the point.
  * @param layer The layer to search in.
  * @param pos The point to compare to.
  * @param maxdist The maximum distance the object can be from the point.
@@ -457,12 +485,14 @@ layer_find_closest_object(Layer *layer, Point *pos, real maxdist)
 }
 
 
-/** Find the connectionpoint closest to pos in a layer.
- * @param layer 
- * @param closest 
- * @param pos 
- * @param notthis 
- * @return 
+/*!
+ * \brief Find the connectionpoint closest to pos in a layer.
+ * @param layer the layer to search in
+ * @param closest connection point found or NULL
+ * @param pos refernce position in diagram coordinates
+ * @param notthis object not to search on
+ * @return the distance of the connection point and pos
+ * \memberof _Layer
  */
 real 
 layer_find_closest_connectionpoint(Layer *layer,
@@ -501,6 +531,10 @@ layer_find_closest_connectionpoint(Layer *layer,
   return mindist;
 }
 
+/*!
+ * \brief Recalculation of the bounding box containing all objects in the layer
+ * \memberof _Layer
+ */
 int
 layer_update_extents(Layer *layer)
 {
@@ -533,6 +567,14 @@ layer_update_extents(Layer *layer)
   return TRUE;
 }
 
+/*!
+ * \brief Swaps a list of objects with a single object
+ *
+ * This function exchanges the given object with the list of objects.
+ * Ownership of remove_obj and insert_list objects is swapped, too.
+ *
+ * \memberof _Layer
+ */
 void
 layer_replace_object_with_list(Layer *layer, DiaObject *remove_obj,
 			       GList *insert_list)

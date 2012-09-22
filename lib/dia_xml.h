@@ -26,7 +26,10 @@
 #include "diacontext.h"
 #include <libxml/tree.h>
 
-/*
+/*!
+ * \note Dia's diagram namespace
+ * \ingroup DiagramXmlIo
+ *
  * Though the Dia homepage is now http://www.gnome.org/projects/dia
  * Dia's xml namespace definition still needs to point to the
  * original site. In fact the xml namespace definition has nothing to do

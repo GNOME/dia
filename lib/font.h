@@ -25,9 +25,11 @@
 #include "dia-enums.h"
 #include "geometry.h"
 
-/*! 
+/*!
  \file font.h -- services based on font definitions 
- \defgroup FontServices Dia's font definiton based on Pango model
+ */
+/*!
+ \defgroup ObjectFonts Dia's font definiton
  \ingroup ObjectParts
  */
 
@@ -107,7 +109,7 @@ struct _DiaFontClass {
 };
 
 /*! Set the PangoContext used to render text.
- * \ingroup FontServices
+ * \ingroup ObjectFonts
  */
 void dia_font_init(PangoContext* pcontext);
 /* Start using a new context (for AA rendering) */
@@ -119,7 +121,7 @@ PangoContext *dia_font_get_context(void);
 
 /*!
  * \brief Font creation for object implementation
- * \ingroup FontServices
+ * \ingroup ObjectFonts
  * Get a font matching family,style,height. MUST be freed with dia_font_unref().
  */
 DiaFont* dia_font_new(const char *family, DiaFontStyle style,
@@ -129,14 +131,14 @@ DiaFont* dia_font_new(const char *family, DiaFontStyle style,
  * \brief Font creation for object implementation
  * Get a font matching style. This is the preferred method to
  * create default fonts within objects.
- * \ingroup FontServices
+ * \ingroup ObjectFonts
  */
 DiaFont* dia_font_new_from_style(DiaFontStyle style, real height);
 
 /*!
  * \brief Font creation for object implementation
  * Get a font from a legacy font name 
- * \ingroup FontServices
+ * \ingroup ObjectFonts
  */ 
 DiaFont* dia_font_new_from_legacy_name(const char *name);
 
@@ -144,7 +146,7 @@ DiaFont* dia_font_new_from_legacy_name(const char *name);
  * \brief Font creation for object implementation
  * Get a simple font name from a font.
  * Name will be valid for the duration of the DiaFont* lifetime. 
- * \ingroup FontServices
+ * \ingroup ObjectFonts
  */ 
 const char* dia_font_get_legacy_name(const DiaFont* font);
 

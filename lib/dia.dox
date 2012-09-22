@@ -21,6 +21,127 @@ functionality by registering actions in the menu. Again by
  */
 
 /*!
+\defgroup Objects Objects and their Building Blocks
+
+There are a bunch of services to help implementing Dia objects.
+
+ - arrows: \ref ObjectArrows
+ - connectionpoint and handle: \ref ObjectConnects
+ - bounding box calculation: \ref ObjectBBox
+ - autorouting: \ref Autorouting
+ - text editing: to render in canvas text and allow it's editing
+ - font: \ref ObjectFonts
+ - object change: \ref _ObjectChange
+ - StdProps: \ref StdProps
+ - load/save:
+
+ */
+ 
+/*!
+\defgroup StdProps Property System for Dia Object
+\ingroup ObjectServices
+
+The Propery System for Dia Object allows to 
+ - describe type, range and user interface representation, see PropDescription.
+ - build dynamic user interfaces for all object properties
+ - transform data fields of DiaObject implementation into list of generic Property
+   to allow editing including undo/redo support without writing object specific code
+
+ */
+ 
+/*!
+\defgroup ObjectParts Building Blocks
+\ingroup Objects
+
+*/
+
+/*!
+\defgroup ObjectParts Building Blocks
+\ingroup Objects
+
+*/
+
+/*!
+\defgroup ObjectConnects Connecting Objects
+\ingroup Objects
+
+There are two specialized objects involved in building a connection. One is a Handle, the other one 
+is a ConnectionPoint. In an existing connection between two DiaObject the Handle belongs to the 
+first ("connected to") and the ConnectionPoint belongs to second ("connected by").
+
+The "Standard - Line" DiaObject is special because it is one of only few objects which can be 
+"connected to" (has Handles) and also "connected by" (has a ConnectionPoint). 
+Note: there is an important difference between the active and the passive form.
+
+It is important to understand the difference Dia's source is making between handle->connected_to 
+and "connected by" (connectionpoint->connected). The former is a 0 or 1 relation, the latter is 0..n.
+*/
+
+/*!
+\defgroup Shapes Custom Shape Definition
+\ingroup Objects
+
+\verbinclude custom-shapes
+
+*/
+
+/*!
+\defgroup ObjectConnects Connecting Objects
+\ingroup Objects
+
+There are two specialized objects involved in building a connection. One is a Handle, the other one 
+is a ConnectionPoint. In an existing connection between two DiaObject the Handle belongs to the 
+first ("connected to") and the ConnectionPoint belongs to second ("connected by").
+
+The "Standard - Line" DiaObject is special because it is one of only few objects which can be 
+"connected to" (has Handles) and also "connected by" (has a ConnectionPoint). 
+Note: there is an important difference between the active and the passive form.
+
+It is important to understand the difference Dia's source is making between handle->connected_to 
+and "connected by" (connectionpoint->connected). The former is a 0 or 1 relation, the latter is 0..n.
+*/
+
+/*!
+\defgroup Shapes Custom Shape Definition
+\ingroup Objects
+
+\verbinclude custom-shapes
+
+*/
+
+/*!
+\defgroup ObjectServices Object Implementation
+\ingroup Objects
+ */
+
+/*!
+\defgroup DiagramStructure Diagrams keeping it all together
+\brief A \ref _DiagramData "Diagram" consists of at least one \ref _Layer containing zero or more _DiaObject
+
+ */
+
+/*!
+\defgroup DiagramXmlIo Operations on the XML DOM
+\ingroup DiagramStructure
+\verbinclude diagram.dtd
+ */
+
+/*!
+\defgroup Renderers Rendering Objects
+\ingroup Plugins
+
+Dia Objects are drawing themselves to a renderer, be it for display, print or
+file export to various formats.  The Dia library includes some base classes 
+to help implementing rendering.
+
+ - _DiaRenderer : implementing the interface to all renderers and some emulations
+   of high level functions 
+ - _DiaSvgRenderer : to create SVG format for SVG export and Shape creation
+ - _DiaGdkRenderer : the _DiaGdkRenderer is the first display renderer
+
+ */
+
+/*!
 \defgroup Plugins Import, Export and other extensions
 
  */
@@ -51,133 +172,3 @@ example PyDia plug-ins to generate it from your local Dia installtion
 
  */
 
-/*!
-\defgroup Objects Objects and their Building Blocks
-
-There are a bunch of services to help implementing Dia objects.
-
- - arrows: \ref ObjectArrows
- - connectionpoint and handle: \ref ObjectConnects
- - bounding box calculation: \ref bbox
- - text editing: to render in canvas text and allow it's editing
- - font: \ref FontServices
- - object change: \ref _ObjectChange
- - StdProps: \ref StdProps
- - load/save:
-
- */
- 
-/*!
-\defgroup StdProps Property System for Dia Object
-\ingroup Objects
-
-The Propery System for Dia Object allows to 
- - describe type, range and user interface representation, see PropDescription.
- - build dynamic user interfaces for all object properties
- - transform data fields of DiaObject implementation into list of generic Property
-   to allow editing including undo/redo support without writing object specific code
-
- */
- 
-/*!
-\defgroup ObjectParts Building Blocks
-\ingroup Objects
-
-*/
-
-/*!
-\defgroup Objects Objects and their Building Blocks
-
-There are a bunch of services to help implementing Dia objects.
-
- - arrows: \ref ObjectArrows
- - connectionpoint and handle: \ref ObjectConnects
- - bounding box calculation: \ref bbox
- - text editing: to render in canvas text and allow it's editing
- - font: \ref FontServices
- - object change: \ref _ObjectChange
- - StdProps: \ref StdProps
- - load/save:
-
- */
- 
-/*!
-\defgroup StdProps Property System for Dia Object
-\ingroup Objects
-
-The Propery System for Dia Object allows to 
- - describe type, range and user interface representation, see PropDescription.
- - build dynamic user interfaces for all object properties
- - transform data fields of DiaObject implementation into list of generic Property
-   to allow editing including undo/redo support without writing object specific code
-
- */
- 
-/*!
-\defgroup ObjectParts Building Blocks
-\ingroup Objects
-
-*/
-
-/*!
-\defgroup ObjectConnects Connecting Objects
-\ingroup Objects
-
-There are two specialized objects involved in building a connection. One is a Handle, the other one 
-is a ConnectionPoint. In an existing connection between two DiaObject the Handle belongs to the 
-first ("connected to") and the ConnectionPoint belongs to second ("connected by").
-
-The "Standard - Line" DiaObject is special because it is one of only few objects which can be 
-"connected to" (has Handles) and also "connected by" (has a ConnectionPoint). 
-Note: there is an important difference between the active and the passive form.
-
-It is important to understand the difference Dia's source is making between handle->connected_to 
-and "connected by" (connectionpoint->connected). The former is a 0 or 1 relation, the latter is 0..n.
-*/
-
-/*!
-\defgroup Shapes Custom Shape Definition
-\ingroup Objects
-
-\verbinclude custom-shapes
-
-*/
-
-/*!
-\defgroup ObjectConnects Connecting Objects
-\ingroup Objects
-
-There are two specialized objects involved in building a connection. One is a Handle, the other one 
-is a ConnectionPoint. In an existing connection between two DiaObject the Handle belongs to the 
-first ("connected to") and the ConnectionPoint belongs to second ("connected by").
-
-The "Standard - Line" DiaObject is special because it is one of only few objects which can be 
-"connected to" (has Handles) and also "connected by" (has a ConnectionPoint). 
-Note: there is an important difference between the active and the passive form.
-
-It is important to understand the difference Dia's source is making between handle->connected_to 
-and "connected by" (connectionpoint->connected). The former is a 0 or 1 relation, the latter is 0..n.
-*/
-
-/*!
-\defgroup Shapes Custom Shape Definition
-\ingroup Objects
-
-\verbinclude custom-shapes
-
-*/
-
-/*!
-\defgroup Renderers Rendering Objects
-\ingroup Plugins
-
-Dia Objects are drawing themselves to a renderer, be it for display, print or
-file export to various formats.  The Dia library includes some base classes 
-to help implementing rendering.
-
- - _DiaRenderer : implementing the interface to all renderers and some emulations
-   of high level functions 
- - _DiaSvgRenderer : to create SVG format for SVG export and Shape creation
- - _DiaGdkRenderer : the _DiaGdkRenderer is the first display renderer
-
- */

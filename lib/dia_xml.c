@@ -82,7 +82,19 @@ static inline int isinf_d  (double      x) { return isnan (x - x); }
 static inline int isinf_ld (long double x) { return isnan (x - x); }
 #endif
 
-/** If all files produced by dia were good XML files, we wouldn't have to do 
+/*!
+ * \defgroup DiagramXmlOut Converting data to XML
+ * \ingroup DiagramXmlIo
+ */
+/*!
+ * \defgroup DiagramXmlIn Retrieving data from XML
+ * \ingroup DiagramXmlIo
+ */
+
+/*!
+ * \brief Fallback implementation for not well-formed diagram files
+ *
+ * If all files produced by dia were good XML files, we wouldn't have to do 
  *  this little gymnastic. Alas, during the libxml1 days, we were outputting 
  *  files with no encoding specification (which means UTF-8 if we're in an
  *  asciish encoding) and strings encoded in local charset (so, we wrote
@@ -101,6 +113,7 @@ static inline int isinf_ld (long double x) { return isnan (x - x); }
  * @bug The many gzclose-g_free-return sequences should be refactored into
  *       an "exception handle" (goto+label). At least for people who think goto is
  *       better than this. I dont. --hb
+ * \ingroup DiagramXmlIo
  */
 static const gchar *
 xml_file_check_encoding(const gchar *filename, const gchar *default_enc, DiaContext *ctx)
@@ -234,11 +247,13 @@ xml_file_check_encoding(const gchar *filename, const gchar *default_enc, DiaCont
   return res; /* caller frees the name and unlinks the file. */
 }
 
-/** Parse a given file into XML, handling old broken files correctly.
+/*!
+ * \brief Parse a given file into XML, handling old broken files correctly.
  * @param filename The name of the file to read.
  * @returns An XML document parsed from the file.
  * @see xmlParseFile() in the XML2 library for details on the return value.
  * @param ctx The context in which this function is called
+ * \ingroup DiagramXmlIo
  */
 static xmlDocPtr
 xmlDiaParseFile(const char *filename, DiaContext *ctx)
@@ -266,9 +281,11 @@ xmlDiaParseFile(const char *filename, DiaContext *ctx)
   }
 }
 
-/** Parse an xml file from a filename given in Dia's/GLib's filename encoding 
+/*!
+ * \brief Parse an xml file from a filename given in Dia's/GLib's filename encoding 
  * @param filename A file to parse. On win32 the filename encoding is utf-8 since GLib 2.6
  * @return An XML document.
+ * \ingroup DiagramXmlIo
  */
 xmlDocPtr
 xmlDoParseFile(const char *filename)
@@ -283,11 +300,15 @@ xmlDoParseFile(const char *filename)
   return doc;
 }
 
-/** Parse an xml file from a filename given in Dia's/GLib's filename encoding 
+/*!
+ * \brief Parse an xml file from a filename given in Dia's/GLib's filename encoding 
+ *
  * @param filename A file to parse. On win32 the filename encoding is utf-8 since GLib 2.6
  * @param ctx If something goes wrong during parsing ctx will include according messages
  * @param try_harder If set an additional attempt is done with guessed encoding
  * @return An XML document.
+ *
+ * \ingroup DiagramXmlIo
  */
 xmlDocPtr 
 diaXmlParseFile(const char *filename, DiaContext *ctx, gboolean try_harder)
@@ -306,12 +327,16 @@ diaXmlParseFile(const char *filename, DiaContext *ctx, gboolean try_harder)
   return doc;
 }
 
-/** Find a named attribute node in an XML object node.
- *  Note that Dia has a concept of attribute node that is not the same
- *  as an XML attribute.
+/*!
+ * \brief Find a named attribute node in an XML object node.
+ *
+ * Note that Dia has a concept of attribute node that is not the same
+ * as an XML attribute.
+ *
  * @param obj_node The node to look in.
  * @param attrname The name of the attribute node to find.
  * @return The node matching the given name, or NULL if none found.
+ * \ingroup DiagramXmlIn
  */
 AttributeNode
 object_find_attribute(ObjectNode obj_node,
@@ -343,10 +368,12 @@ object_find_attribute(ObjectNode obj_node,
   return NULL;
 }
 
-/** Find an attribute in a composite XML node.
+/*!
+ * \brief Find an attribute in a composite XML node.
  * @param composite_node The composite node to search.
  * @param attrname The name of the attribute node to find.
  * @return The desired node, or NULL if none exists in `composite_node'.
+ * \ingroup DiagramXmlIn
  */
 AttributeNode
 composite_find_attribute(DataNode composite_node,
@@ -378,9 +405,11 @@ composite_find_attribute(DataNode composite_node,
   return NULL;
 }
 
-/** The number of non-blank data nodes in an attribute node.
+/*!
+ * \brief Count the number of non-blank data nodes in an attribute node.
  * @param attribute The attribute node to read from.
- * @returns The number of non-blank data nodes in the node.
+ * @return The number of non-blank data nodes in the node.
+ * \ingroup DiagramXmlIn
  */
 int
 attribute_num_data(AttributeNode attribute)
@@ -400,9 +429,11 @@ attribute_num_data(AttributeNode attribute)
   return nr;
 }
 
-/** Get the first data node in an attribute node.
+/*!
+ * \brief Get the first data node in an attribute node.
  * @param attribute The attribute node to look through.
  * @return The first non-black data node in the attribute node.
+ * \ingroup DiagramXmlIn
  */
 DataNode
 attribute_first_data(AttributeNode attribute)
@@ -412,9 +443,11 @@ attribute_first_data(AttributeNode attribute)
   return (DataNode) data;
 }
 
-/** Get the next data node (sibling).
+/*!
+ * \brief Get the next data node (sibling).
  * @param data A data node to start from (e.g. just processed)
- * @returns The next sibling data node.
+ * @return The next sibling data node.
+ * \ingroup DiagramXmlIn
  */
 DataNode
 data_next(DataNode data)
@@ -427,13 +460,14 @@ data_next(DataNode data)
   return (DataNode) data;
 }
 
-/** Get the type of a data node.
+/*!
+ * \brief Get the type of a data node.
  * @param data The data node.
  * @param ctx The context in which this function is called
- * @return The type that the data node defines, or 0 on error.  In case of 
- *  error, an error message is displayed.
+ * @return The type that the data node defines, or 0 on error.
  * @note This function does a number of strcmp calls, which may not be the
  *  fastest way to check if a node is of the expected type.
+ * \ingroup DiagramXmlIn
  */
 DataType
 data_type(DataNode data, DiaContext *ctx)
@@ -473,11 +507,13 @@ data_type(DataNode data, DiaContext *ctx)
   return 0;
 }
 
-/** Return the value of an integer-type data node.
+/*!
+ * \brief Return the value of an integer-type data node.
  * @param data The data node to read from.
- * @returns The integer value found in the node.  If the node is not an
- *  integer node, an error message is displayed and 0 is returned.
  * @param ctx The context in which this function is called
+ * @return The integer value found in the node.  If the node is not an
+ *  integer node, an error message is displayed and 0 is returned.
+ * \ingroup DiagramXmlIn
  */
 int
 data_int(DataNode data, DiaContext *ctx)
@@ -497,11 +533,13 @@ data_int(DataNode data, DiaContext *ctx)
   return res;
 }
 
-/** Return the value of an enum-type data node.
+/*!
+ * \brief Return the value of an enum-type data node.
  * @param data The data node to read from.
- * @returns The enum value found in the node.  If the node is not an
- *  enum node, an error message is displayed and 0 is returned.
  * @param ctx The context in which this function is called
+ * @return The enum value found in the node.  If the node is not an
+ *  enum node, an error message is displayed and 0 is returned.
+ * \ingroup DiagramXmlIn
  */
 int
 data_enum(DataNode data, DiaContext *ctx)
@@ -521,11 +559,13 @@ data_enum(DataNode data, DiaContext *ctx)
   return res;
 }
 
-/** Return the value of a real-type data node.
+/*!
+ * \brief Return the value of a real-type data node.
  * @param data The data node to read from.
- * @returns The real value found in the node.  If the node is not a
- *  real-type node, an error message is displayed and 0.0 is returned.
  * @param ctx The context in which this function is called
+ * @return The real value found in the node.  If the node is not a
+ *  real-type node, an error message is displayed and 0.0 is returned.
+ * \ingroup DiagramXmlIn
  */
 real
 data_real(DataNode data, DiaContext *ctx)
@@ -545,11 +585,13 @@ data_real(DataNode data, DiaContext *ctx)
   return res;
 }
 
-/** Return the value of a boolean-type data node.
+/*!
+ * \brief Return the value of a boolean-type data node.
  * @param data The data node to read from.
- * @returns The boolean value found in the node.  If the node is not a
- *  boolean node, an error message is displayed and FALSE is returned.
  * @param ctx The context in which this function is called
+ * @return The boolean value found in the node.  If the node is not a
+ *  boolean node, an error message is displayed and FALSE is returned.
+ * \ingroup DiagramXmlIn
  */
 int
 data_boolean(DataNode data, DiaContext *ctx)
@@ -574,11 +616,13 @@ data_boolean(DataNode data, DiaContext *ctx)
   return res;
 }
 
-/** Return the integer value of a hex digit.
+/*!
+ * \brief Return the integer value of a hex digit.
  * @param c A hex digit, one of 0-9, a-f or A-F.
- * @returns The value of the digit, i.e. 0-15.  If a non-gex digit is given
- *  an error is registered in ctx, and 0 is returned.
  * @param ctx The context in which this function is called
+ * @return The value of the digit, i.e. 0-15.  If a non-gex digit is given
+ *  an error is registered in ctx, and 0 is returned.
+ * \ingroup DiagramXmlIn
  */
 static int
 hex_digit(char c, DiaContext *ctx)
@@ -593,13 +637,14 @@ hex_digit(char c, DiaContext *ctx)
   return 0;
 }
 
-/** Return the value of a color-type data node.
+/*!
+ * \brief Return the value of a color-type data node.
  * @param data The XML node to read from
- * @param col A place to store the resulting RGB values.  If the node does
+ * @param col A place to store the resulting RGBA values.  If the node does
  *  not contain a valid color value, an error message is registered in ctx
  *  and `col' is unchanged.
- * @note Could be cool to use RGBA data here, even if we can't display it yet.
  * @param ctx The context in which this function is called
+ * \ingroup DiagramXmlIn
  */
 void
 data_color(DataNode data, Color *col, DiaContext *ctx)
@@ -636,12 +681,14 @@ data_color(DataNode data, Color *col, DiaContext *ctx)
   col->alpha = (float)(a/255.0);
 }
 
-/** Return the value of a point-type data node.
+/*!
+ * \brief Return the value of a point-type data node.
  * @param data The XML node to read from
  * @param point A place to store the resulting x, y values.  If the node does
  *  not contain a valid point value, an error message is registered in ctx
  *  and `point' is unchanged.
  * @param ctx The context in which this function is called
+ * \ingroup DiagramXmlIn
  */
 void
 data_point(DataNode data, Point *point, DiaContext *ctx)
@@ -683,11 +730,13 @@ data_point(DataNode data, Point *point, DiaContext *ctx)
   xmlFree(val);
 }
 
-/** Return the value of a bezpoint-type data node.
+/*!
+ * \brief Return the value of a bezpoint-type data node.
  * @param data The XML node to read from
  * @param point A place to store the resulting values.  If the node does
  *  not contain a valid bezpoint zero initialization is performed.
  * @param ctx The context in which this function is called
+ * \ingroup DiagramXmlIn
  */
 void 
 data_bezpoint(DataNode data, BezPoint *point, DiaContext *ctx)
@@ -752,12 +801,14 @@ data_bezpoint(DataNode data, BezPoint *point, DiaContext *ctx)
   }
 }
 
-/** Return the value of a rectangle-type data node.
+/*!
+ * Return the value of a rectangle-type data node.
  * @param data The data node to read from.
  * @param rect A place to store the resulting values.  If the node does
  *  not contain a valid rectangle value, an error message is displayed to the
  *  user, and `rect' is unchanged.
  * @param ctx The context in which this function is called
+ * \ingroup DiagramXmlIn
  */
 void
 data_rectangle(DataNode data, Rectangle *rect, DiaContext *ctx)
@@ -810,13 +861,15 @@ data_rectangle(DataNode data, Rectangle *rect, DiaContext *ctx)
   xmlFree(val);
 }
 
-/** Return the value of a string-type data node.
+/*!
+ * \brief Return the value of a string-type data node.
  * @param data The data node to read from.
- * @returns The string value found in the node.  If the node is not a
+ * @return The string value found in the node.  If the node is not a
  *  string node, an error message is displayed and NULL is returned.  The
  *  returned valuee should be freed after use.
  * @note For historical reasons, strings in Dia XML are surrounded by ##.
  * @param ctx The context in which this function is called
+ * \ingroup DiagramXmlIn
  */
 gchar *
 data_string(DataNode data, DiaContext *ctx)
@@ -887,7 +940,8 @@ data_string(DataNode data, DiaContext *ctx)
   return NULL;
 }
 
-/** Return the value of a filename-type data node.
+/*!
+ * \brief Return the value of a filename-type data node.
  * @param data The data node to read from.
  * @param ctx The context in which this function is called
  * @return The filename value found in the node.  If the node is not a
@@ -895,6 +949,7 @@ data_string(DataNode data, DiaContext *ctx)
  *  The resulting string is in the local filesystem's encoding rather than
  *  UTF-8, and should be freed after use.
  * @bug data_string() can return NULL, what does g_filename_from_utf8 do then?
+ * \ingroup DiagramXmlIn
  */
 char *
 data_filename(DataNode data, DiaContext *ctx)
@@ -905,13 +960,16 @@ data_filename(DataNode data, DiaContext *ctx)
   return filename;
 }
 
-/** Return the value of a font-type data node.  This handles both the current
- * format (family and style) and the old format (name).
+/*!
+ * \brief Return the value of a font-type data node.
+ *
+ * This handles both the current format (family and style) and the old format (name).
  * @param data The data node to read from.
  * @param ctx The context in which this function is called
  * @return The font value found in the node.  If the node is not a
- *  font node, an error message is displayed and NULL is returned.  The
+ *  font node, an error message is registered and NULL is returned.  The
  *  resulting value should be freed after use.
+ * \ingroup DiagramXmlIn
  */
 DiaFont *
 data_font(DataNode data, DiaContext *ctx)
@@ -945,10 +1003,12 @@ data_font(DataNode data, DiaContext *ctx)
 
 /* ***** Saving XML **** */
 
-/** Create a new attribute node.
+/*!
+ * \brief Create a new attribute node.
  * @param obj_node The object node to create the attribute node under.
  * @param attrname The name of the attribute node.
  * @return A new attribute node.
+ * \ingroup DiagramXmlOut
  */
 AttributeNode
 new_attribute(ObjectNode obj_node,
@@ -961,10 +1021,12 @@ new_attribute(ObjectNode obj_node,
   return attr;
 }
 
-/** Add an attribute node to a composite node.
+/*!
+ * \brief Add an attribute node to a composite node.
  * @param composite_node The composite node.
  * @param attrname The name of the new attribute node.
  * @return The attribute node added.
+ * \ingroup DiagramXmlOut
  */
 AttributeNode
 composite_add_attribute(DataNode composite_node,
@@ -977,9 +1039,11 @@ composite_add_attribute(DataNode composite_node,
   return attr;
 }
 
-/** Add integer data to an attribute node.
+/*!
+ * \brief Add integer data to an attribute node.
  * @param attr The attribute node.
  * @param data The value to set.
+ * \ingroup DiagramXmlOut
  */
 void
 data_add_int(AttributeNode attr, int data)
@@ -993,9 +1057,11 @@ data_add_int(AttributeNode attr, int data)
   xmlSetProp(data_node, (const xmlChar *)"val", (xmlChar *)buffer);
 }
 
-/** Add enum data to an attribute node.
+/*!
+ * \brief Add enum data to an attribute node.
  * @param attr The attribute node.
  * @param data The value to set.
+ * \ingroup DiagramXmlOut
  */
 void
 data_add_enum(AttributeNode attr, int data)
@@ -1009,9 +1075,11 @@ data_add_enum(AttributeNode attr, int data)
   xmlSetProp(data_node, (const xmlChar *)"val", (xmlChar *)buffer);
 }
 
-/** Add real-typed data to an attribute node.
+/*!
+ * \brief Add real-typed data to an attribute node.
  * @param attr The attribute node.
  * @param data The value to set.
+ * \ingroup DiagramXmlOut
  */
 void
 data_add_real(AttributeNode attr, real data)
@@ -1025,9 +1093,11 @@ data_add_real(AttributeNode attr, real data)
   xmlSetProp(data_node, (const xmlChar *)"val", (xmlChar *)buffer);
 }
 
-/** Add boolean data to an attribute node.
+/*!
+ * \brief Add boolean data to an attribute node.
  * @param attr The attribute node.
  * @param data The value to set.
+ * \ingroup DiagramXmlOut
  */
 void
 data_add_boolean(AttributeNode attr, int data)
@@ -1041,13 +1111,15 @@ data_add_boolean(AttributeNode attr, int data)
     xmlSetProp(data_node, (const xmlChar *)"val", (const xmlChar *)"false");
 }
 
-/** Convert a floating-point value to hexadecimal.
+/*!
+ * \brief Convert a floating-point value to hexadecimal.
  * @param x The floating point value.
  * @param str A string to place the result in.
  * @note Currently only works for 0 <= x <= 255 and will silently cap the value
  *  to those limits.  Also expects str to have at least two bytes allocated,
  *  and doesn't null-terminate it.  This works well for converting a color
  *  value, but is pretty much useless for other values.
+ * \ingroup DiagramXmlOut
  */
 static void
 convert_to_hex(float x, char *str)
@@ -1065,9 +1137,11 @@ convert_to_hex(float x, char *str)
   str[1] = hex_digit[val%16];
 }
 
-/** Add color data to an attribute node.
+/*!
+ * \brief Add color data to an attribute node.
  * @param attr The attribute node.
  * @param col The value to set.
+ * \ingroup DiagramXmlOut
  */
 void
 data_add_color(AttributeNode attr, const Color *col)
@@ -1100,9 +1174,11 @@ _str_point (const Point *point)
   return buffer;
 }
 
-/** Add point data to an attribute node.
+/*!
+ * \brief Add point data to an attribute node.
  * @param attr The attribute node.
  * @param point The value to set.
+ * \ingroup DiagramXmlOut
  */
 void
 data_add_point(AttributeNode attr, const Point *point)
@@ -1115,6 +1191,10 @@ data_add_point(AttributeNode attr, const Point *point)
   g_free(buffer);
 }
 
+/*!
+ * \brief Saving _BezPoint in a single node
+ * \ingroup DiagramXmlOut
+ */
 void
 data_add_bezpoint(AttributeNode attr, const BezPoint *point)
 {
@@ -1149,9 +1229,11 @@ data_add_bezpoint(AttributeNode attr, const BezPoint *point)
   }
 }
 
-/** Add rectangle data to an attribute node.
+/*!
+ * \brief Add rectangle data to an attribute node.
  * @param attr The attribute node.
  * @param rect The value to set.
+ * \ingroup DiagramXmlOut
  */
 void
 data_add_rectangle(AttributeNode attr, const Rectangle *rect)
@@ -1176,9 +1258,11 @@ data_add_rectangle(AttributeNode attr, const Rectangle *rect)
   g_free(buffer);
 }
 
-/** Add string data to an attribute node.
+/*!
+ * \brief Add string data to an attribute node.
  * @param attr The attribute node.
  * @param str The value to set.
+ * \ingroup DiagramXmlOut
  */
 void
 data_add_string(AttributeNode attr, const char *str)
@@ -1202,10 +1286,12 @@ data_add_string(AttributeNode attr, const char *str)
     g_free(sharped_str);
 }
 
-/** Add filename data to an attribute node.
+/*!
+ * \brief Add filename data to an attribute node.
  * @param data The data node.
  * @param str The filename value to set. This should be n the local filesystem
  *  encoding, not utf-8.
+ * \ingroup DiagramXmlOut
  */
 void
 data_add_filename(DataNode data, const char *str)
@@ -1217,9 +1303,11 @@ data_add_filename(DataNode data, const char *str)
   g_free(utf8);
 }
 
-/** Add font data to an attribute node.
+/*!
+ * \brief Add font data to an attribute node.
  * @param attr The attribute node.
  * @param font The value to set.
+ * \ingroup DiagramXmlOut
  */
 void
 data_add_font(AttributeNode attr, const DiaFont *font)
@@ -1236,10 +1324,12 @@ data_add_font(AttributeNode attr, const DiaFont *font)
   xmlSetProp(data_node, (const xmlChar *)"name", (xmlChar *) dia_font_get_legacy_name(font));
 }
 
-/** Add a new composite node to an attribute node.
+/*!
+ * \brief Add a new composite node to an attribute node.
  * @param attr The attribute node to add to.
  * @param type The type of the new node.
- * @returns The new child of `attr'.
+ * @return The new child of `attr'.
+ * \ingroup DiagramXmlOut
  */
 DataNode
 data_add_composite(AttributeNode attr, const char *type) 
@@ -1260,11 +1350,13 @@ data_add_composite(AttributeNode attr, const char *type)
 /* diarc option */
 int pretty_formated_xml = TRUE;
 
-/** Save an XML document to a file.
+/*!
+ * \brief Save an XML document to a file.
  * @param filename The file to save to.
  * @param cur The XML document structure.
  * @return The return value of xmlSaveFormatFileEnc.
  * @todo Get the proper defn of the return value from libxml2.
+ * \ingroup DiagramXmlIo
  */
 int
 xmlDiaSaveFile(const char *filename,

@@ -31,25 +31,33 @@
 
 #include "diatypes.h"
 
-/** \brief Can be used as extra parameter at create. Usually discouraged, you can set via StdProp API */
+/*!
+ * \brief Can be used as extra parameter at create. Usually discouraged, you can set via StdProp API
+ * \ingroup ObjectCreate
+ */
 struct _MultipointCreateData {
   int num_points; /**< count */
   Point *points; /**< data */
 };
 
-/** \brief Can be used as extra parameter at create. Usually discouraged, you can set via StdProp API */
+/*! 
+ * \brief Can be used as extra parameter at create. Usually discouraged, you can set via StdProp API
+ * \ingroup ObjectCreate
+ */
 struct _BezierCreateData {
   int num_points; /**< count */
   BezPoint *points; /**< data */
 };
 
-/*! Create a text object for the diagram.
+/*!
+ * \brief Create a text object for the diagram.
  * @param xpos X position (in cm from the origo) of the object.
  * @param ypos Y position (in cm from the origo) of the object.
  * \ingroup ObjectCreate
  */
 DiaObject *create_standard_text(real xpos, real ypos);
-/*! Create an ellipse object for the diagram
+/*!
+ * \brief Create an ellipse object for the diagram
  * @param xpos top-left corner
  * @param ypos top-lef corner
  * @param width the horizontal diameter
@@ -57,20 +65,41 @@ DiaObject *create_standard_text(real xpos, real ypos);
  * \ingroup ObjectCreate
  */
 DiaObject *create_standard_ellipse(real xpos, real ypos, real width, real height);
-/*! Create a rectangular box */
+/*!
+ * \brief Create a rectangular box
+ * \ingroup ObjectCreate
+ */
 DiaObject *create_standard_box(real xpos, real ypos, real width, real height);
-/*! Create a _Polyline with arrows */
+/*!
+ * \brief Create a _Polyline with arrows
+ * \ingroup ObjectCreate
+ */
 DiaObject *create_standard_polyline(int num_points,  Point *points,
 				    Arrow *end_arrow, Arrow *start_arrow);
-/*! Create an _OrthConn with arrows */
+/*!
+ * \brief Create a \ref _Zigzagline with arrows
+ * \ingroup ObjectCreate
+ */
 DiaObject *create_standard_zigzagline(int num_points, const Point *points,
 				      const Arrow *end_arrow, const Arrow *start_arrow);
+/*!
+ * \brief Create a \ref _Polygon
+ * \ingroup ObjectCreate
+ */
 DiaObject *create_standard_polygon(int num_points, Point *points);
-/*! Create a _Bezierline with arrows */
+/*!
+ * \brief Create a \ref _Bezierline with arrows
+ * \ingroup ObjectCreate
+ */
 DiaObject *create_standard_bezierline(int num_points, BezPoint *points,
 				      Arrow *end_arrow, Arrow *start_arrow);
+/*!
+ * \brief Create a \ref _Beziergon
+ * \ingroup ObjectCreate
+ */
 DiaObject *create_standard_beziergon(int num_points, BezPoint *points);
-/*! Create an _Arc with arrows 
+/*!
+ * \brief Create an \ref _Arc with arrows 
  * @param x1 arc start position
  * @param y1 arc start position
  * @param x2 arc end position
@@ -83,11 +112,13 @@ DiaObject *create_standard_beziergon(int num_points, BezPoint *points);
 DiaObject *create_standard_arc(real x1, real y1, real x2, real y2,
 			       real curve_distance, 
 			       Arrow *end_arrow, Arrow *start_arrow);
-/*! Create an image object from file with the given size and position 
+/*! 
+ * \brief Create an \ref _Image object from file with the given size and position 
  * \ingroup ObjectCreate
  */
 DiaObject *create_standard_image(real xpos, real ypos, real width, real height, char *file);
-/*! Create a _Group of objects given by list.
+/*!
+ * \brief Create a _Group of objects given by list.
  * The objects in list must not be added to the diagra at the same time.
  * \ingroup ObjectCreate
  */

@@ -58,6 +58,8 @@ GType diagram_data_get_type (void) G_GNUC_CONST;
  *
  * Dia's diagram object is the container of _Layer, the managment object of _DiaObject selections
  * and text foci (_Focus) as well a highlithing state resulting from selections.
+ *
+ * \ingroup DiagramStructure
  */
 struct _DiagramData {
   GObject parent_instance; /*!< inheritance in C */
@@ -90,9 +92,7 @@ struct _DiagramData {
 
 };
 
-/**
- * \brief DiagramData vtable
- */
+/* DiagramData vtable */
 typedef struct _DiagramDataClass {
   GObjectClass parent_class;
 
@@ -106,18 +106,19 @@ typedef struct _DiagramDataClass {
 /*! 
  * \brief A diagram consists of layers holding objects 
  *
+ * \ingroup DiagramStructure
  * \todo : make this a GObject as well
  */
 struct _Layer {
-  char *name;             /*!< */
-  Rectangle extents;      /*!< The extents of the layer        */
+  char *name;             /*!< The name of the layer */
+  Rectangle extents;      /*!< The extents of the layer */
 
   GList *objects;         /*!< List of objects in the layer,
-			     sorted by decreasing z-valued,
+			     sorted by decreasing z-value,
 			     objects can ONLY be connected to objects
 			     in the same layer! */
 
-  gboolean visible;
+  gboolean visible;       /*!< The visibility of the layer */
   gboolean connectable;   /*!< Whether the layer can currently be connected to.
 			     The selected layer is by default connectable */
 
@@ -210,9 +211,6 @@ void layer_replace_object_with_list(Layer *layer, DiaObject *obj,
 				    GList *list);
 void layer_set_object_list(Layer *layer, GList *list);
 DiagramData *layer_get_parent_diagram(Layer *layer);
-
-/* Make sure all objects that are in the layer and not in the new
-   list eventually gets destroyed. */
 
 G_END_DECLS
 
