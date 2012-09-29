@@ -235,7 +235,7 @@ customline_create(Point *startpoint,
   }
 
   if (line_info->type == CUSTOM_LINETYPE_ZIGZAGLINE)
-    res = zigzag_ot->ops->create( startpoint, user_data, handle1, handle2 );
+    res = zigzag_ot->ops->create( startpoint, NULL, handle1, handle2 );
   else if (line_info->type == CUSTOM_LINETYPE_POLYLINE)
     res = polyline_ot->ops->create( startpoint, NULL, handle1, handle2 );
   else if (line_info->type == CUSTOM_LINETYPE_BEZIERLINE)
