@@ -79,6 +79,27 @@ object_list_get_prop_descriptions(GList *objects, PropMergeOption option)
   return pdesc;
 }
 
+const PropDescription *
+object_describe_props (DiaObject *obj)
+{
+  const PropDescription *props = obj->type->prop_descs;
+
+  g_return_val_if_fail (props != NULL, NULL);
+
+  if (props[0].quark == 0)
+    prop_desc_list_calculate_quarks((PropDescription *)props);
+  return props;
+}
+
+void
+object_get_props(DiaObject *obj, GPtrArray *props)
+{
+  const PropOffset *offsets = obj->type->prop_offsets;
+
+  g_return_if_fail (offsets != NULL);
+
+  object_get_props_from_offsets(obj, (PropOffset *)offsets, props);
+}
 
 /* ------------------------------------------------------ */
 /* Change management                                      */

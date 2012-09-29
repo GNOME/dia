@@ -509,14 +509,32 @@ gboolean object_set_props_from_offsets(DiaObject *obj, PropOffset *offsets,
 ObjectChange *object_apply_props(DiaObject *obj, GPtrArray *props);
 ObjectChange *object_toggle_prop (DiaObject *obj, const char *pname, gboolean val);
 
-/* standard properties dialogs that can be used for objects that
+/*!
+ * \brief Creation of object specific property dialog
+ * \memberof DiaObject
+ * standard properties dialogs that can be used for objects that
  * implement describe_props, get_props and set_props.
  * If is_default is set, this is a default dialog, not an object dialog.
  */
 WIDGET *object_create_props_dialog     (DiaObject *obj, gboolean is_default);
 WIDGET *object_list_create_props_dialog(GList *obj, gboolean is_default);
 ObjectChange *object_apply_props_from_dialog (DiaObject *obj, WIDGET *dialog);
-
+/*!
+ * \brief Descibe objects properties
+ * \memberof DiaObject
+ * Default implementaiton to describe an objects properties, relies on
+ * DiaObjectType::prop_descs being initialized to the list of property
+ * descriptions.
+ */
+const PropDescription *object_describe_props (DiaObject *obj);
+/*!
+ * \brief Descibe objects properties
+ * \memberof DiaObject
+ * Default implementaiton to get an objects properties, relies on
+ * DiaObjectType::prop_offsets being initialized to the list of property
+ * offsets.
+ */
+void object_get_props(DiaObject *obj, GPtrArray *props);
 /* create a property from the object's property descriptors. To be freed with
    prop->ops->free(prop); or put it into a single property list. NULL if object
    has nothing matching. Property's value is initialised by the object.
