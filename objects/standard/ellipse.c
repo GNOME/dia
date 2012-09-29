@@ -86,7 +86,6 @@ static DiaObject *ellipse_create(Point *startpoint,
 static void ellipse_destroy(Ellipse *ellipse);
 static DiaObject *ellipse_copy(Ellipse *ellipse);
 
-static PropDescription *ellipse_describe_props(Ellipse *ellipse);
 static void ellipse_get_props(Ellipse *ellipse, GPtrArray *props);
 static void ellipse_set_props(Ellipse *ellipse, GPtrArray *props);
 
@@ -103,33 +102,16 @@ static ObjectTypeOps ellipse_type_ops =
   (ApplyDefaultsFunc) NULL
 };
 
-DiaObjectType ellipse_type =
-{
-  "Standard - Ellipse",   /* name */
-  0,                      /* version */
-  (char **) ellipse_icon,  /* pixmap */
-  
-  &ellipse_type_ops       /* ops */
-};
-
-DiaObjectType *_ellipse_type = (DiaObjectType *) &ellipse_type;
-
-static ObjectOps ellipse_ops = {
-  (DestroyFunc)         ellipse_destroy,
-  (DrawFunc)            ellipse_draw,
-  (DistanceFunc)        ellipse_distance_from,
-  (SelectFunc)          ellipse_select,
-  (CopyFunc)            ellipse_copy,
-  (MoveFunc)            ellipse_move,
-  (MoveHandleFunc)      ellipse_move_handle,
-  (GetPropertiesFunc)   object_create_props_dialog,
-  (ApplyPropertiesDialogFunc) object_apply_props_from_dialog,
-  (ObjectMenuFunc)      ellipse_get_object_menu,
-  (DescribePropsFunc)   ellipse_describe_props,
-  (GetPropsFunc)        ellipse_get_props,
-  (SetPropsFunc)        ellipse_set_props,
-  (TextEditFunc) 0,
-  (ApplyPropertiesListFunc) object_apply_props,
+static PropOffset ellipse_offsets[] = {
+  ELEMENT_COMMON_PROPERTIES_OFFSETS,
+  { PROP_STDNAME_LINE_WIDTH, PROP_STDTYPE_LINE_WIDTH, offsetof(Ellipse, border_width) },
+  { "line_colour", PROP_TYPE_COLOUR, offsetof(Ellipse, border_color) },
+  { "fill_colour", PROP_TYPE_COLOUR, offsetof(Ellipse, inner_color) },
+  { "show_background", PROP_TYPE_BOOL, offsetof(Ellipse, show_background) },
+  { "aspect", PROP_TYPE_ENUM, offsetof(Ellipse, aspect) },
+  { "line_style", PROP_TYPE_LINESTYLE,
+    offsetof(Ellipse, line_style), offsetof(Ellipse, dashlength) },
+  { NULL, 0, 0 }
 };
 
 static PropEnumData prop_aspect_data[] = {
@@ -150,32 +132,38 @@ static PropDescription ellipse_props[] = {
   PROP_DESC_END
 };
 
-static PropDescription *
-ellipse_describe_props(Ellipse *ellipse)
+DiaObjectType ellipse_type =
 {
-  if (ellipse_props[0].quark == 0)
-    prop_desc_list_calculate_quarks(ellipse_props);
-  return ellipse_props;
-}
-
-static PropOffset ellipse_offsets[] = {
-  ELEMENT_COMMON_PROPERTIES_OFFSETS,
-  { PROP_STDNAME_LINE_WIDTH, PROP_STDTYPE_LINE_WIDTH, offsetof(Ellipse, border_width) },
-  { "line_colour", PROP_TYPE_COLOUR, offsetof(Ellipse, border_color) },
-  { "fill_colour", PROP_TYPE_COLOUR, offsetof(Ellipse, inner_color) },
-  { "show_background", PROP_TYPE_BOOL, offsetof(Ellipse, show_background) },
-  { "aspect", PROP_TYPE_ENUM, offsetof(Ellipse, aspect) },
-  { "line_style", PROP_TYPE_LINESTYLE,
-    offsetof(Ellipse, line_style), offsetof(Ellipse, dashlength) },
-  { NULL, 0, 0 }
+  "Standard - Ellipse",   /* name */
+  0,                      /* version */
+  (char **) ellipse_icon,  /* pixmap */
+  
+  &ellipse_type_ops,      /* ops */
+  NULL,
+  0,
+  ellipse_props,
+  ellipse_offsets
 };
 
-static void
-ellipse_get_props(Ellipse *ellipse, GPtrArray *props)
-{
-  object_get_props_from_offsets(&ellipse->element.object, 
-                                ellipse_offsets, props);
-}
+DiaObjectType *_ellipse_type = (DiaObjectType *) &ellipse_type;
+
+static ObjectOps ellipse_ops = {
+  (DestroyFunc)         ellipse_destroy,
+  (DrawFunc)            ellipse_draw,
+  (DistanceFunc)        ellipse_distance_from,
+  (SelectFunc)          ellipse_select,
+  (CopyFunc)            ellipse_copy,
+  (MoveFunc)            ellipse_move,
+  (MoveHandleFunc)      ellipse_move_handle,
+  (GetPropertiesFunc)   object_create_props_dialog,
+  (ApplyPropertiesDialogFunc) object_apply_props_from_dialog,
+  (ObjectMenuFunc)      ellipse_get_object_menu,
+  (DescribePropsFunc)   object_describe_props,
+  (GetPropsFunc)        object_get_props,
+  (SetPropsFunc)        ellipse_set_props,
+  (TextEditFunc) 0,
+  (ApplyPropertiesListFunc) object_apply_props,
+};
 
 static void
 ellipse_set_props(Ellipse *ellipse, GPtrArray *props)

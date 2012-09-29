@@ -90,7 +90,6 @@ static void line_destroy(Line *line);
 static DiaObject *line_copy(Line *line);
 
 static PropDescription *line_describe_props(Line *line);
-static void line_get_props(Line *line, GPtrArray *props);
 static void line_set_props(Line *line, GPtrArray *props);
 
 static void line_save(Line *line, ObjectNode obj_node, const char *filename);
@@ -106,34 +105,6 @@ static ObjectTypeOps line_type_ops =
   (SaveFunc)   line_save,
   (GetDefaultsFunc)   NULL,
   (ApplyDefaultsFunc) NULL
-};
-
-DiaObjectType line_type =
-{
-  "Standard - Line",   /* name */
-  0,                   /* version */
-  (char **) line_icon,  /* pixmap */
-  &line_type_ops       /* ops */
-};
-
-DiaObjectType *_line_type = (DiaObjectType *) &line_type;
-
-static ObjectOps line_ops = {
-  (DestroyFunc)         line_destroy,
-  (DrawFunc)            line_draw,
-  (DistanceFunc)        line_distance_from,
-  (SelectFunc)          line_select,
-  (CopyFunc)            line_copy,
-  (MoveFunc)            line_move,
-  (MoveHandleFunc)      line_move_handle,
-  (GetPropertiesFunc)   object_create_props_dialog,
-  (ApplyPropertiesDialogFunc) object_apply_props_from_dialog,
-  (ObjectMenuFunc)      line_get_object_menu,
-  (DescribePropsFunc)   line_describe_props,
-  (GetPropsFunc)        line_get_props,
-  (SetPropsFunc)        line_set_props,
-  (TextEditFunc) 0,
-  (ApplyPropertiesListFunc) object_apply_props,
 };
 
 static PropNumData gap_range = { -G_MAXFLOAT, G_MAXFLOAT, 0.1};
@@ -163,14 +134,6 @@ static PropDescription line_props[] = {
   PROP_DESC_END
 };
 
-static PropDescription *
-line_describe_props(Line *line)
-{
-  if (line_props[0].quark == 0)
-    prop_desc_list_calculate_quarks(line_props);
-  return line_props;
-}
-
 static PropOffset line_offsets[] = {
   OBJECT_COMMON_PROPERTIES_OFFSETS,
   { PROP_STDNAME_LINE_WIDTH, PROP_STDTYPE_LINE_WIDTH, offsetof(Line, line_width) },
@@ -189,12 +152,37 @@ static PropOffset line_offsets[] = {
   { NULL, 0, 0 }
 };
 
-static void
-line_get_props(Line *line, GPtrArray *props)
+DiaObjectType line_type =
 {
-  object_get_props_from_offsets(&line->connection.object, 
-                                line_offsets, props);
-}
+  "Standard - Line",   /* name */
+  0,                   /* version */
+  (char **) line_icon,  /* pixmap */
+  &line_type_ops,      /* ops */
+  NULL,
+  0,
+  line_props,
+  line_offsets
+};
+
+DiaObjectType *_line_type = (DiaObjectType *) &line_type;
+
+static ObjectOps line_ops = {
+  (DestroyFunc)         line_destroy,
+  (DrawFunc)            line_draw,
+  (DistanceFunc)        line_distance_from,
+  (SelectFunc)          line_select,
+  (CopyFunc)            line_copy,
+  (MoveFunc)            line_move,
+  (MoveHandleFunc)      line_move_handle,
+  (GetPropertiesFunc)   object_create_props_dialog,
+  (ApplyPropertiesDialogFunc) object_apply_props_from_dialog,
+  (ObjectMenuFunc)      line_get_object_menu,
+  (DescribePropsFunc)   object_describe_props,
+  (GetPropsFunc)        object_get_props,
+  (SetPropsFunc)        line_set_props,
+  (TextEditFunc) 0,
+  (ApplyPropertiesListFunc) object_apply_props,
+};
 
 static void
 line_set_props(Line *line, GPtrArray *props)

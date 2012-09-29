@@ -90,8 +90,6 @@ static DiaObject *box_create(Point *startpoint,
 static void box_destroy(Box *box);
 static DiaObject *box_copy(Box *box);
 
-static PropDescription *box_describe_props(Box *box);
-static void box_get_props(Box *box, GPtrArray *props);
 static void box_set_props(Box *box, GPtrArray *props);
 
 static void box_save(Box *box, ObjectNode obj_node, const char *filename);
@@ -107,33 +105,17 @@ static ObjectTypeOps box_type_ops =
   (ApplyDefaultsFunc) NULL
 };
 
-DiaObjectType box_type =
-{
-  "Standard - Box",  /* name */
-  0,                 /* version */
-  (char **) box_icon, /* pixmap */
-
-  &box_type_ops      /* ops */
-};
-
-DiaObjectType *_box_type = (DiaObjectType *) &box_type;
-
-static ObjectOps box_ops = {
-  (DestroyFunc)         box_destroy,
-  (DrawFunc)            box_draw,
-  (DistanceFunc)        box_distance_from,
-  (SelectFunc)          box_select,
-  (CopyFunc)            box_copy,
-  (MoveFunc)            box_move,
-  (MoveHandleFunc)      box_move_handle,
-  (GetPropertiesFunc)   object_create_props_dialog,
-  (ApplyPropertiesDialogFunc) object_apply_props_from_dialog,
-  (ObjectMenuFunc)      box_get_object_menu,
-  (DescribePropsFunc)   box_describe_props,
-  (GetPropsFunc)        box_get_props,
-  (SetPropsFunc)        box_set_props,
-  (TextEditFunc) 0,
-  (ApplyPropertiesListFunc) object_apply_props,
+static PropOffset box_offsets[] = {
+  ELEMENT_COMMON_PROPERTIES_OFFSETS,
+  { PROP_STDNAME_LINE_WIDTH, PROP_STDTYPE_LINE_WIDTH, offsetof(Box, border_width) },
+  { "line_colour", PROP_TYPE_COLOUR, offsetof(Box, border_color) },
+  { "fill_colour", PROP_TYPE_COLOUR, offsetof(Box, inner_color) },
+  { "show_background", PROP_TYPE_BOOL, offsetof(Box, show_background) },
+  { "aspect", PROP_TYPE_ENUM, offsetof(Box, aspect) },
+  { "line_style", PROP_TYPE_LINESTYLE,
+    offsetof(Box, line_style), offsetof(Box, dashlength) },
+  { "corner_radius", PROP_TYPE_REAL, offsetof(Box, corner_radius) },
+  { NULL, 0, 0 }
 };
 
 static PropNumData corner_radius_data = { 0.0, 10.0, 0.1 };
@@ -158,33 +140,38 @@ static PropDescription box_props[] = {
   PROP_DESC_END
 };
 
-static PropDescription *
-box_describe_props(Box *box)
+DiaObjectType box_type =
 {
-  if (box_props[0].quark == 0)
-    prop_desc_list_calculate_quarks(box_props);
-  return box_props;
-}
+  "Standard - Box",  /* name */
+  0,                 /* version */
+  (char **) box_icon, /* pixmap */
 
-static PropOffset box_offsets[] = {
-  ELEMENT_COMMON_PROPERTIES_OFFSETS,
-  { PROP_STDNAME_LINE_WIDTH, PROP_STDTYPE_LINE_WIDTH, offsetof(Box, border_width) },
-  { "line_colour", PROP_TYPE_COLOUR, offsetof(Box, border_color) },
-  { "fill_colour", PROP_TYPE_COLOUR, offsetof(Box, inner_color) },
-  { "show_background", PROP_TYPE_BOOL, offsetof(Box, show_background) },
-  { "aspect", PROP_TYPE_ENUM, offsetof(Box, aspect) },
-  { "line_style", PROP_TYPE_LINESTYLE,
-    offsetof(Box, line_style), offsetof(Box, dashlength) },
-  { "corner_radius", PROP_TYPE_REAL, offsetof(Box, corner_radius) },
-  { NULL, 0, 0 }
+  &box_type_ops,      /* ops */
+  NULL,              /* pixmap_file */
+  0,                 /* default_user_data */
+  box_props,
+  box_offsets
 };
 
-static void
-box_get_props(Box *box, GPtrArray *props)
-{
-  object_get_props_from_offsets(&box->element.object, 
-                                box_offsets, props);
-}
+DiaObjectType *_box_type = (DiaObjectType *) &box_type;
+
+static ObjectOps box_ops = {
+  (DestroyFunc)         box_destroy,
+  (DrawFunc)            box_draw,
+  (DistanceFunc)        box_distance_from,
+  (SelectFunc)          box_select,
+  (CopyFunc)            box_copy,
+  (MoveFunc)            box_move,
+  (MoveHandleFunc)      box_move_handle,
+  (GetPropertiesFunc)   object_create_props_dialog,
+  (ApplyPropertiesDialogFunc) object_apply_props_from_dialog,
+  (ObjectMenuFunc)      box_get_object_menu,
+  (DescribePropsFunc)   object_describe_props,
+  (GetPropsFunc)        object_get_props,
+  (SetPropsFunc)        box_set_props,
+  (TextEditFunc) 0,
+  (ApplyPropertiesListFunc) object_apply_props,
+};
 
 static void
 box_set_props(Box *box, GPtrArray *props)

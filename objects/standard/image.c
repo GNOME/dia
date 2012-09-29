@@ -113,35 +113,6 @@ static ObjectTypeOps image_type_ops =
   (ApplyDefaultsFunc) NULL
 };
 
-DiaObjectType image_type =
-{
-  "Standard - Image",  /* name */
-  0,                 /* version */
-  (char **) image_icon, /* pixmap */
-
-  &image_type_ops      /* ops */
-};
-
-DiaObjectType *_image_type = (DiaObjectType *) &image_type;
-
-static ObjectOps image_ops = {
-  (DestroyFunc)         image_destroy,
-  (DrawFunc)            image_draw,
-  (DistanceFunc)        image_distance_from,
-  (SelectFunc)          image_select,
-  (CopyFunc)            image_copy,
-  (MoveFunc)            image_move,
-  (MoveHandleFunc)      image_move_handle,
-  (GetPropertiesFunc)   object_create_props_dialog,
-  (ApplyPropertiesDialogFunc) object_apply_props_from_dialog,
-  (ObjectMenuFunc)      NULL,
-  (DescribePropsFunc)   image_describe_props,
-  (GetPropsFunc)        image_get_props,
-  (SetPropsFunc)        image_set_props,
-  (TextEditFunc) 0,
-  (ApplyPropertiesListFunc) object_apply_props,
-};
-
 static PropDescription image_props[] = {
   ELEMENT_COMMON_PROPERTIES,
   { "image_file", PROP_TYPE_FILE, PROP_FLAG_VISIBLE,
@@ -160,13 +131,37 @@ static PropDescription image_props[] = {
   PROP_DESC_END
 };
 
-static PropDescription *
-image_describe_props(Image *image)
+DiaObjectType image_type =
 {
-  if (image_props[0].quark == 0)
-    prop_desc_list_calculate_quarks(image_props);
-  return image_props;
-}
+  "Standard - Image",  /* name */
+  0,                 /* version */
+  (char **) image_icon, /* pixmap */
+
+  &image_type_ops,      /* ops */
+  NULL,
+  0,
+  image_props
+};
+
+DiaObjectType *_image_type = (DiaObjectType *) &image_type;
+
+static ObjectOps image_ops = {
+  (DestroyFunc)         image_destroy,
+  (DrawFunc)            image_draw,
+  (DistanceFunc)        image_distance_from,
+  (SelectFunc)          image_select,
+  (CopyFunc)            image_copy,
+  (MoveFunc)            image_move,
+  (MoveHandleFunc)      image_move_handle,
+  (GetPropertiesFunc)   object_create_props_dialog,
+  (ApplyPropertiesDialogFunc) object_apply_props_from_dialog,
+  (ObjectMenuFunc)      NULL,
+  (DescribePropsFunc)   object_describe_props,
+  (GetPropsFunc)        image_get_props,
+  (SetPropsFunc)        image_set_props,
+  (TextEditFunc) 0,
+  (ApplyPropertiesListFunc) object_apply_props,
+};
 
 static PropOffset image_offsets[] = {
   ELEMENT_COMMON_PROPERTIES_OFFSETS,
@@ -182,6 +177,11 @@ static PropOffset image_offsets[] = {
   { NULL, 0, 0 }
 };
 
+/*!
+ * \brief Get properties of the _Image
+ * \memberof _Image
+ * Overwites DiaObject::get_props() to initialize pixbuf property
+ */
 static void
 image_get_props(Image *image, GPtrArray *props)
 {

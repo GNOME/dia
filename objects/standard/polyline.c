@@ -73,8 +73,6 @@ static void polyline_update_data(Polyline *polyline);
 static void polyline_destroy(Polyline *polyline);
 static DiaObject *polyline_copy(Polyline *polyline);
 
-static PropDescription *polyline_describe_props(Polyline *polyline);
-static void polyline_get_props(Polyline *polyline, GPtrArray *props);
 static void polyline_set_props(Polyline *polyline, GPtrArray *props);
 
 static void polyline_save(Polyline *polyline, ObjectNode obj_node,
@@ -91,38 +89,6 @@ static ObjectTypeOps polyline_type_ops =
   (SaveFunc)  polyline_save,      /* save */
   (GetDefaultsFunc)   NULL /*polyline_get_defaults*/,
   (ApplyDefaultsFunc) NULL /*polyline_apply_defaults*/
-};
-
-static DiaObjectType polyline_type =
-{
-  "Standard - PolyLine",   /* name */
-  0,                         /* version */
-  (char **) polyline_icon,      /* pixmap */
-  
-  &polyline_type_ops,       /* ops */
-  NULL, /* pixmap_file */
-  0 /* default_user_data */
-};
-
-DiaObjectType *_polyline_type = (DiaObjectType *) &polyline_type;
-
-
-static ObjectOps polyline_ops = {
-  (DestroyFunc)         polyline_destroy,
-  (DrawFunc)            polyline_draw,
-  (DistanceFunc)        polyline_distance_from,
-  (SelectFunc)          polyline_select,
-  (CopyFunc)            polyline_copy,
-  (MoveFunc)            polyline_move,
-  (MoveHandleFunc)      polyline_move_handle,
-  (GetPropertiesFunc)   object_create_props_dialog,
-  (ApplyPropertiesDialogFunc) object_apply_props_from_dialog,
-  (ObjectMenuFunc)      polyline_get_object_menu,
-  (DescribePropsFunc)   polyline_describe_props,
-  (GetPropsFunc)        polyline_get_props,
-  (SetPropsFunc)        polyline_set_props,
-  (TextEditFunc) 0,
-  (ApplyPropertiesListFunc) object_apply_props,
 };
 
 static PropNumData polyline_corner_radius_data = { 0.0, 10.0, 0.1 };
@@ -148,14 +114,6 @@ static PropDescription polyline_props[] = {
   PROP_DESC_END
 };
 
-static PropDescription *
-polyline_describe_props(Polyline *polyline)
-{
-  if (polyline_props[0].quark == 0)
-    prop_desc_list_calculate_quarks(polyline_props);
-  return polyline_props;
-}
-
 static PropOffset polyline_offsets[] = {
   POLYCONN_COMMON_PROPERTIES_OFFSETS,
   { PROP_STDNAME_LINE_WIDTH, PROP_STDTYPE_LINE_WIDTH, offsetof(Polyline, line_width) },
@@ -174,12 +132,39 @@ static PropOffset polyline_offsets[] = {
   { NULL, 0, 0 }
 };
 
-static void
-polyline_get_props(Polyline *polyline, GPtrArray *props)
+static DiaObjectType polyline_type =
 {
-  object_get_props_from_offsets(&polyline->poly.object, polyline_offsets,
-				props);
-}
+  "Standard - PolyLine",   /* name */
+  0,                         /* version */
+  (char **) polyline_icon,      /* pixmap */
+  
+  &polyline_type_ops,       /* ops */
+  NULL, /* pixmap_file */
+  0, /* default_user_data */
+  polyline_props,
+  polyline_offsets
+};
+
+DiaObjectType *_polyline_type = (DiaObjectType *) &polyline_type;
+
+
+static ObjectOps polyline_ops = {
+  (DestroyFunc)         polyline_destroy,
+  (DrawFunc)            polyline_draw,
+  (DistanceFunc)        polyline_distance_from,
+  (SelectFunc)          polyline_select,
+  (CopyFunc)            polyline_copy,
+  (MoveFunc)            polyline_move,
+  (MoveHandleFunc)      polyline_move_handle,
+  (GetPropertiesFunc)   object_create_props_dialog,
+  (ApplyPropertiesDialogFunc) object_apply_props_from_dialog,
+  (ObjectMenuFunc)      polyline_get_object_menu,
+  (DescribePropsFunc)   object_describe_props,
+  (GetPropsFunc)        object_get_props,
+  (SetPropsFunc)        polyline_set_props,
+  (TextEditFunc) 0,
+  (ApplyPropertiesListFunc) object_apply_props,
+};
 
 static void
 polyline_set_props(Polyline *polyline, GPtrArray *props)

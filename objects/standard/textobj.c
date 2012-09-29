@@ -52,14 +52,17 @@ typedef struct _Textobj Textobj;
  */
 struct _Textobj {
   DiaObject object;
-  
+  /*! just one handle to connect/move */
   Handle text_handle;
-
+  /*! the real text object to be drawn */
   Text *text;
+  /*! synched copy of attributes from _Text object */
   TextAttributes attrs;
+  /*! vertical alignment of the whole text block */
   Valign vert_align;
-  
+  /*! bounding box filling */
   Color fill_color;
+  /*! backround to be filled or transparent */
   gboolean show_background;
 };
 
@@ -83,7 +86,6 @@ static DiaObject *textobj_create(Point *startpoint,
 			      Handle **handle2);
 static void textobj_destroy(Textobj *textobj);
 
-static PropDescription *textobj_describe_props(Textobj *textobj);
 static void textobj_get_props(Textobj *textobj, GPtrArray *props);
 static void textobj_set_props(Textobj *textobj, GPtrArray *props);
 
@@ -99,40 +101,6 @@ static ObjectTypeOps textobj_type_ops =
   (SaveFunc)   textobj_save,
   (GetDefaultsFunc)   NULL, 
   (ApplyDefaultsFunc) NULL
-};
-
-/* Version history:
- * Version 1 added vertical alignment, and needed old objects to use the
- *     right alignment.
- */
-
-DiaObjectType textobj_type =
-{
-  "Standard - Text",   /* name */
-  1,                   /* version */
-  (char **) text_icon,  /* pixmap */
-
-  &textobj_type_ops    /* ops */
-};
-
-DiaObjectType *_textobj_type = (DiaObjectType *) &textobj_type;
-
-static ObjectOps textobj_ops = {
-  (DestroyFunc)         textobj_destroy,
-  (DrawFunc)            textobj_draw,
-  (DistanceFunc)        textobj_distance_from,
-  (SelectFunc)          textobj_select,
-  (CopyFunc)            object_copy_using_properties,
-  (MoveFunc)            textobj_move,
-  (MoveHandleFunc)      textobj_move_handle,
-  (GetPropertiesFunc)   object_create_props_dialog,
-  (ApplyPropertiesDialogFunc) object_apply_props_from_dialog,
-  (ObjectMenuFunc)      NULL,
-  (DescribePropsFunc)   textobj_describe_props,
-  (GetPropsFunc)        textobj_get_props,
-  (SetPropsFunc)        textobj_set_props,
-  (TextEditFunc) 0,
-  (ApplyPropertiesListFunc) object_apply_props,
 };
 
 PropEnumData prop_text_vert_align_data[] = {
@@ -156,14 +124,6 @@ static PropDescription textobj_props[] = {
   PROP_DESC_END
 };
 
-static PropDescription *
-textobj_describe_props(Textobj *textobj)
-{
-  if (textobj_props[0].quark == 0)
-    prop_desc_list_calculate_quarks(textobj_props);
-  return textobj_props;
-}
-
 static PropOffset textobj_offsets[] = {
   OBJECT_COMMON_PROPERTIES_OFFSETS,
   {"text",PROP_TYPE_TEXT,offsetof(Textobj,text)},
@@ -175,6 +135,42 @@ static PropOffset textobj_offsets[] = {
   { "fill_colour", PROP_TYPE_COLOUR, offsetof(Textobj, fill_color) },
   { "show_background", PROP_TYPE_BOOL, offsetof(Textobj, show_background) },
   { NULL, 0, 0 }
+};
+
+/* Version history:
+ * Version 1 added vertical alignment, and needed old objects to use the
+ *     right alignment.
+ */
+DiaObjectType textobj_type =
+{
+  "Standard - Text",   /* name */
+  1,                   /* version */
+  (char **) text_icon, /* pixmap */
+  &textobj_type_ops,   /* ops */
+  NULL,
+  0,
+  textobj_props,
+  textobj_offsets
+};
+
+DiaObjectType *_textobj_type = (DiaObjectType *) &textobj_type;
+
+static ObjectOps textobj_ops = {
+  (DestroyFunc)         textobj_destroy,
+  (DrawFunc)            textobj_draw,
+  (DistanceFunc)        textobj_distance_from,
+  (SelectFunc)          textobj_select,
+  (CopyFunc)            object_copy_using_properties,
+  (MoveFunc)            textobj_move,
+  (MoveHandleFunc)      textobj_move_handle,
+  (GetPropertiesFunc)   object_create_props_dialog,
+  (ApplyPropertiesDialogFunc) object_apply_props_from_dialog,
+  (ObjectMenuFunc)      NULL,
+  (DescribePropsFunc)   object_describe_props,
+  (GetPropsFunc)        textobj_get_props,
+  (SetPropsFunc)        textobj_set_props,
+  (TextEditFunc) 0,
+  (ApplyPropertiesListFunc) object_apply_props,
 };
 
 static void

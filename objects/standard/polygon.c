@@ -82,8 +82,6 @@ static void polygon_update_data(Polygon *polygon);
 static void polygon_destroy(Polygon *polygon);
 static DiaObject *polygon_copy(Polygon *polygon);
 
-static PropDescription *polygon_describe_props(Polygon *polygon);
-static void polygon_get_props(Polygon *polygon, GPtrArray *props);
 static void polygon_set_props(Polygon *polygon, GPtrArray *props);
 
 static void polygon_save(Polygon *polygon, ObjectNode obj_node,
@@ -100,6 +98,29 @@ static ObjectTypeOps polygon_type_ops =
   (ApplyDefaultsFunc) NULL,
 };
 
+static PropDescription polygon_props[] = {
+  POLYSHAPE_COMMON_PROPERTIES,
+  PROP_STD_LINE_WIDTH,
+  PROP_STD_LINE_COLOUR,
+  PROP_STD_LINE_STYLE,
+  PROP_STD_LINE_JOIN_OPTIONAL,
+  PROP_STD_FILL_COLOUR,
+  PROP_STD_SHOW_BACKGROUND,
+  PROP_DESC_END
+};
+
+static PropOffset polygon_offsets[] = {
+  POLYSHAPE_COMMON_PROPERTIES_OFFSETS,
+  { PROP_STDNAME_LINE_WIDTH, PROP_STDTYPE_LINE_WIDTH, offsetof(Polygon, line_width) },
+  { "line_colour", PROP_TYPE_COLOUR, offsetof(Polygon, line_color) },
+  { "line_style", PROP_TYPE_LINESTYLE,
+    offsetof(Polygon, line_style), offsetof(Polygon, dashlength) },
+  { "line_join", PROP_TYPE_ENUM, offsetof(Polygon, line_join) },
+  { "fill_colour", PROP_TYPE_COLOUR, offsetof(Polygon, inner_color) },
+  { "show_background", PROP_TYPE_BOOL, offsetof(Polygon, show_background) },
+  { NULL, 0, 0 }
+};
+
 static DiaObjectType polygon_type =
 {
   "Standard - Polygon",   /* name */
@@ -108,7 +129,9 @@ static DiaObjectType polygon_type =
   
   &polygon_type_ops,       /* ops */
   NULL, /* pixmap_file */
-  0 /* default_user_data */
+  0, /* default_user_data */
+  polygon_props,
+  polygon_offsets
 };
 
 DiaObjectType *_polygon_type = (DiaObjectType *) &polygon_type;
@@ -125,50 +148,12 @@ static ObjectOps polygon_ops = {
   (GetPropertiesFunc)   object_create_props_dialog,
   (ApplyPropertiesDialogFunc) object_apply_props_from_dialog,
   (ObjectMenuFunc)      polygon_get_object_menu,
-  (DescribePropsFunc)   polygon_describe_props,
-  (GetPropsFunc)        polygon_get_props,
+  (DescribePropsFunc)   object_describe_props,
+  (GetPropsFunc)        object_get_props,
   (SetPropsFunc)        polygon_set_props,
   (TextEditFunc) 0,
   (ApplyPropertiesListFunc) object_apply_props,
 };
-
-static PropDescription polygon_props[] = {
-  POLYSHAPE_COMMON_PROPERTIES,
-  PROP_STD_LINE_WIDTH,
-  PROP_STD_LINE_COLOUR,
-  PROP_STD_LINE_STYLE,
-  PROP_STD_LINE_JOIN_OPTIONAL,
-  PROP_STD_FILL_COLOUR,
-  PROP_STD_SHOW_BACKGROUND,
-  PROP_DESC_END
-};
-
-static PropDescription *
-polygon_describe_props(Polygon *polygon)
-{
-  if (polygon_props[0].quark == 0)
-    prop_desc_list_calculate_quarks(polygon_props);
-  return polygon_props;
-}
-
-static PropOffset polygon_offsets[] = {
-  POLYSHAPE_COMMON_PROPERTIES_OFFSETS,
-  { PROP_STDNAME_LINE_WIDTH, PROP_STDTYPE_LINE_WIDTH, offsetof(Polygon, line_width) },
-  { "line_colour", PROP_TYPE_COLOUR, offsetof(Polygon, line_color) },
-  { "line_style", PROP_TYPE_LINESTYLE,
-    offsetof(Polygon, line_style), offsetof(Polygon, dashlength) },
-  { "line_join", PROP_TYPE_ENUM, offsetof(Polygon, line_join) },
-  { "fill_colour", PROP_TYPE_COLOUR, offsetof(Polygon, inner_color) },
-  { "show_background", PROP_TYPE_BOOL, offsetof(Polygon, show_background) },
-  { NULL, 0, 0 }
-};
-
-static void
-polygon_get_props(Polygon *polygon, GPtrArray *props)
-{
-  object_get_props_from_offsets(&polygon->poly.object, 
-                                polygon_offsets, props);
-}
 
 static void
 polygon_set_props(Polygon *polygon, GPtrArray *props)

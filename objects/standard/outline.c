@@ -94,6 +94,36 @@ static ObjectTypeOps outline_type_ops =
   (ApplyDefaultsFunc) NULL
 };
 
+static PropNumData _rotation_range = { 0.0f, 360.0f, 1.0f };
+static PropDescription outline_props[] = {
+  OBJECT_COMMON_PROPERTIES,
+  { "name", PROP_TYPE_STRING,PROP_FLAG_VISIBLE|PROP_FLAG_DONT_MERGE, 
+    N_("Text content"),NULL },
+  { "rotation", PROP_TYPE_REAL,PROP_FLAG_VISIBLE,
+    N_("Rotation"), N_("Angle to rotate the outline"), &_rotation_range},
+  /* the default PROP_STD_TEXT_FONT has PROP_FLAG_DONT_SAVE, we need saving */
+  PROP_STD_TEXT_FONT_OPTIONS(PROP_FLAG_VISIBLE),
+  PROP_STD_TEXT_HEIGHT_OPTIONS(PROP_FLAG_VISIBLE),
+  PROP_STD_LINE_WIDTH,
+  PROP_STD_LINE_COLOUR,
+  PROP_STD_FILL_COLOUR,
+  PROP_STD_SHOW_BACKGROUND,
+  PROP_DESC_END
+};
+
+static PropOffset outline_offsets[] = {
+  OBJECT_COMMON_PROPERTIES_OFFSETS,
+  { "name", PROP_TYPE_STRING, offsetof(Outline, name) },
+  { "rotation", PROP_TYPE_REAL, offsetof(Outline, rotation) },
+  { "text_font",PROP_TYPE_FONT,offsetof(Outline,font) },
+  { PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(Outline, font_height) },
+  { PROP_STDNAME_LINE_WIDTH, PROP_STDTYPE_LINE_WIDTH, offsetof(Outline, line_width) },
+  { "line_colour", PROP_TYPE_COLOUR, offsetof(Outline, line_color) },
+  { "fill_colour", PROP_TYPE_COLOUR, offsetof(Outline, fill_color) },
+  { "show_background", PROP_TYPE_BOOL, offsetof(Outline, show_background) },
+  { NULL, 0, 0 }
+};
+
 static DiaObjectType outline_type =
 {
   "Standard - Outline",   /* name */
@@ -102,7 +132,9 @@ static DiaObjectType outline_type =
   
   &outline_type_ops,      /* ops */
   NULL,                   /* pixmap_file */
-  0                       /* default_user_data */
+  0,                      /* default_user_data */
+  outline_props,
+  outline_offsets
 };
 
 /* make accesible from the outside for type regristation */
@@ -123,8 +155,6 @@ static void outline_destroy (Outline *outline);
 static DiaObject *outline_copy (Outline *outline);
 static DiaMenu *outline_get_object_menu(Outline *outline,
 					Point *clickedpoint);
-static PropDescription *outline_describe_props(Outline *outline);
-static void outline_get_props(Outline *outline, GPtrArray *props);
 static void outline_set_props(Outline *outline, GPtrArray *props);
 
 static ObjectOps outline_ops = {
@@ -138,8 +168,8 @@ static ObjectOps outline_ops = {
   (GetPropertiesFunc)   object_create_props_dialog,
   (ApplyPropertiesDialogFunc) object_apply_props_from_dialog,
   (ObjectMenuFunc)      outline_get_object_menu,
-  (DescribePropsFunc)   outline_describe_props,
-  (GetPropsFunc)        outline_get_props,
+  (DescribePropsFunc)   object_describe_props,
+  (GetPropsFunc)        object_get_props,
   (SetPropsFunc)        outline_set_props,
   (TextEditFunc) 0,
   (ApplyPropertiesListFunc) object_apply_props,
@@ -203,36 +233,6 @@ outline_load(ObjectNode obj_node, int version,DiaContext *ctx)
                                       obj_node,version,ctx);
 }
 
-/* Class/Object implementation */
-static PropNumData _rotation_range = { 0.0f, 360.0f, 1.0f };
-static PropDescription outline_props[] = {
-  OBJECT_COMMON_PROPERTIES,
-  { "name", PROP_TYPE_STRING,PROP_FLAG_VISIBLE|PROP_FLAG_DONT_MERGE, 
-    N_("Text content"),NULL },
-  { "rotation", PROP_TYPE_REAL,PROP_FLAG_VISIBLE,
-    N_("Rotation"), N_("Angle to rotate the outline"), &_rotation_range},
-  /* the default PROP_STD_TEXT_FONT has PROP_FLAG_DONT_SAVE, we need saving */
-  PROP_STD_TEXT_FONT_OPTIONS(PROP_FLAG_VISIBLE),
-  PROP_STD_TEXT_HEIGHT_OPTIONS(PROP_FLAG_VISIBLE),
-  PROP_STD_LINE_WIDTH,
-  PROP_STD_LINE_COLOUR,
-  PROP_STD_FILL_COLOUR,
-  PROP_STD_SHOW_BACKGROUND,
-  PROP_DESC_END
-};
-
-static PropOffset outline_offsets[] = {
-  OBJECT_COMMON_PROPERTIES_OFFSETS,
-  { "name", PROP_TYPE_STRING, offsetof(Outline, name) },
-  { "rotation", PROP_TYPE_REAL, offsetof(Outline, rotation) },
-  { "text_font",PROP_TYPE_FONT,offsetof(Outline,font) },
-  { PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(Outline, font_height) },
-  { PROP_STDNAME_LINE_WIDTH, PROP_STDTYPE_LINE_WIDTH, offsetof(Outline, line_width) },
-  { "line_colour", PROP_TYPE_COLOUR, offsetof(Outline, line_color) },
-  { "fill_colour", PROP_TYPE_COLOUR, offsetof(Outline, fill_color) },
-  { "show_background", PROP_TYPE_BOOL, offsetof(Outline, show_background) },
-  { NULL, 0, 0 }
-};
 /* empty write function */
 static cairo_status_t
 write_nul (void                *closure,
@@ -464,29 +464,6 @@ outline_get_object_menu(Outline *outline, Point *clickedpoint)
   return NULL;
 }
 
-/*!
- * \brief Descibe the object parameters (bot it's values)
- *
- * A standard props compliant object needs to describe its parameters
- *
- * \memberof Outline
- */
-static PropDescription *
-outline_describe_props (Outline *outline)
-{
-  if (outline_props[0].quark == 0)
-    prop_desc_list_calculate_quarks(outline_props);
-  return outline_props;
-}
-/*!
- * \brief Fill a properties vector reflecting the current state of the object
- * \memberof Outline
- */
-static void 
-outline_get_props (Outline *outline, GPtrArray *props)
-{
-  object_get_props_from_offsets(&outline->object, outline_offsets, props);
-}
 /*!
  * \brief Set the object state from the given proeprty vector
  * \memberof Outline

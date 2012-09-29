@@ -76,7 +76,6 @@ static DiaObject *zigzagline_copy(Zigzagline *zigzagline);
 static DiaMenu *zigzagline_get_object_menu(Zigzagline *zigzagline,
 					   Point *clickedpoint);
 
-static PropDescription *zigzagline_describe_props(Zigzagline *zigzagline);
 static void zigzagline_get_props(Zigzagline *zigzagline, GPtrArray *props);
 static void zigzagline_set_props(Zigzagline *zigzagline, GPtrArray *props);
 
@@ -91,37 +90,6 @@ static ObjectTypeOps zigzagline_type_ops =
   (SaveFunc)  zigzagline_save,      /* save */
   (GetDefaultsFunc)   NULL,/*zigzagline_get_defaults*/
   (ApplyDefaultsFunc) NULL /*zigzagline_apply_defaults*/
-};
-
-static DiaObjectType zigzagline_type =
-{
-  "Standard - ZigZagLine",   /* name */
-  /* Version 0 had no autorouting and so shouldn't have it set by default. */
-  1,                      /* version */
-  (char **) zigzagline_icon,      /* pixmap */
-  
-  &zigzagline_type_ops       /* ops */
-};
-
-DiaObjectType *_zigzagline_type = (DiaObjectType *) &zigzagline_type;
-
-
-static ObjectOps zigzagline_ops = {
-  (DestroyFunc)         zigzagline_destroy,
-  (DrawFunc)            zigzagline_draw,
-  (DistanceFunc)        zigzagline_distance_from,
-  (SelectFunc)          zigzagline_select,
-  (CopyFunc)            zigzagline_copy,
-  (MoveFunc)            zigzagline_move,
-  (MoveHandleFunc)      zigzagline_move_handle,
-  (GetPropertiesFunc)   object_create_props_dialog,
-  (ApplyPropertiesDialogFunc) object_apply_props_from_dialog,
-  (ObjectMenuFunc)      zigzagline_get_object_menu,
-  (DescribePropsFunc)   zigzagline_describe_props,
-  (GetPropsFunc)        zigzagline_get_props,
-  (SetPropsFunc)        zigzagline_set_props,
-  (TextEditFunc) 0,
-  (ApplyPropertiesListFunc) object_apply_props,
 };
 
 static PropNumData zigzagline_corner_radius_data = { 0.0, 10.0, 0.1 };
@@ -140,14 +108,6 @@ static PropDescription zigzagline_props[] = {
   PROP_DESC_END
 };
 
-static PropDescription *
-zigzagline_describe_props(Zigzagline *zigzagline)
-{
-  if (zigzagline_props[0].quark == 0)
-    prop_desc_list_calculate_quarks(zigzagline_props);
-  return zigzagline_props;
-}
-
 static PropOffset zigzagline_offsets[] = {
   ORTHCONN_COMMON_PROPERTIES_OFFSETS,
   { PROP_STDNAME_LINE_WIDTH, PROP_STDTYPE_LINE_WIDTH, offsetof(Zigzagline, line_width) },
@@ -162,12 +122,39 @@ static PropOffset zigzagline_offsets[] = {
   { NULL, 0, 0 }
 };
 
-static void
-zigzagline_get_props(Zigzagline *zigzagline, GPtrArray *props)
+static DiaObjectType zigzagline_type =
 {
-  object_get_props_from_offsets(&zigzagline->orth.object, zigzagline_offsets,
-				props);
-}
+  "Standard - ZigZagLine",   /* name */
+  /* Version 0 had no autorouting and so shouldn't have it set by default. */
+  1,                         /* version */
+  (char **) zigzagline_icon, /* pixmap */
+  &zigzagline_type_ops,      /* ops */
+  NULL,
+  0,
+  zigzagline_props,
+  zigzagline_offsets
+};
+
+DiaObjectType *_zigzagline_type = (DiaObjectType *) &zigzagline_type;
+
+
+static ObjectOps zigzagline_ops = {
+  (DestroyFunc)         zigzagline_destroy,
+  (DrawFunc)            zigzagline_draw,
+  (DistanceFunc)        zigzagline_distance_from,
+  (SelectFunc)          zigzagline_select,
+  (CopyFunc)            zigzagline_copy,
+  (MoveFunc)            zigzagline_move,
+  (MoveHandleFunc)      zigzagline_move_handle,
+  (GetPropertiesFunc)   object_create_props_dialog,
+  (ApplyPropertiesDialogFunc) object_apply_props_from_dialog,
+  (ObjectMenuFunc)      zigzagline_get_object_menu,
+  (DescribePropsFunc)   object_describe_props,
+  (GetPropsFunc)        object_get_props,
+  (SetPropsFunc)        zigzagline_set_props,
+  (TextEditFunc) 0,
+  (ApplyPropertiesListFunc) object_apply_props,
+};
 
 static void
 zigzagline_set_props(Zigzagline *zigzagline, GPtrArray *props)

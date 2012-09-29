@@ -89,8 +89,6 @@ static void arc_update_handles(Arc *arc);
 static void arc_destroy(Arc *arc);
 static DiaObject *arc_copy(Arc *arc);
 
-static PropDescription *arc_describe_props(Arc *arc);
-static void arc_get_props(Arc *arc, GPtrArray *props);
 static void arc_set_props(Arc *arc, GPtrArray *props);
 
 static void arc_save(Arc *arc, ObjectNode obj_node, const char *filename);
@@ -110,35 +108,6 @@ static ObjectTypeOps arc_type_ops =
   (ApplyDefaultsFunc) NULL
 };
 
-DiaObjectType arc_type =
-{
-  "Standard - Arc",  /* name */
-  0,                 /* version */
-  (char **) arc_icon, /* pixmap */
-  
-  &arc_type_ops      /* ops */
-};
-
-DiaObjectType *_arc_type = (DiaObjectType *) &arc_type;
-
-static ObjectOps arc_ops = {
-  (DestroyFunc)         arc_destroy,
-  (DrawFunc)            arc_draw,
-  (DistanceFunc)        arc_distance_from,
-  (SelectFunc)          arc_select,
-  (CopyFunc)            arc_copy,
-  (MoveFunc)            arc_move,
-  (MoveHandleFunc)      arc_move_handle,
-  (GetPropertiesFunc)   object_create_props_dialog,
-  (ApplyPropertiesDialogFunc) object_apply_props_from_dialog,
-  (ObjectMenuFunc)      NULL,
-  (DescribePropsFunc)   arc_describe_props,
-  (GetPropsFunc)        arc_get_props,
-  (SetPropsFunc)        arc_set_props,
-  (TextEditFunc) 0,
-  (ApplyPropertiesListFunc) object_apply_props,
-};
-
 static PropDescription arc_props[] = {
   CONNECTION_COMMON_PROPERTIES,
   PROP_STD_LINE_WIDTH,
@@ -151,14 +120,6 @@ static PropDescription arc_props[] = {
     N_("Curve distance"), NULL },
   PROP_DESC_END
 };
-
-static PropDescription *
-arc_describe_props(Arc *arc)
-{
-  if (arc_props[0].quark == 0)
-    prop_desc_list_calculate_quarks(arc_props);
-  return arc_props;
-}
 
 static PropOffset arc_offsets[] = {
   CONNECTION_COMMON_PROPERTIES_OFFSETS,
@@ -175,12 +136,38 @@ static PropOffset arc_offsets[] = {
   { NULL, 0, 0 }
 };
 
-static void
-arc_get_props(Arc *arc, GPtrArray *props)
+DiaObjectType arc_type =
 {
-  object_get_props_from_offsets(&arc->connection.object, 
-                                arc_offsets, props);
-}
+  "Standard - Arc",   /* name */
+  0,                  /* version */
+  (char **) arc_icon, /* pixmap */
+  
+  &arc_type_ops,      /* ops */
+  NULL,               /* pixmap_file */
+  NULL,               /* default_user_data */
+  arc_props,          /* prop_descs */
+  arc_offsets         /* prop_offsets */
+};
+
+DiaObjectType *_arc_type = (DiaObjectType *) &arc_type;
+
+static ObjectOps arc_ops = {
+  (DestroyFunc)         arc_destroy,
+  (DrawFunc)            arc_draw,
+  (DistanceFunc)        arc_distance_from,
+  (SelectFunc)          arc_select,
+  (CopyFunc)            arc_copy,
+  (MoveFunc)            arc_move,
+  (MoveHandleFunc)      arc_move_handle,
+  (GetPropertiesFunc)   object_create_props_dialog,
+  (ApplyPropertiesDialogFunc) object_apply_props_from_dialog,
+  (ObjectMenuFunc)      NULL,
+  (DescribePropsFunc)   object_describe_props,
+  (GetPropsFunc)        object_get_props,
+  (SetPropsFunc)        arc_set_props,
+  (TextEditFunc) 0,
+  (ApplyPropertiesListFunc) object_apply_props,
+};
 
 static void
 arc_set_props(Arc *arc, GPtrArray *props)

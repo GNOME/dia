@@ -79,8 +79,6 @@ static void beziergon_update_data(Beziergon *beziergon);
 static void beziergon_destroy(Beziergon *beziergon);
 static DiaObject *beziergon_copy(Beziergon *beziergon);
 
-static PropDescription *beziergon_describe_props(Beziergon *beziergon);
-static void beziergon_get_props(Beziergon *beziergon, GPtrArray *props);
 static void beziergon_set_props(Beziergon *beziergon, GPtrArray *props);
 
 static void beziergon_save(Beziergon *beziergon, ObjectNode obj_node,
@@ -98,6 +96,29 @@ static ObjectTypeOps beziergon_type_ops =
   (ApplyDefaultsFunc) NULL
 };
 
+static PropDescription beziergon_props[] = {
+  BEZSHAPE_COMMON_PROPERTIES,
+  PROP_STD_LINE_WIDTH,
+  PROP_STD_LINE_COLOUR,
+  PROP_STD_LINE_STYLE,
+  PROP_STD_LINE_JOIN_OPTIONAL,
+  PROP_STD_FILL_COLOUR,
+  PROP_STD_SHOW_BACKGROUND,
+  PROP_DESC_END
+};
+
+static PropOffset beziergon_offsets[] = {
+  BEZSHAPE_COMMON_PROPERTIES_OFFSETS,
+  { PROP_STDNAME_LINE_WIDTH, PROP_STDTYPE_LINE_WIDTH, offsetof(Beziergon, line_width) },
+  { "line_colour", PROP_TYPE_COLOUR, offsetof(Beziergon, line_color) },
+  { "line_style", PROP_TYPE_LINESTYLE,
+    offsetof(Beziergon, line_style), offsetof(Beziergon, dashlength) },
+  { "line_join", PROP_TYPE_ENUM, offsetof(Beziergon, line_join) },
+  { "fill_colour", PROP_TYPE_COLOUR, offsetof(Beziergon, inner_color) },
+  { "show_background", PROP_TYPE_BOOL, offsetof(Beziergon, show_background) },
+  { NULL, 0, 0 }
+};
+
 static DiaObjectType beziergon_type =
 {
   "Standard - Beziergon",   /* name */
@@ -106,7 +127,9 @@ static DiaObjectType beziergon_type =
   
   &beziergon_type_ops,      /* ops */
   NULL,                     /* pixmap_file */
-  0                         /* default_user_data */
+  0,                        /* default_user_data */
+  beziergon_props,
+  beziergon_offsets
 };
 
 DiaObjectType *_beziergon_type = (DiaObjectType *) &beziergon_type;
@@ -123,50 +146,12 @@ static ObjectOps beziergon_ops = {
   (GetPropertiesFunc)   object_create_props_dialog,
   (ApplyPropertiesDialogFunc) object_apply_props_from_dialog,
   (ObjectMenuFunc)      beziergon_get_object_menu,
-  (DescribePropsFunc)   beziergon_describe_props,
-  (GetPropsFunc)        beziergon_get_props,
+  (DescribePropsFunc)   object_describe_props,
+  (GetPropsFunc)        object_get_props,
   (SetPropsFunc)        beziergon_set_props,
   (TextEditFunc) 0,
   (ApplyPropertiesListFunc) object_apply_props,
 };
-
-static PropDescription beziergon_props[] = {
-  BEZSHAPE_COMMON_PROPERTIES,
-  PROP_STD_LINE_WIDTH,
-  PROP_STD_LINE_COLOUR,
-  PROP_STD_LINE_STYLE,
-  PROP_STD_LINE_JOIN_OPTIONAL,
-  PROP_STD_FILL_COLOUR,
-  PROP_STD_SHOW_BACKGROUND,
-  PROP_DESC_END
-};
-
-static PropDescription *
-beziergon_describe_props(Beziergon *beziergon)
-{
-  if (beziergon_props[0].quark == 0)
-    prop_desc_list_calculate_quarks(beziergon_props);
-  return beziergon_props;
-}
-
-static PropOffset beziergon_offsets[] = {
-  BEZSHAPE_COMMON_PROPERTIES_OFFSETS,
-  { PROP_STDNAME_LINE_WIDTH, PROP_STDTYPE_LINE_WIDTH, offsetof(Beziergon, line_width) },
-  { "line_colour", PROP_TYPE_COLOUR, offsetof(Beziergon, line_color) },
-  { "line_style", PROP_TYPE_LINESTYLE,
-    offsetof(Beziergon, line_style), offsetof(Beziergon, dashlength) },
-  { "line_join", PROP_TYPE_ENUM, offsetof(Beziergon, line_join) },
-  { "fill_colour", PROP_TYPE_COLOUR, offsetof(Beziergon, inner_color) },
-  { "show_background", PROP_TYPE_BOOL, offsetof(Beziergon, show_background) },
-  { NULL, 0, 0 }
-};
-
-static void
-beziergon_get_props(Beziergon *beziergon, GPtrArray *props)
-{
-  object_get_props_from_offsets(&beziergon->bezier.object, beziergon_offsets,
-				props);
-}
 
 static void
 beziergon_set_props(Beziergon *beziergon, GPtrArray *props)
