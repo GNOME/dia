@@ -945,6 +945,10 @@ read_items (xmlNodePtr   startnode,
 
 
   for (node = startnode; node != NULL; node = node->next) {
+    /* Points to the *first* object created by this node (used to be the last one).
+     * Dia may split a single SVG element into multiple DiaObjects. If so these objects
+     * should be grouped or at least inherit all the same node properties
+     */
     DiaObject *obj = NULL;
 
     if (xmlIsBlankNode(node)) continue;
@@ -1022,9 +1026,11 @@ read_items (xmlNodePtr   startnode,
       if (items)
 	obj = g_list_last(items)->data;
     } else if(!xmlStrcmp(node->name, (const xmlChar *)"path")) {
+      /* the path element might be split into multiple objects */
+      int first = g_list_length (items);
       items = read_path_svg(node, parent_gs, items, ctx);
-      if (items)
-	obj = g_list_last(items)->data;
+      if (items && g_list_nth(items, first))
+	obj = g_list_nth(items, first)->data;
     } else if(!xmlStrcmp(node->name, (const xmlChar *)"image")) {
       items = read_image_svg(node, parent_gs, items, filename_svg);
       if (items)
@@ -1096,6 +1102,7 @@ read_items (xmlNodePtr   startnode,
 	    dia_object_set_meta (sub, "url", (char *)href);
 	  }
 	}
+	obj = moreitems->data;
         items = g_list_concat (items, moreitems);
       }
       if (href)
@@ -1210,10 +1217,32 @@ import_svg(const gchar *filename, DiagramData *dia, DiaContext *ctx, void* user_
     items = read_items (root->xmlChildrenNode, NULL, defs_ht, filename, ctx);
     g_hash_table_destroy (defs_ht);
   }
+  /* Every top level item which is a group with a name/id we are converting
+   * back to a layer. This is consistent with our SVG export and does
+   * also work with layers from Sodipodi/Inkscape/iDraw/...
+   */
   for (item = items; item != NULL; item = g_list_next (item)) {
     DiaObject *obj = (DiaObject *)item->data;
-    layer_add_object(dia->active_layer, obj);
+    gchar *name = NULL;
+
+    if (IS_GROUP(obj) && ((name = dia_object_get_meta (obj, "id")) != NULL)) {
+      DiaObject *group = (DiaObject *)item->data;
+      /* new_layer() is taking ownership of the name */
+      Layer *layer = new_layer (g_strdup (name), dia);
+
+      /* layer_add_objects() is taking ownership of the list */
+      layer_add_objects (layer, g_list_copy (group_objects (group)));
+      data_add_layer (dia, layer);
+      group_destroy_shallow (group);
+      g_free (name);
+    } else {
+      /* Just as before: throw it in the active layer */
+      DiaObject *obj = (DiaObject *)item->data;
+      layer_add_object(dia->active_layer, obj);
+    }
+
   }
+
   g_list_free (items);
   xmlFreeDoc(doc);
   /* set 'display' setting */

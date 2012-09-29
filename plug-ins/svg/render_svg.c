@@ -83,6 +83,10 @@ GType svg_renderer_get_type (void) G_GNUC_CONST;
 
 static DiaSvgRenderer *new_svg_renderer(DiagramData *data, const char *filename);
 
+static void draw_layer (DiaRenderer *self,
+			Layer       *layer,
+			gboolean     active,
+			Rectangle   *update);
 static void draw_object       (DiaRenderer *renderer,
                                DiaObject   *object,
 			       DiaMatrix   *matrix);
@@ -201,6 +205,7 @@ svg_renderer_class_init (SvgRendererClass *klass)
 
   renderer_class->begin_render = begin_render;
   renderer_class->end_render = end_render;
+  renderer_class->draw_layer = draw_layer;
   renderer_class->draw_object = draw_object;
   renderer_class->draw_rounded_rect = draw_rounded_rect;
   renderer_class->fill_rounded_rect = fill_rounded_rect;
@@ -270,6 +275,36 @@ new_svg_renderer(DiagramData *data, const char *filename)
   return renderer;
 }
 
+/*!
+ * \brief Wrap every layer into it's own group
+ * This method intercepts DiaRenderer::draw_layer() to wrap every layer's
+ * object into their own named group. This seems to be the common way to
+ * transport layer information via SVG.
+ * \memberof SvgRenderer
+ */
+static void
+draw_layer (DiaRenderer *self,
+	    Layer       *layer,
+	    gboolean     active,
+	    Rectangle   *update)
+{
+  DiaSvgRenderer *renderer = DIA_SVG_RENDERER (self);
+  SvgRenderer *svg_renderer = SVG_RENDERER (self);
+  xmlNodePtr layer_group;
+
+  g_queue_push_tail (svg_renderer->parents, renderer->root);
+
+  /* modifying the root pointer so everything below us gets into the new node */
+  renderer->root = layer_group = xmlNewNode (renderer->svg_name_space, (const xmlChar *)"g");
+
+  if (layer->name)
+    xmlSetProp(renderer->root, (const xmlChar *)"id", (xmlChar *) layer->name);
+
+  DIA_RENDERER_CLASS (parent_class)->draw_layer (self, layer, active, update);
+
+  renderer->root = g_queue_pop_tail (svg_renderer->parents);
+  xmlAddChild (renderer->root, layer_group);
+}
 /*!
  * \brief Wrap every object in \<g\>\</g\> and apply transformation
  *
