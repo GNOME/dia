@@ -202,6 +202,42 @@ dia_renderer_get_type (void)
   return object_type;
 }
 
+/*! 
+ * \brief Render all the visible object in the layer
+ * @param renderer explicit this pointer
+ * @param layer    layer to draw
+ * @param active   TRUE if it is the currently active layer
+ * @param update   the update rectangle, NULL for unlimited
+ * Given an update rectangle the default implementation calls the draw_object()
+ * member only for intersected objects. This method does _not_ care for layer
+ * visibility, though. If an exporter wants to 'see' also invisible
+ * layers this method needs to be overwritten. Also it does not pass any
+ * matrix to draw_object().
+ * \memberof DiaRenderer
+ */
+static void
+draw_layer (DiaRenderer *renderer,
+	    Layer       *layer,
+	    gboolean     active,
+	    Rectangle   *update)
+{
+  GList *list = layer->objects;
+  void (*func) (DiaRenderer*, DiaObject *, DiaMatrix *);
+
+  g_return_if_fail (layer != NULL);
+
+  func = DIA_RENDERER_GET_CLASS(renderer)->draw_object;
+  /* Draw all objects  */
+  while (list!=NULL) {
+    DiaObject *obj = (DiaObject *) list->data;
+
+    if (update==NULL || rectangle_intersects(update, dia_object_get_enclosing_box(obj))) {
+      (*func)(renderer, obj, NULL);
+    }
+    list = g_list_next(list);
+  }
+}
+
 static void
 draw_object (DiaRenderer *renderer,
 	     DiaObject   *object,
@@ -261,6 +297,7 @@ dia_renderer_class_init (DiaRendererClass *klass)
 
   renderer_class->get_width_pixels  = get_width_pixels;
   renderer_class->get_height_pixels = get_height_pixels;
+  renderer_class->draw_layer = draw_layer;
   renderer_class->draw_object = draw_object;
   renderer_class->get_text_width = get_text_width;
 

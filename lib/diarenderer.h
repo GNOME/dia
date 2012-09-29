@@ -87,7 +87,9 @@ struct _DiaRendererClass
   int (*get_width_pixels) (DiaRenderer*);
   /*! return width in pixels, only for interactive renderers */
   int (*get_height_pixels) (DiaRenderer*);
-  /*! Calls the objects draw function, which calls this again 
+  /*! \brief Render all the visible object in the layer */
+  void (*draw_layer) (DiaRenderer*, Layer *, gboolean, Rectangle *);
+  /*! Calls the objects draw function, which calls the renderer again 
    *  Affine transforamtion is mostly done on the renderer side for matrix!=NULL */
   void (*draw_object) (DiaRenderer*, DiaObject*, DiaMatrix*);
   /*! Returns the EXACT width of text in cm, using the current font.

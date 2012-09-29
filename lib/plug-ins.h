@@ -28,7 +28,9 @@
 
 G_BEGIN_DECLS
 
-/*
+/*!
+ * \brief Plug-in API version for breaking binary compatibility
+ *
  * The api version to ensure dia core and the plug-ins agree on
  * talking about the same thing. If some incompatible change is 
  * made to the interface between plug-ins and core it needs to
@@ -47,8 +49,10 @@ G_BEGIN_DECLS
  *    could have been avoided this way)
  * The list is by no means complete. If in doubt about your change
  * please ask on dia-list or alternative increment ;-)      --hb
+ *
+ * \ingroup Plugins
  */
-#define DIA_PLUGIN_API_VERSION 17
+#define DIA_PLUGIN_API_VERSION 18
 
 typedef enum {
   DIA_PLUGIN_INIT_OK,

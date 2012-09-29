@@ -804,8 +804,7 @@ data_emit(DiagramData *data, Layer *layer, DiaObject* obj,
  */
 void
 data_render(DiagramData *data, DiaRenderer *renderer, Rectangle *update,
-	    ObjectRenderer obj_renderer,
-	    gpointer gdata)
+	    ObjectRenderer obj_renderer, gpointer gdata)
 {
   Layer *layer;
   guint i, active_layer;
@@ -816,8 +815,12 @@ data_render(DiagramData *data, DiaRenderer *renderer, Rectangle *update,
   for (i=0; i<data->layers->len; i++) {
     layer = (Layer *) g_ptr_array_index(data->layers, i);
     active_layer = (layer == data->active_layer);
-    if (layer->visible)
-      layer_render(layer, renderer, update, obj_renderer, gdata, active_layer);
+    if (layer->visible) {
+      if (obj_renderer)
+        layer_render(layer, renderer, update, obj_renderer, gdata, active_layer);
+      else
+        (DIA_RENDERER_GET_CLASS(renderer)->draw_layer)(renderer, layer, active_layer, update);
+    }
   }
   
   if (!renderer->is_interactive) 
