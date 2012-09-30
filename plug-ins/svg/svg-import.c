@@ -190,6 +190,7 @@ use_position (DiaObject *obj, xmlNodePtr node)
 {
     Point pos = {0, 0};
     xmlChar *str;
+    Point delta = obj->position;
 
     str = xmlGetProp(node, (const xmlChar *)"x");
     if (str) {
@@ -202,7 +203,9 @@ use_position (DiaObject *obj, xmlNodePtr node)
         pos.y = get_value_as_cm((char *) str, NULL);
         xmlFree(str);
     }
-    /* assuming the original is at 0,0 */
+    /* not assuming the original is at 0,0 */
+    pos.x += delta.x;
+    pos.y += delta.y;
     obj->ops->move(obj, &pos);
 
     str = xmlGetProp(node, (const xmlChar *)"transform");
@@ -215,16 +218,25 @@ use_position (DiaObject *obj, xmlNodePtr node)
 	    RealProperty  *pr;
 
 	    prop_list_add_point (props, "obj_pos", &pos); 
-	    prop_list_add_real (props, "width", 1.0);
-	    prop_list_add_real (props, "height", 1.0);
+	    prop_list_add_point (props, "elem_corner", &pos); 
+	    prop_list_add_real (props, "elem_width", 1.0);
+	    prop_list_add_real (props, "elem_height", 1.0);
+	    prop_list_add_real (props, PROP_STDNAME_LINE_WIDTH, 0.1);
 	    obj->ops->get_props (obj, props);
 	    /* try to transform the object without the full matrix  */
 	    pp = g_ptr_array_index (props, 0);
 	    pp->point_data.x +=  m->x0;
-	    pp->point_data.y +=  m->x0;
-	    pr = g_ptr_array_index (props, 1);
-	    pr->real_data *= m->xx;
+	    pp->point_data.y +=  m->y0;
+	    /* set position a second time, now for non-elements */
+	    pp = g_ptr_array_index (props, 1);
+	    pp->point_data.x +=  m->x0;
+	    pp->point_data.y +=  m->y0;
+
 	    pr = g_ptr_array_index (props, 2);
+	    pr->real_data *= m->xx;
+	    pr = g_ptr_array_index (props, 3);
+	    pr->real_data *= m->yy;
+	    pr = g_ptr_array_index (props, 4);
 	    pr->real_data *= m->yy;
 	    obj->ops->set_props (obj, props);
 
@@ -245,7 +257,17 @@ apply_style(DiaObject *obj, xmlNodePtr node, DiaSvgStyle *parent_style)
       ColorProperty *cprop;
       RealProperty *rprop;
       BoolProperty *bprop;
-      
+      real scale = 1.0;
+
+      xmlChar *str = xmlGetProp(node, (const xmlChar *)"transform");
+      if (str) {
+	  DiaMatrix *m = dia_svg_parse_transform ((char *)str, user_scale);
+	  if (m) {
+	    scale = m->xx;
+	    g_free (m);
+	  }
+	  xmlFree(str);
+      }
       gs = g_new0(DiaSvgStyle, 1);
       /* SVG defaults */
       dia_svg_style_init (gs, parent_style);
@@ -265,11 +287,11 @@ apply_style(DiaObject *obj, xmlNodePtr node, DiaSvgStyle *parent_style)
 	}
       }
       rprop = g_ptr_array_index(props,1);
-      rprop->real_data = gs->line_width;
+      rprop->real_data = gs->line_width * scale;
   
       lsprop = g_ptr_array_index(props,2);
       lsprop->style = gs->linestyle != DIA_SVG_LINESTYLE_DEFAULT ? gs->linestyle : LINESTYLE_SOLID;
-      lsprop->dash = gs->dashlength;
+      lsprop->dash = gs->dashlength * scale;
 
       cprop = g_ptr_array_index(props,3);
       cprop->color_data = get_colour(gs->fill, gs->fill_opacity);
@@ -318,6 +340,17 @@ read_path_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list, DiaContex
     do {
       bezpoints = dia_svg_parse_path (pathdata, &unparsed, &closed, &current_point);
 
+      if (!closed) {
+	/* expensive way to possibly close the path */
+	DiaSvgStyle *gs = g_new0(DiaSvgStyle, 1);
+
+	dia_svg_style_init (gs, NULL);
+	dia_svg_parse_style(node, gs, user_scale);
+	if (gs->font)
+          dia_font_unref (gs->font);
+	closed = (gs->fill != DIA_SVG_COLOUR_NONE);
+        g_free(gs);
+      }
       if (bezpoints && bezpoints->len > 0) {
         if (g_array_index(bezpoints, BezPoint, 0).type != BEZ_MOVE_TO) {
           dia_context_add_message(ctx, _("Invalid path data.\n"
@@ -439,6 +472,8 @@ read_text_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list)
           xmlChar *line = xmlNodeGetContent(tspan);
           if (any_tspan) /* every other line needs separation */
 	    g_string_append(paragraph, "\n");
+	  else /* only first time */
+	    dia_svg_parse_style(tspan, gs, user_scale);
           g_string_append(paragraph, (gchar*)line);
 	  xmlFree(line);
           any_tspan = TRUE;
@@ -995,10 +1030,10 @@ read_items (xmlNodePtr   startnode,
       GList *moreitems = read_items (node->xmlChildrenNode, parent_gs, defs_ht, filename_svg, ctx);
 
       /* only one object or create a group */
-      if (g_list_length (moreitems))
+      if (g_list_length (moreitems) > 1)
 	obj = group_create (moreitems);
-      else
-	obj = g_list_last(items)->data;
+      else if (moreitems)
+	obj = g_list_last(moreitems)->data;
     } else if (!xmlStrcmp(node->name, (const xmlChar *)"rect")) {
       items = read_rect_svg(node, parent_gs, items);
       if (items)
@@ -1109,6 +1144,8 @@ read_items (xmlNodePtr   startnode,
 	xmlFree (href);
     }
     /* remember some additional stuff of the current object */
+    if (g_list_find (items, obj) && g_list_length (g_list_find (items, obj)) > 1)
+      g_print ("Todo: group or set props ...\n");
     if (obj) {
       xmlChar *val = xmlGetProp (node, (const xmlChar *)"id");
       if (val) {
@@ -1230,7 +1267,7 @@ import_svg(const gchar *filename, DiagramData *dia, DiaContext *ctx, void* user_
       /* new_layer() is taking ownership of the name */
       Layer *layer = new_layer (g_strdup (name), dia);
 
-      /* layer_add_objects() is taking ownership of the list */
+      /* layer_add_objects() is taking ownersip of the list */
       layer_add_objects (layer, g_list_copy (group_objects (group)));
       data_add_layer (dia, layer);
       group_destroy_shallow (group);

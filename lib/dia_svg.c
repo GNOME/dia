@@ -104,11 +104,22 @@ _parse_color(gint32 *color, const char *str)
     *color = DIA_SVG_COLOUR_TEXT;
   else if (0 == strncmp(str, "rgb(", 4)) {
     int r = 0, g = 0, b = 0;
-    if (3 == sscanf (str+4, "%d,%d,%d", &r, &g, &b))
+    real dr, dg, db;
+    if (3 == sscanf (str+4, "%d,%d,%d", &r, &g, &b)) {
       /* Set alpha to 1.0 */
       *color = ((0xFF<<24) & 0xFF000000) | ((r<<16) & 0xFF0000) | ((g<<8) & 0xFF00) | (b & 0xFF);
-    else
+    } else if (strchr (str+4, '%')) {
+      /* e.g. cairo uses percent values */
+      gchar **vals = g_strsplit (str+4, "%,", -1);
+      int     i;
+
+      *color = 0xFF000000;
+      for (i = 0; vals[i] && i < 3; ++i)
+	*color |= ((int)(((255 * g_ascii_strtod(vals[i], NULL)) / 100))<<(16-(8*i)));
+      g_strfreev (vals);
+    } else {
       return FALSE;
+    }
   } else if (0 == strncmp(str, "rgba(", 5)) {
     int r = 0, g = 0, b = 0, a = 0;
     if (4 == sscanf (str+4, "%d,%d,%d,%d", &r, &g, &b, &a))
@@ -157,6 +168,59 @@ enum
 {
   FONT_NAME_LENGTH_MAX = 40
 };
+
+static void
+_parse_dasharray (DiaSvgStyle *s, real user_scale, gchar *str, gchar **end)
+{
+  gchar *ptr;
+  gchar **dashes = g_strsplit ((gchar *)str, ",", -1);
+  int n = 0;
+  real dl;
+
+  s->dashlength = g_ascii_strtod(str, &ptr);
+  if (s->dashlength <= 0.0) /* e.g. "none" */
+    s->linestyle = LINESTYLE_SOLID;
+  else if (user_scale > 0)
+    s->dashlength /= user_scale;
+
+  while (dashes[n])
+    ++n; /* Dia can not do arbitrary length, the number of dashes gives the style */
+  if (n > 0)
+    s->dashlength = g_ascii_strtod (dashes[0], NULL);
+  if (user_scale > 0)
+      s->dashlength /= user_scale;
+  switch (n) {
+    case 0 :
+      s->linestyle = LINESTYLE_SOLID;
+      break;
+    case 1 :
+      s->linestyle = LINESTYLE_DASHED;
+      break;
+    case 2 :
+      dl = g_ascii_strtod (dashes[0], NULL);
+      if (user_scale > 0)
+        dl /= user_scale;
+      if (dl < s->line_width || dl > s->dashlength) { /* the difference is arbitrary */
+	s->linestyle = LINESTYLE_DOTTED;
+	s->dashlength *= 10.0; /* dot = 10% of len */
+      } else {
+	s->linestyle = LINESTYLE_DASHED;
+      }
+      break;
+    case 4 :
+      s->linestyle = LINESTYLE_DASH_DOT;
+      break;
+    case 6 : s->linestyle = LINESTYLE_DASH_DOT_DOT;
+      break;
+    default :
+      s->linestyle = LINESTYLE_DOTTED; /* not correct */
+      break;
+  }
+  g_strfreev (dashes);
+
+  if (end)
+    *end = ptr;
+}
 
 /** This function not only parses the style attribute of the given node
  *  it also extracts some of the style properties directly.
@@ -338,10 +402,6 @@ dia_svg_parse_style(xmlNodePtr node, DiaSvgStyle *s, real user_scale)
 	    s->dashlength /= user_scale;
 	}
       } else if (!strncmp("stroke-dasharray:", ptr, 17)) {
-	/* FIXME? do we need to read an array here (not clear from
-	 * Dia's usage); do we need to set the linestyle depending
-	 * on the array's size ? --hb
-	 */
 	s->linestyle = LINESTYLE_DASHED;
 	ptr += 17;
 	while (ptr[0] != '\0' && g_ascii_isspace(ptr[0])) ptr++;
@@ -349,13 +409,8 @@ dia_svg_parse_style(xmlNodePtr node, DiaSvgStyle *s, real user_scale)
 
 	if (!strncmp(ptr, "default", 7))
 	  s->dashlength = 1.0;
-	else {
-	  s->dashlength = g_ascii_strtod(ptr, &ptr);
-	  if (s->dashlength <= 0.0) /* e.g. "none" */
-	    s->linestyle = LINESTYLE_SOLID;
-	  else if (user_scale > 0)
-	    s->dashlength /= user_scale;
-	}
+	else
+	  _parse_dasharray (s, user_scale, ptr, &ptr);
       }
 
       /* skip up to the next attribute */
@@ -395,6 +450,20 @@ dia_svg_parse_style(xmlNodePtr node, DiaSvgStyle *s, real user_scale)
     if (user_scale > 0)
       s->line_width /= user_scale;
   }
+  str = xmlGetProp(node, (const xmlChar *)"stroke-dasharray");
+  if (str) {
+    _parse_dasharray (s, user_scale, str, NULL);
+    xmlFree(str);
+  }
+  /* text-props, again ;( */
+  str = xmlGetProp(node, (const xmlChar *)"font-size");
+  if (str) {
+    s->font_height = g_ascii_strtod((gchar *)str, NULL);
+    if (user_scale > 0)
+      s->font_height /= user_scale;
+    xmlFree(str);
+  }
+  
 
   if (family || style || weight) {
     if (s->font)
