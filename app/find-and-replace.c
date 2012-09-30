@@ -143,6 +143,26 @@ _match_name_prop (DiaObject *obj, const SearchData *sd, const gchar *replacement
   return plist;
 }
 
+/*! GHRFunc : match SearchData against value in the hashtable */
+static gboolean
+_match_value (gpointer  key,
+	      gpointer  value,
+	      gpointer  user_data)
+{
+  const SearchData *sd = (SearchData *)user_data;
+
+  if (sd->flags & MATCH_CASE) {
+    return strstr ((char *)value, sd->key) != NULL;
+  } else {
+    gchar *s1 = g_utf8_casefold ((char *)value, -1);
+    gchar *s2 = g_utf8_casefold (sd->key, -1);
+    gboolean matched = strstr (s1, s2) != NULL;
+    g_free (s1);
+    g_free (s2);
+    return matched;
+  }
+}
+
 /*! Match and possibly modify one property in an object. */
 static gboolean
 _match_prop (DiaObject *obj, const SearchData *sd, const gchar *replacement, Property *prop)
@@ -184,6 +204,12 @@ _match_prop (DiaObject *obj, const SearchData *sd, const gchar *replacement, Pro
     }
     /* Done. */
     return is_match;
+  }
+  else if (strcmp (prop_type, PROP_TYPE_DICT) == 0)
+  {
+    GHashTable *ht = ((DictProperty*)prop)->dict;
+    if (ht && g_hash_table_find (ht, _match_value, (gpointer)sd))
+      return TRUE;
   }
 
 
