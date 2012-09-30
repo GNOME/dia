@@ -677,6 +677,11 @@ calculate_object_edge(Point *objmid, Point *end, DiaObject *obj)
   return mid2;
 }
 
+/*!
+ * \brief Check the matrix if it has any effect
+ * @param m matrix
+ * \extends _DiaMatrix
+ */
 gboolean 
 dia_matrix_is_identity (const DiaMatrix *matrix)
 {
@@ -692,9 +697,14 @@ dia_matrix_is_identity (const DiaMatrix *matrix)
   return FALSE;
 }
 
-/**
- * Splitting the givne matrix into angle and scales
+/*!
+ * \brief Splitting the given matrix into angle and scales
+ * @param m matrix
+ * @param angle in radians
+ * @param sx horizontal scale
+ * @param sy vertical scale
  *
+ * \code
  * with     scale    rotate
  *   xx yx    sx 0     cos(x) sin(x)
  *   xy yy    0  sy   -sin(x) cos(x)
@@ -703,6 +713,8 @@ dia_matrix_is_identity (const DiaMatrix *matrix)
  * ryx =  sx *  sin(a) + 0  *  cos(a)
  * rxy =  0  *  cos(a) + sy * -sin(a)
  * ryy =  0  * -sin(a) + sy *  cos(a)
+ * \endcode
+ * \extends _DiaMatrix
  */
 gboolean
 dia_matrix_get_angle_and_scales (const DiaMatrix *m,
@@ -742,8 +754,13 @@ dia_matrix_get_angle_and_scales (const DiaMatrix *m,
   return no_skew;
 }
 
-/**
- * Scale in the coordinate system of the shape, afterwards rotate
+/*!
+ * \brief Scale in the coordinate system of the shape, afterwards rotate
+ * @param m matrix
+ * @param angle in radians
+ * @param sx horizontal scale
+ * @param sy vertical scale
+ * \extends _DiaMatrix
  */
 void 
 dia_matrix_set_angle_and_scales (DiaMatrix *m,

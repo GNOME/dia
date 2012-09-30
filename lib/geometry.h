@@ -102,6 +102,7 @@ struct _IntRectangle {
 
 /*! 
  * \brief BezPoint is a bezier point forming _Bezierline or _Beziergon
+ * \ingroup ObjectParts
  */
 struct _BezPoint {
   enum {
@@ -118,6 +119,8 @@ struct _BezPoint {
  * \brief DiaMatrix used for affine transformation
  *
  * The struct is intentionally binary compatible with cairo_matrix_t.
+ *
+ * \ingroup ObjectParts
  */
 struct _DiaMatrix {
   real xx; real yx;

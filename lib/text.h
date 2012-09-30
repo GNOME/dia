@@ -30,6 +30,16 @@ typedef enum {
 #include "focus.h"
 #include "dia_xml.h" /* for AttributeNode */
 
+/*!
+ * \brief Multiline text representation
+ *
+ * The Text object provides high level service for on canvas text editing.
+ *
+ * It is used in various _DiaObject implementations, but also part of the
+ * _DiaRenderer interface
+ *
+ * \ingroup ObjectParts
+ */
 struct _Text {
   /* don't change these values directly, use the text_set* functions */
   
@@ -57,6 +67,7 @@ struct _Text {
 
 
 /* makes an internal copy of the string */
+/*! \brief Text object creation \memberof _Text */
 Text *new_text(const char *string, DiaFont *font, real height,
 	       Point *pos, Color *color, Alignment align);
 Text *new_text_default(Point *pos, Color *color, Alignment align);
