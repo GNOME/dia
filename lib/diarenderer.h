@@ -341,6 +341,10 @@ int  dia_renderer_get_width_pixels  (DiaRenderer*);
  */
 int  dia_renderer_get_height_pixels (DiaRenderer*);
 
+/* Some standalone render helper functiions */
+void bezier_render_fill   (DiaRenderer *renderer, BezPoint *pts, int total, Color *color);
+void bezier_render_stroke (DiaRenderer *renderer, BezPoint *pts, int total, Color *color);
+
 G_END_DECLS
 
 #endif /* DIA_RENDERER_H */

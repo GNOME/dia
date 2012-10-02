@@ -33,6 +33,7 @@
 #include "attributes.h"
 #include "properties.h"
 #include "boundingbox.h"
+#include "standard-path.h"
 
 #include "tool-icons.h"
 
@@ -243,7 +244,7 @@ write_nul (void                *closure,
 }
 /*! Not in the object interface but still required */
 static void
-outine_update_handles(Outline *outline)
+outline_update_handles(Outline *outline)
 {
   DiaObject *obj = &outline->object;
 
@@ -317,7 +318,7 @@ outline_update_data (Outline *outline)
     polyline_bbox (&outline->ink_rect[0], 4, &bbex, TRUE, &obj->bounding_box);
   }
 
-  outine_update_handles (outline),
+  outline_update_handles (outline),
 
   cairo_move_to (cr, -extents.x_bearing, -extents.y_bearing);
 
@@ -405,51 +406,9 @@ outline_draw(Outline *outline, DiaRenderer *renderer)
     return; /* that was easy ;) */
   }
   /* otherwise split the path data into piece which can be handled by Dia's standard bezier rendering */
-  if (outline->show_background) {
-    /* first draw the fills */
-    int s1 = 0, n1 = 0;
-    int s2 = 0;
-    for (i = 1; i < total; ++i) {
-      if (BEZ_MOVE_TO == pts[i].type) {
-        /* check whether the start point of the second outline is within the first outline. 
-	 * If so it need to be subtracted - currently blanked. */
-	real dist = distance_bez_shape_point (&pts[s1], 
-	  n1 > 0 ? n1 : i - s1, 0, &pts[i].p1);
-	if (s2 > s1) { /* blanking the previous one */
-	  n = i - s2 - 1;
-          DIA_RENDERER_GET_CLASS (renderer)->fill_bezier (renderer, &pts[s2], n, &color_white);
-	} else { /* fill the outer shape */
-	  n1 = n = i - s1;
-          DIA_RENDERER_GET_CLASS (renderer)->fill_bezier (renderer, &pts[s1], n, &outline->fill_color);
-	}
-	if (dist > 0) { /* remember as new outer outline */
-	  s1 = i;
-	  n1 = 0;
-	  s2 = 0;
-	} else {
-	  s2 = i;
-	}
-      }
-    }
-    /* the last one is not drawn yet */
-    if (s2 > s1) { /* blanking the previous one */
-      if (s2 - i - 1 > 1) /* depending on the above we may be ready */
-        DIA_RENDERER_GET_CLASS (renderer)->fill_bezier (renderer, &pts[s2], s2 - i - 1, &color_white);
-    } else {
-      if (s1 - i - 1 > 1)
-        DIA_RENDERER_GET_CLASS (renderer)->fill_bezier (renderer, &pts[s1], s1 - i - 1, &outline->fill_color);
-    }
-  } /* show_background */
-  n = 0;
-  for (i = 1; i < total; ++i) {
-    if (BEZ_MOVE_TO == pts[i].type) {
-      DIA_RENDERER_GET_CLASS (renderer)->draw_bezier (renderer, &pts[n], i - n, &outline->line_color);
-      n = i;
-    }
-  }
-  /* the last one, if there is one */
-  if (i - n - 1 > 0)
-    DIA_RENDERER_GET_CLASS (renderer)->draw_bezier (renderer, &pts[n], i - n - 1, &outline->line_color);
+  if (outline->show_background)
+    bezier_render_fill (renderer, pts, total, &outline->fill_color);
+  bezier_render_stroke (renderer, pts, total, &outline->line_color);
 }
 /*!
  * \brief Optionally deliver an object specific menu
@@ -586,7 +545,7 @@ static void
 outline_select (Outline *outline, Point *clicked_point,
 		DiaRenderer *interactive_renderer)
 {
-  outine_update_handles (outline);
+  outline_update_handles (outline);
 }
 
 #endif /* HAVE_CAIRO */

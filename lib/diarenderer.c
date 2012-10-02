@@ -489,7 +489,7 @@ draw_text (DiaRenderer *renderer,
   int i;
 
   pos = text->position;
-  
+
   for (i=0;i<text->numlines;i++) {
     TextLine *text_line = text->lines[i];
 
@@ -538,7 +538,7 @@ draw_image (DiaRenderer *renderer,
  * [ 1  0  0  0]
  * (At least that's what Hearn and Baker says for beziers.)
  */
-#define BEZIER_SUBDIVIDE_LIMIT 0.01
+#define BEZIER_SUBDIVIDE_LIMIT 0.001
 #define BEZIER_SUBDIVIDE_LIMIT_SQ (BEZIER_SUBDIVIDE_LIMIT*BEZIER_SUBDIVIDE_LIMIT)
 
 static void
@@ -1541,3 +1541,63 @@ dia_renderer_get_height_pixels (DiaRenderer *renderer)
   return DIA_RENDERER_GET_CLASS(renderer)->get_height_pixels (renderer);
 }
 
+/*!
+ * \brief Helper function to fill bezier with multiple BEZ_MOVE_TO
+ * \memberof DiaRenderer
+ */
+void
+bezier_render_fill (DiaRenderer *renderer, BezPoint *pts, int total, Color *color)
+{
+  int i, n = 0;
+  /* first draw the fills */
+  int s1 = 0, n1 = 0;
+  int s2 = 0;
+  for (i = 1; i < total; ++i) {
+    if (BEZ_MOVE_TO == pts[i].type) {
+      /* check whether the start point of the second outline is within the first outline. 
+       * If so it need to be subtracted - currently blanked. */
+      real dist = distance_bez_shape_point (&pts[s1],  n1 > 0 ? n1 : i - s1, 0, &pts[i].p1);
+      if (s2 > s1) { /* blanking the previous one */
+	n = i - s2 - 1;
+	DIA_RENDERER_GET_CLASS (renderer)->fill_bezier (renderer, &pts[s2], n, &color_white);
+      } else { /* fill the outer shape */
+	n1 = n = i - s1;
+	DIA_RENDERER_GET_CLASS (renderer)->fill_bezier (renderer, &pts[s1], n, color);
+      }
+      if (dist > 0) { /* remember as new outer outline */
+	s1 = i;
+	n1 = 0;
+	s2 = 0;
+      } else {
+	s2 = i;
+      }
+    }
+  }
+  /* the last one is not drawn yet */
+  if (s2 > s1) { /* blanking the previous one */
+    if (s2 - i - 1 > 1) /* depending on the above we may be ready */
+      DIA_RENDERER_GET_CLASS (renderer)->fill_bezier (renderer, &pts[s2], s2 - i - 1, &color_white);
+  } else {
+    if (s1 - i - 1 > 1)
+      DIA_RENDERER_GET_CLASS (renderer)->fill_bezier (renderer, &pts[s1], s1 - i - 1, color);
+  }
+}
+
+/*!
+ * \brief Helper function to stroke a bezier with multiple BEZ_MOVE_TO
+ * \memberof DiaRenderer
+ */
+void
+bezier_render_stroke (DiaRenderer *renderer, BezPoint *pts, int total, Color *color)
+{
+  int i, n = 0;
+  for (i = 1; i < total; ++i) {
+    if (BEZ_MOVE_TO == pts[i].type) {
+      DIA_RENDERER_GET_CLASS (renderer)->draw_bezier (renderer, &pts[n], i - n, color);
+      n = i;
+    }
+  }
+  /* the last one, if there is one */
+  if (i - n - 1 > 0)
+    DIA_RENDERER_GET_CLASS (renderer)->draw_bezier (renderer, &pts[n], i - n - 1, color);
+}

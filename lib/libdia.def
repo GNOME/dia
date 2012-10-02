@@ -38,6 +38,8 @@ EXPORTS
  new_attribute
 
  bezier_draw_control_lines
+ bezier_render_stroke
+ bezier_render_fill
  beziercommon_set_points
 
  bezierconn_add_segment
