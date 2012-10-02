@@ -514,45 +514,45 @@ beziershape_remove_segment (BezierShape *bezier, int pos)
 }
 
 static void
-beziershape_straighten_corner (BezierShape *bez, int comp_nr)
+beziershape_straighten_corner (BezierShape *bezier, int comp_nr)
 {
   int next_nr;
 
-  if (comp_nr == 0) comp_nr = bez->numpoints - 1;
+  if (comp_nr == 0) comp_nr = bezier->numpoints - 1;
   next_nr = comp_nr + 1;
-  if (comp_nr == bez->numpoints - 1)
+  if (comp_nr == bezier->numpoints - 1)
     next_nr = 1;
   /* Neat thing would be to have the kind of straigthening depend on
      which handle was chosen:  Mid-handle does average, other leaves that
      handle where it is. */
-  bez->points[0].p3 = bez->points[0].p1;
-  switch (bez->corner_types[comp_nr]) {
+  bezier->points[0].p3 = bezier->points[0].p1;
+  switch (bezier->corner_types[comp_nr]) {
   case BEZ_CORNER_SYMMETRIC: {
     Point pt1, pt2;
 
-    pt1 = bez->points[comp_nr].p3;
-    point_sub(&pt1, &bez->points[comp_nr].p2);
-    pt2 = bez->points[comp_nr].p3;
-    point_sub(&pt2, &bez->points[next_nr].p1);
+    pt1 = bezier->points[comp_nr].p3;
+    point_sub(&pt1, &bezier->points[comp_nr].p2);
+    pt2 = bezier->points[comp_nr].p3;
+    point_sub(&pt2, &bezier->points[next_nr].p1);
     point_scale(&pt2, -1.0);
     point_add(&pt1, &pt2);
     point_scale(&pt1, 0.5);
     pt2 = pt1;
     point_scale(&pt1, -1.0);
-    point_add(&pt1, &bez->points[comp_nr].p3);
-    point_add(&pt2, &bez->points[comp_nr].p3);
-    bez->points[comp_nr].p2 = pt1;
-    bez->points[next_nr].p1 = pt2;
-    beziershape_update_data(bez);
+    point_add(&pt1, &bezier->points[comp_nr].p3);
+    point_add(&pt2, &bezier->points[comp_nr].p3);
+    bezier->points[comp_nr].p2 = pt1;
+    bezier->points[next_nr].p1 = pt2;
+    beziershape_update_data(bezier);
   }
   break;
   case BEZ_CORNER_SMOOTH: {
     Point pt1, pt2;
     real len1, len2;
-    pt1 = bez->points[comp_nr].p3;
-    point_sub(&pt1, &bez->points[comp_nr].p2);
-    pt2 = bez->points[comp_nr].p3;
-    point_sub(&pt2, &bez->points[next_nr].p1);
+    pt1 = bezier->points[comp_nr].p3;
+    point_sub(&pt1, &bezier->points[comp_nr].p2);
+    pt2 = bezier->points[comp_nr].p3;
+    point_sub(&pt2, &bezier->points[next_nr].p1);
     len1 = point_len(&pt1);
     len2 = point_len(&pt2);
     point_scale(&pt2, -1.0);
@@ -564,22 +564,22 @@ beziershape_straighten_corner (BezierShape *bez, int comp_nr)
     point_scale(&pt1, 0.5);
     pt2 = pt1;
     point_scale(&pt1, -len1);
-    point_add(&pt1, &bez->points[comp_nr].p3);
+    point_add(&pt1, &bezier->points[comp_nr].p3);
     point_scale(&pt2, len2);
-    point_add(&pt2, &bez->points[comp_nr].p3);
-    bez->points[comp_nr].p2 = pt1;
-    bez->points[next_nr].p1 = pt2;
-    beziershape_update_data(bez);
+    point_add(&pt2, &bezier->points[comp_nr].p3);
+    bezier->points[comp_nr].p2 = pt1;
+    bezier->points[next_nr].p1 = pt2;
+    beziershape_update_data(bezier);
   }
     break;
   case BEZ_CORNER_CUSP:
     break;
   }
-  bez->points[0].p1 = bez->points[0].p3;
+  bezier->points[0].p1 = bezier->points[0].p3;
 }
 
 ObjectChange *
-beziershape_set_corner_type (BezierShape *bez,
+beziershape_set_corner_type (BezierShape *bezier,
 			     Handle *handle,
 			     BezCornerType corner_type)
 {
@@ -588,7 +588,7 @@ beziershape_set_corner_type (BezierShape *bez,
   int old_type;
   int handle_nr, comp_nr;
 
-  handle_nr = get_handle_nr(bez, handle);
+  handle_nr = get_handle_nr(bezier, handle);
 
   switch (handle->id) {
   case HANDLE_BEZMAJOR:
@@ -596,13 +596,13 @@ beziershape_set_corner_type (BezierShape *bez,
     break;
   case HANDLE_LEFTCTRL:
     handle_nr++;
-    if (handle_nr == bez->object.num_handles) handle_nr = 0;
-    mid_handle = bez->object.handles[handle_nr];
+    if (handle_nr == bezier->object.num_handles) handle_nr = 0;
+    mid_handle = bezier->object.handles[handle_nr];
     break;
   case HANDLE_RIGHTCTRL:
     handle_nr--;
-    if (handle_nr < 0) handle_nr = bez->object.num_handles - 1;
-    mid_handle = bez->object.handles[handle_nr];
+    if (handle_nr < 0) handle_nr = bezier->object.num_handles - 1;
+    mid_handle = bezier->object.handles[handle_nr];
     break;
   default:
     g_assert_not_reached();
@@ -611,27 +611,27 @@ beziershape_set_corner_type (BezierShape *bez,
 
   comp_nr = get_major_nr(handle_nr);
 
-  old_type = bez->corner_types[comp_nr];
-  old_left = bez->points[comp_nr].p2;
-  if (comp_nr == bez->numpoints - 1)
-    old_right = bez->points[1].p1;
+  old_type = bezier->corner_types[comp_nr];
+  old_left = bezier->points[comp_nr].p2;
+  if (comp_nr == bezier->numpoints - 1)
+    old_right = bezier->points[1].p1;
   else
-    old_right = bez->points[comp_nr+1].p1;
+    old_right = bezier->points[comp_nr+1].p1;
 
 #if 0
   g_message("Setting corner type on segment %d to %s", comp_nr,
 	    corner_type == BEZ_CORNER_SYMMETRIC ? "symmetric" :
 	    corner_type == BEZ_CORNER_SMOOTH ? "smooth" : "cusp");
 #endif
-  bez->corner_types[comp_nr] = corner_type;
+  bezier->corner_types[comp_nr] = corner_type;
   if (comp_nr == 0)
-    bez->corner_types[bez->numpoints-1] = corner_type;
-  else if (comp_nr == bez->numpoints - 1)
-    bez->corner_types[0] = corner_type;
+    bezier->corner_types[bezier->numpoints-1] = corner_type;
+  else if (comp_nr == bezier->numpoints - 1)
+    bezier->corner_types[0] = corner_type;
 
-  beziershape_straighten_corner(bez, comp_nr);
+  beziershape_straighten_corner(bezier, comp_nr);
 
-  return beziershape_create_corner_change(bez, mid_handle, &old_left,
+  return beziershape_create_corner_change(bezier, mid_handle, &old_left,
 					  &old_right, old_type, corner_type);
 }
 
@@ -738,7 +738,7 @@ beziershape_update_boundingbox (BezierShape *bezier)
 }
 
 void
-beziershape_draw_control_lines (BezierShape *bez,
+beziershape_draw_control_lines (BezierShape *bezier,
 				DiaRenderer *renderer)
 {
   Color line_colour = { 0.0, 0.0, 0.6, 1.0 };
@@ -752,13 +752,13 @@ beziershape_draw_control_lines (BezierShape *bez,
   DIA_RENDERER_GET_CLASS(renderer)->set_linejoin(renderer, LINEJOIN_MITER);
   DIA_RENDERER_GET_CLASS(renderer)->set_linecaps(renderer, LINECAPS_BUTT);
 
-  startpoint = bez->points[0].p1;
-  for (i = 1; i < bez->numpoints; i++) {
-    DIA_RENDERER_GET_CLASS(renderer)->draw_line(renderer, &startpoint, &bez->points[i].p1,
+  startpoint = bezier->points[0].p1;
+  for (i = 1; i < bezier->numpoints; i++) {
+    DIA_RENDERER_GET_CLASS(renderer)->draw_line(renderer, &startpoint, &bezier->points[i].p1,
                              &line_colour);
-    DIA_RENDERER_GET_CLASS(renderer)->draw_line(renderer, &bez->points[i].p2, &bez->points[i].p3,
+    DIA_RENDERER_GET_CLASS(renderer)->draw_line(renderer, &bezier->points[i].p2, &bezier->points[i].p3,
                              &line_colour);
-    startpoint = bez->points[i].p3;
+    startpoint = bezier->points[i].p3;
   }
 }
 
@@ -834,21 +834,21 @@ beziershape_init (BezierShape *bezier, int num_points)
 
 /** This function does *not* set up handles */
 void
-beziershape_set_points (BezierShape *bez,
+beziershape_set_points (BezierShape *bezier,
 			int num_points,
 			BezPoint *points)
 {
   int i;
 
-  bez->numpoints = num_points;
+  bezier->numpoints = num_points;
 
-  if (bez->points)
-    g_free(bez->points);
+  if (bezier->points)
+    g_free(bezier->points);
 
-  bez->points = g_malloc((bez->numpoints)*sizeof(BezPoint));
+  bezier->points = g_malloc((bezier->numpoints)*sizeof(BezPoint));
 
-  for (i=0;i<bez->numpoints;i++) {
-    bez->points[i] = points[i];
+  for (i=0;i<bezier->numpoints;i++) {
+    bezier->points[i] = points[i];
   }
 }
 
@@ -1117,17 +1117,17 @@ static void
 beziershape_corner_change_apply (struct CornerChange *change,
 				 DiaObject *obj)
 {
-  BezierShape *bez = (BezierShape *)obj;
-  int handle_nr = get_handle_nr(bez, change->handle);
+  BezierShape *bezier = (BezierShape *)obj;
+  int handle_nr = get_handle_nr(bezier, change->handle);
   int comp_nr = get_major_nr(handle_nr);
 
-  beziershape_straighten_corner(bez, comp_nr);
+  beziershape_straighten_corner(bezier, comp_nr);
 
-  bez->corner_types[comp_nr] = change->new_type;
+  bezier->corner_types[comp_nr] = change->new_type;
   if (comp_nr == 0)
-    bez->corner_types[bez->numpoints-1] = change->new_type;
-  if (comp_nr == bez->numpoints - 1)
-    bez->corner_types[0] = change->new_type;
+    bezier->corner_types[bezier->numpoints-1] = change->new_type;
+  if (comp_nr == bezier->numpoints - 1)
+    bezier->corner_types[0] = change->new_type;
 
   change->applied = 1;
 }
@@ -1136,26 +1136,26 @@ static void
 beziershape_corner_change_revert (struct CornerChange *change,
 				  DiaObject *obj)
 {
-  BezierShape *bez = (BezierShape *)obj;
-  int handle_nr = get_handle_nr(bez, change->handle);
+  BezierShape *bezier = (BezierShape *)obj;
+  int handle_nr = get_handle_nr(bezier, change->handle);
   int comp_nr = get_major_nr(handle_nr);
 
-  bez->points[comp_nr].p2 = change->point_left;
-  if (comp_nr == bez->numpoints - 1)
-    bez->points[1].p1 = change->point_right;
+  bezier->points[comp_nr].p2 = change->point_left;
+  if (comp_nr == bezier->numpoints - 1)
+    bezier->points[1].p1 = change->point_right;
   else
-    bez->points[comp_nr+1].p1 = change->point_right;
-  bez->corner_types[comp_nr] = change->old_type;  
+    bezier->points[comp_nr+1].p1 = change->point_right;
+  bezier->corner_types[comp_nr] = change->old_type;  
   if (comp_nr == 0)
-    bez->corner_types[bez->numpoints-1] = change->new_type;
-  if (comp_nr == bez->numpoints - 1)
-    bez->corner_types[0] = change->new_type;
+    bezier->corner_types[bezier->numpoints-1] = change->new_type;
+  if (comp_nr == bezier->numpoints - 1)
+    bezier->corner_types[0] = change->new_type;
 
   change->applied = 0;
 }
 
 static ObjectChange *
-beziershape_create_corner_change (BezierShape *bez,
+beziershape_create_corner_change (BezierShape *bezier,
 				  Handle *handle,
 				  Point *point_left,
 				  Point *point_right,
