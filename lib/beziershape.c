@@ -968,9 +968,16 @@ beziershape_save (BezierShape *bezier,
     if (BEZ_MOVE_TO == bezier->bezier.points[i].type)
       g_warning("only first BezPoint can be a BEZ_MOVE_TO");
     data_add_point(attr, &bezier->bezier.points[i].p1);
-    data_add_point(attr, &bezier->bezier.points[i].p2);
-    if (i < bezier->bezier.num_points - 1)
-      data_add_point(attr, &bezier->bezier.points[i].p3);
+
+    if (BEZ_LINE_TO == bezier->bezier.points[i].type) {
+      data_add_point(attr, &bezier->bezier.points[i].p1);
+      if (i < bezier->bezier.num_points - 1)
+        data_add_point(attr, &bezier->bezier.points[i].p1);
+    } else {
+      data_add_point(attr, &bezier->bezier.points[i].p2);
+      if (i < bezier->bezier.num_points - 1)
+        data_add_point(attr, &bezier->bezier.points[i].p3);
+    }
   }
 
   attr = new_attribute(obj_node, "corner_types");
