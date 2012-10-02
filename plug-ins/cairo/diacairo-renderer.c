@@ -721,6 +721,10 @@ _bezier(DiaRenderer *self,
     }
   }
 
+  /* The stroke would benefit by an explicit cairo_close_path() but we can not do it.
+   * At this point there is not enough information left, i.e. if it comes from a Beziergon
+   * and should be closed or if it was a Bezierline which happens to end in the start point.
+   */
   if (fill)
     cairo_fill (renderer->cr);
   else
