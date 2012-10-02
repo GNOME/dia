@@ -32,8 +32,8 @@ PKG_LINK = $(GTK2_LIBS)  $(PANGOWIN32_LIBS) $(GLIB_LIBS) \
 ICON_PNG_PAIRS = \
 	dia_broken_icon pixmaps\broken.png \
 	dia_broken_chain_icon pixmaps\broken-chain.png \
-	dia_unbroken_chain_icon pixmaps\unbroken-chain.png
-
+	dia_unbroken_chain_icon pixmaps\unbroken-chain.png \
+	stdpath_icon pixmaps\standard-path.png
 
 # Note that this doesn't seem to get run automatically.  It should, but
 # I'm not gonna chase goblins right now.
@@ -117,6 +117,7 @@ OBJECTS = \
 	propregistry.obj \
 	render_pixmap.obj \
 	sheet.obj \
+	standard-path.obj \
 	text.obj \
 	textline.obj \
 	units.obj \

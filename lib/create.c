@@ -162,7 +162,7 @@ create_standard_zigzagline(int num_points, const Point *points,
     }
 
     pcd.num_points = num_points;
-    pcd.points = points;
+    pcd.points = (Point *)points;
 
     new_obj = otype->ops->create(NULL, &pcd, &h1, &h2);
 
@@ -293,6 +293,26 @@ create_standard_beziergon(int num_points,
     return new_obj;
 }
 
+DiaObject *
+create_standard_path(int num_points, BezPoint *points)
+{
+    DiaObjectType *otype = object_get_type("Standard - Path");
+    DiaObject *new_obj;
+    Handle *h1, *h2;
+    BezierCreateData bcd;
+
+    if (otype == NULL){
+	message_error(_("Can't find standard object"));
+	return NULL;
+    }
+
+    bcd.num_points = num_points;
+    bcd.points = points;
+
+    new_obj = otype->ops->create(NULL, &bcd, &h1, &h2);
+    
+    return new_obj;
+}
 
 static PropDescription create_arc_prop_descs[] = {
     { "curve_distance", PROP_TYPE_REAL },

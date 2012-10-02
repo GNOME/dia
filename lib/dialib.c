@@ -33,6 +33,7 @@
 #include "object.h"
 #include "dia_dirs.h"
 #include "properties.h" /* stdprops_init() */
+#include "standard-path.h"
 
 static void
 stderr_message_internal(const char *title, enum ShowAgainStyle showAgain,
@@ -119,5 +120,8 @@ libdia_init (guint flags)
   initialized = TRUE;
 
   object_registry_init();
+
+  /* The group_type is registered in app, but it needs to be exported anyway */
+  object_register_type(&stdpath_type);
 }
 

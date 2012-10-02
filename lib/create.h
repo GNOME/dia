@@ -99,6 +99,17 @@ DiaObject *create_standard_bezierline(int num_points, BezPoint *points,
  */
 DiaObject *create_standard_beziergon(int num_points, BezPoint *points);
 /*!
+ * \brief Create a \ref _Beziergon
+ * \ingroup ObjectCreate
+ */
+DiaObject *create_standard_path(int num_points, BezPoint *points);
+/*!
+ * \brief Create a \ref _StdPath from the given _Text
+ * \ingroup ObjectCreate
+ */
+DiaObject *create_standard_path_from_text (const Text *text);
+
+/*!
  * \brief Create an \ref _Arc with arrows 
  * @param x1 arc start position
  * @param y1 arc start position

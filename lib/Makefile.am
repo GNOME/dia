@@ -44,7 +44,8 @@ endif
 ICON_PNG_PAIRS= \
 	dia_broken_icon $(srcdir)/pixmaps/broken.png \
 	dia_broken_chain_icon $(srcdir)/pixmaps/broken-chain.png \
-	dia_unbroken_chain_icon $(srcdir)/pixmaps/unbroken-chain.png
+	dia_unbroken_chain_icon $(srcdir)/pixmaps/unbroken-chain.png \
+	stdpath_icon $(srcdir)/pixmaps/standard-path.png
 
 # Note that this doesn't seem to get run automatically.  It should, but
 # I'm not gonna chase goblins right now.
@@ -124,6 +125,8 @@ libdia_la_SOURCES =  \
 		units.h \
 		dia_image.c \
 		dia_image.h \
+		standard-path.c \
+		standard-path.h \
 		intl.c \
 		intl.h \
 		filter.c \
