@@ -26,12 +26,7 @@
 #include "diatypes.h"
 #include "object.h"
 #include "boundingbox.h"
-
-typedef enum {
-  BEZ_CORNER_SYMMETRIC,
-  BEZ_CORNER_SMOOTH,
-  BEZ_CORNER_CUSP
-} BezCornerType;
+#include "bezier-common.h"
 
 /*!
  * \brief Helper class to implement bezier connections
@@ -44,17 +39,15 @@ typedef enum {
 struct _BezierConn {
   DiaObject object; /**< inheritance */
 
-  int numpoints; /**< >= 2 */
-  BezPoint *points; /**< point data */
-  BezCornerType *corner_types;
+  /*! Common bezier object stuff */
+  BezierCommon bezier;
+
   PolyBBExtras extra_spacing;
 };
 
 void bezierconn_update_data(BezierConn *bez);
 void bezierconn_update_boundingbox(BezierConn *bez);
-void bezierconn_draw_control_lines(BezierConn *bez, DiaRenderer *renderer);
 void bezierconn_init(BezierConn *bez, int num_points);
-void bezierconn_set_points(BezierConn *poly, int num_points, BezPoint *points);
 void bezierconn_destroy(BezierConn *bez);
 void bezierconn_copy(BezierConn *from, BezierConn *to);
 void bezierconn_save(BezierConn *bez, ObjectNode obj_node);
@@ -83,6 +76,6 @@ int bezierconn_closest_segment(BezierConn *bez, Point *point,
 #define BEZCONN_COMMON_PROPERTIES_OFFSETS \
   OBJECT_COMMON_PROPERTIES_OFFSETS, \
   { "bez_points", PROP_TYPE_BEZPOINTARRAY, \
-     offsetof(BezierConn,points), offsetof(BezierConn,numpoints)} \
+     offsetof(BezierConn,bezier.points), offsetof(BezierConn,bezier.num_points)} \
 
 #endif /* BEZIER_CONN_H */

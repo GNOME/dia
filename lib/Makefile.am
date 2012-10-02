@@ -103,6 +103,8 @@ libdia_la_SOURCES =  \
 		poly_conn.h \
 		bezier_conn.c \
 		bezier_conn.h \
+		bezier-common.c \
+		bezier-common.h \
 		connection.h \
 		element.c \
 		element.h \

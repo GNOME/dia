@@ -212,12 +212,12 @@ beziergon_draw(Beziergon *beziergon, DiaRenderer *renderer)
 {
   DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
 
-  BezierShape *bezier = &beziergon->bezier;
+  BezierShape *bez = &beziergon->bezier;
   BezPoint *points;
   int n;
   
-  points = &bezier->points[0];
-  n = bezier->numpoints;
+  points = &bez->bezier.points[0];
+  n = bez->bezier.num_points;
 
   renderer_ops->set_linewidth(renderer, beziergon->line_width);
   renderer_ops->set_linestyle(renderer, beziergon->line_style);
@@ -235,7 +235,7 @@ beziergon_draw(Beziergon *beziergon, DiaRenderer *renderer)
    * state.  This is a compromise until I fix this properly. */
   if (renderer->is_interactive &&
       dia_object_is_selected((DiaObject*)beziergon)) {
-    beziershape_draw_control_lines(&beziergon->bezier, renderer);
+    bezier_draw_control_lines (beziergon->bezier.bezier.num_points, beziergon->bezier.bezier.points, renderer);
   }
 }
 
@@ -246,41 +246,41 @@ beziergon_create(Point *startpoint,
 		  Handle **handle2)
 {
   Beziergon *beziergon;
-  BezierShape *bezier;
+  BezierShape *bez;
   DiaObject *obj;
   Point defaultx = { 1.0, 0.0 };
   Point defaulty = { 0.0, 1.0 };
 
   beziergon = g_new0(Beziergon, 1);
-  bezier = &beziergon->bezier;
-  obj = &bezier->object;
+  bez = &beziergon->bezier;
+  obj = &bez->object;
 
   obj->type = &beziergon_type;
   obj->ops = &beziergon_ops;
 
   if (user_data == NULL) {
-    beziershape_init(bezier, 3);
+    beziershape_init(bez, 3);
 
-    bezier->points[0].p1 = *startpoint;
-    bezier->points[0].p3 = *startpoint;
-    bezier->points[2].p3 = *startpoint;
+    bez->bezier.points[0].p1 = *startpoint;
+    bez->bezier.points[0].p3 = *startpoint;
+    bez->bezier.points[2].p3 = *startpoint;
 
-    bezier->points[1].p1 = *startpoint;
-    point_add(&bezier->points[1].p1, &defaultx);
-    bezier->points[2].p2 = *startpoint;
-    point_sub(&bezier->points[2].p2, &defaultx);
+    bez->bezier.points[1].p1 = *startpoint;
+    point_add(&bez->bezier.points[1].p1, &defaultx);
+    bez->bezier.points[2].p2 = *startpoint;
+    point_sub(&bez->bezier.points[2].p2, &defaultx);
 
-    bezier->points[1].p3 = *startpoint;
-    point_add(&bezier->points[1].p3, &defaulty);
-    bezier->points[1].p2 = bezier->points[1].p3;
-    point_add(&bezier->points[1].p2, &defaultx);
-    bezier->points[2].p1 = bezier->points[1].p3;
-    point_sub(&bezier->points[2].p1, &defaultx);
+    bez->bezier.points[1].p3 = *startpoint;
+    point_add(&bez->bezier.points[1].p3, &defaulty);
+    bez->bezier.points[1].p2 = bez->bezier.points[1].p3;
+    point_add(&bez->bezier.points[1].p2, &defaultx);
+    bez->bezier.points[2].p1 = bez->bezier.points[1].p3;
+    point_sub(&bez->bezier.points[2].p1, &defaultx);
   } else {
     BezierCreateData *bcd = (BezierCreateData*)user_data;
 
-    beziershape_init(bezier, bcd->num_points);
-    beziershape_set_points(bezier, bcd->num_points, bcd->points);
+    beziershape_init(bez, bcd->num_points);
+    beziercommon_set_points (&bez->bezier, bcd->num_points, bcd->points);
   }  
   beziergon->line_width =  attributes_get_default_linewidth();
   beziergon->line_color = attributes_get_foreground();
@@ -292,8 +292,8 @@ beziergon_create(Point *startpoint,
 
   beziergon_update_data(beziergon);
 
-  *handle1 = bezier->object.handles[5];
-  *handle2 = bezier->object.handles[2];
+  *handle1 = bez->object.handles[5];
+  *handle2 = bez->object.handles[2];
   return &beziergon->bezier.object;
 }
 
@@ -330,27 +330,27 @@ beziergon_copy(Beziergon *beziergon)
 static void
 beziergon_update_data(Beziergon *beziergon)
 {
-  BezierShape *bezier = &beziergon->bezier;
-  DiaObject *obj = &bezier->object;
-  ElementBBExtras *extra = &bezier->extra_spacing;
-  
-  beziershape_update_data(bezier);
-  
+  BezierShape *bez = &beziergon->bezier;
+  DiaObject *obj = &bez->object;
+  ElementBBExtras *extra = &bez->extra_spacing;
+
+  beziershape_update_data(bez);
+
   extra->border_trans = beziergon->line_width / 2.0;
-  beziershape_update_boundingbox(bezier);
+  beziershape_update_boundingbox(bez);
 
   /* update the enclosing box using the control points */
   {
-    int i, num_points = bezier->numpoints;
+    int i, num_points = bez->bezier.num_points;
     obj->enclosing_box = obj->bounding_box;
     for (i = 0; i < num_points; ++i) {
-      if (bezier->points[i].type != BEZ_CURVE_TO)
+      if (bez->bezier.points[i].type != BEZ_CURVE_TO)
         continue;
-      rectangle_add_point(&obj->enclosing_box, &bezier->points[i].p1);      
-      rectangle_add_point(&obj->enclosing_box, &bezier->points[i].p2);      
+      rectangle_add_point(&obj->enclosing_box, &bez->bezier.points[i].p1);      
+      rectangle_add_point(&obj->enclosing_box, &bez->bezier.points[i].p2);      
     }
   }
-  obj->position = bezier->points[0].p1;
+  obj->position = bez->bezier.points[0].p1;
 }
 
 static void
@@ -393,19 +393,19 @@ static DiaObject *
 beziergon_load(ObjectNode obj_node, int version, DiaContext *ctx)
 {
   Beziergon *beziergon;
-  BezierShape *bezier;
+  BezierShape *bez;
   DiaObject *obj;
   AttributeNode attr;
 
   beziergon = g_malloc0(sizeof(Beziergon));
 
-  bezier = &beziergon->bezier;
-  obj = &bezier->object;
+  bez = &beziergon->bezier;
+  obj = &bez->object;
   
   obj->type = &beziergon_type;
   obj->ops = &beziergon_ops;
 
-  beziershape_load(bezier, obj_node, ctx);
+  beziershape_load(bez, obj_node, ctx);
 
   beziergon->line_color = color_black;
   attr = object_find_attribute(obj_node, "line_color");
@@ -514,6 +514,6 @@ beziergon_get_object_menu(Beziergon *beziergon, Point *clickedpoint)
 {
   /* Set entries sensitive/selected etc here */
   beziergon_menu_items[0].active = 1;
-  beziergon_menu_items[1].active = beziergon->bezier.numpoints > 3;
+  beziergon_menu_items[1].active = beziergon->bezier.bezier.num_points > 3;
   return &beziergon_menu;
 }

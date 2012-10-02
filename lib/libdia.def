@@ -37,6 +37,9 @@ EXPORTS
  attributes_swap_fgbg
  new_attribute
 
+ bezier_draw_control_lines
+ beziercommon_set_points
+
  bezierconn_add_segment
  bezierconn_closest_handle
  bezierconn_closest_major_handle
@@ -44,7 +47,6 @@ EXPORTS
  bezierconn_copy
  bezierconn_destroy
  bezierconn_distance_from
- bezierconn_draw_control_lines
  bezierconn_init
  bezierconn_load
  bezierconn_move
@@ -52,7 +54,6 @@ EXPORTS
  bezierconn_remove_segment
  bezierconn_save
  bezierconn_set_corner_type
- bezierconn_set_points
  bezierconn_update_boundingbox
  bezierconn_update_data
 
@@ -63,7 +64,6 @@ EXPORTS
  beziershape_copy
  beziershape_destroy
  beziershape_distance_from
- beziershape_draw_control_lines
  beziershape_init
  beziershape_load
  beziershape_move
@@ -71,7 +71,6 @@ EXPORTS
  beziershape_remove_segment
  beziershape_save
  beziershape_set_corner_type
- beziershape_set_points
  beziershape_update_boundingbox
  beziershape_update_data
 
@@ -710,6 +709,7 @@ EXPORTS
  text_get_max_width
  text_get_string_copy
  text_grab_focus
+ text_is_empty
  text_set_alignment
  text_set_attributes
  text_set_color

@@ -26,8 +26,8 @@
 
 #include "diatypes.h"
 #include "object.h"
-/* for BezCornerType */
-#include "bezier_conn.h"
+#include "boundingbox.h"
+#include "bezier-common.h"
 
 #define HANDLE_CORNER (HANDLE_CUSTOM1)
 
@@ -43,17 +43,14 @@ struct _BezierShape {
   /*! \protected DiaObject must be first because this is a 'subclass' of it. */
   DiaObject object;
   /*! \protected Number of points in points array */
-  int numpoints; /* >= 2 */
-  /*! \protected Array of points describing the object */
-  BezPoint *points;
-  BezCornerType *corner_types;
+  BezierCommon bezier;
+  /*! \protexted Extra info (like line-width) to help bounding boc calculation */
   ElementBBExtras extra_spacing;
 };
 
 void beziershape_update_data(BezierShape *bezier);
 void beziershape_update_boundingbox(BezierShape *bezier);
 void beziershape_init(BezierShape *bezier, int num_points);
-void beziershape_set_points(BezierShape *bezier, int num_points, BezPoint *points);
 void beziershape_destroy(BezierShape *bezier);
 void beziershape_copy(BezierShape *from, BezierShape *to);
 void beziershape_save(BezierShape *bezier, ObjectNode obj_node);
@@ -75,7 +72,6 @@ Handle *beziershape_closest_handle(BezierShape *bezier, Point *point);
 Handle *beziershape_closest_major_handle(BezierShape *bezier, Point *point);
 int beziershape_closest_segment(BezierShape *bezier, Point *point,
 				real line_width);
-void beziershape_draw_control_lines(BezierShape *bez, DiaRenderer *renderer);
 
 #define BEZSHAPE_COMMON_PROPERTIES \
   OBJECT_COMMON_PROPERTIES, \
@@ -84,6 +80,6 @@ void beziershape_draw_control_lines(BezierShape *bez, DiaRenderer *renderer);
 #define BEZSHAPE_COMMON_PROPERTIES_OFFSETS \
   OBJECT_COMMON_PROPERTIES_OFFSETS, \
   { "bez_points", PROP_TYPE_BEZPOINTARRAY, \
-     offsetof(BezierShape,points), offsetof(BezierShape,numpoints)} \
+     offsetof(BezierShape,bezier.points), offsetof(BezierShape,bezier.num_points)} \
 
 #endif /* BEZIER_SHAPE_H */

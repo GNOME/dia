@@ -21,6 +21,7 @@ DEFINES = \
 # in GTK_CFLAGS: $(GLIB_CFLAGS) 
 
 PKG_LINK = $(GTK2_LIBS)  $(PANGOWIN32_LIBS) $(GLIB_LIBS) \
+	$(PANGOCAIRO_LIBS) \
 !IFDEF USEFT2
 	$(PANGOFT2_LIBS) \
 !ENDIF
@@ -33,6 +34,7 @@ ICON_PNG_PAIRS = \
 	dia_broken_chain_icon pixmaps\broken-chain.png \
 	dia_unbroken_chain_icon pixmaps\unbroken-chain.png
 
+
 # Note that this doesn't seem to get run automatically.  It should, but
 # I'm not gonna chase goblins right now.
 dia-lib-icons.h:
@@ -43,6 +45,7 @@ OBJECTS = \
 	autoroute.obj \
 	arrows.obj \
 	attributes.obj \
+	bezier-common.obj \
 	bezier_conn.obj \
 	beziershape.obj \
 	boundingbox.obj \

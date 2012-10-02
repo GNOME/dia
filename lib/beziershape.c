@@ -159,50 +159,50 @@ beziershape_move_handle (BezierShape *bezier,
   comp_nr = get_comp_nr(handle_nr);
   next_nr = comp_nr + 1;
   prev_nr = comp_nr - 1;
-  if (comp_nr == bezier->numpoints - 1)
+  if (comp_nr == bezier->bezier.num_points - 1)
     next_nr = 1;
   if (comp_nr == 1)
-    prev_nr = bezier->numpoints - 1;
+    prev_nr = bezier->bezier.num_points - 1;
   
   switch(handle->id) {
   case HANDLE_BEZMAJOR:
-    if (comp_nr == bezier->numpoints - 1) {
-      bezier->points[comp_nr].p3 = *to;
-      bezier->points[0].p1 = bezier->points[0].p3 = *to;
-      point_add(&bezier->points[comp_nr].p2, &delta);
-      point_add(&bezier->points[1].p1, &delta);
+    if (comp_nr == bezier->bezier.num_points - 1) {
+      bezier->bezier.points[comp_nr].p3 = *to;
+      bezier->bezier.points[0].p1 = bezier->bezier.points[0].p3 = *to;
+      point_add(&bezier->bezier.points[comp_nr].p2, &delta);
+      point_add(&bezier->bezier.points[1].p1, &delta);
     } else {
-      bezier->points[comp_nr].p3 = *to;
-      point_add(&bezier->points[comp_nr].p2, &delta);
-      point_add(&bezier->points[comp_nr+1].p1, &delta);
+      bezier->bezier.points[comp_nr].p3 = *to;
+      point_add(&bezier->bezier.points[comp_nr].p2, &delta);
+      point_add(&bezier->bezier.points[comp_nr+1].p1, &delta);
     }
     break;
   case HANDLE_LEFTCTRL:
-    bezier->points[comp_nr].p2 = *to;
-    switch (bezier->corner_types[comp_nr]) {
+    bezier->bezier.points[comp_nr].p2 = *to;
+    switch (bezier->bezier.corner_types[comp_nr]) {
     case BEZ_CORNER_SYMMETRIC:
-      pt = bezier->points[comp_nr].p3;
-      point_sub(&pt, &bezier->points[comp_nr].p2);
-      point_add(&pt, &bezier->points[comp_nr].p3);
-      bezier->points[next_nr].p1 = pt;
+      pt = bezier->bezier.points[comp_nr].p3;
+      point_sub(&pt, &bezier->bezier.points[comp_nr].p2);
+      point_add(&pt, &bezier->bezier.points[comp_nr].p3);
+      bezier->bezier.points[next_nr].p1 = pt;
       break;
     case BEZ_CORNER_SMOOTH: {
       real len;
 
-      pt = bezier->points[next_nr].p1;
-      point_sub(&pt, &bezier->points[comp_nr].p3);
+      pt = bezier->bezier.points[next_nr].p1;
+      point_sub(&pt, &bezier->bezier.points[comp_nr].p3);
       len = point_len(&pt);
 
-      pt = bezier->points[comp_nr].p3;
-      point_sub(&pt, &bezier->points[comp_nr].p2);
+      pt = bezier->bezier.points[comp_nr].p3;
+      point_sub(&pt, &bezier->bezier.points[comp_nr].p2);
       if (point_len(&pt) > 0)
 	point_normalize(&pt);
       else {
 	pt.x = 1.0; pt.y = 0.0;
       }
       point_scale(&pt, len);
-      point_add(&pt, &bezier->points[comp_nr].p3);
-      bezier->points[next_nr].p1 = pt;
+      point_add(&pt, &bezier->bezier.points[comp_nr].p3);
+      bezier->bezier.points[next_nr].p1 = pt;
       break;
     }
     case BEZ_CORNER_CUSP:
@@ -211,31 +211,31 @@ beziershape_move_handle (BezierShape *bezier,
     }
     break;
   case HANDLE_RIGHTCTRL:
-    bezier->points[comp_nr].p1 = *to;
-    switch (bezier->corner_types[prev_nr]) {
+    bezier->bezier.points[comp_nr].p1 = *to;
+    switch (bezier->bezier.corner_types[prev_nr]) {
     case BEZ_CORNER_SYMMETRIC:
-      pt = bezier->points[prev_nr].p3;
-      point_sub(&pt, &bezier->points[comp_nr].p1);
-      point_add(&pt, &bezier->points[prev_nr].p3);
-      bezier->points[prev_nr].p2 = pt;
+      pt = bezier->bezier.points[prev_nr].p3;
+      point_sub(&pt, &bezier->bezier.points[comp_nr].p1);
+      point_add(&pt, &bezier->bezier.points[prev_nr].p3);
+      bezier->bezier.points[prev_nr].p2 = pt;
       break;
     case BEZ_CORNER_SMOOTH: {
       real len;
 
-      pt = bezier->points[prev_nr].p2;
-      point_sub(&pt, &bezier->points[prev_nr].p3);
+      pt = bezier->bezier.points[prev_nr].p2;
+      point_sub(&pt, &bezier->bezier.points[prev_nr].p3);
       len = point_len(&pt);
 
-      pt = bezier->points[prev_nr].p3;
-      point_sub(&pt, &bezier->points[comp_nr].p1);
+      pt = bezier->bezier.points[prev_nr].p3;
+      point_sub(&pt, &bezier->bezier.points[comp_nr].p1);
       if (point_len(&pt) > 0)
 	point_normalize(&pt);
       else {
 	pt.x = 1.0; pt.y = 0.0;
       }
       point_scale(&pt, len);
-      point_add(&pt, &bezier->points[prev_nr].p3);
-      bezier->points[prev_nr].p2 = pt;
+      point_add(&pt, &bezier->bezier.points[prev_nr].p3);
+      bezier->bezier.points[prev_nr].p2 = pt;
       break;
     }
     case BEZ_CORNER_CUSP:
@@ -265,13 +265,13 @@ beziershape_move (BezierShape *bezier, Point *to)
   int i;
   
   p = *to;
-  point_sub(&p, &bezier->points[0].p1);
+  point_sub(&p, &bezier->bezier.points[0].p1);
 
-  bezier->points[0].p1 = bezier->points[0].p3 = *to;
-  for (i = 1; i < bezier->numpoints; i++) {
-    point_add(&bezier->points[i].p1, &p);
-    point_add(&bezier->points[i].p2, &p);
-    point_add(&bezier->points[i].p3, &p);
+  bezier->bezier.points[0].p1 = bezier->bezier.points[0].p3 = *to;
+  for (i = 1; i < bezier->bezier.num_points; i++) {
+    point_add(&bezier->bezier.points[i].p1, &p);
+    point_add(&bezier->bezier.points[i].p2, &p);
+    point_add(&bezier->bezier.points[i].p3, &p);
   }
 
   return NULL;
@@ -296,17 +296,17 @@ beziershape_closest_segment (BezierShape *bezier,
   int closest;
 
   closest = 0;
-  last = bezier->points[0].p1;
+  last = bezier->bezier.points[0].p1;
   /* the first point is just move-to so there is no need to consider p2,p3 of it */
-  for (i = 1; i < bezier->numpoints; i++) {
-    real new_dist = distance_bez_seg_point(&last, &bezier->points[i].p1,
-			&bezier->points[i].p2, &bezier->points[i].p3,
+  for (i = 1; i < bezier->bezier.num_points; i++) {
+    real new_dist = distance_bez_seg_point(&last, &bezier->bezier.points[i].p1,
+			&bezier->bezier.points[i].p2, &bezier->bezier.points[i].p3,
 			line_width, point);
     if (new_dist < dist) {
       dist = new_dist;
       closest = i;
     }
-    last = bezier->points[i].p3;
+    last = bezier->bezier.points[i].p3;
   }
   return closest;
 }
@@ -327,24 +327,24 @@ beziershape_closest_handle (BezierShape *bezier,
   real dist = G_MAXDOUBLE;
   Handle *closest = NULL;
   
-  for (i = 1, hn = 0; i < bezier->numpoints; i++, hn++) {
+  for (i = 1, hn = 0; i < bezier->bezier.num_points; i++, hn++) {
     real new_dist;
 
-    new_dist = distance_point_point(point, &bezier->points[i].p1);
+    new_dist = distance_point_point(point, &bezier->bezier.points[i].p1);
     if (new_dist < dist) {
       dist = new_dist;
       closest = bezier->object.handles[hn];
     }
     hn++;
 
-    new_dist = distance_point_point(point, &bezier->points[i].p2);
+    new_dist = distance_point_point(point, &bezier->bezier.points[i].p2);
     if (new_dist < dist) {
       dist = new_dist;
       closest = bezier->object.handles[hn];
     }
     hn++;
 
-    new_dist = distance_point_point(point, &bezier->points[i].p3);
+    new_dist = distance_point_point(point, &bezier->bezier.points[i].p3);
     if (new_dist < dist) {
       dist = new_dist;
       closest = bezier->object.handles[hn];
@@ -360,7 +360,7 @@ beziershape_closest_major_handle (BezierShape *bezier, Point *point)
   int pos = get_major_nr(get_handle_nr(bezier, closest));
 
   if (pos == 0)
-    pos = bezier->numpoints - 1;
+    pos = bezier->bezier.num_points - 1;
   return bezier->object.handles[3*pos - 1];
 }
 
@@ -375,7 +375,7 @@ beziershape_closest_major_handle (BezierShape *bezier, Point *point)
 real
 beziershape_distance_from (BezierShape *bezier, Point *point, real line_width)
 {
-  return distance_bez_shape_point(bezier->points, bezier->numpoints,
+  return distance_bez_shape_point(bezier->bezier.points, bezier->bezier.num_points,
 				  line_width, point);
 }
 
@@ -390,26 +390,26 @@ add_handles (BezierShape *bezier,
   DiaObject *obj = &bezier->object;
 
   g_assert(pos >= 1);
-  g_assert(pos <= bezier->numpoints);
+  g_assert(pos <= bezier->bezier.num_points);
 
-  bezier->numpoints++;
+  bezier->bezier.num_points++;
   next = pos + 1;
-  bezier->points = g_realloc(bezier->points, bezier->numpoints*sizeof(BezPoint));
-  if (pos == bezier->numpoints - 1)
+  bezier->bezier.points = g_realloc(bezier->bezier.points, bezier->bezier.num_points*sizeof(BezPoint));
+  if (pos == bezier->bezier.num_points - 1)
     next = 1;
-  bezier->corner_types = g_realloc(bezier->corner_types,
-				   bezier->numpoints * sizeof(BezCornerType));
+  bezier->bezier.corner_types = g_realloc(bezier->bezier.corner_types,
+				   bezier->bezier.num_points * sizeof(BezCornerType));
 
-  for (i = bezier->numpoints - 1; i > pos; i--) {
-    bezier->points[i] = bezier->points[i-1];
-    bezier->corner_types[i] = bezier->corner_types[i-1];
+  for (i = bezier->bezier.num_points - 1; i > pos; i--) {
+    bezier->bezier.points[i] = bezier->bezier.points[i-1];
+    bezier->bezier.corner_types[i] = bezier->bezier.corner_types[i-1];
   }
-  bezier->points[pos] = *point;
-  bezier->points[pos].p1 = bezier->points[next].p1;
-  bezier->points[next].p1 = point->p1;
-  if (pos == bezier->numpoints - 1)
-    bezier->points[0].p1 = bezier->points[0].p3 = bezier->points[pos].p3;
-  bezier->corner_types[pos] = corner_type;
+  bezier->bezier.points[pos] = *point;
+  bezier->bezier.points[pos].p1 = bezier->bezier.points[next].p1;
+  bezier->bezier.points[next].p1 = point->p1;
+  if (pos == bezier->bezier.num_points - 1)
+    bezier->bezier.points[0].p1 = bezier->bezier.points[0].p3 = bezier->bezier.points[pos].p3;
+  bezier->bezier.corner_types[pos] = corner_type;
   object_add_handle_at(obj, handle1, 3*pos-3);
   object_add_handle_at(obj, handle2, 3*pos-2);
   object_add_handle_at(obj, handle3, 3*pos-1);
@@ -430,33 +430,33 @@ remove_handles (BezierShape *bezier, int pos)
   controlvector.y=0;
 
   g_assert(pos > 0);
-  g_assert(pos < bezier->numpoints);
+  g_assert(pos < bezier->bezier.num_points);
 
   obj = (DiaObject *)bezier;
 
   /* delete the points */
-  bezier->numpoints--;
-  tmppoint = bezier->points[pos].p1;
-  if (pos == bezier->numpoints) {
-    controlvector = bezier->points[pos-1].p3;
-    point_sub(&controlvector, &bezier->points[pos].p1);
+  bezier->bezier.num_points--;
+  tmppoint = bezier->bezier.points[pos].p1;
+  if (pos == bezier->bezier.num_points) {
+    controlvector = bezier->bezier.points[pos-1].p3;
+    point_sub(&controlvector, &bezier->bezier.points[pos].p1);
   }
-  for (i = pos; i < bezier->numpoints; i++) {
-    bezier->points[i] = bezier->points[i+1];
-    bezier->corner_types[i] = bezier->corner_types[i+1];
+  for (i = pos; i < bezier->bezier.num_points; i++) {
+    bezier->bezier.points[i] = bezier->bezier.points[i+1];
+    bezier->bezier.corner_types[i] = bezier->bezier.corner_types[i+1];
   }
-  bezier->points[pos].p1 = tmppoint;
-  if (pos == bezier->numpoints) {
+  bezier->bezier.points[pos].p1 = tmppoint;
+  if (pos == bezier->bezier.num_points) {
     /* If this was the last point, we also need to move points[0] and
        the control point in points[1]. */
-    bezier->points[0].p1 = bezier->points[bezier->numpoints-1].p3;
-    bezier->points[1].p1 = bezier->points[0].p1;
-    point_sub(&bezier->points[1].p1, &controlvector);
+    bezier->bezier.points[0].p1 = bezier->bezier.points[bezier->bezier.num_points-1].p3;
+    bezier->bezier.points[1].p1 = bezier->bezier.points[0].p1;
+    point_sub(&bezier->bezier.points[1].p1, &controlvector);
   }
-  bezier->points = g_realloc(bezier->points,
-			     bezier->numpoints * sizeof(BezPoint));
-  bezier->corner_types = g_realloc(bezier->corner_types,
-				bezier->numpoints * sizeof(BezCornerType));
+  bezier->bezier.points = g_realloc(bezier->bezier.points,
+			     bezier->bezier.num_points * sizeof(BezPoint));
+  bezier->bezier.corner_types = g_realloc(bezier->bezier.corner_types,
+				bezier->bezier.num_points * sizeof(BezCornerType));
 
   old_handle1 = obj->handles[3*pos-3];
   old_handle2 = obj->handles[3*pos-2];
@@ -485,10 +485,10 @@ beziershape_add_segment (BezierShape *bezier,
   Point other;
 
   if (segment != 1)
-    startpoint = bezier->points[segment-1].p3;
+    startpoint = bezier->bezier.points[segment-1].p3;
   else 
-    startpoint = bezier->points[0].p1;
-  other = bezier->points[segment].p3;
+    startpoint = bezier->bezier.points[0].p1;
+  other = bezier->bezier.points[segment].p3;
   if (point == NULL) {
     realpoint.p1.x = (startpoint.x + other.x)/6;
     realpoint.p1.y = (startpoint.y + other.y)/6;
@@ -542,19 +542,19 @@ beziershape_remove_segment (BezierShape *bezier, int pos)
   int next = pos+1;
 
   g_assert(pos > 0);
-  g_assert(bezier->numpoints > 2);
-  g_assert(pos < bezier->numpoints);
+  g_assert(bezier->bezier.num_points > 2);
+  g_assert(pos < bezier->bezier.num_points);
 
-  if (pos == bezier->numpoints - 1)
+  if (pos == bezier->bezier.num_points - 1)
     next = 1;
 
   old_handle1 = bezier->object.handles[3*pos-3];
   old_handle2 = bezier->object.handles[3*pos-2];
   old_handle3 = bezier->object.handles[3*pos-1];
-  old_point = bezier->points[pos];
+  old_point = bezier->bezier.points[pos];
   /* remember the old control point of following bezpoint */
-  old_point.p1 = bezier->points[next].p1;
-  old_ctype = bezier->corner_types[pos];
+  old_point.p1 = bezier->bezier.points[next].p1;
+  old_ctype = bezier->bezier.corner_types[pos];
 
   old_cp1 = bezier->object.connections[2*pos-2];
   old_cp2 = bezier->object.connections[2*pos-1];
@@ -588,41 +588,41 @@ beziershape_straighten_corner (BezierShape *bezier, int comp_nr)
 {
   int next_nr;
 
-  if (comp_nr == 0) comp_nr = bezier->numpoints - 1;
+  if (comp_nr == 0) comp_nr = bezier->bezier.num_points - 1;
   next_nr = comp_nr + 1;
-  if (comp_nr == bezier->numpoints - 1)
+  if (comp_nr == bezier->bezier.num_points - 1)
     next_nr = 1;
   /* Neat thing would be to have the kind of straigthening depend on
      which handle was chosen:  Mid-handle does average, other leaves that
      handle where it is. */
-  bezier->points[0].p3 = bezier->points[0].p1;
-  switch (bezier->corner_types[comp_nr]) {
+  bezier->bezier.points[0].p3 = bezier->bezier.points[0].p1;
+  switch (bezier->bezier.corner_types[comp_nr]) {
   case BEZ_CORNER_SYMMETRIC: {
     Point pt1, pt2;
 
-    pt1 = bezier->points[comp_nr].p3;
-    point_sub(&pt1, &bezier->points[comp_nr].p2);
-    pt2 = bezier->points[comp_nr].p3;
-    point_sub(&pt2, &bezier->points[next_nr].p1);
+    pt1 = bezier->bezier.points[comp_nr].p3;
+    point_sub(&pt1, &bezier->bezier.points[comp_nr].p2);
+    pt2 = bezier->bezier.points[comp_nr].p3;
+    point_sub(&pt2, &bezier->bezier.points[next_nr].p1);
     point_scale(&pt2, -1.0);
     point_add(&pt1, &pt2);
     point_scale(&pt1, 0.5);
     pt2 = pt1;
     point_scale(&pt1, -1.0);
-    point_add(&pt1, &bezier->points[comp_nr].p3);
-    point_add(&pt2, &bezier->points[comp_nr].p3);
-    bezier->points[comp_nr].p2 = pt1;
-    bezier->points[next_nr].p1 = pt2;
+    point_add(&pt1, &bezier->bezier.points[comp_nr].p3);
+    point_add(&pt2, &bezier->bezier.points[comp_nr].p3);
+    bezier->bezier.points[comp_nr].p2 = pt1;
+    bezier->bezier.points[next_nr].p1 = pt2;
     beziershape_update_data(bezier);
   }
   break;
   case BEZ_CORNER_SMOOTH: {
     Point pt1, pt2;
     real len1, len2;
-    pt1 = bezier->points[comp_nr].p3;
-    point_sub(&pt1, &bezier->points[comp_nr].p2);
-    pt2 = bezier->points[comp_nr].p3;
-    point_sub(&pt2, &bezier->points[next_nr].p1);
+    pt1 = bezier->bezier.points[comp_nr].p3;
+    point_sub(&pt1, &bezier->bezier.points[comp_nr].p2);
+    pt2 = bezier->bezier.points[comp_nr].p3;
+    point_sub(&pt2, &bezier->bezier.points[next_nr].p1);
     len1 = point_len(&pt1);
     len2 = point_len(&pt2);
     point_scale(&pt2, -1.0);
@@ -634,18 +634,18 @@ beziershape_straighten_corner (BezierShape *bezier, int comp_nr)
     point_scale(&pt1, 0.5);
     pt2 = pt1;
     point_scale(&pt1, -len1);
-    point_add(&pt1, &bezier->points[comp_nr].p3);
+    point_add(&pt1, &bezier->bezier.points[comp_nr].p3);
     point_scale(&pt2, len2);
-    point_add(&pt2, &bezier->points[comp_nr].p3);
-    bezier->points[comp_nr].p2 = pt1;
-    bezier->points[next_nr].p1 = pt2;
+    point_add(&pt2, &bezier->bezier.points[comp_nr].p3);
+    bezier->bezier.points[comp_nr].p2 = pt1;
+    bezier->bezier.points[next_nr].p1 = pt2;
     beziershape_update_data(bezier);
   }
     break;
   case BEZ_CORNER_CUSP:
     break;
   }
-  bezier->points[0].p1 = bezier->points[0].p3;
+  bezier->bezier.points[0].p1 = bezier->bezier.points[0].p3;
 }
 
 ObjectChange *
@@ -681,23 +681,23 @@ beziershape_set_corner_type (BezierShape *bezier,
 
   comp_nr = get_major_nr(handle_nr);
 
-  old_type = bezier->corner_types[comp_nr];
-  old_left = bezier->points[comp_nr].p2;
-  if (comp_nr == bezier->numpoints - 1)
-    old_right = bezier->points[1].p1;
+  old_type = bezier->bezier.corner_types[comp_nr];
+  old_left = bezier->bezier.points[comp_nr].p2;
+  if (comp_nr == bezier->bezier.num_points - 1)
+    old_right = bezier->bezier.points[1].p1;
   else
-    old_right = bezier->points[comp_nr+1].p1;
+    old_right = bezier->bezier.points[comp_nr+1].p1;
 
 #if 0
   g_message("Setting corner type on segment %d to %s", comp_nr,
 	    corner_type == BEZ_CORNER_SYMMETRIC ? "symmetric" :
 	    corner_type == BEZ_CORNER_SMOOTH ? "smooth" : "cusp");
 #endif
-  bezier->corner_types[comp_nr] = corner_type;
+  bezier->bezier.corner_types[comp_nr] = corner_type;
   if (comp_nr == 0)
-    bezier->corner_types[bezier->numpoints-1] = corner_type;
-  else if (comp_nr == bezier->numpoints - 1)
-    bezier->corner_types[0] = corner_type;
+    bezier->bezier.corner_types[bezier->bezier.num_points-1] = corner_type;
+  else if (comp_nr == bezier->bezier.num_points - 1)
+    bezier->bezier.corner_types[0] = corner_type;
 
   beziershape_straighten_corner(bezier, comp_nr);
 
@@ -715,8 +715,8 @@ beziershape_update_data (BezierShape *bezier)
   DiaObject *obj = &bezier->object;
   
   /* handle the case of whole points array update (via set_prop) */
-  if (3*(bezier->numpoints-1) != obj->num_handles ||
-      2*(bezier->numpoints-1) + 1 != obj->num_connections) {
+  if (3*(bezier->bezier.num_points-1) != obj->num_handles ||
+      2*(bezier->bezier.num_points-1) + 1 != obj->num_connections) {
     object_unconnect_all(obj); /* too drastic ? */
 
     /* delete the old ones */
@@ -727,57 +727,57 @@ beziershape_update_data (BezierShape *bezier)
       g_free(obj->connections[i]);
     g_free(obj->connections);
 
-    obj->num_handles = 3*(bezier->numpoints-1);
+    obj->num_handles = 3*(bezier->bezier.num_points-1);
     obj->handles = g_new(Handle*, obj->num_handles);
-    obj->num_connections = 2*(bezier->numpoints-1) + 1;
+    obj->num_connections = 2*(bezier->bezier.num_points-1) + 1;
     obj->connections = g_new(ConnectionPoint *, obj->num_connections);
 
-    new_handles_and_connections(bezier, bezier->numpoints);
+    new_handles_and_connections(bezier, bezier->bezier.num_points);
 
-    bezier->corner_types = g_realloc(bezier->corner_types, bezier->numpoints*sizeof(BezCornerType));
-    for (i = 0; i < bezier->numpoints; i++)
-      bezier->corner_types[i] = BEZ_CORNER_SYMMETRIC;
+    bezier->bezier.corner_types = g_realloc(bezier->bezier.corner_types, bezier->bezier.num_points*sizeof(BezCornerType));
+    for (i = 0; i < bezier->bezier.num_points; i++)
+      bezier->bezier.corner_types[i] = BEZ_CORNER_SYMMETRIC;
   }
 
   /* Update handles: */
-  bezier->points[0].p3 = bezier->points[0].p1;
-  for (i = 1; i < bezier->numpoints; i++) {
-    obj->handles[3*i-3]->pos = bezier->points[i].p1;
-    obj->handles[3*i-2]->pos = bezier->points[i].p2;
-    obj->handles[3*i-1]->pos = bezier->points[i].p3;
+  bezier->bezier.points[0].p3 = bezier->bezier.points[0].p1;
+  for (i = 1; i < bezier->bezier.num_points; i++) {
+    obj->handles[3*i-3]->pos = bezier->bezier.points[i].p1;
+    obj->handles[3*i-2]->pos = bezier->bezier.points[i].p2;
+    obj->handles[3*i-1]->pos = bezier->bezier.points[i].p3;
   }
 
   /* Update connection points: */
-  last = bezier->points[0].p1;
-  for (i = 1; i < bezier->numpoints; i++) {
+  last = bezier->bezier.points[0].p1;
+  for (i = 1; i < bezier->bezier.num_points; i++) {
     Point slopepoint1, slopepoint2;
-    slopepoint1 = bezier->points[i].p1;
+    slopepoint1 = bezier->bezier.points[i].p1;
     point_sub(&slopepoint1, &last);
     point_scale(&slopepoint1, .5);
     point_add(&slopepoint1, &last);
-    slopepoint2 = bezier->points[i].p2;
-    point_sub(&slopepoint2, &bezier->points[i].p3);
+    slopepoint2 = bezier->bezier.points[i].p2;
+    point_sub(&slopepoint2, &bezier->bezier.points[i].p3);
     point_scale(&slopepoint2, .5);
-    point_add(&slopepoint2, &bezier->points[i].p3);
+    point_add(&slopepoint2, &bezier->bezier.points[i].p3);
 
     obj->connections[2*i-2]->pos = last;
     obj->connections[2*i-2]->directions =
-      find_slope_directions(last, bezier->points[i].p1);
+      find_slope_directions(last, bezier->bezier.points[i].p1);
     obj->connections[2*i-1]->pos.x =
-      (last.x + 3*bezier->points[i].p1.x + 3*bezier->points[i].p2.x +
-       bezier->points[i].p3.x)/8;
+      (last.x + 3*bezier->bezier.points[i].p1.x + 3*bezier->bezier.points[i].p2.x +
+       bezier->bezier.points[i].p3.x)/8;
     obj->connections[2*i-1]->pos.y =
-      (last.y + 3*bezier->points[i].p1.y + 3*bezier->points[i].p2.y +
-       bezier->points[i].p3.y)/8;
+      (last.y + 3*bezier->bezier.points[i].p1.y + 3*bezier->bezier.points[i].p2.y +
+       bezier->bezier.points[i].p3.y)/8;
     obj->connections[2*i-1]->directions = 
       find_slope_directions(slopepoint1, slopepoint2);
-    last = bezier->points[i].p3;
+    last = bezier->bezier.points[i].p3;
   }
   
   /* Find the middle of the object (or some approximation at least) */
-  minp = maxp = bezier->points[0].p1;
-  for (i = 1; i < bezier->numpoints; i++) {
-    Point p = bezier->points[i].p3;
+  minp = maxp = bezier->bezier.points[0].p1;
+  for (i = 1; i < bezier->bezier.num_points; i++) {
+    Point p = bezier->bezier.points[i].p3;
     if (p.x < minp.x) minp.x = p.x;
     if (p.x > maxp.x) maxp.x = p.x;
     if (p.y < minp.y) minp.y = p.y;
@@ -801,35 +801,10 @@ beziershape_update_boundingbox (BezierShape *bezier)
     pextra.start_long = pextra.end_long = 0;
   pextra.middle_trans = extra->border_trans;
 
-  polybezier_bbox(&bezier->points[0],
-                  bezier->numpoints,
+  polybezier_bbox(&bezier->bezier.points[0],
+                  bezier->bezier.num_points,
                   &pextra, TRUE,
                   &bezier->object.bounding_box);
-}
-
-void
-beziershape_draw_control_lines (BezierShape *bezier,
-				DiaRenderer *renderer)
-{
-  Color line_colour = { 0.0, 0.0, 0.6, 1.0 };
-  Point startpoint;
-  int i;
-  
-  /* setup renderer ... */
-  DIA_RENDERER_GET_CLASS(renderer)->set_linewidth(renderer, 0);
-  DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_DOTTED);
-  DIA_RENDERER_GET_CLASS(renderer)->set_dashlength(renderer, 1);
-  DIA_RENDERER_GET_CLASS(renderer)->set_linejoin(renderer, LINEJOIN_MITER);
-  DIA_RENDERER_GET_CLASS(renderer)->set_linecaps(renderer, LINECAPS_BUTT);
-
-  startpoint = bezier->points[0].p1;
-  for (i = 1; i < bezier->numpoints; i++) {
-    DIA_RENDERER_GET_CLASS(renderer)->draw_line(renderer, &startpoint, &bezier->points[i].p1,
-                             &line_colour);
-    DIA_RENDERER_GET_CLASS(renderer)->draw_line(renderer, &bezier->points[i].p2, &bezier->points[i].p3,
-                             &line_colour);
-    startpoint = bezier->points[i].p3;
-  }
 }
 
 static void
@@ -891,15 +866,15 @@ beziershape_init (BezierShape *bezier, int num_points)
 
   object_init(obj, 3*(num_points-1), 2*(num_points-1) + 1);
   
-  bezier->numpoints = num_points;
+  bezier->bezier.num_points = num_points;
 
-  bezier->points = g_new(BezPoint, num_points);
-  bezier->corner_types = g_new(BezCornerType, num_points);
-  bezier->points[0].type = BEZ_MOVE_TO;
-  bezier->corner_types[0] = BEZ_CORNER_SYMMETRIC;
+  bezier->bezier.points = g_new(BezPoint, num_points);
+  bezier->bezier.corner_types = g_new(BezCornerType, num_points);
+  bezier->bezier.points[0].type = BEZ_MOVE_TO;
+  bezier->bezier.corner_types[0] = BEZ_CORNER_SYMMETRIC;
   for (i = 1; i < num_points; i++) {
-    bezier->points[i].type = BEZ_CURVE_TO;
-    bezier->corner_types[i] = BEZ_CORNER_SYMMETRIC;
+    bezier->bezier.points[i].type = BEZ_CURVE_TO;
+    bezier->bezier.corner_types[i] = BEZ_CORNER_SYMMETRIC;
   }
 
   new_handles_and_connections(bezier, num_points);
@@ -908,32 +883,6 @@ beziershape_init (BezierShape *bezier, int num_points)
    * so don't try to use them */
   /*  beziershape_update_data(bezier);*/
 }
-
-/** Set a bezier to use the given array of points.
- * This function does *not* set up handles
- * @param bezier A bezier to operate on
- * @param num_points The number of points in the `points' array.
- * @param points The new points that this bezier should be set to use.
- */
-void
-beziershape_set_points (BezierShape *bezier,
-			int num_points,
-			BezPoint *points)
-{
-  int i;
-
-  bezier->numpoints = num_points;
-
-  if (bezier->points)
-    g_free(bezier->points);
-
-  bezier->points = g_malloc((bezier->numpoints)*sizeof(BezPoint));
-
-  for (i=0;i<bezier->numpoints;i++) {
-    bezier->points[i] = points[i];
-  }
-}
-
 
 /** Copy a beziershape objects.  This function in turn invokes object_copy.
  * @param from The object to copy from.
@@ -950,15 +899,7 @@ beziershape_copy (BezierShape *from, BezierShape *to)
 
   object_copy(fromobj, toobj);
 
-  to->numpoints = from->numpoints;
-
-  to->points = g_new(BezPoint, to->numpoints);
-  to->corner_types = g_new(BezCornerType, to->numpoints);
-
-  for (i = 0; i < to->numpoints; i++) {
-    to->points[i] = from->points[i];
-    to->corner_types[i] = from->corner_types[i];
-  }
+  beziercommon_copy (&from->bezier, &to->bezier);
 
   for (i = 0; i < toobj->num_handles; i++) {
     toobj->handles[i] = g_new0(Handle,1);
@@ -1002,8 +943,8 @@ beziershape_destroy (BezierShape *bezier)
     g_free(temp_cps[i]);
   g_free(temp_cps);
   
-  g_free(bezier->points);
-  g_free(bezier->corner_types);
+  g_free(bezier->bezier.points);
+  g_free(bezier->bezier.corner_types);
 }
 
 
@@ -1022,19 +963,19 @@ beziershape_save (BezierShape *bezier,
 
   attr = new_attribute(obj_node, "bez_points");
 
-  data_add_point(attr, &bezier->points[0].p1);
-  for (i = 1; i < bezier->numpoints; i++) {
-    if (BEZ_MOVE_TO == bezier->points[i].type)
+  data_add_point(attr, &bezier->bezier.points[0].p1);
+  for (i = 1; i < bezier->bezier.num_points; i++) {
+    if (BEZ_MOVE_TO == bezier->bezier.points[i].type)
       g_warning("only first BezPoint can be a BEZ_MOVE_TO");
-    data_add_point(attr, &bezier->points[i].p1);
-    data_add_point(attr, &bezier->points[i].p2);
-    if (i < bezier->numpoints - 1)
-      data_add_point(attr, &bezier->points[i].p3);
+    data_add_point(attr, &bezier->bezier.points[i].p1);
+    data_add_point(attr, &bezier->bezier.points[i].p2);
+    if (i < bezier->bezier.num_points - 1)
+      data_add_point(attr, &bezier->bezier.points[i].p3);
   }
 
   attr = new_attribute(obj_node, "corner_types");
-  for (i = 0; i < bezier->numpoints; i++)
-    data_add_enum(attr, bezier->corner_types[i]);
+  for (i = 0; i < bezier->bezier.num_points; i++)
+    data_add_enum(attr, bezier->bezier.corner_types[i]);
 }
 
 /** Load a beziershape object from XML.
@@ -1059,50 +1000,50 @@ beziershape_load (BezierShape *bezier,
   attr = object_find_attribute(obj_node, "bez_points");
 
   if (attr != NULL)
-    bezier->numpoints = attribute_num_data(attr) / 3 + 1;
+    bezier->bezier.num_points = attribute_num_data(attr) / 3 + 1;
   else
-    bezier->numpoints = 0;
+    bezier->bezier.num_points = 0;
 
-  object_init(obj, 3 * (bezier->numpoints - 1),
-	      2 * (bezier->numpoints - 1) + 1);
+  object_init(obj, 3 * (bezier->bezier.num_points - 1),
+	      2 * (bezier->bezier.num_points - 1) + 1);
 
   data = attribute_first_data(attr);
-  if (bezier->numpoints != 0) {
-    bezier->points = g_new(BezPoint, bezier->numpoints);
-    bezier->points[0].type = BEZ_MOVE_TO;
-    data_point(data, &bezier->points[0].p1, ctx);
-    bezier->points[0].p3 = bezier->points[0].p1;
+  if (bezier->bezier.num_points != 0) {
+    bezier->bezier.points = g_new(BezPoint, bezier->bezier.num_points);
+    bezier->bezier.points[0].type = BEZ_MOVE_TO;
+    data_point(data, &bezier->bezier.points[0].p1, ctx);
+    bezier->bezier.points[0].p3 = bezier->bezier.points[0].p1;
     data = data_next(data);
 
-    for (i = 1; i < bezier->numpoints; i++) {
-      bezier->points[i].type = BEZ_CURVE_TO;
-      data_point(data, &bezier->points[i].p1, ctx);
+    for (i = 1; i < bezier->bezier.num_points; i++) {
+      bezier->bezier.points[i].type = BEZ_CURVE_TO;
+      data_point(data, &bezier->bezier.points[i].p1, ctx);
       data = data_next(data);
-      data_point(data, &bezier->points[i].p2, ctx);
+      data_point(data, &bezier->bezier.points[i].p2, ctx);
       data = data_next(data);
-      if (i < bezier->numpoints - 1) {
-	data_point(data, &bezier->points[i].p3, ctx);
+      if (i < bezier->bezier.num_points - 1) {
+	data_point(data, &bezier->bezier.points[i].p3, ctx);
 	data = data_next(data);
       } else
-	bezier->points[i].p3 = bezier->points[0].p1;
+	bezier->bezier.points[i].p3 = bezier->bezier.points[0].p1;
     }
   }
 
-  bezier->corner_types = g_new(BezCornerType, bezier->numpoints);
+  bezier->bezier.corner_types = g_new(BezCornerType, bezier->bezier.num_points);
   attr = object_find_attribute(obj_node, "corner_types");
   /* if corner_types is missing or corrupt */
-  if (!attr || attribute_num_data(attr) != bezier->numpoints) {
-    for (i = 0; i < bezier->numpoints; i++)
-      bezier->corner_types[i] = BEZ_CORNER_SYMMETRIC;
+  if (!attr || attribute_num_data(attr) != bezier->bezier.num_points) {
+    for (i = 0; i < bezier->bezier.num_points; i++)
+      bezier->bezier.corner_types[i] = BEZ_CORNER_SYMMETRIC;
   } else {
     data = attribute_first_data(attr);
-    for (i = 0; i < bezier->numpoints; i++) {
-      bezier->corner_types[i] = data_enum(data, ctx);
+    for (i = 0; i < bezier->bezier.num_points; i++) {
+      bezier->bezier.corner_types[i] = data_enum(data, ctx);
       data = data_next(data);
     }
   }
 
-  for (i = 0; i < bezier->numpoints - 1; i++) {
+  for (i = 0; i < bezier->bezier.num_points - 1; i++) {
     obj->handles[3*i] = g_new0(Handle,1);
     obj->handles[3*i+1] = g_new0(Handle,1);
     obj->handles[3*i+2]   = g_new0(Handle,1);
@@ -1240,11 +1181,11 @@ beziershape_corner_change_apply (struct CornerChange *change,
 
   beziershape_straighten_corner(bezier, comp_nr);
 
-  bezier->corner_types[comp_nr] = change->new_type;
+  bezier->bezier.corner_types[comp_nr] = change->new_type;
   if (comp_nr == 0)
-    bezier->corner_types[bezier->numpoints-1] = change->new_type;
-  if (comp_nr == bezier->numpoints - 1)
-    bezier->corner_types[0] = change->new_type;
+    bezier->bezier.corner_types[bezier->bezier.num_points-1] = change->new_type;
+  if (comp_nr == bezier->bezier.num_points - 1)
+    bezier->bezier.corner_types[0] = change->new_type;
 
   change->applied = 1;
 }
@@ -1262,16 +1203,16 @@ beziershape_corner_change_revert (struct CornerChange *change,
   int handle_nr = get_handle_nr(bezier, change->handle);
   int comp_nr = get_major_nr(handle_nr);
 
-  bezier->points[comp_nr].p2 = change->point_left;
-  if (comp_nr == bezier->numpoints - 1)
-    bezier->points[1].p1 = change->point_right;
+  bezier->bezier.points[comp_nr].p2 = change->point_left;
+  if (comp_nr == bezier->bezier.num_points - 1)
+    bezier->bezier.points[1].p1 = change->point_right;
   else
-    bezier->points[comp_nr+1].p1 = change->point_right;
-  bezier->corner_types[comp_nr] = change->old_type;  
+    bezier->bezier.points[comp_nr+1].p1 = change->point_right;
+  bezier->bezier.corner_types[comp_nr] = change->old_type;  
   if (comp_nr == 0)
-    bezier->corner_types[bezier->numpoints-1] = change->new_type;
-  if (comp_nr == bezier->numpoints - 1)
-    bezier->corner_types[0] = change->new_type;
+    bezier->bezier.corner_types[bezier->bezier.num_points-1] = change->new_type;
+  if (comp_nr == bezier->bezier.num_points - 1)
+    bezier->bezier.corner_types[0] = change->new_type;
 
   change->applied = 0;
 }
