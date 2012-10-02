@@ -292,7 +292,7 @@ static PropOffset association_offsets[] = {
   { "visibility_a", PROP_TYPE_ENUM, offsetof(Association, end[0].visibility) },
   { "show_arrow_a", PROP_TYPE_BOOL, offsetof(Association, end[0].arrow) },
 
-  PROP_OFFSET_MULTICOL_COLUMN("side_a"),
+  PROP_OFFSET_MULTICOL_COLUMN("side_b"),
   { "role_b", PROP_TYPE_STRING, offsetof(Association, end[1].role) },
   { "multipicity_b", PROP_TYPE_STRING, offsetof(Association, end[1].multiplicity) }, 
   { "visibility_b", PROP_TYPE_ENUM, offsetof(Association, end[1].visibility) },

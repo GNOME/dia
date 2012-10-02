@@ -171,9 +171,9 @@ static PropDescription umlclass_props[] = {
   N_("Wrap after char"), NULL, NULL },
   { "comment_line_length", PROP_TYPE_INT, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
   N_("Comment line length"), NULL, NULL},
-  { "align_comment_tagging", PROP_TYPE_STATIC, PROP_FLAG_VISIBLE|PROP_FLAG_DONT_SAVE|PROP_FLAG_DONT_MERGE,
+  { "align_comment_tagging", PROP_TYPE_STATIC, PROP_FLAG_VISIBLE|PROP_FLAG_DONT_SAVE|PROP_FLAG_DONT_MERGE|PROP_FLAG_WIDGET_ONLY,
     "", NULL, NULL },
-  { "align_allow_resizing", PROP_TYPE_STATIC, PROP_FLAG_VISIBLE|PROP_FLAG_DONT_SAVE|PROP_FLAG_DONT_MERGE,
+  { "align_allow_resizing", PROP_TYPE_STATIC, PROP_FLAG_VISIBLE|PROP_FLAG_DONT_SAVE|PROP_FLAG_DONT_MERGE|PROP_FLAG_WIDGET_ONLY,
     "", NULL, NULL },
 
   PROP_MULTICOL_END("visibilities"),
