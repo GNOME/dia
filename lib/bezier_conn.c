@@ -87,9 +87,10 @@ bezierconn_create_corner_change(BezierConn *bezier,
 				BezCornerType old_corner_type,
 				BezCornerType new_corner_type);
 
-/** Set up a handle for any part of a bezierconn
+/*!
+ * \brief Set up a handle for any part of a bezier
  * @param handle A handle to set up.
- * @param id Handle id (HANDLE_BEZMAJOR or HANDLE_BEZMINOER)
+ * @param id Handle id (HANDLE_BEZMAJOR or HANDLE_RIGHTCTRL or HANDLE_LEFTCTRL)
  */
 static void
 setup_handle(Handle *handle, HandleId id)
@@ -102,9 +103,9 @@ setup_handle(Handle *handle, HandleId id)
 }
 
 /** Get the number in the array of handles that a given handle has.
- * @param bezier A bezierconn object with handles set up.
+ * @param bezier A bezier object with handles set up.
  * @param handle A handle object.
- * @returns The index in bex->object.handles of the handle object, or -1 if
+ * @returns The index in bezier->object.handles of the handle object, or -1 if
  *          `handle' is not in the array.
  */
 static int
@@ -123,8 +124,8 @@ get_handle_nr (BezierConn *bezier, Handle *handle)
 
 void new_handles(BezierConn *bezier, int num_points);
 
-/** Function called to move one of the handles associated with the
- *  bezierconn. 
+/*!
+ * \brief Move one of the handles associated with the
  * @param bezier The object whose handle is being moved.
  * @param handle The handle being moved.
  * @param to The position it has been moved to (corrected for
@@ -134,6 +135,7 @@ void new_handles(BezierConn *bezier, int num_points);
  * @param reason ignored
  * @param modifiers ignored
  * @return NULL
+ * \memberof BezierConn
  */
 ObjectChange*
 bezierconn_move_handle (BezierConn *bezier,
@@ -237,8 +239,8 @@ bezierconn_move_handle (BezierConn *bezier,
   return NULL;
 }
 
-
-/** Function called to move the entire object.
+/*!
+ * \brief Move the entire object.
  * @param bezier The object being moved.
  * @param to Where the object is being moved to.  This is the first point
  * of the points array.
@@ -264,12 +266,13 @@ bezierconn_move (BezierConn *bezier, Point *to)
   return NULL;
 }
 
-
-/** Return the segment of the bezierconn closest to a given point.
- * @param bezier The bezierconn object
+/*!
+ * \brief Return the segment of the bezier closest to a given point.
+ * @param bezier The bezier object
  * @param point A point to find the closest segment to.
  * @param line_width Line width of the bezier line.
- * @returns The index of the segment closest to point.
+ * @return The index of the segment closest to point.
+ * \memberof BezierConn
  */
 int
 bezierconn_closest_segment (BezierConn *bezier,
@@ -296,12 +299,13 @@ bezierconn_closest_segment (BezierConn *bezier,
   return closest;
 }
 
-/** Return the handle closest to a given point.
- * @param bezier A bezierconn object
+/*!
+ * \brief Return the handle closest to a given point.
+ * @param bezier A bezier object
  * @param point A point to find distances from
  * @return The handle on `bezier' closest to `point'.
  *
- * \memberof _BezierConn Conceptually this is a member function 
+ * \memberof _BezierConn
  */
 Handle *
 bezierconn_closest_handle (BezierConn *bezier,
@@ -339,7 +343,8 @@ bezierconn_closest_handle (BezierConn *bezier,
   return closest;
 }
 
-/** Return the major handle for the control point with the handle closest to
+/*!
+ * \brief Return the major handle for the control point with the handle closest to
  * a given point.
  * @param bezier A bezier connection
  * @param point A point
@@ -358,11 +363,13 @@ bezierconn_closest_major_handle (BezierConn *bezier, Point *point)
   return bezier->object.handles[3*get_major_nr(get_handle_nr(bezier, closest))];
 }
 
-/** Return the distance from a bezier to a point.
- * @param bezier A bezierconn object.
+/*!
+ * \brief Return the distance from a bezier to a point.
+ * @param bezier A bezier object.
  * @param point A point to compare with.
  * @param line_width The line width of the bezier line.
- * @returns The shortest distance from the point to any part of the bezier.
+ * @return The shortest distance from the point to any part of the bezier.
+ * \memberof _BezierConn
  */
 real
 bezierconn_distance_from (BezierConn *bezier, Point *point, real line_width)
@@ -387,24 +394,24 @@ add_handles (BezierConn *bezier,
 	     BezCornerType corner_type,
 	     Handle *handle1, Handle *handle2, Handle *handle3)
 {
-  int i;
-  DiaObject *obj;
+  int i, next;
+  DiaObject *obj = &bezier->object;
 
   g_assert(pos > 0);
-  
-  obj = (DiaObject *)bezier;
+
   bezier->numpoints++;
+  next = pos + 1;
   bezier->points = g_realloc(bezier->points, bezier->numpoints*sizeof(BezPoint));
   bezier->corner_types = g_realloc(bezier->corner_types,
-				bezier->numpoints * sizeof(BezCornerType));
+				   bezier->numpoints * sizeof(BezCornerType));
 
-  for (i = bezier->numpoints-1; i > pos; i--) {
+  for (i = bezier->numpoints - 1; i > pos; i--) {
     bezier->points[i] = bezier->points[i-1];
     bezier->corner_types[i] = bezier->corner_types[i-1];
   }
   bezier->points[pos] = *point;
-  bezier->points[pos].p1 = bezier->points[pos+1].p1;
-  bezier->points[pos+1].p1 = point->p1;
+  bezier->points[pos].p1 = bezier->points[next].p1;
+  bezier->points[next].p1 = point->p1;
   bezier->corner_types[pos] = corner_type;
   object_add_handle_at(obj, handle1, 3*pos-2);
   object_add_handle_at(obj, handle2, 3*pos-1);
@@ -475,26 +482,29 @@ bezierconn_add_segment (BezierConn *bezier,
   BezCornerType corner_type = BEZ_CORNER_SYMMETRIC;
   Handle *new_handle1, *new_handle2, *new_handle3;
   Point startpoint;
+  Point other;
 
   if (segment == 0)
     startpoint = bezier->points[0].p1;
   else
     startpoint = bezier->points[segment].p3;
+  other = bezier->points[segment+1].p3;
 
   if (point == NULL) {
-    realpoint.p1.x = (startpoint.x + bezier->points[segment+1].p3.x) / 6;
-    realpoint.p1.y = (startpoint.y + bezier->points[segment+1].p3.y) / 6;
-    realpoint.p2.x = (startpoint.x + bezier->points[segment+1].p3.x) / 3;
-    realpoint.p2.y = (startpoint.y + bezier->points[segment+1].p3.y) / 3;
-    realpoint.p3.x = (startpoint.x + bezier->points[segment+1].p3.x) / 2;
-    realpoint.p3.y = (startpoint.y + bezier->points[segment+1].p3.y) / 2;
+    realpoint.p1.x = (startpoint.x + other.x)/6;
+    realpoint.p1.y = (startpoint.y + other.y)/6;
+    realpoint.p2.x = (startpoint.x + other.x)/3;
+    realpoint.p2.y = (startpoint.y + other.y)/3;
+    realpoint.p3.x = (startpoint.x + other.x)/2;
+    realpoint.p3.y = (startpoint.y + other.y)/2;
   } else {
-    realpoint.p2.x = point->x+(startpoint.x - bezier->points[segment+1].p3.x)/6;
-    realpoint.p2.y = point->y+(startpoint.y - bezier->points[segment+1].p3.y)/6;
+    realpoint.p2.x = point->x+(startpoint.x-other.x)/6;
+    realpoint.p2.y = point->y+(startpoint.y-other.y)/6;
+
     realpoint.p3 = *point;
     /* this really goes into the next segment ... */
-    realpoint.p1.x = point->x-(startpoint.x - bezier->points[segment+1].p3.x)/6;
-    realpoint.p1.y = point->y-(startpoint.y - bezier->points[segment+1].p3.y)/6;
+    realpoint.p1.x = point->x-(startpoint.x-other.x)/6;
+    realpoint.p1.y = point->y-(startpoint.y-other.y)/6;
   }
   realpoint.type = BEZ_CURVE_TO;
 
@@ -513,10 +523,12 @@ bezierconn_add_segment (BezierConn *bezier,
 					new_handle3, NULL);
 }
 
-/** Remove a segment from a bezierconn.
- * @param bezier The bezierconn to remove a segment from.
+/*!
+ * \brief Remove a segment from a bezier.
+ * @param bezier The bezier to remove a segment from.
  * @param pos The index of the segment to remove.
  * @returns Undo information for the segment removal.
+ * \memberof _BezierConn
  */
 ObjectChange *
 bezierconn_remove_segment (BezierConn *bezier, int pos)
@@ -525,6 +537,7 @@ bezierconn_remove_segment (BezierConn *bezier, int pos)
   ConnectionPoint *cpt1, *cpt2, *cpt3;
   BezPoint old_point;
   BezCornerType old_ctype;
+  int next = pos+1;
 
   g_assert(pos > 0);
   g_assert(bezier->numpoints > 2);
@@ -535,6 +548,8 @@ bezierconn_remove_segment (BezierConn *bezier, int pos)
   old_handle2 = bezier->object.handles[3*pos-1];
   old_handle3 = bezier->object.handles[3*pos];
   old_point = bezier->points[pos];
+  /* remember the old control point of following bezpoint */
+  old_point.p1 = bezier->points[next].p1;
   old_ctype = bezier->corner_types[pos];
 
   cpt1 = old_handle1->connected_to;
@@ -545,8 +560,6 @@ bezierconn_remove_segment (BezierConn *bezier, int pos)
   object_unconnect((DiaObject *)bezier, old_handle2);
   object_unconnect((DiaObject *)bezier, old_handle3);
 
-  /* remember the other point before overwriting */
-  old_point.p1 = bezier->points[pos+1].p1;
   remove_handles(bezier, pos);
 
   bezierconn_update_data(bezier);
@@ -558,25 +571,31 @@ bezierconn_remove_segment (BezierConn *bezier, int pos)
 					old_handle3, cpt3);
 }
 
-/** Update a corner to have less freedom in its control handles, arranging
+/*!
+ * \brief Limit movability of control handles
+ *
+ * Update a corner to have less freedom in its control handles, arranging
  * the control points at some reasonable places.
  * @param bezier A bezierconn to straighten a corner of
  * @param comp_nr The index into the corner_types array of the corner to
  *                straighten.
+ * \memberof _BezierConn
  */
 static void
 bezierconn_straighten_corner (BezierConn *bezier, int comp_nr)
 {
+  int next_nr = comp_nr+1;
   /* Neat thing would be to have the kind of straigthening depend on
      which handle was chosen:  Mid-handle does average, other leaves that
      handle where it is. */
   switch (bezier->corner_types[comp_nr]) {
   case BEZ_CORNER_SYMMETRIC: {
     Point pt1, pt2;
+
     pt1 = bezier->points[comp_nr].p3;
     point_sub(&pt1, &bezier->points[comp_nr].p2);
     pt2 = bezier->points[comp_nr].p3;
-    point_sub(&pt2, &bezier->points[comp_nr+1].p1);
+    point_sub(&pt2, &bezier->points[next_nr].p1);
     point_scale(&pt2, -1.0);
     point_add(&pt1, &pt2);
     point_scale(&pt1, 0.5);
@@ -585,7 +604,7 @@ bezierconn_straighten_corner (BezierConn *bezier, int comp_nr)
     point_add(&pt1, &bezier->points[comp_nr].p3);
     point_add(&pt2, &bezier->points[comp_nr].p3);
     bezier->points[comp_nr].p2 = pt1;
-    bezier->points[comp_nr+1].p1 = pt2;
+    bezier->points[next_nr].p1 = pt2;
     bezierconn_update_data(bezier);
   }
   break;
@@ -595,7 +614,7 @@ bezierconn_straighten_corner (BezierConn *bezier, int comp_nr)
     pt1 = bezier->points[comp_nr].p3;
     point_sub(&pt1, &bezier->points[comp_nr].p2);
     pt2 = bezier->points[comp_nr].p3;
-    point_sub(&pt2, &bezier->points[comp_nr+1].p1);
+    point_sub(&pt2, &bezier->points[next_nr].p1);
     len1 = point_len(&pt1);
     len2 = point_len(&pt2);
     point_scale(&pt2, -1.0);
@@ -611,7 +630,7 @@ bezierconn_straighten_corner (BezierConn *bezier, int comp_nr)
     point_scale(&pt2, len2);
     point_add(&pt2, &bezier->points[comp_nr].p3);
     bezier->points[comp_nr].p2 = pt1;
-    bezier->points[comp_nr+1].p1 = pt2;
+    bezier->points[next_nr].p1 = pt2;
     bezierconn_update_data(bezier);
   }
     break;
@@ -691,6 +710,7 @@ bezierconn_update_data (BezierConn *bezier)
     if (cpe)
       object_unconnect (&bezier->object, bezier->object.handles[obj->num_handles-1]);
 
+    /* delete the old ones */
     for (i = 0; i < obj->num_handles; i++)
       g_free(obj->handles[i]);
     g_free(obj->handles);
@@ -742,7 +762,7 @@ bezierconn_draw_control_lines (BezierConn *bezier,
   Point startpoint;
   int i;
   
-  /* setup DiaRenderer ... */
+  /* setup renderer ... */
   DIA_RENDERER_GET_CLASS(renderer)->set_linewidth(renderer, 0);
   DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_DOTTED);
   DIA_RENDERER_GET_CLASS(renderer)->set_dashlength(renderer, 1);
@@ -752,9 +772,9 @@ bezierconn_draw_control_lines (BezierConn *bezier,
   startpoint = bezier->points[0].p1;
   for (i = 1; i < bezier->numpoints; i++) {
     DIA_RENDERER_GET_CLASS(renderer)->draw_line(renderer, &startpoint, &bezier->points[i].p1,
-			     &line_colour);
+                             &line_colour);
     DIA_RENDERER_GET_CLASS(renderer)->draw_line(renderer, &bezier->points[i].p2, &bezier->points[i].p3,
-			     &line_colour);
+                             &line_colour);
     startpoint = bezier->points[i].p3;
   }
 }
@@ -793,16 +813,15 @@ new_handles (BezierConn *bezier, int num_points)
   }
 }
 
-/** Initialize a bezierconn object with the given amount of points.
- * The points array of the bezierconn object should be previously 
+/** Initialize a bezier object with the given amount of points.
+ * The points array of the bezier object might not be previously 
  * initialized with appropriate positions.
  * This will set up handles and make all corners symmetric.
  * @param bezier A newly allocated bezierconn object.
  * @param num_points The initial number of points on the curve.
  */
 void
-bezierconn_init (BezierConn *bezier,
-		 int num_points)
+bezierconn_init (BezierConn *bezier, int num_points)
 {
   DiaObject *obj;
   int i;
@@ -824,12 +843,14 @@ bezierconn_init (BezierConn *bezier,
 
   new_handles(bezier, num_points);
 
-  bezierconn_update_data(bezier);
+  /* The points might not be assigned at this point,
+   * so don't try to use them */
+  /* bezierconn_update_data(bezier); */
 }
 
-/** Set a bezierconn to use the given array of points.
+/** Set a bezier to use the given array of points.
  * This function does *not* set up handles
- * @param bezier A bezierconn to operate on
+ * @param bezier A bezier to operate on
  * @param num_points The number of points in the `points' array.
  * @param points The new points that this bezier should be set to use.
  */
@@ -934,7 +955,7 @@ bezierconn_save (BezierConn *bezier,
   object_save(&bezier->object, obj_node);
 
   attr = new_attribute(obj_node, "bez_points");
-  
+
   data_add_point(attr, &bezier->points[0].p1);
   for (i = 1; i < bezier->numpoints; i++) {
     if (BEZ_MOVE_TO == bezier->points[i].type)
@@ -996,13 +1017,11 @@ bezierconn_load (BezierConn *bezier,
   }
 
   bezier->corner_types = g_new(BezCornerType, bezier->numpoints);
-
   attr = object_find_attribute(obj_node, "corner_types");
   /* if corner_types is missing or corrupt */
   if (!attr || attribute_num_data(attr) != bezier->numpoints) {
-    for (i = 0; i < bezier->numpoints; i++) {
+    for (i = 0; i < bezier->numpoints; i++)
       bezier->corner_types[i] = BEZ_CORNER_SYMMETRIC;
-    }
   } else {
     data = attribute_first_data(attr);
     for (i = 0; i < bezier->numpoints; i++) {
@@ -1194,7 +1213,7 @@ bezierconn_corner_change_revert(struct CornerChange *change,
 /** Create new undo information about a changing the type of a corner.
  * Note that the created ObjectChange object has nothing in it that needs
  * freeing.
- * @param bezier The bezierconn object this applies to.
+ * @param bezier The bezier object this applies to.
  * @param handle The handle of the corner being changed.
  * @param point_left The position of the left control handle.
  * @param point_right The position of the right control handle.

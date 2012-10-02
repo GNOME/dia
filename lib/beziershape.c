@@ -91,19 +91,28 @@ beziershape_create_corner_change(BezierShape *bezier,
 
 static void new_handles_and_connections(BezierShape *bezier, int num_points);
 
+/** Set up a handle for any part of a bezier
+ * @param handle A handle to set up.
+ * @param id Handle id (HANDLE_BEZMAJOR or HANDLE_RIGHTCTRL or HANDLE_LEFTCTRL)
+ */
 static void
-setup_handle (Handle *handle, int handle_id)
+setup_handle(Handle *handle, HandleId id)
 {
-  handle->id = handle_id;
+  handle->id = id;
   handle->type =
-    (handle_id == HANDLE_BEZMAJOR) ?
+    (id == HANDLE_BEZMAJOR) ?
     HANDLE_MAJOR_CONTROL :
     HANDLE_MINOR_CONTROL;
   handle->connect_type = HANDLE_NONCONNECTABLE;
   handle->connected_to = NULL;
 }
 
-
+/** Get the number in the array of handles that a given handle has.
+ * @param bezier A bezier object with handles set up.
+ * @param handle A handle object.
+ * @returns The index in bezier->object.handles of the handle object, or -1 if
+ *          `handle' is not in the array.
+ */
 static int
 get_handle_nr (BezierShape *bezier, Handle *handle)
 {
@@ -118,6 +127,19 @@ get_handle_nr (BezierShape *bezier, Handle *handle)
 #define get_comp_nr(hnum) ((int)(hnum)/3+1)
 #define get_major_nr(hnum) (((int)(hnum)+2)/3)
 
+/*!
+ * \brief Move one of the handles associated with the
+ * @param bezier The object whose handle is being moved.
+ * @param handle The handle being moved.
+ * @param to The position it has been moved to (corrected for
+ *   vertical/horizontal only movement).
+ * @param cp If non-NULL, the connectionpoint found at this position.
+ *   If @a cp is NULL, there may or may not be a connectionpoint.
+ * @param reason ignored
+ * @param modifiers ignored
+ * @return NULL
+ * \memberof BezierShape
+ */
 ObjectChange *
 beziershape_move_handle (BezierShape *bezier,
 			 Handle *handle,
@@ -228,6 +250,14 @@ beziershape_move_handle (BezierShape *bezier,
   return NULL;
 }
 
+/*!
+ * \brief Move the entire object.
+ * @param bezier The object being moved.
+ * @param to Where the object is being moved to.  This is the first point
+ * of the points array.
+ * @return NULL
+ * \memberof _BezierConn
+ */
 ObjectChange*
 beziershape_move (BezierShape *bezier, Point *to)
 {
@@ -247,6 +277,14 @@ beziershape_move (BezierShape *bezier, Point *to)
   return NULL;
 }
 
+/*!
+ * \brief Return the segment of the bezier closest to a given point.
+ * @param bezier The bezier object
+ * @param point A point to find the closest segment to.
+ * @param line_width Line width of the bezier line.
+ * @return The index of the segment closest to point.
+ * \memberof BezierShape
+ */
 int
 beziershape_closest_segment (BezierShape *bezier,
 			     Point *point,
@@ -273,6 +311,14 @@ beziershape_closest_segment (BezierShape *bezier,
   return closest;
 }
 
+/*!
+ * \brief Return the handle closest to a given point.
+ * @param bezier A bezier object
+ * @param point A point to find distances from
+ * @return The handle on `bezier' closest to `point'.
+ *
+ * \memberof _BezierShape
+ */
 Handle *
 beziershape_closest_handle (BezierShape *bezier,
 			    Point *point)
@@ -318,6 +364,14 @@ beziershape_closest_major_handle (BezierShape *bezier, Point *point)
   return bezier->object.handles[3*pos - 1];
 }
 
+/*!
+ * \brief Return the distance from a bezier to a point.
+ * @param bezier A bezier object.
+ * @param point A point to compare with.
+ * @param line_width The line width of the bezier line.
+ * @return The shortest distance from the point to any part of the bezier.
+ * \memberof _BezierShape
+ */
 real
 beziershape_distance_from (BezierShape *bezier, Point *point, real line_width)
 {
@@ -340,16 +394,15 @@ add_handles (BezierShape *bezier,
 
   bezier->numpoints++;
   next = pos + 1;
+  bezier->points = g_realloc(bezier->points, bezier->numpoints*sizeof(BezPoint));
   if (pos == bezier->numpoints - 1)
     next = 1;
-  bezier->points = g_realloc(bezier->points,
-			     bezier->numpoints * sizeof(BezPoint));
   bezier->corner_types = g_realloc(bezier->corner_types,
 				   bezier->numpoints * sizeof(BezCornerType));
 
   for (i = bezier->numpoints - 1; i > pos; i--) {
     bezier->points[i] = bezier->points[i-1];
-    bezier->corner_types[i] =bezier->corner_types[i-1];
+    bezier->corner_types[i] = bezier->corner_types[i-1];
   }
   bezier->points[pos] = *point;
   bezier->points[pos].p1 = bezier->points[next].p1;
@@ -472,6 +525,13 @@ beziershape_add_segment (BezierShape *bezier,
 					 new_cp1, new_cp2);
 }
 
+/*!
+ * \brief Remove a segment from a bezier.
+ * @param bezier The bezier to remove a segment from.
+ * @param pos The index of the segment to remove.
+ * @returns Undo information for the segment removal.
+ * \memberof _BezierShape
+ */
 ObjectChange *
 beziershape_remove_segment (BezierShape *bezier, int pos)
 {
@@ -492,7 +552,7 @@ beziershape_remove_segment (BezierShape *bezier, int pos)
   old_handle2 = bezier->object.handles[3*pos-2];
   old_handle3 = bezier->object.handles[3*pos-1];
   old_point = bezier->points[pos];
-  /* remember the old contro point of following bezpoint */
+  /* remember the old control point of following bezpoint */
   old_point.p1 = bezier->points[next].p1;
   old_ctype = bezier->corner_types[pos];
 
@@ -513,6 +573,16 @@ beziershape_remove_segment (BezierShape *bezier, int pos)
 					 old_cp1, old_cp2);
 }
 
+/*!
+ * \brief Limit movability of control handles
+ *
+ * Update a corner to have less freedom in its control handles, arranging
+ * the control points at some reasonable places.
+ * @param bezier A bezierconn to straighten a corner of
+ * @param comp_nr The index into the corner_types array of the corner to
+ *                straighten.
+ * \memberof _BezierShape
+ */
 static void
 beziershape_straighten_corner (BezierShape *bezier, int comp_nr)
 {
@@ -804,6 +874,13 @@ new_handles_and_connections (BezierShape *bezier, int num_points)
   obj->connections[obj->num_connections-1]->flags = CP_FLAGS_MAIN;
 }
 
+/** Initialize a bezier object with the given amount of points.
+ * The points array of the bezier object might not be previously 
+ * initialized with appropriate positions.
+ * This will set up handles and make all corners symmetric.
+ * @param bezier A newly allocated beziershape object.
+ * @param num_points The initial number of points on the curve.
+ */
 void
 beziershape_init (BezierShape *bezier, int num_points)
 {
@@ -817,8 +894,9 @@ beziershape_init (BezierShape *bezier, int num_points)
   bezier->numpoints = num_points;
 
   bezier->points = g_new(BezPoint, num_points);
-  bezier->points[0].type = BEZ_MOVE_TO;
   bezier->corner_types = g_new(BezCornerType, num_points);
+  bezier->points[0].type = BEZ_MOVE_TO;
+  bezier->corner_types[0] = BEZ_CORNER_SYMMETRIC;
   for (i = 1; i < num_points; i++) {
     bezier->points[i].type = BEZ_CURVE_TO;
     bezier->corner_types[i] = BEZ_CORNER_SYMMETRIC;
@@ -826,13 +904,17 @@ beziershape_init (BezierShape *bezier, int num_points)
 
   new_handles_and_connections(bezier, num_points);
 
-  /* The points are not assigned at this point, so don't try to use
-     them */
+  /* The points might not be assigned at this point,
+   * so don't try to use them */
   /*  beziershape_update_data(bezier);*/
 }
 
-
-/** This function does *not* set up handles */
+/** Set a bezier to use the given array of points.
+ * This function does *not* set up handles
+ * @param bezier A bezier to operate on
+ * @param num_points The number of points in the `points' array.
+ * @param points The new points that this bezier should be set to use.
+ */
 void
 beziershape_set_points (BezierShape *bezier,
 			int num_points,
@@ -852,6 +934,11 @@ beziershape_set_points (BezierShape *bezier,
   }
 }
 
+
+/** Copy a beziershape objects.  This function in turn invokes object_copy.
+ * @param from The object to copy from.
+ * @param to The object to copy to.
+ */
 void
 beziershape_copy (BezierShape *from, BezierShape *to)
 {
@@ -890,14 +977,15 @@ beziershape_copy (BezierShape *from, BezierShape *to)
 void
 beziershape_destroy (BezierShape *bezier)
 {
-  int i;
+  int i, nh;
   Handle **temp_handles;
   ConnectionPoint **temp_cps;
 
   /* Need to store these temporary since object.handles is
      freed by object_destroy() */
-  temp_handles = g_new(Handle *, bezier->object.num_handles);
-  for (i = 0; i < bezier->object.num_handles; i++)
+  nh = bezier->object.num_handles;
+  temp_handles = g_new(Handle *, nh);
+  for (i = 0; i < nh; i++)
     temp_handles[i] = bezier->object.handles[i];
 
   temp_cps = g_new(ConnectionPoint *, bezier->object.num_connections);
@@ -906,7 +994,7 @@ beziershape_destroy (BezierShape *bezier)
   
   object_destroy(&bezier->object);
 
-  for (i = 0; i < bezier->object.num_handles; i++)
+  for (i = 0; i < nh; i++)
     g_free(temp_handles[i]);
   g_free(temp_handles);
 
@@ -919,6 +1007,10 @@ beziershape_destroy (BezierShape *bezier)
 }
 
 
+/** Save the data defined by a beziershape object to XML.
+ * @param bezier The object to save.
+ * @param obj_node The XML node to save it into
+ */
 void
 beziershape_save (BezierShape *bezier,
 		  ObjectNode obj_node)
@@ -945,6 +1037,12 @@ beziershape_save (BezierShape *bezier,
     data_add_enum(attr, bezier->corner_types[i]);
 }
 
+/** Load a beziershape object from XML.
+ * Does object_init() on the bezierconn object.
+ * @param bezier A newly allocated bezierconn object to load into.
+ * @param obj_node The XML node to load from.
+ * @param ctx The context in which this function is called
+ */
 void
 beziershape_load (BezierShape *bezier,
 		  ObjectNode obj_node,
@@ -992,6 +1090,7 @@ beziershape_load (BezierShape *bezier,
 
   bezier->corner_types = g_new(BezCornerType, bezier->numpoints);
   attr = object_find_attribute(obj_node, "corner_types");
+  /* if corner_types is missing or corrupt */
   if (!attr || attribute_num_data(attr) != bezier->numpoints) {
     for (i = 0; i < bezier->numpoints; i++)
       bezier->corner_types[i] = BEZ_CORNER_SYMMETRIC;
@@ -1021,6 +1120,11 @@ beziershape_load (BezierShape *bezier,
   beziershape_update_data(bezier);
 }
 
+/*** Undo support ***/
+
+/** Free undo information about adding or removing points.
+ * @param change The undo information to free.
+ */
 static void
 beziershape_point_change_free (struct BezPointChange *change)
 {
@@ -1039,6 +1143,10 @@ beziershape_point_change_free (struct BezPointChange *change)
   }
 }
 
+/** Apply a point addition/removal.
+ * @param change The change to apply.
+ * @param obj The object (must be a BezierShape) to apply the change to.
+ */
 static void
 beziershape_point_change_apply (struct BezPointChange *change, DiaObject *obj)
 {
@@ -1059,6 +1167,10 @@ beziershape_point_change_apply (struct BezPointChange *change, DiaObject *obj)
   }
 }
 
+/** Revert (unapply) a point addition/removal.
+ * @param change The change to revert.
+ * @param obj The object (must be a BezierShape) to revert the change of.
+ */
 static void
 beziershape_point_change_revert (struct BezPointChange *change, DiaObject *obj)
 {
@@ -1113,6 +1225,11 @@ beziershape_create_point_change (BezierShape *bezier,
   return (ObjectChange *)change;
 }
 
+/** Apply a change of corner type.  This may change the position of the
+ * control handles by calling beziershape_straighten_corner.
+ * @param change The undo information to apply.
+ * @param obj The object to apply the undo information too.
+ */
 static void
 beziershape_corner_change_apply (struct CornerChange *change,
 				 DiaObject *obj)
@@ -1132,6 +1249,11 @@ beziershape_corner_change_apply (struct CornerChange *change,
   change->applied = 1;
 }
 
+/** Revert (unapply) a change of corner type.  This may move the position
+ * of the control handles to what they were before applying.
+ * @param change Undo information to apply.
+ * @param obj The beziershape object to apply the change to.
+ */
 static void
 beziershape_corner_change_revert (struct CornerChange *change,
 				  DiaObject *obj)
@@ -1154,6 +1276,17 @@ beziershape_corner_change_revert (struct CornerChange *change,
   change->applied = 0;
 }
 
+/** Create new undo information about a changing the type of a corner.
+ * Note that the created ObjectChange object has nothing in it that needs
+ * freeing.
+ * @param bezier The bezier object this applies to.
+ * @param handle The handle of the corner being changed.
+ * @param point_left The position of the left control handle.
+ * @param point_right The position of the right control handle.
+ * @param old_corner_type The corner type before applying.
+ * @param new_corner_type The corner type being changed to.
+ * @returns Newly allocated undo information.
+ */
 static ObjectChange *
 beziershape_create_corner_change (BezierShape *bezier,
 				  Handle *handle,
