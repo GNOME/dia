@@ -724,7 +724,7 @@ orthconn_delete_segment(OrthConn *orth, Point *clickedpoint)
   int segment;
   ObjectChange *change = NULL;
   
-  if (orth->numpoints==3)
+  if (!orthconn_can_delete_segment(orth, clickedpoint))
     return NULL;
   
   segment = get_segment_nr(orth, clickedpoint, 1.0);
@@ -766,6 +766,9 @@ orthconn_add_segment(OrthConn *orth, Point *clickedpoint)
   int segment;
   Point newpoint;
   
+  if (!orthconn_can_add_segment(orth, clickedpoint))
+    return NULL;
+
   segment = get_segment_nr(orth, clickedpoint, 1.0);
   if (segment < 0)
     return NULL;
