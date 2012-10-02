@@ -555,10 +555,11 @@ lifeline_get_object_menu(Lifeline *lifeline, Point *clickedpoint)
              lifeline->southeast->num_connections) );
 
   object_menu_items[0].active = 1;
+  /* don't allow to remove the last connection point */
   if (lifeline_point_above_mid (lifeline, clickedpoint))
-    object_menu_items[1].active = (lifeline->northeast->num_connections > 0);
+    object_menu_items[1].active = (lifeline->northeast->num_connections > 1);
   else
-    object_menu_items[1].active = (lifeline->southeast->num_connections > 0);
+    object_menu_items[1].active = (lifeline->southeast->num_connections > 1);
 
   return &object_menu;
 }
