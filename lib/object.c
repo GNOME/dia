@@ -360,7 +360,15 @@ static PropDescription _style_prop_descs[] = {
   PROP_STD_LINE_JOIN,
   PROP_STD_LINE_CAPS,
   PROP_STD_FILL_COLOUR,
+#if 0 /* not this way */
   PROP_STD_TEXT,
+#else
+  PROP_STD_TEXT_ALIGNMENT,
+  PROP_STD_TEXT_FONT,
+  PROP_STD_TEXT_HEIGHT,
+  PROP_STD_TEXT_COLOUR,
+  PROP_STD_TEXT_FITTING,
+#endif
   PROP_DESC_END
 };
 

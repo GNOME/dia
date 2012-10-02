@@ -61,10 +61,13 @@ do_get_props_from_offsets(void *base,
   for (i = 0; i < props->len; i++) {
     Property *prop = g_ptr_array_index(props,i);
     const PropOffset *ofs;
+    /* nothing set yet - may happen with a foreign property list */
+    prop->experience |= PXP_NOTSET;
     for (ofs = offsets; ofs->name ; ofs++) {
       if ((prop->name_quark == ofs->name_quark) &&
           (prop->type_quark == ofs->type_quark)) {
         prop->ops->get_from_offset(prop,base,ofs->offset,ofs->offset2);
+        prop->experience &= ~PXP_NOTSET;
         break;
       }                                    
     }
