@@ -290,7 +290,7 @@ popup_object_menu(DDisplay *ddisp, GdkEventButton *bevent)
     num_items = 0;
   } else {
     dia_menu = (obj->ops->get_object_menu)(obj, &last_clicked_pos);
-    num_items = dia_menu->num_items;
+    num_items = dia_menu ? dia_menu->num_items : 0;
   }
 
   if (dia_menu->app_data == NULL) {
