@@ -89,7 +89,7 @@ struct _DiaLayerWidgetClass
   GtkListItemClass parent_class;
 };
 
-GtkType    dia_layer_widget_get_type(void);
+GType dia_layer_widget_get_type(void);
 
 struct LayerDialog {
   GtkWidget *dialog;
