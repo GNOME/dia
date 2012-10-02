@@ -749,36 +749,6 @@ bezierconn_update_boundingbox (BezierConn *bezier)
                   &bezier->object.bounding_box);
 }
 
-/** Draw the control lines from the points of the bezier conn.
- * Note that the control lines are hardcoded to be dotted with dash length 1.
- * @param bezier The bezier conn to draw control lines for.
- * @param renderer A renderer to draw with.
- */
-void
-bezierconn_draw_control_lines (BezierConn *bezier,
-			       DiaRenderer *renderer)
-{
-  Color line_colour = { 0.0, 0.0, 0.6, 1.0 };
-  Point startpoint;
-  int i;
-  
-  /* setup renderer ... */
-  DIA_RENDERER_GET_CLASS(renderer)->set_linewidth(renderer, 0);
-  DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_DOTTED);
-  DIA_RENDERER_GET_CLASS(renderer)->set_dashlength(renderer, 1);
-  DIA_RENDERER_GET_CLASS(renderer)->set_linejoin(renderer, LINEJOIN_MITER);
-  DIA_RENDERER_GET_CLASS(renderer)->set_linecaps(renderer, LINECAPS_BUTT);
-
-  startpoint = bezier->bezier.points[0].p1;
-  for (i = 1; i < bezier->bezier.num_points; i++) {
-    DIA_RENDERER_GET_CLASS(renderer)->draw_line(renderer, &startpoint, &bezier->bezier.points[i].p1,
-                             &line_colour);
-    DIA_RENDERER_GET_CLASS(renderer)->draw_line(renderer, &bezier->bezier.points[i].p2, &bezier->bezier.points[i].p3,
-                             &line_colour);
-    startpoint = bezier->bezier.points[i].p3;
-  }
-}
-
 /** Create all handles used by a bezier conn.
  * @param bezier A bezierconn object initialized with room for 3*num_points-2
  * handles.
