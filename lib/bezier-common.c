@@ -31,7 +31,9 @@
  * \brief Calculate BezCornerType just from the _BezPoint
  *
  * The bezier line/shape is fully described just with the array of BezPoint.
- * For convenience and editing there also is an BezierConn::corner_types
+ * For convenience and editing there also is an BezierConn::corner_types.
+ * This function adjust the corner types in the given array to match
+ * the bezier points.
  */
 static void
 bezier_calc_corner_types (BezierCommon *bezier)
@@ -40,7 +42,7 @@ bezier_calc_corner_types (BezierCommon *bezier)
   int num = bezier->num_points;
   const real tolerance = 0.00001; /* EPSILON */
 
-  g_return_if_fail (bezier->num_points < 2);
+  g_return_if_fail (bezier->num_points > 1);
 
   bezier->corner_types = g_realloc (bezier->corner_types, bezier->num_points * sizeof(BezCornerType));
   bezier->corner_types[0] = BEZ_CORNER_CUSP;
