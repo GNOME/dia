@@ -31,6 +31,8 @@
 #include "text.h"
 #include "attributes.h"
 #include "properties.h"
+#include "diamenu.h"
+#include "create.h"
 
 #include "tool-icons.h"
 
@@ -92,6 +94,8 @@ static void textobj_set_props(Textobj *textobj, GPtrArray *props);
 static void textobj_save(Textobj *textobj, ObjectNode obj_node,
 			 const char *filename);
 static DiaObject *textobj_load(ObjectNode obj_node, int version, DiaContext *ctx);
+static DiaMenu *textobj_get_object_menu(Textobj *textobj, Point *clickedpoint);
+
 static void textobj_valign_point(Textobj *textobj, Point* p, real factor);
 
 static ObjectTypeOps textobj_type_ops =
@@ -165,7 +169,7 @@ static ObjectOps textobj_ops = {
   (MoveHandleFunc)      textobj_move_handle,
   (GetPropertiesFunc)   object_create_props_dialog,
   (ApplyPropertiesDialogFunc) object_apply_props_from_dialog,
-  (ObjectMenuFunc)      NULL,
+  (ObjectMenuFunc)      textobj_get_object_menu,
   (DescribePropsFunc)   object_describe_props,
   (GetPropsFunc)        textobj_get_props,
   (SetPropsFunc)        textobj_set_props,
@@ -423,4 +427,51 @@ textobj_load(ObjectNode obj_node, int version, DiaContext *ctx)
   textobj_update_data(textobj);
 
   return &textobj->object;
+}
+
+static ObjectChange *
+_textobj_convert_to_path_callback (DiaObject *obj, Point *clicked, gpointer data)
+{
+  Textobj *textobj = (Textobj *)obj;
+  const Text *text = textobj->text;
+  DiaObject *path = NULL;
+
+  if (!text_is_empty(text)) /* still screwed with empty lines ;) */
+    path = create_standard_path_from_text (text);
+
+  if (path) {
+    ObjectChange *change;
+    Color bg = textobj->fill_color;
+
+    /* FIXME: otherwise object_substitue() will tint the text with bg */
+    textobj->fill_color = text->color;
+    change = object_substitute (obj, path);
+    /* restore */
+    textobj->fill_color = bg;
+
+    return change;
+  }
+  /* silently fail */
+  return change_list_create ();
+}
+static DiaMenuItem textobj_menu_items[] = {
+  { N_("Convert to Path"), _textobj_convert_to_path_callback, NULL, DIAMENU_ACTIVE }
+};
+
+static DiaMenu textobj_menu = {
+  "Text",
+  sizeof(textobj_menu_items)/sizeof(DiaMenuItem),
+  textobj_menu_items,
+  NULL
+};
+
+static DiaMenu *
+textobj_get_object_menu(Textobj *textobj, Point *clickedpoint)
+{
+  const Text *text = textobj->text;
+  
+  /* Set entries sensitive/selected etc here */
+  textobj_menu_items[0].active = (text->numlines > 0) ? DIAMENU_ACTIVE : 0;
+
+  return &textobj_menu;
 }
