@@ -406,8 +406,9 @@ compfeat_create(Point *startpoint,
 
   if (compfeat->role == COMPPROP_FACET
       || compfeat->role == COMPPROP_EVENTSOURCE) {
+    int pos = obj->num_connections;
     object_add_connectionpoint(&orth->object, &compfeat->cp);
-    obj->connections[0] = &compfeat->cp;
+    obj->connections[pos] = &compfeat->cp;
     compfeat->cp.object = obj;
     compfeat->cp.connected = NULL;
   }
@@ -424,6 +425,12 @@ compfeat_create(Point *startpoint,
 static void
 compfeat_destroy(Compfeat *compfeat)
 {
+  OrthConn *orth = &compfeat->orth;
+
+  if (compfeat->role == COMPPROP_FACET
+      || compfeat->role == COMPPROP_EVENTSOURCE) {
+    object_remove_connectionpoint(&orth->object, &compfeat->cp);
+  }
   text_destroy(compfeat->text);
   orthconn_destroy(&compfeat->orth);
 }
