@@ -624,7 +624,7 @@ ddisplay_flush(DDisplay *ddisp)
     ddisp->update_id = g_idle_add_full (G_PRIORITY_HIGH_IDLE+15, (GSourceFunc)ddisplay_update_handler, ddisp, NULL);
   if (ddisp->display_areas) {
     IRectangle *r = (IRectangle *)ddisp->display_areas->data;
-    g_print ("DispUpdt: %4d,%3d - %4d,%3d\n", r->left, r->top, r->right, r->bottom);
+    dia_log_message ("DispUpdt: %4d,%3d - %4d,%3d\n", r->left, r->top, r->right, r->bottom);
   }
 }
 
