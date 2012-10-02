@@ -70,7 +70,7 @@ struct TextObjectChange {
 
 /* *** Encapsulation functions for transferring to text_line *** */
 gchar *
-text_get_line(Text *text, int line)
+text_get_line(const Text *text, int line)
 {
   return text_line_get_string(text->lines[line]);
 }
@@ -130,7 +130,7 @@ text_insert_line(Text *text, int line_no)
  * @returns The width in cm of the indicated line.
  */
 real
-text_get_line_width(Text *text, int line_no)
+text_get_line_width(const Text *text, int line_no)
 {
   return text_line_get_width(text->lines[line_no]);
 }
@@ -141,7 +141,7 @@ text_get_line_width(Text *text, int line_no)
  * @returns The number of UTF-8 characters of the indicated line.
  */
 int
-text_get_line_strlen(Text *text, int line_no)
+text_get_line_strlen(const Text *text, int line_no)
 {
   return g_utf8_strlen(text_line_get_string(text->lines[line_no]), -1);
 }
@@ -475,7 +475,7 @@ text_calc_boundingbox(Text *text, Rectangle *box)
 }
 
 char *
-text_get_string_copy(Text *text)
+text_get_string_copy(const Text *text)
 {
   int num,i;
   char *str;
@@ -1038,7 +1038,7 @@ text_key_event(Focus *focus,
   return return_val;
 }
 
-int text_is_empty(Text *text)
+int text_is_empty(const Text *text)
 {
   int i;
   for (i = 0; i < text->numlines; i++) {

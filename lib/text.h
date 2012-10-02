@@ -73,8 +73,8 @@ Text *new_text(const char *string, DiaFont *font, real height,
 Text *new_text_default(Point *pos, Color *color, Alignment align);
 void text_destroy(Text *text);
 Text *text_copy(Text *text);
-gchar *text_get_line(Text *text, int line);
-char *text_get_string_copy(Text *text);
+gchar *text_get_line(const Text *text, int line);
+char *text_get_string_copy(const Text *text);
 void text_set_string(Text *text, const char *string);
 void text_set_height(Text *text, real height);
 void text_set_font(Text *text, DiaFont *font);
@@ -88,13 +88,13 @@ void text_set_cursor(Text *text, Point *clicked_point,
 		     DiaRenderer *interactive_renderer);
 void text_set_cursor_at_end( Text* text );
 void text_grab_focus(Text *text, DiaObject *object);
-int text_is_empty(Text *text);
+int text_is_empty(const Text *text);
 int text_delete_all(Text *text, ObjectChange **change, DiaObject *obj);
 void text_get_attributes(Text *text, TextAttributes *attr);
 void text_set_attributes(Text *text, TextAttributes *attr);
 
-real text_get_line_width(Text *text, int line_no);
-int text_get_line_strlen(Text *text, int line_no);
+real text_get_line_width(const Text *text, int line_no);
+int text_get_line_strlen(const Text *text, int line_no);
 real text_get_max_width(Text *text);
 real text_get_ascent(Text *text);
 real text_get_descent(Text *text);
