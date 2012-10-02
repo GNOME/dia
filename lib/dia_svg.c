@@ -646,11 +646,12 @@ _path_arc(GArray *points, double cpx, double cpy,
 /* routine to chomp off the start of the string */
 #define path_chomp(path) while (path[0]!='\0'&&strchr(" \t\n\r,", path[0])) path++
 
-/** Takes SVG path content and converts it in an array of BezPoint.
+/*!
+ * \brief Takes SVG path content and converts it in an array of BezPoint.
  *
- *  SVG pathes can contain multiple MOVE_TO commands while Dia's bezier
- *  object can only contain one so you may need to call this function
- *  multiple times.
+ * SVG pathes can contain multiple MOVE_TO commands while Dia's bezier
+ * object can only contain one so you may need to call this function
+ * multiple times.
  *
  * @param path_str A string describing an SVG path.
  * @param unparsed The position in `path_str' where parsing ended, or NULL if
@@ -658,8 +659,7 @@ _path_arc(GArray *points, double cpx, double cpy,
  *                 calling the function until it is fully parsed.
  * @param closed Whether the path was closed.
  * @param current_point to retain it over splitting
- * @returns Array of BezPoint objects, or NULL if an error occurred.
- *          The caller is responsible for freeing the array.
+ * @return TRUE if there is any useful data in parsed to points
  * @bug This function is way too long (324 lines). So dont touch it. please!
  * Shouldn't we try to turn straight lines, simple arc, polylines and
  * zigzaglines into their appropriate objects?  Could either be done by
@@ -668,8 +668,9 @@ _path_arc(GArray *points, double cpx, double cpy,
  * NOPE: Dia is capable to handle beziers and the file has given us some so 
  * WHY should be break it in to pieces ???
  */
-GArray*
-dia_svg_parse_path(const gchar *path_str, gchar **unparsed, gboolean *closed, Point *current_point)
+gboolean
+dia_svg_parse_path(GArray *points, const gchar *path_str, gchar **unparsed,
+		   gboolean *closed, Point *current_point)
 {
   enum {
     PATH_MOVE, PATH_LINE, PATH_HLINE, PATH_VLINE, PATH_CURVE,
@@ -678,10 +679,11 @@ dia_svg_parse_path(const gchar *path_str, gchar **unparsed, gboolean *closed, Po
   Point last_point = {0.0, 0.0};
   Point last_control = {0.0, 0.0};
   gboolean last_relative = FALSE;
-  GArray *points;
   BezPoint bez = { 0, };
   gchar *path = (gchar *)path_str;
   gboolean need_next_element = FALSE;
+  /* we can grow the same array in multiple steps */
+  gsize points_at_start = points->len;
 
   *closed = FALSE;
   *unparsed = NULL;
@@ -689,9 +691,6 @@ dia_svg_parse_path(const gchar *path_str, gchar **unparsed, gboolean *closed, Po
   /* when splitting into pieces, we have to maintain current_point accross them */
   if (current_point)
     last_point = *current_point;
-
-  points = g_array_new(FALSE, FALSE, sizeof(BezPoint));
-  g_array_set_size(points, 0);
 
   path_chomp(path);
   while (path[0] != '\0') {
@@ -703,7 +702,7 @@ dia_svg_parse_path(const gchar *path_str, gchar **unparsed, gboolean *closed, Po
     case 'M':
 #undef MULTI_MOVE_BEZIER /* Dia XML serialization can't cope with it */
 #ifndef MULTI_MOVE_BEZIER
-      if (points->len > 0) {
+      if (points->len - points_at_start > 0) {
 	need_next_element = TRUE;
 	goto MORETOPARSE;
       }
@@ -838,7 +837,7 @@ dia_svg_parse_path(const gchar *path_str, gchar **unparsed, gboolean *closed, Po
     switch (last_type) {
     case PATH_MOVE:
 #ifndef MULTI_MOVE_BEZIER
-      if (points->len > 1)
+      if (points->len - points_at_start > 1)
 	g_warning ("Only first point should be 'move'");
 #endif
       bez.type = BEZ_MOVE_TO;
@@ -1008,11 +1007,13 @@ dia_svg_parse_path(const gchar *path_str, gchar **unparsed, gboolean *closed, Po
       }
       break;
     case PATH_CLOSE:
-      /* close the path with a line */
-      if (last_open.x != last_point.x || last_open.y != last_point.y) {
+      /* close the path with a line - second condition to ignore single close */
+      if (   (last_open.x != last_point.x || last_open.y != last_point.y)
+	  && (points->len != points_at_start)) {
 	bez.type = BEZ_LINE_TO;
 	bez.p1 = last_open;
 	g_array_append_val(points, bez);
+	last_point = last_open;
       }
       *closed = TRUE;
 #ifndef MULTI_MOVE_BEZIER
@@ -1026,6 +1027,8 @@ MORETOPARSE:
       /* check if there really is more to be parsed */
       if (path[0] != 0)
 	*unparsed = path;
+      else
+	*unparsed = NULL;
       break; /* while */
     }
   }
@@ -1039,7 +1042,7 @@ MORETOPARSE:
   }
   if (current_point)
     *current_point = last_point;
-  return points;
+  return (points->len > 1);
 }
 
 DiaMatrix *

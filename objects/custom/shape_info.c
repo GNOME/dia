@@ -159,8 +159,11 @@ parse_path(ShapeInfo *info, const char *path_str, DiaSvgStyle *s, const char* fi
   gboolean closed = FALSE;
   Point current_point = {0.0, 0.0};
 
+  points = g_array_new(FALSE, FALSE, sizeof(BezPoint));
+  g_array_set_size(points, 0);
   do {
-    points = dia_svg_parse_path (pathdata, &unparsed, &closed, &current_point);
+    if (!dia_svg_parse_path (points, pathdata, &unparsed, &closed, &current_point))
+      break;
 
     if (points->len > 0) {
       if (g_array_index(points, BezPoint, 0).type != BEZ_MOVE_TO) {
@@ -493,7 +496,7 @@ parse_svg_node(ShapeInfo *info, xmlNodePtr node, xmlNsPtr svg_ns,
           image->image = dia_image_load(imgfn);
 	}
         if (!image->image)
-          g_warning("failed to load image file %s", imgfn ? imgfn : "(data:)");
+          g_debug("failed to load image file %s", imgfn ? imgfn : "(data:)");
         g_free(imgfn);
         xmlFree(str);
       }

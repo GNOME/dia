@@ -328,6 +328,7 @@ read_path_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list, DiaContex
     gint i;
     DiaMatrix *matrix = NULL;
     Point current_point = {0.0, 0.0};
+    gboolean use_stdpath = FALSE;
 
     str = xmlGetProp(node, (const xmlChar *)"transform");
     if (str) {
@@ -337,25 +338,50 @@ read_path_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list, DiaContex
 
     str = xmlGetProp(node, (const xmlChar *)"d");
     pathdata = (char *)str;
+    bezpoints = g_array_new(FALSE, FALSE, sizeof(BezPoint));
+    g_array_set_size(bezpoints, 0);
     do {
-      bezpoints = dia_svg_parse_path (pathdata, &unparsed, &closed, &current_point);
+      int first = bezpoints->len;
+      if (!dia_svg_parse_path (bezpoints, pathdata, &unparsed, &closed, &current_point))
+        break;
 
       if (!closed) {
 	/* expensive way to possibly close the path */
 	DiaSvgStyle *gs = g_new0(DiaSvgStyle, 1);
+	BezPoint bp;
 
 	dia_svg_style_init (gs, NULL);
 	dia_svg_parse_style(node, gs, user_scale);
 	if (gs->font)
           dia_font_unref (gs->font);
 	closed = (gs->fill != DIA_SVG_COLOUR_NONE);
+	/* if we close it here add an explicit line-to */
+	if (closed) {
+	  bp.type = BEZ_LINE_TO;
+	  bp.p1 = g_array_index(bezpoints, BezPoint, first).p1;
+	  g_array_append_val (bezpoints, bp);
+	}
         g_free(gs);
       }
-      if (bezpoints && bezpoints->len > 0) {
+      if (unparsed) {
+        use_stdpath = TRUE;
+      } else if (bezpoints && bezpoints->len > 0) {
+	/* A stray 'z' can produce extra runs without adding any new BEZ_MOVE_TO.
+	 * To have the optimum representaion with Dia's objects we check again.
+	 */
+	if (use_stdpath) {
+	  int move_tos = 0;
+	  for (i = 0; i < bezpoints->len; ++i)
+	    if (g_array_index(bezpoints, BezPoint, i).type == BEZ_MOVE_TO)
+	      ++move_tos;
+	  use_stdpath = (move_tos > 1);
+	}
         if (g_array_index(bezpoints, BezPoint, 0).type != BEZ_MOVE_TO) {
           dia_context_add_message(ctx, _("Invalid path data.\n"
 					 "svg:path data must start with moveto."));
 	  break;
+	} else if (use_stdpath) {
+	  otype = object_get_type("Standard - Path");
         } else if (!closed)
 	  otype = object_get_type("Standard - BezierLine");
         else
