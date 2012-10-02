@@ -24,7 +24,7 @@ all :	$(TESTS)
 	$(CC) $(CFLAGS) -Fe$@ $< ..\lib\libdia.lib $(GLIB_LIBS) $(LDFLAGS) user32.lib /subsystem:console
 
 check:	all
-	for %p in ($(TESTS)) do set PATH=..\lib;%PATH% && %p ..\objects\standard\\
+	for %p in ($(TESTS)) do set PATH=..\lib;%PATH% && %p ..\objects\UML\\
 
 test: all
 	for %p in ($(TESTS)) do set PATH=..\lib;%PATH% && %p ..\objects\\

@@ -201,7 +201,7 @@ _test_movement (const DiaObjectType *type)
       || strcmp (type->name, "Cybernetics - r-sens") == 0
       || strcmp (type->name, "Cybernetics - t-sens") == 0
       ) /* not nice, but also not a reason to fail */
-    epsilon = 0.05 + EPSILON;
+    epsilon = 0.5 + EPSILON;
   else
     epsilon = EPSILON;
 
@@ -229,6 +229,7 @@ _test_movement (const DiaObjectType *type)
       || strcmp (type->name, "Cisco - ATM Tag Switch Router") == 0 /* height off 0.7 */
       /* FIXME: this shape should be simple enough to actually fix the bug */
       || strcmp (type->name, "Assorted - Heart") == 0 /* height off 0.05 */
+      || strstr (type->name, "Bugs -") == type->name
      )
     g_print ("SKIPPED! ");
   else
@@ -305,6 +306,11 @@ _test_move_handle (const DiaObjectType *type)
 	  if (h2->connect_type == HANDLE_CONNECTABLE)
 	    {
 	      o2 = create_standard_box (5.0, 5.0, 2.0, 2.0);
+	      if (!o2) {
+		/* this may happen if Standard objects are not included */
+		g_test_message ("SKIPPED connect test.");
+		break;
+	      }
 	      g_assert(o2->num_connections > 0);
 	      cp = o2->connections[0];
 	      object_connect(o, h2, cp);
@@ -392,6 +398,62 @@ _test_connectionpoint_consistency (const DiaObjectType *type)
   o->ops->destroy (o);  
   g_free (o);
 }
+static void
+_test_object_menu (const DiaObjectType *type)
+{
+  Handle *h1 = NULL, *h2 = NULL;
+  Point from = {0, 0};
+  DiaObject *o = type->ops->create (&from, type->default_user_data, &h1, &h2);
+  int i;
+
+  /* the method itself is optional */
+  if (!o->ops->get_object_menu) {
+    g_print ("SKIPPED (n.i.)!");
+  } else {
+    DiaMenu *menu = (o->ops->get_object_menu)(o, &from); /* clicked_pos should not matter much */
+    /* strangley enough I found a crash with menu==NULL today ;) */
+    int num_items = menu ? menu->num_items : 0;
+
+    for (i = 0; i < num_items; ++i) {
+      DiaMenuItem *item;
+
+      /* Every call below might update availability of the active items */
+      menu = (o->ops->get_object_menu)(o, &from);
+      item = &menu->items[i];
+
+      if (item->text) /* the second form is a submenu, see: "FS - Function" */
+        g_assert (item->callback != NULL || ((DiaMenu*)item->callback_data)->num_items > 0);
+      else
+        g_assert (item->callback == NULL && "Separator with callback?");
+
+      g_assert ((item->active & ~(DIAMENU_ACTIVE|DIAMENU_TOGGLE|DIAMENU_TOGGLE_ON)) == 0);
+
+      /* if we have a callback active, call it */
+      if (item->callback && (item->active & DIAMENU_ACTIVE))
+      {
+	ObjectChange *change;
+
+	/* g_test_message() does not show normally */
+	g_print ("\n\tCalling '%s'...", item->text);
+	change = (item->callback)(o, &from, item->callback_data);
+	if (!change) {
+	  g_test_message ("Undo/redo missing: %s\n", item->text);
+	} else {
+	  /* Don't just call _object_change_free(change);
+	   * For 'Convert to *' this will screw up (destroy) the object 
+	   * at hand'. So revert first, afterwards destroy the change.
+	   * The object parameter is deprecated, but still necessary!
+	   */
+	  (change->revert)(change, o);
+	  _object_change_free(change);
+	}
+      }
+    }
+  }
+  /* finally */
+  o->ops->destroy (o);  
+  g_free (o);
+}
 
 /*
  * A dictionary interface to all registered object(-types)
@@ -429,6 +491,10 @@ _ot_item (gpointer key,
   
   testpath = g_strdup_printf ("%s/%s/%s", base, name, "ConnectionPoints");
   g_test_add_data_func (testpath, type, _test_connectionpoint_consistency);
+  g_free (testpath);
+
+  testpath = g_strdup_printf ("%s/%s/%s", base, name, "ObjectMenu");
+  g_test_add_data_func (testpath, type, _test_object_menu);
   g_free (testpath);
 
   ++num_objects;
