@@ -234,6 +234,21 @@ customline_create(Point *startpoint,
     return NULL;
   }
 
+  /* last chance to make the type information complete */
+  if (!line_info->object_type->prop_offsets)
+  {
+    DiaObjectType *ot = line_info->object_type;
+    
+    if (line_info->type == CUSTOM_LINETYPE_ZIGZAGLINE)
+      ot->prop_offsets = zigzag_ot->prop_offsets;
+    else if (line_info->type == CUSTOM_LINETYPE_POLYLINE)
+      ot->prop_offsets = polyline_ot->prop_offsets;
+    else if (line_info->type == CUSTOM_LINETYPE_BEZIERLINE)
+      ot->prop_offsets = bezier_ot->prop_offsets;
+    else
+      g_warning("INTERNAL: CustomLines: Illegal line type in LineInfo object %s.", ot->name);
+  }
+
   if (line_info->type == CUSTOM_LINETYPE_ZIGZAGLINE)
     res = zigzag_ot->ops->create( startpoint, NULL, handle1, handle2 );
   else if (line_info->type == CUSTOM_LINETYPE_POLYLINE)
@@ -266,11 +281,25 @@ custom_linetype_new(LineInfo *info, DiaObjectType **otype)
   else if (info->type == CUSTOM_LINETYPE_BEZIERLINE)
     obj->ops = &custom_bezierline_type_ops;
   else
-    g_warning(_("INTERNAL: CustomLines: Illegal line type in LineInfo object %s."),
-              obj->name);
+    g_warning("INTERNAL: CustomLines: Illegal line type in LineInfo object %s.", obj->name);
 
   obj->name = info->name;
   obj->default_user_data = info;
+  /* we have to either intialize both, or ... 
+   * provide our own vtable entries for describe_props and get_props
+   */
+  obj->prop_descs = _customline_prop_descs;
+  if (ensure_standard_types())
+  {
+    if (info->type == CUSTOM_LINETYPE_ZIGZAGLINE)
+      obj->prop_offsets = zigzag_ot->prop_offsets;
+    else if (info->type == CUSTOM_LINETYPE_POLYLINE)
+      obj->prop_offsets = polyline_ot->prop_offsets;
+    else if (info->type == CUSTOM_LINETYPE_BEZIERLINE)
+      obj->prop_offsets = bezier_ot->prop_offsets;
+    else
+      g_warning("INTERNAL: CustomLines: Illegal line type in LineInfo object %s.", obj->name);
+  }
 
   if (info->icon_filename) {
     struct stat buf;
@@ -278,8 +307,7 @@ custom_linetype_new(LineInfo *info, DiaObjectType **otype)
       obj->pixmap = NULL;
       obj->pixmap_file = info->icon_filename;
     } else {
-      g_warning(_("Cannot open icon file %s for object type '%s'."),
-                info->icon_filename, obj->name);
+      g_warning("Cannot open icon file %s for object type '%s'.", info->icon_filename, obj->name);
     }
   }
 
