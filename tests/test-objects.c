@@ -164,7 +164,7 @@ _test_copy (const DiaObjectType *type)
   g_free (oc);
 }
 
-/* samll helper to just throw it away */
+/* small helper to just throw it away */
 static void
 _object_change_free(ObjectChange *change)
 {
@@ -371,11 +371,6 @@ _test_connectionpoint_consistency (const DiaObjectType *type)
     if (cp->directions == DIR_ALL)
       continue; /* may use this as misplaced mainpoint check? */
     if (   strcmp (type->name, "chronogram - reference") == 0
-        || strcmp (type->name, "SISSI - faraday") == 0
-        || strcmp (type->name, "SISSI - sissi_object") == 0
-        || strcmp (type->name, "SISSI - area") == 0
-        || strcmp (type->name, "SISSI - site") == 0
-        || strcmp (type->name, "SISSI - room") == 0
         || strcmp (type->name, "BPMN - Data-Object") == 0
         || strcmp (type->name, "Optics - Scope") == 0
         || strcmp (type->name, "Optics - Spectrum") == 0
