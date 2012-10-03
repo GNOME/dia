@@ -203,7 +203,7 @@ _dae_draw(DiagramAsElement *dae, DiaRenderer *renderer)
 	gchar *imgfname = NULL;
 	gint fd = g_file_open_tmp ("diagram-as-elementXXXXXX.png", &imgfname, NULL);
 	if (fd != -1) {
-          DiaExportFilter *ef = filter_get_by_name ("cairo-alpha-png");
+          DiaExportFilter *ef = filter_export_get_by_name ("cairo-alpha-png");
 	  if (!ef) /* prefer cairo with alpha, but don't require it */
 	    ef = filter_guess_export_filter (imgfname);
 	  close(fd);

@@ -141,7 +141,7 @@ diagram_print_gdi(DiagramData *data, const gchar *filename, DiaContext *ctx)
   DiaExportFilter* pExp = NULL;
   int i;
 
-  pExp = filter_get_by_name("wmf");
+  pExp = filter_export_get_by_name("wmf");
 
   if (!pExp) {
     dia_context_add_message (ctx, "Can't print without the WMF plugin installed");
