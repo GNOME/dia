@@ -274,6 +274,9 @@ diagram_load_into(Diagram         *diagram,
   gboolean was_default = diagram->is_default;
   if (!ifilter)
     ifilter = filter_guess_import_filter(filename);
+  /* slightly hacked to avoid 'Not a Dia File' for .shape */
+  if (!ifilter && g_str_has_suffix (filename, ".shape"))
+    ifilter = filter_import_get_by_name ("dia-svg");
   if (!ifilter)  /* default to native format */
     ifilter = &dia_import_filter;
 

@@ -604,5 +604,7 @@ static const gchar *extensions[] = { "svg", NULL };
 DiaExportFilter svg_export_filter = {
   N_("Scalable Vector Graphics"),
   extensions,
-  export_svg
+  export_svg,
+  NULL, /* user_data */
+  "dia-svg"
 };

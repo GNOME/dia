@@ -1185,6 +1185,82 @@ read_items (xmlNodePtr   startnode,
   return items;
 }
 
+static gboolean
+_parse_shape_cp (xmlNodePtr node, real *x, real *y, gboolean *mcp)
+{
+  xmlChar *sx = xmlGetProp (node, (const xmlChar *)"x");
+  xmlChar *sy = xmlGetProp (node, (const xmlChar *)"y");
+  xmlChar *sm = xmlGetProp (node, (const xmlChar *)"main");
+  gboolean ret = FALSE;
+
+  if (sx && sy) {
+    *x = g_ascii_strtod ((const char *)sx, NULL);
+    *y = g_ascii_strtod ((const char *)sy, NULL);
+    *mcp = (sm ? strcmp (sm, "yes") == 0 : FALSE);
+    return TRUE;
+  }
+  if (sx) xmlFree (sx);
+  if (sy) xmlFree (sy);
+  if (sm) xmlFree (sm);
+  return ret;
+}
+
+static gboolean
+import_shape_info (xmlNodePtr start_node, DiagramData *dia, DiaContext *ctx)
+{
+  const DiaObjectType *ot_cp = object_get_type ("Shape Design - Connection Point");
+  const DiaObjectType *ot_mp = object_get_type ("Shape Design - Main Connection Point");
+  xmlNodePtr node;
+  Layer *layer;
+
+  if (!ot_cp || !ot_mp) {
+    dia_context_add_message (ctx, _("'Shape Design' shapes missing."));
+    return FALSE;
+  }
+  layer = new_layer (g_strdup ("Shape Design"), dia);
+  data_add_layer (dia, layer);
+
+  for (node = start_node; node != NULL; node = node->next) {
+    if (xmlIsBlankNode(node)) continue;
+    if (node->type != XML_ELEMENT_NODE) continue;
+    if (!xmlStrcmp(node->name, (const xmlChar *)"name")) {
+    } else if (!xmlStrcmp(node->name, (const xmlChar *)"icon")) {
+    } else if (!xmlStrcmp(node->name, (const xmlChar *)"aspectratio")) {
+    } else if (!xmlStrcmp(node->name, (const xmlChar *)"connections")) {
+      xmlNodePtr cp_node;
+
+      for (cp_node = node->xmlChildrenNode; cp_node != NULL; cp_node = cp_node->next) {
+	Point pos;
+	gboolean is_main = FALSE;
+
+	if (_parse_shape_cp (cp_node, &pos.x, &pos.y, &is_main)) {
+	  Handle *h1, *h2;
+	  const DiaObjectType *ot = is_main ? ot_mp : ot_cp;
+	  DiaObject *o;
+	  
+	  o = ot->ops->create (&pos, ot->default_user_data, &h1, &h2);
+
+	  if (o) {
+	    /* we have to adjust the position to be centered */
+	    g_return_val_if_fail (o->num_handles == 8, FALSE);
+	    pos.x -= (o->handles[1]->pos.x - o->handles[0]->pos.x);
+	    pos.y -= (o->handles[3]->pos.y - o->handles[0]->pos.y);
+	    o->ops->move (o, &pos);
+	    layer_add_object (layer, o);
+	  } else {
+	    dia_context_add_message (ctx, _("Object '%s' creation failed"), ot->name);
+	  }
+	}
+      }
+    } else if (   !xmlStrcmp(node->name, (const xmlChar *)"default-width")
+	       || !xmlStrcmp(node->name, (const xmlChar *)"default-height")) {
+    } else if (!xmlStrcmp(node->name, (const xmlChar *)"textbox")) {
+    } else if (!xmlStrcmp(node->name, (const xmlChar *)"can-parent")) {
+    }
+  }
+  return TRUE;
+}
+
 /* imports the given SVG file, returns TRUE if successful */
 gboolean
 import_svg(const gchar *filename, DiagramData *dia, DiaContext *ctx, void* user_data) 
@@ -1192,6 +1268,7 @@ import_svg(const gchar *filename, DiagramData *dia, DiaContext *ctx, void* user_
   xmlDocPtr doc = xmlDoParseFile(filename);
   xmlNsPtr svg_ns;
   xmlNodePtr root;
+  xmlNodePtr shape_root = NULL;
   GList *items, *item;
 
   if (!doc) {
@@ -1204,6 +1281,9 @@ import_svg(const gchar *filename, DiagramData *dia, DiaContext *ctx, void* user_
   while (root && (root->type != XML_ELEMENT_NODE)) root = root->next;
   if (!root) return FALSE;
   if (xmlIsBlankNode(root)) return FALSE;
+
+  if (xmlSearchNsByHref(doc, root, (const xmlChar *)"http://www.daa.com.au/~james/dia-shape-ns") != NULL)
+    shape_root = root;
 
   if (!(svg_ns = xmlSearchNsByHref(doc, root, (const xmlChar *)"http://www.w3.org/2000/svg"))) {
     /* correct filetype vs. robust import */
@@ -1237,8 +1317,13 @@ import_svg(const gchar *filename, DiagramData *dia, DiaContext *ctx, void* user_
   }
 
   /* the following calls rely on the fact that noone messed with the original scale */
-  user_scale = DEFAULT_SVG_SCALE;
+  if (shape_root)
+    user_scale = 1.0;
+  else
+    user_scale = DEFAULT_SVG_SCALE;
+
   /* if the svg root element contains width, height and viewBox calculate our user scale from it */
+  if (shape_root)
   {
     xmlChar *swidth = xmlGetProp(root, (const xmlChar *)"width");
     xmlChar *sheight = xmlGetProp(root, (const xmlChar *)"height");
@@ -1307,6 +1392,10 @@ import_svg(const gchar *filename, DiagramData *dia, DiaContext *ctx, void* user_
   }
 
   g_list_free (items);
+
+  if (shape_root)
+    import_shape_info (shape_root->xmlChildrenNode, dia, ctx);
+
   xmlFreeDoc(doc);
   /* set 'display' setting */
   g_object_set_data (G_OBJECT(dia), "show-connection-points", GINT_TO_POINTER(-1));
@@ -1320,6 +1409,8 @@ static const gchar *extensions[] = {"svg", NULL };
 DiaImportFilter svg_import_filter = {
 	N_("Scalable Vector Graphics"),
 	extensions,
-	import_svg
+	import_svg,
+	NULL, /* user_data */
+	"dia-svg"
 };
 
