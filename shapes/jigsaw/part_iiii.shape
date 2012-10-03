@@ -3,7 +3,8 @@
   <name>Jigsaw - part_iiii</name>
   <icon>part_iiii.png</icon>
   <aspectratio type="fixed"/>
-  <connections><point x="1.5" y="1.5" main="yes"/></connections>
+  <!-- beware: connection points are in original SVG coordinates --> 
+  <connections><point x="14" y="10" main="yes"/></connections>
   <default-width>3cm</default-width>
   <default-height>3cm</default-height>
 <svg:svg width="3" height="3">

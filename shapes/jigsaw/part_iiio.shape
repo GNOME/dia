@@ -3,7 +3,7 @@
   <name>Jigsaw - part_iiio</name>
   <icon>part_iiio.png</icon>
   <aspectratio type="fixed"/>
-  <connections><point x="2" y="1.5" main="yes"/></connections>
+  <connections><point x="14" y="10" main="yes"/></connections>
   <default-width>4cm</default-width>
   <default-height>3cm</default-height>
 <svg:svg width="4" height="3">

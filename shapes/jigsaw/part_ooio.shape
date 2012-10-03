@@ -3,7 +3,7 @@
   <name>Jigsaw - part_ooio</name>
   <icon>part_ooio.png</icon>
   <aspectratio type="fixed"/>
-  <connections><point x="2.5" y="2" main="yes"/></connections>
+  <connections><point x="14" y="10" main="yes"/></connections>
   <default-width>5cm</default-width>
   <default-height>4cm</default-height>
 <svg:svg width="5" height="4">
