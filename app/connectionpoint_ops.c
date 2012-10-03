@@ -32,19 +32,14 @@ static Color connectionpoint_color = { 0.4, 0.4, 1.0, 1.0 };
 static void
 connectionpoint_draw(ConnectionPoint *conpoint,
 		     DDisplay        *ddisp,
+		     DiaRenderer     *renderer,
+		     DiaInteractiveRendererInterface *irenderer,
 		     Color           *color)
 {
   int x,y;
   Point *point = &conpoint->pos;
-  DiaRenderer *renderer = ddisp->renderer;
-  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (ddisp->renderer);
-  DiaInteractiveRendererInterface *irenderer =
-    DIA_GET_INTERACTIVE_RENDERER_INTERFACE (ddisp->renderer);
   
   ddisplay_transform_coords(ddisp, point->x, point->y, &x, &y);
-
-  renderer_ops->set_linewidth (renderer, 0.0);
-  renderer_ops->set_linestyle (renderer, LINESTYLE_SOLID);
 
   irenderer->draw_pixel_line (renderer,
 			x-CP_SZ,y-CP_SZ,
@@ -61,15 +56,47 @@ void
 object_draw_connectionpoints(DiaObject *obj, DDisplay *ddisp)
 {
   int i;
-  static Color midpoint_color = { 1.0, 0.0, 0.0 };
+  static Color midpoint_color = { 1.0, 0.0, 0.0, 1.0 };
+  DiaRenderer *renderer = ddisp->renderer;
+  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (ddisp->renderer);
+  DiaInteractiveRendererInterface *irenderer =
+    DIA_GET_INTERACTIVE_RENDERER_INTERFACE (ddisp->renderer);
+
+  /* this does not change for any of the points */
+  renderer_ops->set_linewidth (renderer, 0.0);
+  renderer_ops->set_linestyle (renderer, LINESTYLE_SOLID);
+
+  /* optimization to only draw the connection points at all if the size
+   * of the object (bounding box) is bigger than the summed size of the 
+   * connection points - or some variation thereof ;)
+   */
+  if (dia_object_get_num_connections(obj) > 1)
+  {
+    const Rectangle *bbox = dia_object_get_bounding_box (obj);
+    real w = ddisplay_transform_length (ddisp, bbox->right - bbox->left);
+    real h = ddisplay_transform_length (ddisp, bbox->bottom - bbox->top);
+    int n = dia_object_get_num_connections(obj);
+
+    /* just comparing the sizes is still drawing more CPs than useful - try 50% */
+    if (w * h < n * CONNECTIONPOINT_SIZE * CONNECTIONPOINT_SIZE * 2) {
+      if (ddisp->mainpoint_magnetism)
+        return;
+      /* just draw the main point */
+      for (i = 0; i < n; ++i) {
+        if (obj->connections[i]->flags & CP_FLAG_ANYPLACE)
+          connectionpoint_draw(obj->connections[i], ddisp, renderer, irenderer, &midpoint_color);
+      }
+      return;
+    }
+  }
 
   for (i=0;i<dia_object_get_num_connections(obj);i++) {
     if ((obj->connections[i]->flags & CP_FLAG_ANYPLACE) == 0)
-      connectionpoint_draw(obj->connections[i], ddisp, &connectionpoint_color);
+      connectionpoint_draw(obj->connections[i], ddisp, renderer, irenderer, &connectionpoint_color);
     else if (!ddisp->mainpoint_magnetism)
       /* draw the "whole object"/center connpoints, but only when we don't
        * have snap-to-grid */
-      connectionpoint_draw(obj->connections[i], ddisp, &midpoint_color);
+      connectionpoint_draw(obj->connections[i], ddisp, renderer, irenderer, &midpoint_color);
   }
 }
 
