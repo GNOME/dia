@@ -138,7 +138,7 @@ filter_guess_export_filter(const gchar *filename)
   /* maybe ther is no need to guess? */
   unique_name = _favored_hash ? g_hash_table_lookup(_favored_hash, ext) : NULL;
   if (unique_name) {
-    DiaExportFilter *ef = filter_get_by_name(unique_name);
+    DiaExportFilter *ef = filter_export_get_by_name(unique_name);
     if (ef)
       return ef;
   }
@@ -164,7 +164,7 @@ filter_guess_export_filter(const gchar *filename)
 /** Get an export filter by unique name.
  */
 DiaExportFilter *
-filter_get_by_name(const gchar *name) 
+filter_export_get_by_name(const gchar *name) 
 {
   GList *tmp;
   DiaExportFilter *filter = NULL;
@@ -176,6 +176,24 @@ filter_get_by_name(const gchar *name)
 	if (filter) 
 	  g_warning(_("Multiple export filters with unique name %s"), name);
 	filter = ef;
+      }
+    }
+  }
+  return filter;
+}
+DiaImportFilter *
+filter_import_get_by_name(const gchar *name) 
+{
+  GList *tmp;
+  DiaImportFilter *filter = NULL;
+
+  for (tmp = import_filters; tmp != NULL; tmp = tmp->next) {
+    DiaImportFilter *af = tmp->data;
+    if (af->unique_name != NULL) {
+      if (!g_ascii_strcasecmp(af->unique_name, name)) {
+	if (filter) 
+	  g_warning(_("Multiple import filters with unique name %s"), name);
+	filter = af;
       }
     }
   }

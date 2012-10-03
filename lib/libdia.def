@@ -41,11 +41,11 @@ EXPORTS
  bezier_render_stroke
  bezier_render_fill
  beziercommon_set_points
+ beziercommon_closest_segment
 
  bezierconn_add_segment
  bezierconn_closest_handle
  bezierconn_closest_major_handle
- bezierconn_closest_segment
  bezierconn_copy
  bezierconn_destroy
  bezierconn_distance_from
@@ -62,7 +62,6 @@ EXPORTS
  beziershape_add_segment
  beziershape_closest_handle
  beziershape_closest_major_handle
- beziershape_closest_segment
  beziershape_copy
  beziershape_destroy
  beziershape_distance_from
@@ -424,7 +423,7 @@ EXPORTS
  ellipse_bbox
  element_change_new
 
- filter_get_by_name
+ filter_export_get_by_name
  filter_get_callbacks
  filter_get_export_filter_label
  filter_get_export_filters
@@ -434,6 +433,7 @@ EXPORTS
  filter_get_import_filters
  filter_guess_export_filter
  filter_guess_import_filter
+ filter_import_get_by_name
  filter_register_callback
  filter_register_export
  filter_register_import
@@ -680,6 +680,7 @@ EXPORTS
  prop_list_from_descs
  prop_list_from_single
 
+ point_in_rectangle
  rectangle_add_point
  rectangle_bbox
  rectangle_in_rectangle

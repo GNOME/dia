@@ -370,7 +370,7 @@ do_convert(const char *infname,
    * are quite some filter selecting their output format by it. --hb
    */
   if (size) {
-    if (ef == filter_get_by_name ("png-libart")) /* the warning we get is appropriate, don't cast */
+    if (ef == filter_export_get_by_name ("png-libart")) /* the warning we get is appropriate, don't cast */
       ef->export_func(diagdata, ctx, outfname, infname, size);
     else {
       g_warning ("--size parameter unsupported for %s filter", 
@@ -547,11 +547,11 @@ handle_initial_diagram(const char *in_file_name,
 
     /* to make the --size hack even uglier but work again for the only filter supporting it */
     if (   size && strcmp(export_file_format, "png") == 0)
-      ef = filter_get_by_name ("png-libart");
+      ef = filter_export_get_by_name ("png-libart");
     if (!ef)
       ef = filter_guess_export_filter(export_file_name);
     if (ef == NULL) {
-      ef = filter_get_by_name(export_file_format);
+      ef = filter_export_get_by_name(export_file_format);
       if (ef == NULL) {
 	g_critical(_("Can't find output format/filter %s\n"), export_file_format);
 	return FALSE;
@@ -568,7 +568,7 @@ handle_initial_diagram(const char *in_file_name,
 
     /* if this looks like an ugly hack to you, agreed ;)  */
     if (size && strstr(out_file_name, ".png"))
-      ef = filter_get_by_name ("png-libart");
+      ef = filter_export_get_by_name ("png-libart");
     
     made_conversions |= do_convert(in_file_name, out_file_name, ef,
 				   size, show_layers);

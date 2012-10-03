@@ -104,8 +104,8 @@ gchar *filter_get_export_filter_label(DiaExportFilter *efilter);
 
 /* guess the filter for a given filename. */
 DiaExportFilter *filter_guess_export_filter(const gchar *filename);
-/* Get the filter for the unique filename. */
-DiaExportFilter *filter_get_by_name(const gchar *name);
+/* Get the filter for the unique filter name. */
+DiaExportFilter *filter_export_get_by_name(const gchar *name);
 /* Get the list of unique names for the given extension */
 GList *filter_get_unique_export_names(const char *extension);
 /* Set the favorit 'guess' */
@@ -116,6 +116,8 @@ void filter_unregister_import(DiaImportFilter *ifilter);
 GList *filter_get_import_filters(void);
 gchar *filter_get_import_filter_label(DiaImportFilter *ifilter);
 DiaImportFilter *filter_guess_import_filter(const gchar *filename);
+/* Get the filter for the unique filter name. */
+DiaImportFilter *filter_import_get_by_name(const gchar *name);
 
 void filter_register_callback(DiaCallbackFilter *cbfilter);
 /* returns all registered callbacks */
