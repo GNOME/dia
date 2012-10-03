@@ -108,6 +108,40 @@ beziercommon_copy (BezierCommon *from, BezierCommon *to)
 }
 
 /*!
+ * \brief Return the segment of the bezier closest to a given point.
+ * @param bezier The bezier object
+ * @param point A point to find the closest segment to.
+ * @param line_width Line width of the bezier line.
+ * @return The index of the segment closest to point.
+ * \memberof BezierCommon
+ */
+int
+beziercommon_closest_segment (BezierCommon *bezier,
+			      const Point  *point,
+			      real          line_width)
+{
+  Point last;
+  int i;
+  real dist = G_MAXDOUBLE;
+  int closest;
+
+  closest = 0;
+  last = bezier->points[0].p1;
+  for (i = 0; i < bezier->num_points - 1; i++) {
+    real new_dist = distance_bez_seg_point(&last, &bezier->points[i+1], line_width, point);
+    if (new_dist < dist) {
+      dist = new_dist;
+      closest = i;
+    }
+    if (bezier->points[i+1].type == BEZ_CURVE_TO)
+      last = bezier->points[i+1].p3;
+    else
+      last = bezier->points[i+1].p1;
+  }
+  return closest;
+}
+
+/*!
  * \brief Draw control lines of the given _BezPoint array
  */
 void
@@ -129,7 +163,11 @@ bezier_draw_control_lines (int          num_points,
   startpoint = points[0].p1;
   for (i = 1; i < num_points; i++) {
     DIA_RENDERER_GET_CLASS(renderer)->draw_line(renderer, &startpoint, &points[i].p1, &line_colour);
-    DIA_RENDERER_GET_CLASS(renderer)->draw_line(renderer, &points[i].p2, &points[i].p3, &line_colour);
-    startpoint = points[i].p3;
+    if (points[i].type == BEZ_CURVE_TO) {
+      DIA_RENDERER_GET_CLASS(renderer)->draw_line(renderer, &points[i].p2, &points[i].p3, &line_colour);
+      startpoint = points[i].p3;
+    } else {
+      startpoint = points[i].p1;
+    }
   }
 }

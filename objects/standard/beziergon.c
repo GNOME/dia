@@ -171,8 +171,8 @@ beziergon_distance_from(Beziergon *beziergon, Point *point)
 static int
 beziergon_closest_segment(Beziergon *beziergon, Point *point)
 {
-  return beziershape_closest_segment(&beziergon->bezier, point,
-				     beziergon->line_width);
+  return beziercommon_closest_segment(&beziergon->bezier.bezier, point,
+				      beziergon->line_width);
 }
 
 static void

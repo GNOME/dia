@@ -66,8 +66,6 @@ real bezierconn_distance_from(BezierConn *bez, Point *point,
 			      real line_width);
 Handle *bezierconn_closest_handle(BezierConn *bez, Point *point);
 Handle *bezierconn_closest_major_handle(BezierConn *bez, Point *point);
-int bezierconn_closest_segment(BezierConn *bez, Point *point,
-			       real line_width);
 
 #define BEZCONN_COMMON_PROPERTIES \
   OBJECT_COMMON_PROPERTIES, \

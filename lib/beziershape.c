@@ -278,40 +278,6 @@ beziershape_move (BezierShape *bezier, Point *to)
 }
 
 /*!
- * \brief Return the segment of the bezier closest to a given point.
- * @param bezier The bezier object
- * @param point A point to find the closest segment to.
- * @param line_width Line width of the bezier line.
- * @return The index of the segment closest to point.
- * \memberof BezierShape
- */
-int
-beziershape_closest_segment (BezierShape *bezier,
-			     Point *point,
-			     real line_width)
-{
-  Point last;
-  int i;
-  real dist = G_MAXDOUBLE;
-  int closest;
-
-  closest = 0;
-  last = bezier->bezier.points[0].p1;
-  /* the first point is just move-to so there is no need to consider p2,p3 of it */
-  for (i = 1; i < bezier->bezier.num_points; i++) {
-    real new_dist = distance_bez_seg_point(&last, &bezier->bezier.points[i].p1,
-			&bezier->bezier.points[i].p2, &bezier->bezier.points[i].p3,
-			line_width, point);
-    if (new_dist < dist) {
-      dist = new_dist;
-      closest = i;
-    }
-    last = bezier->bezier.points[i].p3;
-  }
-  return closest;
-}
-
-/*!
  * \brief Return the handle closest to a given point.
  * @param bezier A bezier object
  * @param point A point to find distances from
@@ -483,6 +449,11 @@ beziershape_add_segment (BezierShape *bezier,
   ConnectionPoint *new_cp1, *new_cp2;
   Point startpoint;
   Point other;
+
+  g_return_val_if_fail (segment >= 0 && segment < bezier->bezier.num_points, NULL);
+
+  if (segment == 0) /* don't want to add this, just take the next one */
+    ++segment;
 
   if (segment != 1)
     startpoint = bezier->bezier.points[segment-1].p3;
@@ -763,15 +734,23 @@ beziershape_update_data (BezierShape *bezier)
     obj->connections[2*i-2]->pos = last;
     obj->connections[2*i-2]->directions =
       find_slope_directions(last, bezier->bezier.points[i].p1);
-    obj->connections[2*i-1]->pos.x =
-      (last.x + 3*bezier->bezier.points[i].p1.x + 3*bezier->bezier.points[i].p2.x +
-       bezier->bezier.points[i].p3.x)/8;
-    obj->connections[2*i-1]->pos.y =
-      (last.y + 3*bezier->bezier.points[i].p1.y + 3*bezier->bezier.points[i].p2.y +
-       bezier->bezier.points[i].p3.y)/8;
+    if (bezier->bezier.points[i].type == BEZ_CURVE_TO) {
+      obj->connections[2*i-1]->pos.x =
+        (last.x + 3*bezier->bezier.points[i].p1.x + 3*bezier->bezier.points[i].p2.x +
+         bezier->bezier.points[i].p3.x)/8;
+      obj->connections[2*i-1]->pos.y =
+        (last.y + 3*bezier->bezier.points[i].p1.y + 3*bezier->bezier.points[i].p2.y +
+         bezier->bezier.points[i].p3.y)/8;
+    } else {
+      obj->connections[2*i-1]->pos.x = (last.x + bezier->bezier.points[i].p1.x) / 2;
+      obj->connections[2*i-1]->pos.y = (last.y + bezier->bezier.points[i].p1.y) / 2;
+    }
     obj->connections[2*i-1]->directions = 
       find_slope_directions(slopepoint1, slopepoint2);
-    last = bezier->bezier.points[i].p3;
+    if (bezier->bezier.points[i].type == BEZ_CURVE_TO)
+      last = bezier->bezier.points[i].p3;
+    else
+      last = bezier->bezier.points[i].p1;
   }
   
   /* Find the middle of the object (or some approximation at least) */

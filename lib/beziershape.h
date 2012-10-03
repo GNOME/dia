@@ -70,8 +70,6 @@ real beziershape_distance_from(BezierShape *bezier, Point *point,
 			       real line_width);
 Handle *beziershape_closest_handle(BezierShape *bezier, Point *point);
 Handle *beziershape_closest_major_handle(BezierShape *bezier, Point *point);
-int beziershape_closest_segment(BezierShape *bezier, Point *point,
-				real line_width);
 
 #define BEZSHAPE_COMMON_PROPERTIES \
   OBJECT_COMMON_PROPERTIES, \

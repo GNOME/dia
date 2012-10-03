@@ -210,9 +210,11 @@ bezierline_distance_from(Bezierline *bezierline, Point *point)
   }
 }
 
-static int bezierline_closest_segment(Bezierline *bezierline, Point *point) {
+static int 
+bezierline_closest_segment(Bezierline *bezierline, Point *point)
+{
   BezierConn *bez = &bezierline->bez;
-  return bezierconn_closest_segment(bez, point, bezierline->line_width);
+  return beziercommon_closest_segment(&bez->bezier, point, bezierline->line_width);
 }
 
 static void
@@ -732,8 +734,7 @@ bezierline_delete_segment_callback (DiaObject *obj, Point *clicked, gpointer dat
   Bezierline *bezierline = (Bezierline*) obj;
   ObjectChange *change;
   
-  seg_nr = bezierconn_closest_segment(&bezierline->bez, clicked,
-				      bezierline->line_width);
+  seg_nr = beziercommon_closest_segment(&bezierline->bez.bezier, clicked, bezierline->line_width);
 
   change = bezierconn_remove_segment(&bezierline->bez, seg_nr+1);
   bezierline_update_data(bezierline);

@@ -267,39 +267,6 @@ bezierconn_move (BezierConn *bezier, Point *to)
 }
 
 /*!
- * \brief Return the segment of the bezier closest to a given point.
- * @param bezier The bezier object
- * @param point A point to find the closest segment to.
- * @param line_width Line width of the bezier line.
- * @return The index of the segment closest to point.
- * \memberof BezierConn
- */
-int
-bezierconn_closest_segment (BezierConn *bezier,
-			    Point *point,
-			    real line_width)
-{
-  Point last;
-  int i;
-  real dist = G_MAXDOUBLE;
-  int closest;
-
-  closest = 0;
-  last = bezier->bezier.points[0].p1;
-  for (i = 0; i < bezier->bezier.num_points - 1; i++) {
-    real new_dist = distance_bez_seg_point(&last, &bezier->bezier.points[i+1].p1,
-				&bezier->bezier.points[i+1].p2, &bezier->bezier.points[i+1].p3,
-				line_width, point);
-    if (new_dist < dist) {
-      dist = new_dist;
-      closest = i;
-    }
-    last = bezier->bezier.points[i+1].p3;
-  }
-  return closest;
-}
-
-/*!
  * \brief Return the handle closest to a given point.
  * @param bezier A bezier object
  * @param point A point to find distances from

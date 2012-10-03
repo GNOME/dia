@@ -355,8 +355,7 @@ real distance_polygon_point(const Point *poly, guint npoints,
 			    real line_width, const Point *point);
 
 /* bezier distance calculations */
-real distance_bez_seg_point(const Point *b1, const Point *b2, 
-                            const Point *b3, const Point *b4,
+real distance_bez_seg_point(const Point *b1, const BezPoint *b2,
 			    real line_width, const Point *point);
 real distance_bez_line_point(const BezPoint *b, guint npoints,
 			     real line_width, const Point *point);

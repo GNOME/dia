@@ -290,12 +290,14 @@ bez_point_distance_and_ray_crosses(const Point *b1,
 }
 
 real
-distance_bez_seg_point(const Point *b1, const Point *b2, 
-                       const Point *b3, const Point *b4,
+distance_bez_seg_point(const Point *b1, const BezPoint *b2, 
 		       real line_width, const Point *point)
 {
-  return bez_point_distance_and_ray_crosses(b1, b2, b3, b4,
-					    line_width, point, NULL);
+  if (b2->type == BEZ_CURVE_TO)
+    return bez_point_distance_and_ray_crosses(b1, &b2->p1, &b2->p2, &b2->p3,
+					      line_width, point, NULL);
+  else
+    return distance_line_point(b1, &b2->p1, line_width, point);
 }
 			     
 real

@@ -25,6 +25,7 @@
 #define BEZIER_COMMON_H
 
 #include "diatypes.h"
+#include "geometry.h" /* for real */
 
 typedef enum {
   BEZ_CORNER_SYMMETRIC,
@@ -46,6 +47,7 @@ struct _BezierCommon {
 
 void beziercommon_set_points (BezierCommon *bezier, int num, const BezPoint *pts);
 void beziercommon_copy (BezierCommon *from, BezierCommon *to);
+int  beziercommon_closest_segment (BezierCommon *bezier, const Point *point, real line_width);
 
 void bezier_draw_control_lines (int num_points, BezPoint *pts, DiaRenderer *renderer);
 
