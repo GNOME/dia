@@ -157,10 +157,10 @@ create_vdx_beziergon(int num_points,
     /* Convert all points to cusps - not in API */
 
     bcp = (BezierConn *)new_obj;
-    for (i=0; i<bcp->numpoints; i++)
+    for (i=0; i<bcp->bezier.num_points; i++)
     {
         if (points[i].type == BEZ_CURVE_TO)
-            bcp->corner_types[i] = BEZ_CORNER_CUSP;
+            bcp->bezier.corner_types[i] = BEZ_CORNER_CUSP;
     }
 
     return new_obj;
