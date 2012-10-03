@@ -72,6 +72,7 @@ lib/prop_pixbuf.c
 lib/prop_text.c
 lib/prop_widgets.c
 lib/sheet.c
+lib/standard-path.c
 lib/text.c
 lib/widgets.c
 objects/AADL/aadlbox.c
