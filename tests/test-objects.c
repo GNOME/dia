@@ -231,7 +231,7 @@ _test_movement (const DiaObjectType *type)
       || strcmp (type->name, "Assorted - Heart") == 0 /* height off 0.05 */
       || strstr (type->name, "Bugs -") == type->name
      )
-    g_print ("SKIPPED! ");
+    g_test_message ("SKIPPED! ");
   else
     g_assert (   fabs((bbox2.right - bbox2.left) - (bbox1.right - bbox1.left)) < EPSILON
               && fabs((bbox2.bottom - bbox2.top) - (bbox1.bottom - bbox1.top)) < EPSILON);
@@ -291,7 +291,7 @@ _test_move_handle (const DiaObjectType *type)
       /* the API would allow, but it gave at least a leak at app/create_object.c */
       if (change)
         {
-          g_print ("CHANGE ");
+          g_test_message ("CHANGE ");
           _object_change_free(change);
         }
       h2 = NULL;
@@ -368,8 +368,11 @@ _test_connectionpoint_consistency (const DiaObjectType *type)
   center.y = (o->bounding_box.bottom + o->bounding_box.top) / 2;
   for (i = 0; i < o->num_connections; ++i) {
     ConnectionPoint *cp = o->connections[i];
-    if (cp->directions == DIR_ALL)
-      continue; /* may use this as misplaced mainpoint check? */
+    if (cp->directions == DIR_ALL) {
+      /* may use this as misplaced mainpoint check? */
+      g_assert (o->ops->distance_from (o, &cp->pos) == 0 && "within");
+      continue;
+    }
     if (   strcmp (type->name, "chronogram - reference") == 0
         || strcmp (type->name, "BPMN - Data-Object") == 0
         || strcmp (type->name, "Optics - Scope") == 0
@@ -389,6 +392,39 @@ _test_connectionpoint_consistency (const DiaObjectType *type)
     else if (cp->pos.y < center.y)
       g_assert ((cp->directions & DIR_SOUTH) == 0);
   }
+  /* every connection point should be in bounds of the object */
+  for (i = 0; i < o->num_connections; ++i) {
+    ConnectionPoint *cp = o->connections[i];
+#if 1
+    if (   strcmp (type->name, "Racks - Label Anchors 42U") == 0
+        || strcmp (type->name, "Civil - Horizontal Rest") == 0
+        || strcmp (type->name, "Cisco - Data Center Switch") == 0
+        || strcmp (type->name, "Civil - Bivalent Vertical Rest") == 0
+        || strcmp (type->name, "Cisco - VIP") == 0
+        || strcmp (type->name, "Building Site - Proportioning Batcher") == 0
+        || strcmp (type->name, "Civil - Gas Bottle") == 0
+        || strcmp (type->name, "Civil - Water Level") == 0
+        || strcmp (type->name, "UML - Classicon") == 0
+        || strcmp (type->name, "scene graph - field") == 0
+        || strcmp (type->name, "Cisco - Telecommuter") == 0
+        || strcmp (type->name, "Civil - Vertical Rest") == 0
+        || strcmp (type->name, "Cisco - PC Adapter Card") == 0
+        || strcmp (type->name, "Civil - Reference Line") == 0
+        || strcmp (type->name, "Cisco - Dot-Dot") == 0
+        || strcmp (type->name, "Cisco - WLAN controller") == 0
+        || strstr (type->name, "Bugs -") == type->name)
+      break; /* kind of wasteful to check for every connection */
+    g_assert (   o->ops->distance_from (o, &cp->pos) < 0.01
+              || distance_rectangle_point (&o->bounding_box, &cp->pos) < 0.01);
+#else
+    /* generate exception list - after all it is legal to have CPs out of bounds */
+    if (   o->ops->distance_from (o, &cp->pos) >= 0.01
+        && distance_rectangle_point (&o->bounding_box, &cp->pos) >= 0.01) {
+      g_print ("        || strcmp (type->name, \"%s\") == 0\n", type->name);
+      break;
+    }
+#endif
+  }
   /* finally */
   o->ops->destroy (o);  
   g_free (o);
@@ -403,7 +439,7 @@ _test_object_menu (const DiaObjectType *type)
 
   /* the method itself is optional */
   if (!o->ops->get_object_menu) {
-    g_print ("SKIPPED (n.i.)!");
+    g_test_message ("SKIPPED (n.i.)!");
   } else {
     DiaMenu *menu = (o->ops->get_object_menu)(o, &from); /* clicked_pos should not matter much */
     /* strangley enough I found a crash with menu==NULL today ;) */
@@ -429,7 +465,7 @@ _test_object_menu (const DiaObjectType *type)
 	ObjectChange *change;
 
 	/* g_test_message() does not show normally */
-	g_print ("\n\tCalling '%s'...", item->text);
+	g_test_message ("\n\tCalling '%s'...", item->text);
 	change = (item->callback)(o, &from, item->callback_data);
 	if (!change) {
 	  g_test_message ("Undo/redo missing: %s\n", item->text);
