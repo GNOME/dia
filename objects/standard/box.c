@@ -30,6 +30,7 @@
 #include "diarenderer.h"
 #include "attributes.h"
 #include "properties.h"
+#include "create.h"
 
 #include "tool-icons.h"
 
@@ -681,6 +682,63 @@ box_set_aspect_callback (DiaObject* obj, Point* clicked, gpointer data)
   return change;
 }
 
+static ObjectChange *
+_box_convert_to_path_callback (DiaObject *obj, Point *clicked, gpointer data)
+{
+  const Box *box = (Box *)obj;
+  const Element *elem = &box->element;
+  DiaObject *path;
+  int num_points;
+  BezPoint *points;
+
+  if (box->corner_radius > 0) {
+    const real w = elem->width;
+    const real h = elem->height;
+    const real x = elem->corner.x;
+    const real y = elem->corner.y;
+    real r = box->corner_radius;
+    num_points = 9;
+    points = g_alloca (sizeof(BezPoint) * num_points);
+
+    /* avoid r>w/w and r>h/2 */
+    r = (w > h ) ? (r > h/2 ? h/2 : r) : (r > w/2 ? w/2 : r);
+
+    points[0].type = BEZ_MOVE_TO;  points[0].p1.x = x + r; points[0].p1.y = y; /* top-left */
+    points[1].type = BEZ_LINE_TO;  points[1].p1.x = x + w - r; points[1].p1.y = y; /* top-right */
+    points[2].type = BEZ_CURVE_TO; points[2].p1.x = x + w - r; points[2].p1.y = y; /* around */
+    points[2].p2.x = x + w; points[2].p2.y = y; points[2].p3.x = x + w; points[2].p3.y = y + r;
+    points[3].type = BEZ_LINE_TO; points[3].p1.x =  x + w; points[3].p1.y = y + h - r; /* bottom-right */
+    points[4].type = BEZ_CURVE_TO; points[4].p1.x = x + w; points[4].p1.y = y + h - r; /* around */
+    points[4].p2.x = x + w; points[4].p2.y = y + h; points[4].p3.x = x + w - r; points[4].p3.y = y + h;
+    points[5].type = BEZ_LINE_TO;  points[5].p1.x = x + r; points[5].p1.y = y + h; /* bottom-left */
+    points[6].type = BEZ_CURVE_TO; points[6].p1.x = x + r; points[6].p1.y = y + h; /* around */
+    points[6].p2.x = x; points[6].p2.y = y + h; points[6].p3.x = x; points[6].p3.y = y + h - r;
+    points[7].type = BEZ_LINE_TO;  points[7].p1.x = x; points[7].p1.y = y + r; /* top-left */
+    points[8].type = BEZ_CURVE_TO; points[8].p1.x = x; points[8].p1.y = y + r; /* around */
+    points[8].p2.x = x; points[8].p2.y = y; points[8].p3.x = x + r; points[8].p3.y = y;
+  } else {
+    num_points = 5;
+    points = g_alloca (sizeof(BezPoint) * num_points);
+
+    points[0].type = BEZ_MOVE_TO;
+    points[0].p1 = elem->corner;
+    points[1].type = points[2].type = points[3].type = points[4].type = BEZ_LINE_TO;
+    points[1].p1.x = elem->corner.x + elem->width;
+    points[1].p1.y = elem->corner.y;
+    points[2].p1.x = elem->corner.x + elem->width;
+    points[2].p1.y = elem->corner.y + elem->height;
+    points[3].p1.x = elem->corner.x;
+    points[3].p1.y = elem->corner.y + elem->height;
+    points[4].p1 = elem->corner;
+  }
+  path = create_standard_path (num_points, points);
+  if (path)
+    return object_substitute (obj, path);
+
+  /* Empty change */
+  return change_list_create ();
+}
+
 static DiaMenuItem box_menu_items[] = {
   { N_("Free aspect"), box_set_aspect_callback, (void*)FREE_ASPECT, 
     DIAMENU_ACTIVE|DIAMENU_TOGGLE },
@@ -688,6 +746,7 @@ static DiaMenuItem box_menu_items[] = {
     DIAMENU_ACTIVE|DIAMENU_TOGGLE },
   { N_("Square"), box_set_aspect_callback, (void*)SQUARE_ASPECT, 
     DIAMENU_ACTIVE|DIAMENU_TOGGLE},
+  { N_("Convert to Path"), _box_convert_to_path_callback, NULL, DIAMENU_ACTIVE }
 };
 
 static DiaMenu box_menu = {
