@@ -30,10 +30,23 @@
 
 #include "dia_svg.h"
 
-/** Initialize a style object from another style object or defaults.
+/*!
+ * \defgroup DiaSvg Services for SVG parsing and generation
+ * \ingroup Plugins
+ * \brief Services for SVG parsing and generation
+ * The Dia application supports various variants of SVG. There are
+ * at least two importers of SVG dialects, namely \ref Shapes and
+ * the standard SVG importer \ref Plugins. Both are using theses
+ * serivces to a large extend, but they are also doing there own
+ * thing regarding the SVG dialect interpretation.
+ */
+
+/*!
+ * \brief Initialize a style object from another style object or defaults.
  * @param gs An SVG style object to initialize.
  * @param parent_style An SVG style object to copy values from, or NULL,
  *                     in which case defaults will be used.
+ * \ingroup DiaSvg
  */
 void
 dia_svg_style_init(DiaSvgStyle *gs, DiaSvgStyle *parent_style)
@@ -54,9 +67,11 @@ dia_svg_style_init(DiaSvgStyle *gs, DiaSvgStyle *parent_style)
   gs->alignment = parent_style ? parent_style->alignment : ALIGN_LEFT;
 }
 
-/** Copy style values from one SVG style object to another.
+/*!
+ * \brief Copy style values from one SVG style object to another.
  * @param dest SVG style object to copy to.
  * @param src SVG style object to copy from.
+ * \ingroup DiaSvg
  */
 void
 dia_svg_style_copy(DiaSvgStyle *dest, DiaSvgStyle *src)
@@ -77,15 +92,74 @@ dia_svg_style_copy(DiaSvgStyle *dest, DiaSvgStyle *src)
   dest->alignment = src->alignment;
 }
 
-/** Parse an SVG color description.
+static const struct _SvgNamedColor {
+  const char *name;
+  const gint  value;
+} _svg_named_colors [] = {
+  { "maroon", 0x800000 },
+  { "red", 0xff0000 },
+  { "orange", 0xffA500 },
+  { "yellow", 0xffff00 },
+  { "olive", 0x808000 },
+  { "purple", 0x800080 },
+  { "fuchsia", 0xff00ff },
+  { "white", 0xffffff },
+  { "lime", 0x00ff00 },
+  { "green", 0x008000 },
+  { "navy", 0x000080 },
+  { "blue", 0x0000ff },
+  { "aqua", 0x00ffff },
+  { "teal", 0x008080 },
+  { "black", 0x000000 },
+  { "silver", 0xc0c0c0 },
+  { "gray", 0x808080 }
+
+};
+
+/*!
+ * \brief Get an SVG color value by name
+ *
+ * The list of named SVG colors has only 17 entries according to
+ * http://www.w3.org/TR/CSS21/syndata.html#color-units
+ * Still pango_color_parse() does not support seven of them including
+ * 'white'. This function supports all of them.
+ *
+ * \ingroup DiaSvg
+ */
+static gboolean
+svg_named_color (const char *name, gint32 *color)
+{
+  int i;
+
+  g_return_val_if_fail (name != NULL && color != NULL, FALSE);
+
+  for (i = 0; i < G_N_ELEMENTS(_svg_named_colors); i++) {
+    if (strncmp (name, _svg_named_colors[i].name, strlen(_svg_named_colors[i].name)) == 0) {
+      *color = _svg_named_colors[i].value;
+      return TRUE;
+    }
+  }
+  return FALSE;
+}
+/*! 
+ * \brief Parse an SVG color description.
+ *
  * @param color A place to store the color information (0RGB)
  * @param str An SVG color description string to parse.
  * @return TRUE if parsing was successful.
- * Shouldn't we use an actual Dia Color object as return value?
+ *
+ * This function is rather tolerant compared to the SVG specification.
+ * It supports special names like 'fg', 'bg', 'foregroumd', 'background';
+ * three numeric representations: '#FF0000', 'rgb(1.0,0.0,0.0), 'rgb(100%,0%,0%)'
+ * and named colors from two domains: SVG and Pango.
+ *
+ * \note Shouldn't we use an actual Dia Color object as return value?
  * Would require that the DiaSvgStyle object uses that, too.  If we did that,
  * we could even return the color object directly, and we would be able to use
  * >8 bits per channel.
  * But we would not be able to handle named colors anymore ...
+ *
+ * \ingroup DiaSvg
  */
 static gboolean
 _parse_color(gint32 *color, const char *str)
@@ -126,6 +200,8 @@ _parse_color(gint32 *color, const char *str)
       *color = ((a<<24) & 0xFF000000) | ((r<<16) & 0xFF0000) | ((g<<8) & 0xFF00) | (b & 0xFF);
     else
       return FALSE;
+  } else if (svg_named_color (str, color)) {
+    return TRUE;
   } else {
     /* Pango needs null terminated strings, so we just use it as a fallback */
     PangoColor pc;
@@ -222,12 +298,15 @@ _parse_dasharray (DiaSvgStyle *s, real user_scale, gchar *str, gchar **end)
     *end = ptr;
 }
 
-/** This function not only parses the style attribute of the given node
- *  it also extracts some of the style properties directly.
+/*
+ * \brief Parse SVG style properties
+ * This function not only parses the style attribute of the given node
+ * it also extracts some of the style properties directly.
  * @param node An XML node to parse a style from.
  * @param s The SVG style object to fill out.  This should previously be
  *          initialized to some default values.
  * @param user_scale, if >0 scalable values (font-size, stroke-width, ...) are divided by this, otherwise ignored
+ * \ingroup DiaSvg
  */
 void
 dia_svg_parse_style(xmlNodePtr node, DiaSvgStyle *s, real user_scale)
@@ -487,20 +566,22 @@ dia_svg_parse_style(xmlNodePtr node, DiaSvgStyle *s, real user_scale)
   }
 }
 
-/** Parse a SVG description of an arc segment.
+/*!
+ * \brief Parse a SVG description of an arc segment.
  * Code stolen from (and adapted)
  * http://www.inkscape.org/doc/doxygen/html/svg-path_8cpp.php#a7
  * which may have got it from rsvg, hope it is correct ;)
- * @param points
- * @param xc
- * @param yc
- * @param th0
- * @param th1
- * @param rx
- * @param ry
- * @param x_axis_rotation
- * @param last_p2
- * If you want the description of the algorithm read the SVG specs.
+ * @param points destination array of _BezPoint
+ * @param xc center x
+ * @param yc center y
+ * @param th0 first angle
+ * @param th1 second angle
+ * @param rx radius x
+ * @param ry radius y
+ * @param x_axis_rotation rotation of the axis
+ * @param last_p2 the resulting current point
+ * If you want the description of the algorithm read the SVG specs:
+ * http://www.w3.org/TR/SVG/paths.html#PathDataEllipticalArcCommands
  */
 static void
 _path_arc_segment(GArray* points,
