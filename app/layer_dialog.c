@@ -558,7 +558,7 @@ layer_dialog_delete_callback(GtkWidget *widget, gpointer gdata)
 
     layer = dia->data->active_layer;
 
-    data_delete_layer(dia->data, layer);
+    data_remove_layer(dia->data, layer);
     diagram_add_update_all(dia);
     diagram_flush(dia);
     
@@ -1287,7 +1287,7 @@ layer_change_apply(struct LayerChange *change, Diagram *dia)
 
   switch (change->type) {
   case TYPE_DELETE_LAYER:
-    data_delete_layer(dia->data, change->layer);
+    data_remove_layer(dia->data, change->layer);
     break;
   case TYPE_ADD_LAYER:
     data_add_layer_at(dia->data, change->layer, change->index);
@@ -1315,7 +1315,7 @@ layer_change_revert(struct LayerChange *change, Diagram *dia)
     data_add_layer_at(dia->data, change->layer, change->index);
     break;
   case TYPE_ADD_LAYER:
-    data_delete_layer(dia->data, change->layer);
+    data_remove_layer(dia->data, change->layer);
     break;
   case TYPE_RAISE_LAYER:
     data_lower_layer(dia->data, change->layer);

@@ -144,7 +144,7 @@ void data_lower_layer(DiagramData *data, Layer *layer);
 void data_add_layer(DiagramData *data, Layer *layer);
 void data_add_layer_at(DiagramData *data, Layer *layer, int pos);
 void data_set_active_layer(DiagramData *data, Layer *layer);
-void data_delete_layer(DiagramData *data, Layer *layer);
+void data_remove_layer(DiagramData *data, Layer *layer);
 int  data_layer_get_index (const DiagramData *data, const Layer *layer);
 int data_layer_count(const DiagramData *data);
 Layer *data_layer_get_nth (const DiagramData *data, guint index);

@@ -173,7 +173,7 @@ PyDiaDiagramData_DeleteLayer(PyDiaDiagramData *self, PyObject *args)
     if (!PyArg_ParseTuple(args, "O!:DiagramData.delete_layer",
 			  &PyDiaLayer_Type, &layer))
 	return NULL;
-    data_delete_layer(self->data, layer->layer);
+    data_remove_layer(self->data, layer->layer);
     layer_destroy(layer->layer);
     layer->layer = NULL;
     Py_INCREF(Py_None);

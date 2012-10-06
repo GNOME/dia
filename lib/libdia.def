@@ -151,7 +151,7 @@ EXPORTS
  data_add_text
  data_boolean
  data_color
- data_delete_layer
+ data_remove_layer
  data_dict
  data_emit
  data_enum

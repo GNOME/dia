@@ -452,13 +452,13 @@ data_set_active_layer(DiagramData *data, Layer *layer)
 }
 
 /*!
- * \brief Delete a layer from a diagram.
- * @param data The diagram to delete the layer from.
- * @param layer The layer to delete.
+ * \brief Remove a layer from a diagram.
+ * @param data The diagram to remove the layer from.
+ * @param layer The layer to remove.
  * \memberof _DiagramData
  */
 void
-data_delete_layer(DiagramData *data, Layer *layer)
+data_remove_layer(DiagramData *data, Layer *layer)
 {
   if (data->layers->len<=1)
     return;
