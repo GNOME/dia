@@ -53,7 +53,9 @@ bezier_calc_corner_types (BezierCommon *bezier)
     const Point *major = &bezier->points[i].p3;
     const Point *end   = &bezier->points[i+1].p2;
 
-    if (bezier->points[i+1].type != BEZ_CURVE_TO)
+    if (bezier->points[i].type != BEZ_LINE_TO || bezier->points[i+1].type != BEZ_CURVE_TO)
+      bezier->corner_types[i+1] = BEZ_CORNER_CUSP;
+    else if (distance_point_point (start, end) < tolerance) /* last resort */
       bezier->corner_types[i+1] = BEZ_CORNER_CUSP;
     else if (distance_line_point (start, end, 0, major) > tolerance)
       bezier->corner_types[i+1] = BEZ_CORNER_CUSP;
@@ -76,15 +78,26 @@ beziercommon_set_points (BezierCommon *bezier, int num_points, const BezPoint *p
 {
   int i;
 
+  g_return_if_fail (num_points > 1 || points[0].type != BEZ_MOVE_TO);
+
   bezier->num_points = num_points;
 
-  if (bezier->points)
-    g_free(bezier->points);
-
-  bezier->points = g_malloc((bezier->num_points)*sizeof(BezPoint));
+  bezier->points = g_realloc(bezier->points, (bezier->num_points)*sizeof(BezPoint));
 
   for (i=0;i<bezier->num_points;i++) {
-    bezier->points[i] = points[i];
+    /* to make editing in Dia more convenient we turn line-to to curve-to with cusp controls */
+    if (points[i].type == BEZ_LINE_TO) {
+      Point start = (points[i-1].type == BEZ_CURVE_TO) ? points[i-1].p3 : points[i-1].p1;
+      real dx = points[i].p1.x - start.x;
+      real dy = points[i].p1.y - start.y;
+      bezier->points[i].p3 = points[i].p1;
+      bezier->points[i].p1.x = start.x + dx / 3;
+      bezier->points[i].p1.y = start.y + dy / 3;
+      bezier->points[i].p2.x = start.x + 2 * dx / 3;
+      bezier->points[i].p2.y = start.y + 2 * dy / 3;
+    } else {
+      bezier->points[i] = points[i];
+    }
   }
 
   /* adjust our corner_types to what is possible with the points */
