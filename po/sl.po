@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=dia&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2012-09-16 18:10+0000\n"
-"PO-Revision-Date: 2012-09-16 21:11+0100\n"
+"POT-Creation-Date: 2012-10-03 23:31+0000\n"
+"PO-Revision-Date: 2012-10-06 19:47+0100\n"
 "Last-Translator: filmsi\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: Slovenian\n"
@@ -444,7 +444,7 @@ msgstr "Napaka"
 msgid "Load Into"
 msgstr "Naloži v"
 
-#: ../app/diagram.c:1214
+#: ../app/diagram.c:1217
 msgid "Trying to group with no selected objects."
 msgstr "Poskušate združevati v skupino brez izbranih predmetov."
 
@@ -861,43 +861,43 @@ msgstr "Izvozi diagram"
 msgid "Export Options"
 msgstr "Možnosti izvoza"
 
-#: ../app/find-and-replace.c:454
+#: ../app/find-and-replace.c:480
 msgid "_Search for:"
 msgstr "_Iskalni niz:"
 
-#: ../app/find-and-replace.c:467
+#: ../app/find-and-replace.c:493
 msgid "Replace _with:"
 msgstr "Zame_njaj z:"
 
-#: ../app/find-and-replace.c:477
+#: ../app/find-and-replace.c:503
 msgid "_Match case"
 msgstr "_Razlikovanje malih/velikih črk"
 
-#: ../app/find-and-replace.c:481
+#: ../app/find-and-replace.c:507
 msgid "Match _entire word only"
 msgstr "Samo _cele besede"
 
-#: ../app/find-and-replace.c:485
+#: ../app/find-and-replace.c:511
 msgid "Match _all properties (not just object name)"
 msgstr "Ujemanje _vseh lastnosti (ne le imena predmeta)"
 
-#: ../app/find-and-replace.c:511
+#: ../app/find-and-replace.c:537
 msgid "Find"
 msgstr "Najdi"
 
-#: ../app/find-and-replace.c:541
+#: ../app/find-and-replace.c:567
 #: ../app/menus.c:263
 msgid "Replace"
 msgstr "Zamenjaj"
 
-#: ../app/find-and-replace.c:544
+#: ../app/find-and-replace.c:570
 msgid "Replace _All"
 msgstr "Zamenjaj _vse"
 
 #. not adding the button in the list above to modify it's text;
 #. * the default "Find and Replace" is just too long for my taste ;)
 #.
-#: ../app/find-and-replace.c:549
+#: ../app/find-and-replace.c:575
 msgid "_Replace"
 msgstr "_Zamenjaj"
 
@@ -978,8 +978,8 @@ msgid "Layer name:"
 msgstr "Ime plasti:"
 
 #: ../app/linewidth_area.c:247
-#: ../lib/properties.h:553
-#: ../lib/properties.h:556
+#: ../lib/properties.h:606
+#: ../lib/properties.h:609
 #: ../objects/chronogram/chronoline.c:181
 #: ../objects/chronogram/chronoref.c:160
 msgid "Line width"
@@ -1407,7 +1407,7 @@ msgid "Align"
 msgstr "Poravnaj"
 
 #: ../app/menus.c:189
-#: ../objects/standard/textobj.c:140
+#: ../objects/standard/textobj.c:112
 msgid "Top"
 msgstr "na vrh"
 
@@ -1416,7 +1416,7 @@ msgid "Middle"
 msgstr "sredinsko"
 
 #: ../app/menus.c:191
-#: ../objects/standard/textobj.c:139
+#: ../objects/standard/textobj.c:111
 msgid "Bottom"
 msgstr "na dno"
 
@@ -1523,9 +1523,9 @@ msgstr "Drsi"
 #: ../app/menus.c:232
 #: ../app/toolbox.c:98
 #: ../lib/properties.c:101
-#: ../lib/properties.h:604
+#: ../lib/properties.h:657
 #: ../objects/AADL/aadlbox.c:153
-#: ../objects/custom/custom_object.c:237
+#: ../objects/custom/custom_object.c:229
 #: ../objects/Jackson/requirement.c:134
 #: ../objects/network/basestation.c:133
 #: ../objects/network/radiocell.c:126
@@ -1566,7 +1566,7 @@ msgstr "Bezierjev poligon"
 
 #: ../app/menus.c:238
 #: ../app/toolbox.c:128
-#: ../objects/standard/line.c:338
+#: ../objects/standard/line.c:326
 msgid "Line"
 msgstr "Črta"
 
@@ -1867,8 +1867,8 @@ msgid "Portable Network Graphics"
 msgstr "PNG (Portable Network Graphics)"
 
 #: ../app/preferences.c:224
-#: ../plug-ins/svg/render_svg.c:570
-#: ../plug-ins/svg/svg-import.c:1229
+#: ../plug-ins/svg/render_svg.c:605
+#: ../plug-ins/svg/svg-import.c:1410
 msgid "Scalable Vector Graphics"
 msgstr "SVG (Scalable Vector Graphics)"
 
@@ -2405,8 +2405,8 @@ msgstr "prazna konkavna"
 #: ../lib/arrows.c:1920
 #: ../lib/properties.c:81
 #: ../lib/properties.c:87
-#: ../lib/properties.h:531
-#: ../lib/properties.h:537
+#: ../lib/properties.h:584
+#: ../lib/properties.h:590
 msgid "Round"
 msgstr "okrogla"
 
@@ -2443,9 +2443,10 @@ msgstr "neznana puščica"
 #: ../lib/create.c:228
 #: ../lib/create.c:252
 #: ../lib/create.c:284
-#: ../lib/create.c:315
-#: ../lib/create.c:358
-#: ../plug-ins/svg/svg-import.c:332
+#: ../lib/create.c:305
+#: ../lib/create.c:335
+#: ../lib/create.c:378
+#: ../plug-ins/svg/svg-import.c:391
 #: ../plug-ins/vdx/vdx-import.c:144
 msgid "Can't find standard object"
 msgstr "Navadnega predmeta ni mogoče najti"
@@ -2554,7 +2555,7 @@ msgstr "V redu"
 msgid "Cancel"
 msgstr "Prekliči"
 
-#: ../lib/dia_xml.c:199
+#: ../lib/dia_xml.c:212
 #, c-format
 msgid ""
 "The file %s has no encoding specification;\n"
@@ -2563,79 +2564,85 @@ msgstr ""
 "Datoteka %s nima navedene kodne strani;\n"
 "predpostavljeno je kodiranje %s"
 
-#: ../lib/dia_xml.c:472
+#: ../lib/dia_xml.c:506
 #, c-format
 msgid "Unknown type of DataNode '%s'"
 msgstr "Neznana vrsta podatkovnega vozlišča DataNode '%s'"
 
-#: ../lib/dia_xml.c:489
+#: ../lib/dia_xml.c:525
 msgid "Taking int value of non-int node."
 msgstr "Jemanje celoštevilske vrednosti z neceloštevilskega vozlišča."
 
-#: ../lib/dia_xml.c:654
+#: ../lib/dia_xml.c:701
 msgid "Taking point value of non-point node."
 msgstr "Jemanje vrednosti točke netočkovnega vozlišča."
 
-#: ../lib/dia_xml.c:665
+#: ../lib/dia_xml.c:712
 #, c-format
 msgid "Incorrect x Point value \"%s\" %f; discarding it."
 msgstr "Nepravilna vrednost x točke \"%s\" %f; ne bo upoštevana:"
 
-#: ../lib/dia_xml.c:672
+#: ../lib/dia_xml.c:719
 msgid "Error parsing point."
 msgstr "Napaka ob razčlenjevanju točke"
 
 #. don't bother with useless warnings (see above)
-#: ../lib/dia_xml.c:680
+#: ../lib/dia_xml.c:727
 #, c-format
 msgid "Incorrect y Point value \"%s\" %f; discarding it."
 msgstr "Nepravilna vrednost y točke \"%s\" %f; ne bo upoštevana:"
 
-#: ../lib/dia_xml.c:698
+#: ../lib/dia_xml.c:747
 msgid "Taking bezpoint value of non-point node."
 msgstr "Prevzemanje vrednosti točke z netočkovnega vozlišča."
 
-#: ../lib/dia_xml.c:716
+#: ../lib/dia_xml.c:765
 msgid "Error parsing bezpoint p1."
 msgstr "Napaka ob razčlenjevanju točke p1."
 
-#: ../lib/dia_xml.c:730
+#: ../lib/dia_xml.c:779
 msgid "Error parsing bezpoint p2."
 msgstr "Napaka ob razčlenjevanju točke p2."
 
-#: ../lib/dia_xml.c:744
+#: ../lib/dia_xml.c:793
 msgid "Error parsing bezpoint p3."
 msgstr "Napaka ob razčlenjevanju točke p3."
 
-#: ../lib/dia_xml.c:769
+#: ../lib/dia_xml.c:820
 msgid "Taking rectangle value of non-rectangle node."
 msgstr "Jemanje vrednosti pravokotnika z nepravokotnega vozlišča."
 
-#: ../lib/dia_xml.c:781
-#: ../lib/dia_xml.c:792
-#: ../lib/dia_xml.c:803
+#: ../lib/dia_xml.c:832
+#: ../lib/dia_xml.c:843
+#: ../lib/dia_xml.c:854
 msgid "Error parsing rectangle."
 msgstr "Napaka ob razčlenjevanju pravokotnika."
 
-#: ../lib/dia_xml.c:829
+#: ../lib/dia_xml.c:882
 msgid "Taking string value of non-string node."
 msgstr "Jemanje vrednosti niza z neniznega vozlišča."
 
-#: ../lib/dia_xml.c:855
+#: ../lib/dia_xml.c:908
 msgid "Error in string tag."
 msgstr "Napaka v oznaki niza."
 
-#: ../lib/dia_xml.c:873
+#: ../lib/dia_xml.c:926
 msgid "Error in file, string not starting with #"
 msgstr "Napaka v datoteki, niz se ne začenja z #"
 
-#: ../lib/dia_xml.c:923
+#: ../lib/dia_xml.c:981
 msgid "Taking font value of non-font node."
 msgstr "Jemanje vrednosti pisave nepisavnega vozlišča."
 
 #: ../lib/filter.c:177
 #, c-format
 msgid "Multiple export filters with unique name %s"
+msgstr "Obstaja več izvoznih filtrov z istim imenom %s"
+
+#: ../lib/filter.c:195
+#, c-format
+#| msgid "Multiple export filters with unique name %s"
+msgid "Multiple import filters with unique name %s"
 msgstr "Obstaja več izvoznih filtrov z istim imenom %s"
 
 #: ../lib/font.c:89
@@ -2764,102 +2771,102 @@ msgid "Value"
 msgstr "Vrednost"
 
 #: ../lib/properties.c:67
-#: ../lib/properties.h:518
+#: ../lib/properties.h:571
 #: ../lib/widgets.c:273
 msgid "Left"
 msgstr "Levo"
 
 #: ../lib/properties.c:68
-#: ../lib/properties.h:519
+#: ../lib/properties.h:572
 #: ../lib/widgets.c:274
-#: ../objects/standard/textobj.c:141
+#: ../objects/standard/textobj.c:113
 msgid "Center"
 msgstr "Sredinsko"
 
 #: ../lib/properties.c:69
-#: ../lib/properties.h:520
+#: ../lib/properties.h:573
 #: ../lib/widgets.c:275
 msgid "Right"
 msgstr "Desno"
 
 #: ../lib/properties.c:74
-#: ../lib/properties.h:524
+#: ../lib/properties.h:577
 msgid "Never"
 msgstr "Nikoli"
 
 #: ../lib/properties.c:75
-#: ../lib/properties.h:525
+#: ../lib/properties.h:578
 msgid "When Needed"
 msgstr "Po potrebi"
 
 #: ../lib/properties.c:76
-#: ../lib/properties.h:526
+#: ../lib/properties.h:579
 msgid "Always"
 msgstr "Vedno"
 
 #: ../lib/properties.c:80
-#: ../lib/properties.h:530
+#: ../lib/properties.h:583
 msgid "Miter"
 msgstr "Sredica"
 
 #: ../lib/properties.c:82
-#: ../lib/properties.h:532
+#: ../lib/properties.h:585
 msgid "Bevel"
 msgstr "Izbočeno"
 
 #: ../lib/properties.c:86
-#: ../lib/properties.h:536
+#: ../lib/properties.h:589
 msgid "Butt"
 msgstr "Odebeljeni konec"
 
 #: ../lib/properties.c:88
-#: ../lib/properties.h:538
+#: ../lib/properties.h:591
 msgid "Projecting"
 msgstr "Projiciranje"
 
 #: ../lib/properties.c:95
-#: ../lib/properties.h:559
-#: ../lib/properties.h:562
+#: ../lib/properties.h:612
+#: ../lib/properties.h:615
 #: ../objects/chronogram/chronoline.c:179
 #: ../objects/chronogram/chronoref.c:158
 msgid "Line color"
 msgstr "Barva črte"
 
 #: ../lib/properties.c:96
-#: ../lib/properties.h:565
-#: ../lib/properties.h:568
+#: ../lib/properties.h:618
+#: ../lib/properties.h:621
 msgid "Line style"
 msgstr "Slog črte"
 
 #: ../lib/properties.c:97
-#: ../lib/properties.h:584
-#: ../lib/properties.h:587
+#: ../lib/properties.h:637
+#: ../lib/properties.h:640
 msgid "Fill color"
 msgstr "Barva polnila"
 
 #: ../lib/properties.c:98
-#: ../lib/properties.h:590
-#: ../lib/properties.h:593
+#: ../lib/properties.h:643
+#: ../lib/properties.h:646
 msgid "Draw background"
 msgstr "Nariši ozadje"
 
 #: ../lib/properties.c:99
-#: ../lib/properties.h:597
+#: ../lib/properties.h:650
 msgid "Start arrow"
 msgstr "Puščica začetka"
 
 #: ../lib/properties.c:100
-#: ../lib/properties.h:600
+#: ../lib/properties.h:653
 msgid "End arrow"
 msgstr "Puščica konca"
 
 #: ../lib/properties.c:102
-#: ../lib/properties.h:610
+#: ../lib/properties.h:663
 msgid "Text alignment"
 msgstr "Poravnava besedila"
 
 #: ../lib/properties.c:103
-#: ../lib/properties.h:615
+#: ../lib/properties.h:668
 #: ../objects/chronogram/chronoline.c:183
 #: ../objects/chronogram/chronoref.c:164
 #: ../objects/Database/reference.c:118
@@ -2871,7 +2878,7 @@ msgid "Font"
 msgstr "Pisava"
 
 #: ../lib/properties.c:104
-#: ../lib/properties.h:623
+#: ../lib/properties.h:676
 #: ../objects/chronogram/chronoline.c:185
 #: ../objects/chronogram/chronoref.c:166
 #: ../objects/GRAFCET/condition.c:134
@@ -2881,24 +2888,24 @@ msgid "Font size"
 msgstr "Velikost pisave"
 
 #: ../lib/properties.c:105
-#: ../lib/properties.h:629
+#: ../lib/properties.h:682
 #: ../objects/chronogram/chronoline.c:187
 #: ../objects/chronogram/chronoref.c:168
 #: ../objects/GRAFCET/step.c:170
 msgid "Text color"
 msgstr "Barva besedila"
 
-#: ../lib/properties.h:571
-#: ../lib/properties.h:574
+#: ../lib/properties.h:624
+#: ../lib/properties.h:627
 msgid "Line join"
 msgstr "Spoji črt"
 
-#: ../lib/properties.h:577
-#: ../lib/properties.h:580
+#: ../lib/properties.h:630
+#: ../lib/properties.h:633
 msgid "Line caps"
 msgstr "Konci črt"
 
-#: ../lib/properties.h:638
+#: ../lib/properties.h:691
 msgid "Text fitting"
 msgstr "Umerjanje besedila"
 
@@ -2968,6 +2975,44 @@ msgstr ""
 #, c-format
 msgid "%s: you should use object tags rather than shape tags now"
 msgstr "%s: zdaj bi morali uporabljati značke predmetov in ne značke likov"
+
+#: ../lib/standard-path.c:119
+msgid "Stroke"
+msgstr "Poteza"
+
+#. Translators: Menu item Verb/Provision/Supply/Fill
+#: ../lib/standard-path.c:120
+#: ../objects/FS/function.c:938
+msgid "Fill"
+msgstr "Polni"
+
+#: ../lib/standard-path.c:121
+msgid "Fill & Stroke"
+msgstr "Polnilo in poteza"
+
+#: ../lib/standard-path.c:126
+#| msgid "Beziergon"
+msgid "Bezier points"
+msgstr "Točke Bezier"
+
+#: ../lib/standard-path.c:127
+msgid "Drawing"
+msgstr "Risba"
+
+#: ../lib/standard-path.c:134
+#| msgid "Controls"
+msgid "Draw Control Lines"
+msgstr "Nariši nadzorne črte"
+
+#: ../lib/standard-path.c:457
+#| msgid "MoveTo not at start of Bezier"
+msgid "Convert to Bezier"
+msgstr "Pretvori v Bezierjevo krivuljo"
+
+#: ../lib/standard-path.c:458
+#| msgid "Show _Connection Points"
+msgid "Show Control Lines"
+msgstr "Pokaži nadzorne črte"
 
 #: ../lib/widgets.c:394
 msgid "Select image file"
@@ -3148,22 +3193,22 @@ msgstr "Po meri"
 msgid "Custom XML shapes loader"
 msgstr "Nalagalnik likov XML po meri"
 
-#: ../objects/custom/custom_object.c:208
-#: ../objects/custom/custom_object.c:241
+#: ../objects/custom/custom_object.c:200
+#: ../objects/custom/custom_object.c:233
 msgid "Flip horizontal"
 msgstr "Prevrni vodoravno"
 
-#: ../objects/custom/custom_object.c:210
-#: ../objects/custom/custom_object.c:243
+#: ../objects/custom/custom_object.c:202
+#: ../objects/custom/custom_object.c:235
 msgid "Flip vertical"
 msgstr "Prevrni navpično"
 
-#: ../objects/custom/custom_object.c:213
-#: ../objects/custom/custom_object.c:246
+#: ../objects/custom/custom_object.c:205
+#: ../objects/custom/custom_object.c:238
 msgid "Scale of the subshapes"
 msgstr "Merilo podlikov"
 
-#: ../objects/custom/custom_object.c:227
+#: ../objects/custom/custom_object.c:219
 #: ../objects/flowchart/box.c:154
 #: ../objects/flowchart/diamond.c:152
 #: ../objects/flowchart/ellipse.c:151
@@ -3172,16 +3217,15 @@ msgstr "Merilo podlikov"
 msgid "Text padding"
 msgstr "Blazinjenje besedila"
 
-#: ../objects/custom/custom_object.c:1792
+#: ../objects/custom/custom_object.c:1784
 msgid "Flip Horizontal"
 msgstr "Prevrni vodoravno"
 
-#: ../objects/custom/custom_object.c:1793
+#: ../objects/custom/custom_object.c:1785
 msgid "Flip Vertical"
 msgstr "Prevrni navpično"
 
-#: ../objects/custom/custom_object.c:1830
-#: ../objects/custom_lines/custom_linetypes.c:281
+#: ../objects/custom/custom_object.c:1822
 #, c-format
 msgid "Cannot open icon file %s for object type '%s'."
 msgstr "Ni mogoče odpreti datoteke z ikono %s za vrsto predmeta '%s'."
@@ -3194,16 +3238,11 @@ msgstr "Črte po meri"
 msgid "Custom XML lines loader"
 msgstr "Nalagalnik črt XML po meri"
 
-#: ../objects/custom_lines/custom_linetypes.c:244
+#: ../objects/custom_lines/custom_linetypes.c:259
 msgid "INTERNAL: CustomLines: Illegal line type in LineInfo object."
 msgstr "NOTRANJA NAPAKA: Črte po meri: neveljavna vrsta črte v predmetu LineInfo"
 
-#: ../objects/custom_lines/custom_linetypes.c:269
-#, c-format
-msgid "INTERNAL: CustomLines: Illegal line type in LineInfo object %s."
-msgstr "NOTRANJA NAPAKA: Črte po meri: neveljavna vrsta črte v predmetu LineInfo %s."
-
-#: ../objects/custom/shape_info.c:165
+#: ../objects/custom/shape_info.c:170
 #, c-format
 msgid ""
 "The file '%s' has invalid path data.\n"
@@ -3246,9 +3285,9 @@ msgstr "Predmeti diagrama tabele entitet/odnosov"
 
 #: ../objects/Database/reference.c:109
 #: ../objects/flowchart/box.c:152
-#: ../objects/standard/box.c:155
-#: ../objects/standard/polyline.c:141
-#: ../objects/standard/zigzagline.c:139
+#: ../objects/standard/box.c:138
+#: ../objects/standard/polyline.c:107
+#: ../objects/standard/zigzagline.c:107
 msgid "Corner radius"
 msgstr "Radij vogala"
 
@@ -3284,7 +3323,7 @@ msgstr " "
 #: ../objects/FS/flow-ortho.c:631
 #: ../objects/GRAFCET/vector.c:311
 #: ../objects/SADT/arrow.c:463
-#: ../objects/standard/zigzagline.c:461
+#: ../objects/standard/zigzagline.c:448
 #: ../objects/UML/association.c:867
 #: ../objects/UML/component_feature.c:190
 #: ../objects/UML/dependency.c:381
@@ -3299,7 +3338,7 @@ msgstr "Dodaj odsek"
 #: ../objects/FS/flow-ortho.c:632
 #: ../objects/GRAFCET/vector.c:312
 #: ../objects/SADT/arrow.c:464
-#: ../objects/standard/zigzagline.c:462
+#: ../objects/standard/zigzagline.c:449
 #: ../objects/UML/association.c:868
 #: ../objects/UML/component_feature.c:191
 #: ../objects/UML/dependency.c:382
@@ -4075,11 +4114,6 @@ msgstr "Rezerviraj"
 msgid "Supply"
 msgstr "Dostavi"
 
-#. Translators: Menu item Verb/Provision/Supply/Fill
-#: ../objects/FS/function.c:938
-msgid "Fill"
-msgstr "Polni"
-
 #. Translators: Menu item Verb/Provision/Supply/Provide
 #: ../objects/FS/function.c:940
 msgid "Provide"
@@ -4450,7 +4484,7 @@ msgstr "Sila"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Rotation
 #: ../objects/FS/function.c:1110
-#: ../objects/standard/outline.c:213
+#: ../objects/standard/outline.c:104
 msgid "Rotation"
 msgstr "Rotacija"
 
@@ -4760,7 +4794,7 @@ msgstr "Vrsta Vergnet:"
 #: ../objects/KAOS/goal.c:572
 #: ../objects/KAOS/other.c:523
 #: ../objects/SADT/box.c:452
-#: ../objects/standard/line.c:331
+#: ../objects/standard/line.c:319
 msgid "Add connection point"
 msgstr "Dodaj točko povezave"
 
@@ -4770,7 +4804,7 @@ msgstr "Dodaj točko povezave"
 #: ../objects/KAOS/goal.c:573
 #: ../objects/KAOS/other.c:524
 #: ../objects/SADT/box.c:453
-#: ../objects/standard/line.c:332
+#: ../objects/standard/line.c:320
 msgid "Delete connection point"
 msgstr "Izbriši točko povezave"
 
@@ -5155,113 +5189,121 @@ msgstr "Škatla SADT"
 msgid "SADT diagram objects"
 msgstr "Diagramski predmeti SADT"
 
-#: ../objects/standard/arc.c:151
+#: ../objects/standard/arc.c:120
 msgid "Curve distance"
 msgstr "Razdalja krivulje"
 
 #: ../objects/standard/bezier.c:145
-#: ../objects/standard/line.c:156
-#: ../objects/standard/polyline.c:142
+#: ../objects/standard/line.c:127
+#: ../objects/standard/polyline.c:108
 msgid "Line gaps"
 msgstr "Razmiki črt"
 
 #: ../objects/standard/bezier.c:147
-#: ../objects/standard/line.c:158
-#: ../objects/standard/polyline.c:144
+#: ../objects/standard/line.c:129
+#: ../objects/standard/polyline.c:110
 msgid "Absolute start gap"
 msgstr "Absolutni začetni razmik"
 
 #: ../objects/standard/bezier.c:149
-#: ../objects/standard/line.c:160
-#: ../objects/standard/polyline.c:146
+#: ../objects/standard/line.c:131
+#: ../objects/standard/polyline.c:112
 msgid "Absolute end gap"
 msgstr "Absolutni končni razmik"
 
-#: ../objects/standard/bezier.c:757
-#: ../objects/standard/beziergon.c:509
+#: ../objects/standard/bezier.c:776
+#: ../objects/standard/beziergon.c:515
 msgid "Add Segment"
 msgstr "Dodaj odsek"
 
-#: ../objects/standard/bezier.c:758
-#: ../objects/standard/beziergon.c:510
+#: ../objects/standard/bezier.c:777
+#: ../objects/standard/beziergon.c:516
 msgid "Delete Segment"
 msgstr "Izbriši odsek"
 
-#: ../objects/standard/bezier.c:760
-#: ../objects/standard/beziergon.c:512
+#: ../objects/standard/bezier.c:779
+#: ../objects/standard/beziergon.c:518
 msgid "Symmetric control"
 msgstr "Simetrični nadzor"
 
-#: ../objects/standard/bezier.c:762
-#: ../objects/standard/beziergon.c:514
+#: ../objects/standard/bezier.c:781
+#: ../objects/standard/beziergon.c:520
 msgid "Smooth control"
 msgstr "Mehki nadzor"
 
-#: ../objects/standard/bezier.c:764
-#: ../objects/standard/beziergon.c:516
+#: ../objects/standard/bezier.c:783
+#: ../objects/standard/beziergon.c:522
 msgid "Cusp control"
 msgstr "Nadzor stika"
 
-#: ../objects/standard/box.c:142
-#: ../objects/standard/ellipse.c:136
+#: ../objects/standard/bezier.c:785
+#: ../objects/standard/beziergon.c:524
+#: ../objects/standard/box.c:749
+#: ../objects/standard/textobj.c:458
+#| msgid "Convert"
+msgid "Convert to Path"
+msgstr "Pretvori v pot"
+
+#: ../objects/standard/box.c:125
+#: ../objects/standard/ellipse.c:118
 msgid "Free"
 msgstr "Prosto"
 
-#: ../objects/standard/box.c:143
-#: ../objects/standard/ellipse.c:137
+#: ../objects/standard/box.c:126
+#: ../objects/standard/ellipse.c:119
 msgid "Fixed"
 msgstr "Nespremenljivo"
 
-#: ../objects/standard/box.c:144
-#: ../objects/standard/box.c:702
+#: ../objects/standard/box.c:127
+#: ../objects/standard/box.c:747
 msgid "Square"
 msgstr "Kvadrat"
 
-#: ../objects/standard/box.c:157
-#: ../objects/standard/ellipse.c:149
+#: ../objects/standard/box.c:140
+#: ../objects/standard/ellipse.c:131
 msgid "Aspect ratio"
 msgstr "Razmerje stranic"
 
-#: ../objects/standard/box.c:698
-#: ../objects/standard/ellipse.c:676
+#: ../objects/standard/box.c:743
+#: ../objects/standard/ellipse.c:664
 msgid "Free aspect"
 msgstr "Poljubno razmerje"
 
-#: ../objects/standard/box.c:700
-#: ../objects/standard/ellipse.c:678
+#: ../objects/standard/box.c:745
+#: ../objects/standard/ellipse.c:666
 msgid "Fixed aspect"
 msgstr "Nespremenljivo razmerje"
 
-#: ../objects/standard/ellipse.c:138
-#: ../objects/standard/ellipse.c:680
+#: ../objects/standard/ellipse.c:120
+#: ../objects/standard/ellipse.c:668
 msgid "Circle"
 msgstr "Krog"
 
-#: ../objects/standard/image.c:148
+#: ../objects/standard/image.c:119
 msgid "Image file"
 msgstr "Slikovna datoteka"
 
-#: ../objects/standard/image.c:150
+#: ../objects/standard/image.c:121
 msgid "Inline data"
 msgstr "Vdelani podatki"
 
-#: ../objects/standard/image.c:150
+#: ../objects/standard/image.c:121
 msgid "Store image data in diagram"
 msgstr "Shrani slikovne podatke v diagram"
 
-#: ../objects/standard/image.c:152
+#: ../objects/standard/image.c:123
 msgid "Pixbuf"
 msgstr "Medpomnilnik slik. točk"
 
-#: ../objects/standard/image.c:152
+#: ../objects/standard/image.c:123
 msgid "The Pixbuf reference"
 msgstr "Sklic Pixbuf"
 
-#: ../objects/standard/image.c:154
+#: ../objects/standard/image.c:125
 msgid "Draw border"
 msgstr "Nariši rob"
 
-#: ../objects/standard/image.c:156
+#: ../objects/standard/image.c:127
 msgid "Keep aspect ratio"
 msgstr "Ohrani razmerja"
 
@@ -5288,42 +5330,41 @@ msgstr ""
 msgid "The image file '%s' was not found.\n"
 msgstr "Slikovne datoteke '%s' ni mogoče najti.\n"
 
-#: ../objects/standard/line.c:147
+#: ../objects/standard/line.c:118
 msgid "Arrows"
 msgstr "Puščice"
 
-#: ../objects/standard/line.c:152
+#: ../objects/standard/line.c:123
 msgid "Start point"
 msgstr "Začetna točka"
 
-#: ../objects/standard/line.c:154
+#: ../objects/standard/line.c:125
 msgid "End point"
 msgstr "Končna točka"
 
-#: ../objects/standard/line.c:333
+#: ../objects/standard/line.c:321
 msgid "Upgrade to Polyline"
 msgstr "Nadgradi v mnogokotnik"
 
-#: ../objects/standard/line.c:334
-#| msgid "Zigzagline"
+#: ../objects/standard/line.c:322
 msgid "Upgrade to Zigzagline"
 msgstr "Nadgradi v črto cik-cak"
 
-#: ../objects/standard/outline.c:211
+#: ../objects/standard/outline.c:102
 msgid "Text content"
 msgstr "Vsebina besedila"
 
-#: ../objects/standard/outline.c:213
+#: ../objects/standard/outline.c:104
 msgid "Angle to rotate the outline"
 msgstr "Kot za sukanje orisa"
 
-#: ../objects/standard/polygon.c:474
-#: ../objects/standard/polyline.c:638
+#: ../objects/standard/polygon.c:459
+#: ../objects/standard/polyline.c:623
 msgid "Add Corner"
 msgstr "Dodaj kot"
 
-#: ../objects/standard/polygon.c:475
-#: ../objects/standard/polyline.c:639
+#: ../objects/standard/polygon.c:460
+#: ../objects/standard/polyline.c:624
 msgid "Delete Corner"
 msgstr "Izbriši kot"
 
@@ -5331,16 +5372,15 @@ msgstr "Izbriši kot"
 msgid "Standard objects"
 msgstr "Navadni predmeti"
 
-#: ../objects/standard/textobj.c:142
+#: ../objects/standard/textobj.c:114
 msgid "First Line"
 msgstr "Prva vrstica"
 
-#: ../objects/standard/textobj.c:149
+#: ../objects/standard/textobj.c:121
 msgid "Vertical text alignment"
 msgstr "Navpična poravnava besedila"
 
-#: ../objects/standard/zigzagline.c:463
-#| msgid "Bezierline"
+#: ../objects/standard/zigzagline.c:450
 msgid "Upgrade to Bezierline"
 msgstr "Nadgradi v Bezierjevo krivuljo"
 
@@ -5901,7 +5941,6 @@ msgid "Unified Modelling Language diagram objects UML 1.3"
 msgstr "Diagramski predmeti Poenotenega jezika za modeliranje 1.3 (UML 1.3)"
 
 #: ../objects/UML/umloperation.c:73
-#| msgid "Inheritance type"
 msgid "Inheritance"
 msgstr "Dedovanje"
 
@@ -5914,7 +5953,6 @@ msgid "Scope"
 msgstr "Področje"
 
 #: ../objects/UML/umloperation.c:77
-#| msgid "Class scope (static)"
 msgid "Class scope (C++ static method)"
 msgstr "Področje razreda (statična metoda C++)"
 
@@ -6016,8 +6054,8 @@ msgstr "Povečaj kazalec"
 msgid "Visible rect pointer"
 msgstr "Viden pravokoten kazalec"
 
-#: ../plug-ins/cairo/diacairo-renderer.c:844
-#: ../plug-ins/cairo/diacairo-renderer.c:879
+#: ../plug-ins/cairo/diacairo-renderer.c:848
+#: ../plug-ins/cairo/diacairo-renderer.c:883
 #: ../plug-ins/cgm/cgm.c:1126
 #: ../plug-ins/libart/dialibartrenderer.c:1325
 #: ../plug-ins/metapost/render_metapost.c:1108
@@ -6325,7 +6363,7 @@ msgstr "Datoteka z likom Dia"
 msgid "Scalable Vector Graphics import and export filters"
 msgstr "Izvozni in uvozni filter SVG"
 
-#: ../plug-ins/svg/svg-import.c:323
+#: ../plug-ins/svg/svg-import.c:380
 msgid ""
 "Invalid path data.\n"
 "svg:path data must start with moveto."
@@ -6333,17 +6371,27 @@ msgstr ""
 "Neveljavna pot.\n"
 "Podatek svg:path se mora pričeti z moveto."
 
-#: ../plug-ins/svg/svg-import.c:1128
+#: ../plug-ins/svg/svg-import.c:1217
+msgid "'Shape Design' shapes missing."
+msgstr "Manjkajo liki 'Oblikovanje lika'"
+
+#: ../plug-ins/svg/svg-import.c:1251
+#, c-format
+#| msgid "'%s' creation failed"
+msgid "Object '%s' creation failed"
+msgstr "Ustvarjanje predmeta '%s' ni uspelo"
+
+#: ../plug-ins/svg/svg-import.c:1275
 #: ../plug-ins/vdx/vdx-import.c:2888
 #, c-format
 msgid "Parse error for %s"
 msgstr "Napaka razčlenjevanja za %s"
 
-#: ../plug-ins/svg/svg-import.c:1144
+#: ../plug-ins/svg/svg-import.c:1294
 msgid "Expected SVG Namespace not found in file"
 msgstr "Pričakovani imenski prostor SVG v datoteki ni vsebovan"
 
-#: ../plug-ins/svg/svg-import.c:1164
+#: ../plug-ins/svg/svg-import.c:1314
 #, c-format
 msgid "root element was '%s' -- expecting 'svg'."
 msgstr "korenski element je bil '%s' -- pričakovan je bil 'svg'."
@@ -6358,29 +6406,24 @@ msgstr "Zapis Visio XML"
 
 #: ../plug-ins/vdx/vdx-import.c:222
 #, c-format
-#| msgid "Couldn't read color: %s\n"
 msgid "Couldn't read color: %s"
 msgstr "Ni mogoče prebrati barve: %s"
 
 #: ../plug-ins/vdx/vdx-import.c:536
 #, c-format
-#| msgid "Couldn't find shape %d\n"
 msgid "Couldn't find shape %d"
 msgstr "Ni mogoče najti lika %d"
 
 #: ../plug-ins/vdx/vdx-import.c:1012
 #, c-format
-#| msgid "Unexpected Ellipse object: %s\n"
 msgid "Unexpected Ellipse object: %s"
 msgstr "Nepričakovan predmet elipse: %s"
 
 #: ../plug-ins/vdx/vdx-import.c:1026
-#| msgid "Can't rotate ellipse\n"
 msgid "Can't rotate ellipse"
 msgstr "Elipse ni mogoče sukati"
 
 #: ../plug-ins/vdx/vdx-import.c:1357
-#| msgid "MoveTo not at start of Bezier\n"
 msgid "MoveTo not at start of Bezier"
 msgstr "MoveTo ni začetek Bezierjeve krivulje"
 
