@@ -781,25 +781,20 @@ dia_svg_parse_path(GArray *points, const gchar *path_str, gchar **unparsed,
     /* check for a new command */
     switch (path[0]) {
     case 'M':
-#undef MULTI_MOVE_BEZIER /* Dia XML serialization can't cope with it */
-#ifndef MULTI_MOVE_BEZIER
       if (points->len - points_at_start > 0) {
 	need_next_element = TRUE;
 	goto MORETOPARSE;
       }
-#endif
       path++;
       path_chomp(path);
       last_type = PATH_MOVE;
       last_relative = FALSE;
       break;
     case 'm':
-#ifndef MULTI_MOVE_BEZIER
-      if (points->len > 0) {
+      if (points->len - points_at_start > 0) {
 	need_next_element = TRUE;
 	goto MORETOPARSE;
       }
-#endif
       path++;
       path_chomp(path);
       last_type = PATH_MOVE;
@@ -917,10 +912,8 @@ dia_svg_parse_path(GArray *points, const gchar *path_str, gchar **unparsed,
     /* actually parse the path component */
     switch (last_type) {
     case PATH_MOVE:
-#ifndef MULTI_MOVE_BEZIER
       if (points->len - points_at_start > 1)
 	g_warning ("Only first point should be 'move'");
-#endif
       bez.type = BEZ_MOVE_TO;
       bez.p1.x = g_ascii_strtod(path, &path);
       path_chomp(path);
@@ -933,11 +926,9 @@ dia_svg_parse_path(GArray *points, const gchar *path_str, gchar **unparsed,
       last_point = bez.p1;
       last_control = bez.p1;
       last_open = bez.p1;
-#ifndef MULTI_MOVE_BEZIER
-      if (points->len == 1) /* stupid svg, but we can handle it */
+      if (points->len - points_at_start == 1) /* stupid svg, but we can handle it */
 	g_array_index(points,BezPoint,0) = bez;
       else
-#endif
         g_array_append_val(points, bez);
       /* [SVG11 8.3.2] If a moveto is followed by multiple pairs of coordinates, 
        * the subsequent pairs are treated as implicit lineto commands 
@@ -1097,9 +1088,7 @@ dia_svg_parse_path(GArray *points, const gchar *path_str, gchar **unparsed,
 	last_point = last_open;
       }
       *closed = TRUE;
-#ifndef MULTI_MOVE_BEZIER
       need_next_element = TRUE;
-#endif
     }
     /* get rid of any ignorable characters */
     path_chomp(path);
