@@ -116,7 +116,7 @@ new_layer(gchar *name, DiagramData *parent)
 
   layer->parent_diagram = parent;
   layer->visible = TRUE;
-  layer->connectable = TRUE;
+  layer->connectable = FALSE;
 
   layer->objects = NULL;
 
