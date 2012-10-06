@@ -444,6 +444,10 @@ void prop_list_add_show_background (GPtrArray *plist, gboolean fill);
 void prop_list_add_point (GPtrArray *plist, const char *name, const Point *point);
 /* quite generic, e.g. elem_width, elem_height, curve_distance */
 void prop_list_add_real (GPtrArray *plist, const char *name, real value);
+/* addding a string property */
+void prop_list_add_string (GPtrArray *plist, const char *name, const char *value);
+/* addding a string property */
+void prop_list_add_filename (GPtrArray *plist, const char *name, const char *value);
 
 /* Some predicates: */
 gboolean pdtpp_true(const PropDescription *pdesc); /* always true */
@@ -543,6 +547,8 @@ Property *object_prop_by_name(DiaObject *obj, const char *name);
 Property *object_prop_by_name_type(DiaObject *obj, const char *name, const char *type);
 /* Set the pixbuf property if there is one */
 ObjectChange *dia_object_set_pixbuf (DiaObject *object, GdkPixbuf *pixbuf);
+/* Set the string property if there is one */
+ObjectChange *dia_object_set_string (DiaObject *object, const char *name, const char *value);
 
 /* ************************************************************* */ 
 

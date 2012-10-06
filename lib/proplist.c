@@ -280,3 +280,21 @@ prop_list_add_real (GPtrArray *plist, const char *name, real value)
   ((RealProperty *)prop)->real_data = value;
   g_ptr_array_add (plist, prop);
 }
+void
+prop_list_add_string (GPtrArray *plist, const char *name, const char *value)
+{
+  Property *prop = make_new_prop (name, PROP_TYPE_STRING, 0);
+
+  g_free (((StringProperty *)prop)->string_data);
+  ((StringProperty *)prop)->string_data = g_strdup (value);
+  g_ptr_array_add (plist, prop);
+}
+void
+prop_list_add_filename (GPtrArray *plist, const char *name, const char *value)
+{
+  Property *prop = make_new_prop (name, PROP_TYPE_FILE, 0);
+
+  g_free (((StringProperty *)prop)->string_data);
+  ((StringProperty *)prop)->string_data = g_strdup (value);
+  g_ptr_array_add (plist, prop);
+}

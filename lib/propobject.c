@@ -378,7 +378,7 @@ object_prop_by_name_type(DiaObject *obj, const char *name, const char *type)
   for (pdesc = object_get_prop_descriptions(obj);
        pdesc->name != NULL;
        pdesc++) {
-    if ((pdesc->quark == name_quark)) {
+    if (name_quark == 0 || (pdesc->quark == name_quark)) {
       Property *prop;
       static GPtrArray *plist = NULL;
       
@@ -392,7 +392,7 @@ object_prop_by_name_type(DiaObject *obj, const char *name, const char *type)
       g_ptr_array_index(plist,0) = prop;
       obj->ops->get_props(obj,plist);
       return prop;
-    }    
+    }
   }
   return NULL;
 }
@@ -403,7 +403,20 @@ object_prop_by_name(DiaObject *obj, const char *name)
   return object_prop_by_name_type(obj,name,NULL);
 }
 
-
+/*!
+ * \brief Modification of the objects 'pixbuf' property
+ *
+ * @param object object to modify
+ * @param pixbuf the pixbuf to set
+ * @return an object change or NULL
+ *
+ * If the object does not have a pixbuf property nothing
+ * happens. If there is a pixbuf property and the passed
+ * in pixbuf is identical an empty change is returned.
+ *
+ * \memberof _DiaObject
+ * \ingroup StdProps
+ */
 ObjectChange *
 dia_object_set_pixbuf (DiaObject *object,
 		       GdkPixbuf *pixbuf)
@@ -416,10 +429,55 @@ dia_object_set_pixbuf (DiaObject *object,
   if (!prop)
     return NULL;
   pp = (PixbufProperty *)prop;
+  if (pp->pixbuf == pixbuf)
+    return change_list_create ();
   if (pp->pixbuf)
     g_object_unref (pp->pixbuf);
   pp->pixbuf = g_object_ref (pixbuf);
   props = prop_list_from_single (prop);
+  change = object_apply_props (object, props);
+  prop_list_free (props);
+  return change;
+}
+
+/*!
+ * \brief Modify the objects string property
+ * @param object the object to modify
+ * @param name the name of the string property (NULL for any)
+ * @param value the value to set, NULL to delete
+ * @return object change on sucess, NULL if not found
+ *
+ * Usually you should not pass NULL for the name, the facility
+ * was added for convenience of the unit test.
+ *
+ * \memberof _DiaObject
+ * \ingroup StdProps
+ */
+ObjectChange *
+dia_object_set_string (DiaObject *object,
+		       const char *name,
+		       const char *value)
+{
+  ObjectChange *change;
+  GPtrArray *props = NULL;
+  Property *prop = object_prop_by_name_type (object, name, PROP_TYPE_STRING);
+
+  if (!prop)
+    prop = object_prop_by_name_type (object, name, PROP_TYPE_FILE);
+  if (prop) {
+    StringProperty *pp = (StringProperty *)prop;
+    g_free (pp->string_data);
+    pp->string_data = g_strdup (value);
+    props = prop_list_from_single (prop);
+  } else if ((prop = object_prop_by_name_type (object, name, PROP_TYPE_TEXT)) != NULL) {
+    TextProperty *pp = (TextProperty *)prop;
+    g_free (pp->text_data);
+    pp->text_data = g_strdup (value);
+    props = prop_list_from_single (prop);
+  }
+  if (!props)
+    return NULL;
+
   change = object_apply_props (object, props);
   prop_list_free (props);
   return change;

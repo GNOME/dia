@@ -30,8 +30,7 @@
 #include "diagdkrenderer.h"
 #include "filter.h"
 #include "plug-ins.h"
-#include "prop_text.h"
-#include "prop_geomtypes.h"
+#include "properties.h"
 #include "object.h"
 
 static gboolean
@@ -124,19 +123,12 @@ import_data (const gchar *filename, DiagramData *data, DiaContext *ctx, void* us
       obj = otype->ops->create(&point, otype->default_user_data, &h1, &h2);
       if (obj)
         {
-          PropDescription prop_descs [] = {
-            { "image_file", PROP_TYPE_FILE },
-            { "elem_width", PROP_TYPE_REAL },
-            { "elem_height", PROP_TYPE_REAL },
-            PROP_DESC_END};
-          GPtrArray *plist = prop_list_from_descs (prop_descs, pdtpp_true);
-          StringProperty *strprop = g_ptr_array_index(plist, 0);
-          RealProperty *realprop_w  = g_ptr_array_index(plist, 1);
-          RealProperty *realprop_h  = g_ptr_array_index(plist, 2);
+          GPtrArray *plist = g_ptr_array_new ();
 
-          strprop->string_data = g_strdup (filename);
-          realprop_w->real_data = width / 20.0;
-          realprop_h->real_data = height / 20.0;
+          prop_list_add_filename (plist, "image_file", filename);
+          prop_list_add_real (plist, "elem_width", width / 20.0);
+          prop_list_add_real (plist, "elem_height", height / 20.0);
+
           obj->ops->set_props(obj, plist);
           prop_list_free (plist);
 
