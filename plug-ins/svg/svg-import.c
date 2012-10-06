@@ -277,15 +277,15 @@ apply_style(DiaObject *obj, xmlNodePtr node, DiaSvgStyle *parent_style)
       g_assert(props->len == 5);
   
       cprop = g_ptr_array_index(props,0);
-      if(gs->stroke != (-1)) {
+      if(gs->stroke == DIA_SVG_COLOUR_NONE) /* transparent */
+	cprop->color_data = get_colour(0xFFFFFF, 0.0);
+      else if (gs->stroke == DIA_SVG_COLOUR_FOREGROUND)
+	cprop->color_data = attributes_get_foreground();
+      else if (gs->stroke == DIA_SVG_COLOUR_BACKGROUND)
+	cprop->color_data = attributes_get_background();
+      else
         cprop->color_data = get_colour(gs->stroke, gs->stroke_opacity);
-      } else {
-	if(gs->fill == DIA_SVG_COLOUR_NONE) {
-	  cprop->color_data = get_colour(0x000000, 1.0);
-	} else {
-	  cprop->color_data = get_colour(gs->fill, gs->fill_opacity);
-	}
-      }
+
       rprop = g_ptr_array_index(props,1);
       rprop->real_data = gs->line_width * scale;
   
@@ -294,10 +294,17 @@ apply_style(DiaObject *obj, xmlNodePtr node, DiaSvgStyle *parent_style)
       lsprop->dash = gs->dashlength * scale;
 
       cprop = g_ptr_array_index(props,3);
-      cprop->color_data = get_colour(gs->fill, gs->fill_opacity);
+      if(gs->fill == DIA_SVG_COLOUR_NONE) /* transparent */
+	cprop->color_data = get_colour(0x000000, 0.0);
+      else if (gs->fill == DIA_SVG_COLOUR_FOREGROUND)
+	cprop->color_data = attributes_get_foreground();
+      else if (gs->fill == DIA_SVG_COLOUR_BACKGROUND)
+	cprop->color_data = attributes_get_background();
+      else
+        cprop->color_data = get_colour(gs->fill, gs->fill_opacity);
       
       bprop = g_ptr_array_index(props,4);
-      if(gs->fill == (-1)) {
+      if(gs->fill == DIA_SVG_COLOUR_NONE) {
         bprop->bool_data = FALSE;
       } else {
 	bprop->bool_data = TRUE;
