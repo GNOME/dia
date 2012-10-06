@@ -307,16 +307,85 @@ received_clipboard_image_handler(GtkClipboard *clipboard,
   }
 }
 
+static void
+received_clipboard_content_handler (GtkClipboard     *clipboard,
+				    GtkSelectionData *selection_data,
+				    gpointer          data)
+{
+  DDisplay *ddisp = (DDisplay *)data;
+  GdkAtom type_atom;
+  gchar *type_name;
+  gint len;
+
+  if ((len = gtk_selection_data_get_length (selection_data)) > 0) {
+    const guchar *data = gtk_selection_data_get_data (selection_data);
+    type_atom = gtk_selection_data_get_data_type (selection_data);
+    type_name = gdk_atom_name (type_atom);
+    if (type_name && strcmp (type_name, "image/svg+xml") == 0) {
+      DiaImportFilter *ifilter = filter_import_get_by_name ("dia-svg");
+      DiaContext *ctx = dia_context_new (_("Clipboard Paste"));
+
+      if (ifilter->import_mem_func) {
+        Change *change = undo_import_change_setup (ddisp->diagram);
+
+	if (!ifilter->import_mem_func (data, len, DIA_DIAGRAM_DATA (ddisp->diagram),
+				      ctx, ifilter->user_data)) {
+	  /* might become more right some day ;) */
+	  message_error (_("No clipboard handler for '%s'"), type_name);
+	}
+	if (undo_import_change_done (ddisp->diagram, change)) {
+          undo_set_transactionpoint(ddisp->diagram->undo);
+          diagram_modified(ddisp->diagram);
+          diagram_flush(ddisp->diagram);
+	}
+      }
+    }
+    g_print ("Content is %s\n", type_name);
+    g_free (type_name);
+
+  }
+}
+
+static void
+_targets_receive (GtkClipboard *clipboard,
+		  GdkAtom      *atom,
+		  gint          n_atoms,
+		  gpointer      data)
+{
+  GdkAtom try_xml = 0;
+  gint i;
+  gchar *aname;
+
+  for (i = 0; i < n_atoms; ++i) {
+    aname = gdk_atom_name (atom[i]);
+    /* the name of the atom is arbitrary, probably depends on application and OS */
+    if (strcmp (aname, "image/svg+xml") == 0)
+      try_xml = atom[i];
+    g_print ("clipboard-targets %d: %s\n", i, aname);
+    g_free (aname);
+  }
+}
+
 void
 edit_paste_image_callback (GtkAction *action)
 {
+  GtkClipboard *clipboard = gtk_clipboard_get(GDK_NONE);
   DDisplay *ddisp;
+  GdkAtom  svg_atom = gdk_atom_intern_static_string ("image/svg+xml");
 
   ddisp = ddisplay_active();
   if (!ddisp) return;
 
-  gtk_clipboard_request_image (gtk_clipboard_get(GDK_NONE), 
-			       received_clipboard_image_handler, ddisp);
+  gtk_clipboard_request_targets (clipboard, _targets_receive, ddisp);
+  /* a second request call is asynchronuously to the above. I've found no reliable
+   * way to make the latter use information generted by the former
+   */
+  if (gtk_clipboard_wait_for_contents (clipboard, svg_atom))
+    gtk_clipboard_request_contents (clipboard, svg_atom,
+				    received_clipboard_content_handler, ddisp);
+  else
+    gtk_clipboard_request_image (clipboard,
+			         received_clipboard_image_handler, ddisp);
 }
 
 static PropDescription text_prop_singleton_desc[] = {
@@ -336,14 +405,15 @@ make_text_prop_singleton(GPtrArray **props, TextProperty **prop)
 
 static GtkTargetEntry target_entries[] = {
   { "image/svg", GTK_TARGET_OTHER_APP, 1 },
-  { "image/png", GTK_TARGET_OTHER_APP, 2 },
-  { "image/bmp", GTK_TARGET_OTHER_APP, 3 },
+  { "image/svg+xml", GTK_TARGET_OTHER_APP, 1 }, /* intentionally pointing to the first element */
+  { "image/png", GTK_TARGET_OTHER_APP, 3 },
+  { "image/bmp", GTK_TARGET_OTHER_APP, 4 },
 #ifdef G_OS_WIN32
   /* this is not working on win32 either, maybe we need to register it with
    * CF_ENHMETAFILE in Gtk+? Change order? Direct use of SetClipboardData()?
    */
-  { "image/emf", GTK_TARGET_OTHER_APP, 4 },
-  { "image/wmf", GTK_TARGET_OTHER_APP, 5 },
+  { "image/emf", GTK_TARGET_OTHER_APP, 5 },
+  { "image/wmf", GTK_TARGET_OTHER_APP, 6 },
 #endif
 };
 

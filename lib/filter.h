@@ -58,6 +58,9 @@ struct _DiaExportFilter {
 /* returns FALSE on error loading diagram */
 typedef gboolean (* DiaImportFunc) (const gchar* filename, DiagramData *dia, 
                                     DiaContext *ctx, void* user_data);
+/* load from given memory block instead of from file */
+typedef gboolean (* DiaImportMemFunc) (const guchar *p, guint size, DiagramData *dia,
+				       DiaContext *ctx, void *user_data);
 
 struct _DiaImportFilter {
   const gchar *description;
@@ -74,6 +77,8 @@ struct _DiaImportFilter {
   const gchar *unique_name;
   /* additional hints for export */
   guint hints;
+  /* Recent addition comin last for compatibility - check for NULL before calling */
+  DiaImportMemFunc import_mem_func;
 };
 
 /* gets called as menu callback */

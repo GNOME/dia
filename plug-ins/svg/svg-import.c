@@ -49,7 +49,7 @@
 #include "font.h"
 #include "attributes.h"
 
-gboolean import_svg(const gchar *filename, DiagramData *dia, DiaContext *ctx, void* user_data);
+static gboolean import_svg (xmlDocPtr doc, DiagramData *dia, DiaContext *ctx, void* user_data);
 static GList *read_ellipse_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list);
 static GList *read_rect_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list);
 static GList *read_line_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list);
@@ -1268,21 +1268,45 @@ import_shape_info (xmlNodePtr start_node, DiagramData *dia, DiaContext *ctx)
   return TRUE;
 }
 
+gboolean
+import_memory_svg (const guchar *p, guint size, DiagramData *dia,
+		   DiaContext *ctx, void *user_data)
+{
+  xmlDocPtr doc = xmlParseMemory (p, size);
+
+  if (!doc) {
+    xmlErrorPtr err = xmlGetLastError ();
+
+    dia_context_add_message(ctx, _("Parse error for memory block.\n%s"), err->message);
+    return FALSE;
+  }
+  return import_svg (doc, dia, ctx, user_data);
+}
+
 /* imports the given SVG file, returns TRUE if successful */
 gboolean
-import_svg(const gchar *filename, DiagramData *dia, DiaContext *ctx, void* user_data) 
+import_file_svg(const gchar *filename, DiagramData *dia, DiaContext *ctx, void* user_data) 
 {
   xmlDocPtr doc = xmlDoParseFile(filename);
-  xmlNsPtr svg_ns;
-  xmlNodePtr root;
-  xmlNodePtr shape_root = NULL;
-  GList *items, *item;
 
   if (!doc) {
     dia_context_add_message(ctx, _("Parse error for %s"), 
 		            dia_context_get_filename (ctx));
     return FALSE;
   }
+  return import_svg (doc, dia, ctx, user_data);
+}
+
+gboolean
+import_svg (xmlDocPtr doc, DiagramData *dia,
+	    DiaContext *ctx, void *user_data)
+{
+  xmlNsPtr svg_ns;
+  xmlNodePtr root;
+  xmlNodePtr shape_root = NULL;
+  GList *items, *item;
+  guint num_items = 0;
+
   /* skip (emacs) comments */
   root = doc->xmlRootNode;
   while (root && (root->type != XML_ELEMENT_NODE)) root = root->next;
@@ -1369,18 +1393,20 @@ import_svg(const gchar *filename, DiagramData *dia, DiaContext *ctx, void* user_
 
   {
     GHashTable *defs_ht = g_hash_table_new (g_str_hash, g_str_equal);
-    items = read_items (root->xmlChildrenNode, NULL, defs_ht, filename, ctx);
+    items = read_items (root->xmlChildrenNode, NULL, defs_ht, dia_context_get_filename(ctx), ctx);
     g_hash_table_destroy (defs_ht);
   }
   /* Every top level item which is a group with a name/id we are converting
    * back to a layer. This is consistent with our SVG export and does
    * also work with layers from Sodipodi/Inkscape/iDraw/...
+   * But if there is just one item - even if a group - it is put into the active layer.
    */
+  num_items = g_list_length (items);
   for (item = items; item != NULL; item = g_list_next (item)) {
     DiaObject *obj = (DiaObject *)item->data;
     gchar *name = NULL;
 
-    if (IS_GROUP(obj) && ((name = dia_object_get_meta (obj, "id")) != NULL)) {
+    if (num_items > 1 && IS_GROUP(obj) && ((name = dia_object_get_meta (obj, "id")) != NULL)) {
       DiaObject *group = (DiaObject *)item->data;
       /* new_layer() is taking ownership of the name */
       Layer *layer = new_layer (g_strdup (name), dia);
@@ -1394,6 +1420,7 @@ import_svg(const gchar *filename, DiagramData *dia, DiaContext *ctx, void* user_
       /* Just as before: throw it in the active layer */
       DiaObject *obj = (DiaObject *)item->data;
       layer_add_object(dia->active_layer, obj);
+      layer_update_extents(dia->active_layer);
     }
 
   }
@@ -1416,8 +1443,9 @@ static const gchar *extensions[] = {"svg", NULL };
 DiaImportFilter svg_import_filter = {
 	N_("Scalable Vector Graphics"),
 	extensions,
-	import_svg,
+	import_file_svg,
 	NULL, /* user_data */
-	"dia-svg"
+	"dia-svg",
+	0, /* flags */
+	import_memory_svg
 };
-

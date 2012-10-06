@@ -1304,6 +1304,124 @@ undo_move_object_other_layer(Diagram *dia, GList *selected_list,
   return change;
 }
 
+typedef struct _ImportChange {
+  Change change;
+
+  Diagram *dia;     /*!< the diagram under inspection */
+  GList   *layers;  /*!< layers added */
+  GList   *objects; /*!< objects added */
+} ImportChange;
+static void
+_import_change_apply (ImportChange *change,
+		      Diagram      *dia)
+{
+  GList *list;
+  Layer *layer = dia->data->active_layer;
+
+  /* add all objects and layers added from the diagram */
+  for (list = change->layers; list != NULL; list = list->next) {
+    layer = (Layer *)list->data;
+    data_add_layer (DIA_DIAGRAM_DATA(change->dia), layer);
+  }
+  for (list = change->objects; list != NULL; list = list->next) {
+    DiaObject *obj = (DiaObject *)list->data;
+     /* ToDo: layer assignment wont be triggered for removed objects.
+      *   Maybe we need to store all the layers with the objects ourself?
+      */
+    if (dia_object_get_parent_layer (obj))
+      layer = dia_object_get_parent_layer (obj);
+    layer_add_object (layer, obj);
+  }
+  diagram_update_extents (change->dia);
+}
+static void
+_import_change_revert (ImportChange *change,
+		       Diagram      *dia)
+{
+  GList *list;
+
+  /* otherwise we might end up with an empty selection */
+  diagram_unselect_objects (change->dia, change->objects);
+  /* remove all objects and layers added from the diagram */
+  for (list = change->objects; list != NULL; list = list->next) {
+    DiaObject *obj = (DiaObject *)list->data;
+    Layer *layer = dia_object_get_parent_layer (obj);
+    layer_remove_object (layer, obj);
+  }
+  for (list = change->layers; list != NULL; list = list->next) {
+    Layer *layer = (Layer *)list->data;
+    data_remove_layer (DIA_DIAGRAM_DATA(change->dia), layer);
+  }
+  diagram_update_extents (change->dia);
+}
+static void
+_import_change_free (ImportChange *change)
+{
+  g_return_if_fail (change->dia != NULL);
+
+  /* FIXME: do we need to delete more? */
+  g_list_free (change->objects);
+  g_list_free (change->layers);
+}
+
+/* listen on the diagram for object add */
+static void
+_import_object_add (DiagramData  *dia,
+		    Layer        *layer,
+		    DiaObject    *obj,
+		    ImportChange *change)
+{
+  g_return_if_fail (change->dia == DIA_DIAGRAM(dia));
+
+  if (!obj)
+    change->layers = g_list_prepend (change->layers, layer);
+  else
+    change->objects = g_list_prepend (change->objects, obj);
+}
+/*!
+ * \brief Create an import change object listening on diagram additions
+ * @param dia the diagram to watch
+ */
+Change *
+undo_import_change_setup (Diagram *dia)
+{
+  ImportChange *change = g_new0 (ImportChange, 1);
+
+  change->dia = dia;
+  change->change.apply  = (UndoApplyFunc)  _import_change_apply;
+  change->change.revert = (UndoRevertFunc) _import_change_revert;
+  change->change.free   = (UndoFreeFunc)   _import_change_free;
+
+  g_signal_connect (G_OBJECT(dia), "object_add", G_CALLBACK(_import_object_add), change);
+
+  return &change->change;  
+}
+/*!
+ * \brief Finish listening on the diagram changes
+ * @param chg the change object created by undo_import_change_setup()
+ * @return TRUE if the change was added to the undo stack, FALSE otherwise
+ */
+gboolean
+undo_import_change_done (Diagram *dia, Change *chg)
+{
+  ImportChange *change = (ImportChange *)chg;
+  
+  /* Some type checking first */
+  g_return_val_if_fail (change != NULL, FALSE);
+  g_return_val_if_fail (change->change.apply == (UndoApplyFunc)_import_change_apply, FALSE);
+  g_return_val_if_fail (change->change.revert == (UndoRevertFunc)_import_change_revert, FALSE);
+  g_return_val_if_fail (change->change.free == (UndoFreeFunc)_import_change_free, FALSE);
+
+  /* stop listening on this diagram */
+  g_signal_handlers_disconnect_by_func (change->dia, _import_object_add, change);
+
+  if (change->layers != NULL || change->objects != NULL) {
+    undo_push_change(dia->undo, (Change *) change);
+    return TRUE;
+  }
+  return FALSE;
+}
+
 typedef struct _MemSwapChange {
   Change change;
   
@@ -1324,6 +1442,7 @@ _swap_mem(MemSwapChange *change, Diagram *dia)
   diagram_add_update_all(dia);
   diagram_flush(dia);
 }
+
 /*!
  * \brief Record a memory region for undo (before actually changing it)
  *

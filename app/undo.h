@@ -83,6 +83,12 @@ Change *undo_parenting(Diagram *dia, DiaObject *parentobj, DiaObject *childobj,
 		       gboolean parent);
 Change *undo_move_object_other_layer(Diagram *diagram, GList *selected_list,
 				     gboolean moving_up);
+
+/* Create an import change object listening on diagram additions/removals */
+Change *undo_import_change_setup (Diagram *diagram);
+/* Finish listening on the diagram changes */
+gboolean undo_import_change_done (Diagram *dia, Change *chg);
+
 /* handle with care, just plain memory copy */
 Change *undo_change_memswap (Diagram *dia, gpointer dest, gsize size);
 
