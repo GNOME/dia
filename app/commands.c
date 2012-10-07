@@ -340,7 +340,7 @@ received_clipboard_content_handler (GtkClipboard     *clipboard,
 	}
       }
     }
-    g_print ("Content is %s\n", type_name);
+    dia_log_message ("Content is %s (size=%d)", type_name, len);
     g_free (type_name);
 
   }
@@ -358,10 +358,7 @@ _targets_receive (GtkClipboard *clipboard,
 
   for (i = 0; i < n_atoms; ++i) {
     aname = gdk_atom_name (atom[i]);
-    /* the name of the atom is arbitrary, probably depends on application and OS */
-    if (strcmp (aname, "image/svg+xml") == 0)
-      try_xml = atom[i];
-    g_print ("clipboard-targets %d: %s\n", i, aname);
+    dia_log_message ("clipboard-targets %d: %s", i, aname);
     g_free (aname);
   }
 }
@@ -405,7 +402,7 @@ make_text_prop_singleton(GPtrArray **props, TextProperty **prop)
 
 static GtkTargetEntry target_entries[] = {
   { "image/svg", GTK_TARGET_OTHER_APP, 1 },
-  { "image/svg+xml", GTK_TARGET_OTHER_APP, 1 }, /* intentionally pointing to the first element */
+  { "image/svg+xml", GTK_TARGET_OTHER_APP, 2 },
   { "image/png", GTK_TARGET_OTHER_APP, 3 },
   { "image/bmp", GTK_TARGET_OTHER_APP, 4 },
 #ifdef G_OS_WIN32
@@ -429,16 +426,25 @@ _clipboard_get_data_callback (GtkClipboard     *clipboard,
   DiaContext *ctx = dia_context_new (_("Clipboard Copy"));
   DiagramData *dia = owner_or_user_data; /* todo: check it's still valid */
   const gchar *ext = strchr (target_entries[info-1].target, '/')+1;
-  /* Although asked for bmp, deliver png because of potentially better renderer
-   * Dropping 'bmp' in target would exclude many win32 programs, but gtk+ can
-   * convert from png on demand ... */
-  gchar *tmplate = g_strdup_printf ("dia-cb-XXXXXX.%s", 
-                     (strcmp (ext, "bmp") == 0) ? "png" : ext);
+  gchar *tmplate;
   gchar *outfname = NULL;
   GError *error = NULL;
   DiaExportFilter *ef = NULL;
   int fd;
-  
+
+  /* Although asked for bmp, use png here because of potentially better renderer
+   * Dropping 'bmp' in target would exclude many win32 programs, but gtk+ can
+   * convert from png on demand ... */
+  if (strcmp (ext, "bmp") == 0) {
+    tmplate = g_strdup ("dia-cb-XXXXXX.png"); 
+  } else if (g_str_has_suffix (ext, "+xml")) {
+    gchar *ext2 = g_strndup (ext, strlen (ext) - 4);
+    tmplate = g_strdup_printf ("dia-cb-XXXXXX.%s", ext2);
+    g_free (ext2);
+  } else {
+    tmplate = g_strdup_printf ("dia-cb-XXXXXX.%s", ext);
+  }
+
   if ((fd = g_file_open_tmp (tmplate, &outfname, &error)) != -1) {
     ef = filter_guess_export_filter (outfname);
     close (fd);
@@ -450,16 +456,17 @@ _clipboard_get_data_callback (GtkClipboard     *clipboard,
   g_free (tmplate);
 
   if (ef) {
-#if 0 /* would like to use alpha, but it gets a black backgound than */
     /* for png use alpha-rendering if available */
-    if (strcmp(ext, "png") != 0 && filter_get_by_name ("cairo-alpha-png") != NULL)
-      ef = filter_get_by_name ("cairo-alpha-png");
-#endif
+    if (strcmp(ext, "png") == 0 && filter_export_get_by_name ("cairo-alpha-png") != NULL)
+      ef = filter_export_get_by_name ("cairo-alpha-png");
     dia_context_set_filename (ctx, outfname);
     ef->export_func(DIA_DIAGRAM_DATA(dia), ctx,
 		    outfname, "clipboard-copy", ef->user_data);
-    /* if we have a vector format, don't convert it to pixbuf */
-    if (strcmp (ext, "svg") != 0 && strcmp (ext, "emf") != 0 && strcmp (ext, "wmf") != 0) {
+    /* If we have a vector format, don't convert it to pixbuf. 
+     * Or even better: only use pixbuf transport when asked
+     * for 'OS native bitmaps' BMP (win32), TIFF(osx), ...?
+     */
+    if (strcmp (ext, "bmp") == 0 || strcmp (ext, "tif") == 0) {
       GdkPixbuf *pixbuf = gdk_pixbuf_new_from_file(outfname, &error);
       if (pixbuf) {
 	gtk_selection_data_set_pixbuf (selection_data, pixbuf);
@@ -474,7 +481,7 @@ _clipboard_get_data_callback (GtkClipboard     *clipboard,
 	gchar *buf = g_try_malloc (st.st_size);
 
 	if (buf) {
-	  if (fread (buf, st.st_size, 1, f) == st.st_size)
+	  if (fread (buf, 1, st.st_size, f) == st.st_size)
 	    gtk_selection_data_set (selection_data,
 	                            gdk_atom_intern_static_string (target_entries[info-1].target), 8,
 	                            buf, st.st_size);
