@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=dia&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2012-10-03 23:31+0000\n"
-"PO-Revision-Date: 2012-10-06 19:47+0100\n"
-"Last-Translator: filmsi\n"
+"POT-Creation-Date: 2012-10-07 13:03+0000\n"
+"PO-Revision-Date: 2012-10-07 16:48+0100\n"
+"Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: Slovenian\n"
 "MIME-Version: 1.0\n"
@@ -31,12 +31,12 @@ msgstr "Opozorilo: neveljaven obseg plasti %lu - %lu\n"
 #: ../app/app_procs.c:220
 #, c-format
 msgid "Warning: Layer %lu (%s) selected more than once.\n"
-msgstr "Opozorilo: Plast %lu (%s) je izbrana več kot enkrat.\n"
+msgstr "Opozorilo: plast %lu (%s) je izbrana več kot enkrat.\n"
 
 #: ../app/app_procs.c:246
 #, c-format
 msgid "Warning: Layer %d (%s) selected more than once.\n"
-msgstr "Opozorilo: Plast %d (%s) je izbrana več kot enkrat.\n"
+msgstr "Opozorilo: plast %d (%s) je izbrana več kot enkrat.\n"
 
 #: ../app/app_procs.c:255
 #, c-format
@@ -159,7 +159,7 @@ msgstr "Izpiši seznam zahval in končaj"
 
 #: ../app/app_procs.c:734
 msgid "Generate verbose output"
-msgstr "Tvori obširen izhodni opis"
+msgstr "Ustvari obširen izhodni opis"
 
 #: ../app/app_procs.c:736
 msgid "Display version and exit"
@@ -323,20 +323,31 @@ msgstr "Na odložišču ni slik za lepljenje."
 msgid "No selected object can take an image."
 msgstr "Noben izbrani predmet ne more sprejeti slike."
 
-#: ../app/commands.c:359
+#: ../app/commands.c:326
+#| msgid "Clipboard Copy"
+msgid "Clipboard Paste"
+msgstr "Lepljenje z odložišča"
+
+#. might become more right some day ;)
+#: ../app/commands.c:334
+#, c-format
+msgid "No clipboard handler for '%s'"
+msgstr "Ni ročnika odložišča za '%s'"
+
+#: ../app/commands.c:426
 msgid "Clipboard Copy"
 msgstr "Kopiranje z/na odložišče"
 
-#: ../app/commands.c:548
+#: ../app/commands.c:625
 msgid "No existing object to paste.\n"
 msgstr "Obstoječi predmet, ki naj se prilepi, ne obstaja.\n"
 
-#: ../app/commands.c:858
-#: ../app/commands.c:896
+#: ../app/commands.c:935
+#: ../app/commands.c:973
 msgid "Could not find help directory"
 msgstr "Mape pomoči ni mogoče najti"
 
-#: ../app/commands.c:865
+#: ../app/commands.c:942
 #, c-format
 msgid ""
 "Could not open help directory:\n"
@@ -345,11 +356,11 @@ msgstr ""
 "Mape pomoči ni mogoče najti:\n"
 "%s"
 
-#: ../app/commands.c:934
+#: ../app/commands.c:1011
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr "Andraž Tori <andraz.tori1@guest.arnes.si>Martin Srebotnjak <miles@filmsi.net>"
 
-#: ../app/commands.c:936
+#: ../app/commands.c:1013
 msgid ""
 "This program is free software; you can redistribute it and/or modify\n"
 "it under the terms of the GNU General Public License as published by\n"
@@ -379,7 +390,7 @@ msgstr ""
 "s tem programom; če je niste, pišite na naslov: Free Software\n"
 "Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.\n"
 
-#: ../app/commands.c:963
+#: ../app/commands.c:1040
 msgid "A program for drawing structured diagrams."
 msgstr "Program za risanje strukturiranih diagramov."
 
@@ -681,7 +692,7 @@ msgid ""
 "The object you dropped cannot fit into its parent. \n"
 "Either expand the parent object, or drop the object elsewhere."
 msgstr ""
-"Spuščenega predmeta ni mogoče dodati nedrejenemu predmetu. \n"
+"Spuščenega predmeta ni mogoče dodati nadrejenemu predmetu. \n"
 "Razširite nadrejeni predmet ali pa spustite predmet drugje."
 
 #. http://www.gnu.org/software/gettext/manual/html_chapter/gettext_10.html#SEC150
@@ -809,7 +820,7 @@ msgid ""
 "nor your local encoding.\n"
 "Some things will break."
 msgstr ""
-"Nekateri znaki v imenu daoteke ne pripadajo niti UTF-8\n"
+"Nekateri znaki v imenu datoteke ne pripadajo niti UTF-8\n"
 "niti vašemu krajevnemu naboru znakov.\n"
 "Določene stvari se bodo pokvarile."
 
@@ -828,7 +839,7 @@ msgid ""
 "Do you want to overwrite it?"
 msgstr ""
 "Datoteka '%s' že obstaja.\n"
-"Jo želite prepisati?"
+"Ali jo želite prepisati?"
 
 #: ../app/filedlg.c:489
 msgid "Save Diagram"
@@ -978,8 +989,8 @@ msgid "Layer name:"
 msgstr "Ime plasti:"
 
 #: ../app/linewidth_area.c:247
-#: ../lib/properties.h:606
-#: ../lib/properties.h:609
+#: ../lib/properties.h:612
+#: ../lib/properties.h:615
 #: ../objects/chronogram/chronoline.c:181
 #: ../objects/chronogram/chronoref.c:160
 msgid "Line width"
@@ -1138,7 +1149,7 @@ msgstr "Odpri datoteko diagrama"
 #
 #: ../app/menus.c:84
 msgid "_Help"
-msgstr "_Pomoč"
+msgstr "Pomo_č"
 
 #: ../app/menus.c:94
 msgid "Sheets and Objects…"
@@ -1523,7 +1534,7 @@ msgstr "Drsi"
 #: ../app/menus.c:232
 #: ../app/toolbox.c:98
 #: ../lib/properties.c:101
-#: ../lib/properties.h:657
+#: ../lib/properties.h:663
 #: ../objects/AADL/aadlbox.c:153
 #: ../objects/custom/custom_object.c:229
 #: ../objects/Jackson/requirement.c:134
@@ -1562,7 +1573,7 @@ msgstr "Mnogokotnik"
 #: ../app/menus.c:236
 #: ../app/toolbox.c:122
 msgid "Beziergon"
-msgstr "Bezierjev poligon"
+msgstr "Bezierjev mnogokotnik"
 
 #: ../app/menus.c:238
 #: ../app/toolbox.c:128
@@ -1750,7 +1761,7 @@ msgstr "Ponastavi orodja po ustvarjanju"
 
 #: ../app/preferences.c:167
 msgid "Number of undo levels:"
-msgstr "Število možnih razveljavljavitev:"
+msgstr "Število možnih razveljavitev:"
 
 #: ../app/preferences.c:170
 msgid ""
@@ -1868,7 +1879,7 @@ msgstr "PNG (Portable Network Graphics)"
 
 #: ../app/preferences.c:224
 #: ../plug-ins/svg/render_svg.c:605
-#: ../plug-ins/svg/svg-import.c:1410
+#: ../plug-ins/svg/svg-import.c:1444
 msgid "Scalable Vector Graphics"
 msgstr "SVG (Scalable Vector Graphics)"
 
@@ -2405,8 +2416,8 @@ msgstr "prazna konkavna"
 #: ../lib/arrows.c:1920
 #: ../lib/properties.c:81
 #: ../lib/properties.c:87
-#: ../lib/properties.h:584
 #: ../lib/properties.h:590
+#: ../lib/properties.h:596
 msgid "Round"
 msgstr "okrogla"
 
@@ -2446,7 +2457,7 @@ msgstr "neznana puščica"
 #: ../lib/create.c:305
 #: ../lib/create.c:335
 #: ../lib/create.c:378
-#: ../plug-ins/svg/svg-import.c:391
+#: ../plug-ins/svg/svg-import.c:398
 #: ../plug-ins/vdx/vdx-import.c:144
 msgid "Can't find standard object"
 msgstr "Navadnega predmeta ni mogoče najti"
@@ -2641,7 +2652,6 @@ msgstr "Obstaja več izvoznih filtrov z istim imenom %s"
 
 #: ../lib/filter.c:195
 #, c-format
-#| msgid "Multiple export filters with unique name %s"
 msgid "Multiple import filters with unique name %s"
 msgstr "Obstaja več izvoznih filtrov z istim imenom %s"
 
@@ -2771,102 +2781,102 @@ msgid "Value"
 msgstr "Vrednost"
 
 #: ../lib/properties.c:67
-#: ../lib/properties.h:571
+#: ../lib/properties.h:577
 #: ../lib/widgets.c:273
 msgid "Left"
 msgstr "Levo"
 
 #: ../lib/properties.c:68
-#: ../lib/properties.h:572
+#: ../lib/properties.h:578
 #: ../lib/widgets.c:274
 #: ../objects/standard/textobj.c:113
 msgid "Center"
 msgstr "Sredinsko"
 
 #: ../lib/properties.c:69
-#: ../lib/properties.h:573
+#: ../lib/properties.h:579
 #: ../lib/widgets.c:275
 msgid "Right"
 msgstr "Desno"
 
 #: ../lib/properties.c:74
-#: ../lib/properties.h:577
+#: ../lib/properties.h:583
 msgid "Never"
 msgstr "Nikoli"
 
 #: ../lib/properties.c:75
-#: ../lib/properties.h:578
+#: ../lib/properties.h:584
 msgid "When Needed"
 msgstr "Po potrebi"
 
 #: ../lib/properties.c:76
-#: ../lib/properties.h:579
+#: ../lib/properties.h:585
 msgid "Always"
 msgstr "Vedno"
 
 #: ../lib/properties.c:80
-#: ../lib/properties.h:583
+#: ../lib/properties.h:589
 msgid "Miter"
 msgstr "Sredica"
 
 #: ../lib/properties.c:82
-#: ../lib/properties.h:585
+#: ../lib/properties.h:591
 msgid "Bevel"
 msgstr "Izbočeno"
 
 #: ../lib/properties.c:86
-#: ../lib/properties.h:589
+#: ../lib/properties.h:595
 msgid "Butt"
 msgstr "Odebeljeni konec"
 
 #: ../lib/properties.c:88
-#: ../lib/properties.h:591
+#: ../lib/properties.h:597
 msgid "Projecting"
 msgstr "Projiciranje"
 
 #: ../lib/properties.c:95
-#: ../lib/properties.h:612
-#: ../lib/properties.h:615
+#: ../lib/properties.h:618
+#: ../lib/properties.h:621
 #: ../objects/chronogram/chronoline.c:179
 #: ../objects/chronogram/chronoref.c:158
 msgid "Line color"
 msgstr "Barva črte"
 
 #: ../lib/properties.c:96
-#: ../lib/properties.h:618
-#: ../lib/properties.h:621
+#: ../lib/properties.h:624
+#: ../lib/properties.h:627
 msgid "Line style"
 msgstr "Slog črte"
 
 #: ../lib/properties.c:97
-#: ../lib/properties.h:637
-#: ../lib/properties.h:640
+#: ../lib/properties.h:643
+#: ../lib/properties.h:646
 msgid "Fill color"
 msgstr "Barva polnila"
 
 #: ../lib/properties.c:98
-#: ../lib/properties.h:643
-#: ../lib/properties.h:646
+#: ../lib/properties.h:649
+#: ../lib/properties.h:652
 msgid "Draw background"
 msgstr "Nariši ozadje"
 
 #: ../lib/properties.c:99
-#: ../lib/properties.h:650
+#: ../lib/properties.h:656
 msgid "Start arrow"
 msgstr "Puščica začetka"
 
 #: ../lib/properties.c:100
-#: ../lib/properties.h:653
+#: ../lib/properties.h:659
 msgid "End arrow"
 msgstr "Puščica konca"
 
 #: ../lib/properties.c:102
-#: ../lib/properties.h:663
+#: ../lib/properties.h:669
 msgid "Text alignment"
 msgstr "Poravnava besedila"
 
 #: ../lib/properties.c:103
-#: ../lib/properties.h:668
+#: ../lib/properties.h:674
 #: ../objects/chronogram/chronoline.c:183
 #: ../objects/chronogram/chronoref.c:164
 #: ../objects/Database/reference.c:118
@@ -2878,7 +2888,7 @@ msgid "Font"
 msgstr "Pisava"
 
 #: ../lib/properties.c:104
-#: ../lib/properties.h:676
+#: ../lib/properties.h:682
 #: ../objects/chronogram/chronoline.c:185
 #: ../objects/chronogram/chronoref.c:166
 #: ../objects/GRAFCET/condition.c:134
@@ -2888,24 +2898,24 @@ msgid "Font size"
 msgstr "Velikost pisave"
 
 #: ../lib/properties.c:105
-#: ../lib/properties.h:682
+#: ../lib/properties.h:688
 #: ../objects/chronogram/chronoline.c:187
 #: ../objects/chronogram/chronoref.c:168
 #: ../objects/GRAFCET/step.c:170
 msgid "Text color"
 msgstr "Barva besedila"
 
-#: ../lib/properties.h:624
-#: ../lib/properties.h:627
+#: ../lib/properties.h:630
+#: ../lib/properties.h:633
 msgid "Line join"
 msgstr "Spoji črt"
 
-#: ../lib/properties.h:630
-#: ../lib/properties.h:633
+#: ../lib/properties.h:636
+#: ../lib/properties.h:639
 msgid "Line caps"
 msgstr "Konci črt"
 
-#: ../lib/properties.h:691
+#: ../lib/properties.h:697
 msgid "Text fitting"
 msgstr "Umerjanje besedila"
 
@@ -2991,7 +3001,6 @@ msgid "Fill & Stroke"
 msgstr "Polnilo in poteza"
 
 #: ../lib/standard-path.c:126
-#| msgid "Beziergon"
 msgid "Bezier points"
 msgstr "Točke Bezier"
 
@@ -3000,17 +3009,14 @@ msgid "Drawing"
 msgstr "Risba"
 
 #: ../lib/standard-path.c:134
-#| msgid "Controls"
 msgid "Draw Control Lines"
 msgstr "Nariši nadzorne črte"
 
 #: ../lib/standard-path.c:457
-#| msgid "MoveTo not at start of Bezier"
 msgid "Convert to Bezier"
 msgstr "Pretvori v Bezierjevo krivuljo"
 
 #: ../lib/standard-path.c:458
-#| msgid "Show _Connection Points"
 msgid "Show Control Lines"
 msgstr "Pokaži nadzorne črte"
 
@@ -5240,7 +5246,6 @@ msgstr "Nadzor stika"
 #: ../objects/standard/beziergon.c:524
 #: ../objects/standard/box.c:749
 #: ../objects/standard/textobj.c:458
-#| msgid "Convert"
 msgid "Convert to Path"
 msgstr "Pretvori v pot"
 
@@ -6242,11 +6247,11 @@ msgstr "Neveljavni UTF-8"
 msgid "LaTeX PGF macros"
 msgstr "Makri LaTeX PGF"
 
-#: ../plug-ins/pixbuf/pixbuf.c:87
+#: ../plug-ins/pixbuf/pixbuf.c:86
 msgid "Failed to create pixbuf from drawable."
 msgstr "Iz risanega objekta ni mogoče ustvariti medpomnilnika slikovnih točk."
 
-#: ../plug-ins/pixbuf/pixbuf.c:92
+#: ../plug-ins/pixbuf/pixbuf.c:91
 #, c-format
 msgid ""
 "Could not save file:\n"
@@ -6255,11 +6260,11 @@ msgstr ""
 "Datoteke ni mogoče shraniti:\n"
 "%s"
 
-#: ../plug-ins/pixbuf/pixbuf.c:113
+#: ../plug-ins/pixbuf/pixbuf.c:112
 msgid "Calling error, missing user_data."
 msgstr "Priklic napake, manjka user_data."
 
-#: ../plug-ins/pixbuf/pixbuf.c:149
+#: ../plug-ins/pixbuf/pixbuf.c:141
 #, c-format
 msgid ""
 "Pixbuf[%s] can't load:\n"
@@ -6268,7 +6273,7 @@ msgstr ""
 "Medpomn. slik. točk [%s] ne more naložiti:\n"
 "%s"
 
-#: ../plug-ins/pixbuf/pixbuf.c:204
+#: ../plug-ins/pixbuf/pixbuf.c:196
 msgid "gdk-pixbuf-based bitmap export/import"
 msgstr "Uvoz/izvoz bitne slike na osnovi gdk-pixbuf"
 
@@ -6363,7 +6368,7 @@ msgstr "Datoteka z likom Dia"
 msgid "Scalable Vector Graphics import and export filters"
 msgstr "Izvozni in uvozni filter SVG"
 
-#: ../plug-ins/svg/svg-import.c:380
+#: ../plug-ins/svg/svg-import.c:387
 msgid ""
 "Invalid path data.\n"
 "svg:path data must start with moveto."
@@ -6371,27 +6376,36 @@ msgstr ""
 "Neveljavna pot.\n"
 "Podatek svg:path se mora pričeti z moveto."
 
-#: ../plug-ins/svg/svg-import.c:1217
+#: ../plug-ins/svg/svg-import.c:1224
 msgid "'Shape Design' shapes missing."
 msgstr "Manjkajo liki 'Oblikovanje lika'"
 
-#: ../plug-ins/svg/svg-import.c:1251
+#: ../plug-ins/svg/svg-import.c:1258
 #, c-format
-#| msgid "'%s' creation failed"
 msgid "Object '%s' creation failed"
 msgstr "Ustvarjanje predmeta '%s' ni uspelo"
 
-#: ../plug-ins/svg/svg-import.c:1275
+#: ../plug-ins/svg/svg-import.c:1280
+#, c-format
+#| msgid "Parse error for %s"
+msgid ""
+"Parse error for memory block.\n"
+"%s"
+msgstr ""
+"Napaka razčlenjevanja pomnilniškega bloka.\n"
+"%s"
+
+#: ../plug-ins/svg/svg-import.c:1293
 #: ../plug-ins/vdx/vdx-import.c:2888
 #, c-format
 msgid "Parse error for %s"
 msgstr "Napaka razčlenjevanja za %s"
 
-#: ../plug-ins/svg/svg-import.c:1294
+#: ../plug-ins/svg/svg-import.c:1325
 msgid "Expected SVG Namespace not found in file"
 msgstr "Pričakovani imenski prostor SVG v datoteki ni vsebovan"
 
-#: ../plug-ins/svg/svg-import.c:1314
+#: ../plug-ins/svg/svg-import.c:1345
 #, c-format
 msgid "root element was '%s' -- expecting 'svg'."
 msgstr "korenski element je bil '%s' -- pričakovan je bil 'svg'."
