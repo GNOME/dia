@@ -440,14 +440,24 @@ void prop_list_add_line_style  (GPtrArray *plist, LineStyle line_style, real das
 void prop_list_add_line_colour (GPtrArray *plist, const Color *color);
 void prop_list_add_fill_colour (GPtrArray *plist, const Color *color);
 void prop_list_add_show_background (GPtrArray *plist, gboolean fill);
+void prop_list_add_text_colour (GPtrArray *plist, const Color *color);
+/* addding a text(string) property - just the string no attributes */
+void prop_list_add_text (GPtrArray *plist, const char *name, const char *value);
+
 /* usually three variants: start_point, end_point, elem_corner */
 void prop_list_add_point (GPtrArray *plist, const char *name, const Point *point);
 /* quite generic, e.g. elem_width, elem_height, curve_distance */
 void prop_list_add_real (GPtrArray *plist, const char *name, real value);
+/* also called text_height */
+void prop_list_add_fontsize (GPtrArray *plist, const char *name, real value);
 /* addding a string property */
 void prop_list_add_string (GPtrArray *plist, const char *name, const char *value);
 /* addding a string property */
 void prop_list_add_filename (GPtrArray *plist, const char *name, const char *value);
+/* adding an enum given an int */
+void prop_list_add_enum (GPtrArray *plist, const char *name, int val);
+/* adding a font */
+void prop_list_add_font (GPtrArray *plist, const char *name, const DiaFont *font);
 
 /* Some predicates: */
 gboolean pdtpp_true(const PropDescription *pdesc); /* always true */

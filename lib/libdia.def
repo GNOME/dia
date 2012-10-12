@@ -296,7 +296,6 @@ EXPORTS
  pixbuf_encode_base64
  pixbuf_decode_base64
 
-
  dia_interactive_renderer_interface_get_type
  
  dialog_make
@@ -679,6 +678,11 @@ EXPORTS
  prop_list_add_real
  prop_list_add_string
  prop_list_add_show_background
+ prop_list_add_font
+ prop_list_add_fontsize
+ prop_list_add_enum
+ prop_list_add_text
+ prop_list_add_text_colour
  prop_list_free
  prop_list_from_descs
  prop_list_from_single

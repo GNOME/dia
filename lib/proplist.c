@@ -240,21 +240,23 @@ prop_list_add_line_style  (GPtrArray *plist, LineStyle line_style, real dash)
   ((LinestyleProperty *)prop)->dash = dash;
   g_ptr_array_add (plist, prop);
 }
-void
-prop_list_add_line_colour (GPtrArray *plist, const Color *color)
+static void
+_prop_list_add_colour (GPtrArray *plist, const char *name, const Color *color)
 {
-  Property *prop = make_new_prop ("line_colour", PROP_TYPE_COLOUR, 0);
+  Property *prop = make_new_prop (name, PROP_TYPE_COLOUR, 0);
 
   ((ColorProperty *)prop)->color_data = *color;
   g_ptr_array_add (plist, prop);
 }
 void
+prop_list_add_line_colour (GPtrArray *plist, const Color *color)
+{
+  _prop_list_add_colour (plist, "line_colour", color);
+}
+void
 prop_list_add_fill_colour (GPtrArray *plist, const Color *color)
 {
-  Property *prop = make_new_prop ("fill_colour", PROP_TYPE_COLOUR, 0);
-
-  ((ColorProperty *)prop)->color_data = *color;
-  g_ptr_array_add (plist, prop);
+  _prop_list_add_colour (plist, "fill_colour", color);
 }
 void
 prop_list_add_show_background (GPtrArray *plist, gboolean fill)
@@ -281,12 +283,29 @@ prop_list_add_real (GPtrArray *plist, const char *name, real value)
   g_ptr_array_add (plist, prop);
 }
 void
+prop_list_add_fontsize (GPtrArray *plist, const char *name, real value)
+{
+  Property *prop = make_new_prop (name, PROP_TYPE_FONTSIZE, 0);
+
+  ((RealProperty *)prop)->real_data = value;
+  g_ptr_array_add (plist, prop);
+}
+void
 prop_list_add_string (GPtrArray *plist, const char *name, const char *value)
 {
   Property *prop = make_new_prop (name, PROP_TYPE_STRING, 0);
 
   g_free (((StringProperty *)prop)->string_data);
   ((StringProperty *)prop)->string_data = g_strdup (value);
+  g_ptr_array_add (plist, prop);
+}
+void
+prop_list_add_text (GPtrArray *plist, const char *name, const char *value)
+{
+  Property *prop = make_new_prop (name, PROP_TYPE_TEXT, 0);
+
+  g_free (((TextProperty *)prop)->text_data);
+  ((TextProperty *)prop)->text_data = g_strdup (value);
   g_ptr_array_add (plist, prop);
 }
 void
@@ -297,4 +316,31 @@ prop_list_add_filename (GPtrArray *plist, const char *name, const char *value)
   g_free (((StringProperty *)prop)->string_data);
   ((StringProperty *)prop)->string_data = g_strdup (value);
   g_ptr_array_add (plist, prop);
+}
+
+void
+prop_list_add_font (GPtrArray *plist, const char *name, const DiaFont *font)
+{
+  Property *prop = make_new_prop (name, PROP_TYPE_FONT, 0);
+  FontProperty *fp = (FontProperty *)prop;
+
+  if (fp->font_data == font)
+    return;
+  if (fp->font_data)
+    g_object_unref (fp->font_data);
+  fp->font_data = g_object_ref ((gpointer)font);
+  g_ptr_array_add (plist, prop);
+}
+void
+prop_list_add_enum (GPtrArray *plist, const char *name, int value)
+{
+  Property *prop = make_new_prop (name, PROP_TYPE_ENUM, 0);
+
+  ((EnumProperty *)prop)->enum_data = value;
+  g_ptr_array_add (plist, prop);
+}
+void
+prop_list_add_text_colour (GPtrArray *plist, const Color *color)
+{
+  _prop_list_add_colour (plist, "text_colour", color);
 }
