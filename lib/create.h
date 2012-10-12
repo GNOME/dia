@@ -31,6 +31,10 @@
 
 #include "diatypes.h"
 
+#include <glib.h>
+
+G_BEGIN_DECLS
+
 /*!
  * \brief Can be used as extra parameter at create. Usually discouraged, you can set via StdProp API
  * \ingroup ObjectCreate
@@ -134,4 +138,7 @@ DiaObject *create_standard_image(real xpos, real ypos, real width, real height, 
  * \ingroup ObjectCreate
  */
 DiaObject *create_standard_group(GList *items);
+
+G_END_DECLS
+
 #endif

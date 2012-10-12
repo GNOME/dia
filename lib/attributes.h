@@ -24,6 +24,8 @@
 #include "arrows.h"
 #include "font.h"
 
+G_BEGIN_DECLS
+
 Color attributes_get_foreground(void);
 Color attributes_get_background(void);
 void attributes_set_foreground(Color *color);
@@ -45,5 +47,7 @@ void attributes_set_default_line_style(LineStyle style, real dash_length);
 
 void attributes_get_default_font(DiaFont **font, real *font_height);
 void attributes_set_default_font(DiaFont *font, real font_height);
+
+G_END_DECLS
 
 #endif /* ATTRIBUTES_H */
