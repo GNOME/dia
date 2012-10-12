@@ -737,15 +737,15 @@ stdpath_select (StdPath *stdpath, Point *clicked_point,
   stdpath_update_handles (stdpath);
 }
 
-DiaObject *
-create_standard_path_from_text (const Text *text)
+gboolean
+text_to_path (const Text *text, GArray *points)
 {
   cairo_t *cr;
   cairo_surface_t *surface;
   PangoLayout *layout;
   PangoRectangle ink_rect;
   char *str;
-  DiaObject *obj = NULL;
+  gboolean ret = FALSE;
 
   layout = pango_layout_new(dia_font_get_context());
   pango_layout_set_font_description (layout, dia_font_get_description (text->font));
@@ -767,13 +767,14 @@ create_standard_path_from_text (const Text *text)
   cairo_surface_destroy (surface);
 
   pango_cairo_layout_path (cr, layout);
+
+  /* convert the path */
+  if (cairo_status (cr) == CAIRO_STATUS_SUCCESS)
   {
     cairo_path_t *path;
-    GArray *points = g_array_new (FALSE, FALSE, sizeof(BezPoint));
     int i;
 
     path = cairo_copy_path (cr);
-    g_array_set_size (points, 0);
 
     for (i=0; i < path->num_data; i += path->data[i].header.length) {
       cairo_path_data_t *data = &path->data[i];
@@ -801,9 +802,29 @@ create_standard_path_from_text (const Text *text)
       }
       g_array_append_val (points, bp);
     }
-    obj = create_standard_path (points->len, &g_array_index (points, BezPoint, 0));
-    g_array_free (points, TRUE);
+    ret = (path->status == CAIRO_STATUS_SUCCESS);
+    cairo_path_destroy (path);
   }
+  /* finally scale it ? */
+
+  /* clean up */
+  g_object_unref (layout);
+  cairo_destroy (cr);
+
+  return ret;
+}
+
+DiaObject *
+create_standard_path_from_text (const Text *text)
+{
+  DiaObject *obj = NULL;
+  GArray *points = g_array_new (FALSE, FALSE, sizeof(BezPoint));
+
+  if (text_to_path (text, points))
+    obj = create_standard_path (points->len, &g_array_index (points, BezPoint, 0));
+
+  g_array_free (points, TRUE);
+
   if (obj) {
     StdPath *path = (StdPath *)obj;
     Rectangle text_box;
@@ -824,8 +845,6 @@ create_standard_path_from_text (const Text *text)
     /* also adjust top left corner - calling update, too */
     stdpath_move (path, &pos);
   }
-  g_object_unref (layout);
-  cairo_destroy (cr);
 
   return obj;
 }

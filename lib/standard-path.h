@@ -2,7 +2,7 @@
  * Copyright (C) 1998 Alexander Larsson
  *
  * standard-path.c -- path based object drawing
- * Copyright (C) 2012, Hans Breuer <Hans@Breuer.Org>
+ * Copyright (C) 2012 Hans Breuer <hans@breuer.org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,5 +26,7 @@
 
 /* there should be no need to use DIAVAR */
 extern DiaObjectType stdpath_type;
+
+gboolean text_to_path (const Text *text, GArray *points);
 
 #endif /* STANDARD_PATH_H */
