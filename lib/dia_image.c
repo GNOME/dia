@@ -222,8 +222,9 @@ dia_image_get_scaled_pixbuf(DiaImage *image, int width, int height)
 	image->scaled_width != width || image->scaled_height != height) {
       if (image->scaled)
 	g_object_unref(image->scaled);
-      image->scaled = gdk_pixbuf_scale_simple(image->image, width, height, 
-					      GDK_INTERP_TILES);
+      image->scaled = gdk_pixbuf_scale_simple(image->image, width, height,
+	/* dont waste interpolation time if it wont be seen anyway */
+	(width * height > 256) ? GDK_INTERP_TILES : GDK_INTERP_NEAREST);
       image->scaled_width = width;
       image->scaled_height = height;
     }
