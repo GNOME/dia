@@ -60,7 +60,6 @@ struct _Orthflow {
   Handle text_handle;
 
   Text* text;
-  TextAttributes attrs;
   OrthflowType type;
   Point textpos; /* This is the master position, only overridden in load */
 };
@@ -188,17 +187,16 @@ static PropOffset orthflow_offsets[] = {
   OBJECT_COMMON_PROPERTIES_OFFSETS,
   { "type", PROP_TYPE_ENUM, offsetof(Orthflow, type) },
   { "text", PROP_TYPE_TEXT, offsetof (Orthflow, text) },
-  { "text_alignment", PROP_TYPE_ENUM, offsetof (Orthflow, attrs.alignment) },
-  { "text_font", PROP_TYPE_FONT, offsetof (Orthflow, attrs.font) },
-  { PROP_STDNAME_TEXT_HEIGHT, PROP_STDTYPE_TEXT_HEIGHT, offsetof (Orthflow, attrs.height) },
-  { "text_colour", PROP_TYPE_COLOUR, offsetof (Orthflow, attrs.color) },
+  { "text_alignment", PROP_TYPE_ENUM, offsetof(Orthflow,text),offsetof(Text,alignment) },
+  { "text_font", PROP_TYPE_FONT, offsetof(Orthflow,text),offsetof(Text,font) },
+  { PROP_STDNAME_TEXT_HEIGHT, PROP_STDTYPE_TEXT_HEIGHT, offsetof(Orthflow,text),offsetof(Text,height) },
+  { "text_colour", PROP_TYPE_COLOUR, offsetof(Orthflow,text),offsetof(Text,color) },
   { NULL, 0, 0 }
 };
 
 static void
 orthflow_get_props(Orthflow * orthflow, GPtrArray *props)
 {
-  text_get_attributes (orthflow->text, &orthflow->attrs);
   object_get_props_from_offsets(&orthflow->orth.object, 
                                 orthflow_offsets, props);
 }
@@ -208,7 +206,6 @@ orthflow_set_props(Orthflow *orthflow, GPtrArray *props)
 {
   object_set_props_from_offsets(&orthflow->orth.object, 
                                 orthflow_offsets, props);
-  apply_textattr_properties (props, orthflow->text, "text", &orthflow->attrs);
   orthflow_update_data(orthflow);
 }
 
@@ -422,7 +419,6 @@ orthflow_create(Point *startpoint,
 
   orthflow->text = new_text("", font, ORTHFLOW_FONTHEIGHT, &p, &color_black, ALIGN_CENTER);
   dia_font_unref(font);  
-  text_get_attributes(orthflow->text, &orthflow->attrs);
 
 #if 0
   if ( orthflow_default_label ) {

@@ -58,8 +58,6 @@ struct _Textobj {
   Handle text_handle;
   /*! the real text object to be drawn */
   Text *text;
-  /*! synched copy of attributes from _Text object */
-  TextAttributes attrs;
   /*! vertical alignment of the whole text block */
   Valign vert_align;
   /*! bounding box filling */
@@ -131,10 +129,10 @@ static PropDescription textobj_props[] = {
 static PropOffset textobj_offsets[] = {
   OBJECT_COMMON_PROPERTIES_OFFSETS,
   {"text",PROP_TYPE_TEXT,offsetof(Textobj,text)},
-  {"text_font",PROP_TYPE_FONT,offsetof(Textobj,attrs.font)},
-  {PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(Textobj,attrs.height)},
-  {"text_colour",PROP_TYPE_COLOUR,offsetof(Textobj,attrs.color)},
-  {"text_alignment",PROP_TYPE_ENUM,offsetof(Textobj,attrs.alignment)},
+  {"text_font",PROP_TYPE_FONT,offsetof(Textobj,text),offsetof(Text,font)},
+  {PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(Textobj,text),offsetof(Text,height)},
+  {"text_colour",PROP_TYPE_COLOUR,offsetof(Textobj,text),offsetof(Text,color)},
+  {"text_alignment",PROP_TYPE_ENUM,offsetof(Textobj,text),offsetof(Text,alignment)},
   {"text_vert_alignment",PROP_TYPE_ENUM,offsetof(Textobj,vert_align)},
   { "fill_colour", PROP_TYPE_COLOUR, offsetof(Textobj, fill_color) },
   { "show_background", PROP_TYPE_BOOL, offsetof(Textobj, show_background) },
@@ -180,7 +178,6 @@ static ObjectOps textobj_ops = {
 static void
 textobj_get_props(Textobj *textobj, GPtrArray *props)
 {
-  text_get_attributes(textobj->text,&textobj->attrs);
   object_get_props_from_offsets(&textobj->object,textobj_offsets,props);
 }
 
@@ -188,7 +185,6 @@ static void
 textobj_set_props(Textobj *textobj, GPtrArray *props)
 {
   object_set_props_from_offsets(&textobj->object,textobj_offsets,props);
-  apply_textattr_properties(props,textobj->text,"text",&textobj->attrs);
   textobj_update_data(textobj);
 }
 
@@ -323,7 +319,6 @@ textobj_create(Point *startpoint,
   /* need to initialize to object.position as well, it is used update data */
   obj->position = *startpoint;
 
-  text_get_attributes(textobj->text,&textobj->attrs);
   dia_font_unref(font);
   textobj->vert_align = default_properties.vert_align;
   
@@ -350,7 +345,6 @@ static void
 textobj_destroy(Textobj *textobj)
 {
   text_destroy(textobj->text);
-  dia_font_unref(textobj->attrs.font);
   object_destroy(&textobj->object);
 }
 
@@ -395,8 +389,6 @@ textobj_load(ObjectNode obj_node, int version, DiaContext *ctx)
 			     &startpoint, &color_black, ALIGN_CENTER);
     dia_font_unref(font);
   }
-  /* initialize attrs from text */
-  text_get_attributes(textobj->text,&textobj->attrs);
 
   attr = object_find_attribute(obj_node, "valign");
   if (attr != NULL)

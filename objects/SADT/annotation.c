@@ -48,8 +48,6 @@ typedef struct _Annotation {
 
   Text *text;
 
-  TextAttributes attrs;
-
   Color line_color;
 } Annotation;
 
@@ -123,16 +121,14 @@ static ObjectOps annotation_ops = {
 static gboolean 
 handle_btn1(Annotation *annotation, Property *prop) {
   Color col;
-  text_get_attributes(annotation->text,&annotation->attrs);
-  col = annotation->attrs.color;
+  col = annotation->text->color;
   /* g_message("in handle_btn1 for object %p col=%.2f:%.2f:%.2f",
      annotation,col.red,col.green,col.blue); */
   col.red = g_random_double();
   col.green = g_random_double();
   col.blue = g_random_double();
   col.alpha = 1.0;
-  annotation->attrs.color = col;
-  text_set_attributes(annotation->text,&annotation->attrs);
+  annotation->text->color = col;
   /* g_message("end of handle_btn1 for object %p col=%.2f:%.2f:%.2f",
      annotation,col.red,col.green,col.blue); */
   return TRUE;
@@ -168,10 +164,10 @@ annotation_describe_props(Annotation *annotation)
 static PropOffset annotation_offsets[] = {
   CONNECTION_COMMON_PROPERTIES_OFFSETS,
   {"text",PROP_TYPE_TEXT,offsetof(Annotation,text)},
-  {"text_alignment",PROP_TYPE_ENUM,offsetof(Annotation,attrs.alignment)},
-  {"text_font",PROP_TYPE_FONT,offsetof(Annotation,attrs.font)},
-  {PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(Annotation,attrs.height)},
-  {"text_colour",PROP_TYPE_COLOUR,offsetof(Annotation,attrs.color)},
+  {"text_alignment",PROP_TYPE_ENUM,offsetof(Annotation,text),offsetof(Text,alignment)},
+  {"text_font",PROP_TYPE_FONT,offsetof(Annotation,text),offsetof(Text,font)},
+  {PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(Annotation,text),offsetof(Text,height)},
+  {"text_colour",PROP_TYPE_COLOUR,offsetof(Annotation,text),offsetof(Text,color)},
   { "line_colour", PROP_TYPE_COLOUR, offsetof(Annotation, line_color) },
   {"pos", PROP_TYPE_POINT, offsetof(Annotation,text_handle.pos)},
   { NULL,0,0 }
@@ -179,8 +175,7 @@ static PropOffset annotation_offsets[] = {
 
 static void
 annotation_get_props(Annotation *annotation, GPtrArray *props)
-{  
-  text_get_attributes(annotation->text,&annotation->attrs);
+{
   object_get_props_from_offsets(&annotation->connection.object,
                                 annotation_offsets,props);
 }
@@ -190,7 +185,6 @@ annotation_set_props(Annotation *annotation, GPtrArray *props)
 {
   object_set_props_from_offsets(&annotation->connection.object,
                                 annotation_offsets,props);
-  apply_textattr_properties(props,annotation->text,"text",&annotation->attrs);
   annotation_update_data(annotation);
 }
 

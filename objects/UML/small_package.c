@@ -48,7 +48,6 @@ struct _SmallPackage {
   Text *text;
   
   char *st_stereotype;
-  TextAttributes attrs;
 
   real line_width;
   Color line_color;
@@ -148,9 +147,9 @@ static PropOffset smallpackage_offsets[] = {
   ELEMENT_COMMON_PROPERTIES_OFFSETS,
   {"stereotype", PROP_TYPE_STRING, offsetof(SmallPackage , stereotype) },
   {"text",PROP_TYPE_TEXT,offsetof(SmallPackage,text)},
-  {"text_font",PROP_TYPE_FONT,offsetof(SmallPackage,attrs.font)},
-  {PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(SmallPackage,attrs.height)},
-  {"text_colour",PROP_TYPE_COLOUR,offsetof(SmallPackage,attrs.color)},  
+  {"text_font",PROP_TYPE_FONT,offsetof(SmallPackage,text),offsetof(Text,font)},
+  {PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(SmallPackage,text),offsetof(Text,height)},
+  {"text_colour",PROP_TYPE_COLOUR,offsetof(SmallPackage,text),offsetof(Text,color)},  
   { PROP_STDNAME_LINE_WIDTH, PROP_STDTYPE_LINE_WIDTH, offsetof(SmallPackage, line_width) },
   {"line_colour", PROP_TYPE_COLOUR, offsetof(SmallPackage, line_color) },
   {"fill_colour", PROP_TYPE_COLOUR, offsetof(SmallPackage, fill_color) },
@@ -161,7 +160,6 @@ static void
 smallpackage_get_props(SmallPackage * smallpackage, 
                        GPtrArray *props)
 {
-  text_get_attributes(smallpackage->text,&smallpackage->attrs);
   object_get_props_from_offsets(&smallpackage->element.object,
                                 smallpackage_offsets,props);
 }
@@ -172,8 +170,6 @@ smallpackage_set_props(SmallPackage *smallpackage,
 {
   object_set_props_from_offsets(&smallpackage->element.object, 
                                 smallpackage_offsets, props);
-  apply_textattr_properties(props,smallpackage->text,
-                            "text",&smallpackage->attrs);
   g_free(smallpackage->st_stereotype);
   smallpackage->st_stereotype = NULL;
   smallpackage_update_data(smallpackage);
@@ -288,7 +284,7 @@ smallpackage_draw(SmallPackage *pkg, DiaRenderer *renderer)
     p1 = pkg->text->position;
     p1.y -= pkg->text->height;
     renderer_ops->draw_string(renderer, pkg->st_stereotype, &p1, 
-			       ALIGN_LEFT, &pkg->attrs.color);
+			       ALIGN_LEFT, &pkg->text->color);
   }
 }
 
@@ -369,7 +365,6 @@ smallpackage_create(Point *startpoint,
   
   pkg->text = new_text("", font, 0.8, &p, &color_black, ALIGN_LEFT);
   dia_font_unref(font);
-  text_get_attributes(pkg->text,&pkg->attrs);
   
   element_init(elem, 8, NUM_CONNECTIONS);
   

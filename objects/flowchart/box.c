@@ -66,7 +66,6 @@ struct _Box {
   real corner_radius;
 
   Text *text;
-  TextAttributes attrs;
   real padding;
 
   TextFitting text_fitting;
@@ -181,10 +180,10 @@ static PropOffset box_offsets[] = {
   { "corner_radius", PROP_TYPE_REAL, offsetof(Box, corner_radius) },
   { "padding", PROP_TYPE_REAL, offsetof(Box, padding) },
   {"text",PROP_TYPE_TEXT,offsetof(Box,text)},
-  {"text_font",PROP_TYPE_FONT,offsetof(Box,attrs.font)},
-  {PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(Box,attrs.height)},
-  {"text_colour",PROP_TYPE_COLOUR,offsetof(Box,attrs.color)},
-  {"text_alignment",PROP_TYPE_ENUM,offsetof(Box,attrs.alignment)},
+  {"text_font",PROP_TYPE_FONT,offsetof(Box,text),offsetof(Text,font)},
+  {PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(Box,text),offsetof(Text,height)},
+  {"text_colour",PROP_TYPE_COLOUR,offsetof(Box,text),offsetof(Text,color)},
+  {"text_alignment",PROP_TYPE_ENUM,offsetof(Box,text),offsetof(Text,alignment)},
   {PROP_STDNAME_TEXT_FITTING,PROP_TYPE_ENUM,offsetof(Box,text_fitting)},
   { NULL, 0, 0 },
 };
@@ -192,7 +191,6 @@ static PropOffset box_offsets[] = {
 static void
 box_get_props(Box *box, GPtrArray *props)
 {
-  text_get_attributes(box->text,&box->attrs);
   object_get_props_from_offsets(&box->element.object,
                                 box_offsets,props);
 }
@@ -202,7 +200,6 @@ box_set_props(Box *box, GPtrArray *props)
 {
   object_set_props_from_offsets(&box->element.object,
                                 box_offsets,props);
-  apply_textattr_properties(props,box->text,"text",&box->attrs);
   box_update_data(box, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
 }
 
@@ -643,7 +640,6 @@ box_create(Point *startpoint,
   p.y += elem->height / 2.0 + font_height / 2;
   box->text = new_text("", font, font_height, &p, &box->border_color,
                        ALIGN_CENTER);
-  text_get_attributes(box->text,&box->attrs);
   dia_font_unref(font);
   
   /* new default: let the user decide the size */
@@ -778,7 +774,6 @@ box_load(ObjectNode obj_node, int version,DiaContext *ctx)
     box->text = data_text(attribute_first_data(attr), ctx);
   else /* paranoid */
     box->text = new_text_default(&obj->position, &box->border_color, ALIGN_CENTER);
-  text_get_attributes(box->text,&box->attrs);
 
   /* old default: only growth, manual shrink */
   box->text_fitting = TEXTFIT_WHEN_NEEDED;

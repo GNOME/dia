@@ -67,7 +67,6 @@ struct _Pgram {
   real shear_angle, shear_grad;
 
   Text *text;
-  TextAttributes attrs;
   real padding;
 
   TextFitting text_fitting;
@@ -183,10 +182,10 @@ static PropOffset pgram_offsets[] = {
   { "shear_angle", PROP_TYPE_REAL, offsetof(Pgram, shear_angle) },
   { "padding", PROP_TYPE_REAL, offsetof(Pgram, padding) },
   {"text",PROP_TYPE_TEXT,offsetof(Pgram,text)},
-  {"text_font",PROP_TYPE_FONT,offsetof(Pgram,attrs.font)},
-  {PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(Pgram,attrs.height)},
-  {"text_colour",PROP_TYPE_COLOUR,offsetof(Pgram,attrs.color)},
-  {"text_alignment",PROP_TYPE_ENUM,offsetof(Pgram,attrs.alignment)},
+  {"text_font",PROP_TYPE_FONT,offsetof(Pgram,text),offsetof(Text,font)},
+  {PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(Pgram,text),offsetof(Text,height)},
+  {"text_colour",PROP_TYPE_COLOUR,offsetof(Pgram,text),offsetof(Text,color)},
+  {"text_alignment",PROP_TYPE_ENUM,offsetof(Pgram,text),offsetof(Text,alignment)},
   {PROP_STDNAME_TEXT_FITTING,PROP_TYPE_ENUM,offsetof(Pgram,text_fitting)},
   { NULL, 0, 0 },
 };
@@ -194,7 +193,6 @@ static PropOffset pgram_offsets[] = {
 static void
 pgram_get_props(Pgram *pgram, GPtrArray *props)
 {
-  text_get_attributes(pgram->text,&pgram->attrs);
   object_get_props_from_offsets(&pgram->element.object,
                                 pgram_offsets,props);
 }
@@ -204,7 +202,6 @@ pgram_set_props(Pgram *pgram, GPtrArray *props)
 {
   object_set_props_from_offsets(&pgram->element.object,
                                 pgram_offsets,props);
-  apply_textattr_properties(props,pgram->text,"text",&pgram->attrs);
   pgram_update_data(pgram, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
 }
 
@@ -589,7 +586,6 @@ pgram_create(Point *startpoint,
   p.y += elem->height / 2.0 + font_height / 2;
   pgram->text = new_text("", font, font_height, &p, &pgram->border_color,
 			 ALIGN_CENTER);
-  text_get_attributes(pgram->text,&pgram->attrs);
   dia_font_unref(font);
   
   /* new default: let the user decide the size */
@@ -724,7 +720,6 @@ pgram_load(ObjectNode obj_node, int version,DiaContext *ctx)
     pgram->text = data_text(attribute_first_data(attr), ctx);
   else /* paranoid */
     pgram->text = new_text_default(&obj->position, &pgram->border_color, ALIGN_CENTER);
-  text_get_attributes(pgram->text, &pgram->attrs);
 
   /* old default: only growth, manual shrink */
   pgram->text_fitting = TEXTFIT_WHEN_NEEDED;

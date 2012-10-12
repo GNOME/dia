@@ -61,7 +61,6 @@ typedef struct _Action {
   Rectangle labelbb; /* The bounding box of the label itself */
   Point labelstart;
 
-  TextAttributes attrs; 
   ConnPointLine *cps; /* aaahrg ! again one ! */
 } Action;
 
@@ -147,18 +146,17 @@ action_describe_props(Action *action)
 static PropOffset action_offsets[] = {
   CONNECTION_COMMON_PROPERTIES_OFFSETS,
   {"text",PROP_TYPE_TEXT,offsetof(Action,text)},
-  {"text_alignment",PROP_TYPE_ENUM,offsetof(Action,attrs.alignment)},
-  {"text_font",PROP_TYPE_FONT,offsetof(Action,attrs.font)},
-  {PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(Action,attrs.height)},
-  {"text_colour",PROP_TYPE_COLOUR,offsetof(Action,attrs.color)},
+  {"text_alignment",PROP_TYPE_ENUM,offsetof(Action,text),offsetof(Text,alignment)},
+  {"text_font",PROP_TYPE_FONT,offsetof(Action,text),offsetof(Text,font)},
+  {PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(Action,text),offsetof(Text,height)},
+  {"text_colour",PROP_TYPE_COLOUR,offsetof(Action,text),offsetof(Text,color)},
   {"macro_call",PROP_TYPE_BOOL,offsetof(Action,macro_call)},
   { NULL,0,0 }
 };
 
 static void
 action_get_props(Action *action, GPtrArray *props)
-{  
-  text_get_attributes(action->text,&action->attrs);
+{
   object_get_props_from_offsets(&action->connection.object,
                                 action_offsets,props);
 }
@@ -168,7 +166,6 @@ action_set_props(Action *action, GPtrArray *props)
 {
   object_set_props_from_offsets(&action->connection.object,
                                 action_offsets,props);
-  apply_textattr_properties(props,action->text,"text",&action->attrs);
   action_update_data(action);
 }
 
@@ -421,8 +418,6 @@ action_create(Point *startpoint,
                           &pos, /* never used */
                           &color_black, ALIGN_LEFT);
   dia_font_unref(action_font);
-  
-  text_get_attributes(action->text,&action->attrs);
 
   action->macro_call = FALSE;
 

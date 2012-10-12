@@ -338,7 +338,12 @@ static void
 fontsizeprop_get_from_offset(FontsizeProperty *prop,
                          void *base, guint offset, guint offset2) 
 {
-  prop->fontsize_data = struct_member(base,offset,real);
+  if (offset2 == 0) {
+    prop->fontsize_data = struct_member(base,offset,real);
+  } else {
+    void *base2 = struct_member(base,offset,void*);
+    prop->fontsize_data = struct_member(base2,offset2,real);
+  }
 }
 
 static void 
@@ -354,7 +359,14 @@ fontsizeprop_set_from_offset(FontsizeProperty *prop,
     else if (value > numdata->max)
       value = numdata->max;
   }
-  struct_member(base,offset,real) = value;
+  if (offset2 == 0) {
+    struct_member(base,offset,real) = value;
+  } else {
+    void *base2 = struct_member(base,offset,void*);
+    struct_member(base2,offset2,real) = value;
+    g_return_if_fail (offset2 == offsetof(Text, height));
+    text_set_height ((Text*)base2, value);
+  }
 }
 
 static int 

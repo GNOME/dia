@@ -66,7 +66,6 @@ struct _Diamond {
   real dashlength;
 
   Text *text;
-  TextAttributes attrs;
   real padding;
   
   TextFitting text_fitting;
@@ -178,10 +177,10 @@ static PropOffset diamond_offsets[] = {
     offsetof(Diamond, line_style), offsetof(Diamond, dashlength) },
   { "padding", PROP_TYPE_REAL, offsetof(Diamond, padding) },
   {"text",PROP_TYPE_TEXT,offsetof(Diamond,text)},
-  {"text_font",PROP_TYPE_FONT,offsetof(Diamond,attrs.font)},
-  {PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(Diamond,attrs.height)},
-  {"text_colour",PROP_TYPE_COLOUR,offsetof(Diamond,attrs.color)},
-  {"text_alignment",PROP_TYPE_ENUM,offsetof(Diamond,attrs.alignment)},
+  {"text_font",PROP_TYPE_FONT,offsetof(Diamond,text),offsetof(Text,font)},
+  {PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(Diamond,text),offsetof(Text,height)},
+  {"text_colour",PROP_TYPE_COLOUR,offsetof(Diamond,text),offsetof(Text,color)},
+  {"text_alignment",PROP_TYPE_ENUM,offsetof(Diamond,text),offsetof(Text,alignment)},
   {PROP_STDNAME_TEXT_FITTING,PROP_TYPE_ENUM,offsetof(Diamond,text_fitting)},
   { NULL, 0, 0 },
 };
@@ -189,7 +188,6 @@ static PropOffset diamond_offsets[] = {
 static void
 diamond_get_props(Diamond *diamond, GPtrArray *props)
 {
-  text_get_attributes(diamond->text,&diamond->attrs);
   object_get_props_from_offsets(&diamond->element.object,
                                 diamond_offsets,props);
 }
@@ -199,7 +197,6 @@ diamond_set_props(Diamond *diamond, GPtrArray *props)
 {
   object_set_props_from_offsets(&diamond->element.object,
                                 diamond_offsets,props);
-  apply_textattr_properties(props,diamond->text,"text",&diamond->attrs);
   diamond_update_data(diamond,ANCHOR_MIDDLE,ANCHOR_MIDDLE);
 }
 
@@ -532,7 +529,6 @@ diamond_create(Point *startpoint,
   p.y += elem->height / 2.0 + font_height / 2;
   diamond->text = new_text("", font, font_height, &p, &diamond->border_color,
 			   ALIGN_CENTER);
-  text_get_attributes(diamond->text,&diamond->attrs);
   dia_font_unref(font);
   
   /* new default: let the user decide the size? */
@@ -660,7 +656,6 @@ diamond_load(ObjectNode obj_node, int version,DiaContext *ctx)
     diamond->text = data_text(attribute_first_data(attr), ctx);
   else /* paranoid */
     diamond->text = new_text_default(&obj->position, &diamond->border_color, ALIGN_CENTER);
-  text_get_attributes(diamond->text, &diamond->attrs);
 
   /* old default: only growth, manual shrink */
   diamond->text_fitting = TEXTFIT_WHEN_NEEDED;

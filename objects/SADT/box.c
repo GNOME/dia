@@ -65,8 +65,6 @@ typedef struct _Box {
   gchar *id;
   real padding;
 
-  TextAttributes attrs;
-  
   Color line_color;
   Color fill_color;
 } Box;
@@ -166,10 +164,10 @@ static PropOffset box_offsets[] = {
   ELEMENT_COMMON_PROPERTIES_OFFSETS,
   { "padding",PROP_TYPE_REAL,offsetof(Box,padding)},
   { "text", PROP_TYPE_TEXT, offsetof(Box,text)},
-  { "text_alignment",PROP_TYPE_ENUM,offsetof(Box,attrs.alignment)},
-  { "text_font",PROP_TYPE_FONT,offsetof(Box,attrs.font)},
-  { PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(Box,attrs.height)},
-  { "text_colour",PROP_TYPE_COLOUR,offsetof(Box,attrs.color)},
+  { "text_alignment",PROP_TYPE_ENUM,offsetof(Box,text),offsetof(Text,alignment)},
+  { "text_font",PROP_TYPE_FONT,offsetof(Box,text),offsetof(Text,font)},
+  { PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(Box,text),offsetof(Text,height)},
+  { "text_colour",PROP_TYPE_COLOUR,offsetof(Box,text),offsetof(Text,color)},
   { "line_colour", PROP_TYPE_COLOUR, offsetof(Box, line_color) },
   { "fill_colour", PROP_TYPE_COLOUR, offsetof(Box, fill_color) },
   { "id", PROP_TYPE_STRING, offsetof(Box,id)},
@@ -182,8 +180,7 @@ static PropOffset box_offsets[] = {
 
 static void
 sadtbox_get_props(Box *box, GPtrArray *props)
-{  
-  text_get_attributes(box->text,&box->attrs);
+{
   object_get_props_from_offsets(&box->element.object,
                                 box_offsets,props);
 }
@@ -193,7 +190,6 @@ sadtbox_set_props(Box *box, GPtrArray *props)
 {
   object_set_props_from_offsets(&box->element.object,
                                 box_offsets,props);
-  apply_textattr_properties(props,box->text,"text",&box->attrs);
   sadtbox_update_data(box, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
 }
 
@@ -514,7 +510,6 @@ sadtbox_create(Point *startpoint,
                        &color_black,
                        ALIGN_CENTER);
   dia_font_unref(font);
-  text_get_attributes(box->text,&box->attrs);
   
   box->id = g_strdup("A0"); /* should be made better. 
                                Automatic counting ? */

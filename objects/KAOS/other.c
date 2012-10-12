@@ -82,7 +82,6 @@ typedef struct _Other {
   real padding;
   OtherType type;
 
-  TextAttributes attrs;
   int init;
 
   ConnectionPoint center_cp;
@@ -184,7 +183,6 @@ static PropOffset other_offsets[] = {
 static void
 other_get_props(Other *other, GPtrArray *props)
 {
-  text_get_attributes(other->text,&other->attrs);
   object_get_props_from_offsets(&other->element.object,
                                 other_offsets,props);
 }
@@ -196,7 +194,6 @@ other_set_props(Other *other, GPtrArray *props)
 
   object_set_props_from_offsets(&other->element.object,
                                 other_offsets,props);
-  apply_textattr_properties(props,other->text,"text",&other->attrs);
   other_update_data(other, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
 }
 

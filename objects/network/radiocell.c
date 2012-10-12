@@ -52,7 +52,6 @@ struct _RadioCell {
   gboolean show_background;
   Color fill_colour;
   Text *text;
-  TextAttributes attrs;
 };
 
 #define RADIOCELL_LINEWIDTH  0.1
@@ -151,18 +150,17 @@ static PropOffset radiocell_offsets[] = {
   { "show_background", PROP_TYPE_BOOL,
     offsetof(RadioCell, show_background) },
   { "text", PROP_TYPE_TEXT, offsetof(RadioCell, text) },
-  { "text_font", PROP_TYPE_FONT, offsetof(RadioCell, attrs.font) },
-  { PROP_STDNAME_TEXT_HEIGHT, PROP_STDTYPE_TEXT_HEIGHT, offsetof(RadioCell, attrs.height) },
-  { "text_colour", PROP_TYPE_COLOUR, offsetof(RadioCell, attrs.color) },
+  { "text_font", PROP_TYPE_FONT, offsetof(RadioCell,text),offsetof(Text,font) },
+  { PROP_STDNAME_TEXT_HEIGHT, PROP_STDTYPE_TEXT_HEIGHT, offsetof(RadioCell,text),offsetof(Text,height) },
+  { "text_colour", PROP_TYPE_COLOUR, offsetof(RadioCell,text),offsetof(Text,color) },
   { "text_alignment", PROP_TYPE_ENUM,
-    offsetof(RadioCell, attrs.alignment) },
+    offsetof(RadioCell,text),offsetof(Text,alignment) },
   { NULL, 0, 0 },
 };
 
 static void
 radiocell_get_props(RadioCell *radiocell, GPtrArray *props)
 {
-  text_get_attributes(radiocell->text, &radiocell->attrs);
   object_get_props_from_offsets(&radiocell->poly.object,
                                 radiocell_offsets, props);
 }
@@ -172,8 +170,6 @@ radiocell_set_props(RadioCell *radiocell, GPtrArray *props)
 {
   object_set_props_from_offsets(&radiocell->poly.object,
                                 radiocell_offsets, props);
-  apply_textattr_properties(props, radiocell->text,
-			    "text", &radiocell->attrs);
   radiocell_update_data(radiocell);
 }
 
@@ -340,7 +336,6 @@ radiocell_create(Point *startpoint,
   radiocell->text = new_text("", font, RADIOCELL_FONTHEIGHT, startpoint,
 			     &color_black, ALIGN_CENTER);
   dia_font_unref(font);
-  text_get_attributes(radiocell->text, &radiocell->attrs);
 
   polyshape_init(poly, 6);
 

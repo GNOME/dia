@@ -66,7 +66,6 @@ struct _Ellipse {
   real dashlength;
 
   Text *text;
-  TextAttributes attrs;
   real padding;
 
   TextFitting text_fitting;
@@ -177,10 +176,10 @@ static PropOffset ellipse_offsets[] = {
     offsetof(Ellipse, line_style), offsetof(Ellipse, dashlength) },
   { "padding", PROP_TYPE_REAL, offsetof(Ellipse, padding) },
   {"text",PROP_TYPE_TEXT,offsetof(Ellipse,text)},
-  {"text_font",PROP_TYPE_FONT,offsetof(Ellipse,attrs.font)},
-  {PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(Ellipse,attrs.height)},
-  {"text_colour",PROP_TYPE_COLOUR,offsetof(Ellipse,attrs.color)},
-  {"text_alignment",PROP_TYPE_ENUM,offsetof(Ellipse,attrs.alignment)},
+  {"text_font",PROP_TYPE_FONT,offsetof(Ellipse,text),offsetof(Text,font)},
+  {PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(Ellipse,text),offsetof(Text,height)},
+  {"text_colour",PROP_TYPE_COLOUR,offsetof(Ellipse,text),offsetof(Text,color)},
+  {"text_alignment",PROP_TYPE_ENUM,offsetof(Ellipse,text),offsetof(Text,alignment)},
   {PROP_STDNAME_TEXT_FITTING,PROP_TYPE_ENUM,offsetof(Ellipse,text_fitting)},
   { NULL, 0, 0 },
 };
@@ -188,7 +187,6 @@ static PropOffset ellipse_offsets[] = {
 static void
 ellipse_get_props(Ellipse *ellipse, GPtrArray *props)
 {
-  text_get_attributes(ellipse->text,&ellipse->attrs);
   object_get_props_from_offsets(&ellipse->element.object,
                                 ellipse_offsets,props);
 }
@@ -198,7 +196,6 @@ ellipse_set_props(Ellipse *ellipse, GPtrArray *props)
 {
   object_set_props_from_offsets(&ellipse->element.object,
                                 ellipse_offsets,props);
-  apply_textattr_properties(props,ellipse->text,"text",&ellipse->attrs);
   ellipse_update_data(ellipse, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
 }
 
@@ -508,7 +505,6 @@ ellipse_create(Point *startpoint,
   p.y += elem->height / 2.0 + font_height / 2;
   ellipse->text = new_text("", font, font_height, &p, &ellipse->border_color,
 			   ALIGN_CENTER);
-  text_get_attributes(ellipse->text,&ellipse->attrs);
   dia_font_unref(font);
   
   /* new default: let the user decide the size? */
@@ -635,7 +631,7 @@ ellipse_load(ObjectNode obj_node, int version,DiaContext *ctx)
     ellipse->text = data_text(attribute_first_data(attr), ctx);
   else
     ellipse->text = new_text_default(&obj->position, &ellipse->border_color, ALIGN_CENTER);
-  text_get_attributes(ellipse->text, &ellipse->attrs);
+
   /* old default: only growth, manual shrink */
   ellipse->text_fitting = TEXTFIT_WHEN_NEEDED;
   attr = object_find_attribute(obj_node, PROP_STDNAME_TEXT_FITTING);

@@ -108,7 +108,6 @@ typedef struct _Box {
   DomainType domtype;
   DomainKind domkind;
 
-  TextAttributes attrs;
   int init;  /* workaround for property bug */
 } Box;
 
@@ -216,10 +215,10 @@ static PropOffset box_offsets[] = {
   { "domtype", PROP_TYPE_ENUM, offsetof(Box,domtype)},
   { "domkind", PROP_TYPE_ENUM, offsetof(Box,domkind)},
   { "text", PROP_TYPE_TEXT, offsetof(Box,text)},
-  { "text_alignment",PROP_TYPE_ENUM,offsetof(Box,attrs.alignment)},
-  { "text_font",PROP_TYPE_FONT,offsetof(Box,attrs.font)},
-  { PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(Box,attrs.height)},
-  { "text_colour",PROP_TYPE_COLOUR,offsetof(Box,attrs.color)},
+  { "text_alignment",PROP_TYPE_ENUM,offsetof(Box,text),offsetof(Text,alignment)},
+  { "text_font",PROP_TYPE_FONT,offsetof(Box,text),offsetof(Text,font)},
+  { PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(Box,text),offsetof(Text,height)},
+  { "text_colour",PROP_TYPE_COLOUR,offsetof(Box,text),offsetof(Text,color)},
   { "cpl_north",PROP_TYPE_CONNPOINT_LINE, offsetof(Box,north)},
   { "cpl_west",PROP_TYPE_CONNPOINT_LINE, offsetof(Box,west)},
   { "cpl_south",PROP_TYPE_CONNPOINT_LINE, offsetof(Box,south)},
@@ -230,7 +229,6 @@ static PropOffset box_offsets[] = {
 static void
 jackson_box_get_props(Box *box, GPtrArray *props)
 {
-  text_get_attributes(box->text,&box->attrs);
   object_get_props_from_offsets(&box->element.object,
                                 box_offsets,props);
 }
@@ -243,7 +241,6 @@ jackson_box_set_props(Box *box, GPtrArray *props)
   object_set_props_from_offsets(&box->element.object,
                                 box_offsets,props);
 
-  apply_textattr_properties(props,box->text,"text",&box->attrs);
   jackson_box_update_data(box, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
 
 }
@@ -590,7 +587,6 @@ jackson_box_create(Point *startpoint,
                        &color_black,
                        ALIGN_CENTER);
   dia_font_unref(font);
-  text_get_attributes(box->text,&box->attrs);
 
   element_init(elem, 8, 0);
 

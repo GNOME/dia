@@ -57,7 +57,6 @@ struct _Flow {
   Handle text_handle;
 
   Text* text;
-  TextAttributes attrs;
   FlowType type;
   Point textpos; /* This is the master position, but overridden in load */
 };
@@ -165,17 +164,16 @@ static PropOffset flow_offsets[] = {
   OBJECT_COMMON_PROPERTIES_OFFSETS,
   { "type", PROP_TYPE_ENUM, offsetof(Flow, type) },
   { "text", PROP_TYPE_TEXT, offsetof (Flow, text) },
-  { "text_alignment", PROP_TYPE_ENUM, offsetof (Flow, attrs.alignment) },
-  { "text_font", PROP_TYPE_FONT, offsetof (Flow, attrs.font) },
-  { PROP_STDNAME_TEXT_HEIGHT, PROP_STDTYPE_TEXT_HEIGHT, offsetof (Flow, attrs.height) },
-  { "text_colour", PROP_TYPE_COLOUR, offsetof (Flow, attrs.color) },
+  { "text_alignment", PROP_TYPE_ENUM, offsetof(Flow,text),offsetof(Text,alignment) },
+  { "text_font", PROP_TYPE_FONT, offsetof(Flow,text),offsetof(Text,font) },
+  { PROP_STDNAME_TEXT_HEIGHT, PROP_STDTYPE_TEXT_HEIGHT, offsetof(Flow,text),offsetof(Text,height) },
+  { "text_colour", PROP_TYPE_COLOUR, offsetof(Flow,text),offsetof(Text,color) },
   { NULL, 0, 0 }
 };
 
 static void
 flow_get_props(Flow * flow, GPtrArray *props)
 {
-  text_get_attributes (flow->text, &flow->attrs);
   object_get_props_from_offsets(&flow->connection.object, 
                                 flow_offsets, props);
 }
@@ -185,7 +183,6 @@ flow_set_props(Flow *flow, GPtrArray *props)
 {
   object_set_props_from_offsets(&flow->connection.object, 
                                 flow_offsets, props);
-  apply_textattr_properties (props, flow->text, "text", &flow->attrs);
   flow_update_data(flow);
 }
 
@@ -407,7 +404,6 @@ flow_create(Point *startpoint,
 
   flow->text = new_text("", font, FLOW_FONTHEIGHT, &p, &color_black, ALIGN_CENTER);
   dia_font_unref(font);  
-  text_get_attributes(flow->text, &flow->attrs);
 
   flow->text_handle.id = HANDLE_MOVE_TEXT;
   flow->text_handle.type = HANDLE_MINOR_CONTROL;

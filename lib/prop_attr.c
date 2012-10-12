@@ -332,14 +332,26 @@ static void
 colorprop_get_from_offset(ColorProperty *prop,
                           void *base, guint offset, guint offset2) 
 {
-  prop->color_data = struct_member(base,offset,Color);
+  if (offset2 == 0) {
+    prop->color_data = struct_member(base,offset,Color);
+  } else {
+    void *base2 = struct_member(base,offset,void*);
+    g_return_if_fail (base2 != NULL);
+    prop->color_data = struct_member(base2,offset2,Color);
+  }
 }
 
 static void 
 colorprop_set_from_offset(ColorProperty *prop,
                           void *base, guint offset, guint offset2)
 {
-  struct_member(base,offset,Color) = prop->color_data;
+  if (offset2 == 0) {
+    struct_member(base,offset,Color) = prop->color_data;
+  } else {
+    void *base2 = struct_member(base,offset,void*);
+    g_return_if_fail (base2 != NULL);
+    struct_member(base2,offset2,Color) = prop->color_data;
+  }
 }
 
 static const PropertyOps colorprop_ops = {
@@ -433,9 +445,17 @@ static void
 fontprop_get_from_offset(FontProperty *prop,
                          void *base, guint offset, guint offset2) 
 {
-  if (prop->font_data)
-    dia_font_unref(prop->font_data);    
-  prop->font_data = dia_font_ref(struct_member(base,offset,DiaFont *));
+  /* if we get the same font dont unref before reuse */
+  DiaFont *old_font = prop->font_data;
+  if (offset2 == 0) {
+    prop->font_data = dia_font_ref(struct_member(base,offset,DiaFont *));
+  } else {
+    void *base2 = struct_member(base,offset,void*);
+    g_return_if_fail (base2 != NULL);
+    prop->font_data = dia_font_ref(struct_member(base2,offset2,DiaFont *));
+  }
+  if (old_font)
+    dia_font_unref(old_font);
 }
 
 static void 
@@ -443,9 +463,21 @@ fontprop_set_from_offset(FontProperty *prop,
                          void *base, guint offset, guint offset2)
 {
   if (prop->font_data) {
-    if (struct_member(base,offset,DiaFont *))
-      dia_font_unref(struct_member(base,offset,DiaFont *));   
-    struct_member(base,offset,DiaFont *) = dia_font_ref(prop->font_data);
+    DiaFont *old_font;
+
+    if (offset2 == 0) {
+      old_font = struct_member(base,offset,DiaFont *);
+      struct_member(base,offset,DiaFont *) = dia_font_ref(prop->font_data);
+    } else {
+      void *base2 = struct_member(base,offset,void*);
+      g_return_if_fail (base2 != NULL);
+      old_font = struct_member(base2,offset2,DiaFont *);
+      struct_member(base2,offset2,DiaFont *) = dia_font_ref(prop->font_data);
+      g_return_if_fail (offset2 == offsetof(Text, font));
+      text_set_font ((Text *)base2, prop->font_data);
+    }
+    if (old_font)
+      dia_font_unref(old_font);
   }
 }
 

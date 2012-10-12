@@ -49,7 +49,6 @@ struct _Function {
   ConnectionPoint connections[NUM_CONNECTIONS];
   
   Text *text;
-  TextAttributes attrs;
 
   int is_wish;
   int is_user;  
@@ -164,16 +163,15 @@ static PropOffset function_offsets[] = {
   { "wish function", PROP_TYPE_BOOL, offsetof(Function, is_wish) },
   { "user function", PROP_TYPE_BOOL, offsetof(Function, is_user) },
   { "text", PROP_TYPE_TEXT, offsetof (Function, text) },
-  { "text_font", PROP_TYPE_FONT, offsetof (Function, attrs.font) },
-  { PROP_STDNAME_TEXT_HEIGHT, PROP_STDTYPE_TEXT_HEIGHT, offsetof (Function, attrs.height) },
-  { "text_colour", PROP_TYPE_COLOUR, offsetof (Function, attrs.color) },
+  { "text_font", PROP_TYPE_FONT, offsetof(Function,text),offsetof(Text,font) },
+  { PROP_STDNAME_TEXT_HEIGHT, PROP_STDTYPE_TEXT_HEIGHT, offsetof(Function,text),offsetof(Text,height) },
+  { "text_colour", PROP_TYPE_COLOUR, offsetof(Function,text),offsetof(Text,color) },
   { NULL, 0, 0}
 };
 
 static void
 function_get_props(Function * function, GPtrArray *props)
 {
-  text_get_attributes (function->text, &function->attrs);
   object_get_props_from_offsets(&function->element.object, 
                                 function_offsets, props);
 }
@@ -183,7 +181,6 @@ function_set_props(Function *function, GPtrArray *props)
 {
   object_set_props_from_offsets(&function->element.object, 
                                 function_offsets, props);
-  apply_textattr_properties (props, function->text, "text", &function->attrs);
   function_update_data(function);
 }
 

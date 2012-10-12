@@ -48,7 +48,6 @@ struct _Component {
   Text *text;
 
   char *st_stereotype;
-  TextAttributes attrs;
 
   Color line_color;
   Color fill_color;
@@ -145,9 +144,9 @@ static PropOffset component_offsets[] = {
   {"fill_colour",PROP_TYPE_COLOUR,offsetof(Component,fill_color)},
   {"stereotype", PROP_TYPE_STRING, offsetof(Component , stereotype) },
   {"text",PROP_TYPE_TEXT,offsetof(Component,text)},
-  {"text_font",PROP_TYPE_FONT,offsetof(Component,attrs.font)},
-  {PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(Component,attrs.height)},
-  {"text_colour",PROP_TYPE_COLOUR,offsetof(Component,attrs.color)},  
+  {"text_font",PROP_TYPE_FONT,offsetof(Component,text),offsetof(Text,font)},
+  {PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(Component,text),offsetof(Text,height)},
+  {"text_colour",PROP_TYPE_COLOUR,offsetof(Component,text),offsetof(Text,color)},  
   { NULL, 0, 0 },
 };
 
@@ -155,7 +154,6 @@ static PropOffset component_offsets[] = {
 static void
 component_get_props(Component * component, GPtrArray *props)
 {
-  text_get_attributes(component->text,&component->attrs);
   object_get_props_from_offsets(&component->element.object,
                                 component_offsets,props);
 }
@@ -165,7 +163,6 @@ component_set_props(Component *component, GPtrArray *props)
 {
   object_set_props_from_offsets(&component->element.object, 
                                 component_offsets, props);
-  apply_textattr_properties(props,component->text,"text",&component->attrs);
   g_free(component->st_stereotype);
   component->st_stereotype = NULL;
   component_update_data(component);
@@ -281,7 +278,7 @@ component_draw(Component *cmp, DiaRenderer *renderer)
     p1.y -= cmp->text->height;
     renderer_ops->set_font(renderer, cmp->text->font, cmp->text->height);
     renderer_ops->draw_string(renderer, cmp->st_stereotype, &p1, 
-			       ALIGN_LEFT, &cmp->attrs.color);
+			       ALIGN_LEFT, &cmp->text->color);
   }
 
   text_draw(cmp->text, renderer);
@@ -415,7 +412,6 @@ component_create(Point *startpoint,
   p.y += 2*COMPONENT_CHEIGHT;
   
   cmp->text = new_text("", font, 0.8, &p, &color_black, ALIGN_LEFT);
-  text_get_attributes(cmp->text,&cmp->attrs);
 
   dia_font_unref(font);
   

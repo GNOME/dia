@@ -84,7 +84,6 @@ typedef struct _Goal {
   real padding;
   GoalType type;
 
-  TextAttributes attrs;
   int init;
 } Goal;
 
@@ -178,7 +177,6 @@ static PropOffset goal_offsets[] = {
 static void
 goal_get_props(Goal *goal, GPtrArray *props)
 {
-  text_get_attributes(goal->text,&goal->attrs);
   object_get_props_from_offsets(&goal->element.object,
                                 goal_offsets,props);
 }
@@ -190,7 +188,6 @@ goal_set_props(Goal *goal, GPtrArray *props)
 
   object_set_props_from_offsets(&goal->element.object,
                                 goal_offsets,props);
-  apply_textattr_properties(props,goal->text,"text",&goal->attrs);
   goal_update_data(goal, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
 }
 
@@ -525,7 +522,6 @@ goal_create(Point *startpoint,
                        &color_black,
                        ALIGN_CENTER);
   dia_font_unref(font);
-  text_get_attributes(goal->text,&goal->attrs);
 
   element_init(elem, 8, NUM_CONNECTIONS);
 

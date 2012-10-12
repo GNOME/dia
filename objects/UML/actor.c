@@ -42,7 +42,6 @@ struct _Actor {
   ConnectionPoint connections[NUM_CONNECTIONS];
 
   Text *text;
-  TextAttributes attrs;
 
   real line_width;
   Color line_color;
@@ -138,9 +137,9 @@ actor_describe_props(Actor *actor)
 static PropOffset actor_offsets[] = {
   ELEMENT_COMMON_PROPERTIES_OFFSETS,
   {"text",PROP_TYPE_TEXT,offsetof(Actor,text)},
-  {"text_font",PROP_TYPE_FONT,offsetof(Actor,attrs.font)},
-  {PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(Actor,attrs.height)},
-  {"text_colour",PROP_TYPE_COLOUR,offsetof(Actor,attrs.color)},
+  {"text_font",PROP_TYPE_FONT,offsetof(Actor,text),offsetof(Text,font)},
+  {PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(Actor,text),offsetof(Text,height)},
+  {"text_colour",PROP_TYPE_COLOUR,offsetof(Actor,text),offsetof(Text,color)},
   { PROP_STDNAME_LINE_WIDTH, PROP_STDTYPE_LINE_WIDTH, offsetof(Actor, line_width) },
   {"line_colour",PROP_TYPE_COLOUR,offsetof(Actor,line_color)},
   {"fill_colour",PROP_TYPE_COLOUR,offsetof(Actor,fill_color)},
@@ -150,7 +149,6 @@ static PropOffset actor_offsets[] = {
 static void
 actor_get_props(Actor * actor, GPtrArray *props)
 {
-  text_get_attributes(actor->text,&actor->attrs);
   object_get_props_from_offsets(&actor->element.object,
                                 actor_offsets,props);
 }
@@ -160,7 +158,6 @@ actor_set_props(Actor *actor, GPtrArray *props)
 {
   object_set_props_from_offsets(&actor->element.object,
                                 actor_offsets,props);
-  apply_textattr_properties(props,actor->text,"text",&actor->attrs);
   actor_update_data(actor);
 }
 
@@ -357,8 +354,6 @@ actor_create(Point *startpoint,
   actor->text = new_text(_("Actor"), 
                          font, 0.8, &p, &color_black, ALIGN_CENTER);
   dia_font_unref(font);
-  
-  text_get_attributes(actor->text,&actor->attrs);
   
   element_init(elem, 8, NUM_CONNECTIONS);
   

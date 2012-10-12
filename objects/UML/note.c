@@ -43,7 +43,6 @@ struct _Note {
   ConnectionPoint connections[NUM_CONNECTIONS];
 
   Text *text;
-  TextAttributes attrs;
 
   real line_width;
   Color line_color;
@@ -136,9 +135,9 @@ note_describe_props(Note *note)
 static PropOffset note_offsets[] = {
   ELEMENT_COMMON_PROPERTIES_OFFSETS,
   {"text",PROP_TYPE_TEXT,offsetof(Note,text)},
-  {"text_font",PROP_TYPE_FONT,offsetof(Note,attrs.font)},
-  {PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(Note,attrs.height)},
-  {"text_colour",PROP_TYPE_COLOUR,offsetof(Note,attrs.color)},
+  {"text_font",PROP_TYPE_FONT,offsetof(Note,text),offsetof(Text,font)},
+  {PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(Note,text),offsetof(Text,height)},
+  {"text_colour",PROP_TYPE_COLOUR,offsetof(Note,text),offsetof(Text,color)},
   { PROP_STDNAME_LINE_WIDTH, PROP_STDTYPE_LINE_WIDTH, offsetof(Note, line_width)},
   {"line_colour",PROP_TYPE_COLOUR,offsetof(Note,line_color)},
   {"fill_colour",PROP_TYPE_COLOUR,offsetof(Note,fill_color)},
@@ -148,7 +147,6 @@ static PropOffset note_offsets[] = {
 static void
 note_get_props(Note * note, GPtrArray *props)
 {
-  text_get_attributes(note->text,&note->attrs);
   object_get_props_from_offsets(&note->element.object,
                                 note_offsets,props);
 }
@@ -158,8 +156,6 @@ note_set_props(Note *note, GPtrArray *props)
 {
   object_set_props_from_offsets(&note->element.object,
                                 note_offsets,props);
-  apply_textattr_properties(props,
-                            note->text,"text",&note->attrs);
   note_update_data(note);
 }
 
@@ -330,8 +326,6 @@ note_create(Point *startpoint,
   note->text = new_text("", font, 0.8, &p, &color_black, ALIGN_LEFT);
   dia_font_unref(font);
 
-  text_get_attributes(note->text,&note->attrs);
-  
   element_init(elem, 8, NUM_CONNECTIONS);
   
   for (i=0;i<NUM_CONNECTIONS;i++) {

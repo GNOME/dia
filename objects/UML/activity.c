@@ -47,7 +47,6 @@ struct _State {
 
   Text *text;
 
-  TextAttributes attrs;
   Color line_color;
   Color fill_color;
 };
@@ -144,16 +143,15 @@ static PropOffset state_offsets[] = {
   {"line_colour",PROP_TYPE_COLOUR,offsetof(State,line_color)},
   {"fill_colour",PROP_TYPE_COLOUR,offsetof(State,fill_color)},
   {"text",PROP_TYPE_TEXT,offsetof(State,text)},
-  {"text_font",PROP_TYPE_FONT,offsetof(State,attrs.font)},
-  {PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(State,attrs.height)},
-  {"text_colour",PROP_TYPE_COLOUR,offsetof(State,attrs.color)},
+  {"text_font",PROP_TYPE_FONT,offsetof(State,text),offsetof(Text,font)},
+  {PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(State,text),offsetof(Text,height)},
+  {"text_colour",PROP_TYPE_COLOUR,offsetof(State,text),offsetof(Text,color)},
   { NULL, 0, 0 },
 };
 
 static void
 state_get_props(State * state, GPtrArray *props)
 {
-  text_get_attributes(state->text,&state->attrs);
   object_get_props_from_offsets(&state->element.object,
                                 state_offsets,props);
 }
@@ -163,7 +161,6 @@ state_set_props(State *state, GPtrArray *props)
 {
   object_set_props_from_offsets(&state->element.object,
                                 state_offsets,props);
-  apply_textattr_properties(props,state->text,"text",&state->attrs);
   state_update_data(state);
 }
 
@@ -330,7 +327,7 @@ state_create_activity(Point *startpoint,
   p.y += STATE_HEIGHT/2.0;
   
   state->text = new_text("", font, 0.8, &p, &color_black, ALIGN_CENTER);
-  text_get_attributes(state->text,&state->attrs);
+  dia_font_unref(font);
   element_init(elem, 8, 8);
   
   for (i=0;i<8;i++) {

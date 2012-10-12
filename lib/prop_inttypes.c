@@ -579,14 +579,26 @@ static void
 enumprop_get_from_offset(EnumProperty *prop,
                          void *base, guint offset, guint offset2) 
 {
-  prop->enum_data = struct_member(base,offset,gint);
+  if (offset2 == 0) {
+    prop->enum_data = struct_member(base,offset,gint);
+  } else {
+    void *base2 = struct_member(base,offset,void*);
+    g_return_if_fail (base2 != NULL);
+    prop->enum_data = struct_member(base2,offset2,gint);
+  }
 }
 
 static void 
 enumprop_set_from_offset(EnumProperty *prop,
                          void *base, guint offset, guint offset2)
 {
-  struct_member(base,offset,gint) = prop->enum_data;
+  if (offset2 == 0) {
+    struct_member(base,offset,gint) = prop->enum_data;
+  } else {
+    void *base2 = struct_member(base,offset,void*);
+    g_return_if_fail (base2 != NULL);
+    struct_member(base2,offset2,gint) = prop->enum_data;
+  }
 }
 
 static const PropertyOps enumprop_ops = {

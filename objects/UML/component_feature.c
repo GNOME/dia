@@ -68,7 +68,6 @@ struct _Compfeat {
   CompRole roletmp;
 
   Text *text;
-  TextAttributes attrs;
   Point text_pos;
   Handle text_handle;
   
@@ -226,10 +225,10 @@ static PropOffset compfeat_offsets[] = {
   ORTHCONN_COMMON_PROPERTIES_OFFSETS,
   { "role", PROP_TYPE_ENUM, offsetof(Compfeat, role) },
   { "text", PROP_TYPE_TEXT, offsetof(Compfeat, text) },
-  { "text_font", PROP_TYPE_FONT, offsetof(Compfeat, attrs.font) },
-  { PROP_STDNAME_TEXT_HEIGHT, PROP_STDTYPE_TEXT_HEIGHT, offsetof(Compfeat, attrs.height) },
-  { "text_colour", PROP_TYPE_COLOUR, offsetof(Compfeat, attrs.color) },
-  { "text_alignment", PROP_TYPE_ENUM, offsetof(Compfeat, attrs.alignment) },
+  { "text_font", PROP_TYPE_FONT, offsetof(Compfeat,text),offsetof(Text,font) },
+  { PROP_STDNAME_TEXT_HEIGHT, PROP_STDTYPE_TEXT_HEIGHT, offsetof(Compfeat,text),offsetof(Text,height) },
+  { "text_colour", PROP_TYPE_COLOUR, offsetof(Compfeat,text),offsetof(Text,color) },
+  { "text_alignment", PROP_TYPE_ENUM, offsetof(Compfeat,text),offsetof(Text,alignment) },
   { "text_pos", PROP_TYPE_POINT, offsetof(Compfeat, text_pos) },
   { PROP_STDNAME_LINE_WIDTH,PROP_TYPE_LENGTH,offsetof(Compfeat, line_width) },
   { "line_colour",PROP_TYPE_COLOUR,offsetof(Compfeat, line_color) },
@@ -242,7 +241,6 @@ compfeat_get_props(Compfeat *compfeat, GPtrArray *props)
   if (compfeat->roletmp)
     compfeat->role = compfeat->roletmp;
   text_set_position(compfeat->text, &compfeat->text_pos);
-  text_get_attributes(compfeat->text, &compfeat->attrs);
   object_get_props_from_offsets(&compfeat->orth.object,
                                 compfeat_offsets, props);
 }
@@ -254,7 +252,6 @@ compfeat_set_props(Compfeat *compfeat, GPtrArray *props)
                                 compfeat_offsets, props);
   compfeat->text_handle.pos = compfeat->text_pos;
   text_set_position(compfeat->text, &compfeat->text_handle.pos);
-  apply_textattr_properties(props, compfeat->text, "text", &compfeat->attrs);
   compfeat_update_data(compfeat);
 }
 
@@ -395,7 +392,6 @@ compfeat_create(Point *startpoint,
 			    COMPPROP_FONTHEIGHT, &p, &compfeat->line_color,
 			    ALIGN_CENTER);
   dia_font_unref(font);
-  text_get_attributes(compfeat->text, &compfeat->attrs);
 
   compfeat->text_handle.id = HANDLE_MOVE_TEXT;
   compfeat->text_handle.type = HANDLE_MINOR_CONTROL;

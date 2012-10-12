@@ -49,7 +49,6 @@ struct _Classicon {
   int stereotype;
   int is_object;
   Text *text;
-  TextAttributes attrs;
   Color line_color;
   Color fill_color;
   
@@ -169,10 +168,10 @@ static PropOffset classicon_offsets[] = {
   { "type", PROP_TYPE_ENUM, offsetof(Classicon, stereotype) },
   { "is_object", PROP_TYPE_BOOL, offsetof(Classicon, is_object) },
   { "text",PROP_TYPE_TEXT,offsetof(Classicon,text)},
-  { "text_font",PROP_TYPE_FONT,offsetof(Classicon,attrs.font)},
-  { PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(Classicon,attrs.height)},
+  { "text_font",PROP_TYPE_FONT,offsetof(Classicon,text),offsetof(Text,font)},
+  { PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(Classicon,text),offsetof(Text,height)},
   { PROP_STDNAME_LINE_WIDTH,PROP_TYPE_LENGTH,offsetof(Classicon, line_width) },
-  { "text_colour",PROP_TYPE_COLOUR,offsetof(Classicon,attrs.color)},
+  { "text_colour",PROP_TYPE_COLOUR,offsetof(Classicon,text),offsetof(Text,color)},
   { "line_colour",PROP_TYPE_COLOUR,offsetof(Classicon,line_color) },
   { "fill_colour",PROP_TYPE_COLOUR,offsetof(Classicon,fill_color) },
   { NULL, 0, 0 },
@@ -181,7 +180,6 @@ static PropOffset classicon_offsets[] = {
 static void
 classicon_get_props(Classicon * classicon, GPtrArray *props)
 {
-  text_get_attributes(classicon->text,&classicon->attrs);
   object_get_props_from_offsets(&classicon->element.object,
                                 classicon_offsets,props);
 }
@@ -191,7 +189,6 @@ classicon_set_props(Classicon *classicon, GPtrArray *props)
 {
   object_set_props_from_offsets(&classicon->element.object,
                                 classicon_offsets,props);
-  apply_textattr_properties(props,classicon->text,"text",&classicon->attrs);
   classicon_update_data(classicon);
 }
 
@@ -461,7 +458,6 @@ classicon_create(Point *startpoint,
   p.x = 0.0;
   p.y = 0.0;
   cicon->text = new_text("", font, 0.8, &p, &color_black, ALIGN_CENTER);
-  text_get_attributes(cicon->text,&cicon->attrs);
 
   dia_font_unref(font);
   

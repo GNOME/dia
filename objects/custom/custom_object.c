@@ -110,7 +110,6 @@ struct _Custom {
   gboolean flip_h, flip_v;
 
   Text *text;
-  TextAttributes attrs;
   real padding;
   
   TextFitting text_fitting;
@@ -266,10 +265,10 @@ static PropOffset custom_offsets_text[] = {
   { "subscale", PROP_TYPE_REAL, offsetof(Custom, subscale) },
   { "padding", PROP_TYPE_REAL, offsetof(Custom, padding) },
   {"text",PROP_TYPE_TEXT,offsetof(Custom,text)},
-  {"text_font",PROP_TYPE_FONT,offsetof(Custom,attrs.font)},
-  {PROP_STDNAME_TEXT_HEIGHT, PROP_STDTYPE_TEXT_HEIGHT,offsetof(Custom,attrs.height)},
-  {"text_colour",PROP_TYPE_COLOUR,offsetof(Custom,attrs.color)},
-  {"text_alignment",PROP_TYPE_ENUM,offsetof(Custom,attrs.alignment)},
+  {"text_font",PROP_TYPE_FONT,offsetof(Custom,text),offsetof(Text,font)},
+  {PROP_STDNAME_TEXT_HEIGHT, PROP_STDTYPE_TEXT_HEIGHT,offsetof(Custom,text),offsetof(Text,height)},
+  {"text_colour",PROP_TYPE_COLOUR,offsetof(Custom,text),offsetof(Text,color)},
+  {"text_alignment",PROP_TYPE_ENUM,offsetof(Custom,text),offsetof(Text,alignment)},
   {PROP_STDNAME_TEXT_FITTING,PROP_TYPE_ENUM,offsetof(Custom,text_fitting)},
   { NULL, 0, 0 }
 };
@@ -394,8 +393,6 @@ custom_describe_props(Custom *custom)
 static void
 custom_get_props(Custom *custom, GPtrArray *props)
 {
-  if (custom->info->has_text)
-    text_get_attributes(custom->text,&custom->attrs);
   object_get_props_from_offsets(&custom->element.object,
                                 custom->info->prop_offsets,props);
 }
@@ -405,8 +402,6 @@ custom_set_props(Custom *custom, GPtrArray *props)
 {
   object_set_props_from_offsets(&custom->element.object,
                                 custom->info->prop_offsets,props);
-  if (custom->info->has_text)
-    apply_textattr_properties(props,custom->text,"text",&custom->attrs);
   custom_update_data(custom, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
 }
 
@@ -1595,7 +1590,6 @@ custom_create(Point *startpoint,
     p.y += elem->height / 2.0 + font_height / 2;
     custom->text = new_text("", font, font_height, &p, &custom->border_color,
                             info->text_align);
-    text_get_attributes(custom->text,&custom->attrs);
     dia_font_unref(font);
     
     /* new default: shrink with textbox, too. */
@@ -1668,7 +1662,6 @@ custom_copy(Custom *custom)
 
   if (custom->info->has_text) {
     newcustom->text = text_copy(custom->text);
-    text_get_attributes(newcustom->text,&newcustom->attrs);
   } 
   
   newcustom->connections = g_new0(ConnectionPoint, custom->info->nconnections);

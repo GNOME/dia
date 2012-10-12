@@ -77,7 +77,6 @@ struct _Actor {
   ActorType type;
   ConnectionPoint connections[NUM_CONNECTIONS];
   Text *text;
-  TextAttributes attrs;
   int init;
 };
 
@@ -170,7 +169,6 @@ static PropOffset actor_offsets[] = {
 static void
 actor_get_props(Actor *actor, GPtrArray *props)
 {
-  text_get_attributes(actor->text,&actor->attrs);
   object_get_props_from_offsets(&actor->element.object,
                                 actor_offsets,props);
 }
@@ -182,7 +180,6 @@ actor_set_props(Actor *actor, GPtrArray *props)
 
   object_set_props_from_offsets(&actor->element.object,
                                 actor_offsets,props);
-  apply_textattr_properties(props,actor->text,"text",&actor->attrs);
   actor_update_data(actor, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
 }
 
@@ -462,7 +459,6 @@ static DiaObject
   p.x += elem->width / 2.0;
   p.y += elem->height / 2.0 + ACTOR_FONT / 2;
   actor->text = new_text("", font, ACTOR_FONT, &p, &ACTOR_FG_COLOR, ALIGN_CENTER);
-  text_get_attributes(actor->text,&actor->attrs);
   dia_font_unref(font);
 
   element_init(elem, 8, NUM_CONNECTIONS);

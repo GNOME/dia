@@ -77,7 +77,6 @@ struct _Aadlbox
   gchar *declaration;
   
   Text *name;
-  TextAttributes attrs;
 
   int num_ports;
   Aadlport **ports;

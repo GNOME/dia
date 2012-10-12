@@ -49,7 +49,6 @@ struct _Basestation {
   Color fill_colour;
 
   Text *text;
-  TextAttributes attrs;
 
   int sectors;			/* oftenly 3 or 4, always >= 1, but
 				   check is missing */
@@ -150,11 +149,11 @@ static PropOffset basestation_offsets[] = {
   {"line_colour", PROP_TYPE_COLOUR, offsetof(Basestation, line_colour)},
   {"fill_colour", PROP_TYPE_COLOUR, offsetof(Basestation, fill_colour)},
   {"text", PROP_TYPE_TEXT, offsetof(Basestation, text)},
-  {"text_font", PROP_TYPE_FONT, offsetof(Basestation, attrs.font)},
-  {PROP_STDNAME_TEXT_HEIGHT, PROP_STDTYPE_TEXT_HEIGHT, offsetof(Basestation, attrs.height)},
-  {"text_colour", PROP_TYPE_COLOUR, offsetof(Basestation, attrs.color)},
+  {"text_font", PROP_TYPE_FONT, offsetof(Basestation,text),offsetof(Text,font)},
+  {PROP_STDNAME_TEXT_HEIGHT, PROP_STDTYPE_TEXT_HEIGHT, offsetof(Basestation,text),offsetof(Text,height)},
+  {"text_colour", PROP_TYPE_COLOUR, offsetof(Basestation,text),offsetof(Text,color)},
   {"text_alignment", PROP_TYPE_ENUM,
-   offsetof(Basestation, attrs.alignment)},
+   offsetof(Basestation,text),offsetof(Text,alignment)},
   {"sectors", PROP_TYPE_INT, offsetof(Basestation, sectors)},
   { NULL, 0, 0 },
 };
@@ -162,7 +161,6 @@ static PropOffset basestation_offsets[] = {
 static void
 basestation_get_props(Basestation * basestation, GPtrArray *props)
 {
-  text_get_attributes(basestation->text,&basestation->attrs);
   object_get_props_from_offsets(&basestation->element.object,
                                 basestation_offsets,props);
 }
@@ -172,8 +170,6 @@ basestation_set_props(Basestation *basestation, GPtrArray *props)
 {
   object_set_props_from_offsets(&basestation->element.object,
                                 basestation_offsets, props);
-  apply_textattr_properties(props,basestation->text,
-                            "text", &basestation->attrs);
   basestation_update_data(basestation);
 }
 
@@ -401,7 +397,6 @@ basestation_create(Point *startpoint,
   basestation->text = new_text(_("Base Station"),
                                font, 0.8, &p, &color_black, ALIGN_CENTER);
   dia_font_unref(font);
-  text_get_attributes(basestation->text,&basestation->attrs);
   basestation->line_colour = color_black;
   basestation->fill_colour = color_white;
   basestation->sectors = 3;

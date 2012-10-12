@@ -56,7 +56,6 @@ struct _Requirement {
   Text *text;
   int text_outside;
   int collaboration;
-  TextAttributes attrs;
 
   int init;
 };
@@ -145,16 +144,15 @@ req_describe_props(Requirement *req)
 static PropOffset req_offsets[] = {
   ELEMENT_COMMON_PROPERTIES_OFFSETS,
   {"text",PROP_TYPE_TEXT,offsetof(Requirement,text)},
-  {"text_font",PROP_TYPE_FONT,offsetof(Requirement,attrs.font)},
-  {PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(Requirement,attrs.height)},
-  {"text_colour",PROP_TYPE_COLOUR,offsetof(Requirement,attrs.color)},
+  {"text_font",PROP_TYPE_FONT,offsetof(Requirement,text),offsetof(Text,font)},
+  {PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(Requirement,text),offsetof(Text,height)},
+  {"text_colour",PROP_TYPE_COLOUR,offsetof(Requirement,text),offsetof(Text,color)},
   { NULL, 0, 0 },
 };
 
 static void
 req_get_props(Requirement * req, GPtrArray *props)
 {
-  text_get_attributes(req->text,&req->attrs);
   object_get_props_from_offsets(&req->element.object,
                                 req_offsets,props);
 }
@@ -166,7 +164,6 @@ req_set_props(Requirement *req, GPtrArray *props)
 
   object_set_props_from_offsets(&req->element.object,
                                 req_offsets,props);
-  apply_textattr_properties(props,req->text,"text",&req->attrs);
   req_update_data(req);
 }
 
@@ -395,7 +392,6 @@ req_create(Point *startpoint,
 
   req->text = new_text("", font, REQ_FONT, &p, &color_black, ALIGN_CENTER);
   dia_font_unref(font);
-  text_get_attributes(req->text,&req->attrs);
   req->text_outside = 0;
   req->collaboration = 0;
   element_init(elem, 8, NUM_CONNECTIONS);

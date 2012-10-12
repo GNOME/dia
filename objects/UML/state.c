@@ -61,8 +61,6 @@ struct _State {
   Text *text;
   int state_type;
 
-  TextAttributes attrs;
-
   Color line_color;
   Color fill_color;
   
@@ -184,9 +182,9 @@ static PropOffset state_offsets[] = {
   { "type", PROP_TYPE_INT, offsetof(State, state_type) },
 
   {"text",PROP_TYPE_TEXT,offsetof(State,text)},
-  {"text_font",PROP_TYPE_FONT,offsetof(State,attrs.font)},
-  {PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(State,attrs.height)},
-  {"text_colour",PROP_TYPE_COLOUR,offsetof(State,attrs.color)},
+  {"text_font",PROP_TYPE_FONT,offsetof(State,text),offsetof(Text,font)},
+  {PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(State,text),offsetof(Text,height)},
+  {"text_colour",PROP_TYPE_COLOUR,offsetof(State,text),offsetof(Text,color)},
 
   { PROP_STDNAME_LINE_WIDTH,PROP_TYPE_LENGTH,offsetof(State, line_width) },
   {"line_colour",PROP_TYPE_COLOUR,offsetof(State,line_color)},
@@ -198,7 +196,6 @@ static PropOffset state_offsets[] = {
 static void
 state_get_props(State * state, GPtrArray *props)
 {
-  text_get_attributes(state->text,&state->attrs);
   object_get_props_from_offsets(&state->element.object,
                                 state_offsets,props);
 }
@@ -208,7 +205,6 @@ state_set_props(State *state, GPtrArray *props)
 {
   object_set_props_from_offsets(&state->element.object,
                                 state_offsets,props);
-  apply_textattr_properties(props,state->text,"text",&state->attrs);
   state_update_data(state);
 }
 
@@ -263,7 +259,7 @@ state_draw_action_string(State *state, DiaRenderer *renderer, StateAction action
                             action_text,
                             &pos, 
                             ALIGN_LEFT, 
-                            &state->attrs.color);
+                            &state->text->color);
   g_free(action_text);
 }
 
@@ -444,7 +440,6 @@ state_create(Point *startpoint,
   p.y += STATE_HEIGHT/2.0;
   
   state->text = new_text("", font, 0.8, &p, &color_black, ALIGN_CENTER);
-  text_get_attributes(state->text,&state->attrs);
 
   dia_font_unref(font);
   

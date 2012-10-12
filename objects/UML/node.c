@@ -48,7 +48,6 @@ struct _Node
   Element element;
   ConnectionPoint connections[NUM_CONNECTIONS];
   Text *name;
-  TextAttributes attrs;
 
   Color line_color;
   Color fill_color;
@@ -152,9 +151,9 @@ static PropOffset node_offsets[] = {
   {"name",PROP_TYPE_TEXT,offsetof(Node,name)},
   /* new name matching "same name, same type"  rule */
   {"text",PROP_TYPE_TEXT,offsetof(Node,name)},
-  {"text_font",PROP_TYPE_FONT,offsetof(Node,attrs.font)},
-  {PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(Node,attrs.height)},
-  {"text_colour",PROP_TYPE_COLOUR,offsetof(Node,attrs.color)},
+  {"text_font",PROP_TYPE_FONT,offsetof(Node,name),offsetof(Text,font)},
+  {PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(Node,name),offsetof(Text,height)},
+  {"text_colour",PROP_TYPE_COLOUR,offsetof(Node,name),offsetof(Text,color)},
   { PROP_STDNAME_LINE_WIDTH, PROP_STDTYPE_LINE_WIDTH, offsetof(Node, line_width) },
   {"line_colour",PROP_TYPE_COLOUR,offsetof(Node,line_color)},
   {"fill_colour",PROP_TYPE_COLOUR,offsetof(Node,fill_color)},
@@ -164,7 +163,6 @@ static PropOffset node_offsets[] = {
 static void
 node_get_props(Node * node, GPtrArray *props)
 {
-  text_get_attributes(node->name,&node->attrs);
   object_get_props_from_offsets(&node->element.object,
                                 node_offsets,props);
 }
@@ -174,7 +172,6 @@ node_set_props(Node *node, GPtrArray *props)
 {
   object_set_props_from_offsets(&node->element.object,
                                 node_offsets,props);
-  apply_textattr_properties(props,node->name,"name",&node->attrs);
   node_update_data(node);
 }
 
@@ -286,7 +283,7 @@ static void node_draw(Node *node, DiaRenderer *renderer)
   for (i = 0; i < node->name->numlines; i++)
     { 
       points[1].x = points[0].x + text_get_line_width(node->name, i);
-      renderer_ops->draw_line(renderer, points, points + 1, &node->attrs.color);
+      renderer_ops->draw_line(renderer, points, points + 1, &node->name->color);
       points[0].y = points[1].y += node->name->height;
     }
 }
@@ -355,7 +352,6 @@ static DiaObject *node_create(Point *startpoint, void *user_data, Handle **handl
   p.x = 0.0;
   p.y = 0.0;
   node->name = new_text("", font, 0.8, &p, &color_black, ALIGN_LEFT);
-  text_get_attributes(node->name,&node->attrs);
   dia_font_unref(font);
   
   element_init(elem, 8, NUM_CONNECTIONS);

@@ -48,7 +48,6 @@ struct _Usecase {
   Text *text;
   int text_outside;
   int collaboration;
-  TextAttributes attrs;
 
   real line_width;
   Color line_color;
@@ -157,9 +156,9 @@ static PropOffset usecase_offsets[] = {
   {"collaboration", PROP_TYPE_BOOL, offsetof(Usecase, collaboration) },
   {"text_outside", PROP_TYPE_BOOL, offsetof(Usecase, text_outside) },
   {"text",PROP_TYPE_TEXT,offsetof(Usecase,text)},
-  {"text_font",PROP_TYPE_FONT,offsetof(Usecase,attrs.font)},
-  {PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(Usecase,attrs.height)},
-  {"text_colour",PROP_TYPE_COLOUR,offsetof(Usecase,attrs.color)},
+  {"text_font",PROP_TYPE_FONT,offsetof(Usecase,text),offsetof(Text,font)},
+  {PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(Usecase,text),offsetof(Text,height)},
+  {"text_colour",PROP_TYPE_COLOUR,offsetof(Usecase,text),offsetof(Text,color)},
   {PROP_STDNAME_LINE_WIDTH, PROP_STDTYPE_LINE_WIDTH, offsetof(Usecase, line_width)},
   {"line_colour", PROP_TYPE_COLOUR, offsetof(Usecase, line_color) },
   {"fill_colour", PROP_TYPE_COLOUR, offsetof(Usecase, fill_color) },
@@ -169,7 +168,6 @@ static PropOffset usecase_offsets[] = {
 static void
 usecase_get_props(Usecase * usecase, GPtrArray *props)
 {
-  text_get_attributes(usecase->text,&usecase->attrs);
   object_get_props_from_offsets(&usecase->element.object,
                                 usecase_offsets,props);
 }
@@ -179,7 +177,6 @@ usecase_set_props(Usecase *usecase, GPtrArray *props)
 {
   object_set_props_from_offsets(&usecase->element.object,
                                 usecase_offsets,props);
-  apply_textattr_properties(props,usecase->text,"text",&usecase->attrs);
   usecase_update_data(usecase);
 }
 
@@ -430,7 +427,7 @@ usecase_create(Point *startpoint,
   
   usecase->text = new_text("", font, 0.8, &p, &color_black, ALIGN_CENTER);
   dia_font_unref(font);  
-  text_get_attributes(usecase->text,&usecase->attrs);
+
   usecase->text_outside = 0;
   usecase->collaboration = 0;
   element_init(elem, 8, NUM_CONNECTIONS);

@@ -170,16 +170,15 @@ static PropOffset aadlbox_offsets[] = {
   {"line_colour",PROP_TYPE_COLOUR,offsetof(Aadlbox,line_color)},
   {"fill_colour",PROP_TYPE_COLOUR,offsetof(Aadlbox,fill_color)},
   {"name",PROP_TYPE_TEXT,offsetof(Aadlbox,name)},
-  {"text_font",PROP_TYPE_FONT,offsetof(Aadlbox,attrs.font)},
-  {PROP_STDNAME_TEXT_HEIGHT, PROP_STDTYPE_TEXT_HEIGHT,offsetof(Aadlbox,attrs.height)},
-  {"text_colour",PROP_TYPE_COLOUR,offsetof(Aadlbox,attrs.color)},
+  {"text_font",PROP_TYPE_FONT,offsetof(Aadlbox,name),offsetof(Text,font)},
+  {PROP_STDNAME_TEXT_HEIGHT, PROP_STDTYPE_TEXT_HEIGHT,offsetof(Aadlbox,name),offsetof(Text,height)},
+  {"text_colour",PROP_TYPE_COLOUR,offsetof(Aadlbox,name),offsetof(Text,color)},
   { NULL, 0, 0 },
 };
 
 void
 aadlbox_get_props(Aadlbox * aadlbox, GPtrArray *props)
 {
-  text_get_attributes(aadlbox->name,&aadlbox->attrs);
   object_get_props_from_offsets(&aadlbox->element.object,
                                 aadlbox_offsets,props);
 }
@@ -189,7 +188,6 @@ aadlbox_set_props(Aadlbox *aadlbox, GPtrArray *props)
 {
   object_set_props_from_offsets(&aadlbox->element.object,
                                 aadlbox_offsets,props);
-  apply_textattr_properties(props,aadlbox->name,"name",&aadlbox->attrs);
   aadlbox_update_data(aadlbox);
 }
 
@@ -894,7 +892,6 @@ DiaObject *aadlbox_create(Point *startpoint, void *user_data,
   p.x = 0.0;
   p.y = 0.0;
   aadlbox->name = new_text("", font, 0.8, &p, &color_black, ALIGN_LEFT);
-  text_get_attributes(aadlbox->name,&aadlbox->attrs);
   dia_font_unref(font);
 
   element_init(elem, 8, 0);  /* 8 handles and 0 connection */
