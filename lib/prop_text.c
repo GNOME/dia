@@ -35,6 +35,7 @@
 #include "propinternals.h"
 #include "text.h"
 #include "group.h"
+#include "attributes.h"
 
 /*****************************************************/
 /* The STRING, FILE and MULTISTRING property types.  */
@@ -359,8 +360,14 @@ static const PropertyOps fileprop_ops = {
 static TextProperty *
 textprop_new(const PropDescription *pdesc, PropDescToPropPredicate reason)
 {
+  DiaFont *font;
+  real height;
   TextProperty *prop = g_new0(TextProperty,1);
   initialize_property(&prop->common,pdesc,reason);
+  attributes_get_default_font (&font, &height);
+  /* minimum atribute intialization */
+  prop->attr.font = g_object_ref (font);
+  prop->attr.height = height;
   prop->text_data = NULL;
   return prop;
 }
