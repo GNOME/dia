@@ -24,6 +24,9 @@
 /* THIS HEADER MUST NOT INCLUDE ANY OTHER HEADER! */
 /*#include "units.h" */
 
+/* from geometry.h - but used more generic */
+typedef double real;
+
 /* In diagramdata.h: */
 typedef struct _DiagramData DiagramData;
 typedef struct _Layer Layer;

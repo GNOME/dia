@@ -74,8 +74,6 @@ G_BEGIN_DECLS
    |
    V  y
  */
-
-typedef double real;
 typedef real coord;
 
 /*! \brief A two dimensional position */
