@@ -19,8 +19,8 @@
 /** @file object.h -- definitions for Dia objects, in particular the 'virtual'
  * functions and the object and type structures.
  */
-#ifndef OBJECT_H
-#define OBJECT_H
+#ifndef DIA_OBJECT_H
+#define DIA_OBJECT_H
 
 #include "diatypes.h"
 #include <gtk/gtk.h>
@@ -604,6 +604,6 @@ void          object_copy_props(DiaObject *dest, const DiaObject *src,
 
 G_END_DECLS
 
-#endif /* OBJECT_H */
+#endif /* DIA_OBJECT_H */
 
 
