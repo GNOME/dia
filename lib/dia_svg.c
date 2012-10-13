@@ -150,7 +150,7 @@ svg_named_color (const char *name, gint32 *color)
  *
  * This function is rather tolerant compared to the SVG specification.
  * It supports special names like 'fg', 'bg', 'foregroumd', 'background';
- * three numeric representations: '#FF0000', 'rgb(1.0,0.0,0.0), 'rgb(100%,0%,0%)'
+ * three numeric representations: '\#FF0000', 'rgb(1.0,0.0,0.0), 'rgb(100%,0%,0%)'
  * and named colors from two domains: SVG and Pango.
  *
  * \note Shouldn't we use an actual Dia Color object as return value?

@@ -681,7 +681,7 @@ calculate_object_edge(Point *objmid, Point *end, DiaObject *obj)
 
 /*!
  * \brief Check the matrix if it has any effect
- * @param m matrix
+ * @param matrix matrix to check
  * \extends _DiaMatrix
  */
 gboolean 
@@ -702,7 +702,7 @@ dia_matrix_is_identity (const DiaMatrix *matrix)
 /*!
  * \brief Splitting the given matrix into angle and scales
  * @param m matrix
- * @param angle in radians
+ * @param a angle in radians
  * @param sx horizontal scale
  * @param sy vertical scale
  *
@@ -759,7 +759,7 @@ dia_matrix_get_angle_and_scales (const DiaMatrix *m,
 /*!
  * \brief Scale in the coordinate system of the shape, afterwards rotate
  * @param m matrix
- * @param angle in radians
+ * @param a angle in radians
  * @param sx horizontal scale
  * @param sy vertical scale
  * \extends _DiaMatrix

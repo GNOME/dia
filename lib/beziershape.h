@@ -44,7 +44,7 @@ struct _BezierShape {
   DiaObject object;
   /*! \protected Number of points in points array */
   BezierCommon bezier;
-  /*! \protexted Extra info (like line-width) to help bounding boc calculation */
+  /*! \protected Extra info (like line-width) to help bounding boc calculation */
   ElementBBExtras extra_spacing;
 };
 
