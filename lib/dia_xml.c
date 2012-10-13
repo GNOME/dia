@@ -945,18 +945,25 @@ data_string(DataNode data, DiaContext *ctx)
  * @param data The data node to read from.
  * @param ctx The context in which this function is called
  * @return The filename value found in the node.  If the node is not a
- *  filename node, an error message is displayed and NULL is returned.
+ *  filename node, an error message is added to ctx and NULL is returned.
  *  The resulting string is in the local filesystem's encoding rather than
  *  UTF-8, and should be freed after use.
- * @bug data_string() can return NULL, what does g_filename_from_utf8 do then?
  * \ingroup DiagramXmlIn
  */
 char *
 data_filename(DataNode data, DiaContext *ctx)
 {
   char *utf8 = data_string(data, ctx);
-  char *filename = g_filename_from_utf8(utf8, -1, NULL, NULL, NULL);
-  g_free(utf8);
+  char *filename = NULL;
+
+  if (utf8) {
+    GError *error = NULL;
+    if ((filename = g_filename_from_utf8(utf8, -1, NULL, NULL, &error)) == NULL) {
+      dia_context_add_message (ctx, "%s", error->message);
+      g_error_free (error);
+    }
+    g_free(utf8);
+  }
   return filename;
 }
 
