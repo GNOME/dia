@@ -22,6 +22,7 @@ functionality by registering actions in the menu. Again by
 
 /*!
 \defgroup Objects Objects and their Building Blocks
+\brief An \ref _DiaObject "Object" describes the apperance and behavior of diagram parts
 
 There are a bunch of services to help implementing Dia objects.
 
@@ -38,8 +39,9 @@ There are a bunch of services to help implementing Dia objects.
  */
  
 /*!
-\defgroup StdProps Property System for Dia Object
-\ingroup ObjectServices
+\defgroup StdProps Standard Property System
+\ingroup ObjectParts
+\brief Automatic User Interface creation and serialization of object properties
 
 The Propery System for Dia Object allows to 
  - describe type, range and user interface representation, see PropDescription.
@@ -51,19 +53,14 @@ The Propery System for Dia Object allows to
  
 /*!
 \defgroup ObjectParts Building Blocks
-\ingroup Objects
-
+\ingroup Objects Building blocks to help implementing _DiaObject and interfacing _DiaRenderer
+\brief Typical \ref _DiaObject "Objects" are assembled from exisiting building blocks like _DiaImage
 */
 
 /*!
-\defgroup ObjectParts Building Blocks
+\defgroup ObjectConnects Object Connections
 \ingroup Objects
-
-*/
-
-/*!
-\defgroup ObjectConnects Connecting Objects
-\ingroup Objects
+\brief Connections between objects are realized with \ref _Handle "Handle" and \ref _ConnectionPoint "Connection Point"
 
 There are two specialized objects involved in building a connection. One is a Handle, the other one 
 is a ConnectionPoint. In an existing connection between two DiaObject the Handle belongs to the 
@@ -80,6 +77,7 @@ and "connected by" (connectionpoint->connected). The former is a 0 or 1 relation
 /*!
 \defgroup Shapes Custom Shape Definition
 \ingroup Objects
+\brief Custom objects can not only be defined by writing C code, but also with a SVG dialect
 
 \verbinclude custom-shapes
 
@@ -88,6 +86,7 @@ and "connected by" (connectionpoint->connected). The former is a 0 or 1 relation
 /*!
 \defgroup ObjectConnects Connecting Objects
 \ingroup Objects
+\brief Implementation details of connections between \ref _DiaObject "objects"
 
 There are two specialized objects involved in building a connection. One is a Handle, the other one 
 is a ConnectionPoint. In an existing connection between two DiaObject the Handle belongs to the 
@@ -100,34 +99,25 @@ Note: there is an important difference between the active and the passive form.
 It is important to understand the difference Dia's source is making between handle->connected_to 
 and "connected by" (connectionpoint->connected). The former is a 0 or 1 relation, the latter is 0..n.
 */
-
-/*!
-\defgroup Shapes Custom Shape Definition
-\ingroup Objects
-
-\verbinclude custom-shapes
-
-*/
-
-/*!
-\defgroup ObjectServices Object Implementation
-\ingroup Objects
- */
 
 /*!
 \defgroup DiagramStructure Diagrams keeping it all together
-\brief A \ref _DiagramData "Diagram" consists of at least one \ref _Layer containing zero or more _DiaObject
+\brief A \ref _DiagramData "Diagram" consists of at least one \ref _Layer "Layer" containing zero or more \ref _DiaObject "Object"
 
  */
 
 /*!
 \defgroup DiagramXmlIo Operations on the XML DOM
+\brief Low level access to the document object model
 \ingroup DiagramStructure
+\details
 \verbinclude diagram.dtd
  */
 
 /*!
 \defgroup Renderers Rendering Objects
+\brief The visual representation of \ref _DiaObject "objects" is done by \ref _DiaRenderer "renderers"
+
 \ingroup Plugins
 
 Dia Objects are drawing themselves to a renderer, be it for display, print or
@@ -138,30 +128,33 @@ to help implementing rendering.
    of high level functions 
  - _DiaSvgRenderer : to create SVG format for SVG export and Shape creation
  - _DiaGdkRenderer : the _DiaGdkRenderer is the first display renderer
+ - _DiaCairoRenderer : multi-format renderer based on http://cairographics.org
 
  */
 
 /*!
 \defgroup Plugins Import, Export and other extensions
-
+\brief Extending Dia with optional dependencies 
  */
 
 /*!
-\defgroup ExportFilters Export Filters for various Formats
+\defgroup ExportFilters Export Filters
 \ingroup Plugins
-
+\brief Export filters are usually implmenting the \ref _DiaRenderer "renderer" interface
 
  */
  
 /*!
-\defgroup ImportFilters Import Filters for various Formats
+\defgroup ImportFilters Import Filters
 \ingroup Plugins
-
+\brief Import filters translate an external represenation to Dia \ref _DiaObject "objects"
 
  */
  
 /*!
-\defgroup PyDia Extending Dia with Python
+\defgroup PyDia Scripting Dia
+\brief Extending Dia with Python (http://www.python.org)
+
 \ingroup Plugins
 
 The documentation of PyDia is self-contained with PyDia. You can use some

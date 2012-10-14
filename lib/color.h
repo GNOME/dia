@@ -16,13 +16,6 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-/*!
- * \file color.h Diagram and object tinting
- */
-/*!
- * \defgroup ObjectColors Colors for DiaObject
- * \ingroup ObjectParts
- */
 #ifndef COLOR_H
 #define COLOR_H
 
@@ -32,7 +25,7 @@
 
 /*!
  * \brief Dia's internal color representation
- * \ingroup ObjectColors
+ * \ingroup ObjectParts
  */
 struct _Color {
   float red;   /*!< 0..1 */

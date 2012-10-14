@@ -31,9 +31,10 @@
 #include "dia_svg.h"
 
 /*!
- * \defgroup DiaSvg Services for SVG parsing and generation
+ * \defgroup DiaSvg Services for SVG
  * \ingroup Plugins
- * \brief Services for SVG parsing and generation
+ * \brief A set of function helping to read and write SVG with Dia
+ *
  * The Dia application supports various variants of SVG. There are
  * at least two importers of SVG dialects, namely \ref Shapes and
  * the standard SVG importer \ref Plugins. Both are using theses

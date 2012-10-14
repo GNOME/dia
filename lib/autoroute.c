@@ -20,11 +20,9 @@
  */
 
 /*!
- * \file autoroute.c - simple autorouting for orthogonal lines
- */
-/*!
  * \defgroup Autorouting Built-in Autorouting
- * \ingroup ObjectServices
+ * \brief Simple autorouting for \ref _OrthConn "orthogonal lines"
+ * \ingroup ObjectParts
  */
 #include "config.h"
 

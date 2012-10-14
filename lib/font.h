@@ -30,6 +30,7 @@
  */
 /*!
  \defgroup ObjectFonts Dia's font definiton
+ \brief Dia's font system based on http://www.pango.org
  \ingroup ObjectParts
  */
 

@@ -39,6 +39,18 @@ struct _DiaImageClass {
   GObjectClass parent_class;
 };
 
+/*!
+ * \brief DiaImage is a thin wrapper around GdkPixbuf
+ *
+ * _DiaImage provides some copying accessors as well as internal caching of
+ * a downscaled variant of the underlying pixbuf. Also there is special handling
+ * of 'broken' i.e. typically empty images.
+ *
+ * _DiaImage can be used to assemble _DiaObjects - it is also part of the 
+ * _DiaRenderer interface and thus provides interface to all of the exporters.
+ *
+ * \ingroup ObjectParts
+ */
 struct _DiaImage {
   GObject parent_instance;
   GdkPixbuf *image;
@@ -88,6 +100,10 @@ dia_image_class_init(DiaImageClass* klass)
   object_class->finalize = dia_image_finalize;
 }
 
+/*!
+ * \brief Constructor
+ * \memberof _DiaImage
+ */
 static void 
 dia_image_init_instance(DiaImage *image)
 {
@@ -95,6 +111,10 @@ dia_image_init_instance(DiaImage *image)
   /* zero intialization should be good for us */
 }
 
+/*!
+ * \brief Destructor
+ * \memberof _DiaImage
+ */
 static void
 dia_image_finalize(GObject* object)
 {
@@ -108,8 +128,11 @@ dia_image_finalize(GObject* object)
 
 gboolean _dia_image_initialized = FALSE;
 
-/** Get the image to put in place of a image that cannot be read.
- * @returns A statically allocated image.
+/*!
+ * \brief Constructor of a 'broken' image
+ * Get the image to put in place of a image that cannot be read.
+ * @return A statically allocated image.
+ * \memberof _DiaImage
  */
 DiaImage *
 dia_image_get_broken(void)
@@ -131,10 +154,12 @@ dia_image_get_broken(void)
   return image;
 }
 
-/** Load an image from file.
+/*!
+ * \brief Load an image from file.
  * @param filename Name of the file to load.
- * @returns An image loaded from file, or NULL if an error occurred.
+ * @return An image loaded from file, or NULL if an error occurred.
  *          Error messages will be displayed to the user.
+ * \memberof _DiaImage
  */
 DiaImage *
 dia_image_load(const gchar *filename)
@@ -157,7 +182,6 @@ dia_image_load(const gchar *filename)
 
   dia_img = DIA_IMAGE(g_object_new(DIA_TYPE_IMAGE, NULL));
   dia_img->image = image;
-  /* We have a leak here, unless we add our own refcount */
   dia_img->filename = g_strdup(filename);
 #ifdef SCALING_CACHE
   dia_img->scaled = NULL;
@@ -166,9 +190,12 @@ dia_image_load(const gchar *filename)
 }
 
 /*!
- * Create a Dia Image from in memory GdkPixbuf
+ * \brief Create a Dia Image from in memory GdkPixbuf
  *
  * It stores only a reference, so drop your own after calling this.
+ * Different _DiaImage can share the same underlying pixbuf,
+ * _DiaImage is considered immutable.
+ * \memberof _DiaImage
  */
 DiaImage *
 dia_image_new_from_pixbuf (GdkPixbuf *pixbuf)
@@ -199,13 +226,12 @@ dia_image_unref(DiaImage *image)
   g_object_unref(image);
 }
 
-/** Render an image unto a window.
- * @param image Image object to render.
- * @param window The window to render the image into.
- * @param x X position in window of place to render image.
- * @param y Y position in window of place to render image.
- * @param width Width in pixels of rendering in window.
- * @param height Height in pixels of rendering in window.
+/*!
+ * \brief Create a scaled variant of the underlying pixbuf.
+ * @param image explicit this pointer
+ * @param width Width in pixels of result.
+ * @param height Height in pixels of result.
+ * \memberof _DiaImage
  */
 GdkPixbuf * 
 dia_image_get_scaled_pixbuf(DiaImage *image, int width, int height)
@@ -277,6 +303,12 @@ _guess_format (const gchar *filename)
   return type;
 }
 
+/*!
+ * \brief Save an image under the given filename
+ * If saving was successful the internal filename is updated to the
+ * given one. Otherwise FALSE will be returned.
+ * \memberof _DiaImage
+ */
 gboolean
 dia_image_save(DiaImage *image, const gchar *filename)
 {
@@ -307,9 +339,11 @@ dia_image_save(DiaImage *image, const gchar *filename)
   return saved;
 }
 
-/** Get the width of an image.
+/*!
+ * \brief Get the width of an image.
  * @param image An image object
- * @returns The natural width of the object in pixels.
+ * @return The natural width of the object in pixels.
+ * \memberof _DiaImage
  */
 int 
 dia_image_width(const DiaImage *image)
@@ -318,9 +352,11 @@ dia_image_width(const DiaImage *image)
   return gdk_pixbuf_get_width(image->image);
 }
 
-/** Get the height of an image.
+/*!
+ * \brief Get the height of an image.
  * @param image An image object
- * @returns The natural height of the object in pixels.
+ * @return The natural height of the object in pixels.
+ * \memberof _DiaImage
  */
 int 
 dia_image_height(const DiaImage *image)
@@ -329,9 +365,11 @@ dia_image_height(const DiaImage *image)
   return gdk_pixbuf_get_height(image->image);
 }
 
-/** Get the rowstride number of bytes per row, see gdk_pixbuf_get_rowstride.
+/*!
+ * \brief Get the rowstride number of bytes per row, see gdk_pixbuf_get_rowstride.
  * @param image An image object
- * @returns The rowstride number of the image.
+ * @return The rowstride number of the image.
+ * \memberof _DiaImage
  */
 int
 dia_image_rowstride(const DiaImage *image)
@@ -339,9 +377,11 @@ dia_image_rowstride(const DiaImage *image)
   g_return_val_if_fail (image != NULL, 0);
   return gdk_pixbuf_get_rowstride(image->image);
 }
-/** Direct const access to the underlying GdkPixbuf
+/*! 
+ * \brief Direct const access to the underlying GdkPixbuf
  * @param image An image object
- * @returns The pixbuf
+ * @return The pixbuf
+ * \memberof _DiaImage
  */
 const GdkPixbuf* 
 dia_image_pixbuf (const DiaImage *image)
@@ -351,10 +391,12 @@ dia_image_pixbuf (const DiaImage *image)
   return image->image;
 }
 
-/** Get the raw RGB data from an image.
+/*!
+ * \brief Get the raw RGB data from an image.
  * @param image An image object.
- * @returns An array of bytes (height*rowstride) containing the RGB data
+ * @return An array of bytes (height*rowstride) containing the RGB data
  *          This array should be freed after use.
+ * \memberof _DiaImage
  */
 guint8 *
 dia_image_rgb_data(const DiaImage *image)
@@ -387,10 +429,12 @@ dia_image_rgb_data(const DiaImage *image)
   }
 }
 
-/** Get the mask data for an image.
+/*! 
+ * \brief Get the mask data for an image.
  * @param image An image object.
- * @returns An array of bytes (width*height) with the alpha channel information
- *          from the image.  This array should be freed after use.
+ * @return An array of bytes (width*height) with the alpha channel information
+ *         from the image.  This array should be freed after use.
+ * \memberof _DiaImage
  */
 guint8 *
 dia_image_mask_data(const DiaImage *image)
@@ -419,10 +463,12 @@ dia_image_mask_data(const DiaImage *image)
   return mask;
 }
 
-/** Get full RGBA data from an image.
+/*!
+ * \brief Get full RGBA data from an image.
  * @param image An image object.
- * @returns An array of pixels as delivered by gdk_pixbuf_get_pixels, or
+ * @return An array of pixels as delivered by gdk_pixbuf_get_pixels, or
  *          NULL if the image has no alpha channel.
+ * \memberof _DiaImage
  */
 const guint8 *
 dia_image_rgba_data(const DiaImage *image)
@@ -437,10 +483,12 @@ dia_image_rgba_data(const DiaImage *image)
   }
 }
 
-/** Return the filename associated with an image.
+/*!
+ * \brief Return the filename associated with an image.
  * @param image An image object
- * @returns The filename associated with an image, or "(null)" if the image
- *          has no filename.  This string should *not* be freed by the caller.
+ * @return The filename associated with an image, or "(null)" if the image
+ *         has no filename.  This string should *not* be freed by the caller.
+ * \memberof _DiaImage
  */
 const char *
 dia_image_filename(const DiaImage *image)

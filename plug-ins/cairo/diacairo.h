@@ -52,22 +52,34 @@ GType dia_cairo_renderer_get_type (void) G_GNUC_CONST;
 typedef struct _DiaCairoRenderer DiaCairoRenderer;
 typedef struct _DiaCairoRendererClass DiaCairoRendererClass;
 
+/*!
+ * \brief Multi format renderer based aon cairo API (http://cairographics.org)
+ *
+ * The DiaCairoRenderer supports various output formats depending on the build
+ * configration of libcairo. Typically these include SVG, PNG, PDF, PostScript
+ * and the display of the windowing system in use.
+ * Also - with a recent enough GTK+ version the cairo renderer is interfacing 
+ * the native printing subsystem.
+ * Finally - only on Windows - there is ususally support for Windows Metafiles
+* (WMF and EMF), the latter used for Clipboard transport of the whole diagram.
+ * \extends _DiaRenderer
+ */
 struct _DiaCairoRenderer
 {
-  DiaRenderer parent_instance;
+  DiaRenderer parent_instance; /*!< GObject inheritance */
 
-  cairo_t *cr; /**< if NULL it gest created from the surface */
+  cairo_t *cr; /**< if NULL it gets created from the surface */
   cairo_surface_t *surface; /**< can be NULL to use the provived cr */
- 
+
   double dash_length;
   LineStyle line_style;
-  DiagramData *dia;
+  DiagramData *dia; /*!< pointer to the diagram to render, might be NULL for the display case */
 
   real scale;
-  gboolean with_alpha;
-  gboolean skip_show_page; /**< when using for print avoid the internal show_page */
-  gboolean stroke_pending; /**< to delay call to cairo_stroke */
-  
+  gboolean with_alpha; /*!< define to TRUE for transparent background */
+  gboolean skip_show_page; /*!< when using for print avoid the internal show_page */
+  gboolean stroke_pending; /*!< to delay call to cairo_stroke */
+
   /** caching the font description from set_font */
   PangoLayout *layout;
 };
@@ -81,4 +93,3 @@ struct _DiaCairoRendererClass
 GType dia_cairo_interactive_renderer_get_type (void) G_GNUC_CONST;
 
 G_END_DECLS
-

@@ -33,14 +33,20 @@
 
 /*!
  * \defgroup ObjectCustom Custom Shapes
+ * \brief Dia plug-in to support custom shapes
+ *
  * \ingroup Shapes
+ *
+ * The cusom shape format is supported by a Dia plug-in, too. Disabling
+ * this plug-in will highly reduce the available shape set, but also the
+ * start-up time.
  *
  * Instead of parsing the complete shape file at start-up we read only
  * the minimal info required to register the type. This should speed
  * up startup a lot and also spare some memory for shapes never used
  * at runtime.
  *
- * There are so many shapes in dia that on my computer there is a difference
+ * There are so many shapes in Dia that on my computer there is a difference
  * of 16MB vs. 36MB total memory consumption with none vs. all of them loaded.
  *
  * The startup time is significantly reduced by the lazy loading via XML SAX, too.

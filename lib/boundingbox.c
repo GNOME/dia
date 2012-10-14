@@ -17,8 +17,6 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-/** \file boundingbox.c This code is nothing but a fancy pile of FPU crap. */
-
 #include <config.h>
 
 #define _BSD_SOURCE 1

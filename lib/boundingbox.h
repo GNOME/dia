@@ -17,12 +17,10 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-/*! 
- * \file boundingbox.h Boundingbox calculation (helpers)
- */
 /*!
- * \defgroup ObjectBBox Bounding box calculation
- * \ingroup ObjectServices
+ * \defgroup ObjectBBox Bounding box
+ * \brief Calculations considering line width, caps and joins
+ * \ingroup ObjectParts
  */
 
 #ifndef BOUNDINGBOX_H

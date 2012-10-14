@@ -34,18 +34,6 @@
 #include <pango/pangocairo.h>
 #endif
 
-/*
- * To me the following looks rather suspicious. Why do we need to compile
- * the Cairo plug-in at all if we don't have Cairo? As a result we'll
- * show it in the menus/plugin details and the user expects something
- * although there isn't any functionality behind it. Urgh.
- *
- * With Gtk+-2.7.x cairo must be available so this becomes even more ugly
- * when the user has choosen to not build the diacairo plug-in. If noone
- * can come up with a convincing reason to do it this way I'll probably
- * go back to the dont-build-at-all approach when it breaks the next time.
- *                                                                    --hb 
- */
 #ifdef HAVE_CAIRO
 #  include <cairo.h>
 /* some backend headers, win32 missing in official Cairo */
@@ -198,18 +186,36 @@ end_render(DiaRenderer *self)
   DIAG_STATE(renderer->cr)
 }
 
+/*!
+ * \brief Advertize renderers capabilities
+ *
+ * Especially with cairo this should be 'all' so this function
+ * is complaining if it will return FALSE
+ * \memberof _DiaCairoRenderer
+ */
 static gboolean 
 is_capable_to (DiaRenderer *renderer, RenderCapability cap)
 {
+  static RenderCapability warned = RENDER_HOLES;
+
   if (RENDER_HOLES == cap)
     return TRUE;
   else if (RENDER_ALPHA == cap)
     return TRUE;
   else if (RENDER_AFFINE == cap)
     return TRUE;
+  if (cap != warned)
+    g_warning ("New capability not supported by cairo??");
+  warned = cap;
   return FALSE;
 }
 
+/*!
+ * \brief Render the given object optionally transformed by matrix
+ * @param self explicit this pointer
+ * @param object the _DiaObject to draw
+ * @param matrix the trnsformation matrix to use or NULL
+ */
 static void
 draw_object (DiaRenderer *self, DiaObject *object, DiaMatrix *matrix)
 {
@@ -226,6 +232,13 @@ draw_object (DiaRenderer *self, DiaObject *object, DiaMatrix *matrix)
     cairo_set_matrix (renderer->cr, &before);
 }
 
+/*!
+ * \brief Ensure a minimum of one device unit
+ * Dia as well as many other drawing applications/libraries is using a
+ * line with 0f 0.0 tho mean hairline. Cairo doe not have this capability
+ * so this functions should be used to get the thinnest line possible.
+ * \protected \memberof _DiaCairoRenderer
+ */
 static void
 ensure_minimum_one_device_unit(DiaCairoRenderer *renderer, real *value)
 {
@@ -364,6 +377,14 @@ set_dashlength(DiaRenderer *self, real length)
   set_linestyle(self, renderer->line_style);
 }
 
+/*!
+ * \brief Set the fill style
+ * The fill style is one of the areas, where the cairo library offers a lot
+ * more the Dia currently uses. Cairo can render repeating patterns as well
+ * as linear and radial gradients. As of this writing Dia just uses solid
+ * color fill.
+ * \memberof _DiaCairoRenderer
+ */
 static void
 set_fillstyle(DiaRenderer *self, FillStyle mode)
 {

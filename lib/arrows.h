@@ -28,8 +28,9 @@
 /* NOTE: Add new arrow types at the end, or the enums
    will change order leading to file incompatibilities. */
 /*!
- * \defgroup ObjectArrows Arrows for Connection
+ * \defgroup ObjectArrows Arrows
  * \ingroup ObjectParts
+ * \brief A set of standard arrows to be used at line ends
  */
 
 /*!

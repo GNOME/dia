@@ -16,7 +16,6 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-/*! \file connection.c -- This file handles simple (straight-line) connection basics */
 #include <config.h>
 
 #include <stdio.h>

@@ -27,6 +27,8 @@
 
 /*!
 \defgroup StandardObjects Standard Objects
+\brief The minimal set of objects available to Dia
+
 \ingroup Objects
 
 The minimal set of objects available to Dia is defined in the directory objects/standard.

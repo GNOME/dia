@@ -18,8 +18,6 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
  
-/** \file bezier_conn.h Allows to construct object consisting of bezier lines */
-
 #ifndef BEZIER_CONN_H
 #define BEZIER_CONN_H
 
