@@ -33,6 +33,7 @@
 #include "dialib.h"
 #include "create.h"
 #include "properties.h"
+#include "diapathrenderer.h"
 
 /* allows to select specific objects for testing */
 static gchar *_type_name = NULL;
@@ -361,7 +362,11 @@ _test_connectionpoint_consistency (const DiaObjectType *type)
   Point pos = {0, 0};
   Point center;
   DiaObject *o = type->ops->create (&pos, type->default_user_data, &h1, &h2);
+  ObjectChange *change;
   int i;
+
+  change = dia_object_set_string (o, NULL, "Test me!");
+  _object_change_free (change);
 
   pos = o->position;
   center.x = (o->bounding_box.right + o->bounding_box.left) / 2;
@@ -486,6 +491,22 @@ _test_object_menu (const DiaObjectType *type)
   g_free (o);
 }
 
+static void
+_test_draw (const DiaObjectType *type)
+{
+  Handle *h1 = NULL, *h2 = NULL;
+  Point from = {0, 0};
+  DiaObject *o = type->ops->create (&from, type->default_user_data, &h1, &h2);
+
+  DiaRenderer *renderer = g_object_new (DIA_TYPE_PATH_RENDERER, 0);
+
+  o->ops->draw (o, renderer);
+  /* finally */
+  o->ops->destroy (o);  
+  g_free (o);
+  g_object_unref (renderer);
+}
+
 /*
  * A dictionary interface to all registered object(-types)
  */
@@ -526,6 +547,10 @@ _ot_item (gpointer key,
 
   testpath = g_strdup_printf ("%s/%s/%s", base, name, "ObjectMenu");
   g_test_add_data_func (testpath, type, _test_object_menu);
+  g_free (testpath);
+
+  testpath = g_strdup_printf ("%s/%s/%s", base, name, "Draw");
+  g_test_add_data_func (testpath, type, _test_draw);
   g_free (testpath);
 
   ++num_objects;
