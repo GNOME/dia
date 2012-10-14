@@ -16,9 +16,10 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-/*! \file create.h contains user_data structures for creating the non-trivial 
- *   standard objects (polylines & polygons).
+/*!
  * \defgroup ObjectCreate Creation of standard objects
+ * \brief Helpers for creation of the non-trivial standard objects
+ *
  * \ingroup StandardObjects
  *
  * Typical import plugins translate some vector representation of the import format
@@ -138,6 +139,8 @@ DiaObject *create_standard_image(real xpos, real ypos, real width, real height, 
  * \ingroup ObjectCreate
  */
 DiaObject *create_standard_group(GList *items);
+
+DiaObject *create_standard_path_from_object (DiaObject *obj);
 
 G_END_DECLS
 

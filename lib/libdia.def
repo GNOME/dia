@@ -127,6 +127,7 @@ EXPORTS
  create_standard_group
  create_standard_image
  create_standard_path
+ create_standard_path_from_object
  create_standard_path_from_text
  create_standard_polygon
  create_standard_polyline
@@ -295,6 +296,8 @@ EXPORTS
 
  pixbuf_encode_base64
  pixbuf_decode_base64
+
+ dia_path_renderer_get_type
 
  dia_interactive_renderer_interface_get_type
  

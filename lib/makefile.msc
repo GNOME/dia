@@ -73,6 +73,7 @@ OBJECTS = \
 	diagdkrenderer.obj \
 	diainteractiverenderer.obj \
 	diarenderer.obj \
+	diapathrenderer.obj \
 	diasvgrenderer.obj \
 	dynamic_obj.obj \
 	element.obj \
