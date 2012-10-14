@@ -179,7 +179,6 @@ _parse_color(gint32 *color, const char *str)
     *color = DIA_SVG_COLOUR_TEXT;
   else if (0 == strncmp(str, "rgb(", 4)) {
     int r = 0, g = 0, b = 0;
-    real dr, dg, db;
     if (3 == sscanf (str+4, "%d,%d,%d", &r, &g, &b)) {
       /* Set alpha to 1.0 */
       *color = ((0xFF<<24) & 0xFF000000) | ((r<<16) & 0xFF0000) | ((g<<8) & 0xFF00) | (b & 0xFF);
