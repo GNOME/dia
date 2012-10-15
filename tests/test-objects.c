@@ -594,3 +594,23 @@ main (int argc, char** argv)
 
   return ret;
 }
+
+#ifdef _MSC_VER
+int _matherr( struct _exception *except )
+{
+  const char *type;
+
+#define CASE(x) case _ ##x : type=#x; break
+  switch (except->type) {
+  CASE(DOMAIN); 
+  CASE(SING);
+  CASE(UNDERFLOW);
+  CASE(OVERFLOW);
+  CASE(TLOSS);
+  CASE(PLOSS);
+  }
+#undef CASE
+  g_warning ("%s %s(%f, %f)", type, except->name, except->arg1, except->arg2);
+  return 0;
+}
+#endif
