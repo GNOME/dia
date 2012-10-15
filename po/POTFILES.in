@@ -204,6 +204,8 @@ plug-ins/libart/export_png.c
 plug-ins/libart/render_libart.c
 plug-ins/metapost/metapost.c
 plug-ins/metapost/render_metapost.c
+plug-ins/pdf/pdf.c
+plug-ins/pdf/pdf-import.cpp
 plug-ins/pgf/pgf.c
 plug-ins/pgf/render_pgf.c
 plug-ins/pixbuf/pixbuf.c
