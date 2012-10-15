@@ -3,7 +3,7 @@
 # dummy sissi
 PLUGINS = cairo cgm dxf hpgl libart metapost pgf pixbuf \
 	postscript pstricks shape svg vdx wmf wpg xfig xslt \
-	drs stress layout
+	drs stress layout pdf
 
 # The main target
 all : sub-all
@@ -89,8 +89,8 @@ OBJECTS = \
 DEPCFLAGS = -GX -I $(PRJ_TOP)\app $(OGDF_CFLAGS)
 PKG_LINK = $(PKG_LINK) $(PRJ_TOP)\app\dia-app.lib $(OGDF_LIBS)
 OBJECTS = \
-	layout.obj \
-	dia-graph.obj
+	dia-graph.obj \
+	layout.obj
 !ENDIF
 
 !IFDEF OBJ_libart
@@ -107,6 +107,14 @@ OBJECTS = \
 OBJECTS = \
   metapost.obj \
   render_metapost.obj
+!ENDIF
+
+!IFDEF OBJ_pdf
+DEPCFLAGS = -DWIN32 $(POPPLER_CFLAGS) -GX -GR -EHs
+EXTRALIBS = $(POPPLER_LIBS) $(JPEG_LIBS)
+OBJECTS = \
+  pdf.obj \
+  pdf-import.obj
 !ENDIF
 
 !IFDEF OBJ_pstricks
@@ -198,7 +206,7 @@ OBJECTS = $(PACKAGE).obj
 $(PACKAGE).lib : $(OBJECTS)
 	lib /out:$(PACKAGE).lib $(OBJECTS)
 
-$(PACKAGE).dll : $(OBJECTS) $(PKG_DEF)
+$(PACKAGE).dll : $(OBJECTS) $(PKG_DEF) $(EXTRALIBS)
 	$(CC) $(CFLAGS) -LD -Fe$(PACKAGE).dll $(OBJECTS) \
 	$(PKG_LINK) $(EXTRALIBS) user32.lib advapi32.lib wsock32.lib $(LDFLAGS) /def:$(PKG_DEF)
 $(PRJ_TOP)\config.h: $(PRJ_TOP)\config.h.win32
