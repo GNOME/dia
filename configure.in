@@ -283,7 +283,11 @@ if test "$enable_ogdf" = "yes"; then
 	AC_LANG_POP([C++])
 	if test "$ogdf_ok" = yes; then
 		OGDF_CFLAGS="-I ${ogdf_prefix}"
-		OGDF_LIBS="-L${ogdf_prefix}/_release -lOGDF -lstdc++"
+		if test "x$enable_debug" = "xno"; then
+			OGDF_LIBS="-L${ogdf_prefix}/_release -lOGDF -lstdc++"
+		else
+			OGDF_LIBS="-L${ogdf_prefix}/_debug -lOGDF -lstdc++"
+		fi
 		AC_DEFINE(HAVE_OGDF,1,[OGDF library available])
 	fi
 else

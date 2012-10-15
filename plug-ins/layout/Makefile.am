@@ -14,7 +14,7 @@ pkglib_LTLIBRARIES = liblayout_filter.la
 endif
 
 liblayout_filter_la_SOURCES = $(plugin_sources)
-liblayout_filter_la_LDFLAGS = -export-dynamic -module -avoid-version $(NO_UNDEFINED)
+liblayout_filter_la_LDFLAGS =  -pthread -export-dynamic -module -avoid-version $(NO_UNDEFINED)
 liblayout_filter_la_LIBADD = $(OGDF_LIBS)  $(top_builddir)/lib/libdia.la
 if OS_WIN32
 liblayout_filter_la_LIBADD += -lpsapi
