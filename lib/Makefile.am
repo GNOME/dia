@@ -47,9 +47,16 @@ ICON_PNG_PAIRS= \
 	dia_unbroken_chain_icon $(srcdir)/pixmaps/unbroken-chain.png \
 	stdpath_icon $(srcdir)/pixmaps/standard-path.png
 
-# Note that this doesn't seem to get run automatically.  It should, but
-# I'm not gonna chase goblins right now.
-dia-lib-icons.h:
+# there is probably some smarter way than duplicating this
+# but having the right dependecy for dia-lib-icons.h was 
+# broken since 2005 - and no one cared;)
+ICON_PNGS= \
+	$(srcdir)/pixmaps/broken.png \
+	$(srcdir)/pixmaps/broken-chain.png \
+	$(srcdir)/pixmaps/unbroken-chain.png \
+	$(srcdir)/pixmaps/standard-path.png
+
+dia-lib-icons.h: $(ICON_PNGS)
 	gdk-pixbuf-csource --build-list $(ICON_PNG_PAIRS) > dia-lib-icons.h
 
 BUILT_SOURCES = dia-lib-icons.h diamarshal.h diamarshal.c
