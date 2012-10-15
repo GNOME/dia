@@ -231,6 +231,8 @@ ellipse_radius(Ellipse *ellipse, real px, real py)
   px *= px;
   py *= py;
 
+  if (px <= 0.0 && py <= 0.0)
+    return 0; /* avoid division by zero */
   scale = w2 * h2 / (4*h2*px + 4*w2*py);
   return sqrt((px + py)*scale);
 }
@@ -244,12 +246,9 @@ ellipse_distance_from(Ellipse *ellipse, Point *point)
 
   c.x = elem->corner.x + elem->width / 2;
   c.y = elem->corner.y + elem->height/ 2;
-  dist = distance_point_point(point, &c);
-  rad = ellipse_radius(ellipse, point->x, point->y) + ellipse->border_width/2;
 
-  if (dist <= rad)
-    return 0;
-  return dist - rad;
+  return distance_ellipse_point (&c, elem->width / 2, elem->height/ 2,
+				 ellipse->border_width, point);
 }
 
 static void

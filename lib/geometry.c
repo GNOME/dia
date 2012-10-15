@@ -403,6 +403,8 @@ distance_ellipse_point(const Point *centre, real width, real height,
   pt.x *= pt.x;
   pt.y *= pt.y;  /* pt = (point - centre).^2 */
 
+  if (pt.x <= 0.0 && pt.y <= 0.0)
+    return 0.0; /* instead of division by zero */
   scale = w2 * h2 / (4*h2*pt.x + 4*w2*pt.y);
   rad = sqrt((pt.x + pt.y)*scale) + line_width/2;
 

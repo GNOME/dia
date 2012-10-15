@@ -183,31 +183,6 @@ actor_set_props(Actor *actor, GPtrArray *props)
   actor_update_data(actor, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
 }
 
-/* returns the radius of the actor along the ray from the centre of the
- * actor to the point (px, py) */
-static real
-actor_radius(Actor *actor, real px, real py)
-{
-  Element *elem = &actor->element;
-  real w2 = elem->width * elem->width;
-  real h2 = elem->height * elem->height;
-  real scale;
-
-  /* find the point of intersection between line (x=cx+(px-cx)t; y=cy+(py-cy)t)
-   * and actor ((x-cx)^2)/(w/2)^2 + ((y-cy)^2)/(h/2)^2 = 1 */
-  /* radius along ray is sqrt((px-cx)^2 * t^2 + (py-cy)^2 * t^2) */
-
-  /* normalize coordinates ... */
-  px -= elem->corner.x + elem->width  / 2;
-  py -= elem->corner.y + elem->height / 2;
-  /* square them ... */
-  px *= px;
-  py *= py;
-
-  scale = w2 * h2 / (4*h2*px + 4*w2*py);
-  return sqrt((px + py)*scale);
-}
-
 static real
 actor_distance_from(Actor *actor, Point *point)
 {
@@ -217,13 +192,9 @@ actor_distance_from(Actor *actor, Point *point)
 
   c.x = elem->corner.x + elem->width / 2;
   c.y = elem->corner.y + elem->height/ 2;
-  dist = distance_point_point(point, &c);
-  rad = actor_radius(actor, point->x, point->y) + ACTOR_BORDER_WIDTH/2;
 
-
-  if (dist <= rad)
-    return 0;
-  return dist - rad;
+  return distance_ellipse_point (&c, elem->width / 2, elem->height/ 2,
+				 ACTOR_BORDER_WIDTH, point);
 }
 
 static void
