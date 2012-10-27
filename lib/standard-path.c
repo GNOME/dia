@@ -91,6 +91,9 @@ struct _StdPath {
   LineCaps line_caps;
   Color fill_color;
 
+  /*! mirroring (stdpath->stroke_or_fill & PDO_FILL) */
+  gboolean show_background;
+
   /* mostly useful for debugging transformations */
   gboolean show_control_lines;
 
@@ -131,6 +134,8 @@ static PropDescription stdpath_props[] = {
   PROP_STD_LINE_JOIN_OPTIONAL,
   PROP_STD_LINE_CAPS_OPTIONAL,
   PROP_STD_FILL_COLOUR_OPTIONAL,
+  /* just to simplify transfering properties between objects */
+  { "show_background", PROP_TYPE_BOOL, PROP_FLAG_DONT_SAVE,  N_("Draw background"), NULL, NULL },
   { "show_control_lines", PROP_TYPE_BOOL, PROP_FLAG_OPTIONAL, N_("Draw Control Lines") },
   PROP_DESC_END
 };
@@ -144,6 +149,7 @@ static PropOffset stdpath_offsets[] = {
   { "line_style", PROP_TYPE_LINESTYLE, offsetof(StdPath, line_style), offsetof(StdPath, dashlength) },
   { "line_caps", PROP_TYPE_ENUM, offsetof(StdPath, line_caps) },
   { "fill_colour", PROP_TYPE_COLOUR, offsetof(StdPath, fill_color) },
+  { "show_background", PROP_TYPE_BOOL, offsetof(StdPath, show_background) },
   { "show_control_lines", PROP_TYPE_BOOL, offsetof(StdPath, show_control_lines) },
   { NULL, 0, 0 }
 };
@@ -296,7 +302,7 @@ stdpath_create (Point *startpoint,
     stdpath->points = g_memdup(bcd->points, bcd->num_points * sizeof(BezPoint));
   }
 
-  stdpath->stroke_or_fill = PDO_BOTH; /* default: no stroke (later) */
+  stdpath->stroke_or_fill = PDO_STROKE; /* default: stroke only */
   stdpath->line_width = attributes_get_default_linewidth();
   stdpath->line_color = attributes_get_foreground();
   stdpath->fill_color = attributes_get_background();
@@ -370,7 +376,7 @@ stdpath_update_data (StdPath *stdpath)
 
   /* recalculate the bounding box */
   polybezier_bbox (stdpath->points, stdpath->num_points, &extra,
-		   (stdpath->stroke_or_fill & PDO_FILL), bb);
+		   FALSE /*(stdpath->stroke_or_fill & PDO_FILL)*/, bb);
   /* adjust position from it */
   obj->position.x = bb->left;
   obj->position.y = bb->top;
@@ -425,9 +431,12 @@ _convert_to_beziers_callback (DiaObject *obj, Point *clicked, gpointer data)
 
   for (i = 1; i < stdpath->num_points; ++i) {
     if (bezier[i].type == BEZ_MOVE_TO || i+1 == stdpath->num_points) {
-      DiaObject *rep = (stdpath->stroke_or_fill & PDO_FILL)
-	? create_standard_beziergon (i - n + 1, &bezier[n])
-	: create_standard_bezierline (i - n + 1, &bezier[n], NULL, NULL);
+      DiaObject *rep;
+      int num = bezier[i].type == BEZ_MOVE_TO ? i - n : i - n + 1;
+      if (stdpath->stroke_or_fill & PDO_FILL)
+	rep = create_standard_beziergon (num, &bezier[n]);
+      else
+	rep = create_standard_bezierline (num, &bezier[n], NULL, NULL);
       if (!rep) /* no Standard objects? */
 	break;
       list = g_list_append (list, rep);
@@ -483,7 +492,18 @@ stdpath_get_object_menu(StdPath *stdpath, Point *clickedpoint)
 static void 
 stdpath_set_props (StdPath *stdpath, GPtrArray *props)
 {
+  stdpath->show_background = (stdpath->stroke_or_fill & PDO_FILL) != 0;
   object_set_props_from_offsets(&stdpath->object, stdpath_offsets, props);
+  if (stdpath->show_background)
+    stdpath->stroke_or_fill |= PDO_FILL;
+  else
+    stdpath->stroke_or_fill &= ~PDO_FILL;
+  /* now when transfering properties from text we'll loose stroke and fill
+   * Instead of drawing nothing maket it just fill.
+   */
+  if (!stdpath->stroke_or_fill)
+    stdpath->stroke_or_fill = PDO_FILL;
+
   stdpath_update_data (stdpath);
 }
 /*!
