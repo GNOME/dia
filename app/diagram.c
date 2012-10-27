@@ -786,7 +786,7 @@ diagram_unselect_objects(Diagram *dia, GList *obj_list)
     list = g_list_next(list);
   }
   g_signal_handlers_unblock_by_func (dia, DIA_DIAGRAM_DATA_GET_CLASS (dia)->selection_changed, NULL);
-  g_signal_emit_by_name (dia, "selection_changed", 0, g_list_length (dia->data->selected));
+  g_signal_emit_by_name (dia, "selection_changed", g_list_length (dia->data->selected));
 }
 
 /** Make a single object selected.
@@ -822,7 +822,7 @@ diagram_select_list(Diagram *dia, GList *list)
     textedit_activate_first(ddisplay_active());
   }
   g_signal_handlers_unblock_by_func (dia, DIA_DIAGRAM_DATA_GET_CLASS (dia)->selection_changed, NULL);
-  g_signal_emit_by_name (dia, "selection_changed", 0, g_list_length (dia->data->selected));
+  g_signal_emit_by_name (dia, "selection_changed", g_list_length (dia->data->selected));
 }
 
 int
