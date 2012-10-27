@@ -77,7 +77,7 @@ dia_path_renderer_finalize (GObject *object)
     guint i;
    
     for (i = 0; i < self->pathes->len; ++i) {
-      GArray *path = g_ptr_array_index (self->pathes, self->pathes->len - 1);
+      GArray *path = g_ptr_array_index (self->pathes, i);
 
       g_array_free (path, TRUE);
     }
@@ -115,7 +115,8 @@ _get_current_path (DiaPathRenderer *self,
   }
 
   if (!self->pathes || new_path) {
-    self->pathes = g_ptr_array_new ();
+    if (!self->pathes)
+      self->pathes = g_ptr_array_new ();
     g_ptr_array_add (self->pathes, g_array_new (FALSE, FALSE, sizeof(BezPoint)));
   }
   path = g_ptr_array_index (self->pathes, self->pathes->len - 1);
@@ -346,8 +347,12 @@ _arc (DiaRenderer *self,
   real radius = sqrt(width * height) / 2.0;
   real ar1 = (M_PI / 180.0) * angle1;
   real ar2 = (M_PI / 180.0) * angle2;
-  int i, segs = 3;
-  real ars = - (ar2 - ar1) / segs;
+  int i, segs;
+  real ars;
+  
+  /* one segment for ever 90 degrees */
+  segs = (int)(fabs(ar2 - ar1) / (M_PI/2)) + 1;
+  ars = - (ar2 - ar1) / segs;
 
   /* move to start point */
   start.x = center->x + (width / 2.0)  * cos(ar1);  
@@ -359,6 +364,10 @@ _arc (DiaRenderer *self,
    */
   ar1 = - ar1;
   ar2 = - ar2;
+  while (ar1 < 0 || ar2 < 0) {
+    ar1 += 2 * M_PI;
+    ar2 += 2 * M_PI;
+  }
 
   if (stroke) {
     _path_append (path, &start);
