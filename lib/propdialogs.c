@@ -368,9 +368,9 @@ prop_dialog_fill(PropDialog *dialog, GList *objects, gboolean is_default)
   if (!pdesc) return;
 
   if (is_default)
-      props = prop_list_from_descs(pdesc,pdtpp_is_visible_default);
+    props = prop_list_from_descs(pdesc,pdtpp_is_visible_default);
   else
-      props = prop_list_from_descs(pdesc,pdtpp_is_visible);
+    props = prop_list_from_descs(pdesc,pdtpp_is_visible);
 
   if (!props) return;
 
