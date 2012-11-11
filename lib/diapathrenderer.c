@@ -516,14 +516,12 @@ draw_text (DiaRenderer *self,
   GArray *path = _get_current_path (renderer, NULL, &text->color);
   int n0 = path->len;
 
-  if (!text_is_empty (text)) {
+  if (!text_is_empty (text) && text_to_path (text, path)) {
     Rectangle bz_bb, tx_bb;
     PolyBBExtras extra = { 0, };
     real dx, dy, sx, sy;
     guint i;
     
-    text_to_path (text, path);
-
     polybezier_bbox (&g_array_index (path, BezPoint, n0), path->len - n0, &extra, TRUE, &bz_bb);
     text_calc_boundingbox (text, &tx_bb);
     sx = (tx_bb.right - tx_bb.left) / (bz_bb.right - bz_bb.left);

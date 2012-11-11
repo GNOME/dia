@@ -767,6 +767,9 @@ text_to_path (const Text *text, GArray *points)
   char *str;
   gboolean ret = FALSE;
 
+  if (!PANGO_IS_CAIRO_FONT_MAP (pango_context_get_font_map (dia_font_get_context())))
+    return FALSE;
+
   layout = pango_layout_new(dia_font_get_context());
   pango_layout_set_font_description (layout, dia_font_get_description (text->font));
   pango_layout_set_indent (layout, 0);
