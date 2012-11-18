@@ -774,6 +774,114 @@ def DumpReverse (deps, f) :
 			for sym in syms :
 				f.write ("\t" * 2 + sym + "\n")
 		
+def RemoveStrays (deps) :
+	"Remove every node which has and is no dependency"
+	strays = {}
+	# does it have no dependencies?
+	for k in deps.keys() :
+		if len(deps[k].deps.keys()) == 0 :
+			strays[k] = 1
+	# even if it does not have a dependency it still may be a dependency
+	stray_keys = strays.keys()
+	for k in deps.keys() :
+		node = deps[k]
+		for d in node.deps.keys () :
+			if d in stray_keys :
+				if d in strays.keys () : # delete it only once ;)
+					#print "Not stray:", d
+					del strays[d]
+	stray_keys = strays.keys()
+	for k in stray_keys :
+		print "Stray:", k
+		del deps[k]
+
+def CreateDsm (deps) :
+	"Given the complete dependency tree create a dsm sorted by 'leafs'"
+	RemoveStrays(deps)
+	nTotal = len(deps.keys())
+	nDone = 0
+	# for DSM row and colum index are the same, this is mapping the module name to it's index (row number)
+	table_map = {}
+	node_keys = deps.keys()
+	node_keys.sort()
+	level = 0 # the iteration where we cut the leafs
+	node_levels = {}
+	while nDone < nTotal :
+		leafs = []
+		strays = []
+		for sn in node_keys :
+			node = deps[sn]
+			nRefs = 0
+			for d in node.deps.keys() : # the dependencies
+				if d in node_keys : # still referenced
+					nRefs = nRefs + 1
+			if nRefs == 0 :
+				# not removing just now to treat all leafs on this layer the same
+				leafs.append(sn)
+		if len(leafs) == 0 :
+			# no endless loop for circular dependencies
+			histo = {} # map number of dependencies to module
+			for sn in node_keys :
+				node = deps[sn]
+				num = len(node.deps.keys())
+				if not num in histo.keys() :
+					histo[num] = []
+				histo[num].append(sn)
+			# find modules with lowest number of dependencies
+			for num in range(1, len(deps.keys())+1) :
+				if num in histo.keys() :
+					leafs = histo[num]
+					print "Circular cut:", leafs
+					break
+		for sn in leafs :
+			table_map[sn] = (nTotal - nDone, level)
+			nDone = nDone + 1
+			node_levels[sn] = level
+		level = level + 1
+		# everything which has no reference into our tree or is allready processed
+		node_keys = filter (lambda x: not x in table_map.keys(), node_keys)
+	keys = Sorted (table_map)
+	# now we know the index of every module in the dsm, fill cells with number of symbols
+	dsm = []
+	for y, n in keys :
+		# a row has everything which depends on o specific module
+		target = deps[y]
+		row = []
+		for x, m in keys :
+			# a colum has all the dependencies of a module
+			source = deps[x]
+			if y in source.deps.keys() :
+				edge = source.deps[y]
+				# referencing the object, to later have access to all symbols, instead of just it's number
+				row.append (edge)
+			else :
+				# there is no need to specially mark x==y, i.e. the diagonal
+				row.append (None)
+		dsm.append (row)
+	# we no only need the matrix, but also the order of rows and columns
+	keys_alone = []
+	for k, n in keys :
+		keys_alone.append (k)
+	return (keys_alone, dsm, node_levels)
+
+def SaveDsm (deps, f) :
+	# create and save as csv
+	# Yippie ki-yay - Excel csv interpretation is locale dependent - Control Panel/Region/Numbers/List separator
+	csv_list_delimiter = ','
+	k, m, levels = CreateDsm (deps)
+	f.write ("Level;%s%s\n" % (csv_list_delimiter, string.join (k, csv_list_delimiter)))
+	for y in range(0, len(k)) :
+		# first column: the level of dependency
+		f.write ("%d" % (levels[k[y]]) + csv_list_delimiter)
+		f.write (k[y])
+		for x in range(0, len(k)) :
+			edge = m[y][x]
+			if edge :
+				f.write ("%s%d" % (csv_list_delimiter, edge.Weight()))
+			else :
+				f.write (csv_list_delimiter)
+		f.write ("\n")
+
 def ImportDump (sfDump, deps) :
 	print "Import from:", sfDump
 	global g_DontFollow
@@ -842,6 +950,7 @@ def main () :
 	bReduce = 0
 	bTred = 0
 	bSaveDt = 0
+	bSaveDsm = 0
 	bSaveXml = 0
 	sOutFilename = None
 	sPickle = None
@@ -904,6 +1013,8 @@ def main () :
 			bDumpReverse = 1
 		elif arg == "--dt" :
 			bSaveDt = 1
+		elif arg == "--dsm" :
+			bSaveDsm = 1
 		elif arg == "--xml" :
 			bSaveXml = 1
 		elif arg == "--reduce" :
@@ -1078,6 +1189,8 @@ For more information read the source.
 		SaveDt (deps, f)
 	elif bSaveXml :
 		SaveXml (deps, f)
+	elif bSaveDsm :
+		SaveDsm (deps, f)
 	elif bDumpReverse :
 		DumpReverse (deps, f)
 	else :
