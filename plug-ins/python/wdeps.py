@@ -488,19 +488,30 @@ dllsSysWin32 = [
 	"ws2_32.dll", "ws2help.dll", "wsock32.dll", "ntdll.dll", "mpr.dll", 
 	"rpcrt4.dll", "shlwapi.dll", "netapi32.dll", "msimg32.dll", "oledlg.dll",
 	"setupapi.dll", "secur32.dll", "avifil32.dll", "msvfw32.dll", 
-	"uxtheme.dll", "dnsapi.dll"]
+	"dbghelp.dll", "uxtheme.dll", "dnsapi.dll", "activeds.dll", "crypt32.dll", 
+	"mscoree.dll", "psapi.dll", "msi.dll", "mscms.dll", "glu32.dll", "hid.dll", "imagehlp.dll", 
+	"powrprof.dll", "quartz.dll", "wininet.dll", "wintrust.dll", "riched20.dll" , "odbc32.dll", 
+	"oleacc.dll", "shfolder.dll", "opengl32.dll"
+	]
 dllsCrts = [
 	"msvcrt.dll", "msvcrtd.dll", "msvcp60.dll",
-#	"msvcrt20.dll",
+	"msvcrt20.dll",
 #	"msvcr70.dll", "msvcp70.dll",
+	"msvcr70.dll", "msvcr70d.dll", "msvcp70.dll", "msvcp70d.dll",
 	"msvcr71.dll", "msvcr71d.dll", "msvcp71.dll", "msvcp71d.dll",
 	"msvcr80.dll", "msvcr80d.dll", "msvcp80.dll", "msvcp80d.dll",
+	"msvcr90.dll", "msvcr90d.dll", "msvcp90.dll", "msvcp90d.dll", "vcomp90.dll", "vcomp90d.dll",
+	"msvcr100.dll", "msvcr100d.dll", "msvcp100.dll", "msvcp100d.dll", "vcomp100.dll", "vcomp100d.dll",
 	# only one on Linux? (or am I missing th C++rt, and what about librt.so.1?)
 	"libc.so.5", "libc.so.6"
 	]
 dllsMfc = [
+	"mfc42u.dll", "mfc42.dll", "mfc42ud.dll",
+	"mfc70u.dll", "mfc70.dll", "mfc70ud.dll",
 	"mfc71u.dll", "mfc71.dll", "mfc71ud.dll",
-	"mfc80u.dll", "mfc80.dll", "mfc80ud.dll"
+	"mfc80u.dll", "mfc80.dll", "mfc80ud.dll", "atl80.dll",
+	"mfc90u.dll", "mfc90.dll", "mfc90ud.dll",
+	"mfc100u.dll", "mfc100.dll", "mfc100ud.dll"
 	]
 dllsGtk = [
 	"libglib-2.0-0.dll", "libgmodule-2.0-0.dll", "libgobject-2.0-0.dll", "libgthread-2.0-0.dll",
