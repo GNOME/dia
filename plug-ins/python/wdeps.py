@@ -882,6 +882,18 @@ def SaveDsm (deps, f) :
 				f.write (csv_list_delimiter)
 		f.write ("\n")
 
+def CreateList (s) :
+	"Return a list of strings either by split or from file"
+	lst = []
+	if s[0] == "@" :
+		f = open (s[1:])
+		for line in f.readlines() :
+			if not line[0] in ["#", ";"] :
+				lst.append (line[:-1].lower())
+	else :
+		lst = string.split (s, ",")
+	return lst
+
 def ImportDump (sfDump, deps) :
 	print "Import from:", sfDump
 	global g_DontFollow
@@ -981,14 +993,14 @@ def main () :
 			elif string.find (arg, "--remove-regex=") == 0 :
 				regexRemoves.append (arg[len("--remove-regex="):])
 			elif string.find (arg, "--remove-symbols=") == 0 :
-				noSyms = string.split(arg[len("--remove-symbols="):], ",")
+				noSyms = CreateList(arg[len("--remove-symbols="):])
 				symbolsToRemove.extend (noSyms)
 			else :
-				noDeps = string.split(arg[len("--remove="):], ",")
+				noDeps = CreateList(arg[len("--remove="):])
 				dllsToRemove.extend(noDeps)
 		elif string.find (arg, "--dont-follow") == 0 :
 			global g_DontFollow
-			noFollow = string.split(arg[len("--dont-follow="):], ",")
+			noFollow = CreateList(arg[len("--dont-follow="):])
 			g_DontFollow.extend (noFollow)
 		elif string.find (arg, "--depth=") == 0 :
 			nMaxDepth = int(arg[len("--depth="):])
@@ -1041,6 +1053,7 @@ def main () :
 				sys.exit(1)
 		elif string.find (arg, "--") == 0 :
 			print "Unknown option or missing parameter:", arg
+			sys.exit(1)
 		else :
 			if len(components) == 0 :
 				components = string.split(arg, ",")
