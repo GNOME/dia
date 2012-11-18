@@ -120,6 +120,57 @@ def FindInPath (sName) :
 	# safety
 	return sName
 
+def GetDepsDotnet (sFrom, dAll, node, nMaxDepth, nDepth=0) :
+	""" passing in a node allows to check C++ and .Net dependecies """
+	try :
+		import clr
+		clr.AddReference("IronPython")
+	except ImportError :
+		print "No Iron!"
+		return
+	from System.Reflection import Assembly
+
+	if not dAll.has_key (sFrom) or node :
+		if not node :
+			node = Node (sFrom, nDepth)
+			dAll[sFrom] = node
+		try :
+			# assembly = Assembly.LoadFrom(sFrom)
+			# the former does not show C++ -> .Net connections
+			assembly = Assembly.ReflectionOnlyLoadFrom(sFrom)
+		except IOError :
+			return
+		except SystemError :
+			return
+		symbols = []
+		
+		try :
+			types = assembly.GetExportedTypes()
+		except IOError :
+			# some failed dependencies are showing up here?
+			return
+		for t in types :
+			#if not t.IsPublic :
+			#	continue
+			if t.IsClass or t.IsInterface :
+				members = t.GetMembers()
+				for  m in members :
+					if m.Module.Assembly == assembly :
+						#print "Exp:", sym
+						pass
+					elif t.IsImport :
+						#print "Imp:", t.Name + "." + m.Name + "()"
+						sym = t.Name + "." + m.Name + "()"
+						symbols.append (sym)
+		# we may want to look at all refernced assemblies ...
+		refs = assembly.GetReferencedAssemblies()
+		for r in refs :
+			n2 = r.Name + ".dll";
+			print "\t" * nDepth + n2, r.Version
+			symbols = [ "[" + str(r.Version) + "]" ]
+			node.AddEdge (n2, symbols, 1) # delayLoad: kind of
+			GetDepsDotnet (n2, dAll, None, nMaxDepth, nDepth+1)
+
 def GetDepsWin32 (sFrom, dAll, nMaxDepth, nDepth=0) :
 	"calculates the dependents of the passed in dll"
 	if nMaxDepth <= nDepth :
@@ -180,7 +231,13 @@ def GetDepsWin32 (sFrom, dAll, nMaxDepth, nDepth=0) :
 					GetDepsWin32 (name, dAll, nMaxDepth-nDepth+2, nDepth+1)
 		# add to all nodes
 		dAll[sFrom] = node
-		# restore original depth (independent of how the recurison works)
+
+		# check for dotnet dependencies
+		if "mscoree.dll" in directDeps :
+			print "Dotnet check ...", sFrom
+			GetDepsDotnet (sFrom, dAll, node, nMaxDepth-nDepth+2, nDepth+1)
+
+		# restore original depth (independent of how the recursion works)
 		for sd in directDeps :
 			if sd in dAll.keys() :
 				try :
