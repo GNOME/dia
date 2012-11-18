@@ -342,6 +342,12 @@ def RemoveNonLocal (deps) :
 		for c in node.deps.keys() :
 			if not os.path.exists (c) :
 				del node.deps[c]
+	# also remove from the root
+	root_keys = deps.keys()
+	for k in root_keys :
+		if not os.path.exists (k) :
+			del deps[k]
+
 def RemoveBySymbols (deps, list) :
 	"If a connection is conly caused by some symbol in 'list' it is removed"
 	for k in deps.keys() :
