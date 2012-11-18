@@ -752,6 +752,28 @@ def DumpSymbolsUse (deps, f) :
 			except KeyError :
 				f.write ("\t?\t" + sym + "\n")
 
+def DumpReverse (deps, f) :
+	node_keys = deps.keys ()
+	edges = {}
+	for sn in node_keys :
+		node = deps[sn]
+		edge_keys = node.deps.keys ()
+		for se in edge_keys :
+			if se in edges.keys () :
+				edges[se].append ((node.deps[se], sn))
+			else :
+				edges[se] = [(node.deps[se], sn)]
+	edge_keys = edges.keys ()
+	edge_keys.sort ()
+	for se in edge_keys :
+		f.write (se + "\n")
+		for ed in edges[se] :
+			f.write ("\t" + se + " <- " + ed[1] + "\n")
+			syms = ed[0].symbols
+			syms.sort ()
+			for sym in syms :
+				f.write ("\t" * 2 + sym + "\n")
+		
 def ImportDump (sfDump, deps) :
 	print "Import from:", sfDump
 	global g_DontFollow
@@ -827,6 +849,7 @@ def main () :
 	nSymbols = 0
 	nCutLeafs = 0
 	bRemoveNonLocal = 0
+	bDumpReverse = 0
 
 	if IsWin32() :
 		# check if we are running from the right environment
@@ -877,6 +900,8 @@ def main () :
 		elif arg == "--dump-unused" :
 			bDumpUnused = 1
 			bDump = 1
+		elif arg == "--dump-reverse" :
+			bDumpReverse = 1
 		elif arg == "--dt" :
 			bSaveDt = 1
 		elif arg == "--xml" :
@@ -1053,6 +1078,8 @@ For more information read the source.
 		SaveDt (deps, f)
 	elif bSaveXml :
 		SaveXml (deps, f)
+	elif bDumpReverse :
+		DumpReverse (deps, f)
 	else :
 		SaveDot (deps, sGraph, bByUse, nSymbols, f)
 
