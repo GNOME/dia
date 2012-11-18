@@ -456,7 +456,8 @@ image_update_data(Image *image)
   image->connections[8].pos.x = elem->corner.x + elem->width / 2.0;
   image->connections[8].pos.y = elem->corner.y + elem->height / 2.0;
   
-  extra->border_trans = (image->draw_border ? image->border_width / 2.0 : 0.0);
+  /* the image border is drawn vompletely outside of the image, so no /2.0 on border width */
+  extra->border_trans = (image->draw_border ? image->border_width : 0.0);
   element_update_boundingbox(elem);
   
   obj->position = elem->corner;
