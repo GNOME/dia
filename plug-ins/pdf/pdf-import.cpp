@@ -185,8 +185,8 @@ public :
   { 
     this->fill_color.alpha = state->getFillOpacity();
   }
-  //! gradients are just emulated
-  GBool useFillColorStop() { return gTrue; }
+  //! gradients are just emulated - but not if returning true here
+  GBool useFillColorStop() { return gFalse; }
   void updateFillColorStop(GfxState * state, double /*offset*/)
   {
     GfxRGB color;
