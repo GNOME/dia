@@ -882,6 +882,94 @@ def SaveDsm (deps, f) :
 				f.write (csv_list_delimiter)
 		f.write ("\n")
 
+def SaveDB (deps, fname) :
+	# create an sqlite database
+	import sqlite3
+
+	con = sqlite3.connect (fname)
+	cur = con.cursor()
+
+	# create a table containing data for reproduction
+	cur.execute ('CREATE TABLE Settings (Key text, Value text)')
+	cur.execute ('INSERT INTO Settings VALUES(?, ?)', ("cwd", os.getcwd()))
+	cur.execute ('INSERT INTO Settings VALUES(?, ?)', ("args", string.join (sys.argv[1:], ' ')))
+	con.commit()
+
+	# create the dsm to have all data easily available
+	k, m, levels = CreateDsm (deps)
+
+	# create and fill the Modules table
+	cur.execute ('CREATE TABLE Modules (Name text,' \
+		' ImportedModules integer, ExportedSymbols integer, Level integer)')
+	for y in range(0, len(k)) :
+		# the number of imports - module count
+		num_imp = len(deps[k[y]].deps.keys())
+		num_exp = len(deps[k[y]].exports.keys())
+		cur.execute ('INSERT INTO Modules VALUES(?, ?, ?, ?)', (k[y], num_imp, num_exp, levels[k[y]]))
+	con.commit()
+	# create an index of ModuleNames
+	cur.execute ('CREATE UNIQUE INDEX ModuleNames ON Modules (Name)')
+	con.commit()
+
+	# create and fill the Dependencies table
+	cur.execute ('CREATE TABLE Dependencies (' \
+		'Consumer text, Provider text, Imports integer, Weight real)')
+	for y in range(0, len(k)) :
+		for x in range(0, len(k)) :
+			edge = m[y][x]
+			if edge :
+				cur.execute ('INSERT INTO Dependencies VALUES(?,?,?,?)',
+					(k[x], k[y], len(edge.symbols), edge.Weight()))
+	con.commit ()
+
+	# create and fill the table of Symbols
+	cur.execute ('CREATE TABLE Symbols (Name text, User text, Provider text)')
+	for y in range(0, len(k)) :
+		for x in range(0, len(k)) :
+			edge = m[y][x]
+			if edge :
+				for s in edge.symbols :
+					cur.execute ('INSERT INTO Symbols VALUES(?,?,?)', (s, k[x], k[y]))
+	# add unused symbols, too
+	for sm in k :
+		node = deps[sm]
+		for e, used in node.exports.iteritems() :
+			if used == 0 : # the used ones are already added above
+				cur.execute ('INSERT INTO Symbols VALUES(?,?,?)', (e, None, sm))
+	con.commit ()
+
+	# create a read-only table accumulating Symbols by Users
+	# SELECT Provider,max(Users),count(distinct Name) FROM Symbols GROUP BY Provider
+	cur.execute ('CREATE VIEW SymbolsByUse AS SELECT ' \
+		'Name,Provider,count(distinct User) AS UseCount FROM Symbols GROUP BY Name')
+	con.commit ()
+
+	# another view to sort Modules by number of Consumer
+	cur.execute ('CREATE VIEW ModulesByUse AS SELECT ' \
+		'Provider,count(distinct Consumer),max(Imports),min(Imports) FROM Dependencies GROUP BY Provider')
+	con.commit()
+
+	# yet another view to check how much modules symbols are used
+	cur.execute ('CREATE VIEW ModuleCoverageTemp AS SELECT ' \
+		'Provider,count(distinct Name) AS UsedSymbols FROM Symbols AS S WHERE User>0 GROUP BY Provider')
+	# merge it with Modules.ExportedSymbols
+	cur.execute ('CREATE View ModuleCoverage AS SELECT ' \
+		'Provider,Level,UsedSymbols,ExportedSymbols,100.0*UsedSymbols/ExportedSymbols AS Coverage ' \
+		'FROM Modules AS M JOIN ModuleCoverageTemp AS C ON M.Name=C.Provider')
+	con.commit()
+
+	# calculate FanIn (UsingModules) and FanOut (ImportedModules)
+	# ,1.0-(1.0/(FanIn+FanOut)) AS Complexity -- needs an extra run
+	# due to sqlite3.OperationalError: no such column: FanIn
+	cur.execute ('CREATE VIEW ModuleCouplingTemp AS SELECT ' \
+		'Name,ImportedModules AS FanOut,count(distinct Consumer) AS FanIn ' \
+		'FROM Dependencies AS D JOIN Modules AS M ON D.Provider=M.Name ' \
+		'GROUP BY Provider')
+	cur.execute ('CREATE VIEW ModuleCoupling AS SELECT ' \
+		'Name,FanOut,FanIn,1.0-(1.0/(FanIn+FanOut)) AS Coupling ' \
+		'FROM ModuleCouplingTemp')
+	con.commit()
+
 def CreateList (s) :
 	"Return a list of strings either by split or from file"
 	lst = []
@@ -963,6 +1051,7 @@ def main () :
 	bTred = 0
 	bSaveDt = 0
 	bSaveDsm = 0
+	bSaveDB = 0
 	bSaveXml = 0
 	sOutFilename = None
 	sPickle = None
@@ -1027,6 +1116,8 @@ def main () :
 			bSaveDt = 1
 		elif arg == "--dsm" :
 			bSaveDsm = 1
+		elif arg == '--db' :
+			bSaveDB = 1
 		elif arg == "--xml" :
 			bSaveXml = 1
 		elif arg == "--reduce" :
@@ -1204,6 +1295,8 @@ For more information read the source.
 		SaveXml (deps, f)
 	elif bSaveDsm :
 		SaveDsm (deps, f)
+	elif bSaveDB :
+		SaveDB (deps, sOutFilename)
 	elif bDumpReverse :
 		DumpReverse (deps, f)
 	else :
