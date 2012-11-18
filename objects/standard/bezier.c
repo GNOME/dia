@@ -143,9 +143,9 @@ static PropDescription bezierline_props[] = {
   PROP_STD_START_ARROW,
   PROP_STD_END_ARROW,
   PROP_FRAME_BEGIN("gaps",0,N_("Line gaps")),
-  { "absolute_start_gap", PROP_TYPE_REAL, PROP_FLAG_VISIBLE,
+  { "absolute_start_gap", PROP_TYPE_REAL, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
     N_("Absolute start gap"), NULL, &gap_range },
-  { "absolute_end_gap", PROP_TYPE_REAL, PROP_FLAG_VISIBLE,
+  { "absolute_end_gap", PROP_TYPE_REAL, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
     N_("Absolute end gap"), NULL, &gap_range },
   PROP_FRAME_END("gaps",0),
   PROP_DESC_END

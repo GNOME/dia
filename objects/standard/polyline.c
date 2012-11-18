@@ -96,9 +96,9 @@ static PropNumData gap_range = { -G_MAXFLOAT, G_MAXFLOAT, 0.1};
 
 static PropDescription polyline_props[] = {
   POLYCONN_COMMON_PROPERTIES,
-  PROP_STD_LINE_WIDTH,
-  PROP_STD_LINE_COLOUR,
-  PROP_STD_LINE_STYLE,
+  PROP_STD_LINE_WIDTH_OPTIONAL,
+  PROP_STD_LINE_COLOUR_OPTIONAL,
+  PROP_STD_LINE_STYLE_OPTIONAL,
   PROP_STD_LINE_JOIN_OPTIONAL,
   PROP_STD_LINE_CAPS_OPTIONAL,
   PROP_STD_START_ARROW,
@@ -106,9 +106,9 @@ static PropDescription polyline_props[] = {
   { "corner_radius", PROP_TYPE_REAL, PROP_FLAG_VISIBLE,
     N_("Corner radius"), NULL, &polyline_corner_radius_data },
   PROP_FRAME_BEGIN("gaps",0,N_("Line gaps")),
-  { "absolute_start_gap", PROP_TYPE_REAL, PROP_FLAG_VISIBLE,
+  { "absolute_start_gap", PROP_TYPE_REAL, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
     N_("Absolute start gap"), NULL, &gap_range },
-  { "absolute_end_gap", PROP_TYPE_REAL, PROP_FLAG_VISIBLE,
+  { "absolute_end_gap", PROP_TYPE_REAL, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
     N_("Absolute end gap"), NULL, &gap_range },
   PROP_FRAME_END("gaps",0),
   PROP_DESC_END
