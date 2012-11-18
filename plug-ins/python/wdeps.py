@@ -514,6 +514,29 @@ def TopMost (deps) :
 		if not used.has_key (k) :
 			topmost.append (k)
 	return topmost
+
+def RecalculateDepth (deps) :
+	"From the top-most - i.e. unused - down to the bottom level "
+	keys = deps.keys ()
+	used = {}
+	tops = []
+	depth = 0
+	while 1 :
+		top = keys
+		for k in keys :
+			for d in deps[k].deps.keys() :
+				used[d] = 1
+		for k in keys :
+			if not k in used.keys () :
+				tops.append (k)
+		if len(tops) == 0 :
+			break
+		for k in tops :
+			deps[k].depth = depth
+		keys = filter (lambda x : not x in tops, keys)
+		tops = []
+		depth += 1
+
 def CalculateUsed (deps) :
 	"Given the complete dependency tree calcualte the use count of every symbol"
 	for sn in deps.keys() :
@@ -729,6 +752,60 @@ def DumpSymbolsUse (deps, f) :
 			except KeyError :
 				f.write ("\t?\t" + sym + "\n")
 
+def ImportDump (sfDump, deps) :
+	print "Import from:", sfDump
+	global g_DontFollow
+	deps = {}
+	f = open (sfDump)
+	s = f.readline()
+	rNode = re.compile ("^([\w_-]+\.\w+)$")
+	rEdge = re.compile ("^\t([\w_-]+\.\w+) -> ([\w_-]+\.\w+)$")
+	rSym = re.compile ("^\t\t(.*)$")
+	curNode = None
+	curEdge = None
+	symbols = []
+	while s :
+		s = f.readline()
+		m = rNode.match (s)
+		if m :
+			# store previous results if
+			if curNode and curEdge and len(symbols) :
+				if not curNode.name in g_DontFollow :
+					curNode.AddEdge (curEdge, symbols, 0) # Todo: delay loaded
+				curEdge = None
+				symbols = []
+			k = m.group(0)
+			if k in deps.keys() :
+				curNode = deps[k]
+			else :
+				curNode = deps[k] = Node (k, 0) # Todo: depth?
+		else :
+			m = rEdge.match(s)
+			if m :
+				if not curNode.name == m.group(1) :
+					print "???", s
+					sys.exit(2)
+				else :
+					if curNode and curEdge and len(symbols) :
+						if not curNode.name in g_DontFollow :
+							curNode.AddEdge (curEdge, symbols, 0) # Todo: delay loaded
+						#print curNode.name, "=>", curEdge
+						symbols = []
+					curEdge = m.group(2)
+					# have to create the node, too
+					if not curEdge in deps.keys() :
+						deps[curEdge] = Node(curEdge, curNode.depth+1)
+			else :
+				m = rSym.match (s)
+				if m :
+					symbols.append (m.group(1))
+	# add the lost symbols found
+	if curNode and curEdge and len(symbols) :
+		curNode.AddEdge (curEdge, symbols, 0) # Todo: delay loaded
+		symbols = []
+
+	return deps
+
 def main () :
 	deps = {}
 	dllsToRemove = []
@@ -902,6 +979,10 @@ For more information read the source.
 				GetDepsWin32 (s, deps, nMaxDepth)
 			else :
 				GetDepsPosix (s, deps, nMaxDepth)
+		# with a bit dirty condition, try to populate from .dump
+		if len(deps.keys()) == 1 and len(components) == 1:
+			deps = ImportDump (components[0], deps)
+			RecalculateDepth (deps)
 
 	if len(dllsToRemove) :
 		Remove (deps, dllsToRemove)
