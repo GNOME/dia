@@ -17,7 +17,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=dia&keywords=I18N+L10N&component=general\n"
 "POT-Creation-Date: 2013-01-06 00:24+0000\n"
-"PO-Revision-Date: 2013-01-13 19:36+0100\n"
+"PO-Revision-Date: 2013-01-31 19:54+0100\n"
 "Last-Translator: Balázs Úr <urbalazs at gmail dot com>\n"
 "Language-Team: Hungarian <gnome at fsf dot hu>\n"
 "Language: \n"
@@ -5243,12 +5243,12 @@ msgstr "Képadatok tárolása a diagramban"
 
 #: ../objects/standard/image.c:123
 msgid "Pixbuf"
-msgstr "Kép"
+msgstr "Pixbuf"
 
 #: ../objects/standard/image.c:123
 #| msgid "Preferences"
 msgid "The Pixbuf reference"
-msgstr "A kép hivatkozása"
+msgstr "A Pixbuf hivatkozása"
 
 #: ../objects/standard/image.c:125
 msgid "Draw border"
@@ -6241,7 +6241,7 @@ msgid ""
 "Pixbuf[%s] can't load:\n"
 "%s"
 msgstr ""
-"A kép[%s] nem tölthető be:\n"
+"A Pixbuf[%s] nem tölthető be:\n"
 "%s"
 
 #: ../plug-ins/pixbuf/pixbuf.c:196
