@@ -1253,6 +1253,11 @@ ddisp_destroy(DDisplay *ddisp)
 
   ddisplay_im_context_preedit_reset(ddisp, get_active_focus((DiagramData *) ddisp->diagram));
 
+  if (GTK_WINDOW(ddisp->shell) == gtk_window_get_transient_for(GTK_WINDOW(interface_get_toolbox_shell()))) {
+    /* we have to break the connection otherwise the toolbox will be closed */
+    gtk_window_set_transient_for(GTK_WINDOW(interface_get_toolbox_shell()), NULL);
+  }
+
   /* This calls ddisplay_really_destroy */
   if (ddisp->is_standalone_window)
     gtk_widget_destroy (ddisp->shell);
@@ -1315,7 +1320,7 @@ ddisplay_close(DDisplay *ddisp)
   g_return_if_fail(ddisp != NULL);
 
   dia = ddisp->diagram;
-  
+
   if ( (g_slist_length(dia->displays) > 1) ||
        (!diagram_is_modified(dia)) ) {
     ddisp_destroy(ddisp);
