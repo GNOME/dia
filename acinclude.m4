@@ -201,12 +201,16 @@ AC_DEFUN([AM_CHECK_PYTHON_HEADERS],
 [AC_REQUIRE([AM_PATH_PYTHON])
 AC_MSG_CHECKING(for headers required to compile python extensions)
 dnl deduce PYTHON_INCLUDES
-py_prefix=`$PYTHON -c "import sys; print sys.prefix"`
-py_lib=`$PYTHON -c "from distutils import sysconfig; print sysconfig.get_python_lib(0,1)" | cut -d '/' -f 3`
-py_exec_prefix=`$PYTHON -c "import sys; print sys.exec_prefix"`
-PYTHON_INCLUDES="-I${py_prefix}/include/python${PYTHON_VERSION}"
-if test "$py_prefix" != "$py_exec_prefix"; then
-  PYTHON_INCLUDES="$PYTHON_INCLUDES -I${py_exec_prefix}/include/python${PYTHON_VERSION}"
+if command -v python-config >/dev/null 2>&1; then
+  PYTHON_INCLUDES="$PYTHON_INCLUDES $(python-config --includes)"
+else
+  py_prefix=`$PYTHON -c "import sys; print sys.prefix"`
+  py_lib=`$PYTHON -c "from distutils import sysconfig; print sysconfig.get_python_lib(0,1)" | cut -d '/' -f 3`
+  py_exec_prefix=`$PYTHON -c "import sys; print sys.exec_prefix"`
+  PYTHON_INCLUDES="-I${py_prefix}/include/python${PYTHON_VERSION}"
+  if test "$py_prefix" != "$py_exec_prefix"; then
+    PYTHON_INCLUDES="$PYTHON_INCLUDES -I${py_exec_prefix}/include/python${PYTHON_VERSION}"
+  fi
 fi
 AC_SUBST(PYTHON_INCLUDES)
 dnl check if the headers exist:
@@ -224,29 +228,33 @@ AC_DEFUN([AM_CHECK_PYTHON_LIB],
 [AC_REQUIRE([AM_PATH_PYTHON])
 AC_REQUIRE([AM_CHECK_PYTHON_HEADERS])
 
-AC_MSG_CHECKING(for libpython${PYTHON_VERSION}.a)
-
-py_config_dir="$py_prefix/$py_lib/python${PYTHON_VERSION}/config"
-
-py_makefile="${py_config_dir}/Makefile"
-if test -f "$py_makefile"; then
-dnl extra required libs
-  py_basemodlibs=`sed -n -e 's/^BASEMODLIBS=\(.*\)/\1/p' $py_makefile`
-  py_other_libs=`sed -n -e 's/^LIBS=\(.*\)/\1/p' $py_makefile`
-
-dnl now the actual libpython
-  if test -e "$PYTHON_PREFIX/${py_lib}/libpython${PYTHON_VERSION}.so"; then
-    PYTHON_LIBS="-L${py_config_dir} -lpython${PYTHON_VERSION} $py_basemodlibs $py_other_libs"
-    AC_MSG_RESULT(found)
-  elif test -e "${py_prefix}/${py_lib}/libpython${PYTHON_VERSION}.a"; then
-    dnl Same as above, but looking into the previous location: bug #581533
-    PYTHON_LIBS="-L${py_config_dir} -lpython${PYTHON_VERSION} $py_basemodlibs $py_other_libs"
-    AC_MSG_RESULT(found)
-  else
-    AC_MSG_RESULT(not found lib)
-  fi
+if command -v python-config >/dev/null 2>&1; then
+  PYTHON_LIBS=$(python-config --ldflags)
 else
-  AC_MSG_RESULT(not found config)
+  AC_MSG_CHECKING(for libpython${PYTHON_VERSION}.a)
+  
+  py_config_dir="$py_prefix/$py_lib/python${PYTHON_VERSION}/config"
+  
+  py_makefile="${py_config_dir}/Makefile"
+  if test -f "$py_makefile"; then
+  dnl extra required libs
+    py_basemodlibs=`sed -n -e 's/^BASEMODLIBS=\(.*\)/\1/p' $py_makefile`
+    py_other_libs=`sed -n -e 's/^LIBS=\(.*\)/\1/p' $py_makefile`
+  
+  dnl now the actual libpython
+    if test -e "$PYTHON_PREFIX/${py_lib}/libpython${PYTHON_VERSION}.so"; then
+      PYTHON_LIBS="-L${py_config_dir} -lpython${PYTHON_VERSION} $py_basemodlibs $py_other_libs"
+      AC_MSG_RESULT(found)
+    elif test -e "${py_prefix}/${py_lib}/libpython${PYTHON_VERSION}.a"; then
+      dnl Same as above, but looking into the previous location: bug #581533
+      PYTHON_LIBS="-L${py_config_dir} -lpython${PYTHON_VERSION} $py_basemodlibs $py_other_libs"
+      AC_MSG_RESULT(found)
+    else
+      AC_MSG_RESULT(not found lib)
+    fi
+  else
+    AC_MSG_RESULT(not found config)
+  fi
 fi
 AC_SUBST(PYTHON_LIBS)])
 
