@@ -247,7 +247,7 @@ ellipse_distance_from(Ellipse *ellipse, Point *point)
   c.x = elem->corner.x + elem->width / 2;
   c.y = elem->corner.y + elem->height/ 2;
 
-  return distance_ellipse_point (&c, elem->width / 2, elem->height/ 2,
+  return distance_ellipse_point (&c, elem->width, elem->height,
 				 ellipse->border_width, point);
 }
 
@@ -304,7 +304,7 @@ ellipse_move_handle(Ellipse *ellipse, Handle *handle,
   }
   ellipse_update_data(ellipse, horiz, vert);
 
-  if (width != ellipse->element.width && height != ellipse->element.height)
+  if (width != ellipse->element.width || height != ellipse->element.height)
     return element_change_new (&corner, width, height, &ellipse->element);
 
   return NULL;
@@ -394,9 +394,8 @@ ellipse_update_data(Ellipse *ellipse, AnchorShape horiz, AnchorShape vert)
   radius1 = ellipse_radius(ellipse, p.x, p.y) - ellipse->border_width/2;
   radius2 = distance_point_point(&c, &p);
   
-  if (   radius1 < radius2
-      && (   ellipse->text_fitting == TEXTFIT_ALWAYS
-          || ellipse->text_fitting == TEXTFIT_WHEN_NEEDED)) {
+  if (   (radius1 < radius2 && ellipse->text_fitting == TEXTFIT_WHEN_NEEDED)
+      || (ellipse->text_fitting == TEXTFIT_ALWAYS)) {
     /* increase size of the ellipse while keeping its aspect ratio */
     elem->width  *= radius2 / radius1;
     elem->height *= radius2 / radius1;
