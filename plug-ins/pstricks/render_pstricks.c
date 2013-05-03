@@ -807,7 +807,6 @@ draw_image(DiaRenderer *self,
     int v;
     int                 x, y;
     unsigned char      *ptr;
-    real ratio;
     guint8 *rgb_data;
     gdouble points_in_inch = POINTS_in_INCH;
     gchar points_in_inch_buf[DTOSTR_BUF_SIZE];
@@ -826,7 +825,6 @@ draw_image(DiaRenderer *self,
         dia_context_add_message(renderer->ctx, _("Not enough memory for image drawing."));
         return;
     }
-    ratio = height/width;
 
     fprintf(renderer->file, "\\pscustom{\\code{gsave\n");
     if (1) { /* Color output */
@@ -902,7 +900,6 @@ export_pstricks(DiagramData *data, DiaContext *ctx,
     PstricksRenderer *renderer;
     FILE *file;
     time_t time_now;
-    double scale;
     Rectangle *extent;
     const char *name;
     gchar el_buf[DTOSTR_BUF_SIZE];
@@ -934,8 +931,6 @@ export_pstricks(DiagramData *data, DiaContext *ctx,
   
     time_now  = time(NULL);
     extent = &data->extents;
-  
-    scale = POINTS_in_INCH * data->paper.scaling;
   
     name = g_get_user_name();
   

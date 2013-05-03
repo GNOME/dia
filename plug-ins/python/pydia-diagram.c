@@ -29,6 +29,7 @@
 #include "pydia-cpoint.h"
 #include "pydia-geometry.h"
 #include "pydia-color.h"
+#include "pydia-error.h"
 
 #include <structmember.h> /* PyMemberDef */
 
@@ -366,7 +367,7 @@ PyDiaDiagram_CallbackRemoved(Diagram *dia,void *user_data)
     arg = Py_BuildValue ("(O)", diaobj);
     if (arg) {
       res = PyEval_CallObject (func, arg);
-      /*ON_RES(res, TRUE);*/
+      ON_RES(res, FALSE);
     }
     Py_XDECREF (arg);
 
@@ -412,7 +413,7 @@ PyDiaDiagram_CallbackSelectionChanged(Diagram *dia,int sel,void *user_data)
     arg = Py_BuildValue ("(Oi)", dgm,sel);
     if (arg) {
       res = PyEval_CallObject (func, arg);
-      /*ON_RES(res, TRUE);*/
+      ON_RES(res, FALSE);
     }
     Py_XDECREF (arg);
 

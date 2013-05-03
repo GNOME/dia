@@ -283,9 +283,9 @@ lifeline_move_handle(Lifeline *lifeline, Handle *handle,
     dy = to->y - conn->endpoints[0].y;
     if (dy > lifeline_rect_size(lifeline)) {
       real dist = dy - lifeline->rbot;
-      real di, df;
+      real di;
       
-      df = modf (dist, &di);
+      modf (dist, &di);
       /* the integer part gives the number of points to add or remove */
       if (fabs (di) > 0) {
         int ni = (int)di;
@@ -741,10 +741,8 @@ lifeline_update_data(Lifeline *lifeline)
 static DiaObject *
 lifeline_load(ObjectNode obj_node, int version,DiaContext *ctx)
 {
-  Lifeline *lifeline;
   DiaObject *obj = object_load_using_properties(&lifeline_type,
                                                 obj_node,version,ctx);
 
-  lifeline = (Lifeline*)obj;
   return obj;
 }

@@ -27,6 +27,7 @@
 #include "pydia-layer.h"
 #include "pydia-color.h"
 #include "pydia-paperinfo.h"
+#include "pydia-error.h"
 
 #include <structmember.h> /* PyMemberDef */
 
@@ -237,7 +238,7 @@ PyDiaDiagramData_CallbackObject(DiagramData *dia,Layer *layer,DiaObject *obj,voi
     arg = Py_BuildValue ("(OOO)", pydata,pylayer,pyobj);
     if (arg) {
       res = PyEval_CallObject (func, arg);
-      /*ON_RES(res, TRUE);*/
+      ON_RES(res, FALSE);
     }
     
     /* Cleanup */

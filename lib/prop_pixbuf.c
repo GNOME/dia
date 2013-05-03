@@ -174,11 +174,9 @@ _pixbuf_encode (const gchar *buf,
 		gpointer data)
 {
   EncodeData *ed = data;
-  guint old_len;
   gsize growth = (count / 3 + 1) * 4 + 4 + ((count / 3 + 1) * 4 + 4) / 72 + 1;
   gchar *out;
 
-  old_len = ed->array->len;
   g_byte_array_set_size (ed->array, ed->size + growth);
   out = (gchar *)&ed->array->data[ed->size];
   ed->size += g_base64_encode_step ((guchar *)buf, count, TRUE, 

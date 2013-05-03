@@ -5193,3 +5193,4 @@ vdx_write_object(FILE *file, unsigned int depth, const void *p)
     if (Any->type != vdx_types_text)
         fprintf(file, "%s</%s>\n", pad, vdx_Types[(int)Any->type]);
 }
+

@@ -343,7 +343,7 @@ _arc (DiaRenderer *self,
 {
   DiaPathRenderer *renderer = DIA_PATH_RENDERER (self);
   GArray *path = _get_current_path (renderer, stroke, fill);
-  Point start, end;
+  Point start;
   real radius = sqrt(width * height) / 2.0;
   real ar1 = (M_PI / 180.0) * angle1;
   real ar2 = (M_PI / 180.0) * angle2;
@@ -357,8 +357,6 @@ _arc (DiaRenderer *self,
   /* move to start point */
   start.x = center->x + (width / 2.0)  * cos(ar1);  
   start.y = center->y - (height / 2.0) * sin(ar1);
-  end.x = center->x + (width / 2.0)  * cos(ar2);  
-  end.y = center->y - (height / 2.0) * sin(ar2);
   /* Dia and Cairo don't agree on arc definitions, so it needs
    * to be converted, i.e. mirrored at the x axis
    */

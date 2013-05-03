@@ -1318,7 +1318,6 @@ draw_arc_with_arrows (DiaRenderer *renderer,
   Point start_arrow_end;
   Point end_arrow_head;
   Point end_arrow_end;
-  gboolean clockwise; /* calculated from angles */
 
   if (!find_center_point(&center, startpoint, endpoint, midpoint)) {
     /* Degenerate circle -- should have been caught by the drawer? */
@@ -1336,7 +1335,6 @@ draw_arc_with_arrows (DiaRenderer *renderer,
     angle1 = angle2;
     angle2 = tmp;
   }
-  clockwise = (angle2 > angle1);
 
   width = 2*distance_point_point(&center, startpoint);
 

@@ -66,10 +66,6 @@ static guint dss_signals[DSS_LAST_SIGNAL] = { 0 };
 static void
 dia_size_selector_class_init (DiaSizeSelectorClass *class)
 {
-  GtkWidgetClass *widget_class;
-  
-  widget_class = (GtkWidgetClass*) class;
-
   dss_signals[DSS_VALUE_CHANGED]
       = g_signal_new("value-changed",
 		     G_TYPE_FROM_CLASS(class),

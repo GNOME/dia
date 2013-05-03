@@ -1023,7 +1023,6 @@ draw_string(DiaRenderer *renderer,
 	    Color *colour)
 {
   PyObject *func, *res, *arg, *self = PYDIA_RENDERER (renderer);
-  int len;
 
   switch (alignment) {
   case ALIGN_LEFT:
@@ -1033,8 +1032,6 @@ draw_string(DiaRenderer *renderer,
   case ALIGN_RIGHT:
     break;
   }
-  /* work out size of first chunk of text */
-  len = strlen(text);
 
   func = PyObject_GetAttrString (self, "draw_string");
   if (func && PyCallable_Check(func)) {

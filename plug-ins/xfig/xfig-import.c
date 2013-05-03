@@ -843,7 +843,6 @@ fig_read_arc(FILE *file, DiaContext *ctx)
     int x1, y1;
     int x2, y2;
     int x3, y3;
-    real radius;
     char* old_locale;
     Point p2, pm;
     real distance;
@@ -879,7 +878,6 @@ fig_read_arc(FILE *file, DiaContext *ctx)
 	backward_arrow_info = fig_read_arrow(file, ctx);
     }
 
-    radius = sqrt((x1-center_x)*(x1-center_x)+(y1-center_y)*(y1-center_y))/FIG_UNIT;
     p2.x = x2/FIG_UNIT; p2.y = y2/FIG_UNIT;
     pm.x = (x1+x3)/(2*FIG_UNIT); pm.y = (y1+y3)/(2*FIG_UNIT);
     distance = distance_point_point (&p2, &pm);

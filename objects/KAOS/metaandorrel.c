@@ -420,7 +420,7 @@ static void
 maor_draw(Maor *maor, DiaRenderer *renderer)
 {
   DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
-  Point *endpoints, p1, p2, pm;
+  Point *endpoints, p1, p2;
   Arrow arrow;
   BezPoint bpl[6];
   Point pl[7];
@@ -440,8 +440,6 @@ maor_draw(Maor *maor, DiaRenderer *renderer)
   /* some computations */
   p1 = endpoints[0];     /* could reverse direction here */
   p2 = endpoints[1];
-  pm.x=(p1.x+p2.x)/2;
-  pm.y=(p1.y+p2.y)/2;
 
   /** drawing directed line **/
   renderer_ops->set_linewidth(renderer, MAOR_WIDTH);

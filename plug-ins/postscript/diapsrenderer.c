@@ -703,7 +703,6 @@ draw_image(DiaRenderer *self,
   DiaPsRenderer *renderer = DIA_PS_RENDERER(self);
   int img_width, img_height, img_rowstride;
   int x, y;
-  real ratio;
   guint8 *rgb_data;
   guint8 *mask_data;
   gchar d1_buf[DTOSTR_BUF_SIZE];
@@ -719,8 +718,6 @@ draw_image(DiaRenderer *self,
     return;
   }
   mask_data = dia_image_mask_data(image);
-
-  ratio = height/width;
 
   fprintf(renderer->file, "gs\n");
 

@@ -219,7 +219,6 @@ void postscript_draw_contour(DiaPsRenderer *renderer,
     PangoAnalysis *analysis = &item->analysis;
     PangoFont *font = analysis->font;
     FT_Face ft_face;
-    int bidi_level;
     int num_glyphs;
     int glyph_idx;
 
@@ -242,7 +241,6 @@ void postscript_draw_contour(DiaPsRenderer *renderer,
       dia_font_get_family(renderer->current_font));
     */
 
-    bidi_level = item->analysis.level;
     num_glyphs = glyphs->num_glyphs;
       
     for (glyph_idx=0; glyph_idx<num_glyphs; glyph_idx++)

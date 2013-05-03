@@ -248,7 +248,6 @@ static void
 fill_sheet_wbox(Sheet *sheet)
 {
   int rows;
-  GtkStyle *style;
   GSList *tmp;
   GtkWidget *first_button = NULL;
 
@@ -264,7 +263,6 @@ fill_sheet_wbox(Sheet *sheet)
   if (rows<1) rows = 1;
   gtk_wrap_box_set_aspect_ratio(GTK_WRAP_BOX(sheet_wbox),
 				COLUMNS * 1.0 / rows);
-  style = gtk_widget_get_style(sheet_wbox);
   for (tmp = sheet->objects; tmp != NULL; tmp = tmp->next) {
     SheetObject *sheet_obj = tmp->data;
     GdkPixbuf *pixbuf = NULL;

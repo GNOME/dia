@@ -841,7 +841,6 @@ data_render_paginated (DiagramData *data, DiaRenderer *renderer, gpointer user_d
   gdouble width, height;
   gdouble x, y, initx, inity;
   gint xpos, ypos;
-  guint nobjs = 0;
 
   /* the usable area of the page */
   width = data->paper.width;

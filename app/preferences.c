@@ -750,11 +750,13 @@ prefs_update_dialog_from_prefs(void)
 static void
 update_internal_prefs(DiaPrefData *pref, gpointer ptr)
 {
+#if 0
   char *val = NULL;
   
   if (!ptr)
     return;
   val = *(char **)ptr;
+#endif
   if (prefs.length_unit)
     prefs_set_length_unit(prefs.length_unit);
   if (prefs.fontsize_unit)

@@ -94,25 +94,33 @@ static void
 dia_line_style_selector_init (DiaLineStyleSelector *fs)
 {
   GtkWidget *menu;
-  GtkWidget *submenu;
   GtkWidget *menuitem, *ln;
   GtkWidget *label;
   GtkWidget *length;
   GtkWidget *box;
-  GSList *group;
   GtkAdjustment *adj;
   gint i;
-  
+  static const gchar *_line_style_names[LINESTYLE_DOTTED+1];
+  static gboolean once = FALSE;
+
+  if (!once) {
+    _line_style_names[LINESTYLE_SOLID]        = Q_("line|Solid");
+    _line_style_names[LINESTYLE_DASHED]       = Q_("line|Dashed");
+    _line_style_names[LINESTYLE_DASH_DOT]     = Q_("line|Dash-Dot");
+    _line_style_names[LINESTYLE_DASH_DOT_DOT] = Q_("line|Dash-Dot-Dot");
+    _line_style_names[LINESTYLE_DOTTED]       = Q_("line|Dotted");
+    once = TRUE;
+  }
+
   menu = gtk_option_menu_new();
   fs->omenu = GTK_OPTION_MENU(menu);
 
   menu = gtk_menu_new ();
   fs->linestyle_menu = GTK_MENU(menu);
-  submenu = NULL;
-  group = NULL;
 
   for (i = 0; i <= LINESTYLE_DOTTED; i++) {
     menuitem = gtk_menu_item_new();
+    gtk_widget_set_tooltip_text(menuitem, _line_style_names[i]);
     g_object_set_data(G_OBJECT(menuitem), "user_data", GINT_TO_POINTER(i));
     ln = dia_line_preview_new(i);
     gtk_container_add(GTK_CONTAINER(menuitem), ln);
@@ -120,37 +128,6 @@ dia_line_style_selector_init (DiaLineStyleSelector *fs)
     gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
     gtk_widget_show(menuitem);
   }
-#if 0
-  menuitem = gtk_radio_menu_item_new_with_label (group, Q_("line|Solid"));
-  g_object_set_data(G_OBJECT(menuitem), "user_data", GINT_TO_POINTER(LINESTYLE_SOLID));
-  group = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM (menuitem));
-  gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
-  gtk_widget_show (menuitem);
-
-  menuitem = gtk_radio_menu_item_new_with_label (group, Q_("line|Dashed"));
-  g_object_set_data(G_OBJECT(menuitem), "user_data", GINT_TO_POINTER(LINESTYLE_DASHED));
-  group = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM (menuitem));
-  gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
-  gtk_widget_show (menuitem);
-
-  menuitem = gtk_radio_menu_item_new_with_label (group, Q_("line|Dash-Dot"));
-  g_object_set_data(G_OBJECT(menuitem), "user_data", GINT_TO_POINTER(LINESTYLE_DASH_DOT));
-  group = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM (menuitem));
-  gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
-  gtk_widget_show (menuitem);
-
-  menuitem = gtk_radio_menu_item_new_with_label (group, Q_("line|Dash-Dot-Dot"));
-  g_object_set_data(G_OBJECT(menuitem), "user_data", GINT_TO_POINTER(LINESTYLE_DASH_DOT_DOT));
-  group = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM (menuitem));
-  gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
-  gtk_widget_show (menuitem);
-  
-  menuitem = gtk_radio_menu_item_new_with_label (group, Q_("line|Dotted"));
-  g_object_set_data(G_OBJECT(menuitem), "user_data", GINT_TO_POINTER(LINESTYLE_DOTTED));
-  group = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM (menuitem));
-  gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
-  gtk_widget_show (menuitem);
-#endif
   
   gtk_menu_set_active(GTK_MENU (menu), DEFAULT_LINESTYLE);
   gtk_option_menu_set_menu (GTK_OPTION_MENU (fs->omenu), menu);

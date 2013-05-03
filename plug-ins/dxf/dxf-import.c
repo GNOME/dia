@@ -1039,7 +1039,7 @@ read_entitiy_lengthunit_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
          * 4 = Architectural; 5 = Fractional; 6 = Windows desktop 
 	 */
 	e = atoi(data->value);
-	g_message("LengthUnit: %f", coord_scale );
+	g_message("LengthUnit: %f:%f", e, coord_scale );
 	break;
       
       default:

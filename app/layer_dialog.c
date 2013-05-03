@@ -229,7 +229,6 @@ layer_list_events (GtkWidget *widget,
 		   GdkEvent  *event)
 {
   GdkEventKey *kevent;
-  GdkEventButton *bevent;
   GtkWidget *event_widget;
   DiaLayerWidget *layer_widget;
 
@@ -239,12 +238,7 @@ layer_list_events (GtkWidget *widget,
     layer_widget = DIA_LAYER_WIDGET(event_widget);
 
     switch (event->type) {
-    case GDK_BUTTON_PRESS:
-      bevent = (GdkEventButton *) event;
-      break;
-
     case GDK_2BUTTON_PRESS:
-      bevent = (GdkEventButton *) event;
       layer_dialog_edit_layer(layer_widget, NULL, NULL);
       return TRUE;
 
@@ -853,7 +847,6 @@ dia_layer_widget_unrealize(GtkWidget *widget)
 static void
 dia_layer_widget_class_init(DiaLayerWidgetClass *klass)
 {
-  GObjectClass *object_class = G_OBJECT_CLASS (klass);
   GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
   widget_class->unrealize = dia_layer_widget_unrealize;
