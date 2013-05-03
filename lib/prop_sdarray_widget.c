@@ -78,13 +78,13 @@ _cell_renderer_real_new (const Property *p)
   const RealProperty *prop = (RealProperty *)p;
   GtkCellRenderer *cren = gtk_cell_renderer_spin_new ();
   PropNumData *numdata = prop->common.descr->extra_data;
-  GtkAdjustment *adj;
+  GtkWidget *adj;
 
   /* must be non NULL to make it editable */
-  adj = gtk_adjustment_new (prop->real_data,
+  adj = GTK_WIDGET (gtk_adjustment_new (prop->real_data,
 			    numdata->min, numdata->max,
 			    numdata->step, 
-			    10.0 * numdata->step, 0);
+			    10.0 * numdata->step, 0));
 
   g_object_set (G_OBJECT (cren), "adjustment", adj, NULL);
 
