@@ -89,7 +89,6 @@ static void line_update_data(Line *line);
 static void line_destroy(Line *line);
 static DiaObject *line_copy(Line *line);
 
-static PropDescription *line_describe_props(Line *line);
 static void line_set_props(Line *line, GPtrArray *props);
 
 static void line_save(Line *line, ObjectNode obj_node, const char *filename);

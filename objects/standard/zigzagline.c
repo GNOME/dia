@@ -76,7 +76,6 @@ static DiaObject *zigzagline_copy(Zigzagline *zigzagline);
 static DiaMenu *zigzagline_get_object_menu(Zigzagline *zigzagline,
 					   Point *clickedpoint);
 
-static void zigzagline_get_props(Zigzagline *zigzagline, GPtrArray *props);
 static void zigzagline_set_props(Zigzagline *zigzagline, GPtrArray *props);
 
 static void zigzagline_save(Zigzagline *zigzagline, ObjectNode obj_node,

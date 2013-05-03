@@ -86,7 +86,6 @@ static DiaObject *ellipse_create(Point *startpoint,
 static void ellipse_destroy(Ellipse *ellipse);
 static DiaObject *ellipse_copy(Ellipse *ellipse);
 
-static void ellipse_get_props(Ellipse *ellipse, GPtrArray *props);
 static void ellipse_set_props(Ellipse *ellipse, GPtrArray *props);
 
 static void ellipse_save(Ellipse *ellipse, ObjectNode obj_node, const char *filename);

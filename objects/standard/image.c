@@ -97,7 +97,6 @@ static DiaObject *image_create(Point *startpoint,
 static void image_destroy(Image *image);
 static DiaObject *image_copy(Image *image);
 
-static PropDescription *image_describe_props(Image *image);
 static void image_get_props(Image *image, GPtrArray *props);
 static void image_set_props(Image *image, GPtrArray *props);
 
