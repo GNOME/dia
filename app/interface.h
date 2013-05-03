@@ -26,9 +26,6 @@
 #define  DIA_MAIN_WINDOW   "dia-main-window"
 #define  DIA_MAIN_NOTEBOOK "dia-main-notebook"
 
-/* Distributed UI Constants */
-#define  DIA_TOOLBOX       "dia-toolbox"
-
 void create_integrated_ui (void);
 
 gboolean integrated_ui_toolbar_is_showing (void);

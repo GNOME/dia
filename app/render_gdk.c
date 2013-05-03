@@ -73,6 +73,7 @@ struct _DiaGdkInteractiveRendererClass
 {
   DiaGdkRendererClass parent_class; /*!< the base class */
 };
+static GType dia_gdk_interactive_renderer_get_type (void);
 #define DIA_TYPE_GDK_INTERACTIVE_RENDERER           (dia_gdk_interactive_renderer_get_type ())
 #define DIA_GDK_INTERACTIVE_RENDERER(obj) (G_TYPE_CHECK_INSTANCE_CAST ((obj), DIA_TYPE_GDK_INTERACTIVE_RENDERER, DiaGdkInteractiveRenderer))
 

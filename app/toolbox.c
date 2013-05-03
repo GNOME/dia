@@ -415,7 +415,7 @@ fill_sheet_menu(void)
   g_free(selection);
 }
 
-void
+static void
 create_sheets(GtkWidget *parent)
 {
   GtkWidget *separator;

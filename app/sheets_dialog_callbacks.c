@@ -61,7 +61,7 @@
 #include "plug-ins.h"
 #include "object.h"
 
-#include "interface.h"
+#include "toolbox.h"
 #include "message.h"
 #include "sheets.h"
 #include "sheets_dialog_callbacks.h"

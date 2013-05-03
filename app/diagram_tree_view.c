@@ -543,7 +543,7 @@ _dtv_init (DiagramTreeView *dtv)
   _dtv_create_popup_menu (dtv);
 }
 
-GtkWidget *
+static GtkWidget *
 diagram_tree_view_new (void)
 {
   return g_object_new (DIAGRAM_TREE_VIEW_TYPE, NULL);

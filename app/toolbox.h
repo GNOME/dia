@@ -31,3 +31,5 @@ GdkPixbuf *tool_get_pixbuf (ToolButton *tb);
 void toolbox_setup_drag_dest (GtkWidget *canvas);
 GtkWidget *toolbox_create(void);
 
+void fill_sheet_menu(void);
+

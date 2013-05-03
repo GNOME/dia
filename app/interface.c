@@ -1163,22 +1163,6 @@ integrated_ui_layer_view_show (gboolean show)
   }
 }
 
-/* Indicate if the integrated UI statusbar is showing.
- * @return TRUE if showing, FALSE if not showing or doesn't exist 
- */ 
-gboolean integrated_ui_statusbar_is_showing (void)
-{
-  if (ui.statusbar)
-  {
-#if GTK_CHECK_VERSION(2,20,0)
-    return gtk_widget_get_visible (GTK_WIDGET (ui.statusbar))? TRUE : FALSE;
-#else
-    return GTK_WIDGET_VISIBLE (ui.statusbar)? TRUE : FALSE;
-#endif
-  }
-  return FALSE;
-}
-
 /* show() integrated UI main statusbar and set pulldown menu action. */
 void 
 integrated_ui_statusbar_show (gboolean show)
