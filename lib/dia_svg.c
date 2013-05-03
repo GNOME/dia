@@ -531,7 +531,7 @@ dia_svg_parse_style(xmlNodePtr node, DiaSvgStyle *s, real user_scale)
   }
   str = xmlGetProp(node, (const xmlChar *)"stroke-dasharray");
   if (str) {
-    _parse_dasharray (s, user_scale, str, NULL);
+    _parse_dasharray (s, user_scale, (gchar *)str, NULL);
     xmlFree(str);
   }
   /* text-props, again ;( */

@@ -241,11 +241,10 @@ on_button_navigation_popup_pressed (GtkButton * button, gpointer _ddisp)
                               GDK_LINE_SOLID, GDK_CAP_BUTT, GDK_JOIN_MITER);
 
   /*cursor*/
-  if(MIN(nav->frame_h, nav->frame_w) > STD_CURSOR_MIN){
+  if (MIN(nav->frame_h, nav->frame_w) > STD_CURSOR_MIN) {
     nav->cursor = gdk_cursor_new (GDK_FLEUR);
-  }
-  else{/*the miniframe is very small, so we use a minimalist cursor*/
-    unsigned char cursor_none_data[] = { 0x00 };
+  } else { /*the miniframe is very small, so we use a minimalist cursor*/
+    gchar cursor_none_data[] = { 0x00 };
     GdkBitmap * bitmap;
     GdkColor fg = { 0, 65535, 65535, 65535};
     GdkColor bg = { 0, 0, 0, 0 };

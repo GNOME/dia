@@ -108,8 +108,8 @@ _custom_zigzagline_load (ObjectNode obj_node, int version, DiaContext *ctx, DiaO
   LineInfo *line_info;
   xmlChar *typestr;
 
-  typestr = (char *) xmlGetProp(obj_node, (const xmlChar *)"type");
-  ot = object_get_type (typestr);
+  typestr = xmlGetProp(obj_node, (const xmlChar *)"type");
+  ot = object_get_type ((gchar *)typestr);
   line_info = ot->default_user_data;
 
   if (typestr)

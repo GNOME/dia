@@ -67,7 +67,7 @@ pixbufprop_copy(PixbufProperty *src)
  * @param b64 Base64 encoded data
  */
 GdkPixbuf *
-pixbuf_decode_base64 (const char *b64)
+pixbuf_decode_base64 (const gchar *b64)
 {
   /* see lib/prop_pixbuf.c(data_pixbuf) for a very similiar implementation */
   GdkPixbuf *pixbuf = NULL;
@@ -208,7 +208,7 @@ pixbuf_encode_base64 (const GdkPixbuf *pixbuf)
 				    &ed.state, &ed.save);
   ed.array->data[ed.size] = '\0';
 
-  return g_byte_array_free (ed.array, FALSE);
+  return (gchar *)g_byte_array_free (ed.array, FALSE);
 }
 void
 data_add_pixbuf (AttributeNode attr, GdkPixbuf *pixbuf)

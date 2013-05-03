@@ -43,6 +43,6 @@ typedef struct {
 void prop_pixbuftypes_register(void);
 
 gchar *pixbuf_encode_base64 (const GdkPixbuf *);
-GdkPixbuf *pixbuf_decode_base64 (const char *b64);
+GdkPixbuf *pixbuf_decode_base64 (const gchar *b64);
 
 #endif /* PROP_PIXBUF_H */

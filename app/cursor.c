@@ -31,7 +31,7 @@ static struct {
   /* Can't use a union because it can't be statically initialized
      (except for the first element) */
   int gdk_cursor_number;
-  const gchar *data;
+  const guint8 *data;
   int hot_x;
   int hot_y;
   GdkCursor *cursor;
@@ -68,7 +68,7 @@ static struct {
 
 
 static GdkCursor *create_cursor(GdkWindow *window,
-				const gchar *data, 
+				const guint8 *data, 
 				int hot_x, int hot_y);
 
 GdkCursor *
@@ -97,7 +97,7 @@ get_cursor(DiaCursorType ctype) {
 
 GdkCursor *
 create_cursor(GdkWindow *window,
-	      const gchar *data,
+	      const guint8 *data,
 	      int hot_x, int hot_y)
 {
   GdkPixbuf *pixbuf;

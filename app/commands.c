@@ -484,7 +484,7 @@ _clipboard_get_data_callback (GtkClipboard     *clipboard,
 	  if (fread (buf, 1, st.st_size, f) == st.st_size)
 	    gtk_selection_data_set (selection_data,
 	                            gdk_atom_intern_static_string (target_entries[info-1].target), 8,
-	                            buf, st.st_size);
+	                            (guint8 *)buf, st.st_size);
 	}
 	g_free (buf);
 	fclose (f);

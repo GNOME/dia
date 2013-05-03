@@ -1059,7 +1059,7 @@ read_items (xmlNodePtr   startnode,
       g_free (group_gs);
       g_free (matrix);
     } else if (!xmlStrcmp(node->name, (const xmlChar *)"symbol")) {
-      /* ignore ‘viewBox’ and ‘preserveAspectRatio’ */
+      /* ignore 'viewBox' and 'preserveAspectRatio' */
       GList *moreitems = read_items (node->xmlChildrenNode, parent_gs, defs_ht, filename_svg, ctx);
 
       /* only one object or create a group */
@@ -1203,7 +1203,7 @@ _parse_shape_cp (xmlNodePtr node, real *x, real *y, gboolean *mcp)
   if (sx && sy) {
     *x = g_ascii_strtod ((const char *)sx, NULL);
     *y = g_ascii_strtod ((const char *)sy, NULL);
-    *mcp = (sm ? strcmp (sm, "yes") == 0 : FALSE);
+    *mcp = (sm ? strcmp ((const char *)sm, "yes") == 0 : FALSE);
     return TRUE;
   }
   if (sx) xmlFree (sx);
@@ -1272,7 +1272,7 @@ gboolean
 import_memory_svg (const guchar *p, guint size, DiagramData *dia,
 		   DiaContext *ctx, void *user_data)
 {
-  xmlDocPtr doc = xmlParseMemory (p, size);
+  xmlDocPtr doc = xmlParseMemory ((const char *)p, size);
 
   if (!doc) {
     xmlErrorPtr err = xmlGetLastError ();

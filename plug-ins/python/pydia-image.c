@@ -107,18 +107,18 @@ PyDiaImage_GetAttr(PyDiaImage *self, gchar *attr)
 
     if (!s)
       return PyErr_NoMemory();
-    py_s = PyString_FromStringAndSize(s, len);
+    py_s = PyString_FromStringAndSize((const char *)s, len);
     g_free (s);
     return py_s;
   }
   else if (!strcmp(attr, "mask_data")) {
-    char* s = dia_image_mask_data(self->image);
+    unsigned char* s = dia_image_mask_data(self->image);
     int len = dia_image_width(self->image) * dia_image_height(self->image);
     PyObject* py_s;
 
     if (!s)
       return PyErr_NoMemory();
-    py_s = PyString_FromStringAndSize(s, len);
+    py_s = PyString_FromStringAndSize((const char *)s, len);
     g_free (s);
     return py_s;
   }
