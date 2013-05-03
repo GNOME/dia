@@ -53,6 +53,7 @@ struct _DiaContextClass
 
 /* The use of GObject is intentionally hidden from the API */
 static void _dia_context_finalize   (GObject *object);
+static GType _dia_context_get_type (void);
 
 G_DEFINE_TYPE (DiaContext, _dia_context, DIA_TYPE_CONTEXT);
 static gpointer parent_class = NULL;

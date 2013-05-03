@@ -45,6 +45,7 @@
 #include "lib/parent.h"
 #include "dia_dirs.h"
 #include "object.h"
+#include "disp_callbacks.h"
 
 typedef struct {
 	GdkEvent *event; /* Button down event which may be holding */

@@ -1268,7 +1268,7 @@ import_shape_info (xmlNodePtr start_node, DiagramData *dia, DiaContext *ctx)
   return TRUE;
 }
 
-gboolean
+static gboolean
 import_memory_svg (const guchar *p, guint size, DiagramData *dia,
 		   DiaContext *ctx, void *user_data)
 {
@@ -1284,7 +1284,7 @@ import_memory_svg (const guchar *p, guint size, DiagramData *dia,
 }
 
 /* imports the given SVG file, returns TRUE if successful */
-gboolean
+static gboolean
 import_file_svg(const gchar *filename, DiagramData *dia, DiaContext *ctx, void* user_data) 
 {
   xmlDocPtr doc = xmlDoParseFile(filename);

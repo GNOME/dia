@@ -60,6 +60,7 @@
 #include "properties.h"
 #include "propinternals.h"
 #include "diacellrendererenum.h"
+#include "prop_sdarray_widget.h"
 
 /** A small wrapper to connect to the model */
 static GtkCellRenderer *
