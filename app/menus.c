@@ -1249,6 +1249,11 @@ plugin_callback (GtkWidget *widget, gpointer data)
 {
   DiaCallbackFilter *cbf = data;
 
+  /* check if the callback filter is still available */
+  if (!g_list_find (filter_get_callbacks (), cbf)) {
+    message_error (_("The function is not available anymore."));
+    return;
+  }
   /* and finally invoke it */
   if (cbf->callback) {
     DDisplay *ddisp = NULL;
@@ -1280,3 +1285,4 @@ plugin_callback (GtkWidget *widget, gpointer data)
     }
   }
 }
+

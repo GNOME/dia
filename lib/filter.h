@@ -125,6 +125,7 @@ DiaImportFilter *filter_guess_import_filter(const gchar *filename);
 DiaImportFilter *filter_import_get_by_name(const gchar *name);
 
 void filter_register_callback(DiaCallbackFilter *cbfilter);
+void filter_unregister_callback(DiaCallbackFilter *cbfilter);
 /* returns all registered callbacks */
 GList *filter_get_callbacks(void);
 

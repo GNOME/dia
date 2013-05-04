@@ -440,6 +440,7 @@ EXPORTS
  filter_register_callback
  filter_register_export
  filter_register_import
+ filter_unregister_callback
  filter_unregister_export
  filter_unregister_import
 

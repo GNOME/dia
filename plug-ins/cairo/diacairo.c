@@ -523,9 +523,9 @@ _plugin_unload (PluginInfo *info)
 #if DIA_CAIRO_CAN_EMF
   filter_unregister_export(&emf_export_filter);
   filter_unregister_export(&wmf_export_filter);
-  /* filter_unregister_callback (&cb_clipboard); */
+  filter_unregister_callback (&cb_clipboard);
 #endif
-  /* filter_unregister_callback (&cb_gtk_print); */
+  filter_unregister_callback (&cb_gtk_print);
 }
 
 /* --- dia plug-in interface --- */

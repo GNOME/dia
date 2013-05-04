@@ -304,9 +304,23 @@ filter_register_callback(DiaCallbackFilter *cbfilter)
   callback_filters = g_list_append (callback_filters, (gpointer)cbfilter);
 }
 
+void
+filter_unregister_callback(DiaCallbackFilter *cbfilter)
+{
+  /* Unregistering a callback filter should remove it from the menu, too.
+   * But that would involve quite some additional code, maybe some
+   * notification to update menus ...
+   * We take the easy approach to let the caller check if the callback
+   * is still valid, i.e. the filter still exists.
+   */
+  callback_filters = g_list_remove (callback_filters, cbfilter);
+}
+
+
 /* return the registered callbacks list, called once to build menus */
 GList *
 filter_get_callbacks(void)
 {
   return g_list_first (callback_filters);
 }
+
