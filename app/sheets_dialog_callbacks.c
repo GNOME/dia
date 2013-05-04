@@ -680,7 +680,6 @@ void
 on_sheets_dialog_button_new_clicked    (GtkButton       *button,
                                         gpointer         user_data)
 {
-  GtkWidget *combo;
   GtkWidget *wrapbox;
   GList *button_list;
   GtkWidget *active_button;

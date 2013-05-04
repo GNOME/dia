@@ -185,7 +185,6 @@ GtkWidget*
 create_sheets_edit_dialog (void)
 {
   GtkWidget *sheets_edit_dialog;
-  GtkWidget *pixmap_object;
   GtkBuilder *builder;
 
   builder = builder_new_from_file ("ui/sheets-edit-dialog.xml");
@@ -218,7 +217,6 @@ GtkWidget*
 create_sheets_remove_dialog (void)
 {
   GtkWidget *sheets_remove_dialog;
-  GtkWidget *pixmap_object;
   GtkBuilder *builder;
 
   builder = builder_new_from_file ("ui/sheets-remove-dialog.xml");

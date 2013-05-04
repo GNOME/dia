@@ -575,8 +575,6 @@ ddisplay_canvas_events (GtkWidget *canvas,
   Point middle;
   int return_val;
   int key_handled;
-  int width, height;
-  int new_size;
   int im_context_used;
   static gboolean moving = FALSE;
   

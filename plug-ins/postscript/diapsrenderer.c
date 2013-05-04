@@ -266,8 +266,6 @@ set_dashlength(DiaRenderer *self, real length)
 static void
 set_fillstyle(DiaRenderer *self, FillStyle mode)
 {
-  DiaPsRenderer *renderer = DIA_PS_RENDERER(self);
-
   switch(mode) {
   case FILLSTYLE_SOLID:
     break;

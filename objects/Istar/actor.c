@@ -188,7 +188,6 @@ actor_distance_from(Actor *actor, Point *point)
 {
   Element *elem = &actor->element;
   Point c;
-  real dist, rad;
 
   c.x = elem->corner.x + elem->width / 2;
   c.y = elem->corner.y + elem->height/ 2;

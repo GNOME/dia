@@ -327,7 +327,6 @@ point_projection_is_between (const Point *c,
 			     const Point *b)
 {
   real len = distance_point_point (a, b);
-  real r;
 
   if (len > 0) {
     real r = ((a->y - c->y) * (a->y - b->y) - (a->x - c->x) * (b->x - a->x)) / (len * len);
@@ -535,12 +534,12 @@ calculate_arc_object_edge(Arc *arc, real ang_start, real ang_end, DiaObject *obj
   mid2 = get_middle_arc_angle(ang_start, ang_end, clockwiseness);
   mid3 = ang_end;
 
-  TRACE(printf("Find middle angle between %f° and  %f°\n",ang_start,ang_end));
+  TRACE(printf("Find middle angle between %fÂ° and  %fÂ°\n",ang_start,ang_end));
   /* If the other end is inside the object */
   arc_get_point_at_angle(arc,target,mid1);
   dist = obj->ops->distance_from(obj, target );
   if (dist < 0.001){
-          TRACE(printf("Point at %f°: %f,%f is very close to object: %f, returning it\n",mid1, target->x, target->y, dist)); 
+          TRACE(printf("Point at %fÂ°: %f,%f is very close to object: %f, returning it\n",mid1, target->x, target->y, dist)); 
           return ;
   }
   do {
@@ -564,7 +563,7 @@ calculate_arc_object_edge(Arc *arc, real ang_start, real ang_end, DiaObject *obj
 #ifdef TRACE_DIST
     for (j = 0; j < i; j++) {
       arc_get_point_at_angle(arc,target,trace[j]);
-      printf("%d: %f ° : %f,%f :%f\n", j, trace[j],target->x,target->y, disttrace[j]);
+      printf("%d: %fÂ° : %f,%f :%f\n", j, trace[j],target->x,target->y, disttrace[j]);
     }
 #endif
   arc_get_point_at_angle(arc,target,mid2);
@@ -588,7 +587,7 @@ arc_draw(Arc *arc, DiaRenderer *renderer)
   start_cp = arc->connection.endpoint_handles[0].connected_to;
   end_cp = arc->connection.endpoint_handles[1].connected_to;
 
-  TRACE(printf("drawing arc:\n start:%f °:%f,%f \tend:%f °:%f,%f\n",arc->angle1,endpoints[0].x,endpoints[0].y, arc->angle2,endpoints[1].x,endpoints[1].y));
+  TRACE(printf("drawing arc:\n start:%fÂ°:%f,%f \tend:%fÂ°:%f,%f\n",arc->angle1,endpoints[0].x,endpoints[0].y, arc->angle2,endpoints[1].x,endpoints[1].y));
 
   if (connpoint_is_autogap(start_cp)) {
      TRACE(printf("computing start intersection\ncurve_distance: %f\n",arc->curve_distance));

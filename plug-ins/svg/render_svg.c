@@ -228,7 +228,6 @@ static DiaSvgRenderer *
 new_svg_renderer(DiagramData *data, const char *filename)
 {
   DiaSvgRenderer *renderer;
-  FILE *file;
   gchar buf[512];
   Rectangle *extent;
   xmlDtdPtr dtd;

@@ -100,7 +100,6 @@ dia_gdk_interactive_renderer_class_init(DiaGdkInteractiveRendererClass *klass)
 static void
 dia_gdk_interactive_renderer_init(DiaGdkInteractiveRenderer *object)
 {
-  DiaGdkInteractiveRenderer *ia_renderer = DIA_GDK_INTERACTIVE_RENDERER (object);
   DiaGdkRenderer *renderer = DIA_GDK_RENDERER(object);
   DiaRenderer *dia_renderer = DIA_RENDERER(object);
   
@@ -115,7 +114,6 @@ DiaRenderer *
 new_gdk_renderer(DDisplay *ddisp)
 {
   DiaGdkRenderer *renderer;
-  GType renderer_type = 0;
 
   renderer = g_object_new (DIA_TYPE_GDK_INTERACTIVE_RENDERER, NULL);
   renderer->transform = dia_transform_new (&ddisp->visible, &ddisp->zoom_factor);

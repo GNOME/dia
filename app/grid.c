@@ -55,7 +55,7 @@ grid_step (DDisplay *ddisp, GtkOrientation orientation,
 	   real *start, int *ipos, gboolean *is_major)
 {
   real  length;
-  real  pos, tmp;
+  real  pos;
   guint major_lines = ddisp->diagram->grid.major_lines;
   int   x, y;
   int   major_count = 1;

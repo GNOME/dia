@@ -396,7 +396,6 @@ zigzagline_delete_segment_callback(DiaObject *obj, Point *clicked, gpointer data
 static ObjectChange *
 _convert_to_bezierline_callback (DiaObject *obj, Point *clicked, gpointer data)
 {
-  DiaObject *poly;
   Zigzagline *zigzagline = (Zigzagline *)obj;
   OrthConn *orth = &zigzagline->orth;
   BezPoint *bp;

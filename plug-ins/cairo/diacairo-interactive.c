@@ -153,7 +153,9 @@ cairo_interactive_renderer_init (DiaCairoInteractiveRenderer *object, void *p)
 static void
 cairo_interactive_renderer_finalize (GObject *object)
 {
+#if !DIA_CAIRO_WITH_PIXMAP
   DiaCairoInteractiveRenderer *renderer = DIA_CAIRO_INTERACTIVE_RENDERER (object);
+#endif
   DiaCairoRenderer *base_renderer = DIA_CAIRO_RENDERER (object);
 
   if (base_renderer->cr)
@@ -474,7 +476,6 @@ set_size(DiaRenderer *object, gpointer window,
 {
   DiaCairoInteractiveRenderer *renderer = DIA_CAIRO_INTERACTIVE_RENDERER (object);
   DiaCairoRenderer *base_renderer = DIA_CAIRO_RENDERER (object);
-  cairo_rectangle_t extents;
 
   renderer->width = width;
   renderer->height = height;
@@ -482,7 +483,9 @@ set_size(DiaRenderer *object, gpointer window,
   if (renderer->pixmap != NULL)
     g_object_unref(renderer->pixmap);
 
-  /* TODO: we can probably get rid of this extra pixmap and just draw directly to what gdk_cairo_create() gives us for the window */
+  /* TODO: we can probably get rid of this extra pixmap and just draw directly
+   * to what gdk_cairo_create() gives us for the window
+   */
   renderer->pixmap = gdk_pixmap_new(GDK_WINDOW(window),  width, height, -1);
 #else
 # if GTK_CHECK_VERSION(2,22,0)
@@ -490,11 +493,15 @@ set_size(DiaRenderer *object, gpointer window,
 							CAIRO_CONTENT_COLOR,
 							width, height);
 # else
-  extents.x = 0;
-  extents.y = 0;
-  extents.width = width;
-  extents.height = height;
-  renderer->pixmap = cairo_recording_surface_create(CAIRO_CONTENT_COLOR_ALPHA, &extents);
+  {
+    cairo_rectangle_t extents;
+
+    extents.x = 0;
+    extents.y = 0;
+    extents.width = width;
+    extents.height = height;
+    renderer->pixmap = cairo_recording_surface_create(CAIRO_CONTENT_COLOR_ALPHA, &extents);
+  }
 # endif
 #endif
 

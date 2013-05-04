@@ -350,8 +350,7 @@ _arrayprop_get_widget (ArrayProperty *prop, PropDialog *dialog)
 {
   GtkTreeStore *model;
   GtkWidget *view;
-  int idx, i, cols, rows;
-  const PropDescCommonArrayExtra *extra = prop->common.descr->extra_data;
+  int idx, i, cols;
 
   /* create */
   cols = prop->ex_props->len;

@@ -333,7 +333,6 @@ void
 object_load_props(DiaObject *obj, ObjectNode obj_node, DiaContext *ctx)
 {
   GPtrArray *props;
-  GError *err = NULL;
 
   g_return_if_fail(obj != NULL);
   g_return_if_fail(obj_node != NULL);

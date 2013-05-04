@@ -90,7 +90,6 @@ arrayprop_load(ArrayProperty *prop, AttributeNode attr, DataNode data, DiaContex
 {
   const PropDescCommonArrayExtra *extra = prop->common.descr->extra_data;
   DataNode composite;
-  GError *err = NULL;
 
   arrayprop_freerecords(prop);
   g_ptr_array_set_size(prop->records,0);

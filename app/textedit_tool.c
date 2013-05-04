@@ -100,7 +100,6 @@ textedit_button_release(TexteditTool *tool, GdkEventButton *event,
 		        DDisplay *ddisp)
 {
   Point clickedpoint;
-  Diagram *diagram = ddisp->diagram;
   DiaObject *obj = click_select_object (ddisp, &clickedpoint, event);
   
   if (obj) {

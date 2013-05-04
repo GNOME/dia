@@ -610,7 +610,6 @@ vdx_simple_properties(DiaObject *obj,
                       const VDXDocument* theDoc, DiaContext *ctx)
 {
     GPtrArray *props = g_ptr_array_new ();
-    unsigned int debug_id;
 
     if (Line)
     {

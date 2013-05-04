@@ -388,7 +388,6 @@ set_dashlength(DiaRenderer *self, real length)
 static void
 set_fillstyle(DiaRenderer *self, FillStyle mode)
 {
-  DiaCairoRenderer *renderer = DIA_CAIRO_RENDERER (self);
   DIAG_NOTE(g_message("set_fillstyle %d", mode));
 
   switch(mode) {

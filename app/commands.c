@@ -268,7 +268,6 @@ received_clipboard_image_handler(GtkClipboard *clipboard,
   }
 
   if (!change) {
-    gint x, y;
     Point pt;
     DiaObjectType *type;
     Handle *handle1;
@@ -352,7 +351,6 @@ _targets_receive (GtkClipboard *clipboard,
 		  gint          n_atoms,
 		  gpointer      data)
 {
-  GdkAtom try_xml = 0;
   gint i;
   gchar *aname;
 

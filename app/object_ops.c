@@ -188,7 +188,6 @@ filter_connected (const GList *objects, GList **connected, GList **unconnected)
   
   for (list = objects; list != NULL; list = g_list_next (list)) {
     DiaObject *obj = list->data;
-    Handle *handle;
     gboolean is_connected = FALSE;
     int i;
 

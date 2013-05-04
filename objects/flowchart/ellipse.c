@@ -242,7 +242,6 @@ ellipse_distance_from(Ellipse *ellipse, Point *point)
 {
   Element *elem = &ellipse->element;
   Point c;
-  real dist, rad;
 
   c.x = elem->corner.x + elem->width / 2;
   c.y = elem->corner.y + elem->height/ 2;

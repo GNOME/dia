@@ -392,8 +392,6 @@ stdpath_update_data (StdPath *stdpath)
 static void 
 stdpath_draw(StdPath *stdpath, DiaRenderer *renderer)
 {
-  DiaObject *obj = &stdpath->object;
-
   DIA_RENDERER_GET_CLASS (renderer)->set_linewidth (renderer, stdpath->line_width);
   DIA_RENDERER_GET_CLASS (renderer)->set_linestyle (renderer, stdpath->line_style);
   DIA_RENDERER_GET_CLASS (renderer)->set_linejoin(renderer, stdpath->line_join);

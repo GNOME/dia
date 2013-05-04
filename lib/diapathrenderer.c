@@ -125,7 +125,7 @@ _get_current_path (DiaPathRenderer *self,
 /*!
  * \brief Starting a new rendering run
  * Could be used to clean the path leftovers from a previous run.
- * Typical export tenderers flush here.
+ * Typical export renderers flush here.
  */
 static void
 begin_render (DiaRenderer *self, const Rectangle *update)
@@ -138,7 +138,6 @@ begin_render (DiaRenderer *self, const Rectangle *update)
 static void
 end_render(DiaRenderer *self)
 {
-  DiaPathRenderer *renderer = DIA_PATH_RENDERER (self);
 }
 static void
 set_linewidth(DiaRenderer *self, real linewidth)
@@ -678,7 +677,6 @@ create_standard_path_from_object (DiaObject *obj)
   } else {
     /* create a group of pathes */
     GList *list = NULL;
-    GArray *points;
     gsize i;
 
     for (i = 0; i < pr->pathes->len; ++i) {
