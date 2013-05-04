@@ -978,7 +978,6 @@ help_manual_callback (GtkAction *action)
 #else
   command = g_strdup_printf("file://%s", helpindex);
   gtk_show_uri(screen, command, gtk_get_current_event_time (), NULL);
-  system(command);
   g_free(command);
 #endif
 
