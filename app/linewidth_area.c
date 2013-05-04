@@ -153,7 +153,7 @@ linewidth_area_events (GtkWidget *widget,
 
     case GDK_2BUTTON_PRESS:
       if (linewidth_dialog == NULL)
-        linewidth_create_dialog(gtk_widget_get_toplevel (widget));
+        linewidth_create_dialog(GTK_WINDOW (gtk_widget_get_toplevel (widget)));
       else
         gtk_widget_grab_focus(linewidth_button);
       gtk_spin_button_set_value(GTK_SPIN_BUTTON(linewidth_button), attributes_get_default_linewidth());
