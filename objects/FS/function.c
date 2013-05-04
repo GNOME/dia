@@ -111,11 +111,10 @@ static ObjectTypeOps function_type_ops =
 
 DiaObjectType function_type =
 {
-  "FS - Function",   /* name */
-  0,                      /* version */
-  (char **) function_xpm,  /* pixmap */
-  
-  &function_type_ops       /* ops */
+  "FS - Function",  /* name */
+  0,             /* version */
+  function_xpm,   /* pixmap */
+  &function_type_ops /* ops */
 };
 
 static ObjectOps function_ops = {

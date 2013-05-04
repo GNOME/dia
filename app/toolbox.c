@@ -70,25 +70,25 @@ static GSList *tool_group = NULL;
 
 ToolButton tool_data[] =
 {
-  { (char **) dia_modify_tool_icon,
+  { (const gchar **) dia_modify_tool_icon,
     N_("Modify object(s)\nUse <Space> to toggle between this and other tools"),
     NULL,
     "ToolsModify",
     { MODIFY_TOOL, NULL, NULL}
   },
-  { (char **) dia_textedit_tool_icon,
+  { (const gchar **) dia_textedit_tool_icon,
     N_("Text edit(s)\nUse <Esc> to leave this tool"),
     "F2",
     "ToolsTextedit",
     { TEXTEDIT_TOOL, NULL, NULL}
   },
-  { (char **) dia_zoom_tool_icon,
+  { (const gchar **) dia_zoom_tool_icon,
     N_("Magnify"),
     "M",
     "ToolsMagnify",
     { MAGNIFY_TOOL, NULL, NULL}
   },
-  { (char **) dia_scroll_tool_icon,
+  { (const gchar **) dia_scroll_tool_icon,
     N_("Scroll around the diagram"),
     "S",
     "ToolsScroll",
@@ -598,7 +598,7 @@ GdkPixbuf *
 tool_get_pixbuf (ToolButton *tb)
 {
   GdkPixbuf *pixbuf;
-  gchar **icon_data;
+  const gchar **icon_data;
 
   if (tb->icon_data==NULL) {
     DiaObjectType *type;
@@ -615,7 +615,7 @@ tool_get_pixbuf (ToolButton *tb)
   if (strncmp((char*)icon_data, "GdkP", 4) == 0) {
     pixbuf = gdk_pixbuf_new_from_inline(-1, (guint8*)icon_data, TRUE, NULL);
   } else {
-    char **pixmap_data = icon_data;
+    const char **pixmap_data = icon_data;
     pixbuf = gdk_pixbuf_new_from_xpm_data (pixmap_data);
   }
   return pixbuf;
@@ -627,7 +627,7 @@ tool_get_pixbuf (ToolButton *tb)
  * the difference between char* and char** - most of the time ;)
  */
 static GtkWidget *
-create_widget_from_xpm_or_gdkp(gchar **icon_data, GtkWidget *button, GdkPixbuf **pb_out) 
+create_widget_from_xpm_or_gdkp(const char **icon_data, GtkWidget *button, GdkPixbuf **pb_out) 
 {
   GtkWidget *pixmapwidget;
 
@@ -636,7 +636,7 @@ create_widget_from_xpm_or_gdkp(gchar **icon_data, GtkWidget *button, GdkPixbuf *
     *pb_out = p = gdk_pixbuf_new_from_inline(-1, (guint8*)icon_data, TRUE, NULL);
     pixmapwidget = gtk_image_new_from_pixbuf(p);
   } else {
-    char **pixmap_data = icon_data;
+    const char **pixmap_data = icon_data;
     *pb_out = gdk_pixbuf_new_from_xpm_data (pixmap_data);
     pixmapwidget = gtk_image_new_from_pixbuf (*pb_out);
   }
@@ -650,7 +650,7 @@ create_tools(GtkWidget *parent)
   GdkPixbuf *pixbuf = NULL;
   GtkWidget *image;
   /* GtkStyle *style; */
-  char **pixmap_data;
+  const char **pixmap_data;
   int i;
 
   for (i = 0; i < NUM_TOOLS; i++) {

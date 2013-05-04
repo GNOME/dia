@@ -103,11 +103,10 @@ static ObjectTypeOps sadtbox_type_ops =
 
 DiaObjectType sadtbox_type =
 {
-  "SADT - box",  /* name */
-  0,                 /* version */
-  (char **) sadtbox_xpm, /* pixmap */
-
-  &sadtbox_type_ops      /* ops */
+  "SADT - box",    /* name */
+  0,            /* version */
+  sadtbox_xpm,   /* pixmap */
+  &sadtbox_type_ops /* ops */
 };
 
 static ObjectOps sadtbox_ops = {

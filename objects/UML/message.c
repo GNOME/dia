@@ -108,10 +108,10 @@ static ObjectTypeOps message_type_ops =
 
 DiaObjectType message_type =
 {
-  "UML - Message",        /* name */
-  0,                         /* version */
-  (char **) message_xpm,  /* pixmap */
-  &message_type_ops       /* ops */
+  "UML - Message", /* name */
+  0,            /* version */
+  message_xpm,   /* pixmap */
+  &message_type_ops /* ops */
 };
 
 static ObjectOps message_ops = {

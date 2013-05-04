@@ -96,13 +96,12 @@ ObjectTypeOps aadlprocessor_type_ops;
 
 DiaObjectType aadlprocessor_type =
 {
-  "AADL - Processor",           /* name */
-  0,                      /* version */
-  (char **) aadlprocessor_xpm,  /* pixmap */
-
-  &aadlprocessor_type_ops,       /* ops */
+  "AADL - Processor",          /* name */
+  0,                        /* version */
+  aadlprocessor_xpm,         /* pixmap */
+  &aadlprocessor_type_ops,      /* ops */
   NULL,
-  &aadlprocessor_specific      /* user data */
+  &aadlprocessor_specific /* user data */
 };
 
 

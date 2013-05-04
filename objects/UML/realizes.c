@@ -98,12 +98,11 @@ DiaObjectType realizes_type =
 {
   "UML - Realizes",   /* name */
   /* Version 0 had no autorouting and so shouldn't have it set by default. */
-  1,                      /* version */
-  (char **) realizes_xpm,  /* pixmap */
-  
-  &realizes_type_ops,      /* ops */
-  NULL,                 /* pixmap_file */
-  0                     /* default_user_data */
+  1,                  /* version */
+  realizes_xpm,       /* pixmap */
+  &realizes_type_ops, /* ops */
+  NULL,               /* pixmap_file */
+  0                   /* default_user_data */
 };
 
 static ObjectOps realizes_ops = {

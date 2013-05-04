@@ -136,7 +136,7 @@ static DiaObjectType polyline_type =
 {
   "Standard - PolyLine",   /* name */
   0,                         /* version */
-  (char **) polyline_icon,      /* pixmap */
+  (const char **) polyline_icon,      /* pixmap */
   
   &polyline_type_ops,       /* ops */
   NULL, /* pixmap_file */

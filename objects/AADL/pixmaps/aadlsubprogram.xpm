@@ -1,5 +1,5 @@
 /* XPM */
-static char *aadlsubprogram_xpm[] = {
+static const char *aadlsubprogram_xpm[] = {
 "22 22 3 1",
 " 	c None",
 ".	c #000000",

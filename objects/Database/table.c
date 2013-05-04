@@ -105,12 +105,10 @@ static ObjectTypeOps table_type_ops =
 
 DiaObjectType table_type =
   {
-    "Database - Table",   /* name */
+    "Database - Table", /* name */
     0,               /* version */
-    (char **) table_xpm, /* pixmap */
-    &table_type_ops, /* operations */
-    NULL,
-    NULL
+    table_xpm,        /* pixmap */
+    &table_type_ops      /* ops */
   };
 
 static ObjectOps table_ops =

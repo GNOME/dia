@@ -102,9 +102,8 @@ DiaObjectType jackson_requirement_type =
 {
   "Jackson - requirement",   /* name */
   0,                      /* version */
-  (char **)jackson_requirement_xpm,  /* pixmap */
-
-  &req_type_ops       /* ops */
+  jackson_requirement_xpm, /* pixmap */
+  &req_type_ops               /* ops */
 };
 
 static ObjectOps req_ops = {

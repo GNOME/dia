@@ -130,10 +130,10 @@ static ObjectTypeOps lifeline_type_ops =
 
 DiaObjectType lifeline_type =
 {
-  "UML - Lifeline",   /* name */
-  0,                   /* version */
-  (char **) lifeline_xpm,  /* pixmap */
-  &lifeline_type_ops       /* ops */
+  "UML - Lifeline", /* name */
+  0,             /* version */
+  lifeline_xpm,   /* pixmap */
+  &lifeline_type_ops /* ops */
 };
 
 static ObjectOps lifeline_ops = {

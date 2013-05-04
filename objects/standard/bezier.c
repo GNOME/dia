@@ -103,7 +103,7 @@ static DiaObjectType bezierline_type =
 {
   "Standard - BezierLine",   /* name */
   0,                         /* version */
-  (char **) bezierline_icon,      /* pixmap */
+  (const char **) bezierline_icon,      /* pixmap */
   
   &bezierline_type_ops,      /* ops */
   NULL,                      /* pixmap_file */

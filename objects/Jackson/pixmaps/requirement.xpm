@@ -1,5 +1,5 @@
 /* XPM */
-static char *jackson_requirement_xpm[] = {
+static const char *jackson_requirement_xpm[] = {
 /* width height ncolors chars_per_pixel */
 "22 22 3 1",
 /* colors */

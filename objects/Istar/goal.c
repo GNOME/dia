@@ -123,10 +123,10 @@ static ObjectTypeOps istar_goal_type_ops =
 
 DiaObjectType istar_goal_type =
 {
-  "Istar - goal",          /* name */
-  0,                       /* version */
-  (char **) istar_softgoal_xpm, /* pixmap */
-  &istar_goal_type_ops      /* ops */
+  "Istar - goal",       /* name */
+  0,                 /* version */
+  istar_softgoal_xpm, /* pixmap */
+  &istar_goal_type_ops   /* ops */
 };
 
 static ObjectOps goal_ops = {

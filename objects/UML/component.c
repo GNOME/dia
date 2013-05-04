@@ -91,11 +91,10 @@ static ObjectTypeOps component_type_ops =
 
 DiaObjectType component_type =
 {
-  "UML - Component",   /* name */
-  0,                      /* version */
-  (char **) component_xpm,  /* pixmap */
-  
-  &component_type_ops       /* ops */
+  "UML - Component", /* name */
+  0,              /* version */
+  component_xpm,   /* pixmap */
+  &component_type_ops /* ops */
 };
 
 static ObjectOps component_ops = {

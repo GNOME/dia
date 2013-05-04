@@ -117,13 +117,13 @@ static ObjectTypeOps compfeat_type_ops =
 
 DiaObjectType compfeat_type =
 {
-  "UML - Component Feature",	/* name */
+  "UML - Component Feature", /* name */
   /* Version 0 had no autorouting and so shouldn't have it set by default. */
-  1,                      /* version */
-  (char **) facet_xpm,		/* pixmap */
-  &compfeat_type_ops,		/* ops */
-  NULL,				/* pixmap file */
-  0				/* default user data */
+  1,                         /* version */
+  facet_xpm,		     /* pixmap */
+  &compfeat_type_ops,        /* ops */
+  NULL,	                     /* pixmap file */
+  0                          /* default user data */
 };
 
 static ObjectOps compfeat_ops = {

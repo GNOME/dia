@@ -108,11 +108,10 @@ static ObjectTypeOps transition_type_ops =
 
 DiaObjectType transition_type =
 {
-  "GRAFCET - Transition",   /* name */
-  0,                         /* version */
-  (char **) transition_xpm,      /* pixmap */
-  
-  &transition_type_ops       /* ops */
+  "GRAFCET - Transition", /* name */
+  0,                   /* version */
+  transition_xpm,       /* pixmap */
+  &transition_type_ops     /* ops */
 };
 
 

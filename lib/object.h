@@ -538,9 +538,9 @@ struct _DiaObjectType {
   char *name; /*!< The type name should follow a pattern of '\<module\> - \<class\>' like "UML - Class" */
   int version; /*!< DiaObjects must be backward compatible, i.e. support possibly older versions formats */ 
 
-  char **pixmap; /*!< Also put a pixmap in the sheet_object.
-		    This one is used if not in sheet but in toolbar.
-		    Stored in xpm format */
+  const char **pixmap; /*!< Also put a pixmap in the sheet_object.
+		        This one is used if not in sheet but in toolbar.
+		        Stored in xpm format */
   
   ObjectTypeOps *ops; /* pointer to the vtable */
 

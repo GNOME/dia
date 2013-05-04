@@ -112,11 +112,10 @@ static ObjectTypeOps state_type_ops =
 
 DiaObjectType state_type =
 {
-  "UML - State",   /* name */
-  0,                      /* version */
-  (char **) state_xpm,  /* pixmap */
-  
-  &state_type_ops       /* ops */
+  "UML - State", /* name */
+  0,          /* version */
+  state_xpm,   /* pixmap */
+  &state_type_ops /* ops */
 };
 
 static ObjectOps state_ops = {

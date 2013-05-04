@@ -113,11 +113,11 @@ static int aadlbox_point_near_connection(Aadlbox *aadlbox, Point *p);
     
     DiaObjectType aadlbox_type =
     {
-      "AADL - Box",           // name 
-      0,                      // version
-      (char **) aadlbox_xpm,  // pixmap
+      "AADL - Box",     // name 
+      0,                // version
+      aadlbox_xpm,      // pixmap
     
-      &aadlbox_type_ops       // ops
+      &aadlbox_type_ops // ops
     };
     
     DiaMenu *aadlbox_get_object_menu(Aadlbox *aadlbox, Point *clickedpoint);

@@ -145,7 +145,7 @@ DiaObjectType box_type =
 {
   "Standard - Box",  /* name */
   0,                 /* version */
-  (char **) box_icon, /* pixmap */
+  (const char **) box_icon, /* pixmap */
 
   &box_type_ops,      /* ops */
   NULL,              /* pixmap_file */

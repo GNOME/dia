@@ -124,10 +124,10 @@ static ObjectTypeOps maor_type_ops =
 
 DiaObjectType kaos_maor_type =
 {
-  "KAOS - maor",              /* name */
-  0,                          /* version */
-  (char **)contributes_xpm,   /* pixmap */
-  &maor_type_ops              /* ops */
+  "KAOS - maor",     /* name */
+  0,              /* version */
+  contributes_xpm, /* pixmap */
+  &maor_type_ops      /* ops */
 };
 
 static ObjectOps maor_ops = {

@@ -164,10 +164,10 @@ G_MODULE_EXPORT
 DiaObjectType custom_type =
   {
     "Custom - Generic",   /* name */
-    1,                    /* version 0 had no configurable (text-)padding */
-    (char **) custom_xpm, /* pixmap */
-
-    &custom_type_ops      /* ops */
+    /* version 0 had no configurable (text-)padding */
+    1,                 /* version */
+    custom_xpm,         /* pixmap */
+    &custom_type_ops       /* ops */
   };
 
 static ObjectOps custom_ops = {

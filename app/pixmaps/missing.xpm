@@ -1,5 +1,5 @@
 /* XPM */
-static char *missing[] = {
+static const char *missing[] = {
 /* columns rows colors chars-per-pixel */
 "24 24 142 2",
 "   c black",

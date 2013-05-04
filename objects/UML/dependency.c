@@ -101,10 +101,9 @@ DiaObjectType dependency_type =
 {
   "UML - Dependency",   /* name */
   /* Version 0 had no autorouting and so shouldn't have it set by default. */
-  1,                      /* version */
-  (char **) dependency_xpm,  /* pixmap */
-  
-  &dependency_type_ops,      /* ops */
+  1,                    /* version */
+  dependency_xpm,       /* pixmap */
+  &dependency_type_ops, /* ops */
   NULL,                 /* pixmap_file */
   0                     /* default_user_data */
 };

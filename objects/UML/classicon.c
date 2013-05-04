@@ -99,11 +99,10 @@ static ObjectTypeOps classicon_type_ops =
 
 DiaObjectType classicon_type =
 {
-  "UML - Classicon",   /* name */
-  0,                      /* version */
-  (char **) classicon_xpm,  /* pixmap */
-  
-  &classicon_type_ops       /* ops */
+  "UML - Classicon", /* name */
+  0,              /* version */
+  classicon_xpm,   /* pixmap */
+  &classicon_type_ops /* ops */
 };
 
 static ObjectOps classicon_ops = {

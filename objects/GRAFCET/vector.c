@@ -87,20 +87,18 @@ static ObjectTypeOps arc_type_ops =
 
 DiaObjectType old_arc_type =
 {
-  "GRAFCET - Vector",   /* name */
+  "GRAFCET - Vector", /* name */
   /* Version 0 had no autorouting and so shouldn't have it set by default. */
-  1,                      /* version */
-  (char **) vector_xpm,      /* pixmap */
-  
-  &arc_type_ops       /* ops */
+  1,               /* version */
+  vector_xpm,       /* pixmap */
+  &arc_type_ops        /* ops */
 };
 
 DiaObjectType grafcet_arc_type =
 {
   "GRAFCET - Arc",   /* name */
-  0,                         /* version */
-  (char **) vector_xpm,      /* pixmap */
-  
+  0,              /* version */
+  vector_xpm,      /* pixmap */
   &arc_type_ops       /* ops */
 };
 

@@ -1,5 +1,5 @@
 /* XPM */
-static char * actor_xpm[] = {
+static const char * actor_xpm[] = {
 "22 22 2 1",
 " 	c none",
 ".	c black",

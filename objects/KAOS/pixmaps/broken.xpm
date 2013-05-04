@@ -1,5 +1,5 @@
 /* XPM */
-static char * mid_obstructs_xpm[] = {
+static const char * mid_obstructs_xpm[] = {
 "64 64 21 1",
 " 	c None",
 ".	c #110609",

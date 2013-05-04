@@ -93,11 +93,10 @@ static ObjectTypeOps node_type_ops =
 
 DiaObjectType node_type =
 {
-  "UML - Node",   /* name */
-  0,                      /* version */
-  (char **) node_xpm,  /* pixmap */
-  
-  &node_type_ops       /* ops */
+  "UML - Node",  /* name */
+  0,             /* version */
+  node_xpm,      /* pixmap */
+  &node_type_ops /* ops */
 };
 
 static ObjectOps node_ops =

@@ -1,5 +1,5 @@
 /* XPM */
-static char *aadlthread_xpm[] = {
+static const char *aadlthread_xpm[] = {
 "22 22 3 1",
 " 	c None",
 ".	c #000000",

@@ -108,7 +108,7 @@ DiaObjectType wanlink_type =
 {
   "Network - WAN Link",   /* name */
   1,                     /* version */
-  (char **) wanlink_xpm, /* pixmap */
+  (const char **) wanlink_xpm, /* pixmap */
 
   &wanlink_type_ops      /* ops */
 };

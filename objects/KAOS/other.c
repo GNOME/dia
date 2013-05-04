@@ -120,10 +120,10 @@ static ObjectTypeOps kaos_other_type_ops =
 
 DiaObjectType kaos_other_type =
 {
-  "KAOS - other",           /* name */
-  0,                        /* version */
-  (char **) kaos_agent_xpm, /* pixmap */
-  &kaos_other_type_ops      /* ops */
+  "KAOS - other",     /* name */
+  0,               /* version */
+  kaos_agent_xpm,   /* pixmap */
+  &kaos_other_type_ops /* ops */
 };
 
 static ObjectOps other_ops = {

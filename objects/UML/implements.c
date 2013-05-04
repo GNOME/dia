@@ -97,10 +97,10 @@ static ObjectTypeOps implements_type_ops =
 
 DiaObjectType implements_type =
 {
-  "UML - Implements",   /* name */
-  0,                   /* version */
-  (char **) implements_xpm,  /* pixmap */
-  &implements_type_ops       /* ops */
+  "UML - Implements", /* name */
+  0,               /* version */
+  implements_xpm,   /* pixmap */
+  &implements_type_ops /* ops */
 };
 
 static ObjectOps implements_ops = {

@@ -120,11 +120,10 @@ static ObjectTypeOps attribute_type_ops =
 
 DiaObjectType attribute_type =
 {
-  "ER - Attribute",   /* name */
-  0,                      /* version */
-  (char **) attribute_xpm,  /* pixmap */
-  
-  &attribute_type_ops       /* ops */
+  "ER - Attribute",  /* name */
+  0,              /* version */
+  attribute_xpm,   /* pixmap */
+  &attribute_type_ops /* ops */
 };
 
 DiaObjectType *_attribute_type = (DiaObjectType *) &attribute_type;

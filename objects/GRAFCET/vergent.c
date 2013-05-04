@@ -90,11 +90,10 @@ static ObjectTypeOps vergent_type_ops =
 
 DiaObjectType vergent_type =
 {
-  "GRAFCET - Vergent",   /* name */
-  0,                         /* version */
-  (char **) vergent_xpm,      /* pixmap */
-  
-  &vergent_type_ops       /* ops */
+  "GRAFCET - Vergent", /* name */
+  0,                /* version */
+  vergent_xpm,       /* pixmap */
+  &vergent_type_ops     /* ops */
 };
 
 

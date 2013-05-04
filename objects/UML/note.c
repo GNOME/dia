@@ -86,11 +86,10 @@ static ObjectTypeOps note_type_ops =
 
 DiaObjectType note_type =
 {
-  "UML - Note",   /* name */
-  0,                      /* version */
-  (char **) note_xpm,  /* pixmap */
-  
-  &note_type_ops       /* ops */
+  "UML - Note", /* name */
+  0,         /* version */
+  note_xpm,   /* pixmap */
+  &note_type_ops /* ops */
 };
 
 static ObjectOps note_ops = {

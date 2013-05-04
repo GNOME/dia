@@ -84,11 +84,10 @@ static ObjectTypeOps fork_type_ops =
 
 DiaObjectType fork_type =
 {
-  "UML - Fork",   /* name */
-  0,                      /* version */
-  (char **) fork_xpm,  /* pixmap */
-  
-  &fork_type_ops       /* ops */
+  "UML - Fork", /* name */
+  0,         /* version */
+  fork_xpm,   /* pixmap */
+  &fork_type_ops /* ops */
 };
 
 static ObjectOps fork_ops =

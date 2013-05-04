@@ -117,10 +117,10 @@ static ObjectTypeOps istar_other_type_ops =
 
 DiaObjectType istar_other_type =
 {
-  "Istar - other",          /* name */
-  0,                        /* version */
-  (char **) istar_resource_xpm, /* pixmap */
-  &istar_other_type_ops      /* ops */
+  "Istar - other",      /* name */
+  0,                 /* version */
+  istar_resource_xpm, /* pixmap */
+  &istar_other_type_ops  /* ops */
 };
 
 static ObjectOps other_ops = {

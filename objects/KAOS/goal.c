@@ -126,10 +126,10 @@ static ObjectTypeOps kaos_goal_type_ops =
 
 DiaObjectType kaos_goal_type =
 {
-  "KAOS - goal",           /* name */
-  0,                       /* version */
-  (char **) kaos_goal_xpm, /* pixmap */
-  &kaos_goal_type_ops      /* ops */
+  "KAOS - goal",     /* name */
+  0,              /* version */
+  kaos_goal_xpm,   /* pixmap */
+  &kaos_goal_type_ops /* ops */
 };
 
 static ObjectOps goal_ops = {

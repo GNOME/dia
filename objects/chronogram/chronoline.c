@@ -114,11 +114,10 @@ static ObjectTypeOps chronoline_type_ops =
 
 DiaObjectType chronoline_type =
 {
-  "chronogram - line",  /* name */
-  0,                 /* version */
-  (char **) chronoline_xpm, /* pixmap */
-
-  &chronoline_type_ops      /* ops */
+  "chronogram - line", /* name */
+  0,                /* version */
+  chronoline_xpm,    /* pixmap */
+  &chronoline_type_ops  /* ops */
 };
 
 static ObjectOps chronoline_ops = {

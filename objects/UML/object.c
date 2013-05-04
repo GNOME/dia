@@ -105,20 +105,18 @@ static ObjectTypeOps objet_type_ops =
 /* Non-nice typo, needed for backwards compatibility. */
 DiaObjectType objet_type =
 {
-  "UML - Objet",   /* name */
-  0,                      /* version */
-  (char **) object_xpm,  /* pixmap */
-  
-  &objet_type_ops       /* ops */
+  "UML - Objet",  /* name */
+  0,              /* version */
+  object_xpm,     /* pixmap */
+  &objet_type_ops /* ops */
 };
 
 DiaObjectType umlobject_type =
 {
-  "UML - Object",   /* name */
-  0,                      /* version */
-  (char **) object_xpm,  /* pixmap */
-  
-  &objet_type_ops       /* ops */
+  "UML - Object", /* name */
+  0,              /* version */
+  object_xpm,     /* pixmap */
+  &objet_type_ops /* ops */
 };
 
 static ObjectOps objet_ops = {

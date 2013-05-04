@@ -70,12 +70,12 @@ static ObjectTypeOps reference_type_ops =
 
 DiaObjectType reference_type =
 {
-  "Database - Reference",      /* name */
-  0,                           /* version */
-  (char **) reference_xpm,     /* pixmap */
-  &reference_type_ops,         /* ops */
-  NULL,                        /* pixmap_file */
-  NULL                         /* default_user_data */
+  "Database - Reference", /* name */
+  0,                   /* version */
+  reference_xpm,        /* pixmap */
+  &reference_type_ops,     /* ops */
+  NULL,            /* pixmap_file */
+  NULL       /* default_user_data */
 };
 
 static ObjectOps reference_ops = {

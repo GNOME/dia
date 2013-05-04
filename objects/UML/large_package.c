@@ -101,11 +101,10 @@ static ObjectTypeOps largepackage_type_ops =
 
 DiaObjectType largepackage_type =
 {
-  "UML - LargePackage",   /* name */
-  0,                      /* version */
-  (char **) largepackage_xpm,  /* pixmap */
-  
-  &largepackage_type_ops       /* ops */
+  "UML - LargePackage", /* name */
+  0,                 /* version */
+  largepackage_xpm,   /* pixmap */
+  &largepackage_type_ops /* ops */
 };
 
 static ObjectOps largepackage_ops = {

@@ -100,11 +100,10 @@ static ObjectTypeOps grid_object_type_ops =
 
 DiaObjectType grid_object_type =
 {
-  "Misc - Grid",  /* name */
-  0,                 /* version */
-  (char **) grid_object_xpm, /* pixmap */
-  
-  &grid_object_type_ops      /* ops */
+  "Misc - Grid",       /* name */
+  0,                /* version */
+  grid_object_xpm,   /* pixmap */
+  &grid_object_type_ops /* ops */
 };
 
 static ObjectOps grid_object_ops = {

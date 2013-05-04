@@ -112,11 +112,10 @@ static ObjectTypeOps box_type_ops =
 
 DiaObjectType fc_box_type =
 {
-  "Flowchart - Box",  /* name */
-  0,                 /* version */
-  (char **) box_xpm, /* pixmap */
-
-  &box_type_ops      /* ops */
+  "Flowchart - Box", /* name */
+  0,              /* version */
+  box_xpm,         /* pixmap */
+  &box_type_ops       /* ops */
 };
 
 static ObjectOps box_ops = {

@@ -129,7 +129,7 @@ static DiaObjectType outline_type =
 {
   "Standard - Outline",   /* name */
   0,                      /* version */
-  (char **) outline_icon, /* pixmap */
+  (const char **) outline_icon, /* pixmap */
   
   &outline_type_ops,      /* ops */
   NULL,                   /* pixmap_file */

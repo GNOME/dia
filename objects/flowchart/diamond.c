@@ -113,11 +113,10 @@ static ObjectTypeOps diamond_type_ops =
 
 DiaObjectType diamond_type =
 {
-  "Flowchart - Diamond",  /* name */
-  0,                 /* version */
-  (char **) diamond_xpm, /* pixmap */
-
-  &diamond_type_ops      /* ops */
+  "Flowchart - Diamond", /* name */
+  0,                  /* version */
+  diamond_xpm,         /* pixmap */
+  &diamond_type_ops       /* ops */
 };
 
 static ObjectOps diamond_ops = {

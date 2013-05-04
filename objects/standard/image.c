@@ -134,7 +134,7 @@ DiaObjectType image_type =
 {
   "Standard - Image",  /* name */
   0,                 /* version */
-  (char **) image_icon, /* pixmap */
+  (const char **) image_icon, /* pixmap */
 
   &image_type_ops,      /* ops */
   NULL,

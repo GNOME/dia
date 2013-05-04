@@ -1,5 +1,5 @@
 /* XPM */
-static char * jackson_shared_phen_xpm[] = {
+static const char * jackson_shared_phen_xpm[] = {
 "22 22 3 1",
 " 	c None",
 ".	c white",

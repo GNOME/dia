@@ -25,7 +25,7 @@
 struct _SheetObject {
   char *object_type;
   char *description;
-  char **pixmap; /* in xpm format */
+  const char **pixmap; /* in xpm format */
 
   void *user_data;
   enum { USER_DATA_IS_INTDATA, USER_DATA_IS_OTHER } user_data_type;

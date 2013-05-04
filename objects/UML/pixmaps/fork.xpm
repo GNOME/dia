@@ -1,5 +1,5 @@
 /* XPM */
-static char * fork_xpm[] = {
+static const char * fork_xpm[] = {
 "22 22 2 1",
 " 	c None",
 ".	c black",

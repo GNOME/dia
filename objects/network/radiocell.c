@@ -91,7 +91,7 @@ DiaObjectType radiocell_type =
 {
   "Network - Radio Cell",	/* name */
   0,				/* version */
-  (char **) radiocell_xpm,	/* pixmap */
+  (const char **) radiocell_xpm, /* pixmap */
 
   &radiocell_type_ops		/* ops */
 };

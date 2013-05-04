@@ -1,5 +1,5 @@
 /* XPM */
-static char * state_term_xpm[] = {
+static const char * state_term_xpm[] = {
 "22 22 3 1",
 " 	c none",
 ".	c black",

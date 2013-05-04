@@ -122,13 +122,12 @@ ObjectTypeOps aadldevice_type_ops;
 
 DiaObjectType aadldevice_type =
 {
-  "AADL - Device",           /* name */
-  0,                      /* version */
-  (char **) aadldevice_xpm,  /* pixmap */
-
-  &aadldevice_type_ops,       /* ops */
+  "AADL - Device",          /* name */
+  0,                     /* version */
+  aadldevice_xpm,         /* pixmap */
+  &aadldevice_type_ops,      /* ops */
   NULL,
-  &aadldevice_specific      /* user data */
+  &aadldevice_specific /* user data */
 };
 
 

@@ -98,7 +98,7 @@ DiaObjectType basestation_type =
   {
     "Network - Base Station",   /* name */
     0,                          /* version */
-    (char **) basestation_xpm,  /* pixmap */
+    (const char **) basestation_xpm,  /* pixmap */
 
     &basestation_type_ops       /* ops */
   };

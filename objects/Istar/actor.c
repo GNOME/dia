@@ -112,11 +112,10 @@ static ObjectTypeOps actor_type_ops =
 
 DiaObjectType istar_actor_type =
 {
-  "Istar - actor",           /* name */
-  0,                         /* version */
-  (char **) istar_actor_xpm, /* pixmap */
-
-  &actor_type_ops            /* ops */
+  "Istar - actor",   /* name */
+  0,              /* version */
+  istar_actor_xpm, /* pixmap */
+  &actor_type_ops     /* ops */
 };
 
 static ObjectOps actor_ops = {

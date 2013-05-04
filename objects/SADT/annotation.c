@@ -91,10 +91,10 @@ static ObjectTypeOps annotation_type_ops =
 
 DiaObjectType sadtannotation_type =
 {
-  "SADT - annotation",        /* name */
-  0,                         /* version */
-  (char **) annotation_xpm,  /* pixmap */
-  &annotation_type_ops       /* ops */
+  "SADT - annotation", /* name */
+  0,                /* version */
+  annotation_xpm,    /* pixmap */
+  &annotation_type_ops  /* ops */
 };
 
 static ObjectOps annotation_ops = {

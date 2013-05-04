@@ -147,7 +147,7 @@ DiaObjectType textobj_type =
 {
   "Standard - Text",   /* name */
   1,                   /* version */
-  (char **) text_icon, /* pixmap */
+  (const char **) text_icon, /* pixmap */
   &textobj_type_ops,   /* ops */
   NULL,
   0,

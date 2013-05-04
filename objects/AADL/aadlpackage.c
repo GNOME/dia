@@ -85,13 +85,13 @@ ObjectTypeOps aadlpackage_type_ops;
 
 DiaObjectType aadlpackage_type =
 {
-  "AADL - Package",           /* name */
+  "AADL - Package",          /* name */
   0,                      /* version */
-  (char **) aadlpackage_xpm,  /* pixmap */
+  aadlpackage_xpm,         /* pixmap */
 
-  &aadlpackage_type_ops,       /* ops */
+  &aadlpackage_type_ops,      /* ops */
   NULL,
-  &aadlpackage_specific      /* user data */
+  &aadlpackage_specific /* user data */
 };
 
 

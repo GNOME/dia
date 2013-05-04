@@ -97,10 +97,10 @@ static ObjectTypeOps umlclass_type_ops =
 DiaObjectType umlclass_type =
 {
   "UML - Class",   /* name */
-  0,                      /* version */
-  (char **) umlclass_xpm,  /* pixmap */
+  0,               /* version */
+  umlclass_xpm,    /* pixmap */
   
-  &umlclass_type_ops,       /* ops */
+  &umlclass_type_ops, /* ops */
   NULL,
   (void*)0
 };

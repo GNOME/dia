@@ -140,7 +140,7 @@ DiaObjectType arc_type =
 {
   "Standard - Arc",   /* name */
   0,                  /* version */
-  (char **) arc_icon, /* pixmap */
+  (const gchar **) arc_icon, /* pixmap */
   
   &arc_type_ops,      /* ops */
   NULL,               /* pixmap_file */

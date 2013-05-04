@@ -1,5 +1,5 @@
 /* XPM */
-static char *kaos_goal_xpm[] = {
+static const char *kaos_goal_xpm[] = {
 /* width height ncolors chars_per_pixel */
 "22 22 3 1",
 /* colors */

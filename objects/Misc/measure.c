@@ -68,13 +68,12 @@ static ObjectTypeOps measure_type_ops =
 
 DiaObjectType measure_type =
 {
-  "Misc - Measure",   /* name */
-  0,                      /* version */
-  (char **) measure_xpm, /* pixmap */
-  
-  &measure_type_ops,      /* ops */
-  NULL,                   /* pixmap_file */
-  0                       /* default_user_data */
+  "Misc - Measure", /* name */
+  0,             /* version */
+  measure_xpm,    /* pixmap */
+  &measure_type_ops, /* ops */
+  NULL,      /* pixmap_file */
+  0    /* default_user_data */
 };
 
 /* make accesible from the outside for type regristation */

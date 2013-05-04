@@ -1,5 +1,5 @@
 /* XPM */
-static char * portrait_xpm[] = {
+static const char * portrait_xpm[] = {
 "30 40 3 1",
 " 	c None",
 ".	c #000000",

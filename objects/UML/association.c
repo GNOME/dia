@@ -192,8 +192,7 @@ DiaObjectType association_type =
   /* Version 0 had no autorouting and so shouldn't have it set by default. */
   /* Version 1 was saving both ends separately without using StdProps */
   2,                      /* version */
-  (char **) association_xpm,  /* pixmap */
-  
+  association_xpm,  /* pixmap */
   &association_type_ops,      /* ops */
   NULL,                 /* pixmap_file */
   0                     /* default_user_data */

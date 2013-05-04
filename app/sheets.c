@@ -107,7 +107,7 @@ static gint
 menu_item_compare_labels(gconstpointer a, gconstpointer b)
 {
   GList *a_list;
-  gchar *label;
+  const gchar *label;
 
   a_list = gtk_container_get_children(GTK_CONTAINER(GTK_MENU_ITEM(a)));
   g_assert(g_list_length(a_list) == 1);
@@ -338,7 +338,7 @@ create_object_pixmap(SheetObject *so, GtkWidget *parent,
                                             gtk_widget_get_colormap(parent),
                                             mask, 
                                             &style->bg[GTK_STATE_NORMAL],
-                                            so->pixmap);
+                                            (gchar **)so->pixmap);
   }
   else
   {
@@ -372,7 +372,7 @@ create_object_pixmap(SheetObject *so, GtkWidget *parent,
 	   gtk_widget_get_colormap(parent),
 	   mask, 
 	   &style->bg[GTK_STATE_NORMAL],
-	   missing);
+	   (gchar **)missing);
       }
     }
     else

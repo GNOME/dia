@@ -107,10 +107,10 @@ static ObjectTypeOps tree_type_ops =
 
 DiaObjectType tree_type =
 {
-  "Misc - Tree",   /* name */
-  0,                  /* version */
-  (char **) tree_xpm,  /* pixmap */
-  &tree_type_ops       /* ops */
+  "Misc - Tree", /* name */
+  0,          /* version */
+  tree_xpm,    /* pixmap */
+  &tree_type_ops  /* ops */
 };
 
 static ObjectOps tree_ops = {

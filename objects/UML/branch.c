@@ -84,11 +84,10 @@ static ObjectTypeOps branch_type_ops =
 
 DiaObjectType branch_type =
 {
-  "UML - Branch",   /* name */
-  0,                      /* version */
-  (char **) branch_xpm,  /* pixmap */
-  
-  &branch_type_ops       /* ops */
+  "UML - Branch", /* name */
+  0,           /* version */
+  branch_xpm,   /* pixmap */
+  &branch_type_ops /* ops */
 };
 
 static ObjectOps branch_ops =

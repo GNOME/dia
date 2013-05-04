@@ -90,12 +90,12 @@ static ObjectTypeOps _dae_type_ops =
 
 DiaObjectType diagram_as_element_type =
 {
-  "Misc - Diagram",  /* name */
-  0,                 /* version */
-  (char **) diagram_as_element_xpm, /* pixmap */
-  &_dae_type_ops,     /* ops */
+  "Misc - Diagram",         /* name */
+  0,                     /* version */
+  diagram_as_element_xpm, /* pixmap */
+  &_dae_type_ops,            /* ops */
   NULL,              /* pixmap_file */
-  0                  /* default_uder_data */
+  0            /* default_uder_data */
 };
 
 static void _dae_update_data (DiagramAsElement *dae);

@@ -1,5 +1,5 @@
 /* XPM */
-static char *mid_monitors_xpm[] = {
+static const char *mid_monitors_xpm[] = {
 /* width height ncolors chars_per_pixel */
 "32 32 11 1",
 /* colors */

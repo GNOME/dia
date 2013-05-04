@@ -97,11 +97,10 @@ static ObjectTypeOps action_type_ops =
 
 DiaObjectType action_type =
 {
-  "GRAFCET - Action",   /* name */
-  0,                         /* version */
-  (char **) action_xpm,      /* pixmap */
-  
-  &action_type_ops       /* ops */
+  "GRAFCET - Action", /* name */
+  0,               /* version */
+  action_xpm,       /* pixmap */
+  &action_type_ops     /* ops */
 };
 
 static ObjectOps action_ops = {

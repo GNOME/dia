@@ -101,11 +101,10 @@ static ObjectTypeOps analog_clock_type_ops =
 
 DiaObjectType analog_clock_type =
 {
-  "Misc - Analog Clock",  /* name */
-  0,                 /* version */
-  (char **) analog_clock_xpm, /* pixmap */
-  
-  &analog_clock_type_ops      /* ops */
+  "Misc - Analog Clock", /* name */
+  0,                  /* version */
+  analog_clock_xpm,    /* pixmap */
+  &analog_clock_type_ops  /* ops */
 };
 
 static ObjectOps analog_clock_ops = {

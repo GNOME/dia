@@ -96,14 +96,13 @@ static ObjectTypeOps generalization_type_ops =
 
 DiaObjectType generalization_type =
 {
-  "UML - Generalization",   /* name */
+  "UML - Generalization",  /* name */
   /* Version 0 had no autorouting and so shouldn't have it set by default. */
-  1,                      /* version */
-  (char **) generalization_xpm,  /* pixmap */
-  
-  &generalization_type_ops,      /* ops */
-  NULL,                 /* pixmap_file */
-  0                     /* default_user_data */
+  1,                     /* version */
+  generalization_xpm,     /* pixmap */
+  &generalization_type_ops,  /* ops */
+  NULL,              /* pixmap_file */
+  0            /* default_user_data */
 };
 
 static ObjectOps generalization_ops = {

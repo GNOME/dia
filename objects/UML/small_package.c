@@ -95,11 +95,10 @@ static ObjectTypeOps smallpackage_type_ops =
 
 DiaObjectType smallpackage_type =
 {
-  "UML - SmallPackage",   /* name */
-  0,                      /* version */
-  (char **) smallpackage_xpm,  /* pixmap */
-  
-  &smallpackage_type_ops       /* ops */
+  "UML - SmallPackage", /* name */
+  0,                 /* version */
+  smallpackage_xpm,   /* pixmap */
+  &smallpackage_type_ops /* ops */
 };
 
 static ObjectOps smallpackage_ops = {

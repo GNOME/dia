@@ -100,11 +100,10 @@ static ObjectTypeOps usecase_type_ops =
 
 DiaObjectType usecase_type =
 {
-  "UML - Usecase",   /* name */
-  0,                      /* version */
-  (char **) case_xpm,  /* pixmap */
-  
-  &usecase_type_ops       /* ops */
+  "UML - Usecase", /* name */
+  0,            /* version */
+  case_xpm,      /* pixmap */
+  &usecase_type_ops /* ops */
 };
 
 static ObjectOps usecase_ops = {

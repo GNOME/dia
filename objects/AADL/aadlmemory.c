@@ -107,13 +107,12 @@ ObjectTypeOps aadlmemory_type_ops;
 
 DiaObjectType aadlmemory_type =
 {
-  "AADL - Memory",           /* name */
-  0,                      /* version */
-  (char **) aadlmemory_xpm,  /* pixmap */
-
-  &aadlmemory_type_ops,       /* ops */
+  "AADL - Memory",          /* name */
+  0,                     /* version */
+  aadlmemory_xpm,         /* pixmap */
+  &aadlmemory_type_ops,      /* ops */
   NULL,
-  &aadlmemory_specific      /* user data */
+  &aadlmemory_specific /* user data */
 };
 
 

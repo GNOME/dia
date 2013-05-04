@@ -107,10 +107,10 @@ static ObjectTypeOps flow_type_ops =
 
 DiaObjectType flow_type =
 {
-  "FS - Flow",         /* name */
-  0,                   /* version */
-  (char **) flow_xpm,  /* pixmap */
-  &flow_type_ops       /* ops */
+  "FS - Flow",  /* name */
+  0,         /* version */
+  flow_xpm,   /* pixmap */
+  &flow_type_ops /* ops */
 };
 
 static ObjectOps flow_ops = {

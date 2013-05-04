@@ -50,13 +50,13 @@ ObjectTypeOps aadlthread_type_ops;
 
 DiaObjectType aadlthread_type =
 {
-  "AADL - Thread",           /* name */
-  0,                      /* version */
-  (char **) aadlthread_xpm,  /* pixmap */
+  "AADL - Thread",          /* name */
+  0,                     /* version */
+  aadlthread_xpm,         /* pixmap */
 
-  &aadlthread_type_ops,       /* ops */
+  &aadlthread_type_ops,      /* ops */
   NULL,
-  &aadlthread_specific      /* user data */
+  &aadlthread_specific /* user data */
 };
 
 

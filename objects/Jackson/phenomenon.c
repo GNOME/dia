@@ -107,10 +107,10 @@ static ObjectTypeOps message_type_ops =
 
 DiaObjectType jackson_phenomenon_type =
 {
-  "Jackson - phenomenon",     /* name */
+  "Jackson - phenomenon",    /* name */
   0,                      /* version */
-  (char **)jackson_shared_phen_xpm,  /* pixmap */
-  &message_type_ops       /* ops */
+  jackson_shared_phen_xpm, /* pixmap */
+  &message_type_ops           /* ops */
 };
 
 static ObjectOps message_ops = {

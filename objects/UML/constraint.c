@@ -96,10 +96,10 @@ static ObjectTypeOps constraint_type_ops =
 
 DiaObjectType constraint_type =
 {
-  "UML - Constraint",        /* name */
-  0,                         /* version */
-  (char **) constraint_xpm,  /* pixmap */
-  &constraint_type_ops       /* ops */
+  "UML - Constraint",  /* name */
+  0,                   /* version */
+  constraint_xpm,      /* pixmap */
+  &constraint_type_ops /* ops */
 };
 
 static ObjectOps constraint_ops = {

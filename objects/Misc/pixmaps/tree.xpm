@@ -1,5 +1,5 @@
 /* XPM */
-static char * tree_xpm[] = {
+static const char * tree_xpm[] = {
 /*
 # 
 #    (c)2007, Thomas Harding <thomas.harding@laposte.net>

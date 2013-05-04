@@ -88,11 +88,10 @@ static ObjectTypeOps actor_type_ops =
 
 DiaObjectType actor_type =
 {
-  "UML - Actor",   /* name */
-  0,                      /* version */
-  (char **) actor_xpm,  /* pixmap */
-  
-  &actor_type_ops       /* ops */
+  "UML - Actor", /* name */
+  0,          /* version */
+  actor_xpm,   /* pixmap */
+  &actor_type_ops /* ops */
 };
 
 static ObjectOps actor_ops = {

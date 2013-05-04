@@ -123,7 +123,7 @@ static DiaObjectType beziergon_type =
 {
   "Standard - Beziergon",   /* name */
   0,                         /* version */
-  (char **) beziergon_icon,      /* pixmap */
+  (const char **) beziergon_icon,      /* pixmap */
   
   &beziergon_type_ops,      /* ops */
   NULL,                     /* pixmap_file */

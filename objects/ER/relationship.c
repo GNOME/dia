@@ -109,9 +109,8 @@ DiaObjectType relationship_type =
 {
   "ER - Relationship",  /* name */
   0,                 /* version */
-  (char **) relationship_xpm, /* pixmap */
-
-  &relationship_type_ops      /* ops */
+  relationship_xpm,   /* pixmap */
+  &relationship_type_ops /* ops */
 };
 
 DiaObjectType *_relationship_type = (DiaObjectType *) &relationship_type;

@@ -109,7 +109,7 @@ DiaObjectType uml_transition_type = {
   /* Version 0 had no autorouting and so shouldn't have it set by default. */
   /* version 0 and 1 expects the arrow to be drawn on the wrong end */ 
   2,                      /* version */
-  (char **) transition_xpm, /* Pixmap */
+  transition_xpm, /* Pixmap */
   &uml_transition_type_ops
 };
 

@@ -97,11 +97,10 @@ static ObjectTypeOps condition_type_ops =
 
 DiaObjectType condition_type =
 {
-  "GRAFCET - Condition",   /* name */
-  0,                         /* version */
-  (char **) condition_xpm,      /* pixmap */
-  
-  &condition_type_ops       /* ops */
+  "GRAFCET - Condition", /* name */
+  0,                  /* version */
+  condition_xpm,       /* pixmap */
+  &condition_type_ops     /* ops */
 };
 
 

@@ -120,10 +120,10 @@ static ObjectTypeOps link_type_ops =
 
 DiaObjectType istar_link_type =
 {
-  "Istar - link",            /* name */
-  0,                         /* version */
-  (char **) istar_link_xpm,  /* pixmap */
-  &link_type_ops             /* ops */
+  "Istar - link",    /* name */
+  0,              /* version */
+  istar_link_xpm,  /* pixmap */
+  &link_type_ops      /* ops */
 };
 
 

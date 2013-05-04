@@ -1,5 +1,5 @@
 /* XPM */
-static char * grid_object_xpm[] = {
+static const char * grid_object_xpm[] = {
 "22 22 3 1",
 " 	c None",
 ".	c #000000",

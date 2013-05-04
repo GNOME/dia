@@ -103,10 +103,9 @@ static ObjectTypeOps entity_type_ops =
 DiaObjectType entity_type =
 {
   "ER - Entity",  /* name */
-  0,                 /* version */
-  (char **) entity_xpm, /* pixmap */
-
-  &entity_type_ops      /* ops */
+  0,           /* version */
+  entity_xpm,   /* pixmap */
+  &entity_type_ops /* ops */
 };
 
 DiaObjectType *_entity_type = (DiaObjectType *) &entity_type;

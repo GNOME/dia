@@ -114,11 +114,10 @@ static ObjectTypeOps pgram_type_ops =
 
 DiaObjectType pgram_type =
 {
-  "Flowchart - Parallelogram",  /* name */
-  0,                 /* version */
-  (char **) pgram_xpm, /* pixmap */
-
-  &pgram_type_ops      /* ops */
+  "Flowchart - Parallelogram", /* name */
+  0,                        /* version */
+  pgram_xpm,                 /* pixmap */
+  &pgram_type_ops               /* ops */
 };
 
 static ObjectOps pgram_ops = {

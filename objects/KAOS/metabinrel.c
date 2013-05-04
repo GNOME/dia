@@ -128,10 +128,10 @@ static ObjectTypeOps mbr_type_ops =
 
 DiaObjectType kaos_mbr_type =
 {
-  "KAOS - mbr",              /* name */
-  0,                         /* version */
-  (char **)contributes_xpm,  /* pixmap */
-  &mbr_type_ops              /* ops */
+  "KAOS - mbr",      /* name */
+  0,              /* version */
+  contributes_xpm, /* pixmap */
+  &mbr_type_ops       /* ops */
 };
 
 static ObjectOps mbr_ops = {

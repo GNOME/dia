@@ -1,5 +1,5 @@
 /* XPM */
-static char * landscape_xpm[] = {
+static const char * landscape_xpm[] = {
 "40 30 3 1",
 " 	c None",
 ".	c #000000",

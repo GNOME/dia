@@ -159,12 +159,10 @@ static ObjectTypeOps compound_type_ops =
 
 DiaObjectType compound_type =
   {
-    "Database - Compound", /* name */
-    0,                     /* version */
-    (char **) compound_xpm, /* pixmap */
-    &compound_type_ops,    /* operations */
-    NULL,
-    NULL
+    "Database - Compound",  /* name */
+    0,                    /* version */
+    compound_xpm,          /* pixmap */
+    &compound_type_ops /* operations */
   };
 
 static ObjectOps compound_ops =

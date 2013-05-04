@@ -107,11 +107,10 @@ static ObjectTypeOps chronoref_type_ops =
 
 DiaObjectType chronoref_type =
 {
-  "chronogram - reference",  /* name */
-  0,                 /* version */
-  (char **) chronoref_xpm, /* pixmap */
-
-  &chronoref_type_ops      /* ops */
+  "chronogram - reference", /* name */
+  0,                     /* version */
+  chronoref_xpm,          /* pixmap */
+  &chronoref_type_ops        /* ops */
 };
 
 

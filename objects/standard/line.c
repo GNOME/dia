@@ -155,7 +155,7 @@ DiaObjectType line_type =
 {
   "Standard - Line",   /* name */
   0,                   /* version */
-  (char **) line_icon,  /* pixmap */
+  (const char **) line_icon,  /* pixmap */
   &line_type_ops,      /* ops */
   NULL,
   0,

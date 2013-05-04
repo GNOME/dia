@@ -105,12 +105,11 @@ static ObjectTypeOps sadtarrow_type_ops =
 
 DiaObjectType sadtarrow_type =
 {
-  "SADT - arrow",   /* name */
+  "SADT - arrow",    /* name */
   /* Version 0 had no autorouting and so shouldn't have it set by default. */
-  1,                         /* version */
-  (char **) arrow_xpm,      /* pixmap */
-  
-  &sadtarrow_type_ops       /* ops */
+  1,              /* version */
+  arrow_xpm,       /* pixmap */
+  &sadtarrow_type_ops /* ops */
 };
 
 

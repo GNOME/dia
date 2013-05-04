@@ -135,7 +135,7 @@ DiaObjectType ellipse_type =
 {
   "Standard - Ellipse",   /* name */
   0,                      /* version */
-  (char **) ellipse_icon,  /* pixmap */
+  (const char **) ellipse_icon,  /* pixmap */
   
   &ellipse_type_ops,      /* ops */
   NULL,

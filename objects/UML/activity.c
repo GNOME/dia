@@ -91,7 +91,7 @@ DiaObjectType activity_type =
 {
   "UML - Activity",   /* name */
   0,                      /* version */
-  (char **) activity_xpm,  /* pixmap */
+  activity_xpm,  /* pixmap */
   
   &activity_type_ops       /* ops */
 };

@@ -1,5 +1,5 @@
 /* XPM */
-static char * diagram_as_element_xpm[] = {
+static const char * diagram_as_element_xpm[] = {
 "22 22 206 2",
 "  	c None",
 ". 	c #4E4E4E",

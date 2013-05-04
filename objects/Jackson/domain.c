@@ -144,10 +144,10 @@ static ObjectTypeOps jackson_domain_type_ops =
 
 DiaObjectType jackson_domain_type =
 {
-  "Jackson - domain",           /* name */
-  0,                            /* version */
-  (char **) jackson_given_domain_xpm, /* this is the default pixmap */
-  &jackson_domain_type_ops      /* ops */
+  "Jackson - domain",       /* name */
+  0,                        /* version */
+  jackson_given_domain_xpm, /* this is the default pixmap */
+  &jackson_domain_type_ops  /* ops */
 };
 
 static ObjectOps jackson_box_ops = {

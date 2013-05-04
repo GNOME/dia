@@ -118,11 +118,10 @@ static ObjectTypeOps step_type_ops =
 
 DiaObjectType step_type =
 {
-  "GRAFCET - Step",  /* name */
-  0,                 /* version */
-  (char **) etape_xpm, /* pixmap */
-
-  &step_type_ops      /* ops */
+  "GRAFCET - Step", /* name */
+  0,             /* version */
+  etape_xpm,      /* pixmap */
+  &step_type_ops     /* ops */
 };
 
 static ObjectOps step_ops = {

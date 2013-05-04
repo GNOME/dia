@@ -23,7 +23,7 @@
  */
 
 /* XPM */
-static char * default_xpm[] = {
+static const char * default_xpm[] = {
 "23 23 3 1",
 " 	c None",
 ".	c white",

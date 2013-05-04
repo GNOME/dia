@@ -112,11 +112,10 @@ static ObjectTypeOps ellipse_type_ops =
 
 DiaObjectType fc_ellipse_type =
 {
-  "Flowchart - Ellipse",  /* name */
-  0,                 /* version */
-  (char **) ellipse_xpm, /* pixmap */
-
-  &ellipse_type_ops      /* ops */
+  "Flowchart - Ellipse", /* name */
+  0,                  /* version */
+  ellipse_xpm,         /* pixmap */
+  &ellipse_type_ops       /* ops */
 };
 
 static ObjectOps ellipse_ops = {
