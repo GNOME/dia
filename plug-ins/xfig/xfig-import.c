@@ -677,13 +677,14 @@ static BezPoint *transform_spline(int npoints, Point *points, gboolean closed) {
  * [ 0  1  30  5]
  * [ 0  0  30  5]
  */
-
+G_GNUC_UNUSED
 static real matrix_bspline_to_bezier[4][4] =
     {{1/6.0, 4/6.0, 1/6.0, 0},
      {0,   4/6.0, 2/6.0, 0},
      {0,   2/6.0, 4/6.0, 0},
      {0,   1/6.0, 4/6.0, 1/6.0}};
 
+G_GNUC_UNUSED
 static real matrix_catmull_to_bezier[4][4] =
     {{0,      1,   4,     1},
      {-1/6.0, 1, 25/26.0, 1},
