@@ -56,10 +56,6 @@ static void modify_motion(ModifyTool *tool, GdkEventMotion *event,
 			  DDisplay *ddisp);
 static void modify_double_click(ModifyTool *tool, GdkEventButton *event,
 				DDisplay *ddisp);
-static void modify_make_text_edit(DDisplay *ddisp, DiaObject *obj, 
-                                  Point *clickedpoint);
-static void modify_start_text_edit(DDisplay *ddisp, Text *text, DiaObject *obj, 
-                                   Point *clickedpoint);
 
 struct _ModifyTool {
   Tool tool;
@@ -847,40 +843,3 @@ modify_button_release(ModifyTool *tool, GdkEventButton *event,
   }
 }
 
-#define EDIT_BORDER_WIDTH 5
-
-static gboolean
-modify_edit_end(GtkWidget *widget, GdkEventFocus *event, gpointer data)
-{
-  GtkTextView *view = GTK_TEXT_VIEW(widget);
-  DiaObject *obj = (DiaObject*)data;
-  GQuark quark = g_quark_from_string(PROP_TYPE_TEXT);
-  const PropDescription *props = obj->ops->describe_props(obj);
-  int i;
-
-  printf("Ending focus\n");
-
-  for (i = 0; props[i].name != NULL; i++) {
-    printf("Testing to remove: %s\n", props[i].name);
-    if (props[i].type_quark == quark) {
-      GPtrArray *textprops = g_ptr_array_sized_new(1);
-      TextProperty *textprop;
-      Property *prop = props[i].ops->new_prop(&props[i], pdtpp_true);
-      GtkTextBuffer *buf;
-      GtkTextIter start, end;
-
-      printf("Going to stop %d\n", i);
-      buf = gtk_text_view_get_buffer(view);
-      g_ptr_array_add(textprops, prop);
-      obj->ops->get_props(obj, textprops);
-      textprop = (TextProperty*)prop;
-      if (textprop->text_data != NULL) g_free(textprop->text_data);
-      gtk_text_buffer_get_bounds(buf, &start, &end);
-      textprop->text_data = gtk_text_buffer_get_text(buf, &start, &end, TRUE);
-      printf("Setting text %s\n", textprop->text_data);
-      obj->ops->set_props(obj, textprops);
-      gtk_widget_destroy(widget);
-    }
-  }
-  return FALSE;
-}
