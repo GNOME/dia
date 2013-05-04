@@ -447,7 +447,7 @@ _clipboard_get_data_callback (GtkClipboard     *clipboard,
     ef = filter_guess_export_filter (outfname);
     close (fd);
   } else {
-    g_warning (error->message);
+    g_warning ("%s", error->message);
     g_error_free (error);
     error = NULL;
   }
