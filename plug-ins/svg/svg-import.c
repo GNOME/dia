@@ -885,7 +885,7 @@ read_image_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list, const gc
 {
   xmlChar *str;
   real x = 0, y = 0, width = 0, height = 0;
-  DiaObject *new_obj;
+  DiaObject *new_obj = NULL;
   DiaMatrix *matrix = NULL;
 
   str = xmlGetProp(node, (const xmlChar *)"transform");
@@ -970,7 +970,10 @@ read_image_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list, const gc
     xmlFree(str);
   }
 
-  return g_list_append (list, new_obj);
+  if (new_obj)
+    return g_list_append (list, new_obj);
+
+  return list;
 }
 
 /* GFunc for foreach */
