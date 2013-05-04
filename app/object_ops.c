@@ -184,7 +184,7 @@ object_list_sort_vertical(const void *o1, const void *o2)
 static void
 filter_connected (const GList *objects, GList **connected, GList **unconnected)
 {
-  GList *list;
+  const GList *list;
   
   for (list = objects; list != NULL; list = g_list_next (list)) {
     DiaObject *obj = list->data;
