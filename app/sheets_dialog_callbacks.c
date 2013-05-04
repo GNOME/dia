@@ -1486,12 +1486,11 @@ on_sheets_dialog_button_copy_all_clicked
                                         (GtkButton       *button,
                                         gpointer         user_data)
 {
-  GtkWidget *active_button; 
   GtkWidget *wrapbox;
   GList *button_list, *iter_list;
   GtkWidget *target_wrapbox;
 
-  active_button = sheets_dialog_get_active_button(&wrapbox, &button_list);
+  sheets_dialog_get_active_button(&wrapbox, &button_list);
 
   target_wrapbox = sheets_dialog_get_target_wrapbox(wrapbox);
 
@@ -1539,14 +1538,13 @@ on_sheets_dialog_button_move_all_clicked
                                         (GtkButton       *button,
                                         gpointer         user_data)
 {
-  GtkWidget *active_button;
   GtkWidget *wrapbox;
   GList *button_list;
   GList *iter_list;
   GtkWidget *target_wrapbox;
   SheetObjectMod *som;
 
-  active_button = sheets_dialog_get_active_button(&wrapbox, &button_list);
+  sheets_dialog_get_active_button(&wrapbox, &button_list);
 
   target_wrapbox = sheets_dialog_get_target_wrapbox(wrapbox);
 
