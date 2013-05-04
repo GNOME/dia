@@ -42,8 +42,9 @@ const real EPSILON = 1e-6;
 int num_objects = 0;
 
 static void
-_test_creation (const DiaObjectType *type)
+_test_creation (gconstpointer user_data)
 {
+  const DiaObjectType *type = (const DiaObjectType *)user_data;
   int i;
   Handle *h1 = NULL, *h2 = NULL;
   Point point = {0, 0};
@@ -116,8 +117,9 @@ _test_creation (const DiaObjectType *type)
 }
 
 static void
-_test_copy (const DiaObjectType *type)
+_test_copy (gconstpointer user_data)
 {
+  const DiaObjectType *type = (const DiaObjectType *)user_data;
   Handle *h1 = NULL, *h2 = NULL;
   Point from = {0, 0};
   DiaObject *oc, *o = type->ops->create (&from, type->default_user_data, &h1, &h2);
@@ -178,8 +180,9 @@ _object_change_free(ObjectChange *change)
 }
 
 static void
-_test_movement (const DiaObjectType *type)
+_test_movement (gconstpointer user_data)
 {
+  const DiaObjectType *type = (const DiaObjectType *)user_data;
   Handle *h1 = NULL, *h2 = NULL;
   Point from = {5, 5};
   DiaObject *o = type->ops->create (&from, type->default_user_data, &h1, &h2);
@@ -243,8 +246,9 @@ _test_movement (const DiaObjectType *type)
 }
 
 static void
-_test_change (const DiaObjectType *type)
+_test_change (gconstpointer user_data)
 {
+  const DiaObjectType *type = (const DiaObjectType *)user_data;
   Handle *h1 = NULL, *h2 = NULL;
   Point from = {0, 0};
   DiaObject *o = type->ops->create (&from, type->default_user_data, &h1, &h2);
@@ -274,8 +278,9 @@ _test_change (const DiaObjectType *type)
   g_free (o);
 }
 static void
-_test_move_handle (const DiaObjectType *type)
+_test_move_handle (gconstpointer user_data)
 {
+  const DiaObjectType *type = (const DiaObjectType *)user_data;
   Handle *h1 = NULL, *h2 = NULL;
   Point from = {0, 0};
   DiaObject *o = type->ops->create (&from, type->default_user_data, &h1, &h2);
@@ -356,8 +361,9 @@ _test_move_handle (const DiaObjectType *type)
   }
 }
 static void
-_test_connectionpoint_consistency (const DiaObjectType *type)
+_test_connectionpoint_consistency (gconstpointer user_data)
 {
+  const DiaObjectType *type = (const DiaObjectType *)user_data;
   Handle *h1 = NULL, *h2 = NULL;
   Point pos = {0, 0};
   Point center;
@@ -435,8 +441,9 @@ _test_connectionpoint_consistency (const DiaObjectType *type)
   g_free (o);
 }
 static void
-_test_object_menu (const DiaObjectType *type)
+_test_object_menu (gconstpointer user_data)
 {
+  const DiaObjectType *type = (const DiaObjectType *)user_data;
   Handle *h1 = NULL, *h2 = NULL;
   Point from = {0, 0};
   DiaObject *o = type->ops->create (&from, type->default_user_data, &h1, &h2);
@@ -492,8 +499,9 @@ _test_object_menu (const DiaObjectType *type)
 }
 
 static void
-_test_draw (const DiaObjectType *type)
+_test_draw (gconstpointer user_data)
 {
+  const DiaObjectType *type = (const DiaObjectType *)user_data;
   Handle *h1 = NULL, *h2 = NULL;
   Point from = {0, 0};
   DiaObject *o = type->ops->create (&from, type->default_user_data, &h1, &h2);
