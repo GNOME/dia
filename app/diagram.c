@@ -867,7 +867,7 @@ diagram_add_update_all(Diagram *dia)
 }
 
 void
-diagram_add_update(Diagram *dia, Rectangle *update)
+diagram_add_update(Diagram *dia, const Rectangle *update)
 {
   GSList *l;
   DDisplay *ddisp;

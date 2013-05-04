@@ -134,7 +134,7 @@ void ddisplay_add_update_pixels(DDisplay *ddisp, Point *point,
 void ddisplay_add_update_all(DDisplay *ddisp);
 void ddisplay_add_update_with_border(DDisplay *ddisp, Rectangle *rect,
 				     int pixel_border);
-void ddisplay_add_update(DDisplay *ddisp, Rectangle *rect);
+void ddisplay_add_update(DDisplay *ddisp, const Rectangle *rect);
 void ddisplay_add_display_area(DDisplay *ddisp,
 			       int left, int top,
 			       int right, int bottom);

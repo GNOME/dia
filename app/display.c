@@ -464,7 +464,7 @@ ddisplay_add_update_with_border(DDisplay *ddisp, Rectangle *rect,
 }
 
 void
-ddisplay_add_update(DDisplay *ddisp, Rectangle *rect)
+ddisplay_add_update(DDisplay *ddisp, const Rectangle *rect)
 {
   Rectangle *r;
   int top,bottom,left,right;

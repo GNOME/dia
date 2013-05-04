@@ -96,7 +96,7 @@ int diagram_is_selected(Diagram *diagram, DiaObject *obj);
 GList *diagram_get_sorted_selected(Diagram *dia);
 /* Removes selected from objects list, NOT selected list: */
 GList *diagram_get_sorted_selected_remove(Diagram *dia);
-void diagram_add_update(Diagram *dia, Rectangle *update);
+void diagram_add_update(Diagram *dia, const Rectangle *update);
 void diagram_add_update_with_border(Diagram *dia, Rectangle *update,
 				    int pixel_border);
 void diagram_add_update_all(Diagram *dia);
