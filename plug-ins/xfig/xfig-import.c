@@ -249,8 +249,9 @@ fig_read_n_points(FILE *file, int n, Point **points, DiaContext *ctx)
 	p.y = y/FIG_UNIT;
 	g_array_append_val(points_list, p);
     }
-    fscanf(file, "\n");
-    
+    if (fscanf(file, "\n") == EOF)
+      dia_context_add_message (ctx, _("Unexpected end of file."));
+
     *points = (Point *)points_list->data;
     g_array_free(points_list, FALSE);
     return TRUE;
