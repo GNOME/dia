@@ -317,12 +317,11 @@ for_each_in_dir(const gchar *directory, ForEachInDirDoFunc dofunc,
 static gboolean 
 directory_filter(const gchar *name)
 {
-  guint len = strlen(name);
-
-  if (0 == strcmp(G_DIR_SEPARATOR_S ".",
-                  &name[len-strlen(G_DIR_SEPARATOR_S ".")])) return FALSE;
-  if (0 == strcmp(G_DIR_SEPARATOR_S "..",
-                  &name[len-strlen(G_DIR_SEPARATOR_S "..")])) return FALSE;
+  const char *rslash = strrchr(name, G_DIR_SEPARATOR);
+  
+  if (rslash && (   0 == strcmp(rslash, G_DIR_SEPARATOR_S ".")
+		 || 0 == strcmp(rslash, G_DIR_SEPARATOR_S "..")))
+    return FALSE;
 
   if (!g_file_test (name, G_FILE_TEST_IS_DIR))
     return FALSE;
