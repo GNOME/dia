@@ -73,7 +73,9 @@ static gboolean plugin_load_inhibited(const gchar *filename);
 static void     info_fill_from_pluginrc(PluginInfo *info);
 
 gboolean
-dia_plugin_info_init(PluginInfo *info, gchar *name, gchar *description,
+dia_plugin_info_init(PluginInfo *info,
+		     const gchar *name,
+		     const gchar *description,
 		     PluginCanUnloadFunc can_unload_func, 
 		     PluginUnloadFunc unload_func)
 {
