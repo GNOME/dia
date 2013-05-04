@@ -1853,7 +1853,12 @@ export_vdx(DiagramData *data, DiaContext *ctx,
     /* dont screw Dia's global state */
     setlocale(LC_NUMERIC, old_locale);
 
-    fclose(file);
+    if (fclose(file) != 0) {
+	dia_context_add_message_with_errno (ctx, errno, _("Saving file '%s' failed."), 
+					    dia_context_get_filename(ctx));
+	return FALSE;
+    }
+    return TRUE;
 }
 
 /* interface from filter.h */
