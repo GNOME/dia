@@ -66,7 +66,10 @@ export_xslt(DiagramData *data, DiaContext *ctx,
 
 	diafilename = g_strdup(diaf);
 
-	xslt_dialog_create();	
+	xslt_dialog_create();
+
+	/* assume the dialog does all the error reporting */
+	return TRUE;
 }
 
 
