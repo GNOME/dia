@@ -342,6 +342,7 @@ export_data(DiagramData *data, DiaContext *ctx,
   return TRUE;
 }
 
+G_GNUC_UNUSED /* keep implmentation for reference, see bug 599401 */
 static gboolean
 export_print_data (DiagramData *data, DiaContext *ctx,
 		   const gchar *filename_utf8, const gchar *diafilename,
@@ -495,7 +496,8 @@ static DiaCallbackFilter cb_gtk_print = {
 static gboolean
 _plugin_can_unload (PluginInfo *info)
 {
-  /* Can't unlaod as long as we are giving away our types, e.g. dia_cairo_interactive_renderer_get_type () */
+  /* Can't unload as long as we are giving away our types,
+   * e.g. dia_cairo_interactive_renderer_get_type () */
   return FALSE;
 }
 
@@ -539,7 +541,7 @@ dia_plugin_init(PluginInfo *info)
                             _plugin_unload))
     return DIA_PLUGIN_INIT_ERROR;
 
-  /* FIXME: need to think about of proper way of registartion, see also app/display.c */
+  /* FIXME: need to think about of proper way of registration, see also app/display.c */
   png_export_filter.renderer_type = dia_cairo_interactive_renderer_get_type ();
 
 #ifdef CAIRO_HAS_PS_SURFACE
