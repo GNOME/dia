@@ -274,7 +274,8 @@ reparse_clevent(const gchar *events, CLEventList **lst,
         *p = '.';
     }
   } else {
-    ps = events;
+    /* must not be freed below */
+    ps = (gchar *)events;
   }
   destroy_clevent_list(*lst);
   *lst = parse_clevent(ps,rise,fall);
