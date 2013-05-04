@@ -215,11 +215,9 @@ static int do_if_clicked_handle(DDisplay *ddisp, ModifyTool *tool,
 {
   DiaObject *obj;
   Handle *handle;
-  real dist;
   
   handle = NULL;
-  dist = diagram_find_closest_handle(ddisp->diagram, &handle,
-				     &obj, clickedpoint);
+  diagram_find_closest_handle(ddisp->diagram, &handle, &obj, clickedpoint);
   if  (handle_is_clicked(ddisp, handle, clickedpoint)) {
     tool->state = STATE_MOVE_HANDLE;
     tool->break_connections = TRUE;
@@ -427,8 +425,8 @@ modify_motion(ModifyTool *tool, GdkEventMotion *event,
   if (tool->state==STATE_NONE) {
     DiaObject *obj = NULL;
     Handle *handle = NULL;
-    real dist;
-    dist = diagram_find_closest_handle (ddisp->diagram, &handle, &obj, &to);
+
+    diagram_find_closest_handle (ddisp->diagram, &handle, &obj, &to);
     if  (handle && handle->type != HANDLE_NON_MOVABLE
       && handle->id >= HANDLE_RESIZE_NW && handle->id <= HANDLE_RESIZE_SE
       && handle_is_clicked(ddisp, handle, &to)
