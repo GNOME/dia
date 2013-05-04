@@ -290,6 +290,7 @@ diagram_data_class_init(DiagramDataClass *klass)
   object_class->finalize = diagram_data_finalize;
   klass->object_add = _diagram_data_object_add;
   klass->object_remove = _diagram_data_object_remove;
+  klass->selection_changed = _diagram_data_selection_changed;
 }
 
 /*!
