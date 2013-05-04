@@ -510,6 +510,8 @@ if test "$GCC" = yes; then
   dnl DIA_CHECK_CFLAG(-Wshadow)
   DIA_CHECK_CFLAG(-Wpointer-arith)
   dnl DIA_CHECK_CFLAG(-Wswitch-enum)
+  dnl For Dia the following warning is producing pure noise, switch it off
+  DIA_CHECK_CFLAG(-Wno-enum-compare)
   DIA_CHECK_CFLAG(-Winit-self)
   DIA_CHECK_CFLAG(-Wformat-nonliteral)
 fi
