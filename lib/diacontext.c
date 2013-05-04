@@ -34,8 +34,8 @@
 #include "message.h" /* just for testing */
 
 typedef struct _DiaContextClass DiaContextClass;
-#define DIA_TYPE_CONTEXT (dia_context_get_type ())
-GType dia_context_get_type (void) G_GNUC_CONST;
+#define DIA_TYPE_CONTEXT (_dia_context_get_type ())
+static GType _dia_context_get_type (void) G_GNUC_CONST;
 
 struct _DiaContext
 {
@@ -53,9 +53,8 @@ struct _DiaContextClass
 
 /* The use of GObject is intentionally hidden from the API */
 static void _dia_context_finalize   (GObject *object);
-static GType _dia_context_get_type (void);
 
-G_DEFINE_TYPE (DiaContext, _dia_context, DIA_TYPE_CONTEXT);
+G_DEFINE_TYPE (DiaContext, _dia_context, G_TYPE_OBJECT);
 static gpointer parent_class = NULL;
 
 static void
@@ -81,34 +80,6 @@ static void
 _dia_context_init(DiaContext *self)
 {
   /* zero initialization should be right */
-}
-
-GType
-dia_context_get_type (void)
-{
-  static GType object_type = 0;
-
-  if (!object_type)
-    {
-      static const GTypeInfo object_info =
-      {
-        sizeof (DiaContextClass),
-        (GBaseInitFunc) NULL,
-        (GBaseFinalizeFunc) NULL,
-        (GClassInitFunc) _dia_context_class_init,
-        NULL,           /* class_finalize */
-        NULL,           /* class_data */
-        sizeof (DiaContext),
-        0,              /* n_preallocs */
-	NULL            /* init */
-      };
-
-      object_type = g_type_register_static (G_TYPE_OBJECT,
-                                            "DiaContext",
-                                            &object_info, 0);
-    }
-  
-  return object_type;
 }
 
 DiaContext *
