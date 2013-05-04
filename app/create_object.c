@@ -50,7 +50,6 @@ create_object_button_press(CreateObjectTool *tool, GdkEventButton *event,
   Handle *handle1;
   Handle *handle2;
   DiaObject *obj;
-  real click_distance;
 
   ddisplay_untransform_coords(ddisp,
 			      (int)event->x, (int)event->y,
@@ -59,8 +58,6 @@ create_object_button_press(CreateObjectTool *tool, GdkEventButton *event,
   origpoint = clickedpoint;
 
   snap_to_grid(ddisp, &clickedpoint.x, &clickedpoint.y);
-
-  click_distance = ddisplay_untransform_length(ddisp, 3.0);
 
   obj = dia_object_default_create (tool->objtype, &clickedpoint,
                                    tool->user_data,
