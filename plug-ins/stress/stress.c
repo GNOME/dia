@@ -65,13 +65,13 @@ static DiaCallbackFilter cb_stress_memory = {
 static gboolean
 _plugin_can_unload (PluginInfo *info)
 {
-  /* there is no filter_unregister_callback yet */
   return TRUE;
 }
 
 static void
 _plugin_unload (PluginInfo *info)
 {
+  filter_unregister_callback (&cb_stress_memory);
   vmem_release ();
 }
 

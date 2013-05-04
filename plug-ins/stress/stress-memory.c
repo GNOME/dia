@@ -129,3 +129,4 @@ vmem_release (void)
     virtual_reserved = NULL;
   }
 }
+
