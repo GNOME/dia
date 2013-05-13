@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the dia package.
 # Maintainer: Дејан Матијевић <dmax@neobee.net>
 # Reviewed on 2004-03-24 by: Данило Шеган <danilo@prevod.org>
-# Мирослав Николић <miroslavnikolic@rocketmail.com>, 2012.
+# Мирослав Николић <miroslavnikolic@rocketmail.com>, 2012, 2013.
 #: ../objects/UML/class.c:193
 msgid ""
 msgstr ""
 "Project-Id-Version: dia\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=dia&ke"
 "ywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2012-10-28 18:33+0000\n"
-"PO-Revision-Date: 2012-11-14 20:48+0200\n"
+"POT-Creation-Date: 2013-05-04 18:59+0000\n"
+"PO-Revision-Date: 2013-05-13 11:00+0200\n"
 "Last-Translator: Мирослав Николић <miroslavnikolic@rocketmail.com>\n"
 "Language-Team: Serbian <gnom@prevod.org>\n"
 "Language: sr\n"
@@ -55,8 +55,8 @@ msgstr "%s грешка: називи улазне и излазне датот�
 
 #. Translators: Menu item Verb/Channel/Import
 #. Translators: Menu item Verb/Channel/Import/Import
-#: ../app/app_procs.c:353 ../objects/FS/function.c:683
-#: ../objects/FS/function.c:685
+#: ../app/app_procs.c:353 ../objects/FS/function.c:682
+#: ../objects/FS/function.c:684
 msgid "Import"
 msgstr "Увези"
 
@@ -334,34 +334,33 @@ msgstr "Дијаграм %d.dia"
 msgid "No image from Clipboard to paste."
 msgstr "Нема слике из оставе за убацивање."
 
-#: ../app/commands.c:299
+#: ../app/commands.c:298
 msgid "No selected object can take an image."
 msgstr "Ниједан изабрани објекат не може да сними слику."
 
-#: ../app/commands.c:326
-#| msgid "Clipboard Copy"
+#: ../app/commands.c:325
 msgid "Clipboard Paste"
 msgstr "Убацивање у оставу"
 
 #. might become more right some day ;)
-#: ../app/commands.c:334
+#: ../app/commands.c:333
 #, c-format
 msgid "No clipboard handler for '%s'"
 msgstr "Нема руковаоца оставом за „%s“"
 
-#: ../app/commands.c:426
+#: ../app/commands.c:424
 msgid "Clipboard Copy"
 msgstr "Умножавање у оставу"
 
-#: ../app/commands.c:625
+#: ../app/commands.c:623
 msgid "No existing object to paste.\n"
 msgstr "Не постоји објекат за убацивање.\n"
 
-#: ../app/commands.c:935 ../app/commands.c:973
+#: ../app/commands.c:933 ../app/commands.c:971
 msgid "Could not find help directory"
 msgstr "Не могу да пронађем директоријум помоћи"
 
-#: ../app/commands.c:942
+#: ../app/commands.c:940
 #, c-format
 msgid ""
 "Could not open help directory:\n"
@@ -370,7 +369,7 @@ msgstr ""
 "Не могу да отворим директоријум помоћи:\n"
 "%s"
 
-#: ../app/commands.c:1011
+#: ../app/commands.c:1008
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr ""
 "Дејан Матијевић <dmax@neobee.net>\n"
@@ -379,7 +378,7 @@ msgstr ""
 "\n"
 "Prevod.org — превод на српски језик."
 
-#: ../app/commands.c:1013
+#: ../app/commands.c:1010
 msgid ""
 "This program is free software; you can redistribute it and/or modify\n"
 "it under the terms of the GNU General Public License as published by\n"
@@ -410,21 +409,21 @@ msgstr ""
 "софтвера на адресу: „Free Software Foundation, Inc.,\n"
 "59 Temple Place - Suite 330, Boston, MA 02111-1307, USA“.\n"
 
-#: ../app/commands.c:1040
+#: ../app/commands.c:1037
 msgid "A program for drawing structured diagrams."
 msgstr "Програм за цртање структурних дијаграма."
 
-#: ../app/confirm.c:65
+#: ../app/confirm.c:69
 #, c-format
 msgid "You are about to print a diagram with %d pages."
 msgstr "Хоћете да штампате дијаграм са %d страница."
 
-#: ../app/confirm.c:67
+#: ../app/confirm.c:71
 #, c-format
 msgid "You are about to export a diagram with %d pages."
 msgstr "Хоћете да извезете дијаграм са %d страница."
 
-#: ../app/confirm.c:69
+#: ../app/confirm.c:73
 #, c-format
 msgid ""
 "You are about to export a diagram which may require %s of memory.(%d pages)."
@@ -432,7 +431,7 @@ msgstr ""
 "Хоћете да извезете дијаграм који може да захтева %s меморије. (бр. страница "
 "— %d)."
 
-#: ../app/confirm.c:77
+#: ../app/confirm.c:81
 msgid ""
 "You can adjust the size of the diagram by changing the 'Scaling' in the "
 "'Page Setup' dialog.\n"
@@ -444,11 +443,11 @@ msgstr ""
 "Или користите „Изабери све“ и „Најбоље испуњење“ да преместите објекте/"
 "ручице унутар жељених граница."
 
-#: ../app/confirm.c:81
+#: ../app/confirm.c:85
 msgid "Confirm Diagram Size"
 msgstr "Потврди величину дијаграма"
 
-#: ../app/create_object.c:74
+#: ../app/create_object.c:71
 #, c-format
 msgid "'%s' creation failed"
 msgstr "Стварање „%s“ није успело"
@@ -502,10 +501,10 @@ msgstr[2] "%d слојева"
 msgstr[3] "Један слој"
 
 #: ../app/diagram_tree_view.c:181 ../app/diagram_tree_view.c:519
-#: ../objects/Database/table.c:140 ../objects/Istar/actor.c:143
-#: ../objects/Istar/actor.c:144 ../objects/Istar/other.c:147
+#: ../objects/Database/table.c:138 ../objects/Istar/actor.c:142
+#: ../objects/Istar/actor.c:143 ../objects/Istar/other.c:147
 #: ../objects/Istar/other.c:148 ../objects/KAOS/other.c:150
-#: ../objects/KAOS/other.c:151 ../objects/UML/association.c:243
+#: ../objects/KAOS/other.c:151 ../objects/UML/association.c:242
 #: ../objects/UML/umlattribute.c:39 ../objects/UML/umlformalparameter.c:37
 #: ../objects/UML/umloperation.c:64 ../objects/UML/umlparameter.c:45
 msgid "Type"
@@ -535,8 +534,8 @@ msgstr "Изабери"
 
 #. Translators: Menu item Verb/Support/Position/Locate
 #. Translators: Menu item Verb/Signal/Sense/Locate
-#: ../app/diagram_tree_view.c:449 ../objects/FS/function.c:809
-#: ../objects/FS/function.c:1051
+#: ../app/diagram_tree_view.c:449 ../objects/FS/function.c:808
+#: ../objects/FS/function.c:1050
 msgid "Locate"
 msgstr "Пронађи"
 
@@ -545,9 +544,9 @@ msgid "Properties"
 msgstr "Особине"
 
 #: ../app/diagram_tree_view.c:502 ../app/exit_dialog.c:123
-#: ../app/plugin-manager.c:270 ../objects/Database/table.c:138
-#: ../objects/Database/table.c:181 ../objects/UML/association.c:237
-#: ../objects/UML/class.c:140 ../objects/UML/large_package.c:132
+#: ../app/plugin-manager.c:270 ../objects/Database/table.c:136
+#: ../objects/Database/table.c:179 ../objects/UML/association.c:236
+#: ../objects/UML/class.c:140 ../objects/UML/large_package.c:131
 #: ../objects/UML/umlattribute.c:37 ../objects/UML/umlformalparameter.c:35
 #: ../objects/UML/umloperation.c:62 ../objects/UML/umlparameter.c:43
 msgid "Name"
@@ -675,7 +674,7 @@ msgstr "Боје"
 msgid "Diagram Properties: %s"
 msgstr "Особине дијаграма: %s"
 
-#: ../app/disp_callbacks.c:91 ../app/properties-dialog.c:156
+#: ../app/disp_callbacks.c:92 ../app/properties-dialog.c:156
 msgid ""
 "This object doesn't support Undo/Redo.\n"
 "Undo information erased."
@@ -683,19 +682,19 @@ msgstr ""
 "Овај објекат не подржава Опозови/Понови.\n"
 "Подаци за опозивање су обрисани."
 
-#: ../app/disp_callbacks.c:126
+#: ../app/disp_callbacks.c:127
 msgid "Properties…"
 msgstr "Својства…"
 
-#: ../app/disp_callbacks.c:165
+#: ../app/disp_callbacks.c:166
 msgid "Follow link…"
 msgstr "Прати везу…"
 
-#: ../app/disp_callbacks.c:287
+#: ../app/disp_callbacks.c:288
 msgid "Selection"
 msgstr "Избор"
 
-#: ../app/disp_callbacks.c:1057
+#: ../app/disp_callbacks.c:1056
 msgid ""
 "The object you dropped cannot fit into its parent. \n"
 "Either expand the parent object, or drop the object elsewhere."
@@ -726,16 +725,16 @@ msgstr "Изабрано је „%s“"
 msgid "No antialiased renderer found"
 msgstr "Није пронађен исцртавач умекшавања"
 
-#: ../app/display.c:1327
+#: ../app/display.c:1332
 msgid "<unnamed>"
 msgstr "<неименован>"
 
 #. no standard buttons
-#: ../app/display.c:1333
+#: ../app/display.c:1338
 msgid "Closing diagram without saving"
 msgstr "Затварам дијаграм без чувања"
 
-#: ../app/display.c:1335
+#: ../app/display.c:1340
 #, c-format
 msgid ""
 "The diagram '%s'\n"
@@ -744,11 +743,11 @@ msgstr ""
 "Дијаграм „%s“\n"
 "није сачуван. Да сачувам измене сада?"
 
-#: ../app/display.c:1337
+#: ../app/display.c:1342
 msgid "Close Diagram"
 msgstr "Затвори дијаграм"
 
-#: ../app/display.c:1342
+#: ../app/display.c:1347
 msgid "_Discard Changes"
 msgstr "_Одбаци измене"
 
@@ -789,7 +788,7 @@ msgid "Nothing selected for saving.  Would you like to try again?"
 msgstr "Ништа није изабрано за чување.  Да ли желите да покушате опет?"
 
 #: ../app/filedlg.c:144 ../app/filedlg.c:152 ../app/filedlg.c:168
-#: ../app/filedlg.c:819 ../lib/widgets.c:406
+#: ../app/filedlg.c:819 ../lib/widgets.c:402
 msgid "Supported Formats"
 msgstr "Подржани формати"
 
@@ -810,7 +809,7 @@ msgstr "Опције отварања"
 msgid "Determine file type:"
 msgstr "Врста датотеке:"
 
-#: ../app/filedlg.c:354 ../app/filedlg.c:814 ../lib/widgets.c:414
+#: ../app/filedlg.c:354 ../app/filedlg.c:814 ../lib/widgets.c:410
 msgid "All Files"
 msgstr "Све датотеке"
 
@@ -954,42 +953,42 @@ msgstr "Спусти слој"
 msgid "Delete Layer"
 msgstr "Избриши слој"
 
-#: ../app/layer_dialog.c:311
+#: ../app/layer_dialog.c:305
 msgid "Layers:"
 msgstr "Слојеви:"
 
-#: ../app/layer_dialog.c:390
+#: ../app/layer_dialog.c:384
 msgid "Layers"
 msgstr "Слојеви"
 
-#: ../app/layer_dialog.c:404
+#: ../app/layer_dialog.c:398
 msgid "Diagram:"
 msgstr "Дијаграм:"
 
-#: ../app/layer_dialog.c:518 ../app/layer_dialog.c:1231
+#: ../app/layer_dialog.c:512 ../app/layer_dialog.c:1224
 #, c-format
 msgid "New layer %d"
 msgstr "Нови слој %d"
 
-#: ../app/layer_dialog.c:733
+#: ../app/layer_dialog.c:727
 msgid "none"
 msgstr "ништа"
 
-#: ../app/layer_dialog.c:1201
+#: ../app/layer_dialog.c:1194
 msgid "Edit Layer"
 msgstr "Уредите слој"
 
-#: ../app/layer_dialog.c:1201
+#: ../app/layer_dialog.c:1194
 msgid "Add Layer"
 msgstr "Додајте слој"
 
-#: ../app/layer_dialog.c:1220
+#: ../app/layer_dialog.c:1213
 msgid "Layer name:"
 msgstr "Назив слоја:"
 
 #: ../app/linewidth_area.c:247 ../lib/properties.h:622 ../lib/properties.h:625
-#: ../objects/chronogram/chronoline.c:181
-#: ../objects/chronogram/chronoref.c:160
+#: ../objects/chronogram/chronoline.c:180
+#: ../objects/chronogram/chronoref.c:159
 msgid "Line width"
 msgstr "Ширина линије"
 
@@ -1034,7 +1033,7 @@ msgstr "Треба да наведете датотеку, а не директ�
 
 #: ../app/load_save.c:385 ../plug-ins/dxf/dxf-import.c:1289
 #: ../plug-ins/wpg/wpg.c:1186 ../plug-ins/xfig/xfig-import.c:1288
-#: ../plug-ins/xslt/xslt.c:93
+#: ../plug-ins/xslt/xslt.c:96
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
 msgstr "Не могу да отворим „%s“ за читање.\n"
@@ -1088,9 +1087,9 @@ msgstr "Није ми допуштено да запишем привремен�
 #: ../plug-ins/dxf/dxf-export.c:599
 #: ../plug-ins/metapost/render_metapost.c:1179
 #: ../plug-ins/pgf/render_pgf.c:1204 ../plug-ins/postscript/render_eps.c:123
-#: ../plug-ins/pstricks/render_pstricks.c:920
+#: ../plug-ins/pstricks/render_pstricks.c:917
 #: ../plug-ins/vdx/vdx-export.c:1801 ../plug-ins/wmf/wmf.cpp:1374
-#: ../plug-ins/wpg/wpg.c:1078 ../plug-ins/xfig/xfig-export.c:1158
+#: ../plug-ins/wpg/wpg.c:1078 ../plug-ins/xfig/xfig-export.c:1178
 #, c-format
 msgid "Can't open output file %s"
 msgstr "Не могу да отворим излазну датотеку %s"
@@ -1396,7 +1395,7 @@ msgid "_Unparent Children"
 msgstr "Из_баци из садржаоца"
 
 #. Translators: Menu item Verb/Support/Position/Align
-#: ../app/menus.c:184 ../objects/FS/function.c:807
+#: ../app/menus.c:184 ../objects/FS/function.c:806
 msgid "Align"
 msgstr "Поравнај"
 
@@ -1444,7 +1443,7 @@ msgid "All"
 msgstr "Све"
 
 #: ../app/menus.c:203 ../lib/arrows.c:1890 ../objects/Jackson/domain.c:94
-#: ../objects/UML/association.c:221 ../objects/UML/association.c:227
+#: ../objects/UML/association.c:220 ../objects/UML/association.c:226
 msgid "None"
 msgstr "Ништа"
 
@@ -1493,7 +1492,7 @@ msgid "Modify"
 msgstr "Измени"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Magnify
-#: ../app/menus.c:229 ../app/toolbox.c:86 ../objects/FS/function.c:987
+#: ../app/menus.c:229 ../app/toolbox.c:86 ../objects/FS/function.c:986
 msgid "Magnify"
 msgstr "Увеличај"
 
@@ -1509,14 +1508,14 @@ msgstr "Померање"
 #. new name matching "same name, same type"  rule
 #: ../app/menus.c:232 ../app/toolbox.c:98 ../lib/properties.c:101
 #: ../lib/properties.h:673 ../objects/AADL/aadlbox.c:153
-#: ../objects/custom/custom_object.c:228 ../objects/Jackson/requirement.c:133
+#: ../objects/custom/custom_object.c:228 ../objects/Jackson/requirement.c:132
 #: ../objects/network/basestation.c:132 ../objects/network/radiocell.c:125
-#: ../objects/UML/activity.c:127 ../objects/UML/actor.c:121
-#: ../objects/UML/classicon.c:146 ../objects/UML/component.c:128
-#: ../objects/UML/component_feature.c:158 ../objects/UML/node.c:128
-#: ../objects/UML/node.c:130 ../objects/UML/note.c:119
-#: ../objects/UML/object.c:166 ../objects/UML/small_package.c:130
-#: ../objects/UML/state.c:155 ../objects/UML/usecase.c:137
+#: ../objects/UML/activity.c:127 ../objects/UML/actor.c:120
+#: ../objects/UML/classicon.c:145 ../objects/UML/component.c:127
+#: ../objects/UML/component_feature.c:158 ../objects/UML/node.c:127
+#: ../objects/UML/node.c:129 ../objects/UML/note.c:118
+#: ../objects/UML/object.c:164 ../objects/UML/small_package.c:129
+#: ../objects/UML/state.c:154 ../objects/UML/usecase.c:136
 msgid "Text"
 msgstr "Текст"
 
@@ -1537,7 +1536,7 @@ msgstr "Полигон"
 msgid "Beziergon"
 msgstr "Безјергон"
 
-#: ../app/menus.c:238 ../app/toolbox.c:128 ../objects/standard/line.c:326
+#: ../app/menus.c:238 ../app/toolbox.c:128 ../objects/standard/line.c:325
 msgid "Line"
 msgstr "Линија"
 
@@ -1601,8 +1600,8 @@ msgstr "Пресек"
 #. Translators: Menu item Verb/Channel/Export/Remove
 #. Translators: Menu item Verb/Branch/Separate/Remove
 #. Translators: Menu item Verb/Branch/Separate/Remove/Remove
-#: ../app/menus.c:266 ../objects/FS/function.c:707
-#: ../objects/FS/function.c:859 ../objects/FS/function.c:861
+#: ../app/menus.c:266 ../objects/FS/function.c:706
+#: ../objects/FS/function.c:858 ../objects/FS/function.c:860
 msgid "Remove"
 msgstr "Уклони"
 
@@ -1655,7 +1654,11 @@ msgstr "Пребаците пријањање уз мрежу."
 msgid "Toggles object snapping."
 msgstr "Пребаците пријањање објекта."
 
-#: ../app/modify_tool.c:390
+#: ../app/menus.c:1254
+msgid "The function is not available anymore."
+msgstr "Функција није више доступна."
+
+#: ../app/modify_tool.c:384
 msgid "Couldn't get GTK+ settings"
 msgstr "Не могу да добавим ГТК+ подешавања"
 
@@ -1808,8 +1811,8 @@ msgstr "Прикажи умекшано"
 #. Favored Filter
 #. Translators: Menu item Verb/Channel/Export
 #. Translators: Menu item Verb/Channel/Export/Export
-#: ../app/preferences.c:220 ../objects/FS/function.c:697
-#: ../objects/FS/function.c:699 ../plug-ins/libart/export_png.c:329
+#: ../app/preferences.c:220 ../objects/FS/function.c:696
+#: ../objects/FS/function.c:698 ../plug-ins/libart/export_png.c:329
 msgid "Export"
 msgstr "Извоз"
 
@@ -1817,8 +1820,8 @@ msgstr "Извоз"
 msgid "Portable Network Graphics"
 msgstr "Преносна мрежна графика"
 
-#: ../app/preferences.c:224 ../plug-ins/svg/render_svg.c:605
-#: ../plug-ins/svg/svg-import.c:1444
+#: ../app/preferences.c:224 ../plug-ins/svg/render_svg.c:604
+#: ../plug-ins/svg/svg-import.c:1447
 msgid "Scalable Vector Graphics"
 msgstr "Променљива векторска графика"
 
@@ -1867,13 +1870,13 @@ msgid "Hex Size:"
 msgstr "Хекс величина:"
 
 #: ../app/preferences.c:481 ../lib/prop_inttypes.c:159
-#: ../lib/prop_pixbuf.c:270
+#: ../lib/prop_pixbuf.c:268
 msgid "Yes"
 msgstr "Да"
 
 #: ../app/preferences.c:481 ../app/preferences.c:492
 #: ../lib/prop_inttypes.c:161 ../lib/prop_inttypes.c:187
-#: ../lib/prop_pixbuf.c:272 ../lib/prop_pixbuf.c:278
+#: ../lib/prop_pixbuf.c:270 ../lib/prop_pixbuf.c:276
 msgid "No"
 msgstr "Не"
 
@@ -1936,7 +1939,7 @@ msgstr "СВГ облик"
 msgid "Programmed DiaObject"
 msgstr "Програмирани објекат Дие"
 
-#: ../app/sheets_dialog.c:255
+#: ../app/sheets_dialog.c:253
 msgid "Select SVG Shape File"
 msgstr "Изаберите датотеку СВГ облика"
 
@@ -1972,7 +1975,7 @@ msgstr "<— Премести"
 msgid "<- Move All"
 msgstr "<— Премести све"
 
-#: ../app/sheets_dialog_callbacks.c:289 ../app/sheets_dialog_callbacks.c:1072
+#: ../app/sheets_dialog_callbacks.c:289 ../app/sheets_dialog_callbacks.c:1071
 msgid "Line Break"
 msgstr "Прелом линије"
 
@@ -2003,63 +2006,63 @@ msgstr ""
 "%s\n"
 "Недодељена врста"
 
-#: ../app/sheets_dialog_callbacks.c:771
+#: ../app/sheets_dialog_callbacks.c:770
 msgid "Please select a .shape file"
 msgstr "Молим изаберите „.shape“ датотеку"
 
-#: ../app/sheets_dialog_callbacks.c:778
+#: ../app/sheets_dialog_callbacks.c:777
 #, c-format
 msgid "Filename must end with '%s': '%s'"
 msgstr "Датотека мора да се заврши на „%s“: „%s“"
 
-#: ../app/sheets_dialog_callbacks.c:786
+#: ../app/sheets_dialog_callbacks.c:785
 #, c-format
 msgid "Error examining %s: %s"
 msgstr "Грешка испитујући %s: %s"
 
-#: ../app/sheets_dialog_callbacks.c:817
+#: ../app/sheets_dialog_callbacks.c:816
 msgid "Please export the diagram as a shape."
 msgstr "Молим извезите дијаграм као облик."
 
-#: ../app/sheets_dialog_callbacks.c:820
+#: ../app/sheets_dialog_callbacks.c:819
 #, c-format
 msgid "Could not interpret shape file: '%s'"
 msgstr "Не могу да преведем датотеку облика: „%s“"
 
-#: ../app/sheets_dialog_callbacks.c:888
+#: ../app/sheets_dialog_callbacks.c:887
 msgid "Sheet must have a Name"
 msgstr "Лист мора имати назив"
 
-#: ../app/sheets_dialog_callbacks.c:1582 ../app/sheets_dialog_callbacks.c:1589
+#: ../app/sheets_dialog_callbacks.c:1579 ../app/sheets_dialog_callbacks.c:1586
 #, c-format
 msgid "Couldn't open '%s': %s"
 msgstr "Не могу да отворим „%s“: %s"
 
-#: ../app/sheets_dialog_callbacks.c:1643
+#: ../app/sheets_dialog_callbacks.c:1640
 #, c-format
 msgid "Couldn't open: '%s' for writing"
 msgstr "Не могу да отворим: „%s“ за писање"
 
-#: ../app/sheets_dialog_callbacks.c:1653
+#: ../app/sheets_dialog_callbacks.c:1650
 msgid "a user"
 msgstr "корисник"
 
-#: ../app/sheets_dialog_callbacks.c:1666
+#: ../app/sheets_dialog_callbacks.c:1663
 #, c-format
 msgid "File: %s"
 msgstr "Датотека: %s"
 
-#: ../app/sheets_dialog_callbacks.c:1669
+#: ../app/sheets_dialog_callbacks.c:1666
 #, c-format
 msgid "Date: %s"
 msgstr "Датум: %s"
 
-#: ../app/sheets_dialog_callbacks.c:1673
+#: ../app/sheets_dialog_callbacks.c:1670
 #, c-format
 msgid "For: %s"
 msgstr "За: %s"
 
-#: ../app/sheets_dialog_callbacks.c:1690
+#: ../app/sheets_dialog_callbacks.c:1687
 msgid "add shapes here"
 msgstr "додај облик овде"
 
@@ -2092,20 +2095,20 @@ msgstr ""
 msgid "Scroll around the diagram"
 msgstr "Крећите се око дијаграма"
 
-#: ../app/toolbox.c:354
+#: ../app/toolbox.c:352
 #, c-format
 msgid "No sheet named %s"
 msgstr "Нема листа под називом %s"
 
-#: ../app/toolbox.c:392
+#: ../app/toolbox.c:390
 msgid "Other sheets"
 msgstr "Остали листови"
 
-#: ../app/toolbox.c:452 ../sheets/Flowchart.sheet.in.h:1
+#: ../app/toolbox.c:450 ../sheets/Flowchart.sheet.in.h:1
 msgid "Flowchart"
 msgstr "Дијаграм тока"
 
-#: ../app/toolbox.c:496
+#: ../app/toolbox.c:494
 msgid ""
 "Foreground & background colors for new objects.  The small black and white "
 "squares reset colors.  The small arrows swap colors.  Double-click to change "
@@ -2114,7 +2117,7 @@ msgstr ""
 "Боја лица и позадине за нове објекте. Мали црни и бели квадрати враћају "
 "старе боје. Мале стрелице размењују боје. Двоструким кликом мењате боје."
 
-#: ../app/toolbox.c:510
+#: ../app/toolbox.c:508
 msgid ""
 "Line widths.  Click on a line to set the default line width for new "
 "objects.  Double-click to set the line width more precisely."
@@ -2122,7 +2125,7 @@ msgstr ""
 "Дебљине линија. Кликните на линију да поставите подразумевану дебљину линија "
 "нових објеката. Кликните два пута да поставите дебљину линије мало тачније."
 
-#: ../app/toolbox.c:553
+#: ../app/toolbox.c:551
 msgid ""
 "Arrow style at the beginning of new lines.  Click to pick an arrow, or set "
 "arrow parameters with Details…"
@@ -2130,7 +2133,7 @@ msgstr ""
 "Стил стрелица на почетку нових линија.  Кликните да изаберете стрелицу, или "
 "поставите особине стрелице помоћу „Детаља“…"
 
-#: ../app/toolbox.c:558
+#: ../app/toolbox.c:556
 msgid ""
 "Line style for new lines.  Click to pick a line style, or set line style "
 "parameters with Details…"
@@ -2138,7 +2141,7 @@ msgstr ""
 "Стил линија за нове линије. Кликните да изаберете стил линија, или поставите "
 "особине стила линија помоћу „Детаља“…"
 
-#: ../app/toolbox.c:574
+#: ../app/toolbox.c:572
 msgid ""
 "Arrow style at the end of new lines.  Click to pick an arrow, or set arrow "
 "parameters with Details…"
@@ -2509,28 +2512,28 @@ msgid "Details…"
 msgstr "Детаљи…"
 
 # bug: "Solid material" is waaay different from "solid line" in Serbian
-#: ../lib/dialinestyleselector.c:124
+#: ../lib/dialinestyleselector.c:107
 msgid "line|Solid"
 msgstr "Пуна"
 
-#: ../lib/dialinestyleselector.c:130
+#: ../lib/dialinestyleselector.c:108
 msgid "line|Dashed"
 msgstr "Испрекидана"
 
-#: ../lib/dialinestyleselector.c:136
+#: ../lib/dialinestyleselector.c:109
 msgid "line|Dash-Dot"
 msgstr "Црта-Тачка"
 
-#: ../lib/dialinestyleselector.c:142
+#: ../lib/dialinestyleselector.c:110
 msgid "line|Dash-Dot-Dot"
 msgstr "Црта-Тачка-Тачка"
 
-#: ../lib/dialinestyleselector.c:148
+#: ../lib/dialinestyleselector.c:111
 msgid "line|Dotted"
 msgstr "Тачкаста"
 
 #. fs->sizebox = GTK_HBOX(box);
-#: ../lib/dialinestyleselector.c:166
+#: ../lib/dialinestyleselector.c:143
 msgid "Dash length: "
 msgstr "Дужина црте: "
 
@@ -2626,7 +2629,6 @@ msgstr "Пропусници вишеструког извоза са једин
 
 #: ../lib/filter.c:195
 #, c-format
-#| msgid "Multiple export filters with unique name %s"
 msgid "Multiple import filters with unique name %s"
 msgstr "Пропусници вишеструког увоза са јединственим називом %s"
 
@@ -2687,34 +2689,34 @@ msgstr "Самотрасирање"
 msgid "Persistence"
 msgstr "Постојаност"
 
-#: ../lib/plug-ins.c:111
+#: ../lib/plug-ins.c:113
 msgid "???"
 msgstr "???"
 
-#: ../lib/plug-ins.c:186
+#: ../lib/plug-ins.c:188
 #, c-format
 msgid "Missing dependencies for '%s'?"
 msgstr "Недостају зависности за „%s“?"
 
-#: ../lib/plug-ins.c:197
+#: ../lib/plug-ins.c:199
 msgid "Missing symbol 'dia_plugin_init'"
 msgstr "Недостаје симбол „dia_plugin_init“"
 
-#: ../lib/plug-ins.c:205 ../lib/plug-ins.c:213
+#: ../lib/plug-ins.c:207 ../lib/plug-ins.c:215
 msgid "dia_plugin_init() call failed"
 msgstr "Није успео позив функције „dia_plugin_init()“"
 
-#: ../lib/plug-ins.c:232
+#: ../lib/plug-ins.c:234
 #, c-format
 msgid "%s Plugin could not be unloaded"
 msgstr "Не могу да угасим прикључак „%s“"
 
-#: ../lib/plug-ins.c:441
+#: ../lib/plug-ins.c:442
 msgid "Plugin Configuration"
 msgstr "Подешавање прикључака"
 
-#: ../lib/propdialogs.c:324 ../objects/UML/association.c:235
-#: ../objects/UML/object.c:146
+#: ../lib/propdialogs.c:324 ../objects/UML/association.c:234
+#: ../objects/UML/object.c:144
 msgid "General"
 msgstr "Опште"
 
@@ -2751,16 +2753,16 @@ msgstr "Кључ"
 msgid "Value"
 msgstr "Вредност"
 
-#: ../lib/properties.c:67 ../lib/properties.h:587 ../lib/widgets.c:273
+#: ../lib/properties.c:67 ../lib/properties.h:587 ../lib/widgets.c:269
 msgid "Left"
 msgstr "Лево"
 
-#: ../lib/properties.c:68 ../lib/properties.h:588 ../lib/widgets.c:274
+#: ../lib/properties.c:68 ../lib/properties.h:588 ../lib/widgets.c:270
 #: ../objects/standard/textobj.c:111
 msgid "Center"
 msgstr "Средина"
 
-#: ../lib/properties.c:69 ../lib/properties.h:589 ../lib/widgets.c:275
+#: ../lib/properties.c:69 ../lib/properties.h:589 ../lib/widgets.c:271
 msgid "Right"
 msgstr "Десно"
 
@@ -2793,8 +2795,8 @@ msgid "Projecting"
 msgstr "Пројектовање"
 
 #: ../lib/properties.c:95 ../lib/properties.h:628 ../lib/properties.h:631
-#: ../objects/chronogram/chronoline.c:179
-#: ../objects/chronogram/chronoref.c:158
+#: ../objects/chronogram/chronoline.c:178
+#: ../objects/chronogram/chronoref.c:157
 msgid "Line color"
 msgstr "Боја линије"
 
@@ -2806,7 +2808,9 @@ msgstr "Стил линије"
 msgid "Fill color"
 msgstr "Боја испуњавања"
 
+#. just to simplify transfering properties between objects
 #: ../lib/properties.c:98 ../lib/properties.h:659 ../lib/properties.h:662
+#: ../lib/standard-path.c:138
 msgid "Draw background"
 msgstr "Исцртај позадину"
 
@@ -2823,23 +2827,23 @@ msgid "Text alignment"
 msgstr "Поравнање текста"
 
 #: ../lib/properties.c:103 ../lib/properties.h:684
-#: ../objects/chronogram/chronoline.c:183
-#: ../objects/chronogram/chronoref.c:164 ../objects/Database/reference.c:118
-#: ../objects/GRAFCET/condition.c:132 ../objects/GRAFCET/step.c:166
-#: ../objects/GRAFCET/transition.c:142 ../objects/UML/class_dialog.c:455
+#: ../objects/chronogram/chronoline.c:182
+#: ../objects/chronogram/chronoref.c:163 ../objects/Database/reference.c:118
+#: ../objects/GRAFCET/condition.c:131 ../objects/GRAFCET/step.c:165
+#: ../objects/GRAFCET/transition.c:141 ../objects/UML/class_dialog.c:455
 msgid "Font"
 msgstr "Писмо"
 
 #: ../lib/properties.c:104 ../lib/properties.h:692
-#: ../objects/chronogram/chronoline.c:185
-#: ../objects/chronogram/chronoref.c:166 ../objects/GRAFCET/condition.c:134
-#: ../objects/GRAFCET/step.c:168 ../objects/GRAFCET/transition.c:144
+#: ../objects/chronogram/chronoline.c:184
+#: ../objects/chronogram/chronoref.c:165 ../objects/GRAFCET/condition.c:133
+#: ../objects/GRAFCET/step.c:167 ../objects/GRAFCET/transition.c:143
 msgid "Font size"
 msgstr "Величина писма"
 
 #: ../lib/properties.c:105 ../lib/properties.h:698
-#: ../objects/chronogram/chronoline.c:187
-#: ../objects/chronogram/chronoref.c:168 ../objects/GRAFCET/step.c:170
+#: ../objects/chronogram/chronoline.c:186
+#: ../objects/chronogram/chronoref.c:167 ../objects/GRAFCET/step.c:169
 msgid "Text color"
 msgstr "Боја текста"
 
@@ -2873,7 +2877,7 @@ msgstr ""
 "Нисам успео да учитам дијаграм у облику слике:\n"
 "%s"
 
-#: ../lib/prop_pixbuf.c:200
+#: ../lib/prop_pixbuf.c:198
 #, c-format
 msgid ""
 "Saving inline pixbuf failed:\n"
@@ -2882,7 +2886,7 @@ msgstr ""
 "Није успело чување унутрашње сличице:\n"
 "%s"
 
-#: ../lib/prop_pixbuf.c:296
+#: ../lib/prop_pixbuf.c:294
 msgid "Cant create image data from scratch!"
 msgstr "Не могу да направим податке слике из почетка!"
 
@@ -2921,49 +2925,45 @@ msgid "%s: you should use object tags rather than shape tags now"
 msgstr ""
 "%s: сада бисте требали да користите ознаке објекта уместо ознака облика"
 
-#: ../lib/standard-path.c:119
+#: ../lib/standard-path.c:122
 msgid "Stroke"
 msgstr "Исцртај"
 
 #. Translators: Menu item Verb/Provision/Supply/Fill
-#: ../lib/standard-path.c:120 ../objects/FS/function.c:935
+#: ../lib/standard-path.c:123 ../objects/FS/function.c:934
 msgid "Fill"
 msgstr "Испуни"
 
-#: ../lib/standard-path.c:121
+#: ../lib/standard-path.c:124
 msgid "Fill & Stroke"
 msgstr "Испуњавање и потези"
 
 # Ово је склоп од „безиеров“ и „полигон“, па може и код нас
-#: ../lib/standard-path.c:126
-#| msgid "Beziergon"
+#: ../lib/standard-path.c:129
 msgid "Bezier points"
 msgstr "Безјерове тачке"
 
-#: ../lib/standard-path.c:127
+#: ../lib/standard-path.c:130
 msgid "Drawing"
 msgstr "Цртање"
 
-#: ../lib/standard-path.c:134
-#| msgid "Controls"
+#: ../lib/standard-path.c:139
 msgid "Draw Control Lines"
 msgstr "Исцртај линије управљања"
 
-#: ../lib/standard-path.c:457
-#| msgid "MoveTo not at start of Bezier"
+#: ../lib/standard-path.c:464
 msgid "Convert to Bezier"
 msgstr "Претвори у Безјер"
 
-#: ../lib/standard-path.c:458
-#| msgid "Show _Connection Points"
+#: ../lib/standard-path.c:465
 msgid "Show Control Lines"
 msgstr "Прикажи линије управљања"
 
-#: ../lib/widgets.c:394
+#: ../lib/widgets.c:390
 msgid "Select image file"
 msgstr "Изаберите датотеку слике"
 
-#: ../lib/widgets.c:445
+#: ../lib/widgets.c:441
 msgid "Browse"
 msgstr "Претражи"
 
@@ -3043,23 +3043,23 @@ msgstr "Објекти дијаграма архитектурне анализ�
 msgid "Chronogram diagram objects"
 msgstr "Хронограмски дијаграмски објекти"
 
-#: ../objects/chronogram/chronoline.c:148 ../sheets/AADL.sheet.in.h:5
+#: ../objects/chronogram/chronoline.c:147 ../sheets/AADL.sheet.in.h:5
 msgid "Data"
 msgstr "Подаци"
 
-#: ../objects/chronogram/chronoline.c:150
+#: ../objects/chronogram/chronoline.c:149
 msgid "Data name"
 msgstr "Назив података"
 
-#: ../objects/chronogram/chronoline.c:152
+#: ../objects/chronogram/chronoline.c:151
 msgid "Events"
 msgstr "Догађаји"
 
-#: ../objects/chronogram/chronoline.c:155
+#: ../objects/chronogram/chronoline.c:154
 msgid "Event specification"
 msgstr "Одреднице догађаја"
 
-#: ../objects/chronogram/chronoline.c:156
+#: ../objects/chronogram/chronoline.c:155
 msgid ""
 "@ time    set the pointer to an absolute time.\n"
 "( duration  set the signal up, then wait 'duration'.\n"
@@ -3073,58 +3073,58 @@ msgstr ""
 "u трајање   поставља сигнал на „непознато“ стање, а затим чека „трајање“.\n"
 "Пример : @ 1.0 (2.0)1.0(2.0)\n"
 
-#: ../objects/chronogram/chronoline.c:162 ../objects/UML/umloperation.c:79
+#: ../objects/chronogram/chronoline.c:161 ../objects/UML/umloperation.c:79
 msgid "Parameters"
 msgstr "Параметри"
 
-#: ../objects/chronogram/chronoline.c:164
-#: ../objects/chronogram/chronoref.c:146
+#: ../objects/chronogram/chronoline.c:163
+#: ../objects/chronogram/chronoref.c:145
 msgid "Start time"
 msgstr "Почетно време"
 
-#: ../objects/chronogram/chronoline.c:166
-#: ../objects/chronogram/chronoref.c:148
+#: ../objects/chronogram/chronoline.c:165
+#: ../objects/chronogram/chronoref.c:147
 msgid "End time"
 msgstr "Крајње време"
 
-#: ../objects/chronogram/chronoline.c:168
+#: ../objects/chronogram/chronoline.c:167
 msgid "Rise time"
 msgstr "Време издизања"
 
-#: ../objects/chronogram/chronoline.c:170
+#: ../objects/chronogram/chronoline.c:169
 msgid "Fall time"
 msgstr "Време опадања"
 
-#: ../objects/chronogram/chronoline.c:171
+#: ../objects/chronogram/chronoline.c:170
 msgid "Multi-bit data"
 msgstr "Више-битни подаци"
 
-#: ../objects/chronogram/chronoline.c:173
-#: ../objects/chronogram/chronoref.c:156
+#: ../objects/chronogram/chronoline.c:172
+#: ../objects/chronogram/chronoref.c:155
 msgid "Aspect"
 msgstr "Изглед"
 
-#: ../objects/chronogram/chronoline.c:175
+#: ../objects/chronogram/chronoline.c:174
 msgid "Data color"
 msgstr "Подаци о бојама"
 
-#: ../objects/chronogram/chronoline.c:177
+#: ../objects/chronogram/chronoline.c:176
 msgid "Data line width"
 msgstr "Ширина линије са подацима"
 
-#: ../objects/chronogram/chronoref.c:144
+#: ../objects/chronogram/chronoref.c:143
 msgid "Time data"
 msgstr "Подаци о времену"
 
-#: ../objects/chronogram/chronoref.c:150
+#: ../objects/chronogram/chronoref.c:149
 msgid "Major time step"
 msgstr "Главни временски корак"
 
-#: ../objects/chronogram/chronoref.c:152
+#: ../objects/chronogram/chronoref.c:151
 msgid "Minor time step"
 msgstr "Мањински временски корак"
 
-#: ../objects/chronogram/chronoref.c:162
+#: ../objects/chronogram/chronoref.c:161
 msgid "Minor step line width"
 msgstr "Ширина линије мањинског корака"
 
@@ -3148,9 +3148,9 @@ msgstr "Изврните усправно"
 msgid "Scale of the subshapes"
 msgstr "Размера садржаних облика"
 
-#: ../objects/custom/custom_object.c:218 ../objects/flowchart/box.c:153
-#: ../objects/flowchart/diamond.c:151 ../objects/flowchart/ellipse.c:150
-#: ../objects/flowchart/parallelogram.c:155 ../objects/SADT/box.c:136
+#: ../objects/custom/custom_object.c:218 ../objects/flowchart/box.c:152
+#: ../objects/flowchart/diamond.c:150 ../objects/flowchart/ellipse.c:149
+#: ../objects/flowchart/parallelogram.c:154 ../objects/SADT/box.c:135
 msgid "Text padding"
 msgstr "Попуњавање текста"
 
@@ -3190,31 +3190,31 @@ msgstr ""
 "Датотека „%s“ има неисправне податке о путањи.\n"
 "подаци свг:путање морају почети са премести у."
 
-#: ../objects/Database/compound.c:198
+#: ../objects/Database/compound.c:196
 msgid "Number of arms"
 msgstr "Број наоружања"
 
-#: ../objects/Database/compound.c:221
+#: ../objects/Database/compound.c:219
 msgid "Flip arms vertically"
 msgstr "Изврни наоружања усправно"
 
-#: ../objects/Database/compound.c:223
+#: ../objects/Database/compound.c:221
 msgid "Flip arms horizontally"
 msgstr "Изврни наоружања водоравно"
 
-#: ../objects/Database/compound.c:225
+#: ../objects/Database/compound.c:223
 msgid "Center mount point vertically"
 msgstr "Усредишти тачку качења усправно"
 
-#: ../objects/Database/compound.c:227
+#: ../objects/Database/compound.c:225
 msgid "Center mount point horizontally"
 msgstr "Усредишти тачку качења водоравно"
 
-#: ../objects/Database/compound.c:229
+#: ../objects/Database/compound.c:227
 msgid "Center mount point"
 msgstr "Усредишти тачку качења"
 
-#: ../objects/Database/compound.c:234
+#: ../objects/Database/compound.c:232
 msgid "Compound"
 msgstr "Комплекс"
 
@@ -3222,9 +3222,9 @@ msgstr "Комплекс"
 msgid "Entity/Relationship table diagram objects"
 msgstr "Објекти табеле дијаграма ентитета/односа"
 
-#: ../objects/Database/reference.c:109 ../objects/flowchart/box.c:151
+#: ../objects/Database/reference.c:109 ../objects/flowchart/box.c:150
 #: ../objects/standard/box.c:138 ../objects/standard/polyline.c:107
-#: ../objects/standard/zigzagline.c:107
+#: ../objects/standard/zigzagline.c:106
 msgid "Corner radius"
 msgstr "Полупречник угла"
 
@@ -3236,32 +3236,32 @@ msgstr "Започните опис"
 msgid "End description"
 msgstr "Завршите опис"
 
-#: ../objects/Database/reference.c:121 ../objects/Database/table.c:214
-#: ../objects/Database/table.c:216 ../objects/Database/table.c:218
-#: ../objects/UML/association.c:248 ../objects/UML/association.c:259
-#: ../objects/UML/association.c:261 ../objects/UML/association.c:263
-#: ../objects/UML/association.c:265 ../objects/UML/association.c:267
+#: ../objects/Database/reference.c:121 ../objects/Database/table.c:212
+#: ../objects/Database/table.c:214 ../objects/Database/table.c:216
+#: ../objects/UML/association.c:247 ../objects/UML/association.c:258
+#: ../objects/UML/association.c:260 ../objects/UML/association.c:262
+#: ../objects/UML/association.c:264 ../objects/UML/association.c:266
 #: ../objects/UML/class.c:215 ../objects/UML/class.c:217
 #: ../objects/UML/class.c:219 ../objects/UML/class.c:221
 #: ../objects/UML/class.c:223 ../objects/UML/class.c:225
 msgid " "
 msgstr " "
 
-#: ../objects/Database/reference.c:145 ../objects/ER/participation.c:405
-#: ../objects/FS/flow-ortho.c:627 ../objects/GRAFCET/vector.c:311
-#: ../objects/SADT/arrow.c:463 ../objects/standard/zigzagline.c:448
-#: ../objects/UML/association.c:867 ../objects/UML/component_feature.c:189
-#: ../objects/UML/dependency.c:381 ../objects/UML/generalization.c:378
-#: ../objects/UML/realizes.c:368 ../objects/UML/transition.c:172
+#: ../objects/Database/reference.c:145 ../objects/ER/participation.c:404
+#: ../objects/FS/flow-ortho.c:627 ../objects/GRAFCET/vector.c:309
+#: ../objects/SADT/arrow.c:462 ../objects/standard/zigzagline.c:446
+#: ../objects/UML/association.c:866 ../objects/UML/component_feature.c:189
+#: ../objects/UML/dependency.c:380 ../objects/UML/generalization.c:377
+#: ../objects/UML/realizes.c:367 ../objects/UML/transition.c:172
 msgid "Add segment"
 msgstr "Додај део"
 
-#: ../objects/Database/reference.c:146 ../objects/ER/participation.c:406
-#: ../objects/FS/flow-ortho.c:628 ../objects/GRAFCET/vector.c:312
-#: ../objects/SADT/arrow.c:464 ../objects/standard/zigzagline.c:449
-#: ../objects/UML/association.c:868 ../objects/UML/component_feature.c:190
-#: ../objects/UML/dependency.c:382 ../objects/UML/generalization.c:379
-#: ../objects/UML/realizes.c:369 ../objects/UML/transition.c:173
+#: ../objects/Database/reference.c:146 ../objects/ER/participation.c:405
+#: ../objects/FS/flow-ortho.c:628 ../objects/GRAFCET/vector.c:310
+#: ../objects/SADT/arrow.c:463 ../objects/standard/zigzagline.c:447
+#: ../objects/UML/association.c:867 ../objects/UML/component_feature.c:190
+#: ../objects/UML/dependency.c:381 ../objects/UML/generalization.c:378
+#: ../objects/UML/realizes.c:368 ../objects/UML/transition.c:173
 msgid "Delete segment"
 msgstr "Обриши део"
 
@@ -3269,132 +3269,132 @@ msgstr "Обриши део"
 msgid "Reference"
 msgstr "Референце"
 
-#: ../objects/Database/table.c:142 ../objects/Database/table.c:183
-#: ../objects/Database/table.c:211 ../objects/UML/class.c:144
+#: ../objects/Database/table.c:140 ../objects/Database/table.c:181
+#: ../objects/Database/table.c:209 ../objects/UML/class.c:144
 #: ../objects/UML/class.c:211 ../objects/UML/class_dialog.c:486
 #: ../objects/UML/umlattribute.c:43 ../objects/UML/umloperation.c:66
 #: ../objects/UML/umlparameter.c:49 ../sheets/SDL.sheet.in.h:18
 msgid "Comment"
 msgstr "Напомена"
 
-#: ../objects/Database/table.c:144
+#: ../objects/Database/table.c:142
 msgid "Primary"
 msgstr "Примарни"
 
-#: ../objects/Database/table.c:144
+#: ../objects/Database/table.c:142
 msgid "Primary key"
 msgstr "Примарни кључ"
 
-#: ../objects/Database/table.c:146
+#: ../objects/Database/table.c:144
 msgid "Nullable"
 msgstr "Ништавно"
 
-#: ../objects/Database/table.c:148
+#: ../objects/Database/table.c:146
 msgid "Unique"
 msgstr "Јединствено"
 
-#: ../objects/Database/table.c:150
+#: ../objects/Database/table.c:148
 msgid "Default"
 msgstr "Задато"
 
-#: ../objects/Database/table.c:150
+#: ../objects/Database/table.c:148
 msgid "Default value"
 msgstr "Основна вредност"
 
 #. init data
-#: ../objects/Database/table.c:179 ../objects/Database/table.c:269
-#: ../objects/Database/table.c:376 ../sheets/Database.sheet.in.h:3
+#: ../objects/Database/table.c:177 ../objects/Database/table.c:267
+#: ../objects/Database/table.c:374 ../sheets/Database.sheet.in.h:3
 msgid "Table"
 msgstr "Табела"
 
-#: ../objects/Database/table.c:188
+#: ../objects/Database/table.c:186
 msgid "Visible comments"
 msgstr "Видљиве напомене"
 
-#: ../objects/Database/table.c:190
+#: ../objects/Database/table.c:188
 msgid "Underline primary keys"
 msgstr "Подвуци примарне кључеве"
 
-#: ../objects/Database/table.c:193 ../objects/UML/class.c:159
+#: ../objects/Database/table.c:191 ../objects/UML/class.c:159
 msgid "Comment tagging"
 msgstr "Означавање напомене"
 
-#: ../objects/Database/table.c:195
+#: ../objects/Database/table.c:193
 msgid "Use bold font for primary keys"
 msgstr "Користи подебљано писмо за примарне кључеве"
 
 #  Attributes page:
-#: ../objects/Database/table.c:198 ../objects/UML/class.c:181
-#: ../objects/UML/object.c:152
+#: ../objects/Database/table.c:196 ../objects/UML/class.c:181
+#: ../objects/UML/object.c:150
 msgid "Attributes"
 msgstr "Особине"
 
 #. umlformalparameters_extra
 #. all this just to make the defaults selectable ...
-#: ../objects/Database/table.c:202 ../objects/UML/association.c:270
-#: ../objects/UML/class.c:196 ../objects/UML/object.c:161
+#: ../objects/Database/table.c:200 ../objects/UML/association.c:269
+#: ../objects/UML/class.c:196 ../objects/UML/object.c:159
 msgid "Style"
 msgstr "Стил"
 
-#: ../objects/Database/table.c:203 ../objects/UML/class.c:197
+#: ../objects/Database/table.c:201 ../objects/UML/class.c:197
 msgid "Fonts"
 msgstr "Словни ликови"
 
 #. property rows
-#: ../objects/Database/table.c:207 ../objects/SADT/arrow.c:136
+#: ../objects/Database/table.c:205 ../objects/SADT/arrow.c:135
 #: ../objects/UML/class.c:201 ../objects/UML/class_dialog.c:461
 msgid "Normal"
 msgstr "Обичан"
 
-#: ../objects/Database/table.c:209
+#: ../objects/Database/table.c:207
 msgid "Table name"
 msgstr "Назив табеле"
 
-#: ../objects/Database/table.c:264 ../objects/UML/class.c:342
+#: ../objects/Database/table.c:262 ../objects/UML/class.c:342
 msgid "Show comments"
 msgstr "Прикажи напомене"
 
-#: ../objects/ER/attribute.c:153 ../objects/ER/entity.c:135
-#: ../objects/ER/relationship.c:140
+#: ../objects/ER/attribute.c:152 ../objects/ER/entity.c:134
+#: ../objects/ER/relationship.c:139
 #: ../objects/UML/class_attributes_dialog.c:517
 #: ../objects/UML/class_operations_dialog.c:777
 #: ../objects/UML/class_operations_dialog.c:977
-#: ../objects/UML/class_templates_dialog.c:436 ../objects/UML/dependency.c:133
-#: ../objects/UML/generalization.c:130 ../objects/UML/realizes.c:130
+#: ../objects/UML/class_templates_dialog.c:436 ../objects/UML/dependency.c:132
+#: ../objects/UML/generalization.c:129 ../objects/UML/realizes.c:129
 msgid "Name:"
 msgstr "Назив:"
 
-#: ../objects/ER/attribute.c:155
+#: ../objects/ER/attribute.c:154
 msgid "Key:"
 msgstr "Кључ:"
 
-#: ../objects/ER/attribute.c:157
+#: ../objects/ER/attribute.c:156
 msgid "Weak key:"
 msgstr "Слаб кључ:"
 
-#: ../objects/ER/attribute.c:159
+#: ../objects/ER/attribute.c:158
 msgid "Derived:"
 msgstr "Изведен:"
 
-#: ../objects/ER/attribute.c:161
+#: ../objects/ER/attribute.c:160
 msgid "Multivalue:"
 msgstr "Вишевредносни:"
 
 # note(slobo): proveri?
-#: ../objects/ER/attribute.c:434 ../sheets/ER.sheet.in.h:6
+#: ../objects/ER/attribute.c:433 ../sheets/ER.sheet.in.h:6
 msgid "Attribute"
 msgstr "Особине"
 
-#: ../objects/ER/entity.c:137
+#: ../objects/ER/entity.c:136
 msgid "Weak:"
 msgstr "Слаб:"
 
 # Повезујуће? Повезано? Везујуће?
-#: ../objects/ER/entity.c:139
+#: ../objects/ER/entity.c:138
 msgid "Associative:"
 msgstr "Придруживо:"
 
-#: ../objects/ER/entity.c:413 ../objects/UML/classicon.c:130
+#: ../objects/ER/entity.c:412 ../objects/UML/classicon.c:129
 #: ../sheets/ER.sheet.in.h:3
 msgid "Entity"
 msgstr "Ентитет"
@@ -3403,28 +3403,28 @@ msgstr "Ентитет"
 msgid "Entity/Relationship diagram objects"
 msgstr "Објекти дијаграма ентитета/односа"
 
-#: ../objects/ER/participation.c:117
+#: ../objects/ER/participation.c:116
 msgid "Total:"
 msgstr "Укупно:"
 
 # можда „пребројивост“?
-#: ../objects/ER/relationship.c:142
+#: ../objects/ER/relationship.c:141
 msgid "Left Cardinality:"
 msgstr "Лева основност:"
 
-#: ../objects/ER/relationship.c:144
+#: ../objects/ER/relationship.c:143
 msgid "Right Cardinality:"
 msgstr "Десна основност:"
 
-#: ../objects/ER/relationship.c:146
+#: ../objects/ER/relationship.c:145
 msgid "Rotate:"
 msgstr "Заокрени:"
 
-#: ../objects/ER/relationship.c:148
+#: ../objects/ER/relationship.c:147
 msgid "Identifying:"
 msgstr "Препознаје:"
 
-#: ../objects/ER/relationship.c:457 ../sheets/ER.sheet.in.h:5
+#: ../objects/ER/relationship.c:456 ../sheets/ER.sheet.in.h:5
 msgid "Relationship"
 msgstr "Однос"
 
@@ -3432,21 +3432,21 @@ msgstr "Однос"
 msgid "Flowchart objects"
 msgstr "Објекти дијаграма тока"
 
-#: ../objects/flowchart/parallelogram.c:153
+#: ../objects/flowchart/parallelogram.c:152
 msgid "Shear angle"
 msgstr "Оштар угао"
 
 #. Translators: Menu item Noun/Energy
 #: ../objects/FS/flow.c:135 ../objects/FS/flow.c:626
 #: ../objects/FS/flow-ortho.c:158 ../objects/FS/flow-ortho.c:624
-#: ../objects/FS/function.c:1097
+#: ../objects/FS/function.c:1096
 msgid "Energy"
 msgstr "Енергија"
 
 #. Translators: Menu item Noun/Material
 #: ../objects/FS/flow.c:136 ../objects/FS/flow.c:627
 #: ../objects/FS/flow-ortho.c:159 ../objects/FS/flow-ortho.c:625
-#: ../objects/FS/function.c:1073
+#: ../objects/FS/function.c:1072
 msgid "Material"
 msgstr "Материјал"
 
@@ -3456,8 +3456,8 @@ msgstr "Материјал"
 #. Translators: Menu item Noun/Signal/Signal
 #: ../objects/FS/flow.c:137 ../objects/FS/flow.c:628
 #: ../objects/FS/flow-ortho.c:160 ../objects/FS/flow-ortho.c:626
-#: ../objects/FS/function.c:1035 ../objects/FS/function.c:1037
-#: ../objects/FS/function.c:1173 ../objects/FS/function.c:1175
+#: ../objects/FS/function.c:1034 ../objects/FS/function.c:1036
+#: ../objects/FS/function.c:1172 ../objects/FS/function.c:1174
 msgid "Signal"
 msgstr "Сигнал"
 
@@ -3475,328 +3475,328 @@ msgstr "Врста:"
 msgid "Function structure diagram objects"
 msgstr "Објекти дијаграма функционалне структуре"
 
-#: ../objects/FS/function.c:142
+#: ../objects/FS/function.c:141
 msgid "Wish function"
 msgstr "Функција жеље"
 
-#: ../objects/FS/function.c:144
+#: ../objects/FS/function.c:143
 msgid "User function"
 msgstr "Функција корисника"
 
 #. Translators: Menu item Verb
-#: ../objects/FS/function.c:677
+#: ../objects/FS/function.c:676
 msgid "Verb"
 msgstr "Глагол"
 
 #. Translators: Menu item Verb/Channel
 #. Translators: Menu item Verb/Channel/Channel
 #. Translators: Menu item Verb/Channel/Transfer/Transport/Channel
-#: ../objects/FS/function.c:679 ../objects/FS/function.c:681
-#: ../objects/FS/function.c:721
+#: ../objects/FS/function.c:678 ../objects/FS/function.c:680
+#: ../objects/FS/function.c:720
 msgid "Channel"
 msgstr "Канал"
 
 #. Translators: Menu item Verb/Channel/Import/Input
-#: ../objects/FS/function.c:687 ../objects/KAOS/metabinrel.c:164
+#: ../objects/FS/function.c:686 ../objects/KAOS/metabinrel.c:164
 msgid "Input"
 msgstr "Унеси"
 
 #. Translators: Menu item Verb/Channel/Import/Receive
-#: ../objects/FS/function.c:689
+#: ../objects/FS/function.c:688
 msgid "Receive"
 msgstr "Прими"
 
 #. Translators: Menu item Verb/Channel/Import/Allow
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Allow
-#: ../objects/FS/function.c:691 ../objects/FS/function.c:963
+#: ../objects/FS/function.c:690 ../objects/FS/function.c:962
 msgid "Allow"
 msgstr "Одобри"
 
 #  Translators: Menu item Verb/Channel/Import/Form Entrance
 #  Translators: Menu item Verb/Channel/Import/Form Entrance
 #. Translators: Menu item Verb/Channel/Import/Form Entrance
-#: ../objects/FS/function.c:693
+#: ../objects/FS/function.c:692
 msgid "Form Entrance"
 msgstr "Обликуј улаз"
 
 #. Translators: Menu item Verb/Channel/Import/Capture
 #. Translators: Menu item Verb/Provision/Store/Capture
-#: ../objects/FS/function.c:695 ../objects/FS/function.c:929
+#: ../objects/FS/function.c:694 ../objects/FS/function.c:928
 msgid "Capture"
 msgstr "Сними"
 
 #. Translators: Menu item Verb/Channel/Export/Discharge
-#: ../objects/FS/function.c:701
+#: ../objects/FS/function.c:700
 msgid "Discharge"
 msgstr "Испразни"
 
 #. Translators: Menu item Verb/Channel/Export/Eject
-#: ../objects/FS/function.c:703
+#: ../objects/FS/function.c:702
 msgid "Eject"
 msgstr "Избаци"
 
 #  Translators: Menu item Verb/Channel/Export/Dispose
 #. Translators: Menu item Verb/Channel/Export/Dispose
-#: ../objects/FS/function.c:705
+#: ../objects/FS/function.c:704
 msgid "Dispose"
 msgstr "Остави"
 
 #. Translators: Menu item Verb/Channel/Transfer
 #. Translators: Menu item Verb/Channel/Transfer/Transfer
 #. Translators: Menu item Verb/Channel/Transfer/Transmit/Transfer
-#: ../objects/FS/function.c:709 ../objects/FS/function.c:711
-#: ../objects/FS/function.c:729
+#: ../objects/FS/function.c:708 ../objects/FS/function.c:710
+#: ../objects/FS/function.c:728
 msgid "Transfer"
 msgstr "Пребаци"
 
 #. Translators: Menu item Verb/Channel/Transfer/Transport
 #. Translators: Menu item Verb/Channel/Transfer/Transport/Transport
-#: ../objects/FS/function.c:713 ../objects/FS/function.c:715
+#: ../objects/FS/function.c:712 ../objects/FS/function.c:714
 msgid "Transport"
 msgstr "Пренеси"
 
 #. Translators: Menu item Verb/Channel/Transfer/Transport/Lift
-#: ../objects/FS/function.c:717
+#: ../objects/FS/function.c:716
 msgid "Lift"
 msgstr "Подигни"
 
 #. Translators: Menu item Verb/Channel/Transfer/Transport/Move
-#: ../objects/FS/function.c:719
+#: ../objects/FS/function.c:718
 msgid "Move"
 msgstr "Помери"
 
 #. Translators: Menu item Verb/Channel/Transfer/Transmit
 #. Translators: Menu item Verb/Channel/Transfer/Transmit/Transmit
-#: ../objects/FS/function.c:723 ../objects/FS/function.c:725
+#: ../objects/FS/function.c:722 ../objects/FS/function.c:724
 msgid "Transmit"
 msgstr "Пренеси"
 
 #. Translators: Menu item Verb/Channel/Transfer/Transmit/Conduct
-#: ../objects/FS/function.c:727
+#: ../objects/FS/function.c:726
 msgid "Conduct"
 msgstr "Проведи"
 
 #. Translators: Menu item Verb/Channel/Transfer/Transmit/Convey
-#: ../objects/FS/function.c:731
+#: ../objects/FS/function.c:730
 msgid "Convey"
 msgstr "Преноси"
 
 #. Translators: Menu item Verb/Channel/Guide
 #. Translators: Menu item Verb/Channel/Guide/Guide
 #. Translators: Menu item Verb/Channel/Guide/Guide/Guide
-#: ../objects/FS/function.c:733 ../objects/FS/function.c:735
-#: ../objects/FS/function.c:737
+#: ../objects/FS/function.c:732 ../objects/FS/function.c:734
+#: ../objects/FS/function.c:736
 msgid "Guide"
 msgstr "Упути"
 
 #. Translators: Menu item Verb/Channel/Guide/Guide/Direct
-#: ../objects/FS/function.c:739
+#: ../objects/FS/function.c:738
 msgid "Direct"
 msgstr "Усмери"
 
 #. Translators: Menu item Verb/Channel/Guide/Guide/Straighten
-#: ../objects/FS/function.c:741
+#: ../objects/FS/function.c:740
 msgid "Straighten"
 msgstr "Исправи"
 
 #  Translators: Menu item Verb/Channel/Guide/Guide/Steer
 #. Translators: Menu item Verb/Channel/Guide/Guide/Steer
-#: ../objects/FS/function.c:743
+#: ../objects/FS/function.c:742
 msgid "Steer"
 msgstr "Измути"
 
 #. Translators: Menu item Verb/Channel/Guide/Translate
-#: ../objects/FS/function.c:745
+#: ../objects/FS/function.c:744
 msgid "Translate"
 msgstr "Преведи"
 
 #. Translators: Menu item Verb/Channel/Guide/Rotate
 #. Translators: Menu item Verb/Channel/Guide/Rotate/Rotate
-#: ../objects/FS/function.c:747 ../objects/FS/function.c:749
+#: ../objects/FS/function.c:746 ../objects/FS/function.c:748
 msgid "Rotate"
 msgstr "Заокрени"
 
 #. Translators: Menu item Verb/Channel/Guide/Rotate/Turn
-#: ../objects/FS/function.c:751
+#: ../objects/FS/function.c:750
 msgid "Turn"
 msgstr "Окрени"
 
 #  Translators: Menu item Verb/Channel/Guide/Rotate/Spin
 #. Translators: Menu item Verb/Channel/Guide/Rotate/Spin
-#: ../objects/FS/function.c:753
+#: ../objects/FS/function.c:752
 msgid "Spin"
 msgstr "Заврти"
 
 #. Translators: Menu item Verb/Channel/Guide/Allow DOF
 #. Translators: Menu item Verb/Channel/Guide/Allow DOF/Allow DOF
-#: ../objects/FS/function.c:755 ../objects/FS/function.c:757
+#: ../objects/FS/function.c:754 ../objects/FS/function.c:756
 msgid "Allow DOF"
 msgstr "Дозволи ДОФ"
 
 #. Translators: Menu item Verb/Channel/Guide/Allow DOF/Constrain
-#: ../objects/FS/function.c:759
+#: ../objects/FS/function.c:758
 msgid "Constrain"
 msgstr "Ограничи"
 
 #. Translators: Menu item Verb/Channel/Guide/Allow DOF/Unlock
-#: ../objects/FS/function.c:761
+#: ../objects/FS/function.c:760
 msgid "Unlock"
 msgstr "Откључај"
 
 #. Translators: Menu item Verb/Support
 #. Translators: Menu item Verb/Support/Support
-#: ../objects/FS/function.c:763 ../objects/FS/function.c:765
+#: ../objects/FS/function.c:762 ../objects/FS/function.c:764
 msgid "Support"
 msgstr "Подржи"
 
 #. Translators: Menu item Verb/Support/Stop
 #. Translators: Menu item Verb/Support/Stop/Stop
-#: ../objects/FS/function.c:767 ../objects/FS/function.c:769
+#: ../objects/FS/function.c:766 ../objects/FS/function.c:768
 #: ../sheets/SDL.sheet.in.h:16
 msgid "Stop"
 msgstr "Заустави"
 
 #. Translators: Menu item Verb/Support/Stop/Insulate
-#: ../objects/FS/function.c:771
+#: ../objects/FS/function.c:770
 msgid "Insulate"
 msgstr "Оклопи"
 
 #. Translators: Menu item Verb/Support/Stop/Protect
-#: ../objects/FS/function.c:773
+#: ../objects/FS/function.c:772
 msgid "Protect"
 msgstr "Заштити"
 
 #. Translators: Menu item Verb/Support/Stop/Prevent
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Prevent
-#: ../objects/FS/function.c:775 ../objects/FS/function.c:965
+#: ../objects/FS/function.c:774 ../objects/FS/function.c:964
 msgid "Prevent"
 msgstr "Спречи"
 
 #  Translators: Menu item Verb/Support/Stop/Shield
 #. Translators: Menu item Verb/Support/Stop/Shield
-#: ../objects/FS/function.c:777
+#: ../objects/FS/function.c:776
 msgid "Shield"
 msgstr "Оклопи"
 
 #. Translators: Menu item Verb/Support/Stop/Inhibit
-#: ../objects/FS/function.c:779
+#: ../objects/FS/function.c:778
 msgid "Inhibit"
 msgstr "Наследи"
 
 #. Translators: Menu item Verb/Support/Stabilize
 #. Translators: Menu item Verb/Support/Stabilize/Stabilize
-#: ../objects/FS/function.c:781 ../objects/FS/function.c:783
+#: ../objects/FS/function.c:780 ../objects/FS/function.c:782
 msgid "Stabilize"
 msgstr "Стабилиши"
 
 #. Translators: Menu item Verb/Support/Stabilize/Steady
-#: ../objects/FS/function.c:785
+#: ../objects/FS/function.c:784
 msgid "Steady"
 msgstr "Умири"
 
 #  Translators: Menu item Verb/Support/Secure
 #. Translators: Menu item Verb/Support/Secure
 #. Translators: Menu item Verb/Support/Secure/Secure
-#: ../objects/FS/function.c:787 ../objects/FS/function.c:789
+#: ../objects/FS/function.c:786 ../objects/FS/function.c:788
 msgid "Secure"
 msgstr "Обезбеди"
 
 #. Translators: Menu item Verb/Support/Secure/Attach
 #. Translators: Menu item Verb/Connect/Couple/Attach
-#: ../objects/FS/function.c:791 ../objects/FS/function.c:823
+#: ../objects/FS/function.c:790 ../objects/FS/function.c:822
 msgid "Attach"
 msgstr "Додај"
 
 #. Translators: Menu item Verb/Support/Secure/Mount
-#: ../objects/FS/function.c:793
+#: ../objects/FS/function.c:792
 msgid "Mount"
 msgstr "Прикачи"
 
 #. Translators: Menu item Verb/Support/Secure/Lock
-#: ../objects/FS/function.c:795 ../sheets/ciscomisc.sheet.in.h:42
+#: ../objects/FS/function.c:794 ../sheets/ciscomisc.sheet.in.h:42
 msgid "Lock"
 msgstr "Закључај"
 
 #. Translators: Menu item Verb/Support/Secure/Fasten
-#: ../objects/FS/function.c:797
+#: ../objects/FS/function.c:796
 msgid "Fasten"
 msgstr "Убрзај"
 
 #  Translators: Menu item Verb/Support/Secure/Hold
 #. Translators: Menu item Verb/Support/Secure/Hold
-#: ../objects/FS/function.c:799
+#: ../objects/FS/function.c:798
 msgid "Hold"
 msgstr "Задржи"
 
 #. Translators: Menu item Verb/Support/Position
 #. Translators: Menu item Verb/Support/Position/Position
-#: ../objects/FS/function.c:801 ../objects/FS/function.c:803
+#: ../objects/FS/function.c:800 ../objects/FS/function.c:802
 #: ../objects/Istar/actor.c:68
 msgid "Position"
 msgstr "Постави"
 
 #. Translators: Menu item Verb/Support/Position/Orient
-#: ../objects/FS/function.c:805
+#: ../objects/FS/function.c:804
 msgid "Orient"
 msgstr "Усмери"
 
 #. Translators: Menu item Verb/Connect
 #. Translators: Menu item Verb/Connect/Connect
-#: ../objects/FS/function.c:811 ../objects/FS/function.c:813
+#: ../objects/FS/function.c:810 ../objects/FS/function.c:812
 msgid "Connect"
 msgstr "Повежи"
 
 #. Translators: Menu item Verb/Connect/Couple
 #. Translators: Menu item Verb/Connect/Couple/Couple
-#: ../objects/FS/function.c:815 ../objects/FS/function.c:817
+#: ../objects/FS/function.c:814 ../objects/FS/function.c:816
 msgid "Couple"
 msgstr "Упари"
 
 #. Translators: Menu item Verb/Connect/Couple/Join
-#: ../objects/FS/function.c:819
+#: ../objects/FS/function.c:818
 msgid "Join"
 msgstr "Придружи"
 
 #  Translators: Menu item Verb/Connect/Couple/Assemble
 #. Translators: Menu item Verb/Connect/Couple/Assemble
-#: ../objects/FS/function.c:821
+#: ../objects/FS/function.c:820
 msgid "Assemble"
 msgstr "Споји"
 
 #. Translators: Menu item Verb/Connect/Mix
 #. Translators: Menu item Verb/Connect/Mix/Mix
-#: ../objects/FS/function.c:825 ../objects/FS/function.c:827
+#: ../objects/FS/function.c:824 ../objects/FS/function.c:826
 msgid "Mix"
 msgstr "Измешај"
 
 #. Translators: Menu item Verb/Connect/Mix/Combine
-#: ../objects/FS/function.c:829
+#: ../objects/FS/function.c:828
 msgid "Combine"
 msgstr "Обједини"
 
 #. Translators: Menu item Verb/Connect/Mix/Blend
-#: ../objects/FS/function.c:831
+#: ../objects/FS/function.c:830
 msgid "Blend"
 msgstr "Стапај"
 
 #. Translators: Menu item Verb/Connect/Mix/Add
-#: ../objects/FS/function.c:833
+#: ../objects/FS/function.c:832
 msgid "Add"
 msgstr "Додај"
 
 #. Translators: Menu item Verb/Connect/Mix/Pack
-#: ../objects/FS/function.c:835
+#: ../objects/FS/function.c:834
 msgid "Pack"
 msgstr "Смести"
 
 #. Translators: Menu item Verb/Connect/Mix/Coalesce
-#: ../objects/FS/function.c:837
+#: ../objects/FS/function.c:836
 msgid "Coalesce"
 msgstr "Састави"
 
 #. Translators: Menu item Verb/Branch
 #. Translators: Menu item Verb/Branch/Branch
-#: ../objects/FS/function.c:839 ../objects/FS/function.c:841
+#: ../objects/FS/function.c:838 ../objects/FS/function.c:840
 #: ../sheets/UML.sheet.in.h:30
 msgid "Branch"
 msgstr "Гранај"
@@ -3804,750 +3804,750 @@ msgstr "Гранај"
 #. Translators: Menu item Verb/Branch/Separate
 #. Translators: Menu item Verb/Branch/Separate/Separate
 #. Translators: Menu item Verb/Branch/Separate/Separate/Separate
-#: ../objects/FS/function.c:843 ../objects/FS/function.c:845
-#: ../objects/FS/function.c:847
+#: ../objects/FS/function.c:842 ../objects/FS/function.c:844
+#: ../objects/FS/function.c:846
 msgid "Separate"
 msgstr "Раздвој"
 
 #. Translators: Menu item Verb/Branch/Separate/Separate/Switch
-#: ../objects/FS/function.c:849
+#: ../objects/FS/function.c:848
 msgid "Switch"
 msgstr "Пребаци"
 
 #. Translators: Menu item Verb/Branch/Separate/Separate/Divide
-#: ../objects/FS/function.c:851
+#: ../objects/FS/function.c:850
 msgid "Divide"
 msgstr "Подели"
 
 #. Translators: Menu item Verb/Branch/Separate/Separate/Release
-#: ../objects/FS/function.c:853
+#: ../objects/FS/function.c:852
 msgid "Release"
 msgstr "Отпусти"
 
 #. Translators: Menu item Verb/Branch/Separate/Separate/Detach
-#: ../objects/FS/function.c:855
+#: ../objects/FS/function.c:854
 msgid "Detach"
 msgstr "Одвој"
 
 #. Translators: Menu item Verb/Branch/Separate/Separate/Disconnect
-#: ../objects/FS/function.c:857
+#: ../objects/FS/function.c:856
 msgid "Disconnect"
 msgstr "Прекини везу"
 
 #. Translators: Menu item Verb/Branch/Separate/Remove/Cut
-#: ../objects/FS/function.c:863
+#: ../objects/FS/function.c:862
 msgid "Cut"
 msgstr "Исеци"
 
 #. Translators: Menu item Verb/Branch/Separate/Remove/Polish
-#: ../objects/FS/function.c:865
+#: ../objects/FS/function.c:864
 msgid "Polish"
 msgstr "Пољски"
 
 #. Translators: Menu item Verb/Branch/Separate/Remove/Sand
-#: ../objects/FS/function.c:867
+#: ../objects/FS/function.c:866
 msgid "Sand"
 msgstr "Песак"
 
 #. Translators: Menu item Verb/Branch/Separate/Remove/Drill
-#: ../objects/FS/function.c:869
+#: ../objects/FS/function.c:868
 msgid "Drill"
 msgstr "Избуши"
 
 #. Translators: Menu item Verb/Branch/Separate/Remove/Lathe
-#: ../objects/FS/function.c:871
+#: ../objects/FS/function.c:870
 msgid "Lathe"
 msgstr "Струг"
 
 #. Translators: Menu item Verb/Branch/Refine
 #. Translators: Menu item Verb/Branch/Refine/Refine
-#: ../objects/FS/function.c:873 ../objects/FS/function.c:875
+#: ../objects/FS/function.c:872 ../objects/FS/function.c:874
 msgid "Refine"
 msgstr "Рафиниши"
 
 #. Translators: Menu item Verb/Branch/Refine/Purify
-#: ../objects/FS/function.c:877
+#: ../objects/FS/function.c:876
 msgid "Purify"
 msgstr "Прочисти"
 
 #. Translators: Menu item Verb/Branch/Refine/Strain
-#: ../objects/FS/function.c:879
+#: ../objects/FS/function.c:878
 msgid "Strain"
 msgstr "Натегни"
 
 #. Translators: Menu item Verb/Branch/Refine/Filter
-#: ../objects/FS/function.c:881
+#: ../objects/FS/function.c:880
 msgid "Filter"
 msgstr "Филтрирај"
 
 #. Translators: Menu item Verb/Branch/Refine/Percolate
-#: ../objects/FS/function.c:883
+#: ../objects/FS/function.c:882
 msgid "Percolate"
 msgstr "Процеди"
 
 #. Translators: Menu item Verb/Branch/Refine/Clear
-#: ../objects/FS/function.c:885
+#: ../objects/FS/function.c:884
 msgid "Clear"
 msgstr "Очистити"
 
 #  Translators: Menu item Verb/Branch/Distribute
 #. Translators: Menu item Verb/Branch/Distribute
 #. Translators: Menu item Verb/Branch/Distribute/Distribute
-#: ../objects/FS/function.c:887 ../objects/FS/function.c:889
+#: ../objects/FS/function.c:886 ../objects/FS/function.c:888
 msgid "Distribute"
 msgstr "Дистрибуиши"
 
 #. Translators: Menu item Verb/Branch/Distribute/Diverge
-#: ../objects/FS/function.c:891
+#: ../objects/FS/function.c:890
 msgid "Diverge"
 msgstr "Дивергирај"
 
 #. Translators: Menu item Verb/Branch/Distribute/Scatter
-#: ../objects/FS/function.c:893
+#: ../objects/FS/function.c:892
 msgid "Scatter"
 msgstr "Разбацај"
 
 #. Translators: Menu item Verb/Branch/Distribute/Disperse
-#: ../objects/FS/function.c:895
+#: ../objects/FS/function.c:894
 msgid "Disperse"
 msgstr "Разиђи"
 
 #. Translators: Menu item Verb/Branch/Distribute/Diffuse
 #. Translators: Menu item Verb/Branch/Dissipate/Diffuse
-#: ../objects/FS/function.c:897 ../objects/FS/function.c:911
+#: ../objects/FS/function.c:896 ../objects/FS/function.c:910
 msgid "Diffuse"
 msgstr "Истекни"
 
 #. Translators: Menu item Verb/Branch/Distribute/Empty
-#: ../objects/FS/function.c:899
+#: ../objects/FS/function.c:898
 msgid "Empty"
 msgstr "Празнити"
 
 #. Translators: Menu item Verb/Branch/Dissipate
 #. Translators: Menu item Verb/Branch/Dissipate/Dissipate
-#: ../objects/FS/function.c:901 ../objects/FS/function.c:903
+#: ../objects/FS/function.c:900 ../objects/FS/function.c:902
 msgid "Dissipate"
 msgstr "Распи"
 
 #. Translators: Menu item Verb/Branch/Dissipate/Absorb
-#: ../objects/FS/function.c:905
+#: ../objects/FS/function.c:904
 msgid "Absorb"
 msgstr "Упиј"
 
 #. Translators: Menu item Verb/Branch/Dissipate/Dampen
-#: ../objects/FS/function.c:907
+#: ../objects/FS/function.c:906
 msgid "Dampen"
 msgstr "Удуби"
 
 #. Translators: Menu item Verb/Branch/Dissipate/Dispel
-#: ../objects/FS/function.c:909
+#: ../objects/FS/function.c:908
 msgid "Dispel"
 msgstr "Растури"
 
 #. Translators: Menu item Verb/Branch/Dissipate/Resist
-#: ../objects/FS/function.c:913
+#: ../objects/FS/function.c:912
 msgid "Resist"
 msgstr "Издржи"
 
 #. Translators: Menu item Verb/Provision
 #. Translators: Menu item Verb/Provision/Provision
-#: ../objects/FS/function.c:915 ../objects/FS/function.c:917
+#: ../objects/FS/function.c:914 ../objects/FS/function.c:916
 msgid "Provision"
 msgstr "Провизија"
 
 #. Translators: Menu item Verb/Provision/Store
 #. Translators: Menu item Verb/Provision/Store/Store
-#: ../objects/FS/function.c:919 ../objects/FS/function.c:921
+#: ../objects/FS/function.c:918 ../objects/FS/function.c:920
 msgid "Store"
 msgstr "Сместити"
 
 #. Translators: Menu item Verb/Provision/Store/Contain
-#: ../objects/FS/function.c:923
+#: ../objects/FS/function.c:922
 msgid "Contain"
 msgstr "Садржати"
 
 #. Translators: Menu item Verb/Provision/Store/Collect
-#: ../objects/FS/function.c:925
+#: ../objects/FS/function.c:924
 msgid "Collect"
 msgstr "Сакупи"
 
 #. Translators: Menu item Verb/Provision/Store/Reserve
-#: ../objects/FS/function.c:927
+#: ../objects/FS/function.c:926
 msgid "Reserve"
 msgstr "Резервисати"
 
 #. Translators: Menu item Verb/Provision/Supply
 #. Translators: Menu item Verb/Provision/Supply/Supply
-#: ../objects/FS/function.c:931 ../objects/FS/function.c:933
+#: ../objects/FS/function.c:930 ../objects/FS/function.c:932
 msgid "Supply"
 msgstr "Намири"
 
 #. Translators: Menu item Verb/Provision/Supply/Provide
-#: ../objects/FS/function.c:937
+#: ../objects/FS/function.c:936
 msgid "Provide"
 msgstr "Обезбеди"
 
 #. Translators: Menu item Verb/Provision/Supply/Replenish
-#: ../objects/FS/function.c:939
+#: ../objects/FS/function.c:938
 msgid "Replenish"
 msgstr "Попуни"
 
 #. Translators: Menu item Verb/Provision/Supply/Expose
-#: ../objects/FS/function.c:941
+#: ../objects/FS/function.c:940
 msgid "Expose"
 msgstr "Изложи"
 
 #. Translators: Menu item Verb/Provision/Extract
-#: ../objects/FS/function.c:943 ../sheets/Flowchart.sheet.in.h:22
+#: ../objects/FS/function.c:942 ../sheets/Flowchart.sheet.in.h:22
 msgid "Extract"
 msgstr "Извуци"
 
 #. Translators: Menu item Verb/Control Magnitude
 #. Translators: Menu item Verb/Control Magnitude/Control Magnitude
-#: ../objects/FS/function.c:945 ../objects/FS/function.c:947
+#: ../objects/FS/function.c:944 ../objects/FS/function.c:946
 msgid "Control Magnitude"
 msgstr "Контролиши магнитуду"
 
 #. Translators: Menu item Verb/Control Magnitude/Actuate
 #. Translators: Menu item Verb/Control Magnitude/Actuate/Actuate
-#: ../objects/FS/function.c:949 ../objects/FS/function.c:951
+#: ../objects/FS/function.c:948 ../objects/FS/function.c:950
 msgid "Actuate"
 msgstr "Дејствуј"
 
 #. Translators: Menu item Verb/Control Magnitude/Actuate/Start
-#: ../objects/FS/function.c:953
+#: ../objects/FS/function.c:952
 msgid "Start"
 msgstr "Почни"
 
 #. Translators: Menu item Verb/Control Magnitude/Actuate/Initiate
-#: ../objects/FS/function.c:955
+#: ../objects/FS/function.c:954
 msgid "Initiate"
 msgstr "Покрени"
 
 #. Translators: Menu item Verb/Control Magnitude/Regulate
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Regulate
-#: ../objects/FS/function.c:957 ../objects/FS/function.c:959
+#: ../objects/FS/function.c:956 ../objects/FS/function.c:958
 msgid "Regulate"
 msgstr "Регулиши"
 
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Control
 #. Translators: Menu item Noun/Signal/Control
-#: ../objects/FS/function.c:961 ../objects/FS/function.c:1179
-#: ../objects/UML/classicon.c:128
+#: ../objects/FS/function.c:960 ../objects/FS/function.c:1178
+#: ../objects/UML/classicon.c:127
 msgid "Control"
 msgstr "Контролиши"
 
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Enable
-#: ../objects/FS/function.c:967
+#: ../objects/FS/function.c:966
 msgid "Enable"
 msgstr "Омогући"
 
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Disable
-#: ../objects/FS/function.c:969
+#: ../objects/FS/function.c:968
 msgid "Disable"
 msgstr "Онемогући"
 
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Limit
-#: ../objects/FS/function.c:971
+#: ../objects/FS/function.c:970
 msgid "Limit"
 msgstr "Ограничи"
 
 #  Translators: Menu item Verb/Control Magnitude/Regulate/Interrupt
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Interrupt
-#: ../objects/FS/function.c:973
+#: ../objects/FS/function.c:972
 msgid "Interrupt"
 msgstr "Прекини"
 
 #. Translators: Menu item Verb/Control Magnitude/Change
 #. Translators: Menu item Verb/Control Magnitude/Change/Change
-#: ../objects/FS/function.c:975 ../objects/FS/function.c:977
+#: ../objects/FS/function.c:974 ../objects/FS/function.c:976
 msgid "Change"
 msgstr "Изменути"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Increase
-#: ../objects/FS/function.c:979
+#: ../objects/FS/function.c:978
 msgid "Increase"
 msgstr "Повећати"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Decrease
-#: ../objects/FS/function.c:981
+#: ../objects/FS/function.c:980
 msgid "Decrease"
 msgstr "Смањити"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Amplify
-#: ../objects/FS/function.c:983
+#: ../objects/FS/function.c:982
 msgid "Amplify"
 msgstr "Појачај"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Reduce
-#: ../objects/FS/function.c:985
+#: ../objects/FS/function.c:984
 msgid "Reduce"
 msgstr "Умањи"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Normalize
-#: ../objects/FS/function.c:989
+#: ../objects/FS/function.c:988
 msgid "Normalize"
 msgstr "Нормализуј"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Multiply
-#: ../objects/FS/function.c:991
+#: ../objects/FS/function.c:990
 msgid "Multiply"
 msgstr "Помножи"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Scale
 #. FIXME: mark read-only
-#: ../objects/FS/function.c:993 ../objects/Misc/measure.c:186
+#: ../objects/FS/function.c:992 ../objects/Misc/measure.c:185
 msgid "Scale"
 msgstr "Размери"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Rectify
-#: ../objects/FS/function.c:995
+#: ../objects/FS/function.c:994
 msgid "Rectify"
 msgstr "Поравнај"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Adjust
-#: ../objects/FS/function.c:997
+#: ../objects/FS/function.c:996
 msgid "Adjust"
 msgstr "Подеси"
 
 #. Translators: Menu item Verb/Control Magnitude/Form
 #. Translators: Menu item Verb/Control Magnitude/Form/Form
-#: ../objects/FS/function.c:999 ../objects/FS/function.c:1001
+#: ../objects/FS/function.c:998 ../objects/FS/function.c:1000
 msgid "Form"
 msgstr "Обликуј"
 
 #. Translators: Menu item Verb/Control Magnitude/Form/Compact
-#: ../objects/FS/function.c:1003
+#: ../objects/FS/function.c:1002
 msgid "Compact"
 msgstr "Сабиј"
 
 #. Translators: Menu item Verb/Control Magnitude/Form/Crush
-#: ../objects/FS/function.c:1005
+#: ../objects/FS/function.c:1004
 msgid "Crush"
 msgstr "Здроби"
 
 #. Translators: Menu item Verb/Control Magnitude/Form/Shape
-#: ../objects/FS/function.c:1007
+#: ../objects/FS/function.c:1006
 msgid "Shape"
 msgstr "Обликуј"
 
 #. Translators: Menu item Verb/Control Magnitude/Form/Compress
-#: ../objects/FS/function.c:1009
+#: ../objects/FS/function.c:1008
 msgid "Compress"
 msgstr "Сажми"
 
 #. Translators: Menu item Verb/Control Magnitude/Form/Pierce
-#: ../objects/FS/function.c:1011
+#: ../objects/FS/function.c:1010
 msgid "Pierce"
 msgstr "Избоди"
 
 #. Translators: Menu item Verb/Convert
 #. Translators: Menu item Verb/Convert/Convert
-#: ../objects/FS/function.c:1013 ../objects/FS/function.c:1015
+#: ../objects/FS/function.c:1012 ../objects/FS/function.c:1014
 msgid "Convert"
 msgstr "Претвори"
 
 #. Translators: Menu item Verb/Convert/Transform
-#: ../objects/FS/function.c:1017
+#: ../objects/FS/function.c:1016
 msgid "Transform"
 msgstr "Трасформиши"
 
 #. Translators: Menu item Verb/Convert/Liquefy
-#: ../objects/FS/function.c:1019
+#: ../objects/FS/function.c:1018
 msgid "Liquefy"
 msgstr "Истопи"
 
 #. Translators: Menu item Verb/Convert/Solidify
-#: ../objects/FS/function.c:1021
+#: ../objects/FS/function.c:1020
 msgid "Solidify"
 msgstr "Очврсни"
 
 #. Translators: Menu item Verb/Convert/Evaporate
-#: ../objects/FS/function.c:1023
+#: ../objects/FS/function.c:1022
 msgid "Evaporate"
 msgstr "Испари"
 
 # испари па кондензуј у чврсто стање
 #. Translators: Menu item Verb/Convert/Sublimate
-#: ../objects/FS/function.c:1025
+#: ../objects/FS/function.c:1024
 msgid "Sublimate"
 msgstr "Сублимирај"
 
 #. Translators: Menu item Verb/Convert/Condense
-#: ../objects/FS/function.c:1027
+#: ../objects/FS/function.c:1026
 msgid "Condense"
 msgstr "Кондензуј"
 
 #. Translators: Menu item Verb/Convert/Integrate
-#: ../objects/FS/function.c:1029
+#: ../objects/FS/function.c:1028
 msgid "Integrate"
 msgstr "Интегриши"
 
 #. Translators: Menu item Verb/Convert/Differentiate
-#: ../objects/FS/function.c:1031
+#: ../objects/FS/function.c:1030
 msgid "Differentiate"
 msgstr "Раздвоји"
 
 #. Translators: Menu item Verb/Convert/Process
-#: ../objects/FS/function.c:1033 ../sheets/AADL.sheet.in.h:3
+#: ../objects/FS/function.c:1032 ../sheets/AADL.sheet.in.h:3
 #: ../sheets/Gane_and_Sarson.sheet.in.h:7
 msgid "Process"
 msgstr "Обрада"
 
 #. Translators: Menu item Verb/Signal/Sense
 #. Translators: Menu item Verb/Signal/Sense/Sense
-#: ../objects/FS/function.c:1039 ../objects/FS/function.c:1041
+#: ../objects/FS/function.c:1038 ../objects/FS/function.c:1040
 msgid "Sense"
 msgstr "Осети"
 
 #. Translators: Menu item Verb/Signal/Sense/Perceive
-#: ../objects/FS/function.c:1043
+#: ../objects/FS/function.c:1042
 msgid "Perceive"
 msgstr "Спознај"
 
 #. Translators: Menu item Verb/Signal/Sense/Recognize
-#: ../objects/FS/function.c:1045
+#: ../objects/FS/function.c:1044
 msgid "Recognize"
 msgstr "Препознај"
 
 #. Translators: Menu item Verb/Signal/Sense/Discern
-#: ../objects/FS/function.c:1047
+#: ../objects/FS/function.c:1046
 msgid "Discern"
 msgstr "Разлучи"
 
 #. Translators: Menu item Verb/Signal/Sense/Check
-#: ../objects/FS/function.c:1049
+#: ../objects/FS/function.c:1048
 msgid "Check"
 msgstr "Испитај"
 
 #. Translators: Menu item Verb/Signal/Sense/Verify
-#: ../objects/FS/function.c:1053
+#: ../objects/FS/function.c:1052
 msgid "Verify"
 msgstr "Провери"
 
 #. Translators: Menu item Verb/Signal/Indicate
 #. Translators: Menu item Verb/Signal/Indicate/Indicate
-#: ../objects/FS/function.c:1055 ../objects/FS/function.c:1057
+#: ../objects/FS/function.c:1054 ../objects/FS/function.c:1056
 msgid "Indicate"
 msgstr "Укажи"
 
 #  Translators: Menu item Verb/Signal/Indicate/Mark
 #  Translators: Menu item Verb/Signal/Indicate/Mark
 #. Translators: Menu item Verb/Signal/Indicate/Mark
-#: ../objects/FS/function.c:1059
+#: ../objects/FS/function.c:1058
 msgid "Mark"
 msgstr "Означи"
 
 #. Translators: Menu item Verb/Signal/Display
-#: ../objects/FS/function.c:1061 ../sheets/Flowchart.sheet.in.h:7
+#: ../objects/FS/function.c:1060 ../sheets/Flowchart.sheet.in.h:7
 msgid "Display"
 msgstr "Прикажи"
 
 #. Translators: Menu item Verb/Signal/Measure
 #. Translators: Menu item Verb/Signal/Measure/Measure
-#: ../objects/FS/function.c:1063 ../objects/FS/function.c:1065
+#: ../objects/FS/function.c:1062 ../objects/FS/function.c:1064
 msgid "Measure"
 msgstr "Измери"
 
 #. Translators: Menu item Verb/Signal/Measure/Calculate
-#: ../objects/FS/function.c:1067
+#: ../objects/FS/function.c:1066
 msgid "Calculate"
 msgstr "Израчунај"
 
 #. Translators: Menu item Verb/Signal/Represent
-#: ../objects/FS/function.c:1069
+#: ../objects/FS/function.c:1068
 msgid "Represent"
 msgstr "Представи"
 
 #. Translators: Menu item Noun
-#: ../objects/FS/function.c:1071
+#: ../objects/FS/function.c:1070
 msgid "Noun"
 msgstr "Именица"
 
 # bug: "Solid material" is waaay different from "solid line" in Serbian
 #. Translators: Menu item Noun/Material/Solid
-#: ../objects/FS/function.c:1075
+#: ../objects/FS/function.c:1074
 msgid "Solid"
 msgstr "Пуна"
 
 #. Translators: Menu item Noun/Material/Liquid
-#: ../objects/FS/function.c:1077
+#: ../objects/FS/function.c:1076
 msgid "Liquid"
 msgstr "Течност"
 
 #. Translators: Menu item Noun/Material/Gas
-#: ../objects/FS/function.c:1079
+#: ../objects/FS/function.c:1078
 msgid "Gas"
 msgstr "Гас"
 
 #. Translators: Menu item Noun/Material/Human
 #. Translators: Menu item Noun/Material/Human/Human
 #. Translators: Menu item Noun/Energy/Human
-#: ../objects/FS/function.c:1081 ../objects/FS/function.c:1083
-#: ../objects/FS/function.c:1167
+#: ../objects/FS/function.c:1080 ../objects/FS/function.c:1082
+#: ../objects/FS/function.c:1166
 msgid "Human"
 msgstr "Човек"
 
 #. Translators: Menu item Noun/Material/Human/Hand
-#: ../objects/FS/function.c:1085
+#: ../objects/FS/function.c:1084
 msgid "Hand"
 msgstr "Рука"
 
 #. Translators: Menu item Noun/Material/Human/Foot
-#: ../objects/FS/function.c:1087
+#: ../objects/FS/function.c:1086
 msgid "Foot"
 msgstr "Стопало"
 
 #. Translators: Menu item Noun/Material/Human/Head
-#: ../objects/FS/function.c:1089
+#: ../objects/FS/function.c:1088
 msgid "Head"
 msgstr "Глава"
 
 #. Translators: Menu item Noun/Material/Human/Finger
-#: ../objects/FS/function.c:1091
+#: ../objects/FS/function.c:1090
 msgid "Finger"
 msgstr "Прст"
 
 #. Translators: Menu item Noun/Material/Human/Toe
-#: ../objects/FS/function.c:1093
+#: ../objects/FS/function.c:1092
 msgid "Toe"
 msgstr "Ножни палац"
 
 #. Translators: Menu item Noun/Material/Biological
-#: ../objects/FS/function.c:1095
+#: ../objects/FS/function.c:1094
 msgid "Biological"
 msgstr "Биолошки"
 
 #  Translators: Menu item Noun/Energy/Mechanical
 #  Translators: Menu item Noun/Energy/Mechanical
 #. Translators: Menu item Noun/Energy/Mechanical
-#: ../objects/FS/function.c:1099
+#: ../objects/FS/function.c:1098
 msgid "Mechanical"
 msgstr "Механички"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Mech. Energy
-#: ../objects/FS/function.c:1101
+#: ../objects/FS/function.c:1100
 msgid "Mech. Energy"
 msgstr "Мех. еанергија"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Translation
-#: ../objects/FS/function.c:1103
+#: ../objects/FS/function.c:1102
 msgid "Translation"
 msgstr "Превод"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Force
-#: ../objects/FS/function.c:1105
+#: ../objects/FS/function.c:1104
 msgid "Force"
 msgstr "Сила"
 
 #  Translators: Menu item Noun/Energy/Mechanical/Rotation
 #. Translators: Menu item Noun/Energy/Mechanical/Rotation
-#: ../objects/FS/function.c:1107 ../objects/standard/outline.c:104
+#: ../objects/FS/function.c:1106 ../objects/standard/outline.c:104
 msgid "Rotation"
 msgstr "Ротација"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Torque
-#: ../objects/FS/function.c:1109
+#: ../objects/FS/function.c:1108
 msgid "Torque"
 msgstr "Заокрет"
 
 #  Translators: Menu item Noun/Energy/Mechanical/Random Motion
 #. Translators: Menu item Noun/Energy/Mechanical/Random Motion
-#: ../objects/FS/function.c:1111
+#: ../objects/FS/function.c:1110
 msgid "Random Motion"
 msgstr "Случајно кретање"
 
 #  Translators: Menu item Noun/Energy/Mechanical/Vibration
 #. Translators: Menu item Noun/Energy/Mechanical/Vibration
-#: ../objects/FS/function.c:1113
+#: ../objects/FS/function.c:1112
 msgid "Vibration"
 msgstr "Вибрација"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Rotational Energy
-#: ../objects/FS/function.c:1115
+#: ../objects/FS/function.c:1114
 msgid "Rotational Energy"
 msgstr "Енергија ротације"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Translational Energy
-#: ../objects/FS/function.c:1117
+#: ../objects/FS/function.c:1116
 msgid "Translational Energy"
 msgstr "Енергија преноса"
 
 #. Translators: Menu item Noun/Energy/Electricity
-#: ../objects/FS/function.c:1119
+#: ../objects/FS/function.c:1118
 msgid "Electrical"
 msgstr "Електрика"
 
 #. Translators: Menu item Noun/Energy/Electricity/Electricity
-#: ../objects/FS/function.c:1121
+#: ../objects/FS/function.c:1120
 msgid "Electricity"
 msgstr "Електрицитет"
 
 #. Translators: Menu item Noun/Energy/Electricity/Voltage
-#: ../objects/FS/function.c:1123
+#: ../objects/FS/function.c:1122
 msgid "Voltage"
 msgstr "Волтажа"
 
 #  Translators: Menu item Noun/Energy/Electricity/Current
 #. Translators: Menu item Noun/Energy/Electricity/Current
-#: ../objects/FS/function.c:1125
+#: ../objects/FS/function.c:1124
 msgid "Current"
 msgstr "Струја"
 
 #. Translators: Menu item Noun/Energy/Hydraulic
-#: ../objects/FS/function.c:1127
+#: ../objects/FS/function.c:1126
 msgid "Hydraulic"
 msgstr "Хидраулика"
 
 #. Translators: Menu item Noun/Energy/Hydraulic/Pressure
-#: ../objects/FS/function.c:1129
+#: ../objects/FS/function.c:1128
 msgid "Pressure"
 msgstr "Притисак"
 
 #  Translators: Menu item Noun/Energy/Hydraulic/Volumetric Flow
 #. Translators: Menu item Noun/Energy/Hydraulic/Volumetric Flow
-#: ../objects/FS/function.c:1131
+#: ../objects/FS/function.c:1130
 msgid "Volumetric Flow"
 msgstr "Проток количина"
 
 #. Translators: Menu item Noun/Energy/Thermal
-#: ../objects/FS/function.c:1133
+#: ../objects/FS/function.c:1132
 msgid "Thermal"
 msgstr "Термални"
 
 #. Translators: Menu item Noun/Energy/Thermal/Heat
-#: ../objects/FS/function.c:1135
+#: ../objects/FS/function.c:1134
 msgid "Heat"
 msgstr "Топлота"
 
 #  Translators: Menu item Noun/Energy/Thermal/Conduction
 #. Translators: Menu item Noun/Energy/Thermal/Conduction
-#: ../objects/FS/function.c:1137
+#: ../objects/FS/function.c:1136
 msgid "Conduction"
 msgstr "Проводљивост"
 
 #  Translators: Menu item Noun/Energy/Thermal/Convection
 #. Translators: Menu item Noun/Energy/Thermal/Convection
-#: ../objects/FS/function.c:1139
+#: ../objects/FS/function.c:1138
 msgid "Convection"
 msgstr "Претварање"
 
 #  Translators: Menu item Noun/Energy/Thermal/Radiation
 #. Translators: Menu item Noun/Energy/Thermal/Radiation
 #. Translators: Menu item Noun/Energy/Radioactive/Radiation
-#: ../objects/FS/function.c:1141 ../objects/FS/function.c:1149
+#: ../objects/FS/function.c:1140 ../objects/FS/function.c:1148
 msgid "Radiation"
 msgstr "Радијација"
 
 #  Translators: Menu item Noun/Energy/Pneumatic
 #. Translators: Menu item Noun/Energy/Pneumatic
-#: ../objects/FS/function.c:1143
+#: ../objects/FS/function.c:1142
 msgid "Pneumatic"
 msgstr "Пнеуматика"
 
 #. Translators: Menu item Noun/Energy/Chemical
-#: ../objects/FS/function.c:1145
+#: ../objects/FS/function.c:1144
 msgid "Chemical"
 msgstr "Хемија"
 
 #. Translators: Menu item Noun/Energy/Radioactive
-#: ../objects/FS/function.c:1147
+#: ../objects/FS/function.c:1146
 msgid "Radioactive"
 msgstr "Радиоактивно"
 
 #. Translators: Menu item Noun/Energy/Radioactive/Microwaves
-#: ../objects/FS/function.c:1151
+#: ../objects/FS/function.c:1150
 msgid "Microwaves"
 msgstr "Микро таласи"
 
 #. Translators: Menu item Noun/Energy/Radioactive/Radio waves
-#: ../objects/FS/function.c:1153
+#: ../objects/FS/function.c:1152
 msgid "Radio waves"
 msgstr "Радио таласи"
 
 #. Translators: Menu item Noun/Energy/Radioactive/X-Rays
-#: ../objects/FS/function.c:1155
+#: ../objects/FS/function.c:1154
 msgid "X-Rays"
 msgstr "Икс зраци"
 
 #. Translators: Menu item Noun/Energy/Radioactive/Gamma Rays
-#: ../objects/FS/function.c:1157
+#: ../objects/FS/function.c:1156
 msgid "Gamma Rays"
 msgstr "Гама Зраци"
 
 #. Translators: Menu item Noun/Energy/Acoustic Energy
-#: ../objects/FS/function.c:1159
+#: ../objects/FS/function.c:1158
 msgid "Acoustic Energy"
 msgstr "Звучна енергија"
 
 #. Translators: Menu item Noun/Energy/Optical Energy
-#: ../objects/FS/function.c:1161
+#: ../objects/FS/function.c:1160
 msgid "Optical Energy"
 msgstr "Оптичка енергија"
 
 #. Translators: Menu item Noun/Energy/Solar Energy
-#: ../objects/FS/function.c:1163
+#: ../objects/FS/function.c:1162
 msgid "Solar Energy"
 msgstr "Соларна енергија"
 
 #. Translators: Menu item Noun/Energy/Magnetic Energy
-#: ../objects/FS/function.c:1165
+#: ../objects/FS/function.c:1164
 msgid "Magnetic Energy"
 msgstr "Магнетна енергија"
 
 #  Translators: Menu item Noun/Energy/Human/Human Motion
 #. Translators: Menu item Noun/Energy/Human/Human Motion
-#: ../objects/FS/function.c:1169
+#: ../objects/FS/function.c:1168
 msgid "Human Motion"
 msgstr "Људско кретање"
 
 #. Translators: Menu item Noun/Energy/Human/Human Force
-#: ../objects/FS/function.c:1171
+#: ../objects/FS/function.c:1170
 msgid "Human Force"
 msgstr "Људска сила"
 
 #. Translators: Menu item Noun/Signal/Status
-#: ../objects/FS/function.c:1177
+#: ../objects/FS/function.c:1176
 msgid "Status"
 msgstr "Стање"
 
-#: ../objects/FS/function.c:1181
+#: ../objects/FS/function.c:1180
 msgid "User/Device Fn"
 msgstr "Функција корисника/уређаја"
 
-#: ../objects/FS/function.c:1182
+#: ../objects/FS/function.c:1181
 msgid "Wish Fn"
 msgstr "Функција жеља"
 
-#: ../objects/GRAFCET/action.c:133 ../sheets/SDL.sheet.in.h:11
+#: ../objects/GRAFCET/action.c:132 ../sheets/SDL.sheet.in.h:11
 msgid "Macro call"
 msgstr "Позив макроа"
 
-#: ../objects/GRAFCET/action.c:133
+#: ../objects/GRAFCET/action.c:132
 msgid "This action is a call to a macro-step"
 msgstr "Ова акција је позив макро-корака"
 
-#: ../objects/GRAFCET/condition.c:130
+#: ../objects/GRAFCET/condition.c:129
 msgid "Condition"
 msgstr "Услов"
 
-#: ../objects/GRAFCET/condition.c:130
+#: ../objects/GRAFCET/condition.c:129
 msgid "The boolean equation of the condition"
 msgstr "Логичка једначина услова"
 
-#: ../objects/GRAFCET/condition.c:132
+#: ../objects/GRAFCET/condition.c:131
 msgid "The condition's font"
 msgstr "Писмо услова"
 
-#: ../objects/GRAFCET/condition.c:134
+#: ../objects/GRAFCET/condition.c:133
 msgid "The condition's font size"
 msgstr "Величина писма услова"
 
-#: ../objects/GRAFCET/condition.c:137 ../objects/GRAFCET/transition.c:147
+#: ../objects/GRAFCET/condition.c:136 ../objects/GRAFCET/transition.c:146
 msgid "Color"
 msgstr "Боја"
 
-#: ../objects/GRAFCET/condition.c:137
+#: ../objects/GRAFCET/condition.c:136
 msgid "The condition's color"
 msgstr "Боја услова"
 
@@ -4555,114 +4555,114 @@ msgstr "Боја услова"
 msgid "GRAFCET diagram objects"
 msgstr "Објекти ГРАФЦЕТ дијаграма"
 
-#: ../objects/GRAFCET/step.c:147 ../sheets/GRAFCET.sheet.in.h:3
+#: ../objects/GRAFCET/step.c:146 ../sheets/GRAFCET.sheet.in.h:3
 msgid "Regular step"
 msgstr "Обичан корак"
 
-#: ../objects/GRAFCET/step.c:148 ../sheets/GRAFCET.sheet.in.h:4
+#: ../objects/GRAFCET/step.c:147 ../sheets/GRAFCET.sheet.in.h:4
 msgid "Initial step"
 msgstr "Почетни корак"
 
-#: ../objects/GRAFCET/step.c:149 ../sheets/GRAFCET.sheet.in.h:5
+#: ../objects/GRAFCET/step.c:148 ../sheets/GRAFCET.sheet.in.h:5
 msgid "Macro entry step"
 msgstr "Корак улаза у макро"
 
-#: ../objects/GRAFCET/step.c:150 ../sheets/GRAFCET.sheet.in.h:6
+#: ../objects/GRAFCET/step.c:149 ../sheets/GRAFCET.sheet.in.h:6
 msgid "Macro exit step"
 msgstr "Корак излаза из макроа"
 
-#: ../objects/GRAFCET/step.c:151 ../sheets/GRAFCET.sheet.in.h:7
+#: ../objects/GRAFCET/step.c:150 ../sheets/GRAFCET.sheet.in.h:7
 msgid "Macro call step"
 msgstr "Корак позива макроа"
 
-#: ../objects/GRAFCET/step.c:152
+#: ../objects/GRAFCET/step.c:151
 msgid "Subprogram call step"
 msgstr "Позив корака подпрограма"
 
-#: ../objects/GRAFCET/step.c:159
+#: ../objects/GRAFCET/step.c:158
 msgid "Step name"
 msgstr "Назив корака"
 
-#: ../objects/GRAFCET/step.c:159
+#: ../objects/GRAFCET/step.c:158
 msgid "The name of the step"
 msgstr "Назив корака"
 
-#: ../objects/GRAFCET/step.c:162
+#: ../objects/GRAFCET/step.c:161
 msgid "Step type"
 msgstr "Врста корака"
 
-#: ../objects/GRAFCET/step.c:162
+#: ../objects/GRAFCET/step.c:161
 msgid "The kind of step"
 msgstr "Врста корака"
 
-#: ../objects/GRAFCET/step.c:164
+#: ../objects/GRAFCET/step.c:163
 msgid "Active"
 msgstr "Активно"
 
-#: ../objects/GRAFCET/step.c:164
+#: ../objects/GRAFCET/step.c:163
 msgid "Shows a red dot to figure the step's activity"
 msgstr "Приказује црвену тачку да ослика активност корака"
 
-#: ../objects/GRAFCET/transition.c:140
+#: ../objects/GRAFCET/transition.c:139
 msgid "Receptivity"
 msgstr "Пријем"
 
-#: ../objects/GRAFCET/transition.c:140
+#: ../objects/GRAFCET/transition.c:139
 msgid "The boolean equation of the receptivity"
 msgstr "Логичка једначина за пријем"
 
-#: ../objects/GRAFCET/transition.c:142
+#: ../objects/GRAFCET/transition.c:141
 msgid "The receptivity's font"
 msgstr "Писмо пријема"
 
-#: ../objects/GRAFCET/transition.c:144
+#: ../objects/GRAFCET/transition.c:143
 msgid "The receptivity's font size"
 msgstr "Величина писма за пријем"
 
-#: ../objects/GRAFCET/transition.c:147
+#: ../objects/GRAFCET/transition.c:146
 msgid "The receptivity's color"
 msgstr "Боја пријема"
 
-#: ../objects/GRAFCET/transition.c:148
+#: ../objects/GRAFCET/transition.c:147
 msgid "North point"
 msgstr "Северна тачка"
 
-#: ../objects/GRAFCET/transition.c:149
+#: ../objects/GRAFCET/transition.c:148
 msgid "South point"
 msgstr "Јужна тачка"
 
-#: ../objects/GRAFCET/vector.c:128
+#: ../objects/GRAFCET/vector.c:126
 msgid "Draw arrow heads on upward arcs:"
 msgstr "Црта стрелице на луковима усмереним на горе:"
 
-#: ../objects/GRAFCET/vergent.c:121
+#: ../objects/GRAFCET/vergent.c:120
 msgid "OR"
 msgstr "ИЛИ"
 
-#: ../objects/GRAFCET/vergent.c:122
+#: ../objects/GRAFCET/vergent.c:121
 msgid "AND"
 msgstr "И"
 
 # Ово сам измислио на брзину ;-)
-#: ../objects/GRAFCET/vergent.c:133
+#: ../objects/GRAFCET/vergent.c:132
 msgid "Vergent type:"
 msgstr "Врста темена:"
 
-#: ../objects/GRAFCET/vergent.c:404 ../objects/Istar/other.c:466
+#: ../objects/GRAFCET/vergent.c:403 ../objects/Istar/other.c:466
 #: ../objects/Jackson/domain.c:528 ../objects/KAOS/goal.c:569
-#: ../objects/KAOS/other.c:520 ../objects/SADT/box.c:448
-#: ../objects/standard/line.c:319
+#: ../objects/KAOS/other.c:520 ../objects/SADT/box.c:447
+#: ../objects/standard/line.c:318
 msgid "Add connection point"
 msgstr "Додај тачку везе"
 
-#: ../objects/GRAFCET/vergent.c:405 ../objects/Istar/other.c:467
+#: ../objects/GRAFCET/vergent.c:404 ../objects/Istar/other.c:467
 #: ../objects/Jackson/domain.c:529 ../objects/KAOS/goal.c:570
-#: ../objects/KAOS/other.c:521 ../objects/SADT/box.c:449
-#: ../objects/standard/line.c:320
+#: ../objects/KAOS/other.c:521 ../objects/SADT/box.c:448
+#: ../objects/standard/line.c:319
 msgid "Delete connection point"
 msgstr "Обриши тачку везе"
 
-#: ../objects/GRAFCET/vergent.c:409
+#: ../objects/GRAFCET/vergent.c:408
 msgid "GRAFCET OR/AND vergent"
 msgstr "ГРАФЦЕТ ИЛИ/И теме"
 
@@ -4674,7 +4674,7 @@ msgstr "Неодређено"
 msgid "Agent"
 msgstr "Заступник"
 
-#: ../objects/Istar/actor.c:69 ../objects/UML/association.c:250
+#: ../objects/Istar/actor.c:69 ../objects/UML/association.c:249
 msgid "Role"
 msgstr "Улога"
 
@@ -4862,23 +4862,23 @@ msgstr "Излаз"
 msgid "KAOS other"
 msgstr "КАОС други"
 
-#: ../objects/Misc/analog_clock.c:137
+#: ../objects/Misc/analog_clock.c:136
 msgid "Arrow color"
 msgstr "Боја казаљке"
 
-#: ../objects/Misc/analog_clock.c:139
+#: ../objects/Misc/analog_clock.c:138
 msgid "Arrow line width"
 msgstr "Ширина казаљке"
 
-#: ../objects/Misc/analog_clock.c:141
+#: ../objects/Misc/analog_clock.c:140
 msgid "Seconds arrow color"
 msgstr "Боја секундаре"
 
-#: ../objects/Misc/analog_clock.c:143
+#: ../objects/Misc/analog_clock.c:142
 msgid "Seconds arrow line width"
 msgstr "Ширина секундаре"
 
-#: ../objects/Misc/analog_clock.c:145
+#: ../objects/Misc/analog_clock.c:144
 msgid "Show hours"
 msgstr "Прикажи сате"
 
@@ -4886,19 +4886,19 @@ msgstr "Прикажи сате"
 msgid "Diagram file"
 msgstr "Датотека дијаграма"
 
-#: ../objects/Misc/grid_object.c:138
+#: ../objects/Misc/grid_object.c:137
 msgid "Rows"
 msgstr "Редови"
 
-#: ../objects/Misc/grid_object.c:140
+#: ../objects/Misc/grid_object.c:139
 msgid "Columns"
 msgstr "Ступци"
 
-#: ../objects/Misc/grid_object.c:142
+#: ../objects/Misc/grid_object.c:141
 msgid "Grid line color"
 msgstr "Боја линије мреже"
 
-#: ../objects/Misc/grid_object.c:144
+#: ../objects/Misc/grid_object.c:143
 msgid "Grid line width"
 msgstr "Ширина линије мреже"
 
@@ -4906,49 +4906,49 @@ msgstr "Ширина линије мреже"
 msgid "Miscellaneous objects"
 msgstr "Разни објекти"
 
-#: ../objects/Misc/measure.c:169
+#: ../objects/Misc/measure.c:168
 msgid "cm"
 msgstr "cm"
 
-#: ../objects/Misc/measure.c:170
+#: ../objects/Misc/measure.c:169
 msgid "dm"
 msgstr "dm"
 
-#: ../objects/Misc/measure.c:171
+#: ../objects/Misc/measure.c:170
 msgid "ft"
 msgstr "стопа"
 
-#: ../objects/Misc/measure.c:172
+#: ../objects/Misc/measure.c:171
 msgid "in"
 msgstr "инчи"
 
-#: ../objects/Misc/measure.c:173
+#: ../objects/Misc/measure.c:172
 msgid "m"
 msgstr "m"
 
-#: ../objects/Misc/measure.c:174
+#: ../objects/Misc/measure.c:173
 msgid "mm"
 msgstr "mm"
 
-#: ../objects/Misc/measure.c:175
+#: ../objects/Misc/measure.c:174
 msgid "pt"
 msgstr "тачака"
 
 #  Translators: Menu item Verb/Channel/Guide/Rotate/Spin
-#: ../objects/Misc/measure.c:176
+#: ../objects/Misc/measure.c:175
 msgid "pi"
 msgstr "пи"
 
 #. PROP_FLAG_VISIBLE|
-#: ../objects/Misc/measure.c:185 ../sheets/ChemEng.sheet.in.h:8
+#: ../objects/Misc/measure.c:184 ../sheets/ChemEng.sheet.in.h:8
 msgid "Measurement"
 msgstr "Мерење"
 
-#: ../objects/Misc/measure.c:187
+#: ../objects/Misc/measure.c:186
 msgid "Unit"
 msgstr "Јединица"
 
-#: ../objects/Misc/measure.c:188
+#: ../objects/Misc/measure.c:187
 msgid "Precision"
 msgstr "Тачност"
 
@@ -4980,31 +4980,31 @@ msgstr "Полупречник"
 msgid "Width"
 msgstr "Ширина"
 
-#: ../objects/SADT/arrow.c:137
+#: ../objects/SADT/arrow.c:136
 msgid "Import resource (not shown upstairs)"
 msgstr "Увези ресурс (није приказан горе)"
 
-#: ../objects/SADT/arrow.c:138
+#: ../objects/SADT/arrow.c:137
 msgid "Imply resource (not shown downstairs)"
 msgstr "Подразумевај ресурс (није приказан доле)"
 
-#: ../objects/SADT/arrow.c:139
+#: ../objects/SADT/arrow.c:138
 msgid "Dotted arrow"
 msgstr "Тачкаста стрелица"
 
-#: ../objects/SADT/arrow.c:140
+#: ../objects/SADT/arrow.c:139
 msgid "disable arrow heads"
 msgstr "искључи врхове стрелица"
 
-#: ../objects/SADT/arrow.c:147
+#: ../objects/SADT/arrow.c:146
 msgid "Flow style:"
 msgstr "Стил протока:"
 
-#: ../objects/SADT/arrow.c:149
+#: ../objects/SADT/arrow.c:148
 msgid "Automatically gray vertical flows:"
 msgstr "Самостално засиви усправни проток:"
 
-#: ../objects/SADT/arrow.c:150
+#: ../objects/SADT/arrow.c:149
 msgid ""
 "To improve the ease of reading, flows which begin and end vertically can be "
 "rendered gray"
@@ -5012,19 +5012,19 @@ msgstr ""
 "Зарад олакшавања читања, токови који почињу и завршавају се усправно могу "
 "бити исцртани сивом бојом"
 
-#: ../objects/SADT/arrow.c:469
+#: ../objects/SADT/arrow.c:468
 msgid "SADT Arrow"
 msgstr "САДТ стрелица"
 
-#: ../objects/SADT/box.c:145
+#: ../objects/SADT/box.c:144
 msgid "Activity/Data identifier"
 msgstr "Идентификатор активности/података"
 
-#: ../objects/SADT/box.c:146
+#: ../objects/SADT/box.c:145
 msgid "The identifier which appears in the lower-right corner of the Box"
 msgstr "Идентификатор који се појављује у доњем десном углу квадратића"
 
-#: ../objects/SADT/box.c:454
+#: ../objects/SADT/box.c:453
 msgid "SADT box"
 msgstr "САДТ квадратић"
 
@@ -5036,17 +5036,17 @@ msgstr "Објекти САДТ дијаграма"
 msgid "Curve distance"
 msgstr "Растојање криве"
 
-#: ../objects/standard/bezier.c:145 ../objects/standard/line.c:127
+#: ../objects/standard/bezier.c:145 ../objects/standard/line.c:126
 #: ../objects/standard/polyline.c:108
 msgid "Line gaps"
 msgstr "Празнине линије"
 
-#: ../objects/standard/bezier.c:147 ../objects/standard/line.c:129
+#: ../objects/standard/bezier.c:147 ../objects/standard/line.c:128
 #: ../objects/standard/polyline.c:110
 msgid "Absolute start gap"
 msgstr "Апсолутна празнина почетка"
 
-#: ../objects/standard/bezier.c:149 ../objects/standard/line.c:131
+#: ../objects/standard/bezier.c:149 ../objects/standard/line.c:130
 #: ../objects/standard/polyline.c:112
 msgid "Absolute end gap"
 msgstr "Апсолутна празнина краја"
@@ -5074,15 +5074,14 @@ msgstr "Контрола шиљка"
 
 #: ../objects/standard/bezier.c:785 ../objects/standard/beziergon.c:524
 #: ../objects/standard/box.c:749 ../objects/standard/textobj.c:450
-#| msgid "Convert"
 msgid "Convert to Path"
 msgstr "Претвори у путању"
 
-#: ../objects/standard/box.c:125 ../objects/standard/ellipse.c:118
+#: ../objects/standard/box.c:125 ../objects/standard/ellipse.c:117
 msgid "Free"
 msgstr "Слободно"
 
-#: ../objects/standard/box.c:126 ../objects/standard/ellipse.c:119
+#: ../objects/standard/box.c:126 ../objects/standard/ellipse.c:118
 msgid "Fixed"
 msgstr "Везано"
 
@@ -5091,47 +5090,47 @@ msgstr "Везано"
 msgid "Square"
 msgstr "Квадрат"
 
-#: ../objects/standard/box.c:140 ../objects/standard/ellipse.c:131
+#: ../objects/standard/box.c:140 ../objects/standard/ellipse.c:130
 msgid "Aspect ratio"
 msgstr "Однос размере"
 
-#: ../objects/standard/box.c:743 ../objects/standard/ellipse.c:664
+#: ../objects/standard/box.c:743 ../objects/standard/ellipse.c:663
 msgid "Free aspect"
 msgstr "Слободан однос"
 
-#: ../objects/standard/box.c:745 ../objects/standard/ellipse.c:666
+#: ../objects/standard/box.c:745 ../objects/standard/ellipse.c:665
 msgid "Fixed aspect"
 msgstr "Утврђен однос"
 
-#: ../objects/standard/ellipse.c:120 ../objects/standard/ellipse.c:668
+#: ../objects/standard/ellipse.c:119 ../objects/standard/ellipse.c:667
 msgid "Circle"
 msgstr "Круг"
 
-#: ../objects/standard/image.c:119
+#: ../objects/standard/image.c:118
 msgid "Image file"
 msgstr "Датотека слике"
 
-#: ../objects/standard/image.c:121
+#: ../objects/standard/image.c:120
 msgid "Inline data"
 msgstr "Уткани подаци"
 
-#: ../objects/standard/image.c:121
+#: ../objects/standard/image.c:120
 msgid "Store image data in diagram"
 msgstr "Ускладишти податке о слици у дијаграм"
 
-#: ../objects/standard/image.c:123
+#: ../objects/standard/image.c:122
 msgid "Pixbuf"
 msgstr "Сличица"
 
-#: ../objects/standard/image.c:123
+#: ../objects/standard/image.c:122
 msgid "The Pixbuf reference"
 msgstr "Референца сличице"
 
-#: ../objects/standard/image.c:125
+#: ../objects/standard/image.c:124
 msgid "Draw border"
 msgstr "Исцртај границу"
 
-#: ../objects/standard/image.c:127
+#: ../objects/standard/image.c:126
 msgid "Keep aspect ratio"
 msgstr "Задржи однос размере"
 
@@ -5157,23 +5156,23 @@ msgstr ""
 msgid "The image file '%s' was not found.\n"
 msgstr "Датотека слике „%s“ није пронађена.\n"
 
-#: ../objects/standard/line.c:118
+#: ../objects/standard/line.c:117
 msgid "Arrows"
 msgstr "Стрелице"
 
-#: ../objects/standard/line.c:123
+#: ../objects/standard/line.c:122
 msgid "Start point"
 msgstr "Почетна тачка"
 
-#: ../objects/standard/line.c:125
+#: ../objects/standard/line.c:124
 msgid "End point"
 msgstr "Крајња тачка"
 
-#: ../objects/standard/line.c:321
+#: ../objects/standard/line.c:320
 msgid "Upgrade to Polyline"
 msgstr "Надогради на вишелинија"
 
-#: ../objects/standard/line.c:322
+#: ../objects/standard/line.c:321
 msgid "Upgrade to Zigzagline"
 msgstr "Надогради на цик-цак линију"
 
@@ -5205,61 +5204,61 @@ msgstr "Прва линија"
 msgid "Vertical text alignment"
 msgstr "Усправно поравнање текста"
 
-#: ../objects/standard/zigzagline.c:450
+#: ../objects/standard/zigzagline.c:448
 msgid "Upgrade to Bezierline"
 msgstr "Надогради на Безјерову линију"
 
-#: ../objects/UML/actor.c:352 ../objects/UML/actor.c:354
+#: ../objects/UML/actor.c:351 ../objects/UML/actor.c:353
 #: ../sheets/UML.sheet.in.h:15
 msgid "Actor"
 msgstr "Глумац"
 
-#: ../objects/UML/association.c:222
+#: ../objects/UML/association.c:221
 msgid "From A to B"
 msgstr "Од А до Б"
 
-#: ../objects/UML/association.c:223
+#: ../objects/UML/association.c:222
 msgid "From B to A"
 msgstr "Од Б до А"
 
-#: ../objects/UML/association.c:228
+#: ../objects/UML/association.c:227
 msgid "Aggregation"
 msgstr "Прикупљање"
 
-#: ../objects/UML/association.c:229
+#: ../objects/UML/association.c:228
 msgid "Composition"
 msgstr "Слагање"
 
-#: ../objects/UML/association.c:239
+#: ../objects/UML/association.c:238
 msgid "Direction"
 msgstr "Смер"
 
-#: ../objects/UML/association.c:241
+#: ../objects/UML/association.c:240
 msgid "Show direction"
 msgstr "Прикажи смер"
 
-#: ../objects/UML/association.c:241
+#: ../objects/UML/association.c:240
 msgid "Show the small arrow denoting the reading direction"
 msgstr "Приказује малу стрелицу означавајући смер читања"
 
-#: ../objects/UML/association.c:248
+#: ../objects/UML/association.c:247
 msgid "Side A"
 msgstr "Страна А"
 
-#: ../objects/UML/association.c:252
+#: ../objects/UML/association.c:251
 msgid "Multiplicity"
 msgstr "Вишеструкост"
 
-#: ../objects/UML/association.c:254 ../objects/UML/umlattribute.c:45
+#: ../objects/UML/association.c:253 ../objects/UML/umlattribute.c:45
 #: ../objects/UML/umloperation.c:71
 msgid "Visibility"
 msgstr "Видљивост"
 
-#: ../objects/UML/association.c:256
+#: ../objects/UML/association.c:255
 msgid "Show arrow"
 msgstr "Прикажи стрелице"
 
-#: ../objects/UML/association.c:259
+#: ../objects/UML/association.c:258
 msgid "Side B"
 msgstr "Страна Б"
 
@@ -5323,10 +5322,10 @@ msgstr "Разред"
 
 #. how it used to be before 0.96+SVN
 #. one name, one type: but breaks forward-compatibiliy so kind of reverted
-#: ../objects/UML/class.c:142 ../objects/UML/classicon.c:137
-#: ../objects/UML/classicon.c:139 ../objects/UML/component.c:124
-#: ../objects/UML/large_package.c:134 ../objects/UML/object.c:148
-#: ../objects/UML/small_package.c:126 ../objects/UML/umloperation.c:68
+#: ../objects/UML/class.c:142 ../objects/UML/classicon.c:136
+#: ../objects/UML/classicon.c:138 ../objects/UML/component.c:123
+#: ../objects/UML/large_package.c:133 ../objects/UML/object.c:146
+#: ../objects/UML/small_package.c:125 ../objects/UML/umloperation.c:68
 msgid "Stereotype"
 msgstr "Стереотип"
 
@@ -5412,8 +5411,8 @@ msgstr "Назив разреда:"
 
 #: ../objects/UML/class_dialog.c:336
 #: ../objects/UML/class_operations_dialog.c:799
-#: ../objects/UML/dependency.c:135 ../objects/UML/generalization.c:132
-#: ../objects/UML/realizes.c:132
+#: ../objects/UML/dependency.c:134 ../objects/UML/generalization.c:131
+#: ../objects/UML/realizes.c:131
 msgid "Stereotype:"
 msgstr "Стереотип:"
 
@@ -5480,11 +5479,11 @@ msgstr "Боја исцртавања"
 msgid "Background Color"
 msgstr "Боја позадине"
 
-#: ../objects/UML/classicon.c:129
+#: ../objects/UML/classicon.c:128
 msgid "Boundary"
 msgstr "Ограничење"
 
-#: ../objects/UML/classicon.c:142
+#: ../objects/UML/classicon.c:141
 msgid "Is object"
 msgstr "Објекат је"
 
@@ -5585,7 +5584,7 @@ msgstr "Одредиште догађаја"
 msgid "Constraint:"
 msgstr "Ограничење:"
 
-#: ../objects/UML/dependency.c:137
+#: ../objects/UML/dependency.c:136
 msgid "Show arrow:"
 msgstr "Покажи стрелице:"
 
@@ -5659,38 +5658,38 @@ msgstr "Рекурзивно"
 msgid "Message type:"
 msgstr "Врста поруке:"
 
-#: ../objects/UML/object.c:150
+#: ../objects/UML/object.c:148
 msgid "Explicit state"
 msgstr "Изричито стање"
 
-#: ../objects/UML/object.c:155
+#: ../objects/UML/object.c:153
 msgid "Active object"
 msgstr "Активни објекат"
 
-#: ../objects/UML/object.c:157
+#: ../objects/UML/object.c:155
 msgid "Show attributes"
 msgstr "Прикажи особине"
 
-#: ../objects/UML/object.c:159
+#: ../objects/UML/object.c:157
 msgid "Multiple instance"
 msgstr "Вишеструке инстанце"
 
-#: ../objects/UML/state.c:148
+#: ../objects/UML/state.c:147
 msgid "Entry action"
 msgstr "Радња ставке"
 
 #  Translators: Menu item Noun/Energy/Mechanical/Rotation
-#: ../objects/UML/state.c:149
+#: ../objects/UML/state.c:148
 msgid "Do action"
 msgstr "Изврши радњу"
 
-#: ../objects/UML/state.c:150
+#: ../objects/UML/state.c:149
 msgid "Exit action"
 msgstr "Напусти радњу"
 
 #. Would like to create a state_term instead, but making the connections
 #. * is a pain
-#: ../objects/UML/state.c:487
+#: ../objects/UML/state.c:486
 msgid ""
 "This diagram uses the State object for initial/final states.\n"
 "This option will go away in future versions.\n"
@@ -5700,7 +5699,7 @@ msgstr ""
 "Ова опција ће бити уклоњена у будућим издањима.\n"
 "Молим уместо њега користите објекте за почетна/завршна стања.\n"
 
-#: ../objects/UML/state_term.c:126
+#: ../objects/UML/state_term.c:125
 msgid "Is final"
 msgstr "Јесте завршно"
 
@@ -5756,11 +5755,11 @@ msgstr "Домет"
 msgid "Class scope (C++ static method)"
 msgstr "Домет разреда (статички Ц++ начин)"
 
-#: ../objects/UML/usecase.c:131
+#: ../objects/UML/usecase.c:130
 msgid "Collaboration"
 msgstr "Сарадња"
 
-#: ../objects/UML/usecase.c:133
+#: ../objects/UML/usecase.c:132
 msgid "Text outside"
 msgstr "Текст напољу"
 
@@ -5788,75 +5787,75 @@ msgstr "Не могу да запишем %d бајта у %s"
 msgid "Clipboard copy failed"
 msgstr "Умножавање у оставу није успело"
 
-#: ../plug-ins/cairo/diacairo.c:361 ../plug-ins/postscript/postscript.c:39
+#: ../plug-ins/cairo/diacairo.c:362 ../plug-ins/postscript/postscript.c:39
 #: ../plug-ins/wmf/wmf.cpp:1503
 msgid "Nothing to print"
 msgstr "Ништа за штампање"
 
-#: ../plug-ins/cairo/diacairo.c:378
+#: ../plug-ins/cairo/diacairo.c:379
 msgid "Cairo PostScript"
 msgstr "Каиро Пост скрипт"
 
-#: ../plug-ins/cairo/diacairo.c:389
+#: ../plug-ins/cairo/diacairo.c:390
 msgid "Cairo Portable Document Format"
 msgstr "Каиро ПДФ"
 
-#: ../plug-ins/cairo/diacairo.c:401
+#: ../plug-ins/cairo/diacairo.c:402
 msgid "Cairo Scalable Vector Graphics"
 msgstr "Каиро сразмерна векторска графика"
 
-#: ../plug-ins/cairo/diacairo.c:413
+#: ../plug-ins/cairo/diacairo.c:414
 msgid "CairoScript"
 msgstr "Каиро скрипт"
 
-#: ../plug-ins/cairo/diacairo.c:424
+#: ../plug-ins/cairo/diacairo.c:425
 msgid "Cairo PNG"
 msgstr "Каиро ПНГ"
 
-#: ../plug-ins/cairo/diacairo.c:432
+#: ../plug-ins/cairo/diacairo.c:433
 msgid "Cairo PNG (with alpha)"
 msgstr "Каиро ПНГ (са алфом)"
 
-#: ../plug-ins/cairo/diacairo.c:442
+#: ../plug-ins/cairo/diacairo.c:443
 msgid "Cairo EMF"
 msgstr "Каиро ЕМФ"
 
-#: ../plug-ins/cairo/diacairo.c:452
+#: ../plug-ins/cairo/diacairo.c:453
 msgid "Cairo WMF"
 msgstr "Каиро ВМФ"
 
-#: ../plug-ins/cairo/diacairo.c:466
+#: ../plug-ins/cairo/diacairo.c:467
 msgid "Cairo Clipboard Copy"
 msgstr "Умножавање у оставу Каира"
 
-#: ../plug-ins/cairo/diacairo.c:480
+#: ../plug-ins/cairo/diacairo.c:481
 msgid "Copy _Diagram"
 msgstr "Умножи _дијаграм"
 
-#: ../plug-ins/cairo/diacairo.c:489
+#: ../plug-ins/cairo/diacairo.c:490
 msgid "Print (GTK) …"
 msgstr "Штампај (ГТК) …"
 
-#: ../plug-ins/cairo/diacairo.c:537
+#: ../plug-ins/cairo/diacairo.c:539
 msgid "Cairo-based Rendering"
 msgstr "Исцртавање засновано на Каиру"
 
-#: ../plug-ins/cairo/diacairo-interactive.c:406
-#: ../plug-ins/cairo/diacairo-interactive.c:407
+#: ../plug-ins/cairo/diacairo-interactive.c:408
+#: ../plug-ins/cairo/diacairo-interactive.c:409
 msgid "Zoom pointer"
 msgstr "Показивач увећања"
 
-#: ../plug-ins/cairo/diacairo-interactive.c:413
-#: ../plug-ins/cairo/diacairo-interactive.c:414
+#: ../plug-ins/cairo/diacairo-interactive.c:415
+#: ../plug-ins/cairo/diacairo-interactive.c:416
 msgid "Visible rect pointer"
 msgstr "Видљив правоугаони показивач"
 
-#: ../plug-ins/cairo/diacairo-renderer.c:869
-#: ../plug-ins/cairo/diacairo-renderer.c:904 ../plug-ins/cgm/cgm.c:1126
+#: ../plug-ins/cairo/diacairo-renderer.c:868
+#: ../plug-ins/cairo/diacairo-renderer.c:903 ../plug-ins/cgm/cgm.c:1126
 #: ../plug-ins/libart/dialibartrenderer.c:1325
 #: ../plug-ins/metapost/render_metapost.c:1108
-#: ../plug-ins/postscript/diapsrenderer.c:718
-#: ../plug-ins/pstricks/render_pstricks.c:826 ../plug-ins/wpg/wpg.c:892
+#: ../plug-ins/postscript/diapsrenderer.c:715
+#: ../plug-ins/pstricks/render_pstricks.c:825 ../plug-ins/wpg/wpg.c:892
 msgid "Not enough memory for image drawing."
 msgstr "Нема довољно меморије за цртање слике."
 
@@ -5980,7 +5979,7 @@ msgstr "Преображај исцртавача"
 msgid "Transform pointer"
 msgstr "Преобрази показивач"
 
-#: ../plug-ins/libart/export_png.c:159 ../plug-ins/xslt/xslt.c:101
+#: ../plug-ins/libart/export_png.c:159 ../plug-ins/xslt/xslt.c:104
 #, c-format
 msgid "Can't open output file %s: %s\n"
 msgstr "Не могу да отворим излазну датотеку %s: %s\n"
@@ -6023,18 +6022,15 @@ msgid "TeX Metapost macros"
 msgstr "ТеКс метапост макрои"
 
 #: ../plug-ins/pdf/pdf.c:30
-#| msgid "Cairo Portable Document Format"
 msgid "Portable Document File"
 msgstr "Датотека преносивог документа"
 
 #: ../plug-ins/pdf/pdf.c:44
-#| msgid "WMF export filter"
 msgid "PDF import filter"
 msgstr "Пропусник ПДФ увоза"
 
 #: ../plug-ins/pdf/pdf-import.cpp:311
 #, c-format
-#| msgid "Pager"
 msgid "Page %d"
 msgstr "%d. страница"
 
@@ -6147,12 +6143,12 @@ msgstr "Угнеждени Постскрипт (користи Пост скр�
 msgid "TeX PSTricks export filter"
 msgstr "Филтер извожења ТеКс ПСТрикса"
 
-#: ../plug-ins/pstricks/render_pstricks.c:995
+#: ../plug-ins/pstricks/render_pstricks.c:990
 msgid "TeX PSTricks macros"
 msgstr "ТеКс ПСТрикс макрои"
 
 # bug: ":" is not needed
-#: ../plug-ins/python/pydia-render.c:1118
+#: ../plug-ins/python/pydia-render.c:1115
 #, c-format
 msgid "Couldn't open '%s' for writing.\n"
 msgstr "Не могу да отворим „%s“ ради уписа.\n"
@@ -6191,19 +6187,17 @@ msgstr ""
 "Неисправни подаци о путањи.\n"
 "подаци свг:путање морају почети са премести у."
 
-#: ../plug-ins/svg/svg-import.c:1224
+#: ../plug-ins/svg/svg-import.c:1227
 msgid "'Shape Design' shapes missing."
 msgstr "Недостају облици „Дизајна облика“."
 
-#: ../plug-ins/svg/svg-import.c:1258
+#: ../plug-ins/svg/svg-import.c:1261
 #, c-format
-#| msgid "'%s' creation failed"
 msgid "Object '%s' creation failed"
 msgstr "Стварање објекта „%s“ није успело"
 
-#: ../plug-ins/svg/svg-import.c:1280
+#: ../plug-ins/svg/svg-import.c:1283
 #, c-format
-#| msgid "Parse error for %s"
 msgid ""
 "Parse error for memory block.\n"
 "%s"
@@ -6211,16 +6205,16 @@ msgstr ""
 "Грешка обраде за блокирање меморије.\n"
 "%s"
 
-#: ../plug-ins/svg/svg-import.c:1293 ../plug-ins/vdx/vdx-import.c:2888
+#: ../plug-ins/svg/svg-import.c:1296 ../plug-ins/vdx/vdx-import.c:2887
 #, c-format
 msgid "Parse error for %s"
 msgstr "Грешка обраде за „%s“"
 
-#: ../plug-ins/svg/svg-import.c:1325
+#: ../plug-ins/svg/svg-import.c:1328
 msgid "Expected SVG Namespace not found in file"
 msgstr "Очекивани размак назива СВГ-а није пронађен у датотеци"
 
-#: ../plug-ins/svg/svg-import.c:1345
+#: ../plug-ins/svg/svg-import.c:1348
 #, c-format
 msgid "root element was '%s' -- expecting 'svg'."
 msgstr "корени елемент беше „%s“ — очекивах „svg“."
@@ -6229,7 +6223,15 @@ msgstr "корени елемент беше „%s“ — очекивах „sv
 msgid "Visio XML Format import and export filter"
 msgstr "Филтер за увоз и извоз Визио ИксМЛ формата"
 
-#: ../plug-ins/vdx/vdx-export.c:1863
+#: ../plug-ins/vdx/vdx-export.c:1857
+#, c-format
+#| msgid ""
+#| "Saving inline pixbuf failed:\n"
+#| "%s"
+msgid "Saving file '%s' failed."
+msgstr "Није успело чување датотеке „%s“."
+
+#: ../plug-ins/vdx/vdx-export.c:1868
 msgid "Visio XML format"
 msgstr "ИксМЛ формат Визиа"
 
@@ -6243,38 +6245,38 @@ msgstr "Не могу да читам боју: %s"
 msgid "Couldn't find shape %d"
 msgstr "Не могу да пронађем облик %d"
 
-#: ../plug-ins/vdx/vdx-import.c:1012
+#: ../plug-ins/vdx/vdx-import.c:1011
 #, c-format
 msgid "Unexpected Ellipse object: %s"
 msgstr "Неочекивани објекат елипсе: %s"
 
-#: ../plug-ins/vdx/vdx-import.c:1026
+#: ../plug-ins/vdx/vdx-import.c:1025
 msgid "Can't rotate ellipse"
 msgstr "Не могу да заокренем елипсу"
 
-#: ../plug-ins/vdx/vdx-import.c:1357
+#: ../plug-ins/vdx/vdx-import.c:1356
 msgid "MoveTo not at start of Bezier"
 msgstr "ПреместиУ није на почетку Безјера"
 
-#: ../plug-ins/vdx/vdx-import.c:1707
+#: ../plug-ins/vdx/vdx-import.c:1706
 msgid "Invalid NURBS formula"
 msgstr "Неисправна НУРБС формула"
 
-#: ../plug-ins/vdx/vdx-import.c:1965
+#: ../plug-ins/vdx/vdx-import.c:1964
 #, c-format
 msgid "Couldn't handle foreign object type %s"
 msgstr "Не могу да рукујрм страном врстом објекта %s"
 
-#: ../plug-ins/vdx/vdx-import.c:2899
+#: ../plug-ins/vdx/vdx-import.c:2898
 msgid "Nothing in document!"
 msgstr "Нема ничега у документу!"
 
-#: ../plug-ins/vdx/vdx-import.c:2904
+#: ../plug-ins/vdx/vdx-import.c:2903
 #, c-format
 msgid "Expecting VisioDocument, got %s"
 msgstr "Очекивах Визио документ, али добих „%s“"
 
-#: ../plug-ins/vdx/vdx-import.c:2988
+#: ../plug-ins/vdx/vdx-import.c:2987
 msgid "Visio XML File Format"
 msgstr "Формат Визио ИксМЛ датотеке"
 
@@ -6326,17 +6328,17 @@ msgstr "Филтер извожења графике савршених речи
 msgid "Fig Format import and export filter"
 msgstr "Филтер за увоз и извоз Фиг записа"
 
-#: ../plug-ins/xfig/xfig-export.c:464
+#: ../plug-ins/xfig/xfig-export.c:484
 #, c-format
 msgid "Fig format has no equivalent of arrow style %s; using simple arrow.\n"
 msgstr ""
 "Фиг запис нема одговарајући стил стрелице %s; користим обичну стрелицу.\n"
 
-#: ../plug-ins/xfig/xfig-export.c:487
+#: ../plug-ins/xfig/xfig-export.c:507
 msgid "No more user-definable colors - using black"
 msgstr "Нема више боја које је поставио корисник — користим црну"
 
-#: ../plug-ins/xfig/xfig-export.c:1214
+#: ../plug-ins/xfig/xfig-export.c:1234
 msgid "Xfig format"
 msgstr "Иксфиг запис"
 
@@ -6364,57 +6366,62 @@ msgstr "Стил линије „%d“ не треба да се појави"
 msgid "Error while reading %dth of %d points"
 msgstr "Грешка читања %d. од %d тачака"
 
-#: ../plug-ins/xfig/xfig-import.c:272
+#: ../plug-ins/xfig/xfig-import.c:253
+#| msgid "Premature end of Fig file"
+msgid "Unexpected end of file."
+msgstr "Неочекивани крај датотеке."
+
+#: ../plug-ins/xfig/xfig-import.c:273
 msgid "Error while reading arrowhead"
 msgstr "Грешка читања главе стрелице"
 
-#: ../plug-ins/xfig/xfig-import.c:294
+#: ../plug-ins/xfig/xfig-import.c:295
 #, c-format
 msgid "Unknown arrow type %d\n"
 msgstr "Непозната врста стрелице %d\n"
 
-#: ../plug-ins/xfig/xfig-import.c:386
+#: ../plug-ins/xfig/xfig-import.c:387
 #, c-format
 msgid "Depth %d of of range, only 0-%d allowed.\n"
 msgstr "Дубина %d изван опсега, допуштено је само 0-%d.\n"
 
-#: ../plug-ins/xfig/xfig-import.c:434
+#: ../plug-ins/xfig/xfig-import.c:435
 msgid "Couldn't read ellipse info."
 msgstr "Не могу да прочитам податке елипсе."
 
-#: ../plug-ins/xfig/xfig-import.c:503
+#: ../plug-ins/xfig/xfig-import.c:504
 msgid "Couldn't read polyline info.\n"
 msgstr "Не могу да прочитам податке о полилинији.\n"
 
-#: ../plug-ins/xfig/xfig-import.c:518
+#: ../plug-ins/xfig/xfig-import.c:519
 msgid "Couldn't read flipped bit."
 msgstr "Не могу да прочитам изврнути бит."
 
-#: ../plug-ins/xfig/xfig-import.c:536
+#: ../plug-ins/xfig/xfig-import.c:537
 msgid "Negative corner radius; negating"
 msgstr "Негативни полупречник ћошка; негирам"
 
-#: ../plug-ins/xfig/xfig-import.c:579
+#: ../plug-ins/xfig/xfig-import.c:580
 #, c-format
 msgid "Unknown polyline subtype: %d\n"
 msgstr "Непозната подврста полилиније: %d\n"
 
-#: ../plug-ins/xfig/xfig-import.c:730 ../plug-ins/xfig/xfig-import.c:762
+#: ../plug-ins/xfig/xfig-import.c:732 ../plug-ins/xfig/xfig-import.c:764
 msgid "Couldn't read spline info."
 msgstr "Не могу да прочитам податке сплиније."
 
 #. Open approximated spline
 #. Closed approximated spline
-#: ../plug-ins/xfig/xfig-import.c:749 ../plug-ins/xfig/xfig-import.c:766
+#: ../plug-ins/xfig/xfig-import.c:751 ../plug-ins/xfig/xfig-import.c:768
 msgid "Cannot convert approximated spline yet."
 msgstr "Још увек не могу да претворим приближну криву."
 
-#: ../plug-ins/xfig/xfig-import.c:804
+#: ../plug-ins/xfig/xfig-import.c:806
 #, c-format
 msgid "Unknown spline subtype: %d\n"
 msgstr "Непозната подврста криве: %d\n"
 
-#: ../plug-ins/xfig/xfig-import.c:870
+#: ../plug-ins/xfig/xfig-import.c:871
 msgid "Couldn't read arc info."
 msgstr "Не могу да прочитам податке о луку."
 
@@ -6541,41 +6548,41 @@ msgstr "Превремен крај Фиг датотеке"
 msgid "Xfig File Format"
 msgstr "Запис Иксфиг датотеке"
 
-#: ../plug-ins/xslt/xslt.c:110
+#: ../plug-ins/xslt/xslt.c:113
 #, c-format
 msgid "Error while parsing %s\n"
 msgstr "Грешка приликом обраде %s\n"
 
-#: ../plug-ins/xslt/xslt.c:119
+#: ../plug-ins/xslt/xslt.c:122
 #, c-format
 msgid "Error while parsing stylesheet %s\n"
 msgstr "Грешка приликом обраде стилова %s\n"
 
-#: ../plug-ins/xslt/xslt.c:126
+#: ../plug-ins/xslt/xslt.c:129
 #, c-format
 msgid "Error while applying stylesheet %s\n"
 msgstr "Грешка приликом примене стилова %s\n"
 
-#: ../plug-ins/xslt/xslt.c:135
+#: ../plug-ins/xslt/xslt.c:138
 #, c-format
 msgid "Error while parsing stylesheet: %s\n"
 msgstr "Грешка приликом обраде стилова: %s\n"
 
-#: ../plug-ins/xslt/xslt.c:144
+#: ../plug-ins/xslt/xslt.c:147
 #, c-format
 msgid "Error while applying stylesheet: %s\n"
 msgstr "Грешка приликом примене стилова: %s\n"
 
-#: ../plug-ins/xslt/xslt.c:152
+#: ../plug-ins/xslt/xslt.c:155
 #, c-format
 msgid "Error while saving result: %s\n"
 msgstr "Грешка приликом чувања резултата: %s\n"
 
-#: ../plug-ins/xslt/xslt.c:336
+#: ../plug-ins/xslt/xslt.c:339
 msgid "XSL Transformation filter"
 msgstr "Филтер ИксСЛ преображаја"
 
-#: ../plug-ins/xslt/xslt.c:363
+#: ../plug-ins/xslt/xslt.c:366
 msgid "No valid configuration files found for the XSLT plugin; not loading."
 msgstr ""
 "Нису пронађене исправне датотеке подешавања за ИксСЛТ прикључак; не учитавам."
