@@ -48,6 +48,32 @@ replace_prefix (const gchar *runtime_prefix,
 }
 #endif
 
+#ifdef G_OS_WIN32
+/*
+ * Calulate the module directory from executable path
+ * Convert to UTF-8 to be compatible with GLib's filename encoding.
+ */
+static gchar *
+_dia_get_module_directory (void)
+{
+  wchar_t wsLoc [MAX_PATH+1];
+  HINSTANCE hInst = GetModuleHandle(NULL);
+  gchar *sLoc = NULL;
+
+  if (0 != GetModuleFileNameW(hInst, wsLoc, MAX_PATH))
+    {
+      sLoc = g_utf16_to_utf8 (wsLoc, -1, NULL, NULL, NULL);
+      /* strip the name */
+      if (strrchr(sLoc, G_DIR_SEPARATOR))
+        strrchr(sLoc, G_DIR_SEPARATOR)[0] = 0;
+      /* and one dir (bin) */
+      if (strrchr(sLoc, G_DIR_SEPARATOR))
+        strrchr(sLoc, G_DIR_SEPARATOR)[1] = 0;
+    }
+  return sLoc;
+}
+#endif
+
 /** Get the name of a subdirectory of our data directory.
  *  This function does not create the subdirectory, just make the correct name.
  * @param subdir The name of the directory desired.
@@ -63,18 +89,7 @@ dia_get_data_directory(const gchar* subdir)
   /*
    * Calculate from executable path
    */
-  gchar sLoc [MAX_PATH+1];
-  HINSTANCE hInst = GetModuleHandle(NULL);
-
-  if (0 != GetModuleFileName(hInst, sLoc, MAX_PATH))
-    {
-	/* strip the name */
-      if (strrchr(sLoc, G_DIR_SEPARATOR))
-        strrchr(sLoc, G_DIR_SEPARATOR)[0] = 0;
-      /* and one dir (bin) */
-      if (strrchr(sLoc, G_DIR_SEPARATOR))
-        strrchr(sLoc, G_DIR_SEPARATOR)[1] = 0;
-    }
+  gchar *sLoc = _dia_get_module_directory ();
 #  if defined(PREFIX) && defined(DATADIR)
   tmpPath = replace_prefix(sLoc, DATADIR);
   if (strlen (subdir) == 0)
@@ -82,11 +97,11 @@ dia_get_data_directory(const gchar* subdir)
   else
     returnPath = g_build_path(G_DIR_SEPARATOR_S, tmpPath, subdir, NULL);
   g_free(tmpPath);
-  return returnPath;
 #  else
-  return g_strconcat (sLoc , subdir, NULL);
+  returnPath = g_strconcat (sLoc , subdir, NULL);
 #  endif
-
+  g_free (sLoc);
+  return returnPath;
 #else
   if (strlen (subdir) == 0)
     return g_strconcat (DATADIR, NULL);
@@ -98,40 +113,26 @@ dia_get_data_directory(const gchar* subdir)
 /** Get a subdirectory of our lib directory.  This does not create the
  *  directory, merely the name of the full path.
  * @param subdir The name of the subdirectory wanted.
- * @returns The full path of the named directory.  The string should be
+ * @return The full path of the named directory.  The string should be
  *          freed after use.
  */
 gchar*
 dia_get_lib_directory(const gchar* subdir)
 {
 #ifdef G_OS_WIN32
-  gchar *tmpPath = NULL;
+  gchar *sLoc = _dia_get_module_directory ();
   gchar *returnPath = NULL;
-  /*
-   * Calulate from executable path
-   */
-  gchar sLoc [MAX_PATH+1];
-  HINSTANCE hInst = GetModuleHandle(NULL);
-
-  if (0 != GetModuleFileName(hInst, sLoc, MAX_PATH))
-    {
-	/* strip the name */
-      if (strrchr(sLoc, G_DIR_SEPARATOR))
-        strrchr(sLoc, G_DIR_SEPARATOR)[0] = 0;
-      /* and one dir (bin) */
-      if (strrchr(sLoc, G_DIR_SEPARATOR))
-        strrchr(sLoc, G_DIR_SEPARATOR)[1] = 0;
-    }
 #  if defined(PREFIX) && defined(LIBDIR)
-  tmpPath = replace_prefix(sLoc, LIBDIR);
-  returnPath = g_build_path(G_DIR_SEPARATOR_S, tmpPath, subdir, NULL);
-  g_free(tmpPath);
-  return returnPath;
+  {
+    gchar *tmpPath = replace_prefix(sLoc, LIBDIR);
+    returnPath = g_build_path(G_DIR_SEPARATOR_S, tmpPath, subdir, NULL);
+    g_free(tmpPath);
+  }
 #  else
-  return g_strconcat (sLoc , subdir, NULL);
+  returnPath = g_strconcat (sLoc , subdir, NULL);
 #  endif
-
-
+  g_free (sLoc);
+  return returnPath;
 #else
   return g_strconcat (LIBDIR, G_DIR_SEPARATOR_S, subdir, NULL);
 #endif
@@ -142,27 +143,14 @@ dia_get_locale_directory(void)
 {
 #ifdef G_OS_WIN32
 #  if defined(PREFIX) && defined(LOCALEDIR)
-  /*
-   * Calulate from executable path
-   */
-  gchar sLoc [MAX_PATH+1];
-  HINSTANCE hInst = GetModuleHandle(NULL);
-
-  if (0 != GetModuleFileName(hInst, sLoc, MAX_PATH))
-    {
-	/* strip the name */
-      if (strrchr(sLoc, G_DIR_SEPARATOR))
-        strrchr(sLoc, G_DIR_SEPARATOR)[0] = 0;
-      /* and one dir (bin) */
-      if (strrchr(sLoc, G_DIR_SEPARATOR))
-        strrchr(sLoc, G_DIR_SEPARATOR)[1] = 0;
-    }
-  return replace_prefix(sLoc, LOCALEDIR);
+  gchar *ret;
+  gchar *sLoc = _dia_get_module_directory ();
+  ret = replace_prefix(sLoc, LOCALEDIR);
+  g_free (sLoc);
+  return  ret;
 #  else
   return dia_get_lib_directory ("locale");
 #  endif
-
-
 #else
   return g_strconcat (LOCALEDIR, G_DIR_SEPARATOR_S, "", NULL);
 #endif
