@@ -95,6 +95,8 @@ exit_dialog_make (GtkWindow * parent_window,
     GtkCellRenderer *   renderer;
     GtkTreeViewColumn * column;
 
+    GdkGeometry geometry = { 0 };
+
     gtk_box_pack_start (vbox, label, FALSE, FALSE, 0);
     
     gtk_widget_show (label);
@@ -165,7 +167,13 @@ exit_dialog_make (GtkWindow * parent_window,
     g_signal_connect (G_OBJECT (dialog), "destroy",
                       G_CALLBACK (exit_dialog_destroy), 
                       treeview);
-    
+
+    /* golden ratio */
+    geometry.min_aspect = 0.618;
+    geometry.max_aspect = 1.618;
+    geometry.win_gravity = GDK_GRAVITY_CENTER;
+    gtk_window_set_geometry_hints (GTK_WINDOW (dialog), GTK_WIDGET (vbox), &geometry,
+                                   GDK_HINT_ASPECT|GDK_HINT_WIN_GRAVITY);
     return dialog;
 }
 
