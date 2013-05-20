@@ -61,7 +61,7 @@ int
 dia::Connections::len () const
 {
     if (object)
-        object->num_connections;
+        return object->num_connections;
     return 0;
 }
 //! return back a single property
