@@ -499,7 +499,19 @@ _make_button_box_for_view (GtkTreeView *view, GtkTreeView *master_view)
   }
   return vbox;
 }
+/*! Wrap the given widget into a scrollable setting certain defaults */
+static GtkWidget *
+_make_scrollable (GtkWidget *view)
+{
+  GtkWidget *sw;
 
+  sw = gtk_scrolled_window_new (NULL, NULL);
+  gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (sw), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
+  gtk_container_add (GTK_CONTAINER (sw), view);
+  gtk_widget_show (sw);
+
+  return sw;
+}
 /*!
  * PropertyType_GetWidget: create a widget capable of editing the property
  */
@@ -553,19 +565,19 @@ _arrayprop_get_widget (ArrayProperty *prop, PropDialog *dialog)
 
     if (!branch_view) {
       gtk_widget_show (view);
-      gtk_box_pack_start (GTK_BOX (hbox), view, TRUE /* expand */, TRUE /* fill */, 0);
+      gtk_box_pack_start (GTK_BOX (hbox), _make_scrollable (view), TRUE /* expand */, TRUE /* fill */, 0);
     } else {
       /* almost the same once more */
       GtkWidget *hbox2 = gtk_hbox_new (FALSE /* less size for button column */, 0);
       GtkWidget *vbox2 = gtk_vbox_new (FALSE, 0);
       GtkWidget *vbox3 = _make_button_box_for_view (GTK_TREE_VIEW (branch_view), GTK_TREE_VIEW (view));
 
-      gtk_box_pack_start (GTK_BOX (vbox2), view, TRUE, TRUE, 0);
+      gtk_box_pack_start (GTK_BOX (vbox2), _make_scrollable (view), TRUE, TRUE, 0);
       /* Todo: get label for the branch view from props, e.g. UML Operations Parameters  */
       gtk_box_pack_start (GTK_BOX (vbox2), gtk_label_new (_("Parameters")), FALSE, FALSE, 0);
 
       gtk_box_pack_start (GTK_BOX (hbox2), vbox3, FALSE, FALSE, 0);
-      gtk_box_pack_start (GTK_BOX (hbox2), branch_view, TRUE, TRUE, 0);
+      gtk_box_pack_start (GTK_BOX (hbox2), _make_scrollable (branch_view), TRUE, TRUE, 0);
       gtk_box_pack_start (GTK_BOX (vbox2), hbox2, FALSE, FALSE, 0);
       gtk_widget_show_all (vbox2);
       gtk_box_pack_start (GTK_BOX (hbox), vbox2, TRUE /* expand */, TRUE /* fill */, 0);
