@@ -49,7 +49,7 @@ private :
  * \brief The basic building block of diagrams
  *
  * This is a proxy class to objects coming from Dia's object factory. The latter is populate by all the objecct
- * implementations from objects/*
+ * implementations from objects
  */
 class Object
 {
