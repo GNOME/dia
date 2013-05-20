@@ -275,7 +275,7 @@ outline_update_data (Outline *outline)
   /* not exact matching but almost the best we can do with the toy api */
   cairo_select_font_face (cr, dia_font_get_family (outline->font), 
                           DIA_FONT_STYLE_GET_SLANT (style) == DIA_FONT_NORMAL ? CAIRO_FONT_SLANT_NORMAL : CAIRO_FONT_SLANT_ITALIC,
-                          DIA_FONT_STYLE_GET_WEIGHT (style) < DIA_FONT_MEDIUM ? CAIRO_FONT_SLANT_NORMAL : CAIRO_FONT_WEIGHT_BOLD);
+                          DIA_FONT_STYLE_GET_WEIGHT (style) < DIA_FONT_MEDIUM ? CAIRO_FONT_WEIGHT_NORMAL : CAIRO_FONT_WEIGHT_BOLD);
   cairo_set_font_size (cr, outline->font_height);
   cairo_text_extents (cr, outline->name, &extents);
 
