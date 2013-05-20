@@ -491,6 +491,7 @@ set_linestyle(DiaRenderer *self, LineStyle mode)
     case LINESTYLE_DASH_DOT_DOT:
     case LINESTYLE_DOTTED:
       renderer->nLineWidth = MIN(renderer->nLineWidth, 1);
+    case LINESTYLE_SOLID:
       break;
     }
 }
