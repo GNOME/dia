@@ -394,8 +394,7 @@ listprop_emptylines_realloc(ListProperty *prop,guint new_size) {
 
   for (i = 0; i < prop->lines->len; i++) 
     g_free(g_ptr_array_index(prop->lines,i));
-  if (new_size >= 0) 
-    g_ptr_array_set_size(prop->lines,new_size);
+  g_ptr_array_set_size(prop->lines,new_size);
 }
 
 static void 
