@@ -62,7 +62,7 @@ static PropDescription umloperation_props[] = {
   N_("Name"), NULL, NULL },
   { "type", PROP_TYPE_STRING, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
   N_("Type"), NULL, NULL },
-  { "comment", PROP_TYPE_STRING, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
+  { "comment", PROP_TYPE_MULTISTRING, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
   N_("Comment"), NULL, NULL },
   { "stereotype", PROP_TYPE_STRING, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
   N_("Stereotype"), NULL, NULL },
@@ -84,7 +84,7 @@ static PropDescription umloperation_props[] = {
 static PropOffset umloperation_offsets[] = {
   { "name", PROP_TYPE_STRING, offsetof(UMLOperation, name) },
   { "type", PROP_TYPE_STRING, offsetof(UMLOperation, type) },
-  { "comment", PROP_TYPE_STRING, offsetof(UMLOperation, comment) },
+  { "comment", PROP_TYPE_MULTISTRING, offsetof(UMLOperation, comment) },
   { "stereotype", PROP_TYPE_STRING, offsetof(UMLOperation, stereotype) },
   { "visibility", PROP_TYPE_ENUM, offsetof(UMLOperation, visibility) },
   { "inheritance_type", PROP_TYPE_ENUM, offsetof(UMLOperation, inheritance_type) },

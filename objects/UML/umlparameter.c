@@ -45,7 +45,7 @@ static PropDescription umlparameter_props[] = {
   N_("Type"), NULL, NULL },
   { "value", PROP_TYPE_STRING, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
   N_("Value"), NULL, NULL },
-  { "comment", PROP_TYPE_STRING, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
+  { "comment", PROP_TYPE_MULTISTRING, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
   N_("Comment"), NULL, NULL },
   { "kind", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
   N_("Kind"), NULL, _uml_parameter_kinds },
@@ -57,7 +57,7 @@ static PropOffset umlparameter_offsets[] = {
   { "name", PROP_TYPE_STRING, offsetof(UMLParameter, name) },
   { "type", PROP_TYPE_STRING, offsetof(UMLParameter, type) },
   { "value", PROP_TYPE_STRING, offsetof(UMLParameter, value) },
-  { "comment", PROP_TYPE_STRING, offsetof(UMLParameter, comment) },
+  { "comment", PROP_TYPE_MULTISTRING, offsetof(UMLParameter, comment) },
   { "kind", PROP_TYPE_ENUM, offsetof(UMLParameter, kind) },
   { NULL, 0, 0 },
 };

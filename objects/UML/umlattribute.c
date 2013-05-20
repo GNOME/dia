@@ -39,14 +39,15 @@ static PropDescription umlattribute_props[] = {
   N_("Type"), NULL, NULL },
   { "value", PROP_TYPE_STRING, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
   N_("Value"), NULL, NULL },
-  { "comment", PROP_TYPE_STRING, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
+  { "comment", PROP_TYPE_MULTISTRING, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
   N_("Comment"), NULL, NULL },
   { "visibility", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
   N_("Visibility"), NULL, _uml_visibilities },
+  /* Kept for backward compatibility, not sure what it is meant to be --hb */
   { "abstract", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
-  N_("Abstract (?)"), NULL, NULL },
+  N_("Abstract"), NULL, NULL },
   { "class_scope", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
-  N_("Class scope (static)"), NULL, NULL },
+  N_("Scope"), NULL, N_("Class scope (C++ static class variable)") },
 
   PROP_DESC_END
 };
@@ -55,7 +56,7 @@ static PropOffset umlattribute_offsets[] = {
   { "name", PROP_TYPE_STRING, offsetof(UMLAttribute, name) },
   { "type", PROP_TYPE_STRING, offsetof(UMLAttribute, type) },
   { "value", PROP_TYPE_STRING, offsetof(UMLAttribute, value) },
-  { "comment", PROP_TYPE_STRING, offsetof(UMLAttribute, comment) },
+  { "comment", PROP_TYPE_MULTISTRING, offsetof(UMLAttribute, comment) },
   { "visibility", PROP_TYPE_ENUM, offsetof(UMLAttribute, visibility) },
   { "abstract", PROP_TYPE_BOOL, offsetof(UMLAttribute, abstract) },
   { "class_scope", PROP_TYPE_BOOL, offsetof(UMLAttribute, class_scope) },

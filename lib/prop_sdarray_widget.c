@@ -190,6 +190,19 @@ _cell_renderer_text_new (const Property *p, GtkTreeView *tree_view)
 
   return cren;
 }
+static GtkCellRenderer *
+_cell_renderer_multitext_new (const Property *p, GtkTreeView *tree_view)
+{
+  GtkCellRenderer *cren = gtk_cell_renderer_text_new ();
+
+  g_signal_connect (G_OBJECT (cren), "edited",
+		    G_CALLBACK (_text_edited), tree_view);
+  g_object_set (G_OBJECT (cren), "editable", TRUE, NULL);
+  g_object_set (G_OBJECT (cren), "ellipsize", PANGO_ELLIPSIZE_END, NULL);
+  g_object_set (G_OBJECT (cren), "wrap-width", 140, NULL);
+
+  return cren;
+}
 
 typedef void (*DataFunc) (GtkTreeViewColumn *tree_column,
 			  GtkCellRenderer   *cell,
@@ -205,12 +218,13 @@ static struct {
   const char *bind;
   DataFunc    data_func;
 } _dia_gtk_type_map[] = {
-  { PROP_TYPE_DARRAY, 0, G_TYPE_POINTER, /* just child data */ },
+  { PROP_TYPE_DARRAY, 0, G_TYPE_POINTER, /* child data model */ },
   { PROP_TYPE_BOOL, 0, G_TYPE_BOOLEAN, _cell_renderer_toggle_new, "active" },
   { PROP_TYPE_INT, 0, G_TYPE_INT, gtk_cell_renderer_spin_new },
   { PROP_TYPE_ENUM, 0, G_TYPE_INT, _cell_renderer_enum_new, "text" },
   { PROP_TYPE_REAL, 0, G_TYPE_DOUBLE, _cell_renderer_real_new },
   { PROP_TYPE_STRING, 0, G_TYPE_STRING, _cell_renderer_text_new, "text" },
+  { PROP_TYPE_MULTISTRING, 0, G_TYPE_STRING, _cell_renderer_multitext_new, "text" },
   { NULL, 0 }
 };
 
@@ -221,6 +235,9 @@ _find_type (const Property *prop)
 
   /* calculate quarks first time called */
   if (_dia_gtk_type_map[0].type_quark == 0) {
+    /* dynamic to avoid: error C2099: initializer is not a constant */
+    _dia_gtk_type_map[0].gtype = GTK_TYPE_TREE_MODEL;
+
     for (i = 0; _dia_gtk_type_map[i].type != NULL; ++i) {
       _dia_gtk_type_map[i].type_quark = g_quark_from_static_string (_dia_gtk_type_map[i].type);
     }
@@ -242,6 +259,8 @@ create_sdarray_model (ArrayProperty *prop)
   int idx, i, columns = prop->ex_props->len;
   GtkTreeStore *model;
   GType *types = g_alloca (sizeof(GType) * columns);
+  int branch_column = -1;
+  ArrayProperty *branch_prop = NULL;
 
   for (i = 0; i < columns; i++) {
     Property *p = g_ptr_array_index(prop->ex_props, i);
@@ -250,12 +269,20 @@ create_sdarray_model (ArrayProperty *prop)
     idx = _find_type (p);
     if (idx >= 0) {
       types[i] = _dia_gtk_type_map[idx].gtype;
+      if (g_quark_from_static_string (PROP_TYPE_DARRAY) == p->type_quark) {
+	branch_column = i;
+	branch_prop = (ArrayProperty *)p;
+      }
     } else {
       types[i] = G_TYPE_POINTER;
       g_warning (G_STRLOC "No model type for '%s'\n", p->descr->name);
     }
   }
   model = gtk_tree_store_newv (columns, types);
+  g_object_set_data (G_OBJECT (model), "branch-column", GINT_TO_POINTER (branch_column));
+  /* we need to remember the branch property to create a model from scratch */
+  if (branch_prop)
+    g_object_set_data (G_OBJECT (model), "branch-prop", branch_prop);
 
   return model;
 }
@@ -342,31 +369,57 @@ _lower_row_callback (GtkWidget   *button,
   }
 }
 
-/*! 
- * PropertyType_GetWidget: create a widget capable of editing the property
- */
-WIDGET *
-_arrayprop_get_widget (ArrayProperty *prop, PropDialog *dialog) 
+/* react to the row-selected signal of the main tree view */
+static void
+_update_branch (GtkTreeSelection *selection,
+	        GtkTreeView      *tree_view)
 {
-  GtkTreeStore *model;
-  GtkWidget *view;
+  GtkTreeIter   iter;
+  GtkTreeView  *branch_view = g_object_get_data (G_OBJECT (tree_view), "branch-view");
+  GtkTreeModel *model = gtk_tree_view_get_model (tree_view);
+
+  if (!branch_view)
+    return;
+
+  if (gtk_tree_selection_get_selected(selection, NULL, &iter)) {
+    GtkTreeModel *branch_model = NULL;
+    int column = GPOINTER_TO_INT (g_object_get_data (G_OBJECT (model), "branch-column"));
+
+    gtk_tree_model_get (model, &iter, column, &branch_model, -1);
+    if (!branch_model) {
+      branch_model = GTK_TREE_MODEL (create_sdarray_model (
+	(ArrayProperty *)g_object_get_data (G_OBJECT (model), "branch-prop")));
+      /* remember it for later reference */
+      gtk_tree_store_set (GTK_TREE_STORE (model), &iter, column, branch_model, -1);
+    }
+    gtk_tree_view_set_model (branch_view, branch_model);
+    g_object_unref (branch_model);
+  } else {
+    gtk_tree_view_set_model (branch_view, NULL);
+  }
+}
+
+static void
+_build_tree_view_columns (GtkTreeView    *view,
+			  ArrayProperty  *prop,
+			  ArrayProperty **branch_prop)
+{
   int idx, i, cols;
 
-  /* create */
-  cols = prop->ex_props->len;
-  model = create_sdarray_model (prop);
-
-  /* visualize */
-  view = gtk_tree_view_new_with_model (GTK_TREE_MODEL (model));
   /* to keep add/remove simple */
   gtk_tree_selection_set_mode (gtk_tree_view_get_selection (GTK_TREE_VIEW (view)),
 			       GTK_SELECTION_SINGLE);
-
+  cols = prop->ex_props->len;
   for (i = 0; i < cols; i++) {
     /* for every property type we need a cell renderer and view */
     Property *p = g_ptr_array_index(prop->ex_props, i);
 
     idx = _find_type (p);
+    if (p->type_quark == g_quark_from_static_string (PROP_TYPE_DARRAY)) {
+      g_return_if_fail (idx == 0 && GTK_TYPE_TREE_MODEL == _dia_gtk_type_map[idx].gtype);
+      g_return_if_fail (*branch_prop == NULL); /* only one branch per row */
+      *branch_prop = (ArrayProperty*)p;
+    }
     if (idx >= 0) {
       GtkCellRenderer *renderer;
       GtkTreeViewColumn *col;
@@ -399,42 +452,134 @@ _arrayprop_get_widget (ArrayProperty *prop, PropDialog *dialog)
     }
   }
 
-  /* setup additional controls ... */
+}
+
+static void
+_update_button (GtkTreeSelection *selection,
+		GtkWidget        *button)
+{
+  gtk_widget_set_sensitive (button, gtk_tree_selection_get_selected(selection, NULL, NULL));
+}
+
+/*!
+ * \brief Setup buttons including action and sensitivity signals
+ */
+static GtkWidget *
+_make_button_box_for_view (GtkTreeView *view, GtkTreeView *master_view)
+{
+  static struct {
+    const gchar *stock;
+    GCallback    callback;
+  } _button_data[] = {
+    { GTK_STOCK_ADD,     G_CALLBACK (_insert_row_callback) },
+    { GTK_STOCK_REMOVE,  G_CALLBACK (_remove_row_callback) },
+    { GTK_STOCK_GO_UP,   G_CALLBACK (_upper_row_callback) },
+    { GTK_STOCK_GO_DOWN, G_CALLBACK (_lower_row_callback) },
+    { NULL, NULL }
+  };
+  GtkWidget *vbox = gtk_vbox_new (FALSE, 0);
+  GtkWidget *button;
+  int i;
+
+  for (i = 0; _button_data[i].stock != NULL; ++i) {
+    button = gtk_button_new_from_stock (_button_data[i].stock);
+    /* start with everything disabled ... */
+    gtk_widget_set_sensitive (button, FALSE);
+    g_signal_connect (G_OBJECT (button), "clicked",
+		      _button_data[i].callback, view);
+    if (i != 0) /* the Add enabling is different ... */
+      g_signal_connect (gtk_tree_view_get_selection (GTK_TREE_VIEW (view)), "changed",
+		        G_CALLBACK (_update_button), button);
+    else if (master_view) /* ... it depends on the other views selection */
+      g_signal_connect (gtk_tree_view_get_selection (GTK_TREE_VIEW (master_view)), "changed",
+		        G_CALLBACK (_update_button), button);
+    else /* ... the main button is always enabled */
+      gtk_widget_set_sensitive (button, TRUE);
+    gtk_box_pack_start (GTK_BOX (vbox), button, FALSE, FALSE, 0);
+  }
+  return vbox;
+}
+
+/*!
+ * PropertyType_GetWidget: create a widget capable of editing the property
+ */
+WIDGET *
+_arrayprop_get_widget (ArrayProperty *prop, PropDialog *dialog)
+{
+  GtkTreeStore *model;
+  GtkWidget *view;
+  GtkWidget *branch_view = NULL;
+  const PropDescCommonArrayExtra *extra = prop->common.descr->extra_data;
+  ArrayProperty *branch_prop = NULL;
+
+  /* create */
+  model = create_sdarray_model (prop);
+  /* visualize */
+  view = gtk_tree_view_new_with_model (GTK_TREE_MODEL (model));
+  /* to adapt the branch_view */
+  g_signal_connect (gtk_tree_view_get_selection (GTK_TREE_VIEW (view)), "changed",
+		    G_CALLBACK (_update_branch), view);
+
+  _build_tree_view_columns (GTK_TREE_VIEW (view), prop, &branch_prop);
+  if (branch_prop) {
+    ArrayProperty *second_branch_prop = NULL;
+    branch_view = gtk_tree_view_new ();
+
+    _build_tree_view_columns (GTK_TREE_VIEW (branch_view), branch_prop, &second_branch_prop);
+    if (second_branch_prop)
+      g_warning (G_STRLOC " Only one nesting level of PROP_TYPE_DARRAY supported");
+  }
+
+  /* setup additional controls ...
+   *  hbox = outer container
+   *   \- vbox
+   *   \- view
+   * or:
+   *  hbox
+   *   \- vbox - major buttons
+   *   \- vbox2
+   *       \- view
+   *       \- hbox2
+   *           \- vbox3 - minor buttons
+   *           \- branch_view
+   */
   {
-    static struct {
-      const gchar *stock;
-      GCallback    callback;
-    } _button_data[] = {
-      { GTK_STOCK_ADD,     G_CALLBACK (_insert_row_callback) },
-      { GTK_STOCK_REMOVE,  G_CALLBACK (_remove_row_callback) },
-      { GTK_STOCK_GO_UP,   G_CALLBACK (_upper_row_callback) },
-      { GTK_STOCK_GO_DOWN, G_CALLBACK (_lower_row_callback) },
-      { NULL, NULL }
-    };
-    GtkWidget *button;
-    int i;
-    GtkWidget *hbox = gtk_hbox_new (FALSE /* less size for vutton column */, 0);
-    GtkWidget *vbox = gtk_vbox_new (FALSE, 0);
+    GtkWidget *hbox = gtk_hbox_new (FALSE /* less size for button column */, 0);
+    GtkWidget *vbox = _make_button_box_for_view (GTK_TREE_VIEW (view), NULL);
 
     gtk_box_pack_start (GTK_BOX (hbox), vbox, FALSE /* no expand */, FALSE, 0);
 
-    for (i = 0; _button_data[i].stock != NULL; ++i) {
-      button = gtk_button_new_from_stock (_button_data[i].stock);
-      g_signal_connect (G_OBJECT (button), "clicked",
-			_button_data[i].callback, view);
-      gtk_box_pack_start (GTK_BOX (vbox), button, FALSE, FALSE, 0);
-    }
     gtk_widget_show_all (vbox);
-    gtk_widget_show (view);
-    gtk_box_pack_start (GTK_BOX (hbox), view, TRUE /* expand */, TRUE /* fill */, 0);
+
+    if (!branch_view) {
+      gtk_widget_show (view);
+      gtk_box_pack_start (GTK_BOX (hbox), view, TRUE /* expand */, TRUE /* fill */, 0);
+    } else {
+      /* almost the same once more */
+      GtkWidget *hbox2 = gtk_hbox_new (FALSE /* less size for button column */, 0);
+      GtkWidget *vbox2 = gtk_vbox_new (FALSE, 0);
+      GtkWidget *vbox3 = _make_button_box_for_view (GTK_TREE_VIEW (branch_view), GTK_TREE_VIEW (view));
+
+      gtk_box_pack_start (GTK_BOX (vbox2), view, TRUE, TRUE, 0);
+      /* Todo: get label for the branch view from props, e.g. UML Operations Parameters  */
+      gtk_box_pack_start (GTK_BOX (vbox2), gtk_label_new (_("Parameters")), FALSE, FALSE, 0);
+
+      gtk_box_pack_start (GTK_BOX (hbox2), vbox3, FALSE, FALSE, 0);
+      gtk_box_pack_start (GTK_BOX (hbox2), branch_view, TRUE, TRUE, 0);
+      gtk_box_pack_start (GTK_BOX (vbox2), hbox2, FALSE, FALSE, 0);
+      gtk_widget_show_all (vbox2);
+      gtk_box_pack_start (GTK_BOX (hbox), vbox2, TRUE /* expand */, TRUE /* fill */, 0);
+
+      g_object_set_data (G_OBJECT (view), "branch-view", branch_view);
+    }
     g_object_set_data (G_OBJECT (hbox), "tree-view", view);
     return hbox;
   }
-
-  g_object_set_data (G_OBJECT (view), "tree-view", view);
-  return view;
 }
 
+/*!
+ * \brief Transfer from the property to the view model
+ */
 static void
 _write_store (GtkTreeStore *store, GtkTreeIter *parent_iter, ArrayProperty *prop)
 {
@@ -456,9 +601,13 @@ _write_store (GtkTreeStore *store, GtkTreeIter *parent_iter, ArrayProperty *prop
       if (idx < 0)
 	continue;
 
-      if (p->type_quark == g_quark_from_static_string (PROP_TYPE_DARRAY)) /* recurse */
-	_write_store (store, &iter, (ArrayProperty *)p);
-      else if (p->type_quark == g_quark_from_static_string (PROP_TYPE_BOOL))
+      if (p->type_quark == g_quark_from_static_string (PROP_TYPE_DARRAY)) {
+	/* recurse - with own store */
+	GtkTreeStore *child_store = create_sdarray_model ((ArrayProperty *)p);
+	_write_store (child_store, NULL, (ArrayProperty *)p);
+	gtk_tree_store_set (store, &iter, i, child_store, -1);
+	g_object_unref (child_store);
+      } else if (p->type_quark == g_quark_from_static_string (PROP_TYPE_BOOL))
 	gtk_tree_store_set (store, &iter, i, ((BoolProperty *)p)->bool_data, -1);
       else if (p->type_quark == g_quark_from_static_string (PROP_TYPE_INT))
 	gtk_tree_store_set (store, &iter, i, ((IntProperty *)p)->int_data, -1);
@@ -466,7 +615,8 @@ _write_store (GtkTreeStore *store, GtkTreeIter *parent_iter, ArrayProperty *prop
 	gtk_tree_store_set (store, &iter, i, ((EnumProperty *)p)->enum_data, -1);
       else if (p->type_quark == g_quark_from_static_string (PROP_TYPE_REAL))
 	gtk_tree_store_set (store, &iter, i, ((RealProperty *)p)->real_data, -1);
-      else if (p->type_quark == g_quark_from_static_string (PROP_TYPE_STRING))
+      else if (   p->type_quark == g_quark_from_static_string (PROP_TYPE_STRING)
+	       || p->type_quark == g_quark_from_static_string (PROP_TYPE_MULTISTRING))
 	gtk_tree_store_set (store, &iter, i, ((StringProperty *)p)->string_data, -1);
       else {
 	/* only complain if we have a visible widget */
@@ -486,11 +636,21 @@ _arrayprop_reset_widget(ArrayProperty *prop, WIDGET *widget)
   GtkWidget *view = widget;
   GtkTreeView *tree_view = g_object_get_data (G_OBJECT (view), "tree-view");
   GtkTreeStore *store = GTK_TREE_STORE (gtk_tree_view_get_model (tree_view));
+  GtkTreeIter iter;
 
   gtk_tree_store_clear (store);
 
   _write_store (store, NULL, prop);
   g_object_set_data (G_OBJECT (store), "modified", GINT_TO_POINTER (0));
+
+  /* select the first row if any */
+  if (gtk_tree_model_get_iter_first (GTK_TREE_MODEL (store), &iter)) {
+    GtkTreePath *path = gtk_tree_model_get_path (GTK_TREE_MODEL (store), &iter);
+    gtk_tree_view_set_cursor (tree_view, path, NULL, FALSE);
+    gtk_tree_path_free (path);
+  } else {
+    /* do something to disable the buttons */
+  }
 }
 
 static gboolean
@@ -525,6 +685,9 @@ _array_prop_adjust_len (ArrayProperty *prop, guint len)
   g_ptr_array_set_size(prop->records, len);
   return TRUE;
 }
+/*!
+ * \brief Transfer from the view model to the property 
+ */
 static void
 _read_store (GtkTreeStore *store, GtkTreeIter *iter, ArrayProperty *prop)
 {
@@ -554,11 +717,16 @@ _read_store (GtkTreeStore *store, GtkTreeIter *iter, ArrayProperty *prop)
       if (idx < 0)
 	continue;
 
-      if (p->type_quark == g_quark_from_static_string (PROP_TYPE_DARRAY)) { /* recurse */
+      if (p->type_quark == g_quark_from_static_string (PROP_TYPE_DARRAY)) {
+	/* recurse - with own store */
+	GtkTreeStore *child_store;
 	GtkTreeIter child_iter;
 
-	if (gtk_tree_model_iter_children (GTK_TREE_MODEL (store), &child_iter, iter))
-	  _read_store (store, &child_iter, (ArrayProperty *)p);
+	gtk_tree_model_get (model, iter, i, &child_store, -1);
+	if (gtk_tree_model_get_iter_first (GTK_TREE_MODEL (child_store), &child_iter))
+	  _read_store (child_store, &child_iter, (ArrayProperty *)p);
+	/* FIXME: if this is working we might have a string leak below */
+	g_object_unref (child_store);
       } else if (p->type_quark == g_quark_from_static_string (PROP_TYPE_BOOL))
 	gtk_tree_model_get (model, iter, i, &((BoolProperty *)p)->bool_data, -1);
       else if (p->type_quark == g_quark_from_static_string (PROP_TYPE_INT))
@@ -567,7 +735,8 @@ _read_store (GtkTreeStore *store, GtkTreeIter *iter, ArrayProperty *prop)
 	gtk_tree_model_get (model, iter, i, &((EnumProperty *)p)->enum_data, -1);
       else if (p->type_quark == g_quark_from_static_string (PROP_TYPE_REAL))
 	gtk_tree_model_get (model, iter, i, &((RealProperty *)p)->real_data, -1);
-      else if (p->type_quark == g_quark_from_static_string (PROP_TYPE_STRING)) {
+      else if (   p->type_quark == g_quark_from_static_string (PROP_TYPE_STRING)
+	       || p->type_quark == g_quark_from_static_string (PROP_TYPE_MULTISTRING)) {
 	StringProperty *pst = (StringProperty *)p;
 	gchar *value;
 	gtk_tree_model_get (model, iter, i, &value, -1);

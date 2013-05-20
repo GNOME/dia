@@ -10,6 +10,31 @@ enum
   NUM_ENUM_COLUMNS
 };
 
+static void
+_enum_changed (GtkCellRenderer *renderer, const char *string, GtkTreeIter *iter, GtkTreeModel *model)
+{
+  int val;
+  GValue value = { 0, };
+
+  gtk_tree_model_get (model, iter, COLUMN_ENUM_VALUE, &val, -1);
+  g_value_init (&value, G_TYPE_INT);
+  g_value_set_int (&value, val);
+  g_object_set_property (G_OBJECT (renderer), "text", &value);
+  g_value_unset (&value);
+  g_print ("changed: %d - %s\n", val, string);
+}
+static void
+_enum_edited (GtkCellRenderer *renderer, const char *path, const char *new_string, GtkTreeModel *model)
+{
+  GtkTreeIter iter;
+  int val;
+
+  if (gtk_tree_model_get_iter_from_string (model, &iter, path)) {
+    gtk_tree_model_get (model, &iter, COLUMN_ENUM_VALUE, &val, -1);
+    g_print ("edited: %d - %s\n", val, new_string);
+  }
+}
+
 GtkCellRenderer *
 dia_cell_renderer_enum_new (const PropEnumData *enum_data)
 {
@@ -41,6 +66,9 @@ dia_cell_renderer_enum_new (const PropEnumData *enum_data)
                 "has-entry", FALSE,
                 "editable", TRUE,
                 NULL);
+
+  g_signal_connect (G_OBJECT (cell_renderer), "changed", G_CALLBACK (_enum_changed), model); 
+  g_signal_connect (G_OBJECT (cell_renderer), "edited", G_CALLBACK (_enum_edited), model); 
 
   return cell_renderer;
 }
