@@ -158,10 +158,10 @@ VIProductVersion "0.98.0.3"
   ;; in alphabetical order (at least the strings actually displayed
   ;; will be).
 
+  !insertmacro MUI_LANGUAGE "English"
   !insertmacro MUI_LANGUAGE "Basque"
   !insertmacro MUI_LANGUAGE "Czech"
   !insertmacro MUI_LANGUAGE "Danish"
-  !insertmacro MUI_LANGUAGE "English"
   !insertmacro MUI_LANGUAGE "French"
   !insertmacro MUI_LANGUAGE "Finnish"
   !insertmacro MUI_LANGUAGE "Galician"
