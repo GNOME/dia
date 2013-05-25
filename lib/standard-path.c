@@ -47,13 +47,17 @@
 
 #define NUM_HANDLES 8
 
-typedef enum {
+/* anonymous enum to avoid warning:
+ * implicit conversion from enumeration type 'MyHandleIds' to different
+ * enumeration type 'HandleId'
+ */
+enum {
   _HANDLE_OBJ_POS = HANDLE_CUSTOM1,
   _HANDLE_SHEAR,
   _HANDLE_ROTATE,
   _HANDLE_PERSPECTIVE,
   _HANDLE_REF_POS
-} MyHandleIds;
+};
 
 typedef enum {
   PDO_STROKE = (1<<0),
