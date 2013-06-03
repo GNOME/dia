@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: dia master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=dia&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2013-05-04 18:59+0000\n"
-"PO-Revision-Date: 2013-05-04 21:55+0100\n"
+"POT-Creation-Date: 2013-05-22 09:04+0000\n"
+"PO-Revision-Date: 2013-06-03 21:08+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: Slovenian\n"
@@ -537,7 +537,7 @@ msgstr "Lociraj"
 msgid "Properties"
 msgstr "Lastnosti"
 
-#: ../app/diagram_tree_view.c:502 ../app/exit_dialog.c:123
+#: ../app/diagram_tree_view.c:502 ../app/exit_dialog.c:125
 #: ../app/plugin-manager.c:270 ../objects/Database/table.c:136
 #: ../objects/Database/table.c:179 ../objects/UML/association.c:236
 #: ../objects/UML/class.c:140 ../objects/UML/large_package.c:131
@@ -758,23 +758,23 @@ msgstr "Shrani izbrano"
 msgid "The following are not saved:"
 msgstr "Sledeče niso shranjene:"
 
-#: ../app/exit_dialog.c:113
+#: ../app/exit_dialog.c:115
 msgid "Save"
 msgstr "Shrani"
 
-#: ../app/exit_dialog.c:129
+#: ../app/exit_dialog.c:131
 msgid "Path"
 msgstr "Pot"
 
-#: ../app/exit_dialog.c:142
+#: ../app/exit_dialog.c:144
 msgid "Select All"
 msgstr "Izberi vse"
 
-#: ../app/exit_dialog.c:150
+#: ../app/exit_dialog.c:152
 msgid "Select None"
 msgstr "Ne izberi ničesar"
 
-#: ../app/exit_dialog.c:236
+#: ../app/exit_dialog.c:244
 msgid "Nothing selected for saving.  Would you like to try again?"
 msgstr "Nič niste izbrali za shranjevanje. Želite poskusiti znova?"
 
@@ -1079,7 +1079,7 @@ msgstr "Pisanje v začasne datoteke v %s ni dovoljeno\n"
 #: ../plug-ins/metapost/render_metapost.c:1179
 #: ../plug-ins/pgf/render_pgf.c:1204 ../plug-ins/postscript/render_eps.c:123
 #: ../plug-ins/pstricks/render_pstricks.c:917
-#: ../plug-ins/vdx/vdx-export.c:1801 ../plug-ins/wmf/wmf.cpp:1374
+#: ../plug-ins/vdx/vdx-export.c:1801 ../plug-ins/wmf/wmf.cpp:1375
 #: ../plug-ins/wpg/wpg.c:1078 ../plug-ins/xfig/xfig-export.c:1178
 #, c-format
 msgid "Can't open output file %s"
@@ -1818,11 +1818,11 @@ msgstr "SVG (Scalable Vector Graphics)"
 msgid "PostScript"
 msgstr "PostScript"
 
-#: ../app/preferences.c:228 ../plug-ins/wmf/wmf.cpp:1476
+#: ../app/preferences.c:228 ../plug-ins/wmf/wmf.cpp:1477
 msgid "Windows Metafile"
 msgstr "WMF (Windows Metafile)"
 
-#: ../app/preferences.c:230 ../plug-ins/wmf/wmf.cpp:1485
+#: ../app/preferences.c:230 ../plug-ins/wmf/wmf.cpp:1486
 msgid "Enhanced Metafile"
 msgstr "EMF (Enhanced Metafile)"
 
@@ -2446,7 +2446,7 @@ msgstr "Izberite barvo"
 msgid "More colors…"
 msgstr "Več barv …"
 
-#: ../lib/dia_dirs.c:327
+#: ../lib/dia_dirs.c:315
 #, c-format
 msgid "Too many \"..\"s in filename %s\n"
 msgstr "Preveč pik (\"..\") v imenu datoteke %s\n"
@@ -2872,6 +2872,12 @@ msgstr ""
 msgid "Cant create image data from scratch!"
 msgstr "Podatkov slike ni mogoče ustvariti iz nič!"
 
+#. Todo: get label for the branch view from props, e.g. UML Operations Parameters
+#: ../lib/prop_sdarray_widget.c:565 ../objects/chronogram/chronoline.c:161
+#: ../objects/UML/umloperation.c:79
+msgid "Parameters"
+msgstr "Parametri"
+
 #: ../lib/prop_text.c:481
 #, c-format
 msgid "Group with %d objects"
@@ -3052,10 +3058,6 @@ msgstr ""
 ") trajanje  postavi signal dol in nato počaka 'trajanje'.\n"
 "u trajanje  postavi signal v \"neznano\" stanje in nato počaka 'trajanje'.\n"
 "Primer : @ 1,0 (2,0)1,0(2,0)\n"
-
-#: ../objects/chronogram/chronoline.c:161 ../objects/UML/umloperation.c:79
-msgid "Parameters"
-msgstr "Parametri"
 
 #: ../objects/chronogram/chronoline.c:163
 #: ../objects/chronogram/chronoref.c:145
@@ -5274,7 +5276,8 @@ msgstr "Stereotip"
 
 #: ../objects/UML/class.c:149 ../objects/UML/class.c:205
 #: ../objects/UML/class_dialog.c:359 ../objects/UML/class_dialog.c:471
-#: ../objects/UML/class_operations_dialog.c:832 ../objects/UML/uml.c:111
+#: ../objects/UML/class_operations_dialog.c:832
+#: ../objects/UML/umlattribute.c:48 ../objects/UML/uml.c:111
 msgid "Abstract"
 msgstr "Izvleček"
 
@@ -5665,13 +5668,13 @@ msgstr "Varuh"
 msgid "Condition for taking this transition when the event is fired"
 msgstr "Pogoj za izbor tega prehoda, ko je sprožen dogodek"
 
-#: ../objects/UML/umlattribute.c:47
-msgid "Abstract (?)"
-msgstr "Izvleček (?)"
+#: ../objects/UML/umlattribute.c:50 ../objects/UML/umloperation.c:77
+msgid "Scope"
+msgstr "Področje"
 
-#: ../objects/UML/umlattribute.c:49
-msgid "Class scope (static)"
-msgstr "Področje razreda (statično)"
+#: ../objects/UML/umlattribute.c:50
+msgid "Class scope (C++ static class variable)"
+msgstr "Področje razreda (statična spremenljivka C++)"
 
 #: ../objects/UML/uml.c:67
 msgid "Unified Modelling Language diagram objects UML 1.3"
@@ -5684,10 +5687,6 @@ msgstr "Dedovanje"
 #: ../objects/UML/umloperation.c:75
 msgid "C++ const method"
 msgstr "Konstantna metoda C++"
-
-#: ../objects/UML/umloperation.c:77
-msgid "Scope"
-msgstr "Področje"
 
 #: ../objects/UML/umloperation.c:77
 msgid "Class scope (C++ static method)"
@@ -5726,7 +5725,7 @@ msgid "Clipboard copy failed"
 msgstr "Kopiranje na odložišče ni uspelo"
 
 #: ../plug-ins/cairo/diacairo.c:362 ../plug-ins/postscript/postscript.c:39
-#: ../plug-ins/wmf/wmf.cpp:1503
+#: ../plug-ins/wmf/wmf.cpp:1504
 msgid "Nothing to print"
 msgstr "Nič ni za natisniti"
 
@@ -6161,9 +6160,6 @@ msgstr "Uvozni in izvozni filtri za Visio XML"
 
 #: ../plug-ins/vdx/vdx-export.c:1857
 #, c-format
-#| msgid ""
-#| "Saving inline pixbuf failed:\n"
-#| "%s"
 msgid "Saving file '%s' failed."
 msgstr "Shranjevanje datoteke '%s' je spodletelo."
 
@@ -6230,7 +6226,7 @@ msgstr ""
 "Datoteke %s ni mogoče zapisati\n"
 "%s"
 
-#: ../plug-ins/wmf/wmf.cpp:566
+#: ../plug-ins/wmf/wmf.cpp:567
 #, c-format
 msgid ""
 "Cannot render unknown font:\n"
@@ -6239,11 +6235,11 @@ msgstr ""
 "Neznane pisave ni mogoče upodobiti:\n"
 "%s"
 
-#: ../plug-ins/wmf/wmf.cpp:1514
+#: ../plug-ins/wmf/wmf.cpp:1515
 msgid "Print (GDI) ..."
 msgstr "Natisni (GDI) ..."
 
-#: ../plug-ins/wmf/wmf.cpp:1530
+#: ../plug-ins/wmf/wmf.cpp:1531
 msgid "WMF export filter"
 msgstr "Izvozni filter za WMF"
 
@@ -6305,7 +6301,6 @@ msgid "Error while reading %dth of %d points"
 msgstr "Napaka ob branju %d od %d točk"
 
 #: ../plug-ins/xfig/xfig-import.c:253
-#| msgid "Premature end of Fig file"
 msgid "Unexpected end of file."
 msgstr "Predčasen konec datoteke."
 
@@ -10207,3 +10202,9 @@ msgstr "Aktivnost"
 #: ../sheets/UML.sheet.in.h:31
 msgid "Fork/Union"
 msgstr "Razvejaj/spoji"
+
+#~ msgid "Abstract (?)"
+#~ msgstr "Izvleček (?)"
+
+#~ msgid "Class scope (static)"
+#~ msgstr "Področje razreda (statično)"
