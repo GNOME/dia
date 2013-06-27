@@ -74,6 +74,8 @@ SHAPES = \
 	pnuemv.shape \
 	pump.png \
 	pump.shape \
+	prv.png \
+	prv.shape \
 	reactor.png \
 	reactor.shape \
 	recipr.png \

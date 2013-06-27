@@ -5,7 +5,7 @@
   <connections>
     <point x="19" y="25"/>
     <point x="17" y="27"/>
-    <point x="17" y="25"/>
+    <point x="17" y="25" main="yes"/>
     <point x="17" y="22.5"/>
   </connections>
   <aspectratio type="fixed"/>
