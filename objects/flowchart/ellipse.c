@@ -393,7 +393,8 @@ ellipse_update_data(Ellipse *ellipse, AnchorShape horiz, AnchorShape vert)
   radius2 = distance_point_point(&c, &p);
   
   if (   (radius1 < radius2 && ellipse->text_fitting == TEXTFIT_WHEN_NEEDED)
-      || (ellipse->text_fitting == TEXTFIT_ALWAYS)) {
+      /* stop infinite resizing with 5% tolerance obsvered with _test_movement */
+      || (fabs(1.0 - radius2 / radius1) > 0.05 && ellipse->text_fitting == TEXTFIT_ALWAYS)) {
     /* increase size of the ellipse while keeping its aspect ratio */
     elem->width  *= radius2 / radius1;
     elem->height *= radius2 / radius1;
