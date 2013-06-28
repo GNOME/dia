@@ -41,11 +41,14 @@
 
 typedef struct _Fork Fork;
 
+/* earlier versions claimed to have 8 connections, but initialized only 6 */
+#define NUM_CONNECTIONS 6
+
 struct _Fork
 {
   Element element;
   Color fill_color;
-  ConnectionPoint connections[8];
+  ConnectionPoint connections[NUM_CONNECTIONS];
 };
 
 static const double FORK_BORDERWIDTH = 0.0;
@@ -196,7 +199,8 @@ fork_move(Fork *branch, Point *to)
   return NULL;
 }
 
-static void fork_draw(Fork *branch, DiaRenderer *renderer)
+static void
+fork_draw(Fork *branch, DiaRenderer *renderer)
 {
   DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Element *elem;
@@ -224,7 +228,8 @@ static void fork_draw(Fork *branch, DiaRenderer *renderer)
 			   &branch->fill_color);
 }
 
-static void fork_update_data(Fork *branch)
+static void
+fork_update_data(Fork *branch)
 {
   Element *elem = &branch->element;
   DiaObject *obj = &elem->object;
@@ -242,14 +247,15 @@ static void fork_update_data(Fork *branch)
   branch->connections[4].pos.y = elem->corner.y + elem->height;
   branch->connections[5].pos.x = elem->corner.x + elem->width - FORK_MARGIN*elem->width;
   branch->connections[5].pos.y = elem->corner.y + elem->height;
-  
+
   element_update_boundingbox(elem);
   obj->position = elem->corner;
 
   element_update_handles(elem);
 }
 
-static DiaObject *fork_create(Point *startpoint, void *user_data, Handle **handle1, Handle **handle2)
+static DiaObject *
+fork_create(Point *startpoint, void *user_data, Handle **handle1, Handle **handle2)
 {
   Fork *branch;
   Element *elem;
@@ -267,16 +273,19 @@ static DiaObject *fork_create(Point *startpoint, void *user_data, Handle **handl
   elem->corner = *startpoint;
   elem->width = FORK_WIDTH;
   elem->height = FORK_HEIGHT;
-  element_init(elem, 8, 8);
+  element_init(elem, 8, NUM_CONNECTIONS);
 
   branch->fill_color = attributes_get_foreground();
 
-  for (i=0;i<8;i++)
-    {
-      obj->connections[i] = &branch->connections[i];
-      branch->connections[i].object = obj;
-      branch->connections[i].connected = NULL;
-    }
+  for (i = 0; i < NUM_CONNECTIONS; ++i) {
+    obj->connections[i] = &branch->connections[i];
+    branch->connections[i].object = obj;
+    branch->connections[i].connected = NULL;
+    if (i < NUM_CONNECTIONS/2)
+      branch->connections[i].directions = DIR_NORTH;
+    else
+      branch->connections[i].directions = DIR_SOUTH;
+  }
   elem->extra_spacing.border_trans = FORK_BORDERWIDTH / 2.0;
   fork_update_data(branch);
   
@@ -290,12 +299,14 @@ static DiaObject *fork_create(Point *startpoint, void *user_data, Handle **handl
   return &branch->element.object;
 }
 
-static void fork_destroy(Fork *branch)
+static void
+fork_destroy(Fork *branch)
 {
   element_destroy(&branch->element);
 }
 
-static DiaObject *fork_load(ObjectNode obj_node, int version,DiaContext *ctx)
+static DiaObject *
+fork_load(ObjectNode obj_node, int version,DiaContext *ctx)
 {
   return object_load_using_properties(&fork_type,
                                       obj_node,version,ctx);

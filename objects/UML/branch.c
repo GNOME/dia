@@ -41,10 +41,13 @@
 
 typedef struct _Branch Branch;
 
+/* earlier versions claimed to have 8 connections, but initialized only 4 */
+#define NUM_CONNECTIONS 4
+
 struct _Branch
 {
   Element element;
-  ConnectionPoint connections[8];
+  ConnectionPoint connections[NUM_CONNECTIONS];
   Color line_color;
   Color fill_color;
 };
@@ -249,7 +252,8 @@ static void branch_update_data(Branch *branch)
   element_update_handles(elem);
 }
 
-static DiaObject *branch_create(Point *startpoint, void *user_data, Handle **handle1, Handle **handle2)
+static DiaObject *
+branch_create(Point *startpoint, void *user_data, Handle **handle1, Handle **handle2)
 {
   Branch *branch;
   Element *elem;
@@ -265,12 +269,12 @@ static DiaObject *branch_create(Point *startpoint, void *user_data, Handle **han
   obj->ops = &branch_ops;
 
   elem->corner = *startpoint;
-  element_init(elem, 8, 8);
+  element_init(elem, 8, NUM_CONNECTIONS);
 
   branch->line_color = attributes_get_foreground();
   branch->fill_color = attributes_get_background();
 
-  for (i=0;i<8;i++)
+  for (i=0;i<NUM_CONNECTIONS;i++)
     {
       obj->connections[i] = &branch->connections[i];
       branch->connections[i].object = obj;

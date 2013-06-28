@@ -191,6 +191,9 @@ _test_movement (gconstpointer user_data)
   ObjectChange *change;
   Point pos;
   real epsilon;
+  Point *handle_positions;
+  Point *cp_positions;
+  guint i;
   
   /* does the object move ... ? */
   from = o->position;
@@ -214,12 +217,27 @@ _test_movement (gconstpointer user_data)
   /* .... really: without changing size ? */
   pos = o->position;
   bbox1 = o->bounding_box;
+  /* remember handle and connection point positions ... */
+  handle_positions = g_alloca (sizeof(Point) * o->num_handles);
+  for (i = 0; i < o->num_handles; ++i)
+    handle_positions[i] = o->handles[i]->pos;
+  cp_positions = g_alloca (sizeof(Point) * o->num_connections);
+  for (i = 0; i < o->num_connections; ++i)
+    cp_positions[i] = o->connections[i]->pos;
+
   change = o->ops->move (o, &to);
   if (change) /* usually this is NULL for move */
     _object_change_free(change);
   /* does the position reflect the move? */
   g_assert (   fabs(fabs(pos.x - o->position.x) - fabs(from.x - to.x)) < EPSILON
             && fabs(fabs(pos.y - o->position.y) - fabs(from.y - to.y)) < EPSILON );
+  /* ... also for handles and connection points? */
+  for (i = 0; i < o->num_handles; ++i)
+    g_assert (   fabs(fabs(handle_positions[i].x - o->handles[i]->pos.x) - fabs(from.x - to.x)) < EPSILON
+              && fabs(fabs(handle_positions[i].y - o->handles[i]->pos.y) - fabs(from.y - to.y)) < EPSILON);
+  for (i = 0; i < o->num_connections; ++i)
+    g_assert (   fabs(fabs(cp_positions[i].x - o->connections[i]->pos.x) - fabs(from.x - to.x)) < EPSILON
+              && fabs(fabs(cp_positions[i].y - o->connections[i]->pos.y) - fabs(from.y - to.y)) < EPSILON);
 
   bbox2 = o->bounding_box;
   /* test fails e.g. for 'Cisco - Web cluster' probably due to bezier-bbox-issues: bug 568115 */
@@ -394,6 +412,7 @@ _test_connectionpoint_consistency (gconstpointer user_data)
         || strcmp (type->name, "Standard - Polygon") == 0
         || strcmp (type->name, "GRAFCET - Action") == 0)
       continue; /* undecided */
+    /* Some things which should not be set */
     if (cp->pos.x > center.x)
       g_assert ((cp->directions & DIR_WEST) == 0);
     else if (cp->pos.x < center.x)
