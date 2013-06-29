@@ -54,8 +54,6 @@ struct _Requirement {
   ConnectionPoint connections[NUM_CONNECTIONS];
 
   Text *text;
-  int text_outside;
-  int collaboration;
 
   int init;
 };
@@ -206,11 +204,8 @@ req_move(Requirement *req, Point *to)
 
   p = *to;
   p.x += req->element.width/2.0;
-  if (req->text_outside) {
-      p.y += req->element.height - h + req->text->ascent;
-  } else {
-      p.y += (req->element.height - h)/2.0 + req->text->ascent;
-  }
+  p.y += (req->element.height - h)/2.0 + req->text->ascent;
+
   text_set_position(req->text, &p);
   req_update_data(req);
   return NULL;
@@ -232,15 +227,6 @@ req_draw(Requirement *req, DiaRenderer *renderer)
 
   x = elem->corner.x;
   y = elem->corner.y;
-
-/*
-  if (req->text_outside) {
-      w = REQ_WIDTH;
-      h = REQ_HEIGHT;
-      c.x = x + elem->width/2.0;
-      c.y = y + REQ_HEIGHT / 2.0;
-   } else {
-*/
 
   w = elem->width;
   h = elem->height;
@@ -273,36 +259,26 @@ req_update_data(Requirement *req)
   w = req->text->max_width;
   h = req->text->height*req->text->numlines;
 
-  if (!req->text_outside) {
-      ratio = w/h;
+  ratio = w/h;
 
-      if (ratio > REQ_MAX_RATIO)
-        ratio = REQ_MAX_RATIO;
+  if (ratio > REQ_MAX_RATIO)
+    ratio = REQ_MAX_RATIO;
 
-      if (ratio < REQ_MIN_RATIO) {
-        ratio = REQ_MIN_RATIO;
-        r.y = w / ratio + h;
-        r.x = r.y * ratio;
-      } else {
-        r.x = ratio*h + w;
-        r.y = r.x / ratio;
-      }
-      if (r.x < REQ_WIDTH)
-        r.x = REQ_WIDTH;
-      if (r.y < REQ_HEIGHT)
-        r.y = REQ_HEIGHT;
+  if (ratio < REQ_MIN_RATIO) {
+    ratio = REQ_MIN_RATIO;
+    r.y = w / ratio + h;
+    r.x = r.y * ratio;
   } else {
-      r.x = REQ_WIDTH;
-      r.y = REQ_HEIGHT;
+    r.x = ratio*h + w;
+    r.y = r.x / ratio;
   }
+  if (r.x < REQ_WIDTH)
+    r.x = REQ_WIDTH;
+  if (r.y < REQ_HEIGHT)
+    r.y = REQ_HEIGHT;
 
   elem->width = r.x;
   elem->height = r.y;
-
-  if (req->text_outside) {
-   elem->width = MAX(elem->width, w);
-   elem->height += h + REQ_MARGIN_Y;
-  }
 
   r.x /= 2.0;
   r.y /= 2.0;
@@ -323,32 +299,20 @@ req_update_data(Requirement *req)
   req->connections[4].pos.x = c.x + r.x;
   req->connections[4].pos.y = c.y;
 
-  if (req->text_outside) {
-      req->connections[5].pos.x = elem->corner.x;
-      req->connections[5].pos.y = elem->corner.y + elem->height;
-      req->connections[6].pos.x = c.x;
-      req->connections[6].pos.y = elem->corner.y + elem->height;
-      req->connections[7].pos.x = elem->corner.x + elem->width;
-      req->connections[7].pos.y = elem->corner.y + elem->height;
-  } else {
-      req->connections[5].pos.x = c.x - half.x;
-      req->connections[5].pos.y = c.y + half.y;
-      req->connections[6].pos.x = c.x;
-      req->connections[6].pos.y = elem->corner.y + elem->height;
-      req->connections[7].pos.x = c.x + half.x;
-      req->connections[7].pos.y = c.y + half.y;
-  }
+  req->connections[5].pos.x = c.x - half.x;
+  req->connections[5].pos.y = c.y + half.y;
+  req->connections[6].pos.x = c.x;
+  req->connections[6].pos.y = elem->corner.y + elem->height;
+  req->connections[7].pos.x = c.x + half.x;
+  req->connections[7].pos.y = c.y + half.y;
+
   req->connections[8].pos.x = elem->corner.x + elem->width/2;
   req->connections[8].pos.y = elem->corner.y + elem->height/2;
 
   h = req->text->height*req->text->numlines;
   p = req->element.corner;
   p.x += req->element.width/2.0;
-  if (req->text_outside) {
-      p.y += req->element.height - h + req->text->ascent;
-  } else {
-      p.y += (req->element.height - h)/2.0 + req->text->ascent;
-  }
+  p.y += (req->element.height - h)/2.0 + req->text->ascent;
   text_set_position(req->text, &p);
 
   element_update_boundingbox(elem);
@@ -391,8 +355,6 @@ req_create(Point *startpoint,
 
   req->text = new_text("", font, REQ_FONT, &p, &color_black, ALIGN_CENTER);
   dia_font_unref(font);
-  req->text_outside = 0;
-  req->collaboration = 0;
   element_init(elem, 8, NUM_CONNECTIONS);
 
   for (i=0;i<NUM_CONNECTIONS;i++) {
