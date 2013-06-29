@@ -382,9 +382,13 @@ actor_update_data(Actor *actor, AnchorShape horiz, AnchorShape vert)
   dh = elem->height / 2.0;
   for (i = 0; i < NUM_CONNECTIONS-1; i++) {
     real theta = M_PI / 8.0 * i;
-    /* TODO: Set up directions for autorouting */
-    actor->connections[i].pos.x = c.x + dw * cos(theta);
-    actor->connections[i].pos.y = c.y - dh * sin(theta);
+    real costheta = cos(theta);
+    real sintheta = sin(theta);
+    connpoint_update(&actor->connections[i],
+		      c.x + dw * costheta,
+		      c.y - dh * sintheta,
+		      (costheta > .5?DIR_EAST:(costheta < -.5?DIR_WEST:0))|
+		      (sintheta > .5?DIR_NORTH:(sintheta < -.5?DIR_SOUTH:0)));
   }
   actor->connections[16].pos.x = c.x;
   actor->connections[16].pos.y = c.y;
@@ -398,11 +402,11 @@ actor_update_data(Actor *actor, AnchorShape horiz, AnchorShape vert)
 }
 
 /* creation stuff */
-static DiaObject 
-*actor_create(Point *startpoint,
-	   void *user_data,
-	   Handle **handle1,
-	   Handle **handle2)
+static DiaObject *
+actor_create(Point *startpoint,
+	     void *user_data,
+	     Handle **handle1,
+	     Handle **handle2)
 {
   Actor *actor;
   Element *elem;
