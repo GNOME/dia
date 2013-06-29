@@ -191,7 +191,7 @@ actor_distance_from(Actor *actor, Point *point)
   c.x = elem->corner.x + elem->width / 2;
   c.y = elem->corner.y + elem->height/ 2;
 
-  return distance_ellipse_point (&c, elem->width / 2, elem->height/ 2,
+  return distance_ellipse_point (&c, elem->width, elem->height,
 				 ACTOR_BORDER_WIDTH, point);
 }
 
