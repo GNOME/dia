@@ -1,11 +1,12 @@
 #    Select Objects By Common Properties
-#    Copyright (c) 2003, Hans Breuer <hans@breuer.org>
+#    Copyright (c) 2003, 2013 Hans Breuer <hans@breuer.org>
 #
 #        different methods (menu entries) to select all objects with given
 #    property, that is :
 #	- a find dialog to select by name
 #	- menu entries for different color types. The common color is read
 #	  from already selected objects
+#	- a size range given by the current selection
 
 #    This program is free software; you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
@@ -113,6 +114,32 @@ def select_by_line_color_cb (data, flags) :
 def select_by_text_color_cb (data, flags) :
 	select_by_selected (data, "text_colour")
 
+def select_by_size_cb (data, flags) :
+	""" From the diagrams selection derive the minimum and maximum object size.
+	    Select every other object within this range.
+	"""
+	d = dia.active_display().diagram
+	grp = data.get_sorted_selected()
+	smin = 100000
+	smax = 0
+	for o in grp :
+		w = o.bounding_box.right - o.bounding_box.left
+		h = o.bounding_box.bottom - o.bounding_box.top
+		s = w * h
+		if s > smax :
+			smax = s
+		if s < smin :
+			smin = s
+	objs = data.active_layer.objects
+	for o in objs :
+		w = o.bounding_box.right - o.bounding_box.left
+		h = o.bounding_box.bottom - o.bounding_box.top
+		s = w * h
+		if s >= smin and s <= smax :
+			d.select(o)
+	d.flush()
+
+
 dia.register_action ("SelectByName", "Name", 
                        "/DisplayMenu/Select/SelectBy/SelectByExtensionStart", 
                        select_by_name_cb)
@@ -125,3 +152,6 @@ dia.register_action ("SelectByLinecolor", "Line Color",
 dia.register_action ("SelectByTextcolor", "Text Color", 
                        "/DisplayMenu/Select/SelectBy/SelectByExtensionStart", 
                        select_by_text_color_cb)
+dia.register_action ("SelectBySize", "Size", 
+                       "/DisplayMenu/Select/SelectBy/SelectByExtensionStart", 
+                       select_by_size_cb)
