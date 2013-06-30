@@ -8533,8 +8533,8 @@ msgid "BBS"
 msgstr "BBS"
 
 #: ../sheets/ciscocomputer.sheet.in.h:2
-msgid "Cisco - Computer"
-msgstr "Cisco - Ordinateur"
+msgid "Cisco — Computer"
+msgstr "Cisco — Ordinateur"
 
 #: ../sheets/ciscocomputer.sheet.in.h:3
 msgid "Cisco CA"
