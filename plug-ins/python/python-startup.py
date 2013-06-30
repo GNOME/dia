@@ -16,8 +16,8 @@ def load(plugindir):
 				try:
 					__import__(file[:-3])
 					loaded.append(file[:-3])
-				except:
-					sys.stderr.write('could not import %s\n' % file)
+				except Exception as e:
+					sys.stderr.write('could not import %s [%s]\n' % (file, e))
 
 # import any python plugins from the user ...
 if not os.environ.has_key('HOME'):
