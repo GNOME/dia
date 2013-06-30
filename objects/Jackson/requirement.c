@@ -361,8 +361,19 @@ req_create(Point *startpoint,
     obj->connections[i] = &req->connections[i];
     req->connections[i].object = obj;
     req->connections[i].connected = NULL;
+    req->connections[i].flags = 0;
+    req->connections[i].directions = 0;
+    if (i < 3)
+      req->connections[i].directions |= DIR_NORTH;
+    else if (i > 4)
+      req->connections[i].directions |= DIR_SOUTH;
+    if (i == 0 || i == 3 || i == 5)
+      req->connections[i].directions |= DIR_WEST;
+    else if (i == 2 || i == 4 || i == 7)
+      req->connections[i].directions |= DIR_EAST;
   }
   req->connections[8].flags = CP_FLAGS_MAIN;
+  req->connections[8].directions |= DIR_ALL;
   elem->extra_spacing.border_trans = 0.0;
   req_update_data(req);
 
