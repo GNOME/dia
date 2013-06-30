@@ -62,7 +62,7 @@ static PyObject *
 PyDiaConnectionPoint_GetAttr(PyDiaConnectionPoint *self, gchar *attr)
 {
     if (!strcmp(attr, "__members__"))
-	return Py_BuildValue("[sss]", "connected", "object", "pos");
+	return Py_BuildValue("[sssss]", "connected", "object", "pos", "flags", "directions");
     else if (!strcmp(attr, "pos"))
 	return PyDiaPoint_New(&(self->cpoint->pos));
     else if (!strcmp(attr, "object"))
