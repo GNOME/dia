@@ -388,9 +388,28 @@ _test_connectionpoint_consistency (gconstpointer user_data)
   DiaObject *o = type->ops->create (&pos, type->default_user_data, &h1, &h2);
   ObjectChange *change;
   int i;
+  gboolean any_dir_set = FALSE;
 
   change = dia_object_set_string (o, NULL, "Test me!");
   _object_change_free (change);
+
+  for (i = 0; i < o->num_connections; ++i) {
+    ConnectionPoint *cp = o->connections[i];
+    if (cp->directions != DIR_NONE)
+      any_dir_set = TRUE;
+  }
+  if (!any_dir_set) {
+    /* should be connection */
+    int start_end = 0; /* counter */
+    for (i = 0; i < o->num_handles; ++i) {
+      Handle *h = o->handles[i];
+      if (h->id == HANDLE_MOVE_STARTPOINT || h->id == HANDLE_MOVE_ENDPOINT)
+        ++start_end;
+    }
+    if (start_end < 2 && o->num_connections > 0)
+      g_print ("'%s' with no directions\n", type->name);
+    return;
+  }
 
   pos = o->position;
   center.x = (o->bounding_box.right + o->bounding_box.left) / 2;
@@ -398,16 +417,44 @@ _test_connectionpoint_consistency (gconstpointer user_data)
   for (i = 0; i < o->num_connections; ++i) {
     ConnectionPoint *cp = o->connections[i];
     if (cp->directions == DIR_ALL) {
-      /* may use this as misplaced mainpoint check? */
-      g_assert (o->ops->distance_from (o, &cp->pos) == 0 && "within");
+      /* Use this as misplaced mainpoint check ...
+       * - some shapes should never have got a main point, but removing these
+       *   now would produce complaints if they were used in diagrams
+       * - the main point should be within the object, which can't work for
+       *   an object consisting of only lines ...
+       * - some main points where just placed automatically and got fixed
+       *   after idntified with this check
+       */
+      if (   strcmp (type->name, "chemeng - coil") == 0
+          || strcmp (type->name, "chemeng - coilv") == 0
+          || strcmp (type->name, "chemeng - doublepipe") == 0
+          || strcmp (type->name, "chemeng - pneum") == 0
+          || strcmp (type->name, "chemeng - pneumv") == 0
+          || strcmp (type->name, "chemeng - pnuemv") == 0
+          || strcmp (type->name, "chemeng - spray") == 0
+          || strcmp (type->name, "Circuit - Horizontal Powersource (European)") == 0
+          || strcmp (type->name, "Circuit - NMOS Transistor (European)") == 0
+          || strcmp (type->name, "Circuit - NPN Transistor") == 0
+          || strcmp (type->name, "Circuit - PMOS Transistor (European)") == 0
+          || strcmp (type->name, "Circuit - PNP Transistor") == 0
+          || strcmp (type->name, "Circuit - Vertical Capacitor") == 0
+          || strcmp (type->name, "Circuit - Vertical Powersource (European)") == 0
+          || strcmp (type->name, "Civil - Preliminary Clarification Tank") == 0
+          || strcmp (type->name, "Civil - Reference Line") == 0
+          || strcmp (type->name, "Civil - Aerator") == 0
+          || strcmp (type->name, "Civil - Basin") == 0
+          || strcmp (type->name, "Civil - Final-Settling Basin") == 0
+          || strcmp (type->name, "Small Extension Node") == 0 /* MSE */
+         )
+        g_print ("main-cp misplaced!");
+      else
+        g_assert (o->ops->distance_from (o, &cp->pos) == 0 && "within");
       continue;
     }
     if (   strcmp (type->name, "chronogram - reference") == 0
         || strcmp (type->name, "BPMN - Data-Object") == 0
         || strcmp (type->name, "Optics - Scope") == 0
         || strcmp (type->name, "Optics - Spectrum") == 0
-        || strcmp (type->name, "") == 0
-        || strcmp (type->name, "") == 0
         || strcmp (type->name, "GRAFCET - Transition") == 0
         || strcmp (type->name, "Standard - Polygon") == 0
         || strcmp (type->name, "GRAFCET - Action") == 0)
