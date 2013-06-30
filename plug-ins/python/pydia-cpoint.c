@@ -67,6 +67,10 @@ PyDiaConnectionPoint_GetAttr(PyDiaConnectionPoint *self, gchar *attr)
 	return PyDiaPoint_New(&(self->cpoint->pos));
     else if (!strcmp(attr, "object"))
 	return PyDiaObject_New(self->cpoint->object);
+    else if (!strcmp(attr, "flags"))
+	return PyInt_FromLong(self->cpoint->flags);
+    else if (!strcmp(attr, "directions"))
+	return PyInt_FromLong(self->cpoint->directions);
     else if (!strcmp(attr, "connected")) {
 	PyObject *ret;
 	GList *tmp;
@@ -90,6 +94,10 @@ static PyMemberDef PyDiaConnectionPoint_Members[] = {
       "Object: the object owning this connection point" },
     { "pos", T_INVALID, 0, RESTRICTED|READONLY,
       "Point: read-only position of the connection point" },
+    { "flags", T_INVALID, 0, RESTRICTED|READONLY,
+      "Flags, e.g. CP_FLAGS_MAIN (=0x3)" },
+    { "directions", T_INVALID, 0, RESTRICTED|READONLY,
+      "Preferred directions away from the object (e.g. DIR_NORTH=0x1)" },
     { NULL }
 };
 
