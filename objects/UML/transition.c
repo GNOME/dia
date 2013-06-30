@@ -474,7 +474,7 @@ transition_move_handle(Transition*      transition,
 	p1.y = 0.5 * (transition->orth.points[n-1].y + transition->orth.points[n].y);
 	
         /* Tell the connection that one of its handles is being moved */
-        orthconn_move_handle(&transition->orth, handle, newpos, cp, reason, modifiers);
+        change = orthconn_move_handle(&transition->orth, handle, newpos, cp, reason, modifiers);
 	/* with auto-routing the number of points may have changed */
 	n = transition->orth.numpoints/2;
 	p2.x = 0.5 * (transition->orth.points[n-1].x + transition->orth.points[n].x);
