@@ -11,16 +11,12 @@
     <point x="6" y="5" main="yes"/>
   </connections>
   <svg:svg width="12" height="10">
-    <svg:line x1="1" y1="10" x2="5" y2="6"/>
-    <svg:line x1="5" y1="6" x2="9" y2="10"/>
-    <svg:line x1="1" y1="10" x2="9" y2="10"/>
-
-    <svg:line x1="3" y1="0" x2="11" y2="8"/>
+    <svg:polygon style="fill: default; stroke: foreground" points="5,6 9,10 1,10 "/>
+    <svg:path style="fill: default; stroke: foreground" d="M 3 0 C 6.5,3.5 9.10593,5.9646 11,8 C 8.5,10.5 0.5,2.5 3,0z"/>
 
     <svg:line x1="7" y1="4" x2="12" y2="0"/>
 
     <svg:circle style="fill: #020202" cx="12" cy="0" r=".3"/>
 
-    <svg:path d="M 3,0 C 0.5,2.5 8.5,10.5 11,8"/>
   </svg:svg>
 </shape>

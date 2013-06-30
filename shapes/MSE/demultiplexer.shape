@@ -16,11 +16,9 @@
     <point x="0" y="8"/>
     <point x="0" y="9"/>
     <point x="0" y="10"/>
-    <point x="5" y="5" main="yes"/>
+    <point x="4" y="5" main="yes"/>
   </connections>
   <svg:svg width="10" height="10">
-    <svg:line x1="10" y1="5" x2="0" y2="0"/>
-    <svg:line x1="10" y1="5" x2="0" y2="10"/>
-    <svg:line x1="0" y1="0" x2="0" y2="10"/>
+    <svg:polygon style="fill: default; stroke: foreground" points="10,5 0,0 0,10 "/>
   </svg:svg>
 </shape>
