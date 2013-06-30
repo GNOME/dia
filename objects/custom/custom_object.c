@@ -1326,24 +1326,8 @@ custom_update_data(Custom *custom, AnchorShape horiz, AnchorShape vert)
     g_free(txs);
   }
 
-  for (i = 0; i < info->nconnections; i++){
-    transform_coord(custom, &info->connections[i],&custom->connections[i].pos);
-
-    /* Set the directions for the connection points as hints to the
-       zig-zag line. A hint is only set if the connection point is on
-       the boundary of the shape. */
-    custom->connections[i].directions = 0;
-    if(custom->info->connections[i].x == custom->info->shape_bounds.left)
-      custom->connections[i].directions |= DIR_WEST;
-    if(custom->info->connections[i].x == custom->info->shape_bounds.right)
-      custom->connections[i].directions |= DIR_EAST;
-    if(custom->info->connections[i].y == custom->info->shape_bounds.top)
-      custom->connections[i].directions |= DIR_NORTH;
-    if(custom->info->connections[i].y == custom->info->shape_bounds.bottom)
-      custom->connections[i].directions |= DIR_SOUTH;
-  }
-
-
+  for (i = 0; i < info->nconnections; i++)
+    transform_coord(custom, &info->connections[i], &custom->connections[i].pos);  elem->extra_spacing.border_trans = 0; /*custom->border_width/2; */
   elem->extra_spacing.border_trans = 0; /*custom->border_width/2; */
   element_update_boundingbox(elem);
 
@@ -1606,6 +1590,22 @@ custom_create(Point *startpoint,
     custom->connections[i].flags = 0;
     if (i == info->main_cp) {
       custom->connections[i].flags = CP_FLAGS_MAIN;
+      custom->connections[i].directions = DIR_ALL;
+    } else {
+      transform_coord(custom, &info->connections[i], &custom->connections[i].pos);
+
+      /* Set the directions for the connection points as hints to the
+         zig-zag line. A hint is only set if the connection point is on
+         the boundary of the shape. */
+      custom->connections[i].directions = 0;
+      if(custom->info->connections[i].x == custom->info->shape_bounds.left)
+        custom->connections[i].directions |= DIR_WEST;
+      if(custom->info->connections[i].x == custom->info->shape_bounds.right)
+        custom->connections[i].directions |= DIR_EAST;
+      if(custom->info->connections[i].y == custom->info->shape_bounds.top)
+        custom->connections[i].directions |= DIR_NORTH;
+      if(custom->info->connections[i].y == custom->info->shape_bounds.bottom)
+        custom->connections[i].directions |= DIR_SOUTH;
     }
   }
 
