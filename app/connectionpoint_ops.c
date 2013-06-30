@@ -135,26 +135,22 @@ diagram_update_connections_object(Diagram *dia, DiaObject *obj,
 				  int update_nonmoved)
 {
   int i,j;
-  ConnectionPoint *cp;
   GList *list;
-  DiaObject *connected_obj;
-  Handle *handle;
 
   for (i=0;i<dia_object_get_num_connections(obj);i++) {
-    cp = obj->connections[i];
+    ConnectionPoint *cp = obj->connections[i];
     if ((update_nonmoved) ||
 	(distance_point_point_manhattan(&cp->pos, &cp->last_pos) > CHANGED_TRESHOLD)) {
       cp->last_pos = cp->pos;
 
       list = cp->connected;
       while (list!=NULL) {
-	connected_obj = (DiaObject *) list->data;
+	DiaObject *connected_obj = (DiaObject *) list->data;
 
 	object_add_updates(connected_obj, dia);
-	handle = NULL;
 	for (j=0;j<connected_obj->num_handles;j++) {
 	  if (connected_obj->handles[j]->connected_to == cp) {
-	    handle = connected_obj->handles[j];
+	    Handle *handle = connected_obj->handles[j];
 	    connected_obj->ops->move_handle(connected_obj, handle, &cp->pos,
 					    cp, HANDLE_MOVE_CONNECTED,0);
 	  }
@@ -180,14 +176,13 @@ void
 ddisplay_connect_selected(DDisplay *ddisp)
 {
   GList *list;
-  DiaObject *selected_obj;
-  int i;
 
   list = ddisp->diagram->data->selected;
     
   while (list!=NULL) {
-    selected_obj = (DiaObject *) list->data;
-    
+    DiaObject *selected_obj = (DiaObject *) list->data;
+    int i;
+
     for (i=0; i<selected_obj->num_handles; i++) {
       if (selected_obj->handles[i]->connect_type != HANDLE_NONCONNECTABLE) {
 	object_connect_display(ddisp, selected_obj, selected_obj->handles[i], FALSE);
@@ -202,17 +197,15 @@ void
 diagram_unconnect_selected(Diagram *dia)
 {
   GList *list;
-  DiaObject *selected_obj;
-  Handle *handle;
-  int i;
 
   list = dia->data->selected;
     
   while (list!=NULL) {
-    selected_obj = (DiaObject *) list->data;
-    
+    DiaObject *selected_obj = (DiaObject *) list->data;
+    int i;
+
     for (i=0; i<selected_obj->num_handles; i++) {
-      handle = selected_obj->handles[i];
+      Handle *handle = selected_obj->handles[i];
       
       if ((handle->connected_to != NULL) &&
 	  (handle->connect_type == HANDLE_CONNECTABLE)){
@@ -227,5 +220,3 @@ diagram_unconnect_selected(Diagram *dia)
     list = g_list_next(list);
   }
 }
-
-
