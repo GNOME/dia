@@ -571,7 +571,7 @@ struct {
   { PROP_TYPE_STRING, PyDia_get_String, PyDia_set_String },
   { PROP_TYPE_STRINGLIST, PyDia_get_StringList },
   { PROP_TYPE_FILE, PyDia_get_String, PyDia_set_String },
-  { PROP_TYPE_MULTISTRING, PyDia_get_String },
+  { PROP_TYPE_MULTISTRING, PyDia_get_String, PyDia_set_String },
   { PROP_TYPE_TEXT, PyDia_get_Text, PyDia_set_Text },
   { PROP_TYPE_POINT, PyDia_get_Point, PyDia_set_Point },
   { PROP_TYPE_POINTARRAY, PyDia_get_PointArray, PyDia_set_PointArray },
