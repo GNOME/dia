@@ -8763,8 +8763,8 @@ msgid "Carrier Routing System"
 msgstr "<b>Système de Control de Révision (RCS)</b>"
 
 #: ../sheets/ciscohub.sheet.in.h:15
-msgid "Cisco - Switch"
-msgstr "Cisco - Switch"
+msgid "Cisco — Switch"
+msgstr "Cisco — Switch"
 
 #: ../sheets/ciscohub.sheet.in.h:16
 msgid "Cisco 1000"
@@ -9024,8 +9024,8 @@ msgid "Car"
 msgstr "Voiture"
 
 #: ../sheets/ciscomisc.sheet.in.h:7
-msgid "Cisco - Misc"
-msgstr "Cisco - Divers"
+msgid "Cisco — Miscellaneous"
+msgstr "Cisco — Divers"
 
 #: ../sheets/ciscomisc.sheet.in.h:8
 msgid "CiscoWorks Man"
@@ -9283,8 +9283,8 @@ msgid "Channelized Pipe"
 msgstr "Relais brisé (pipe)"
 
 #: ../sheets/cisconetwork.sheet.in.h:20
-msgid "Cisco - Network"
-msgstr "Cisco - Réseau"
+msgid "Cisco — Network"
+msgstr "Cisco — Réseau"
 
 #: ../sheets/cisconetwork.sheet.in.h:21
 msgid "Cloud"
@@ -9655,8 +9655,8 @@ msgid "Cellular Phone"
 msgstr "Téléphone mobile"
 
 #: ../sheets/ciscotelephony.sheet.in.h:9
-msgid "Cisco - Telephony"
-msgstr "Cisco - Téléphonie"
+msgid "Cisco — Telephony"
+msgstr "Cisco — Téléphonie"
 
 #: ../sheets/ciscotelephony.sheet.in.h:10
 msgid "Class 4/5 switch"
