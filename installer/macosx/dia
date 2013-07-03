@@ -1,10 +1,10 @@
 #!/bin/sh
 #
 # Author: Aaron Voisine <aaron@voisine.org>
-# Dia Modifications:
+# Modifications:
 #	Michael Wybrow <mjwybrow@users.sourceforge.net>
 #	Jean-Olivier Irisson <jo.irisson@gmail.com>
-#
+#       Steffen Macke <sdteffen@sdteffen.de>
 
 CWD="`(cd \"\`dirname \\\"$0\\\"\`\"; echo \"$PWD\")`"
 # e.g. /Applications/Dia.app/Contents/Resources/bin
@@ -24,7 +24,11 @@ TOP="`dirname \"$CWD\"`"
 #export PATH="/usr/texbin:/opt/local/bin:/sw/bin/:/Library/Frameworks/Python.framework/Versions/Current/bin:/usr/local/bin:$CWD:$PATH"
 
 # Check for X11
-if [[ "" == `which startx` ]]; then
+if [[ "" == $DISPLAY ]]; then
+  export DISPLAY=:0
+fi
+startx=`which startx`
+if [[ "" == $startx ]]; then
  if [[ ! -e /opt/X11/bin/startx ]]; then
    osascript -e 'tell app "System Events" to display dialog "X11 (XQuartz) is not installed or not running. Would you like to visit xquartz.macosforge.org now in order to download and install XQuartz?" with icon 0'
    if [[ $? -eq 0 ]]; then
@@ -33,6 +37,17 @@ if [[ "" == `which startx` ]]; then
    fi
   fi
 fi
+osascript -e 'tell app "XQuartz" to launch'
+for i in `seq 1 30`; do
+  if [[ `ps aux | grep -v grep | grep startx | wc -l` -lt 1 ]]; then
+    sleep 1
+  fi
+done
+if [[ "$DISPLAY" =~ "/tmp" ]]; then
+  if [[ ! -e $DISPLAY ]]; then
+    export DISPLAY=:0
+  fi
+fi 
 
 # Setup PYTHONPATH to use python modules shipped with Dia
 ARCH=`arch`
