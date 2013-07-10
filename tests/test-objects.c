@@ -89,7 +89,7 @@ _test_creation (gconstpointer user_data)
   g_assert (o->bounding_box.left <= o->position.x && o->position.x <= o->bounding_box.right);
   g_assert (o->bounding_box.top <= o->position.y && o->position.y <= o->bounding_box.bottom);
 
-  /* both handles can be NULL, but if not hey must belong to the object  */
+  /* both handles can be NULL, but if not they must belong to the object  */
   for (i = 0; i < o->num_handles; ++i)
     {
       if (h1 != NULL && h1 == o->handles[i])
@@ -109,6 +109,7 @@ _test_creation (gconstpointer user_data)
   for (i = 0; i < o->num_connections; ++i)
     {
       g_assert (o->connections[i] != NULL);
+      g_assert (o->connections[i]->object == o); /* owner set? */
     }
 
   /* finally */
