@@ -178,25 +178,39 @@ object_list_sort_vertical(const void *o1, const void *o2)
 	(obj2->bounding_box.bottom+obj2->bounding_box.top)/2;
 }
 
-/**
- * Separate list of objects into connected and not connected ones
+/*!
+ * \brief Separate list of objects into connected and not connected ones
+ *
+ * When moving around objects it is useful to sepearate nodes and edges.
+ * The former usually should be aligned somehow, the latter will just follow
+ * the nodes through their connection points.
+ * More specialized algorithms need real edges, i.e. at least two handles have
+ * to be connected to (different) objects.
+ *
+ * @param objects the list to filter
+ * @param num_connects the minimum number to be considered connection
+ * @param connected the edges (objects connected)
+ * @param unconnected the nodes (still might be connected by)
  */
 static void
-filter_connected (const GList *objects, GList **connected, GList **unconnected)
+filter_connected (const GList *objects,
+		  int num_connects,
+		  GList **connected,
+		  GList **unconnected)
 {
   const GList *list;
   
   for (list = objects; list != NULL; list = g_list_next (list)) {
     DiaObject *obj = list->data;
-    gboolean is_connected = FALSE;
+    gboolean is_connected = 0;
     int i;
 
     for (i = 0; i < obj->num_handles; ++i) {
       if (obj->handles[i]->connected_to)
-        is_connected = TRUE;
+        ++is_connected;
     }
 
-    if (is_connected) {
+    if (is_connected >= num_connects) {
       if (connected)
         *connected = g_list_append (*connected, obj);
     } else {
@@ -206,9 +220,15 @@ filter_connected (const GList *objects, GList **connected, GList **unconnected)
   }
 }
 
-/*
-  Align objects by moving them vertically:
-*/
+/*!
+ * \brief Align objects by moving them vertically
+ *
+ * For each node in objects align them vertically. The connections (edges) will follow.
+ *
+ * @param objects  selection of objects to be considered
+ * @param dia      the diagram owning the objects (and holding undo information)
+ * @param align    the alignment algorithm
+ */
 void
 object_list_align_v(GList *objects, Diagram *dia, int align)
 {
@@ -223,7 +243,7 @@ object_list_align_v(GList *objects, Diagram *dia, int align)
   int i;
   GList *unconnected = NULL;
 
-  filter_connected (objects, NULL, &unconnected);
+  filter_connected (objects, 1, NULL, &unconnected);
   objects = unconnected;
   if (objects==NULL)
     return;
@@ -359,9 +379,15 @@ object_list_sort_horizontal(const void *o1, const void *o2)
     (obj2->bounding_box.right+obj2->bounding_box.left)/2;
 }
 
-/*
-  Align objects by moving then horizontally
-*/
+/*!
+ * \brief Align objects by moving then horizontally
+ *
+ * For each node in objects align them horizontally. The connections (edges) will follow.
+ *
+ * @param objects  selection of objects to be considered
+ * @param dia      the diagram owning the objects (and holding undo information)
+ * @param align    the alignment algorithm
+ */
 void
 object_list_align_h(GList *objects, Diagram *dia, int align)
 {
@@ -376,7 +402,7 @@ object_list_align_h(GList *objects, Diagram *dia, int align)
   int i;
   GList *unconnected = NULL;
 
-  filter_connected (objects, NULL, &unconnected);
+  filter_connected (objects, 1, NULL, &unconnected);
   objects = unconnected;
   if (objects==NULL)
     return;
@@ -499,7 +525,28 @@ object_list_align_h(GList *objects, Diagram *dia, int align)
   g_list_free (unconnected);
 }
 
-/*! Align objects at their connected points */
+/*!
+ * \brief Align objects at their connected points
+ *
+ * The result of the algorithm depends on the order of objects
+ * in the list. The list is typically coming from the selection.
+ * That order depends on the kind of selection performed.
+ *  - selection by rubberband gives objects in reverse order of
+ *    the the original layer order as of this writing
+ *  - Select/Transitive lets the order follow the connection order,
+ *    but still reversed due data_select() prepending
+ *  - Step-wise manual selection would also be in reverse order
+ * So it appears to be a good idea to reverse the processing order
+ * In this function to minimize surpise.
+ *
+ * The result also currently depends on the direction of the connections.
+ * When aligning two objects the one connected with HANDLE_MOVE_ENDPOINT
+ * will be moved. This might be contradictory to the selection order.
+ *
+ * @param objects  selection of objects to be considered
+ * @param dia      the diagram owning the objects (and holding undo information)
+ * @param align    unused
+ */
 void
 object_list_align_connected (GList *objects, Diagram *dia, int align)
 {
@@ -513,7 +560,7 @@ object_list_align_connected (GList *objects, Diagram *dia, int align)
   GList *movelist = NULL;
 
   /* find all elements to be moved directly */
-  filter_connected (objects, &connected, &to_be_moved);
+  filter_connected (objects, 2, &connected, &to_be_moved);
   dia_log_message ("Moves %d - Connections %d\n", g_list_length (to_be_moved), g_list_length (connected));
   /* for every connection check:
    * - "matching" directions of both object connection points (this also gives
@@ -525,7 +572,7 @@ object_list_align_connected (GList *objects, Diagram *dia, int align)
   orig_pos = g_new (Point, nobjs);
   dest_pos = g_new (Point, nobjs);
 
-  list = connected;
+  list = g_list_reverse (connected);
   while (list != NULL) {
     DiaObject *con = list->data;
     Handle *h1 = NULL, *h2 = NULL;
@@ -544,16 +591,35 @@ object_list_align_connected (GList *objects, Diagram *dia, int align)
 
       obj = cps->object;
       o2 = cpe->object;
+      /* swap alignment direction if we are working backwards by the selection order */
+      if (g_list_index (to_be_moved, obj) < g_list_index (to_be_moved, o2)) {
+	DiaObject *otmp = o2;
+	ConnectionPoint *cptmp = cpe;
+	o2 = obj;
+	obj = otmp;
+	cpe = cps;
+	cps = cptmp;
+      }
       if (   !g_list_find (movelist, o2)
 	  && g_list_find(to_be_moved, o2) && g_list_find(to_be_moved, obj)) {
         Point delta = {0, 0};
-        /* if we haven't moved it yet, check if we want to */
-        if (   (cps->directions == DIR_NORTH && cpe->directions == DIR_SOUTH)
-            || (cps->directions == DIR_SOUTH && cpe->directions == DIR_NORTH)) {
+        /* If we haven't moved it yet, check if we want to */
+	int hweight = 0;
+	int vweight = 0;
+	if (cps->directions == DIR_NORTH || cps->directions == DIR_SOUTH)
+	  ++vweight;
+	else if (cps->directions == DIR_EAST || cps->directions == DIR_WEST)
+	  ++hweight;
+	if (cpe->directions == DIR_NORTH || cpe->directions == DIR_SOUTH)
+	  ++vweight;
+	else if (cpe->directions == DIR_EAST || cpe->directions == DIR_WEST)
+	  ++hweight;
+
+	/* One clear directions is required to move at all */
+        if (vweight > hweight) {
           /* horizontal move */
           delta.x = cps->pos.x - cpe->pos.x;
-        } else if (   (cps->directions == DIR_EAST && cpe->directions == DIR_WEST)
-                   || (cps->directions == DIR_WEST && cpe->directions == DIR_EAST)) {
+        } else if (hweight > vweight) {
           /* vertical move */
           delta.y = cps->pos.y - cpe->pos.y;
         } else {
@@ -575,8 +641,16 @@ object_list_align_connected (GList *objects, Diagram *dia, int align)
           dest_pos[i] = pos;
 
           dia_log_message ("Move '%s' by %g,%g\n", o2->type->name, delta.x, delta.y);
+#if 0
           o2->ops->move (o2, &pos);
-          diagram_update_connections_object (dia, o2, FALSE);
+#else
+	  {
+	    GList *move_list = g_list_append (NULL, o2);
+	    object_list_move_delta (move_list, &delta);
+	    g_list_free (move_list);
+	  }
+#endif
+          diagram_update_connections_object (dia, o2, TRUE);
           movelist = g_list_append (movelist, o2);
         }
       }
@@ -591,7 +665,8 @@ object_list_align_connected (GList *objects, Diagram *dia, int align)
   g_list_free (connected);
 }
 
-/** Move the list in the given direction.
+/*!
+ * \brief Move the list in the given direction.
  *
  * @param objects The objects to move
  * @param dia The diagram owning the objects
