@@ -165,14 +165,14 @@ matrixprop_set_from_offset(MatrixProperty *prop,
 static GtkWidget *
 matrixprop_get_widget (MatrixProperty *prop, PropDialog *dialog) 
 { 
-  GtkWidget *adj;
+  GtkAdjustment *adj;
   GtkWidget *ret, *sb;
   int i;
 
   ret = gtk_hbox_new (FALSE,0);
   /* angle */
-  adj = GTK_WIDGET(gtk_adjustment_new(0.0, -180.0, 180.0, 1.0, 15.0, 0));
-  sb = gtk_spin_button_new(GTK_ADJUSTMENT (adj), 1.0, 2);
+  adj = gtk_adjustment_new(0.0, -180.0, 180.0, 1.0, 15.0, 0);
+  sb = gtk_spin_button_new(adj, 1.0, 2);
   gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(sb),TRUE);
   prophandler_connect(&prop->common, G_OBJECT(sb), "changed");
   gtk_widget_show(sb);
