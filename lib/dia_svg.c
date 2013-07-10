@@ -259,8 +259,10 @@ _parse_dasharray (DiaSvgStyle *s, real user_scale, gchar *str, gchar **end)
   else if (user_scale > 0)
     s->dashlength /= user_scale;
 
-  while (dashes[n])
-    ++n; /* Dia can not do arbitrary length, the number of dashes gives the style */
+  if (s->dashlength) { /* at least one value */
+    while (dashes[n])
+      ++n; /* Dia can not do arbitrary length, the number of dashes gives the style */
+  }
   if (n > 0)
     s->dashlength = g_ascii_strtod (dashes[0], NULL);
   if (user_scale > 0)
