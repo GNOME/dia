@@ -76,9 +76,6 @@
       <_description>A KAOS performs</_description>
       <icon>KAOS/performs.png</icon>
     </object>
-    <object name="KAOS - operation">
-      <_description>A KAOS operation</_description>
-    </object>
     <object name="KAOS - mbr" intdata="9">
       <_description>A KAOS input</_description>
       <icon>KAOS/input.png</icon>
