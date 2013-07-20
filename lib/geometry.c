@@ -701,6 +701,23 @@ dia_matrix_is_identity (const DiaMatrix *matrix)
   return FALSE;
 }
 
+void
+dia_matrix_multiply (DiaMatrix *result, const DiaMatrix *a, const DiaMatrix *b)
+{
+    DiaMatrix r;
+
+    r.xx = a->xx * b->xx + a->yx * b->xy;
+    r.yx = a->xx * b->yx + a->yx * b->yy;
+
+    r.xy = a->xy * b->xx + a->yy * b->xy;
+    r.yy = a->xy * b->yx + a->yy * b->yy;
+
+    r.x0 = a->x0 * b->xx + a->y0 * b->xy + b->x0;
+    r.y0 = a->x0 * b->yx + a->y0 * b->yy + b->y0;
+
+    *result = r;
+}
+
 /*!
  * \brief Splitting the given matrix into angle and scales
  * @param m matrix

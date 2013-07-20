@@ -470,6 +470,7 @@ EXPORTS
  group_destroy_shallow
  group_objects
  group_type
+ group_transform
 
  get_active_focus
  give_focus
@@ -678,6 +679,7 @@ EXPORTS
  prop_list_add_line_colour
  prop_list_add_line_style
  prop_list_add_line_width
+ prop_list_add_matrix
  prop_list_add_point
  prop_list_add_real
  prop_list_add_string
@@ -777,6 +779,7 @@ EXPORTS
  dia_matrix_is_identity
  dia_matrix_get_angle_and_scales
  dia_matrix_set_angle_and_scales
+ dia_matrix_multiply
 
  dia_option_menu_add_item
  dia_option_menu_get_active

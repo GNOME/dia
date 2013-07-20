@@ -135,6 +135,8 @@ void dia_matrix_set_angle_and_scales (DiaMatrix *m,
                                       real       a,
 				      real       sx,
 				      real       sy);
+void dia_matrix_multiply (DiaMatrix *result, const DiaMatrix *a, const DiaMatrix *b);
+
 #define ROUND(x) ((int) floor((x)+0.5))
 
 /* inline these functions if the platform supports it */

@@ -31,7 +31,7 @@ DiaObject *group_create_with_matrix(GList *objects, DiaMatrix *matrix);
 GList *group_objects(DiaObject *group);
 
 void group_destroy_shallow(DiaObject *group);
-
+void group_transform (Group *group, const DiaMatrix *mat);
 #define IS_GROUP(obj) ((obj)->type == &group_type)
 
 #endif /* GROUP_H */

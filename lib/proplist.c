@@ -180,6 +180,13 @@ prop_list_save(GPtrArray *props, DataNode data)
   }
 }
 
+/*!
+ * \brief Search a property list for a named property
+ *
+ * Check if a given property is included in the list
+ * With a better naming convention this function would be
+ * called prop_list_find_prop_by_name()
+ */
 Property *
 find_prop_by_name(const GPtrArray *props, const gchar *name) 
 {
@@ -343,4 +350,13 @@ void
 prop_list_add_text_colour (GPtrArray *plist, const Color *color)
 {
   _prop_list_add_colour (plist, "text_colour", color);
+}
+void
+prop_list_add_matrix (GPtrArray *plist, const DiaMatrix *m)
+{
+  Property *prop = make_new_prop ("matrix", PROP_TYPE_MATRIX, 0);
+
+  g_free (((MatrixProperty *)prop)->matrix);
+  (( MatrixProperty *)prop)->matrix = g_memdup (m, sizeof(DiaMatrix));
+  g_ptr_array_add (plist, prop);
 }

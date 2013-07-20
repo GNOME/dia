@@ -416,7 +416,6 @@ const PropertyOps *prop_type_get_ops(PropertyType type);
 
 void       prop_list_free(GPtrArray *plist);
 
-
 /*! copies the whole property structure, including the data. */
 GPtrArray *prop_list_copy(GPtrArray *plist);
 /*! copies the whole property structure, excluding the data. */
@@ -458,6 +457,8 @@ void prop_list_add_filename (GPtrArray *plist, const char *name, const char *val
 void prop_list_add_enum (GPtrArray *plist, const char *name, int val);
 /* adding a font */
 void prop_list_add_font (GPtrArray *plist, const char *name, const DiaFont *font);
+/* add transformation matrix */
+void prop_list_add_matrix (GPtrArray *plist, const DiaMatrix *m);
 
 /* Some predicates: */
 gboolean pdtpp_true(const PropDescription *pdesc); /* always true */

@@ -213,34 +213,69 @@ use_position (DiaObject *obj, xmlNodePtr node)
         DiaMatrix *m = dia_svg_parse_transform ((char *)str, user_scale);
 
 	if (m) {
-	    GPtrArray *props = g_ptr_array_new ();
-	    PointProperty *pp;
-	    RealProperty  *pr;
+	    if (IS_GROUP (obj)) {
+	      /* it is the only one transformation aware yet */
+	      Group *grp = (Group *)obj;
 
-	    prop_list_add_point (props, "obj_pos", &pos); 
-	    prop_list_add_point (props, "elem_corner", &pos); 
-	    prop_list_add_real (props, "elem_width", 1.0);
-	    prop_list_add_real (props, "elem_height", 1.0);
-	    prop_list_add_real (props, PROP_STDNAME_LINE_WIDTH, 0.1);
-	    obj->ops->get_props (obj, props);
-	    /* try to transform the object without the full matrix  */
-	    pp = g_ptr_array_index (props, 0);
-	    pp->point_data.x +=  m->x0;
-	    pp->point_data.y +=  m->y0;
-	    /* set position a second time, now for non-elements */
-	    pp = g_ptr_array_index (props, 1);
-	    pp->point_data.x +=  m->x0;
-	    pp->point_data.y +=  m->y0;
+	      group_transform (grp, m);
+	    } else {
+	      GPtrArray *props = g_ptr_array_new ();
 
-	    pr = g_ptr_array_index (props, 2);
-	    pr->real_data *= m->xx;
-	    pr = g_ptr_array_index (props, 3);
-	    pr->real_data *= m->yy;
-	    pr = g_ptr_array_index (props, 4);
-	    pr->real_data *= m->yy;
-	    obj->ops->set_props (obj, props);
+	      PointProperty *pp;
+	      RealProperty  *pr;
+	      PointarrayProperty *pap = NULL;
+	      BezPointarrayProperty *bpap = NULL;
+	      Property *prop = NULL;
 
-	    prop_list_free (props);
+	      /* setting obj_pos is pointless, it is read-only in all objects */
+	      prop_list_add_point (props, "obj_pos", &pos); 
+	      prop_list_add_point (props, "elem_corner", &pos); 
+	      prop_list_add_real (props, "elem_width", 1.0);
+	      prop_list_add_real (props, "elem_height", 1.0);
+	      prop_list_add_real (props, PROP_STDNAME_LINE_WIDTH, 0.1);
+
+	      if ((prop = object_prop_by_name_type (obj, "bez_points", PROP_TYPE_BEZPOINTARRAY)) != NULL) {
+		prop_list_add_list (props, prop_list_from_single (prop));
+		bpap = g_ptr_array_index (props, 5);
+	      } else if ((prop = object_prop_by_name_type (obj, "poly_points", PROP_TYPE_POINTARRAY)) != NULL) {
+		prop_list_add_list (props, prop_list_from_single (prop));
+		pap = g_ptr_array_index (props, 5);
+	      }
+
+	      obj->ops->get_props (obj, props);
+	      /* try to transform the object without the full matrix  */
+	      pp = g_ptr_array_index (props, 0);
+	      pp->point_data.x +=  m->x0;
+	      pp->point_data.y +=  m->y0;
+	      /* set position a second time, now for non-elements */
+	      pp = g_ptr_array_index (props, 1);
+	      pp->point_data.x +=  m->x0;
+	      pp->point_data.y +=  m->y0;
+
+	      pr = g_ptr_array_index (props, 2);
+	      pr->real_data *= m->xx;
+	      pr = g_ptr_array_index (props, 3);
+	      pr->real_data *= m->yy;
+	      pr = g_ptr_array_index (props, 4);
+	      pr->real_data *= m->yy;
+
+	      if (bpap) {
+		GArray *data = bpap->bezpointarray_data;
+		int i;
+		for (i = 0; i < data->len; ++i)
+		  transform_bezpoint (&g_array_index(data, BezPoint, i), m);
+	      } else if (pap) {
+		GArray *data = pap->pointarray_data;
+		int i;
+		for (i = 0; i < data->len; ++i)
+		  transform_point (&g_array_index(data, Point, i), m);
+	      }
+
+	      obj->ops->set_props (obj, props);
+	      if (prop)
+		prop->ops->free (prop);
+	      prop_list_free (props);
+	    }
 	    g_free (m);
 	}
         xmlFree(str);
@@ -843,11 +878,16 @@ read_rect_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list)
     xmlFree(str);
   }
 
+  end.x = start.x + width;
+  end.y = start.y + height;
+
   if (matrix) {
     /* TODO: for rotated rects we would need to create a polygon */
     transform_point (&start, matrix);
     transform_point (&end, matrix);
     g_free (matrix);
+    width = end.x - start.x;
+    height = end.y - start.y;
   }
   /* A negative value is an error [...]. A value of zero disables rendering of the element. */
   if (width <= 0.0 || height <= 0.0)
@@ -861,8 +901,6 @@ read_rect_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list)
   ptprop = g_ptr_array_index(props,0);
   ptprop->point_data = start;
 
-  end.x = start.x + width;
-  end.y = start.y + height;
   ptprop = g_ptr_array_index(props,1);
   ptprop->point_data = end;
 
