@@ -584,9 +584,9 @@ layer_replace_object_with_list(Layer *layer, DiaObject *remove_obj,
   list = g_list_find(layer->objects, remove_obj);
 
   g_assert(list!=NULL);
-  set_parent_layer(remove_obj, NULL);
   dynobj_list_remove_object(remove_obj);
   data_emit (layer_get_parent_diagram(layer), layer, remove_obj, "object_remove");
+  set_parent_layer(remove_obj, NULL);
   g_list_foreach(insert_list, set_parent_layer, layer);
 
   if (list->prev == NULL) {
