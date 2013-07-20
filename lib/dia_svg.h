@@ -28,7 +28,8 @@ enum DiaSvgColours
   DIA_SVG_COLOUR_NONE = -1,
   DIA_SVG_COLOUR_FOREGROUND = -2,
   DIA_SVG_COLOUR_BACKGROUND = -3,
-  DIA_SVG_COLOUR_TEXT = -4
+  DIA_SVG_COLOUR_TEXT = -4,
+  DIA_SVG_COLOUR_DEFAULT_FILL = -5
 };
 
 /* these should be changed if they ever cause a conflict */

@@ -284,7 +284,7 @@ use_position (DiaObject *obj, xmlNodePtr node)
 
 /* apply SVG style to object */
 static void
-apply_style(DiaObject *obj, xmlNodePtr node, DiaSvgStyle *parent_style) 
+apply_style(DiaObject *obj, xmlNodePtr node, DiaSvgStyle *parent_style, gboolean init_fill)
 {
       DiaSvgStyle *gs;
       GPtrArray *props;
@@ -329,7 +329,12 @@ apply_style(DiaObject *obj, xmlNodePtr node, DiaSvgStyle *parent_style)
       lsprop->dash = gs->dashlength * scale;
 
       cprop = g_ptr_array_index(props,3);
-      if(gs->fill == DIA_SVG_COLOUR_NONE) /* transparent */
+      if (gs->fill == DIA_SVG_COLOUR_DEFAULT_FILL) {
+	if (init_fill)
+	  cprop->color_data = get_colour(0x000000, 1.0); /* black */
+	else
+	  cprop->common.experience |= PXP_NOTSET; /* no overwrite */
+      } else if (gs->fill == DIA_SVG_COLOUR_NONE) /* transparent */
 	cprop->color_data = get_colour(0x000000, 0.0);
       else if (gs->fill == DIA_SVG_COLOUR_FOREGROUND)
 	cprop->color_data = attributes_get_foreground();
@@ -451,7 +456,7 @@ read_path_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list, DiaContex
 	if (!closed)
 	  reset_arrows (new_obj);
 	g_free(bcd);
-	apply_style(new_obj, node, parent_style);
+	apply_style(new_obj, node, parent_style, TRUE);
 	list = g_list_append (list, new_obj);
 
         g_array_set_size (bezpoints, 0);
@@ -598,6 +603,9 @@ read_text_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list)
       case DIA_SVG_COLOUR_BACKGROUND :
         prop->attr.color = attributes_get_foreground();
 	break;
+      case DIA_SVG_COLOUR_DEFAULT_FILL: /* black */
+	prop->attr.color = get_colour(0x000000, 1.0);
+	break;
       case DIA_SVG_COLOUR_FOREGROUND :
         prop->attr.color = attributes_get_background();
 	break;
@@ -670,7 +678,7 @@ read_poly_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list, char *obj
     new_obj = otype->ops->create(NULL, pcd,
 				 &h1, &h2);
     reset_arrows (new_obj);
-    apply_style(new_obj, node, parent_style);
+    apply_style(new_obj, node, parent_style, TRUE);
     list = g_list_append (list, new_obj);
     g_free(points);
     g_free(pcd);
@@ -737,8 +745,8 @@ read_ellipse_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list)
     return list;
   new_obj = otype->ops->create(&start, otype->default_user_data,
 				 &h1, &h2);
-  apply_style(new_obj, node, parent_style);			
-	 
+  apply_style(new_obj, node, parent_style, TRUE);
+
   props = make_element_props(start.x-(width/2), start.y-(height/2),
                              width, height);
   new_obj->ops->set_props(new_obj, props);
@@ -813,8 +821,8 @@ read_line_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list)
 
   prop_list_free(props);
 
-  apply_style(new_obj, node, parent_style);
-  
+  apply_style(new_obj, node, parent_style, TRUE);
+
   return g_list_append (list, new_obj);
 }
 
@@ -911,8 +919,8 @@ read_rect_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list)
   prop_list_free(props);
   props = make_element_props(start.x,start.y,width,height);
   new_obj->ops->set_props(new_obj, props);
-  
-  apply_style(new_obj, node, parent_style);
+
+  apply_style(new_obj, node, parent_style, TRUE);
   prop_list_free(props);
 
   return list;
@@ -1185,7 +1193,7 @@ read_items (xmlNodePtr   startnode,
 	  DiaObject *onew = otemp->ops->copy (otemp);
 
 	  use_position (onew, node);
-	  apply_style (onew, node, parent_gs);
+	  apply_style (onew, node, parent_gs, FALSE);
 	  items = g_list_append (items, onew);
 	}
 	xmlFree (key);
