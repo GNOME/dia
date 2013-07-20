@@ -37,6 +37,7 @@
 #include "diarenderer.h"
 #include "attributes.h"
 #include "properties.h"
+#include "propinternals.h"
 #include "boundingbox.h"
 #include "standard-path.h"
 #include "create.h"
@@ -185,6 +186,7 @@ static void stdpath_destroy (StdPath *stdpath);
 static DiaObject *stdpath_copy (StdPath *stdpath);
 static DiaMenu *stdpath_get_object_menu(StdPath *stdpath,
 					Point *clickedpoint);
+static void stdpath_get_props(StdPath *stdpath, GPtrArray *props);
 static void stdpath_set_props(StdPath *stdpath, GPtrArray *props);
 
 static ObjectOps stdpath_ops = {
@@ -199,7 +201,7 @@ static ObjectOps stdpath_ops = {
   (ApplyPropertiesDialogFunc) object_apply_props_from_dialog,
   (ObjectMenuFunc)      stdpath_get_object_menu,
   (DescribePropsFunc)   object_describe_props,
-  (GetPropsFunc)        object_get_props,
+  (GetPropsFunc)        stdpath_get_props,
   (SetPropsFunc)        stdpath_set_props,
   (TextEditFunc) 0,
   (ApplyPropertiesListFunc) object_apply_props,
@@ -484,18 +486,38 @@ stdpath_get_object_menu(StdPath *stdpath, Point *clickedpoint)
   return &_stdpath_menu;
 }
 /*!
+ * \brief Initialize the given property vector from the object state.
+ *
+ * If  offsets and props are part of the object type this does not to be
+ * implemented usually. Just object_get_props in the 'vtable' would be enough.
+ * We want to ensure that stroke_or_fill and show_background are in sync, though.
+ */
+static void
+stdpath_get_props(StdPath *stdpath, GPtrArray *props)
+{
+  stdpath->show_background = (stdpath->stroke_or_fill & PDO_FILL) != 0;
+  object_get_props(&stdpath->object, props);
+}
+/*!
  * \brief Set the object state from the given proeprty vector
  * \memberof StdPath
  */
 static void 
 stdpath_set_props (StdPath *stdpath, GPtrArray *props)
 {
+  Property *prop;
   stdpath->show_background = (stdpath->stroke_or_fill & PDO_FILL) != 0;
   object_set_props_from_offsets(&stdpath->object, stdpath_offsets, props);
-  if (stdpath->show_background)
-    stdpath->stroke_or_fill |= PDO_FILL;
-  else
-    stdpath->stroke_or_fill &= ~PDO_FILL;
+  /* Usually the list wont contain "show_background", but if it
+   * it set let it take precedence
+   */
+  if (   (prop = find_prop_by_name (props, "show_background")) != NULL
+      && (prop->experience & PXP_NOTSET) == 0) {
+    if (stdpath->show_background)
+      stdpath->stroke_or_fill |= PDO_FILL;
+    else
+      stdpath->stroke_or_fill &= ~PDO_FILL;
+  }
   /* now when transfering properties from text we'll loose stroke and fill
    * Instead of drawing nothing maket it just fill.
    */

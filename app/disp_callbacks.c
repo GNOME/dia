@@ -46,6 +46,7 @@
 #include "dia_dirs.h"
 #include "object.h"
 #include "disp_callbacks.h"
+#include "create.h"
 
 typedef struct {
 	GdkEvent *event; /* Button down event which may be holding */
@@ -163,8 +164,57 @@ _follow_link_callback (GtkAction *action, gpointer data)
 static void
 add_follow_link_menu_item (GtkMenu *menu)
 {
-  GtkWidget *menu_item = gtk_menu_item_new_with_label(_("Follow link…"));
+  GtkWidget *menu_item = gtk_menu_item_new_with_label(_("Follow link\342\200\246"));
   g_signal_connect(G_OBJECT(menu_item), "activate", G_CALLBACK(_follow_link_callback), NULL);
+  gtk_menu_shell_append (GTK_MENU_SHELL (menu), menu_item);
+  gtk_widget_show(menu_item);
+}
+
+static void
+_convert_to_path_callback (GtkAction *action, gpointer data)
+{
+  DiaObject *obj;
+  DDisplay *ddisp = ddisplay_active();
+  GList *selected, *list;
+  ObjectChange *change_list = NULL;
+
+  if (!ddisp) return;
+
+  /* copy the list before modifying it */
+  list = selected = diagram_get_sorted_selected (ddisp->diagram);
+  while (list) {
+    DiaObject *obj = (DiaObject *)list->data;
+
+    if (obj) { /* paranoid */
+      DiaObject *path = create_standard_path_from_object (obj);
+
+      if (path) { /* not so paranoid */
+	ObjectChange *change = object_substitute (obj, path);
+
+	if (!change_list)
+	  change_list = change_list_create ();
+	if (change)
+	  change_list_add (change_list, change);
+      }
+    }
+    list = g_list_next(list);
+  }
+  g_list_free (selected);
+  if (change_list) {
+    undo_object_change(ddisp->diagram, NULL, change_list);
+
+    diagram_modified(ddisp->diagram);
+    diagram_update_extents(ddisp->diagram);
+
+    undo_set_transactionpoint(ddisp->diagram->undo);
+    diagram_flush(ddisp->diagram);
+  }
+}
+static void
+add_convert_to_path_menu_item (GtkMenu *menu)
+{
+  GtkWidget *menu_item = gtk_menu_item_new_with_label(_("Convert to Path"));
+  g_signal_connect(G_OBJECT(menu_item), "activate", G_CALLBACK(_convert_to_path_callback), NULL);
   gtk_menu_shell_append (GTK_MENU_SHELL (menu), menu_item);
   gtk_widget_show(menu_item);
 }
@@ -174,6 +224,7 @@ create_object_menu(DiaMenu *dia_menu, gboolean root_menu)
   int i;
   GtkWidget *menu;
   GtkWidget *menu_item;
+  gboolean native_convert_to_path = FALSE;
 
   menu = gtk_menu_new();
 
@@ -191,6 +242,10 @@ create_object_menu(DiaMenu *dia_menu, gboolean root_menu)
 
   for (i=0;i<dia_menu->num_items;i++) {
     DiaMenuItem *item = &dia_menu->items[i];
+
+    /* HACK: rely on object menu naming convention to avoid duplicated menu entry/functionality */
+    if (item->text && strcmp (item->text, "Convert to Path") == 0)
+      native_convert_to_path = TRUE;
 
     if (item->active & DIAMENU_TOGGLE) {
       if (item->text)
@@ -231,6 +286,8 @@ create_object_menu(DiaMenu *dia_menu, gboolean root_menu)
     /* Finally add a Properties... menu item for objects*/
     add_properties_menu_item(GTK_MENU (menu), i > 0);
     add_follow_link_menu_item(GTK_MENU (menu));
+    if (!native_convert_to_path)
+      add_convert_to_path_menu_item(GTK_MENU (menu));
   }
 
   dia_menu->app_data = menu;

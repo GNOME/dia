@@ -139,6 +139,15 @@ static void
 end_render(DiaRenderer *self)
 {
 }
+static gboolean
+is_capable_to (DiaRenderer *renderer, RenderCapability cap)
+{
+  if (RENDER_HOLES == cap)
+    return TRUE;
+  else if (RENDER_ALPHA == cap)
+    return TRUE;
+  return FALSE;
+}
 static void
 set_linewidth(DiaRenderer *self, real linewidth)
 {  /* 0 == hairline **/
@@ -344,18 +353,24 @@ _arc (DiaRenderer *self,
   GArray *path = _get_current_path (renderer, stroke, fill);
   Point start;
   real radius = sqrt(width * height) / 2.0;
-  real ar1 = (M_PI / 180.0) * angle1;
-  real ar2 = (M_PI / 180.0) * angle2;
+  real ar1;
+  real ar2;
   int i, segs;
   real ars;
-  
+
+  while (angle1 > angle2)
+    angle1 -= 360;
+
+  ar1 = (M_PI / 180.0) * angle2;
+  ar2 = (M_PI / 180.0) * angle1;
   /* one segment for ever 90 degrees */
   segs = (int)(fabs(ar2 - ar1) / (M_PI/2)) + 1;
   ars = - (ar2 - ar1) / segs;
 
   /* move to start point */
-  start.x = center->x + (width / 2.0)  * cos(ar1);  
+  start.x = center->x + (width / 2.0)  * cos(ar1);
   start.y = center->y - (height / 2.0) * sin(ar1);
+
   /* Dia and Cairo don't agree on arc definitions, so it needs
    * to be converted, i.e. mirrored at the x axis
    */
@@ -478,9 +493,15 @@ _bezier (DiaRenderer *self,
 {
   DiaPathRenderer *renderer = DIA_PATH_RENDERER (self);
   GArray *path = _get_current_path (renderer, stroke, fill);
-  int i;
+  int i = 0;
 
-  for (i = 0; i < numpoints; ++i)
+  /* get rid of the first move-to if we can attach to the previous point */
+  if (path->len > 0) {
+    BezPoint *bp = &g_array_index (path, BezPoint, path->len-1);
+    if (distance_point_point(&bp->p3, &points[0].p1) < 0.001)
+      i = 1;
+  }
+  for (i; i < numpoints; ++i)
     g_array_append_val (path, points[i]);
   if (fill)
     _path_lineto (path, &points[0].p1);
@@ -640,7 +661,8 @@ dia_path_renderer_class_init (DiaPathRendererClass *klass)
   renderer_class->draw_bezier   = draw_bezier;
   renderer_class->fill_bezier   = fill_bezier;
   renderer_class->draw_text     = draw_text;
-
+  /* other */
+  renderer_class->is_capable_to = is_capable_to;
 }
 
 #include "object.h"
