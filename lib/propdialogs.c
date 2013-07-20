@@ -323,7 +323,7 @@ _prop_list_extend_for_meta (GPtrArray *props)
     PROP_STD_NOTEBOOK_BEGIN,
     PROP_NOTEBOOK_PAGE("general_page",PROP_FLAG_DONT_MERGE,N_("General")),
     PROP_NOTEBOOK_PAGE("meta_page",0,N_("Meta")),
-    { "meta", PROP_TYPE_DICT, PROP_FLAG_VISIBLE, "", ""},
+    { "meta", PROP_TYPE_DICT, PROP_FLAG_VISIBLE|PROP_FLAG_SELF_ONLY, "", ""},
     PROP_STD_NOTEBOOK_END,
     {NULL}
   };

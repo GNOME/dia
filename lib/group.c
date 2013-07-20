@@ -618,6 +618,8 @@ group_prop_event_deliver(Group *group, Property *prop)
 }
 
 static PropDescription _group_props[] = {
+  { "meta", PROP_TYPE_DICT, PROP_FLAG_SELF_ONLY|PROP_FLAG_OPTIONAL,
+    "Object meta info", "Some key/value pairs"},
   { "matrix", PROP_TYPE_MATRIX, PROP_FLAG_SELF_ONLY|PROP_FLAG_DONT_MERGE|PROP_FLAG_VISIBLE|PROP_FLAG_OPTIONAL|PROP_FLAG_NO_DEFAULTS,
   N_("Transformation"), NULL, NULL },
 
@@ -639,19 +641,41 @@ group_describe_props(Group *group)
     group->pdesc = object_list_get_prop_descriptions(group->objects, PROP_UNION);
 
     if (group->pdesc != NULL) {
-      /* hijack event delivery */
+      /* Ensure we have no duplicates with own props */
+      int n_other = 0;
       for (i=0; group->pdesc[i].name != NULL; i++) {
+	int j;
+	gboolean is_own = FALSE;
+	for (j=0; j < G_N_ELEMENTS(_group_props); ++j) {
+	  if (   group->pdesc[i].quark == _group_props[j].quark
+	      && group->pdesc[i].type_quark == _group_props[j].type_quark)
+	    is_own = TRUE;
+	}
+	if (!is_own) {
+	  if (n_other != i)
+	    memcpy ((gpointer)&group->pdesc[n_other], &group->pdesc[i], sizeof(PropDescription));
+	  ++n_other;
+	}
+      }
+      /* Ensure NULL termination */
+      ((PropDescription *)&group->pdesc[n_other])->name = NULL;
+
+      /* hijack event delivery */
+      for (i=0; i < n_other; i++) {
+	/* Ensure we have no duplicates with our own properties */
         if (group->pdesc[i].event_handler) 
           prop_desc_insert_handler((PropDescription *)&group->pdesc[i],
                                    (PropEventHandler)group_prop_event_deliver);
       }
-      /* mix in our own single matrix property */
+      /* mix in our own properties */
       {
-        PropDescription *arr = g_new (PropDescription, i+2);
+	int n_own = G_N_ELEMENTS(_group_props) - 1;
+        PropDescription *arr = g_new (PropDescription, n_other+n_own+1);
 	
-	arr[0] = _group_props[0];
-	memcpy (&arr[1], group->pdesc, (i+1) * sizeof(PropDescription));
-	for (i=1; arr[i].name != NULL; ++i) {
+	for (i = 0; i < n_own; ++i)
+	  arr[i] = _group_props[i];
+	memcpy (&arr[n_own], group->pdesc, (n_other+1) * sizeof(PropDescription));
+	for (i=n_own; arr[i].name != NULL; ++i) {
 	  /* these are not meant to be saved/loaded with the group */
 	  arr[i].flags |= (PROP_FLAG_DONT_SAVE|PROP_FLAG_OPTIONAL);
 	}
@@ -665,6 +689,7 @@ group_describe_props(Group *group)
 }
 
 static PropOffset _group_offsets[] = {
+  { "meta", PROP_TYPE_DICT, offsetof(DiaObject, meta) },
   { "matrix", PROP_TYPE_MATRIX, offsetof(Group, matrix) },
   { NULL }
 };
@@ -853,4 +878,23 @@ group_prop_change_free(GroupPropChange *change)
     g_free(obj_change);
   }
   g_list_free(change->changes_per_object);
+}
+
+void
+group_transform (Group *group, const DiaMatrix *m)
+{
+  g_return_if_fail (m != NULL);
+
+  if (group->matrix) {
+    dia_matrix_multiply (group->matrix, group->matrix, m);
+  } else {
+    group->matrix = g_memdup (m, sizeof(*m));
+  }
+  /* don't keep the offset in the matrix*/
+  if (group->matrix->x0 != 0 || group->matrix->y0 != 0) {
+    Point delta = {group->matrix->x0, group->matrix->y0};
+    group->matrix->x0 = group->matrix->y0 = 0; /* offset used internally */
+    object_list_move_delta(group->objects, &delta);
+  }
+  group_update_data (group);
 }
