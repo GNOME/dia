@@ -171,7 +171,7 @@ matrixprop_get_widget (MatrixProperty *prop, PropDialog *dialog)
 
   ret = gtk_hbox_new (FALSE,0);
   /* angle */
-  adj = gtk_adjustment_new(0.0, -180.0, 180.0, 1.0, 15.0, 0);
+  adj = GTK_ADJUSTMENT (gtk_adjustment_new(0.0, -180.0, 180.0, 1.0, 15.0, 0));
   sb = gtk_spin_button_new(adj, 1.0, 2);
   gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(sb),TRUE);
   prophandler_connect(&prop->common, G_OBJECT(sb), "changed");
@@ -179,7 +179,7 @@ matrixprop_get_widget (MatrixProperty *prop, PropDialog *dialog)
   gtk_box_pack_start(GTK_BOX(ret), sb, TRUE, TRUE, 0);
   /* sx, sy */
   for (i = 0; i < 2; ++i) {
-    adj = GTK_WIDGET(gtk_adjustment_new(0.0, 0.01, 100.0, 0.01, 1.0, 0));
+    adj = GTK_ADJUSTMENT (gtk_adjustment_new(0.0, 0.01, 100.0, 0.01, 1.0, 0));
     sb = gtk_spin_button_new(GTK_ADJUSTMENT (adj), 1.0, 2);
     gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(sb),TRUE);
     prophandler_connect(&prop->common, G_OBJECT(sb), "changed");
@@ -194,7 +194,8 @@ static void
 matrixprop_reset_widget(MatrixProperty *prop, GtkWidget *widget)
 {
   GList *children, *child;
-  GtkWidget *sb, *adj;
+  GtkWidget *sb;
+  GtkAdjustment *adj;
   real angle, sx, sy;
   int i = 0;
 
@@ -214,11 +215,11 @@ matrixprop_reset_widget(MatrixProperty *prop, GtkWidget *widget)
   for (child = children; child != NULL; child = g_list_next (child)) {
     sb = child->data;
     if (i == 0)
-      adj = GTK_WIDGET(gtk_adjustment_new(angle, -180.0, 180.0, 1.0, 15.0, 0));
+      adj = GTK_ADJUSTMENT (gtk_adjustment_new(angle, -180.0, 180.0, 1.0, 15.0, 0));
     else if (i == 1)
-      adj = GTK_WIDGET(gtk_adjustment_new(sx, 0.01, 100.0, 0.1, 1.0, 0));
+      adj = GTK_ADJUSTMENT (gtk_adjustment_new(sx, 0.01, 100.0, 0.1, 1.0, 0));
     else if (i == 2)
-      adj = GTK_WIDGET(gtk_adjustment_new(sy, 0.01, 100.0, 0.1, 1.0, 0));
+      adj = GTK_ADJUSTMENT (gtk_adjustment_new(sy, 0.01, 100.0, 0.1, 1.0, 0));
     else
       g_assert_not_reached ();
     gtk_spin_button_set_adjustment(GTK_SPIN_BUTTON(sb), GTK_ADJUSTMENT (adj));
