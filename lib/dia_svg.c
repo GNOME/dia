@@ -1079,7 +1079,7 @@ dia_svg_parse_path(GArray *points, const gchar *path_str, gchar **unparsed,
 	/* avoid matherr with bogus values - just ignore them
 	 * does happen e.g. with 'Chem-Widgets - clamp-large' 
 	 */
-	if (last_point.x != dest.x && last_point.y != dest.y)
+	if (last_point.x != dest.x || last_point.y != dest.y)
 	  _path_arc (points, last_point.x, last_point.y,
 		     rx, ry, xrot, largearc, sweep, dest.x, dest.y,
 		     &dest_c);
