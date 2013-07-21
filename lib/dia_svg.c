@@ -416,7 +416,8 @@ dia_svg_parse_style(xmlNodePtr node, DiaSvgStyle *s, real user_scale)
 	while ((ptr[0] != '\0') && g_ascii_isspace(ptr[0])) ptr++;
 	if (ptr[0] == '\0') break;
 
-	_parse_color (&s->stroke, ptr);
+	if (!_parse_color (&s->stroke, ptr))
+	  s->stroke = DIA_SVG_COLOUR_NONE;
       } else if (!strncmp("stroke-opacity:", ptr, 15)) {
 	ptr += 15;
 	s->stroke_opacity = g_ascii_strtod(ptr, &ptr);
@@ -425,7 +426,8 @@ dia_svg_parse_style(xmlNodePtr node, DiaSvgStyle *s, real user_scale)
 	while (ptr[0] != '\0' && g_ascii_isspace(ptr[0])) ptr++;
 	if (ptr[0] == '\0') break;
 
-	_parse_color (&s->fill, ptr);
+	if (!_parse_color (&s->fill, ptr))
+	   s->fill = DIA_SVG_COLOUR_NONE;
       } else if (!strncmp("fill-opacity:", ptr, 13)) {
 	ptr += 13;
 	s->fill_opacity = g_ascii_strtod(ptr, &ptr);
@@ -509,7 +511,8 @@ dia_svg_parse_style(xmlNodePtr node, DiaSvgStyle *s, real user_scale)
    */
   str = xmlGetProp(node, (const xmlChar *)"fill");
   if (str) {
-    _parse_color (&s->fill, (char *) str);
+    if (!_parse_color (&s->fill, (char *) str))
+       s->fill = DIA_SVG_COLOUR_NONE;
     xmlFree(str);
   }
   str = xmlGetProp(node, (const xmlChar *)"fill-opacity");
@@ -519,7 +522,8 @@ dia_svg_parse_style(xmlNodePtr node, DiaSvgStyle *s, real user_scale)
   }  
   str = xmlGetProp(node, (const xmlChar *)"stroke");
   if (str) {
-    _parse_color (&s->stroke, (char *) str);
+    if (!_parse_color (&s->stroke, (char *) str))
+       s->stroke = DIA_SVG_COLOUR_NONE;
     xmlFree(str);
   }
   str = xmlGetProp(node, (const xmlChar *)"stroke-opacity");
