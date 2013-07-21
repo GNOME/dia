@@ -200,8 +200,11 @@ gtk_message_internal(const char* title, enum ShowAgainStyle showAgain,
   if (msginfo->repeats != NULL) {
     if (g_list_length(msginfo->repeats) > 1) {
       char *newlabel;
-      newlabel = g_strdup_printf(_("There are %d similar messages."),
-				 g_list_length(msginfo->repeats));
+      guint num = g_list_length(msginfo->repeats);
+      /* See: https://live.gnome.org/TranslationProject/DevGuidelines/Plurals */
+      newlabel = g_strdup_printf(g_dngettext (GETTEXT_PACKAGE,
+					"There is %d similar message.", /* not triggered */
+					"There are %d similar messages.", num), num);
       gtk_label_set_text(GTK_LABEL(msginfo->repeat_label), newlabel);
     }
     /* for repeated messages, show the last one */

@@ -477,9 +477,12 @@ object_get_displayname (DiaObject* object)
   if (!object)
     return g_strdup ("<null>"); /* should not happen */
   
-  if (IS_GROUP(object))
-    name = g_strdup_printf (_("Group with %d objects"), g_list_length(group_objects(object)));
-  else if ((prop = object_prop_by_name(object, "name")) != NULL)
+  if (IS_GROUP(object)) {
+    guint num = g_list_length(group_objects(object));
+    name = g_strdup_printf (g_dngettext (GETTEXT_PACKAGE,
+				"Group with %d object",
+				"Group with %d objects", num), num);
+  } else if ((prop = object_prop_by_name(object, "name")) != NULL)
     name = g_strdup (((StringProperty *)prop)->string_data);
   else if ((prop = object_prop_by_name(object, "text")) != NULL)
     name = g_strdup (((TextProperty *)prop)->text_data);
