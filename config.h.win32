@@ -33,4 +33,7 @@
  */
 #define LIBXML_DLL_IMPORT __declspec(dllimport)
 
+#pragma warning(disable:4018) /* signed/unsigned mismatch */
+#pragma warning(disable:4761) /* integral size mismatch in argument; conversion supplied */
+
 #endif
