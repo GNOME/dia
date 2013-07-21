@@ -344,7 +344,7 @@ apply_style(DiaObject *obj, xmlNodePtr node, DiaSvgStyle *parent_style, gboolean
         cprop->color_data = get_colour(gs->fill, gs->fill_opacity);
       
       bprop = g_ptr_array_index(props,4);
-      if(gs->fill == DIA_SVG_COLOUR_NONE) {
+      if(gs->fill == DIA_SVG_COLOUR_NONE || gs->fill_opacity == 0) {
         bprop->bool_data = FALSE;
       } else {
 	bprop->bool_data = TRUE;
@@ -604,7 +604,7 @@ read_text_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list)
         prop->attr.color = attributes_get_foreground();
 	break;
       case DIA_SVG_COLOUR_DEFAULT_FILL: /* black */
-	prop->attr.color = get_colour(0x000000, 1.0);
+	prop->attr.color = get_colour(0x000000, gs->fill_opacity);
 	break;
       case DIA_SVG_COLOUR_FOREGROUND :
         prop->attr.color = attributes_get_background();
@@ -1154,14 +1154,13 @@ read_items (xmlNodePtr   startnode,
 	obj = g_list_last(items)->data;
     } else if(!xmlStrcmp(node->name, (const xmlChar *)"defs")) {
       /* everything below must have a name to make a difference */
-      DiaObject *otemp;
       GList *list, *defs = read_items (node->xmlChildrenNode, parent_gs, defs_ht, filename_svg, ctx);
 
       for (list = defs; list != NULL; list = g_list_next (list)) {
 #if 0
+	DiaObject *otemp = list->data;
 	gchar *id;
 
-	otemp = list->data;
 	id = dia_object_get_meta (otemp, "id");
 	if (id) {
 	  /* pass ownership of name and object */
@@ -1207,7 +1206,7 @@ read_items (xmlNodePtr   startnode,
        * e.g. links for the nodes.
        */
       GList *moreitems;
-      /* on of the non-grouping elements is <a>, extract possible links */
+      /* one of the non-grouping elements is <a>, extract possible links */
       xmlChar *href = xmlGetProp (node, (const xmlChar *)"href");
 
       moreitems = read_items (node->xmlChildrenNode, parent_gs, defs_ht, filename_svg, ctx);
