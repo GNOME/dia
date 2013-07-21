@@ -498,7 +498,8 @@ _bezier (DiaRenderer *self,
   /* get rid of the first move-to if we can attach to the previous point */
   if (path->len > 0) {
     BezPoint *bp = &g_array_index (path, BezPoint, path->len-1);
-    if (distance_point_point(&bp->p3, &points[0].p1) < 0.001)
+    Point *pt = (BEZ_CURVE_TO == bp->type) ? &bp->p3 : &bp->p1;
+    if (distance_point_point(pt, &points[0].p1) < 0.001)
       i = 1;
   }
   for (i; i < numpoints; ++i)
