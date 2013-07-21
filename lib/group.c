@@ -501,6 +501,10 @@ group_create_with_matrix(GList *objects, DiaMatrix *matrix)
   Group *group = (Group *)group_create(objects);
   if (matrix->x0 != 0 || matrix->y0 != 0) {
     Point delta = {matrix->x0, matrix->y0};
+    const Point *pos = &group->object.position;
+    /* the resulting offset is what we want to shift to */
+    delta.x += (matrix->xx * pos->x - pos->x);
+    delta.y += (matrix->yy * pos->y - pos->y);
     matrix->x0 = matrix->y0 = 0; /* offset used internally */
     object_list_move_delta(group->objects, &delta);
   }
@@ -893,6 +897,10 @@ group_transform (Group *group, const DiaMatrix *m)
   /* don't keep the offset in the matrix*/
   if (group->matrix->x0 != 0 || group->matrix->y0 != 0) {
     Point delta = {group->matrix->x0, group->matrix->y0};
+    const Point *pos = &group->object.position;
+    /* the resulting offset is what we want to shift to */
+    delta.x += (m->xx * pos->x - pos->x);
+    delta.y += (m->yy * pos->y - pos->y);
     group->matrix->x0 = group->matrix->y0 = 0; /* offset used internally */
     object_list_move_delta(group->objects, &delta);
   }
