@@ -331,7 +331,7 @@ apply_style(DiaObject *obj, xmlNodePtr node, DiaSvgStyle *parent_style, gboolean
       cprop = g_ptr_array_index(props,3);
       if (gs->fill == DIA_SVG_COLOUR_DEFAULT_FILL) {
 	if (init_fill)
-	  cprop->color_data = get_colour(0x000000, 1.0); /* black */
+	  cprop->color_data = get_colour(0x000000, gs->fill_opacity); /* black */
 	else
 	  cprop->common.experience |= PXP_NOTSET; /* no overwrite */
       } else if (gs->fill == DIA_SVG_COLOUR_NONE) /* transparent */
@@ -401,7 +401,7 @@ read_path_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list, DiaContex
 	dia_svg_parse_style(node, gs, user_scale);
 	if (gs->font)
           dia_font_unref (gs->font);
-	closed = (gs->fill != DIA_SVG_COLOUR_NONE);
+	closed = (gs->fill != DIA_SVG_COLOUR_NONE && gs->fill != DIA_SVG_COLOUR_DEFAULT_FILL);
 	/* if we close it here add an explicit line-to */
 	if (closed) {
 	  bp.type = BEZ_LINE_TO;

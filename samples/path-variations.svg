@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+	x="0px" y="0px" width="28cm" height="21cm" viewBox="0, 0, 560, 420">
+  <!-- variation on path definitions all leading to a 1x1 square -->
+  <defs>
+    <path d="M0,0 20,0 20,20 0,20 0,0z" fill="red" stroke="none" id="box"/>
+    <path d="M10,0 20,0 20,20 0,20 0,0z" fill="red" stroke="none" id="box"/>
+    <path d="M0,0 10,0 10,10 0,10 0,0z" fill="red" stroke="none" id="box-sm"/>
+    <path d="M0,0h20v20h-20z" fill="lime" id="box-lime"/>
+    <path d="M0,0h20v20h-20z" id="box-nofill"/>
+  </defs>
+  <!-- the explicit fill attribute closes the path -->
+  <path d="M20,20L40,20 40,40 20,40 20,20" fill="black" stroke="none" id="box11"/>
+  <!-- should be black, but is white with Dia today ... -->
+  <path d="M60,20h20v20h-20z" style="stroke:none,fill:#000000" id="box21"/>
+  <!-- the trailing semicolon should be optional -->
+  <path d="M100,20h20v20h-20z" style="stroke:none;fill:#000000" id="box31"/>
+  <!-- implicit line-to -->
+  <path d="M140,20,160,20,160,40,140,40z" fill="black" stroke="none" id="box41"/>
+  <!-- start is alway absolute -->
+  <path d="m180,20 20,0 0,20 -20,0 z" fill="black" stroke="none" id="box51"/>
+  <text x="220" y="40">Data and style</text> 
+  <!-- style from group, offset in path -->
+  <g style="stroke:none;fill:blue" id="boxX2">
+    <!-- implicit close is supposed to be inherited by the group style -->
+    <path d="M20,20L40,20 40,40 20,40 20,20" transform="translate(0,40)" id="box12"/>
+    <path d="M60,20h20v20h-20z"  transform="translate(0,40)" id="box22"/>
+    <path d="M100,20h20v20h-20z" transform="translate(0,40)"  id="box32"/>
+    <path d="M140,20,160,20,160,40,140,40z" transform="translate(0,40)" id="box42"/>
+    <path d="m180,20 20,0 0,20 -20,0 z" transform="translate(0,40)" id="box52"/>
+    <text x="220" y="80">Group style and translate</text> 
+  </g>
+  <!-- Use use variations -->
+  <use x="20" y="100" xlink:href="#box"/>
+  <use x="0" y="0" xlink:href="#box" transform="translate(60,100)" id="box13"/>
+  <use x="10" y="100" xlink:href="#box1" transform="translate(80,0)"  id="box23"/>
+  <use xlink:href="#box-sm" transform="matrix(2,0,0,2,100,100)"/>
+  <g id="scaled-use" transform="matrix(2,0,0,2,140,100)">
+    <use x="0" y="0" xlink:href="#box-sm" id="box43"/>
+    <use x="0" y="0" xlink:href="#box-sm" transform="translate(20,0)" id="box53"/>
+  </g>
+  <text x="220" y="120" fill="red">Use and transform</text>
+  <!-- Use coloring: Firefox 23.0 and Inkscape 0.48 have it all lime -->
+  <use x="20" y="140" xlink:href="#box-lime"/>
+  <use x="60" y="140" fill="yellow" xlink:href="#box-lime"/>
+  <g style="fill:cyan">
+    <use x="100" y="140" xlink:href="#box-lime"/>
+  </g>
+  <use x="140" y="140" style="fill:magenta" xlink:href="#box-lime"/>
+  <use x="180" y="140" xlink:href="#box-lime" style="fill:gray" />
+  <text x="220" y="160" fill="lime">Use: lime, yellow, cyan, magenta, gray?</text>
+  <!-- Use coloring: this time compatible -->
+  <use x="20" y="180" xlink:href="#box-nofill"/>
+  <use x="60" y="180" fill="yellow" xlink:href="#box-nofill"/>
+  <g style="fill:cyan">
+    <use x="100" y="180" xlink:href="#box-nofill"/>
+  </g>
+  <use x="140" y="180" style="fill:magenta" xlink:href="#box-nofill"/>
+  <use x="180" y="180" xlink:href="#box-nofill" style="fill:gray" />
+  <text x="220" y="200" fill="black">Use: black, yellow, cyan, magenta, gray?</text>
+</svg>
