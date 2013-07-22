@@ -16,7 +16,7 @@ msgstr ""
 "Project-Id-Version: dia\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=dia&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2013-05-20 11:21+0000\n"
+"POT-Creation-Date: 2013-07-21 15:28+0000\n"
 "PO-Revision-Date: 2013-06-30 21:22+0200\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
@@ -412,24 +412,36 @@ msgstr ""
 msgid "A program for drawing structured diagrams."
 msgstr "Program pro kreslení strukturovaných diagramů."
 
-#: ../app/confirm.c:69
-#, c-format
-msgid "You are about to print a diagram with %d pages."
-msgstr "Chystáte se vytisknout diagram s %d stránkami."
-
 #: ../app/confirm.c:71
 #, c-format
-msgid "You are about to export a diagram with %d pages."
-msgstr "Chystáte se exportovat diagram s %d stránkami."
+msgid "You are about to print a diagram with %d page."
+msgid_plural "You are about to print a diagram with %d pages."
+msgstr[0] "Chystáte se vytisknout diagram s %d stránkou."
+msgstr[1] "Chystáte se vytisknout diagram s %d stránkami."
+msgstr[2] "Chystáte se vytisknout diagram s %d stránkami."
 
-#: ../app/confirm.c:73
+#: ../app/confirm.c:75
+#, c-format
+msgid "You are about to export a diagram with %d page."
+msgid_plural "You are about to export a diagram with %d pages."
+msgstr[0] "Chystáte se exportovat diagram s %d stránkou."
+msgstr[1] "Chystáte se exportovat diagram s %d stránkami."
+msgstr[2] "Chystáte se exportovat diagram s %d stránkami."
+
+#: ../app/confirm.c:79
 #, c-format
 msgid ""
+"You are about to export a diagram which may require %s of memory.(%d page)."
+msgid_plural ""
 "You are about to export a diagram which may require %s of memory.(%d pages)."
-msgstr ""
+msgstr[0] ""
+"Chystáte se exportovat diagram, který může vyžadovat %s paměti (%d stránka)."
+msgstr[1] ""
+"Chystáte se exportovat diagram, který může vyžadovat %s paměti (%d stránky)."
+msgstr[2] ""
 "Chystáte se exportovat diagram, který může vyžadovat %s paměti (%d stránek)."
 
-#: ../app/confirm.c:81
+#: ../app/confirm.c:88
 msgid ""
 "You can adjust the size of the diagram by changing the 'Scaling' in the "
 "'Page Setup' dialog.\n"
@@ -441,7 +453,7 @@ msgstr ""
 "Případně můžete použít „Vybrat vše“ a „Nejlepší přizpůsobení“ pro přesun "
 "objektů/úchytů do zamýšlených hranic."
 
-#: ../app/confirm.c:85
+#: ../app/confirm.c:92
 msgid "Confirm Diagram Size"
 msgstr "Potvrzení velikosti diagramu"
 
@@ -467,7 +479,7 @@ msgstr "Výchozí: "
 msgid "Couldn't convert filename '%s' to UTF-8: %s\n"
 msgstr "Nelze převést název souboru „%s“ do UTF-8: %s\n"
 
-#: ../app/diagram.c:240 ../lib/message.c:91 ../lib/message.c:296
+#: ../app/diagram.c:240 ../lib/message.c:91 ../lib/message.c:299
 msgid "Error"
 msgstr "Chyba"
 
@@ -667,7 +679,7 @@ msgstr "Barvy"
 msgid "Diagram Properties: %s"
 msgstr "Vlastnosti diagramu: %s"
 
-#: ../app/disp_callbacks.c:92 ../app/properties-dialog.c:156
+#: ../app/disp_callbacks.c:93 ../app/properties-dialog.c:156
 msgid ""
 "This object doesn't support Undo/Redo.\n"
 "Undo information erased."
@@ -675,19 +687,25 @@ msgstr ""
 "Tento objekt nepodporuje operaci vzetí akce zpět / provedení znovu.\n"
 "Informace o vzetí akce zpět byla odstraněna."
 
-#: ../app/disp_callbacks.c:127
+#: ../app/disp_callbacks.c:128
 msgid "Properties…"
 msgstr "Vlastnosti…"
 
-#: ../app/disp_callbacks.c:166
+#: ../app/disp_callbacks.c:167
 msgid "Follow link…"
 msgstr "Následovat odkaz…"
 
-#: ../app/disp_callbacks.c:288
+#: ../app/disp_callbacks.c:216 ../objects/standard/bezier.c:785
+#: ../objects/standard/beziergon.c:524 ../objects/standard/box.c:749
+#: ../objects/standard/textobj.c:450
+msgid "Convert to Path"
+msgstr "Převést na cestu"
+
+#: ../app/disp_callbacks.c:345
 msgid "Selection"
 msgstr "Výběr"
 
-#: ../app/disp_callbacks.c:1056
+#: ../app/disp_callbacks.c:1113
 msgid ""
 "The object you dropped cannot fit into its parent. \n"
 "Either expand the parent object, or drop the object elsewhere."
@@ -977,7 +995,7 @@ msgstr "Přidat vrstvu"
 msgid "Layer name:"
 msgstr "Název vrstvy:"
 
-#: ../app/linewidth_area.c:247 ../lib/properties.h:622 ../lib/properties.h:625
+#: ../app/linewidth_area.c:247 ../lib/properties.h:623 ../lib/properties.h:626
 #: ../objects/chronogram/chronoline.c:180
 #: ../objects/chronogram/chronoref.c:159
 msgid "Line width"
@@ -1077,9 +1095,9 @@ msgstr "Není povoleno zapisovat do dočasných souborů v %s\n"
 #: ../app/load_save.c:1072 ../plug-ins/cgm/cgm.c:1172
 #: ../plug-ins/dxf/dxf-export.c:599
 #: ../plug-ins/metapost/render_metapost.c:1179
-#: ../plug-ins/pgf/render_pgf.c:1204 ../plug-ins/postscript/render_eps.c:123
+#: ../plug-ins/pgf/render_pgf.c:1207 ../plug-ins/postscript/render_eps.c:123
 #: ../plug-ins/pstricks/render_pstricks.c:917
-#: ../plug-ins/vdx/vdx-export.c:1801 ../plug-ins/wmf/wmf.cpp:1374
+#: ../plug-ins/vdx/vdx-export.c:1801 ../plug-ins/wmf/wmf.cpp:1375
 #: ../plug-ins/wpg/wpg.c:1078 ../plug-ins/xfig/xfig-export.c:1178
 #, c-format
 msgid "Can't open output file %s"
@@ -1490,8 +1508,8 @@ msgstr "Posouvat"
 #. how it used to be before 0.96+SVN
 #. new name matching "same name, same type"  rule
 #: ../app/menus.c:232 ../app/toolbox.c:98 ../lib/properties.c:101
-#: ../lib/properties.h:673 ../objects/AADL/aadlbox.c:153
-#: ../objects/custom/custom_object.c:228 ../objects/Jackson/requirement.c:132
+#: ../lib/properties.h:674 ../objects/AADL/aadlbox.c:153
+#: ../objects/custom/custom_object.c:228 ../objects/Jackson/requirement.c:130
 #: ../objects/network/basestation.c:132 ../objects/network/radiocell.c:125
 #: ../objects/UML/activity.c:127 ../objects/UML/actor.c:120
 #: ../objects/UML/classicon.c:145 ../objects/UML/component.c:127
@@ -1804,7 +1822,7 @@ msgid "Portable Network Graphics"
 msgstr "Portable Network Graphics"
 
 #: ../app/preferences.c:224 ../plug-ins/svg/render_svg.c:604
-#: ../plug-ins/svg/svg-import.c:1447
+#: ../plug-ins/svg/svg-import.c:1506
 msgid "Scalable Vector Graphics"
 msgstr "Scalable Vector Graphics"
 
@@ -1812,11 +1830,11 @@ msgstr "Scalable Vector Graphics"
 msgid "PostScript"
 msgstr "PostScript"
 
-#: ../app/preferences.c:228 ../plug-ins/wmf/wmf.cpp:1476
+#: ../app/preferences.c:228 ../plug-ins/wmf/wmf.cpp:1477
 msgid "Windows Metafile"
 msgstr "Windows Metafile"
 
-#: ../app/preferences.c:230 ../plug-ins/wmf/wmf.cpp:1485
+#: ../app/preferences.c:230 ../plug-ins/wmf/wmf.cpp:1486
 msgid "Enhanced Metafile"
 msgstr "Enhanced Metafile"
 
@@ -2386,7 +2404,7 @@ msgid "Blanked Concave"
 msgstr "Prázdná konkáva"
 
 #: ../lib/arrows.c:1920 ../lib/properties.c:81 ../lib/properties.c:87
-#: ../lib/properties.h:600 ../lib/properties.h:606
+#: ../lib/properties.h:601 ../lib/properties.h:607
 msgid "Round"
 msgstr "Zakulacení"
 
@@ -2418,7 +2436,7 @@ msgstr "neznámá šipka"
 #: ../lib/create.c:50 ../lib/create.c:100 ../lib/create.c:127
 #: ../lib/create.c:160 ../lib/create.c:196 ../lib/create.c:228
 #: ../lib/create.c:252 ../lib/create.c:284 ../lib/create.c:305
-#: ../lib/create.c:335 ../lib/create.c:378 ../plug-ins/svg/svg-import.c:398
+#: ../lib/create.c:335 ../lib/create.c:378 ../plug-ins/svg/svg-import.c:438
 #: ../plug-ins/vdx/vdx-import.c:144
 msgid "Can't find standard object"
 msgstr "Nelze nalézt standardní objekt"
@@ -2618,11 +2636,11 @@ msgstr "Více importních filtrů s jedinečným názvem %s"
 msgid "Can't load font %s.\n"
 msgstr "Nelze načíst písmo %s.\n"
 
-#: ../lib/group.c:622
+#: ../lib/group.c:628
 msgid "Transformation"
 msgstr "Transformace"
 
-#: ../lib/message.c:93 ../lib/message.c:281
+#: ../lib/message.c:93 ../lib/message.c:284
 msgid "Warning"
 msgstr "Varování"
 
@@ -2638,12 +2656,15 @@ msgstr "Zobrazit opakující se zprávy"
 msgid "Don't show this message again"
 msgstr "Tuto zprávu již nezobrazovat"
 
-#: ../lib/message.c:203
+#: ../lib/message.c:206
 #, c-format
-msgid "There are %d similar messages."
-msgstr "Je přítomno %d podobných zpráv."
+msgid "There is %d similar message."
+msgid_plural "There are %d similar messages."
+msgstr[0] "Je přítomna %d podobná zpráva."
+msgstr[1] "Jsou přítomny %d podobné zprávy."
+msgstr[2] "Je přítomno %d podobných zpráv."
 
-#: ../lib/message.c:265
+#: ../lib/message.c:268
 msgid "Notice"
 msgstr "Poznámka"
 
@@ -2733,80 +2754,80 @@ msgstr "Klíč"
 msgid "Value"
 msgstr "Hodnota"
 
-#: ../lib/properties.c:67 ../lib/properties.h:587 ../lib/widgets.c:269
+#: ../lib/properties.c:67 ../lib/properties.h:588 ../lib/widgets.c:269
 msgid "Left"
 msgstr "Vlevo"
 
-#: ../lib/properties.c:68 ../lib/properties.h:588 ../lib/widgets.c:270
+#: ../lib/properties.c:68 ../lib/properties.h:589 ../lib/widgets.c:270
 #: ../objects/standard/textobj.c:111
 msgid "Center"
 msgstr "Uprostřed"
 
-#: ../lib/properties.c:69 ../lib/properties.h:589 ../lib/widgets.c:271
+#: ../lib/properties.c:69 ../lib/properties.h:590 ../lib/widgets.c:271
 msgid "Right"
 msgstr "Vpravo"
 
-#: ../lib/properties.c:74 ../lib/properties.h:593
+#: ../lib/properties.c:74 ../lib/properties.h:594
 msgid "Never"
 msgstr "Nikdy"
 
-#: ../lib/properties.c:75 ../lib/properties.h:594
+#: ../lib/properties.c:75 ../lib/properties.h:595
 msgid "When Needed"
 msgstr "V případě potřeby"
 
-#: ../lib/properties.c:76 ../lib/properties.h:595
+#: ../lib/properties.c:76 ../lib/properties.h:596
 msgid "Always"
 msgstr "Vždy"
 
-#: ../lib/properties.c:80 ../lib/properties.h:599
+#: ../lib/properties.c:80 ../lib/properties.h:600
 msgid "Miter"
 msgstr "Ostré"
 
-#: ../lib/properties.c:82 ../lib/properties.h:601
+#: ../lib/properties.c:82 ../lib/properties.h:602
 msgid "Bevel"
 msgstr "Zkosené"
 
-#: ../lib/properties.c:86 ../lib/properties.h:605
+#: ../lib/properties.c:86 ../lib/properties.h:606
 msgid "Butt"
 msgstr "Useknuté"
 
-#: ../lib/properties.c:88 ../lib/properties.h:607
+#: ../lib/properties.c:88 ../lib/properties.h:608
 msgid "Projecting"
 msgstr "Přetažené"
 
-#: ../lib/properties.c:95 ../lib/properties.h:628 ../lib/properties.h:631
+#: ../lib/properties.c:95 ../lib/properties.h:629 ../lib/properties.h:632
 #: ../objects/chronogram/chronoline.c:178
 #: ../objects/chronogram/chronoref.c:157
 msgid "Line color"
 msgstr "Barva čáry"
 
-#: ../lib/properties.c:96 ../lib/properties.h:634 ../lib/properties.h:637
+#: ../lib/properties.c:96 ../lib/properties.h:635 ../lib/properties.h:638
 msgid "Line style"
 msgstr "Styl čáry"
 
-#: ../lib/properties.c:97 ../lib/properties.h:653 ../lib/properties.h:656
+#: ../lib/properties.c:97 ../lib/properties.h:654 ../lib/properties.h:657
 msgid "Fill color"
 msgstr "Barva výplně"
 
 #. just to simplify transfering properties between objects
-#: ../lib/properties.c:98 ../lib/properties.h:659 ../lib/properties.h:662
-#: ../lib/standard-path.c:138
+#: ../lib/properties.c:98 ../lib/properties.h:660 ../lib/properties.h:663
+#: ../lib/standard-path.c:139
 msgid "Draw background"
 msgstr "Vykreslovat pozadí"
 
-#: ../lib/properties.c:99 ../lib/properties.h:666
+#: ../lib/properties.c:99 ../lib/properties.h:667
 msgid "Start arrow"
 msgstr "Počáteční šipka"
 
-#: ../lib/properties.c:100 ../lib/properties.h:669
+#: ../lib/properties.c:100 ../lib/properties.h:670
 msgid "End arrow"
 msgstr "Koncová šipka"
 
-#: ../lib/properties.c:102 ../lib/properties.h:679
+#: ../lib/properties.c:102 ../lib/properties.h:680
 msgid "Text alignment"
 msgstr "Zarovnání textu"
 
-#: ../lib/properties.c:103 ../lib/properties.h:684
+#: ../lib/properties.c:103 ../lib/properties.h:685
 #: ../objects/chronogram/chronoline.c:182
 #: ../objects/chronogram/chronoref.c:163 ../objects/Database/reference.c:118
 #: ../objects/GRAFCET/condition.c:131 ../objects/GRAFCET/step.c:165
@@ -2814,28 +2835,28 @@ msgstr "Zarovnání textu"
 msgid "Font"
 msgstr "Písmo"
 
-#: ../lib/properties.c:104 ../lib/properties.h:692
+#: ../lib/properties.c:104 ../lib/properties.h:693
 #: ../objects/chronogram/chronoline.c:184
 #: ../objects/chronogram/chronoref.c:165 ../objects/GRAFCET/condition.c:133
 #: ../objects/GRAFCET/step.c:167 ../objects/GRAFCET/transition.c:143
 msgid "Font size"
 msgstr "Velikost písma"
 
-#: ../lib/properties.c:105 ../lib/properties.h:698
+#: ../lib/properties.c:105 ../lib/properties.h:699
 #: ../objects/chronogram/chronoline.c:186
 #: ../objects/chronogram/chronoref.c:167 ../objects/GRAFCET/step.c:169
 msgid "Text color"
 msgstr "Barva textu"
 
-#: ../lib/properties.h:640 ../lib/properties.h:643
+#: ../lib/properties.h:641 ../lib/properties.h:644
 msgid "Line join"
 msgstr "Napojení čar"
 
-#: ../lib/properties.h:646 ../lib/properties.h:649
+#: ../lib/properties.h:647 ../lib/properties.h:650
 msgid "Line caps"
 msgstr "Zakončení čar"
 
-#: ../lib/properties.h:707
+#: ../lib/properties.h:708
 msgid "Text fitting"
 msgstr "Přizpůsobit textu"
 
@@ -2870,10 +2891,19 @@ msgstr ""
 msgid "Cant create image data from scratch!"
 msgstr "Nelze vytvořit obrazová data úplně od nuly!"
 
-#: ../lib/prop_text.c:481
+#. Todo: get label for the branch view from props, e.g. UML Operations Parameters
+#: ../lib/prop_sdarray_widget.c:577 ../objects/chronogram/chronoline.c:161
+#: ../objects/UML/umloperation.c:79
+msgid "Parameters"
+msgstr "Parametry"
+
+#: ../lib/prop_text.c:483
 #, c-format
-msgid "Group with %d objects"
-msgstr "Skupina s %d objekty"
+msgid "Group with %d object"
+msgid_plural "Group with %d objects"
+msgstr[0] "Skupina s %d objektem"
+msgstr[1] "Skupina s %d objekty"
+msgstr[2] "Skupina s %d objekty"
 
 #: ../lib/sheet.c:71 ../lib/sheet.c:86
 #, c-format
@@ -2904,36 +2934,36 @@ msgstr ""
 msgid "%s: you should use object tags rather than shape tags now"
 msgstr "%s: nyní byste měli raději používat značky objektů než značky symbolů"
 
-#: ../lib/standard-path.c:122
+#: ../lib/standard-path.c:123
 msgid "Stroke"
 msgstr "Obrys"
 
 #. Translators: Menu item Verb/Provision/Supply/Fill
-#: ../lib/standard-path.c:123 ../objects/FS/function.c:934
+#: ../lib/standard-path.c:124 ../objects/FS/function.c:934
 msgid "Fill"
 msgstr "Výplň"
 
-#: ../lib/standard-path.c:124
+#: ../lib/standard-path.c:125
 msgid "Fill & Stroke"
 msgstr "Výplň a obrys"
 
-#: ../lib/standard-path.c:129
+#: ../lib/standard-path.c:130
 msgid "Bezier points"
 msgstr "Body Beziérovy křivky"
 
-#: ../lib/standard-path.c:130
+#: ../lib/standard-path.c:131
 msgid "Drawing"
 msgstr "Vykreslit"
 
-#: ../lib/standard-path.c:139
+#: ../lib/standard-path.c:140
 msgid "Draw Control Lines"
 msgstr "Vykreslovat řídící čáry"
 
-#: ../lib/standard-path.c:464
+#: ../lib/standard-path.c:466
 msgid "Convert to Bezier"
 msgstr "Převést na Beziérovu křivku"
 
-#: ../lib/standard-path.c:465
+#: ../lib/standard-path.c:467
 msgid "Show Control Lines"
 msgstr "Zobrazovat řídící čáry"
 
@@ -3050,10 +3080,6 @@ msgstr ""
 ") trvání  nastaví signál na dolní úroveň, poté čeká po dobu „trvání“.\n"
 "u trvání  nastaví signál na „neznámý“ stav, poté čeká po dobu „trvání“.\n"
 "příklad : @ 1.0 (2.0)1.0(2.0)\n"
-
-#: ../objects/chronogram/chronoline.c:161 ../objects/UML/umloperation.c:79
-msgid "Parameters"
-msgstr "Parametry"
 
 #: ../objects/chronogram/chronoline.c:163
 #: ../objects/chronogram/chronoref.c:145
@@ -5014,11 +5040,6 @@ msgstr "Hladké ovládání"
 msgid "Cusp control"
 msgstr "Hrotové ovládání"
 
-#: ../objects/standard/bezier.c:785 ../objects/standard/beziergon.c:524
-#: ../objects/standard/box.c:749 ../objects/standard/textobj.c:450
-msgid "Convert to Path"
-msgstr "Převést na cestu"
-
 #: ../objects/standard/box.c:125 ../objects/standard/ellipse.c:117
 msgid "Free"
 msgstr "Volné"
@@ -5718,7 +5739,7 @@ msgid "Clipboard copy failed"
 msgstr "Selhalo kopírování do schránky"
 
 #: ../plug-ins/cairo/diacairo.c:362 ../plug-ins/postscript/postscript.c:39
-#: ../plug-ins/wmf/wmf.cpp:1503
+#: ../plug-ins/wmf/wmf.cpp:1504
 msgid "Nothing to print"
 msgstr "K tisku není nic k dispozici"
 
@@ -5982,7 +6003,7 @@ msgstr "Exportní filtr formátu LaTeX PGF"
 msgid "Not valid UTF-8"
 msgstr "Neplatné UTF-8"
 
-#: ../plug-ins/pgf/render_pgf.c:1268
+#: ../plug-ins/pgf/render_pgf.c:1271
 msgid "LaTeX PGF macros"
 msgstr "Makra LaTeX PGF"
 
@@ -6110,7 +6131,7 @@ msgstr "Soubor se symboly Dia"
 msgid "Scalable Vector Graphics import and export filters"
 msgstr "Importní a exportní filtry formátu Scalable Vector Graphics"
 
-#: ../plug-ins/svg/svg-import.c:387
+#: ../plug-ins/svg/svg-import.c:427
 msgid ""
 "Invalid path data.\n"
 "svg:path data must start with moveto."
@@ -6118,16 +6139,16 @@ msgstr ""
 "Neplatná data cesty.\n"
 "Data svg:path musí začínat příkazem moveto."
 
-#: ../plug-ins/svg/svg-import.c:1227
+#: ../plug-ins/svg/svg-import.c:1274
 msgid "'Shape Design' shapes missing."
 msgstr "Schází symboly „Návrh symbolu“"
 
-#: ../plug-ins/svg/svg-import.c:1261
+#: ../plug-ins/svg/svg-import.c:1308
 #, c-format
 msgid "Object '%s' creation failed"
 msgstr "Vytvoření objektu „%s“ selhalo"
 
-#: ../plug-ins/svg/svg-import.c:1283
+#: ../plug-ins/svg/svg-import.c:1330
 #, c-format
 msgid ""
 "Parse error for memory block.\n"
@@ -6136,16 +6157,16 @@ msgstr ""
 "Chyba zpracování pro paměťový blok.\n"
 "%s"
 
-#: ../plug-ins/svg/svg-import.c:1296 ../plug-ins/vdx/vdx-import.c:2887
+#: ../plug-ins/svg/svg-import.c:1343 ../plug-ins/vdx/vdx-import.c:2887
 #, c-format
 msgid "Parse error for %s"
 msgstr "Chyba zpracování pro %s"
 
-#: ../plug-ins/svg/svg-import.c:1328
+#: ../plug-ins/svg/svg-import.c:1376
 msgid "Expected SVG Namespace not found in file"
 msgstr "Očekávaný jmenný prostor SVG nebyl v souboru nalezen"
 
-#: ../plug-ins/svg/svg-import.c:1348
+#: ../plug-ins/svg/svg-import.c:1396
 #, c-format
 msgid "root element was '%s' -- expecting 'svg'."
 msgstr "kořenový element byl „%s“ -- očekává se „svg“."
@@ -6222,7 +6243,7 @@ msgstr ""
 "Nelze zapsat soubor %s\n"
 "%s"
 
-#: ../plug-ins/wmf/wmf.cpp:566
+#: ../plug-ins/wmf/wmf.cpp:567
 #, c-format
 msgid ""
 "Cannot render unknown font:\n"
@@ -6231,11 +6252,11 @@ msgstr ""
 "Nelze vykreslit neznámé písmo:\n"
 "%s"
 
-#: ../plug-ins/wmf/wmf.cpp:1514
+#: ../plug-ins/wmf/wmf.cpp:1515
 msgid "Print (GDI) ..."
 msgstr "Tisk (GDI)…"
 
-#: ../plug-ins/wmf/wmf.cpp:1530
+#: ../plug-ins/wmf/wmf.cpp:1531
 msgid "WMF export filter"
 msgstr "Exportní filtr formátu WMF"
 
@@ -9572,14 +9593,10 @@ msgid "A KAOS performs"
 msgstr "Provádění diagramu KAOS"
 
 #: ../sheets/KAOS.sheet.in.h:22
-msgid "A KAOS operation"
-msgstr "Operace diagramu KAOS"
-
-#: ../sheets/KAOS.sheet.in.h:23
 msgid "A KAOS input"
 msgstr "Vstup diagramu KAOS"
 
-#: ../sheets/KAOS.sheet.in.h:24
+#: ../sheets/KAOS.sheet.in.h:23
 msgid "A KAOS output"
 msgstr "Výstup diagramu KAOS"
 
