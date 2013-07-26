@@ -577,11 +577,55 @@ _test_draw (gconstpointer user_data)
 
   o->ops->draw (o, renderer);
   /* finally */
-  o->ops->destroy (o);  
+  o->ops->destroy (o);
   g_free (o);
   g_object_unref (renderer);
 }
 
+static void
+_test_distance_from (gconstpointer user_data)
+{
+  const DiaObjectType *type = (const DiaObjectType *)user_data;
+  Handle *h1 = NULL, *h2 = NULL;
+  Point from = {0, 0};
+  DiaObject *o = type->ops->create (&from, type->default_user_data, &h1, &h2);
+  const Rectangle *ebox;
+  Point center;
+  real width, height;
+  Point test;
+  real outside = 0.01; /* tolerance value for being outside */
+
+  /* This shall work for all objects so it does not check for full correctness,
+   * but is currently tolerant enough for element and connection objects.
+   * If it fails either the bounding calculation is bogus or distance_from method.
+   */
+  /* Outside of the enclosing (bounding) box can not be inside the object */
+  ebox = dia_object_get_enclosing_box (o);
+  center.x = (ebox->left + ebox->right) / 2;
+  center.y = (ebox->top + ebox->bottom) / 2;
+  width = ebox->right - ebox->left;
+  height = ebox->bottom - ebox->top;
+
+  /* Some custom objects still fail this check otherwise */
+  if (   strcmp (type->name, "Civil - Gas Bottle") == 0
+      || strcmp (type->name, "Cybernetics - l-sens") == 0)
+    outside += 0.1;
+
+  test.y = center.y;
+  test.x = center.x - width/2 - outside;
+  g_assert (o->ops->distance_from (o, &test) > 0 && "left");
+  test.x = center.x + width/2 + outside;
+  g_assert (o->ops->distance_from (o, &test) > 0 && "right");
+  test.x = center.x;
+  test.y = center.y - height/2 - outside;
+  g_assert (o->ops->distance_from (o, &test) > 0 && "top");
+  test.y = center.y + height/2 + outside;
+  g_assert (o->ops->distance_from (o, &test) > 0 && "bottom");
+
+  /* finally */
+  o->ops->destroy (o);
+  g_free (o);
+}
 /*
  * A dictionary interface to all registered object(-types)
  */
@@ -626,6 +670,10 @@ _ot_item (gpointer key,
 
   testpath = g_strdup_printf ("%s/%s/%s", base, name, "Draw");
   g_test_add_data_func (testpath, type, _test_draw);
+  g_free (testpath);
+
+  testpath = g_strdup_printf ("%s/%s/%s", base, name, "DistanceFrom");
+  g_test_add_data_func (testpath, type, _test_distance_from);
   g_free (testpath);
 
   ++num_objects;

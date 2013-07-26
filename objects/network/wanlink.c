@@ -235,14 +235,7 @@ wanlink_draw (WanLink *wanlink, DiaRenderer *renderer)
 static real
 wanlink_distance_from(WanLink *wanlink, Point *point)
 {
-  Point *endpoints;
-  real min_dist;
-
-  /* TODO: handle the fact that this is not a line */
-  endpoints = &wanlink->connection.endpoints[0];
-  min_dist = distance_line_point( &endpoints[0], &endpoints[1],
-                                  wanlink->width, point);
-  return min_dist;
+  return distance_polygon_point (wanlink->poly, WANLINK_POLY_LEN, wanlink->width, point);
 }
 
 static void
@@ -299,7 +292,8 @@ wanlink_move_handle(WanLink *wanlink, Handle *handle,
 {
   connection_move_handle(&wanlink->connection, handle->id, to, cp,
 			 reason, modifiers);
-  
+  connection_adjust_for_autogap(&wanlink->connection);
+
   wanlink_update_data(wanlink);
 
   return NULL;
@@ -495,14 +489,11 @@ wanlink_update_data(WanLink *wanlink)
 		        &new_pt);
       point_add (&new_pt, &origin);
       wanlink->poly[i] = new_pt;
-      if (wanlink->poly [i].y < obj->bounding_box.top)
-	  obj->bounding_box.top = wanlink->poly [i].y;
-      if (wanlink->poly [i].x < obj->bounding_box.left)
-	  obj->bounding_box.left = wanlink->poly [i].x;
-      if (wanlink->poly [i].y > obj->bounding_box.bottom)
-	  obj->bounding_box.bottom = wanlink->poly [i].y;
-      if (wanlink->poly [i].x > obj->bounding_box.right)
-	  obj->bounding_box.right = wanlink->poly [i].x;
+  }
+  /* calculate bounding box */
+  {
+    PolyBBExtras bbex = {0, 0, wanlink->width/2, 0, 0 };
+    polyline_bbox (&wanlink->poly[0], WANLINK_POLY_LEN, &bbex, TRUE, &obj->bounding_box);
   }
 
 

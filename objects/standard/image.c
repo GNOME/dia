@@ -254,11 +254,12 @@ image_distance_from(Image *image, Point *point)
 {
   Element *elem = &image->element;
   Rectangle rect;
+  real bw = image->draw_border ? image->border_width : 0;
 
-  rect.left = elem->corner.x - image->border_width;
-  rect.right = elem->corner.x + elem->width + image->border_width;
-  rect.top = elem->corner.y - image->border_width;
-  rect.bottom = elem->corner.y + elem->height + image->border_width;
+  rect.left = elem->corner.x - bw;
+  rect.right = elem->corner.x + elem->width + bw;
+  rect.top = elem->corner.y - bw;
+  rect.bottom = elem->corner.y + elem->height + bw;
   return distance_rectangle_point(&rect, point);
 }
 

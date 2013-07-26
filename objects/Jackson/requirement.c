@@ -167,8 +167,14 @@ req_set_props(Requirement *req, GPtrArray *props)
 static real
 req_distance_from(Requirement *req, Point *point)
 {
-  DiaObject *obj = &req->element.object;
-  return distance_rectangle_point(&obj->bounding_box, point);
+  Element *elem = &req->element;
+  Point center;
+
+  center.x = elem->corner.x+elem->width/2;
+  center.y = elem->corner.y+elem->height/2;
+
+  return distance_ellipse_point(&center, elem->width, elem->height,
+				REQ_LINEWIDTH, point);
 }
 
 static void
@@ -321,6 +327,13 @@ req_update_data(Requirement *req)
 
   element_update_handles(elem);
 
+  /* Boundingbox calculation including the line width */
+  {
+    Rectangle bbox;
+
+    ellipse_bbox (&c, elem->width, elem->height, &elem->extra_spacing, &bbox);
+    rectangle_union(&obj->bounding_box, &bbox);
+  }
 }
 
 /** creation here */
@@ -374,7 +387,7 @@ req_create(Point *startpoint,
   }
   req->connections[8].flags = CP_FLAGS_MAIN;
   req->connections[8].directions |= DIR_ALL;
-  elem->extra_spacing.border_trans = 0.0;
+  elem->extra_spacing.border_trans = REQ_LINEWIDTH / 2.0;
   req_update_data(req);
 
   for (i=0;i<8;i++) {

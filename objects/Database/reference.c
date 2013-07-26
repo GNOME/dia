@@ -344,8 +344,16 @@ reference_update_data (TableReference * ref)
 {
   OrthConn * orth = &ref->orth;
   Rectangle rect;
+  PolyBBExtras *extra = &orth->extra_spacing;
 
   orthconn_update_data (orth);
+
+  /* account for line_width in bounding box calculation */
+  extra->start_trans =
+    extra->start_long =
+    extra->middle_trans =
+    extra->end_trans =
+    extra->end_long = ref->line_width/2.0;
   orthconn_update_boundingbox (orth);
 
   /* compute the position of the start point description */
@@ -415,6 +423,10 @@ reference_update_data (TableReference * ref)
     {
       ref->ep_desc_width = 0.0;
     }
+  /* finally the end arrow */
+  arrow_bbox (&ref->end_arrow, ref->line_width,
+              &orth->points[orth->numpoints - 1], &orth->points[orth->numpoints - 2], &rect);
+  rectangle_union (&orth->object.bounding_box, &rect);
 }
 
 static void

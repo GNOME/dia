@@ -509,7 +509,7 @@ text_distance_from(Text *text, Point *point)
   int line;
   
   topy = text->position.y - text->ascent;
-  bottomy = topy + text->height*text->numlines;
+  bottomy = text->position.y + text->descent + text->height*(text->numlines-1);
   if (point->y <= topy) {
     dy = topy - point->y;
     line = 0;
