@@ -257,6 +257,7 @@ flow_move_handle(Flow *flow, Handle *handle,
 
     connection_move_handle(&flow->connection, handle->id, to, cp, 
 			   reason, modifiers);
+    connection_adjust_for_autogap(&flow->connection);
 
     p2 = endpoints[1] ;
     point_sub( &p2, &endpoints[0] ) ;

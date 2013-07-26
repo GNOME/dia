@@ -346,6 +346,7 @@ function_update_data(Function *pkg)
   
   text_calc_boundingbox(pkg->text, NULL) ;
   font_height = pkg->text->height ;
+  pkg->element.extra_spacing.border_trans = (font_height / FUNCTION_BORDERWIDTH_SCALE) / 2.0;
   h = elem->corner.y + font_height/FUNCTION_MARGIN_Y;
 
   if (pkg->is_user) {
@@ -460,7 +461,6 @@ function_create(Point *startpoint,
   }
   pkg->connections[8].flags = CP_FLAGS_MAIN;
 
-  pkg->element.extra_spacing.border_trans = FUNCTION_FONTHEIGHT / FUNCTION_BORDERWIDTH_SCALE/2.0;
   function_update_data(pkg);
 
   for (i=0;i<8;i++) {
@@ -583,7 +583,6 @@ function_load(ObjectNode obj_node, int version, DiaContext *ctx)
   }
   pkg->connections[8].flags = CP_FLAGS_MAIN;
 
-  pkg->element.extra_spacing.border_trans = pkg->text ? pkg->text->height : FUNCTION_FONTHEIGHT / FUNCTION_BORDERWIDTH_SCALE/2.0;
   function_update_data(pkg);
 
   for (i=0;i<8;i++) {
