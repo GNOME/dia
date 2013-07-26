@@ -328,10 +328,11 @@ _prop_list_extend_for_meta (GPtrArray *props)
     {NULL}
   };
 
-  Property *p = g_ptr_array_index(props,0);
+  /* Some objects have no properties in case of defaults */
+  Property *p = props->len > 0 ? g_ptr_array_index(props,0) : NULL;
   GPtrArray *pex = prop_list_from_descs(extras,pdtpp_is_visible);
 
-  if (strcmp (p->descr->type, PROP_TYPE_NOTEBOOK_BEGIN) != 0) {
+  if (!p || strcmp (p->descr->type, PROP_TYPE_NOTEBOOK_BEGIN) != 0) {
     int i, olen = props->len;
     /* wrap everything into a first notebook page */
     g_ptr_array_set_size (props, olen + 2);
