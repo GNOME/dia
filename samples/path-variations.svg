@@ -25,7 +25,8 @@
   <g style="stroke:none;fill:blue" id="boxX2">
     <!-- implicit close is supposed to be inherited by the group style -->
     <path d="M20,20L40,20 40,40 20,40 20,20" transform="translate(0,40)" id="box12"/>
-    <path d="M60,20h20v20h-20z"  transform="translate(0,40)" id="box22"/>
+    <!-- ... and by the nodes attributes -->
+    <path d="M60,20h20v20h-20"  fill="blue" transform="translate(0,40)" id="box22"/>
     <path d="M100,20h20v20h-20z" transform="translate(0,40)"  id="box32"/>
     <path d="M140,20,160,20,160,40,140,40z" transform="translate(0,40)" id="box42"/>
     <path d="m180,20 20,0 0,20 -20,0 z" transform="translate(0,40)" id="box52"/>
@@ -49,7 +50,7 @@
   </g>
   <use x="140" y="140" style="fill:magenta" xlink:href="#box-lime"/>
   <use x="180" y="140" xlink:href="#box-lime" style="fill:gray" />
-  <text x="220" y="160" fill="lime">Use: lime, yellow, cyan, magenta, gray?</text>
+  <text x="220" y="160" fill="green">Use: lime(, yellow, cyan, magenta, gray?)</text>
   <!-- Use coloring: this time compatible -->
   <use x="20" y="180" xlink:href="#box-nofill"/>
   <use x="60" y="180" fill="yellow" xlink:href="#box-nofill"/>
@@ -58,5 +59,44 @@
   </g>
   <use x="140" y="180" style="fill:magenta" xlink:href="#box-nofill"/>
   <use x="180" y="180" xlink:href="#box-nofill" style="fill:gray" />
-  <text x="220" y="200" fill="black">Use: black, yellow, cyan, magenta, gray?</text>
+  <text x="220" y="200" fill="black">Use: black, yellow, cyan, magenta, gray</text>
+
+  <!-- more complex pathes -->
+  <g transform="translate(20,220)">
+    <!-- filled with hole, watch it's color -->
+    <g transform="scale(0.2,0.2)">
+      <path d="M0,0 100,0 100,100 0,100z" fill="blue" id="border"/>
+      <path d="M30,30 70,30 70,70 30,70z" fill="red" id="mostly-hidden"/>
+      <!-- hole is counter-clockwise -->
+      <path d="M20,20 80,20 80,80 20,80z M40,40 40,60 60,60 60,40 40,40z"
+	fill="lime" fill-opacity="0.8" id="with-hole"/>
+    </g>
+    <g transform="matrix(0.2,0,0,0.2,40,0)">
+      <use xlink:href="#border"/>
+      <use xlink:href="#mostly-hidden"/>
+      <!-- hole clockwise w/ evenodd -->
+      <path d="M20,20 80,20 80,80 20,80z M40,40 60,40 60,60 40,60 40,40z"
+	fill="lime" fill-opacity="0.8" fill-rule="evenodd" id="with-hole"/>
+    </g>
+    <g transform="matrix(0.2,0,0,0.2,80,0)">
+      <use xlink:href="#border"/>
+      <use xlink:href="#mostly-hidden"/>
+      <!-- no hole: clockwise, missing fill-rule -->
+      <path d="M20,20 80,20 80,80 20,80z M40,40 60,40 60,60 40,60 40,40z"
+	fill="lime" fill-opacity="0.8" id="maybe-with-hole"/>
+    </g>
+    <g transform="matrix(0.2,0,0,0.2,120,0)">
+      <!-- more holes counter-clockwise: smallest first -->
+      <path d="M40,40 40,60 60,60 60,40 40,40z" fill="red"/>
+      <path d="M20,20 80,20 80,80 20,80zM40,40 40,60 60,60 60,40 40,40z" fill="lime"/>
+      <path d="M0,0 100,0 100,100 0,100zM20,20 20,80 80,80 80,20z" fill="blue"/>
+    </g>
+    <g transform="matrix(0.2,0,0,0.2,160,0)">
+      <!-- more holes counter-clockwise: smallest last -->
+      <path d="M0,0 100,0 100,100 0,100zM20,20 20,80 80,80 80,20z" fill="blue"/>
+      <path d="M20,20 80,20 80,80 20,80zM40,40 40,60 60,60 60,40 40,40z" fill="lime"/>
+      <path d="M40,40 40,60 60,60 60,40 40,40z" fill="red"/>
+    </g>
+    <text x="200" y="20" fill="blue">Hole: counter-clockwise, evenodd, none(zero?), more...</text>
+  </g>
 </svg>
