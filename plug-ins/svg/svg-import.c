@@ -1167,6 +1167,11 @@ read_items (xmlNodePtr   startnode,
       /* everything below must have a name to make a difference */
       GList *list, *defs = read_items (node->xmlChildrenNode, parent_gs, defs_ht, filename_svg, ctx);
 
+      /* Commonly seen in <defs/> are
+       *   clipPath, font, filter, linearGradient, mask, marker, pattern, radialGradient, style
+       * all not supported as of this writing.
+       * Less commonly used are normal objects which could be supported here.
+       */
       for (list = defs; list != NULL; list = g_list_next (list)) {
 #if 0
 	DiaObject *otemp = list->data;
