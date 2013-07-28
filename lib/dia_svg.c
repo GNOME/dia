@@ -431,6 +431,13 @@ dia_svg_parse_style(xmlNodePtr node, DiaSvgStyle *s, real user_scale)
       } else if (!strncmp("fill-opacity:", ptr, 13)) {
 	ptr += 13;
 	s->fill_opacity = g_ascii_strtod(ptr, &ptr);
+      } else if (!strncmp("opacity", ptr, 7)) {
+	real opacity;
+        ptr += 7;
+	opacity = g_ascii_strtod(ptr, &ptr);
+	/* multiplicative effect of opacity */
+	s->stroke_opacity *= opacity;
+	s->fill_opacity *= opacity;
       } else if (!strncmp("stroke-linecap:", ptr, 15)) {
 	ptr += 15;
 	while (ptr[0] != '\0' && g_ascii_isspace(ptr[0])) ptr++;
@@ -509,6 +516,14 @@ dia_svg_parse_style(xmlNodePtr node, DiaSvgStyle *s, real user_scale)
   /* ugly svg variations, it is allowed to give style properties without
    * the style attribute, i.e. direct attributes
    */
+  str = xmlGetProp(node, (const xmlChar *)"opacity");
+  if (str) {
+    real opacity = g_ascii_strtod((char *) str, NULL);
+    /* multiplicative effect of opacity */
+    s->stroke_opacity *= opacity;
+    s->fill_opacity *= opacity;
+    xmlFree(str);
+  }
   str = xmlGetProp(node, (const xmlChar *)"fill");
   if (str) {
     if (!_parse_color (&s->fill, (char *) str))
