@@ -1186,6 +1186,14 @@ dia_svg_parse_transform(const gchar *trans, real scale)
       m->x0 = g_ascii_strtod (list[i], NULL), ++i;
     if (list[i])
       m->y0 = g_ascii_strtod (list[i], NULL), ++i;
+  } else if (strncmp (trans, "skewX", 5) == 0) {
+    m->xx = m->yy = 1.0;
+    if (list[i])
+      m->yx = tan (G_PI*g_ascii_strtod (list[i], NULL)/180);
+  } else if (strncmp (trans, "skewY", 5) == 0) {
+    m->xx = m->yy = 1.0;
+    if (list[i])
+      m->xy = tan (G_PI*g_ascii_strtod (list[i], NULL)/180);
   } else {
     g_warning ("SVG: %s?", trans);
     g_free (m);
