@@ -1059,6 +1059,7 @@ read_items (xmlNodePtr   startnode,
 {
   xmlNodePtr node;
   GList *items = NULL;
+  gchar *comment = NULL;
 
 
   for (node = startnode; node != NULL; node = node->next) {
@@ -1069,6 +1070,16 @@ read_items (xmlNodePtr   startnode,
     DiaObject *obj = NULL;
 
     if (xmlIsBlankNode(node)) continue;
+    if (node->type == XML_COMMENT_NODE) {
+      if (!comment)
+        comment = g_strdup ((gchar *)node->content);
+      else {
+	gchar *prev = comment;
+	comment = g_strjoin ("\n", comment, (gchar *)node->content, NULL);
+	g_free (prev);
+      }
+      continue;
+    }
     if (node->type != XML_ELEMENT_NODE) continue;
 
     if (!xmlStrcmp(node->name, (const xmlChar *)"g")) {
@@ -1189,11 +1200,13 @@ read_items (xmlNodePtr   startnode,
 	DiaObject *otemp = g_hash_table_lookup (defs_ht, key+1);
 
 	if (otemp) {
-	  DiaObject *onew = otemp->ops->copy (otemp);
+	  /* The new object can be referenced again by use or
+	   * be target for meta info, comment or something. */
+	  obj = otemp->ops->copy (otemp);
 
-	  use_position (onew, node);
-	  apply_style (onew, node, parent_gs, FALSE);
-	  items = g_list_append (items, onew);
+	  use_position (obj, node);
+	  apply_style (obj, node, parent_gs, FALSE);
+	  items = g_list_append (items, obj);
 	}
 	xmlFree (key);
       }
@@ -1237,8 +1250,15 @@ read_items (xmlNodePtr   startnode,
 	  g_hash_table_insert (defs_ht, g_strdup ((char *)val), obj);
 	xmlFree (val);
       }
+      if (comment) {
+	dia_object_set_meta (obj, "comment", (char *)comment);
+	g_free (comment);
+	comment = NULL;
+      }
     }
   }
+  /* just to be sure */
+  g_free (comment);
   return items;
 }
 
