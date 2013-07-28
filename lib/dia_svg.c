@@ -1131,11 +1131,16 @@ MORETOPARSE:
 DiaMatrix *
 dia_svg_parse_transform(const gchar *trans, real scale)
 {
-  DiaMatrix *m = g_new0 (DiaMatrix, 1);
+  DiaMatrix *m;
   gchar *p = strchr (trans, '(');
-  gchar **list = g_strsplit (p+1, ",", -1);
+  gchar **list;
   int i = 0;
 
+  if (!p)
+    return NULL; /* silently ignore broken format */
+
+  m = g_new0 (DiaMatrix, 1);
+  list = g_regex_split_simple ("[\\s,]+", p+1, 0, 0);
   if (strncmp (trans, "matrix", 6) == 0) {
     if (list[i])
       m->xx = g_ascii_strtod (list[i], NULL), ++i;
