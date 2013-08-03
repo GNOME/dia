@@ -1323,7 +1323,6 @@ read_items (xmlNodePtr   startnode,
        * Less commonly used are normal objects which could be supported here.
        */
       for (list = defs; list != NULL; list = g_list_next (list)) {
-#if 0
 	DiaObject *otemp = list->data;
 	gchar *id;
 
@@ -1345,7 +1344,6 @@ read_items (xmlNodePtr   startnode,
 	  g_free (otemp);
 	  list->data = NULL;
 	}
-#endif
       }
     } else if(!xmlStrcmp(node->name, (const xmlChar *)"use")) {
       xmlChar *key = xmlGetProp (node, (const xmlChar *)"xlink:href");
