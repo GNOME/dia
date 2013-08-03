@@ -521,7 +521,28 @@ dia_svg_parse_style_string (DiaSvgStyle *s, real user_scale, const gchar *str)
      */
     s->font = dia_font_new_from_style(DIA_FONT_SANS, s->font_height > 0 ? s->font_height : 1.0);
     if (family) {
-      dia_font_set_any_family(s->font,family);
+      /* SVG allows a list of families here, also there is some stange formatting 
+       * seen, like 'Arial'. If the given family name can not be resolved by 
+       * Pango it complaints loudly with g_warning().
+       */
+      gchar **families = g_strsplit(family, ",", -1);
+      int i = 0;
+      gboolean found = FALSE;
+      while (!found && families[i]) {
+	const gchar *chomped = g_strchomp (g_strdelimit(families[i], "'", ' '));
+	PangoFont *loaded;
+        dia_font_set_any_family(s->font, chomped);
+	loaded = pango_context_load_font(dia_font_get_context(),
+					 dia_font_get_description(s->font));
+	if (loaded) {
+	  g_object_unref(loaded);
+	  found = TRUE;
+	}
+	++i;
+      }
+      if (!found)
+	dia_font_set_any_family(s->font, "sans");
+      g_strfreev(families);
       g_free(family);
     }
     if (style) {
@@ -616,7 +637,16 @@ dia_svg_parse_style(xmlNodePtr node, DiaSvgStyle *s, real user_scale)
       s->font_height /= user_scale;
     xmlFree(str);
   }
-  
+  str = xmlGetProp(node, (const xmlChar *)"text-anchor");
+  if (str) {
+    if (xmlStrcmp(str, (const xmlChar*)"middle") == 0)
+      s->alignment = ALIGN_CENTER;
+    else if (xmlStrcmp(str, (const xmlChar*)"end") == 0)
+      s->alignment = ALIGN_RIGHT;
+    else if (xmlStrcmp(str, (const xmlChar*)"start") == 0)
+      s->alignment = ALIGN_LEFT;
+    xmlFree(str);
+  }
 }
 
 /*!

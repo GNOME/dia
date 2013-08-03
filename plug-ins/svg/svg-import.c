@@ -629,17 +629,6 @@ read_text_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GHashTable *style_ht, 
       xmlFree(str);
     }
 
-    str = xmlGetProp(node, (const xmlChar *)"text-anchor");
-    if (str) {
-      if (xmlStrcmp(str, (const xmlChar*)"middle") == 0)
-        gs->alignment = ALIGN_CENTER;
-      else if (xmlStrcmp(str, (const xmlChar*)"end") == 0)
-        gs->alignment = ALIGN_RIGHT;
-      else if (xmlStrcmp(str, (const xmlChar*)"start") == 0)
-        gs->alignment = ALIGN_LEFT;
-      xmlFree(str);
-    }
-
     {
       xmlNode *tspan = node->children;
       GString *paragraph = g_string_sized_new(512);
