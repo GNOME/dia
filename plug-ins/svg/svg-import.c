@@ -307,6 +307,13 @@ _css_parse_style (DiaSvgStyle *s, real user_scale,
     style = NULL;
   }
 
+  /* also type only style */
+  style = g_hash_table_lookup (style_ht, tag);
+  if (style) {
+    dia_svg_parse_style_string (s, user_scale, style);
+    style = NULL;
+  }
+
   /* build the key in order of importance */
   /* tag.class#id */
   if (id && klass) {
