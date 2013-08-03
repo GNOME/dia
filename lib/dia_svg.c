@@ -168,9 +168,14 @@ svg_named_color (const char *name, gint32 *color)
 static gboolean
 _parse_color(gint32 *color, const char *str)
 {
-  if (str[0] == '#')
-    *color = strtol(str+1, NULL, 16) & 0xffffff;
-  else if (0 == strncmp(str, "none", 4))
+  if (str[0] == '#') {
+    char *endp = NULL;
+    guint32 val = strtol(str+1, &endp, 16);
+    if (endp - (str + 1) > 3) /* no 16-bit color here */
+      *color =  val & 0xffffff;
+    else /* weak estimation: Pango is reusing bits to fill */
+      *color = ((0xF & val)<<4) | ((0xF0 & val)<<8) | (((0xF00 & val)>>4)<<16);
+  } else if (0 == strncmp(str, "none", 4))
     *color = DIA_SVG_COLOUR_NONE;
   else if (0 == strncmp(str, "foreground", 10) || 0 == strncmp(str, "fg", 2) ||
 	   0 == strncmp(str, "inverse", 7))
