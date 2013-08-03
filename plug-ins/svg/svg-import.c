@@ -50,12 +50,6 @@
 #include "attributes.h"
 
 static gboolean import_svg (xmlDocPtr doc, DiagramData *dia, DiaContext *ctx, void* user_data);
-static GList *read_ellipse_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list);
-static GList *read_rect_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list);
-static GList *read_line_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list);
-static GList *read_poly_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list, char *object_type);
-static GList *read_text_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list);
-static GList *read_path_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list, DiaContext *ctx);
 static GPtrArray *make_element_props(real xpos, real ypos, real width, real height);
 
 /* TODO: use existing implementation in dia source */
@@ -282,9 +276,80 @@ use_position (DiaObject *obj, xmlNodePtr node)
     }
 }
 
+/*!
+ * \brief Lookup and apply CSS style
+ *
+ * This is a slow initial version of CSS support. It parse the style
+ * string for every use rather than for every definition. A better/faster
+ * variant might be to parse the style on definition time into a list
+ * of stdprops which simply could be applied in the right order on use.
+ *
+ * Also missing support for:
+ *  - class lists (which would make it even slower)
+ *  - referenced style definitions (e.g. url())
+ *  - fill-rule, overflow, clip, ....
+ *
+ * \ingroup DiaSvg
+ */
+static void
+_css_parse_style (DiaSvgStyle *s, real user_scale,
+		  gchar *tag, gchar *klass, gchar *id,
+		  GHashTable *style_ht)
+{
+  gchar *style = NULL;
+
+  /* always try and apply '*' */
+  style = g_hash_table_lookup (style_ht, "*");
+  if (style) {
+    dia_svg_parse_style_string (s, user_scale, style);
+    style = NULL;
+  }
+
+  /* build the key in order of importance */
+  /* tag.class#id */
+  if (id && klass) {
+    gchar *key = g_strdup_printf ("%s.%s#%s", tag, klass, id);
+
+    style = g_hash_table_lookup (style_ht, key);
+    g_free (key);
+    if (!style) {
+      /* class#id */
+      key = g_strdup_printf (".%s#%s", klass, id);
+      style = g_hash_table_lookup (style_ht, key);
+      g_free (key);
+    }
+  } 
+  if (!style && klass) {
+    gchar *key = g_strdup_printf (".%s", klass);
+    style = g_hash_table_lookup (style_ht, key);
+    g_free (key);
+  }
+  /* apply most specific style from class lookup */
+  if (style) {
+    dia_svg_parse_style_string (s, user_scale, style);
+    style = NULL;
+  }
+
+  /* apply style from id */
+  if (id) {
+    gchar *key = g_strdup_printf ("#%s", id);
+    style = g_hash_table_lookup (style_ht, key);
+    if (style) {
+      dia_svg_parse_style_string (s, user_scale, style);
+    }
+    g_free (key);
+    key = g_strdup_printf ("%s#%s", tag, id);
+    style = g_hash_table_lookup (style_ht, key);
+    if (style) {
+      dia_svg_parse_style_string (s, user_scale, style);
+    }
+  }
+}
+
 /* apply SVG style to object */
 static void
-apply_style(DiaObject *obj, xmlNodePtr node, DiaSvgStyle *parent_style, gboolean init_fill)
+apply_style(DiaObject *obj, xmlNodePtr node, DiaSvgStyle *parent_style,
+	    GHashTable *style_ht, gboolean init)
 {
       DiaSvgStyle *gs;
       GPtrArray *props;
@@ -307,12 +372,30 @@ apply_style(DiaObject *obj, xmlNodePtr node, DiaSvgStyle *parent_style, gboolean
       /* SVG defaults */
       dia_svg_style_init (gs, parent_style);
             
+      if (g_hash_table_size (style_ht) > 0) {
+	/* only do all these expensive variants if we have some style at all */
+	xmlChar *id = xmlGetProp (node, (xmlChar *)"id");
+	xmlChar *klass = xmlGetProp (node, (xmlChar *)"class");
+
+	_css_parse_style (gs, user_scale, (gchar *)node->name, (gchar *)klass, (gchar *)id, style_ht);
+
+	if (id)
+	  xmlFree (id);
+	if (klass)
+	  xmlFree (klass);
+      }
+
       dia_svg_parse_style(node, gs, user_scale);
       props = prop_list_from_descs(svg_style_prop_descs, pdtpp_true);
       g_assert(props->len == 5);
   
       cprop = g_ptr_array_index(props,0);
-      if(gs->stroke == DIA_SVG_COLOUR_NONE) /* transparent */
+      if (gs->stroke == DIA_SVG_COLOUR_DEFAULT) {
+        if (init) /* no stroke */
+	  cprop->color_data = get_colour(0xFFFFFF, 0.0);
+	else /* leave it alone */
+	  cprop->common.experience |= PXP_NOTSET; /* no overwrite */
+      } else if (gs->stroke == DIA_SVG_COLOUR_NONE) /* transparent */
 	cprop->color_data = get_colour(0xFFFFFF, 0.0);
       else if (gs->stroke == DIA_SVG_COLOUR_FOREGROUND)
 	cprop->color_data = attributes_get_foreground();
@@ -325,12 +408,17 @@ apply_style(DiaObject *obj, xmlNodePtr node, DiaSvgStyle *parent_style, gboolean
       rprop->real_data = gs->line_width * scale;
   
       lsprop = g_ptr_array_index(props,2);
-      lsprop->style = gs->linestyle != DIA_SVG_LINESTYLE_DEFAULT ? gs->linestyle : LINESTYLE_SOLID;
+      if (gs->linestyle != DIA_SVG_LINESTYLE_DEFAULT)
+	lsprop->style = gs->linestyle;
+      else if (init)
+	lsprop->style = LINESTYLE_SOLID;
+      else
+	lsprop->common.experience |= PXP_NOTSET; /* no overwrite */
       lsprop->dash = gs->dashlength * scale;
 
       cprop = g_ptr_array_index(props,3);
-      if (gs->fill == DIA_SVG_COLOUR_DEFAULT_FILL) {
-	if (init_fill)
+      if (gs->fill == DIA_SVG_COLOUR_DEFAULT) {
+	if (init)
 	  cprop->color_data = get_colour(0x000000, gs->fill_opacity); /* black */
 	else
 	  cprop->common.experience |= PXP_NOTSET; /* no overwrite */
@@ -362,7 +450,8 @@ apply_style(DiaObject *obj, xmlNodePtr node, DiaSvgStyle *parent_style, gboolean
  */
 /* read a path */
 static GList *
-read_path_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list, DiaContext *ctx)
+read_path_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GHashTable *style_ht,
+	      GList *list, DiaContext *ctx)
 {
     DiaObjectType *otype;
     DiaObject *new_obj;
@@ -401,7 +490,7 @@ read_path_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list, DiaContex
 	dia_svg_parse_style(node, gs, user_scale);
 	if (gs->font)
           dia_font_unref (gs->font);
-	closed = (gs->fill != DIA_SVG_COLOUR_NONE && gs->fill != DIA_SVG_COLOUR_DEFAULT_FILL);
+	closed = (gs->fill != DIA_SVG_COLOUR_NONE && gs->fill != DIA_SVG_COLOUR_DEFAULT);
 	/* if we close it here add an explicit line-to */
 	if (closed) {
 	  bp.type = BEZ_LINE_TO;
@@ -456,7 +545,7 @@ read_path_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list, DiaContex
 	if (!closed)
 	  reset_arrows (new_obj);
 	g_free(bcd);
-	apply_style(new_obj, node, parent_style, TRUE);
+	apply_style(new_obj, node, parent_style, style_ht, TRUE);
 	list = g_list_append (list, new_obj);
 
         g_array_set_size (bezpoints, 0);
@@ -477,7 +566,7 @@ read_path_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list, DiaContex
 
 /* read a text */
 static GList *
-read_text_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list) 
+read_text_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GHashTable *style_ht, GList *list) 
 {
     DiaObjectType *otype = object_get_type("Standard - Text");
     DiaObject *new_obj;
@@ -514,6 +603,20 @@ read_text_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list)
     if (str) {
       point.y = get_value_as_cm((char *) str, NULL);
       xmlFree(str);
+    }
+
+    /* text propety handling is special, don't use apply_style() */
+    if (g_hash_table_size (style_ht) > 0) {
+      /* only do all these expensive variants if we have some style at all */
+      xmlChar *id = xmlGetProp (node, (xmlChar *)"id");
+      xmlChar *klass = xmlGetProp (node, (xmlChar *)"class");
+
+      _css_parse_style (gs, user_scale, (gchar *)node->name, (gchar *)klass, (gchar *)id, style_ht);
+
+      if (id)
+	xmlFree (id);
+      if (klass)
+	xmlFree (klass);
     }
 
     /* font-size can be given in the style (with absolute unit) or
@@ -603,7 +706,7 @@ read_text_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list)
       case DIA_SVG_COLOUR_BACKGROUND :
         prop->attr.color = attributes_get_foreground();
 	break;
-      case DIA_SVG_COLOUR_DEFAULT_FILL: /* black */
+      case DIA_SVG_COLOUR_DEFAULT: /* black */
 	prop->attr.color = get_colour(0x000000, gs->fill_opacity);
 	break;
       case DIA_SVG_COLOUR_FOREGROUND :
@@ -625,7 +728,8 @@ read_text_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list)
 
 /* read a polygon or a polyline */
 static GList *
-read_poly_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list, char *object_type) 
+read_poly_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GHashTable *style_ht,
+	      GList *list, char *object_type) 
 {
     DiaObjectType *otype = object_get_type(object_type);
     DiaObject *new_obj;
@@ -678,7 +782,7 @@ read_poly_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list, char *obj
     new_obj = otype->ops->create(NULL, pcd,
 				 &h1, &h2);
     reset_arrows (new_obj);
-    apply_style(new_obj, node, parent_style, TRUE);
+    apply_style(new_obj, node, parent_style, style_ht, TRUE);
     list = g_list_append (list, new_obj);
     g_free(points);
     g_free(pcd);
@@ -688,7 +792,8 @@ read_poly_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list, char *obj
 
 /* read an ellipse or circle */
 static GList *
-read_ellipse_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list) 
+read_ellipse_svg(xmlNodePtr node, DiaSvgStyle *parent_style,
+		 GHashTable *style_ht, GList *list) 
 {
   xmlChar *str;
   real width = 0.0, height = 0.0;
@@ -745,7 +850,7 @@ read_ellipse_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list)
     return list;
   new_obj = otype->ops->create(&start, otype->default_user_data,
 				 &h1, &h2);
-  apply_style(new_obj, node, parent_style, TRUE);
+  apply_style(new_obj, node, parent_style, style_ht, TRUE);
 
   props = make_element_props(start.x-(width/2), start.y-(height/2),
                              width, height);
@@ -756,7 +861,8 @@ read_ellipse_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list)
 
 /* read a line */
 static GList *
-read_line_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list) 
+read_line_svg(xmlNodePtr node, DiaSvgStyle *parent_style,
+	      GHashTable *style_ht, GList *list) 
 {
   xmlChar *str;
   DiaObjectType *otype = object_get_type("Standard - Line");
@@ -821,14 +927,15 @@ read_line_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list)
 
   prop_list_free(props);
 
-  apply_style(new_obj, node, parent_style, TRUE);
+  apply_style(new_obj, node, parent_style, style_ht, TRUE);
 
   return g_list_append (list, new_obj);
 }
 
 /* read a rectangle */
 static GList *
-read_rect_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list) 
+read_rect_svg(xmlNodePtr node, DiaSvgStyle *parent_style,
+	      GHashTable *style_ht, GList *list) 
 {
   xmlChar *str;
   real width = 0.0, height = 0.0;
@@ -920,14 +1027,15 @@ read_rect_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list)
   props = make_element_props(start.x,start.y,width,height);
   new_obj->ops->set_props(new_obj, props);
 
-  apply_style(new_obj, node, parent_style, TRUE);
+  apply_style(new_obj, node, parent_style, style_ht, TRUE);
   prop_list_free(props);
 
   return list;
 }
 
 static GList *
-read_image_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list, const gchar *filename_svg)
+read_image_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GHashTable *style_ht,
+	       GList *list, const gchar *filename_svg)
 {
   xmlChar *str;
   real x = 0, y = 0, width = 0, height = 0;
@@ -1022,6 +1130,42 @@ read_image_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list, const gc
   return list;
 }
 
+
+/*!
+ * \brief Parse the CSS style block of the SVG
+ *
+ * 
+ * @node : containing the style
+ * @ht: hash table with style key and style string
+ */
+static void
+read_style (xmlNodePtr node, GHashTable *ht)
+{
+
+  xmlChar *style_type = xmlGetProp (node, (const xmlChar *)"type");
+
+  if (!style_type || xmlStrcmp(style_type, (const xmlChar*)"text/css") == 0) {
+    xmlChar *str = xmlNodeGetContent(node);
+    GRegex *regex = g_regex_new ("\\s*([^\\s+{]+)\\s*{([^}]*)}", G_REGEX_MULTILINE, 0, NULL);
+    GMatchInfo *info;
+
+    g_regex_match (regex, (gchar *)str, 0, &info);
+    while (g_match_info_matches (info)) {
+      /* */
+      gchar *key = g_match_info_fetch (info, 1);
+      gchar *val = g_match_info_fetch (info, 2);
+
+      g_hash_table_insert (ht, key, val);
+      g_match_info_next (info, NULL);
+    }
+    g_match_info_free (info);
+    g_regex_unref (regex);
+
+  }
+  if (style_type)
+    xmlFree (style_type);
+}
+
 /* GFunc for foreach */
 static void
 add_def (gpointer       data,
@@ -1054,6 +1198,7 @@ static GList*
 read_items (xmlNodePtr   startnode, 
 	    DiaSvgStyle *parent_gs,
 	    GHashTable  *defs_ht,
+	    GHashTable  *style_ht,
 	    const gchar *filename_svg,
 	    DiaContext  *ctx)
 {
@@ -1099,7 +1244,7 @@ read_items (xmlNodePtr   startnode,
 	xmlFree (trans);
       }
 
-      moreitems = read_items (node->xmlChildrenNode, group_gs, defs_ht, filename_svg, ctx);
+      moreitems = read_items (node->xmlChildrenNode, group_gs, defs_ht, style_ht, filename_svg, ctx);
 
       if (moreitems) {
         DiaObject *group;
@@ -1120,7 +1265,7 @@ read_items (xmlNodePtr   startnode,
       g_free (matrix);
     } else if (!xmlStrcmp(node->name, (const xmlChar *)"symbol")) {
       /* ignore 'viewBox' and 'preserveAspectRatio' */
-      GList *moreitems = read_items (node->xmlChildrenNode, parent_gs, defs_ht, filename_svg, ctx);
+      GList *moreitems = read_items (node->xmlChildrenNode, parent_gs, defs_ht, style_ht, filename_svg, ctx);
 
       /* only one object or create a group */
       if (g_list_length (moreitems) > 1)
@@ -1128,44 +1273,45 @@ read_items (xmlNodePtr   startnode,
       else if (moreitems)
 	obj = g_list_last(moreitems)->data;
     } else if (!xmlStrcmp(node->name, (const xmlChar *)"rect")) {
-      items = read_rect_svg(node, parent_gs, items);
+      items = read_rect_svg(node, parent_gs, style_ht, items);
       if (items)
 	obj = g_list_last(items)->data;
     } else if (!xmlStrcmp(node->name, (const xmlChar *)"line")) {
-      items = read_line_svg(node, parent_gs, items);
+      items = read_line_svg(node, parent_gs, style_ht, items);
       if (items)
 	obj = g_list_last(items)->data;
     } else if (!xmlStrcmp(node->name, (const xmlChar *)"ellipse") || !xmlStrcmp(node->name, (const xmlChar *)"circle")) {
-      items = read_ellipse_svg(node, parent_gs, items);
+      items = read_ellipse_svg(node, parent_gs, style_ht, items);
       if (items)
 	obj = g_list_last(items)->data;
     } else if (!xmlStrcmp(node->name, (const xmlChar *)"polyline")) {
       /* Uh, oh, no : apparently a fill="" in a group above make this a polygon */
-      items = read_poly_svg(node, parent_gs, items, parent_gs && parent_gs->fill >= 0 ?
+      items = read_poly_svg(node, parent_gs, style_ht, items,
+			    parent_gs && parent_gs->fill >= 0 ?
                             "Standard - Polygon" : "Standard - PolyLine");
       if (items)
 	obj = g_list_last(items)->data;
     } else if (!xmlStrcmp(node->name, (const xmlChar *)"polygon")) {
-      items = read_poly_svg(node, parent_gs, items, "Standard - Polygon");
+      items = read_poly_svg(node, parent_gs, style_ht, items, "Standard - Polygon");
       if (items)
 	obj = g_list_last(items)->data;
     } else if(!xmlStrcmp(node->name, (const xmlChar *)"text")) {
-      items = read_text_svg(node, parent_gs, items);
+      items = read_text_svg(node, parent_gs, style_ht, items);
       if (items)
 	obj = g_list_last(items)->data;
     } else if(!xmlStrcmp(node->name, (const xmlChar *)"path")) {
       /* the path element might be split into multiple objects */
       int first = g_list_length (items);
-      items = read_path_svg(node, parent_gs, items, ctx);
+      items = read_path_svg(node, parent_gs, style_ht, items, ctx);
       if (items && g_list_nth(items, first))
 	obj = g_list_nth(items, first)->data;
     } else if(!xmlStrcmp(node->name, (const xmlChar *)"image")) {
-      items = read_image_svg(node, parent_gs, items, filename_svg);
+      items = read_image_svg(node, parent_gs, style_ht, items, filename_svg);
       if (items)
 	obj = g_list_last(items)->data;
     } else if(!xmlStrcmp(node->name, (const xmlChar *)"defs")) {
       /* everything below must have a name to make a difference */
-      GList *list, *defs = read_items (node->xmlChildrenNode, parent_gs, defs_ht, filename_svg, ctx);
+      GList *list, *defs = read_items (node->xmlChildrenNode, parent_gs, defs_ht, style_ht, filename_svg, ctx);
 
       /* Commonly seen in <defs/> are
        *   clipPath, font, filter, linearGradient, mask, marker, pattern, radialGradient, style
@@ -1210,11 +1356,18 @@ read_items (xmlNodePtr   startnode,
 	  obj = otemp->ops->copy (otemp);
 
 	  use_position (obj, node);
-	  apply_style (obj, node, parent_gs, FALSE);
+	  apply_style (obj, node, parent_gs, style_ht, FALSE);
 	  items = g_list_append (items, obj);
 	}
 	xmlFree (key);
       }
+    } else if(!xmlStrcmp(node->name, (const xmlChar *)"style")) {
+      /* Prepare the third variant to apply style to the objects.
+       * The final style is similar to what we have in the style
+       * attribute, but we have to do complicated key lookup to
+       * apply styles to the right objects.
+       */
+      read_style (node, style_ht);
     } else if(!xmlStrcmp(node->name, (const xmlChar *)"pattern")) {
       /* Patterns could be considered as groups, too But Dia does not
        * have the facility to apply them (yet?). */
@@ -1227,7 +1380,7 @@ read_items (xmlNodePtr   startnode,
       /* one of the non-grouping elements is <a>, extract possible links */
       xmlChar *href = xmlGetProp (node, (const xmlChar *)"href");
 
-      moreitems = read_items (node->xmlChildrenNode, parent_gs, defs_ht, filename_svg, ctx);
+      moreitems = read_items (node->xmlChildrenNode, parent_gs, defs_ht, style_ht, filename_svg, ctx);
       if (moreitems) {
 	if (href) {
 	  GList *subs;
@@ -1469,7 +1622,10 @@ import_svg (xmlDocPtr doc, DiagramData *dia,
 
   {
     GHashTable *defs_ht = g_hash_table_new (g_str_hash, g_str_equal);
-    items = read_items (root->xmlChildrenNode, NULL, defs_ht, dia_context_get_filename(ctx), ctx);
+    GHashTable *style_ht = g_hash_table_new (g_str_hash, g_str_equal);
+    items = read_items (root->xmlChildrenNode, NULL, defs_ht, style_ht,
+		        dia_context_get_filename(ctx), ctx);
+    g_hash_table_destroy (style_ht);
     g_hash_table_destroy (defs_ht);
   }
   /* Every top level item which is a group with a name/id we are converting

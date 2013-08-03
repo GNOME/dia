@@ -53,7 +53,7 @@ void
 dia_svg_style_init(DiaSvgStyle *gs, DiaSvgStyle *parent_style)
 {
   g_return_if_fail (gs);
-  gs->stroke = parent_style ? parent_style->stroke : DIA_SVG_COLOUR_NONE;
+  gs->stroke = parent_style ? parent_style->stroke : DIA_SVG_COLOUR_DEFAULT;
   gs->stroke_opacity = parent_style ? parent_style->stroke_opacity : 1.0;
   gs->line_width = parent_style ? parent_style->line_width : 0.0;
   gs->linestyle = parent_style ? parent_style->linestyle : LINESTYLE_SOLID;
@@ -61,7 +61,7 @@ dia_svg_style_init(DiaSvgStyle *gs, DiaSvgStyle *parent_style)
   /* http://www.w3.org/TR/SVG/painting.html#FillProperty - default black
    * but we still have to see the difference
    */ 
-  gs->fill = parent_style ? parent_style->fill : DIA_SVG_COLOUR_DEFAULT_FILL;
+  gs->fill = parent_style ? parent_style->fill : DIA_SVG_COLOUR_DEFAULT;
   gs->fill_opacity = parent_style ? parent_style->fill_opacity : 1.0;
   gs->linecap = parent_style ? parent_style->linecap : DIA_SVG_LINECAPS_DEFAULT;
   gs->linejoin = parent_style ? parent_style->linejoin : DIA_SVG_LINEJOIN_DEFAULT;
