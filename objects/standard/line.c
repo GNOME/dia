@@ -409,6 +409,7 @@ line_move_handle(Line *line, Handle *handle,
   assert(to!=NULL);
 
   connection_move_handle(&line->connection, handle->id, to, cp, reason, modifiers);
+  connection_adjust_for_autogap(&line->connection);
 
   line_update_data(line);
 

@@ -231,6 +231,7 @@ annotation_move_handle(Annotation *annotation, Handle *handle,
     if (handle->id == HANDLE_MOVE_STARTPOINT) {
       p1 = endpoints[0];
       connection_move_handle(conn, handle->id, to, cp, reason, modifiers);
+      connection_adjust_for_autogap(conn);
       p2 = endpoints[0];
       point_sub(&p2, &p1);
       point_add(&annotation->text->position, &p2);
@@ -239,6 +240,7 @@ annotation_move_handle(Annotation *annotation, Handle *handle,
     } else {      
       p1 = endpoints[1];
       connection_move_handle(conn, handle->id, to, cp, reason, modifiers);
+      connection_adjust_for_autogap(conn);
       p2 = endpoints[1];
       point_sub(&p2, &p1);
       point_add(&annotation->text->position, &p2);

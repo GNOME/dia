@@ -411,6 +411,7 @@ arc_move_handle(Arc *arc, Handle *handle,
             if (!ok)
               return NULL;
             connection_move_handle(&arc->connection, handle->id, &best, cp, reason, modifiers);
+            connection_adjust_for_autogap(&arc->connection);
             /* recompute curve distance equiv. move middle handle */
             arc->curve_distance = arc_compute_curve_distance(arc, &arc->connection.endpoints[0], &arc->connection.endpoints[1], &midpoint);
             TRACE(printf("curve_dist: %.2f \n",arc->curve_distance));
@@ -420,6 +421,7 @@ arc_move_handle(Arc *arc, Handle *handle,
           }
        } else {
           connection_move_handle(&arc->connection, handle->id, to, cp, reason, modifiers);
+          connection_adjust_for_autogap(&arc->connection);
        }
   }
 
