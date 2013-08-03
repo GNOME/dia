@@ -308,6 +308,31 @@ _parse_dasharray (DiaSvgStyle *s, real user_scale, gchar *str, gchar **end)
     *end = ptr;
 }
 
+static void
+_parse_linejoin (DiaSvgStyle *s, const char *val)
+{
+  if (!strncmp(val, "miter", 5))
+    s->linejoin = LINEJOIN_MITER;
+  else if (!strncmp(val, "round", 5))
+    s->linejoin = LINEJOIN_ROUND;
+  else if (!strncmp(val, "bevel", 5))
+    s->linejoin = LINEJOIN_BEVEL;
+  else if (!strncmp(val, "default", 7))
+    s->linejoin = DIA_SVG_LINEJOIN_DEFAULT;
+}
+static void
+_parse_linecap (DiaSvgStyle *s, const char *val)
+{
+  if (!strncmp(val, "butt", 4))
+    s->linecap = LINECAPS_BUTT;
+  else if (!strncmp(val, "round", 5))
+    s->linecap = LINECAPS_ROUND;
+  else if (!strncmp(val, "square", 6) || !strncmp(val, "projecting", 10))
+    s->linecap = LINECAPS_PROJECTING;
+  else if (!strncmp(val, "default", 7))
+    s->linecap = DIA_SVG_LINECAPS_DEFAULT;
+}
+
 /*
  * \brief Parse SVG/CSS style string
  *
@@ -445,27 +470,13 @@ dia_svg_parse_style_string (DiaSvgStyle *s, real user_scale, const gchar *str)
       while (ptr[0] != '\0' && g_ascii_isspace(ptr[0])) ptr++;
       if (ptr[0] == '\0') break;
 
-      if (!strncmp(ptr, "butt", 4))
-	s->linecap = LINECAPS_BUTT;
-      else if (!strncmp(ptr, "round", 5))
-	s->linecap = LINECAPS_ROUND;
-      else if (!strncmp(ptr, "square", 6) || !strncmp(ptr, "projecting", 10))
-	s->linecap = LINECAPS_PROJECTING;
-      else if (!strncmp(ptr, "default", 7))
-	s->linecap = DIA_SVG_LINECAPS_DEFAULT;
+      _parse_linecap (s, ptr);
     } else if (!strncmp("stroke-linejoin:", ptr, 16)) {
       ptr += 16;
       while (ptr[0] != '\0' && g_ascii_isspace(ptr[0])) ptr++;
       if (ptr[0] == '\0') break;
 
-      if (!strncmp(ptr, "miter", 5))
-	s->linejoin = LINEJOIN_MITER;
-      else if (!strncmp(ptr, "round", 5))
-	s->linejoin = LINEJOIN_ROUND;
-      else if (!strncmp(ptr, "bevel", 5))
-	s->linejoin = LINEJOIN_BEVEL;
-      else if (!strncmp(ptr, "default", 7))
-	s->linejoin = DIA_SVG_LINEJOIN_DEFAULT;
+      _parse_linejoin (s, ptr);
     } else if (!strncmp("stroke-pattern:", ptr, 15)) {
       ptr += 15;
       while (ptr[0] != '\0' && g_ascii_isspace(ptr[0])) ptr++;
@@ -629,6 +640,17 @@ dia_svg_parse_style(xmlNodePtr node, DiaSvgStyle *s, real user_scale)
     _parse_dasharray (s, user_scale, (gchar *)str, NULL);
     xmlFree(str);
   }
+  str = xmlGetProp(node, (const xmlChar *)"stroke-linejoin");
+  if (str) {
+    _parse_linejoin (s, (gchar *)str);
+    xmlFree(str);
+  }
+  str = xmlGetProp(node, (const xmlChar *)"stroke-linecap");
+  if (str) {
+    _parse_linecap (s, (gchar *)str);
+    xmlFree(str);
+  }
+  
   /* text-props, again ;( */
   str = xmlGetProp(node, (const xmlChar *)"font-size");
   if (str) {

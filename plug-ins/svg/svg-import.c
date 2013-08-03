@@ -123,6 +123,8 @@ static PropDescription svg_style_prop_descs[] = {
     { "line_style", PROP_TYPE_LINESTYLE},
     { "fill_colour", PROP_TYPE_COLOUR },
     { "show_background", PROP_TYPE_BOOL },
+    { "line_join", PROP_TYPE_ENUM },
+    { "line_caps", PROP_TYPE_ENUM },
     PROP_DESC_END};
 
 static PropDescription svg_element_prop_descs[] = {
@@ -357,6 +359,7 @@ apply_style(DiaObject *obj, xmlNodePtr node, DiaSvgStyle *parent_style,
       ColorProperty *cprop;
       RealProperty *rprop;
       BoolProperty *bprop;
+      EnumProperty *eprop;
       real scale = 1.0;
 
       xmlChar *str = xmlGetProp(node, (const xmlChar *)"transform");
@@ -387,7 +390,7 @@ apply_style(DiaObject *obj, xmlNodePtr node, DiaSvgStyle *parent_style,
 
       dia_svg_parse_style(node, gs, user_scale);
       props = prop_list_from_descs(svg_style_prop_descs, pdtpp_true);
-      g_assert(props->len == 5);
+      g_assert(props->len == 7);
   
       cprop = g_ptr_array_index(props,0);
       if (gs->stroke == DIA_SVG_COLOUR_DEFAULT) {
@@ -437,6 +440,18 @@ apply_style(DiaObject *obj, xmlNodePtr node, DiaSvgStyle *parent_style,
       } else {
 	bprop->bool_data = TRUE;
       }
+
+      eprop = g_ptr_array_index(props,5);
+      if (gs->linejoin != DIA_SVG_LINEJOIN_DEFAULT)
+	eprop->enum_data = gs->linejoin;
+      else
+	eprop->common.experience |= PXP_NOTSET;
+
+      eprop = g_ptr_array_index(props,6);
+      if (gs->linecap != DIA_SVG_LINECAPS_DEFAULT)
+        eprop->enum_data = gs->linecap;
+      else
+	eprop->common.experience |= PXP_NOTSET;
 
       obj->ops->set_props(obj, props);
       
@@ -1317,7 +1332,9 @@ read_items (xmlNodePtr   startnode,
 	  /* pass ownership of name and object */
 	  g_hash_table_insert (defs_ht, id, otemp);
 	} else if (IS_GROUP (otemp)) {
-	  /* defs in groups, I don't get the benefit */
+	  /* defs in _unnamed_ groups, I don't get the
+	   * benefit but must have seen it in the wild.
+	   */
 	  GList *moredefs = group_objects (otemp);
 
 	  g_list_foreach (moredefs, add_def, defs_ht);
