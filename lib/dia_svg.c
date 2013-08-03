@@ -860,7 +860,8 @@ dia_svg_parse_path(GArray *points, const gchar *path_str, gchar **unparsed,
 {
   enum {
     PATH_MOVE, PATH_LINE, PATH_HLINE, PATH_VLINE, PATH_CURVE,
-    PATH_SMOOTHCURVE, PATH_ARC, PATH_CLOSE } last_type = PATH_MOVE;
+    PATH_SMOOTHCURVE, PATH_QUBICCURVE, PATH_TTQCURVE,
+    PATH_ARC, PATH_CLOSE } last_type = PATH_MOVE;
   Point last_open = {0.0, 0.0};
   Point last_point = {0.0, 0.0};
   Point last_control = {0.0, 0.0};
@@ -964,6 +965,30 @@ dia_svg_parse_path(GArray *points, const gchar *path_str, gchar **unparsed,
       path_chomp(path);
       last_type = PATH_SMOOTHCURVE;
       last_relative = TRUE;
+      break;
+    case 'q':
+      path++;
+      path_chomp(path);
+      last_type = PATH_QUBICCURVE;
+      last_relative = TRUE;
+      break;
+    case 'Q':
+      path++;
+      path_chomp(path);
+      last_type = PATH_QUBICCURVE;
+      last_relative = FALSE;
+      break;
+    case 't':
+      path++;
+      path_chomp(path);
+      last_type = PATH_TTQCURVE;
+      last_relative = TRUE;
+      break;
+    case 'T':
+      path++;
+      path_chomp(path);
+      last_type = PATH_TTQCURVE;
+      last_relative = FALSE;
       break;
     case 'Z':
     case 'z':
@@ -1144,6 +1169,55 @@ dia_svg_parse_path(GArray *points, const gchar *path_str, gchar **unparsed,
       last_control = bez.p2;
 
       g_array_append_val(points, bez);
+      break;
+    case PATH_QUBICCURVE: {
+	/* raise quadratic bezier to cubic (copied from librsvg) */
+	real x1, y1;
+	x1 = g_ascii_strtod(path, &path);
+	path_chomp(path);
+	y1 = g_ascii_strtod(path, &path);
+	path_chomp(path);
+	bez.type = BEZ_CURVE_TO;
+	bez.p1.x = (last_point.x + 2 * x1) * (1.0 / 3.0);
+	bez.p1.y = (last_point.x + 2 * y1) * (1.0 / 3.0);
+	bez.p3.x = g_ascii_strtod(path, &path);
+	path_chomp(path);
+	bez.p3.y = g_ascii_strtod(path, &path);
+	path_chomp(path);
+	bez.p2.x = (bez.p3.x + 2 * x1) * (1.0 / 3.0);
+	bez.p2.y = (bez.p3.y + 2 * y1) * (1.0 / 3.0);
+	if (last_relative) {
+	  /* ToDo: ??? */
+	}
+	last_point = bez.p3;
+	last_control = bez.p2;
+        g_array_append_val(points, bez);
+      }
+      break;
+    case PATH_TTQCURVE:
+      {
+	/* Truetype quadratic bezier curveto */
+	double xc, yc; /* quadratic control point */
+
+	xc = 2 * last_point.x - last_control.x;
+	yc = 2 * last_point.y - last_control.y;
+	/* generate a quadratic bezier with control point = xc, yc */
+	bez.type = BEZ_CURVE_TO;
+	bez.p1.x = (last_point.x + 2 * xc) * (1.0 / 3.0);
+	bez.p1.y = (last_point.y + 2 * yc) * (1.0 / 3.0);
+	bez.p3.x = g_ascii_strtod(path, &path);
+	path_chomp(path);
+	bez.p3.y = g_ascii_strtod(path, &path);
+	path_chomp(path);
+	bez.p2.x = (bez.p3.x + 2 * xc) * (1.0 / 3.0);
+	bez.p2.y = (bez.p3.y + 2 * yc) * (1.0 / 3.0);
+	if (last_relative) {
+	  /* ToDo: ??? */
+	}
+	last_point = bez.p3;
+	last_control = bez.p2;
+        g_array_append_val(points, bez);
+      }
       break;
     case PATH_ARC :
       {
