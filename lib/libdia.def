@@ -367,6 +367,7 @@ EXPORTS
  dia_svg_style_copy
  dia_svg_parse_color
  dia_svg_parse_style
+ dia_svg_parse_style_string
  dia_svg_parse_path
  dia_svg_parse_transform
  dia_svg_from_matrix

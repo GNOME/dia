@@ -62,6 +62,7 @@ void dia_svg_style_init (DiaSvgStyle *gs, DiaSvgStyle *parent_style);
 void dia_svg_style_copy (DiaSvgStyle *dest, DiaSvgStyle *src);
 gboolean dia_svg_parse_color(const gchar *str, Color *color);
 void dia_svg_parse_style(xmlNodePtr node, DiaSvgStyle *s, real user_scale);
+void dia_svg_parse_style_string (DiaSvgStyle *s, real user_scale, const gchar *str);
 /* parse the svg sub format for pathes int an array of BezPoint */
 gboolean dia_svg_parse_path(GArray *points, const gchar *path_str, gchar **unparsed,
 			    gboolean *closed, Point *current_point);

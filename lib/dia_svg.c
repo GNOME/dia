@@ -304,13 +304,242 @@ _parse_dasharray (DiaSvgStyle *s, real user_scale, gchar *str, gchar **end)
 }
 
 /*
+ * \brief Parse SVG/CSS style string
+ *
+ * Parse as much information from the given style string as Dia can handle.
+ * There are still known limitations:
+ *  - does not follow references to somewhere inside or outside the string
+ *    (e.g. url(...), color and currentColor)
+ *  - font parsing should be extended to support lists of fonts somehow
+ *
+ * \ingroup DiaSvg
+ */
+void
+dia_svg_parse_style_string (DiaSvgStyle *s, real user_scale, const gchar *str)
+{
+  gchar temp[FONT_NAME_LENGTH_MAX+1]; /* font-family names will be limited to 40 characters */
+  int i = 0;
+  gboolean over = FALSE;
+  gchar *ptr = (gchar *)str;
+  char *family = NULL, *style = NULL, *weight = NULL;
+
+  while (ptr[0] != '\0') {
+    /* skip white space at start */
+    while (ptr[0] != '\0' && g_ascii_isspace(ptr[0])) ptr++;
+    if (ptr[0] == '\0') break;
+
+    if (!strncmp("font-family:", ptr, 12)) {
+      ptr += 12;
+      while ((ptr[0] != '\0') && g_ascii_isspace(ptr[0])) ptr++;
+      i = 0; over = FALSE;
+      while (ptr[0] != '\0' && ptr[0] != ';' && !over) {
+	if (i < FONT_NAME_LENGTH_MAX) {
+	  temp[i] = ptr[0];
+	} else over = TRUE;
+	i++;
+	ptr++;
+      }
+      temp[i] = '\0';
+
+      if (!over) {
+	if (strcmp (temp, "sanserif") == 0 || strcmp (temp, "sans-serif") == 0)
+	  family = g_strdup ("sans"); /* special name adaption */
+	else
+	  family = g_strdup(temp);
+      }
+    } else if (!strncmp("font-weight:", ptr, 12)) {
+      ptr += 12;
+      while ((ptr[0] != '\0') && g_ascii_isspace(ptr[0])) ptr++;
+      i = 0; over = FALSE;
+      while (ptr[0] != '\0' && ptr[0] != ';' && !over) {
+	if (i < FONT_NAME_LENGTH_MAX) {
+	  temp[i] = ptr[0];
+	} else over = TRUE;
+	i++;
+	ptr++;
+      }
+      temp[i] = '\0';
+
+      if (!over) weight = g_strdup(temp);
+    } else if (!strncmp("font-style:", ptr, 11)) {
+      ptr += 11;
+      while ((ptr[0] != '\0') && g_ascii_isspace(ptr[0])) ptr++;
+      i = 0; over = FALSE;
+      while (ptr[0] != '\0' && ptr[0] != ';' && !over) {
+	if (i < FONT_NAME_LENGTH_MAX) {
+	  temp[i] = ptr[0];
+	} else over = TRUE;
+	i++;
+	ptr++;
+      }
+      temp[i] = '\0';
+
+      if (!over) style = g_strdup(temp);
+    } else if (!strncmp("font-size:", ptr, 10)) {
+      ptr += 10;
+      while ((ptr[0] != '\0') && g_ascii_isspace(ptr[0])) ptr++;
+      i = 0; over = FALSE;
+      while (ptr[0] != '\0' && ptr[0] != ';' && !over) {
+	if (i < FONT_NAME_LENGTH_MAX) {
+	  temp[i] = ptr[0];
+	} else over = TRUE;
+	i++;
+	ptr++;
+      }
+      temp[i] = '\0';
+
+      if (!over) {
+	s->font_height = g_ascii_strtod(temp, NULL);
+	if (user_scale > 0)
+	  s->font_height /= user_scale;
+      }
+    } else if (!strncmp("text-anchor:", ptr, 12)) {
+      ptr += 12;
+      while ((ptr[0] != '\0') && g_ascii_isspace(ptr[0])) ptr++;
+      if (!strncmp(ptr, "start", 5))
+	s->alignment = ALIGN_LEFT;
+      else if (!strncmp(ptr, "end", 3))
+	s->alignment = ALIGN_RIGHT;
+      else if (!strncmp(ptr, "middle", 6))
+	s->alignment = ALIGN_CENTER;
+
+    } else if (!strncmp("stroke-width:", ptr, 13)) {
+      ptr += 13;
+      s->line_width = g_ascii_strtod(ptr, &ptr);
+      if (user_scale > 0)
+	s->line_width /= user_scale;
+    } else if (!strncmp("stroke:", ptr, 7)) {
+      ptr += 7;
+      while ((ptr[0] != '\0') && g_ascii_isspace(ptr[0])) ptr++;
+      if (ptr[0] == '\0') break;
+
+      if (!_parse_color (&s->stroke, ptr))
+	s->stroke = DIA_SVG_COLOUR_NONE;
+    } else if (!strncmp("stroke-opacity:", ptr, 15)) {
+      ptr += 15;
+      s->stroke_opacity = g_ascii_strtod(ptr, &ptr);
+    } else if (!strncmp("fill:", ptr, 5)) {
+      ptr += 5;
+      while (ptr[0] != '\0' && g_ascii_isspace(ptr[0])) ptr++;
+      if (ptr[0] == '\0') break;
+
+      if (!_parse_color (&s->fill, ptr))
+	 s->fill = DIA_SVG_COLOUR_NONE;
+    } else if (!strncmp("fill-opacity:", ptr, 13)) {
+      ptr += 13;
+      s->fill_opacity = g_ascii_strtod(ptr, &ptr);
+    } else if (!strncmp("opacity", ptr, 7)) {
+      real opacity;
+      ptr += 7;
+      opacity = g_ascii_strtod(ptr, &ptr);
+      /* multiplicative effect of opacity */
+      s->stroke_opacity *= opacity;
+      s->fill_opacity *= opacity;
+    } else if (!strncmp("stroke-linecap:", ptr, 15)) {
+      ptr += 15;
+      while (ptr[0] != '\0' && g_ascii_isspace(ptr[0])) ptr++;
+      if (ptr[0] == '\0') break;
+
+      if (!strncmp(ptr, "butt", 4))
+	s->linecap = LINECAPS_BUTT;
+      else if (!strncmp(ptr, "round", 5))
+	s->linecap = LINECAPS_ROUND;
+      else if (!strncmp(ptr, "square", 6) || !strncmp(ptr, "projecting", 10))
+	s->linecap = LINECAPS_PROJECTING;
+      else if (!strncmp(ptr, "default", 7))
+	s->linecap = DIA_SVG_LINECAPS_DEFAULT;
+    } else if (!strncmp("stroke-linejoin:", ptr, 16)) {
+      ptr += 16;
+      while (ptr[0] != '\0' && g_ascii_isspace(ptr[0])) ptr++;
+      if (ptr[0] == '\0') break;
+
+      if (!strncmp(ptr, "miter", 5))
+	s->linejoin = LINEJOIN_MITER;
+      else if (!strncmp(ptr, "round", 5))
+	s->linejoin = LINEJOIN_ROUND;
+      else if (!strncmp(ptr, "bevel", 5))
+	s->linejoin = LINEJOIN_BEVEL;
+      else if (!strncmp(ptr, "default", 7))
+	s->linejoin = DIA_SVG_LINEJOIN_DEFAULT;
+    } else if (!strncmp("stroke-pattern:", ptr, 15)) {
+      ptr += 15;
+      while (ptr[0] != '\0' && g_ascii_isspace(ptr[0])) ptr++;
+      if (ptr[0] == '\0') break;
+
+      if (!strncmp(ptr, "solid", 5))
+	s->linestyle = LINESTYLE_SOLID;
+      else if (!strncmp(ptr, "dashed", 6))
+	s->linestyle = LINESTYLE_DASHED;
+      else if (!strncmp(ptr, "dash-dot", 8))
+	s->linestyle = LINESTYLE_DASH_DOT;
+      else if (!strncmp(ptr, "dash-dot-dot", 12))
+	s->linestyle = LINESTYLE_DASH_DOT_DOT;
+      else if (!strncmp(ptr, "dotted", 6))
+	s->linestyle = LINESTYLE_DOTTED;
+      else if (!strncmp(ptr, "default", 7))
+	s->linestyle = DIA_SVG_LINESTYLE_DEFAULT;
+      /* XXX: deal with a real pattern */
+    } else if (!strncmp("stroke-dashlength:", ptr, 18)) {
+      ptr += 18;
+      while (ptr[0] != '\0' && g_ascii_isspace(ptr[0])) ptr++;
+      if (ptr[0] == '\0') break;
+
+      if (!strncmp(ptr, "default", 7))
+	s->dashlength = 1.0;
+      else {
+	s->dashlength = g_ascii_strtod(ptr, &ptr);
+	if (user_scale > 0)
+	  s->dashlength /= user_scale;
+      }
+    } else if (!strncmp("stroke-dasharray:", ptr, 17)) {
+      s->linestyle = LINESTYLE_DASHED;
+      ptr += 17;
+      while (ptr[0] != '\0' && g_ascii_isspace(ptr[0])) ptr++;
+      if (ptr[0] == '\0') break;
+
+      if (!strncmp(ptr, "default", 7))
+	s->dashlength = 1.0;
+      else
+	_parse_dasharray (s, user_scale, ptr, &ptr);
+    }
+
+    /* skip up to the next attribute */
+    while (ptr[0] != '\0' && ptr[0] != ';' && ptr[0] != '\n') ptr++;
+    if (ptr[0] != '\0') ptr++;
+  }
+
+  if (family || style || weight) {
+    if (s->font)
+      dia_font_unref (s->font);
+    /* given font_height is bogus, especially if not given at all
+     * or without unit ... see bug 665648 about invalid CSS
+     */
+    s->font = dia_font_new_from_style(DIA_FONT_SANS, s->font_height > 0 ? s->font_height : 1.0);
+    if (family) {
+      dia_font_set_any_family(s->font,family);
+      g_free(family);
+    }
+    if (style) {
+      dia_font_set_slant_from_string(s->font,style);
+      g_free(style);
+    }
+    if (weight) {
+      dia_font_set_weight_from_string(s->font,weight);
+      g_free(weight);
+    }
+  }
+}
+
+
+/*
  * \brief Parse SVG style properties
  * This function not only parses the style attribute of the given node
  * it also extracts some of the style properties directly.
  * @param node An XML node to parse a style from.
  * @param s The SVG style object to fill out.  This should previously be
  *          initialized to some default values.
- * @param user_scale, if >0 scalable values (font-size, stroke-width, ...) are divided by this, otherwise ignored
+ * @param user_scale, if >0 scalable values (font-size, stroke-width, ...)
+ *          are divided by this, otherwise ignored
  * \ingroup DiaSvg
  */
 void
@@ -325,191 +554,7 @@ dia_svg_parse_style(xmlNodePtr node, DiaSvgStyle *s, real user_scale)
   str = xmlGetProp(node, (const xmlChar *)"style");
 
   if (str) {
-    gchar *ptr = (gchar *)str;
-    while (ptr[0] != '\0') {
-      /* skip white space at start */
-      while (ptr[0] != '\0' && g_ascii_isspace(ptr[0])) ptr++;
-      if (ptr[0] == '\0') break;
-
-      if (!strncmp("font-family:", ptr, 12)) {
-	ptr += 12;
-	while ((ptr[0] != '\0') && g_ascii_isspace(ptr[0])) ptr++;
-	i = 0; over = FALSE;
-	while (ptr[0] != '\0' && ptr[0] != ';' && !over) {
-	  if (i < FONT_NAME_LENGTH_MAX) {
-	    temp[i] = ptr[0];
-	  } else over = TRUE;
-	  i++;
-	  ptr++;
-	}
-	temp[i] = '\0';
-
-	if (!over) {
-	  if (strcmp (temp, "sanserif") == 0 || strcmp (temp, "sans-serif") == 0)
-	    family = g_strdup ("sans"); /* special name adaption */
-	  else
-	    family = g_strdup(temp);
-	}
-      } else if (!strncmp("font-weight:", ptr, 12)) {
-	ptr += 12;
-	while ((ptr[0] != '\0') && g_ascii_isspace(ptr[0])) ptr++;
-	i = 0; over = FALSE;
-	while (ptr[0] != '\0' && ptr[0] != ';' && !over) {
-	  if (i < FONT_NAME_LENGTH_MAX) {
-	    temp[i] = ptr[0];
-	  } else over = TRUE;
-	  i++;
-	  ptr++;
-	}
-	temp[i] = '\0';
-
-	if (!over) weight = g_strdup(temp);
-      } else if (!strncmp("font-style:", ptr, 11)) {
-	ptr += 11;
-	while ((ptr[0] != '\0') && g_ascii_isspace(ptr[0])) ptr++;
-	i = 0; over = FALSE;
-	while (ptr[0] != '\0' && ptr[0] != ';' && !over) {
-	  if (i < FONT_NAME_LENGTH_MAX) {
-	    temp[i] = ptr[0];
-	  } else over = TRUE;
-	  i++;
-	  ptr++;
-	}
-	temp[i] = '\0';
-
-	if (!over) style = g_strdup(temp);
-      } else if (!strncmp("font-size:", ptr, 10)) {
-	ptr += 10;
-	while ((ptr[0] != '\0') && g_ascii_isspace(ptr[0])) ptr++;
-	i = 0; over = FALSE;
-	while (ptr[0] != '\0' && ptr[0] != ';' && !over) {
-	  if (i < FONT_NAME_LENGTH_MAX) {
-	    temp[i] = ptr[0];
-	  } else over = TRUE;
-	  i++;
-	  ptr++;
-	}
-	temp[i] = '\0';
-
-	if (!over) {
-	  s->font_height = g_ascii_strtod(temp, NULL);
-	  if (user_scale > 0)
-	    s->font_height /= user_scale;
-	}
-      } else if (!strncmp("text-anchor:", ptr, 12)) {
-	ptr += 12;
-	while ((ptr[0] != '\0') && g_ascii_isspace(ptr[0])) ptr++;
-	if (!strncmp(ptr, "start", 5))
-	  s->alignment = ALIGN_LEFT;
-	else if (!strncmp(ptr, "end", 3))
-	  s->alignment = ALIGN_RIGHT;
-	else if (!strncmp(ptr, "middle", 6))
-	  s->alignment = ALIGN_CENTER;
-
-      } else if (!strncmp("stroke-width:", ptr, 13)) {
-	ptr += 13;
-	s->line_width = g_ascii_strtod(ptr, &ptr);
-	if (user_scale > 0)
-	  s->line_width /= user_scale;
-      } else if (!strncmp("stroke:", ptr, 7)) {
-	ptr += 7;
-	while ((ptr[0] != '\0') && g_ascii_isspace(ptr[0])) ptr++;
-	if (ptr[0] == '\0') break;
-
-	if (!_parse_color (&s->stroke, ptr))
-	  s->stroke = DIA_SVG_COLOUR_NONE;
-      } else if (!strncmp("stroke-opacity:", ptr, 15)) {
-	ptr += 15;
-	s->stroke_opacity = g_ascii_strtod(ptr, &ptr);
-      } else if (!strncmp("fill:", ptr, 5)) {
-	ptr += 5;
-	while (ptr[0] != '\0' && g_ascii_isspace(ptr[0])) ptr++;
-	if (ptr[0] == '\0') break;
-
-	if (!_parse_color (&s->fill, ptr))
-	   s->fill = DIA_SVG_COLOUR_NONE;
-      } else if (!strncmp("fill-opacity:", ptr, 13)) {
-	ptr += 13;
-	s->fill_opacity = g_ascii_strtod(ptr, &ptr);
-      } else if (!strncmp("opacity", ptr, 7)) {
-	real opacity;
-        ptr += 7;
-	opacity = g_ascii_strtod(ptr, &ptr);
-	/* multiplicative effect of opacity */
-	s->stroke_opacity *= opacity;
-	s->fill_opacity *= opacity;
-      } else if (!strncmp("stroke-linecap:", ptr, 15)) {
-	ptr += 15;
-	while (ptr[0] != '\0' && g_ascii_isspace(ptr[0])) ptr++;
-	if (ptr[0] == '\0') break;
-
-	if (!strncmp(ptr, "butt", 4))
-	  s->linecap = LINECAPS_BUTT;
-	else if (!strncmp(ptr, "round", 5))
-	  s->linecap = LINECAPS_ROUND;
-	else if (!strncmp(ptr, "square", 6) || !strncmp(ptr, "projecting", 10))
-	  s->linecap = LINECAPS_PROJECTING;
-	else if (!strncmp(ptr, "default", 7))
-	  s->linecap = DIA_SVG_LINECAPS_DEFAULT;
-      } else if (!strncmp("stroke-linejoin:", ptr, 16)) {
-	ptr += 16;
-	while (ptr[0] != '\0' && g_ascii_isspace(ptr[0])) ptr++;
-	if (ptr[0] == '\0') break;
-
-	if (!strncmp(ptr, "miter", 5))
-	  s->linejoin = LINEJOIN_MITER;
-	else if (!strncmp(ptr, "round", 5))
-	  s->linejoin = LINEJOIN_ROUND;
-	else if (!strncmp(ptr, "bevel", 5))
-	  s->linejoin = LINEJOIN_BEVEL;
-	else if (!strncmp(ptr, "default", 7))
-	  s->linejoin = DIA_SVG_LINEJOIN_DEFAULT;
-      } else if (!strncmp("stroke-pattern:", ptr, 15)) {
-	ptr += 15;
-	while (ptr[0] != '\0' && g_ascii_isspace(ptr[0])) ptr++;
-	if (ptr[0] == '\0') break;
-
-	if (!strncmp(ptr, "solid", 5))
-	  s->linestyle = LINESTYLE_SOLID;
-	else if (!strncmp(ptr, "dashed", 6))
-	  s->linestyle = LINESTYLE_DASHED;
-	else if (!strncmp(ptr, "dash-dot", 8))
-	  s->linestyle = LINESTYLE_DASH_DOT;
-	else if (!strncmp(ptr, "dash-dot-dot", 12))
-	  s->linestyle = LINESTYLE_DASH_DOT_DOT;
-	else if (!strncmp(ptr, "dotted", 6))
-	  s->linestyle = LINESTYLE_DOTTED;
-	else if (!strncmp(ptr, "default", 7))
-	  s->linestyle = DIA_SVG_LINESTYLE_DEFAULT;
-	/* XXX: deal with a real pattern */
-      } else if (!strncmp("stroke-dashlength:", ptr, 18)) {
-	ptr += 18;
-	while (ptr[0] != '\0' && g_ascii_isspace(ptr[0])) ptr++;
-	if (ptr[0] == '\0') break;
-
-	if (!strncmp(ptr, "default", 7))
-	  s->dashlength = 1.0;
-	else {
-	  s->dashlength = g_ascii_strtod(ptr, &ptr);
-	  if (user_scale > 0)
-	    s->dashlength /= user_scale;
-	}
-      } else if (!strncmp("stroke-dasharray:", ptr, 17)) {
-	s->linestyle = LINESTYLE_DASHED;
-	ptr += 17;
-	while (ptr[0] != '\0' && g_ascii_isspace(ptr[0])) ptr++;
-	if (ptr[0] == '\0') break;
-
-	if (!strncmp(ptr, "default", 7))
-	  s->dashlength = 1.0;
-	else
-	  _parse_dasharray (s, user_scale, ptr, &ptr);
-      }
-
-      /* skip up to the next attribute */
-      while (ptr[0] != '\0' && ptr[0] != ';' && ptr[0] != '\n') ptr++;
-      if (ptr[0] != '\0') ptr++;
-    }
+    dia_svg_parse_style_string (s, user_scale, (gchar *)str);
     xmlFree(str);
   }
 
@@ -567,27 +612,6 @@ dia_svg_parse_style(xmlNodePtr node, DiaSvgStyle *s, real user_scale)
     xmlFree(str);
   }
   
-
-  if (family || style || weight) {
-    if (s->font)
-      dia_font_unref (s->font);
-    /* given font_height is bogus, especially if not given at all
-     * or without unit ... see bug 665648 about invalid CSS
-     */
-    s->font = dia_font_new_from_style(DIA_FONT_SANS, s->font_height > 0 ? s->font_height : 1.0);
-    if (family) {
-      dia_font_set_any_family(s->font,family);
-      g_free(family);
-    }
-    if (style) {
-      dia_font_set_slant_from_string(s->font,style);
-      g_free(style);
-    }
-    if (weight) {
-      dia_font_set_weight_from_string(s->font,weight);
-      g_free(weight);
-    }
-  }
 }
 
 /*!
