@@ -651,6 +651,9 @@ read_text_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GHashTable *style_ht, 
       xmlFree(str);
     }
 
+    /* parse from <text/> before looking at the first <tspan/> */
+    dia_svg_parse_style(node, gs, user_scale);    
+
     {
       xmlNode *tspan = node->children;
       GString *paragraph = g_string_sized_new(512);
@@ -659,8 +662,8 @@ read_text_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GHashTable *style_ht, 
           xmlChar *line = xmlNodeGetContent(tspan);
           if (any_tspan) /* every other line needs separation */
 	    g_string_append(paragraph, "\n");
-	  else /* only first time */
-	    dia_svg_parse_style(tspan, gs, user_scale);
+	  else /* only first time - with bogus, experimental division of user scale */
+	    dia_svg_parse_style(tspan, gs, matrix ? user_scale / matrix->yy : user_scale);
           g_string_append(paragraph, (gchar*)line);
 	  xmlFree(line);
           any_tspan = TRUE;
@@ -675,11 +678,8 @@ read_text_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GHashTable *style_ht, 
       str = xmlNodeGetContent(node);
     }
     if(str || multiline) {
-      if (matrix) {
-        /* TODO: transform the text, too - when it is supported */
+      if (matrix)
 	transform_point (&point, matrix);
-	g_free (matrix);
-      }
       new_obj = otype->ops->create(&point, otype->default_user_data,
 				 &h1, &h2);
       list = g_list_append (list, new_obj);
@@ -687,7 +687,6 @@ read_text_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GHashTable *style_ht, 
       props = prop_list_from_descs(svg_text_prop_descs, pdtpp_true);
       g_assert(props->len == 1);
 
-      dia_svg_parse_style(node, gs, user_scale);    
       if(gs->font == NULL) {
 	gs->font = dia_font_new_from_legacy_name("Courier");
       }
@@ -704,7 +703,9 @@ read_text_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GHashTable *style_ht, 
       if (font_height > 0.0) {
         /* font-size should be the line-height according to SVG spec,
 	 * but see node_set_text_style() - round-trip first */
-	real font_scale = dia_font_get_height (prop->attr.font) / dia_font_get_size (prop->attr.font); 
+	real font_scale = dia_font_get_height (prop->attr.font) / dia_font_get_size (prop->attr.font);
+	if (matrix) /* ToDo: more text transform */
+	  font_scale /= matrix->yy;
         prop->attr.height = font_height * font_scale;
       } else
         prop->attr.height = gs->font_height;
@@ -729,10 +730,12 @@ read_text_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GHashTable *style_ht, 
       }
       new_obj->ops->set_props(new_obj, props);
       prop_list_free(props);
+
     }
     if (gs->font)
       dia_font_unref (gs->font);
     g_free(gs);
+    g_free(matrix);
 
     return list;
 }
