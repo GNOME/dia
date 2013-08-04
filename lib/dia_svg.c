@@ -257,7 +257,8 @@ static void
 _parse_dasharray (DiaSvgStyle *s, real user_scale, gchar *str, gchar **end)
 {
   gchar *ptr;
-  gchar **dashes = g_strsplit ((gchar *)str, ",", -1);
+  /* by also splitting on ';' we can also parse the continued style string */
+  gchar **dashes = g_regex_split_simple ("[\\s,;]+", (gchar *)str, 0, 0);
   int n = 0;
   real dl;
 
@@ -268,7 +269,7 @@ _parse_dasharray (DiaSvgStyle *s, real user_scale, gchar *str, gchar **end)
     s->dashlength /= user_scale;
 
   if (s->dashlength) { /* at least one value */
-    while (dashes[n])
+    while (dashes[n] && g_ascii_strtod (dashes[n], NULL) > 0)
       ++n; /* Dia can not do arbitrary length, the number of dashes gives the style */
   }
   if (n > 0)
@@ -283,7 +284,7 @@ _parse_dasharray (DiaSvgStyle *s, real user_scale, gchar *str, gchar **end)
       s->linestyle = LINESTYLE_DASHED;
       break;
     case 2 :
-      dl = g_ascii_strtod (dashes[0], NULL);
+      dl = g_ascii_strtod (dashes[1], NULL);
       if (user_scale > 0)
         dl /= user_scale;
       if (dl < s->line_width || dl > s->dashlength) { /* the difference is arbitrary */
@@ -532,6 +533,10 @@ dia_svg_parse_style_string (DiaSvgStyle *s, real user_scale, const gchar *str)
 
       _parse_linejoin (s, ptr);
     } else if (!strncmp("stroke-pattern:", ptr, 15)) {
+      /* Apparently not an offical SVG style attribute, but
+       * referenced in custom-shapes document. So we continue
+       * supporting it (read only).
+       */
       ptr += 15;
       while (ptr[0] != '\0' && g_ascii_isspace(ptr[0])) ptr++;
       if (ptr[0] == '\0') break;
