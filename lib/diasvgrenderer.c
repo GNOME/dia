@@ -352,6 +352,7 @@ fill_polygon(DiaRenderer *self,
   node = xmlNewChild(renderer->root, renderer->svg_name_space, (const xmlChar *)"polygon", NULL);
   
   xmlSetProp(node, (const xmlChar *)"style", (xmlChar *) get_fill_style(renderer, colour));
+  xmlSetProp(node, (const xmlChar *)"fill-rule", (const xmlChar *) "evenodd");
 
   str = g_string_new(NULL);
   for (i = 0; i < num_points; i++)
@@ -599,8 +600,10 @@ _bezier(DiaRenderer *self,
 			dia_svg_dtostr(p3y_buf, (gdouble) points[i].p3.y) );
       break;
     }
-  if (fill)
+  if (fill) {
+    xmlSetProp(node, (const xmlChar *)"fill-rule", (const xmlChar *) "evenodd");
     g_string_append(str, "z");
+  }
   xmlSetProp(node, (const xmlChar *)"d", (xmlChar *) str->str);
   g_string_free(str, TRUE);
 }
