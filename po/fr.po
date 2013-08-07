@@ -7256,12 +7256,10 @@ msgid "Attribute compound"
 msgstr "Données des attributs"
 
 #: ../sheets/Database.sheet.in.h:2
-#, fuzzy
 msgid "Database"
 msgstr "Nom de la donnée"
 
 #: ../sheets/Database.sheet.in.h:3
-#, fuzzy
 msgid "Editor for Database Table Relation Diagrams"
 msgstr "Éditeur de diagrammes Entités-Relations"
 
