@@ -371,6 +371,7 @@ EXPORTS
  dia_svg_parse_path
  dia_svg_parse_transform
  dia_svg_from_matrix
+ dia_matrix_is_invertible
 
  dia_svg_renderer_get_type
 

@@ -136,6 +136,7 @@ void dia_matrix_set_angle_and_scales (DiaMatrix *m,
 				      real       sx,
 				      real       sy);
 void dia_matrix_multiply (DiaMatrix *result, const DiaMatrix *a, const DiaMatrix *b);
+gboolean dia_matrix_is_invertible (const DiaMatrix *matrix);
 
 #define ROUND(x) ((int) floor((x)+0.5))
 

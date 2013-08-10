@@ -1365,18 +1365,20 @@ MORETOPARSE:
   return (points->len > 1);
 }
 
-DiaMatrix *
-dia_svg_parse_transform(const gchar *trans, real scale)
+static gboolean
+_parse_transform (const gchar *trans, DiaMatrix *m, real scale)
 {
-  DiaMatrix *m;
-  gchar *p = strchr (trans, '(');
   gchar **list;
+  gchar *p = strchr (trans, '(');
   int i = 0;
 
-  if (!p)
-    return NULL; /* silently ignore broken format */
+  while (   (*trans != '\0') 
+         && (*trans == ' ' || *trans == ',' || *trans == '\t' || *trans == '\n' || *trans == '\r'))
+    ++trans; /* skip whitespace */
 
-  m = g_new0 (DiaMatrix, 1);
+  if (!p || !*trans)
+    return FALSE; /* silently fail */
+
   list = g_regex_split_simple ("[\\s,]+", p+1, 0, 0);
   if (strncmp (trans, "matrix", 6) == 0) {
     if (list[i])
@@ -1405,6 +1407,7 @@ dia_svg_parse_transform(const gchar *trans, real scale)
     else
       m->yy = m->xx;
   } else if (strncmp (trans, "rotate", 6) == 0) {
+    DiaMatrix translate = {1, 0, 0, 1, 0, 0 };
     real angle;
     
     if (list[i])
@@ -1419,28 +1422,63 @@ dia_svg_parse_transform(const gchar *trans, real scale)
     m->yx =  sin(G_PI*angle/180);
     m->yy =  cos(G_PI*angle/180);
     /* FIXME: check with real world data, I'm uncertain */
-    if (list[i])
-      m->x0 = g_ascii_strtod (list[i], NULL), ++i;
-    if (list[i])
-      m->y0 = g_ascii_strtod (list[i], NULL), ++i;
+    if (list[i]) {
+      real cx, cy;
+      cx = g_ascii_strtod (list[i], NULL), ++i;
+      if (list[i])
+        cy = g_ascii_strtod (list[i], NULL), ++i;
+      /* rotate around the given offset */
+      translate.x0 = cx;
+      translate.y0 = cy;
+      dia_matrix_multiply (m, m, &translate);
+      translate.x0 = -cx;
+      translate.y0 = -cy;
+      dia_matrix_multiply (m, &translate, m);
+    }
   } else if (strncmp (trans, "skewX", 5) == 0) {
     m->xx = m->yy = 1.0;
     if (list[i])
-      m->yx = tan (G_PI*g_ascii_strtod (list[i], NULL)/180);
+      m->xy = tan (G_PI*g_ascii_strtod (list[i], NULL)/180);
   } else if (strncmp (trans, "skewY", 5) == 0) {
     m->xx = m->yy = 1.0;
     if (list[i])
-      m->xy = tan (G_PI*g_ascii_strtod (list[i], NULL)/180);
+      m->yx = tan (G_PI*g_ascii_strtod (list[i], NULL)/180);
   } else {
     g_warning ("SVG: %s?", trans);
-    g_free (m);
-    m = NULL;
+    return FALSE;
   }
+  g_strfreev(list);
+
   if (scale > 0 && m) {
     m->x0 /= scale;
     m->y0 /= scale;
   }
-  g_strfreev(list);
+  return TRUE;
+}
+
+DiaMatrix *
+dia_svg_parse_transform(const gchar *trans, real scale)
+{
+  DiaMatrix *m = NULL;
+  gchar **transforms = g_regex_split_simple ("\\)", trans, 0, 0);
+  int i = 0;
+
+  /* go through the list of ztansformations - not that one would be enough ;) */
+  while (transforms[i]) {
+    DiaMatrix mat = { 0, };
+
+    if (_parse_transform (transforms[i], &mat, scale)) {
+      if (!m) {
+	m = g_new (DiaMatrix, 1);
+	*m = mat;
+      } else {
+	dia_matrix_multiply (m, &mat, m);
+      }
+    }
+    ++i;
+  }
+  g_strfreev(transforms);
+
   return m;
 }
 

@@ -223,6 +223,9 @@ draw_object (DiaRenderer *self, DiaObject *object, DiaMatrix *matrix)
   cairo_matrix_t before;
   
   if (matrix) {
+    /* at least in SVG the intent of an invalid matrix is not rendering */
+    if (!dia_matrix_is_invertible(matrix))
+      return;
     cairo_get_matrix (renderer->cr, &before);
     g_assert (sizeof(cairo_matrix_t) == sizeof(DiaMatrix));
     cairo_transform (renderer->cr, (cairo_matrix_t *)matrix);

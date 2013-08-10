@@ -792,3 +792,16 @@ dia_matrix_set_angle_and_scales (DiaMatrix *m,
   cairo_matrix_init_rotate ((cairo_matrix_t *)m, a);
   cairo_matrix_scale ((cairo_matrix_t *)m, sx, sy);
 }
+
+gboolean
+dia_matrix_is_invertible (const DiaMatrix *matrix)
+{
+  double a, b, c, d;
+  double det;
+
+  a = matrix->xx; b = matrix->yx;
+  c = matrix->xy; d = matrix->yy;
+  det = a*d - b*c;
+
+  return finite(det) && det != 0.0;
+}
