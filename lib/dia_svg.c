@@ -1212,20 +1212,26 @@ dia_svg_parse_path(GArray *points, const gchar *path_str, gchar **unparsed,
 	path_chomp(path);
 	y1 = g_ascii_strtod(path, &path);
 	path_chomp(path);
+	if (last_relative) {
+	  x1 += last_point.x;
+	  y1 += last_point.y;
+	}
 	bez.type = BEZ_CURVE_TO;
 	bez.p1.x = (last_point.x + 2 * x1) * (1.0 / 3.0);
-	bez.p1.y = (last_point.x + 2 * y1) * (1.0 / 3.0);
+	bez.p1.y = (last_point.y + 2 * y1) * (1.0 / 3.0);
 	bez.p3.x = g_ascii_strtod(path, &path);
 	path_chomp(path);
 	bez.p3.y = g_ascii_strtod(path, &path);
 	path_chomp(path);
+	if (last_relative) {
+	  bez.p3.x += last_point.x;
+	  bez.p3.y += last_point.y;
+	}
 	bez.p2.x = (bez.p3.x + 2 * x1) * (1.0 / 3.0);
 	bez.p2.y = (bez.p3.y + 2 * y1) * (1.0 / 3.0);
-	if (last_relative) {
-	  /* ToDo: ??? */
-	}
 	last_point = bez.p3;
-	last_control = bez.p2;
+	last_control.x = x1;
+	last_control.y = y1;
         g_array_append_val(points, bez);
       }
       break;
@@ -1244,13 +1250,15 @@ dia_svg_parse_path(GArray *points, const gchar *path_str, gchar **unparsed,
 	path_chomp(path);
 	bez.p3.y = g_ascii_strtod(path, &path);
 	path_chomp(path);
+	if (last_relative) {
+	  bez.p3.x += last_point.x;
+	  bez.p3.y += last_point.y;
+	}
 	bez.p2.x = (bez.p3.x + 2 * xc) * (1.0 / 3.0);
 	bez.p2.y = (bez.p3.y + 2 * yc) * (1.0 / 3.0);
-	if (last_relative) {
-	  /* ToDo: ??? */
-	}
 	last_point = bez.p3;
-	last_control = bez.p2;
+	last_control.x = xc;
+	last_control.y = yc;
         g_array_append_val(points, bez);
       }
       break;
