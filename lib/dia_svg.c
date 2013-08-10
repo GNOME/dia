@@ -896,7 +896,7 @@ dia_svg_parse_path(GArray *points, const gchar *path_str, gchar **unparsed,
   enum {
     PATH_MOVE, PATH_LINE, PATH_HLINE, PATH_VLINE, PATH_CURVE,
     PATH_SMOOTHCURVE, PATH_QUBICCURVE, PATH_TTQCURVE,
-    PATH_ARC, PATH_CLOSE } last_type = PATH_MOVE;
+    PATH_ARC, PATH_CLOSE, PATH_END } last_type = PATH_MOVE;
   Point last_open = {0.0, 0.0};
   Point last_point = {0.0, 0.0};
   Point last_control = {0.0, 0.0};
@@ -1069,6 +1069,7 @@ dia_svg_parse_path(GArray *points, const gchar *path_str, gchar **unparsed,
       break;
     default:
       g_warning("unsupported path code '%c'", path[0]);
+      last_type = PATH_END;
       path++;
       path_chomp(path);
       break;
@@ -1275,6 +1276,7 @@ dia_svg_parse_path(GArray *points, const gchar *path_str, gchar **unparsed,
 	path_chomp(path);
 	ry = g_ascii_strtod(path, &path);
 	path_chomp(path);
+#if 1 /* ok if it is all properly separated */
 	xrot = g_ascii_strtod(path, &path);
 	path_chomp(path);
 
@@ -1282,6 +1284,22 @@ dia_svg_parse_path(GArray *points, const gchar *path_str, gchar **unparsed,
 	path_chomp(path);
 	sweep = (int)g_ascii_strtod(path, &path);
 	path_chomp(path);
+#else
+	/* Actually three flags, which might not be properly separated,
+	 * but even with this paths-data-20-f.svg does work. IMHO the
+	 * test case is seriously borked and can only pass if parsing
+	 * the arc is tweaked against the test. In other words that test
+	 * looks like it is built against one specific implementation.
+	 * Inkscape and librsvg fail, Firefox pass.
+	 */
+	xrot = path[0] == '0' ? 0.0 : 1.0; ++path;
+	path_chomp(path);
+
+	largearc = path[0] == '0' ? 0 : 1; ++path;
+	path_chomp(path);
+	sweep =  path[0] == '0' ? 0 : 1; ++path;
+	path_chomp(path);
+#endif
 
 	dest.x = g_ascii_strtod(path, &path);
 	path_chomp(path);
@@ -1315,6 +1333,12 @@ dia_svg_parse_path(GArray *points, const gchar *path_str, gchar **unparsed,
       }
       *closed = TRUE;
       need_next_element = TRUE;
+      break;
+    case PATH_END:
+      while (*path != '\0')
+	path++;
+      need_next_element = FALSE;
+      break;
     }
     /* get rid of any ignorable characters */
     path_chomp(path);
