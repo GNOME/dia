@@ -763,7 +763,23 @@ read_poly_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GHashTable *style_ht,
       xmlFree (str);
     }
     
+    /* Uh, oh, no : apparently a fill="" in a group above make this a polygon */
+    str = xmlGetProp(node, (const xmlChar *)"fill");
+    if (str && xmlStrcmp(str, (const xmlChar *)"none") != 0)
+      otype = object_get_type("Standard - Polygon");
+    else if ((parent_style && parent_style->fill >= 0))
+      otype = object_get_type("Standard - Polygon");
+    else
+      otype = object_get_type(object_type);
+    if (str)
+      xmlFree (str);
+
     str = xmlGetProp(node, (const xmlChar *)"points");
+    if (!str) {
+      g_warning ("SVG: '%s' without points", node->name);
+      g_free (matrix);
+      return list;
+    }
     tmp = (char *) str;
     while (tmp[0] != '\0') {
       /* skip junk */
@@ -774,9 +790,8 @@ read_poly_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GHashTable *style_ht,
       g_array_append_val(arr, val);
     }
     xmlFree(str);
-    val = 0;
-    if (arr->len % 2 == 1)
-      g_array_append_val(arr, val);
+
+    /* If an odd number of coordinates is provided, then the element is in error, cut off below */
     points = g_malloc0(arr->len/2*sizeof(Point));
 
     pcd = g_new(MultipointCreateData, 1);
@@ -1299,10 +1314,7 @@ read_items (xmlNodePtr   startnode,
       if (items)
 	obj = g_list_last(items)->data;
     } else if (!xmlStrcmp(node->name, (const xmlChar *)"polyline")) {
-      /* Uh, oh, no : apparently a fill="" in a group above make this a polygon */
-      items = read_poly_svg(node, parent_gs, style_ht, items,
-			    parent_gs && parent_gs->fill >= 0 ?
-                            "Standard - Polygon" : "Standard - PolyLine");
+      items = read_poly_svg(node, parent_gs, style_ht, items, "Standard - PolyLine");
       if (items)
 	obj = g_list_last(items)->data;
     } else if (!xmlStrcmp(node->name, (const xmlChar *)"polygon")) {
