@@ -1180,10 +1180,22 @@ read_style (xmlNodePtr node, GHashTable *ht)
 
     g_regex_match (regex, (gchar *)str, 0, &info);
     while (g_match_info_matches (info)) {
-      /* */
+      /* Use the _last_ key before { and val between {}
+       * To the left there might be refernenced parents in the tree restricting
+       * the effect of the key but that's just too complicated for Dia's SVG ...
+       */
       gchar *key = g_match_info_fetch (info, 1);
       gchar *val = g_match_info_fetch (info, 2);
+      const gchar *former;
 
+      /* multiple occurences chain up to a single style string */
+      former = g_hash_table_lookup (ht, key);
+      if (former) {
+	gchar *tmp = val;
+        val = g_strdup_printf ("%s;%s", former, val);
+	g_free (tmp);
+      }
+      /* hashtable taking ownership */
       g_hash_table_insert (ht, key, val);
       g_match_info_next (info, NULL);
     }
@@ -1265,6 +1277,16 @@ read_items (xmlNodePtr   startnode,
       /* We need to have/apply the groups style before the objects style */
       group_gs = g_new0 (DiaSvgStyle, 1);
       dia_svg_style_init (group_gs, parent_gs);
+      {
+        xmlChar *id = xmlGetProp (node, (xmlChar *)"id");
+	xmlChar *klass = xmlGetProp (node, (xmlChar *)"class");;
+	_css_parse_style (group_gs, user_scale,
+			  (gchar *)node->name, (gchar *)klass, (gchar *)id, style_ht);
+	if (id)
+	  xmlFree (id);
+	if (klass)
+	  xmlFree (klass);
+      }
       dia_svg_parse_style (node, group_gs, user_scale);
 
       trans = xmlGetProp (node, (xmlChar *)"transform");
@@ -1368,7 +1390,7 @@ read_items (xmlNodePtr   startnode,
 	}
       }
     } else if(!xmlStrcmp(node->name, (const xmlChar *)"use")) {
-      xmlChar *key = xmlGetProp (node, (const xmlChar *)"xlink:href");
+      xmlChar *key = xmlGetNsProp (node, (const xmlChar *)"href", (const xmlChar *)"xlink");
       
       if (!key) /* this doesn't look right but ... */
         key = xmlGetProp(node, (const xmlChar *)"href");
@@ -1382,7 +1404,15 @@ read_items (xmlNodePtr   startnode,
 	  obj = otemp->ops->copy (otemp);
 
 	  use_position (obj, node);
-	  apply_style (obj, node, parent_gs, style_ht, FALSE);
+	  /* this should only be styled from the containing group,
+	   * if it has no style on it's own. Sorry Dia can't create
+	   * objects w/o style so we have two options beside complete
+	   * rewrite:
+	   *  - use the style from the group and hope it is on defaults
+	   *  - use a style from scratch instead of parent_gs and hope
+	   *    the object is already styled correctly
+	   */
+	  apply_style (obj, node, NULL, style_ht, FALSE);
 	  items = g_list_append (items, obj);
 	}
 	xmlFree (key);
