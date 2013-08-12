@@ -7531,15 +7531,13 @@ msgstr "Stockage des données"
 msgid "External entity"
 msgstr "Entité externe"
 
-#. Author: Nicholas Moore, 2005. mailto: shiny.nickel@gmail.com
 #: ../sheets/Gane_and_Sarson.sheet.in.h:5
-#, fuzzy
 msgid "Gane and Sarson"
-msgstr "%(father)s et %(mother)s"
+msgstr "Gane et Sarson"
 
 #: ../sheets/Gane_and_Sarson.sheet.in.h:6
 msgid "Gane and Sarson DFD"
-msgstr "DFD Gane et Sarson"
+msgstr "Diagramme de flux de données Gane et Sarson"
 
 #: ../sheets/IsometricMap.sheet.in.h:1
 msgid "Block 1, 2:4"
