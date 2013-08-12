@@ -9232,15 +9232,14 @@ msgstr "Orthogonaler, mehrliniger Fluss"
 msgid "Function"
 msgstr "Funktion"
 
-#. Author: Nicholas Moore, 2005. mailto: shiny.nickel@gmail.com
 #: ../sheets/Gane_and_Sarson.sheet.in.h:2
 msgid "Gane and Sarson"
-msgstr "Gane and Sarson"
+msgstr "Gane und Sarson"
 
 # Ein Datenflussdiagramm
 #: ../sheets/Gane_and_Sarson.sheet.in.h:3
 msgid "Gane and Sarson DFD"
-msgstr "Gane and Sarson DFD"
+msgstr "Datenflussdiagramm in der Gane und Sarson Notation"
 
 #: ../sheets/Gane_and_Sarson.sheet.in.h:4
 msgid "Alternate external entity"
