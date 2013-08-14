@@ -180,6 +180,20 @@ static PropDescription svg_text_prop_descs[] = {
     PROP_DESC_END};
 
 
+real
+_node_get_real (xmlNodePtr node, const char *name, real defval)
+{
+    real val = defval;
+    xmlChar *str = xmlGetProp(node, (const xmlChar *)name);
+
+    if (str) {
+        val = get_value_as_cm((char *) str, NULL);
+        xmlFree(str);
+    }
+
+    return val;
+}
+
 /* <use/> has x and y attributes, use to position */
 static void
 use_position (DiaObject *obj, xmlNodePtr node)
@@ -188,17 +202,8 @@ use_position (DiaObject *obj, xmlNodePtr node)
     xmlChar *str;
     Point delta = obj->position;
 
-    str = xmlGetProp(node, (const xmlChar *)"x");
-    if (str) {
-        pos.x = get_value_as_cm((char *) str, NULL);
-        xmlFree(str);
-    }
-
-    str = xmlGetProp(node, (const xmlChar *)"y");
-    if (str) {
-        pos.y = get_value_as_cm((char *) str, NULL);
-        xmlFree(str);
-    }
+    pos.x = _node_get_real (node, "x", 0.0);
+    pos.y = _node_get_real (node, "y", 0.0);
     /* not assuming the original is at 0,0 */
     pos.x += delta.x;
     pos.y += delta.y;
@@ -612,20 +617,8 @@ read_text_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GHashTable *style_ht, 
     gs = g_new(DiaSvgStyle, 1);
     dia_svg_style_init (gs, parent_style);
 
-    point.x = 0;
-    point.y = 0;
-
-    str = xmlGetProp(node, (const xmlChar *)"x");
-    if (str) {
-      point.x = get_value_as_cm((char *) str, NULL);
-      xmlFree(str);
-    }
-
-    str = xmlGetProp(node, (const xmlChar *)"y");
-    if (str) {
-      point.y = get_value_as_cm((char *) str, NULL);
-      xmlFree(str);
-    }
+    point.x = _node_get_real (node, "x", 0.0);
+    point.y = _node_get_real (node, "y", 0.0);
 
     /* text propety handling is special, don't use apply_style() */
     if (g_hash_table_size (style_ht) > 0) {
@@ -660,10 +653,13 @@ read_text_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GHashTable *style_ht, 
       while (tspan) {
         if (xmlStrcmp (tspan->name, (const xmlChar*)"tspan") == 0) {
           xmlChar *line = xmlNodeGetContent(tspan);
-          if (any_tspan) /* every other line needs separation */
+          if (any_tspan) { /* every other line needs separation */
 	    g_string_append(paragraph, "\n");
-	  else /* only first time - with bogus, experimental division of user scale */
+	  } else { /* only first time - with bogus, experimental division of user scale */
 	    dia_svg_parse_style(tspan, gs, matrix ? user_scale / matrix->yy : user_scale);
+	    point.x += _node_get_real (tspan, "x", 0.0);
+	    point.y += _node_get_real (tspan, "y", 0.0);
+	  }
           g_string_append(paragraph, (gchar*)line);
 	  xmlFree(line);
           any_tspan = TRUE;
@@ -825,12 +821,12 @@ read_ellipse_svg(xmlNodePtr node, DiaSvgStyle *parent_style,
 		 GHashTable *style_ht, GList *list) 
 {
   xmlChar *str;
-  real width = 0.0, height = 0.0;
+  real width, height;
   DiaObjectType *otype = object_get_type("Standard - Ellipse");
   DiaObject *new_obj;
   Handle *h1, *h2;
   GPtrArray *props;
-  Point start = {0, 0};
+  Point start;
   DiaMatrix *matrix = NULL;
 
   str = xmlGetProp(node, (const xmlChar *)"transform");
@@ -838,27 +834,12 @@ read_ellipse_svg(xmlNodePtr node, DiaSvgStyle *parent_style,
     matrix = dia_svg_parse_transform ((char *)str, user_scale);
     xmlFree (str);
   }
-  
-  str = xmlGetProp(node, (const xmlChar *)"cx");
-  if (str) {
-    start.x = get_value_as_cm((char *) str, NULL);
-    xmlFree(str);
-  }
-  str = xmlGetProp(node, (const xmlChar *)"cy");
-  if (str) {
-    start.y = get_value_as_cm((char *) str, NULL);
-    xmlFree(str);
-  }
-  str = xmlGetProp(node, (const xmlChar *)"rx");
-  if (str) {
-    width = get_value_as_cm((char *) str, NULL)*2;
-    xmlFree(str);
-  }
-  str = xmlGetProp(node, (const xmlChar *)"ry");
-  if (str) {
-    height = get_value_as_cm((char *) str, NULL)*2;
-    xmlFree(str);
-  }
+
+  start.x = _node_get_real (node, "cx", 0.0);
+  start.y = _node_get_real (node, "cy", 0.0);
+
+  width = _node_get_real (node, "rx", 0.0);
+  height = _node_get_real (node, "ry", 0.0);
   /* not part of ellipse attributes, just here for circle */
   str = xmlGetProp(node, (const xmlChar *)"r");
   if (str) {
@@ -908,30 +889,10 @@ read_line_svg(xmlNodePtr node, DiaSvgStyle *parent_style,
     xmlFree (str);
   }
 
-  str = xmlGetProp(node, (const xmlChar *)"x1");
-  if (str) {
-    start.x = get_value_as_cm((char *) str, NULL);
-    xmlFree(str);
-  } else
-    start.x = 0.0;
-  str = xmlGetProp(node, (const xmlChar *)"y1");
-  if (str) {
-    start.y = get_value_as_cm((char *) str, NULL);
-    xmlFree(str);
-  } else
-    start.y = 0.0;
-  str = xmlGetProp(node, (const xmlChar *)"x2");
-  if (str) {
-    end.x = get_value_as_cm((char *) str, NULL);
-    xmlFree(str);
-  } else
-    end.x = start.x;
-  str = xmlGetProp(node, (const xmlChar *)"y2");
-  if (str) {
-    end.y = get_value_as_cm((char *) str, NULL);
-    xmlFree(str);
-  } else
-    end.y = start.y;
+  start.x = _node_get_real (node, "x1", 0.0);
+  start.y = _node_get_real (node, "y1", 0.0);
+  end.x = _node_get_real (node, "x2", start.x);
+  end.y = _node_get_real (node, "y2", start.y);
 
   if (matrix) {
     transform_point (&start, matrix);
@@ -967,7 +928,7 @@ read_rect_svg(xmlNodePtr node, DiaSvgStyle *parent_style,
 	      GHashTable *style_ht, GList *list) 
 {
   xmlChar *str;
-  real width = 0.0, height = 0.0;
+  real width, height;
   DiaObjectType *otype = object_get_type("Standard - Box");
   DiaObject *new_obj;
   Handle *h1, *h2;
@@ -984,28 +945,11 @@ read_rect_svg(xmlNodePtr node, DiaSvgStyle *parent_style,
     xmlFree (str);
   }
 
-  str = xmlGetProp(node, (const xmlChar *)"x");
-  if (str) {
-    start.x = get_value_as_cm((char *) str, NULL);
-    xmlFree(str);
-  } else 
-    start.x = 0.0;
-  str = xmlGetProp(node, (const xmlChar *)"y");
-  if (str) {
-    start.y = get_value_as_cm((char *) str, NULL);
-    xmlFree(str);
-  } else 
-    start.y = 0.0;
-  str = xmlGetProp(node, (const xmlChar *)"width");
-  if (str) {
-    width = get_value_as_cm((char *) str, NULL);
-    xmlFree(str);
-  }
-  str = xmlGetProp(node, (const xmlChar *)"height");
-  if (str) {
-    height = get_value_as_cm((char *) str, NULL);
-    xmlFree(str);
-  }
+  start.x = _node_get_real (node, "x", 0.0);
+  start.y = _node_get_real (node, "y", 0.0);
+  width = _node_get_real (node, "width", 0.0);
+  height = _node_get_real (node, "height", 0.0);
+
   str = xmlGetProp(node, (const xmlChar *)"rx");
   if (str) {
     corner_radius = get_value_as_cm((char *) str, NULL);
@@ -1067,7 +1011,7 @@ read_image_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GHashTable *style_ht,
 	       GList *list, const gchar *filename_svg)
 {
   xmlChar *str;
-  real x = 0, y = 0, width = 0, height = 0;
+  real x, y, width, height;
   DiaObject *new_obj = NULL;
   DiaMatrix *matrix = NULL;
 
@@ -1077,26 +1021,11 @@ read_image_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GHashTable *style_ht,
     xmlFree (str);
   }
 
-  str = xmlGetProp(node, (const xmlChar *)"x");
-  if (str) {
-    x = get_value_as_cm((char *) str, NULL);
-    xmlFree(str);
-  } 
-  str = xmlGetProp(node, (const xmlChar *)"y");
-  if (str) {
-    y = get_value_as_cm((char *) str, NULL);
-    xmlFree(str);
-  } 
-  str = xmlGetProp(node, (const xmlChar *)"width");
-  if (str) {
-    width = get_value_as_cm((char *) str, NULL);
-    xmlFree(str);
-  }
-  str = xmlGetProp(node, (const xmlChar *)"height");
-  if (str) {
-    height = get_value_as_cm((char *) str, NULL);
-    xmlFree(str);
-  }
+  x = _node_get_real (node, "x", 0.0);
+  y = _node_get_real (node, "y", 0.0);
+  width = _node_get_real (node, "width", 0.0);
+  height = _node_get_real (node, "height", 0.0);
+
   /* TODO: aspect ratio? */
 
   if (matrix) {
