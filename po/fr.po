@@ -7613,7 +7613,7 @@ msgstr "Élément de grande rue"
 #. use dc:title instead?
 #: ../sheets/IsometricMap.sheet.in.h:20
 msgid "Map, Isometric"
-msgstr ""
+msgstr "Carte isométrique"
 
 #: ../sheets/IsometricMap.sheet.in.h:21
 msgid "One Way Road Sign"
