@@ -3341,7 +3341,7 @@ vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p)
         return s;
     }
 
-    message_error(_("Can't decode object %s"), (char*)cur->name);
+    message_error(_("Can't decode object %s\n"), (char*)cur->name);
     return 0;
 }
 
