@@ -499,6 +499,7 @@ draw_arc(DiaRenderer *self,
   DiaCairoRenderer *renderer = DIA_CAIRO_RENDERER (self);
   Point start;
   double a1, a2;
+  real onedu = 0.0;
 
   DIAG_NOTE(g_message("draw_arc %fx%f <%f,<%f", 
             width, height, angle1, angle2));
@@ -515,9 +516,12 @@ draw_arc(DiaRenderer *self,
   a1 = - (angle1 / 180.0) * G_PI;
   a2 = - (angle2 / 180.0) * G_PI;
   /* FIXME: to handle width != height some cairo_scale/cairo_translate would be needed */
-  cairo_arc_negative (renderer->cr, center->x, center->y, 
-                      width > height ? height / 2.0 : width / 2.0, /* FIXME 2nd radius */
-                      a1, a2);
+  ensure_minimum_one_device_unit (renderer, &onedu);
+  /* FIXME2: with too small arcs cairo goes into an endless loop */
+  if (height/2.0 > onedu && width/2.0 > onedu)
+    cairo_arc_negative (renderer->cr, center->x, center->y, 
+                        width > height ? height / 2.0 : width / 2.0, /* FIXME 2nd radius */
+                        a1, a2);
   cairo_stroke (renderer->cr);
   DIAG_STATE(renderer->cr)
 }
