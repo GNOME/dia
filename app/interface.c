@@ -561,6 +561,19 @@ use_integrated_ui_for_display_shell(DDisplay *ddisp, char *title)
                          GDK_POINTER_MOTION_HINT_MASK |
                          GDK_FOCUS_CHANGE_MASK);
 
+  g_signal_connect (GTK_OBJECT (ddisp->container), "focus_out_event",
+		    G_CALLBACK (ddisplay_focus_out_event),
+		      ddisp);
+  g_signal_connect (GTK_OBJECT (ddisp->container), "focus_in_event",
+		    G_CALLBACK (ddisplay_focus_in_event),
+		      ddisp);
+  g_signal_connect (GTK_OBJECT (ddisp->container), "realize",
+		    G_CALLBACK (ddisplay_realize),
+                      ddisp);
+  g_signal_connect (GTK_OBJECT (ddisp->container), "unrealize",
+		    G_CALLBACK (ddisplay_unrealize),
+		      ddisp);
+
   notebook_page_index = gtk_notebook_append_page (GTK_NOTEBOOK(ui.diagram_notebook),
                                                   ddisp->container,
                                                   tab_label_container);
