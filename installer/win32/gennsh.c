@@ -2,7 +2,7 @@
  * Copyright (C) 1998 Alexander Larsson
  *
  * gennsh.c
- * Copyright (C) 2009,2011 Steffen Macke <sdteffen@sdteffen.de>
+ * Copyright (C) 2009,2011,2013 Steffen Macke <sdteffen@sdteffen.de>
  *
  * gennsh is a program that allows to generate locale file for the
  * Dia for Windows installer
@@ -71,14 +71,22 @@ int main(int argc, char *argv[])
   /* Installer message: Dia uninstaller entry in Control Panel */
   printf("!define DIA_UNINSTALL_DESC \"%s\"\n", _("Dia (remove only)"));
 
-  /* Installer message: confirmation question. Keep $\r */
-  printf("!define DIA_PROMPT_WIPEOUT \"%s\"\n", g_strescape(_("Your old Dia directory is about to be deleted. Would you like to continue?$\r$\rNote: Any non-standard plugins that you may have installed will be deleted.$\rDia user settings will not be affected."), ""));
+  /* Installer message: directory delete confirmation line 1 */
+  printf("!define DIA_PROMPT_WIPEOUT \"%s$\\r$\\r%s$\\r%s\"\n", _("Your old Dia directory is about to be deleted. Would you like to continue?"),
+	/* Installer message: directory delete confirmation line 2 */
+	 _("Note: Any non-standard plugins that you may have installed will be deleted."),
+	/* Installer message: directory delete confirmation line 3*/
+	_("Dia user settings will not be affected."));
 
-  /* Installer message: confirmatin question. Keep $\r */
-  printf("!define DIA_PROMPT_DIR_EXISTS \"%s\"\n", g_strescape(_("The installation directory you specified already exists. Any contents$\rwill be deleted. Would you like to continue?"), ""));
+  /* Installer message: DIA_PROMPT_DIR_EXISTS line 1 */
+  printf("!define DIA_PROMPT_DIR_EXISTS \"%s$\\r%s\"\n", _("The installation directory you specified already exists. Any contents"),
+	/* Installer message: DIA_PROMP_DIR_EXISTS line 2 */
+	_("will be deleted. Would you like to continue?"));
 
-  /* Installer message: Uninstall Section Prompts. Keep $\r */
-  printf("!define un.DIA_UNINSTALL_ERROR_1 \"%s\"\n", g_strescape(_("The uninstaller could not find registry entries for Dia.$\rIt is likely that another user installed this application."), ""));
+  /* Installer message: registry entries not found line 1 */
+  printf("!define un.DIA_UNINSTALL_ERROR_1 \"%s$\\r%s\"\n", _("The uninstaller could not find registry entries for Dia."),
+	/* Installer message: registry entries not found line 2 */
+	_("It is likely that another user installed this application."));
 
   /* Installer message: Uninstall error message */
   printf("!define un.DIA_UNINSTALL_ERROR_2 \"%s\"\n", _("You do not have permission to uninstall this application."));
@@ -87,6 +95,6 @@ int main(int argc, char *argv[])
   printf("!define un.DIA_UNINSTALLATION_WARNING \"%s\"\n", _("This will completely delete $INSTDIR and all subdirectories. Continue?"));
 
   /* Installer message: Uninstallation warning. Keep $\PROFILE\.dia */
-  printf("!define un.DIA_DOTDIA_WARNING \"%s\"\n", _("This will completely delete $PROFILE\.dia and all subdirectories. Continue?"));
+  printf("!define un.DIA_DOTDIA_WARNING \"%s\"\n", _("This will completely delete $PROFILE\\.dia and all subdirectories. Continue?"));
   return 0;
 }
