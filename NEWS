@@ -1,3 +1,15 @@
+  * introduce "Standard - Path" - an object between Bezierline and
+    Beziergon not sharing their shortcomings, i.e multiple move-to
+    is supported (objects with holes). The "Standard - Path" object
+    can only be created indirectly by:
+    - importing svg:path with holes (Bezierline and Beziergon are
+      still used wherever possible)
+    - substitute standard objects with their path representation
+      (object menu: "Convert to Path")
+    - rendering objects to path (also object menu "Convert to Path")
+
+  * experimental PDF import based on libpoppler (not very useful yet)
+
   * optional OGDF based automatic layout plug-in
     Providing a bunch of automatic graph layout algorithms based on OGDF (www.ogdf.net)
     See plug-ins/layout/readme.txt for build details.
@@ -125,7 +137,6 @@ dia-0.97: 2009-05-03
 
 dia-0.97-pre3: 2009-04-11
 
-  * integrated UI does not need a restart anymore (it must be selected on the 
   * integrated UI does not need a restart anymore (it must be selected on the 
     command line with 'dia --integrated' ;)
   * even more bugs fixed:
