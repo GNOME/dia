@@ -1417,7 +1417,7 @@ _parse_shape_cp (xmlNodePtr node, real *x, real *y, gboolean *mcp)
     *x = g_ascii_strtod ((const char *)sx, NULL);
     *y = g_ascii_strtod ((const char *)sy, NULL);
     *mcp = (sm ? strcmp ((const char *)sm, "yes") == 0 : FALSE);
-    return TRUE;
+    ret = TRUE;
   }
   if (sx) xmlFree (sx);
   if (sy) xmlFree (sy);
