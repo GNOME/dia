@@ -597,15 +597,15 @@ static PropEnumData prop_std_text_fitting_data[] = {
   { NULL, 0 }
 };
 static PropEnumData prop_std_line_join_data[] = {
-  { N_("Miter"), LINEJOIN_MITER },
-  { N_("Round"), LINEJOIN_ROUND },
-  { N_("Bevel"), LINEJOIN_BEVEL },
+  { NC_("LineJoin", "Miter"), LINEJOIN_MITER },
+  { NC_("LineJoin", "Round"), LINEJOIN_ROUND },
+  { NC_("LineJoin", "Bevel"), LINEJOIN_BEVEL },
   { NULL, 0 }
 };
 static PropEnumData prop_std_line_caps_data[] = {
-  { N_("Butt"), LINECAPS_BUTT },
-  { N_("Round"), LINECAPS_ROUND },
-  { N_("Projecting"), LINECAPS_PROJECTING },
+  { NC_("LineCap", "Butt"), LINECAPS_BUTT },
+  { NC_("LineCap", "Round"), LINECAPS_ROUND },
+  { NC_("LineCap", "Projecting"), LINECAPS_PROJECTING },
   { NULL, 0 }
 };
 #else
