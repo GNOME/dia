@@ -63,6 +63,7 @@ struct _Box {
   Color inner_color;
   gboolean show_background;
   LineStyle line_style;
+  LineJoin line_join;
   real dashlength;
   real corner_radius;
   AspectType aspect;
@@ -115,6 +116,7 @@ static PropOffset box_offsets[] = {
   { "aspect", PROP_TYPE_ENUM, offsetof(Box, aspect) },
   { "line_style", PROP_TYPE_LINESTYLE,
     offsetof(Box, line_style), offsetof(Box, dashlength) },
+  { "line_join", PROP_TYPE_ENUM, offsetof(Box, line_join) },
   { "corner_radius", PROP_TYPE_REAL, offsetof(Box, corner_radius) },
   { NULL, 0, 0 }
 };
@@ -134,6 +136,7 @@ static PropDescription box_props[] = {
   PROP_STD_FILL_COLOUR,
   PROP_STD_SHOW_BACKGROUND,
   PROP_STD_LINE_STYLE,
+  PROP_STD_LINE_JOIN_OPTIONAL,
   { "corner_radius", PROP_TYPE_REAL, PROP_FLAG_VISIBLE,
     N_("Corner radius"), NULL, &corner_radius_data },
   { "aspect", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE,
@@ -310,7 +313,7 @@ box_draw(Box *box, DiaRenderer *renderer)
   if (box->corner_radius > 0)
     renderer_ops->set_linejoin(renderer, LINEJOIN_ROUND);
   else
-    renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
+    renderer_ops->set_linejoin(renderer, box->line_join);
 
   if (box->show_background) {
     renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
@@ -440,6 +443,7 @@ box_create(Point *startpoint,
   box->border_color = attributes_get_foreground();
   box->inner_color = attributes_get_background();
   attributes_get_default_line_style(&box->line_style, &box->dashlength);
+  box->line_join = LINEJOIN_MITER;
   /* For non-default objects, this is overridden by the default */
   box->show_background = default_properties.show_background;
   box->corner_radius = default_properties.corner_radius;
@@ -488,6 +492,7 @@ box_copy(Box *box)
   newbox->inner_color = box->inner_color;
   newbox->show_background = box->show_background;
   newbox->line_style = box->line_style;
+  newbox->line_join = box->line_join;
   newbox->dashlength = box->dashlength;
   newbox->corner_radius = box->corner_radius;
   newbox->aspect = box->aspect;
@@ -531,6 +536,10 @@ box_save(Box *box, ObjectNode obj_node, const char *filename)
       box->dashlength != DEFAULT_LINESTYLE_DASHLEN)
     data_add_real(new_attribute(obj_node, "dashlength"),
                   box->dashlength);
+
+  if (box->line_join != LINEJOIN_MITER)
+    data_add_enum(new_attribute(obj_node, "line_join"),
+		  box->line_join);
 
   if (box->corner_radius > 0.0)
     data_add_real(new_attribute(obj_node, "corner_radius"),
@@ -588,6 +597,11 @@ box_load(ObjectNode obj_node, int version, DiaContext *ctx)
   attr = object_find_attribute(obj_node, "dashlength");
   if (attr != NULL)
     box->dashlength = data_real(attribute_first_data(attr), ctx);
+
+  box->line_join = LINEJOIN_MITER;
+  attr = object_find_attribute(obj_node, "line_join");
+  if (attr != NULL)
+    box->line_join =  data_enum(attribute_first_data(attr), ctx);
 
   box->corner_radius = 0.0;
   attr = object_find_attribute(obj_node, "corner_radius");
