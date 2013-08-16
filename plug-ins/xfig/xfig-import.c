@@ -1108,7 +1108,7 @@ fig_read_object(FILE *file, DiaContext *ctx)
     case 6: {/* Compound object which is composed of one or more objects. */
 	int dummy;
 	if (fscanf(file, " %d %d %d %d\n", &dummy, &dummy, &dummy, &dummy) != 4) {
-	    dia_context_add_message_with_errno(ctx, errno, _("Couldn't read group extend."));
+	    dia_context_add_message_with_errno(ctx, errno, _("Couldn't read group extent."));
 	    return FALSE;
 	}
 	/* Group extends don't really matter */
