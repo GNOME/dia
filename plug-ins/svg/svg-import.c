@@ -180,7 +180,7 @@ static PropDescription svg_text_prop_descs[] = {
     PROP_DESC_END};
 
 
-real
+static real
 _node_get_real (xmlNodePtr node, const char *name, real defval)
 {
     real val = defval;
