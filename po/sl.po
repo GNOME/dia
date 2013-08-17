@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: dia master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=dia&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2013-05-22 09:04+0000\n"
-"PO-Revision-Date: 2013-06-03 21:08+0100\n"
+"POT-Creation-Date: 2013-08-16 19:52+0000\n"
+"PO-Revision-Date: 2013-08-17 20:47+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: Slovenian\n"
@@ -56,8 +56,8 @@ msgstr "Napaka %s: imeni vhodne in izhodne datoteke sta isti: %s"
 
 #. Translators: Menu item Verb/Channel/Import
 #. Translators: Menu item Verb/Channel/Import/Import
-#: ../app/app_procs.c:353 ../objects/FS/function.c:682
-#: ../objects/FS/function.c:684
+#: ../app/app_procs.c:353 ../objects/FS/function.c:681
+#: ../objects/FS/function.c:683
 msgid "Import"
 msgstr "Uvozi"
 
@@ -410,23 +410,36 @@ msgstr ""
 msgid "A program for drawing structured diagrams."
 msgstr "Program za risanje strukturiranih diagramov."
 
-#: ../app/confirm.c:69
-#, c-format
-msgid "You are about to print a diagram with %d pages."
-msgstr "Natisnili boste diagram s/z %d stranmi."
-
 #: ../app/confirm.c:71
-#, c-format
-msgid "You are about to export a diagram with %d pages."
-msgstr "Izvozili boste diagram s/z %d stranmi."
+#, fuzzy, c-format
+msgid "You are about to print a diagram with %d page."
+msgid_plural "You are about to print a diagram with %d pages."
+msgstr[0] "Natisnili boste diagram s/z %d stranmi."
+msgstr[1] "Natisnili boste diagram s/z %d stranmi."
+msgstr[2] "Natisnili boste diagram s/z %d stranmi."
+msgstr[3] "Natisnili boste diagram s/z %d stranmi."
 
-#: ../app/confirm.c:73
-#, c-format
+#: ../app/confirm.c:75
+#, fuzzy, c-format
+msgid "You are about to export a diagram with %d page."
+msgid_plural "You are about to export a diagram with %d pages."
+msgstr[0] "Izvozili boste diagram s/z %d stranmi."
+msgstr[1] "Izvozili boste diagram s/z %d stranmi."
+msgstr[2] "Izvozili boste diagram s/z %d stranmi."
+msgstr[3] "Izvozili boste diagram s/z %d stranmi."
+
+#: ../app/confirm.c:79
+#, fuzzy, c-format
 msgid ""
+"You are about to export a diagram which may require %s of memory.(%d page)."
+msgid_plural ""
 "You are about to export a diagram which may require %s of memory.(%d pages)."
-msgstr "Izvozili boste diagram, ki lahko zahteva %s pomnilnika (%d strani)."
+msgstr[0] "Izvozili boste diagram, ki lahko zahteva %s pomnilnika (%d strani)."
+msgstr[1] "Izvozili boste diagram, ki lahko zahteva %s pomnilnika (%d strani)."
+msgstr[2] "Izvozili boste diagram, ki lahko zahteva %s pomnilnika (%d strani)."
+msgstr[3] "Izvozili boste diagram, ki lahko zahteva %s pomnilnika (%d strani)."
 
-#: ../app/confirm.c:81
+#: ../app/confirm.c:88
 msgid ""
 "You can adjust the size of the diagram by changing the 'Scaling' in the "
 "'Page Setup' dialog.\n"
@@ -438,7 +451,7 @@ msgstr ""
 "Sicer lahko uporabite tudi 'Izberi vse' in 'Najboljše ujemanje', da "
 "premaknete predmete/ročice v želene meje."
 
-#: ../app/confirm.c:85
+#: ../app/confirm.c:92
 msgid "Confirm Diagram Size"
 msgstr "Potrditev mere diagrama"
 
@@ -464,7 +477,7 @@ msgstr "Privzeto: "
 msgid "Couldn't convert filename '%s' to UTF-8: %s\n"
 msgstr "Ni mogoče pretvoriti imena datoteke '%s' v UTF-8: %s\n"
 
-#: ../app/diagram.c:240 ../lib/message.c:91 ../lib/message.c:296
+#: ../app/diagram.c:240 ../lib/message.c:91 ../lib/message.c:299
 msgid "Error"
 msgstr "Napaka"
 
@@ -528,8 +541,8 @@ msgstr "Izberi"
 
 #. Translators: Menu item Verb/Support/Position/Locate
 #. Translators: Menu item Verb/Signal/Sense/Locate
-#: ../app/diagram_tree_view.c:449 ../objects/FS/function.c:808
-#: ../objects/FS/function.c:1050
+#: ../app/diagram_tree_view.c:449 ../objects/FS/function.c:807
+#: ../objects/FS/function.c:1049
 msgid "Locate"
 msgstr "Lociraj"
 
@@ -666,7 +679,7 @@ msgstr "Barve"
 msgid "Diagram Properties: %s"
 msgstr "Lastnosti diagrama: %s"
 
-#: ../app/disp_callbacks.c:92 ../app/properties-dialog.c:156
+#: ../app/disp_callbacks.c:93 ../app/properties-dialog.c:156
 msgid ""
 "This object doesn't support Undo/Redo.\n"
 "Undo information erased."
@@ -674,19 +687,25 @@ msgstr ""
 "Ta predmet ne podpira Razveljavi/Obnovi.\n"
 "Podatki o razveljavitvi so izbrisani."
 
-#: ../app/disp_callbacks.c:127
+#: ../app/disp_callbacks.c:128
 msgid "Properties…"
 msgstr "Lastnosti …"
 
-#: ../app/disp_callbacks.c:166
+#: ../app/disp_callbacks.c:167
 msgid "Follow link…"
 msgstr "Sledi povezavi …"
 
-#: ../app/disp_callbacks.c:288
+#: ../app/disp_callbacks.c:216 ../objects/standard/bezier.c:785
+#: ../objects/standard/beziergon.c:524 ../objects/standard/box.c:763
+#: ../objects/standard/textobj.c:450
+msgid "Convert to Path"
+msgstr "Pretvori v pot"
+
+#: ../app/disp_callbacks.c:345
 msgid "Selection"
 msgstr "Izbor"
 
-#: ../app/disp_callbacks.c:1056
+#: ../app/disp_callbacks.c:1113
 msgid ""
 "The object you dropped cannot fit into its parent. \n"
 "Either expand the parent object, or drop the object elsewhere."
@@ -977,7 +996,7 @@ msgstr "Dodaj plast"
 msgid "Layer name:"
 msgstr "Ime plasti:"
 
-#: ../app/linewidth_area.c:247 ../lib/properties.h:622 ../lib/properties.h:625
+#: ../app/linewidth_area.c:247 ../lib/properties.h:623 ../lib/properties.h:626
 #: ../objects/chronogram/chronoline.c:180
 #: ../objects/chronogram/chronoref.c:159
 msgid "Line width"
@@ -1077,7 +1096,7 @@ msgstr "Pisanje v začasne datoteke v %s ni dovoljeno\n"
 #: ../app/load_save.c:1072 ../plug-ins/cgm/cgm.c:1172
 #: ../plug-ins/dxf/dxf-export.c:599
 #: ../plug-ins/metapost/render_metapost.c:1179
-#: ../plug-ins/pgf/render_pgf.c:1204 ../plug-ins/postscript/render_eps.c:123
+#: ../plug-ins/pgf/render_pgf.c:1207 ../plug-ins/postscript/render_eps.c:123
 #: ../plug-ins/pstricks/render_pstricks.c:917
 #: ../plug-ins/vdx/vdx-export.c:1801 ../plug-ins/wmf/wmf.cpp:1375
 #: ../plug-ins/wpg/wpg.c:1078 ../plug-ins/xfig/xfig-export.c:1178
@@ -1388,7 +1407,7 @@ msgid "_Unparent Children"
 msgstr "Razlasti _podrejeni predmet"
 
 #. Translators: Menu item Verb/Support/Position/Align
-#: ../app/menus.c:184 ../objects/FS/function.c:806
+#: ../app/menus.c:184 ../objects/FS/function.c:805
 msgid "Align"
 msgstr "Poravnaj"
 
@@ -1435,7 +1454,7 @@ msgstr "_Izberi"
 msgid "All"
 msgstr "Vse"
 
-#: ../app/menus.c:203 ../lib/arrows.c:1890 ../objects/Jackson/domain.c:94
+#: ../app/menus.c:203 ../objects/Jackson/domain.c:94
 #: ../objects/UML/association.c:220 ../objects/UML/association.c:226
 msgid "None"
 msgstr "Brez"
@@ -1484,7 +1503,7 @@ msgid "Modify"
 msgstr "Spremeni"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Magnify
-#: ../app/menus.c:229 ../app/toolbox.c:86 ../objects/FS/function.c:986
+#: ../app/menus.c:229 ../app/toolbox.c:86 ../objects/FS/function.c:985
 msgid "Magnify"
 msgstr "Povečaj"
 
@@ -1499,8 +1518,8 @@ msgstr "Drsi"
 #. how it used to be before 0.96+SVN
 #. new name matching "same name, same type"  rule
 #: ../app/menus.c:232 ../app/toolbox.c:98 ../lib/properties.c:101
-#: ../lib/properties.h:673 ../objects/AADL/aadlbox.c:153
-#: ../objects/custom/custom_object.c:228 ../objects/Jackson/requirement.c:132
+#: ../lib/properties.h:674 ../objects/AADL/aadlbox.c:153
+#: ../objects/custom/custom_object.c:228 ../objects/Jackson/requirement.c:130
 #: ../objects/network/basestation.c:132 ../objects/network/radiocell.c:125
 #: ../objects/UML/activity.c:127 ../objects/UML/actor.c:120
 #: ../objects/UML/classicon.c:145 ../objects/UML/component.c:127
@@ -1590,8 +1609,8 @@ msgstr "Presek"
 #. Translators: Menu item Verb/Channel/Export/Remove
 #. Translators: Menu item Verb/Branch/Separate/Remove
 #. Translators: Menu item Verb/Branch/Separate/Remove/Remove
-#: ../app/menus.c:266 ../objects/FS/function.c:706
-#: ../objects/FS/function.c:858 ../objects/FS/function.c:860
+#: ../app/menus.c:266 ../objects/FS/function.c:705
+#: ../objects/FS/function.c:857 ../objects/FS/function.c:859
 msgid "Remove"
 msgstr "Odstrani"
 
@@ -1800,8 +1819,8 @@ msgstr "pokaži z zglajenimi robovi"
 #. Favored Filter
 #. Translators: Menu item Verb/Channel/Export
 #. Translators: Menu item Verb/Channel/Export/Export
-#: ../app/preferences.c:220 ../objects/FS/function.c:696
-#: ../objects/FS/function.c:698 ../plug-ins/libart/export_png.c:329
+#: ../app/preferences.c:220 ../objects/FS/function.c:695
+#: ../objects/FS/function.c:697 ../plug-ins/libart/export_png.c:329
 msgid "Export"
 msgstr "Izvozi"
 
@@ -1810,7 +1829,7 @@ msgid "Portable Network Graphics"
 msgstr "PNG (Portable Network Graphics)"
 
 #: ../app/preferences.c:224 ../plug-ins/svg/render_svg.c:604
-#: ../plug-ins/svg/svg-import.c:1447
+#: ../plug-ins/svg/svg-import.c:1672
 msgid "Scalable Vector Graphics"
 msgstr "SVG (Scalable Vector Graphics)"
 
@@ -2226,184 +2245,242 @@ msgstr "Obišči spletno stran Dia za Windows"
 msgid "Dia (remove only)"
 msgstr "Dia (samo odstrani)"
 
-#. Installer message: confirmation question. Keep $\r
+#. Installer message: directory delete confirmation line 1
 #: ../installer/win32/gennsh.c:75
+#, fuzzy
 msgid ""
-"Your old Dia directory is about to be deleted. Would you like to continue?$\r"
-"$\rNote: Any non-standard plugins that you may have installed will be "
-"deleted.$\rDia user settings will not be affected."
-msgstr ""
-"Vaša stara mapa Dia bo izbrisana. Želite nadaljevati?$\r$\rOpomba: Vsi "
-"nestandardni vtičniki, ki ste jih namestili, bodo zdaj izbrisani.$"
-"\rUporabniške nastavitve Dia ne bodo prizadete."
-
-#. Installer message: confirmatin question. Keep $\r
-#: ../installer/win32/gennsh.c:78
-msgid ""
-"The installation directory you specified already exists. Any contents$\rwill "
-"be deleted. Would you like to continue?"
+"Your old Dia directory is about to be deleted. Would you like to continue?"
 msgstr ""
 "Namestitvena mapa, ki ste jo navedli, že obstaja. Celotna vsebina$\rbo "
 "izbrisana. Želite nadaljevati?"
 
-#. Installer message: Uninstall Section Prompts. Keep $\r
-#: ../installer/win32/gennsh.c:81
+#. Installer message: directory delete confirmation line 2
+#: ../installer/win32/gennsh.c:77
 msgid ""
-"The uninstaller could not find registry entries for Dia.$\rIt is likely that "
-"another user installed this application."
+"Note: Any non-standard plugins that you may have installed will be deleted."
+msgstr "Opomba: vsi nestandardni vstavki, ki so nameščeni, bodo izbrisani."
+
+#. Installer message: directory delete confirmation line 3
+#: ../installer/win32/gennsh.c:79
+msgid "Dia user settings will not be affected."
+msgstr "Uporabniške nastavitve ne bodo spremenjene."
+
+#. Installer message: DIA_PROMPT_DIR_EXISTS line 1
+#: ../installer/win32/gennsh.c:82
+#, fuzzy
+msgid "The installation directory you specified already exists. Any contents"
+msgstr ""
+"Namestitvena mapa, ki ste jo navedli, že obstaja. Celotna vsebina$\rbo "
+"izbrisana. Želite nadaljevati?"
+
+#. Installer message: DIA_PROMP_DIR_EXISTS line 2
+#: ../installer/win32/gennsh.c:84
+#, fuzzy
+msgid "will be deleted. Would you like to continue?"
+msgstr "Nič niste izbrali za shranjevanje. Želite poskusiti znova?"
+
+#. Installer message: registry entries not found line 1
+#: ../installer/win32/gennsh.c:87
+#, fuzzy
+msgid "The uninstaller could not find registry entries for Dia."
+msgstr ""
+"Odstranitveni program ne more najti vnosov v register za program Dia.$"
+"\rNajverjetneje je ta program namestil drug uporabnik."
+
+#. Installer message: registry entries not found line 2
+#: ../installer/win32/gennsh.c:89
+#, fuzzy
+msgid "It is likely that another user installed this application."
 msgstr ""
 "Odstranitveni program ne more najti vnosov v register za program Dia.$"
 "\rNajverjetneje je ta program namestil drug uporabnik."
 
 #. Installer message: Uninstall error message
-#: ../installer/win32/gennsh.c:84
+#: ../installer/win32/gennsh.c:92
 msgid "You do not have permission to uninstall this application."
 msgstr "Nimate pravic za odstranitev tega programa."
 
 #. Installer message: Uninstallation warning. Keep $INSTDIR
-#: ../installer/win32/gennsh.c:87
+#: ../installer/win32/gennsh.c:95
 msgid "This will completely delete $INSTDIR and all subdirectories. Continue?"
 msgstr "To bo povsem izbrisalo $INSTDIR in vse podmape. Želite nadaljevati?"
 
 #. Installer message: Uninstallation warning. Keep $\PROFILE\.dia
-#: ../installer/win32/gennsh.c:90
+#: ../installer/win32/gennsh.c:98
 msgid ""
 "This will completely delete $PROFILE\\.dia and all subdirectories. Continue?"
 msgstr ""
 "To bo povsem izbrisalo $PROFILE\\.dia in vse podmape. Želite nadaljevati?"
 
+#: ../lib/arrows.c:1890
+msgctxt "Arrow"
+msgid "None"
+msgstr "brez"
+
 #: ../lib/arrows.c:1891
+msgctxt "Arrow"
 msgid "Lines"
-msgstr "črte"
+msgstr "črta"
 
 #: ../lib/arrows.c:1892
+msgctxt "Arrow"
 msgid "Hollow Triangle"
 msgstr "prazen trikotnik"
 
 #: ../lib/arrows.c:1893
+msgctxt "Arrow"
 msgid "Filled Triangle"
 msgstr "zapolnjen trikotnik"
 
 #: ../lib/arrows.c:1894
+msgctxt "Arrow"
 msgid "Unfilled Triangle"
 msgstr "nezapolnjen trikotnik"
 
 #: ../lib/arrows.c:1895
+msgctxt "Arrow"
 msgid "Hollow Diamond"
 msgstr "nezapolnjen karo"
 
 #: ../lib/arrows.c:1896
+msgctxt "Arrow"
 msgid "Filled Diamond"
 msgstr "zapolnjen karo"
 
 #: ../lib/arrows.c:1897
+msgctxt "Arrow"
 msgid "Half Diamond"
 msgstr "polovičen karo"
 
 #: ../lib/arrows.c:1898
+msgctxt "Arrow"
 msgid "Half Head"
-msgstr "polovica puščice"
+msgstr "polovica glave puščice"
 
 #: ../lib/arrows.c:1899
+msgctxt "Arrow"
 msgid "Slashed Cross"
 msgstr "poševen križec"
 
 #: ../lib/arrows.c:1900
+msgctxt "Arrow"
 msgid "Filled Ellipse"
 msgstr "zapolnjena elipsa"
 
 #: ../lib/arrows.c:1901
+msgctxt "Arrow"
 msgid "Hollow Ellipse"
 msgstr "prazna elipsa"
 
 #: ../lib/arrows.c:1902
+msgctxt "Arrow"
 msgid "Filled Dot"
 msgstr "zapolnjena pika"
 
 #: ../lib/arrows.c:1903
+msgctxt "Arrow"
 msgid "Dimension Origin"
 msgstr "izvor dimenzije"
 
 #: ../lib/arrows.c:1904
+msgctxt "Arrow"
 msgid "Blanked Dot"
 msgstr "prazna pika"
 
 #: ../lib/arrows.c:1905
+msgctxt "Arrow"
 msgid "Double Hollow Triangle"
 msgstr "dvojen nezapolnjen trikotnik"
 
 #: ../lib/arrows.c:1906
+msgctxt "Arrow"
 msgid "Double Filled Triangle"
 msgstr "dvojen zapolnjen trikotnik"
 
 #: ../lib/arrows.c:1907
+msgctxt "Arrow"
 msgid "Filled Dot and Triangle"
 msgstr "zapolnjena pika in trikotnik"
 
 #: ../lib/arrows.c:1908
+msgctxt "Arrow"
 msgid "Filled Box"
 msgstr "zapolnjena škatla"
 
 #: ../lib/arrows.c:1909
+msgctxt "Arrow"
 msgid "Blanked Box"
 msgstr "prazna škatla"
 
 #: ../lib/arrows.c:1910
+msgctxt "Arrow"
 msgid "Slashed"
 msgstr "črtkano"
 
 #: ../lib/arrows.c:1911
+msgctxt "Arrow"
 msgid "Integral Symbol"
 msgstr "simbol za integral"
 
 #: ../lib/arrows.c:1912
+msgctxt "Arrow"
 msgid "Crow Foot"
-msgstr "Vranja noga"
+msgstr "vranja noga"
 
 #: ../lib/arrows.c:1913
+msgctxt "Arrow"
 msgid "Cross"
-msgstr "Križ"
+msgstr "križ"
 
 #: ../lib/arrows.c:1914
+msgctxt "Arrow"
 msgid "1-or-many"
 msgstr "1-ali-veliko"
 
 #: ../lib/arrows.c:1915
+msgctxt "Arrow"
 msgid "0-or-many"
 msgstr "0-ali-veliko"
 
 #: ../lib/arrows.c:1916
+msgctxt "Arrow"
 msgid "1-or-0"
 msgstr "1-ali-0"
 
 #: ../lib/arrows.c:1917
+msgctxt "Arrow"
 msgid "1 exactly"
 msgstr "1-natanko"
 
 #: ../lib/arrows.c:1918
+msgctxt "Arrow"
 msgid "Filled Concave"
 msgstr "zapolnjena konkavna"
 
 #: ../lib/arrows.c:1919
+msgctxt "Arrow"
 msgid "Blanked Concave"
 msgstr "prazna konkavna"
 
-#: ../lib/arrows.c:1920 ../lib/properties.c:81 ../lib/properties.c:87
-#: ../lib/properties.h:600 ../lib/properties.h:606
+#: ../lib/arrows.c:1920
+msgctxt "Arrow"
 msgid "Round"
 msgstr "okrogla"
 
 #: ../lib/arrows.c:1921
+msgctxt "Arrow"
 msgid "Open Round"
 msgstr "nesklenjeno okrogla"
 
 #: ../lib/arrows.c:1922
+msgctxt "Arrow"
 msgid "Backslash"
-msgstr "Leva poševnica"
+msgstr "leva poševnica"
 
 #: ../lib/arrows.c:1923
+msgctxt "Arrow"
 msgid "Infinite Line"
-msgstr "Neskončna črta"
+msgstr "neskončna črta"
 
 #: ../lib/arrows.c:2051
 msgid "Arrow head of unknown type"
@@ -2421,7 +2498,7 @@ msgstr "neznana puščica"
 #: ../lib/create.c:50 ../lib/create.c:100 ../lib/create.c:127
 #: ../lib/create.c:160 ../lib/create.c:196 ../lib/create.c:228
 #: ../lib/create.c:252 ../lib/create.c:284 ../lib/create.c:305
-#: ../lib/create.c:335 ../lib/create.c:378 ../plug-ins/svg/svg-import.c:398
+#: ../lib/create.c:335 ../lib/create.c:378 ../plug-ins/svg/svg-import.c:554
 #: ../plug-ins/vdx/vdx-import.c:144
 msgid "Can't find standard object"
 msgstr "Navadnega predmeta ni mogoče najti"
@@ -2620,11 +2697,11 @@ msgstr "Obstaja več izvoznih filtrov z istim imenom %s"
 msgid "Can't load font %s.\n"
 msgstr "Ni mogoče naložiti pisave %s.\n"
 
-#: ../lib/group.c:622
+#: ../lib/group.c:628
 msgid "Transformation"
 msgstr "Pretvorba"
 
-#: ../lib/message.c:93 ../lib/message.c:281
+#: ../lib/message.c:93 ../lib/message.c:284
 msgid "Warning"
 msgstr "Opozorilo"
 
@@ -2640,12 +2717,16 @@ msgstr "Pokaži ponavljajoča sporočila"
 msgid "Don't show this message again"
 msgstr "Ne kaži več tega sporočila"
 
-#: ../lib/message.c:203
+#: ../lib/message.c:206
 #, c-format
-msgid "There are %d similar messages."
-msgstr "Obstaja %d podobnih sporočil."
+msgid "There is %d similar message."
+msgid_plural "There are %d similar messages."
+msgstr[0] "Obstaja %d podobnih sporočil."
+msgstr[1] "Obstaja %d podobno sporočilo."
+msgstr[2] "Obstajata %d podobni sporočili."
+msgstr[3] "Obstajajo %d podobna sporočila."
 
-#: ../lib/message.c:265
+#: ../lib/message.c:268
 msgid "Notice"
 msgstr "Opozorilo"
 
@@ -2735,80 +2816,94 @@ msgstr "Ključ"
 msgid "Value"
 msgstr "Vrednost"
 
-#: ../lib/properties.c:67 ../lib/properties.h:587 ../lib/widgets.c:269
+#: ../lib/properties.c:67 ../lib/properties.h:588 ../lib/widgets.c:269
 msgid "Left"
 msgstr "Levo"
 
-#: ../lib/properties.c:68 ../lib/properties.h:588 ../lib/widgets.c:270
+#: ../lib/properties.c:68 ../lib/properties.h:589 ../lib/widgets.c:270
 #: ../objects/standard/textobj.c:111
 msgid "Center"
 msgstr "Sredinsko"
 
-#: ../lib/properties.c:69 ../lib/properties.h:589 ../lib/widgets.c:271
+#: ../lib/properties.c:69 ../lib/properties.h:590 ../lib/widgets.c:271
 msgid "Right"
 msgstr "Desno"
 
-#: ../lib/properties.c:74 ../lib/properties.h:593
+#: ../lib/properties.c:74 ../lib/properties.h:594
 msgid "Never"
 msgstr "Nikoli"
 
-#: ../lib/properties.c:75 ../lib/properties.h:594
+#: ../lib/properties.c:75 ../lib/properties.h:595
 msgid "When Needed"
 msgstr "Po potrebi"
 
-#: ../lib/properties.c:76 ../lib/properties.h:595
+#: ../lib/properties.c:76 ../lib/properties.h:596
 msgid "Always"
 msgstr "Vedno"
 
-#: ../lib/properties.c:80 ../lib/properties.h:599
+#: ../lib/properties.c:80 ../lib/properties.h:600
+msgctxt "LineJoin"
 msgid "Miter"
-msgstr "Sredica"
+msgstr "sredica"
 
-#: ../lib/properties.c:82 ../lib/properties.h:601
+#: ../lib/properties.c:81 ../lib/properties.h:601
+msgctxt "LineJoin"
+msgid "Round"
+msgstr "okrogla"
+
+#: ../lib/properties.c:82 ../lib/properties.h:602
+msgctxt "LineJoin"
 msgid "Bevel"
-msgstr "Izbočeno"
+msgstr "izbočeno"
 
-#: ../lib/properties.c:86 ../lib/properties.h:605
+#: ../lib/properties.c:86 ../lib/properties.h:606
+msgctxt "LineCap"
 msgid "Butt"
-msgstr "Odebeljeni konec"
+msgstr "odebeljeni konec"
 
-#: ../lib/properties.c:88 ../lib/properties.h:607
+#: ../lib/properties.c:87 ../lib/properties.h:607
+msgctxt "LineCap"
+msgid "Round"
+msgstr "okrogla"
+
+#: ../lib/properties.c:88 ../lib/properties.h:608
+msgctxt "LineCap"
 msgid "Projecting"
-msgstr "Projiciranje"
+msgstr "projiciranje"
 
-#: ../lib/properties.c:95 ../lib/properties.h:628 ../lib/properties.h:631
+#: ../lib/properties.c:95 ../lib/properties.h:629 ../lib/properties.h:632
 #: ../objects/chronogram/chronoline.c:178
 #: ../objects/chronogram/chronoref.c:157
 msgid "Line color"
 msgstr "Barva črte"
 
-#: ../lib/properties.c:96 ../lib/properties.h:634 ../lib/properties.h:637
+#: ../lib/properties.c:96 ../lib/properties.h:635 ../lib/properties.h:638
 msgid "Line style"
 msgstr "Slog črte"
 
-#: ../lib/properties.c:97 ../lib/properties.h:653 ../lib/properties.h:656
+#: ../lib/properties.c:97 ../lib/properties.h:654 ../lib/properties.h:657
 msgid "Fill color"
 msgstr "Barva polnila"
 
 #. just to simplify transfering properties between objects
-#: ../lib/properties.c:98 ../lib/properties.h:659 ../lib/properties.h:662
-#: ../lib/standard-path.c:138
+#: ../lib/properties.c:98 ../lib/properties.h:660 ../lib/properties.h:663
+#: ../lib/standard-path.c:139
 msgid "Draw background"
 msgstr "Nariši ozadje"
 
-#: ../lib/properties.c:99 ../lib/properties.h:666
+#: ../lib/properties.c:99 ../lib/properties.h:667
 msgid "Start arrow"
 msgstr "Puščica začetka"
 
-#: ../lib/properties.c:100 ../lib/properties.h:669
+#: ../lib/properties.c:100 ../lib/properties.h:670
 msgid "End arrow"
 msgstr "Puščica konca"
 
-#: ../lib/properties.c:102 ../lib/properties.h:679
+#: ../lib/properties.c:102 ../lib/properties.h:680
 msgid "Text alignment"
 msgstr "Poravnava besedila"
 
-#: ../lib/properties.c:103 ../lib/properties.h:684
+#: ../lib/properties.c:103 ../lib/properties.h:685
 #: ../objects/chronogram/chronoline.c:182
 #: ../objects/chronogram/chronoref.c:163 ../objects/Database/reference.c:118
 #: ../objects/GRAFCET/condition.c:131 ../objects/GRAFCET/step.c:165
@@ -2816,28 +2911,28 @@ msgstr "Poravnava besedila"
 msgid "Font"
 msgstr "Pisava"
 
-#: ../lib/properties.c:104 ../lib/properties.h:692
+#: ../lib/properties.c:104 ../lib/properties.h:693
 #: ../objects/chronogram/chronoline.c:184
 #: ../objects/chronogram/chronoref.c:165 ../objects/GRAFCET/condition.c:133
 #: ../objects/GRAFCET/step.c:167 ../objects/GRAFCET/transition.c:143
 msgid "Font size"
 msgstr "Velikost pisave"
 
-#: ../lib/properties.c:105 ../lib/properties.h:698
+#: ../lib/properties.c:105 ../lib/properties.h:699
 #: ../objects/chronogram/chronoline.c:186
 #: ../objects/chronogram/chronoref.c:167 ../objects/GRAFCET/step.c:169
 msgid "Text color"
 msgstr "Barva besedila"
 
-#: ../lib/properties.h:640 ../lib/properties.h:643
+#: ../lib/properties.h:641 ../lib/properties.h:644
 msgid "Line join"
 msgstr "Spoji črt"
 
-#: ../lib/properties.h:646 ../lib/properties.h:649
+#: ../lib/properties.h:647 ../lib/properties.h:650
 msgid "Line caps"
 msgstr "Konci črt"
 
-#: ../lib/properties.h:707
+#: ../lib/properties.h:708
 msgid "Text fitting"
 msgstr "Umerjanje besedila"
 
@@ -2873,15 +2968,19 @@ msgid "Cant create image data from scratch!"
 msgstr "Podatkov slike ni mogoče ustvariti iz nič!"
 
 #. Todo: get label for the branch view from props, e.g. UML Operations Parameters
-#: ../lib/prop_sdarray_widget.c:565 ../objects/chronogram/chronoline.c:161
+#: ../lib/prop_sdarray_widget.c:577 ../objects/chronogram/chronoline.c:161
 #: ../objects/UML/umloperation.c:79
 msgid "Parameters"
 msgstr "Parametri"
 
-#: ../lib/prop_text.c:481
+#: ../lib/prop_text.c:483
 #, c-format
-msgid "Group with %d objects"
-msgstr "Skupina s %d predmeti"
+msgid "Group with %d object"
+msgid_plural "Group with %d objects"
+msgstr[0] "Skupina s %d predmeti"
+msgstr[1] "Skupina z %d predmetom"
+msgstr[2] "Skupina z %d predmetoma"
+msgstr[3] "Skupina s %d predmeti"
 
 #: ../lib/sheet.c:71 ../lib/sheet.c:86
 #, c-format
@@ -2912,36 +3011,36 @@ msgstr ""
 msgid "%s: you should use object tags rather than shape tags now"
 msgstr "%s: zdaj bi morali uporabljati značke predmetov in ne značke likov"
 
-#: ../lib/standard-path.c:122
+#: ../lib/standard-path.c:123
 msgid "Stroke"
 msgstr "Poteza"
 
 #. Translators: Menu item Verb/Provision/Supply/Fill
-#: ../lib/standard-path.c:123 ../objects/FS/function.c:934
+#: ../lib/standard-path.c:124 ../objects/FS/function.c:933
 msgid "Fill"
 msgstr "Polni"
 
-#: ../lib/standard-path.c:124
+#: ../lib/standard-path.c:125
 msgid "Fill & Stroke"
 msgstr "Polnilo in poteza"
 
-#: ../lib/standard-path.c:129
+#: ../lib/standard-path.c:130
 msgid "Bezier points"
 msgstr "Točke Bezier"
 
-#: ../lib/standard-path.c:130
+#: ../lib/standard-path.c:131
 msgid "Drawing"
 msgstr "Risba"
 
-#: ../lib/standard-path.c:139
+#: ../lib/standard-path.c:140
 msgid "Draw Control Lines"
 msgstr "Nariši nadzorne črte"
 
-#: ../lib/standard-path.c:464
+#: ../lib/standard-path.c:466
 msgid "Convert to Bezier"
 msgstr "Pretvori v Bezierjevo krivuljo"
 
-#: ../lib/standard-path.c:465
+#: ../lib/standard-path.c:467
 msgid "Show Control Lines"
 msgstr "Pokaži nadzorne črte"
 
@@ -3204,7 +3303,7 @@ msgid "Entity/Relationship table diagram objects"
 msgstr "Predmeti diagrama tabele entitet/odnosov"
 
 #: ../objects/Database/reference.c:109 ../objects/flowchart/box.c:150
-#: ../objects/standard/box.c:138 ../objects/standard/polyline.c:107
+#: ../objects/standard/box.c:141 ../objects/standard/polyline.c:107
 #: ../objects/standard/zigzagline.c:106
 msgid "Corner radius"
 msgstr "Radij vogala"
@@ -3414,16 +3513,16 @@ msgid "Shear angle"
 msgstr "Kot rezanja"
 
 #. Translators: Menu item Noun/Energy
-#: ../objects/FS/flow.c:135 ../objects/FS/flow.c:626
+#: ../objects/FS/flow.c:135 ../objects/FS/flow.c:627
 #: ../objects/FS/flow-ortho.c:158 ../objects/FS/flow-ortho.c:624
-#: ../objects/FS/function.c:1096
+#: ../objects/FS/function.c:1095
 msgid "Energy"
 msgstr "Energija"
 
 #. Translators: Menu item Noun/Material
-#: ../objects/FS/flow.c:136 ../objects/FS/flow.c:627
+#: ../objects/FS/flow.c:136 ../objects/FS/flow.c:628
 #: ../objects/FS/flow-ortho.c:159 ../objects/FS/flow-ortho.c:625
-#: ../objects/FS/function.c:1072
+#: ../objects/FS/function.c:1071
 msgid "Material"
 msgstr "Material"
 
@@ -3431,10 +3530,10 @@ msgstr "Material"
 #. Translators: Menu item Verb/Signal/Signal
 #. Translators: Menu item Noun/Signal
 #. Translators: Menu item Noun/Signal/Signal
-#: ../objects/FS/flow.c:137 ../objects/FS/flow.c:628
+#: ../objects/FS/flow.c:137 ../objects/FS/flow.c:629
 #: ../objects/FS/flow-ortho.c:160 ../objects/FS/flow-ortho.c:626
-#: ../objects/FS/function.c:1034 ../objects/FS/function.c:1036
-#: ../objects/FS/function.c:1172 ../objects/FS/function.c:1174
+#: ../objects/FS/function.c:1033 ../objects/FS/function.c:1035
+#: ../objects/FS/function.c:1171 ../objects/FS/function.c:1173
 msgid "Signal"
 msgstr "Signal"
 
@@ -3461,310 +3560,310 @@ msgid "User function"
 msgstr "Uporabniška funkcija"
 
 #. Translators: Menu item Verb
-#: ../objects/FS/function.c:676
+#: ../objects/FS/function.c:675
 msgid "Verb"
 msgstr "Glagol"
 
 #. Translators: Menu item Verb/Channel
 #. Translators: Menu item Verb/Channel/Channel
 #. Translators: Menu item Verb/Channel/Transfer/Transport/Channel
-#: ../objects/FS/function.c:678 ../objects/FS/function.c:680
-#: ../objects/FS/function.c:720
+#: ../objects/FS/function.c:677 ../objects/FS/function.c:679
+#: ../objects/FS/function.c:719
 msgid "Channel"
 msgstr "Kanaliziraj"
 
 #. Translators: Menu item Verb/Channel/Import/Input
-#: ../objects/FS/function.c:686 ../objects/KAOS/metabinrel.c:164
+#: ../objects/FS/function.c:685 ../objects/KAOS/metabinrel.c:164
 msgid "Input"
 msgstr "Vnesi"
 
 #. Translators: Menu item Verb/Channel/Import/Receive
-#: ../objects/FS/function.c:688
+#: ../objects/FS/function.c:687
 msgid "Receive"
 msgstr "Sprejmi"
 
 #. Translators: Menu item Verb/Channel/Import/Allow
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Allow
-#: ../objects/FS/function.c:690 ../objects/FS/function.c:962
+#: ../objects/FS/function.c:689 ../objects/FS/function.c:961
 msgid "Allow"
 msgstr "Dovoli"
 
 #. Translators: Menu item Verb/Channel/Import/Form Entrance
-#: ../objects/FS/function.c:692
+#: ../objects/FS/function.c:691
 msgid "Form Entrance"
 msgstr "Tvori vhod"
 
 #. Translators: Menu item Verb/Channel/Import/Capture
 #. Translators: Menu item Verb/Provision/Store/Capture
-#: ../objects/FS/function.c:694 ../objects/FS/function.c:928
+#: ../objects/FS/function.c:693 ../objects/FS/function.c:927
 msgid "Capture"
 msgstr "Zajemi"
 
 #. Translators: Menu item Verb/Channel/Export/Discharge
-#: ../objects/FS/function.c:700
+#: ../objects/FS/function.c:699
 msgid "Discharge"
 msgstr "Spusti"
 
 #. Translators: Menu item Verb/Channel/Export/Eject
-#: ../objects/FS/function.c:702
+#: ../objects/FS/function.c:701
 msgid "Eject"
 msgstr "Izvrzi"
 
 #. Translators: Menu item Verb/Channel/Export/Dispose
-#: ../objects/FS/function.c:704
+#: ../objects/FS/function.c:703
 msgid "Dispose"
 msgstr "Odvrzi"
 
 #. Translators: Menu item Verb/Channel/Transfer
 #. Translators: Menu item Verb/Channel/Transfer/Transfer
 #. Translators: Menu item Verb/Channel/Transfer/Transmit/Transfer
-#: ../objects/FS/function.c:708 ../objects/FS/function.c:710
-#: ../objects/FS/function.c:728
+#: ../objects/FS/function.c:707 ../objects/FS/function.c:709
+#: ../objects/FS/function.c:727
 msgid "Transfer"
 msgstr "Prenesi"
 
 #. Translators: Menu item Verb/Channel/Transfer/Transport
 #. Translators: Menu item Verb/Channel/Transfer/Transport/Transport
-#: ../objects/FS/function.c:712 ../objects/FS/function.c:714
+#: ../objects/FS/function.c:711 ../objects/FS/function.c:713
 msgid "Transport"
 msgstr "Transportiraj"
 
 #. Translators: Menu item Verb/Channel/Transfer/Transport/Lift
-#: ../objects/FS/function.c:716
+#: ../objects/FS/function.c:715
 msgid "Lift"
 msgstr "Dvigni"
 
 #. Translators: Menu item Verb/Channel/Transfer/Transport/Move
-#: ../objects/FS/function.c:718
+#: ../objects/FS/function.c:717
 msgid "Move"
 msgstr "Premakni"
 
 #. Translators: Menu item Verb/Channel/Transfer/Transmit
 #. Translators: Menu item Verb/Channel/Transfer/Transmit/Transmit
-#: ../objects/FS/function.c:722 ../objects/FS/function.c:724
+#: ../objects/FS/function.c:721 ../objects/FS/function.c:723
 msgid "Transmit"
 msgstr "Oddaj"
 
 #. Translators: Menu item Verb/Channel/Transfer/Transmit/Conduct
-#: ../objects/FS/function.c:726
+#: ../objects/FS/function.c:725
 msgid "Conduct"
 msgstr "Poveži"
 
 #. Translators: Menu item Verb/Channel/Transfer/Transmit/Convey
-#: ../objects/FS/function.c:730
+#: ../objects/FS/function.c:729
 msgid "Convey"
 msgstr "Podaj"
 
 #. Translators: Menu item Verb/Channel/Guide
 #. Translators: Menu item Verb/Channel/Guide/Guide
 #. Translators: Menu item Verb/Channel/Guide/Guide/Guide
-#: ../objects/FS/function.c:732 ../objects/FS/function.c:734
-#: ../objects/FS/function.c:736
+#: ../objects/FS/function.c:731 ../objects/FS/function.c:733
+#: ../objects/FS/function.c:735
 msgid "Guide"
 msgstr "Vodi"
 
 #. Translators: Menu item Verb/Channel/Guide/Guide/Direct
-#: ../objects/FS/function.c:738
+#: ../objects/FS/function.c:737
 msgid "Direct"
 msgstr "Usmeri"
 
 #. Translators: Menu item Verb/Channel/Guide/Guide/Straighten
-#: ../objects/FS/function.c:740
+#: ../objects/FS/function.c:739
 msgid "Straighten"
 msgstr "Poravnaj"
 
 #. Translators: Menu item Verb/Channel/Guide/Guide/Steer
-#: ../objects/FS/function.c:742
+#: ../objects/FS/function.c:741
 msgid "Steer"
 msgstr "Upočasni"
 
 #. Translators: Menu item Verb/Channel/Guide/Translate
-#: ../objects/FS/function.c:744
+#: ../objects/FS/function.c:743
 msgid "Translate"
 msgstr "Prevedi"
 
 #. Translators: Menu item Verb/Channel/Guide/Rotate
 #. Translators: Menu item Verb/Channel/Guide/Rotate/Rotate
-#: ../objects/FS/function.c:746 ../objects/FS/function.c:748
+#: ../objects/FS/function.c:745 ../objects/FS/function.c:747
 msgid "Rotate"
 msgstr "Zasukaj"
 
 #. Translators: Menu item Verb/Channel/Guide/Rotate/Turn
-#: ../objects/FS/function.c:750
+#: ../objects/FS/function.c:749
 msgid "Turn"
 msgstr "Obrni"
 
 #. Translators: Menu item Verb/Channel/Guide/Rotate/Spin
-#: ../objects/FS/function.c:752
+#: ../objects/FS/function.c:751
 msgid "Spin"
 msgstr "Zavrti"
 
 #. Translators: Menu item Verb/Channel/Guide/Allow DOF
 #. Translators: Menu item Verb/Channel/Guide/Allow DOF/Allow DOF
-#: ../objects/FS/function.c:754 ../objects/FS/function.c:756
+#: ../objects/FS/function.c:753 ../objects/FS/function.c:755
 msgid "Allow DOF"
 msgstr "Dovoli DOF"
 
 #. Translators: Menu item Verb/Channel/Guide/Allow DOF/Constrain
-#: ../objects/FS/function.c:758
+#: ../objects/FS/function.c:757
 msgid "Constrain"
 msgstr "Omeji"
 
 #. Translators: Menu item Verb/Channel/Guide/Allow DOF/Unlock
-#: ../objects/FS/function.c:760
+#: ../objects/FS/function.c:759
 msgid "Unlock"
 msgstr "Odkleni"
 
 #. Translators: Menu item Verb/Support
 #. Translators: Menu item Verb/Support/Support
-#: ../objects/FS/function.c:762 ../objects/FS/function.c:764
+#: ../objects/FS/function.c:761 ../objects/FS/function.c:763
 msgid "Support"
 msgstr "Podpri"
 
 #. Translators: Menu item Verb/Support/Stop
 #. Translators: Menu item Verb/Support/Stop/Stop
-#: ../objects/FS/function.c:766 ../objects/FS/function.c:768
+#: ../objects/FS/function.c:765 ../objects/FS/function.c:767
 #: ../sheets/SDL.sheet.in.h:16
 msgid "Stop"
 msgstr "Ustavi"
 
 #. Translators: Menu item Verb/Support/Stop/Insulate
-#: ../objects/FS/function.c:770
+#: ../objects/FS/function.c:769
 msgid "Insulate"
 msgstr "Izoliraj"
 
 #. Translators: Menu item Verb/Support/Stop/Protect
-#: ../objects/FS/function.c:772
+#: ../objects/FS/function.c:771
 msgid "Protect"
 msgstr "Zaščiti"
 
 #. Translators: Menu item Verb/Support/Stop/Prevent
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Prevent
-#: ../objects/FS/function.c:774 ../objects/FS/function.c:964
+#: ../objects/FS/function.c:773 ../objects/FS/function.c:963
 msgid "Prevent"
 msgstr "Prepreči"
 
 #. Translators: Menu item Verb/Support/Stop/Shield
-#: ../objects/FS/function.c:776
+#: ../objects/FS/function.c:775
 msgid "Shield"
 msgstr "Ščiti"
 
 #. Translators: Menu item Verb/Support/Stop/Inhibit
-#: ../objects/FS/function.c:778
+#: ../objects/FS/function.c:777
 msgid "Inhibit"
 msgstr "Oviraj"
 
 #. Translators: Menu item Verb/Support/Stabilize
 #. Translators: Menu item Verb/Support/Stabilize/Stabilize
-#: ../objects/FS/function.c:780 ../objects/FS/function.c:782
+#: ../objects/FS/function.c:779 ../objects/FS/function.c:781
 msgid "Stabilize"
 msgstr "Stabiliziraj"
 
 #. Translators: Menu item Verb/Support/Stabilize/Steady
-#: ../objects/FS/function.c:784
+#: ../objects/FS/function.c:783
 msgid "Steady"
 msgstr "Umiri"
 
 #. Translators: Menu item Verb/Support/Secure
 #. Translators: Menu item Verb/Support/Secure/Secure
-#: ../objects/FS/function.c:786 ../objects/FS/function.c:788
+#: ../objects/FS/function.c:785 ../objects/FS/function.c:787
 msgid "Secure"
 msgstr "Zavaruj"
 
 #. Translators: Menu item Verb/Support/Secure/Attach
 #. Translators: Menu item Verb/Connect/Couple/Attach
-#: ../objects/FS/function.c:790 ../objects/FS/function.c:822
+#: ../objects/FS/function.c:789 ../objects/FS/function.c:821
 msgid "Attach"
 msgstr "Pripni"
 
 #. Translators: Menu item Verb/Support/Secure/Mount
-#: ../objects/FS/function.c:792
+#: ../objects/FS/function.c:791
 msgid "Mount"
 msgstr "Priklopi"
 
 #. Translators: Menu item Verb/Support/Secure/Lock
-#: ../objects/FS/function.c:794 ../sheets/ciscomisc.sheet.in.h:42
+#: ../objects/FS/function.c:793 ../sheets/ciscomisc.sheet.in.h:42
 msgid "Lock"
 msgstr "Zakleni"
 
 #. Translators: Menu item Verb/Support/Secure/Fasten
-#: ../objects/FS/function.c:796
+#: ../objects/FS/function.c:795
 msgid "Fasten"
 msgstr "Zategni"
 
 #. Translators: Menu item Verb/Support/Secure/Hold
-#: ../objects/FS/function.c:798
+#: ../objects/FS/function.c:797
 msgid "Hold"
 msgstr "Drži"
 
 #. Translators: Menu item Verb/Support/Position
 #. Translators: Menu item Verb/Support/Position/Position
-#: ../objects/FS/function.c:800 ../objects/FS/function.c:802
+#: ../objects/FS/function.c:799 ../objects/FS/function.c:801
 #: ../objects/Istar/actor.c:68
 msgid "Position"
 msgstr "Pozicioniraj"
 
 #. Translators: Menu item Verb/Support/Position/Orient
-#: ../objects/FS/function.c:804
+#: ../objects/FS/function.c:803
 msgid "Orient"
 msgstr "Orientiraj"
 
 #. Translators: Menu item Verb/Connect
 #. Translators: Menu item Verb/Connect/Connect
-#: ../objects/FS/function.c:810 ../objects/FS/function.c:812
+#: ../objects/FS/function.c:809 ../objects/FS/function.c:811
 msgid "Connect"
 msgstr "Poveži"
 
 #. Translators: Menu item Verb/Connect/Couple
 #. Translators: Menu item Verb/Connect/Couple/Couple
-#: ../objects/FS/function.c:814 ../objects/FS/function.c:816
+#: ../objects/FS/function.c:813 ../objects/FS/function.c:815
 msgid "Couple"
 msgstr "Poparčkaj"
 
 #. Translators: Menu item Verb/Connect/Couple/Join
-#: ../objects/FS/function.c:818
+#: ../objects/FS/function.c:817
 msgid "Join"
 msgstr "Spoji"
 
 #. Translators: Menu item Verb/Connect/Couple/Assemble
-#: ../objects/FS/function.c:820
+#: ../objects/FS/function.c:819
 msgid "Assemble"
 msgstr "Sestavi"
 
 #. Translators: Menu item Verb/Connect/Mix
 #. Translators: Menu item Verb/Connect/Mix/Mix
-#: ../objects/FS/function.c:824 ../objects/FS/function.c:826
+#: ../objects/FS/function.c:823 ../objects/FS/function.c:825
 msgid "Mix"
 msgstr "Zmešaj"
 
 #. Translators: Menu item Verb/Connect/Mix/Combine
-#: ../objects/FS/function.c:828
+#: ../objects/FS/function.c:827
 msgid "Combine"
 msgstr "Združi"
 
 #. Translators: Menu item Verb/Connect/Mix/Blend
-#: ../objects/FS/function.c:830
+#: ../objects/FS/function.c:829
 msgid "Blend"
 msgstr "Ukrivi"
 
 #. Translators: Menu item Verb/Connect/Mix/Add
-#: ../objects/FS/function.c:832
+#: ../objects/FS/function.c:831
 msgid "Add"
 msgstr "Dodaj"
 
 #. Translators: Menu item Verb/Connect/Mix/Pack
-#: ../objects/FS/function.c:834
+#: ../objects/FS/function.c:833
 msgid "Pack"
 msgstr "Pakiraj"
 
 #. Translators: Menu item Verb/Connect/Mix/Coalesce
-#: ../objects/FS/function.c:836
+#: ../objects/FS/function.c:835
 msgid "Coalesce"
 msgstr "Zlij"
 
 #. Translators: Menu item Verb/Branch
 #. Translators: Menu item Verb/Branch/Branch
-#: ../objects/FS/function.c:838 ../objects/FS/function.c:840
+#: ../objects/FS/function.c:837 ../objects/FS/function.c:839
 #: ../sheets/UML.sheet.in.h:30
 msgid "Branch"
 msgstr "Razvejaj"
@@ -3772,702 +3871,702 @@ msgstr "Razvejaj"
 #. Translators: Menu item Verb/Branch/Separate
 #. Translators: Menu item Verb/Branch/Separate/Separate
 #. Translators: Menu item Verb/Branch/Separate/Separate/Separate
-#: ../objects/FS/function.c:842 ../objects/FS/function.c:844
-#: ../objects/FS/function.c:846
+#: ../objects/FS/function.c:841 ../objects/FS/function.c:843
+#: ../objects/FS/function.c:845
 msgid "Separate"
 msgstr "Loči"
 
 #. Translators: Menu item Verb/Branch/Separate/Separate/Switch
-#: ../objects/FS/function.c:848
+#: ../objects/FS/function.c:847
 msgid "Switch"
 msgstr "Preklopi"
 
 #. Translators: Menu item Verb/Branch/Separate/Separate/Divide
-#: ../objects/FS/function.c:850
+#: ../objects/FS/function.c:849
 msgid "Divide"
 msgstr "Razdeli"
 
 #. Translators: Menu item Verb/Branch/Separate/Separate/Release
-#: ../objects/FS/function.c:852
+#: ../objects/FS/function.c:851
 msgid "Release"
 msgstr "Spusti"
 
 #. Translators: Menu item Verb/Branch/Separate/Separate/Detach
-#: ../objects/FS/function.c:854
+#: ../objects/FS/function.c:853
 msgid "Detach"
 msgstr "Odpni"
 
 #. Translators: Menu item Verb/Branch/Separate/Separate/Disconnect
-#: ../objects/FS/function.c:856
+#: ../objects/FS/function.c:855
 msgid "Disconnect"
 msgstr "Prekini povezavo"
 
 #. Translators: Menu item Verb/Branch/Separate/Remove/Cut
-#: ../objects/FS/function.c:862
+#: ../objects/FS/function.c:861
 msgid "Cut"
 msgstr "Prereži"
 
 #. Translators: Menu item Verb/Branch/Separate/Remove/Polish
-#: ../objects/FS/function.c:864
+#: ../objects/FS/function.c:863
 msgid "Polish"
 msgstr "Lošči"
 
 #. Translators: Menu item Verb/Branch/Separate/Remove/Sand
-#: ../objects/FS/function.c:866
+#: ../objects/FS/function.c:865
 msgid "Sand"
 msgstr "Peskaj"
 
 #. Translators: Menu item Verb/Branch/Separate/Remove/Drill
-#: ../objects/FS/function.c:868
+#: ../objects/FS/function.c:867
 msgid "Drill"
 msgstr "Vrtaj"
 
 #. Translators: Menu item Verb/Branch/Separate/Remove/Lathe
-#: ../objects/FS/function.c:870
+#: ../objects/FS/function.c:869
 msgid "Lathe"
 msgstr "Struži"
 
 #. Translators: Menu item Verb/Branch/Refine
 #. Translators: Menu item Verb/Branch/Refine/Refine
-#: ../objects/FS/function.c:872 ../objects/FS/function.c:874
+#: ../objects/FS/function.c:871 ../objects/FS/function.c:873
 msgid "Refine"
 msgstr "Izpili"
 
 #. Translators: Menu item Verb/Branch/Refine/Purify
-#: ../objects/FS/function.c:876
+#: ../objects/FS/function.c:875
 msgid "Purify"
 msgstr "Očisti"
 
 #. Translators: Menu item Verb/Branch/Refine/Strain
-#: ../objects/FS/function.c:878
+#: ../objects/FS/function.c:877
 msgid "Strain"
 msgstr "Nategni"
 
 #. Translators: Menu item Verb/Branch/Refine/Filter
-#: ../objects/FS/function.c:880
+#: ../objects/FS/function.c:879
 msgid "Filter"
 msgstr "Odberi"
 
 #. Translators: Menu item Verb/Branch/Refine/Percolate
-#: ../objects/FS/function.c:882
+#: ../objects/FS/function.c:881
 msgid "Percolate"
 msgstr "Filtriraj"
 
 #. Translators: Menu item Verb/Branch/Refine/Clear
-#: ../objects/FS/function.c:884
+#: ../objects/FS/function.c:883
 msgid "Clear"
 msgstr "Počisti"
 
 #. Translators: Menu item Verb/Branch/Distribute
 #. Translators: Menu item Verb/Branch/Distribute/Distribute
-#: ../objects/FS/function.c:886 ../objects/FS/function.c:888
+#: ../objects/FS/function.c:885 ../objects/FS/function.c:887
 msgid "Distribute"
 msgstr "Porazdeli"
 
 #. Translators: Menu item Verb/Branch/Distribute/Diverge
-#: ../objects/FS/function.c:890
+#: ../objects/FS/function.c:889
 msgid "Diverge"
 msgstr "Odvrni"
 
 #. Translators: Menu item Verb/Branch/Distribute/Scatter
-#: ../objects/FS/function.c:892
+#: ../objects/FS/function.c:891
 msgid "Scatter"
 msgstr "Raztresi"
 
 #. Translators: Menu item Verb/Branch/Distribute/Disperse
-#: ../objects/FS/function.c:894
+#: ../objects/FS/function.c:893
 msgid "Disperse"
 msgstr "Rakropi"
 
 #. Translators: Menu item Verb/Branch/Distribute/Diffuse
 #. Translators: Menu item Verb/Branch/Dissipate/Diffuse
-#: ../objects/FS/function.c:896 ../objects/FS/function.c:910
+#: ../objects/FS/function.c:895 ../objects/FS/function.c:909
 msgid "Diffuse"
 msgstr "Razprši"
 
 #. Translators: Menu item Verb/Branch/Distribute/Empty
-#: ../objects/FS/function.c:898
+#: ../objects/FS/function.c:897
 msgid "Empty"
 msgstr "Sprazni"
 
 #. Translators: Menu item Verb/Branch/Dissipate
 #. Translators: Menu item Verb/Branch/Dissipate/Dissipate
-#: ../objects/FS/function.c:900 ../objects/FS/function.c:902
+#: ../objects/FS/function.c:899 ../objects/FS/function.c:901
 msgid "Dissipate"
 msgstr "Razprši"
 
 #. Translators: Menu item Verb/Branch/Dissipate/Absorb
-#: ../objects/FS/function.c:904
+#: ../objects/FS/function.c:903
 msgid "Absorb"
 msgstr "Absorbiraj"
 
 #. Translators: Menu item Verb/Branch/Dissipate/Dampen
-#: ../objects/FS/function.c:906
+#: ../objects/FS/function.c:905
 msgid "Dampen"
 msgstr "Ovlaži"
 
 #. Translators: Menu item Verb/Branch/Dissipate/Dispel
-#: ../objects/FS/function.c:908
+#: ../objects/FS/function.c:907
 msgid "Dispel"
 msgstr "Razblini"
 
 #. Translators: Menu item Verb/Branch/Dissipate/Resist
-#: ../objects/FS/function.c:912
+#: ../objects/FS/function.c:911
 msgid "Resist"
 msgstr "Upri"
 
 #. Translators: Menu item Verb/Provision
 #. Translators: Menu item Verb/Provision/Provision
-#: ../objects/FS/function.c:914 ../objects/FS/function.c:916
+#: ../objects/FS/function.c:913 ../objects/FS/function.c:915
 msgid "Provision"
 msgstr "Priprava"
 
 #. Translators: Menu item Verb/Provision/Store
 #. Translators: Menu item Verb/Provision/Store/Store
-#: ../objects/FS/function.c:918 ../objects/FS/function.c:920
+#: ../objects/FS/function.c:917 ../objects/FS/function.c:919
 msgid "Store"
 msgstr "Shrani"
 
 #. Translators: Menu item Verb/Provision/Store/Contain
-#: ../objects/FS/function.c:922
+#: ../objects/FS/function.c:921
 msgid "Contain"
 msgstr "Vsebuj"
 
 #. Translators: Menu item Verb/Provision/Store/Collect
-#: ../objects/FS/function.c:924
+#: ../objects/FS/function.c:923
 msgid "Collect"
 msgstr "Zberi"
 
 #. Translators: Menu item Verb/Provision/Store/Reserve
-#: ../objects/FS/function.c:926
+#: ../objects/FS/function.c:925
 msgid "Reserve"
 msgstr "Rezerviraj"
 
 #. Translators: Menu item Verb/Provision/Supply
 #. Translators: Menu item Verb/Provision/Supply/Supply
-#: ../objects/FS/function.c:930 ../objects/FS/function.c:932
+#: ../objects/FS/function.c:929 ../objects/FS/function.c:931
 msgid "Supply"
 msgstr "Dostavi"
 
 #. Translators: Menu item Verb/Provision/Supply/Provide
-#: ../objects/FS/function.c:936
+#: ../objects/FS/function.c:935
 msgid "Provide"
 msgstr "Zagotovi"
 
 #. Translators: Menu item Verb/Provision/Supply/Replenish
-#: ../objects/FS/function.c:938
+#: ../objects/FS/function.c:937
 msgid "Replenish"
 msgstr "Dopolni"
 
 #. Translators: Menu item Verb/Provision/Supply/Expose
-#: ../objects/FS/function.c:940
+#: ../objects/FS/function.c:939
 msgid "Expose"
 msgstr "Izpostavi"
 
 #. Translators: Menu item Verb/Provision/Extract
-#: ../objects/FS/function.c:942 ../sheets/Flowchart.sheet.in.h:22
+#: ../objects/FS/function.c:941 ../sheets/Flowchart.sheet.in.h:22
 msgid "Extract"
 msgstr "Izvleci"
 
 #. Translators: Menu item Verb/Control Magnitude
 #. Translators: Menu item Verb/Control Magnitude/Control Magnitude
-#: ../objects/FS/function.c:944 ../objects/FS/function.c:946
+#: ../objects/FS/function.c:943 ../objects/FS/function.c:945
 msgid "Control Magnitude"
 msgstr "Nadziraj povečavo"
 
 #. Translators: Menu item Verb/Control Magnitude/Actuate
 #. Translators: Menu item Verb/Control Magnitude/Actuate/Actuate
-#: ../objects/FS/function.c:948 ../objects/FS/function.c:950
+#: ../objects/FS/function.c:947 ../objects/FS/function.c:949
 msgid "Actuate"
 msgstr "Zagibaj"
 
 #. Translators: Menu item Verb/Control Magnitude/Actuate/Start
-#: ../objects/FS/function.c:952
+#: ../objects/FS/function.c:951
 msgid "Start"
 msgstr "Začni"
 
 #. Translators: Menu item Verb/Control Magnitude/Actuate/Initiate
-#: ../objects/FS/function.c:954
+#: ../objects/FS/function.c:953
 msgid "Initiate"
 msgstr "Iniciraj"
 
 #. Translators: Menu item Verb/Control Magnitude/Regulate
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Regulate
-#: ../objects/FS/function.c:956 ../objects/FS/function.c:958
+#: ../objects/FS/function.c:955 ../objects/FS/function.c:957
 msgid "Regulate"
 msgstr "Reguliraj"
 
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Control
 #. Translators: Menu item Noun/Signal/Control
-#: ../objects/FS/function.c:960 ../objects/FS/function.c:1178
+#: ../objects/FS/function.c:959 ../objects/FS/function.c:1177
 #: ../objects/UML/classicon.c:127
 msgid "Control"
 msgstr "Nadziraj"
 
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Enable
-#: ../objects/FS/function.c:966
+#: ../objects/FS/function.c:965
 msgid "Enable"
 msgstr "Omogoči"
 
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Disable
-#: ../objects/FS/function.c:968
+#: ../objects/FS/function.c:967
 msgid "Disable"
 msgstr "Onemogoči"
 
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Limit
-#: ../objects/FS/function.c:970
+#: ../objects/FS/function.c:969
 msgid "Limit"
 msgstr "Omeji"
 
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Interrupt
-#: ../objects/FS/function.c:972
+#: ../objects/FS/function.c:971
 msgid "Interrupt"
 msgstr "Prekini"
 
 #. Translators: Menu item Verb/Control Magnitude/Change
 #. Translators: Menu item Verb/Control Magnitude/Change/Change
-#: ../objects/FS/function.c:974 ../objects/FS/function.c:976
+#: ../objects/FS/function.c:973 ../objects/FS/function.c:975
 msgid "Change"
 msgstr "Spremeni"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Increase
-#: ../objects/FS/function.c:978
+#: ../objects/FS/function.c:977
 msgid "Increase"
 msgstr "Povečaj"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Decrease
-#: ../objects/FS/function.c:980
+#: ../objects/FS/function.c:979
 msgid "Decrease"
 msgstr "Pomanjšaj"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Amplify
-#: ../objects/FS/function.c:982
+#: ../objects/FS/function.c:981
 msgid "Amplify"
 msgstr "Ojačaj"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Reduce
-#: ../objects/FS/function.c:984
+#: ../objects/FS/function.c:983
 msgid "Reduce"
 msgstr "Zmanjšaj"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Normalize
-#: ../objects/FS/function.c:988
+#: ../objects/FS/function.c:987
 msgid "Normalize"
 msgstr "Normaliziraj"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Multiply
-#: ../objects/FS/function.c:990
+#: ../objects/FS/function.c:989
 msgid "Multiply"
 msgstr "Pomnoži"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Scale
 #. FIXME: mark read-only
-#: ../objects/FS/function.c:992 ../objects/Misc/measure.c:185
+#: ../objects/FS/function.c:991 ../objects/Misc/measure.c:185
 msgid "Scale"
 msgstr "Povečaj/pomanjšaj"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Rectify
-#: ../objects/FS/function.c:994
+#: ../objects/FS/function.c:993
 msgid "Rectify"
 msgstr "Popravi"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Adjust
-#: ../objects/FS/function.c:996
+#: ../objects/FS/function.c:995
 msgid "Adjust"
 msgstr "Prilagodi"
 
 #. Translators: Menu item Verb/Control Magnitude/Form
 #. Translators: Menu item Verb/Control Magnitude/Form/Form
-#: ../objects/FS/function.c:998 ../objects/FS/function.c:1000
+#: ../objects/FS/function.c:997 ../objects/FS/function.c:999
 msgid "Form"
 msgstr "Oblikuj"
 
 #. Translators: Menu item Verb/Control Magnitude/Form/Compact
-#: ../objects/FS/function.c:1002
+#: ../objects/FS/function.c:1001
 msgid "Compact"
 msgstr "Stisni"
 
 #. Translators: Menu item Verb/Control Magnitude/Form/Crush
-#: ../objects/FS/function.c:1004
+#: ../objects/FS/function.c:1003
 msgid "Crush"
 msgstr "Zdrobi"
 
 #. Translators: Menu item Verb/Control Magnitude/Form/Shape
-#: ../objects/FS/function.c:1006
+#: ../objects/FS/function.c:1005
 msgid "Shape"
 msgstr "Oblikuj"
 
 #. Translators: Menu item Verb/Control Magnitude/Form/Compress
-#: ../objects/FS/function.c:1008
+#: ../objects/FS/function.c:1007
 msgid "Compress"
 msgstr "Skrči"
 
 #. Translators: Menu item Verb/Control Magnitude/Form/Pierce
-#: ../objects/FS/function.c:1010
+#: ../objects/FS/function.c:1009
 msgid "Pierce"
 msgstr "Prebodi"
 
 #. Translators: Menu item Verb/Convert
 #. Translators: Menu item Verb/Convert/Convert
-#: ../objects/FS/function.c:1012 ../objects/FS/function.c:1014
+#: ../objects/FS/function.c:1011 ../objects/FS/function.c:1013
 msgid "Convert"
 msgstr "Pretvori"
 
 #. Translators: Menu item Verb/Convert/Transform
-#: ../objects/FS/function.c:1016
+#: ../objects/FS/function.c:1015
 msgid "Transform"
 msgstr "Preoblikuj"
 
 #. Translators: Menu item Verb/Convert/Liquefy
-#: ../objects/FS/function.c:1018
+#: ../objects/FS/function.c:1017
 msgid "Liquefy"
 msgstr "Utekočini"
 
 #. Translators: Menu item Verb/Convert/Solidify
-#: ../objects/FS/function.c:1020
+#: ../objects/FS/function.c:1019
 msgid "Solidify"
 msgstr "Utrdnini"
 
 #. Translators: Menu item Verb/Convert/Evaporate
-#: ../objects/FS/function.c:1022
+#: ../objects/FS/function.c:1021
 msgid "Evaporate"
 msgstr "Izhlapi"
 
 #. Translators: Menu item Verb/Convert/Sublimate
-#: ../objects/FS/function.c:1024
+#: ../objects/FS/function.c:1023
 msgid "Sublimate"
 msgstr "Sublimiraj"
 
 #. Translators: Menu item Verb/Convert/Condense
-#: ../objects/FS/function.c:1026
+#: ../objects/FS/function.c:1025
 msgid "Condense"
 msgstr "Kondenziraj"
 
 #. Translators: Menu item Verb/Convert/Integrate
-#: ../objects/FS/function.c:1028
+#: ../objects/FS/function.c:1027
 msgid "Integrate"
 msgstr "Integriraj"
 
 #. Translators: Menu item Verb/Convert/Differentiate
-#: ../objects/FS/function.c:1030
+#: ../objects/FS/function.c:1029
 msgid "Differentiate"
 msgstr "Diferenciraj"
 
 # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 # FIXME
 #. Translators: Menu item Verb/Convert/Process
-#: ../objects/FS/function.c:1032 ../sheets/AADL.sheet.in.h:3
+#: ../objects/FS/function.c:1031 ../sheets/AADL.sheet.in.h:3
 #: ../sheets/Gane_and_Sarson.sheet.in.h:7
 msgid "Process"
 msgstr "Procesiraj"
 
 #. Translators: Menu item Verb/Signal/Sense
 #. Translators: Menu item Verb/Signal/Sense/Sense
-#: ../objects/FS/function.c:1038 ../objects/FS/function.c:1040
+#: ../objects/FS/function.c:1037 ../objects/FS/function.c:1039
 msgid "Sense"
 msgstr "Zaznaj"
 
 #. Translators: Menu item Verb/Signal/Sense/Perceive
-#: ../objects/FS/function.c:1042
+#: ../objects/FS/function.c:1041
 msgid "Perceive"
 msgstr "Dojemi"
 
 #. Translators: Menu item Verb/Signal/Sense/Recognize
-#: ../objects/FS/function.c:1044
+#: ../objects/FS/function.c:1043
 msgid "Recognize"
 msgstr "Prepoznaj"
 
 #. Translators: Menu item Verb/Signal/Sense/Discern
-#: ../objects/FS/function.c:1046
+#: ../objects/FS/function.c:1045
 msgid "Discern"
 msgstr "Loči"
 
 #. Translators: Menu item Verb/Signal/Sense/Check
-#: ../objects/FS/function.c:1048
+#: ../objects/FS/function.c:1047
 msgid "Check"
 msgstr "Preglej"
 
 #. Translators: Menu item Verb/Signal/Sense/Verify
-#: ../objects/FS/function.c:1052
+#: ../objects/FS/function.c:1051
 msgid "Verify"
 msgstr "Preveri"
 
 #. Translators: Menu item Verb/Signal/Indicate
 #. Translators: Menu item Verb/Signal/Indicate/Indicate
-#: ../objects/FS/function.c:1054 ../objects/FS/function.c:1056
+#: ../objects/FS/function.c:1053 ../objects/FS/function.c:1055
 msgid "Indicate"
 msgstr "Nakaži"
 
 #. Translators: Menu item Verb/Signal/Indicate/Mark
-#: ../objects/FS/function.c:1058
+#: ../objects/FS/function.c:1057
 msgid "Mark"
 msgstr "Označi"
 
 #. Translators: Menu item Verb/Signal/Display
-#: ../objects/FS/function.c:1060 ../sheets/Flowchart.sheet.in.h:7
+#: ../objects/FS/function.c:1059 ../sheets/Flowchart.sheet.in.h:7
 msgid "Display"
 msgstr "Pokaži"
 
 #. Translators: Menu item Verb/Signal/Measure
 #. Translators: Menu item Verb/Signal/Measure/Measure
-#: ../objects/FS/function.c:1062 ../objects/FS/function.c:1064
+#: ../objects/FS/function.c:1061 ../objects/FS/function.c:1063
 msgid "Measure"
 msgstr "Izmeri"
 
 #. Translators: Menu item Verb/Signal/Measure/Calculate
-#: ../objects/FS/function.c:1066
+#: ../objects/FS/function.c:1065
 msgid "Calculate"
 msgstr "Izračunaj"
 
 #. Translators: Menu item Verb/Signal/Represent
-#: ../objects/FS/function.c:1068
+#: ../objects/FS/function.c:1067
 msgid "Represent"
 msgstr "Predstavi"
 
 #. Translators: Menu item Noun
-#: ../objects/FS/function.c:1070
+#: ../objects/FS/function.c:1069
 msgid "Noun"
 msgstr "Samostalnik"
 
 #. Translators: Menu item Noun/Material/Solid
-#: ../objects/FS/function.c:1074
+#: ../objects/FS/function.c:1073
 msgid "Solid"
 msgstr "polna"
 
 #. Translators: Menu item Noun/Material/Liquid
-#: ../objects/FS/function.c:1076
+#: ../objects/FS/function.c:1075
 msgid "Liquid"
 msgstr "Tekočina"
 
 #. Translators: Menu item Noun/Material/Gas
-#: ../objects/FS/function.c:1078
+#: ../objects/FS/function.c:1077
 msgid "Gas"
 msgstr "Plin"
 
 #. Translators: Menu item Noun/Material/Human
 #. Translators: Menu item Noun/Material/Human/Human
 #. Translators: Menu item Noun/Energy/Human
-#: ../objects/FS/function.c:1080 ../objects/FS/function.c:1082
-#: ../objects/FS/function.c:1166
+#: ../objects/FS/function.c:1079 ../objects/FS/function.c:1081
+#: ../objects/FS/function.c:1165
 msgid "Human"
 msgstr "Človek"
 
 #. Translators: Menu item Noun/Material/Human/Hand
-#: ../objects/FS/function.c:1084
+#: ../objects/FS/function.c:1083
 msgid "Hand"
 msgstr "Roka"
 
 #. Translators: Menu item Noun/Material/Human/Foot
-#: ../objects/FS/function.c:1086
+#: ../objects/FS/function.c:1085
 msgid "Foot"
 msgstr "Noga"
 
 #. Translators: Menu item Noun/Material/Human/Head
-#: ../objects/FS/function.c:1088
+#: ../objects/FS/function.c:1087
 msgid "Head"
 msgstr "Glava"
 
 #. Translators: Menu item Noun/Material/Human/Finger
-#: ../objects/FS/function.c:1090
+#: ../objects/FS/function.c:1089
 msgid "Finger"
 msgstr "Prst"
 
 #. Translators: Menu item Noun/Material/Human/Toe
-#: ../objects/FS/function.c:1092
+#: ../objects/FS/function.c:1091
 msgid "Toe"
 msgstr "Palec na nogi"
 
 #. Translators: Menu item Noun/Material/Biological
-#: ../objects/FS/function.c:1094
+#: ../objects/FS/function.c:1093
 msgid "Biological"
 msgstr "Biološki"
 
 #. Translators: Menu item Noun/Energy/Mechanical
-#: ../objects/FS/function.c:1098
+#: ../objects/FS/function.c:1097
 msgid "Mechanical"
 msgstr "Mehanični"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Mech. Energy
-#: ../objects/FS/function.c:1100
+#: ../objects/FS/function.c:1099
 msgid "Mech. Energy"
 msgstr "Mehanična energija"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Translation
-#: ../objects/FS/function.c:1102
+#: ../objects/FS/function.c:1101
 msgid "Translation"
 msgstr "Pretvorba"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Force
-#: ../objects/FS/function.c:1104
+#: ../objects/FS/function.c:1103
 msgid "Force"
 msgstr "Sila"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Rotation
-#: ../objects/FS/function.c:1106 ../objects/standard/outline.c:104
+#: ../objects/FS/function.c:1105 ../objects/standard/outline.c:104
 msgid "Rotation"
 msgstr "Rotacija"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Torque
-#: ../objects/FS/function.c:1108
+#: ../objects/FS/function.c:1107
 msgid "Torque"
 msgstr "Trenje"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Random Motion
-#: ../objects/FS/function.c:1110
+#: ../objects/FS/function.c:1109
 msgid "Random Motion"
 msgstr "Naključno gibanje"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Vibration
-#: ../objects/FS/function.c:1112
+#: ../objects/FS/function.c:1111
 msgid "Vibration"
 msgstr "Vibracija"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Rotational Energy
-#: ../objects/FS/function.c:1114
+#: ../objects/FS/function.c:1113
 msgid "Rotational Energy"
 msgstr "Rotacijska energija"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Translational Energy
-#: ../objects/FS/function.c:1116
+#: ../objects/FS/function.c:1115
 msgid "Translational Energy"
 msgstr "Pretvorna energija"
 
 #. Translators: Menu item Noun/Energy/Electricity
-#: ../objects/FS/function.c:1118
+#: ../objects/FS/function.c:1117
 msgid "Electrical"
 msgstr "Električen"
 
 #. Translators: Menu item Noun/Energy/Electricity/Electricity
-#: ../objects/FS/function.c:1120
+#: ../objects/FS/function.c:1119
 msgid "Electricity"
 msgstr "Elektrika"
 
 #. Translators: Menu item Noun/Energy/Electricity/Voltage
-#: ../objects/FS/function.c:1122
+#: ../objects/FS/function.c:1121
 msgid "Voltage"
 msgstr "Napetost"
 
 #. Translators: Menu item Noun/Energy/Electricity/Current
-#: ../objects/FS/function.c:1124
+#: ../objects/FS/function.c:1123
 msgid "Current"
 msgstr "Tok"
 
 #. Translators: Menu item Noun/Energy/Hydraulic
-#: ../objects/FS/function.c:1126
+#: ../objects/FS/function.c:1125
 msgid "Hydraulic"
 msgstr "Hidravlična"
 
 #. Translators: Menu item Noun/Energy/Hydraulic/Pressure
-#: ../objects/FS/function.c:1128
+#: ../objects/FS/function.c:1127
 msgid "Pressure"
 msgstr "Pritisk"
 
 #. Translators: Menu item Noun/Energy/Hydraulic/Volumetric Flow
-#: ../objects/FS/function.c:1130
+#: ../objects/FS/function.c:1129
 msgid "Volumetric Flow"
 msgstr "Prostorninski pretok"
 
 #. Translators: Menu item Noun/Energy/Thermal
-#: ../objects/FS/function.c:1132
+#: ../objects/FS/function.c:1131
 msgid "Thermal"
 msgstr "Termalna"
 
 #. Translators: Menu item Noun/Energy/Thermal/Heat
-#: ../objects/FS/function.c:1134
+#: ../objects/FS/function.c:1133
 msgid "Heat"
 msgstr "Vročina"
 
 #. Translators: Menu item Noun/Energy/Thermal/Conduction
-#: ../objects/FS/function.c:1136
+#: ../objects/FS/function.c:1135
 msgid "Conduction"
 msgstr "Kondukcija"
 
 #. Translators: Menu item Noun/Energy/Thermal/Convection
-#: ../objects/FS/function.c:1138
+#: ../objects/FS/function.c:1137
 msgid "Convection"
 msgstr "Konvekcija"
 
 #. Translators: Menu item Noun/Energy/Thermal/Radiation
 #. Translators: Menu item Noun/Energy/Radioactive/Radiation
-#: ../objects/FS/function.c:1140 ../objects/FS/function.c:1148
+#: ../objects/FS/function.c:1139 ../objects/FS/function.c:1147
 msgid "Radiation"
 msgstr "Sevanje"
 
 #. Translators: Menu item Noun/Energy/Pneumatic
-#: ../objects/FS/function.c:1142
+#: ../objects/FS/function.c:1141
 msgid "Pneumatic"
 msgstr "Pneumatična"
 
 #. Translators: Menu item Noun/Energy/Chemical
-#: ../objects/FS/function.c:1144
+#: ../objects/FS/function.c:1143
 msgid "Chemical"
 msgstr "Kemična"
 
 #. Translators: Menu item Noun/Energy/Radioactive
-#: ../objects/FS/function.c:1146
+#: ../objects/FS/function.c:1145
 msgid "Radioactive"
 msgstr "Radioaktina"
 
 #. Translators: Menu item Noun/Energy/Radioactive/Microwaves
-#: ../objects/FS/function.c:1150
+#: ../objects/FS/function.c:1149
 msgid "Microwaves"
 msgstr "Mikrovalovi"
 
 #. Translators: Menu item Noun/Energy/Radioactive/Radio waves
-#: ../objects/FS/function.c:1152
+#: ../objects/FS/function.c:1151
 msgid "Radio waves"
 msgstr "Radijski valovi"
 
 #. Translators: Menu item Noun/Energy/Radioactive/X-Rays
-#: ../objects/FS/function.c:1154
+#: ../objects/FS/function.c:1153
 msgid "X-Rays"
 msgstr "Rentgenski valovi"
 
 #. Translators: Menu item Noun/Energy/Radioactive/Gamma Rays
-#: ../objects/FS/function.c:1156
+#: ../objects/FS/function.c:1155
 msgid "Gamma Rays"
 msgstr "Gama valovi"
 
 #. Translators: Menu item Noun/Energy/Acoustic Energy
-#: ../objects/FS/function.c:1158
+#: ../objects/FS/function.c:1157
 msgid "Acoustic Energy"
 msgstr "Akustična energija"
 
 #. Translators: Menu item Noun/Energy/Optical Energy
-#: ../objects/FS/function.c:1160
+#: ../objects/FS/function.c:1159
 msgid "Optical Energy"
 msgstr "Optična energija"
 
 #. Translators: Menu item Noun/Energy/Solar Energy
-#: ../objects/FS/function.c:1162
+#: ../objects/FS/function.c:1161
 msgid "Solar Energy"
 msgstr "Sončna energija"
 
 #. Translators: Menu item Noun/Energy/Magnetic Energy
-#: ../objects/FS/function.c:1164
+#: ../objects/FS/function.c:1163
 msgid "Magnetic Energy"
 msgstr "Magnetna energija"
 
 #. Translators: Menu item Noun/Energy/Human/Human Motion
-#: ../objects/FS/function.c:1168
+#: ../objects/FS/function.c:1167
 msgid "Human Motion"
 msgstr "Človeško gibanje"
 
 #. Translators: Menu item Noun/Energy/Human/Human Force
-#: ../objects/FS/function.c:1170
+#: ../objects/FS/function.c:1169
 msgid "Human Force"
 msgstr "Človeška sila"
 
 #. Translators: Menu item Noun/Signal/Status
-#: ../objects/FS/function.c:1176
+#: ../objects/FS/function.c:1175
 msgid "Status"
 msgstr "Stanje"
 
-#: ../objects/FS/function.c:1180
+#: ../objects/FS/function.c:1179
 msgid "User/Device Fn"
 msgstr "Funkcija uporabnika/naprave"
 
-#: ../objects/FS/function.c:1181
+#: ../objects/FS/function.c:1180
 msgid "Wish Fn"
 msgstr "Funkcija želje"
 
@@ -5021,32 +5120,27 @@ msgstr "Mehki nadzor"
 msgid "Cusp control"
 msgstr "Nadzor stika"
 
-#: ../objects/standard/bezier.c:785 ../objects/standard/beziergon.c:524
-#: ../objects/standard/box.c:749 ../objects/standard/textobj.c:450
-msgid "Convert to Path"
-msgstr "Pretvori v pot"
-
-#: ../objects/standard/box.c:125 ../objects/standard/ellipse.c:117
+#: ../objects/standard/box.c:127 ../objects/standard/ellipse.c:117
 msgid "Free"
 msgstr "Prosto"
 
-#: ../objects/standard/box.c:126 ../objects/standard/ellipse.c:118
+#: ../objects/standard/box.c:128 ../objects/standard/ellipse.c:118
 msgid "Fixed"
 msgstr "Nespremenljivo"
 
-#: ../objects/standard/box.c:127 ../objects/standard/box.c:747
+#: ../objects/standard/box.c:129 ../objects/standard/box.c:761
 msgid "Square"
 msgstr "Kvadrat"
 
-#: ../objects/standard/box.c:140 ../objects/standard/ellipse.c:130
+#: ../objects/standard/box.c:143 ../objects/standard/ellipse.c:130
 msgid "Aspect ratio"
 msgstr "Razmerje stranic"
 
-#: ../objects/standard/box.c:743 ../objects/standard/ellipse.c:663
+#: ../objects/standard/box.c:757 ../objects/standard/ellipse.c:663
 msgid "Free aspect"
 msgstr "Poljubno razmerje"
 
-#: ../objects/standard/box.c:745 ../objects/standard/ellipse.c:665
+#: ../objects/standard/box.c:759 ../objects/standard/ellipse.c:665
 msgid "Fixed aspect"
 msgstr "Nespremenljivo razmerje"
 
@@ -5082,13 +5176,13 @@ msgstr "Nariši rob"
 msgid "Keep aspect ratio"
 msgstr "Ohrani razmerja"
 
-#: ../objects/standard/image.c:675
+#: ../objects/standard/image.c:676
 msgid "Inconsistent pixbuf during image save."
 msgstr "Nekonsistenten medpomnilnik slik. točk pri shranjevanju slike."
 
 #. Found file in same dir as diagram.
 #. Found file in current dir.
-#: ../objects/standard/image.c:772 ../objects/standard/image.c:783
+#: ../objects/standard/image.c:773 ../objects/standard/image.c:784
 #, c-format
 msgid ""
 "The image file '%s' was not found in the specified directory.\n"
@@ -5098,7 +5192,7 @@ msgstr ""
 "Namesto nje bo uporabljena datoteka '%s'.\n"
 
 #. Didn't find file in current dir.
-#: ../objects/standard/image.c:789 ../objects/standard/image.c:811
+#: ../objects/standard/image.c:790 ../objects/standard/image.c:812
 #, c-format
 msgid "The image file '%s' was not found.\n"
 msgstr "Slikovne datoteke '%s' ni mogoče najti.\n"
@@ -5787,8 +5881,8 @@ msgstr "Povečaj kazalec"
 msgid "Visible rect pointer"
 msgstr "Viden pravokoten kazalec"
 
-#: ../plug-ins/cairo/diacairo-renderer.c:868
-#: ../plug-ins/cairo/diacairo-renderer.c:903 ../plug-ins/cgm/cgm.c:1126
+#: ../plug-ins/cairo/diacairo-renderer.c:871
+#: ../plug-ins/cairo/diacairo-renderer.c:906 ../plug-ins/cgm/cgm.c:1126
 #: ../plug-ins/libart/dialibartrenderer.c:1325
 #: ../plug-ins/metapost/render_metapost.c:1108
 #: ../plug-ins/postscript/diapsrenderer.c:715
@@ -5989,7 +6083,7 @@ msgstr "Izvozni filter za LaTeX PGF"
 msgid "Not valid UTF-8"
 msgstr "Neveljavni UTF-8"
 
-#: ../plug-ins/pgf/render_pgf.c:1268
+#: ../plug-ins/pgf/render_pgf.c:1271
 msgid "LaTeX PGF macros"
 msgstr "Makri LaTeX PGF"
 
@@ -6114,7 +6208,7 @@ msgstr "Datoteka z likom Dia"
 msgid "Scalable Vector Graphics import and export filters"
 msgstr "Izvozni in uvozni filter SVG"
 
-#: ../plug-ins/svg/svg-import.c:387
+#: ../plug-ins/svg/svg-import.c:543
 msgid ""
 "Invalid path data.\n"
 "svg:path data must start with moveto."
@@ -6122,16 +6216,16 @@ msgstr ""
 "Neveljavna pot.\n"
 "Podatek svg:path se mora pričeti z moveto."
 
-#: ../plug-ins/svg/svg-import.c:1227
+#: ../plug-ins/svg/svg-import.c:1437
 msgid "'Shape Design' shapes missing."
 msgstr "Manjkajo liki 'Oblikovanje lika'"
 
-#: ../plug-ins/svg/svg-import.c:1261
+#: ../plug-ins/svg/svg-import.c:1471
 #, c-format
 msgid "Object '%s' creation failed"
 msgstr "Ustvarjanje predmeta '%s' ni uspelo"
 
-#: ../plug-ins/svg/svg-import.c:1283
+#: ../plug-ins/svg/svg-import.c:1493
 #, c-format
 msgid ""
 "Parse error for memory block.\n"
@@ -6140,16 +6234,16 @@ msgstr ""
 "Napaka razčlenjevanja pomnilniškega bloka.\n"
 "%s"
 
-#: ../plug-ins/svg/svg-import.c:1296 ../plug-ins/vdx/vdx-import.c:2887
+#: ../plug-ins/svg/svg-import.c:1506 ../plug-ins/vdx/vdx-import.c:2887
 #, c-format
 msgid "Parse error for %s"
 msgstr "Napaka razčlenjevanja za %s"
 
-#: ../plug-ins/svg/svg-import.c:1328
+#: ../plug-ins/svg/svg-import.c:1539
 msgid "Expected SVG Namespace not found in file"
 msgstr "Pričakovani imenski prostor SVG v datoteki ni vsebovan"
 
-#: ../plug-ins/svg/svg-import.c:1348
+#: ../plug-ins/svg/svg-import.c:1559
 #, c-format
 msgid "root element was '%s' -- expecting 'svg'."
 msgstr "korenski element je bil '%s' -- pričakovan je bil 'svg'."
@@ -6401,7 +6495,7 @@ msgid "Color number %d out of range 0..%d.  Discarding color.\n"
 msgstr "Številka barve %d je zunaj obsega 0..%d.  Barva ne bo upoštevana.\n"
 
 #: ../plug-ins/xfig/xfig-import.c:1111
-msgid "Couldn't read group extend."
+msgid "Couldn't read group extent."
 msgstr "Ni mogoče odpreti podaljška skupine."
 
 #: ../plug-ins/xfig/xfig-import.c:1122
@@ -9572,14 +9666,10 @@ msgid "A KAOS performs"
 msgstr "Deluje KAOS"
 
 #: ../sheets/KAOS.sheet.in.h:22
-msgid "A KAOS operation"
-msgstr "Operacija KAOS"
-
-#: ../sheets/KAOS.sheet.in.h:23
 msgid "A KAOS input"
 msgstr "Vhod KAOS"
 
-#: ../sheets/KAOS.sheet.in.h:24
+#: ../sheets/KAOS.sheet.in.h:23
 msgid "A KAOS output"
 msgstr "Izhod KAOS"
 
@@ -10202,6 +10292,21 @@ msgstr "Aktivnost"
 #: ../sheets/UML.sheet.in.h:31
 msgid "Fork/Union"
 msgstr "Razvejaj/spoji"
+
+#~ msgid ""
+#~ "Your old Dia directory is about to be deleted. Would you like to continue?"
+#~ "$\r$\rNote: Any non-standard plugins that you may have installed will be "
+#~ "deleted.$\rDia user settings will not be affected."
+#~ msgstr ""
+#~ "Vaša stara mapa Dia bo izbrisana. Želite nadaljevati?$\r$\rOpomba: Vsi "
+#~ "nestandardni vtičniki, ki ste jih namestili, bodo zdaj izbrisani.$"
+#~ "\rUporabniške nastavitve Dia ne bodo prizadete."
+
+#~ msgid "There are %d similar messages."
+#~ msgstr "Obstaja %d podobnih sporočil."
+
+#~ msgid "A KAOS operation"
+#~ msgstr "Operacija KAOS"
 
 #~ msgid "Abstract (?)"
 #~ msgstr "Izvleček (?)"
