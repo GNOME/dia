@@ -608,10 +608,6 @@ void
 dia_svg_parse_style(xmlNodePtr node, DiaSvgStyle *s, real user_scale)
 {
   xmlChar *str;
-  gchar temp[FONT_NAME_LENGTH_MAX+1]; /* font-family names will be limited to 40 characters */
-  int i = 0;
-  gboolean over = FALSE;
-  char *family = NULL, *style = NULL, *weight = NULL;
 
   str = xmlGetProp(node, (const xmlChar *)"style");
 
