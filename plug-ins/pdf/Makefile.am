@@ -1,0 +1,18 @@
+plugin_sources = pdf.c pdf-import.cpp
+
+# Can't do without C++
+if HAVE_CPLUSPLUS
+pkglib_LTLIBRARIES = libpdf_filter.la
+endif
+
+libpdf_filter_la_SOURCES = $(plugin_sources)
+libpdf_filter_la_LDFLAGS = -export-dynamic -module -avoid-version $(NO_UNDEFINED)
+libpdf_filter_la_LIBADD = $(POPPLER_LIBS) $(top_builddir)/lib/libdia.la
+
+INCLUDES = -I$(top_srcdir)/intl -I$(top_srcdir)/lib \
+  $(DEBUG_FLAGS) $(GTK_CFLAGS)
+
+# Prevent installation
+install-pkglibLTLIBRARIES:
+	:
+

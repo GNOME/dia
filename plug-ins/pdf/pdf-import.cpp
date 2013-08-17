@@ -698,7 +698,7 @@ import_pdf(const gchar *filename, DiagramData *dia, DiaContext *ctx, void* user_
   GooString *userPW = NULL;
   gboolean ret = FALSE;
 
-  // without this we will get strange crashes (at least with /O2 build
+  // without this we will get strange crashes (at least with /O2 build)
   globalParams = new GlobalParams();
 
   doc = PDFDocFactory().createPDFDoc(*fileName, ownerPW, userPW);
@@ -729,3 +729,4 @@ import_pdf(const gchar *filename, DiagramData *dia, DiaContext *ctx, void* user_
 
   return ret;
 }
+

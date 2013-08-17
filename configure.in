@@ -126,6 +126,12 @@ if test "$have_libart" = "yes" ; then
    AC_DEFINE(HAVE_LIBART,1,[Define if building with LIBART support])
 fi
 
+dnl Try for poppler
+PKG_CHECK_MODULES(POPPLER,poppler,have_poppler=yes,have_poppler=no)
+if test "$have_poppler" = "yes" ; then
+   AC_DEFINE(HAVE_POPPLER,1,[Define if building with POPPLER support])
+fi
+
 AC_MSG_CHECKING([whether GNOME specific code should be used])
 AC_ARG_ENABLE(gnome,
 	      AC_HELP_STRING([--enable-gnome],[enable gnome code]),,
@@ -683,6 +689,7 @@ plug-ins/pixbuf/Makefile
 plug-ins/postscript/Makefile
 plug-ins/pstricks/Makefile
 plug-ins/pgf/Makefile
+plug-ins/pdf/Makefile
 plug-ins/python/Makefile
 plug-ins/shape/Makefile
 plug-ins/stress/Makefile
