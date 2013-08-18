@@ -225,7 +225,7 @@ stdpath_init_handles (StdPath *stdpath)
   DiaObject *obj = &stdpath->object;
   int i;
 
-  g_return_if_fail (obj->handles != NULL || obj->num_handles == NUM_HANDLES);
+  g_return_if_fail (obj->handles != NULL && obj->num_handles == NUM_HANDLES);
 
   for (i = 0; i < NUM_HANDLES; ++i) {
     obj->handles[i] = &stdpath->handles[i];
