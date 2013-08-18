@@ -657,8 +657,8 @@ read_text_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GHashTable *style_ht, 
 	    g_string_append(paragraph, "\n");
 	  } else { /* only first time - with bogus, experimental division of user scale */
 	    dia_svg_parse_style(tspan, gs, matrix ? user_scale / matrix->yy : user_scale);
-	    point.x += _node_get_real (tspan, "x", 0.0);
-	    point.y += _node_get_real (tspan, "y", 0.0);
+	    point.x = _node_get_real (tspan, "x", point.x);
+	    point.y = _node_get_real (tspan, "y", point.y);
 	  }
           g_string_append(paragraph, (gchar*)line);
 	  xmlFree(line);
