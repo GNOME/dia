@@ -838,8 +838,8 @@ read_ellipse_svg(xmlNodePtr node, DiaSvgStyle *parent_style,
   start.x = _node_get_real (node, "cx", 0.0);
   start.y = _node_get_real (node, "cy", 0.0);
 
-  width = _node_get_real (node, "rx", 0.0);
-  height = _node_get_real (node, "ry", 0.0);
+  width = _node_get_real (node, "rx", 0.0) * 2;
+  height = _node_get_real (node, "ry", 0.0) * 2;
   /* not part of ellipse attributes, just here for circle */
   str = xmlGetProp(node, (const xmlChar *)"r");
   if (str) {
