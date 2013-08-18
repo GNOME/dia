@@ -1423,6 +1423,8 @@ _parse_transform (const gchar *trans, DiaMatrix *m, real scale)
       cx = g_ascii_strtod (list[i], NULL), ++i;
       if (list[i])
         cy = g_ascii_strtod (list[i], NULL), ++i;
+      else
+        cy = 0.0; /* if offsets don't come in pairs */
       /* rotate around the given offset */
       translate.x0 = cx;
       translate.y0 = cy;
