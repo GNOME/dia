@@ -349,6 +349,8 @@ popup_object_menu(DDisplay *ddisp, GdkEventButton *bevent)
   } else {
     dia_menu = (obj->ops->get_object_menu)(obj, &last_clicked_pos);
     num_items = dia_menu ? dia_menu->num_items : 0;
+    if (!dia_menu) /* just to be sure */
+      dia_menu = &empty_menu;
   }
 
   if (dia_menu->app_data == NULL) {
