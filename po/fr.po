@@ -7985,7 +7985,7 @@ msgid "Folder"
 msgstr "Dossier"
 
 #: ../sheets/Misc.sheet.in.h:3
-msgid "Misc"
+msgid "Miscellaneous"
 msgstr "Divers"
 
 #: ../sheets/Misc.sheet.in.h:4
