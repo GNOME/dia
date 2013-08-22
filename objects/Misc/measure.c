@@ -216,7 +216,7 @@ measure_update_data (Measure *measure)
   LineBBExtras *extra = &conn->extra_spacing;
   Rectangle bbox;
   Arrow arrow = MEASURE_ARROW(measure);
-  real ascent, width;
+  real ascent, width, theta;
   
   g_return_if_fail (obj->handles != NULL);
   connection_update_handles(conn);
@@ -234,10 +234,16 @@ measure_update_data (Measure *measure)
   
   ascent = dia_font_ascent (measure->name, measure->font, measure->font_height);
   width = dia_font_string_width (measure->name, measure->font, measure->font_height);
+  theta = atan2(ends[1].y-ends[0].y, ends[1].x-ends[0].x);
+  theta = (0 >= theta ? theta + M_PI : theta);
 
-  measure->text_pos.x = (ends[0].x + ends[1].x) / 2;
-  measure->text_pos.y = (ends[0].y + ends[1].y) / 2;
-  /* for horizontal we could try to center over the line */
+  if (theta >= M_PI * 3/4) { 
+    measure->text_pos.x = (ends[0].x + ends[1].x) / 2 - sin(theta) * measure->font_height/2 - width * (2.5 - 2/M_PI * ( theta - 3/4 * M_PI ));
+    measure->text_pos.y = (ends[0].y + ends[1].y) / 2 + cos(theta) * measure->font_height/2;
+  } else  {
+    measure->text_pos.x = (ends[0].x + ends[1].x) / 2 + sin(theta) * measure->font_height/2;
+    measure->text_pos.y = (ends[0].y + ends[1].y) / 2 - cos(theta) * measure->font_height/2;
+  }
   
   line_bbox (&ends[0], &ends[0], &conn->extra_spacing,&conn->object.bounding_box);
   arrow_bbox (&arrow, measure->line_width, &ends[0], &ends[1], &bbox);
