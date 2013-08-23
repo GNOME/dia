@@ -1413,9 +1413,8 @@ _parse_transform (const gchar *trans, DiaMatrix *m, real scale)
       g_warning ("transform=rotate no angle?");
     }
     m->xx =  cos(G_PI*angle/180);
-    /* FIXME: swapped xy and yx - correct? */
-    m->xy = -sin(G_PI*angle/180);
     m->yx =  sin(G_PI*angle/180);
+    m->xy = -sin(G_PI*angle/180);
     m->yy =  cos(G_PI*angle/180);
     /* FIXME: check with real world data, I'm uncertain */
     if (list[i]) {
@@ -1461,7 +1460,7 @@ dia_svg_parse_transform(const gchar *trans, real scale)
   gchar **transforms = g_regex_split_simple ("\\)", trans, 0, 0);
   int i = 0;
 
-  /* go through the list of ztansformations - not that one would be enough ;) */
+  /* go through the list of transformations - not that one would be enough ;) */
   while (transforms[i]) {
     DiaMatrix mat = { 0, };
 

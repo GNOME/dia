@@ -196,6 +196,20 @@ group_update_connectionpoints(Group *group)
 #endif
 }
 
+static void
+group_objects_move_delta (Group *group, const Point *delta)
+{
+  if (group->matrix) {
+    DiaMatrix *m = group->matrix;
+
+    m->x0 += delta->x;
+    m->y0 += delta->y;
+  } else {
+    Point dt = *delta;
+    object_list_move_delta(group->objects, &dt);
+  }
+}
+
 static ObjectChange*
 group_move_handle(Group *group, Handle *handle, Point *to, ConnectionPoint *cp,
 		  HandleMoveReason reason, ModifierKeys modifiers)
@@ -258,7 +272,7 @@ group_move_handle(Group *group, Handle *handle, Point *to, ConnectionPoint *cp,
   }
 
   if (also_move)
-    object_list_move_delta(group->objects, &delta);
+    group_objects_move_delta(group, &delta);
   if (!group->matrix) {
     group->matrix = g_new0 (DiaMatrix, 1);
     group->matrix->xx = 1.0;
@@ -312,7 +326,7 @@ group_move(Group *group, Point *to)
   /* We don't need any transformation of delta, because 
    * group_update_data () maintains the relative position.
    */
-  object_list_move_delta(group->objects, &delta);
+  group_objects_move_delta(group, &delta);
   
   group_update_data(group);
 
@@ -465,8 +479,7 @@ group_update_data(Group *group)
       DiaMatrix *m = group->matrix;
 
       /* maintain obj->position */
-      m->x0 = obj->position.x - (m->xx * obj->position.x + m->xy  * obj->position.y);
-      m->y0 = obj->position.y - (m->yx * obj->position.x + m->yy  * obj->position.y);
+      transform_point (&group->object.position, m);
 
       /* recalculate bounding box */
       /* need to consider all corners */
@@ -499,15 +512,7 @@ DiaObject *
 group_create_with_matrix(GList *objects, DiaMatrix *matrix)
 {
   Group *group = (Group *)group_create(objects);
-  if (matrix->x0 != 0 || matrix->y0 != 0) {
-    Point delta = {matrix->x0, matrix->y0};
-    const Point *pos = &group->object.position;
-    /* the resulting offset is what we want to shift to */
-    delta.x += (matrix->xx * pos->x - pos->x);
-    delta.y += (matrix->yy * pos->y - pos->y);
-    matrix->x0 = matrix->y0 = 0; /* offset used internally */
-    object_list_move_delta(group->objects, &delta);
-  }
+
   if (dia_matrix_is_identity (matrix)) {
     /* just drop it as it has no effect */
     g_free (matrix);
@@ -893,16 +898,6 @@ group_transform (Group *group, const DiaMatrix *m)
     dia_matrix_multiply (group->matrix, group->matrix, m);
   } else {
     group->matrix = g_memdup (m, sizeof(*m));
-  }
-  /* don't keep the offset in the matrix*/
-  if (group->matrix->x0 != 0 || group->matrix->y0 != 0) {
-    Point delta = {group->matrix->x0, group->matrix->y0};
-    const Point *pos = &group->object.position;
-    /* the resulting offset is what we want to shift to */
-    delta.x += (m->xx * pos->x - pos->x);
-    delta.y += (m->yy * pos->y - pos->y);
-    group->matrix->x0 = group->matrix->y0 = 0; /* offset used internally */
-    object_list_move_delta(group->objects, &delta);
   }
   group_update_data (group);
 }
