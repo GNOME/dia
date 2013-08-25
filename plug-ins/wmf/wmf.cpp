@@ -240,7 +240,7 @@ DonePen(WmfRenderer* renderer, W32::HPEN hPen)
 #else
 #  define DIAG_NOTE my_log
 #endif
-void
+static void
 my_log(WmfRenderer* renderer, const char* format, ...)
 {
     gchar *string;
