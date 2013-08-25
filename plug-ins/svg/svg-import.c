@@ -95,9 +95,11 @@ get_value_as_cm (const gchar *nptr,
     else if (strncmp(endp, "mm", 2) == 0)
         val /= 10.0, endp+=2;
     else if (strncmp(endp, "in", 2) == 0)
-        val /= 2.54, endp+=2;
+        val *= 2.54, endp+=2;
     else if (strncmp(endp, "pt", 2) == 0)
-        val *= 0.03528, endp+=2;
+        val *= (2.54/72.0), endp+=2;
+    else if (strncmp(endp, "pc", 2) == 0)
+        val *= (2.54/6.0), endp+=2;
     /* the rest can't really be resolved here, passing unit to caller (who will just ignore at the moment) */
     
     if (endptr)
