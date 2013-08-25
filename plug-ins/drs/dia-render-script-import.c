@@ -182,6 +182,8 @@ read_items (xmlNodePtr startnode, DiaContext *ctx)
 	moreitems = read_items (render->children, ctx);
 	if (moreitems) {
 	  DiaObject *group = group_create (moreitems);
+	    /* apply group props, e.g. transform */
+	  object_load_props (group, props, ctx);
 	    /* group eats list */
 	  items = g_list_append (items, group);
 	}
