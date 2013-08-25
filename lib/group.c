@@ -217,12 +217,8 @@ group_move_handle(Group *group, Handle *handle, Point *to, ConnectionPoint *cp,
   DiaObject *obj = &group->object;
   Rectangle *bb = &obj->bounding_box;
   /* top and left handles are also changing the objects position */
-  Point pos = obj->position;
-  /* only flies, when the top left handle is the position */
-  gboolean also_move = (   group->resize_handles[0].pos.x == pos.x 
-                        && group->resize_handles[0].pos.y == pos.y);
   Point top_left = { bb->left, bb->top };
-  Point delta;
+  Point delta = { 0.0, 0.0 };
   /* before and after width and height */
   real w0, h0, w1, h1;
   
@@ -232,9 +228,9 @@ group_move_handle(Group *group, Handle *handle, Point *to, ConnectionPoint *cp,
   w0 = w1 = bb->right - bb->left;
   h0 = h1 = bb->bottom - bb->top;
 
-  /* Movement vs. scaling is still a bit bogus, e.g. if the object list
-   * position happens to be near a different than top-left handle we might
-   * only resize and not move the given handle at all.
+  /* Movement and scaling only work as intended with no active rotation.
+   * For rotated group we should either translate the handle positions
+   * or we might rotate the horizontal and vertical scale ...
    */
   switch(handle->id) {
   case HANDLE_RESIZE_NW:
@@ -243,19 +239,26 @@ group_move_handle(Group *group, Handle *handle, Point *to, ConnectionPoint *cp,
     w1 = w0 - delta.x;
     h1 = h0 - delta.y;
     break;
-  case HANDLE_RESIZE_NE:
-    w1 = to->x - pos.x;
-    /* fall through */
   case HANDLE_RESIZE_N:
     delta.y = to->y - top_left.y;
     h1 = h0 - delta.y;
     break;
-  case HANDLE_RESIZE_SW:
-    h1 = to->y - pos.y;
-    /* fall through */
+  case HANDLE_RESIZE_NE:
+    delta.y = to->y - top_left.y;
+    w1 = to->x - top_left.x;
+    h1 = h0 - delta.y;
+    break;
   case HANDLE_RESIZE_W:
     delta.x = to->x - top_left.x;
     w1 = w0 - delta.x;
+    break;
+  case HANDLE_RESIZE_E:
+    w1 = to->x - top_left.x;
+    break;
+  case HANDLE_RESIZE_SW:
+    delta.x = to->x - top_left.x;
+    w1 = w0 - delta.x;
+    h1 = to->y - top_left.y;
     break;
   case HANDLE_RESIZE_SE:
     w1 = to->x - top_left.x;
@@ -264,50 +267,36 @@ group_move_handle(Group *group, Handle *handle, Point *to, ConnectionPoint *cp,
   case HANDLE_RESIZE_S:
     h1 = to->y - top_left.y;
     break;
-  case HANDLE_RESIZE_E:
-    w1 = to->x - top_left.x;
-    break;
   default:
     g_warning("group_move_handle() called with wrong handle-id\n");
   }
 
-  if (also_move)
-    group_objects_move_delta(group, &delta);
   if (!group->matrix) {
     group->matrix = g_new0 (DiaMatrix, 1);
     group->matrix->xx = 1.0;
     group->matrix->yy = 1.0;
   }
 
-  /* The resizing is in the destination coordinate system, translate
-   * it to respective object scaling. BEWARE: this is not completely
-   * reversible, so we probably should deliver some extra undo information.
+  /* The resizing is in the diagram coordinate system, translate
+   * it to respective object offset. BEWARE: this is not completely
+   * reversible, so we might need to deliver some extra undo information.
    */
   {
-    DiaMatrix inv = *group->matrix;
-    real sx0, sx;
-    real sy0, sy;
-    real angle;
+    DiaMatrix mat;
 
-    inv.x0 = w0/2;
-    inv.y0 = h0/2;
-    if (cairo_matrix_invert ((cairo_matrix_t *)&inv) != CAIRO_STATUS_SUCCESS)
-      g_warning ("Group::move_handle() matrix invert");
-
-    dia_matrix_get_angle_and_scales (group->matrix, &angle, &sx0, &sy0);
-
-    cairo_matrix_transform_distance ((cairo_matrix_t *)&inv, &w0, &h0);
-    cairo_matrix_transform_distance ((cairo_matrix_t *)&inv, &w1, &h1);
-    /* with angle of 45 degree (+x*90) the below does not work out, because
-     * transformed height or width becomes zero so convert to even scale */
-    if ((fabs(w0) < 1e-3) || (fabs(h0) < 1e-3)) {
-      sx = sy = sqrt(w1*w1 + h1*h1) / sqrt(w0*w0 + h0*h0);
-    } else {
-      sx = w1/w0;
-      sy = h1/h0;
-    }
-
-    dia_matrix_set_angle_and_scales (group->matrix, angle, sx0 * sx, sy0 * sy);
+    delta.x += group->matrix->x0;
+    delta.y += group->matrix->y0;
+    group->matrix->x0 = group->matrix->y0 = 0.0;
+    /* it's just another matrix transform */
+    mat.xx = w1/w0;
+    mat.yy = h1/h0;
+    /* no rotation via handles */
+    mat.yx = mat.xy = 0.0;
+    
+    dia_matrix_multiply (group->matrix, group->matrix, &mat);
+    /* restore complete offset */
+    group->matrix->x0 = delta.x;
+    group->matrix->y0 = delta.y;
   }
   group_update_data(group);
 
