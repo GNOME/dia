@@ -165,6 +165,8 @@ libdia_la_SOURCES =  \
 		diagdkrenderer.c \
 		diapathrenderer.h \
 		diapathrenderer.c \
+		diatransformrenderer.h \
+		diatransformrenderer.c \
 		diasvgrenderer.h \
 		diasvgrenderer.c \
 		dia_svg.h \

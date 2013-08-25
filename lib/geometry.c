@@ -430,6 +430,16 @@ transform_point (Point *pt, const DiaMatrix *m)
   pt->y = x * m->yx + y * m->yy + m->y0;
 }
 void
+transform_length (real *len, const DiaMatrix *m)
+{
+  Point pt = { *len, 0 };
+  transform_point (&pt, m);
+  /* not interested in the offset */
+  pt.x -= m->x0;
+  pt.y -= m->y0;
+  *len = point_len (&pt);
+}
+void
 transform_bezpoint (BezPoint *bpt, const DiaMatrix *m)
 {
   transform_point (&bpt->p1, m);
@@ -789,8 +799,12 @@ dia_matrix_set_angle_and_scales (DiaMatrix *m,
 				 real       sx,
 				 real       sy)
 {
+  real dx = m->x0;
+  real dy = m->y0;
   cairo_matrix_init_rotate ((cairo_matrix_t *)m, a);
   cairo_matrix_scale ((cairo_matrix_t *)m, sx, sy);
+  m->x0 = dx;
+  m->y0 = dy;
 }
 
 gboolean

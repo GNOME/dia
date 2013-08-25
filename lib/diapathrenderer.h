@@ -39,4 +39,12 @@ typedef struct _DiaPathRendererClass DiaPathRendererClass;
 
 GType dia_path_renderer_get_type (void) G_GNUC_CONST;
 
+void path_build_arc (GArray *path, Point *center,
+		     real width, real height,
+		     real angle1, real angle2,
+		     gboolean closed);
+void path_build_ellipse (GArray *path,
+			 Point *center,
+			 real width, real height);
+
 #endif

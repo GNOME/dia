@@ -25,6 +25,7 @@
 #include "object.h"
 #include "text.h"
 #include "textline.h"
+#include "diatransformrenderer.h"
 
 /*
  * redefinition of isnan, for portability, as explained in :
@@ -244,6 +245,12 @@ draw_object (DiaRenderer *renderer,
 	     DiaMatrix   *matrix) 
 {
   if (matrix) {
+#if 1
+    DiaRenderer *tr = dia_transform_renderer_new (renderer);
+    DIA_RENDERER_GET_CLASS(tr)->draw_object (tr, object, matrix);
+    g_object_unref (tr);
+    return;
+#else
     /* visual complaints - not completely correct */
     Point pt[4];
     Rectangle *bb = &object->bounding_box;
@@ -263,6 +270,7 @@ draw_object (DiaRenderer *renderer,
     DIA_RENDERER_GET_CLASS(renderer)->draw_polygon(renderer, pt, 4, &red);
     DIA_RENDERER_GET_CLASS(renderer)->draw_line(renderer, &pt[0], &pt[2], &red);
     DIA_RENDERER_GET_CLASS(renderer)->draw_line(renderer, &pt[1], &pt[3], &red);
+#endif
   }
   object->ops->draw(object, renderer);
 }

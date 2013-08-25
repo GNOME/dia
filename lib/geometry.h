@@ -366,6 +366,7 @@ real distance_bez_shape_point(const BezPoint *b, guint npoints,
 real distance_ellipse_point(const Point *centre, real width, real height,
 			    real line_width, const Point *point);
 
+void transform_length (real *length, const DiaMatrix *m);
 void transform_point (Point *pt, const DiaMatrix *m);
 void transform_bezpoint (BezPoint *bpt, const DiaMatrix *m);
 

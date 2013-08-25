@@ -336,21 +336,17 @@ fill_rect (DiaRenderer *self,
 {
   _rect (self, ul_corner, lr_corner, NULL, color);
 }
+
 /*!
- * \brief Convert an arc to some bezier curve-to
- * \bug For arcs going through angle 0 the result is wrong, 
- * kind of the opposite of the desired.
- * \protected \memberof _DiaPathRenderer
+ * \brief Create a path from an arc
  */
-static void
-_arc (DiaRenderer *self, 
-      Point *center,
-      real width, real height,
-      real angle1, real angle2,
-      const Color *stroke, const Color *fill)
+void
+path_build_arc (GArray *path,
+		Point *center,
+		real width, real height,
+		real angle1, real angle2,
+		gboolean closed)
 {
-  DiaPathRenderer *renderer = DIA_PATH_RENDERER (self);
-  GArray *path = _get_current_path (renderer, stroke, fill);
   Point start;
   real radius = sqrt(width * height) / 2.0;
   real ar1;
@@ -381,7 +377,7 @@ _arc (DiaRenderer *self,
     ar2 += 2 * M_PI;
   }
 
-  if (stroke) {
+  if (!closed) {
     _path_append (path, &start);
     for (i = 0; i < segs; ++i, ar1 += ars)
       _path_arc_segment (path, center, radius, ar1, ar1 + ars);
@@ -391,6 +387,25 @@ _arc (DiaRenderer *self,
     _path_lineto (path, center);
     _path_lineto (path, &start);
   }
+}
+
+/*!
+ * \brief Convert an arc to some bezier curve-to
+ * \bug For arcs going through angle 0 the result is wrong, 
+ * kind of the opposite of the desired.
+ * \protected \memberof _DiaPathRenderer
+ */
+static void
+_arc (DiaRenderer *self, 
+      Point *center,
+      real width, real height,
+      real angle1, real angle2,
+      const Color *stroke, const Color *fill)
+{
+  DiaPathRenderer *renderer = DIA_PATH_RENDERER (self);
+  GArray *path = _get_current_path (renderer, stroke, fill);
+
+  path_build_arc (path, center, width, height, angle1, angle2, stroke == NULL);
 }
 static void
 draw_arc (DiaRenderer *self, 
@@ -410,14 +425,11 @@ fill_arc (DiaRenderer *self,
 {
   _arc (self, center, width, height, angle1, angle2, NULL, color);
 }
-static void
-_ellipse (DiaRenderer *self,
-	  Point *center,
-	  real width, real height,
-	  const Color *stroke, const Color *fill)
+void
+path_build_ellipse (GArray *path,
+		    Point *center,
+		    real width, real height)
 {
-  DiaPathRenderer *renderer = DIA_PATH_RENDERER (self);
-  GArray *path = _get_current_path (renderer, stroke, fill);
   real w2 = width/2;
   real h2 = height/2;
   /* FIXME: just a rough estimation to get started */
@@ -469,6 +481,17 @@ _ellipse (DiaRenderer *self,
 
     g_array_append_val (path, bp);
   }
+}    
+static void
+_ellipse (DiaRenderer *self,
+	  Point *center,
+	  real width, real height,
+	  const Color *stroke, const Color *fill)
+{
+  DiaPathRenderer *renderer = DIA_PATH_RENDERER (self);
+  GArray *path = _get_current_path (renderer, stroke, fill);
+
+  path_build_ellipse (path, center, width, height);
 }
 static void
 draw_ellipse (DiaRenderer *self, 
