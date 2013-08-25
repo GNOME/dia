@@ -37,6 +37,9 @@
 
 #include "dia-render-script-renderer.h"
 
+#include "diatransformrenderer.h"
+#include "group.h"
+
 static gpointer parent_class = NULL;
 
 /* constructor */
@@ -47,6 +50,7 @@ drs_renderer_init (GTypeInstance *self, gpointer g_class)
 
   renderer->parents = g_queue_new ();
   renderer->save_props = FALSE;
+  renderer->matrices = g_queue_new ();
 }
 
 /* destructor */
@@ -56,6 +60,7 @@ drs_renderer_finalize (GObject *object)
   DrsRenderer *renderer = DRS_RENDERER (object);
 
   g_queue_free (renderer->parents);
+  g_queue_free (renderer->matrices);
 
   G_OBJECT_CLASS (parent_class)->finalize (object);  
 }
@@ -99,6 +104,7 @@ draw_object(DiaRenderer *self,
 	    DiaMatrix   *matrix)
 {
   DrsRenderer *renderer = DRS_RENDERER (self);
+  DiaMatrix *m = g_queue_peek_tail (renderer->matrices);
   xmlNodePtr node;
 
   g_queue_push_tail (renderer->parents, renderer->root);
@@ -116,16 +122,61 @@ draw_object(DiaRenderer *self,
     props_node = xmlNewChild(node, NULL, (const xmlChar *)"properties", NULL);
     object_save_props (object, props_node);
   }
-  if (matrix)
-    g_warning ("DrsRender::draw_object ignored matrix!");
-  /* TODO: special handling for group object? */
+  if (matrix) {
+    DiaMatrix *m2 = g_new (DiaMatrix, 1);
+    if (m)
+      dia_matrix_multiply (m2, matrix, m);
+    else
+      *m2 = *matrix;
+    g_queue_push_tail (renderer->matrices, m2);
+    /* lazy creation of our transformer */
+    if (!renderer->transformer)
+      renderer->transformer = dia_transform_renderer_new (self);
+  }
+  /* special handling for group objects:
+   *  - for the render branch use DiaTransformRenderer, but not it's draw_object,
+   *    to see all the children's draw_object ourself
+   *  - for the object branch we rely on this draw_object being called so need
+   *    to inline group_draw here
+   *  - to maintain the correct transform build our own queue of matrices like
+   *    the DiaTransformRenderer would do through it's draw_object
+   */
   {
     g_queue_push_tail (renderer->parents, renderer->root);
     renderer->root = node = xmlNewChild(renderer->root, NULL, (const xmlChar *)"render", NULL);
-    object->ops->draw(object, DIA_RENDERER (renderer));
+    if (renderer->transformer) {
+      DiaMatrix *m = g_queue_peek_tail (renderer->matrices);
+
+      if (IS_GROUP (object)) {
+	/* reimplementation of group_draw to use this draw_object method */
+	GList *list;
+	DiaObject *obj;
+
+	list = group_objects (object);
+	while (list != NULL) {
+	  obj = (DiaObject *) list->data;
+
+	  DIA_RENDERER_GET_CLASS(self)->draw_object(self, obj, m);
+	  list = g_list_next(list);
+	}
+      } else {
+	/* just the leaf */
+	DIA_RENDERER_GET_CLASS(renderer->transformer)->draw_object(renderer->transformer, object, m);
+      }
+    } else {
+      object->ops->draw(object, DIA_RENDERER (renderer));
+    }
     renderer->root = g_queue_pop_tail (renderer->parents);
   }
   renderer->root = g_queue_pop_tail (renderer->parents);
+
+  if (matrix)
+    g_queue_pop_tail (renderer->matrices);
+  /* one lost demand destruction */
+  if (renderer->transformer && g_queue_is_empty (renderer->matrices)) {
+    g_object_unref (renderer->transformer);
+    renderer->transformer = NULL;
+  }
 }
 
 static void

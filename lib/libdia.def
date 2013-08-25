@@ -380,6 +380,8 @@ EXPORTS
  dia_transform_coords
  dia_untransform_length
 
+ dia_transform_renderer_new
+
  dia_toggle_button_new_with_icons
 
  dia_sort_sheets

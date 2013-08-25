@@ -45,6 +45,10 @@ struct _DrsRenderer
   xmlNodePtr root;
   /* track the parents */
   GQueue *parents;
+  /* track transformation matrix */
+  GQueue *matrices;
+  /* to actually render transformed */
+  DiaRenderer *transformer;
 };
 
 struct _DrsRendererClass
