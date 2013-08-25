@@ -492,7 +492,7 @@ transform_subshape_coord(Custom *custom, GraphicElementSubShape* subshape,
 }
 
 static real
-transform_length(Custom *custom, real length)
+custom_transform_length(Custom *custom, real length)
 {
   if (custom->current_subshape != NULL) {
     GraphicElementSubShape* subshape = custom->current_subshape;
@@ -629,7 +629,7 @@ custom_distance_from(Custom *custom, Point *point)
       dist = distance_rectangle_point(&rect, point);
       break;
     case GE_TEXT:
-      text_set_height (el->text.object, transform_length (custom, el->text.s.font_height));
+      text_set_height (el->text.object, custom_transform_length (custom, el->text.s.font_height));
       custom_reposition_text(custom, &el->text);
       dist = text_distance_from(el->text.object, point);
       text_set_position(el->text.object, &el->text.anchor);
@@ -982,7 +982,7 @@ custom_draw_element(GraphicElement* el, Custom *custom, DiaRenderer *renderer,
   case GE_RECT:
     transform_coord(custom, &el->rect.corner1, &p1);
     transform_coord(custom, &el->rect.corner2, &p2);
-    radius = transform_length(custom, el->rect.corner_radius);
+    radius = custom_transform_length(custom, el->rect.corner_radius);
     if (p1.x > p2.x) {
       coord = p1.x;
       p1.x = p2.x;
@@ -1000,7 +1000,7 @@ custom_draw_element(GraphicElement* el, Custom *custom, DiaRenderer *renderer,
       renderer_ops->draw_rounded_rect(renderer, &p1, &p2, fg, radius);
     break;
   case GE_TEXT:
-    text_set_height (el->text.object, transform_length (custom, el->text.s.font_height));
+    text_set_height (el->text.object, custom_transform_length (custom, el->text.s.font_height));
     custom_reposition_text(custom, &el->text);
     get_colour(custom, &el->text.object->color, el->any.s.fill, el->any.s.fill_opacity);
     text_draw(el->text.object, renderer);
@@ -1447,7 +1447,7 @@ custom_update_data(Custom *custom, AnchorShape horiz, AnchorShape vert)
       break;
     }
     case GE_TEXT:
-      text_set_height (el->text.object, transform_length (custom, el->text.s.font_height));
+      text_set_height (el->text.object, custom_transform_length (custom, el->text.s.font_height));
       custom_reposition_text(custom, &el->text);
       text_calc_boundingbox(el->text.object,&rect);
       /* padding only to be applied on the users text box */
