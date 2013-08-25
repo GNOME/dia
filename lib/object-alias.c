@@ -171,12 +171,12 @@ object_register_alias_type (DiaObjectType *type, ObjectNode alias_node)
     alias_type->name = g_strdup ((char *)name);
     alias_type->ops = &_alias_type_ops;
     alias_type->version = type->version; /* really? */
-    alias_type->pixmap = alias_type->pixmap;
+    alias_type->pixmap = type->pixmap;
     alias_type->pixmap_file = type->pixmap_file ;
     alias_type->default_user_data = alias_type; /* _create has no self pointer */
 
     object_register_type (alias_type);
-    
+
     if (!_alias_types_ht)
       _alias_types_ht = g_hash_table_new (g_str_hash, g_str_equal);
     g_hash_table_insert (_alias_types_ht, g_strdup ((char *)name), type);
@@ -184,3 +184,4 @@ object_register_alias_type (DiaObjectType *type, ObjectNode alias_node)
     xmlFree (name);
   }
 }
+
