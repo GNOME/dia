@@ -1669,7 +1669,7 @@ import_svg (xmlDocPtr doc, DiagramData *dia,
 
 /* interface from filter.h */
 
-static const gchar *extensions[] = {"svg", NULL };
+static const gchar *extensions[] = {"svg", "svgz", NULL };
 DiaImportFilter svg_import_filter = {
 	N_("Scalable Vector Graphics"),
 	extensions,
