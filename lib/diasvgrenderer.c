@@ -361,6 +361,8 @@ fill_polygon(DiaRenderer *self,
 		      dia_svg_dtostr(py_buf, points[i].y) );
   xmlSetProp(node, (const xmlChar *)"points", (xmlChar *)str->str);
   g_string_free(str, TRUE);
+  /* change this if our rendering model allows more */
+  xmlSetProp(node, (const xmlChar *)"fill-rule", (const xmlChar *) "evenodd");
 }
 
 static void
