@@ -55,12 +55,22 @@ class SvgRenderer :
 		self.f.close()
 	def draw_object (self, object, matrix) :
 		self.f.write("<!-- " + object.type.name + " -->\n")
-		if object.properties.has_key('meta') and object.properties['meta'].value.has_key('url'):
-			self.f.write('<a xlink:href="%s">' % (object.properties['meta'].value['url']))
+		odict = object.properties["meta"].value
+		if odict.has_key("url") :
+			self.f.write('<a xlink:href="' + self._escape(odict["url"]) + '">\n')
+		if odict.has_key("id") or matrix :
+			attrs = ''
+			if matrix :
+				attrs += 'transform="matrix' + str(matrix) + '" '
+		if odict.has_key("id") :
+				attrs += 'id="' + self._escape(odict['id']) + '"'
+			self.f.write('<g ' + attrs + '>\n')
 		# don't forget to render the object
 		object.draw (self)
-		if object.properties.has_key('meta') and object.properties['meta'].value.has_key('url'):
-			self.f.write('</a>')
+		if odict.has_key("id") or matrix :
+			self.f.write('</g>\n')
+		if odict.has_key("url") :
+			self.f.write('</a>\n')
 	def set_linewidth (self, width) :
 		if width < 0.001 : # zero line width is invisble ?
 			self.line_width = 0.001
@@ -183,16 +193,18 @@ class SvgRenderer :
 		fweight = (400, 200, 300, 500, 600, 700, 800, 900) [(self.font.style  >> 4)  & 0x7]
 		self.f.write('<text x="%.3f" y="%.3f"  fill="%s" text-anchor="%s" font-size="%.2f" font-family="%s" font-style="%s" font-weight="%d">\n' \
 			% (pos.x, pos.y, self._rgb(color), talign, self.font_size, self.font.family, fstyle,  fweight))
-		# avoid writing XML special characters (ampersand must be first to not break the rest)
-		for rep in [('&', '&amp;'), ('<', '&lt;'), ('>', '&gt;'), ('"', '&quot;'), ("'", '&apos;')] :
-			text = string.replace (text, rep[0], rep[1])
-		self.f.write(text)
+		self.f.write(self._escape(text))
 		self.f.write('</text>\n')
 	def draw_image (self, point, width, height, image) :
 		#FIXME : do something better than absolute pathes ?
 		self.f.write('<image x="%.3f" y="%.3f"  width="%.3f" height="%.3f" xlink:href="%s"/>\n' \
 			% (point.x, point.y, width, height, image.uri))
 	# Helpers, not in the DiaRenderer interface
+	def _escape (self, text) :
+		# avoid writing XML special characters (ampersand must be first to not break the rest)
+		for rep in [('&', '&amp;'), ('<', '&lt;'), ('>', '&gt;'), ('"', '&quot;'), ("'", '&apos;')] :
+			text = string.replace (text, rep[0], rep[1])
+		return text
 	def _rgb(self, color) :
 		# given a dia color convert to svg color string
 		rgb = "#%02X%02X%02X" % (int(255 * color.red), int(color.green * 255), int(color.blue * 255))

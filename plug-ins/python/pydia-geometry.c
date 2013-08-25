@@ -346,8 +346,8 @@ PyDiaMatrix_Str(PyDiaMatrix *self)
     PyObject* py_s;
     gchar* s = g_strdup_printf ("(%f, %f, %f, %f, %f, %f)",
                                 (float)(self->matrix.xx),
-                                (float)(self->matrix.xy),
                                 (float)(self->matrix.yx),
+                                (float)(self->matrix.xy),
                                 (float)(self->matrix.yy),
                                 (float)(self->matrix.x0),
                                 (float)(self->matrix.y0));
