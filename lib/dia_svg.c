@@ -155,9 +155,9 @@ static const struct _SvgNamedColor {
 	{ 0xFFD700, "gold" },
 	{ 0xDAA520, "goldenrod" },
 	{ 0x808080, "gray" },
-	{ 0x808080, "grey" },
 	{ 0x008000, "green" },
 	{ 0xADFF2F, "greenyellow" },
+	{ 0x808080, "grey" },
 	{ 0xF0FFF0, "honeydew" },
 	{ 0xFF69B4, "hotpink" },
 	{ 0xCD5C5C, "indianred" },
@@ -353,27 +353,19 @@ _parse_color(gint32 *color, const char *str)
       *color = ((a<<24) & 0xFF000000) | ((r<<16) & 0xFF0000) | ((g<<8) & 0xFF00) | (b & 0xFF);
     else
       return FALSE;
-  } else if (svg_named_color (str, color)) {
-    return TRUE;
   } else {
-    /* Pango needs null terminated strings, so we just use it as a fallback */
-    PangoColor pc;
     char* se = strchr (str, ';');
     if (!se) /* style might have trailign space */
       se = strchr (str, ' ');
 
     if (!se) {
-      if (pango_color_parse (&pc, str))
-	*color = ((0xFF<<24) & 0xFF000000) | ((pc.red >> 8) << 16) | ((pc.green >> 8) << 8) | (pc.blue >> 8);
-      else
-	return FALSE;
+      return svg_named_color (str, color);
     } else {
-      gchar* sz = g_strndup (str, se - str);
-      gboolean ret = pango_color_parse (&pc, sz);
-
-      if (ret)
-	*color = ((0xFF<<24) & 0xFF000000) | ((pc.red >> 8) << 16) | ((pc.green >> 8) << 8) | (pc.blue >> 8);
-      g_free (sz);
+      /* need to make a copy of the color only */
+      gboolean ret;
+      gchar *sc = g_strndup (str, se - str);
+      ret = svg_named_color (sc, color);
+      g_free (sc);
       return ret;
     }
   }
