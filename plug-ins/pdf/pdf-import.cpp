@@ -92,14 +92,20 @@ public :
     }
     return gFalse;
   }
-  //! Apparently no effect at all - so we translate every to Dia space ouself
+  //! Apparently no effect at all - so we translate everything to Dia space ouself
   void setDefaultCTM(double *ctm)
   {
-    double ctm_dia[6];
+    DiaMatrix mat;
 
-    for (int i = 0; i < 6; ++i)
-      ctm_dia[i] = ctm[i] * scale;
-    OutputDev::setDefaultCTM (ctm_dia);
+    mat.xx = ctm[0];
+    mat.yx = ctm[1];
+    mat.xy = ctm[2];
+    mat.yy = ctm[3];
+    mat.x0 = ctm[4] * scale;
+    mat.y0 = ctm[5] * scale;
+    this->matrix = mat;
+
+    OutputDev::setDefaultCTM (ctm);
   }
 
   void updateCTM(GfxState *state,
@@ -108,6 +114,17 @@ public :
 		 double m31, double m32)
   {
     double *ctm = getDefCTM();
+    DiaMatrix mat;
+
+    mat.xx = m11;
+    mat.yx = m12;
+    mat.xy = m21;
+    mat.yy = m22;
+    mat.x0 = m31 * scale;
+    mat.y0 = m32 * scale;
+
+    //this->matrix = mat;
+    dia_matrix_multiply (&this->matrix, &mat, &this->matrix);
 
     updateLineDash(state);
     updateLineJoin(state);
@@ -233,7 +250,7 @@ public :
     g_print ("Font 0x%08x: '%s' size=%g (* %g)\n", f, family, state->getFontSize(), mat[3]);
 
     // now try to make a fontname Dia/Pango can cope with
-    // strip style postfix - we already have it extracted above
+    // strip style postfix - we already have extracted the style bits above
     char *pf;
     if ((pf = strstr (family, " Regular")) != NULL)
       *pf = 0;
@@ -265,12 +282,15 @@ public :
   }
   void saveState(GfxState *state)
   {
-    g_print ("saveState\n");
+    // just rember the matrix for now
+    this->matrices.push_back (this->matrix);
   }
   //! Change back to the old state
   void restoreState(GfxState *state)
   {
-    g_print ("restoreState\n");
+    // just restore the matrix for now
+    this->matrices.pop_back();
+    this->matrix = this->matrices.back();
     // should contain all of our update*() methods?
     updateLineWidth(state);
     updateLineDash(state);
@@ -305,7 +325,8 @@ public :
     DiaObject *group;
     g_return_if_fail (objects != NULL);
 
-    int m = (int)sqrt (num_pages);
+    /* approx 4:3 page distribution */
+    int m = (int)sqrt (num_pages / 0.75);
     if (m < 2)
       m = 2;
     gchar *name = g_strdup_printf (_("Page %d"), this->pageNum);
@@ -314,6 +335,8 @@ public :
     // page advance
     Point advance = { this->page_width * ((this->pageNum - 1) % m),
 		      this->page_height * ((this->pageNum - 1) / m)};
+    advance.x += group->position.x;
+    advance.y += group->position.y;
     group->ops->move (group, &advance);
     layer_add_object (this->dia->active_layer, group);
     dia_object_set_meta (group, "name", name);
@@ -360,6 +383,10 @@ private :
   GHashTable *font_map;
   //! statistics of the font_map
   guint font_map_hits;
+  //! active matrix
+  DiaMatrix matrix;
+  //! stack of matrix
+  std::vector<DiaMatrix> matrices;
 };
 
 DiaOutputDev::DiaOutputDev (DiagramData *_dia, int _n) :
@@ -383,6 +410,9 @@ DiaOutputDev::DiaOutputDev (DiagramData *_dia, int _n) :
 {
   font_map = g_hash_table_new_full(g_direct_hash, g_direct_equal,
 				   NULL, (GDestroyNotify)dia_font_unref);
+  matrix.xx = matrix.yy = 1.0;
+  matrix.yx = matrix.xy = 0.0;
+  matrix.x0 = matrix.y0 = 0.0;
 }
 DiaOutputDev::~DiaOutputDev ()
 {
@@ -424,6 +454,7 @@ DiaOutputDev::doPath (GArray *points, GfxState *state, GfxPath *path, bool &have
     cp.x = subPath->getX(0) * scale;
     cp.y = subPath->getY(0) * scale;
     start = cp;
+    transform_point (&cp, &this->matrix);
     _path_moveto (points, &cp);
     for (j = 1; j < subPath->getNumPoints(); ) {
       if (subPath->getCurve(j)) {
@@ -437,17 +468,20 @@ DiaOutputDev::doPath (GArray *points, GfxState *state, GfxPath *path, bool &have
         bp.p3.x = subPath->getX(j+2) * scale;
         bp.p3.y = subPath->getY(j+2) * scale;
         cp = bp.p3;
+        transform_bezpoint (&bp, &this->matrix);
         g_array_append_val (points, bp);
         j += 3;
       } else {
         cp.x = subPath->getX(j) * scale;
         cp.y = subPath->getY(j) * scale;
+        transform_point (&cp, &this->matrix);
         _path_lineto (points, &cp);
         j += 1;
       }
     } // foreach point in subpath
     if (subPath->isClosed()) {
       // add an extra point just to be sure
+      transform_point (&start, &this->matrix);
       _path_lineto (points, &start);
       haveClose = true;
     }
@@ -729,4 +763,3 @@ import_pdf(const gchar *filename, DiagramData *dia, DiaContext *ctx, void* user_
 
   return ret;
 }
-
