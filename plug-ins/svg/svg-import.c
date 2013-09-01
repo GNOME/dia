@@ -1184,17 +1184,34 @@ _node_read_viewbox (xmlNodePtr root, DiaMatrix **mat)
   xmlChar *sviewbox = xmlGetProp(root, (const xmlChar *)"viewBox");
 
   if (swidth && sheight && sviewbox) {
-    real width = get_value_as_cm ((const char *)swidth, NULL);
-    real height = get_value_as_cm ((const char *)sheight, NULL);
-    gint x1 = 0, y1 = 0, x2 = 0, y2 = 0;
+    real width, height;
+    gchar *remains = NULL;
+    gboolean percent;
+    gchar **vals;
       
-    if (4 == sscanf ((const char *)sviewbox, "%d %d %d %d", &x1, &y1, &x2, &y2)) {
+    width = get_value_as_cm ((const char *)swidth, &remains);
+    percent = (remains && *remains == '%');
+    height = get_value_as_cm ((const char *)sheight, &remains);
+    percent |= (remains && *remains == '%');
+    vals = g_regex_split_simple ("[\\s,;]+", (const char *)sviewbox, 0, 0);
+
+    if (vals && vals[0] && vals[1] && vals[2] && vals[3]) {
+      real x1, y1, x2, y2;
       real xs, ys;
+      x1 = g_ascii_strtod (vals[0], NULL);
+      y1 = g_ascii_strtod (vals[1], NULL);
+      x2 = g_ascii_strtod (vals[2], NULL);
+      y2 = g_ascii_strtod (vals[3], NULL);
       g_debug ("viewBox(%d %d %d %d) = (%f,%f)\n", x1, y1, x2, y2, width, height);
       /* some basic sanity check */
       if (x2 > x1 && y2 > y1 && width > 0 && height > 0) {
-	xs = ((real)x2 - x1) / width;
-	ys = ((real)y2 - y1) / height;
+	if (!percent) {
+	  /* viwBox is x-min y-min width height - so only use the latter for scaling */
+	  xs = (real)x2 / width;
+	  ys = (real)y2 / height;
+	} else {
+	  xs = ys = DEFAULT_SVG_SCALE * (100.0 / sqrt(width*height));
+	}
 	/* plausibility check, strictly speaking these are not required to be the same 
 	 * /or/ are they and Dia is writting a bogus viewBox?
 	 */
