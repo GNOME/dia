@@ -625,6 +625,7 @@ EXPORTS
  point_normalize
  point_scale
  point_sub
+ transform_length
  transform_point
  transform_bezpoint
 

@@ -665,8 +665,9 @@ read_text_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GHashTable *style_ht, 
           xmlChar *line = xmlNodeGetContent(tspan);
           if (any_tspan) { /* every other line needs separation */
 	    g_string_append(paragraph, "\n");
-	  } else { /* only first time - with bogus, experimental division of user scale */
-	    dia_svg_parse_style(tspan, gs, matrix ? user_scale / matrix->yy : user_scale);
+	  } else { /* only first time with user scale - but w/o matrix - that shall be
+	            * in effect from the context? */
+	    dia_svg_parse_style(tspan, gs, user_scale);
 	    point.x = _node_get_real (tspan, "x", point.x);
 	    point.y = _node_get_real (tspan, "y", point.y);
 	  }
@@ -710,11 +711,15 @@ read_text_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GHashTable *style_ht, 
         /* font-size should be the line-height according to SVG spec,
 	 * but see node_set_text_style() - round-trip first */
 	real font_scale = dia_font_get_height (prop->attr.font) / dia_font_get_size (prop->attr.font);
-	if (matrix) /* ToDo: more text transform */
-	  font_scale /= matrix->yy;
+	if (matrix) /* ToDo: more text transform - or not at all? */
+	  transform_length (&font_height, matrix);
         prop->attr.height = font_height * font_scale;
-      } else
+      } else {
+        real fh = gs->font_height;
+	if (matrix)
+	  transform_length (&fh, matrix);
         prop->attr.height = gs->font_height;
+      }
       /* when operating with default values foreground and background are intentionally swapped
        * to avoid getting white text by default */
       switch (gs->fill) {
