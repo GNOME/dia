@@ -362,6 +362,38 @@ _css_parse_style (DiaSvgStyle *s, real user_scale,
   }
 }
 
+/*!
+ * \brief from the given node derive the css style if any
+ */
+static void
+_node_css_parse_style (xmlNodePtr node,
+		       DiaSvgStyle *gs,
+		       real user_scale,
+		       GHashTable *style_ht)
+{
+  if (g_hash_table_size (style_ht) > 0) {
+    /* only do all these expensive variants if we have some style at all */
+    xmlChar *id = xmlGetProp (node, (xmlChar *)"id");
+    xmlChar *klass = xmlGetProp (node, (xmlChar *)"class");
+
+    if (klass) {
+      gchar **klasses = g_regex_split_simple ("[\\s,;]+", (gchar *)klass, 0, 0);
+      int i = 0;
+      while (klasses[i]) {
+	_css_parse_style (gs, user_scale, (gchar *)node->name, klasses[i], (gchar *)id, style_ht);
+	++i;
+      }
+      g_strfreev (klasses);
+    } else {
+      _css_parse_style (gs, user_scale, (gchar *)node->name, (gchar *)klass, (gchar *)id, style_ht);
+    }
+    if (id)
+      xmlFree (id);
+    if (klass)
+      xmlFree (klass);
+  }
+}
+
 /* apply SVG style to object */
 static void
 apply_style(DiaObject *obj, xmlNodePtr node, DiaSvgStyle *parent_style,
@@ -388,20 +420,7 @@ apply_style(DiaObject *obj, xmlNodePtr node, DiaSvgStyle *parent_style,
       gs = g_new0(DiaSvgStyle, 1);
       /* SVG defaults */
       dia_svg_style_init (gs, parent_style);
-            
-      if (g_hash_table_size (style_ht) > 0) {
-	/* only do all these expensive variants if we have some style at all */
-	xmlChar *id = xmlGetProp (node, (xmlChar *)"id");
-	xmlChar *klass = xmlGetProp (node, (xmlChar *)"class");
-
-	_css_parse_style (gs, user_scale, (gchar *)node->name, (gchar *)klass, (gchar *)id, style_ht);
-
-	if (id)
-	  xmlFree (id);
-	if (klass)
-	  xmlFree (klass);
-      }
-
+      _node_css_parse_style (node, gs, user_scale, style_ht);
       dia_svg_parse_style(node, gs, user_scale);
       props = prop_list_from_descs(svg_style_prop_descs, pdtpp_true);
       g_assert(props->len == 7);
@@ -623,18 +642,7 @@ read_text_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GHashTable *style_ht, 
     point.y = _node_get_real (node, "y", 0.0);
 
     /* text propety handling is special, don't use apply_style() */
-    if (g_hash_table_size (style_ht) > 0) {
-      /* only do all these expensive variants if we have some style at all */
-      xmlChar *id = xmlGetProp (node, (xmlChar *)"id");
-      xmlChar *klass = xmlGetProp (node, (xmlChar *)"class");
-
-      _css_parse_style (gs, user_scale, (gchar *)node->name, (gchar *)klass, (gchar *)id, style_ht);
-
-      if (id)
-	xmlFree (id);
-      if (klass)
-	xmlFree (klass);
-    }
+    _node_css_parse_style (node, gs, user_scale, style_ht);
 
     /* font-size can be given in the style (with absolute unit) or
      * with it's own attribute. The latter is preferred - also by
@@ -1266,16 +1274,7 @@ read_items (xmlNodePtr   startnode,
       /* We need to have/apply the groups style before the objects style */
       group_gs = g_new0 (DiaSvgStyle, 1);
       dia_svg_style_init (group_gs, parent_gs);
-      {
-        xmlChar *id = xmlGetProp (node, (xmlChar *)"id");
-	xmlChar *klass = xmlGetProp (node, (xmlChar *)"class");;
-	_css_parse_style (group_gs, user_scale,
-			  (gchar *)node->name, (gchar *)klass, (gchar *)id, style_ht);
-	if (id)
-	  xmlFree (id);
-	if (klass)
-	  xmlFree (klass);
-      }
+      _node_css_parse_style (node, group_gs, user_scale, style_ht);
       dia_svg_parse_style (node, group_gs, user_scale);
 
       trans = xmlGetProp (node, (xmlChar *)"transform");
