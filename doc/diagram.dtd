@@ -34,7 +34,7 @@
 
 <!ELEMENT dia:attribute (dia:composite | dia:int | dia:enum | dia:real |
 		    dia:boolean | dia:color | dia:point | dia:rectangle | 
-		    dia:string | dia:font | dia:matrix)*>
+		    dia:string | dia:font | dia:matrix | dia:data)*>
 <!ATTLIST dia:attribute  name CDATA #REQUIRED >
 
 <!ELEMENT dia:composite (dia:attribute|dia:composite)*>
@@ -71,6 +71,8 @@
 <!ATTLIST dia:rectangle  val CDATA #REQUIRED>
 
 <!ELEMENT dia:string (#PCDATA)>
+
+<!ELEMENT dia:data (#PCDATA)>
 
 <!ELEMENT dia:font EMPTY>
 <!ATTLIST dia:font 
