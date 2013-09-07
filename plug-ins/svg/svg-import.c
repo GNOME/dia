@@ -493,6 +493,29 @@ apply_style(DiaObject *obj, xmlNodePtr node, DiaSvgStyle *parent_style,
       g_free(gs);
 }
 
+/*!
+ * \brief Elements (poly, path) can be closed style, too.
+ *
+ * Even though there is a dedicated type for polygon and a specific path data
+ * element to close a path ('z') there are variants to close polyline and path
+ * without them. This function checks the given styles to enable this closing.
+ */
+static gboolean
+_node_closed_by_style (xmlNodePtr node, DiaSvgStyle *parent_style)
+{
+  xmlChar *str;
+  gboolean closed;
+
+  if (parent_style && parent_style->fill > 0 && !xmlHasProp (node, (const xmlChar *)"fill"))
+    return TRUE;
+  str = xmlGetProp (node, (const xmlChar *)"fill");
+  closed = xmlStrcmp(str, (const xmlChar *)"none") != 0;
+  xmlFree (str);
+
+  return closed;
+}
+
+
 /* all the basic SVG elements allow their own transformation which
  * is not directly supported by Dia and also not especially useful 
  */
@@ -513,6 +536,7 @@ read_path_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GHashTable *style_ht,
     DiaMatrix *matrix = NULL;
     Point current_point = {0.0, 0.0};
     gboolean use_stdpath = FALSE;
+    gboolean closed_by_style;
 
     str = xmlGetProp(node, (const xmlChar *)"transform");
     if (str) {
@@ -520,6 +544,7 @@ read_path_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GHashTable *style_ht,
       xmlFree (str);
     }
 
+    closed_by_style = _node_closed_by_style (node, parent_style);
     str = xmlGetProp(node, (const xmlChar *)"d");
     pathdata = (char *)str;
     bezpoints = g_array_new(FALSE, FALSE, sizeof(BezPoint));
@@ -531,21 +556,15 @@ read_path_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GHashTable *style_ht,
 
       if (!closed) {
 	/* expensive way to possibly close the path */
-	DiaSvgStyle *gs = g_new0(DiaSvgStyle, 1);
-	BezPoint bp;
-
-	dia_svg_style_init (gs, NULL);
-	dia_svg_parse_style(node, gs, user_scale);
-	if (gs->font)
-          dia_font_unref (gs->font);
-	closed = (gs->fill != DIA_SVG_COLOUR_NONE && gs->fill != DIA_SVG_COLOUR_DEFAULT);
+	closed = closed_by_style;
 	/* if we close it here add an explicit line-to */
 	if (closed) {
+	  BezPoint bp;
+
 	  bp.type = BEZ_LINE_TO;
 	  bp.p1 = g_array_index(bezpoints, BezPoint, first).p1;
 	  g_array_append_val (bezpoints, bp);
 	}
-        g_free(gs);
       }
       if (unparsed) {
         use_stdpath = TRUE;
@@ -775,15 +794,10 @@ read_poly_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GHashTable *style_ht,
     }
     
     /* Uh, oh, no : apparently a fill="" in a group above make this a polygon */
-    str = xmlGetProp(node, (const xmlChar *)"fill");
-    if (str && xmlStrcmp(str, (const xmlChar *)"none") != 0)
-      otype = object_get_type("Standard - Polygon");
-    else if ((parent_style && parent_style->fill >= 0))
+    if (_node_closed_by_style (node, parent_style))
       otype = object_get_type("Standard - Polygon");
     else
       otype = object_get_type(object_type);
-    if (str)
-      xmlFree (str);
 
     str = xmlGetProp(node, (const xmlChar *)"points");
     if (!str) {
