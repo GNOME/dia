@@ -268,7 +268,6 @@ new_svg_renderer(DiagramData *data, const char *filename)
 	     (int)ceil((extent->bottom - extent->top) * renderer->scale));
   xmlSetProp(renderer->root, (const xmlChar *)"viewBox", (xmlChar *) buf);
   xmlSetProp(renderer->root,(const xmlChar *)"xmlns", (const xmlChar *)"http://www.w3.org/2000/svg");
-  xmlSetProp(renderer->root,(const xmlChar *)"xmlns", (const xmlChar *)"http://www.w3.org/2000/svg");
   xmlSetProp(renderer->root,(const xmlChar *)"xmlns:xlink", (const xmlChar *)"http://www.w3.org/1999/xlink");
 
   return renderer;
