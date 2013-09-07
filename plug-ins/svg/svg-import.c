@@ -65,8 +65,9 @@ get_colour(gint32 c, real opacity)
     return colour;
 }
 
-/* Dia default scale is 20px per cm; the user scale *should* be dynamic but this would involve a 
- *  much more complicated approach than implemented in this imported (transformations!)  
+/* Dia default scale is 20px per cm; the user scale *should* be dynamic but this would 
+ * involve a  much more complicated approach than implemented in this importer, e.g.
+ * full transformations and dynamic scale to view port (viewBox).
  */
 const gdouble DEFAULT_SVG_SCALE = 20.0;
 static gdouble user_scale = 20.0;
@@ -1435,12 +1436,16 @@ read_items (xmlNodePtr   startnode,
 	   *  - use the style from the group and hope it is on defaults
 	   *  - use a style from scratch instead of parent_gs and hope
 	   *    the object is already styled correctly
+	   * Or maybe we should remember the explicit style set during
+	   * creation, store it with the template as meta info and use
+	   * that to give NULL or parent_gs here?
 	   */
 	  apply_style (obj, node, NULL, style_ht, FALSE);
 	  items = g_list_append (items, obj);
 	}
-	xmlFree (key);
       }
+      if (key)
+	xmlFree (key);
     } else if(!xmlStrcmp(node->name, (const xmlChar *)"style")) {
       /* Prepare the third variant to apply style to the objects.
        * The final style is similar to what we have in the style
