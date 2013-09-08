@@ -275,7 +275,6 @@ _cmp_color (const void *key, const void *elem)
 static gboolean
 svg_named_color (const char *name, gint32 *color)
 {
-  int i;
   const struct _SvgNamedColor *elem;
 
   g_return_val_if_fail (name != NULL && color != NULL, FALSE);

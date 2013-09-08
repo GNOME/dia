@@ -322,7 +322,7 @@ static void
 _ellipse (DiaRenderer *self,
 	  Point *center,
 	  real width, real height,
-	  const Color *stroke, const Color *fill)
+	  Color *stroke, Color *fill)
 {
   GArray *path = g_array_new (FALSE, FALSE, sizeof(BezPoint));
   path_build_ellipse (path, center, width, height);

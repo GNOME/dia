@@ -533,7 +533,7 @@ _bezier (DiaRenderer *self,
     if (distance_point_point(pt, &points[0].p1) < 0.001)
       i = 1;
   }
-  for (i; i < numpoints; ++i)
+  for (; i < numpoints; ++i)
     g_array_append_val (path, points[i]);
   if (fill)
     _path_lineto (path, &points[0].p1);

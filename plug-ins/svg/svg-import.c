@@ -1217,7 +1217,7 @@ _node_read_viewbox (xmlNodePtr root, DiaMatrix **mat)
       y1 = g_ascii_strtod (vals[1], NULL);
       x2 = g_ascii_strtod (vals[2], NULL);
       y2 = g_ascii_strtod (vals[3], NULL);
-      g_debug ("viewBox(%d %d %d %d) = (%f,%f)\n", x1, y1, x2, y2, width, height);
+      g_debug ("viewBox(%f %f %f %f) = (%f,%f)\n", x1, y1, x2, y2, width, height);
       /* some basic sanity check */
       if (x2 > x1 && y2 > y1 && width > 0 && height > 0) {
 	if (!percent) {
@@ -1232,7 +1232,7 @@ _node_read_viewbox (xmlNodePtr root, DiaMatrix **mat)
 	 */
 	if (fabs((fabs (xs/ys) - 1.0) < 0.1) && fabs((fabs (ys/xs) - 1.0) < 0.1)) {
 	  user_scale = xs;
-	  g_debug ("viewBox(%d %d %d %d) scaling (%f,%f) -> %f\n", x1, y1, x2, y2, xs, ys, user_scale);
+	  g_debug ("viewBox(%f %f %f %f) scaling (%f,%f) -> %f\n", x1, y1, x2, y2, xs, ys, user_scale);
 	} else {
 	  /* the bigger the scale the smaller the objects */
 	  user_scale = MAX(xs, ys);
