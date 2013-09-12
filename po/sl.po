@@ -21,7 +21,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
 "%100==4 ? 3 : 0);\n"
 "X-Poedit-SourceCharset: utf-8\n"
-"X-Generator: Poedit 1.5.4\n"
+"X-Generator: Poedit 1.5.7\n"
 
 #. This is not an errror
 #: ../app/app_procs.c:208
@@ -411,31 +411,31 @@ msgid "A program for drawing structured diagrams."
 msgstr "Program za risanje strukturiranih diagramov."
 
 #: ../app/confirm.c:71
-#, fuzzy, c-format
+#, c-format
 msgid "You are about to print a diagram with %d page."
 msgid_plural "You are about to print a diagram with %d pages."
 msgstr[0] "Natisnili boste diagram s/z %d stranmi."
-msgstr[1] "Natisnili boste diagram s/z %d stranmi."
-msgstr[2] "Natisnili boste diagram s/z %d stranmi."
+msgstr[1] "Natisnili boste diagram s/z %d stranjo."
+msgstr[2] "Natisnili boste diagram s/z %d stranema."
 msgstr[3] "Natisnili boste diagram s/z %d stranmi."
 
 #: ../app/confirm.c:75
-#, fuzzy, c-format
+#, c-format
 msgid "You are about to export a diagram with %d page."
 msgid_plural "You are about to export a diagram with %d pages."
 msgstr[0] "Izvozili boste diagram s/z %d stranmi."
-msgstr[1] "Izvozili boste diagram s/z %d stranmi."
-msgstr[2] "Izvozili boste diagram s/z %d stranmi."
-msgstr[3] "Izvozili boste diagram s/z %d stranmi."
+msgstr[1] "Izvozili boste diagram s/z %d stranjo."
+msgstr[2] "Izvozili boste diagram s/z %d stranema."
+msgstr[3] "Izvozili boste diagram s/z %d stranemi."
 
 #: ../app/confirm.c:79
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "You are about to export a diagram which may require %s of memory.(%d page)."
 msgid_plural ""
 "You are about to export a diagram which may require %s of memory.(%d pages)."
 msgstr[0] "Izvozili boste diagram, ki lahko zahteva %s pomnilnika (%d strani)."
-msgstr[1] "Izvozili boste diagram, ki lahko zahteva %s pomnilnika (%d strani)."
+msgstr[1] "Izvozili boste diagram, ki lahko zahteva %s pomnilnika (%d stran)."
 msgstr[2] "Izvozili boste diagram, ki lahko zahteva %s pomnilnika (%d strani)."
 msgstr[3] "Izvozili boste diagram, ki lahko zahteva %s pomnilnika (%d strani)."
 
@@ -705,7 +705,7 @@ msgstr "Pretvori v pot"
 msgid "Selection"
 msgstr "Izbor"
 
-#: ../app/disp_callbacks.c:1113
+#: ../app/disp_callbacks.c:1115
 msgid ""
 "The object you dropped cannot fit into its parent. \n"
 "Either expand the parent object, or drop the object elsewhere."
@@ -2247,12 +2247,9 @@ msgstr "Dia (samo odstrani)"
 
 #. Installer message: directory delete confirmation line 1
 #: ../installer/win32/gennsh.c:75
-#, fuzzy
 msgid ""
 "Your old Dia directory is about to be deleted. Would you like to continue?"
-msgstr ""
-"Namestitvena mapa, ki ste jo navedli, že obstaja. Celotna vsebina$\rbo "
-"izbrisana. Želite nadaljevati?"
+msgstr "Stara mapa Dia bo izbrisana. Ali želite nadaljevati?"
 
 #. Installer message: directory delete confirmation line 2
 #: ../installer/win32/gennsh.c:77
@@ -2267,33 +2264,23 @@ msgstr "Uporabniške nastavitve ne bodo spremenjene."
 
 #. Installer message: DIA_PROMPT_DIR_EXISTS line 1
 #: ../installer/win32/gennsh.c:82
-#, fuzzy
 msgid "The installation directory you specified already exists. Any contents"
-msgstr ""
-"Namestitvena mapa, ki ste jo navedli, že obstaja. Celotna vsebina$\rbo "
-"izbrisana. Želite nadaljevati?"
+msgstr "Namestitvena mapa, ki ste jo navedli, že obstaja. Celotna vsebina"
 
 #. Installer message: DIA_PROMP_DIR_EXISTS line 2
 #: ../installer/win32/gennsh.c:84
-#, fuzzy
 msgid "will be deleted. Would you like to continue?"
-msgstr "Nič niste izbrali za shranjevanje. Želite poskusiti znova?"
+msgstr "bo izbrisana. Ali želite nadaljevati?"
 
 #. Installer message: registry entries not found line 1
 #: ../installer/win32/gennsh.c:87
-#, fuzzy
 msgid "The uninstaller could not find registry entries for Dia."
-msgstr ""
-"Odstranitveni program ne more najti vnosov v register za program Dia.$"
-"\rNajverjetneje je ta program namestil drug uporabnik."
+msgstr "Odstranitveni program ne more najti vnosov v register za program Dia."
 
 #. Installer message: registry entries not found line 2
 #: ../installer/win32/gennsh.c:89
-#, fuzzy
 msgid "It is likely that another user installed this application."
-msgstr ""
-"Odstranitveni program ne more najti vnosov v register za program Dia.$"
-"\rNajverjetneje je ta program namestil drug uporabnik."
+msgstr "Najverjetneje je ta program namestil drug uporabnik."
 
 #. Installer message: Uninstall error message
 #: ../installer/win32/gennsh.c:92
@@ -2887,7 +2874,7 @@ msgstr "Barva polnila"
 
 #. just to simplify transfering properties between objects
 #: ../lib/properties.c:98 ../lib/properties.h:660 ../lib/properties.h:663
-#: ../lib/standard-path.c:139
+#: ../lib/standard-path.c:143
 msgid "Draw background"
 msgstr "Nariši ozadje"
 
@@ -3011,36 +2998,36 @@ msgstr ""
 msgid "%s: you should use object tags rather than shape tags now"
 msgstr "%s: zdaj bi morali uporabljati značke predmetov in ne značke likov"
 
-#: ../lib/standard-path.c:123
+#: ../lib/standard-path.c:127
 msgid "Stroke"
 msgstr "Poteza"
 
 #. Translators: Menu item Verb/Provision/Supply/Fill
-#: ../lib/standard-path.c:124 ../objects/FS/function.c:933
+#: ../lib/standard-path.c:128 ../objects/FS/function.c:933
 msgid "Fill"
 msgstr "Polni"
 
-#: ../lib/standard-path.c:125
+#: ../lib/standard-path.c:129
 msgid "Fill & Stroke"
 msgstr "Polnilo in poteza"
 
-#: ../lib/standard-path.c:130
+#: ../lib/standard-path.c:134
 msgid "Bezier points"
 msgstr "Točke Bezier"
 
-#: ../lib/standard-path.c:131
+#: ../lib/standard-path.c:135
 msgid "Drawing"
 msgstr "Risba"
 
-#: ../lib/standard-path.c:140
+#: ../lib/standard-path.c:144
 msgid "Draw Control Lines"
 msgstr "Nariši nadzorne črte"
 
-#: ../lib/standard-path.c:466
+#: ../lib/standard-path.c:470
 msgid "Convert to Bezier"
 msgstr "Pretvori v Bezierjevo krivuljo"
 
-#: ../lib/standard-path.c:467
+#: ../lib/standard-path.c:471
 msgid "Show Control Lines"
 msgstr "Pokaži nadzorne črte"
 
@@ -10292,24 +10279,3 @@ msgstr "Aktivnost"
 #: ../sheets/UML.sheet.in.h:31
 msgid "Fork/Union"
 msgstr "Razvejaj/spoji"
-
-#~ msgid ""
-#~ "Your old Dia directory is about to be deleted. Would you like to continue?"
-#~ "$\r$\rNote: Any non-standard plugins that you may have installed will be "
-#~ "deleted.$\rDia user settings will not be affected."
-#~ msgstr ""
-#~ "Vaša stara mapa Dia bo izbrisana. Želite nadaljevati?$\r$\rOpomba: Vsi "
-#~ "nestandardni vtičniki, ki ste jih namestili, bodo zdaj izbrisani.$"
-#~ "\rUporabniške nastavitve Dia ne bodo prizadete."
-
-#~ msgid "There are %d similar messages."
-#~ msgstr "Obstaja %d podobnih sporočil."
-
-#~ msgid "A KAOS operation"
-#~ msgstr "Operacija KAOS"
-
-#~ msgid "Abstract (?)"
-#~ msgstr "Izvleček (?)"
-
-#~ msgid "Class scope (static)"
-#~ msgstr "Področje razreda (statično)"
