@@ -1579,13 +1579,13 @@ bezier_render_fill (DiaRenderer *renderer, BezPoint *pts, int total, Color *colo
       }
     }
   }
-  /* the last one is not drawn yet */
+  /* the last one is not drawn yet, i is pointing to the last element */
   if (s2 > s1) { /* blanking the previous one */
-    if (s2 - i - 1 > 1) /* depending on the above we may be ready */
-      DIA_RENDERER_GET_CLASS (renderer)->fill_bezier (renderer, &pts[s2], s2 - i - 1, &color_white);
+    if (i - s2 - 1 > 1) /* depending on the above we may be ready */
+      DIA_RENDERER_GET_CLASS (renderer)->fill_bezier (renderer, &pts[s2], i - s2, &color_white);
   } else {
-    if (s1 - i - 1 > 1)
-      DIA_RENDERER_GET_CLASS (renderer)->fill_bezier (renderer, &pts[s1], s1 - i - 1, color);
+    if (i - s1 - 1 > 1)
+      DIA_RENDERER_GET_CLASS (renderer)->fill_bezier (renderer, &pts[s1], i - s1, color);
   }
 }
 
@@ -1604,6 +1604,6 @@ bezier_render_stroke (DiaRenderer *renderer, BezPoint *pts, int total, Color *co
     }
   }
   /* the last one, if there is one */
-  if (i - n - 1 > 0)
-    DIA_RENDERER_GET_CLASS (renderer)->draw_bezier (renderer, &pts[n], i - n - 1, color);
+  if (i - n > 1)
+    DIA_RENDERER_GET_CLASS (renderer)->draw_bezier (renderer, &pts[n], i - n, color);
 }
