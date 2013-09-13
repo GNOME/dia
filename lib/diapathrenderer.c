@@ -173,7 +173,15 @@ set_fillstyle(DiaRenderer *self, FillStyle mode)
 {
 }
 
-/*! Find the last point matching or add a new move-to */
+/*!
+ * \brief Find the last point matching or add a new move-to
+ *
+ * Used to create as continuous pathes, but still incomplete. If the the exisiting
+ * and appended path would match in it's ends there would be a superfluous move-to.
+ * Instead there probably should be a direction change with the newly appended path
+ * segments to eliminate the extra move-to. The benefit would be that the resulting
+ * path can be properly filled.
+ */
 static void
 _path_append (GArray *points, const Point *pt)
 {
@@ -696,7 +704,7 @@ dia_path_renderer_class_init (DiaPathRendererClass *klass)
 /*!
  * \brief Convert an object to a _StdPath by rendering it with _DiaPathRenderer
  *
- * The result is either a single _SdtPath or a _Group of _Stdpath depending ont
+ * The result is either a single _SdtPath or a _Group of _Stdpath depending on
  * the criteria implemented in _get_current_path() and of course the content of
  * the given object.
  */
@@ -719,7 +727,10 @@ create_standard_path_from_object (DiaObject *obj)
     path = NULL;
   } else if (pr->pathes->len == 1) {
     GArray *points = g_ptr_array_index (pr->pathes, 0);
-    path = create_standard_path (points->len, &g_array_index (points, BezPoint, 0));
+    if (points->len < 2)
+      path = NULL;
+    else
+      path = create_standard_path (points->len, &g_array_index (points, BezPoint, 0));
   } else {
     /* create a group of pathes */
     GList *list = NULL;
@@ -729,11 +740,22 @@ create_standard_path_from_object (DiaObject *obj)
       GArray *points = g_ptr_array_index (pr->pathes, i);
       DiaObject *obj;
 
-      obj = create_standard_path (points->len, &g_array_index (points, BezPoint, 0));
+      if (points->len < 2)
+	obj = NULL;
+      else
+        obj = create_standard_path (points->len, &g_array_index (points, BezPoint, 0));
       if (obj)
         list = g_list_append (list, obj);
     }
-    path = group_create (list);
+    if (!list) {
+      path = NULL;
+    } else if (g_list_length (list) == 1) {
+      path = list->data;
+      g_list_free (list);
+    } else {
+      /* group_create eating list */
+      path = group_create (list);
+    }
   }
   g_object_unref (renderer);
 
