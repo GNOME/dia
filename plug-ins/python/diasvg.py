@@ -63,7 +63,7 @@ class SvgRenderer :
 			if matrix :
 				attrs += 'transform="matrix' + str(matrix) + '" '
 		if odict.has_key("id") :
-				attrs += 'id="' + self._escape(odict['id']) + '"'
+			attrs += 'id="' + self._escape(odict['id']) + '"'
 			self.f.write('<g ' + attrs + '>\n')
 		# don't forget to render the object
 		object.draw (self)
