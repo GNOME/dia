@@ -1127,7 +1127,12 @@ edit_layer_add_ok_callback (GtkWidget *w, gpointer client_data)
   
   undo_layer(dia, layer, TYPE_ADD_LAYER, pos);
   undo_set_transactionpoint(dia->undo);
-    
+
+  /* ugly way of updating the layer widget */
+  if (layer_dialog && layer_dialog->diagram == dia) {
+    layer_dialog_set_diagram(dia);
+  }
+
   gtk_widget_destroy (dialog->dialog);
   g_free (dialog);
 }
@@ -1145,6 +1150,12 @@ edit_layer_rename_ok_callback (GtkWidget *w, gpointer client_data)
   diagram_add_update_all(dia);
   diagram_flush(dia);
   /* FIXME: undo handling */
+
+  /* ugly way of updating the layer widget */
+  if (layer_dialog && layer_dialog->diagram == dia) {
+    layer_dialog_set_diagram(dia);
+  }
+
 
   gtk_widget_destroy (dialog->dialog);
   g_free (dialog);
