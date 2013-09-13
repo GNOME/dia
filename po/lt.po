@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: Dia HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=dia&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2013-08-06 16:19+0000\n"
-"PO-Revision-Date: 2013-08-12 23:05+0300\n"
+"POT-Creation-Date: 2013-09-13 17:34+0000\n"
+"PO-Revision-Date: 2013-09-13 22:50+0300\n"
 "Last-Translator: Aurimas Černius <aurisc4@gmail.com>\n"
 "Language-Team: Lietuvių <gnome-lt@lists.akl.lt>\n"
 "Language: lt\n"
@@ -410,7 +410,6 @@ msgstr "Programa diagramoms braižyti."
 
 #: ../app/confirm.c:71
 #, c-format
-#| msgid "You are about to print a diagram with %d pages."
 msgid "You are about to print a diagram with %d page."
 msgid_plural "You are about to print a diagram with %d pages."
 msgstr[0] "Rengiatės atspausdinti diagramą su %d puslapiu."
@@ -419,7 +418,6 @@ msgstr[2] "Rengiatės atspausdinti diagramą su %d puslapių."
 
 #: ../app/confirm.c:75
 #, c-format
-#| msgid "You are about to export a diagram with %d pages."
 msgid "You are about to export a diagram with %d page."
 msgid_plural "You are about to export a diagram with %d pages."
 msgstr[0] "Rengiatės eksportuoti diagramą su %d puslapiu."
@@ -428,9 +426,6 @@ msgstr[2] "Rengiatės eksportuoti diagramą su %d puslapių."
 
 #: ../app/confirm.c:79
 #, c-format
-#| msgid ""
-#| "You are about to export a diagram which may require %s of memory.(%d "
-#| "pages)."
 msgid ""
 "You are about to export a diagram which may require %s of memory.(%d page)."
 msgid_plural ""
@@ -501,7 +496,7 @@ msgid "Diagram"
 msgstr "Diagrama"
 
 #: ../app/diagram_tree_view.c:171
-#: ../plug-ins/drs/dia-render-script-import.c:232
+#: ../plug-ins/drs/dia-render-script-import.c:234
 msgid "Layer"
 msgstr "Sluoksnis"
 
@@ -700,7 +695,7 @@ msgid "Follow link…"
 msgstr "Sekti saitų…"
 
 #: ../app/disp_callbacks.c:216 ../objects/standard/bezier.c:785
-#: ../objects/standard/beziergon.c:524 ../objects/standard/box.c:749
+#: ../objects/standard/beziergon.c:524 ../objects/standard/box.c:763
 #: ../objects/standard/textobj.c:450
 msgid "Convert to Path"
 msgstr "Konvertuoti į kelią"
@@ -709,7 +704,7 @@ msgstr "Konvertuoti į kelią"
 msgid "Selection"
 msgstr "Pažymėjimas"
 
-#: ../app/disp_callbacks.c:1113
+#: ../app/disp_callbacks.c:1115
 msgid ""
 "The object you dropped cannot fit into its parent. \n"
 "Either expand the parent object, or drop the object elsewhere."
@@ -1449,7 +1444,7 @@ msgstr "_Pasirinkti"
 msgid "All"
 msgstr "Visi"
 
-#: ../app/menus.c:203 ../lib/arrows.c:1890 ../objects/Jackson/domain.c:94
+#: ../app/menus.c:203 ../objects/Jackson/domain.c:94
 #: ../objects/UML/association.c:220 ../objects/UML/association.c:226
 msgid "None"
 msgstr "Joks"
@@ -1822,8 +1817,8 @@ msgstr "Eksportuoti"
 msgid "Portable Network Graphics"
 msgstr "Portable Network Graphics"
 
-#: ../app/preferences.c:224 ../plug-ins/svg/render_svg.c:604
-#: ../plug-ins/svg/svg-import.c:1701
+#: ../app/preferences.c:224 ../plug-ins/svg/render_svg.c:603
+#: ../plug-ins/svg/svg-import.c:1772
 msgid "Scalable Vector Graphics"
 msgstr "Scalable Vector Graphics"
 
@@ -2239,183 +2234,273 @@ msgstr "Aplankykite Dia Windows aplinkai tinlapį"
 msgid "Dia (remove only)"
 msgstr "Dia (tik šalinti)"
 
-#. Installer message: confirmation question. Keep $\r
+#. Installer message: directory delete confirmation line 1
 #: ../installer/win32/gennsh.c:75
+#| msgid ""
+#| "The installation directory you specified already exists. Any contents$"
+#| "\rwill be deleted. Would you like to continue?"
 msgid ""
-"Your old Dia directory is about to be deleted. Would you like to continue?$\r"
-"$\rNote: Any non-standard plugins that you may have installed will be "
-"deleted.$\rDia user settings will not be affected."
-msgstr ""
-"Jūsų senas Dia aplankas bus ištrintas. Ar norite tęsti?$\n"
-"$\n"
-"Pastaba: bet kokie nestandartiniai įskiepiai, kuriuos galite turėti įdiegtus "
-"bus ištrinti.$\n"
-"Dia naudotojo nustatymai nebus paveikti."
+"Your old Dia directory is about to be deleted. Would you like to continue?"
+msgstr "Jūsų senas dia aplankas tuoj bus ištrintas. Ar norite tęsti?"
 
-#. Installer message: confirmatin question. Keep $\r
-#: ../installer/win32/gennsh.c:78
+#. Installer message: directory delete confirmation line 2
+#: ../installer/win32/gennsh.c:77
 msgid ""
-"The installation directory you specified already exists. Any contents$\rwill "
-"be deleted. Would you like to continue?"
-msgstr ""
-"Jūsų nurodytas diegimo aplankas jau yra. Bet koks turinys bus$\n"
-"ištrintas. Ar norite tęsti?"
+"Note: Any non-standard plugins that you may have installed will be deleted."
+msgstr "Pastaba: visi jūsų įdiegti nestandartiniai įskiepiai bus ištrinti."
 
-#. Installer message: Uninstall Section Prompts. Keep $\r
-#: ../installer/win32/gennsh.c:81
-msgid ""
-"The uninstaller could not find registry entries for Dia.$\rIt is likely that "
-"another user installed this application."
-msgstr ""
-"Diegyklė negali rasti Dia registro įrašų.$\n"
-"Gali būti, kad šią programą įdiegė kitas naudotojas."
+#. Installer message: directory delete confirmation line 3
+#: ../installer/win32/gennsh.c:79
+msgid "Dia user settings will not be affected."
+msgstr "Dia naudotojo nustatymai bus paveikti."
+
+#. Installer message: DIA_PROMPT_DIR_EXISTS line 1
+#: ../installer/win32/gennsh.c:82
+#| msgid ""
+#| "The installation directory you specified already exists. Any contents$"
+#| "\rwill be deleted. Would you like to continue?"
+msgid "The installation directory you specified already exists. Any contents"
+msgstr "Jūsų nurodytas diegimo aplankas jau yra. Bet koks turinys"
+
+#. Installer message: DIA_PROMP_DIR_EXISTS line 2
+#: ../installer/win32/gennsh.c:84
+#| msgid "Nothing selected for saving.  Would you like to try again?"
+msgid "will be deleted. Would you like to continue?"
+msgstr "bus ištrintas. Ar norite tęsti?"
+
+#. Installer message: registry entries not found line 1
+#: ../installer/win32/gennsh.c:87
+#| msgid ""
+#| "The uninstaller could not find registry entries for Dia.$\rIt is likely "
+#| "that another user installed this application."
+msgid "The uninstaller could not find registry entries for Dia."
+msgstr "Išdiegėjui nepavyko rasti Dia registro įrašų."
+
+#. Installer message: registry entries not found line 2
+#: ../installer/win32/gennsh.c:89
+#| msgid ""
+#| "The uninstaller could not find registry entries for Dia.$\rIt is likely "
+#| "that another user installed this application."
+msgid "It is likely that another user installed this application."
+msgstr "Gali būti, kad šią programą įdiegė kitas naudotojas."
 
 #. Installer message: Uninstall error message
-#: ../installer/win32/gennsh.c:84
+#: ../installer/win32/gennsh.c:92
 msgid "You do not have permission to uninstall this application."
 msgstr "Neturite teisių išdiegti šią programą."
 
 #. Installer message: Uninstallation warning. Keep $INSTDIR
-#: ../installer/win32/gennsh.c:87
+#: ../installer/win32/gennsh.c:95
 msgid "This will completely delete $INSTDIR and all subdirectories. Continue?"
 msgstr "Tai visiškai pašalins $INSTDIR ir visus poaplankius. Tęsti?"
 
 #. Installer message: Uninstallation warning. Keep $\PROFILE\.dia
-#: ../installer/win32/gennsh.c:90
+#: ../installer/win32/gennsh.c:98
 msgid ""
 "This will completely delete $PROFILE\\.dia and all subdirectories. Continue?"
 msgstr "Tai visiškai ištrins $PROFILE\\.dia ir visus poaplankius. Tęsti?"
 
+#: ../lib/arrows.c:1890
+#| msgid "None"
+msgctxt "Arrow"
+msgid "None"
+msgstr "Nėra"
+
 #: ../lib/arrows.c:1891
+#| msgid "Lines"
+msgctxt "Arrow"
 msgid "Lines"
 msgstr "Linijos"
 
 #: ../lib/arrows.c:1892
+#| msgid "Hollow Triangle"
+msgctxt "Arrow"
 msgid "Hollow Triangle"
 msgstr "Tuščias trikampis"
 
 #: ../lib/arrows.c:1893
+#| msgid "Filled Triangle"
+msgctxt "Arrow"
 msgid "Filled Triangle"
 msgstr "Užpildytas trikampis"
 
 #: ../lib/arrows.c:1894
+#| msgid "Unfilled Triangle"
+msgctxt "Arrow"
 msgid "Unfilled Triangle"
 msgstr "Neužpildytas trikampis"
 
 #: ../lib/arrows.c:1895
+#| msgid "Hollow Diamond"
+msgctxt "Arrow"
 msgid "Hollow Diamond"
 msgstr "Tuščia prizmė"
 
 #: ../lib/arrows.c:1896
+#| msgid "Filled Diamond"
+msgctxt "Arrow"
 msgid "Filled Diamond"
 msgstr "Užpildyta prizmė"
 
 #: ../lib/arrows.c:1897
+#| msgid "Half Diamond"
+msgctxt "Arrow"
 msgid "Half Diamond"
 msgstr "Pusinė prizmė"
 
 #: ../lib/arrows.c:1898
+#| msgid "Half Head"
+msgctxt "Arrow"
 msgid "Half Head"
 msgstr "Pusė galvos"
 
 #: ../lib/arrows.c:1899
+#| msgid "Slashed Cross"
+msgctxt "Arrow"
 msgid "Slashed Cross"
 msgstr "Pasviręs kryžius"
 
 #: ../lib/arrows.c:1900
+#| msgid "Filled Ellipse"
+msgctxt "Arrow"
 msgid "Filled Ellipse"
 msgstr "Užpildyta elipsė"
 
 #: ../lib/arrows.c:1901
+#| msgid "Hollow Ellipse"
+msgctxt "Arrow"
 msgid "Hollow Ellipse"
 msgstr "Tuščia elipsė"
 
 #: ../lib/arrows.c:1902
+#| msgid "Filled Dot"
+msgctxt "Arrow"
 msgid "Filled Dot"
 msgstr "Užpildytas taškas"
 
 #: ../lib/arrows.c:1903
+#| msgid "Dimension Origin"
+msgctxt "Arrow"
 msgid "Dimension Origin"
 msgstr "Dimensijos pagrindas"
 
 #: ../lib/arrows.c:1904
+#| msgid "Blanked Dot"
+msgctxt "Arrow"
 msgid "Blanked Dot"
 msgstr "Tuščias taškas"
 
 #: ../lib/arrows.c:1905
+#| msgid "Double Hollow Triangle"
+msgctxt "Arrow"
 msgid "Double Hollow Triangle"
 msgstr "Dvigubas tuščias trikampis"
 
 #: ../lib/arrows.c:1906
+#| msgid "Double Filled Triangle"
+msgctxt "Arrow"
 msgid "Double Filled Triangle"
 msgstr "Dvigubas užpildytas trikampis"
 
 #: ../lib/arrows.c:1907
+#| msgid "Filled Dot and Triangle"
+msgctxt "Arrow"
 msgid "Filled Dot and Triangle"
 msgstr "Užpildytas taškas ir trikampis"
 
 #: ../lib/arrows.c:1908
+#| msgid "Filled Box"
+msgctxt "Arrow"
 msgid "Filled Box"
 msgstr "Užpildytas stačiakampis"
 
 #: ../lib/arrows.c:1909
+#| msgid "Blanked Box"
+msgctxt "Arrow"
 msgid "Blanked Box"
 msgstr "Uždengta dėžutė"
 
 #: ../lib/arrows.c:1910
+#| msgid "Slashed"
+msgctxt "Arrow"
 msgid "Slashed"
 msgstr "Pasviręs"
 
 #: ../lib/arrows.c:1911
+#| msgid "Integral Symbol"
+msgctxt "Arrow"
 msgid "Integral Symbol"
 msgstr "Integralo simbolis"
 
 #: ../lib/arrows.c:1912
+#| msgid "Crow Foot"
+msgctxt "Arrow"
 msgid "Crow Foot"
 msgstr "Varnos koja"
 
 #: ../lib/arrows.c:1913
+#| msgid "Cross"
+msgctxt "Arrow"
 msgid "Cross"
 msgstr "Kryžius"
 
 #: ../lib/arrows.c:1914
+#| msgid "1-or-many"
+msgctxt "Arrow"
 msgid "1-or-many"
 msgstr "1-ar-daugiau"
 
 #: ../lib/arrows.c:1915
+#| msgid "0-or-many"
+msgctxt "Arrow"
 msgid "0-or-many"
 msgstr "0-ar-daugiau"
 
 #: ../lib/arrows.c:1916
+#| msgid "1-or-0"
+msgctxt "Arrow"
 msgid "1-or-0"
 msgstr "1-arba-0"
 
 #: ../lib/arrows.c:1917
+#| msgid "1 exactly"
+msgctxt "Arrow"
 msgid "1 exactly"
 msgstr "lygiai 1"
 
 #: ../lib/arrows.c:1918
+#| msgid "Filled Concave"
+msgctxt "Arrow"
 msgid "Filled Concave"
 msgstr "Užpildytas įgaubimas"
 
 #: ../lib/arrows.c:1919
+#| msgid "Blanked Concave"
+msgctxt "Arrow"
 msgid "Blanked Concave"
 msgstr "Tuščiaviduris įgaubimas"
 
-#: ../lib/arrows.c:1920 ../lib/properties.c:81 ../lib/properties.c:87
-#: ../lib/properties.h:601 ../lib/properties.h:607
+#: ../lib/arrows.c:1920
+#| msgid "Round"
+msgctxt "Arrow"
 msgid "Round"
 msgstr "Apskritimas"
 
 #: ../lib/arrows.c:1921
+#| msgid "Open Round"
+msgctxt "Arrow"
 msgid "Open Round"
 msgstr "Atviras apskritimas"
 
 #: ../lib/arrows.c:1922
+#| msgid "Backslash"
+msgctxt "Arrow"
 msgid "Backslash"
 msgstr "Atvirkščiai įkypas brūkšnys"
 
 #: ../lib/arrows.c:1923
+#| msgid "Infinite Line"
+msgctxt "Arrow"
 msgid "Infinite Line"
 msgstr "Begalinė linija"
 
@@ -2435,7 +2520,7 @@ msgstr "nežinoma rodyklė"
 #: ../lib/create.c:50 ../lib/create.c:100 ../lib/create.c:127
 #: ../lib/create.c:160 ../lib/create.c:196 ../lib/create.c:228
 #: ../lib/create.c:252 ../lib/create.c:284 ../lib/create.c:305
-#: ../lib/create.c:335 ../lib/create.c:378 ../plug-ins/svg/svg-import.c:549
+#: ../lib/create.c:335 ../lib/create.c:378 ../plug-ins/svg/svg-import.c:595
 #: ../plug-ins/vdx/vdx-import.c:144
 msgid "Can't find standard object"
 msgstr "Nepavyko rasti standartinio objekto"
@@ -2634,7 +2719,7 @@ msgstr "Keli importo filtrai naudoja vardą %s"
 msgid "Can't load font %s.\n"
 msgstr "Nepavyko įkelti šrifto „%s“\n"
 
-#: ../lib/group.c:628
+#: ../lib/group.c:622
 msgid "Transformation"
 msgstr "Transformacija"
 
@@ -2656,7 +2741,6 @@ msgstr "Daugiau nerodyti šio pranešimo"
 
 #: ../lib/message.c:206
 #, c-format
-#| msgid "There is one similar message."
 msgid "There is %d similar message."
 msgid_plural "There are %d similar messages."
 msgstr[0] "Yra dar %d panašus pranešimas."
@@ -2779,18 +2863,38 @@ msgid "Always"
 msgstr "Visada"
 
 #: ../lib/properties.c:80 ../lib/properties.h:600
+#| msgid "Miter"
+msgctxt "LineJoin"
 msgid "Miter"
 msgstr "Miter"
 
+#: ../lib/properties.c:81 ../lib/properties.h:601
+#| msgid "Round"
+msgctxt "LineJoin"
+msgid "Round"
+msgstr "Apskritimas"
+
 #: ../lib/properties.c:82 ../lib/properties.h:602
+#| msgid "Bevel"
+msgctxt "LineJoin"
 msgid "Bevel"
 msgstr "Bevel"
 
 #: ../lib/properties.c:86 ../lib/properties.h:606
+#| msgid "Butt"
+msgctxt "LineCap"
 msgid "Butt"
 msgstr "Butt"
 
+#: ../lib/properties.c:87 ../lib/properties.h:607
+#| msgid "Round"
+msgctxt "LineCap"
+msgid "Round"
+msgstr "Apskritimas"
+
 #: ../lib/properties.c:88 ../lib/properties.h:608
+#| msgid "Projecting"
+msgctxt "LineCap"
 msgid "Projecting"
 msgstr "Projektuojama"
 
@@ -2810,7 +2914,7 @@ msgstr "Užpildanti spalva"
 
 #. just to simplify transfering properties between objects
 #: ../lib/properties.c:98 ../lib/properties.h:660 ../lib/properties.h:663
-#: ../lib/standard-path.c:139
+#: ../lib/standard-path.c:143
 msgid "Draw background"
 msgstr "Rodyti foną"
 
@@ -2898,7 +3002,6 @@ msgstr "Parametrai"
 
 #: ../lib/prop_text.c:483
 #, c-format
-#| msgid "Group with %d objects"
 msgid "Group with %d object"
 msgid_plural "Group with %d objects"
 msgstr[0] "Grupė iš %d objekto"
@@ -2934,36 +3037,36 @@ msgstr ""
 msgid "%s: you should use object tags rather than shape tags now"
 msgstr "%s: dabar reikia naudoti objektų žymas vietoj figūrų žymų"
 
-#: ../lib/standard-path.c:123
+#: ../lib/standard-path.c:127
 msgid "Stroke"
 msgstr "Kirtis"
 
 #. Translators: Menu item Verb/Provision/Supply/Fill
-#: ../lib/standard-path.c:124 ../objects/FS/function.c:933
+#: ../lib/standard-path.c:128 ../objects/FS/function.c:933
 msgid "Fill"
 msgstr "Užpildyti"
 
-#: ../lib/standard-path.c:125
+#: ../lib/standard-path.c:129
 msgid "Fill & Stroke"
 msgstr "Užpildas ir kirtis"
 
-#: ../lib/standard-path.c:130
+#: ../lib/standard-path.c:134
 msgid "Bezier points"
 msgstr "Bezjė taškai"
 
-#: ../lib/standard-path.c:131
+#: ../lib/standard-path.c:135
 msgid "Drawing"
 msgstr "Piešimas"
 
-#: ../lib/standard-path.c:140
+#: ../lib/standard-path.c:144
 msgid "Draw Control Lines"
 msgstr "Piešti valdymo linijas"
 
-#: ../lib/standard-path.c:466
+#: ../lib/standard-path.c:470
 msgid "Convert to Bezier"
 msgstr "Konvertuoti į Bezjė"
 
-#: ../lib/standard-path.c:467
+#: ../lib/standard-path.c:471
 msgid "Show Control Lines"
 msgstr "Rodyti valdymo linijas"
 
@@ -3225,7 +3328,7 @@ msgid "Entity/Relationship table diagram objects"
 msgstr "Esybės/ryšio lentelės diagramos objektai"
 
 #: ../objects/Database/reference.c:109 ../objects/flowchart/box.c:150
-#: ../objects/standard/box.c:138 ../objects/standard/polyline.c:107
+#: ../objects/standard/box.c:141 ../objects/standard/polyline.c:107
 #: ../objects/standard/zigzagline.c:106
 msgid "Corner radius"
 msgstr "Kampas"
@@ -5040,27 +5143,27 @@ msgstr "Sklandus valdymas"
 msgid "Cusp control"
 msgstr "Smaigalio valdymas"
 
-#: ../objects/standard/box.c:125 ../objects/standard/ellipse.c:117
+#: ../objects/standard/box.c:127 ../objects/standard/ellipse.c:117
 msgid "Free"
 msgstr "Laisvas"
 
-#: ../objects/standard/box.c:126 ../objects/standard/ellipse.c:118
+#: ../objects/standard/box.c:128 ../objects/standard/ellipse.c:118
 msgid "Fixed"
 msgstr "Fiksuotas"
 
-#: ../objects/standard/box.c:127 ../objects/standard/box.c:747
+#: ../objects/standard/box.c:129 ../objects/standard/box.c:761
 msgid "Square"
 msgstr "Kvadratas"
 
-#: ../objects/standard/box.c:140 ../objects/standard/ellipse.c:130
+#: ../objects/standard/box.c:143 ../objects/standard/ellipse.c:130
 msgid "Aspect ratio"
 msgstr "Proporcija"
 
-#: ../objects/standard/box.c:743 ../objects/standard/ellipse.c:663
+#: ../objects/standard/box.c:757 ../objects/standard/ellipse.c:663
 msgid "Free aspect"
 msgstr "Kintanti proporcija"
 
-#: ../objects/standard/box.c:745 ../objects/standard/ellipse.c:665
+#: ../objects/standard/box.c:759 ../objects/standard/ellipse.c:665
 msgid "Fixed aspect"
 msgstr "Užfiksuota proporcija"
 
@@ -5687,7 +5790,6 @@ msgid "Scope"
 msgstr "Sritis"
 
 #: ../objects/UML/umlattribute.c:50
-#| msgid "Class scope (C++ static method)"
 msgid "Class scope (C++ static class variable)"
 msgstr "Klasės sritis (C++ statinis klasės kintamasis)"
 
@@ -5802,8 +5904,8 @@ msgstr "Mastelio rodyklė"
 msgid "Visible rect pointer"
 msgstr "Matoma stačiakampė rodyklė"
 
-#: ../plug-ins/cairo/diacairo-renderer.c:868
-#: ../plug-ins/cairo/diacairo-renderer.c:903 ../plug-ins/cgm/cgm.c:1126
+#: ../plug-ins/cairo/diacairo-renderer.c:871
+#: ../plug-ins/cairo/diacairo-renderer.c:906 ../plug-ins/cgm/cgm.c:1126
 #: ../plug-ins/libart/dialibartrenderer.c:1325
 #: ../plug-ins/metapost/render_metapost.c:1108
 #: ../plug-ins/postscript/diapsrenderer.c:715
@@ -5836,7 +5938,7 @@ msgstr "DiaRenderScript"
 msgid "DiaRenderScript filter"
 msgstr "DiaRenderScript filtras"
 
-#: ../plug-ins/drs/dia-render-script-import.c:224
+#: ../plug-ins/drs/dia-render-script-import.c:226
 msgid "Broken file?"
 msgstr "Sugadintas failas?"
 
@@ -5981,12 +6083,12 @@ msgstr "Portable Document File"
 msgid "PDF import filter"
 msgstr "PDF importo filtras"
 
-#: ../plug-ins/pdf/pdf-import.cpp:311
+#: ../plug-ins/pdf/pdf-import.cpp:332
 #, c-format
 msgid "Page %d"
 msgstr "Puslapis %d"
 
-#: ../plug-ins/pdf/pdf-import.cpp:706
+#: ../plug-ins/pdf/pdf-import.cpp:740
 #, c-format
 msgid ""
 "PDF document not OK.\n"
@@ -6128,7 +6230,7 @@ msgstr "Dia figūrų failas"
 msgid "Scalable Vector Graphics import and export filters"
 msgstr "Scalable Vector Graphics importo ir eksporto filtrai"
 
-#: ../plug-ins/svg/svg-import.c:538
+#: ../plug-ins/svg/svg-import.c:584
 msgid ""
 "Invalid path data.\n"
 "svg:path data must start with moveto."
@@ -6136,16 +6238,16 @@ msgstr ""
 "Klaidingas kelias.\n"
 "svg:kelias turi prasidėti nuo moveto požymio."
 
-#: ../plug-ins/svg/svg-import.c:1466
+#: ../plug-ins/svg/svg-import.c:1571
 msgid "'Shape Design' shapes missing."
 msgstr "Trūksta „figūrų dizaino“ figūrų."
 
-#: ../plug-ins/svg/svg-import.c:1500
+#: ../plug-ins/svg/svg-import.c:1605
 #, c-format
 msgid "Object '%s' creation failed"
 msgstr "Nepavyko sukurti „%s“ objekto"
 
-#: ../plug-ins/svg/svg-import.c:1522
+#: ../plug-ins/svg/svg-import.c:1627
 #, c-format
 msgid ""
 "Parse error for memory block.\n"
@@ -6154,16 +6256,16 @@ msgstr ""
 "Atminties bloko skaitymo klaida.\n"
 "%s"
 
-#: ../plug-ins/svg/svg-import.c:1535 ../plug-ins/vdx/vdx-import.c:2887
+#: ../plug-ins/svg/svg-import.c:1640 ../plug-ins/vdx/vdx-import.c:2887
 #, c-format
 msgid "Parse error for %s"
 msgstr "%s skaitymo klaida"
 
-#: ../plug-ins/svg/svg-import.c:1568
+#: ../plug-ins/svg/svg-import.c:1673
 msgid "Expected SVG Namespace not found in file"
 msgstr "Failas neatitinka reikiamos SVG vardų specifikacijos"
 
-#: ../plug-ins/svg/svg-import.c:1588
+#: ../plug-ins/svg/svg-import.c:1693
 #, c-format
 msgid "root element was '%s' -- expecting 'svg'."
 msgstr "Šakninis elementas buvo '%s' -- reikia 'svg'."
@@ -6174,9 +6276,6 @@ msgstr "Visio XML bylų formato importo ir eksporto filtras"
 
 #: ../plug-ins/vdx/vdx-export.c:1857
 #, c-format
-#| msgid ""
-#| "Saving inline pixbuf failed:\n"
-#| "%s"
 msgid "Saving file '%s' failed."
 msgstr "Nepavyko įrašyti failo „%s“."
 
@@ -6318,7 +6417,6 @@ msgid "Error while reading %dth of %d points"
 msgstr "Įvyko klaida skaitant %d iš %d taškų"
 
 #: ../plug-ins/xfig/xfig-import.c:253
-#| msgid "Premature end of Fig file"
 msgid "Unexpected end of file."
 msgstr "Netikėta failo pabaiga."
 
@@ -6419,7 +6517,8 @@ msgid "Color number %d out of range 0..%d.  Discarding color.\n"
 msgstr "Spalvos numeris %d už “..%d ribų.  Atsisakoma spalvos.\n"
 
 #: ../plug-ins/xfig/xfig-import.c:1111
-msgid "Couldn't read group extend."
+#| msgid "Couldn't read group extend."
+msgid "Couldn't read group extent."
 msgstr "Nepavyko perskaityti grupės išplėtimo."
 
 #: ../plug-ins/xfig/xfig-import.c:1122
