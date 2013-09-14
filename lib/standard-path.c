@@ -237,9 +237,9 @@ stdpath_init_handles (StdPath *stdpath)
   obj->handles[0]->type = HANDLE_NON_MOVABLE;
   obj->handles[0]->id   = _HANDLE_OBJ_POS;
   obj->handles[1]->type = HANDLE_MINOR_CONTROL;
-  obj->handles[1]->id   = _HANDLE_SHEAR;
+  obj->handles[1]->id   = _HANDLE_ROTATE;
   obj->handles[2]->type = HANDLE_MINOR_CONTROL;
-  obj->handles[2]->id   = _HANDLE_ROTATE;
+  obj->handles[2]->id   = _HANDLE_SHEAR;
 
   obj->handles[3]->type = HANDLE_NON_MOVABLE;
   obj->handles[3]->id   = _HANDLE_REF_POS;
@@ -337,21 +337,29 @@ static void
 stdpath_update_handles(StdPath *stdpath)
 {
   DiaObject *obj = &stdpath->object;
-  const Rectangle *bb = &obj->bounding_box;
+  PolyBBExtras extra = { 0, };
+  Rectangle rect, *bb;
 
   g_return_if_fail (obj->handles != NULL);
+
+  /* Using the zero-line-width boundingbox for handles */
+  bb = &rect;
+  polybezier_bbox (stdpath->points, stdpath->num_points, &extra,
+		   FALSE /*(stdpath->stroke_or_fill & PDO_FILL)*/, bb);
 
   /* from left to right, from top to bottom */
   obj->handles[0]->pos.x = bb->left;
   obj->handles[0]->pos.y = bb->top;
   obj->handles[1]->pos.x = (bb->left + bb->right) / 2.0;
   obj->handles[1]->pos.y = bb->top;
+  /* adjust handle pos for runtime shear? */
   obj->handles[2]->pos.x = bb->right;
   obj->handles[2]->pos.y = bb->top;
   obj->handles[3]->pos.x = bb->left;
   obj->handles[3]->pos.y = (bb->top + bb->bottom) / 2.0;
   obj->handles[4]->pos.x = bb->right;
   obj->handles[4]->pos.y = (bb->top + bb->bottom) / 2.0;
+  /* adjust handle pos for runtime perspective? */
   obj->handles[5]->pos.x = bb->left;
   obj->handles[5]->pos.y = bb->bottom;
   obj->handles[6]->pos.x = (bb->left + bb->right) / 2.0;
@@ -384,8 +392,8 @@ stdpath_update_data (StdPath *stdpath)
   polybezier_bbox (stdpath->points, stdpath->num_points, &extra,
 		   FALSE /*(stdpath->stroke_or_fill & PDO_FILL)*/, bb);
   /* adjust position from it */
-  obj->position.x = bb->left;
-  obj->position.y = bb->top;
+  obj->position.x = stdpath->points[0].p1.x;
+  obj->position.y = stdpath->points[0].p1.y;
   /* adjust handles */
   stdpath_update_handles (stdpath);
 }
@@ -634,50 +642,48 @@ stdpath_move_handle (StdPath *stdpath,
 
   } else if (handle->id == _HANDLE_SHEAR) {
     /* apply horizontal shear weighted by the vertical distance */
-    Point p1 = stdpath->handles[1].pos;
-    Point pr = stdpath->handles[3].pos;
+    Point p1 = stdpath->handles[2].pos;
+    Point pr = stdpath->handles[5].pos;
     real dx; /* delta x */
     real rd = (pr.y - p0.y); /* reference distance */
     int i;
+    gboolean revert = FALSE;
 
-    g_assert(stdpath->handles[1].id == handle->id);
+    g_assert(stdpath->handles[2].id == handle->id);
     g_assert(stdpath->handles[3].id == _HANDLE_REF_POS);
     g_return_val_if_fail(rd > 0, NULL);
     dx = to->x - p1.x;
-    for (i = 0; i < stdpath->num_points; ++i) {
-      BezPoint *bp = &stdpath->points[i];
-      real sw;
+    /* move_handle needs to be reversible, so do not move more than
+     * the sheared bounding box allows */
+    do {
+      for (i = 0; i < stdpath->num_points; ++i) {
+	BezPoint *bp = &stdpath->points[i];
+	real sw;
 
-      /* scaling weight [0..1] to not move the left boundary */
-      sw = (pr.y - bp->p1.y) / rd;
-      g_print ("sw: %.3g; dx: %.3g\n", sw, dx);
-      bp->p1.x += dx * sw;
-      sw = (pr.y - bp->p2.y) / rd;
-      bp->p2.x += dx * sw;
-      sw = (pr.y - bp->p3.y) / rd;
-      bp->p3.x += dx * sw;
-    }
-    stdpath_update_data (stdpath);
-    /* keep to.x - it's real position depends on the bounding box calculation */
-    dx = to->x - stdpath->handles[1].pos.x;
-    for (i = 0; i < stdpath->num_points; ++i) {
-      BezPoint *bp = &stdpath->points[i];
-
-      bp->p1.x += dx;
-      bp->p2.x += dx;
-      bp->p3.x += dx;
-    }
-
-    stdpath_update_data (stdpath);
-
+	/* scaling weight [0..1] to not move the left boundary */
+	sw = (pr.y - bp->p1.y) / rd;
+	bp->p1.x += dx * sw;
+	sw = (pr.y - bp->p2.y) / rd;
+	bp->p2.x += dx * sw;
+	sw = (pr.y - bp->p3.y) / rd;
+	bp->p3.x += dx * sw;
+      }
+      stdpath_update_data (stdpath);
+      if (!revert && (fabs(stdpath->handles[2].pos.x - (p1.x + dx)) > 0.05)) {
+	dx = -dx;
+	revert = TRUE;
+      } else {
+	revert = FALSE;
+      }
+    } while (revert);
   } else if (handle->id == _HANDLE_ROTATE) {
-    Point p1 = stdpath->handles[2].pos;
+    Point p1 = stdpath->handles[1].pos;
     real dy = to->y - p1.y;
     real dx = p1.x - p0.x;
     DiaMatrix m;
     int i;
 
-    g_assert(stdpath->handles[2].id == handle->id);
+    g_assert(stdpath->handles[1].id == handle->id);
 
     if (fabs(dy) < 0.001)
       return NULL;
@@ -704,17 +710,27 @@ stdpath_move_handle (StdPath *stdpath,
   } else if (handle->id == _HANDLE_PERSPECTIVE) {
     Point p1 = stdpath->handles[5].pos;
     Point pr = stdpath->handles[3].pos;
+    Point cp = { stdpath->handles[1].pos.x, pr.y };
+    real h2 = p1.y - pr.y;
+    /* relative movement against center and original pos */
+    real td = (cp.x - to->x) / (cp.x - p1.x) - 1.0;
     int i;
 
     g_assert(stdpath->handles[5].id == handle->id);
 
     for (i = 0; i < stdpath->num_points; ++i) {
       BezPoint *bp = &stdpath->points[i];
-
+      Point *p;
+      for (p = &bp->p1; p <= &bp->p3; ++p) {
+        /* the vertical distance from the center point decides about the strength */
+        real vd = (p->y - cp.y) / h2; /* normalized */
+	/* the horizontal distance from center gets modified */
+	real hd = (p->x - cp.x);
+	p->x += (hd * vd * td);
+      }
     }
 
     stdpath_update_data (stdpath);
-
   } else if (handle->type != HANDLE_NON_MOVABLE) {
     g_warning ("stdpath_move_handle() %d not moving", handle->id);
   }
@@ -741,7 +757,7 @@ stdpath_move (StdPath *stdpath, Point *to)
   
   for (i = 0; i < stdpath->num_points; ++i) {
      BezPoint *bp = &stdpath->points[i];
-     
+
      point_add (&bp->p1, &delta);
      point_add (&bp->p2, &delta);
      point_add (&bp->p3, &delta);
