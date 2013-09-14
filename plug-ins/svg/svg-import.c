@@ -510,6 +510,8 @@ _node_closed_by_style (xmlNodePtr node, DiaSvgStyle *parent_style)
   if (parent_style && parent_style->fill > 0 && !xmlHasProp (node, (const xmlChar *)"fill"))
     return TRUE;
   str = xmlGetProp (node, (const xmlChar *)"fill");
+  if (!str)
+    return FALSE;
   closed = xmlStrcmp(str, (const xmlChar *)"none") != 0;
   xmlFree (str);
 
