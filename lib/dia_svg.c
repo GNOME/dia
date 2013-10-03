@@ -545,9 +545,7 @@ _parse_text_align(DiaSvgStyle *s, const gchar *ptr)
 void
 dia_svg_parse_style_string (DiaSvgStyle *s, real user_scale, const gchar *str)
 {
-  gchar temp[FONT_NAME_LENGTH_MAX+1]; /* font-family names will be limited to 40 characters */
   int i = 0;
-  gboolean over = FALSE;
   gchar *ptr = (gchar *)str;
   char *family = NULL, *style = NULL, *weight = NULL;
 
@@ -559,68 +557,37 @@ dia_svg_parse_style_string (DiaSvgStyle *s, real user_scale, const gchar *str)
     if (!strncmp("font-family:", ptr, 12)) {
       ptr += 12;
       while ((ptr[0] != '\0') && g_ascii_isspace(ptr[0])) ptr++;
-      i = 0; over = FALSE;
-      while (ptr[0] != '\0' && ptr[0] != ';' && !over) {
-	if (i < FONT_NAME_LENGTH_MAX) {
-	  temp[i] = ptr[0];
-	} else over = TRUE;
-	i++;
-	ptr++;
-      }
-      temp[i] = '\0';
-
-      if (!over) {
-	if (strcmp (temp, "sanserif") == 0 || strcmp (temp, "sans-serif") == 0)
-	  family = g_strdup ("sans"); /* special name adaption */
-	else
-	  family = g_strdup(temp);
-      }
+      i = 0;
+      while (ptr[i] != '\0' && ptr[i] != ';') ++i;
+      /* with i==0 we fall back to 'sans' too */
+      if (strncmp (ptr, "sanserif", i) == 0 || strncmp (ptr, "sans-serif", i) == 0)
+        family = g_strdup ("sans"); /* special name adaption */
+      else
+        family = i > 0 ? g_strndup(ptr, i) : NULL;
+      ptr += i;
     } else if (!strncmp("font-weight:", ptr, 12)) {
       ptr += 12;
       while ((ptr[0] != '\0') && g_ascii_isspace(ptr[0])) ptr++;
-      i = 0; over = FALSE;
-      while (ptr[0] != '\0' && ptr[0] != ';' && !over) {
-	if (i < FONT_NAME_LENGTH_MAX) {
-	  temp[i] = ptr[0];
-	} else over = TRUE;
-	i++;
-	ptr++;
-      }
-      temp[i] = '\0';
-
-      if (!over) weight = g_strdup(temp);
+      i = 0;
+      while (ptr[i] != '\0' && ptr[i] != ';') ++i;
+      weight = i > 0 ? g_strndup (ptr, i) : NULL;
+      ptr += i;
     } else if (!strncmp("font-style:", ptr, 11)) {
       ptr += 11;
       while ((ptr[0] != '\0') && g_ascii_isspace(ptr[0])) ptr++;
-      i = 0; over = FALSE;
-      while (ptr[0] != '\0' && ptr[0] != ';' && !over) {
-	if (i < FONT_NAME_LENGTH_MAX) {
-	  temp[i] = ptr[0];
-	} else over = TRUE;
-	i++;
-	ptr++;
-      }
-      temp[i] = '\0';
-
-      if (!over) style = g_strdup(temp);
+      i = 0;
+      while (ptr[i] != '\0' && ptr[i] != ';') ++i;
+      style = i > 0 ? g_strndup(ptr, i) : NULL;
+      ptr += i;
     } else if (!strncmp("font-size:", ptr, 10)) {
       ptr += 10;
       while ((ptr[0] != '\0') && g_ascii_isspace(ptr[0])) ptr++;
-      i = 0; over = FALSE;
-      while (ptr[0] != '\0' && ptr[0] != ';' && !over) {
-	if (i < FONT_NAME_LENGTH_MAX) {
-	  temp[i] = ptr[0];
-	} else over = TRUE;
-	i++;
-	ptr++;
-      }
-      temp[i] = '\0';
-
-      if (!over) {
-	s->font_height = g_ascii_strtod(temp, NULL);
-	if (user_scale > 0)
-	  s->font_height /= user_scale;
-      }
+      i = 0;
+      while (ptr[i] != '\0' && ptr[i] != ';') ++i;
+      s->font_height = g_ascii_strtod(ptr, NULL);
+      ptr += i;
+      if (user_scale > 0)
+	s->font_height /= user_scale;
     } else if (!strncmp("text-anchor:", ptr, 12)) {
       ptr += 12;
       while ((ptr[0] != '\0') && g_ascii_isspace(ptr[0])) ptr++;
