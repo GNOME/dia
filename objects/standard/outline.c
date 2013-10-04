@@ -367,6 +367,11 @@ outline_draw(Outline *outline, DiaRenderer *renderer)
   for (i=0; i < outline->path->num_data; i += outline->path->data[i].header.length) {
     ++total;
   }
+  /* if there is nothing to draw exit early to avoid
+   * Undefined allocation of 0 bytes (CERT MEM04-C; CWE-131)
+   */
+  if (total < 2)
+    return;
 
   pts = g_alloca (sizeof(BezPoint)*(total));
   for (i=0; i < outline->path->num_data; i += outline->path->data[i].header.length) {
