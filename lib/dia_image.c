@@ -410,6 +410,7 @@ dia_image_rgb_data(const DiaImage *image)
   if (!rgb_pixels)
     return NULL;
 
+  g_return_val_if_fail (image != NULL, NULL);
   if (gdk_pixbuf_get_has_alpha(image->image)) {
     guint8 *pixels = gdk_pixbuf_get_pixels(image->image);
     int i, j;
