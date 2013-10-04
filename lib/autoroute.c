@@ -260,7 +260,7 @@ calculate_badness(Point *ps, guint num_points)
  * @return Where the line should end to be on the correct edge of the 
  *          object, if cp has autogap on.
  *
- * \brief Calculate badness depending on length
+ * \ingroup Autorouting
  */
 static Point
 autolayout_adjust_for_gap(Point *pos, int dir, ConnectionPoint *cp)
@@ -304,7 +304,7 @@ autolayout_adjust_for_gap(Point *pos, int dir, ConnectionPoint *cp)
  * all. Needs to be called twice - second time with negative adjust - to
  * move the point back to where it was.
  *
- * \brief Calculate badness depending on length
+ * \ingroup Autorouting
  */
 static void 
 autolayout_adjust_for_arrow(Point *pos, int dir, real adjust)
@@ -337,7 +337,7 @@ autolayout_adjust_for_arrow(Point *pos, int dir, real adjust)
  *               passed in is ignored and overwritten, so should be NULL.
  * @return The badness of this layout.
  *
- * \brief Calculate badness depending on length
+ * \ingroup Autorouting
  */
 static real
 autoroute_layout_parallel(Point *to, guint *num_points, Point **points)
