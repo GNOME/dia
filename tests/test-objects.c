@@ -35,10 +35,7 @@
 #include "properties.h"
 #include "diapathrenderer.h"
 
-/* allows to select specific objects for testing */
-static gchar *_type_name = NULL;
 const real EPSILON = 1e-6;
-
 int num_objects = 0;
 
 static void
