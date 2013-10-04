@@ -265,7 +265,7 @@ reparse_clevent(const gchar *events, CLEventList **lst,
   if ((newsum == *chksum) && (*lst)) return;
 
   /* the string might contain ',' as a decimal separtor, fix it on the fly */
-  if (strchr(events, ',') != NULL) {
+  if (events && strchr(events, ',') != NULL) {
     gchar *p;
 
     ps = g_strdup(events);
