@@ -25,7 +25,7 @@ void dia_gdk_renderer_set_dashes(DiaGdkRenderer *renderer, int offset);
  *
  * \extends _DiaRenderer
  *
- * \todo move the GdkRenderer out of the code into a plug-in (as done with LibartRenderer
+ * \todo move the GdkRenderer out of the core into a plug-in (as done with LibartRenderer
  */
 struct _DiaGdkRenderer
 {
