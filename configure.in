@@ -216,13 +216,14 @@ if test "$png_ok" = yes; then
   dnl Why can't AC_LINK_IFELSE take extra libs?
   old_LDFLAGS="${LDFLAGS}"
   LDFLAGS="${LDFLAGS} -lz -lm"
-  AC_LINK_IFELSE([#include <png.h>
-                  png_structp pp;
+  AC_LINK_IFELSE([AC_LANG_SOURCE([
+		  #include <png.h>
+		  png_structp pp;
 		  png_infop info; 
 		  png_colorp cmap; 
-		  main() { void*foo = png_create_read_struct; }],
-                 png_ok=yes,
-                 png_ok=no)
+		  main() { void*foo = png_create_read_struct; }])],
+		  [png_ok=yes],
+		  [png_ok=no])
   LDFLAGS="${old_LDFLAGS}"
   AC_MSG_RESULT($png_ok)
   if test "$png_ok" = yes; then
