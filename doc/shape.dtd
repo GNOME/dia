@@ -77,7 +77,8 @@
 <!ELEMENT svg:polygon EMPTY >
 <!ATTLIST svg:polygon
   points CDATA #REQUIRED
-  style CDATA #IMPLIED >
+  style CDATA #IMPLIED
+  fill-rule CDATA #IMPLIED >
 
 <!ELEMENT svg:rect EMPTY >
 <!ATTLIST svg:rect
@@ -114,7 +115,8 @@
 <!ATTLIST svg:path
   d CDATA #REQUIRED
   style CDATA #IMPLIED
-  stroke-dasharray CDATA #IMPLIED >
+  stroke-dasharray CDATA #IMPLIED
+  fill-rule CDATA #IMPLIED >
 
 <!ELEMENT svg:text (#PCDATA)* >
 <!ATTLIST svg:text
