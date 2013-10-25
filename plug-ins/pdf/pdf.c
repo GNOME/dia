@@ -23,13 +23,24 @@
 #include "filter.h"
 #include "plug-ins.h"
 
+static gboolean
+no_import_pdf(const gchar *filename, DiagramData *dia, DiaContext *ctx, void* user_data)
+{
+  dia_context_add_message (ctx, _("PDF import not available."));
+  return FALSE;
+}
+
 gboolean import_pdf(const gchar *filename, DiagramData *dia, DiaContext *ctx, void* user_data);
 
 static const gchar *pdf_extensions[] = { "pdf", NULL };
 static DiaImportFilter pdf_import_filter = {
     N_("Portable Document File"),
     pdf_extensions,
+#if HAVE_POPPLER
     import_pdf,
+#else
+    no_import_pdf,
+#endif
     NULL, /* user data */
     "pdf"
 };

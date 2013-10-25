@@ -1,4 +1,8 @@
-plugin_sources = pdf.c pdf-import.cpp
+plugin_sources = pdf.c
+
+if HAVE_POPPLER
+plugin_sources += pdf-import.cpp
+endif
 
 # Can't do without C++
 if HAVE_CPLUSPLUS
