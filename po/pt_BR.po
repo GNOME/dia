@@ -19,8 +19,8 @@ msgstr ""
 "Project-Id-Version: Dia\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=dia&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2013-08-22 19:09+0000\n"
-"PO-Revision-Date: 2013-08-22 17:53-0300\n"
+"POT-Creation-Date: 2013-10-25 21:41+0000\n"
+"PO-Revision-Date: 2013-10-28 09:45-0300\n"
 "Last-Translator: Enrico Nicoletto <liverig@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <gnome-pt_br-list@gnome.org>\n"
 "Language: pt_BR\n"
@@ -28,7 +28,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 1.5.4\n"
+"X-Generator: Poedit 1.5.7\n"
 
 #. This is not an errror
 #: ../app/app_procs.c:208
@@ -509,7 +509,7 @@ msgid "Diagram"
 msgstr "Diagrama"
 
 #: ../app/diagram_tree_view.c:171
-#: ../plug-ins/drs/dia-render-script-import.c:232
+#: ../plug-ins/drs/dia-render-script-import.c:234
 msgid "Layer"
 msgstr "Camada"
 
@@ -984,7 +984,7 @@ msgstr "Camadas"
 msgid "Diagram:"
 msgstr "Diagrama:"
 
-#: ../app/layer_dialog.c:512 ../app/layer_dialog.c:1224
+#: ../app/layer_dialog.c:512 ../app/layer_dialog.c:1235
 #, c-format
 msgid "New layer %d"
 msgstr "Nova camada %d"
@@ -993,15 +993,15 @@ msgstr "Nova camada %d"
 msgid "none"
 msgstr "nenhuma"
 
-#: ../app/layer_dialog.c:1194
+#: ../app/layer_dialog.c:1205
 msgid "Edit Layer"
 msgstr "Editar camada"
 
-#: ../app/layer_dialog.c:1194
+#: ../app/layer_dialog.c:1205
 msgid "Add Layer"
 msgstr "Adicionar camada"
 
-#: ../app/layer_dialog.c:1213
+#: ../app/layer_dialog.c:1224
 msgid "Layer name:"
 msgstr "Nome da camada:"
 
@@ -1828,8 +1828,8 @@ msgstr "Exportar"
 msgid "Portable Network Graphics"
 msgstr "Portable Network Graphics"
 
-#: ../app/preferences.c:224 ../plug-ins/svg/render_svg.c:604
-#: ../plug-ins/svg/svg-import.c:1672
+#: ../app/preferences.c:224 ../plug-ins/svg/render_svg.c:603
+#: ../plug-ins/svg/svg-import.c:1774
 msgid "Scalable Vector Graphics"
 msgstr "Scalable Vector Graphics"
 
@@ -2497,7 +2497,7 @@ msgstr "Seta desconhecida"
 #: ../lib/create.c:50 ../lib/create.c:100 ../lib/create.c:127
 #: ../lib/create.c:160 ../lib/create.c:196 ../lib/create.c:228
 #: ../lib/create.c:252 ../lib/create.c:284 ../lib/create.c:305
-#: ../lib/create.c:335 ../lib/create.c:378 ../plug-ins/svg/svg-import.c:554
+#: ../lib/create.c:335 ../lib/create.c:378 ../plug-ins/svg/svg-import.c:597
 #: ../plug-ins/vdx/vdx-import.c:144
 msgid "Can't find standard object"
 msgstr "Não foi possível localizar o objeto padrão"
@@ -2696,7 +2696,7 @@ msgstr "Há vários filtros de importação com um único nome %s"
 msgid "Can't load font %s.\n"
 msgstr "Não foi possível carregar a fonte %s.\n"
 
-#: ../lib/group.c:628
+#: ../lib/group.c:622
 msgid "Transformation"
 msgstr "Transformação"
 
@@ -3037,11 +3037,11 @@ msgstr "Desenho"
 msgid "Draw Control Lines"
 msgstr "Desenhar linhas de controles"
 
-#: ../lib/standard-path.c:470
+#: ../lib/standard-path.c:478
 msgid "Convert to Bezier"
 msgstr "Converter para Bezier"
 
-#: ../lib/standard-path.c:471
+#: ../lib/standard-path.c:479
 msgid "Show Control Lines"
 msgstr "Mostrar linhas de controles"
 
@@ -5918,7 +5918,7 @@ msgstr "DiaRenderScript"
 msgid "DiaRenderScript filter"
 msgstr "Filtro DiaRenderScript"
 
-#: ../plug-ins/drs/dia-render-script-import.c:224
+#: ../plug-ins/drs/dia-render-script-import.c:226
 msgid "Broken file?"
 msgstr "Arquivo corrompido?"
 
@@ -6056,20 +6056,24 @@ msgstr "Filtro de exportação para TeX Metapost"
 msgid "TeX Metapost macros"
 msgstr "Macros TeX Metapost"
 
-#: ../plug-ins/pdf/pdf.c:30
+#: ../plug-ins/pdf/pdf.c:29
+msgid "PDF import not available."
+msgstr "Importação PDF não disponível."
+
+#: ../plug-ins/pdf/pdf.c:37
 msgid "Portable Document File"
 msgstr "Arquivo de Documento Portátil"
 
-#: ../plug-ins/pdf/pdf.c:44
+#: ../plug-ins/pdf/pdf.c:55
 msgid "PDF import filter"
 msgstr "Filtro de importação para PDF"
 
-#: ../plug-ins/pdf/pdf-import.cpp:311
+#: ../plug-ins/pdf/pdf-import.cpp:332
 #, c-format
 msgid "Page %d"
 msgstr "Página %d"
 
-#: ../plug-ins/pdf/pdf-import.cpp:706
+#: ../plug-ins/pdf/pdf-import.cpp:740
 #, c-format
 msgid ""
 "PDF document not OK.\n"
@@ -6091,7 +6095,7 @@ msgstr "Codificação UTF8 inválida"
 msgid "LaTeX PGF macros"
 msgstr "Macros LaTeX PGF"
 
-# Baseado na tradução do Gimp, adoto 'drawable' como 'objeto desenhável' neste contexto --Enrico 
+# Baseado na tradução do Gimp, adoto 'drawable' como 'objeto desenhável' neste contexto --Enrico
 #: ../plug-ins/pixbuf/pixbuf.c:86
 msgid "Failed to create pixbuf from drawable."
 msgstr "Ocorreu falha ao criar pixbuf de objeto desenhável."
@@ -6215,7 +6219,7 @@ msgid "Scalable Vector Graphics import and export filters"
 msgstr ""
 "Filtros de importação e exportação para o formato Scalable Vector Graphics"
 
-#: ../plug-ins/svg/svg-import.c:543
+#: ../plug-ins/svg/svg-import.c:586
 msgid ""
 "Invalid path data.\n"
 "svg:path data must start with moveto."
@@ -6223,16 +6227,16 @@ msgstr ""
 "Dados de caminho inválidos.\n"
 "Dados svg:path devem começar com moveto."
 
-#: ../plug-ins/svg/svg-import.c:1437
+#: ../plug-ins/svg/svg-import.c:1573
 msgid "'Shape Design' shapes missing."
 msgstr "Está faltando a forma 'Desenho da forma'"
 
-#: ../plug-ins/svg/svg-import.c:1471
+#: ../plug-ins/svg/svg-import.c:1607
 #, c-format
 msgid "Object '%s' creation failed"
 msgstr "Falha ao criar objeto \"%s\""
 
-#: ../plug-ins/svg/svg-import.c:1493
+#: ../plug-ins/svg/svg-import.c:1629
 #, c-format
 msgid ""
 "Parse error for memory block.\n"
@@ -6241,16 +6245,16 @@ msgstr ""
 "Erro de análise em bloco de memória.\n"
 "%s"
 
-#: ../plug-ins/svg/svg-import.c:1506 ../plug-ins/vdx/vdx-import.c:2887
+#: ../plug-ins/svg/svg-import.c:1642 ../plug-ins/vdx/vdx-import.c:2887
 #, c-format
 msgid "Parse error for %s"
 msgstr "Erro de análise em %s"
 
-#: ../plug-ins/svg/svg-import.c:1539
+#: ../plug-ins/svg/svg-import.c:1675
 msgid "Expected SVG Namespace not found in file"
 msgstr "O espaço de nomes SVG esperado não foi encontrado no arquivo"
 
-#: ../plug-ins/svg/svg-import.c:1559
+#: ../plug-ins/svg/svg-import.c:1695
 #, c-format
 msgid "root element was '%s' -- expecting 'svg'."
 msgstr "o elemento raiz era \"%s\" -- esperava-se \"svg\"."
@@ -10305,4 +10309,3 @@ msgstr "Atividade"
 #: ../sheets/UML.sheet.in.h:31
 msgid "Fork/Union"
 msgstr "Bifurcação/união"
-
