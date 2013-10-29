@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: dia master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=dia&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2013-08-16 19:52+0000\n"
-"PO-Revision-Date: 2013-08-17 20:47+0100\n"
+"POT-Creation-Date: 2013-10-25 21:41+0000\n"
+"PO-Revision-Date: 2013-10-29 13:45+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: Slovenian\n"
@@ -495,7 +495,7 @@ msgid "Diagram"
 msgstr "Diagram"
 
 #: ../app/diagram_tree_view.c:171
-#: ../plug-ins/drs/dia-render-script-import.c:232
+#: ../plug-ins/drs/dia-render-script-import.c:234
 msgid "Layer"
 msgstr "Plast"
 
@@ -975,7 +975,7 @@ msgstr "Plasti"
 msgid "Diagram:"
 msgstr "Diagram:"
 
-#: ../app/layer_dialog.c:512 ../app/layer_dialog.c:1224
+#: ../app/layer_dialog.c:512 ../app/layer_dialog.c:1235
 #, c-format
 msgid "New layer %d"
 msgstr "Nova plast %d"
@@ -984,15 +984,15 @@ msgstr "Nova plast %d"
 msgid "none"
 msgstr "brez"
 
-#: ../app/layer_dialog.c:1194
+#: ../app/layer_dialog.c:1205
 msgid "Edit Layer"
 msgstr "Uredi plast"
 
-#: ../app/layer_dialog.c:1194
+#: ../app/layer_dialog.c:1205
 msgid "Add Layer"
 msgstr "Dodaj plast"
 
-#: ../app/layer_dialog.c:1213
+#: ../app/layer_dialog.c:1224
 msgid "Layer name:"
 msgstr "Ime plasti:"
 
@@ -1828,8 +1828,8 @@ msgstr "Izvozi"
 msgid "Portable Network Graphics"
 msgstr "PNG (Portable Network Graphics)"
 
-#: ../app/preferences.c:224 ../plug-ins/svg/render_svg.c:604
-#: ../plug-ins/svg/svg-import.c:1672
+#: ../app/preferences.c:224 ../plug-ins/svg/render_svg.c:603
+#: ../plug-ins/svg/svg-import.c:1774
 msgid "Scalable Vector Graphics"
 msgstr "SVG (Scalable Vector Graphics)"
 
@@ -2485,7 +2485,7 @@ msgstr "neznana puščica"
 #: ../lib/create.c:50 ../lib/create.c:100 ../lib/create.c:127
 #: ../lib/create.c:160 ../lib/create.c:196 ../lib/create.c:228
 #: ../lib/create.c:252 ../lib/create.c:284 ../lib/create.c:305
-#: ../lib/create.c:335 ../lib/create.c:378 ../plug-ins/svg/svg-import.c:554
+#: ../lib/create.c:335 ../lib/create.c:378 ../plug-ins/svg/svg-import.c:597
 #: ../plug-ins/vdx/vdx-import.c:144
 msgid "Can't find standard object"
 msgstr "Navadnega predmeta ni mogoče najti"
@@ -2684,7 +2684,7 @@ msgstr "Obstaja več izvoznih filtrov z istim imenom %s"
 msgid "Can't load font %s.\n"
 msgstr "Ni mogoče naložiti pisave %s.\n"
 
-#: ../lib/group.c:628
+#: ../lib/group.c:622
 msgid "Transformation"
 msgstr "Pretvorba"
 
@@ -3023,11 +3023,11 @@ msgstr "Risba"
 msgid "Draw Control Lines"
 msgstr "Nariši nadzorne črte"
 
-#: ../lib/standard-path.c:470
+#: ../lib/standard-path.c:478
 msgid "Convert to Bezier"
 msgstr "Pretvori v Bezierjevo krivuljo"
 
-#: ../lib/standard-path.c:471
+#: ../lib/standard-path.c:479
 msgid "Show Control Lines"
 msgstr "Pokaži nadzorne črte"
 
@@ -5902,7 +5902,7 @@ msgstr "DRS (DiaRenderScript)"
 msgid "DiaRenderScript filter"
 msgstr "Filter za upodobitveni skript Dia (DRS)"
 
-#: ../plug-ins/drs/dia-render-script-import.c:224
+#: ../plug-ins/drs/dia-render-script-import.c:226
 msgid "Broken file?"
 msgstr "Je datoteka okvarjena?"
 
@@ -6039,20 +6039,25 @@ msgstr "Izvozni filter za TeX Metapost"
 msgid "TeX Metapost macros"
 msgstr "Makri TeX Metapost"
 
-#: ../plug-ins/pdf/pdf.c:30
+#: ../plug-ins/pdf/pdf.c:29
+#| msgid "PDF import filter"
+msgid "PDF import not available."
+msgstr "Uvoz datotek PDF ni na voljo."
+
+#: ../plug-ins/pdf/pdf.c:37
 msgid "Portable Document File"
 msgstr "Prenosna datoteka dokumenta"
 
-#: ../plug-ins/pdf/pdf.c:44
+#: ../plug-ins/pdf/pdf.c:55
 msgid "PDF import filter"
 msgstr "Filter uvoza datotek PDF"
 
-#: ../plug-ins/pdf/pdf-import.cpp:311
+#: ../plug-ins/pdf/pdf-import.cpp:332
 #, c-format
 msgid "Page %d"
 msgstr "Stran %d"
 
-#: ../plug-ins/pdf/pdf-import.cpp:706
+#: ../plug-ins/pdf/pdf-import.cpp:740
 #, c-format
 msgid ""
 "PDF document not OK.\n"
@@ -6195,7 +6200,7 @@ msgstr "Datoteka z likom Dia"
 msgid "Scalable Vector Graphics import and export filters"
 msgstr "Izvozni in uvozni filter SVG"
 
-#: ../plug-ins/svg/svg-import.c:543
+#: ../plug-ins/svg/svg-import.c:586
 msgid ""
 "Invalid path data.\n"
 "svg:path data must start with moveto."
@@ -6203,16 +6208,16 @@ msgstr ""
 "Neveljavna pot.\n"
 "Podatek svg:path se mora pričeti z moveto."
 
-#: ../plug-ins/svg/svg-import.c:1437
+#: ../plug-ins/svg/svg-import.c:1573
 msgid "'Shape Design' shapes missing."
 msgstr "Manjkajo liki 'Oblikovanje lika'"
 
-#: ../plug-ins/svg/svg-import.c:1471
+#: ../plug-ins/svg/svg-import.c:1607
 #, c-format
 msgid "Object '%s' creation failed"
 msgstr "Ustvarjanje predmeta '%s' ni uspelo"
 
-#: ../plug-ins/svg/svg-import.c:1493
+#: ../plug-ins/svg/svg-import.c:1629
 #, c-format
 msgid ""
 "Parse error for memory block.\n"
@@ -6221,16 +6226,16 @@ msgstr ""
 "Napaka razčlenjevanja pomnilniškega bloka.\n"
 "%s"
 
-#: ../plug-ins/svg/svg-import.c:1506 ../plug-ins/vdx/vdx-import.c:2887
+#: ../plug-ins/svg/svg-import.c:1642 ../plug-ins/vdx/vdx-import.c:2887
 #, c-format
 msgid "Parse error for %s"
 msgstr "Napaka razčlenjevanja za %s"
 
-#: ../plug-ins/svg/svg-import.c:1539
+#: ../plug-ins/svg/svg-import.c:1675
 msgid "Expected SVG Namespace not found in file"
 msgstr "Pričakovani imenski prostor SVG v datoteki ni vsebovan"
 
-#: ../plug-ins/svg/svg-import.c:1559
+#: ../plug-ins/svg/svg-import.c:1695
 #, c-format
 msgid "root element was '%s' -- expecting 'svg'."
 msgstr "korenski element je bil '%s' -- pričakovan je bil 'svg'."
