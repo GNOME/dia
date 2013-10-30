@@ -16,8 +16,8 @@ msgstr ""
 "Project-Id-Version: dia\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=dia&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2013-08-22 09:19+0000\n"
-"PO-Revision-Date: 2013-08-22 21:08+0200\n"
+"POT-Creation-Date: 2013-10-25 21:41+0000\n"
+"PO-Revision-Date: 2013-10-30 05:36+0200\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -497,7 +497,7 @@ msgid "Diagram"
 msgstr "Diagram"
 
 #: ../app/diagram_tree_view.c:171
-#: ../plug-ins/drs/dia-render-script-import.c:232
+#: ../plug-ins/drs/dia-render-script-import.c:234
 msgid "Layer"
 msgstr "Vrstva"
 
@@ -974,7 +974,7 @@ msgstr "Vrstvy"
 msgid "Diagram:"
 msgstr "Diagram:"
 
-#: ../app/layer_dialog.c:512 ../app/layer_dialog.c:1224
+#: ../app/layer_dialog.c:512 ../app/layer_dialog.c:1235
 #, c-format
 msgid "New layer %d"
 msgstr "Nová vrstva %d"
@@ -983,15 +983,15 @@ msgstr "Nová vrstva %d"
 msgid "none"
 msgstr "nic"
 
-#: ../app/layer_dialog.c:1194
+#: ../app/layer_dialog.c:1205
 msgid "Edit Layer"
 msgstr "Upravit vrstvu"
 
-#: ../app/layer_dialog.c:1194
+#: ../app/layer_dialog.c:1205
 msgid "Add Layer"
 msgstr "Přidat vrstvu"
 
-#: ../app/layer_dialog.c:1213
+#: ../app/layer_dialog.c:1224
 msgid "Layer name:"
 msgstr "Název vrstvy:"
 
@@ -1821,8 +1821,8 @@ msgstr "Export"
 msgid "Portable Network Graphics"
 msgstr "Portable Network Graphics"
 
-#: ../app/preferences.c:224 ../plug-ins/svg/render_svg.c:604
-#: ../plug-ins/svg/svg-import.c:1672
+#: ../app/preferences.c:224 ../plug-ins/svg/render_svg.c:603
+#: ../plug-ins/svg/svg-import.c:1774
 msgid "Scalable Vector Graphics"
 msgstr "Scalable Vector Graphics"
 
@@ -2482,7 +2482,7 @@ msgstr "neznámá šipka"
 #: ../lib/create.c:50 ../lib/create.c:100 ../lib/create.c:127
 #: ../lib/create.c:160 ../lib/create.c:196 ../lib/create.c:228
 #: ../lib/create.c:252 ../lib/create.c:284 ../lib/create.c:305
-#: ../lib/create.c:335 ../lib/create.c:378 ../plug-ins/svg/svg-import.c:554
+#: ../lib/create.c:335 ../lib/create.c:378 ../plug-ins/svg/svg-import.c:597
 #: ../plug-ins/vdx/vdx-import.c:144
 msgid "Can't find standard object"
 msgstr "Nelze nalézt standardní objekt"
@@ -2682,7 +2682,7 @@ msgstr "Více importních filtrů s jedinečným názvem %s"
 msgid "Can't load font %s.\n"
 msgstr "Nelze načíst písmo %s.\n"
 
-#: ../lib/group.c:628
+#: ../lib/group.c:622
 msgid "Transformation"
 msgstr "Transformace"
 
@@ -3019,11 +3019,11 @@ msgstr "Vykreslit"
 msgid "Draw Control Lines"
 msgstr "Vykreslovat řídící čáry"
 
-#: ../lib/standard-path.c:470
+#: ../lib/standard-path.c:478
 msgid "Convert to Bezier"
 msgstr "Převést na Beziérovu křivku"
 
-#: ../lib/standard-path.c:471
+#: ../lib/standard-path.c:479
 msgid "Show Control Lines"
 msgstr "Zobrazovat řídící čáry"
 
@@ -5895,7 +5895,7 @@ msgstr "DiaRenderScript"
 msgid "DiaRenderScript filter"
 msgstr "Filtr DiaRenderScript"
 
-#: ../plug-ins/drs/dia-render-script-import.c:224
+#: ../plug-ins/drs/dia-render-script-import.c:226
 msgid "Broken file?"
 msgstr "Narušený soubor?"
 
@@ -6032,20 +6032,24 @@ msgstr "Exportní filtr formátu TeX Metapost"
 msgid "TeX Metapost macros"
 msgstr "Makra formátu TeX Metapost"
 
-#: ../plug-ins/pdf/pdf.c:30
+#: ../plug-ins/pdf/pdf.c:29
+msgid "PDF import not available."
+msgstr "Import formátu PDF není k dispozici"
+
+#: ../plug-ins/pdf/pdf.c:37
 msgid "Portable Document File"
 msgstr "Portable Document File"
 
-#: ../plug-ins/pdf/pdf.c:44
+#: ../plug-ins/pdf/pdf.c:55
 msgid "PDF import filter"
 msgstr "Importní filtr formátu PDF"
 
-#: ../plug-ins/pdf/pdf-import.cpp:311
+#: ../plug-ins/pdf/pdf-import.cpp:332
 #, c-format
 msgid "Page %d"
 msgstr "Strana %d"
 
-#: ../plug-ins/pdf/pdf-import.cpp:706
+#: ../plug-ins/pdf/pdf-import.cpp:740
 #, c-format
 msgid ""
 "PDF document not OK.\n"
@@ -6191,7 +6195,7 @@ msgstr "Soubor se symboly Dia"
 msgid "Scalable Vector Graphics import and export filters"
 msgstr "Importní a exportní filtry formátu Scalable Vector Graphics"
 
-#: ../plug-ins/svg/svg-import.c:543
+#: ../plug-ins/svg/svg-import.c:586
 msgid ""
 "Invalid path data.\n"
 "svg:path data must start with moveto."
@@ -6199,16 +6203,16 @@ msgstr ""
 "Neplatná data cesty.\n"
 "Data svg:path musí začínat příkazem moveto."
 
-#: ../plug-ins/svg/svg-import.c:1437
+#: ../plug-ins/svg/svg-import.c:1573
 msgid "'Shape Design' shapes missing."
 msgstr "Schází symboly „Návrh symbolu“"
 
-#: ../plug-ins/svg/svg-import.c:1471
+#: ../plug-ins/svg/svg-import.c:1607
 #, c-format
 msgid "Object '%s' creation failed"
 msgstr "Vytvoření objektu „%s“ selhalo"
 
-#: ../plug-ins/svg/svg-import.c:1493
+#: ../plug-ins/svg/svg-import.c:1629
 #, c-format
 msgid ""
 "Parse error for memory block.\n"
@@ -6217,16 +6221,16 @@ msgstr ""
 "Chyba zpracování pro paměťový blok.\n"
 "%s"
 
-#: ../plug-ins/svg/svg-import.c:1506 ../plug-ins/vdx/vdx-import.c:2887
+#: ../plug-ins/svg/svg-import.c:1642 ../plug-ins/vdx/vdx-import.c:2887
 #, c-format
 msgid "Parse error for %s"
 msgstr "Chyba zpracování pro %s"
 
-#: ../plug-ins/svg/svg-import.c:1539
+#: ../plug-ins/svg/svg-import.c:1675
 msgid "Expected SVG Namespace not found in file"
 msgstr "Očekávaný jmenný prostor SVG nebyl v souboru nalezen"
 
-#: ../plug-ins/svg/svg-import.c:1559
+#: ../plug-ins/svg/svg-import.c:1695
 #, c-format
 msgid "root element was '%s' -- expecting 'svg'."
 msgstr "kořenový element byl „%s“ -- očekává se „svg“."
