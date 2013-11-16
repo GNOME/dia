@@ -30,5 +30,5 @@ xmlDocPtr xmlDoParseFile(const char *filename);
 /* use this instead of xmlSaveFile/xmlSaveFileEnc. Set the encoding to
    UTF-8 at the very beginning ! */
 int xmlDiaSaveFile(const char *filename,
-                   xmlDocPtr doc);
+		   xmlDocPtr   doc);
 #endif

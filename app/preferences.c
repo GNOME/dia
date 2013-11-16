@@ -250,12 +250,6 @@ DiaPrefData prefs_data[] =
   { "fixed_icon_size", PREF_BOOLEAN,PREF_OFFSET(fixed_icon_size),
     &default_true,0,"ensure fixed icon size",NULL, TRUE},
 
-  /* There's really no reason to not pretty format it, and allowing non-pretty
-     can lead to problems with long lines, CVS etc. 
-  { "pretty_formated_xml", PREF_BOOLEAN,PREF_OFFSET(pretty_formated_xml),
-    &default_true,0,"pretty formated xml",NULL, TRUE},
-  */
-
 };
 
 #define NUM_PREFS_DATA (sizeof(prefs_data)/sizeof(DiaPrefData))

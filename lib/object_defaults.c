@@ -393,13 +393,7 @@ dia_object_defaults_save (const gchar *filename)
   xmlDocPtr doc;
   gboolean ret;
   gchar *real_filename;
-  int old_blanks_default = pretty_formated_xml;
 
-  /* FIXME HACK: we always want nice readable default files,
-   *  but toggling it by a global var is ugly   --hb 
-   */
-  pretty_formated_xml = TRUE;
-  
   if (!filename)
     real_filename = dia_config_filename("defaults.dia");
   else
@@ -425,7 +419,6 @@ dia_object_defaults_save (const gchar *filename)
   ret = xmlDiaSaveFile (real_filename, doc);
   g_free (real_filename);
   xmlFreeDoc(doc);
-  pretty_formated_xml = old_blanks_default;
 
   g_hash_table_destroy (ni.layer_hash);
 

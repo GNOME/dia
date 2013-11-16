@@ -614,7 +614,7 @@ dia_pluginrc_write(void)
 
   filename = dia_config_filename("pluginrc");
   
-  xmlDiaSaveFile(filename,pluginrc);
+  xmlDiaSaveFile(filename, pluginrc);
   
   g_free(filename);
   free_pluginrc();

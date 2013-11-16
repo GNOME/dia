@@ -286,12 +286,6 @@ static void
 end_render(DiaRenderer *self)
 {
   DiaSvgRenderer *renderer = DIA_SVG_RENDERER (self);
-  int old_blanks_default = pretty_formated_xml;
-
-  /* FIXME HACK: we always want nice readable shape files,
-   *  but toggling it by a global var is ugly   --hb 
-   */
-  pretty_formated_xml = TRUE;
 
   g_free(renderer->linestyle);
   renderer->linestyle = NULL;
@@ -301,7 +295,6 @@ end_render(DiaRenderer *self)
   g_free(renderer->filename);
   renderer->filename = NULL;
   xmlFreeDoc(renderer->doc);
-  pretty_formated_xml = old_blanks_default;
 }
 
 static void

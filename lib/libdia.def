@@ -4,8 +4,6 @@ EXPORTS
  color_gdk_black
  color_gdk_white
 
- pretty_formated_xml
-
 ; exported functions
  apply_textattr_properties
  apply_textstr_properties

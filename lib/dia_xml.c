@@ -85,10 +85,12 @@ static inline int isinf_ld (long double x) { return isnan (x - x); }
 /*!
  * \defgroup DiagramXmlOut Converting data to XML
  * \ingroup DiagramXmlIo
+ * \brief Build XML DOM from simple types
  */
 /*!
  * \defgroup DiagramXmlIn Retrieving data from XML
  * \ingroup DiagramXmlIo
+ * \brief Parse simple types from XML DOM
  */
 
 /*!
@@ -1354,9 +1356,6 @@ data_add_composite(AttributeNode attr, const char *type)
 #define BUFSIZE 2048
 #define OVERRUN_SAFETY 16
 
-/* diarc option */
-int pretty_formated_xml = TRUE;
-
 /*!
  * \brief Save an XML document to a file.
  * @param filename The file to save to.
@@ -1366,15 +1365,13 @@ int pretty_formated_xml = TRUE;
  * \ingroup DiagramXmlIo
  */
 int
-xmlDiaSaveFile(const char *filename,
-                   xmlDocPtr cur)
+xmlDiaSaveFile (const char *filename,
+		xmlDocPtr   cur)
 {
-    int old = 0, ret;
+  int old, ret;
 
-    if (pretty_formated_xml)
-        old = xmlKeepBlanksDefault (0);
-    ret = xmlSaveFormatFileEnc (filename,cur, "UTF-8", pretty_formated_xml ? 1 : 0);
-    if (pretty_formated_xml)
-        xmlKeepBlanksDefault (old);
-    return ret;
+  old = xmlKeepBlanksDefault (0);
+  ret = xmlSaveFormatFileEnc (filename,cur, "UTF-8", 1);
+  xmlKeepBlanksDefault (old);
+  return ret;
 }

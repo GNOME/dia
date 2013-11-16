@@ -22,7 +22,6 @@
 #include "geometry.h"
 #include "color.h"
 #include "font.h"
-#include "diavar.h"
 #include "diacontext.h"
 #include <libxml/tree.h>
 
@@ -41,8 +40,6 @@
  * See also : doc/diagram.dtd
  */
 #define DIA_XML_NAME_SPACE_BASE "http://www.lysator.liu.se/~alla/dia/"
-
-DIAVAR int pretty_formated_xml;
 
 typedef xmlNodePtr XML_NODE;
 
