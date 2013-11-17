@@ -381,6 +381,9 @@ int  three_point_circle(const Point *p1, const Point *p2, const Point *p3,
 real point_cross(Point *p1, Point *p2);
 Point calculate_object_edge(Point *objmid, Point *end, DiaObject *obj);
 
+real dia_asin (real x);
+real dia_acos (real x);
+
 G_END_DECLS
 
 #endif /* GEOMETRY_H */

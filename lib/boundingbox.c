@@ -502,7 +502,7 @@ polybezier_bbox(const BezPoint *pts, int numpoints,
       else if (co <= -1.0)
         alpha = M_PI;
       else
-        alpha = acos(-co); 
+        alpha = dia_acos(-co);
       if (co > -0.9816) { /* 0.9816 = cos(11deg) */
         /* we have a pointy join. */
         real overshoot;

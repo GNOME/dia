@@ -478,7 +478,7 @@ draw_ellipse_by_arc (DiaRenderer *renderer,
   b = height / 2;
   e = sqrt(a*a - b*b);
 
-  alpha = 0.25*M_PI - asin((e/a) * sin(0.75*M_PI));
+  alpha = 0.25*M_PI - dia_asin((e/a) * sin(0.75*M_PI));
   d = 2*a*sin(alpha);
 
   c = (sin(0.25*M_PI) * (2*e + d)) / sin(0.75*M_PI - alpha);
@@ -488,7 +488,7 @@ draw_ellipse_by_arc (DiaRenderer *renderer,
 
   /* draw arcs */
   g = sqrt((a-x)*(a-x) + y*y);
-  gamma = acos((a-x)/g);
+  gamma = dia_acos((a-x)/g);
   r = (sin(gamma) * g) / sin(M_PI-2*gamma);
 
   pt.y = center->y;
@@ -500,7 +500,7 @@ draw_ellipse_by_arc (DiaRenderer *renderer,
 
 
   g = sqrt((b-y)*(b-y) + x*x);
-  gamma = acos((b-y)/g);
+  gamma = dia_acos((b-y)/g);
   r = (sin(gamma) * g) / sin(M_PI-2*gamma);
 
   pt.x = center->x;
