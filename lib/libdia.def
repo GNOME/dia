@@ -1,7 +1,4 @@
 EXPORTS
-; variables need to be exported by DIAVAR
- render_bounding_boxes
-
 ; exported functions
  apply_textattr_properties
  apply_textstr_properties

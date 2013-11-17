@@ -345,6 +345,9 @@ int  dia_renderer_get_height_pixels (DiaRenderer*);
 void bezier_render_fill   (DiaRenderer *renderer, BezPoint *pts, int total, Color *color);
 void bezier_render_stroke (DiaRenderer *renderer, BezPoint *pts, int total, Color *color);
 
+/*! \brief query DIA_RENDER_BOUNDING_BOXES */
+int render_bounding_boxes (void);
+
 G_END_DECLS
 
 #endif /* DIA_RENDERER_H */

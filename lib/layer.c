@@ -43,7 +43,22 @@ normal_render(DiaObject *obj, DiaRenderer *renderer,
 }
 
 
-int render_bounding_boxes = FALSE;
+/*!
+ * bounding box debug helper : environment variable DIA_RENDER_BOUNDING_BOXES
+ * set to !0 to see the calculated bounding boxes
+ */
+int
+render_bounding_boxes (void)
+{
+  static int rbb = FALSE;
+  static int once = TRUE;
+
+  if (once) {
+    rbb = g_getenv ("DIA_RENDER_BOUNDING_BOXES") != NULL;
+    once = FALSE;
+  }
+  return rbb;
+}
 
 /*!
  * \brief Render all components of a single layer.
@@ -76,7 +91,7 @@ layer_render(Layer *layer, DiaRenderer *renderer, Rectangle *update,
     obj = (DiaObject *) list->data;
 
     if (update==NULL || rectangle_intersects(update, &obj->bounding_box)) {
-      if ((render_bounding_boxes) && (renderer->is_interactive)) {
+      if ((render_bounding_boxes()) && (renderer->is_interactive)) {
 	Point p1, p2;
 	Color col;
 	p1.x = obj->bounding_box.left;

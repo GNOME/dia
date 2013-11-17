@@ -25,7 +25,6 @@
 #include "diatypes.h"
 #include "color.h"
 #include "geometry.h"
-#include "diavar.h"
 #include "paper.h"
 
 G_BEGIN_DECLS

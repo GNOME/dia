@@ -244,9 +244,6 @@ DiaPrefData prefs_data[] =
   { "grid_w", PREF_UREAL, PREF_OFFSET(grid.w), &default_real_one, GRID_TAB, N_("Hex Size:") },
   /*  { "grid_solid", PREF_BOOLEAN, PREF_OFFSET(grid.solid), &default_true, 3, N_("Solid lines:") },  */
 
-  { "render_bounding_boxes", PREF_BOOLEAN,PREF_OFFSET(render_bounding_boxes),
-    &default_false,0,"render bounding boxes",NULL, TRUE},
-
   { "fixed_icon_size", PREF_BOOLEAN,PREF_OFFSET(fixed_icon_size),
     &default_true,0,"ensure fixed icon size",NULL, TRUE},
 
@@ -367,8 +364,6 @@ void
 prefs_init(void)
 {
   prefs_set_defaults();
-
-  render_bounding_boxes = prefs.render_bounding_boxes;
 }
 
 static void

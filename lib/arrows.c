@@ -2020,7 +2020,7 @@ arrow_draw(DiaRenderer *renderer, ArrowType type,
       break;
     }
   }
-  if ((type != ARROW_NONE) && (render_bounding_boxes) && (renderer->is_interactive)) {
+  if ((type != ARROW_NONE) && (render_bounding_boxes()) && (renderer->is_interactive)) {
     Arrow arrow = {type, length, width};
     Rectangle bbox = {0, };
     Point p1, p2;
