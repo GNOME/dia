@@ -46,7 +46,6 @@ static Color color_white = { 1.0f, 1.0f, 1.0f, 1.0f };
 #else
 DIAVAR Color color_black, color_white;
 #endif
-DIAVAR GdkColor color_gdk_black, color_gdk_white;
 
 #define DIA_COLOR_TO_GDK(from, to) \
 (to).pixel = 0; \

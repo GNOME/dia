@@ -1,8 +1,6 @@
 EXPORTS
 ; variables need to be exported by DIAVAR
  render_bounding_boxes
- color_gdk_black
- color_gdk_white
 
 ; exported functions
  apply_textattr_properties

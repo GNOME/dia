@@ -1175,16 +1175,20 @@ draw_text_line(DiaRenderer *self, TextLine *text_line,
    GdkPixmap *pixmap = gdk_pixmap_new (NULL, width, height, 24);
    GdkGC     *gc = gdk_gc_new (pixmap);
    GdkImage  *image;
+   GdkColor black, white;
+
+   color_convert(&color_black, &black);
+   color_convert(&color_white, &white);
 
    rowstride = 32*((width+31)/31);
 #if 1 /* with 8 bit pixmap we would probably need to set the whole gray palette */
    gdk_gc_set_colormap (gc, gdk_colormap_get_system ());
-   gdk_gc_set_foreground (gc, &color_gdk_black);
-   gdk_gc_set_background (gc, &color_gdk_white);
+   gdk_gc_set_foreground (gc, &black);
+   gdk_gc_set_background (gc, &white);
    gdk_draw_rectangle (GDK_DRAWABLE (pixmap), gc, TRUE, 0, 0, width, height); 
 #endif
-   gdk_gc_set_foreground (gc, &color_gdk_white);
-   gdk_gc_set_background (gc, &color_gdk_black);
+   gdk_gc_set_foreground (gc, &white);
+   gdk_gc_set_background (gc, &black);
    gdk_draw_layout (GDK_DRAWABLE (pixmap), gc, 0, 0, layout);
    image = gdk_drawable_get_image (GDK_DRAWABLE (pixmap), 0, 0, width, height);
    g_object_unref (G_OBJECT (gc));

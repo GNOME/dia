@@ -105,14 +105,17 @@ magnify_motion(MagnifyTool *tool, GdkEventMotion *event,
 {
   intPoint tl, br;
 
-  if (tool->box_active) { 
+  if (tool->box_active) {
+    GdkColor white;
+
     tool->moved = TRUE;
+    color_convert(&color_white, &white);
 
     if (tool->gc == NULL) {
       tool->gc = gdk_gc_new(gtk_widget_get_window(ddisp->canvas));
       gdk_gc_set_line_attributes(tool->gc, 1, GDK_LINE_ON_OFF_DASH, 
 				 GDK_CAP_BUTT, GDK_JOIN_MITER);
-      gdk_gc_set_foreground(tool->gc, &color_gdk_white);
+      gdk_gc_set_foreground(tool->gc, &white);
       gdk_gc_set_function(tool->gc, GDK_XOR);
     }
 

@@ -66,8 +66,7 @@ linewidth_area_target (int x, int y)
 static void
 linewidth_area_draw (GtkWidget *linewidth_area)
 {
-  GdkColor *win_bg;
-  GdkColor line;
+  GdkColor *win_bg, *win_fg;
   int width, height;
   int i;
   int x_offs;
@@ -90,13 +89,13 @@ linewidth_area_draw (GtkWidget *linewidth_area)
 
   style = gtk_widget_get_style (linewidth_area);
   win_bg = &(style->bg[GTK_STATE_NORMAL]);
-  line = color_gdk_black;
+  win_fg = &(style->fg[GTK_STATE_NORMAL]);
 
   gdk_gc_set_foreground (linewidth_area_gc, win_bg);
   gdk_draw_rectangle (linewidth_area_pixmap, linewidth_area_gc, 1,
 		      0, 0, width, height);
 
-  gdk_gc_set_foreground (linewidth_area_gc, &line);
+  gdk_gc_set_foreground (linewidth_area_gc, win_fg);
   
   for (i=0;i<=NUMLINES;i++) {
     x_offs = X_OFFSET(i);

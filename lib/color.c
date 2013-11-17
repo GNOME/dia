@@ -31,8 +31,6 @@ Color color_black = { 0.0f, 0.0f, 0.0f, 1.0f };
 Color color_white = { 1.0f, 1.0f, 1.0f, 1.0f };
 #endif
 
-GdkColor color_gdk_black, color_gdk_white;
-
 gboolean _color_initialized = FALSE;
 
 /** Initialize color access (gdk) and set up default colors.
@@ -45,9 +43,6 @@ color_init(void)
     colormap = gdk_colormap_new (visual, FALSE); 
 
     _color_initialized = TRUE;
-
-    color_convert(&color_black, &color_gdk_black);
-    color_convert(&color_white, &color_gdk_white);
   }
 }
 
