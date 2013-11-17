@@ -1621,7 +1621,7 @@ draw_rounded(DiaRenderer *renderer, Point *to, Point *from,
     p.x += delta.x * rapport;
     p.y += delta.y * rapport;
   }  
-  angle_start = 90.0 - asin((p.y - to->y) / rayon) * (180.0 / 3.14);
+  angle_start = 90.0 - dia_asin((p.y - to->y) / rayon) * (180.0 / 3.14);
   if (p.x - to->x < 0) { angle_start = 360.0 - angle_start;  }
   
   DIA_RENDERER_GET_CLASS(renderer)->draw_arc(renderer, &p, width, length, angle_start, angle_start - 180.0, fg_color);
@@ -1673,7 +1673,7 @@ draw_open_rounded(DiaRenderer *renderer, Point *to, Point *from,
     p.x += delta.x * rapport;
     p.y += delta.y * rapport;
   }  
-  angle_start = 90.0 - asin((p.y - to->y) / rayon) * (180.0 / 3.14);
+  angle_start = 90.0 - dia_asin((p.y - to->y) / rayon) * (180.0 / 3.14);
   if (p.x - to->x < 0) { angle_start = 360.0 - angle_start;  }
 
   p_line = p;

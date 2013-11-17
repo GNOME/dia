@@ -565,7 +565,7 @@ real dot2(Point *p1, Point *p2)
   if ( d != 0.0 )
   {
     t = (p1->x*p2->x+p1->y*p2->y)/d;
-    return (acos(t));
+    return (dia_acos(t));
   }
   else
   {
@@ -781,3 +781,38 @@ calculate_object_edge(Point *objmid, Point *end, DiaObject *obj)
   return mid2;
 }
 
+/*!
+ * \brief asin wrapped to limit to valid result range
+ *
+ * Although clipping the value might hide some miscalculation
+ * elsewhere this should still be used in all of Dia. Continuing
+ * calculation with bogus values might final fall on our foots
+ * because rendering libraries might not be graceful.
+ * See https://bugzilla.gnome.org/show_bug.cgi?id=710818
+ */
+real
+dia_asin (real x)
+{
+  real r = asin (x);
+  /* clamp to valid range */
+  if (r < -M_PI/2)
+    return -M_PI/2;
+  else if (r > M_PI/2)
+    return M_PI/2;
+  return r;
+}
+
+/*!
+ * \brief acos wrapped to limit to valid result range
+ */
+real
+dia_acos (real x)
+{
+  real r = acos (x);
+  /* clamp to valid range */
+  if (r < 0)
+    return 0;
+  else if (r > M_PI)
+    return M_PI;
+  return r;
+}

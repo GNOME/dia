@@ -169,6 +169,9 @@ EXPORTS
 
  destroy_object_list
 
+ dia_asin
+ dia_acos
+
  dia_alignment_selector_get_alignment
  dia_alignment_selector_get_type
  dia_alignment_selector_new
