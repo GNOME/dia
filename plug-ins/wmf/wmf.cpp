@@ -64,7 +64,7 @@ wmf.cpp:1383:40: error: cast from 'void*' to 'W32::HDC' loses precision
  */
 #define STRICT
   namespace W32 {
-#  include <emf.h>
+#  include <libEMF/emf.h>
   }
 #undef STRICT
 #else

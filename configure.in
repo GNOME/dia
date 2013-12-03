@@ -257,12 +257,10 @@ if test "$enable_libemf" = "yes"; then
 	old_CFLAGS="${CFLAGS}"
 	old_LIBS="${LIBS}"
 
-	CPPFLAGS="${CPPFLAGS} -I /usr/include/libEMF"
-	AC_CHECK_HEADER(emf.h, emf_ok=yes, emf_ok=no)
+	AC_CHECK_HEADER(libEMF/emf.h, emf_ok=yes, emf_ok=no)
 	AC_CHECK_LIB(EMF, CreateEnhMetaFileWithFILEW, , emf_ok=no, -lstdc++)
 
 	if test "$emf_ok" = yes; then
-		LIBEMF_CFLAGS='-I /usr/include/libEMF'
 		LIBEMF_LIBS='-lEMF -lstdc++'
 		AC_DEFINE(HAVE_LIBEMF,1,[libEMF library available])
 	fi
