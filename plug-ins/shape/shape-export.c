@@ -310,7 +310,8 @@ add_connection_point (ShapeRenderer *renderer,
                       gboolean main) 
 {
   xmlNodePtr node;
-  gchar buf[G_ASCII_DTOSTR_BUF_SIZE];
+  xmlChar *propx, *propy;
+  gchar bufx[G_ASCII_DTOSTR_BUF_SIZE], bufy[G_ASCII_DTOSTR_BUF_SIZE];
   
   /* Use connection points, drop the auto ones */
   if(design_connection && !renderer->design_connection) {
@@ -318,16 +319,33 @@ add_connection_point (ShapeRenderer *renderer,
 	  node = renderer->connection_root->parent;
 	  xmlUnlinkNode(renderer->connection_root);
 	  xmlFree(renderer->connection_root);
-	  xmlNewChild(node, NULL, (const xmlChar *)"connections", NULL);
+	  renderer->connection_root = xmlNewChild(node, NULL, (const xmlChar *)"connections", NULL);
   }
   if(!design_connection && renderer->design_connection)
   	return;
+
+  g_ascii_formatd(bufx, sizeof(bufx), "%g", point->x);
+  g_ascii_formatd(bufy, sizeof(bufy), "%g", point->y);
+
+  /* Remove duplicates */
+  for (node = renderer->connection_root->children; node; node = node->next) {
+    if ((XML_ELEMENT_NODE == node->type) && xmlStrEqual((const xmlChar *)"point", node->name)) {
+      propx = xmlGetProp(node, (const xmlChar *)"x");
+      propy = xmlGetProp(node, (const xmlChar *)"y");
+      if (xmlStrEqual((const xmlChar *)propx, (const xmlChar *)bufx) &&
+          xmlStrEqual((const xmlChar *)propy, (const xmlChar *)bufy)) {
+	if(propx) xmlFree(propx);
+        if(propy) xmlFree(propy);
+        return;
+      }
+      if(propx) xmlFree(propx);
+      if(propy) xmlFree(propy);
+    }
+  }
   
   node = xmlNewChild(renderer->connection_root, NULL, (const xmlChar *)"point", NULL);
-  g_ascii_formatd(buf, sizeof(buf), "%g", point->x);
-  xmlSetProp(node, (const xmlChar *)"x", (xmlChar *) buf);
-  g_ascii_formatd(buf, sizeof(buf), "%g", point->y);
-  xmlSetProp(node, (const xmlChar *)"y", (xmlChar *) buf);
+  xmlSetProp(node, (const xmlChar *)"x", (xmlChar *) bufx);
+  xmlSetProp(node, (const xmlChar *)"y", (xmlChar *) bufy);
   if (main) {
 	  xmlSetProp(node, (const xmlChar *)"main", (xmlChar *)"yes");
   }
