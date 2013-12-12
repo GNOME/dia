@@ -20,17 +20,17 @@ msgstr ""
 "Project-Id-Version: dia.HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=dia&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2013-08-25 10:00+0000\n"
-"PO-Revision-Date: 2013-08-27 18:40+0200\n"
+"POT-Creation-Date: 2013-10-25 21:41+0000\n"
+"PO-Revision-Date: 2013-12-12 17:17+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
-"Language-Team: Español; Castellano <gnome-es-list@gnome.org>\n"
+"Language-Team: Español <gnome-es-list@gnome.org>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "serrador@hispalinux.es>\n"
-"X-Generator: Gtranslator 2.91.6\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Gtranslator 2.91.5\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
 
 #. This is not an errror
 #: ../app/app_procs.c:208
@@ -507,7 +507,7 @@ msgid "Diagram"
 msgstr "Diagrama"
 
 #: ../app/diagram_tree_view.c:171
-#: ../plug-ins/drs/dia-render-script-import.c:232
+#: ../plug-ins/drs/dia-render-script-import.c:234
 msgid "Layer"
 msgstr "Capa"
 
@@ -991,7 +991,7 @@ msgstr "Capas"
 msgid "Diagram:"
 msgstr "Diagrama:"
 
-#: ../app/layer_dialog.c:512 ../app/layer_dialog.c:1224
+#: ../app/layer_dialog.c:512 ../app/layer_dialog.c:1235
 #, c-format
 msgid "New layer %d"
 msgstr "Capa nueva %d"
@@ -1001,15 +1001,15 @@ msgid "none"
 msgstr "ninguna"
 
 # Lo traduciría por "Elevar" en vez de "Subir". RizOX.
-#: ../app/layer_dialog.c:1194
+#: ../app/layer_dialog.c:1205
 msgid "Edit Layer"
 msgstr "Editar capa"
 
-#: ../app/layer_dialog.c:1194
+#: ../app/layer_dialog.c:1205
 msgid "Add Layer"
 msgstr "Añadir capa"
 
-#: ../app/layer_dialog.c:1213
+#: ../app/layer_dialog.c:1224
 msgid "Layer name:"
 msgstr "Nombre de la capa:"
 
@@ -1851,8 +1851,8 @@ msgstr "Exportar"
 msgid "Portable Network Graphics"
 msgstr "Portable Network Graphics"
 
-#: ../app/preferences.c:224 ../plug-ins/svg/render_svg.c:604
-#: ../plug-ins/svg/svg-import.c:1674
+#: ../app/preferences.c:224 ../plug-ins/svg/render_svg.c:603
+#: ../plug-ins/svg/svg-import.c:1774
 msgid "Scalable Vector Graphics"
 msgstr "Scalable Vector Graphics"
 
@@ -2544,7 +2544,7 @@ msgstr "flecha desconocida"
 #: ../lib/create.c:50 ../lib/create.c:100 ../lib/create.c:127
 #: ../lib/create.c:160 ../lib/create.c:196 ../lib/create.c:228
 #: ../lib/create.c:252 ../lib/create.c:284 ../lib/create.c:305
-#: ../lib/create.c:335 ../lib/create.c:378 ../plug-ins/svg/svg-import.c:556
+#: ../lib/create.c:335 ../lib/create.c:378 ../plug-ins/svg/svg-import.c:597
 #: ../plug-ins/vdx/vdx-import.c:144
 msgid "Can't find standard object"
 msgstr "No se pudo encontrar el objeto estándar"
@@ -2745,7 +2745,7 @@ msgstr "Filtros múltiples de exportación con nombre único %s"
 msgid "Can't load font %s.\n"
 msgstr "No se puede cargar la tipografía %s.\n"
 
-#: ../lib/group.c:633
+#: ../lib/group.c:622
 msgid "Transformation"
 msgstr "Transformación"
 
@@ -3089,11 +3089,11 @@ msgstr "Dibujando"
 msgid "Draw Control Lines"
 msgstr "Dibujar líneas de control"
 
-#: ../lib/standard-path.c:470
+#: ../lib/standard-path.c:478
 msgid "Convert to Bezier"
 msgstr "Convertir a Bezier"
 
-#: ../lib/standard-path.c:471
+#: ../lib/standard-path.c:479
 msgid "Show Control Lines"
 msgstr "Mostrar líneas de control"
 
@@ -6015,7 +6015,7 @@ msgstr "ScriptDeRenderizadoDeDia"
 msgid "DiaRenderScript filter"
 msgstr "Filtro del script de renderizado de Dia"
 
-#: ../plug-ins/drs/dia-render-script-import.c:224
+#: ../plug-ins/drs/dia-render-script-import.c:226
 msgid "Broken file?"
 msgstr "¿Archivo roto?"
 
@@ -6152,20 +6152,25 @@ msgstr "Filtro de exportación Metapost de TeX"
 msgid "TeX Metapost macros"
 msgstr "Macros Metapost de TeX"
 
-#: ../plug-ins/pdf/pdf.c:30
+#: ../plug-ins/pdf/pdf.c:29
+#| msgid "PDF import filter"
+msgid "PDF import not available."
+msgstr "Importación PDF no disponible."
+
+#: ../plug-ins/pdf/pdf.c:37
 msgid "Portable Document File"
 msgstr "Portable Document File"
 
-#: ../plug-ins/pdf/pdf.c:44
+#: ../plug-ins/pdf/pdf.c:55
 msgid "PDF import filter"
 msgstr "Filtro de importación PDF"
 
-#: ../plug-ins/pdf/pdf-import.cpp:311
+#: ../plug-ins/pdf/pdf-import.cpp:332
 #, c-format
 msgid "Page %d"
 msgstr "Página %d"
 
-#: ../plug-ins/pdf/pdf-import.cpp:706
+#: ../plug-ins/pdf/pdf-import.cpp:740
 #, c-format
 msgid ""
 "PDF document not OK.\n"
@@ -6311,7 +6316,7 @@ msgid "Scalable Vector Graphics import and export filters"
 msgstr ""
 "Filtro de importación y exportación de gráficos de vector escalables (SVG)"
 
-#: ../plug-ins/svg/svg-import.c:545
+#: ../plug-ins/svg/svg-import.c:586
 msgid ""
 "Invalid path data.\n"
 "svg:path data must start with moveto."
@@ -6319,16 +6324,16 @@ msgstr ""
 "Ruta de datos no válida.\n"
 "svg:la ruta de datos debe empezar con moveto."
 
-#: ../plug-ins/svg/svg-import.c:1439
+#: ../plug-ins/svg/svg-import.c:1573
 msgid "'Shape Design' shapes missing."
 msgstr "«Diseño de contorno» no encuentra los contornos."
 
-#: ../plug-ins/svg/svg-import.c:1473
+#: ../plug-ins/svg/svg-import.c:1607
 #, c-format
 msgid "Object '%s' creation failed"
 msgstr "Falló la creación de «%s»"
 
-#: ../plug-ins/svg/svg-import.c:1495
+#: ../plug-ins/svg/svg-import.c:1629
 #, c-format
 msgid ""
 "Parse error for memory block.\n"
@@ -6337,16 +6342,16 @@ msgstr ""
 "Analizar el error para el bloque de memoria\n"
 "%s"
 
-#: ../plug-ins/svg/svg-import.c:1508 ../plug-ins/vdx/vdx-import.c:2887
+#: ../plug-ins/svg/svg-import.c:1642 ../plug-ins/vdx/vdx-import.c:2887
 #, c-format
 msgid "Parse error for %s"
 msgstr "Analizar el error para %s"
 
-#: ../plug-ins/svg/svg-import.c:1541
+#: ../plug-ins/svg/svg-import.c:1675
 msgid "Expected SVG Namespace not found in file"
 msgstr "No se encontró en el archivo el espacio de nombres SVG esperado"
 
-#: ../plug-ins/svg/svg-import.c:1561
+#: ../plug-ins/svg/svg-import.c:1695
 #, c-format
 msgid "root element was '%s' -- expecting 'svg'."
 msgstr "el elemento raíz era «%s»; se esperaba «svg»."
