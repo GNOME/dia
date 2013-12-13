@@ -452,14 +452,11 @@ beziershape_add_segment (BezierShape *bezier,
 
   g_return_val_if_fail (segment >= 0 && segment < bezier->bezier.num_points, NULL);
 
-  if (segment == 0) /* don't want to add this, just take the next one */
-    ++segment;
-
-  if (segment != 1)
-    startpoint = bezier->bezier.points[segment-1].p3;
+  if (bezier->bezier.points[segment].type == BEZ_CURVE_TO)
+    startpoint = bezier->bezier.points[segment].p3;
   else 
-    startpoint = bezier->bezier.points[0].p1;
-  other = bezier->bezier.points[segment].p3;
+    startpoint = bezier->bezier.points[segment].p1;
+  other = bezier->bezier.points[segment+1].p3;
   if (point == NULL) {
     realpoint.p1.x = (startpoint.x + other.x)/6;
     realpoint.p1.y = (startpoint.y + other.y)/6;
@@ -488,10 +485,10 @@ beziershape_add_segment (BezierShape *bezier,
   new_cp2 = g_new0(ConnectionPoint, 1);
   new_cp1->object = &bezier->object;
   new_cp2->object = &bezier->object;
-  add_handles(bezier, segment, &realpoint, corner_type,
+  add_handles(bezier, segment+1, &realpoint, corner_type,
 	      new_handle1, new_handle2, new_handle3, new_cp1, new_cp2);
   return beziershape_create_point_change(bezier, TYPE_ADD_POINT,
-					 &realpoint, corner_type, segment,
+					 &realpoint, corner_type, segment+1,
 					 new_handle1, new_handle2, new_handle3,
 					 new_cp1, new_cp2);
 }
@@ -512,12 +509,13 @@ beziershape_remove_segment (BezierShape *bezier, int pos)
   BezCornerType old_ctype;
   int next = pos+1;
 
-  g_assert(pos > 0);
+  g_return_val_if_fail (pos > 0 && pos < bezier->bezier.num_points, NULL);
   g_assert(bezier->bezier.num_points > 2);
-  g_assert(pos < bezier->bezier.num_points);
 
   if (pos == bezier->bezier.num_points - 1)
     next = 1;
+  else if (next == 1)
+    next = bezier->bezier.num_points - 1;
 
   old_handle1 = bezier->object.handles[3*pos-3];
   old_handle2 = bezier->object.handles[3*pos-2];

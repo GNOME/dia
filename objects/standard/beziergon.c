@@ -469,7 +469,7 @@ beziergon_delete_segment_callback (DiaObject *obj, Point *clicked, gpointer data
   ObjectChange *change;
   
   seg_nr = beziergon_closest_segment(bezier, clicked);
-  change = beziershape_remove_segment(&bezier->bezier, seg_nr);
+  change = beziershape_remove_segment(&bezier->bezier, seg_nr+1);
 
   beziergon_update_data(bezier);
   return change;

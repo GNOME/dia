@@ -518,7 +518,7 @@ _test_object_menu (gconstpointer user_data)
     g_test_message ("SKIPPED (n.i.)!");
   } else {
     DiaMenu *menu = (o->ops->get_object_menu)(o, &from); /* clicked_pos should not matter much */
-    /* strangley enough I found a crash with menu==NULL today ;) */
+    /* strangely enough I found a crash with menu==NULL today ;) */
     int num_items = menu ? menu->num_items : 0;
 
     for (i = 0; i < num_items; ++i) {
@@ -623,6 +623,109 @@ _test_distance_from (gconstpointer user_data)
   o->ops->destroy (o);
   g_free (o);
 }
+
+#include "lib/prop_geomtypes.h" /* BezPointarrayProperty */
+
+/* there is no v-table entry for Add/Delete (Corner|Segment)
+ * so we have to search the object menu
+ */
+static ObjectChange *
+_change_point (DiaObject *o, const gchar *verb, Point *pt)
+{
+  int i;
+  DiaMenu *menu = (o->ops->get_object_menu)(o, pt); /* clicked_pos should not matter much */
+  /* strangely enough I found a crash with menu==NULL today ;) */
+  int num_items = menu ? menu->num_items : 0;
+
+  for (i = 0; i < num_items; ++i) {
+    DiaMenuItem *item = &menu->items[i];
+
+    if (item->text && strncmp (item->text, verb, strlen(verb)) == 0) {
+      if (item->callback && (item->active & DIAMENU_ACTIVE))
+	return (item->callback)(o, pt, item->callback_data);
+    }
+  }
+  return NULL;
+}
+
+static void
+_test_segments (gconstpointer user_data)
+{
+  const DiaObjectType *type = (const DiaObjectType *)user_data;
+  Handle *h1 = NULL, *h2 = NULL;
+  Point from = {0, 0};
+  DiaObject *o = type->ops->create (&from, type->default_user_data, &h1, &h2);
+  Property *prop;
+
+  /* only few object support to add/remove objects, filter to these objects first */
+  if ((prop = object_prop_by_name_type (o, "bez_points", PROP_TYPE_BEZPOINTARRAY)) != NULL) {
+    /* get the points array to compare against */
+    GArray *d1 = ((BezPointarrayProperty *)prop)->bezpointarray_data;
+    /* add and delete some points */
+    int n;
+    for (n = 0; n < d1->len - 1; ++n) {
+      ObjectChange *ch1, *ch2;
+#define SELECT_BP(d,j,k) g_array_index(d, BezPoint, j).type == BEZ_CURVE_TO ? g_array_index(d, BezPoint, j).p3.##k : g_array_index(d, BezPoint, j).p1.##k
+      from.x = (SELECT_BP(d1,n,x) + SELECT_BP(d1,n+1,x)) / 2;
+      from.y = (SELECT_BP(d1,n,y) + SELECT_BP(d1,n+1,y)) / 2;
+#undef SELECT_BP
+      if ((ch1 = _change_point (o, "Add ", &from)) != NULL) {
+	int i;
+	Property *prop2 = object_prop_by_name_type (o, "bez_points", PROP_TYPE_BEZPOINTARRAY);
+	GArray *d2 = ((BezPointarrayProperty *)prop2)->bezpointarray_data;
+	g_assert (d1->len == d2->len - 1);
+	ch2 = _change_point (o, "Delete ", &from);
+	prop2->ops->free (prop2);
+	/* adding and deleting the same point shall lead to the initial state */
+	prop2 = object_prop_by_name_type (o, "bez_points", PROP_TYPE_BEZPOINTARRAY);
+	d2 = ((BezPointarrayProperty *)prop2)->bezpointarray_data;
+	for (i = 0; i < d1->len; ++i) {
+	  BezPoint *bp1 = &g_array_index(d1, BezPoint, i);
+	  BezPoint *bp2 = &g_array_index(d2, BezPoint, i);
+	  g_assert_cmpfloat (fabs (bp1->p1.x - bp2->p1.x), <, EPSILON); /* for all types of BezPoint */
+	  g_assert_cmpfloat (fabs (bp1->p1.y - bp2->p1.y), <, EPSILON); /* - " - */
+	  g_assert (bp1->type == bp2->type);
+	  if (bp1->type != BEZ_CURVE_TO)
+	    continue;
+	  g_assert_cmpfloat (fabs (bp1->p2.x - bp2->p2.x), <, EPSILON);
+	  g_assert_cmpfloat (fabs (bp1->p2.y - bp2->p2.y), <, EPSILON);
+	  g_assert_cmpfloat (fabs (bp1->p3.x - bp2->p3.x), <, EPSILON);
+	  g_assert_cmpfloat (fabs (bp1->p3.y - bp2->p3.y), <, EPSILON);
+	}
+	prop2->ops->free (prop2);
+	/* Check if undo is reconstructing the object, too */
+	(ch2->revert)(ch2, o);
+	_object_change_free(ch2);
+	(ch1->revert)(ch1, o);
+	_object_change_free(ch1);
+	prop2 = object_prop_by_name_type (o, "bez_points", PROP_TYPE_BEZPOINTARRAY);
+	d2 = ((BezPointarrayProperty *)prop2)->bezpointarray_data;
+	for (i = 0; i < d1->len; ++i) {
+	  BezPoint *bp1 = &g_array_index(d1, BezPoint, i);
+	  BezPoint *bp2 = &g_array_index(d2, BezPoint, i);
+	  g_assert_cmpfloat (fabs (bp1->p1.x - bp2->p1.x), <, EPSILON); /* for all types of BezPoint */
+	  g_assert_cmpfloat (fabs (bp1->p1.y - bp2->p1.y), <, EPSILON); /* - " - */
+	  g_assert (bp1->type == bp2->type);
+	  if (bp1->type != BEZ_CURVE_TO)
+	    continue;
+	  g_assert_cmpfloat (fabs (bp1->p2.x - bp2->p2.x), <, EPSILON);
+	  g_assert_cmpfloat (fabs (bp1->p2.y - bp2->p2.y), <, EPSILON);
+	  g_assert_cmpfloat (fabs (bp1->p3.x - bp2->p3.x), <, EPSILON);
+	  g_assert_cmpfloat (fabs (bp1->p3.y - bp2->p3.y), <, EPSILON);
+	}
+	prop2->ops->free (prop2);
+      }
+    }
+  } else if ((prop = object_prop_by_name_type (o, "points", PROP_TYPE_POINTARRAY)) != NULL) {
+  } else {
+    g_test_message ("n.a. ");
+  }
+  if (prop)
+    prop->ops->free (prop);
+  /* finally */
+  o->ops->destroy (o);
+  g_free (o);
+}
 /*
  * A dictionary interface to all registered object(-types)
  */
@@ -673,15 +776,29 @@ _ot_item (gpointer key,
   g_test_add_data_func (testpath, type, _test_distance_from);
   g_free (testpath);
 
+  testpath = g_strdup_printf ("%s/%s/%s", base, name, "Segments");
+  g_test_add_data_func (testpath, type, _test_segments);
+  g_free (testpath);
+
   ++num_objects;
 }
+
+#ifdef G_OS_WIN32
+#define Rectangle win32Rectangle
+#include <windows.h>
+#endif
 
 int
 main (int argc, char** argv)
 {
   GList *plugins = NULL;
   int ret = 0;
-  
+
+#ifdef G_OS_WIN32
+  /* No dialog if it fails, please. */
+  SetErrorMode(SetErrorMode(0) | SEM_NOGPFAULTERRORBOX);
+#endif
+
   /* not using gtk_test_init() means we can only test non-gtk facilities of objects */
   g_type_init ();
   g_test_init (&argc, &argv, NULL);

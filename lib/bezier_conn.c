@@ -189,7 +189,7 @@ bezierconn_move_handle (BezierConn *bezier,
 	point_sub(&pt, &bezier->bezier.points[comp_nr].p3);
 	if (point_len(&pt) > 0)
 	  point_normalize(&pt);
-	else { pt.x = 1.0; pt.y = 0.0; }	  
+	else { pt.x = 1.0; pt.y = 0.0; }
 	point_scale(&pt, -len);
 	point_add(&pt, &bezier->bezier.points[comp_nr].p3);
 	bezier->bezier.points[comp_nr+1].p1 = pt;
@@ -220,7 +220,7 @@ bezierconn_move_handle (BezierConn *bezier,
 	point_sub(&pt, &bezier->bezier.points[comp_nr-1].p3);
 	if (point_len(&pt) > 0)
 	  point_normalize(&pt);
-	else { pt.x = 1.0; pt.y = 0.0; }	  
+	else { pt.x = 1.0; pt.y = 0.0; }
 	point_scale(&pt, -len);
 	point_add(&pt, &bezier->bezier.points[comp_nr-1].p3);
 	bezier->bezier.points[comp_nr-1].p2 = pt;
@@ -504,12 +504,14 @@ bezierconn_remove_segment (BezierConn *bezier, int pos)
   ConnectionPoint *cpt1, *cpt2, *cpt3;
   BezPoint old_point;
   BezCornerType old_ctype;
-  int next = pos+1;
+  int next;
 
   g_assert(pos > 0);
   g_assert(bezier->bezier.num_points > 2);
 
-  if (pos == bezier->bezier.num_points-1) pos--;
+  if (pos == bezier->bezier.num_points-1)
+    pos--;
+  next = pos+1;
 
   old_handle1 = bezier->object.handles[3*pos-2];
   old_handle2 = bezier->object.handles[3*pos-1];

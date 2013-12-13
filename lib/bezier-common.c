@@ -140,16 +140,17 @@ beziercommon_closest_segment (BezierCommon *bezier,
 
   closest = 0;
   last = bezier->points[0].p1;
-  for (i = 0; i < bezier->num_points - 1; i++) {
-    real new_dist = distance_bez_seg_point(&last, &bezier->points[i+1], line_width, point);
+  /* the first point is just move-to so there is no need to consider p2,p3 of it */
+  for (i = 1; i < bezier->num_points; i++) {
+    real new_dist = distance_bez_seg_point(&last, &bezier->points[i], line_width, point);
     if (new_dist < dist) {
       dist = new_dist;
-      closest = i;
+      closest = i - 1;
     }
-    if (bezier->points[i+1].type == BEZ_CURVE_TO)
-      last = bezier->points[i+1].p3;
+    if (bezier->points[i].type == BEZ_CURVE_TO)
+      last = bezier->points[i].p3;
     else
-      last = bezier->points[i+1].p1;
+      last = bezier->points[i].p1;
   }
   return closest;
 }
