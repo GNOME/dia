@@ -32,7 +32,7 @@
 #include "diagram_tree_model.h"
 
 /* accessing iter fileds by name by */
-#ifdef _MSC_VER
+#if defined(_MSC_VER) && !defined(__clang__)
 /* GCC does not like the pattern */
 /* error: lvalue required as left operand of assignment */
 #define NODE_DIAGRAM(it) ((DiagramData*)(it->user_data))
