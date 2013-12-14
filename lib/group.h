@@ -21,7 +21,7 @@
 #include "diavar.h"
 #include "object.h"
 
-DIAVAR DiaObjectType group_type;
+extern DIAVAR DiaObjectType group_type;
 
 /* Make sure there are no connections from objects to objects
  * outside of the created group before calling group_create().

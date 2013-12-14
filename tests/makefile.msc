@@ -14,8 +14,9 @@ DEFINES = -DHAVE_CONFIG_H
 
 TESTS = \
 	test-boundingbox.exe \
+	test-sizeof.exe \
+	test-svg.exe \
 	test-objects.exe \
-	test-sizeof.exe
 
 all :	$(TESTS)
 
@@ -24,7 +25,7 @@ all :	$(TESTS)
 	$(CC) $(CFLAGS) -Fe$@ $< ..\lib\libdia.lib $(GLIB_LIBS) $(LDFLAGS) user32.lib /subsystem:console
 
 check:	all
-	for %p in ($(TESTS)) do set PATH=..\lib;%PATH% && %p ..\objects\UML\\
+	for %p in ($(TESTS)) do set PATH=..\lib;%PATH% && %p ..\objects\\ -s "/Dia/Objects/Demo, Custom Lines - Flow - Bezierline"
 
 test: all
 	for %p in ($(TESTS)) do set PATH=..\lib;%PATH% && %p ..\objects\\

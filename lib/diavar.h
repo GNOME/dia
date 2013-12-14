@@ -7,14 +7,14 @@
 #  ifdef LIBDIA_COMPILATION
 #    define DIAVAR __declspec(dllexport)
 #  else  /* !LIBDIA_COMPILATION */
-#    define DIAVAR extern __declspec(dllimport)
+#    define DIAVAR __declspec(dllimport)
 #  endif /* !LIBDIA_COMPILATION */
 #else  /* !G_OS_WIN32 */
-#  define DIAVAR extern
+#  /* DONT: define DIAVAR extern */
+#  /* extern and __declspec() are orthogonal - otherwise there wont be a difference between
+#   * the header declared variable and the one defined in the implmentation. At least clang-cl
+#   * code generation would create mutliple definitions, which later prohibit linking.
+#   */
 #endif
-
-/*! bounding box debug helper : set to !0 to see the caclulated bounding boxes */
-DIAVAR int render_bounding_boxes;
-
 
 #endif

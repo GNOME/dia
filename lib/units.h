@@ -40,6 +40,6 @@ struct _DiaUnitDef {
   int digits; /** Number of digits after the decimal separator */
 };
 
-const DIAVAR DiaUnitDef units[];
+extern const DIAVAR DiaUnitDef units[];
 
 #endif /* UNITS_H */
