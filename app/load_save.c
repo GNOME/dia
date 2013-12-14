@@ -361,6 +361,7 @@ diagram_data_load(const gchar *filename, DiagramData *data, DiaContext *ctx, voi
   int fd;
   GList *list;
   xmlDocPtr doc;
+  xmlNodePtr root;
   xmlNodePtr diagramdata;
   xmlNodePtr paperinfo, gridinfo, guideinfo;
   xmlNodePtr layer_node;
@@ -403,22 +404,26 @@ diagram_data_load(const gchar *filename, DiagramData *data, DiaContext *ctx, voi
     dia_context_add_message(ctx, _("Error loading diagram %s."), filename);
     return FALSE;
   }
-  
-  if (doc->xmlRootNode == NULL) {
+
+  root = doc->xmlRootNode;
+  /* skip comments */
+  while (root && (root->type != XML_ELEMENT_NODE))
+    root = root->next;
+  if (root == NULL) {
     message_error(_("Error loading diagram %s.\nUnknown file type."),
 		  dia_message_filename(filename));
     xmlFreeDoc (doc);
     return FALSE;
   }
 
-  namespace = xmlSearchNs(doc, doc->xmlRootNode, (const xmlChar *)"dia");
-  if (xmlStrcmp (doc->xmlRootNode->name, (const xmlChar *)"diagram") || (namespace == NULL)){
+  namespace = xmlSearchNs(doc, root, (const xmlChar *)"dia");
+  if (xmlStrcmp (root->name, (const xmlChar *)"diagram") || (namespace == NULL)){
     message_error(_("Error loading diagram %s.\nNot a Dia file."), 
 		  dia_message_filename(filename));
     xmlFreeDoc (doc);
     return FALSE;
   }
-  
+
   /* Destroy the default layer: */
   if (layer_object_count(data->active_layer) == 0) {
     g_ptr_array_remove(data->layers, data->active_layer);
@@ -426,7 +431,7 @@ diagram_data_load(const gchar *filename, DiagramData *data, DiaContext *ctx, voi
   }
 
   diagramdata = 
-    find_node_named (doc->xmlRootNode->xmlChildrenNode, "diagramdata");
+    find_node_named (root->xmlChildrenNode, "diagramdata");
 
   /* Read in diagram data: */
   data->bg_color = prefs.new_diagram.bg_color;
@@ -612,7 +617,7 @@ diagram_data_load(const gchar *filename, DiagramData *data, DiaContext *ctx, voi
   }
   /* Read in all layers: */
   layer_node =
-    find_node_named (doc->xmlRootNode->xmlChildrenNode, "layer");
+    find_node_named (root->xmlChildrenNode, "layer");
 
   objects_hash = g_hash_table_new(g_str_hash, g_str_equal);
 
