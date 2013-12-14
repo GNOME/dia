@@ -444,7 +444,7 @@ _test_connectionpoint_consistency (gconstpointer user_data)
           || strcmp (type->name, "Civil - Final-Settling Basin") == 0
           || strcmp (type->name, "Small Extension Node") == 0 /* MSE */
          )
-        g_print ("main-cp misplaced!");
+        g_print ("'%s' main-cp misplaced!\n", type->name);
       else
         g_assert (o->ops->distance_from (o, &cp->pos) == 0 && "within");
       continue;
@@ -633,7 +633,8 @@ static ObjectChange *
 _change_point (DiaObject *o, const gchar *verb, Point *pt)
 {
   int i;
-  DiaMenu *menu = (o->ops->get_object_menu)(o, pt); /* clicked_pos should not matter much */
+  ObjectMenuFunc omf = o->ops->get_object_menu;
+  DiaMenu *menu = omf ? (omf)(o, pt) : NULL;
   /* strangely enough I found a crash with menu==NULL today ;) */
   int num_items = menu ? menu->num_items : 0;
 
@@ -716,7 +717,50 @@ _test_segments (gconstpointer user_data)
 	prop2->ops->free (prop2);
       }
     }
-  } else if ((prop = object_prop_by_name_type (o, "points", PROP_TYPE_POINTARRAY)) != NULL) {
+  } else if ((prop = object_prop_by_name_type (o, "poly_points", PROP_TYPE_POINTARRAY)) != NULL) {
+    /* ToDo: the assumption does not hold for "orth_points", check if it should.  */
+    /* get the points array to compare against */
+    GArray *d1 = ((PointarrayProperty *)prop)->pointarray_data;
+    /* add and delete some points */
+    int n;
+    for (n = 0; n < d1->len - 1; ++n) {
+      ObjectChange *ch1, *ch2;
+      from.x = (g_array_index(d1, Point, n).x + g_array_index(d1, Point, n+1).x) / 2;
+      from.y = (g_array_index(d1, Point, n).y + g_array_index(d1, Point, n+1).y) / 2;
+      if ((ch1 = _change_point (o, "Add ", &from)) != NULL) {
+	int i;
+	GArray *d2;
+	Property *prop2 = object_prop_by_name_type (o, "poly_points", PROP_TYPE_POINTARRAY);
+	d2 = ((PointarrayProperty *)prop2)->pointarray_data;
+	g_assert (d1->len == d2->len - 1);
+	ch2 = _change_point (o, "Delete ", &from);
+	prop2->ops->free (prop2);
+	/* adding and deleting the same point shall lead to the initial state */
+	prop2 = object_prop_by_name_type (o, "poly_points", PROP_TYPE_POINTARRAY);
+	d2 = ((PointarrayProperty *)prop2)->pointarray_data;
+	for (i = 0; i < d1->len; ++i) {
+	  Point p1 = g_array_index(d1, Point, i);
+	  Point p2 = g_array_index(d2, Point, i);
+	  g_assert_cmpfloat (fabs (p1.x - p2.x), <, EPSILON);
+	  g_assert_cmpfloat (fabs (p1.y - p2.y), <, EPSILON);
+	}
+	prop2->ops->free (prop2);
+	/* Check if undo is reconstructing the object, too */
+	(ch2->revert)(ch2, o);
+	_object_change_free(ch2);
+	(ch1->revert)(ch1, o);
+	_object_change_free(ch1);
+	prop2 = object_prop_by_name_type (o, "poly_points", PROP_TYPE_POINTARRAY);
+	d2 = ((PointarrayProperty *)prop2)->pointarray_data;
+	for (i = 0; i < d1->len; ++i) {
+	  Point p1 = g_array_index(d1, Point, i);
+	  Point p2 = g_array_index(d2, Point, i);
+	  g_assert_cmpfloat (fabs (p1.x - p2.x), <, EPSILON);
+	  g_assert_cmpfloat (fabs (p1.y - p2.y), <, EPSILON);
+	}
+	prop2->ops->free (prop2);
+      }
+    }
   } else {
     g_test_message ("n.a. ");
   }
