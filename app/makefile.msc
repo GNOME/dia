@@ -138,17 +138,17 @@ $(PACKAGE).lib : $(OBJECTS)
 	lib /out:$(PACKAGE).lib $(OBJECTS)
 
 $(PACKAGE)-app.dll : $(OBJECTS) $(PACKAGE).def
-	$(CC) $(CFLAGS) -LD -Fe$(PACKAGE)-app.dll $(OBJECTS) $(PKG_LINK) \
-	gdi32.lib user32.lib advapi32.lib shell32.lib wsock32.lib $(LDFLAGS) /def:$(PACKAGE).def
+	$(CC) $(CFLAGS) -LD -Fe$(PACKAGE)-app.dll $(OBJECTS) \
+	$(LDFLAGS) $(PKG_LINK) gdi32.lib user32.lib advapi32.lib shell32.lib wsock32.lib /def:$(PACKAGE).def
 
 $(PACKAGE).exe : $(OBJECTS) $(PACKAGE).def $(PACKAGE).res main.obj $(PACKAGE)-app.dll
-	$(CC) $(CFLAGS) -Fe$(PACKAGE).exe $(PACKAGE).res main.obj dia-app.lib $(PKG_LINK) \
-	user32.lib advapi32.lib $(LDFLAGS) /subsystem:console
+	$(CC) $(CFLAGS) -Fe$(PACKAGE).exe $(PACKAGE).res main.obj \
+	$(LDFLAGS) dia-app.lib $(PKG_LINK) user32.lib advapi32.lib /subsystem:console
 
 $(PACKAGE)w.exe : $(OBJECTS) $(PACKAGE).def $(PACKAGE).res winmain.obj $(PACKAGE)-app.dll
-	$(CC) $(CFLAGS) -Fe$(PACKAGE)w.exe $(PACKAGE).res winmain.obj dia-app.lib $(PKG_LINK) \
-	gdi32.lib comdlg32.lib user32.lib advapi32.lib $(LDFLAGS) /subsystem:windows
-	
+	$(CC) $(CFLAGS) -Fe$(PACKAGE)w.exe $(PACKAGE).res winmain.obj \
+	$(LDFLAGS) dia-app.lib $(PKG_LINK) gdi32.lib comdlg32.lib user32.lib advapi32.lib $(LDFLAGS) /subsystem:windows
+
 $(PACKAGE)-win-remote.exe : dia-win-remote.c dia-win-remote.obj
 	$(CC) $(CFLAGS) -Fedia-win-remote.exe $(PACKAGE).res dia-win-remote.obj \
 	$(LDFLAGS) $(GLIB_LIBS) gdi32.lib comdlg32.lib user32.lib advapi32.lib shell32.lib \

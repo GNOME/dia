@@ -110,7 +110,7 @@ OBJECTS = \
 !ENDIF
 
 !IFDEF OBJ_pdf
-DEPCFLAGS = -DWIN32 $(POPPLER_CFLAGS) -GX -GR -EHs
+DEPCFLAGS = -DWIN32 -DHAVE_POPPLER=1 $(POPPLER_CFLAGS) -GX -GR -EHs
 EXTRALIBS = $(POPPLER_LIBS) $(JPEG_LIBS)
 OBJECTS = \
   pdf.obj \
@@ -208,7 +208,7 @@ $(PACKAGE).lib : $(OBJECTS)
 
 $(PACKAGE).dll : $(OBJECTS) $(PKG_DEF) $(EXTRALIBS)
 	$(CC) $(CFLAGS) -LD -Fe$(PACKAGE).dll $(OBJECTS) \
-	$(PKG_LINK) $(EXTRALIBS) user32.lib advapi32.lib wsock32.lib $(LDFLAGS) /def:$(PKG_DEF)
+	$(LDFLAGS) $(PKG_LINK) $(EXTRALIBS) user32.lib advapi32.lib wsock32.lib /def:$(PKG_DEF)
 $(PRJ_TOP)\config.h: $(PRJ_TOP)\config.h.win32
 	copy $(PRJ_TOP)\config.h.win32 $(PRJ_TOP)\config.h
 .cpp.obj :
