@@ -181,7 +181,7 @@ class StandardDiaRenderer :
 	def draw_ellipse (self, center, width, height, color) :
 		self._ellipse(center, width, height, color, 0)
 	def fill_ellipse (self, center, width, height, color) :
-		self._ellipse(center, width, height, color, 0)
+		self._ellipse(center, width, height, 0, color)
 
 	def _arc(self, center, width, height, angle1, angle2, color, fill) :
 		self.oid = self.oid + 1
