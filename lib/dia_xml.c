@@ -1353,9 +1353,6 @@ data_add_composite(AttributeNode attr, const char *type)
   return data_node;
 }
 
-#define BUFSIZE 2048
-#define OVERRUN_SAFETY 16
-
 /*!
  * \brief Save an XML document to a file.
  * @param filename The file to save to.
