@@ -23,8 +23,15 @@
  * \file layout.cpp - plugin for automatic diagram layout
  */
 /*!
- * \defgroup LayoutPlugin
+ * \defgroup LayoutPlugin Graph Layout Plugin
+ * \brief Connecting external graph layout libraries with Dia
+ *
  * \ingroup Plugins
+ *
+ * Dia's core facilities to do automatic layout is highly limited. This
+ * plug-in allows to connect external C++ libraries with Dia's objects
+ * simplified to nodes and edges. Changes done by the layout algorithm
+ * are connected with Dia's undo/redo system.
  */
 #include <config.h>
 
