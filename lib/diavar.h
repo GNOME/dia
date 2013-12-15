@@ -11,6 +11,7 @@
 #  endif /* !LIBDIA_COMPILATION */
 #else  /* !G_OS_WIN32 */
 #  /* DONT: define DIAVAR extern */
+#  define DIAVAR /* empty */
 #  /* extern and __declspec() are orthogonal - otherwise there wont be a difference between
 #   * the header declared variable and the one defined in the implmentation. At least clang-cl
 #   * code generation would create mutliple definitions, which later prohibit linking.

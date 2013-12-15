@@ -44,7 +44,8 @@ gboolean color_equals(const Color *color1, const Color *color2);
 static Color color_black = { 0.0f, 0.0f, 0.0f, 1.0f };
 static Color color_white = { 1.0f, 1.0f, 1.0f, 1.0f };
 #else
-DIAVAR Color color_black, color_white;
+extern DIAVAR Color color_black;
+extern DIAVAR Color color_white;
 #endif
 
 #define DIA_COLOR_TO_GDK(from, to) \
