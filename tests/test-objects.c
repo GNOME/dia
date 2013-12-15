@@ -649,6 +649,17 @@ _change_point (DiaObject *o, const gchar *verb, Point *pt)
   return NULL;
 }
 
+
+static Point
+_bez_between (const BezPoint *a, const BezPoint *b)
+{
+  Point r = {
+    ((a->type == BEZ_CURVE_TO ? a->p3.x : a->p1.x) + (b->type == BEZ_CURVE_TO ? b->p3.x : b->p1.x))/2,
+    ((a->type == BEZ_CURVE_TO ? a->p3.y : a->p1.y) + (b->type == BEZ_CURVE_TO ? b->p3.y : b->p1.y))/2,
+  };
+  return r;
+}
+
 static void
 _test_segments (gconstpointer user_data)
 {
@@ -666,10 +677,7 @@ _test_segments (gconstpointer user_data)
     int n;
     for (n = 0; n < d1->len - 1; ++n) {
       ObjectChange *ch1, *ch2;
-#define SELECT_BP(d,j,k) g_array_index(d, BezPoint, j).type == BEZ_CURVE_TO ? g_array_index(d, BezPoint, j).p3.##k : g_array_index(d, BezPoint, j).p1.##k
-      from.x = (SELECT_BP(d1,n,x) + SELECT_BP(d1,n+1,x)) / 2;
-      from.y = (SELECT_BP(d1,n,y) + SELECT_BP(d1,n+1,y)) / 2;
-#undef SELECT_BP
+      from = _bez_between (&g_array_index(d1, BezPoint, n), &g_array_index(d1, BezPoint, n+1));
       if ((ch1 = _change_point (o, "Add ", &from)) != NULL) {
 	int i;
 	Property *prop2 = object_prop_by_name_type (o, "bez_points", PROP_TYPE_BEZPOINTARRAY);
