@@ -583,20 +583,27 @@ read_path_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GHashTable *style_ht,
 	  use_stdpath = (move_tos > 1);
 	}
         if (g_array_index(bezpoints, BezPoint, 0).type != BEZ_MOVE_TO) {
-          dia_context_add_message(ctx, _("Invalid path data.\n"
+	  dia_context_add_message(ctx, _("Invalid path data.\n"
 					 "svg:path data must start with moveto."));
 	  break;
 	} else if (use_stdpath) {
 	  otype = object_get_type("Standard - Path");
-        } else if (!closed)
+	} else if (!closed) {
 	  otype = object_get_type("Standard - BezierLine");
-        else
+	} else if (bezpoints->len < 3) { /* error path: invalid input or parsing error? */
+	  /* Our beziergon can not handle less than three points
+	   * Not sure if turning it into a line is such a good idea ...
+	   */
+	  g_warning ("Not closing a path with two points.");
+	  otype = object_get_type("Standard - BezierLine");
+	  closed = FALSE;
+	} else {
 	  otype = object_get_type("Standard - Beziergon");
-
+	}
 	if (otype == NULL){
 	  dia_context_add_message(ctx, _("Can't find standard object"));
 	  break;
-        }
+	}
 	bcd = g_new(BezierCreateData, 1);
 	bcd->num_points = bezpoints->len;
 	bcd->points = &(g_array_index(bezpoints, BezPoint, 0));
@@ -618,7 +625,7 @@ read_path_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GHashTable *style_ht,
 	apply_style(new_obj, node, parent_style, style_ht, TRUE);
 	list = g_list_append (list, new_obj);
 
-        g_array_set_size (bezpoints, 0);
+	g_array_set_size (bezpoints, 0);
       }
       pathdata = unparsed;
       unparsed = NULL;
