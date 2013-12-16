@@ -371,6 +371,15 @@ _parse_color(gint32 *color, const char *str)
   return TRUE;
 }
 
+/*!
+ * \brief Convert a string to a color
+ *
+ * SVG spec also allows 'inherit' as color value, which leads
+ * to false here. Should still mostly work because the color
+ * is supposed to be initialized before.
+ *
+ * \ingroup DiaSvg
+ */
 gboolean
 dia_svg_parse_color (const gchar *str, Color *color)
 {
@@ -489,7 +498,7 @@ _style_adjust_font (DiaSvgStyle *s, const char *family, const char *style, const
      */
     s->font = dia_font_new_from_style(DIA_FONT_SANS, s->font_height > 0 ? s->font_height : 1.0);
     if (family) {
-      /* SVG allows a list of families here, also there is some stange formatting 
+      /* SVG allows a list of families here, also there is some strange formatting 
        * seen, like 'Arial'. If the given family name can not be resolved by 
        * Pango it complaints loudly with g_warning().
        */
@@ -698,8 +707,9 @@ dia_svg_parse_style_string (DiaSvgStyle *s, real user_scale, const gchar *str)
 }
 
 
-/*
+/*!
  * \brief Parse SVG style properties
+ *
  * This function not only parses the style attribute of the given node
  * it also extracts some of the style properties directly.
  * @param node An XML node to parse a style from.
@@ -707,6 +717,7 @@ dia_svg_parse_style_string (DiaSvgStyle *s, real user_scale, const gchar *str)
  *          initialized to some default values.
  * @param user_scale, if >0 scalable values (font-size, stroke-width, ...)
  *          are divided by this, otherwise ignored
+ *
  * \ingroup DiaSvg
  */
 void
@@ -734,8 +745,8 @@ dia_svg_parse_style(xmlNodePtr node, DiaSvgStyle *s, real user_scale)
   }
   str = xmlGetProp(node, (const xmlChar *)"fill");
   if (str) {
-    if (!_parse_color (&s->fill, (char *) str))
-       s->fill = DIA_SVG_COLOUR_NONE;
+    if (!_parse_color (&s->fill, (char *) str) && strcmp ((const char *) str, "inherit") != 0)
+      s->fill = DIA_SVG_COLOUR_NONE;
     xmlFree(str);
   }
   str = xmlGetProp(node, (const xmlChar *)"fill-opacity");
@@ -745,8 +756,8 @@ dia_svg_parse_style(xmlNodePtr node, DiaSvgStyle *s, real user_scale)
   }  
   str = xmlGetProp(node, (const xmlChar *)"stroke");
   if (str) {
-    if (!_parse_color (&s->stroke, (char *) str))
-       s->stroke = DIA_SVG_COLOUR_NONE;
+    if (!_parse_color (&s->stroke, (char *) str) && strcmp ((const char *) str, "inherit") != 0)
+      s->stroke = DIA_SVG_COLOUR_NONE;
     xmlFree(str);
   }
   str = xmlGetProp(node, (const xmlChar *)"stroke-opacity");
@@ -763,26 +774,34 @@ dia_svg_parse_style(xmlNodePtr node, DiaSvgStyle *s, real user_scale)
   }
   str = xmlGetProp(node, (const xmlChar *)"stroke-dasharray");
   if (str) {
-    _parse_dasharray (s, user_scale, (gchar *)str, NULL);
+    if (strcmp ((const char *)str, "inherit") != 0)
+      _parse_dasharray (s, user_scale, (gchar *)str, NULL);
     xmlFree(str);
   }
   str = xmlGetProp(node, (const xmlChar *)"stroke-linejoin");
   if (str) {
-    _parse_linejoin (s, (gchar *)str);
+    if (strcmp ((const char *)str, "inherit") != 0)
+      _parse_linejoin (s, (gchar *)str);
     xmlFree(str);
   }
   str = xmlGetProp(node, (const xmlChar *)"stroke-linecap");
   if (str) {
-    _parse_linecap (s, (gchar *)str);
+    if (strcmp ((const char *)str, "inherit") != 0)
+      _parse_linecap (s, (gchar *)str);
     xmlFree(str);
   }
   
   /* text-props, again ;( */
   str = xmlGetProp(node, (const xmlChar *)"font-size");
   if (str) {
-    s->font_height = g_ascii_strtod((gchar *)str, NULL);
-    if (user_scale > 0)
-      s->font_height /= user_scale;
+    /* for inherit we just leave the original value,
+     * should be initialized by parent style already
+     */
+    if (strcmp ((const char *)str, "inherit") != 0) {
+      s->font_height = g_ascii_strtod((gchar *)str, NULL);
+      if (user_scale > 0)
+	s->font_height /= user_scale;
+    }
     xmlFree(str);
   }
   str = xmlGetProp(node, (const xmlChar *)"text-anchor");
@@ -1387,7 +1406,7 @@ dia_svg_parse_path(GArray *points, const gchar *path_str, gchar **unparsed,
 	path_chomp(path);
 #else
 	/* Actually three flags, which might not be properly separated,
-	 * but even with this paths-data-20-f.svg does work. IMHO the
+	 * but even with this paths-data-20-f.svg does not work. IMHO the
 	 * test case is seriously borked and can only pass if parsing
 	 * the arc is tweaked against the test. In other words that test
 	 * looks like it is built against one specific implementation.
@@ -1425,11 +1444,15 @@ dia_svg_parse_path(GArray *points, const gchar *path_str, gchar **unparsed,
       break;
     case PATH_CLOSE:
       /* close the path with a line - second condition to ignore single close */
-      if (   (last_open.x != last_point.x || last_open.y != last_point.y)
-	  && (points->len != points_at_start)) {
-	bez.type = BEZ_LINE_TO;
-	bez.p1 = last_open;
-	g_array_append_val(points, bez);
+      if (!*closed && (points->len != points_at_start)) {
+	const BezPoint *bpe = &g_array_index(points, BezPoint, points->len-1);
+	/* if the last point already meets the first point dont add it again */
+	const Point pte = bpe->type == BEZ_CURVE_TO ? bpe->p3 : bpe->p1;
+	if (pte.x != last_open.x || pte.y != last_open.y) {
+	  bez.type = BEZ_LINE_TO;
+	  bez.p1 = last_open;
+	  g_array_append_val(points, bez);
+	}
 	last_point = last_open;
       }
       *closed = TRUE;
