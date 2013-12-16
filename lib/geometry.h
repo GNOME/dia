@@ -37,7 +37,9 @@
 #include <ieeefp.h>
 #endif
 #ifndef HAVE_ISINF
-#define isinf(a) (!finite(a))
+#  ifndef isinf
+#    define isinf(a) (!finite(a))
+#  endif
 #endif
 
 #ifdef _MSC_VER 
@@ -45,7 +47,9 @@
    /* there are some things more in the gcc headers */
 #  include <float.h>
 #  define finite(a) _finite(a)
-#  define isnan(a) _isnan(a)
+#  ifndef isnan
+#    define isnan(a) _isnan(a)
+#  endif
 #endif
 #ifdef G_OS_WIN32
 #  define M_PI      3.14159265358979323846
