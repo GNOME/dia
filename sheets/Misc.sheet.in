@@ -27,8 +27,8 @@
     <object name="Misc - Grid">
       <_description>Resizable grid</_description>
     </object>
-    <object name="Misc - NewGroup">
-      <_description>New-style group object, for testing</_description>
+    <object name="Misc - Diagram">
+      <_description>Diagram object</_description>
     </object>
   </contents>
 </sheet>
