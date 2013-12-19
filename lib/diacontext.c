@@ -116,7 +116,7 @@ dia_context_set_filename (DiaContext *context,
 const char *
 dia_context_get_filename (DiaContext *context)
 {
-  g_return_val_if_fail (context != NULL && context->filename, "");
+  g_return_val_if_fail (context != NULL, "");
 
   return context->filename;
 }
