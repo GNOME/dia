@@ -171,11 +171,11 @@ dia_image_load(const gchar *filename)
   image = gdk_pixbuf_new_from_file(filename, &error);
   if (image == NULL) {
     /* dia_image_load() function is also (mis)used to check file
-     * existance. Don't warn if the file is simply not there but
+     * existence. Don't warn if the file is simply not there but
      * only if there is something else wrong while loading it.
      */
     if (g_file_test(filename, G_FILE_TEST_EXISTS))
-      message_warning ("%s", error->message);
+      message_warning ("%s\n", error->message);
     g_error_free (error);
     return NULL;
   }
@@ -325,10 +325,10 @@ dia_image_save(DiaImage *image, const gchar *filename)
       image->filename = g_strdup (filename);
     } else if (!type) {
       /* pathologic case - pixbuf not even supporting PNG? */
-      message_error(_("Unsupported file format for saving:\n%s\n%s"),
+      message_error(_("Unsupported file format for saving:\n%s\n%s\n"),
                     dia_message_filename(filename));
     } else {
-      message_warning(_("Could not save file:\n%s\n%s"),
+      message_warning(_("Could not save file:\n%s\n%s\n"),
 		      dia_message_filename(filename),
                       error->message);
       g_error_free (error);
