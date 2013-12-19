@@ -259,6 +259,7 @@ _dae_update_data(DiagramAsElement *dae)
 
       dia_context_set_filename (ctx, dae->filename);
       if (inf->import_func(dae->filename, dae->data, ctx, inf->user_data)) {
+        data_update_extents (dae->data); /* should already be called by importer? */
         dae->scale = dae->element.width / (dae->data->extents.right - dae->data->extents.left);
         dae->element.height = (dae->data->extents.bottom - dae->data->extents.top) * dae->scale;
         dae->mtime = statbuf.st_mtime;

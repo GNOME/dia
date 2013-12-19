@@ -1115,7 +1115,27 @@ read_image_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GHashTable *style_ht,
         g_free (dir);
         filename = absfn;
       }
-      new_obj = create_standard_image(x, y, width, height, filename ? filename : "<broken>");
+      /* Importing svg as "Misc - Diagram" should produce better results than GdkPixbuf rendering */
+      if (filename && g_strrstr (filename, ".svg")) {
+	Handle *h1, *h2;
+	Point point = {x, y};
+	DiaObjectType *otype = object_get_type("Misc - Diagram");
+
+	if (otype) {
+	  GPtrArray *props = g_ptr_array_new ();
+	  new_obj = otype->ops->create (&point, otype->default_user_data, &h1, &h2);
+	  prop_list_add_filename (props, "diagram_file", filename);
+	  if (new_obj) {
+	    new_obj->ops->set_props (new_obj, props);
+	    point.x += width;
+	    point.y += height;
+	    new_obj->ops->move_handle (new_obj, h2, &point, NULL, HANDLE_MOVE_USER_FINAL, 0);
+	  }
+	  prop_list_free (props);
+	}
+      } else {
+	new_obj = create_standard_image(x, y, width, height, filename ? filename : "<broken>");
+      }
       g_free(filename);
     }
     xmlFree(str);
