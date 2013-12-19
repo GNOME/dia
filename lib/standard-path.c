@@ -678,16 +678,18 @@ stdpath_move_handle (StdPath *stdpath,
     } while (revert);
   } else if (handle->id == _HANDLE_ROTATE) {
     Point p1 = stdpath->handles[1].pos;
-    real dy = to->y - p1.y;
-    real dx = p1.x - p0.x;
+    Point pr = stdpath->handles[3].pos;
+    Point pc = {stdpath->handles[1].pos.x, stdpath->handles[3].pos.y };
+    real dx = to->x - p1.x;
+    real dy = pr.y - p1.y;
     DiaMatrix m;
     int i;
 
     g_assert(stdpath->handles[1].id == handle->id);
 
-    if (fabs(dy) < 0.001)
+    if (fabs(dx) < 0.001)
       return NULL;
-    dia_matrix_set_angle_and_scales (&m, asin (dy/dx), 1.0, 1.0);
+    dia_matrix_set_angle_and_scales (&m, -atan2 (dy, dx), 1.0, 1.0);
 
     for (i = 0; i < stdpath->num_points; ++i) {
       BezPoint *bp = &stdpath->points[i];
@@ -697,11 +699,11 @@ stdpath_move_handle (StdPath *stdpath,
 	Point *p = j == 0 ? &bp->p1 : (j == 1 ? &bp->p2 : &bp->p3);
         real w, h;
 
-	w = p->x - p0.x;
-	h = p->y - p0.y;
+	w = p->x - pc.x;
+	h = p->y - pc.y;
 
-	p->x = p0.x + w * m.xx + h * m.xy;
-	p->y = p1.y + w * m.yx + h * m.yy;
+	p->x = pc.x + w * m.xx + h * m.xy;
+	p->y = pc.y + w * m.yx + h * m.yy;
       }
     }
 
