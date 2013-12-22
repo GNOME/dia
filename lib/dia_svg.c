@@ -38,9 +38,14 @@
  * The Dia application supports various variants of SVG. There are
  * at least two importers of SVG dialects, namely \ref Shapes and
  * the standard SVG importer \ref Plugins. Both are using theses
- * serivces to a large extend, but they are also doing there own
+ * services to a large extend, but they are also doing there own
  * thing regarding the SVG dialect interpretation.
  */
+
+/*!
+ * A global variable to be accessed by "currentColor"
+ */
+static int _current_color = 0xFF000000;
 
 /*!
  * \brief Initialize a style object from another style object or defaults.
@@ -329,6 +334,8 @@ _parse_color(gint32 *color, const char *str)
     *color = DIA_SVG_COLOUR_BACKGROUND;
   else if (0 == strcmp(str, "text"))
     *color = DIA_SVG_COLOUR_TEXT;
+  else if (0 == strcmp(str, "currentColor"))
+    *color = _current_color;
   else if (0 == strncmp(str, "rgb(", 4)) {
     int r = 0, g = 0, b = 0;
     if (3 == sscanf (str+4, "%d,%d,%d", &r, &g, &b)) {
@@ -735,6 +742,13 @@ dia_svg_parse_style(xmlNodePtr node, DiaSvgStyle *s, real user_scale)
   /* ugly svg variations, it is allowed to give style properties without
    * the style attribute, i.e. direct attributes
    */
+  str = xmlGetProp(node, (const xmlChar *)"color");
+  if (str) {
+    int c;
+    if (_parse_color (&c, (char *) str))
+      _current_color = c;
+    xmlFree(str);
+  }
   str = xmlGetProp(node, (const xmlChar *)"opacity");
   if (str) {
     real opacity = g_ascii_strtod((char *) str, NULL);
@@ -753,7 +767,7 @@ dia_svg_parse_style(xmlNodePtr node, DiaSvgStyle *s, real user_scale)
   if (str) {
     s->fill_opacity = g_ascii_strtod((char *) str, NULL);
     xmlFree(str);
-  }  
+  }
   str = xmlGetProp(node, (const xmlChar *)"stroke");
   if (str) {
     if (!_parse_color (&s->stroke, (char *) str) && strcmp ((const char *) str, "inherit") != 0)
