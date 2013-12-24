@@ -295,6 +295,21 @@ EXPORTS
 
  dia_path_renderer_get_type
 
+ dia_pattern_new
+ dia_pattern_add_color
+ dia_pattern_foreach
+ dia_pattern_get_fallback_color
+ dia_pattern_get_points
+ dia_pattern_get_radius
+ dia_pattern_get_settings
+ dia_pattern_set_pattern
+ dia_pattern_set_point
+ dia_pattern_set_radius
+ dia_pattern_release
+ data_add_pattern
+ data_pattern
+ dia_object_set_pattern
+
  dia_interactive_renderer_interface_get_type
  
  dialog_make

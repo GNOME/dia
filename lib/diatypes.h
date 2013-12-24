@@ -136,6 +136,9 @@ typedef struct _OrthConn OrthConn;
 /* In paper.h: */
 typedef struct _PaperInfo PaperInfo;
 
+/* In pattern.h: */
+typedef struct _DiaPattern DiaPattern;
+
 /* In plug-ins.h: */
 typedef struct _PluginInfo PluginInfo;
 
