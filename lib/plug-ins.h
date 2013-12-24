@@ -52,7 +52,7 @@ G_BEGIN_DECLS
  *
  * \ingroup Plugins
  */
-#define DIA_PLUGIN_API_VERSION 18
+#define DIA_PLUGIN_API_VERSION 19
 
 typedef enum {
   DIA_PLUGIN_INIT_OK,

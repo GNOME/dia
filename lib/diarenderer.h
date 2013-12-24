@@ -32,9 +32,10 @@
 G_BEGIN_DECLS
 
 typedef enum {
-  RENDER_HOLES  = (1<<0),
-  RENDER_ALPHA  = (1<<1),
-  RENDER_AFFINE = (1<<2)
+  RENDER_HOLES   = (1<<0),
+  RENDER_ALPHA   = (1<<1),
+  RENDER_AFFINE  = (1<<2),
+  RENDER_PATTERN = (1<<3)
 } RenderCapability;
 
 /*! GObject boiler plate, create runtime information */
@@ -272,6 +273,8 @@ struct _DiaRendererClass
   /*! allows to adapt DiaObject implementations to certain renderer capabilities */
   gboolean (*is_capable_to) (DiaRenderer *renderer,
 			     RenderCapability cap);
+  /*! fill with a pattern, currently only gradient */
+  void (*set_pattern) (DiaRenderer *renderer, DiaPattern *pat);
 };
 
 /*

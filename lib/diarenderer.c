@@ -1532,6 +1532,16 @@ is_capable_to (DiaRenderer *renderer, RenderCapability cap)
   return FALSE;
 }
 
+/*!
+ * The base class has no pattern (gradient) support
+ */
+static void
+set_pattern (DiaRenderer *renderer, DiaPattern *pat)
+{
+  g_warning ("%s::set_pattern not implemented!", 
+             G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (renderer)));
+}
+
 /*
  * non member functions
  */
