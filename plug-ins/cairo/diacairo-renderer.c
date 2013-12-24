@@ -59,6 +59,7 @@
 #include "filter.h"
 #include "plug-ins.h"
 #include "object.h" /* only for object->ops->draw */
+#include "pattern.h"
 
 #include "diacairo.h"
 
@@ -204,6 +205,8 @@ is_capable_to (DiaRenderer *renderer, RenderCapability cap)
     return TRUE;
   else if (RENDER_AFFINE == cap)
     return TRUE;
+  else if (RENDER_PATTERN == cap)
+    return TRUE;
   if (cap != warned)
     g_warning ("New capability not supported by cairo??");
   warned = cap;
@@ -211,10 +214,109 @@ is_capable_to (DiaRenderer *renderer, RenderCapability cap)
 }
 
 /*!
+ * \brief Remember the given pattern to use for consecutive fill
+ * @param self explicit this pointer
+ * @param pattern linear or radial gradient 
+ */
+static void
+set_pattern (DiaRenderer *self, DiaPattern *pattern)
+{
+  DiaCairoRenderer *renderer = DIA_CAIRO_RENDERER (self);
+  DiaPattern *prev = renderer->pattern;
+  if (pattern)
+    renderer->pattern = g_object_ref (pattern);
+  else
+    renderer->pattern = pattern;
+  if (prev)
+    g_object_unref (prev);
+}
+
+static gboolean
+_add_color_stop (real ofs, const Color *col, gpointer user_data)
+{
+  cairo_pattern_t *pat = (cairo_pattern_t *)user_data;
+  
+  cairo_pattern_add_color_stop_rgba (pat, ofs,
+				     col->red, col->green, col->blue, col->alpha);
+}
+
+static cairo_pattern_t *
+_pattern_build_for_cairo (DiaPattern *pattern, const Rectangle *ext)
+{
+  cairo_pattern_t *pat;
+  gsize i;
+  real x, y;
+  DiaPatternType type;
+  guint flags;
+  Point p1, p2;
+  real r;
+
+  g_return_val_if_fail (pattern != NULL, NULL);
+
+  dia_pattern_get_settings (pattern, &type, &flags);
+  dia_pattern_get_points (pattern, &p1, &p2);
+  dia_pattern_get_radius (pattern, &r);
+
+  switch (type ) {
+  case DIA_LINEAR_GRADIENT :
+    pat = cairo_pattern_create_linear (p1.x, p1.y, p2.x, p2.y);
+    break;
+  case DIA_RADIAL_GRADIENT :
+    pat = cairo_pattern_create_radial (p2.x, p2.y, 0.0, p1.x, p1.y, r);
+    break;
+  default :
+    g_warning ("_pattern_build_for_cairo non such.");
+    return NULL;
+  }
+  /* this must only be optionally done */
+  if ((flags & DIA_PATTERN_USER_SPACE)==0) {
+    cairo_matrix_t matrix;
+    real w = ext->right - ext->left;
+    real h = ext->bottom - ext->top;
+    cairo_matrix_init (&matrix, w, 0.0, 0.0, h, ext->left, ext->top);
+    cairo_matrix_invert (&matrix);
+    cairo_pattern_set_matrix (pat, &matrix);
+  }
+  if (flags & DIA_PATTERN_EXTEND_PAD)
+    cairo_pattern_set_extend (pat, CAIRO_EXTEND_PAD);
+  else if (flags & DIA_PATTERN_EXTEND_REPEAT)
+    cairo_pattern_set_extend (pat, CAIRO_EXTEND_REPEAT);
+  else if (flags & DIA_PATTERN_EXTEND_REFLECT)
+    cairo_pattern_set_extend (pat, CAIRO_EXTEND_REFLECT);
+
+  dia_pattern_foreach (pattern, _add_color_stop, pat);
+
+  return pat;
+}
+
+/*!
+ * \brief Make use of the pattern if any
+ */
+static void
+_dia_cairo_fill (DiaCairoRenderer *renderer)
+{
+  if (!renderer->pattern) {
+    cairo_fill (renderer->cr);
+  } else {
+    /* maybe we should cache the cairo-pattern */
+    cairo_pattern_t *pat;
+    Rectangle fe;
+
+    /* Using the extents to scale the pattern is probably not correct */
+    cairo_fill_extents (renderer->cr, &fe.left, &fe.top, &fe.right, &fe.bottom);
+
+    pat = _pattern_build_for_cairo (renderer->pattern, &fe);
+    cairo_set_source (renderer->cr, pat);
+    cairo_fill (renderer->cr);
+    cairo_pattern_destroy (pat);
+  }
+}
+
+/*!
  * \brief Render the given object optionally transformed by matrix
  * @param self explicit this pointer
  * @param object the _DiaObject to draw
- * @param matrix the trnsformation matrix to use or NULL
+ * @param matrix the transformation matrix to use or NULL
  */
 static void
 draw_object (DiaRenderer *self, DiaObject *object, DiaMatrix *matrix)
@@ -517,7 +619,7 @@ _polygon(DiaRenderer *self,
   cairo_line_to (renderer->cr, points[0].x, points[0].y);
   cairo_close_path (renderer->cr);
   if (fill)
-    cairo_fill (renderer->cr);
+    _dia_cairo_fill (renderer);
   else
     cairo_stroke (renderer->cr);
   DIAG_STATE(renderer->cr)
@@ -558,7 +660,7 @@ _rect(DiaRenderer *self,
                    lr_corner->x - ul_corner->x, lr_corner->y - ul_corner->y);
 
   if (fill)
-    cairo_fill (renderer->cr);
+    _dia_cairo_fill (renderer);
   else
     cairo_stroke (renderer->cr);
   DIAG_STATE(renderer->cr)
@@ -648,7 +750,7 @@ fill_arc(DiaRenderer *self,
                       a1, a2);
   cairo_line_to (renderer->cr, center->x, center->y);
   cairo_close_path (renderer->cr);
-  cairo_fill (renderer->cr);
+  _dia_cairo_fill (renderer);
   DIAG_STATE(renderer->cr)
 }
 
@@ -683,7 +785,7 @@ _ellipse(DiaRenderer *self,
   cairo_restore (renderer->cr);
 
   if (fill)
-    cairo_fill (renderer->cr);
+    _dia_cairo_fill (renderer);
   else
     cairo_stroke (renderer->cr);
   DIAG_STATE(renderer->cr)
@@ -749,7 +851,7 @@ _bezier(DiaRenderer *self,
    * and should be closed or if it was a Bezierline which happens to end in the start point.
    */
   if (fill)
-    cairo_fill (renderer->cr);
+    _dia_cairo_fill (renderer);
   else
     cairo_stroke (renderer->cr);
   DIAG_STATE(renderer->cr)
@@ -998,7 +1100,7 @@ _rounded_rect (DiaRenderer *self,
   cairo_arc (renderer->cr,
              topleft->x + radius, topleft->y + radius, radius, G_PI, -G_PI_2);
   if (fill)
-    cairo_fill (renderer->cr);
+    _dia_cairo_fill (renderer);
   else
     cairo_stroke (renderer->cr);
   DIAG_STATE(renderer->cr)
@@ -1153,4 +1255,5 @@ cairo_renderer_class_init (DiaCairoRendererClass *klass)
   renderer_class->draw_rounded_polyline = draw_rounded_polyline;
   /* other */
   renderer_class->is_capable_to = is_capable_to;
+  renderer_class->set_pattern = set_pattern;
 }

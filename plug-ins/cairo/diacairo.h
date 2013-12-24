@@ -82,6 +82,9 @@ struct _DiaCairoRenderer
 
   /** caching the font description from set_font */
   PangoLayout *layout;
+
+  /*! If set use for fill */
+  DiaPattern *pattern;
 };
 
 struct _DiaCairoRendererClass
