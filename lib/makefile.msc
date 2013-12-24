@@ -94,6 +94,7 @@ OBJECTS = \
 	orth_conn.obj \
 	paper.obj \
 	parent.obj \
+	pattern.obj \
 	persistence.obj \
 	plug-ins.obj \
 	poly_conn.obj \
@@ -105,6 +106,7 @@ OBJECTS = \
 	prop_geomtypes.obj \
 	prop_inttypes.obj \
 	prop_matrix.obj \
+	prop_pattern.obj \
 	prop_pixbuf.obj \
 	prop_sdarray.obj \
 	prop_sdarray_widget.obj \

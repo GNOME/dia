@@ -222,6 +222,7 @@ typedef const gchar *PropertyType;
 #define PROP_TYPE_DICT "dict" /* DictProperty */
 #define PROP_TYPE_PIXBUF "pixbuf" /* PixbufProperty */
 #define PROP_TYPE_MATRIX "matrix" /* MatrixProperty */
+#define PROP_TYPE_PATTERN "pattern" /* PatternProperty */
 
 /* **************************************************************** */
 
@@ -558,6 +559,8 @@ Property *object_prop_by_name(DiaObject *obj, const char *name);
 Property *object_prop_by_name_type(DiaObject *obj, const char *name, const char *type);
 /* Set the pixbuf property if there is one */
 ObjectChange *dia_object_set_pixbuf (DiaObject *object, GdkPixbuf *pixbuf);
+/* Set the pattern property if there is one */
+ObjectChange *dia_object_set_pattern (DiaObject *object, DiaPattern *pat);
 /* Set the string property if there is one */
 ObjectChange *dia_object_set_string (DiaObject *object, const char *name, const char *value);
 

@@ -109,6 +109,9 @@ void data_add_pixbuf (AttributeNode attr, GdkPixbuf *pixbuf);
 DiaMatrix *data_matrix(DataNode data);
 void data_add_matrix(AttributeNode attr, DiaMatrix *matrix);
 
+DiaPattern *data_pattern(DataNode data, DiaContext *ctx);
+void data_add_pattern(AttributeNode attr, DiaPattern *pat);
+
 xmlDocPtr diaXmlParseFile(const char *filename, DiaContext *ctx, gboolean try_harder);
 
 #endif /* DIA_XML_H */

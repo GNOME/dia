@@ -16,6 +16,8 @@ stdprop_files = \
 	prop_dict.h \
 	prop_matrix.c \
 	prop_matrix.h \
+	prop_pattern.c \
+	prop_pattern.h \
 	prop_pixbuf.c \
 	prop_pixbuf.h \
 	prop_inttypes.c \
@@ -132,6 +134,8 @@ libdia_la_SOURCES =  \
 		units.h \
 		dia_image.c \
 		dia_image.h \
+		pattern.c \
+		pattern.h \
 		standard-path.c \
 		standard-path.h \
 		intl.c \

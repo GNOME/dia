@@ -440,6 +440,43 @@ dia_object_set_pixbuf (DiaObject *object,
 }
 
 /*!
+ * \brief Modification of the objects 'pattern' property
+ *
+ * @param object object to modify
+ * @param pattern the pattern to set
+ * @return an object change or NULL
+ *
+ * If the object does not have a pattern property nothing
+ * happens. If there is a pattern property and the passed
+ * in pattern is identical an empty change is returned.
+ *
+ * \memberof _DiaObject
+ * \ingroup StdProps
+ */
+ObjectChange *
+dia_object_set_pattern (DiaObject  *object,
+			DiaPattern *pattern)
+{
+  ObjectChange *change;
+  GPtrArray *props;
+  PatternProperty *pp;
+  Property *prop = object_prop_by_name_type (object, "pattern", PROP_TYPE_PATTERN);
+  
+  if (!prop)
+    return NULL;
+  pp = (PatternProperty *)prop;
+  if (pp->pattern == pattern)
+    return change_list_create ();
+  if (pp->pattern)
+    g_object_unref (pp->pattern);
+  pp->pattern = g_object_ref (pattern);
+  props = prop_list_from_single (prop);
+  change = object_apply_props (object, props);
+  prop_list_free (props);
+  return change;
+}
+
+/*!
  * \brief Modify the objects string property
  * @param object the object to modify
  * @param name the name of the string property (NULL for any)
