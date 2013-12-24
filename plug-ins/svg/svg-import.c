@@ -48,9 +48,13 @@
 #include "group.h"
 #include "font.h"
 #include "attributes.h"
+#include "pattern.h"
 
 static gboolean import_svg (xmlDocPtr doc, DiagramData *dia, DiaContext *ctx, void* user_data);
 static GPtrArray *make_element_props(real xpos, real ypos, real width, real height);
+
+/* ToDo: allow to put patterns into defs_ht to get rid of global variable */
+GHashTable *_pattern_ht = NULL;
 
 /* TODO: use existing implementation in dia source */
 static Color 
@@ -473,6 +477,24 @@ apply_style(DiaObject *obj, xmlNodePtr node, DiaSvgStyle *parent_style,
         bprop->bool_data = FALSE;
       } else {
 	bprop->bool_data = TRUE;
+      }
+      /* apply pattern, gradient if any */
+      str = xmlGetProp(node, (const xmlChar *)"fill");
+      if (str)
+      {
+	const char *left = strstr ((const char*)str, "url(#");
+	const char *right = strrchr ((const char*)str, ')');
+	if (left && right) {
+	  gchar *key = g_strndup (left + 5, right - left - 5);
+	  DiaPattern *pattern = g_hash_table_lookup (_pattern_ht, key);
+	  if (pattern) {
+	    dia_object_set_pattern (obj, pattern);
+	    /* activate "show_background" */
+	    bprop->bool_data = TRUE;
+	  }
+	  g_free (key);
+	}
+	xmlFree(str);        
       }
 
       eprop = g_ptr_array_index(props,5);
@@ -1147,6 +1169,109 @@ read_image_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GHashTable *style_ht,
   return list;
 }
 
+/*!
+ * \brief Parse gradient including stop-colors
+ *
+ * Parse a radial or linear gradient and into a DiaPattern.
+ * Missing attribute handling for:
+ *  - gradientTransform
+ *  - style inheritance (would require to parse stop-color and stop-opacity
+ *    outside of this function)
+ */
+static DiaPattern *
+read_gradient (xmlNodePtr node, DiaContext *ctx)
+{
+  DiaPattern *pat;
+  xmlNode    *child;
+  xmlChar    *str;
+  guint       flags = 0;
+  real        old_scale = user_scale;
+
+  str = xmlGetProp (node, (const xmlChar *)"gradientUnits");
+  if (str) {
+    if (xmlStrcmp(str, (const xmlChar *)"userSpaceOnUse")==0)
+      flags |= DIA_PATTERN_USER_SPACE;
+    xmlFree (str);
+  }
+  str = xmlGetProp (node, (const xmlChar *)"spreadMethod");
+  if (str) {
+    if (xmlStrcmp(str, (const xmlChar *)"pad")==0)
+      flags |= DIA_PATTERN_EXTEND_PAD;
+    else if (xmlStrcmp(str, (const xmlChar *)"reflect")==0)
+      flags |= DIA_PATTERN_EXTEND_REFLECT;
+    if (xmlStrcmp(str, (const xmlChar *)"repeat")==0)
+      flags |= DIA_PATTERN_EXTEND_REPEAT;
+    xmlFree (str);
+  }
+  /* this should not be user_scaled */
+  if ((flags & DIA_PATTERN_USER_SPACE) == 0)
+    user_scale = 1.0;
+  if (xmlStrcmp(node->name, (const xmlChar *)"linearGradient")==0) {
+    pat = dia_pattern_new (DIA_LINEAR_GRADIENT, flags,
+			   _node_get_real (node, "x1", 0.0), _node_get_real (node, "y1", 0.0));
+    dia_pattern_set_point (pat, _node_get_real (node, "x2", 1.0), _node_get_real (node, "y2", 0.0));
+  } else {
+    real cx = _node_get_real (node, "cx", 0.5);
+    real cy = _node_get_real (node, "cy", 0.5);
+    pat = dia_pattern_new (DIA_RADIAL_GRADIENT, flags, cx, cy);
+    dia_pattern_set_radius (pat, _node_get_real (node, "r", 0.5));
+    dia_pattern_set_point (pat, _node_get_real (node, "fx", cx), _node_get_real (node, "fy", cy));
+  }
+  /* restore previous user scale */
+  user_scale = old_scale;
+
+  /* if there is a single color on the gradient
+   *  - parse it to initialize currentColor
+   *  - use it as fall-back color for the whole gradient?
+   */
+  {
+    DiaSvgStyle gs;
+    dia_svg_style_init (&gs, NULL);
+    dia_svg_parse_style (node, &gs, user_scale);
+    /* not stop-color, but should be better than nothing */
+  }
+
+  /* stops and focal point can be defined by reference */
+  str = xmlGetProp(node, (const xmlChar *)"xlink:href");
+  if (!str) /* this doesn't look right but it appears to work w/o namespace --hb */
+    str = xmlGetProp (node, (const xmlChar *)"href");
+  if (str) {
+    DiaPattern *pattern = g_hash_table_lookup (_pattern_ht, (const char*)str+1);
+    if (pattern)
+      dia_pattern_set_pattern (pat, pattern);
+    xmlFree (str);
+  }
+
+  child = node->children;
+  while (child) {
+    if (xmlStrcmp(child->name, (const xmlChar *)"stop")==0) {
+      Color color = color_black;
+      real offset = 0.0;
+      str = xmlGetProp(child, (const xmlChar *)"stop-color");
+      if (str) {
+	dia_svg_parse_color((const gchar*)str, &color);
+	xmlFree(str);
+      }
+      str = xmlGetProp(child, (const xmlChar *)"offset");
+      if (str) {
+	if (strrchr (str, '%'))
+	  offset = g_ascii_strtod ((const char*)str, NULL) / 100.0;
+	else
+	  offset = g_ascii_strtod ((const char*)str, NULL);
+	xmlFree(str);
+      }
+      str = xmlGetProp(child, (const xmlChar *)"stop-opacity");
+      if (str) {
+	color.alpha = g_ascii_strtod ((const char*)str, NULL);
+	xmlFree(str);
+      }
+      dia_pattern_add_color (pat, offset, &color);
+    }
+    child = child->next;
+  }
+
+  return pat;
+}
 
 /*!
  * \brief Parse the CSS style block of the SVG
@@ -1169,7 +1294,7 @@ read_style (xmlNodePtr node, GHashTable *ht)
     g_regex_match (regex, (gchar *)str, 0, &info);
     while (g_match_info_matches (info)) {
       /* Use the _last_ key before { and val between {}
-       * To the left there might be refernenced parents in the tree restricting
+       * To the left there might be referenced parents in the tree restricting
        * the effect of the key but that's just too complicated for Dia's SVG ...
        */
       gchar *key = g_match_info_fetch (info, 1);
@@ -1411,6 +1536,15 @@ read_items (xmlNodePtr   startnode,
       items = read_image_svg(node, parent_gs, style_ht, items, filename_svg);
       if (items)
 	obj = g_list_last(items)->data;
+    } else if(!xmlStrcmp(node->name, (const xmlChar *)"linearGradient") ||
+	      !xmlStrcmp(node->name, (const xmlChar *)"radialGradient")) {
+      xmlChar *val = xmlGetProp (node, (const xmlChar *)"id");
+      if (val) {
+	DiaPattern *pat = read_gradient (node, ctx);
+	if (pat)
+	  g_hash_table_insert (_pattern_ht, g_strdup(val), pat);
+	xmlFree (val);
+      }
     } else if(!xmlStrcmp(node->name, (const xmlChar *)"defs")) {
       /* everything below must have a name to make a difference */
       GList *list, *defs = read_items (node->xmlChildrenNode, parent_gs, defs_ht, style_ht, filename_svg, ctx);
@@ -1737,8 +1871,10 @@ import_svg (xmlDocPtr doc, DiagramData *dia,
   {
     GHashTable *defs_ht = g_hash_table_new (g_str_hash, g_str_equal);
     GHashTable *style_ht = g_hash_table_new (g_str_hash, g_str_equal);
+    _pattern_ht = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_object_unref);
     items = read_items (root->xmlChildrenNode, NULL, defs_ht, style_ht,
 		        dia_context_get_filename(ctx), ctx);
+    g_hash_table_destroy (_pattern_ht);
     g_hash_table_destroy (style_ht);
     g_hash_table_destroy (defs_ht);
   }
