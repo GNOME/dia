@@ -35,6 +35,7 @@
 #include "diamenu.h"
 #include "properties.h"
 #include "create.h"
+#include "pattern.h"
 
 #include "tool-icons.h"
 
@@ -55,6 +56,7 @@ typedef struct _Beziergon {
   gboolean show_background;
   real dashlength;
   real line_width;
+  DiaPattern *pattern;
 } Beziergon;
 
 typedef struct _BeziergonProperties BeziergonProperties;
@@ -104,6 +106,8 @@ static PropDescription beziergon_props[] = {
   PROP_STD_LINE_JOIN_OPTIONAL,
   PROP_STD_FILL_COLOUR,
   PROP_STD_SHOW_BACKGROUND,
+  { "pattern", PROP_TYPE_PATTERN, PROP_FLAG_VISIBLE|PROP_FLAG_OPTIONAL,
+    N_("Pattern"), NULL },
   PROP_DESC_END
 };
 
@@ -116,6 +120,7 @@ static PropOffset beziergon_offsets[] = {
   { "line_join", PROP_TYPE_ENUM, offsetof(Beziergon, line_join) },
   { "fill_colour", PROP_TYPE_COLOUR, offsetof(Beziergon, inner_color) },
   { "show_background", PROP_TYPE_BOOL, offsetof(Beziergon, show_background) },
+  { "pattern", PROP_TYPE_PATTERN, offsetof(Beziergon, pattern) },
   { NULL, 0, 0 }
 };
 
@@ -225,8 +230,17 @@ beziergon_draw(Beziergon *beziergon, DiaRenderer *renderer)
   renderer_ops->set_linejoin(renderer, beziergon->line_join);
   renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
 
-  if (beziergon->show_background)
-    renderer_ops->fill_bezier(renderer, points, n, &beziergon->inner_color);
+  if (beziergon->show_background) {
+    Color fill = beziergon->inner_color;
+    if (beziergon->pattern) {
+      dia_pattern_get_fallback_color (beziergon->pattern, &fill);
+      if (renderer_ops->is_capable_to(renderer, RENDER_PATTERN))
+        renderer_ops->set_pattern (renderer, beziergon->pattern);
+    }
+    renderer_ops->fill_bezier(renderer, points, n, &fill);
+    if (renderer_ops->is_capable_to(renderer, RENDER_PATTERN))
+      renderer_ops->set_pattern (renderer, NULL);
+  }
 
   renderer_ops->draw_bezier(renderer, points, n, &beziergon->line_color);
 
@@ -323,6 +337,8 @@ beziergon_copy(Beziergon *beziergon)
   newbeziergon->dashlength = beziergon->dashlength;
   newbeziergon->inner_color = beziergon->inner_color;
   newbeziergon->show_background = beziergon->show_background;
+  if (beziergon->pattern)
+    newbeziergon->pattern = g_object_ref (beziergon->pattern);
 
   return &newbeziergon->bezier.object;
 }
@@ -387,6 +403,9 @@ beziergon_save(Beziergon *beziergon, ObjectNode obj_node,
     data_add_enum(new_attribute(obj_node, "line_join"),
                   beziergon->line_join);
 
+  if (beziergon->pattern)
+    data_add_pattern(new_attribute(obj_node, "pattern"),
+		     beziergon->pattern);
 }
 
 static DiaObject *
@@ -441,6 +460,10 @@ beziergon_load(ObjectNode obj_node, int version, DiaContext *ctx)
   attr = object_find_attribute(obj_node, "dashlength");
   if (attr != NULL)
     beziergon->dashlength = data_real(attribute_first_data(attr), ctx);
+
+  attr = object_find_attribute(obj_node, "pattern");
+  if (attr != NULL)
+    beziergon->pattern = data_pattern(attribute_first_data(attr), ctx);
 
   beziergon_update_data(beziergon);
 

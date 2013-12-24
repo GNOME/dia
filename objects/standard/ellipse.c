@@ -30,6 +30,7 @@
 #include "diarenderer.h"
 #include "attributes.h"
 #include "properties.h"
+#include "pattern.h"
 
 #include "tool-icons.h"
 
@@ -63,6 +64,7 @@ struct _Ellipse {
   AspectType aspect;
   LineStyle line_style;
   real dashlength;
+  DiaPattern *pattern;
 };
 
 static struct _EllipseProperties {
@@ -110,6 +112,7 @@ static PropOffset ellipse_offsets[] = {
   { "aspect", PROP_TYPE_ENUM, offsetof(Ellipse, aspect) },
   { "line_style", PROP_TYPE_LINESTYLE,
     offsetof(Ellipse, line_style), offsetof(Ellipse, dashlength) },
+  { "pattern", PROP_TYPE_PATTERN, offsetof(Ellipse, pattern) },
   { NULL, 0, 0 }
 };
 
@@ -128,6 +131,8 @@ static PropDescription ellipse_props[] = {
   PROP_STD_LINE_STYLE,
   { "aspect", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE,
     N_("Aspect ratio"), NULL, prop_aspect_data },
+  { "pattern", PROP_TYPE_PATTERN, PROP_FLAG_VISIBLE|PROP_FLAG_OPTIONAL,
+    N_("Pattern"), NULL },
   PROP_DESC_END
 };
 
@@ -304,12 +309,19 @@ ellipse_draw(Ellipse *ellipse, DiaRenderer *renderer)
   center.y = elem->corner.y + elem->height/2;
 
   if (ellipse->show_background) {
+    Color fill = ellipse->inner_color;
     renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
-
+    if (ellipse->pattern) {
+      dia_pattern_get_fallback_color (ellipse->pattern, &fill);
+      if (renderer_ops->is_capable_to(renderer, RENDER_PATTERN))
+        renderer_ops->set_pattern (renderer, ellipse->pattern);
+    }
     renderer_ops->fill_ellipse(renderer, 
 				&center,
 				elem->width, elem->height,
-				&ellipse->inner_color);
+				&fill);
+    if (renderer_ops->is_capable_to(renderer, RENDER_PATTERN))
+      renderer_ops->set_pattern (renderer, NULL);
   }
 
   renderer_ops->set_linewidth(renderer, ellipse->border_width);
@@ -466,6 +478,8 @@ ellipse_copy(Ellipse *ellipse)
   newellipse->show_background = ellipse->show_background;
   newellipse->aspect = ellipse->aspect;
   newellipse->line_style = ellipse->line_style;
+  if (ellipse->pattern)
+    newellipse->pattern = g_object_ref (ellipse->pattern);
 
   newellipse->center_handle = ellipse->center_handle;
   newellipse->center_handle.connected_to = NULL;
@@ -517,6 +531,10 @@ ellipse_save(Ellipse *ellipse, ObjectNode obj_node, const char *filename)
 	    data_add_real(new_attribute(obj_node, "dashlength"),
 			  ellipse->dashlength);
   }
+
+  if (ellipse->pattern)
+    data_add_pattern(new_attribute(obj_node, "pattern"),
+		     ellipse->pattern);
 }
 
 static DiaObject *ellipse_load(ObjectNode obj_node, int version, DiaContext *ctx)
@@ -570,6 +588,10 @@ static DiaObject *ellipse_load(ObjectNode obj_node, int version, DiaContext *ctx
   attr = object_find_attribute(obj_node, "dashlength");
   if (attr != NULL)
     ellipse->dashlength = data_real(attribute_first_data(attr), ctx);
+
+  attr = object_find_attribute(obj_node, "pattern");
+  if (attr != NULL)
+    ellipse->pattern = data_pattern(attribute_first_data(attr), ctx);
 
   element_init(elem, 9, 9);
 

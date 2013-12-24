@@ -42,6 +42,7 @@
 #include "standard-path.h"
 #include "create.h"
 #include "bezier-common.h"
+#include "pattern.h"
 
 #include "dia-lib-icons.h"
 
@@ -102,6 +103,9 @@ struct _StdPath {
   /* mostly useful for debugging transformations */
   gboolean show_control_lines;
 
+  /*! optional gradient */
+  DiaPattern *pattern;
+
   Handle handles[NUM_HANDLES];
 
   HandleMoveReason move_reason;
@@ -142,6 +146,7 @@ static PropDescription stdpath_props[] = {
   /* just to simplify transfering properties between objects */
   { "show_background", PROP_TYPE_BOOL, PROP_FLAG_DONT_SAVE,  N_("Draw background"), NULL, NULL },
   { "show_control_lines", PROP_TYPE_BOOL, PROP_FLAG_OPTIONAL, N_("Draw Control Lines") },
+  { "pattern", PROP_TYPE_PATTERN, PROP_FLAG_VISIBLE|PROP_FLAG_OPTIONAL, N_("Pattern"), NULL },
   PROP_DESC_END
 };
 
@@ -156,6 +161,7 @@ static PropOffset stdpath_offsets[] = {
   { "fill_colour", PROP_TYPE_COLOUR, offsetof(StdPath, fill_color) },
   { "show_background", PROP_TYPE_BOOL, offsetof(StdPath, show_background) },
   { "show_control_lines", PROP_TYPE_BOOL, offsetof(StdPath, show_control_lines) },
+  { "pattern", PROP_TYPE_PATTERN, offsetof(StdPath, pattern) },
   { NULL, 0, 0 }
 };
 
@@ -412,16 +418,30 @@ stdpath_draw(StdPath *stdpath, DiaRenderer *renderer)
   DIA_RENDERER_GET_CLASS (renderer)->set_linecaps(renderer, stdpath->line_caps);
 
   if (DIA_RENDERER_GET_CLASS (renderer)->is_capable_to(renderer, RENDER_HOLES)) {
-    if (stdpath->stroke_or_fill & PDO_FILL)
+    if (stdpath->stroke_or_fill & PDO_FILL) {
+      Color fill = stdpath->fill_color;
+      if (stdpath->pattern) {
+	dia_pattern_get_fallback_color (stdpath->pattern, &fill);
+	if (DIA_RENDERER_GET_CLASS (renderer)->is_capable_to(renderer, RENDER_PATTERN))
+	  DIA_RENDERER_GET_CLASS (renderer)->set_pattern (renderer, stdpath->pattern);
+      }
       DIA_RENDERER_GET_CLASS (renderer)->fill_bezier(renderer, stdpath->points, stdpath->num_points, 
-						     &stdpath->fill_color);
+						     &fill);
+      if (DIA_RENDERER_GET_CLASS (renderer)->is_capable_to(renderer, RENDER_PATTERN))
+	DIA_RENDERER_GET_CLASS (renderer)->set_pattern (renderer, NULL);
+    }
     if (stdpath->stroke_or_fill & PDO_STROKE)
       DIA_RENDERER_GET_CLASS (renderer)->draw_bezier(renderer, stdpath->points, stdpath->num_points, 
 						     &stdpath->line_color);
   } else {
     /* step-wise approach */
-    if (stdpath->stroke_or_fill & PDO_FILL)
-      bezier_render_fill (renderer, stdpath->points, stdpath->num_points, &stdpath->fill_color);
+    /* if it wouldn't RENDER_HOLES it presumably also wouldn't RENDER_PATTERN ... */
+    if (stdpath->stroke_or_fill & PDO_FILL) {
+      Color fill = stdpath->fill_color;
+      if (stdpath->pattern)
+	dia_pattern_get_fallback_color (stdpath->pattern, &fill);
+      bezier_render_fill (renderer, stdpath->points, stdpath->num_points, &fill);
+    }
     if (stdpath->stroke_or_fill & PDO_STROKE)
       bezier_render_stroke (renderer, stdpath->points, stdpath->num_points, &stdpath->line_color);
   }

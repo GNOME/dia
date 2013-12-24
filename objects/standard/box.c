@@ -31,6 +31,7 @@
 #include "attributes.h"
 #include "properties.h"
 #include "create.h"
+#include "pattern.h"
 
 #include "tool-icons.h"
 
@@ -67,6 +68,7 @@ struct _Box {
   real dashlength;
   real corner_radius;
   AspectType aspect;
+  DiaPattern *pattern;
 };
 
 static struct _BoxProperties {
@@ -118,6 +120,7 @@ static PropOffset box_offsets[] = {
     offsetof(Box, line_style), offsetof(Box, dashlength) },
   { "line_join", PROP_TYPE_ENUM, offsetof(Box, line_join) },
   { "corner_radius", PROP_TYPE_REAL, offsetof(Box, corner_radius) },
+  { "pattern", PROP_TYPE_PATTERN, offsetof(Box, pattern) },
   { NULL, 0, 0 }
 };
 
@@ -141,6 +144,8 @@ static PropDescription box_props[] = {
     N_("Corner radius"), NULL, &corner_radius_data },
   { "aspect", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE,
     N_("Aspect ratio"), NULL, prop_aspect_data },
+  { "pattern", PROP_TYPE_PATTERN, PROP_FLAG_VISIBLE|PROP_FLAG_OPTIONAL,
+    N_("Pattern"), NULL },
   PROP_DESC_END
 };
 
@@ -316,21 +321,27 @@ box_draw(Box *box, DiaRenderer *renderer)
     renderer_ops->set_linejoin(renderer, box->line_join);
 
   if (box->show_background) {
+    Color fill = box->inner_color;
     renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
-  
-    /* Problem:  How do we make the fill with rounded corners? */
+    if (box->pattern) {
+      dia_pattern_get_fallback_color (box->pattern, &fill);
+      if (renderer_ops->is_capable_to(renderer, RENDER_PATTERN))
+        renderer_ops->set_pattern (renderer, box->pattern);
+    }
     if (box->corner_radius > 0) {
       renderer_ops->fill_rounded_rect(renderer,
 				       &elem->corner,
 				       &lr_corner,
-				       &box->inner_color,
+				       &fill,
 				       box->corner_radius);
     } else {
       renderer_ops->fill_rect(renderer, 
 			       &elem->corner,
 			       &lr_corner, 
-			       &box->inner_color);
+			       &fill);
     }
+    if (renderer_ops->is_capable_to(renderer, RENDER_PATTERN))
+      renderer_ops->set_pattern (renderer, NULL);
   }
 
   if (box->corner_radius > 0) {
@@ -346,7 +357,6 @@ box_draw(Box *box, DiaRenderer *renderer)
 			     &box->border_color);
   }
 }
-
 
 static void
 box_update_data(Box *box)
@@ -496,7 +506,9 @@ box_copy(Box *box)
   newbox->dashlength = box->dashlength;
   newbox->corner_radius = box->corner_radius;
   newbox->aspect = box->aspect;
-  
+  if (box->pattern)
+    newbox->pattern = g_object_ref (box->pattern);
+
   for (i=0;i<NUM_CONNECTIONS;i++) {
     newobj->connections[i] = &newbox->connections[i];
     newbox->connections[i].object = newobj;
@@ -548,6 +560,10 @@ box_save(Box *box, ObjectNode obj_node, const char *filename)
   if (box->aspect != FREE_ASPECT)
     data_add_enum(new_attribute(obj_node, "aspect"),
 		  box->aspect);
+
+  if (box->pattern)
+    data_add_pattern(new_attribute(obj_node, "pattern"),
+		     box->pattern);
 }
 
 static DiaObject *
@@ -612,6 +628,10 @@ box_load(ObjectNode obj_node, int version, DiaContext *ctx)
   attr = object_find_attribute(obj_node, "aspect");
   if (attr != NULL)
     box->aspect = data_enum(attribute_first_data(attr), ctx);
+
+  attr = object_find_attribute(obj_node, "pattern");
+  if (attr != NULL)
+    box->pattern = data_pattern(attribute_first_data(attr), ctx);
 
   element_init(elem, 8, NUM_CONNECTIONS);
 

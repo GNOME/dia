@@ -31,6 +31,7 @@
 #include "attributes.h"
 #include "diamenu.h"
 #include "properties.h"
+#include "pattern.h"
 
 #include "tool-icons.h"
 
@@ -60,6 +61,7 @@ typedef struct _Polygon {
   gboolean show_background;
   real dashlength;
   real line_width;
+  DiaPattern *pattern;
 } Polygon;
 
 static struct _PolygonProperties {
@@ -106,6 +108,8 @@ static PropDescription polygon_props[] = {
   PROP_STD_LINE_JOIN_OPTIONAL,
   PROP_STD_FILL_COLOUR_OPTIONAL,
   PROP_STD_SHOW_BACKGROUND_OPTIONAL,
+  { "pattern", PROP_TYPE_PATTERN, PROP_FLAG_VISIBLE|PROP_FLAG_OPTIONAL,
+    N_("Pattern"), NULL },
   PROP_DESC_END
 };
 
@@ -118,6 +122,7 @@ static PropOffset polygon_offsets[] = {
   { "line_join", PROP_TYPE_ENUM, offsetof(Polygon, line_join) },
   { "fill_colour", PROP_TYPE_COLOUR, offsetof(Polygon, inner_color) },
   { "show_background", PROP_TYPE_BOOL, offsetof(Polygon, show_background) },
+  { "pattern", PROP_TYPE_PATTERN, offsetof(Polygon, pattern) },
   { NULL, 0, 0 }
 };
 
@@ -226,9 +231,15 @@ polygon_draw(Polygon *polygon, DiaRenderer *renderer)
   renderer_ops->set_linejoin(renderer, polygon->line_join);
   renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
 
-  if (polygon->show_background)
-    renderer_ops->fill_polygon(renderer, points, n, &polygon->inner_color);
-
+  if (polygon->show_background) {
+    Color fill = polygon->inner_color;
+    if (polygon->pattern) {
+      dia_pattern_get_fallback_color (polygon->pattern, &fill);
+      if (renderer_ops->is_capable_to(renderer, RENDER_PATTERN))
+        renderer_ops->set_pattern (renderer, polygon->pattern);
+    }
+    renderer_ops->fill_polygon(renderer, points, n, &fill);
+  }
   renderer_ops->draw_polygon(renderer, points, n, &polygon->line_color);
 }
 
@@ -306,6 +317,8 @@ polygon_copy(Polygon *polygon)
   newpolygon->dashlength = polygon->dashlength;
   newpolygon->inner_color = polygon->inner_color;
   newpolygon->show_background = polygon->show_background;
+  if (polygon->pattern)
+    newpolygon->pattern = g_object_ref (polygon->pattern);
 
   return &newpolygon->poly.object;
 }
@@ -360,6 +373,9 @@ polygon_save(Polygon *polygon, ObjectNode obj_node,
     data_add_enum(new_attribute(obj_node, "line_join"),
                   polygon->line_join);
 
+  if (polygon->pattern)
+    data_add_pattern(new_attribute(obj_node, "pattern"),
+		     polygon->pattern);
 }
 
 static DiaObject *
@@ -414,6 +430,10 @@ polygon_load(ObjectNode obj_node, int version, DiaContext *ctx)
   attr = object_find_attribute(obj_node, "dashlength");
   if (attr != NULL)
     polygon->dashlength = data_real(attribute_first_data(attr), ctx);
+
+  attr = object_find_attribute(obj_node, "pattern");
+  if (attr != NULL)
+    polygon->pattern = data_pattern(attribute_first_data(attr), ctx);
 
   polygon_update_data(polygon);
 
