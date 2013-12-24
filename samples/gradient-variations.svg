@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+	x="0px" y="0px" width="21cm" height="28cm" viewBox="0, 0, 420, 560">
+  <!-- gradients can be anywhere in the file, not only in defs -->
+  <defs>
+    <linearGradient id="LG1">
+      <stop offset="0" stop-color="lime"/>
+      <stop offset="1" stop-color="blue"/>
+    </linearGradient>
+    <linearGradient id="LG2" x1="0" y1="0" x2="1" y2="1" xlink:href="#LG1"/>
+    <linearGradient id="LG3" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="violet"/>
+      <stop offset=".2" stop-color="blue" stop-opacity=".7"/>
+      <stop offset=".4" stop-color="cyan"/>
+      <stop offset=".6" stop-color="lime" stop-opacity=".5"/>
+      <stop offset=".8" stop-color="yellow"/>
+      <stop offset="1" stop-color="red" stop-opacity=".7"/>
+    </linearGradient>
+    <linearGradient id="LG4" x1="0" y1="0" x2="300" y2="0" xlink:href="#LG3" gradientUnits="userSpaceOnUse"/>
+
+    <radialGradient id="RG1">
+      <stop offset="0" stop-color="lime"/>
+      <stop offset="1" stop-color="blue"/>
+    </radialGradient>
+    <radialGradient id="RG2" cx="0" cy="0" r="1">
+      <stop offset="0" stop-color="lime"/>
+      <stop offset="1" stop-color="blue"/>
+    </radialGradient>
+    <radialGradient id="RG3" fx="0" fy="0" r=".8">
+      <stop offset="0" stop-color="lime"/>
+      <stop offset="1" stop-color="blue"/>
+    </radialGradient>
+    <radialGradient id="RG4" fx="0.25" fy="0.25" r=".6">
+      <stop offset="0" stop-color="lime"/>
+      <stop offset="1" stop-color="blue"/>
+    </radialGradient>
+    <radialGradient id="RG5" cx=".45" cy=".45" fx="0.3" fy="0.3" r=".4">
+      <stop offset="0" stop-color="white"/>
+      <stop offset="0.1" stop-color="lime"/>
+      <stop offset="1" stop-color="blue"/>
+    </radialGradient>
+  </defs>
+  <!-- Various objects using gradients on a grid 50x50 -->
+
+  <!-- Standard - Box -->
+  <rect id="r1" x="10" y="10" width="40" height="40" fill="url(#LG1)"/>
+  <rect id="r2" x="10" y="60" width="40" height="40" fill="url(#LG2)"/>
+  <rect id="r3" x="10" y="110" width="40" height="40" fill="url(#RG1)"/>
+  <rect id="r4" x="10" y="160" width="40" height="40" fill="url(#RG2)"/>
+  <rect id="r5" x="10" y="210" width="40" height="40" fill="url(#RG3)"/>
+  <rect id="r6" x="10" y="260" width="40" height="40" fill="url(#RG4)"/>
+  <rect id="r7" x="10" y="310" width="40" height="40" fill="url(#RG5)"/>
+  <rect id="r8" x="10" y="360" width="40" height="40" fill="url(#LG3)"/>
+  <rect id="r9" x="10" y="410" width="40" height="40" fill="url(#LG4)"/>
+
+  <!-- Standard - Ellipse -->
+  <circle id="c1" cx="80" cy="30" r="20" fill="url(#LG1)"/>
+  <circle id="c2" cx="80" cy="80" r="20" fill="url(#LG2)"/>
+  <circle id="c3" cx="80" cy="130" r="20" fill="url(#RG1)"/>
+  <circle id="c4" cx="80" cy="180" r="20" fill="url(#RG2)"/>
+  <circle id="c5" cx="80" cy="230" r="20" fill="url(#RG3)"/>
+  <circle id="c6" cx="80" cy="280" r="20" fill="url(#RG4)"/>
+  <circle id="c7" cx="80" cy="330" r="20" fill="url(#RG5)"/>
+  <circle id="c8" cx="80" cy="380" r="20" fill="url(#LG3)"/>
+  <circle id="c9" cx="80" cy="430" r="20" fill="url(#LG4)"/>
+
+  <!-- Standard - Polygon -->
+  <polygon id="o1" points="110,10 150,20 120,50" fill="url(#LG1)"/>
+  <polygon id="o2" points="110,60 150,70 120,100" fill="url(#LG2)"/>
+  <polygon id="o3" points="110,110 150,120 120,150" fill="url(#RG1)"/>
+  <polygon id="o4" points="110,160 150,170 120,200" fill="url(#RG2)"/>
+  <polygon id="o5" points="110,210 150,220 120,250" fill="url(#RG3)"/>
+  <polygon id="o6" points="110,260 150,270 120,300" fill="url(#RG4)"/>
+  <polygon id="o7" points="110,310 150,320 120,350" fill="url(#RG5)"/>
+  <polygon id="o8" points="110,360 150,370 120,400" fill="url(#LG3)"/>
+  <polygon id="o9" points="110,410 150,420 120,450" fill="url(#LG4)"/>
+
+  <!-- Standard - Polygon -->
+  <polygon id="o21" points="180,10 194,50 160,26 200,26 166,50" fill="url(#LG1)"/>
+  <polygon id="o22" points="180,60 194,100 160,76 200,76 166,100" fill="url(#LG2)"/>
+  <polygon id="o23" points="180,110 194,150 160,126 200,126 166,150" fill="url(#RG1)"/>
+  <polygon id="o24" points="180,160 194,200 160,176 200,176 166,200" fill="url(#RG2)"/>
+  <polygon id="o25" points="180,210 194,250 160,226 200,226 166,250" fill="url(#RG3)"/>
+  <polygon id="o26" points="180,260 194,300 160,276 200,276 166,300" fill="url(#RG4)"/>
+  <polygon id="o27" points="180,310 194,350 160,326 200,326 166,350" fill="url(#RG5)"/>
+  <polygon id="o28" points="180,360 194,400 160,376 200,376 166,400" fill="url(#LG3)"/>
+  <polygon id="o29" points="180,410 194,450 160,426 200,426 166,450" fill="url(#LG4)"/>
+
+  <!-- Standard - Beziergon -->
+  <path id="b1" d="M210,10 l40,0 c0,40 -40,40 -40,0z" fill="url(#LG1)"/>
+  <path id="b2" d="M210,60 l40,0 c0,40 -40,40 -40,0z" fill="url(#LG2)"/>
+  <path id="b3" d="M210,110 l40,0 c0,40 -40,40 -40,0z" fill="url(#RG1)"/>
+  <path id="b4" d="M210,160 l40,0 c0,40 -40,40 -40,0z" fill="url(#RG2)"/>
+  <path id="b5" d="M210,210 l40,0 c0,40 -40,40 -40,0z" fill="url(#RG3)"/>
+  <path id="b6" d="M210,260 l40,0 c0,40 -40,40 -40,0z" fill="url(#RG4)"/>
+  <path id="b7" d="M210,310 l40,0 c0,40 -40,40 -40,0z" fill="url(#RG5)"/>
+  <path id="b8" d="M210,360 l40,0 c0,40 -40,40 -40,0z" fill="url(#LG3)"/>
+  <path id="b7" d="M210,410 l40,0 c0,40 -40,40 -40,0z" fill="url(#LG4)"/>
+
+  <!-- Standard - Path -->
+  <path id="p1" d="M275,10 c20,0 20,40 0,40 c-20,0 -20,-40 0,-40m0,15 c5,0 5,10 0,10 c-5,0 -5,-10 0,-10z" fill="url(#LG1)"/>
+  <path id="p2" d="M275,60 c20,0 20,40 0,40 c-20,0 -20,-40 0,-40m0,15 c5,0 5,10 0,10 c-5,0 -5,-10 0,-10z" fill="url(#LG2)"/>
+  <path id="p3" d="M275,110 c20,0 20,40 0,40 c-20,0 -20,-40 0,-40m0,15 c5,0 5,10 0,10 c-5,0 -5,-10 0,-10z" fill="url(#RG1)"/>
+  <path id="p4" d="M275,160 c20,0 20,40 0,40 c-20,0 -20,-40 0,-40m0,15 c5,0 5,10 0,10 c-5,0 -5,-10 0,-10z" fill="url(#RG2)"/>
+  <path id="p5" d="M275,210 c20,0 20,40 0,40 c-20,0 -20,-40 0,-40m0,15 c5,0 5,10 0,10 c-5,0 -5,-10 0,-10z" fill="url(#RG3)"/>
+  <path id="p6" d="M275,260 c20,0 20,40 0,40 c-20,0 -20,-40 0,-40m0,15 c5,0 5,10 0,10 c-5,0 -5,-10 0,-10z" fill="url(#RG4)"/>
+  <path id="p7" d="M275,310 c20,0 20,40 0,40 c-20,0 -20,-40 0,-40m0,15 c5,0 5,10 0,10 c-5,0 -5,-10 0,-10z" fill="url(#RG5)"/>
+  <path id="p8" d="M275,360 c20,0 20,40 0,40 c-20,0 -20,-40 0,-40m0,15 c5,0 5,10 0,10 c-5,0 -5,-10 0,-10z" fill="url(#LG3)"/>
+  <path id="p9" d="M275,410 c20,0 20,40 0,40 c-20,0 -20,-40 0,-40m0,15 c5,0 5,10 0,10 c-5,0 -5,-10 0,-10z" fill="url(#LG4)"/>
+
+  <text x="300" y="30" fill="black">LG1</text>
+  <text x="300" y="80" fill="black">LG2</text>
+  <text x="300" y="130" fill="black">RG1</text>
+  <text x="300" y="180" fill="black">RG2</text>
+  <text x="300" y="230" fill="black">RG3</text>
+  <text x="300" y="280" fill="black">RG4</text>
+  <text x="300" y="330" fill="black">RG5</text>
+  <text x="300" y="380" fill="black">LG3</text>
+  <text x="300" y="430" fill="black">LG4</text>
+</svg>
