@@ -68,6 +68,7 @@ lib/properties.c
 lib/properties.h
 lib/prop_inttypes.c
 lib/proplist.c
+lib/prop_pattern.c
 lib/prop_pixbuf.c
 lib/prop_sdarray_widget.c
 lib/prop_text.c
