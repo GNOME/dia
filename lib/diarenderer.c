@@ -173,6 +173,8 @@ static void draw_bezier_with_arrows (DiaRenderer *renderer,
 
 static gboolean is_capable_to (DiaRenderer *renderer, RenderCapability cap);
 
+static void set_pattern (DiaRenderer *renderer, DiaPattern *pat);
+
 static gpointer parent_class = NULL;
 
 GType
@@ -351,6 +353,7 @@ dia_renderer_class_init (DiaRendererClass *klass)
   
   /* other */
   renderer_class->is_capable_to = is_capable_to;
+  renderer_class->set_pattern = set_pattern;
 }
 
 static void 
