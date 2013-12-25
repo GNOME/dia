@@ -53,9 +53,6 @@
 static gboolean import_svg (xmlDocPtr doc, DiagramData *dia, DiaContext *ctx, void* user_data);
 static GPtrArray *make_element_props(real xpos, real ypos, real width, real height);
 
-/* ToDo: allow to put patterns into defs_ht to get rid of global variable */
-GHashTable *_pattern_ht = NULL;
-
 /* TODO: use existing implementation in dia source */
 static Color 
 get_colour(gint32 c, real opacity)
@@ -402,7 +399,7 @@ _node_css_parse_style (xmlNodePtr node,
 /* apply SVG style to object */
 static void
 apply_style(DiaObject *obj, xmlNodePtr node, DiaSvgStyle *parent_style,
-	    GHashTable *style_ht, gboolean init)
+	    GHashTable *style_ht, GHashTable *pattern_ht, gboolean init)
 {
       DiaSvgStyle *gs;
       GPtrArray *props;
@@ -486,7 +483,7 @@ apply_style(DiaObject *obj, xmlNodePtr node, DiaSvgStyle *parent_style,
 	const char *right = strrchr ((const char*)str, ')');
 	if (left && right) {
 	  gchar *key = g_strndup (left + 5, right - left - 5);
-	  DiaPattern *pattern = g_hash_table_lookup (_pattern_ht, key);
+	  DiaPattern *pattern = g_hash_table_lookup (pattern_ht, key);
 	  if (pattern) {
 	    dia_object_set_pattern (obj, pattern);
 	    /* activate "show_background" */
@@ -546,7 +543,8 @@ _node_closed_by_style (xmlNodePtr node, DiaSvgStyle *parent_style)
  */
 /* read a path */
 static GList *
-read_path_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GHashTable *style_ht,
+read_path_svg(xmlNodePtr node, DiaSvgStyle *parent_style,
+	      GHashTable *style_ht, GHashTable *pattern_ht,
 	      GList *list, DiaContext *ctx)
 {
     DiaObjectType *otype;
@@ -644,7 +642,7 @@ read_path_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GHashTable *style_ht,
 	if (!closed)
 	  reset_arrows (new_obj);
 	g_free(bcd);
-	apply_style(new_obj, node, parent_style, style_ht, TRUE);
+	apply_style(new_obj, node, parent_style, style_ht, pattern_ht, TRUE);
 	list = g_list_append (list, new_obj);
 
 	g_array_set_size (bezpoints, 0);
@@ -665,7 +663,9 @@ read_path_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GHashTable *style_ht,
 
 /* read a text */
 static GList *
-read_text_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GHashTable *style_ht, GList *list) 
+read_text_svg(xmlNodePtr node, DiaSvgStyle *parent_style,
+	      GHashTable *style_ht, GHashTable *pattern_ht,
+	      GList *list) 
 {
     DiaObjectType *otype = object_get_type("Standard - Text");
     DiaObject *new_obj;
@@ -803,7 +803,8 @@ read_text_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GHashTable *style_ht, 
 
 /* read a polygon or a polyline */
 static GList *
-read_poly_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GHashTable *style_ht,
+read_poly_svg(xmlNodePtr node, DiaSvgStyle *parent_style,
+	      GHashTable *style_ht, GHashTable *pattern_ht,
 	      GList *list, char *object_type) 
 {
     DiaObjectType *otype = object_get_type(object_type);
@@ -867,7 +868,7 @@ read_poly_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GHashTable *style_ht,
     new_obj = otype->ops->create(NULL, pcd,
 				 &h1, &h2);
     reset_arrows (new_obj);
-    apply_style(new_obj, node, parent_style, style_ht, TRUE);
+    apply_style(new_obj, node, parent_style, style_ht, pattern_ht, TRUE);
     list = g_list_append (list, new_obj);
     g_free(points);
     g_free(pcd);
@@ -878,7 +879,8 @@ read_poly_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GHashTable *style_ht,
 /* read an ellipse or circle */
 static GList *
 read_ellipse_svg(xmlNodePtr node, DiaSvgStyle *parent_style,
-		 GHashTable *style_ht, GList *list) 
+		 GHashTable *style_ht, GHashTable *pattern_ht,
+		 GList *list) 
 {
   xmlChar *str;
   real width, height;
@@ -920,7 +922,7 @@ read_ellipse_svg(xmlNodePtr node, DiaSvgStyle *parent_style,
     return list;
   new_obj = otype->ops->create(&start, otype->default_user_data,
 				 &h1, &h2);
-  apply_style(new_obj, node, parent_style, style_ht, TRUE);
+  apply_style(new_obj, node, parent_style, style_ht, pattern_ht, TRUE);
 
   props = make_element_props(start.x-(width/2), start.y-(height/2),
 			     width, height);
@@ -932,7 +934,8 @@ read_ellipse_svg(xmlNodePtr node, DiaSvgStyle *parent_style,
 /* read a line */
 static GList *
 read_line_svg(xmlNodePtr node, DiaSvgStyle *parent_style,
-	      GHashTable *style_ht, GList *list) 
+	      GHashTable *style_ht, GHashTable *pattern_ht,
+	      GList *list) 
 {
   xmlChar *str;
   DiaObjectType *otype = object_get_type("Standard - Line");
@@ -977,7 +980,7 @@ read_line_svg(xmlNodePtr node, DiaSvgStyle *parent_style,
 
   prop_list_free(props);
 
-  apply_style(new_obj, node, parent_style, style_ht, TRUE);
+  apply_style(new_obj, node, parent_style, style_ht, pattern_ht, TRUE);
 
   return g_list_append (list, new_obj);
 }
@@ -985,7 +988,8 @@ read_line_svg(xmlNodePtr node, DiaSvgStyle *parent_style,
 /* read a rectangle */
 static GList *
 read_rect_svg(xmlNodePtr node, DiaSvgStyle *parent_style,
-	      GHashTable *style_ht, GList *list) 
+	      GHashTable *style_ht, GHashTable *pattern_ht,
+	      GList *list) 
 {
   xmlChar *str;
   real width, height;
@@ -1060,14 +1064,15 @@ read_rect_svg(xmlNodePtr node, DiaSvgStyle *parent_style,
   props = make_element_props(start.x,start.y,width,height);
   new_obj->ops->set_props(new_obj, props);
 
-  apply_style(new_obj, node, parent_style, style_ht, TRUE);
+  apply_style(new_obj, node, parent_style, style_ht, pattern_ht, TRUE);
   prop_list_free(props);
 
   return list;
 }
 
 static GList *
-read_image_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GHashTable *style_ht,
+read_image_svg(xmlNodePtr node, DiaSvgStyle *parent_style,
+	       GHashTable *style_ht, GHashTable *pattern_ht,
 	       GList *list, const gchar *filename_svg)
 {
   xmlChar *str;
@@ -1178,7 +1183,7 @@ read_image_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GHashTable *style_ht,
  *    outside of this function)
  */
 static DiaPattern *
-read_gradient (xmlNodePtr node, DiaContext *ctx)
+read_gradient (xmlNodePtr node, GHashTable  *pattern_ht, DiaContext *ctx)
 {
   DiaPattern *pat;
   xmlNode    *child;
@@ -1235,7 +1240,7 @@ read_gradient (xmlNodePtr node, DiaContext *ctx)
   if (!str) /* this doesn't look right but it appears to work w/o namespace --hb */
     str = xmlGetProp (node, (const xmlChar *)"href");
   if (str) {
-    DiaPattern *pattern = g_hash_table_lookup (_pattern_ht, (const char*)str+1);
+    DiaPattern *pattern = g_hash_table_lookup (pattern_ht, (const char*)str+1);
     if (pattern)
       dia_pattern_set_pattern (pat, pattern);
     xmlFree (str);
@@ -1427,6 +1432,7 @@ read_items (xmlNodePtr   startnode,
 	    DiaSvgStyle *parent_gs,
 	    GHashTable  *defs_ht,
 	    GHashTable  *style_ht,
+	    GHashTable  *pattern_ht,
 	    const gchar *filename_svg,
 	    DiaContext  *ctx)
 {
@@ -1473,7 +1479,9 @@ read_items (xmlNodePtr   startnode,
 	xmlFree (trans);
       }
 
-      moreitems = read_items (node->xmlChildrenNode, group_gs, defs_ht, style_ht, filename_svg, ctx);
+      moreitems = read_items (node->xmlChildrenNode, group_gs,
+			      defs_ht, style_ht, pattern_ht,
+			      filename_svg, ctx);
 
       if (moreitems) {
 	DiaObject *group;
@@ -1494,7 +1502,9 @@ read_items (xmlNodePtr   startnode,
       g_free (matrix);
     } else if (!xmlStrcmp(node->name, (const xmlChar *)"symbol")) {
       /* ignore 'viewBox' and 'preserveAspectRatio' */
-      GList *moreitems = read_items (node->xmlChildrenNode, parent_gs, defs_ht, style_ht, filename_svg, ctx);
+      GList *moreitems = read_items (node->xmlChildrenNode, parent_gs,
+				     defs_ht, style_ht, pattern_ht,
+				     filename_svg, ctx);
 
       /* only one object or create a group */
       if (g_list_length (moreitems) > 1)
@@ -1502,80 +1512,45 @@ read_items (xmlNodePtr   startnode,
       else if (moreitems)
 	obj = g_list_last(moreitems)->data;
     } else if (!xmlStrcmp(node->name, (const xmlChar *)"rect")) {
-      items = read_rect_svg(node, parent_gs, style_ht, items);
+      items = read_rect_svg(node, parent_gs, style_ht, pattern_ht, items);
       if (items)
 	obj = g_list_last(items)->data;
     } else if (!xmlStrcmp(node->name, (const xmlChar *)"line")) {
-      items = read_line_svg(node, parent_gs, style_ht, items);
+      items = read_line_svg(node, parent_gs, style_ht, pattern_ht, items);
       if (items)
 	obj = g_list_last(items)->data;
     } else if (!xmlStrcmp(node->name, (const xmlChar *)"ellipse") || !xmlStrcmp(node->name, (const xmlChar *)"circle")) {
-      items = read_ellipse_svg(node, parent_gs, style_ht, items);
+      items = read_ellipse_svg(node, parent_gs, style_ht, pattern_ht, items);
       if (items)
 	obj = g_list_last(items)->data;
     } else if (!xmlStrcmp(node->name, (const xmlChar *)"polyline")) {
-      items = read_poly_svg(node, parent_gs, style_ht, items, "Standard - PolyLine");
+      items = read_poly_svg(node, parent_gs, style_ht, pattern_ht, items, "Standard - PolyLine");
       if (items)
 	obj = g_list_last(items)->data;
     } else if (!xmlStrcmp(node->name, (const xmlChar *)"polygon")) {
-      items = read_poly_svg(node, parent_gs, style_ht, items, "Standard - Polygon");
+      items = read_poly_svg(node, parent_gs, style_ht, pattern_ht, items, "Standard - Polygon");
       if (items)
 	obj = g_list_last(items)->data;
     } else if(!xmlStrcmp(node->name, (const xmlChar *)"text")) {
-      items = read_text_svg(node, parent_gs, style_ht, items);
+      items = read_text_svg(node, parent_gs, style_ht, pattern_ht, items);
       if (items)
 	obj = g_list_last(items)->data;
     } else if(!xmlStrcmp(node->name, (const xmlChar *)"path")) {
       /* the path element might be split into multiple objects */
       int first = g_list_length (items);
-      items = read_path_svg(node, parent_gs, style_ht, items, ctx);
+      items = read_path_svg(node, parent_gs, style_ht, pattern_ht, items, ctx);
       if (items && g_list_nth(items, first))
 	obj = g_list_nth(items, first)->data;
     } else if(!xmlStrcmp(node->name, (const xmlChar *)"image")) {
-      items = read_image_svg(node, parent_gs, style_ht, items, filename_svg);
+      items = read_image_svg(node, parent_gs, style_ht, pattern_ht, items, filename_svg);
       if (items)
 	obj = g_list_last(items)->data;
     } else if(!xmlStrcmp(node->name, (const xmlChar *)"linearGradient") ||
-	      !xmlStrcmp(node->name, (const xmlChar *)"radialGradient")) {
-      xmlChar *val = xmlGetProp (node, (const xmlChar *)"id");
-      if (val) {
-	DiaPattern *pat = read_gradient (node, ctx);
-	if (pat)
-	  g_hash_table_insert (_pattern_ht, g_strdup(val), pat);
-	xmlFree (val);
-      }
-    } else if(!xmlStrcmp(node->name, (const xmlChar *)"defs")) {
-      /* everything below must have a name to make a difference */
-      GList *list, *defs = read_items (node->xmlChildrenNode, parent_gs, defs_ht, style_ht, filename_svg, ctx);
-
-      /* Commonly seen in <defs/> are
-       *   clipPath, font, filter, linearGradient, mask, marker, pattern, radialGradient, style
-       * all not supported as of this writing.
-       * Less commonly used are normal objects which could be supported here.
-       */
-      for (list = defs; list != NULL; list = g_list_next (list)) {
-	DiaObject *otemp = list->data;
-	gchar *id;
-
-	id = dia_object_get_meta (otemp, "id");
-	if (id) {
-	  /* pass ownership of name and object */
-	  g_hash_table_insert (defs_ht, id, otemp);
-	} else if (IS_GROUP (otemp)) {
-	  /* defs in _unnamed_ groups, I don't get the
-	   * benefit but must have seen it in the wild.
-	   */
-	  GList *moredefs = group_objects (otemp);
-
-	  g_list_foreach (moredefs, add_def, defs_ht);
-	  group_destroy_shallow (otemp);
-	} else {
-	  /* just loose the object */
-	  otemp->ops->destroy (otemp);
-	  g_free (otemp);
-	  list->data = NULL;
-	}
-      }
+	      !xmlStrcmp(node->name, (const xmlChar *)"radialGradient") ||
+	      !xmlStrcmp(node->name, (const xmlChar *)"style") ||
+	      !xmlStrcmp(node->name, (const xmlChar *)"pattern") ||
+	      !xmlStrcmp(node->name, (const xmlChar *)"defs")) {
+      /* read_defs was already handling these */
     } else if(!xmlStrcmp(node->name, (const xmlChar *)"use")) {
       xmlChar *key = xmlGetNsProp (node, (const xmlChar *)"href", (const xmlChar *)"xlink");
       
@@ -1602,22 +1577,12 @@ read_items (xmlNodePtr   startnode,
 	   * creation, store it with the template as meta info and use
 	   * that to give NULL or parent_gs here?
 	   */
-	  apply_style (obj, node, NULL, style_ht, FALSE);
+	  apply_style (obj, node, NULL, style_ht, pattern_ht, FALSE);
 	  items = g_list_append (items, obj);
 	}
       }
       if (key)
 	xmlFree (key);
-    } else if(!xmlStrcmp(node->name, (const xmlChar *)"style")) {
-      /* Prepare the third variant to apply style to the objects.
-       * The final style is similar to what we have in the style
-       * attribute, but we have to do complicated key lookup to
-       * apply styles to the right objects.
-       */
-      read_style (node, style_ht);
-    } else if(!xmlStrcmp(node->name, (const xmlChar *)"pattern")) {
-      /* Patterns could be considered as groups, too But Dia does not
-       * have the facility to apply them (yet?). */
     } else if(!xmlStrcmp(node->name, (const xmlChar *)"svg")) {
       /* A subsequent svg node is turned into a group to simplify offsetting
        * it and maybe later honor additional attributes like viewBox, width,
@@ -1633,7 +1598,9 @@ read_items (xmlNodePtr   startnode,
 
       pos.x = _node_get_real (node, "x", 0.0);
       pos.y = _node_get_real (node, "y", 0.0);
-      moreitems = read_items (node->xmlChildrenNode, parent_gs, defs_ht, style_ht, filename_svg, ctx);
+      moreitems = read_items (node->xmlChildrenNode, parent_gs,
+			      defs_ht, style_ht, pattern_ht,
+			      filename_svg, ctx);
       if (moreitems) {
 	DiaObject *group;
 
@@ -1661,7 +1628,9 @@ read_items (xmlNodePtr   startnode,
       /* one of the non-grouping elements is <a>, extract possible links */
       xmlChar *href = xmlGetProp (node, (const xmlChar *)"href");
 
-      moreitems = read_items (node->xmlChildrenNode, parent_gs, defs_ht, style_ht, filename_svg, ctx);
+      moreitems = read_items (node->xmlChildrenNode, parent_gs,
+			      defs_ht, style_ht, pattern_ht,
+			      filename_svg, ctx);
       if (moreitems) {
 	if (href) {
 	  GList *subs;
@@ -1699,6 +1668,103 @@ read_items (xmlNodePtr   startnode,
   /* just to be sure */
   g_free (comment);
   return items;
+}
+
+/*!
+ * \brief Parse definitions, i.e. everything which does not have direct drawing
+ *
+ * This function shall be called before read_items to allow referencing of the
+ * definitions in the latter.
+ */
+static void
+read_defs (xmlNodePtr   startnode, 
+	    DiaSvgStyle *parent_gs,
+	    GHashTable  *defs_ht,
+	    GHashTable  *style_ht,
+	    GHashTable  *pattern_ht,
+	    const gchar *filename_svg,
+	    DiaContext  *ctx)
+{
+  xmlNodePtr node;
+
+  for (node = startnode; node != NULL; node = node->next) {
+    if (xmlIsBlankNode(node) || node->type == XML_COMMENT_NODE)
+      continue;
+
+    if(!xmlStrcmp(node->name, (const xmlChar *)"linearGradient") ||
+       !xmlStrcmp(node->name, (const xmlChar *)"radialGradient")) {
+      xmlChar *val = xmlGetProp (node, (const xmlChar *)"id");
+      if (val) {
+	DiaPattern *pat = read_gradient (node, pattern_ht, ctx);
+	if (pat)
+	  g_hash_table_insert (pattern_ht, g_strdup(val), pat);
+	xmlFree (val);
+      }
+    } else if(!xmlStrcmp(node->name, (const xmlChar *)"defs")) {
+      /* everything below must have a name to make a difference */
+      GList *list, *defs = read_items (node->xmlChildrenNode, parent_gs,
+				       defs_ht, style_ht, pattern_ht,
+				       filename_svg, ctx);
+
+      if (!defs) {
+	read_defs (node->xmlChildrenNode, parent_gs,
+		   defs_ht, style_ht, pattern_ht,
+		   filename_svg, ctx);
+	continue;
+      }
+      /* Commonly seen in <defs/> are
+       *   clipPath, font, filter, linearGradient, mask, marker, pattern, radialGradient, style
+       * all not supported as of this writing.
+       * Less commonly used are normal objects which could be supported here.
+       */
+      for (list = defs; list != NULL; list = g_list_next (list)) {
+	DiaObject *otemp = list->data;
+	gchar *id;
+
+	id = dia_object_get_meta (otemp, "id");
+	if (id) {
+	  /* pass ownership of name and object */
+	  g_hash_table_insert (defs_ht, id, otemp);
+	} else if (IS_GROUP (otemp)) {
+	  /* defs in _unnamed_ groups, I don't get the
+	   * benefit but must have seen it in the wild.
+	   */
+	  GList *moredefs = group_objects (otemp);
+
+	  g_list_foreach (moredefs, add_def, defs_ht);
+	  group_destroy_shallow (otemp);
+	} else {
+	  /* just loose the object */
+	  otemp->ops->destroy (otemp);
+	  g_free (otemp);
+	  list->data = NULL;
+	}
+      }
+    } else if(!xmlStrcmp(node->name, (const xmlChar *)"style")) {
+      /* Prepare the third variant to apply style to the objects.
+       * The final style is similar to what we have in the style
+       * attribute, but we have to do complicated key lookup to
+       * apply styles to the right objects.
+       */
+      read_style (node, style_ht);
+    } else if(!xmlStrcmp(node->name, (const xmlChar *)"pattern")) {
+      /* Patterns could be considered as groups, too. But Dia does not
+       * have the facility to apply them (yet?). */
+    } else if(!xmlStrcmp(node->name, (const xmlChar *)"g")) {
+      /* just dive into */
+      DiaSvgStyle group_gs;
+      dia_svg_style_init (&group_gs, parent_gs);
+      _node_css_parse_style (node, &group_gs, user_scale, style_ht);
+      dia_svg_parse_style (node, &group_gs, user_scale);
+
+      read_defs (node->xmlChildrenNode, &group_gs,
+		 defs_ht, style_ht, pattern_ht,
+		 filename_svg, ctx);
+
+      if (group_gs.font)
+        g_object_unref (group_gs.font);
+    }
+  }
 }
 
 static gboolean
@@ -1870,10 +1936,14 @@ import_svg (xmlDocPtr doc, DiagramData *dia,
   {
     GHashTable *defs_ht = g_hash_table_new (g_str_hash, g_str_equal);
     GHashTable *style_ht = g_hash_table_new (g_str_hash, g_str_equal);
-    _pattern_ht = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_object_unref);
-    items = read_items (root->xmlChildrenNode, NULL, defs_ht, style_ht,
+    GHashTable *pattern_ht = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_object_unref);
+    /* first read all definitions ... */
+    read_defs (root->xmlChildrenNode, NULL, defs_ht, style_ht, pattern_ht,
+	       dia_context_get_filename(ctx), ctx);
+    /* ... to have the available for the rendered objects */
+    items = read_items (root->xmlChildrenNode, NULL, defs_ht, style_ht, pattern_ht,
 		        dia_context_get_filename(ctx), ctx);
-    g_hash_table_destroy (_pattern_ht);
+    g_hash_table_destroy (pattern_ht);
     g_hash_table_destroy (style_ht);
     g_hash_table_destroy (defs_ht);
   }
