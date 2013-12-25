@@ -470,11 +470,11 @@ apply_style(DiaObject *obj, xmlNodePtr node, DiaSvgStyle *parent_style,
       else if (gs->fill == DIA_SVG_COLOUR_BACKGROUND)
 	cprop->color_data = attributes_get_background();
       else
-        cprop->color_data = get_colour(gs->fill, gs->fill_opacity);
-      
+	cprop->color_data = get_colour(gs->fill, gs->fill_opacity);
+
       bprop = g_ptr_array_index(props,4);
       if(gs->fill == DIA_SVG_COLOUR_NONE || gs->fill_opacity == 0) {
-        bprop->bool_data = FALSE;
+	bprop->bool_data = FALSE;
       } else {
 	bprop->bool_data = TRUE;
       }
@@ -510,9 +510,9 @@ apply_style(DiaObject *obj, xmlNodePtr node, DiaSvgStyle *parent_style,
 	eprop->common.experience |= PXP_NOTSET;
 
       obj->ops->set_props(obj, props);
-      
+
       if (gs->font)
-        dia_font_unref (gs->font);
+	dia_font_unref (gs->font);
       g_free(gs);
 }
 
@@ -592,10 +592,10 @@ read_path_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GHashTable *style_ht,
 	}
       }
       if (unparsed) {
-        use_stdpath = TRUE;
+	use_stdpath = TRUE;
       } else if (bezpoints && bezpoints->len > 0) {
 	/* A stray 'z' can produce extra runs without adding any new BEZ_MOVE_TO.
-	 * To have the optimum representaion with Dia's objects we check again.
+	 * To have the optimum representation with Dia's objects we check again.
 	 */
 	if (use_stdpath) {
 	  int move_tos = 0;
@@ -712,21 +712,21 @@ read_text_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GHashTable *style_ht, 
       xmlNode *tspan = node->children;
       GString *paragraph = g_string_sized_new(512);
       while (tspan) {
-        if (xmlStrcmp (tspan->name, (const xmlChar*)"tspan") == 0) {
-          xmlChar *line = xmlNodeGetContent(tspan);
-          if (any_tspan) { /* every other line needs separation */
+	if (xmlStrcmp (tspan->name, (const xmlChar*)"tspan") == 0) {
+	  xmlChar *line = xmlNodeGetContent(tspan);
+	  if (any_tspan) { /* every other line needs separation */
 	    g_string_append(paragraph, "\n");
 	  } else { /* only first time with user scale - but w/o matrix - that shall be
-	            * in effect from the context? */
+		    * in effect from the context? */
 	    dia_svg_parse_style(tspan, gs, user_scale);
 	    point.x = _node_get_real (tspan, "x", point.x);
 	    point.y = _node_get_real (tspan, "y", point.y);
 	  }
-          g_string_append(paragraph, (gchar*)line);
+	  g_string_append(paragraph, (gchar*)line);
 	  xmlFree(line);
           any_tspan = TRUE;
-        }        
-        tspan = tspan->next;
+	}        
+	tspan = tspan->next;
       }
       multiline = paragraph->str;
       g_string_free (paragraph, FALSE);
@@ -759,7 +759,7 @@ read_text_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GHashTable *style_ht, 
        * crashing on release */
       prop->attr.font = dia_font_ref (gs->font);
       if (font_height > 0.0) {
-        /* font-size should be the line-height according to SVG spec,
+	/* font-size should be the line-height according to SVG spec,
 	 * but see node_set_text_style() - round-trip first */
 	real font_scale = dia_font_get_height (prop->attr.font) / dia_font_get_size (prop->attr.font);
 	if (matrix) /* ToDo: more text transform - or not at all? */
@@ -769,7 +769,7 @@ read_text_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GHashTable *style_ht, 
         real fh = gs->font_height;
 	if (matrix)
 	  transform_length (&fh, matrix);
-        prop->attr.height = gs->font_height;
+	prop->attr.height = gs->font_height;
       }
       /* when operating with default values foreground and background are intentionally swapped
        * to avoid getting white text by default */
@@ -778,21 +778,20 @@ read_text_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GHashTable *style_ht, 
         /* don't use -1 which would be almost white */
       case DIA_SVG_COLOUR_TEXT :
       case DIA_SVG_COLOUR_BACKGROUND :
-        prop->attr.color = attributes_get_foreground();
+	prop->attr.color = attributes_get_foreground();
 	break;
       case DIA_SVG_COLOUR_DEFAULT: /* black */
 	prop->attr.color = get_colour(0x000000, gs->fill_opacity);
 	break;
       case DIA_SVG_COLOUR_FOREGROUND :
-        prop->attr.color = attributes_get_background();
+	prop->attr.color = attributes_get_background();
 	break;
       default :
-        prop->attr.color = get_colour (gs->fill, gs->fill_opacity);
+	prop->attr.color = get_colour (gs->fill, gs->fill_opacity);
 	break;
       }
       new_obj->ops->set_props(new_obj, props);
       prop_list_free(props);
-
     }
     if (gs->font)
       dia_font_unref (gs->font);
@@ -858,7 +857,7 @@ read_poly_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GHashTable *style_ht,
       points[i].x = rarr[2*i];
       points[i].y = rarr[2*i+1];
       if (matrix)
-        transform_point (&points[i], matrix);
+	transform_point (&points[i], matrix);
     }
     g_array_free(arr, TRUE);
     if (matrix)
@@ -924,7 +923,7 @@ read_ellipse_svg(xmlNodePtr node, DiaSvgStyle *parent_style,
   apply_style(new_obj, node, parent_style, style_ht, TRUE);
 
   props = make_element_props(start.x-(width/2), start.y-(height/2),
-                             width, height);
+			     width, height);
   new_obj->ops->set_props(new_obj, props);
   prop_list_free(props);
   return g_list_append (list, new_obj);
@@ -1113,7 +1112,7 @@ read_image_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GHashTable *style_ht,
       const char* data = strchr((char *)str, ',');
       
       if (data) {
-        GdkPixbuf *pixbuf = pixbuf_decode_base64 (data+1);
+	GdkPixbuf *pixbuf = pixbuf_decode_base64 (data+1);
 
 	if (pixbuf) {
 	  ObjectChange *change;
@@ -1128,14 +1127,14 @@ read_image_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GHashTable *style_ht,
     } else {
       gchar *filename = g_filename_from_uri((gchar *) str, NULL, NULL);
       if (!filename || !g_path_is_absolute (filename)) {
-        /* if image file path is relative use the main path */
-        gchar *dir = g_path_get_dirname (filename_svg);
-        gchar *absfn = g_build_path (G_DIR_SEPARATOR_S, 
+	/* if image file path is relative use the main path */
+	gchar *dir = g_path_get_dirname (filename_svg);
+	gchar *absfn = g_build_path (G_DIR_SEPARATOR_S, 
 	                             dir, filename ? filename : (gchar *)str, NULL);
 
-        g_free (filename);
-        g_free (dir);
-        filename = absfn;
+	g_free (filename);
+	g_free (dir);
+	filename = absfn;
       }
       /* Importing svg as "Misc - Diagram" should produce better results than GdkPixbuf rendering */
       if (filename && g_strrstr (filename, ".svg")) {
@@ -1301,7 +1300,7 @@ read_style (xmlNodePtr node, GHashTable *ht)
       gchar *val = g_match_info_fetch (info, 2);
       const gchar *former;
 
-      /* multiple occurences chain up to a single style string */
+      /* multiple occurrences chain up to a single style string */
       former = g_hash_table_lookup (ht, key);
       if (former) {
 	gchar *tmp = val;
@@ -1382,7 +1381,7 @@ _node_read_viewbox (xmlNodePtr root, DiaMatrix **mat)
 	  xs = ys = DEFAULT_SVG_SCALE * (100.0 / sqrt(width*height));
 	}
 	/* plausibility check, strictly speaking these are not required to be the same 
-	 * /or/ are they and Dia is writting a bogus viewBox?
+	 * /or/ are they and Dia is writing a bogus viewBox?
 	 */
 	if (fabs((fabs (xs/ys) - 1.0) < 0.1) && fabs((fabs (ys/xs) - 1.0) < 0.1)) {
 	  user_scale = xs;
@@ -1414,7 +1413,7 @@ _node_read_viewbox (xmlNodePtr root, DiaMatrix **mat)
 /*!
  * Fill a GList* with objects which is to be put in a
  * diagram or a group by the caller. 
- * Can be called recusively to allow groups in groups.
+ * Can be called recursively to allow groups in groups.
  *
  * @param startnode the XML node to dive into
  * @param parent_gs the graphic style inherited by parent
@@ -1446,7 +1445,7 @@ read_items (xmlNodePtr   startnode,
     if (xmlIsBlankNode(node)) continue;
     if (node->type == XML_COMMENT_NODE) {
       if (!comment)
-        comment = g_strdup ((gchar *)node->content);
+	comment = g_strdup ((gchar *)node->content);
       else {
 	gchar *prev = comment;
 	comment = g_strjoin ("\n", comment, (gchar *)node->content, NULL);
@@ -1470,14 +1469,14 @@ read_items (xmlNodePtr   startnode,
 
       trans = xmlGetProp (node, (xmlChar *)"transform");
       if (trans) {
-        matrix = dia_svg_parse_transform ((char *)trans, user_scale);
+	matrix = dia_svg_parse_transform ((char *)trans, user_scale);
 	xmlFree (trans);
       }
 
       moreitems = read_items (node->xmlChildrenNode, group_gs, defs_ht, style_ht, filename_svg, ctx);
 
       if (moreitems) {
-        DiaObject *group;
+	DiaObject *group;
 
 	if (matrix) {
 	  group = group_create_with_matrix (moreitems, matrix);
@@ -1485,12 +1484,12 @@ read_items (xmlNodePtr   startnode,
 	} else
 	  group = group_create (moreitems);
 	/* group eats list */
-        items = g_list_append (items, group);
+	items = g_list_append (items, group);
 	/* remember for meta */
 	obj = group;
       }
       if (group_gs->font)
-        dia_font_unref (group_gs->font);
+	dia_font_unref (group_gs->font);
       g_free (group_gs);
       g_free (matrix);
     } else if (!xmlStrcmp(node->name, (const xmlChar *)"symbol")) {
@@ -1581,7 +1580,7 @@ read_items (xmlNodePtr   startnode,
       xmlChar *key = xmlGetNsProp (node, (const xmlChar *)"href", (const xmlChar *)"xlink");
       
       if (!key) /* this doesn't look right but ... */
-        key = xmlGetProp(node, (const xmlChar *)"href");
+	key = xmlGetProp(node, (const xmlChar *)"href");
 
       if (key && key[0] == '#') {
 	DiaObject *otemp = g_hash_table_lookup (defs_ht, key+1);
@@ -1620,7 +1619,7 @@ read_items (xmlNodePtr   startnode,
       /* Patterns could be considered as groups, too But Dia does not
        * have the facility to apply them (yet?). */
     } else if(!xmlStrcmp(node->name, (const xmlChar *)"svg")) {
-      /* A subsequent svg node is truned into a group to simplify offseting
+      /* A subsequent svg node is turned into a group to simplify offsetting
        * it and maybe later honor additional attributes like viewBox, width,
        * height and preserveAspectRatio with clipping and scaling
        */
@@ -1636,7 +1635,7 @@ read_items (xmlNodePtr   startnode,
       pos.y = _node_get_real (node, "y", 0.0);
       moreitems = read_items (node->xmlChildrenNode, parent_gs, defs_ht, style_ht, filename_svg, ctx);
       if (moreitems) {
-        DiaObject *group;
+	DiaObject *group;
 
 	if (matrix) /* eats list and matrix */
 	  group = group_create_with_matrix (moreitems, matrix);
@@ -1801,7 +1800,7 @@ import_file_svg(const gchar *filename, DiagramData *dia, DiaContext *ctx, void* 
 
   if (!doc) {
     dia_context_add_message(ctx, _("Parse error for %s"), 
-		            dia_context_get_filename (ctx));
+			    dia_context_get_filename (ctx));
     return FALSE;
   }
   return import_svg (doc, dia, ctx, user_data);
@@ -1833,7 +1832,7 @@ import_svg (xmlDocPtr doc, DiagramData *dia,
     xmlFreeDoc(doc);
     return FALSE;
 #else
-    dia_context_add_message(ctx, _("Expected SVG Namespace not found in file"));
+    dia_context_add_message(ctx, _("Expected SVG name-space not found in file"));
 #endif
   }
   /* search for some svg in the file, this allows us to read the
@@ -1858,7 +1857,7 @@ import_svg (xmlDocPtr doc, DiagramData *dia,
     return FALSE;
   }
 
-  /* the following calls rely on the fact that noone messed with the original scale */
+  /* the following calls rely on the fact that no one messed with the original scale */
   if (shape_root)
     user_scale = 1.0;
   else
