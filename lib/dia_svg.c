@@ -74,6 +74,9 @@ dia_svg_style_init(DiaSvgStyle *gs, DiaSvgStyle *parent_style)
   gs->font = (parent_style && parent_style->font) ? dia_font_ref(parent_style->font) : NULL;
   gs->font_height = parent_style ? parent_style->font_height : 0.8;
   gs->alignment = parent_style ? parent_style->alignment : ALIGN_LEFT;
+
+  gs->stop_color = parent_style ? parent_style->stop_color : 0x000000; /* default black */
+  gs->stop_opacity = parent_style ? parent_style->stop_opacity : 1.0;
 }
 
 /*!
@@ -99,6 +102,8 @@ dia_svg_style_copy(DiaSvgStyle *dest, DiaSvgStyle *src)
   dest->font = src->font ? dia_font_ref(src->font) : NULL;
   dest->font_height = src->font_height;
   dest->alignment = src->alignment;
+  dest->stop_color = src->stop_color;
+  dest->stop_opacity = src->stop_opacity;
 }
 
 static const struct _SvgNamedColor {
@@ -634,6 +639,16 @@ dia_svg_parse_style_string (DiaSvgStyle *s, real user_scale, const gchar *str)
     } else if (!strncmp("fill-opacity:", ptr, 13)) {
       ptr += 13;
       s->fill_opacity = g_ascii_strtod(ptr, &ptr);
+    } else if (!strncmp("stop-color:", ptr, 11)) {
+      ptr += 11;
+      while (ptr[0] != '\0' && g_ascii_isspace(ptr[0])) ptr++;
+      if (ptr[0] == '\0') break;
+
+      if (!_parse_color (&s->stop_color, ptr))
+	 s->stop_color = DIA_SVG_COLOUR_NONE;
+    } else if (!strncmp("stop-opacity:", ptr, 13)) {
+      ptr += 13;
+      s->stop_opacity = g_ascii_strtod(ptr, &ptr);
     } else if (!strncmp("opacity", ptr, 7)) {
       real opacity;
       ptr += 7;
@@ -757,6 +772,17 @@ dia_svg_parse_style(xmlNodePtr node, DiaSvgStyle *s, real user_scale)
     s->fill_opacity *= opacity;
     xmlFree(str);
   }
+  str = xmlGetProp(node, (const xmlChar *)"stop-color");
+  if (str) {
+    if (!_parse_color (&s->stop_color, (char *) str) && strcmp ((const char *) str, "inherit") != 0)
+      s->stop_color = DIA_SVG_COLOUR_NONE;
+    xmlFree(str);
+  }
+  str = xmlGetProp(node, (const xmlChar *)"stop-opacity");
+  if (str) {
+    s->stop_opacity = g_ascii_strtod((char *) str, NULL);
+    xmlFree(str);
+  }
   str = xmlGetProp(node, (const xmlChar *)"fill");
   if (str) {
     if (!_parse_color (&s->fill, (char *) str) && strcmp ((const char *) str, "inherit") != 0)
@@ -778,7 +804,7 @@ dia_svg_parse_style(xmlNodePtr node, DiaSvgStyle *s, real user_scale)
   if (str) {
     s->stroke_opacity = g_ascii_strtod((char *) str, NULL);
     xmlFree(str);
-  }  
+  }
   str = xmlGetProp(node, (const xmlChar *)"stroke-width");
   if (str) {
     s->line_width = g_ascii_strtod((char *) str, NULL);

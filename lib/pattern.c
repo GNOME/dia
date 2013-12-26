@@ -194,10 +194,13 @@ void
 dia_pattern_add_color (DiaPattern *self, real pos, const Color *color)
 {
   ColorStop stop;
+  real former = 0.0;
 
   g_return_if_fail (self != NULL && color != NULL);
   stop.color  = *color;
-  stop.offset = pos;
+  if (self->stops->len > 0)
+    former = g_array_index (self->stops, ColorStop, self->stops->len - 1).offset;
+  stop.offset = MAX(pos, former);
   g_array_append_val (self->stops, stop);
 }
 

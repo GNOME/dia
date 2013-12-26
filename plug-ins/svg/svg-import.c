@@ -1196,18 +1196,18 @@ read_image_svg(xmlNodePtr node, DiaSvgStyle *parent_style,
  *
  * Parse a radial or linear gradient and into a DiaPattern.
  * Missing attribute handling for:
- *  - gradientTransform
- *  - style inheritance (would require to parse stop-color and stop-opacity
- *    outside of this function)
+ *  - gradients via CSS
  */
 static DiaPattern *
-read_gradient (xmlNodePtr node, GHashTable  *pattern_ht, DiaContext *ctx)
+read_gradient (xmlNodePtr node, DiaSvgStyle *parent_gs, GHashTable  *pattern_ht, DiaContext *ctx)
 {
   DiaPattern *pat;
   xmlNode    *child;
   xmlChar    *str;
   guint       flags = 0;
   real        old_scale = user_scale;
+  DiaMatrix  *matrix = NULL;
+  DiaSvgStyle gradient_gs;
 
   str = xmlGetProp (node, (const xmlChar *)"gradientUnits");
   if (str) {
@@ -1228,30 +1228,41 @@ read_gradient (xmlNodePtr node, GHashTable  *pattern_ht, DiaContext *ctx)
   /* this should not be user_scaled */
   if ((flags & DIA_PATTERN_USER_SPACE) == 0)
     user_scale = 1.0;
+  str = xmlGetProp (node, (const xmlChar *)"gradientTransform");
+  if (str) {
+    matrix = dia_svg_parse_transform ((char *)str, user_scale);
+  }
   if (xmlStrcmp(node->name, (const xmlChar *)"linearGradient")==0) {
-    pat = dia_pattern_new (DIA_LINEAR_GRADIENT, flags,
-			   _node_get_real (node, "x1", 0.0), _node_get_real (node, "y1", 0.0));
-    dia_pattern_set_point (pat, _node_get_real (node, "x2", 1.0), _node_get_real (node, "y2", 0.0));
+    Point p1 = {_node_get_real (node, "x1", 0.0), _node_get_real (node, "y1", 0.0)};
+    Point p2 = {_node_get_real (node, "x2", 1.0), _node_get_real (node, "y2", 0.0)};
+    if (matrix) {
+      transform_point (&p1, matrix);
+      transform_point (&p2, matrix);
+    }
+    pat = dia_pattern_new (DIA_LINEAR_GRADIENT, flags, p1.x, p1.y);
+    dia_pattern_set_point (pat, p2.x, p2.y);
   } else {
-    real cx = _node_get_real (node, "cx", 0.5);
-    real cy = _node_get_real (node, "cy", 0.5);
-    pat = dia_pattern_new (DIA_RADIAL_GRADIENT, flags, cx, cy);
-    dia_pattern_set_radius (pat, _node_get_real (node, "r", 0.5));
-    dia_pattern_set_point (pat, _node_get_real (node, "fx", cx), _node_get_real (node, "fy", cy));
+    Point c = {_node_get_real (node, "cx", 0.5), _node_get_real (node, "cy", 0.5)};
+    Point f = {_node_get_real (node, "fx", c.x), _node_get_real (node, "fy", c.y)};
+    real r = _node_get_real (node, "r", 0.5);
+    if (matrix) {
+      transform_point (&c, matrix);
+      transform_point (&f, matrix);
+      transform_length (&r, matrix);
+    }
+    pat = dia_pattern_new (DIA_RADIAL_GRADIENT, flags, c.x, c.y);
+    dia_pattern_set_radius (pat, r);
+    dia_pattern_set_point (pat, f.x, f.y);
   }
   /* restore previous user scale */
   user_scale = old_scale;
 
-  /* if there is a single color on the gradient
+  /* if there are single stop value on the gradient
+   *  - use it as default stop-color and stop-opacity
    *  - parse it to initialize currentColor
-   *  - use it as fall-back color for the whole gradient?
    */
-  {
-    DiaSvgStyle gs;
-    dia_svg_style_init (&gs, NULL);
-    dia_svg_parse_style (node, &gs, user_scale);
-    /* not stop-color, but should be better than nothing */
-  }
+  dia_svg_style_init (&gradient_gs, parent_gs);
+  dia_svg_parse_style (node, &gradient_gs, user_scale);
 
   /* stops and focal point can be defined by reference */
   str = xmlGetProp(node, (const xmlChar *)"xlink:href");
@@ -1267,13 +1278,13 @@ read_gradient (xmlNodePtr node, GHashTable  *pattern_ht, DiaContext *ctx)
   child = node->children;
   while (child) {
     if (xmlStrcmp(child->name, (const xmlChar *)"stop")==0) {
-      Color color = color_black;
+      DiaSvgStyle gs;
+      Color color;
       real offset = 0.0;
-      str = xmlGetProp(child, (const xmlChar *)"stop-color");
-      if (str) {
-	dia_svg_parse_color((const gchar*)str, &color);
-	xmlFree(str);
-      }
+
+      dia_svg_style_init (&gs, &gradient_gs);
+      dia_svg_parse_style (child, &gs, user_scale);
+
       str = xmlGetProp(child, (const xmlChar *)"offset");
       if (str) {
 	if (strrchr (str, '%'))
@@ -1282,15 +1293,13 @@ read_gradient (xmlNodePtr node, GHashTable  *pattern_ht, DiaContext *ctx)
 	  offset = g_ascii_strtod ((const char*)str, NULL);
 	xmlFree(str);
       }
-      str = xmlGetProp(child, (const xmlChar *)"stop-opacity");
-      if (str) {
-	color.alpha = g_ascii_strtod ((const char*)str, NULL);
-	xmlFree(str);
-      }
+      color = get_colour (gs.stop_color, gs.stop_opacity);
       dia_pattern_add_color (pat, offset, &color);
     }
     child = child->next;
   }
+  if (matrix)
+    g_free (matrix);
 
   return pat;
 }
@@ -1567,8 +1576,9 @@ read_items (xmlNodePtr   startnode,
 	      !xmlStrcmp(node->name, (const xmlChar *)"radialGradient") ||
 	      !xmlStrcmp(node->name, (const xmlChar *)"style") ||
 	      !xmlStrcmp(node->name, (const xmlChar *)"pattern") ||
+	      !xmlStrcmp(node->name, (const xmlChar *)"mask") ||
 	      !xmlStrcmp(node->name, (const xmlChar *)"defs")) {
-      /* read_defs was already handling these */
+      /* read_defs was already handling these, mostly;) */
     } else if(!xmlStrcmp(node->name, (const xmlChar *)"use")) {
       xmlChar *key = xmlGetNsProp (node, (const xmlChar *)"href", (const xmlChar *)"xlink");
       
@@ -1713,7 +1723,7 @@ read_defs (xmlNodePtr   startnode,
        !xmlStrcmp(node->name, (const xmlChar *)"radialGradient")) {
       xmlChar *val = xmlGetProp (node, (const xmlChar *)"id");
       if (val) {
-	DiaPattern *pat = read_gradient (node, pattern_ht, ctx);
+	DiaPattern *pat = read_gradient (node, parent_gs, pattern_ht, ctx);
 	if (pat)
 	  g_hash_table_insert (pattern_ht, g_strdup(val), pat);
 	xmlFree (val);
@@ -1726,7 +1736,7 @@ read_defs (xmlNodePtr   startnode,
 
       /* Commonly seen in <defs/> are
        *   clipPath, font, filter, linearGradient, mask, marker, pattern, radialGradient, style
-       * all not supported as of this writing.
+       * mostly not supported as of this writing.
        * Less commonly used are normal objects which could be supported here.
        */
       for (list = defs; list != NULL; list = g_list_next (list)) {

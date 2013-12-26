@@ -57,6 +57,9 @@ struct _DiaSvgStyle {
   DiaFont *font;
   real font_height;
   Alignment alignment;
+
+  gint32 stop_color;
+  real   stop_opacity;
 };
 
 void dia_svg_style_init (DiaSvgStyle *gs, DiaSvgStyle *parent_style);
