@@ -492,6 +492,24 @@ apply_style(DiaObject *obj, xmlNodePtr node, DiaSvgStyle *parent_style,
 	  g_free (key);
 	}
 	xmlFree(str);        
+      } else if (gs->fill == DIA_SVG_COLOUR_NONE) {
+        /* check the style again, it might contain a pattern */
+	str = xmlGetProp(node, (const xmlChar*)"style");
+	if (str) {
+	  const char *left = strstr ((const char*)str, "fill:url(#");
+	  const char *right = left ? strrchr (left, ')') : NULL;
+	  if (left && right) {
+	    gchar *key = g_strndup (left + 10, right - left - 10);
+	    DiaPattern *pattern = g_hash_table_lookup (pattern_ht, key);
+	    if (pattern) {
+	      dia_object_set_pattern (obj, pattern);
+	      /* activate "show_background" */
+	      bprop->bool_data = TRUE;
+	    }
+	    g_free (key);
+	  }
+	  xmlFree (str);
+	}
       }
 
       eprop = g_ptr_array_index(props,5);
@@ -1706,12 +1724,6 @@ read_defs (xmlNodePtr   startnode,
 				       defs_ht, style_ht, pattern_ht,
 				       filename_svg, ctx);
 
-      if (!defs) {
-	read_defs (node->xmlChildrenNode, parent_gs,
-		   defs_ht, style_ht, pattern_ht,
-		   filename_svg, ctx);
-	continue;
-      }
       /* Commonly seen in <defs/> are
        *   clipPath, font, filter, linearGradient, mask, marker, pattern, radialGradient, style
        * all not supported as of this writing.
@@ -1740,6 +1752,10 @@ read_defs (xmlNodePtr   startnode,
 	  list->data = NULL;
 	}
       }
+      /* kind of greedy */
+      read_defs (node->xmlChildrenNode, parent_gs,
+		 defs_ht, style_ht, pattern_ht,
+		 filename_svg, ctx);
     } else if(!xmlStrcmp(node->name, (const xmlChar *)"style")) {
       /* Prepare the third variant to apply style to the objects.
        * The final style is similar to what we have in the style
@@ -1750,7 +1766,8 @@ read_defs (xmlNodePtr   startnode,
     } else if(!xmlStrcmp(node->name, (const xmlChar *)"pattern")) {
       /* Patterns could be considered as groups, too. But Dia does not
        * have the facility to apply them (yet?). */
-    } else if(!xmlStrcmp(node->name, (const xmlChar *)"g")) {
+    } else if(!xmlStrcmp(node->name, (const xmlChar *)"g") ||
+	      !xmlStrcmp(node->name, (const xmlChar *)"a")) {
       /* just dive into */
       DiaSvgStyle group_gs;
       dia_svg_style_init (&group_gs, parent_gs);
@@ -1872,7 +1889,7 @@ import_file_svg(const gchar *filename, DiagramData *dia, DiaContext *ctx, void* 
   return import_svg (doc, dia, ctx, user_data);
 }
 
-gboolean
+static gboolean
 import_svg (xmlDocPtr doc, DiagramData *dia,
 	    DiaContext *ctx, void *user_data)
 {

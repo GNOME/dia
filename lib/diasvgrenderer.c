@@ -31,6 +31,7 @@
 #include <time.h>
 #include <math.h>
 #include <glib.h>
+#include <glib/gstdio.h> /* g_sprintf */
 #ifdef HAVE_UNISTD_H
 #include <unistd.h>
 #endif
@@ -47,6 +48,7 @@
 #include "diasvgrenderer.h"
 #include "textline.h"
 #include "prop_pixbuf.h" /* pixbuf_encode_base64() */
+#include "pattern.h"
 
 #define DTOSTR_BUF_SIZE G_ASCII_DTOSTR_BUF_SIZE
 #define dia_svg_dtostr(buf,d)                                  \
@@ -67,12 +69,120 @@ begin_render(DiaRenderer *self, const Rectangle *update)
   renderer->linestyle = NULL;
 }
 
+/*!
+ * \brief Create a unique key to identify the pattern
+ */
+static gchar *
+_make_pattern_key (const DiaPattern *pattern)
+{
+  gchar *key = g_strdup_printf ("%p", pattern);
+
+  return key;
+}
+
+static gboolean
+_color_stop_do (real         ofs,
+		const Color *col,
+		gpointer     user_data)
+{
+  xmlNodePtr parent = (xmlNodePtr)user_data;
+  xmlNodePtr stop = xmlNewChild (parent, parent->ns, (const xmlChar *)"stop", NULL);
+  gchar vbuf[DTOSTR_BUF_SIZE];
+
+  g_ascii_formatd(vbuf,sizeof(vbuf),"%g", ofs);
+  xmlSetProp (stop, (const xmlChar *)"offset", vbuf);
+
+  g_sprintf (vbuf, "#%02x%02x%02x", (int)(255*col->red), (int)(255*col->green), (int)(255*col->blue));
+  xmlSetProp (stop, (const xmlChar *)"stop-color", vbuf);
+
+  g_ascii_formatd(vbuf,sizeof(vbuf),"%g", col->alpha);
+  xmlSetProp (stop, (const xmlChar *)"stop-opacity", vbuf);
+
+  return TRUE;
+}
+
+typedef struct {
+  DiaSvgRenderer *renderer;
+  xmlNodePtr      node;
+} GradientData;
+
+static void
+_gradient_do (gpointer key,
+	      gpointer value,
+	      gpointer user_data)
+{
+  gchar *name = (gchar *)key;
+  DiaPattern *pattern = (DiaPattern *)value;
+  GradientData *gd = (GradientData *)user_data;
+  DiaSvgRenderer *renderer = gd->renderer;
+  xmlNodePtr parent = gd->node;
+  xmlNodePtr gradient;
+  DiaPatternType pt;
+  guint flags;
+  Point p1, p2;
+  gchar vbuf[DTOSTR_BUF_SIZE];
+  real scale = renderer->scale;
+
+  dia_pattern_get_settings (pattern, &pt, &flags);
+  if ((flags & DIA_PATTERN_USER_SPACE)==0)
+    scale = 1.0;
+  dia_pattern_get_points (pattern, &p1, &p2);
+  if (pt == DIA_LINEAR_GRADIENT) {
+    gradient = xmlNewChild (parent, parent->ns, (const xmlChar *)"linearGradient", NULL);
+    xmlSetProp (gradient, (const xmlChar *)"x1", g_ascii_formatd(vbuf,sizeof(vbuf),"%g", p1.x * scale));
+    xmlSetProp (gradient, (const xmlChar *)"y1", g_ascii_formatd(vbuf,sizeof(vbuf),"%g", p1.y * scale));
+    xmlSetProp (gradient, (const xmlChar *)"x2", g_ascii_formatd(vbuf,sizeof(vbuf),"%g", p2.x * scale));
+    xmlSetProp (gradient, (const xmlChar *)"y2", g_ascii_formatd(vbuf,sizeof(vbuf),"%g", p2.y * scale));
+  } else if  (pt == DIA_RADIAL_GRADIENT) {
+    real r;
+    dia_pattern_get_radius (pattern, &r);
+    gradient = xmlNewChild (parent, parent->ns, (const xmlChar *)"radialGradient", NULL);
+    xmlSetProp (gradient, (const xmlChar *)"cx", g_ascii_formatd(vbuf,sizeof(vbuf),"%g", p1.x * scale));
+    xmlSetProp (gradient, (const xmlChar *)"cy", g_ascii_formatd(vbuf,sizeof(vbuf),"%g", p1.y * scale));
+    xmlSetProp (gradient, (const xmlChar *)"fx", g_ascii_formatd(vbuf,sizeof(vbuf),"%g", p2.x * scale));
+    xmlSetProp (gradient, (const xmlChar *)"fy", g_ascii_formatd(vbuf,sizeof(vbuf),"%g", p2.y * scale));
+    xmlSetProp (gradient, (const xmlChar *)"r", g_ascii_formatd(vbuf,sizeof(vbuf),"%g", r * scale));
+  } else {
+    gradient = xmlNewChild (parent, parent->ns, (const xmlChar *)"pattern", NULL);
+  }
+  /* don't miss to set the id */
+  {
+    gchar *id = _make_pattern_key (pattern);
+    xmlSetProp (gradient, (const xmlChar *)"id", (const xmlChar *)id);
+    g_free (id);
+  }
+  if (flags & DIA_PATTERN_USER_SPACE)
+    xmlSetProp (gradient, (const xmlChar *)"gradientUnits", (const xmlChar *)"userSpaceOnUse");
+  if (flags & DIA_PATTERN_EXTEND_REPEAT)
+    xmlSetProp (gradient, (const xmlChar *)"spreadMethod", (const xmlChar *)"repeat");
+  else if (flags & DIA_PATTERN_EXTEND_REFLECT)
+    xmlSetProp (gradient, (const xmlChar *)"spreadMethod", (const xmlChar *)"reflect");
+  else if (flags & DIA_PATTERN_EXTEND_PAD)
+    xmlSetProp (gradient, (const xmlChar *)"spreadMethod", (const xmlChar *)"pad");
+
+  if (pt == DIA_LINEAR_GRADIENT || pt == DIA_RADIAL_GRADIENT) {
+    dia_pattern_foreach (pattern, _color_stop_do, gradient);
+  } else {
+    g_warning ("SVG pattern data not implemented");
+  }
+}
+
 static void
 end_render(DiaRenderer *self)
 {
   DiaSvgRenderer *renderer = DIA_SVG_RENDERER (self);
   g_free(renderer->linestyle);
 
+  /* handle potential patterns */
+  if (renderer->patterns) {
+    xmlNodePtr root = xmlDocGetRootElement (renderer->doc);
+    xmlNodePtr defs = xmlNewNode (renderer->svg_name_space, (const xmlChar *)"defs");
+    GradientData gd = { renderer, defs };
+    g_hash_table_foreach (renderer->patterns, _gradient_do, &gd);
+    xmlAddPrevSibling (root->children, defs);
+    g_hash_table_destroy (renderer->patterns);
+    renderer->patterns = NULL;
+  }
   xmlSetDocCompressMode(renderer->doc, 0);
   xmlDiaSaveFile(renderer->filename, renderer->doc);
   g_free(renderer->filename);
@@ -214,6 +324,30 @@ set_fillstyle(DiaRenderer *self, FillStyle mode)
   }
 }
 
+/*!
+ * \brief Remember the pattern for later use
+ */
+static void
+set_pattern(DiaRenderer *self, DiaPattern *pattern)
+{
+  DiaSvgRenderer *renderer = DIA_SVG_RENDERER (self);
+  DiaPattern *prev = renderer->active_pattern;
+
+  if (!renderer->patterns)
+    renderer->patterns = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_object_unref);
+  /* remember */
+  if (pattern) {
+    renderer->active_pattern = g_object_ref (pattern);
+    if (!g_hash_table_lookup (renderer->patterns, pattern))
+      g_hash_table_insert (renderer->patterns, _make_pattern_key (pattern), g_object_ref (pattern));
+  } else {
+    renderer->active_pattern = NULL;
+  }
+
+  if (prev)
+    g_object_unref (prev);
+}
+
 /* the return value of this function should not be saved anywhere */
 static const gchar *
 get_draw_style(DiaSvgRenderer *renderer,
@@ -240,7 +374,7 @@ get_draw_style(DiaSvgRenderer *renderer,
   if (colour)
     g_string_append_printf(str, "; stroke: #%02x%02x%02x",
 		      (int)(255*colour->red), 
-			  (int)(255*colour->green),
+		      (int)(255*colour->green),
 		      (int)(255*colour->blue));
 
   return str->str;
@@ -256,11 +390,16 @@ get_fill_style(DiaSvgRenderer *renderer,
 
   if (!str) str = g_string_new(NULL);
 
-  g_string_printf(str, "fill: #%02x%02x%02x; fill-opacity: %s",
-		   (int)(255*colour->red), (int)(255*colour->green),
-		   (int)(255*colour->blue), 
-		   g_ascii_formatd(alpha_buf, sizeof(alpha_buf), "%g", colour->alpha));
-
+  if (renderer->active_pattern) {
+    gchar *key = _make_pattern_key (renderer->active_pattern);
+    g_string_printf(str, "fill:url(#%s)", key);
+    g_free (key);
+  } else {
+    g_string_printf(str, "fill: #%02x%02x%02x; fill-opacity: %s",
+		     (int)(255*colour->red), (int)(255*colour->green),
+		     (int)(255*colour->blue), 
+		     g_ascii_formatd(alpha_buf, sizeof(alpha_buf), "%g", colour->alpha));
+  }
   return str->str;
 }
 
@@ -826,6 +965,7 @@ dia_svg_renderer_class_init (DiaSvgRendererClass *klass)
   renderer_class->set_linestyle  = set_linestyle;
   renderer_class->set_dashlength = set_dashlength;
   renderer_class->set_fillstyle  = set_fillstyle;
+  renderer_class->set_pattern  = set_pattern;
 
   renderer_class->draw_line    = draw_line;
   renderer_class->fill_polygon = fill_polygon;

@@ -179,6 +179,8 @@ is_capable_to (DiaRenderer *renderer, RenderCapability cap)
     return TRUE;
   else if (RENDER_AFFINE == cap)
     return TRUE;
+  else if (RENDER_PATTERN == cap)
+    return TRUE;
   return FALSE;
 }
 

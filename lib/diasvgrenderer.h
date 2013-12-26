@@ -41,6 +41,11 @@ struct _DiaSvgRenderer
   const char *linejoin;
   char *linestyle; /* not const -- must free */
   real scale;  /*!< scale=1.0 for shape output, more for svg output,  */
+
+  /*! \private pattern set by set_pattern */
+  DiaPattern *active_pattern;
+  /*! \private all patterns seen between begin_render and end_render */
+  GHashTable *patterns;
 };
 
 struct _DiaSvgRendererClass
