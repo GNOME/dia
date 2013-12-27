@@ -16,8 +16,8 @@ msgstr ""
 "Project-Id-Version: dia\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=dia&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2013-10-25 21:41+0000\n"
-"PO-Revision-Date: 2013-10-30 05:36+0200\n"
+"POT-Creation-Date: 2013-12-25 23:58+0000\n"
+"PO-Revision-Date: 2013-12-27 06:25+0100\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -696,7 +696,7 @@ msgid "Follow link…"
 msgstr "Následovat odkaz…"
 
 #: ../app/disp_callbacks.c:216 ../objects/standard/bezier.c:785
-#: ../objects/standard/beziergon.c:524 ../objects/standard/box.c:763
+#: ../objects/standard/beziergon.c:547 ../objects/standard/box.c:783
 #: ../objects/standard/textobj.c:450
 msgid "Convert to Path"
 msgstr "Převést na cestu"
@@ -995,13 +995,13 @@ msgstr "Přidat vrstvu"
 msgid "Layer name:"
 msgstr "Název vrstvy:"
 
-#: ../app/linewidth_area.c:247 ../lib/properties.h:623 ../lib/properties.h:626
+#: ../app/linewidth_area.c:246 ../lib/properties.h:626 ../lib/properties.h:629
 #: ../objects/chronogram/chronoline.c:180
 #: ../objects/chronogram/chronoref.c:159
 msgid "Line width"
 msgstr "Tloušťka čáry"
 
-#: ../app/linewidth_area.c:259
+#: ../app/linewidth_area.c:258
 msgid "Line width:"
 msgstr "Tloušťka čáry:"
 
@@ -1036,11 +1036,11 @@ msgstr ""
 msgid "Can't find parent %s of %s object\n"
 msgstr "Nelze nalézt rodiče %s objektu %s\n"
 
-#: ../app/load_save.c:378
+#: ../app/load_save.c:379
 msgid "You must specify a file, not a directory."
 msgstr "Musíte zadat soubor, ne složku."
 
-#: ../app/load_save.c:385 ../plug-ins/dxf/dxf-import.c:1289
+#: ../app/load_save.c:386 ../plug-ins/dxf/dxf-import.c:1289
 #: ../plug-ins/wpg/wpg.c:1186 ../plug-ins/xfig/xfig-import.c:1288
 #: ../plug-ins/xslt/xslt.c:96
 #, c-format
@@ -1048,12 +1048,12 @@ msgid "Couldn't open: '%s' for reading.\n"
 msgstr "Nelze otevřít „%s“ pro čtení.\n"
 
 #. this was talking about unknown file type but it could as well be broken XML
-#: ../app/load_save.c:403
+#: ../app/load_save.c:404
 #, c-format
 msgid "Error loading diagram %s."
 msgstr "Chyba při načítání diagramu %s."
 
-#: ../app/load_save.c:408
+#: ../app/load_save.c:413
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -1062,7 +1062,7 @@ msgstr ""
 "Chyba při načítání diagramu %s.\n"
 "Neznámý typ souboru."
 
-#: ../app/load_save.c:416
+#: ../app/load_save.c:421
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -1071,7 +1071,7 @@ msgstr ""
 "Chyba při načítání diagramu %s.\n"
 "Toto není soubor Dia."
 
-#: ../app/load_save.c:674
+#: ../app/load_save.c:679
 #, c-format
 msgid ""
 "Error loading diagram:\n"
@@ -1082,17 +1082,17 @@ msgstr ""
 "%s.\n"
 "Platný soubor ve formátu Dia obsahuje alespoň jednu vrstvu."
 
-#: ../app/load_save.c:1017
+#: ../app/load_save.c:1022
 #, c-format
 msgid "Not allowed to write to output file %s\n"
 msgstr "Není povoleno zapisovat do výstupního souboru %s\n"
 
-#: ../app/load_save.c:1049
+#: ../app/load_save.c:1054
 #, c-format
 msgid "Not allowed to write temporary files in %s\n"
 msgstr "Není povoleno zapisovat do dočasných souborů v %s\n"
 
-#: ../app/load_save.c:1072 ../plug-ins/cgm/cgm.c:1172
+#: ../app/load_save.c:1077 ../plug-ins/cgm/cgm.c:1172
 #: ../plug-ins/dxf/dxf-export.c:599
 #: ../plug-ins/metapost/render_metapost.c:1179
 #: ../plug-ins/pgf/render_pgf.c:1207 ../plug-ins/postscript/render_eps.c:123
@@ -1105,21 +1105,21 @@ msgstr "Nelze otevřít výstupní soubor %s"
 
 #. Save failed; we clean our stuff up, without touching the file named
 #. "filename" if it existed.
-#: ../app/load_save.c:1083
+#: ../app/load_save.c:1088
 #, c-format
 msgid "Internal error %d writing file %s\n"
 msgstr "Vnitřní chyba %d při zápisu souboru %s\n"
 
-#: ../app/load_save.c:1094
+#: ../app/load_save.c:1099
 #, c-format
 msgid "Can't rename %s to final output file %s: %s\n"
 msgstr "Nelze přejmenovat %s na konečný výstupní soubor %s: %s\n"
 
-#: ../app/load_save.c:1110
+#: ../app/load_save.c:1115
 msgid "Diagram Save"
 msgstr "Ukládání diagramu"
 
-#: ../app/load_save.c:1240 ../app/load_save.c:1245
+#: ../app/load_save.c:1245 ../app/load_save.c:1250
 msgid "Dia Diagram File"
 msgstr "Soubor diagramu Dia"
 
@@ -1507,8 +1507,8 @@ msgstr "Posouvat"
 
 #. how it used to be before 0.96+SVN
 #. new name matching "same name, same type"  rule
-#: ../app/menus.c:232 ../app/toolbox.c:98 ../lib/properties.c:101
-#: ../lib/properties.h:674 ../objects/AADL/aadlbox.c:153
+#: ../app/menus.c:232 ../app/toolbox.c:98 ../lib/properties.c:102
+#: ../lib/properties.h:677 ../objects/AADL/aadlbox.c:153
 #: ../objects/custom/custom_object.c:228 ../objects/Jackson/requirement.c:130
 #: ../objects/network/basestation.c:132 ../objects/network/radiocell.c:125
 #: ../objects/UML/activity.c:127 ../objects/UML/actor.c:120
@@ -1659,7 +1659,7 @@ msgstr "Přepíná přichytávání k objektům."
 msgid "The function is not available anymore."
 msgstr "Funkce nadále není k dispozici."
 
-#: ../app/modify_tool.c:384
+#: ../app/modify_tool.c:387
 msgid "Couldn't get GTK+ settings"
 msgstr "Nelze získat nastavení GTK+"
 
@@ -1822,7 +1822,7 @@ msgid "Portable Network Graphics"
 msgstr "Portable Network Graphics"
 
 #: ../app/preferences.c:224 ../plug-ins/svg/render_svg.c:603
-#: ../plug-ins/svg/svg-import.c:1774
+#: ../plug-ins/svg/svg-import.c:2006
 msgid "Scalable Vector Graphics"
 msgstr "Scalable Vector Graphics"
 
@@ -1870,18 +1870,19 @@ msgstr "Čar na hlavní čáru"
 msgid "Hex Size:"
 msgstr "Velikost šesterečku:"
 
-#: ../app/preferences.c:481 ../lib/prop_inttypes.c:159
-#: ../lib/prop_pixbuf.c:268
+#: ../app/preferences.c:470 ../lib/prop_inttypes.c:159
+#: ../lib/prop_pattern.c:206 ../lib/prop_pixbuf.c:268
 msgid "Yes"
 msgstr "Ano"
 
-#: ../app/preferences.c:481 ../app/preferences.c:492
+#: ../app/preferences.c:470 ../app/preferences.c:481
 #: ../lib/prop_inttypes.c:161 ../lib/prop_inttypes.c:187
+#: ../lib/prop_pattern.c:208 ../lib/prop_pattern.c:214
 #: ../lib/prop_pixbuf.c:270 ../lib/prop_pixbuf.c:276
 msgid "No"
 msgstr "Ne"
 
-#: ../app/preferences.c:595
+#: ../app/preferences.c:584
 msgid "Preferences"
 msgstr "Předvolby"
 
@@ -2482,7 +2483,7 @@ msgstr "neznámá šipka"
 #: ../lib/create.c:50 ../lib/create.c:100 ../lib/create.c:127
 #: ../lib/create.c:160 ../lib/create.c:196 ../lib/create.c:228
 #: ../lib/create.c:252 ../lib/create.c:284 ../lib/create.c:305
-#: ../lib/create.c:335 ../lib/create.c:378 ../plug-ins/svg/svg-import.c:597
+#: ../lib/create.c:335 ../lib/create.c:378 ../plug-ins/svg/svg-import.c:624
 #: ../plug-ins/vdx/vdx-import.c:144
 msgid "Can't find standard object"
 msgstr "Nelze nalézt standardní objekt"
@@ -2532,22 +2533,22 @@ msgstr "Nelze nalézt rodinu písma pro %s\n"
 msgid ""
 "Unsupported file format for saving:\n"
 "%s\n"
-"%s"
+"%s\n"
 msgstr ""
 "Nepodporovaný formát pro ukládání:\n"
 "%s\n"
-"%s"
+"%s\n"
 
 #: ../lib/dia_image.c:331
 #, c-format
 msgid ""
 "Could not save file:\n"
 "%s\n"
-"%s"
+"%s\n"
 msgstr ""
 "Nelze uložit soubor:\n"
 "%s\n"
-"%s"
+"%s\n"
 
 #: ../lib/dialinechooser.c:309
 msgid "Line Style Properties"
@@ -2590,7 +2591,7 @@ msgstr "OK"
 msgid "Cancel"
 msgstr "Zrušit"
 
-#: ../lib/dia_xml.c:212
+#: ../lib/dia_xml.c:214
 #, c-format
 msgid ""
 "The file %s has no encoding specification;\n"
@@ -2599,71 +2600,71 @@ msgstr ""
 "Soubor %s neobsahuje specifikaci kódování;\n"
 "bude se předpokládat, že je kódován v %s"
 
-#: ../lib/dia_xml.c:506
+#: ../lib/dia_xml.c:508
 #, c-format
 msgid "Unknown type of DataNode '%s'"
 msgstr "Neznámý typ datového uzlu „%s“"
 
-#: ../lib/dia_xml.c:525
+#: ../lib/dia_xml.c:527
 msgid "Taking int value of non-int node."
 msgstr "Vybírá se hodnota celého čísla z uzlu, který není typu celé číslo."
 
-#: ../lib/dia_xml.c:701
+#: ../lib/dia_xml.c:703
 msgid "Taking point value of non-point node."
 msgstr "Vybírá se hodnota bodu z uzlu, který není typu bod."
 
-#: ../lib/dia_xml.c:712
+#: ../lib/dia_xml.c:714
 #, c-format
 msgid "Incorrect x Point value \"%s\" %f; discarding it."
 msgstr "Nesprávná hodnota bodu x „%s“ %f; bude zahozena."
 
-#: ../lib/dia_xml.c:719
+#: ../lib/dia_xml.c:721
 msgid "Error parsing point."
 msgstr "Chyba při zpracování bodu."
 
 #. don't bother with useless warnings (see above)
-#: ../lib/dia_xml.c:727
+#: ../lib/dia_xml.c:729
 #, c-format
 msgid "Incorrect y Point value \"%s\" %f; discarding it."
 msgstr "Nesprávná hodnota bodu y „%s“ %f; bude zahozena."
 
-#: ../lib/dia_xml.c:747
+#: ../lib/dia_xml.c:749
 msgid "Taking bezpoint value of non-point node."
 msgstr "Vybírá se hodnota Beziérova bodu z uzlu, který není typu bod."
 
-#: ../lib/dia_xml.c:765
+#: ../lib/dia_xml.c:767
 msgid "Error parsing bezpoint p1."
 msgstr "Chyba při zpracování Beziérova bodu p1."
 
-#: ../lib/dia_xml.c:779
+#: ../lib/dia_xml.c:781
 msgid "Error parsing bezpoint p2."
 msgstr "Chyba při zpracování Beziérova bodu p2."
 
-#: ../lib/dia_xml.c:793
+#: ../lib/dia_xml.c:795
 msgid "Error parsing bezpoint p3."
 msgstr "Chyba při zpracování Beziérova bodu p3."
 
-#: ../lib/dia_xml.c:820
+#: ../lib/dia_xml.c:822
 msgid "Taking rectangle value of non-rectangle node."
 msgstr "Vybírá se hodnota obdélníku z uzlu, který není typu obdélník."
 
-#: ../lib/dia_xml.c:832 ../lib/dia_xml.c:843 ../lib/dia_xml.c:854
+#: ../lib/dia_xml.c:834 ../lib/dia_xml.c:845 ../lib/dia_xml.c:856
 msgid "Error parsing rectangle."
 msgstr "Chyba při zpracování obdélníku."
 
-#: ../lib/dia_xml.c:882
+#: ../lib/dia_xml.c:884
 msgid "Taking string value of non-string node."
 msgstr "Vybírá se hodnota řetězce z uzlu, který není typu řetězec."
 
-#: ../lib/dia_xml.c:908
+#: ../lib/dia_xml.c:910
 msgid "Error in string tag."
 msgstr "Chyba v textové značce."
 
-#: ../lib/dia_xml.c:926
+#: ../lib/dia_xml.c:928
 msgid "Error in file, string not starting with #"
 msgstr "Chyba v souboru, řetězec nezačíná znakem #"
 
-#: ../lib/dia_xml.c:988
+#: ../lib/dia_xml.c:990
 msgid "Taking font value of non-font node."
 msgstr "Vybírá se hodnota písma z uzlu, který není typu písmo."
 
@@ -2800,94 +2801,94 @@ msgstr "Klíč"
 msgid "Value"
 msgstr "Hodnota"
 
-#: ../lib/properties.c:67 ../lib/properties.h:588 ../lib/widgets.c:269
+#: ../lib/properties.c:68 ../lib/properties.h:591 ../lib/widgets.c:269
 msgid "Left"
 msgstr "Vlevo"
 
-#: ../lib/properties.c:68 ../lib/properties.h:589 ../lib/widgets.c:270
+#: ../lib/properties.c:69 ../lib/properties.h:592 ../lib/widgets.c:270
 #: ../objects/standard/textobj.c:111
 msgid "Center"
 msgstr "Uprostřed"
 
-#: ../lib/properties.c:69 ../lib/properties.h:590 ../lib/widgets.c:271
+#: ../lib/properties.c:70 ../lib/properties.h:593 ../lib/widgets.c:271
 msgid "Right"
 msgstr "Vpravo"
 
-#: ../lib/properties.c:74 ../lib/properties.h:594
+#: ../lib/properties.c:75 ../lib/properties.h:597
 msgid "Never"
 msgstr "Nikdy"
 
-#: ../lib/properties.c:75 ../lib/properties.h:595
+#: ../lib/properties.c:76 ../lib/properties.h:598
 msgid "When Needed"
 msgstr "V případě potřeby"
 
-#: ../lib/properties.c:76 ../lib/properties.h:596
+#: ../lib/properties.c:77 ../lib/properties.h:599
 msgid "Always"
 msgstr "Vždy"
 
-#: ../lib/properties.c:80 ../lib/properties.h:600
+#: ../lib/properties.c:81 ../lib/properties.h:603
 msgctxt "LineJoin"
 msgid "Miter"
 msgstr "Ostré"
 
-#: ../lib/properties.c:81 ../lib/properties.h:601
+#: ../lib/properties.c:82 ../lib/properties.h:604
 msgctxt "LineJoin"
 msgid "Round"
 msgstr "Zakulacené"
 
-#: ../lib/properties.c:82 ../lib/properties.h:602
+#: ../lib/properties.c:83 ../lib/properties.h:605
 msgctxt "LineJoin"
 msgid "Bevel"
 msgstr "Zkosené"
 
-#: ../lib/properties.c:86 ../lib/properties.h:606
+#: ../lib/properties.c:87 ../lib/properties.h:609
 msgctxt "LineCap"
 msgid "Butt"
 msgstr "Useknuté"
 
-#: ../lib/properties.c:87 ../lib/properties.h:607
+#: ../lib/properties.c:88 ../lib/properties.h:610
 msgctxt "LineCap"
 msgid "Round"
 msgstr "Zakulacené"
 
-#: ../lib/properties.c:88 ../lib/properties.h:608
+#: ../lib/properties.c:89 ../lib/properties.h:611
 msgctxt "LineCap"
 msgid "Projecting"
 msgstr "Přetažené"
 
-#: ../lib/properties.c:95 ../lib/properties.h:629 ../lib/properties.h:632
+#: ../lib/properties.c:96 ../lib/properties.h:632 ../lib/properties.h:635
 #: ../objects/chronogram/chronoline.c:178
 #: ../objects/chronogram/chronoref.c:157
 msgid "Line color"
 msgstr "Barva čáry"
 
-#: ../lib/properties.c:96 ../lib/properties.h:635 ../lib/properties.h:638
+#: ../lib/properties.c:97 ../lib/properties.h:638 ../lib/properties.h:641
 msgid "Line style"
 msgstr "Styl čáry"
 
-#: ../lib/properties.c:97 ../lib/properties.h:654 ../lib/properties.h:657
+#: ../lib/properties.c:98 ../lib/properties.h:657 ../lib/properties.h:660
 msgid "Fill color"
 msgstr "Barva výplně"
 
 #. just to simplify transfering properties between objects
-#: ../lib/properties.c:98 ../lib/properties.h:660 ../lib/properties.h:663
-#: ../lib/standard-path.c:143
+#: ../lib/properties.c:99 ../lib/properties.h:663 ../lib/properties.h:666
+#: ../lib/standard-path.c:147
 msgid "Draw background"
 msgstr "Vykreslovat pozadí"
 
-#: ../lib/properties.c:99 ../lib/properties.h:667
+#: ../lib/properties.c:100 ../lib/properties.h:670
 msgid "Start arrow"
 msgstr "Počáteční šipka"
 
-#: ../lib/properties.c:100 ../lib/properties.h:670
+#: ../lib/properties.c:101 ../lib/properties.h:673
 msgid "End arrow"
 msgstr "Koncová šipka"
 
-#: ../lib/properties.c:102 ../lib/properties.h:680
+#: ../lib/properties.c:103 ../lib/properties.h:683
 msgid "Text alignment"
 msgstr "Zarovnání textu"
 
-#: ../lib/properties.c:103 ../lib/properties.h:685
+#: ../lib/properties.c:104 ../lib/properties.h:688
 #: ../objects/chronogram/chronoline.c:182
 #: ../objects/chronogram/chronoref.c:163 ../objects/Database/reference.c:118
 #: ../objects/GRAFCET/condition.c:131 ../objects/GRAFCET/step.c:165
@@ -2895,28 +2896,28 @@ msgstr "Zarovnání textu"
 msgid "Font"
 msgstr "Písmo"
 
-#: ../lib/properties.c:104 ../lib/properties.h:693
+#: ../lib/properties.c:105 ../lib/properties.h:696
 #: ../objects/chronogram/chronoline.c:184
 #: ../objects/chronogram/chronoref.c:165 ../objects/GRAFCET/condition.c:133
 #: ../objects/GRAFCET/step.c:167 ../objects/GRAFCET/transition.c:143
 msgid "Font size"
 msgstr "Velikost písma"
 
-#: ../lib/properties.c:105 ../lib/properties.h:699
+#: ../lib/properties.c:106 ../lib/properties.h:702
 #: ../objects/chronogram/chronoline.c:186
 #: ../objects/chronogram/chronoref.c:167 ../objects/GRAFCET/step.c:169
 msgid "Text color"
 msgstr "Barva textu"
 
-#: ../lib/properties.h:641 ../lib/properties.h:644
+#: ../lib/properties.h:644 ../lib/properties.h:647
 msgid "Line join"
 msgstr "Napojení čar"
 
-#: ../lib/properties.h:647 ../lib/properties.h:650
+#: ../lib/properties.h:650 ../lib/properties.h:653
 msgid "Line caps"
 msgstr "Zakončení čar"
 
-#: ../lib/properties.h:708
+#: ../lib/properties.h:711
 msgid "Text fitting"
 msgstr "Přizpůsobit textu"
 
@@ -2928,6 +2929,10 @@ msgstr "Přetypování vlastnosti z celého čísla na výčet je mimo rozsah"
 #, c-format
 msgid "No attribute '%s' (%p) or no data (%p) in this attribute"
 msgstr "V tomto atributu není atribut „%s“ (%p) ani data(%p)"
+
+#: ../lib/prop_pattern.c:232
+msgid "Cant create pattern from scratch!"
+msgstr "Nelze vytvořit vzor úplně od nuly!"
 
 #: ../lib/prop_pixbuf.c:99 ../lib/prop_pixbuf.c:146
 #, c-format
@@ -2994,36 +2999,42 @@ msgstr ""
 msgid "%s: you should use object tags rather than shape tags now"
 msgstr "%s: nyní byste měli raději používat značky objektů než značky symbolů"
 
-#: ../lib/standard-path.c:127
+#: ../lib/standard-path.c:131
 msgid "Stroke"
 msgstr "Obrys"
 
 #. Translators: Menu item Verb/Provision/Supply/Fill
-#: ../lib/standard-path.c:128 ../objects/FS/function.c:933
+#: ../lib/standard-path.c:132 ../objects/FS/function.c:933
 msgid "Fill"
 msgstr "Výplň"
 
-#: ../lib/standard-path.c:129
+#: ../lib/standard-path.c:133
 msgid "Fill & Stroke"
 msgstr "Výplň a obrys"
 
-#: ../lib/standard-path.c:134
+#: ../lib/standard-path.c:138
 msgid "Bezier points"
 msgstr "Body Beziérovy křivky"
 
-#: ../lib/standard-path.c:135
+#: ../lib/standard-path.c:139
 msgid "Drawing"
 msgstr "Vykreslit"
 
-#: ../lib/standard-path.c:144
+#: ../lib/standard-path.c:148
 msgid "Draw Control Lines"
 msgstr "Vykreslovat řídící čáry"
 
-#: ../lib/standard-path.c:478
+#: ../lib/standard-path.c:149 ../objects/standard/beziergon.c:110
+#: ../objects/standard/box.c:148 ../objects/standard/ellipse.c:135
+#: ../objects/standard/polygon.c:112
+msgid "Pattern"
+msgstr "Vzor"
+
+#: ../lib/standard-path.c:498
 msgid "Convert to Bezier"
 msgstr "Převést na Beziérovu křivku"
 
-#: ../lib/standard-path.c:479
+#: ../lib/standard-path.c:499
 msgid "Show Control Lines"
 msgstr "Zobrazovat řídící čáry"
 
@@ -3285,7 +3296,7 @@ msgid "Entity/Relationship table diagram objects"
 msgstr "Objekty diagramů entit a vztahů tabulek"
 
 #: ../objects/Database/reference.c:109 ../objects/flowchart/box.c:150
-#: ../objects/standard/box.c:141 ../objects/standard/polyline.c:107
+#: ../objects/standard/box.c:144 ../objects/standard/polyline.c:107
 #: ../objects/standard/zigzagline.c:106
 msgid "Corner radius"
 msgstr "Poloměr rohu"
@@ -5080,51 +5091,51 @@ msgstr "Absolutní začátek mezery"
 msgid "Absolute end gap"
 msgstr "Absolutní konec mezery"
 
-#: ../objects/standard/bezier.c:776 ../objects/standard/beziergon.c:515
+#: ../objects/standard/bezier.c:776 ../objects/standard/beziergon.c:538
 msgid "Add Segment"
 msgstr "Přidat segment"
 
-#: ../objects/standard/bezier.c:777 ../objects/standard/beziergon.c:516
+#: ../objects/standard/bezier.c:777 ../objects/standard/beziergon.c:539
 msgid "Delete Segment"
 msgstr "Odstranit segment"
 
-#: ../objects/standard/bezier.c:779 ../objects/standard/beziergon.c:518
+#: ../objects/standard/bezier.c:779 ../objects/standard/beziergon.c:541
 msgid "Symmetric control"
 msgstr "Symetrické ovládání"
 
-#: ../objects/standard/bezier.c:781 ../objects/standard/beziergon.c:520
+#: ../objects/standard/bezier.c:781 ../objects/standard/beziergon.c:543
 msgid "Smooth control"
 msgstr "Hladké ovládání"
 
-#: ../objects/standard/bezier.c:783 ../objects/standard/beziergon.c:522
+#: ../objects/standard/bezier.c:783 ../objects/standard/beziergon.c:545
 msgid "Cusp control"
 msgstr "Hrotové ovládání"
 
-#: ../objects/standard/box.c:127 ../objects/standard/ellipse.c:117
+#: ../objects/standard/box.c:130 ../objects/standard/ellipse.c:120
 msgid "Free"
 msgstr "Volné"
 
-#: ../objects/standard/box.c:128 ../objects/standard/ellipse.c:118
+#: ../objects/standard/box.c:131 ../objects/standard/ellipse.c:121
 msgid "Fixed"
 msgstr "Pevné"
 
-#: ../objects/standard/box.c:129 ../objects/standard/box.c:761
+#: ../objects/standard/box.c:132 ../objects/standard/box.c:781
 msgid "Square"
 msgstr "Čtverec"
 
-#: ../objects/standard/box.c:143 ../objects/standard/ellipse.c:130
+#: ../objects/standard/box.c:146 ../objects/standard/ellipse.c:133
 msgid "Aspect ratio"
 msgstr "Poměr stran"
 
-#: ../objects/standard/box.c:757 ../objects/standard/ellipse.c:663
+#: ../objects/standard/box.c:777 ../objects/standard/ellipse.c:685
 msgid "Free aspect"
 msgstr "Volný poměr stran"
 
-#: ../objects/standard/box.c:759 ../objects/standard/ellipse.c:665
+#: ../objects/standard/box.c:779 ../objects/standard/ellipse.c:687
 msgid "Fixed aspect"
 msgstr "Pevný poměr stran"
 
-#: ../objects/standard/ellipse.c:119 ../objects/standard/ellipse.c:667
+#: ../objects/standard/ellipse.c:122 ../objects/standard/ellipse.c:689
 msgid "Circle"
 msgstr "Kruh"
 
@@ -5205,11 +5216,11 @@ msgstr "Obsah textu"
 msgid "Angle to rotate the outline"
 msgstr "Úhel otočení obrysu"
 
-#: ../objects/standard/polygon.c:459 ../objects/standard/polyline.c:623
+#: ../objects/standard/polygon.c:479 ../objects/standard/polyline.c:623
 msgid "Add Corner"
 msgstr "Přidat roh"
 
-#: ../objects/standard/polygon.c:460 ../objects/standard/polyline.c:624
+#: ../objects/standard/polygon.c:480 ../objects/standard/polyline.c:624
 msgid "Delete Corner"
 msgstr "Odstranit roh"
 
@@ -5861,9 +5872,9 @@ msgstr "Ukazatel přiblížení"
 msgid "Visible rect pointer"
 msgstr "Viditelný obdélníkový ukazatel"
 
-#: ../plug-ins/cairo/diacairo-renderer.c:871
-#: ../plug-ins/cairo/diacairo-renderer.c:906 ../plug-ins/cgm/cgm.c:1126
-#: ../plug-ins/libart/dialibartrenderer.c:1325
+#: ../plug-ins/cairo/diacairo-renderer.c:973
+#: ../plug-ins/cairo/diacairo-renderer.c:1008 ../plug-ins/cgm/cgm.c:1126
+#: ../plug-ins/libart/dialibartrenderer.c:1329
 #: ../plug-ins/metapost/render_metapost.c:1108
 #: ../plug-ins/postscript/diapsrenderer.c:715
 #: ../plug-ins/pstricks/render_pstricks.c:825 ../plug-ins/wpg/wpg.c:892
@@ -5925,47 +5936,47 @@ msgstr "HP Graphics Language"
 msgid "HP Graphics Language export filter"
 msgstr "Exportní filtr formátu HP Graphics Language"
 
-#: ../plug-ins/layout/layout.cpp:228
+#: ../plug-ins/layout/layout.cpp:235
 msgid "Please select edges and nodes to layout."
 msgstr "Vyberte prosím hrany a uzly do vrstvy."
 
-#: ../plug-ins/layout/layout.cpp:233
+#: ../plug-ins/layout/layout.cpp:240
 msgid "Graph creation failed"
 msgstr "Vytvoření grafu selhalo"
 
-#: ../plug-ins/layout/layout.cpp:259
+#: ../plug-ins/layout/layout.cpp:266
 msgid "No such module."
 msgstr "Takový modul neexistuje."
 
-#: ../plug-ins/layout/layout.cpp:260
+#: ../plug-ins/layout/layout.cpp:267
 msgid "Out of memory."
 msgstr "Nastal nedostatek paměti."
 
-#: ../plug-ins/layout/layout.cpp:261
+#: ../plug-ins/layout/layout.cpp:268
 msgid "Not a tree."
 msgstr "Nejedná se o strom."
 
-#: ../plug-ins/layout/layout.cpp:262
+#: ../plug-ins/layout/layout.cpp:269
 msgid "Not a forest."
 msgstr "Nejedná se o les."
 
-#: ../plug-ins/layout/layout.cpp:263
+#: ../plug-ins/layout/layout.cpp:270
 msgid "Failed algorithm."
 msgstr "Selhal algoritmus."
 
-#: ../plug-ins/layout/layout.cpp:264
+#: ../plug-ins/layout/layout.cpp:271
 msgid "Failed precondition."
 msgstr "Selhal nezbytný předpoklad."
 
-#: ../plug-ins/layout/layout.cpp:265
+#: ../plug-ins/layout/layout.cpp:272
 msgid "OGDF crashed."
 msgstr "OGDF se zhroutil."
 
-#: ../plug-ins/layout/layout.cpp:266
+#: ../plug-ins/layout/layout.cpp:273
 msgid "Unknown reason"
 msgstr "Neznámý důvod"
 
-#: ../plug-ins/layout/layout.cpp:268
+#: ../plug-ins/layout/layout.cpp:275
 #, c-format
 msgid ""
 "Layout '%s' failed.\n"
@@ -5974,7 +5985,7 @@ msgstr ""
 "Vrstva „%s“ selhala.\n"
 "%s"
 
-#: ../plug-ins/layout/layout.cpp:409
+#: ../plug-ins/layout/layout.cpp:416
 msgid "OGDF Layout Algorithms"
 msgstr "Algoritmy vrstvy OGDF"
 
@@ -5982,11 +5993,11 @@ msgstr "Algoritmy vrstvy OGDF"
 msgid "Libart-based rendering"
 msgstr "Vykreslování založené na Libart"
 
-#: ../plug-ins/libart/dialibartrenderer.c:1476
+#: ../plug-ins/libart/dialibartrenderer.c:1480
 msgid "Renderer transformation"
 msgstr "Transformace vykreslování"
 
-#: ../plug-ins/libart/dialibartrenderer.c:1477
+#: ../plug-ins/libart/dialibartrenderer.c:1481
 msgid "Transform pointer"
 msgstr "Ukazatel transformace"
 
@@ -6177,17 +6188,17 @@ msgstr "Podpora skriptování v jazyce Python"
 msgid "Dia shape export filter"
 msgstr "Exportní filtr symbolů aplikace Dia"
 
-#: ../plug-ins/shape/shape-export.c:525
+#: ../plug-ins/shape/shape-export.c:536
 msgid "Shape files must end in .shape, or they cannot be loaded by Dia"
 msgstr ""
 "Soubory se symboly musí končit v .shape, jinak je není možné do aplikace Dia "
 "načíst"
 
-#: ../plug-ins/shape/shape-export.c:539
+#: ../plug-ins/shape/shape-export.c:550
 msgid "Can't export PNG icon without export plugin!"
 msgstr "Ikonu PNG nelze exportovat bez exportního zásuvného modulu!"
 
-#: ../plug-ins/shape/shape-export.c:565
+#: ../plug-ins/shape/shape-export.c:576
 msgid "Dia Shape File"
 msgstr "Soubor se symboly Dia"
 
@@ -6195,7 +6206,7 @@ msgstr "Soubor se symboly Dia"
 msgid "Scalable Vector Graphics import and export filters"
 msgstr "Importní a exportní filtry formátu Scalable Vector Graphics"
 
-#: ../plug-ins/svg/svg-import.c:586
+#: ../plug-ins/svg/svg-import.c:606
 msgid ""
 "Invalid path data.\n"
 "svg:path data must start with moveto."
@@ -6203,16 +6214,16 @@ msgstr ""
 "Neplatná data cesty.\n"
 "Data svg:path musí začínat příkazem moveto."
 
-#: ../plug-ins/svg/svg-import.c:1573
+#: ../plug-ins/svg/svg-import.c:1799
 msgid "'Shape Design' shapes missing."
 msgstr "Schází symboly „Návrh symbolu“"
 
-#: ../plug-ins/svg/svg-import.c:1607
+#: ../plug-ins/svg/svg-import.c:1833
 #, c-format
 msgid "Object '%s' creation failed"
 msgstr "Vytvoření objektu „%s“ selhalo"
 
-#: ../plug-ins/svg/svg-import.c:1629
+#: ../plug-ins/svg/svg-import.c:1855
 #, c-format
 msgid ""
 "Parse error for memory block.\n"
@@ -6221,16 +6232,16 @@ msgstr ""
 "Chyba zpracování pro paměťový blok.\n"
 "%s"
 
-#: ../plug-ins/svg/svg-import.c:1642 ../plug-ins/vdx/vdx-import.c:2887
+#: ../plug-ins/svg/svg-import.c:1868 ../plug-ins/vdx/vdx-import.c:2887
 #, c-format
 msgid "Parse error for %s"
 msgstr "Chyba zpracování pro %s"
 
-#: ../plug-ins/svg/svg-import.c:1675
-msgid "Expected SVG Namespace not found in file"
+#: ../plug-ins/svg/svg-import.c:1901
+msgid "Expected SVG name-space not found in file"
 msgstr "Očekávaný jmenný prostor SVG nebyl v souboru nalezen"
 
-#: ../plug-ins/svg/svg-import.c:1695
+#: ../plug-ins/svg/svg-import.c:1921
 #, c-format
 msgid "root element was '%s' -- expecting 'svg'."
 msgstr "kořenový element byl „%s“ -- očekává se „svg“."
@@ -9801,8 +9812,8 @@ msgid "Resizable grid"
 msgstr "Mřížka s měnitelnou velikostí"
 
 #: ../sheets/Misc.sheet.in.h:11
-msgid "New-style group object, for testing"
-msgstr "Skupinový objekt v novém stylu, pro testování"
+msgid "Diagram object"
+msgstr "Objekt diagramu"
 
 #: ../sheets/MSE.sheet.in.h:1
 msgid "MSE"
