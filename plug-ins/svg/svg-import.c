@@ -697,6 +697,7 @@ read_text_svg(xmlNodePtr node, DiaSvgStyle *parent_style,
     gboolean any_tspan = FALSE;
     DiaMatrix *matrix = NULL;
     real font_height = 0.0;
+    gboolean preserve_space = xmlNodeGetSpacePreserve (node) > 0;
 
     str = xmlGetProp(node, (const xmlChar *)"transform");
     if (str) {
@@ -769,6 +770,8 @@ read_text_svg(xmlNodePtr node, DiaSvgStyle *parent_style,
       prop = g_ptr_array_index(props, 0);
       g_free(prop->text_data);
       prop->text_data = str ? g_strdup((char *) str) : multiline;
+      if (!preserve_space)
+        prop->text_data = g_strstrip (prop->text_data); /* modifies in-place */
       xmlFree(str);
       prop->attr.alignment = gs->alignment;
       prop->attr.position.x = point.x;
