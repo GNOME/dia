@@ -1126,9 +1126,7 @@ read_image_svg(xmlNodePtr node, DiaSvgStyle *parent_style,
     g_free (matrix);
   }
 
-  str = xmlGetProp(node, (const xmlChar *)"xlink:href");
-  if (!str) /* this doesn't look right but it appears to work w/o namespace --hb */
-    str = xmlGetProp(node, (const xmlChar *)"href");
+  str = xmlGetNsProp (node, (const xmlChar *)"href", (const xmlChar *)"http://www.w3.org/1999/xlink");
   if (str) {
     if (strncmp ((char *)str, "data:image/", 11) == 0) {
       /* inline data - skip format description like: data:image/png;base64, */
@@ -1265,9 +1263,7 @@ read_gradient (xmlNodePtr node, DiaSvgStyle *parent_gs, GHashTable  *pattern_ht,
   dia_svg_parse_style (node, &gradient_gs, user_scale);
 
   /* stops and focal point can be defined by reference */
-  str = xmlGetProp(node, (const xmlChar *)"xlink:href");
-  if (!str) /* this doesn't look right but it appears to work w/o namespace --hb */
-    str = xmlGetProp (node, (const xmlChar *)"href");
+  str = xmlGetNsProp (node, (const xmlChar *)"href", (const xmlChar *)"http://www.w3.org/1999/xlink");
   if (str) {
     DiaPattern *pattern = g_hash_table_lookup (pattern_ht, (const char*)str+1);
     if (pattern)
@@ -1580,10 +1576,7 @@ read_items (xmlNodePtr   startnode,
 	      !xmlStrcmp(node->name, (const xmlChar *)"defs")) {
       /* read_defs was already handling these, mostly;) */
     } else if(!xmlStrcmp(node->name, (const xmlChar *)"use")) {
-      xmlChar *key = xmlGetNsProp (node, (const xmlChar *)"href", (const xmlChar *)"xlink");
-      
-      if (!key) /* this doesn't look right but ... */
-	key = xmlGetProp(node, (const xmlChar *)"href");
+      xmlChar *key = xmlGetNsProp (node, (const xmlChar *)"href", (const xmlChar *)"http://www.w3.org/1999/xlink");
 
       if (key && key[0] == '#') {
 	DiaObject *otemp = g_hash_table_lookup (defs_ht, key+1);
@@ -1654,7 +1647,7 @@ read_items (xmlNodePtr   startnode,
        */
       GList *moreitems;
       /* one of the non-grouping elements is <a>, extract possible links */
-      xmlChar *href = xmlGetProp (node, (const xmlChar *)"href");
+      xmlChar *href = xmlGetNsProp (node, (const xmlChar *)"href", (const xmlChar *)"http://www.w3.org/1999/xlink");
 
       moreitems = read_items (node->xmlChildrenNode, parent_gs,
 			      defs_ht, style_ht, pattern_ht,
