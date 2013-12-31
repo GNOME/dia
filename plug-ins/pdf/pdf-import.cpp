@@ -27,6 +27,7 @@
 #include "attributes.h"
 #include "object.h"
 #include "diagramdata.h"
+#include "pattern.h"
 #undef Rectangle
 
 // namespacing poppler to avoid conflict on Object
@@ -193,6 +194,11 @@ public :
   {
     GfxRGB color;
 
+    // if we have a pattern in use forget it
+    if (this->pattern) {
+      g_object_unref (this->pattern);
+      this->pattern = NULL;
+    }
     state->getFillRGB(&color);
     this->fill_color.red = colToDbl(color.r);
     this->fill_color.green = colToDbl(color.g);
@@ -202,17 +208,79 @@ public :
   { 
     this->fill_color.alpha = state->getFillOpacity();
   }
-  //! gradients are just emulated - but not if returning true here
-  GBool useFillColorStop() { return gFalse; }
-  void updateFillColorStop(GfxState * state, double /*offset*/)
+  //! gradients are just emulated - but not if returning false here
+  GBool useShadedFills(int type) { return type < 4; }
+  GBool useFillColorStop() { return gTrue; }
+  //! follow the CairoOutputDev pattern once more
+  GBool axialShadedSupportExtend(GfxState *state, GfxAxialShading *shading)
+  {
+    return (shading->getExtend0() == shading->getExtend1());
+  }
+
+  void updateFillColorStop(GfxState * state, double offset)
   {
     GfxRGB color;
     Color fill = this->fill_color;
 
     state->getFillRGB(&color);
-    this->fill_color.red = (fill.red + colToDbl(color.r)) / 2;
-    this->fill_color.green = (fill.green + colToDbl(color.g)) / 2;
-    this->fill_color.blue = (fill.blue + colToDbl(color.b)) / 2;
+    fill.red = colToDbl(color.r);
+    fill.green = colToDbl(color.g);
+    fill.blue = colToDbl(color.b);
+
+    g_return_if_fail (this->pattern != NULL);
+    dia_pattern_add_color (this->pattern, offset, &fill);
+  }
+  GBool axialShadedFill(GfxState *state, GfxAxialShading *shading, double tMin, double tMax)
+  {
+    double x0, y0, x1, y1;
+    double dx, dy;
+
+    shading->getCoords(&x0, &y0, &x1, &y1);
+    x0 *= scale;
+    y0 *= scale;
+    x1 *= scale;
+    y1 *= scale;
+    dx = x1 - x0;
+    dy = y1 - y0;
+
+    if (this->pattern)
+      g_object_unref (this->pattern);
+    this->pattern = dia_pattern_new (DIA_LINEAR_GRADIENT, DIA_PATTERN_USER_SPACE,
+				     x0 + tMin * dx, y0 + tMin * dy);
+    dia_pattern_set_point (this->pattern, x0 + tMax * dx, y0 + tMax * dy);
+    // continue with updateFillColorStop calls
+    // although wasteful, because Poppler samples these to 256 entries 
+    return gFalse;
+  }
+  GBool radialShadedSupportExtend(GfxState *state, GfxRadialShading *shading)
+  {
+    return (shading->getExtend0() == shading->getExtend1());
+  }
+  GBool radialShadedFill(GfxState *state, GfxRadialShading *shading, double sMin, double sMax)
+  {
+    double x0, y0, r0, x1, y1, r1;
+    double dx, dy, dr;
+
+    shading->getCoords(&x0, &y0, &r0, &x1, &y1, &r1);
+    x0 *= scale;
+    y0 *= scale;
+    x1 *= scale;
+    y1 *= scale;
+    r0 *= scale;
+    r1 *= scale;
+    dx = x1 - x0;
+    dy = y1 - y0;
+    dr = r1 - r0;
+
+    if (this->pattern)
+      g_object_unref (this->pattern);
+    this->pattern = dia_pattern_new (DIA_RADIAL_GRADIENT, DIA_PATTERN_USER_SPACE,
+				     x0 + sMax * dx, y0 + sMax * dy);
+    dia_pattern_set_radius (this->pattern, r0 + sMax * dr);
+    dia_pattern_set_point (this->pattern, x0 + sMin * dx, y0 + sMin * dy);
+    // continue with updateFillColorStop calls
+    // although wasteful, because Poppler samples these to 256 entries 
+    return gFalse;
   }
   void updateBlendMode(GfxState *state)
   {
@@ -387,6 +455,8 @@ private :
   DiaMatrix matrix;
   //! stack of matrix
   std::vector<DiaMatrix> matrices;
+  //! radial or linear gradient fill
+  DiaPattern *pattern;
 };
 
 DiaOutputDev::DiaOutputDev (DiagramData *_dia, int _n) :
@@ -406,7 +476,8 @@ DiaOutputDev::DiaOutputDev (DiagramData *_dia, int _n) :
   page_width(1.0),
   page_height(1.0),
   num_pages(_n),
-  font_map_hits(0)
+  font_map_hits(0),
+  pattern(NULL)
 {
   font_map = g_hash_table_new_full(g_direct_hash, g_direct_equal,
 				   NULL, (GDestroyNotify)dia_font_unref);
@@ -418,6 +489,8 @@ DiaOutputDev::~DiaOutputDev ()
 {
   g_print ("Fontmap hits=%d, misses=%d\n", font_map_hits, g_hash_table_size (font_map));
   g_hash_table_destroy (font_map);
+  if (pattern)
+    g_object_unref (pattern);
 }
 static void
 _path_moveto (GArray *path, const Point *pt)
@@ -561,6 +634,8 @@ DiaOutputDev::_fill (GfxState *state, bool winding)
     else
       obj = create_standard_path (points->len, &g_array_index (points, BezPoint, 0));
     applyStyle (obj, true);
+    if (this->pattern)
+      dia_object_set_pattern (obj, this->pattern);
   }
   g_array_free (points, TRUE);
   if (obj) {
