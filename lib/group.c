@@ -352,6 +352,8 @@ group_destroy_shallow(DiaObject *obj)
   prop_desc_list_free_handler_chain((PropDescription *)group->pdesc);
   g_free((PropDescription *)group->pdesc);
 
+  g_free (group->matrix);
+
   g_free(group);
 }
 
