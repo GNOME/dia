@@ -430,7 +430,7 @@ create_canvas (DDisplay *ddisp)
                     G_CALLBACK(ddisplay_canvas_events),
                     ddisp);
 
-  toolbox_setup_drag_dest (canvas);
+  canvas_setup_drag_dest (canvas);
   g_signal_connect (G_OBJECT (canvas), "drag_drop",
 		    G_CALLBACK(display_drop_callback), NULL);
   g_signal_connect (G_OBJECT (canvas), "drag_data_received",
@@ -978,6 +978,11 @@ create_integrated_ui (void)
   gtk_box_pack_start (GTK_BOX (hbox), wrapbox, FALSE, TRUE, 0);
 
   g_signal_connect (G_OBJECT (wrapbox), "drag_data_received",
+		    G_CALLBACK (dia_dnd_file_drag_data_received),
+                    NULL); /* userdata == NULL here intentionally */
+  /* setup the notebook to receive drops as well */
+  toolbox_setup_drag_dest (notebook);
+  g_signal_connect (G_OBJECT (notebook), "drag_data_received",
 		    G_CALLBACK (dia_dnd_file_drag_data_received),
                     NULL); /* userdata == NULL here intentionally */
 

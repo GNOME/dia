@@ -29,6 +29,7 @@ void tool_select_update (GtkWidget *w, gpointer   data);
 GdkPixbuf *tool_get_pixbuf (ToolButton *tb);
 
 void toolbox_setup_drag_dest (GtkWidget *canvas);
+void canvas_setup_drag_dest (GtkWidget *canvas);
 GtkWidget *toolbox_create(void);
 
 void fill_sheet_menu(void);

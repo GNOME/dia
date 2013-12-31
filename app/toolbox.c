@@ -754,7 +754,14 @@ toolbox_create(void)
 }
 
 void
-toolbox_setup_drag_dest (GtkWidget *canvas)
+toolbox_setup_drag_dest (GtkWidget *widget)
+{
+  gtk_drag_dest_set(widget, GTK_DEST_DEFAULT_ALL,
+		    toolbox_target_table, toolbox_n_targets, GDK_ACTION_COPY);
+}
+
+void
+canvas_setup_drag_dest (GtkWidget *canvas)
 {
   gtk_drag_dest_set(canvas, GTK_DEST_DEFAULT_ALL,
 		    display_target_table, display_n_targets, GDK_ACTION_COPY);
