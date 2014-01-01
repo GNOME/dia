@@ -295,6 +295,8 @@ polygon_create(Point *startpoint,
 static void
 polygon_destroy(Polygon *polygon)
 {
+  if (polygon->pattern)
+    g_object_unref (polygon->pattern);
   polyshape_destroy(&polygon->poly);
 }
 

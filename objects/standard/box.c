@@ -478,6 +478,8 @@ box_create(Point *startpoint,
 static void
 box_destroy(Box *box)
 {
+  if (box->pattern)
+    g_object_unref (box->pattern);
   element_destroy(&box->element);
 }
 

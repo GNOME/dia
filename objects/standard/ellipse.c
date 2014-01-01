@@ -452,6 +452,8 @@ ellipse_create(Point *startpoint,
 static void
 ellipse_destroy(Ellipse *ellipse)
 {
+  if (ellipse->pattern)
+    g_object_unref (ellipse->pattern);
   element_destroy(&ellipse->element);
 }
 

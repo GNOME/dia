@@ -314,6 +314,8 @@ beziergon_create(Point *startpoint,
 static void
 beziergon_destroy(Beziergon *beziergon)
 {
+  if (beziergon->pattern)
+    g_object_unref (beziergon->pattern);
   beziershape_destroy(&beziergon->bezier);
 }
 

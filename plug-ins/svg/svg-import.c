@@ -397,6 +397,23 @@ _node_css_parse_style (xmlNodePtr node,
   }
 }
 
+static void
+_set_pattern_from_key (DiaObject *obj, BoolProperty *bprop,
+		       GHashTable *pattern_ht, const gchar *key)
+{
+  ObjectChange *change = NULL;
+  DiaPattern *pattern = g_hash_table_lookup (pattern_ht, key);
+  if (pattern) {
+    change = dia_object_set_pattern (obj, pattern);
+    /* activate "show_background" */
+    bprop->bool_data = TRUE;
+  }
+  if (change) { /* throw it away, no one needs it here  */
+    change->free (change);
+    g_free (change);
+  }
+}
+
 /* apply SVG style to object */
 static void
 apply_style(DiaObject *obj, xmlNodePtr node, DiaSvgStyle *parent_style,
@@ -410,6 +427,7 @@ apply_style(DiaObject *obj, xmlNodePtr node, DiaSvgStyle *parent_style,
       BoolProperty *bprop;
       EnumProperty *eprop;
       real scale = 1.0;
+
 
       xmlChar *str = xmlGetProp(node, (const xmlChar *)"transform");
       if (str) {
@@ -484,12 +502,7 @@ apply_style(DiaObject *obj, xmlNodePtr node, DiaSvgStyle *parent_style,
 	const char *right = strrchr ((const char*)str, ')');
 	if (left && right) {
 	  gchar *key = g_strndup (left + 5, right - left - 5);
-	  DiaPattern *pattern = g_hash_table_lookup (pattern_ht, key);
-	  if (pattern) {
-	    dia_object_set_pattern (obj, pattern);
-	    /* activate "show_background" */
-	    bprop->bool_data = TRUE;
-	  }
+	  _set_pattern_from_key (obj, bprop, pattern_ht, key);
 	  g_free (key);
 	}
 	xmlFree(str);        
@@ -501,12 +514,7 @@ apply_style(DiaObject *obj, xmlNodePtr node, DiaSvgStyle *parent_style,
 	  const char *right = left ? strrchr (left, ')') : NULL;
 	  if (left && right) {
 	    gchar *key = g_strndup (left + 10, right - left - 10);
-	    DiaPattern *pattern = g_hash_table_lookup (pattern_ht, key);
-	    if (pattern) {
-	      dia_object_set_pattern (obj, pattern);
-	      /* activate "show_background" */
-	      bprop->bool_data = TRUE;
-	    }
+	    _set_pattern_from_key (obj, bprop, pattern_ht, key);
 	    g_free (key);
 	  }
 	  xmlFree (str);
@@ -1147,8 +1155,10 @@ read_image_svg(xmlNodePtr node, DiaSvgStyle *parent_style,
 
 	  new_obj = create_standard_image(x, y, width, height, NULL);
 	  change = dia_object_set_pixbuf (new_obj, pixbuf);
-	  if (change) /* throw it away, noone needs it here  */
+	  if (change) { /* throw it away, noone needs it here  */
 	    change->free (change);
+            g_free (change);
+          }
 	  g_object_unref (pixbuf);
 	}
       }
