@@ -90,13 +90,13 @@ _color_stop_do (real         ofs,
   gchar vbuf[DTOSTR_BUF_SIZE];
 
   g_ascii_formatd(vbuf,sizeof(vbuf),"%g", ofs);
-  xmlSetProp (stop, (const xmlChar *)"offset", vbuf);
+  xmlSetProp (stop, (const xmlChar *)"offset", (const xmlChar *)vbuf);
 
   g_sprintf (vbuf, "#%02x%02x%02x", (int)(255*col->red), (int)(255*col->green), (int)(255*col->blue));
-  xmlSetProp (stop, (const xmlChar *)"stop-color", vbuf);
+  xmlSetProp (stop, (const xmlChar *)"stop-color", (const xmlChar *)vbuf);
 
   g_ascii_formatd(vbuf,sizeof(vbuf),"%g", col->alpha);
-  xmlSetProp (stop, (const xmlChar *)"stop-opacity", vbuf);
+  xmlSetProp (stop, (const xmlChar *)"stop-opacity", (const xmlChar *)vbuf);
 
   return TRUE;
 }
@@ -129,19 +129,19 @@ _gradient_do (gpointer key,
   dia_pattern_get_points (pattern, &p1, &p2);
   if (pt == DIA_LINEAR_GRADIENT) {
     gradient = xmlNewChild (parent, parent->ns, (const xmlChar *)"linearGradient", NULL);
-    xmlSetProp (gradient, (const xmlChar *)"x1", g_ascii_formatd(vbuf,sizeof(vbuf),"%g", p1.x * scale));
-    xmlSetProp (gradient, (const xmlChar *)"y1", g_ascii_formatd(vbuf,sizeof(vbuf),"%g", p1.y * scale));
-    xmlSetProp (gradient, (const xmlChar *)"x2", g_ascii_formatd(vbuf,sizeof(vbuf),"%g", p2.x * scale));
-    xmlSetProp (gradient, (const xmlChar *)"y2", g_ascii_formatd(vbuf,sizeof(vbuf),"%g", p2.y * scale));
+    xmlSetProp (gradient, (const xmlChar *)"x1", (const xmlChar *)g_ascii_formatd(vbuf,sizeof(vbuf),"%g", p1.x * scale));
+    xmlSetProp (gradient, (const xmlChar *)"y1", (const xmlChar *)g_ascii_formatd(vbuf,sizeof(vbuf),"%g", p1.y * scale));
+    xmlSetProp (gradient, (const xmlChar *)"x2", (const xmlChar *)g_ascii_formatd(vbuf,sizeof(vbuf),"%g", p2.x * scale));
+    xmlSetProp (gradient, (const xmlChar *)"y2", (const xmlChar *)g_ascii_formatd(vbuf,sizeof(vbuf),"%g", p2.y * scale));
   } else if  (pt == DIA_RADIAL_GRADIENT) {
     real r;
     dia_pattern_get_radius (pattern, &r);
     gradient = xmlNewChild (parent, parent->ns, (const xmlChar *)"radialGradient", NULL);
-    xmlSetProp (gradient, (const xmlChar *)"cx", g_ascii_formatd(vbuf,sizeof(vbuf),"%g", p1.x * scale));
-    xmlSetProp (gradient, (const xmlChar *)"cy", g_ascii_formatd(vbuf,sizeof(vbuf),"%g", p1.y * scale));
-    xmlSetProp (gradient, (const xmlChar *)"fx", g_ascii_formatd(vbuf,sizeof(vbuf),"%g", p2.x * scale));
-    xmlSetProp (gradient, (const xmlChar *)"fy", g_ascii_formatd(vbuf,sizeof(vbuf),"%g", p2.y * scale));
-    xmlSetProp (gradient, (const xmlChar *)"r", g_ascii_formatd(vbuf,sizeof(vbuf),"%g", r * scale));
+    xmlSetProp (gradient, (const xmlChar *)"cx", (const xmlChar *)g_ascii_formatd(vbuf,sizeof(vbuf),"%g", p1.x * scale));
+    xmlSetProp (gradient, (const xmlChar *)"cy", (const xmlChar *)g_ascii_formatd(vbuf,sizeof(vbuf),"%g", p1.y * scale));
+    xmlSetProp (gradient, (const xmlChar *)"fx", (const xmlChar *)g_ascii_formatd(vbuf,sizeof(vbuf),"%g", p2.x * scale));
+    xmlSetProp (gradient, (const xmlChar *)"fy", (const xmlChar *)g_ascii_formatd(vbuf,sizeof(vbuf),"%g", p2.y * scale));
+    xmlSetProp (gradient, (const xmlChar *)"r", (const xmlChar *)g_ascii_formatd(vbuf,sizeof(vbuf),"%g", r * scale));
   } else {
     gradient = xmlNewChild (parent, parent->ns, (const xmlChar *)"pattern", NULL);
   }
