@@ -456,10 +456,13 @@ _parse_dasharray (DiaSvgStyle *s, real user_scale, gchar *str, gchar **end)
     case 4 :
       s->linestyle = LINESTYLE_DASH_DOT;
       break;
-    case 6 : s->linestyle = LINESTYLE_DASH_DOT_DOT;
-      break;
     default :
-      s->linestyle = LINESTYLE_DOTTED; /* not correct */
+      /* If an odd number of values is provided, then the list of values is repeated to
+       * yield an even number of values. Thus, stroke-dasharray: 5,3,2 is equivalent to
+       * stroke-dasharray: 5,3,2,5,3,2.
+       */
+    case 6 :
+      s->linestyle = LINESTYLE_DASH_DOT_DOT;
       break;
   }
   g_strfreev (dashes);
