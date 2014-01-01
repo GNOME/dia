@@ -111,9 +111,9 @@ end_render(DiaRenderer *self)
 {
 }
 /*!
- * \brief Advertize the renderers capabilities
+ * \brief Advertise the renderers capabilities
  * The DiaTransformRenderer can extend every DiaRenderer with affine
- * transormations. Other capabilities are just pass through of the
+ * transformations. Other capabilities are just pass through of the
  * wrapped renderer.
  * \memberof _DiaTransformRenderer
  */
@@ -127,6 +127,10 @@ is_capable_to (DiaRenderer *self, RenderCapability cap)
   g_return_val_if_fail (renderer->worker != NULL, FALSE);
   return DIA_RENDERER_GET_CLASS (renderer->worker)->is_capable_to (renderer->worker, cap);
 }
+/*!
+ * \brief Transform line-width and pass through
+ * \memberof _DiaTransformRenderer
+ */
 static void
 set_linewidth(DiaRenderer *self, real linewidth)
 {  /* 0 == hairline **/
@@ -138,6 +142,10 @@ set_linewidth(DiaRenderer *self, real linewidth)
     transform_length (&lw, m);
   DIA_RENDERER_GET_CLASS (renderer->worker)->set_linewidth (renderer->worker, lw);
 }
+/*!
+ * \brief Pass through line caps
+ * \memberof _DiaTransformRenderer
+ */
 static void
 set_linecaps(DiaRenderer *self, LineCaps mode)
 {
@@ -145,6 +153,10 @@ set_linecaps(DiaRenderer *self, LineCaps mode)
   g_return_if_fail (renderer->worker != NULL);
   DIA_RENDERER_GET_CLASS (renderer->worker)->set_linecaps (renderer->worker, mode);
 }
+/*!
+ * \brief Pass through line join
+ * \memberof _DiaTransformRenderer
+ */
 static void
 set_linejoin(DiaRenderer *self, LineJoin mode)
 {
@@ -152,6 +164,10 @@ set_linejoin(DiaRenderer *self, LineJoin mode)
   g_return_if_fail (renderer->worker != NULL);
   DIA_RENDERER_GET_CLASS (renderer->worker)->set_linejoin (renderer->worker, mode);
 }
+/*!
+ * \brief Pass through line style
+ * \memberof _DiaTransformRenderer
+ */
 static void
 set_linestyle(DiaRenderer *self, LineStyle mode)
 {
@@ -159,6 +175,10 @@ set_linestyle(DiaRenderer *self, LineStyle mode)
   g_return_if_fail (renderer->worker != NULL);
   DIA_RENDERER_GET_CLASS (renderer->worker)->set_linestyle (renderer->worker, mode);
 }
+/*!
+ * \brief Transform dash length and pass through
+ * \memberof _DiaTransformRenderer
+ */
 static void
 set_dashlength(DiaRenderer *self, real length)
 {  /* dot = 20% of len */
@@ -170,6 +190,10 @@ set_dashlength(DiaRenderer *self, real length)
     transform_length (&dl, m);
   DIA_RENDERER_GET_CLASS (renderer->worker)->set_dashlength (renderer->worker, dl);
 }
+/*!
+ * \brief Pass through fill style
+ * \memberof _DiaTransformRenderer
+ */
 static void
 set_fillstyle(DiaRenderer *self, FillStyle mode)
 {
@@ -177,6 +201,10 @@ set_fillstyle(DiaRenderer *self, FillStyle mode)
   g_return_if_fail (renderer->worker != NULL);
   DIA_RENDERER_GET_CLASS (renderer->worker)->set_fillstyle (renderer->worker, mode);
 }
+/*!
+ * \brief Transform line and delegate draw
+ * \memberof _DiaTransformRenderer
+ */
 static void
 draw_line(DiaRenderer *self, 
 	  Point *start, Point *end, 
@@ -216,6 +244,10 @@ _polyline(DiaRenderer *self,
   else
     DIA_RENDERER_GET_CLASS (renderer->worker)->draw_polyline (renderer->worker, a_pts, num_points, stroke);
 }
+/*!
+ * \brief Transform polyline and delegate draw
+ * \memberof _DiaTransformRenderer
+ */
 static void
 draw_polyline(DiaRenderer *self, 
 	      Point *points, int num_points, 
@@ -223,6 +255,10 @@ draw_polyline(DiaRenderer *self,
 {
   _polyline (self, points, num_points, line_colour, NULL, FALSE);
 }
+/*!
+ * \brief Transform polygon and delegate draw
+ * \memberof _DiaTransformRenderer
+ */
 static void
 draw_polygon(DiaRenderer *self, 
 	      Point *points, int num_points, 
@@ -230,6 +266,10 @@ draw_polygon(DiaRenderer *self,
 {
   _polyline (self, points, num_points, line_colour, NULL, TRUE);
 }
+/*!
+ * \brief Transform polygon and delegate fill
+ * \memberof _DiaTransformRenderer
+ */
 static void
 fill_polygon(DiaRenderer *self, 
 	     Point *points, int num_points, 
@@ -253,6 +293,10 @@ _rect (DiaRenderer *self,
   /* delegate transformation and drawing */
   _polyline (self, corner, 4, stroke, fill, TRUE);
 }
+/*!
+ * \brief Transform rectangle and delegate draw
+ * \memberof _DiaTransformRenderer
+ */
 static void
 draw_rect (DiaRenderer *self, 
 	   Point *ul_corner, Point *lr_corner,
@@ -260,6 +304,10 @@ draw_rect (DiaRenderer *self,
 {
   _rect (self, ul_corner, lr_corner, color, NULL);
 }
+/*!
+ * \brief Transform rectangle and delegate fill
+ * \memberof _DiaTransformRenderer
+ */
 static void
 fill_rect (DiaRenderer *self, 
 	   Point *ul_corner, Point *lr_corner,
@@ -300,6 +348,10 @@ _arc (DiaRenderer *self,
   _bezier (self, &g_array_index (path, BezPoint, 0), path->len, stroke, fill);
   g_array_free (path, TRUE);
 }
+/*!
+ * \brief Transform arc and delegate draw
+ * \memberof _DiaTransformRenderer
+ */
 static void
 draw_arc (DiaRenderer *self, 
 	  Point *center,
@@ -309,6 +361,10 @@ draw_arc (DiaRenderer *self,
 {
   _arc (self, center, width, height, angle1, angle2, color, NULL);
 }
+/*!
+ * \brief Transform arc and delegate fill
+ * \memberof _DiaTransformRenderer
+ */
 static void
 fill_arc (DiaRenderer *self, 
 	  Point *center,
@@ -329,6 +385,10 @@ _ellipse (DiaRenderer *self,
   _bezier (self, &g_array_index (path, BezPoint, 0), path->len, stroke, fill);
   g_array_free (path, TRUE);
 }
+/*!
+ * \brief Transform ellipse and delegate draw
+ * \memberof _DiaTransformRenderer
+ */
 static void
 draw_ellipse (DiaRenderer *self, 
 	      Point *center,
@@ -337,6 +397,10 @@ draw_ellipse (DiaRenderer *self,
 {
   _ellipse (self, center, width, height, color, NULL);
 }
+/*!
+ * \brief Transform ellipse and delegate fill
+ * \memberof _DiaTransformRenderer
+ */
 static void
 fill_ellipse (DiaRenderer *self, 
 	      Point *center,
@@ -345,6 +409,10 @@ fill_ellipse (DiaRenderer *self,
 {
   _ellipse (self, center, width, height, NULL, color);
 }
+/*!
+ * \brief Transform bezier and delegate draw
+ * \memberof _DiaTransformRenderer
+ */
 static void
 draw_bezier (DiaRenderer *self, 
 	     BezPoint *points,
@@ -353,6 +421,10 @@ draw_bezier (DiaRenderer *self,
 {
   _bezier(self, points, numpoints, color, NULL);
 }
+/*!
+ * \brief Transform bezier and delegate fill
+ * \memberof _DiaTransformRenderer
+ */
 static void
 fill_bezier(DiaRenderer *self, 
 	    BezPoint *points, /* Last point must be same as first point */
@@ -362,7 +434,7 @@ fill_bezier(DiaRenderer *self,
   _bezier(self, points, numpoints, NULL, color);
 }
 /*!
- * \brief Tansform the text object while drawing
+ * \brief Transform the text object while drawing
  * \memberof _DiaTransformRenderer
  */
 static void 
@@ -469,7 +541,7 @@ draw_object (DiaRenderer *self,
 }
 
 /*!
- * \brief _DiaPathRenderer class initialization
+ * \brief _DiaTransformRenderer class initialization
  * Overwrite methods of the base classes here.
  * \memberof _DiaTransformRenderer
  */
