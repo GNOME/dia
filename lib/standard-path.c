@@ -806,6 +806,9 @@ static void
 stdpath_destroy (StdPath *stdpath)
 {
   object_destroy(&stdpath->object);
+  if (stdpath->pattern)
+    g_object_unref (stdpath->pattern);
+  g_free (stdpath->points);
   /* but not the object itself */
 }
 /*!

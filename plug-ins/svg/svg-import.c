@@ -361,6 +361,7 @@ _css_parse_style (DiaSvgStyle *s, real user_scale,
     if (style) {
       dia_svg_parse_style_string (s, user_scale, style);
     }
+    g_free (key);
   }
 }
 
@@ -753,6 +754,9 @@ read_text_svg(xmlNodePtr node, DiaSvgStyle *parent_style,
     }
     if (!any_tspan) {
       str = xmlNodeGetContent(node);
+      /* so no valid multiline */
+      g_free (multiline);
+      multiline = NULL;
     }
     if(str || multiline) {
       if (matrix)
@@ -1286,7 +1290,7 @@ read_gradient (xmlNodePtr node, DiaSvgStyle *parent_gs, GHashTable  *pattern_ht,
 
       str = xmlGetProp(child, (const xmlChar *)"offset");
       if (str) {
-	if (strrchr (str, '%'))
+	if (strrchr ((const char*)str, '%'))
 	  offset = g_ascii_strtod ((const char*)str, NULL) / 100.0;
 	else
 	  offset = g_ascii_strtod ((const char*)str, NULL);
@@ -1344,7 +1348,7 @@ read_style (xmlNodePtr node, GHashTable *ht)
     }
     g_match_info_free (info);
     g_regex_unref (regex);
-
+    xmlFree (str);
   }
   if (style_type)
     xmlFree (style_type);
@@ -1431,6 +1435,7 @@ _node_read_viewbox (xmlNodePtr root, DiaMatrix **mat)
 	}
       }
     }
+    g_strfreev (vals);
   }
 
   if (swidth)
@@ -1721,7 +1726,7 @@ read_defs (xmlNodePtr   startnode,
       if (val) {
 	DiaPattern *pat = read_gradient (node, parent_gs, pattern_ht, ctx);
 	if (pat)
-	  g_hash_table_insert (pattern_ht, g_strdup(val), pat);
+	  g_hash_table_insert (pattern_ht, g_strdup((gchar *)val), pat);
 	xmlFree (val);
       }
     } else if(!xmlStrcmp(node->name, (const xmlChar *)"defs")) {
@@ -1957,8 +1962,8 @@ import_svg (xmlDocPtr doc, DiagramData *dia,
     _node_read_viewbox (root, NULL);
 
   {
-    GHashTable *defs_ht = g_hash_table_new (g_str_hash, g_str_equal);
-    GHashTable *style_ht = g_hash_table_new (g_str_hash, g_str_equal);
+    GHashTable *defs_ht = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
+    GHashTable *style_ht = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
     GHashTable *pattern_ht = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_object_unref);
     /* first read all definitions ... */
     read_defs (root->xmlChildrenNode, NULL, defs_ht, style_ht, pattern_ht,

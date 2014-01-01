@@ -537,7 +537,7 @@ draw_object (DiaRenderer *self,
   /* This will call us again */
   object->ops->draw(object, DIA_RENDERER (renderer));
   if (matrix)
-    g_queue_pop_tail (renderer->matrices);
+    g_free (g_queue_pop_tail (renderer->matrices));
 }
 
 /*!
