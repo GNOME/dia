@@ -66,7 +66,7 @@ struct _Image {
   gchar *file;
   
   gboolean inline_data;
-  /* may contain the images pixbuf pointer */
+  /* may contain the images pixbuf pointer - if so: reference counted! */
   GdkPixbuf *pixbuf;
 
   gboolean draw_border;
@@ -184,8 +184,10 @@ static PropOffset image_offsets[] = {
 static void
 image_get_props(Image *image, GPtrArray *props)
 {
-  if (image->inline_data)
-    image->pixbuf = (GdkPixbuf *)dia_image_pixbuf (image->image);
+  if (image->inline_data) {
+    if (image->pixbuf != dia_image_pixbuf (image->image))
+      image->pixbuf = (GdkPixbuf *)g_object_ref (dia_image_pixbuf (image->image));
+  }
   object_get_props_from_offsets(&image->element.object, image_offsets, props);
 }
 
@@ -210,7 +212,9 @@ image_set_props(Image *image, GPtrArray *props)
       if (image->image)
         g_object_unref (image->image);
       image->image = dia_image_new_from_pixbuf (image->pixbuf ? image->pixbuf : pixbuf);
-      image->pixbuf = (GdkPixbuf *)dia_image_pixbuf (image->image);
+      if (image->pixbuf)
+        g_object_unref (image->pixbuf);
+      image->pixbuf = (GdkPixbuf *)g_object_ref (dia_image_pixbuf (image->image));
       if (pixbuf)
 	g_object_unref (pixbuf);
     } else {
@@ -241,6 +245,7 @@ image_set_props(Image *image, GPtrArray *props)
       image->image = dia_image_get_broken();
     elem->height = (elem->width*(float)dia_image_height(image->image))/
       (float)dia_image_width(image->image);
+    /* release image->pixbuf? */
   }
   g_free(old_file);
   /* remember it */
@@ -526,12 +531,16 @@ image_create(Point *startpoint,
 }
 
 static void 
-image_destroy(Image *image) {
+image_destroy(Image *image)
+{
   if (image->file != NULL)
     g_free(image->file);
 
   if (image->image != NULL)
     dia_image_unref(image->image);
+
+  if (image->pixbuf != NULL)
+    g_object_unref(image->pixbuf);
 
   element_destroy(&image->element);
 }
@@ -574,9 +583,9 @@ image_copy(Image *image)
    * for every single undoable step */
   newimage->inline_data = image->inline_data;
   if (image->pixbuf)
-    newimage->pixbuf = g_object_ref(image->pixbuf);
+    newimage->pixbuf = g_object_ref (dia_image_pixbuf(newimage->image));
   else
-    newimage->pixbuf = image->pixbuf;
+    newimage->pixbuf = image->pixbuf; /* Just say NULL */
 
   newimage->mtime = image->mtime;
   newimage->draw_border = image->draw_border;

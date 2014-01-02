@@ -249,6 +249,8 @@ pixbufprop_set_from_offset(PixbufProperty *prop,
                            void *base, guint offset, guint offset2)
 {
   GdkPixbuf *dest = struct_member(base,offset,GdkPixbuf *);
+  if (dest == prop->pixbuf)
+    return;
   if (dest)
     g_object_unref (dest);
   if (prop->pixbuf)

@@ -119,6 +119,11 @@ static void
 dia_image_finalize(GObject* object)
 {
   DiaImage *image = DIA_IMAGE(object);
+#ifdef SCALING_CACHE
+  if (image->scaled)
+    g_object_unref (image->scaled);
+  image->scaled = NULL;
+#endif
   if (image->image)
     g_object_unref (image->image);
   image->image = NULL;

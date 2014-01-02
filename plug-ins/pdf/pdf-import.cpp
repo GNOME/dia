@@ -569,6 +569,7 @@ DiaOutputDev::applyStyle (DiaObject *obj, bool fill)
 {
   GPtrArray *plist = g_ptr_array_new ();
 
+
   if (!fill) {
     prop_list_add_line_width (plist, this->line_width);
     prop_list_add_line_style (plist, this->line_style, this->dash_length);
@@ -603,7 +604,7 @@ DiaOutputDev::stroke (GfxState *state)
   GfxPath *path = state->getPath();
   bool haveClose = false;
 
-  if (doPath (points, state, path, haveClose)) {
+  if (doPath (points, state, path, haveClose) && points->len > 1) {
     if (path->getNumSubpaths() == 1) {
       if (!haveClose)
         obj = create_standard_bezierline (points->len, &g_array_index (points, BezPoint, 0), NULL, NULL);
@@ -628,18 +629,24 @@ DiaOutputDev::_fill (GfxState *state, bool winding)
   GfxPath *path = state->getPath();
   bool haveClose = true;
 
-  if (doPath (points, state, path, haveClose)) {
+  if (doPath (points, state, path, haveClose) && points->len > 2) {
     if (path->getNumSubpaths() == 1 && haveClose)
       obj = create_standard_beziergon (points->len, &g_array_index (points, BezPoint, 0));
     else
       obj = create_standard_path (points->len, &g_array_index (points, BezPoint, 0));
     applyStyle (obj, true);
-    if (this->pattern)
-      dia_object_set_pattern (obj, this->pattern);
+    if (this->pattern) {
+      ObjectChange *change = dia_object_set_pattern (obj, this->pattern);
+      if (change) {
+	change->free (change);
+	g_free (change);
+      }
+    }
   }
   g_array_free (points, TRUE);
   if (obj) {
-    dia_object_set_meta (obj, "fill-rule", winding ? "winding" : "even-odd");
+    // Useful for debugging but high performance penalty 
+    // dia_object_set_meta (obj, "fill-rule", winding ? "winding" : "even-odd");
     addObject (obj);
   }
 }
@@ -788,10 +795,12 @@ DiaOutputDev::drawImage(GfxState *state, Object *ref, Stream *str,
   obj = create_standard_image (pos.x, pos.y, 
 			       ctm[0]  * scale,
 			       ctm[3]  * scale, NULL);
-  if ((change = dia_object_set_pixbuf (obj, pixbuf)) != NULL)
-    change->free (change); /* reference transfered */
-  else
-    g_object_unref (pixbuf);
+  if ((change = dia_object_set_pixbuf (obj, pixbuf)) != NULL) {
+    change->free (change);
+    g_free (change);
+  }
+
+  g_object_unref (pixbuf);
 
   addObject (obj);
 }

@@ -283,8 +283,10 @@ received_clipboard_image_handler(GtkClipboard *clipboard,
 					     &handle1, &handle2)) != NULL)) {
       /* as above, transfer the data */
       change = dia_object_set_pixbuf (obj, pixbuf);
-      if (change) /* ... but drop undo info */
+      if (change) { /* ... but drop undo info */
 	change->free (change);
+	g_free (change);
+      }
       /* allow undo of the whole thing */
       undo_insert_objects(dia, g_list_prepend(NULL, obj), 1); 
 
