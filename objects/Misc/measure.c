@@ -165,14 +165,14 @@ measure_load(ObjectNode obj_node, int version,DiaContext *ctx)
 }
 static PropNumData scale_range = {1e-9, 1e9, 1 };
 static PropEnumData unit_data[] = {
-  { N_("cm"), DIA_UNIT_CENTIMETER },
-  { N_("dm"), DIA_UNIT_DECIMETER },
-  { N_("ft"), DIA_UNIT_FEET },
-  { N_("in"), DIA_UNIT_INCH },
-  { N_("m"),  DIA_UNIT_METER },
-  { N_("mm"), DIA_UNIT_MILLIMETER },
-  { N_("pt"), DIA_UNIT_POINT },
-  { N_("pi"), DIA_UNIT_PICA },
+  { NC_("length unit", "cm"), DIA_UNIT_CENTIMETER },
+  { NC_("length unit", "dm"), DIA_UNIT_DECIMETER },
+  { NC_("length unit", "ft"), DIA_UNIT_FEET },
+  { NC_("length unit", "in"), DIA_UNIT_INCH },
+  { NC_("length unit", "m"),  DIA_UNIT_METER },
+  { NC_("length unit", "mm"), DIA_UNIT_MILLIMETER },
+  { NC_("length unit", "pt"), DIA_UNIT_POINT },
+  { NC_("length unit", "pi"), DIA_UNIT_PICA },
   { NULL, }
 };
 static PropNumData precision_data = {1, 9, 1};

@@ -561,7 +561,6 @@ image_copy(Image *image)
     newimage->connections[i].object = newobj;
     newimage->connections[i].connected = NULL;
     newimage->connections[i].pos = image->connections[i].pos;
-    newimage->connections[i].last_pos = image->connections[i].last_pos;
     newimage->connections[i].flags = image->connections[i].flags;
   }
 

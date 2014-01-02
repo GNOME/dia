@@ -505,7 +505,6 @@ function_copy(Function *pkg)
     newpkg->connections[i].object = newobj;
     newpkg->connections[i].connected = NULL;
     newpkg->connections[i].pos = pkg->connections[i].pos;
-    newpkg->connections[i].last_pos = pkg->connections[i].last_pos;
     newpkg->connections[i].flags = pkg->connections[i].flags;
   }
   newpkg->is_wish = pkg->is_wish ;

@@ -458,7 +458,6 @@ entity_copy(Entity *entity)
     newentity->connections[i].object = newobj;
     newentity->connections[i].connected = NULL;
     newentity->connections[i].pos = entity->connections[i].pos;
-    newentity->connections[i].last_pos = entity->connections[i].last_pos;
     newentity->connections[i].flags = entity->connections[i].flags;
   }
 

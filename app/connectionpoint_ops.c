@@ -139,26 +139,28 @@ diagram_update_connections_object(Diagram *dia, DiaObject *obj,
 
   for (i=0;i<dia_object_get_num_connections(obj);i++) {
     ConnectionPoint *cp = obj->connections[i];
-    if ((update_nonmoved) ||
-	(distance_point_point_manhattan(&cp->pos, &cp->last_pos) > CHANGED_TRESHOLD)) {
-      cp->last_pos = cp->pos;
-
+    if (cp->connected) {
       list = cp->connected;
       while (list!=NULL) {
+	gboolean any_move = FALSE;
 	DiaObject *connected_obj = (DiaObject *) list->data;
 
 	object_add_updates(connected_obj, dia);
 	for (j=0;j<connected_obj->num_handles;j++) {
 	  if (connected_obj->handles[j]->connected_to == cp) {
 	    Handle *handle = connected_obj->handles[j];
-	    connected_obj->ops->move_handle(connected_obj, handle, &cp->pos,
-					    cp, HANDLE_MOVE_CONNECTED,0);
+	    if (distance_point_point_manhattan(&cp->pos, &handle->pos) > CHANGED_TRESHOLD) {
+	      connected_obj->ops->move_handle(connected_obj, handle, &cp->pos,
+					      cp, HANDLE_MOVE_CONNECTED,0);
+	      any_move = TRUE;
+	    }
 	  }
 	}
-	object_add_updates(connected_obj, dia);
+	if (update_nonmoved || any_move) {
+	  object_add_updates(connected_obj, dia);
 
-	diagram_update_connections_object(dia, connected_obj, FALSE);
-	
+	  diagram_update_connections_object(dia, connected_obj, FALSE);
+	}	
 	list = g_list_next(list);
       }
     }

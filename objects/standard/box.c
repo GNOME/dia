@@ -272,7 +272,7 @@ box_move_handle(Box *box, Handle *handle,
       new_height = height;
       break;
     }
-	
+
     se_to.x = corner.x + new_width;
     se_to.y = corner.y + new_height;
         
@@ -303,7 +303,6 @@ box_draw(Box *box, DiaRenderer *renderer)
   Element *elem;
   DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
 
-  
   assert(box != NULL);
   assert(renderer != NULL);
 
@@ -516,7 +515,6 @@ box_copy(Box *box)
     newbox->connections[i].object = newobj;
     newbox->connections[i].connected = NULL;
     newbox->connections[i].pos = box->connections[i].pos;
-    newbox->connections[i].last_pos = box->connections[i].last_pos;
     newbox->connections[i].flags = box->connections[i].flags;
   }
 

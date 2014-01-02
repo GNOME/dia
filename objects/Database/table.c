@@ -817,7 +817,6 @@ table_copy(Table * orig)
       copy->connections[i].object = copy_obj;
       copy->connections[i].connected = NULL;
       copy->connections[i].pos = orig->connections[i].pos;
-      copy->connections[i].last_pos = orig->connections[i].last_pos;
     }
 
   copy->name = g_strdup (orig->name);

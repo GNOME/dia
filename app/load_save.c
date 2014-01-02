@@ -277,8 +277,6 @@ read_connections(GList *objects, xmlNodePtr layer_node,
 			     to->connections[conn]);
 	      /* force an update on the connection, helpful with (incomplete) generated files */
 	      if (wants_update) {
-	        obj->handles[handle]->pos = 
-	          to->connections[conn]->last_pos = to->connections[conn]->pos;
 #if 0
 	        obj->ops->move_handle(obj, obj->handles[handle], &to->connections[conn]->pos,
 				      to->connections[conn], HANDLE_MOVE_CONNECTED,0);
@@ -1202,7 +1200,7 @@ diagram_autosave(Diagram *dia)
       if (dia->autosavefilename != NULL) 
 	g_free(dia->autosavefilename);
       dia->autosavefilename = save_filename;
-#ifdef AUTOSAVE_IN_THREAD /* G_THREADS_ENABLED */
+#if 0 //def G_THREADS_ENABLED
       if (g_thread_supported ()) {
         AutoSaveInfo *asi = g_new (AutoSaveInfo, 1);
         GError *error = NULL;

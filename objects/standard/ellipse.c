@@ -492,7 +492,6 @@ ellipse_copy(Ellipse *ellipse)
     newellipse->connections[i].object = newobj;
     newellipse->connections[i].connected = NULL;
     newellipse->connections[i].pos = ellipse->connections[i].pos;
-    newellipse->connections[i].last_pos = ellipse->connections[i].last_pos;
     newellipse->connections[i].flags = ellipse->connections[i].flags;
   }
 

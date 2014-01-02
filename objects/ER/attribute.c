@@ -479,7 +479,6 @@ attribute_copy(Attribute *attribute)
     newattribute->connections[i].object = newobj;
     newattribute->connections[i].connected = NULL;
     newattribute->connections[i].pos = attribute->connections[i].pos;
-    newattribute->connections[i].last_pos = attribute->connections[i].last_pos;
     newattribute->connections[i].flags = attribute->connections[i].flags;
   }
   

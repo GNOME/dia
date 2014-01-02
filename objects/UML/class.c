@@ -2080,7 +2080,6 @@ umlclass_copy(UMLClass *umlclass)
     newumlclass->connections[i].object = newobj;
     newumlclass->connections[i].connected = NULL;
     newumlclass->connections[i].pos = umlclass->connections[i].pos;
-    newumlclass->connections[i].last_pos = umlclass->connections[i].last_pos;
   }
 
   umlclass_calculate_data(newumlclass);

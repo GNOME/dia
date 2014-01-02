@@ -1671,7 +1671,6 @@ custom_copy(Custom *custom)
     newcustom->connections[i].connected = NULL;
     newcustom->connections[i].pos = custom->connections[i].pos;
     newcustom->connections[i].directions = custom->connections[i].directions;
-    newcustom->connections[i].last_pos = custom->connections[i].last_pos;
     newcustom->connections[i].flags = custom->connections[i].flags;
   }
 

@@ -72,7 +72,6 @@ typedef enum {
  */
 struct _ConnectionPoint {
   Point pos;         /*!< position of this connection point */
-  Point last_pos;    /*!< Used by update_connections_xxx only. */
   DiaObject *object; /*!< pointer to the object having this point */
   GList *connected;  /*!< list of 'DiaObject *' connected to this point*/
   guint8 directions; /*!< Directions that this connection point is open to */

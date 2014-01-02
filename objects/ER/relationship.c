@@ -505,7 +505,6 @@ relationship_copy(Relationship *relationship)
     newrelationship->connections[i].object = newobj;
     newrelationship->connections[i].connected = NULL;
     newrelationship->connections[i].pos = relationship->connections[i].pos;
-    newrelationship->connections[i].last_pos = relationship->connections[i].last_pos;
   }
 
   newrelationship->font = dia_font_ref(relationship->font);
