@@ -1200,7 +1200,7 @@ diagram_autosave(Diagram *dia)
       if (dia->autosavefilename != NULL) 
 	g_free(dia->autosavefilename);
       dia->autosavefilename = save_filename;
-#if 0 //def G_THREADS_ENABLED
+#ifdef G_THREADS_ENABLED
       if (g_thread_supported ()) {
         AutoSaveInfo *asi = g_new (AutoSaveInfo, 1);
         GError *error = NULL;
