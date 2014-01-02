@@ -186,7 +186,7 @@ image_get_props(Image *image, GPtrArray *props)
 {
   if (image->inline_data) {
     if (image->pixbuf != dia_image_pixbuf (image->image))
-      image->pixbuf = (GdkPixbuf *)g_object_ref (dia_image_pixbuf (image->image));
+      image->pixbuf = g_object_ref ((GdkPixbuf *) dia_image_pixbuf (image->image));
   }
   object_get_props_from_offsets(&image->element.object, image_offsets, props);
 }
@@ -214,7 +214,7 @@ image_set_props(Image *image, GPtrArray *props)
       image->image = dia_image_new_from_pixbuf (image->pixbuf ? image->pixbuf : pixbuf);
       if (image->pixbuf)
         g_object_unref (image->pixbuf);
-      image->pixbuf = (GdkPixbuf *)g_object_ref (dia_image_pixbuf (image->image));
+      image->pixbuf = g_object_ref ((GdkPixbuf *)dia_image_pixbuf (image->image));
       if (pixbuf)
 	g_object_unref (pixbuf);
     } else {
@@ -583,7 +583,7 @@ image_copy(Image *image)
    * for every single undoable step */
   newimage->inline_data = image->inline_data;
   if (image->pixbuf)
-    newimage->pixbuf = g_object_ref (dia_image_pixbuf(newimage->image));
+    newimage->pixbuf = g_object_ref ((GdkPixbuf *)dia_image_pixbuf(newimage->image));
   else
     newimage->pixbuf = image->pixbuf; /* Just say NULL */
 
