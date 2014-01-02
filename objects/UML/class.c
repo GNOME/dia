@@ -2115,8 +2115,6 @@ umlclass_copy(UMLClass *umlclass)
   newumlclass->connections[UMLCLASS_CONNECTIONPOINTS].connected = NULL;
   newumlclass->connections[UMLCLASS_CONNECTIONPOINTS].pos = 
     umlclass->connections[UMLCLASS_CONNECTIONPOINTS].pos;
-  newumlclass->connections[UMLCLASS_CONNECTIONPOINTS].last_pos =
-    umlclass->connections[UMLCLASS_CONNECTIONPOINTS].last_pos;
   newumlclass->connections[UMLCLASS_CONNECTIONPOINTS].flags = 
     umlclass->connections[UMLCLASS_CONNECTIONPOINTS].flags;
 #endif
