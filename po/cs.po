@@ -16,8 +16,8 @@ msgstr ""
 "Project-Id-Version: dia\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=dia&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2013-12-25 23:58+0000\n"
-"PO-Revision-Date: 2013-12-27 06:25+0100\n"
+"POT-Creation-Date: 2014-01-02 12:30+0000\n"
+"PO-Revision-Date: 2014-01-03 07:39+0100\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -60,8 +60,8 @@ msgstr "Chyba %s: názvy vstupního a výstupního souboru jsou shodné: %s"
 
 #. Translators: Menu item Verb/Channel/Import
 #. Translators: Menu item Verb/Channel/Import/Import
-#: ../app/app_procs.c:353 ../objects/FS/function.c:681
-#: ../objects/FS/function.c:683
+#: ../app/app_procs.c:353 ../objects/FS/function.c:680
+#: ../objects/FS/function.c:682
 msgid "Import"
 msgstr "Importovat"
 
@@ -337,33 +337,33 @@ msgstr "Diagram%d.dia"
 msgid "No image from Clipboard to paste."
 msgstr "Ve schránce není žádný obrázek, který by bylo možné vložit."
 
-#: ../app/commands.c:298
+#: ../app/commands.c:300
 msgid "No selected object can take an image."
 msgstr "Není vybrán žádný objekt, který by mohl poskytnout obrázek."
 
-#: ../app/commands.c:325
+#: ../app/commands.c:327
 msgid "Clipboard Paste"
 msgstr "Vložení ze schránky"
 
 #. might become more right some day ;)
-#: ../app/commands.c:333
+#: ../app/commands.c:335
 #, c-format
 msgid "No clipboard handler for '%s'"
 msgstr "Schází obsluha schránky pro „%s“"
 
-#: ../app/commands.c:424
+#: ../app/commands.c:426
 msgid "Clipboard Copy"
 msgstr "Kopírování do schránky"
 
-#: ../app/commands.c:623
+#: ../app/commands.c:625
 msgid "No existing object to paste.\n"
 msgstr "Žádný existující objekt, který by šel vložit.\n"
 
-#: ../app/commands.c:933 ../app/commands.c:971
+#: ../app/commands.c:935 ../app/commands.c:973
 msgid "Could not find help directory"
 msgstr "Nelze nalézt složku s nápovědou"
 
-#: ../app/commands.c:940
+#: ../app/commands.c:942
 #, c-format
 msgid ""
 "Could not open help directory:\n"
@@ -372,14 +372,14 @@ msgstr ""
 "Nelze otevřít složku s nápovědou:\n"
 "%s"
 
-#: ../app/commands.c:1008
+#: ../app/commands.c:1010
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr ""
 "Michal Bukovjan <bukm@centrum.cz>\n"
 "Miloslav Trmač <mitr@volny.cz>\n"
 "Marek Černocký <marek@manet.cz>"
 
-#: ../app/commands.c:1010
+#: ../app/commands.c:1012
 msgid ""
 "This program is free software; you can redistribute it and/or modify\n"
 "it under the terms of the GNU General Public License as published by\n"
@@ -408,7 +408,7 @@ msgstr ""
 "License. Pokud se tak nestalo, napište na Free Software Foundation, Inc., 59 "
 "Temple Place - Suite 330, Boston, MA 02111-1307, USA.\n"
 
-#: ../app/commands.c:1037
+#: ../app/commands.c:1039
 msgid "A program for drawing structured diagrams."
 msgstr "Program pro kreslení strukturovaných diagramů."
 
@@ -541,8 +541,8 @@ msgstr "Vybrat"
 
 #. Translators: Menu item Verb/Support/Position/Locate
 #. Translators: Menu item Verb/Signal/Sense/Locate
-#: ../app/diagram_tree_view.c:449 ../objects/FS/function.c:807
-#: ../objects/FS/function.c:1049
+#: ../app/diagram_tree_view.c:449 ../objects/FS/function.c:806
+#: ../objects/FS/function.c:1048
 msgid "Locate"
 msgstr "Najít"
 
@@ -696,7 +696,7 @@ msgid "Follow link…"
 msgstr "Následovat odkaz…"
 
 #: ../app/disp_callbacks.c:216 ../objects/standard/bezier.c:785
-#: ../objects/standard/beziergon.c:547 ../objects/standard/box.c:783
+#: ../objects/standard/beziergon.c:549 ../objects/standard/box.c:783
 #: ../objects/standard/textobj.c:450
 msgid "Convert to Path"
 msgstr "Převést na cestu"
@@ -942,7 +942,7 @@ msgstr "Přepne přichytávání k mřížce pro toto okno."
 msgid "Toggles object snapping for this window."
 msgstr "Přepne přichytávání k objektům pro toto okno."
 
-#: ../app/interface.c:926 ../app/interface.c:1034 ../dia.desktop.in.in.h:2
+#: ../app/interface.c:926 ../app/interface.c:1039 ../dia.desktop.in.in.h:2
 msgid "Diagram Editor"
 msgstr "Editor diagramu"
 
@@ -1022,7 +1022,7 @@ msgstr ""
 "Chyba při načítání diagramu.\n"
 "Ovladač připojení %d na „%s“ neexistuje."
 
-#: ../app/load_save.c:288
+#: ../app/load_save.c:286
 #, c-format
 msgid ""
 "Error loading diagram.\n"
@@ -1031,16 +1031,16 @@ msgstr ""
 "Chyba při načítání diagramu.\n"
 "Přípojný bod %d na „%s“ neexistuje."
 
-#: ../app/load_save.c:328
+#: ../app/load_save.c:326
 #, c-format
 msgid "Can't find parent %s of %s object\n"
 msgstr "Nelze nalézt rodiče %s objektu %s\n"
 
-#: ../app/load_save.c:379
+#: ../app/load_save.c:377
 msgid "You must specify a file, not a directory."
 msgstr "Musíte zadat soubor, ne složku."
 
-#: ../app/load_save.c:386 ../plug-ins/dxf/dxf-import.c:1289
+#: ../app/load_save.c:384 ../plug-ins/dxf/dxf-import.c:1289
 #: ../plug-ins/wpg/wpg.c:1186 ../plug-ins/xfig/xfig-import.c:1288
 #: ../plug-ins/xslt/xslt.c:96
 #, c-format
@@ -1048,12 +1048,12 @@ msgid "Couldn't open: '%s' for reading.\n"
 msgstr "Nelze otevřít „%s“ pro čtení.\n"
 
 #. this was talking about unknown file type but it could as well be broken XML
-#: ../app/load_save.c:404
+#: ../app/load_save.c:402
 #, c-format
 msgid "Error loading diagram %s."
 msgstr "Chyba při načítání diagramu %s."
 
-#: ../app/load_save.c:413
+#: ../app/load_save.c:411
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -1062,7 +1062,7 @@ msgstr ""
 "Chyba při načítání diagramu %s.\n"
 "Neznámý typ souboru."
 
-#: ../app/load_save.c:421
+#: ../app/load_save.c:419
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -1071,7 +1071,7 @@ msgstr ""
 "Chyba při načítání diagramu %s.\n"
 "Toto není soubor Dia."
 
-#: ../app/load_save.c:679
+#: ../app/load_save.c:677
 #, c-format
 msgid ""
 "Error loading diagram:\n"
@@ -1082,17 +1082,17 @@ msgstr ""
 "%s.\n"
 "Platný soubor ve formátu Dia obsahuje alespoň jednu vrstvu."
 
-#: ../app/load_save.c:1022
+#: ../app/load_save.c:1020
 #, c-format
 msgid "Not allowed to write to output file %s\n"
 msgstr "Není povoleno zapisovat do výstupního souboru %s\n"
 
-#: ../app/load_save.c:1054
+#: ../app/load_save.c:1052
 #, c-format
 msgid "Not allowed to write temporary files in %s\n"
 msgstr "Není povoleno zapisovat do dočasných souborů v %s\n"
 
-#: ../app/load_save.c:1077 ../plug-ins/cgm/cgm.c:1172
+#: ../app/load_save.c:1075 ../plug-ins/cgm/cgm.c:1172
 #: ../plug-ins/dxf/dxf-export.c:599
 #: ../plug-ins/metapost/render_metapost.c:1179
 #: ../plug-ins/pgf/render_pgf.c:1207 ../plug-ins/postscript/render_eps.c:123
@@ -1105,21 +1105,21 @@ msgstr "Nelze otevřít výstupní soubor %s"
 
 #. Save failed; we clean our stuff up, without touching the file named
 #. "filename" if it existed.
-#: ../app/load_save.c:1088
+#: ../app/load_save.c:1086
 #, c-format
 msgid "Internal error %d writing file %s\n"
 msgstr "Vnitřní chyba %d při zápisu souboru %s\n"
 
-#: ../app/load_save.c:1099
+#: ../app/load_save.c:1097
 #, c-format
 msgid "Can't rename %s to final output file %s: %s\n"
 msgstr "Nelze přejmenovat %s na konečný výstupní soubor %s: %s\n"
 
-#: ../app/load_save.c:1115
+#: ../app/load_save.c:1113
 msgid "Diagram Save"
 msgstr "Ukládání diagramu"
 
-#: ../app/load_save.c:1245 ../app/load_save.c:1250
+#: ../app/load_save.c:1243 ../app/load_save.c:1248
 msgid "Dia Diagram File"
 msgstr "Soubor diagramu Dia"
 
@@ -1401,7 +1401,7 @@ msgid "_Unparent Children"
 msgstr "V_ynořit vnořené"
 
 #. Translators: Menu item Verb/Support/Position/Align
-#: ../app/menus.c:184 ../objects/FS/function.c:805
+#: ../app/menus.c:184 ../objects/FS/function.c:804
 msgid "Align"
 msgstr "Zarovnat"
 
@@ -1493,7 +1493,7 @@ msgid "Modify"
 msgstr "Upravit"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Magnify
-#: ../app/menus.c:229 ../app/toolbox.c:86 ../objects/FS/function.c:985
+#: ../app/menus.c:229 ../app/toolbox.c:86 ../objects/FS/function.c:984
 msgid "Magnify"
 msgstr "Zvětšit"
 
@@ -1601,8 +1601,8 @@ msgstr "Průnik"
 #. Translators: Menu item Verb/Channel/Export/Remove
 #. Translators: Menu item Verb/Branch/Separate/Remove
 #. Translators: Menu item Verb/Branch/Separate/Remove/Remove
-#: ../app/menus.c:266 ../objects/FS/function.c:705
-#: ../objects/FS/function.c:857 ../objects/FS/function.c:859
+#: ../app/menus.c:266 ../objects/FS/function.c:704
+#: ../objects/FS/function.c:856 ../objects/FS/function.c:858
 msgid "Remove"
 msgstr "Odstranit"
 
@@ -1812,8 +1812,8 @@ msgstr "zobrazit vyhlazené"
 #. Favored Filter
 #. Translators: Menu item Verb/Channel/Export
 #. Translators: Menu item Verb/Channel/Export/Export
-#: ../app/preferences.c:220 ../objects/FS/function.c:695
-#: ../objects/FS/function.c:697 ../plug-ins/libart/export_png.c:329
+#: ../app/preferences.c:220 ../objects/FS/function.c:694
+#: ../objects/FS/function.c:696 ../plug-ins/libart/export_png.c:329
 msgid "Export"
 msgstr "Export"
 
@@ -1821,8 +1821,8 @@ msgstr "Export"
 msgid "Portable Network Graphics"
 msgstr "Portable Network Graphics"
 
-#: ../app/preferences.c:224 ../plug-ins/svg/render_svg.c:603
-#: ../plug-ins/svg/svg-import.c:2006
+#: ../app/preferences.c:224 ../plug-ins/svg/render_svg.c:605
+#: ../plug-ins/svg/svg-import.c:2044
 msgid "Scalable Vector Graphics"
 msgstr "Scalable Vector Graphics"
 
@@ -1871,14 +1871,14 @@ msgid "Hex Size:"
 msgstr "Velikost šesterečku:"
 
 #: ../app/preferences.c:470 ../lib/prop_inttypes.c:159
-#: ../lib/prop_pattern.c:206 ../lib/prop_pixbuf.c:268
+#: ../lib/prop_pattern.c:206 ../lib/prop_pixbuf.c:270
 msgid "Yes"
 msgstr "Ano"
 
 #: ../app/preferences.c:470 ../app/preferences.c:481
 #: ../lib/prop_inttypes.c:161 ../lib/prop_inttypes.c:187
 #: ../lib/prop_pattern.c:208 ../lib/prop_pattern.c:214
-#: ../lib/prop_pixbuf.c:270 ../lib/prop_pixbuf.c:276
+#: ../lib/prop_pixbuf.c:272 ../lib/prop_pixbuf.c:278
 msgid "No"
 msgstr "Ne"
 
@@ -2483,7 +2483,7 @@ msgstr "neznámá šipka"
 #: ../lib/create.c:50 ../lib/create.c:100 ../lib/create.c:127
 #: ../lib/create.c:160 ../lib/create.c:196 ../lib/create.c:228
 #: ../lib/create.c:252 ../lib/create.c:284 ../lib/create.c:305
-#: ../lib/create.c:335 ../lib/create.c:378 ../plug-ins/svg/svg-import.c:624
+#: ../lib/create.c:335 ../lib/create.c:378 ../plug-ins/svg/svg-import.c:651
 #: ../plug-ins/vdx/vdx-import.c:144
 msgid "Can't find standard object"
 msgstr "Nelze nalézt standardní objekt"
@@ -2528,7 +2528,7 @@ msgid "Couldn't find font family for %s\n"
 msgstr "Nelze nalézt rodinu písma pro %s\n"
 
 #. pathologic case - pixbuf not even supporting PNG?
-#: ../lib/dia_image.c:328
+#: ../lib/dia_image.c:333
 #, c-format
 msgid ""
 "Unsupported file format for saving:\n"
@@ -2539,7 +2539,7 @@ msgstr ""
 "%s\n"
 "%s\n"
 
-#: ../lib/dia_image.c:331
+#: ../lib/dia_image.c:336
 #, c-format
 msgid ""
 "Could not save file:\n"
@@ -2683,7 +2683,7 @@ msgstr "Více importních filtrů s jedinečným názvem %s"
 msgid "Can't load font %s.\n"
 msgstr "Nelze načíst písmo %s.\n"
 
-#: ../lib/group.c:622
+#: ../lib/group.c:624
 msgid "Transformation"
 msgstr "Transformace"
 
@@ -2952,7 +2952,7 @@ msgstr ""
 "Ukládání vloženého pixelového objektu selhalo:\n"
 "%s"
 
-#: ../lib/prop_pixbuf.c:294
+#: ../lib/prop_pixbuf.c:296
 msgid "Cant create image data from scratch!"
 msgstr "Nelze vytvořit obrazová data úplně od nuly!"
 
@@ -3004,7 +3004,7 @@ msgid "Stroke"
 msgstr "Obrys"
 
 #. Translators: Menu item Verb/Provision/Supply/Fill
-#: ../lib/standard-path.c:132 ../objects/FS/function.c:933
+#: ../lib/standard-path.c:132 ../objects/FS/function.c:932
 msgid "Fill"
 msgstr "Výplň"
 
@@ -3229,15 +3229,15 @@ msgstr "Měřítko podružných symbolů"
 msgid "Text padding"
 msgstr "Odsazení textu"
 
-#: ../objects/custom/custom_object.c:1777
+#: ../objects/custom/custom_object.c:1776
 msgid "Flip Horizontal"
 msgstr "Převrátit vodorovně"
 
-#: ../objects/custom/custom_object.c:1778
+#: ../objects/custom/custom_object.c:1777
 msgid "Flip Vertical"
 msgstr "Převrátit svisle"
 
-#: ../objects/custom/custom_object.c:1815
+#: ../objects/custom/custom_object.c:1814
 #, c-format
 msgid "Cannot open icon file %s for object type '%s'."
 msgstr "Nelze otevřít soubor s ikonou %s pro typ objektu „%s“."
@@ -3508,14 +3508,14 @@ msgstr "Úhel střihu"
 #. Translators: Menu item Noun/Energy
 #: ../objects/FS/flow.c:135 ../objects/FS/flow.c:627
 #: ../objects/FS/flow-ortho.c:158 ../objects/FS/flow-ortho.c:624
-#: ../objects/FS/function.c:1095
+#: ../objects/FS/function.c:1094
 msgid "Energy"
 msgstr "Energie"
 
 #. Translators: Menu item Noun/Material
 #: ../objects/FS/flow.c:136 ../objects/FS/flow.c:628
 #: ../objects/FS/flow-ortho.c:159 ../objects/FS/flow-ortho.c:625
-#: ../objects/FS/function.c:1071
+#: ../objects/FS/function.c:1070
 msgid "Material"
 msgstr "Materiál"
 
@@ -3525,8 +3525,8 @@ msgstr "Materiál"
 #. Translators: Menu item Noun/Signal/Signal
 #: ../objects/FS/flow.c:137 ../objects/FS/flow.c:629
 #: ../objects/FS/flow-ortho.c:160 ../objects/FS/flow-ortho.c:626
-#: ../objects/FS/function.c:1033 ../objects/FS/function.c:1035
-#: ../objects/FS/function.c:1171 ../objects/FS/function.c:1173
+#: ../objects/FS/function.c:1032 ../objects/FS/function.c:1034
+#: ../objects/FS/function.c:1170 ../objects/FS/function.c:1172
 msgid "Signal"
 msgstr "Signál"
 
@@ -3553,310 +3553,310 @@ msgid "User function"
 msgstr "Funkce uživatele"
 
 #. Translators: Menu item Verb
-#: ../objects/FS/function.c:675
+#: ../objects/FS/function.c:674
 msgid "Verb"
 msgstr "Sloveso"
 
 #. Translators: Menu item Verb/Channel
 #. Translators: Menu item Verb/Channel/Channel
 #. Translators: Menu item Verb/Channel/Transfer/Transport/Channel
-#: ../objects/FS/function.c:677 ../objects/FS/function.c:679
-#: ../objects/FS/function.c:719
+#: ../objects/FS/function.c:676 ../objects/FS/function.c:678
+#: ../objects/FS/function.c:718
 msgid "Channel"
 msgstr "Kanál"
 
 #. Translators: Menu item Verb/Channel/Import/Input
-#: ../objects/FS/function.c:685 ../objects/KAOS/metabinrel.c:164
+#: ../objects/FS/function.c:684 ../objects/KAOS/metabinrel.c:164
 msgid "Input"
 msgstr "Vstup"
 
 #. Translators: Menu item Verb/Channel/Import/Receive
-#: ../objects/FS/function.c:687
+#: ../objects/FS/function.c:686
 msgid "Receive"
 msgstr "Obdržet"
 
 #. Translators: Menu item Verb/Channel/Import/Allow
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Allow
-#: ../objects/FS/function.c:689 ../objects/FS/function.c:961
+#: ../objects/FS/function.c:688 ../objects/FS/function.c:960
 msgid "Allow"
 msgstr "Dovolit"
 
 #. Translators: Menu item Verb/Channel/Import/Form Entrance
-#: ../objects/FS/function.c:691
+#: ../objects/FS/function.c:690
 msgid "Form Entrance"
 msgstr "Vytvořit vstup"
 
 #. Translators: Menu item Verb/Channel/Import/Capture
 #. Translators: Menu item Verb/Provision/Store/Capture
-#: ../objects/FS/function.c:693 ../objects/FS/function.c:927
+#: ../objects/FS/function.c:692 ../objects/FS/function.c:926
 msgid "Capture"
 msgstr "Zachytit"
 
 #. Translators: Menu item Verb/Channel/Export/Discharge
-#: ../objects/FS/function.c:699
+#: ../objects/FS/function.c:698
 msgid "Discharge"
 msgstr "Uvolnit"
 
 #. Translators: Menu item Verb/Channel/Export/Eject
-#: ../objects/FS/function.c:701
+#: ../objects/FS/function.c:700
 msgid "Eject"
 msgstr "Vysunout"
 
 #. Translators: Menu item Verb/Channel/Export/Dispose
-#: ../objects/FS/function.c:703
+#: ../objects/FS/function.c:702
 msgid "Dispose"
 msgstr "Odstranit"
 
 #. Translators: Menu item Verb/Channel/Transfer
 #. Translators: Menu item Verb/Channel/Transfer/Transfer
 #. Translators: Menu item Verb/Channel/Transfer/Transmit/Transfer
-#: ../objects/FS/function.c:707 ../objects/FS/function.c:709
-#: ../objects/FS/function.c:727
+#: ../objects/FS/function.c:706 ../objects/FS/function.c:708
+#: ../objects/FS/function.c:726
 msgid "Transfer"
 msgstr "Přesun"
 
 #. Translators: Menu item Verb/Channel/Transfer/Transport
 #. Translators: Menu item Verb/Channel/Transfer/Transport/Transport
-#: ../objects/FS/function.c:711 ../objects/FS/function.c:713
+#: ../objects/FS/function.c:710 ../objects/FS/function.c:712
 msgid "Transport"
 msgstr "Transportovat"
 
 #. Translators: Menu item Verb/Channel/Transfer/Transport/Lift
-#: ../objects/FS/function.c:715
+#: ../objects/FS/function.c:714
 msgid "Lift"
 msgstr "Vytáhnout"
 
 #. Translators: Menu item Verb/Channel/Transfer/Transport/Move
-#: ../objects/FS/function.c:717
+#: ../objects/FS/function.c:716
 msgid "Move"
 msgstr "Posunout"
 
 #. Translators: Menu item Verb/Channel/Transfer/Transmit
 #. Translators: Menu item Verb/Channel/Transfer/Transmit/Transmit
-#: ../objects/FS/function.c:721 ../objects/FS/function.c:723
+#: ../objects/FS/function.c:720 ../objects/FS/function.c:722
 msgid "Transmit"
 msgstr "Vysílat"
 
 #. Translators: Menu item Verb/Channel/Transfer/Transmit/Conduct
-#: ../objects/FS/function.c:725
+#: ../objects/FS/function.c:724
 msgid "Conduct"
 msgstr "Vést"
 
 #. Translators: Menu item Verb/Channel/Transfer/Transmit/Convey
-#: ../objects/FS/function.c:729
+#: ../objects/FS/function.c:728
 msgid "Convey"
 msgstr "Dopravit"
 
 #. Translators: Menu item Verb/Channel/Guide
 #. Translators: Menu item Verb/Channel/Guide/Guide
 #. Translators: Menu item Verb/Channel/Guide/Guide/Guide
-#: ../objects/FS/function.c:731 ../objects/FS/function.c:733
-#: ../objects/FS/function.c:735
+#: ../objects/FS/function.c:730 ../objects/FS/function.c:732
+#: ../objects/FS/function.c:734
 msgid "Guide"
 msgstr "Usměrňování"
 
 #. Translators: Menu item Verb/Channel/Guide/Guide/Direct
-#: ../objects/FS/function.c:737
+#: ../objects/FS/function.c:736
 msgid "Direct"
 msgstr "Nasměrovat"
 
 #. Translators: Menu item Verb/Channel/Guide/Guide/Straighten
-#: ../objects/FS/function.c:739
+#: ../objects/FS/function.c:738
 msgid "Straighten"
 msgstr "Narovnat"
 
 #. Translators: Menu item Verb/Channel/Guide/Guide/Steer
-#: ../objects/FS/function.c:741
+#: ../objects/FS/function.c:740
 msgid "Steer"
 msgstr "Řídit"
 
 #. Translators: Menu item Verb/Channel/Guide/Translate
-#: ../objects/FS/function.c:743
+#: ../objects/FS/function.c:742
 msgid "Translate"
 msgstr "Překládat"
 
 #. Translators: Menu item Verb/Channel/Guide/Rotate
 #. Translators: Menu item Verb/Channel/Guide/Rotate/Rotate
-#: ../objects/FS/function.c:745 ../objects/FS/function.c:747
+#: ../objects/FS/function.c:744 ../objects/FS/function.c:746
 msgid "Rotate"
 msgstr "Rotovat"
 
 #. Translators: Menu item Verb/Channel/Guide/Rotate/Turn
-#: ../objects/FS/function.c:749
+#: ../objects/FS/function.c:748
 msgid "Turn"
 msgstr "Otočit"
 
 #. Translators: Menu item Verb/Channel/Guide/Rotate/Spin
-#: ../objects/FS/function.c:751
+#: ../objects/FS/function.c:750
 msgid "Spin"
 msgstr "Roztočit"
 
 #. Translators: Menu item Verb/Channel/Guide/Allow DOF
 #. Translators: Menu item Verb/Channel/Guide/Allow DOF/Allow DOF
-#: ../objects/FS/function.c:753 ../objects/FS/function.c:755
+#: ../objects/FS/function.c:752 ../objects/FS/function.c:754
 msgid "Allow DOF"
 msgstr "Povolit DOF"
 
 #. Translators: Menu item Verb/Channel/Guide/Allow DOF/Constrain
-#: ../objects/FS/function.c:757
+#: ../objects/FS/function.c:756
 msgid "Constrain"
 msgstr "Omezit"
 
 #. Translators: Menu item Verb/Channel/Guide/Allow DOF/Unlock
-#: ../objects/FS/function.c:759
+#: ../objects/FS/function.c:758
 msgid "Unlock"
 msgstr "Odemknout"
 
 #. Translators: Menu item Verb/Support
 #. Translators: Menu item Verb/Support/Support
-#: ../objects/FS/function.c:761 ../objects/FS/function.c:763
+#: ../objects/FS/function.c:760 ../objects/FS/function.c:762
 msgid "Support"
 msgstr "Podpořit"
 
 #. Translators: Menu item Verb/Support/Stop
 #. Translators: Menu item Verb/Support/Stop/Stop
-#: ../objects/FS/function.c:765 ../objects/FS/function.c:767
+#: ../objects/FS/function.c:764 ../objects/FS/function.c:766
 #: ../sheets/SDL.sheet.in.h:16
 msgid "Stop"
 msgstr "Zastavit"
 
 #. Translators: Menu item Verb/Support/Stop/Insulate
-#: ../objects/FS/function.c:769
+#: ../objects/FS/function.c:768
 msgid "Insulate"
 msgstr "Urazit"
 
 #. Translators: Menu item Verb/Support/Stop/Protect
-#: ../objects/FS/function.c:771
+#: ../objects/FS/function.c:770
 msgid "Protect"
 msgstr "Chránit"
 
 #. Translators: Menu item Verb/Support/Stop/Prevent
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Prevent
-#: ../objects/FS/function.c:773 ../objects/FS/function.c:963
+#: ../objects/FS/function.c:772 ../objects/FS/function.c:962
 msgid "Prevent"
 msgstr "Zamezit"
 
 #. Translators: Menu item Verb/Support/Stop/Shield
-#: ../objects/FS/function.c:775
+#: ../objects/FS/function.c:774
 msgid "Shield"
 msgstr "Zaštítit"
 
 #. Translators: Menu item Verb/Support/Stop/Inhibit
-#: ../objects/FS/function.c:777
+#: ../objects/FS/function.c:776
 msgid "Inhibit"
 msgstr "Znehybnit"
 
 #. Translators: Menu item Verb/Support/Stabilize
 #. Translators: Menu item Verb/Support/Stabilize/Stabilize
-#: ../objects/FS/function.c:779 ../objects/FS/function.c:781
+#: ../objects/FS/function.c:778 ../objects/FS/function.c:780
 msgid "Stabilize"
 msgstr "Stabilizovat"
 
 #. Translators: Menu item Verb/Support/Stabilize/Steady
-#: ../objects/FS/function.c:783
+#: ../objects/FS/function.c:782
 msgid "Steady"
 msgstr "Uklidnit"
 
 #. Translators: Menu item Verb/Support/Secure
 #. Translators: Menu item Verb/Support/Secure/Secure
-#: ../objects/FS/function.c:785 ../objects/FS/function.c:787
+#: ../objects/FS/function.c:784 ../objects/FS/function.c:786
 msgid "Secure"
 msgstr "Zabezpečit"
 
 #. Translators: Menu item Verb/Support/Secure/Attach
 #. Translators: Menu item Verb/Connect/Couple/Attach
-#: ../objects/FS/function.c:789 ../objects/FS/function.c:821
+#: ../objects/FS/function.c:788 ../objects/FS/function.c:820
 msgid "Attach"
 msgstr "Přivázat"
 
 #. Translators: Menu item Verb/Support/Secure/Mount
-#: ../objects/FS/function.c:791
+#: ../objects/FS/function.c:790
 msgid "Mount"
 msgstr "Instalovat"
 
 #. Translators: Menu item Verb/Support/Secure/Lock
-#: ../objects/FS/function.c:793 ../sheets/ciscomisc.sheet.in.h:42
+#: ../objects/FS/function.c:792 ../sheets/ciscomisc.sheet.in.h:42
 msgid "Lock"
 msgstr "Zamknout"
 
 #. Translators: Menu item Verb/Support/Secure/Fasten
-#: ../objects/FS/function.c:795
+#: ../objects/FS/function.c:794
 msgid "Fasten"
 msgstr "Připevnit"
 
 #. Translators: Menu item Verb/Support/Secure/Hold
-#: ../objects/FS/function.c:797
+#: ../objects/FS/function.c:796
 msgid "Hold"
 msgstr "Držet"
 
 #. Translators: Menu item Verb/Support/Position
 #. Translators: Menu item Verb/Support/Position/Position
-#: ../objects/FS/function.c:799 ../objects/FS/function.c:801
+#: ../objects/FS/function.c:798 ../objects/FS/function.c:800
 #: ../objects/Istar/actor.c:68
 msgid "Position"
 msgstr "Umístit"
 
 #. Translators: Menu item Verb/Support/Position/Orient
-#: ../objects/FS/function.c:803
+#: ../objects/FS/function.c:802
 msgid "Orient"
 msgstr "Orientovat"
 
 #. Translators: Menu item Verb/Connect
 #. Translators: Menu item Verb/Connect/Connect
-#: ../objects/FS/function.c:809 ../objects/FS/function.c:811
+#: ../objects/FS/function.c:808 ../objects/FS/function.c:810
 msgid "Connect"
 msgstr "Spojit"
 
 #. Translators: Menu item Verb/Connect/Couple
 #. Translators: Menu item Verb/Connect/Couple/Couple
-#: ../objects/FS/function.c:813 ../objects/FS/function.c:815
+#: ../objects/FS/function.c:812 ../objects/FS/function.c:814
 msgid "Couple"
 msgstr "Spárovat"
 
 #. Translators: Menu item Verb/Connect/Couple/Join
-#: ../objects/FS/function.c:817
+#: ../objects/FS/function.c:816
 msgid "Join"
 msgstr "Připojit se"
 
 #. Translators: Menu item Verb/Connect/Couple/Assemble
-#: ../objects/FS/function.c:819
+#: ../objects/FS/function.c:818
 msgid "Assemble"
 msgstr "Sestavit"
 
 #. Translators: Menu item Verb/Connect/Mix
 #. Translators: Menu item Verb/Connect/Mix/Mix
-#: ../objects/FS/function.c:823 ../objects/FS/function.c:825
+#: ../objects/FS/function.c:822 ../objects/FS/function.c:824
 msgid "Mix"
 msgstr "Míchat"
 
 #. Translators: Menu item Verb/Connect/Mix/Combine
-#: ../objects/FS/function.c:827
+#: ../objects/FS/function.c:826
 msgid "Combine"
 msgstr "Kombinovat"
 
 #. Translators: Menu item Verb/Connect/Mix/Blend
-#: ../objects/FS/function.c:829
+#: ../objects/FS/function.c:828
 msgid "Blend"
 msgstr "Smísit"
 
 #. Translators: Menu item Verb/Connect/Mix/Add
-#: ../objects/FS/function.c:831
+#: ../objects/FS/function.c:830
 msgid "Add"
 msgstr "Přidat"
 
 #. Translators: Menu item Verb/Connect/Mix/Pack
-#: ../objects/FS/function.c:833
+#: ../objects/FS/function.c:832
 msgid "Pack"
 msgstr "Zabalit"
 
 #. Translators: Menu item Verb/Connect/Mix/Coalesce
-#: ../objects/FS/function.c:835
+#: ../objects/FS/function.c:834
 msgid "Coalesce"
 msgstr "Sloučit"
 
 #. Translators: Menu item Verb/Branch
 #. Translators: Menu item Verb/Branch/Branch
-#: ../objects/FS/function.c:837 ../objects/FS/function.c:839
+#: ../objects/FS/function.c:836 ../objects/FS/function.c:838
 #: ../sheets/UML.sheet.in.h:30
 msgid "Branch"
 msgstr "Větvit"
@@ -3864,700 +3864,700 @@ msgstr "Větvit"
 #. Translators: Menu item Verb/Branch/Separate
 #. Translators: Menu item Verb/Branch/Separate/Separate
 #. Translators: Menu item Verb/Branch/Separate/Separate/Separate
-#: ../objects/FS/function.c:841 ../objects/FS/function.c:843
-#: ../objects/FS/function.c:845
+#: ../objects/FS/function.c:840 ../objects/FS/function.c:842
+#: ../objects/FS/function.c:844
 msgid "Separate"
 msgstr "Separovat"
 
 #. Translators: Menu item Verb/Branch/Separate/Separate/Switch
-#: ../objects/FS/function.c:847
+#: ../objects/FS/function.c:846
 msgid "Switch"
 msgstr "Přepnout"
 
 #. Translators: Menu item Verb/Branch/Separate/Separate/Divide
-#: ../objects/FS/function.c:849
+#: ../objects/FS/function.c:848
 msgid "Divide"
 msgstr "Dělit"
 
 #. Translators: Menu item Verb/Branch/Separate/Separate/Release
-#: ../objects/FS/function.c:851
+#: ../objects/FS/function.c:850
 msgid "Release"
 msgstr "Uvolnit"
 
 #. Translators: Menu item Verb/Branch/Separate/Separate/Detach
-#: ../objects/FS/function.c:853
+#: ../objects/FS/function.c:852
 msgid "Detach"
 msgstr "Odvázat"
 
 #. Translators: Menu item Verb/Branch/Separate/Separate/Disconnect
-#: ../objects/FS/function.c:855
+#: ../objects/FS/function.c:854
 msgid "Disconnect"
 msgstr "Odpojit"
 
 #. Translators: Menu item Verb/Branch/Separate/Remove/Cut
-#: ../objects/FS/function.c:861
+#: ../objects/FS/function.c:860
 msgid "Cut"
 msgstr "Vyjmout"
 
 #. Translators: Menu item Verb/Branch/Separate/Remove/Polish
-#: ../objects/FS/function.c:863
+#: ../objects/FS/function.c:862
 msgid "Polish"
 msgstr "Vyleštit"
 
 #. Translators: Menu item Verb/Branch/Separate/Remove/Sand
-#: ../objects/FS/function.c:865
+#: ../objects/FS/function.c:864
 msgid "Sand"
 msgstr "Posypat"
 
 #. Translators: Menu item Verb/Branch/Separate/Remove/Drill
-#: ../objects/FS/function.c:867
+#: ../objects/FS/function.c:866
 msgid "Drill"
 msgstr "Vrtat"
 
 #. Translators: Menu item Verb/Branch/Separate/Remove/Lathe
-#: ../objects/FS/function.c:869
+#: ../objects/FS/function.c:868
 msgid "Lathe"
 msgstr "Soustružit"
 
 #. Translators: Menu item Verb/Branch/Refine
 #. Translators: Menu item Verb/Branch/Refine/Refine
-#: ../objects/FS/function.c:871 ../objects/FS/function.c:873
+#: ../objects/FS/function.c:870 ../objects/FS/function.c:872
 msgid "Refine"
 msgstr "Rafinovat"
 
 #. Translators: Menu item Verb/Branch/Refine/Purify
-#: ../objects/FS/function.c:875
+#: ../objects/FS/function.c:874
 msgid "Purify"
 msgstr "Čistit"
 
 #. Translators: Menu item Verb/Branch/Refine/Strain
-#: ../objects/FS/function.c:877
+#: ../objects/FS/function.c:876
 msgid "Strain"
 msgstr "Cedit"
 
 #. Translators: Menu item Verb/Branch/Refine/Filter
-#: ../objects/FS/function.c:879
+#: ../objects/FS/function.c:878
 msgid "Filter"
 msgstr "Filtrovat"
 
 #. Translators: Menu item Verb/Branch/Refine/Percolate
-#: ../objects/FS/function.c:881
+#: ../objects/FS/function.c:880
 msgid "Percolate"
 msgstr "Perkolovat"
 
 #. Translators: Menu item Verb/Branch/Refine/Clear
-#: ../objects/FS/function.c:883
+#: ../objects/FS/function.c:882
 msgid "Clear"
 msgstr "Vyčistit"
 
 #. Translators: Menu item Verb/Branch/Distribute
 #. Translators: Menu item Verb/Branch/Distribute/Distribute
-#: ../objects/FS/function.c:885 ../objects/FS/function.c:887
+#: ../objects/FS/function.c:884 ../objects/FS/function.c:886
 msgid "Distribute"
 msgstr "Šířit"
 
 #. Translators: Menu item Verb/Branch/Distribute/Diverge
-#: ../objects/FS/function.c:889
+#: ../objects/FS/function.c:888
 msgid "Diverge"
 msgstr "Divergovat"
 
 #. Translators: Menu item Verb/Branch/Distribute/Scatter
-#: ../objects/FS/function.c:891
+#: ../objects/FS/function.c:890
 msgid "Scatter"
 msgstr "Rozházet"
 
 #. Translators: Menu item Verb/Branch/Distribute/Disperse
-#: ../objects/FS/function.c:893
+#: ../objects/FS/function.c:892
 msgid "Disperse"
 msgstr "Rozptýlit"
 
 #. Translators: Menu item Verb/Branch/Distribute/Diffuse
 #. Translators: Menu item Verb/Branch/Dissipate/Diffuse
-#: ../objects/FS/function.c:895 ../objects/FS/function.c:909
+#: ../objects/FS/function.c:894 ../objects/FS/function.c:908
 msgid "Diffuse"
 msgstr "Rozlít"
 
 #. Translators: Menu item Verb/Branch/Distribute/Empty
-#: ../objects/FS/function.c:897
+#: ../objects/FS/function.c:896
 msgid "Empty"
 msgstr "Vyprázdnit"
 
 #. Translators: Menu item Verb/Branch/Dissipate
 #. Translators: Menu item Verb/Branch/Dissipate/Dissipate
-#: ../objects/FS/function.c:899 ../objects/FS/function.c:901
+#: ../objects/FS/function.c:898 ../objects/FS/function.c:900
 msgid "Dissipate"
 msgstr "Promrhat"
 
 #. Translators: Menu item Verb/Branch/Dissipate/Absorb
-#: ../objects/FS/function.c:903
+#: ../objects/FS/function.c:902
 msgid "Absorb"
 msgstr "Vstřebat"
 
 #. Translators: Menu item Verb/Branch/Dissipate/Dampen
-#: ../objects/FS/function.c:905
+#: ../objects/FS/function.c:904
 msgid "Dampen"
 msgstr "Navlhčit"
 
 #. Translators: Menu item Verb/Branch/Dissipate/Dispel
-#: ../objects/FS/function.c:907
+#: ../objects/FS/function.c:906
 msgid "Dispel"
 msgstr "Zahnat"
 
 #. Translators: Menu item Verb/Branch/Dissipate/Resist
-#: ../objects/FS/function.c:911
+#: ../objects/FS/function.c:910
 msgid "Resist"
 msgstr "Odolat"
 
 #. Translators: Menu item Verb/Provision
 #. Translators: Menu item Verb/Provision/Provision
-#: ../objects/FS/function.c:913 ../objects/FS/function.c:915
+#: ../objects/FS/function.c:912 ../objects/FS/function.c:914
 msgid "Provision"
 msgstr "Obstarání"
 
 #. Translators: Menu item Verb/Provision/Store
 #. Translators: Menu item Verb/Provision/Store/Store
-#: ../objects/FS/function.c:917 ../objects/FS/function.c:919
+#: ../objects/FS/function.c:916 ../objects/FS/function.c:918
 msgid "Store"
 msgstr "Uložit"
 
 #. Translators: Menu item Verb/Provision/Store/Contain
-#: ../objects/FS/function.c:921
+#: ../objects/FS/function.c:920
 msgid "Contain"
 msgstr "Obsahovat"
 
 #. Translators: Menu item Verb/Provision/Store/Collect
-#: ../objects/FS/function.c:923
+#: ../objects/FS/function.c:922
 msgid "Collect"
 msgstr "Sbírat"
 
 #. Translators: Menu item Verb/Provision/Store/Reserve
-#: ../objects/FS/function.c:925
+#: ../objects/FS/function.c:924
 msgid "Reserve"
 msgstr "Rezervovat"
 
 #. Translators: Menu item Verb/Provision/Supply
 #. Translators: Menu item Verb/Provision/Supply/Supply
-#: ../objects/FS/function.c:929 ../objects/FS/function.c:931
+#: ../objects/FS/function.c:928 ../objects/FS/function.c:930
 msgid "Supply"
 msgstr "Dodávat"
 
 #. Translators: Menu item Verb/Provision/Supply/Provide
-#: ../objects/FS/function.c:935
+#: ../objects/FS/function.c:934
 msgid "Provide"
 msgstr "Poskytnout"
 
 #. Translators: Menu item Verb/Provision/Supply/Replenish
-#: ../objects/FS/function.c:937
+#: ../objects/FS/function.c:936
 msgid "Replenish"
 msgstr "Doplnit"
 
 #. Translators: Menu item Verb/Provision/Supply/Expose
-#: ../objects/FS/function.c:939
+#: ../objects/FS/function.c:938
 msgid "Expose"
 msgstr "Vystavit"
 
 #. Translators: Menu item Verb/Provision/Extract
-#: ../objects/FS/function.c:941 ../sheets/Flowchart.sheet.in.h:22
+#: ../objects/FS/function.c:940 ../sheets/Flowchart.sheet.in.h:22
 msgid "Extract"
 msgstr "Extrahovat"
 
 #. Translators: Menu item Verb/Control Magnitude
 #. Translators: Menu item Verb/Control Magnitude/Control Magnitude
-#: ../objects/FS/function.c:943 ../objects/FS/function.c:945
+#: ../objects/FS/function.c:942 ../objects/FS/function.c:944
 msgid "Control Magnitude"
 msgstr "Ovládat důležitost"
 
 #. Translators: Menu item Verb/Control Magnitude/Actuate
 #. Translators: Menu item Verb/Control Magnitude/Actuate/Actuate
-#: ../objects/FS/function.c:947 ../objects/FS/function.c:949
+#: ../objects/FS/function.c:946 ../objects/FS/function.c:948
 msgid "Actuate"
 msgstr "Pohánět"
 
 #. Translators: Menu item Verb/Control Magnitude/Actuate/Start
-#: ../objects/FS/function.c:951
+#: ../objects/FS/function.c:950
 msgid "Start"
 msgstr "Startovat"
 
 #. Translators: Menu item Verb/Control Magnitude/Actuate/Initiate
-#: ../objects/FS/function.c:953
+#: ../objects/FS/function.c:952
 msgid "Initiate"
 msgstr "Uvést do pohybu"
 
 #. Translators: Menu item Verb/Control Magnitude/Regulate
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Regulate
-#: ../objects/FS/function.c:955 ../objects/FS/function.c:957
+#: ../objects/FS/function.c:954 ../objects/FS/function.c:956
 msgid "Regulate"
 msgstr "Regulovat"
 
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Control
 #. Translators: Menu item Noun/Signal/Control
-#: ../objects/FS/function.c:959 ../objects/FS/function.c:1177
+#: ../objects/FS/function.c:958 ../objects/FS/function.c:1176
 #: ../objects/UML/classicon.c:127
 msgid "Control"
 msgstr "Kontrolovat"
 
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Enable
-#: ../objects/FS/function.c:965
+#: ../objects/FS/function.c:964
 msgid "Enable"
 msgstr "Zapnout"
 
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Disable
-#: ../objects/FS/function.c:967
+#: ../objects/FS/function.c:966
 msgid "Disable"
 msgstr "Vypnout"
 
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Limit
-#: ../objects/FS/function.c:969
+#: ../objects/FS/function.c:968
 msgid "Limit"
 msgstr "Omezit"
 
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Interrupt
-#: ../objects/FS/function.c:971
+#: ../objects/FS/function.c:970
 msgid "Interrupt"
 msgstr "Přerušit"
 
 #. Translators: Menu item Verb/Control Magnitude/Change
 #. Translators: Menu item Verb/Control Magnitude/Change/Change
-#: ../objects/FS/function.c:973 ../objects/FS/function.c:975
+#: ../objects/FS/function.c:972 ../objects/FS/function.c:974
 msgid "Change"
 msgstr "Změnit"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Increase
-#: ../objects/FS/function.c:977
+#: ../objects/FS/function.c:976
 msgid "Increase"
 msgstr "Zvýšit"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Decrease
-#: ../objects/FS/function.c:979
+#: ../objects/FS/function.c:978
 msgid "Decrease"
 msgstr "Snížit"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Amplify
-#: ../objects/FS/function.c:981
+#: ../objects/FS/function.c:980
 msgid "Amplify"
 msgstr "Zesílit"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Reduce
-#: ../objects/FS/function.c:983
+#: ../objects/FS/function.c:982
 msgid "Reduce"
 msgstr "Redukovat"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Normalize
-#: ../objects/FS/function.c:987
+#: ../objects/FS/function.c:986
 msgid "Normalize"
 msgstr "Normalizovat"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Multiply
-#: ../objects/FS/function.c:989
+#: ../objects/FS/function.c:988
 msgid "Multiply"
 msgstr "Násobit"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Scale
 #. FIXME: mark read-only
-#: ../objects/FS/function.c:991 ../objects/Misc/measure.c:185
+#: ../objects/FS/function.c:990 ../objects/Misc/measure.c:185
 msgid "Scale"
 msgstr "Škálovat"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Rectify
-#: ../objects/FS/function.c:993
+#: ../objects/FS/function.c:992
 msgid "Rectify"
 msgstr "Napravit"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Adjust
-#: ../objects/FS/function.c:995
+#: ../objects/FS/function.c:994
 msgid "Adjust"
 msgstr "Upravit"
 
 #. Translators: Menu item Verb/Control Magnitude/Form
 #. Translators: Menu item Verb/Control Magnitude/Form/Form
-#: ../objects/FS/function.c:997 ../objects/FS/function.c:999
+#: ../objects/FS/function.c:996 ../objects/FS/function.c:998
 msgid "Form"
 msgstr "Formovat"
 
 #. Translators: Menu item Verb/Control Magnitude/Form/Compact
-#: ../objects/FS/function.c:1001
+#: ../objects/FS/function.c:1000
 msgid "Compact"
 msgstr "Zhutnit"
 
 #. Translators: Menu item Verb/Control Magnitude/Form/Crush
-#: ../objects/FS/function.c:1003
+#: ../objects/FS/function.c:1002
 msgid "Crush"
 msgstr "Rozdrtit"
 
 #. Translators: Menu item Verb/Control Magnitude/Form/Shape
-#: ../objects/FS/function.c:1005
+#: ../objects/FS/function.c:1004
 msgid "Shape"
 msgstr "Tvarovat"
 
 #. Translators: Menu item Verb/Control Magnitude/Form/Compress
-#: ../objects/FS/function.c:1007
+#: ../objects/FS/function.c:1006
 msgid "Compress"
 msgstr "Komprimovat"
 
 #. Translators: Menu item Verb/Control Magnitude/Form/Pierce
-#: ../objects/FS/function.c:1009
+#: ../objects/FS/function.c:1008
 msgid "Pierce"
 msgstr "Propíchnout"
 
 #. Translators: Menu item Verb/Convert
 #. Translators: Menu item Verb/Convert/Convert
-#: ../objects/FS/function.c:1011 ../objects/FS/function.c:1013
+#: ../objects/FS/function.c:1010 ../objects/FS/function.c:1012
 msgid "Convert"
 msgstr "Převést"
 
 #. Translators: Menu item Verb/Convert/Transform
-#: ../objects/FS/function.c:1015
+#: ../objects/FS/function.c:1014
 msgid "Transform"
 msgstr "Transformovat"
 
 #. Translators: Menu item Verb/Convert/Liquefy
-#: ../objects/FS/function.c:1017
+#: ../objects/FS/function.c:1016
 msgid "Liquefy"
 msgstr "Zkapalnit"
 
 #. Translators: Menu item Verb/Convert/Solidify
-#: ../objects/FS/function.c:1019
+#: ../objects/FS/function.c:1018
 msgid "Solidify"
 msgstr "Tuhnout"
 
 #. Translators: Menu item Verb/Convert/Evaporate
-#: ../objects/FS/function.c:1021
+#: ../objects/FS/function.c:1020
 msgid "Evaporate"
 msgstr "Vypařit"
 
 #. Translators: Menu item Verb/Convert/Sublimate
-#: ../objects/FS/function.c:1023
+#: ../objects/FS/function.c:1022
 msgid "Sublimate"
 msgstr "Sublimovat"
 
 #. Translators: Menu item Verb/Convert/Condense
-#: ../objects/FS/function.c:1025
+#: ../objects/FS/function.c:1024
 msgid "Condense"
 msgstr "Kondenzovat"
 
 #. Translators: Menu item Verb/Convert/Integrate
-#: ../objects/FS/function.c:1027
+#: ../objects/FS/function.c:1026
 msgid "Integrate"
 msgstr "Integrovat"
 
 #. Translators: Menu item Verb/Convert/Differentiate
-#: ../objects/FS/function.c:1029
+#: ../objects/FS/function.c:1028
 msgid "Differentiate"
 msgstr "Diferenciovat"
 
 #. Translators: Menu item Verb/Convert/Process
-#: ../objects/FS/function.c:1031 ../sheets/AADL.sheet.in.h:3
+#: ../objects/FS/function.c:1030 ../sheets/AADL.sheet.in.h:3
 #: ../sheets/Gane_and_Sarson.sheet.in.h:7
 msgid "Process"
 msgstr "Zpracovat"
 
 #. Translators: Menu item Verb/Signal/Sense
 #. Translators: Menu item Verb/Signal/Sense/Sense
-#: ../objects/FS/function.c:1037 ../objects/FS/function.c:1039
+#: ../objects/FS/function.c:1036 ../objects/FS/function.c:1038
 msgid "Sense"
 msgstr "Cítit"
 
 #. Translators: Menu item Verb/Signal/Sense/Perceive
-#: ../objects/FS/function.c:1041
+#: ../objects/FS/function.c:1040
 msgid "Perceive"
 msgstr "Vnímat"
 
 #. Translators: Menu item Verb/Signal/Sense/Recognize
-#: ../objects/FS/function.c:1043
+#: ../objects/FS/function.c:1042
 msgid "Recognize"
 msgstr "Rozeznat"
 
 #. Translators: Menu item Verb/Signal/Sense/Discern
-#: ../objects/FS/function.c:1045
+#: ../objects/FS/function.c:1044
 msgid "Discern"
 msgstr "Postřehnout"
 
 #. Translators: Menu item Verb/Signal/Sense/Check
-#: ../objects/FS/function.c:1047
+#: ../objects/FS/function.c:1046
 msgid "Check"
 msgstr "Zkontrolovat"
 
 #. Translators: Menu item Verb/Signal/Sense/Verify
-#: ../objects/FS/function.c:1051
+#: ../objects/FS/function.c:1050
 msgid "Verify"
 msgstr "Ověřit"
 
 #. Translators: Menu item Verb/Signal/Indicate
 #. Translators: Menu item Verb/Signal/Indicate/Indicate
-#: ../objects/FS/function.c:1053 ../objects/FS/function.c:1055
+#: ../objects/FS/function.c:1052 ../objects/FS/function.c:1054
 msgid "Indicate"
 msgstr "Indikovat"
 
 #. Translators: Menu item Verb/Signal/Indicate/Mark
-#: ../objects/FS/function.c:1057
+#: ../objects/FS/function.c:1056
 msgid "Mark"
 msgstr "Označit"
 
 #. Translators: Menu item Verb/Signal/Display
-#: ../objects/FS/function.c:1059 ../sheets/Flowchart.sheet.in.h:7
+#: ../objects/FS/function.c:1058 ../sheets/Flowchart.sheet.in.h:7
 msgid "Display"
 msgstr "Zobrazit"
 
 #. Translators: Menu item Verb/Signal/Measure
 #. Translators: Menu item Verb/Signal/Measure/Measure
-#: ../objects/FS/function.c:1061 ../objects/FS/function.c:1063
+#: ../objects/FS/function.c:1060 ../objects/FS/function.c:1062
 msgid "Measure"
 msgstr "Měřit"
 
 #. Translators: Menu item Verb/Signal/Measure/Calculate
-#: ../objects/FS/function.c:1065
+#: ../objects/FS/function.c:1064
 msgid "Calculate"
 msgstr "Počítat"
 
 #. Translators: Menu item Verb/Signal/Represent
-#: ../objects/FS/function.c:1067
+#: ../objects/FS/function.c:1066
 msgid "Represent"
 msgstr "Reprezentovat"
 
 #. Translators: Menu item Noun
-#: ../objects/FS/function.c:1069
+#: ../objects/FS/function.c:1068
 msgid "Noun"
 msgstr "Podstatné jméno"
 
 #. Translators: Menu item Noun/Material/Solid
-#: ../objects/FS/function.c:1073
+#: ../objects/FS/function.c:1072
 msgid "Solid"
 msgstr "Plná"
 
 #. Translators: Menu item Noun/Material/Liquid
-#: ../objects/FS/function.c:1075
+#: ../objects/FS/function.c:1074
 msgid "Liquid"
 msgstr "Kapalina"
 
 #. Translators: Menu item Noun/Material/Gas
-#: ../objects/FS/function.c:1077
+#: ../objects/FS/function.c:1076
 msgid "Gas"
 msgstr "Plyn"
 
 #. Translators: Menu item Noun/Material/Human
 #. Translators: Menu item Noun/Material/Human/Human
 #. Translators: Menu item Noun/Energy/Human
-#: ../objects/FS/function.c:1079 ../objects/FS/function.c:1081
-#: ../objects/FS/function.c:1165
+#: ../objects/FS/function.c:1078 ../objects/FS/function.c:1080
+#: ../objects/FS/function.c:1164
 msgid "Human"
 msgstr "Člověk"
 
 #. Translators: Menu item Noun/Material/Human/Hand
-#: ../objects/FS/function.c:1083
+#: ../objects/FS/function.c:1082
 msgid "Hand"
 msgstr "Ruka"
 
 #. Translators: Menu item Noun/Material/Human/Foot
-#: ../objects/FS/function.c:1085
+#: ../objects/FS/function.c:1084
 msgid "Foot"
 msgstr "Noha"
 
 #. Translators: Menu item Noun/Material/Human/Head
-#: ../objects/FS/function.c:1087
+#: ../objects/FS/function.c:1086
 msgid "Head"
 msgstr "Hlava"
 
 #. Translators: Menu item Noun/Material/Human/Finger
-#: ../objects/FS/function.c:1089
+#: ../objects/FS/function.c:1088
 msgid "Finger"
 msgstr "Prst na ruce"
 
 #. Translators: Menu item Noun/Material/Human/Toe
-#: ../objects/FS/function.c:1091
+#: ../objects/FS/function.c:1090
 msgid "Toe"
 msgstr "Prst na noze"
 
 #. Translators: Menu item Noun/Material/Biological
-#: ../objects/FS/function.c:1093
+#: ../objects/FS/function.c:1092
 msgid "Biological"
 msgstr "Biologický"
 
 #. Translators: Menu item Noun/Energy/Mechanical
-#: ../objects/FS/function.c:1097
+#: ../objects/FS/function.c:1096
 msgid "Mechanical"
 msgstr "Mechanická"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Mech. Energy
-#: ../objects/FS/function.c:1099
+#: ../objects/FS/function.c:1098
 msgid "Mech. Energy"
 msgstr "Mechanická energie"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Translation
-#: ../objects/FS/function.c:1101
+#: ../objects/FS/function.c:1100
 msgid "Translation"
 msgstr "Posun"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Force
-#: ../objects/FS/function.c:1103
+#: ../objects/FS/function.c:1102
 msgid "Force"
 msgstr "Síla"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Rotation
-#: ../objects/FS/function.c:1105 ../objects/standard/outline.c:104
+#: ../objects/FS/function.c:1104 ../objects/standard/outline.c:104
 msgid "Rotation"
 msgstr "Rotace"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Torque
-#: ../objects/FS/function.c:1107
+#: ../objects/FS/function.c:1106
 msgid "Torque"
 msgstr "Točivý moment"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Random Motion
-#: ../objects/FS/function.c:1109
+#: ../objects/FS/function.c:1108
 msgid "Random Motion"
 msgstr "Náhodný pohyb"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Vibration
-#: ../objects/FS/function.c:1111
+#: ../objects/FS/function.c:1110
 msgid "Vibration"
 msgstr "Vibrace"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Rotational Energy
-#: ../objects/FS/function.c:1113
+#: ../objects/FS/function.c:1112
 msgid "Rotational Energy"
 msgstr "Rotační energie"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Translational Energy
-#: ../objects/FS/function.c:1115
+#: ../objects/FS/function.c:1114
 msgid "Translational Energy"
 msgstr "Translační energie"
 
 #. Translators: Menu item Noun/Energy/Electricity
-#: ../objects/FS/function.c:1117
+#: ../objects/FS/function.c:1116
 msgid "Electrical"
 msgstr "Elektrická"
 
 #. Translators: Menu item Noun/Energy/Electricity/Electricity
-#: ../objects/FS/function.c:1119
+#: ../objects/FS/function.c:1118
 msgid "Electricity"
 msgstr "Elektrika"
 
 #. Translators: Menu item Noun/Energy/Electricity/Voltage
-#: ../objects/FS/function.c:1121
+#: ../objects/FS/function.c:1120
 msgid "Voltage"
 msgstr "Napětí"
 
 #. Translators: Menu item Noun/Energy/Electricity/Current
-#: ../objects/FS/function.c:1123
+#: ../objects/FS/function.c:1122
 msgid "Current"
 msgstr "Proud"
 
 #. Translators: Menu item Noun/Energy/Hydraulic
-#: ../objects/FS/function.c:1125
+#: ../objects/FS/function.c:1124
 msgid "Hydraulic"
 msgstr "Hydraulická"
 
 #. Translators: Menu item Noun/Energy/Hydraulic/Pressure
-#: ../objects/FS/function.c:1127
+#: ../objects/FS/function.c:1126
 msgid "Pressure"
 msgstr "Tlak"
 
 #. Translators: Menu item Noun/Energy/Hydraulic/Volumetric Flow
-#: ../objects/FS/function.c:1129
+#: ../objects/FS/function.c:1128
 msgid "Volumetric Flow"
 msgstr "Volumetrický tok"
 
 #. Translators: Menu item Noun/Energy/Thermal
-#: ../objects/FS/function.c:1131
+#: ../objects/FS/function.c:1130
 msgid "Thermal"
 msgstr "Termická"
 
 #. Translators: Menu item Noun/Energy/Thermal/Heat
-#: ../objects/FS/function.c:1133
+#: ../objects/FS/function.c:1132
 msgid "Heat"
 msgstr "Teplo"
 
 #. Translators: Menu item Noun/Energy/Thermal/Conduction
-#: ../objects/FS/function.c:1135
+#: ../objects/FS/function.c:1134
 msgid "Conduction"
 msgstr "Vedení"
 
 #. Translators: Menu item Noun/Energy/Thermal/Convection
-#: ../objects/FS/function.c:1137
+#: ../objects/FS/function.c:1136
 msgid "Convection"
 msgstr "Proudění"
 
 #. Translators: Menu item Noun/Energy/Thermal/Radiation
 #. Translators: Menu item Noun/Energy/Radioactive/Radiation
-#: ../objects/FS/function.c:1139 ../objects/FS/function.c:1147
+#: ../objects/FS/function.c:1138 ../objects/FS/function.c:1146
 msgid "Radiation"
 msgstr "Radiace"
 
 #. Translators: Menu item Noun/Energy/Pneumatic
-#: ../objects/FS/function.c:1141
+#: ../objects/FS/function.c:1140
 msgid "Pneumatic"
 msgstr "Pneumatická"
 
 #. Translators: Menu item Noun/Energy/Chemical
-#: ../objects/FS/function.c:1143
+#: ../objects/FS/function.c:1142
 msgid "Chemical"
 msgstr "Chemická"
 
 #. Translators: Menu item Noun/Energy/Radioactive
-#: ../objects/FS/function.c:1145
+#: ../objects/FS/function.c:1144
 msgid "Radioactive"
 msgstr "Radioaktivní"
 
 #. Translators: Menu item Noun/Energy/Radioactive/Microwaves
-#: ../objects/FS/function.c:1149
+#: ../objects/FS/function.c:1148
 msgid "Microwaves"
 msgstr "Mikrovlny"
 
 #. Translators: Menu item Noun/Energy/Radioactive/Radio waves
-#: ../objects/FS/function.c:1151
+#: ../objects/FS/function.c:1150
 msgid "Radio waves"
 msgstr "Rádiové vlny"
 
 #. Translators: Menu item Noun/Energy/Radioactive/X-Rays
-#: ../objects/FS/function.c:1153
+#: ../objects/FS/function.c:1152
 msgid "X-Rays"
 msgstr "Rentgenové paprsky"
 
 #. Translators: Menu item Noun/Energy/Radioactive/Gamma Rays
-#: ../objects/FS/function.c:1155
+#: ../objects/FS/function.c:1154
 msgid "Gamma Rays"
 msgstr "Gama paprsky"
 
 #. Translators: Menu item Noun/Energy/Acoustic Energy
-#: ../objects/FS/function.c:1157
+#: ../objects/FS/function.c:1156
 msgid "Acoustic Energy"
 msgstr "Akustická energie"
 
 #. Translators: Menu item Noun/Energy/Optical Energy
-#: ../objects/FS/function.c:1159
+#: ../objects/FS/function.c:1158
 msgid "Optical Energy"
 msgstr "Optická energie"
 
 #. Translators: Menu item Noun/Energy/Solar Energy
-#: ../objects/FS/function.c:1161
+#: ../objects/FS/function.c:1160
 msgid "Solar Energy"
 msgstr "Solární energie"
 
 #. Translators: Menu item Noun/Energy/Magnetic Energy
-#: ../objects/FS/function.c:1163
+#: ../objects/FS/function.c:1162
 msgid "Magnetic Energy"
 msgstr "Magnetická energie"
 
 #. Translators: Menu item Noun/Energy/Human/Human Motion
-#: ../objects/FS/function.c:1167
+#: ../objects/FS/function.c:1166
 msgid "Human Motion"
 msgstr "Lidský pohyb"
 
 #. Translators: Menu item Noun/Energy/Human/Human Force
-#: ../objects/FS/function.c:1169
+#: ../objects/FS/function.c:1168
 msgid "Human Force"
 msgstr "Lidská síla"
 
 #. Translators: Menu item Noun/Signal/Status
-#: ../objects/FS/function.c:1175
+#: ../objects/FS/function.c:1174
 msgid "Status"
 msgstr "Stav"
 
-#: ../objects/FS/function.c:1179
+#: ../objects/FS/function.c:1178
 msgid "User/Device Fn"
 msgstr "Funkce uživatele/zařízení"
 
-#: ../objects/FS/function.c:1180
+#: ../objects/FS/function.c:1179
 msgid "Wish Fn"
 msgstr "Funkce přání"
 
@@ -4948,34 +4948,42 @@ msgid "Miscellaneous objects"
 msgstr "Různorodé objekty"
 
 #: ../objects/Misc/measure.c:168
+msgctxt "length unit"
 msgid "cm"
 msgstr "cm"
 
 #: ../objects/Misc/measure.c:169
+msgctxt "length unit"
 msgid "dm"
 msgstr "dm"
 
 #: ../objects/Misc/measure.c:170
+msgctxt "length unit"
 msgid "ft"
 msgstr "ft"
 
 #: ../objects/Misc/measure.c:171
+msgctxt "length unit"
 msgid "in"
 msgstr "in"
 
 #: ../objects/Misc/measure.c:172
+msgctxt "length unit"
 msgid "m"
 msgstr "m"
 
 #: ../objects/Misc/measure.c:173
+msgctxt "length unit"
 msgid "mm"
 msgstr "mm"
 
 #: ../objects/Misc/measure.c:174
+msgctxt "length unit"
 msgid "pt"
 msgstr "pt"
 
 #: ../objects/Misc/measure.c:175
+msgctxt "length unit"
 msgid "pi"
 msgstr "pi"
 
@@ -5091,23 +5099,23 @@ msgstr "Absolutní začátek mezery"
 msgid "Absolute end gap"
 msgstr "Absolutní konec mezery"
 
-#: ../objects/standard/bezier.c:776 ../objects/standard/beziergon.c:538
+#: ../objects/standard/bezier.c:776 ../objects/standard/beziergon.c:540
 msgid "Add Segment"
 msgstr "Přidat segment"
 
-#: ../objects/standard/bezier.c:777 ../objects/standard/beziergon.c:539
+#: ../objects/standard/bezier.c:777 ../objects/standard/beziergon.c:541
 msgid "Delete Segment"
 msgstr "Odstranit segment"
 
-#: ../objects/standard/bezier.c:779 ../objects/standard/beziergon.c:541
+#: ../objects/standard/bezier.c:779 ../objects/standard/beziergon.c:543
 msgid "Symmetric control"
 msgstr "Symetrické ovládání"
 
-#: ../objects/standard/bezier.c:781 ../objects/standard/beziergon.c:543
+#: ../objects/standard/bezier.c:781 ../objects/standard/beziergon.c:545
 msgid "Smooth control"
 msgstr "Hladké ovládání"
 
-#: ../objects/standard/bezier.c:783 ../objects/standard/beziergon.c:545
+#: ../objects/standard/bezier.c:783 ../objects/standard/beziergon.c:547
 msgid "Cusp control"
 msgstr "Hrotové ovládání"
 
@@ -5127,15 +5135,15 @@ msgstr "Čtverec"
 msgid "Aspect ratio"
 msgstr "Poměr stran"
 
-#: ../objects/standard/box.c:777 ../objects/standard/ellipse.c:685
+#: ../objects/standard/box.c:777 ../objects/standard/ellipse.c:686
 msgid "Free aspect"
 msgstr "Volný poměr stran"
 
-#: ../objects/standard/box.c:779 ../objects/standard/ellipse.c:687
+#: ../objects/standard/box.c:779 ../objects/standard/ellipse.c:688
 msgid "Fixed aspect"
 msgstr "Pevný poměr stran"
 
-#: ../objects/standard/ellipse.c:122 ../objects/standard/ellipse.c:689
+#: ../objects/standard/ellipse.c:122 ../objects/standard/ellipse.c:690
 msgid "Circle"
 msgstr "Kruh"
 
@@ -5167,13 +5175,13 @@ msgstr "Kreslit hranice"
 msgid "Keep aspect ratio"
 msgstr "Zachovat poměr stran"
 
-#: ../objects/standard/image.c:676
+#: ../objects/standard/image.c:684
 msgid "Inconsistent pixbuf during image save."
 msgstr "Nekonzistentní objekt pixbuf během ukládání obrázku."
 
 #. Found file in same dir as diagram.
 #. Found file in current dir.
-#: ../objects/standard/image.c:773 ../objects/standard/image.c:784
+#: ../objects/standard/image.c:781 ../objects/standard/image.c:792
 #, c-format
 msgid ""
 "The image file '%s' was not found in the specified directory.\n"
@@ -5183,7 +5191,7 @@ msgstr ""
 "Použije se místo něj soubor „%s“.\n"
 
 #. Didn't find file in current dir.
-#: ../objects/standard/image.c:790 ../objects/standard/image.c:812
+#: ../objects/standard/image.c:798 ../objects/standard/image.c:820
 #, c-format
 msgid "The image file '%s' was not found.\n"
 msgstr "Soubor s obrázkem „%s“ nebyl nalezen.\n"
@@ -5216,11 +5224,11 @@ msgstr "Obsah textu"
 msgid "Angle to rotate the outline"
 msgstr "Úhel otočení obrysu"
 
-#: ../objects/standard/polygon.c:479 ../objects/standard/polyline.c:623
+#: ../objects/standard/polygon.c:481 ../objects/standard/polyline.c:623
 msgid "Add Corner"
 msgstr "Přidat roh"
 
-#: ../objects/standard/polygon.c:480 ../objects/standard/polyline.c:624
+#: ../objects/standard/polygon.c:482 ../objects/standard/polyline.c:624
 msgid "Delete Corner"
 msgstr "Odstranit roh"
 
@@ -6055,12 +6063,12 @@ msgstr "Portable Document File"
 msgid "PDF import filter"
 msgstr "Importní filtr formátu PDF"
 
-#: ../plug-ins/pdf/pdf-import.cpp:332
+#: ../plug-ins/pdf/pdf-import.cpp:400
 #, c-format
 msgid "Page %d"
 msgstr "Strana %d"
 
-#: ../plug-ins/pdf/pdf-import.cpp:740
+#: ../plug-ins/pdf/pdf-import.cpp:824
 #, c-format
 msgid ""
 "PDF document not OK.\n"
@@ -6206,7 +6214,7 @@ msgstr "Soubor se symboly Dia"
 msgid "Scalable Vector Graphics import and export filters"
 msgstr "Importní a exportní filtry formátu Scalable Vector Graphics"
 
-#: ../plug-ins/svg/svg-import.c:606
+#: ../plug-ins/svg/svg-import.c:633
 msgid ""
 "Invalid path data.\n"
 "svg:path data must start with moveto."
@@ -6214,16 +6222,16 @@ msgstr ""
 "Neplatná data cesty.\n"
 "Data svg:path musí začínat příkazem moveto."
 
-#: ../plug-ins/svg/svg-import.c:1799
+#: ../plug-ins/svg/svg-import.c:1837
 msgid "'Shape Design' shapes missing."
 msgstr "Schází symboly „Návrh symbolu“"
 
-#: ../plug-ins/svg/svg-import.c:1833
+#: ../plug-ins/svg/svg-import.c:1871
 #, c-format
 msgid "Object '%s' creation failed"
 msgstr "Vytvoření objektu „%s“ selhalo"
 
-#: ../plug-ins/svg/svg-import.c:1855
+#: ../plug-ins/svg/svg-import.c:1893
 #, c-format
 msgid ""
 "Parse error for memory block.\n"
@@ -6232,16 +6240,16 @@ msgstr ""
 "Chyba zpracování pro paměťový blok.\n"
 "%s"
 
-#: ../plug-ins/svg/svg-import.c:1868 ../plug-ins/vdx/vdx-import.c:2887
+#: ../plug-ins/svg/svg-import.c:1906 ../plug-ins/vdx/vdx-import.c:2887
 #, c-format
 msgid "Parse error for %s"
 msgstr "Chyba zpracování pro %s"
 
-#: ../plug-ins/svg/svg-import.c:1901
+#: ../plug-ins/svg/svg-import.c:1939
 msgid "Expected SVG name-space not found in file"
 msgstr "Očekávaný jmenný prostor SVG nebyl v souboru nalezen"
 
-#: ../plug-ins/svg/svg-import.c:1921
+#: ../plug-ins/svg/svg-import.c:1959
 #, c-format
 msgid "root element was '%s' -- expecting 'svg'."
 msgstr "kořenový element byl „%s“ -- očekává se „svg“."
