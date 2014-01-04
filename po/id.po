@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: dia master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=dia&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2013-10-03 18:07+0000\n"
-"PO-Revision-Date: 2013-10-14 12:45+0700\n"
+"POT-Creation-Date: 2013-12-27 05:27+0000\n"
+"PO-Revision-Date: 2014-01-04 19:11+0700\n"
 "Last-Translator: Andika Triwidada <andika@gmail.com>\n"
 "Language-Team: Indonesia <gnome@i15n.org>\n"
 "Language: id\n"
@@ -167,7 +167,7 @@ msgstr "Tampilkan versi dan keluar"
 
 #: ../app/app_procs.c:763
 msgid "[FILE...]"
-msgstr "[FILE...]"
+msgstr "[BERKAS...]"
 
 #: ../app/app_procs.c:777
 #, c-format
@@ -387,6 +387,19 @@ msgid ""
 "along with this program; if not, write to the Free Software\n"
 "Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.\n"
 msgstr ""
+"Program ini adalah perangkat lunak bebas; Anda dapat menyebarluaskannya dan/"
+"atau mengubahnya di bawah syarat GNU General Public License sebagaimana "
+"dipublikasikan oleh Free Software Foundation; baik versi 2 dari Lisensi, "
+"atau (terserah pilihan Anda) versi setelahnya.\n"
+"\n"
+"Program ini didistribusikan dengan harapan akan berguna, tetapi TANPA ADANYA "
+"JAMINAN; termasuk tanpa jaminan KETERDAGANGAN atau KECOCOKAN UNTUK TUJUAN "
+"TERTENTU. Lihat GNU General Public License untuk rincian lebih lanjut.\n"
+"\n"
+"Anda seharusnya menerima salinan dari GNU General Public License bersama "
+"dengan program ini; jika tidak, kirimkan surat Anda ke Free Software "
+"Foundation, Inc, 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, "
+"USA\n"
 
 #: ../app/commands.c:1037
 msgid "A program for drawing structured diagrams."
@@ -665,7 +678,7 @@ msgid "Follow link…"
 msgstr "Ikuti taut..."
 
 #: ../app/disp_callbacks.c:216 ../objects/standard/bezier.c:785
-#: ../objects/standard/beziergon.c:524 ../objects/standard/box.c:763
+#: ../objects/standard/beziergon.c:547 ../objects/standard/box.c:783
 #: ../objects/standard/textobj.c:450
 msgid "Convert to Path"
 msgstr "Konversi ke Path"
@@ -790,15 +803,14 @@ msgid "All Files"
 msgstr "Semua Berkas"
 
 #: ../app/filedlg.c:393 ../plug-ins/postscript/paginate_psprint.c:416
-#, fuzzy
 msgid ""
 "Some characters in the filename are neither UTF-8\n"
 "nor your local encoding.\n"
 "Some things will break."
 msgstr ""
-"Beberapa karakter dalam nama file berupa UTF-8\n"
-"bukan pengkodean lokal Anda.\n"
-"Akan ada yang putus."
+"Beberapa karakter dalam nama berkas bukan berupa UTF-8\n"
+"maupun pengkodean lokal Anda.\n"
+"Akan ada yang rusak."
 
 #: ../app/filedlg.c:403 ../app/filedlg.c:716
 #: ../plug-ins/postscript/paginate_psprint.c:430
@@ -807,12 +819,12 @@ msgstr "Berkas sudah ada"
 
 #: ../app/filedlg.c:405 ../app/filedlg.c:718
 #: ../plug-ins/postscript/paginate_psprint.c:426
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The file '%s' already exists.\n"
 "Do you want to overwrite it?"
 msgstr ""
-"File '%s' sudah ada.\n"
+"Berkas '%s' sudah ada.\n"
 "Anda ingin menimpanya?"
 
 #: ../app/filedlg.c:489
@@ -822,28 +834,26 @@ msgstr "Simpan Diagram"
 #. Need better way to make it a reasonable size.  Isn't there some
 #. standard look for them (or is that just Gnome?)
 #: ../app/filedlg.c:503
-#, fuzzy
 msgid "Compress diagram files"
-msgstr "Padatkan file diagram"
+msgstr "Padatkan berkas diagram"
 
 #: ../app/filedlg.c:512
-#, fuzzy
 msgid ""
 "Compression reduces file size to less than 1/10th size and speeds up loading "
 "and saving.  Some text programs cannot manipulate compressed files."
 msgstr ""
-"Pemadatan mengurangi ukuran file hingga kurang dari 1/10 ukuran dan "
+"Pemadatan mengurangi ukuran berkas hingga kurang dari 1/10 ukuran dan "
 "mempercepat pemuatan dan penyimpan.  Beberapa program teks tidak bisa "
-"memanipulasi file yang telah dipadatkan."
+"memanipulasi berkas yang telah dipadatkan."
 
 #: ../app/filedlg.c:747
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Could not determine which export filter\n"
 "to use to save '%s'"
 msgstr ""
 "Tidak bisa menentukan filter ekspor\n"
-"untuk menyimpan '%s'"
+"yang dipakai untuk menyimpan '%s'"
 
 #: ../app/filedlg.c:774
 msgid "Export Diagram"
@@ -858,9 +868,8 @@ msgid "_Search for:"
 msgstr ""
 
 #: ../app/find-and-replace.c:493
-#, fuzzy
 msgid "Replace _with:"
-msgstr "Rilis"
+msgstr "Gantikan _dengan:"
 
 #: ../app/find-and-replace.c:503
 msgid "_Match case"
@@ -907,12 +916,11 @@ msgstr "Zum"
 
 #: ../app/interface.c:787
 msgid "Toggles snap-to-grid for this window."
-msgstr "Toggle lengket-ke-grid untuk jendela ini."
+msgstr "Jungkitkan lengket-ke-kisi untuk jendela ini."
 
 #: ../app/interface.c:798
-#, fuzzy
 msgid "Toggles object snapping for this window."
-msgstr "Toggle lengket-ke-grid untuk jendela ini."
+msgstr "Jungkitkan pelengketan objek untuk jendela ini."
 
 #: ../app/interface.c:926 ../app/interface.c:1034 ../dia.desktop.in.in.h:2
 msgid "Diagram Editor"
@@ -967,88 +975,84 @@ msgstr "Tambah Lapisan"
 msgid "Layer name:"
 msgstr "Nama lapisan:"
 
-#: ../app/linewidth_area.c:247 ../lib/properties.h:623 ../lib/properties.h:626
+#: ../app/linewidth_area.c:246 ../lib/properties.h:626 ../lib/properties.h:629
 #: ../objects/chronogram/chronoline.c:180
 #: ../objects/chronogram/chronoref.c:159
 msgid "Line width"
 msgstr "Lebar garis"
 
-#: ../app/linewidth_area.c:259
+#: ../app/linewidth_area.c:258
 msgid "Line width:"
 msgstr "Lebar garis:"
 
 #: ../app/load_save.c:266
-#, fuzzy
 msgid ""
 "Error loading diagram.\n"
 "Linked object not found in document."
 msgstr ""
-"Kesalahan saat memuat diagram.\n"
-"Obyek terkait tidak ditemukan dalam dokumen."
+"Galat saat memuat diagram.\n"
+"Objek tertaut tak ditemukan dalam dokumen."
 
 #: ../app/load_save.c:270
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Error loading diagram.\n"
 "Connection handle %d does not exist on '%s'."
 msgstr ""
-"Kesalahan saat memuat diagram.\n"
-"pegangan koneksi tidak ada."
+"Galat saat memuat diagram.\n"
+"Pegangan sambungan %d tak ada pada '%s'."
 
 #: ../app/load_save.c:288
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Error loading diagram.\n"
 "Connection point %d does not exist on '%s'."
 msgstr ""
-"Kesalahan saat memuat diagram.\n"
-"titik koneksi %s tidak ada."
+"Galat saat memuat diagram.\n"
+"Titik koneksi %d tak ada pada '%s'."
 
 #: ../app/load_save.c:328
-#, fuzzy, c-format
+#, c-format
 msgid "Can't find parent %s of %s object\n"
-msgstr "Tidak bisa menemukan induk %s dari %s obyek\n"
+msgstr "Tidak bisa menemukan induk %s dari objek %s\n"
 
-#: ../app/load_save.c:378
-#, fuzzy
+#: ../app/load_save.c:379
 msgid "You must specify a file, not a directory."
-msgstr "Anda harus menyebutkan sebuah file, bukan direktori.\n"
+msgstr "Anda harus menyebutkan sebuah berkas, bukan direktori."
 
-#: ../app/load_save.c:385 ../plug-ins/dxf/dxf-import.c:1289
+#: ../app/load_save.c:386 ../plug-ins/dxf/dxf-import.c:1289
 #: ../plug-ins/wpg/wpg.c:1186 ../plug-ins/xfig/xfig-import.c:1288
 #: ../plug-ins/xslt/xslt.c:96
-#, fuzzy, c-format
+#, c-format
 msgid "Couldn't open: '%s' for reading.\n"
-msgstr "Tidak bisa membuka: '%s' untuk membaca.\n"
+msgstr "Tak bisa membuka: '%s' untuk dibaca.\n"
 
 #. this was talking about unknown file type but it could as well be broken XML
-#: ../app/load_save.c:403
-#, fuzzy, c-format
+#: ../app/load_save.c:404
+#, c-format
 msgid "Error loading diagram %s."
-msgstr ""
-"Kesalahan saat memuat diagram %s.\n"
-"Bukan file Dia."
+msgstr "Kesalahan saat memuat diagram %s."
 
-#: ../app/load_save.c:408
-#, fuzzy, c-format
+#: ../app/load_save.c:413
+#, c-format
 msgid ""
 "Error loading diagram %s.\n"
 "Unknown file type."
 msgstr ""
 "Kesalahan saat memuat diagram %s.\n"
-"Tipe file tidak dikenal."
+"Tipe berkas tidak dikenal."
 
-#: ../app/load_save.c:416
-#, fuzzy, c-format
+#: ../app/load_save.c:421
+#, c-format
 msgid ""
 "Error loading diagram %s.\n"
 "Not a Dia file."
 msgstr ""
 "Kesalahan saat memuat diagram %s.\n"
-"Bukan file Dia."
+"Bukan berkas Dia."
 
-#: ../app/load_save.c:674
-#, fuzzy, c-format
+#: ../app/load_save.c:679
+#, c-format
 msgid ""
 "Error loading diagram:\n"
 "%s.\n"
@@ -1056,72 +1060,68 @@ msgid ""
 msgstr ""
 "Kesalahan saat memuat diagram:\n"
 "%s.\n"
-"Sebuah file Dia yang valid mendefinisikan sedikitnya satu layer."
+"Sebuah berkas Dia yang valid mendefinisikan sedikitnya satu layer."
 
-#: ../app/load_save.c:1017
-#, fuzzy, c-format
+#: ../app/load_save.c:1022
+#, c-format
 msgid "Not allowed to write to output file %s\n"
-msgstr "Tidak bisa membuka file output %s: %s\n"
+msgstr "Tidak diijinkan menulis ke berkas keluaran %s\n"
 
-#: ../app/load_save.c:1049
+#: ../app/load_save.c:1054
 #, c-format
 msgid "Not allowed to write temporary files in %s\n"
 msgstr ""
 
-#: ../app/load_save.c:1072 ../plug-ins/cgm/cgm.c:1172
+#: ../app/load_save.c:1077 ../plug-ins/cgm/cgm.c:1172
 #: ../plug-ins/dxf/dxf-export.c:599
 #: ../plug-ins/metapost/render_metapost.c:1179
 #: ../plug-ins/pgf/render_pgf.c:1207 ../plug-ins/postscript/render_eps.c:123
 #: ../plug-ins/pstricks/render_pstricks.c:917
 #: ../plug-ins/vdx/vdx-export.c:1801 ../plug-ins/wmf/wmf.cpp:1375
 #: ../plug-ins/wpg/wpg.c:1078 ../plug-ins/xfig/xfig-export.c:1178
-#, fuzzy, c-format
+#, c-format
 msgid "Can't open output file %s"
-msgstr "Tidak bisa membuka file output %s: %s\n"
+msgstr "Tidak bisa membuka berkas keluaran %s"
 
 #. Save failed; we clean our stuff up, without touching the file named
 #. "filename" if it existed.
-#: ../app/load_save.c:1083
-#, fuzzy, c-format
+#: ../app/load_save.c:1088
+#, c-format
 msgid "Internal error %d writing file %s\n"
-msgstr "Kesalahan %s: perlu file input valid %s\n"
+msgstr "Kesalahan internal %d saat menulis berkas %s\n"
 
-#: ../app/load_save.c:1094
-#, fuzzy, c-format
+#: ../app/load_save.c:1099
+#, c-format
 msgid "Can't rename %s to final output file %s: %s\n"
-msgstr "Tidak bisa membuka file output %s: %s\n"
+msgstr "Tidak bisa mengubah nama %s ke berkas keluaran akhir %s: %s\n"
 
-#: ../app/load_save.c:1110
-#, fuzzy
+#: ../app/load_save.c:1115
 msgid "Diagram Save"
-msgstr "Pohon Diagram"
+msgstr "Simpan Diagram"
 
-#: ../app/load_save.c:1240 ../app/load_save.c:1245
+#: ../app/load_save.c:1245 ../app/load_save.c:1250
 msgid "Dia Diagram File"
-msgstr "File Diagram Dia"
+msgstr "Berkas Diagram Dia"
 
 #: ../app/menus.c:63
-#, fuzzy
 msgid "Fit"
-msgstr "Saring"
+msgstr "Pas"
 
 #: ../app/menus.c:80
 msgid "_File"
-msgstr "_File"
+msgstr "_Berkas"
 
 #: ../app/menus.c:81
-#, fuzzy
 msgid "Create a new diagram"
-msgstr "Diagram baru:"
+msgstr "Buat diagram baru"
 
 #: ../app/menus.c:82
 msgid "_Open…"
-msgstr ""
+msgstr "_Buka…"
 
 #: ../app/menus.c:82
-#, fuzzy
 msgid "Open a diagram file"
-msgstr "Padatkan file diagram"
+msgstr "Padatkan berkas diagram"
 
 #: ../app/menus.c:84
 msgid "_Help"
@@ -1133,34 +1133,28 @@ msgid "Sheets and Objects…"
 msgstr "Lembaran dan Obyek"
 
 #: ../app/menus.c:96
-#, fuzzy
 msgid "Plugins…"
-msgstr "Plug-in"
+msgstr "Pengaya…"
 
 #: ../app/menus.c:97
-#, fuzzy
 msgid "_Diagram Tree"
-msgstr "Pohon Diagram"
+msgstr "Pohon _Diagram"
 
 #: ../app/menus.c:102
-#, fuzzy
 msgid "Show Toolbar"
-msgstr "Tampilkan jam"
+msgstr "Tampilkan Bilah Alat"
 
 #: ../app/menus.c:103
-#, fuzzy
 msgid "Show Statusbar"
-msgstr "Tampilkan atribut"
+msgstr "Tampilkan Bilah Status"
 
 #: ../app/menus.c:104
-#, fuzzy
 msgid "Show Layers"
-msgstr "Turunkan Lapisan"
+msgstr "Tampilkan Lapisan"
 
 #: ../app/menus.c:110
-#, fuzzy
 msgid "Save the diagram"
-msgstr "Simpan Diagram"
+msgstr "Simpan diagram"
 
 #: ../app/menus.c:111
 msgid "Save _As…"
@@ -1183,9 +1177,8 @@ msgid "_Diagram Properties"
 msgstr "Properti _Diagram"
 
 #: ../app/menus.c:114
-#, fuzzy
 msgid "Page Set_up…"
-msgstr "Seting Halaman"
+msgstr "Pen_yiapan Halaman…"
 
 #: ../app/menus.c:115
 msgid "_Print…"
@@ -1263,35 +1256,31 @@ msgstr "Ubah Nama Lapisan..."
 
 #: ../app/menus.c:142
 msgid "Move Selection to Layer above"
-msgstr ""
+msgstr "Pindahkan Pilihan ke Lapisan di atas"
 
 #: ../app/menus.c:143
 msgid "Move Selection to Layer below"
-msgstr ""
+msgstr "Pindahkan Pilihan ke Lapisan di bawah"
 
 #: ../app/menus.c:144
-#, fuzzy
 msgid "_Layers…"
-msgstr "Lapisan"
+msgstr "_Lapisan…"
 
 #: ../app/menus.c:145
 msgid "_View"
 msgstr "_Lihat"
 
 #: ../app/menus.c:146
-#, fuzzy
 msgid "Zoom in"
-msgstr "Pembesaran"
+msgstr "Perbesar"
 
 #: ../app/menus.c:147
-#, fuzzy
 msgid "Zoom out"
-msgstr "Pembesaran"
+msgstr "Perkecil"
 
 #: ../app/menus.c:148
-#, fuzzy
 msgid "_Zoom"
-msgstr "Pembesaran"
+msgstr "_Zum"
 
 #: ../app/menus.c:149
 msgid "1600%"
@@ -1339,9 +1328,8 @@ msgstr "25"
 
 #. Show All, Best Fit.  Same as the Gimp, Ctrl+E
 #: ../app/menus.c:162
-#, fuzzy
 msgid "Zoom fit"
-msgstr "Pembesaran"
+msgstr "Paskan"
 
 #. "display_toggle_entries" items go here
 #: ../app/menus.c:166
@@ -1374,7 +1362,7 @@ msgstr "Bawa Maju"
 
 #: ../app/menus.c:176
 msgid "_Group"
-msgstr ""
+msgstr "_Grup"
 
 #. deliberately not using Ctrl+U for Ungroup
 #: ../app/menus.c:178
@@ -1382,9 +1370,8 @@ msgid "_Ungroup"
 msgstr "_Ungrup"
 
 #: ../app/menus.c:180
-#, fuzzy
 msgid "_Parent"
-msgstr "Cegah"
+msgstr "_Induk"
 
 #: ../app/menus.c:181
 msgid "_Unparent"
@@ -1400,19 +1387,16 @@ msgid "Align"
 msgstr "Rapikan"
 
 #: ../app/menus.c:189 ../objects/standard/textobj.c:110
-#, fuzzy
 msgid "Top"
-msgstr "Atas:"
+msgstr "Puncak"
 
 #: ../app/menus.c:190
-#, fuzzy
 msgid "Middle"
-msgstr "Bisa-ditawar"
+msgstr "Tengah"
 
 #: ../app/menus.c:191 ../objects/standard/textobj.c:109
-#, fuzzy
 msgid "Bottom"
-msgstr "Bawah:"
+msgstr "Dasar"
 
 #: ../app/menus.c:193
 msgid "Spread Out Horizontally"
@@ -1423,19 +1407,16 @@ msgid "Spread Out Vertically"
 msgstr "Sebar Tegak"
 
 #: ../app/menus.c:195
-#, fuzzy
 msgid "Adjacent"
-msgstr "Agen"
+msgstr "Bersebelahan"
 
 #: ../app/menus.c:196
-#, fuzzy
 msgid "Stacked"
-msgstr "Status"
+msgstr "Ditumpuk"
 
 #: ../app/menus.c:197 ../app/menus.c:207
-#, fuzzy
 msgid "Connected"
-msgstr "Sambung"
+msgstr "Tersambung"
 
 #: ../app/menus.c:201
 msgid "_Select"
@@ -1451,14 +1432,12 @@ msgid "None"
 msgstr "Tidak satupun"
 
 #: ../app/menus.c:204
-#, fuzzy
 msgid "Invert"
-msgstr "Inverter"
+msgstr "Balik"
 
 #: ../app/menus.c:206
-#, fuzzy
 msgid "Transitive"
-msgstr "Transisi"
+msgstr "Transitif"
 
 #: ../app/menus.c:208
 msgid "Same Type"
@@ -1472,7 +1451,7 @@ msgstr "_Pilih"
 #. For placment of the toplevel Layout menu and it's accelerator
 #: ../app/menus.c:215
 msgid "L_ayout"
-msgstr ""
+msgstr "T_ata Letak"
 
 #: ../app/menus.c:217
 msgid "_Input Methods"
@@ -1480,7 +1459,7 @@ msgstr "Metoda _Input"
 
 #: ../app/menus.c:219
 msgid "D_ialogs"
-msgstr ""
+msgstr "D_ialog"
 
 #: ../app/menus.c:221
 msgid "D_ebug"
@@ -1509,8 +1488,8 @@ msgstr "Gulung"
 
 #. how it used to be before 0.96+SVN
 #. new name matching "same name, same type"  rule
-#: ../app/menus.c:232 ../app/toolbox.c:98 ../lib/properties.c:101
-#: ../lib/properties.h:674 ../objects/AADL/aadlbox.c:153
+#: ../app/menus.c:232 ../app/toolbox.c:98 ../lib/properties.c:102
+#: ../lib/properties.h:677 ../objects/AADL/aadlbox.c:153
 #: ../objects/custom/custom_object.c:228 ../objects/Jackson/requirement.c:130
 #: ../objects/network/basestation.c:132 ../objects/network/radiocell.c:125
 #: ../objects/UML/activity.c:127 ../objects/UML/actor.c:120
@@ -1595,9 +1574,8 @@ msgid "Show _Connection Points"
 msgstr "Tampilkan _Titik Koneksi"
 
 #: ../app/menus.c:264
-#, fuzzy
 msgid "Union"
-msgstr "Tidak ada"
+msgstr "Union"
 
 #: ../app/menus.c:265
 msgid "Intersection"
@@ -1665,17 +1643,16 @@ msgstr "Toggle lengket-ke-grid untuk jendela ini."
 
 #: ../app/menus.c:1254
 msgid "The function is not available anymore."
-msgstr ""
+msgstr "Fungsi tersebut tak tersedia lagi."
 
-#: ../app/modify_tool.c:384
+#: ../app/modify_tool.c:387
 #, fuzzy
 msgid "Couldn't get GTK+ settings"
 msgstr "Tidak bisa mengambil seting GTK"
 
 #: ../app/plugin-manager.c:208
-#, fuzzy
 msgid "Plugins"
-msgstr "Plug-in"
+msgstr "Pengaya"
 
 #: ../app/plugin-manager.c:263
 msgid "Loaded"
@@ -1711,7 +1688,7 @@ msgstr "Lihat Default"
 
 #: ../app/preferences.c:121
 msgid "Favorites"
-msgstr ""
+msgstr "Favorit"
 
 #: ../app/preferences.c:164
 msgid "Reset tools after create"
@@ -1744,7 +1721,7 @@ msgstr "Pasang kotak perkakas tetap diatas jendela diagram"
 
 #: ../app/preferences.c:182
 msgid "Length unit:"
-msgstr ""
+msgstr "Unit panjang:"
 
 #: ../app/preferences.c:185
 #, fuzzy
@@ -1769,7 +1746,7 @@ msgstr "Warna Latar:"
 
 #: ../app/preferences.c:195
 msgid "Compress saved files"
-msgstr "Padatkan file yang disimpan"
+msgstr "Padatkan berkas yang disimpan"
 
 #: ../app/preferences.c:198
 msgid "Connection Points:"
@@ -1814,9 +1791,8 @@ msgid "Solid lines"
 msgstr "Garis solid"
 
 #: ../app/preferences.c:215
-#, fuzzy
 msgid "Antialias:"
-msgstr "_AntiAliased"
+msgstr "Antialias:"
 
 #: ../app/preferences.c:216
 msgid "view antialised"
@@ -1835,7 +1811,7 @@ msgid "Portable Network Graphics"
 msgstr "Portable Network Graphics"
 
 #: ../app/preferences.c:224 ../plug-ins/svg/render_svg.c:603
-#: ../plug-ins/svg/svg-import.c:1774
+#: ../plug-ins/svg/svg-import.c:2006
 msgid "Scalable Vector Graphics"
 msgstr "Scalable Vector Graphics"
 
@@ -1844,14 +1820,12 @@ msgid "PostScript"
 msgstr "PostScript"
 
 #: ../app/preferences.c:228 ../plug-ins/wmf/wmf.cpp:1477
-#, fuzzy
 msgid "Windows Metafile"
-msgstr "Windows Meta File"
+msgstr "Windows Metafile"
 
 #: ../app/preferences.c:230 ../plug-ins/wmf/wmf.cpp:1486
-#, fuzzy
 msgid "Enhanced Metafile"
-msgstr "Enhanced Meta File"
+msgstr "Enhanced Metafile"
 
 #: ../app/preferences.c:235
 msgid "Snap to"
@@ -1887,18 +1861,19 @@ msgstr "Garis per garis utama"
 msgid "Hex Size:"
 msgstr "Ukuran Heksa:"
 
-#: ../app/preferences.c:481 ../lib/prop_inttypes.c:159
-#: ../lib/prop_pixbuf.c:268
+#: ../app/preferences.c:470 ../lib/prop_inttypes.c:159
+#: ../lib/prop_pattern.c:206 ../lib/prop_pixbuf.c:268
 msgid "Yes"
 msgstr "Ya"
 
-#: ../app/preferences.c:481 ../app/preferences.c:492
+#: ../app/preferences.c:470 ../app/preferences.c:481
 #: ../lib/prop_inttypes.c:161 ../lib/prop_inttypes.c:187
+#: ../lib/prop_pattern.c:208 ../lib/prop_pattern.c:214
 #: ../lib/prop_pixbuf.c:270 ../lib/prop_pixbuf.c:276
 msgid "No"
 msgstr "Tidak"
 
-#: ../app/preferences.c:595
+#: ../app/preferences.c:584
 msgid "Preferences"
 msgstr "Preferensi"
 
@@ -1960,7 +1935,7 @@ msgstr "DiaObject Terprogram"
 
 #: ../app/sheets_dialog.c:253
 msgid "Select SVG Shape File"
-msgstr "Pilih File Bentuk SVG"
+msgstr "Pilih Berkas Bentuk SVG"
 
 #: ../app/sheets_dialog_callbacks.c:164
 msgid "Copy ->"
@@ -2026,14 +2001,13 @@ msgstr ""
 "Tipe yang tidak dipilih"
 
 #: ../app/sheets_dialog_callbacks.c:770
-#, fuzzy
 msgid "Please select a .shape file"
-msgstr "Pilih File Bentuk SVG"
+msgstr "Harap pilih suatu berkas .shape"
 
 #: ../app/sheets_dialog_callbacks.c:777
 #, c-format
 msgid "Filename must end with '%s': '%s'"
-msgstr "Nama file harus diakhiri dengan '%s': '%s'"
+msgstr "Nama berkas harus diakhiri dengan '%s': '%s'"
 
 #: ../app/sheets_dialog_callbacks.c:785
 #, c-format
@@ -2042,12 +2016,12 @@ msgstr "Kesalahan saat menguji %s: %s"
 
 #: ../app/sheets_dialog_callbacks.c:816
 msgid "Please export the diagram as a shape."
-msgstr ""
+msgstr "Harap ekspor diagram sebagai suatu bentuk."
 
 #: ../app/sheets_dialog_callbacks.c:819
 #, c-format
 msgid "Could not interpret shape file: '%s'"
-msgstr "Tidak bisa menerjemahkan file bentuk: '%s'"
+msgstr "Tidak bisa menerjemahkan berkas bentuk: '%s'"
 
 #: ../app/sheets_dialog_callbacks.c:887
 msgid "Sheet must have a Name"
@@ -2070,7 +2044,7 @@ msgstr "seorang pengguna"
 #: ../app/sheets_dialog_callbacks.c:1663
 #, c-format
 msgid "File: %s"
-msgstr "File: %s"
+msgstr "Berkas: %s"
 
 #: ../app/sheets_dialog_callbacks.c:1666
 #, c-format
@@ -2087,9 +2061,8 @@ msgid "add shapes here"
 msgstr "tambahkan bentuk disini"
 
 #: ../app/splash.c:50
-#, fuzzy
 msgid "Loading …"
-msgstr "Memuat ..."
+msgstr "Memuat …"
 
 #: ../app/splash.c:68
 #, c-format
@@ -2189,6 +2162,8 @@ msgid ""
 "GTK+ is not installed. Please use the full installer. It is available from "
 "http://dia-installer.de."
 msgstr ""
+"GTK+ tak terpasang. Harap pakai pemasang penuh. Tersedia dari http://dia-"
+"installer.de."
 
 #. Installer message: Don't install over pre 0.95 versions
 #: ../installer/win32/gennsh.c:42
@@ -2196,6 +2171,8 @@ msgid ""
 "Please remove old Dia installations completely or install Dia to a different "
 "location."
 msgstr ""
+"Harap hapus instalasi Dia yang lama sepenuhnya atau pasang Dia ke lokasi "
+"berbeda."
 
 #. Installer message:  License Page
 #: ../installer/win32/gennsh.c:45
@@ -2217,19 +2194,18 @@ msgstr "Editor Diagram Dia"
 
 #. Installer message: Components page
 #: ../installer/win32/gennsh.c:54
-#, fuzzy
 msgid "Translations"
 msgstr "Terjemahan"
 
 #. Installer message: Component description
 #: ../installer/win32/gennsh.c:57
 msgid "Optional translations of the Dia user interface"
-msgstr ""
+msgstr "Terjemahan opsional dari antar muka pengguna Dia"
 
 #. Installer message: Component description
 #: ../installer/win32/gennsh.c:60
 msgid "Core Dia files and dlls"
-msgstr ""
+msgstr "Berkas dan DLL inti Dia"
 
 #. Installer message: Component name
 #: ../installer/win32/gennsh.c:63
@@ -2243,22 +2219,24 @@ msgid ""
 "Support for the Python Scripting Language 2.3. Do not select this if Python "
 "is not installed."
 msgstr ""
+"Dukungan untuk Bahasa Skrip Python 2.3. Jangan pilih ini bila Python tak "
+"terpasang."
 
 #. Installer message: hyperlink text on finish page
 #: ../installer/win32/gennsh.c:69
 msgid "Visit the Dia for Windows Web Page"
-msgstr ""
+msgstr "Kunjungi Halaman Web Dia untuk Windows"
 
 #. Installer message: Dia uninstaller entry in Control Panel
 #: ../installer/win32/gennsh.c:72
 msgid "Dia (remove only)"
-msgstr ""
+msgstr "Dia (hanya hapus)"
 
 #. Installer message: directory delete confirmation line 1
 #: ../installer/win32/gennsh.c:75
 msgid ""
 "Your old Dia directory is about to be deleted. Would you like to continue?"
-msgstr ""
+msgstr "Direktori lama Dia Anda akan dihapus. Apakah Anda hendak melanjutkan?"
 
 #. Installer message: directory delete confirmation line 2
 #: ../installer/win32/gennsh.c:77
@@ -2308,55 +2286,46 @@ msgid ""
 msgstr ""
 
 #: ../lib/arrows.c:1890
-#, fuzzy
 msgctxt "Arrow"
 msgid "None"
-msgstr "Tidak satupun"
+msgstr "Nihil"
 
 #: ../lib/arrows.c:1891
-#, fuzzy
 msgctxt "Arrow"
 msgid "Lines"
 msgstr "Garis"
 
 #: ../lib/arrows.c:1892
-#, fuzzy
 msgctxt "Arrow"
 msgid "Hollow Triangle"
-msgstr "Segi-tiga Berlubang"
+msgstr "Segi Tiga Berlubang"
 
 #: ../lib/arrows.c:1893
-#, fuzzy
 msgctxt "Arrow"
 msgid "Filled Triangle"
-msgstr "Segi-tiga Berisi"
+msgstr "Segi Tiga Berisi"
 
 #: ../lib/arrows.c:1894
-#, fuzzy
 msgctxt "Arrow"
 msgid "Unfilled Triangle"
-msgstr "Segi-tiga Tidak Berisi"
+msgstr "Segi Tiga Tak Berisi"
 
 #: ../lib/arrows.c:1895
-#, fuzzy
 msgctxt "Arrow"
 msgid "Hollow Diamond"
 msgstr "Berlian Berlubang"
 
 #: ../lib/arrows.c:1896
-#, fuzzy
 msgctxt "Arrow"
 msgid "Filled Diamond"
 msgstr "Berlian Berisi"
 
 #: ../lib/arrows.c:1897
-#, fuzzy
 msgctxt "Arrow"
 msgid "Half Diamond"
 msgstr "Berlian Setengah"
 
 #: ../lib/arrows.c:1898
-#, fuzzy
 msgctxt "Arrow"
 msgid "Half Head"
 msgstr "Kepala Setengah"
@@ -2368,13 +2337,11 @@ msgid "Slashed Cross"
 msgstr "Salib Terpotong"
 
 #: ../lib/arrows.c:1900
-#, fuzzy
 msgctxt "Arrow"
 msgid "Filled Ellipse"
 msgstr "Elips Berisi"
 
 #: ../lib/arrows.c:1901
-#, fuzzy
 msgctxt "Arrow"
 msgid "Hollow Ellipse"
 msgstr "Elips Berlubang"
@@ -2416,13 +2383,11 @@ msgid "Filled Dot and Triangle"
 msgstr "Segi-tiga dan Titik Berisi"
 
 #: ../lib/arrows.c:1908
-#, fuzzy
 msgctxt "Arrow"
 msgid "Filled Box"
-msgstr "Kotak Berisi"
+msgstr "Kotak Terisi"
 
 #: ../lib/arrows.c:1909
-#, fuzzy
 msgctxt "Arrow"
 msgid "Blanked Box"
 msgstr "Kotak Kosong"
@@ -2434,7 +2399,6 @@ msgid "Slashed"
 msgstr "Terpotong"
 
 #: ../lib/arrows.c:1911
-#, fuzzy
 msgctxt "Arrow"
 msgid "Integral Symbol"
 msgstr "Simbol Integral"
@@ -2452,25 +2416,21 @@ msgid "Cross"
 msgstr "Salib"
 
 #: ../lib/arrows.c:1914
-#, fuzzy
 msgctxt "Arrow"
 msgid "1-or-many"
-msgstr "1-atau-beberapa"
+msgstr "1-atau-banyak"
 
 #: ../lib/arrows.c:1915
-#, fuzzy
 msgctxt "Arrow"
 msgid "0-or-many"
-msgstr "0-atau-beberapa"
+msgstr "0-atau-banyak"
 
 #: ../lib/arrows.c:1916
-#, fuzzy
 msgctxt "Arrow"
 msgid "1-or-0"
 msgstr "1-atau-0"
 
 #: ../lib/arrows.c:1917
-#, fuzzy
 msgctxt "Arrow"
 msgid "1 exactly"
 msgstr "1 persis"
@@ -2528,7 +2488,7 @@ msgstr "Panah ke bawah"
 #: ../lib/create.c:50 ../lib/create.c:100 ../lib/create.c:127
 #: ../lib/create.c:160 ../lib/create.c:196 ../lib/create.c:228
 #: ../lib/create.c:252 ../lib/create.c:284 ../lib/create.c:305
-#: ../lib/create.c:335 ../lib/create.c:378 ../plug-ins/svg/svg-import.c:597
+#: ../lib/create.c:335 ../lib/create.c:378 ../plug-ins/svg/svg-import.c:624
 #: ../plug-ins/vdx/vdx-import.c:144
 msgid "Can't find standard object"
 msgstr "Tidak bisa menemukan obyek standar"
@@ -2578,53 +2538,47 @@ msgstr "Tidak bisa menemukan keluarga font untuk %s\n"
 msgid ""
 "Unsupported file format for saving:\n"
 "%s\n"
-"%s"
+"%s\n"
 msgstr ""
 
 #: ../lib/dia_image.c:331
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Could not save file:\n"
 "%s\n"
-"%s"
-msgstr ""
-"Tidak bisa menyimpan file:\n"
 "%s\n"
-"%s"
+msgstr ""
+"Tidak bisa menyimpan berkas:\n"
+"%s\n"
+"%s\n"
 
 #: ../lib/dialinechooser.c:309
 msgid "Line Style Properties"
 msgstr "Properti Gaya Garis"
 
 #: ../lib/dialinechooser.c:344
-#, fuzzy
 msgid "Details…"
-msgstr "Detil..."
+msgstr "Rincian…"
 
 #: ../lib/dialinestyleselector.c:107
-#, fuzzy
 msgid "line|Solid"
 msgstr "Penuh"
 
 #: ../lib/dialinestyleselector.c:108
-#, fuzzy
 msgid "line|Dashed"
-msgstr "Bergaris putus"
+msgstr "Garis putus"
 
 #: ../lib/dialinestyleselector.c:109
-#, fuzzy
 msgid "line|Dash-Dot"
-msgstr "Bergaris putus-titik"
+msgstr "Garis-Titik"
 
 #: ../lib/dialinestyleselector.c:110
-#, fuzzy
 msgid "line|Dash-Dot-Dot"
-msgstr "Bergaris putus-titik-titik"
+msgstr "Garis-Titik-Titik"
 
 #: ../lib/dialinestyleselector.c:111
-#, fuzzy
 msgid "line|Dotted"
-msgstr "Bertitik"
+msgstr "Titik-titik"
 
 #. fs->sizebox = GTK_HBOX(box);
 #: ../lib/dialinestyleselector.c:143
@@ -2639,7 +2593,7 @@ msgstr "OK"
 msgid "Cancel"
 msgstr "Batal"
 
-#: ../lib/dia_xml.c:212
+#: ../lib/dia_xml.c:214
 #, fuzzy, c-format
 msgid ""
 "The file %s has no encoding specification;\n"
@@ -2648,80 +2602,80 @@ msgstr ""
 "Ffile %s tidak punya spesifikasi pengkodean;\n"
 "Anggaplah ia dikodekan dalam %s"
 
-#: ../lib/dia_xml.c:506
+#: ../lib/dia_xml.c:508
 #, fuzzy, c-format
 msgid "Unknown type of DataNode '%s'"
 msgstr "Kode dxf tak dikenal %d\n"
 
-#: ../lib/dia_xml.c:525
+#: ../lib/dia_xml.c:527
 #, fuzzy
 msgid "Taking int value of non-int node."
 msgstr "Mengambil nilai titik dari simpul non-titik."
 
-#: ../lib/dia_xml.c:701
+#: ../lib/dia_xml.c:703
 msgid "Taking point value of non-point node."
 msgstr "Mengambil nilai titik dari simpul non-titik."
 
-#: ../lib/dia_xml.c:712
+#: ../lib/dia_xml.c:714
 #, c-format
 msgid "Incorrect x Point value \"%s\" %f; discarding it."
 msgstr "Nilai x Point invalid \"%s\" %f; abaikan."
 
-#: ../lib/dia_xml.c:719
+#: ../lib/dia_xml.c:721
 msgid "Error parsing point."
 msgstr "Kesalahan saat mengurai titik."
 
 #. don't bother with useless warnings (see above)
-#: ../lib/dia_xml.c:727
+#: ../lib/dia_xml.c:729
 #, c-format
 msgid "Incorrect y Point value \"%s\" %f; discarding it."
 msgstr "Nilai y Point salah \"%s\" %f; abaikan."
 
-#: ../lib/dia_xml.c:747
+#: ../lib/dia_xml.c:749
 #, fuzzy
 msgid "Taking bezpoint value of non-point node."
 msgstr "Mengambil nilai titik dari simpul non-titik."
 
-#: ../lib/dia_xml.c:765
+#: ../lib/dia_xml.c:767
 #, fuzzy
 msgid "Error parsing bezpoint p1."
 msgstr "Kesalahan saat mengurai titik."
 
-#: ../lib/dia_xml.c:779
+#: ../lib/dia_xml.c:781
 #, fuzzy
 msgid "Error parsing bezpoint p2."
 msgstr "Kesalahan saat mengurai titik."
 
-#: ../lib/dia_xml.c:793
+#: ../lib/dia_xml.c:795
 #, fuzzy
 msgid "Error parsing bezpoint p3."
 msgstr "Kesalahan saat mengurai titik."
 
-#: ../lib/dia_xml.c:820
+#: ../lib/dia_xml.c:822
 #, fuzzy
 msgid "Taking rectangle value of non-rectangle node."
 msgstr "Mengambil nilai titik dari simpul non-titik."
 
-#: ../lib/dia_xml.c:832 ../lib/dia_xml.c:843 ../lib/dia_xml.c:854
+#: ../lib/dia_xml.c:834 ../lib/dia_xml.c:845 ../lib/dia_xml.c:856
 #, fuzzy
 msgid "Error parsing rectangle."
 msgstr "Kesalahan saat mengurai titik."
 
-#: ../lib/dia_xml.c:882
+#: ../lib/dia_xml.c:884
 #, fuzzy
 msgid "Taking string value of non-string node."
 msgstr "Mengambil nilai titik dari simpul non-titik."
 
-#: ../lib/dia_xml.c:908
+#: ../lib/dia_xml.c:910
 #, fuzzy
 msgid "Error in string tag."
 msgstr "Kesalahan saat mengurai titik."
 
-#: ../lib/dia_xml.c:926
+#: ../lib/dia_xml.c:928
 msgid "Error in file, string not starting with #"
 msgstr ""
 
-#: ../lib/dia_xml.c:988
+#: ../lib/dia_xml.c:990
 #, fuzzy
 msgid "Taking font value of non-font node."
 msgstr "Mengambil nilai titik dari simpul non-titik."
@@ -2860,98 +2814,96 @@ msgstr "Kunci"
 msgid "Value"
 msgstr "Nilai"
 
-#: ../lib/properties.c:67 ../lib/properties.h:588 ../lib/widgets.c:269
+#: ../lib/properties.c:68 ../lib/properties.h:591 ../lib/widgets.c:269
 msgid "Left"
 msgstr "Kiri"
 
-#: ../lib/properties.c:68 ../lib/properties.h:589 ../lib/widgets.c:270
+#: ../lib/properties.c:69 ../lib/properties.h:592 ../lib/widgets.c:270
 #: ../objects/standard/textobj.c:111
 msgid "Center"
 msgstr "Tengah"
 
-#: ../lib/properties.c:69 ../lib/properties.h:590 ../lib/widgets.c:271
+#: ../lib/properties.c:70 ../lib/properties.h:593 ../lib/widgets.c:271
 msgid "Right"
 msgstr "Kanan"
 
-#: ../lib/properties.c:74 ../lib/properties.h:594
-#, fuzzy
+#: ../lib/properties.c:75 ../lib/properties.h:597
 msgid "Never"
-msgstr "Balik"
+msgstr "Tak Pernah"
 
-#: ../lib/properties.c:75 ../lib/properties.h:595
+#: ../lib/properties.c:76 ../lib/properties.h:598
 msgid "When Needed"
-msgstr ""
+msgstr "Ketika Diperlukan"
 
-#: ../lib/properties.c:76 ../lib/properties.h:596
+#: ../lib/properties.c:77 ../lib/properties.h:599
 msgid "Always"
 msgstr "Selalu"
 
-#: ../lib/properties.c:80 ../lib/properties.h:600
+#: ../lib/properties.c:81 ../lib/properties.h:603
 msgctxt "LineJoin"
 msgid "Miter"
 msgstr ""
 
-#: ../lib/properties.c:81 ../lib/properties.h:601
-#, fuzzy
+#: ../lib/properties.c:82 ../lib/properties.h:604
 msgctxt "LineJoin"
 msgid "Round"
-msgstr "Lingkaran"
+msgstr ""
 
-#: ../lib/properties.c:82 ../lib/properties.h:602
+#: ../lib/properties.c:83 ../lib/properties.h:605
 msgctxt "LineJoin"
 msgid "Bevel"
 msgstr ""
 
-#: ../lib/properties.c:86 ../lib/properties.h:606
+#: ../lib/properties.c:87 ../lib/properties.h:609
 msgctxt "LineCap"
 msgid "Butt"
 msgstr ""
 
-#: ../lib/properties.c:87 ../lib/properties.h:607
+#: ../lib/properties.c:88 ../lib/properties.h:610
 #, fuzzy
 msgctxt "LineCap"
 msgid "Round"
 msgstr "Lingkaran"
 
-#: ../lib/properties.c:88 ../lib/properties.h:608
+#: ../lib/properties.c:89 ../lib/properties.h:611
 #, fuzzy
 msgctxt "LineCap"
 msgid "Projecting"
 msgstr "Konveksi"
 
-#: ../lib/properties.c:95 ../lib/properties.h:629 ../lib/properties.h:632
+#: ../lib/properties.c:96 ../lib/properties.h:632 ../lib/properties.h:635
 #: ../objects/chronogram/chronoline.c:178
 #: ../objects/chronogram/chronoref.c:157
 msgid "Line color"
 msgstr "Warna garis"
 
-#: ../lib/properties.c:96 ../lib/properties.h:635 ../lib/properties.h:638
+#: ../lib/properties.c:97 ../lib/properties.h:638 ../lib/properties.h:641
 msgid "Line style"
 msgstr "Gaya garis"
 
-#: ../lib/properties.c:97 ../lib/properties.h:654 ../lib/properties.h:657
+#: ../lib/properties.c:98 ../lib/properties.h:657 ../lib/properties.h:660
 msgid "Fill color"
 msgstr "Warna isian"
 
 #. just to simplify transfering properties between objects
-#: ../lib/properties.c:98 ../lib/properties.h:660 ../lib/properties.h:663
-#: ../lib/standard-path.c:143
+#: ../lib/properties.c:99 ../lib/properties.h:663 ../lib/properties.h:666
+#: ../lib/standard-path.c:147
 msgid "Draw background"
 msgstr "Gambar latar"
 
-#: ../lib/properties.c:99 ../lib/properties.h:667
+#: ../lib/properties.c:100 ../lib/properties.h:670
 msgid "Start arrow"
 msgstr "Pangkal panah"
 
-#: ../lib/properties.c:100 ../lib/properties.h:670
+#: ../lib/properties.c:101 ../lib/properties.h:673
 msgid "End arrow"
 msgstr "Ujung panah"
 
-#: ../lib/properties.c:102 ../lib/properties.h:680
+#: ../lib/properties.c:103 ../lib/properties.h:683
 msgid "Text alignment"
 msgstr "Perapian teks"
 
-#: ../lib/properties.c:103 ../lib/properties.h:685
+#: ../lib/properties.c:104 ../lib/properties.h:688
 #: ../objects/chronogram/chronoline.c:182
 #: ../objects/chronogram/chronoref.c:163 ../objects/Database/reference.c:118
 #: ../objects/GRAFCET/condition.c:131 ../objects/GRAFCET/step.c:165
@@ -2959,30 +2911,29 @@ msgstr "Perapian teks"
 msgid "Font"
 msgstr "Font"
 
-#: ../lib/properties.c:104 ../lib/properties.h:693
+#: ../lib/properties.c:105 ../lib/properties.h:696
 #: ../objects/chronogram/chronoline.c:184
 #: ../objects/chronogram/chronoref.c:165 ../objects/GRAFCET/condition.c:133
 #: ../objects/GRAFCET/step.c:167 ../objects/GRAFCET/transition.c:143
 msgid "Font size"
 msgstr "Ukuran font"
 
-#: ../lib/properties.c:105 ../lib/properties.h:699
+#: ../lib/properties.c:106 ../lib/properties.h:702
 #: ../objects/chronogram/chronoline.c:186
 #: ../objects/chronogram/chronoref.c:167 ../objects/GRAFCET/step.c:169
 msgid "Text color"
 msgstr "Warna teks"
 
-#: ../lib/properties.h:641 ../lib/properties.h:644
-#, fuzzy
+#: ../lib/properties.h:644 ../lib/properties.h:647
 msgid "Line join"
-msgstr "Lebar garis"
+msgstr "Sambungan garis"
 
-#: ../lib/properties.h:647 ../lib/properties.h:650
+#: ../lib/properties.h:650 ../lib/properties.h:653
 #, fuzzy
 msgid "Line caps"
 msgstr "Celah garis"
 
-#: ../lib/properties.h:708
+#: ../lib/properties.h:711
 #, fuzzy
 msgid "Text fitting"
 msgstr "Teks pengisi"
@@ -2995,6 +2946,10 @@ msgstr ""
 #, fuzzy, c-format
 msgid "No attribute '%s' (%p) or no data (%p) in this attribute"
 msgstr "Tidak ada atribut '%s' (%p) atau tidak ada data(%p) dalam atribut"
+
+#: ../lib/prop_pattern.c:232
+msgid "Cant create pattern from scratch!"
+msgstr ""
 
 #: ../lib/prop_pixbuf.c:99 ../lib/prop_pixbuf.c:146
 #, c-format
@@ -3049,41 +3004,44 @@ msgstr ""
 msgid "%s: you should use object tags rather than shape tags now"
 msgstr ""
 
-#: ../lib/standard-path.c:127
+#: ../lib/standard-path.c:131
 msgid "Stroke"
 msgstr ""
 
 #. Translators: Menu item Verb/Provision/Supply/Fill
-#: ../lib/standard-path.c:128 ../objects/FS/function.c:933
+#: ../lib/standard-path.c:132 ../objects/FS/function.c:933
 msgid "Fill"
 msgstr "Mengisi"
 
-#: ../lib/standard-path.c:129
+#: ../lib/standard-path.c:133
 msgid "Fill & Stroke"
 msgstr ""
 
-#: ../lib/standard-path.c:134
-#, fuzzy
+#: ../lib/standard-path.c:138
 msgid "Bezier points"
-msgstr "Beziergon"
+msgstr "Titik Bezier"
 
-#: ../lib/standard-path.c:135
+#: ../lib/standard-path.c:139
 msgid "Drawing"
 msgstr ""
 
-#: ../lib/standard-path.c:144
-#, fuzzy
+#: ../lib/standard-path.c:148
 msgid "Draw Control Lines"
-msgstr "Kendali"
+msgstr "Gambar Garis Kendali"
 
-#: ../lib/standard-path.c:478
+#: ../lib/standard-path.c:149 ../objects/standard/beziergon.c:110
+#: ../objects/standard/box.c:148 ../objects/standard/ellipse.c:135
+#: ../objects/standard/polygon.c:112
+msgid "Pattern"
+msgstr "Pola"
+
+#: ../lib/standard-path.c:498
 msgid "Convert to Bezier"
-msgstr ""
+msgstr "Konversikan ke Bezier"
 
-#: ../lib/standard-path.c:479
-#, fuzzy
+#: ../lib/standard-path.c:499
 msgid "Show Control Lines"
-msgstr "Tampilkan _Titik Koneksi"
+msgstr "Tampilkan Garis Kendali"
 
 #: ../lib/widgets.c:390
 msgid "Select image file"
@@ -3094,9 +3052,8 @@ msgid "Browse"
 msgstr "Lihat"
 
 #: ../objects/AADL/aadlbox.c:147
-#, fuzzy
 msgid "Declaration"
-msgstr "Keterangan"
+msgstr "Deklarasi"
 
 #: ../objects/AADL/aadlbox.c:356
 #, fuzzy
@@ -3149,14 +3106,12 @@ msgid "Add Port Group"
 msgstr ""
 
 #: ../objects/AADL/aadlbox.c:380
-#, fuzzy
 msgid "Add Connection Point"
-msgstr "Tambahkan titik sambungan"
+msgstr "Tambahkan Titik Sambungan"
 
 #: ../objects/AADL/aadlbox.c:384
-#, fuzzy
 msgid "Delete Port"
-msgstr "Hapus Sudut"
+msgstr "Hapus Port"
 
 #: ../objects/AADL/aadlbox.c:385
 #, fuzzy
@@ -3164,9 +3119,8 @@ msgid "Edit Port Declaration"
 msgstr "Persiapan"
 
 #: ../objects/AADL/aadlbox.c:389
-#, fuzzy
 msgid "Delete Connection Point"
-msgstr "Hapus titik sambungan"
+msgstr "Hapus Titik Sambungan"
 
 #: ../objects/AADL/aadl.c:52
 #, fuzzy
@@ -3321,9 +3275,8 @@ msgid ""
 msgstr ""
 
 #: ../objects/Database/compound.c:196
-#, fuzzy
 msgid "Number of arms"
-msgstr "Jumlah tingkat pembatalan:"
+msgstr "Cacah lengan"
 
 #: ../objects/Database/compound.c:219
 #, fuzzy
@@ -3360,20 +3313,18 @@ msgid "Entity/Relationship table diagram objects"
 msgstr "Entitas/relasi obyek-obyek diagram"
 
 #: ../objects/Database/reference.c:109 ../objects/flowchart/box.c:150
-#: ../objects/standard/box.c:141 ../objects/standard/polyline.c:107
+#: ../objects/standard/box.c:144 ../objects/standard/polyline.c:107
 #: ../objects/standard/zigzagline.c:106
 msgid "Corner radius"
 msgstr "Radius sudut"
 
 #: ../objects/Database/reference.c:112
-#, fuzzy
 msgid "Start description"
-msgstr "keterangan:"
+msgstr "Mulai deskripsi"
 
 #: ../objects/Database/reference.c:114
-#, fuzzy
 msgid "End description"
-msgstr "keterangan:"
+msgstr "Akhir deskripsi"
 
 #: ../objects/Database/reference.c:121 ../objects/Database/table.c:212
 #: ../objects/Database/table.c:214 ../objects/Database/table.c:216
@@ -3433,14 +3384,12 @@ msgid "Unique"
 msgstr "Unik"
 
 #: ../objects/Database/table.c:148
-#, fuzzy
 msgid "Default"
-msgstr "Default: "
+msgstr "Baku"
 
 #: ../objects/Database/table.c:148
-#, fuzzy
 msgid "Default value"
-msgstr "Nilai def.:"
+msgstr "Nilai baku"
 
 #. init data
 #: ../objects/Database/table.c:177 ../objects/Database/table.c:267
@@ -3449,9 +3398,8 @@ msgid "Table"
 msgstr "Tabel"
 
 #: ../objects/Database/table.c:186
-#, fuzzy
 msgid "Visible comments"
-msgstr "Komentar Terlihat"
+msgstr "Komentar tampak"
 
 #: ../objects/Database/table.c:188
 msgid "Underline primary keys"
@@ -3460,7 +3408,7 @@ msgstr ""
 #: ../objects/Database/table.c:191 ../objects/UML/class.c:159
 #, fuzzy
 msgid "Comment tagging"
-msgstr "Komentar"
+msgstr "Tag komentar"
 
 #: ../objects/Database/table.c:193
 msgid "Use bold font for primary keys"
@@ -3475,9 +3423,8 @@ msgstr "Atribut"
 #. all this just to make the defaults selectable ...
 #: ../objects/Database/table.c:200 ../objects/UML/association.c:269
 #: ../objects/UML/class.c:196 ../objects/UML/object.c:159
-#, fuzzy
 msgid "Style"
-msgstr "_Gaya:"
+msgstr "Gaya"
 
 #: ../objects/Database/table.c:201 ../objects/UML/class.c:197
 msgid "Fonts"
@@ -3494,9 +3441,8 @@ msgid "Table name"
 msgstr "Nama tabel"
 
 #: ../objects/Database/table.c:262 ../objects/UML/class.c:342
-#, fuzzy
 msgid "Show comments"
-msgstr "Tampilkan Komentar"
+msgstr "Tampilkan komentar"
 
 #: ../objects/ER/attribute.c:152 ../objects/ER/entity.c:134
 #: ../objects/ER/relationship.c:139
@@ -3735,7 +3681,7 @@ msgstr "Arahkan"
 #. Translators: Menu item Verb/Channel/Guide/Guide/Straighten
 #: ../objects/FS/function.c:739
 msgid "Straighten"
-msgstr ""
+msgstr "Luruskan"
 
 #. Translators: Menu item Verb/Channel/Guide/Guide/Steer
 #: ../objects/FS/function.c:741
@@ -4809,7 +4755,6 @@ msgid "Istar diagram"
 msgstr "Diagram Istar"
 
 #: ../objects/Istar/link.c:150
-#, fuzzy
 msgid "Positive contrib"
 msgstr "Kontribusi positif"
 
@@ -5166,51 +5111,51 @@ msgstr "Celah mulai absolut"
 msgid "Absolute end gap"
 msgstr "Celah akhir absolut"
 
-#: ../objects/standard/bezier.c:776 ../objects/standard/beziergon.c:515
+#: ../objects/standard/bezier.c:776 ../objects/standard/beziergon.c:538
 msgid "Add Segment"
 msgstr "Tambah Segmen"
 
-#: ../objects/standard/bezier.c:777 ../objects/standard/beziergon.c:516
+#: ../objects/standard/bezier.c:777 ../objects/standard/beziergon.c:539
 msgid "Delete Segment"
 msgstr "Hapus Segmen"
 
-#: ../objects/standard/bezier.c:779 ../objects/standard/beziergon.c:518
+#: ../objects/standard/bezier.c:779 ../objects/standard/beziergon.c:541
 msgid "Symmetric control"
 msgstr "Kontrol simetris"
 
-#: ../objects/standard/bezier.c:781 ../objects/standard/beziergon.c:520
+#: ../objects/standard/bezier.c:781 ../objects/standard/beziergon.c:543
 msgid "Smooth control"
 msgstr "Kontrol penghalus"
 
-#: ../objects/standard/bezier.c:783 ../objects/standard/beziergon.c:522
+#: ../objects/standard/bezier.c:783 ../objects/standard/beziergon.c:545
 msgid "Cusp control"
 msgstr "Kontrol cusp"
 
-#: ../objects/standard/box.c:127 ../objects/standard/ellipse.c:117
+#: ../objects/standard/box.c:130 ../objects/standard/ellipse.c:120
 msgid "Free"
 msgstr "Bebas"
 
-#: ../objects/standard/box.c:128 ../objects/standard/ellipse.c:118
+#: ../objects/standard/box.c:131 ../objects/standard/ellipse.c:121
 msgid "Fixed"
 msgstr "Baku"
 
-#: ../objects/standard/box.c:129 ../objects/standard/box.c:761
+#: ../objects/standard/box.c:132 ../objects/standard/box.c:781
 msgid "Square"
 msgstr "Persegi-empat"
 
-#: ../objects/standard/box.c:143 ../objects/standard/ellipse.c:130
+#: ../objects/standard/box.c:146 ../objects/standard/ellipse.c:133
 msgid "Aspect ratio"
 msgstr "Rasio aspek"
 
-#: ../objects/standard/box.c:757 ../objects/standard/ellipse.c:663
+#: ../objects/standard/box.c:777 ../objects/standard/ellipse.c:685
 msgid "Free aspect"
 msgstr "Aspek bebas"
 
-#: ../objects/standard/box.c:759 ../objects/standard/ellipse.c:665
+#: ../objects/standard/box.c:779 ../objects/standard/ellipse.c:687
 msgid "Fixed aspect"
 msgstr "Aspek tetap"
 
-#: ../objects/standard/ellipse.c:119 ../objects/standard/ellipse.c:667
+#: ../objects/standard/ellipse.c:122 ../objects/standard/ellipse.c:689
 msgid "Circle"
 msgstr "Lingkaran"
 
@@ -5225,11 +5170,11 @@ msgstr "Data waktu"
 
 #: ../objects/standard/image.c:120
 msgid "Store image data in diagram"
-msgstr ""
+msgstr "Simpan data citra dalam diagram"
 
 #: ../objects/standard/image.c:122
 msgid "Pixbuf"
-msgstr ""
+msgstr "Pixbuf"
 
 #: ../objects/standard/image.c:122
 #, fuzzy
@@ -5279,7 +5224,7 @@ msgstr "Titik akhir"
 
 #: ../objects/standard/line.c:320
 msgid "Upgrade to Polyline"
-msgstr ""
+msgstr "Tingkatkan ke Polyline"
 
 #: ../objects/standard/line.c:321
 #, fuzzy
@@ -5287,19 +5232,18 @@ msgid "Upgrade to Zigzagline"
 msgstr "Garis zigzag"
 
 #: ../objects/standard/outline.c:102
-#, fuzzy
 msgid "Text content"
-msgstr "Perapian teks"
+msgstr "Isi teks"
 
 #: ../objects/standard/outline.c:104
 msgid "Angle to rotate the outline"
 msgstr ""
 
-#: ../objects/standard/polygon.c:459 ../objects/standard/polyline.c:623
+#: ../objects/standard/polygon.c:479 ../objects/standard/polyline.c:623
 msgid "Add Corner"
 msgstr "Tambahkan Sudut"
 
-#: ../objects/standard/polygon.c:460 ../objects/standard/polyline.c:624
+#: ../objects/standard/polygon.c:480 ../objects/standard/polyline.c:624
 msgid "Delete Corner"
 msgstr "Hapus Sudut"
 
@@ -5308,14 +5252,12 @@ msgid "Standard objects"
 msgstr "Obyek standar"
 
 #: ../objects/standard/textobj.c:112
-#, fuzzy
 msgid "First Line"
-msgstr "Garis Infinit"
+msgstr "Garis Pertama"
 
 #: ../objects/standard/textobj.c:119
-#, fuzzy
 msgid "Vertical text alignment"
-msgstr "Perapian teks"
+msgstr "Perataan teks vertikal"
 
 #: ../objects/standard/zigzagline.c:448
 #, fuzzy
@@ -5336,23 +5278,20 @@ msgid "From B to A"
 msgstr "Dari B ke A"
 
 #: ../objects/UML/association.c:227
-#, fuzzy
 msgid "Aggregation"
-msgstr "Agregat"
+msgstr "Agregasi"
 
 #: ../objects/UML/association.c:228
 msgid "Composition"
 msgstr "Komposisi"
 
 #: ../objects/UML/association.c:238
-#, fuzzy
 msgid "Direction"
-msgstr "Arah:"
+msgstr "Arah"
 
 #: ../objects/UML/association.c:240
-#, fuzzy
 msgid "Show direction"
-msgstr "Arah:"
+msgstr "Tampilkan arah"
 
 #: ../objects/UML/association.c:240
 msgid "Show the small arrow denoting the reading direction"
@@ -5363,9 +5302,8 @@ msgid "Side A"
 msgstr "Sisi A"
 
 #: ../objects/UML/association.c:251
-#, fuzzy
 msgid "Multiplicity"
-msgstr "Multiplisitas:"
+msgstr "Multiplisitas"
 
 #: ../objects/UML/association.c:253 ../objects/UML/umlattribute.c:45
 #: ../objects/UML/umloperation.c:71
@@ -5469,9 +5407,8 @@ msgid "Visible Comments"
 msgstr "Komentar Terlihat"
 
 #: ../objects/UML/class.c:161 ../objects/UML/class.c:344
-#, fuzzy
 msgid "Allow resizing"
-msgstr "Segi-tiga Berlubang"
+msgstr "Ijinkan ubah ukuran"
 
 #: ../objects/UML/class.c:165 ../objects/UML/class.c:1842
 msgid "Template"
@@ -5490,9 +5427,8 @@ msgid "Wrap after char"
 msgstr "Gulung setelah karakter"
 
 #: ../objects/UML/class.c:173
-#, fuzzy
 msgid "Comment line length"
-msgstr "Komentar terlihat"
+msgstr "Panjang garis komentar"
 
 #. umlattribute_extra
 #: ../objects/UML/class.c:186
@@ -5513,9 +5449,8 @@ msgid "Class Name"
 msgstr "Nama Kelas"
 
 #: ../objects/UML/class.c:209
-#, fuzzy
 msgid "Abstract Class Name"
-msgstr "Namakelas abstrak"
+msgstr "Nama Kelas Abstrak"
 
 #. Class page:
 #: ../objects/UML/class_dialog.c:320
@@ -5560,13 +5495,12 @@ msgstr "Gulung setelah panjang ini: "
 
 #: ../objects/UML/class_dialog.c:413
 msgid "Show documentation tag"
-msgstr ""
+msgstr "Tampilkan tag dokumentasi"
 
 #. * Fonts and Colors selection *
 #: ../objects/UML/class_dialog.c:442
-#, fuzzy
 msgid "_Style"
-msgstr "_Gaya:"
+msgstr "_Gaya"
 
 #. head line
 #: ../objects/UML/class_dialog.c:452 ../objects/UML/umlparameter.c:51
@@ -5583,9 +5517,8 @@ msgstr "Kelas Abstrak"
 
 #. should probably be refactored too.
 #: ../objects/UML/class_dialog.c:498
-#, fuzzy
 msgid "Line Width"
-msgstr "Lebar garis"
+msgstr "Lebar Garis"
 
 #: ../objects/UML/class_dialog.c:507
 msgid "Text Color"
@@ -5867,13 +5800,12 @@ msgid "Unified Modelling Language diagram objects UML 1.3"
 msgstr "Obyek-obyek diagram Unified Modelling Language"
 
 #: ../objects/UML/umloperation.c:73
-#, fuzzy
 msgid "Inheritance"
-msgstr "Tipe pewarisan"
+msgstr "Inheritansi"
 
 #: ../objects/UML/umloperation.c:75
 msgid "C++ const method"
-msgstr ""
+msgstr "Metoda const C++"
 
 #: ../objects/UML/umloperation.c:77
 #, fuzzy
@@ -5955,13 +5887,12 @@ msgid "Cairo Clipboard Copy"
 msgstr "Cairo Clipboard"
 
 #: ../plug-ins/cairo/diacairo.c:481
-#, fuzzy
 msgid "Copy _Diagram"
-msgstr "Tutup Diagram"
+msgstr "Salin _Diagram"
 
 #: ../plug-ins/cairo/diacairo.c:490
 msgid "Print (GTK) …"
-msgstr ""
+msgstr "Cetak (GTK) …"
 
 #: ../plug-ins/cairo/diacairo.c:539
 #, fuzzy
@@ -5980,9 +5911,9 @@ msgstr "Printer sederhana"
 msgid "Visible rect pointer"
 msgstr "Atribut Terlihat"
 
-#: ../plug-ins/cairo/diacairo-renderer.c:871
-#: ../plug-ins/cairo/diacairo-renderer.c:906 ../plug-ins/cgm/cgm.c:1126
-#: ../plug-ins/libart/dialibartrenderer.c:1325
+#: ../plug-ins/cairo/diacairo-renderer.c:973
+#: ../plug-ins/cairo/diacairo-renderer.c:1008 ../plug-ins/cgm/cgm.c:1126
+#: ../plug-ins/libart/dialibartrenderer.c:1329
 #: ../plug-ins/metapost/render_metapost.c:1108
 #: ../plug-ins/postscript/diapsrenderer.c:715
 #: ../plug-ins/pstricks/render_pstricks.c:825 ../plug-ins/wpg/wpg.c:892
@@ -6045,78 +5976,75 @@ msgstr "HP Graphics Language"
 msgid "HP Graphics Language export filter"
 msgstr "Filter ekspor HP Graphics Language"
 
-#: ../plug-ins/layout/layout.cpp:228
+#: ../plug-ins/layout/layout.cpp:235
 msgid "Please select edges and nodes to layout."
 msgstr ""
 
-#: ../plug-ins/layout/layout.cpp:233
-#, fuzzy
+#: ../plug-ins/layout/layout.cpp:240
 msgid "Graph creation failed"
-msgstr "File transaksi"
+msgstr ""
 
-#: ../plug-ins/layout/layout.cpp:259
+#: ../plug-ins/layout/layout.cpp:266
 msgid "No such module."
 msgstr ""
 
-#: ../plug-ins/layout/layout.cpp:260
+#: ../plug-ins/layout/layout.cpp:267
 msgid "Out of memory."
-msgstr ""
-
-#: ../plug-ins/layout/layout.cpp:261
-msgid "Not a tree."
-msgstr ""
-
-#: ../plug-ins/layout/layout.cpp:262
-msgid "Not a forest."
-msgstr ""
-
-#: ../plug-ins/layout/layout.cpp:263
-msgid "Failed algorithm."
-msgstr ""
-
-#: ../plug-ins/layout/layout.cpp:264
-msgid "Failed precondition."
-msgstr ""
-
-#: ../plug-ins/layout/layout.cpp:265
-#, fuzzy
-msgid "OGDF crashed."
-msgstr "Bergaris putus"
-
-#: ../plug-ins/layout/layout.cpp:266
-#, fuzzy
-msgid "Unknown reason"
-msgstr "Panah ke bawah"
+msgstr "Kehabisan memori."
 
 #: ../plug-ins/layout/layout.cpp:268
+msgid "Not a tree."
+msgstr "Bukan pohon."
+
+#: ../plug-ins/layout/layout.cpp:269
+msgid "Not a forest."
+msgstr "Bukan hutan."
+
+#: ../plug-ins/layout/layout.cpp:270
+msgid "Failed algorithm."
+msgstr "Algoritma gagal."
+
+#: ../plug-ins/layout/layout.cpp:271
+msgid "Failed precondition."
+msgstr "Prekondisi gagal."
+
+#: ../plug-ins/layout/layout.cpp:272
+msgid "OGDF crashed."
+msgstr ""
+
+#: ../plug-ins/layout/layout.cpp:273
+msgid "Unknown reason"
+msgstr ""
+
+#: ../plug-ins/layout/layout.cpp:275
 #, c-format
 msgid ""
 "Layout '%s' failed.\n"
 "%s"
 msgstr ""
+"Tata letak '%s' gagal.\n"
+"%s"
 
-#: ../plug-ins/layout/layout.cpp:409
+#: ../plug-ins/layout/layout.cpp:416
 msgid "OGDF Layout Algorithms"
 msgstr ""
 
 #: ../plug-ins/libart/dialibart.c:58
-#, fuzzy
 msgid "Libart-based rendering"
-msgstr "Cairo based Rendering"
+msgstr ""
 
-#: ../plug-ins/libart/dialibartrenderer.c:1476
+#: ../plug-ins/libart/dialibartrenderer.c:1480
 msgid "Renderer transformation"
 msgstr ""
 
-#: ../plug-ins/libart/dialibartrenderer.c:1477
-#, fuzzy
+#: ../plug-ins/libart/dialibartrenderer.c:1481
 msgid "Transform pointer"
-msgstr "Mengubah"
+msgstr ""
 
 #: ../plug-ins/libart/export_png.c:159 ../plug-ins/xslt/xslt.c:104
-#, fuzzy, c-format
+#, c-format
 msgid "Can't open output file %s: %s\n"
-msgstr "Tidak bisa membuka file output %s: %s\n"
+msgstr "Tak bisa membuka berkas keluaran %s: %s\n"
 
 #: ../plug-ins/libart/export_png.c:167
 msgid "Could not create PNG write structure"
@@ -6156,15 +6084,17 @@ msgstr "Filter ekspor TeX Metapost"
 msgid "TeX Metapost macros"
 msgstr "Makro TeX Metapost"
 
-#: ../plug-ins/pdf/pdf.c:30
-#, fuzzy
-msgid "Portable Document File"
-msgstr "Cairo Portable Document Format"
+#: ../plug-ins/pdf/pdf.c:29
+msgid "PDF import not available."
+msgstr "Impor PDF tak tersedia."
 
-#: ../plug-ins/pdf/pdf.c:44
-#, fuzzy
+#: ../plug-ins/pdf/pdf.c:37
+msgid "Portable Document File"
+msgstr "Portable Document File"
+
+#: ../plug-ins/pdf/pdf.c:55
 msgid "PDF import filter"
-msgstr "Filter ekspor WMF"
+msgstr "Penyaring impor PDF"
 
 #: ../plug-ins/pdf/pdf-import.cpp:332
 #, c-format
@@ -6179,33 +6109,29 @@ msgid ""
 msgstr ""
 
 #: ../plug-ins/pgf/pgf.c:26
-#, fuzzy
 msgid "LaTeX PGF export filter"
-msgstr "Filter ekspor TeX Pstricks"
+msgstr "Penyaring ekspor LaTeX PGF"
 
 #: ../plug-ins/pgf/render_pgf.c:1112
 #: ../plug-ins/pstricks/render_pstricks.c:733
-#, fuzzy
 msgid "Not valid UTF-8"
-msgstr "UTF8 tidak sah"
+msgstr "Bukan UTF-8 yang valid"
 
 #: ../plug-ins/pgf/render_pgf.c:1271
-#, fuzzy
 msgid "LaTeX PGF macros"
-msgstr "Makro TeX PSTricks"
+msgstr "Makro LaTeX PGF"
 
 #: ../plug-ins/pixbuf/pixbuf.c:86
 msgid "Failed to create pixbuf from drawable."
 msgstr ""
 
 #: ../plug-ins/pixbuf/pixbuf.c:91
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Could not save file:\n"
 "%s"
 msgstr ""
-"Tidak bisa menyimpan file:\n"
-"%s\n"
+"Tidak bisa menyimpan berkas:\n"
 "%s"
 
 #: ../plug-ins/pixbuf/pixbuf.c:112
@@ -6248,7 +6174,7 @@ msgid "Could not open '%s' for writing: %s"
 msgstr "Tidak bisa membuka '%s' untuk menulis: %s"
 
 #: ../plug-ins/postscript/paginate_psprint.c:489
-#, fuzzy, c-format
+#, c-format
 msgid "Printing error: command '%s' returned %d\n"
 msgstr "Kesalahan cetak: perintah '%s' menghasilkan %d\n"
 
@@ -6259,7 +6185,7 @@ msgstr "Kesalahan cetak: perintah '%s' menyebabkan sigpipe."
 
 #: ../plug-ins/postscript/postscript.c:47
 msgid "Print (PS)"
-msgstr ""
+msgstr "Cetak (PS)"
 
 #: ../plug-ins/postscript/postscript.c:82
 msgid "PostScript Rendering"
@@ -6280,38 +6206,36 @@ msgid "Encapsulated PostScript (using PostScript Latin-1 fonts)"
 msgstr "Encapsulated Postscript (pakai font PostScript Latin-1)"
 
 #: ../plug-ins/pstricks/pstricks.c:26
-#, fuzzy
 msgid "TeX PSTricks export filter"
-msgstr "Filter ekspor TeX Pstricks"
+msgstr "Penyaring ekspor TeX PSTricks"
 
 #: ../plug-ins/pstricks/render_pstricks.c:990
 msgid "TeX PSTricks macros"
 msgstr "Makro TeX PSTricks"
 
 #: ../plug-ins/python/pydia-render.c:1115
-#, fuzzy, c-format
+#, c-format
 msgid "Couldn't open '%s' for writing.\n"
-msgstr "Tidak bisa membuka '%s' untuk penulisan.\n"
+msgstr "Tak bisa membuka '%s' untuk penulisan.\n"
 
 #: ../plug-ins/python/python.c:95
 msgid "Python scripting support"
 msgstr "Dukungan scripting Python"
 
 #: ../plug-ins/shape/shape.c:36
-#, fuzzy
 msgid "Dia shape export filter"
-msgstr "filter eskpor bentuk dia"
+msgstr "Penyaring eskpor bentuk Dia"
 
-#: ../plug-ins/shape/shape-export.c:525
+#: ../plug-ins/shape/shape-export.c:536
 msgid "Shape files must end in .shape, or they cannot be loaded by Dia"
 msgstr ""
 
-#: ../plug-ins/shape/shape-export.c:539
+#: ../plug-ins/shape/shape-export.c:550
 #, fuzzy
 msgid "Can't export PNG icon without export plugin!"
 msgstr "Tidak bisa mengekspor png tanpa libart!"
 
-#: ../plug-ins/shape/shape-export.c:565
+#: ../plug-ins/shape/shape-export.c:576
 msgid "Dia Shape File"
 msgstr "File Bentuk Dia"
 
@@ -6319,38 +6243,39 @@ msgstr "File Bentuk Dia"
 msgid "Scalable Vector Graphics import and export filters"
 msgstr "Filter impor dan ekspor Scalable Vector Graphics"
 
-#: ../plug-ins/svg/svg-import.c:586
+#: ../plug-ins/svg/svg-import.c:606
 msgid ""
 "Invalid path data.\n"
 "svg:path data must start with moveto."
 msgstr ""
 
-#: ../plug-ins/svg/svg-import.c:1573
+#: ../plug-ins/svg/svg-import.c:1799
 msgid "'Shape Design' shapes missing."
 msgstr ""
 
-#: ../plug-ins/svg/svg-import.c:1607
+#: ../plug-ins/svg/svg-import.c:1833
 #, c-format
 msgid "Object '%s' creation failed"
 msgstr "Pembuatan objek '%s' gagal"
 
-#: ../plug-ins/svg/svg-import.c:1629
+#: ../plug-ins/svg/svg-import.c:1855
 #, c-format
 msgid ""
 "Parse error for memory block.\n"
 "%s"
 msgstr ""
 
-#: ../plug-ins/svg/svg-import.c:1642 ../plug-ins/vdx/vdx-import.c:2887
+#: ../plug-ins/svg/svg-import.c:1868 ../plug-ins/vdx/vdx-import.c:2887
 #, c-format
 msgid "Parse error for %s"
 msgstr "Galat penguraian bagi %s"
 
-#: ../plug-ins/svg/svg-import.c:1675
-msgid "Expected SVG Namespace not found in file"
+#: ../plug-ins/svg/svg-import.c:1901
+#, fuzzy
+msgid "Expected SVG name-space not found in file"
 msgstr "Namespace SVG yang diinginkan tidak ditemukan dalam file"
 
-#: ../plug-ins/svg/svg-import.c:1695
+#: ../plug-ins/svg/svg-import.c:1921
 #, c-format
 msgid "root element was '%s' -- expecting 'svg'."
 msgstr "elemen root '%s' -- menginginkan 'svg'."
@@ -6370,14 +6295,14 @@ msgid "Visio XML format"
 msgstr "Format XML Visio"
 
 #: ../plug-ins/vdx/vdx-import.c:222
-#, fuzzy, c-format
+#, c-format
 msgid "Couldn't read color: %s"
-msgstr "Tidak bisa membaca warna: %s\n"
+msgstr "Tak bisa baca warna: %s"
 
 #: ../plug-ins/vdx/vdx-import.c:536
-#, fuzzy, c-format
+#, c-format
 msgid "Couldn't find shape %d"
-msgstr "Tidak bisa menemukan direktori bantuan"
+msgstr "Tak bisa temukan bentuk %d"
 
 #: ../plug-ins/vdx/vdx-import.c:1011
 #, fuzzy, c-format
@@ -6437,7 +6362,7 @@ msgstr ""
 
 #: ../plug-ins/wmf/wmf.cpp:1515
 msgid "Print (GDI) ..."
-msgstr ""
+msgstr "Cetak (GDI) ..."
 
 #: ../plug-ins/wmf/wmf.cpp:1531
 msgid "WMF export filter"
@@ -6472,9 +6397,8 @@ msgid "No more user-definable colors - using black"
 msgstr "Tidak ada lagi warna yang dipilih pengguna sendiri - pakai hitam"
 
 #: ../plug-ins/xfig/xfig-export.c:1234
-#, fuzzy
 msgid "Xfig format"
-msgstr "Format XFig"
+msgstr "Format Xfig"
 
 #: ../plug-ins/xfig/xfig-import.c:109
 #, c-format
@@ -6506,12 +6430,11 @@ msgid "Unexpected end of file."
 msgstr "Akhir file FIG prematur\n"
 
 #: ../plug-ins/xfig/xfig-import.c:273
-#, fuzzy
 msgid "Error while reading arrowhead"
-msgstr "Kesalahan saat membaca mata-panah\n"
+msgstr "Galat saat membaca mata panah"
 
 #: ../plug-ins/xfig/xfig-import.c:295
-#, fuzzy, c-format
+#, c-format
 msgid "Unknown arrow type %d\n"
 msgstr "Tipe panah tidak dikenal %d\n"
 
@@ -6521,14 +6444,12 @@ msgid "Depth %d of of range, only 0-%d allowed.\n"
 msgstr ""
 
 #: ../plug-ins/xfig/xfig-import.c:435
-#, fuzzy
 msgid "Couldn't read ellipse info."
-msgstr "Tidak bisa membaca info elips: %s\n"
+msgstr "Tak bisa membaca info elips."
 
 #: ../plug-ins/xfig/xfig-import.c:504
-#, fuzzy
 msgid "Couldn't read polyline info.\n"
-msgstr "Tidak bisa membaca info polyline: %s\n"
+msgstr "Tak bisa membaca info polyline.\n"
 
 #: ../plug-ins/xfig/xfig-import.c:519
 #, fuzzy
@@ -6546,9 +6467,8 @@ msgid "Unknown polyline subtype: %d\n"
 msgstr "Subtipe polyline tak dikenal: %d\n"
 
 #: ../plug-ins/xfig/xfig-import.c:732 ../plug-ins/xfig/xfig-import.c:764
-#, fuzzy
 msgid "Couldn't read spline info."
-msgstr "Tidak bisa membaca info spline: %s\n"
+msgstr "Tak bisa membaca info spline."
 
 #. Open approximated spline
 #. Closed approximated spline
@@ -6557,14 +6477,13 @@ msgid "Cannot convert approximated spline yet."
 msgstr "Tidak bisa mengubah spline perkiraan."
 
 #: ../plug-ins/xfig/xfig-import.c:806
-#, fuzzy, c-format
+#, c-format
 msgid "Unknown spline subtype: %d\n"
 msgstr "Subtipe spline tak dikenal: %d\n"
 
 #: ../plug-ins/xfig/xfig-import.c:871
-#, fuzzy
 msgid "Couldn't read arc info."
-msgstr "Tidak bisa membaca info arc: %s\n"
+msgstr "Tak bisa membaca info arc."
 
 #. set new fill property on arc?
 #: ../plug-ins/xfig/xfig-import.c:899
@@ -6572,14 +6491,13 @@ msgid "Filled arc treated as unfilled"
 msgstr ""
 
 #: ../plug-ins/xfig/xfig-import.c:903
-#, fuzzy, c-format
+#, c-format
 msgid "Unknown polyline arc: %d\n"
-msgstr "Subtipe polyline tak dikenal: %d\n"
+msgstr "Arc polyline tak dikenal: %d\n"
 
 #: ../plug-ins/xfig/xfig-import.c:968
-#, fuzzy
 msgid "Couldn't read text info."
-msgstr "Tidak bisa membaca info teks: %s\n"
+msgstr "Tak bisa membaca info teks."
 
 #: ../plug-ins/xfig/xfig-import.c:996
 #, c-format
@@ -6602,9 +6520,9 @@ msgid "Compound end outside compound\n"
 msgstr "Mencampur ujung gabungan luar\n"
 
 #: ../plug-ins/xfig/xfig-import.c:1059
-#, fuzzy, c-format
+#, c-format
 msgid "Couldn't read color: %s\n"
-msgstr "Tidak bisa membaca warna: %s\n"
+msgstr "Tak bisa membaca warna: %s\n"
 
 #: ../plug-ins/xfig/xfig-import.c:1064
 #, c-format
@@ -6617,9 +6535,9 @@ msgid "Couldn't read group extent."
 msgstr "Tidak bisa membaca perluasan grup: %s\n"
 
 #: ../plug-ins/xfig/xfig-import.c:1122
-#, fuzzy, c-format
+#, c-format
 msgid "Unknown object type %d\n"
-msgstr "Tipe obyek tak dikenal %d\n"
+msgstr "Tipe objek tak dikenal %d\n"
 
 #: ../plug-ins/xfig/xfig-import.c:1147
 #, fuzzy, c-format
@@ -6627,9 +6545,8 @@ msgid "`%s' is not one of `%s' or `%s'\n"
 msgstr "`%s' adalah salah satu dari `%s' atau `%s'\n"
 
 #: ../plug-ins/xfig/xfig-import.c:1157
-#, fuzzy
 msgid "Error reading paper size."
-msgstr "Kesalahan saat membaca ukuran kertas: %s\n"
+msgstr "Galat saat membaca ukuran kertas."
 
 #: ../plug-ins/xfig/xfig-import.c:1168
 #, fuzzy, c-format
@@ -6637,34 +6554,28 @@ msgid "Unknown paper size `%s', using default\n"
 msgstr "Ukuran kertas tak dikenal `%s', pakai default\n"
 
 #: ../plug-ins/xfig/xfig-import.c:1181
-#, fuzzy
 msgid "Error reading paper orientation."
-msgstr "Kesalahan saat membaca orientasi kertas: %s\n"
+msgstr "Galat saat membaca orientasi kertas."
 
 #: ../plug-ins/xfig/xfig-import.c:1191
-#, fuzzy
 msgid "Error reading justification."
-msgstr "Kesalahan saat membaca justifikasi: %s\n"
+msgstr "Galat saat membaca justifikasi."
 
 #: ../plug-ins/xfig/xfig-import.c:1201
-#, fuzzy
 msgid "Error reading units."
-msgstr "Kesalahan saat membaca unit: %s\n"
+msgstr "Galat saat membaca unit."
 
 #: ../plug-ins/xfig/xfig-import.c:1217
-#, fuzzy
 msgid "Error reading magnification."
-msgstr "Kesalahan saat membaca pembesaran: %s\n"
+msgstr "Galat saat membaca pembesaran."
 
 #: ../plug-ins/xfig/xfig-import.c:1230
-#, fuzzy
 msgid "Error reading multipage indicator."
-msgstr "Kesalahan saat membaca indikator multi-halaman: %s\n"
+msgstr "Galat saat membaca indikator multi-halaman."
 
 #: ../plug-ins/xfig/xfig-import.c:1241
-#, fuzzy
 msgid "Error reading transparent color."
-msgstr "Kesalahan saat membaca warna transparan: %s\n"
+msgstr "Galat saat membaca warna transparan."
 
 #: ../plug-ins/xfig/xfig-import.c:1250 ../plug-ins/xfig/xfig-import.c:1311
 #: ../plug-ins/xfig/xfig-import.c:1329
@@ -6757,7 +6668,7 @@ msgstr "Kepada:"
 
 #: ../sheets/AADL.sheet.in.h:1
 msgid "AADL"
-msgstr ""
+msgstr "AADL"
 
 #: ../sheets/AADL.sheet.in.h:2
 #, fuzzy
@@ -6765,46 +6676,40 @@ msgid "AADL Shapes"
 msgstr "Membentuk"
 
 #: ../sheets/AADL.sheet.in.h:4
-#, fuzzy
 msgid "Thread"
-msgstr "Pakai-bersama"
+msgstr "Thread"
 
 #: ../sheets/AADL.sheet.in.h:6
-#, fuzzy
 msgid "Processor"
-msgstr "Memproses"
+msgstr "Prosesor"
 
 #: ../sheets/AADL.sheet.in.h:7
 msgid "Memory"
-msgstr ""
+msgstr "Memori"
 
 #: ../sheets/AADL.sheet.in.h:8
 msgid "Bus"
-msgstr ""
+msgstr "Bus"
 
 #: ../sheets/AADL.sheet.in.h:9
-#, fuzzy
 msgid "System"
-msgstr "Sybase"
+msgstr "Sistem"
 
 #: ../sheets/AADL.sheet.in.h:10
-#, fuzzy
 msgid "Subprogram"
-msgstr "Langkah panggilan subprogram"
+msgstr "Subprogram"
 
 #: ../sheets/AADL.sheet.in.h:11
 msgid "Thread Group"
 msgstr ""
 
 #: ../sheets/AADL.sheet.in.h:12
-#, fuzzy
 msgid "Device"
-msgstr "Membagi"
+msgstr "Perangkat"
 
 #: ../sheets/AADL.sheet.in.h:13
-#, fuzzy
 msgid "Package"
-msgstr "Bungkus"
+msgstr "Paket"
 
 #. Please talk to me before making any changes to this sheet
 #: ../sheets/Assorted.sheet.in.h:2
@@ -6846,22 +6751,18 @@ msgid "Diamond"
 msgstr "Berlian"
 
 #: ../sheets/Assorted.sheet.in.h:13
-#, fuzzy
 msgid "Pentagon. Five-point shape"
 msgstr "Pentagon. Persegi lima"
 
 #: ../sheets/Assorted.sheet.in.h:14
-#, fuzzy
 msgid "Hexagon. Six-point shape"
 msgstr "Heksagon. Persegi enam"
 
 #: ../sheets/Assorted.sheet.in.h:15
-#, fuzzy
 msgid "Heptagon. Seven-point shape"
 msgstr "Heptagon. Persegi tujuh"
 
 #: ../sheets/Assorted.sheet.in.h:16
-#, fuzzy
 msgid "Octogon. Eight-point shape"
 msgstr "Oktagon. Persegi delapan"
 
@@ -6878,7 +6779,6 @@ msgid "Trapezoid"
 msgstr "Trapezoid"
 
 #: ../sheets/Assorted.sheet.in.h:20
-#, fuzzy
 msgid "Four-point star"
 msgstr "Bintang segi empat"
 
@@ -6888,22 +6788,18 @@ msgid "Curved four-point star"
 msgstr "Bintang kurva segi empat"
 
 #: ../sheets/Assorted.sheet.in.h:22
-#, fuzzy
 msgid "Five-point star"
 msgstr "Bintang segi lima"
 
 #: ../sheets/Assorted.sheet.in.h:23
-#, fuzzy
 msgid "Six-point star"
 msgstr "Bintang segi enam"
 
 #: ../sheets/Assorted.sheet.in.h:24
-#, fuzzy
 msgid "Seven-point star"
 msgstr "Bintang segi tujuh"
 
 #: ../sheets/Assorted.sheet.in.h:25
-#, fuzzy
 msgid "Eight-point star"
 msgstr "Bintang segi delapan"
 
@@ -7000,7 +6896,7 @@ msgstr "Bulan seperempat"
 #. For: anthonym
 #: ../sheets/BPMN.sheet.in.h:2
 msgid "BPMN"
-msgstr ""
+msgstr "BPMN"
 
 #: ../sheets/BPMN.sheet.in.h:3
 msgid "Business Process Modeling Notation"
@@ -7077,49 +6973,40 @@ msgid "Intermediate Event — Multiple"
 msgstr ""
 
 #: ../sheets/BPMN.sheet.in.h:19
-#, fuzzy
 msgid "End Event"
-msgstr "Titik akhir"
+msgstr "Kejadian Akhir"
 
 #: ../sheets/BPMN.sheet.in.h:20
-#, fuzzy
 msgid "End Event — Message"
-msgstr "Kirim pesan"
+msgstr "Kejadian Akhir - Pesan"
 
 #: ../sheets/BPMN.sheet.in.h:21
-#, fuzzy
 msgid "End Event — Error"
-msgstr "Titik akhir"
+msgstr "Kejadian Akhir - Galat"
 
 #: ../sheets/BPMN.sheet.in.h:22
-#, fuzzy
 msgid "End Event — Cancel"
-msgstr "Tenggelam Kejadian"
+msgstr "Kejadian Akhir - Batal"
 
 #: ../sheets/BPMN.sheet.in.h:23
-#, fuzzy
 msgid "End Event — Compensation"
-msgstr "Spesifikasi kejadian"
+msgstr "Kejadian Akhir - Kompensasi"
 
 #: ../sheets/BPMN.sheet.in.h:24
-#, fuzzy
 msgid "End Event — Link"
-msgstr "Tenggelam Kejadian"
+msgstr "Kejadian Akhir - Taut"
 
 #: ../sheets/BPMN.sheet.in.h:25
-#, fuzzy
 msgid "End Event — Multiple"
-msgstr "Tenggelam Kejadian"
+msgstr "Kejadian Akhir - Berganda"
 
 #: ../sheets/BPMN.sheet.in.h:26
-#, fuzzy
 msgid "End Event — Terminate"
-msgstr "Tenggelam Kejadian"
+msgstr "Kejadian Akhir - Akhiri"
 
 #: ../sheets/BPMN.sheet.in.h:27
-#, fuzzy
 msgid "Gateway"
-msgstr "Gateway MAS"
+msgstr "Gateway"
 
 #: ../sheets/BPMN.sheet.in.h:28
 msgid "Exclusive (XOR) Data Based"
@@ -7134,9 +7021,8 @@ msgid "Inclusive (OR)"
 msgstr ""
 
 #: ../sheets/BPMN.sheet.in.h:31
-#, fuzzy
 msgid "Complex"
-msgstr "Pasangkan"
+msgstr "Kompleks"
 
 #: ../sheets/BPMN.sheet.in.h:32
 msgid "Parallel (AND)"
@@ -7179,22 +7065,19 @@ msgstr ""
 
 #: ../sheets/BPMN.sheet.in.h:42
 msgid "Group"
-msgstr ""
+msgstr "Grup"
 
 #: ../sheets/BPMN.sheet.in.h:43
-#, fuzzy
 msgid "Transaction"
-msgstr "Terjemahan"
+msgstr "Transaksi"
 
 #: ../sheets/BPMN.sheet.in.h:44
-#, fuzzy
 msgid "Data Object"
-msgstr "DiaObject"
+msgstr "Objek Data"
 
 #: ../sheets/BPMN.sheet.in.h:45
-#, fuzzy
 msgid "Text Annotation"
-msgstr "Orientasi"
+msgstr "Anotasi Teks"
 
 #. For: zenith
 #: ../sheets/ChemEng.sheet.in.h:2
@@ -7570,9 +7453,8 @@ msgid "Vertical xtal"
 msgstr "Sandaran vertikal"
 
 #: ../sheets/ciscocomputer.sheet.in.h:1
-#, fuzzy
 msgid "Cisco — Computer"
-msgstr "Cisco - Computer"
+msgstr "Cisco - Komputer"
 
 #: ../sheets/ciscocomputer.sheet.in.h:2
 msgid "Computer shapes by Cisco"
@@ -7771,7 +7653,6 @@ msgid "PC Adapter Card"
 msgstr "Kartu Adapter PC"
 
 #: ../sheets/ciscohub.sheet.in.h:1
-#, fuzzy
 msgid "Cisco — Switch"
 msgstr "Cisco - Switch"
 
@@ -8064,7 +7945,6 @@ msgid "Virtual Layer Switch"
 msgstr "Switch Layer Virtual"
 
 #: ../sheets/ciscomisc.sheet.in.h:1
-#, fuzzy
 msgid "Cisco — Miscellaneous"
 msgstr "Cisco - Rupa-rupa"
 
@@ -8269,7 +8149,6 @@ msgid "Headphones"
 msgstr "Headfon"
 
 #: ../sheets/cisconetwork.sheet.in.h:1
-#, fuzzy
 msgid "Cisco — Network"
 msgstr "Cisco - Jaringan"
 
@@ -8676,9 +8555,8 @@ msgid "Service Control"
 msgstr "Kontrol Layanan"
 
 #: ../sheets/ciscotelephony.sheet.in.h:1
-#, fuzzy
 msgid "Cisco — Telephony"
-msgstr "Cisco - Telephony"
+msgstr "Cisco - Telefoni"
 
 #: ../sheets/ciscotelephony.sheet.in.h:2
 msgid "Telephony shapes by Cisco"
@@ -9205,9 +9083,8 @@ msgid "Time delay"
 msgstr "Penundaan waktu"
 
 #: ../sheets/Database.sheet.in.h:1
-#, fuzzy
 msgid "Database"
-msgstr "Nama data"
+msgstr "Basis data"
 
 #: ../sheets/Database.sheet.in.h:2
 #, fuzzy
@@ -9415,9 +9292,8 @@ msgid "Offline storage"
 msgstr "Penyimpanan offline"
 
 #: ../sheets/Flowchart.sheet.in.h:34
-#, fuzzy
 msgid "Data source"
-msgstr "Warna data"
+msgstr "Sumber data"
 
 #: ../sheets/FS.sheet.in.h:1
 msgid "FS"
@@ -9453,14 +9329,12 @@ msgid "Alternate external entity"
 msgstr ""
 
 #: ../sheets/Gane_and_Sarson.sheet.in.h:5
-#, fuzzy
 msgid "Data store"
-msgstr "Warna data"
+msgstr "Penyimpanan data"
 
 #: ../sheets/Gane_and_Sarson.sheet.in.h:6
-#, fuzzy
 msgid "External entity"
-msgstr "Entitas lemah"
+msgstr "Entitas eksternal"
 
 #: ../sheets/GRAFCET.sheet.in.h:1
 msgid "GRAFCET"
@@ -9892,9 +9766,8 @@ msgid "Objects to design simple lighting plots"
 msgstr "Obyek untuk merancang diagram i*"
 
 #: ../sheets/Lights.sheet.in.h:3
-#, fuzzy
 msgid "PAR"
-msgstr "PDA"
+msgstr "PAR"
 
 #: ../sheets/Lights.sheet.in.h:4
 msgid "PAR on the floor"
@@ -9902,7 +9775,7 @@ msgstr ""
 
 #: ../sheets/Lights.sheet.in.h:5
 msgid "ACL"
-msgstr ""
+msgstr "ACL"
 
 #: ../sheets/Lights.sheet.in.h:6
 msgid "Pebble Convex lantern"
@@ -9938,7 +9811,7 @@ msgstr ""
 
 #: ../sheets/Lights.sheet.in.h:15
 msgid "Structure"
-msgstr ""
+msgstr "Struktur"
 
 #: ../sheets/Logic.sheet.in.h:1
 msgid "Logic"
@@ -9986,27 +9859,24 @@ msgid "Cross-connector"
 msgstr "Konektor-silang"
 
 #: ../sheets/Misc.sheet.in.h:1
-#, fuzzy
 msgid "Miscellaneous"
-msgstr "Aneka Bentuk"
+msgstr "Rupa-rupa"
 
 #: ../sheets/Misc.sheet.in.h:2
 msgid "Miscellaneous Shapes"
 msgstr "Aneka Bentuk"
 
 #: ../sheets/Misc.sheet.in.h:3
-#, fuzzy
 msgid "Tree"
-msgstr "Pohon 1"
+msgstr "Pohon"
 
 #: ../sheets/Misc.sheet.in.h:4
 msgid "Folder"
 msgstr "Folder"
 
 #: ../sheets/Misc.sheet.in.h:6
-#, fuzzy
 msgid "expansible node"
-msgstr "Modem Kabel"
+msgstr ""
 
 #: ../sheets/Misc.sheet.in.h:7
 msgid "expanded node"
@@ -10017,17 +9887,16 @@ msgid "Traditional clock"
 msgstr "Jam tradisional"
 
 #: ../sheets/Misc.sheet.in.h:9
-#, fuzzy
 msgid "Measure distance"
-msgstr "Jarak kurva"
+msgstr "Ukur jarak"
 
 #: ../sheets/Misc.sheet.in.h:10
 msgid "Resizable grid"
 msgstr ""
 
 #: ../sheets/Misc.sheet.in.h:11
-msgid "New-style group object, for testing"
-msgstr ""
+msgid "Diagram object"
+msgstr "Objek diagram"
 
 #: ../sheets/MSE.sheet.in.h:1
 msgid "MSE"
@@ -10386,14 +10255,12 @@ msgid "Design Dia objects with individual connection points"
 msgstr ""
 
 #: ../sheets/Shape_Design.sheet.in.h:3
-#, fuzzy
 msgid "Connection Point"
-msgstr "Titik Sambungan:"
+msgstr "Titik Sambungan"
 
 #: ../sheets/Shape_Design.sheet.in.h:4
-#, fuzzy
 msgid "Main Connection Point"
-msgstr "Tambahkan titik sambungan"
+msgstr "Titik Sambungan Utama"
 
 #: ../sheets/sybase.sheet.in.h:1
 msgid "Sybase"
