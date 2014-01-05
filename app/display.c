@@ -1285,9 +1285,12 @@ are_you_sure_close_dialog_respond(GtkWidget *widget, /* the dialog */
         ddisp_destroy (ddisp);
       /* no way back */
       return;
-    } else if (!diagram_save(ddisp->diagram, ddisp->diagram->filename))
-      close_ddisp = FALSE;
-
+    } else {
+      DiaContext *ctx = dia_context_new (_("Save"));
+      if (!diagram_save(ddisp->diagram, ddisp->diagram->filename, ctx))
+        close_ddisp = FALSE;
+      dia_context_release (ctx);
+    }
     if (close_ddisp) /* saving succeeded */
       recent_file_history_add(ddisp->diagram->filename);
 

@@ -91,7 +91,7 @@ static DiaObject *arc_copy(Arc *arc);
 
 static void arc_set_props(Arc *arc, GPtrArray *props);
 
-static void arc_save(Arc *arc, ObjectNode obj_node, const char *filename);
+static void arc_save(Arc *arc, ObjectNode obj_node, DiaContext *ctx);
 static DiaObject *arc_load(ObjectNode obj_node, int version, DiaContext *ctx);
 static int arc_compute_midpoint(Arc *arc, const Point * ep0, const Point * ep1 , Point * midpoint);
 static void calculate_arc_object_edge(Arc *arc, real ang_start, real ang_end, DiaObject *obj, Point *target, gboolean clockwiseness);
@@ -910,9 +910,9 @@ arc_update_data(Arc *arc)
 }
 
 static void
-arc_save(Arc *arc, ObjectNode obj_node, const char *filename)
+arc_save(Arc *arc, ObjectNode obj_node, DiaContext *ctx)
 {
-  connection_save(&arc->connection, obj_node);
+  connection_save(&arc->connection, obj_node, ctx);
 
   if (!color_equals(&arc->arc_color, &color_black))
     data_add_color(new_attribute(obj_node, "arc_color"),

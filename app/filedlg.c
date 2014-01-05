@@ -421,10 +421,14 @@ file_save_as_response_callback(GtkWidget *fs,
 
     diagram_update_extents(dia);
 
-    diagram_set_filename(dia, filename);
-    if (diagram_save(dia, filename))
-      recent_file_history_add(filename);
-
+    {
+      DiaContext *ctx = dia_context_new (_("Save as"));
+      diagram_set_filename(dia, filename);
+      dia_context_set_filename (ctx, filename);
+      if (diagram_save(dia, filename, ctx))
+	recent_file_history_add(filename);
+      dia_context_release (ctx);
+    }
     g_free (filename);
   }
   /* if we have our own reference, drop it before destroy */
@@ -575,10 +579,12 @@ file_save_callback(GtkAction *action)
     file_save_as_callback(action);
   } else {
     gchar *filename = g_filename_from_utf8(diagram->filename, -1, NULL, NULL, NULL);
+    DiaContext *ctx = dia_context_new (_("Save"));
     diagram_update_extents(diagram);
-    if (diagram_save(diagram, filename))
+    if (diagram_save(diagram, filename, ctx))
       recent_file_history_add(filename);
     g_free (filename);
+    dia_context_release (ctx);
   }
 }
 
@@ -735,7 +741,7 @@ file_export_response_callback(GtkWidget *fs,
     if (!ef)
       ef = filter_guess_export_filter(filename);
     if (ef) {
-      DiaContext *ctx = dia_context_new ("file-export");
+      DiaContext *ctx = dia_context_new (_("Export"));
 
       g_object_ref(dia->data);
       dia_context_set_filename (ctx, filename);

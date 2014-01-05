@@ -76,7 +76,7 @@ static DiaObject *polyline_copy(Polyline *polyline);
 static void polyline_set_props(Polyline *polyline, GPtrArray *props);
 
 static void polyline_save(Polyline *polyline, ObjectNode obj_node,
-			  const char *filename);
+			  DiaContext *ctx);
 static DiaObject *polyline_load(ObjectNode obj_node, int version, DiaContext *ctx);
 static DiaMenu *polyline_get_object_menu(Polyline *polyline, Point *clickedpoint);
 void polyline_calculate_gap_endpoints(Polyline *polyline, Point *gap_endpoints);
@@ -463,9 +463,9 @@ polyline_update_data(Polyline *polyline)
 
 static void
 polyline_save(Polyline *polyline, ObjectNode obj_node,
-	      const char *filename)
+	      DiaContext *ctx)
 {
-  polyconn_save(&polyline->poly, obj_node);
+  polyconn_save(&polyline->poly, obj_node, ctx);
 
   if (!color_equals(&polyline->line_color, &color_black))
     data_add_color(new_attribute(obj_node, "line_color"),

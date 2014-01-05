@@ -71,8 +71,8 @@ static PropDescription *wanlink_describe_props(WanLink *wanlink);
 static void wanlink_get_props(WanLink *wanlink, GPtrArray *props);
 static void wanlink_set_props(WanLink *wanlink, GPtrArray *props);
 static void wanlink_save(WanLink *wanlink, ObjectNode obj_node,
-			 const char *filename);
-static DiaObject *wanlink_load(ObjectNode obj_node, int version,DiaContext *ctx);
+			 DiaContext *ctx);
+static DiaObject *wanlink_load(ObjectNode obj_node, int version, DiaContext *ctx);
 static void wanlink_update_data(WanLink *wanlink);
 
 static ObjectTypeOps wanlink_type_ops =
@@ -301,11 +301,11 @@ wanlink_move_handle(WanLink *wanlink, Handle *handle,
 
 static void
 wanlink_save(WanLink *wanlink, ObjectNode obj_node,
-	     const char *filename)
+	     DiaContext *ctx)
 {
     AttributeNode attr;
   
-    connection_save((Connection *)wanlink, obj_node);
+    connection_save((Connection *)wanlink, obj_node, ctx);
     
     attr = new_attribute(obj_node, "width");
     data_add_real(attr, wanlink->width);

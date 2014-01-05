@@ -64,7 +64,7 @@ static DiaObject *participation_create(Point *startpoint,
 				 Handle **handle2);
 static DiaObject *participation_copy(Participation *dep);
 static void participation_save(Participation *dep, ObjectNode obj_node,
-			       const char *filename);
+			       DiaContext *ctx);
 static DiaObject *participation_load(ObjectNode obj_node, int version,DiaContext *ctx);
 static void participation_update_data(Participation *dep);
 static PropDescription *
@@ -347,9 +347,9 @@ participation_copy(Participation *participation)
 
 static void
 participation_save(Participation *participation, ObjectNode obj_node,
-		   const char *filename)
+		   DiaContext *ctx)
 {
-  orthconn_save(&participation->orth, obj_node);
+  orthconn_save(&participation->orth, obj_node, ctx);
 
   data_add_boolean(new_attribute(obj_node, "total"),
 		   participation->total);

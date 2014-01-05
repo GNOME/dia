@@ -90,7 +90,7 @@ static void entity_get_props(Entity *entity, GPtrArray *props);
 static void entity_set_props(Entity *entity, GPtrArray *props);
 
 static void entity_save(Entity *entity, ObjectNode obj_node,
-			const char *filename);
+			DiaContext *ctx);
 static DiaObject *entity_load(ObjectNode obj_node, int version,DiaContext *ctx);
 
 static ObjectTypeOps entity_type_ops =
@@ -472,9 +472,9 @@ entity_copy(Entity *entity)
 }
 
 static void
-entity_save(Entity *entity, ObjectNode obj_node, const char *filename)
+entity_save(Entity *entity, ObjectNode obj_node, DiaContext *ctx)
 {
-  element_save(&entity->element, obj_node);
+  element_save(&entity->element, obj_node, ctx);
 
   data_add_real(new_attribute(obj_node, "border_width"),
 		entity->border_width);

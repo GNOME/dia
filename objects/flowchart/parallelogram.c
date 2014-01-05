@@ -100,7 +100,7 @@ static PropDescription *pgram_describe_props(Pgram *pgram);
 static void pgram_get_props(Pgram *pgram, GPtrArray *props);
 static void pgram_set_props(Pgram *pgram, GPtrArray *props);
 
-static void pgram_save(Pgram *pgram, ObjectNode obj_node, const char *filename);
+static void pgram_save(Pgram *pgram, ObjectNode obj_node, DiaContext *ctx);
 static DiaObject *pgram_load(ObjectNode obj_node, int version,DiaContext *ctx);
 
 static ObjectTypeOps pgram_type_ops =
@@ -616,9 +616,9 @@ pgram_destroy(Pgram *pgram)
 }
 
 static void
-pgram_save(Pgram *pgram, ObjectNode obj_node, const char *filename)
+pgram_save(Pgram *pgram, ObjectNode obj_node, DiaContext *ctx)
 {
-  element_save(&pgram->element, obj_node);
+  element_save(&pgram->element, obj_node, ctx);
 
   if (pgram->border_width != 0.1)
     data_add_real(new_attribute(obj_node, "border_width"),

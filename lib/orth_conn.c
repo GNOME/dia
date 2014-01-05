@@ -608,7 +608,7 @@ place_handle_by_swapping(OrthConn *orth, int index, Handle *handle)
 }
 
 void
-orthconn_save(OrthConn *orth, ObjectNode obj_node)
+orthconn_save(OrthConn *orth, ObjectNode obj_node, DiaContext *ctx)
 {
   int i;
   AttributeNode attr;
@@ -617,7 +617,7 @@ orthconn_save(OrthConn *orth, ObjectNode obj_node)
   place_handle_by_swapping(orth, 0, orth->handles[0]);
   place_handle_by_swapping(orth, 1, orth->handles[orth->numpoints-2]);
   
-  object_save(&orth->object, obj_node);
+  object_save(&orth->object, obj_node, ctx);
 
   attr = new_attribute(obj_node, "orth_points");
   

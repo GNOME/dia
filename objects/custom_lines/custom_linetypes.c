@@ -152,7 +152,7 @@ custom_bezierline_load (ObjectNode obj_node, int version, DiaContext *ctx)
 }
 
 static void 
-customline_save (DiaObject *object, ObjectNode obj_node, const char *filename)
+customline_save (DiaObject *object, ObjectNode obj_node, DiaContext *ctx)
 {
   g_assert (object->type &&  object->type->ops && object->type->ops->save);
    
@@ -162,11 +162,11 @@ customline_save (DiaObject *object, ObjectNode obj_node, const char *filename)
   }
 
   if (object->type->ops == &custom_zigzagline_type_ops)
-    zigzag_ot->ops->save (object, obj_node, filename);
+    zigzag_ot->ops->save (object, obj_node, ctx);
   else if (object->type->ops == &custom_polyline_type_ops)
-    polyline_ot->ops->save (object, obj_node, filename);
+    polyline_ot->ops->save (object, obj_node, ctx);
   else if (object->type->ops == &custom_bezierline_type_ops)
-    bezier_ot->ops->save (object, obj_node, filename);
+    bezier_ot->ops->save (object, obj_node, ctx);
   else 
     g_warning ("customline_save() no delegate");
 }

@@ -130,6 +130,8 @@ export_data(DiagramData *data, DiaContext *ctx,
   renderer = DRS_RENDERER (g_object_new(DRS_TYPE_RENDERER, NULL));
   /* store also object properties */
   renderer->save_props = (user_data == NULL);
+  /* remember context for object_save_props */
+  renderer->ctx = g_object_ref (ctx);
 
   /* set up the root node */
   doc = xmlNewDoc((const xmlChar *)"1.0");

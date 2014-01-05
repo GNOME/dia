@@ -92,7 +92,7 @@ static DiaObject *function_create(Point *startpoint,
 static void function_destroy(Function *pkg);
 static DiaObject *function_copy(Function *pkg);
 static void function_save(Function *pkg, ObjectNode obj_node,
-			  const char *filename);
+			  DiaContext *ctx);
 static DiaObject *function_load(ObjectNode obj_node, int version, DiaContext *ctx);
 static void function_update_data(Function *pkg);
 static DiaMenu *function_get_object_menu(Function *func, Point *clickedpoint) ;
@@ -519,9 +519,9 @@ function_copy(Function *pkg)
 
 
 static void
-function_save(Function *pkg, ObjectNode obj_node, const char *filename)
+function_save(Function *pkg, ObjectNode obj_node, DiaContext *ctx)
 {
-  element_save(&pkg->element, obj_node);
+  element_save(&pkg->element, obj_node, ctx);
 
   data_add_text(new_attribute(obj_node, "text"),
 		pkg->text);

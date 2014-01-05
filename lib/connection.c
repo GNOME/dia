@@ -202,11 +202,11 @@ connection_destroy(Connection *conn)
  * @param obj_node The XML node to save it to.
  */
 void
-connection_save(Connection *conn, ObjectNode obj_node)
+connection_save(Connection *conn, ObjectNode obj_node, DiaContext *ctx)
 {
   AttributeNode attr;
   
-  object_save(&conn->object, obj_node);
+  object_save(&conn->object, obj_node, ctx);
 
   attr = new_attribute(obj_node, "conn_endpoints");
   data_add_point(attr, &conn->endpoints[0]);

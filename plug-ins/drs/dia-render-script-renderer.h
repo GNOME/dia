@@ -49,6 +49,8 @@ struct _DrsRenderer
   GQueue *matrices;
   /* to actually render transformed */
   DiaRenderer *transformer;
+  /* initially NULL, only to be used during export_data */
+  DiaContext *ctx;
 };
 
 struct _DrsRendererClass

@@ -98,7 +98,7 @@ static PropDescription *box_describe_props(Box *box);
 static void box_get_props(Box *box, GPtrArray *props);
 static void box_set_props(Box *box, GPtrArray *props);
 
-static void box_save(Box *box, ObjectNode obj_node, const char *filename);
+static void box_save(Box *box, ObjectNode obj_node, DiaContext *ctx);
 static DiaObject *box_load(ObjectNode obj_node, int version,DiaContext *ctx);
 
 static ObjectTypeOps box_type_ops =
@@ -670,9 +670,9 @@ box_destroy(Box *box)
 }
 
 static void
-box_save(Box *box, ObjectNode obj_node, const char *filename)
+box_save(Box *box, ObjectNode obj_node, DiaContext *ctx)
 {
-  element_save(&box->element, obj_node);
+  element_save(&box->element, obj_node, ctx);
 
   if (box->border_width != 0.1)
     data_add_real(new_attribute(obj_node, "border_width"),

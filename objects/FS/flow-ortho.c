@@ -112,7 +112,7 @@ orthflow_get_props(Orthflow * orthflow, GPtrArray *props);
 static void
 orthflow_set_props(Orthflow * orthflow, GPtrArray *props);
 static void orthflow_save(Orthflow *orthflow, ObjectNode obj_node,
-			  const char *filename);
+			  DiaContext *ctx);
 static DiaObject *orthflow_load(ObjectNode obj_node, int version,DiaContext *ctx);
 static DiaMenu *orthflow_get_object_menu(Orthflow *orthflow, Point *clickedpoint) ;
 
@@ -534,9 +534,9 @@ orthflow_update_data(Orthflow *orthflow)
 
 
 static void
-orthflow_save(Orthflow *orthflow, ObjectNode obj_node, const char *filename)
+orthflow_save(Orthflow *orthflow, ObjectNode obj_node, DiaContext *ctx)
 {
-  orthconn_save(&orthflow->orth, obj_node);
+  orthconn_save(&orthflow->orth, obj_node, ctx);
 
   data_add_text(new_attribute(obj_node, "text"),
 		orthflow->text) ;

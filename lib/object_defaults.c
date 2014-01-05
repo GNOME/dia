@@ -312,6 +312,7 @@ struct _MyRootInfo
   GHashTable *layer_hash;
   xmlNs      *name_space;
   gint        obj_nr;
+  DiaContext *ctx;
 };
 
 static void
@@ -373,7 +374,7 @@ _obj_store (gpointer key,
 
   obj->ops->move (obj,&(li->pos));
   /* saving every property of the object */
-  obj->type->ops->save (obj, obj_node, ri->filename);
+  obj->type->ops->save (obj, obj_node, ri->ctx);
 
   /* arrange following objects below */
   li->pos.y += (obj->bounding_box.bottom - obj->bounding_box.top + 1.0); 
@@ -387,7 +388,7 @@ _obj_store (gpointer key,
  * separate invisible layers.
  */
 gboolean
-dia_object_defaults_save (const gchar *filename)
+dia_object_defaults_save (const gchar *filename, DiaContext *ctx)
 {
   MyRootInfo ni;
   xmlDocPtr doc;
@@ -410,7 +411,8 @@ dia_object_defaults_save (const gchar *filename)
 
   ni.obj_nr = 0;
   ni.node = doc->xmlRootNode;
-  ni.filename = real_filename;  
+  ni.filename = real_filename;
+  ni.ctx = ctx;
   ni.layer_hash = g_hash_table_new_full (g_str_hash, g_str_equal,
                                          g_free, g_free);
 

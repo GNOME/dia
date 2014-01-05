@@ -45,7 +45,7 @@ void connection_init(Connection *conn,
 		     int num_handles, int num_connections);
 void connection_destroy(Connection *conn);
 void connection_copy(Connection *from, Connection *to);
-void connection_save(Connection *conn, ObjectNode obj_node);
+void connection_save(Connection *conn, ObjectNode obj_node, DiaContext *ctx);
 void connection_load(Connection *conn, ObjectNode obj_node, DiaContext *ctx);
 ObjectChange* connection_move_handle(Connection *conn, HandleId id,
 				     Point *to, ConnectionPoint* cp,

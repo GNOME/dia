@@ -124,7 +124,7 @@ typedef DiaObject* (*LoadFunc) (ObjectNode obj_node, int version,
  * \public \memberof _DiaObjectType
  */
 typedef void (*SaveFunc) (DiaObject* obj, ObjectNode obj_node,
-			  const char *filename);
+			  DiaContext *ctx);
 
 /** Function called when the user has double clicked on an Tool. 
  *  When this function is called and the dialog already is created,
@@ -369,7 +369,7 @@ void object_destroy(DiaObject *obj); /* Unconnects handles, so don't
 					    free handles before calling. */
 void object_copy(DiaObject *from, DiaObject *to);
 
-void object_save(DiaObject *obj, ObjectNode obj_node);
+void object_save(DiaObject *obj, ObjectNode obj_node, DiaContext *ctx);
 void object_load(DiaObject *obj, ObjectNode obj_node, DiaContext *ctx);
 
 GList *object_copy_list(GList *list);
@@ -406,7 +406,7 @@ DiaObject *object_load_using_properties(const DiaObjectType *type,
 					ObjectNode obj_node, int version,
 					DiaContext *ctx);
 void object_save_using_properties(DiaObject *obj, ObjectNode obj_node, 
-                                  const char *filename);
+                                  DiaContext *ctx);
 DiaObject *object_copy_using_properties(DiaObject *obj);
 
 /*****************************************
@@ -576,7 +576,7 @@ DiaObject  *dia_object_default_create (const DiaObjectType *type,
                                     void *user_data,
                                     Handle **handle1,
                                     Handle **handle2);
-gboolean         dia_object_defaults_save (const gchar *filename);
+gboolean         dia_object_defaults_save (const gchar *filename, DiaContext *ctx);
 Layer           *dia_object_get_parent_layer(DiaObject *obj);
 gboolean         dia_object_is_selected (const DiaObject *obj);
 const Rectangle *dia_object_get_bounding_box(const DiaObject *obj);
@@ -594,7 +594,7 @@ int dia_object_get_num_connections (DiaObject *obj);
 
 /* standard way to load/save properties of an object */
 void          object_load_props(DiaObject *obj, ObjectNode obj_node, DiaContext *ctx);
-void          object_save_props(DiaObject *obj, ObjectNode obj_node);
+void          object_save_props(DiaObject *obj, ObjectNode obj_node, DiaContext *ctx);
 
 /* standard way to copy the properties of an object into another (of the
    same type) */

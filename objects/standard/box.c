@@ -96,7 +96,7 @@ static DiaObject *box_copy(Box *box);
 
 static void box_set_props(Box *box, GPtrArray *props);
 
-static void box_save(Box *box, ObjectNode obj_node, const char *filename);
+static void box_save(Box *box, ObjectNode obj_node, DiaContext *ctx);
 static DiaObject *box_load(ObjectNode obj_node, int version, DiaContext *ctx);
 static DiaMenu *box_get_object_menu(Box *box, Point *clickedpoint);
 
@@ -522,9 +522,9 @@ box_copy(Box *box)
 }
 
 static void
-box_save(Box *box, ObjectNode obj_node, const char *filename)
+box_save(Box *box, ObjectNode obj_node, DiaContext *ctx)
 {
-  element_save(&box->element, obj_node);
+  element_save(&box->element, obj_node, ctx);
 
   if (box->border_width != 0.1)
     data_add_real(new_attribute(obj_node, "border_width"),

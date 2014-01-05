@@ -419,12 +419,12 @@ polyconn_destroy(PolyConn *poly)
 
 
 void
-polyconn_save(PolyConn *poly, ObjectNode obj_node)
+polyconn_save(PolyConn *poly, ObjectNode obj_node, DiaContext *ctx)
 {
   int i;
   AttributeNode attr;
 
-  object_save(&poly->object, obj_node);
+  object_save(&poly->object, obj_node, ctx);
 
   attr = new_attribute(obj_node, "poly_points");
   

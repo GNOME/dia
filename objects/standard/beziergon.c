@@ -84,7 +84,7 @@ static DiaObject *beziergon_copy(Beziergon *beziergon);
 static void beziergon_set_props(Beziergon *beziergon, GPtrArray *props);
 
 static void beziergon_save(Beziergon *beziergon, ObjectNode obj_node,
-			  const char *filename);
+			   DiaContext *ctx);
 static DiaObject *beziergon_load(ObjectNode obj_node, int version, DiaContext *ctx);
 static DiaMenu *beziergon_get_object_menu(Beziergon *beziergon,
 					  Point *clickedpoint);
@@ -373,9 +373,9 @@ beziergon_update_data(Beziergon *beziergon)
 
 static void
 beziergon_save(Beziergon *beziergon, ObjectNode obj_node,
-	      const char *filename)
+	       DiaContext *ctx)
 {
-  beziershape_save(&beziergon->bezier, obj_node);
+  beziershape_save(&beziergon->bezier, obj_node, ctx);
 
   if (!color_equals(&beziergon->line_color, &color_black))
     data_add_color(new_attribute(obj_node, "line_color"),

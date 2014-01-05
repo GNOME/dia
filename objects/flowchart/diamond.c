@@ -99,7 +99,7 @@ static PropDescription *diamond_describe_props(Diamond *diamond);
 static void diamond_get_props(Diamond *diamond, GPtrArray *props);
 static void diamond_set_props(Diamond *diamond, GPtrArray *props);
 
-static void diamond_save(Diamond *diamond, ObjectNode obj_node, const char *filename);
+static void diamond_save(Diamond *diamond, ObjectNode obj_node, DiaContext *ctx);
 static DiaObject *diamond_load(ObjectNode obj_node, int version,DiaContext *ctx);
 
 static ObjectTypeOps diamond_type_ops =
@@ -560,9 +560,9 @@ diamond_destroy(Diamond *diamond)
 
 
 static void
-diamond_save(Diamond *diamond, ObjectNode obj_node, const char *filename)
+diamond_save(Diamond *diamond, ObjectNode obj_node, DiaContext *ctx)
 {
-  element_save(&diamond->element, obj_node);
+  element_save(&diamond->element, obj_node, ctx);
 
   if (diamond->border_width != 0.1)
     data_add_real(new_attribute(obj_node, "border_width"),

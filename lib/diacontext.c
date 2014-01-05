@@ -63,6 +63,7 @@ _dia_context_finalize(GObject *object)
   DiaContext *context = (DiaContext *)object;
 
   g_list_foreach (context->messages, (GFunc) g_free, NULL);
+  g_list_free (context->messages);
   g_free (context->desc);
   g_free (context->filename);
 
@@ -100,6 +101,21 @@ dia_context_release (DiaContext *context)
 		     context->messages->data);
 
   g_object_unref (G_OBJECT (context));
+}
+
+/*!
+ * \brief Clean out the context for further use
+ */
+void
+dia_context_reset (DiaContext *context)
+{
+  g_list_foreach (context->messages, (GFunc) g_free, NULL);
+  g_list_free (context->messages);
+  context->messages = NULL;
+  g_free (context->desc);
+  context->desc = NULL;
+  g_free (context->filename);
+  context->filename = NULL;
 }
 
 void 

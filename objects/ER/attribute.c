@@ -108,7 +108,7 @@ static void
 attribute_set_props(Attribute *attribute, GPtrArray *props);
 
 static void attribute_save(Attribute *attribute, ObjectNode obj_node,
-			   const char *filename);
+			   DiaContext *ctx);
 static DiaObject *attribute_load(ObjectNode obj_node, int version,DiaContext *ctx);
 
 static ObjectTypeOps attribute_type_ops =
@@ -498,9 +498,9 @@ attribute_copy(Attribute *attribute)
 
 static void
 attribute_save(Attribute *attribute, ObjectNode obj_node,
-	       const char *filename)
+	       DiaContext *ctx)
 {
-  element_save(&attribute->element, obj_node);
+  element_save(&attribute->element, obj_node, ctx);
 
   data_add_real(new_attribute(obj_node, "border_width"),
 		attribute->border_width);

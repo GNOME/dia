@@ -82,7 +82,7 @@ static void bezierline_get_props(Bezierline *bezierline, GPtrArray *props);
 static void bezierline_set_props(Bezierline *bezierline, GPtrArray *props);
 
 static void bezierline_save(Bezierline *bezierline, ObjectNode obj_node,
-			  const char *filename);
+			    DiaContext *ctx);
 static DiaObject *bezierline_load(ObjectNode obj_node, int version, DiaContext *ctx);
 static DiaMenu *bezierline_get_object_menu(Bezierline *bezierline, Point *clickedpoint);
 
@@ -587,7 +587,7 @@ bezierline_update_data(Bezierline *bezierline)
 
 static void
 bezierline_save(Bezierline *bezierline, ObjectNode obj_node,
-	      const char *filename)
+	        DiaContext *ctx)
 {
   if (connpoint_is_autogap(bezierline->bez.object.handles[0]->connected_to) ||
       connpoint_is_autogap(bezierline->bez.object.handles[3*(bezierline->bez.bezier.num_points-1)]->connected_to) ||
@@ -598,7 +598,7 @@ bezierline_save(Bezierline *bezierline, ObjectNode obj_node,
     bezierconn_update_boundingbox(&bezierline->bez);
     exchange_bez_gap_points(&bezierline->bez,gap_points);
   } 
-  bezierconn_save(&bezierline->bez, obj_node);
+  bezierconn_save(&bezierline->bez, obj_node, ctx);
 
   if (!color_equals(&bezierline->line_color, &color_black))
     data_add_color(new_attribute(obj_node, "line_color"),

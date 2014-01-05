@@ -87,7 +87,7 @@ static DiaObject *polygon_copy(Polygon *polygon);
 static void polygon_set_props(Polygon *polygon, GPtrArray *props);
 
 static void polygon_save(Polygon *polygon, ObjectNode obj_node,
-			  const char *filename);
+			 DiaContext *ctx);
 static DiaObject *polygon_load(ObjectNode obj_node, int version, DiaContext *ctx);
 static DiaMenu *polygon_get_object_menu(Polygon *polygon, Point *clickedpoint);
 
@@ -343,9 +343,9 @@ polygon_update_data(Polygon *polygon)
 
 static void
 polygon_save(Polygon *polygon, ObjectNode obj_node,
-	      const char *filename)
+	     DiaContext *ctx)
 {
-  polyshape_save(&polygon->poly, obj_node);
+  polyshape_save(&polygon->poly, obj_node, ctx);
 
   if (!color_equals(&polygon->line_color, &color_black))
     data_add_color(new_attribute(obj_node, "line_color"),

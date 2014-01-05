@@ -918,14 +918,14 @@ aadlbox_destroy(Aadlbox *aadlbox)
 }
 
 void
-aadlbox_save(Aadlbox *aadlbox, ObjectNode obj_node, const char *filename)
+aadlbox_save(Aadlbox *aadlbox, ObjectNode obj_node, DiaContext *ctx)
 {
   int i;
   AttributeNode attr;
   DataNode composite;
     
-  element_save(&aadlbox->element, obj_node);
-  object_save_props(&aadlbox->element.object,obj_node);
+  element_save(&aadlbox->element, obj_node, ctx);
+  object_save_props(&aadlbox->element.object, obj_node, ctx);
 
   attr = new_attribute(obj_node, "aadlbox_ports");
   

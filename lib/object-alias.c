@@ -84,7 +84,7 @@ _alias_create (Point *startpoint,
 static DiaObject *
 _alias_load (ObjectNode obj_node, int version, const char *filename, DiaContext *ctx);
 static void
-_alias_save (DiaObject *obj, ObjectNode obj_node, const char *filename);
+_alias_save (DiaObject *obj, ObjectNode obj_node, DiaContext *ctx);
 
 static ObjectTypeOps _alias_type_ops =
 {
@@ -151,9 +151,9 @@ _alias_load (ObjectNode obj_node, int version, const char *filename, DiaContext 
 }
 
 static void
-_alias_save (DiaObject *obj, ObjectNode obj_node, const char *filename)
+_alias_save (DiaObject *obj, ObjectNode obj_node, DiaContext *ctx)
 {
-  object_save_using_properties (obj, obj_node, filename);
+  object_save_using_properties (obj, obj_node, ctx);
 }
 
 void

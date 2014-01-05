@@ -69,7 +69,7 @@ void orthconn_init(OrthConn *orth, Point *startpoint);
 void orthconn_destroy(OrthConn *orth);
 void orthconn_set_points(OrthConn *orth, int num_points, Point *points);
 void orthconn_copy(OrthConn *from, OrthConn *to);
-void orthconn_save(OrthConn *orth, ObjectNode obj_node);
+void orthconn_save(OrthConn *orth, ObjectNode obj_node, DiaContext *ctx);
 void orthconn_load(OrthConn *orth, ObjectNode obj_node, DiaContext *ctx);  /* NOTE: Does object_init() */
 ObjectChange* orthconn_move_handle(OrthConn *orth, Handle *id,
 				   Point *to, ConnectionPoint *cp,

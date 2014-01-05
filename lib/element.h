@@ -64,7 +64,7 @@ ObjectChange* element_move_handle(Element *elem, HandleId id,
 void element_move_handle_aspect(Element *elem, HandleId id,
 				Point *to, real aspect_ratio);
 
-void element_save(Element *elem, ObjectNode obj_node);
+void element_save(Element *elem, ObjectNode obj_node, DiaContext *ctx);
 void element_load(Element *elem, ObjectNode obj_node, DiaContext *ctx);
 
 ObjectChange *element_change_new (const Point *corner, 

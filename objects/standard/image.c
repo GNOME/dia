@@ -100,7 +100,7 @@ static DiaObject *image_copy(Image *image);
 static void image_get_props(Image *image, GPtrArray *props);
 static void image_set_props(Image *image, GPtrArray *props);
 
-static void image_save(Image *image, ObjectNode obj_node, const char *filename);
+static void image_save(Image *image, ObjectNode obj_node, DiaContext *ctx);
 static DiaObject *image_load(ObjectNode obj_node, int version, DiaContext *ctx);
 
 static ObjectTypeOps image_type_ops =
@@ -625,11 +625,11 @@ get_directory(const char *filename)
 }
 
 static void
-image_save(Image *image, ObjectNode obj_node, const char *filename)
+image_save(Image *image, ObjectNode obj_node, DiaContext *ctx)
 {
   char *diafile_dir;
   
-  element_save(&image->element, obj_node);
+  element_save(&image->element, obj_node, ctx);
 
   if (image->border_width != 0.1)
     data_add_real(new_attribute(obj_node, "border_width"),
@@ -653,7 +653,7 @@ image_save(Image *image, ObjectNode obj_node, const char *filename)
 
   if (image->file != NULL) {
     if (g_path_is_absolute(image->file)) { /* Absolute pathname */
-      diafile_dir = get_directory(filename);
+      diafile_dir = get_directory(dia_context_get_filename (ctx));
 
       if (strncmp(diafile_dir, image->file, strlen(diafile_dir))==0) {
 	/* The image pathname has the dia file pathname in the begining */
@@ -663,15 +663,12 @@ image_save(Image *image, ObjectNode obj_node, const char *filename)
 	/* Save the absolute path: */
 	data_add_filename(new_attribute(obj_node, "file"), image->file);
       }
-      
       g_free(diafile_dir);
-      
     } else {
-      /* Relative path. Must be an erronous filename...
+      /* Relative path. Must be an erronuous filename...
 	 Just save the filename. */
       data_add_filename(new_attribute(obj_node, "file"), image->file);
     }
-    
   }
   /* only save image_data inline if told to do so */
   if (image->inline_data) {

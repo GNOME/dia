@@ -491,12 +491,12 @@ polyshape_destroy(PolyShape *poly)
 
 
 void
-polyshape_save(PolyShape *poly, ObjectNode obj_node)
+polyshape_save(PolyShape *poly, ObjectNode obj_node, DiaContext *ctx)
 {
   int i;
   AttributeNode attr;
 
-  object_save(&poly->object, obj_node);
+  object_save(&poly->object, obj_node, ctx);
 
   attr = new_attribute(obj_node, "poly_points");
   

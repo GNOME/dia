@@ -63,7 +63,7 @@ static void umlclass_destroy(UMLClass *umlclass);
 static DiaObject *umlclass_copy(UMLClass *umlclass);
 
 static void umlclass_save(UMLClass *umlclass, ObjectNode obj_node,
-			  const char *filename);
+			  DiaContext *ctx);
 static DiaObject *umlclass_load(ObjectNode obj_node, int version, DiaContext *ctx);
 
 static DiaMenu * umlclass_object_menu(DiaObject *obj, Point *p);
@@ -2131,7 +2131,7 @@ umlclass_copy(UMLClass *umlclass)
 
 static void
 umlclass_save(UMLClass *umlclass, ObjectNode obj_node,
-	      const char *filename)
+	      DiaContext *ctx)
 {
   UMLAttribute *attr;
   UMLOperation *op;
@@ -2143,7 +2143,7 @@ umlclass_save(UMLClass *umlclass, ObjectNode obj_node,
   umlclass_sanity_check(umlclass, "Saving");
 #endif
 
-  element_save(&umlclass->element, obj_node);
+  element_save(&umlclass->element, obj_node, ctx);
 
   /* Class info: */
   data_add_string(new_attribute(obj_node, "name"),

@@ -767,7 +767,7 @@ object_unconnect_all(DiaObject *obj)
  * @param obj_node An XML node to save the data to.
  */
 void 
-object_save(DiaObject *obj, ObjectNode obj_node)
+object_save(DiaObject *obj, ObjectNode obj_node, DiaContext *ctx)
 {
   data_add_point(new_attribute(obj_node, "obj_pos"),
 		 &obj->position);
@@ -1008,9 +1008,9 @@ object_load_using_properties(const DiaObjectType *type,
  */
 void 
 object_save_using_properties(DiaObject *obj, ObjectNode obj_node, 
-                             const char *filename)
+                             DiaContext *ctx)
 {
-  object_save_props(obj,obj_node);
+  object_save_props (obj, obj_node, ctx);
 }
 
 /** Copy an object based solely on its properties.

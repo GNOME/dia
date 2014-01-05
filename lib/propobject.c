@@ -350,7 +350,7 @@ object_load_props(DiaObject *obj, ObjectNode obj_node, DiaContext *ctx)
 }
 
 void
-object_save_props(DiaObject *obj, ObjectNode obj_node)
+object_save_props(DiaObject *obj, ObjectNode obj_node, DiaContext *ctx)
 {
   GPtrArray *props;
 

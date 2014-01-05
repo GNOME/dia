@@ -1560,12 +1560,85 @@ dia_renderer_get_height_pixels (DiaRenderer *renderer)
   return DIA_RENDERER_GET_CLASS(renderer)->get_height_pixels (renderer);
 }
 
+static Point
+_find_close_point (const BezPoint *pts, int n, const Point *p1)
+{
+  int i;
+  Point p;
+  real d = G_MAXDOUBLE;
+
+  for (i = 0; i < n; ++i) {
+    Point p2 = (pts[i].type == BEZ_CURVE_TO ? pts[i].p3 : pts[i].p1);
+    real dist = distance_point_point_manhattan (&p2, p1);
+    if (dist < d) {
+      p = p2;
+      d = dist;
+    }
+  }
+  return p;
+}
+
+void
+bezier_render_fill (DiaRenderer *renderer, BezPoint *pts, int total, Color *color)
+{
+  int i, n = 0;
+  gboolean needs_split = FALSE;
+
+  for (i = 1; i < total; ++i) {
+    if (BEZ_MOVE_TO == pts[i].type) {
+      needs_split = TRUE;
+      break;
+    }
+  }
+  if (!needs_split) {
+    DIA_RENDERER_GET_CLASS (renderer)->fill_bezier (renderer, pts, total, color);
+  } else {
+    GArray *points = g_array_new (FALSE, FALSE, sizeof(BezPoint));
+    Point close_to;
+    gboolean needs_close = FALSE;
+    /* start with move-to */
+    g_array_append_val(points, pts[0]);
+    for (i = 1; i < total; ++i) {
+      if (BEZ_MOVE_TO == pts[i].type) {
+	/* check whether the start point of the second outline is within the first outline. */
+	real dist = distance_bez_shape_point (&g_array_index (points, BezPoint, 0), points->len, 0, &pts[i].p1);
+	if (dist > 0) { /* outside, just create a new one? */
+	  /* flush what we have */
+	  if (needs_close) {
+	    BezPoint bp;
+	    bp.type = BEZ_LINE_TO;
+	    bp.p1 = close_to;
+	    g_array_append_val(points, bp);
+	  }
+	  DIA_RENDERER_GET_CLASS (renderer)->fill_bezier (renderer, &g_array_index(points, BezPoint, 0), points->len, color);
+	  g_array_set_size (points, 0);
+	  g_array_append_val(points, pts[i]); /* new needs move-to */
+	  needs_close = FALSE;
+	} else {
+	  BezPoint bp = pts[i];
+	  bp.type = BEZ_LINE_TO;
+	  /* just turn the move- to a line-to */
+	  g_array_append_val(points, bp);
+	  /* and remember the point we lined from */
+	  close_to = (pts[i-1].type == BEZ_CURVE_TO ? pts[i-1].p3 : pts[i-1].p1);
+	  needs_close = TRUE;
+	}
+      } else {
+        g_array_append_val(points, pts[i]);
+      }
+    }
+    if (points->len)
+      DIA_RENDERER_GET_CLASS (renderer)->fill_bezier (renderer, &g_array_index(points, BezPoint, 0), points->len, color);
+    g_array_free (points, TRUE);
+  }
+}
+
 /*!
  * \brief Helper function to fill bezier with multiple BEZ_MOVE_TO
  * \memberof DiaRenderer
  */
 void
-bezier_render_fill (DiaRenderer *renderer, BezPoint *pts, int total, Color *color)
+bezier_render_fill_old (DiaRenderer *renderer, BezPoint *pts, int total, Color *color)
 {
   int i, n = 0;
   /* first draw the fills */

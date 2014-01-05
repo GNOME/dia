@@ -48,7 +48,7 @@ void polyshape_init(PolyShape *poly, int num_points);
 void polyshape_set_points(PolyShape *poly, int num_points, Point *points);
 void polyshape_destroy(PolyShape *poly);
 void polyshape_copy(PolyShape *from, PolyShape *to);
-void polyshape_save(PolyShape *poly, ObjectNode obj_node);
+void polyshape_save(PolyShape *poly, ObjectNode obj_node, DiaContext *ctx);
 void polyshape_load(PolyShape *poly, ObjectNode obj_node, DiaContext *ctx);  /* NOTE: Does object_init() */
 ObjectChange *polyshape_add_point(PolyShape *poly, int segment, Point *point);
 ObjectChange *polyshape_remove_point(PolyShape *poly, int point);

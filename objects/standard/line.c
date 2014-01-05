@@ -91,7 +91,7 @@ static DiaObject *line_copy(Line *line);
 
 static void line_set_props(Line *line, GPtrArray *props);
 
-static void line_save(Line *line, ObjectNode obj_node, const char *filename);
+static void line_save(Line *line, ObjectNode obj_node, DiaContext *ctx);
 static DiaObject *line_load(ObjectNode obj_node, int version, DiaContext *ctx);
 static DiaMenu *line_get_object_menu(Line *line, Point *clickedpoint);
 
@@ -623,13 +623,13 @@ line_update_data(Line *line)
 
 
 static void
-line_save(Line *line, ObjectNode obj_node, const char *filename)
+line_save(Line *line, ObjectNode obj_node, DiaContext *ctx)
 {
 #ifdef DEBUG
   dia_object_sanity_check((DiaObject*)line, "Saving line");
 #endif
 
-  connection_save(&line->connection, obj_node);
+  connection_save(&line->connection, obj_node, ctx);
 
   connpointline_save(line->cpl,obj_node,"numcp");
 

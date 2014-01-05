@@ -314,11 +314,19 @@ PyDiaDiagram_UngroupSelected(PyDiaDiagram *self, PyObject *args)
 static PyObject *
 PyDiaDiagram_Save(PyDiaDiagram *self, PyObject *args)
 {
+    DiaContext *ctx;
     gchar *filename = self->dia->filename;
+    int ret;
 
     if (!PyArg_ParseTuple(args, "|s:Diagram.save", &filename))
 	return NULL;
-    return PyInt_FromLong(diagram_save(self->dia, filename));
+    ctx = dia_context_new ("PyDia Save");
+    dia_context_set_filename (ctx, filename);
+    ret = diagram_save(self->dia, filename, ctx);
+    /* FIXME: throwing away possible error messages */
+    dia_context_reset (ctx);
+    dia_context_release (ctx);
+    return PyInt_FromLong(ret);
 }
 
 static PyObject *

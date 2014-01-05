@@ -77,11 +77,11 @@ static gboolean diagram_data_load(const gchar *filename, DiagramData *data,
 				  DiaContext *ctx, void* user_data);
 static gboolean write_objects(GList *objects, xmlNodePtr objects_node,
 			      GHashTable *objects_hash, int *obj_nr, 
-			      const char *filename);
+			      const char *filename, DiaContext *ctx);
 static gboolean write_connections(GList *objects, xmlNodePtr layer_node,
 				  GHashTable *objects_hash);
-static xmlDocPtr diagram_data_write_doc(DiagramData *data, const char *filename);
-static int diagram_data_raw_save(DiagramData *data, const char *filename);
+static xmlDocPtr diagram_data_write_doc(DiagramData *data, const char *filename, DiaContext *ctx);
+static int diagram_data_raw_save(DiagramData *data, const char *filename, DiaContext *ctx);
 static gboolean diagram_data_save(DiagramData *data, DiaContext *ctx, const char *filename);
 
 
@@ -695,7 +695,8 @@ diagram_data_load(const gchar *filename, DiagramData *data, DiaContext *ctx, voi
 
 static gboolean
 write_objects(GList *objects, xmlNodePtr objects_node,
-	      GHashTable *objects_hash, int *obj_nr, const char *filename)
+	      GHashTable *objects_hash, int *obj_nr,
+	      const char *filename, DiaContext *ctx)
 {
   char buffer[31];
   ObjectNode obj_node;
@@ -714,9 +715,9 @@ write_objects(GList *objects, xmlNodePtr objects_node,
 
     if (IS_GROUP(obj) && group_objects(obj) != NULL) {
       group_node = xmlNewChild(objects_node, NULL, (const xmlChar *)"group", NULL);
-      object_save_props (obj, group_node);
+      object_save_props (obj, group_node, ctx);
       write_objects(group_objects(obj), group_node,
-		    objects_hash, obj_nr, filename);
+		    objects_hash, obj_nr, filename, ctx);
     } else {
       obj_node = xmlNewChild(objects_node, NULL, (const xmlChar *)"object", NULL);
     
@@ -727,7 +728,7 @@ write_objects(GList *objects, xmlNodePtr objects_node,
       g_snprintf(buffer, 30, "O%d", *obj_nr);
       xmlSetProp(obj_node, (const xmlChar *)"id", (xmlChar *)buffer);
 
-      (*obj->type->ops->save)(obj, obj_node, filename);
+      (*obj->type->ops->save)(obj, obj_node, ctx);
 
       /* Add object -> obj_nr to hash table */
       g_hash_table_insert(objects_hash, obj, GINT_TO_POINTER(*obj_nr));
@@ -837,7 +838,7 @@ write_connections(GList *objects, xmlNodePtr layer_node,
 
 /* Filename seems to be junk, but is passed on to objects */
 static xmlDocPtr
-diagram_data_write_doc(DiagramData *data, const char *filename)
+diagram_data_write_doc(DiagramData *data, const char *filename, DiaContext *ctx)
 {
   xmlDocPtr doc;
   xmlNodePtr tree;
@@ -961,7 +962,7 @@ diagram_data_write_doc(DiagramData *data, const char *filename)
       xmlSetProp(layer_node, (const xmlChar *)"active", (const xmlChar *)"true");
       
     write_objects(layer->objects, layer_node,
-		  objects_hash, &obj_nr, filename);
+		  objects_hash, &obj_nr, filename, ctx);
   
     res = write_connections(layer->objects, layer_node, objects_hash);
     /* Why do we bail out like this?  It leaks! */
@@ -982,12 +983,12 @@ diagram_data_write_doc(DiagramData *data, const char *filename)
  * Returns >= 0 on success.
  * Only for internal use. */
 static int
-diagram_data_raw_save(DiagramData *data, const char *filename)
+diagram_data_raw_save(DiagramData *data, const char *filename, DiaContext *ctx)
 {
   xmlDocPtr doc;
   int ret;
 
-  doc = diagram_data_write_doc(data, filename);
+  doc = diagram_data_write_doc(data, filename, ctx);
 
   ret = xmlDiaSaveFile (filename, doc);
   xmlFreeDoc(doc);
@@ -1078,7 +1079,7 @@ diagram_data_save(DiagramData *data, DiaContext *ctx, const char *user_filename)
   }
   fclose(file);
 
-  ret = diagram_data_raw_save(data, tmpname);
+  ret = diagram_data_raw_save(data, tmpname, ctx);
 
   if (ret < 0) {
     /* Save failed; we clean our stuff up, without touching the file named
@@ -1108,9 +1109,8 @@ CLEANUP:
 }
 
 int
-diagram_save(Diagram *dia, const char *filename)
+diagram_save(Diagram *dia, const char *filename, DiaContext *ctx)
 {
-  DiaContext *ctx = dia_context_new (_("Diagram Save"));
   gboolean res = FALSE;
 
   if (diagram_data_save(dia->data, ctx, filename)) {
@@ -1122,7 +1122,6 @@ diagram_save(Diagram *dia, const char *filename)
 
     res = TRUE;
   }
-  dia_context_release (ctx);
 
   return res;
 }
@@ -1151,6 +1150,7 @@ diagram_cleanup_autosave(Diagram *dia)
 typedef struct {
   DiagramData *clone;
   gchar       *filename;
+  DiaContext  *ctx;
 } AutoSaveInfo;
 /*!
  * Efficient and easy to implement autosave in a thread:
@@ -1170,9 +1170,13 @@ _autosave_in_thread (gpointer data)
 {
   AutoSaveInfo *asi = (AutoSaveInfo *)data;
 
-  diagram_data_raw_save(asi->clone, asi->filename);
+  diagram_data_raw_save(asi->clone, asi->filename, asi->ctx);
   g_object_unref (asi->clone);
   g_free (asi->filename);
+  /* FIXME: this is throwing away potential messages ... */
+  dia_context_reset (asi->ctx);
+  /* ... to avoid creating a message_box within this thread */
+  dia_context_release (asi->ctx);
   g_free (asi);
 
   return NULL;
@@ -1202,26 +1206,33 @@ diagram_autosave(Diagram *dia)
       dia->autosavefilename = save_filename;
 #ifdef G_THREADS_ENABLED
       if (g_thread_supported ()) {
-        AutoSaveInfo *asi = g_new (AutoSaveInfo, 1);
-        GError *error = NULL;
+	AutoSaveInfo *asi = g_new (AutoSaveInfo, 1);
+	GError *error = NULL;
 
 	asi->clone = diagram_data_clone (dia->data);
 	asi->filename = g_strdup (save_filename);
+	asi->ctx = dia_context_new (_("Auto save"));
 
-        if (!g_thread_create (_autosave_in_thread, asi, FALSE, &error)) {
+	if (!g_thread_create (_autosave_in_thread, asi, FALSE, &error)) {
 	  message_error (error->message);
 	  g_error_free (error);
 	}
 	/* FIXME: need better synchronization */
         dia->autosaved = TRUE;
       } else {
-	/* no extra threads supporte, stay in this one */
-        diagram_data_raw_save(dia->data, save_filename);
-        dia->autosaved = TRUE;
+	/* no extra threads supported, stay in this one */
+	DiaContext *ctx = dia_context_new (_("Auto save"));
+	diagram_data_raw_save(dia->data, save_filename, ctx);
+	dia->autosaved = TRUE;
+	dia_context_release (ctx);
       }
 #else
-      diagram_data_raw_save(dia->data, save_filename);
-      dia->autosaved = TRUE;
+      {
+	DiaContext *ctx = dia_context_new (_("Auto save"));
+	diagram_data_raw_save(dia->data, save_filename, ctx);
+	dia->autosaved = TRUE;
+	dia_context_release (ctx);
+      }
 #endif
       return;
     }

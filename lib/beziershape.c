@@ -931,12 +931,13 @@ beziershape_destroy (BezierShape *bezier)
  */
 void
 beziershape_save (BezierShape *bezier,
-		  ObjectNode obj_node)
+		  ObjectNode obj_node,
+		  DiaContext *ctx)
 {
   int i;
   AttributeNode attr;
 
-  object_save(&bezier->object, obj_node);
+  object_save(&bezier->object, obj_node, ctx);
 
   attr = new_attribute(obj_node, "bez_points");
 

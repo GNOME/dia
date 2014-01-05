@@ -89,7 +89,7 @@ static void relationship_destroy(Relationship *relationship);
 static DiaObject *relationship_copy(Relationship *relationship);
 
 static void relationship_save(Relationship *relationship,
-			      ObjectNode obj_node, const char *filename);
+			      ObjectNode obj_node, DiaContext *ctx);
 static DiaObject *relationship_load(ObjectNode obj_node, int version,DiaContext *ctx);
 static PropDescription *
 relationship_describe_props(Relationship *relationship);
@@ -526,9 +526,9 @@ relationship_copy(Relationship *relationship)
 
 static void
 relationship_save(Relationship *relationship, ObjectNode obj_node,
-		  const char *filename)
+		  DiaContext *ctx)
 {
-  element_save(&relationship->element, obj_node);
+  element_save(&relationship->element, obj_node, ctx);
 
   data_add_real(new_attribute(obj_node, "border_width"),
 		relationship->border_width);

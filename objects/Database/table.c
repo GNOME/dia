@@ -56,7 +56,7 @@ static real         table_calculate_namebox_data (Table *);
 static real         table_init_attributesbox_height (Table *);
 static DiaObject *  table_create (Point *, void *, Handle **, Handle **);
 static DiaObject *  table_load (ObjectNode obj_node, int version, DiaContext *ctx);
-static void         table_save (Table *, ObjectNode, const char *);
+static void         table_save (Table *, ObjectNode, DiaContext *ctx);
 static void         table_destroy (Table *);
 static real         table_distance_from (Table *, Point *);
 static void         table_select (Table *, Point *, DiaRenderer *);
@@ -474,9 +474,9 @@ table_load (ObjectNode obj_node, int version, DiaContext *ctx)
 }
 
 static void
-table_save (Table *table, ObjectNode obj_node, const char *filename)
+table_save (Table *table, ObjectNode obj_node, DiaContext *ctx)
 {
-  object_save_props (&table->element.object, obj_node);
+  object_save_props (&table->element.object, obj_node, ctx);
 }
 
 static void

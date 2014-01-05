@@ -433,9 +433,9 @@ element_destroy(Element *elem)
  * @param obj_node
  */
 void 
-element_save(Element *elem, ObjectNode obj_node)
+element_save(Element *elem, ObjectNode obj_node, DiaContext *ctx)
 {
-  object_save(&elem->object, obj_node);
+  object_save(&elem->object, obj_node, ctx);
 
   data_add_point(new_attribute(obj_node, "elem_corner"),
 		 &elem->corner);

@@ -1067,21 +1067,26 @@ app_exit(void)
       }
       else if (result == EXIT_DIALOG_EXIT_SAVE_SELECTED)
       {
+	    DiaContext *ctx = dia_context_new(_("Save"));
         int i;
-        for (i = 0 ; i < items->array_size ; i++)
-        {
-          gchar *filename;
+        for (i = 0 ; i < items->array_size ; i++) {
+	  gchar *filename;
 
-          diagram  = items->array[i].data;
-          filename = g_filename_from_utf8 (diagram->filename, -1, NULL, NULL, NULL);
-          diagram_update_extents (diagram);
-          if (!diagram_save (diagram, filename)) {
-            exit_dialog_free_items (items);
-            return FALSE;
-	      }
-          g_free (filename);
-        }
-        exit_dialog_free_items (items);
+	  diagram  = items->array[i].data;
+	  filename = g_filename_from_utf8 (diagram->filename, -1, NULL, NULL, NULL);
+	  diagram_update_extents (diagram);
+	  dia_context_set_filename (ctx, filename);
+	  if (!diagram_save (diagram, filename, ctx)) {
+	    exit_dialog_free_items (items);
+	    dia_context_release (ctx);
+	    return FALSE;
+	  } else {
+	    dia_context_reset (ctx);
+	  }
+	  g_free (filename);
+	}
+	dia_context_release (ctx);
+	exit_dialog_free_items (items);
       } 
       else if (result == EXIT_DIALOG_EXIT_NO_SAVE) 
       {
@@ -1138,9 +1143,12 @@ app_exit(void)
   persistence_save();
 
   dynobj_refresh_finish();
-    
-  dia_object_defaults_save (NULL);
 
+  {
+    DiaContext *ctx = dia_context_new (_("Exit"));
+    dia_object_defaults_save (NULL, ctx);
+    dia_context_release (ctx);
+  }
   /* Free loads of stuff (toolbox) */
 
   list = dia_open_diagrams();

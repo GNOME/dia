@@ -79,7 +79,7 @@ static DiaMenu *zigzagline_get_object_menu(Zigzagline *zigzagline,
 static void zigzagline_set_props(Zigzagline *zigzagline, GPtrArray *props);
 
 static void zigzagline_save(Zigzagline *zigzagline, ObjectNode obj_node,
-			    const char *filename);
+			    DiaContext *ctx);
 static DiaObject *zigzagline_load(ObjectNode obj_node, int version, DiaContext *ctx);
 
 static ObjectTypeOps zigzagline_type_ops =
@@ -474,9 +474,9 @@ zigzagline_get_object_menu(Zigzagline *zigzagline, Point *clickedpoint)
 
 static void
 zigzagline_save(Zigzagline *zigzagline, ObjectNode obj_node,
-		const char *filename)
+		DiaContext *ctx)
 {
-  orthconn_save(&zigzagline->orth, obj_node);
+  orthconn_save(&zigzagline->orth, obj_node, ctx);
 
   if (!color_equals(&zigzagline->line_color, &color_black))
     data_add_color(new_attribute(obj_node, "line_color"),

@@ -114,7 +114,7 @@ mount_point_move_change_free (MountPointMoveChange *);
 
 static DiaObject * compound_create (Point *, void *, Handle **, Handle **);
 static DiaObject * compound_load (ObjectNode obj_node, int version,DiaContext *ctx);
-static void compound_save (Compound *, ObjectNode, const char *);
+static void compound_save (Compound *, ObjectNode, DiaContext *ctx);
 static void compound_destroy (Compound *);
 static void compound_draw (Compound *, DiaRenderer *);
 static real compound_distance_from (Compound *, Point *);
@@ -493,7 +493,7 @@ compound_load (ObjectNode obj_node, int version, DiaContext *ctx)
 }
 
 static void
-compound_save (Compound *comp, ObjectNode obj_node, const char * filename)
+compound_save (Compound *comp, ObjectNode obj_node, DiaContext *ctx)
 {
   gint i;
   AttributeNode attr;
@@ -501,7 +501,7 @@ compound_save (Compound *comp, ObjectNode obj_node, const char * filename)
 
   compound_sanity_check (comp, "Saving");
 
-  object_save (&comp->object, obj_node);
+  object_save (&comp->object, obj_node, ctx);
 
   attr = new_attribute(obj_node, "comp_points");
   for (i = 0; i < obj->num_handles; i++)

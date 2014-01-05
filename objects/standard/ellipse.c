@@ -90,7 +90,7 @@ static DiaObject *ellipse_copy(Ellipse *ellipse);
 
 static void ellipse_set_props(Ellipse *ellipse, GPtrArray *props);
 
-static void ellipse_save(Ellipse *ellipse, ObjectNode obj_node, const char *filename);
+static void ellipse_save(Ellipse *ellipse, ObjectNode obj_node, DiaContext *ctx);
 static DiaObject *ellipse_load(ObjectNode obj_node, int version, DiaContext *ctx);
 static DiaMenu *ellipse_get_object_menu(Ellipse *ellipse, Point *clickedpoint);
 
@@ -500,9 +500,9 @@ ellipse_copy(Ellipse *ellipse)
 
 
 static void
-ellipse_save(Ellipse *ellipse, ObjectNode obj_node, const char *filename)
+ellipse_save(Ellipse *ellipse, ObjectNode obj_node, DiaContext *ctx)
 {
-  element_save(&ellipse->element, obj_node);
+  element_save(&ellipse->element, obj_node, ctx);
 
   if (ellipse->border_width != 0.1)
     data_add_real(new_attribute(obj_node, "border_width"),

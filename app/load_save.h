@@ -21,7 +21,7 @@
 #include "diagram.h"
 #include "filter.h"
 
-int diagram_save(Diagram *dia, const char *filename);
+int diagram_save(Diagram *dia, const char *filename, DiaContext *ctx);
 void diagram_autosave(Diagram *dia);
 void diagram_cleanup_autosave(Diagram *dia);
 

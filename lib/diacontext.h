@@ -7,6 +7,7 @@
 G_BEGIN_DECLS
 
 DiaContext *dia_context_new (const char *desc);
+void dia_context_reset (DiaContext *context);
 void dia_context_release (DiaContext *context);
 
 void dia_context_set_filename (DiaContext *context, const char *filename);

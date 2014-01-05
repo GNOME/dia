@@ -86,7 +86,7 @@ static void flow_update_data(Flow *flow);
 static void flow_destroy(Flow *flow);
 static DiaObject *flow_copy(Flow *flow);
 static void flow_save(Flow *flow, ObjectNode obj_node,
-		      const char *filename);
+		      DiaContext *ctx);
 static DiaObject *flow_load(ObjectNode obj_node, int version,DiaContext *ctx);
 static PropDescription *flow_describe_props(Flow *mes);
 static void
@@ -501,9 +501,9 @@ flow_update_data(Flow *flow)
 
 
 static void
-flow_save(Flow *flow, ObjectNode obj_node, const char *filename)
+flow_save(Flow *flow, ObjectNode obj_node, DiaContext *ctx)
 {
-  connection_save(&flow->connection, obj_node);
+  connection_save(&flow->connection, obj_node, ctx);
 
   data_add_text(new_attribute(obj_node, "text"),
 		flow->text) ;

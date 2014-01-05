@@ -86,7 +86,7 @@ static DiaObject *bus_copy(Bus *bus);
 static PropDescription *bus_describe_props(Bus *bus);
 static void bus_get_props(Bus *bus, GPtrArray *props);
 static void bus_set_props(Bus *bus, GPtrArray *props);
-static void bus_save(Bus *bus, ObjectNode obj_node, const char *filename);
+static void bus_save(Bus *bus, ObjectNode obj_node, DiaContext *ctx);
 static DiaObject *bus_load(ObjectNode obj_node, int version, DiaContext *ctx);
 static DiaMenu *bus_get_object_menu(Bus *bus, Point *clickedpoint);
 
@@ -623,12 +623,12 @@ bus_get_object_menu(Bus *bus, Point *clickedpoint)
 }
 
 static void
-bus_save(Bus *bus, ObjectNode obj_node, const char *filename)
+bus_save(Bus *bus, ObjectNode obj_node, DiaContext *ctx)
 {
   int i;
   AttributeNode attr;
 
-  connection_save(&bus->connection, obj_node);
+  connection_save(&bus->connection, obj_node, ctx);
   
   data_add_color( new_attribute(obj_node, "line_color"), &bus->line_color);
 

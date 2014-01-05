@@ -49,7 +49,7 @@ void polyconn_init(PolyConn *poly, int num_points);
 void polyconn_set_points(PolyConn *poly, int num_points, Point *points);
 void polyconn_destroy(PolyConn *poly);
 void polyconn_copy(PolyConn *from, PolyConn *to);
-void polyconn_save(PolyConn *poly, ObjectNode obj_node);
+void polyconn_save(PolyConn *poly, ObjectNode obj_node, DiaContext *ctx);
 void polyconn_load(PolyConn *poly, ObjectNode obj_node, DiaContext *ctx);  /* NOTE: Does object_init() */
 ObjectChange *polyconn_add_point(PolyConn *poly, int segment, Point *point);
 ObjectChange *polyconn_remove_point(PolyConn *poly, int point);

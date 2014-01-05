@@ -77,7 +77,7 @@ _dae_create (Point *startpoint,
 static DiaObject *
 _dae_load (ObjectNode obj_node, int version, DiaContext *ctx);
 static void
-_dae_save (DiaObject *obj, ObjectNode obj_node, const char *filename);
+_dae_save (DiaObject *obj, ObjectNode obj_node, DiaContext *ctx);
 
 static ObjectTypeOps _dae_type_ops =
 {
@@ -384,7 +384,7 @@ _dae_load (ObjectNode obj_node, int version, DiaContext *ctx)
 }
 
 static void
-_dae_save (DiaObject *obj, ObjectNode obj_node, const char *filename)
+_dae_save (DiaObject *obj, ObjectNode obj_node, DiaContext *ctx)
 {
   DiagramAsElement *dae;
   /* filename normalization */
@@ -392,14 +392,14 @@ _dae_save (DiaObject *obj, ObjectNode obj_node, const char *filename)
 
   dae = (DiagramAsElement*)obj;
   if (strlen(dae->filename) && g_path_is_absolute (dae->filename)) {
-    gchar *dirname = g_path_get_dirname (filename);
+    gchar *dirname = g_path_get_dirname (dia_context_get_filename (ctx));
     if (strstr (dae->filename, dirname) == dae->filename) {
       saved_path = dae->filename;
       dae->filename += (strlen (dirname) + 1);
     }
     g_free (dirname);
   }
-  object_save_using_properties (obj, obj_node, filename);
+  object_save_using_properties (obj, obj_node, ctx);
 
   if (saved_path) {
     dae->filename = saved_path;

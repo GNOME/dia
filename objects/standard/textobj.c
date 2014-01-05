@@ -90,7 +90,7 @@ static void textobj_get_props(Textobj *textobj, GPtrArray *props);
 static void textobj_set_props(Textobj *textobj, GPtrArray *props);
 
 static void textobj_save(Textobj *textobj, ObjectNode obj_node,
-			 const char *filename);
+			 DiaContext *ctx);
 static DiaObject *textobj_load(ObjectNode obj_node, int version, DiaContext *ctx);
 static DiaMenu *textobj_get_object_menu(Textobj *textobj, Point *clickedpoint);
 
@@ -349,9 +349,9 @@ textobj_destroy(Textobj *textobj)
 }
 
 static void
-textobj_save(Textobj *textobj, ObjectNode obj_node, const char *filename)
+textobj_save(Textobj *textobj, ObjectNode obj_node, DiaContext *ctx)
 {
-  object_save(&textobj->object, obj_node);
+  object_save(&textobj->object, obj_node, ctx);
 
   data_add_text(new_attribute(obj_node, "text"),
 		textobj->text);

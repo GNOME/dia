@@ -61,6 +61,8 @@ drs_renderer_finalize (GObject *object)
 
   g_queue_free (renderer->parents);
   g_queue_free (renderer->matrices);
+  if (renderer->ctx)
+    dia_context_release (renderer->ctx);
 
   G_OBJECT_CLASS (parent_class)->finalize (object);  
 }
@@ -118,9 +120,9 @@ draw_object(DiaRenderer *self,
   }
   if (renderer->save_props) {
     xmlNodePtr props_node;
-    
+
     props_node = xmlNewChild(node, NULL, (const xmlChar *)"properties", NULL);
-    object_save_props (object, props_node);
+    object_save_props (object, props_node, renderer->ctx);
   }
   if (matrix) {
     DiaMatrix *m2 = g_new (DiaMatrix, 1);

@@ -86,7 +86,7 @@ static DiaObject *tree_copy(Tree *tree);
 static PropDescription *tree_describe_props(Tree *tree);
 static void tree_get_props(Tree *tree, GPtrArray *props);
 static void tree_set_props(Tree *tree, GPtrArray *props);
-static void tree_save(Tree *tree, ObjectNode obj_node, const char *filename);
+static void tree_save(Tree *tree, ObjectNode obj_node, DiaContext *ctx);
 static DiaObject *tree_load(ObjectNode obj_node, int version,DiaContext *ctx);
 static DiaMenu *tree_get_object_menu(Tree *tree, Point *clickedpoint);
 
@@ -615,12 +615,12 @@ tree_get_object_menu(Tree *tree, Point *clickedpoint)
 }
 
 static void
-tree_save(Tree *tree, ObjectNode obj_node, const char *filename)
+tree_save(Tree *tree, ObjectNode obj_node, DiaContext *ctx)
 {
   int i;
   AttributeNode attr;
 
-  connection_save(&tree->connection, obj_node);
+  connection_save(&tree->connection, obj_node, ctx);
   
   data_add_color( new_attribute(obj_node, "line_color"), &tree->line_color);
 
