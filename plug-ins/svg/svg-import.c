@@ -639,11 +639,12 @@ read_path_svg(xmlNodePtr node, DiaSvgStyle *parent_style,
 	  otype = object_get_type("Standard - BezierLine");
 	} else if (bezpoints->len < 3) { /* error path: invalid input or parsing error? */
 	  /* Our beziergon can not handle less than three points
-	   * Not sure if turning it into a line is such a good idea ...
+	   * So line-to the first point again...
 	   */
-	  g_warning ("Not closing a path with two points.");
-	  otype = object_get_type("Standard - BezierLine");
-	  closed = FALSE;
+	  BezPoint bpz = g_array_index(bezpoints, BezPoint, 0);
+	  bpz.type = BEZ_LINE_TO;
+	  g_array_append_val(bezpoints, bpz);
+	  otype = object_get_type("Standard - Beziergon");
 	} else {
 	  otype = object_get_type("Standard - Beziergon");
 	}
@@ -1610,13 +1611,14 @@ read_items (xmlNodePtr   startnode,
 	   * objects w/o style so we have two options beside complete
 	   * rewrite:
 	   *  - use the style from the group and hope it is on defaults
+	        (i.e. pass in parent_gs with init=FALSE)
 	   *  - use a style from scratch instead of parent_gs and hope
 	   *    the object is already styled correctly
 	   * Or maybe we should remember the explicit style set during
 	   * creation, store it with the template as meta info and use
 	   * that to give NULL or parent_gs here?
 	   */
-	  apply_style (obj, node, NULL, style_ht, pattern_ht, FALSE);
+	  apply_style (obj, node, parent_gs, style_ht, pattern_ht, FALSE);
 	  items = g_list_append (items, obj);
 	}
       }
