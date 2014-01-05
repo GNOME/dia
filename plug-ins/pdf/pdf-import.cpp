@@ -457,6 +457,8 @@ private :
   std::vector<DiaMatrix> matrices;
   //! radial or linear gradient fill
   DiaPattern *pattern;
+  //! cache for already created pixbufs
+  GHashTable *image_cache;
 };
 
 DiaOutputDev::DiaOutputDev (DiagramData *_dia, int _n) :
@@ -484,6 +486,9 @@ DiaOutputDev::DiaOutputDev (DiagramData *_dia, int _n) :
   matrix.xx = matrix.yy = 1.0;
   matrix.yx = matrix.xy = 0.0;
   matrix.x0 = matrix.y0 = 0.0;
+
+  image_cache = g_hash_table_new_full(g_direct_hash, g_direct_equal,
+				      NULL, (GDestroyNotify)g_object_unref);
 }
 DiaOutputDev::~DiaOutputDev ()
 {
@@ -491,6 +496,7 @@ DiaOutputDev::~DiaOutputDev ()
   g_hash_table_destroy (font_map);
   if (pattern)
     g_object_unref (pattern);
+  g_hash_table_destroy (image_cache);
 }
 static void
 _path_moveto (GArray *path, const Point *pt)
@@ -770,27 +776,36 @@ DiaOutputDev::drawImage(GfxState *state, Object *ref, Stream *str,
   // ctm[0] and ctm[3] have width and height in device coordinates
   pos.y = (ctm[5] + ctm[3]) * scale;
 
-  pixbuf = gdk_pixbuf_new (GDK_COLORSPACE_RGB, maskColors ? TRUE : FALSE, 8, width, height);
+  // rather than creating the image over and over again we try to cache them
+  // via the given 'ref' object
+  if ((pixbuf = static_cast<GdkPixbuf*>(g_hash_table_lookup (this->image_cache, ref))) != NULL) {
+    g_object_ref (pixbuf);
+  } else {
 
-  {
-     // 3 channels, 8 bit
-    ImageStream imgStr(str, width, colorMap->getNumPixelComps(), colorMap->getBits());
-    Guchar *line;
-    int rowstride = gdk_pixbuf_get_rowstride (pixbuf);
-    guchar *pixels = gdk_pixbuf_get_pixels (pixbuf);
-    int y;
+    pixbuf = gdk_pixbuf_new (GDK_COLORSPACE_RGB, maskColors ? TRUE : FALSE, 8, width, height);
 
-    imgStr.reset(); // otherwise getLine() is crashing right away
-    line = imgStr.getLine ();
-    for (y = 0; y < height && line; ++y) {
-      guchar *dest = pixels + y * rowstride;
+    {
+       // 3 channels, 8 bit
+      ImageStream imgStr(str, width, colorMap->getNumPixelComps(), colorMap->getBits());
+      Guchar *line;
+      int rowstride = gdk_pixbuf_get_rowstride (pixbuf);
+      guchar *pixels = gdk_pixbuf_get_pixels (pixbuf);
+      int y;
 
-      colorMap->getRGBLine (line, dest, width);
-
-      // ToDo: respect maskColors
-
+      imgStr.reset(); // otherwise getLine() is crashing right away
       line = imgStr.getLine ();
+      for (y = 0; y < height && line; ++y) {
+	guchar *dest = pixels + y * rowstride;
+
+	colorMap->getRGBLine (line, dest, width);
+
+	// ToDo: respect maskColors
+
+	line = imgStr.getLine ();
+      }
     }
+    // insert the new image into our cache
+    g_hash_table_insert (this->image_cache, ref, g_object_ref (pixbuf));
   }
   obj = create_standard_image (pos.x, pos.y, 
 			       ctm[0]  * scale,
