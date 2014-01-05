@@ -37,18 +37,17 @@
 G_BEGIN_DECLS
 
 /** Flags for DiaObject */
-/** Set this if the DiaObject can 'contain' other objects that move with
- *  it, a.k.a. be a parent.  A parent moves its children along and 
- *  constricts its children to live inside its borders.
- */
-#define DIA_OBJECT_CAN_PARENT 1
-/** Set this if the DiaObject grabs all input destined for its children.
- * This is typically used for group-like objects.
- */
-#define DIA_OBJECT_GRABS_CHILD_INPUT 2
-/** Set this if the DiaObject expands/contracts when children are 
- * moved/modified/added/deleted */
-#define DIA_OBJECT_EXPAND_WITH_CHILDREN 4
+typedef enum {
+  /** Set this if the DiaObject can 'contain' other objects that move with
+   *  it, a.k.a. be a parent.  A parent moves its children along and 
+   *  constricts its children to live inside its borders.
+   */
+  DIA_OBJECT_CAN_PARENT = 1,
+  /** Set this if the DiaObject grabs all input destined for its children.
+   * This is typically used for group-like objects.
+   */
+  DIA_OBJECT_GRABS_CHILD_INPUT = 2
+} DiaObjectFlags;
 
 /** This enumeration gives a bitset of modifier keys currently held down.
  */
@@ -605,5 +604,3 @@ void          object_copy_props(DiaObject *dest, const DiaObject *src,
 G_END_DECLS
 
 #endif /* DIA_OBJECT_H */
-
-

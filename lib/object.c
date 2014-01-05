@@ -519,8 +519,10 @@ destroy_object_list(GList *list_to_be_destroyed)
   g_list_free(list_to_be_destroyed);
 }
 
-/** Add a new handle to an object.  This is merely a utility wrapper around
- * object_add_handle_at().
+/*!
+ * \brief Add a new handle to an object.
+ *
+ * This is merely a utility wrapper around object_add_handle_at().
  * @param obj The object to add a handle to.  This object must have been
  *            object_init()ed.
  * @param handle The new handle to add.  The handle will be inserted as the
@@ -532,8 +534,9 @@ object_add_handle(DiaObject *obj, Handle *handle)
   object_add_handle_at(obj, handle, obj->num_handles);
 }
 
-/** Add a new handle to an object at a given position.  This is merely
-   a utility wrapper around object_add_handle_at().
+/*!
+ * \brief Add a new handle to an object at a given position.
+ *
  * @param obj The object to add a handle to.  This object must have been
  *            object_init()ed.
  * @param handle The new handle to add.
@@ -591,9 +594,10 @@ object_remove_handle(DiaObject *obj, Handle *handle)
     g_realloc(obj->handles, obj->num_handles*sizeof(Handle *));
 }
 
-/** Add a new connectionpoint to an object.
- * This is merely a convenience handler to add a connectionpoint at the
- * end of an objects connectionpoint list.
+/*!
+ * \brief Add a new connection point to an object.
+ * This is merely a convenience handler to add a connection point at the
+ * end of an objects connection point list.
  * @see object_add_connectionpoint_at.
  */
 void
@@ -602,7 +606,8 @@ object_add_connectionpoint(DiaObject *obj, ConnectionPoint *conpoint)
   object_add_connectionpoint_at(obj, conpoint, obj->num_connections);
 }
 
-/** Add a new connectionpoint to an object.
+/*!
+ * \brief Add a new connectionpoint to an object.
  * @param obj The object to add the connectionpoint to.
  * @param conpoint The connectionpoiint to add.
  * @param pos Where in the list to add the connectionpoint 
@@ -828,13 +833,13 @@ dia_object_is_selected (const DiaObject *obj)
 
   /* although this is a little bogus, it is better than crashing
    * It appears as if neither group members nor "parented" objects do have their 
-   * parent_layer set (but they aren't slected either, are they ? --hb
+   * parent_layer set (but they aren't selected either, are they ? --hb
    * No, grouped objects at least aren't selectable, but they may need
    * to test selectedness when rendering beziers.  Parented objects are
    * a different thing, though. */
   if (!diagram)
     return FALSE;
-  
+
   selected = diagram->selected;
   for (; selected != NULL; selected = g_list_next(selected)) {
     if (selected->data == obj) return TRUE;
@@ -1053,7 +1058,27 @@ const Rectangle *dia_object_get_enclosing_box(const DiaObject *obj) {
   } return &obj->enclosing_box;
 }
 
+void
+dia_object_set_meta (DiaObject *obj, const gchar *key, const gchar *value)
+{
+  g_return_if_fail (obj != NULL && key != NULL);
+  if (!obj->meta)
+    obj->meta = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
+  if (value)
+    g_hash_table_insert (obj->meta, g_strdup (key), g_strdup (value));
+  else
+    g_hash_table_remove (obj->meta, key);
+}
 
+gchar *
+dia_object_get_meta (DiaObject *obj, const gchar *key)
+{
+  gchar *val;
+  if (!obj->meta)
+    return NULL;
+  val = g_hash_table_lookup (obj->meta, key);
+  return g_strdup (val);
+}
 
 /* The below are for debugging purposes only. */
 
@@ -1194,26 +1219,4 @@ dia_object_sanity_check(const DiaObject *obj, const gchar *msg) {
     /* Check the children */
   }
   return TRUE;
-}
-
-void   
-dia_object_set_meta (DiaObject *obj, const gchar *key, const gchar *value)
-{
-  g_return_if_fail (obj != NULL && key != NULL);
-  if (!obj->meta)
-    obj->meta = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
-  if (value)
-    g_hash_table_insert (obj->meta, g_strdup (key), g_strdup (value));
-  else
-    g_hash_table_remove (obj->meta, key);
-}
-
-gchar *
-dia_object_get_meta (DiaObject *obj, const gchar *key)
-{
-  gchar *val;
-  if (!obj->meta)
-    return NULL;
-  val = g_hash_table_lookup (obj->meta, key);
-  return g_strdup (val);
 }
