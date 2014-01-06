@@ -930,19 +930,19 @@ aadlbox_save(Aadlbox *aadlbox, ObjectNode obj_node, DiaContext *ctx)
   attr = new_attribute(obj_node, "aadlbox_ports");
   
   for (i=0;i<aadlbox->num_ports;i++) {
-    composite = data_add_composite(attr, "aadlport");
+    composite = data_add_composite(attr, "aadlport", ctx);
     data_add_point(composite_add_attribute(composite, "point"), 
-		   &aadlbox->ports[i]->handle->pos);
+		   &aadlbox->ports[i]->handle->pos, ctx);
     data_add_enum(composite_add_attribute(composite, "port_type"), 
-		   aadlbox->ports[i]->type);
+		   aadlbox->ports[i]->type, ctx);
     data_add_string(composite_add_attribute(composite, "port_declaration"), 
-		    aadlbox->ports[i]->declaration);
+		    aadlbox->ports[i]->declaration, ctx);
   }
   
   attr = new_attribute(obj_node, "aadlbox_connections");
   
   for (i=0;i<aadlbox->num_connections;i++) {
-    data_add_point(attr, &aadlbox->connections[i]->pos);
+    data_add_point(attr, &aadlbox->connections[i]->pos, ctx);
   }
 }
 

@@ -631,44 +631,44 @@ line_save(Line *line, ObjectNode obj_node, DiaContext *ctx)
 
   connection_save(&line->connection, obj_node, ctx);
 
-  connpointline_save(line->cpl,obj_node,"numcp");
+  connpointline_save(line->cpl, obj_node, "numcp", ctx);
 
   if (!color_equals(&line->line_color, &color_black))
     data_add_color(new_attribute(obj_node, "line_color"),
-		   &line->line_color);
-  
+		   &line->line_color, ctx);
+
   if (line->line_width != 0.1)
     data_add_real(new_attribute(obj_node, PROP_STDNAME_LINE_WIDTH),
-		  line->line_width);
-  
+		  line->line_width, ctx);
+
   if (line->line_style != LINESTYLE_SOLID)
     data_add_enum(new_attribute(obj_node, "line_style"),
-		  line->line_style);
-  
+		  line->line_style, ctx);
+
   if (line->line_caps != LINECAPS_BUTT)
     data_add_enum(new_attribute(obj_node, "line_caps"),
-                  line->line_caps);
+                  line->line_caps, ctx);
 
   if (line->start_arrow.type != ARROW_NONE) {
     save_arrow(obj_node, &line->start_arrow,
-	       "start_arrow", "start_arrow_length", "start_arrow_width");
+	       "start_arrow", "start_arrow_length", "start_arrow_width", ctx);
   }
-  
+
   if (line->end_arrow.type != ARROW_NONE) {
     save_arrow(obj_node, &line->end_arrow,
-	       "end_arrow", "end_arrow_length", "end_arrow_width");
+	       "end_arrow", "end_arrow_length", "end_arrow_width", ctx);
   }
- 
+
   if (line->absolute_start_gap)
     data_add_real(new_attribute(obj_node, "absolute_start_gap"),
-                 line->absolute_start_gap);
+                 line->absolute_start_gap, ctx);
   if (line->absolute_end_gap)
     data_add_real(new_attribute(obj_node, "absolute_end_gap"),
-                 line->absolute_end_gap);
+                 line->absolute_end_gap, ctx);
 
   if (line->line_style != LINESTYLE_SOLID && line->dashlength != DEFAULT_LINESTYLE_DASHLEN)
     data_add_real(new_attribute(obj_node, "dashlength"),
-		  line->dashlength);
+		  line->dashlength, ctx);
 }
 
 static DiaObject *

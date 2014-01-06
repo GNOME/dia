@@ -528,42 +528,43 @@ box_save(Box *box, ObjectNode obj_node, DiaContext *ctx)
 
   if (box->border_width != 0.1)
     data_add_real(new_attribute(obj_node, "border_width"),
-		  box->border_width);
+		  box->border_width, ctx);
   
   if (!color_equals(&box->border_color, &color_black))
     data_add_color(new_attribute(obj_node, "border_color"),
-		   &box->border_color);
+		   &box->border_color, ctx);
   
   if (!color_equals(&box->inner_color, &color_white))
     data_add_color(new_attribute(obj_node, "inner_color"),
-		   &box->inner_color);
+		   &box->inner_color, ctx);
   
-  data_add_boolean(new_attribute(obj_node, "show_background"), box->show_background);
+  data_add_boolean(new_attribute(obj_node, "show_background"),
+		   box->show_background, ctx);
 
   if (box->line_style != LINESTYLE_SOLID)
     data_add_enum(new_attribute(obj_node, "line_style"),
-		  box->line_style);
+		  box->line_style, ctx);
   
   if (box->line_style != LINESTYLE_SOLID &&
       box->dashlength != DEFAULT_LINESTYLE_DASHLEN)
     data_add_real(new_attribute(obj_node, "dashlength"),
-                  box->dashlength);
+                  box->dashlength, ctx);
 
   if (box->line_join != LINEJOIN_MITER)
     data_add_enum(new_attribute(obj_node, "line_join"),
-		  box->line_join);
+		  box->line_join, ctx);
 
   if (box->corner_radius > 0.0)
     data_add_real(new_attribute(obj_node, "corner_radius"),
-		  box->corner_radius);
+		  box->corner_radius, ctx);
 
   if (box->aspect != FREE_ASPECT)
     data_add_enum(new_attribute(obj_node, "aspect"),
-		  box->aspect);
+		  box->aspect, ctx);
 
   if (box->pattern)
     data_add_pattern(new_attribute(obj_node, "pattern"),
-		     box->pattern);
+		     box->pattern, ctx);
 }
 
 static DiaObject *

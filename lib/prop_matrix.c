@@ -116,7 +116,7 @@ _matrix_xml_add_val (DataNode data_node, const char* name, real val)
   xmlSetProp(data_node, (const xmlChar *)name, (xmlChar *)buf);
 }
 void
-data_add_matrix (AttributeNode attr, DiaMatrix *matrix)
+data_add_matrix (AttributeNode attr, DiaMatrix *matrix, DiaContext *ctx)
 {
   DataNode data_node;
   
@@ -133,10 +133,10 @@ data_add_matrix (AttributeNode attr, DiaMatrix *matrix)
 }
 
 static void 
-matrixprop_save(MatrixProperty *prop, AttributeNode attr) 
+matrixprop_save(MatrixProperty *prop, AttributeNode attr, DiaContext *ctx) 
 {
   if (prop->matrix) {
-    data_add_matrix (attr, prop->matrix);
+    data_add_matrix (attr, prop->matrix, ctx);
   }
 }
 

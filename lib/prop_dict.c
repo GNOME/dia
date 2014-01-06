@@ -123,24 +123,32 @@ _hash_dup (const GHashTable *src)
   }
   return dest;  
 }
-
+typedef struct
+{
+  ObjectNode  node;
+  DiaContext *ctx;
+} DictUserData;
 static void
 _keyvalue_save (gpointer key,
                 gpointer value,
                 gpointer user_data)
 {
+  DictUserData *ud = (DictUserData *)user_data;
   gchar *name = (gchar *)key;
   gchar *val = (gchar *)value;
-  ObjectNode node = (ObjectNode)user_data;
+  ObjectNode node = ud->node;
+  DiaContext *ctx = ud->ctx;
 
-  data_add_string(new_attribute(node, name), val);
+  data_add_string(new_attribute(node, name), val, ctx);
 }
 static void 
-dictprop_save(DictProperty *prop, AttributeNode attr) 
+dictprop_save(DictProperty *prop, AttributeNode attr, DiaContext *ctx) 
 {
-  ObjectNode composite = data_add_composite(attr, "dict");
+  DictUserData ud;
+  ud.node = data_add_composite(attr, "dict", ctx);
+  ud.ctx = ctx;
   if (prop->dict)
-    g_hash_table_foreach (prop->dict, _keyvalue_save, composite); 
+    g_hash_table_foreach (prop->dict, _keyvalue_save, &ud); 
 }
 
 static void 
@@ -375,9 +383,11 @@ data_dict (DataNode data, DiaContext *ctx)
 }
 
 void
-data_add_dict (AttributeNode attr, GHashTable *data)
+data_add_dict (AttributeNode attr, GHashTable *data, DiaContext *ctx)
 {
-  ObjectNode composite = data_add_composite(attr, "dict");
+  DictUserData ud;
+  ud.node = data_add_composite(attr, "dict", ctx);
+  ud.ctx = ctx;
 
-  g_hash_table_foreach (data, _keyvalue_save, composite); 
+  g_hash_table_foreach (data, _keyvalue_save, &ud);
 }

@@ -58,7 +58,7 @@ extern void boolequation_destroy(Boolequation *rcep);
 extern void boolequation_set_value(Boolequation *rcep, const gchar *value);
 
 extern void save_boolequation(ObjectNode obj_node, const gchar *attrname,
-			     Boolequation *rcep);
+			     Boolequation *rcep, DiaContext *ctx);
 
 extern void boolequation_set_pos(Boolequation *rcep, Point *pos);
 extern void boolequation_draw(Boolequation *rcep, DiaRenderer *renderer);

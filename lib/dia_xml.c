@@ -1055,7 +1055,7 @@ composite_add_attribute(DataNode composite_node,
  * \ingroup DiagramXmlOut
  */
 void
-data_add_int(AttributeNode attr, int data)
+data_add_int(AttributeNode attr, int data, DiaContext *ctx)
 {
   DataNode data_node;
   char buffer[20+1]; /* Enought for 64bit int + zero */
@@ -1073,7 +1073,7 @@ data_add_int(AttributeNode attr, int data)
  * \ingroup DiagramXmlOut
  */
 void
-data_add_enum(AttributeNode attr, int data)
+data_add_enum(AttributeNode attr, int data, DiaContext *ctx)
 {
   DataNode data_node;
   char buffer[20+1]; /* Enought for 64bit int + zero */
@@ -1091,7 +1091,7 @@ data_add_enum(AttributeNode attr, int data)
  * \ingroup DiagramXmlOut
  */
 void
-data_add_real(AttributeNode attr, real data)
+data_add_real(AttributeNode attr, real data, DiaContext *ctx)
 {
   DataNode data_node;
   char buffer[G_ASCII_DTOSTR_BUF_SIZE]; /* Large enought */
@@ -1109,7 +1109,7 @@ data_add_real(AttributeNode attr, real data)
  * \ingroup DiagramXmlOut
  */
 void
-data_add_boolean(AttributeNode attr, int data)
+data_add_boolean(AttributeNode attr, int data, DiaContext *ctx)
 {
   DataNode data_node;
 
@@ -1153,7 +1153,7 @@ convert_to_hex(float x, char *str)
  * \ingroup DiagramXmlOut
  */
 void
-data_add_color(AttributeNode attr, const Color *col)
+data_add_color(AttributeNode attr, const Color *col, DiaContext *ctx)
 {
   char buffer[1+8+1];
   DataNode data_node;
@@ -1190,7 +1190,7 @@ _str_point (const Point *point)
  * \ingroup DiagramXmlOut
  */
 void
-data_add_point(AttributeNode attr, const Point *point)
+data_add_point(AttributeNode attr, const Point *point, DiaContext *ctx)
 {
   DataNode data_node;
   gchar *buffer = _str_point (point);
@@ -1205,7 +1205,7 @@ data_add_point(AttributeNode attr, const Point *point)
  * \ingroup DiagramXmlOut
  */
 void
-data_add_bezpoint(AttributeNode attr, const BezPoint *point)
+data_add_bezpoint(AttributeNode attr, const BezPoint *point, DiaContext *ctx)
 {
   DataNode data_node;
   gchar *buffer;
@@ -1245,7 +1245,7 @@ data_add_bezpoint(AttributeNode attr, const BezPoint *point)
  * \ingroup DiagramXmlOut
  */
 void
-data_add_rectangle(AttributeNode attr, const Rectangle *rect)
+data_add_rectangle(AttributeNode attr, const Rectangle *rect, DiaContext *ctx)
 {
   DataNode data_node;
   gchar *buffer;
@@ -1274,7 +1274,7 @@ data_add_rectangle(AttributeNode attr, const Rectangle *rect)
  * \ingroup DiagramXmlOut
  */
 void
-data_add_string(AttributeNode attr, const char *str)
+data_add_string(AttributeNode attr, const char *str, DiaContext *ctx)
 {
     xmlChar *escaped_str;
     xmlChar *sharped_str;
@@ -1303,11 +1303,11 @@ data_add_string(AttributeNode attr, const char *str)
  * \ingroup DiagramXmlOut
  */
 void
-data_add_filename(DataNode data, const char *str)
+data_add_filename(DataNode data, const char *str, DiaContext *ctx)
 {
   char *utf8 = g_filename_to_utf8(str, -1, NULL, NULL, NULL);
 
-  data_add_string(data, utf8);
+  data_add_string(data, utf8, ctx);
 
   g_free(utf8);
 }
@@ -1319,7 +1319,7 @@ data_add_filename(DataNode data, const char *str)
  * \ingroup DiagramXmlOut
  */
 void
-data_add_font(AttributeNode attr, const DiaFont *font)
+data_add_font(AttributeNode attr, const DiaFont *font, DiaContext *ctx)
 {
   DataNode data_node;
   char buffer[20+1]; /* Enought for 64bit int + zero */
@@ -1341,7 +1341,7 @@ data_add_font(AttributeNode attr, const DiaFont *font)
  * \ingroup DiagramXmlOut
  */
 DataNode
-data_add_composite(AttributeNode attr, const char *type) 
+data_add_composite(AttributeNode attr, const char *type, DiaContext *ctx) 
 {
   /* type can be NULL */
   DataNode data_node;

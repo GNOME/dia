@@ -589,10 +589,11 @@ boolequation_destroy(Boolequation *booleq)
   g_free(booleq);
 }
 
-void save_boolequation(ObjectNode obj_node, const gchar *attrname,
-			     Boolequation *booleq)
+void
+save_boolequation(ObjectNode obj_node, const gchar *attrname,
+		  Boolequation *booleq, DiaContext *ctx)
 {
-  data_add_string(new_attribute(obj_node,attrname),(gchar *)booleq->value);
+  data_add_string(new_attribute(obj_node,attrname),(gchar *)booleq->value, ctx);
 }
 
 void 

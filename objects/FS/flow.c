@@ -506,9 +506,9 @@ flow_save(Flow *flow, ObjectNode obj_node, DiaContext *ctx)
   connection_save(&flow->connection, obj_node, ctx);
 
   data_add_text(new_attribute(obj_node, "text"),
-		flow->text) ;
+		flow->text, ctx) ;
   data_add_int(new_attribute(obj_node, "type"),
-	       flow->type);
+	       flow->type, ctx);
 }
 
 static DiaObject *

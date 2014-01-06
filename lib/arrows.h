@@ -120,7 +120,7 @@ calculate_arrow_point(const Arrow *arrow, const Point *to, const Point *from,
 		      real linewidth);
 
 void save_arrow(ObjectNode obj_node, Arrow *arrow, gchar *type_attribute,
-		gchar *length_attribute, gchar *width_attribute);
+		gchar *length_attribute, gchar *width_attribute, DiaContext *ctx);
 void load_arrow(ObjectNode obj_node, Arrow *arrow, gchar *type_attribute, 
 		gchar *length_attribute, gchar *width_attribute, DiaContext *ctx);
 

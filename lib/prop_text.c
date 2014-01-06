@@ -192,9 +192,9 @@ stringprop_load(StringProperty *prop, AttributeNode attr, DataNode data, DiaCont
 }
 
 static void 
-stringprop_save(StringProperty *prop, AttributeNode attr) 
+stringprop_save(StringProperty *prop, AttributeNode attr, DiaContext *ctx) 
 {
-  data_add_string(attr, prop->string_data);
+  data_add_string(attr, prop->string_data, ctx);
 }
 
 static void 
@@ -407,7 +407,7 @@ textprop_load(TextProperty *prop, AttributeNode attr, DataNode data, DiaContext 
 }
 
 static void 
-textprop_save(TextProperty *prop, AttributeNode attr) 
+textprop_save(TextProperty *prop, AttributeNode attr, DiaContext *ctx) 
 {
   Text *text = new_text(prop->text_data,
                         prop->attr.font,
@@ -415,7 +415,7 @@ textprop_save(TextProperty *prop, AttributeNode attr)
                         &prop->attr.position,
                         &prop->attr.color,
                         prop->attr.alignment);
-  data_add_text(attr,text);
+  data_add_text(attr, text, ctx);
   text_destroy(text);
 }
 

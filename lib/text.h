@@ -102,7 +102,7 @@ real text_get_descent(Text *text);
 /** Exposing this is a hack, but currently GTK still captures the key 
  * events of insensitive clods^H^H^H^H^Hmenu items. LC 21/10 2007*/
 gboolean text_delete_key_handler(Focus *focus, ObjectChange **change);
-void data_add_text(AttributeNode attr, Text *text);
+void data_add_text(AttributeNode attr, Text *text, DiaContext *ctx);
 Text *data_text(AttributeNode attr, DiaContext *ctx);
 
 gboolean apply_textattr_properties(GPtrArray *props,

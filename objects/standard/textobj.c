@@ -354,13 +354,13 @@ textobj_save(Textobj *textobj, ObjectNode obj_node, DiaContext *ctx)
   object_save(&textobj->object, obj_node, ctx);
 
   data_add_text(new_attribute(obj_node, "text"),
-		textobj->text);
+		textobj->text, ctx);
   data_add_enum(new_attribute(obj_node, "valign"),
-		  textobj->vert_align);
+		  textobj->vert_align, ctx);
 
   if (textobj->show_background) {
-    data_add_color(new_attribute(obj_node, "fill_color"), &textobj->fill_color);
-    data_add_boolean(new_attribute(obj_node, "show_background"), textobj->show_background);
+    data_add_color(new_attribute(obj_node, "fill_color"), &textobj->fill_color, ctx);
+    data_add_boolean(new_attribute(obj_node, "show_background"), textobj->show_background, ctx);
   }
 }
 

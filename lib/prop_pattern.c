@@ -126,46 +126,57 @@ patternprop_load(PatternProperty *prop, AttributeNode attr, DataNode data, DiaCo
   prop->pattern = data_pattern (data, ctx);
 }
 
+typedef struct
+{
+  AttributeNode node;
+  DiaContext   *ctx;
+} StopUserData;
+
 static gboolean
 _data_add_stop (real ofs, const Color *col, gpointer user_data)
 {
-  AttributeNode attr = (AttributeNode)user_data;
-  ObjectNode composite = data_add_composite(attr, "color-stop");
-  
-  data_add_real (composite_add_attribute(composite, "offset"), ofs);
-  data_add_color(composite_add_attribute(composite, "color"), col);
+  StopUserData *ud = (StopUserData *)user_data;
+  AttributeNode attr = ud->node;
+  DiaContext *ctx = ud->ctx;
+  ObjectNode composite = data_add_composite(attr, "color-stop", ctx);
+
+  data_add_real (composite_add_attribute(composite, "offset"), ofs, ctx);
+  data_add_color(composite_add_attribute(composite, "color"), col, ctx);
 
   return TRUE;
 }
 
 void
-data_add_pattern (AttributeNode attr, DiaPattern *pattern)
+data_add_pattern (AttributeNode attr, DiaPattern *pattern, DiaContext *ctx)
 {
-  ObjectNode composite = data_add_composite(attr, "pattern");
-  AttributeNode comp_attr = composite_add_attribute (composite, "data");
+  ObjectNode composite = data_add_composite(attr, "pattern", ctx);
+  StopUserData ud;
   DiaPatternType type;
   guint flags;
   Point p1, p2;
 
+  ud.node = composite_add_attribute (composite, "data");
+  ud.ctx = ctx;
+
   dia_pattern_get_settings (pattern, &type, &flags);
-  data_add_int (composite_add_attribute(composite, "gradient"), type);
-  data_add_int (composite_add_attribute(composite, "flags"), flags);
+  data_add_int (composite_add_attribute(composite, "gradient"), type, ctx);
+  data_add_int (composite_add_attribute(composite, "flags"), flags, ctx);
   dia_pattern_get_points (pattern, &p1, &p2);
-  data_add_point (composite_add_attribute(composite, "p1"), &p1);
-  data_add_point (composite_add_attribute(composite, "p2"), &p2);
+  data_add_point (composite_add_attribute(composite, "p1"), &p1, ctx);
+  data_add_point (composite_add_attribute(composite, "p2"), &p2, ctx);
   if (type == DIA_RADIAL_GRADIENT) {
     real r;
     dia_pattern_get_radius (pattern, &r);
-    data_add_real (composite_add_attribute(composite, "r"), r);
+    data_add_real (composite_add_attribute(composite, "r"), r, ctx);
   }
-  dia_pattern_foreach (pattern, _data_add_stop, comp_attr);
+  dia_pattern_foreach (pattern, _data_add_stop, &ud);
 }
 
 static void 
-patternprop_save(PatternProperty *prop, AttributeNode attr) 
+patternprop_save(PatternProperty *prop, AttributeNode attr, DiaContext *ctx) 
 {
   if (prop->pattern) {
-    data_add_pattern (attr, prop->pattern);
+    data_add_pattern (attr, prop->pattern, ctx);
   }
 }
 

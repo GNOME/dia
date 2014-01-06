@@ -115,7 +115,7 @@ typedef void (* PropertyType_SetFromWidget)(Property *prop, WIDGET *widget);
 /*! load a property from XML node */
 typedef void (*PropertyType_Load)(Property *prop, AttributeNode attr, DataNode data, DiaContext *ctx);
 /*! save a property to XML node */
-typedef void (*PropertyType_Save)(Property *prop, AttributeNode attr);
+typedef void (*PropertyType_Save)(Property *prop, AttributeNode attr, DiaContext *ctx);
 
 /* If a property descriptor can be merged with another 
    (DONT_MERGE has already been handled) */

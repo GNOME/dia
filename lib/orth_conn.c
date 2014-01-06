@@ -622,15 +622,15 @@ orthconn_save(OrthConn *orth, ObjectNode obj_node, DiaContext *ctx)
   attr = new_attribute(obj_node, "orth_points");
   
   for (i=0;i<orth->numpoints;i++) {
-    data_add_point(attr, &orth->points[i]);
+    data_add_point(attr, &orth->points[i], ctx);
   }
 
   attr = new_attribute(obj_node, "orth_orient");
   for (i=0;i<orth->numpoints-1;i++) {
-    data_add_enum(attr, orth->orientation[i]);
+    data_add_enum(attr, orth->orientation[i], ctx);
   }
 
-  data_add_boolean(new_attribute(obj_node, "autorouting"), orth->autorouting);
+  data_add_boolean(new_attribute(obj_node, "autorouting"), orth->autorouting, ctx);
 }
 
 void

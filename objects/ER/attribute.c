@@ -503,28 +503,29 @@ attribute_save(Attribute *attribute, ObjectNode obj_node,
   element_save(&attribute->element, obj_node, ctx);
 
   data_add_real(new_attribute(obj_node, "border_width"),
-		attribute->border_width);
+		attribute->border_width, ctx);
   data_add_color(new_attribute(obj_node, "border_color"),
-		 &attribute->border_color);
+		 &attribute->border_color, ctx);
   data_add_color(new_attribute(obj_node, "inner_color"),
-		 &attribute->inner_color);
+		 &attribute->inner_color, ctx);
   data_add_string(new_attribute(obj_node, "name"),
-		  attribute->name);
+		  attribute->name, ctx);
   data_add_boolean(new_attribute(obj_node, "key"),
-		   attribute->key);
+		   attribute->key, ctx);
   data_add_boolean(new_attribute(obj_node, "weak_key"),
-		   attribute->weakkey);
+		   attribute->weakkey, ctx);
   data_add_boolean(new_attribute(obj_node, "derived"),
-		   attribute->derived);
+		   attribute->derived, ctx);
   data_add_boolean(new_attribute(obj_node, "multivalued"),
-		   attribute->multivalue);
+		   attribute->multivalue, ctx);
   data_add_font (new_attribute (obj_node, "font"),
-		 attribute->font);
+		 attribute->font, ctx);
   data_add_real(new_attribute(obj_node, "font_height"),
-		attribute->font_height);
+		attribute->font_height, ctx);
 }
 
-static DiaObject *attribute_load(ObjectNode obj_node, int version,DiaContext *ctx)
+static DiaObject *
+attribute_load(ObjectNode obj_node, int version,DiaContext *ctx)
 {
   Attribute *attribute;
   Element *elem;

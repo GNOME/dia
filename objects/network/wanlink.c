@@ -308,10 +308,10 @@ wanlink_save(WanLink *wanlink, ObjectNode obj_node,
     connection_save((Connection *)wanlink, obj_node, ctx);
     
     attr = new_attribute(obj_node, "width");
-    data_add_real(attr, wanlink->width);
+    data_add_real(attr, wanlink->width, ctx);
     
-    data_add_color( new_attribute(obj_node, "line_color"), &wanlink->line_color);
-    data_add_color( new_attribute(obj_node, "fill_color"), &wanlink->fill_color);
+    data_add_color( new_attribute(obj_node, "line_color"), &wanlink->line_color, ctx);
+    data_add_color( new_attribute(obj_node, "fill_color"), &wanlink->fill_color, ctx);
 }
 
 static DiaObject *

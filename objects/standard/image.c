@@ -633,23 +633,23 @@ image_save(Image *image, ObjectNode obj_node, DiaContext *ctx)
 
   if (image->border_width != 0.1)
     data_add_real(new_attribute(obj_node, "border_width"),
-		  image->border_width);
-  
+		  image->border_width, ctx);
+
   if (!color_equals(&image->border_color, &color_black))
     data_add_color(new_attribute(obj_node, "border_color"),
-		   &image->border_color);
+		   &image->border_color, ctx);
   
   if (image->line_style != LINESTYLE_SOLID)
     data_add_enum(new_attribute(obj_node, "line_style"),
-		  image->line_style);
+		  image->line_style, ctx);
 
   if (image->line_style != LINESTYLE_SOLID &&
       image->dashlength != DEFAULT_LINESTYLE_DASHLEN)
     data_add_real(new_attribute(obj_node, "dashlength"),
-		  image->dashlength);
+		  image->dashlength, ctx);
   
-  data_add_boolean(new_attribute(obj_node, "draw_border"), image->draw_border);
-  data_add_boolean(new_attribute(obj_node, "keep_aspect"), image->keep_aspect);
+  data_add_boolean(new_attribute(obj_node, "draw_border"), image->draw_border, ctx);
+  data_add_boolean(new_attribute(obj_node, "keep_aspect"), image->keep_aspect, ctx);
 
   if (image->file != NULL) {
     if (g_path_is_absolute(image->file)) { /* Absolute pathname */
@@ -658,29 +658,31 @@ image_save(Image *image, ObjectNode obj_node, DiaContext *ctx)
       if (strncmp(diafile_dir, image->file, strlen(diafile_dir))==0) {
 	/* The image pathname has the dia file pathname in the begining */
 	/* Save the relative path: */
-	data_add_filename(new_attribute(obj_node, "file"), image->file + strlen(diafile_dir) + 1);
+	data_add_filename(new_attribute(obj_node, "file"),
+			  image->file + strlen(diafile_dir) + 1, ctx);
       } else {
 	/* Save the absolute path: */
-	data_add_filename(new_attribute(obj_node, "file"), image->file);
+	data_add_filename(new_attribute(obj_node, "file"), image->file, ctx);
       }
       g_free(diafile_dir);
     } else {
       /* Relative path. Must be an erronuous filename...
 	 Just save the filename. */
-      data_add_filename(new_attribute(obj_node, "file"), image->file);
+      data_add_filename(new_attribute(obj_node, "file"), image->file, ctx);
     }
   }
   /* only save image_data inline if told to do so */
   if (image->inline_data) {
     GdkPixbuf *pixbuf;
-    data_add_boolean (new_attribute(obj_node, "inline_data"), image->inline_data);
+    data_add_boolean (new_attribute(obj_node, "inline_data"),
+		      image->inline_data, ctx);
 
     /* just to be sure to get the currently visible */
     pixbuf = (GdkPixbuf *)dia_image_pixbuf (image->image);
     if (pixbuf != image->pixbuf && image->pixbuf != NULL)
       message_warning (_("Inconsistent pixbuf during image save."));
     if (pixbuf)
-      data_add_pixbuf (new_attribute(obj_node, "pixbuf"), pixbuf);
+      data_add_pixbuf (new_attribute(obj_node, "pixbuf"), pixbuf, ctx);
   }
 }
 
@@ -825,7 +827,7 @@ image_load(ObjectNode obj_node, int version, DiaContext *ctx)
   if (!image->image) {
     attr = object_find_attribute(obj_node, "pixbuf");
     if (attr != NULL) {
-      GdkPixbuf *pixbuf = data_pixbuf (attribute_first_data(attr));
+      GdkPixbuf *pixbuf = data_pixbuf (attribute_first_data(attr), ctx);
 
       if (pixbuf) {
 	image->image = dia_image_new_from_pixbuf (pixbuf);

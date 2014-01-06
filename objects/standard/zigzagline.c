@@ -480,41 +480,41 @@ zigzagline_save(Zigzagline *zigzagline, ObjectNode obj_node,
 
   if (!color_equals(&zigzagline->line_color, &color_black))
     data_add_color(new_attribute(obj_node, "line_color"),
-		   &zigzagline->line_color);
-  
+		   &zigzagline->line_color, ctx);
+
   if (zigzagline->line_width != 0.1)
     data_add_real(new_attribute(obj_node, PROP_STDNAME_LINE_WIDTH),
-		  zigzagline->line_width);
-  
+		  zigzagline->line_width, ctx);
+
   if (zigzagline->line_style != LINESTYLE_SOLID)
     data_add_enum(new_attribute(obj_node, "line_style"),
-		  zigzagline->line_style);
-  
+		  zigzagline->line_style, ctx);
+
   if (zigzagline->line_join != LINEJOIN_MITER)
     data_add_enum(new_attribute(obj_node, "line_join"),
-                  zigzagline->line_join);
+                  zigzagline->line_join, ctx);
   if (zigzagline->line_caps != LINECAPS_BUTT)
     data_add_enum(new_attribute(obj_node, "line_caps"),
-                  zigzagline->line_caps);
+                  zigzagline->line_caps, ctx);
 
   if (zigzagline->start_arrow.type != ARROW_NONE) {
     save_arrow(obj_node, &zigzagline->start_arrow, "start_arrow",
-	     "start_arrow_length", "start_arrow_width");
+	     "start_arrow_length", "start_arrow_width", ctx);
   }
 
   if (zigzagline->end_arrow.type != ARROW_NONE) {
     save_arrow(obj_node, &zigzagline->end_arrow, "end_arrow",
-	     "end_arrow_length", "end_arrow_width");
+	     "end_arrow_length", "end_arrow_width", ctx);
   }
 
   if (zigzagline->line_style != LINESTYLE_SOLID && 
       zigzagline->dashlength != DEFAULT_LINESTYLE_DASHLEN)
     data_add_real(new_attribute(obj_node, "dashlength"),
-                  zigzagline->dashlength);
+                  zigzagline->dashlength, ctx);
 
   if (zigzagline->corner_radius > 0.0)
     data_add_real(new_attribute(obj_node, "corner_radius"),
-                  zigzagline->corner_radius);
+                  zigzagline->corner_radius, ctx);
 }
 
 static DiaObject *

@@ -429,7 +429,7 @@ polyconn_save(PolyConn *poly, ObjectNode obj_node, DiaContext *ctx)
   attr = new_attribute(obj_node, "poly_points");
   
   for (i=0;i<poly->numpoints;i++) {
-    data_add_point(attr, &poly->points[i]);
+    data_add_point(attr, &poly->points[i], ctx);
   }
 }
 

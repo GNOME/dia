@@ -339,31 +339,40 @@ persistence_load()
 }
 
 /* *********************** SAVING FUNCTIONS *********************** */
+typedef struct
+{
+  xmlNodePtr  tree;
+  DiaContext *ctx;
+} PersitenceUserData;
 
 /* Save the position of a window  */
 static void
 persistence_save_window(gpointer key, gpointer value, gpointer data)
-{  
-  xmlNodePtr tree = (xmlNodePtr)data;
+{
+  PersitenceUserData *ud = (PersitenceUserData *)data;
+  xmlNodePtr tree = ud->tree;
+  DiaContext *ctx = ud->ctx;
   PersistentWindow *window_pos = (PersistentWindow *)value;
   ObjectNode window;
 
   window = (ObjectNode)xmlNewChild(tree, NULL, (const xmlChar *)"window", NULL);
   
   xmlSetProp(window, (const xmlChar *)"role", (xmlChar *) key);
-  data_add_int(new_attribute(window, "xpos"), window_pos->x);
-  data_add_int(new_attribute(window, "ypos"), window_pos->y);
-  data_add_int(new_attribute(window, "width"), window_pos->width);
-  data_add_int(new_attribute(window, "height"), window_pos->height);
-  data_add_boolean(new_attribute(window, "isopen"), window_pos->isopen);
+  data_add_int(new_attribute(window, "xpos"), window_pos->x, ctx);
+  data_add_int(new_attribute(window, "ypos"), window_pos->y, ctx);
+  data_add_int(new_attribute(window, "width"), window_pos->width, ctx);
+  data_add_int(new_attribute(window, "height"), window_pos->height, ctx);
+  data_add_boolean(new_attribute(window, "isopen"), window_pos->isopen, ctx);
 
 }
 
 /* Save the contents of a string  */
 static void
 persistence_save_list(gpointer key, gpointer value, gpointer data)
-{  
-  xmlNodePtr tree = (xmlNodePtr)data;
+{
+  PersitenceUserData *ud = (PersitenceUserData *)data;
+  xmlNodePtr tree = ud->tree;
+  DiaContext *ctx = ud->ctx;
   ObjectNode listnode;
   GString *buf;
   GList *items;
@@ -380,76 +389,89 @@ persistence_save_list(gpointer key, gpointer value, gpointer data)
       g_string_append(buf, "\n");
   }
   
-  data_add_string(new_attribute(listnode, "listvalue"), buf->str);
+  data_add_string(new_attribute(listnode, "listvalue"), buf->str, ctx);
   g_string_free(buf, TRUE);
 }
 
 static void
 persistence_save_integer(gpointer key, gpointer value, gpointer data)
-{  
-  xmlNodePtr tree = (xmlNodePtr)data;
+{
+  PersitenceUserData *ud = (PersitenceUserData *)data;
+  xmlNodePtr tree = ud->tree;
+  DiaContext *ctx = ud->ctx;
   ObjectNode integernode;
 
   integernode = (ObjectNode)xmlNewChild(tree, NULL, (const xmlChar *)"integer", NULL);
 
   xmlSetProp(integernode, (const xmlChar *)"role", (xmlChar *)key);
-  data_add_int(new_attribute(integernode, "intvalue"), *(gint *)value);
+  data_add_int(new_attribute(integernode, "intvalue"), *(gint *)value, ctx);
 }
 
 static void
 persistence_save_real(gpointer key, gpointer value, gpointer data)
-{  
-  xmlNodePtr tree = (xmlNodePtr)data;
+{
+  PersitenceUserData *ud = (PersitenceUserData *)data;
+  xmlNodePtr tree = ud->tree;
+  DiaContext *ctx = ud->ctx;
   ObjectNode realnode;
 
   realnode = (ObjectNode)xmlNewChild(tree, NULL, (const xmlChar *)"real", NULL);
 
   xmlSetProp(realnode, (const xmlChar *)"role", (xmlChar *)key);
-  data_add_real(new_attribute(realnode, "realvalue"), *(real *)value);
+  data_add_real(new_attribute(realnode, "realvalue"), *(real *)value, ctx);
 }
 
 static void
 persistence_save_boolean(gpointer key, gpointer value, gpointer data)
-{  
-  xmlNodePtr tree = (xmlNodePtr)data;
+{
+  PersitenceUserData *ud = (PersitenceUserData *)data;
+  xmlNodePtr tree = ud->tree;
+  DiaContext *ctx = ud->ctx;
   ObjectNode booleannode;
 
   booleannode = (ObjectNode)xmlNewChild(tree, NULL, (const xmlChar *)"boolean", NULL);
 
   xmlSetProp(booleannode, (const xmlChar *)"role", (xmlChar *)key);
-  data_add_boolean(new_attribute(booleannode, "booleanvalue"), *(gboolean *)value);
+  data_add_boolean(new_attribute(booleannode, "booleanvalue"), *(gboolean *)value, ctx);
 }
 
 static void
 persistence_save_string(gpointer key, gpointer value, gpointer data)
-{  
-  xmlNodePtr tree = (xmlNodePtr)data;
+{
+  PersitenceUserData *ud = (PersitenceUserData *)data;
+  xmlNodePtr tree = ud->tree;
+  DiaContext *ctx = ud->ctx;
   ObjectNode stringnode;
 
   stringnode = (ObjectNode)xmlNewChild(tree, NULL, (const xmlChar *)"string", NULL);
 
   xmlSetProp(stringnode, (const xmlChar *)"role", (xmlChar *)key);
-  data_add_string(new_attribute(stringnode, "stringvalue"), (gchar *)value);
+  data_add_string(new_attribute(stringnode, "stringvalue"), (gchar *)value, ctx);
 }
 
 static void
 persistence_save_color(gpointer key, gpointer value, gpointer data)
-{  
-  xmlNodePtr tree = (xmlNodePtr)data;
+{
+  PersitenceUserData *ud = (PersitenceUserData *)data;
+  xmlNodePtr tree = ud->tree;
+  DiaContext *ctx = ud->ctx;
   ObjectNode colornode;
 
   colornode = (ObjectNode)xmlNewChild(tree, NULL, (const xmlChar *)"color", NULL);
 
   xmlSetProp(colornode, (const xmlChar *)"role", (xmlChar *)key);
-  data_add_color(new_attribute(colornode, "colorvalue"), (Color *)value);
+  data_add_color(new_attribute(colornode, "colorvalue"), (Color *)value, ctx);
 }
 
-
 static void
-persistence_save_type(xmlDocPtr doc, GHashTable *entries, GHFunc func)
+persistence_save_type(xmlDocPtr doc, DiaContext *ctx, GHashTable *entries, GHFunc func)
 {
+  PersitenceUserData ud;
+  ud.tree = doc->xmlRootNode;
+  ud.ctx = ctx;
+
   if (entries != NULL && g_hash_table_size(entries) != 0) {
-    g_hash_table_foreach(entries, func, doc->xmlRootNode);
+    g_hash_table_foreach(entries, func, &ud);
   }
 }
 
@@ -459,8 +481,10 @@ persistence_save()
 {
   xmlDocPtr doc;
   xmlNs *name_space;
+  DiaContext *ctx;
   gchar *filename = dia_config_filename("persistence");
 
+  ctx = dia_context_new ("Persistence");
   doc = xmlNewDoc((const xmlChar *)"1.0");
   doc->encoding = xmlStrdup((const xmlChar *)"UTF-8");
   doc->xmlRootNode = xmlNewDocNode(doc, NULL, (const xmlChar *)"persistence", NULL);
@@ -470,18 +494,19 @@ persistence_save()
 			(const xmlChar *)"dia");
   xmlSetNs(doc->xmlRootNode, name_space);
 
-  persistence_save_type(doc, persistent_windows, persistence_save_window);
-  persistence_save_type(doc, persistent_entrystrings, persistence_save_string);
-  persistence_save_type(doc, persistent_lists, persistence_save_list);
-  persistence_save_type(doc, persistent_integers, persistence_save_integer);
-  persistence_save_type(doc, persistent_reals, persistence_save_real);
-  persistence_save_type(doc, persistent_booleans, persistence_save_boolean);
-  persistence_save_type(doc, persistent_strings, persistence_save_string);
-  persistence_save_type(doc, persistent_colors, persistence_save_color);
+  persistence_save_type(doc, ctx, persistent_windows, persistence_save_window);
+  persistence_save_type(doc, ctx, persistent_entrystrings, persistence_save_string);
+  persistence_save_type(doc, ctx, persistent_lists, persistence_save_list);
+  persistence_save_type(doc, ctx, persistent_integers, persistence_save_integer);
+  persistence_save_type(doc, ctx, persistent_reals, persistence_save_real);
+  persistence_save_type(doc, ctx, persistent_booleans, persistence_save_boolean);
+  persistence_save_type(doc, ctx, persistent_strings, persistence_save_string);
+  persistence_save_type(doc, ctx, persistent_colors, persistence_save_color);
 
   xmlDiaSaveFile(filename, doc);
   g_free(filename);
   xmlFreeDoc(doc);
+  dia_context_release (ctx);
 }
 
 /* *********************** USAGE FUNCTIONS *********************** */

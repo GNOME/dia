@@ -531,25 +531,25 @@ relationship_save(Relationship *relationship, ObjectNode obj_node,
   element_save(&relationship->element, obj_node, ctx);
 
   data_add_real(new_attribute(obj_node, "border_width"),
-		relationship->border_width);
+		relationship->border_width, ctx);
   data_add_color(new_attribute(obj_node, "border_color"),
-		 &relationship->border_color);
+		 &relationship->border_color, ctx);
   data_add_color(new_attribute(obj_node, "inner_color"),
-		 &relationship->inner_color);
+		 &relationship->inner_color, ctx);
   data_add_string(new_attribute(obj_node, "name"),
-		  relationship->name);
+		  relationship->name, ctx);
   data_add_string(new_attribute(obj_node, "left_card"),
-		  relationship->left_cardinality);
+		  relationship->left_cardinality, ctx);
   data_add_string(new_attribute(obj_node, "right_card"),
-		  relationship->right_cardinality);
+		  relationship->right_cardinality, ctx);
   data_add_boolean(new_attribute(obj_node, "identifying"),
-		   relationship->identifying);
+		   relationship->identifying, ctx);
   data_add_boolean(new_attribute(obj_node, "rotated"),
-		   relationship->rotate);
+		   relationship->rotate, ctx);
   data_add_font (new_attribute (obj_node, "font"),
-		 relationship->font);
+		 relationship->font, ctx);
   data_add_real(new_attribute(obj_node, "font_height"),
-  		relationship->font_height);
+  		relationship->font_height, ctx);
 }
 
 static DiaObject *

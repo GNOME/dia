@@ -349,35 +349,35 @@ polygon_save(Polygon *polygon, ObjectNode obj_node,
 
   if (!color_equals(&polygon->line_color, &color_black))
     data_add_color(new_attribute(obj_node, "line_color"),
-		   &polygon->line_color);
-  
+		   &polygon->line_color, ctx);
+
   if (polygon->line_width != 0.1)
     data_add_real(new_attribute(obj_node, PROP_STDNAME_LINE_WIDTH),
-		  polygon->line_width);
-  
+		  polygon->line_width, ctx);
+
   if (!color_equals(&polygon->inner_color, &color_white))
     data_add_color(new_attribute(obj_node, "inner_color"),
-		   &polygon->inner_color);
-  
+		   &polygon->inner_color, ctx);
+
   data_add_boolean(new_attribute(obj_node, "show_background"),
-		   polygon->show_background);
+		   polygon->show_background, ctx);
 
   if (polygon->line_style != LINESTYLE_SOLID)
     data_add_enum(new_attribute(obj_node, "line_style"),
-		  polygon->line_style);
+		  polygon->line_style, ctx);
 
   if (polygon->line_style != LINESTYLE_SOLID &&
       polygon->dashlength != DEFAULT_LINESTYLE_DASHLEN)
     data_add_real(new_attribute(obj_node, "dashlength"),
-		  polygon->dashlength);
-  
+		  polygon->dashlength, ctx);
+
   if (polygon->line_join != LINEJOIN_MITER)
     data_add_enum(new_attribute(obj_node, "line_join"),
-                  polygon->line_join);
+                  polygon->line_join, ctx);
 
   if (polygon->pattern)
     data_add_pattern(new_attribute(obj_node, "pattern"),
-		     polygon->pattern);
+		     polygon->pattern, ctx);
 }
 
 static DiaObject *

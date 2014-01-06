@@ -630,12 +630,12 @@ bus_save(Bus *bus, ObjectNode obj_node, DiaContext *ctx)
 
   connection_save(&bus->connection, obj_node, ctx);
   
-  data_add_color( new_attribute(obj_node, "line_color"), &bus->line_color);
+  data_add_color( new_attribute(obj_node, "line_color"), &bus->line_color, ctx);
 
   attr = new_attribute(obj_node, "bus_handles");
   
   for (i=0;i<bus->num_handles;i++) {
-    data_add_point(attr, &bus->handles[i]->pos);
+    data_add_point(attr, &bus->handles[i]->pos, ctx);
   }
 }
 

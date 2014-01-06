@@ -183,9 +183,9 @@ connpointline_load(DiaObject *obj,ObjectNode obj_node,
 
 void 
 connpointline_save(ConnPointLine *cpl,ObjectNode obj_node,
-		   const gchar *name)
+		   const gchar *name, DiaContext *ctx)
 {
-  data_add_int(new_attribute(obj_node, name),cpl->num_connections);
+  data_add_int(new_attribute(obj_node, name),cpl->num_connections, ctx);
 }
 
 ConnPointLine *

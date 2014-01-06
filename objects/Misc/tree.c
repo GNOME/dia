@@ -622,12 +622,12 @@ tree_save(Tree *tree, ObjectNode obj_node, DiaContext *ctx)
 
   connection_save(&tree->connection, obj_node, ctx);
   
-  data_add_color( new_attribute(obj_node, "line_color"), &tree->line_color);
+  data_add_color( new_attribute(obj_node, "line_color"), &tree->line_color, ctx);
 
   attr = new_attribute(obj_node, "tree_handles");
   
   for (i=0;i<tree->num_handles;i++) {
-    data_add_point(attr, &tree->handles[i]->pos);
+    data_add_point(attr, &tree->handles[i]->pos, ctx);
   }
 }
 

@@ -90,16 +90,17 @@ uml_formalparameter_destroy(UMLFormalParameter *param)
 }
 
 void
-uml_formalparameter_write(AttributeNode attr_node, UMLFormalParameter *param)
+uml_formalparameter_write(AttributeNode attr_node, UMLFormalParameter *param,
+			  DiaContext *ctx)
 {
   DataNode composite;
 
-  composite = data_add_composite(attr_node, "umlformalparameter");
+  composite = data_add_composite(attr_node, "umlformalparameter", ctx);
 
   data_add_string(composite_add_attribute(composite, "name"),
-		  param->name);
+		  param->name, ctx);
   data_add_string(composite_add_attribute(composite, "type"),
-		  param->type);
+		  param->type, ctx);
 }
 
 char *

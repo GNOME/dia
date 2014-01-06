@@ -676,38 +676,38 @@ box_save(Box *box, ObjectNode obj_node, DiaContext *ctx)
 
   if (box->border_width != 0.1)
     data_add_real(new_attribute(obj_node, "border_width"),
-		  box->border_width);
+		  box->border_width, ctx);
   
   if (!color_equals(&box->border_color, &color_black))
     data_add_color(new_attribute(obj_node, "border_color"),
-		   &box->border_color);
+		   &box->border_color, ctx);
    
   if (!color_equals(&box->inner_color, &color_white))
     data_add_color(new_attribute(obj_node, "inner_color"),
-		   &box->inner_color);
+		   &box->inner_color, ctx);
   
   data_add_boolean(new_attribute(obj_node, "show_background"), 
-                   box->show_background);
+                   box->show_background, ctx);
 
   if (box->line_style != LINESTYLE_SOLID)
     data_add_enum(new_attribute(obj_node, "line_style"),
-		  box->line_style);
+		  box->line_style, ctx);
   
   if (box->line_style != LINESTYLE_SOLID &&
       box->dashlength != DEFAULT_LINESTYLE_DASHLEN)
     data_add_real(new_attribute(obj_node, "dashlength"),
-                  box->dashlength);
+                  box->dashlength, ctx);
   if (box->corner_radius > 0.0)
     data_add_real(new_attribute(obj_node, "corner_radius"),
-		  box->corner_radius);
+		  box->corner_radius, ctx);
 
-  data_add_real(new_attribute(obj_node, "padding"), box->padding);
-  
-  data_add_text(new_attribute(obj_node, "text"), box->text);
+  data_add_real(new_attribute(obj_node, "padding"), box->padding, ctx);
+
+  data_add_text(new_attribute(obj_node, "text"), box->text, ctx);
 
   if (box->text_fitting != TEXTFIT_WHEN_NEEDED)
     data_add_enum(new_attribute(obj_node, PROP_STDNAME_TEXT_FITTING),
-		  box->text_fitting);
+		  box->text_fitting, ctx);
 }
 
 static DiaObject *

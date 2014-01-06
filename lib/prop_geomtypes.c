@@ -109,9 +109,9 @@ realprop_load(RealProperty *prop, AttributeNode attr, DataNode data, DiaContext 
 }
 
 static void 
-realprop_save(RealProperty *prop, AttributeNode attr) 
+realprop_save(RealProperty *prop, AttributeNode attr, DiaContext *ctx) 
 {
-  data_add_real(attr, prop->real_data);
+  data_add_real(attr, prop->real_data, ctx);
 }
 
 static void 
@@ -222,9 +222,9 @@ lengthprop_load(LengthProperty *prop, AttributeNode attr, DataNode data, DiaCont
 }
 
 static void 
-lengthprop_save(LengthProperty *prop, AttributeNode attr) 
+lengthprop_save(LengthProperty *prop, AttributeNode attr, DiaContext *ctx) 
 {
-  data_add_real(attr, prop->length_data);
+  data_add_real(attr, prop->length_data, ctx);
 }
 
 static void 
@@ -329,9 +329,9 @@ fontsizeprop_load(FontsizeProperty *prop, AttributeNode attr, DataNode data, Dia
 }
 
 static void 
-fontsizeprop_save(FontsizeProperty *prop, AttributeNode attr) 
+fontsizeprop_save(FontsizeProperty *prop, AttributeNode attr, DiaContext *ctx) 
 {
-  data_add_real(attr, prop->fontsize_data);
+  data_add_real(attr, prop->fontsize_data, ctx);
 }
 
 static void 
@@ -423,9 +423,9 @@ pointprop_load(PointProperty *prop, AttributeNode attr, DataNode data, DiaContex
 }
 
 static void 
-pointprop_save(PointProperty *prop, AttributeNode attr) 
+pointprop_save(PointProperty *prop, AttributeNode attr, DiaContext *ctx) 
 {
-  data_add_point(attr, &prop->point_data);
+  data_add_point(attr, &prop->point_data, ctx);
 }
 
 static void 
@@ -507,11 +507,11 @@ pointarrayprop_load(PointarrayProperty *prop, AttributeNode attr, DataNode data,
 }
 
 static void 
-pointarrayprop_save(PointarrayProperty *prop, AttributeNode attr) 
+pointarrayprop_save(PointarrayProperty *prop, AttributeNode attr, DiaContext *ctx) 
 {
   guint i;
   for (i = 0; i < prop->pointarray_data->len; i++)
-    data_add_point(attr, &g_array_index(prop->pointarray_data,Point,i));
+    data_add_point(attr, &g_array_index(prop->pointarray_data,Point,i), ctx);
 }
 
 static void 
@@ -587,9 +587,9 @@ bezpointprop_load(BezPointProperty *prop, AttributeNode attr, DataNode data, Dia
 }
 
 static void 
-bezpointprop_save(BezPointProperty *prop, AttributeNode attr) 
+bezpointprop_save(BezPointProperty *prop, AttributeNode attr, DiaContext *ctx) 
 {
-  data_add_bezpoint(attr, &prop->bezpoint_data);
+  data_add_bezpoint(attr, &prop->bezpoint_data, ctx);
 }
 
 static void 
@@ -675,12 +675,12 @@ bezpointarrayprop_load(BezPointarrayProperty *prop,
 }
 
 static void 
-bezpointarrayprop_save(BezPointarrayProperty *prop, AttributeNode attr) 
+bezpointarrayprop_save(BezPointarrayProperty *prop, AttributeNode attr, DiaContext *ctx) 
 {
   guint i;
   for (i = 0; i < prop->bezpointarray_data->len; i++)
     data_add_bezpoint(attr, 
-                      &g_array_index(prop->bezpointarray_data,BezPoint,i));
+                      &g_array_index(prop->bezpointarray_data,BezPoint,i), ctx);
 }
 
 static void 
@@ -755,9 +755,9 @@ rectprop_load(RectProperty *prop, AttributeNode attr, DataNode data, DiaContext 
 }
 
 static void 
-rectprop_save(RectProperty *prop, AttributeNode attr) 
+rectprop_save(RectProperty *prop, AttributeNode attr, DiaContext *ctx) 
 {
-  data_add_rectangle(attr, &prop->rect_data);
+  data_add_rectangle(attr, &prop->rect_data, ctx);
 }
 
 static void 
@@ -825,10 +825,10 @@ endpointsprop_load(EndpointsProperty *prop, AttributeNode attr, DataNode data, D
 }
 
 static void 
-endpointsprop_save(EndpointsProperty *prop, AttributeNode attr) 
+endpointsprop_save(EndpointsProperty *prop, AttributeNode attr, DiaContext *ctx) 
 {
-  data_add_point(attr, &prop->endpoints_data[0]);
-  data_add_point(attr, &prop->endpoints_data[1]);
+  data_add_point(attr, &prop->endpoints_data[0], ctx);
+  data_add_point(attr, &prop->endpoints_data[1], ctx);
 }
 
 static void 
@@ -897,9 +897,9 @@ connpoint_lineprop_load(Connpoint_LineProperty *prop, AttributeNode attr,
 }
 
 static void 
-connpoint_lineprop_save(Connpoint_LineProperty *prop, AttributeNode attr) 
+connpoint_lineprop_save(Connpoint_LineProperty *prop, AttributeNode attr, DiaContext *ctx) 
 {
-  data_add_int(attr, prop->connpoint_line_data);
+  data_add_int(attr, prop->connpoint_line_data, ctx);
 }
 
 static void 

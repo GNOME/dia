@@ -45,7 +45,7 @@ WIDGET *noopprop_get_widget(NoopProperty *prop, PropDialog *dialog);
 void noopprop_reset_widget(NoopProperty *prop, WIDGET *widget);
 void noopprop_set_from_widget(NoopProperty *prop, WIDGET *widget);
 void noopprop_load(NoopProperty *prop, AttributeNode attr, DataNode data, DiaContext *ctx);
-void noopprop_save(NoopProperty *prop, AttributeNode attr);
+void noopprop_save(NoopProperty *prop, AttributeNode attr, DiaContext *ctx);
 gboolean noopprop_can_merge(const PropDescription *pd1, 
                             const PropDescription *pd2);
 gboolean noopprop_cannot_merge(const PropDescription *pd1, 
@@ -68,7 +68,7 @@ void invalidprop_reset_widget(InvalidProperty *prop, WIDGET *widget);
 void invalidprop_set_from_widget(InvalidProperty *prop, WIDGET *widget);
 void invalidprop_load(InvalidProperty *prop, AttributeNode attr, 
                       DataNode data, DiaContext *ctx);
-void invalidprop_save(InvalidProperty *prop, AttributeNode attr);
+void invalidprop_save(InvalidProperty *prop, AttributeNode attr, DiaContext *ctx);
 gboolean invalidprop_can_merge(const PropDescription *pd1, 
                                const PropDescription *pd2);
 void invalidprop_get_from_offset(const InvalidProperty *prop,
@@ -91,7 +91,7 @@ void unimplementedprop_set_from_widget(UnimplementedProperty *prop,
                                        WIDGET *widget);
 void unimplementedprop_load(UnimplementedProperty *prop, 
                             AttributeNode attr, DataNode data, DiaContext *ctx); 
-void unimplementedprop_save(UnimplementedProperty *prop, AttributeNode attr);
+void unimplementedprop_save(UnimplementedProperty *prop, AttributeNode attr, DiaContext *ctx);
 gboolean unimplementedprop_can_merge(const PropDescription *pd1, 
                                      const PropDescription *pd2);
 void unimplementedprop_get_from_offset(const UnimplementedProperty *prop,

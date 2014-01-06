@@ -469,48 +469,48 @@ polyline_save(Polyline *polyline, ObjectNode obj_node,
 
   if (!color_equals(&polyline->line_color, &color_black))
     data_add_color(new_attribute(obj_node, "line_color"),
-		   &polyline->line_color);
-  
+		   &polyline->line_color, ctx);
+
   if (polyline->line_width != 0.1)
     data_add_real(new_attribute(obj_node, PROP_STDNAME_LINE_WIDTH),
-		  polyline->line_width);
+		  polyline->line_width, ctx);
   
   if (polyline->line_style != LINESTYLE_SOLID)
     data_add_enum(new_attribute(obj_node, "line_style"),
-		  polyline->line_style);
+		  polyline->line_style, ctx);
 
   if (polyline->line_style != LINESTYLE_SOLID &&
       polyline->dashlength != DEFAULT_LINESTYLE_DASHLEN)
     data_add_real(new_attribute(obj_node, "dashlength"),
-		  polyline->dashlength);
+		  polyline->dashlength, ctx);
 
   if (polyline->line_join != LINEJOIN_MITER)
     data_add_enum(new_attribute(obj_node, "line_join"),
-                  polyline->line_join);
+                  polyline->line_join, ctx);
   if (polyline->line_caps != LINECAPS_BUTT)
     data_add_enum(new_attribute(obj_node, "line_caps"),
-                  polyline->line_caps);
+                  polyline->line_caps, ctx);
 
   if (polyline->start_arrow.type != ARROW_NONE) {
     save_arrow(obj_node, &polyline->start_arrow, "start_arrow",
-	     "start_arrow_length", "start_arrow_width");
+	     "start_arrow_length", "start_arrow_width", ctx);
   }
 
   if (polyline->end_arrow.type != ARROW_NONE) {
     save_arrow(obj_node, &polyline->end_arrow, "end_arrow",
-	     "end_arrow_length", "end_arrow_width");
+	     "end_arrow_length", "end_arrow_width", ctx);
   }
 
   if (polyline->absolute_start_gap)
     data_add_real(new_attribute(obj_node, "absolute_start_gap"),
-                 polyline->absolute_start_gap);
+                 polyline->absolute_start_gap, ctx);
   if (polyline->absolute_end_gap)
     data_add_real(new_attribute(obj_node, "absolute_end_gap"),
-                 polyline->absolute_end_gap);
+                 polyline->absolute_end_gap, ctx);
 
   if (polyline->corner_radius > 0.0)
     data_add_real(new_attribute(obj_node, "corner_radius"),
-                  polyline->corner_radius);
+                  polyline->corner_radius, ctx);
 }
 
 static DiaObject *

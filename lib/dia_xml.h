@@ -86,31 +86,32 @@ DiaFont *data_font(DataNode data, DiaContext *ctx);
 AttributeNode new_attribute(ObjectNode obj_node, const char *attrname);
 AttributeNode composite_add_attribute(DataNode composite_node,
 				      const char *attrname);
-void data_add_int(AttributeNode attr, int data);
-void data_add_enum(AttributeNode attr, int data);
-void data_add_real(AttributeNode attr, real data);
-void data_add_boolean(AttributeNode attr, int data);
-void data_add_color(AttributeNode attr, const Color *col);
-void data_add_point(AttributeNode attr, const Point *point);
-void data_add_bezpoint(AttributeNode attr, const BezPoint *point);
-void data_add_rectangle(AttributeNode attr, const Rectangle *rect);
-void data_add_string(AttributeNode attr, const char *str);
-void data_add_filename(AttributeNode attr, const char *str);
-void data_add_font(AttributeNode attr, const DiaFont *font);
+void data_add_int(AttributeNode attr, int data, DiaContext *ctx);
+void data_add_enum(AttributeNode attr, int data, DiaContext *ctx);
+void data_add_real(AttributeNode attr, real data, DiaContext *ctx);
+void data_add_boolean(AttributeNode attr, int data, DiaContext *ctx);
+void data_add_color(AttributeNode attr, const Color *col, DiaContext *ctx);
+void data_add_point(AttributeNode attr, const Point *point, DiaContext *ctx);
+void data_add_bezpoint(AttributeNode attr, const BezPoint *point, DiaContext *ctx);
+void data_add_rectangle(AttributeNode attr, const Rectangle *rect, DiaContext *ctx);
+void data_add_string(AttributeNode attr, const char *str, DiaContext *ctx);
+void data_add_filename(AttributeNode attr, const char *str, DiaContext *ctx);
+void data_add_font(AttributeNode attr, const DiaFont *font, DiaContext *ctx);
 DataNode data_add_composite(AttributeNode attr, 
-                            const char *type); /* can be NULL */
+			    const char *type, /* can be NULL */
+			    DiaContext *ctx);
 
 GHashTable *data_dict (DataNode data, DiaContext *ctx);
-void data_add_dict (AttributeNode attr, GHashTable *data);
+void data_add_dict (AttributeNode attr, GHashTable *data, DiaContext *ctx);
 
-GdkPixbuf *data_pixbuf (DataNode data);
-void data_add_pixbuf (AttributeNode attr, GdkPixbuf *pixbuf);
+GdkPixbuf *data_pixbuf (DataNode data, DiaContext *ctx);
+void data_add_pixbuf (AttributeNode attr, GdkPixbuf *pixbuf, DiaContext *ctx);
 
 DiaMatrix *data_matrix(DataNode data);
-void data_add_matrix(AttributeNode attr, DiaMatrix *matrix);
+void data_add_matrix(AttributeNode attr, DiaMatrix *matrix, DiaContext *ctx);
 
 DiaPattern *data_pattern(DataNode data, DiaContext *ctx);
-void data_add_pattern(AttributeNode attr, DiaPattern *pat);
+void data_add_pattern(AttributeNode attr, DiaPattern *pat, DiaContext *ctx);
 
 xmlDocPtr diaXmlParseFile(const char *filename, DiaContext *ctx, gboolean try_harder);
 

@@ -539,9 +539,9 @@ orthflow_save(Orthflow *orthflow, ObjectNode obj_node, DiaContext *ctx)
   orthconn_save(&orthflow->orth, obj_node, ctx);
 
   data_add_text(new_attribute(obj_node, "text"),
-		orthflow->text) ;
+		orthflow->text, ctx) ;
   data_add_int(new_attribute(obj_node, "type"),
-	       orthflow->type);
+	       orthflow->type, ctx);
 }
 
 static DiaObject *

@@ -539,34 +539,35 @@ ellipse_save(Ellipse *ellipse, ObjectNode obj_node, DiaContext *ctx)
 
   if (ellipse->border_width != 0.1)
     data_add_real(new_attribute(obj_node, "border_width"),
-		  ellipse->border_width);
+		  ellipse->border_width, ctx);
   
   if (!color_equals(&ellipse->border_color, &color_black))
     data_add_color(new_attribute(obj_node, "border_color"),
-		   &ellipse->border_color);
+		   &ellipse->border_color, ctx);
   
   if (!color_equals(&ellipse->inner_color, &color_white))
     data_add_color(new_attribute(obj_node, "inner_color"),
-		   &ellipse->inner_color);
+		   &ellipse->inner_color, ctx);
   
-  data_add_boolean(new_attribute(obj_node, "show_background"), ellipse->show_background);
+  data_add_boolean(new_attribute(obj_node, "show_background"),
+		   ellipse->show_background, ctx);
 
   if (ellipse->line_style != LINESTYLE_SOLID)
     data_add_enum(new_attribute(obj_node, "line_style"),
-		  ellipse->line_style);
+		  ellipse->line_style, ctx);
 
   if (ellipse->line_style != LINESTYLE_SOLID &&
       ellipse->dashlength != DEFAULT_LINESTYLE_DASHLEN)
     data_add_real(new_attribute(obj_node, "dashlength"),
-                  ellipse->dashlength);
+                  ellipse->dashlength, ctx);
 
-  data_add_real(new_attribute(obj_node, "padding"), ellipse->padding);
+  data_add_real(new_attribute(obj_node, "padding"), ellipse->padding, ctx);
 
-  data_add_text(new_attribute(obj_node, "text"), ellipse->text);
+  data_add_text(new_attribute(obj_node, "text"), ellipse->text, ctx);
 
   if (ellipse->text_fitting != TEXTFIT_WHEN_NEEDED)
     data_add_enum(new_attribute(obj_node, PROP_STDNAME_TEXT_FITTING),
-		  ellipse->text_fitting);
+		  ellipse->text_fitting, ctx);
 }
 
 static DiaObject *

@@ -2147,72 +2147,72 @@ umlclass_save(UMLClass *umlclass, ObjectNode obj_node,
 
   /* Class info: */
   data_add_string(new_attribute(obj_node, "name"),
-		  umlclass->name);
+		  umlclass->name, ctx);
   data_add_string(new_attribute(obj_node, "stereotype"),
-		  umlclass->stereotype);
+		  umlclass->stereotype, ctx);
   data_add_string(new_attribute(obj_node, "comment"),
-                  umlclass->comment);
+                  umlclass->comment, ctx);
   data_add_boolean(new_attribute(obj_node, "abstract"),
-		   umlclass->abstract);
+		   umlclass->abstract, ctx);
   data_add_boolean(new_attribute(obj_node, "suppress_attributes"),
-		   umlclass->suppress_attributes);
+		   umlclass->suppress_attributes, ctx);
   data_add_boolean(new_attribute(obj_node, "suppress_operations"),
-		   umlclass->suppress_operations);
+		   umlclass->suppress_operations, ctx);
   data_add_boolean(new_attribute(obj_node, "visible_attributes"),
-		   umlclass->visible_attributes);
+		   umlclass->visible_attributes, ctx);
   data_add_boolean(new_attribute(obj_node, "visible_operations"),
-		   umlclass->visible_operations);
+		   umlclass->visible_operations, ctx);
   data_add_boolean(new_attribute(obj_node, "visible_comments"),
-		   umlclass->visible_comments);
+		   umlclass->visible_comments, ctx);
   data_add_boolean(new_attribute(obj_node, "wrap_operations"),
-		   umlclass->wrap_operations);
+		   umlclass->wrap_operations, ctx);
   data_add_int(new_attribute(obj_node, "wrap_after_char"),
-		   umlclass->wrap_after_char);
+		   umlclass->wrap_after_char, ctx);
   data_add_int(new_attribute(obj_node, "comment_line_length"),
-                   umlclass->comment_line_length);
+                   umlclass->comment_line_length, ctx);
   data_add_boolean(new_attribute(obj_node, "comment_tagging"),
-                   umlclass->comment_tagging);
+                   umlclass->comment_tagging, ctx);
   data_add_boolean(new_attribute(obj_node, "allow_resizing"),
-                   umlclass->allow_resizing);
+                   umlclass->allow_resizing, ctx);
   data_add_real(new_attribute(obj_node, PROP_STDNAME_LINE_WIDTH), 
-		   umlclass->line_width);
+		   umlclass->line_width, ctx);
   data_add_color(new_attribute(obj_node, "line_color"), 
-		   &umlclass->line_color);
+		   &umlclass->line_color, ctx);
   data_add_color(new_attribute(obj_node, "fill_color"), 
-		   &umlclass->fill_color);
+		   &umlclass->fill_color, ctx);
   data_add_color(new_attribute(obj_node, "text_color"), 
-		   &umlclass->text_color);
+		   &umlclass->text_color, ctx);
   data_add_font (new_attribute (obj_node, "normal_font"),
-                 umlclass->normal_font);
+                 umlclass->normal_font, ctx);
   data_add_font (new_attribute (obj_node, "abstract_font"),
-                 umlclass->abstract_font);
+                 umlclass->abstract_font, ctx);
   data_add_font (new_attribute (obj_node, "polymorphic_font"),
-                 umlclass->polymorphic_font);
+                 umlclass->polymorphic_font, ctx);
   data_add_font (new_attribute (obj_node, "classname_font"),
-                 umlclass->classname_font);
+                 umlclass->classname_font, ctx);
   data_add_font (new_attribute (obj_node, "abstract_classname_font"),
-                 umlclass->abstract_classname_font);
+                 umlclass->abstract_classname_font, ctx);
   data_add_font (new_attribute (obj_node, "comment_font"),
-                 umlclass->comment_font);
+                 umlclass->comment_font, ctx);
   data_add_real (new_attribute (obj_node, "normal_font_height"),
-                 umlclass->font_height);
+                 umlclass->font_height, ctx);
   data_add_real (new_attribute (obj_node, "polymorphic_font_height"),
-                 umlclass->polymorphic_font_height);
+                 umlclass->polymorphic_font_height, ctx);
   data_add_real (new_attribute (obj_node, "abstract_font_height"),
-                 umlclass->abstract_font_height);
+                 umlclass->abstract_font_height, ctx);
   data_add_real (new_attribute (obj_node, "classname_font_height"),
-                 umlclass->classname_font_height);
+                 umlclass->classname_font_height, ctx);
   data_add_real (new_attribute (obj_node, "abstract_classname_font_height"),
-                 umlclass->abstract_classname_font_height);
+                 umlclass->abstract_classname_font_height, ctx);
   data_add_real (new_attribute (obj_node, "comment_font_height"),
-                 umlclass->comment_font_height);
+                 umlclass->comment_font_height, ctx);
 
   /* Attribute info: */
   attr_node = new_attribute(obj_node, "attributes");
   list = umlclass->attributes;
   while (list != NULL) {
     attr = (UMLAttribute *) list->data;
-    uml_attribute_write(attr_node, attr);
+    uml_attribute_write(attr_node, attr, ctx);
     list = g_list_next(list);
   }
   
@@ -2221,19 +2221,19 @@ umlclass_save(UMLClass *umlclass, ObjectNode obj_node,
   list = umlclass->operations;
   while (list != NULL) {
     op = (UMLOperation *) list->data;
-    uml_operation_write(attr_node, op);
+    uml_operation_write(attr_node, op, ctx);
     list = g_list_next(list);
   }
 
   /* Template info: */
   data_add_boolean(new_attribute(obj_node, "template"),
-		   umlclass->template);
+		   umlclass->template, ctx);
   
   attr_node = new_attribute(obj_node, "templates");
   list = umlclass->formal_params;
   while (list != NULL) {
     formal_param = (UMLFormalParameter *) list->data;
-    uml_formalparameter_write(attr_node, formal_param);
+    uml_formalparameter_write(attr_node, formal_param, ctx);
     list = g_list_next(list);
   }
 }

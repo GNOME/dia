@@ -524,13 +524,13 @@ function_save(Function *pkg, ObjectNode obj_node, DiaContext *ctx)
   element_save(&pkg->element, obj_node, ctx);
 
   data_add_text(new_attribute(obj_node, "text"),
-		pkg->text);
+		pkg->text, ctx);
 
   data_add_boolean(new_attribute(obj_node, "is_wish"),
-		   pkg->is_wish);
-  
+		   pkg->is_wish, ctx);
+
   data_add_boolean(new_attribute(obj_node, "is_user"),
-		   pkg->is_user);
+		   pkg->is_user, ctx);
 }
 
 static DiaObject *

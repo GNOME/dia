@@ -941,19 +941,19 @@ beziershape_save (BezierShape *bezier,
 
   attr = new_attribute(obj_node, "bez_points");
 
-  data_add_point(attr, &bezier->bezier.points[0].p1);
+  data_add_point(attr, &bezier->bezier.points[0].p1, ctx);
   for (i = 1; i < bezier->bezier.num_points; i++) {
     if (BEZ_MOVE_TO == bezier->bezier.points[i].type)
       g_warning("only first BezPoint can be a BEZ_MOVE_TO");
-    data_add_point(attr, &bezier->bezier.points[i].p1);
-    data_add_point(attr, &bezier->bezier.points[i].p2);
+    data_add_point(attr, &bezier->bezier.points[i].p1, ctx);
+    data_add_point(attr, &bezier->bezier.points[i].p2, ctx);
     if (i < bezier->bezier.num_points - 1)
-      data_add_point(attr, &bezier->bezier.points[i].p3);
+      data_add_point(attr, &bezier->bezier.points[i].p3, ctx);
   }
 
   attr = new_attribute(obj_node, "corner_types");
   for (i = 0; i < bezier->bezier.num_points; i++)
-    data_add_enum(attr, bezier->bezier.corner_types[i]);
+    data_add_enum(attr, bezier->bezier.corner_types[i], ctx);
 }
 
 /** Load a beziershape object from XML.

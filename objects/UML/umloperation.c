@@ -247,7 +247,7 @@ uml_operation_destroy(UMLOperation *op)
 }
 
 void
-uml_operation_write(AttributeNode attr_node, UMLOperation *op)
+uml_operation_write(AttributeNode attr_node, UMLOperation *op, DiaContext *ctx)
 {
   GList *list;
   UMLParameter *param;
@@ -255,27 +255,27 @@ uml_operation_write(AttributeNode attr_node, UMLOperation *op)
   DataNode composite2;
   AttributeNode attr_node2;
 
-  composite = data_add_composite(attr_node, "umloperation");
+  composite = data_add_composite(attr_node, "umloperation", ctx);
 
   data_add_string(composite_add_attribute(composite, "name"),
-		  op->name);
+		  op->name, ctx);
   data_add_string(composite_add_attribute(composite, "stereotype"),
-		  op->stereotype);
+		  op->stereotype, ctx);
   data_add_string(composite_add_attribute(composite, "type"),
-		  op->type);
+		  op->type, ctx);
   data_add_enum(composite_add_attribute(composite, "visibility"),
-		op->visibility);
+		op->visibility, ctx);
   data_add_string(composite_add_attribute(composite, "comment"),
-		  op->comment);
+		  op->comment, ctx);
   /* Backward compatibility */
   data_add_boolean(composite_add_attribute(composite, "abstract"),
-		   op->inheritance_type == UML_ABSTRACT);
+		   op->inheritance_type == UML_ABSTRACT, ctx);
   data_add_enum(composite_add_attribute(composite, "inheritance_type"),
-		op->inheritance_type);
+		op->inheritance_type, ctx);
   data_add_boolean(composite_add_attribute(composite, "query"),
-		   op->query);
+		   op->query, ctx);
   data_add_boolean(composite_add_attribute(composite, "class_scope"),
-		   op->class_scope);
+		   op->class_scope, ctx);
   
   attr_node2 = composite_add_attribute(composite, "parameters");
   
@@ -283,18 +283,18 @@ uml_operation_write(AttributeNode attr_node, UMLOperation *op)
   while (list != NULL) {
     param = (UMLParameter *) list->data;
 
-    composite2 = data_add_composite(attr_node2, "umlparameter");
+    composite2 = data_add_composite(attr_node2, "umlparameter", ctx);
 
     data_add_string(composite_add_attribute(composite2, "name"),
-		    param->name);
+		    param->name, ctx);
     data_add_string(composite_add_attribute(composite2, "type"),
-		    param->type);
+		    param->type, ctx);
     data_add_string(composite_add_attribute(composite2, "value"),
-		    param->value);
+		    param->value, ctx);
     data_add_string(composite_add_attribute(composite2, "comment"),
-		    param->comment);
+		    param->comment, ctx);
     data_add_enum(composite_add_attribute(composite2, "kind"),
-		  param->kind);
+		  param->kind, ctx);
     list = g_list_next(list);
   }
 }

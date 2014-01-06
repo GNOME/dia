@@ -352,7 +352,7 @@ participation_save(Participation *participation, ObjectNode obj_node,
   orthconn_save(&participation->orth, obj_node, ctx);
 
   data_add_boolean(new_attribute(obj_node, "total"),
-		   participation->total);
+		   participation->total, ctx);
 }
 
 static DiaObject *

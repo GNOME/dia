@@ -106,16 +106,10 @@ linestyleprop_load(LinestyleProperty *prop, AttributeNode attr, DataNode data, D
 }
 
 static void 
-linestyleprop_save(LinestyleProperty *prop, AttributeNode attr) 
+linestyleprop_save(LinestyleProperty *prop, AttributeNode attr, DiaContext *ctx) 
 {
-  data_add_enum(attr, prop->style);
-  data_add_real(attr, prop->dash);
-  /* for compatibility.  It makes more sense to link the two together */
-  /* 
-     data_add_real(new_attribute(attr->parent, "dashlength"),
-     prop->dash);
-
-     To hell with compatibility with very old dias ! -- CC */
+  data_add_enum(attr, prop->style, ctx);
+  data_add_real(attr, prop->dash, ctx);
 }
 
 static void 
@@ -221,19 +215,19 @@ arrowprop_load(ArrowProperty *prop, AttributeNode attr, DataNode data, DiaContex
 }
 
 static void 
-arrowprop_save(ArrowProperty *prop, AttributeNode attr) 
+arrowprop_save(ArrowProperty *prop, AttributeNode attr, DiaContext *ctx) 
 {
-  data_add_enum(attr, prop->arrow_data.type);
+  data_add_enum(attr, prop->arrow_data.type, ctx);
   if (prop->arrow_data.type != ARROW_NONE) {
     ObjectNode obj_node = attr->parent;
     gchar *str = g_strconcat(prop->common.descr->name, "_length", NULL);
     attr = new_attribute(obj_node, str);
     g_free(str);
-    data_add_real(attr, prop->arrow_data.length);
+    data_add_real(attr, prop->arrow_data.length, ctx);
     str = g_strconcat(prop->common.descr->name, "_width", NULL);
     attr = new_attribute(obj_node, str);
     g_free(str);
-    data_add_real(attr, prop->arrow_data.width);
+    data_add_real(attr, prop->arrow_data.width, ctx);
   }
 }
 
@@ -323,9 +317,9 @@ colorprop_load(ColorProperty *prop, AttributeNode attr, DataNode data, DiaContex
 }
 
 static void 
-colorprop_save(ColorProperty *prop, AttributeNode attr) 
+colorprop_save(ColorProperty *prop, AttributeNode attr, DiaContext *ctx) 
 {
-  data_add_color(attr,&prop->color_data);
+  data_add_color(attr,&prop->color_data, ctx);
 }
 
 static void 
@@ -436,9 +430,9 @@ fontprop_load(FontProperty *prop, AttributeNode attr, DataNode data, DiaContext 
 }
 
 static void 
-fontprop_save(FontProperty *prop, AttributeNode attr) 
+fontprop_save(FontProperty *prop, AttributeNode attr, DiaContext *ctx) 
 {
-  data_add_font(attr,prop->font_data);
+  data_add_font(attr,prop->font_data, ctx);
 }
 
 static void 

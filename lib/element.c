@@ -438,11 +438,11 @@ element_save(Element *elem, ObjectNode obj_node, DiaContext *ctx)
   object_save(&elem->object, obj_node, ctx);
 
   data_add_point(new_attribute(obj_node, "elem_corner"),
-		 &elem->corner);
+		 &elem->corner, ctx);
   data_add_real(new_attribute(obj_node, "elem_width"),
-		 elem->width);
+		 elem->width, ctx);
   data_add_real(new_attribute(obj_node, "elem_height"),
-		 elem->height);
+		 elem->height, ctx);
 }
 
 void 

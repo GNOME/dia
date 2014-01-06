@@ -2073,14 +2073,14 @@ sanitize_arrow(Arrow *arrow, DiaContext *ctx)
  */
 void
 save_arrow(ObjectNode obj_node, Arrow *arrow, gchar *type_attribute,
-	   gchar *length_attribute, gchar *width_attribute)
+	   gchar *length_attribute, gchar *width_attribute, DiaContext *ctx)
 {
   data_add_enum(new_attribute(obj_node, type_attribute),
-		arrow->type);
+		arrow->type, ctx);
   data_add_real(new_attribute(obj_node, length_attribute),
-		arrow->length);
+		arrow->length, ctx);
   data_add_real(new_attribute(obj_node, width_attribute),
-		arrow->width);
+		arrow->width, ctx);
 }
 
 /** Load arrow information from three attributes.

@@ -150,9 +150,9 @@ commonprop_load(Property *prop, AttributeNode attr, DataNode data, DiaContext *c
 }
 
 static void 
-commonprop_save(Property *prop, AttributeNode attr) 
+commonprop_save(Property *prop, AttributeNode attr, DiaContext *ctx) 
 {
-  prop->real_ops->save(prop,attr);
+  prop->real_ops->save(prop,attr,ctx);
   prop->experience |= PXP_SAVED;
 }
 
@@ -277,7 +277,7 @@ noopprop_load(NoopProperty *prop, AttributeNode attr, DataNode data, DiaContext 
 }
 
 void 
-noopprop_save(NoopProperty *prop, AttributeNode attr) 
+noopprop_save(NoopProperty *prop, AttributeNode attr, DiaContext *ctx) 
 {
 }
 
@@ -372,7 +372,7 @@ invalidprop_load(InvalidProperty *prop, AttributeNode attr, DataNode data, DiaCo
 }
 
 void 
-invalidprop_save(InvalidProperty *prop, AttributeNode attr)
+invalidprop_save(InvalidProperty *prop, AttributeNode attr, DiaContext *ctx)
 {
   g_assert_not_reached();
 }
@@ -467,7 +467,7 @@ unimplementedprop_load(UnimplementedProperty *prop,
 }
 
 void 
-unimplementedprop_save(UnimplementedProperty *prop, AttributeNode attr) 
+unimplementedprop_save(UnimplementedProperty *prop, AttributeNode attr, DiaContext *ctx) 
 {
   g_warning("%s: for property %s",G_STRFUNC,prop->common.descr->name); 
 }

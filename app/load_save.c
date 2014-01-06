@@ -867,62 +867,62 @@ diagram_data_write_doc(DiagramData *data, const char *filename, DiaContext *ctx)
   tree = xmlNewChild(doc->xmlRootNode, name_space, (const xmlChar *)"diagramdata", NULL);
   
   attr = new_attribute((ObjectNode)tree, "background");
-  data_add_color(attr, &data->bg_color);
+  data_add_color(attr, &data->bg_color, ctx);
 
   if (diagram) {
     attr = new_attribute((ObjectNode)tree, "pagebreak");
-    data_add_color(attr, &diagram->pagebreak_color);
+    data_add_color(attr, &diagram->pagebreak_color, ctx);
   }
   attr = new_attribute((ObjectNode)tree, "paper");
-  pageinfo = data_add_composite(attr, "paper");
+  pageinfo = data_add_composite(attr, "paper", ctx);
   data_add_string(composite_add_attribute(pageinfo, "name"),
-		  data->paper.name);
+		  data->paper.name, ctx);
   data_add_real(composite_add_attribute(pageinfo, "tmargin"),
-		data->paper.tmargin);
+		data->paper.tmargin, ctx);
   data_add_real(composite_add_attribute(pageinfo, "bmargin"),
-		data->paper.bmargin);
+		data->paper.bmargin, ctx);
   data_add_real(composite_add_attribute(pageinfo, "lmargin"),
-		data->paper.lmargin);
+		data->paper.lmargin, ctx);
   data_add_real(composite_add_attribute(pageinfo, "rmargin"),
-		data->paper.rmargin);
+		data->paper.rmargin, ctx);
   data_add_boolean(composite_add_attribute(pageinfo, "is_portrait"),
-		   data->paper.is_portrait);
+		   data->paper.is_portrait, ctx);
   data_add_real(composite_add_attribute(pageinfo, "scaling"),
-		data->paper.scaling);
+		data->paper.scaling, ctx);
   data_add_boolean(composite_add_attribute(pageinfo, "fitto"),
-		   data->paper.fitto);
+		   data->paper.fitto, ctx);
   if (data->paper.fitto) {
     data_add_int(composite_add_attribute(pageinfo, "fitwidth"),
-		 data->paper.fitwidth);
+		 data->paper.fitwidth, ctx);
     data_add_int(composite_add_attribute(pageinfo, "fitheight"),
-		 data->paper.fitheight);
+		 data->paper.fitheight, ctx);
   }
 
   if (diagram) {
     attr = new_attribute((ObjectNode)tree, "grid");
-    gridinfo = data_add_composite(attr, "grid");
+    gridinfo = data_add_composite(attr, "grid", ctx);
     data_add_boolean(composite_add_attribute(gridinfo, "dynamic"),
-          diagram->grid.dynamic);
+          diagram->grid.dynamic, ctx);
     data_add_real(composite_add_attribute(gridinfo, "width_x"),
-		  diagram->grid.width_x);
+		  diagram->grid.width_x, ctx);
     data_add_real(composite_add_attribute(gridinfo, "width_y"),
-		  diagram->grid.width_y);
+		  diagram->grid.width_y, ctx);
     data_add_int(composite_add_attribute(gridinfo, "visible_x"),
-	         diagram->grid.visible_x);
+	         diagram->grid.visible_x, ctx);
     data_add_int(composite_add_attribute(gridinfo, "visible_y"),
-	         diagram->grid.visible_y);
+	         diagram->grid.visible_y, ctx);
     attr = new_attribute((ObjectNode)tree, "color");
-    data_add_composite(gridinfo, "color");
-    data_add_color(attr, &diagram->grid.colour);
+    data_add_composite(gridinfo, "color", ctx);
+    data_add_color(attr, &diagram->grid.colour, ctx);
   
     attr = new_attribute((ObjectNode)tree, "guides");
-    guideinfo = data_add_composite(attr, "guides");
+    guideinfo = data_add_composite(attr, "guides", ctx);
     attr = composite_add_attribute(guideinfo, "hguides");
     for (i = 0; i < diagram->guides.nhguides; i++)
-      data_add_real(attr, diagram->guides.hguides[i]);
+      data_add_real(attr, diagram->guides.hguides[i], ctx);
     attr = composite_add_attribute(guideinfo, "vguides");
     for (i = 0; i < diagram->guides.nvguides; i++)
-      data_add_real(attr, diagram->guides.vguides[i]);
+      data_add_real(attr, diagram->guides.vguides[i], ctx);
 
     if (g_slist_length(diagram->displays) == 1) {
       xmlNodePtr dispinfo;
@@ -930,17 +930,17 @@ diagram_data_write_doc(DiagramData *data, const char *filename, DiaContext *ctx)
       DDisplay *ddisp = diagram->displays->data;
 
       attr = new_attribute((ObjectNode)tree, "display");
-      dispinfo = data_add_composite(attr, "display");
+      dispinfo = data_add_composite(attr, "display", ctx);
       data_add_boolean(composite_add_attribute(dispinfo, "antialiased"),
-                       ddisp->aa_renderer);
+                       ddisp->aa_renderer, ctx);
       data_add_boolean(composite_add_attribute(dispinfo, "snap-to-grid"),
-		       ddisp->grid.snap);
+		       ddisp->grid.snap, ctx);
       data_add_boolean(composite_add_attribute(dispinfo, "snap-to-object"),
-		       ddisp->mainpoint_magnetism);
+		       ddisp->mainpoint_magnetism, ctx);
       data_add_boolean(composite_add_attribute(dispinfo, "show-grid"),
-		       ddisp->grid.visible);
+		       ddisp->grid.visible, ctx);
       data_add_boolean(composite_add_attribute(dispinfo, "show-connection-points"),
-		       ddisp->show_cx_pts);
+		       ddisp->show_cx_pts, ctx);
     }
   }
 

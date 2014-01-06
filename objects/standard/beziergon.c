@@ -379,35 +379,35 @@ beziergon_save(Beziergon *beziergon, ObjectNode obj_node,
 
   if (!color_equals(&beziergon->line_color, &color_black))
     data_add_color(new_attribute(obj_node, "line_color"),
-		   &beziergon->line_color);
+		   &beziergon->line_color, ctx);
   
   if (beziergon->line_width != 0.1)
     data_add_real(new_attribute(obj_node, PROP_STDNAME_LINE_WIDTH),
-		  beziergon->line_width);
+		  beziergon->line_width, ctx);
   
   if (!color_equals(&beziergon->inner_color, &color_white))
     data_add_color(new_attribute(obj_node, "inner_color"),
-		   &beziergon->inner_color);
+		   &beziergon->inner_color, ctx);
   
   data_add_boolean(new_attribute(obj_node, "show_background"),
-		   beziergon->show_background);
+		   beziergon->show_background, ctx);
 
   if (beziergon->line_style != LINESTYLE_SOLID)
     data_add_enum(new_attribute(obj_node, "line_style"),
-		  beziergon->line_style);
+		  beziergon->line_style, ctx);
 
   if (beziergon->line_style != LINESTYLE_SOLID &&
       beziergon->dashlength != DEFAULT_LINESTYLE_DASHLEN)
     data_add_real(new_attribute(obj_node, "dashlength"),
-		  beziergon->dashlength);
+		  beziergon->dashlength, ctx);
   
   if (beziergon->line_join != LINEJOIN_MITER)
     data_add_enum(new_attribute(obj_node, "line_join"),
-                  beziergon->line_join);
+                  beziergon->line_join, ctx);
 
   if (beziergon->pattern)
     data_add_pattern(new_attribute(obj_node, "pattern"),
-		     beziergon->pattern);
+		     beziergon->pattern, ctx);
 }
 
 static DiaObject *

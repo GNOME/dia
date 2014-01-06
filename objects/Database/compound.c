@@ -507,13 +507,13 @@ compound_save (Compound *comp, ObjectNode obj_node, DiaContext *ctx)
   for (i = 0; i < obj->num_handles; i++)
     {
       Handle *h = obj->handles[i];
-      data_add_point (attr, &h->pos);
+      data_add_point (attr, &h->pos, ctx);
     }
 
   attr = new_attribute (obj_node, PROP_STDNAME_LINE_WIDTH);
-  data_add_real (attr, comp->line_width);
+  data_add_real (attr, comp->line_width, ctx);
   attr = new_attribute (obj_node, "line_color");
-  data_add_color (attr, &comp->line_color);
+  data_add_color (attr, &comp->line_color, ctx);
 }
 
 static void

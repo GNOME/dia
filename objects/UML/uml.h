@@ -150,9 +150,9 @@ extern UMLFormalParameter *uml_formalparameter_new(void);
 extern void uml_attribute_ensure_connection_points (UMLAttribute *attr, DiaObject* obj);
 extern void uml_operation_ensure_connection_points (UMLOperation *oper, DiaObject* obj);
 
-extern void uml_attribute_write(AttributeNode attr_node, UMLAttribute *attr);
-extern void uml_operation_write(AttributeNode attr_node, UMLOperation *op);
-extern void uml_formalparameter_write(AttributeNode attr_node, UMLFormalParameter *param);
+extern void uml_attribute_write(AttributeNode attr_node, UMLAttribute *attr, DiaContext *ctx);
+extern void uml_operation_write(AttributeNode attr_node, UMLOperation *op, DiaContext *ctx);
+extern void uml_formalparameter_write(AttributeNode attr_node, UMLFormalParameter *param, DiaContext *ctx);
 
 #endif /* UML_H */
 

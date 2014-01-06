@@ -209,8 +209,8 @@ connection_save(Connection *conn, ObjectNode obj_node, DiaContext *ctx)
   object_save(&conn->object, obj_node, ctx);
 
   attr = new_attribute(obj_node, "conn_endpoints");
-  data_add_point(attr, &conn->endpoints[0]);
-  data_add_point(attr, &conn->endpoints[1]);
+  data_add_point(attr, &conn->endpoints[0], ctx);
+  data_add_point(attr, &conn->endpoints[1], ctx);
 }
 
 /** Load a connections data from XML.

@@ -916,37 +916,37 @@ arc_save(Arc *arc, ObjectNode obj_node, DiaContext *ctx)
 
   if (!color_equals(&arc->arc_color, &color_black))
     data_add_color(new_attribute(obj_node, "arc_color"),
-		   &arc->arc_color);
-  
+		   &arc->arc_color, ctx);
+
   if (arc->curve_distance != 0.1)
     data_add_real(new_attribute(obj_node, "curve_distance"),
-		  arc->curve_distance);
-  
+		  arc->curve_distance, ctx);
+
   if (arc->line_width != 0.1)
     data_add_real(new_attribute(obj_node, PROP_STDNAME_LINE_WIDTH),
-		  arc->line_width);
-  
+		  arc->line_width, ctx);
+
   if (arc->line_style != LINESTYLE_SOLID)
     data_add_enum(new_attribute(obj_node, "line_style"),
-		  arc->line_style);
+		  arc->line_style, ctx);
 
   if (arc->line_style != LINESTYLE_SOLID &&
       arc->dashlength != DEFAULT_LINESTYLE_DASHLEN)
     data_add_real(new_attribute(obj_node, "dashlength"),
-		  arc->dashlength);
+		  arc->dashlength, ctx);
 
   if (arc->line_caps != LINECAPS_BUTT)
     data_add_enum(new_attribute(obj_node, "line_caps"),
-                  arc->line_caps);
+                  arc->line_caps, ctx);
 
   if (arc->start_arrow.type != ARROW_NONE) {
     save_arrow(obj_node, &arc->start_arrow, "start_arrow",
-	     "start_arrow_length", "start_arrow_width");
+	     "start_arrow_length", "start_arrow_width", ctx);
   }
 
   if (arc->end_arrow.type != ARROW_NONE) {
     save_arrow(obj_node, &arc->end_arrow, "end_arrow",
-	     "end_arrow_length", "end_arrow_width");
+	     "end_arrow_length", "end_arrow_width", ctx);
   }
 }
 

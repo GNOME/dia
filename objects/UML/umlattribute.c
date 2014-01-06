@@ -161,26 +161,26 @@ uml_attribute_destroy(UMLAttribute *attr)
 }
 
 void
-uml_attribute_write(AttributeNode attr_node, UMLAttribute *attr)
+uml_attribute_write(AttributeNode attr_node, UMLAttribute *attr, DiaContext *ctx)
 {
   DataNode composite;
 
-  composite = data_add_composite(attr_node, "umlattribute");
+  composite = data_add_composite(attr_node, "umlattribute", ctx);
 
   data_add_string(composite_add_attribute(composite, "name"),
-		  attr->name);
+		  attr->name, ctx);
   data_add_string(composite_add_attribute(composite, "type"),
-		  attr->type);
+		  attr->type, ctx);
   data_add_string(composite_add_attribute(composite, "value"),
-		  attr->value);
+		  attr->value, ctx);
   data_add_string(composite_add_attribute(composite, "comment"),
-		  attr->comment);
+		  attr->comment, ctx);
   data_add_enum(composite_add_attribute(composite, "visibility"),
-		attr->visibility);
+		attr->visibility, ctx);
   data_add_boolean(composite_add_attribute(composite, "abstract"),
-		  attr->abstract);
+		  attr->abstract, ctx);
   data_add_boolean(composite_add_attribute(composite, "class_scope"),
-		  attr->class_scope);
+		  attr->class_scope, ctx);
 }
 
 /* Warning, the following *must* be strictly ASCII characters (or fix the 

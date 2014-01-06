@@ -566,34 +566,35 @@ diamond_save(Diamond *diamond, ObjectNode obj_node, DiaContext *ctx)
 
   if (diamond->border_width != 0.1)
     data_add_real(new_attribute(obj_node, "border_width"),
-		  diamond->border_width);
+		  diamond->border_width, ctx);
   
   if (!color_equals(&diamond->border_color, &color_black))
     data_add_color(new_attribute(obj_node, "border_color"),
-		   &diamond->border_color);
+		   &diamond->border_color, ctx);
   
   if (!color_equals(&diamond->inner_color, &color_white))
     data_add_color(new_attribute(obj_node, "inner_color"),
-		   &diamond->inner_color);
+		   &diamond->inner_color, ctx);
   
-  data_add_boolean(new_attribute(obj_node, "show_background"), diamond->show_background);
+  data_add_boolean(new_attribute(obj_node, "show_background"),
+		   diamond->show_background, ctx);
 
   if (diamond->line_style != LINESTYLE_SOLID)
     data_add_enum(new_attribute(obj_node, "line_style"),
-		  diamond->line_style);
+		  diamond->line_style, ctx);
 
   if (diamond->line_style != LINESTYLE_SOLID &&
       diamond->dashlength != DEFAULT_LINESTYLE_DASHLEN)
     data_add_real(new_attribute(obj_node, "dashlength"),
-                  diamond->dashlength);
+                  diamond->dashlength, ctx);
 
-  data_add_real(new_attribute(obj_node, "padding"), diamond->padding);
-  
-  data_add_text(new_attribute(obj_node, "text"), diamond->text);
+  data_add_real(new_attribute(obj_node, "padding"), diamond->padding, ctx);
+
+  data_add_text(new_attribute(obj_node, "text"), diamond->text, ctx);
   
   if (diamond->text_fitting != TEXTFIT_WHEN_NEEDED)
     data_add_enum(new_attribute(obj_node, PROP_STDNAME_TEXT_FITTING),
-		  diamond->text_fitting);
+		  diamond->text_fitting, ctx);
 }
 
 static DiaObject *

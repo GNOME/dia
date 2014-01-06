@@ -622,36 +622,37 @@ pgram_save(Pgram *pgram, ObjectNode obj_node, DiaContext *ctx)
 
   if (pgram->border_width != 0.1)
     data_add_real(new_attribute(obj_node, "border_width"),
-		  pgram->border_width);
-  
+		  pgram->border_width, ctx);
+
   if (!color_equals(&pgram->border_color, &color_black))
     data_add_color(new_attribute(obj_node, "border_color"),
-		   &pgram->border_color);
-  
+		   &pgram->border_color, ctx);
+
   if (!color_equals(&pgram->inner_color, &color_white))
     data_add_color(new_attribute(obj_node, "inner_color"),
-		   &pgram->inner_color);
-  
-  data_add_boolean(new_attribute(obj_node, "show_background"), pgram->show_background);
+		   &pgram->inner_color, ctx);
+
+  data_add_boolean(new_attribute(obj_node, "show_background"),
+		   pgram->show_background, ctx);
 
   if (pgram->line_style != LINESTYLE_SOLID)
     data_add_enum(new_attribute(obj_node, "line_style"),
-		  pgram->line_style);
+		  pgram->line_style, ctx);
 
   if (pgram->line_style != LINESTYLE_SOLID &&
       pgram->dashlength != DEFAULT_LINESTYLE_DASHLEN)
     data_add_real(new_attribute(obj_node, "dashlength"),
-                  pgram->dashlength);
+                  pgram->dashlength, ctx);
 
   data_add_real(new_attribute(obj_node, "shear_angle"),
-		pgram->shear_angle);
+		pgram->shear_angle, ctx);
 
-  data_add_real(new_attribute(obj_node, "padding"), pgram->padding);
-  
-  data_add_text(new_attribute(obj_node, "text"), pgram->text);
+  data_add_real(new_attribute(obj_node, "padding"), pgram->padding, ctx);
+
+  data_add_text(new_attribute(obj_node, "text"), pgram->text, ctx);
   if (pgram->text_fitting != TEXTFIT_WHEN_NEEDED)
     data_add_enum(new_attribute(obj_node, PROP_STDNAME_TEXT_FITTING),
-		  pgram->text_fitting);
+		  pgram->text_fitting, ctx);
 }
 
 static DiaObject *

@@ -100,12 +100,12 @@ charprop_load(CharProperty *prop, AttributeNode attr, DataNode data, DiaContext 
 }
 
 static void 
-charprop_save(CharProperty *prop, AttributeNode attr) 
+charprop_save(CharProperty *prop, AttributeNode attr, DiaContext *ctx) 
 {
   gchar utf[7];
   gint n = g_unichar_to_utf8 (prop->char_data, utf);
   utf[n] = 0;
-  data_add_string (attr, utf);
+  data_add_string (attr, utf, ctx);
 }
 
 static void 
@@ -210,9 +210,9 @@ boolprop_load(BoolProperty *prop, AttributeNode attr, DataNode data, DiaContext 
 }
 
 static void 
-boolprop_save(BoolProperty *prop, AttributeNode attr) 
+boolprop_save(BoolProperty *prop, AttributeNode attr, DiaContext *ctx) 
 {
-  data_add_boolean(attr, prop->bool_data);
+  data_add_boolean(attr, prop->bool_data, ctx);
 }
 
 static void 
@@ -320,9 +320,9 @@ intprop_load(IntProperty *prop, AttributeNode attr, DataNode data, DiaContext *c
 }
 
 static void 
-intprop_save(IntProperty *prop, AttributeNode attr) 
+intprop_save(IntProperty *prop, AttributeNode attr, DiaContext *ctx) 
 {
-  data_add_int(attr, prop->int_data);
+  data_add_int(attr, prop->int_data, ctx);
 }
 
 static void 
@@ -411,11 +411,11 @@ intarrayprop_load(IntarrayProperty *prop, AttributeNode attr, DataNode data, Dia
 }
 
 static void 
-intarrayprop_save(IntarrayProperty *prop, AttributeNode attr) 
+intarrayprop_save(IntarrayProperty *prop, AttributeNode attr, DiaContext *ctx) 
 {
   guint i;
   for (i = 0; i < prop->intarray_data->len; i++)
-    data_add_int(attr, g_array_index(prop->intarray_data,gint,i));
+    data_add_int(attr, g_array_index(prop->intarray_data,gint,i), ctx);
 }
 
 static void 
@@ -570,9 +570,9 @@ enumprop_load(EnumProperty *prop, AttributeNode attr, DataNode data, DiaContext 
 }
 
 static void 
-enumprop_save(EnumProperty *prop, AttributeNode attr) 
+enumprop_save(EnumProperty *prop, AttributeNode attr, DiaContext *ctx) 
 {
-  data_add_enum(attr, prop->enum_data);
+  data_add_enum(attr, prop->enum_data, ctx);
 }
 
 static void 
@@ -667,11 +667,11 @@ enumarrayprop_load(EnumarrayProperty *prop, AttributeNode attr, DataNode data, D
 }
 
 static void 
-enumarrayprop_save(EnumarrayProperty *prop, AttributeNode attr) 
+enumarrayprop_save(EnumarrayProperty *prop, AttributeNode attr, DiaContext *ctx) 
 {
   guint i;
   for (i = 0; i < prop->enumarray_data->len; i++)
-    data_add_enum(attr, g_array_index(prop->enumarray_data,gint,i));
+    data_add_enum(attr, g_array_index(prop->enumarray_data,gint,i), ctx);
 }
 
 static void 

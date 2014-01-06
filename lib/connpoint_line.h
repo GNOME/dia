@@ -80,7 +80,7 @@ ConnPointLine *connpointline_load(DiaObject *obj,ObjectNode obj_node,
 				  int *realconncount,
 				  DiaContext *ctx);
 void connpointline_save(ConnPointLine *cpl,ObjectNode obj_node,
-			const gchar *name);
+			const gchar *name, DiaContext *ctx);
 ConnPointLine *connpointline_copy(DiaObject *newobj,ConnPointLine *cpl,
 				  int *realconncount);
 

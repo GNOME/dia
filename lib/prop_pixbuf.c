@@ -107,7 +107,7 @@ pixbuf_decode_base64 (const gchar *b64)
 }
 
 GdkPixbuf *
-data_pixbuf (DataNode data)
+data_pixbuf (DataNode data, DiaContext *ctx)
 {
   GdkPixbuf *pixbuf = NULL;
   GdkPixbufLoader *loader;
@@ -156,7 +156,7 @@ data_pixbuf (DataNode data)
 static void 
 pixbufprop_load(PixbufProperty *prop, AttributeNode attr, DataNode data, DiaContext *ctx)
 {
-  prop->pixbuf = data_pixbuf (data);
+  prop->pixbuf = data_pixbuf (data, ctx);
 }
 
 typedef struct _EncodeData {
@@ -209,9 +209,9 @@ pixbuf_encode_base64 (const GdkPixbuf *pixbuf)
   return (gchar *)g_byte_array_free (ed.array, FALSE);
 }
 void
-data_add_pixbuf (AttributeNode attr, GdkPixbuf *pixbuf)
+data_add_pixbuf (AttributeNode attr, GdkPixbuf *pixbuf, DiaContext *ctx)
 {
-  ObjectNode composite = data_add_composite(attr, "pixbuf");
+  ObjectNode composite = data_add_composite(attr, "pixbuf", ctx);
   AttributeNode comp_attr = composite_add_attribute (composite, "data");
   gchar *b64;
 
@@ -224,10 +224,10 @@ data_add_pixbuf (AttributeNode attr, GdkPixbuf *pixbuf)
 }
 
 static void 
-pixbufprop_save(PixbufProperty *prop, AttributeNode attr) 
+pixbufprop_save(PixbufProperty *prop, AttributeNode attr, DiaContext *ctx) 
 {
   if (prop->pixbuf) {
-    data_add_pixbuf (attr, prop->pixbuf);
+    data_add_pixbuf (attr, prop->pixbuf, ctx);
   }
 }
 

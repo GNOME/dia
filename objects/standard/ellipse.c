@@ -506,36 +506,36 @@ ellipse_save(Ellipse *ellipse, ObjectNode obj_node, DiaContext *ctx)
 
   if (ellipse->border_width != 0.1)
     data_add_real(new_attribute(obj_node, "border_width"),
-		  ellipse->border_width);
+		  ellipse->border_width, ctx);
   
   if (!color_equals(&ellipse->border_color, &color_black))
     data_add_color(new_attribute(obj_node, "border_color"),
-		   &ellipse->border_color);
+		   &ellipse->border_color, ctx);
   
   if (!color_equals(&ellipse->inner_color, &color_white))
     data_add_color(new_attribute(obj_node, "inner_color"),
-		   &ellipse->inner_color);
+		   &ellipse->inner_color, ctx);
 
   if (!ellipse->show_background)
     data_add_boolean(new_attribute(obj_node, "show_background"),
-		     ellipse->show_background);
+		     ellipse->show_background, ctx);
   
   if (ellipse->aspect != FREE_ASPECT)
     data_add_enum(new_attribute(obj_node, "aspect"),
-		  ellipse->aspect);
+		  ellipse->aspect, ctx);
 
   if (ellipse->line_style != LINESTYLE_SOLID) {
     data_add_enum(new_attribute(obj_node, "line_style"),
-		  ellipse->line_style);
+		  ellipse->line_style, ctx);
 
     if (ellipse->dashlength != DEFAULT_LINESTYLE_DASHLEN)
 	    data_add_real(new_attribute(obj_node, "dashlength"),
-			  ellipse->dashlength);
+			  ellipse->dashlength, ctx);
   }
 
   if (ellipse->pattern)
     data_add_pattern(new_attribute(obj_node, "pattern"),
-		     ellipse->pattern);
+		     ellipse->pattern, ctx);
 }
 
 static DiaObject *ellipse_load(ObjectNode obj_node, int version, DiaContext *ctx)

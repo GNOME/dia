@@ -477,21 +477,21 @@ entity_save(Entity *entity, ObjectNode obj_node, DiaContext *ctx)
   element_save(&entity->element, obj_node, ctx);
 
   data_add_real(new_attribute(obj_node, "border_width"),
-		entity->border_width);
+		entity->border_width, ctx);
   data_add_color(new_attribute(obj_node, "border_color"),
-		 &entity->border_color);
+		 &entity->border_color, ctx);
   data_add_color(new_attribute(obj_node, "inner_color"),
-		 &entity->inner_color);
+		 &entity->inner_color, ctx);
   data_add_string(new_attribute(obj_node, "name"),
-		  entity->name);
+		  entity->name, ctx);
   data_add_boolean(new_attribute(obj_node, "weak"),
-		   entity->weak);
+		   entity->weak, ctx);
   data_add_boolean(new_attribute(obj_node, "associative"),
-		   entity->associative);
+		   entity->associative, ctx);
   data_add_font (new_attribute (obj_node, "font"),
-		 entity->font);
+		 entity->font, ctx);
   data_add_real(new_attribute(obj_node, "font_height"),
-  		entity->font_height);
+  		entity->font_height, ctx);
 }
 
 static DiaObject *

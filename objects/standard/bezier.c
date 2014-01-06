@@ -602,44 +602,44 @@ bezierline_save(Bezierline *bezierline, ObjectNode obj_node,
 
   if (!color_equals(&bezierline->line_color, &color_black))
     data_add_color(new_attribute(obj_node, "line_color"),
-		   &bezierline->line_color);
+		   &bezierline->line_color, ctx);
   
   if (bezierline->line_width != 0.1)
     data_add_real(new_attribute(obj_node, PROP_STDNAME_LINE_WIDTH),
-		  bezierline->line_width);
+		  bezierline->line_width, ctx);
   
   if (bezierline->line_style != LINESTYLE_SOLID)
     data_add_enum(new_attribute(obj_node, "line_style"),
-		  bezierline->line_style);
+		  bezierline->line_style, ctx);
 
   if (bezierline->line_style != LINESTYLE_SOLID &&
       bezierline->dashlength != DEFAULT_LINESTYLE_DASHLEN)
     data_add_real(new_attribute(obj_node, "dashlength"),
-		  bezierline->dashlength);
+		  bezierline->dashlength, ctx);
 
   if (bezierline->line_join != LINEJOIN_MITER)
     data_add_enum(new_attribute(obj_node, "line_join"),
-                  bezierline->line_join);
+                  bezierline->line_join, ctx);
   if (bezierline->line_caps != LINECAPS_BUTT)
     data_add_enum(new_attribute(obj_node, "line_caps"),
-                  bezierline->line_caps);
+                  bezierline->line_caps, ctx);
 
   if (bezierline->start_arrow.type != ARROW_NONE) {
     save_arrow(obj_node, &bezierline->start_arrow, "start_arrow",
-	     "start_arrow_length", "start_arrow_width");
+	     "start_arrow_length", "start_arrow_width", ctx);
   }
 
   if (bezierline->end_arrow.type != ARROW_NONE) {
     save_arrow(obj_node, &bezierline->end_arrow, "end_arrow",
-	     "end_arrow_length", "end_arrow_width");
+	     "end_arrow_length", "end_arrow_width", ctx);
   }
 
   if (bezierline->absolute_start_gap)
     data_add_real(new_attribute(obj_node, "absolute_start_gap"),
-                 bezierline->absolute_start_gap);
+                 bezierline->absolute_start_gap, ctx);
   if (bezierline->absolute_end_gap)
     data_add_real(new_attribute(obj_node, "absolute_end_gap"),
-                 bezierline->absolute_end_gap);
+                 bezierline->absolute_end_gap, ctx);
 }
 
 static DiaObject *

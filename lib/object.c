@@ -770,11 +770,11 @@ void
 object_save(DiaObject *obj, ObjectNode obj_node, DiaContext *ctx)
 {
   data_add_point(new_attribute(obj_node, "obj_pos"),
-		 &obj->position);
+		 &obj->position, ctx);
   data_add_rectangle(new_attribute(obj_node, "obj_bb"),
-		     &obj->bounding_box);
+		     &obj->bounding_box, ctx);
   if (obj->meta && g_hash_table_size (obj->meta) > 0)
-    data_add_dict (new_attribute(obj_node, "meta"), obj->meta);
+    data_add_dict (new_attribute(obj_node, "meta"), obj->meta, ctx);
 }
 
 /** Load the object-specific parts of an object.

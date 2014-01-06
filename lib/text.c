@@ -1065,27 +1065,27 @@ text_delete_all(Text *text, ObjectChange **change, DiaObject *obj)
 }
 
 void
-data_add_text(AttributeNode attr, Text *text)
+data_add_text(AttributeNode attr, Text *text, DiaContext *ctx)
 {
   DataNode composite;
   char *str;
 
-  composite = data_add_composite(attr, "text");
+  composite = data_add_composite(attr, "text", ctx);
 
   str = text_get_string_copy(text);
   data_add_string(composite_add_attribute(composite, "string"),
-		  str);
+		  str, ctx);
   g_free(str);
   data_add_font(composite_add_attribute(composite, "font"),
-		text->font);
+		text->font, ctx);
   data_add_real(composite_add_attribute(composite, "height"),
-		text->height);
+		text->height, ctx);
   data_add_point(composite_add_attribute(composite, "pos"),
-		    &text->position);
+		 &text->position, ctx);
   data_add_color(composite_add_attribute(composite, "color"),
-		 &text->color);
+		 &text->color, ctx);
   data_add_enum(composite_add_attribute(composite, "alignment"),
-		text->alignment);
+		text->alignment, ctx);
 }
 
 
