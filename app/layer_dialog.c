@@ -1049,8 +1049,11 @@ dia_layer_widget_new(Diagram *dia, Layer *layer)
   dia_layer_set_layer(DIA_LAYER_WIDGET(widget), dia, layer);
 
   /* These may get toggled when the button is set without the widget being
-   * selected first. */
-  DIA_LAYER_WIDGET(widget)->connect_on = FALSE;
+   * selected first.
+   * The connect_on state gets also used to restore with just a deselect
+   * of the active layer.
+   */
+  DIA_LAYER_WIDGET(widget)->connect_on = layer->connectable;
   DIA_LAYER_WIDGET(widget)->connect_off = FALSE;
 
   return widget;

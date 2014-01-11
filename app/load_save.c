@@ -353,6 +353,22 @@ find_node_named (xmlNodePtr p, const char *name)
 }
 
 static gboolean
+_get_bool_prop (xmlNodePtr node, const char *name, gboolean preset)
+{
+  gboolean ret;
+  xmlChar *val = xmlGetProp(node, (const xmlChar *)name);
+
+  if (val) {
+    if (strcmp((char *)val, "true")==0)
+      ret = TRUE;
+    xmlFree(val);
+  } else {
+    ret = preset;
+  }
+  return ret;
+}
+
+static gboolean
 diagram_data_load(const gchar *filename, DiagramData *data, DiaContext *ctx, void* user_data)
 {
   GHashTable *objects_hash;
@@ -370,6 +386,7 @@ diagram_data_load(const gchar *filename, DiagramData *data, DiaContext *ctx, voi
   Diagram *diagram = DIA_IS_DIAGRAM (data) ? DIA_DIAGRAM (data) : NULL;
   Layer *active_layer = NULL;
   GHashTable* unknown_objects_hash = g_hash_table_new(g_str_hash, g_str_equal);
+  int num_layers_added = 0;
 
   g_return_val_if_fail(data!=NULL, FALSE);
 
@@ -621,8 +638,7 @@ diagram_data_load(const gchar *filename, DiagramData *data, DiaContext *ctx, voi
 
   while (layer_node != NULL) {
     gchar *name;
-    char *visible;
-    char *active;
+    gboolean active;
     
     if (xmlIsBlankNode(layer_node)) {
       layer_node = layer_node->next;
@@ -637,29 +653,37 @@ diagram_data_load(const gchar *filename, DiagramData *data, DiaContext *ctx, voi
     layer = new_layer(g_strdup(name), data);
     if (name) xmlFree(name);
 
-    layer->visible = FALSE;
-    visible = (char *)xmlGetProp(layer_node, (const xmlChar *)"visible");
-    if (visible) {
-      if (strcmp(visible, "true")==0)
-        layer->visible = TRUE;
-      xmlFree(visible);
-    }
+    layer->visible = _get_bool_prop (layer_node, "visible", FALSE);
+    layer->connectable = _get_bool_prop (layer_node, "connectable", FALSE);
     /* Read in all objects: */
-    
     list = read_objects(layer_node, objects_hash, ctx, NULL, unknown_objects_hash);
     layer_add_objects (layer, list);
-    read_connections( list, layer_node, objects_hash);
 
     data_add_layer(data, layer);
+    ++num_layers_added;
 
-    active = (char *)xmlGetProp(layer_node, (const xmlChar *)"active");
-    if (active) {
-      if (strcmp(active, "true")==0)
-        active_layer = layer;
-      xmlFree(active);
-    }
+    active = _get_bool_prop (layer_node, "active", FALSE);
+    if (active)
+      active_layer = layer;
 
     layer_node = layer_node->next;
+  }
+
+  /* Second iteration over layers to restore connections, which might span multiple layers */
+  {
+    int i = data_layer_count (data) - num_layers_added;
+    layer_node = find_node_named (root->xmlChildrenNode, "layer");
+    for (; i < data_layer_count (data); ++i) {
+      layer = (Layer *) g_ptr_array_index(data->layers, i);
+      while (layer_node && xmlStrcmp (layer_node->name, (xmlChar *)"layer") != 0)
+	layer_node = layer_node->next;
+      if (!layer_node) {
+	dia_context_add_message (ctx, _("Error reading connections"));
+	break;
+      }
+      read_connections(layer->objects, layer_node, objects_hash);
+      layer_node = layer_node->next;
+    }
   }
 
   if (!active_layer)
@@ -796,7 +820,7 @@ write_connections(GList *objects, xmlNodePtr layer_node,
 	  while (other_obj->connections[con_point_nr] != con_point) {
 	    con_point_nr++;
 	    if (con_point_nr>=other_obj->num_connections) {
-	      message_error("Internal error saving diagram\n con_point_nr >= other_obj->num_connections\n");
+	      g_warning ("Error saving diagram\n con_point_nr >= other_obj->num_connections\n");
 	      return FALSE;
 	    }
 	  }
@@ -953,22 +977,37 @@ diagram_data_write_doc(DiagramData *data, const char *filename, DiaContext *ctx)
     layer = (Layer *) g_ptr_array_index(data->layers, i);
     xmlSetProp(layer_node, (const xmlChar *)"name", (xmlChar *)layer->name);
 
-    if (layer->visible)
-      xmlSetProp(layer_node, (const xmlChar *)"visible", (const xmlChar *)"true");
-    else
-      xmlSetProp(layer_node, (const xmlChar *)"visible", (const xmlChar *)"false");
+    xmlSetProp(layer_node, (const xmlChar *)"visible",
+	       (const xmlChar *)(layer->visible ? "true" : "false"));
+    xmlSetProp(layer_node, (const xmlChar *)"connectable",
+	       (const xmlChar *)(layer->visible ? "true" : "false"));
 
     if (layer == data->active_layer)
       xmlSetProp(layer_node, (const xmlChar *)"active", (const xmlChar *)"true");
       
     write_objects(layer->objects, layer_node,
 		  objects_hash, &obj_nr, filename, ctx);
-  
-    res = write_connections(layer->objects, layer_node, objects_hash);
-    /* Why do we bail out like this?  It leaks! */
-    if (!res)
-      return NULL;
+ 
   }
+  /* The connections are stored per layer in the file format, but connections are not any longer
+   * restricted to objects on the same layer. So we iterate over all the layer (nodes) again to
+   * 'know' all objects we might have to connect to
+   */
+  layer_node = doc->xmlRootNode->children;
+  for (i = 0; i < data->layers->len; i++) {
+    layer = (Layer *) g_ptr_array_index(data->layers, i);
+    while (layer_node && xmlStrcmp (layer_node->name, (xmlChar *)"layer") != 0)
+      layer_node = layer_node->next;
+    if (!layer_node) {
+      dia_context_add_message (ctx, _("Error saving connections"), layer->name);
+      break;
+    }
+    res = write_connections(layer->objects, layer_node, objects_hash);
+    if (!res)
+      dia_context_add_message (ctx, _("Connection saving is incomplete for layer '%s'"), layer->name);
+    layer_node = layer_node->next;
+  }
+
   g_hash_table_destroy(objects_hash);
 
   if (data->is_compressed)
@@ -1222,6 +1261,7 @@ diagram_autosave(Diagram *dia)
       } else {
 	/* no extra threads supported, stay in this one */
 	DiaContext *ctx = dia_context_new (_("Auto save"));
+	dia_context_set_filename (ctx, save_filename);
 	diagram_data_raw_save(dia->data, save_filename, ctx);
 	dia->autosaved = TRUE;
 	dia_context_release (ctx);
@@ -1229,6 +1269,7 @@ diagram_autosave(Diagram *dia)
 #else
       {
 	DiaContext *ctx = dia_context_new (_("Auto save"));
+	dia_context_set_filename (ctx, save_filename);
 	diagram_data_raw_save(dia->data, save_filename, ctx);
 	dia->autosaved = TRUE;
 	dia_context_release (ctx);
