@@ -21,6 +21,8 @@
 #include "diavar.h"
 #include "object.h"
 
+G_BEGIN_DECLS
+
 extern DIAVAR DiaObjectType group_type;
 
 /* Make sure there are no connections from objects to objects
@@ -33,5 +35,7 @@ GList *group_objects(DiaObject *group);
 void group_destroy_shallow(DiaObject *group);
 void group_transform (Group *group, const DiaMatrix *mat);
 #define IS_GROUP(obj) ((obj)->type == &group_type)
+
+G_END_DECLS
 
 #endif /* GROUP_H */
