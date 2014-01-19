@@ -169,14 +169,14 @@ prop_list_load(GPtrArray *props, DataNode data_node, DiaContext *ctx)
   return ret;
 }
 
-void 
-prop_list_save(GPtrArray *props, DataNode data)
+void
+prop_list_save(GPtrArray *props, DataNode data, DiaContext *ctx)
 {
   guint i;
   for (i = 0; i < props->len; i++) {
     Property *prop = g_ptr_array_index(props,i);
     AttributeNode attr = new_attribute(data,prop->descr->name);
-    prop->ops->save(prop,attr);
+    prop->ops->save(prop,attr,ctx);
   }
 }
 

@@ -39,7 +39,7 @@ gboolean propdescs_can_be_merged(const PropDescription *p1,
 
 /* returns FALSE if error is set cause of messed up format */
 gboolean prop_list_load(GPtrArray *props, DataNode data, DiaContext *ctx);
-void prop_list_save(GPtrArray *props, DataNode data);
+void prop_list_save(GPtrArray *props, DataNode data, DiaContext *ctx);
 
 #define struct_member(sp, off, tp) (*(tp *)(((char *)sp) + off))
 

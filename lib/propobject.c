@@ -362,7 +362,7 @@ object_save_props(DiaObject *obj, ObjectNode obj_node, DiaContext *ctx)
                                pdtpp_do_save);  
 
   obj->ops->get_props(obj, props);
-  prop_list_save(props,obj_node);
+  prop_list_save(props,obj_node,ctx);
   prop_list_free(props);
 }
 

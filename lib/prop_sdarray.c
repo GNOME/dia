@@ -107,14 +107,14 @@ arrayprop_load(ArrayProperty *prop, AttributeNode attr, DataNode data, DiaContex
 }
 
 static void 
-arrayprop_save(ArrayProperty *prop, AttributeNode attr) 
+arrayprop_save(ArrayProperty *prop, AttributeNode attr, DiaContext *ctx) 
 {
   guint i;
   const PropDescCommonArrayExtra *extra = prop->common.descr->extra_data;
   
   for (i = 0; i < prop->records->len; i++) {
     prop_list_save(g_ptr_array_index(prop->records,i),
-                   data_add_composite(attr,extra->composite_type));
+                   data_add_composite(attr, extra->composite_type, ctx), ctx);
   }
 }
 
