@@ -8,7 +8,7 @@
 # Jakub Friedl <jfriedl@suse.cz>, 2006, 2007.
 # Lucas Lommer <llommer@svn.gnome.org>, 2008.
 # Petr Kovar <pknbe@volny.cz>, 2008, 2010.
-# Marek Černocký <marek@manet.cz>, 2010, 2012, 2013.
+# Marek Černocký <marek@manet.cz>, 2010, 2012, 2013, 2014.
 #
 #: ../objects/UML/class.c:193
 msgid ""
@@ -16,8 +16,8 @@ msgstr ""
 "Project-Id-Version: dia\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=dia&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2014-01-02 12:30+0000\n"
-"PO-Revision-Date: 2014-01-03 07:39+0100\n"
+"POT-Creation-Date: 2014-01-19 12:02+0000\n"
+"PO-Revision-Date: 2014-01-19 13:19+0100\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -241,12 +241,17 @@ msgstr ""
 msgid "Exiting Dia"
 msgstr "Aplikace Dia se ukončuje"
 
+#: ../app/app_procs.c:1070 ../app/display.c:1289 ../app/exit_dialog.c:115
+#: ../app/filedlg.c:582
+msgid "Save"
+msgstr "Uložit"
+
 #. no standard buttons
-#: ../app/app_procs.c:1107
+#: ../app/app_procs.c:1112
 msgid "Quitting without saving modified diagrams"
 msgstr "Končí se bez uložení upravených diagramů"
 
-#: ../app/app_procs.c:1109
+#: ../app/app_procs.c:1114
 msgid ""
 "Modified diagrams exist. Are you sure you want to quit Dia without saving "
 "them?"
@@ -254,15 +259,19 @@ msgstr ""
 "Existují pozměněné diagramy. Opravdu chcete ukončit aplikaci Dia bez uložení "
 "těchto změn?"
 
-#: ../app/app_procs.c:1113
+#: ../app/app_procs.c:1118
 msgid "Quit Dia"
 msgstr "Ukončit aplikaci Dia"
 
-#: ../app/app_procs.c:1186 ../app/app_procs.c:1193
+#: ../app/app_procs.c:1148
+msgid "Exit"
+msgstr "Ukončit"
+
+#: ../app/app_procs.c:1194 ../app/app_procs.c:1201
 msgid "Could not create per-user Dia configuration directory"
 msgstr "Nelze vytvořit složku s uživatelským nastavením Dia"
 
-#: ../app/app_procs.c:1196
+#: ../app/app_procs.c:1204
 msgid ""
 "Could not create per-user Dia configuration directory. Please make sure that "
 "the environment variable HOME points to an existing directory."
@@ -270,11 +279,11 @@ msgstr ""
 "Nelze vytvořit složku s uživatelským nastavením Dia. Ujistěte se prosím, že "
 "proměnná prostředí HOME ukazuje na existující složku."
 
-#: ../app/app_procs.c:1219
+#: ../app/app_procs.c:1227
 msgid "Objects and filters internal to Dia"
 msgstr "Objekty a filtry interní pro aplikaci Dia"
 
-#: ../app/app_procs.c:1272
+#: ../app/app_procs.c:1280
 #, c-format
 msgid ""
 "The original author of Dia was:\n"
@@ -283,7 +292,7 @@ msgstr ""
 "Původní autor Dia byl:\n"
 "\n"
 
-#: ../app/app_procs.c:1277
+#: ../app/app_procs.c:1285
 #, c-format
 msgid ""
 "\n"
@@ -294,7 +303,7 @@ msgstr ""
 "Současní správci Dia jsou:\n"
 "\n"
 
-#: ../app/app_procs.c:1282
+#: ../app/app_procs.c:1290
 #, c-format
 msgid ""
 "\n"
@@ -305,7 +314,7 @@ msgstr ""
 "Další autoři jsou:\n"
 "\n"
 
-#: ../app/app_procs.c:1287
+#: ../app/app_procs.c:1295
 #, c-format
 msgid ""
 "\n"
@@ -696,7 +705,7 @@ msgid "Follow link…"
 msgstr "Následovat odkaz…"
 
 #: ../app/disp_callbacks.c:216 ../objects/standard/bezier.c:785
-#: ../objects/standard/beziergon.c:549 ../objects/standard/box.c:783
+#: ../objects/standard/beziergon.c:549 ../objects/standard/box.c:784
 #: ../objects/standard/textobj.c:450
 msgid "Convert to Path"
 msgstr "Převést na cestu"
@@ -734,16 +743,16 @@ msgstr "Vybráno „%s“"
 msgid "No antialiased renderer found"
 msgstr "Nenalezeno žádné vykreslování s podporou vyhlazování"
 
-#: ../app/display.c:1332
+#: ../app/display.c:1335
 msgid "<unnamed>"
 msgstr "<nepojmenovaný>"
 
 #. no standard buttons
-#: ../app/display.c:1338
+#: ../app/display.c:1341
 msgid "Closing diagram without saving"
 msgstr "Diagram se zavírá bez uložení"
 
-#: ../app/display.c:1340
+#: ../app/display.c:1343
 #, c-format
 msgid ""
 "The diagram '%s'\n"
@@ -752,11 +761,11 @@ msgstr ""
 "Diagram „%s“\n"
 "nebyl uložen. Chcete jej uložit nyní?"
 
-#: ../app/display.c:1342
+#: ../app/display.c:1345
 msgid "Close Diagram"
 msgstr "Zavřít diagram"
 
-#: ../app/display.c:1347
+#: ../app/display.c:1350
 msgid "_Discard Changes"
 msgstr "_Zahodit změny"
 
@@ -776,10 +785,6 @@ msgstr "Uložit vybrané"
 msgid "The following are not saved:"
 msgstr "Následující není uloženo:"
 
-#: ../app/exit_dialog.c:115
-msgid "Save"
-msgstr "Uložit"
-
 #: ../app/exit_dialog.c:131
 msgid "Path"
 msgstr "Cesta"
@@ -797,12 +802,12 @@ msgid "Nothing selected for saving.  Would you like to try again?"
 msgstr "Není nic vybráno k uložení. Chcete to zkusit znovu?"
 
 #: ../app/filedlg.c:144 ../app/filedlg.c:152 ../app/filedlg.c:168
-#: ../app/filedlg.c:819 ../lib/widgets.c:402
+#: ../app/filedlg.c:825 ../lib/widgets.c:402
 msgid "Supported Formats"
 msgstr "Podporované formáty"
 
-#: ../app/filedlg.c:197 ../app/filedlg.c:199 ../app/filedlg.c:662
-#: ../app/filedlg.c:664
+#: ../app/filedlg.c:197 ../app/filedlg.c:199 ../app/filedlg.c:668
+#: ../app/filedlg.c:670
 msgid "By extension"
 msgstr "Podle přípony"
 
@@ -814,11 +819,11 @@ msgstr "Otevírání diagramu"
 msgid "Open Options"
 msgstr "Volby otevírání"
 
-#: ../app/filedlg.c:334 ../app/filedlg.c:801
+#: ../app/filedlg.c:334 ../app/filedlg.c:807
 msgid "Determine file type:"
 msgstr "Zjistit typ souboru:"
 
-#: ../app/filedlg.c:354 ../app/filedlg.c:814 ../lib/widgets.c:410
+#: ../app/filedlg.c:354 ../app/filedlg.c:820 ../lib/widgets.c:410
 msgid "All Files"
 msgstr "Všechny soubory"
 
@@ -832,12 +837,12 @@ msgstr ""
 "ani ve vašem místním kódování.\n"
 "Něco nebude správně."
 
-#: ../app/filedlg.c:403 ../app/filedlg.c:716
+#: ../app/filedlg.c:403 ../app/filedlg.c:722
 #: ../plug-ins/postscript/paginate_psprint.c:430
 msgid "File already exists"
 msgstr "Soubor již existuje"
 
-#: ../app/filedlg.c:405 ../app/filedlg.c:718
+#: ../app/filedlg.c:405 ../app/filedlg.c:724
 #: ../plug-ins/postscript/paginate_psprint.c:426
 #, c-format
 msgid ""
@@ -847,17 +852,22 @@ msgstr ""
 "Soubor „%s“ již existuje.\n"
 "Chcete jej přepsat?"
 
-#: ../app/filedlg.c:489
+#: ../app/filedlg.c:425
+#| msgid "Save"
+msgid "Save as"
+msgstr "Uložit jako"
+
+#: ../app/filedlg.c:493
 msgid "Save Diagram"
 msgstr "Ukládání diagramu"
 
 #. Need better way to make it a reasonable size.  Isn't there some
 #. standard look for them (or is that just Gnome?)
-#: ../app/filedlg.c:503
+#: ../app/filedlg.c:507
 msgid "Compress diagram files"
 msgstr "Komprimovat soubory s diagramy"
 
-#: ../app/filedlg.c:512
+#: ../app/filedlg.c:516
 msgid ""
 "Compression reduces file size to less than 1/10th size and speeds up loading "
 "and saving.  Some text programs cannot manipulate compressed files."
@@ -866,7 +876,15 @@ msgstr ""
 "urychluje načítání a ukládání. Některé programy pro zpracování textu však "
 "neumí s komprimovanými soubory pracovat."
 
-#: ../app/filedlg.c:747
+#. Favored Filter
+#. Translators: Menu item Verb/Channel/Export
+#. Translators: Menu item Verb/Channel/Export/Export
+#: ../app/filedlg.c:744 ../app/preferences.c:220 ../objects/FS/function.c:694
+#: ../objects/FS/function.c:696 ../plug-ins/libart/export_png.c:329
+msgid "Export"
+msgstr "Export"
+
+#: ../app/filedlg.c:753
 #, c-format
 msgid ""
 "Could not determine which export filter\n"
@@ -875,11 +893,11 @@ msgstr ""
 "Nelze zjistit, který exportní filtr se má\n"
 "použít pro uložení „%s“"
 
-#: ../app/filedlg.c:774
+#: ../app/filedlg.c:780
 msgid "Export Diagram"
 msgstr "Exportovat diagram"
 
-#: ../app/filedlg.c:793
+#: ../app/filedlg.c:799
 msgid "Export Options"
 msgstr "Volby exportu"
 
@@ -974,7 +992,7 @@ msgstr "Vrstvy"
 msgid "Diagram:"
 msgstr "Diagram:"
 
-#: ../app/layer_dialog.c:512 ../app/layer_dialog.c:1235
+#: ../app/layer_dialog.c:512 ../app/layer_dialog.c:1238
 #, c-format
 msgid "New layer %d"
 msgstr "Nová vrstva %d"
@@ -983,15 +1001,15 @@ msgstr "Nová vrstva %d"
 msgid "none"
 msgstr "nic"
 
-#: ../app/layer_dialog.c:1205
+#: ../app/layer_dialog.c:1208
 msgid "Edit Layer"
 msgstr "Upravit vrstvu"
 
-#: ../app/layer_dialog.c:1205
+#: ../app/layer_dialog.c:1208
 msgid "Add Layer"
 msgstr "Přidat vrstvu"
 
-#: ../app/layer_dialog.c:1224
+#: ../app/layer_dialog.c:1227
 msgid "Layer name:"
 msgstr "Název vrstvy:"
 
@@ -1020,7 +1038,7 @@ msgid ""
 "Connection handle %d does not exist on '%s'."
 msgstr ""
 "Chyba při načítání diagramu.\n"
-"Ovladač připojení %d na „%s“ neexistuje."
+"Úchyt připojení %d na „%s“ neexistuje."
 
 #: ../app/load_save.c:286
 #, c-format
@@ -1036,11 +1054,11 @@ msgstr ""
 msgid "Can't find parent %s of %s object\n"
 msgstr "Nelze nalézt rodiče %s objektu %s\n"
 
-#: ../app/load_save.c:377
+#: ../app/load_save.c:394
 msgid "You must specify a file, not a directory."
 msgstr "Musíte zadat soubor, ne složku."
 
-#: ../app/load_save.c:384 ../plug-ins/dxf/dxf-import.c:1289
+#: ../app/load_save.c:401 ../plug-ins/dxf/dxf-import.c:1289
 #: ../plug-ins/wpg/wpg.c:1186 ../plug-ins/xfig/xfig-import.c:1288
 #: ../plug-ins/xslt/xslt.c:96
 #, c-format
@@ -1048,12 +1066,12 @@ msgid "Couldn't open: '%s' for reading.\n"
 msgstr "Nelze otevřít „%s“ pro čtení.\n"
 
 #. this was talking about unknown file type but it could as well be broken XML
-#: ../app/load_save.c:402
+#: ../app/load_save.c:419
 #, c-format
 msgid "Error loading diagram %s."
 msgstr "Chyba při načítání diagramu %s."
 
-#: ../app/load_save.c:411
+#: ../app/load_save.c:428
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -1062,7 +1080,7 @@ msgstr ""
 "Chyba při načítání diagramu %s.\n"
 "Neznámý typ souboru."
 
-#: ../app/load_save.c:419
+#: ../app/load_save.c:436
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -1071,7 +1089,12 @@ msgstr ""
 "Chyba při načítání diagramu %s.\n"
 "Toto není soubor Dia."
 
-#: ../app/load_save.c:677
+#: ../app/load_save.c:681
+#| msgid "Error reading resolution."
+msgid "Error reading connections"
+msgstr "Chyba při čtení spojů"
+
+#: ../app/load_save.c:701
 #, c-format
 msgid ""
 "Error loading diagram:\n"
@@ -1082,17 +1105,27 @@ msgstr ""
 "%s.\n"
 "Platný soubor ve formátu Dia obsahuje alespoň jednu vrstvu."
 
-#: ../app/load_save.c:1020
+#: ../app/load_save.c:1002
+#| msgid "Error reading magnification."
+msgid "Error saving connections"
+msgstr "Chyba při ukládání spojů"
+
+#: ../app/load_save.c:1007
+#, c-format
+msgid "Connection saving is incomplete for layer '%s'"
+msgstr "Uložení spojů je pro vrstvu „%s“ neúplné"
+
+#: ../app/load_save.c:1060
 #, c-format
 msgid "Not allowed to write to output file %s\n"
 msgstr "Není povoleno zapisovat do výstupního souboru %s\n"
 
-#: ../app/load_save.c:1052
+#: ../app/load_save.c:1092
 #, c-format
 msgid "Not allowed to write temporary files in %s\n"
 msgstr "Není povoleno zapisovat do dočasných souborů v %s\n"
 
-#: ../app/load_save.c:1075 ../plug-ins/cgm/cgm.c:1172
+#: ../app/load_save.c:1115 ../plug-ins/cgm/cgm.c:1172
 #: ../plug-ins/dxf/dxf-export.c:599
 #: ../plug-ins/metapost/render_metapost.c:1179
 #: ../plug-ins/pgf/render_pgf.c:1207 ../plug-ins/postscript/render_eps.c:123
@@ -1105,21 +1138,23 @@ msgstr "Nelze otevřít výstupní soubor %s"
 
 #. Save failed; we clean our stuff up, without touching the file named
 #. "filename" if it existed.
-#: ../app/load_save.c:1086
+#: ../app/load_save.c:1126
 #, c-format
 msgid "Internal error %d writing file %s\n"
 msgstr "Vnitřní chyba %d při zápisu souboru %s\n"
 
-#: ../app/load_save.c:1097
+#: ../app/load_save.c:1137
 #, c-format
 msgid "Can't rename %s to final output file %s: %s\n"
 msgstr "Nelze přejmenovat %s na konečný výstupní soubor %s: %s\n"
 
-#: ../app/load_save.c:1113
-msgid "Diagram Save"
-msgstr "Ukládání diagramu"
+#. no extra threads supported, stay in this one
+#: ../app/load_save.c:1253 ../app/load_save.c:1263 ../app/load_save.c:1271
+#| msgid "Autoclave"
+msgid "Auto save"
+msgstr "Automatické ukládání"
 
-#: ../app/load_save.c:1243 ../app/load_save.c:1248
+#: ../app/load_save.c:1295 ../app/load_save.c:1300
 msgid "Dia Diagram File"
 msgstr "Soubor diagramu Dia"
 
@@ -1809,20 +1844,12 @@ msgstr "Vyhlazené:"
 msgid "view antialised"
 msgstr "zobrazit vyhlazené"
 
-#. Favored Filter
-#. Translators: Menu item Verb/Channel/Export
-#. Translators: Menu item Verb/Channel/Export/Export
-#: ../app/preferences.c:220 ../objects/FS/function.c:694
-#: ../objects/FS/function.c:696 ../plug-ins/libart/export_png.c:329
-msgid "Export"
-msgstr "Export"
-
 #: ../app/preferences.c:222
 msgid "Portable Network Graphics"
 msgstr "Portable Network Graphics"
 
 #: ../app/preferences.c:224 ../plug-ins/svg/render_svg.c:605
-#: ../plug-ins/svg/svg-import.c:2044
+#: ../plug-ins/svg/svg-import.c:2046
 msgid "Scalable Vector Graphics"
 msgstr "Scalable Vector Graphics"
 
@@ -1871,13 +1898,13 @@ msgid "Hex Size:"
 msgstr "Velikost šesterečku:"
 
 #: ../app/preferences.c:470 ../lib/prop_inttypes.c:159
-#: ../lib/prop_pattern.c:206 ../lib/prop_pixbuf.c:270
+#: ../lib/prop_pattern.c:217 ../lib/prop_pixbuf.c:270
 msgid "Yes"
 msgstr "Ano"
 
 #: ../app/preferences.c:470 ../app/preferences.c:481
 #: ../lib/prop_inttypes.c:161 ../lib/prop_inttypes.c:187
-#: ../lib/prop_pattern.c:208 ../lib/prop_pattern.c:214
+#: ../lib/prop_pattern.c:219 ../lib/prop_pattern.c:225
 #: ../lib/prop_pixbuf.c:272 ../lib/prop_pixbuf.c:278
 msgid "No"
 msgstr "Ne"
@@ -2483,7 +2510,7 @@ msgstr "neznámá šipka"
 #: ../lib/create.c:50 ../lib/create.c:100 ../lib/create.c:127
 #: ../lib/create.c:160 ../lib/create.c:196 ../lib/create.c:228
 #: ../lib/create.c:252 ../lib/create.c:284 ../lib/create.c:305
-#: ../lib/create.c:335 ../lib/create.c:378 ../plug-ins/svg/svg-import.c:651
+#: ../lib/create.c:335 ../lib/create.c:378 ../plug-ins/svg/svg-import.c:652
 #: ../plug-ins/vdx/vdx-import.c:144
 msgid "Can't find standard object"
 msgstr "Nelze nalézt standardní objekt"
@@ -2792,11 +2819,11 @@ msgstr "Datum změny"
 msgid "URL"
 msgstr "URL"
 
-#: ../lib/prop_dict.c:235 ../sheets/ciscomisc.sheet.in.h:43
+#: ../lib/prop_dict.c:243 ../sheets/ciscomisc.sheet.in.h:43
 msgid "Key"
 msgstr "Klíč"
 
-#: ../lib/prop_dict.c:242 ../objects/UML/umlattribute.c:41
+#: ../lib/prop_dict.c:250 ../objects/UML/umlattribute.c:41
 #: ../objects/UML/umlparameter.c:47
 msgid "Value"
 msgstr "Hodnota"
@@ -2930,7 +2957,7 @@ msgstr "Přetypování vlastnosti z celého čísla na výčet je mimo rozsah"
 msgid "No attribute '%s' (%p) or no data (%p) in this attribute"
 msgstr "V tomto atributu není atribut „%s“ (%p) ani data(%p)"
 
-#: ../lib/prop_pattern.c:232
+#: ../lib/prop_pattern.c:243
 msgid "Cant create pattern from scratch!"
 msgstr "Nelze vytvořit vzor úplně od nuly!"
 
@@ -3100,7 +3127,7 @@ msgstr "Přidat skupinu portů"
 
 #: ../objects/AADL/aadlbox.c:380
 msgid "Add Connection Point"
-msgstr "Přidat bod připojení"
+msgstr "Přidat přípojný bod"
 
 #: ../objects/AADL/aadlbox.c:384
 msgid "Delete Port"
@@ -3112,7 +3139,7 @@ msgstr "Upravit deklaraci portu"
 
 #: ../objects/AADL/aadlbox.c:389
 msgid "Delete Connection Point"
-msgstr "Smazat bod připojení"
+msgstr "Smazat přípojný bod"
 
 #: ../objects/AADL/aadl.c:52
 msgid "Architecture Analysis & Design Language diagram objects"
@@ -5127,7 +5154,7 @@ msgstr "Volné"
 msgid "Fixed"
 msgstr "Pevné"
 
-#: ../objects/standard/box.c:132 ../objects/standard/box.c:781
+#: ../objects/standard/box.c:132 ../objects/standard/box.c:782
 msgid "Square"
 msgstr "Čtverec"
 
@@ -5135,11 +5162,11 @@ msgstr "Čtverec"
 msgid "Aspect ratio"
 msgstr "Poměr stran"
 
-#: ../objects/standard/box.c:777 ../objects/standard/ellipse.c:686
+#: ../objects/standard/box.c:778 ../objects/standard/ellipse.c:686
 msgid "Free aspect"
 msgstr "Volný poměr stran"
 
-#: ../objects/standard/box.c:779 ../objects/standard/ellipse.c:688
+#: ../objects/standard/box.c:780 ../objects/standard/ellipse.c:688
 msgid "Fixed aspect"
 msgstr "Pevný poměr stran"
 
@@ -5175,13 +5202,13 @@ msgstr "Kreslit hranice"
 msgid "Keep aspect ratio"
 msgstr "Zachovat poměr stran"
 
-#: ../objects/standard/image.c:684
+#: ../objects/standard/image.c:683
 msgid "Inconsistent pixbuf during image save."
 msgstr "Nekonzistentní objekt pixbuf během ukládání obrázku."
 
 #. Found file in same dir as diagram.
 #. Found file in current dir.
-#: ../objects/standard/image.c:781 ../objects/standard/image.c:792
+#: ../objects/standard/image.c:780 ../objects/standard/image.c:791
 #, c-format
 msgid ""
 "The image file '%s' was not found in the specified directory.\n"
@@ -5191,7 +5218,7 @@ msgstr ""
 "Použije se místo něj soubor „%s“.\n"
 
 #. Didn't find file in current dir.
-#: ../objects/standard/image.c:798 ../objects/standard/image.c:820
+#: ../objects/standard/image.c:797 ../objects/standard/image.c:819
 #, c-format
 msgid "The image file '%s' was not found.\n"
 msgstr "Soubor s obrázkem „%s“ nebyl nalezen.\n"
@@ -5905,12 +5932,12 @@ msgstr "Computer Graphics Metafile"
 msgid "Computer Graphics Metafile export filter"
 msgstr "Exportní filtr formátu Computer Graphics Metafile"
 
-#: ../plug-ins/drs/dia-render-script.c:158
-#: ../plug-ins/drs/dia-render-script.c:163
+#: ../plug-ins/drs/dia-render-script.c:160
+#: ../plug-ins/drs/dia-render-script.c:165
 msgid "DiaRenderScript"
 msgstr "DiaRenderScript"
 
-#: ../plug-ins/drs/dia-render-script.c:187
+#: ../plug-ins/drs/dia-render-script.c:189
 msgid "DiaRenderScript filter"
 msgstr "Filtr DiaRenderScript"
 
@@ -6068,7 +6095,7 @@ msgstr "Importní filtr formátu PDF"
 msgid "Page %d"
 msgstr "Strana %d"
 
-#: ../plug-ins/pdf/pdf-import.cpp:824
+#: ../plug-ins/pdf/pdf-import.cpp:839
 #, c-format
 msgid ""
 "PDF document not OK.\n"
@@ -6222,16 +6249,16 @@ msgstr ""
 "Neplatná data cesty.\n"
 "Data svg:path musí začínat příkazem moveto."
 
-#: ../plug-ins/svg/svg-import.c:1837
+#: ../plug-ins/svg/svg-import.c:1839
 msgid "'Shape Design' shapes missing."
 msgstr "Schází symboly „Návrh symbolu“"
 
-#: ../plug-ins/svg/svg-import.c:1871
+#: ../plug-ins/svg/svg-import.c:1873
 #, c-format
 msgid "Object '%s' creation failed"
 msgstr "Vytvoření objektu „%s“ selhalo"
 
-#: ../plug-ins/svg/svg-import.c:1893
+#: ../plug-ins/svg/svg-import.c:1895
 #, c-format
 msgid ""
 "Parse error for memory block.\n"
@@ -6240,16 +6267,16 @@ msgstr ""
 "Chyba zpracování pro paměťový blok.\n"
 "%s"
 
-#: ../plug-ins/svg/svg-import.c:1906 ../plug-ins/vdx/vdx-import.c:2887
+#: ../plug-ins/svg/svg-import.c:1908 ../plug-ins/vdx/vdx-import.c:2887
 #, c-format
 msgid "Parse error for %s"
 msgstr "Chyba zpracování pro %s"
 
-#: ../plug-ins/svg/svg-import.c:1939
+#: ../plug-ins/svg/svg-import.c:1941
 msgid "Expected SVG name-space not found in file"
 msgstr "Očekávaný jmenný prostor SVG nebyl v souboru nalezen"
 
-#: ../plug-ins/svg/svg-import.c:1959
+#: ../plug-ins/svg/svg-import.c:1961
 #, c-format
 msgid "root element was '%s' -- expecting 'svg'."
 msgstr "kořenový element byl „%s“ -- očekává se „svg“."
