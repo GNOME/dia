@@ -129,12 +129,21 @@ dia_context_set_filename (DiaContext *context,
   context->filename = g_strdup (filename);
 }
 
+/*!
+ * \brief Get the filename previously set with dia_context_set_filename()
+ *
+ * Returns the filename previously set with dia_context_set_filename(). For convenience
+ * of the API user a valid string gets returned even if no filename is set.
+ *
+ * @param  context explicit this pointer
+ * @return the filename or "?" instead of NULL
+ */
 const char *
 dia_context_get_filename (DiaContext *context)
 {
   g_return_val_if_fail (context != NULL, "");
 
-  return context->filename;
+  return context->filename ? context->filename : "?";
 }
 
 void 
@@ -143,7 +152,6 @@ dia_context_add_message (DiaContext *context,
 {
   gchar *msg;
   va_list args;
-
 
   g_return_if_fail (context != NULL);
 

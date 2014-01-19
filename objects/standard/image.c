@@ -655,7 +655,7 @@ image_save(Image *image, ObjectNode obj_node, DiaContext *ctx)
     if (g_path_is_absolute(image->file)) { /* Absolute pathname */
       diafile_dir = get_directory(dia_context_get_filename (ctx));
 
-      if (strncmp(diafile_dir, image->file, strlen(diafile_dir))==0) {
+      if (diafile_dir && strncmp(diafile_dir, image->file, strlen(diafile_dir))==0) {
 	/* The image pathname has the dia file pathname in the begining */
 	/* Save the relative path: */
 	data_add_filename(new_attribute(obj_node, "file"),
