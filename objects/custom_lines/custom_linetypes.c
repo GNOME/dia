@@ -52,7 +52,7 @@ static DiaObject *custom_zigzagline_load (ObjectNode obj_node, int version, DiaC
 static DiaObject *custom_polyline_load   (ObjectNode obj_node, int version, DiaContext *ctx);
 static DiaObject *custom_bezierline_load (ObjectNode obj_node, int version, DiaContext *ctx);
 
-static void customline_save (DiaObject *object, ObjectNode obj_node, const char *filename);
+static void customline_save (DiaObject *object, ObjectNode obj_node, DiaContext *ctx);
 
 static ObjectTypeOps 
 custom_zigzagline_type_ops = {
