@@ -96,7 +96,7 @@
   <path id="b6" d="M210,260 l40,0 c0,40 -40,40 -40,0z" fill="url(#RG4)"/>
   <path id="b7" d="M210,310 l40,0 c0,40 -40,40 -40,0z" fill="url(#RG5)"/>
   <path id="b8" d="M210,360 l40,0 c0,40 -40,40 -40,0z" fill="url(#LG3)"/>
-  <path id="b7" d="M210,410 l40,0 c0,40 -40,40 -40,0z" fill="url(#LG4)"/>
+  <path id="b9" d="M210,410 l40,0 c0,40 -40,40 -40,0z" fill="url(#LG4)"/>
 
   <!-- Standard - Path -->
   <path id="p1" d="M275,10 c20,0 20,40 0,40 c-20,0 -20,-40 0,-40m0,15 c5,0 5,10 0,10 c-5,0 -5,-10 0,-10z" fill="url(#LG1)"/>

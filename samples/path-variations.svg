@@ -5,7 +5,6 @@
   <!-- variation on path definitions all leading to a 1x1 square -->
   <defs>
     <path d="M0,0 20,0 20,20 0,20 0,0z" fill="red" stroke="none" id="box"/>
-    <path d="M10,0 20,0 20,20 0,20 0,0z" fill="red" stroke="none" id="box"/>
     <path d="M0,0 10,0 10,10 0,10 0,0z" fill="red" stroke="none" id="box-sm"/>
     <path d="M0,0h20v20h-20z" fill="lime" id="box-lime"/>
     <path d="M0,0h20v20h-20z" id="box-nofill"/>
@@ -44,6 +43,7 @@
   <!-- Use use variations -->
   <use x="20" y="100" xlink:href="#box"/>
   <use x="0" y="0" xlink:href="#box" transform="translate(60,100)" id="box13"/>
+  <!-- reference to non existing -->
   <use x="10" y="100" xlink:href="#box1" transform="translate(80,0)"  id="box23"/>
   <use xlink:href="#box-sm" transform="matrix(2,0,0,2,100,100)"/>
   <g id="scaled-use" transform="matrix(2,0,0,2,140,100)">
@@ -109,14 +109,14 @@
       <use xlink:href="#mostly-hidden"/>
       <!-- hole clockwise w/ evenodd -->
       <path d="M20,20 80,20 80,80 20,80z M40,40 60,40 60,60 40,60 40,40z"
-	fill="lime" fill-opacity="0.8" fill-rule="evenodd" id="with-hole"/>
+	fill="lime" fill-opacity="0.8" fill-rule="evenodd" id="maybe-with-hole"/>
     </g>
     <g transform="matrix(0.2,0,0,0.2,80,0)">
       <use xlink:href="#border"/>
       <use xlink:href="#mostly-hidden"/>
       <!-- no hole: clockwise, missing fill-rule -->
       <path d="M20,20 80,20 80,80 20,80z M40,40 60,40 60,60 40,60 40,40z"
-	fill="lime" fill-opacity="0.8" id="maybe-with-hole"/>
+	fill="lime" fill-opacity="0.8" id="without-hole"/>
     </g>
     <g transform="matrix(0.2,0,0,0.2,120,0)">
       <!-- more holes counter-clockwise: smallest first -->
