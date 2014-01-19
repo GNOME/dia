@@ -39,6 +39,8 @@ typedef char gchar;
 
 %ignore GEOMETRY_H;
 // and a bunch of other stuff not yet needed
+%ignore dia_acos;
+%ignore dia_asin;
 %ignore point_add;
 %ignore point_sub;
 %ignore point_dot;
@@ -298,6 +300,7 @@ PyObject* dia_IProperty_value_get (dia::IProperty* self) {
   // don't use 'export' as this produces nothing w/o warning
   void do_export (dia::DiagramData *dia, const gchar *filename) {
     DiaContext *ctx = dia_context_new ("Export");
+    dia_context_set_filename (ctx, filename);
     if (dia)
       self->export_func (dia->Self(), ctx, filename, filename, self->user_data);
     else
@@ -306,6 +309,8 @@ PyObject* dia_IProperty_value_get (dia::IProperty* self) {
   }
 };
 
+// don't generate a non-working binding
+%ignore dia::group_create;
 %include "dia-extra.h"
 
 %ignore _ot_item;
@@ -345,10 +350,26 @@ _ot_item (gpointer key,
 PyObject* registered_types () 
 {
     PyObject *dict = PyDict_New();
-    
+
     object_registry_foreach(_ot_item, dict);
 
     return dict;
+}
+//! overwrite group_create to work with a list of Python objects
+dia::Object* group_create (PyObject *list)
+{
+    if (PyList_Check(list)) {
+	GList *objs = NULL;
+	for (int i = 0; i < PyList_Size(list); ++i) {
+	    PyObject* obj1 = PyList_GetItem(list, i);
+	    void* o;
+	    if (SWIG_IsOK(SWIG_ConvertPtr(obj1, &o, SWIGTYPE_p_dia__Object, 0 )))
+		objs = g_list_append (objs, reinterpret_cast<dia::Object*>(o)->Self());
+	}
+	dia::Objects ow(&objs);
+	return dia::group_create (&ow);
+    }
+    return NULL;
 }
 %}
 #endif

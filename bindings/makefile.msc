@@ -76,7 +76,7 @@ dia-perl.cpp : $(INTERFACES)
 	swig $(SWIG_FLAGS) -perl -c++ -o perl\$*.cpp dia.swig
 
 _dia.pyd : $(OBJECTS) dia-python.obj
-	$(CC) $(CFLAGS) -LD -Fe$@ $(OBJECTS) dia-python.obj $(LDFLAGS) $(EXTRALIBS) $(GLIB_LIBS)
+	$(CC) -nologo $(CFLAGS) -LD -Fe$@ $(OBJECTS) dia-python.obj $(LDFLAGS) $(EXTRALIBS) $(GLIB_LIBS)
 
 clean::
 	del _dia.pyd dia.py dia.pyc $(GENERATED)

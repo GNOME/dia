@@ -37,8 +37,10 @@ public :
     Object* load (ObjectNode node, int version, DiaContext *ctx) const;
     //! save an object to file filename
     void save (Object* o, ObjectNode node, const char* filename) const;
+#if 0 // nothing useful
     //! OPTIONAL: open the defaults dialog
     GtkWidget* get_defaults () const;
+#endif
     //! OPTIONAL: apply changed defaults
     void apply_defaults ();
 private :

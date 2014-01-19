@@ -63,8 +63,12 @@ void
 dia::ObjectType::save (Object* o, ObjectNode node, const char* filename) const
 {
     assert (self);
-    self->ops->save (o->Self(), node, filename);
+    DiaContext *ctx = dia_context_new ("Object save");
+    self->ops->save (o->Self(), node, ctx);
+    dia_context_reset (ctx);
+    dia_context_release (ctx);
 }
+#if 0
 //! OPTIONAL: opens the defaults dialog
 GtkWidget* 
 dia::ObjectType::get_defaults () const
@@ -74,6 +78,7 @@ dia::ObjectType::get_defaults () const
         return 0;
     return self->ops->get_defaults ();
 }
+#endif
 //! OPTIONAL: apply changed defaults
 void 
 dia::ObjectType::apply_defaults ()

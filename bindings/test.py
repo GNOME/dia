@@ -1,15 +1,14 @@
 import os, sys
 
 # a global object to make it changeable by main()
-format_extensions = ["svg", "png"]
+format_extensions = ["drs", "svg", "png"]
 
 if sys.platform == "win32" :
 	print "Adjusting PATH ..."
 	sys.path.insert(0, r'd:\graph\dia2\python')
 	sys.path.insert(0, r'd:\graph\dia2\bin')
 	sys.path.insert(0, r'..\plug-ins\python')
-	# format_extensions.prepend ("wmf")
-	format_extensions.insert (0, "wmf")
+	#format_extensions.insert (0, "wmf")
 else : # sorry only Linux and win32 tested ;)
 	sys.path.insert (0, os.getcwd() + "/.libs")
 	sys.path.insert(0, r'../plug-ins/python')
@@ -52,10 +51,10 @@ def Export (name, data) :
 def Import () :
 	data = dia.DiagramData()
 	import diasvg_import
-	diasvg_import.import_svg (r"D:\graph\dia2\render-test.svg", data)
+	diasvg_import.import_svg (r"D:\graph\dia2\samples\render-test.svg", data)
 
 	filename = "render-test-swig.svg"
-	ef = dia.filter_get_by_name ("svg")
+	ef = dia.filter_export_get_by_name ("svg")
 	if not ef :
 		print "Guessing ..."
 		ef = dia.filter_guess_export_filter ("dummy.png")
@@ -76,7 +75,7 @@ def Doc () :
 	data = dia.DiagramData()
 
 	import pydiadoc
-	res = pydiadoc.autodoc_cb (data, 1)
+	res = pydiadoc.autodoc_fresh_cb (data, 1)
 	if res :
 		data = res
 	Export ("pydiadoc", data)

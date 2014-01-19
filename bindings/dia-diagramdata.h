@@ -24,7 +24,7 @@ class Object;
 class Objects
 {
 public :
-    //! dont use
+    //! don't use
     Objects () : list(0) {}
 
     //! construct from Object owning objects list
@@ -74,11 +74,11 @@ private :
     Objects* _found; //< backing store for find_objects_in_rectangle
 };
 
-//! \brief container for layer, needed du to msvc6 lacking partial specialization
+//! \brief container for layer, needed due to msvc6 lacking partial specialization
 class Layers
 {
 public :
-    //! dont use
+    //! don't use
     Layers () : list(0) {}
     //! construct from Dia's container
     Layers (GPtrArray** os) : list(os) {}
@@ -106,7 +106,7 @@ public :
           // error: uninitialized member 'dia::DiagramData::extents' with 'const' type 'const Rectangle'
 #endif
     ::Rectangle extents;
-    //! trying ot be compatible, read-only
+    //! trying to be compatible, read-only
     const Layer* active_layer;
     //! the read-only list of layers, \todo typemap it in SWIG
     const Layers* layers;

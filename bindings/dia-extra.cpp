@@ -33,6 +33,10 @@
 #include "plug-ins.h"
 #include "dialib.h"
 
+#include "dia-object.h" // for group_create impl.
+#include "dia-diagramdata.h" // for Objects
+#include "group.h"
+
 /*!
  * 
  *
@@ -48,4 +52,32 @@ void dia::register_plugins ()
     libdia_init (DIA_MESSAGE_STDERR);
 
     dia_register_plugins ();
+}
+
+void dia::message (int severity, const char* msg)
+{
+    g_print ("%s: %s\n", severity <= 0 ? "Info" : severity == 1 ? "Warning" : "Error", msg);
+}
+
+/*!
+ * \brief factory function for Group
+ * 
+ * Dia's group_create eats the given list, so this should to do the same,
+ * i.e. passing ownership of the Object in in objects.
+ * But 
+ */
+dia::Object*
+dia::group_create (Objects* objects)
+{
+    GList *list = NULL;
+    int i;
+
+    g_return_val_if_fail (objects->len() > 0, NULL);
+
+    for (i = 0; i < objects->len(); ++i) {
+	Object *o = objects->getitem(i);
+	if (o) // paranoid
+	    list = g_list_append (list, o->Self());
+    }
+    return new dia::Object (::group_create (list));
 }
