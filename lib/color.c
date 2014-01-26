@@ -39,8 +39,13 @@ void
 color_init(void)
 {
   if (!_color_initialized) {
+#if !defined(GDK_WINDOWING_QUARTZ)
     GdkVisual *visual = gtk_widget_get_default_visual();
     colormap = gdk_colormap_new (visual, FALSE); 
+#else
+    /* gdk/quartz does not implement gdk_colormap_new () */
+    colormap = gdk_screen_get_system_colormap (gdk_screen_get_default ());
+#endif
 
     _color_initialized = TRUE;
   }
