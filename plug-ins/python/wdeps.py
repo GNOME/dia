@@ -256,38 +256,59 @@ def GetDepsPosix (sFrom, dAll, nMaxDepth, nDepth=0) :
 		dAll[sFromName] = Node (sFromName, nDepth) # needed here so other algoritm can remove it ;)
 		return
 	if not sFromName in dAll.keys() :
-		#print "Creating", sFromName, nDepth
+		print "Creating", sFromName, nDepth
 		node = Node (sFromName, nDepth)
 		sPath = sFrom
 		#TODO: work with relative pathes? Current dir?
-		f = os.popen ('ldd "' + sPath + '"')
+		if os.sys.platform in ['darwin'] :
+			f = os.popen ('dyldinfo -dylibs "' + sPath + '"')
+		else :
+			f = os.popen ('ldd "' + sPath + '"')
 		sModules = f.readlines ()
 		# avoids multiple instances of dumpbin running simultaneously
 		f = None
 		# avoids infinite recursion on circular dependencies
 		dAll[sFromName] = None
 		# sFrom imports
-		fImports = os.popen ('nm --extern-only --dynamic --undefined-only ' + sPath)
+		# --extern-only : -g
+		# --undefined-only : -u
+		# ? --defined-only : -U
+		if os.sys.platform in ['darwin'] :
+			fImports = os.popen ('nm -g -u ' + sPath)
+		else :
+			fImports = os.popen ('nm --extern-only --dynamic --undefined-only ' + sPath)
 		sImports = fImports.readlines()
 		dImports = {}
 		for si in sImports :
-			mi = re.match("\s+U (\S+)", si)
-			if mi :
-				dImports[mi.group(1)] = 1
+			if os.sys.platform in ['darwin'] :
+				if len(si) > 1 :
+					dImports[si[:-1]] = 1
+			else :
+				mi = re.match("\s+U (\S+)", si)
+				if mi :
+					print mi.group(1)
+					dImports[mi.group(1)] = 1
 		toRecurse = []
 		for s in sModules :
-			r = re.match ("\s+(?P<name>\S+) => (?P<path>\S+).*", s)
+			if os.sys.platform in ['darwin'] :
+				r = re.match ("\s+(?P<path>\S+).*", s)
+			else :
+				r = re.match ("\s+(?P<name>\S+) => (?P<path>\S+).*", s)
 			if r :
 				# print r.group("name"), r.group("path")
 				# now find symbols between sFrom and any of the SOs
 				usedSymbols = []
 				unusedSymbols = []
-				fExports = os.popen ('nm --extern-only --dynamic --defined-only ' + r.group("path"))
+				if os.sys.platform in ['darwin'] :
+					fExports = os.popen ('nm -g -U ' + r.group("path"))
+				else :
+					fExports = os.popen ('nm --extern-only --dynamic --defined-only ' + r.group("path"))
 				sExports = fExports.readlines() 
 				for se in sExports :
 					me = re.match ("\w+ T (\S+)", se)
 					if me :
 						symbol = me.group(1)
+						# print symbol
 						# print me.group(1), r.group('name') 
 						if symbol in dImports.keys() :
 							# direct connection
@@ -298,7 +319,11 @@ def GetDepsPosix (sFrom, dAll, nMaxDepth, nDepth=0) :
 				# should remember the node although it may not be connected yet
 				# OTOH the recursion would become more difficult to understand, favor KISS
 				if len(usedSymbols) > 0 :
-					node.AddEdge(r.group("name"), usedSymbols, 0)
+					try :
+						node.AddEdge(r.group("name"), usedSymbols, 0)
+					except IndexError : # darwin
+						sToPath = r.group("path")
+						node.AddEdge(sToPath[sToPath.rfind('/')+1:], usedSymbols, 0)
 					toRecurse.append(r.group("path"))
 					print sFromName, "(", nDepth, "):", r.group("path")
 		# add to all nodes
