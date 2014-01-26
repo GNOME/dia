@@ -49,6 +49,15 @@
 #include "filter.h"
 #include "plug-ins.h"
 
+/* Noise reduction for
+ * return value of 'fwrite', declared with attribute warn_unused_result
+ * discussion: http://gcc.gnu.org/bugzilla/show_bug.cgi?id=25509
+ * root cause: http://sourceware.org/bugzilla/show_bug.cgi?id=11959
+ */
+#ifdef __GNUC__
+#pragma GCC diagnostic ignored "-Wunused-result"
+#endif
+
 /* format specific */
 #include "wpg_defs.h"
 

@@ -48,6 +48,15 @@
 #define CGM_IS_RENDERER(obj)        (G_TYPE_CHECK_INSTANCE_TYPE ((obj), CGM_TYPE_RENDERER))
 #define CGM_RENDERER_GET_CLASS(obj) (G_TYPE_INSTANCE_GET_CLASS ((obj), CGM_TYPE_RENDERER, CgmRendererClass))
 
+/* Noise reduction for
+ * return value of 'fwrite', declared with attribute warn_unused_result
+ * discussion: http://gcc.gnu.org/bugzilla/show_bug.cgi?id=25509
+ * root cause: http://sourceware.org/bugzilla/show_bug.cgi?id=11959
+ */
+#ifdef __GNUC__
+#pragma GCC diagnostic ignored "-Wunused-result"
+#endif
+
 GType cgm_renderer_get_type (void) G_GNUC_CONST;
 
 typedef struct _CgmRenderer CgmRenderer;
