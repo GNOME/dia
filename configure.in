@@ -73,7 +73,7 @@ AC_SUBST(GMODULE_LIBS)
 AC_PATH_PROG(GLIB_GENMARSHAL, glib-genmarshal)
 
 GTK_MODULES="gtk+-2.0 >= 2.16.0 glib-2.0 >= 2.20.0 libxml-2.0 gdk-pixbuf-2.0 gthread-2.0 gmodule-2.0"
-PKG_CHECK_MODULES(PANGOVERSION, pango >= 1.20.0, , 
+PKG_CHECK_MODULES(PANGOVERSION, pango >= 1.20.0 pangocairo, , 
                   AC_MSG_ERROR([Need Pango version 1.20.0 or higher]))
 
 AC_ARG_WITH(freetype,
@@ -153,6 +153,18 @@ dnl GTK2:     libgnomecanvas-2.0 ?
 PKG_CHECK_MODULES(GTK,$GTK_MODULES)
 AC_SUBST(GTK_CFLAGS)
 AC_SUBST(GTK_LIBS)
+
+### --------------------------------------------------------------------------
+### Check to see if GDK uses the quartz backend and if we can use 
+### MacOSX integration
+_gdk_tgt=`$PKG_CONFIG --variable=target gdk-2.0`
+AM_CONDITIONAL([GDK_TARGET_QUARTZ], [test x$_gdk_tgt = xquartz])
+if test "x$_gdk_tgt" = xquartz; then 
+    PKG_CHECK_MODULES(GTK_MAC, gtk-mac-integration)
+    AC_SUBST(GTK_MAC_LIBS)
+    AC_SUBST(GTK_MAC_CFLAGS)
+    AC_DEFINE(HAVE_MAC_INTEGRATION,1,[Define if building with gtk-mac-integration])
+fi
 
 AM_CONDITIONAL(HAVE_BONOBO,[test "true" = "false"])
 

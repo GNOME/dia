@@ -8,6 +8,7 @@ INCLUDES = \
 	-I$(top_srcdir)/lib \
 	$(DEBUG_FLAGS) \
 	$(GTK_CFLAGS) \
+	$(GTK_MAC_CFLAGS) \ 
 	$(LIBART_CFLAGS) \
 	-DPREFIX=\""$(prefix)"\" \
 	-DSYSCONFDIR=\""$(sysconfdir)"\" \
@@ -220,7 +221,8 @@ EFENCE =
 
 dia_LDADD = ../lib/libdia.la \
 	$(EFENCE) \
-	$(APP_LIBS) $(Z_LIBS) $(FREETYPE_LIBS) $(GTK_LIBS) $(PNG_LIBS) $(INTLLIBS) $(INTLOBJS) $(XML_LIBS) $(LIBART_LIBS) $(GLIB_LIBS)
+	$(APP_LIBS) $(Z_LIBS) $(FREETYPE_LIBS) $(GTK_LIBS) $(PNG_LIBS) $(INTLLIBS) $(INTLOBJS) \
+	$(XML_LIBS) $(LIBART_LIBS) $(GLIB_LIBS) $(GTK_MAC_LIBS)
 
 ## Bonobo embeddable dia. Commented out, because it's a bit raw.
 ## Especially the configure/make parts.
