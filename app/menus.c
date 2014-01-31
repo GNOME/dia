@@ -271,18 +271,11 @@ static const GtkRadioActionEntry display_select_radio_entries[] =
 /* need initialisation? */
 static gboolean initialise = TRUE;
 
-/* integrated ui */
-static GtkUIManager *integrated_ui_manager = NULL;
-static GtkActionGroup *integrated_ui_actions = NULL;
-static GtkAccelGroup *integrated_ui_accels = NULL;
-static GtkWidget *integrated_ui_menubar = NULL;
-static GtkWidget *integrated_ui_toolbar = NULL;
+/* shared between toolbox and integrated code */
+static GtkUIManager *_ui_manager = NULL;
 
 /* toolbox */
-static GtkUIManager *toolbox_ui_manager = NULL;
 static GtkActionGroup *toolbox_actions = NULL;
-static GtkAccelGroup *toolbox_accels = NULL;
-static GtkWidget *toolbox_menubar = NULL;
 
 static GtkActionGroup *tool_actions = NULL;
 GtkActionGroup *recent_actions = NULL;
@@ -550,14 +543,14 @@ create_integrated_ui_toolbar (void)
   gchar *uifile;
 
   uifile = build_ui_filename ("ui/toolbar-ui.xml");
-  if (!gtk_ui_manager_add_ui_from_file (integrated_ui_manager, uifile, &error)) {
+  if (!gtk_ui_manager_add_ui_from_file (_ui_manager, uifile, &error)) {
     g_warning ("building menus failed: %s", error->message);
     g_error_free (error);
     error = NULL;
     toolbar = GTK_TOOLBAR (gtk_toolbar_new ());
   }
   else {
-    toolbar =  GTK_TOOLBAR(gtk_ui_manager_get_widget (integrated_ui_manager, "/Toolbar"));
+    toolbar =  GTK_TOOLBAR(gtk_ui_manager_get_widget (_ui_manager, "/Toolbar"));
   }
   g_free (uifile);  
 
@@ -892,6 +885,36 @@ static const gchar *ui_info =
 "</ui>";
 
 static void
+_setup_global_actions (void)
+{
+  if (tool_actions)
+    return;
+  g_return_if_fail (_ui_manager == NULL);
+  g_return_if_fail (toolbox_actions == NULL);
+
+  register_stock_icons ();
+
+  /* for the toolbox menu */
+  toolbox_actions = gtk_action_group_new ("toolbox-actions");
+  gtk_action_group_set_translation_domain (toolbox_actions, NULL);
+  gtk_action_group_set_translate_func (toolbox_actions, _dia_translate, NULL, NULL);
+  gtk_action_group_add_actions (toolbox_actions, common_entries, 
+                G_N_ELEMENTS (common_entries), NULL);
+  gtk_action_group_add_actions (toolbox_actions, toolbox_entries, 
+                G_N_ELEMENTS (toolbox_entries), NULL);
+
+  _ui_manager = gtk_ui_manager_new ();
+  g_signal_connect (G_OBJECT (_ui_manager), 
+                    "connect_proxy",
+		    G_CALLBACK (_ui_manager_connect_proxy),
+		    NULL);
+  gtk_ui_manager_set_add_tearoffs (_ui_manager, DIA_SHOW_TEAROFFS);
+  gtk_ui_manager_insert_action_group (_ui_manager, toolbox_actions, 0);
+
+  tool_actions = create_or_ref_tool_actions ();
+}
+
+static void
 menus_init(void)
 {
   gchar                 *accelfilename;
@@ -902,39 +925,18 @@ menus_init(void)
     return;
   
   initialise = FALSE;
+  _setup_global_actions ();
 
-  register_stock_icons ();
-
-  /* the toolbox menu */
-  toolbox_actions = gtk_action_group_new ("toolbox-actions");
-  gtk_action_group_set_translation_domain (toolbox_actions, NULL);
-  gtk_action_group_set_translate_func (toolbox_actions, _dia_translate, NULL, NULL);
-  gtk_action_group_add_actions (toolbox_actions, common_entries, 
-                G_N_ELEMENTS (common_entries), NULL);
-  gtk_action_group_add_actions (toolbox_actions, toolbox_entries, 
-                G_N_ELEMENTS (toolbox_entries), NULL);
-
-  toolbox_ui_manager = gtk_ui_manager_new ();
-  g_signal_connect (G_OBJECT (toolbox_ui_manager), 
-                    "connect_proxy",
-		    G_CALLBACK (_ui_manager_connect_proxy),
-		    NULL);
-  gtk_ui_manager_set_add_tearoffs (toolbox_ui_manager, DIA_SHOW_TEAROFFS);
-  gtk_ui_manager_insert_action_group (toolbox_ui_manager, toolbox_actions, 0);
   uifile = build_ui_filename ("ui/toolbox-ui.xml");
-  if (!gtk_ui_manager_add_ui_from_file (toolbox_ui_manager, uifile, &error)) {
+  if (!gtk_ui_manager_add_ui_from_file (_ui_manager, uifile, &error)) {
     g_warning ("building menus failed: %s", error->message);
     g_error_free (error);
     error = NULL;
   }
   g_free (uifile);
 
-  toolbox_accels = gtk_ui_manager_get_accel_group (toolbox_ui_manager);
-  toolbox_menubar = gtk_ui_manager_get_widget (toolbox_ui_manager, TOOLBOX_MENU);
-
   /* the display menu */
   display_actions = create_or_ref_display_actions ();
-  tool_actions = create_or_ref_tool_actions ();
 
   display_ui_manager = gtk_ui_manager_new ();
   g_signal_connect (G_OBJECT (display_ui_manager), 
@@ -964,7 +966,7 @@ menus_init(void)
   display_menubar = gtk_ui_manager_get_widget (display_ui_manager, DISPLAY_MENU);
   g_assert (display_menubar);
 
-  add_plugin_actions (toolbox_ui_manager, TOOLBOX_MENU);
+  add_plugin_actions (_ui_manager, TOOLBOX_MENU);
   add_plugin_actions (display_ui_manager, DISPLAY_MENU);
   add_plugin_actions (display_ui_manager, INVISIBLE_MENU);
 
@@ -990,67 +992,43 @@ menus_get_integrated_ui_menubar (GtkWidget     **menubar,
   GError *error = NULL;
   gchar  *uifile;
 
-  if (initialise)
-    menus_init();
+  _setup_global_actions ();
+  g_return_if_fail (_ui_manager != NULL);
 
   /* the integrated ui menu */
-  integrated_ui_actions = gtk_action_group_new ("integrated-ui-actions");
-  gtk_action_group_set_translation_domain (integrated_ui_actions, NULL);
-  gtk_action_group_set_translate_func (integrated_ui_actions, _dia_translate, NULL, NULL);
-  gtk_action_group_add_actions (integrated_ui_actions, common_entries, 
-                G_N_ELEMENTS (common_entries), NULL);
-  gtk_action_group_add_actions (integrated_ui_actions, toolbox_entries, 
-                G_N_ELEMENTS (toolbox_entries), NULL);
-  gtk_action_group_add_actions (integrated_ui_actions, display_entries, 
-                G_N_ELEMENTS (display_entries), NULL);
-  gtk_action_group_add_toggle_actions (integrated_ui_actions, integrated_ui_view_toggle_entries, 
+  display_actions = create_or_ref_display_actions ();
+  g_return_if_fail (tool_actions != NULL);
+
+  /* maybe better to put this into toolbox_actions? */
+  gtk_action_group_add_toggle_actions (display_actions, integrated_ui_view_toggle_entries, 
                 G_N_ELEMENTS (integrated_ui_view_toggle_entries), NULL);
-  gtk_action_group_add_toggle_actions (integrated_ui_actions, display_toggle_entries,
-                G_N_ELEMENTS (display_toggle_entries), 
-                NULL);
-  gtk_action_group_add_radio_actions (integrated_ui_actions,
-                display_select_radio_entries,
-                G_N_ELEMENTS (display_select_radio_entries),
-                1,
-                G_CALLBACK (select_style_callback),
-                NULL);
 
+  /* for stand-alone they are per display */
+  gtk_ui_manager_insert_action_group (_ui_manager, display_actions, 0);
   tool_actions = create_or_ref_tool_actions ();
-
-  integrated_ui_manager = gtk_ui_manager_new ();
-  g_signal_connect (G_OBJECT (integrated_ui_manager), 
-                    "connect_proxy",
-		    G_CALLBACK (_ui_manager_connect_proxy),
-		    NULL);
-  gtk_ui_manager_set_add_tearoffs (integrated_ui_manager, DIA_SHOW_TEAROFFS);
-  gtk_ui_manager_insert_action_group (integrated_ui_manager, integrated_ui_actions, 0);
-  gtk_ui_manager_insert_action_group (integrated_ui_manager, tool_actions, 0);
+  gtk_ui_manager_insert_action_group (_ui_manager, tool_actions, 0);
 
   uifile = build_ui_filename ("ui/integrated-ui.xml");
-  if (!gtk_ui_manager_add_ui_from_file (integrated_ui_manager, uifile, &error)) {
+  if (!gtk_ui_manager_add_ui_from_file (_ui_manager, uifile, &error)) {
     g_warning ("building integrated ui menus failed: %s", error->message);
     g_error_free (error);
     error = NULL;
   }
   g_free (uifile);
-  if (!gtk_ui_manager_add_ui_from_string (integrated_ui_manager, ui_info, -1, &error)) {
+  if (!gtk_ui_manager_add_ui_from_string (_ui_manager, ui_info, -1, &error)) {
     g_warning ("built-in menus failed: %s", error->message);
     g_error_free (error);
     error = NULL;
   }
 
-  add_plugin_actions (integrated_ui_manager, NULL);
-
-  integrated_ui_accels = gtk_ui_manager_get_accel_group (integrated_ui_manager);
-  integrated_ui_menubar = gtk_ui_manager_get_widget (integrated_ui_manager, INTEGRATED_MENU);
-  integrated_ui_toolbar = create_integrated_ui_toolbar ();
+  add_plugin_actions (_ui_manager, NULL);
 
   if (menubar)
-    *menubar = integrated_ui_menubar;
+    *menubar = gtk_ui_manager_get_widget (_ui_manager, INTEGRATED_MENU);
   if (toolbar)
-    *toolbar = integrated_ui_toolbar;
+    *toolbar = create_integrated_ui_toolbar ();
   if (accel_group)
-    *accel_group = integrated_ui_accels;
+    *accel_group = gtk_ui_manager_get_accel_group (_ui_manager);
 }
 
 void
@@ -1061,9 +1039,9 @@ menus_get_toolbox_menubar (GtkWidget     **menubar,
     menus_init();
 
   if (menubar)
-    *menubar = toolbox_menubar;
+    *menubar = gtk_ui_manager_get_widget (_ui_manager, TOOLBOX_MENU);
   if (accel_group)
-    *accel_group = toolbox_accels;
+    *accel_group = gtk_ui_manager_get_accel_group (_ui_manager);
 }
 
 GtkWidget * 
@@ -1078,11 +1056,11 @@ menus_get_display_popup (void)
 GtkAccelGroup * 
 menus_get_display_accels (void)
 {
+  /* for integrated-ui the accels are delivered by menus_get_integrated_ui_menubar() */
+  g_return_val_if_fail (is_integrated_ui () == FALSE, NULL);
+
   if (initialise)
     menus_init();
-
-  if (is_integrated_ui ()) 
-    return integrated_ui_accels;
 
   return display_accels;
 }
@@ -1130,23 +1108,15 @@ menus_get_action (const gchar *name)
 {
   GtkAction *action;
 
-  if (is_integrated_ui ())
-  {
-    action = gtk_action_group_get_action (integrated_ui_actions, name);
-  }
-  else
-  {
-    action = gtk_action_group_get_action (toolbox_actions, name);
-    if (action == NULL) {
-      action = gtk_action_group_get_action (display_actions, name);
-    }
-  }
+  action = gtk_action_group_get_action (toolbox_actions, name);
+  if (!action)
+    action = gtk_action_group_get_action (display_actions, name);
   if (!action)
     action = gtk_action_group_get_action (tool_actions, name);
   if (!action) {
     GList *groups, *list;
 
-    /* search everthing there is, could probably replace the above */
+    /* search everything there is, could probably replace the above */
     groups = gtk_ui_manager_get_action_groups (display_ui_manager);
     for (list = groups; list != NULL; list = list->next) {
       action = gtk_action_group_get_action (GTK_ACTION_GROUP (list->data), name);
@@ -1169,19 +1139,12 @@ menus_set_recent (GtkActionGroup *actions)
 {
   GList *list;
   guint id;
-  GtkUIManager *ui_manager;
   const char   *recent_path;
 
   if (is_integrated_ui ())
-  {
-    ui_manager  = integrated_ui_manager;
     recent_path = INTEGRATED_MENU "/File/FileRecentEnd";
-  }
   else
-  {
-    ui_manager  = toolbox_ui_manager;
     recent_path = TOOLBOX_MENU "/File/FileRecentEnd";
-  }
 
   if (recent_actions) {
     menus_clear_recent ();
@@ -1195,17 +1158,17 @@ menus_set_recent (GtkActionGroup *actions)
 
   recent_actions = actions;
   g_object_ref (G_OBJECT (recent_actions));
-  gtk_ui_manager_insert_action_group (ui_manager, 
+  gtk_ui_manager_insert_action_group (_ui_manager, 
                     recent_actions, 
                     10 /* insert at back */ );
 
   do {
     const gchar* aname = gtk_action_get_name (GTK_ACTION (list->data));
 
-    id = gtk_ui_manager_new_merge_id (ui_manager);
+    id = gtk_ui_manager_new_merge_id (_ui_manager);
     recent_merge_ids = g_slist_prepend (recent_merge_ids, (gpointer) id);
 
-    gtk_ui_manager_add_ui (ui_manager, id, 
+    gtk_ui_manager_add_ui (_ui_manager, id, 
                  recent_path, 
                  aname, 
                  aname, 
@@ -1219,17 +1182,11 @@ void
 menus_clear_recent (void)
 {
   GSList *id;
-  GtkUIManager *ui_manager;
-
-  if (is_integrated_ui ())
-    ui_manager  = integrated_ui_manager;
-  else
-    ui_manager  = toolbox_ui_manager;
 
   if (recent_merge_ids) {
     id = recent_merge_ids;
     do {
-      gtk_ui_manager_remove_ui (ui_manager, (guint) id->data);
+      gtk_ui_manager_remove_ui (_ui_manager, (guint) id->data);
       
     } while (NULL != (id = id->next));
     
@@ -1238,7 +1195,7 @@ menus_clear_recent (void)
   }
 
   if (recent_actions) {
-    gtk_ui_manager_remove_action_group (ui_manager, recent_actions);
+    gtk_ui_manager_remove_action_group (_ui_manager, recent_actions);
     g_object_unref (G_OBJECT (recent_actions));
     recent_actions = NULL;
   }
