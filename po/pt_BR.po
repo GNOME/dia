@@ -1,5 +1,5 @@
 # Brazilian Portuguese translation of Dia.
-# Copyright (C) 2000-2013 Free Software Foundation, Inc.
+# Copyright (C) 2000-2014 Free Software Foundation, Inc.
 # Francisco Petrúcio Cavalcante Junior <fpcj@impa.br>, 2000.
 # Alexandre Folle de Menezes <afmenez@terra.com.br>, 2003, 2006.
 # Gustavo Maciel Dias Vieira <gdvieira@zaz.com.br>, 2003.
@@ -9,18 +9,17 @@
 # Og Maciel <ogmaciel@gnome.org>, 2009.
 # Isis Binder <isis.binder@gmail.com>, 2009.
 # Rodolfo RG <rodolforg@gmail.com>, 2011.
-# Enrico Nicoletto <liverig@gmail.com>, 2013.
+# Enrico Nicoletto <liverig@gmail.com>, 2013, 2014.
 # Juan Diego Martins da Costa Cruz <garotomartins10@gmail.com>, 2013.
 # Antonio Fernandes C. Neto <fernandesn@gnome.org>, 2013.
 #
-#: ../objects/UML/class.c:193
 msgid ""
 msgstr ""
 "Project-Id-Version: Dia\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=dia&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2014-01-02 12:30+0000\n"
-"PO-Revision-Date: 2013-12-31 06:54-0300\n"
+"POT-Creation-Date: 2014-01-31 14:01+0000\n"
+"PO-Revision-Date: 2014-02-01 08:34-0300\n"
 "Last-Translator: Enrico Nicoletto <liverig@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <gnome-pt_br-list@gnome.org>\n"
 "Language: pt_BR\n"
@@ -245,12 +244,17 @@ msgstr ""
 msgid "Exiting Dia"
 msgstr "Saindo do Dia"
 
+#: ../app/app_procs.c:1070 ../app/display.c:1289 ../app/exit_dialog.c:115
+#: ../app/filedlg.c:582
+msgid "Save"
+msgstr "Salvar"
+
 #. no standard buttons
-#: ../app/app_procs.c:1107
+#: ../app/app_procs.c:1112
 msgid "Quitting without saving modified diagrams"
 msgstr "Saindo sem salvar diagramas modificados"
 
-#: ../app/app_procs.c:1109
+#: ../app/app_procs.c:1114
 msgid ""
 "Modified diagrams exist. Are you sure you want to quit Dia without saving "
 "them?"
@@ -258,15 +262,19 @@ msgstr ""
 "Existem diagramas modificados. Você tem certeza de que deseja sair do Dia "
 "sem salvá-los?"
 
-#: ../app/app_procs.c:1113
+#: ../app/app_procs.c:1118
 msgid "Quit Dia"
 msgstr "Sair do Dia"
 
-#: ../app/app_procs.c:1186 ../app/app_procs.c:1193
+#: ../app/app_procs.c:1148
+msgid "Exit"
+msgstr "Sair"
+
+#: ../app/app_procs.c:1194 ../app/app_procs.c:1201
 msgid "Could not create per-user Dia configuration directory"
 msgstr "Não foi possível criar o diretório de configuração pessoal do Dia"
 
-#: ../app/app_procs.c:1196
+#: ../app/app_procs.c:1204
 msgid ""
 "Could not create per-user Dia configuration directory. Please make sure that "
 "the environment variable HOME points to an existing directory."
@@ -275,11 +283,11 @@ msgstr ""
 "favor, certifique-se de que a variável de ambiente HOME aponta para um "
 "diretório existente."
 
-#: ../app/app_procs.c:1219
+#: ../app/app_procs.c:1227
 msgid "Objects and filters internal to Dia"
 msgstr "Objetos e filtros internos do Dia"
 
-#: ../app/app_procs.c:1272
+#: ../app/app_procs.c:1280
 #, c-format
 msgid ""
 "The original author of Dia was:\n"
@@ -288,7 +296,7 @@ msgstr ""
 "O autor original do Dia é:\n"
 "\n"
 
-#: ../app/app_procs.c:1277
+#: ../app/app_procs.c:1285
 #, c-format
 msgid ""
 "\n"
@@ -299,7 +307,7 @@ msgstr ""
 "Os mantenedores atuais do Dia são:\n"
 "\n"
 
-#: ../app/app_procs.c:1282
+#: ../app/app_procs.c:1290
 #, c-format
 msgid ""
 "\n"
@@ -310,7 +318,7 @@ msgstr ""
 "Os outros autores são:\n"
 "\n"
 
-#: ../app/app_procs.c:1287
+#: ../app/app_procs.c:1295
 #, c-format
 msgid ""
 "\n"
@@ -706,7 +714,7 @@ msgid "Follow link…"
 msgstr "Seguir link…"
 
 #: ../app/disp_callbacks.c:216 ../objects/standard/bezier.c:785
-#: ../objects/standard/beziergon.c:549 ../objects/standard/box.c:783
+#: ../objects/standard/beziergon.c:549 ../objects/standard/box.c:784
 #: ../objects/standard/textobj.c:450
 msgid "Convert to Path"
 msgstr "Converter para o caminho"
@@ -743,16 +751,16 @@ msgstr "Selecionado \"%s\""
 msgid "No antialiased renderer found"
 msgstr "Nenhum renderizador com suavização foi localizado"
 
-#: ../app/display.c:1332
+#: ../app/display.c:1335
 msgid "<unnamed>"
 msgstr "<semnome>"
 
 #. no standard buttons
-#: ../app/display.c:1338
+#: ../app/display.c:1341
 msgid "Closing diagram without saving"
 msgstr "Fechando diagrama sem salvar"
 
-#: ../app/display.c:1340
+#: ../app/display.c:1343
 #, c-format
 msgid ""
 "The diagram '%s'\n"
@@ -762,11 +770,11 @@ msgstr ""
 "não foi salvo.\n"
 "Salvar as alterações agora?"
 
-#: ../app/display.c:1342
+#: ../app/display.c:1345
 msgid "Close Diagram"
 msgstr "Fechar diagrama"
 
-#: ../app/display.c:1347
+#: ../app/display.c:1350
 msgid "_Discard Changes"
 msgstr "_Descartar alterações"
 
@@ -786,10 +794,6 @@ msgstr "Salvar selecionados"
 msgid "The following are not saved:"
 msgstr "Os seguintes itens não estão salvos:"
 
-#: ../app/exit_dialog.c:115
-msgid "Save"
-msgstr "Salvar"
-
 #: ../app/exit_dialog.c:131
 msgid "Path"
 msgstr "Caminho"
@@ -807,12 +811,12 @@ msgid "Nothing selected for saving.  Would you like to try again?"
 msgstr "Nada está selecionado para salvar. Você gostaria de tentar novamente?"
 
 #: ../app/filedlg.c:144 ../app/filedlg.c:152 ../app/filedlg.c:168
-#: ../app/filedlg.c:819 ../lib/widgets.c:402
+#: ../app/filedlg.c:825 ../lib/widgets.c:402
 msgid "Supported Formats"
 msgstr "Formatos suportados"
 
-#: ../app/filedlg.c:197 ../app/filedlg.c:199 ../app/filedlg.c:662
-#: ../app/filedlg.c:664
+#: ../app/filedlg.c:197 ../app/filedlg.c:199 ../app/filedlg.c:668
+#: ../app/filedlg.c:670
 msgid "By extension"
 msgstr "Por extensão"
 
@@ -824,11 +828,11 @@ msgstr "Abrir diagrama"
 msgid "Open Options"
 msgstr "Opções de abertura"
 
-#: ../app/filedlg.c:334 ../app/filedlg.c:801
+#: ../app/filedlg.c:334 ../app/filedlg.c:807
 msgid "Determine file type:"
 msgstr "Determinar o tipo de arquivo:"
 
-#: ../app/filedlg.c:354 ../app/filedlg.c:814 ../lib/widgets.c:410
+#: ../app/filedlg.c:354 ../app/filedlg.c:820 ../lib/widgets.c:410
 msgid "All Files"
 msgstr "Todos os arquivos"
 
@@ -842,12 +846,12 @@ msgstr ""
 "estão na sua codificação local.\n"
 "Algumas partes apresentarão defeito."
 
-#: ../app/filedlg.c:403 ../app/filedlg.c:716
+#: ../app/filedlg.c:403 ../app/filedlg.c:722
 #: ../plug-ins/postscript/paginate_psprint.c:430
 msgid "File already exists"
 msgstr "O arquivo já existe"
 
-#: ../app/filedlg.c:405 ../app/filedlg.c:718
+#: ../app/filedlg.c:405 ../app/filedlg.c:724
 #: ../plug-ins/postscript/paginate_psprint.c:426
 #, c-format
 msgid ""
@@ -857,17 +861,22 @@ msgstr ""
 "O arquivo \"%s\" já existe.\n"
 "Você deseja sobrescrevê-lo?"
 
-#: ../app/filedlg.c:489
+#: ../app/filedlg.c:425
+#| msgid "Save"
+msgid "Save as"
+msgstr "Salvar como"
+
+#: ../app/filedlg.c:493
 msgid "Save Diagram"
 msgstr "Salvar diagrama"
 
 #. Need better way to make it a reasonable size.  Isn't there some
 #. standard look for them (or is that just Gnome?)
-#: ../app/filedlg.c:503
+#: ../app/filedlg.c:507
 msgid "Compress diagram files"
 msgstr "Compactar os arquivos de diagramas"
 
-#: ../app/filedlg.c:512
+#: ../app/filedlg.c:516
 msgid ""
 "Compression reduces file size to less than 1/10th size and speeds up loading "
 "and saving.  Some text programs cannot manipulate compressed files."
@@ -876,7 +885,15 @@ msgstr ""
 "velocidade de leitura e gravação. Alguns programas de texto não podem "
 "manipular arquivos comprimidos."
 
-#: ../app/filedlg.c:747
+#. Favored Filter
+#. Translators: Menu item Verb/Channel/Export
+#. Translators: Menu item Verb/Channel/Export/Export
+#: ../app/filedlg.c:744 ../app/preferences.c:220 ../objects/FS/function.c:694
+#: ../objects/FS/function.c:696 ../plug-ins/libart/export_png.c:329
+msgid "Export"
+msgstr "Exportar"
+
+#: ../app/filedlg.c:753
 #, c-format
 msgid ""
 "Could not determine which export filter\n"
@@ -885,11 +902,11 @@ msgstr ""
 "Não foi possível determinar qual filtro de\n"
 "exportação utilizar para salvar \"%s\""
 
-#: ../app/filedlg.c:774
+#: ../app/filedlg.c:780
 msgid "Export Diagram"
 msgstr "Exportar diagrama"
 
-#: ../app/filedlg.c:793
+#: ../app/filedlg.c:799
 msgid "Export Options"
 msgstr "Opções de exportação"
 
@@ -984,7 +1001,7 @@ msgstr "Camadas"
 msgid "Diagram:"
 msgstr "Diagrama:"
 
-#: ../app/layer_dialog.c:512 ../app/layer_dialog.c:1235
+#: ../app/layer_dialog.c:512 ../app/layer_dialog.c:1238
 #, c-format
 msgid "New layer %d"
 msgstr "Nova camada %d"
@@ -993,15 +1010,15 @@ msgstr "Nova camada %d"
 msgid "none"
 msgstr "nenhuma"
 
-#: ../app/layer_dialog.c:1205
+#: ../app/layer_dialog.c:1208
 msgid "Edit Layer"
 msgstr "Editar camada"
 
-#: ../app/layer_dialog.c:1205
+#: ../app/layer_dialog.c:1208
 msgid "Add Layer"
 msgstr "Adicionar camada"
 
-#: ../app/layer_dialog.c:1224
+#: ../app/layer_dialog.c:1227
 msgid "Layer name:"
 msgstr "Nome da camada:"
 
@@ -1046,24 +1063,24 @@ msgstr ""
 msgid "Can't find parent %s of %s object\n"
 msgstr "Não foi possível localizar o pai %s do objeto %s\n"
 
-#: ../app/load_save.c:377
+#: ../app/load_save.c:394
 msgid "You must specify a file, not a directory."
 msgstr "Você deve especificar um arquivo, não um diretório."
 
-#: ../app/load_save.c:384 ../plug-ins/dxf/dxf-import.c:1289
-#: ../plug-ins/wpg/wpg.c:1186 ../plug-ins/xfig/xfig-import.c:1288
+#: ../app/load_save.c:401 ../plug-ins/dxf/dxf-import.c:1289
+#: ../plug-ins/wpg/wpg.c:1195 ../plug-ins/xfig/xfig-import.c:1288
 #: ../plug-ins/xslt/xslt.c:96
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
 msgstr "Não foi possível abrir \"%s\" para leitura.\n"
 
 #. this was talking about unknown file type but it could as well be broken XML
-#: ../app/load_save.c:402
+#: ../app/load_save.c:419
 #, c-format
 msgid "Error loading diagram %s."
 msgstr "Erro ao carregar o diagrama %s."
 
-#: ../app/load_save.c:411
+#: ../app/load_save.c:428
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -1072,7 +1089,7 @@ msgstr ""
 "Erro ao carregar o diagrama %s.\n"
 "Tipo de arquivo desconhecido."
 
-#: ../app/load_save.c:419
+#: ../app/load_save.c:436
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -1081,7 +1098,12 @@ msgstr ""
 "Erro ao carregar o diagrama %s.\n"
 "Não é um arquivo Dia."
 
-#: ../app/load_save.c:677
+#: ../app/load_save.c:681
+#| msgid "Error reading resolution."
+msgid "Error reading connections"
+msgstr "Erro ao ler conexões."
+
+#: ../app/load_save.c:701
 #, c-format
 msgid ""
 "Error loading diagram:\n"
@@ -1092,44 +1114,56 @@ msgstr ""
 "%s.\n"
 "Um arquivo válido do Dia possui ao menos uma camada."
 
-#: ../app/load_save.c:1020
+#: ../app/load_save.c:1002
+#| msgid "Error reading magnification."
+msgid "Error saving connections"
+msgstr "Erro ao salvar conexões."
+
+#: ../app/load_save.c:1007
+#, c-format
+msgid "Connection saving is incomplete for layer '%s'"
+msgstr "O salvamento da conexão está incompleto para a camada '%s'"
+
+#: ../app/load_save.c:1060
 #, c-format
 msgid "Not allowed to write to output file %s\n"
 msgstr "Não é permitido gravar no arquivo de saída %s\n"
 
-#: ../app/load_save.c:1052
+#: ../app/load_save.c:1092
 #, c-format
 msgid "Not allowed to write temporary files in %s\n"
 msgstr "Não é permitido gravar arquivos temporários em %s\n"
 
-#: ../app/load_save.c:1075 ../plug-ins/cgm/cgm.c:1172
+#: ../app/load_save.c:1115 ../plug-ins/cgm/cgm.c:1181
 #: ../plug-ins/dxf/dxf-export.c:599
 #: ../plug-ins/metapost/render_metapost.c:1179
 #: ../plug-ins/pgf/render_pgf.c:1207 ../plug-ins/postscript/render_eps.c:123
 #: ../plug-ins/pstricks/render_pstricks.c:917
 #: ../plug-ins/vdx/vdx-export.c:1801 ../plug-ins/wmf/wmf.cpp:1375
-#: ../plug-ins/wpg/wpg.c:1078 ../plug-ins/xfig/xfig-export.c:1178
+#: ../plug-ins/wpg/wpg.c:1087 ../plug-ins/xfig/xfig-export.c:1178
 #, c-format
 msgid "Can't open output file %s"
 msgstr "Não é possível abrir o arquivo de saída %s"
 
 #. Save failed; we clean our stuff up, without touching the file named
 #. "filename" if it existed.
-#: ../app/load_save.c:1086
+#: ../app/load_save.c:1126
 #, c-format
 msgid "Internal error %d writing file %s\n"
 msgstr "Erro interno %d ao gravar arquivo %s\n"
 
-#: ../app/load_save.c:1097
+#: ../app/load_save.c:1137
 #, c-format
 msgid "Can't rename %s to final output file %s: %s\n"
 msgstr "Não foi possível renomear %s para o arquivo de saída final %s: %s\n"
 
-#: ../app/load_save.c:1113
-msgid "Diagram Save"
-msgstr "Salvar diagrama"
+#. no extra threads supported, stay in this one
+#: ../app/load_save.c:1253 ../app/load_save.c:1263 ../app/load_save.c:1271
+#| msgid "Autoclave"
+msgid "Auto save"
+msgstr "Salvar automaticamente"
 
-#: ../app/load_save.c:1243 ../app/load_save.c:1248
+#: ../app/load_save.c:1295 ../app/load_save.c:1300
 msgid "Dia Diagram File"
 msgstr "Arquivo de diagrama do Dia"
 
@@ -1816,20 +1850,12 @@ msgstr "Suavização:"
 msgid "view antialised"
 msgstr "ver suavizado"
 
-#. Favored Filter
-#. Translators: Menu item Verb/Channel/Export
-#. Translators: Menu item Verb/Channel/Export/Export
-#: ../app/preferences.c:220 ../objects/FS/function.c:694
-#: ../objects/FS/function.c:696 ../plug-ins/libart/export_png.c:329
-msgid "Export"
-msgstr "Exportar"
-
 #: ../app/preferences.c:222
 msgid "Portable Network Graphics"
 msgstr "Portable Network Graphics"
 
 #: ../app/preferences.c:224 ../plug-ins/svg/render_svg.c:605
-#: ../plug-ins/svg/svg-import.c:2044
+#: ../plug-ins/svg/svg-import.c:2046
 msgid "Scalable Vector Graphics"
 msgstr "Scalable Vector Graphics"
 
@@ -1878,13 +1904,13 @@ msgid "Hex Size:"
 msgstr "Tamanho do hexágono:"
 
 #: ../app/preferences.c:470 ../lib/prop_inttypes.c:159
-#: ../lib/prop_pattern.c:206 ../lib/prop_pixbuf.c:270
+#: ../lib/prop_pattern.c:217 ../lib/prop_pixbuf.c:270
 msgid "Yes"
 msgstr "Sim"
 
 #: ../app/preferences.c:470 ../app/preferences.c:481
 #: ../lib/prop_inttypes.c:161 ../lib/prop_inttypes.c:187
-#: ../lib/prop_pattern.c:208 ../lib/prop_pattern.c:214
+#: ../lib/prop_pattern.c:219 ../lib/prop_pattern.c:225
 #: ../lib/prop_pixbuf.c:272 ../lib/prop_pixbuf.c:278
 msgid "No"
 msgstr "Não"
@@ -2498,7 +2524,7 @@ msgstr "Seta desconhecida"
 #: ../lib/create.c:50 ../lib/create.c:100 ../lib/create.c:127
 #: ../lib/create.c:160 ../lib/create.c:196 ../lib/create.c:228
 #: ../lib/create.c:252 ../lib/create.c:284 ../lib/create.c:305
-#: ../lib/create.c:335 ../lib/create.c:378 ../plug-ins/svg/svg-import.c:651
+#: ../lib/create.c:335 ../lib/create.c:378 ../plug-ins/svg/svg-import.c:652
 #: ../plug-ins/vdx/vdx-import.c:144
 msgid "Can't find standard object"
 msgstr "Não foi possível localizar o objeto padrão"
@@ -2805,11 +2831,11 @@ msgstr "Data da modificação"
 msgid "URL"
 msgstr "URL"
 
-#: ../lib/prop_dict.c:235 ../sheets/ciscomisc.sheet.in.h:43
+#: ../lib/prop_dict.c:243 ../sheets/ciscomisc.sheet.in.h:43
 msgid "Key"
 msgstr "Chave"
 
-#: ../lib/prop_dict.c:242 ../objects/UML/umlattribute.c:41
+#: ../lib/prop_dict.c:250 ../objects/UML/umlattribute.c:41
 #: ../objects/UML/umlparameter.c:47
 msgid "Value"
 msgstr "Valor"
@@ -2948,7 +2974,7 @@ msgid "No attribute '%s' (%p) or no data (%p) in this attribute"
 msgstr "Nenhum atributo \"%s\" (%p) ou nenhum dado (%p) neste atributo"
 
 # Scratch é traduzido como 'do zero' em traduções do KDE --Enrico
-#: ../lib/prop_pattern.c:232
+#: ../lib/prop_pattern.c:243
 msgid "Cant create pattern from scratch!"
 msgstr "Não foi possível criar textura a partir do zero!"
 
@@ -5147,7 +5173,7 @@ msgstr "Livre"
 msgid "Fixed"
 msgstr "Fixo"
 
-#: ../objects/standard/box.c:132 ../objects/standard/box.c:781
+#: ../objects/standard/box.c:132 ../objects/standard/box.c:782
 msgid "Square"
 msgstr "Quadrado"
 
@@ -5155,11 +5181,11 @@ msgstr "Quadrado"
 msgid "Aspect ratio"
 msgstr "Taxa de proporção"
 
-#: ../objects/standard/box.c:777 ../objects/standard/ellipse.c:686
+#: ../objects/standard/box.c:778 ../objects/standard/ellipse.c:686
 msgid "Free aspect"
 msgstr "Aspecto livre"
 
-#: ../objects/standard/box.c:779 ../objects/standard/ellipse.c:688
+#: ../objects/standard/box.c:780 ../objects/standard/ellipse.c:688
 msgid "Fixed aspect"
 msgstr "Aspecto fixo"
 
@@ -5195,13 +5221,13 @@ msgstr "Desenhar borda"
 msgid "Keep aspect ratio"
 msgstr "Manter taxa de proporção"
 
-#: ../objects/standard/image.c:684
+#: ../objects/standard/image.c:683
 msgid "Inconsistent pixbuf during image save."
 msgstr "Pixbuf inconsistente durante gravação de imagem."
 
 #. Found file in same dir as diagram.
 #. Found file in current dir.
-#: ../objects/standard/image.c:781 ../objects/standard/image.c:792
+#: ../objects/standard/image.c:780 ../objects/standard/image.c:791
 #, c-format
 msgid ""
 "The image file '%s' was not found in the specified directory.\n"
@@ -5211,7 +5237,7 @@ msgstr ""
 "Utilizando o arquivo \"%s\" ao invés daquele.\n"
 
 #. Didn't find file in current dir.
-#: ../objects/standard/image.c:798 ../objects/standard/image.c:820
+#: ../objects/standard/image.c:797 ../objects/standard/image.c:819
 #, c-format
 msgid "The image file '%s' was not found.\n"
 msgstr "O arquivo de imagem \"%s\" não foi localizado.\n"
@@ -5904,15 +5930,15 @@ msgid "Visible rect pointer"
 msgstr "Ponteiro ret. visível"
 
 #: ../plug-ins/cairo/diacairo-renderer.c:973
-#: ../plug-ins/cairo/diacairo-renderer.c:1008 ../plug-ins/cgm/cgm.c:1126
+#: ../plug-ins/cairo/diacairo-renderer.c:1008 ../plug-ins/cgm/cgm.c:1135
 #: ../plug-ins/libart/dialibartrenderer.c:1329
 #: ../plug-ins/metapost/render_metapost.c:1108
 #: ../plug-ins/postscript/diapsrenderer.c:715
-#: ../plug-ins/pstricks/render_pstricks.c:825 ../plug-ins/wpg/wpg.c:892
+#: ../plug-ins/pstricks/render_pstricks.c:825 ../plug-ins/wpg/wpg.c:901
 msgid "Not enough memory for image drawing."
 msgstr "Memória insuficiente para desenhar imagem."
 
-#: ../plug-ins/cgm/cgm.c:1119
+#: ../plug-ins/cgm/cgm.c:1128
 msgid ""
 "Image row length larger than maximum cell array.\n"
 "Image not exported to CGM."
@@ -5921,20 +5947,20 @@ msgstr ""
 "do que a matriz de células máxima.\n"
 "A imagem não foi exportada para o formato CGM."
 
-#: ../plug-ins/cgm/cgm.c:1383
+#: ../plug-ins/cgm/cgm.c:1392
 msgid "Computer Graphics Metafile"
 msgstr "Computer Graphics Metafile"
 
-#: ../plug-ins/cgm/cgm.c:1408
+#: ../plug-ins/cgm/cgm.c:1417
 msgid "Computer Graphics Metafile export filter"
 msgstr "Filtro de exportação para CGM"
 
-#: ../plug-ins/drs/dia-render-script.c:158
-#: ../plug-ins/drs/dia-render-script.c:163
+#: ../plug-ins/drs/dia-render-script.c:160
+#: ../plug-ins/drs/dia-render-script.c:165
 msgid "DiaRenderScript"
 msgstr "DiaRenderScript"
 
-#: ../plug-ins/drs/dia-render-script.c:187
+#: ../plug-ins/drs/dia-render-script.c:189
 msgid "DiaRenderScript filter"
 msgstr "Filtro DiaRenderScript"
 
@@ -6093,7 +6119,7 @@ msgstr "Filtro de importação para PDF"
 msgid "Page %d"
 msgstr "Página %d"
 
-#: ../plug-ins/pdf/pdf-import.cpp:824
+#: ../plug-ins/pdf/pdf-import.cpp:839
 #, c-format
 msgid ""
 "PDF document not OK.\n"
@@ -6247,16 +6273,16 @@ msgstr ""
 "Dados de caminho inválidos.\n"
 "Dados svg:path devem começar com moveto."
 
-#: ../plug-ins/svg/svg-import.c:1837
+#: ../plug-ins/svg/svg-import.c:1839
 msgid "'Shape Design' shapes missing."
 msgstr "Está faltando a forma 'Desenho da forma'"
 
-#: ../plug-ins/svg/svg-import.c:1871
+#: ../plug-ins/svg/svg-import.c:1873
 #, c-format
 msgid "Object '%s' creation failed"
 msgstr "Falha ao criar objeto \"%s\""
 
-#: ../plug-ins/svg/svg-import.c:1893
+#: ../plug-ins/svg/svg-import.c:1895
 #, c-format
 msgid ""
 "Parse error for memory block.\n"
@@ -6265,16 +6291,16 @@ msgstr ""
 "Erro de análise em bloco de memória.\n"
 "%s"
 
-#: ../plug-ins/svg/svg-import.c:1906 ../plug-ins/vdx/vdx-import.c:2887
+#: ../plug-ins/svg/svg-import.c:1908 ../plug-ins/vdx/vdx-import.c:2887
 #, c-format
 msgid "Parse error for %s"
 msgstr "Erro de análise em %s"
 
-#: ../plug-ins/svg/svg-import.c:1939
+#: ../plug-ins/svg/svg-import.c:1941
 msgid "Expected SVG name-space not found in file"
 msgstr "O espaço de nome SVG esperado não foi encontrado no arquivo"
 
-#: ../plug-ins/svg/svg-import.c:1959
+#: ../plug-ins/svg/svg-import.c:1961
 #, c-format
 msgid "root element was '%s' -- expecting 'svg'."
 msgstr "o elemento raiz era \"%s\" -- esperava-se \"svg\"."
@@ -6368,16 +6394,16 @@ msgstr "Imprimir (GDI) ..."
 msgid "WMF export filter"
 msgstr "Filtro de exportação para WMF"
 
-#: ../plug-ins/wpg/wpg.c:1198
+#: ../plug-ins/wpg/wpg.c:1207
 #, c-format
 msgid "File: %s type/version unsupported.\n"
 msgstr "Arquivo: tipo/versão %s não suportado(a)\n"
 
-#: ../plug-ins/wpg/wpg.c:1328 ../plug-ins/wpg/wpg.c:1335
+#: ../plug-ins/wpg/wpg.c:1337 ../plug-ins/wpg/wpg.c:1344
 msgid "WPG"
 msgstr "WPG"
 
-#: ../plug-ins/wpg/wpg.c:1363
+#: ../plug-ins/wpg/wpg.c:1372
 msgid "WordPerfect Graphics export filter"
 msgstr "Filtro de exportação para gráficos do WordPerfect"
 
@@ -10329,6 +10355,9 @@ msgstr "Atividade"
 #: ../sheets/UML.sheet.in.h:31
 msgid "Fork/Union"
 msgstr "Bifurcação/união"
+
+#~ msgid "Diagram Save"
+#~ msgstr "Salvar diagrama"
 
 #~ msgid "New-style group object, for testing"
 #~ msgstr "Novo estilo de objeto de grupo, para teste"
