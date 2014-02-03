@@ -29,6 +29,10 @@ typedef enum {
   CLE_OFF, /* data is now in the "off" state */
   CLE_ON,  /* data is now in the "on" state */
   CLE_UNKNOWN, /* data is now in the "unknown" state */
+  CLE_TWISTED, /* data is now in the "twisted" state */
+  CLE_TWISTEDBIS, /* data is now twisting state */
+  CLE_TWISTEDONUN, /* data is now twisting state from "on" to "unknown"*/
+  CLE_TWISTEDUNON, /* data is now twisting state from "unknown" to "on"*/
   CLE_START /* should not be found outside this module. */
 } CLEventType;
 

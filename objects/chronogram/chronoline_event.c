@@ -82,6 +82,10 @@ static void dump_parsed_clelist(CLEventList *clel)
     case CLE_OFF: s = "off"; break;
     case CLE_ON: s = "on"; break;
     case CLE_UNKNOWN: s = "unknown"; break;
+    case CLE_TWISTED: s = "twisted"; break;
+    case CLE_TWISTEDBIS: s = "twisting"; break;
+    case CLE_TWISTEDONUN: s = "twisting on to unknow"; break;
+    case CLE_TWISTEDUNON: s = "twisting unknow to on"; break;
     case CLE_START: s = "start"; break;
     default:
       g_assert_not_reached();
@@ -106,13 +110,45 @@ add_event(CLEventList **clel,real *t,real *dt,
     /* special case */
     return;
   } else {
+    if ((*oet == *et) && (*oet == CLE_TWISTED)) {
+      *oet = CLE_TWISTEDBIS;
+      *clel = g_slist_insert_sorted(*clel,new_cle(*oet,*t),compare_cle);
+      *dt -= CHEAT_CST;
+      *t += fall;
+      *oet = CLE_TWISTED;
+    }
     while (*oet != *et) {
+      if ((*et == CLE_UNKNOWN) && (*oet == CLE_ON)) {
+        *oet = CLE_TWISTEDONUN;
+      } else if ((*et == CLE_ON) && (*oet == CLE_UNKNOWN)) {
+        *oet = CLE_TWISTEDUNON;
+      }
       *clel = g_slist_insert_sorted(*clel,new_cle(*oet,*t),compare_cle);
       switch(*oet) {
       case CLE_UNKNOWN:
 	*t += fall;
 	*dt -= CHEAT_CST;
-	*oet = CLE_OFF;
+	*oet = *et;
+	break;
+      case CLE_TWISTED:
+	*t += fall;
+	*dt -= CHEAT_CST;
+	*oet = *et;
+	break;
+      case CLE_TWISTEDUNON:
+	*t += fall;
+	*dt -= CHEAT_CST;
+	*oet = *et;
+	break;
+      case CLE_TWISTEDONUN:
+	*t += fall;
+	*dt -= CHEAT_CST;
+	*oet = *et;
+	break;
+      case CLE_TWISTEDBIS:
+	*t += fall;
+	*dt -= CHEAT_CST;
+	*oet = *et;
 	break;
       case CLE_OFF:
 	*t += rise;
@@ -122,7 +158,7 @@ add_event(CLEventList **clel,real *t,real *dt,
       case CLE_ON:
 	*t += fall;
 	*dt -= CHEAT_CST;
-	*oet = CLE_OFF;
+	*oet = *et;
 	break;
       default:
 	g_assert_not_reached();
@@ -170,12 +206,14 @@ parse_clevent(const gchar *events, real rise, real fall)
       switch(uc) {
       case 'u':
       case 'U': et = CLE_UNKNOWN; waitfor = LENGTH; p = np; break;
+      case 'x':
+      case 'X': et = CLE_TWISTED; waitfor = LENGTH; p = np; break;
       case '@': et = CLE_START; waitfor = LENGTH; p = np ; break;
       case '(': et = CLE_ON; waitfor = LENGTH; p = np; break;
       case ')': et = CLE_OFF; waitfor = LENGTH; p = np; break;
       default:
 	message_warning("Syntax error in event string; waiting one of "
-			"\"()@u\". string=%s",p); 
+			"\"()@ux\". string=%s",p); 
 	return clel;
       }
     } else { /* waitfor == LENGTH */
@@ -186,6 +224,8 @@ parse_clevent(const gchar *events, real rise, real fall)
 	switch(uc) {
 	case 'u':
 	case 'U':
+	case 'x':
+	case 'X':
 	case '@':
 	case '(':
 	case ')':
