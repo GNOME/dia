@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the dia package.
 # Maintainer: Dejan Matijević <dmax@neobee.net>
 # Reviewed on 2004-03-24 by: Danilo Šegan <danilo@prevod.org>
-# Miroslav Nikolić <miroslavnikolic@rocketmail.com>, 2012, 2013.
+# Miroslav Nikolić <miroslavnikolic@rocketmail.com>, 2012, 2013, 2014.
 msgid ""
 msgstr ""
 "Project-Id-Version: dia\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=dia&ke"
 "ywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2013-02-10 17:29+0000\n"
-"PO-Revision-Date: 2013-04-09 21:10+0200\n"
+"POT-Creation-Date: 2014-02-03 16:19+0000\n"
+"PO-Revision-Date: 2014-02-03 21:35+0200\n"
 "Last-Translator: Miroslav Nikolić <miroslavnikolic@rocketmail.com>\n"
 "Language-Team: Serbian <gnom@prevod.org>\n"
 "Language: sr\n"
@@ -1014,40 +1014,40 @@ msgstr "Slika"
 msgid "Outline"
 msgstr "Kontura"
 
-#: ../app/interface.c:621 ../app/interface.c:857
+#: ../app/interface.c:634 ../app/interface.c:870
 msgid "Pops up the Navigation window."
 msgstr "Izbacite prozor za kretanje."
 
-#: ../app/interface.c:819
+#: ../app/interface.c:832
 msgid "Diagram menu."
 msgstr "Izbornik dijagrama."
 
-#: ../app/interface.c:922
+#: ../app/interface.c:935
 msgid "Zoom"
 msgstr "Uvećaj"
 
-#: ../app/interface.c:937
+#: ../app/interface.c:950
 msgid "Toggles snap-to-grid for this window."
 msgstr "Prebacite prijanjanje uz mrežu za ovaj prozor."
 
-#: ../app/interface.c:948
+#: ../app/interface.c:961
 msgid "Toggles object snapping for this window."
 msgstr "Prebacite prijanjanje objekta za ovaj prozor."
 
-#: ../app/interface.c:1338
+#: ../app/interface.c:1351
 #, c-format
 msgid "No sheet named %s"
 msgstr "Nema lista pod nazivom %s"
 
-#: ../app/interface.c:1376
+#: ../app/interface.c:1389
 msgid "Other sheets"
 msgstr "Ostali listovi"
 
-#: ../app/interface.c:1436 ../sheets/Flowchart.sheet.in.h:1
+#: ../app/interface.c:1449 ../sheets/Flowchart.sheet.in.h:1
 msgid "Flowchart"
 msgstr "Dijagram toka"
 
-#: ../app/interface.c:1496
+#: ../app/interface.c:1509
 msgid ""
 "Foreground & background colors for new objects.  The small black and white "
 "squares reset colors.  The small arrows swap colors.  Double click to change "
@@ -1056,7 +1056,7 @@ msgstr ""
 "Boja lica i pozadine za nove objekte.  Mali crni i beli kvadrati vraćaju "
 "stare boje.  Male strelice razmenjuju boje.  Dvostrukim klikom menjate boje."
 
-#: ../app/interface.c:1511
+#: ../app/interface.c:1524
 msgid ""
 "Line widths.  Click on a line to set the default line width for new "
 "objects.  Double-click to set the line width more precisely."
@@ -1064,7 +1064,7 @@ msgstr ""
 "Debljine linija. Kliknite na liniju da postavite podrazumevanu debljinu linija "
 "novih objekata. Kliknite dva puta da postavite debljinu linije malo tačnije."
 
-#: ../app/interface.c:1554
+#: ../app/interface.c:1567
 msgid ""
 "Arrow style at the beginning of new lines.  Click to pick an arrow, or set "
 "arrow parameters with Details..."
@@ -1072,7 +1072,7 @@ msgstr ""
 "Stil strelica na početku novih linija.  Kliknite da izaberete strelicu, ili "
 "postavite osobine strelice pomoću „Detalja“..."
 
-#: ../app/interface.c:1559
+#: ../app/interface.c:1572
 msgid ""
 "Line style for new lines.  Click to pick a line style, or set line style "
 "parameters with Details..."
@@ -1080,7 +1080,7 @@ msgstr ""
 "Stil linija za nove linije. Kliknite da izaberete stil linija, ili postavite "
 "osobine stila linija pomoću „Detalja“..."
 
-#: ../app/interface.c:1575
+#: ../app/interface.c:1588
 msgid ""
 "Arrow style at the end of new lines.  Click to pick an arrow, or set arrow "
 "parameters with Details..."
@@ -1088,7 +1088,7 @@ msgstr ""
 "Stil strelica za krajeve linija. Kliknite da izaberete strelicu, ili "
 "postavite osobine strelica pomoću „Detalja“..."
 
-#: ../app/interface.c:1635 ../app/interface.c:1762
+#: ../app/interface.c:1648 ../app/interface.c:1775
 msgid "Diagram Editor"
 msgstr "Uređivać dijagrama"
 
@@ -1748,7 +1748,7 @@ msgstr "Portret"
 msgid "Paper type:"
 msgstr "Vrsta papira:"
 
-#: ../app/preferences.c:194 ../objects/Database/table_dialog.c:1078
+#: ../app/preferences.c:194 ../objects/Database/table_dialog.c:1079
 msgid "Background Color:"
 msgstr "Boja pozadine:"
 
@@ -2015,7 +2015,7 @@ msgstr "Dia Objekat"
 msgid "Description:"
 msgstr "Opis:"
 
-#: ../app/sheets_dialog.c:619 ../objects/Database/table_dialog.c:695
+#: ../app/sheets_dialog.c:619 ../objects/Database/table_dialog.c:696
 #: ../objects/FS/flow-ortho.c:169 ../objects/FS/flow.c:146
 #: ../objects/Istar/link.c:162 ../objects/Jackson/phenomenon.c:146
 #: ../objects/KAOS/metaandorrel.c:166 ../objects/KAOS/metabinrel.c:173
@@ -2028,8 +2028,8 @@ msgstr "Vrsta:"
 msgid "Sheet"
 msgstr "Strana"
 
-#: ../app/sheets_dialog.c:673 ../objects/Database/table_dialog.c:683
-#: ../objects/Database/table_dialog.c:1046 ../objects/ER/attribute.c:155
+#: ../app/sheets_dialog.c:673 ../objects/Database/table_dialog.c:684
+#: ../objects/Database/table_dialog.c:1047 ../objects/ER/attribute.c:155
 #: ../objects/ER/entity.c:137 ../objects/ER/relationship.c:142
 #: ../objects/UML/class_dialog.c:1148 ../objects/UML/class_dialog.c:2014
 #: ../objects/UML/class_dialog.c:2250 ../objects/UML/class_dialog.c:2853
@@ -2550,7 +2550,7 @@ msgstr "Poravnanje teksta"
 
 #. all this just to make the defaults selectable ...
 #: ../lib/properties.c:82 ../lib/properties.h:541
-#: ../objects/Database/table_dialog.c:1036 ../objects/Database/reference.c:117
+#: ../objects/Database/table_dialog.c:1037 ../objects/Database/reference.c:117
 #: ../objects/GRAFCET/condition.c:134 ../objects/GRAFCET/step.c:167
 #: ../objects/GRAFCET/transition.c:144 ../objects/UML/class.c:174
 #: ../objects/UML/class_dialog.c:564 ../objects/chronogram/chronoline.c:185
@@ -2746,51 +2746,72 @@ msgstr "Posetite Diu za Vindouz veb stranicu"
 msgid "Dia (remove only)"
 msgstr "Dia (uklanjanje samo)"
 
-#. Installer message: confirmation question. Keep $\r
+#. Installer message: directory delete confirmation line 1
 #: ../installer/win32/gennsh.c:75
+#| msgid ""
+#| "The installation directory you specified already exists. Any contents$"
+#| "\rwill be deleted. Would you like to continue?"
 msgid ""
-"Your old Dia directory is about to be deleted. Would you like to continue?$\r"
-"$\rNote: Any non-standard plugins that you may have installed will be "
-"deleted.$\rDia user settings will not be affected."
-msgstr ""
-"Stari direktorijum Die će sada biti obrisan. Da li želite da nastavite?$\n"
-"$\n"
-"Napomena: Bilo koji nestandardni priključak koji ste instalirali biće "
-"obrisan.$\n"
-"Korisnička podešavanja Die biće ostavljena."
+"Your old Dia directory is about to be deleted. Would you like to continue?"
+msgstr "Vaš stari direktorijum Die će biti obrisan. Da li želite da nastavite?"
 
-#. Installer message: confirmatin question. Keep $\r
-#: ../installer/win32/gennsh.c:78
+#. Installer message: directory delete confirmation line 2
+#: ../installer/win32/gennsh.c:77
 msgid ""
-"The installation directory you specified already exists. Any contents$\rwill "
-"be deleted. Would you like to continue?"
+"Note: Any non-standard plugins that you may have installed will be deleted."
 msgstr ""
-"Instalacioni direktorijum koji ste naveli već postoji. Sav sadržaj$\n"
-"će biti obrisan. Da li želite da nastavite?"
+"Napomena: Svi nestandardni priključci koje ste možda instalirali biće "
+"obrisani."
 
-#. Installer message: Uninstall Section Prompts. Keep $\r
-#: ../installer/win32/gennsh.c:81
-msgid ""
-"The uninstaller could not find registry entries for Dia.$\rIt is likely that "
-"another user installed this application."
-msgstr ""
-"Program za uklanjanje ne može da pronađe stavke registra za Diu.$\n"
-"Najverovatnije da je drugi korisnik instalirao ovaj program."
+#. Installer message: directory delete confirmation line 3
+#: ../installer/win32/gennsh.c:79
+msgid "Dia user settings will not be affected."
+msgstr "Ovo neće uticati na podešavanja korisnika Die."
+
+#. Installer message: DIA_PROMPT_DIR_EXISTS line 1
+#: ../installer/win32/gennsh.c:82
+#| msgid ""
+#| "The installation directory you specified already exists. Any contents$"
+#| "\rwill be deleted. Would you like to continue?"
+msgid "The installation directory you specified already exists. Any contents"
+msgstr "Instalacioni direktorijum koji ste naveli već postoji. Sav sadržaj"
+
+#. Installer message: DIA_PROMP_DIR_EXISTS line 2
+#: ../installer/win32/gennsh.c:84
+#| msgid "Nothing selected for saving.  Would you like to try again?"
+msgid "will be deleted. Would you like to continue?"
+msgstr "će biti obrisan. Da li želite da nastavite?"
+
+#. Installer message: registry entries not found line 1
+#: ../installer/win32/gennsh.c:87
+#| msgid ""
+#| "The uninstaller could not find registry entries for Dia.$\rIt is likely "
+#| "that another user installed this application."
+msgid "The uninstaller could not find registry entries for Dia."
+msgstr "Program za uklanjanje ne može da pronađe stavke registra za Diu."
+
+#. Installer message: registry entries not found line 2
+#: ../installer/win32/gennsh.c:89
+#| msgid ""
+#| "The uninstaller could not find registry entries for Dia.$\rIt is likely "
+#| "that another user installed this application."
+msgid "It is likely that another user installed this application."
+msgstr "Najverovatnije da je drugi korisnik instalirao ovaj program."
 
 #. Installer message: Uninstall error message
-#: ../installer/win32/gennsh.c:84
+#: ../installer/win32/gennsh.c:92
 msgid "You do not have permission to uninstall this application."
 msgstr "Nemate ovlašćenja da uklonite ovaj program."
 
 #. Installer message: Uninstallation warning. Keep $INSTDIR
-#: ../installer/win32/gennsh.c:87
+#: ../installer/win32/gennsh.c:95
 msgid "This will completely delete $INSTDIR and all subdirectories. Continue?"
 msgstr ""
 "Ovo će u potpunosti da obriše $INSTDIR i sve sadržane direktorijume. Da "
 "nastavim?"
 
 #. Installer message: Uninstallation warning. Keep $\PROFILE\.dia
-#: ../installer/win32/gennsh.c:90
+#: ../installer/win32/gennsh.c:98
 msgid ""
 "This will completely delete $PROFILE\\.dia and all subdirectories. Continue?"
 msgstr ""
@@ -2929,11 +2950,11 @@ msgstr "Vidljive napomene"
 msgid "Comment tagging"
 msgstr "Označavanje napomene"
 
-#: ../objects/Database/table.c:189 ../objects/Database/table_dialog.c:976
+#: ../objects/Database/table.c:189 ../objects/Database/table_dialog.c:977
 msgid "Underline primary keys"
 msgstr "Podvuci primarne ključeve"
 
-#: ../objects/Database/table.c:191 ../objects/Database/table_dialog.c:981
+#: ../objects/Database/table.c:191 ../objects/Database/table_dialog.c:982
 msgid "Use bold font for primary keys"
 msgstr "Koristi podebljano pismo za primarne ključeve"
 
@@ -2976,114 +2997,114 @@ msgstr "Tabela"
 
 #  Attributes page:
 #. Attributes page:
-#: ../objects/Database/table_dialog.c:611 ../objects/UML/class_dialog.c:1081
+#: ../objects/Database/table_dialog.c:612 ../objects/UML/class_dialog.c:1081
 msgid "_Attributes"
 msgstr "_Osobine"
 
 #. the "new" button
-#: ../objects/Database/table_dialog.c:639 ../objects/SISSI/sissi_dialog.c:739
+#: ../objects/Database/table_dialog.c:640 ../objects/SISSI/sissi_dialog.c:739
 #: ../objects/SISSI/sissi_dialog.c:871
 msgid "_New"
 msgstr "_Novo"
 
 #. the "delete" button
-#: ../objects/Database/table_dialog.c:647
+#: ../objects/Database/table_dialog.c:648
 msgid "_Delete"
 msgstr "_Obriši"
 
 #. the "Move up" button
-#: ../objects/Database/table_dialog.c:655
+#: ../objects/Database/table_dialog.c:656
 msgid "Move up"
 msgstr "Pomeri naviše"
 
 #. the "Move down" button
-#: ../objects/Database/table_dialog.c:663
+#: ../objects/Database/table_dialog.c:664
 msgid "Move down"
 msgstr "Pomeri naniže"
 
-#: ../objects/Database/table_dialog.c:673 ../objects/UML/class_dialog.c:1138
+#: ../objects/Database/table_dialog.c:674 ../objects/UML/class_dialog.c:1138
 msgid "Attribute data"
 msgstr "Podaci osobina"
 
-#: ../objects/Database/table_dialog.c:707
-#: ../objects/Database/table_dialog.c:946
-#: ../objects/Database/table_dialog.c:1051 ../objects/UML/class_dialog.c:452
+#: ../objects/Database/table_dialog.c:708
+#: ../objects/Database/table_dialog.c:947
+#: ../objects/Database/table_dialog.c:1052 ../objects/UML/class_dialog.c:452
 #: ../objects/UML/class_dialog.c:1181 ../objects/UML/class_dialog.c:2111
 #: ../objects/UML/class_dialog.c:2283
 msgid "Comment:"
 msgstr "Napomena:"
 
-#: ../objects/Database/table_dialog.c:726
+#: ../objects/Database/table_dialog.c:727
 msgid "_Primary key"
 msgstr "_Primarni ključ"
 
-#: ../objects/Database/table_dialog.c:733
+#: ../objects/Database/table_dialog.c:734
 msgid "N_ullable"
 msgstr "_Ništavno"
 
-#: ../objects/Database/table_dialog.c:740
+#: ../objects/Database/table_dialog.c:741
 msgid "Uni_que"
 msgstr "_Jedinstveno"
 
-#: ../objects/Database/table_dialog.c:928
+#: ../objects/Database/table_dialog.c:929
 msgid "_Table"
 msgstr "_Tabela"
 
-#: ../objects/Database/table_dialog.c:936
+#: ../objects/Database/table_dialog.c:937
 msgid "Table name:"
 msgstr "Naziv tabele:"
 
 #. XXX create a handler and disable the 'show documentation tag' checkbox
 #. if 'comment visible' is not active.
-#: ../objects/Database/table_dialog.c:966
+#: ../objects/Database/table_dialog.c:967
 msgid "Comment visible"
 msgstr "Napomena je prikazana"
 
-#: ../objects/Database/table_dialog.c:971 ../objects/UML/class_dialog.c:522
+#: ../objects/Database/table_dialog.c:972 ../objects/UML/class_dialog.c:522
 msgid "Show documentation tag"
 msgstr "Prikaži oznaku dokumentacije"
 
 #. * Fonts and Colors selection *
-#: ../objects/Database/table_dialog.c:1010 ../objects/UML/class_dialog.c:551
+#: ../objects/Database/table_dialog.c:1011 ../objects/UML/class_dialog.c:551
 msgid "_Style"
 msgstr "_Stil"
 
-#: ../objects/Database/table_dialog.c:1021
+#: ../objects/Database/table_dialog.c:1022
 msgid "Border width:"
 msgstr "Širina ivice:"
 
 #. head line
-#: ../objects/Database/table_dialog.c:1034 ../objects/UML/class_dialog.c:561
+#: ../objects/Database/table_dialog.c:1035 ../objects/UML/class_dialog.c:561
 #: ../objects/UML/umlparameter.c:51
 msgid "Kind"
 msgstr "Vrsta"
 
-#: ../objects/Database/table_dialog.c:1038 ../objects/UML/class_dialog.c:566
+#: ../objects/Database/table_dialog.c:1039 ../objects/UML/class_dialog.c:566
 msgid "Size"
 msgstr "Veličina"
 
-#: ../objects/Database/table_dialog.c:1041
+#: ../objects/Database/table_dialog.c:1042
 msgid "Normal:"
 msgstr "Običan:"
 
-#: ../objects/Database/table_dialog.c:1062
+#: ../objects/Database/table_dialog.c:1063
 msgid "Text Color:"
 msgstr "Boja teksta:"
 
-#: ../objects/Database/table_dialog.c:1070
+#: ../objects/Database/table_dialog.c:1071
 msgid "Foreground Color:"
 msgstr "Boja iscrtavanja:"
 
 #. two chars at the beginning
-#: ../objects/Database/table_dialog.c:1383
+#: ../objects/Database/table_dialog.c:1384
 msgid "not null"
 msgstr "nije ništa"
 
-#: ../objects/Database/table_dialog.c:1384
+#: ../objects/Database/table_dialog.c:1385
 msgid "null"
 msgstr "ništa"
 
-#: ../objects/Database/table_dialog.c:1385
+#: ../objects/Database/table_dialog.c:1386
 msgid "unique"
 msgstr "jedinstven"
 
@@ -6370,32 +6391,40 @@ msgid "MoveTo not at start of Bezier\n"
 msgstr "„Premesti u“ nije na početku Bezjera\n"
 
 #: ../plug-ins/vdx/vdx-import.c:1740
-msgid "Invalid NURBS formula"
-msgstr "Neispravna NURBS formula"
+#| msgid "Invalid NURBS formula"
+msgid "Invalid NURBS formula\n"
+msgstr "Neispravna NURBS formula\n"
 
 #: ../plug-ins/vdx/vdx-import.c:1984
 #, c-format
 msgid "Couldn't write file %s"
 msgstr "Ne mogu da zapišem datoteku %s"
 
-#: ../plug-ins/vdx/vdx-import.c:2069 ../plug-ins/vdx/vdx-import.c:2082
+#: ../plug-ins/vdx/vdx-import.c:2069
+#, c-format
+#| msgid "Couldn't handle foreign object type %s"
+msgid "Couldn't handle foreign object type %s\n"
+msgstr "Ne mogu da rukujem stranom vrstom objekta „%s“\n"
+
+#: ../plug-ins/vdx/vdx-import.c:2082
 #, c-format
 msgid "Couldn't handle foreign object type %s"
-msgstr "Ne mogu da rukujrm stranom vrstom objekta %s"
+msgstr "Ne mogu da rukujem stranom vrstom objekta %s"
 
 #: ../plug-ins/vdx/vdx-import.c:2110
 #, c-format
 msgid "Couldn't make object dir %s"
 msgstr "Ne mogu da napravim direktorijum objekta %s"
 
-#: ../plug-ins/vdx/vdx-import.c:3100
+#: ../plug-ins/vdx/vdx-import.c:3117
 msgid "Visio XML File Format"
 msgstr "Zapis Vizio IksML datoteke"
 
 #: ../plug-ins/vdx/vdx-xml.c:3344
 #, c-format
-msgid "Can't decode object %s"
-msgstr "Ne mogu da dekodiram objekat %s"
+#| msgid "Can't decode object %s"
+msgid "Can't decode object %s\n"
+msgstr "Ne mogu da dekodiram objekat „%s“\n"
 
 #: ../plug-ins/vdx/vdx-xml.c:5125
 #, c-format
@@ -6453,7 +6482,8 @@ msgstr "Propusnik izvoza grafike savršenih reči"
 #: ../plug-ins/xfig/xfig-export.c:463
 #, c-format
 msgid "FIG format has no equivalent of arrow style %s, using simple arrow.\n"
-msgstr "FIG zapis nema odgovarajući stil strelice %s; koristim običnu strelicu.\n"
+msgstr ""
+"FIG zapis nema odgovarajući stil strelice %s; koristim običnu strelicu.\n"
 
 #: ../plug-ins/xfig/xfig-export.c:486
 msgid "No more user-definable colors - using black"
@@ -6466,7 +6496,8 @@ msgstr "IksFig zapis"
 #: ../plug-ins/xfig/xfig-import.c:111
 #, c-format
 msgid "Color index %d too high, only 512 colors allowed. Using black instead."
-msgstr "Indeks boje %d je previsok, dopušteno je samo 512 boja. Koristiću crnu."
+msgstr ""
+"Indeks boje %d je previsok, dopušteno je samo 512 boja. Koristiću crnu."
 
 #: ../plug-ins/xfig/xfig-import.c:138
 msgid "Patterns are not supported by Dia"
@@ -6699,8 +6730,7 @@ msgstr "Propusnik IksSL preobražaja"
 #: ../plug-ins/xslt/xslt.c:362
 msgid "No valid configuration files found for the XSLT plugin, not loading."
 msgstr ""
-"Nisu pronađene ispravne datoteke podešavanja za IksSLT priključak, ne "
-"učitavam."
+"Nisu pronađene ispravne datoteke podešavanja za IksSLT priključak, ne učitavam."
 
 #: ../plug-ins/xslt/xsltdialog.c:97
 msgid "Export through XSLT"
@@ -10577,3 +10607,14 @@ msgstr "Sibejzov program klijenta"
 #: ../sheets/sybase.sheet.in.h:8
 msgid "Replication server manager"
 msgstr "Upravnik replikacionim serverom"
+
+#~ msgid ""
+#~ "Your old Dia directory is about to be deleted. Would you like to continue?"
+#~ "$\r$\rNote: Any non-standard plugins that you may have installed will be "
+#~ "deleted.$\rDia user settings will not be affected."
+#~ msgstr ""
+#~ "Stari direktorijum Die će sada biti obrisan. Da li želite da nastavite?$\n"
+#~ "$\n"
+#~ "Napomena: Bilo koji nestandardni priključak koji ste instalirali biće "
+#~ "obrisan.$\n"
+#~ "Korisnička podešavanja Die biće ostavljena."
