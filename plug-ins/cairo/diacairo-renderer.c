@@ -315,6 +315,15 @@ set_fillstyle(DiaRenderer *self, FillStyle mode)
   DIAG_STATE(DIA_CAIRO_RENDERER (self)->cr)
 }
 
+/* There is a recurring bug with pangocairo related to kerning and font scaling.
+ * See: https://bugzilla.gnome.org/buglist.cgi?quicksearch=341481+573261+700592
+ * Rather than waiting for another fix let's try to implement the ultimate work
+ * around. With Pango-1.32 and HarfBuzz the kludge in Pango is gone and apparently
+ * substituted with a precision problem. If we now use huge fonts when talking
+ * to Pango and downscale these with cairo it should work with all Pango versions.
+ */
+#define FONT_SIZE_TWEAK (72.0)
+
 static void
 set_font(DiaRenderer *self, DiaFont *font, real height)
 {
@@ -327,7 +336,7 @@ set_font(DiaRenderer *self, DiaFont *font, real height)
 
 #ifdef HAVE_PANGOCAIRO_H
   /* select font and size */
-  pango_font_description_set_absolute_size (pfd, (int)(size * PANGO_SCALE));
+  pango_font_description_set_absolute_size (pfd, (int)(size * FONT_SIZE_TWEAK * PANGO_SCALE));
   pango_layout_set_font_description (renderer->layout, pfd);
   pango_font_description_free (pfd);
 #else
@@ -707,14 +716,17 @@ draw_string(DiaRenderer *self,
     pango_layout_iter_get_line_extents (iter, NULL, &extents);
     shift = alignment == ALIGN_CENTER ? PANGO_RBEARING(extents)/2 :
             alignment == ALIGN_RIGHT ? PANGO_RBEARING(extents) : 0;
+    shift /= FONT_SIZE_TWEAK;
+    bline /= FONT_SIZE_TWEAK;
     cairo_move_to (renderer->cr, pos->x - (double)shift / PANGO_SCALE, pos->y - (double)bline / PANGO_SCALE);
     pango_layout_iter_free (iter);
   }
   /* does this hide bug #341481? */
-  pango_cairo_update_context (renderer->cr, pango_layout_get_context (renderer->layout));
-  pango_layout_context_changed (renderer->layout);
+  cairo_scale (renderer->cr, 1.0/FONT_SIZE_TWEAK, 1.0/FONT_SIZE_TWEAK);
+  pango_cairo_update_layout (renderer->cr, renderer->layout);
 
   pango_cairo_show_layout (renderer->cr, renderer->layout);
+  /* restoring the previous scale */
   cairo_restore (renderer->cr);
 #else
   /* using the 'toy API' */
