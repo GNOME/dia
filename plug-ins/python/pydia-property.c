@@ -526,7 +526,7 @@ PyDia_set_BezPointArray(Property *prop, PyObject *val)
     }
     /* rather than crashing Dia with too few point handle it here */
     if (numpts < 2) {
-      g_warning ("Too few BezPoints!");
+      PyErr_Warn (PyExc_RuntimeWarning, "Too few BezPoints!");
       return -1;
     }
     /* only count valid points */
