@@ -1902,12 +1902,19 @@ import_memory_svg (const guchar *p, guint size, DiagramData *dia,
 static gboolean
 import_file_svg(const gchar *filename, DiagramData *dia, DiaContext *ctx, void* user_data) 
 {
-  xmlDocPtr doc = xmlDoParseFile(filename);
+  xmlErrorPtr error_xml = NULL;
+  xmlDocPtr doc = xmlDoParseFile(filename, &error_xml);
 
   if (!doc) {
-    dia_context_add_message(ctx, _("Parse error for %s"), 
-			    dia_context_get_filename (ctx));
+    dia_context_add_message(ctx, _("SVG parser error for %s\n%s"), 
+			    dia_context_get_filename (ctx),
+			    error_xml ? error_xml->message : "");
     return FALSE;
+  } else if (error_xml) {
+    /* just a warning */
+    dia_context_add_message(ctx, _("SVG parser warning for %s\n%s"), 
+			    dia_context_get_filename (ctx),
+			    error_xml ? error_xml->message : "");
   }
   return import_svg (doc, dia, ctx, user_data);
 }

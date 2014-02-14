@@ -685,7 +685,8 @@ update_bounds(ShapeInfo *info)
 static ShapeInfo *
 load_shape_info(const gchar *filename, ShapeInfo *preload)
 {
-  xmlDocPtr doc = xmlDoParseFile(filename);
+  xmlErrorPtr error_xml = NULL;
+  xmlDocPtr doc = xmlDoParseFile(filename, &error_xml);
   xmlNsPtr shape_ns, svg_ns;
   xmlNodePtr node, root, ext_node = NULL;
   ShapeInfo *info;
@@ -693,7 +694,8 @@ load_shape_info(const gchar *filename, ShapeInfo *preload)
   int i;
   
   if (!doc) {
-    g_warning("parse error for %s", filename);
+    g_warning("Custom shape parser error for %s\n%s", filename,
+	      error_xml ? error_xml->message : "");
     return NULL;
   }
   /* skip (emacs) comments */

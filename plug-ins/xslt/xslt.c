@@ -82,7 +82,8 @@ xslt_ok(void)
 	char *params[] = { "directory", NULL, NULL };
 	xsltStylesheetPtr style, codestyle;
 	xmlDocPtr doc, res;
-        gchar *directory = g_path_get_dirname(filename);
+	xmlErrorPtr error_xml = NULL;
+	gchar *directory = g_path_get_dirname(filename);
 	gchar *uri = g_filename_to_uri (directory, NULL, NULL);
 	g_free (directory);
 
@@ -107,11 +108,12 @@ xslt_ok(void)
 	}
 	
 	xmlSubstituteEntitiesDefault(0);
-	doc = xmlDoParseFile(diafilename);
+	doc = xmlDoParseFile(diafilename, &error_xml);
 
 	if(doc == NULL) {
-		message_error(_("Error while parsing %s\n"), 
-			      dia_message_filename(diafilename));
+		message_error(_("Error while parsing %s\n%s"),
+			      dia_message_filename(diafilename),
+			      error_xml ? error_xml->message : "");
 		return;
 	}
 	
@@ -219,6 +221,7 @@ static PluginInitResult read_configuration(const char *config)
 {
     xmlDocPtr doc;
     xmlNodePtr cur;
+    xmlErrorPtr error_xml = NULL;
     /* Primary xsl */
     fromxsl_t *cur_from = NULL;
     gchar *path = NULL;
@@ -226,11 +229,12 @@ static PluginInitResult read_configuration(const char *config)
     if (!g_file_test(config, G_FILE_TEST_EXISTS))
 	return DIA_PLUGIN_INIT_ERROR;
     
-    doc = xmlDoParseFile(config);
+    doc = xmlDoParseFile(config, &error_xml);
     
     if (doc == NULL) 
     {
-	g_error ("Couldn't parse XSLT plugin's configuration file %s", config);
+	g_error ("Couldn't parse XSLT plugin's configuration file %s\n%s",
+		 config, error_xml ? error_xml->message : "");
 	return DIA_PLUGIN_INIT_ERROR;
     }
     

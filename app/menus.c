@@ -271,7 +271,13 @@ static const GtkRadioActionEntry display_select_radio_entries[] =
 /* need initialisation? */
 static gboolean initialise = TRUE;
 
-/* shared between toolbox and integrated code */
+/* shared between toolbox and integrated code
+
+ - One ui_manager from toolbox_ui_manager and integrated_ui_manager
+ - Two action groups for toolbox and display. In the integrated ui case
+   the latter should be disabled (or hidden) if there is no diagram
+
+ */
 static GtkUIManager *_ui_manager = NULL;
 
 /* toolbox */
@@ -885,6 +891,21 @@ static const gchar *ui_info =
 "</ui>";
 
 static void
+_action_start (GtkActionGroup *action_group,
+	       GtkAction *action,
+	       gpointer user_data)
+{
+  dia_log_message ("Start '%s'\n", gtk_action_get_name (action));
+}
+static void
+_action_done (GtkActionGroup *action_group,
+	       GtkAction *action,
+	       gpointer user_data)
+{
+  dia_log_message ("Done '%s'\n", gtk_action_get_name (action));
+}
+
+static void
 _setup_global_actions (void)
 {
   if (tool_actions)
@@ -908,6 +929,15 @@ _setup_global_actions (void)
                     "connect_proxy",
 		    G_CALLBACK (_ui_manager_connect_proxy),
 		    NULL);
+  g_signal_connect (G_OBJECT (_ui_manager), 
+                    "pre-activate",
+		    G_CALLBACK (_action_start),
+		    NULL);
+  g_signal_connect (G_OBJECT (_ui_manager), 
+                    "post-activate",
+		    G_CALLBACK (_action_done),
+		    NULL);
+
   gtk_ui_manager_set_add_tearoffs (_ui_manager, DIA_SHOW_TEAROFFS);
   gtk_ui_manager_insert_action_group (_ui_manager, toolbox_actions, 0);
 

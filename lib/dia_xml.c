@@ -261,26 +261,30 @@ static xmlDocPtr
 xmlDiaParseFile(const char *filename, DiaContext *ctx)
 {
   const char *local_charset = NULL;
-  
+  xmlErrorPtr error_xml = NULL;
+  xmlDocPtr ret = NULL;
+
   if (   !g_get_charset(&local_charset)
       && local_charset) {
     /* we're not in an UTF-8 environment. */ 
     const gchar *fname = xml_file_check_encoding(filename,local_charset, ctx);
     if (fname != filename) {
       /* We've got a corrected file to parse. */
-      xmlDocPtr ret = xmlDoParseFile(fname);
+      xmlDocPtr ret = xmlDoParseFile(fname, &error_xml);
       unlink(fname);
       /* printf("has read %s instead of %s\n",fname,filename); */
       g_free((void *)fname);
-      return ret;
     } else {
       /* the XML file is good. libxml is "old enough" to handle it correctly.
        */
-      return xmlDoParseFile(filename);
+      ret = xmlDoParseFile(filename, &error_xml);
     }
   } else {
-    return xmlDoParseFile(filename);
+    ret = xmlDoParseFile(filename, &error_xml);
   }
+  if (error_xml)
+    dia_context_add_message (ctx, error_xml->message);
+  return ret;
 }
 
 /*!
@@ -290,14 +294,14 @@ xmlDiaParseFile(const char *filename, DiaContext *ctx)
  * \ingroup DiagramXmlIo
  */
 xmlDocPtr
-xmlDoParseFile(const char *filename)
+xmlDoParseFile(const char *filename, xmlErrorPtr *error)
 {
   xmlDocPtr doc;
   xmlErrorPtr err;
 
   doc = xmlParseFile(filename);
-  if (!doc)
-    err = xmlGetLastError ();
+  if (!doc && error)
+    *error = xmlGetLastError ();
 
   return doc;
 }

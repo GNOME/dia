@@ -2874,7 +2874,8 @@ vdx_free(VDXDocument *theDoc)
 static gboolean
 import_vdx(const gchar *filename, DiagramData *dia, DiaContext *ctx, void* user_data)
 {
-    xmlDocPtr doc = xmlDoParseFile(filename);
+    xmlErrorPtr error_xml = NULL;
+    xmlDocPtr doc = xmlDoParseFile(filename, &error_xml);
     xmlNodePtr root, cur;
     struct VDXDocument *theDoc;
     const char *s;
@@ -2884,8 +2885,9 @@ import_vdx(const gchar *filename, DiagramData *dia, DiaContext *ctx, void* user_
     char* old_locale;
 
     if (!doc) {
-        dia_context_add_message(ctx, _("Parse error for %s"),
-                                dia_context_get_filename(ctx));
+        dia_context_add_message(ctx, _("VDX parser error for %s\n%s"),
+				error_xml ? error_xml->message : "",
+				dia_context_get_filename(ctx));
         return FALSE;
     }
     /* skip comments */

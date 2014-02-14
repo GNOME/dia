@@ -325,12 +325,14 @@ LineInfo* line_info_clone(LineInfo* info)
 LineInfo* 
 line_info_load_and_apply_from_xmlfile(const gchar *filename, LineInfo* info)
 {
-  xmlDocPtr doc = xmlDoParseFile(filename);
+  xmlErrorPtr error_xml = NULL;
+  xmlDocPtr doc = xmlDoParseFile(filename, &error_xml);
   xmlNodePtr node, root;
   xmlChar *tmp;
 
   if (!doc) {
-    g_warning("parse error for %s", filename);
+    g_warning("Custom Line parser error for %s\n%s", filename,
+	      error_xml ? error_xml->message : "");
     return NULL;
   }
   /* skip (emacs) comments */

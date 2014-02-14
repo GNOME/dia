@@ -1,1 +1,1 @@
-!INCLUDE $(TOP)\glib\build\win32\make.msc
+!INCLUDE $(TOP)\glib-2\build\win32\make.msc

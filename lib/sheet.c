@@ -197,6 +197,7 @@ static void
 load_register_sheet(const gchar *dirname, const gchar *filename,
                     SheetScope scope)
 {
+  xmlErrorPtr error_xml = NULL;
   xmlDocPtr doc;
   xmlNsPtr ns;
   xmlNodePtr node, contents,subnode,root;
@@ -213,7 +214,9 @@ load_register_sheet(const gchar *dirname, const gchar *filename,
 
   /* the XML fun begins here. */
 
-  doc = xmlDoParseFile(filename);
+  doc = xmlDoParseFile(filename, &error_xml);
+  if (error_xml)
+    g_warning ("Sheet parser error %s", error_xml->message);
   if (!doc) return;
   root = doc->xmlRootNode;
   while (root && (root->type != XML_ELEMENT_NODE)) root=root->next;

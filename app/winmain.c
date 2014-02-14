@@ -29,6 +29,19 @@ WinMain (struct HINSTANCE__ *hInstance,
 	 char               *lpszCmdLine,
 	 int                 nCmdShow)
 {
+  typedef BOOL (WINAPI *PFN_SetProcessDPIAware) (VOID);
+  PFN_SetProcessDPIAware setProcessDPIAware;
+
+  /* Try to claim DPI awareness (should work from Vista). This disables automatic
+   * scaling of the user interface elements, so icons might get really small. But
+   * for reasonable high dpi that should still look better than, e.g. scaling our
+   * buttons to 125%.
+   */
+  setProcessDPIAware = (PFN_SetProcessDPIAware) GetProcAddress (GetModuleHandle ("user32.dll"),
+								"SetProcessDPIAware");
+  if (setProcessDPIAware)
+    setProcessDPIAware ();
+
   dia_redirect_console ();
   
   app_init (__argc, __argv);
