@@ -5,7 +5,6 @@
 			<menuitem name="FileNew" action="FileNew" />
 			<menuitem name="FileOpen" action="FileOpen" />
 			<separator name="FileSep1" />
-
 			<menuitem name="FileSave" action="FileSave" />
 			<menuitem name="FileSaveas" action="FileSaveas" />
 			<menuitem name="FileExport" action="FileExport" />
@@ -50,6 +49,7 @@
 			<menuitem name="EditPastetext" action="EditPastetext" />
 			<separator name="EditSep4" />
 			<menuitem name="EditPasteImage" action="EditPasteImage" />
+			<separator name="EditExtensionStart" />
 		</menu>
 		<menu name="View" action="View">
 			<menuitem name="ViewZoomin" action="ViewZoomin" />
@@ -86,7 +86,6 @@
 			<menuitem name="ViewCloneview" action="ViewCloneview" />
 			<menuitem name="ViewRedraw" action="ViewRedraw" />
 		</menu>
-
 		<menu name="Layers" action="Layers">
 			<menuitem name="LayerAdd" action="LayerAdd" />
 			<menuitem name="LayerRename" action="LayerRename" />
@@ -94,7 +93,6 @@
 			<menuitem name="ObjectsLayerAbove" action="ObjectsLayerAbove" />
 			<menuitem name="ObjectsLayerBelow" action="ObjectsLayerBelow" />
 		</menu>
-
 		<menu name="Objects" action="Objects">
 			<menuitem name="ObjectsSendtoback" action="ObjectsSendtoback" />
 			<menuitem name="ObjectsBringtofront" action="ObjectsBringtofront" />
@@ -145,6 +143,8 @@
 			<menu name="SelectBy" action="SelectBy">
 				<separator name="SelectByExtensionStart" />
 			</menu>
+			<separator name="SelectSep4" />
+			<separator name="SelectExtensionStart" />
 		</menu>
 		<menu name="Layout" action="Layout">
 			<separator name="LayoutExtensionStart" />
@@ -168,6 +168,8 @@
 			<menuitem name="ToolsOutline" action="ToolsOutline" />
 			<separator name="ToolsSep1" />
 			<menuitem name="ToolsImage" action="ToolsImage" />
+			<separator name="ToolsSep2" />
+			<separator name="ToolsExtensionStart" />
 		</menu>
 		<menuitem name="InputMethods" action="InputMethods" />
 		<menu name="Dialogs" action="Dialogs">
@@ -176,7 +178,6 @@
 		<menu name="Debug" action="Debug">
 			<separator name="DebugExtensionStart" />
 		</menu>
-
 		<menu name="Help" action="Help">
 			<menuitem name="HelpContents" action="HelpContents" />
 			<separator name="HelpExtensionStart" />
