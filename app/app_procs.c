@@ -671,7 +671,7 @@ app_init (int argc, char **argv)
 {
   static gboolean nosplash = FALSE;
   static gboolean nonew = FALSE;
-  static gboolean use_integrated_ui = FALSE;
+  static gboolean use_integrated_ui = TRUE;
   static gboolean credits = FALSE;
   static gboolean version = FALSE;
   static gboolean verbose = FALSE;
@@ -720,8 +720,8 @@ app_init (int argc, char **argv)
      N_("Don't show the splash screen"), NULL },
     {"nonew", 'n', 0, G_OPTION_ARG_NONE, &nonew,
      N_("Don't create an empty diagram"), NULL },
-    {"integrated", '\0', 0, G_OPTION_ARG_NONE, &use_integrated_ui,
-     N_("Start integrated user interface (diagrams in tabs)"), NULL },
+    {"classic", '\0', G_OPTION_FLAG_REVERSE, G_OPTION_ARG_NONE, &use_integrated_ui,
+     N_("Start classic user interface (no diagrams in tabs)"), NULL },
     {"log-to-stderr", 'l', 0, G_OPTION_ARG_NONE, &log_to_stderr,
      N_("Send error messages to stderr instead of showing dialogs."), NULL },
     {"input-directory", 'I', 0, G_OPTION_ARG_CALLBACK, _check_option_input_directory,
@@ -975,21 +975,17 @@ app_init (int argc, char **argv)
 					 input_directory, output_directory);
 					 
   if (dia_is_interactive && files == NULL && !nonew) {
-    if (use_integrated_ui)
-    {
+    if (use_integrated_ui) {
       GList * list;
     
       file_new_callback(NULL);  
       list = dia_open_diagrams();
-      if (list) 
-      {
+      if (list) {
         Diagram * diagram = list->data;
         diagram_update_extents(diagram);
         diagram->is_default = TRUE;
       }
-    }
-    else
-    {
+    } else {
       gchar *filename = g_filename_from_utf8(_("Diagram1.dia"), -1, NULL, NULL, NULL);
       Diagram *diagram = new_diagram (filename);
       g_free(filename);
