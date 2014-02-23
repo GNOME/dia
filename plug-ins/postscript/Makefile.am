@@ -43,4 +43,4 @@ if OS_WIN32
 libpostscript_filter_la_LIBADD += -lwinspool
 endif
 
-INCLUDES = -I$(srcdir)/../../lib $(GTK_CFLAGS) $(DEBUG_FLAGS) $(CAIRO_CFLAGS)
+AM_CPPFLAGS = -I$(srcdir)/../../lib $(GTK_CFLAGS) $(DEBUG_FLAGS) $(CAIRO_CFLAGS)

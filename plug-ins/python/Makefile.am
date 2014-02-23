@@ -1,4 +1,4 @@
-INCLUDES = \
+AM_CPPFLAGS = \
 	-I$(top_srcdir) \
 	-I$(top_srcdir)/intl \
 	-I$(top_srcdir)/lib \

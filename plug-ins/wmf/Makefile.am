@@ -17,7 +17,7 @@ libwmf_filter_la_LIBADD += -lcomdlg32
 plugin_sources += paginate_gdiprint.cpp paginate_gdiprint.h
 endif
 
-INCLUDES = -I$(top_srcdir)/intl -I$(top_srcdir)/lib \
+AM_CPPFLAGS = -I$(top_srcdir)/intl -I$(top_srcdir)/lib \
   $(DEBUG_FLAGS) $(GTK_CFLAGS) $(LIBEMF_CFLAGS)
 
 EXTRA_DIST = \

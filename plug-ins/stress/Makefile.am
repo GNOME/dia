@@ -11,7 +11,7 @@ libstress_filter_la_SOURCES = $(plugin_sources)
 libstress_filter_la_LDFLAGS = -export-dynamic -module -avoid-version $(NO_UNDEFINED)
 libstress_filter_la_LIBADD = $(top_builddir)/lib/libdia.la
 
-INCLUDES = -I$(top_srcdir)/intl -I$(top_srcdir)/lib \
+AM_CPPFLAGS = -I$(top_srcdir)/intl -I$(top_srcdir)/lib \
   $(DEBUG_FLAGS) $(GTK_CFLAGS)
 
 # Prevent installation

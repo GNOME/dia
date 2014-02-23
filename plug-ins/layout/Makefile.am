@@ -20,7 +20,7 @@ if OS_WIN32
 liblayout_filter_la_LIBADD += -lpsapi
 endif
 
-INCLUDES = -I$(top_srcdir)/intl -I$(top_srcdir)/lib -I$(top_srcdir)/app \
+AM_CPPFLAGS = -I$(top_srcdir)/intl -I$(top_srcdir)/lib -I$(top_srcdir)/app \
   $(DEBUG_FLAGS) $(GTK_CFLAGS) $(OGDF_CFLAGS)
 
 EXTRA_DIST = \

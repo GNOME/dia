@@ -13,7 +13,7 @@ libpdf_filter_la_SOURCES = $(plugin_sources)
 libpdf_filter_la_LDFLAGS = -export-dynamic -module -avoid-version $(NO_UNDEFINED)
 libpdf_filter_la_LIBADD = $(POPPLER_LIBS) $(top_builddir)/lib/libdia.la
 
-INCLUDES = -I$(top_srcdir)/intl -I$(top_srcdir)/lib \
+AM_CPPFLAGS = -I$(top_srcdir)/intl -I$(top_srcdir)/lib \
   $(POPPLER_CFLAGS) $(DEBUG_FLAGS) $(GTK_CFLAGS)
 
 # Prevent installation

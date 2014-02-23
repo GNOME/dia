@@ -53,7 +53,7 @@ tool-icons.h: $(ICON_PNGS)
 
 BUILT_SOURCES = tool-icons.h
 
-INCLUDES = -I$(top_srcdir)/intl -I$(srcdir)/../../lib \
+AM_CPPFLAGS = -I$(top_srcdir)/intl -I$(srcdir)/../../lib \
 	$(DEBUG_FLAGS) $(GTK_CFLAGS)
 
 EXTRA_DIST = \

@@ -18,7 +18,7 @@ test: $(TEST_PROGS)
 # rum make test as part of make check
 check-local: test
 
-INCLUDES = -g -I$(top_srcdir) -I$(top_srcdir)/lib $(GTK_CFLAGS)
+AM_CPPFLAGS = -g -I$(top_srcdir) -I$(top_srcdir)/lib $(GTK_CFLAGS)
 
 noinst_PROGRAMS = $(TEST_PROGS)
 progs_ldadd = $(top_builddir)/lib/libdia.la $(GTK_LIBS)

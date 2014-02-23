@@ -15,4 +15,4 @@ libvdx_filter_la_LDFLAGS = -export-dynamic -module -avoid-version $(NO_UNDEFINED
 
 libvdx_filter_la_LIBADD = $(top_builddir)/lib/libdia.la
 
-INCLUDES = -I$(top_srcdir)/intl -I$(srcdir)/../../lib $(GTK_CFLAGS) $(GNOME_CFLAGS) $(PANGOFT2_CFLAGS) $(XML_CFLAGS) $(UNICODE_CFLAGS) $(DEBUG_FLAGS)
+AM_CPPFLAGS = -I$(top_srcdir)/intl -I$(srcdir)/../../lib $(GTK_CFLAGS) $(GNOME_CFLAGS) $(PANGOFT2_CFLAGS) $(XML_CFLAGS) $(UNICODE_CFLAGS) $(DEBUG_FLAGS)

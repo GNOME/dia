@@ -2,13 +2,13 @@
 
 SUBDIRS = pixmaps
 
-INCLUDES = \
+AM_CPPFLAGS = \
 	-I$(top_srcdir) \
 	-I$(top_srcdir)/intl \
 	-I$(top_srcdir)/lib \
 	$(DEBUG_FLAGS) \
 	$(GTK_CFLAGS) \
-	$(GTK_MAC_CFLAGS) \ 
+	$(GTK_MAC_CFLAGS) \
 	$(LIBART_CFLAGS) \
 	-DPREFIX=\""$(prefix)"\" \
 	-DSYSCONFDIR=\""$(sysconfdir)"\" \

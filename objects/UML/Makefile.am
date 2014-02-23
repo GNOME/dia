@@ -45,7 +45,7 @@ libuml_objects_la_SOURCES = \
 libuml_objects_la_LDFLAGS = -export-dynamic -module -avoid-version $(NO_UNDEFINED)
 libuml_objects_la_LIBADD = $(CAIRO_LIBS) $(top_builddir)/lib/libdia.la
 
-INCLUDES = -I$(top_srcdir)/intl -I$(srcdir)/../../lib \
+AM_CPPFLAGS = -I$(top_srcdir)/intl -I$(srcdir)/../../lib \
 	$(DEBUG_FLAGS) $(GTK_CFLAGS) $(GNOME_CFLAGS) $(PANGOFT2_CFLAGS) $(UNICODE_CFLAGS)
 
 EXTRA_DIST = \

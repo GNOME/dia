@@ -236,7 +236,7 @@ AM_CPPFLAGS = \
 
 sheetdir = $(pkgdatadir)/sheets
 
-INCLUDES = -I$(top_srcdir)/intl $(DEBUG_FLAGS) $(GDK_PIXBUF_CFLAGS) \
+AM_CPPFLAGS += -I$(top_srcdir)/intl $(DEBUG_FLAGS) $(GDK_PIXBUF_CFLAGS) \
   $(XML_CFLAGS) $(GNOME_CFLAGS) $(GTK_CFLAGS) \
   -DDIA_SHEETDIR=\"$(sheetdir)\" \
   $(PANGOFT2_CFLAGS) $(LIBART_CFLAGS) $(UNICODE_CFLAGS)
