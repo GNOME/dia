@@ -16,8 +16,8 @@ msgstr ""
 "Project-Id-Version: dia\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=dia&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2014-02-20 16:15+0000\n"
-"PO-Revision-Date: 2014-02-20 19:54+0100\n"
+"POT-Creation-Date: 2014-03-02 14:56+0000\n"
+"PO-Revision-Date: 2014-03-02 16:43+0100\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -241,7 +241,7 @@ msgstr ""
 msgid "Exiting Dia"
 msgstr "Aplikace Dia se ukončuje"
 
-#: ../app/app_procs.c:1066 ../app/display.c:1289 ../app/exit_dialog.c:115
+#: ../app/app_procs.c:1066 ../app/display.c:1249 ../app/exit_dialog.c:115
 #: ../app/filedlg.c:582
 msgid "Save"
 msgstr "Uložit"
@@ -714,7 +714,11 @@ msgstr "Převést na cestu"
 msgid "Selection"
 msgstr "Výběr"
 
-#: ../app/disp_callbacks.c:1115
+#: ../app/disp_callbacks.c:360
+msgid "Input _Methods"
+msgstr "Vstupní _metody"
+
+#: ../app/disp_callbacks.c:1128
 msgid ""
 "The object you dropped cannot fit into its parent. \n"
 "Either expand the parent object, or drop the object elsewhere."
@@ -739,20 +743,20 @@ msgid "Selected '%s'"
 msgstr "Vybráno „%s“"
 
 #. we really should not come here but instead disable the menu command earlier
-#: ../app/display.c:1177
+#: ../app/display.c:1137
 msgid "No antialiased renderer found"
 msgstr "Nenalezeno žádné vykreslování s podporou vyhlazování"
 
-#: ../app/display.c:1335
+#: ../app/display.c:1295
 msgid "<unnamed>"
 msgstr "<nepojmenovaný>"
 
 #. no standard buttons
-#: ../app/display.c:1341
+#: ../app/display.c:1301
 msgid "Closing diagram without saving"
 msgstr "Diagram se zavírá bez uložení"
 
-#: ../app/display.c:1343
+#: ../app/display.c:1303
 #, c-format
 msgid ""
 "The diagram '%s'\n"
@@ -761,11 +765,11 @@ msgstr ""
 "Diagram „%s“\n"
 "nebyl uložen. Chcete jej uložit nyní?"
 
-#: ../app/display.c:1345
+#: ../app/display.c:1305
 msgid "Close Diagram"
 msgstr "Zavřít diagram"
 
-#: ../app/display.c:1350
+#: ../app/display.c:1310
 msgid "_Discard Changes"
 msgstr "_Zahodit změny"
 
@@ -924,7 +928,7 @@ msgstr "Shoda všech vl_astností (nejen názvu objektu)"
 msgid "Find"
 msgstr "Hledat"
 
-#: ../app/find-and-replace.c:567 ../app/menus.c:273
+#: ../app/find-and-replace.c:567 ../app/menus.c:271
 msgid "Replace"
 msgstr "Nahradit"
 
@@ -1336,11 +1340,11 @@ msgstr "Při_blížení"
 msgid "1600%"
 msgstr "1600%"
 
-#: ../app/menus.c:160 ../app/menus.c:587 ../app/menus.c:599
+#: ../app/menus.c:160 ../app/menus.c:585 ../app/menus.c:597
 msgid "800%"
 msgstr "800%"
 
-#: ../app/menus.c:161 ../app/menus.c:588 ../app/menus.c:600
+#: ../app/menus.c:161 ../app/menus.c:586 ../app/menus.c:598
 msgid "400%"
 msgstr "400%"
 
@@ -1504,41 +1508,37 @@ msgid "L_ayout"
 msgstr "Vzhl_ed"
 
 #: ../app/menus.c:227
-msgid "_Input Methods"
-msgstr "Vstupní _metody"
-
-#: ../app/menus.c:229
 msgid "D_ialogs"
 msgstr "_Dialogy"
 
-#: ../app/menus.c:231
+#: ../app/menus.c:229
 msgid "D_ebug"
 msgstr "_Ladění"
 
-#: ../app/menus.c:237
+#: ../app/menus.c:235
 msgid "_Tools"
 msgstr "_Nástroje"
 
-#: ../app/menus.c:238
+#: ../app/menus.c:236
 msgid "Modify"
 msgstr "Upravit"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Magnify
-#: ../app/menus.c:239 ../app/toolbox.c:86 ../objects/FS/function.c:984
+#: ../app/menus.c:237 ../app/toolbox.c:86 ../objects/FS/function.c:984
 msgid "Magnify"
 msgstr "Zvětšit"
 
-#: ../app/menus.c:240
+#: ../app/menus.c:238
 msgid "Edit Text"
 msgstr "Upravit text"
 
-#: ../app/menus.c:241
+#: ../app/menus.c:239
 msgid "Scroll"
 msgstr "Posouvat"
 
 #. how it used to be before 0.96+SVN
 #. new name matching "same name, same type"  rule
-#: ../app/menus.c:242 ../app/toolbox.c:98 ../lib/properties.c:102
+#: ../app/menus.c:240 ../app/toolbox.c:98 ../lib/properties.c:102
 #: ../lib/properties.h:677 ../objects/AADL/aadlbox.c:153
 #: ../objects/custom/custom_object.c:228 ../objects/Jackson/requirement.c:130
 #: ../objects/network/basestation.c:132 ../objects/network/radiocell.c:125
@@ -1551,142 +1551,142 @@ msgstr "Posouvat"
 msgid "Text"
 msgstr "Text"
 
-#: ../app/menus.c:243 ../app/toolbox.c:104
+#: ../app/menus.c:241 ../app/toolbox.c:104
 msgid "Box"
 msgstr "Čtyřúhelník"
 
-#: ../app/menus.c:244 ../app/toolbox.c:110
+#: ../app/menus.c:242 ../app/toolbox.c:110
 msgid "Ellipse"
 msgstr "Elipsa"
 
-#: ../app/menus.c:245 ../app/toolbox.c:116
+#: ../app/menus.c:243 ../app/toolbox.c:116
 msgid "Polygon"
 msgstr "Mnohoúhelník"
 
-#: ../app/menus.c:246 ../app/toolbox.c:122
+#: ../app/menus.c:244 ../app/toolbox.c:122
 msgid "Beziergon"
 msgstr "Beziérův útvar"
 
-#: ../app/menus.c:248 ../app/toolbox.c:128 ../objects/standard/line.c:325
+#: ../app/menus.c:246 ../app/toolbox.c:128 ../objects/standard/line.c:325
 msgid "Line"
 msgstr "Čára"
 
-#: ../app/menus.c:249 ../app/toolbox.c:134
+#: ../app/menus.c:247 ../app/toolbox.c:134
 msgid "Arc"
 msgstr "Oblouk"
 
-#: ../app/menus.c:250 ../app/toolbox.c:140
+#: ../app/menus.c:248 ../app/toolbox.c:140
 msgid "Zigzagline"
 msgstr "Klikatá čára"
 
-#: ../app/menus.c:251 ../app/toolbox.c:146
+#: ../app/menus.c:249 ../app/toolbox.c:146
 msgid "Polyline"
 msgstr "Lomená čára"
 
-#: ../app/menus.c:252 ../app/toolbox.c:152
+#: ../app/menus.c:250 ../app/toolbox.c:152
 msgid "Bezierline"
 msgstr "Beziérova křivka"
 
-#: ../app/menus.c:253 ../app/toolbox.c:165
+#: ../app/menus.c:251 ../app/toolbox.c:165
 msgid "Outline"
 msgstr "Obrys"
 
-#: ../app/menus.c:255 ../app/toolbox.c:158
+#: ../app/menus.c:253 ../app/toolbox.c:158
 msgid "Image"
 msgstr "Obrázek"
 
-#: ../app/menus.c:262
+#: ../app/menus.c:260
 msgid "_Antialiased"
 msgstr "_Vyhlazané"
 
-#: ../app/menus.c:263
+#: ../app/menus.c:261
 msgid "Show _Grid"
 msgstr "Zobrazovat _mřížku"
 
 #
-#: ../app/menus.c:264
+#: ../app/menus.c:262
 msgid "_Snap to Grid"
 msgstr "_Přichytávat k mřížce"
 
 #
-#: ../app/menus.c:265
+#: ../app/menus.c:263
 msgid "Snap to _Objects"
 msgstr "Přichytávat k _objektům"
 
-#: ../app/menus.c:266
+#: ../app/menus.c:264
 msgid "Show _Rulers"
 msgstr "Zobrazovat _pravítka"
 
-#: ../app/menus.c:267
+#: ../app/menus.c:265
 msgid "Show _Connection Points"
 msgstr "Zobrazovat přípojné _body"
 
-#: ../app/menus.c:274
+#: ../app/menus.c:272
 msgid "Union"
 msgstr "Sjednocení"
 
-#: ../app/menus.c:275
+#: ../app/menus.c:273
 msgid "Intersection"
 msgstr "Průnik"
 
 #. Translators: Menu item Verb/Channel/Export/Remove
 #. Translators: Menu item Verb/Branch/Separate/Remove
 #. Translators: Menu item Verb/Branch/Separate/Remove/Remove
-#: ../app/menus.c:276 ../objects/FS/function.c:704
+#: ../app/menus.c:274 ../objects/FS/function.c:704
 #: ../objects/FS/function.c:856 ../objects/FS/function.c:858
 msgid "Remove"
 msgstr "Odstranit"
 
 #. Cannot also be called Invert, duplicate names caused keybinding problems
-#: ../app/menus.c:278
+#: ../app/menus.c:276
 msgid "Inverse"
 msgstr "Inverze"
 
-#: ../app/menus.c:340
+#: ../app/menus.c:338
 msgid "NULL tooldata in tool_menu_select"
 msgstr "tooldata mají hodnotu NULL v tool_menu_select"
 
-#: ../app/menus.c:589 ../app/menus.c:601
+#: ../app/menus.c:587 ../app/menus.c:599
 msgid "300%"
 msgstr "300%"
 
-#: ../app/menus.c:590 ../app/menus.c:602
+#: ../app/menus.c:588 ../app/menus.c:600
 msgid "200%"
 msgstr "200%"
 
-#: ../app/menus.c:591 ../app/menus.c:603
+#: ../app/menus.c:589 ../app/menus.c:601
 msgid "150%"
 msgstr "150%"
 
-#: ../app/menus.c:592 ../app/menus.c:604
+#: ../app/menus.c:590 ../app/menus.c:602
 msgid "100%"
 msgstr "100%"
 
-#: ../app/menus.c:593 ../app/menus.c:605
+#: ../app/menus.c:591 ../app/menus.c:603
 msgid "75%"
 msgstr "75%"
 
-#: ../app/menus.c:594 ../app/menus.c:606
+#: ../app/menus.c:592 ../app/menus.c:604
 msgid "50%"
 msgstr "50%"
 
-#: ../app/menus.c:595 ../app/menus.c:607
+#: ../app/menus.c:593 ../app/menus.c:605
 msgid "25%"
 msgstr "25%"
 
-#: ../app/menus.c:596 ../app/menus.c:608
+#: ../app/menus.c:594 ../app/menus.c:606
 msgid "10%"
 msgstr "10%"
 
-#: ../app/menus.c:634
+#: ../app/menus.c:632
 msgid "Toggles snap-to-grid."
 msgstr "Přepíná přichytávání k mřížce."
 
-#: ../app/menus.c:645
+#: ../app/menus.c:643
 msgid "Toggles object snapping."
 msgstr "Přepíná přichytávání k objektům."
 
-#: ../app/menus.c:1251
+#: ../app/menus.c:1249
 msgid "The function is not available anymore."
 msgstr "Funkce nadále není k dispozici."
 
