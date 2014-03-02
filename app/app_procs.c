@@ -859,14 +859,13 @@ app_init (int argc, char **argv)
     g_thread_init (NULL);
 #endif
     g_type_init();
-#ifdef GDK_WINDOWING_WIN32
     /*
-     * On windoze there is no command line without display so this call is harmless. 
-     * But it is needed to avoid failing in gdk functions just because there is a 
-     * display check. Still a little hack ...
+     * On Windows there is no command line without display so that gtk_init is harmless. 
+     * On X11 we need gtk_init_check() to avoid exit() just because there is no display 
+     * running outside of X11.
      */
-    gtk_init(&argc, &argv);
-#endif
+    if (!gtk_init_check(&argc, &argv))
+      dia_log_message ("Running without display");
   }
 
   /* done with option parsing, don't leak */
