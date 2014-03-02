@@ -224,8 +224,6 @@ static const GtkActionEntry display_entries[] =
   /* For placment of the toplevel Layout menu and it's accelerator */
   { "Layout", NULL, N_("L_ayout"), NULL, NULL, NULL },
 
-  { "InputMethods", NULL, N_("_Input Methods"), NULL, NULL, NULL },
-
   { "Dialogs", NULL, N_("D_ialogs"), NULL, NULL, NULL },
 
   { "Debug", NULL, N_("D_ebug"), NULL, NULL, NULL }

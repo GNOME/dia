@@ -132,32 +132,6 @@ selection_changed (Diagram* dia, int n, DDisplay* ddisp)
   ddisplay_do_update_menu_sensitivity (ddisp);
 }
 
-static void
-append_im_menu (DDisplay* ddisp, GtkAction* action)
-{
-  GSList    *proxies;
-  GtkWidget *im_menu;
-  /* GtkWidget *im_menu_tearoff; */
-  
-  proxies = gtk_action_get_proxies (action);
-  while (proxies) {
-    if (GTK_IS_MENU_ITEM (proxies->data)) {
-      im_menu = gtk_menu_new ();
-      /* tearoff should be added depending on gtk settings
-      im_menu_tearoff = gtk_tearoff_menu_item_new ();
-      gtk_menu_shell_append (GTK_MENU_SHELL(im_menu), im_menu_tearoff);
-      */
-      gtk_im_multicontext_append_menuitems (
-        GTK_IM_MULTICONTEXT(ddisp->im_context),
-        GTK_MENU_SHELL(im_menu));
-      gtk_menu_item_set_submenu (GTK_MENU_ITEM(proxies->data), im_menu);
-      gtk_widget_show (GTK_WIDGET (proxies->data));
-      gtk_widget_show (GTK_WIDGET (im_menu));
-    }
-    proxies = proxies->next;
-  }
-}
-
 /** Initialize the various GTK-level thinks in a display after the internal
  *  data has been set.
  * @param ddisp A display with all non-GTK/GDK items set.
@@ -166,7 +140,6 @@ static void
 initialize_display_widgets(DDisplay *ddisp)
 {
   GtkAction* im_menu_item;
-  static gboolean input_methods_done = FALSE;
   Diagram *dia = ddisp->diagram;
   gchar *filename;
 
@@ -193,19 +166,6 @@ initialize_display_widgets(DDisplay *ddisp)
   ddisplay_update_statusbar (ddisp);
 
   ddisplay_set_cursor(ddisp, current_cursor);
-
-  if (!input_methods_done) {
-      im_menu_item = menus_get_action ("InputMethods");
-      g_assert (im_menu_item);
-      append_im_menu (ddisp, im_menu_item);
-      input_methods_done = TRUE;
-  }
-  /* the diagram menubar gets recreated for every diagram */ 	 
-  if (ddisp->menu_bar) {
-    im_menu_item = gtk_action_group_get_action (ddisp->actions, "InputMethods");
-    g_assert (im_menu_item);
-    append_im_menu (ddisp, im_menu_item);
-  }	 
 }
 
 /** Make a copy of an existing display.  The original does not need to have

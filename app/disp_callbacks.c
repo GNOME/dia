@@ -355,6 +355,19 @@ popup_object_menu(DDisplay *ddisp, GdkEventButton *bevent)
 
   if (dia_menu->app_data == NULL) {
     create_object_menu(dia_menu, TRUE);
+    /* append the Input Methods menu, if there is canvas editable text */
+    if (obj && focus_get_first_on_object(obj) != NULL) {
+      GtkWidget *menuitem = gtk_menu_item_new_with_mnemonic (_("Input _Methods"));
+      GtkWidget *submenu = gtk_menu_new ();
+
+      gtk_widget_show (menuitem);
+      gtk_menu_item_set_submenu (GTK_MENU_ITEM (menuitem), submenu);
+      gtk_menu_shell_append (GTK_MENU_SHELL (dia_menu->app_data), menuitem);
+
+      gtk_im_multicontext_append_menuitems (
+        GTK_IM_MULTICONTEXT(ddisp->im_context),
+        GTK_MENU_SHELL(submenu));
+    }
   }
   /* Update active/nonactive menuitems */
   for (i=0;i<num_items;i++) {

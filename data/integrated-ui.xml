@@ -171,7 +171,6 @@
 			<separator name="ToolsSep2" />
 			<separator name="ToolsExtensionStart" />
 		</menu>
-		<menuitem name="InputMethods" action="InputMethods" />
 		<menu name="Dialogs" action="Dialogs">
 			<separator name="DialogsExtensionStart" />
 		</menu>
