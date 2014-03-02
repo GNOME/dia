@@ -80,6 +80,17 @@ static void underline_table_attribute (DiaRenderer  *, Point,
 static void fill_diamond (DiaRenderer *, real, real, Point *, Color *);
 static void table_init_fonts (Table *);
 
+static TableAttribute *table_attribute_new (void);
+static void table_attribute_free (TableAttribute *);
+static TableAttribute *table_attribute_copy (TableAttribute *);
+static void table_update_connectionpoints (Table *);
+static void table_update_positions (Table *);
+static void table_compute_width_height (Table *);
+static TableState *table_state_new (Table *);
+static TableChange *table_change_new (Table *, TableState *,
+                                      GList *, GList *, GList *);
+static void table_update_primary_key_font (Table *);
+
 static gchar * create_documentation_tag (gchar * comment,
                                          gboolean tagging,
                                          gint WrapPoint, 
@@ -275,7 +286,8 @@ static DiaMenu table_menu = {
 /**
  * Create a new TableAttribute
  */
-TableAttribute * table_attribute_new (void)
+static TableAttribute *
+table_attribute_new (void)
 {
   TableAttribute * attr;
 
@@ -300,7 +312,7 @@ TableAttribute * table_attribute_new (void)
   return attr;
 }
 
-void
+static void
 table_attribute_ensure_connection_points (TableAttribute * attr,
                                           DiaObject * obj)
 {
@@ -318,7 +330,8 @@ table_attribute_ensure_connection_points (TableAttribute * attr,
  * Free a TableAttribute and its allocated resources. Upon return of
  * this function the passed pointer will not be valid anymore.
  */
-void table_attribute_free (TableAttribute * attr)
+static void
+table_attribute_free (TableAttribute * attr)
 {
   if (attr->name) g_free (attr->name);
   if (attr->type) g_free (attr->type);
@@ -333,7 +346,7 @@ void table_attribute_free (TableAttribute * attr)
  * Create a copy of the passed attribute. The returned copy of the
  * attribute needs to be freed using g_free when it is no longer needed.
  */
-TableAttribute *
+static TableAttribute *
 table_attribute_copy (TableAttribute * orig)
 {
   TableAttribute * copy;
@@ -918,7 +931,7 @@ table_set_props (Table *table, GPtrArray *props)
  * members to be initialized, so be sure to call this routine after the
  * font members were already initialized.
  */
-void
+static void
 table_compute_width_height (Table * table)
 {
   real width = 0.0;
@@ -1193,7 +1206,7 @@ table_calculate_namebox_data (Table * table)
   return maxwidth;
 }
 
-void
+static void
 table_update_positions (Table *table)
 {
   ConnectionPoint * connections = table->connections;
@@ -1357,7 +1370,7 @@ table_show_comments_cb(DiaObject *obj, Point *pos, gpointer data)
  * This routine should be called when at least one of these properties
  * have been changed.
  */
-void
+static void
 table_update_primary_key_font (Table * table)
 {
   if (table->primary_key_font)
@@ -1553,7 +1566,7 @@ table_change_apply (TableChange * change, DiaObject * obj)
   change->applied = TRUE;
 }
 
-TableChange * 
+static TableChange *
 table_change_new (Table * table, TableState * saved_state,
                   GList * added, GList * deleted,
                   GList * disconnects)

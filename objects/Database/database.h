@@ -150,25 +150,4 @@ struct _TableReference {
   Alignment ep_desc_text_align; /* end-point */
 };
 
-/* in table.c */
-extern TableAttribute * table_attribute_new (void);
-/* in table.c */
-extern void table_attribute_free (TableAttribute *);
-/* in table.c */
-extern TableAttribute * table_attribute_copy (TableAttribute *);
-/* in table.c */
-extern void table_attribute_ensure_connection_points (TableAttribute *,
-                                                      DiaObject *);
-/* in table.c */
-extern void table_update_connectionpoints (Table *);
-/* in table.c */
-extern void table_update_positions (Table *);
-/* in table.c */
-extern void table_compute_width_height (Table *);
-extern TableState * table_state_new (Table *);
-extern TableChange * table_change_new (Table *, TableState *,
-                                       GList *, GList *, GList *);
-/* in table.c */
-extern void table_update_primary_key_font (Table *);
-
 #endif /* DATABASE_H */
