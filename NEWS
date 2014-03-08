@@ -1,3 +1,10 @@
+dia-0.97.3: 2014-03-xx
+
+  * making Dia play nice with updated dependencies (aka. upstream breaking ABI)
+
+  * bugs fixed:
+    http://bugzilla.gnome.org/buglist.cgi?product=dia&target_milestone=0.97.3
+
 dia-0.97.2: 2011-12-18
 
   * a lot of updated translations
