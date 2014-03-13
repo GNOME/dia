@@ -13,21 +13,22 @@
 # Juan Diego Martins da Costa Cruz <garotomartins10@gmail.com>, 2013.
 # Antonio Fernandes C. Neto <fernandesn@gnome.org>, 2013.
 #
+#: ../objects/UML/class.c:193
 msgid ""
 msgstr ""
 "Project-Id-Version: Dia\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=dia&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2014-01-31 14:01+0000\n"
-"PO-Revision-Date: 2014-02-01 08:34-0300\n"
-"Last-Translator: Enrico Nicoletto <liverig@gmail.com>\n"
+"POT-Creation-Date: 2014-03-13 04:15+0000\n"
+"PO-Revision-Date: 2014-03-13 11:11-0300\n"
+"Last-Translator: Ricardo Barbosa <barbosa.cisco@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <gnome-pt_br-list@gnome.org>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 1.6.3\n"
+"X-Generator: Poedit 1.6.4\n"
 
 #. This is not an errror
 #: ../app/app_procs.c:208
@@ -143,8 +144,8 @@ msgid "Don't create an empty diagram"
 msgstr "Não criar um diagrama vazio"
 
 #: ../app/app_procs.c:724
-msgid "Start integrated user interface (diagrams in tabs)"
-msgstr "Iniciar interface de usuário integrada (diagramas em abas)"
+msgid "Start classic user interface (no diagrams in tabs)"
+msgstr "Inicia interface gráfica clássica (sem diagramas tabulados)"
 
 #: ../app/app_procs.c:726
 msgid "Send error messages to stderr instead of showing dialogs."
@@ -198,28 +199,28 @@ msgid "Can't connect to session manager!\n"
 msgstr "Não foi possível conectar ao gerenciador de sessão!\n"
 
 #. TRANSLATOR: 2nd and 3rd %s are time and date respectively.
-#: ../app/app_procs.c:880
+#: ../app/app_procs.c:879
 #, c-format
 msgid "Dia version %s, compiled %s %s\n"
 msgstr "Dia versão %s, compilado %s %s\n"
 
-#: ../app/app_procs.c:882
+#: ../app/app_procs.c:881
 #, c-format
 msgid "Dia version %s\n"
 msgstr "Dia versão %s\n"
 
-#: ../app/app_procs.c:920
+#: ../app/app_procs.c:919
 msgid "Object Defaults"
 msgstr "Padrões do objeto"
 
-#: ../app/app_procs.c:927
+#: ../app/app_procs.c:926
 msgid ""
 "Couldn't find standard objects when looking for object-libs; exiting...\n"
 msgstr ""
 "Não foi possível localizar objetos padrão ao procurar por object-libs, "
 "saindo...\n"
 
-#: ../app/app_procs.c:929
+#: ../app/app_procs.c:928
 #, c-format
 msgid ""
 "Couldn't find standard objects when looking for object-libs in '%s'; "
@@ -228,11 +229,11 @@ msgstr ""
 "Não foi possível localizar objetos padrão ao procurar por object-libs em \"%s"
 "\"; saindo...\n"
 
-#: ../app/app_procs.c:993
+#: ../app/app_procs.c:988
 msgid "Diagram1.dia"
 msgstr "Diagrama1.dia"
 
-#: ../app/app_procs.c:1028
+#: ../app/app_procs.c:1023
 msgid ""
 "This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\n"
 "describing how you caused this message to appear.\n"
@@ -240,21 +241,21 @@ msgstr ""
 "Isso não deveria acontecer. Por favor, crie um relatório de erro em\n"
 "bugzilla.gnome.org descrevendo a situação que gerou esta mensagem.\n"
 
-#: ../app/app_procs.c:1043
+#: ../app/app_procs.c:1038
 msgid "Exiting Dia"
 msgstr "Saindo do Dia"
 
-#: ../app/app_procs.c:1070 ../app/display.c:1289 ../app/exit_dialog.c:115
+#: ../app/app_procs.c:1065 ../app/display.c:1249 ../app/exit_dialog.c:115
 #: ../app/filedlg.c:582
 msgid "Save"
 msgstr "Salvar"
 
 #. no standard buttons
-#: ../app/app_procs.c:1112
+#: ../app/app_procs.c:1107
 msgid "Quitting without saving modified diagrams"
 msgstr "Saindo sem salvar diagramas modificados"
 
-#: ../app/app_procs.c:1114
+#: ../app/app_procs.c:1109
 msgid ""
 "Modified diagrams exist. Are you sure you want to quit Dia without saving "
 "them?"
@@ -262,19 +263,19 @@ msgstr ""
 "Existem diagramas modificados. Você tem certeza de que deseja sair do Dia "
 "sem salvá-los?"
 
-#: ../app/app_procs.c:1118
+#: ../app/app_procs.c:1113
 msgid "Quit Dia"
 msgstr "Sair do Dia"
 
-#: ../app/app_procs.c:1148
+#: ../app/app_procs.c:1143
 msgid "Exit"
 msgstr "Sair"
 
-#: ../app/app_procs.c:1194 ../app/app_procs.c:1201
+#: ../app/app_procs.c:1189 ../app/app_procs.c:1196
 msgid "Could not create per-user Dia configuration directory"
 msgstr "Não foi possível criar o diretório de configuração pessoal do Dia"
 
-#: ../app/app_procs.c:1204
+#: ../app/app_procs.c:1199
 msgid ""
 "Could not create per-user Dia configuration directory. Please make sure that "
 "the environment variable HOME points to an existing directory."
@@ -283,11 +284,11 @@ msgstr ""
 "favor, certifique-se de que a variável de ambiente HOME aponta para um "
 "diretório existente."
 
-#: ../app/app_procs.c:1227
+#: ../app/app_procs.c:1222
 msgid "Objects and filters internal to Dia"
 msgstr "Objetos e filtros internos do Dia"
 
-#: ../app/app_procs.c:1280
+#: ../app/app_procs.c:1275
 #, c-format
 msgid ""
 "The original author of Dia was:\n"
@@ -296,7 +297,7 @@ msgstr ""
 "O autor original do Dia é:\n"
 "\n"
 
-#: ../app/app_procs.c:1285
+#: ../app/app_procs.c:1280
 #, c-format
 msgid ""
 "\n"
@@ -307,7 +308,7 @@ msgstr ""
 "Os mantenedores atuais do Dia são:\n"
 "\n"
 
-#: ../app/app_procs.c:1290
+#: ../app/app_procs.c:1285
 #, c-format
 msgid ""
 "\n"
@@ -318,7 +319,7 @@ msgstr ""
 "Os outros autores são:\n"
 "\n"
 
-#: ../app/app_procs.c:1295
+#: ../app/app_procs.c:1290
 #, c-format
 msgid ""
 "\n"
@@ -723,7 +724,11 @@ msgstr "Converter para o caminho"
 msgid "Selection"
 msgstr "Seleção"
 
-#: ../app/disp_callbacks.c:1115
+#: ../app/disp_callbacks.c:360
+msgid "Input _Methods"
+msgstr "_Métodos de entrada"
+
+#: ../app/disp_callbacks.c:1128
 msgid ""
 "The object you dropped cannot fit into its parent. \n"
 "Either expand the parent object, or drop the object elsewhere."
@@ -747,20 +752,20 @@ msgid "Selected '%s'"
 msgstr "Selecionado \"%s\""
 
 #. we really should not come here but instead disable the menu command earlier
-#: ../app/display.c:1177
+#: ../app/display.c:1137
 msgid "No antialiased renderer found"
 msgstr "Nenhum renderizador com suavização foi localizado"
 
-#: ../app/display.c:1335
+#: ../app/display.c:1295
 msgid "<unnamed>"
 msgstr "<semnome>"
 
 #. no standard buttons
-#: ../app/display.c:1341
+#: ../app/display.c:1301
 msgid "Closing diagram without saving"
 msgstr "Fechando diagrama sem salvar"
 
-#: ../app/display.c:1343
+#: ../app/display.c:1303
 #, c-format
 msgid ""
 "The diagram '%s'\n"
@@ -770,11 +775,11 @@ msgstr ""
 "não foi salvo.\n"
 "Salvar as alterações agora?"
 
-#: ../app/display.c:1345
+#: ../app/display.c:1305
 msgid "Close Diagram"
 msgstr "Fechar diagrama"
 
-#: ../app/display.c:1350
+#: ../app/display.c:1310
 msgid "_Discard Changes"
 msgstr "_Descartar alterações"
 
@@ -862,7 +867,6 @@ msgstr ""
 "Você deseja sobrescrevê-lo?"
 
 #: ../app/filedlg.c:425
-#| msgid "Save"
 msgid "Save as"
 msgstr "Salvar como"
 
@@ -934,7 +938,7 @@ msgstr "Pesquisar por _todas propriedades (não somente por nome de objeto)"
 msgid "Find"
 msgstr "Localizar"
 
-#: ../app/find-and-replace.c:567 ../app/menus.c:263
+#: ../app/find-and-replace.c:567 ../app/menus.c:271
 msgid "Replace"
 msgstr "Substituir"
 
@@ -949,27 +953,27 @@ msgstr "Substituir _tudo"
 msgid "_Replace"
 msgstr "_Substituir"
 
-#: ../app/interface.c:517
+#: ../app/interface.c:521
 msgid "Pops up the Navigation window."
 msgstr "Abre uma janela de navegação."
 
-#: ../app/interface.c:732
+#: ../app/interface.c:736
 msgid "Diagram menu."
 msgstr "Menu do diagrama."
 
-#: ../app/interface.c:772
+#: ../app/interface.c:776
 msgid "Zoom"
 msgstr "Zoom"
 
-#: ../app/interface.c:787
+#: ../app/interface.c:791
 msgid "Toggles snap-to-grid for this window."
 msgstr "Alterna entre alinhar à grade ou não para esta janela."
 
-#: ../app/interface.c:798
+#: ../app/interface.c:802
 msgid "Toggles object snapping for this window."
 msgstr "Alterna entre alinhar aos objetos ou não para esta janela."
 
-#: ../app/interface.c:926 ../app/interface.c:1039 ../dia.desktop.in.in.h:2
+#: ../app/interface.c:970 ../app/interface.c:1087 ../dia.desktop.in.in.h:2
 msgid "Diagram Editor"
 msgstr "Editor de diagramas"
 
@@ -1069,7 +1073,7 @@ msgstr "Você deve especificar um arquivo, não um diretório."
 
 #: ../app/load_save.c:401 ../plug-ins/dxf/dxf-import.c:1289
 #: ../plug-ins/wpg/wpg.c:1195 ../plug-ins/xfig/xfig-import.c:1288
-#: ../plug-ins/xslt/xslt.c:96
+#: ../plug-ins/xslt/xslt.c:97
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
 msgstr "Não foi possível abrir \"%s\" para leitura.\n"
@@ -1099,7 +1103,6 @@ msgstr ""
 "Não é um arquivo Dia."
 
 #: ../app/load_save.c:681
-#| msgid "Error reading resolution."
 msgid "Error reading connections"
 msgstr "Erro ao ler conexões."
 
@@ -1115,7 +1118,6 @@ msgstr ""
 "Um arquivo válido do Dia possui ao menos uma camada."
 
 #: ../app/load_save.c:1002
-#| msgid "Error reading magnification."
 msgid "Error saving connections"
 msgstr "Erro ao salvar conexões."
 
@@ -1159,7 +1161,6 @@ msgstr "Não foi possível renomear %s para o arquivo de saída final %s: %s\n"
 
 #. no extra threads supported, stay in this one
 #: ../app/load_save.c:1253 ../app/load_save.c:1263 ../app/load_save.c:1271
-#| msgid "Autoclave"
 msgid "Auto save"
 msgstr "Salvar automaticamente"
 
@@ -1171,387 +1172,383 @@ msgstr "Arquivo de diagrama do Dia"
 msgid "Fit"
 msgstr "Ajustar"
 
-#: ../app/menus.c:80
+#: ../app/menus.c:90
 msgid "_File"
 msgstr "_Arquivo"
 
-#: ../app/menus.c:81
+#: ../app/menus.c:91
 msgid "Create a new diagram"
 msgstr "Cria um novo diagrama"
 
-#: ../app/menus.c:82
+#: ../app/menus.c:92
 msgid "_Open…"
 msgstr "_Abrir..."
 
-#: ../app/menus.c:82
+#: ../app/menus.c:92
 msgid "Open a diagram file"
 msgstr "Abre um arquivo de diagrama"
 
-#: ../app/menus.c:84
+#: ../app/menus.c:94
 msgid "_Help"
 msgstr "Aj_uda"
 
-#: ../app/menus.c:94
+#: ../app/menus.c:104
 msgid "Sheets and Objects…"
 msgstr "Folhas e objetos…"
 
-#: ../app/menus.c:96
+#: ../app/menus.c:106
 msgid "Plugins…"
 msgstr "Plug-ins…"
 
-#: ../app/menus.c:97
+#: ../app/menus.c:107
 msgid "_Diagram Tree"
 msgstr "Árvore de _diagrama"
 
-#: ../app/menus.c:102
+#: ../app/menus.c:112
 msgid "Show Toolbar"
 msgstr "Mostrar barra de ferramentas"
 
-#: ../app/menus.c:103
+#: ../app/menus.c:113
 msgid "Show Statusbar"
 msgstr "Mostrar barra de status"
 
-#: ../app/menus.c:104
+#: ../app/menus.c:114
 msgid "Show Layers"
 msgstr "Mostrar camadas"
 
-#: ../app/menus.c:110
+#: ../app/menus.c:120
 msgid "Save the diagram"
 msgstr "Salva o diagrama"
 
-#: ../app/menus.c:111
+#: ../app/menus.c:121
 msgid "Save _As…"
 msgstr "Salvar _como..."
 
-#: ../app/menus.c:111
+#: ../app/menus.c:121
 msgid "Save the diagram with a new name"
 msgstr "Salva o diagrama com um novo nome"
 
-#: ../app/menus.c:112
+#: ../app/menus.c:122
 msgid "_Export…"
 msgstr "_Exportar…"
 
-#: ../app/menus.c:112
+#: ../app/menus.c:122
 msgid "Export the diagram"
 msgstr "Exporta o diagrama"
 
-#: ../app/menus.c:113
+#: ../app/menus.c:123
 msgid "_Diagram Properties"
 msgstr "Propriedades do _diagrama"
 
-#: ../app/menus.c:114
+#: ../app/menus.c:124
 msgid "Page Set_up…"
 msgstr "Config_urar página…"
 
-#: ../app/menus.c:115
+#: ../app/menus.c:125
 msgid "_Print…"
 msgstr "_Imprimir…"
 
-#: ../app/menus.c:115
+#: ../app/menus.c:125
 msgid "Print the diagram"
 msgstr "Imprime o diagrama"
 
-#: ../app/menus.c:118
+#: ../app/menus.c:128
 msgid "_Edit"
 msgstr "_Editar"
 
-#: ../app/menus.c:119
+#: ../app/menus.c:129
 msgid "Undo"
 msgstr "Desfazer"
 
-#: ../app/menus.c:120
+#: ../app/menus.c:130
 msgid "Redo"
 msgstr "Refazer"
 
-#: ../app/menus.c:122
+#: ../app/menus.c:132
 msgid "Copy selection"
 msgstr "Copiar seleção"
 
-#: ../app/menus.c:123
+#: ../app/menus.c:133
 msgid "Cut selection"
 msgstr "Recortar seleção"
 
-#: ../app/menus.c:124
+#: ../app/menus.c:134
 msgid "Paste selection"
 msgstr "Colar seleção"
 
-#: ../app/menus.c:125
+#: ../app/menus.c:135
 msgid "_Duplicate"
 msgstr "D_uplicar"
 
-#: ../app/menus.c:128
+#: ../app/menus.c:138
 msgid "_Find…"
 msgstr "_Localizar…"
 
-#: ../app/menus.c:129
+#: ../app/menus.c:139
 msgid "_Replace…"
 msgstr "_Substituir…"
 
 #. the following used to bind to <control><shift>C which collides with Unicode input.
 #. * <control><alt> doesn't work either
-#: ../app/menus.c:133
+#: ../app/menus.c:143
 msgid "Copy Text"
 msgstr "Copiar texto"
 
-#: ../app/menus.c:134
+#: ../app/menus.c:144
 msgid "Cut Text"
 msgstr "Cortar texto"
 
-#: ../app/menus.c:135
+#: ../app/menus.c:145
 msgid "Paste _Text"
 msgstr "Colar _texto"
 
-#: ../app/menus.c:137
+#: ../app/menus.c:147
 msgid "Paste _Image"
 msgstr "Colar i_magem"
 
-#: ../app/menus.c:139
+#: ../app/menus.c:149
 msgid "_Layers"
 msgstr "_Camadas"
 
-#: ../app/menus.c:140
+#: ../app/menus.c:150
 msgid "Add Layer…"
 msgstr "Adicionar camada…"
 
-#: ../app/menus.c:141
+#: ../app/menus.c:151
 msgid "Rename Layer…"
 msgstr "Renomear camada…"
 
-#: ../app/menus.c:142
+#: ../app/menus.c:152
 msgid "Move Selection to Layer above"
 msgstr "Mover seleção para a camada acima"
 
-#: ../app/menus.c:143
+#: ../app/menus.c:153
 msgid "Move Selection to Layer below"
 msgstr "Mover seleção para a camada abaixo"
 
-#: ../app/menus.c:144
+#: ../app/menus.c:154
 msgid "_Layers…"
 msgstr "_Camadas…"
 
-#: ../app/menus.c:145
+#: ../app/menus.c:155
 msgid "_View"
 msgstr "_Ver"
 
-#: ../app/menus.c:146
+#: ../app/menus.c:156
 msgid "Zoom in"
 msgstr "Ampliar"
 
-#: ../app/menus.c:147
+#: ../app/menus.c:157
 msgid "Zoom out"
 msgstr "Reduzir"
 
-#: ../app/menus.c:148
+#: ../app/menus.c:158
 msgid "_Zoom"
 msgstr "_Zoom"
 
-#: ../app/menus.c:149
+#: ../app/menus.c:159
 msgid "1600%"
 msgstr "1600%"
 
-#: ../app/menus.c:150 ../app/menus.c:578 ../app/menus.c:590
+#: ../app/menus.c:160 ../app/menus.c:585 ../app/menus.c:597
 msgid "800%"
 msgstr "800%"
 
-#: ../app/menus.c:151 ../app/menus.c:579 ../app/menus.c:591
+#: ../app/menus.c:161 ../app/menus.c:586 ../app/menus.c:598
 msgid "400%"
 msgstr "400%"
 
-#: ../app/menus.c:152
+#: ../app/menus.c:162
 msgid "283"
 msgstr "283"
 
-#: ../app/menus.c:153
+#: ../app/menus.c:163
 msgid "200"
 msgstr "200"
 
-#: ../app/menus.c:154
+#: ../app/menus.c:164
 msgid "141"
 msgstr "141"
 
-#: ../app/menus.c:156
+#: ../app/menus.c:166
 msgid "85"
 msgstr "85"
 
-#: ../app/menus.c:157
+#: ../app/menus.c:167
 msgid "70.7"
 msgstr "70.7"
 
-#: ../app/menus.c:158
+#: ../app/menus.c:168
 msgid "50"
 msgstr "50"
 
-#: ../app/menus.c:159
+#: ../app/menus.c:169
 msgid "35.4"
 msgstr "35.4"
 
-#: ../app/menus.c:160
+#: ../app/menus.c:170
 msgid "25"
 msgstr "25"
 
 #. Show All, Best Fit.  Same as the Gimp, Ctrl+E
-#: ../app/menus.c:162
+#: ../app/menus.c:172
 msgid "Zoom fit"
 msgstr "Ajustado à tela"
 
 #. "display_toggle_entries" items go here
-#: ../app/menus.c:166
+#: ../app/menus.c:176
 msgid "New _View"
 msgstr "Nova _visão"
 
-#: ../app/menus.c:167
+#: ../app/menus.c:177
 msgid "C_lone View"
 msgstr "C_lonar visão"
 
-#: ../app/menus.c:170
+#: ../app/menus.c:180
 msgid "_Objects"
 msgstr "_Objetos"
 
-#: ../app/menus.c:171
+#: ../app/menus.c:181
 msgid "Send to _Back"
 msgstr "Enviar para _trás"
 
-#: ../app/menus.c:172
+#: ../app/menus.c:182
 msgid "Bring to _Front"
 msgstr "Enviar para _frente"
 
-#: ../app/menus.c:173
+#: ../app/menus.c:183
 msgid "Send Backwards"
 msgstr "Recuar o objeto"
 
-#: ../app/menus.c:174
+#: ../app/menus.c:184
 msgid "Bring Forwards"
 msgstr "Avançar o objeto"
 
-#: ../app/menus.c:176
+#: ../app/menus.c:186
 msgid "_Group"
 msgstr "_Agrupar"
 
 #. deliberately not using Ctrl+U for Ungroup
-#: ../app/menus.c:178
+#: ../app/menus.c:188
 msgid "_Ungroup"
 msgstr "_Desagrupar"
 
-#: ../app/menus.c:180
+#: ../app/menus.c:190
 msgid "_Parent"
 msgstr "_Pai"
 
-#: ../app/menus.c:181
+#: ../app/menus.c:191
 msgid "_Unparent"
 msgstr "_Remover do pai"
 
-#: ../app/menus.c:182
+#: ../app/menus.c:192
 msgid "_Unparent Children"
 msgstr "Remo_ver filho do pai"
 
 #. Translators: Menu item Verb/Support/Position/Align
-#: ../app/menus.c:184 ../objects/FS/function.c:804
+#: ../app/menus.c:194 ../objects/FS/function.c:804
 msgid "Align"
 msgstr "Alinhar"
 
-#: ../app/menus.c:189 ../objects/standard/textobj.c:110
+#: ../app/menus.c:199 ../objects/standard/textobj.c:110
 msgid "Top"
 msgstr "Superior"
 
-#: ../app/menus.c:190
+#: ../app/menus.c:200
 msgid "Middle"
 msgstr "Meio"
 
-#: ../app/menus.c:191 ../objects/standard/textobj.c:109
+#: ../app/menus.c:201 ../objects/standard/textobj.c:109
 msgid "Bottom"
 msgstr "Inferior"
 
-#: ../app/menus.c:193
+#: ../app/menus.c:203
 msgid "Spread Out Horizontally"
 msgstr "Distribuir horizontalmente"
 
-#: ../app/menus.c:194
+#: ../app/menus.c:204
 msgid "Spread Out Vertically"
 msgstr "Distribuir verticalmente"
 
-#: ../app/menus.c:195
+#: ../app/menus.c:205
 msgid "Adjacent"
 msgstr "Adjacente"
 
-#: ../app/menus.c:196
+#: ../app/menus.c:206
 msgid "Stacked"
 msgstr "Sobreposto"
 
-#: ../app/menus.c:197 ../app/menus.c:207
+#: ../app/menus.c:207 ../app/menus.c:217
 msgid "Connected"
 msgstr "Conectado"
 
-#: ../app/menus.c:201
+#: ../app/menus.c:211
 msgid "_Select"
 msgstr "_Selecionar"
 
-#: ../app/menus.c:202
+#: ../app/menus.c:212
 msgid "All"
 msgstr "Tudo"
 
-#: ../app/menus.c:203 ../objects/Jackson/domain.c:94
+#: ../app/menus.c:213 ../objects/Jackson/domain.c:94
 #: ../objects/UML/association.c:220 ../objects/UML/association.c:226
 msgid "None"
 msgstr "Nenhum"
 
-#: ../app/menus.c:204
+#: ../app/menus.c:214
 msgid "Invert"
 msgstr "Invertido"
 
-#: ../app/menus.c:206
+#: ../app/menus.c:216
 msgid "Transitive"
 msgstr "Transitivo"
 
-#: ../app/menus.c:208
+#: ../app/menus.c:218
 msgid "Same Type"
 msgstr "Mesmo tipo"
 
 #. display_select_radio_entries go here
-#: ../app/menus.c:212
+#: ../app/menus.c:222
 msgid "Select By"
 msgstr "Selecionar por"
 
 #. For placment of the toplevel Layout menu and it's accelerator
-#: ../app/menus.c:215
+#: ../app/menus.c:225
 msgid "L_ayout"
 msgstr "_Disposição"
 
-#: ../app/menus.c:217
-msgid "_Input Methods"
-msgstr "_Métodos de entrada"
-
-#: ../app/menus.c:219
+#: ../app/menus.c:227
 msgid "D_ialogs"
 msgstr "D_iálogos"
 
-#: ../app/menus.c:221
+#: ../app/menus.c:229
 msgid "D_ebug"
 msgstr "D_epurar"
 
-#: ../app/menus.c:227
+#: ../app/menus.c:235
 msgid "_Tools"
 msgstr "_Ferramentas"
 
-#: ../app/menus.c:228
+#: ../app/menus.c:236
 msgid "Modify"
 msgstr "Modificar"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Magnify
-#: ../app/menus.c:229 ../app/toolbox.c:86 ../objects/FS/function.c:984
+#: ../app/menus.c:237 ../app/toolbox.c:86 ../objects/FS/function.c:984
 msgid "Magnify"
 msgstr "Aproximar"
 
-#: ../app/menus.c:230
+#: ../app/menus.c:238
 msgid "Edit Text"
 msgstr "Editar texto"
 
-#: ../app/menus.c:231
+#: ../app/menus.c:239
 msgid "Scroll"
 msgstr "Alterar enquadramento"
 
 #. how it used to be before 0.96+SVN
 #. new name matching "same name, same type"  rule
-#: ../app/menus.c:232 ../app/toolbox.c:98 ../lib/properties.c:102
+#: ../app/menus.c:240 ../app/toolbox.c:98 ../lib/properties.c:102
 #: ../lib/properties.h:677 ../objects/AADL/aadlbox.c:153
 #: ../objects/custom/custom_object.c:228 ../objects/Jackson/requirement.c:130
 #: ../objects/network/basestation.c:132 ../objects/network/radiocell.c:125
@@ -1564,140 +1561,140 @@ msgstr "Alterar enquadramento"
 msgid "Text"
 msgstr "Texto"
 
-#: ../app/menus.c:233 ../app/toolbox.c:104
+#: ../app/menus.c:241 ../app/toolbox.c:104
 msgid "Box"
 msgstr "Caixa"
 
-#: ../app/menus.c:234 ../app/toolbox.c:110
+#: ../app/menus.c:242 ../app/toolbox.c:110
 msgid "Ellipse"
 msgstr "Elipse"
 
-#: ../app/menus.c:235 ../app/toolbox.c:116
+#: ../app/menus.c:243 ../app/toolbox.c:116
 msgid "Polygon"
 msgstr "Polígono"
 
-#: ../app/menus.c:236 ../app/toolbox.c:122
+#: ../app/menus.c:244 ../app/toolbox.c:122
 msgid "Beziergon"
 msgstr "Curva de Bézier fechada"
 
-#: ../app/menus.c:238 ../app/toolbox.c:128 ../objects/standard/line.c:325
+#: ../app/menus.c:246 ../app/toolbox.c:128 ../objects/standard/line.c:325
 msgid "Line"
 msgstr "Linha"
 
-#: ../app/menus.c:239 ../app/toolbox.c:134
+#: ../app/menus.c:247 ../app/toolbox.c:134
 msgid "Arc"
 msgstr "Arco"
 
-#: ../app/menus.c:240 ../app/toolbox.c:140
+#: ../app/menus.c:248 ../app/toolbox.c:140
 msgid "Zigzagline"
 msgstr "Linha em zigue-zague"
 
-#: ../app/menus.c:241 ../app/toolbox.c:146
+#: ../app/menus.c:249 ../app/toolbox.c:146
 msgid "Polyline"
 msgstr "Polilinha"
 
-#: ../app/menus.c:242 ../app/toolbox.c:152
+#: ../app/menus.c:250 ../app/toolbox.c:152
 msgid "Bezierline"
 msgstr "Curva de Bézier"
 
-#: ../app/menus.c:243 ../app/toolbox.c:165
+#: ../app/menus.c:251 ../app/toolbox.c:165
 msgid "Outline"
 msgstr "Contorno"
 
-#: ../app/menus.c:245 ../app/toolbox.c:158
+#: ../app/menus.c:253 ../app/toolbox.c:158
 msgid "Image"
 msgstr "Imagem"
 
-#: ../app/menus.c:252
+#: ../app/menus.c:260
 msgid "_Antialiased"
 msgstr "Su_avizado"
 
-#: ../app/menus.c:253
+#: ../app/menus.c:261
 msgid "Show _Grid"
 msgstr "Mostrar _grade"
 
-#: ../app/menus.c:254
+#: ../app/menus.c:262
 msgid "_Snap to Grid"
 msgstr "Alinhar à grade"
 
-#: ../app/menus.c:255
+#: ../app/menus.c:263
 msgid "Snap to _Objects"
 msgstr "Alinhar aos _objetos"
 
-#: ../app/menus.c:256
+#: ../app/menus.c:264
 msgid "Show _Rulers"
 msgstr "Mostrar _réguas"
 
-#: ../app/menus.c:257
+#: ../app/menus.c:265
 msgid "Show _Connection Points"
 msgstr "Mostrar _pontos de conexão"
 
-#: ../app/menus.c:264
+#: ../app/menus.c:272
 msgid "Union"
 msgstr "União"
 
-#: ../app/menus.c:265
+#: ../app/menus.c:273
 msgid "Intersection"
 msgstr "Interseção"
 
 #. Translators: Menu item Verb/Channel/Export/Remove
 #. Translators: Menu item Verb/Branch/Separate/Remove
 #. Translators: Menu item Verb/Branch/Separate/Remove/Remove
-#: ../app/menus.c:266 ../objects/FS/function.c:704
+#: ../app/menus.c:274 ../objects/FS/function.c:704
 #: ../objects/FS/function.c:856 ../objects/FS/function.c:858
 msgid "Remove"
 msgstr "Remover"
 
 #. Cannot also be called Invert, duplicate names caused keybinding problems
-#: ../app/menus.c:268
+#: ../app/menus.c:276
 msgid "Inverse"
 msgstr "Inverso"
 
-#: ../app/menus.c:331
+#: ../app/menus.c:338
 msgid "NULL tooldata in tool_menu_select"
 msgstr "Não há dados de ferramenta em tool_menu_select"
 
-#: ../app/menus.c:580 ../app/menus.c:592
+#: ../app/menus.c:587 ../app/menus.c:599
 msgid "300%"
 msgstr "300%"
 
-#: ../app/menus.c:581 ../app/menus.c:593
+#: ../app/menus.c:588 ../app/menus.c:600
 msgid "200%"
 msgstr "200%"
 
-#: ../app/menus.c:582 ../app/menus.c:594
+#: ../app/menus.c:589 ../app/menus.c:601
 msgid "150%"
 msgstr "150%"
 
-#: ../app/menus.c:583 ../app/menus.c:595
+#: ../app/menus.c:590 ../app/menus.c:602
 msgid "100%"
 msgstr "100%"
 
-#: ../app/menus.c:584 ../app/menus.c:596
+#: ../app/menus.c:591 ../app/menus.c:603
 msgid "75%"
 msgstr "75%"
 
-#: ../app/menus.c:585 ../app/menus.c:597
+#: ../app/menus.c:592 ../app/menus.c:604
 msgid "50%"
 msgstr "50%"
 
-#: ../app/menus.c:586 ../app/menus.c:598
+#: ../app/menus.c:593 ../app/menus.c:605
 msgid "25%"
 msgstr "25%"
 
-#: ../app/menus.c:587 ../app/menus.c:599
+#: ../app/menus.c:594 ../app/menus.c:606
 msgid "10%"
 msgstr "10%"
 
-#: ../app/menus.c:625
+#: ../app/menus.c:632
 msgid "Toggles snap-to-grid."
 msgstr "Alterna o alinhar à grade."
 
-#: ../app/menus.c:636
+#: ../app/menus.c:643
 msgid "Toggles object snapping."
 msgstr "Alterna o alinhar a objetos."
 
-#: ../app/menus.c:1254
+#: ../app/menus.c:1249
 msgid "The function is not available anymore."
 msgstr "A função não está mais disponível."
 
@@ -1855,7 +1852,7 @@ msgid "Portable Network Graphics"
 msgstr "Portable Network Graphics"
 
 #: ../app/preferences.c:224 ../plug-ins/svg/render_svg.c:605
-#: ../plug-ins/svg/svg-import.c:2046
+#: ../plug-ins/svg/svg-import.c:2053
 msgid "Scalable Vector Graphics"
 msgstr "Scalable Vector Graphics"
 
@@ -2640,71 +2637,71 @@ msgstr ""
 "O arquivo %s não possui informação de codificação;\n"
 "supondo que está codificado em %s"
 
-#: ../lib/dia_xml.c:508
+#: ../lib/dia_xml.c:512
 #, c-format
 msgid "Unknown type of DataNode '%s'"
 msgstr "Tipo desconhecido de nó de dados '%s'"
 
-#: ../lib/dia_xml.c:527
+#: ../lib/dia_xml.c:531
 msgid "Taking int value of non-int node."
 msgstr "Obtendo valor inteiro de um nó que não é um inteiro."
 
-#: ../lib/dia_xml.c:703
+#: ../lib/dia_xml.c:707
 msgid "Taking point value of non-point node."
 msgstr "Obtendo valor de ponto de um nó que não é um ponto."
 
-#: ../lib/dia_xml.c:714
+#: ../lib/dia_xml.c:718
 #, c-format
 msgid "Incorrect x Point value \"%s\" %f; discarding it."
 msgstr "Valor x do ponto \"%s\" %f incorreto; descartando-o."
 
-#: ../lib/dia_xml.c:721
+#: ../lib/dia_xml.c:725
 msgid "Error parsing point."
 msgstr "Erro ao analisar o ponto."
 
 #. don't bother with useless warnings (see above)
-#: ../lib/dia_xml.c:729
+#: ../lib/dia_xml.c:733
 #, c-format
 msgid "Incorrect y Point value \"%s\" %f; discarding it."
 msgstr "Valor y do ponto \"%s\" %f incorreto; descartando-o."
 
-#: ../lib/dia_xml.c:749
+#: ../lib/dia_xml.c:753
 msgid "Taking bezpoint value of non-point node."
 msgstr "Obtendo valor de ponto de Bézier de um nó que não é um ponto."
 
-#: ../lib/dia_xml.c:767
+#: ../lib/dia_xml.c:771
 msgid "Error parsing bezpoint p1."
 msgstr "Erro ao analisar o ponto de Bézier p1."
 
-#: ../lib/dia_xml.c:781
+#: ../lib/dia_xml.c:785
 msgid "Error parsing bezpoint p2."
 msgstr "Erro ao analisar o ponto de Bézier p2."
 
-#: ../lib/dia_xml.c:795
+#: ../lib/dia_xml.c:799
 msgid "Error parsing bezpoint p3."
 msgstr "Erro ao analisar o ponto de Bézier p3."
 
-#: ../lib/dia_xml.c:822
+#: ../lib/dia_xml.c:826
 msgid "Taking rectangle value of non-rectangle node."
 msgstr "Obtendo valor retangular de nó que não é retângulo."
 
-#: ../lib/dia_xml.c:834 ../lib/dia_xml.c:845 ../lib/dia_xml.c:856
+#: ../lib/dia_xml.c:838 ../lib/dia_xml.c:849 ../lib/dia_xml.c:860
 msgid "Error parsing rectangle."
 msgstr "Erro ao analisar retângulo."
 
-#: ../lib/dia_xml.c:884
+#: ../lib/dia_xml.c:888
 msgid "Taking string value of non-string node."
 msgstr "Obtendo valor de string de um nó que não é string."
 
-#: ../lib/dia_xml.c:910
+#: ../lib/dia_xml.c:914
 msgid "Error in string tag."
 msgstr "Erro "
 
-#: ../lib/dia_xml.c:928
+#: ../lib/dia_xml.c:932
 msgid "Error in file, string not starting with #"
 msgstr "Erro no arquivo, string não iniciada com #"
 
-#: ../lib/dia_xml.c:990
+#: ../lib/dia_xml.c:994
 msgid "Taking font value of non-font node."
 msgstr "Obtendo valor de fonte de um nó que não é de fonte."
 
@@ -3023,7 +3020,7 @@ msgstr ""
 "O DiaObject \"%s\" necessário na folha \"%s\" não foi localizado.\n"
 "Ele não estará disponível para uso."
 
-#: ../lib/sheet.c:316
+#: ../lib/sheet.c:319
 #, c-format
 msgid ""
 "The system sheet '%s' appears to be more recent than your custom\n"
@@ -3038,7 +3035,7 @@ msgstr ""
 "Mova novos objetos (se existir algum) de \"%s\" para sua folha\n"
 "personalizada ou remova \"%s\", usando o diálogo \"Folhas e objetos\"."
 
-#: ../lib/sheet.c:375
+#: ../lib/sheet.c:378
 #, c-format
 msgid "%s: you should use object tags rather than shape tags now"
 msgstr ""
@@ -5929,8 +5926,8 @@ msgstr "Ponteiro do zoom"
 msgid "Visible rect pointer"
 msgstr "Ponteiro ret. visível"
 
-#: ../plug-ins/cairo/diacairo-renderer.c:973
-#: ../plug-ins/cairo/diacairo-renderer.c:1008 ../plug-ins/cgm/cgm.c:1135
+#: ../plug-ins/cairo/diacairo-renderer.c:985
+#: ../plug-ins/cairo/diacairo-renderer.c:1020 ../plug-ins/cgm/cgm.c:1135
 #: ../plug-ins/libart/dialibartrenderer.c:1329
 #: ../plug-ins/metapost/render_metapost.c:1108
 #: ../plug-ins/postscript/diapsrenderer.c:715
@@ -6059,7 +6056,7 @@ msgstr "Transformação do renderizador"
 msgid "Transform pointer"
 msgstr "Transformar ponteiro"
 
-#: ../plug-ins/libart/export_png.c:159 ../plug-ins/xslt/xslt.c:104
+#: ../plug-ins/libart/export_png.c:159 ../plug-ins/xslt/xslt.c:105
 #, c-format
 msgid "Can't open output file %s: %s\n"
 msgstr "Não é possível abrir o arquivo de saída %s: %s\n"
@@ -6291,16 +6288,30 @@ msgstr ""
 "Erro de análise em bloco de memória.\n"
 "%s"
 
-#: ../plug-ins/svg/svg-import.c:1908 ../plug-ins/vdx/vdx-import.c:2887
+#: ../plug-ins/svg/svg-import.c:1909
 #, c-format
-msgid "Parse error for %s"
-msgstr "Erro de análise em %s"
+msgid ""
+"SVG parser error for %s\n"
+"%s"
+msgstr ""
+"Erro de Análise SVG para %s\n"
+"%s"
 
-#: ../plug-ins/svg/svg-import.c:1941
+#. just a warning
+#: ../plug-ins/svg/svg-import.c:1915
+#, c-format
+msgid ""
+"SVG parser warning for %s\n"
+"%s"
+msgstr ""
+"Aviso de análise SVG para  %s\n"
+"%s"
+
+#: ../plug-ins/svg/svg-import.c:1948
 msgid "Expected SVG name-space not found in file"
 msgstr "O espaço de nome SVG esperado não foi encontrado no arquivo"
 
-#: ../plug-ins/svg/svg-import.c:1961
+#: ../plug-ins/svg/svg-import.c:1968
 #, c-format
 msgid "root element was '%s' -- expecting 'svg'."
 msgstr "o elemento raiz era \"%s\" -- esperava-se \"svg\"."
@@ -6350,16 +6361,25 @@ msgstr "Fórmula NURBS inválida"
 msgid "Couldn't handle foreign object type %s"
 msgstr "Não foi possível manipular o objeto externo %s"
 
-#: ../plug-ins/vdx/vdx-import.c:2898
+#: ../plug-ins/vdx/vdx-import.c:2888
+#, c-format
+msgid ""
+"VDX parser error for %s\n"
+"%s"
+msgstr ""
+"Erro de análise VDX para %s\n"
+"%s"
+
+#: ../plug-ins/vdx/vdx-import.c:2900
 msgid "Nothing in document!"
 msgstr "Nada no documento!"
 
-#: ../plug-ins/vdx/vdx-import.c:2903
+#: ../plug-ins/vdx/vdx-import.c:2905
 #, c-format
 msgid "Expecting VisioDocument, got %s"
 msgstr "Era esperado 'VisioDocument', obteve-se %s"
 
-#: ../plug-ins/vdx/vdx-import.c:2987
+#: ../plug-ins/vdx/vdx-import.c:2989
 msgid "Visio XML File Format"
 msgstr "Formato de arquivo XML do Visio"
 
@@ -6633,41 +6653,45 @@ msgstr "Fim prematuro de arquivo Fig"
 msgid "Xfig File Format"
 msgstr "Formato de arquivo XFig"
 
-#: ../plug-ins/xslt/xslt.c:113
+#: ../plug-ins/xslt/xslt.c:114
 #, c-format
-msgid "Error while parsing %s\n"
-msgstr "Erro ao analisar %s\n"
+msgid ""
+"Error while parsing %s\n"
+"%s"
+msgstr ""
+"Erro durante análise  %s\n"
+"%s"
 
-#: ../plug-ins/xslt/xslt.c:122
+#: ../plug-ins/xslt/xslt.c:124
 #, c-format
 msgid "Error while parsing stylesheet %s\n"
 msgstr "Erro ao analisar folha de estilos %s\n"
 
-#: ../plug-ins/xslt/xslt.c:129
+#: ../plug-ins/xslt/xslt.c:131
 #, c-format
 msgid "Error while applying stylesheet %s\n"
 msgstr "Erro ao aplicar folha de estilos %s\n"
 
-#: ../plug-ins/xslt/xslt.c:138
+#: ../plug-ins/xslt/xslt.c:140
 #, c-format
 msgid "Error while parsing stylesheet: %s\n"
 msgstr "Erro ao analisar folha de estilos: %s\n"
 
-#: ../plug-ins/xslt/xslt.c:147
+#: ../plug-ins/xslt/xslt.c:149
 #, c-format
 msgid "Error while applying stylesheet: %s\n"
 msgstr "Erro ao aplicar folha de estilos: %s\n"
 
-#: ../plug-ins/xslt/xslt.c:155
+#: ../plug-ins/xslt/xslt.c:157
 #, c-format
 msgid "Error while saving result: %s\n"
 msgstr "Erro ao salvar resultado: %s\n"
 
-#: ../plug-ins/xslt/xslt.c:339
+#: ../plug-ins/xslt/xslt.c:343
 msgid "XSL Transformation filter"
 msgstr "Filtro de transformação XSL"
 
-#: ../plug-ins/xslt/xslt.c:366
+#: ../plug-ins/xslt/xslt.c:370
 msgid "No valid configuration files found for the XSLT plugin; not loading."
 msgstr ""
 "Nenhum arquivo de configuração válido encontrado para o plug-in XSLT; não "
