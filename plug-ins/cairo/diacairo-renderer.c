@@ -238,6 +238,7 @@ _add_color_stop (real ofs, const Color *col, gpointer user_data)
   
   cairo_pattern_add_color_stop_rgba (pat, ofs,
 				     col->red, col->green, col->blue, col->alpha);
+  return TRUE;
 }
 
 static cairo_pattern_t *
