@@ -244,8 +244,6 @@ static cairo_pattern_t *
 _pattern_build_for_cairo (DiaPattern *pattern, const Rectangle *ext)
 {
   cairo_pattern_t *pat;
-  gsize i;
-  real x, y;
   DiaPatternType type;
   guint flags;
   Point p1, p2;
