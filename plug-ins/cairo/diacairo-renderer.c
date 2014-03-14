@@ -706,6 +706,8 @@ draw_arc(DiaRenderer *self,
   DIAG_NOTE(g_message("draw_arc %fx%f <%f,<%f", 
             width, height, angle1, angle2));
 
+  g_return_if_fail (!isnan (angle1) && !isnan (angle2));
+
   cairo_set_source_rgba (renderer->cr, color->red, color->green, color->blue, color->alpha);
 
   if (!renderer->stroke_pending)

@@ -832,13 +832,12 @@ dia_matrix_is_invertible (const DiaMatrix *matrix)
 real
 dia_asin (real x)
 {
-  real r = asin (x);
   /* clamp to valid range */
-  if (r < -M_PI/2)
+  if (x <= -1.0)
     return -M_PI/2;
-  else if (r > M_PI/2)
+  if (x >= 1.0)
     return M_PI/2;
-  return r;
+  return asin (x);
 }
 
 /*!
@@ -847,11 +846,10 @@ dia_asin (real x)
 real
 dia_acos (real x)
 {
-  real r = acos (x);
   /* clamp to valid range */
-  if (r < 0)
-    return 0;
-  else if (r > M_PI)
+  if (x <= -1.0)
     return M_PI;
-  return r;
+  if (x >= 1.0)
+    return 0.0;
+  return acos (x);
 }
