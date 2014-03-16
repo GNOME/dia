@@ -19,7 +19,6 @@
 #define NETWORK_H
 
 #define NETWORK_GENERAL_LINEWIDTH 0.08
-extern Color computer_color;
 
 #endif /* NETWORK_H */
 
