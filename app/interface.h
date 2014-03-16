@@ -31,7 +31,6 @@ void create_integrated_ui (void);
 gboolean integrated_ui_toolbar_is_showing (void);
 void     integrated_ui_toolbar_show (gboolean show);
 
-gboolean integrated_ui_main_statusbar_is_showing (void);
 void     integrated_ui_statusbar_show (gboolean show);
 
 gboolean integrated_ui_layer_view_is_showing (void);

@@ -45,11 +45,6 @@ void edit_cut_text_callback   (GtkAction *action);
 
 void edit_paste_image_callback (GtkAction *action);
 
-void received_selection_handler (GtkWidget *widget, GtkSelectionData *selection,
-				gpointer data);
-void get_selection_handler(GtkWidget *widget, GtkSelectionData *selection,
-			   gpointer data);
-
 void view_zoom_in_callback         (GtkAction *action);
 void view_zoom_out_callback        (GtkAction *action);
 void view_zoom_set_callback        (GtkAction *action);

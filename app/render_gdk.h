@@ -21,11 +21,5 @@
 #include "display.h"
 
 DiaRenderer *new_gdk_renderer(DDisplay *ddisp);
-void gdk_renderer_set_size(DiaRenderer *renderer, GdkWindow *window,
-                           int width, int height);
-void renderer_gdk_copy_to_window(DiaRenderer *renderer,
-                                 GdkWindow *window,
-                                 int x, int y,
-                                 int width, int height);
 
 #endif /* RENDER_GDK_H */

@@ -78,8 +78,6 @@ GList *dia_open_diagrams(void); /* Read only! */
 Diagram *diagram_load(const char *filename, DiaImportFilter *ifilter);
 int diagram_load_into (Diagram *dest, const char *filename, DiaImportFilter *ifilter);
 Diagram *new_diagram(const char *filename); /*Note: filename is copied*/
-/** Perform updates related to getting a new current diagram */
-void diagram_set_current(Diagram *diagram);
 void diagram_destroy(Diagram *dia);
 gboolean diagram_is_modified(Diagram *dia);
 void diagram_modified(Diagram *dia);
@@ -100,7 +98,6 @@ void diagram_add_update(Diagram *dia, const Rectangle *update);
 void diagram_add_update_with_border(Diagram *dia, Rectangle *update,
 				    int pixel_border);
 void diagram_add_update_all(Diagram *dia);
-void diagram_add_update_all_all_and_flush();
 void diagram_add_update_pixels(Diagram *dia, Point *point,
 			       int pixel_width, int pixel_height);
 void diagram_flush(Diagram *dia);
