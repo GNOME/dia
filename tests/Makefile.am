@@ -33,3 +33,6 @@ TEST_PROGS += objects
 objects_SOURCES = test-objects.c
 objects_LDADD = $(progs_ldadd)
 
+TEST_PROGS += testsvg
+testsvg_SOURCES = test-svg.c
+testsvg_LDADD = $(progs_ldadd)
