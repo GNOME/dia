@@ -17,8 +17,10 @@
  */
 #include <config.h>
 
-#define _BSD_SOURCE 1 /* to get the prototype for fchmod() from sys/stat.h */
-#define _POSIX_C_SOURCE 2 /* so we get fdopen declared even when compiling with -ansi */
+/* so we get fdopen declared even when compiling with -ansi */
+#define _POSIX_C_SOURCE 200809L
+#define _BSD_SOURCE 1 /* to get the prototype for fchmod() */
+
 #include <sys/stat.h>
 #ifdef HAVE_UNISTD_H
 #include <unistd.h>
