@@ -11,9 +11,9 @@
 # Jorge González <jorgegonz@svn.gnome.org>, 2007, 2009, 2011.
 # miguel <bokerones.fritos@gmail.com>, 2012.
 # miguel rodriguez nuñez <bokerones.fritos@gmail.com>, 2012.
-# Miguel Rodríguez Núñez <bokerones.fritos@gmail.com>, 2012, 2013.
 # Miguel Rodriguez Nuñez <bokerones.fritos@gmail.com>, 2014.
 # Daniel Mustieles <daniel.mustieles@gmail.com>, 2011, 2012, 2013, 2014.
+# Miguel Rodríguez Núñez <bokerones.fritos@gmail.com>, 2012, 2013, 2014.
 #
 #: ../objects/UML/class.c:193
 msgid ""
@@ -21,17 +21,17 @@ msgstr ""
 "Project-Id-Version: dia.HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=dia&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2014-02-26 04:15+0000\n"
-"PO-Revision-Date: 2014-02-26 11:46+0100\n"
-"Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
-"Language-Team: Español <gnome-es-list@gnome.org>\n"
+"POT-Creation-Date: 2014-03-17 04:15+0000\n"
+"PO-Revision-Date: 2014-03-17 14:07+0100\n"
+"Last-Translator: Miguel Rodríguez Núñez <bokerones.fritos@gmail.com>\n"
+"Language-Team: Español; Castellano <gnome-es-list@gnome.org>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "serrador@hispalinux.es>\n"
-"X-Generator: Gtranslator 2.91.5\n"
-"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+"X-Generator: Gtranslator 2.91.6\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. This is not an errror
 #: ../app/app_procs.c:208
@@ -204,40 +204,40 @@ msgid "Can't connect to session manager!\n"
 msgstr "¡No se puede conectar con el gestor de sesiones!\n"
 
 #. TRANSLATOR: 2nd and 3rd %s are time and date respectively.
-#: ../app/app_procs.c:880
+#: ../app/app_procs.c:879
 #, c-format
 msgid "Dia version %s, compiled %s %s\n"
 msgstr "Versión %s de Dia, compilada %s %s\n"
 
-#: ../app/app_procs.c:882
+#: ../app/app_procs.c:881
 #, c-format
 msgid "Dia version %s\n"
 msgstr "Versión %s de Dia\n"
 
-#: ../app/app_procs.c:920
+#: ../app/app_procs.c:919
 msgid "Object Defaults"
 msgstr "Opciones predeterminadas del objeto"
 
 # Como adjetivo creo que el plural es "estándar". FVD
-#: ../app/app_procs.c:927
+#: ../app/app_procs.c:926
 msgid ""
 "Couldn't find standard objects when looking for object-libs; exiting...\n"
 msgstr "No se encontraron objetos estándar en object-libs, saliendo…\n"
 
 # Como adjetivo creo que el plural es "estándar". FVD
-#: ../app/app_procs.c:929
+#: ../app/app_procs.c:928
 #, c-format
 msgid ""
 "Couldn't find standard objects when looking for object-libs in '%s'; "
 "exiting...\n"
 msgstr "No se encontraron objetos estándar en object-libs en «%s»; saliendo…\n"
 
-#: ../app/app_procs.c:989
+#: ../app/app_procs.c:988
 msgid "Diagram1.dia"
 msgstr "Diagrama1.dia"
 
 # Me parece más correcta y explicativa esta traducción aunque sea algo más larga. RizOX.
-#: ../app/app_procs.c:1024
+#: ../app/app_procs.c:1023
 msgid ""
 "This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\n"
 "describing how you caused this message to appear.\n"
@@ -246,21 +246,21 @@ msgstr ""
 "gnome.org\n"
 "describiendo cómo hizo para que apareciera este mensaje.\n"
 
-#: ../app/app_procs.c:1039
+#: ../app/app_procs.c:1038
 msgid "Exiting Dia"
 msgstr "Salir de Dia"
 
-#: ../app/app_procs.c:1066 ../app/display.c:1289 ../app/exit_dialog.c:115
+#: ../app/app_procs.c:1065 ../app/display.c:1249 ../app/exit_dialog.c:115
 #: ../app/filedlg.c:582
 msgid "Save"
 msgstr "Guardar"
 
 #. no standard buttons
-#: ../app/app_procs.c:1108
+#: ../app/app_procs.c:1107
 msgid "Quitting without saving modified diagrams"
 msgstr "¿Salir sin guardar los diagramas modificados?"
 
-#: ../app/app_procs.c:1110
+#: ../app/app_procs.c:1109
 msgid ""
 "Modified diagrams exist. Are you sure you want to quit Dia without saving "
 "them?"
@@ -268,19 +268,19 @@ msgstr ""
 "Hay diagramas modificados. ¿Está seguro de que desea salir de Dia\n"
 "sin guardarlos?"
 
-#: ../app/app_procs.c:1114
+#: ../app/app_procs.c:1113
 msgid "Quit Dia"
 msgstr "Salir de Dia"
 
-#: ../app/app_procs.c:1144
+#: ../app/app_procs.c:1143
 msgid "Exit"
 msgstr "Salir"
 
-#: ../app/app_procs.c:1190 ../app/app_procs.c:1197
+#: ../app/app_procs.c:1189 ../app/app_procs.c:1196
 msgid "Could not create per-user Dia configuration directory"
 msgstr "No se pudo crear la carpeta de configuración de Dia para el usuario"
 
-#: ../app/app_procs.c:1200
+#: ../app/app_procs.c:1199
 msgid ""
 "Could not create per-user Dia configuration directory. Please make sure that "
 "the environment variable HOME points to an existing directory."
@@ -288,11 +288,11 @@ msgstr ""
 "No se pudo crear la carpeta de configuración de Dia para el usuario."
 "Asegúrese de que la variable de entorno HOME apunta a una carpeta existente."
 
-#: ../app/app_procs.c:1223
+#: ../app/app_procs.c:1222
 msgid "Objects and filters internal to Dia"
 msgstr "Objetos y filtros internos de Dia"
 
-#: ../app/app_procs.c:1276
+#: ../app/app_procs.c:1275
 #, c-format
 msgid ""
 "The original author of Dia was:\n"
@@ -301,7 +301,7 @@ msgstr ""
 "El autor original de Dia fue:\n"
 "\n"
 
-#: ../app/app_procs.c:1281
+#: ../app/app_procs.c:1280
 #, c-format
 msgid ""
 "\n"
@@ -312,7 +312,7 @@ msgstr ""
 "Los actuales mantenedores de Dia son:\n"
 "\n"
 
-#: ../app/app_procs.c:1286
+#: ../app/app_procs.c:1285
 #, c-format
 msgid ""
 "\n"
@@ -323,7 +323,7 @@ msgstr ""
 "Otros autores son:\n"
 "\n"
 
-#: ../app/app_procs.c:1291
+#: ../app/app_procs.c:1290
 #, c-format
 msgid ""
 "\n"
@@ -529,7 +529,7 @@ msgstr[0] "%d capa"
 msgstr[1] "%d capas"
 
 #: ../app/diagram_tree_view.c:181 ../app/diagram_tree_view.c:519
-#: ../objects/Database/table.c:138 ../objects/Istar/actor.c:142
+#: ../objects/Database/table.c:149 ../objects/Istar/actor.c:142
 #: ../objects/Istar/actor.c:143 ../objects/Istar/other.c:147
 #: ../objects/Istar/other.c:148 ../objects/KAOS/other.c:150
 #: ../objects/KAOS/other.c:151 ../objects/UML/association.c:242
@@ -572,8 +572,8 @@ msgid "Properties"
 msgstr "Propiedades"
 
 #: ../app/diagram_tree_view.c:502 ../app/exit_dialog.c:125
-#: ../app/plugin-manager.c:270 ../objects/Database/table.c:136
-#: ../objects/Database/table.c:179 ../objects/UML/association.c:236
+#: ../app/plugin-manager.c:270 ../objects/Database/table.c:147
+#: ../objects/Database/table.c:190 ../objects/UML/association.c:236
 #: ../objects/UML/class.c:140 ../objects/UML/large_package.c:131
 #: ../objects/UML/umlattribute.c:37 ../objects/UML/umlformalparameter.c:35
 #: ../objects/UML/umloperation.c:62 ../objects/UML/umlparameter.c:43
@@ -728,7 +728,11 @@ msgstr "Convertir a ruta"
 msgid "Selection"
 msgstr "Selección"
 
-#: ../app/disp_callbacks.c:1115
+#: ../app/disp_callbacks.c:360
+msgid "Input _Methods"
+msgstr "_Métodos de entrada"
+
+#: ../app/disp_callbacks.c:1128
 msgid ""
 "The object you dropped cannot fit into its parent. \n"
 "Either expand the parent object, or drop the object elsewhere."
@@ -752,20 +756,20 @@ msgid "Selected '%s'"
 msgstr "Seleccionados «%s»"
 
 #. we really should not come here but instead disable the menu command earlier
-#: ../app/display.c:1177
+#: ../app/display.c:1137
 msgid "No antialiased renderer found"
 msgstr "No se encontró el renderizador antialias"
 
-#: ../app/display.c:1335
+#: ../app/display.c:1295
 msgid "<unnamed>"
 msgstr "<sin nombre>"
 
 #. no standard buttons
-#: ../app/display.c:1341
+#: ../app/display.c:1301
 msgid "Closing diagram without saving"
 msgstr "Cerrando el diagrama sin guardar"
 
-#: ../app/display.c:1343
+#: ../app/display.c:1303
 #, c-format
 msgid ""
 "The diagram '%s'\n"
@@ -774,11 +778,11 @@ msgstr ""
 "Este diagrama «%s»\n"
 "no ha sido guardado. ¿Guardar los cambios ahora?"
 
-#: ../app/display.c:1345
+#: ../app/display.c:1305
 msgid "Close Diagram"
 msgstr "Cerrar el diagrama"
 
-#: ../app/display.c:1350
+#: ../app/display.c:1310
 msgid "_Discard Changes"
 msgstr "_Descartar los cambios"
 
@@ -938,7 +942,7 @@ msgstr "Coincidir _todas las propiedades (no sólo el nombre del objeto)"
 msgid "Find"
 msgstr "Buscar"
 
-#: ../app/find-and-replace.c:567 ../app/menus.c:273
+#: ../app/find-and-replace.c:567 ../app/menus.c:271
 msgid "Replace"
 msgstr "Reemplazar"
 
@@ -1360,11 +1364,11 @@ msgstr "_Ampliación"
 msgid "1600%"
 msgstr "1600%"
 
-#: ../app/menus.c:160 ../app/menus.c:587 ../app/menus.c:599
+#: ../app/menus.c:160 ../app/menus.c:585 ../app/menus.c:597
 msgid "800%"
 msgstr "800%"
 
-#: ../app/menus.c:161 ../app/menus.c:588 ../app/menus.c:600
+#: ../app/menus.c:161 ../app/menus.c:586 ../app/menus.c:598
 msgid "400%"
 msgstr "400%"
 
@@ -1529,45 +1533,41 @@ msgid "L_ayout"
 msgstr "Di_sposición"
 
 #: ../app/menus.c:227
-msgid "_Input Methods"
-msgstr "Mé_todos de entrada"
-
-#: ../app/menus.c:229
 msgid "D_ialogs"
 msgstr "_Diálogos"
 
-#: ../app/menus.c:231
+#: ../app/menus.c:229
 msgid "D_ebug"
 msgstr "D_epurar"
 
-#: ../app/menus.c:237
+#: ../app/menus.c:235
 msgid "_Tools"
 msgstr "_Herramientas"
 
-#: ../app/menus.c:238
+#: ../app/menus.c:236
 msgid "Modify"
 msgstr "Modificar"
 
 # Yo diría "Ampliar" FVD
 # Yo también diría "Ampliar", lo de "Magnificar" me suena a barbarismo... RizOX
 #. Translators: Menu item Verb/Control Magnitude/Change/Magnify
-#: ../app/menus.c:239 ../app/toolbox.c:86 ../objects/FS/function.c:984
+#: ../app/menus.c:237 ../app/toolbox.c:86 ../objects/FS/function.c:984
 msgid "Magnify"
 msgstr "Ampliar"
 
-#: ../app/menus.c:240
+#: ../app/menus.c:238
 msgid "Edit Text"
 msgstr "Editar texto"
 
 # Creo que Scroll es Desplazamiento. Fuzzy. FVD
 # Yo más bien diría "Desplazar". Fuzzy. RizOX.
-#: ../app/menus.c:241
+#: ../app/menus.c:239
 msgid "Scroll"
 msgstr "Desplazar"
 
 #. how it used to be before 0.96+SVN
 #. new name matching "same name, same type"  rule
-#: ../app/menus.c:242 ../app/toolbox.c:98 ../lib/properties.c:102
+#: ../app/menus.c:240 ../app/toolbox.c:98 ../lib/properties.c:102
 #: ../lib/properties.h:677 ../objects/AADL/aadlbox.c:153
 #: ../objects/custom/custom_object.c:228 ../objects/Jackson/requirement.c:130
 #: ../objects/network/basestation.c:132 ../objects/network/radiocell.c:125
@@ -1580,141 +1580,141 @@ msgstr "Desplazar"
 msgid "Text"
 msgstr "Texto"
 
-#: ../app/menus.c:243 ../app/toolbox.c:104
+#: ../app/menus.c:241 ../app/toolbox.c:104
 msgid "Box"
 msgstr "Caja"
 
-#: ../app/menus.c:244 ../app/toolbox.c:110
+#: ../app/menus.c:242 ../app/toolbox.c:110
 msgid "Ellipse"
 msgstr "Elipse"
 
-#: ../app/menus.c:245 ../app/toolbox.c:116
+#: ../app/menus.c:243 ../app/toolbox.c:116
 msgid "Polygon"
 msgstr "Polígono"
 
-#: ../app/menus.c:246 ../app/toolbox.c:122
+#: ../app/menus.c:244 ../app/toolbox.c:122
 msgid "Beziergon"
 msgstr "Polígono Bézier"
 
-#: ../app/menus.c:248 ../app/toolbox.c:128 ../objects/standard/line.c:325
+#: ../app/menus.c:246 ../app/toolbox.c:128 ../objects/standard/line.c:325
 msgid "Line"
 msgstr "Línea"
 
-#: ../app/menus.c:249 ../app/toolbox.c:134
+#: ../app/menus.c:247 ../app/toolbox.c:134
 msgid "Arc"
 msgstr "Arco"
 
-#: ../app/menus.c:250 ../app/toolbox.c:140
+#: ../app/menus.c:248 ../app/toolbox.c:140
 msgid "Zigzagline"
 msgstr "Línea en zigzag"
 
-#: ../app/menus.c:251 ../app/toolbox.c:146
+#: ../app/menus.c:249 ../app/toolbox.c:146
 msgid "Polyline"
 msgstr "Polilínea"
 
-#: ../app/menus.c:252 ../app/toolbox.c:152
+#: ../app/menus.c:250 ../app/toolbox.c:152
 msgid "Bezierline"
 msgstr "Línea Bézier"
 
-#: ../app/menus.c:253 ../app/toolbox.c:165
+#: ../app/menus.c:251 ../app/toolbox.c:165
 msgid "Outline"
 msgstr "Esquema"
 
-#: ../app/menus.c:255 ../app/toolbox.c:158
+#: ../app/menus.c:253 ../app/toolbox.c:158
 msgid "Image"
 msgstr "Imagen"
 
-#: ../app/menus.c:262
+#: ../app/menus.c:260
 msgid "_Antialiased"
 msgstr "_Alisado"
 
-#: ../app/menus.c:263
+#: ../app/menus.c:261
 msgid "Show _Grid"
 msgstr "Mostrar _cuadrícula"
 
-#: ../app/menus.c:264
+#: ../app/menus.c:262
 msgid "_Snap to Grid"
 msgstr "Aju_star a la rejilla"
 
-#: ../app/menus.c:265
+#: ../app/menus.c:263
 msgid "Snap to _Objects"
 msgstr "Ajustar a los _objetos"
 
-#: ../app/menus.c:266
+#: ../app/menus.c:264
 msgid "Show _Rulers"
 msgstr "Mostrar _reglas"
 
-#: ../app/menus.c:267
+#: ../app/menus.c:265
 msgid "Show _Connection Points"
 msgstr "Mostrar puntos de _conexión"
 
-#: ../app/menus.c:274
+#: ../app/menus.c:272
 msgid "Union"
 msgstr "Unión"
 
-#: ../app/menus.c:275
+#: ../app/menus.c:273
 msgid "Intersection"
 msgstr "Intersección"
 
 #. Translators: Menu item Verb/Channel/Export/Remove
 #. Translators: Menu item Verb/Branch/Separate/Remove
 #. Translators: Menu item Verb/Branch/Separate/Remove/Remove
-#: ../app/menus.c:276 ../objects/FS/function.c:704
+#: ../app/menus.c:274 ../objects/FS/function.c:704
 #: ../objects/FS/function.c:856 ../objects/FS/function.c:858
 msgid "Remove"
 msgstr "Eliminar"
 
 #. Cannot also be called Invert, duplicate names caused keybinding problems
-#: ../app/menus.c:278
+#: ../app/menus.c:276
 msgid "Inverse"
 msgstr "Inverso"
 
 # Traduzco "tooldata". RizOX.
-#: ../app/menus.c:340
+#: ../app/menus.c:338
 msgid "NULL tooldata in tool_menu_select"
 msgstr "InArray de herramienta nula (NULL) en tool_menu_select"
 
-#: ../app/menus.c:589 ../app/menus.c:601
+#: ../app/menus.c:587 ../app/menus.c:599
 msgid "300%"
 msgstr "300%"
 
-#: ../app/menus.c:590 ../app/menus.c:602
+#: ../app/menus.c:588 ../app/menus.c:600
 msgid "200%"
 msgstr "200%"
 
-#: ../app/menus.c:591 ../app/menus.c:603
+#: ../app/menus.c:589 ../app/menus.c:601
 msgid "150%"
 msgstr "150%"
 
-#: ../app/menus.c:592 ../app/menus.c:604
+#: ../app/menus.c:590 ../app/menus.c:602
 msgid "100%"
 msgstr "100%"
 
-#: ../app/menus.c:593 ../app/menus.c:605
+#: ../app/menus.c:591 ../app/menus.c:603
 msgid "75%"
 msgstr "75%"
 
-#: ../app/menus.c:594 ../app/menus.c:606
+#: ../app/menus.c:592 ../app/menus.c:604
 msgid "50%"
 msgstr "50%"
 
-#: ../app/menus.c:595 ../app/menus.c:607
+#: ../app/menus.c:593 ../app/menus.c:605
 msgid "25%"
 msgstr "25%"
 
-#: ../app/menus.c:596 ../app/menus.c:608
+#: ../app/menus.c:594 ../app/menus.c:606
 msgid "10%"
 msgstr "10%"
 
-#: ../app/menus.c:634
+#: ../app/menus.c:632
 msgid "Toggles snap-to-grid."
 msgstr "Conmuta el ajuste a la rejilla."
 
-#: ../app/menus.c:645
+#: ../app/menus.c:643
 msgid "Toggles object snapping."
 msgstr "Conmuta el ajuste del objeto."
 
-#: ../app/menus.c:1251
+#: ../app/menus.c:1249
 msgid "The function is not available anymore."
 msgstr "La función no estará disponible nunca más."
 
@@ -3407,8 +3407,8 @@ msgstr "Inicio de la descripción"
 msgid "End description"
 msgstr "Final de la descripción"
 
-#: ../objects/Database/reference.c:121 ../objects/Database/table.c:212
-#: ../objects/Database/table.c:214 ../objects/Database/table.c:216
+#: ../objects/Database/reference.c:121 ../objects/Database/table.c:223
+#: ../objects/Database/table.c:225 ../objects/Database/table.c:227
 #: ../objects/UML/association.c:247 ../objects/UML/association.c:258
 #: ../objects/UML/association.c:260 ../objects/UML/association.c:262
 #: ../objects/UML/association.c:264 ../objects/UML/association.c:266
@@ -3440,88 +3440,88 @@ msgstr "Borrar segmento"
 msgid "Reference"
 msgstr "Referencia"
 
-#: ../objects/Database/table.c:140 ../objects/Database/table.c:181
-#: ../objects/Database/table.c:209 ../objects/UML/class.c:144
+#: ../objects/Database/table.c:151 ../objects/Database/table.c:192
+#: ../objects/Database/table.c:220 ../objects/UML/class.c:144
 #: ../objects/UML/class.c:211 ../objects/UML/class_dialog.c:486
 #: ../objects/UML/umlattribute.c:43 ../objects/UML/umloperation.c:66
 #: ../objects/UML/umlparameter.c:49 ../sheets/SDL.sheet.in.h:18
 msgid "Comment"
 msgstr "Comentario"
 
-#: ../objects/Database/table.c:142
+#: ../objects/Database/table.c:153
 msgid "Primary"
 msgstr "Primaria"
 
-#: ../objects/Database/table.c:142
+#: ../objects/Database/table.c:153
 msgid "Primary key"
 msgstr "Clave primaria"
 
-#: ../objects/Database/table.c:144
+#: ../objects/Database/table.c:155
 msgid "Nullable"
 msgstr "Que puede ser Null"
 
-#: ../objects/Database/table.c:146
+#: ../objects/Database/table.c:157
 msgid "Unique"
 msgstr "Única"
 
-#: ../objects/Database/table.c:148
+#: ../objects/Database/table.c:159
 msgid "Default"
 msgstr "Predeterminado"
 
-#: ../objects/Database/table.c:148
+#: ../objects/Database/table.c:159
 msgid "Default value"
 msgstr "Valor predeterminado"
 
 #. init data
-#: ../objects/Database/table.c:177 ../objects/Database/table.c:267
-#: ../objects/Database/table.c:374 ../sheets/Database.sheet.in.h:3
+#: ../objects/Database/table.c:188 ../objects/Database/table.c:278
+#: ../objects/Database/table.c:387 ../sheets/Database.sheet.in.h:3
 msgid "Table"
 msgstr "Tabla"
 
-#: ../objects/Database/table.c:186
+#: ../objects/Database/table.c:197
 msgid "Visible comments"
 msgstr "Comentarios visibles"
 
-#: ../objects/Database/table.c:188
+#: ../objects/Database/table.c:199
 msgid "Underline primary keys"
 msgstr "Subrayar claves primarias"
 
-#: ../objects/Database/table.c:191 ../objects/UML/class.c:159
+#: ../objects/Database/table.c:202 ../objects/UML/class.c:159
 msgid "Comment tagging"
 msgstr "Etiquetado de comentarios"
 
-#: ../objects/Database/table.c:193
+#: ../objects/Database/table.c:204
 msgid "Use bold font for primary keys"
 msgstr "Usar negrita para las claves primarias"
 
-#: ../objects/Database/table.c:196 ../objects/UML/class.c:181
+#: ../objects/Database/table.c:207 ../objects/UML/class.c:181
 #: ../objects/UML/object.c:150
 msgid "Attributes"
 msgstr "Atributos"
 
 #. umlformalparameters_extra
 #. all this just to make the defaults selectable ...
-#: ../objects/Database/table.c:200 ../objects/UML/association.c:269
+#: ../objects/Database/table.c:211 ../objects/UML/association.c:269
 #: ../objects/UML/class.c:196 ../objects/UML/object.c:159
 msgid "Style"
 msgstr "Estilo"
 
 # Creí que era Tipografía como en otros msgs. FVD
-#: ../objects/Database/table.c:201 ../objects/UML/class.c:197
+#: ../objects/Database/table.c:212 ../objects/UML/class.c:197
 msgid "Fonts"
 msgstr "Tipografías"
 
 #. property rows
-#: ../objects/Database/table.c:205 ../objects/SADT/arrow.c:135
+#: ../objects/Database/table.c:216 ../objects/SADT/arrow.c:135
 #: ../objects/UML/class.c:201 ../objects/UML/class_dialog.c:461
 msgid "Normal"
 msgstr "Normal"
 
-#: ../objects/Database/table.c:207
+#: ../objects/Database/table.c:218
 msgid "Table name"
 msgstr "Nombre de la tabla"
 
-#: ../objects/Database/table.c:262 ../objects/UML/class.c:342
+#: ../objects/Database/table.c:273 ../objects/UML/class.c:342
 msgid "Show comments"
 msgstr "Mostrar comentarios"
 
@@ -6024,8 +6024,8 @@ msgstr "Puntero de la ampliación"
 msgid "Visible rect pointer"
 msgstr "Puntero visible de la recta"
 
-#: ../plug-ins/cairo/diacairo-renderer.c:985
-#: ../plug-ins/cairo/diacairo-renderer.c:1020 ../plug-ins/cgm/cgm.c:1135
+#: ../plug-ins/cairo/diacairo-renderer.c:986
+#: ../plug-ins/cairo/diacairo-renderer.c:1021 ../plug-ins/cgm/cgm.c:1135
 #: ../plug-ins/libart/dialibartrenderer.c:1329
 #: ../plug-ins/metapost/render_metapost.c:1108
 #: ../plug-ins/postscript/diapsrenderer.c:715
