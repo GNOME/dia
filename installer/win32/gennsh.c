@@ -2,7 +2,7 @@
  * Copyright (C) 1998 Alexander Larsson
  *
  * gennsh.c
- * Copyright (C) 2009,2011,2013 Steffen Macke <sdteffen@sdteffen.de>
+ * Copyright (C) 2009,2011,2013, 2014 Steffen Macke <sdteffen@sdteffen.de>
  *
  * gennsh is a program that allows to generate locale file for the
  * Dia for Windows installer
@@ -64,6 +64,13 @@ int main(int argc, char *argv[])
 
   /* Installer message: Component description */
   printf("!define PYTHON_SECTION_DESCRIPTION \"%s\"\n", _("Support for the Python Scripting Language 2.3. Do not select this if Python is not installed."));
+
+  /* Installer message: Component name */
+  printf("!define DESKTOP_SECTION_TITLE \"%s\"\n", _("Desktop Shortcut"));
+
+  /* Installer message: Component description */
+  printf("!define DESKTOP_SECTION_DESCRIPTION \"%s\"\n", _("Create a shortcut on the Desktop."));
+
 
   /* Installer message: hyperlink text on finish page */
   printf("!define DIA_FINISH_VISIT_WEB_SITE \"%s\"\n", _("Visit the Dia for Windows Web Page"));
