@@ -342,6 +342,18 @@ tool_menu_select(GtkWidget *w, gpointer   data) {
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(tooldata->widget),TRUE);
 }
 
+static void
+load_accels(void)
+{
+  gchar *accelfilename;
+  /* load accelerators and prepare to later save them */
+  accelfilename = dia_config_filename("menurc");
+
+  if (accelfilename) {
+    gtk_accel_map_load(accelfilename);
+    g_free(accelfilename);
+  }
+}
 static gint
 save_accels(gpointer data)
 {
@@ -955,9 +967,8 @@ _setup_global_actions (void)
 static void
 menus_init(void)
 {
-  gchar                 *accelfilename;
-  GError 		*error = NULL;
-  gchar			*uifile;
+  GError *error = NULL;
+  gchar  *uifile;
 
   if (!initialise)
     return;
@@ -1008,13 +1019,8 @@ menus_init(void)
   add_plugin_actions (display_ui_manager, DISPLAY_MENU);
   add_plugin_actions (display_ui_manager, INVISIBLE_MENU);
 
-  /* load accelerators and prepare to later save them */
-  accelfilename = dia_config_filename("menurc");
-  
-  if (accelfilename) {
-    gtk_accel_map_load(accelfilename);
-    g_free(accelfilename);
-  }
+  /* after creating all menu items */
+  load_accels ();
 #if GTK_CHECK_VERSION(2,24,0)
   g_print ("TODO: Check accels being saved ...");
 #else
@@ -1060,6 +1066,8 @@ menus_get_integrated_ui_menubar (GtkWidget     **menubar,
   }
 
   add_plugin_actions (_ui_manager, NULL);
+  /* after creating all menu items */
+  load_accels ();
 
   if (menubar)
     *menubar = gtk_ui_manager_get_widget (_ui_manager, INTEGRATED_MENU);
@@ -1155,7 +1163,10 @@ menus_get_action (const gchar *name)
     GList *groups, *list;
 
     /* search everything there is, could probably replace the above */
-    groups = gtk_ui_manager_get_action_groups (display_ui_manager);
+    if (display_ui_manager) /* classic mode */
+      groups = gtk_ui_manager_get_action_groups (display_ui_manager);
+    else
+      groups = gtk_ui_manager_get_action_groups (_ui_manager);
     for (list = groups; list != NULL; list = list->next) {
       action = gtk_action_group_get_action (GTK_ACTION_GROUP (list->data), name);
       if (action)
