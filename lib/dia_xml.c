@@ -270,7 +270,7 @@ xmlDiaParseFile(const char *filename, DiaContext *ctx)
     const gchar *fname = xml_file_check_encoding(filename,local_charset, ctx);
     if (fname != filename) {
       /* We've got a corrected file to parse. */
-      xmlDocPtr ret = xmlDoParseFile(fname, &error_xml);
+      ret = xmlDoParseFile(fname, &error_xml);
       unlink(fname);
       /* printf("has read %s instead of %s\n",fname,filename); */
       g_free((void *)fname);
@@ -297,7 +297,6 @@ xmlDocPtr
 xmlDoParseFile(const char *filename, xmlErrorPtr *error)
 {
   xmlDocPtr doc;
-  xmlErrorPtr err;
 
   doc = xmlParseFile(filename);
   if (!doc && error)
