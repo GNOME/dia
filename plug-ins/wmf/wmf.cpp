@@ -235,8 +235,9 @@ DonePen(WmfRenderer* renderer, W32::HPEN hPen)
     }
 }
 
+static void _nada(WmfRenderer*, const char*, ...) { }
 #ifndef HAVE_LIBEMF
-#  define DIAG_NOTE /* my_log */
+#  define DIAG_NOTE _nada
 #else
 #  define DIAG_NOTE my_log
 #endif
