@@ -173,7 +173,6 @@ add_follow_link_menu_item (GtkMenu *menu)
 static void
 _convert_to_path_callback (GtkAction *action, gpointer data)
 {
-  DiaObject *obj;
   DDisplay *ddisp = ddisplay_active();
   GList *selected, *list;
   ObjectChange *change_list = NULL;

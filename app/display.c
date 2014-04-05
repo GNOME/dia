@@ -139,7 +139,6 @@ selection_changed (Diagram* dia, int n, DDisplay* ddisp)
 static void
 initialize_display_widgets(DDisplay *ddisp)
 {
-  GtkAction* im_menu_item;
   Diagram *dia = ddisp->diagram;
   gchar *filename;
 
