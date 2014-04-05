@@ -359,8 +359,7 @@ _get_bool_prop (xmlNodePtr node, const char *name, gboolean preset)
   xmlChar *val = xmlGetProp(node, (const xmlChar *)name);
 
   if (val) {
-    if (strcmp((char *)val, "true")==0)
-      ret = TRUE;
+    ret = (strcmp((char *)val, "true")==0);
     xmlFree(val);
   } else {
     ret = preset;
