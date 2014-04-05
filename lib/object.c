@@ -1113,18 +1113,17 @@ dia_object_sanity_check(const DiaObject *obj, const gchar *msg) {
 		      msg, obj, i);
       if (h != NULL) {
 	/* Check handle id */
-	dia_assert_true((h->id >= 0 && h->id <= HANDLE_MOVE_ENDPOINT)
+	dia_assert_true((h->id <= HANDLE_MOVE_ENDPOINT)
 			|| (h->id >= HANDLE_CUSTOM1 && h->id <= HANDLE_CUSTOM9),
 			"%s: Object %p handle %d (%p) has wrong id %d\n", 
 			msg, obj, i, h, h->id);
 	/* Check handle type */
-	dia_assert_true(h->type >= 0 && h->type <= NUM_HANDLE_TYPES,
+	dia_assert_true(h->type <= NUM_HANDLE_TYPES,
 			"%s: Object %p handle %d (%p) has wrong type %d\n", 
 			msg, obj, i, h, h->type);
 	/* Check handle pos is legal pos */
 	/* Check connect type is legal */
-	dia_assert_true(h->connect_type >= 0
-			&& h->connect_type <= HANDLE_CONNECTABLE_NOBREAK,
+	dia_assert_true(h->connect_type <= HANDLE_CONNECTABLE_NOBREAK,
 			"%s: Object %p handle %d (%p) has wrong connect type %d\n", 
 			msg, obj, i, h, h->connect_type);
 	/* Check that if connected, connection makes sense */

@@ -29,7 +29,7 @@ enum ShowAgainStyle {
 };
 
 typedef void (*MessageInternal)(const char *title, enum ShowAgainStyle showAgain,
-				const char *fmt,
+				char const *fmt,
                                 va_list args,  va_list args2);
 
 void set_message_func(MessageInternal func);

@@ -2047,7 +2047,7 @@ arrow_draw(DiaRenderer *renderer, ArrowType type,
 static void
 sanitize_arrow(Arrow *arrow, DiaContext *ctx)
 {
-  if (arrow->type < 0 || arrow->type > MAX_ARROW_TYPE) {
+  if (arrow->type > MAX_ARROW_TYPE) {
     dia_context_add_message(ctx, _("Arrow head of unknown type"));
     arrow->type = ARROW_NONE;
     arrow->width = DEFAULT_ARROW_WIDTH;
@@ -2186,7 +2186,7 @@ get_arrow_names(void)
 const gchar *
 arrow_get_name_from_type(ArrowType type)
 {
-  if (type >= 0 && type < MAX_ARROW_TYPE) {
+  if (type < MAX_ARROW_TYPE) {
     return arrow_types[arrow_index_from_type(type)].name;
   }
   return _("unknown arrow");
