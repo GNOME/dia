@@ -50,6 +50,14 @@
 #include "attributes.h"
 #include "pattern.h"
 
+/*!
+ * \defgroup SvgImport Import SVG
+ * \ingroup SvgPlugin
+ * \brief Based on \ref DiaSvg this plug-in translates SVG to Dia \ref StandardObjects.
+ *
+ * Sometimes SVG import is the only way to create complex objects ...
+ */
+
 static gboolean import_svg (xmlDocPtr doc, DiagramData *dia, DiaContext *ctx, void* user_data);
 static GPtrArray *make_element_props(real xpos, real ypos, real width, real height);
 
@@ -66,9 +74,12 @@ get_colour(gint32 c, real opacity)
     return colour;
 }
 
-/* Dia default scale is 20px per cm; the user scale *should* be dynamic but this would 
+/*!
+ * \brief SVG Default Scale
+ * Dia default scale is 20px per cm; the user scale *should* be dynamic but this would 
  * involve a  much more complicated approach than implemented in this importer, e.g.
  * full transformations and dynamic scale to view port (viewBox).
+ * \ingroup SvgImport
  */
 const gdouble DEFAULT_SVG_SCALE = 20.0;
 static gdouble user_scale = 20.0;
@@ -77,6 +88,7 @@ static gdouble user_scale = 20.0;
  * Read a numeric value from a string taking unit into account. 
  * The signature is the same as g_ascii_strtod but also reads 
  * the unit if there is one
+ * \ingroup SvgImport
  */
 static gdouble
 get_value_as_cm (const gchar *nptr,
@@ -198,7 +210,11 @@ _node_get_real (xmlNodePtr node, const char *name, real defval)
     return val;
 }
 
-/* <use/> has x and y attributes, use to position */
+/*!
+ * \brief Translate an existing object to a new position
+ * <use/> has x and y attributes, use to position
+ * \ingroup SvgImport
+ */
 static void
 use_position (DiaObject *obj, xmlNodePtr node)
 {
@@ -300,7 +316,7 @@ use_position (DiaObject *obj, xmlNodePtr node)
  *  - referenced style definitions (e.g. url())
  *  - fill-rule, overflow, clip, ....
  *
- * \ingroup DiaSvg
+ * \ingroup SvgImport
  */
 static void
 _css_parse_style (DiaSvgStyle *s, real user_scale,
@@ -366,7 +382,8 @@ _css_parse_style (DiaSvgStyle *s, real user_scale,
 }
 
 /*!
- * \brief from the given node derive the css style if any
+ * \brief from the given node derive the CSS style if any
+ * \ingroup SvgImport
  */
 static void
 _node_css_parse_style (xmlNodePtr node,
@@ -414,7 +431,18 @@ _set_pattern_from_key (DiaObject *obj, BoolProperty *bprop,
   }
 }
 
-/* apply SVG style to object */
+/*!
+ * \brief apply SVG style to object
+ * Styling with SVG is a complicated thing. The style can be given with:
+ *  - single attributes on the node
+ *  - a style attribute on the node
+ *  - accumulation from parent objects/groups
+ *  - a reference to further information in single or style attribute
+ *  - inheritance from object type, class, id or a combination thereof
+ * This method uses all of this information to apply the best style approximation
+ * possible with DIa's rendering model.
+ * \ingroup SvgImport
+ */
 static void
 apply_style(DiaObject *obj, xmlNodePtr node, DiaSvgStyle *parent_style,
 	    GHashTable *style_ht, GHashTable *pattern_ht, gboolean init)
@@ -496,8 +524,7 @@ apply_style(DiaObject *obj, xmlNodePtr node, DiaSvgStyle *parent_style,
       }
       /* apply pattern, gradient if any */
       str = xmlGetProp(node, (const xmlChar *)"fill");
-      if (str)
-      {
+      if (str) {
 	const char *left = strstr ((const char*)str, "url(#");
 	const char *right = strrchr ((const char*)str, ')');
 	if (left && right) {
@@ -544,8 +571,10 @@ apply_style(DiaObject *obj, xmlNodePtr node, DiaSvgStyle *parent_style,
  * \brief Elements (poly, path) can be closed style, too.
  *
  * Even though there is a dedicated type for polygon and a specific path data
- * element to close a path ('z') there are variants to close polyline and path
+ * element to close a path ('z') there are variants to close _Polyline and path
  * without them. This function checks the given styles to enable this closing.
+ *
+ * \ingroup SvgImport
  */
 static gboolean
 _node_closed_by_style (xmlNodePtr node, DiaSvgStyle *parent_style)
@@ -565,10 +594,23 @@ _node_closed_by_style (xmlNodePtr node, DiaSvgStyle *parent_style)
 }
 
 
-/* all the basic SVG elements allow their own transformation which
- * is not directly supported by Dia and also not especially useful 
+/*!
+ * \brief Read a SVG path element
+ *
+ * This function parses a SVG path element into a Dia object. All
+ * the heavy lifting is done with dia_svg_parse_path() which is called multiple
+ * times but it's result is accumulated into a single object.
+ *
+ * The result of this method is a path represented in Dia as _Bezierline,
+ * _Beziergon or _StdPath
+ *
+ * All the basic SVG elements allow their own transformation which
+ * is not directly supported by Dia and also not especially useful.
+ * For path elements it is just an easy transformation of all the
+ * single points, so it is done here.
+ *
+ * \ingroup SvgImport
  */
-/* read a path */
 static GList *
 read_path_svg(xmlNodePtr node, DiaSvgStyle *parent_style,
 	      GHashTable *style_ht, GHashTable *pattern_ht,
@@ -689,7 +731,10 @@ read_path_svg(xmlNodePtr node, DiaSvgStyle *parent_style,
     return list;
 }
 
-/* read a text */
+/*!
+ * \brief Read a SVG text element
+ * \ingroup SvgImport
+ */
 static GList *
 read_text_svg(xmlNodePtr node, DiaSvgStyle *parent_style,
 	      GHashTable *style_ht, GHashTable *pattern_ht,
@@ -835,7 +880,11 @@ read_text_svg(xmlNodePtr node, DiaSvgStyle *parent_style,
     return list;
 }
 
-/* read a polygon or a polyline */
+/*!
+ * \brief Read a polygon or a polyline
+ * Create a _Polyline or _Polygon from the SVG element at node.
+ * \ingroup SvgImport
+ */
 static GList *
 read_poly_svg(xmlNodePtr node, DiaSvgStyle *parent_style,
 	      GHashTable *style_ht, GHashTable *pattern_ht,
@@ -910,7 +959,11 @@ read_poly_svg(xmlNodePtr node, DiaSvgStyle *parent_style,
     return list;
 }
 
-/* read an ellipse or circle */
+/*!
+ * \brief Read an ellipse or circle from SVG
+ * Creates only _Ellipse objects, but could set the 'circle property'.
+ * \ingroup SvgImport
+ */
 static GList *
 read_ellipse_svg(xmlNodePtr node, DiaSvgStyle *parent_style,
 		 GHashTable *style_ht, GHashTable *pattern_ht,
@@ -965,7 +1018,10 @@ read_ellipse_svg(xmlNodePtr node, DiaSvgStyle *parent_style,
   return g_list_append (list, new_obj);
 }
 
-/* read a line */
+/*! 
+ * \brief Read a line element from SVG
+ * \ingroup SvgImport
+ */
 static GList *
 read_line_svg(xmlNodePtr node, DiaSvgStyle *parent_style,
 	      GHashTable *style_ht, GHashTable *pattern_ht,
@@ -1019,7 +1075,10 @@ read_line_svg(xmlNodePtr node, DiaSvgStyle *parent_style,
   return g_list_append (list, new_obj);
 }
 
-/* read a rectangle */
+/*!
+ * \brief Read a rectangle element from SVG
+ * \ingroup SvgImport
+ */
 static GList *
 read_rect_svg(xmlNodePtr node, DiaSvgStyle *parent_style,
 	      GHashTable *style_ht, GHashTable *pattern_ht,
@@ -1104,6 +1163,11 @@ read_rect_svg(xmlNodePtr node, DiaSvgStyle *parent_style,
   return list;
 }
 
+/*!
+ * \brief Read SVG image element
+ * The result is an _Image object in the list.
+ * \ingroup SvgImport
+ */
 static GList *
 read_image_svg(xmlNodePtr node, DiaSvgStyle *parent_style,
 	       GHashTable *style_ht, GHashTable *pattern_ht,
@@ -1210,9 +1274,11 @@ read_image_svg(xmlNodePtr node, DiaSvgStyle *parent_style,
 /*!
  * \brief Parse gradient including stop-colors
  *
- * Parse a radial or linear gradient and into a DiaPattern.
+ * Parse a radial or linear gradient into a DiaPattern.
  * Missing attribute handling for:
- *  - gradients via CSS
+ *  - gradients via CSS (??)
+ *
+ * \ingroup SvgImport
  */
 static DiaPattern *
 read_gradient (xmlNodePtr node, DiaSvgStyle *parent_gs, GHashTable  *pattern_ht, DiaContext *ctx)
@@ -1324,6 +1390,8 @@ read_gradient (xmlNodePtr node, DiaSvgStyle *parent_gs, GHashTable  *pattern_ht,
  * 
  * @node : containing the style
  * @ht: hash table with style key and style string
+ *
+ * \ingroup SvgImport
  */
 static void
 read_style (xmlNodePtr node, GHashTable *ht)
@@ -1389,6 +1457,8 @@ add_def (gpointer       data,
  *
  * @param node  element containing the viewBox attribute
  * @param mat   out parameter for optional matrix transform
+ *
+ * \ingroup SvgImport
  */
 static void
 _node_read_viewbox (xmlNodePtr root, DiaMatrix **mat)
@@ -1468,6 +1538,8 @@ _node_read_viewbox (xmlNodePtr root, DiaMatrix **mat)
  * @param filename_svg SVG filename for better error messages
  * @param ctx context to keep error messages grouped
  * @return a list of _DiaObject
+ *
+ * \ingroup SvgImport
  */
 static GList*
 read_items (xmlNodePtr   startnode, 
@@ -1716,6 +1788,8 @@ read_items (xmlNodePtr   startnode,
  *
  * This function shall be called before read_items to allow referencing of the
  * definitions in the latter.
+ *
+ * \ingroup SvgImport
  */
 static void
 read_defs (xmlNodePtr   startnode, 
@@ -1807,6 +1881,16 @@ read_defs (xmlNodePtr   startnode,
   }
 }
 
+/*!
+ * \defgroup ShapeImport Shape Import
+ * \ingroup SvgPlugin
+ * \brief Import SVG from Dia shape file
+ */
+
+/*!
+ * \brief Parse a shape connection point node
+ * \ingroup ShapeImport
+ */
 static gboolean
 _parse_shape_cp (xmlNodePtr node, real *x, real *y, gboolean *mcp)
 {
@@ -1827,6 +1911,12 @@ _parse_shape_cp (xmlNodePtr node, real *x, real *y, gboolean *mcp)
   return ret;
 }
 
+/*!
+ * \brief Import a Dia .shape file
+ * The Dia Shape file format consists of simple SVG plus some additional information
+ * in the shape name space.
+ * \ingroup ShapeImport
+ */
 static gboolean
 import_shape_info (xmlNodePtr start_node, DiagramData *dia, DiaContext *ctx)
 {
@@ -1883,6 +1973,10 @@ import_shape_info (xmlNodePtr start_node, DiagramData *dia, DiaContext *ctx)
   return TRUE;
 }
 
+/*!
+ * \brief Import an SVG file from the given memory block
+ * \ingroup SvgImport
+ */
 static gboolean
 import_memory_svg (const guchar *p, guint size, DiagramData *dia,
 		   DiaContext *ctx, void *user_data)
@@ -1898,7 +1992,11 @@ import_memory_svg (const guchar *p, guint size, DiagramData *dia,
   return import_svg (doc, dia, ctx, user_data);
 }
 
-/* imports the given SVG file, returns TRUE if successful */
+/*!
+ * \brief Imports the SVG file given by file name
+ * @return TRUE if successful
+ * \ingroup SvgImport
+ */
 static gboolean
 import_file_svg(const gchar *filename, DiagramData *dia, DiaContext *ctx, void* user_data) 
 {

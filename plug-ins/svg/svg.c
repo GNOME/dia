@@ -25,6 +25,16 @@
 #include "filter.h"
 #include "plug-ins.h"
 
+/*!
+ * \defgroup SvgPlugin SVG Plug-in
+ * \ingroup Plugins
+ * \brief SVG Import/Export Plug-in
+ *
+ * One of the more capable exchange formats supported by Dia is SVG.
+ * It is used internally for Shapes (\sa ObjectCustom) but is also available
+ * for diagram/image exchange via file or clipboard.
+ */
+
 extern DiaExportFilter svg_export_filter;
 extern DiaImportFilter svg_import_filter;
 

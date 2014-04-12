@@ -53,14 +53,14 @@ typedef struct _DiaCairoRenderer DiaCairoRenderer;
 typedef struct _DiaCairoRendererClass DiaCairoRendererClass;
 
 /*!
- * \brief Multi format renderer based aon cairo API (http://cairographics.org)
+ * \brief Multi format renderer based on cairo API (http://cairographics.org)
  *
  * The DiaCairoRenderer supports various output formats depending on the build
- * configration of libcairo. Typically these include SVG, PNG, PDF, PostScript
+ * configuration of libcairo. Typically these include SVG, PNG, PDF, PostScript
  * and the display of the windowing system in use.
  * Also - with a recent enough GTK+ version the cairo renderer is interfacing 
  * the native printing subsystem.
- * Finally - only on Windows - there is ususally support for Windows Metafiles
+ * Finally - only on Windows - there is usually support for Windows Metafiles
 * (WMF and EMF), the latter used for Clipboard transport of the whole diagram.
  * \extends _DiaRenderer
  */

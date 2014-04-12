@@ -58,8 +58,19 @@ typedef struct _SvgRenderer SvgRenderer;
 typedef struct _SvgRendererClass SvgRendererClass;
 
 /*!
- * \brief Svg renderer written in C
+ * \defgroup SvgExport SVG Export
+ * \ingroup SvgPlugin
+ * \brief SVG renderer written in C
  *
+ * The export to SVG is based on the _SvgRenderer. It is meant to create SVG
+ * as close as possible reflecting the visual and logical appearance of the
+ * diagram:
+ * - layers are represented as groups with the layer name as id
+ * - every object is represented as group, too.
+ */
+
+/*!
+ * \brief Renderer for SVG export
  * \extends _DiaSvgRenderer
  * \bug Doxygen chokes on this file and simply ignores dox after parents
  */
@@ -218,11 +229,11 @@ svg_renderer_class_init (SvgRendererClass *klass)
 }
 
 /*!
- * \brief Cration and intialization of the SvgRenderer
+ * \brief Creation and initialization of the SvgRenderer
  *
  * Using the same base class as the Shape renderer, but with slightly
  * different parameters. Here we want to be as compatible as feasible
- * with the SVG specification to support proper diagram exchage.
+ * with the SVG specification to support proper diagram exchange.
  *
  * \memberof SvgRenderer
  */
@@ -583,7 +594,7 @@ draw_text (DiaRenderer *self, Text *text)
 
 /*!
  * \brief Callback function registered for export
- * \ingroup ExportFilters
+ * \ingroup SvgExport
  */
 static gboolean
 export_svg(DiagramData *data, DiaContext *ctx,

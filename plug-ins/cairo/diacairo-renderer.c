@@ -467,7 +467,7 @@ set_linestyle(DiaRenderer *self, LineStyle mode)
 
 static void
 set_dashlength(DiaRenderer *self, real length)
-{  
+{
   DiaCairoRenderer *renderer = DIA_CAIRO_RENDERER (self);
 
   DIAG_NOTE(g_message("set_dashlength %f", length));
@@ -1050,12 +1050,15 @@ draw_image(DiaRenderer *self,
   cairo_translate (renderer->cr, point->x, point->y);
   cairo_scale (renderer->cr, width/w, height/h);
   cairo_move_to (renderer->cr, 0.0, 0.0);
-  /* maybe just the second set_filter is required */
-#if 0
-  cairo_surface_set_filter (renderer->surface, CAIRO_FILTER_BEST);
-  cairo_surface_set_filter (surface, CAIRO_FILTER_BEST);
-#endif
   cairo_set_source_surface (renderer->cr, surface, 0.0, 0.0);
+#if 0
+  /*
+   * CAIRO_FILTER_FAST: aka. CAIRO_FILTER_NEAREST
+   * CAIRO_FILTER_GOOD: maybe bilinear, "reasonable-performance filter" (default?)
+   * CAIRO_FILTER_BEST: "may not be suitable for interactive use"
+   */
+  cairo_pattern_set_filter (cairo_get_source (renderer->cr), CAIRO_FILTER_BILINEAR);
+#endif
   cairo_paint (renderer->cr);
   cairo_restore (renderer->cr);
   cairo_surface_destroy (surface);
