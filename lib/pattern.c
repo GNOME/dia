@@ -106,7 +106,7 @@ dia_pattern_new (DiaPatternType pt, guint flags, real x, real y)
  * \brief Set the other point of the pattern
  *
  * The meaning of the point depends on the type of the pattern.
- * For line gradient it is the second point giving the direction.
+ * For linear gradient it is the second point giving the direction.
  * With a radial gradient it is the focal point.
  *
  * \ingroup DiaPattern
@@ -233,16 +233,6 @@ dia_pattern_get_fallback_color (DiaPattern *self, Color *color)
     *color = g_array_index (self->stops, ColorStop, 0).color;
   else
     *color = color_black;
-}
-
-/*!
- * \brief Drop the reference count
- * \ingroup DiaPattern
- */
-void
-dia_pattern_release (DiaPattern *pattern)
-{
-  g_object_unref (pattern);
 }
 
 /*!

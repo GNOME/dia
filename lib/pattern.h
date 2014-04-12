@@ -56,8 +56,6 @@ void dia_pattern_get_settings (DiaPattern *pattern, DiaPatternType *type, guint 
 typedef gboolean (*DiaColorStopFunc) (real ofs, const Color *col, gpointer user_data);
 void dia_pattern_foreach (DiaPattern *pattern, DiaColorStopFunc fn, gpointer user_data);
 
-void dia_pattern_release (DiaPattern *pattern);
-
 G_END_DECLS
 
 #endif /* PATTERN_H */

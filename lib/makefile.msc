@@ -74,6 +74,7 @@ OBJECTS = \
 	diainteractiverenderer.obj \
 	diarenderer.obj \
 	diapathrenderer.obj \
+	diapatternselector.obj \
 	diatransformrenderer.obj \
 	diasvgrenderer.obj \
 	dynamic_obj.obj \

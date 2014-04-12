@@ -31,7 +31,7 @@
 #include "propinternals.h"
 #include "pattern.h"
 #include "prop_pattern.h"
-#include "message.h"
+#include "diapatternselector.h"
 
 static PatternProperty *
 patternprop_new(const PropDescription *pdesc, PropDescToPropPredicate reason)
@@ -49,7 +49,7 @@ static void
 patternprop_free(PatternProperty *prop) 
 {
   if (prop->pattern)
-    dia_pattern_release(prop->pattern);
+    g_object_unref (prop->pattern);
   g_free(prop);
 } 
 
@@ -206,46 +206,28 @@ patternprop_set_from_offset(PatternProperty *prop,
     struct_member(base,offset, DiaPattern *) = NULL;
 }
 
-/* GUI stuff - not yet 
-   - allow to crop
-   - maybe scale
- */
-static void
-_pattern_toggled(GtkWidget *wid)
-{
-  if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(wid)))
-    gtk_label_set_text(GTK_LABEL(gtk_bin_get_child(GTK_BIN(wid))), _("Yes"));
-  else
-    gtk_label_set_text(GTK_LABEL(gtk_bin_get_child(GTK_BIN(wid))), _("No"));
-}
-
 static GtkWidget *
 patternprop_get_widget (PatternProperty *prop, PropDialog *dialog) 
 { 
-  GtkWidget *ret = gtk_toggle_button_new_with_label(_("No"));
-  g_signal_connect(G_OBJECT(ret), "toggled",
-                   G_CALLBACK (_pattern_toggled), NULL);
-  prophandler_connect(&prop->common, G_OBJECT(ret), "toggled");
+  GtkWidget *ret = dia_pattern_selector_new ();
+  prophandler_connect(&prop->common, G_OBJECT(ret), "value_changed");
   return ret;
 }
 
 static void
 patternprop_reset_widget(PatternProperty *prop, GtkWidget *widget)
 {
-  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(widget),prop->pattern != NULL);
+  dia_pattern_selector_set_pattern (widget, prop->pattern);
 }
 
 static void
 patternprop_set_from_widget(PatternProperty *prop, GtkWidget *widget) 
 {
-  if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(widget))) {
-    if (!prop->pattern)
-      message_warning (_("Cant create pattern from scratch!"));
-  } else {
-    if (prop->pattern)
-      g_object_unref (prop->pattern);
-    prop->pattern = NULL;
-  }
+  DiaPattern *pat = dia_pattern_selector_get_pattern (widget);
+
+  if (prop->pattern)
+    g_object_unref (prop->pattern);
+  prop->pattern = pat;
 }
 
 static const PropertyOps patternprop_ops = {

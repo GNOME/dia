@@ -306,7 +306,6 @@ EXPORTS
  dia_pattern_set_pattern
  dia_pattern_set_point
  dia_pattern_set_radius
- dia_pattern_release
  data_add_pattern
  data_pattern
  dia_object_set_pattern
