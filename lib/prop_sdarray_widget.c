@@ -82,10 +82,10 @@ _cell_renderer_real_new (const Property *p)
   GtkAdjustment *adj;
 
   /* must be non NULL to make it editable */
-  adj = gtk_adjustment_new (prop->real_data,
+  adj = GTK_ADJUSTMENT (gtk_adjustment_new (prop->real_data,
 			    numdata->min, numdata->max,
 			    numdata->step, 
-			    10.0 * numdata->step, 0);
+			    10.0 * numdata->step, 0));
 
   g_object_set (G_OBJECT (cren), "adjustment", adj, NULL);
 
