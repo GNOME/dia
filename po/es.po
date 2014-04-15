@@ -21,7 +21,7 @@ msgstr ""
 "Project-Id-Version: dia.HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=dia&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2014-03-17 04:15+0000\n"
+"POT-Creation-Date: 2014-04-15 03:19+0000\n"
 "PO-Revision-Date: 2014-03-17 14:07+0100\n"
 "Last-Translator: Miguel Rodríguez Núñez <bokerones.fritos@gmail.com>\n"
 "Language-Team: Español; Castellano <gnome-es-list@gnome.org>\n"
@@ -250,7 +250,7 @@ msgstr ""
 msgid "Exiting Dia"
 msgstr "Salir de Dia"
 
-#: ../app/app_procs.c:1065 ../app/display.c:1249 ../app/exit_dialog.c:115
+#: ../app/app_procs.c:1065 ../app/display.c:1248 ../app/exit_dialog.c:115
 #: ../app/filedlg.c:582
 msgid "Save"
 msgstr "Guardar"
@@ -718,21 +718,21 @@ msgstr "Propiedades…"
 msgid "Follow link…"
 msgstr "Seguir enlace…"
 
-#: ../app/disp_callbacks.c:216 ../objects/standard/bezier.c:785
+#: ../app/disp_callbacks.c:215 ../objects/standard/bezier.c:785
 #: ../objects/standard/beziergon.c:549 ../objects/standard/box.c:784
 #: ../objects/standard/textobj.c:450
 msgid "Convert to Path"
 msgstr "Convertir a ruta"
 
-#: ../app/disp_callbacks.c:345
+#: ../app/disp_callbacks.c:344
 msgid "Selection"
 msgstr "Selección"
 
-#: ../app/disp_callbacks.c:360
+#: ../app/disp_callbacks.c:359
 msgid "Input _Methods"
 msgstr "_Métodos de entrada"
 
-#: ../app/disp_callbacks.c:1128
+#: ../app/disp_callbacks.c:1127
 msgid ""
 "The object you dropped cannot fit into its parent. \n"
 "Either expand the parent object, or drop the object elsewhere."
@@ -756,20 +756,20 @@ msgid "Selected '%s'"
 msgstr "Seleccionados «%s»"
 
 #. we really should not come here but instead disable the menu command earlier
-#: ../app/display.c:1137
+#: ../app/display.c:1136
 msgid "No antialiased renderer found"
 msgstr "No se encontró el renderizador antialias"
 
-#: ../app/display.c:1295
+#: ../app/display.c:1294
 msgid "<unnamed>"
 msgstr "<sin nombre>"
 
 #. no standard buttons
-#: ../app/display.c:1301
+#: ../app/display.c:1300
 msgid "Closing diagram without saving"
 msgstr "Cerrando el diagrama sin guardar"
 
-#: ../app/display.c:1303
+#: ../app/display.c:1302
 #, c-format
 msgid ""
 "The diagram '%s'\n"
@@ -778,11 +778,11 @@ msgstr ""
 "Este diagrama «%s»\n"
 "no ha sido guardado. ¿Guardar los cambios ahora?"
 
-#: ../app/display.c:1305
+#: ../app/display.c:1304
 msgid "Close Diagram"
 msgstr "Cerrar el diagrama"
 
-#: ../app/display.c:1310
+#: ../app/display.c:1309
 msgid "_Discard Changes"
 msgstr "_Descartar los cambios"
 
@@ -867,7 +867,7 @@ msgid ""
 "Do you want to overwrite it?"
 msgstr ""
 "El archivo «%s» ya existe.\n"
-"¿Quiere sobreescribirlo?"
+"¿Quiere sobrescribirlo?"
 
 #: ../app/filedlg.c:425
 msgid "Save as"
@@ -1077,11 +1077,11 @@ msgstr ""
 msgid "Can't find parent %s of %s object\n"
 msgstr "No se pudo encontrar el objeto padre %s de %s\n"
 
-#: ../app/load_save.c:394
+#: ../app/load_save.c:393
 msgid "You must specify a file, not a directory."
 msgstr "Debe especificar un archivo, no una carpeta."
 
-#: ../app/load_save.c:401 ../plug-ins/dxf/dxf-import.c:1289
+#: ../app/load_save.c:400 ../plug-ins/dxf/dxf-import.c:1289
 #: ../plug-ins/wpg/wpg.c:1195 ../plug-ins/xfig/xfig-import.c:1288
 #: ../plug-ins/xslt/xslt.c:97
 #, c-format
@@ -1089,12 +1089,12 @@ msgid "Couldn't open: '%s' for reading.\n"
 msgstr "No se pudo abrir: «%s» para lectura.\n"
 
 #. this was talking about unknown file type but it could as well be broken XML
-#: ../app/load_save.c:419
+#: ../app/load_save.c:418
 #, c-format
 msgid "Error loading diagram %s."
 msgstr "Error al cargar el diagrama %s."
 
-#: ../app/load_save.c:428
+#: ../app/load_save.c:427
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -1103,7 +1103,7 @@ msgstr ""
 "Error al cargar el diagrama %s.\n"
 "Tipo de archivo desconocido."
 
-#: ../app/load_save.c:436
+#: ../app/load_save.c:435
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -1112,11 +1112,11 @@ msgstr ""
 "Error al cargar el diagrama %s.\n"
 "No es un archivo de Dia."
 
-#: ../app/load_save.c:681
+#: ../app/load_save.c:680
 msgid "Error reading connections"
 msgstr "Error al leer las conexiones"
 
-#: ../app/load_save.c:701
+#: ../app/load_save.c:700
 #, c-format
 msgid ""
 "Error loading diagram:\n"
@@ -1127,31 +1127,31 @@ msgstr ""
 "%s.\n"
 "Un archivo válido de Dia define al menos una capa."
 
-#: ../app/load_save.c:1002
+#: ../app/load_save.c:1001
 msgid "Error saving connections"
 msgstr "Error al guardar las conexiones"
 
-#: ../app/load_save.c:1007
+#: ../app/load_save.c:1006
 #, c-format
 msgid "Connection saving is incomplete for layer '%s'"
 msgstr "El almacenamiento de la conexión para la capa «%s» está incompleto"
 
-#: ../app/load_save.c:1060
+#: ../app/load_save.c:1059
 #, c-format
 msgid "Not allowed to write to output file %s\n"
 msgstr "No hay permiso para escribir el archivo de salida %s\n"
 
-#: ../app/load_save.c:1092
+#: ../app/load_save.c:1091
 #, c-format
 msgid "Not allowed to write temporary files in %s\n"
 msgstr "No se permite escribir archivos temporales en %s\n"
 
-#: ../app/load_save.c:1115 ../plug-ins/cgm/cgm.c:1181
+#: ../app/load_save.c:1114 ../plug-ins/cgm/cgm.c:1181
 #: ../plug-ins/dxf/dxf-export.c:599
 #: ../plug-ins/metapost/render_metapost.c:1179
 #: ../plug-ins/pgf/render_pgf.c:1207 ../plug-ins/postscript/render_eps.c:123
 #: ../plug-ins/pstricks/render_pstricks.c:917
-#: ../plug-ins/vdx/vdx-export.c:1801 ../plug-ins/wmf/wmf.cpp:1375
+#: ../plug-ins/vdx/vdx-export.c:1801 ../plug-ins/wmf/wmf.cpp:1376
 #: ../plug-ins/wpg/wpg.c:1087 ../plug-ins/xfig/xfig-export.c:1178
 #, c-format
 msgid "Can't open output file %s"
@@ -1159,22 +1159,22 @@ msgstr "No se pudo abrir el archivo de salida %s"
 
 #. Save failed; we clean our stuff up, without touching the file named
 #. "filename" if it existed.
-#: ../app/load_save.c:1126
+#: ../app/load_save.c:1125
 #, c-format
 msgid "Internal error %d writing file %s\n"
 msgstr "Error interno %d escribiendo archivo %s\n"
 
-#: ../app/load_save.c:1137
+#: ../app/load_save.c:1136
 #, c-format
 msgid "Can't rename %s to final output file %s: %s\n"
 msgstr "No se pudo renombrar %s al archivo final de salida %s: %s\n"
 
 #. no extra threads supported, stay in this one
-#: ../app/load_save.c:1253 ../app/load_save.c:1263 ../app/load_save.c:1271
+#: ../app/load_save.c:1252 ../app/load_save.c:1262 ../app/load_save.c:1270
 msgid "Auto save"
 msgstr "Guardado automático"
 
-#: ../app/load_save.c:1295 ../app/load_save.c:1300
+#: ../app/load_save.c:1294 ../app/load_save.c:1299
 msgid "Dia Diagram File"
 msgstr "Archivo de diagrama de Dia"
 
@@ -1884,11 +1884,11 @@ msgstr "Scalable Vector Graphics"
 msgid "PostScript"
 msgstr "PostScript"
 
-#: ../app/preferences.c:228 ../plug-ins/wmf/wmf.cpp:1477
+#: ../app/preferences.c:228 ../plug-ins/wmf/wmf.cpp:1478
 msgid "Windows Metafile"
 msgstr "Meta archivo de Windows"
 
-#: ../app/preferences.c:230 ../plug-ins/wmf/wmf.cpp:1486
+#: ../app/preferences.c:230 ../plug-ins/wmf/wmf.cpp:1487
 msgid "Enhanced Metafile"
 msgstr "Meta archivo mejorado"
 
@@ -2687,71 +2687,71 @@ msgstr ""
 "El archivo %s no tiene especificada la codificación;\n"
 "suponiendo que está codificado en %s"
 
-#: ../lib/dia_xml.c:512
+#: ../lib/dia_xml.c:511
 #, c-format
 msgid "Unknown type of DataNode '%s'"
 msgstr "Tipo de DataNode desconocido «%s»"
 
-#: ../lib/dia_xml.c:531
+#: ../lib/dia_xml.c:530
 msgid "Taking int value of non-int node."
 msgstr "Tomar el valor entero de un nodo que no es entero."
 
-#: ../lib/dia_xml.c:707
+#: ../lib/dia_xml.c:706
 msgid "Taking point value of non-point node."
 msgstr "Tomar el valor del punto de un nodo que no es un punto."
 
-#: ../lib/dia_xml.c:718
+#: ../lib/dia_xml.c:717
 #, c-format
 msgid "Incorrect x Point value \"%s\" %f; discarding it."
 msgstr "Valor incorrecto del punto x «%s» %f; se descarta."
 
-#: ../lib/dia_xml.c:725
+#: ../lib/dia_xml.c:724
 msgid "Error parsing point."
 msgstr "Error al analizar el punto."
 
 #. don't bother with useless warnings (see above)
-#: ../lib/dia_xml.c:733
+#: ../lib/dia_xml.c:732
 #, c-format
 msgid "Incorrect y Point value \"%s\" %f; discarding it."
 msgstr "Valor incorrecto del punto y «%s» %f; se descarta."
 
-#: ../lib/dia_xml.c:753
+#: ../lib/dia_xml.c:752
 msgid "Taking bezpoint value of non-point node."
 msgstr "Tomar el valor del punto de un nodo que no es un punto."
 
-#: ../lib/dia_xml.c:771
+#: ../lib/dia_xml.c:770
 msgid "Error parsing bezpoint p1."
 msgstr "Error al analizar el punto p1."
 
-#: ../lib/dia_xml.c:785
+#: ../lib/dia_xml.c:784
 msgid "Error parsing bezpoint p2."
 msgstr "Error al analizar el punto p2."
 
-#: ../lib/dia_xml.c:799
+#: ../lib/dia_xml.c:798
 msgid "Error parsing bezpoint p3."
 msgstr "Error al analizar el punto p3."
 
-#: ../lib/dia_xml.c:826
+#: ../lib/dia_xml.c:825
 msgid "Taking rectangle value of non-rectangle node."
 msgstr "Tomar el valor de un rectángulo de un nodo que no es rectángulo."
 
-#: ../lib/dia_xml.c:838 ../lib/dia_xml.c:849 ../lib/dia_xml.c:860
+#: ../lib/dia_xml.c:837 ../lib/dia_xml.c:848 ../lib/dia_xml.c:859
 msgid "Error parsing rectangle."
 msgstr "Error analizando el rectángulo."
 
-#: ../lib/dia_xml.c:888
+#: ../lib/dia_xml.c:887
 msgid "Taking string value of non-string node."
 msgstr "Tomar una cadena de un nodo que no es cadena."
 
-#: ../lib/dia_xml.c:914
+#: ../lib/dia_xml.c:913
 msgid "Error in string tag."
 msgstr "Error en la etiqueta de cadena."
 
-#: ../lib/dia_xml.c:932
+#: ../lib/dia_xml.c:931
 msgid "Error in file, string not starting with #"
 msgstr "Error en el archivo, la cadena no empieza por #"
 
-#: ../lib/dia_xml.c:994
+#: ../lib/dia_xml.c:993
 msgid "Taking font value of non-font node."
 msgstr "Tomar una tipografía de un nodo que no es tipografía."
 
@@ -5962,7 +5962,7 @@ msgid "Clipboard copy failed"
 msgstr "Falló al copiar al portapapeles"
 
 #: ../plug-ins/cairo/diacairo.c:362 ../plug-ins/postscript/postscript.c:39
-#: ../plug-ins/wmf/wmf.cpp:1504
+#: ../plug-ins/wmf/wmf.cpp:1505
 msgid "Nothing to print"
 msgstr "Nada que imprimir"
 
@@ -6484,7 +6484,7 @@ msgstr "Formato de archivo Visio XML"
 msgid "Can't decode object %s"
 msgstr "No se puede decodificar el objeto %s"
 
-#: ../plug-ins/wmf/wmf.cpp:316
+#: ../plug-ins/wmf/wmf.cpp:317
 #, c-format
 msgid ""
 "Couldn't write file %s\n"
@@ -6493,7 +6493,7 @@ msgstr ""
 "No se pudo escribir el archivo %s\n"
 "%s"
 
-#: ../plug-ins/wmf/wmf.cpp:567
+#: ../plug-ins/wmf/wmf.cpp:568
 #, c-format
 msgid ""
 "Cannot render unknown font:\n"
@@ -6502,11 +6502,11 @@ msgstr ""
 "No se puede renderizar la tipografía desconocida:\n"
 "%s"
 
-#: ../plug-ins/wmf/wmf.cpp:1515
+#: ../plug-ins/wmf/wmf.cpp:1516
 msgid "Print (GDI) ..."
 msgstr "Imprimir (GDI)…"
 
-#: ../plug-ins/wmf/wmf.cpp:1531
+#: ../plug-ins/wmf/wmf.cpp:1532
 msgid "WMF export filter"
 msgstr "Filtro de exportación de WMF"
 
