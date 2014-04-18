@@ -10,7 +10,7 @@ tests:
 #	@test -z "${TEST_PROGS}" || ${GTESTER} --verbose ${TEST_PROGS}
 
 test: $(TEST_PROGS)
-	./objects ../objects//
+	DIA_SHAPE_PATH=../shapes ./objects ../objects//
 
 # rum make test as part of make check
 check-local: test
