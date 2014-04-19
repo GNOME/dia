@@ -904,17 +904,17 @@ _bezier (DiaRenderer *self,
     for (int i = 0; i < numpoints; ++i) {
         switch (points[i].type) {
 	case BezPoint::BEZ_MOVE_TO :
-	    W32::MoveToEx (renderer->hFileDC, SCX(points[i].p1.x), SCX(points[i].p1.y), NULL);
+	    W32::MoveToEx (renderer->hFileDC, SCX(points[i].p1.x), SCY(points[i].p1.y), NULL);
 	    break;
 	case BezPoint::BEZ_LINE_TO :
-	    W32::LineTo (renderer->hFileDC, SCX(points[i].p1.x), SCX(points[i].p1.y));
+	    W32::LineTo (renderer->hFileDC, SCX(points[i].p1.x), SCY(points[i].p1.y));
 	    break;
 	case BezPoint::BEZ_CURVE_TO :
 	  {
 	    W32::POINT pts[3] = {
-	      {SCX(points[i].p1.x), SCX(points[i].p1.y)},
-	      {SCX(points[i].p2.x), SCX(points[i].p2.y)},
-	      {SCX(points[i].p3.x), SCX(points[i].p3.y)}
+	      {SCX(points[i].p1.x), SCY(points[i].p1.y)},
+	      {SCX(points[i].p2.x), SCY(points[i].p2.y)},
+	      {SCX(points[i].p3.x), SCY(points[i].p3.y)}
 	    };
 	    W32::PolyBezierTo (renderer->hFileDC, pts, 3);
 	  }
