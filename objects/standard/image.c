@@ -218,8 +218,11 @@ image_set_props(Image *image, GPtrArray *props)
       if (pixbuf)
 	g_object_unref (pixbuf);
     } else {
-      if (image->pixbuf)
-        message_warning ("FIXME: handle pixbuf change!");
+      if (image->pixbuf) {
+	if (image->image)
+	  g_object_unref (image->image);
+	image->image = dia_image_new_from_pixbuf (image->pixbuf);
+      }
     }
   }
 
