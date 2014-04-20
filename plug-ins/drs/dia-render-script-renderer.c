@@ -2,7 +2,7 @@
  * Copyright (C) 1998 Alexander Larsson
  *
  * dia-render-script-renderer.c - plugin for dia
- * Copyright (C) 2009, Hans Breuer, <Hans@Breuer.Org>
+ * Copyright (C) 2009, 2014 Hans Breuer <hans@breuer.org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -40,14 +40,12 @@
 #include "diatransformrenderer.h"
 #include "group.h"
 
-static gpointer parent_class = NULL;
+G_DEFINE_TYPE (DrsRenderer, drs_renderer, DIA_TYPE_RENDERER);
 
 /* constructor */
 static void
-drs_renderer_init (GTypeInstance *self, gpointer g_class)
+drs_renderer_init (DrsRenderer *renderer)
 {
-  DrsRenderer *renderer = DRS_RENDERER (self);
-
   renderer->parents = g_queue_new ();
   renderer->save_props = FALSE;
   renderer->matrices = g_queue_new ();
@@ -64,37 +62,7 @@ drs_renderer_finalize (GObject *object)
   if (renderer->ctx)
     dia_context_release (renderer->ctx);
 
-  G_OBJECT_CLASS (parent_class)->finalize (object);  
-}
-
-static void drs_renderer_class_init (DrsRendererClass *klass);
-
-GType
-drs_renderer_get_type (void)
-{
-  static GType object_type = 0;
-
-  if (!object_type)
-    {
-      static const GTypeInfo object_info =
-      {
-        sizeof (DrsRendererClass),
-        (GBaseInitFunc) NULL,
-        (GBaseFinalizeFunc) NULL,
-        (GClassInitFunc) drs_renderer_class_init,
-        NULL,           /* class_finalize */
-        NULL,           /* class_data */
-        sizeof (DrsRenderer),
-        0,              /* n_preallocs */
-	drs_renderer_init /* init */
-      };
-
-      object_type = g_type_register_static (DIA_TYPE_RENDERER,
-                                            "DrsRenderer",
-                                            &object_info, 0);
-    }
-  
-  return object_type;
+  G_OBJECT_CLASS (drs_renderer_parent_class)->finalize (object);  
 }
 
 /* 
@@ -199,16 +167,23 @@ end_render(DiaRenderer *self)
 
   renderer->root = g_queue_pop_tail (renderer->parents);
 }
+static gboolean
+is_capable_to (DiaRenderer *self, RenderCapability cap)
+{
+  if (RENDER_ALPHA == cap)
+    return TRUE;
 
+  return FALSE;
+}
 
 static void
 _node_set_color (xmlNodePtr node, const char *name, const Color *color)
 {
   gchar *value;
   
-  value = g_strdup_printf ("#%02x%02x%02x",
-		           (int)(255*color->red), (int)(255*color->green),
-		           (int)(255*color->blue));
+  value = g_strdup_printf ("#%02x%02x%02x%02x",
+			   (int)(255*color->red), (int)(255*color->green),
+			   (int)(255*color->blue), (int)(255*color->alpha));
   xmlSetProp(node, (const xmlChar *)name, (xmlChar *)value);
   g_free (value);
 }
@@ -732,7 +707,7 @@ drs_renderer_class_init (DrsRendererClass *klass)
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
   DiaRendererClass *renderer_class = DIA_RENDERER_CLASS (klass);
 
-  parent_class = g_type_class_peek_parent (klass);
+  drs_renderer_parent_class = g_type_class_peek_parent (klass);
 
   object_class->finalize = drs_renderer_finalize;
 
@@ -780,4 +755,6 @@ drs_renderer_class_init (DrsRendererClass *klass)
   renderer_class->draw_text_line  = draw_text_line;
   /* TODO: more to come ... */
 #endif
+  /* other */
+  renderer_class->is_capable_to = is_capable_to;
 }

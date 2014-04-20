@@ -127,13 +127,15 @@ _parse_color (xmlNodePtr node, const char *attrib)
   Color *val = NULL;
 
   if (str) {
-    PangoColor color;
-    if (pango_color_parse (&color, (gchar *)str)) {
+    int r, g, b, a = 255;
+    int n = sscanf ((gchar *)str, "#%02x%02x%02x%02x", &r, &g, &b, &a);
+
+    if (n > 2) {
       val = g_new (Color, 1);
-      val->red = color.red / 65535.0; 
-      val->green = color.green / 65535.0; 
-      val->blue = color.blue / 65535.0;
-      val->alpha = 1.0;
+      val->red   = r / 255.0; 
+      val->green = g / 255.0; 
+      val->blue  = b / 255.0;
+      val->alpha = a / 255.0;
     }
     xmlFree(str);
   }
