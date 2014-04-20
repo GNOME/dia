@@ -435,7 +435,8 @@ textprop_set_from_offset(TextProperty *prop,
 {
   Text *text = struct_member(base,offset,Text *);
   text_set_string(text,prop->text_data);
-  text_set_attributes(text,&prop->attr);
+  if (prop->attr.color.alpha != 0.0) /* HACK */
+    text_set_attributes(text,&prop->attr);
 }
 
 static const PropertyOps textprop_ops = {

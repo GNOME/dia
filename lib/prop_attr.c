@@ -345,6 +345,8 @@ colorprop_set_from_offset(ColorProperty *prop,
     void *base2 = struct_member(base,offset,void*);
     g_return_if_fail (base2 != NULL);
     struct_member(base2,offset2,Color) = prop->color_data;
+    g_return_if_fail (offset2 == offsetof(Text, color));
+    text_set_color ((Text *)base2, &prop->color_data);
   }
 }
 
