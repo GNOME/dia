@@ -71,6 +71,7 @@ OBJECTS = \
 	diaerror.obj \
 	diagramdata.obj \
 	diagdkrenderer.obj \
+	diaimportrenderer.obj \
 	diainteractiverenderer.obj \
 	diarenderer.obj \
 	diapathrenderer.obj \

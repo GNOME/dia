@@ -1,0 +1,811 @@
+/* Dia -- an diagram creation/manipulation program
+ * Copyright (C) 1998 Alexander Larsson
+ *
+ * diaimportrenderer.c - Dia renderer class creating DiaObject(s)
+ *
+ * Copyright (C) 2014 Hans Breuer
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+ */
+#include <config.h>
+
+#include "diaimportrenderer.h"
+#include "object.h"
+#include "text.h"
+#include "create.h"
+#include "properties.h"
+#include "dia_image.h"
+#include "diatransformrenderer.h"
+#include "diapathrenderer.h"
+
+static void begin_render (DiaRenderer *, const Rectangle *update);
+static void end_render (DiaRenderer *);
+
+static void set_linewidth (DiaRenderer *renderer, real linewidth);
+static void set_linecaps (DiaRenderer *renderer, LineCaps mode);
+static void set_linejoin (DiaRenderer *renderer, LineJoin mode);
+static void set_linestyle (DiaRenderer *renderer, LineStyle mode);
+static void set_dashlength (DiaRenderer *renderer, real length);
+static void set_fillstyle (DiaRenderer *renderer, FillStyle mode);
+static void set_font (DiaRenderer *renderer, DiaFont *font, real height);
+
+static void draw_line (DiaRenderer *renderer,
+		       Point *start, Point *end,
+		       Color *color);
+static void fill_rect (DiaRenderer *renderer,
+		       Point *ul_corner, Point *lr_corner,
+		       Color *color);
+static void fill_polygon (DiaRenderer *renderer,
+			  Point *points, int num_points,
+			  Color *color);
+static void draw_arc (DiaRenderer *renderer,
+		      Point *center,
+		      real width, real height,
+		      real angle1, real angle2,
+		      Color *color);
+static void fill_arc (DiaRenderer *renderer,
+		      Point *center,
+		      real width, real height,
+		      real angle1, real angle2,
+		      Color *color);
+static void draw_ellipse (DiaRenderer *renderer,
+			  Point *center,
+			  real width, real height,
+			  Color *color);
+static void fill_ellipse (DiaRenderer *renderer,
+			  Point *center,
+			  real width, real height,
+			  Color *color);
+static void draw_bezier (DiaRenderer *renderer,
+			 BezPoint *points,
+			 int numpoints,
+			 Color *color);
+static void fill_bezier (DiaRenderer *renderer,
+			 BezPoint *points,
+			 int numpoints,
+			 Color *color);
+static void draw_string (DiaRenderer *renderer,
+			 const gchar *text,
+			 Point *pos,
+			 Alignment alignment,
+			 Color *color);
+static void draw_image (DiaRenderer *renderer,
+			Point *point,
+			real width, real height,
+			DiaImage *image);
+
+static void draw_rect (DiaRenderer *renderer,
+                       Point *ul_corner, Point *lr_corner,
+                       Color *color);
+static void draw_polyline (DiaRenderer *renderer,
+                           Point *points, int num_points,
+                           Color *color);
+static void draw_rounded_polyline (DiaRenderer *renderer,
+				   Point *points, int num_points,
+				   Color *color, real radius);
+static void draw_polygon (DiaRenderer *renderer,
+			  Point *points, int num_points,
+			  Color *color);
+
+static void draw_rounded_rect (DiaRenderer *renderer,
+			       Point *ul_corner, Point *lr_corner,
+			       Color *color, real radius);
+static void fill_rounded_rect (DiaRenderer *renderer,
+			       Point *ul_corner, Point *lr_corner,
+			      Color *color, real radius);
+static void draw_line_with_arrows  (DiaRenderer *renderer, 
+				    Point *start, Point *end, 
+				    real line_width,
+				    Color *line_color,
+				    Arrow *start_arrow,
+				    Arrow *end_arrow);
+static void draw_arc_with_arrows  (DiaRenderer *renderer, 
+				   Point *start, 
+				   Point *end,
+				   Point *midpoint,
+				   real line_width,
+				   Color *color,
+				   Arrow *start_arrow,
+				   Arrow *end_arrow);
+static void draw_polyline_with_arrows (DiaRenderer *renderer, 
+				       Point *points, int num_points,
+				       real line_width,
+				       Color *color,
+				       Arrow *start_arrow,
+				       Arrow *end_arrow);
+static void draw_rounded_polyline_with_arrows (DiaRenderer *renderer, 
+					       Point *points, int num_points,
+					       real line_width,
+					       Color *color,
+					       Arrow *start_arrow,
+					       Arrow *end_arrow,
+					       real radius);
+
+static void draw_bezier_with_arrows (DiaRenderer *renderer, 
+				     BezPoint *points,
+				     int num_points,
+				     real line_width,
+				     Color *color,
+				     Arrow *start_arrow,
+				     Arrow *end_arrow);
+
+static gboolean is_capable_to (DiaRenderer *renderer, RenderCapability cap);
+
+static void set_pattern (DiaRenderer *renderer, DiaPattern *pat);
+
+static gpointer parent_class = NULL;
+
+G_DEFINE_TYPE(DiaImportRenderer, dia_import_renderer, DIA_TYPE_RENDERER);
+
+static void
+renderer_finalize (GObject *object)
+{
+  DiaRenderer *renderer = DIA_RENDERER (object);
+
+  /* XXX: anything to destroy */
+
+  G_OBJECT_CLASS (parent_class)->finalize (object);
+}
+
+static void
+dia_import_renderer_class_init (DiaImportRendererClass *klass)
+{
+  GObjectClass *object_class = G_OBJECT_CLASS (klass);
+  DiaRendererClass *renderer_class = DIA_RENDERER_CLASS (klass);
+
+  parent_class = g_type_class_peek_parent (klass);
+
+  object_class->finalize = renderer_finalize;
+
+  renderer_class->begin_render = begin_render;
+  renderer_class->end_render   = end_render;
+
+  renderer_class->set_linewidth  = set_linewidth;
+  renderer_class->set_linecaps   = set_linecaps;
+  renderer_class->set_linejoin   = set_linejoin;
+  renderer_class->set_linestyle  = set_linestyle;
+  renderer_class->set_dashlength = set_dashlength;
+  renderer_class->set_fillstyle  = set_fillstyle;
+
+  renderer_class->draw_line    = draw_line;
+  renderer_class->fill_rect    = fill_rect;
+  renderer_class->fill_polygon = fill_polygon;
+  renderer_class->draw_arc     = draw_arc;
+  renderer_class->fill_arc     = fill_arc;
+  renderer_class->draw_ellipse = draw_ellipse;
+  renderer_class->fill_ellipse = fill_ellipse;
+  renderer_class->draw_string  = draw_string;
+  renderer_class->draw_image   = draw_image;
+
+  /* medium level functions */
+  renderer_class->draw_bezier  = draw_bezier;
+  renderer_class->fill_bezier  = fill_bezier;
+  renderer_class->draw_rect = draw_rect;
+  renderer_class->draw_rounded_polyline  = draw_rounded_polyline;
+  renderer_class->draw_polyline  = draw_polyline;
+  renderer_class->draw_polygon   = draw_polygon;
+
+  /* highest level functions */
+  renderer_class->draw_rounded_rect = draw_rounded_rect;
+  renderer_class->fill_rounded_rect = fill_rounded_rect;
+  renderer_class->draw_line_with_arrows = draw_line_with_arrows;
+  renderer_class->draw_arc_with_arrows  = draw_arc_with_arrows;
+  renderer_class->draw_polyline_with_arrows = draw_polyline_with_arrows;
+  renderer_class->draw_rounded_polyline_with_arrows = draw_rounded_polyline_with_arrows;
+  renderer_class->draw_bezier_with_arrows = draw_bezier_with_arrows;
+  
+  /* other */
+  renderer_class->is_capable_to = is_capable_to;
+  renderer_class->set_pattern = set_pattern;
+}
+
+static void
+dia_import_renderer_init (DiaImportRenderer *self)
+{
+  /* set all (non-null) defaults */
+  self->line_style = LINESTYLE_SOLID;
+  self->dash_length = 1.0;
+  self->line_caps = LINECAPS_BUTT;
+  self->line_join = LINEJOIN_MITER;
+
+  self->objects = NULL;
+}
+
+static void 
+begin_render (DiaRenderer *renderer, const Rectangle *update)
+{
+  g_warning ("%s::begin_render not implemented!", 
+             G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (renderer)));
+}
+
+static void 
+end_render (DiaRenderer *renderer)
+{
+  g_warning ("%s::end_render not implemented!", 
+             G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (renderer)));
+}
+
+static void 
+set_linewidth (DiaRenderer *renderer, real linewidth)
+{
+  DiaImportRenderer *self = DIA_IMPORT_RENDERER (renderer);
+  self->line_width = linewidth;
+}
+
+static void 
+set_linecaps (DiaRenderer *renderer, LineCaps mode)
+{
+  DiaImportRenderer *self = DIA_IMPORT_RENDERER (renderer);
+  self->line_caps = mode;
+}
+
+static void 
+set_linejoin (DiaRenderer *renderer, LineJoin mode)
+{
+  DiaImportRenderer *self = DIA_IMPORT_RENDERER (renderer);
+  self->line_join = mode;
+}
+
+static void 
+set_linestyle (DiaRenderer *renderer, LineStyle mode)
+{
+  DiaImportRenderer *self = DIA_IMPORT_RENDERER (renderer);
+  self->line_style = mode;
+}
+
+static void 
+set_dashlength (DiaRenderer *renderer, real length)
+{
+  DiaImportRenderer *self = DIA_IMPORT_RENDERER (renderer);
+  self->dash_length = length;
+}
+
+static void 
+set_fillstyle (DiaRenderer *renderer, FillStyle mode)
+{
+  DiaImportRenderer *self = DIA_IMPORT_RENDERER (renderer);
+  self->fill_style = mode;
+}
+
+/*!
+ * \brief Apply the current renderer's style to the given object
+ * \memberof _DiaImportRenderer
+ */
+static void
+_apply_style (DiaImportRenderer *self,
+	      DiaObject *obj,
+	      const Color *fill,
+	      const Color *stroke,
+	      real radius)
+{
+  GPtrArray *props = g_ptr_array_new ();
+
+  prop_list_add_line_width (props, self->line_width);
+  if (fill) {
+    prop_list_add_fill_colour (props, fill);
+    prop_list_add_show_background (props, TRUE);
+  } else {
+    prop_list_add_show_background (props, FALSE);
+  }
+  if (stroke) {
+    prop_list_add_line_style (props, self->line_style, self->dash_length);
+    /* XXX: line_join, line_caps */
+    prop_list_add_line_colour (props, stroke);
+  } else if (fill) {
+    /* line width to 0, line color to fill */
+    prop_list_add_line_width (props, 0.0);
+    prop_list_add_line_colour (props, fill);
+  }
+  if (radius > 0.0)
+    prop_list_add_real (props, "corner_radius", radius);
+  obj->ops->set_props (obj, props);
+  prop_list_free (props);
+}
+/*!
+ * \brief Remember the object for later use
+ * \memberof _DiaImportRenderer
+ */
+static void
+_push_object (DiaImportRenderer *self, DiaObject *obj)
+{
+  self->objects = g_list_append (self->objects, obj);
+}
+
+/*!
+ * \brief Draw a simple line
+ * \memberof _DiaImportRenderer
+ */
+static void 
+draw_line (DiaRenderer *renderer, Point *start, Point *end, Color *color)
+{
+  Point points[2];
+  points[0] = *start;
+  points[1] = *end;
+  draw_rounded_polyline (renderer, &points[0], 2, color, 0.0);
+}
+
+/*!
+ * \brief Fill the given ploygon
+ * \memberof _DiaImportRenderer
+ */
+static void 
+fill_polygon (DiaRenderer *renderer, Point *points, int num_points, Color *color)
+{
+  DiaImportRenderer *self = DIA_IMPORT_RENDERER (renderer);
+  DiaObject *object = create_standard_polygon (num_points, points);
+
+  _apply_style (self, object, color, NULL, 0.0);
+  _push_object (self, object);
+}
+
+static DiaObject *
+_make_arc (Point *center, 
+          real width, real height,
+	  real angle1, real angle2)
+{
+  DiaObject *object;
+  Point st, en;
+  real rx = width / 2, ry = height / 2;
+  real r = sqrt (rx*ry);
+  real a, b, d;
+  st.x = center->x + rx * cos(angle1*G_PI/180);
+  st.y = center->y - ry * sin(angle1*G_PI/180);
+  en.x = center->x + rx * cos(angle2*G_PI/180);
+  en.y = center->y - ry * sin(angle2*G_PI/180);
+  a = distance_point_point (&st, &en) / 2.0;
+  if (a < r)
+    b = sqrt(r*r - a*a); /* Pythagoras */
+  else
+    b = 0; /* half circle */
+  d = r - b;
+
+  object = create_standard_arc (st.x, st.y, en.x, en.y, d, NULL, NULL);
+  return object;
+}
+
+/*!
+ * \brief Draw an arc
+ * \memberof _DiaImportRenderer
+ */
+static void 
+draw_arc (DiaRenderer *renderer, Point *center, 
+          real width, real height, real angle1, real angle2,
+          Color *color)
+{
+  DiaImportRenderer *self = DIA_IMPORT_RENDERER (renderer);
+  DiaObject *object = _make_arc (center, width, height, angle1, angle2);
+
+  _apply_style (self, object, NULL, color, 0.0);
+  _push_object (self, object);
+}
+
+/*!
+ * \brief Fill a rectangle
+ * \memberof _DiaImportRenderer
+ */
+static void 
+fill_rect (DiaRenderer *renderer,
+           Point *ul_corner, Point *lr_corner,
+           Color *color)
+{
+  fill_rounded_rect (renderer, ul_corner, lr_corner, color, 0.0);
+}
+
+/*!
+ * \brief Fill an arc
+ * As of this writing the Dia "Standard - Arc" (_Arc) object does not support
+ * filling. The created object is a filled _Beziergon because of this.
+ * \memberof _DiaImportRenderer
+ */
+static void
+fill_arc (DiaRenderer *renderer, Point *center,
+          real width, real height, real angle1, real angle2,
+          Color *color)
+{
+  DiaImportRenderer *self = DIA_IMPORT_RENDERER (renderer);
+#if 0 /* does not work till 'Standard - Arc' supports filling */
+  DiaObject *object = _make_arc (center, width, height, angle1, angle2);
+
+  _apply_style (self, object, color, NULL, 0.0);
+  _push_object (self, object);
+#else
+  GArray *path = g_array_new (FALSE, FALSE, sizeof(BezPoint));
+  path_build_arc (path, center, width, height, angle1, angle2, TRUE);
+  DIA_RENDERER_GET_CLASS(renderer)->fill_bezier (renderer,
+						 &g_array_index (path, BezPoint, 0),
+						 path->len, color);
+  g_array_free (path, TRUE);
+#endif
+}
+
+/*!
+ * \brief Draw an ellipse
+ * Creates a hollow _Ellipse object.
+ * \memberof _DiaImportRenderer
+ */
+static void 
+draw_ellipse (DiaRenderer *renderer, Point *center,
+              real width, real height, 
+              Color *color)
+{
+  DiaImportRenderer *self = DIA_IMPORT_RENDERER (renderer);
+  DiaObject *object = create_standard_ellipse (center->x - width / 2, center->y - height / 2, width, height);
+
+  _apply_style (self, object, NULL, color, 0.0);
+  _push_object (self, object);
+}
+
+/*!
+ * \brief Fill an ellipse
+ * Creates a filled _Ellipse object.
+ * \memberof _DiaImportRenderer
+ */
+static void 
+fill_ellipse (DiaRenderer *renderer, Point *center,
+              real width, real height, Color *color)
+{
+  DiaImportRenderer *self = DIA_IMPORT_RENDERER (renderer);
+  DiaObject *object = create_standard_ellipse (center->x - width / 2, center->y - height / 2, width, height);
+
+  _apply_style (self, object, color, NULL, 0.0);
+  _push_object (self, object);
+}
+
+/*!
+ * \brief Draw a string
+ * Creates a _Text object with the properties given by _DiaImportRenderer::set_font().
+ * \memberof _DiaImportRenderer
+ */
+static void 
+draw_string (DiaRenderer *renderer,
+             const gchar *text, Point *pos, Alignment alignment,
+             Color *color)
+{
+  DiaImportRenderer *self = DIA_IMPORT_RENDERER (renderer);
+  DiaObject *object = create_standard_text (pos->x, pos->y);
+  GPtrArray *props = g_ptr_array_new ();
+
+  prop_list_add_font (props, "text_font", renderer->font);
+  prop_list_add_text_colour (props, color);
+  prop_list_add_fontsize (props, PROP_STDNAME_TEXT_HEIGHT, renderer->font_height);
+  prop_list_add_enum (props, "text_alignment", alignment);
+  prop_list_add_text (props, "text", text); /* must be last! */
+
+  object->ops->set_props (object, props);
+  prop_list_free (props);
+
+  _push_object (self, object);
+}
+
+/*!
+ * \brief Draw an image
+ * Creates an _Image object. Ownership of the passed in image is _not_ transferred,
+ * but it's pixbuf is referenced. The caller is responsible to destroy the image
+ * with dia_image_unref() when it is no longer needed.
+ * \memberof _DiaImportRenderer
+ */
+static void
+draw_image (DiaRenderer *renderer,
+            Point *point, real width, real height,
+            DiaImage *image)
+{
+  DiaImportRenderer *self = DIA_IMPORT_RENDERER (renderer);
+  DiaObject *object = create_standard_image (point->x, point->y, width, height, "");
+  GPtrArray *props = g_ptr_array_new ();
+
+  prop_list_add_filename (props, "image_file", dia_image_filename (image));
+  /* XXX: reset or merge border? */
+  object->ops->set_props (object, props);
+  prop_list_free (props);
+
+  dia_object_set_pixbuf (object, dia_image_pixbuf (image));
+  _push_object (self, object);
+}
+
+/*
+ * medium level functions, implemented by the above
+ */
+
+/*!
+ * \brief Draw a bezier line
+ * Creates a _Bezierline object.
+ * \memberof _DiaImportRenderer
+ */
+static void 
+draw_bezier (DiaRenderer *renderer,
+             BezPoint *points, int numpoints,
+             Color *color)
+{
+  DiaImportRenderer *self = DIA_IMPORT_RENDERER (renderer);
+  DiaObject *object = create_standard_bezierline (numpoints, points, NULL, NULL);
+
+  _apply_style (self, object, NULL, color, 0.0);
+  _push_object (self, object);
+}
+
+/*!
+ * \brief Fill a bezier shape
+ * Creates a _Beziergon object.
+ * \memberof _DiaImportRenderer
+ */
+static void
+fill_bezier (DiaRenderer *renderer,
+             BezPoint *points, int numpoints,
+             Color *color)
+{
+  DiaImportRenderer *self = DIA_IMPORT_RENDERER (renderer);
+  DiaObject *object = create_standard_beziergon (numpoints, points);
+
+  _apply_style (self, object, color, NULL, 0.0);
+  _push_object (self, object);
+}
+
+/*!
+ * \brief Draw a simple rectangle
+ * Creates a _Box object.
+ * \memberof _DiaImportRenderer
+ */
+static void
+draw_rect (DiaRenderer *renderer,
+           Point *ul_corner, Point *lr_corner,
+           Color *color)
+{
+  draw_rounded_rect (renderer, ul_corner, lr_corner, color, 0.0);
+}
+
+/*!
+ * \brief Draw a polyline
+ * Creates a _Polyline object.
+ * \memberof _DiaImportRenderer
+ */
+static void 
+draw_polyline (DiaRenderer *renderer,
+	       Point *points, int num_points,
+	       Color *color)
+{
+  draw_rounded_polyline (renderer, points, num_points, color, 0.0);
+}
+
+/*! 
+ * \brief Create a polyline with optionally rounded corners
+ * Creates a _Polyline object.
+ * \memberof DiaImportRenderer
+ */
+static void
+draw_rounded_polyline (DiaRenderer *renderer,
+                        Point *points, int num_points,
+                        Color *color, real radius)
+{
+  DiaImportRenderer *self = DIA_IMPORT_RENDERER (renderer);
+  DiaObject *object = create_standard_polyline (num_points, points, NULL, NULL);
+  /* XXX: radius */
+  _apply_style (self, object, NULL, color, 0.0);
+  _push_object (self, object);
+}
+
+/*!
+ * \brief Draw a polygon
+ * Creates a _Polygon object.
+ * \memberof _DiaImportRenderer
+ */
+static void
+draw_polygon (DiaRenderer *renderer,
+              Point *points, int num_points,
+              Color *color)
+{
+  DiaImportRenderer *self = DIA_IMPORT_RENDERER (renderer);
+  DiaObject *object = create_standard_polygon (num_points, points);
+  _apply_style (self, object, NULL, color, 0.0);
+  _push_object (self, object);
+}
+
+/*!
+ * \brief Draw a rectangle with rounded corners.
+ * Creates a _Box object.
+ * \memberof _DiaImportRenderer
+ */
+static void
+draw_rounded_rect (DiaRenderer *renderer, 
+                   Point *ul_corner, Point *lr_corner,
+                   Color *color, real radius) 
+{
+  DiaImportRenderer *self = DIA_IMPORT_RENDERER (renderer);
+  DiaObject *object = create_standard_box (ul_corner->x, ul_corner->y,
+					   lr_corner->x - ul_corner->x,
+					   lr_corner->y - ul_corner->y);
+  _apply_style (self, object, NULL, color, radius);
+  _push_object (self, object);
+}
+
+/*!
+ * \brief Fill a rectangle with rounded corners.
+ * Creates a _Box object.
+ * \memberof _DiaImportRenderer
+ */
+static void
+fill_rounded_rect(DiaRenderer *renderer, 
+                  Point *ul_corner, Point *lr_corner,
+                  Color *color, real radius)
+{
+  DiaImportRenderer *self = DIA_IMPORT_RENDERER (renderer);
+  DiaObject *object = create_standard_box (ul_corner->x, ul_corner->y,
+					   lr_corner->x - ul_corner->x,
+					   lr_corner->y - ul_corner->y);
+  _apply_style (self, object, color, NULL, radius);
+  _push_object (self, object);
+}
+
+/*!
+ * \brief Draw a line with optional arrows.
+ * Creates a _Polyine object.
+ * \memberof _DiaImportRenderer
+ */
+static void
+draw_line_with_arrows(DiaRenderer *renderer, 
+                      Point *startpoint, 
+                      Point *endpoint,
+                      real line_width,
+                      Color *color,
+                      Arrow *start_arrow,
+                      Arrow *end_arrow)
+{
+  DiaImportRenderer *self = DIA_IMPORT_RENDERER (renderer);
+  DiaObject *object;
+  Point points[2];
+  points[0] = *startpoint;
+  points[1] = *endpoint;
+  object = create_standard_polyline (2, points, start_arrow, end_arrow);
+  _apply_style (self, object, NULL, color, 0.0);
+  _push_object (self, object);
+}
+
+/*!
+ * \brief Draw a polyline with optional arrows.
+ * Creates a _Polyline object.
+ * \memberof _DiaImportRenderer
+ */
+static void
+draw_polyline_with_arrows(DiaRenderer *renderer, 
+                          Point *points, int num_points,
+                          real line_width,
+                          Color *color,
+                          Arrow *start_arrow,
+                          Arrow *end_arrow)
+{
+  draw_rounded_polyline_with_arrows(renderer, points, num_points,
+				    line_width, color,
+				    start_arrow, end_arrow,
+				    0.0);
+}
+
+/*!
+ * \brief Draw a polyline with rounded corners and optional arrows.
+ * Creates a _Polyline object.
+ * \memberof _DiaImportRenderer
+ */
+static void
+draw_rounded_polyline_with_arrows(DiaRenderer *renderer, 
+				  Point *points, int num_points,
+				  real line_width,
+				  Color *color,
+				  Arrow *start_arrow,
+				  Arrow *end_arrow,
+				  real radius)
+{
+  DiaImportRenderer *self = DIA_IMPORT_RENDERER (renderer);
+  DiaObject *object = create_standard_polyline (num_points, points,
+						start_arrow, end_arrow);
+  _apply_style (self, object, NULL, color, radius);
+  _push_object (self, object);
+}
+
+/*!
+ * \brief Draw an arc with optional arrows.
+ * Creates a _Arc object.
+ * \memberof _DiaImportRenderer
+ */
+static void
+draw_arc_with_arrows (DiaRenderer *renderer, 
+                      Point *startpoint, 
+                      Point *endpoint,
+                      Point *midpoint,
+                      real line_width,
+                      Color *color,
+                      Arrow *start_arrow,
+                      Arrow *end_arrow)
+{
+  DiaImportRenderer *self = DIA_IMPORT_RENDERER (renderer);
+  DiaObject *object;
+  Point chord_point = { (startpoint->x + endpoint->x) / 2.0,
+			(startpoint->y + endpoint->y) / 2.0 };
+  real d = distance_point_point (&chord_point, midpoint);
+  object = create_standard_arc (startpoint->x, startpoint->y,
+				endpoint->x, endpoint->y,
+				d, start_arrow, end_arrow);
+
+  _apply_style (self, object, NULL, color, 0.0);
+  _push_object (self, object);
+}
+
+/*!
+ * \brief Draw a bezier line with optional arrows.
+ * Creates a _Bezierline object.
+ * \memberof _DiaImportRenderer
+ */
+static void
+draw_bezier_with_arrows(DiaRenderer *renderer, 
+                        BezPoint *points,
+                        int num_points,
+                        real line_width,
+                        Color *color,
+                        Arrow *start_arrow,
+                        Arrow *end_arrow)
+{
+  DiaImportRenderer *self = DIA_IMPORT_RENDERER (renderer);
+  DiaObject *object = create_standard_bezierline (num_points, points,
+						 start_arrow, end_arrow);
+  _apply_style (self, object, NULL, color, 0.0);
+  _push_object (self, object);
+}
+
+/*!
+ * \brief Advertize renderer capabilities.
+ * Everything has to be possible with DiaObject, but there might be some
+ * limitation with this renderer's implementation.
+ * \memberof _DiaImportRenderer
+ */
+static gboolean 
+is_capable_to (DiaRenderer *renderer, RenderCapability cap)
+{
+  return TRUE;
+}
+
+/*!
+ * \brief Remember the pattern for later reference
+ * \memberof _DiaImportRenderer
+ */
+static void
+set_pattern (DiaRenderer *renderer, DiaPattern *pat)
+{
+  DiaImportRenderer *self = DIA_IMPORT_RENDERER (renderer);
+  if (self->pattern && self->pattern != pat) {
+    g_object_unref (self->pattern);
+    self->pattern = g_object_ref (pat);
+  }
+}
+
+/*!
+ * \brief Take ownership of the objects created so far
+ * This function return a _Group object containing all DiaObject created
+ * through the renderer interface so far. Ownership is transferred to the
+ * caller so the internal list is emptied by this call. If only a single
+ * object was created it is returned without the containing group.
+ */
+DiaObject *
+dia_import_renderer_get_objects (DiaRenderer *renderer)
+{
+  DiaImportRenderer *self = DIA_IMPORT_RENDERER (renderer);
+  if (!self || !self->objects)
+    return NULL;
+  if (g_list_length (self->objects) > 1) {
+    DiaObject *group = create_standard_group (self->objects);
+    self->objects = NULL;
+    return group;
+  } else {
+    DiaObject *object = self->objects->data;
+    g_list_free (self->objects);
+    return object;
+  }
+}

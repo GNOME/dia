@@ -291,6 +291,9 @@ EXPORTS
  dia_image_pixbuf
  dia_image_new_from_pixbuf
 
+ dia_import_renderer_get_type
+ dia_import_renderer_get_objects
+
  pixbuf_encode_base64
  pixbuf_decode_base64
 
