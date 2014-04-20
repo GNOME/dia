@@ -874,6 +874,47 @@ draw_polygon (DiaRenderer *renderer,
 }
 
 static void 
+_rounded_rect_with_bezier (DiaRenderer *renderer, 
+			   Point *ul_corner, Point *lr_corner,
+			   Color *color, real radius, gboolean fill) 
+{
+  /* Conversion algorithm copied from objects/standard/box
+   * If you find bugs here they might be there as well;)
+   */
+  BezPoint *points;
+  const real w = lr_corner->x - ul_corner->x;
+  const real h = lr_corner->y - ul_corner->y;
+  const real x = ul_corner->x;
+  const real y = ul_corner->y;
+  real r = radius;
+  int num_points = 9;
+  points = g_alloca (sizeof(BezPoint) * num_points);
+
+  /* avoid r>w/w and r>h/2 */
+  r = (w > h ) ? (r > h/2 ? h/2 : r) : (r > w/2 ? w/2 : r);
+
+  points[0].type = BEZ_MOVE_TO;  points[0].p1.x = x + r; points[0].p1.y = y; /* top-left */
+  points[1].type = BEZ_LINE_TO;  points[1].p1.x = x + w - r; points[1].p1.y = y; /* top-right */
+  points[2].type = BEZ_CURVE_TO; points[2].p1.x = x + w - r; points[2].p1.y = y; /* around */
+  points[2].p2.x = x + w; points[2].p2.y = y; points[2].p3.x = x + w; points[2].p3.y = y + r;
+  points[3].type = BEZ_LINE_TO; points[3].p1.x =  x + w; points[3].p1.y = y + h - r; /* bottom-right */
+  points[4].type = BEZ_CURVE_TO; points[4].p1.x = x + w; points[4].p1.y = y + h - r; /* around */
+  points[4].p2.x = x + w; points[4].p2.y = y + h; points[4].p3.x = x + w - r; points[4].p3.y = y + h;
+  points[5].type = BEZ_LINE_TO;  points[5].p1.x = x + r; points[5].p1.y = y + h; /* bottom-left */
+  points[6].type = BEZ_CURVE_TO; points[6].p1.x = x + r; points[6].p1.y = y + h; /* around */
+  points[6].p2.x = x; points[6].p2.y = y + h; points[6].p3.x = x; points[6].p3.y = y + h - r;
+  points[7].type = BEZ_LINE_TO;  points[7].p1.x = x; points[7].p1.y = y + r; /* top-left */
+  points[8].type = BEZ_CURVE_TO; points[8].p1.x = x; points[8].p1.y = y + r; /* around */
+  points[8].p2.x = x; points[8].p2.y = y; points[8].p3.x = x + r; points[8].p3.y = y;
+  /* end of copy */
+
+  if (fill)
+    DIA_RENDERER_GET_CLASS(renderer)->fill_bezier (renderer, points, num_points, color);
+  else
+    DIA_RENDERER_GET_CLASS(renderer)->draw_bezier (renderer, points, num_points, color);
+}
+
+static void 
 draw_rounded_rect (DiaRenderer *renderer, 
                    Point *ul_corner, Point *lr_corner,
                    Color *color, real radius) 
@@ -889,6 +930,12 @@ draw_rounded_rect (DiaRenderer *renderer,
     return;
   }
 
+  /* if the renderer has it's own draw_bezier use that */
+  if (DIA_RENDERER_GET_CLASS(renderer)->draw_bezier != &draw_bezier) {
+    _rounded_rect_with_bezier (renderer, ul_corner, lr_corner, color, radius, FALSE);
+    return;
+  }
+  /* final fallback */
   start.x = center.x = ul_corner->x+radius;
   end.x = lr_corner->x-radius;
   start.y = end.y = ul_corner->y;
@@ -938,7 +985,12 @@ fill_rounded_rect(DiaRenderer *renderer,
     renderer_ops->fill_rect(renderer, ul_corner, lr_corner, color);
     return;
   }
-
+  /* if the renderer has it's own fill_bezier use that */
+  if (DIA_RENDERER_GET_CLASS(renderer)->fill_bezier != &fill_bezier) {
+    _rounded_rect_with_bezier (renderer, ul_corner, lr_corner, color, radius, TRUE);
+    return;
+  }
+  /* final fallback */
   start.x = center.x = ul_corner->x+radius;
   end.x = lr_corner->x-radius;
   start.y = ul_corner->y;
