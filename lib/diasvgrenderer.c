@@ -189,6 +189,20 @@ end_render(DiaRenderer *self)
   xmlFreeDoc(renderer->doc);
 }
 
+static gboolean
+is_capable_to (DiaRenderer *renderer, RenderCapability cap)
+{
+  if (RENDER_HOLES == cap)
+    return FALSE; /* not wanted for shapes */
+  else if (RENDER_ALPHA == cap)
+    return TRUE; /* also for shapes */
+  else if (RENDER_AFFINE == cap)
+    return FALSE; /* not for shape renderer */
+  else if (RENDER_PATTERN == cap)
+    return FALSE; /* some support form derived class needed */
+  return FALSE;
+}
+
 static void
 set_linewidth(DiaRenderer *self, real linewidth)
 {  /* 0 == hairline **/
@@ -959,13 +973,15 @@ dia_svg_renderer_class_init (DiaSvgRendererClass *klass)
   renderer_class->begin_render = begin_render;
   renderer_class->end_render   = end_render;
 
+  renderer_class->is_capable_to = is_capable_to;
+
   renderer_class->set_linewidth  = set_linewidth;
   renderer_class->set_linecaps   = set_linecaps;
   renderer_class->set_linejoin   = set_linejoin;
   renderer_class->set_linestyle  = set_linestyle;
   renderer_class->set_dashlength = set_dashlength;
   renderer_class->set_fillstyle  = set_fillstyle;
-  renderer_class->set_pattern  = set_pattern;
+  renderer_class->set_pattern    = set_pattern;
 
   renderer_class->draw_line    = draw_line;
   renderer_class->fill_polygon = fill_polygon;
@@ -988,9 +1004,7 @@ dia_svg_renderer_class_init (DiaSvgRendererClass *klass)
   renderer_class->fill_bezier   = fill_bezier;
   renderer_class->draw_text_line  = draw_text_line;
 
-  /* svg specific */
+  /* SVG specific */
   svg_renderer_class->get_draw_style = get_draw_style;
   svg_renderer_class->get_fill_style = get_fill_style;
 }
-
-
