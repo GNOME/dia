@@ -183,6 +183,12 @@ OBJECTS = \
   wmf_gdi.obj
 !ENDIF
 
+!IFDEF OBJ_wpg
+OBJECTS = \
+  wpg.obj \
+  wpg-import.obj
+!ENDIF
+
 !IFDEF OBJ_xfig
 OBJECTS = \
   xfig.obj \

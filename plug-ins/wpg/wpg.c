@@ -2,8 +2,7 @@
  * Copyright (C) 1998 Alexander Larsson
  *
  * wpg.c -- WordPerfect Graphics export plugin for dia
- * Copyright (C) 2000, Hans Breuer, <Hans@Breuer.Org>
- *   based on dummy.c 
+ * Copyright (C) 2000, 2014  Hans Breuer <Hans@Breuer.Org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,12 +24,6 @@
  * - if helper points - like arc centers - are not in Dia's extent box
  *   their clipping produces unpredictable results 
  * - the font setting needs improvement (maybe on Dia's side)
- * - bezier curves are not correctly converted to WPG's poly curve
- *   (two point beziers are)
- *
- * MayBe:
- * - full featured import (IMO Dia's import support should be improved
- *   before / on the way ...)
  */
 
 #include <config.h>
@@ -62,14 +55,6 @@
 #include "wpg_defs.h"
 
 /* #define DEBUG_WPG */
-
-/* Import is not yet finished but only implemented to check the
- * export capabilities and to investigate other programs WPG
- * formats. 
- * The following is not the reason for <en/dis>abling import, 
- * but it should do it for now ...
- */
-#define WPG_WITH_IMPORT defined (_MSC_VER)
 
 /*
  * helper macros
@@ -108,7 +93,6 @@ struct _WpgRenderer
   WPGLineAttr  LineAttr;
   WPGTextStyle TextStyle;
 
-  WPGColorRGB* pPal;
 
   DiaContext* ctx;
 };
@@ -119,12 +103,6 @@ struct _WpgRendererClass
 };
 
 G_END_DECLS
-
-#ifdef DEBUG_WPG
-#  define DIAG_NOTE(action) action
-#else
-#  define DIAG_NOTE(action)
-#endif
 
 #if (G_BYTE_ORDER == G_LITTLE_ENDIAN)
 /* shortcut if testing of indirection isn't needed anymore */
@@ -253,6 +231,15 @@ WriteFillAttr(WpgRenderer *renderer, Color* colour, gboolean bFill)
   WriteRecHead(renderer, WPG_FILLATTR, sizeof(WPGFillAttr));
   if (bFill)
   {
+    int v = (int)(colour->alpha * 9);
+    /*
+     * Map transparency to fill style
+     *   0 Hollow
+     *   1 Solid
+     *  11 Dots density 1 (least dense)
+     *  16 Dots density 7 (densest)
+     */
+    renderer->FillAttr.Type = v > 8 ? 1 : v < 1 ? 0 : (10 + v);
     renderer->FillAttr.Color = LookupColor(renderer, colour);
     fwrite(&renderer->FillAttr, sizeof(WPGFillAttr), 1, renderer->file);
   }
@@ -668,7 +655,6 @@ fill_arc(DiaRenderer *self,
   ell.EndAngle   = angle2;
   ell.Flags = 0; /* 0: connect to center; 1: connect start and end */
 
-  WriteLineAttr(renderer, colour);
   WriteFillAttr(renderer, colour, TRUE);
   WriteRecHead(renderer, WPG_ELLIPSE, sizeof(WPGEllipse));
 
@@ -722,7 +708,6 @@ fill_ellipse(DiaRenderer *self,
   WriteFillAttr(renderer, colour, FALSE);
 }
 
-#ifdef USE_OUR_DRAW_BEZIER
 static void
 draw_bezier(DiaRenderer *self, 
             BezPoint *points,
@@ -730,82 +715,74 @@ draw_bezier(DiaRenderer *self,
             Color *colour)
 {
   WpgRenderer *renderer = WPG_RENDERER (self);
-  gint16* pData;
+  WPGPoint* pts;
+  guint16 data[2];
   int i;
 
   DIAG_NOTE(g_message("draw_bezier n:%d %fx%f ...", 
             numpoints, points->p1.x, points->p1.y));
 
   WriteLineAttr(renderer, colour);
-  WriteRecHead(renderer, WPG_POLYCURVE, (numpoints * 2) * 2 * sizeof(gint16) + 3 * sizeof(gint16));
+  WriteRecHead(renderer, WPG_POLYCURVE, (3 * numpoints - 2) * sizeof(WPGPoint) + 3 * sizeof(guint16));
 
-  pData = g_new(gint16, numpoints * 6);
+  pts = g_new(WPGPoint, 3 * numpoints - 2);
 
-  /* ??? size of equivalent data in pre5.1 files ? */
-#if 1
-  memset(pData, 0, sizeof(gint16)*2);
-#else
-  /* try first point instead */
-  pData[0] = SCX(points[0].p1.x);
-  pData[1] = SCY(-points[0].p1.y);
-#endif
-  fwrite_le(pData, sizeof(gint16), 2, renderer->file);
+  /* ??? size of equivalent data in pre5.1 files ? DWORD */
+  memset (data, 0, sizeof(guint16) * 2);
+  fwrite_le(data, sizeof(guint16), 2, renderer->file);
+  /* num points */
+  data[0] = 3 * numpoints - 2;
+  fwrite_le(data, sizeof(guint16), 1, renderer->file);
 
-  pData[0] = numpoints * 2;
-  fwrite_le(pData, sizeof(gint16), 1, renderer->file);
-
-  /* WPG's Poly Curve is not quite the same as DIA's Bezier.
-   * There is only one Control Point per Point and I can't 
-   * get it right, but at least they are read without error.
+  /* WPG's Poly Curve is a cubic bezier compatible with Dia's bezier.
+   * http://www.fileformat.info/format/wpg/egff.htm
+   * could lead to the assumption of ony quadratic bezier support,
+   * but that's not the case.
    */
-  for (i = 0; i < numpoints; i++)
+  pts[0].x = SCX( points[0].p1.x);
+  pts[0].y = SCY(-points[0].p1.y);
+  for (i = 1; i < numpoints; i++)
   {
     switch (points[i].type)
     {
     case BEZ_MOVE_TO:
     case BEZ_LINE_TO:
-      /* real point */
-      pData[4*i  ] = SCX( points[i].p1.x);
-      pData[4*i+1] = SCY(-points[i].p1.y);
-
-      /* control point (1st from next point) */
-      if (i+1 < numpoints) {
-        pData[4*i+2] = SCX( points[i+1].p1.x);
-        pData[4*i+3] = SCY(-points[i+1].p1.y);
-      }
-      else {
-        pData[4*i+2] = SCX( points[i].p1.x);
-        pData[4*i+3] = SCY(-points[i].p1.y);
-      }
+      /* just the point */
+      pts[i*3-2].x = pts[i*3-1].x = pts[i*3].x = SCX( points[i].p1.x);
+      pts[i*3-2].y = pts[i*3-1].y = pts[i*3].y = SCY(-points[i].p1.y);
       break;
     case BEZ_CURVE_TO:
-      if (0 && (i+1 < numpoints)) {
-        /* real point ?? */
-        pData[4*i  ] = SCX( points[i].p3.x);
-        pData[4*i+1] = SCY(-points[i].p3.y);
-        /* control point (1st from next point) */
-        pData[4*i+2] = SCX( points[i+1].p1.x);
-        pData[4*i+3] = SCY(-points[i+1].p1.y);
-      }
-      else {
-        /* need to swap these ?? */
-        /* real point ?? */
-        pData[4*i  ] = SCX( points[i].p2.x);
-        pData[4*i+1] = SCY(-points[i].p2.y);
-
-        /* control point ?? */
-        pData[4*i+2] = SCX( points[i].p3.x);
-        pData[4*i+3] = SCY(-points[i].p3.y);
-      }
+      /* first control point */
+      pts[i*3-2].x = SCX( points[i].p1.x);
+      pts[i*3-2].y = SCY(-points[i].p1.y);
+      /* second control point */
+      pts[i*3-1].x = SCX( points[i].p2.x);
+      pts[i*3-1].y = SCY(-points[i].p2.y);
+      /* this segments end point */
+      pts[i*3].x = SCX( points[i].p3.x);
+      pts[i*3].y = SCY(-points[i].p3.y);
       break;
     }
   }
 
-  fwrite_le(pData, sizeof(gint16), numpoints*4, renderer->file);
-  g_free(pData);
+  fwrite_le(pts, sizeof(gint16), 2*(numpoints*3-2), renderer->file);
+  g_free(pts);
 }
-#endif /* USE_OUR_DRAW_BEZIER */
 
+static void
+fill_bezier(DiaRenderer *self, 
+            BezPoint *points,
+            int numpoints,
+            Color *colour)
+{
+  WpgRenderer *renderer = WPG_RENDERER (self);
+
+  DIAG_NOTE(g_message("fill_beziez %d points", numpoints));
+
+  WriteFillAttr(renderer, colour, TRUE);
+  draw_bezier (self, points, numpoints, colour);
+  WriteFillAttr(renderer, colour, FALSE);
+}
 static void
 draw_string(DiaRenderer *self,
             const char *text,
@@ -882,9 +859,9 @@ draw_image(DiaRenderer *self,
 
   bmp.Angle  = 0;
   bmp.Left   = SCX(point->x);
-  bmp.Top    = SCY(-point->y - height);
+  bmp.Top    = SCY(-point->y);
   bmp.Right  = SCX(point->x + width);
-  bmp.Bottom = SCY(-point->y);
+  bmp.Bottom = SCY(-point->y - height);
 
   bmp.Width  = dia_image_width(image);
   bmp.Height = dia_image_height(image);
@@ -907,8 +884,8 @@ draw_image(DiaRenderer *self,
 
   for (y = 0; y < bmp.Height; y++)
   {
-    /* starting from last line but left to right */
-    pIn = pDiaImg + stride * (bmp.Height - 1 - y);
+    /* from top to bottom line */
+    pIn = pDiaImg + stride * y;
     cnt = 0; /* reset with every line */
     for (x = 0; x < bmp.Width; x ++)
     {
@@ -1061,13 +1038,13 @@ wpg_renderer_class_init (WpgRendererClass *klass)
   renderer_class->draw_polyline  = draw_polyline;
   renderer_class->draw_polygon   = draw_polygon;
 
-#ifdef USE_OUR_DRAW_BEZIER
-  /* The bezier implementation above does not match, use base class approximation */
   renderer_class->draw_bezier   = draw_bezier;
-#endif
-  /* Implemented by base class approximation
+#if 0 /* FIXME: use fallback from base class until another
+       * program can actually correctly show the filled Polycurve
+       * created by Dia (our own import can).
+       */
   renderer_class->fill_bezier   = fill_bezier;
-   */
+#endif
 }
 
 /* dia export funtion */
@@ -1111,14 +1088,14 @@ export_data(DiagramData *data, DiaContext *ctx,
     while (renderer->Scale * height < 3276.7) renderer->Scale *= 10.0;
 #else
   /* scale from Dia's cm to WPU (1/1200 inch) */
-  renderer->Scale = 1200.0 / 2.54;
+  renderer->Scale = WPU_PER_DCM;
   /* avoid int16 overflow */
   if (width > height)
     while (renderer->Scale * width > 32767) renderer->Scale /= 10.0;
   else
     while (renderer->Scale * height > 32767) renderer->Scale /= 10.0;
   renderer->XOffset = - extent->left;
-  renderer->YOffset = - extent->top;
+  renderer->YOffset =   extent->bottom;
 #endif
   renderer->Box.Width  = width * renderer->Scale;
   renderer->Box.Height = height * renderer->Scale;
@@ -1132,205 +1109,7 @@ export_data(DiagramData *data, DiaContext *ctx,
   return TRUE;
 }
 
-#if WPG_WITH_IMPORT
-/*
- * Import (under construction)
- */
-static void
-import_object(DiaRenderer* self, DiagramData *dia,
-              WPG_Type type, int iSize, guchar* pData)
-{
-  WpgRenderer *renderer = WPG_RENDERER(self);
-  WPGPoint* pts = NULL;
-  gint16* pInt16 = NULL;
-  int    iNum = 0;
-  gint32 iPre51 = 0;
 
-  switch (type) {
-  case WPG_LINE:
-    iNum = 2;
-    pts = (WPGPoint*)pData;
-    break;
-  case WPG_POLYLINE:
-    pInt16 = (gint16*)pData;
-    iNum = pInt16[0];
-    pts = (WPGPoint*)(pData + sizeof(gint16));
-    break;
-  case WPG_RECTANGLE:
-    iNum = 2;
-    pts = (WPGPoint*)pData;
-    break;
-  case WPG_POLYGON:
-    pInt16 = (gint16*)pData;
-    iNum = pInt16[0];
-    pts = (WPGPoint*)(pData + sizeof(gint16));
-    break;
-  case WPG_ELLIPSE:
-    {
-      WPGEllipse* pEll;
-      pEll = (WPGEllipse*)pData;
-    }
-    break;
-  case WPG_POLYCURVE:
-    iPre51 = *((gint32*)pData);
-    pInt16 = (gint16*)pData;
-    iNum = pInt16[2];
-    pts = (WPGPoint*)(pData + 3*sizeof(gint16));
-    DIAG_NOTE(g_message("POLYCURVE Num pts %d Pre51 %d", iNum, iPre51));
-    break;
-  } /* switch */
-  DIAG_NOTE(g_message("Type %d Num pts %d Size %d", type, iNum, iSize));
-} 
-
-static gboolean
-import_data (const gchar *filename, DiagramData *dia, DiaContext *ctx, void* user_data)
-{
-  FILE* f;
-  gboolean bRet;
-  WPGHead8 rh;
-
-  f = g_fopen(filename, "rb");
-
-  if (NULL == f) {
-    dia_context_add_message(ctx, _("Couldn't open: '%s' for reading.\n"), filename);
-    bRet = FALSE;
-  }
-  
-  /* check header */
-  if (bRet) {
-    WPGFileHead fhead;
-    bRet = ( (1 == fread(&fhead, sizeof(WPGFileHead), 1, f))
-            && fhead.fid[0] == 255 && fhead.fid[1] == 'W'
-            && fhead.fid[2] == 'P' && fhead.fid[3] == 'C'
-            && (1 == fhead.MajorVersion) && (0 == fhead.MinorVersion));
-    if (!bRet)
-      dia_context_add_message(ctx, _("File: %s type/version unsupported.\n"), filename);
-  }
-
-  if (bRet) {
-    int iSize;
-    gint16 i16, iNum16;
-    guint8 i8;
-    WpgRenderer *ren = g_object_new (WPG_TYPE_RENDERER, NULL);
-
-    ren->pPal = g_new0(WPGColorRGB, 256);
-
-    DIAG_NOTE(g_message("Parsing: %s ", filename));
-
-    do {
-      if (1 == fread(&rh, sizeof(WPGHead8), 1, f)) {
-        if (rh.Size < 0xFF)
-          iSize = rh.Size;
-        else {
-          bRet = (1 == fread(&i16, sizeof(guint16), 1, f));
-          if (0x8000 & i16) {
-            DIAG_NOTE(g_print("Large Object: hi:lo %04X", (int)i16));
-            iSize = i16 << 16;
-            /* Reading large objects involves major uglyness. Instead of getting 
-             * one size, as implied by "Encyclopedia of Graphics File Formats",
-             * it would require putting together small chunks of data to one large 
-             * object. The criteria when to stop isn't absolutely clear.
-             */
-            iSize = 0;
-            bRet = (1 == fread(&i16, sizeof(guint16), 1, f));
-            DIAG_NOTE(g_print("Large Object: %d\n", (int)i16));
-            iSize += i16;
-#if 1
-            /* Ignore this large objec part */
-            fseek(f, iSize, SEEK_CUR);
-            continue;
-#endif
-          }
-          else
-            iSize = i16; 
-        }
-      } else
-        iSize = 0;
-
-      /* DIAG_NOTE(g_message("Type %d Size %d", rh.Type, iSize)); */
-      if (iSize > 0) {
-        switch (rh.Type) {
-        case WPG_FILLATTR:
-          bRet = (1 == fread(&ren->FillAttr, sizeof(WPGFillAttr), 1, f));
-          break;
-        case WPG_LINEATTR:
-          bRet = (1 == fread(&ren->LineAttr, sizeof(WPGLineAttr), 1, f));
-          break;
-        case WPG_START:
-          bRet = (1 == fread(&ren->Box, sizeof(WPGStartData), 1, f));
-          break;
-        case WPG_STARTWPG2:
-          /* not sure if this is the right thing to do */
-          bRet &= (1 == fread(&i8, sizeof(gint8), 1, f));
-          bRet &= (1 == fread(&i16, sizeof(gint16), 1, f));
-          DIAG_NOTE(g_message("Ignoring tag WPG_STARTWPG2, Size %d\n Type? %d Size? %d", 
-                    iSize, (int)i8, i16));
-          fseek(f, iSize - 3, SEEK_CUR);
-          break;
-        case WPG_LINE:
-        case WPG_POLYLINE:
-        case WPG_RECTANGLE:
-        case WPG_POLYGON:
-        case WPG_POLYCURVE:
-        case WPG_ELLIPSE:
-          {
-            guchar* pData;
-
-            pData = g_new(guchar, iSize);
-            bRet = (iSize == (int)fread(pData, 1, iSize, f));
-            import_object(DIA_RENDERER(ren), dia, rh.Type, iSize, pData);
-            g_free(pData);
-          }
-          break;
-        case WPG_COLORMAP:
-          bRet &= (1 == fread(&i16, sizeof(gint16), 1, f));
-          bRet &= (1 == fread(&iNum16, sizeof(gint16), 1, f));
-          if (iNum16 != (gint16)((iSize - 2) / sizeof(WPGColorRGB)))
-            g_warning("WpgImporter : colormap size/header mismatch.");
-          if (i16 >= 0 && i16 <= iSize) {
-            bRet &= (iNum16 == (int)fread(&ren->pPal[i16], sizeof(WPGColorRGB), iNum16, f));
-          }
-          else {
-            g_warning("WpgImporter : start color map index out of range.");
-            bRet &= (iNum16 == (int)fread(ren->pPal, sizeof(WPGColorRGB), iNum16, f));
-          }
-          break;
-        case WPG_BITMAP2:
-          {
-            WPGBitmap2 bmp;
-
-            fread(&bmp, sizeof(WPGBitmap2), 1, f);
-            DIAG_NOTE(g_message("Bitmap %dx%d %d bits @%d,%d %d,%d.", 
-                      bmp.Width, bmp.Height, bmp.Depth, 
-                      bmp.Left, bmp.Top, bmp.Right, bmp.Bottom));
-            fseek(f, iSize - sizeof(WPGBitmap2), SEEK_CUR);
-          }
-          break;
-        default:
-          fseek(f, iSize, SEEK_CUR);
-          g_warning ("Unknown Type %d Size %d.", (int)rh.Type, iSize);
-        } /* switch */
-      } /* if iSize */
-      else {
-        if (WPG_END != rh.Type)
-          g_warning("Size 0 on Type %d, expecting WPG_END\n", (int)rh.Type);
-      }
-    }
-    while ((iSize > 0) && (bRet));
-
-    if (!bRet)
-      g_warning("WpgImporter : unexpected eof. Type %d, Size %d.\n",
-                rh.Type, iSize);
-    if (ren->pPal) 
-      g_free(ren->pPal);
-    g_object_unref (ren);
-  } /* bRet */
-
-  if (f) fclose(f);
-  return bRet;
-}
-
-#endif /* WPG_WITH_IMPORT */
 
 static const gchar *extensions[] = { "wpg", NULL };
 static DiaExportFilter my_export_filter = {
@@ -1339,13 +1118,11 @@ static DiaExportFilter my_export_filter = {
     export_data
 };
 
-#if WPG_WITH_IMPORT
 DiaImportFilter my_import_filter = {
     N_("WPG"),
     extensions,
     import_data
 };
-#endif /* WPG_WITH_IMPORT */
 
 /* --- dia plug-in interface --- */
 static gboolean
@@ -1358,9 +1135,7 @@ static void
 _plugin_unload (PluginInfo *info)
 {
   filter_unregister_export(&my_export_filter);
-#if WPG_WITH_IMPORT
   filter_unregister_import(&my_import_filter);
-#endif
 }
 
 DIA_PLUGIN_CHECK_INIT
@@ -1375,9 +1150,7 @@ dia_plugin_init(PluginInfo *info)
     return DIA_PLUGIN_INIT_ERROR;
 
   filter_register_export(&my_export_filter);
-#if WPG_WITH_IMPORT
   filter_register_import(&my_import_filter);
-#endif
 
   return DIA_PLUGIN_INIT_OK;
 }

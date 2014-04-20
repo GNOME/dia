@@ -1,0 +1,620 @@
+/* Dia -- an diagram creation/manipulation program
+ * Copyright (C) 1998 Alexander Larsson
+ *
+ * wpg-import.c -- WordPerfect Graphics import plug-in for Dia
+ * Copyright (C) 2014 Hans Breuer <hans@breuer.org>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+ */
+#include <config.h>
+
+#include <glib.h>
+#include <glib/gstdio.h>
+
+#include "diaimportrenderer.h"
+#include "wpg_defs.h"
+#include "dia_image.h"
+#include "diacontext.h"
+#include "intl.h"
+
+typedef struct _WpgImportRenderer  WpgImportRenderer;
+
+/*!
+ * \brief Renderer for WordPerfect Graphics import
+ * \extends _DiaImportRenderer
+ */
+typedef struct _WpgImportRenderer {
+  DiaImportRenderer parent_instance;
+
+  WPGStartData Box;
+  WPGFillAttr  FillAttr;
+  WPGLineAttr  LineAttr;
+  WPGColorRGB* pPal;
+
+  Color stroke;
+  Color fill;
+  Color text_color;
+  Alignment text_align;
+};
+
+typedef struct _WpgImportRendererClass WpgImportRendererClass;
+struct _WpgImportRendererClass {
+  DiaRendererClass parent_class;
+};
+
+G_DEFINE_TYPE(WpgImportRenderer, wpg_import_renderer, DIA_TYPE_IMPORT_RENDERER);
+
+#define WPG_TYPE_IMPORT_RENDERER (wpg_import_renderer_get_type ())
+#define WPG_IMPORT_RENDERER(obj) (G_TYPE_CHECK_INSTANCE_CAST ((obj), WPG_TYPE_IMPORT_RENDERER, WpgImportRenderer))
+
+static void 
+wpg_import_renderer_class_init (WpgImportRendererClass *klass)
+{
+  /* anything to initialize? */
+}
+static void 
+wpg_import_renderer_init (WpgImportRenderer *self)
+{
+  /* anything to initialize? */
+  self->LineAttr.Type = WPG_LA_SOLID;
+  self->FillAttr.Type = WPG_FA_HOLLOW;
+}
+
+static Point *
+_make_points (WpgImportRenderer *ren,
+	      WPGPoint          *pts,
+	      int                num)
+{
+  int    i;
+  int    ofs = ren->Box.Height;
+  Point *points = g_new (Point, num);
+
+  for (i = 0; i < num; ++i) {
+    points[i].x = pts[i].x / WPU_PER_DCM;
+    points[i].y = (ofs - pts[i].y) / WPU_PER_DCM;
+  }
+  return points;
+}
+static Point *
+_make_rect (WpgImportRenderer *ren,
+	    WPGPoint          *pts)
+{
+  /* WPG has position and size, Dia wants top-left and bottom-right */
+  int       ofs = ren->Box.Height;
+  Point    *points = g_new (Point, 2);
+  WPGPoint *pos = pts;
+  WPGPoint *wh = pts+1;
+  /* also it bottom vs. top position */
+  points[0].x = pos->x / WPU_PER_DCM;
+  points[1].y = (ofs - pos->y) / WPU_PER_DCM;
+  points[1].x = points[0].x + (wh->x / WPU_PER_DCM);
+  points[0].y = points[1].y - (wh->y / WPU_PER_DCM);
+  return points;
+}
+
+static void
+_do_ellipse (WpgImportRenderer *ren, WPGEllipse* pEll)
+{
+  int    h = ren->Box.Height;
+  Point center;
+  center.x = pEll->x / WPU_PER_DCM;
+  center.y = (h - pEll->y) / WPU_PER_DCM;
+  
+  if (fabs(pEll->EndAngle - pEll->StartAngle) < 360) {
+    if (ren->LineAttr.Type != WPG_LA_NONE)
+      DIA_RENDERER_GET_CLASS(ren)->draw_arc (DIA_RENDERER(ren), &center,
+					     2 * pEll->rx / WPU_PER_DCM,
+					     2 * pEll->ry / WPU_PER_DCM,
+					     pEll->StartAngle, pEll->EndAngle,
+					     &ren->stroke);
+    if (ren->FillAttr.Type != WPG_FA_HOLLOW)
+      DIA_RENDERER_GET_CLASS(ren)->fill_arc (DIA_RENDERER(ren), &center,
+					     2 * pEll->rx / WPU_PER_DCM,
+					     2 * pEll->ry / WPU_PER_DCM,
+					     pEll->StartAngle, pEll->EndAngle,
+					     &ren->fill);
+  } else {
+    if (ren->LineAttr.Type != WPG_LA_NONE)
+      DIA_RENDERER_GET_CLASS(ren)->draw_ellipse (DIA_RENDERER(ren), &center,
+						 2 * pEll->rx / WPU_PER_DCM,
+						 2 * pEll->ry / WPU_PER_DCM,
+						 &ren->stroke);
+    if (ren->FillAttr.Type != WPG_FA_HOLLOW)
+      DIA_RENDERER_GET_CLASS(ren)->fill_ellipse (DIA_RENDERER(ren), &center,
+						 2 * pEll->rx / WPU_PER_DCM,
+						 2 * pEll->ry / WPU_PER_DCM,
+						 &ren->fill);
+  }
+}
+
+static void
+_do_polygon (WpgImportRenderer *ren, Point *points, int iNum)
+{
+  g_return_if_fail (iNum > 2);
+  if (ren->LineAttr.Type != WPG_LA_NONE)
+    DIA_RENDERER_GET_CLASS(ren)->draw_polygon (DIA_RENDERER(ren), points, iNum, &ren->stroke);
+  if (ren->FillAttr.Type != WPG_FA_HOLLOW)
+    DIA_RENDERER_GET_CLASS(ren)->fill_polygon (DIA_RENDERER(ren), points, iNum, &ren->fill);
+}
+static void
+_do_rect (WpgImportRenderer *ren, Point *points)
+{
+  if (ren->LineAttr.Type != WPG_LA_NONE)
+    DIA_RENDERER_GET_CLASS(ren)->draw_rect (DIA_RENDERER(ren),
+					    &points[0], &points[1], &ren->stroke);
+  if (ren->FillAttr.Type != WPG_FA_HOLLOW)
+    DIA_RENDERER_GET_CLASS(ren)->fill_rect (DIA_RENDERER(ren),
+					    &points[0], &points[1], &ren->fill);
+}
+static void
+_do_bezier (WpgImportRenderer *ren, WPGPoint *pts, int iNum)
+{
+  int num_points = (iNum + 2) / 3;
+  int i;
+  int ofs = ren->Box.Height;
+  BezPoint *bps;
+
+  g_return_if_fail (num_points > 1);
+
+  bps = g_alloca (num_points * sizeof(BezPoint));
+
+  bps[0].type = BEZ_MOVE_TO;
+  bps[0].p1.x = pts[0].x / WPU_PER_DCM;
+  bps[0].p1.y = (ofs - pts[0].y) / WPU_PER_DCM;
+  for (i = 1; i < num_points; ++i) {
+    bps[i].type = BEZ_CURVE_TO;
+    /* although declared as unsigned (WORD) these values have to be treaded
+     * as signed, because they can move in both directions.
+     */
+    bps[i].p1.x =        (gint16)pts[i*3-2].x  / WPU_PER_DCM;
+    bps[i].p1.y = (ofs - (gint16)pts[i*3-2].y) / WPU_PER_DCM;
+    bps[i].p2.x =        (gint16)pts[i*3-1].x  / WPU_PER_DCM;
+    bps[i].p2.y = (ofs - (gint16)pts[i*3-1].y) / WPU_PER_DCM;
+    bps[i].p3.x =        (gint16)pts[i*3  ].x  / WPU_PER_DCM;
+    bps[i].p3.y = (ofs - (gint16)pts[i*3  ].y) / WPU_PER_DCM;
+  }
+  if (ren->LineAttr.Type != WPG_LA_NONE)
+    DIA_RENDERER_GET_CLASS(ren)->draw_bezier (DIA_RENDERER(ren),
+					      bps, num_points, &ren->stroke);
+  if (ren->FillAttr.Type != WPG_FA_HOLLOW)
+    DIA_RENDERER_GET_CLASS(ren)->fill_bezier (DIA_RENDERER(ren),
+					      bps, num_points, &ren->fill);
+}
+
+/*
+ * Import (under construction)
+ */
+static void
+import_object(DiaRenderer* self, DiagramData *dia,
+              WPG_Type type, int iSize, guchar* pData)
+{
+  WpgImportRenderer *renderer = WPG_IMPORT_RENDERER(self);
+  WPGPoint* pts = NULL;
+  gint16* pInt16 = NULL;
+  int    iNum = 0;
+  gint32 iPre51 = 0;
+  Point *points = NULL;
+
+  switch (type) {
+  case WPG_LINE:
+    iNum = 2;
+    pts = (WPGPoint*)pData;
+    points = _make_points (renderer, pts, iNum);
+    DIA_RENDERER_GET_CLASS(renderer)->draw_line (self, &points[0], &points[1], &renderer->stroke);
+    break;
+  case WPG_POLYLINE:
+    pInt16 = (gint16*)pData;
+    iNum = pInt16[0];
+    pts = (WPGPoint*)(pData + sizeof(gint16));
+    points = _make_points (renderer, pts, iNum);
+    DIA_RENDERER_GET_CLASS(renderer)->draw_polyline (self, points, iNum, &renderer->stroke);
+    break;
+  case WPG_RECTANGLE:
+    points = _make_rect (renderer, (WPGPoint*)pData);
+    _do_rect (renderer, points);
+    break;
+  case WPG_POLYGON:
+    pInt16 = (gint16*)pData;
+    iNum = pInt16[0];
+    pts = (WPGPoint*)(pData + sizeof(gint16));
+    points = _make_points (renderer, pts, iNum);
+    _do_polygon (renderer, points, iNum);
+    break;
+  case WPG_ELLIPSE:
+    {
+      WPGEllipse* pEll = (WPGEllipse*)pData;
+      _do_ellipse (renderer, pEll);
+    }
+    break;
+  case WPG_POLYCURVE:
+    iPre51 = *((gint32*)pData);
+    pInt16 = (gint16*)pData;
+    iNum = pInt16[2];
+    pts = (WPGPoint*)(pData + 3*sizeof(gint16));
+    DIAG_NOTE(g_message("POLYCURVE Num pts %d Pre51 %d", iNum, iPre51));
+    _do_bezier (renderer, pts, iNum);
+    break;
+  } /* switch */
+  g_free (points);
+  DIAG_NOTE(g_message("Type %d Num pts %d Size %d", type, iNum, iSize));
+} 
+
+static void
+_make_stroke (WpgImportRenderer *ren)
+{
+  WPGColorRGB c;
+
+  g_return_if_fail (ren->pPal != NULL);
+  c = ren->pPal[ren->LineAttr.Color];
+  ren->stroke.red = c.r / 255.0;
+  ren->stroke.green = c.g / 255.0;
+  ren->stroke.blue = c.b / 255.0;
+  ren->stroke.alpha = 1.0;
+  switch (ren->LineAttr.Type) {
+  case WPG_LA_SOLID:
+    DIA_RENDERER_GET_CLASS(ren)->set_linestyle (DIA_RENDERER(ren), LINESTYLE_SOLID);
+    break;
+  case WPG_LA_MEDIUMDASH:
+    DIA_RENDERER_GET_CLASS(ren)->set_linestyle (DIA_RENDERER(ren), LINESTYLE_DASHED);
+    DIA_RENDERER_GET_CLASS(ren)->set_dashlength (DIA_RENDERER(ren), 0.66);
+    break;
+  case WPG_LA_SHORTDASH:
+    DIA_RENDERER_GET_CLASS(ren)->set_linestyle (DIA_RENDERER(ren), LINESTYLE_DASHED);
+    DIA_RENDERER_GET_CLASS(ren)->set_dashlength (DIA_RENDERER(ren), 0.33);
+    break;
+  case WPG_LA_DASHDOT:
+    DIA_RENDERER_GET_CLASS(ren)->set_linestyle (DIA_RENDERER(ren), LINESTYLE_DASH_DOT);
+    DIA_RENDERER_GET_CLASS(ren)->set_dashlength (DIA_RENDERER(ren), 1.0);
+    break;
+  case WPG_LA_DASHDOTDOT:
+    DIA_RENDERER_GET_CLASS(ren)->set_linestyle (DIA_RENDERER(ren), LINESTYLE_DASH_DOT_DOT);
+    DIA_RENDERER_GET_CLASS(ren)->set_dashlength (DIA_RENDERER(ren), 1.0);
+    break;
+  case WPG_LA_DOTS:
+    DIA_RENDERER_GET_CLASS(ren)->set_linestyle (DIA_RENDERER(ren), LINESTYLE_DOTTED);
+    DIA_RENDERER_GET_CLASS(ren)->set_dashlength (DIA_RENDERER(ren), 1.0);
+    break;
+  }
+
+  DIA_RENDERER_GET_CLASS(ren)->set_linewidth (DIA_RENDERER(ren),
+					      ren->LineAttr.Width / WPU_PER_DCM);
+}
+
+static void
+_make_fill (WpgImportRenderer *ren)
+{
+  WPGColorRGB c;
+
+  g_return_if_fail (ren->pPal != NULL);
+  c = ren->pPal[ren->FillAttr.Color];
+  ren->fill.red = c.r / 255.0;
+  ren->fill.green = c.g / 255.0;
+  ren->fill.blue = c.b / 255.0;
+  ren->fill.alpha = 1.0;
+}
+
+static gboolean
+_render_bmp (WpgImportRenderer *ren, WPGBitmap2 *bmp, FILE *f, int len)
+{
+  GdkPixbuf *pixbuf = gdk_pixbuf_new (GDK_COLORSPACE_RGB, TRUE, /* no alpha */
+				      8, /* bits per sample: nothing else */
+				      bmp->Width, bmp->Height);
+  guchar *pixels = gdk_pixbuf_get_pixels (pixbuf);
+#define PUT_PIXEL(pix) \
+  { WPGColorRGB rgb = ren->pPal[pix]; \
+    pixels[0] = rgb.r; pixels[1] = rgb.g; pixels[2] = rgb.b; \
+    pixels[3] = 0xff; pixels+=4; }
+#define REPEAT_LINE(sth) \
+  { memcpy (pixels + 4 * bmp->Width, pixels, 4 * bmp->Width); pixels+=(4 * bmp->Width); }
+  if (pixbuf) {
+    DiaImage *image;
+    int    h = ren->Box.Height;
+    Point pt = { bmp->Left / WPU_PER_DCM, (h - bmp->Top) / WPU_PER_DCM };
+    if (bmp->Depth != 8)
+      g_warning ("WPGBitmap2 unsupported depth %d", bmp->Depth);
+    while (len > 0) {
+      guint8 b, rc, i;
+      if (1 == fread(&b, sizeof(guint8), 1, f)) {
+	if (b & 0x80) {
+	  rc = b & 0x7F;
+	  if (rc != 0) { /* Read the next BYTE and repeat it RunCount times */
+	    fread(&b, sizeof(guint8), 1, f); len--;
+	    for (i = 0; i < rc; ++i)
+	      PUT_PIXEL (b)
+	  } else { /* Repeat the value FFh RunCount times */
+	    fread (&rc, sizeof(guint8), 1, f); len--;
+	    for (i = 0; i < rc; ++i)
+	      PUT_PIXEL (0xFF)
+	  }
+	} else {
+	  rc = b & 0x7F;
+	  if (rc != 0) { /* The next RunCount BYTEs are read literally */
+	    for (i = 0; i < rc; ++i) {
+	      fread (&b, sizeof(guint8), 1, f); len--;
+	      PUT_PIXEL (b)
+	    }
+	  } else { /* Repeat the previous scan line RunCount times */
+	    fread (&rc, sizeof(guint8), 1, f); len--;
+	    for (i = 0; i < rc; ++i)
+	      REPEAT_LINE (0xFF);
+	  }
+	}
+      }
+      len--;
+    }
+    image = dia_image_new_from_pixbuf (pixbuf);
+    if (bmp->Right - bmp->Left == 0 || bmp->Bottom - bmp->Top == 0)
+      DIA_RENDERER_GET_CLASS(ren)->draw_image (DIA_RENDERER(ren), &pt,
+					       bmp->Xdpi / 2.54, bmp->Ydpi / 2.54,
+					       image);
+    else /* real WPGBitmap2 */
+      DIA_RENDERER_GET_CLASS(ren)->draw_image (DIA_RENDERER(ren), &pt,
+					       (bmp->Right - bmp->Left) / WPU_PER_DCM,
+					       (bmp->Bottom - bmp->Top) / WPU_PER_DCM,
+					       image);
+    g_object_unref (pixbuf);
+    g_object_unref (image);
+    return TRUE;
+  }
+#undef PUT_PIXEL
+#undef REPEAT_LINE
+  return FALSE;
+}
+
+static void
+_do_textstyle (WpgImportRenderer *ren, WPGTextStyle *ts)
+{
+  WPGColorRGB c;
+
+  /* change some text properties directly, store the res for draw_string */
+  real height;
+  DiaFont *font;
+
+  g_return_if_fail(sizeof(WPGTextStyle) == 22);
+
+  c = ren->pPal[ts->Color];
+  ren->text_color.red = c.r / 255.0;
+  ren->text_color.green = c.g / 255.0;
+  ren->text_color.blue = c.b / 255.0;
+  ren->text_color.alpha = 1.0;
+
+  ren->text_align = ts->XAlign == 0 ? ALIGN_LEFT :
+		    ts->XAlign == 1 ? ALIGN_CENTER : ALIGN_RIGHT;
+  /* select font */
+  height = ts->Height / WPU_PER_DCM;
+  if (ts->Font == 0x0DF0)
+    font = dia_font_new_from_style (DIA_FONT_MONOSPACE, height);
+  else if (ts->Font == 0x1950)
+    font = dia_font_new_from_style (DIA_FONT_SERIF, height);
+  else if (ts->Font == 0x1150)
+    font = dia_font_new_from_style (DIA_FONT_SANS, height);
+  else /* any is not advices */
+    font = dia_font_new_from_style (DIA_FONT_SANS, height);
+
+  DIA_RENDERER_GET_CLASS(ren)->set_font (DIA_RENDERER(ren), font, height);
+
+  dia_font_unref (font);
+}
+
+static void
+_render_text (WpgImportRenderer *ren, WPGPoint *pos, gchar *text)
+{
+  Point pt;
+  pt.x = pos->x / WPU_PER_DCM;
+  pt.y = (ren->Box.Height - pos->y ) / WPU_PER_DCM;
+
+  DIA_RENDERER_GET_CLASS(ren)->draw_string (DIA_RENDERER(ren), text, &pt,
+					    ren->text_align, &ren->text_color);
+}
+
+gboolean
+import_data (const gchar *filename, DiagramData *dia, DiaContext *ctx, void* user_data)
+{
+  FILE* f;
+  gboolean bRet;
+  WPGHead8 rh;
+
+  f = g_fopen(filename, "rb");
+
+  if (NULL == f) {
+    dia_context_add_message(ctx, _("Couldn't open: '%s' for reading.\n"), filename);
+    bRet = FALSE;
+  }
+  
+  /* check header */
+  if (bRet) {
+    WPGFileHead fhead;
+    bRet = ( (1 == fread(&fhead, sizeof(WPGFileHead), 1, f))
+            && fhead.fid[0] == 255 && fhead.fid[1] == 'W'
+            && fhead.fid[2] == 'P' && fhead.fid[3] == 'C'
+            && (1 == fhead.MajorVersion) && (0 == fhead.MinorVersion));
+    if (!bRet)
+      dia_context_add_message(ctx, _("File: %s type/version unsupported.\n"), filename);
+  }
+
+  if (bRet) {
+    int iSize;
+    gint16 i16, iNum16;
+    guint8 i8;
+    WpgImportRenderer *ren = g_object_new (WPG_TYPE_IMPORT_RENDERER, NULL);
+
+    ren->pPal = g_new0(WPGColorRGB, 256);
+
+    DIAG_NOTE(g_message("Parsing: %s ", filename));
+
+    do {
+      if (1 == fread(&rh, sizeof(WPGHead8), 1, f)) {
+        if (rh.Size < 0xFF)
+          iSize = rh.Size;
+        else {
+          bRet = (1 == fread(&i16, sizeof(guint16), 1, f));
+          if (0x8000 & i16) {
+            DIAG_NOTE(g_print("Large Object: hi:lo %04X", (int)i16));
+            iSize = (0x7FFF & i16) << 16;
+            /* Reading large objects involves major uglyness. Instead of getting 
+             * one size, as implied by "Encyclopedia of Graphics File Formats",
+             * it would require putting together small chunks of data to one large 
+             * object. The criteria when to stop isn't absolutely clear.
+             */
+            bRet = (1 == fread(&i16, sizeof(guint16), 1, f));
+            DIAG_NOTE(g_print("Large Object: %d\n", (int)i16));
+            iSize += (unsigned short)i16;
+#if 0
+            /* Ignore this large objec part */
+            fseek(f, iSize, SEEK_CUR);
+            continue;
+#endif
+          }
+          else
+            iSize = i16; 
+        }
+      } else
+        iSize = 0;
+
+      /* DIAG_NOTE(g_message("Type %d Size %d", rh.Type, iSize)); */
+      if (iSize > 0) {
+        switch (rh.Type) {
+        case WPG_FILLATTR:
+          bRet = (1 == fread(&ren->FillAttr, sizeof(WPGFillAttr), 1, f));
+	  _make_fill (ren);
+          break;
+        case WPG_LINEATTR:
+          bRet = (1 == fread(&ren->LineAttr, sizeof(WPGLineAttr), 1, f));
+	  _make_stroke (ren);
+          break;
+        case WPG_START:
+          bRet = (1 == fread(&ren->Box, sizeof(WPGStartData), 1, f));
+          break;
+        case WPG_STARTWPG2:
+          /* not sure if this is the right thing to do */
+          bRet &= (1 == fread(&i8, sizeof(gint8), 1, f));
+          bRet &= (1 == fread(&i16, sizeof(gint16), 1, f));
+          DIAG_NOTE(g_message("Ignoring tag WPG_STARTWPG2, Size %d\n Type? %d Size? %d", 
+                    iSize, (int)i8, i16));
+          fseek(f, iSize - 3, SEEK_CUR);
+          break;
+        case WPG_LINE:
+        case WPG_POLYLINE:
+        case WPG_RECTANGLE:
+        case WPG_POLYGON:
+        case WPG_POLYCURVE:
+        case WPG_ELLIPSE:
+          {
+            guchar* pData;
+
+            pData = g_new(guchar, iSize);
+            bRet = (iSize == (int)fread(pData, 1, iSize, f));
+            import_object(DIA_RENDERER(ren), dia, rh.Type, iSize, pData);
+            g_free(pData);
+          }
+          break;
+        case WPG_COLORMAP:
+          bRet &= (1 == fread(&i16, sizeof(gint16), 1, f));
+          bRet &= (1 == fread(&iNum16, sizeof(gint16), 1, f));
+          if (iNum16 != (gint16)((iSize - 2) / sizeof(WPGColorRGB)))
+            g_warning("WpgImporter : colormap size/header mismatch.");
+          if (i16 >= 0 && i16 <= iSize) {
+            bRet &= (iNum16 == (int)fread(&ren->pPal[i16], sizeof(WPGColorRGB), iNum16, f));
+          }
+          else {
+            g_warning("WpgImporter : start color map index out of range.");
+            bRet &= (iNum16 == (int)fread(ren->pPal, sizeof(WPGColorRGB), iNum16, f));
+          }
+          break;
+	case WPG_BITMAP1:
+          {
+            WPGBitmap1 bmp;
+            WPGBitmap2 bmp2 = { 0, };
+
+            fread(&bmp, sizeof(WPGBitmap1), 1, f);
+	    /* transfer data to bmp2 struct */
+	    bmp2.Width = bmp.Width;
+	    bmp2.Height = bmp.Height;
+	    bmp2.Depth = bmp.BitsPerPixel; /* really? */
+	    bmp2.Xdpi = bmp.Xdpi;
+	    bmp2.Ydpi = bmp.Ydpi;
+
+	    if (!_render_bmp (ren, &bmp2, f, iSize - sizeof(WPGBitmap1)))
+	      fseek(f, iSize - sizeof(WPGBitmap2), SEEK_CUR);
+          }
+	  break;
+        case WPG_BITMAP2:
+          {
+            WPGBitmap2 bmp;
+
+            fread(&bmp, sizeof(WPGBitmap2), 1, f);
+	    if (!_render_bmp (ren, &bmp, f, iSize - sizeof(WPGBitmap2)))
+	      fseek(f, iSize - sizeof(WPGBitmap2), SEEK_CUR);
+          }
+          break;
+	case WPG_TEXT:
+	  {
+	    guint16 len;
+	    WPGPoint pos;
+	    gchar *text;
+
+	    fread(&len, sizeof(guint16), 1, f);
+	    fread(&pos, sizeof(WPGPoint), 1, f);
+	    text = g_alloca (len+1);
+	    fread(text, 1, len, f);
+	    text[len] = 0;
+	    if (len > 0)
+	      _render_text (ren, &pos, text);
+	  }
+	  break;
+	case WPG_TEXTSTYLE:
+	  {
+	    WPGTextStyle ts;
+	    fread(&ts, sizeof(WPGTextStyle), 1, f);
+	    _do_textstyle (ren, &ts);
+	  }
+	  break;
+        default:
+          fseek(f, iSize, SEEK_CUR);
+          dia_context_add_message (ctx, _("Unknown WPG type %d size %d."),
+				   (int)rh.Type, iSize);
+        } /* switch */
+      } else { /* if iSize */
+        if (WPG_END != rh.Type) {
+          dia_context_add_message (ctx, _("Size 0 on WPG type %d, expecting WPG_END\n"),
+				   (int)rh.Type);
+	  bRet = FALSE;
+	}
+      }
+    }
+    while ((iSize > 0) && (bRet));
+
+    if (!bRet)
+      dia_context_add_message (ctx, _("Unexpected end of file. WPG type %d, size %d.\n"),
+			       rh.Type, iSize);
+    if (ren->pPal) 
+      g_free(ren->pPal);
+    /* transfer to diagram data */
+    {
+      DiaObject *objs = dia_import_renderer_get_objects (DIA_RENDERER(ren));
+      if (objs) {
+	layer_add_object (dia->active_layer, objs);
+      } else {
+	dia_context_add_message (ctx, _("Empty WPG file?"));
+	bRet = FALSE;
+      }
+    }
+    g_object_unref (ren);
+  } /* bRet */
+
+  if (f)
+    fclose(f);
+  return bRet;
+}

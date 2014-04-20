@@ -6,6 +6,16 @@
  *
  * Translated to "C" by Hans Breuer <Hans@Breuer.Org>
  */
+#define WPU_PER_DCM (1200.0 / 2.54)
+
+#ifdef DEBUG_WPG
+#  define DIAG_NOTE(action) action
+#else
+#  define DIAG_NOTE(action)
+#endif
+
+gboolean import_data (const gchar *filename, DiagramData *dia,
+		      DiaContext *ctx, void* user_data);
 
 typedef struct
 {
