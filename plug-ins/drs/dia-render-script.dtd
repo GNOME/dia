@@ -12,11 +12,11 @@
 
 <!ELEMENT object (object|
 		  set-linewidth|set-linecaps|set-linejoin|set-linestyle|set-dashlength|set-fillstyle|set-font|
-		  draw-line|draw-polyline|draw-rounded-polyline|draw-polygon|fill-polygon|
-		  draw-rect|fill-rect|draw-rounded-rect|fill-rounded-rect|
-		  draw-arc|fill-arc|draw-ellipse|fill-ellipse|
-		  draw-bezier|fill-bezier|
-		  draw-string|draw-image)* >
+		  line|polyline|rounded-polyline|polygon|
+		  rect|rounded-rect|
+		  arc|ellipse|
+		  bezier|
+		  string|image)* >
 <!ATTLIST object
 	type CDATA #IMPLIED >
 
@@ -54,108 +54,76 @@
 	size CDATA #IMPLIED
 	weight CDATA #IMPLIED>
 
-<!ELEMENT draw-line EMPTY >
-<!ATTLIST draw-line
+<!ELEMENT line EMPTY >
+<!ATTLIST line
 	start CDATA #REQUIRED
 	end CDATA #REQUIRED
 	stroke CDATA #IMPLIED>
 
-<!ELEMENT draw-polyline EMPTY >
-<!ATTLIST draw-polyline
+<!ELEMENT polyline EMPTY >
+<!ATTLIST polyline
 	points CDATA #REQUIRED
 	stroke CDATA #IMPLIED>
 
-<!ELEMENT draw-rounded-polyline EMPTY >
-<!ATTLIST draw-rounded-polyline
+<!ELEMENT rounded-polyline EMPTY >
+<!ATTLIST rounded-polyline
 	points CDATA #REQUIRED
 	r CDATA #REQUIRED
 	stroke CDATA #IMPLIED>
 
-<!ELEMENT draw-polygon EMPTY >
-<!ATTLIST draw-polygon
+<!ELEMENT polygon EMPTY >
+<!ATTLIST polygon
 	points CDATA #REQUIRED
-	stroke CDATA #IMPLIED >
-
-<!ELEMENT fill-polygon EMPTY >
-<!ATTLIST fill-polygon
-	points CDATA #REQUIRED
+	stroke CDATA #IMPLIED
 	fill CDATA #IMPLIED>
 
-<!ELEMENT draw-rect EMPTY >
-<!ATTLIST draw-rect
+<!ELEMENT rect EMPTY >
+<!ATTLIST rect
 	lefttop CDATA #REQUIRED
 	rightbottom CDATA #REQUIRED
-	stroke CDATA #IMPLIED>
-
-<!ELEMENT fill-rect EMPTY >
-<!ATTLIST fill-rect
-	lefttop CDATA #REQUIRED
-	rightbottom CDATA #REQUIRED
+	stroke CDATA #IMPLIED
 	fill CDATA #IMPLIED>
 
-<!ELEMENT draw-rounded-rect EMPTY >
-<!ATTLIST draw-rounded-rect
+<!ELEMENT rounded-rect EMPTY >
+<!ATTLIST rounded-rect
 	lefttop CDATA #REQUIRED
 	rightbottom CDATA #REQUIRED
 	r CDATA #REQUIRED
-	stroke CDATA #IMPLIED>
-
-<!ELEMENT fill-rounded-rect EMPTY >
-<!ATTLIST fill-rounded-rect
-	lefttop CDATA #REQUIRED
-	rightbottom CDATA #REQUIRED
-	r CDATA #REQUIRED
+	stroke CDATA #IMPLIED
 	fill CDATA #IMPLIED>
 
-<!ELEMENT draw-arc EMPTY >
-<!ATTLIST draw-arc
+<!ELEMENT arc EMPTY >
+<!ATTLIST arc
 	center CDATA #REQUIRED
 	width CDATA #REQUIRED
 	height CDATA #REQUIRED
 	angle1 CDATA #REQUIRED
 	angle2 CDATA #REQUIRED
-	stroke CDATA #IMPLIED>
-
-<!ELEMENT fill-arc EMPTY >
-<!ATTLIST fill-arc
-	center CDATA #REQUIRED
-	width CDATA #REQUIRED
-	height CDATA #REQUIRED
-	angle1 CDATA #REQUIRED
-	angle2 CDATA #REQUIRED
-	fill CDATA #IMPLIED>
-	
-<!ELEMENT draw-ellipse EMPTY >
-<!ATTLIST draw-ellipse
-	center CDATA #REQUIRED
-	width CDATA #REQUIRED
-	height CDATA #REQUIRED
-	stroke CDATA #IMPLIED>
-
-<!ELEMENT fill-ellipse EMPTY >
-<!ATTLIST fill-ellipse
-	center CDATA #REQUIRED
-	width CDATA #REQUIRED
-	height CDATA #REQUIRED
+	stroke CDATA #IMPLIED
 	fill CDATA #IMPLIED>
 
-<!ELEMENT draw-bezier EMPTY >
-<!ATTLIST draw-bezier
+<!ELEMENT ellipse EMPTY >
+<!ATTLIST ellipse
+	center CDATA #REQUIRED
+	width CDATA #REQUIRED
+	height CDATA #REQUIRED
+	stroke CDATA #IMPLIED
+	fill CDATA #IMPLIED>
+
+<!ELEMENT bezier EMPTY >
+<!ATTLIST bezier
 	bezpoints CDATA #REQUIRED
-	stroke CDATA #IMPLIED>
-<!ELEMENT fill-bezier EMPTY >
-<!ATTLIST fill-bezier
-	bezpoints CDATA #REQUIRED
+	stroke CDATA #IMPLIED
 	fill CDATA #IMPLIED>
 
-<!ELEMENT draw-string ANY >
-<!ATTLIST draw-string
+<!ELEMENT string ANY >
+<!ATTLIST string
 	pos CDATA #IMPLIED
 	fill CDATA #IMPLIED
 	alignment (left|right|center) #IMPLIED >
 
-<!ELEMENT draw-image EMPTY >
-<!ATTLIST draw-image
+<!ELEMENT image EMPTY >
+<!ATTLIST image
 	point CDATA #REQUIRED
 	width CDATA #REQUIRED
 	height CDATA #REQUIRED

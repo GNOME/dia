@@ -546,8 +546,10 @@ fill_bezier (DiaRenderer *renderer,
              Color *color)
 {
   DiaImportRenderer *self = DIA_IMPORT_RENDERER (renderer);
-  DiaObject *object = create_standard_beziergon (numpoints, points);
+  DiaObject *object;
 
+  g_return_if_fail (numpoints > 2);
+  object = create_standard_beziergon (numpoints, points);
   _apply_style (self, object, color, NULL, 0.0);
   _push_object (self, object);
 }
@@ -590,8 +592,7 @@ draw_rounded_polyline (DiaRenderer *renderer,
 {
   DiaImportRenderer *self = DIA_IMPORT_RENDERER (renderer);
   DiaObject *object = create_standard_polyline (num_points, points, NULL, NULL);
-  /* XXX: radius */
-  _apply_style (self, object, NULL, color, 0.0);
+  _apply_style (self, object, NULL, color, radius);
   _push_object (self, object);
 }
 

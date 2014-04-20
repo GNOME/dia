@@ -440,7 +440,7 @@ draw_line(DiaRenderer *self,
   DrsRenderer *renderer = DRS_RENDERER (self);
   xmlNodePtr node;
 
-  node = xmlNewChild(renderer->root, NULL, (const xmlChar *)"draw-line", NULL);
+  node = xmlNewChild(renderer->root, NULL, (const xmlChar *)"line", NULL);
   _node_set_point (node, "start", start);
   _node_set_point (node, "end", end);
   _node_set_color (node, "stroke", color);
@@ -454,7 +454,7 @@ draw_polyline(DiaRenderer *self,
   DrsRenderer *renderer = DRS_RENDERER (self);
   xmlNodePtr node;
 
-  node = xmlNewChild(renderer->root, NULL, (const xmlChar *)"draw-polyline", NULL);
+  node = xmlNewChild(renderer->root, NULL, (const xmlChar *)"polyline", NULL);
   _node_set_points (node, points, num_points);
   _node_set_color (node, "stroke", color);
 }
@@ -471,7 +471,7 @@ _polygon(DiaRenderer *self,
   g_return_if_fail(1 < num_points);
 
   node = xmlNewChild(renderer->root, NULL, 
-                     (const xmlChar *)(fill ? "fill-polygon" : "draw-polygon"), NULL);
+                     (const xmlChar *)"polygon", NULL);
   _node_set_points (node, points, num_points);
   if (fill)
     _node_set_color (node, "fill", color);
@@ -504,10 +504,10 @@ _rounded_rect(DiaRenderer *self,
 
   if (rounding)
     node = xmlNewChild(renderer->root, NULL, 
-                       (const xmlChar *)(fill ? "fill-rounded-rect" : "draw-rounded-rect"), NULL);
+                       (const xmlChar *)"rounded-rect", NULL);
   else
     node = xmlNewChild(renderer->root, NULL, 
-                       (const xmlChar *)(fill ? "fill-rect" : "draw-rect"), NULL);
+                       (const xmlChar *)"rect", NULL);
 
   _node_set_point (node, "lefttop", lefttop);
   _node_set_point (node, "rightbottom", rightbottom);
@@ -558,7 +558,7 @@ _arc(DiaRenderer *self,
   DrsRenderer *renderer = DRS_RENDERER (self);
   xmlNodePtr node;
   
-  node = xmlNewChild(renderer->root, NULL, (const xmlChar *)(fill ? "fill-arc" : "draw-arc"), NULL);
+  node = xmlNewChild(renderer->root, NULL, (const xmlChar *)"arc", NULL);
   _node_set_point (node, "center", center);
   _node_set_real (node, "width", width);
   _node_set_real (node, "height", height);
@@ -599,7 +599,7 @@ _ellipse(DiaRenderer *self,
   xmlNodePtr node;
   
   node = xmlNewChild(renderer->root, NULL, 
-                     (const xmlChar *)(fill ? "fill-ellipse" : "draw-ellipse"), NULL);
+                     (const xmlChar *)"ellipse", NULL);
   _node_set_point (node, "center", center);
   _node_set_real (node, "width", width);
   _node_set_real (node, "height", height);
@@ -636,7 +636,7 @@ _bezier(DiaRenderer *self,
   xmlNodePtr node;
   
   node = xmlNewChild (renderer->root, NULL, 
-                      (const xmlChar *)(fill ? "fill-bezier" : "draw-bezier"), NULL);
+                      (const xmlChar *)"bezier", NULL);
   _node_set_bezpoints (node, points, numpoints);
   if (fill)
     _node_set_color (node, "fill", color);
@@ -668,7 +668,7 @@ draw_rounded_polyline (DiaRenderer *self,
   DrsRenderer *renderer = DRS_RENDERER (self);
   xmlNodePtr node;
   
-  node = xmlNewChild (renderer->root, NULL, (const xmlChar *)"draw-rounded-polyline", NULL);
+  node = xmlNewChild (renderer->root, NULL, (const xmlChar *)"rounded-polyline", NULL);
   _node_set_points (node, points, num_points);
   _node_set_color (node, "stroke", color);
   _node_set_real (node, "r", radius);
@@ -684,7 +684,7 @@ draw_string(DiaRenderer *self,
   xmlNodePtr node;
   gchar *align = NULL;
   
-  node = xmlNewChild(renderer->root, NULL, (const xmlChar *)"draw-string", NULL);
+  node = xmlNewChild(renderer->root, NULL, (const xmlChar *)"string", NULL);
   _node_set_point (node, "pos", pos);
   _node_set_color (node, "fill", color);
   switch (alignment) {
@@ -715,7 +715,7 @@ draw_image(DiaRenderer *self,
   xmlNodePtr node;
   gchar *uri;
 
-  node = xmlNewChild(renderer->root, NULL, (const xmlChar *)"draw-image", NULL);
+  node = xmlNewChild(renderer->root, NULL, (const xmlChar *)"image", NULL);
   _node_set_point (node, "point", point);
   _node_set_real (node, "width", width);
   _node_set_real (node, "height", height);

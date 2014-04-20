@@ -2,7 +2,7 @@
  * Copyright (C) 1998 Alexander Larsson
  *
  * dia-render-script-import.c - plugin for dia
- * Copyright (C) 2009, Hans Breuer, <Hans@Breuer.Org>
+ * Copyright (C) 2009, 2014 Hans Breuer, <hans@breuer.org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -28,103 +28,107 @@
 #include "diagramdata.h"
 #include "group.h"
 #include "intl.h"
+#include "diaimportrenderer.h"
 
 #include <libxml/tree.h>
 
 #include "dia-render-script.h"
 
-G_GNUC_UNUSED static real
+static real
 _parse_real (xmlNodePtr node, const char *attrib)
 {
   xmlChar *str = xmlGetProp(node, (const xmlChar *)attrib);
   real val = 0;
   if (str) {
-    val = g_strtod ((gchar *)str, NULL);
+    val = g_ascii_strtod ((gchar *)str, NULL);
     xmlFree(str);
   }
   return val;
 }
-G_GNUC_UNUSED static Point *
+static Point
 _parse_point (xmlNodePtr node, const char *attrib)
 {
   xmlChar *str = xmlGetProp(node, (const xmlChar *)attrib);
-  Point *pt = g_new0(Point, 1);
+  Point pt = { 0, 0 };
   if (str) {
     gchar *ep = NULL;
-    pt->x = g_strtod ((gchar *)str, &ep);
+    pt.x = g_ascii_strtod ((gchar *)str, &ep);
     if (ep) {
       ++ep;
-      pt->y = g_strtod (ep, NULL);
+      pt.y = g_ascii_strtod (ep, NULL);
     }
     xmlFree(str);
   }
   return pt;
 }
-G_GNUC_UNUSED static GArray *
+static GArray *
 _parse_points (xmlNodePtr node, const char *attrib)
 {
   xmlChar *str = xmlGetProp(node, (const xmlChar *)attrib);
   GArray *arr = NULL;
   
   if (str) {
-    GArray *arr = g_array_new(FALSE, TRUE, sizeof(Point));
     gint i;
     gchar **split = g_strsplit ((gchar *)str, " ", -1);
     gchar *val, *ep = NULL;
+    arr = g_array_new(FALSE, TRUE, sizeof(Point));
     for (i = 0; split[i] != NULL; ++i)
       /* count them */;
     g_array_set_size (arr, i);
-    for (i = 0, val = split[i]; split[i] != 0; ++i) {
+    for (i = 0; split[i] != 0; ++i) {
       Point *pt = &g_array_index(arr, Point, i);
-      
-      pt->x = g_strtod (val, &ep);
-      pt->y = ep ? ++ep, g_strtod (ep, &ep) : 0;
+      val = split[i];
+      pt->x = g_ascii_strtod (val, &ep);
+      pt->y = ep ? ++ep, g_ascii_strtod (ep, &ep) : 0;
     }
     g_strfreev(split);
     xmlFree(str);
   }
   return arr;
 }
-G_GNUC_UNUSED static GArray *
+static GArray *
 _parse_bezpoints (xmlNodePtr node, const char *attrib)
 {
   xmlChar *str = xmlGetProp(node, (const xmlChar *)attrib);
   GArray *arr = NULL;
   
   if (str) {
-    GArray *arr = g_array_new(FALSE, TRUE, sizeof(BezPoint));
     gint i;
     gchar **split = g_strsplit ((gchar *)str, " ", -1);
     gchar *val, *ep = NULL;
+    arr = g_array_new(FALSE, TRUE, sizeof(BezPoint));
     for (i = 0; split[i] != NULL; ++i)
       /* count them */;
     g_array_set_size (arr, i);
-    for (i = 0, val = split[i]; split[i] != 0; ++i) {
+    for (i = 0; split[i] != 0; ++i) {
       BezPoint *pt = &g_array_index(arr, BezPoint, i);
+      val = split[i];
       pt->type = val[0] == 'M' ? BEZ_MOVE_TO : (val[0] == 'L' ? BEZ_LINE_TO : BEZ_CURVE_TO);
-      ep = (gchar *)str + 1;
+      ep = (gchar *)val + 1;
       
-      pt->p1.x = ep ? g_strtod (ep, &ep) : 0;
-      pt->p1.y = ep ? ++ep, g_strtod (ep, &ep) : 0;
-      pt->p2.x = ep ? ++ep, g_strtod (ep, &ep) : 0;
-      pt->p2.y = ep ? ++ep, g_strtod (ep, &ep) : 0;
-      pt->p3.x = ep ? ++ep, g_strtod (ep, &ep) : 0;
-      pt->p3.y = ep ? ++ep, g_strtod (ep, &ep) : 0;
+      pt->p1.x = ep ? g_ascii_strtod (ep, &ep) : 0;
+      pt->p1.y = ep ? ++ep, g_ascii_strtod (ep, &ep) : 0;
+      if (pt->type == BEZ_CURVE_TO) {
+	pt->p2.x = ep ? ++ep, g_ascii_strtod (ep, &ep) : 0;
+	pt->p2.y = ep ? ++ep, g_ascii_strtod (ep, &ep) : 0;
+	pt->p3.x = ep ? ++ep, g_ascii_strtod (ep, &ep) : 0;
+	pt->p3.y = ep ? ++ep, g_ascii_strtod (ep, &ep) : 0;
+      }
     }    
     g_strfreev(split);
     xmlFree(str);
   }
   return arr;
 }
-G_GNUC_UNUSED static Color *
+static Color *
 _parse_color (xmlNodePtr node, const char *attrib)
 {
   xmlChar *str = xmlGetProp(node, (const xmlChar *)attrib);
   Color *val = NULL;
-  
+
   if (str) {
     PangoColor color;
-    if (!pango_color_parse (&color, (gchar *)str)) {
+    if (pango_color_parse (&color, (gchar *)str)) {
       val = g_new (Color, 1);
       val->red = color.red / 65535.0; 
       val->green = color.green / 65535.0; 
@@ -135,13 +139,218 @@ _parse_color (xmlNodePtr node, const char *attrib)
   }
   return val;
 }
+static LineStyle
+_parse_linestyle (xmlNodePtr node, const char *attrib)
+{
+  xmlChar *str = xmlGetProp(node, (const xmlChar *)attrib);
+  LineStyle val = LINESTYLE_SOLID;
+  if (str) {
+    if (strcmp ((const char *)str, "dashed") == 0)
+      val = LINESTYLE_DASHED;
+    else if  (strcmp ((const char *)str, "dash-dot") == 0)
+      val = LINESTYLE_DASH_DOT;
+    else if  (strcmp ((const char *)str, "dash-dot-dot") == 0)
+      val = LINESTYLE_DASH_DOT_DOT;
+    else if (strcmp ((const char *)str, "dotted") == 0)
+      val = LINESTYLE_DOTTED;
+    else if (strcmp ((const char *)str, "solid") != 0)
+      g_warning ("DRS: unknown linestyle: %s", str);
+    xmlFree(str);
+  }
+  return val;
+}
+static LineCaps
+_parse_linecaps (xmlNodePtr node, const char *attrib)
+{
+  xmlChar *str = xmlGetProp(node, (const xmlChar *)attrib);
+  LineCaps val = LINECAPS_BUTT;
+  if (str) {
+    if (strcmp ((const char *)str, "round") == 0)
+      val = LINECAPS_ROUND;
+    else if (strcmp ((const char *)str, "projecting") == 0)
+      val = LINECAPS_PROJECTING;
+    else if (strcmp ((const char *)str, "butt") != 0)
+      g_warning ("unknown linecaps: %s", str);
+    xmlFree(str);
+  }
+  return val;
+}
+static LineJoin
+_parse_linejoin (xmlNodePtr node, const char *attrib)
+{
+  xmlChar *str = xmlGetProp(node, (const xmlChar *)attrib);
+  LineJoin val = LINEJOIN_MITER;
+  if (str) {
+    if (strcmp ((const char *)str, "round") == 0)
+      val = LINEJOIN_ROUND;
+    else if (strcmp ((const char *)str, "bevel") == 0)
+      val = LINEJOIN_BEVEL;
+    else if (strcmp ((const char *)str, "miter") != 0)
+      g_warning ("unknown linejoin: %s", str);
+    xmlFree(str);
+  }
+  return val;
+}
+static FillStyle
+_parse_fillstyle (xmlNodePtr node, const char *attrib)
+{
+  /* ToDo: complain about everything but */
+  return FILLSTYLE_SOLID;
+}
+static Alignment
+_parse_alignment (xmlNodePtr node, const char *attrib)
+{
+  xmlChar *str = xmlGetProp(node, (const xmlChar *)attrib);
+  Alignment val = ALIGN_LEFT;
+  if (str) {
+    if (strcmp ((const char *)str, "center") == 0)
+      val = ALIGN_CENTER;
+    else if (strcmp ((const char *)str, "right") == 0)
+      val = ALIGN_RIGHT;
+    else if (strcmp ((const char *)str, "left") != 0)
+      g_warning ("unknown alignment: %s", str);
+    xmlFree(str);
+  }
+  return val;
+}
+static DiaFont *
+_parse_font (xmlNodePtr node)
+{
+  DiaFont *font = NULL;
+  xmlChar *str;
+  xmlChar *fam = xmlGetProp(node, (const xmlChar *)"family");
+  real size = _parse_real (node, "size");
 
-typedef struct _RenderOp RenderOp;
-struct _RenderOp {
-  void (*render) (RenderOp *self, ...);
-  void (*destroy)(RenderOp *self);
-  void *params[6];
-};
+  if (size <= 0.0)
+    size = 1.0;
+  if (fam)
+    font = dia_font_new ((const char *)fam, 0, size);
+  if (!font)
+    font = dia_font_new_from_style (DIA_FONT_SANS, size);
+  str = xmlGetProp(node, (const xmlChar *)"weight");
+  if (str) {
+    dia_font_set_weight_from_string (font, (const char*)str);
+    xmlFree (str);
+  }
+  str = xmlGetProp(node, (const xmlChar *)"slant");
+  if (str) {
+    dia_font_set_slant_from_string (font, (const char*)str);
+    xmlFree (str);
+  }
+
+  if (fam)
+    xmlFree (fam);
+
+  return font;
+}
+static DiaObject *
+_render_object (xmlNodePtr render, DiaContext *ctx)
+{
+  DiaRenderer *ir = g_object_new (DIA_TYPE_IMPORT_RENDERER, NULL);
+  DiaRendererClass *ops = DIA_RENDERER_GET_CLASS (ir);
+  DiaObject *o;
+  xmlNodePtr node;
+
+  g_return_val_if_fail (ops != NULL, NULL);
+
+  for (node = render->children; node; node = node->next) {
+    if (xmlStrcmp (node->name, (const xmlChar *)"set-linewidth") == 0)
+      ops->set_linewidth (ir, _parse_real (node, "width"));
+    else if (xmlStrcmp (node->name, (const xmlChar *)"set-linestyle") == 0)
+      ops->set_linestyle (ir, _parse_linestyle (node, "mode"));
+    else if (xmlStrcmp (node->name, (const xmlChar *)"set-dashlength") == 0)
+      ops->set_dashlength (ir, _parse_real (node, "length"));
+    else if (xmlStrcmp (node->name, (const xmlChar *)"set-linecaps") == 0)
+      ops->set_linecaps (ir, _parse_linecaps (node, "mode"));
+    else if (xmlStrcmp (node->name, (const xmlChar *)"set-linejoin") == 0)
+      ops->set_linejoin (ir, _parse_linejoin (node, "mode"));
+    else if (xmlStrcmp (node->name, (const xmlChar *)"set-fillstyle") == 0)
+      ops->set_fillstyle (ir, _parse_fillstyle (node, "mode"));
+    /* ToDo: set-linejoin, set-fillstyle */
+    else if (xmlStrcmp (node->name, (const xmlChar *)"set-font") == 0) {
+      DiaFont *font = _parse_font (node);
+      ops->set_font (ir, font, _parse_real (node, "height"));
+      dia_font_unref (font);
+    } else {
+      Color *stroke = _parse_color (node, "stroke");
+      Color *fill = _parse_color (node, "fill");
+
+      if (xmlStrcmp (node->name, (const xmlChar *)"line") == 0) {
+	Point p1 = _parse_point (node, "start");
+	Point p2 = _parse_point (node, "end");
+	if (stroke)
+	  ops->draw_line (ir, &p1, &p2, stroke);
+      } else if (   xmlStrcmp (node->name, (const xmlChar *)"polyline") == 0
+	         || xmlStrcmp (node->name, (const xmlChar *)"rounded-polyline") == 0) {
+	GArray *path = _parse_points (node, "points");
+	real r = _parse_real (node,"r");
+	if (path) {
+	  if (stroke)
+	    ops->draw_rounded_polyline (ir, &g_array_index(path,Point,0), path->len, stroke, r);
+	  g_array_free (path, TRUE);
+	}
+      } else if (   xmlStrcmp (node->name, (const xmlChar *)"polygon") == 0) {
+	GArray *path = _parse_points (node, "points");
+	if (path) {
+	  if (fill)
+	    ops->fill_polygon (ir, &g_array_index(path,Point,0), path->len, fill);
+	  if (stroke)
+	    ops->draw_polygon (ir, &g_array_index(path,Point,0), path->len, stroke);
+	  g_array_free (path, TRUE);
+	}
+      } else if (xmlStrcmp (node->name, (const xmlChar *)"arc") == 0) {
+	Point center = _parse_point (node, "center");
+	if (fill)
+	  ops->fill_arc (ir, &center, _parse_real (node, "width"), _parse_real (node, "height"),
+			 _parse_real (node, "angle1"),  _parse_real (node, "angle2"), fill);
+	if (stroke)
+	  ops->draw_arc (ir, &center, _parse_real (node, "width"), _parse_real (node, "height"),
+			 _parse_real (node, "angle1"),  _parse_real (node, "angle2"), stroke);
+      } else if (xmlStrcmp (node->name, (const xmlChar *)"ellipse") == 0) {
+	Point center = _parse_point (node, "center");
+	if (fill)
+	  ops->fill_ellipse (ir, &center, _parse_real (node, "width"),
+			     _parse_real (node, "height"), fill);
+	if (stroke)
+	  ops->draw_ellipse (ir, &center, _parse_real (node, "width"),
+			     _parse_real (node, "height"), stroke);
+      } else if (xmlStrcmp (node->name, (const xmlChar *)"bezier") == 0) {
+	GArray *path = _parse_bezpoints (node, "bezpoints");
+	if (path) {
+	  if (fill)
+	    ops->fill_bezier (ir, &g_array_index(path,BezPoint,0), path->len, fill);
+	  if (stroke)
+	    ops->draw_bezier (ir, &g_array_index(path,BezPoint,0), path->len, stroke);
+	  g_array_free (path, TRUE);
+	}
+      } else if (   xmlStrcmp (node->name, (const xmlChar *)"rect") == 0
+	         || xmlStrcmp (node->name, (const xmlChar *)"rounded-rect") == 0) {
+	Point ul = _parse_point (node, "lefttop");
+	Point lr = _parse_point (node, "rightbottom");
+	real r = _parse_real (node,"r");
+	if (fill)
+	  ops->fill_rounded_rect (ir, &ul, &lr, fill, r);
+	if (stroke)
+	  ops->draw_rounded_rect (ir, &ul, &lr, stroke, r);
+      } else if (   xmlStrcmp (node->name, (const xmlChar *)"string") == 0) {
+	Point pos = _parse_point (node, "pos");
+	Alignment align = _parse_alignment (node, "alignment");
+	xmlChar *text = xmlNodeGetContent(node);
+	if (text) {
+	  ops->draw_string (ir, (const char*)text, &pos, align, fill);
+	  xmlFree (text);
+	}
+      } else if (node->type == XML_ELEMENT_NODE) {
+	g_warning ("%s not handled", node->name);
+      }
+      g_free (fill);
+      g_free (stroke);
+    }
+  }
+  o = dia_import_renderer_get_objects (ir);
+  g_object_unref (ir);
+  return o;
+}
 
 static xmlNodePtr
 find_child_named (xmlNodePtr node, const char *name)
@@ -199,8 +408,12 @@ read_items (xmlNodePtr startnode, DiaContext *ctx)
 	  object_load_props (o, props, ctx);
 	  items = g_list_append (items, o);
 	}
+      } else if (render) {
+        DiaObject *o = _render_object (render, ctx);
+	if (o)
+	  items = g_list_append (items, o);
       } else {
-        g_debug ("DRS: unknown object '%s'", sType);
+	g_debug ("DRS-Import: %s?", node->name);
       }
     } else {
       g_debug ("DRS-Import: %s?", node->name);
