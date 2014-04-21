@@ -52,6 +52,7 @@ lib/dialinechooser.c
 lib/dialinestyleselector.c
 lib/dialogs.c
 lib/diaoptionmenu.c
+lib/diapatternselector.c
 lib/dia_xml.c
 lib/filter.c
 lib/font.c
@@ -231,6 +232,7 @@ plug-ins/vdx/vdx-import.c
 plug-ins/vdx/vdx-xml.c
 plug-ins/wmf/wmf.cpp
 plug-ins/wpg/wpg.c
+plug-ins/wpg/wpg-import.c
 plug-ins/xfig/xfig.c
 plug-ins/xfig/xfig-export.c
 plug-ins/xfig/xfig-import.c
