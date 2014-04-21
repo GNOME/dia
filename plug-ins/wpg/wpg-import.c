@@ -28,6 +28,7 @@
 #include "dia_image.h"
 #include "diacontext.h"
 #include "intl.h"
+#include "message.h" /* just dia_log_message() */
 
 typedef struct _WpgImportRenderer  WpgImportRenderer;
 
@@ -35,7 +36,7 @@ typedef struct _WpgImportRenderer  WpgImportRenderer;
  * \brief Renderer for WordPerfect Graphics import
  * \extends _DiaImportRenderer
  */
-typedef struct _WpgImportRenderer {
+struct _WpgImportRenderer {
   DiaImportRenderer parent_instance;
 
   WPGStartData Box;
@@ -53,6 +54,8 @@ typedef struct _WpgImportRendererClass WpgImportRendererClass;
 struct _WpgImportRendererClass {
   DiaRendererClass parent_class;
 };
+
+static GType wpg_import_renderer_get_type (void);
 
 G_DEFINE_TYPE(WpgImportRenderer, wpg_import_renderer, DIA_TYPE_IMPORT_RENDERER);
 
@@ -243,8 +246,34 @@ import_object(DiaRenderer* self, DiagramData *dia,
     pInt16 = (gint16*)pData;
     iNum = pInt16[2];
     pts = (WPGPoint*)(pData + 3*sizeof(gint16));
-    DIAG_NOTE(g_message("POLYCURVE Num pts %d Pre51 %d", iNum, iPre51));
+    dia_log_message ("WPG POLYCURVE Num pts %d Pre51 %d", iNum, iPre51);
     _do_bezier (renderer, pts, iNum);
+    break;
+  case WPG_FILLATTR:
+  case WPG_LINEATTR:
+  case WPG_COLORMAP:
+  case WPG_MARKERATTR:
+  case WPG_POLYMARKER:
+  case WPG_TEXTSTYLE:
+  case WPG_START:
+  case WPG_END:
+  case WPG_OUTPUTATTR:
+  case WPG_STARTFIGURE:
+  case WPG_STARTCHART:
+  case WPG_PLANPERFECT:
+  case WPG_STARTWPG2:
+  case WPG_POSTSCRIPT1:
+  case WPG_POSTSCRIPT2:
+    /* these are no objects, silence GCC */
+    break;
+  case WPG_BITMAP1:
+  case WPG_TEXT:
+  case WPG_BITMAP2:
+    /* these objects are handled directly below, silence GCC */
+    break;
+  case WPG_GRAPHICSTEXT2:
+  case WPG_GRAPHICSTEXT3:
+    /* these objects actually might get implemented some day, silence GCC */
     break;
   } /* switch */
   g_free (points);
@@ -312,6 +341,7 @@ _render_bmp (WpgImportRenderer *ren, WPGBitmap2 *bmp, FILE *f, int len)
 				      8, /* bits per sample: nothing else */
 				      bmp->Width, bmp->Height);
   guchar *pixels = gdk_pixbuf_get_pixels (pixbuf);
+  gboolean bRet = TRUE;
 #define PUT_PIXEL(pix) \
   { WPGColorRGB rgb = ren->pPal[pix]; \
     pixels[0] = rgb.r; pixels[1] = rgb.g; pixels[2] = rgb.b; \
@@ -330,11 +360,11 @@ _render_bmp (WpgImportRenderer *ren, WPGBitmap2 *bmp, FILE *f, int len)
 	if (b & 0x80) {
 	  rc = b & 0x7F;
 	  if (rc != 0) { /* Read the next BYTE and repeat it RunCount times */
-	    fread(&b, sizeof(guint8), 1, f); len--;
+	    bRet &= (1 == fread(&b, sizeof(guint8), 1, f)); len--;
 	    for (i = 0; i < rc; ++i)
 	      PUT_PIXEL (b)
 	  } else { /* Repeat the value FFh RunCount times */
-	    fread (&rc, sizeof(guint8), 1, f); len--;
+	    bRet &= (1 == fread (&rc, sizeof(guint8), 1, f)); len--;
 	    for (i = 0; i < rc; ++i)
 	      PUT_PIXEL (0xFF)
 	  }
@@ -342,11 +372,11 @@ _render_bmp (WpgImportRenderer *ren, WPGBitmap2 *bmp, FILE *f, int len)
 	  rc = b & 0x7F;
 	  if (rc != 0) { /* The next RunCount BYTEs are read literally */
 	    for (i = 0; i < rc; ++i) {
-	      fread (&b, sizeof(guint8), 1, f); len--;
+	      bRet &= (1 == fread (&b, sizeof(guint8), 1, f)); len--;
 	      PUT_PIXEL (b)
 	    }
 	  } else { /* Repeat the previous scan line RunCount times */
-	    fread (&rc, sizeof(guint8), 1, f); len--;
+	    bRet &= (1 == fread (&rc, sizeof(guint8), 1, f)); len--;
 	    for (i = 0; i < rc; ++i)
 	      REPEAT_LINE (0xFF);
 	  }
@@ -366,7 +396,7 @@ _render_bmp (WpgImportRenderer *ren, WPGBitmap2 *bmp, FILE *f, int len)
 					       image);
     g_object_unref (pixbuf);
     g_object_unref (image);
-    return TRUE;
+    return bRet;
   }
 #undef PUT_PIXEL
 #undef REPEAT_LINE
@@ -423,7 +453,7 @@ gboolean
 import_data (const gchar *filename, DiagramData *dia, DiaContext *ctx, void* user_data)
 {
   FILE* f;
-  gboolean bRet;
+  gboolean bRet = TRUE;
   WPGHead8 rh;
 
   f = g_fopen(filename, "rb");
@@ -538,7 +568,7 @@ import_data (const gchar *filename, DiagramData *dia, DiaContext *ctx, void* use
             WPGBitmap1 bmp;
             WPGBitmap2 bmp2 = { 0, };
 
-            fread(&bmp, sizeof(WPGBitmap1), 1, f);
+            bRet &= (1 == fread(&bmp, sizeof(WPGBitmap1), 1, f));
 	    /* transfer data to bmp2 struct */
 	    bmp2.Width = bmp.Width;
 	    bmp2.Height = bmp.Height;
@@ -554,7 +584,7 @@ import_data (const gchar *filename, DiagramData *dia, DiaContext *ctx, void* use
           {
             WPGBitmap2 bmp;
 
-            fread(&bmp, sizeof(WPGBitmap2), 1, f);
+            bRet &= (1 == fread(&bmp, sizeof(WPGBitmap2), 1, f));
 	    if (!_render_bmp (ren, &bmp, f, iSize - sizeof(WPGBitmap2)))
 	      fseek(f, iSize - sizeof(WPGBitmap2), SEEK_CUR);
           }
@@ -565,10 +595,10 @@ import_data (const gchar *filename, DiagramData *dia, DiaContext *ctx, void* use
 	    WPGPoint pos;
 	    gchar *text;
 
-	    fread(&len, sizeof(guint16), 1, f);
-	    fread(&pos, sizeof(WPGPoint), 1, f);
+	    bRet &= (1 == fread(&len, sizeof(guint16), 1, f));
+	    bRet &= (1 == fread(&pos, sizeof(WPGPoint), 1, f));
 	    text = g_alloca (len+1);
-	    fread(text, 1, len, f);
+	    bRet &= (len == fread(text, 1, len, f));
 	    text[len] = 0;
 	    if (len > 0)
 	      _render_text (ren, &pos, text);
@@ -577,7 +607,7 @@ import_data (const gchar *filename, DiagramData *dia, DiaContext *ctx, void* use
 	case WPG_TEXTSTYLE:
 	  {
 	    WPGTextStyle ts;
-	    fread(&ts, sizeof(WPGTextStyle), 1, f);
+	    bRet &= (1 == fread(&ts, sizeof(WPGTextStyle), 1, f));
 	    _do_textstyle (ren, &ts);
 	  }
 	  break;

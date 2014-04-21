@@ -769,7 +769,11 @@ draw_bezier(DiaRenderer *self,
   g_free(pts);
 }
 
-static void
+/* Use fallback from base class until another program can
+ * actually correctly show the filled Polycurve created
+ * by Dia (our own import can).
+ */
+G_GNUC_UNUSED static void
 fill_bezier(DiaRenderer *self, 
             BezPoint *points,
             int numpoints,
@@ -1039,10 +1043,7 @@ wpg_renderer_class_init (WpgRendererClass *klass)
   renderer_class->draw_polygon   = draw_polygon;
 
   renderer_class->draw_bezier   = draw_bezier;
-#if 0 /* FIXME: use fallback from base class until another
-       * program can actually correctly show the filled Polycurve
-       * created by Dia (our own import can).
-       */
+#if 0 /* use fallback from base class ... */
   renderer_class->fill_bezier   = fill_bezier;
 #endif
 }
