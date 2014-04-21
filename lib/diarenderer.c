@@ -1679,8 +1679,11 @@ bezier_render_fill (DiaRenderer *renderer, BezPoint *pts, int total, Color *colo
         g_array_append_val(points, pts[i]);
       }
     }
-    if (points->len)
+    if (points->len > 1) {
+      /* actually most renderers need at least three points, but having only one
+       * point is an artifact coming from the algorithm above: "new needs move-to" */
       DIA_RENDERER_GET_CLASS (renderer)->fill_bezier (renderer, &g_array_index(points, BezPoint, 0), points->len, color);
+    }
     g_array_free (points, TRUE);
   }
 }
