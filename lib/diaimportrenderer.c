@@ -39,7 +39,6 @@ static void set_linejoin (DiaRenderer *renderer, LineJoin mode);
 static void set_linestyle (DiaRenderer *renderer, LineStyle mode);
 static void set_dashlength (DiaRenderer *renderer, real length);
 static void set_fillstyle (DiaRenderer *renderer, FillStyle mode);
-static void set_font (DiaRenderer *renderer, DiaFont *font, real height);
 
 static void draw_line (DiaRenderer *renderer,
 		       Point *start, Point *end,

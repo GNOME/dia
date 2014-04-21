@@ -57,7 +57,7 @@ dia_pattern_selector_finalize(GObject* object)
 }
 
 static void
-dia_pattern_selector_class_init (DiaPatternSelector *klass)
+dia_pattern_selector_class_init (DiaPatternSelectorClass *klass)
 {
   GObjectClass* object_class = G_OBJECT_CLASS(klass);
 
