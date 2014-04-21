@@ -32,6 +32,7 @@
 #include <structmember.h> /* PyMemberDef */
 
 #include "app/diagram.h"
+#include "pydia-diagram.h" /* support dynamic_cast */
 
 PyObject *
 PyDiaDiagramData_New(DiagramData *dd)
@@ -333,6 +334,8 @@ static PyMemberDef PyDiaDiagramData_Members[] = {
       "List of real: vertical guides."},
     { "selected", T_INVALID, 0, RESTRICTED|READONLY,
       "List of Object: current selection."},
+    { "diagram", T_INVALID, 0, RESTRICTED|READONLY,
+      "This data objects Diagram or None"},
     { NULL }
 };
 
@@ -408,6 +411,12 @@ PyDiaDiagramData_GetAttr(PyDiaDiagramData *self, gchar *attr)
 	for (i = 0, tmp = self->data->selected; tmp; i++, tmp = tmp->next)
 	    PyTuple_SetItem(ret, i, PyDiaObject_New((DiaObject *)tmp->data));
 	return ret;
+    }
+    else if (!strcmp(attr, "diagram")) {
+	if (DIA_IS_DIAGRAM (self->data))
+	    return PyDiaDiagram_New (DIA_DIAGRAM (self->data));
+	Py_INCREF(Py_None);
+	return Py_None;
     }
 
     return Py_FindMethod(PyDiaDiagramData_Methods, (PyObject *)self, attr);
