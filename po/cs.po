@@ -16,8 +16,8 @@ msgstr ""
 "Project-Id-Version: dia\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=dia&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2014-03-02 14:56+0000\n"
-"PO-Revision-Date: 2014-03-02 16:43+0100\n"
+"POT-Creation-Date: 2014-04-22 03:11+0000\n"
+"PO-Revision-Date: 2014-04-22 11:52+0200\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -198,26 +198,26 @@ msgid "Can't connect to session manager!\n"
 msgstr "Nelze se připojit ke správci sezení!\n"
 
 #. TRANSLATOR: 2nd and 3rd %s are time and date respectively.
-#: ../app/app_procs.c:880
+#: ../app/app_procs.c:879
 #, c-format
 msgid "Dia version %s, compiled %s %s\n"
 msgstr "Aplikace Dia verze %s, sestavená %s %s\n"
 
-#: ../app/app_procs.c:882
+#: ../app/app_procs.c:881
 #, c-format
 msgid "Dia version %s\n"
 msgstr "Aplikace Dia verze %s\n"
 
-#: ../app/app_procs.c:920
+#: ../app/app_procs.c:919
 msgid "Object Defaults"
 msgstr "Výchozí hodnoty objektu"
 
-#: ../app/app_procs.c:927
+#: ../app/app_procs.c:926
 msgid ""
 "Couldn't find standard objects when looking for object-libs; exiting...\n"
 msgstr "Nelze nalézt standardní objekty při hledání object-libs; končí se…\n"
 
-#: ../app/app_procs.c:929
+#: ../app/app_procs.c:928
 #, c-format
 msgid ""
 "Couldn't find standard objects when looking for object-libs in '%s'; "
@@ -225,11 +225,11 @@ msgid ""
 msgstr ""
 "Nelze nalézt standardní objekty při hledání object-libs v „%s“; končí se…\n"
 
-#: ../app/app_procs.c:989
+#: ../app/app_procs.c:988
 msgid "Diagram1.dia"
 msgstr "Diagram1.dia"
 
-#: ../app/app_procs.c:1024
+#: ../app/app_procs.c:1023
 msgid ""
 "This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\n"
 "describing how you caused this message to appear.\n"
@@ -237,21 +237,21 @@ msgstr ""
 "Toto by se nemělo stát. Ohlaste prosím chybu na bugzilla.bnome.org\n"
 "a popište, jak k zobrazení této zprávy došlo.\n"
 
-#: ../app/app_procs.c:1039
+#: ../app/app_procs.c:1038
 msgid "Exiting Dia"
 msgstr "Aplikace Dia se ukončuje"
 
-#: ../app/app_procs.c:1066 ../app/display.c:1249 ../app/exit_dialog.c:115
+#: ../app/app_procs.c:1065 ../app/display.c:1248 ../app/exit_dialog.c:115
 #: ../app/filedlg.c:582
 msgid "Save"
 msgstr "Uložit"
 
 #. no standard buttons
-#: ../app/app_procs.c:1108
+#: ../app/app_procs.c:1107
 msgid "Quitting without saving modified diagrams"
 msgstr "Končí se bez uložení upravených diagramů"
 
-#: ../app/app_procs.c:1110
+#: ../app/app_procs.c:1109
 msgid ""
 "Modified diagrams exist. Are you sure you want to quit Dia without saving "
 "them?"
@@ -259,19 +259,19 @@ msgstr ""
 "Existují pozměněné diagramy. Opravdu chcete ukončit aplikaci Dia bez uložení "
 "těchto změn?"
 
-#: ../app/app_procs.c:1114
+#: ../app/app_procs.c:1113
 msgid "Quit Dia"
 msgstr "Ukončit aplikaci Dia"
 
-#: ../app/app_procs.c:1144
+#: ../app/app_procs.c:1143
 msgid "Exit"
 msgstr "Ukončit"
 
-#: ../app/app_procs.c:1190 ../app/app_procs.c:1197
+#: ../app/app_procs.c:1189 ../app/app_procs.c:1196
 msgid "Could not create per-user Dia configuration directory"
 msgstr "Nelze vytvořit složku s uživatelským nastavením Dia"
 
-#: ../app/app_procs.c:1200
+#: ../app/app_procs.c:1199
 msgid ""
 "Could not create per-user Dia configuration directory. Please make sure that "
 "the environment variable HOME points to an existing directory."
@@ -279,11 +279,11 @@ msgstr ""
 "Nelze vytvořit složku s uživatelským nastavením Dia. Ujistěte se prosím, že "
 "proměnná prostředí HOME ukazuje na existující složku."
 
-#: ../app/app_procs.c:1223
+#: ../app/app_procs.c:1222
 msgid "Objects and filters internal to Dia"
 msgstr "Objekty a filtry interní pro aplikaci Dia"
 
-#: ../app/app_procs.c:1276
+#: ../app/app_procs.c:1275
 #, c-format
 msgid ""
 "The original author of Dia was:\n"
@@ -292,7 +292,7 @@ msgstr ""
 "Původní autor Dia byl:\n"
 "\n"
 
-#: ../app/app_procs.c:1281
+#: ../app/app_procs.c:1280
 #, c-format
 msgid ""
 "\n"
@@ -303,7 +303,7 @@ msgstr ""
 "Současní správci Dia jsou:\n"
 "\n"
 
-#: ../app/app_procs.c:1286
+#: ../app/app_procs.c:1285
 #, c-format
 msgid ""
 "\n"
@@ -314,7 +314,7 @@ msgstr ""
 "Další autoři jsou:\n"
 "\n"
 
-#: ../app/app_procs.c:1291
+#: ../app/app_procs.c:1290
 #, c-format
 msgid ""
 "\n"
@@ -506,7 +506,7 @@ msgid "Diagram"
 msgstr "Diagram"
 
 #: ../app/diagram_tree_view.c:171
-#: ../plug-ins/drs/dia-render-script-import.c:234
+#: ../plug-ins/drs/dia-render-script-import.c:449
 msgid "Layer"
 msgstr "Vrstva"
 
@@ -519,7 +519,7 @@ msgstr[1] "%d vrstvy"
 msgstr[2] "%d vrstev"
 
 #: ../app/diagram_tree_view.c:181 ../app/diagram_tree_view.c:519
-#: ../objects/Database/table.c:138 ../objects/Istar/actor.c:142
+#: ../objects/Database/table.c:149 ../objects/Istar/actor.c:142
 #: ../objects/Istar/actor.c:143 ../objects/Istar/other.c:147
 #: ../objects/Istar/other.c:148 ../objects/KAOS/other.c:150
 #: ../objects/KAOS/other.c:151 ../objects/UML/association.c:242
@@ -560,8 +560,8 @@ msgid "Properties"
 msgstr "Vlastnosti"
 
 #: ../app/diagram_tree_view.c:502 ../app/exit_dialog.c:125
-#: ../app/plugin-manager.c:270 ../objects/Database/table.c:136
-#: ../objects/Database/table.c:179 ../objects/UML/association.c:236
+#: ../app/plugin-manager.c:270 ../objects/Database/table.c:147
+#: ../objects/Database/table.c:190 ../objects/UML/association.c:236
 #: ../objects/UML/class.c:140 ../objects/UML/large_package.c:131
 #: ../objects/UML/umlattribute.c:37 ../objects/UML/umlformalparameter.c:35
 #: ../objects/UML/umloperation.c:62 ../objects/UML/umlparameter.c:43
@@ -704,21 +704,21 @@ msgstr "Vlastnosti…"
 msgid "Follow link…"
 msgstr "Následovat odkaz…"
 
-#: ../app/disp_callbacks.c:216 ../objects/standard/bezier.c:785
+#: ../app/disp_callbacks.c:215 ../objects/standard/bezier.c:785
 #: ../objects/standard/beziergon.c:549 ../objects/standard/box.c:784
 #: ../objects/standard/textobj.c:450
 msgid "Convert to Path"
 msgstr "Převést na cestu"
 
-#: ../app/disp_callbacks.c:345
+#: ../app/disp_callbacks.c:344
 msgid "Selection"
 msgstr "Výběr"
 
-#: ../app/disp_callbacks.c:360
+#: ../app/disp_callbacks.c:359
 msgid "Input _Methods"
 msgstr "Vstupní _metody"
 
-#: ../app/disp_callbacks.c:1128
+#: ../app/disp_callbacks.c:1127
 msgid ""
 "The object you dropped cannot fit into its parent. \n"
 "Either expand the parent object, or drop the object elsewhere."
@@ -743,20 +743,20 @@ msgid "Selected '%s'"
 msgstr "Vybráno „%s“"
 
 #. we really should not come here but instead disable the menu command earlier
-#: ../app/display.c:1137
+#: ../app/display.c:1136
 msgid "No antialiased renderer found"
 msgstr "Nenalezeno žádné vykreslování s podporou vyhlazování"
 
-#: ../app/display.c:1295
+#: ../app/display.c:1294
 msgid "<unnamed>"
 msgstr "<nepojmenovaný>"
 
 #. no standard buttons
-#: ../app/display.c:1301
+#: ../app/display.c:1300
 msgid "Closing diagram without saving"
 msgstr "Diagram se zavírá bez uložení"
 
-#: ../app/display.c:1303
+#: ../app/display.c:1302
 #, c-format
 msgid ""
 "The diagram '%s'\n"
@@ -765,11 +765,11 @@ msgstr ""
 "Diagram „%s“\n"
 "nebyl uložen. Chcete jej uložit nyní?"
 
-#: ../app/display.c:1305
+#: ../app/display.c:1304
 msgid "Close Diagram"
 msgstr "Zavřít diagram"
 
-#: ../app/display.c:1310
+#: ../app/display.c:1309
 msgid "_Discard Changes"
 msgstr "_Zahodit změny"
 
@@ -1057,24 +1057,24 @@ msgstr ""
 msgid "Can't find parent %s of %s object\n"
 msgstr "Nelze nalézt rodiče %s objektu %s\n"
 
-#: ../app/load_save.c:394
+#: ../app/load_save.c:393
 msgid "You must specify a file, not a directory."
 msgstr "Musíte zadat soubor, ne složku."
 
-#: ../app/load_save.c:401 ../plug-ins/dxf/dxf-import.c:1289
-#: ../plug-ins/wpg/wpg.c:1195 ../plug-ins/xfig/xfig-import.c:1288
+#: ../app/load_save.c:400 ../plug-ins/dxf/dxf-import.c:1289
+#: ../plug-ins/wpg/wpg-import.c:462 ../plug-ins/xfig/xfig-import.c:1288
 #: ../plug-ins/xslt/xslt.c:97
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
 msgstr "Nelze otevřít „%s“ pro čtení.\n"
 
 #. this was talking about unknown file type but it could as well be broken XML
-#: ../app/load_save.c:419
+#: ../app/load_save.c:418
 #, c-format
 msgid "Error loading diagram %s."
 msgstr "Chyba při načítání diagramu %s."
 
-#: ../app/load_save.c:428
+#: ../app/load_save.c:427
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -1083,7 +1083,7 @@ msgstr ""
 "Chyba při načítání diagramu %s.\n"
 "Neznámý typ souboru."
 
-#: ../app/load_save.c:436
+#: ../app/load_save.c:435
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -1092,11 +1092,11 @@ msgstr ""
 "Chyba při načítání diagramu %s.\n"
 "Toto není soubor Dia."
 
-#: ../app/load_save.c:681
+#: ../app/load_save.c:680
 msgid "Error reading connections"
 msgstr "Chyba při čtení spojů"
 
-#: ../app/load_save.c:701
+#: ../app/load_save.c:700
 #, c-format
 msgid ""
 "Error loading diagram:\n"
@@ -1107,54 +1107,54 @@ msgstr ""
 "%s.\n"
 "Platný soubor ve formátu Dia obsahuje alespoň jednu vrstvu."
 
-#: ../app/load_save.c:1002
+#: ../app/load_save.c:1001
 msgid "Error saving connections"
 msgstr "Chyba při ukládání spojů"
 
-#: ../app/load_save.c:1007
+#: ../app/load_save.c:1006
 #, c-format
 msgid "Connection saving is incomplete for layer '%s'"
 msgstr "Uložení spojů je pro vrstvu „%s“ neúplné"
 
-#: ../app/load_save.c:1060
+#: ../app/load_save.c:1059
 #, c-format
 msgid "Not allowed to write to output file %s\n"
 msgstr "Není povoleno zapisovat do výstupního souboru %s\n"
 
-#: ../app/load_save.c:1092
+#: ../app/load_save.c:1091
 #, c-format
 msgid "Not allowed to write temporary files in %s\n"
 msgstr "Není povoleno zapisovat do dočasných souborů v %s\n"
 
-#: ../app/load_save.c:1115 ../plug-ins/cgm/cgm.c:1181
+#: ../app/load_save.c:1114 ../plug-ins/cgm/cgm.c:1181
 #: ../plug-ins/dxf/dxf-export.c:599
 #: ../plug-ins/metapost/render_metapost.c:1179
 #: ../plug-ins/pgf/render_pgf.c:1207 ../plug-ins/postscript/render_eps.c:123
 #: ../plug-ins/pstricks/render_pstricks.c:917
-#: ../plug-ins/vdx/vdx-export.c:1801 ../plug-ins/wmf/wmf.cpp:1375
-#: ../plug-ins/wpg/wpg.c:1087 ../plug-ins/xfig/xfig-export.c:1178
+#: ../plug-ins/vdx/vdx-export.c:1801 ../plug-ins/wmf/wmf.cpp:1376
+#: ../plug-ins/wpg/wpg.c:1065 ../plug-ins/xfig/xfig-export.c:1178
 #, c-format
 msgid "Can't open output file %s"
 msgstr "Nelze otevřít výstupní soubor %s"
 
 #. Save failed; we clean our stuff up, without touching the file named
 #. "filename" if it existed.
-#: ../app/load_save.c:1126
+#: ../app/load_save.c:1125
 #, c-format
 msgid "Internal error %d writing file %s\n"
 msgstr "Vnitřní chyba %d při zápisu souboru %s\n"
 
-#: ../app/load_save.c:1137
+#: ../app/load_save.c:1136
 #, c-format
 msgid "Can't rename %s to final output file %s: %s\n"
 msgstr "Nelze přejmenovat %s na konečný výstupní soubor %s: %s\n"
 
 #. no extra threads supported, stay in this one
-#: ../app/load_save.c:1253 ../app/load_save.c:1263 ../app/load_save.c:1271
+#: ../app/load_save.c:1252 ../app/load_save.c:1262 ../app/load_save.c:1270
 msgid "Auto save"
 msgstr "Automatické ukládání"
 
-#: ../app/load_save.c:1295 ../app/load_save.c:1300
+#: ../app/load_save.c:1294 ../app/load_save.c:1299
 msgid "Dia Diagram File"
 msgstr "Soubor diagramu Dia"
 
@@ -1340,11 +1340,11 @@ msgstr "Při_blížení"
 msgid "1600%"
 msgstr "1600%"
 
-#: ../app/menus.c:160 ../app/menus.c:585 ../app/menus.c:597
+#: ../app/menus.c:160 ../app/menus.c:597 ../app/menus.c:609
 msgid "800%"
 msgstr "800%"
 
-#: ../app/menus.c:161 ../app/menus.c:586 ../app/menus.c:598
+#: ../app/menus.c:161 ../app/menus.c:598 ../app/menus.c:610
 msgid "400%"
 msgstr "400%"
 
@@ -1646,47 +1646,47 @@ msgstr "Inverze"
 msgid "NULL tooldata in tool_menu_select"
 msgstr "tooldata mají hodnotu NULL v tool_menu_select"
 
-#: ../app/menus.c:587 ../app/menus.c:599
+#: ../app/menus.c:599 ../app/menus.c:611
 msgid "300%"
 msgstr "300%"
 
-#: ../app/menus.c:588 ../app/menus.c:600
+#: ../app/menus.c:600 ../app/menus.c:612
 msgid "200%"
 msgstr "200%"
 
-#: ../app/menus.c:589 ../app/menus.c:601
+#: ../app/menus.c:601 ../app/menus.c:613
 msgid "150%"
 msgstr "150%"
 
-#: ../app/menus.c:590 ../app/menus.c:602
+#: ../app/menus.c:602 ../app/menus.c:614
 msgid "100%"
 msgstr "100%"
 
-#: ../app/menus.c:591 ../app/menus.c:603
+#: ../app/menus.c:603 ../app/menus.c:615
 msgid "75%"
 msgstr "75%"
 
-#: ../app/menus.c:592 ../app/menus.c:604
+#: ../app/menus.c:604 ../app/menus.c:616
 msgid "50%"
 msgstr "50%"
 
-#: ../app/menus.c:593 ../app/menus.c:605
+#: ../app/menus.c:605 ../app/menus.c:617
 msgid "25%"
 msgstr "25%"
 
-#: ../app/menus.c:594 ../app/menus.c:606
+#: ../app/menus.c:606 ../app/menus.c:618
 msgid "10%"
 msgstr "10%"
 
-#: ../app/menus.c:632
+#: ../app/menus.c:644
 msgid "Toggles snap-to-grid."
 msgstr "Přepíná přichytávání k mřížce."
 
-#: ../app/menus.c:643
+#: ../app/menus.c:655
 msgid "Toggles object snapping."
 msgstr "Přepíná přichytávání k objektům."
 
-#: ../app/menus.c:1249
+#: ../app/menus.c:1260
 msgid "The function is not available anymore."
 msgstr "Funkce nadále není k dispozici."
 
@@ -1844,8 +1844,8 @@ msgstr "zobrazit vyhlazené"
 msgid "Portable Network Graphics"
 msgstr "Portable Network Graphics"
 
-#: ../app/preferences.c:224 ../plug-ins/svg/render_svg.c:605
-#: ../plug-ins/svg/svg-import.c:2053
+#: ../app/preferences.c:224 ../plug-ins/svg/render_svg.c:616
+#: ../plug-ins/svg/svg-import.c:2151
 msgid "Scalable Vector Graphics"
 msgstr "Scalable Vector Graphics"
 
@@ -1853,11 +1853,11 @@ msgstr "Scalable Vector Graphics"
 msgid "PostScript"
 msgstr "PostScript"
 
-#: ../app/preferences.c:228 ../plug-ins/wmf/wmf.cpp:1477
+#: ../app/preferences.c:228 ../plug-ins/wmf/wmf.cpp:1478
 msgid "Windows Metafile"
 msgstr "Windows Metafile"
 
-#: ../app/preferences.c:230 ../plug-ins/wmf/wmf.cpp:1486
+#: ../app/preferences.c:230 ../plug-ins/wmf/wmf.cpp:1487
 msgid "Enhanced Metafile"
 msgstr "Enhanced Metafile"
 
@@ -1893,14 +1893,14 @@ msgstr "Čar na hlavní čáru"
 msgid "Hex Size:"
 msgstr "Velikost šesterečku:"
 
-#: ../app/preferences.c:470 ../lib/prop_inttypes.c:159
-#: ../lib/prop_pattern.c:217 ../lib/prop_pixbuf.c:270
+#: ../app/preferences.c:470 ../lib/diapatternselector.c:87
+#: ../lib/prop_inttypes.c:159 ../lib/prop_pixbuf.c:270
 msgid "Yes"
 msgstr "Ano"
 
 #: ../app/preferences.c:470 ../app/preferences.c:481
+#: ../lib/diapatternselector.c:91 ../lib/diapatternselector.c:182
 #: ../lib/prop_inttypes.c:161 ../lib/prop_inttypes.c:187
-#: ../lib/prop_pattern.c:219 ../lib/prop_pattern.c:225
 #: ../lib/prop_pixbuf.c:272 ../lib/prop_pixbuf.c:278
 msgid "No"
 msgstr "Ne"
@@ -2506,7 +2506,7 @@ msgstr "neznámá šipka"
 #: ../lib/create.c:50 ../lib/create.c:100 ../lib/create.c:127
 #: ../lib/create.c:160 ../lib/create.c:196 ../lib/create.c:228
 #: ../lib/create.c:252 ../lib/create.c:284 ../lib/create.c:305
-#: ../lib/create.c:335 ../lib/create.c:378 ../plug-ins/svg/svg-import.c:652
+#: ../lib/create.c:335 ../lib/create.c:378 ../plug-ins/svg/svg-import.c:694
 #: ../plug-ins/vdx/vdx-import.c:144
 msgid "Can't find standard object"
 msgstr "Nelze nalézt standardní objekt"
@@ -2614,6 +2614,22 @@ msgstr "OK"
 msgid "Cancel"
 msgstr "Zrušit"
 
+#: ../lib/diapatternselector.c:108
+msgid "Horizontal"
+msgstr "Vodorovně"
+
+#: ../lib/diapatternselector.c:109
+msgid "Diagonal"
+msgstr "Úhlopříčně"
+
+#: ../lib/diapatternselector.c:110
+msgid "Vertical"
+msgstr "Svisle"
+
+#: ../lib/diapatternselector.c:111
+msgid "Radial"
+msgstr "Do kruhu"
+
 #: ../lib/dia_xml.c:214
 #, c-format
 msgid ""
@@ -2623,71 +2639,71 @@ msgstr ""
 "Soubor %s neobsahuje specifikaci kódování;\n"
 "bude se předpokládat, že je kódován v %s"
 
-#: ../lib/dia_xml.c:512
+#: ../lib/dia_xml.c:511
 #, c-format
 msgid "Unknown type of DataNode '%s'"
 msgstr "Neznámý typ datového uzlu „%s“"
 
-#: ../lib/dia_xml.c:531
+#: ../lib/dia_xml.c:530
 msgid "Taking int value of non-int node."
 msgstr "Vybírá se hodnota celého čísla z uzlu, který není typu celé číslo."
 
-#: ../lib/dia_xml.c:707
+#: ../lib/dia_xml.c:706
 msgid "Taking point value of non-point node."
 msgstr "Vybírá se hodnota bodu z uzlu, který není typu bod."
 
-#: ../lib/dia_xml.c:718
+#: ../lib/dia_xml.c:717
 #, c-format
 msgid "Incorrect x Point value \"%s\" %f; discarding it."
 msgstr "Nesprávná hodnota bodu x „%s“ %f; bude zahozena."
 
-#: ../lib/dia_xml.c:725
+#: ../lib/dia_xml.c:724
 msgid "Error parsing point."
 msgstr "Chyba při zpracování bodu."
 
 #. don't bother with useless warnings (see above)
-#: ../lib/dia_xml.c:733
+#: ../lib/dia_xml.c:732
 #, c-format
 msgid "Incorrect y Point value \"%s\" %f; discarding it."
 msgstr "Nesprávná hodnota bodu y „%s“ %f; bude zahozena."
 
-#: ../lib/dia_xml.c:753
+#: ../lib/dia_xml.c:752
 msgid "Taking bezpoint value of non-point node."
 msgstr "Vybírá se hodnota Beziérova bodu z uzlu, který není typu bod."
 
-#: ../lib/dia_xml.c:771
+#: ../lib/dia_xml.c:770
 msgid "Error parsing bezpoint p1."
 msgstr "Chyba při zpracování Beziérova bodu p1."
 
-#: ../lib/dia_xml.c:785
+#: ../lib/dia_xml.c:784
 msgid "Error parsing bezpoint p2."
 msgstr "Chyba při zpracování Beziérova bodu p2."
 
-#: ../lib/dia_xml.c:799
+#: ../lib/dia_xml.c:798
 msgid "Error parsing bezpoint p3."
 msgstr "Chyba při zpracování Beziérova bodu p3."
 
-#: ../lib/dia_xml.c:826
+#: ../lib/dia_xml.c:825
 msgid "Taking rectangle value of non-rectangle node."
 msgstr "Vybírá se hodnota obdélníku z uzlu, který není typu obdélník."
 
-#: ../lib/dia_xml.c:838 ../lib/dia_xml.c:849 ../lib/dia_xml.c:860
+#: ../lib/dia_xml.c:837 ../lib/dia_xml.c:848 ../lib/dia_xml.c:859
 msgid "Error parsing rectangle."
 msgstr "Chyba při zpracování obdélníku."
 
-#: ../lib/dia_xml.c:888
+#: ../lib/dia_xml.c:887
 msgid "Taking string value of non-string node."
 msgstr "Vybírá se hodnota řetězce z uzlu, který není typu řetězec."
 
-#: ../lib/dia_xml.c:914
+#: ../lib/dia_xml.c:913
 msgid "Error in string tag."
 msgstr "Chyba v textové značce."
 
-#: ../lib/dia_xml.c:932
+#: ../lib/dia_xml.c:931
 msgid "Error in file, string not starting with #"
 msgstr "Chyba v souboru, řetězec nezačíná znakem #"
 
-#: ../lib/dia_xml.c:994
+#: ../lib/dia_xml.c:993
 msgid "Taking font value of non-font node."
 msgstr "Vybírá se hodnota písma z uzlu, který není typu písmo."
 
@@ -2953,10 +2969,6 @@ msgstr "Přetypování vlastnosti z celého čísla na výčet je mimo rozsah"
 msgid "No attribute '%s' (%p) or no data (%p) in this attribute"
 msgstr "V tomto atributu není atribut „%s“ (%p) ani data(%p)"
 
-#: ../lib/prop_pattern.c:243
-msgid "Cant create pattern from scratch!"
-msgstr "Nelze vytvořit vzor úplně od nuly!"
-
 #: ../lib/prop_pixbuf.c:99 ../lib/prop_pixbuf.c:146
 #, c-format
 msgid ""
@@ -2985,7 +2997,7 @@ msgstr "Nelze vytvořit obrazová data úplně od nuly!"
 msgid "Parameters"
 msgstr "Parametry"
 
-#: ../lib/prop_text.c:483
+#: ../lib/prop_text.c:484
 #, c-format
 msgid "Group with %d object"
 msgid_plural "Group with %d objects"
@@ -3332,8 +3344,8 @@ msgstr "Popis počátku"
 msgid "End description"
 msgstr "Popis konce"
 
-#: ../objects/Database/reference.c:121 ../objects/Database/table.c:212
-#: ../objects/Database/table.c:214 ../objects/Database/table.c:216
+#: ../objects/Database/reference.c:121 ../objects/Database/table.c:223
+#: ../objects/Database/table.c:225 ../objects/Database/table.c:227
 #: ../objects/UML/association.c:247 ../objects/UML/association.c:258
 #: ../objects/UML/association.c:260 ../objects/UML/association.c:262
 #: ../objects/UML/association.c:264 ../objects/UML/association.c:266
@@ -3365,87 +3377,87 @@ msgstr "Odstranit segment"
 msgid "Reference"
 msgstr "Odkaz"
 
-#: ../objects/Database/table.c:140 ../objects/Database/table.c:181
-#: ../objects/Database/table.c:209 ../objects/UML/class.c:144
+#: ../objects/Database/table.c:151 ../objects/Database/table.c:192
+#: ../objects/Database/table.c:220 ../objects/UML/class.c:144
 #: ../objects/UML/class.c:211 ../objects/UML/class_dialog.c:486
 #: ../objects/UML/umlattribute.c:43 ../objects/UML/umloperation.c:66
 #: ../objects/UML/umlparameter.c:49 ../sheets/SDL.sheet.in.h:18
 msgid "Comment"
 msgstr "Komentář"
 
-#: ../objects/Database/table.c:142
+#: ../objects/Database/table.c:153
 msgid "Primary"
 msgstr "Primární"
 
-#: ../objects/Database/table.c:142
+#: ../objects/Database/table.c:153
 msgid "Primary key"
 msgstr "Primární klíč"
 
-#: ../objects/Database/table.c:144
+#: ../objects/Database/table.c:155
 msgid "Nullable"
 msgstr "Může být prázdný"
 
-#: ../objects/Database/table.c:146
+#: ../objects/Database/table.c:157
 msgid "Unique"
 msgstr "Jedinečný"
 
-#: ../objects/Database/table.c:148
+#: ../objects/Database/table.c:159
 msgid "Default"
 msgstr "Výchozí"
 
-#: ../objects/Database/table.c:148
+#: ../objects/Database/table.c:159
 msgid "Default value"
 msgstr "Výchozí hodnota"
 
 #. init data
-#: ../objects/Database/table.c:177 ../objects/Database/table.c:267
-#: ../objects/Database/table.c:374 ../sheets/Database.sheet.in.h:3
+#: ../objects/Database/table.c:188 ../objects/Database/table.c:278
+#: ../objects/Database/table.c:387 ../sheets/Database.sheet.in.h:3
 msgid "Table"
 msgstr "Tabulka"
 
-#: ../objects/Database/table.c:186
+#: ../objects/Database/table.c:197
 msgid "Visible comments"
 msgstr "Viditelné komentáře"
 
-#: ../objects/Database/table.c:188
+#: ../objects/Database/table.c:199
 msgid "Underline primary keys"
 msgstr "Podtrhávat primární klíče"
 
-#: ../objects/Database/table.c:191 ../objects/UML/class.c:159
+#: ../objects/Database/table.c:202 ../objects/UML/class.c:159
 msgid "Comment tagging"
 msgstr "Označování komentáři"
 
-#: ../objects/Database/table.c:193
+#: ../objects/Database/table.c:204
 msgid "Use bold font for primary keys"
 msgstr "Použít tučné písmo pro primární klíče"
 
-#: ../objects/Database/table.c:196 ../objects/UML/class.c:181
+#: ../objects/Database/table.c:207 ../objects/UML/class.c:181
 #: ../objects/UML/object.c:150
 msgid "Attributes"
 msgstr "Atributy"
 
 #. umlformalparameters_extra
 #. all this just to make the defaults selectable ...
-#: ../objects/Database/table.c:200 ../objects/UML/association.c:269
+#: ../objects/Database/table.c:211 ../objects/UML/association.c:269
 #: ../objects/UML/class.c:196 ../objects/UML/object.c:159
 msgid "Style"
 msgstr "Styl"
 
-#: ../objects/Database/table.c:201 ../objects/UML/class.c:197
+#: ../objects/Database/table.c:212 ../objects/UML/class.c:197
 msgid "Fonts"
 msgstr "Písma"
 
 #. property rows
-#: ../objects/Database/table.c:205 ../objects/SADT/arrow.c:135
+#: ../objects/Database/table.c:216 ../objects/SADT/arrow.c:135
 #: ../objects/UML/class.c:201 ../objects/UML/class_dialog.c:461
 msgid "Normal"
 msgstr "Normální"
 
-#: ../objects/Database/table.c:207
+#: ../objects/Database/table.c:218
 msgid "Table name"
 msgstr "Název tabulky"
 
-#: ../objects/Database/table.c:262 ../objects/UML/class.c:342
+#: ../objects/Database/table.c:273 ../objects/UML/class.c:342
 msgid "Show comments"
 msgstr "Zobrazit komentáře"
 
@@ -5039,7 +5051,7 @@ msgstr "Sektory"
 msgid "Base Station"
 msgstr "Základová stanice"
 
-#: ../objects/network/network.c:43
+#: ../objects/network/network.c:41
 msgid "Network diagram objects"
 msgstr "Objekty síťového diagramu"
 
@@ -5198,13 +5210,13 @@ msgstr "Kreslit hranice"
 msgid "Keep aspect ratio"
 msgstr "Zachovat poměr stran"
 
-#: ../objects/standard/image.c:683
+#: ../objects/standard/image.c:686
 msgid "Inconsistent pixbuf during image save."
 msgstr "Nekonzistentní objekt pixbuf během ukládání obrázku."
 
 #. Found file in same dir as diagram.
 #. Found file in current dir.
-#: ../objects/standard/image.c:780 ../objects/standard/image.c:791
+#: ../objects/standard/image.c:783 ../objects/standard/image.c:794
 #, c-format
 msgid ""
 "The image file '%s' was not found in the specified directory.\n"
@@ -5214,7 +5226,7 @@ msgstr ""
 "Použije se místo něj soubor „%s“.\n"
 
 #. Didn't find file in current dir.
-#: ../objects/standard/image.c:797 ../objects/standard/image.c:819
+#: ../objects/standard/image.c:800 ../objects/standard/image.c:822
 #, c-format
 msgid "The image file '%s' was not found.\n"
 msgstr "Soubor s obrázkem „%s“ nebyl nalezen.\n"
@@ -5841,7 +5853,7 @@ msgid "Clipboard copy failed"
 msgstr "Selhalo kopírování do schránky"
 
 #: ../plug-ins/cairo/diacairo.c:362 ../plug-ins/postscript/postscript.c:39
-#: ../plug-ins/wmf/wmf.cpp:1504
+#: ../plug-ins/wmf/wmf.cpp:1505
 msgid "Nothing to print"
 msgstr "K tisku není nic k dispozici"
 
@@ -5903,12 +5915,12 @@ msgstr "Ukazatel přiblížení"
 msgid "Visible rect pointer"
 msgstr "Viditelný obdélníkový ukazatel"
 
-#: ../plug-ins/cairo/diacairo-renderer.c:985
-#: ../plug-ins/cairo/diacairo-renderer.c:1020 ../plug-ins/cgm/cgm.c:1135
+#: ../plug-ins/cairo/diacairo-renderer.c:986
+#: ../plug-ins/cairo/diacairo-renderer.c:1021 ../plug-ins/cgm/cgm.c:1135
 #: ../plug-ins/libart/dialibartrenderer.c:1329
 #: ../plug-ins/metapost/render_metapost.c:1108
 #: ../plug-ins/postscript/diapsrenderer.c:715
-#: ../plug-ins/pstricks/render_pstricks.c:825 ../plug-ins/wpg/wpg.c:901
+#: ../plug-ins/pstricks/render_pstricks.c:825 ../plug-ins/wpg/wpg.c:882
 msgid "Not enough memory for image drawing."
 msgstr "Není dostatek paměti pro vykreslení obrázku."
 
@@ -5937,7 +5949,7 @@ msgstr "DiaRenderScript"
 msgid "DiaRenderScript filter"
 msgstr "Filtr DiaRenderScript"
 
-#: ../plug-ins/drs/dia-render-script-import.c:226
+#: ../plug-ins/drs/dia-render-script-import.c:441
 msgid "Broken file?"
 msgstr "Narušený soubor?"
 
@@ -6233,11 +6245,11 @@ msgstr "Ikonu PNG nelze exportovat bez exportního zásuvného modulu!"
 msgid "Dia Shape File"
 msgstr "Soubor se symboly Dia"
 
-#: ../plug-ins/svg/svg.c:50
+#: ../plug-ins/svg/svg.c:60
 msgid "Scalable Vector Graphics import and export filters"
 msgstr "Importní a exportní filtry formátu Scalable Vector Graphics"
 
-#: ../plug-ins/svg/svg-import.c:633
+#: ../plug-ins/svg/svg-import.c:675
 msgid ""
 "Invalid path data.\n"
 "svg:path data must start with moveto."
@@ -6245,16 +6257,16 @@ msgstr ""
 "Neplatná data cesty.\n"
 "Data svg:path musí začínat příkazem moveto."
 
-#: ../plug-ins/svg/svg-import.c:1839
+#: ../plug-ins/svg/svg-import.c:1929
 msgid "'Shape Design' shapes missing."
 msgstr "Schází symboly „Návrh symbolu“"
 
-#: ../plug-ins/svg/svg-import.c:1873
+#: ../plug-ins/svg/svg-import.c:1963
 #, c-format
 msgid "Object '%s' creation failed"
 msgstr "Vytvoření objektu „%s“ selhalo"
 
-#: ../plug-ins/svg/svg-import.c:1895
+#: ../plug-ins/svg/svg-import.c:1989
 #, c-format
 msgid ""
 "Parse error for memory block.\n"
@@ -6263,7 +6275,7 @@ msgstr ""
 "Chyba zpracování pro paměťový blok.\n"
 "%s"
 
-#: ../plug-ins/svg/svg-import.c:1909
+#: ../plug-ins/svg/svg-import.c:2007
 #, c-format
 msgid ""
 "SVG parser error for %s\n"
@@ -6273,7 +6285,7 @@ msgstr ""
 "%s"
 
 #. just a warning
-#: ../plug-ins/svg/svg-import.c:1915
+#: ../plug-ins/svg/svg-import.c:2013
 #, c-format
 msgid ""
 "SVG parser warning for %s\n"
@@ -6282,11 +6294,11 @@ msgstr ""
 "Varování zpracování SVG pro %s\n"
 "%s"
 
-#: ../plug-ins/svg/svg-import.c:1948
+#: ../plug-ins/svg/svg-import.c:2046
 msgid "Expected SVG name-space not found in file"
 msgstr "Očekávaný jmenný prostor SVG nebyl v souboru nalezen"
 
-#: ../plug-ins/svg/svg-import.c:1968
+#: ../plug-ins/svg/svg-import.c:2066
 #, c-format
 msgid "root element was '%s' -- expecting 'svg'."
 msgstr "kořenový element byl „%s“ -- očekává se „svg“."
@@ -6363,7 +6375,7 @@ msgstr "Formát souboru Visio XML"
 msgid "Can't decode object %s"
 msgstr "Nelze dekódovat objekt %s"
 
-#: ../plug-ins/wmf/wmf.cpp:316
+#: ../plug-ins/wmf/wmf.cpp:317
 #, c-format
 msgid ""
 "Couldn't write file %s\n"
@@ -6372,7 +6384,7 @@ msgstr ""
 "Nelze zapsat soubor %s\n"
 "%s"
 
-#: ../plug-ins/wmf/wmf.cpp:567
+#: ../plug-ins/wmf/wmf.cpp:568
 #, c-format
 msgid ""
 "Cannot render unknown font:\n"
@@ -6381,26 +6393,45 @@ msgstr ""
 "Nelze vykreslit neznámé písmo:\n"
 "%s"
 
-#: ../plug-ins/wmf/wmf.cpp:1515
+#: ../plug-ins/wmf/wmf.cpp:1516
 msgid "Print (GDI) ..."
 msgstr "Tisk (GDI)…"
 
-#: ../plug-ins/wmf/wmf.cpp:1531
+#: ../plug-ins/wmf/wmf.cpp:1532
 msgid "WMF export filter"
 msgstr "Exportní filtr formátu WMF"
 
-#: ../plug-ins/wpg/wpg.c:1207
+#: ../plug-ins/wpg/wpg.c:1117 ../plug-ins/wpg/wpg.c:1123
+msgid "WPG"
+msgstr "WPG"
+
+#: ../plug-ins/wpg/wpg.c:1148
+msgid "WordPerfect Graphics export filter"
+msgstr "Exportní filtr formátu WordPerfect Graphics"
+
+#: ../plug-ins/wpg/wpg-import.c:474
 #, c-format
 msgid "File: %s type/version unsupported.\n"
 msgstr "Soubor %s má nepodporovaný typ nebo verzi.\n"
 
-#: ../plug-ins/wpg/wpg.c:1337 ../plug-ins/wpg/wpg.c:1344
-msgid "WPG"
-msgstr "WPG"
+#: ../plug-ins/wpg/wpg-import.c:616
+#, c-format
+msgid "Unknown WPG type %d size %d."
+msgstr "Neznámý typ WPG %d velikosti %d."
 
-#: ../plug-ins/wpg/wpg.c:1372
-msgid "WordPerfect Graphics export filter"
-msgstr "Exportní filtr formátu WordPerfect Graphics"
+#: ../plug-ins/wpg/wpg-import.c:621
+#, c-format
+msgid "Size 0 on WPG type %d, expecting WPG_END\n"
+msgstr "Velikost 0 u typu WPG %d, očekáváno WPG_END\n"
+
+#: ../plug-ins/wpg/wpg-import.c:630
+#, c-format
+msgid "Unexpected end of file. WPG type %d, size %d.\n"
+msgstr "Neočekávaný konec souboru. Typ WPG %d, velikost %d.\n"
+
+#: ../plug-ins/wpg/wpg-import.c:640
+msgid "Empty WPG file?"
+msgstr "Prázdný soubor WPG?"
 
 #: ../plug-ins/xfig/xfig.c:52
 msgid "Fig Format import and export filter"
