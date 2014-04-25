@@ -53,6 +53,16 @@ class SvgRenderer :
 	def end_render (self) :
 		self.f.write('</svg>')
 		self.f.close()
+	def is_capable_to (self, cap) :
+		if cap == 1 : # RENDER_HOLES
+			return 1
+		elif cap == 2 : # RENDER_ALPHA
+			return 1
+		elif cap == 4 : #  RENDER_AFFINE
+			return 1
+		elif cap == 8 : # RENDER_PATTERN
+			return 0
+		return 0
 	def draw_object (self, object, matrix) :
 		self.f.write("<!-- " + object.type.name + " -->\n")
 		odict = object.properties["meta"].value
@@ -62,8 +72,8 @@ class SvgRenderer :
 			attrs = ''
 			if matrix :
 				attrs += 'transform="matrix' + str(matrix) + '" '
-		if odict.has_key("id") :
-			attrs += 'id="' + self._escape(odict['id']) + '"'
+			if odict.has_key("id") :
+				attrs += 'id="' + self._escape(odict['id']) + '"'
 			self.f.write('<g ' + attrs + '>\n')
 		# don't forget to render the object
 		object.draw (self)
@@ -72,7 +82,7 @@ class SvgRenderer :
 		if odict.has_key("url") :
 			self.f.write('</a>\n')
 	def set_linewidth (self, width) :
-		if width < 0.001 : # zero line width is invisble ?
+		if width < 0.001 : # zero line width is invisible ?
 			self.line_width = 0.001
 		else :
 			self.line_width = width

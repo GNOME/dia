@@ -411,6 +411,40 @@ set_font(DiaRenderer *renderer, DiaFont *font, real height)
 static gpointer parent_class = NULL;
 
 /*!
+ * \brief Advertise the renderer's capabilities
+ * \memberof _DiaTransformRenderer
+ */
+static gboolean
+is_capable_to (DiaRenderer *renderer, RenderCapability cap)
+{
+  PyObject *func, *res, *arg, *self = PYDIA_RENDERER (renderer);
+  gboolean bRet = FALSE;
+
+  func = PyObject_GetAttrString (self, "is_capable_to");
+  if (func && PyCallable_Check(func)) {
+    Py_INCREF(self);
+    Py_INCREF(func);
+    arg = Py_BuildValue ("(i)", cap);
+    if (arg) {
+      res = PyEval_CallObject (func, arg);
+      if (res && PyInt_Check(res)) {
+        bRet = (PyInt_AsLong(res) != 0);
+        Py_DECREF (res);
+      } else {
+        ON_RES(res, FALSE);
+      }
+    }
+    Py_XDECREF(arg);
+    Py_DECREF(func);
+    Py_DECREF(self);
+  } else {
+    PyErr_Clear(); /* member optional */
+    return DIA_RENDERER_CLASS (parent_class)->is_capable_to (renderer, cap);
+  }
+  return bRet;
+}
+
+/*!
  * \brief Draw object
  *
  * Optional on the PyDia side. If not implemented the base class method
@@ -420,7 +454,7 @@ static gpointer parent_class = NULL;
  * object information in the drawing. It is also necessary if the PyDia 
  * renderer should support transformations.
  *
- * If implementing a drawing exposrt filter and overwriting draw_object()
+ * If implementing a drawing export filter and overwriting draw_object()
  * the following code shall be used. Otherwise no draw/fill method will
  * be called at all.
  *
@@ -429,7 +463,7 @@ static gpointer parent_class = NULL;
 	object.draw (self)
  * \endcode
  *
- * Not calling the object draw method is only usefull when a non-drawing
+ * Not calling the object draw method is only useful when a non-drawing
  * export - e.g. code generation \sa codegen.py - is implemented.
  *
  * @param renderer Self
@@ -1240,5 +1274,7 @@ dia_py_renderer_class_init (DiaPyRendererClass *klass)
   /* highest level functions */
   renderer_class->draw_rounded_rect = draw_rounded_rect;
   renderer_class->fill_rounded_rect = fill_rounded_rect;
+  /* other */
+  renderer_class->is_capable_to = is_capable_to;
 }
 
