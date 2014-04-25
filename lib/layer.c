@@ -622,6 +622,10 @@ layer_replace_object_with_list(Layer *layer, DiaObject *remove_obj,
     il = g_list_next(il);
   }
   g_list_free_1(list);
+
+  /* with transformed groups the list and the single object are not necessarily
+   * of the same size */
+  layer_update_extents (layer);
 }
 
 static void
