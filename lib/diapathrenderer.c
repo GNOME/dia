@@ -27,6 +27,11 @@
 
 #include "attributes.h" /* attributes_get_foreground() */
 
+typedef enum {
+  PATH_STROKE = (1<<0),
+  PATH_FILL   = (1<<1)
+} PathLastOp;
+
 /*!
  * \brief Renderer which turns everything into a path (or a list thereof)
  *
@@ -44,6 +49,8 @@ struct _DiaPathRenderer
 
   Color stroke;
   Color fill;
+
+  PathLastOp last_op;
 };
 
 struct _DiaPathRendererClass
@@ -94,7 +101,7 @@ dia_path_renderer_finalize (GObject *object)
  * @param self   explicit this pointer
  * @param stroke line color or NULL
  * @param fill   fill color or NULL
- * \private \memeberof _DiaPathRenderer
+ * \private \memberof _DiaPathRenderer
  */
 static GArray *
 _get_current_path (DiaPathRenderer *self,
@@ -113,6 +120,11 @@ _get_current_path (DiaPathRenderer *self,
     memcpy (&self->fill, fill, sizeof(*fill));
     new_path = TRUE;
   }
+  /* also create a new path if the last op was a fill and we now stroke */
+  if (   stroke && self->last_op == PATH_FILL 
+      || fill && self->last_op == PATH_STROKE)
+    new_path = TRUE;
+  self->last_op = stroke ? PATH_STROKE : PATH_FILL;
 
   if (!self->pathes || new_path) {
     if (!self->pathes)
@@ -121,6 +133,40 @@ _get_current_path (DiaPathRenderer *self,
   }
   path = g_ptr_array_index (self->pathes, self->pathes->len - 1);
   return path;
+}
+/*!
+ * \brief Optimize away potential duplicated path
+ * Dia's object rendering often consists of identical consecutive fill and stroke
+ * operations. This function check if two identical pathes are at the end of our
+ * list and just removes the second one.
+ * \private \memberof _DiaPathRenderer
+ */
+static void
+_remove_duplicated_path (DiaPathRenderer *self)
+{
+  if (self->pathes && self->pathes->len >= 2) {
+    GArray *p1 = g_ptr_array_index (self->pathes, self->pathes->len - 2);
+    GArray *p2 = g_ptr_array_index (self->pathes, self->pathes->len - 1);
+    if (p1->len == p2->len) {
+      gboolean same = TRUE;
+      guint i;
+      for (i = 0; i < p1->len; ++i) {
+	const BezPoint *bp1 = &g_array_index (p1, BezPoint, i);
+	const BezPoint *bp2 = &g_array_index (p2, BezPoint, i);
+
+	same &= (bp1->type == bp2->type);
+	same &= (memcmp (&bp1->p1, &bp2->p1, sizeof(Point)) == 0);
+	if (bp1->type == BEZ_CURVE_TO) {
+	  same &= (memcmp (&bp1->p2, &bp2->p2, sizeof(Point)) == 0);
+	  same &= (memcmp (&bp1->p3, &bp2->p3, sizeof(Point)) == 0);
+	}
+      }
+      if (same) {
+	g_array_free (p2, TRUE);
+	g_ptr_array_set_size (self->pathes, self->pathes->len - 1);
+      }
+    }
+  }
 }
 /*!
  * \brief Starting a new rendering run
@@ -188,7 +234,7 @@ _path_append (GArray *points, const Point *pt)
   const BezPoint *prev = (points->len > 0) ? &g_array_index (points, BezPoint, points->len - 1) : NULL;
   const Point *last = prev ? (prev->type == BEZ_CURVE_TO ? &prev->p3 : &prev->p1) : NULL;
 
-  if (!last || last->x != pt->x || last->y != pt->y) {
+  if (!last || distance_point_point(last, pt) > 0.001) {
     BezPoint bp;
     bp.type = BEZ_MOVE_TO;
     bp.p1 = *pt;
@@ -282,6 +328,7 @@ draw_polyline(DiaRenderer *self,
 	      Color *line_colour)
 {
   _polyline (self, points, num_points, line_colour, NULL);
+  _remove_duplicated_path (DIA_PATH_RENDERER (self));
 }
 static void
 draw_polygon(DiaRenderer *self, 
@@ -294,6 +341,7 @@ draw_polygon(DiaRenderer *self,
   /* FIXME: can't be that simple ;) */
   _polyline (self, points, num_points, line_colour, NULL);
   _path_lineto (path, &points[0]);
+  _remove_duplicated_path (renderer);
 }
 static void
 fill_polygon(DiaRenderer *self, 
@@ -336,6 +384,7 @@ draw_rect (DiaRenderer *self,
 	   Color *color)
 {
   _rect (self, ul_corner, lr_corner, color, NULL);
+  _remove_duplicated_path (DIA_PATH_RENDERER (self));
 }
 static void
 fill_rect (DiaRenderer *self, 
@@ -423,6 +472,7 @@ draw_arc (DiaRenderer *self,
 	  Color *color)
 {
   _arc (self, center, width, height, angle1, angle2, color, NULL);
+  _remove_duplicated_path (DIA_PATH_RENDERER (self));
 }
 static void
 fill_arc (DiaRenderer *self, 
@@ -508,6 +558,7 @@ draw_ellipse (DiaRenderer *self,
 	      Color *color)
 {
   _ellipse (self, center, width, height, color, NULL);
+  _remove_duplicated_path (DIA_PATH_RENDERER (self));
 }
 static void
 fill_ellipse (DiaRenderer *self, 
@@ -545,6 +596,7 @@ draw_bezier (DiaRenderer *self,
 	     Color *color)
 {
   _bezier(self, points, numpoints, color, NULL);
+  _remove_duplicated_path (DIA_PATH_RENDERER (self));
 }
 static void
 fill_bezier(DiaRenderer *self, 
