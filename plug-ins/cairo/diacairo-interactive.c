@@ -276,7 +276,7 @@ draw_object_highlighted (DiaRenderer     *self,
   }
   /* usually this method would need to draw the object twice,
    * once with highlight and once without. But due to our
-   * draw_text_line implemntation we only need one run */
+   * draw_text_line implementation we only need one run */
   object->ops->draw(object, self);
   /* always reset when done with this object */
   interactive->highlight_color = NULL;

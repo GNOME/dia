@@ -55,9 +55,9 @@ def allprops_cb(data, flags) :
 							props_by_name[uname][1].append(oname)
 						else :
 							props_by_name[uname] = (p, [oname])
-							name_type_clashes.append (oname + " as " + p0.type + " and " + p.type)
+							name_type_clashes.append (oname + "::" + p.name + " as " + p0.type + " and " + p.type)
 					else :
-						# remember the origin of the propety
+						# remember the origin of the property
 						props_by_name[k][1].append(oname)
 				except KeyError :
 					print oname, "::", k, p, "?"

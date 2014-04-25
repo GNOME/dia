@@ -295,7 +295,7 @@ beziergon_create(Point *startpoint,
 
     beziershape_init(bez, bcd->num_points);
     beziercommon_set_points (&bez->bezier, bcd->num_points, bcd->points);
-  }  
+  }
   beziergon->line_width =  attributes_get_default_linewidth();
   beziergon->line_color = attributes_get_foreground();
   beziergon->inner_color = attributes_get_background();
