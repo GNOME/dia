@@ -302,7 +302,7 @@ static DiaMenu empty_menu = {
 };
 
 static void
-popup_object_menu(DDisplay *ddisp, GdkEventButton *bevent)
+popup_object_menu(DDisplay *ddisp, GdkEvent *event)
 {
   Diagram *diagram;
   DiaObject *obj;
@@ -386,7 +386,13 @@ popup_object_menu(DDisplay *ddisp, GdkEventButton *bevent)
   menu = GTK_MENU(dia_menu->app_data);
   /* add the properties menu item to raise the properties from the contextual menu */
   
-  gtk_menu_popup(menu, NULL, NULL, NULL, NULL, bevent->button, bevent->time);
+  if (event->type == GDK_BUTTON_PRESS)
+    gtk_menu_popup(menu, NULL, NULL, NULL, NULL,
+		   ((GdkEventButton *)event)->button, ((GdkEventButton *)event)->time);
+  else if (event->type == GDK_KEY_PRESS)
+    gtk_menu_popup(menu, NULL, NULL, NULL, NULL, 0, ((GdkEventKey *)event)->time);
+  else /* warn about unexpected usage of this function */
+    g_warning ("Unhandled GdkEvent type=%d", event->type);
 }
 
 gint
@@ -746,17 +752,16 @@ ddisplay_canvas_events (GtkWidget *canvas,
               if (active_tool->button_press_func)
                 (*active_tool->button_press_func) (active_tool, bevent, ddisp);
 
-			  /* Detect user holding down the button.
-			   * Set timeout for 1sec. If timeout is called, user must still
-			   * be holding. If user releases button, remove timeout. */
-			  hold_data.event = gdk_event_copy(event); /* need to free later */
-			  hold_data.ddisp = ddisp;
-			  hold_data.tag = g_timeout_add(1000, hold_timeout_handler, NULL);
-
+	      /* Detect user holding down the button.
+	       * Set timeout for 1sec. If timeout is called, user must still
+	       * be holding. If user releases button, remove timeout. */
+	      hold_data.event = gdk_event_copy(event); /* need to free later */
+	      hold_data.ddisp = ddisp;
+	      hold_data.tag = g_timeout_add(1000, hold_timeout_handler, NULL);
               break;
             case 2:
               if (ddisp->menu_bar == NULL && !is_integrated_ui()) {
-                popup_object_menu(ddisp, bevent);
+                popup_object_menu(ddisp, event);
               }
 	      else if (!transient_tool) {
 		gtk_widget_grab_focus(canvas);
@@ -771,14 +776,14 @@ ddisplay_canvas_events (GtkWidget *canvas,
               if (ddisp->menu_bar == NULL) {
                 if (bevent->state & GDK_CONTROL_MASK || is_integrated_ui ()) {
                       /* for two button mouse users ... */
-                  popup_object_menu(ddisp, bevent);
+                  popup_object_menu(ddisp, event);
                   break;
                 }
                 ddisplay_popup_menu(ddisp, bevent);
                 break;
               }
               else {
-                popup_object_menu(ddisp, bevent);
+                popup_object_menu(ddisp, event);
                 break;
               }
             default:
@@ -961,6 +966,9 @@ ddisplay_canvas_events (GtkWidget *canvas,
 	      case GDK_F2:
 	      case GDK_Return:
 		gtk_action_activate (menus_get_action ("ToolsTextedit"));
+		break;
+	      case GDK_Menu:
+		popup_object_menu (ddisp, event);
 		break;
               default:
                 if (kevent->string && kevent->keyval == ' ') {
