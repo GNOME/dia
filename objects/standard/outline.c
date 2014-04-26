@@ -403,11 +403,13 @@ outline_draw(Outline *outline, DiaRenderer *renderer)
       ++n;
     }
   }
+  if (pts[n-1].type == BEZ_MOVE_TO)
+    --total; /* remove a potential last move which would otherwise be rendered as a dot */
 
   if (DIA_RENDERER_GET_CLASS (renderer)->is_capable_to(renderer, RENDER_HOLES)) {
-    if (outline->show_background)
-      DIA_RENDERER_GET_CLASS (renderer)->draw_beziergon(renderer, pts, total, &outline->fill_color, NULL);
-    DIA_RENDERER_GET_CLASS (renderer)->draw_bezier (renderer, pts, total, &outline->line_color);
+    DIA_RENDERER_GET_CLASS (renderer)->draw_beziergon(renderer, pts, total,
+			    outline->show_background ? &outline->fill_color : NULL,
+			    &outline->line_color);
     return; /* that was easy ;) */
   }
   /* otherwise split the path data into piece which can be handled by Dia's standard bezier rendering */
