@@ -685,6 +685,9 @@ set_linestyle(DiaRenderer *self, LineStyle mode)
     CgmRenderer *renderer = CGM_RENDERER(self);
     gint16   style;
 
+    /* XXX: According to specs (mil-std-2301) and tests with OpenOffice only
+     *      solid=1 and dashed=2 are supported.
+     */
     switch(mode)
     {
     case LINESTYLE_DASHED:
@@ -892,10 +895,10 @@ draw_ellipse(DiaRenderer *self,
     write_elhead(renderer->file, 4, 17, 6 * REALSIZE);
     write_real(renderer->file, center->x); /* center */
     write_real(renderer->file, ynew);
-    write_real(renderer->file, center->x);      /* axes 1 */
+    write_real(renderer->file, center->x + width/2); /* axes 1 */
+    write_real(renderer->file, ynew);
+    write_real(renderer->file, center->x); /* axes 2 */
     write_real(renderer->file, ynew + height/2);
-    write_real(renderer->file, center->x + width/2); /* axes 2 */
-    write_real(renderer->file, ynew );
 }
 
 static void
@@ -913,10 +916,10 @@ fill_ellipse(DiaRenderer *self,
     write_elhead(renderer->file, 4, 17, 6 * REALSIZE);
     write_real(renderer->file, center->x); /* center */
     write_real(renderer->file, ynew);
-    write_real(renderer->file, center->x);      /* axes 1 */
-    write_real(renderer->file, ynew + height/2);
-    write_real(renderer->file, center->x + width/2); /* axes 2 */
+    write_real(renderer->file, center->x + width/2); /* axes 1 */
     write_real(renderer->file, ynew);
+    write_real(renderer->file, center->x); /* axes 2 */
+    write_real(renderer->file, ynew + height/2);
 }
 
 
