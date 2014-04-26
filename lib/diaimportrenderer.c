@@ -71,10 +71,11 @@ static void draw_bezier (DiaRenderer *renderer,
 			 BezPoint *points,
 			 int numpoints,
 			 Color *color);
-static void fill_bezier (DiaRenderer *renderer,
-			 BezPoint *points,
-			 int numpoints,
-			 Color *color);
+static void draw_beziergon (DiaRenderer *renderer,
+			    BezPoint *points,
+			    int numpoints,
+			    Color *fill,
+			    Color *stroke);
 static void draw_string (DiaRenderer *renderer,
 			 const gchar *text,
 			 Point *pos,
@@ -190,7 +191,7 @@ dia_import_renderer_class_init (DiaImportRendererClass *klass)
 
   /* medium level functions */
   renderer_class->draw_bezier  = draw_bezier;
-  renderer_class->fill_bezier  = fill_bezier;
+  renderer_class->draw_beziergon  = draw_beziergon;
   renderer_class->draw_rect = draw_rect;
   renderer_class->draw_rounded_polyline  = draw_rounded_polyline;
   renderer_class->draw_polyline  = draw_polyline;
@@ -422,9 +423,9 @@ fill_arc (DiaRenderer *renderer, Point *center,
 #else
   GArray *path = g_array_new (FALSE, FALSE, sizeof(BezPoint));
   path_build_arc (path, center, width, height, angle1, angle2, TRUE);
-  DIA_RENDERER_GET_CLASS(renderer)->fill_bezier (renderer,
-						 &g_array_index (path, BezPoint, 0),
-						 path->len, color);
+  DIA_RENDERER_GET_CLASS(renderer)->draw_beziergon (renderer,
+						    &g_array_index (path, BezPoint, 0),
+						    path->len, color, NULL);
   g_array_free (path, TRUE);
 #endif
 }
@@ -540,16 +541,17 @@ draw_bezier (DiaRenderer *renderer,
  * \memberof _DiaImportRenderer
  */
 static void
-fill_bezier (DiaRenderer *renderer,
-             BezPoint *points, int numpoints,
-             Color *color)
+draw_beziergon (DiaRenderer *renderer,
+                BezPoint *points, int numpoints,
+                Color *fill,
+                Color *stroke)
 {
   DiaImportRenderer *self = DIA_IMPORT_RENDERER (renderer);
   DiaObject *object;
 
   g_return_if_fail (numpoints > 2);
   object = create_standard_beziergon (numpoints, points);
-  _apply_style (self, object, color, NULL, 0.0);
+  _apply_style (self, object, fill, stroke, 0.0);
   _push_object (self, object);
 }
 

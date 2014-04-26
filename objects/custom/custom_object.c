@@ -916,7 +916,11 @@ custom_draw_element(GraphicElement* el, Custom *custom, DiaRenderer *renderer,
   int i;
   real radius;
 
-  if (el->any.s.line_width != (*cur_line)) {
+  /* Somewhow - maybe due to scaling - the exact match does not always work. Instead of:
+   *   (el->any.s.line_width != (*cur_line))
+   * be more tolerant to avoid using completely wrong line width.
+   */
+  if (fabs (el->any.s.line_width - (*cur_line)) > 0.001) {
     (*cur_line) = el->any.s.line_width;
     renderer_ops->set_linewidth(renderer,
 		  custom->border_width*(*cur_line));
@@ -1055,9 +1059,10 @@ custom_draw_element(GraphicElement* el, Custom *custom, DiaRenderer *renderer,
               &g_array_index(barr, BezPoint, i).p1);
     }
     if (custom->show_background && el->any.s.fill != DIA_SVG_COLOUR_NONE)
-      renderer_ops->fill_bezier(renderer, (BezPoint *)barr->data,
-				  el->path.npoints, bg);
-    if (el->any.s.stroke != DIA_SVG_COLOUR_NONE)
+      renderer_ops->draw_beziergon(renderer,
+				   (BezPoint *)barr->data, el->path.npoints,
+				   bg, (el->any.s.stroke != DIA_SVG_COLOUR_NONE) ? fg : NULL);
+    else if (el->any.s.stroke != DIA_SVG_COLOUR_NONE)
       renderer_ops->draw_bezier(renderer, (BezPoint *)barr->data,
 				  el->path.npoints, fg);
     break;
@@ -1327,7 +1332,7 @@ custom_update_data(Custom *custom, AnchorShape horiz, AnchorShape vert)
   }
 
   for (i = 0; i < info->nconnections; i++)
-    transform_coord(custom, &info->connections[i], &custom->connections[i].pos);  elem->extra_spacing.border_trans = 0; /*custom->border_width/2; */
+    transform_coord(custom, &info->connections[i], &custom->connections[i].pos);
   elem->extra_spacing.border_trans = 0; /*custom->border_width/2; */
   element_update_boundingbox(elem);
 

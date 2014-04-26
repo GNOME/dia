@@ -602,10 +602,10 @@ fill_ellipse(DiaRenderer *self,
 
 static void
 _bezier(DiaRenderer *self, 
-        BezPoint *points,
-        int numpoints,
-        Color *color,
-        gboolean fill)
+	BezPoint *points,
+	int numpoints,
+	Color *fill,
+	Color *stroke)
 {
   DrsRenderer *renderer = DRS_RENDERER (self);
   xmlNodePtr node;
@@ -614,9 +614,9 @@ _bezier(DiaRenderer *self,
                       (const xmlChar *)"bezier", NULL);
   _node_set_bezpoints (node, points, numpoints);
   if (fill)
-    _node_set_color (node, "fill", color);
-  else
-    _node_set_color (node, "stroke", color);
+    _node_set_color (node, "fill", fill);
+  if (stroke)
+    _node_set_color (node, "stroke", stroke);
 }
 static void
 draw_bezier(DiaRenderer *self, 
@@ -624,15 +624,21 @@ draw_bezier(DiaRenderer *self,
             int numpoints,
             Color *color)
 {
-  _bezier (self, points, numpoints, color, FALSE);
+  _bezier (self, points, numpoints, NULL, color);
 }
 static void
-fill_bezier(DiaRenderer *self, 
-            BezPoint *points,
-            int numpoints,
-            Color *color)
+draw_beziergon (DiaRenderer *self, 
+		BezPoint *points,
+		int numpoints,
+		Color *fill,
+		Color *stroke)
 {
-  _bezier (self, points, numpoints, color, TRUE);
+  if (!fill && stroke) { /* maybe this is too clever: close path by existance of fill attribute */
+    Color transparent = { 0, };
+    _bezier (self, points, numpoints, &transparent, stroke);
+  } else {
+    _bezier (self, points, numpoints, fill, stroke);
+  }
 }
 
 static void 
@@ -744,7 +750,7 @@ drs_renderer_class_init (DrsRendererClass *klass)
   renderer_class->draw_polygon   = draw_polygon;
 
   renderer_class->draw_bezier   = draw_bezier;
-  renderer_class->fill_bezier   = fill_bezier;
+  renderer_class->draw_beziergon = draw_beziergon;
 
   renderer_class->draw_rounded_polyline = draw_rounded_polyline;
   /* highest level functions */

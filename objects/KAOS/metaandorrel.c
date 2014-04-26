@@ -452,24 +452,22 @@ maor_draw(Maor *maor, DiaRenderer *renderer)
   switch (maor->type) {
     case MAOR_AND_REF:
       compute_and(&p1,MAOR_REF_WIDTH,MAOR_REF_HEIGHT,bpl);
-      renderer_ops->fill_bezier(renderer,bpl,6,&MAOR_BG_COLOR);
-      renderer_ops->draw_bezier(renderer,bpl,6,&MAOR_FG_COLOR);
+      renderer_ops->draw_beziergon(renderer,bpl,6,&MAOR_BG_COLOR,&MAOR_FG_COLOR);
       break;
 
     case MAOR_AND_COMP_REF:
       compute_and(&p1,MAOR_REF_WIDTH,MAOR_REF_HEIGHT,bpl);
-      renderer_ops->fill_bezier(renderer,bpl,6,&MAOR_FG_COLOR);
+      renderer_ops->draw_beziergon(renderer,bpl,6,&MAOR_FG_COLOR,NULL);
       break;
 
     case MAOR_OR_REF:
       compute_or(&p1,MAOR_REF_WIDTH,MAOR_REF_HEIGHT,bpl);
-      renderer_ops->fill_bezier(renderer,bpl,4,&MAOR_BG_COLOR);
-      renderer_ops->draw_bezier(renderer,bpl,4,&MAOR_FG_COLOR);
+      renderer_ops->draw_beziergon(renderer,bpl,4,&MAOR_BG_COLOR,&MAOR_FG_COLOR);
       break;
 
     case MAOR_OR_COMP_REF:
       compute_or(&p1,MAOR_REF_WIDTH,MAOR_REF_HEIGHT,bpl);
-      renderer_ops->fill_bezier(renderer,bpl,4,&MAOR_FG_COLOR);
+      renderer_ops->draw_beziergon(renderer,bpl,4,&MAOR_FG_COLOR,NULL);
       break;
 
     case MAOR_OPER_REF:

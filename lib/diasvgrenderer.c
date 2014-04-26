@@ -371,10 +371,10 @@ get_draw_style(DiaSvgRenderer *renderer,
   gchar linewidth_buf[DTOSTR_BUF_SIZE];
   gchar alpha_buf[DTOSTR_BUF_SIZE];
 
-  if (!str) str = g_string_new(NULL);
+  if (!str)
+    str = g_string_new(NULL);
   g_string_truncate(str, 0);
 
-  /* TODO(CHECK): the shape-export didn't have 'fill: none' here */
   g_string_printf(str, "fill: none; stroke-opacity: %s; stroke-width: %s", 
 		  g_ascii_formatd (alpha_buf, sizeof(alpha_buf), "%g", colour->alpha), 
 		  dia_svg_dtostr(linewidth_buf, renderer->linewidth) );
@@ -698,8 +698,9 @@ static void
 _bezier(DiaRenderer *self, 
 	BezPoint *points,
 	int numpoints,
-	Color *colour,
-	gboolean fill)
+	Color *fill,
+	Color *stroke,
+	gboolean closed)
 {
   DiaSvgRenderer *renderer = DIA_SVG_RENDERER (self);
   int i;
@@ -713,9 +714,18 @@ _bezier(DiaRenderer *self,
   gchar p3y_buf[DTOSTR_BUF_SIZE];
 
   node = xmlNewChild(renderer->root, renderer->svg_name_space, (const xmlChar *)"path", NULL);
-  
-  xmlSetProp(node, (const xmlChar *)"style",
-	     (xmlChar *)(fill ? get_fill_style(renderer, colour) : get_draw_style(renderer, colour)));
+
+  if (fill || stroke) {
+    GString *style = str = g_string_new("");
+
+    if (stroke) /* XXX: sets also fill:none - so it must be first to get overwritten;) */
+      g_string_append_printf (str, "%s;", get_draw_style(renderer, stroke));
+    if (fill)
+      g_string_append_printf (str, "%s;", get_fill_style(renderer, fill));
+    xmlSetProp(node, (const xmlChar *)"style", (xmlChar *)style->str);
+
+    g_string_free(style, TRUE);
+  }
 
   str = g_string_new(NULL);
 
@@ -767,18 +777,24 @@ static void
 draw_bezier(DiaRenderer *self, 
 	    BezPoint *points,
 	    int numpoints,
-	    Color *colour)
+	    Color *stroke)
 {
-  _bezier(self, points, numpoints, colour, FALSE);
+  _bezier(self, points, numpoints, NULL, stroke, FALSE);
 }
 
 static void
-fill_bezier(DiaRenderer *self, 
-	    BezPoint *points, /* Last point must be same as first point */
-	    int numpoints,
-	    Color *colour)
+draw_beziergon (DiaRenderer *self, 
+		BezPoint *points,
+		int numpoints,
+		Color *fill,
+		Color *stroke)
 {
-  _bezier(self, points, numpoints, colour, TRUE);
+  DiaSvgRenderer *renderer = DIA_SVG_RENDERER (self);
+  /* optimize for stroke-width==0 && fill==stroke */
+  if (   fill && stroke && renderer->linewidth == 0.0
+      && memcmp(fill, stroke, sizeof(Color))==0)
+    stroke = NULL;
+  _bezier(self, points, numpoints, fill, stroke, TRUE);
 }
 
 static void
@@ -1001,7 +1017,7 @@ dia_svg_renderer_class_init (DiaSvgRendererClass *klass)
   renderer_class->draw_polygon   = draw_polygon;
 
   renderer_class->draw_bezier   = draw_bezier;
-  renderer_class->fill_bezier   = fill_bezier;
+  renderer_class->draw_beziergon = draw_beziergon;
   renderer_class->draw_text_line  = draw_text_line;
 
   /* SVG specific */

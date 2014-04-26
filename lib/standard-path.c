@@ -425,12 +425,16 @@ stdpath_draw(StdPath *stdpath, DiaRenderer *renderer)
 	if (DIA_RENDERER_GET_CLASS (renderer)->is_capable_to(renderer, RENDER_PATTERN))
 	  DIA_RENDERER_GET_CLASS (renderer)->set_pattern (renderer, stdpath->pattern);
       }
-      DIA_RENDERER_GET_CLASS (renderer)->fill_bezier(renderer, stdpath->points, stdpath->num_points, 
-						     &fill);
+      if (stdpath->stroke_or_fill & PDO_STROKE) /* also stroke -> combine */
+        DIA_RENDERER_GET_CLASS (renderer)->draw_beziergon(renderer, stdpath->points, stdpath->num_points, 
+							  &fill, &stdpath->line_color);
+      else
+        DIA_RENDERER_GET_CLASS (renderer)->draw_beziergon(renderer, stdpath->points, stdpath->num_points, 
+							  &fill, NULL);
       if (DIA_RENDERER_GET_CLASS (renderer)->is_capable_to(renderer, RENDER_PATTERN))
 	DIA_RENDERER_GET_CLASS (renderer)->set_pattern (renderer, NULL);
     }
-    if (stdpath->stroke_or_fill & PDO_STROKE)
+    if (stdpath->stroke_or_fill == PDO_STROKE) /* stroke only */
       DIA_RENDERER_GET_CLASS (renderer)->draw_bezier(renderer, stdpath->points, stdpath->num_points, 
 						     &stdpath->line_color);
   } else {

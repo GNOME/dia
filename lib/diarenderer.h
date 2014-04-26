@@ -186,18 +186,18 @@ struct _DiaRendererClass
                        BezPoint *points,
                        int numpoints,
                        Color *color);
-  /*! Same as DrawBezierFunc, except the last point must be the same as the
-     first point, and the resulting shape is filled */
-  void (*fill_bezier) (DiaRenderer *renderer,
+  /*! Fill and/or stroke a  closed bezier */
+  void (*draw_beziergon) (DiaRenderer *renderer,
                        BezPoint *points,
                        int numpoints,
-                       Color *color);
+                       Color *fill,
+                       Color *stroke);
   /*! Draw a line joining multiple points, using color and the current
      line style */
   void (*draw_polyline) (DiaRenderer *renderer,
                          Point *points, int num_points,
                          Color *color);
-  /*! Draw a polygone, using the current line style
+  /*! Draw a polygon, using the current line style
      The polygon is closed even if the first point is not the same as the
      last point */
   void (*draw_polygon) (DiaRenderer *renderer,

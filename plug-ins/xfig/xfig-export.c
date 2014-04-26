@@ -178,10 +178,11 @@ static void draw_bezier_with_arrows(DiaRenderer *self,
 				    Color *colour,
 				    Arrow *start_arrow,
 				    Arrow *end_arrow);
-static void fill_bezier(DiaRenderer *self, 
-			BezPoint *points, /* Last point must be same as first point */
-			int numpoints,
-			Color *colour);
+static void draw_beziergon(DiaRenderer *self, 
+			   BezPoint *points, /* Last point must be same as first point */
+			   int numpoints,
+			   Color *fill,
+			   Color *stroke);
 static void draw_string(DiaRenderer *self,
 			const char *text,
 			Point *pos, Alignment alignment,
@@ -269,7 +270,7 @@ xfig_renderer_class_init (XfigRendererClass *klass)
   renderer_class->fill_ellipse = fill_ellipse;
 
   renderer_class->draw_bezier = draw_bezier;
-  renderer_class->fill_bezier = fill_bezier;
+  renderer_class->draw_beziergon = draw_beziergon;
 
   renderer_class->draw_string = draw_string;
 
@@ -1075,19 +1076,23 @@ draw_bezier_with_arrows(DiaRenderer *self,
 }
 
 static void 
-fill_bezier(DiaRenderer *self, 
-            BezPoint *points, /* Last point must be same as first point */
-            int numpoints,
-            Color *color) 
+draw_beziergon (DiaRenderer *self, 
+		BezPoint *points,
+		int numpoints,
+		Color *fill,
+		Color *stroke) 
 {
   XfigRenderer *renderer = XFIG_RENDERER(self);
 
   if (renderer->color_pass) {
-    figCheckColor(renderer, color);
+    if (fill)
+      figCheckColor(renderer, fill);
+    if (stroke)
+      figCheckColor(renderer, stroke);
     return;
   }
 
-  DIA_RENDERER_CLASS(parent_class)->fill_bezier(self, points, numpoints, color);
+  DIA_RENDERER_CLASS(parent_class)->draw_beziergon(self, points, numpoints, fill, stroke);
 }
 
 static void 

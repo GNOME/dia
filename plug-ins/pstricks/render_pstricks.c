@@ -113,10 +113,11 @@ static void draw_bezier(DiaRenderer *self,
 			BezPoint *points,
 			int numpoints,
 			Color *color);
-static void fill_bezier(DiaRenderer *self, 
-			BezPoint *points, /* Last point must be same as first point */
-			int numpoints,
-			Color *color);
+static void draw_beziergon(DiaRenderer *self, 
+			   BezPoint *points,
+			   int numpoints,
+			   Color *fill,
+			   Color *stroke);
 static void draw_string(DiaRenderer *self,
 			const char *text,
 			Point *pos, Alignment alignment,
@@ -201,7 +202,7 @@ pstricks_renderer_class_init (PstricksRendererClass *klass)
   renderer_class->fill_ellipse = fill_ellipse;
 
   renderer_class->draw_bezier = draw_bezier;
-  renderer_class->fill_bezier = fill_bezier;
+  renderer_class->draw_beziergon = draw_beziergon;
 
   renderer_class->draw_string = draw_string;
 
@@ -451,6 +452,9 @@ pstricks_polygon(PstricksRenderer *renderer,
 
     set_line_color(renderer, line_color);
 
+    /* The graphics objects all have a starred version (e.g., \psframe*) which
+     * draws a solid object whose color is linecolor. [pstricks-doc.pdf p7]
+     */
     fprintf(renderer->file, "\\pspolygon%s(%s,%s)",
 	    (filled?"*":""),
 	    pstricks_dtostr(px_buf,points[0].x),
@@ -702,16 +706,23 @@ draw_bezier(DiaRenderer *self,
 }
 
 
-
 static void
-fill_bezier(DiaRenderer *self, 
-	    BezPoint *points, /* Last point must be same as first point */
-	    int numpoints,
-	    Color *color)
+draw_beziergon (DiaRenderer *self, 
+		BezPoint *points,
+		int numpoints,
+		Color *fill,
+		Color *stroke)
 {
     PstricksRenderer *renderer = PSTRICKS_RENDERER(self);
 
-    pstricks_bezier(renderer,points,numpoints,color,TRUE);
+    /* XXX: it should be easy to fill and stroke in one step using
+     * fillcolor and linecolor at the same time
+     */
+    if (fill)
+	pstricks_bezier(renderer,points,numpoints,fill,TRUE);
+    /* XXX: still not closing the path */
+    if (stroke)
+	pstricks_bezier(renderer,points,numpoints,stroke,FALSE);
 }
 
 /* Do we really want to do this?  What if the text is intended as 

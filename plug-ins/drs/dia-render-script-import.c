@@ -319,9 +319,11 @@ _render_object (xmlNodePtr render, DiaContext *ctx)
       } else if (xmlStrcmp (node->name, (const xmlChar *)"bezier") == 0) {
 	GArray *path = _parse_bezpoints (node, "bezpoints");
 	if (path) {
-	  if (fill)
-	    ops->fill_bezier (ir, &g_array_index(path,BezPoint,0), path->len, fill);
-	  if (stroke)
+	  if (fill && stroke)
+	    ops->draw_beziergon (ir, &g_array_index(path,BezPoint,0), path->len, fill, stroke);
+	  else if (fill)
+	    ops->draw_beziergon (ir, &g_array_index(path,BezPoint,0), path->len, fill, NULL);
+	  else if (stroke)
 	    ops->draw_bezier (ir, &g_array_index(path,BezPoint,0), path->len, stroke);
 	  g_array_free (path, TRUE);
 	}

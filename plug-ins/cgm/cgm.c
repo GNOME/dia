@@ -304,10 +304,11 @@ static void draw_bezier(DiaRenderer *self,
 			BezPoint *points,
 			int numpoints,
 			Color *colour);
-static void fill_bezier(DiaRenderer *self, 
-			BezPoint *points, /* Last point must be same as first point */
-			int numpoints,
-			Color *colour);
+static void draw_beziergon(DiaRenderer *self, 
+			   BezPoint *points, /* Last point must be same as first point */
+			   int numpoints,
+			   Color *fill,
+			   Color *stroke);
 static void draw_string(DiaRenderer *self,
 			const char *text,
 			Point *pos, Alignment alignment,
@@ -1026,17 +1027,18 @@ draw_bezier(DiaRenderer *self,
 
 
 static void
-fill_bezier(DiaRenderer *self, 
-	    BezPoint *points, /* Last point must be same as first point */
-	    int numpoints,
-	    Color *colour)
+draw_beziergon (DiaRenderer *self, 
+		BezPoint *points, /* Last point must be same as first point */
+		int numpoints,
+		Color *fill,
+		Color *stroke)
 {
     CgmRenderer *renderer = CGM_RENDERER(self);
 
     if ( numpoints < 2 )
         return;
 
-    write_filledge_attributes(renderer, colour, NULL);
+    write_filledge_attributes(renderer, fill, stroke);
 
     /*
     ** A filled bezier is created by using it within a figure.
@@ -1379,7 +1381,7 @@ cgm_renderer_class_init (CgmRendererClass *klass)
     renderer_class->fill_ellipse = fill_ellipse;
 
     renderer_class->draw_bezier = draw_bezier;
-    renderer_class->fill_bezier = fill_bezier;
+    renderer_class->draw_beziergon = draw_beziergon;
 
     renderer_class->draw_string = draw_string;
 

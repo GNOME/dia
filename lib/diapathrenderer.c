@@ -571,7 +571,7 @@ fill_ellipse (DiaRenderer *self,
 static void
 _bezier (DiaRenderer *self, 
 	 BezPoint *points, int numpoints,
-	 const Color *stroke, const Color *fill)
+	 const Color *fill, const Color *stroke)
 {
   DiaPathRenderer *renderer = DIA_PATH_RENDERER (self);
   GArray *path = _get_current_path (renderer, stroke, fill);
@@ -586,7 +586,7 @@ _bezier (DiaRenderer *self,
   }
   for (; i < numpoints; ++i)
     g_array_append_val (path, points[i]);
-  if (fill)
+  if (fill) /* might not be necessary anymore with draw_beziergon*/
     _path_lineto (path, &points[0].p1);
 }
 static void
@@ -595,16 +595,17 @@ draw_bezier (DiaRenderer *self,
 	     int numpoints,
 	     Color *color)
 {
-  _bezier(self, points, numpoints, color, NULL);
+  _bezier(self, points, numpoints, NULL, color);
   _remove_duplicated_path (DIA_PATH_RENDERER (self));
 }
 static void
-fill_bezier(DiaRenderer *self, 
-	    BezPoint *points, /* Last point must be same as first point */
-	    int numpoints,
-	    Color *color)
+draw_beziergon (DiaRenderer *self, 
+		BezPoint *points,
+		int numpoints,
+		Color *fill,
+		Color *stroke)
 {
-  _bezier(self, points, numpoints, NULL, color);
+  _bezier(self, points, numpoints, fill, stroke);
 }
 /*!
  * \brief Convert the text object to a scaled path
@@ -742,9 +743,9 @@ dia_path_renderer_class_init (DiaPathRendererClass *klass)
   renderer_class->draw_polyline  = draw_polyline;
   renderer_class->draw_polygon   = draw_polygon;
 
-  renderer_class->draw_bezier   = draw_bezier;
-  renderer_class->fill_bezier   = fill_bezier;
-  renderer_class->draw_text     = draw_text;
+  renderer_class->draw_bezier    = draw_bezier;
+  renderer_class->draw_beziergon = draw_beziergon;
+  renderer_class->draw_text      = draw_text;
   /* other */
   renderer_class->is_capable_to = is_capable_to;
 }

@@ -95,10 +95,11 @@ static void draw_bezier (DiaRenderer *renderer,
                          BezPoint *points,
                          int numpoints,
                          Color *color);
-static void fill_bezier (DiaRenderer *renderer,
-                         BezPoint *points,
-                         int numpoints,
-                         Color *color);
+static void draw_beziergon (DiaRenderer *renderer,
+                            BezPoint *points,
+                            int numpoints,
+                            Color *fill,
+                            Color *stroke);
 static void draw_string (DiaRenderer *renderer,
                          const gchar *text,
                          Point *pos,
@@ -334,7 +335,7 @@ dia_renderer_class_init (DiaRendererClass *klass)
 
   /* medium level functions */
   renderer_class->draw_bezier  = draw_bezier;
-  renderer_class->fill_bezier  = fill_bezier;
+  renderer_class->draw_beziergon = draw_beziergon;
   renderer_class->draw_rect = draw_rect;
   renderer_class->draw_rounded_polyline  = draw_rounded_polyline;
   renderer_class->draw_polyline  = draw_polyline;
@@ -723,11 +724,13 @@ draw_bezier (DiaRenderer *renderer,
 }
 
 static void 
-fill_bezier (DiaRenderer *renderer,
-             BezPoint *points, int numpoints,
-             Color *color)
+draw_beziergon (DiaRenderer *renderer,
+                BezPoint *points, int numpoints,
+                Color *fill, Color *stroke)
 {
   BezierApprox *bezier;
+
+  g_return_if_fail (fill != NULL || stroke != NULL);
 
   if (renderer->bezier)
     bezier = renderer->bezier;
@@ -742,10 +745,16 @@ fill_bezier (DiaRenderer *renderer,
   bezier->currpoint = 0;
   approximate_bezier (bezier, points, numpoints);
 
-  DIA_RENDERER_GET_CLASS (renderer)->fill_polygon (renderer,
-                                                   bezier->points,
-                                                   bezier->currpoint,
-                                                   color);
+  if (fill)
+    DIA_RENDERER_GET_CLASS (renderer)->fill_polygon (renderer,
+                                                     bezier->points,
+                                                     bezier->currpoint,
+                                                     fill);
+  if (stroke)
+    DIA_RENDERER_GET_CLASS (renderer)->draw_polygon (renderer,
+                                                     bezier->points,
+                                                     bezier->currpoint,
+                                                     stroke);
 }
 
 static void 
@@ -909,9 +918,9 @@ _rounded_rect_with_bezier (DiaRenderer *renderer,
   /* end of copy */
 
   if (fill)
-    DIA_RENDERER_GET_CLASS(renderer)->fill_bezier (renderer, points, num_points, color);
+    DIA_RENDERER_GET_CLASS(renderer)->draw_beziergon (renderer, points, num_points, color, NULL);
   else
-    DIA_RENDERER_GET_CLASS(renderer)->draw_bezier (renderer, points, num_points, color);
+    DIA_RENDERER_GET_CLASS(renderer)->draw_beziergon (renderer, points, num_points, NULL, color);
 }
 
 static void 
@@ -985,8 +994,8 @@ fill_rounded_rect(DiaRenderer *renderer,
     renderer_ops->fill_rect(renderer, ul_corner, lr_corner, color);
     return;
   }
-  /* if the renderer has it's own fill_bezier use that */
-  if (DIA_RENDERER_GET_CLASS(renderer)->fill_bezier != &fill_bezier) {
+  /* if the renderer has it's own draw_beziergon use that */
+  if (DIA_RENDERER_GET_CLASS(renderer)->draw_beziergon != &draw_beziergon) {
     _rounded_rect_with_bezier (renderer, ul_corner, lr_corner, color, radius, TRUE);
     return;
   }
@@ -1643,7 +1652,7 @@ bezier_render_fill (DiaRenderer *renderer, BezPoint *pts, int total, Color *colo
     }
   }
   if (!needs_split) {
-    DIA_RENDERER_GET_CLASS (renderer)->fill_bezier (renderer, pts, total, color);
+    DIA_RENDERER_GET_CLASS (renderer)->draw_beziergon (renderer, pts, total, color, NULL);
   } else {
     GArray *points = g_array_new (FALSE, FALSE, sizeof(BezPoint));
     Point close_to;
@@ -1662,7 +1671,9 @@ bezier_render_fill (DiaRenderer *renderer, BezPoint *pts, int total, Color *colo
 	    bp.p1 = close_to;
 	    g_array_append_val(points, bp);
 	  }
-	  DIA_RENDERER_GET_CLASS (renderer)->fill_bezier (renderer, &g_array_index(points, BezPoint, 0), points->len, color);
+	  DIA_RENDERER_GET_CLASS (renderer)->draw_beziergon (renderer,
+							     &g_array_index(points, BezPoint, 0), points->len,
+							     color, NULL);
 	  g_array_set_size (points, 0);
 	  g_array_append_val(points, pts[i]); /* new needs move-to */
 	  needs_close = FALSE;
@@ -1682,7 +1693,9 @@ bezier_render_fill (DiaRenderer *renderer, BezPoint *pts, int total, Color *colo
     if (points->len > 1) {
       /* actually most renderers need at least three points, but having only one
        * point is an artifact coming from the algorithm above: "new needs move-to" */
-      DIA_RENDERER_GET_CLASS (renderer)->fill_bezier (renderer, &g_array_index(points, BezPoint, 0), points->len, color);
+      DIA_RENDERER_GET_CLASS (renderer)->draw_beziergon (renderer,
+							 &g_array_index(points, BezPoint, 0), points->len,
+							 color, NULL);
     }
     g_array_free (points, TRUE);
   }
@@ -1706,10 +1719,10 @@ bezier_render_fill_old (DiaRenderer *renderer, BezPoint *pts, int total, Color *
       real dist = distance_bez_shape_point (&pts[s1],  n1 > 0 ? n1 : i - s1, 0, &pts[i].p1);
       if (s2 > s1) { /* blanking the previous one */
 	n = i - s2 - 1;
-	DIA_RENDERER_GET_CLASS (renderer)->fill_bezier (renderer, &pts[s2], n, &color_white);
+	DIA_RENDERER_GET_CLASS (renderer)->draw_beziergon (renderer, &pts[s2], n, &color_white, NULL);
       } else { /* fill the outer shape */
 	n1 = n = i - s1;
-	DIA_RENDERER_GET_CLASS (renderer)->fill_bezier (renderer, &pts[s1], n, color);
+	DIA_RENDERER_GET_CLASS (renderer)->draw_beziergon (renderer, &pts[s1], n, color, NULL);
       }
       if (dist > 0) { /* remember as new outer outline */
 	s1 = i;
@@ -1723,10 +1736,10 @@ bezier_render_fill_old (DiaRenderer *renderer, BezPoint *pts, int total, Color *
   /* the last one is not drawn yet, i is pointing to the last element */
   if (s2 > s1) { /* blanking the previous one */
     if (i - s2 - 1 > 1) /* depending on the above we may be ready */
-      DIA_RENDERER_GET_CLASS (renderer)->fill_bezier (renderer, &pts[s2], i - s2, &color_white);
+      DIA_RENDERER_GET_CLASS (renderer)->draw_beziergon (renderer, &pts[s2], i - s2, &color_white, NULL);
   } else {
     if (i - s1 - 1 > 1)
-      DIA_RENDERER_GET_CLASS (renderer)->fill_bezier (renderer, &pts[s1], i - s1, color);
+      DIA_RENDERER_GET_CLASS (renderer)->draw_beziergon (renderer, &pts[s1], i - s1, color, NULL);
   }
 }
 

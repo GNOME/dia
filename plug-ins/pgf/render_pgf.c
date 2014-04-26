@@ -136,10 +136,11 @@ static void draw_bezier(DiaRenderer *self,
 			BezPoint *points,
 			int numpoints,
 			Color *color);
-static void fill_bezier(DiaRenderer *self, 
-			BezPoint *points, /* Last point must be same as first point */
-			int numpoints,
-			Color *color);
+static void draw_beziergon(DiaRenderer *self, 
+			   BezPoint *points,
+			   int numpoints,
+			   Color *fill,
+			   Color *stroke);
 static void draw_string(DiaRenderer *self,
 			const char *text,
 			Point *pos, Alignment alignment,
@@ -272,7 +273,7 @@ pgf_renderer_class_init (PgfRendererClass *klass)
   renderer_class->fill_ellipse = fill_ellipse;
 
   renderer_class->draw_bezier = draw_bezier;
-  renderer_class->fill_bezier = fill_bezier;
+  renderer_class->draw_beziergon = draw_beziergon;
 
 /* to keep the dia arrows instead of the native PGF ones, comment out this block of commands */
   orig_draw_line_with_arrows = renderer_class->draw_line_with_arrows;
@@ -828,10 +829,10 @@ pgf_bezier(PgfRenderer *renderer,
 		    pgf_dtostr(p3y_buf,points[i].p3.y) );
 	    break;
 	}
-    
+
     if (filled)
 	fprintf(renderer->file, "\\pgfusepath{fill}\n");
-	
+
 /*	fill[fillstyle=solid,fillcolor=diafillcolor,linecolor=diafillcolor]}\n"); */
     else
 	fprintf(renderer->file, "\\pgfusepath{stroke}\n");
@@ -851,14 +852,19 @@ draw_bezier(DiaRenderer *self,
 
 
 static void
-fill_bezier(DiaRenderer *self, 
-	    BezPoint *points, /* Last point must be same as first point */
-	    int numpoints,
-	    Color *color)
+draw_beziergon (DiaRenderer *self, 
+		BezPoint *points,
+		int numpoints,
+		Color *fill,
+		Color *stroke)
 {
     PgfRenderer *renderer = PGF_RENDERER(self);
 
-    pgf_bezier(renderer,points,numpoints,color,TRUE);
+    /* XXX: still not closing the path */
+    if (fill)
+	pgf_bezier(renderer,points,numpoints,fill,TRUE);
+    if (stroke)
+	pgf_bezier(renderer,points,numpoints,stroke,FALSE);
 }
 
 static int 

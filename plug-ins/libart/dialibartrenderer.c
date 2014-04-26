@@ -942,10 +942,11 @@ draw_bezier(DiaRenderer *self,
 }
 
 static void
-fill_bezier(DiaRenderer *self, 
-	    BezPoint *points, /* Last point must be same as first point */
-	    int numpoints, 
-	    Color *color)
+draw_beziergon (DiaRenderer *self, 
+		BezPoint *points,
+		int numpoints, 
+		Color *fill,
+		Color *stroke)
 {
   DiaLibartRenderer *renderer = DIA_LIBART_RENDERER (self);
   ArtVpath *vpath;
@@ -954,9 +955,16 @@ fill_bezier(DiaRenderer *self,
   guint32 rgba;
   double x,y;
   int i;
+  gboolean stroke_needed;
 
-  rgba = color_to_rgba(renderer, color);
-  
+  /* Only do the extra stroke if the colors are different or stroke is no hairline */
+  stroke_needed = ((!fill && stroke) || /* stroke alone */
+		   (fill && stroke && memcmp (fill, stroke, sizeof(Color)) != 0) || /* different colors */
+		   (renderer->line_width > 0) /* significant line width */);
+
+  /* we could handle it but would not draw anything */
+  g_return_if_fail (fill != NULL || stroke != NULL);
+
   bpath = art_new (ArtBpath, numpoints+1);
 
   for (i=0;i<numpoints;i++) {
@@ -1004,28 +1012,35 @@ fill_bezier(DiaRenderer *self,
   vpath = art_bez_path_to_vec(bpath, 0.25);
   art_free(bpath);
 
-  svp = art_svp_from_vpath (vpath);
-  {
-    /** We always use odd-even wind rule */
-    ArtSvpWriter *swr = art_svp_writer_rewind_new(ART_WIND_RULE_ODDEVEN);
-    ArtSVP *svp_rw;
+  if (fill) {
+    rgba = color_to_rgba(renderer, fill);
+    svp = art_svp_from_vpath (vpath);
+    {
+      /** We always use odd-even wind rule */
+      ArtSvpWriter *swr = art_svp_writer_rewind_new(ART_WIND_RULE_ODDEVEN);
+      ArtSVP *svp_rw;
 
-    art_svp_intersector(svp, swr);
-    svp_rw = art_svp_writer_rewind_reap(swr);
-    art_svp_free(svp);
-    svp = svp_rw;
+      art_svp_intersector(svp, swr);
+      svp_rw = art_svp_writer_rewind_reap(swr);
+      art_svp_free(svp);
+      svp = svp_rw;
+    }
+    art_rgb_svp_alpha (svp,
+		       0, 0, renderer->pixel_width, renderer->pixel_height,
+		       rgba, renderer->rgb_buffer, renderer->pixel_width*3, NULL);
+    art_svp_free( svp );
   }
-  art_free( vpath );
-  
-  art_rgb_svp_alpha (svp,
-		     0, 0, 
-		     renderer->pixel_width,
-		     renderer->pixel_height,
-		     rgba,
-		     renderer->rgb_buffer, renderer->pixel_width*3,
-		     NULL);
+  if (stroke && stroke_needed) {
+    rgba = color_to_rgba(renderer, stroke);
+    svp = art_svp_vpath_stroke (vpath,
+				renderer->join_style, renderer->cap_style,
+				renderer->line_width, 4, 0.25);
+    art_rgb_svp_alpha (svp, 0, 0,  renderer->pixel_width, renderer->pixel_height,
+		       rgba, renderer->rgb_buffer, renderer->pixel_width*3, NULL);
+    art_svp_free( svp );
+  }
 
-  art_svp_free( svp );
+  art_free( vpath );
 }
 
 
@@ -1521,7 +1536,7 @@ dia_libart_renderer_class_init (DiaLibartRendererClass *klass)
   renderer_class->fill_ellipse = fill_ellipse;
 
   renderer_class->draw_bezier = draw_bezier;
-  renderer_class->fill_bezier = fill_bezier;
+  renderer_class->draw_beziergon = draw_beziergon;
 
   renderer_class->draw_string = draw_string;
   renderer_class->draw_text_line = draw_text_line;

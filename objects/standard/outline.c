@@ -406,7 +406,7 @@ outline_draw(Outline *outline, DiaRenderer *renderer)
 
   if (DIA_RENDERER_GET_CLASS (renderer)->is_capable_to(renderer, RENDER_HOLES)) {
     if (outline->show_background)
-      DIA_RENDERER_GET_CLASS (renderer)->fill_bezier(renderer, pts, total, &outline->fill_color);
+      DIA_RENDERER_GET_CLASS (renderer)->draw_beziergon(renderer, pts, total, &outline->fill_color, NULL);
     DIA_RENDERER_GET_CLASS (renderer)->draw_bezier (renderer, pts, total, &outline->line_color);
     return; /* that was easy ;) */
   }

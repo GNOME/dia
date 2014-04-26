@@ -595,13 +595,18 @@ draw_bezier(DiaRenderer *self,
 }
 
 static void
-fill_bezier(DiaRenderer *self, 
-	    BezPoint *points, /* Last point must be same as first point */
-	    int numpoints,
-	    Color *color)
+draw_beziergon (DiaRenderer *self, 
+		BezPoint *points, /* Last point must be same as first point */
+		int numpoints,
+		Color *fill,
+		Color *stroke)
 {
   DiaPsRenderer *renderer = DIA_PS_RENDERER(self);
-  psrenderer_bezier(renderer, points, numpoints, color, TRUE);
+  if (fill)
+    psrenderer_bezier(renderer, points, numpoints, fill, TRUE);
+  /* XXX: still not closing the path */
+  if (stroke)
+    psrenderer_bezier(renderer, points, numpoints, stroke, TRUE);
 }
 
 static char*
@@ -1044,7 +1049,7 @@ dia_ps_renderer_class_init (DiaPsRendererClass *klass)
 
   /* medium level functions */
   renderer_class->draw_bezier  = draw_bezier;
-  renderer_class->fill_bezier  = fill_bezier;
+  renderer_class->draw_beziergon  = draw_beziergon;
   renderer_class->draw_rect = draw_rect;
   renderer_class->fill_rect = fill_rect;
   renderer_class->draw_polyline  = draw_polyline;

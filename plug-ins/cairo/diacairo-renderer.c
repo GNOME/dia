@@ -824,7 +824,8 @@ _bezier(DiaRenderer *self,
         BezPoint *points,
         int numpoints,
         Color *color,
-        gboolean fill)
+        gboolean fill,
+        gboolean closed)
 {
   DiaCairoRenderer *renderer = DIA_CAIRO_RENDERER (self);
   int i;
@@ -856,10 +857,8 @@ _bezier(DiaRenderer *self,
     }
   }
 
-  /* The stroke would benefit by an explicit cairo_close_path() but we can not do it.
-   * At this point there is not enough information left, i.e. if it comes from a Beziergon
-   * and should be closed or if it was a Bezierline which happens to end in the start point.
-   */
+  if (closed)
+    cairo_close_path(renderer->cr);
   if (fill)
     _dia_cairo_fill (renderer);
   else
@@ -873,16 +872,21 @@ draw_bezier(DiaRenderer *self,
             int numpoints,
             Color *color)
 {
-  _bezier (self, points, numpoints, color, FALSE);
+  _bezier (self, points, numpoints, color, FALSE, FALSE);
 }
 
 static void
-fill_bezier(DiaRenderer *self, 
-            BezPoint *points,
-            int numpoints,
-            Color *color)
+draw_beziergon (DiaRenderer *self, 
+		BezPoint *points,
+		int numpoints,
+		Color *fill,
+		Color *stroke)
 {
-  _bezier (self, points, numpoints, color, TRUE);
+  if (fill)
+    _bezier (self, points, numpoints, fill, TRUE, TRUE);
+  /* XXX: optimize if line_width is zero and fill==stroke */
+  if (stroke)
+    _bezier (self, points, numpoints, stroke, FALSE, TRUE);
 }
 
 static void
@@ -1263,7 +1267,7 @@ cairo_renderer_class_init (DiaCairoRendererClass *klass)
   renderer_class->draw_polygon   = draw_polygon;
 
   renderer_class->draw_bezier   = draw_bezier;
-  renderer_class->fill_bezier   = fill_bezier;
+  renderer_class->draw_beziergon = draw_beziergon;
 
   /* highest level functions */
   renderer_class->draw_rounded_rect = draw_rounded_rect;

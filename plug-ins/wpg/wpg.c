@@ -769,23 +769,35 @@ draw_bezier(DiaRenderer *self,
   g_free(pts);
 }
 
-/* Use fallback from base class until another program can
- * actually correctly show the filled Polycurve created
- * by Dia (our own import can).
- */
-G_GNUC_UNUSED static void
-fill_bezier(DiaRenderer *self, 
-            BezPoint *points,
-            int numpoints,
-            Color *colour)
+static gpointer parent_class = NULL;
+
+static void
+draw_beziergon (DiaRenderer *self, 
+		BezPoint *points,
+		int numpoints,
+		Color *fill,
+		Color *stroke)
 {
   WpgRenderer *renderer = WPG_RENDERER (self);
 
-  DIAG_NOTE(g_message("fill_beziez %d points", numpoints));
+  DIAG_NOTE(g_message("draw_beziezgon %d points", numpoints));
 
-  WriteFillAttr(renderer, colour, TRUE);
-  draw_bezier (self, points, numpoints, colour);
-  WriteFillAttr(renderer, colour, FALSE);
+#if 1
+  /* Use fallback from base class until another program can
+   * actually correctly show the filled Polycurve created
+   * by Dia (our own import can).
+   */
+  if (fill)
+    DIA_RENDERER_CLASS(parent_class)->draw_beziergon (self, points, numpoints, fill, NULL);
+#else
+  if (fill) {
+    WriteFillAttr(renderer, fill, TRUE);
+    draw_bezier (self, points, numpoints, fill);
+    WriteFillAttr(renderer, fill, FALSE);
+  }
+#endif
+  if (stroke) /* XXX: still not closing the path */
+    draw_bezier (self, points, numpoints, stroke);
 }
 static void
 draw_string(DiaRenderer *self,
@@ -960,8 +972,6 @@ draw_image(DiaRenderer *self,
 /* gobject boiler plate */
 static void wpg_renderer_class_init (WpgRendererClass *klass);
 
-static gpointer parent_class = NULL;
-
 GType
 wpg_renderer_get_type (void)
 {
@@ -1043,9 +1053,7 @@ wpg_renderer_class_init (WpgRendererClass *klass)
   renderer_class->draw_polygon   = draw_polygon;
 
   renderer_class->draw_bezier   = draw_bezier;
-#if 0 /* use fallback from base class ... */
-  renderer_class->fill_bezier   = fill_bezier;
-#endif
+  renderer_class->draw_beziergon = draw_beziergon;
 }
 
 /* dia export funtion */

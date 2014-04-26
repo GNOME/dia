@@ -112,9 +112,9 @@ public :
     //! draw a bezier line - possibly as approximation consisting of straight lines
     //! \ingroup RenderMedium
     virtual void draw_bezier (BezPoint *points, int numpoints, Color *color);
-    //! fill a bezier line - possibly as approximation consisting of a polygon
+    //! fill and/or stroke a bezier - possibly as approximation consisting of a polygon
     //! \ingroup RenderMedium
-    virtual void fill_bezier (BezPoint *points, int numpoints, Color *color);
+    virtual void draw_beziergon (BezPoint *points, int numpoints, Color *fill, Color *stroke);
     //! drawing a polyline - or fallback to single line segments
     //! \ingroup RenderMedium
     virtual void draw_polyline (Point *points, int num_points, Color *color);

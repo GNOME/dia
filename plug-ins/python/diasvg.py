@@ -167,34 +167,33 @@ class SvgRenderer :
 	def fill_ellipse (self, center, width, height, color) :
 		self.f.write('<ellipse cx="%.3f" cy="%.3f" rx="%.3f" ry="%.3f" fill="%s" stroke="none"  />' \
 					% (center.x, center.y, width / 2, height / 2, self._rgb(color)))
+	def _bezier (self, bezpoints) :
+		for bp in bezpoints :
+			if bp.type == 0 : # BEZ_MOVE_TO
+				self.f.write('M %.3f,%.3f ' % (bp.p1.x, bp.p1.y))
+			elif bp.type == 1 : # BEZ_LINE_TO
+				self.f.write('L %.3f,%.3f ' % (bp.p1.x, bp.p1.y))
+			elif bp.type == 2 : # BEZ_CURVE_TO
+				self.f.write ('C %.3f,%.3f %.3f,%.3f %.3f,%.3f ' \
+					% (bp.p1.x, bp.p1.y, bp.p2.x, bp.p2.y, bp.p3.x, bp.p3.y))
+			else :
+				dia.message(2, "Invalid BezPoint type (%d)" * bp.type)
 	def draw_bezier (self, bezpoints, color) :
 		self.f.write('<path stroke="%s" fill="none" stroke-width="%.3f" %s d="' \
 					% (self._rgb(color), self.line_width, self._stroke_style()))
-		for bp in bezpoints :
-			if bp.type == 0 : # BEZ_MOVE_TO
-				self.f.write('M %.3f,%.3f ' % (bp.p1.x, bp.p1.y))
-			elif bp.type == 1 : # BEZ_LINE_TO
-				self.f.write('L %.3f,%.3f ' % (bp.p1.x, bp.p1.y))
-			elif bp.type == 2 : # BEZ_CURVE_TO
-				self.f.write ('C %.3f,%.3f %.3f,%.3f %.3f,%.3f ' \
-					% (bp.p1.x, bp.p1.y, bp.p2.x, bp.p2.y, bp.p3.x, bp.p3.y))
-			else :
-				dia.message(2, "Invalid BezPoint type (%d)" * bp.type)
+		self._bezier (bezpoints)
 		self.f.write('"/>\n')
+	# old version, wont be called anymore with newer Dia
 	def fill_bezier (self, bezpoints, color) :
 		self.f.write('<path stroke="none" fill="%s" stroke-width="%.3f" d="' \
 					% (self._rgb(color), self.line_width))
-		for bp in bezpoints :
-			if bp.type == 0 : # BEZ_MOVE_TO
-				self.f.write('M %.3f,%.3f ' % (bp.p1.x, bp.p1.y))
-			elif bp.type == 1 : # BEZ_LINE_TO
-				self.f.write('L %.3f,%.3f ' % (bp.p1.x, bp.p1.y))
-			elif bp.type == 2 : # BEZ_CURVE_TO
-				self.f.write ('C %.3f,%.3f %.3f,%.3f %.3f,%.3f ' \
-					% (bp.p1.x, bp.p1.y, bp.p2.x, bp.p2.y, bp.p3.x, bp.p3.y))
-			else :
-				dia.message(2, "Invalid BezPoint type (%d)" * bp.type)
+		self._bezier (bezpoints)
 		self.f.write('"/>\n')
+	def draw_beziergon (self, bezpoints, fill, stroke) :
+		self.f.write('<path stroke="%s" fill="%s" stroke-width="%.3f" d="' \
+					% (self._rgb(stroke), self._rgb(fill), self.line_width))
+		self._bezier (bezpoints)
+		self.f.write('z"/>\n')
 	def draw_string (self, text, pos, alignment, color) :
 		if len(text) < 1 :
 			return # shouldn'this be done at the higher level 
@@ -217,6 +216,8 @@ class SvgRenderer :
 		return text
 	def _rgb(self, color) :
 		# given a dia color convert to svg color string
+		if not color :
+			return "none"
 		rgb = "#%02X%02X%02X" % (int(255 * color.red), int(color.green * 255), int(color.blue * 255))
 		return rgb
 	def _stroke_style(self) :

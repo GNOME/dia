@@ -634,10 +634,9 @@ draw_fill_ellipse(DiaRenderer *renderer, Point *to, Point *from,
   point_copy_add_scaled(&bp[2].p1,&bp[1].p3,&vl,length / 4.0);
   point_copy_add_scaled(&bp[3].p2,&bp[3].p3,&vl,length / 4.0);
   if (bg_color) {
-    DIA_RENDERER_GET_CLASS(renderer)->fill_bezier(renderer,bp,sizeof(bp)/sizeof(bp[0]),bg_color);
-    DIA_RENDERER_GET_CLASS(renderer)->draw_bezier(renderer,bp,sizeof(bp)/sizeof(bp[0]),fg_color);
+    DIA_RENDERER_GET_CLASS(renderer)->draw_beziergon(renderer,bp,sizeof(bp)/sizeof(bp[0]),bg_color,fg_color);
   } else {
-    DIA_RENDERER_GET_CLASS(renderer)->fill_bezier(renderer,bp,sizeof(bp)/sizeof(bp[0]),fg_color);
+    DIA_RENDERER_GET_CLASS(renderer)->draw_beziergon(renderer,bp,sizeof(bp)/sizeof(bp[0]),fg_color,NULL);
   }
 }
 
@@ -868,7 +867,7 @@ draw_fill_dot(DiaRenderer *renderer, Point *to, Point *from,
     
     DIA_RENDERER_GET_CLASS(renderer)->draw_line(renderer,&dos,&doe,fg_color);
   } else {
-    DIA_RENDERER_GET_CLASS(renderer)->fill_bezier(renderer,bp,sizeof(bp)/sizeof(bp[0]),bg_color);
+    DIA_RENDERER_GET_CLASS(renderer)->draw_beziergon(renderer,bp,sizeof(bp)/sizeof(bp[0]),bg_color,NULL);
   }
   if (fg_color != bg_color) {
     DIA_RENDERER_GET_CLASS(renderer)->draw_bezier(renderer,bp,sizeof(bp)/sizeof(bp[0]),fg_color);

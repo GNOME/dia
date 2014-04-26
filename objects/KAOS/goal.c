@@ -423,8 +423,7 @@ goal_draw(Goal *goal, DiaRenderer *renderer)
   } else { /* SOFTGOAL IS HERE */
      compute_cloud(goal,bpl);
      renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
-     renderer_ops->fill_bezier(renderer,bpl,9,&GOAL_BG_COLOR);
-     renderer_ops->draw_bezier(renderer,bpl,9,&GOAL_FG_COLOR);
+     renderer_ops->draw_beziergon(renderer,bpl,9,&GOAL_BG_COLOR,&GOAL_FG_COLOR);
   }
 
   /* drawing text */

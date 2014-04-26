@@ -1010,6 +1010,7 @@ draw_bezier(DiaRenderer *renderer,
   }
 }
 
+/* kept for backward compatibility, not any longer in the renderer interface */
 static void
 fill_bezier(DiaRenderer *renderer, 
 	    BezPoint *points, /* Last point must be same as first point */
@@ -1038,7 +1039,58 @@ fill_bezier(DiaRenderer *renderer,
   else { /* member optional */
     PyErr_Clear();
     /* XXX: implementing the same fallback as DiaRenderer would do */
-    DIA_RENDERER_CLASS (parent_class)->fill_bezier (renderer, points, num_points, colour);
+    DIA_RENDERER_CLASS (parent_class)->draw_beziergon (renderer, points, num_points, colour, NULL);
+  }
+}
+
+/*!
+ * \brief Fill and/or stroke a closed path
+ * \memberof _DiaPyRenderer
+ */
+static void
+draw_beziergon (DiaRenderer *renderer,
+		BezPoint *points,
+		int num_points,
+		Color *fill,
+		Color *stroke)
+{
+  PyObject *func, *res, *arg, *self = PYDIA_RENDERER (renderer);
+
+  func = PyObject_GetAttrString (self, "draw_beziergon");
+  if (func && PyCallable_Check(func)) {
+    PyObject *obt = PyDiaBezPointTuple_New (points, num_points);
+    PyObject *fill_po;
+    PyObject *stroke_po;
+    Py_INCREF(self);
+    Py_INCREF(func);
+    /* we have to provide a Python object even if there is no color */
+    if (fill)
+      fill_po = PyDiaColor_New (fill);
+    else
+      Py_INCREF(Py_None), fill_po = Py_None;
+    if (stroke)
+      stroke_po = PyDiaColor_New (stroke);
+    else
+      Py_INCREF(Py_None), stroke_po = Py_None;
+
+    arg = Py_BuildValue ("(OOO)", obt, fill_po, stroke_po);
+    if (arg) {
+      res = PyEval_CallObject (func, arg);
+      ON_RES(res, FALSE);
+    }
+    Py_XDECREF (arg);
+    Py_XDECREF (obt);
+    Py_XDECREF (fill_po);
+    Py_XDECREF (stroke_po);
+    Py_DECREF(func);
+    Py_DECREF(self);
+  } else { /* member optional */
+    PyErr_Clear();
+    /* PyDia only backward compatibility */
+    if (fill)
+      fill_bezier (renderer, points, num_points, fill);
+    if (stroke) /* XXX: still not closing */
+      draw_bezier (renderer, points, num_points, stroke);
   }
 }
 
@@ -1269,7 +1321,7 @@ dia_py_renderer_class_init (DiaPyRendererClass *klass)
   renderer_class->draw_polygon   = draw_polygon;
 
   renderer_class->draw_bezier   = draw_bezier;
-  renderer_class->fill_bezier   = fill_bezier;
+  renderer_class->draw_beziergon = draw_beziergon;
 
   /* highest level functions */
   renderer_class->draw_rounded_rect = draw_rounded_rect;

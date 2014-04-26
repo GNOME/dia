@@ -199,10 +199,11 @@ static void draw_bezier(DiaRenderer *self,
 			BezPoint *points,
 			int numpoints,
 			Color *color);
-static void fill_bezier(DiaRenderer *self, 
-			BezPoint *points, /* Last point must be same as first point */
-			int numpoints,
-			Color *color);
+static void draw_beziergon(DiaRenderer *self, 
+			   BezPoint *points, /* Last point must be same as first point */
+			   int numpoints,
+			   Color *fill,
+			   Color *stroke);
 static void draw_string(DiaRenderer *self,
 			const char *text,
 			Point *pos, Alignment alignment,
@@ -292,7 +293,7 @@ metapost_renderer_class_init (MetapostRendererClass *klass)
   renderer_class->fill_ellipse = fill_ellipse;
 
   renderer_class->draw_bezier = draw_bezier;
-  renderer_class->fill_bezier = fill_bezier;
+  renderer_class->draw_beziergon = draw_beziergon;
 
   renderer_class->draw_string = draw_string;
   renderer_class->draw_text = draw_text;
@@ -310,17 +311,17 @@ end_draw_op(MetapostRenderer *renderer)
     
     fprintf(renderer->file, "\n    withpen pencircle scaled %sx", 
             g_ascii_formatd(d1_buf, sizeof(d1_buf), "%5.4f", (gdouble) renderer->line_width) );
-    
+
     if (!color_equals(&renderer->color, &color_black))
         fprintf(renderer->file, "\n    withcolor (%s, %s, %s)", 
                 g_ascii_formatd(d1_buf, sizeof(d1_buf), "%5.4f", (gdouble) renderer->color.red),
                 g_ascii_formatd(d2_buf, sizeof(d2_buf), "%5.4f", (gdouble) renderer->color.green),
                 g_ascii_formatd(d3_buf, sizeof(d3_buf), "%5.4f", (gdouble) renderer->color.blue) );
-    
+
     draw_with_linestyle(renderer);
     fprintf(renderer->file, ";\n");
 }
-	    
+
 static void 
 set_line_color(MetapostRenderer *renderer,Color *color)
 {
@@ -906,10 +907,11 @@ draw_bezier(DiaRenderer *self,
 
 
 static void
-fill_bezier(DiaRenderer *self, 
-	    BezPoint *points, /* Last point must be same as first point */
-	    int numpoints,
-	    Color *color)
+draw_beziergon (DiaRenderer *self, 
+		BezPoint *points,
+		int numpoints,
+		Color *fill,
+		Color *stroke)
 {
     MetapostRenderer *renderer = METAPOST_RENDERER (self);
     gint i;
@@ -955,9 +957,16 @@ fill_bezier(DiaRenderer *self,
 
     fprintf(renderer->file,
 	    "  fill p withcolor (%s,%s,%s);\n",
-	    mp_dtostr(red_buf, (gdouble) color->red),
-	    mp_dtostr(green_buf, (gdouble) color->green),
-	    mp_dtostr(blue_buf, (gdouble) color->blue) );
+	    mp_dtostr(red_buf, (gdouble) fill->red),
+	    mp_dtostr(green_buf, (gdouble) fill->green),
+	    mp_dtostr(blue_buf, (gdouble) fill->blue) );
+
+    /* XXX: not closing as before draw_beziergon existence
+     * It should be possible to reuse the path from above to stroke again or
+     * maybe fill and stroke in one step.
+     */
+    if (stroke)
+      draw_bezier (self, points, numpoints, stroke);
 }
 
 static void

@@ -74,8 +74,7 @@ static void aadlmemory_draw_borders(Aadlbox *aadlbox, DiaRenderer *renderer)
   renderer_ops->set_linewidth(renderer, AADLBOX_BORDERWIDTH);
   renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
 
-  renderer_ops->fill_bezier(renderer, bez, 5, &aadlbox->fill_color);
-  renderer_ops->draw_bezier(renderer, bez, 5, &aadlbox->line_color);
+  renderer_ops->draw_beziergon(renderer, bez, 5, &aadlbox->fill_color, &aadlbox->line_color);
 
   bez[1].p1.x = x;
   bez[1].p1.y = y + 2*h*AADL_MEMORY_FACTOR;

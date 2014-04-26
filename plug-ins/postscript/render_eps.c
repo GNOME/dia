@@ -154,7 +154,7 @@ new_psprint_renderer(DiagramData *dia, FILE *file)
   renderer = g_object_new (DIA_TYPE_PS_RENDERER, NULL);
 #endif
   renderer->file = file;
-  renderer->pstype = PSTYPE_PS;;
+  renderer->pstype = PSTYPE_PS;
 
   return DIA_RENDERER(renderer);
 }

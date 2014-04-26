@@ -426,8 +426,7 @@ aadlbox_draw_port(Aadlport *port, DiaRenderer *renderer)
 	}
       }
       
-      renderer_ops->fill_bezier(renderer, b, 5, &color_black);
-      renderer_ops->draw_bezier(renderer, b, 5, &color_black);
+      renderer_ops->draw_beziergon(renderer, b, 5, &color_black, &color_black);
       
     }
     break;

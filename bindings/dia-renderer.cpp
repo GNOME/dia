@@ -187,10 +187,10 @@ dia::Renderer::draw_bezier (BezPoint *points, int numpoints, Color *color)
 }
 // fill a bezier line - possibly as approximation consisting of a polygon
 void 
-dia::Renderer::fill_bezier (BezPoint *points, int numpoints, Color *color)
+dia::Renderer::draw_beziergon (BezPoint *points, int numpoints, Color *fill, Color *stroke)
 {
     assert (self);
-    DIA_RENDERER_GET_CLASS(self)->fill_bezier (self, points, numpoints, color);
+    DIA_RENDERER_GET_CLASS(self)->draw_beziergon (self, points, numpoints, fill, stroke);
 }
 // drawing a polyline - or fallback to single line segments
 void 

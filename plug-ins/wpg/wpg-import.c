@@ -188,12 +188,13 @@ _do_bezier (WpgImportRenderer *ren, WPGPoint *pts, int iNum)
     bps[i].p3.x =        (gint16)pts[i*3  ].x  / WPU_PER_DCM;
     bps[i].p3.y = (ofs - (gint16)pts[i*3  ].y) / WPU_PER_DCM;
   }
+  /* XXX: should we fold this calls into one? What's closing a WPG PolyCurve? */
   if (ren->LineAttr.Type != WPG_LA_NONE)
     DIA_RENDERER_GET_CLASS(ren)->draw_bezier (DIA_RENDERER(ren),
 					      bps, num_points, &ren->stroke);
   if (ren->FillAttr.Type != WPG_FA_HOLLOW)
-    DIA_RENDERER_GET_CLASS(ren)->fill_bezier (DIA_RENDERER(ren),
-					      bps, num_points, &ren->fill);
+    DIA_RENDERER_GET_CLASS(ren)->draw_beziergon (DIA_RENDERER(ren),
+					         bps, num_points, &ren->fill, NULL);
 }
 
 /*

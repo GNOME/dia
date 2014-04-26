@@ -878,11 +878,12 @@ fill_ellipse(DiaRenderer *self,
 
 #ifndef DIRECT_WMF
 static void
-_bezier (DiaRenderer *self, 
-	    BezPoint *points,
-	    int       numpoints,
-	    Color    *colour,
-	    gboolean  fill)
+_bezier (DiaRenderer *self,
+	 BezPoint *points,
+	 int       numpoints,
+	 Color    *colour,
+	 gboolean  fill,
+	 gboolean  closed)
 {
     WmfRenderer *renderer = WMF_RENDERER (self);
     W32::HGDIOBJ hBrush, hBrOld;
@@ -921,6 +922,8 @@ _bezier (DiaRenderer *self,
 	  break;
 	}
     }
+    if (closed)
+        W32::CloseFigure (renderer->hFileDC);
     W32::EndPath (renderer->hFileDC);
     if (fill) {
         W32::FillPath (renderer->hFileDC);
@@ -941,7 +944,7 @@ draw_bezier(DiaRenderer *self,
 	    Color *colour)
 {
 #ifndef DIRECT_WMF
-    _bezier(self, points, numpoints, colour, FALSE);
+    _bezier(self, points, numpoints, colour, FALSE, FALSE);
 #else
     WmfRenderer *renderer = WMF_RENDERER (self);
     W32::HPEN    hPen;
@@ -999,12 +1002,16 @@ draw_bezier(DiaRenderer *self,
 #ifndef DIRECT_WMF
 /* not defined in compatibility layer */
 static void
-fill_bezier(DiaRenderer *self, 
-	    BezPoint *points, /* Last point must be same as first point */
-	    int numpoints,
-	    Color *colour)
+draw_beziergon (DiaRenderer *self, 
+		BezPoint *points, /* Last point must be same as first point */
+		int numpoints,
+		Color *fill,
+		Color *stroke)
 {
-    _bezier(self, points, numpoints, colour, TRUE);
+    if (fill)
+	_bezier(self, points, numpoints, fill, TRUE, TRUE);
+    if (stroke)
+	_bezier(self, points, numpoints, stroke, FALSE, TRUE);
 }
 #endif
 
@@ -1312,7 +1319,7 @@ wmf_renderer_class_init (WmfRendererClass *klass)
 
   renderer_class->draw_bezier   = draw_bezier;
 #ifndef DIRECT_WMF
-  renderer_class->fill_bezier   = fill_bezier;
+  renderer_class->draw_beziergon = draw_beziergon;
 #endif
 #ifndef HAVE_LIBEMF
   renderer_class->draw_rounded_rect = draw_rounded_rect;

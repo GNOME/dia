@@ -319,7 +319,8 @@ fill_rect (DiaRenderer *self,
 static void
 _bezier (DiaRenderer *self, 
 	 BezPoint *points, int num_points,
-	 Color *stroke, Color *fill)
+	 Color *fill, Color *stroke,
+	 gboolean closed)
 {
   BezPoint *a_pts = g_newa (BezPoint, num_points);
   DiaTransformRenderer *renderer = DIA_TRANSFORM_RENDERER (self);
@@ -331,10 +332,12 @@ _bezier (DiaRenderer *self,
     for (i = 0; i < num_points; ++i)
       transform_bezpoint (&a_pts[i], m);
   }
-  if (fill)
-    DIA_RENDERER_GET_CLASS (renderer->worker)->fill_bezier (renderer->worker, a_pts, num_points, fill);
+  if (closed)
+    DIA_RENDERER_GET_CLASS (renderer->worker)->draw_beziergon (renderer->worker, a_pts, num_points, fill, stroke);
   else
     DIA_RENDERER_GET_CLASS (renderer->worker)->draw_bezier (renderer->worker, a_pts, num_points, stroke);
+  if (!closed)
+    g_return_if_fail (fill == NULL && "fill for stroke?");
 }
 static void
 _arc (DiaRenderer *self, 
@@ -345,7 +348,7 @@ _arc (DiaRenderer *self,
 {
   GArray *path = g_array_new (FALSE, FALSE, sizeof(BezPoint));
   path_build_arc (path, center, width, height, angle1, angle2, stroke == NULL);
-  _bezier (self, &g_array_index (path, BezPoint, 0), path->len, stroke, fill);
+  _bezier (self, &g_array_index (path, BezPoint, 0), path->len, fill, stroke, fill!=NULL);
   g_array_free (path, TRUE);
 }
 /*!
@@ -382,7 +385,7 @@ _ellipse (DiaRenderer *self,
 {
   GArray *path = g_array_new (FALSE, FALSE, sizeof(BezPoint));
   path_build_ellipse (path, center, width, height);
-  _bezier (self, &g_array_index (path, BezPoint, 0), path->len, stroke, fill);
+  _bezier (self, &g_array_index (path, BezPoint, 0), path->len, fill, stroke, fill!=NULL);
   g_array_free (path, TRUE);
 }
 /*!
@@ -419,19 +422,20 @@ draw_bezier (DiaRenderer *self,
 	     int numpoints,
 	     Color *color)
 {
-  _bezier(self, points, numpoints, color, NULL);
+  _bezier(self, points, numpoints, NULL, color, FALSE);
 }
 /*!
  * \brief Transform bezier and delegate fill
  * \memberof _DiaTransformRenderer
  */
 static void
-fill_bezier(DiaRenderer *self, 
-	    BezPoint *points, /* Last point must be same as first point */
-	    int numpoints,
-	    Color *color)
+draw_beziergon (DiaRenderer *self, 
+		BezPoint *points, /* Last point must be same as first point */
+		int numpoints,
+		Color *fill,
+		Color *stroke)
 {
-  _bezier(self, points, numpoints, NULL, color);
+  _bezier(self, points, numpoints, fill, stroke, TRUE);
 }
 /*!
  * \brief Transform the text object while drawing
@@ -583,7 +587,7 @@ dia_transform_renderer_class_init (DiaTransformRendererClass *klass)
   renderer_class->draw_polygon   = draw_polygon;
 
   renderer_class->draw_bezier   = draw_bezier;
-  renderer_class->fill_bezier   = fill_bezier;
+  renderer_class->draw_beziergon = draw_beziergon;
   renderer_class->draw_text     = draw_text;
   /* other */
   renderer_class->is_capable_to = is_capable_to;

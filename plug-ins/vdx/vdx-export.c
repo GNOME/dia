@@ -247,19 +247,14 @@ vdx_renderer_class_init (VDXRendererClass *klass)
 
   /* Until we have NURBS, let Dia use lines */
   /* renderer_class->draw_bezier = draw_bezier; */
-  /* renderer_class->fill_bezier = fill_bezier; */
+  /* renderer_class->draw_beziergon = draw_beziergon; */
   /* renderer_class->draw_bezier_with_arrows = draw_bezier_with_arrows; */
 
   renderer_class->draw_string = draw_string;
 
   renderer_class->draw_image = draw_image;
 
-  /* Believe these are never used or are unnecessary */
-  /* renderer_class->draw_line_with_arrows = draw_line_with_arrows; */
-  /* renderer_class->draw_polyline_with_arrows = draw_polyline_with_arrows; */
-  /* renderer_class->draw_arc_with_arrows = draw_arc_with_arrows; */
-  /* renderer_class->draw_object = draw_object; */
-
+  /* Further high level methods not required (or desired) */
 }
 
 /** Initialises VDXrenderer
@@ -2084,18 +2079,19 @@ static void draw_bezier_with_arrows(DiaRenderer *self,
     g_debug("draw_bezier_with_arrows (TODO)");
 }
 
-/** Render a Dia filled Bezier
+/** Render a Dia closed Bezier
  * @param self a renderer
  * @param points list of Bezier points (last = first)
  * @param numpoints number of points
  * @param color line colour
  * @todo Not done yet - either convert to arcs or NURBS (Visio 2003)
  */
-
-static void fill_bezier(DiaRenderer *self, 
-			BezPoint *points,
-			int numpoints,
-			Color *color)
+static void
+draw_beziergon (DiaRenderer *self, 
+		BezPoint *points,
+		int numpoints,
+		Color *fill,
+		Color *stroke)
 {
     VDXRenderer *renderer = VDX_RENDERER(self);
     
@@ -2105,7 +2101,7 @@ static void fill_bezier(DiaRenderer *self,
         return;
     }
 
-    g_debug("fill_bezier (TODO)");
+    g_debug("draw_beziergon (TODO)");
 }
 
 /** Render a Dia object
