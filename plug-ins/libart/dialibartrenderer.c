@@ -1005,7 +1005,16 @@ fill_bezier(DiaRenderer *self,
   art_free(bpath);
 
   svp = art_svp_from_vpath (vpath);
-  
+  {
+    /** We always use odd-even wind rule */
+    ArtSvpWriter *swr = art_svp_writer_rewind_new(ART_WIND_RULE_ODDEVEN);
+    ArtSVP *svp_rw;
+
+    art_svp_intersector(svp, swr);
+    svp_rw = art_svp_writer_rewind_reap(swr);
+    art_svp_free(svp);
+    svp = svp_rw;
+  }
   art_free( vpath );
   
   art_rgb_svp_alpha (svp,
