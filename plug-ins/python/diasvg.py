@@ -190,8 +190,8 @@ class SvgRenderer :
 		self._bezier (bezpoints)
 		self.f.write('"/>\n')
 	def draw_beziergon (self, bezpoints, fill, stroke) :
-		self.f.write('<path stroke="%s" fill="%s" stroke-width="%.3f" d="' \
-					% (self._rgb(stroke), self._rgb(fill), self.line_width))
+		self.f.write('<path stroke="%s" fill="%s" stroke-width="%.3f" %s d="' \
+					% (self._rgb(stroke), self._rgb(fill), self.line_width, self._stroke_style()))
 		self._bezier (bezpoints)
 		self.f.write('z"/>\n')
 	def draw_string (self, text, pos, alignment, color) :

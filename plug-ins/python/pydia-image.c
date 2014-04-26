@@ -21,6 +21,7 @@
 
 #include "pydia-object.h"
 #include "pydia-image.h"
+#include "prop_pixbuf.h" /* pixbuf_encode_base64 */
 
 #include <structmember.h> /* PyMemberDef */
 
@@ -88,7 +89,15 @@ PyDiaImage_GetAttr(PyDiaImage *self, gchar *attr)
   }
   else if (!strcmp(attr, "uri")) {
     GError* error = NULL;
-    char* s = g_filename_to_uri(dia_image_filename(self->image), NULL, &error);
+    const gchar *fname = dia_image_filename(self->image);
+    char* s;
+    if (g_path_is_absolute(fname)) {
+      s = g_filename_to_uri(fname, NULL, &error);
+    } else {
+      gchar *b64 = pixbuf_encode_base64 (dia_image_pixbuf (self->image));
+      s = g_strdup_printf ("data:image/png;base64,%s", b64);
+      g_free (b64);
+    }
     if (s) {
       PyObject* py_s = PyString_FromString(s);
       g_free(s);
