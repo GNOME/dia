@@ -1103,25 +1103,17 @@ ddisplay_get_clicked_position(DDisplay *ddisp)
 
 
 /**
- * Kind of dirty way to init an antialiased renderer, there should be some plug-in interface to do this.
- * Now with the Libart renderer being a plug-in and the cairo renderer having issues with highlighting
- * (  http://bugzilla.gnome.org/show_bug.cgi?id=576548 ) it seems reasonable to have default at
- * Libart, also becuase you loose less when it is switched off ;-)
+ * Kind of dirty way to initialize an anti-aliased renderer, maybe there
+ * should be some plug-in interface to do this.
+ * With the Libart renderer being a deprecated plug-in and the cairo renderer
+ * offering a lot of features including proper highlighting it seems reasonable
+ * to have default at cairo, although you loose a lot when it is switched off ;)
  */
 static DiaRenderer *
 new_aa_renderer (DDisplay *ddisp)
 {
   GType renderer_type;
 
-  renderer_type = g_type_from_name ("DiaLibartRenderer");
-  if (renderer_type) {
-    DiaRenderer *renderer = g_object_new(renderer_type, NULL);
-    g_object_set (renderer,
-                  "transform", dia_transform_new (&ddisp->visible, &ddisp->zoom_factor),
-		  NULL);
-    return renderer;
-  } 
-  
   renderer_type = g_type_from_name ("DiaCairoInteractiveRenderer");
   if (renderer_type) {
     DiaRenderer *renderer = g_object_new(renderer_type, NULL);
@@ -1131,7 +1123,16 @@ new_aa_renderer (DDisplay *ddisp)
 		  NULL);
     return renderer;
   }
-  
+
+  renderer_type = g_type_from_name ("DiaLibartRenderer");
+  if (renderer_type) {
+    DiaRenderer *renderer = g_object_new(renderer_type, NULL);
+    g_object_set (renderer,
+                  "transform", dia_transform_new (&ddisp->visible, &ddisp->zoom_factor),
+		  NULL);
+    return renderer;
+  } 
+
   /* we really should not come here but instead disable the menu command earlier */
   message_warning (_("No antialiased renderer found"));
   /* fallback: built-in libart renderer */
