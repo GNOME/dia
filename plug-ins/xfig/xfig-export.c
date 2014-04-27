@@ -131,10 +131,7 @@ static void draw_polyline_with_arrows(DiaRenderer *self,
 				      Arrow *end_arrow);
 static void draw_polygon(DiaRenderer *self, 
 			 Point *points, int num_points, 
-			 Color *color);
-static void fill_polygon(DiaRenderer *self, 
-			 Point *points, int num_points, 
-			 Color *color);
+			 Color *fill, Color *stroke);
 static void draw_rect(DiaRenderer *self, 
 		      Point *ul_corner, Point *lr_corner,
 		      Color *colour);
@@ -258,7 +255,6 @@ xfig_renderer_class_init (XfigRendererClass *klass)
   renderer_class->draw_polyline = draw_polyline;
   
   renderer_class->draw_polygon = draw_polygon;
-  renderer_class->fill_polygon = fill_polygon;
 
   renderer_class->draw_rect = draw_rect;
   renderer_class->fill_rect = fill_rect;
@@ -709,9 +705,9 @@ draw_polyline_with_arrows(DiaRenderer *self,
 }
 
 static void 
-draw_polygon(DiaRenderer *self, 
-             Point *points, int num_points, 
-             Color *color) 
+stroke_polygon (DiaRenderer *self, 
+		Point *points, int num_points, 
+		Color *color) 
 {
   int i;
   XfigRenderer *renderer = XFIG_RENDERER(self);
@@ -765,6 +761,18 @@ fill_polygon(DiaRenderer *self,
   }
   fprintf(renderer->file, "%d %d\n",
 	  (int)figCoord(renderer, points[0].x), (int)figCoord(renderer, points[0].y));
+}
+
+static void
+draw_polygon(DiaRenderer *self, 
+	     Point *points, int num_points, 
+	     Color *fill, Color *stroke)
+{
+  /* XXX: simple port, not optimized */
+  if (fill)
+    fill_polygon (self, points, num_points, fill);
+  if (stroke)
+    stroke_polygon (self, points, num_points, stroke);
 }
 
 static void 

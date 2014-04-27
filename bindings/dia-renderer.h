@@ -81,7 +81,7 @@ public :
     virtual void fill_rect (Point *ul_corner, Point *lr_corner, Color *color);
     //! the polygon is filled using the current fill type, no border is drawn
     //! \ingroup RendererRequired
-    virtual void fill_polygon (Point *points, int num_points, Color *color);
+    virtual void draw_polygon (Point *points, int num_points, Color *fill, Color *stroke);
     //! Draw an arc, given its center, the bounding box (widget, height), the start angle and the end angle
     //! \ingroup RendererRequired
     virtual void draw_arc (Point *center, double width, double height,
@@ -118,9 +118,6 @@ public :
     //! drawing a polyline - or fallback to single line segments
     //! \ingroup RenderMedium
     virtual void draw_polyline (Point *points, int num_points, Color *color);
-    //! Draw a polygone, using the current line style
-    //! \ingroup RenderMedium
-    virtual void draw_polygon (Point *points, int num_points, Color *color);
     //! draw a Text.  It holds its own information like position, style, ...
     //! \ingroup RenderMedium
     virtual void draw_text (Text* text);
@@ -134,7 +131,7 @@ public :
 
     //! a polyline with round coners
     //! \ingroup RenderHigh
-    virtual void draw_rounded_polyline (Point *points, int num_points, Color *color, double radius );
+    virtual void draw_rounded_polyline (Point *points, int num_points, Color *color, double radius);
     //! specialized draw_rect() with round corners
     //! \ingroup RenderHigh
     virtual void draw_rounded_rect (Point *ul_corner, Point *lr_corner, Color *color, real radius);

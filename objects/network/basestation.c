@@ -258,9 +258,8 @@ basestation_draw(Basestation *basestation, DiaRenderer *renderer)
   points[1] = ct; points[1].x += r/4.0; points[1].y -= 3.0*r/4.0;
   points[2] = ct; points[2].x += r/4.0; points[2].y += 1.0;
   points[3] = ct; points[3].x -= r/4.0; points[3].y += 1.0;
-  renderer_ops->fill_polygon(renderer, points, 4,
-                             &basestation->fill_colour);
   renderer_ops->draw_polygon(renderer, points, 4,
+                             &basestation->fill_colour,
                              &basestation->line_colour);
   /* bottom */
   renderer_ops->fill_ellipse(renderer, &cb, r, r/2.0,
@@ -291,18 +290,16 @@ basestation_draw(Basestation *basestation, DiaRenderer *renderer)
   points[1] = ct; points[1].x += 3.0*r/4.0; points[1].y -= r/2.0;
   points[2] = ct; points[2].x += 3.0*r/4.0; points[2].y += 1.0 - r/2.0;
   points[3] = ct; points[3].x += r/4.0;   points[3].y += 1.0;
-  renderer_ops->fill_polygon(renderer, points, 4,
-                             &basestation->fill_colour);
   renderer_ops->draw_polygon(renderer, points, 4,
+                             &basestation->fill_colour,
                              &basestation->line_colour);
   /* antenna 3 */
   points[0] = ct; points[0].x -= r/4.0;   points[0].y -= 0;
   points[1] = ct; points[1].x -= 3.0*r/4.0; points[1].y -= r/2.0;
   points[2] = ct; points[2].x -= 3.0*r/4.0; points[2].y += 1.0 - r/2.0;
   points[3] = ct; points[3].x -= r/4.0;   points[3].y += 1.0;
-  renderer_ops->fill_polygon(renderer, points, 4,
-                             &basestation->fill_colour);
   renderer_ops->draw_polygon(renderer, points, 4,
+                             &basestation->fill_colour,
                              &basestation->line_colour);
   text_draw(basestation->text, renderer);
 }

@@ -256,8 +256,7 @@ static void node_draw(Node *node, DiaRenderer *renderer)
   points[5].x = x;                  points[5].y = y + h;
   points[6].x = x;                  points[6].y = y;
 
-  renderer_ops->fill_polygon(renderer, points, 7, &node->fill_color);
-  renderer_ops->draw_polygon(renderer, points, 7, &node->line_color);
+  renderer_ops->draw_polygon(renderer, points, 7, &node->fill_color, &node->line_color);
 
   /* Draw interior lines */
   points[0].x = x;                  points[0].y = y;

@@ -252,16 +252,16 @@ radiocell_draw(RadioCell *radiocell, DiaRenderer *renderer)
   points = &poly->points[0];
   n = poly->numpoints;
 
-  if (radiocell->show_background) {
+  if (radiocell->show_background)
     renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
-    renderer_ops->fill_polygon(renderer, points, n, &radiocell->fill_colour);
-  }
   renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
   renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
   renderer_ops->set_linestyle(renderer, radiocell->line_style);
   renderer_ops->set_linewidth(renderer, radiocell->line_width);
   renderer_ops->set_dashlength(renderer, radiocell->dashlength);
-  renderer_ops->draw_polygon(renderer, points, n, &radiocell->line_colour);
+  renderer_ops->draw_polygon(renderer, points, n,
+			     (radiocell->show_background) ? &radiocell->fill_colour : NULL,
+			     &radiocell->line_colour);
 
   text_draw(radiocell->text, renderer);
 }

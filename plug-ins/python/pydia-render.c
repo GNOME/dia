@@ -600,74 +600,40 @@ draw_polyline(DiaRenderer *renderer,
 static void
 draw_polygon(DiaRenderer *renderer, 
 	     Point *points, int num_points, 
-	     Color *line_colour)
+	     Color *fill, Color *stroke)
 {
   PyObject *func, *res, *arg, *self = PYDIA_RENDERER (renderer);
 
   func = PyObject_GetAttrString (self, "draw_polygon");
   if (func && PyCallable_Check(func)) {
     PyObject *optt = PyDiaPointTuple_New (points, num_points);
-    PyObject *ocolor = PyDiaColor_New (line_colour);
+    PyObject *fill_po, *stroke_po;
+
+    if (fill)
+      fill_po = PyDiaColor_New (fill);
+    else
+      Py_INCREF(Py_None), fill_po = Py_None;
+
+    if (stroke)
+      stroke_po = PyDiaColor_New (stroke);
+    else
+      Py_INCREF(Py_None), stroke_po = Py_None;
 
     Py_INCREF(self);
     Py_INCREF(func);
-    arg = Py_BuildValue ("(OO)", optt, ocolor);
+    arg = Py_BuildValue ("(OO)", optt, fill_po, stroke_po);
     if (arg) {
       res = PyEval_CallObject (func, arg);
       ON_RES(res, FALSE);
     }
     Py_XDECREF (arg);
     Py_XDECREF (optt);
-    Py_XDECREF (ocolor);
+    Py_XDECREF (fill_po);
+    Py_XDECREF (stroke_po);
     Py_DECREF(func);
     Py_DECREF(self);
-  }
-  else { /* member optional */
-    PyErr_Clear();
-    /* XXX: implementing the same fallback as DiaRenderer would do */
-    DIA_RENDERER_CLASS (parent_class)->draw_polygon (renderer, points, num_points, line_colour);
-  }
-}
-
-/*!
- * \brief Fill polygon
- *
- * Not optional on the PyDia side. If not implemented a runtime warning 
- * will be generated when called.
- *
- * \memberof _DiaPyRenderer
- */
-static void
-fill_polygon(DiaRenderer *renderer, 
-	     Point *points, int num_points, 
-	     Color *colour)
-{
-  PyObject *func, *res, *arg, *self = PYDIA_RENDERER (renderer);
-
-  func = PyObject_GetAttrString (self, "fill_polygon");
-  if (func && PyCallable_Check(func)) {
-    PyObject *optt = PyDiaPointTuple_New (points, num_points);
-    PyObject *ocolor = PyDiaColor_New (colour);
-
-    Py_INCREF(self);
-    Py_INCREF(func);
-    arg = Py_BuildValue ("(OO)", optt, ocolor);
-    if (arg) {
-      res = PyEval_CallObject (func, arg);
-      ON_RES(res, FALSE);
-    }
-    Py_XDECREF (arg);
-    Py_XDECREF (optt);
-    Py_XDECREF (ocolor);
-    Py_DECREF(func);
-    Py_DECREF(self);
-  }
-  else { /* member not optional */
-    gchar *msg = g_strdup_printf ("%s.fill_polygon() implmentation missing.",
-				  G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (renderer)));
-    PyErr_Clear();
-    PyErr_Warn (PyExc_RuntimeWarning, msg);
-    g_free (msg);
+  } else { /* fill_polygon was not an optional member */
+    PyErr_Warn (PyExc_RuntimeWarning, "DiaPyRenderer : draw_polygon() method missing!\n");
   }
 }
 
@@ -1304,7 +1270,6 @@ dia_py_renderer_class_init (DiaPyRendererClass *klass)
   renderer_class->set_font  = set_font;
 
   renderer_class->draw_line    = draw_line;
-  renderer_class->fill_polygon = fill_polygon;
   renderer_class->draw_rect    = draw_rect;
   renderer_class->fill_rect    = fill_rect;
   renderer_class->draw_arc     = draw_arc;

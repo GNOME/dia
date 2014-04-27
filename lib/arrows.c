@@ -775,10 +775,9 @@ draw_fill_box(DiaRenderer *renderer, Point *to, Point *from,
   calculate_box (poly, to, from, clength, cwidth);
 
   if (fg_color == bg_color) {
-    DIA_RENDERER_GET_CLASS(renderer)->fill_polygon(renderer, poly, 4, fg_color);
+    DIA_RENDERER_GET_CLASS(renderer)->draw_polygon(renderer, poly, 4, fg_color, NULL);
   } else {
-    DIA_RENDERER_GET_CLASS(renderer)->fill_polygon(renderer, poly, 4, bg_color);
-    DIA_RENDERER_GET_CLASS(renderer)->draw_polygon(renderer, poly, 4, fg_color);
+    DIA_RENDERER_GET_CLASS(renderer)->draw_polygon(renderer, poly, 4, bg_color, fg_color);
   }
   DIA_RENDERER_GET_CLASS(renderer)->draw_line(renderer,&poly[4],&poly[5],fg_color);
 }
@@ -1089,7 +1088,7 @@ draw_triangle(DiaRenderer *renderer, Point *to, Point *from,
   DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_SOLID);
   DIA_RENDERER_GET_CLASS(renderer)->set_linejoin(renderer, LINEJOIN_MITER);
 
-  DIA_RENDERER_GET_CLASS(renderer)->draw_polygon(renderer, poly, 3, fg_color);
+  DIA_RENDERER_GET_CLASS(renderer)->draw_polygon(renderer, poly, 3, bg_color, fg_color);
 }
 
 /** Draw a simple triangular arrow, with filled head.
@@ -1113,7 +1112,7 @@ fill_triangle(DiaRenderer *renderer, Point *to, Point *from,
   DIA_RENDERER_GET_CLASS(renderer)->set_fillstyle(renderer, FILLSTYLE_SOLID);
   DIA_RENDERER_GET_CLASS(renderer)->set_linejoin(renderer, LINEJOIN_MITER);
 
-  DIA_RENDERER_GET_CLASS(renderer)->fill_polygon(renderer, poly, 3, bg_color);
+  DIA_RENDERER_GET_CLASS(renderer)->draw_polygon(renderer, poly, 3, bg_color, NULL);
 }
 
 /** Calculate the points needed to draw a diamon arrowhead.
@@ -1189,7 +1188,7 @@ draw_diamond(DiaRenderer *renderer, Point *to, Point *from,
   DIA_RENDERER_GET_CLASS(renderer)->set_linejoin(renderer, LINEJOIN_MITER);
   DIA_RENDERER_GET_CLASS(renderer)->set_linecaps(renderer, LINECAPS_BUTT);
 
-  DIA_RENDERER_GET_CLASS(renderer)->draw_polygon(renderer, poly, 4, color);
+  DIA_RENDERER_GET_CLASS(renderer)->draw_polygon(renderer, poly, 4, NULL, color);
 }
 
 /** Draw a right-hand part of a diamond arrowhead.
@@ -1239,7 +1238,7 @@ fill_diamond(DiaRenderer *renderer, Point *to, Point *from,
   DIA_RENDERER_GET_CLASS(renderer)->set_linejoin(renderer, LINEJOIN_MITER);
   DIA_RENDERER_GET_CLASS(renderer)->set_linecaps(renderer, LINECAPS_BUTT);
 
-  DIA_RENDERER_GET_CLASS(renderer)->fill_polygon(renderer, poly, 4, color);
+  DIA_RENDERER_GET_CLASS(renderer)->draw_polygon(renderer, poly, 4, color, NULL);
 }
 
 /** Calculate the points needed to draw a slashed-cross arrowhead.
@@ -1569,8 +1568,9 @@ draw_concave_triangle(DiaRenderer *renderer, Point *to, Point *from,
   DIA_RENDERER_GET_CLASS(renderer)->set_linecaps(renderer, LINECAPS_BUTT);
 
   if (fg_color == bg_color)
-    DIA_RENDERER_GET_CLASS(renderer)->fill_polygon(renderer, poly, 4, bg_color);
-  DIA_RENDERER_GET_CLASS(renderer)->draw_polygon(renderer, poly, 4, fg_color);
+    DIA_RENDERER_GET_CLASS(renderer)->draw_polygon(renderer, poly, 4, bg_color, NULL);
+  else
+    DIA_RENDERER_GET_CLASS(renderer)->draw_polygon(renderer, poly, 4, bg_color, fg_color);
 }
 
 /** Draw a rounded (half-circle) arrowhead.
@@ -1729,7 +1729,7 @@ draw_filled_dot_n_triangle(DiaRenderer *renderer, Point *to, Point *from,
     p_tri.y += delta.y * rapport;
   }
   calculate_arrow(poly, &p_tri, from, length, width);
-  DIA_RENDERER_GET_CLASS(renderer)->fill_polygon(renderer, poly, 3, fg_color);
+  DIA_RENDERER_GET_CLASS(renderer)->draw_polygon(renderer, poly, 3, fg_color, NULL);
 }
 
 /** Draw an arrowhead that is simply three dots (ellipsis)

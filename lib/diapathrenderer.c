@@ -306,7 +306,7 @@ draw_line(DiaRenderer *self,
 static void
 _polyline(DiaRenderer *self, 
 	  Point *points, int num_points, 
-	  const Color *stroke, const Color *fill)
+	  const Color *fill, const Color *stroke)
 {
   DiaPathRenderer *renderer = DIA_PATH_RENDERER (self);
   int i;
@@ -327,32 +327,22 @@ draw_polyline(DiaRenderer *self,
 	      Point *points, int num_points, 
 	      Color *line_colour)
 {
-  _polyline (self, points, num_points, line_colour, NULL);
+  _polyline (self, points, num_points, NULL, line_colour);
   _remove_duplicated_path (DIA_PATH_RENDERER (self));
 }
 static void
 draw_polygon(DiaRenderer *self, 
 	      Point *points, int num_points, 
-	      Color *line_colour)
+	      Color *fill, Color *stroke)
 {
   DiaPathRenderer *renderer = DIA_PATH_RENDERER (self);
-  GArray *path = _get_current_path (renderer, line_colour, NULL);
+  GArray *path = _get_current_path (renderer, fill, stroke);
 
-  /* FIXME: can't be that simple ;) */
-  _polyline (self, points, num_points, line_colour, NULL);
+  /* can't be that simple ;) */
+  _polyline (self, points, num_points, fill, stroke);
   _path_lineto (path, &points[0]);
+  /* usage of the optimized draw_polygon should imply this being superfluous */
   _remove_duplicated_path (renderer);
-}
-static void
-fill_polygon(DiaRenderer *self, 
-	     Point *points, int num_points, 
-	     Color *color)
-{
-  DiaPathRenderer *renderer = DIA_PATH_RENDERER (self);
-  GArray *path = _get_current_path (renderer, NULL, color);
-
-  _polyline (self, points, num_points, NULL, color);
-  _path_lineto (path, &points[0]);
 }
 static void
 _rect (DiaRenderer *self, 
@@ -727,7 +717,7 @@ dia_path_renderer_class_init (DiaPathRendererClass *klass)
   renderer_class->set_fillstyle  = set_fillstyle;
 
   renderer_class->draw_line    = draw_line;
-  renderer_class->fill_polygon = fill_polygon;
+  renderer_class->draw_polygon = draw_polygon;
   renderer_class->draw_rect    = draw_rect;
   renderer_class->fill_rect    = fill_rect;
   renderer_class->draw_arc     = draw_arc;
@@ -741,7 +731,6 @@ dia_path_renderer_class_init (DiaPathRendererClass *klass)
   /* medium level functions */
   renderer_class->draw_rect = draw_rect;
   renderer_class->draw_polyline  = draw_polyline;
-  renderer_class->draw_polygon   = draw_polygon;
 
   renderer_class->draw_bezier    = draw_bezier;
   renderer_class->draw_beziergon = draw_beziergon;

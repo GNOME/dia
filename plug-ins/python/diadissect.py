@@ -95,8 +95,9 @@ class DissectRenderer :
 	def _polygon (self, points, fun) :
 		if len(points) < 3 :
 			self.Error ("%s with too few points" % (fun,))
-	def draw_polygon (self, points, color) :
+	def draw_polygon (self, points, fill, stroke) :
 		self._polygon(points, "draw_polygon")
+	# obsolete with recent Dia
 	def fill_polygon (self, points, color) :
 		self._polygon(points, "draw_polygon")
 	def _rect (self, rect, fun) :

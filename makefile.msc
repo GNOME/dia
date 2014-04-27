@@ -54,9 +54,6 @@ full: 	build \
 compile :
 	cd lib
 	nmake -nologo -f makefile.msc
-	cd ..\bindings
-# Comment out the following line, if you want to build without python	
-	nmake -nologo -f makefile.msc
 	cd ..\app
 	nmake -nologo -f makefile.msc
 	cd ..\objects
@@ -68,6 +65,9 @@ compile :
 	nmake -nologo -f makefile.msc
 	cd ..\..
 	cd tests
+	nmake -nologo -f makefile.msc
+	cd ..\bindings
+# Comment out the following line, if you want to build without python	
 	nmake -nologo -f makefile.msc
 	cd ..
 

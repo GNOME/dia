@@ -243,11 +243,9 @@ note_draw(Note *note, DiaRenderer *renderer)
   poly[4].x = x;
   poly[4].y = y+h;
 
-  renderer_ops->fill_polygon(renderer, 
-			      poly, 5,
-			      &note->fill_color);
   renderer_ops->draw_polygon(renderer, 
 			      poly, 5,
+			      &note->fill_color,
 			      &note->line_color);
 
   poly[0] = poly[1];

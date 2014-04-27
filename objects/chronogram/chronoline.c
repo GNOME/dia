@@ -302,11 +302,11 @@ cld_onebit(Chronoline *chronoline,
 
   if (fill) {
     if ((s1 == CLE_UNKNOWN) || (s2 == CLE_UNKNOWN)) {
-      renderer_ops->fill_polygon(renderer,pts,sizeof(pts)/sizeof(pts[0]),
-				  &chronoline->datagray);
+      renderer_ops->draw_polygon(renderer,pts,sizeof(pts)/sizeof(pts[0]),
+				 &chronoline->datagray, NULL);
     } else {
-      renderer_ops->fill_polygon(renderer,pts,sizeof(pts)/sizeof(pts[0]),
-				  &color_white);
+      renderer_ops->draw_polygon(renderer,pts,sizeof(pts)/sizeof(pts[0]),
+				 &color_white, NULL);
     }    
   } else {
     renderer_ops->draw_line(renderer,&pts[1],&pts[2],
@@ -346,12 +346,12 @@ cld_multibit(Chronoline *chronoline,
 
   if (fill) { 
     if ((s1 == CLE_UNKNOWN) || (s2 == CLE_UNKNOWN)) {
-      renderer_ops->fill_polygon(renderer,pts,sizeof(pts)/sizeof(pts[0]),
-				  &chronoline->datagray);
+      renderer_ops->draw_polygon(renderer,pts,sizeof(pts)/sizeof(pts[0]),
+				 &chronoline->datagray, NULL);
     } else {
-      renderer_ops->fill_polygon(renderer,pts,sizeof(pts)/sizeof(pts[0]),
-				  &color_white);
-    }    
+      renderer_ops->draw_polygon(renderer,pts,sizeof(pts)/sizeof(pts[0]),
+				 &color_white, NULL);
+    }
   } else {
     renderer_ops->draw_line(renderer,&pts[1],&pts[2],
 			     &chronoline->data_color);

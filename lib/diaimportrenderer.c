@@ -46,9 +46,6 @@ static void draw_line (DiaRenderer *renderer,
 static void fill_rect (DiaRenderer *renderer,
 		       Point *ul_corner, Point *lr_corner,
 		       Color *color);
-static void fill_polygon (DiaRenderer *renderer,
-			  Point *points, int num_points,
-			  Color *color);
 static void draw_arc (DiaRenderer *renderer,
 		      Point *center,
 		      real width, real height,
@@ -97,7 +94,7 @@ static void draw_rounded_polyline (DiaRenderer *renderer,
 				   Color *color, real radius);
 static void draw_polygon (DiaRenderer *renderer,
 			  Point *points, int num_points,
-			  Color *color);
+			  Color *fill, Color *stroke);
 
 static void draw_rounded_rect (DiaRenderer *renderer,
 			       Point *ul_corner, Point *lr_corner,
@@ -181,7 +178,7 @@ dia_import_renderer_class_init (DiaImportRendererClass *klass)
 
   renderer_class->draw_line    = draw_line;
   renderer_class->fill_rect    = fill_rect;
-  renderer_class->fill_polygon = fill_polygon;
+  renderer_class->draw_polygon = draw_polygon;
   renderer_class->draw_arc     = draw_arc;
   renderer_class->fill_arc     = fill_arc;
   renderer_class->draw_ellipse = draw_ellipse;
@@ -195,7 +192,6 @@ dia_import_renderer_class_init (DiaImportRendererClass *klass)
   renderer_class->draw_rect = draw_rect;
   renderer_class->draw_rounded_polyline  = draw_rounded_polyline;
   renderer_class->draw_polyline  = draw_polyline;
-  renderer_class->draw_polygon   = draw_polygon;
 
   /* highest level functions */
   renderer_class->draw_rounded_rect = draw_rounded_rect;
@@ -334,20 +330,6 @@ draw_line (DiaRenderer *renderer, Point *start, Point *end, Color *color)
   points[0] = *start;
   points[1] = *end;
   draw_rounded_polyline (renderer, &points[0], 2, color, 0.0);
-}
-
-/*!
- * \brief Fill the given ploygon
- * \memberof _DiaImportRenderer
- */
-static void 
-fill_polygon (DiaRenderer *renderer, Point *points, int num_points, Color *color)
-{
-  DiaImportRenderer *self = DIA_IMPORT_RENDERER (renderer);
-  DiaObject *object = create_standard_polygon (num_points, points);
-
-  _apply_style (self, object, color, NULL, 0.0);
-  _push_object (self, object);
 }
 
 static DiaObject *
@@ -598,18 +580,18 @@ draw_rounded_polyline (DiaRenderer *renderer,
 }
 
 /*!
- * \brief Draw a polygon
+ * \brief Draw a polygon filled and/or stroked
  * Creates a _Polygon object.
  * \memberof _DiaImportRenderer
  */
 static void
 draw_polygon (DiaRenderer *renderer,
               Point *points, int num_points,
-              Color *color)
+              Color *fill, Color *stroke)
 {
   DiaImportRenderer *self = DIA_IMPORT_RENDERER (renderer);
   DiaObject *object = create_standard_polygon (num_points, points);
-  _apply_style (self, object, NULL, color, 0.0);
+  _apply_style (self, object, fill, stroke, 0.0);
   _push_object (self, object);
 }
 

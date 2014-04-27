@@ -372,21 +372,16 @@ psrenderer_polygon(DiaPsRenderer *renderer,
 }
 
 static void
-draw_polygon(DiaRenderer *self, 
+draw_polygon (DiaRenderer *self, 
 	      Point *points, int num_points, 
-	      Color *line_color)
+	      Color *fill, Color *stroke)
 {
   DiaPsRenderer *renderer = DIA_PS_RENDERER(self);
-  psrenderer_polygon(renderer, points, num_points, line_color, FALSE);
-}
-
-static void
-fill_polygon(DiaRenderer *self, 
-	      Point *points, int num_points, 
-	      Color *fill_color)
-{
-  DiaPsRenderer *renderer = DIA_PS_RENDERER(self);
-  psrenderer_polygon(renderer, points, num_points, fill_color, TRUE);
+  /* XXX: not optimized to fill and stroke at once */
+  if (fill)
+    psrenderer_polygon(renderer, points, num_points, fill, TRUE);
+  if (stroke)
+    psrenderer_polygon(renderer, points, num_points, stroke, FALSE);
 }
 
 static void
@@ -1039,7 +1034,7 @@ dia_ps_renderer_class_init (DiaPsRendererClass *klass)
   renderer_class->set_font       = set_font;
 
   renderer_class->draw_line    = draw_line;
-  renderer_class->fill_polygon = fill_polygon;
+  renderer_class->draw_polygon = draw_polygon;
   renderer_class->draw_arc     = draw_arc;
   renderer_class->fill_arc     = fill_arc;
   renderer_class->draw_ellipse = draw_ellipse;
@@ -1053,7 +1048,6 @@ dia_ps_renderer_class_init (DiaPsRendererClass *klass)
   renderer_class->draw_rect = draw_rect;
   renderer_class->fill_rect = fill_rect;
   renderer_class->draw_polyline  = draw_polyline;
-  renderer_class->draw_polygon   = draw_polygon;
 
   /* ps specific */
   ps_renderer_class->begin_prolog = begin_prolog;

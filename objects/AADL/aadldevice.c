@@ -62,8 +62,7 @@ static void aadldevice_draw_borders(Aadlbox *aadlbox, DiaRenderer *renderer)
 
   points[3].x = x + w, points[3].y = y;
 
-  renderer_ops->fill_polygon(renderer, points, 4, &aadlbox->fill_color);
-  renderer_ops->draw_polygon(renderer, points, 4, &aadlbox->line_color);
+  renderer_ops->draw_polygon(renderer, points, 4, &aadlbox->fill_color, &aadlbox->line_color);
 
   points[0].x = points[3].x, points[0].y = points[3].y;
   points[1].x = points[0].x + AADL_DEVICE_DEPTH;
@@ -74,8 +73,7 @@ static void aadldevice_draw_borders(Aadlbox *aadlbox, DiaRenderer *renderer)
 
   points[3].x = points[0].x, points[3].y = points[0].y + h;
 
-  renderer_ops->fill_polygon(renderer, points, 4, &aadlbox->fill_color);
-  renderer_ops->draw_polygon(renderer, points, 4, &aadlbox->line_color);
+  renderer_ops->draw_polygon(renderer, points, 4, &aadlbox->fill_color, &aadlbox->line_color);
 
   points[0].x = x + w;
   points[0].y = y + h;
@@ -89,8 +87,7 @@ static void aadldevice_draw_borders(Aadlbox *aadlbox, DiaRenderer *renderer)
   points[3].x = x;
   points[3].y = y + h;
 
-  renderer_ops->fill_polygon(renderer, points, 4, &aadlbox->fill_color);
-  renderer_ops->draw_polygon(renderer, points, 4, &aadlbox->line_color);
+  renderer_ops->draw_polygon(renderer, points, 4, &aadlbox->fill_color, &aadlbox->line_color);
 
   points[0].x = x;
   points[0].y = y;
@@ -98,8 +95,7 @@ static void aadldevice_draw_borders(Aadlbox *aadlbox, DiaRenderer *renderer)
   points[1].x = x - AADL_DEVICE_DEPTH;
   points[1].y = y - AADL_DEVICE_DEPTH;
 
-  renderer_ops->fill_polygon(renderer, points, 4, &aadlbox->fill_color);
-  renderer_ops->draw_polygon(renderer, points, 4, &aadlbox->line_color);
+  renderer_ops->draw_polygon(renderer, points, 4, &aadlbox->fill_color, &aadlbox->line_color);
 
 }
 

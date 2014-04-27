@@ -426,9 +426,9 @@ draw_polyline(DiaRenderer *self,
 }
 
 static void
-draw_polygon(DiaRenderer *self, 
-	      Point *points, int num_points, 
-	      Color *line_color)
+stroke_polygon (DiaRenderer *self, 
+		Point *points, int num_points, 
+		Color *line_color)
 {
   DiaLibartRenderer *renderer = DIA_LIBART_RENDERER (self);
   ArtVpath *vpath, *vpath_dashed;
@@ -486,7 +486,7 @@ draw_polygon(DiaRenderer *self,
 }
 
 static void
-fill_polygon(DiaRenderer *self, 
+fill_polygon (DiaRenderer *self, 
 	      Point *points, int num_points, 
 	      Color *color)
 {
@@ -540,6 +540,18 @@ fill_polygon(DiaRenderer *self,
 		     NULL);
 
   art_svp_free( svp );
+}
+
+static void
+draw_polygon(DiaRenderer *self, 
+	     Point *points, int num_points, 
+	     Color *fill, Color *stroke)
+{
+  /* XXX: simple port, not optimized */
+  if (fill)
+    fill_polygon (self, points, num_points, fill);
+  if (stroke)
+    stroke_polygon (self, points, num_points, stroke);
 }
 
 static void
@@ -1524,7 +1536,6 @@ dia_libart_renderer_class_init (DiaLibartRendererClass *klass)
   renderer_class->draw_polyline = draw_polyline;
   
   renderer_class->draw_polygon = draw_polygon;
-  renderer_class->fill_polygon = fill_polygon;
 
   renderer_class->draw_rect = draw_rect;
   renderer_class->fill_rect = fill_rect;

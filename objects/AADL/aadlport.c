@@ -94,8 +94,7 @@ rotate_around_origin (Point *p, real angle)   /* FIXME: no namespace */
     renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);	  \
     renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);	  \
 								  \
-    renderer_ops->fill_polygon(renderer, p,  3, &color_black);    \
-    renderer_ops->draw_polygon(renderer, p,  3, &color_black);
+    renderer_ops->draw_polygon(renderer, p,  3, &color_black, &color_black);
 
 #define draw_in_event_port()                                         \
     p[0].x =  AADL_PORT_WIDTH_A;				     \
@@ -143,8 +142,7 @@ rotate_around_origin (Point *p, real angle)   /* FIXME: no namespace */
     renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);	    \
     renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);	    \
 								    \
-    renderer_ops->fill_polygon(renderer, p,  3, &color_black);      \
-    renderer_ops->draw_polygon(renderer, p,  3, &color_black);
+    renderer_ops->draw_polygon(renderer, p,  3, &color_black, &color_black);
 
 #define draw_out_event_port()                                       \
     p[0].x =  - AADL_PORT_WIDTH_A;                                  \
@@ -197,8 +195,7 @@ rotate_around_origin (Point *p, real angle)   /* FIXME: no namespace */
     renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);	    \
     renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);	    \
 								    \
-    renderer_ops->fill_polygon(renderer, p,  4, &color_black);	    \
-    renderer_ops->draw_polygon(renderer, p,  4, &color_black);
+    renderer_ops->draw_polygon(renderer, p,  4, &color_black, &color_black);
 
 
     
@@ -229,7 +226,7 @@ rotate_around_origin (Point *p, real angle)   /* FIXME: no namespace */
     renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);	   \
     renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);	   \
 								   \
-    renderer_ops->draw_polygon(renderer, p,  4, &color_black); 
+    renderer_ops->draw_polygon(renderer, p,  4, NULL, &color_black); 
 
 
 /* FIXME: should i make methods from this function ? */
@@ -277,8 +274,7 @@ aadlbox_draw_port(Aadlport *port, DiaRenderer *renderer)
     renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
     renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
 
-    renderer_ops->fill_polygon(renderer, p,  5, &color_white);
-    renderer_ops->draw_polygon(renderer, p,  5, &color_black);
+    renderer_ops->draw_polygon(renderer, p,  5, &color_white, &color_black);
 
     break;
 
@@ -314,8 +310,7 @@ aadlbox_draw_port(Aadlport *port, DiaRenderer *renderer)
     renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
     renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
 
-    renderer_ops->fill_polygon(renderer, p,  5, &color_white);
-    renderer_ops->draw_polygon(renderer, p,  5, &color_black);
+    renderer_ops->draw_polygon(renderer, p,  5, &color_white, &color_black);
 
     break;
 

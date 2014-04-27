@@ -70,9 +70,6 @@ static void draw_line (DiaRenderer *renderer,
 static void fill_rect (DiaRenderer *renderer,
                        Point *ul_corner, Point *lr_corner,
                        Color *color);
-static void fill_polygon (DiaRenderer *renderer,
-                          Point *points, int num_points,
-                          Color *color);
 static void draw_arc (DiaRenderer *renderer,
                       Point *center,
                       real width, real height,
@@ -125,7 +122,7 @@ static void draw_rounded_polyline (DiaRenderer *renderer,
                            Color *color, real radius);
 static void draw_polygon (DiaRenderer *renderer,
                           Point *points, int num_points,
-                          Color *color);
+                          Color *fill, Color *stroke);
 
 static real get_text_width (DiaRenderer *renderer,
                             const gchar *text, int length);
@@ -270,7 +267,7 @@ draw_object (DiaRenderer *renderer,
     
     DIA_RENDERER_GET_CLASS(renderer)->set_linewidth(renderer, 0.0);
     DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_DOTTED);
-    DIA_RENDERER_GET_CLASS(renderer)->draw_polygon(renderer, pt, 4, &red);
+    DIA_RENDERER_GET_CLASS(renderer)->draw_polygon(renderer, pt, 4, NULL, &red);
     DIA_RENDERER_GET_CLASS(renderer)->draw_line(renderer, &pt[0], &pt[2], &red);
     DIA_RENDERER_GET_CLASS(renderer)->draw_line(renderer, &pt[1], &pt[3], &red);
 #endif
@@ -325,7 +322,7 @@ dia_renderer_class_init (DiaRendererClass *klass)
 
   renderer_class->draw_line    = draw_line;
   renderer_class->fill_rect    = fill_rect;
-  renderer_class->fill_polygon = fill_polygon;
+  renderer_class->draw_polygon = draw_polygon;
   renderer_class->draw_arc     = draw_arc;
   renderer_class->fill_arc     = fill_arc;
   renderer_class->draw_ellipse = draw_ellipse;
@@ -339,7 +336,6 @@ dia_renderer_class_init (DiaRendererClass *klass)
   renderer_class->draw_rect = draw_rect;
   renderer_class->draw_rounded_polyline  = draw_rounded_polyline;
   renderer_class->draw_polyline  = draw_polyline;
-  renderer_class->draw_polygon   = draw_polygon;
   renderer_class->draw_text      = draw_text;
   renderer_class->draw_text_line = draw_text_line;
 
@@ -429,13 +425,6 @@ static void
 draw_line (DiaRenderer *renderer, Point *start, Point *end, Color *color)
 {
   g_warning ("%s::draw_line not implemented!", 
-             G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (renderer)));
-}
-
-static void 
-fill_polygon (DiaRenderer *renderer, Point *points, int num_points, Color *color)
-{
-  g_warning ("%s::fill_polygon not implemented!", 
              G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (renderer)));
 }
 
@@ -745,16 +734,11 @@ draw_beziergon (DiaRenderer *renderer,
   bezier->currpoint = 0;
   approximate_bezier (bezier, points, numpoints);
 
-  if (fill)
-    DIA_RENDERER_GET_CLASS (renderer)->fill_polygon (renderer,
-                                                     bezier->points,
-                                                     bezier->currpoint,
-                                                     fill);
-  if (stroke)
+  if (fill || stroke)
     DIA_RENDERER_GET_CLASS (renderer)->draw_polygon (renderer,
                                                      bezier->points,
                                                      bezier->currpoint,
-                                                     stroke);
+                                                     fill, stroke);
 }
 
 static void 
@@ -864,15 +848,21 @@ draw_rounded_polyline (DiaRenderer *renderer,
   klass->draw_line(renderer, &p3, &p4, color);
 }
 
+/*!
+ * \brief Fallback implementation of draw_polygon mostly ignoring the fill
+ * \memberof _DiaRenderer
+ */
 static void 
 draw_polygon (DiaRenderer *renderer,
               Point *points, int num_points,
-              Color *color)
+              Color *fill, Color *stroke)
 {
   DiaRendererClass *klass = DIA_RENDERER_GET_CLASS (renderer);
   int i;
+  Color *color = fill ? fill : stroke;
 
   g_return_if_fail (num_points > 1);
+  g_return_if_fail (color != NULL);
 
   for (i = 0; i < num_points - 1; i++)
     klass->draw_line (renderer, &points[i+0], &points[i+1], color);

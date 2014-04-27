@@ -435,10 +435,9 @@ draw_polyline(DiaRenderer *self,
 }
 
 static void
-_polygon(DiaRenderer *self, 
-         Point *points, int num_points, 
-         Color *color,
-         gboolean fill)
+draw_polygon (DiaRenderer *self, 
+	      Point *points, int num_points, 
+	      Color *fill, Color *stroke)
 {
   DrsRenderer *renderer = DRS_RENDERER (self);
   xmlNodePtr node;
@@ -449,24 +448,9 @@ _polygon(DiaRenderer *self,
                      (const xmlChar *)"polygon", NULL);
   _node_set_points (node, points, num_points);
   if (fill)
-    _node_set_color (node, "fill", color);
-  else
-    _node_set_color (node, "stroke", color);
-}
-static void
-draw_polygon(DiaRenderer *self, 
-             Point *points, int num_points, 
-             Color *color)
-{
-  _polygon (self, points, num_points, color, FALSE);
-}
-
-static void
-fill_polygon(DiaRenderer *self, 
-             Point *points, int num_points, 
-             Color *color)
-{
-  _polygon (self, points, num_points, color, TRUE);
+    _node_set_color (node, "fill", fill);
+  if (stroke)
+    _node_set_color (node, "stroke", stroke);
 }
 
 static void
@@ -733,7 +717,6 @@ drs_renderer_class_init (DrsRendererClass *klass)
   renderer_class->set_font  = set_font;
 
   renderer_class->draw_line    = draw_line;
-  renderer_class->fill_polygon = fill_polygon;
   renderer_class->draw_rect    = draw_rect;
   renderer_class->fill_rect    = fill_rect;
   renderer_class->draw_arc     = draw_arc;

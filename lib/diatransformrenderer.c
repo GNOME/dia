@@ -237,10 +237,8 @@ _polyline(DiaRenderer *self,
     for (i = 0; i < num_points; ++i)
       transform_point (&a_pts[i], m);
   }
-  if (fill)
-    DIA_RENDERER_GET_CLASS (renderer->worker)->fill_polygon (renderer->worker, a_pts, num_points, fill);
-  else if (closed)
-    DIA_RENDERER_GET_CLASS (renderer->worker)->draw_polygon (renderer->worker, a_pts, num_points, stroke);
+  if (closed)
+    DIA_RENDERER_GET_CLASS (renderer->worker)->draw_polygon (renderer->worker, a_pts, num_points, fill, stroke);
   else
     DIA_RENDERER_GET_CLASS (renderer->worker)->draw_polyline (renderer->worker, a_pts, num_points, stroke);
 }
@@ -265,17 +263,6 @@ draw_polygon(DiaRenderer *self,
 	      Color *line_colour)
 {
   _polyline (self, points, num_points, line_colour, NULL, TRUE);
-}
-/*!
- * \brief Transform polygon and delegate fill
- * \memberof _DiaTransformRenderer
- */
-static void
-fill_polygon(DiaRenderer *self, 
-	     Point *points, int num_points, 
-	     Color *color)
-{
-  _polyline (self, points, num_points, NULL, color, TRUE);
 }
 static void
 _rect (DiaRenderer *self, 
@@ -570,7 +557,7 @@ dia_transform_renderer_class_init (DiaTransformRendererClass *klass)
   renderer_class->set_fillstyle  = set_fillstyle;
 
   renderer_class->draw_line    = draw_line;
-  renderer_class->fill_polygon = fill_polygon;
+  renderer_class->draw_polygon = draw_polygon;
   renderer_class->draw_rect    = draw_rect;
   renderer_class->fill_rect    = fill_rect;
   renderer_class->draw_arc     = draw_arc;
@@ -584,7 +571,6 @@ dia_transform_renderer_class_init (DiaTransformRendererClass *klass)
   /* medium level functions */
   renderer_class->draw_rect = draw_rect;
   renderer_class->draw_polyline  = draw_polyline;
-  renderer_class->draw_polygon   = draw_polygon;
 
   renderer_class->draw_bezier   = draw_bezier;
   renderer_class->draw_beziergon = draw_beziergon;

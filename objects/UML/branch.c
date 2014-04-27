@@ -218,8 +218,7 @@ static void branch_draw(Branch *branch, DiaRenderer *renderer)
   renderer_ops->set_linewidth(renderer, BRANCH_BORDERWIDTH);
   renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
 
-  renderer_ops->fill_polygon(renderer, points, 4, &branch->fill_color);
-  renderer_ops->draw_polygon(renderer, points, 4, &branch->line_color);
+  renderer_ops->draw_polygon(renderer, points, 4, &branch->fill_color, &branch->line_color);
 }
 
 static void branch_update_data(Branch *branch)

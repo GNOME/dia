@@ -219,17 +219,16 @@ static void
 wanlink_draw (WanLink *wanlink, DiaRenderer *renderer)
 {
     DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
-        
+
     assert (wanlink != NULL);
     assert (renderer != NULL);
-    
+
     renderer_ops->set_linewidth(renderer, FLASH_LINE);
     renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
     renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
-    
-    
-    renderer_ops->fill_polygon(renderer, wanlink->poly,  WANLINK_POLY_LEN, &wanlink->fill_color);
-    renderer_ops->draw_polygon(renderer, wanlink->poly,  WANLINK_POLY_LEN, &wanlink->line_color);
+
+    renderer_ops->draw_polygon (renderer, wanlink->poly,  WANLINK_POLY_LEN,
+				&wanlink->fill_color, &wanlink->line_color);
 }
 
 static real

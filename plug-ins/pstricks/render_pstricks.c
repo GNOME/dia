@@ -81,10 +81,7 @@ static void draw_polyline(DiaRenderer *self,
 			  Color *line_color);
 static void draw_polygon(DiaRenderer *self, 
 			 Point *points, int num_points, 
-			 Color *line_color);
-static void fill_polygon(DiaRenderer *self, 
-			 Point *points, int num_points, 
-			 Color *line_color);
+			 Color *fill, Color *stroke);
 static void draw_rect(DiaRenderer *self, 
 		      Point *ul_corner, Point *lr_corner,
 		      Color *color);
@@ -190,7 +187,6 @@ pstricks_renderer_class_init (PstricksRendererClass *klass)
   renderer_class->draw_polyline = draw_polyline;
   
   renderer_class->draw_polygon = draw_polygon;
-  renderer_class->fill_polygon = fill_polygon;
 
   renderer_class->draw_rect = draw_rect;
   renderer_class->fill_rect = fill_rect;
@@ -469,23 +465,16 @@ pstricks_polygon(PstricksRenderer *renderer,
 }
 
 static void
-draw_polygon(DiaRenderer *self, 
-	     Point *points, int num_points, 
-	     Color *line_color)
+draw_polygon (DiaRenderer *self, 
+	      Point *points, int num_points, 
+	      Color *fill, Color *stroke)
 {
     PstricksRenderer *renderer = PSTRICKS_RENDERER(self);
 
-    pstricks_polygon(renderer,points,num_points,line_color,FALSE);
-}
-
-static void
-fill_polygon(DiaRenderer *self, 
-	     Point *points, int num_points, 
-	     Color *line_color)
-{
-    PstricksRenderer *renderer = PSTRICKS_RENDERER(self);
-
-    pstricks_polygon(renderer,points,num_points,line_color,TRUE);
+    if (fill)
+	pstricks_polygon(renderer,points,num_points,fill,TRUE);
+    if (stroke)
+	pstricks_polygon(renderer,points,num_points,stroke,FALSE);
 }
 
 static void

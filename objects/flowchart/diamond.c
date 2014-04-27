@@ -343,21 +343,17 @@ diamond_draw(Diamond *diamond, DiaRenderer *renderer)
   pts[2].y += elem->height;
   pts[3].y += elem->height / 2.0;
 
-  if (diamond->show_background) {
+  if (diamond->show_background)
     renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
-  
-    renderer_ops->fill_polygon(renderer, 
-				pts, 4,
-				&diamond->inner_color);
-  }
 
   renderer_ops->set_linewidth(renderer, diamond->border_width);
   renderer_ops->set_linestyle(renderer, diamond->line_style);
   renderer_ops->set_dashlength(renderer, diamond->dashlength);
   renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
 
-  renderer_ops->draw_polygon(renderer, 
+  renderer_ops->draw_polygon (renderer, 
 			      pts, 4,
+			      (diamond->show_background) ? &diamond->inner_color : NULL,
 			      &diamond->border_color);
 
   text_draw(diamond->text, renderer);

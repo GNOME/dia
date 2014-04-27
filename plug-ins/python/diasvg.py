@@ -109,15 +109,9 @@ class SvgRenderer :
 		for pt in points :
 			self.f.write ('%.3f,%.3f ' % (pt.x, pt.y))
 		self.f.write('"/>\n')
-	def draw_polygon (self, points, color) :
-		self.f.write('<polygon fill="none" stroke="%s" stroke-width="%.3f" %s points="' \
-					% (self._rgb(color), self.line_width, self._stroke_style()))
-		for pt in points :
-			self.f.write ('%.3f,%.3f ' % (pt.x, pt.y))
-		self.f.write('"/>\n')
-	def fill_polygon (self, points, color) :
-		self.f.write('<polygon fill="%s" stroke="none" stroke-width="%.3f" points="' \
-					% (self._rgb(color), self.line_width))
+	def draw_polygon (self, points, fill, stroke) :
+		self.f.write('<polygon fill="%s" stroke="%s" stroke-width="%.3f" %s points="' \
+					% (self._rgb(fill), self._rgb(stroke), self.line_width, self._stroke_style()))
 		for pt in points :
 			self.f.write ('%.3f,%.3f ' % (pt.x, pt.y))
 		self.f.write('"/>\n')

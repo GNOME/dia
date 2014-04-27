@@ -636,17 +636,12 @@ _polygon(DiaRenderer *self,
 static void
 draw_polygon(DiaRenderer *self, 
              Point *points, int num_points, 
-             Color *color)
+             Color *fill, Color *stroke)
 {
-  _polygon (self, points, num_points, color, FALSE);
-}
-
-static void
-fill_polygon(DiaRenderer *self, 
-             Point *points, int num_points, 
-             Color *color)
-{
-  _polygon (self, points, num_points, color, TRUE);
+  if (fill)
+    _polygon (self, points, num_points, fill, TRUE);
+  if (stroke)
+    _polygon (self, points, num_points, stroke, FALSE);
 }
 
 static void
@@ -1250,7 +1245,6 @@ cairo_renderer_class_init (DiaCairoRendererClass *klass)
   renderer_class->set_font  = set_font;
 
   renderer_class->draw_line    = draw_line;
-  renderer_class->fill_polygon = fill_polygon;
   renderer_class->draw_rect    = draw_rect;
   renderer_class->fill_rect    = fill_rect;
   renderer_class->draw_arc     = draw_arc;

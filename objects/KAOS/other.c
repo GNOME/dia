@@ -354,15 +354,11 @@ other_draw(Other *other, DiaRenderer *renderer)
   if (other->type==AGENT) {
     compute_agent(other,pl);
     renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
-    renderer_ops->fill_polygon(renderer,
-			   pl,
-			   6,
-			   &OTHER_BG_COLOR);
-
     renderer_ops->set_linewidth(renderer, OTHER_LINE_SIMPLE_WIDTH);
     renderer_ops->draw_polygon(renderer,
 			   pl,
 			   6,
+			   &OTHER_BG_COLOR,
 			   &OTHER_FG_COLOR);
 
     draw_agent_icon(other,renderer);

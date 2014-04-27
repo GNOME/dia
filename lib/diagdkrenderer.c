@@ -61,9 +61,6 @@ static void set_fillstyle (DiaRenderer *renderer, FillStyle mode);
 static void draw_line (DiaRenderer *renderer,
                        Point *start, Point *end,
                        Color *color);
-static void fill_polygon (DiaRenderer *renderer,
-                          Point *points, int num_points,
-                          Color *color);
 static void draw_arc (DiaRenderer *renderer,
                       Point *center,
                       real width, real height,
@@ -111,7 +108,7 @@ static void draw_polyline (DiaRenderer *renderer,
                            Color *color);
 static void draw_polygon (DiaRenderer *renderer,
                           Point *points, int num_points,
-                          Color *color);
+                          Color *fill, Color *stroke);
 static void draw_rounded_rect (DiaRenderer *renderer,
                                Point *ul_corner, Point *lr_corner,
                                Color *color, real radius);
@@ -230,7 +227,7 @@ dia_gdk_renderer_class_init(DiaGdkRendererClass *klass)
   renderer_class->set_fillstyle  = set_fillstyle;
 
   renderer_class->draw_line    = draw_line;
-  renderer_class->fill_polygon = fill_polygon;
+  renderer_class->draw_polygon = draw_polygon;
   renderer_class->draw_rect    = draw_rect;
   renderer_class->fill_rect    = fill_rect;
   renderer_class->draw_arc     = draw_arc;
@@ -247,7 +244,6 @@ dia_gdk_renderer_class_init(DiaGdkRendererClass *klass)
   /* medium level functions */
   renderer_class->draw_rect = draw_rect;
   renderer_class->draw_polyline  = draw_polyline;
-  renderer_class->draw_polygon   = draw_polygon;
 
   /* highest level functions */
   renderer_class->draw_rounded_rect = draw_rounded_rect;
@@ -529,7 +525,8 @@ draw_line (DiaRenderer *object, Point *start, Point *end, Color *line_color)
 }
 
 static void 
-fill_polygon (DiaRenderer *object, Point *points, int num_points, Color *line_color)
+draw_polygon (DiaRenderer *object, Point *points, int num_points,
+	      Color *fill, Color *stroke)
 {
   DiaGdkRenderer *renderer = DIA_GDK_RENDERER (object);
   GdkGC *gc = renderer->gc;
@@ -544,11 +541,19 @@ fill_polygon (DiaRenderer *object, Point *points, int num_points, Color *line_co
     gdk_points[i].x = x;
     gdk_points[i].y = y;
   }
+
+  if (fill) {
+    renderer_color_convert(renderer, fill, &color);
+    gdk_gc_set_foreground(gc, &color);
   
-  renderer_color_convert(renderer, line_color, &color);
-  gdk_gc_set_foreground(gc, &color);
+    gdk_draw_polygon(renderer->pixmap, gc, TRUE, gdk_points, num_points);
+  }
+  if (stroke) {
+    renderer_color_convert(renderer, stroke, &color);
+    gdk_gc_set_foreground(gc, &color);
   
-  gdk_draw_polygon(renderer->pixmap, gc, TRUE, gdk_points, num_points);
+    gdk_draw_polygon(renderer->pixmap, gc, FALSE, gdk_points, num_points);
+  }
   g_free(gdk_points);
 }
 
@@ -950,32 +955,6 @@ draw_polyline (DiaRenderer *self,
   gdk_gc_set_foreground(gc, &color);
   
   gdk_draw_lines(renderer->pixmap, gc, gdk_points, num_points);
-  g_free(gdk_points);
-}
-
-static void 
-draw_polygon (DiaRenderer *self,
-              Point *points, int num_points,
-              Color *line_color)
-{
-  DiaGdkRenderer *renderer = DIA_GDK_RENDERER (self);
-  GdkGC *gc = renderer->gc;
-  GdkColor color;
-  GdkPoint *gdk_points;
-  int i,x,y;
-  
-  gdk_points = g_new(GdkPoint, num_points);
-
-  for (i=0;i<num_points;i++) {
-    dia_transform_coords(renderer->transform, points[i].x, points[i].y, &x, &y);
-    gdk_points[i].x = x;
-    gdk_points[i].y = y;
-  }
-  
-  renderer_color_convert(renderer, line_color, &color);
-  gdk_gc_set_foreground(gc, &color);
-  
-  gdk_draw_polygon(renderer->pixmap, gc, FALSE, gdk_points, num_points);
   g_free(gdk_points);
 }
 

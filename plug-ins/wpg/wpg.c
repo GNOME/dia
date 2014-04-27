@@ -518,16 +518,23 @@ draw_polyline(DiaRenderer *self,
 static void
 draw_polygon(DiaRenderer *self, 
              Point *points, int num_points, 
-             Color *line_colour)
+             Color *fill, Color *stroke)
 {
   WpgRenderer *renderer = WPG_RENDERER (self);
   gint16* pData;
   int i;
+  WPG_LineAttr lt = renderer->LineAttr.Type;
 
   DIAG_NOTE(g_message("draw_polygon n:%d %f,%f ...", 
             num_points, points->x, points->y));
 
-  WriteLineAttr(renderer, line_colour);
+  if (!stroke)
+    renderer->LineAttr.Type = WPG_LA_NONE;
+  WriteLineAttr(renderer, stroke ? stroke : fill);
+  if (fill)
+    WriteFillAttr(renderer, fill, TRUE);
+  else
+    WriteFillAttr(renderer, stroke, FALSE);
   WriteRecHead(renderer, WPG_POLYGON, (num_points * 2 + 1) * sizeof(gint16));
 
   pData = g_new(gint16, num_points * 2);
@@ -544,23 +551,13 @@ draw_polygon(DiaRenderer *self,
   }
 
   fwrite_le(pData, sizeof(gint16), num_points*2, renderer->file);
+  /* restore state */
+  if (!stroke)
+    renderer->LineAttr.Type = lt;
+  /* switch off fill */
+  WriteFillAttr(renderer, fill ? fill : stroke, FALSE);
 
   g_free(pData);
-}
-
-static void
-fill_polygon(DiaRenderer *self, 
-             Point *points, int num_points, 
-             Color *colour)
-{
-  WpgRenderer *renderer = WPG_RENDERER (self);
-
-  DIAG_NOTE(g_message("fill_polygon n:%d %f,%f ...", 
-            num_points, points->x, points->y));
-
-  WriteFillAttr(renderer, colour, TRUE);
-  draw_polygon(self,points,num_points,colour);
-  WriteFillAttr(renderer, colour, FALSE);
 }
 
 static void
@@ -1036,7 +1033,6 @@ wpg_renderer_class_init (WpgRendererClass *klass)
   renderer_class->set_font  = set_font;
 
   renderer_class->draw_line    = draw_line;
-  renderer_class->fill_polygon = fill_polygon;
   renderer_class->draw_rect    = draw_rect;
   renderer_class->fill_rect    = fill_rect;
   renderer_class->draw_arc     = draw_arc;

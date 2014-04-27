@@ -974,14 +974,10 @@ custom_draw_element(GraphicElement* el, Custom *custom, DiaRenderer *renderer,
     for (i = 0; i < el->polygon.npoints; i++)
       transform_coord(custom, &el->polygon.points[i],
 			&g_array_index(arr, Point, i));
-    if (custom->show_background && el->any.s.fill != DIA_SVG_COLOUR_NONE) 
-      renderer_ops->fill_polygon(renderer,
+    renderer_ops->draw_polygon(renderer,
 				   (Point *)arr->data, el->polygon.npoints,
-				   bg);
-    if (el->any.s.stroke != DIA_SVG_COLOUR_NONE)
-      renderer_ops->draw_polygon(renderer,
-				   (Point *)arr->data, el->polygon.npoints,
-				   fg);
+				   (custom->show_background && el->any.s.fill != DIA_SVG_COLOUR_NONE) ? bg : NULL,
+				   (el->any.s.stroke != DIA_SVG_COLOUR_NONE) ? fg : NULL);
     break;
   case GE_RECT:
     transform_coord(custom, &el->rect.corner1, &p1);

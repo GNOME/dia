@@ -62,8 +62,7 @@ static void aadlpackage_draw_borders(Aadlbox *aadlbox, DiaRenderer *renderer)
   points[7].x = x + w;             points[7].y = y + h;
   points[8].x = x ;                points[8].y = y + h;
 
-  renderer_ops->fill_polygon(renderer, points, 9, &aadlbox->fill_color);
-  renderer_ops->draw_polygon(renderer, points, 9, &aadlbox->line_color);
+  renderer_ops->draw_polygon(renderer, points, 9, &aadlbox->fill_color, &aadlbox->line_color);
 }
 
 

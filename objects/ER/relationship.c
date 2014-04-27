@@ -266,15 +266,13 @@ relationship_draw(Relationship *relationship, DiaRenderer *renderer)
 
   renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
 
-  renderer_ops->fill_polygon(renderer, corners, 4, 
-			      &relationship->inner_color);
-
   renderer_ops->set_linewidth(renderer, relationship->border_width);
   renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
   renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
 
-  renderer_ops->draw_polygon(renderer, corners, 4, 
-			      &relationship->border_color);
+  renderer_ops->draw_polygon(renderer, corners, 4,
+			     &relationship->inner_color,
+			     &relationship->border_color);
   
   if (relationship->rotate) {
     lc.x = corners[1].x + 0.2;
@@ -298,7 +296,7 @@ relationship_draw(Relationship *relationship, DiaRenderer *renderer)
     corners[3].y -= diff*DIAMOND_RATIO;
 
     renderer_ops->draw_polygon(renderer, corners, 4,
-				&relationship->border_color);
+			       NULL, &relationship->border_color);
   }
 
   renderer_ops->set_font(renderer, relationship->font, relationship->font_height);

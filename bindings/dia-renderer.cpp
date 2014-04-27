@@ -124,13 +124,6 @@ dia::Renderer::fill_rect (Point *ul_corner, Point *lr_corner, Color *color)
     assert (self);
     DIA_RENDERER_GET_CLASS(self)->fill_rect (self, ul_corner, lr_corner, color);
 }
-// the polygon is filled using the current fill type, no border is drawn
-void 
-dia::Renderer::fill_polygon (Point *points, int num_points, Color *color)
-{
-    assert (self);
-    DIA_RENDERER_GET_CLASS(self)->fill_polygon (self, points, num_points, color);
-}
 // Draw an arc, given its center, the bounding box (widget, height), the start angle and the end angle
 void 
 dia::Renderer::draw_arc (Point *center, double width, double height,
@@ -199,12 +192,12 @@ dia::Renderer::draw_polyline (Point *points, int num_points, Color *color)
     assert (self);
     DIA_RENDERER_GET_CLASS(self)->draw_polyline (self, points, num_points, color);
 }
-// Draw a polygone, using the current line style
+// Draw a polygon, using the current line and/or fill style
 void 
-dia::Renderer::draw_polygon (Point *points, int num_points, Color *color)
+dia::Renderer::draw_polygon (Point *points, int num_points, Color *fill, Color *stroke)
 {
     assert (self);
-    DIA_RENDERER_GET_CLASS(self)->draw_polygon (self, points, num_points, color);
+    DIA_RENDERER_GET_CLASS(self)->draw_polygon (self, points, num_points, fill, stroke);
 }
 // draw a Text.  It holds its own information like position, style, ...
 void 

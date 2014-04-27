@@ -472,8 +472,7 @@ maor_draw(Maor *maor, DiaRenderer *renderer)
 
     case MAOR_OPER_REF:
       compute_oper(&p1,MAOR_REF_WIDTH,MAOR_REF_HEIGHT,pl);
-      renderer_ops->fill_polygon(renderer,pl,7,&MAOR_BG_COLOR);
-      renderer_ops->draw_polygon(renderer,pl,7,&MAOR_FG_COLOR);
+      renderer_ops->draw_polygon(renderer,pl,7,&MAOR_BG_COLOR,&MAOR_FG_COLOR);
       draw_agent_icon(maor,MAOR_REF_WIDTH,MAOR_REF_HEIGHT,renderer);
       break;
   }

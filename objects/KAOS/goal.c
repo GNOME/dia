@@ -399,7 +399,6 @@ goal_draw(Goal *goal, DiaRenderer *renderer)
 
   if (goal->type!=SOFTGOAL) {
     renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
-    renderer_ops->fill_polygon(renderer, pl, 4, &GOAL_BG_COLOR);
 
     if ((goal->type==REQUIREMENT) || (goal->type==ASSUMPTION)) {
       renderer_ops->set_linewidth(renderer, GOAL_LINE_DOUBLE_WIDTH);
@@ -407,7 +406,7 @@ goal_draw(Goal *goal, DiaRenderer *renderer)
       renderer_ops->set_linewidth(renderer, GOAL_LINE_SIMPLE_WIDTH);
     }
 
-    renderer_ops->draw_polygon(renderer, pl, 4, &GOAL_FG_COLOR);
+    renderer_ops->draw_polygon(renderer, pl, 4, &GOAL_BG_COLOR, &GOAL_FG_COLOR);
 
     /* adding decoration for assumption */
     if (goal->type==ASSUMPTION) {

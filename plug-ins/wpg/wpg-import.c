@@ -146,10 +146,11 @@ static void
 _do_polygon (WpgImportRenderer *ren, Point *points, int iNum)
 {
   g_return_if_fail (iNum > 2);
-  if (ren->LineAttr.Type != WPG_LA_NONE)
-    DIA_RENDERER_GET_CLASS(ren)->draw_polygon (DIA_RENDERER(ren), points, iNum, &ren->stroke);
-  if (ren->FillAttr.Type != WPG_FA_HOLLOW)
-    DIA_RENDERER_GET_CLASS(ren)->fill_polygon (DIA_RENDERER(ren), points, iNum, &ren->fill);
+  if (ren->LineAttr.Type == WPG_LA_NONE && ren->FillAttr.Type == WPG_FA_HOLLOW)
+    return; /* nothing to do */
+  DIA_RENDERER_GET_CLASS(ren)->draw_polygon (DIA_RENDERER(ren), points, iNum,
+					     (ren->LineAttr.Type != WPG_LA_NONE) ? &ren->stroke : NULL,
+					     (ren->FillAttr.Type != WPG_FA_HOLLOW) ? &ren->fill : NULL);
 }
 static void
 _do_rect (WpgImportRenderer *ren, Point *points)

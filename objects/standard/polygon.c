@@ -221,6 +221,7 @@ polygon_draw(Polygon *polygon, DiaRenderer *renderer)
   PolyShape *poly = &polygon->poly;
   Point *points;
   int n;
+  Color fill;
   
   points = &poly->points[0];
   n = poly->numpoints;
@@ -232,15 +233,19 @@ polygon_draw(Polygon *polygon, DiaRenderer *renderer)
   renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
 
   if (polygon->show_background) {
-    Color fill = polygon->inner_color;
+    fill = polygon->inner_color;
     if (polygon->pattern) {
       dia_pattern_get_fallback_color (polygon->pattern, &fill);
       if (renderer_ops->is_capable_to(renderer, RENDER_PATTERN))
         renderer_ops->set_pattern (renderer, polygon->pattern);
     }
-    renderer_ops->fill_polygon(renderer, points, n, &fill);
   }
-  renderer_ops->draw_polygon(renderer, points, n, &polygon->line_color);
+  renderer_ops->draw_polygon (renderer, points, n,
+			      (polygon->show_background) ? &fill : NULL,
+			      &polygon->line_color);
+  if (polygon->show_background && polygon->pattern &&
+      renderer_ops->is_capable_to(renderer, RENDER_PATTERN))
+    renderer_ops->set_pattern (renderer, NULL); /* reset*/
 }
 
 static DiaObject *

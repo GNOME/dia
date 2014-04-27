@@ -231,10 +231,15 @@ class StandardDiaRenderer :
     </dia:object>''')
 	def draw_polyline (self, points, color) :
 		self._poly("PolyLine", points, color, None)
-	def draw_polygon (self, points, color) :
+	def stroke_polygon (self, points, color) :
 		self._poly("Polygon", points, color, 0)
 	def fill_polygon (self, points, color) :
 		self._poly("Polygon", points, color, 1)
+	def draw_polygon (self, points, fill, stroke) :
+		if fill :
+			self.fill_polygon(points, fill)
+		if stroke :
+			self.stroke_polygon(points, fill)
 
 	def _bezier (self, type_name, points, color, fill) :
 		self.oid = self.oid + 1

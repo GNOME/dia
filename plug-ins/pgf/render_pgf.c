@@ -98,10 +98,7 @@ static void draw_rounded_polyline (DiaRenderer *self,
                         Color *color, real radius);
 static void draw_polygon(DiaRenderer *self, 
 			 Point *points, int num_points, 
-			 Color *line_color);
-static void fill_polygon(DiaRenderer *self, 
-			 Point *points, int num_points, 
-			 Color *line_color);
+			 Color *fill, Color *stroke);
 static void draw_rect(DiaRenderer *self, 
 		      Point *ul_corner, Point *lr_corner,
 		      Color *color);
@@ -258,7 +255,6 @@ pgf_renderer_class_init (PgfRendererClass *klass)
   renderer_class->draw_rounded_polyline = draw_rounded_polyline;
   
   renderer_class->draw_polygon = draw_polygon;
-  renderer_class->fill_polygon = fill_polygon;
 
   renderer_class->draw_rect = draw_rect;
   renderer_class->fill_rect = fill_rect;
@@ -566,21 +562,15 @@ pgf_polygon(PgfRenderer *renderer,
 static void
 draw_polygon(DiaRenderer *self, 
 	     Point *points, int num_points, 
-	     Color *line_color)
+	     Color *fill, Color *stroke)
 {
     PgfRenderer *renderer = PGF_RENDERER(self);
 
-    pgf_polygon(renderer,points,num_points,line_color,FALSE);
-}
-
-static void
-fill_polygon(DiaRenderer *self, 
-	     Point *points, int num_points, 
-	     Color *line_color)
-{
-    PgfRenderer *renderer = PGF_RENDERER(self);
-
-    pgf_polygon(renderer,points,num_points,line_color,TRUE);
+    /* XXX: not optimized to fill and stroke at once */
+    if (fill)
+      pgf_polygon(renderer,points,num_points,fill,TRUE);
+    if (stroke)
+      pgf_polygon(renderer,points,num_points,stroke,FALSE);
 }
 
 static void

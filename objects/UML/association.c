@@ -466,7 +466,7 @@ association_draw(Association *assoc, DiaRenderer *renderer)
   renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
 
   if (assoc_get_direction_poly (assoc, poly))
-    renderer_ops->fill_polygon(renderer, poly, 3, &assoc->line_color);
+    renderer_ops->draw_polygon(renderer, poly, 3, &assoc->line_color, NULL);
 
   for (i=0;i<2;i++) {
     AssociationEnd *end = &assoc->end[i];

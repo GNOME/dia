@@ -138,9 +138,9 @@ static void draw_polyline(DiaRenderer *self,
 static void fill_rect (DiaRenderer *renderer,
                        Point *ul_corner, Point *lr_corner,
                        Color *color);
-static void fill_polygon (DiaRenderer *renderer,
+static void draw_polygon (DiaRenderer *renderer,
                           Point *points, int num_points,
-                          Color *color);
+                          Color *fill, Color *stroke);
 static void draw_arc(DiaRenderer *self, 
 		     Point *center,
 		     real width, real height,
@@ -230,7 +230,7 @@ dxf_renderer_class_init (DxfRendererClass *klass)
   renderer_class->draw_line = draw_line;
   renderer_class->draw_polyline = draw_polyline;
   renderer_class->fill_rect = fill_rect;
-  renderer_class->fill_polygon = fill_polygon;
+  renderer_class->draw_polygon = draw_polygon;
 
   renderer_class->draw_arc = draw_arc;
   renderer_class->fill_arc = fill_arc;
@@ -425,10 +425,11 @@ fill_rect (DiaRenderer *self,
 }
 
 static void 
-fill_polygon (DiaRenderer *self,
+draw_polygon (DiaRenderer *self,
               Point *points, int num_points,
-              Color *color)
+              Color *fill, Color *stroke)
 {
+  Color *color = fill ? fill : stroke;
   DxfRenderer *renderer = DXF_RENDERER(self);
   /* We could emulate all polygons with multiple SOLID but it might not be 
    * worth the effort. Following the easy part of polygons with 3 or 4 points.
@@ -441,6 +442,8 @@ fill_polygon (DiaRenderer *self,
   int i;
   gchar buf[G_ASCII_DTOSTR_BUF_SIZE];
   gchar buf2[G_ASCII_DTOSTR_BUF_SIZE];
+
+  g_return_if_fail (color != NULL);
 
   if (num_points == 3)
     idx = idx3;

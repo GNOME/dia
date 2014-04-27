@@ -272,10 +272,7 @@ static void draw_polyline(DiaRenderer *self,
 			  Color *line_colour);
 static void draw_polygon(DiaRenderer *self, 
 			 Point *points, int num_points, 
-			 Color *line_colour);
-static void fill_polygon(DiaRenderer *self, 
-			 Point *points, int num_points, 
-			 Color *line_colour);
+			 Color *fill, Color *stroke);
 static void draw_rect(DiaRenderer *self, 
 		      Point *ul_corner, Point *lr_corner,
 		      Color *colour);
@@ -781,31 +778,14 @@ draw_polyline(DiaRenderer *self,
 }
 
 static void
-draw_polygon(DiaRenderer *self, 
-	     Point *points, int num_points, 
-	     Color *line_colour)
+draw_polygon (DiaRenderer *self,
+	      Point *points, int num_points,
+	      Color *fill, Color *stroke)
 {
     CgmRenderer *renderer = CGM_RENDERER(self);
     int i;
 
-    write_filledge_attributes(renderer, NULL, line_colour);
-
-    write_elhead(renderer->file, 4, 7, num_points * 2 * REALSIZE);
-    for (i = 0; i < num_points; i++) {
-	write_real(renderer->file, points[i].x);
-	write_real(renderer->file, swap_y(renderer, points[i].y));
-    }
-}
-
-static void
-fill_polygon(DiaRenderer *self, 
-	     Point *points, int num_points, 
-	     Color *colour)
-{
-    CgmRenderer *renderer = CGM_RENDERER(self);
-    int i;
-
-    write_filledge_attributes(renderer, colour, NULL);
+    write_filledge_attributes(renderer, fill, stroke);
 
     write_elhead(renderer->file, 4, 7, num_points * 2 * REALSIZE);
     for (i = 0; i < num_points; i++) {
@@ -1369,7 +1349,6 @@ cgm_renderer_class_init (CgmRendererClass *klass)
     renderer_class->draw_polyline = draw_polyline;
   
     renderer_class->draw_polygon = draw_polygon;
-    renderer_class->fill_polygon = fill_polygon;
 
     renderer_class->draw_rect = draw_rect;
     renderer_class->fill_rect = fill_rect;

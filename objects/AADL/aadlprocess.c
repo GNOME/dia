@@ -58,8 +58,7 @@ void aadlbox_draw_inclined_box(Aadlbox *aadlbox, DiaRenderer *renderer,
   renderer_ops->set_linestyle(renderer, linestyle);
   renderer_ops->set_dashlength(renderer, AADLBOX_DASH_LENGTH);
 
-  renderer_ops->fill_polygon(renderer, points, 4, &aadlbox->fill_color);
-  renderer_ops->draw_polygon(renderer, points, 4, &aadlbox->line_color);
+  renderer_ops->draw_polygon(renderer, points, 4, &aadlbox->fill_color, &aadlbox->line_color);
 }
 
 

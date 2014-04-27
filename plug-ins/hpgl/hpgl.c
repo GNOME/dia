@@ -351,23 +351,15 @@ draw_polyline(DiaRenderer *object,
 static void
 draw_polygon(DiaRenderer *object, 
 	     Point *points, int num_points, 
-	     Color *line_colour)
+	     Color *fill, Color *stroke)
 {
+    Color *color = fill ? fill : stroke;
     DIAG_NOTE(g_message("draw_polygon n:%d %f,%f ...", 
               num_points, points->x, points->y));
-    draw_polyline(object,points,num_points,line_colour);
+    g_return_if_fail (color != NULL);
+    draw_polyline(object,points,num_points, color);
     /* last to first */
-    draw_line(object, &points[num_points-1], &points[0], line_colour);
-}
-
-static void
-fill_polygon(DiaRenderer *object, 
-	     Point *points, int num_points, 
-	     Color *colour)
-{
-    DIAG_NOTE(g_message("fill_polygon n:%d %f,%f ...", 
-              num_points, points->x, points->y));
-    draw_polyline(object,points,num_points,colour);
+    draw_line(object, &points[num_points-1], &points[0], color);
 }
 
 static void
@@ -676,7 +668,7 @@ hpgl_renderer_class_init (HpglRendererClass *klass)
   renderer_class->set_font  = set_font;
 
   renderer_class->draw_line    = draw_line;
-  renderer_class->fill_polygon = fill_polygon;
+  renderer_class->draw_polygon = draw_polygon;
   renderer_class->draw_rect    = draw_rect;
   renderer_class->fill_rect    = fill_rect;
   renderer_class->draw_arc     = draw_arc;
@@ -690,7 +682,6 @@ hpgl_renderer_class_init (HpglRendererClass *klass)
   /* medium level functions */
   renderer_class->draw_rect = draw_rect;
   renderer_class->draw_polyline  = draw_polyline;
-  renderer_class->draw_polygon   = draw_polygon;
 }
 
 /* plug-in interface : export function */

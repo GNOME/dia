@@ -662,13 +662,15 @@ draw_polyline(DiaRenderer *self,
 static void
 draw_polygon(DiaRenderer *self, 
 	     Point *points, int num_points, 
-	     Color *line_colour)
+	     Color *fill, Color *stroke)
 {
     WmfRenderer *renderer = WMF_RENDERER (self);
 
     W32::HPEN    hPen;
     W32::POINT*  pts;
     int          i;
+    W32::HBRUSH  hBrush, hBrOld;
+    W32::COLORREF rgb = fill ? W32COLOR(fill) : 0;
 
     DIAG_NOTE(renderer, "draw_polygon n:%d %f,%f ...\n", 
               num_points, points->x, points->y);
@@ -682,36 +684,23 @@ draw_polygon(DiaRenderer *self,
 	pts[i].y = SCY(points[i].y);
     }
 
-    hPen = UsePen(renderer, line_colour);
+    if (stroke)
+      hPen = UsePen(renderer, stroke);
+    if (fill) {
+      hBrush = W32::CreateSolidBrush(rgb);
+      hBrOld = (W32::HBRUSH)W32::SelectObject(renderer->hFileDC, hBrush);
+    }
 
     W32::Polygon(renderer->hFileDC, pts, num_points);
 
-    DonePen(renderer, hPen);
-
+    if (stroke)
+      DonePen(renderer, hPen);
+    if (fill) {
+      W32::SelectObject(renderer->hFileDC, 
+                        W32::GetStockObject(HOLLOW_BRUSH) );
+      W32::DeleteObject(hBrush);
+    }
     g_free(pts);
-}
-
-static void
-fill_polygon(DiaRenderer *self, 
-	     Point *points, int num_points, 
-	     Color *colour)
-{
-    WmfRenderer *renderer = WMF_RENDERER (self);
-
-    W32::HBRUSH  hBrush, hBrOld;
-    W32::COLORREF rgb = W32COLOR(colour);
-
-    DIAG_NOTE(renderer, "fill_polygon n:%d %f,%f ...\n", 
-              num_points, points->x, points->y);
-
-    hBrush = W32::CreateSolidBrush(rgb);
-    hBrOld = (W32::HBRUSH)W32::SelectObject(renderer->hFileDC, hBrush);
-
-    draw_polygon(self, points, num_points, NULL);
-
-    W32::SelectObject(renderer->hFileDC, 
-                      W32::GetStockObject(HOLLOW_BRUSH) );
-    W32::DeleteObject(hBrush);
 }
 
 static void
@@ -1298,7 +1287,6 @@ wmf_renderer_class_init (WmfRendererClass *klass)
   renderer_class->set_font  = set_font;
 
   renderer_class->draw_line    = draw_line;
-  renderer_class->fill_polygon = fill_polygon;
   renderer_class->draw_rect    = draw_rect;
   renderer_class->fill_rect    = fill_rect;
   renderer_class->draw_arc     = draw_arc;

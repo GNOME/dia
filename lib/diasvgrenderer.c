@@ -466,9 +466,9 @@ draw_polyline(DiaRenderer *self,
 }
 
 static void
-draw_polygon(DiaRenderer *self, 
+draw_polygon (DiaRenderer *self, 
 	      Point *points, int num_points, 
-	      Color *line_colour)
+	      Color *fill, Color *stroke)
 {
   DiaSvgRenderer *renderer = DIA_SVG_RENDERER (self);
   int i;
@@ -476,10 +476,18 @@ draw_polygon(DiaRenderer *self,
   GString *str;
   gchar px_buf[DTOSTR_BUF_SIZE];
   gchar py_buf[DTOSTR_BUF_SIZE];
+  gchar *style;
 
   node = xmlNewChild(renderer->root, renderer->svg_name_space, (const xmlChar *)"polygon", NULL);
-  
-  xmlSetProp(node, (const xmlChar *)"style", (xmlChar *) get_draw_style(renderer, line_colour));
+
+  style = g_strdup_printf ("%s;%s",
+			   stroke ? get_draw_style (renderer, stroke) : "stroke:none",
+			   fill ? get_fill_style (renderer, fill) : "fill:none");
+  xmlSetProp(node, (const xmlChar *)"style", (xmlChar *) style);
+  g_free (style);
+
+  if (fill)
+    xmlSetProp(node, (const xmlChar *)"fill-rule", (const xmlChar *) "evenodd");
 
   str = g_string_new(NULL);
   for (i = 0; i < num_points; i++)
@@ -488,34 +496,6 @@ draw_polygon(DiaRenderer *self,
 		      dia_svg_dtostr(py_buf, points[i].y) );
   xmlSetProp(node, (const xmlChar *)"points", (xmlChar *) str->str);
   g_string_free(str, TRUE);
-}
-
-static void
-fill_polygon(DiaRenderer *self, 
-	      Point *points, int num_points, 
-	      Color *colour)
-{
-  DiaSvgRenderer *renderer = DIA_SVG_RENDERER (self);
-  int i;
-  xmlNodePtr node;
-  GString *str;
-  gchar px_buf[DTOSTR_BUF_SIZE];
-  gchar py_buf[DTOSTR_BUF_SIZE];
-
-  node = xmlNewChild(renderer->root, renderer->svg_name_space, (const xmlChar *)"polygon", NULL);
-  
-  xmlSetProp(node, (const xmlChar *)"style", (xmlChar *) get_fill_style(renderer, colour));
-  xmlSetProp(node, (const xmlChar *)"fill-rule", (const xmlChar *) "evenodd");
-
-  str = g_string_new(NULL);
-  for (i = 0; i < num_points; i++)
-    g_string_append_printf(str, "%s,%s ",
-		      dia_svg_dtostr(px_buf, points[i].x),
-		      dia_svg_dtostr(py_buf, points[i].y) );
-  xmlSetProp(node, (const xmlChar *)"points", (xmlChar *)str->str);
-  g_string_free(str, TRUE);
-  /* change this if our rendering model allows more */
-  xmlSetProp(node, (const xmlChar *)"fill-rule", (const xmlChar *) "evenodd");
 }
 
 static void
@@ -1000,7 +980,6 @@ dia_svg_renderer_class_init (DiaSvgRendererClass *klass)
   renderer_class->set_pattern    = set_pattern;
 
   renderer_class->draw_line    = draw_line;
-  renderer_class->fill_polygon = fill_polygon;
   renderer_class->draw_rect    = draw_rect;
   renderer_class->fill_rect    = fill_rect;
   renderer_class->draw_arc     = draw_arc;

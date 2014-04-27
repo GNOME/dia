@@ -137,10 +137,10 @@ struct _DiaRendererClass
   void (*fill_rect) (DiaRenderer *renderer,
                      Point *ul_corner, Point *lr_corner,
                      Color *color);
-  /*! the polygon is filled using the current fill type, no border is drawn */
-  void (*fill_polygon) (DiaRenderer *renderer,
+  /*! the polygon is filled using the current fill type and stroked with the current line style */
+  void (*draw_polygon) (DiaRenderer *renderer,
                         Point *points, int num_points,
-                        Color *color);
+                        Color *fill, Color *stroke);
   /*! Draw an arc, given its center, the bounding box (widget, height),
      the start angle and the end angle */
   void (*draw_arc) (DiaRenderer *renderer,
@@ -197,12 +197,6 @@ struct _DiaRendererClass
   void (*draw_polyline) (DiaRenderer *renderer,
                          Point *points, int num_points,
                          Color *color);
-  /*! Draw a polygon, using the current line style
-     The polygon is closed even if the first point is not the same as the
-     last point */
-  void (*draw_polygon) (DiaRenderer *renderer,
-                        Point *points, int num_points,
-                        Color *color);
   /*! Print a Text.  It holds its own information. */
   void (*draw_text) (DiaRenderer *renderer,
                      Text *text);

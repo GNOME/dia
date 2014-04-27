@@ -167,10 +167,7 @@ static void draw_polyline(DiaRenderer *self,
 			  Color *line_color);
 static void draw_polygon(DiaRenderer *self, 
 			 Point *points, int num_points, 
-			 Color *line_color);
-static void fill_polygon(DiaRenderer *self, 
-			 Point *points, int num_points, 
-			 Color *line_color);
+			 Color *fill, Color *stroke);
 static void draw_rect(DiaRenderer *self, 
 		      Point *ul_corner, Point *lr_corner,
 		      Color *color);
@@ -281,7 +278,6 @@ metapost_renderer_class_init (MetapostRendererClass *klass)
   renderer_class->draw_polyline = draw_polyline;
   
   renderer_class->draw_polygon = draw_polygon;
-  renderer_class->fill_polygon = fill_polygon;
 
   renderer_class->draw_rect = draw_rect;
   renderer_class->fill_rect = fill_rect;
@@ -609,9 +605,9 @@ draw_polyline(DiaRenderer *self,
 }
 
 static void
-draw_polygon(DiaRenderer *self, 
-	     Point *points, int num_points, 
-	     Color *line_color)
+stroke_polygon(DiaRenderer *self, 
+	       Point *points, int num_points, 
+	       Color *line_color)
 {
     MetapostRenderer *renderer = METAPOST_RENDERER (self);
     int i;
@@ -661,6 +657,17 @@ fill_polygon(DiaRenderer *self,
     fprintf(renderer->file,"--cycle;\n");
     fprintf(renderer->file,"  fill p ");
     end_draw_op(renderer);
+}
+static void
+draw_polygon(DiaRenderer *self, 
+	     Point *points, int num_points, 
+	     Color *fill, Color *stroke)
+{
+  /* XXX: simple port, not optimized */
+  if (fill)
+    fill_polygon (self, points, num_points, fill);
+  if (stroke)
+    stroke_polygon (self, points, num_points, stroke);
 }
 
 static void
@@ -927,6 +934,12 @@ draw_beziergon (DiaRenderer *self,
 
     if (points[0].type != BEZ_MOVE_TO)
 	g_warning("first BezPoint must be a BEZ_MOVE_TO");
+
+    if (!fill) {
+      /* XXX: this is not closed */
+      draw_bezier (self, points, numpoints, stroke);
+      return;
+    }
 
     fprintf(renderer->file, "  path p;\n");
     fprintf(renderer->file, "  p = (%sx,%sy)",

@@ -114,10 +114,7 @@ static void draw_polyline(DiaRenderer *self,
 			  Color *color);
 static void draw_polygon(DiaRenderer *self, 
 			 Point *points, int num_points, 
-			 Color *color);
-static void fill_polygon(DiaRenderer *self, 
-			 Point *points, int num_points, 
-			 Color *color);
+			 Color *fill, Color *stroke);
 static void draw_rect(DiaRenderer *self, 
 		      Point *ul_corner, Point *lr_corner,
 		      Color *color);
@@ -234,7 +231,6 @@ vdx_renderer_class_init (VDXRendererClass *klass)
   renderer_class->draw_polyline = draw_polyline;
   
   renderer_class->draw_polygon = draw_polygon;
-  renderer_class->fill_polygon = fill_polygon;
 
   renderer_class->draw_rect = draw_rect;
   renderer_class->fill_rect = fill_rect;
@@ -751,10 +747,10 @@ static void draw_polyline(DiaRenderer *self, Point *points, int num_points,
  * @param num_points number of points
  * @param color line colour
  */
-
-static void draw_polygon(DiaRenderer *self, 
-			 Point *points, int num_points, 
-			 Color *color)
+static void
+stroke_polygon (DiaRenderer *self, 
+		Point *points, int num_points, 
+		Color *color)
 {
     Point *more_points = g_new0(Point, num_points+1);
     memcpy(more_points, points, num_points*sizeof(Point));
@@ -770,10 +766,10 @@ static void draw_polygon(DiaRenderer *self,
  * @param num_points number of points
  * @param color line colour
  */
-
-static void fill_polygon(DiaRenderer *self, 
-			 Point *points, int num_points, 
-			 Color *color)
+static void
+fill_polygon (DiaRenderer *self, 
+	      Point *points, int num_points, 
+	      Color *color)
 {
     VDXRenderer *renderer = VDX_RENDERER(self);
     Point a, b;
@@ -878,16 +874,30 @@ static void fill_polygon(DiaRenderer *self,
     g_free(LineTo);
 }
 
+static void
+draw_polygon(DiaRenderer *self, 
+	     Point *points, int num_points, 
+	     Color *fill, Color *stroke)
+{
+  /* XXX: simple port, not optimized
+      also draw_polygon is just calling draw_polyline with an extra point
+   */
+  if (fill)
+    fill_polygon (self, points, num_points, fill);
+  if (stroke)
+    stroke_polygon (self, points, num_points, stroke);
+}
+
 /** Render a Dia rectangle
  * @param self a renderer
  * @param ul_corner Upper-left corner
  * @param lr_corner Loower-right corner
  * @param color line colour
  */
-
-static void draw_rect(DiaRenderer *self, 
-		      Point *ul_corner, Point *lr_corner,
-		      Color *color)
+static void
+draw_rect (DiaRenderer *self, 
+	   Point *ul_corner, Point *lr_corner,
+	   Color *color)
 {
     Point points[5];            /* 5 so we close path */
 
@@ -899,7 +909,7 @@ static void draw_rect(DiaRenderer *self,
     points[3] = *ul_corner;
     points[4] = points[0];
     
-    draw_polygon(self, points, 5, color);
+    draw_polygon(self, points, 5, NULL, color);
 }
 
 /** Render a Dia filled rectangle

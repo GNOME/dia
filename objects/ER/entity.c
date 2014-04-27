@@ -284,15 +284,13 @@ entity_draw(Entity *entity, DiaRenderer *renderer)
     corners[3].y = elem->corner.y + elem->height;
     renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
 
-    renderer_ops->fill_polygon(renderer, corners, 4, 
-			       &entity->inner_color);
-
     renderer_ops->set_linewidth(renderer, entity->border_width);
     renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
     renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
 
-    renderer_ops->draw_polygon(renderer, corners, 4, 
-			       &entity->border_color);
+    renderer_ops->draw_polygon (renderer, corners, 4,
+				&entity->inner_color,
+				&entity->border_color);
   }
 
   p.x = elem->corner.x + elem->width / 2.0;

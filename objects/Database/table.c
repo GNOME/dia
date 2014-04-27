@@ -661,7 +661,7 @@ fill_diamond (DiaRenderer *renderer, real half_height, real width,
   DIA_RENDERER_GET_CLASS (renderer)->set_fillstyle (renderer, FILLSTYLE_SOLID);
   DIA_RENDERER_GET_CLASS (renderer)->set_linejoin (renderer, LINEJOIN_MITER);
 
-  DIA_RENDERER_GET_CLASS (renderer)->fill_polygon (renderer, poly, 4, color);
+  DIA_RENDERER_GET_CLASS (renderer)->draw_polygon (renderer, poly, 4, color, NULL);
 }
 
 static real

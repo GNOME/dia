@@ -316,9 +316,8 @@ other_draw(Other *other, DiaRenderer *renderer)
     case TASK:
       compute_task(other,pl);
       renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
-      renderer_ops->fill_polygon(renderer, pl, 6, &OTHER_BG_COLOR);
       renderer_ops->set_linewidth(renderer, OTHER_LINE_WIDTH);
-      renderer_ops->draw_polygon(renderer, pl, 6, &OTHER_FG_COLOR);
+      renderer_ops->draw_polygon(renderer, pl, 6, &OTHER_BG_COLOR, &OTHER_FG_COLOR);
       break;
   }
 

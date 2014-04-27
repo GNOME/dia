@@ -111,7 +111,7 @@ static void draw_polyline(DiaRenderer *self,
 			  Color *line_colour);
 static void draw_polygon(DiaRenderer *self, 
 			 Point *points, int num_points, 
-			 Color *line_colour);
+			 Color *fill, Color *stroke);
 static void draw_rect(DiaRenderer *self, 
 		      Point *ul_corner, Point *lr_corner,
 		      Color *colour);
@@ -405,7 +405,7 @@ draw_polyline(DiaRenderer *self,
 static void
 draw_polygon(DiaRenderer *self, 
 	      Point *points, int num_points, 
-	      Color *line_colour)
+	      Color *fill, Color *stroke)
 {
   DiaSvgRenderer *renderer = DIA_SVG_RENDERER (self);
   int i;
@@ -414,11 +414,15 @@ draw_polygon(DiaRenderer *self,
   Point center;
   gchar px_buf[G_ASCII_DTOSTR_BUF_SIZE];
   gchar py_buf[G_ASCII_DTOSTR_BUF_SIZE];
+  gchar *style;
 
   node = xmlNewChild(renderer->root, renderer->svg_name_space, (const xmlChar *)"polygon", NULL);
-  
-  xmlSetProp(node, (const xmlChar *)"style", 
-             (xmlChar *) DIA_SVG_RENDERER_GET_CLASS(renderer)->get_draw_style(renderer, line_colour));
+
+  style = g_strdup_printf ("%s;%s",
+			   fill ? DIA_SVG_RENDERER_GET_CLASS(renderer)->get_fill_style(renderer, fill) : "fill:none",
+			   stroke ? DIA_SVG_RENDERER_GET_CLASS(renderer)->get_draw_style(renderer, stroke) : "stroke:none");
+  xmlSetProp(node, (const xmlChar *)"style", (xmlChar *) style);
+  g_free (style);
 
   str = g_string_new(NULL);
   for (i = 0; i < num_points; i++) {

@@ -353,21 +353,17 @@ pgram_draw(Pgram *pgram, DiaRenderer *renderer)
     pts[3].x -= offs;
   }
 
-  if (pgram->show_background) {
+  if (pgram->show_background)
     renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
-  
-    renderer_ops->fill_polygon(renderer, 
-				pts, 4,
-				&pgram->inner_color);
-  }
 
   renderer_ops->set_linewidth(renderer, pgram->border_width);
   renderer_ops->set_linestyle(renderer, pgram->line_style);
   renderer_ops->set_dashlength(renderer, pgram->dashlength);
   renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
 
-  renderer_ops->draw_polygon(renderer, 
+  renderer_ops->draw_polygon (renderer, 
 			      pts, 4,
+			      (pgram->show_background) ? &pgram->inner_color : NULL,
 			      &pgram->border_color);
 
   text_draw(pgram->text, renderer);

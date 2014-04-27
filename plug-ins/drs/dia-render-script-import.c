@@ -294,10 +294,8 @@ _render_object (xmlNodePtr render, DiaContext *ctx)
       } else if (   xmlStrcmp (node->name, (const xmlChar *)"polygon") == 0) {
 	GArray *path = _parse_points (node, "points");
 	if (path) {
-	  if (fill)
-	    ops->fill_polygon (ir, &g_array_index(path,Point,0), path->len, fill);
-	  if (stroke)
-	    ops->draw_polygon (ir, &g_array_index(path,Point,0), path->len, stroke);
+	  if (fill || stroke)
+	    ops->draw_polygon (ir, &g_array_index(path,Point,0), path->len, fill, stroke);
 	  g_array_free (path, TRUE);
 	}
       } else if (xmlStrcmp (node->name, (const xmlChar *)"arc") == 0) {
