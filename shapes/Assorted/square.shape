@@ -22,9 +22,9 @@
     <point x="5.25" y="2.45"/>
     <point x="5.25" y="3.225" main="yes"/>
   </connections>
+  <can-parent/>
   <aspectratio type="fixed"/><!-- NB: Aspectration must be fixed, do not change it  -->
   <svg:svg>
-    <svg:rect style="fill: default" x="4.5" y="2.45" width="1.5" height="1.55"/>
-    <svg:rect style="stroke: foreground" x="4.5" y="2.45" width="1.5" height="1.55"/>
+    <svg:rect style="fill: default; stroke: foreground" x="4.5" y="2.45" width="1.5" height="1.55"/>
   </svg:svg>
 </shape>

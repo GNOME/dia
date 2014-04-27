@@ -30,7 +30,6 @@
   </connections>
   <aspectratio type="free"/>
   <svg:svg>
-    <svg:polygon style="fill: default" points="0,0 2,0 3,1 2,2 0,2 1,1 "/>
-    <svg:polygon style="stroke: foreground" points="0,0 2,0 3,1 2,2 0,2 1,1 "/>
+    <svg:polygon style="fill: default; stroke: foreground" points="0,0 2,0 3,1 2,2 0,2 1,1 "/>
   </svg:svg>
 </shape>

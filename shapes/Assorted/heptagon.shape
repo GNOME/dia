@@ -34,7 +34,6 @@
   </connections>
   <aspectratio type="fixed"/>
   <svg:svg>
-    <svg:polygon style="fill: background" points="0,6 0.5,2 5,0 9.5,2 10,6 7.5,9.5 2.5,9.5 "/>
-    <svg:polygon style="stroke-width: 0.1; stroke: foreground" points="0,6 0.5,2 5,0 9.5,2 10,6 7.5,9.5 2.5,9.5 "/>
+    <svg:polygon style="fill: background; stroke-width: 0.1; stroke: foreground" points="0,6 0.5,2 5,0 9.5,2 10,6 7.5,9.5 2.5,9.5 "/>
   </svg:svg>
 </shape>

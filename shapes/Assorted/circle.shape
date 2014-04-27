@@ -16,7 +16,6 @@
   </connections>
   <aspectratio type="fixed"/>
   <svg:svg>
-    <svg:ellipse style="fill: default" cx="1.5" cy="2" rx="1" ry="1"/>
-    <svg:ellipse style="stroke: foreground" cx="1.5" cy="2" rx="1" ry="1"/>
+    <svg:ellipse style="fill: default; stroke: foreground" cx="1.5" cy="2" rx="1" ry="1"/>
   </svg:svg>
 </shape>

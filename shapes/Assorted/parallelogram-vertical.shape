@@ -22,7 +22,6 @@
   </connections>
   <aspectratio type="free"/>
   <svg:svg>
-    <svg:polygon style="fill: default" points="0,1 1,0 1,1 0,2 "/>
-    <svg:polygon style="stroke: foreground" points="0,1 1,0 1,1 0,2 "/>
+    <svg:polygon style="fill: default; stroke: foreground" points="0,1 1,0 1,1 0,2 "/>
   </svg:svg>
 </shape>
