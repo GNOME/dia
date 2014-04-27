@@ -555,131 +555,6 @@ draw_polygon(DiaRenderer *self,
 }
 
 static void
-draw_rect(DiaRenderer *self, 
-	  Point *ul_corner, Point *lr_corner,
-	  Color *color)
-{
-  DiaLibartRenderer *renderer = DIA_LIBART_RENDERER (self);
-  ArtVpath *vpath, *vpath_dashed;
-  ArtSVP *svp;
-  guint32 rgba;
-  double top, bottom, left, right;
-    
-  dia_transform_coords_double(renderer->transform,
-                              ul_corner->x, ul_corner->y, &left, &top);
-  dia_transform_coords_double(renderer->transform,
-                              lr_corner->x, lr_corner->y, &right, &bottom);
-  
-  if ((left>right) || (top>bottom))
-    return;
-
-  rgba = color_to_rgba(renderer, color);
-  
-  vpath = art_new (ArtVpath, 6);
-
-  vpath[0].code = ART_MOVETO;
-  vpath[0].x = left;
-  vpath[0].y = top;
-  vpath[1].code = ART_LINETO;
-  vpath[1].x = right;
-  vpath[1].y = top;
-  vpath[2].code = ART_LINETO;
-  vpath[2].x = right;
-  vpath[2].y = bottom;
-  vpath[3].code = ART_LINETO;
-  vpath[3].x = left;
-  vpath[3].y = bottom;
-  vpath[4].code = ART_LINETO;
-  vpath[4].x = left;
-  vpath[4].y = top;
-  vpath[5].code = ART_END;
-  vpath[5].x = 0;
-  vpath[5].y = 0;
-  
-  if (renderer->dash_enabled) {
-    vpath_dashed = art_vpath_dash(vpath, &renderer->dash);
-    art_free( vpath );
-    vpath = vpath_dashed;
-  }
-
-  svp = art_svp_vpath_stroke (vpath,
-			      renderer->join_style,
-			      renderer->cap_style,
-			      renderer->line_width,
-			      4,
-			      0.25);
-  
-  art_free( vpath );
-  
-  art_rgb_svp_alpha (svp,
-		     0, 0, 
-		     renderer->pixel_width,
-		     renderer->pixel_height,
-		     rgba,
-		     renderer->rgb_buffer, renderer->pixel_width*3,
-		     NULL);
-
-  art_svp_free( svp );
-}
-
-static void
-fill_rect(DiaRenderer *self, 
-	  Point *ul_corner, Point *lr_corner,
-	  Color *color)
-{
-  DiaLibartRenderer *renderer = DIA_LIBART_RENDERER (self);
-  ArtVpath *vpath;
-  ArtSVP *svp;
-  guint32 rgba;
-  double top, bottom, left, right;
-    
-  dia_transform_coords_double(renderer->transform,
-                              ul_corner->x, ul_corner->y, &left, &top);
-  dia_transform_coords_double(renderer->transform,
-                              lr_corner->x, lr_corner->y, &right, &bottom);
-  
-  if ((left>right) || (top>bottom))
-    return;
-
-  rgba = color_to_rgba(renderer, color);
-  
-  vpath = art_new (ArtVpath, 6);
-
-  vpath[0].code = ART_MOVETO;
-  vpath[0].x = left;
-  vpath[0].y = top;
-  vpath[1].code = ART_LINETO;
-  vpath[1].x = right;
-  vpath[1].y = top;
-  vpath[2].code = ART_LINETO;
-  vpath[2].x = right;
-  vpath[2].y = bottom;
-  vpath[3].code = ART_LINETO;
-  vpath[3].x = left;
-  vpath[3].y = bottom;
-  vpath[4].code = ART_LINETO;
-  vpath[4].x = left;
-  vpath[4].y = top;
-  vpath[5].code = ART_END;
-  vpath[5].x = 0;
-  vpath[5].y = 0;
-  
-  svp = art_svp_from_vpath (vpath);
-  
-  art_free( vpath );
-  
-  art_rgb_svp_alpha (svp,
-		     0, 0, 
-		     renderer->pixel_width,
-		     renderer->pixel_height,
-		     rgba,
-		     renderer->rgb_buffer, renderer->pixel_width*3,
-		     NULL);
-
-  art_svp_free( svp );
-}
-
-static void
 draw_arc(DiaRenderer *self, 
 	 Point *center,
 	 real width, real height,
@@ -1323,7 +1198,7 @@ draw_image(DiaRenderer *self,
     lr = *point;
     lr.x += width;
     lr.y += height;
-    self_class->fill_rect(self, point, &lr, renderer->highlight_color);
+    self_class->draw_rect(self, point, &lr, renderer->highlight_color, NULL);
   } else {
     double real_width, real_height;
     double x,y;
@@ -1536,9 +1411,6 @@ dia_libart_renderer_class_init (DiaLibartRendererClass *klass)
   renderer_class->draw_polyline = draw_polyline;
   
   renderer_class->draw_polygon = draw_polygon;
-
-  renderer_class->draw_rect = draw_rect;
-  renderer_class->fill_rect = fill_rect;
 
   renderer_class->draw_arc = draw_arc;
   renderer_class->fill_arc = fill_arc;

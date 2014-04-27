@@ -345,9 +345,9 @@ draw_polygon(DiaRenderer *self,
   _remove_duplicated_path (renderer);
 }
 static void
-_rect (DiaRenderer *self, 
-       Point *ul_corner, Point *lr_corner,
-       const Color *stroke, const Color *fill)
+draw_rect (DiaRenderer *self, 
+	   Point *ul_corner, Point *lr_corner,
+	   Color *fill, Color *stroke)
 {
   DiaPathRenderer *renderer = DIA_PATH_RENDERER (self);
   GArray *path = _get_current_path (renderer, stroke, fill);
@@ -367,21 +367,6 @@ _rect (DiaRenderer *self,
     bp.p1.y = pt.y + (i > 0 && i < 3 ? height : 0);
     g_array_append_val (path, bp);
   }
-}
-static void
-draw_rect (DiaRenderer *self, 
-	   Point *ul_corner, Point *lr_corner,
-	   Color *color)
-{
-  _rect (self, ul_corner, lr_corner, color, NULL);
-  _remove_duplicated_path (DIA_PATH_RENDERER (self));
-}
-static void
-fill_rect (DiaRenderer *self, 
-	   Point *ul_corner, Point *lr_corner,
-	   Color *color)
-{
-  _rect (self, ul_corner, lr_corner, NULL, color);
 }
 
 /*!
@@ -719,7 +704,6 @@ dia_path_renderer_class_init (DiaPathRendererClass *klass)
   renderer_class->draw_line    = draw_line;
   renderer_class->draw_polygon = draw_polygon;
   renderer_class->draw_rect    = draw_rect;
-  renderer_class->fill_rect    = fill_rect;
   renderer_class->draw_arc     = draw_arc;
   renderer_class->fill_arc     = fill_arc;
   renderer_class->draw_ellipse = draw_ellipse;
@@ -729,7 +713,6 @@ dia_path_renderer_class_init (DiaPathRendererClass *klass)
   renderer_class->draw_image   = draw_image;
 
   /* medium level functions */
-  renderer_class->draw_rect = draw_rect;
   renderer_class->draw_polyline  = draw_polyline;
 
   renderer_class->draw_bezier    = draw_bezier;

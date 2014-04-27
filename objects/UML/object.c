@@ -303,11 +303,9 @@ objet_draw(Objet *ob, DiaRenderer *renderer)
   if (ob->is_multiple) {
     p1.x += OBJET_MARGIN_M(ob);
     p2.y -= OBJET_MARGIN_M(ob);
-    renderer_ops->fill_rect(renderer, 
-			     &p1, &p2,
-			     &ob->fill_color);
     renderer_ops->draw_rect(renderer, 
 			     &p1, &p2,
+			     &ob->fill_color,
 			     &ob->line_color);
     p1.x -= OBJET_MARGIN_M(ob);
     p1.y += OBJET_MARGIN_M(ob);
@@ -315,12 +313,10 @@ objet_draw(Objet *ob, DiaRenderer *renderer)
     p2.y += OBJET_MARGIN_M(ob);
     y += OBJET_MARGIN_M(ob);
   }
-    
-  renderer_ops->fill_rect(renderer, 
-			   &p1, &p2,
-			   &ob->fill_color);
+
   renderer_ops->draw_rect(renderer, 
 			   &p1, &p2,
+			   &ob->fill_color,
 			   &ob->line_color);
 
   

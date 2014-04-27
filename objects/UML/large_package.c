@@ -258,25 +258,17 @@ largepackage_draw(LargePackage *pkg, DiaRenderer *renderer)
 
   p1.x = x; p1.y = y;
   p2.x = x+w; p2.y = y+h;
-
-  renderer_ops->fill_rect(renderer, 
+  renderer_ops->draw_rect (renderer, 
 			   &p1, &p2,
-			   &pkg->fill_color);
-  renderer_ops->draw_rect(renderer, 
-			   &p1, &p2,
+			   &pkg->fill_color,
 			   &pkg->line_color);
 
   p1.x= x; p1.y = y - pkg->topheight;
   p2.x = x + pkg->topwidth; p2.y = y;
-
-  renderer_ops->fill_rect(renderer, 
+  renderer_ops->draw_rect (renderer, 
 			   &p1, &p2,
-			   &pkg->fill_color);
-  
-  renderer_ops->draw_rect(renderer, 
-			   &p1, &p2,
+			   &pkg->fill_color,
 			   &pkg->line_color);
-
 
   renderer_ops->set_font(renderer, pkg->font, pkg->font_height);
 

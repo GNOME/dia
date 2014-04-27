@@ -439,7 +439,7 @@ mbr_draw(Mbr *mbr, DiaRenderer *renderer)
       pa1.y=mbr->pm.y-mbr->text_ascent +0.1;  /* with some fix... */
       pa2.x=pa1.x+mbr->text_width;
       pa2.y=pa1.y+MBR_DECFONTHEIGHT    +0.1;  /* with some fix... */
-      renderer_ops->fill_rect(renderer,&pa1,&pa2,&color_white);
+      renderer_ops->draw_rect(renderer,&pa1,&pa2,&color_white, NULL);
       renderer_ops->draw_string(renderer,annot,&mbr->pm,ALIGN_CENTER,&MBR_FG_COLOR);
   }
 

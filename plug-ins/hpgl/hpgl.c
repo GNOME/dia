@@ -365,9 +365,12 @@ draw_polygon(DiaRenderer *object,
 static void
 draw_rect(DiaRenderer *object, 
 	  Point *ul_corner, Point *lr_corner,
-	  Color *colour)
+	  Color *fill, Color *stroke)
 {
+    Color *colour = fill ? fill : stroke;
     HpglRenderer *renderer = HPGL_RENDERER (object);
+
+    g_return_if_fail (colour != NULL);
 
     DIAG_NOTE(g_message("draw_rect %f,%f -> %f,%f", 
               ul_corner->x, ul_corner->y, lr_corner->x, lr_corner->y));
@@ -377,28 +380,6 @@ draw_rect(DiaRenderer *object,
              hpgl_scale(renderer, -ul_corner->y),
              hpgl_scale(renderer, lr_corner->x),
              hpgl_scale(renderer, -lr_corner->y));
-}
-
-static void
-fill_rect(DiaRenderer *object, 
-	  Point *ul_corner, Point *lr_corner,
-	  Color *colour)
-{
-    DIAG_NOTE(g_message("fill_rect %f,%f -> %f,%f", 
-              ul_corner->x, ul_corner->y, lr_corner->x, lr_corner->y));
-#if 0
-    HpglRenderer *renderer = HPGL_RENDERER (object);
-
-    hpgl_select_pen(renderer, colour, 0.0);
-    fprintf (renderer->file, "PU%d,%d;PD;RA%d,%d;\n",
-             hpgl_scale(renderer, ul_corner->x),
-             hpgl_scale(renderer, -ul_corner->y),
-             hpgl_scale(renderer, lr_corner->x),
-             hpgl_scale(renderer, -lr_corner->y));
-#else
-    /* the fill modes aren't really compatible ... */
-   draw_rect(object, ul_corner, lr_corner, colour);
-#endif
 }
 
 static void
@@ -669,8 +650,6 @@ hpgl_renderer_class_init (HpglRendererClass *klass)
 
   renderer_class->draw_line    = draw_line;
   renderer_class->draw_polygon = draw_polygon;
-  renderer_class->draw_rect    = draw_rect;
-  renderer_class->fill_rect    = fill_rect;
   renderer_class->draw_arc     = draw_arc;
   renderer_class->fill_arc     = fill_arc;
   renderer_class->draw_ellipse = draw_ellipse;

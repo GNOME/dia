@@ -82,12 +82,6 @@ static void draw_polyline(DiaRenderer *self,
 static void draw_polygon(DiaRenderer *self, 
 			 Point *points, int num_points, 
 			 Color *fill, Color *stroke);
-static void draw_rect(DiaRenderer *self, 
-		      Point *ul_corner, Point *lr_corner,
-		      Color *color);
-static void fill_rect(DiaRenderer *self, 
-		      Point *ul_corner, Point *lr_corner,
-		      Color *color);
 static void draw_arc(DiaRenderer *self, 
 		     Point *center,
 		     real width, real height,
@@ -187,9 +181,6 @@ pstricks_renderer_class_init (PstricksRendererClass *klass)
   renderer_class->draw_polyline = draw_polyline;
   
   renderer_class->draw_polygon = draw_polygon;
-
-  renderer_class->draw_rect = draw_rect;
-  renderer_class->fill_rect = fill_rect;
 
   renderer_class->draw_arc = draw_arc;
   renderer_class->fill_arc = fill_arc;
@@ -475,51 +466,6 @@ draw_polygon (DiaRenderer *self,
 	pstricks_polygon(renderer,points,num_points,fill,TRUE);
     if (stroke)
 	pstricks_polygon(renderer,points,num_points,stroke,FALSE);
-}
-
-static void
-pstricks_rect(PstricksRenderer *renderer,
-	      Point *ul_corner, Point *lr_corner,
-	      Color *color, gboolean filled)
-{
-    gchar ulx_buf[DTOSTR_BUF_SIZE];
-    gchar uly_buf[DTOSTR_BUF_SIZE];
-    gchar lrx_buf[DTOSTR_BUF_SIZE];
-    gchar lry_buf[DTOSTR_BUF_SIZE];
-
-    set_line_color(renderer,color);
-
-    pstricks_dtostr(ulx_buf, (gdouble) ul_corner->x);
-    pstricks_dtostr(uly_buf, (gdouble) ul_corner->y);
-    pstricks_dtostr(lrx_buf, (gdouble) lr_corner->x);
-    pstricks_dtostr(lry_buf, (gdouble) lr_corner->y);
-    
-    fprintf(renderer->file, "\\pspolygon%s(%s,%s)(%s,%s)(%s,%s)(%s,%s)\n",
-	    (filled?"*":""),
-	    ulx_buf, uly_buf,
-	    ulx_buf, lry_buf,
-	    lrx_buf, lry_buf,
-	    lrx_buf, uly_buf );
-}
-
-static void
-draw_rect(DiaRenderer *self, 
-	  Point *ul_corner, Point *lr_corner,
-	  Color *color)
-{
-    PstricksRenderer *renderer = PSTRICKS_RENDERER(self);
-
-    pstricks_rect(renderer,ul_corner,lr_corner,color,FALSE);
-}
-
-static void
-fill_rect(DiaRenderer *self, 
-	  Point *ul_corner, Point *lr_corner,
-	  Color *color)
-{
-    PstricksRenderer *renderer = PSTRICKS_RENDERER(self);
-
-    pstricks_rect(renderer,ul_corner,lr_corner,color,TRUE);
 }
 
 static void

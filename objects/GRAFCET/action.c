@@ -358,7 +358,7 @@ action_draw(Action *action, DiaRenderer *renderer)
   br.x = ul.x + action->label_width;
   br.y = ul.y + ACTION_HEIGHT;
 
-  renderer_ops->fill_rect(renderer,&ul,&br,&color_white);
+  renderer_ops->draw_rect(renderer,&ul,&br,&color_white, NULL);
 
   action_text_draw(action->text,renderer);
 
@@ -379,7 +379,7 @@ action_draw(Action *action, DiaRenderer *renderer)
   }
 
   cl.red = 1.0; cl.blue = cl.green = .2; cl.alpha = 1.0;
-  renderer_ops->draw_rect(renderer,&ul,&br,&color_black);
+  renderer_ops->draw_rect(renderer,&ul,&br,NULL,&color_black);
 }
 
 static DiaObject *

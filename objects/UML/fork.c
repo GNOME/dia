@@ -223,9 +223,9 @@ fork_draw(Fork *branch, DiaRenderer *renderer)
   p2.x = elem->corner.x + w;
   p2.y = elem->corner.y + h;
    
-  renderer_ops->fill_rect(renderer, 
+  renderer_ops->draw_rect(renderer, 
 			   &p1, &p2,
-			   &branch->fill_color);
+			   &branch->fill_color, NULL);
 }
 
 static void

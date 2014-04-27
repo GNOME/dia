@@ -248,11 +248,6 @@ entity_draw(Entity *entity, DiaRenderer *renderer)
   
   renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
   
-  renderer_ops->fill_rect(renderer, 
-			   &ul_corner,
-			   &lr_corner, 
-			   &entity->inner_color);
-
   renderer_ops->set_linewidth(renderer, entity->border_width);
   renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
   renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
@@ -260,6 +255,7 @@ entity_draw(Entity *entity, DiaRenderer *renderer)
   renderer_ops->draw_rect(renderer, 
 			   &ul_corner,
 			   &lr_corner, 
+			   &entity->inner_color,
 			   &entity->border_color);
 
   if(entity->weak) {
@@ -270,6 +266,7 @@ entity_draw(Entity *entity, DiaRenderer *renderer)
     lr_corner.y -= diff;
     renderer_ops->draw_rect(renderer, 
 			     &ul_corner, &lr_corner,
+			     NULL,
 			     &entity->border_color);
   }
   if(entity->associative){

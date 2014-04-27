@@ -350,12 +350,11 @@ step_draw(Step *step, DiaRenderer *renderer)
   if ((step->type == STEP_INITIAL) ||
       (step->type == STEP_MACROCALL) ||
       (step->type == STEP_SUBPCALL)) {
-    renderer_ops->fill_rect(renderer, &step->I, &step->J, &color_white);
-    renderer_ops->draw_rect(renderer, &step->I, &step->J, &color_black);
+    renderer_ops->draw_rect(renderer, &step->I, &step->J, &color_white, &color_black);
+    renderer_ops->draw_rect(renderer, &step->E, &step->F, NULL, &color_black);
   } else {
-    renderer_ops->fill_rect(renderer, &step->E, &step->F, &color_white);
+    renderer_ops->draw_rect(renderer, &step->E, &step->F, &color_white, &color_black);
   }
-  renderer_ops->draw_rect(renderer, &step->E, &step->F, &color_black);
   
   if (step->type != STEP_MACROENTRY)
     renderer_ops->draw_line(renderer,&step->A,&step->B,&color_black);

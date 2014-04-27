@@ -52,8 +52,7 @@ aadldata_draw_borders(Aadlbox *aadlbox, DiaRenderer *renderer)
   points[0].x = x;     points[0].y = y;
   points[1].x = x + w; points[1].y = y + h;
 
-  renderer_ops->fill_rect(renderer, points, points + 1, &aadlbox->fill_color);
-  renderer_ops->draw_rect(renderer, points, points + 1, &aadlbox->line_color);
+  renderer_ops->draw_rect(renderer, points, points + 1, &aadlbox->fill_color, &aadlbox->line_color);
 }
 
 static void 

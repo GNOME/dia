@@ -672,17 +672,12 @@ _rect(DiaRenderer *self,
 static void
 draw_rect(DiaRenderer *self, 
           Point *ul_corner, Point *lr_corner,
-          Color *color)
+          Color *fill, Color *stroke)
 {
-  _rect (self, ul_corner, lr_corner, color, FALSE);
-}
-
-static void
-fill_rect(DiaRenderer *self, 
-          Point *ul_corner, Point *lr_corner,
-          Color *color)
-{
-  _rect (self, ul_corner, lr_corner, color, TRUE);
+  if (fill)
+    _rect (self, ul_corner, lr_corner, fill, TRUE);
+  if (stroke)
+    _rect (self, ul_corner, lr_corner, stroke, FALSE);
 }
 
 static void
@@ -1245,8 +1240,7 @@ cairo_renderer_class_init (DiaCairoRendererClass *klass)
   renderer_class->set_font  = set_font;
 
   renderer_class->draw_line    = draw_line;
-  renderer_class->draw_rect    = draw_rect;
-  renderer_class->fill_rect    = fill_rect;
+  renderer_class->draw_polygon = draw_polygon;
   renderer_class->draw_arc     = draw_arc;
   renderer_class->fill_arc     = fill_arc;
   renderer_class->draw_ellipse = draw_ellipse;
@@ -1258,7 +1252,6 @@ cairo_renderer_class_init (DiaCairoRendererClass *klass)
   /* medium level functions */
   renderer_class->draw_rect = draw_rect;
   renderer_class->draw_polyline  = draw_polyline;
-  renderer_class->draw_polygon   = draw_polygon;
 
   renderer_class->draw_bezier   = draw_bezier;
   renderer_class->draw_beziergon = draw_beziergon;

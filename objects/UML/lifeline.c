@@ -400,13 +400,10 @@ lifeline_draw(Lifeline *lifeline, DiaRenderer *renderer)
   p2.x = endpoints[0].x + LIFELINE_WIDTH/2.0;
   p2.y = endpoints[0].y + lifeline->rbot;
 
-  if (lifeline->draw_focuscontrol) {  
-      renderer_ops->fill_rect(renderer, 
-			       &p1, &p2,
-			       &lifeline->fill_color);
-  
+  if (lifeline->draw_focuscontrol) {
       renderer_ops->draw_rect(renderer, 
 			       &p1, &p2,
+			       &lifeline->fill_color,
 			       &lifeline->line_color);
   }
     

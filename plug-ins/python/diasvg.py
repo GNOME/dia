@@ -115,18 +115,14 @@ class SvgRenderer :
 		for pt in points :
 			self.f.write ('%.3f,%.3f ' % (pt.x, pt.y))
 		self.f.write('"/>\n')
-	def draw_rect (self, rect, color) :
-		self.f.write('<rect x="%.3f" y="%.3f" width="%.3f" height="%.3f" fill="none" stroke="%s" stroke-width="%.3f" %s/>\n' \
+	def draw_rect (self, rect, fill, stroke) :
+		self.f.write('<rect x="%.3f" y="%.3f" width="%.3f" height="%.3f" fill="%s" stroke="%s" stroke-width="%.3f" %s/>\n' \
 					% (	rect.left, rect.top, rect.right - rect.left, rect.bottom - rect.top,
-				  		self._rgb(color), self.line_width, self._stroke_style()))
+				  		self._rgb(fill), self._rgb(stroke), self.line_width, self._stroke_style()))
 	def draw_rounded_rect (self, rect, color, rounding) :
 		self.f.write('<rect x="%.3f" y="%.3f" width="%.3f" height="%.3f" fill="none" stroke="%s" stroke-width="%.3f" %s rx="%.3f" />\n' \
 					% (	rect.left, rect.top, rect.right - rect.left, rect.bottom - rect.top,
 				  		self._rgb(color), self.line_width, self._stroke_style(), rounding))
-	def fill_rect (self, rect, color) :
-		self.f.write('<rect x="%.3f" y="%.3f" width="%.3f" height="%.3f" fill="%s" stroke="none" stroke-width="0"/>\n' \
-					% (	rect.left, rect.top, rect.right - rect.left, rect.bottom - rect.top,
-				  		self._rgb(color)))
 	def fill_rounded_rect (self, rect, color, rounding) :
 		self.f.write('<rect x="%.3f" y="%.3f" width="%.3f" height="%.3f" fill="%s" stroke="none" rx="%.3f" />\n' \
 					% (	rect.left, rect.top, rect.right - rect.left, rect.bottom - rect.top,

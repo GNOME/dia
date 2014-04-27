@@ -67,9 +67,9 @@ static void set_font (DiaRenderer *renderer, DiaFont *font, real height);
 static void draw_line (DiaRenderer *renderer,
                        Point *start, Point *end,
                        Color *color);
-static void fill_rect (DiaRenderer *renderer,
+static void draw_rect (DiaRenderer *renderer,
                        Point *ul_corner, Point *lr_corner,
-                       Color *color);
+                       Color *fill, Color *stroke);
 static void draw_arc (DiaRenderer *renderer,
                       Point *center,
                       real width, real height,
@@ -111,9 +111,6 @@ static void draw_text  (DiaRenderer *renderer,
 static void draw_text_line  (DiaRenderer *renderer,
 			     TextLine *text_line, Point *pos, Alignment alignment, Color *color);
 
-static void draw_rect (DiaRenderer *renderer,
-                       Point *ul_corner, Point *lr_corner,
-                       Color *color);
 static void draw_polyline (DiaRenderer *renderer,
                            Point *points, int num_points,
                            Color *color);
@@ -321,7 +318,7 @@ dia_renderer_class_init (DiaRendererClass *klass)
   renderer_class->set_font       = set_font;
 
   renderer_class->draw_line    = draw_line;
-  renderer_class->fill_rect    = fill_rect;
+  renderer_class->draw_rect    = draw_rect;
   renderer_class->draw_polygon = draw_polygon;
   renderer_class->draw_arc     = draw_arc;
   renderer_class->fill_arc     = fill_arc;
@@ -333,7 +330,6 @@ dia_renderer_class_init (DiaRendererClass *klass)
   /* medium level functions */
   renderer_class->draw_bezier  = draw_bezier;
   renderer_class->draw_beziergon = draw_beziergon;
-  renderer_class->draw_rect = draw_rect;
   renderer_class->draw_rounded_polyline  = draw_rounded_polyline;
   renderer_class->draw_polyline  = draw_polyline;
   renderer_class->draw_text      = draw_text;
@@ -437,13 +433,36 @@ draw_arc (DiaRenderer *renderer, Point *center,
              G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (renderer)));
 }
 
+/*!
+ * \brief Stroke and/or fill a rectangle
+ *
+ * This only needs to be implemented in the derived class if it differs
+ * from draw_polygon. Given that draw_polygon is a required method we can
+ * use that instead of forcing every inherited class to implement
+ * draw_rect(), too.
+ *
+ * \memberof _DiaRenderer
+ */
 static void 
-fill_rect (DiaRenderer *renderer,
+draw_rect (DiaRenderer *renderer,
            Point *ul_corner, Point *lr_corner,
-           Color *color)
+           Color *fill, Color *stroke)
 {
-  g_warning ("%s::fill_rect not implemented!", 
-             G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (renderer)));
+  if (DIA_RENDERER_GET_CLASS(renderer)->draw_polygon == &draw_polygon) {
+    g_warning ("%s::draw_rect and draw_polygon not implemented!", 
+               G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (renderer)));
+  } else {
+    Point corner[4];
+    /* translate to polygon */
+    corner[0] = *ul_corner;
+    corner[1].x = lr_corner->x;
+    corner[1].y = ul_corner->y;
+    corner[2] = *lr_corner;
+    corner[3].x = ul_corner->x;
+    corner[3].y = lr_corner->y;
+    /* delegate transformation and drawing */
+    DIA_RENDERER_GET_CLASS(renderer)->draw_polygon (renderer, corner, 4, fill, stroke);
+  }
 }
 
 static void 
@@ -742,25 +761,6 @@ draw_beziergon (DiaRenderer *renderer,
 }
 
 static void 
-draw_rect (DiaRenderer *renderer,
-           Point *ul_corner, Point *lr_corner,
-           Color *color)
-{
-  DiaRendererClass *klass = DIA_RENDERER_GET_CLASS (renderer);
-  Point ur, ll;
-
-  ur.x = lr_corner->x;
-  ur.y = ul_corner->y;
-  ll.x = ul_corner->x;
-  ll.y = lr_corner->y;
-
-  klass->draw_line (renderer, ul_corner, &ur, color);
-  klass->draw_line (renderer, &ur, lr_corner, color);
-  klass->draw_line (renderer, lr_corner, &ll, color);
-  klass->draw_line (renderer, &ll, ul_corner, color);
-}
-
-static void 
 draw_polyline (DiaRenderer *renderer,
                Point *points, int num_points,
                Color *color)
@@ -925,7 +925,7 @@ draw_rounded_rect (DiaRenderer *renderer,
   radius = MIN(radius, (lr_corner->y-ul_corner->y)/2);
   
   if (radius < 0.00001) {
-    renderer_ops->draw_rect(renderer, ul_corner, lr_corner, color);
+    renderer_ops->draw_rect(renderer, ul_corner, lr_corner, NULL, color);
     return;
   }
 
@@ -981,7 +981,7 @@ fill_rounded_rect(DiaRenderer *renderer,
   radius = MIN(radius, (lr_corner->y-ul_corner->y)/2);
 
   if (radius < 0.00001) {
-    renderer_ops->fill_rect(renderer, ul_corner, lr_corner, color);
+    renderer_ops->draw_rect(renderer, ul_corner, lr_corner, color, NULL);
     return;
   }
   /* if the renderer has it's own draw_beziergon use that */
@@ -994,7 +994,7 @@ fill_rounded_rect(DiaRenderer *renderer,
   end.x = lr_corner->x-radius;
   start.y = ul_corner->y;
   end.y = lr_corner->y;
-  renderer_ops->fill_rect(renderer, &start, &end, color);
+  renderer_ops->draw_rect(renderer, &start, &end, color, NULL);
 
   center.y = ul_corner->y+radius;
   renderer_ops->fill_arc(renderer, &center, 
@@ -1010,7 +1010,7 @@ fill_rounded_rect(DiaRenderer *renderer,
   start.y = ul_corner->y+radius;
   end.x = lr_corner->x;
   end.y = center.y = lr_corner->y-radius;
-  renderer_ops->fill_rect(renderer, &start, &end, color);
+  renderer_ops->draw_rect(renderer, &start, &end, color, NULL);
 
   center.y = lr_corner->y-radius;
   center.x = ul_corner->x+radius;

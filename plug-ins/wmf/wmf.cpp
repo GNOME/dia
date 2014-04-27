@@ -706,7 +706,7 @@ draw_polygon(DiaRenderer *self,
 static void
 draw_rect(DiaRenderer *self, 
 	  Point *ul_corner, Point *lr_corner,
-	  Color *colour)
+	  Color *fill, Color *stroke)
 {
     WmfRenderer *renderer = WMF_RENDERER (self);
 
@@ -715,35 +715,27 @@ draw_rect(DiaRenderer *self,
     DIAG_NOTE(renderer, "draw_rect %f,%f -> %f,%f\n", 
               ul_corner->x, ul_corner->y, lr_corner->x, lr_corner->y);
 
-    hPen = UsePen(renderer, colour);
+    if (fill) {
+	W32::HGDIOBJ hBrush, hBrOld;
+	W32::COLORREF rgb = W32COLOR(fill);
+	hBrush = W32::CreateSolidBrush(rgb);
+	hBrOld = W32::SelectObject(renderer->hFileDC, hBrush);
+	W32::Rectangle (renderer->hFileDC,
+			SCX(ul_corner->x), SCY(ul_corner->y),
+			SCX(lr_corner->x), SCY(lr_corner->y));
+	W32::SelectObject (renderer->hFileDC, 
+			   W32::GetStockObject (HOLLOW_BRUSH) );
+	W32::DeleteObject(hBrush);
+    }
+    if (stroke) {
+	hPen = UsePen(renderer, stroke);
 
-    W32::Rectangle(renderer->hFileDC,
-                   SCX(ul_corner->x), SCY(ul_corner->y),
-                   SCX(lr_corner->x), SCY(lr_corner->y));
+	W32::Rectangle (renderer->hFileDC,
+			SCX(ul_corner->x), SCY(ul_corner->y),
+			SCX(lr_corner->x), SCY(lr_corner->y));
 
-    DonePen(renderer, hPen);
-}
-
-static void
-fill_rect(DiaRenderer *self, 
-	  Point *ul_corner, Point *lr_corner,
-	  Color *colour)
-{
-    WmfRenderer *renderer = WMF_RENDERER (self);
-    W32::HGDIOBJ hBrush, hBrOld;
-    W32::COLORREF rgb = W32COLOR(colour);
-
-    DIAG_NOTE(renderer, "fill_rect %f,%f -> %f,%f\n", 
-              ul_corner->x, ul_corner->y, lr_corner->x, lr_corner->y);
-
-    hBrush = W32::CreateSolidBrush(rgb);
-    hBrOld = W32::SelectObject(renderer->hFileDC, hBrush);
-
-    draw_rect(self, ul_corner, lr_corner, NULL);
-
-    W32::SelectObject(renderer->hFileDC, 
-                    W32::GetStockObject (HOLLOW_BRUSH) );
-    W32::DeleteObject(hBrush);
+	DonePen(renderer, hPen);
+    }
 }
 
 static void
@@ -1287,8 +1279,7 @@ wmf_renderer_class_init (WmfRendererClass *klass)
   renderer_class->set_font  = set_font;
 
   renderer_class->draw_line    = draw_line;
-  renderer_class->draw_rect    = draw_rect;
-  renderer_class->fill_rect    = fill_rect;
+  renderer_class->draw_polygon = draw_polygon;
   renderer_class->draw_arc     = draw_arc;
 #ifndef HAVE_LIBEMF
   renderer_class->fill_arc     = fill_arc;
@@ -1303,7 +1294,6 @@ wmf_renderer_class_init (WmfRendererClass *klass)
   /* medium level functions */
   renderer_class->draw_rect = draw_rect;
   renderer_class->draw_polyline  = draw_polyline;
-  renderer_class->draw_polygon   = draw_polygon;
 
   renderer_class->draw_bezier   = draw_bezier;
 #ifndef DIRECT_WMF

@@ -168,12 +168,6 @@ static void draw_polyline(DiaRenderer *self,
 static void draw_polygon(DiaRenderer *self, 
 			 Point *points, int num_points, 
 			 Color *fill, Color *stroke);
-static void draw_rect(DiaRenderer *self, 
-		      Point *ul_corner, Point *lr_corner,
-		      Color *color);
-static void fill_rect(DiaRenderer *self, 
-		      Point *ul_corner, Point *lr_corner,
-		      Color *color);
 static void draw_arc(DiaRenderer *self, 
 		     Point *center,
 		     real width, real height,
@@ -278,9 +272,6 @@ metapost_renderer_class_init (MetapostRendererClass *klass)
   renderer_class->draw_polyline = draw_polyline;
   
   renderer_class->draw_polygon = draw_polygon;
-
-  renderer_class->draw_rect = draw_rect;
-  renderer_class->fill_rect = fill_rect;
 
   renderer_class->draw_arc = draw_arc;
   renderer_class->fill_arc = fill_arc;
@@ -668,66 +659,6 @@ draw_polygon(DiaRenderer *self,
     fill_polygon (self, points, num_points, fill);
   if (stroke)
     stroke_polygon (self, points, num_points, stroke);
-}
-
-static void
-draw_rect(DiaRenderer *self, 
-	  Point *ul_corner, Point *lr_corner,
-	  Color *color)
-{
-    MetapostRenderer *renderer = METAPOST_RENDERER (self);
-    gchar ulx_buf[DTOSTR_BUF_SIZE];
-    gchar uly_buf[DTOSTR_BUF_SIZE];
-    gchar lrx_buf[DTOSTR_BUF_SIZE];
-    gchar lry_buf[DTOSTR_BUF_SIZE];
-
-    mp_dtostr(ulx_buf, (gdouble) ul_corner->x);
-    mp_dtostr(uly_buf, (gdouble) ul_corner->y);
-    mp_dtostr(lrx_buf, (gdouble) lr_corner->x);
-    mp_dtostr(lry_buf, (gdouble) lr_corner->y);
-
-    set_line_color(renderer,color);
-
-    fprintf(renderer->file, 
-	    "  draw (%sx,%sy)--(%sx,%sy)--(%sx,%sy)--(%sx,%sy)--cycle",
-	    ulx_buf, uly_buf,
-	    ulx_buf, lry_buf,
-	    lrx_buf, lry_buf,
-	    lrx_buf, uly_buf );
-    end_draw_op(renderer);
-}
-
-static void
-fill_rect(DiaRenderer *self, 
-	  Point *ul_corner, Point *lr_corner,
-	  Color *color)
-{
-    MetapostRenderer *renderer = METAPOST_RENDERER (self);
-    gchar ulx_buf[DTOSTR_BUF_SIZE];
-    gchar uly_buf[DTOSTR_BUF_SIZE];
-    gchar lrx_buf[DTOSTR_BUF_SIZE];
-    gchar lry_buf[DTOSTR_BUF_SIZE];
-    gchar red_buf[DTOSTR_BUF_SIZE];
-    gchar green_buf[DTOSTR_BUF_SIZE];
-    gchar blue_buf[DTOSTR_BUF_SIZE];
-
-    mp_dtostr(ulx_buf, (gdouble) ul_corner->x);
-    mp_dtostr(uly_buf, (gdouble) ul_corner->y);
-    mp_dtostr(lrx_buf, (gdouble) lr_corner->x);
-    mp_dtostr(lry_buf, (gdouble) lr_corner->y);
-
-    fprintf(renderer->file, 
-	    "  path p;\n"
-	    "  p = (%sx,%sy)--(%sx,%sy)--(%sx,%sy)--(%sx,%sy)--cycle;\n",
-	    ulx_buf, uly_buf,
-	    ulx_buf, lry_buf,
-	    lrx_buf, lry_buf,
-	    lrx_buf, uly_buf );
-    fprintf(renderer->file,
-	    "  fill p withcolor (%s,%s,%s);\n",
-	    mp_dtostr(red_buf, (gdouble) color->red),
-	    mp_dtostr(green_buf, (gdouble) color->green),
-	    mp_dtostr(blue_buf, (gdouble) color->blue) );
 }
 
 static void

@@ -155,12 +155,11 @@ _do_polygon (WpgImportRenderer *ren, Point *points, int iNum)
 static void
 _do_rect (WpgImportRenderer *ren, Point *points)
 {
-  if (ren->LineAttr.Type != WPG_LA_NONE)
+  if (ren->LineAttr.Type != WPG_LA_NONE || ren->FillAttr.Type != WPG_FA_HOLLOW)
     DIA_RENDERER_GET_CLASS(ren)->draw_rect (DIA_RENDERER(ren),
-					    &points[0], &points[1], &ren->stroke);
-  if (ren->FillAttr.Type != WPG_FA_HOLLOW)
-    DIA_RENDERER_GET_CLASS(ren)->fill_rect (DIA_RENDERER(ren),
-					    &points[0], &points[1], &ren->fill);
+					    &points[0], &points[1],
+					    (ren->FillAttr.Type != WPG_FA_HOLLOW) ? &ren->fill : NULL,
+					    (ren->LineAttr.Type != WPG_LA_NONE) ? &ren->stroke : NULL);
 }
 static void
 _do_bezier (WpgImportRenderer *ren, WPGPoint *pts, int iNum)

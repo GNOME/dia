@@ -264,44 +264,6 @@ draw_polygon(DiaRenderer *self,
 {
   _polyline (self, points, num_points, line_colour, NULL, TRUE);
 }
-static void
-_rect (DiaRenderer *self, 
-       Point *ul_corner, Point *lr_corner,
-       Color *stroke, Color *fill)
-{
-  Point corner[4];
-  /* translate to polygon */
-  corner[0] = *ul_corner;
-  corner[1].x = lr_corner->x;
-  corner[1].y = ul_corner->y;
-  corner[2] = *lr_corner;
-  corner[3].x = ul_corner->x;
-  corner[3].y = lr_corner->y;
-  /* delegate transformation and drawing */
-  _polyline (self, corner, 4, stroke, fill, TRUE);
-}
-/*!
- * \brief Transform rectangle and delegate draw
- * \memberof _DiaTransformRenderer
- */
-static void
-draw_rect (DiaRenderer *self, 
-	   Point *ul_corner, Point *lr_corner,
-	   Color *color)
-{
-  _rect (self, ul_corner, lr_corner, color, NULL);
-}
-/*!
- * \brief Transform rectangle and delegate fill
- * \memberof _DiaTransformRenderer
- */
-static void
-fill_rect (DiaRenderer *self, 
-	   Point *ul_corner, Point *lr_corner,
-	   Color *color)
-{
-  _rect (self, ul_corner, lr_corner, NULL, color);
-}
 /* ToDo: arc and ellipse to be emulated by bezier - in base class? */
 static void
 _bezier (DiaRenderer *self, 
@@ -558,8 +520,6 @@ dia_transform_renderer_class_init (DiaTransformRendererClass *klass)
 
   renderer_class->draw_line    = draw_line;
   renderer_class->draw_polygon = draw_polygon;
-  renderer_class->draw_rect    = draw_rect;
-  renderer_class->fill_rect    = fill_rect;
   renderer_class->draw_arc     = draw_arc;
   renderer_class->fill_arc     = fill_arc;
   renderer_class->draw_ellipse = draw_ellipse;
@@ -569,7 +529,6 @@ dia_transform_renderer_class_init (DiaTransformRendererClass *klass)
   renderer_class->draw_image   = draw_image;
 
   /* medium level functions */
-  renderer_class->draw_rect = draw_rect;
   renderer_class->draw_polyline  = draw_polyline;
 
   renderer_class->draw_bezier   = draw_bezier;

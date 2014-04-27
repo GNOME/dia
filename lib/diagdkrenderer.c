@@ -96,13 +96,7 @@ static void draw_image (DiaRenderer *renderer,
 
 static void draw_rect (DiaRenderer *renderer,
                        Point *ul_corner, Point *lr_corner,
-                       Color *color);
-static void fill_rect (DiaRenderer *renderer,
-		       Point *ul_corner, Point *lr_corner,
-		       Color *color);
-static void draw_fill_rect (DiaGdkRenderer *renderer,
-			    Point *ul_corner, Point *lr_corner,
-			    Color *color, gboolean fill);
+                       Color *fill, Color *stroke);
 static void draw_polyline (DiaRenderer *renderer,
                            Point *points, int num_points,
                            Color *color);
@@ -229,7 +223,6 @@ dia_gdk_renderer_class_init(DiaGdkRendererClass *klass)
   renderer_class->draw_line    = draw_line;
   renderer_class->draw_polygon = draw_polygon;
   renderer_class->draw_rect    = draw_rect;
-  renderer_class->fill_rect    = fill_rect;
   renderer_class->draw_arc     = draw_arc;
   renderer_class->fill_arc     = fill_arc;
   renderer_class->draw_ellipse = draw_ellipse;
@@ -242,7 +235,6 @@ dia_gdk_renderer_class_init(DiaGdkRendererClass *klass)
   renderer_class->draw_image   = draw_image;
 
   /* medium level functions */
-  renderer_class->draw_rect = draw_rect;
   renderer_class->draw_polyline  = draw_polyline;
 
   /* highest level functions */
@@ -825,7 +817,7 @@ draw_image (DiaRenderer *object,
     lr = *point;
     lr.x += width;
     lr.y += height;
-    self_class->fill_rect(object, point, &lr, renderer->highlight_color);
+    self_class->draw_rect(object, point, &lr, renderer->highlight_color, NULL);
   } else {
     int real_width, real_height, real_x, real_y;
     const GdkPixbuf *org = dia_image_pixbuf (image);
@@ -886,10 +878,11 @@ draw_image (DiaRenderer *object,
  * medium level functions
  */
 static void
-draw_fill_rect (DiaGdkRenderer *renderer,
-                Point *ul_corner, Point *lr_corner,
-                Color *color, gboolean fill)
+draw_rect (DiaGdkRenderer *self,
+	   Point *ul_corner, Point *lr_corner,
+	   Color *fill, Color *stroke)
 {
+  DiaGdkRenderer *renderer = DIA_GDK_RENDERER (self);
   GdkGC *gc = renderer->gc;
   GdkColor gdkcolor;
   gint top, bottom, left, right;
@@ -902,34 +895,20 @@ draw_fill_rect (DiaGdkRenderer *renderer,
   if ((left>right) || (top>bottom))
     return;
 
-  renderer_color_convert(renderer, color, &gdkcolor);
-  gdk_gc_set_foreground(gc, &gdkcolor);
+  if (fill) {
+    renderer_color_convert(renderer, fill, &gdkcolor);
+    gdk_gc_set_foreground(gc, &gdkcolor);
 
-  gdk_draw_rectangle (renderer->pixmap,
-		      gc, fill,
-		      left, top,
-		      right-left,
-		      bottom-top);
-}
+    gdk_draw_rectangle (renderer->pixmap, gc, TRUE,
+			left, top, right-left, bottom-top);
+  }
+  if (stroke) {
+    renderer_color_convert(renderer, stroke, &gdkcolor);
+    gdk_gc_set_foreground(gc, &gdkcolor);
 
-static void 
-draw_rect (DiaRenderer *object,
-           Point *ul_corner, Point *lr_corner,
-           Color *color)
-{
-  DiaGdkRenderer *renderer = DIA_GDK_RENDERER (object);
-
-  draw_fill_rect (renderer, ul_corner, lr_corner, color, FALSE);
-}
-
-static void 
-fill_rect (DiaRenderer *object,
-           Point *ul_corner, Point *lr_corner,
-           Color *color)
-{
-  DiaGdkRenderer *renderer = DIA_GDK_RENDERER (object);
-
-  draw_fill_rect (renderer, ul_corner, lr_corner, color, TRUE);
+    gdk_draw_rectangle (renderer->pixmap, gc, FALSE,
+			left, top, right-left, bottom-top);
+  }
 }
 
 static void 
@@ -1040,7 +1019,7 @@ draw_rounded_rect (DiaRenderer *self,
   if (r > 0)
     draw_fill_rounded_rect (self, ul_corner, lr_corner, color, radius, FALSE);
   else
-    draw_rect (self, ul_corner, lr_corner, color);
+    draw_rect (self, ul_corner, lr_corner, NULL, color);
 }
 static void 
 fill_rounded_rect (DiaRenderer *self, 
@@ -1053,7 +1032,7 @@ fill_rounded_rect (DiaRenderer *self,
   if (r > 0)
     draw_fill_rounded_rect (self, ul_corner, lr_corner, color, radius, TRUE);
   else
-    fill_rect (self, ul_corner, lr_corner, color);
+    draw_rect (self, ul_corner, lr_corner, color, NULL);
 }
 
 static int

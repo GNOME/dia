@@ -480,17 +480,14 @@ _rounded_rect(DiaRenderer *self,
 static void
 draw_rect(DiaRenderer *self, 
           Point *lefttop, Point *rightbottom,
-          Color *color)
+          Color *fill, Color *stroke)
 {
-  _rounded_rect(self, lefttop, rightbottom, color, NULL, FALSE);
+  if (fill)
+    _rounded_rect(self, lefttop, rightbottom, fill, NULL, FALSE);
+  if (stroke)
+    _rounded_rect(self, lefttop, rightbottom, stroke, NULL, TRUE);
 }
-static void
-fill_rect(DiaRenderer *self, 
-          Point *lefttop, Point *rightbottom,
-          Color *color)
-{
-  _rounded_rect(self, lefttop, rightbottom, color, NULL, TRUE);
-}
+
 static void
 draw_rounded_rect(DiaRenderer *self, 
                   Point *lefttop, Point *rightbottom,
@@ -717,8 +714,7 @@ drs_renderer_class_init (DrsRendererClass *klass)
   renderer_class->set_font  = set_font;
 
   renderer_class->draw_line    = draw_line;
-  renderer_class->draw_rect    = draw_rect;
-  renderer_class->fill_rect    = fill_rect;
+  renderer_class->draw_polygon = draw_polygon;
   renderer_class->draw_arc     = draw_arc;
   renderer_class->fill_arc     = fill_arc;
   renderer_class->draw_ellipse = draw_ellipse;
@@ -728,11 +724,10 @@ drs_renderer_class_init (DrsRendererClass *klass)
   renderer_class->draw_image   = draw_image;
 
   /* medium level functions */
-  renderer_class->draw_rect = draw_rect;
+  renderer_class->draw_rect      = draw_rect;
   renderer_class->draw_polyline  = draw_polyline;
-  renderer_class->draw_polygon   = draw_polygon;
 
-  renderer_class->draw_bezier   = draw_bezier;
+  renderer_class->draw_bezier    = draw_bezier;
   renderer_class->draw_beziergon = draw_beziergon;
 
   renderer_class->draw_rounded_polyline = draw_rounded_polyline;

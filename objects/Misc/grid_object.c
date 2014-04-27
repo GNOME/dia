@@ -334,12 +334,6 @@ grid_object_draw(Grid_Object *grid_object, DiaRenderer *renderer)
   renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
   renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
 
-  /* draw background */
-  if (grid_object->show_background)
-    renderer_ops->fill_rect(renderer,&elem->corner,
-                                &lr_corner,
-                                &grid_object->inner_color);
-
   /* draw gridlines */
   renderer_ops->set_linewidth(renderer, grid_object->gridline_width);
   grid_object_draw_gridlines(grid_object, renderer, &lr_corner);
@@ -347,8 +341,9 @@ grid_object_draw(Grid_Object *grid_object, DiaRenderer *renderer)
   /* draw outline */
   renderer_ops->set_linewidth(renderer, grid_object->border_line_width);
   renderer_ops->draw_rect(renderer,&elem->corner,
-                              &lr_corner,
-                              &grid_object->border_color);
+			  &lr_corner,
+			  (grid_object->show_background) ? &grid_object->inner_color : NULL,
+			  &grid_object->border_color);
 }
 
 

@@ -115,12 +115,6 @@ static void draw_polyline(DiaRenderer *self,
 static void draw_polygon(DiaRenderer *self, 
 			 Point *points, int num_points, 
 			 Color *fill, Color *stroke);
-static void draw_rect(DiaRenderer *self, 
-		      Point *ul_corner, Point *lr_corner,
-		      Color *color);
-static void fill_rect(DiaRenderer *self, 
-		      Point *ul_corner, Point *lr_corner,
-		      Color *color);
 static void draw_arc(DiaRenderer *self, 
 		     Point *center,
 		     real width, real height,
@@ -231,9 +225,6 @@ vdx_renderer_class_init (VDXRendererClass *klass)
   renderer_class->draw_polyline = draw_polyline;
   
   renderer_class->draw_polygon = draw_polygon;
-
-  renderer_class->draw_rect = draw_rect;
-  renderer_class->fill_rect = fill_rect;
 
   renderer_class->draw_arc = draw_arc;
   renderer_class->fill_arc = fill_arc;
@@ -888,53 +879,6 @@ draw_polygon(DiaRenderer *self,
     stroke_polygon (self, points, num_points, stroke);
 }
 
-/** Render a Dia rectangle
- * @param self a renderer
- * @param ul_corner Upper-left corner
- * @param lr_corner Loower-right corner
- * @param color line colour
- */
-static void
-draw_rect (DiaRenderer *self, 
-	   Point *ul_corner, Point *lr_corner,
-	   Color *color)
-{
-    Point points[5];            /* 5 so we close path */
-
-    g_debug("draw_rect((%f,%f), (%f,%f)) -> draw_polyline", 
-            ul_corner->x, ul_corner->y, lr_corner->x, lr_corner->y);
-    points[0].x = ul_corner->x; points[0].y = lr_corner->y;
-    points[1] = *lr_corner;
-    points[2].x = lr_corner->x; points[2].y = ul_corner->y;
-    points[3] = *ul_corner;
-    points[4] = points[0];
-    
-    draw_polygon(self, points, 5, NULL, color);
-}
-
-/** Render a Dia filled rectangle
- * @param self a renderer
- * @param ul_corner Upper-left corner
- * @param lr_corner Lower-right corner
- * @param color line colour
- */
-
-static void fill_rect(DiaRenderer *self, 
-		      Point *ul_corner, Point *lr_corner,
-		      Color *color)
-{
-    Point points[5];            /* 5 so we close path */
-
-    g_debug("fill_rect -> fill_polygon");
-    points[0].x = ul_corner->x; points[0].y = lr_corner->y;
-    points[1] = *lr_corner;
-    points[2].x = lr_corner->x; points[2].y = ul_corner->y;
-    points[3] = *ul_corner;
-    points[4] = points[0];
-    
-    fill_polygon(self, points, 5, color);
-}
-
 /** Render a Dia arc
  * @param self a renderer
  * @param center centre of arc
@@ -945,7 +889,6 @@ static void fill_rect(DiaRenderer *self,
  * @param color line colour
  * @todo Not done yet
  */
-
 static void draw_arc(DiaRenderer *self, 
 		     Point *center,
 		     real width, real height,

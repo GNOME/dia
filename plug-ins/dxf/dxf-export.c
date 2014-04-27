@@ -135,9 +135,9 @@ static void draw_line(DiaRenderer *self,
 static void draw_polyline(DiaRenderer *self, 
                           Point *points, int num_points, 
                           Color *color);
-static void fill_rect (DiaRenderer *renderer,
+static void draw_rect (DiaRenderer *renderer,
                        Point *ul_corner, Point *lr_corner,
-                       Color *color);
+                       Color *fill, Color *stroke);
 static void draw_polygon (DiaRenderer *renderer,
                           Point *points, int num_points,
                           Color *fill, Color *stroke);
@@ -228,9 +228,8 @@ dxf_renderer_class_init (DxfRendererClass *klass)
   renderer_class->set_font = set_font;
   
   renderer_class->draw_line = draw_line;
-  renderer_class->draw_polyline = draw_polyline;
-  renderer_class->fill_rect = fill_rect;
   renderer_class->draw_polygon = draw_polygon;
+  renderer_class->draw_polyline = draw_polyline;
 
   renderer_class->draw_arc = draw_arc;
   renderer_class->fill_arc = fill_arc;
@@ -397,31 +396,6 @@ draw_polyline(DiaRenderer *self,
 		g_ascii_formatd (buf2, sizeof(buf2), "%g", -points[i].y));
 
     fprintf(renderer->file, "  0\nSEQEND\n");
-}
-
-static void 
-fill_rect (DiaRenderer *self,
-           Point *ul_corner, Point *lr_corner,
-           Color *color)
-{
-  DxfRenderer *renderer = DXF_RENDERER(self);
-  Point pts[4] = { 
-    {ul_corner->x, -lr_corner->y}, 
-    {ul_corner->x, -ul_corner->y},
-    {lr_corner->x, -lr_corner->y},
-    {lr_corner->x, -ul_corner->y} 
-  };
-  int i;
-  gchar buf[G_ASCII_DTOSTR_BUF_SIZE];
-  gchar buf2[G_ASCII_DTOSTR_BUF_SIZE];
-  
-  fprintf(renderer->file, "  0\nSOLID\n");
-  fprintf(renderer->file, "  8\n%s\n", renderer->layername);
-  fprintf(renderer->file, " 62\n%d\n", dxf_color (color));
-  for (i = 0; i < 4; ++i)
-    fprintf(renderer->file, " %d\n%s\n %d\n%s\n", 
-            10+i, g_ascii_formatd (buf, sizeof(buf), "%g", pts[i].x), 
-	    20+i, g_ascii_formatd (buf2, sizeof(buf2), "%g", pts[i].y));
 }
 
 static void 

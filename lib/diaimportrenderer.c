@@ -43,9 +43,9 @@ static void set_fillstyle (DiaRenderer *renderer, FillStyle mode);
 static void draw_line (DiaRenderer *renderer,
 		       Point *start, Point *end,
 		       Color *color);
-static void fill_rect (DiaRenderer *renderer,
+static void draw_rect (DiaRenderer *renderer,
 		       Point *ul_corner, Point *lr_corner,
-		       Color *color);
+		       Color *fill, Color *stroke);
 static void draw_arc (DiaRenderer *renderer,
 		      Point *center,
 		      real width, real height,
@@ -83,9 +83,6 @@ static void draw_image (DiaRenderer *renderer,
 			real width, real height,
 			DiaImage *image);
 
-static void draw_rect (DiaRenderer *renderer,
-                       Point *ul_corner, Point *lr_corner,
-                       Color *color);
 static void draw_polyline (DiaRenderer *renderer,
                            Point *points, int num_points,
                            Color *color);
@@ -177,7 +174,7 @@ dia_import_renderer_class_init (DiaImportRendererClass *klass)
   renderer_class->set_fillstyle  = set_fillstyle;
 
   renderer_class->draw_line    = draw_line;
-  renderer_class->fill_rect    = fill_rect;
+  renderer_class->draw_rect    = draw_rect;
   renderer_class->draw_polygon = draw_polygon;
   renderer_class->draw_arc     = draw_arc;
   renderer_class->fill_arc     = fill_arc;
@@ -189,7 +186,6 @@ dia_import_renderer_class_init (DiaImportRendererClass *klass)
   /* medium level functions */
   renderer_class->draw_bezier  = draw_bezier;
   renderer_class->draw_beziergon  = draw_beziergon;
-  renderer_class->draw_rect = draw_rect;
   renderer_class->draw_rounded_polyline  = draw_rounded_polyline;
   renderer_class->draw_polyline  = draw_polyline;
 
@@ -374,15 +370,20 @@ draw_arc (DiaRenderer *renderer, Point *center,
 }
 
 /*!
- * \brief Fill a rectangle
+ * \brief Dtroke and/or fill a rectangle
  * \memberof _DiaImportRenderer
  */
 static void 
-fill_rect (DiaRenderer *renderer,
+draw_rect (DiaRenderer *renderer,
            Point *ul_corner, Point *lr_corner,
-           Color *color)
+           Color *fill, Color *stroke)
 {
-  fill_rounded_rect (renderer, ul_corner, lr_corner, color, 0.0);
+  DiaImportRenderer *self = DIA_IMPORT_RENDERER (renderer);
+  DiaObject *object = create_standard_box (ul_corner->x, ul_corner->y,
+					   lr_corner->x - ul_corner->x,
+					   lr_corner->y - ul_corner->y);
+  _apply_style (self, object, fill,stroke, 0.0);
+  _push_object (self, object);
 }
 
 /*!
@@ -535,19 +536,6 @@ draw_beziergon (DiaRenderer *renderer,
   object = create_standard_beziergon (numpoints, points);
   _apply_style (self, object, fill, stroke, 0.0);
   _push_object (self, object);
-}
-
-/*!
- * \brief Draw a simple rectangle
- * Creates a _Box object.
- * \memberof _DiaImportRenderer
- */
-static void
-draw_rect (DiaRenderer *renderer,
-           Point *ul_corner, Point *lr_corner,
-           Color *color)
-{
-  draw_rounded_rect (renderer, ul_corner, lr_corner, color, 0.0);
 }
 
 /*!

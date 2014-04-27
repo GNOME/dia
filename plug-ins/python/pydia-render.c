@@ -613,7 +613,6 @@ draw_polygon(DiaRenderer *renderer,
       fill_po = PyDiaColor_New (fill);
     else
       Py_INCREF(Py_None), fill_po = Py_None;
-
     if (stroke)
       stroke_po = PyDiaColor_New (stroke);
     else
@@ -621,7 +620,7 @@ draw_polygon(DiaRenderer *renderer,
 
     Py_INCREF(self);
     Py_INCREF(func);
-    arg = Py_BuildValue ("(OO)", optt, fill_po, stroke_po);
+    arg = Py_BuildValue ("(OOO)", optt, fill_po, stroke_po);
     if (arg) {
       res = PyEval_CallObject (func, arg);
       ON_RES(res, FALSE);
@@ -640,31 +639,42 @@ draw_polygon(DiaRenderer *renderer,
 static void
 draw_rect(DiaRenderer *renderer, 
 	  Point *ul_corner, Point *lr_corner,
-	  Color *colour)
+	  Color *fill, Color *stroke)
 {
   PyObject *func, *res, *arg, *self = PYDIA_RENDERER (renderer);
 
   func = PyObject_GetAttrString (self, "draw_rect");
   if (func && PyCallable_Check(func)) {
     PyObject *orect = PyDiaRectangle_New_FromPoints (ul_corner, lr_corner);
-    PyObject *ocolor = PyDiaColor_New (colour);
+    PyObject *fill_po, *stroke_po;
     Py_INCREF(self);
     Py_INCREF(func);
-    arg = Py_BuildValue ("(OO)", orect, ocolor);
+
+    if (fill)
+      fill_po = PyDiaColor_New (fill);
+    else
+      Py_INCREF(Py_None), fill_po = Py_None;
+    if (stroke)
+      stroke_po = PyDiaColor_New (stroke);
+    else
+      Py_INCREF(Py_None), stroke_po = Py_None;
+
+    arg = Py_BuildValue ("(OOO)", orect, fill_po, stroke_po);
     if (arg) {
       res = PyEval_CallObject (func, arg);
       ON_RES(res, FALSE);
     }
     Py_XDECREF (arg);
     Py_XDECREF (orect);
-    Py_XDECREF (ocolor);
+    Py_XDECREF (fill_po);
+    Py_XDECREF (stroke_po);
     Py_DECREF(func);
     Py_DECREF(self);
   }
   else { /* member optional */
     PyErr_Clear();
     /* XXX: implementing the same fallback as DiaRenderer would do */
-    DIA_RENDERER_CLASS (parent_class)->draw_rect (renderer, ul_corner, lr_corner, colour);
+    DIA_RENDERER_CLASS (parent_class)->draw_rect(renderer, ul_corner, lr_corner, fill, stroke);
   }
 }
 
@@ -700,48 +710,6 @@ draw_rounded_rect(DiaRenderer *renderer,
   }
 }
 
-
-/*!
- * \brief Fill rectangle
- *
- * Not optional on the PyDia side. If not implemented a runtime warning 
- * will be generated when called.
- *
- * \memberof _DiaPyRenderer
- */
-static void
-fill_rect(DiaRenderer *renderer, 
-	  Point *ul_corner, Point *lr_corner,
-	  Color *colour)
-{
-  PyObject *func, *res, *arg, *self = PYDIA_RENDERER (renderer);
-
-  func = PyObject_GetAttrString (self, "fill_rect");
-  if (func && PyCallable_Check(func)) {
-    PyObject *orect = PyDiaRectangle_New_FromPoints (ul_corner, lr_corner);
-    PyObject *ocolor = PyDiaColor_New (colour);
-
-    Py_INCREF(self);
-    Py_INCREF(func);
-    arg = Py_BuildValue ("(OO)", orect, ocolor);
-    if (arg) {
-      res = PyEval_CallObject (func, arg);
-      ON_RES(res, FALSE);
-    }
-    Py_XDECREF (arg);
-    Py_XDECREF (orect);
-    Py_XDECREF (ocolor);
-    Py_DECREF(func);
-    Py_DECREF(self);
-  }
-  else { /* member not optional */
-    gchar *msg = g_strdup_printf ("%s.fill_rect() implmentation missing.",
-				  G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (renderer)));
-    PyErr_Clear();
-    PyErr_Warn (PyExc_RuntimeWarning, msg);
-    g_free (msg);
-  }
-}
 
 static void
 fill_rounded_rect(DiaRenderer *renderer, 
@@ -1270,8 +1238,7 @@ dia_py_renderer_class_init (DiaPyRendererClass *klass)
   renderer_class->set_font  = set_font;
 
   renderer_class->draw_line    = draw_line;
-  renderer_class->draw_rect    = draw_rect;
-  renderer_class->fill_rect    = fill_rect;
+  renderer_class->draw_polygon = draw_polygon;
   renderer_class->draw_arc     = draw_arc;
   renderer_class->fill_arc     = fill_arc;
   renderer_class->draw_ellipse = draw_ellipse;
@@ -1281,9 +1248,8 @@ dia_py_renderer_class_init (DiaPyRendererClass *klass)
   renderer_class->draw_image   = draw_image;
 
   /* medium level functions */
-  renderer_class->draw_rect = draw_rect;
+  renderer_class->draw_rect      = draw_rect;
   renderer_class->draw_polyline  = draw_polyline;
-  renderer_class->draw_polygon   = draw_polygon;
 
   renderer_class->draw_bezier   = draw_bezier;
   renderer_class->draw_beziergon = draw_beziergon;

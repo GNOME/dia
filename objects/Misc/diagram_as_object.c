@@ -188,7 +188,7 @@ _dae_draw(DiagramAsElement *dae, DiaRenderer *renderer)
     };
 
     renderer_ops->draw_rect(renderer,&elem->corner, &lower_right, 
-                            &dae->border_color);
+                            NULL, &dae->border_color);
 
   } else {
     if (FALSE) {

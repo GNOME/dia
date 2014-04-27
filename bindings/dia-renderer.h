@@ -76,9 +76,9 @@ public :
     //! Draw a line from start to end, using color and the current line style
     //! \ingroup RendererRequired
     virtual void draw_line (Point *start, Point *end, Color *color);
-    //! Fill a rectangle, given its upper-left and lower-right corners
+    //! Fill and/or stroke a rectangle, given its upper-left and lower-right corners
     //! \ingroup RendererRequired
-    virtual void fill_rect (Point *ul_corner, Point *lr_corner, Color *color);
+    virtual void draw_rect (Point *ul_corner, Point *lr_corner, Color *fill, Color *stroke);
     //! the polygon is filled using the current fill type, no border is drawn
     //! \ingroup RendererRequired
     virtual void draw_polygon (Point *points, int num_points, Color *fill, Color *stroke);
@@ -121,9 +121,6 @@ public :
     //! draw a Text.  It holds its own information like position, style, ...
     //! \ingroup RenderMedium
     virtual void draw_text (Text* text);
-    //! Draw a rectangle, given its upper-left and lower-right corners
-    //! \ingroup RenderMedium
-    virtual void draw_rect (Point *ul_corner, Point *lr_corner, Color *color);
     
     /// \defgroup RenderHigh Renderer Can Implement This
     //! Highest level functions, probably only to be implemented by 

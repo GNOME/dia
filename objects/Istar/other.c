@@ -309,9 +309,8 @@ other_draw(Other *other, DiaRenderer *renderer)
       p1.y= elem->corner.y;
       p2.x=p1.x+elem->width;
       p2.y=p1.y+elem->height;
-      renderer_ops->fill_rect(renderer,&p1,&p2, &OTHER_BG_COLOR);
       renderer_ops->set_linewidth(renderer, OTHER_LINE_WIDTH);
-      renderer_ops->draw_rect(renderer,&p1,&p2, &OTHER_FG_COLOR);
+      renderer_ops->draw_rect(renderer,&p1,&p2, &OTHER_BG_COLOR, &OTHER_FG_COLOR);
       break;
     case TASK:
       compute_task(other,pl);

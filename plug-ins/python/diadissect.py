@@ -105,12 +105,10 @@ class DissectRenderer :
 			self.Warning ("%s negative height" % (fun,))
 		if rect.left > rect.right :
 			self.Warning ("%s negative width" % (fun,))
-	def draw_rect (self, rect, color) :
+	def draw_rect (self, rect, fill, stroke) :
 		self._rect (rect, "draw_rect")
 	def draw_rounded_rect (self, rect, color, rounding) :
 		# XXX: check rounding to be positive (smaller than half width, height?)
-		self._rect (rect, "draw_rect")
-	def fill_rect (self, rect, color) :
 		self._rect (rect, "draw_rect")
 	def fill_rounded_rect (self, rect, color, rounding) :
 		self._rect (rect, "draw_rect")

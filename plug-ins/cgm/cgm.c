@@ -275,10 +275,7 @@ static void draw_polygon(DiaRenderer *self,
 			 Color *fill, Color *stroke);
 static void draw_rect(DiaRenderer *self, 
 		      Point *ul_corner, Point *lr_corner,
-		      Color *colour);
-static void fill_rect(DiaRenderer *self, 
-		      Point *ul_corner, Point *lr_corner,
-		      Color *colour);
+		      Color *fill, Color *stroke);
 static void draw_arc(DiaRenderer *self, 
 		     Point *center,
 		     real width, real height,
@@ -797,11 +794,11 @@ draw_polygon (DiaRenderer *self,
 static void
 draw_rect(DiaRenderer *self, 
 	  Point *ul_corner, Point *lr_corner,
-	  Color *colour)
+	  Color *fill, Color *stroke)
 {
     CgmRenderer *renderer = CGM_RENDERER(self);
 
-    write_filledge_attributes(renderer, NULL, colour);
+    write_filledge_attributes(renderer, fill, stroke);
 
     write_elhead(renderer->file, 4, 11, 4 * REALSIZE);
     write_real(renderer->file, ul_corner->x);
@@ -809,24 +806,6 @@ draw_rect(DiaRenderer *self,
     write_real(renderer->file, lr_corner->x);
     write_real(renderer->file, swap_y(renderer, lr_corner->y));
 }
-
-static void
-fill_rect(DiaRenderer *self, 
-	  Point *ul_corner, Point *lr_corner,
-	  Color *colour)
-{
-    CgmRenderer *renderer = CGM_RENDERER(self);
-
-    write_filledge_attributes(renderer, colour, NULL);
-
-    write_elhead(renderer->file, 4, 11, 4 * REALSIZE);
-    write_real(renderer->file, ul_corner->x);
-    write_real(renderer->file, swap_y(renderer, ul_corner->y));
-    write_real(renderer->file, lr_corner->x);
-    write_real(renderer->file, swap_y(renderer, lr_corner->y));
-}
-
-
 
 static void
 write_ellarc(CgmRenderer *renderer,
@@ -1351,7 +1330,6 @@ cgm_renderer_class_init (CgmRendererClass *klass)
     renderer_class->draw_polygon = draw_polygon;
 
     renderer_class->draw_rect = draw_rect;
-    renderer_class->fill_rect = fill_rect;
 
     renderer_class->draw_arc = draw_arc;
     renderer_class->fill_arc = fill_arc;

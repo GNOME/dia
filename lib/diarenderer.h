@@ -133,10 +133,6 @@ struct _DiaRendererClass
   void (*draw_line) (DiaRenderer *renderer,
                      Point *start, Point *end,
                      Color *color);
-  /*! Fill a rectangle, given its upper-left and lower-right corners */
-  void (*fill_rect) (DiaRenderer *renderer,
-                     Point *ul_corner, Point *lr_corner,
-                     Color *color);
   /*! the polygon is filled using the current fill type and stroked with the current line style */
   void (*draw_polygon) (DiaRenderer *renderer,
                         Point *points, int num_points,
@@ -206,7 +202,7 @@ struct _DiaRendererClass
   /*! Draw a rectangle, given its upper-left and lower-right corners */
   void (*draw_rect) (DiaRenderer *renderer,
                      Point *ul_corner, Point *lr_corner,
-                     Color *color);
+                     Color *fill, Color *stroke);
 
   /*
    * Highest level functions, probably only to be implemented by 

@@ -348,13 +348,12 @@ jackson_box_draw(Box *box, DiaRenderer *renderer)
 
   /* drawing main box */
   renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
-  renderer_ops->fill_rect(renderer, &b0, &b1, &JACKSON_BOX_BG_COLOR);
 
   renderer_ops->set_linewidth(renderer, JACKSON_BOX_LINE_WIDTH);
   renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
   renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
 
-  renderer_ops->draw_rect(renderer, &b0, &b1, &JACKSON_BOX_FG_COLOR);
+  renderer_ops->draw_rect(renderer, &b0, &b1, &JACKSON_BOX_BG_COLOR, &JACKSON_BOX_FG_COLOR);
 
   /* adding lines for designed/machine domains */
   if (box->domtype!=DOMAIN_GIVEN) {
@@ -382,7 +381,7 @@ jackson_box_draw(Box *box, DiaRenderer *renderer)
   }
 
   if (s!=NULL) {
-    renderer_ops->draw_rect(renderer, &b3, &b1, &JACKSON_BOX_FG_COLOR);
+    renderer_ops->draw_rect(renderer, &b3, &b1, NULL, &JACKSON_BOX_FG_COLOR);
     renderer_ops->draw_string(renderer, s, &b2, ALIGN_RIGHT, &box->text->color);
   }
 

@@ -114,7 +114,7 @@ static void draw_polygon(DiaRenderer *self,
 			 Color *fill, Color *stroke);
 static void draw_rect(DiaRenderer *self, 
 		      Point *ul_corner, Point *lr_corner,
-		      Color *colour);
+		      Color *fill, Color *stroke);
 static void draw_ellipse(DiaRenderer *self, 
 			 Point *center,
 			 real width, real height,
@@ -475,14 +475,15 @@ add_rectangle_connection_points (ShapeRenderer *renderer,
 static void
 draw_rect (DiaRenderer *self, 
            Point *ul_corner, Point *lr_corner,
-           Color *colour) 
+           Color *fill, Color *stroke) 
 {
   ShapeRenderer *renderer = SHAPE_RENDERER(self);
 
   /* use base class implementation */
-  DIA_RENDERER_CLASS(parent_class)->draw_rect (self, ul_corner, lr_corner, colour);
+  DIA_RENDERER_CLASS(parent_class)->draw_rect (self, ul_corner, lr_corner, fill, stroke);
   /* do our own stuff */
-  add_rectangle_connection_points(renderer, ul_corner, lr_corner);
+  if (stroke)
+    add_rectangle_connection_points(renderer, ul_corner, lr_corner);
 }
 
 static void 

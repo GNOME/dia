@@ -2033,7 +2033,7 @@ arrow_draw(DiaRenderer *renderer, ArrowType type,
     p2.y = bbox.bottom;
 
     DIA_RENDERER_GET_CLASS(renderer)->set_linewidth(renderer,0.01);
-    DIA_RENDERER_GET_CLASS(renderer)->draw_rect(renderer, &p1, &p2, &col);
+    DIA_RENDERER_GET_CLASS(renderer)->draw_rect(renderer, &p1, &p2, NULL, &col);
   }
 }
 

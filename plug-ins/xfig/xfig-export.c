@@ -134,10 +134,7 @@ static void draw_polygon(DiaRenderer *self,
 			 Color *fill, Color *stroke);
 static void draw_rect(DiaRenderer *self, 
 		      Point *ul_corner, Point *lr_corner,
-		      Color *colour);
-static void fill_rect(DiaRenderer *self, 
-		      Point *ul_corner, Point *lr_corner,
-		      Color *colour);
+		      Color *fill, Color *stroke);
 static void draw_arc(DiaRenderer *self, 
 		     Point *center,
 		     real width, real height,
@@ -256,15 +253,13 @@ xfig_renderer_class_init (XfigRendererClass *klass)
   
   renderer_class->draw_polygon = draw_polygon;
 
-  renderer_class->draw_rect = draw_rect;
-  renderer_class->fill_rect = fill_rect;
-
   renderer_class->draw_arc = draw_arc;
   renderer_class->fill_arc = fill_arc;
 
   renderer_class->draw_ellipse = draw_ellipse;
   renderer_class->fill_ellipse = fill_ellipse;
 
+  renderer_class->draw_rect = draw_rect;
   renderer_class->draw_bezier = draw_bezier;
   renderer_class->draw_beziergon = draw_beziergon;
 
@@ -776,9 +771,9 @@ draw_polygon(DiaRenderer *self,
 }
 
 static void 
-draw_rect(DiaRenderer *self, 
-          Point *ul_corner, Point *lr_corner,
-          Color *color) 
+stroke_rect(DiaRenderer *self, 
+            Point *ul_corner, Point *lr_corner,
+            Color *color)
 {
   XfigRenderer *renderer = XFIG_RENDERER(self);
   gchar d_buf[DTOSTR_BUF_SIZE];
@@ -805,7 +800,7 @@ draw_rect(DiaRenderer *self,
 static void 
 fill_rect(DiaRenderer *self, 
           Point *ul_corner, Point *lr_corner,
-          Color *color) 
+          Color *color)
 {
   XfigRenderer *renderer = XFIG_RENDERER(self);
   gchar d_buf[DTOSTR_BUF_SIZE];
@@ -829,7 +824,17 @@ fill_rect(DiaRenderer *self,
 	  (int)figCoord(renderer, ul_corner->x), (int)figCoord(renderer, lr_corner->y), 
 	  (int)figCoord(renderer, ul_corner->x), (int)figCoord(renderer, ul_corner->y));
 }
-
+static void
+draw_rect(DiaRenderer *self, 
+          Point *ul_corner, Point *lr_corner,
+          Color *fill, Color *stroke) 
+{
+  /* XXX: optimize to one call? */
+  if (fill)
+    fill_rect (self, ul_corner, lr_corner, fill);
+  if (stroke)
+    stroke_rect (self, ul_corner, lr_corner, stroke);
+}
 static void 
 draw_arc(DiaRenderer *self, 
          Point *center,

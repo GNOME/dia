@@ -157,10 +157,11 @@ class StandardDiaRenderer :
 %s%s
     </dia:object>''' % (self.oid, rect.left,rect.top, rect.right - rect.left, rect.bottom - rect.top, 
 			self._tinting(color, fill, 'border_color', 'border_width'), self._stroke_style()))
-	def draw_rect (self, rect, color) :
-		self._box(rect, color, 0)
-	def fill_rect (self, rect, color) :
-		self._box(rect, color, 1)
+	def draw_rect (self, rect, fill, stroke) :
+		if fill :
+			self._box(rect, fill, 1)
+		if stroke :
+			self._box(rect, stroke, 0)
 
 	def _ellipse (self, center, width, height, color, fill) :
 		self.oid = self.oid + 1

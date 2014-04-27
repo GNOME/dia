@@ -701,7 +701,6 @@ class PhpRenderer(ObjRenderer) :
 		mainfile.close()
 		ObjRenderer.end_render(self)
 
-	def fill_rect(*args):pass
 	def draw_line(*args):pass
 	def draw_string(*args):pass
 

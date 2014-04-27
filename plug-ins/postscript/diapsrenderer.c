@@ -385,51 +385,6 @@ draw_polygon (DiaRenderer *self,
 }
 
 static void
-psrenderer_rect(DiaPsRenderer *renderer,
-		Point *ul_corner,
-		Point *lr_corner,
-		Color *color,
-		gboolean filled)
-{
-  gchar ulx_buf[DTOSTR_BUF_SIZE];
-  gchar uly_buf[DTOSTR_BUF_SIZE];
-  gchar lrx_buf[DTOSTR_BUF_SIZE];
-  gchar lry_buf[DTOSTR_BUF_SIZE];
-
-  lazy_setcolor(renderer,color);
-
-  psrenderer_dtostr(ulx_buf, (gdouble) ul_corner->x);
-  psrenderer_dtostr(uly_buf, (gdouble) ul_corner->y);
-  psrenderer_dtostr(lrx_buf, (gdouble) lr_corner->x);
-  psrenderer_dtostr(lry_buf, (gdouble) lr_corner->y);
-  
-  fprintf(renderer->file, "n %s %s m %s %s l %s %s l %s %s l %s\n",
-	  ulx_buf, uly_buf,
-	  ulx_buf, lry_buf,
-	  lrx_buf, lry_buf,
-	  lrx_buf, uly_buf,
-	  filled ? "f" : "cp s" );
-}
-
-static void
-draw_rect(DiaRenderer *self, 
-	  Point *ul_corner, Point *lr_corner,
-	  Color *color)
-{
-  DiaPsRenderer *renderer = DIA_PS_RENDERER(self);
-  psrenderer_rect(renderer, ul_corner, lr_corner, color, FALSE);
-}
-
-static void
-fill_rect(DiaRenderer *self, 
-	  Point *ul_corner, Point *lr_corner,
-	  Color *color)
-{
-  DiaPsRenderer *renderer = DIA_PS_RENDERER(self);
-  psrenderer_rect(renderer, ul_corner, lr_corner, color, TRUE);
-}
-
-static void
 psrenderer_arc(DiaPsRenderer *renderer,
 	       Point *center,
 	       real width, real height,
@@ -1045,8 +1000,6 @@ dia_ps_renderer_class_init (DiaPsRendererClass *klass)
   /* medium level functions */
   renderer_class->draw_bezier  = draw_bezier;
   renderer_class->draw_beziergon  = draw_beziergon;
-  renderer_class->draw_rect = draw_rect;
-  renderer_class->fill_rect = fill_rect;
   renderer_class->draw_polyline  = draw_polyline;
 
   /* ps specific */

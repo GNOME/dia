@@ -249,7 +249,7 @@ textobj_draw(Textobj *textobj, DiaRenderer *renderer)
     ul.y = box.top;
     lr.x = box.right;
     lr.y = box.bottom;
-    DIA_RENDERER_GET_CLASS (renderer)->fill_rect (renderer, &ul, &lr, &textobj->fill_color);
+    DIA_RENDERER_GET_CLASS (renderer)->draw_rect (renderer, &ul, &lr, &textobj->fill_color, NULL);
   }
   text_draw(textobj->text, renderer);
 }

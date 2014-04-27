@@ -412,7 +412,8 @@ image_draw(Image *image, DiaRenderer *renderer)
     
     renderer_ops->draw_rect(renderer, 
 			     &ul_corner,
-			     &lr_corner, 
+			     &lr_corner,
+			     NULL,
 			     &image->border_color);
   }
   /* Draw the image */

@@ -311,11 +311,9 @@ function_draw(Function *pkg, DiaRenderer *renderer)
   p2.x = x+w; p2.y = y+h;
 
   if (pkg->is_user) {
-    renderer_ops->fill_rect(renderer, 
-			     &p1, &p2,
-			     &color_white); 
     renderer_ops->draw_rect(renderer, 
 			     &p1, &p2,
+			     &color_white,
 			     &color_black);
     p1.x += font_height / FUNCTION_MARGIN_SCALE;
     p1.y += font_height / FUNCTION_MARGIN_SCALE;
@@ -323,12 +321,9 @@ function_draw(Function *pkg, DiaRenderer *renderer)
     p2.x -= font_height / FUNCTION_MARGIN_SCALE;
     /* y += FUNCTION_MARGIN_M; */
   }
-    
-  renderer_ops->fill_rect(renderer, 
-			   &p1, &p2,
-			   &color_white);
   renderer_ops->draw_rect(renderer, 
 			   &p1, &p2,
+			   &color_white,
 			   &color_black);
 
   

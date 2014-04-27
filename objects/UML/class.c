@@ -803,12 +803,9 @@ umlclass_draw_namebox(UMLClass *umlclass, DiaRenderer *renderer, Element *elem )
   LowerRightPoint.x += elem->width;
   LowerRightPoint.y  = Yoffset;
   
-  /*
-   * First draw the outer box and fill color for the class name
-   * object
-   */
-  renderer_ops->fill_rect(renderer, &StartPoint, &LowerRightPoint, &umlclass->fill_color);
-  renderer_ops->draw_rect(renderer, &StartPoint, &LowerRightPoint, &umlclass->line_color);
+  /* First draw the outer box and fill color for the class name object */
+  renderer_ops->draw_rect(renderer, &StartPoint, &LowerRightPoint,
+			  &umlclass->fill_color, &umlclass->line_color);
 
   /* Start at the midpoint on the X axis */
   StartPoint.x += elem->width / 2.0;
@@ -891,8 +888,7 @@ umlclass_draw_attributebox(UMLClass *umlclass, DiaRenderer *renderer, Element *e
   LowerRight.x += elem->width;
   LowerRight.y = Yoffset;
 
-  renderer_ops->fill_rect(renderer, &StartPoint, &LowerRight, fill_color);
-  renderer_ops->draw_rect(renderer, &StartPoint, &LowerRight, line_color);
+  renderer_ops->draw_rect(renderer, &StartPoint, &LowerRight, fill_color, line_color);
 
   if (!umlclass->suppress_attributes) {
     gint i = 0;
@@ -979,8 +975,7 @@ umlclass_draw_operationbox(UMLClass *umlclass, DiaRenderer *renderer, Element *e
   LowerRight.x += elem->width;
   LowerRight.y = Yoffset;
 
-  renderer_ops->fill_rect(renderer, &StartPoint, &LowerRight, fill_color);
-  renderer_ops->draw_rect(renderer, &StartPoint, &LowerRight, line_color);
+  renderer_ops->draw_rect(renderer, &StartPoint, &LowerRight, fill_color, line_color);
 
   if (!umlclass->suppress_operations) {
     gint i = 0;
@@ -1134,10 +1129,9 @@ umlclass_draw_template_parameters_box(UMLClass *umlclass, DiaRenderer *renderer,
   LowerRight.x += umlclass->templates_width;
   LowerRight.y += umlclass->templates_height;
 
-  renderer_ops->fill_rect(renderer, &UpperLeft, &LowerRight, fill_color);
   renderer_ops->set_linestyle(renderer, LINESTYLE_DASHED);
   renderer_ops->set_dashlength(renderer, 0.3);
-  renderer_ops->draw_rect(renderer, &UpperLeft, &LowerRight, line_color);
+  renderer_ops->draw_rect(renderer, &UpperLeft, &LowerRight, fill_color, line_color);
 
   TextInsert.x += 0.3;
   TextInsert.y += 0.1;

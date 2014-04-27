@@ -99,12 +99,6 @@ static void draw_rounded_polyline (DiaRenderer *self,
 static void draw_polygon(DiaRenderer *self, 
 			 Point *points, int num_points, 
 			 Color *fill, Color *stroke);
-static void draw_rect(DiaRenderer *self, 
-		      Point *ul_corner, Point *lr_corner,
-		      Color *color);
-static void fill_rect(DiaRenderer *self, 
-		      Point *ul_corner, Point *lr_corner,
-		      Color *color);
 static void draw_rounded_rect(DiaRenderer *self, 
 			      Point *ul_corner, Point *lr_corner,
 			      Color *color, real radius);
@@ -255,9 +249,6 @@ pgf_renderer_class_init (PgfRendererClass *klass)
   renderer_class->draw_rounded_polyline = draw_rounded_polyline;
   
   renderer_class->draw_polygon = draw_polygon;
-
-  renderer_class->draw_rect = draw_rect;
-  renderer_class->fill_rect = fill_rect;
 
   renderer_class->draw_rounded_rect = draw_rounded_rect;
   renderer_class->fill_rounded_rect = fill_rounded_rect;
@@ -597,26 +588,6 @@ pgf_rect(PgfRenderer *renderer,
 	    ulx_buf, lry_buf,
 	    lrx_buf, lry_buf,
 	    lrx_buf, uly_buf );
-}
-
-static void
-draw_rect(DiaRenderer *self, 
-	  Point *ul_corner, Point *lr_corner,
-	  Color *color)
-{
-    PgfRenderer *renderer = PGF_RENDERER(self);
-
-    pgf_rect(renderer,ul_corner,lr_corner,color,FALSE);
-}
-
-static void
-fill_rect(DiaRenderer *self, 
-	  Point *ul_corner, Point *lr_corner,
-	  Color *color)
-{
-    PgfRenderer *renderer = PGF_RENDERER(self);
-
-    pgf_rect(renderer,ul_corner,lr_corner,color,TRUE);
 }
 
 static void 

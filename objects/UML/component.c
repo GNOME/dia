@@ -242,33 +242,25 @@ component_draw(Component *cmp, DiaRenderer *renderer)
   p1.x = x + COMPONENT_CWIDTH/2; p1.y = y;
   p2.x = x+w; p2.y = y+h;
 
-  renderer_ops->fill_rect(renderer, 
-			   &p1, &p2,
-			   &cmp->fill_color);
   renderer_ops->draw_rect(renderer, 
 			   &p1, &p2,
+			   &cmp->fill_color,
 			   &cmp->line_color);
 
   p1.x= x; p1.y = y +(h - 3*COMPONENT_CHEIGHT)/2.0;
   p2.x = x+COMPONENT_CWIDTH; p2.y = p1.y + COMPONENT_CHEIGHT;
 
-  renderer_ops->fill_rect(renderer, 
-			   &p1, &p2,
-			   &cmp->fill_color);
-  
   renderer_ops->draw_rect(renderer, 
 			   &p1, &p2,
+			   &cmp->fill_color,
 			   &cmp->line_color);
   
   p1.y = p2.y + COMPONENT_CHEIGHT;
   p2.y = p1.y + COMPONENT_CHEIGHT;
 
-  renderer_ops->fill_rect(renderer, 
-			   &p1, &p2,
-			   &cmp->fill_color);
-  
   renderer_ops->draw_rect(renderer, 
 			   &p1, &p2,
+			   &cmp->fill_color,
 			   &cmp->line_color);
 
   if (cmp->st_stereotype != NULL &&

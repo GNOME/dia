@@ -117,12 +117,12 @@ dia::Renderer::draw_line (Point *start, Point *end, Color *color)
     assert (self);
     DIA_RENDERER_GET_CLASS(self)->draw_line (self, start, end, color);
 }
-// Fill a rectangle, given its upper-left and lower-right corners
+// Fill and/or stroke a rectangle, given its upper-left and lower-right corners
 void 
-dia::Renderer::fill_rect (Point *ul_corner, Point *lr_corner, Color *color)
+dia::Renderer::draw_rect (Point *ul_corner, Point *lr_corner, Color *fill, Color *stroke)
 {
     assert (self);
-    DIA_RENDERER_GET_CLASS(self)->fill_rect (self, ul_corner, lr_corner, color);
+    DIA_RENDERER_GET_CLASS(self)->draw_rect (self, ul_corner, lr_corner, fill, stroke);
 }
 // Draw an arc, given its center, the bounding box (widget, height), the start angle and the end angle
 void 
@@ -206,15 +206,8 @@ dia::Renderer::draw_text (Text* text)
     assert (self);
     DIA_RENDERER_GET_CLASS(self)->draw_text (self, text);
 }
-// Draw a rectangle, given its upper-left and lower-right corners
-void 
-dia::Renderer::draw_rect (Point *ul_corner, Point *lr_corner, Color *color)
-{
-    assert (self);
-    DIA_RENDERER_GET_CLASS(self)->draw_rect (self, ul_corner, lr_corner, color);
-}
-// a polyline with round coners
-void 
+// Draw a polyline with round corners
+void
 dia::Renderer::draw_rounded_polyline (Point *points, int num_points, Color *color, double radius )
 {
     assert (self);

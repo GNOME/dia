@@ -501,15 +501,20 @@ draw_polygon (DiaRenderer *self,
 static void
 draw_rect(DiaRenderer *self, 
 	  Point *ul_corner, Point *lr_corner,
-	  Color *colour)
+	  Color *fill, Color *stroke)
 {
   DiaSvgRenderer *renderer = DIA_SVG_RENDERER (self);
   xmlNodePtr node;
   gchar d_buf[DTOSTR_BUF_SIZE];
+  gchar *style;
 
   node = xmlNewChild(renderer->root, NULL, (const xmlChar *)"rect", NULL);
 
-  xmlSetProp(node, (const xmlChar *)"style", (xmlChar *)get_draw_style(renderer, colour));
+  style = g_strdup_printf ("%s;%s",
+			   stroke ? get_draw_style (renderer, stroke) : "stroke:none",
+			   fill ? get_fill_style (renderer, fill) : "fill:none");
+  xmlSetProp(node, (const xmlChar *)"style", (xmlChar *) style);
+  g_free (style);
 
   dia_svg_dtostr(d_buf, ul_corner->x);
   xmlSetProp(node, (const xmlChar *)"x", (xmlChar *) d_buf);
@@ -519,29 +524,6 @@ draw_rect(DiaRenderer *self,
   xmlSetProp(node, (const xmlChar *)"width", (xmlChar *) d_buf);
   dia_svg_dtostr(d_buf, lr_corner->y - ul_corner->y);
   xmlSetProp(node, (const xmlChar *)"height", (xmlChar *) d_buf);
-}
-
-static void
-fill_rect(DiaRenderer *self, 
-	  Point *ul_corner, Point *lr_corner,
-	  Color *colour)
-{
-  DiaSvgRenderer *renderer = DIA_SVG_RENDERER (self);
-  xmlNodePtr node;
-  gchar d_buf[DTOSTR_BUF_SIZE];
-
-  node = xmlNewChild(renderer->root, renderer->svg_name_space, (const xmlChar *)"rect", NULL);
-
-  xmlSetProp(node, (const xmlChar *)"style", (xmlChar *) get_fill_style(renderer, colour));
-
-  dia_svg_dtostr(d_buf, ul_corner->x);
-  xmlSetProp(node, (const xmlChar *)"x", (xmlChar *)d_buf);
-  dia_svg_dtostr(d_buf, ul_corner->y);
-  xmlSetProp(node, (const xmlChar *)"y", (xmlChar *)d_buf);
-  dia_svg_dtostr(d_buf, lr_corner->x - ul_corner->x);
-  xmlSetProp(node, (const xmlChar *)"width", (xmlChar *)d_buf);
-  dia_svg_dtostr(d_buf, lr_corner->y - ul_corner->y);
-  xmlSetProp(node, (const xmlChar *)"height", (xmlChar *)d_buf);
 }
 
 static void
@@ -980,8 +962,7 @@ dia_svg_renderer_class_init (DiaSvgRendererClass *klass)
   renderer_class->set_pattern    = set_pattern;
 
   renderer_class->draw_line    = draw_line;
-  renderer_class->draw_rect    = draw_rect;
-  renderer_class->fill_rect    = fill_rect;
+  renderer_class->draw_polygon = draw_polygon;
   renderer_class->draw_arc     = draw_arc;
   renderer_class->fill_arc     = fill_arc;
   renderer_class->draw_ellipse = draw_ellipse;
@@ -993,7 +974,6 @@ dia_svg_renderer_class_init (DiaSvgRendererClass *klass)
   /* medium level functions */
   renderer_class->draw_rect = draw_rect;
   renderer_class->draw_polyline  = draw_polyline;
-  renderer_class->draw_polygon   = draw_polygon;
 
   renderer_class->draw_bezier   = draw_bezier;
   renderer_class->draw_beziergon = draw_beziergon;

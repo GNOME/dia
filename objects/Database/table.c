@@ -552,8 +552,7 @@ table_draw_namebox (Table * table, DiaRenderer * renderer, Element * elem)
   endP.y = startP.y + table->namebox_height;
 
   /* first draw the outer box and fill for the class name object */
-  renderer_ops->fill_rect (renderer, &startP, &endP, &table->fill_color);
-  renderer_ops->draw_rect (renderer, &startP, &endP, &table->line_color);
+  renderer_ops->draw_rect (renderer, &startP, &endP, &table->fill_color, &table->line_color);
 
   if (IS_NOT_EMPTY(table->name))
     {
@@ -686,8 +685,7 @@ table_draw_attributesbox (Table * table, DiaRenderer * renderer,
   endP.x = startP.x + elem->width;
   endP.y = startP.y + table->attributesbox_height;
 
-  renderer_ops->fill_rect (renderer, &startP, &endP, fill_color);
-  renderer_ops->draw_rect (renderer, &startP, &endP, line_color);
+  renderer_ops->draw_rect (renderer, &startP, &endP, fill_color, line_color);
 
   startP.x += TABLE_ATTR_NAME_OFFSET;
   startP.x += (table->border_width/2.0 + 0.1);

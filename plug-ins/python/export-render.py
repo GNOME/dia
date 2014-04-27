@@ -76,10 +76,7 @@ class DumpRenderer :
 			self.f.write ("\t" + str(pt) + "\n")
 	## \brief Draw a rectangle
 	def draw_rect (self, rect, color) :
-		self.f.write("draw_rect: " + str(rect) + str(color) + "\n")
-	## \brief Fill a rectangle
-	def fill_rect (self, rect, color) :
-		self.f.write("fill_rect: " + str(rect) + str(color) + "\n")
+		self.f.write("draw_rect: " + str(rect) + str(fill) + str(stroke) + "\n")
 	## \brief Draw an arc
 	def draw_arc (self, center, width, height, angle1, angle2, color) :
 		self.f.write("draw_arc: " + str(center) + ";" \

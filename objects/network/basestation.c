@@ -271,8 +271,8 @@ basestation_draw(Basestation *basestation, DiaRenderer *renderer)
   p1.x -= r/2.0;
   p2 = cb;
   p2.x += r/2.0;
-  renderer_ops->fill_rect(renderer, &p1, &p2,
-                          &basestation->fill_colour);
+  renderer_ops->draw_rect(renderer, &p1, &p2,
+                          &basestation->fill_colour, NULL);
   p2.x -= r;
   renderer_ops->draw_line(renderer, &p1, &p2,
                           &basestation->line_colour);

@@ -563,14 +563,24 @@ draw_polygon(DiaRenderer *self,
 static void
 draw_rect(DiaRenderer *self, 
           Point *ul_corner, Point *lr_corner,
-          Color *colour)
+          Color *fill, Color *stroke)
 {
   WpgRenderer *renderer = WPG_RENDERER (self);
   gint16* pData;
+  WPG_LineAttr lt = renderer->LineAttr.Type;
+
   DIAG_NOTE(g_message("draw_rect %f,%f -> %f,%f", 
             ul_corner->x, ul_corner->y, lr_corner->x, lr_corner->y));
 
-  WriteLineAttr(renderer, colour);
+  g_return_if_fail (fill || stroke);
+
+  if (!stroke)
+    renderer->LineAttr.Type = WPG_LA_NONE;
+  WriteLineAttr(renderer, stroke ? stroke : fill);
+  if (fill)
+    WriteFillAttr(renderer, fill, TRUE);
+  else
+    WriteFillAttr(renderer, stroke, FALSE);
   WriteRecHead(renderer, WPG_RECTANGLE, 4*sizeof(gint16));
 
   pData = g_new(gint16, 4);
@@ -580,23 +590,11 @@ draw_rect(DiaRenderer *self,
   pData[3] = SC(lr_corner->y - ul_corner->y); /* height */
 
   fwrite_le(pData, sizeof(gint16), 4, renderer->file);
-
+  if (!stroke)
+    renderer->LineAttr.Type = lt;
+  /* switch off fill */
+  WriteFillAttr(renderer, fill ? fill : stroke, FALSE);
   g_free(pData);
-}
-
-static void
-fill_rect(DiaRenderer *self, 
-          Point *ul_corner, Point *lr_corner,
-          Color *colour)
-{
-  WpgRenderer *renderer = WPG_RENDERER (self);
-
-  DIAG_NOTE(g_message("fill_rect %f,%f -> %f,%f", 
-            ul_corner->x, ul_corner->y, lr_corner->x, lr_corner->y));
-
-  WriteFillAttr(renderer, colour, TRUE);
-  draw_rect(self, ul_corner, lr_corner, colour);
-  WriteFillAttr(renderer, colour, FALSE);
 }
 
 static void
@@ -1033,8 +1031,7 @@ wpg_renderer_class_init (WpgRendererClass *klass)
   renderer_class->set_font  = set_font;
 
   renderer_class->draw_line    = draw_line;
-  renderer_class->draw_rect    = draw_rect;
-  renderer_class->fill_rect    = fill_rect;
+  renderer_class->draw_polygon = draw_polygon;
   renderer_class->draw_arc     = draw_arc;
   renderer_class->fill_arc     = fill_arc;
   renderer_class->draw_ellipse = draw_ellipse;
@@ -1044,9 +1041,8 @@ wpg_renderer_class_init (WpgRendererClass *klass)
   renderer_class->draw_image   = draw_image;
 
   /* medium level functions */
-  renderer_class->draw_rect = draw_rect;
+  renderer_class->draw_rect      = draw_rect;
   renderer_class->draw_polyline  = draw_polyline;
-  renderer_class->draw_polygon   = draw_polygon;
 
   renderer_class->draw_bezier   = draw_bezier;
   renderer_class->draw_beziergon = draw_beziergon;
