@@ -215,17 +215,11 @@ dia::Renderer::draw_rounded_polyline (Point *points, int num_points, Color *colo
 }
 // specialized draw_rect() with round corners
 void 
-dia::Renderer::draw_rounded_rect (Point *ul_corner, Point *lr_corner, Color *color, real radius)
+dia::Renderer::draw_rounded_rect (Point *ul_corner, Point *lr_corner,
+				  Color *fill, Color *stroke, real radius)
 {
     assert (self);
-    DIA_RENDERER_GET_CLASS(self)->draw_rounded_rect (self, ul_corner, lr_corner, color, radius);
-}
-// specialized draw_rect() with round corners
-void 
-dia::Renderer::fill_rounded_rect (Point *ul_corner, Point *lr_corner, Color *color, real radius)
-{
-    assert (self);
-    DIA_RENDERER_GET_CLASS(self)->fill_rounded_rect (self, ul_corner, lr_corner, color, radius);
+    DIA_RENDERER_GET_CLASS(self)->draw_rounded_rect (self, ul_corner, lr_corner, fill, stroke, radius);
 }
 // specialized draw_line() for renderers with an own concept of Arrow
 void 

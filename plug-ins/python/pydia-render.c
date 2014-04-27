@@ -681,65 +681,43 @@ draw_rect(DiaRenderer *renderer,
 static void
 draw_rounded_rect(DiaRenderer *renderer, 
 	  Point *ul_corner, Point *lr_corner,
-	  Color *colour, real rounding)
+	  Color *fill, Color *stroke, real rounding)
 {
   PyObject *func, *res, *arg, *self = PYDIA_RENDERER (renderer);
 
   func = PyObject_GetAttrString (self, "draw_rounded_rect");
   if (func && PyCallable_Check(func)) {
     PyObject *orect = PyDiaRectangle_New_FromPoints (ul_corner, lr_corner);
-    PyObject *ocolor = PyDiaColor_New (colour);
+    PyObject *fill_po, *stroke_po;
 
     Py_INCREF(self);
     Py_INCREF(func);
-    arg = Py_BuildValue ("(OOd)", orect, ocolor, rounding);
+    if (fill)
+      fill_po = PyDiaColor_New (fill);
+    else
+      Py_INCREF(Py_None), fill_po = Py_None;
+    if (stroke)
+      stroke_po = PyDiaColor_New (stroke);
+    else
+      Py_INCREF(Py_None), stroke_po = Py_None;
+
+    arg = Py_BuildValue ("(OOOd)", orect, fill_po, stroke_po, rounding);
     if (arg) {
       res = PyEval_CallObject (func, arg);
       ON_RES(res, FALSE);
     }
     Py_XDECREF (arg);
-    Py_XDECREF (ocolor);
+    Py_XDECREF (fill_po);
+    Py_XDECREF (stroke_po);
     Py_XDECREF (orect);
     Py_DECREF(func);
     Py_DECREF(self);
   }
   else { /* member optional */
     PyErr_Clear();
-    /* XXX: implementing the same fallback as DiaRenderer would do */
-    DIA_RENDERER_CLASS (parent_class)->draw_rounded_rect (renderer, ul_corner, lr_corner, colour, rounding);
-  }
-}
-
-
-static void
-fill_rounded_rect(DiaRenderer *renderer, 
-	  Point *ul_corner, Point *lr_corner,
-	  Color *colour, real rounding)
-{
-  PyObject *func, *res, *arg, *self = PYDIA_RENDERER (renderer);
-
-  func = PyObject_GetAttrString (self, "fill_rounded_rect");
-  if (func && PyCallable_Check(func)) {
-    PyObject *orect = PyDiaRectangle_New_FromPoints (ul_corner, lr_corner);
-    PyObject *ocolor = PyDiaColor_New (colour);
-
-    Py_INCREF(self);
-    Py_INCREF(func);
-    arg = Py_BuildValue ("(OOd)", orect, ocolor, rounding);
-    if (arg) {
-      res = PyEval_CallObject (func, arg);
-      ON_RES(res, FALSE);
-    }
-    Py_XDECREF (arg);
-    Py_XDECREF (orect);
-    Py_XDECREF (ocolor);
-    Py_DECREF(func);
-    Py_DECREF(self);
-  }
-  else { /* member optional */
-    PyErr_Clear();
-    /* XXX: implementing the same fallback as DiaRenderer would do */
-    DIA_RENDERER_CLASS (parent_class)->fill_rounded_rect (renderer, ul_corner, lr_corner, colour, rounding);
+    /* implementing the same fallback as DiaRenderer would do */
+    DIA_RENDERER_CLASS (parent_class)->draw_rounded_rect (renderer, ul_corner, lr_corner,
+							  fill, stroke, rounding);
   }
 }
 
@@ -1256,7 +1234,6 @@ dia_py_renderer_class_init (DiaPyRendererClass *klass)
 
   /* highest level functions */
   renderer_class->draw_rounded_rect = draw_rounded_rect;
-  renderer_class->fill_rounded_rect = fill_rounded_rect;
   /* other */
   renderer_class->is_capable_to = is_capable_to;
 }

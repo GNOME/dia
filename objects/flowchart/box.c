@@ -331,19 +331,16 @@ box_draw(Box *box, DiaRenderer *renderer)
   if (box->show_background)
     renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
   
-  /* Problem:  How do we make the fill with rounded corners?
-   * It's solved in the base class ...
-   */
-  renderer_ops->fill_rounded_rect (renderer, &elem->corner, &lr_corner,
-				   &box->inner_color, box->corner_radius);
-
   renderer_ops->set_linewidth(renderer, box->border_width);
   renderer_ops->set_linestyle(renderer, box->line_style);
   renderer_ops->set_dashlength(renderer, box->dashlength);
   renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
-
+  /* Problem:  How do we make the fill with rounded corners?
+   * It's solved in the base class ...
+   */
   renderer_ops->draw_rounded_rect (renderer, &elem->corner, &lr_corner,
-				   &box->border_color, box->corner_radius);
+				   &box->inner_color, &box->border_color,
+				   box->corner_radius);
   text_draw(box->text, renderer);
 }
 

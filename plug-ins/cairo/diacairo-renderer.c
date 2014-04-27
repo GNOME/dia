@@ -1062,76 +1062,6 @@ draw_image(DiaRenderer *self,
   DIAG_STATE(renderer->cr);
 }
 
-static void 
-_rounded_rect (DiaRenderer *self,
-               Point *topleft, Point *bottomright,
-               Color *color, real radius,
-               gboolean fill)
-{
-  DiaCairoRenderer *renderer = DIA_CAIRO_RENDERER (self);
-  double rv[2];
-
-  radius = MIN(radius, (bottomright->x - topleft->x)/2);
-  radius = MIN(radius, (bottomright->y - topleft->y)/2);
-  
-  /* ignore radius if it is smaller than the device unit, avoids anti-aliasing artifacts */
-  rv[0] = radius;
-  rv[1] = 0.0;
-  cairo_user_to_device_distance (renderer->cr, &rv[0], &rv[1]);
-  if (rv[0] < 1.0 && rv[1] < 1.0) {
-    _rect (self, topleft, bottomright, color, fill);
-    return;  
-  }
-
-  DIAG_NOTE(g_message("%s_rounded_rect %f,%f -> %f,%f, %f", 
-            fill ? "fill" : "draw",
-            topleft->x, topleft->y, bottomright->x, bottomright->y, radius));
-
-  cairo_set_source_rgba (renderer->cr, color->red, color->green, color->blue, color->alpha);
-
-  cairo_new_path (renderer->cr);
-  cairo_move_to (renderer->cr, /* north-west */
-                 topleft->x + radius, topleft->y);
-
-  cairo_line_to  (renderer->cr, /* north-east */
-                  bottomright->x - radius, topleft->y);
-  cairo_arc (renderer->cr,
-             bottomright->x - radius, topleft->y + radius, radius, -G_PI_2, 0);
-  cairo_line_to  (renderer->cr, /* south-east */
-                  bottomright->x, bottomright->y - radius);
-  cairo_arc (renderer->cr,
-             bottomright->x - radius, bottomright->y - radius, radius, 0, G_PI_2);
-  cairo_line_to  (renderer->cr, /* south-west */
-                  topleft->x + radius, bottomright->y);
-  cairo_arc (renderer->cr,
-             topleft->x + radius, bottomright->y - radius, radius, G_PI_2, G_PI);
-  cairo_line_to  (renderer->cr, /* north-west */
-                  topleft->x, topleft->y + radius); 
-  cairo_arc (renderer->cr,
-             topleft->x + radius, topleft->y + radius, radius, G_PI, -G_PI_2);
-  if (fill)
-    _dia_cairo_fill (renderer);
-  else
-    cairo_stroke (renderer->cr);
-  DIAG_STATE(renderer->cr)
-}
-
-static void 
-draw_rounded_rect (DiaRenderer *renderer,
-                   Point *topleft, Point *bottomright,
-                   Color *color, real radius)
-{
-  _rounded_rect (renderer, topleft, bottomright, color, radius, FALSE);
-}
-
-static void 
-fill_rounded_rect (DiaRenderer *renderer,
-                   Point *topleft, Point *bottomright,
-                   Color *color, real radius)
-{
-  _rounded_rect (renderer, topleft, bottomright, color, radius, TRUE);
-}
-
 static gpointer parent_class = NULL;
 
 static void
@@ -1257,8 +1187,6 @@ cairo_renderer_class_init (DiaCairoRendererClass *klass)
   renderer_class->draw_beziergon = draw_beziergon;
 
   /* highest level functions */
-  renderer_class->draw_rounded_rect = draw_rounded_rect;
-  renderer_class->fill_rounded_rect = fill_rounded_rect;
   renderer_class->draw_rounded_polyline = draw_rounded_polyline;
   /* other */
   renderer_class->is_capable_to = is_capable_to;

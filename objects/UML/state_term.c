@@ -79,9 +79,6 @@ static void state_get_props(State *state, GPtrArray *props);
 static void state_set_props(State *state, GPtrArray *props);
 static void state_update_data(State *state);
 
-void
-draw_rounded_rectangle(DiaRenderer *renderer, Point p1, Point p2, real radio);
-
 static ObjectTypeOps state_type_ops =
 {
   (CreateFunc) state_create,

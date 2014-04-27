@@ -126,10 +126,7 @@ static real get_text_width (DiaRenderer *renderer,
 
 static void draw_rounded_rect (DiaRenderer *renderer,
                                Point *ul_corner, Point *lr_corner,
-                               Color *color, real radius);
-static void fill_rounded_rect (DiaRenderer *renderer,
-                               Point *ul_corner, Point *lr_corner,
-                               Color *color, real radius);
+                               Color *fill, Color *stroke, real radius);
 static void draw_line_with_arrows  (DiaRenderer *renderer, 
                                     Point *start, Point *end, 
                                     real line_width,
@@ -337,7 +334,6 @@ dia_renderer_class_init (DiaRendererClass *klass)
 
   /* highest level functions */
   renderer_class->draw_rounded_rect = draw_rounded_rect;
-  renderer_class->fill_rounded_rect = fill_rounded_rect;
   renderer_class->draw_line_with_arrows = draw_line_with_arrows;
   renderer_class->draw_arc_with_arrows  = draw_arc_with_arrows;
   renderer_class->draw_polyline_with_arrows = draw_polyline_with_arrows;
@@ -875,7 +871,7 @@ draw_polygon (DiaRenderer *renderer,
 static void 
 _rounded_rect_with_bezier (DiaRenderer *renderer, 
 			   Point *ul_corner, Point *lr_corner,
-			   Color *color, real radius, gboolean fill) 
+			   Color *fill, Color *stroke, real radius) 
 {
   /* Conversion algorithm copied from objects/standard/box
    * If you find bugs here they might be there as well;)
@@ -907,34 +903,33 @@ _rounded_rect_with_bezier (DiaRenderer *renderer,
   points[8].p2.x = x; points[8].p2.y = y; points[8].p3.x = x + r; points[8].p3.y = y;
   /* end of copy */
 
-  if (fill)
-    DIA_RENDERER_GET_CLASS(renderer)->draw_beziergon (renderer, points, num_points, color, NULL);
-  else
-    DIA_RENDERER_GET_CLASS(renderer)->draw_beziergon (renderer, points, num_points, NULL, color);
+  DIA_RENDERER_GET_CLASS(renderer)->draw_beziergon (renderer, points, num_points, fill, stroke);
 }
 
 static void 
 draw_rounded_rect (DiaRenderer *renderer, 
                    Point *ul_corner, Point *lr_corner,
-                   Color *color, real radius) 
+                   Color *fill, Color *stroke, real radius) 
 {
   DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Point start, end, center;
+  Color *color = fill ? fill : stroke;
 
   radius = MIN(radius, (lr_corner->x-ul_corner->x)/2);
   radius = MIN(radius, (lr_corner->y-ul_corner->y)/2);
   
   if (radius < 0.00001) {
-    renderer_ops->draw_rect(renderer, ul_corner, lr_corner, NULL, color);
+    renderer_ops->draw_rect(renderer, ul_corner, lr_corner, fill, stroke);
     return;
   }
 
   /* if the renderer has it's own draw_bezier use that */
   if (DIA_RENDERER_GET_CLASS(renderer)->draw_bezier != &draw_bezier) {
-    _rounded_rect_with_bezier (renderer, ul_corner, lr_corner, color, radius, FALSE);
+    _rounded_rect_with_bezier (renderer, ul_corner, lr_corner, fill, stroke, radius);
     return;
   }
   /* final fallback */
+  //FIXME: needs extended draw_arc 
   start.x = center.x = ul_corner->x+radius;
   end.x = lr_corner->x-radius;
   start.y = end.y = ul_corner->y;
@@ -965,60 +960,6 @@ draw_rounded_rect (DiaRenderer *renderer,
 			  180.0, 270.0, color);
   center.x = lr_corner->x-radius;
   renderer_ops->draw_arc(renderer, &center, 
-			  2.0*radius, 2.0*radius,
-			  270.0, 360.0, color);
-}
-
-static void 
-fill_rounded_rect(DiaRenderer *renderer, 
-                  Point *ul_corner, Point *lr_corner,
-                  Color *color, real radius)
-{
-  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
-  Point start, end, center;
-
-  radius = MIN(radius, (lr_corner->x-ul_corner->x)/2);
-  radius = MIN(radius, (lr_corner->y-ul_corner->y)/2);
-
-  if (radius < 0.00001) {
-    renderer_ops->draw_rect(renderer, ul_corner, lr_corner, color, NULL);
-    return;
-  }
-  /* if the renderer has it's own draw_beziergon use that */
-  if (DIA_RENDERER_GET_CLASS(renderer)->draw_beziergon != &draw_beziergon) {
-    _rounded_rect_with_bezier (renderer, ul_corner, lr_corner, color, radius, TRUE);
-    return;
-  }
-  /* final fallback */
-  start.x = center.x = ul_corner->x+radius;
-  end.x = lr_corner->x-radius;
-  start.y = ul_corner->y;
-  end.y = lr_corner->y;
-  renderer_ops->draw_rect(renderer, &start, &end, color, NULL);
-
-  center.y = ul_corner->y+radius;
-  renderer_ops->fill_arc(renderer, &center, 
-			  2.0*radius, 2.0*radius,
-			  90.0, 180.0, color);
-  center.x = end.x;
-  renderer_ops->fill_arc(renderer, &center, 
-			  2.0*radius, 2.0*radius,
-			  0.0, 90.0, color);
-
-
-  start.x = ul_corner->x;
-  start.y = ul_corner->y+radius;
-  end.x = lr_corner->x;
-  end.y = center.y = lr_corner->y-radius;
-  renderer_ops->draw_rect(renderer, &start, &end, color, NULL);
-
-  center.y = lr_corner->y-radius;
-  center.x = ul_corner->x+radius;
-  renderer_ops->fill_arc(renderer, &center, 
-			  2.0*radius, 2.0*radius,
-			  180.0, 270.0, color);
-  center.x = lr_corner->x-radius;
-  renderer_ops->fill_arc(renderer, &center, 
 			  2.0*radius, 2.0*radius,
 			  270.0, 360.0, color);
 }

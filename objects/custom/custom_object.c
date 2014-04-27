@@ -994,10 +994,10 @@ custom_draw_element(GraphicElement* el, Custom *custom, DiaRenderer *renderer,
       p2.y = coord;
     }
     /* the renderer implementation will use simple rect with a small enough radius */
-    if (custom->show_background && el->any.s.fill != DIA_SVG_COLOUR_NONE)
-      renderer_ops->fill_rounded_rect(renderer, &p1, &p2, bg, radius);
-    if (el->any.s.stroke != DIA_SVG_COLOUR_NONE)
-      renderer_ops->draw_rounded_rect(renderer, &p1, &p2, fg, radius);
+    renderer_ops->draw_rounded_rect(renderer, &p1, &p2,
+				    (custom->show_background && el->any.s.fill != DIA_SVG_COLOUR_NONE) ? bg : NULL,
+				    (el->any.s.stroke != DIA_SVG_COLOUR_NONE) ? fg : NULL,
+				    radius);
     break;
   case GE_TEXT:
     text_set_height (el->text.object, custom_transform_length (custom, el->text.s.font_height));

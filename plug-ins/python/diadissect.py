@@ -107,10 +107,8 @@ class DissectRenderer :
 			self.Warning ("%s negative width" % (fun,))
 	def draw_rect (self, rect, fill, stroke) :
 		self._rect (rect, "draw_rect")
-	def draw_rounded_rect (self, rect, color, rounding) :
+	def draw_rounded_rect (self, rect, fill, stroke, rounding) :
 		# XXX: check rounding to be positive (smaller than half width, height?)
-		self._rect (rect, "draw_rect")
-	def fill_rounded_rect (self, rect, color, rounding) :
 		self._rect (rect, "draw_rect")
 	def _arc (self, center, width, height, angle1, angle2, fun) :
 		if width <= 0 :

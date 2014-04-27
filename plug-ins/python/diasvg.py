@@ -119,14 +119,10 @@ class SvgRenderer :
 		self.f.write('<rect x="%.3f" y="%.3f" width="%.3f" height="%.3f" fill="%s" stroke="%s" stroke-width="%.3f" %s/>\n' \
 					% (	rect.left, rect.top, rect.right - rect.left, rect.bottom - rect.top,
 				  		self._rgb(fill), self._rgb(stroke), self.line_width, self._stroke_style()))
-	def draw_rounded_rect (self, rect, color, rounding) :
-		self.f.write('<rect x="%.3f" y="%.3f" width="%.3f" height="%.3f" fill="none" stroke="%s" stroke-width="%.3f" %s rx="%.3f" />\n' \
+	def draw_rounded_rect (self, rect, fill, stroke, rounding) :
+		self.f.write('<rect x="%.3f" y="%.3f" width="%.3f" height="%.3f" fill="%s" stroke="%s" stroke-width="%.3f" %s rx="%.3f" />\n' \
 					% (	rect.left, rect.top, rect.right - rect.left, rect.bottom - rect.top,
-				  		self._rgb(color), self.line_width, self._stroke_style(), rounding))
-	def fill_rounded_rect (self, rect, color, rounding) :
-		self.f.write('<rect x="%.3f" y="%.3f" width="%.3f" height="%.3f" fill="%s" stroke="none" rx="%.3f" />\n' \
-					% (	rect.left, rect.top, rect.right - rect.left, rect.bottom - rect.top,
-				  		self._rgb(color), rounding))
+				  		self._rgb(fill), self._rgb(stroke), self.line_width, self._stroke_style(), rounding))
 	def _arc (self, center, width, height, angle1, angle2, color, fill=None) :
 		# not in the renderer interface
 		import math

@@ -131,10 +131,8 @@ public :
     virtual void draw_rounded_polyline (Point *points, int num_points, Color *color, double radius);
     //! specialized draw_rect() with round corners
     //! \ingroup RenderHigh
-    virtual void draw_rounded_rect (Point *ul_corner, Point *lr_corner, Color *color, real radius);
-    //! specialized draw_rect() with round corners
-    //! \ingroup RenderHigh
-    virtual void fill_rounded_rect (Point *ul_corner, Point *lr_corner, Color *color, real radius);
+    virtual void draw_rounded_rect (Point *ul_corner, Point *lr_corner,
+				    Color *fill, Color *stroke, real radius);
     //! specialized draw_line() for renderers with an own concept of Arrow
     //! \ingroup RenderHigh
     virtual void draw_line_with_arrows  (Point *start, Point *end, real line_width, Color *line_color, 

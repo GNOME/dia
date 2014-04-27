@@ -95,10 +95,8 @@ static void draw_polygon (DiaRenderer *renderer,
 
 static void draw_rounded_rect (DiaRenderer *renderer,
 			       Point *ul_corner, Point *lr_corner,
-			       Color *color, real radius);
-static void fill_rounded_rect (DiaRenderer *renderer,
-			       Point *ul_corner, Point *lr_corner,
-			      Color *color, real radius);
+			       Color *fill, Color *stroke, real radius);
+
 static void draw_line_with_arrows  (DiaRenderer *renderer, 
 				    Point *start, Point *end, 
 				    real line_width,
@@ -191,7 +189,6 @@ dia_import_renderer_class_init (DiaImportRendererClass *klass)
 
   /* highest level functions */
   renderer_class->draw_rounded_rect = draw_rounded_rect;
-  renderer_class->fill_rounded_rect = fill_rounded_rect;
   renderer_class->draw_line_with_arrows = draw_line_with_arrows;
   renderer_class->draw_arc_with_arrows  = draw_arc_with_arrows;
   renderer_class->draw_polyline_with_arrows = draw_polyline_with_arrows;
@@ -591,31 +588,13 @@ draw_polygon (DiaRenderer *renderer,
 static void
 draw_rounded_rect (DiaRenderer *renderer, 
                    Point *ul_corner, Point *lr_corner,
-                   Color *color, real radius) 
+                   Color *fill, Color *stroke, real radius) 
 {
   DiaImportRenderer *self = DIA_IMPORT_RENDERER (renderer);
   DiaObject *object = create_standard_box (ul_corner->x, ul_corner->y,
 					   lr_corner->x - ul_corner->x,
 					   lr_corner->y - ul_corner->y);
-  _apply_style (self, object, NULL, color, radius);
-  _push_object (self, object);
-}
-
-/*!
- * \brief Fill a rectangle with rounded corners.
- * Creates a _Box object.
- * \memberof _DiaImportRenderer
- */
-static void
-fill_rounded_rect(DiaRenderer *renderer, 
-                  Point *ul_corner, Point *lr_corner,
-                  Color *color, real radius)
-{
-  DiaImportRenderer *self = DIA_IMPORT_RENDERER (renderer);
-  DiaObject *object = create_standard_box (ul_corner->x, ul_corner->y,
-					   lr_corner->x - ul_corner->x,
-					   lr_corner->y - ul_corner->y);
-  _apply_style (self, object, color, NULL, radius);
+  _apply_style (self, object, fill, stroke, radius);
   _push_object (self, object);
 }
 

@@ -229,10 +229,8 @@ state_draw(State *state, DiaRenderer *renderer)
    p1.y = y;
    p2.x = x + w;
    p2.y = y + h;
-   renderer_ops->fill_rounded_rect(renderer, &p1, &p2,
-				   &state->fill_color, 1.0);
    renderer_ops->draw_rounded_rect(renderer, &p1, &p2,
-				   &state->line_color, 1.0);
+				   &state->fill_color, &state->line_color, 1.0);
    
    text_draw(state->text, renderer);
 }

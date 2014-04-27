@@ -330,8 +330,9 @@ goal_draw(Goal *goal, DiaRenderer *renderer)
     p1.y= elem->corner.y;
     p2.x=p1.x+elem->width;
     p2.y=p1.y+elem->height;
-    renderer_ops->fill_rounded_rect(renderer,&p1,&p2, &GOAL_BG_COLOR, elem->height/2.0);
-    renderer_ops->draw_rounded_rect(renderer,&p1,&p2, &GOAL_FG_COLOR, elem->height/2.0);
+    renderer_ops->draw_rounded_rect (renderer,&p1,&p2,
+				     &GOAL_BG_COLOR, &GOAL_FG_COLOR,
+				     elem->height/2.0);
   } else {                 /* softgoal */
      compute_cloud(goal,bpl);
      renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);

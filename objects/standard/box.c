@@ -329,10 +329,9 @@ box_draw(Box *box, DiaRenderer *renderer)
     }
     /* we only want separate calls for potential pattern fill */
     if (box->corner_radius > 0) {
-      renderer_ops->fill_rounded_rect(renderer,
-				       &elem->corner,
-				       &lr_corner,
-				       &fill,
+      renderer_ops->draw_rounded_rect (renderer,
+				       &elem->corner, &lr_corner,
+				       &fill, NULL,
 				       box->corner_radius);
     } else {
       renderer_ops->draw_rect(renderer, 
@@ -345,11 +344,10 @@ box_draw(Box *box, DiaRenderer *renderer)
   }
 
   if (box->corner_radius > 0) {
-    renderer_ops->draw_rounded_rect(renderer, 
-			     &elem->corner,
-			     &lr_corner,
-			     &box->border_color,
-			     box->corner_radius);
+    renderer_ops->draw_rounded_rect (renderer, 
+				     &elem->corner, &lr_corner,
+				     NULL, &box->border_color,
+				     box->corner_radius);
   } else {
     renderer_ops->draw_rect(renderer, 
 			     &elem->corner,

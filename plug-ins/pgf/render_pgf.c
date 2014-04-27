@@ -101,10 +101,7 @@ static void draw_polygon(DiaRenderer *self,
 			 Color *fill, Color *stroke);
 static void draw_rounded_rect(DiaRenderer *self, 
 			      Point *ul_corner, Point *lr_corner,
-			      Color *color, real radius);
-static void fill_rounded_rect(DiaRenderer *self, 
-			      Point *ul_corner, Point *lr_corner,
-			      Color *color, real radius);
+			      Color *fill, Color *stroke, real radius);
 static void draw_arc(DiaRenderer *self, 
 		     Point *center,
 		     real width, real height,
@@ -251,7 +248,6 @@ pgf_renderer_class_init (PgfRendererClass *klass)
   renderer_class->draw_polygon = draw_polygon;
 
   renderer_class->draw_rounded_rect = draw_rounded_rect;
-  renderer_class->fill_rounded_rect = fill_rounded_rect;
 
   renderer_class->draw_arc = draw_arc;
   renderer_class->fill_arc = fill_arc;
@@ -591,7 +587,7 @@ pgf_rect(PgfRenderer *renderer,
 }
 
 static void 
-draw_rounded_rect(DiaRenderer *self, 
+stroke_rounded_rect(DiaRenderer *self, 
 			      Point *ul_corner, Point *lr_corner,
 			      Color *color, real radius)
 {
@@ -619,6 +615,16 @@ fill_rounded_rect(DiaRenderer *self,
 	fprintf(renderer->file, "}");
 }
 
+static void 
+draw_rounded_rect(DiaRenderer *self, 
+			      Point *ul_corner, Point *lr_corner,
+			      Color *fill, Color *stroke, real radius)
+{
+	if (fill)
+		fill_rounded_rect (self, ul_corner, lr_corner, fill, radius);
+	if (stroke)
+		stroke_rounded_rect (self, ul_corner, lr_corner, stroke, radius);
+}
 
 static void
 pgf_arc(PgfRenderer *renderer, 

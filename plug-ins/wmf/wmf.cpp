@@ -1172,45 +1172,35 @@ draw_image(DiaRenderer *self,
 static void
 draw_rounded_rect (DiaRenderer *self, 
 	           Point *ul_corner, Point *lr_corner,
-	           Color *colour, real radius)
+	           Color *fill, Color *stroke, real radius)
 {
     WmfRenderer *renderer = WMF_RENDERER (self);
-
-    W32::HPEN hPen;
 
     DIAG_NOTE(renderer, "draw_rounded_rect %f,%f -> %f,%f %f\n", 
               ul_corner->x, ul_corner->y, lr_corner->x, lr_corner->y, radius);
 
-    hPen = UsePen(renderer, colour);
+    if (fill) {
+	W32::COLORREF rgb = W32COLOR(fill);
+	W32::HGDIOBJ hBrush = W32::CreateSolidBrush(rgb);
+	W32::HGDIOBJ hBrOld = W32::SelectObject(renderer->hFileDC, hBrush);
 
-    W32::RoundRect(renderer->hFileDC,
-                   SCX(ul_corner->x), SCY(ul_corner->y),
-                   SCX(lr_corner->x), SCY(lr_corner->y),
-                   SC(radius*2), SC(radius*2));
+	W32::RoundRect (renderer->hFileDC,
+			SCX(ul_corner->x), SCY(ul_corner->y),
+			SCX(lr_corner->x), SCY(lr_corner->y),
+			SC(radius*2), SC(radius*2));
 
-    DonePen(renderer, hPen);
-}
-
-static void
-fill_rounded_rect (DiaRenderer *self, 
-	           Point *ul_corner, Point *lr_corner,
-	           Color *colour, real radius)
-{
-    WmfRenderer *renderer = WMF_RENDERER (self);
-    W32::HGDIOBJ hBrush, hBrOld;
-    W32::COLORREF rgb = W32COLOR(colour);
-
-    DIAG_NOTE(renderer, "fill_rounded_rect %f,%f -> %f,%f\n", 
-              ul_corner->x, ul_corner->y, lr_corner->x, lr_corner->y);
-
-    hBrush = W32::CreateSolidBrush(rgb);
-    hBrOld = W32::SelectObject(renderer->hFileDC, hBrush);
-
-    draw_rounded_rect(self, ul_corner, lr_corner, NULL, radius);
-
-    W32::SelectObject(renderer->hFileDC, 
-                    W32::GetStockObject (HOLLOW_BRUSH) );
-    W32::DeleteObject(hBrush);
+	W32::SelectObject (renderer->hFileDC, 
+			   W32::GetStockObject (HOLLOW_BRUSH) );
+	W32::DeleteObject(hBrush);
+    }
+    if (stroke) {
+	W32::HPEN hPen = UsePen (renderer, stroke);
+	W32::RoundRect (renderer->hFileDC,
+			SCX(ul_corner->x), SCY(ul_corner->y),
+			SCX(lr_corner->x), SCY(lr_corner->y),
+			SC(radius*2), SC(radius*2));
+	DonePen(renderer, hPen);
+    }
 }
 
 /* GObject boiler plate */
@@ -1301,7 +1291,6 @@ wmf_renderer_class_init (WmfRendererClass *klass)
 #endif
 #ifndef HAVE_LIBEMF
   renderer_class->draw_rounded_rect = draw_rounded_rect;
-  renderer_class->fill_rounded_rect = fill_rounded_rect;
 #endif
   /* other */
   renderer_class->is_capable_to = is_capable_to;

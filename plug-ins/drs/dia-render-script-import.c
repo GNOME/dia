@@ -330,10 +330,8 @@ _render_object (xmlNodePtr render, DiaContext *ctx)
 	Point ul = _parse_point (node, "lefttop");
 	Point lr = _parse_point (node, "rightbottom");
 	real r = _parse_real (node,"r");
-	if (fill)
-	  ops->fill_rounded_rect (ir, &ul, &lr, fill, r);
-	if (stroke)
-	  ops->draw_rounded_rect (ir, &ul, &lr, stroke, r);
+	if (fill || stroke)
+	  ops->draw_rounded_rect (ir, &ul, &lr, fill, stroke, r);
       } else if (   xmlStrcmp (node->name, (const xmlChar *)"string") == 0) {
 	Point pos = _parse_point (node, "pos");
 	Alignment align = _parse_alignment (node, "alignment");

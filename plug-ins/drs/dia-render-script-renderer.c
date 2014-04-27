@@ -456,7 +456,7 @@ draw_polygon (DiaRenderer *self,
 static void
 _rounded_rect(DiaRenderer *self, 
               Point *lefttop, Point *rightbottom,
-              Color *color, real *rounding, gboolean fill)
+              Color *fill, Color *stroke, real *rounding)
 {
   DrsRenderer *renderer = DRS_RENDERER (self);
   xmlNodePtr node;
@@ -473,34 +473,24 @@ _rounded_rect(DiaRenderer *self,
   if (rounding)
     _node_set_real (node, "r", *rounding);
   if (fill)
-    _node_set_color (node, "fill", color);
-  else
-    _node_set_color (node, "stroke", color);
+    _node_set_color (node, "fill", fill);
+  if (stroke)
+    _node_set_color (node, "stroke", stroke);
 }
 static void
 draw_rect(DiaRenderer *self, 
           Point *lefttop, Point *rightbottom,
           Color *fill, Color *stroke)
 {
-  if (fill)
-    _rounded_rect(self, lefttop, rightbottom, fill, NULL, FALSE);
-  if (stroke)
-    _rounded_rect(self, lefttop, rightbottom, stroke, NULL, TRUE);
+  _rounded_rect(self, lefttop, rightbottom, fill, stroke, NULL);
 }
 
 static void
 draw_rounded_rect(DiaRenderer *self, 
                   Point *lefttop, Point *rightbottom,
-                  Color *color, real rounding)
+                  Color *fill, Color *stroke, real rounding)
 {
-  _rounded_rect(self, lefttop, rightbottom, color, &rounding, FALSE);
-}
-static void
-fill_rounded_rect(DiaRenderer *self, 
-                  Point *lefttop, Point *rightbottom,
-                  Color *color, real rounding)
-{
-  _rounded_rect(self, lefttop, rightbottom, color, &rounding, FALSE);
+  _rounded_rect(self, lefttop, rightbottom, fill, stroke, &rounding);
 }
 
 static void
@@ -733,7 +723,6 @@ drs_renderer_class_init (DrsRendererClass *klass)
   renderer_class->draw_rounded_polyline = draw_rounded_polyline;
   /* highest level functions */
   renderer_class->draw_rounded_rect = draw_rounded_rect;
-  renderer_class->fill_rounded_rect = fill_rounded_rect;
 #if 0
   renderer_class->draw_text  = draw_text;
   renderer_class->draw_text_line  = draw_text_line;

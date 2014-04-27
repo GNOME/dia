@@ -310,9 +310,10 @@ state_draw(State *state, DiaRenderer *renderer)
       p1.y = y;
       p2.x = x + w;
       p2.y = y + h;
-      renderer_ops->fill_rounded_rect(renderer, &p1, &p2, &state->fill_color, 0.5);
-      renderer_ops->draw_rounded_rect(renderer, &p1, &p2, &state->line_color, 0.5);
-      
+      renderer_ops->draw_rounded_rect(renderer, &p1, &p2,
+				      &state->fill_color, &state->line_color,
+				      0.5);
+
       text_draw(state->text, renderer);
       has_actions = FALSE;
       if (state->entry_action && strlen(state->entry_action) != 0) {
