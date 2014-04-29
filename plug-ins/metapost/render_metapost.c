@@ -150,145 +150,6 @@ static _slant_lookup_entry SLANT_LOOKUP_TABLE[] =
 static void end_draw_op(MetapostRenderer *renderer);
 static void draw_with_linestyle(MetapostRenderer *renderer);
 
-static void begin_render(DiaRenderer *self, const Rectangle *update);
-static void end_render(DiaRenderer *self);
-static void set_linewidth(DiaRenderer *self, real linewidth);
-static void set_linecaps(DiaRenderer *self, LineCaps mode);
-static void set_linejoin(DiaRenderer *self, LineJoin mode);
-static void set_linestyle(DiaRenderer *self, LineStyle mode);
-static void set_dashlength(DiaRenderer *self, real length);
-static void set_fillstyle(DiaRenderer *self, FillStyle mode);
-static void set_font(DiaRenderer *self, DiaFont *font, real height);
-static void draw_line(DiaRenderer *self, 
-		      Point *start, Point *end, 
-		      Color *line_color);
-static void draw_polyline(DiaRenderer *self, 
-			  Point *points, int num_points, 
-			  Color *line_color);
-static void draw_polygon(DiaRenderer *self, 
-			 Point *points, int num_points, 
-			 Color *fill, Color *stroke);
-static void draw_arc(DiaRenderer *self, 
-		     Point *center,
-		     real width, real height,
-		     real angle1, real angle2,
-		     Color *color);
-static void fill_arc(DiaRenderer *self, 
-		     Point *center,
-		     real width, real height,
-		     real angle1, real angle2,
-		     Color *color);
-static void draw_ellipse(DiaRenderer *self, 
-			 Point *center,
-			 real width, real height,
-			 Color *color);
-static void fill_ellipse(DiaRenderer *self, 
-			 Point *center,
-			 real width, real height,
-			 Color *color);
-static void draw_bezier(DiaRenderer *self, 
-			BezPoint *points,
-			int numpoints,
-			Color *color);
-static void draw_beziergon(DiaRenderer *self, 
-			   BezPoint *points, /* Last point must be same as first point */
-			   int numpoints,
-			   Color *fill,
-			   Color *stroke);
-static void draw_string(DiaRenderer *self,
-			const char *text,
-			Point *pos, Alignment alignment,
-			Color *color);
-static void draw_text  (DiaRenderer *self,
-			Text *text);
-static void draw_image(DiaRenderer *self,
-		       Point *point,
-		       real width, real height,
-		       DiaImage *image);
-
-/* GObject stuff */
-static void metapost_renderer_class_init (MetapostRendererClass *klass);
-
-static gpointer parent_class = NULL;
-
-GType
-metapost_renderer_get_type (void)
-{
-  static GType object_type = 0;
-
-  if (!object_type)
-    {
-      static const GTypeInfo object_info =
-      {
-        sizeof (MetapostRendererClass),
-        (GBaseInitFunc) NULL,
-        (GBaseFinalizeFunc) NULL,
-        (GClassInitFunc) metapost_renderer_class_init,
-        NULL,           /* class_finalize */
-        NULL,           /* class_data */
-        sizeof (MetapostRenderer),
-        0,              /* n_preallocs */
-	NULL            /* init */
-      };
-
-      object_type = g_type_register_static (DIA_TYPE_RENDERER,
-                                            "MetapostRenderer",
-                                            &object_info, 0);
-    }
-  
-  return object_type;
-}
-
-static void
-metapost_renderer_finalize (GObject *object)
-{ 
-/*  MetapostRenderer *metapost_renderer = METAPOST_RENDERER (object); */
-
-  G_OBJECT_CLASS (parent_class)->finalize (object);
-}
-
-static void
-metapost_renderer_class_init (MetapostRendererClass *klass)
-{
-  GObjectClass *object_class = G_OBJECT_CLASS (klass);
-  DiaRendererClass *renderer_class = DIA_RENDERER_CLASS (klass);
-
-  parent_class = g_type_class_peek_parent (klass);
-
-  object_class->finalize = metapost_renderer_finalize;
-
-  renderer_class->begin_render = begin_render;
-  renderer_class->end_render = end_render;
-
-  renderer_class->set_linewidth = set_linewidth;
-  renderer_class->set_linecaps = set_linecaps;
-  renderer_class->set_linejoin = set_linejoin;
-  renderer_class->set_linestyle = set_linestyle;
-  renderer_class->set_dashlength = set_dashlength;
-  renderer_class->set_fillstyle = set_fillstyle;
-  renderer_class->set_font = set_font;
-  
-  renderer_class->draw_line = draw_line;
-  renderer_class->draw_polyline = draw_polyline;
-  
-  renderer_class->draw_polygon = draw_polygon;
-
-  renderer_class->draw_arc = draw_arc;
-  renderer_class->fill_arc = fill_arc;
-
-  renderer_class->draw_ellipse = draw_ellipse;
-  renderer_class->fill_ellipse = fill_ellipse;
-
-  renderer_class->draw_bezier = draw_bezier;
-  renderer_class->draw_beziergon = draw_beziergon;
-
-  renderer_class->draw_string = draw_string;
-  renderer_class->draw_text = draw_text;
-
-  renderer_class->draw_image = draw_image;
-}
-
-
 static void
 end_draw_op(MetapostRenderer *renderer)
 {
@@ -1106,6 +967,88 @@ draw_image(DiaRenderer *self,
     
     g_free(mask_data);
     g_free(rgb_data);
+}
+
+/* GObject stuff */
+static void metapost_renderer_class_init (MetapostRendererClass *klass);
+
+static gpointer parent_class = NULL;
+
+GType
+metapost_renderer_get_type (void)
+{
+  static GType object_type = 0;
+
+  if (!object_type)
+    {
+      static const GTypeInfo object_info =
+      {
+        sizeof (MetapostRendererClass),
+        (GBaseInitFunc) NULL,
+        (GBaseFinalizeFunc) NULL,
+        (GClassInitFunc) metapost_renderer_class_init,
+        NULL,           /* class_finalize */
+        NULL,           /* class_data */
+        sizeof (MetapostRenderer),
+        0,              /* n_preallocs */
+	NULL            /* init */
+      };
+
+      object_type = g_type_register_static (DIA_TYPE_RENDERER,
+                                            "MetapostRenderer",
+                                            &object_info, 0);
+    }
+  
+  return object_type;
+}
+
+static void
+metapost_renderer_finalize (GObject *object)
+{ 
+/*  MetapostRenderer *metapost_renderer = METAPOST_RENDERER (object); */
+
+  G_OBJECT_CLASS (parent_class)->finalize (object);
+}
+
+static void
+metapost_renderer_class_init (MetapostRendererClass *klass)
+{
+  GObjectClass *object_class = G_OBJECT_CLASS (klass);
+  DiaRendererClass *renderer_class = DIA_RENDERER_CLASS (klass);
+
+  parent_class = g_type_class_peek_parent (klass);
+
+  object_class->finalize = metapost_renderer_finalize;
+
+  renderer_class->begin_render = begin_render;
+  renderer_class->end_render = end_render;
+
+  renderer_class->set_linewidth = set_linewidth;
+  renderer_class->set_linecaps = set_linecaps;
+  renderer_class->set_linejoin = set_linejoin;
+  renderer_class->set_linestyle = set_linestyle;
+  renderer_class->set_dashlength = set_dashlength;
+  renderer_class->set_fillstyle = set_fillstyle;
+  renderer_class->set_font = set_font;
+  
+  renderer_class->draw_line = draw_line;
+  renderer_class->draw_polyline = draw_polyline;
+  
+  renderer_class->draw_polygon = draw_polygon;
+
+  renderer_class->draw_arc = draw_arc;
+  renderer_class->fill_arc = fill_arc;
+
+  renderer_class->draw_ellipse = draw_ellipse;
+  renderer_class->fill_ellipse = fill_ellipse;
+
+  renderer_class->draw_bezier = draw_bezier;
+  renderer_class->draw_beziergon = draw_beziergon;
+
+  renderer_class->draw_string = draw_string;
+  renderer_class->draw_text = draw_text;
+
+  renderer_class->draw_image = draw_image;
 }
 
 /* --- export filter interface --- */
