@@ -156,8 +156,12 @@ end_draw_op(MetapostRenderer *renderer)
     gchar d1_buf[DTOSTR_BUF_SIZE];
     gchar d2_buf[DTOSTR_BUF_SIZE];
     gchar d3_buf[DTOSTR_BUF_SIZE];
-    
-    fprintf(renderer->file, "\n    withpen pencircle scaled %sx", 
+
+    /* the following pencircle seems not to work well with line caps, but using
+     *	renderer->saved_line_cap == LINECAPS_ROUND ? "pencircle" : "pensquare",
+     * doesn't make it anz better
+     */
+    fprintf(renderer->file, "\n    withpen pencircle scaled %sx",
             g_ascii_formatd(d1_buf, sizeof(d1_buf), "%5.4f", (gdouble) renderer->line_width) );
 
     if (!color_equals(&renderer->color, &color_black))
@@ -184,13 +188,6 @@ set_line_color(MetapostRenderer *renderer,Color *color)
 	    mp_dtostr(blue_buf, (gdouble)color->blue) );
 }
 
-static void 
-set_fill_color(MetapostRenderer *renderer,Color *color)
-{
-    set_line_color(renderer,color);
-}
-
-
 static void
 begin_render(DiaRenderer *self, const Rectangle *update)
 {
@@ -205,6 +202,30 @@ end_render(DiaRenderer *self)
     fprintf(renderer->file,"end;\n");
     fclose(renderer->file);
 }
+
+/*!
+ * \brief Advertize special capabilities
+ *
+ * Some objects drawing adapts to capabilities advertized by the respective
+ * renderer. Usually there is a fallback, but generally the real thing should
+ * be better.
+ *
+ * \memberof _MetapostRenderer
+ */
+static gboolean 
+is_capable_to (DiaRenderer *renderer, RenderCapability cap)
+{
+  if (RENDER_HOLES == cap)
+    return FALSE; /* maybe with unfill? */
+  else if (RENDER_ALPHA == cap)
+    return FALSE; /* not now */
+  else if (RENDER_AFFINE == cap)
+    return FALSE; /* not now */
+  else if (RENDER_PATTERN == cap)
+    return FALSE; /* might be possible, too */
+  return FALSE;
+}
+
 
 static void
 set_linewidth(DiaRenderer *self, real linewidth)
@@ -314,24 +335,26 @@ draw_with_linestyle(MetapostRenderer *renderer)
 		dot_lenght_buf, hole_width_buf );
 	break;
     case LINESTYLE_DOTTED:
+	hole_width = renderer->dot_length * 5.0;
 	mp_dtostr(dot_lenght_buf, renderer->dot_length);
+	mp_dtostr(hole_width_buf, hole_width);
 
 	fprintf(renderer->file, "\n    dashed dashpattern (on %sx off %sx)", 
-		dot_lenght_buf, dot_lenght_buf);
+		dot_lenght_buf, hole_width_buf);
 	break;
     }
 }
 
 static void
 set_dashlength(DiaRenderer *self, real length)
-{  /* dot = 20% of len */
+{  /* dot = 10% of len */
     MetapostRenderer *renderer = METAPOST_RENDERER (self);
 
     if (length<0.001)
 	length = 0.001;
   
     renderer->dash_length = length;
-    renderer->dot_length = length*0.05;
+    renderer->dot_length = length * 0.1;
   
     set_linestyle(self, renderer->saved_line_style);
 }
@@ -457,44 +480,22 @@ draw_polyline(DiaRenderer *self,
 }
 
 static void
-stroke_polygon(DiaRenderer *self, 
-	       Point *points, int num_points, 
-	       Color *line_color)
-{
-    MetapostRenderer *renderer = METAPOST_RENDERER (self);
-    int i;
-    gchar px_buf[DTOSTR_BUF_SIZE];
-    gchar py_buf[DTOSTR_BUF_SIZE];
-
-    set_line_color(renderer,line_color);
-  
-    fprintf(renderer->file, 
-	    "  draw (%sx,%sy)",
-	    mp_dtostr(px_buf, points[0].x),
-	    mp_dtostr(py_buf, points[0].y) );
-
-    for (i=1;i<num_points;i++) {
-	fprintf(renderer->file, "--(%sx,%sy)",
-		mp_dtostr(px_buf, points[i].x),
-		mp_dtostr(py_buf, points[i].y) );
-    }
-    fprintf(renderer->file,"--cycle");
-    end_draw_op(renderer);
-}
-
-static void
-fill_polygon(DiaRenderer *self, 
+draw_polygon(DiaRenderer *self, 
 	     Point *points, int num_points, 
-	     Color *line_color)
+	     Color *fill, Color *stroke)
 {
     MetapostRenderer *renderer = METAPOST_RENDERER (self);
     int i;
     gchar px_buf[DTOSTR_BUF_SIZE];
     gchar py_buf[DTOSTR_BUF_SIZE];
+    gchar red_buf[DTOSTR_BUF_SIZE];
+    gchar green_buf[DTOSTR_BUF_SIZE];
+    gchar blue_buf[DTOSTR_BUF_SIZE];
 
-    set_line_color(renderer,line_color);
+    fprintf(renderer->file, "%% draw_polygon\n");
+    if (stroke)
+	set_line_color(renderer,stroke);
     
-    fprintf(renderer->file, "%% fill_polygon\n");
     fprintf(renderer->file, 
 	    "  path p;\n"
 	    "  p = (%sx,%sy)",
@@ -507,19 +508,18 @@ fill_polygon(DiaRenderer *self,
 		mp_dtostr(py_buf, points[i].y) );
     }
     fprintf(renderer->file,"--cycle;\n");
-    fprintf(renderer->file,"  fill p ");
-    end_draw_op(renderer);
-}
-static void
-draw_polygon(DiaRenderer *self, 
-	     Point *points, int num_points, 
-	     Color *fill, Color *stroke)
-{
-  /* XXX: simple port, not optimized */
-  if (fill)
-    fill_polygon (self, points, num_points, fill);
-  if (stroke)
-    stroke_polygon (self, points, num_points, stroke);
+
+    if (fill)
+	fprintf(renderer->file,
+		"  fill p withcolor (%s,%s,%s);\n",
+		mp_dtostr(red_buf, (gdouble) fill->red),
+		mp_dtostr(green_buf, (gdouble) fill->green),
+		mp_dtostr(blue_buf, (gdouble) fill->blue) );
+
+    if (stroke) {
+	fprintf(renderer->file, "  draw p");
+	end_draw_op(renderer);
+    }
 }
 
 static void
@@ -727,21 +727,23 @@ draw_beziergon (DiaRenderer *self,
     if (points[0].type != BEZ_MOVE_TO)
 	g_warning("first BezPoint must be a BEZ_MOVE_TO");
 
-    if (!fill) {
-      /* XXX: this is not closed */
-      draw_bezier (self, points, numpoints, stroke);
-      return;
-    }
+    if (stroke)
+	set_line_color(renderer,stroke);
 
     fprintf(renderer->file, "  path p;\n");
     fprintf(renderer->file, "  p = (%sx,%sy)",
 	    mp_dtostr(p1x_buf, (gdouble) points[0].p1.x),
 	    mp_dtostr(p1y_buf, (gdouble) points[0].p1.y) );
-  
+
     for (i = 1; i < numpoints; i++)
 	switch (points[i].type) {
 	case BEZ_MOVE_TO:
-	    g_warning("only first BezPoint can be a BEZ_MOVE_TO");
+	    /* close previous, new move-to - XXX: not working, not used, gives:
+	     *   Paths don't touch; `&' will be changed to `..'.
+	     */
+	    fprintf(renderer->file, "  ..cycle\n  & (%sx,%sy)",
+		mp_dtostr(p1x_buf, (gdouble) points[i].p1.x),
+		mp_dtostr(p1y_buf, (gdouble) points[i].p1.y) );
 	    break;
 	case BEZ_LINE_TO:
 	    fprintf(renderer->file, "--(%sx,%sy)",
@@ -760,18 +762,17 @@ draw_beziergon (DiaRenderer *self,
 	}
     fprintf(renderer->file, "\n    ..cycle;\n");
 
-    fprintf(renderer->file,
-	    "  fill p withcolor (%s,%s,%s);\n",
-	    mp_dtostr(red_buf, (gdouble) fill->red),
-	    mp_dtostr(green_buf, (gdouble) fill->green),
-	    mp_dtostr(blue_buf, (gdouble) fill->blue) );
+    if (fill)
+	fprintf(renderer->file,
+		"  fill p withcolor (%s,%s,%s);\n",
+		mp_dtostr(red_buf, (gdouble) fill->red),
+		mp_dtostr(green_buf, (gdouble) fill->green),
+		mp_dtostr(blue_buf, (gdouble) fill->blue) );
 
-    /* XXX: not closing as before draw_beziergon existence
-     * It should be possible to reuse the path from above to stroke again or
-     * maybe fill and stroke in one step.
-     */
-    if (stroke)
-      draw_bezier (self, points, numpoints, stroke);
+    if (stroke) {
+	fprintf(renderer->file, "  draw p");
+	end_draw_op(renderer);
+    }
 }
 
 static void
@@ -904,12 +905,21 @@ draw_image(DiaRenderer *self,
     gchar d1_buf[DTOSTR_BUF_SIZE];
     gchar d2_buf[DTOSTR_BUF_SIZE];
     gchar d3_buf[DTOSTR_BUF_SIZE];
-
+    const char *filename = dia_image_filename(image);
     MetapostRenderer *renderer = METAPOST_RENDERER (self);
 
-    fprintf(renderer->file, "  %% draw_image: %s\n", dia_image_filename(image));
-    
-
+    fprintf(renderer->file, "  %% draw_image: %s\n", filename);
+#if 0 /* Only working with ConTeXt? */
+    if (g_file_test (filename,  G_FILE_TEST_IS_REGULAR)) {
+	/* externalfigure "hacker.png" scaled 5cm shifted (-6cm,0); */
+	fprintf(renderer->file,
+		"  externalfigure \"%s\" scaled %scm shifted (%scm,%scm);\n",
+		filename, mp_dtostr(d1_buf, (gdouble) width),
+		mp_dtostr(d2_buf, (gdouble) point->x),
+		mp_dtostr(d3_buf, (gdouble) point->y));
+	return;
+    }
+#endif
     img_width = dia_image_width(image);
     img_rowstride = dia_image_rowstride(image);
     img_height = dia_image_height(image);
@@ -1022,7 +1032,7 @@ metapost_renderer_class_init (MetapostRendererClass *klass)
 
   renderer_class->begin_render = begin_render;
   renderer_class->end_render = end_render;
-
+  renderer_class->is_capable_to = is_capable_to;
   renderer_class->set_linewidth = set_linewidth;
   renderer_class->set_linecaps = set_linecaps;
   renderer_class->set_linejoin = set_linejoin;
@@ -1144,12 +1154,6 @@ export_metapost(DiagramData *data, DiaContext *ctx,
     initial_color.blue=0.;
     initial_color.alpha=1.;
     set_line_color(renderer,&initial_color);
-    
-    initial_color.red=1.;
-    initial_color.green=1.;
-    initial_color.blue=1.;
-    initial_color.alpha=1.;
-    set_fill_color(renderer,&initial_color);
 
     data_render(data, DIA_RENDERER(renderer), NULL, NULL, NULL);
 
