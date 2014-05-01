@@ -453,6 +453,56 @@ stdpath_draw(StdPath *stdpath, DiaRenderer *renderer)
     bezier_draw_control_lines (stdpath->num_points, stdpath->points, renderer);
 }
 
+static ObjectChange *_path_object_change_create (DiaObject *obj);
+
+/*!
+ * \brief Change the direction of the path
+ */
+static void
+_stdpath_invert (StdPath *stdpath)
+{
+  BezPoint *bezier = stdpath->points;
+  gsize n = stdpath->num_points;
+  BezPoint *inverted = g_alloca (sizeof(BezPoint)*n);
+  guint i;
+
+  inverted[0].type = BEZ_MOVE_TO;
+  inverted[0].p1 = (bezier[n-1].type == BEZ_CURVE_TO ? bezier[n-1].p3 : bezier[n-1].p1);
+  for (i = 1; i < n; ++i) {
+    inverted[i].type = bezier[n-i].type;
+    if (bezier[n-i].type == BEZ_CURVE_TO) {
+      inverted[i].p1 = bezier[n-i].p2;
+      inverted[i].p2 = bezier[n-i].p1;
+      inverted[i].p3 = (bezier[n-i-1].type == BEZ_CURVE_TO ? bezier[n-i-1].p3 : bezier[n-i-1].p1);
+    } else {
+      inverted[i].p1 = (bezier[n-i-1].type == BEZ_CURVE_TO ? bezier[n-i-1].p3 : bezier[n-i-1].p1);
+    }
+  }
+  memcpy (stdpath->points, inverted, sizeof(BezPoint)*n);
+  stdpath_update_handles (stdpath);
+}
+static ObjectChange *
+_invert_path_callback (DiaObject *obj, Point *clicked, gpointer data)
+{
+  StdPath *stdpath = (StdPath *)obj;
+  _stdpath_invert (stdpath);
+  return _path_object_change_create (obj);
+}
+/* a very simple undo function, complete reversible function */
+static void
+_apply_invert (ObjectChange *change, DiaObject *obj)
+{
+  _stdpath_invert ((StdPath *)obj);
+}
+static ObjectChange *
+_path_object_change_create (DiaObject *obj)
+{
+  ObjectChange *change = g_new(ObjectChange, 1);
+  change->apply = _apply_invert;
+  change->revert = _apply_invert;
+  change->free = NULL;
+  return change;
+}
 /*!
  * \brief Convert _StdPath to one or more _BezierLine/BezierGon
  */
@@ -500,6 +550,7 @@ _show_control_lines (DiaObject *obj, Point *clicked, gpointer data)
 
 static DiaMenuItem _stdpath_menu_items[] = {
   { N_("Convert to Bezier"), _convert_to_beziers_callback, NULL, DIAMENU_ACTIVE },
+  { N_("Invert Path"), _invert_path_callback, NULL, DIAMENU_ACTIVE },
   { N_("Show Control Lines"), _show_control_lines, NULL, DIAMENU_ACTIVE }
 };
 static DiaMenu _stdpath_menu = {
