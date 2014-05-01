@@ -30,10 +30,10 @@ The PGF package is written with the idea in mind that the typesetting software w
 
 This export filter respects thes and therefore some export features are special:
 
--text is NOT escaped: (La)TeX will interpret this code.
+- _if_ text is NOT escaped: (La)TeX will interpret this code.
 Therefore text size wil not be consistent and bounding boxes will not work.
 When text is inside a box (as for example in the UML modules), the result wil not
-be as expected.
+be as expected. (Some text would break TeX processing altogther, see below.)
 
 -some arrows from the PGF-library are used (latex, stealth and to)
 for these arrows, size selection and bounding box won't work
@@ -1100,8 +1100,8 @@ draw_bezier_with_arrows(DiaRenderer *self, BezPoint *points, int num_points,
  *
  * Later (hb): given the UML issue bug #112377 an manually tweaking
  * is not possible as the # is added before anything a user can add. So IMO
- * we need to want this. If there later (much later?) is an export it probably
- * shouldn't produce broken output either ...
+ * we need to want this. If there later (much later?) is an export option it
+ * probably shouldn't produce broken output either ...
  */
 static gchar *
 tex_escape_string(const gchar *src, DiaContext *ctx)
