@@ -342,7 +342,7 @@ static PyMemberDef PyDiaDiagramData_Members[] = {
 static PyObject *
 PyDiaDiagramData_GetAttr(PyDiaDiagramData *self, gchar *attr)
 {
-    Diagram *diagram = DIA_DIAGRAM(self->data);
+    Diagram *diagram = DIA_DIAGRAM_DATA(self->data);
 
     if (!strcmp(attr, "__members__"))
 	return Py_BuildValue("[ssssssssssss]",
