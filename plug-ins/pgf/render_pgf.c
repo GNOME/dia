@@ -177,6 +177,29 @@ void (*orig_draw_bezier_with_arrows) (DiaRenderer *renderer, BezPoint *points, i
 
 
 
+/*!
+ * \brief Advertize special capabilities
+ *
+ * Some objects drawing adapts to capabilities advertized by the respective
+ * renderer. Usually there is a fallback, but generally the real thing should
+ * be better.
+ *
+ * \memberof _PgfRenderer
+ */
+static gboolean 
+is_capable_to (DiaRenderer *renderer, RenderCapability cap)
+{
+  if (RENDER_HOLES == cap)
+    return TRUE;
+  else if (RENDER_ALPHA == cap)
+    return TRUE;
+  else if (RENDER_AFFINE == cap)
+    return FALSE; /* not now */
+  else if (RENDER_PATTERN == cap)
+    return FALSE; /* might be possible, too */
+  return FALSE;
+}
+
 static void pgf_renderer_class_init (PgfRendererClass *klass);
 
 static gpointer parent_class = NULL;
@@ -227,6 +250,7 @@ pgf_renderer_class_init (PgfRendererClass *klass)
 
   renderer_class->begin_render = begin_render;
   renderer_class->end_render = end_render;
+  renderer_class->is_capable_to = is_capable_to;
 
   renderer_class->set_linewidth = set_linewidth;
   renderer_class->set_linecaps = set_linecaps;
@@ -288,6 +312,8 @@ set_line_color(PgfRenderer *renderer,Color *color)
 	    pgf_dtostr(green_buf, (gdouble) color->green),
 	    pgf_dtostr(blue_buf, (gdouble) color->blue) );
     fprintf(renderer->file,"\\pgfsetstrokecolor{dialinecolor}\n");
+    fprintf(renderer->file,"\\pgfsetstrokeopacity{%s}\n",
+	    pgf_dtostr(red_buf, (gdouble) color->alpha));
 }
 
 static void 
@@ -297,11 +323,13 @@ set_fill_color(PgfRenderer *renderer,Color *color)
     gchar green_buf[DTOSTR_BUF_SIZE];
     gchar blue_buf[DTOSTR_BUF_SIZE];
 
-    fprintf(renderer->file, "\\definecolor{dialinecolor}{rgb}{%s, %s, %s}\n",
+    fprintf(renderer->file, "\\definecolor{diafillcolor}{rgb}{%s, %s, %s}\n",
 	    pgf_dtostr(red_buf, (gdouble) color->red),
 	    pgf_dtostr(green_buf, (gdouble) color->green),
 	    pgf_dtostr(blue_buf, (gdouble) color->blue) );
-    fprintf(renderer->file,"\\pgfsetfillcolor{dialinecolor}\n");
+    fprintf(renderer->file,"\\pgfsetfillcolor{diafillcolor}\n");
+    fprintf(renderer->file,"\\pgfsetfillopacity{%s}\n",
+	    pgf_dtostr(red_buf, (gdouble) color->alpha));
 }
 
 static void
@@ -751,10 +779,11 @@ fill_ellipse(DiaRenderer *self,
 }
 
 static void
-pgf_bezier(PgfRenderer *renderer,
-		BezPoint *points,
-		gint numpoints,
-		Color *color, gboolean filled)
+pgf_bezier (PgfRenderer *renderer,
+	    BezPoint *points,
+	    gint numpoints,
+	    Color *fill, Color *stroke,
+	    gboolean closed)
 {
     gint i;
     gchar p1x_buf[DTOSTR_BUF_SIZE];
@@ -764,20 +793,20 @@ pgf_bezier(PgfRenderer *renderer,
     gchar p3x_buf[DTOSTR_BUF_SIZE];
     gchar p3y_buf[DTOSTR_BUF_SIZE];
 
-    if (!filled) {set_line_color(renderer,color);}
-    else {set_fill_color(renderer,color);}
+    if (fill)
+	set_fill_color(renderer,fill);
+    if (stroke)
+	set_line_color(renderer,stroke);
 
     if (points[0].type != BEZ_MOVE_TO)
 	g_warning("first BezPoint must be a BEZ_MOVE_TO");
 
-    fprintf(renderer->file, "\\pgfpathmoveto{\\pgfpoint{%s\\du}{%s\\du}}\n",
-	    pgf_dtostr(p1x_buf,points[0].p1.x),
-	    pgf_dtostr(p1y_buf,points[0].p1.y) );
-
-    for (i = 1; i < numpoints; i++)
+    for (i = 0; i < numpoints; i++)
 	switch (points[i].type) {
 	case BEZ_MOVE_TO:
-	    g_warning("only first BezPoint can be a BEZ_MOVE_TO");
+    	    fprintf(renderer->file, "\\pgfpathmoveto{\\pgfpoint{%s\\du}{%s\\du}}\n",
+		pgf_dtostr(p1x_buf,points[i].p1.x),
+		pgf_dtostr(p1y_buf,points[i].p1.y) );
 	    break;
 	case BEZ_LINE_TO:
 	    fprintf(renderer->file, "\\pgfpathlineto{\\pgfpoint{%s\\du}{%s\\du}}\n",
@@ -797,11 +826,14 @@ pgf_bezier(PgfRenderer *renderer,
 	    break;
 	}
 
-    if (filled)
+    if (closed)
+	fprintf(renderer->file, "\\pgfpathclose\n");
+    if (fill && stroke)
+	fprintf(renderer->file, "\\pgfusepath{fill,stroke}\n");
+    else if (fill)
 	fprintf(renderer->file, "\\pgfusepath{fill}\n");
-
 /*	fill[fillstyle=solid,fillcolor=diafillcolor,linecolor=diafillcolor]}\n"); */
-    else
+    else if (stroke)
 	fprintf(renderer->file, "\\pgfusepath{stroke}\n");
 }
 
@@ -813,7 +845,7 @@ draw_bezier(DiaRenderer *self,
 {
     PgfRenderer *renderer = PGF_RENDERER(self);
 
-    pgf_bezier(renderer,points,numpoints,color,FALSE);
+    pgf_bezier(renderer,points,numpoints,NULL,color,FALSE);
 }
 
 
@@ -827,11 +859,7 @@ draw_beziergon (DiaRenderer *self,
 {
     PgfRenderer *renderer = PGF_RENDERER(self);
 
-    /* XXX: still not closing the path */
-    if (fill)
-	pgf_bezier(renderer,points,numpoints,fill,TRUE);
-    if (stroke)
-	pgf_bezier(renderer,points,numpoints,stroke,FALSE);
+    pgf_bezier(renderer,points,numpoints,fill,stroke,TRUE);
 }
 
 static int 
@@ -1125,6 +1153,7 @@ draw_string(DiaRenderer *self,
     gchar py_buf[DTOSTR_BUF_SIZE];
 
     set_line_color(renderer,color);
+    set_fill_color(renderer,color);
 
     fprintf(renderer->file,"\\node");
     switch (alignment) {
@@ -1211,7 +1240,7 @@ export_pgf(DiagramData *data, DiaContext *ctx,
   	"  \\newlength{\\du}\n"
 	"\\fi\n"
 	"\\setlength{\\du}{15\\unitlength}\n"
-	"\\begin{tikzpicture}\n",
+	"\\begin{tikzpicture}[even odd rule]\n",
 	diafilename,
 	VERSION,
 	ctime(&time_now),
