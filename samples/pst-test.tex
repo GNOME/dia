@@ -1,0 +1,15 @@
+% Test file for Dia's PSTricks export
+\documentclass[landscape]{article}
+\usepackage[pdf]{pstricks}
+\usepackage[crop=off]{auto-pst-pdf}
+\title{Dia Export Test}
+\author{Hans Breuer}
+\begin{document}
+\maketitle
+\include{convert-to-path.pst}
+%\include{jigsaw.pst}
+% while the former files had clipping issues render-test does not
+% produce any visible result within in this setup, not even single
+% layers of it
+%\include{render-test.pst}
+\end{document}

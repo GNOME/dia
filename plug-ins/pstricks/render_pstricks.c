@@ -118,6 +118,30 @@ static void draw_image(DiaRenderer *self,
 		       real width, real height,
 		       DiaImage *image);
 
+/*!
+ * \brief Advertize special capabilities
+ *
+ * Some objects drawing adapts to capabilities advertized by the respective
+ * renderer. Usually there is a fallback, but generally the real thing should
+ * be better.
+ *
+ * \memberof _PstricksRenderer
+ */
+static gboolean 
+is_capable_to (DiaRenderer *renderer, RenderCapability cap)
+{
+  if (RENDER_HOLES == cap)
+    return TRUE; /* ... with under-documented fillstyle=eofill */
+  else if (RENDER_ALPHA == cap)
+    return FALSE; /* simulate with hatchwidth? */
+  else if (RENDER_AFFINE == cap)
+    return FALSE; /* maybe by: \translate, \scale, \rotate */
+  else if (RENDER_PATTERN == cap)
+    return FALSE; /* nope */
+  return FALSE;
+}
+
+/* GObject stuff */
 static void pstricks_renderer_class_init (PstricksRendererClass *klass);
 
 static gpointer parent_class = NULL;
@@ -168,6 +192,7 @@ pstricks_renderer_class_init (PstricksRendererClass *klass)
 
   renderer_class->begin_render = begin_render;
   renderer_class->end_render = end_render;
+  renderer_class->is_capable_to = is_capable_to;
 
   renderer_class->set_linewidth = set_linewidth;
   renderer_class->set_linecaps = set_linecaps;
@@ -429,21 +454,35 @@ draw_polyline(DiaRenderer *self,
 }
 
 static void
-pstricks_polygon(PstricksRenderer *renderer,
-		 Point *points, gint num_points,
-		 Color *line_color, gboolean filled)
+draw_polygon (DiaRenderer *self, 
+	      Point *points, int num_points,
+	      Color *fill, Color *stroke)
 {
+    PstricksRenderer *renderer = PSTRICKS_RENDERER(self);
     gint i;
     gchar px_buf[DTOSTR_BUF_SIZE];
     gchar py_buf[DTOSTR_BUF_SIZE];
+    const char *style;
 
-    set_line_color(renderer, line_color);
+    if (fill)
+	set_fill_color(renderer, fill);
+    if (stroke)
+	set_line_color(renderer, stroke);
+
+    if (fill && stroke)
+      style = "[fillstyle=eofill,fillcolor=diafillcolor,linecolor=dialinecolor]";
+    else if (fill)
+      style = "[fillstyle=eofill,fillcolor=diafillcolor]";
+    else
+      style = "";
 
     /* The graphics objects all have a starred version (e.g., \psframe*) which
      * draws a solid object whose color is linecolor. [pstricks-doc.pdf p7]
+     *
+     * Not properly documented, but still working ...
      */
     fprintf(renderer->file, "\\pspolygon%s(%s,%s)",
-	    (filled?"*":""),
+	    style,
 	    pstricks_dtostr(px_buf,points[0].x),
 	    pstricks_dtostr(py_buf,points[0].y) );
     
@@ -453,19 +492,6 @@ pstricks_polygon(PstricksRenderer *renderer,
 		pstricks_dtostr(py_buf,points[i].y) );
     }
     fprintf(renderer->file,"\n");
-}
-
-static void
-draw_polygon (DiaRenderer *self, 
-	      Point *points, int num_points, 
-	      Color *fill, Color *stroke)
-{
-    PstricksRenderer *renderer = PSTRICKS_RENDERER(self);
-
-    if (fill)
-	pstricks_polygon(renderer,points,num_points,fill,TRUE);
-    if (stroke)
-	pstricks_polygon(renderer,points,num_points,stroke,FALSE);
 }
 
 static void
@@ -581,7 +607,9 @@ static void
 pstricks_bezier(PstricksRenderer *renderer,
 		BezPoint *points,
 		gint numpoints,
-		Color *color, gboolean filled)
+		Color *fill,
+		Color *stroke,
+		gboolean closed)
 {
     gint i;
     gchar p1x_buf[DTOSTR_BUF_SIZE];
@@ -591,7 +619,10 @@ pstricks_bezier(PstricksRenderer *renderer,
     gchar p3x_buf[DTOSTR_BUF_SIZE];
     gchar p3y_buf[DTOSTR_BUF_SIZE];
 
-    set_line_color(renderer,color);
+    if (fill)
+      set_fill_color(renderer,fill);
+    if (stroke)
+      set_line_color(renderer,stroke);
 
     fprintf(renderer->file, "\\pscustom{\n");
 
@@ -605,7 +636,9 @@ pstricks_bezier(PstricksRenderer *renderer,
     for (i = 1; i < numpoints; i++)
 	switch (points[i].type) {
 	case BEZ_MOVE_TO:
-	    g_warning("only first BezPoint can be a BEZ_MOVE_TO");
+	    fprintf(renderer->file, "\\moveto(%s,%s)\n",
+		    pstricks_dtostr(p1x_buf,points[i].p1.x),
+		    pstricks_dtostr(p1y_buf,points[i].p1.y) );
 	    break;
 	case BEZ_LINE_TO:
 	    fprintf(renderer->file, "\\lineto(%s,%s)\n",
@@ -623,8 +656,13 @@ pstricks_bezier(PstricksRenderer *renderer,
 	    break;
 	}
     
-    if (filled)
-	fprintf(renderer->file, "\\fill[fillstyle=solid,fillcolor=diafillcolor,linecolor=diafillcolor]}\n");
+    if (closed)
+	fprintf(renderer->file, "\\closepath\n");
+
+    if (fill && stroke)
+	fprintf(renderer->file, "\\fill[fillstyle=eofill,fillcolor=diafillcolor,linecolor=dialinecolor]}\n");
+    else if (fill)
+	fprintf(renderer->file, "\\fill[fillstyle=eofill,fillcolor=diafillcolor,linecolor=diafillcolor]}\n");
     else
 	fprintf(renderer->file, "\\stroke}\n");
 }
@@ -637,7 +675,7 @@ draw_bezier(DiaRenderer *self,
 {
     PstricksRenderer *renderer = PSTRICKS_RENDERER(self);
 
-    pstricks_bezier(renderer,points,numpoints,color,FALSE);
+    pstricks_bezier(renderer,points,numpoints,NULL,color,FALSE);
 }
 
 
@@ -650,14 +688,7 @@ draw_beziergon (DiaRenderer *self,
 {
     PstricksRenderer *renderer = PSTRICKS_RENDERER(self);
 
-    /* XXX: it should be easy to fill and stroke in one step using
-     * fillcolor and linecolor at the same time
-     */
-    if (fill)
-	pstricks_bezier(renderer,points,numpoints,fill,TRUE);
-    /* XXX: still not closing the path */
-    if (stroke)
-	pstricks_bezier(renderer,points,numpoints,stroke,FALSE);
+    pstricks_bezier(renderer,points,numpoints,fill,stroke,TRUE);
 }
 
 /* Do we really want to do this?  What if the text is intended as 
