@@ -822,9 +822,9 @@ draw_image(DiaRenderer *self,
 	fprintf(renderer->file, "{currentfile pix readhexstring pop}\n");
 	fprintf(renderer->file, "false 3 colorimage\n");
 	/*    fprintf(renderer->file, "\n"); */
-	ptr = rgb_data;
-	for (y = 0; y < img_width; y++) {
-	    for (x = 0; x < img_height; x++) {
+	for (y = 0; y < img_height; y++) {
+	    ptr = rgb_data + y * dia_image_rowstride(image);
+	    for (x = 0; x < img_width; x++) {
 		fprintf(renderer->file, "%02x", (int)(*ptr++));
 		fprintf(renderer->file, "%02x", (int)(*ptr++));
 		fprintf(renderer->file, "%02x", (int)(*ptr++));
