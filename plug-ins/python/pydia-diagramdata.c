@@ -342,7 +342,11 @@ static PyMemberDef PyDiaDiagramData_Members[] = {
 static PyObject *
 PyDiaDiagramData_GetAttr(PyDiaDiagramData *self, gchar *attr)
 {
-    Diagram *diagram = DIA_DIAGRAM_DATA(self->data);
+    DiagramData *data = DIA_DIAGRAM_DATA(self->data);
+    Diagram *diagram = NULL;
+
+    if (DIA_IS_DIAGRAM (self->data))
+	diagram = DIA_DIAGRAM(self->data);
 
     if (!strcmp(attr, "__members__"))
 	return Py_BuildValue("[ssssssssssss]",
@@ -353,22 +357,22 @@ PyDiaDiagramData_GetAttr(PyDiaDiagramData *self, gchar *attr)
                            "layers", "active_layer",
                            "selected" );
     else if (!strcmp(attr, "extents"))
-      return PyDiaRectangle_New(&self->data->extents, NULL);
+      return PyDiaRectangle_New(&data->extents, NULL);
     else if (!strcmp(attr, "bg_color")) {
-      return PyDiaColor_New (&(self->data->bg_color));
+      return PyDiaColor_New (&(data->bg_color));
     }
     else if (!strcmp(attr, "layers")) {
-	guint i, len = self->data->layers->len;
+	guint i, len = data->layers->len;
 	PyObject *ret = PyTuple_New(len);
 
 	for (i = 0; i < len; i++)
 	    PyTuple_SetItem(ret, i, PyDiaLayer_New(
-			g_ptr_array_index(self->data->layers, i)));
+			g_ptr_array_index(data->layers, i)));
 	return ret;
     } else if (!strcmp(attr, "active_layer")) {
-	return PyDiaLayer_New(self->data->active_layer);
+	return PyDiaLayer_New(data->active_layer);
     } else if (!strcmp(attr, "paper")) {
-        return PyDiaPaperinfo_New (&self->data->paper);
+        return PyDiaPaperinfo_New (&data->paper);
     }
     else if (diagram && !strcmp(attr, "grid_width")) 
       return Py_BuildValue("(dd)", diagram->grid.width_x, diagram->grid.width_y);
@@ -391,7 +395,7 @@ PyDiaDiagramData_GetAttr(PyDiaDiagramData *self, gchar *attr)
       return ret;
     }
     else if (!strcmp(attr, "layers")) {
-	guint i, len = self->data->layers->len;
+	guint i, len = data->layers->len;
 	PyObject *ret = PyTuple_New(len);
 
 	for (i = 0; i < len; i++)
@@ -400,7 +404,7 @@ PyDiaDiagramData_GetAttr(PyDiaDiagramData *self, gchar *attr)
 	return ret;
     }
     else if (!strcmp(attr, "active_layer")) {
-      return PyDiaLayer_New(self->data->active_layer);
+      return PyDiaLayer_New(data->active_layer);
     }
     else if (!strcmp(attr, "selected")) {
 	PyObject *ret;
@@ -408,7 +412,7 @@ PyDiaDiagramData_GetAttr(PyDiaDiagramData *self, gchar *attr)
 	gint i;
 
 	ret = PyTuple_New(g_list_length(self->data->selected));
-	for (i = 0, tmp = self->data->selected; tmp; i++, tmp = tmp->next)
+	for (i = 0, tmp = data->selected; tmp; i++, tmp = tmp->next)
 	    PyTuple_SetItem(ret, i, PyDiaObject_New((DiaObject *)tmp->data));
 	return ret;
     }
