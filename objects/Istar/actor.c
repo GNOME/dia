@@ -271,13 +271,11 @@ actor_draw(Actor *actor, DiaRenderer *renderer)
 
   /* background */
   renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
-
-  renderer_ops->fill_ellipse(renderer, &center, elem->width, elem->height, &ACTOR_BG_COLOR);
-
   /* foreground */
   renderer_ops->set_linewidth(renderer, ACTOR_BORDER_WIDTH);
   renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
-  renderer_ops->draw_ellipse(renderer, &center, elem->width, elem->height, &ACTOR_FG_COLOR);
+  renderer_ops->draw_ellipse(renderer, &center, elem->width, elem->height,
+			     &ACTOR_BG_COLOR, &ACTOR_FG_COLOR);
 
   /* text */
   text_draw(actor->text, renderer);

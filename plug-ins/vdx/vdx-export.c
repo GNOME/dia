@@ -128,11 +128,7 @@ static void fill_arc(DiaRenderer *self,
 static void draw_ellipse(DiaRenderer *self, 
 			 Point *center,
 			 real width, real height,
-			 Color *color);
-static void fill_ellipse(DiaRenderer *self, 
-			 Point *center,
-			 real width, real height,
-			 Color *color);
+			 Color *fill, Color *stroke);
 static void draw_string(DiaRenderer *self,
 			const char *text,
 			Point *pos, Alignment alignment,
@@ -230,7 +226,6 @@ vdx_renderer_class_init (VDXRendererClass *klass)
   renderer_class->fill_arc = fill_arc;
 
   renderer_class->draw_ellipse = draw_ellipse;
-  renderer_class->fill_ellipse = fill_ellipse;
 
   /* Until we have NURBS, let Dia use lines */
   /* renderer_class->draw_bezier = draw_bezier; */
@@ -1054,10 +1049,11 @@ static void fill_arc(DiaRenderer *self,
  * @param color line colour
  */
 
-static void draw_ellipse(DiaRenderer *self, 
-			 Point *center,
-			 real width, real height,
-			 Color *color)
+static void
+stroke_ellipse (DiaRenderer *self, 
+	        Point *center,
+		real width, real height,
+		Color *color)
 {
     VDXRenderer *renderer = VDX_RENDERER(self);
     Point a;
@@ -1220,6 +1216,18 @@ static void fill_ellipse(DiaRenderer *self,
     /* Free up list entries */
     g_slist_free(Geom.any.children);
     g_slist_free(Shape.any.children);
+}
+
+static void
+draw_ellipse (DiaRenderer *self, 
+	      Point *center,
+	      real width, real height,
+	      Color *fill, Color *stroke)
+{
+    if (fill)
+	fill_ellipse (self, center, width, height, fill);
+    if (stroke)
+	stroke_ellipse (self, center, width, height, stroke);
 }
 
 /** Render a Dia string

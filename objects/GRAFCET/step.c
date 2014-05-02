@@ -368,10 +368,10 @@ step_draw(Step *step, DiaRenderer *renderer)
 			     &step->G, ALIGN_CENTER, 
 			     &step->font_color);
   if (step->active) 
-    renderer_ops->fill_ellipse(renderer,
+    renderer_ops->draw_ellipse(renderer,
 			       &step->H,
 			       STEP_DOT_RADIUS,STEP_DOT_RADIUS,
-			       &color_red);
+			       &color_red, NULL);
 }
 
 static void

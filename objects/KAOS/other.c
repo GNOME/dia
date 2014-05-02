@@ -306,7 +306,7 @@ draw_agent_icon(Other *other, DiaRenderer *renderer)
      /* head */
      c.x=rx;
      c.y=ry;
-     renderer_ops->fill_ellipse(renderer,&c,h/5,h/5,&OTHER_FG_COLOR);
+     renderer_ops->draw_ellipse(renderer,&c,h/5,h/5,&OTHER_FG_COLOR, NULL);
 
      /* body */
      p1.x=rx;

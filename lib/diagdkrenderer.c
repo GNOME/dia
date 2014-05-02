@@ -74,11 +74,7 @@ static void fill_arc (DiaRenderer *renderer,
 static void draw_ellipse (DiaRenderer *renderer,
                           Point *center,
                           real width, real height,
-                          Color *color);
-static void fill_ellipse (DiaRenderer *renderer,
-                          Point *center,
-                          real width, real height,
-                          Color *color);
+                          Color *fill, Color *stroke);
 static void draw_string (DiaRenderer *renderer,
                          const gchar *text,
                          Point *pos,
@@ -222,7 +218,6 @@ dia_gdk_renderer_class_init(DiaGdkRendererClass *klass)
   renderer_class->draw_arc     = draw_arc;
   renderer_class->fill_arc     = fill_arc;
   renderer_class->draw_ellipse = draw_ellipse;
-  renderer_class->fill_ellipse = fill_ellipse;
 
   /* use <draw|fill>_bezier from DiaRenderer */
 
@@ -602,16 +597,12 @@ fill_arc (DiaRenderer *object, Point *center,
 static void 
 draw_ellipse (DiaRenderer *object, Point *center,
               real width, real height, 
-              Color *color)
+              Color *fill, Color *stroke)
 {
-  draw_arc(object, center, width, height, 0.0, 360.0, color); 
-}
-
-static void 
-fill_ellipse (DiaRenderer *object, Point *center,
-              real width, real height, Color *color)
-{
-  fill_arc(object, center, width, height, 0.0, 360.0, color); 
+  if (fill)
+    fill_arc(object, center, width, height, 0.0, 360.0, fill);
+  if (stroke)    
+    draw_arc(object, center, width, height, 0.0, 360.0, stroke);
 }
 
 /* Draw a highlighted version of a string.

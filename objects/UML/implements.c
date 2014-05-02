@@ -275,15 +275,10 @@ implements_draw(Implements *implements, DiaRenderer *renderer)
   renderer_ops->draw_line(renderer,
 			   &endpoints[0], &endpoints[1],
 			   &implements->line_color);
-
-  renderer_ops->fill_ellipse(renderer, &implements->circle_center,
-			      implements->circle_diameter,
-			      implements->circle_diameter,
-			      &color_white);
   renderer_ops->draw_ellipse(renderer, &implements->circle_center,
 			      implements->circle_diameter,
 			      implements->circle_diameter,
-			      &implements->line_color);
+			      &color_white, &implements->line_color);
 
 
   renderer_ops->set_font(renderer, implements->font, implements->font_height);

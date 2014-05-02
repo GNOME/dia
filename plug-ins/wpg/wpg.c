@@ -662,7 +662,7 @@ static void
 draw_ellipse(DiaRenderer *self, 
              Point *center,
              real width, real height,
-             Color *colour)
+             Color *fill, Color *stroke)
 {
   WpgRenderer *renderer = WPG_RENDERER (self);
   WPGEllipse ell;
@@ -680,27 +680,16 @@ draw_ellipse(DiaRenderer *self,
   ell.EndAngle   = 360;
   ell.Flags = 0;
 
-  WriteLineAttr(renderer, colour);
+  if (stroke)
+    WriteLineAttr(renderer, stroke);
+  if (fill)
+    WriteFillAttr(renderer, fill, TRUE);
   WriteRecHead(renderer, WPG_ELLIPSE, sizeof(WPGEllipse));
 
   g_assert(16 == sizeof(WPGEllipse));
   fwrite_le(&ell, sizeof(guint16), sizeof(WPGEllipse) / sizeof(guint16), renderer->file);
-}
-
-static void
-fill_ellipse(DiaRenderer *self, 
-             Point *center,
-             real width, real height,
-             Color *colour)
-{
-  WpgRenderer *renderer = WPG_RENDERER (self);
-
-  DIAG_NOTE(g_message("fill_ellipse %fx%f center @ %f,%f", 
-            width, height, center->x, center->y));
-
-  WriteFillAttr(renderer, colour, TRUE);
-  draw_ellipse(self,center,width,height,colour);
-  WriteFillAttr(renderer, colour, FALSE);
+  if (fill)
+    WriteFillAttr(renderer, fill, FALSE);
 }
 
 static void
@@ -1035,7 +1024,6 @@ wpg_renderer_class_init (WpgRendererClass *klass)
   renderer_class->draw_arc     = draw_arc;
   renderer_class->fill_arc     = fill_arc;
   renderer_class->draw_ellipse = draw_ellipse;
-  renderer_class->fill_ellipse = fill_ellipse;
 
   renderer_class->draw_string  = draw_string;
   renderer_class->draw_image   = draw_image;

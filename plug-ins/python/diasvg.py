@@ -147,12 +147,12 @@ class SvgRenderer :
 		self._arc(center, width, height, angle1, angle2, color)
 	def fill_arc (self, center, width, height, angle1, angle2, color) :
 		self._arc(center, width, height, angle1, angle2, color, 1)
-	def draw_ellipse (self, center, width, height, color) :
-		self.f.write('<ellipse cx="%.3f" cy="%.3f" rx="%.3f" ry="%.3f" fill="none" stroke="%s"  stroke-width="%.3f" %s/>' \
-					% (center.x, center.y, width / 2, height / 2, self._rgb(color), self.line_width, self._stroke_style()))
-	def fill_ellipse (self, center, width, height, color) :
-		self.f.write('<ellipse cx="%.3f" cy="%.3f" rx="%.3f" ry="%.3f" fill="%s" stroke="none"  />' \
-					% (center.x, center.y, width / 2, height / 2, self._rgb(color)))
+	def draw_ellipse (self, center, width, height, fill, stroke) :
+		self.f.write('<ellipse cx="%.3f" cy="%.3f" rx="%.3f" ry="%.3f"' \
+				'fill="%s" stroke="%s"  stroke-width="%.3f" %s/>\n' \
+				% (center.x, center.y, width / 2, height / 2,
+				   self._rgb(fill), self._rgb(stroke),
+				   self.line_width, self._stroke_style()))
 	def _bezier (self, bezpoints) :
 		for bp in bezpoints :
 			if bp.type == 0 : # BEZ_MOVE_TO
@@ -177,7 +177,7 @@ class SvgRenderer :
 		self.f.write('"/>\n')
 	def draw_beziergon (self, bezpoints, fill, stroke) :
 		self.f.write('<path stroke="%s" fill="%s" stroke-width="%.3f" %s d="' \
-					% (self._rgb(stroke), self._rgb(fill), self.line_width, self._stroke_style()))
+				% (self._rgb(stroke), self._rgb(fill), self.line_width, self._stroke_style()))
 		self._bezier (bezpoints)
 		self.f.write('z"/>\n')
 	def draw_string (self, text, pos, alignment, color) :

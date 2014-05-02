@@ -308,12 +308,10 @@ _render_object (xmlNodePtr render, DiaContext *ctx)
 			 _parse_real (node, "angle1"),  _parse_real (node, "angle2"), stroke);
       } else if (xmlStrcmp (node->name, (const xmlChar *)"ellipse") == 0) {
 	Point center = _parse_point (node, "center");
-	if (fill)
-	  ops->fill_ellipse (ir, &center, _parse_real (node, "width"),
-			     _parse_real (node, "height"), fill);
-	if (stroke)
-	  ops->draw_ellipse (ir, &center, _parse_real (node, "width"),
-			     _parse_real (node, "height"), stroke);
+	ops->draw_ellipse (ir, &center,
+			   _parse_real (node, "width"),
+			   _parse_real (node, "height"),
+			   fill, stroke);
       } else if (xmlStrcmp (node->name, (const xmlChar *)"bezier") == 0) {
 	GArray *path = _parse_bezpoints (node, "bezpoints");
 	if (path) {

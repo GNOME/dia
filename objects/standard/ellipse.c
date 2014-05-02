@@ -315,22 +315,23 @@ ellipse_draw(Ellipse *ellipse, DiaRenderer *renderer)
       dia_pattern_get_fallback_color (ellipse->pattern, &fill);
       if (renderer_ops->is_capable_to(renderer, RENDER_PATTERN))
         renderer_ops->set_pattern (renderer, ellipse->pattern);
+      /* still two calls with pattern */
+      renderer_ops->draw_ellipse (renderer, 
+				  &center,
+				  elem->width, elem->height,
+				  &fill, NULL);
+      if (renderer_ops->is_capable_to(renderer, RENDER_PATTERN))
+	renderer_ops->set_pattern (renderer, NULL);
     }
-    renderer_ops->fill_ellipse(renderer, 
-				&center,
-				elem->width, elem->height,
-				&fill);
-    if (renderer_ops->is_capable_to(renderer, RENDER_PATTERN))
-      renderer_ops->set_pattern (renderer, NULL);
   }
 
   renderer_ops->set_linewidth(renderer, ellipse->border_width);
   renderer_ops->set_linestyle(renderer, ellipse->line_style);
   renderer_ops->set_dashlength(renderer, ellipse->dashlength);
-
   renderer_ops->draw_ellipse(renderer, 
 			  &center,
 			  elem->width, elem->height,
+			  (ellipse->show_background && !ellipse->pattern) ? &ellipse->inner_color : NULL,
 			  &ellipse->border_color);
 }
 

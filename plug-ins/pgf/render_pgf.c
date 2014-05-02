@@ -115,11 +115,7 @@ static void fill_arc(DiaRenderer *self,
 static void draw_ellipse(DiaRenderer *self, 
 			 Point *center,
 			 real width, real height,
-			 Color *color);
-static void fill_ellipse(DiaRenderer *self, 
-			 Point *center,
-			 real width, real height,
-			 Color *color);
+			 Color *fill, Color *stroke);
 static void draw_bezier(DiaRenderer *self, 
 			BezPoint *points,
 			int numpoints,
@@ -277,7 +273,6 @@ pgf_renderer_class_init (PgfRendererClass *klass)
   renderer_class->fill_arc = fill_arc;
 
   renderer_class->draw_ellipse = draw_ellipse;
-  renderer_class->fill_ellipse = fill_ellipse;
 
   renderer_class->draw_bezier = draw_bezier;
   renderer_class->draw_beziergon = draw_beziergon;
@@ -760,22 +755,14 @@ static void
 draw_ellipse(DiaRenderer *self, 
 	     Point *center,
 	     real width, real height,
-	     Color *color)
+	     Color *fill, Color *stroke)
 {
     PgfRenderer *renderer = PGF_RENDERER(self);
 
-    pgf_ellipse(renderer,center,width,height,color,FALSE);
-}
-
-static void
-fill_ellipse(DiaRenderer *self, 
-	     Point *center,
-	     real width, real height,
-	     Color *color)
-{
-    PgfRenderer *renderer = PGF_RENDERER(self);
-
-    pgf_ellipse(renderer,center,width,height,color,TRUE);
+    if (fill)
+	pgf_ellipse(renderer,center,width,height,fill,TRUE);
+    if (stroke)
+	pgf_ellipse(renderer,center,width,height,stroke,FALSE);
 }
 
 static void
@@ -1254,6 +1241,7 @@ export_pgf(DiagramData *data, DiaContext *ctx,
     initial_color.red=0.;
     initial_color.green=0.;
     initial_color.blue=0.;
+    initial_color.alpha=1.;
     set_line_color(renderer,&initial_color);
 
     initial_color.red=1.;

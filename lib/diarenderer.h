@@ -154,12 +154,7 @@ struct _DiaRendererClass
   void (*draw_ellipse) (DiaRenderer *renderer,
                         Point *center,
                         real width, real height,
-                        Color *color);
-  /*! Same a DrawEllipse, except the ellips is filled */
-  void (*fill_ellipse) (DiaRenderer *renderer,
-                        Point *center,
-                        real width, real height,
-                        Color *color);
+                        Color *fill, Color *stroke);
   /*! Print a string at pos, using the current font */
   void (*draw_string) (DiaRenderer *renderer,
                        const gchar *text,

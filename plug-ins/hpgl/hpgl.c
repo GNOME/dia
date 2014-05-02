@@ -488,9 +488,10 @@ static void
 draw_ellipse(DiaRenderer *object, 
 	     Point *center,
 	     real width, real height,
-	     Color *colour)
+	     Color *fill, Color *stroke)
 {
   HpglRenderer *renderer = HPGL_RENDERER (object);
+  Color *colour = fill ? fill : stroke;
 
   DIAG_NOTE(g_message("draw_ellipse %fx%f center @ %f,%f", 
             width, height, center->x, center->y));
@@ -508,16 +509,6 @@ draw_ellipse(DiaRenderer *object,
                hpgl_scale(renderer, -center->y),
                hpgl_scale(renderer, width / 2.0));
     }
-}
-
-static void
-fill_ellipse(DiaRenderer *object, 
-	     Point *center,
-	     real width, real height,
-	     Color *colour)
-{
-    DIAG_NOTE(g_message("fill_ellipse %fx%f center @ %f,%f", 
-              width, height, center->x, center->y));
 }
 
 static void
@@ -653,7 +644,6 @@ hpgl_renderer_class_init (HpglRendererClass *klass)
   renderer_class->draw_arc     = draw_arc;
   renderer_class->fill_arc     = fill_arc;
   renderer_class->draw_ellipse = draw_ellipse;
-  renderer_class->fill_ellipse = fill_ellipse;
 
   renderer_class->draw_string  = draw_string;
   renderer_class->draw_image   = draw_image;

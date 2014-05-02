@@ -596,34 +596,7 @@ static void
 draw_ellipse(DiaRenderer *self, 
 	     Point *center,
 	     real width, real height,
-	     Color *color)
-{
-    MetapostRenderer *renderer = METAPOST_RENDERER (self);
-    gchar d1_buf[DTOSTR_BUF_SIZE];
-    gchar d2_buf[DTOSTR_BUF_SIZE];
-
-    set_line_color(renderer,color);
-    
-    fprintf(renderer->file, "  draw (%sx,%sy)..",
-	    mp_dtostr(d1_buf, (gdouble) center->x+width/2.0),
-	    mp_dtostr(d2_buf, (gdouble) center->y) );
-    fprintf(renderer->file, "(%sx,%sy)..",
-	    mp_dtostr(d1_buf, (gdouble) center->x),
-	    mp_dtostr(d2_buf, (gdouble) center->y+height/2.0) );
-    fprintf(renderer->file, "(%sx,%sy)..",
-	    mp_dtostr(d1_buf, (gdouble) center->x-width/2.0),
-	    mp_dtostr(d2_buf, (gdouble) center->y) );
-    fprintf(renderer->file, "(%sx,%sy)..cycle",
-	    mp_dtostr(d1_buf, (gdouble) center->x),
-	    mp_dtostr(d2_buf, (gdouble) center->y-height/2.0) );
-    end_draw_op(renderer);
-}
-
-static void
-fill_ellipse(DiaRenderer *self, 
-	     Point *center,
-	     real width, real height,
-	     Color *color)
+	     Color *fill, Color *stroke)
 {
     MetapostRenderer *renderer = METAPOST_RENDERER (self);
     gchar d1_buf[DTOSTR_BUF_SIZE];
@@ -631,6 +604,9 @@ fill_ellipse(DiaRenderer *self,
     gchar red_buf[DTOSTR_BUF_SIZE];
     gchar green_buf[DTOSTR_BUF_SIZE];
     gchar blue_buf[DTOSTR_BUF_SIZE];
+
+    if (stroke)
+	set_line_color(renderer,stroke);
 
     fprintf(renderer->file, 
 	    "  path p;\n"
@@ -647,14 +623,18 @@ fill_ellipse(DiaRenderer *self,
 	    mp_dtostr(d1_buf, (gdouble) center->x),
 	    mp_dtostr(d2_buf, (gdouble) center->y-height/2.0) );
 
-    fprintf(renderer->file,
-	    "  fill p withcolor (%s,%s,%s);\n",
-	    mp_dtostr(red_buf, (gdouble) color->red),
-	    mp_dtostr(green_buf, (gdouble) color->green),
-	    mp_dtostr(blue_buf, (gdouble) color->blue) );
+    if (fill)
+	fprintf(renderer->file,
+		"  fill p withcolor (%s,%s,%s);\n",
+		mp_dtostr(red_buf, (gdouble) fill->red),
+		mp_dtostr(green_buf, (gdouble) fill->green),
+		mp_dtostr(blue_buf, (gdouble) fill->blue) );
+
+    if (stroke) {
+	fprintf(renderer->file, "  draw p");
+	end_draw_op(renderer);
+    }
 }
-
-
 
 static void
 draw_bezier(DiaRenderer *self, 
@@ -702,8 +682,6 @@ draw_bezier(DiaRenderer *self,
 	}
     end_draw_op(renderer);
 }
-
-
 
 static void
 draw_beziergon (DiaRenderer *self, 
@@ -792,8 +770,8 @@ draw_string(DiaRenderer *self,
     set_line_color(renderer,color);
 
     /* text position is correct for baseline. Uses macros defined
-	 * at top of MetaPost file (see export_metapost) to correctly
-	 * align text. See bug # 332554 */
+     * at top of MetaPost file (see export_metapost) to correctly
+     * align text. See bug # 332554 */
     switch (alignment) {
     case ALIGN_LEFT:
 	fprintf(renderer->file,"  draw");
@@ -887,7 +865,7 @@ draw_text_line(DiaRenderer *self, TextLine *text_line,
 
     fprintf(renderer->file,";\n");
 }
-	       
+
 
 static void
 draw_image(DiaRenderer *self,
@@ -1050,7 +1028,6 @@ metapost_renderer_class_init (MetapostRendererClass *klass)
   renderer_class->fill_arc = fill_arc;
 
   renderer_class->draw_ellipse = draw_ellipse;
-  renderer_class->fill_ellipse = fill_ellipse;
 
   renderer_class->draw_bezier = draw_bezier;
   renderer_class->draw_beziergon = draw_beziergon;

@@ -467,20 +467,13 @@ static void
 draw_ellipse(DiaRenderer *self, 
 	     Point *center,
 	     real width, real height,
-	     Color *color)
+	     Color *fill, Color *stroke)
 {
   DiaPsRenderer *renderer = DIA_PS_RENDERER(self);
-  psrenderer_ellipse(renderer, center, width, height, color, FALSE);
-}
-
-static void
-fill_ellipse(DiaRenderer *self, 
-	     Point *center,
-	     real width, real height,
-	     Color *color)
-{
-  DiaPsRenderer *renderer = DIA_PS_RENDERER(self);
-  psrenderer_ellipse(renderer, center, width, height, color, TRUE);
+  if (fill)
+    psrenderer_ellipse(renderer, center, width, height, fill, TRUE);
+  if (stroke)
+    psrenderer_ellipse(renderer, center, width, height, stroke, FALSE);
 }
 
 static void
@@ -993,7 +986,6 @@ dia_ps_renderer_class_init (DiaPsRendererClass *klass)
   renderer_class->draw_arc     = draw_arc;
   renderer_class->fill_arc     = fill_arc;
   renderer_class->draw_ellipse = draw_ellipse;
-  renderer_class->fill_ellipse = fill_ellipse;
   renderer_class->draw_string  = draw_string;
   renderer_class->draw_image   = draw_image;
 

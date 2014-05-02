@@ -240,15 +240,11 @@ actor_draw(Actor *actor, DiaRenderer *renderer)
   cb.y = ch.y + r1 + r;
   
   /* head */
-  renderer_ops->fill_ellipse(renderer, 
-			     &ch,
-			     r, r,
-			     &actor->fill_color);
   renderer_ops->draw_ellipse(renderer, 
 			     &ch,
 			     r, r,
-			     &actor->line_color);  
-  
+			     &actor->fill_color, &actor->line_color);
+
   /* Arms */
   p1.x = ch.x - r1;
   p2.x = ch.x + r1;

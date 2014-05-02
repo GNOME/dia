@@ -120,10 +120,8 @@ class DissectRenderer :
 		self._arc(center, width, height, angle1, angle2, "draw_arc")
 	def fill_arc (self, center, width, height, angle1, angle2, color) :
 		self._arc(center, width, height, angle1, angle2, "fill_arc")
-	def draw_ellipse (self, center, width, height, color) :
+	def draw_ellipse (self, center, width, height, fill, stroke) :
 		self._arc(center, width, height, 0, 360, "draw_ellipse")
-	def fill_ellipse (self, center, width, height, color) :
-		self._arc(center, width, height, 0, 360, "fill_elipse")
 	def _bezier (self, bezpoints, fun) :
 		nMoves = 0
 		for bp in bezpoints :

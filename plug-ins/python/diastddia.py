@@ -179,10 +179,11 @@ class StandardDiaRenderer :
 %s%s
     </dia:object>''' % (self.oid, center.x-width/2, center.y-height/2, width, height, 
 			self._tinting(color, fill, 'border_color', 'border_width'), self._stroke_style()))
-	def draw_ellipse (self, center, width, height, color) :
-		self._ellipse(center, width, height, color, 0)
-	def fill_ellipse (self, center, width, height, color) :
-		self._ellipse(center, width, height, 0, color)
+	def draw_ellipse (self, center, width, height, fill, stroke) :
+		if fill :
+			self._ellipse(center, width, height, fill, 1)
+		if stroke :
+			self._ellipse(center, width, height, stroke, 0)
 
 	def _arc(self, center, width, height, angle1, angle2, color, fill) :
 		self.oid = self.oid + 1

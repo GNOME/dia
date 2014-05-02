@@ -270,9 +270,9 @@ attribute_draw(Attribute *attribute, DiaRenderer *renderer)
   center.y = elem->corner.y + elem->height/2;
   
   renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
-  renderer_ops->fill_ellipse(renderer, &center,
+  renderer_ops->draw_ellipse (renderer, &center,
 			      elem->width, elem->height,
-			      &attribute->inner_color);
+			      &attribute->inner_color, NULL);
 
   renderer_ops->set_linewidth(renderer, attribute->border_width);
   if (attribute->derived) {
@@ -282,15 +282,15 @@ attribute_draw(Attribute *attribute, DiaRenderer *renderer)
     renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
   }
 
-  renderer_ops->draw_ellipse(renderer, &center,
+  renderer_ops->draw_ellipse (renderer, &center,
 			      elem->width, elem->height,
-			      &attribute->border_color);
+			      NULL, &attribute->border_color);
 
   if(attribute->multivalue) {
-    renderer_ops->draw_ellipse(renderer, &center,
+    renderer_ops->draw_ellipse (renderer, &center,
 				elem->width - 2*MULTIVALUE_BORDER_WIDTH_X,
 				elem->height - 2*MULTIVALUE_BORDER_WIDTH_Y,
-				&attribute->border_color);
+				NULL, &attribute->border_color);
   }
 
   p.x = elem->corner.x + elem->width / 2.0;

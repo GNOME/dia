@@ -95,11 +95,7 @@ static void fill_arc(DiaRenderer *self,
 static void draw_ellipse(DiaRenderer *self, 
 			 Point *center,
 			 real width, real height,
-			 Color *color);
-static void fill_ellipse(DiaRenderer *self, 
-			 Point *center,
-			 real width, real height,
-			 Color *color);
+			 Color *fill, Color *stroke);
 static void draw_bezier(DiaRenderer *self, 
 			BezPoint *points,
 			int numpoints,
@@ -211,7 +207,6 @@ pstricks_renderer_class_init (PstricksRendererClass *klass)
   renderer_class->fill_arc = fill_arc;
 
   renderer_class->draw_ellipse = draw_ellipse;
-  renderer_class->fill_ellipse = fill_ellipse;
 
   renderer_class->draw_bezier = draw_bezier;
   renderer_class->draw_beziergon = draw_beziergon;
@@ -577,22 +572,14 @@ static void
 draw_ellipse(DiaRenderer *self, 
 	     Point *center,
 	     real width, real height,
-	     Color *color)
+	     Color *fill, Color *stroke)
 {
     PstricksRenderer *renderer = PSTRICKS_RENDERER(self);
 
-    pstricks_ellipse(renderer,center,width,height,color,FALSE);
-}
-
-static void
-fill_ellipse(DiaRenderer *self, 
-	     Point *center,
-	     real width, real height,
-	     Color *color)
-{
-    PstricksRenderer *renderer = PSTRICKS_RENDERER(self);
-
-    pstricks_ellipse(renderer,center,width,height,color,TRUE);
+    if (fill)
+	pstricks_ellipse(renderer,center,width,height,fill,TRUE);
+    if (stroke)
+	pstricks_ellipse(renderer,center,width,height,stroke,FALSE);
 }
 
 static void
@@ -745,7 +732,7 @@ draw_string(DiaRenderer *self,
     if (strncmp (text, "\\tex", 4) != 0)
       escaped = tex_escape_string(text, renderer->ctx);
 
-    set_line_color(renderer,color);
+    set_fill_color(renderer,color);
 
     fprintf(renderer->file,"\\rput");
     switch (alignment) {

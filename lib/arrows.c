@@ -1707,7 +1707,7 @@ draw_filled_dot_n_triangle(DiaRenderer *renderer, Point *to, Point *from,
   
   delta = *from;
   
-  point_sub(&delta, to);	
+  point_sub(&delta, to);
   
   len = sqrt(point_dot(&delta, &delta)); /* line length */
  
@@ -1720,8 +1720,8 @@ draw_filled_dot_n_triangle(DiaRenderer *renderer, Point *to, Point *from,
     p_dot.x += delta.x * rapport;
     p_dot.y += delta.y * rapport;
   }
-  DIA_RENDERER_GET_CLASS(renderer)->fill_ellipse(renderer, &p_dot,
-						 width, width, fg_color);
+  DIA_RENDERER_GET_CLASS(renderer)->draw_ellipse(renderer, &p_dot,
+						 width, width, fg_color, NULL);
   /* triangle */
   if (len > 0.0) {
     rapport = width / len;

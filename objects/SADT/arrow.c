@@ -314,9 +314,9 @@ static void draw_dot(DiaRenderer *renderer,
   point_add(&pt,&vt);
   
   renderer_ops->set_fillstyle(renderer,FILLSTYLE_SOLID);
-  renderer_ops->fill_ellipse(renderer,&pt,
-			 ARROW_DOT_RADIUS,ARROW_DOT_RADIUS,
-			 col);
+  renderer_ops->draw_ellipse(renderer,&pt,
+			     ARROW_DOT_RADIUS,ARROW_DOT_RADIUS,
+			     col, NULL);
 }
 
 static void draw_tunnel(DiaRenderer *renderer,

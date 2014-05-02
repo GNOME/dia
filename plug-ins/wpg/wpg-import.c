@@ -129,16 +129,11 @@ _do_ellipse (WpgImportRenderer *ren, WPGEllipse* pEll)
 					     pEll->StartAngle, pEll->EndAngle,
 					     &ren->fill);
   } else {
-    if (ren->LineAttr.Type != WPG_LA_NONE)
-      DIA_RENDERER_GET_CLASS(ren)->draw_ellipse (DIA_RENDERER(ren), &center,
+    DIA_RENDERER_GET_CLASS(ren)->draw_ellipse (DIA_RENDERER(ren), &center,
 						 2 * pEll->rx / WPU_PER_DCM,
 						 2 * pEll->ry / WPU_PER_DCM,
-						 &ren->stroke);
-    if (ren->FillAttr.Type != WPG_FA_HOLLOW)
-      DIA_RENDERER_GET_CLASS(ren)->fill_ellipse (DIA_RENDERER(ren), &center,
-						 2 * pEll->rx / WPU_PER_DCM,
-						 2 * pEll->ry / WPU_PER_DCM,
-						 &ren->fill);
+						 (ren->FillAttr.Type != WPG_FA_HOLLOW) ? &ren->fill : NULL,
+						 (ren->LineAttr.Type != WPG_LA_NONE) ? &ren->stroke : NULL);
   }
 }
 

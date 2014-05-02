@@ -814,15 +814,22 @@ static void
 draw_ellipse(DiaRenderer *self, 
 	     Point *center,
 	     real width, real height,
-	     Color *colour)
+	     Color *fill, Color *stroke)
 {
     WmfRenderer *renderer = WMF_RENDERER (self);
     W32::HPEN hPen;
+    W32::HGDIOBJ hBrush, hBrOld;
 
     DIAG_NOTE(renderer, "draw_ellipse %fx%f @ %f,%f\n", 
               width, height, center->x, center->y);
 
-    hPen = UsePen(renderer, colour);
+    if (fill) {
+	W32::COLORREF rgb = W32COLOR(fill);
+	hBrush = W32::CreateSolidBrush(rgb);
+	hBrOld = W32::SelectObject(renderer->hFileDC, hBrush);
+    }
+    if (stroke)
+	hPen = UsePen(renderer, stroke);
 
     W32::Ellipse(renderer->hFileDC,
                  SCX(center->x - width / 2), /* bbox corners */
@@ -830,31 +837,13 @@ draw_ellipse(DiaRenderer *self,
                  SCX(center->x + width / 2), 
                  SCY(center->y + height / 2));
 
-    DonePen(renderer, hPen);
-}
-
-static void
-fill_ellipse(DiaRenderer *self, 
-	     Point *center,
-	     real width, real height,
-	     Color *colour)
-{
-    WmfRenderer *renderer = WMF_RENDERER (self);
-    W32::HPEN    hPen;
-    W32::HGDIOBJ hBrush, hBrOld;
-    W32::COLORREF rgb = W32COLOR(colour);
-
-    DIAG_NOTE(renderer, "fill_ellipse %fx%f @ %f,%f\n", 
-              width, height, center->x, center->y);
-
-    hBrush = W32::CreateSolidBrush(rgb);
-    hBrOld = W32::SelectObject(renderer->hFileDC, hBrush);
-
-    draw_ellipse(self, center, width, height, NULL);
-
-    W32::SelectObject(renderer->hFileDC, 
-                      W32::GetStockObject (HOLLOW_BRUSH) );
-    W32::DeleteObject(hBrush);
+    if (stroke)
+	DonePen(renderer, hPen);
+    if (fill) {
+	W32::SelectObject(renderer->hFileDC, 
+			  W32::GetStockObject (HOLLOW_BRUSH) );
+	W32::DeleteObject(hBrush);
+    }
 }
 
 #ifndef DIRECT_WMF
@@ -1275,7 +1264,6 @@ wmf_renderer_class_init (WmfRendererClass *klass)
   renderer_class->fill_arc     = fill_arc;
 #endif
   renderer_class->draw_ellipse = draw_ellipse;
-  renderer_class->fill_ellipse = fill_ellipse;
 
   renderer_class->draw_string  = draw_string;
 #ifndef HAVE_LIBEMF

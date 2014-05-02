@@ -268,14 +268,10 @@ usecase_draw(Usecase *usecase, DiaRenderer *renderer)
   else 
 	  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
 
-  renderer_ops->fill_ellipse(renderer, 
-			     &c,
-			     w, h,
-			     &usecase->fill_color);
   renderer_ops->draw_ellipse(renderer, 
 			     &c,
 			     w, h,
-			     &usecase->line_color);  
+			     &usecase->fill_color, &usecase->line_color);  
   
   text_draw(usecase->text, renderer);
 }

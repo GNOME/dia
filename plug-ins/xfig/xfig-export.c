@@ -156,11 +156,7 @@ static void fill_arc(DiaRenderer *self,
 static void draw_ellipse(DiaRenderer *self, 
 			 Point *center,
 			 real width, real height,
-			 Color *colour);
-static void fill_ellipse(DiaRenderer *self, 
-			 Point *center,
-			 real width, real height,
-			 Color *colour);
+			 Color *fill, Color *stroke);
 static void draw_bezier(DiaRenderer *self, 
 			BezPoint *points,
 			int numpoints,
@@ -257,7 +253,6 @@ xfig_renderer_class_init (XfigRendererClass *klass)
   renderer_class->fill_arc = fill_arc;
 
   renderer_class->draw_ellipse = draw_ellipse;
-  renderer_class->fill_ellipse = fill_ellipse;
 
   renderer_class->draw_rect = draw_rect;
   renderer_class->draw_bezier = draw_bezier;
@@ -1004,10 +999,10 @@ fill_arc(DiaRenderer *self,
 }
 
 static void 
-draw_ellipse(DiaRenderer *self, 
-             Point *center,
-             real width, real height,
-             Color *color) 
+stroke_ellipse(DiaRenderer *self, 
+               Point *center,
+               real width, real height,
+               Color *color) 
 {
   XfigRenderer *renderer = XFIG_RENDERER(self);
   gchar d_buf[DTOSTR_BUF_SIZE];
@@ -1051,6 +1046,18 @@ fill_ellipse(DiaRenderer *self,
 	  xfig_dtostr(d_buf, figDashLength(renderer)),
 	  (int)figCoord(renderer, center->x), (int)figCoord(renderer, center->y),
 	  (int)figCoord(renderer, width/2), (int)figCoord(renderer, height/2));
+}
+
+static void
+draw_ellipse (DiaRenderer *self, 
+	      Point *center,
+	      real width, real height,
+	      Color *fill, Color *stroke)
+{
+  if (fill)
+    fill_ellipse (self, center, width, height, fill);
+  if (stroke)
+    stroke_ellipse (self, center, width, height, stroke);
 }
 
 static void 

@@ -94,10 +94,7 @@ public :
                            Color *color);
     //! Draw an ellipse, given its center and the bounding box
     //! \ingroup RendererRequired
-    virtual void draw_ellipse (Point *center, double width, double height, Color *color);
-    //! Same a DrawEllipse, except the ellips is filled
-    //! \ingroup RendererRequired
-    virtual void fill_ellipse (Point *center, double width, double height, Color *color);
+    virtual void draw_ellipse (Point *center, double width, double height, Color *fill, Color *stroke);
     //! Print a string at pos, using the current font
     //! \ingroup RendererRequired
     virtual void draw_string (const gchar *text, Point *pos, Alignment alignment, Color *color);

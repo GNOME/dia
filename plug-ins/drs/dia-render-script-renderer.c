@@ -535,11 +535,10 @@ fill_arc(DiaRenderer *self,
 }
 
 static void
-_ellipse(DiaRenderer *self, 
-         Point *center,
-         real width, real height,
-         Color *color,
-         gboolean fill)
+draw_ellipse(DiaRenderer *self, 
+             Point *center,
+             real width, real height,
+             Color *fill, Color *stroke)
 {
   DrsRenderer *renderer = DRS_RENDERER (self);
   xmlNodePtr node;
@@ -550,25 +549,9 @@ _ellipse(DiaRenderer *self,
   _node_set_real (node, "width", width);
   _node_set_real (node, "height", height);
   if (fill)
-    _node_set_color (node, "fill", color);
-  else
-    _node_set_color (node, "stroke", color);
-}
-static void
-draw_ellipse(DiaRenderer *self, 
-             Point *center,
-             real width, real height,
-             Color *color)
-{
-  _ellipse (self, center, width, height, color, FALSE);
-}
-static void
-fill_ellipse(DiaRenderer *self, 
-             Point *center,
-             real width, real height,
-             Color *color)
-{
-  _ellipse (self, center, width, height, color, TRUE);
+    _node_set_color (node, "fill", fill);
+  if (stroke)
+    _node_set_color (node, "stroke", stroke);
 }
 
 static void
@@ -708,7 +691,6 @@ drs_renderer_class_init (DrsRendererClass *klass)
   renderer_class->draw_arc     = draw_arc;
   renderer_class->fill_arc     = fill_arc;
   renderer_class->draw_ellipse = draw_ellipse;
-  renderer_class->fill_ellipse = fill_ellipse;
 
   renderer_class->draw_string  = draw_string;
   renderer_class->draw_image   = draw_image;

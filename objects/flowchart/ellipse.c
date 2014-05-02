@@ -333,21 +333,16 @@ ellipse_draw(Ellipse *ellipse, DiaRenderer *renderer)
   center.x = elem->corner.x + elem->width/2;
   center.y = elem->corner.y + elem->height/2;
 
-  if (ellipse->show_background) {
-    renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
-  
-    renderer_ops->fill_ellipse(renderer, &center,
-				elem->width, elem->height,
-				&ellipse->inner_color);
-  }
-
+  if (ellipse->show_background)
+    renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);  
   renderer_ops->set_linewidth(renderer, ellipse->border_width);
   renderer_ops->set_linestyle(renderer, ellipse->line_style);
   renderer_ops->set_dashlength(renderer, ellipse->dashlength);
   renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
 
-  renderer_ops->draw_ellipse(renderer, &center,
+  renderer_ops->draw_ellipse (renderer, &center,
 			      elem->width, elem->height,
+			      (ellipse->show_background) ? &ellipse->inner_color : NULL,
 			      &ellipse->border_color);
 
   text_draw(ellipse->text, renderer);

@@ -59,11 +59,7 @@ static void fill_arc (DiaRenderer *renderer,
 static void draw_ellipse (DiaRenderer *renderer,
 			  Point *center,
 			  real width, real height,
-			  Color *color);
-static void fill_ellipse (DiaRenderer *renderer,
-			  Point *center,
-			  real width, real height,
-			  Color *color);
+			  Color *fill, Color *stroke);
 static void draw_bezier (DiaRenderer *renderer,
 			 BezPoint *points,
 			 int numpoints,
@@ -177,7 +173,6 @@ dia_import_renderer_class_init (DiaImportRendererClass *klass)
   renderer_class->draw_arc     = draw_arc;
   renderer_class->fill_arc     = fill_arc;
   renderer_class->draw_ellipse = draw_ellipse;
-  renderer_class->fill_ellipse = fill_ellipse;
   renderer_class->draw_string  = draw_string;
   renderer_class->draw_image   = draw_image;
 
@@ -418,28 +413,12 @@ fill_arc (DiaRenderer *renderer, Point *center,
 static void 
 draw_ellipse (DiaRenderer *renderer, Point *center,
               real width, real height, 
-              Color *color)
+              Color *fill, Color *stroke)
 {
   DiaImportRenderer *self = DIA_IMPORT_RENDERER (renderer);
   DiaObject *object = create_standard_ellipse (center->x - width / 2, center->y - height / 2, width, height);
 
-  _apply_style (self, object, NULL, color, 0.0);
-  _push_object (self, object);
-}
-
-/*!
- * \brief Fill an ellipse
- * Creates a filled _Ellipse object.
- * \memberof _DiaImportRenderer
- */
-static void 
-fill_ellipse (DiaRenderer *renderer, Point *center,
-              real width, real height, Color *color)
-{
-  DiaImportRenderer *self = DIA_IMPORT_RENDERER (renderer);
-  DiaObject *object = create_standard_ellipse (center->x - width / 2, center->y - height / 2, width, height);
-
-  _apply_style (self, object, color, NULL, 0.0);
+  _apply_style (self, object, fill, stroke, 0.0);
   _push_object (self, object);
 }
 

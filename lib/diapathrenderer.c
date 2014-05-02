@@ -336,7 +336,7 @@ draw_polygon(DiaRenderer *self,
 	      Color *fill, Color *stroke)
 {
   DiaPathRenderer *renderer = DIA_PATH_RENDERER (self);
-  GArray *path = _get_current_path (renderer, fill, stroke);
+  GArray *path = _get_current_path (renderer, stroke, fill);
 
   /* can't be that simple ;) */
   _polyline (self, points, num_points, fill, stroke);
@@ -516,32 +516,15 @@ path_build_ellipse (GArray *path,
   }
 }    
 static void
-_ellipse (DiaRenderer *self,
-	  Point *center,
-	  real width, real height,
-	  const Color *stroke, const Color *fill)
+draw_ellipse (DiaRenderer *self,
+	      Point *center,
+	      real width, real height,
+	      Color *fill, Color *stroke)
 {
   DiaPathRenderer *renderer = DIA_PATH_RENDERER (self);
   GArray *path = _get_current_path (renderer, stroke, fill);
 
   path_build_ellipse (path, center, width, height);
-}
-static void
-draw_ellipse (DiaRenderer *self, 
-	      Point *center,
-	      real width, real height,
-	      Color *color)
-{
-  _ellipse (self, center, width, height, color, NULL);
-  _remove_duplicated_path (DIA_PATH_RENDERER (self));
-}
-static void
-fill_ellipse (DiaRenderer *self, 
-	      Point *center,
-	      real width, real height,
-	      Color *color)
-{
-  _ellipse (self, center, width, height, NULL, color);
 }
 static void
 _bezier (DiaRenderer *self, 
@@ -707,7 +690,6 @@ dia_path_renderer_class_init (DiaPathRendererClass *klass)
   renderer_class->draw_arc     = draw_arc;
   renderer_class->fill_arc     = fill_arc;
   renderer_class->draw_ellipse = draw_ellipse;
-  renderer_class->fill_ellipse = fill_ellipse;
 
   renderer_class->draw_string  = draw_string;
   renderer_class->draw_image   = draw_image;

@@ -817,72 +817,40 @@ static void
 draw_ellipse(DiaRenderer *renderer, 
 	     Point *center,
 	     real width, real height,
-	     Color *colour)
+	     Color *fill, Color *stroke)
 {
   PyObject *func, *res, *arg, *self = PYDIA_RENDERER (renderer);
 
   func = PyObject_GetAttrString (self, "draw_ellipse");
   if (func && PyCallable_Check(func)) {
     PyObject *opoint = PyDiaPoint_New (center);
-    PyObject *ocolor = PyDiaColor_New (colour);
-
+    PyObject *fill_po;
+    PyObject *stroke_po;
     Py_INCREF(self);
     Py_INCREF(func);
-    arg = Py_BuildValue ("(OddO)", opoint, width, height, ocolor);
+    /* we have to provide a Python object even if there is no color */
+    if (fill)
+      fill_po = PyDiaColor_New (fill);
+    else
+      Py_INCREF(Py_None), fill_po = Py_None;
+    if (stroke)
+      stroke_po = PyDiaColor_New (stroke);
+    else
+      Py_INCREF(Py_None), stroke_po = Py_None;
+
+    arg = Py_BuildValue ("(OddOO)", opoint, width, height, fill_po, stroke_po);
     if (arg) {
       res = PyEval_CallObject (func, arg);
       ON_RES(res, FALSE);
     }
     Py_XDECREF (arg);
     Py_XDECREF (opoint);
-    Py_XDECREF (ocolor);
+    Py_XDECREF (fill_po);
+    Py_XDECREF (stroke_po);
     Py_DECREF(func);
     Py_DECREF(self);
-  }
-  else { /* member not optional */
-    gchar *msg = g_strdup_printf ("%s.draw_ellipse() implmentation missing.",
-				  G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (renderer)));
-    PyErr_Clear();
-    PyErr_Warn (PyExc_RuntimeWarning, msg);
-    g_free (msg);
-  }
-}
-
-/*!
- * \brief Fill ellipse
- *
- * Not optional on the PyDia side. If not implemented a runtime warning 
- * will be generated when called.
- *
- * \memberof _DiaPyRenderer
- */
-static void
-fill_ellipse(DiaRenderer *renderer, 
-	     Point *center,
-	     real width, real height,
-	     Color *colour)
-{
-  PyObject *func, *res, *arg, *self = PYDIA_RENDERER (renderer);
-
-  func = PyObject_GetAttrString (self, "fill_ellipse");
-  if (func && PyCallable_Check(func)) {
-    PyObject *opoint = PyDiaPoint_New (center);
-    PyObject *ocolor = PyDiaColor_New (colour);
-    Py_INCREF(self);
-    Py_INCREF(func);
-    arg = Py_BuildValue ("(OddO)", opoint, width, height, ocolor);
-    if (arg) {
-      res = PyEval_CallObject (func, arg);
-      ON_RES(res, FALSE);
-    }
-    Py_XDECREF (arg);
-    Py_XDECREF (opoint);
-    Py_XDECREF (ocolor);
-    Py_DECREF(func);
-    Py_DECREF(self);
-  }
-  else { /* member not optional */
-    gchar *msg = g_strdup_printf ("%s.fill_ellipse() implmentation missing.",
+  } else { /* member not optional */
+    gchar *msg = g_strdup_printf ("%s.draw_ellipse() implementation missing.",
 				  G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (renderer)));
     PyErr_Clear();
     PyErr_Warn (PyExc_RuntimeWarning, msg);
@@ -1220,7 +1188,6 @@ dia_py_renderer_class_init (DiaPyRendererClass *klass)
   renderer_class->draw_arc     = draw_arc;
   renderer_class->fill_arc     = fill_arc;
   renderer_class->draw_ellipse = draw_ellipse;
-  renderer_class->fill_ellipse = fill_ellipse;
 
   renderer_class->draw_string  = draw_string;
   renderer_class->draw_image   = draw_image;

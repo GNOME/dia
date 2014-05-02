@@ -372,7 +372,10 @@ static void compute_oper(Point *p, double w, double h, Point *pl) {
      pl[6].y=pl[0].y;
 }
 
-static void draw_agent_icon(Maor *maor, double w, double h, DiaRenderer *renderer) {
+static void
+draw_agent_icon(Maor *maor, double w, double h,
+		DiaRenderer *renderer)
+{
      DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
      double rx,ry;
      Point ref,c,p1,p2;
@@ -384,7 +387,7 @@ static void draw_agent_icon(Maor *maor, double w, double h, DiaRenderer *rendere
      /* head */
      c.x=rx;
      c.y=ry;
-     renderer_ops->fill_ellipse(renderer,&c,h/5,h/5,&MAOR_FG_COLOR);
+     renderer_ops->draw_ellipse(renderer,&c,h/5,h/5,&MAOR_FG_COLOR, NULL);
 
      /* body */
      p1.x=rx;

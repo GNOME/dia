@@ -369,14 +369,10 @@ aadlbox_draw_port(Aadlport *port, DiaRenderer *renderer)
       renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
       renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
       
-      renderer_ops->fill_ellipse(renderer, p, 
-				 6 * AADL_PORT_GROUP_SIZE,
-				 6 * AADL_PORT_GROUP_SIZE,
-				 &color_black);
       renderer_ops->draw_ellipse(renderer, p,
 				 6 * AADL_PORT_GROUP_SIZE,
 				 6 * AADL_PORT_GROUP_SIZE,
-				 &color_black);
+				 &color_black, &color_black);
 
       
       b[0].type = BEZ_MOVE_TO;

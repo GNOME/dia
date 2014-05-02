@@ -322,13 +322,10 @@ analog_clock_draw(Analog_Clock *analog_clock, DiaRenderer *renderer)
   renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
   renderer_ops->set_linewidth(renderer, analog_clock->border_line_width);
 
-  if (analog_clock->show_background)
-    renderer_ops->fill_ellipse(renderer,&analog_clock->centre,
-                                2*analog_clock->radius,2*analog_clock->radius,
-                                &analog_clock->inner_color);
   renderer_ops->draw_ellipse(renderer,&analog_clock->centre,
-                              2*analog_clock->radius,2*analog_clock->radius,
-                              &analog_clock->border_color);
+			      2*analog_clock->radius,2*analog_clock->radius,
+			      (analog_clock->show_background) ? &analog_clock->inner_color : NULL,
+			      &analog_clock->border_color);
   if (analog_clock->show_ticks)
   {
     Point out, in;
@@ -366,10 +363,10 @@ analog_clock_draw(Analog_Clock *analog_clock, DiaRenderer *renderer)
   renderer_ops->draw_line(renderer,
                            &analog_clock->sec_tip.pos, &analog_clock->centre,
                            &analog_clock->sec_arrow_color);
-  renderer_ops->fill_ellipse(renderer,&analog_clock->centre,
+  renderer_ops->draw_ellipse (renderer,&analog_clock->centre,
                               analog_clock->arrow_line_width*2.25,
                               analog_clock->arrow_line_width*2.25,
-                              &analog_clock->sec_arrow_color);
+                              &analog_clock->sec_arrow_color, NULL);
 
 }
 

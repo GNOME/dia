@@ -118,7 +118,7 @@ static void draw_rect(DiaRenderer *self,
 static void draw_ellipse(DiaRenderer *self, 
 			 Point *center,
 			 real width, real height,
-			 Color *colour);
+			 Color *fill, Color *stroke);
 
 /* helper functions */
 static void add_connection_point(ShapeRenderer *renderer, 
@@ -510,15 +510,16 @@ static void
 draw_ellipse(DiaRenderer *self, 
              Point *center,
              real width, real height,
-             Color *colour)
+             Color *fill, Color *stroke)
 {
   ShapeRenderer *renderer = SHAPE_RENDERER(self);
 
   /* use base class implementation */
-  DIA_RENDERER_CLASS(parent_class)->draw_ellipse (self, center, width, height, colour);
+  DIA_RENDERER_CLASS(parent_class)->draw_ellipse (self, center, width, height, fill, stroke);
 
   /* do our own stuff */
-  add_ellipse_connection_points(renderer, center, width, height);
+  if (stroke)
+    add_ellipse_connection_points(renderer, center, width, height);
 }
 
 static gboolean

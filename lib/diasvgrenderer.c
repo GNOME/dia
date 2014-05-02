@@ -612,39 +612,20 @@ static void
 draw_ellipse(DiaRenderer *self, 
 	     Point *center,
 	     real width, real height,
-	     Color *colour)
+	     Color *fill, Color *stroke)
 {
   DiaSvgRenderer *renderer = DIA_SVG_RENDERER (self);
   xmlNodePtr node;
   gchar d_buf[DTOSTR_BUF_SIZE];
+  gchar *style;
 
   node = xmlNewChild(renderer->root, renderer->svg_name_space, (const xmlChar *)"ellipse", NULL);
 
-  xmlSetProp(node, (const xmlChar *)"style", (xmlChar *) get_draw_style(renderer, colour));
-
-  dia_svg_dtostr(d_buf, center->x);
-  xmlSetProp(node, (const xmlChar *)"cx", (xmlChar *) d_buf);
-  dia_svg_dtostr(d_buf, center->y);
-  xmlSetProp(node, (const xmlChar *)"cy", (xmlChar *) d_buf);
-  dia_svg_dtostr(d_buf, width / 2);
-  xmlSetProp(node, (const xmlChar *)"rx", (xmlChar *) d_buf);
-  dia_svg_dtostr(d_buf, height / 2);
-  xmlSetProp(node, (const xmlChar *)"ry", (xmlChar *) d_buf);
-}
-
-static void
-fill_ellipse(DiaRenderer *self, 
-	     Point *center,
-	     real width, real height,
-	     Color *colour)
-{
-  DiaSvgRenderer *renderer = DIA_SVG_RENDERER (self);
-  xmlNodePtr node;
-  gchar d_buf[DTOSTR_BUF_SIZE];
-
-  node = xmlNewChild(renderer->root, renderer->svg_name_space, (const xmlChar *)"ellipse", NULL);
-
-  xmlSetProp(node, (const xmlChar *)"style", (xmlChar *) get_fill_style(renderer, colour));
+  style = g_strdup_printf ("%s;%s",
+			   stroke ? get_draw_style (renderer, stroke) : "stroke:none",
+			   fill ? get_fill_style (renderer, fill) : "fill:none");
+  xmlSetProp(node, (const xmlChar *)"style", (xmlChar *) style);
+  g_free (style);
 
   dia_svg_dtostr(d_buf, center->x);
   xmlSetProp(node, (const xmlChar *)"cx", (xmlChar *) d_buf);
@@ -966,7 +947,6 @@ dia_svg_renderer_class_init (DiaSvgRendererClass *klass)
   renderer_class->draw_arc     = draw_arc;
   renderer_class->fill_arc     = fill_arc;
   renderer_class->draw_ellipse = draw_ellipse;
-  renderer_class->fill_ellipse = fill_ellipse;
 
   renderer_class->draw_string  = draw_string;
   renderer_class->draw_image   = draw_image;

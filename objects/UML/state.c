@@ -290,21 +290,16 @@ state_draw(State *state, DiaRenderer *renderer)
       p1.y = y + h/2;
       if (state->state_type==STATE_END) {
 	  r = STATE_ENDRATIO;
-	  renderer_ops->fill_ellipse(renderer, 
+	  renderer_ops->draw_ellipse (renderer, 
 				      &p1,
 				      r, r,
-				      &state->fill_color);
-	  
-	  renderer_ops->draw_ellipse(renderer, 
-				      &p1,
-				      r, r,
-				      &state->line_color);
+				      &state->fill_color, &state->line_color);
       }  
       r = STATE_RATIO;
-      renderer_ops->fill_ellipse(renderer, 
+      renderer_ops->draw_ellipse (renderer, 
 				  &p1,
 				  r, r,
-				  &state->line_color);
+				  NULL, &state->line_color);
   } else {
       p1.x = x;
       p1.y = y;

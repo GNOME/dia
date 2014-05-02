@@ -725,18 +725,12 @@ static void
 draw_ellipse(DiaRenderer *self, 
 	     Point *center,
 	     real width, real height,
-	     Color *color)
+	     Color *fill, Color *stroke)
 {
-  draw_arc(self, center, width, height, 0.0, 360.0, color); 
-}
-
-static void
-fill_ellipse(DiaRenderer *self, 
-	     Point *center,
-	     real width, real height,
-	     Color *color)
-{
-  fill_arc(self, center, width, height, 0.0, 360.0, color); 
+  if (fill)
+    fill_arc(self, center, width, height, 0.0, 360.0, fill);
+  if (stroke)
+    draw_arc(self, center, width, height, 0.0, 360.0, stroke); 
 }
 
 static void
@@ -1416,7 +1410,6 @@ dia_libart_renderer_class_init (DiaLibartRendererClass *klass)
   renderer_class->fill_arc = fill_arc;
 
   renderer_class->draw_ellipse = draw_ellipse;
-  renderer_class->fill_ellipse = fill_ellipse;
 
   renderer_class->draw_bezier = draw_bezier;
   renderer_class->draw_beziergon = draw_beziergon;

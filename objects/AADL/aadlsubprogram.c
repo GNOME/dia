@@ -50,9 +50,8 @@ static void aadlsubprogram_draw_borders(Aadlbox *aadlbox, DiaRenderer *renderer)
   renderer_ops->set_linewidth(renderer, AADLBOX_BORDERWIDTH);
   renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
 
-  renderer_ops->fill_ellipse(renderer, &center, w, h, &aadlbox->fill_color);
-  renderer_ops->draw_ellipse(renderer, &center, w, h, &aadlbox->line_color);
-
+  renderer_ops->draw_ellipse(renderer, &center, w, h,
+			     &aadlbox->fill_color, &aadlbox->line_color);
 }
 
 #define heavyside(n) (n>0?1:0)

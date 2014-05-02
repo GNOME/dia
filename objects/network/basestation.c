@@ -262,8 +262,8 @@ basestation_draw(Basestation *basestation, DiaRenderer *renderer)
                              &basestation->fill_colour,
                              &basestation->line_colour);
   /* bottom */
-  renderer_ops->fill_ellipse(renderer, &cb, r, r/2.0,
-                             &basestation->fill_colour);
+  renderer_ops->draw_ellipse(renderer, &cb, r, r/2.0,
+                             &basestation->fill_colour, NULL);
   renderer_ops->draw_arc(renderer, &cb, r, r/2.0, 180, 0,
                          &basestation->line_colour);
   /* bar */
@@ -281,10 +281,9 @@ basestation_draw(Basestation *basestation, DiaRenderer *renderer)
   renderer_ops->draw_line(renderer, &p1, &p2,
                           &basestation->line_colour);
   /* top */
-  renderer_ops->fill_ellipse(renderer, &ct, r, r/2.0,
-                             &basestation->fill_colour);
   renderer_ops->draw_ellipse(renderer, &ct, r, r/2.0,
-                             &basestation->line_colour);
+			     &basestation->fill_colour,
+			     &basestation->line_colour);
   /* antenna 2 */
   points[0] = ct; points[0].x += r/4.0;   points[0].y -= 0;
   points[1] = ct; points[1].x += 3.0*r/4.0; points[1].y -= r/2.0;

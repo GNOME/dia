@@ -264,18 +264,13 @@ classicon_draw(Classicon *icon, DiaRenderer *renderer)
       center.x += r/2.0;
 
   renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
-
-  renderer_ops->fill_ellipse(renderer,
-			      &center,
-			      2*r, 2*r,
-			      &icon->fill_color);
-
   renderer_ops->set_linewidth(renderer, icon->line_width);
   renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
 
   renderer_ops->draw_ellipse(renderer,
 			      &center,
 			      2*r, 2*r,
+			      &icon->fill_color,
 			      &icon->line_color);
 
 

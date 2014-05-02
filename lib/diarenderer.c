@@ -83,11 +83,7 @@ static void fill_arc (DiaRenderer *renderer,
 static void draw_ellipse (DiaRenderer *renderer,
                           Point *center,
                           real width, real height,
-                          Color *color);
-static void fill_ellipse (DiaRenderer *renderer,
-                          Point *center,
-                          real width, real height,
-                          Color *color);
+                          Color *fill, Color *stroke);
 static void draw_bezier (DiaRenderer *renderer,
                          BezPoint *points,
                          int numpoints,
@@ -320,7 +316,6 @@ dia_renderer_class_init (DiaRendererClass *klass)
   renderer_class->draw_arc     = draw_arc;
   renderer_class->fill_arc     = fill_arc;
   renderer_class->draw_ellipse = draw_ellipse;
-  renderer_class->fill_ellipse = fill_ellipse;
   renderer_class->draw_string  = draw_string;
   renderer_class->draw_image   = draw_image;
 
@@ -473,17 +468,9 @@ fill_arc (DiaRenderer *renderer, Point *center,
 static void 
 draw_ellipse (DiaRenderer *renderer, Point *center,
               real width, real height, 
-              Color *color)
+              Color *fill, Color *stroke)
 {
   g_warning ("%s::draw_ellipse not implemented!", 
-             G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (renderer)));
-}
-
-static void 
-fill_ellipse (DiaRenderer *renderer, Point *center,
-              real width, real height, Color *color)
-{
-  g_warning ("%s::fill_ellipse not implemented!", 
              G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (renderer)));
 }
 

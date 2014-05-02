@@ -326,17 +326,6 @@ fill_arc (DiaRenderer *self,
 {
   _arc (self, center, width, height, angle1, angle2, NULL, color);
 }
-static void
-_ellipse (DiaRenderer *self,
-	  Point *center,
-	  real width, real height,
-	  Color *stroke, Color *fill)
-{
-  GArray *path = g_array_new (FALSE, FALSE, sizeof(BezPoint));
-  path_build_ellipse (path, center, width, height);
-  _bezier (self, &g_array_index (path, BezPoint, 0), path->len, fill, stroke, fill!=NULL);
-  g_array_free (path, TRUE);
-}
 /*!
  * \brief Transform ellipse and delegate draw
  * \memberof _DiaTransformRenderer
@@ -345,21 +334,12 @@ static void
 draw_ellipse (DiaRenderer *self, 
 	      Point *center,
 	      real width, real height,
-	      Color *color)
+	      Color *fill, Color *stroke)
 {
-  _ellipse (self, center, width, height, color, NULL);
-}
-/*!
- * \brief Transform ellipse and delegate fill
- * \memberof _DiaTransformRenderer
- */
-static void
-fill_ellipse (DiaRenderer *self, 
-	      Point *center,
-	      real width, real height,
-	      Color *color)
-{
-  _ellipse (self, center, width, height, NULL, color);
+  GArray *path = g_array_new (FALSE, FALSE, sizeof(BezPoint));
+  path_build_ellipse (path, center, width, height);
+  _bezier (self, &g_array_index (path, BezPoint, 0), path->len, fill, stroke, fill!=NULL);
+  g_array_free (path, TRUE);
 }
 /*!
  * \brief Transform bezier and delegate draw
@@ -523,7 +503,6 @@ dia_transform_renderer_class_init (DiaTransformRendererClass *klass)
   renderer_class->draw_arc     = draw_arc;
   renderer_class->fill_arc     = fill_arc;
   renderer_class->draw_ellipse = draw_ellipse;
-  renderer_class->fill_ellipse = fill_ellipse;
 
   renderer_class->draw_string  = draw_string;
   renderer_class->draw_image   = draw_image;

@@ -88,21 +88,18 @@ class DumpRenderer :
 				+ str(width) + "x" + str(height) + ";" \
 				+ str(angle1) + "," + str(angle2) + ";" + str(color) + "\n")
 	## \brief Draw an ellipse
-	def draw_ellipse (self, center, width, height, color) :
+	def draw_ellipse (self, center, width, height, fill, stroke) :
 		self.f.write("draw_ellipse: " + str(center) \
-				+ str(width) + "x" +str(height) + ";" + str(color) + "\n")
-	## \brief Fill an ellipse
-	def fill_ellipse (self, center, width, height, color) :
-		self.f.write("fill_ellipse: " + str(center) \
-				+ str(width) + "x" +str(height) + ";" + str(color) + "\n")
+				+ str(width) + "x" +str(height)
+				+ ";" + str(fill) + ";" + str(stroke) + "\n")
 	## \brief Draw a bezier line
 	def draw_bezier (self, bezpoints, color) :
 		self.f.write("draw_bezier: " + str(color) + "\n")
 		for pt in bezpoints :
 			self.f.write ("\t" + str(pt) + "\n")
 	## \brief Fill a bezier shape
-	def fill_bezier (self, bezpoints, color) :
-		self.f.write("fill_bezier: " + str(color) + "\n")
+	def draw_beziergon (self, bezpoints, fill, stroke) :
+		self.f.write("draw_bezier: " + str(fill) + "; " + str(stroke) + "\n")
 		for pt in bezpoints :
 			self.f.write ("\t" + str(pt) + "\n")
 	## \brief Draw a string

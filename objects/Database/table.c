@@ -733,15 +733,15 @@ table_draw_attributesbox (Table * table, DiaRenderer * renderer,
                                       &indicP,
                                       TABLE_ATTR_INDIC_WIDTH*scale,
                                       TABLE_ATTR_INDIC_WIDTH*scale,
-                                      &table->line_color);
+                                      NULL, &table->line_color);
         }
       else
         {
-          renderer_ops->fill_ellipse (renderer,
+          renderer_ops->draw_ellipse (renderer,
                                       &indicP,
                                       TABLE_ATTR_INDIC_WIDTH*scale,
                                       TABLE_ATTR_INDIC_WIDTH*scale,
-                                      &table->line_color);
+                                      &table->line_color, NULL);
         }
 
       if (IS_NOT_EMPTY(attr->name))

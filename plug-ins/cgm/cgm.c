@@ -289,11 +289,7 @@ static void fill_arc(DiaRenderer *self,
 static void draw_ellipse(DiaRenderer *self, 
 			 Point *center,
 			 real width, real height,
-			 Color *colour);
-static void fill_ellipse(DiaRenderer *self, 
-			 Point *center,
-			 real width, real height,
-			 Color *colour);
+			 Color *fill, Color *stroke);
 static void draw_bezier(DiaRenderer *self, 
 			BezPoint *points,
 			int numpoints,
@@ -884,12 +880,12 @@ static void
 draw_ellipse(DiaRenderer *self, 
 	     Point *center,
 	     real width, real height,
-	     Color *colour)
+	     Color *fill, Color *stroke)
 {
     CgmRenderer *renderer = CGM_RENDERER(self);
     real  ynew;
 
-    write_filledge_attributes(renderer, NULL, colour);
+    write_filledge_attributes(renderer, fill, stroke);
 
     ynew = swap_y(renderer, center->y);
     write_elhead(renderer->file, 4, 17, 6 * REALSIZE);
@@ -900,28 +896,6 @@ draw_ellipse(DiaRenderer *self,
     write_real(renderer->file, center->x); /* axes 2 */
     write_real(renderer->file, ynew + height/2);
 }
-
-static void
-fill_ellipse(DiaRenderer *self, 
-	     Point *center,
-	     real width, real height,
-	     Color *colour)
-{
-    CgmRenderer *renderer = CGM_RENDERER(self);
-    real ynew;
-
-    write_filledge_attributes(renderer, colour, NULL);
-
-    ynew = swap_y(renderer, center->y);
-    write_elhead(renderer->file, 4, 17, 6 * REALSIZE);
-    write_real(renderer->file, center->x); /* center */
-    write_real(renderer->file, ynew);
-    write_real(renderer->file, center->x + width/2); /* axes 1 */
-    write_real(renderer->file, ynew);
-    write_real(renderer->file, center->x); /* axes 2 */
-    write_real(renderer->file, ynew + height/2);
-}
-
 
 static void 
 write_bezier(CgmRenderer *renderer, 
@@ -1336,9 +1310,7 @@ cgm_renderer_class_init (CgmRendererClass *klass)
 
     renderer_class->draw_arc = draw_arc;
     renderer_class->fill_arc = fill_arc;
-
     renderer_class->draw_ellipse = draw_ellipse;
-    renderer_class->fill_ellipse = fill_ellipse;
 
     renderer_class->draw_bezier = draw_bezier;
     renderer_class->draw_beziergon = draw_beziergon;

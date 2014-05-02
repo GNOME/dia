@@ -1009,10 +1009,9 @@ custom_draw_element(GraphicElement* el, Custom *custom, DiaRenderer *renderer,
   case GE_ELLIPSE:
     transform_coord(custom, &el->ellipse.center, &p1);
     transform_size(custom, el->ellipse.width, el->ellipse.height, &width, &height);
-    if (custom->show_background && el->any.s.fill != DIA_SVG_COLOUR_NONE)
-      renderer_ops->fill_ellipse(renderer, &p1, width,  height, bg);
-    if (el->any.s.stroke != DIA_SVG_COLOUR_NONE)
-      renderer_ops->draw_ellipse(renderer, &p1, width, height, fg);
+    renderer_ops->draw_ellipse (renderer, &p1, width, height,
+				(custom->show_background && el->any.s.fill != DIA_SVG_COLOUR_NONE) ? bg : NULL,
+				(el->any.s.stroke != DIA_SVG_COLOUR_NONE) ? fg : NULL);
     break;
   case GE_IMAGE:
     transform_coord(custom, &el->image.topleft, &p1);

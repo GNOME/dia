@@ -154,11 +154,7 @@ static void fill_arc(DiaRenderer *self,
 static void draw_ellipse(DiaRenderer *self, 
 			 Point *center,
 			 real width, real height,
-			 Color *colour);
-static void fill_ellipse(DiaRenderer *self, 
-			 Point *center,
-			 real width, real height,
-			 Color *colour);
+			 Color *fill, Color *stroke);
 static void draw_string(DiaRenderer *self,
 			const char *text,
 			Point *pos, Alignment alignment,
@@ -235,7 +231,6 @@ dxf_renderer_class_init (DxfRendererClass *klass)
   renderer_class->fill_arc = fill_arc;
 
   renderer_class->draw_ellipse = draw_ellipse;
-  renderer_class->fill_ellipse = fill_ellipse;
 
   renderer_class->draw_string = draw_string;
 
@@ -476,10 +471,11 @@ static void
 draw_ellipse(DiaRenderer *self, 
 	     Point *center,
 	     real width, real height,
-	     Color *colour)
+	     Color *fill, Color *stroke)
 {
     DxfRenderer *renderer = DXF_RENDERER(self);
     gchar buf[G_ASCII_DTOSTR_BUF_SIZE];
+    Color *color = fill ? fill : stroke; /* emulate fill by SOLID? */
 
     /* draw a circle instead of an ellipse, if it's one */
     if(width == height){
@@ -503,18 +499,8 @@ draw_ellipse(DiaRenderer *self,
         fprintf(renderer->file, " 41\n%s\n", g_ascii_formatd (buf, sizeof(buf), "%g", 0.0)); /*Start Parameter full ellipse */
         fprintf(renderer->file, " 42\n%s\n", g_ascii_formatd (buf, sizeof(buf), "%g", 2.0*3.14)); /* End Parameter full ellipse */		
     }
-    fprintf(renderer->file, " 62\n%d\n", dxf_color (colour));
+    fprintf(renderer->file, " 62\n%d\n", dxf_color (color));
 }
-
-static void
-fill_ellipse(DiaRenderer *self, 
-	     Point *center,
-	     real width, real height,
-	     Color *colour)
-{
-    /* emulate by SOLID? */
-}
-
 
 static void
 draw_string(DiaRenderer *self,
