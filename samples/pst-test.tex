@@ -2,14 +2,15 @@
 \documentclass[landscape]{article}
 \usepackage[pdf]{pstricks}
 \usepackage[crop=off]{auto-pst-pdf}
-\title{Dia Export Test}
+\title{Dia Pstricks Export Test}
 \author{Hans Breuer}
 \begin{document}
 \maketitle
-\include{convert-to-path.pst}
+%\include{convert-to-path.pst}
 %\include{jigsaw.pst}
-% while the former files had clipping issues render-test does not
-% produce any visible result within in this setup, not even single
-% layers of it
-%\include{render-test.pst}
+% All the files have clipping issues render-test did not produce any
+% visible result within in this setup, due dash-dot-dot errors
+% After that fixed still only a single included file can be included
+% reliable on windows with TeXworks:pdfLatex ...
+\include{render-test.pst}
 \end{document}
