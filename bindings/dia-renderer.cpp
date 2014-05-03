@@ -144,17 +144,10 @@ dia::Renderer::fill_arc (Point *center, double width, double height,
 }
 // Draw an ellipse, given its center and the bounding box
 void 
-dia::Renderer::draw_ellipse (Point *center, double width, double height, Color *color)
+dia::Renderer::draw_ellipse (Point *center, double width, double height, Color *fill, Color *stroke)
 {
     assert (self);
-    DIA_RENDERER_GET_CLASS(self)->draw_ellipse (self, center, width, height, color);
-}
-// Same a DrawEllipse, except the ellips is filled
-void 
-dia::Renderer::fill_ellipse (Point *center, double width, double height, Color *color)
-{
-    assert (self);
-    DIA_RENDERER_GET_CLASS(self)->fill_ellipse (self, center, width, height, color);
+    DIA_RENDERER_GET_CLASS(self)->draw_ellipse (self, center, width, height, fill, stroke);
 }
 // Print a string at pos, using the current font
 void 
