@@ -34,21 +34,19 @@
 #include <pango/pangocairo.h>
 #endif
 
-#ifdef HAVE_CAIRO
-#  include <cairo.h>
+#include <cairo.h>
 /* some backend headers, win32 missing in official Cairo */
-#  ifdef CAIRO_HAS_PNG_SURFACE_FEATURE
-#  include <cairo-png.h>
-#  endif
-#  ifdef  CAIRO_HAS_PS_SURFACE
-#  include <cairo-ps.h>
-#  endif
-#  ifdef  CAIRO_HAS_PDF_SURFACE
-#  include <cairo-pdf.h>
-#  endif
-#  ifdef CAIRO_HAS_SVG_SURFACE
-#  include <cairo-svg.h>
-#  endif
+#ifdef CAIRO_HAS_PNG_SURFACE_FEATURE
+#include <cairo-png.h>
+#endif
+#ifdef  CAIRO_HAS_PS_SURFACE
+#include <cairo-ps.h>
+#endif
+#ifdef  CAIRO_HAS_PDF_SURFACE
+#include <cairo-pdf.h>
+#endif
+#ifdef CAIRO_HAS_SVG_SURFACE
+#include <cairo-svg.h>
 #endif
 
 #include "intl.h"

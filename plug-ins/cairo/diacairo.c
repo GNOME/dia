@@ -30,41 +30,27 @@
 #include <glib.h>
 #include <glib/gstdio.h>
 
-/*
- * To me the following looks rather suspicious. Why do we need to compile
- * the Cairo plug-in at all if we don't have Cairo? As a result we'll
- * show it in the menus/plugin details and the user expects something
- * although there isn't any functionality behind it. Urgh.
- *
- * With Gtk+-2.7.x cairo must be available so this becomes even more ugly
- * when the user has choosen to not build the diacairo plug-in. If noone
- * can come up with a convincing reason to do it this way I'll probably
- * go back to the dont-build-at-all approach when it breaks the next time.
- *                                                                    --hb 
- */
-#ifdef HAVE_CAIRO
-#  include <cairo.h>
+#include <cairo.h>
 /* some backend headers, win32 missing in official Cairo */
-#  ifdef CAIRO_HAS_PNG_SURFACE_FEATURE
-#  include <cairo-png.h>
-#  endif
-#  ifdef  CAIRO_HAS_PS_SURFACE
-#  include <cairo-ps.h>
-#  endif
-#  ifdef  CAIRO_HAS_PDF_SURFACE
-#  include <cairo-pdf.h>
-#  endif
-#  ifdef CAIRO_HAS_SVG_SURFACE
-#  include <cairo-svg.h>
-#  endif
-#  ifdef CAIRO_HAS_WIN32_SURFACE
-#  include <cairo-win32.h>
-   /* avoid namespace collisions */
-#  define Rectangle RectangleWin32
-#  endif
-#  ifdef CAIRO_HAS_SCRIPT_SURFACE
-#  include <cairo-script.h>
-#  endif
+#ifdef CAIRO_HAS_PNG_SURFACE_FEATURE
+#include <cairo-png.h>
+#endif
+#ifdef  CAIRO_HAS_PS_SURFACE
+#include <cairo-ps.h>
+#endif
+#ifdef  CAIRO_HAS_PDF_SURFACE
+#include <cairo-pdf.h>
+#endif
+#ifdef CAIRO_HAS_SVG_SURFACE
+#include <cairo-svg.h>
+#endif
+#ifdef CAIRO_HAS_WIN32_SURFACE
+#include <cairo-win32.h>
+/* avoid namespace collisions */
+#define Rectangle RectangleWin32
+#endif
+#ifdef CAIRO_HAS_SCRIPT_SURFACE
+#include <cairo-script.h>
 #endif
 
 #ifdef HAVE_PANGOCAIRO_H
