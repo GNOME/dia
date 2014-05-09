@@ -365,7 +365,8 @@ set_pattern(DiaRenderer *self, DiaPattern *pattern)
 /* the return value of this function should not be saved anywhere */
 static const gchar *
 get_draw_style(DiaSvgRenderer *renderer,
-	       Color *colour)
+	       Color *fill,
+	       Color *stroke)
 {
   static GString *str = NULL;
   gchar linewidth_buf[DTOSTR_BUF_SIZE];
@@ -375,47 +376,44 @@ get_draw_style(DiaSvgRenderer *renderer,
     str = g_string_new(NULL);
   g_string_truncate(str, 0);
 
-  g_string_printf(str, "fill: none; stroke-opacity: %s; stroke-width: %s", 
-		  g_ascii_formatd (alpha_buf, sizeof(alpha_buf), "%g", colour->alpha), 
-		  dia_svg_dtostr(linewidth_buf, renderer->linewidth) );
-  if (strcmp(renderer->linecap, "butt"))
-    g_string_append_printf(str, "; stroke-linecap: %s", renderer->linecap);
-  if (strcmp(renderer->linejoin, "miter"))
-    g_string_append_printf(str, "; stroke-linejoin: %s", renderer->linejoin);
-  if (renderer->linestyle)
-    g_string_append_printf(str, "; stroke-dasharray: %s", renderer->linestyle);
+  /* we only append a semicolon with the second attribute */
+  if (fill) {
+    if (renderer->active_pattern) {
+      gchar *key = _make_pattern_key (renderer->active_pattern);
+      g_string_printf(str, "fill:url(#%s)", key);
+      g_free (key);
+    } else {
+      g_string_printf(str, "fill: #%02x%02x%02x; fill-opacity: %s",
+		      (int)(255*fill->red), (int)(255*fill->green),
+		      (int)(255*fill->blue), 
+		      g_ascii_formatd(alpha_buf, sizeof(alpha_buf), "%g", fill->alpha));
+    }
+  } else {
+    g_string_printf(str, "fill: none");
+  }
 
-  if (colour)
+  if (stroke) {
+    g_string_append_printf(str, "; stroke-opacity: %s; stroke-width: %s",
+			   g_ascii_formatd (alpha_buf, sizeof(alpha_buf), "%g", stroke->alpha), 
+			   dia_svg_dtostr(linewidth_buf, renderer->linewidth) );
+    if (strcmp(renderer->linecap, "butt"))
+      g_string_append_printf(str, "; stroke-linecap: %s", renderer->linecap);
+    if (strcmp(renderer->linejoin, "miter"))
+      g_string_append_printf(str, "; stroke-linejoin: %s", renderer->linejoin);
+    if (renderer->linestyle)
+      g_string_append_printf(str, "; stroke-dasharray: %s", renderer->linestyle);
+
     g_string_append_printf(str, "; stroke: #%02x%02x%02x",
-		      (int)(255*colour->red), 
-		      (int)(255*colour->green),
-		      (int)(255*colour->blue));
-
+			   (int)(255*stroke->red), 
+			   (int)(255*stroke->green),
+			   (int)(255*stroke->blue));
+  } else {
+    g_string_append_printf(str, "; stroke: none");
+  }
   return str->str;
 }
 
 /* the return value of this function should not be saved anywhere */
-static const gchar *
-get_fill_style(DiaSvgRenderer *renderer,
-	       Color *colour)
-{
-  static GString *str = NULL;
-  gchar alpha_buf[DTOSTR_BUF_SIZE];
-
-  if (!str) str = g_string_new(NULL);
-
-  if (renderer->active_pattern) {
-    gchar *key = _make_pattern_key (renderer->active_pattern);
-    g_string_printf(str, "fill:url(#%s)", key);
-    g_free (key);
-  } else {
-    g_string_printf(str, "fill: #%02x%02x%02x; fill-opacity: %s",
-		     (int)(255*colour->red), (int)(255*colour->green),
-		     (int)(255*colour->blue), 
-		     g_ascii_formatd(alpha_buf, sizeof(alpha_buf), "%g", colour->alpha));
-  }
-  return str->str;
-}
 
 static void
 draw_line(DiaRenderer *self, 
@@ -428,7 +426,7 @@ draw_line(DiaRenderer *self,
 
   node = xmlNewChild(renderer->root, renderer->svg_name_space, (const xmlChar *)"line", NULL);
 
-  xmlSetProp(node, (const xmlChar *)"style", (xmlChar *) get_draw_style(renderer, line_colour));
+  xmlSetProp(node, (const xmlChar *)"style", (xmlChar *) get_draw_style(renderer, NULL, line_colour));
 
   dia_svg_dtostr(d_buf, start->x);
   xmlSetProp(node, (const xmlChar *)"x1", (xmlChar *) d_buf);
@@ -453,8 +451,8 @@ draw_polyline(DiaRenderer *self,
   gchar py_buf[DTOSTR_BUF_SIZE];
 
   node = xmlNewChild(renderer->root, renderer->svg_name_space, (const xmlChar *)"polyline", NULL);
-  
-  xmlSetProp(node, (const xmlChar *)"style", (xmlChar *) get_draw_style(renderer, line_colour));
+
+  xmlSetProp(node, (const xmlChar *)"style", (xmlChar *) get_draw_style(renderer, NULL, line_colour));
 
   str = g_string_new(NULL);
   for (i = 0; i < num_points; i++)
@@ -476,15 +474,10 @@ draw_polygon (DiaRenderer *self,
   GString *str;
   gchar px_buf[DTOSTR_BUF_SIZE];
   gchar py_buf[DTOSTR_BUF_SIZE];
-  gchar *style;
 
   node = xmlNewChild(renderer->root, renderer->svg_name_space, (const xmlChar *)"polygon", NULL);
 
-  style = g_strdup_printf ("%s;%s",
-			   stroke ? get_draw_style (renderer, stroke) : "stroke:none",
-			   fill ? get_fill_style (renderer, fill) : "fill:none");
-  xmlSetProp(node, (const xmlChar *)"style", (xmlChar *) style);
-  g_free (style);
+  xmlSetProp(node, (const xmlChar *)"style", (xmlChar *) get_draw_style (renderer, fill, stroke));
 
   if (fill)
     xmlSetProp(node, (const xmlChar *)"fill-rule", (const xmlChar *) "evenodd");
@@ -506,15 +499,10 @@ draw_rect(DiaRenderer *self,
   DiaSvgRenderer *renderer = DIA_SVG_RENDERER (self);
   xmlNodePtr node;
   gchar d_buf[DTOSTR_BUF_SIZE];
-  gchar *style;
 
   node = xmlNewChild(renderer->root, NULL, (const xmlChar *)"rect", NULL);
 
-  style = g_strdup_printf ("%s;%s",
-			   stroke ? get_draw_style (renderer, stroke) : "stroke:none",
-			   fill ? get_fill_style (renderer, fill) : "fill:none");
-  xmlSetProp(node, (const xmlChar *)"style", (xmlChar *) style);
-  g_free (style);
+  xmlSetProp(node, (const xmlChar *)"style", (xmlChar *) get_draw_style (renderer, fill, stroke));
 
   dia_svg_dtostr(d_buf, ul_corner->x);
   xmlSetProp(node, (const xmlChar *)"x", (xmlChar *) d_buf);
@@ -556,7 +544,7 @@ draw_arc(DiaRenderer *self,
 
   node = xmlNewChild(renderer->root, renderer->svg_name_space, (const xmlChar *)"path", NULL);
   
-  xmlSetProp(node, (const xmlChar *)"style", (xmlChar *) get_draw_style(renderer, colour));
+  xmlSetProp(node, (const xmlChar *)"style", (xmlChar *) get_draw_style(renderer, NULL, colour));
 
   g_snprintf(buf, sizeof(buf), "M %s,%s A %s,%s 0 %d %d %s,%s",
 	     dia_svg_dtostr(sx_buf, sx), dia_svg_dtostr(sy_buf, sy),
@@ -595,7 +583,7 @@ fill_arc(DiaRenderer *self,
 
   node = xmlNewChild(renderer->root, NULL, (const xmlChar *)"path", NULL);
   
-  xmlSetProp(node, (const xmlChar *)"style", (xmlChar *)get_fill_style(renderer, colour));
+  xmlSetProp(node, (const xmlChar *)"style", (xmlChar *)get_draw_style(renderer, colour, NULL));
 
   g_snprintf(buf, sizeof(buf), "M %s,%s A %s,%s 0 %d %d %s,%s L %s,%s z",
 	     dia_svg_dtostr(sx_buf, sx), dia_svg_dtostr(sy_buf, sy),
@@ -617,15 +605,10 @@ draw_ellipse(DiaRenderer *self,
   DiaSvgRenderer *renderer = DIA_SVG_RENDERER (self);
   xmlNodePtr node;
   gchar d_buf[DTOSTR_BUF_SIZE];
-  gchar *style;
 
   node = xmlNewChild(renderer->root, renderer->svg_name_space, (const xmlChar *)"ellipse", NULL);
 
-  style = g_strdup_printf ("%s;%s",
-			   stroke ? get_draw_style (renderer, stroke) : "stroke:none",
-			   fill ? get_fill_style (renderer, fill) : "fill:none");
-  xmlSetProp(node, (const xmlChar *)"style", (xmlChar *) style);
-  g_free (style);
+  xmlSetProp(node, (const xmlChar *)"style", (xmlChar *) get_draw_style (renderer, fill, stroke));
 
   dia_svg_dtostr(d_buf, center->x);
   xmlSetProp(node, (const xmlChar *)"cx", (xmlChar *) d_buf);
@@ -658,17 +641,8 @@ _bezier(DiaRenderer *self,
 
   node = xmlNewChild(renderer->root, renderer->svg_name_space, (const xmlChar *)"path", NULL);
 
-  if (fill || stroke) {
-    GString *style = str = g_string_new("");
-
-    if (stroke) /* XXX: sets also fill:none - so it must be first to get overwritten;) */
-      g_string_append_printf (str, "%s;", get_draw_style(renderer, stroke));
-    if (fill)
-      g_string_append_printf (str, "%s;", get_fill_style(renderer, fill));
-    xmlSetProp(node, (const xmlChar *)"style", (xmlChar *)style->str);
-
-    g_string_free(style, TRUE);
-  }
+  if (fill || stroke)
+    xmlSetProp(node, (const xmlChar *)"style", (xmlChar *)get_draw_style(renderer, fill, stroke));
 
   str = g_string_new(NULL);
 
@@ -758,58 +732,50 @@ draw_text_line(DiaRenderer *self, TextLine *text_line,
 {    
   DiaSvgRenderer *renderer = DIA_SVG_RENDERER (self);
   xmlNodePtr node;
-  char *style, *tmp;
   real saved_width;
   gchar d_buf[DTOSTR_BUF_SIZE];
   DiaFont *font;
+  GString *style;
 
   node = xmlNewTextChild(renderer->root, renderer->svg_name_space, (const xmlChar *)"text", 
 		         (xmlChar *) text_line_get_string(text_line));
- 
+
   saved_width = renderer->linewidth;
   renderer->linewidth = 0.001;
   /* return value must not be freed */
   renderer->linewidth = saved_width;
 #if 0 /* would need a unit: https://bugzilla.mozilla.org/show_bug.cgi?id=707071#c4 */
-  style = g_strdup_printf("%s; font-size: %s", get_fill_style(renderer, colour),
+  style = g_strdup_printf("%s; font-size: %s", get_draw_style(renderer, colour, NULL),
 			dia_svg_dtostr(d_buf, text_line_get_height(text_line)));
 #else
-  /* get_fill_style: the return value of this function must not be saved 
+  /* get_draw_style: the return value of this function must not be saved 
    * anywhere. And of course it must not be free'd */
-  style = g_strdup (get_fill_style(renderer, colour));
+  style = g_string_new (get_draw_style(renderer, colour, NULL));
 #endif
   /* This is going to break for non-LTR texts, as SVG thinks 'start' is
    * 'right' for those. */
   switch (alignment) {
   case ALIGN_LEFT:
-    tmp = g_strconcat(style, "; text-anchor:start", NULL);
+    g_string_append (style, "; text-anchor:start");
     break;
   case ALIGN_CENTER:
-    tmp = g_strconcat(style, "; text-anchor:middle", NULL);
+    g_string_append (style, "; text-anchor:middle");
     break;
   case ALIGN_RIGHT:
-    tmp = g_strconcat(style, "; text-anchor:end", NULL);
+    g_string_append (style, "; text-anchor:end");
     break;
   default:
-    tmp = g_strdup("");
     break;
   }
-  g_free (style);
-  style = tmp;
 
   font = text_line_get_font(text_line);
-  tmp = g_strdup_printf("%s; font-family: %s; font-style: %s; "
-			"font-weight: %s",style,
-			dia_font_get_family(font),
-			dia_font_get_slant_string(font),
-			dia_font_get_weight_string(font));
-  g_free(style);
-  style = tmp;
+  g_string_append_printf (style, "font-family: %s; font-style: %s; font-weight: %s",
+			  dia_font_get_family(font),
+			  dia_font_get_slant_string(font),
+			  dia_font_get_weight_string(font));
 
-  /* have to do something about fonts here ... */
-
-  xmlSetProp(node, (const xmlChar *)"style", (xmlChar *) style);
-  g_free(style);
+  xmlSetProp(node, (const xmlChar *)"style", (xmlChar *) style->str);
+  g_string_free (style, TRUE);
 
   dia_svg_dtostr(d_buf, pos->x);
   xmlSetProp(node, (const xmlChar *)"x", (xmlChar *) d_buf);
@@ -819,7 +785,7 @@ draw_text_line(DiaRenderer *self, TextLine *text_line,
   /* font-size as single attribute can work like the other length w/o unit */
   dia_svg_dtostr(d_buf, text_line_get_height(text_line));
   xmlSetProp(node, (const xmlChar *)"font-size", (xmlChar *) d_buf);
-  
+
   dia_svg_dtostr(d_buf, text_line_get_width(text_line));
   xmlSetProp(node, (const xmlChar*)"textLength", (xmlChar *) d_buf);
 }
@@ -862,7 +828,7 @@ draw_image(DiaRenderer *self,
     xmlSetProp(node, (const xmlChar *)"xlink:href", (xmlChar *) uri);
   else if ((uri = g_filename_to_uri(dia_image_filename(image), NULL, NULL)) != NULL)
     xmlSetProp(node, (const xmlChar *)"xlink:href", (xmlChar *) uri);
-  else /* not sure if this fallbach is better than nothing */
+  else /* not sure if this fallback is better than nothing */
     xmlSetProp(node, (const xmlChar *)"xlink:href", (xmlChar *) dia_image_filename(image));
   g_free (uri);
 }
@@ -961,5 +927,4 @@ dia_svg_renderer_class_init (DiaSvgRendererClass *klass)
 
   /* SVG specific */
   svg_renderer_class->get_draw_style = get_draw_style;
-  svg_renderer_class->get_fill_style = get_fill_style;
 }

@@ -382,7 +382,7 @@ draw_polyline(DiaRenderer *self,
   node = xmlNewChild(renderer->root, renderer->svg_name_space, (const xmlChar *)"polyline", NULL);
   
   xmlSetProp(node, (const xmlChar *)"style", 
-             (xmlChar *) DIA_SVG_RENDERER_GET_CLASS(renderer)->get_draw_style(renderer, line_colour));
+             (xmlChar *) DIA_SVG_RENDERER_GET_CLASS(renderer)->get_draw_style(renderer, NULL, line_colour));
 
   str = g_string_new(NULL);
   for (i = 0; i < num_points; i++) {
@@ -418,11 +418,8 @@ draw_polygon(DiaRenderer *self,
 
   node = xmlNewChild(renderer->root, renderer->svg_name_space, (const xmlChar *)"polygon", NULL);
 
-  style = g_strdup_printf ("%s;%s",
-			   fill ? DIA_SVG_RENDERER_GET_CLASS(renderer)->get_fill_style(renderer, fill) : "fill:none",
-			   stroke ? DIA_SVG_RENDERER_GET_CLASS(renderer)->get_draw_style(renderer, stroke) : "stroke:none");
-  xmlSetProp(node, (const xmlChar *)"style", (xmlChar *) style);
-  g_free (style);
+  xmlSetProp(node, (const xmlChar *)"style",
+            (xmlChar *) DIA_SVG_RENDERER_GET_CLASS(renderer)->get_draw_style(renderer, fill, stroke));
 
   str = g_string_new(NULL);
   for (i = 0; i < num_points; i++) {

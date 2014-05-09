@@ -372,15 +372,11 @@ draw_rounded_rect (DiaRenderer *self,
   DiaSvgRenderer *renderer = DIA_SVG_RENDERER (self);
   xmlNodePtr node;
   gchar buf[G_ASCII_DTOSTR_BUF_SIZE];
-  gchar *style;
 
   node = xmlNewChild(renderer->root, NULL, (const xmlChar *)"rect", NULL);
 
-  style = g_strdup_printf ("%s;%s",
-			   stroke ? DIA_SVG_RENDERER_GET_CLASS(self)->get_draw_style (renderer, stroke) : "stroke:none",
-			   fill ? DIA_SVG_RENDERER_GET_CLASS(self)->get_fill_style (renderer, fill) : "fill:none");
-  xmlSetProp(node, (const xmlChar *)"style", (const xmlChar *)style);
-  g_free (style);
+  xmlSetProp(node, (const xmlChar *)"style",
+	     (const xmlChar *)DIA_SVG_RENDERER_GET_CLASS(self)->get_draw_style (renderer, fill, stroke));
 
   g_ascii_formatd(buf, sizeof(buf), "%g", ul_corner->x * renderer->scale);
   xmlSetProp(node, (const xmlChar *)"x", (xmlChar *) buf);
@@ -400,16 +396,16 @@ draw_rounded_rect (DiaRenderer *self,
 
 static void
 node_set_text_style (xmlNodePtr      node,
-                     DiaSvgRenderer *renderer,
+		     DiaSvgRenderer *renderer,
 		     const DiaFont  *font,
 		     real            font_height,
-                     Alignment       alignment,
+		     Alignment       alignment,
 		     Color          *colour)
 {
-  char *style, *tmp;
   real saved_width;
   gchar d_buf[G_ASCII_DTOSTR_BUF_SIZE];
   DiaSvgRendererClass *svg_renderer_class = DIA_SVG_RENDERER_GET_CLASS (renderer);
+  GString *style;
   /* SVG font-size is the (line-) height, from SVG Spec:
    * ... property refers to the size of the font from baseline to baseline when multiple lines of text are set ...
   so we should be able to use font_height directly instead of:
@@ -420,21 +416,21 @@ node_set_text_style (xmlNodePtr      node,
 
   saved_width = renderer->linewidth;
   renderer->linewidth = 0.001;
-  style = (char*)svg_renderer_class->get_fill_style(renderer, colour);
-  /* return value must not be freed */
+  /* return value of get_draw_style must not be freed */
+  style = g_string_new (svg_renderer_class->get_draw_style(renderer, colour, NULL));
   renderer->linewidth = saved_width;
   /* This is going to break for non-LTR texts, as SVG thinks 'start' is
    * 'right' for those.
    */
   switch (alignment) {
   case ALIGN_LEFT:
-    style = g_strconcat(style, ";text-anchor:start", NULL);
+    g_string_append (style, ";text-anchor:start");
     break;
   case ALIGN_CENTER:
-    style = g_strconcat(style, ";text-anchor:middle", NULL);
+    g_string_append (style, ";text-anchor:middle");
     break;
   case ALIGN_RIGHT:
-    style = g_strconcat(style, ";text-anchor:end", NULL);
+    g_string_append (style, ";text-anchor:end");
     break;
   }
 #if 0 /* would need a unit according to https://bugzilla.mozilla.org/show_bug.cgi?id=707071#c4 */
@@ -449,19 +445,13 @@ node_set_text_style (xmlNodePtr      node,
 #endif
 
   if (font) {
-     tmp = g_strdup_printf("%s;font-family:%s;font-style:%s;"
-                           "font-weight:%s",style,
-                           strcmp(family, "sans") == 0 ? "sans-serif" : family,
-                           dia_font_get_slant_string(font),
-                           dia_font_get_weight_string(font));
-     g_free(style);
-     style = tmp;
+     g_string_append_printf (style, ";font-family:%s;font-style:%s;font-weight:%s",
+			     strcmp(family, "sans") == 0 ? "sans-serif" : family,
+			     dia_font_get_slant_string(font),
+			     dia_font_get_weight_string(font));
   }
-
-  /* have to do something about fonts here ... */
-
-  xmlSetProp(node, (xmlChar *)"style", (xmlChar *)style);
-  g_free(style);
+  xmlSetProp(node, (xmlChar *)"style", (xmlChar *)style->str);
+  g_string_free (style, TRUE);
 }
 
 /*!
