@@ -1058,10 +1058,15 @@ draw_image(DiaRenderer *self,
     const gint maxlen = 32767 - 6 * REALSIZE - 4 * 2;
     double x1 = point->x, y1 = swap_y(renderer, point->y), 
            x2 = x1+width, y2 = y1-height;
-    gint rowlen = dia_image_width(image) * 3, lines = dia_image_height(image);
+    gint rowlen = dia_image_width(image) * 3;
+    gint x, y, columns = dia_image_width(image);
+    gint lines = dia_image_height(image);
     double linesize = (y1 - y2) / lines;
     gint chunk, clines;
-    guint8 *pImg, *ptr;
+    const guint8 *pixels;
+    const GdkPixbuf* pixbuf;
+    int rowstride = dia_image_rowstride(image);
+    gboolean has_alpha;
 
     if (rowlen > maxlen) {
 	dia_context_add_message(renderer->ctx, 
@@ -1070,14 +1075,14 @@ draw_image(DiaRenderer *self,
 	return;
     }
 
-    ptr = pImg = dia_image_rgb_data(image);
-    if (!pImg) {
-      dia_context_add_message(renderer->ctx, _("Not enough memory for image drawing."));
-      return;
-    }
+    /* don't copy the data, work on pixbuf  */
+    pixbuf = dia_image_pixbuf (image);
+    g_return_if_fail (pixbuf != NULL); /* very sick DiaImage */
+    pixels = gdk_pixbuf_get_pixels (pixbuf);
+    has_alpha = gdk_pixbuf_get_has_alpha (pixbuf);
 
     while (lines > 0) {
-	chunk = MIN(rowlen * lines, maxlen);
+	chunk = (MIN(rowlen * lines, maxlen) / 2) * 2; /* CELL ARRAY is WORD aligned */
 	clines = chunk / rowlen;
 	chunk = clines * rowlen;
 
@@ -1090,19 +1095,31 @@ draw_image(DiaRenderer *self,
 	write_real(renderer->file, y1);
 
 	/* write image size */
-	write_int16(renderer->file, dia_image_width(image));
+	write_int16(renderer->file, columns);
 	write_int16(renderer->file, clines);
 
 	write_int16(renderer->file, 8); /* color precision */
 	write_int16(renderer->file, 1); /* packed encoding */
 
-	fwrite(ptr, sizeof(guint8), chunk, renderer->file);
+	/* fwrite(ptr, sizeof(guint8), chunk, renderer->file);
+	 * ... would only work for RGB with columns%3==0 and columns%4==0
+	 */
+	for (y = 0; y < clines; ++y) {
+	    const guint8 *ptr = pixels + (dia_image_height(image) - lines + y) * rowstride;
+	    for (x = 0; x < columns; ++x) {
+		fwrite(ptr, sizeof(guint8), 3, renderer->file);
+		if (has_alpha)
+		    ptr += 4;
+		else
+		    ptr += 3;
+	    }
+	    if (rowlen%2) /* padding */
+		fwrite(ptr, sizeof(guint8), 1, renderer->file);
+	}
 
 	lines -= clines;
-	ptr += chunk;
 	y1 -= clines * linesize;
     }
-    g_free (pImg);
 }
 
 static gboolean
