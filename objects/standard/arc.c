@@ -626,14 +626,24 @@ arc_draw(Arc *arc, DiaRenderer *renderer)
     return;
   }
 
-  renderer_ops->draw_arc_with_arrows(renderer,
-				      &gaptmp[0],
-				      &gaptmp[1],
-				      &gaptmp[2],
-				      arc->line_width,
-				      &arc->arc_color,
-				      &arc->start_arrow,
-				      &arc->end_arrow);
+  if (   arc->start_arrow.type ==  ARROW_NONE
+      && arc->end_arrow.type ==  ARROW_NONE
+      && !start_cp && !end_cp) {
+    /* avoid all the calculation errors and use what whe have */
+    renderer_ops->draw_arc(renderer, &arc->center_handle.pos,
+			   arc->radius*2.0, arc->radius*2.0,
+			   arc->angle1, arc->angle2,
+			   &arc->arc_color);
+  } else {
+    renderer_ops->draw_arc_with_arrows(renderer,
+					&gaptmp[0],
+					&gaptmp[1],
+					&gaptmp[2],
+					arc->line_width,
+					&arc->arc_color,
+					&arc->start_arrow,
+					&arc->end_arrow);
+  }
   if (renderer->is_interactive &&
       dia_object_is_selected(&arc->connection.object)) {
     /* draw the central angle */

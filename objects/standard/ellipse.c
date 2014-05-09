@@ -308,6 +308,9 @@ ellipse_draw(Ellipse *ellipse, DiaRenderer *renderer)
   center.x = elem->corner.x + elem->width/2;
   center.y = elem->corner.y + elem->height/2;
 
+  renderer_ops->set_linewidth(renderer, ellipse->border_width);
+  renderer_ops->set_linestyle(renderer, ellipse->line_style);
+  renderer_ops->set_dashlength(renderer, ellipse->dashlength);
   if (ellipse->show_background) {
     Color fill = ellipse->inner_color;
     renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
@@ -315,24 +318,19 @@ ellipse_draw(Ellipse *ellipse, DiaRenderer *renderer)
       dia_pattern_get_fallback_color (ellipse->pattern, &fill);
       if (renderer_ops->is_capable_to(renderer, RENDER_PATTERN))
         renderer_ops->set_pattern (renderer, ellipse->pattern);
-      /* still two calls with pattern */
-      renderer_ops->draw_ellipse (renderer, 
-				  &center,
-				  elem->width, elem->height,
-				  &fill, NULL);
-      if (renderer_ops->is_capable_to(renderer, RENDER_PATTERN))
-	renderer_ops->set_pattern (renderer, NULL);
     }
+    renderer_ops->draw_ellipse (renderer, 
+				&center,
+				elem->width, elem->height,
+				&fill, &ellipse->border_color);
+    if (renderer_ops->is_capable_to(renderer, RENDER_PATTERN))
+      renderer_ops->set_pattern (renderer, NULL);
+  } else {
+    renderer_ops->draw_ellipse (renderer,
+				&center,
+				elem->width, elem->height,
+				NULL, &ellipse->border_color);
   }
-
-  renderer_ops->set_linewidth(renderer, ellipse->border_width);
-  renderer_ops->set_linestyle(renderer, ellipse->line_style);
-  renderer_ops->set_dashlength(renderer, ellipse->dashlength);
-  renderer_ops->draw_ellipse(renderer, 
-			  &center,
-			  elem->width, elem->height,
-			  (ellipse->show_background && !ellipse->pattern) ? &ellipse->inner_color : NULL,
-			  &ellipse->border_color);
 }
 
 static void

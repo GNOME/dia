@@ -318,6 +318,7 @@ box_draw(Box *box, DiaRenderer *renderer)
     renderer_ops->set_linejoin(renderer, LINEJOIN_ROUND);
   else
     renderer_ops->set_linejoin(renderer, box->line_join);
+  renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
 
   if (box->show_background) {
     Color fill = box->inner_color;
@@ -331,29 +332,28 @@ box_draw(Box *box, DiaRenderer *renderer)
     if (box->corner_radius > 0) {
       renderer_ops->draw_rounded_rect (renderer,
 				       &elem->corner, &lr_corner,
-				       &fill, NULL,
+				       &fill, &box->border_color,
 				       box->corner_radius);
     } else {
       renderer_ops->draw_rect(renderer, 
 			       &elem->corner,
 			       &lr_corner, 
-			       &fill, NULL);
+			       &fill, &box->border_color);
     }
     if (renderer_ops->is_capable_to(renderer, RENDER_PATTERN))
       renderer_ops->set_pattern (renderer, NULL);
-  }
-
-  if (box->corner_radius > 0) {
-    renderer_ops->draw_rounded_rect (renderer, 
-				     &elem->corner, &lr_corner,
-				     NULL, &box->border_color,
-				     box->corner_radius);
   } else {
-    renderer_ops->draw_rect(renderer, 
-			     &elem->corner,
-			     &lr_corner,
-			     NULL,
-			     &box->border_color);
+    if (box->corner_radius > 0) {
+      renderer_ops->draw_rounded_rect (renderer, 
+				       &elem->corner, &lr_corner,
+				       NULL, &box->border_color,
+				       box->corner_radius);
+    } else {
+      renderer_ops->draw_rect (renderer, 
+			       &elem->corner,
+			       &lr_corner,
+			       NULL, &box->border_color);
+    }
   }
 }
 
