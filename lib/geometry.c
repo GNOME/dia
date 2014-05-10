@@ -582,7 +582,7 @@ fillet(Point *p1, Point *p2, Point *p3, Point *p4,
     /* also this means we need to swap our angles later on */
     righthand = TRUE;
   }
-  /* now calculate the actual angles in a form that the draw arc function
+  /* now calculate the actual angles in a form that the draw_arc function
      of the renderer can use */
   start_angle = start_angle*180.0/G_PI;
   stop_angle  = start_angle + stop_angle*180.0/G_PI;

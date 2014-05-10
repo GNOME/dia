@@ -798,7 +798,7 @@ arc_update_data(Arc *arc)
   y1 = endpoints[0].y;
   x2 = endpoints[1].x;
   y2 = endpoints[1].y;
-  
+
   lensq = (x2-x1)*(x2-x1) + (y2-y1)*(y2-y1);
   if (fabs(arc->curve_distance) > 0.01)
     radius = lensq/(8*arc->curve_distance) + arc->curve_distance/2.0;
@@ -820,6 +820,7 @@ arc_update_data(Arc *arc)
   if (angle2<0)
     angle2+=360.0;
 
+  /* swap: draw_arc is always counter-clockwise */
   if (radius<0.0) {
     real tmp;
     tmp = angle1;
@@ -843,6 +844,10 @@ arc_update_data(Arc *arc)
   arc_update_handles(arc);
   /* startpoint, midpoint, endpoint */
   righthand = is_right_hand (&endpoints[0], &arc->middle_handle.pos, &endpoints[1]);
+  /* there should be no need to calculate the direction once more */
+  if (!(   (righthand && arc->curve_distance <= 0.0)
+        || (!righthand && arc->curve_distance >= 0.0)))
+    g_warning ("Standard - Arc: check invariant!");
   connection_update_boundingbox(conn);
 
   /* fix boundingbox for arc's special shape XXX find a more elegant way: */
@@ -867,8 +872,9 @@ arc_update_data(Arc *arc)
     rectangle_add_point (&obj->bounding_box, &pt);
   }
   if (arc->start_arrow.type != ARROW_NONE) {
-    /* a good from-point would be the chord of arrow length, but draw_arc_with_arrows currently uses the tangent
-     * For big arcs the difference is not huge and the minimum size of small arcs should be limited by the arror length.
+    /* a good from-point would be the chord of arrow length, but draw_arc_with_arrows
+     * currently uses the tangent For big arcs the difference is not huge and the
+     * minimum size of small arcs should be limited by the arror length.
      */
     Rectangle bbox = {0,};
     real tmp;

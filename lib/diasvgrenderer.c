@@ -529,8 +529,8 @@ draw_arc(DiaRenderer *self,
   real sy=center->y - ry*sin(angle1*G_PI/180);
   real ex=center->x + rx*cos(angle2*G_PI/180);
   real ey=center->y - ry*sin(angle2*G_PI/180);
-  int swp = 0; /* always drawin negative direction */
-  int large_arc; 
+  int swp = 0; /* always drawing negative direction (still) */
+  int large_arc;
   gchar sx_buf[DTOSTR_BUF_SIZE];
   gchar sy_buf[DTOSTR_BUF_SIZE];
   gchar rx_buf[DTOSTR_BUF_SIZE];
