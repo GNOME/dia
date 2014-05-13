@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the dia package.
 # Maintainer: Дејан Матијевић <dmax@neobee.net>
 # Reviewed on 2004-03-24 by: Данило Шеган <danilo@prevod.org>
-# Мирослав Николић <miroslavnikolic@rocketmail.com>, 2012, 2013, 2014.
+# Мирослав Николић <miroslavnikolic@rocketmail.com>, 2012—2014.
 msgid ""
 msgstr ""
 "Project-Id-Version: dia\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=dia&ke"
 "ywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2014-02-03 16:19+0000\n"
-"PO-Revision-Date: 2014-02-03 21:35+0200\n"
+"POT-Creation-Date: 2014-05-13 15:10+0000\n"
+"PO-Revision-Date: 2014-05-13 19:07+0200\n"
 "Last-Translator: Мирослав Николић <miroslavnikolic@rocketmail.com>\n"
 "Language-Team: Serbian <gnom@prevod.org>\n"
 "Language: sr\n"
@@ -184,24 +184,24 @@ msgid "Can't connect to session manager!\n"
 msgstr "Не могу да се повежем са управником сесије!\n"
 
 #. TRANSLATOR: 2nd and 3rd %s are time and date respectively.
-#: ../app/app_procs.c:881
+#: ../app/app_procs.c:880
 #, c-format
 msgid "Dia version %s, compiled %s %s\n"
 msgstr "Диа издање %s, преведена %s %s\n"
 
-#: ../app/app_procs.c:883
+#: ../app/app_procs.c:882
 #, c-format
 msgid "Dia version %s\n"
 msgstr "Диа издање %s\n"
 
-#: ../app/app_procs.c:921
+#: ../app/app_procs.c:920
 msgid ""
 "Couldn't find standard objects when looking for object-libs; exiting...\n"
 msgstr ""
 "Не могу да пронађем стандардане објекте када тражим библиотеке објеката; "
 "излазим...\n"
 
-#: ../app/app_procs.c:923
+#: ../app/app_procs.c:922
 #, c-format
 msgid ""
 "Couldn't find standard objects when looking for object-libs in '%s'; "
@@ -210,11 +210,11 @@ msgstr ""
 "Не могу да пронађем стандардане објекте када тражим библиотеке објеката у "
 "„%s“; излазим...\n"
 
-#: ../app/app_procs.c:990
+#: ../app/app_procs.c:989
 msgid "Diagram1.dia"
 msgstr "Дијаграм1.dia"
 
-#: ../app/app_procs.c:1025
+#: ../app/app_procs.c:1024
 msgid ""
 "This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\n"
 "describing how you can cause this message to appear.\n"
@@ -222,16 +222,16 @@ msgstr ""
 "Ово није требало да се деси.  Пријавите грешку на „bugzilla.gnome.org“\n"
 "описујући шта сте радили те је дошло до грешке.\n"
 
-#: ../app/app_procs.c:1040
+#: ../app/app_procs.c:1039
 msgid "Exiting Dia"
 msgstr "Излазим из Дие"
 
 #. no standard buttons
-#: ../app/app_procs.c:1104
+#: ../app/app_procs.c:1103
 msgid "Quitting without saving modified diagrams"
 msgstr "Прекидам без чувања измењених дијаграма"
 
-#: ../app/app_procs.c:1106
+#: ../app/app_procs.c:1105
 msgid ""
 "Modified diagrams exist. Are you sure you want to quit Dia without saving "
 "them?"
@@ -239,15 +239,15 @@ msgstr ""
 "Постоје измењени дијаграми. Да ли сте сигурни да желите да прекинете Диу без "
 "њиховог чувања?"
 
-#: ../app/app_procs.c:1110
+#: ../app/app_procs.c:1109
 msgid "Quit Dia"
 msgstr "Прекини Диу"
 
-#: ../app/app_procs.c:1179 ../app/app_procs.c:1186
+#: ../app/app_procs.c:1178 ../app/app_procs.c:1185
 msgid "Could not create per-user Dia config directory"
 msgstr "Не могу да направим директоријум подешавања Дие за корисника"
 
-#: ../app/app_procs.c:1189
+#: ../app/app_procs.c:1188
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
@@ -255,11 +255,11 @@ msgstr ""
 "Не могу да направим директоријум подешавања Дие за корисника. Проверите да "
 "ли променљива окружења „HOME“ указује на постојећи директоријум."
 
-#: ../app/app_procs.c:1212
+#: ../app/app_procs.c:1211
 msgid "Objects and filters internal to dia"
 msgstr "Објекти и филтери унутрашњи за Диу"
 
-#: ../app/app_procs.c:1268
+#: ../app/app_procs.c:1267
 #, c-format
 msgid ""
 "The original author of Dia was:\n"
@@ -268,7 +268,7 @@ msgstr ""
 "Оригинални аутор Дие је био:\n"
 "\n"
 
-#: ../app/app_procs.c:1273
+#: ../app/app_procs.c:1272
 #, c-format
 msgid ""
 "\n"
@@ -279,7 +279,7 @@ msgstr ""
 "Садшњи одржаваоци Дие су:\n"
 "\n"
 
-#: ../app/app_procs.c:1278
+#: ../app/app_procs.c:1277
 #, c-format
 msgid ""
 "\n"
@@ -290,7 +290,7 @@ msgstr ""
 "Остали аутори су:\n"
 "\n"
 
-#: ../app/app_procs.c:1283
+#: ../app/app_procs.c:1282
 #, c-format
 msgid ""
 "\n"
@@ -805,11 +805,11 @@ msgid "Nothing selected for saving.  Would you like to try again?"
 msgstr "Ништа није изабрано за чување.  Да ли желите да покушате опет?"
 
 #: ../app/filedlg.c:144 ../app/filedlg.c:152 ../app/filedlg.c:168
-#: ../app/filedlg.c:746 ../lib/widgets.c:1488
+#: ../app/filedlg.c:752 ../lib/widgets.c:1488
 msgid "Supported Formats"
 msgstr "Подржани записи"
 
-#: ../app/filedlg.c:192 ../app/filedlg.c:604
+#: ../app/filedlg.c:192 ../app/filedlg.c:610
 msgid "By extension"
 msgstr "Према проширењу"
 
@@ -821,15 +821,15 @@ msgstr "Отворите дијаграм"
 msgid "Open Options"
 msgstr "Опције отварања"
 
-#: ../app/filedlg.c:317 ../app/filedlg.c:728
+#: ../app/filedlg.c:317 ../app/filedlg.c:734
 msgid "Determine file type:"
 msgstr "Врста датотеке:"
 
-#: ../app/filedlg.c:337 ../app/filedlg.c:741 ../lib/widgets.c:1493
+#: ../app/filedlg.c:337 ../app/filedlg.c:747 ../lib/widgets.c:1493
 msgid "All Files"
 msgstr "Све датотеке"
 
-#: ../app/filedlg.c:370 ../plug-ins/postscript/paginate_psprint.c:408
+#: ../app/filedlg.c:376 ../plug-ins/postscript/paginate_psprint.c:408
 msgid ""
 "Some characters in the filename are neither UTF-8\n"
 "nor your local encoding.\n"
@@ -839,12 +839,12 @@ msgstr ""
 "ни у вашем локалном кодирању.\n"
 "Неке ствари ће се нарушити."
 
-#: ../app/filedlg.c:380 ../app/filedlg.c:651
+#: ../app/filedlg.c:386 ../app/filedlg.c:657
 #: ../plug-ins/postscript/paginate_psprint.c:422
 msgid "File already exists"
 msgstr "Датотека већ постоји"
 
-#: ../app/filedlg.c:382 ../app/filedlg.c:653
+#: ../app/filedlg.c:388 ../app/filedlg.c:659
 #: ../plug-ins/postscript/paginate_psprint.c:418
 #, c-format
 msgid ""
@@ -854,17 +854,17 @@ msgstr ""
 "Датотека „%s“ већ постоји.\n"
 "Да ли желите да је преснимите?"
 
-#: ../app/filedlg.c:436
+#: ../app/filedlg.c:442
 msgid "Save Diagram"
 msgstr "Сачувајте дијаграм"
 
 #. Need better way to make it a reasonable size.  Isn't there some
 #. standard look for them (or is that just Gnome?)
-#: ../app/filedlg.c:447
+#: ../app/filedlg.c:453
 msgid "Compress diagram files"
 msgstr "Датотеке сажетих дијаграма"
 
-#: ../app/filedlg.c:457 ../app/filedlg.c:462
+#: ../app/filedlg.c:463 ../app/filedlg.c:468
 msgid ""
 "Compression reduces file size to less than 1/10th size and speeds up loading "
 "and saving.  Some text programs cannot manipulate compressed files."
@@ -873,7 +873,7 @@ msgstr ""
 "убрзава учитавање и чување. Неки текстуални програми не могу да раде са "
 "сажетим датотекама."
 
-#: ../app/filedlg.c:677
+#: ../app/filedlg.c:683
 #, c-format
 msgid ""
 "Could not determine which export filter\n"
@@ -882,11 +882,11 @@ msgstr ""
 "Не могу да одредим који филтер извожења\n"
 "да користим да сачувам „%s“"
 
-#: ../app/filedlg.c:704
+#: ../app/filedlg.c:710
 msgid "Export Diagram"
 msgstr "Извезите дијаграм"
 
-#: ../app/filedlg.c:720
+#: ../app/filedlg.c:726
 msgid "Export Options"
 msgstr "Опције извоза"
 
@@ -1151,7 +1151,7 @@ msgstr "Ширина линије"
 msgid "Line width:"
 msgstr "Ширина линије:"
 
-#: ../app/load_save.c:301
+#: ../app/load_save.c:303
 msgid ""
 "Error loading diagram.\n"
 "Linked object not found in document."
@@ -1159,7 +1159,7 @@ msgstr ""
 "Грешка учитавања дијаграма.\n"
 "Везани објекат није нађен у документу."
 
-#: ../app/load_save.c:305
+#: ../app/load_save.c:307
 #, c-format
 msgid ""
 "Error loading diagram.\n"
@@ -1168,7 +1168,7 @@ msgstr ""
 "Грешка учитавања дијаграма.\n"
 "Ручка везе %d не постоји на „%s“."
 
-#: ../app/load_save.c:333
+#: ../app/load_save.c:335
 #, c-format
 msgid ""
 "Error loading diagram.\n"
@@ -1177,23 +1177,23 @@ msgstr ""
 "Грешка учитавања дијаграма.\n"
 "Тачка везе %d не постоји на „%s“."
 
-#: ../app/load_save.c:373
+#: ../app/load_save.c:375
 #, c-format
 msgid "Can't find parent %s of %s object\n"
 msgstr "Не могу да нађем садржаоца %s за објекат %s\n"
 
-#: ../app/load_save.c:422
+#: ../app/load_save.c:425
 msgid "You must specify a file, not a directory.\n"
 msgstr "Треба да наведете датотеку, а не директоријум.\n"
 
-#: ../app/load_save.c:429 ../plug-ins/dxf/dxf-import.c:1309
+#: ../app/load_save.c:432 ../plug-ins/dxf/dxf-import.c:1309
 #: ../plug-ins/wpg/wpg.c:1177 ../plug-ins/xfig/xfig-import.c:1270
 #: ../plug-ins/xslt/xslt.c:91
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
 msgstr "Не могу да отворим „%s“ за читање.\n"
 
-#: ../app/load_save.c:447 ../app/load_save.c:453
+#: ../app/load_save.c:450 ../app/load_save.c:460
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -1202,7 +1202,7 @@ msgstr ""
 "Грешка учитавања дијаграма %s.\n"
 "Непозната врста датотеке."
 
-#: ../app/load_save.c:461
+#: ../app/load_save.c:468
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -1211,7 +1211,7 @@ msgstr ""
 "Грешка учитавања дијаграма %s.\n"
 "Није датотека Дие."
 
-#: ../app/load_save.c:678
+#: ../app/load_save.c:685
 #, c-format
 msgid ""
 "Error loading diagram:\n"
@@ -1222,17 +1222,17 @@ msgstr ""
 "%s.\n"
 "Исправна датотека Дие одређује барем један слој."
 
-#: ../app/load_save.c:1001
+#: ../app/load_save.c:1008
 #, c-format
 msgid "Not allowed to write to output file %s\n"
 msgstr "Није ми допуштено да пишем у излазну датотеку %s\n"
 
-#: ../app/load_save.c:1033
+#: ../app/load_save.c:1040
 #, c-format
 msgid "Not allowed to write temporary files in %s\n"
 msgstr "Није ми допуштено да запишем привремену датотеку у %s\n"
 
-#: ../app/load_save.c:1055 ../plug-ins/cairo/diacairo.c:121
+#: ../app/load_save.c:1062 ../plug-ins/cairo/diacairo.c:121
 #: ../plug-ins/cgm/cgm.c:1154 ../plug-ins/drs/dia-render-script.c:121
 #: ../plug-ins/dxf/dxf-export.c:547 ../plug-ins/hpgl/hpgl.c:710
 #: ../plug-ins/libart/export_png.c:159
@@ -1248,17 +1248,17 @@ msgstr "Не могу да отворим излазну датотеку %s: %s
 
 #. Save failed; we clean our stuff up, without touching the file named
 #. "filename" if it existed.
-#: ../app/load_save.c:1066
+#: ../app/load_save.c:1073
 #, c-format
 msgid "Internal error %d writing file %s\n"
 msgstr "Унутрашња грешка %d записивања датотеке %s\n"
 
-#: ../app/load_save.c:1077
+#: ../app/load_save.c:1084
 #, c-format
 msgid "Can't rename %s to final output file %s: %s\n"
 msgstr "Не могу да преименујем %s у крајњу излазну датотеку %s: %s\n"
 
-#: ../app/load_save.c:1168 ../app/load_save.c:1173
+#: ../app/load_save.c:1175 ../app/load_save.c:1180
 msgid "Dia Diagram File"
 msgstr "Датотека дијаграма Дие"
 
@@ -2736,27 +2736,35 @@ msgstr ""
 "Подршка за Питонов језик скрипте 2.3. Немојте ово да изаберете ако Питон "
 "није инсталиран."
 
-#. Installer message: hyperlink text on finish page
+#. Installer message: Component name
 #: ../installer/win32/gennsh.c:69
+#| msgid "Desktop PC"
+msgid "Desktop Shortcut"
+msgstr "Пречица радне површи"
+
+#. Installer message: Component description
+#: ../installer/win32/gennsh.c:72
+msgid "Create a shortcut on the Desktop."
+msgstr "Направите пречицу на радној површи."
+
+#. Installer message: hyperlink text on finish page
+#: ../installer/win32/gennsh.c:76
 msgid "Visit the Dia for Windows Web Page"
 msgstr "Посетите Диу за Виндоуз веб страницу"
 
 #. Installer message: Dia uninstaller entry in Control Panel
-#: ../installer/win32/gennsh.c:72
+#: ../installer/win32/gennsh.c:79
 msgid "Dia (remove only)"
 msgstr "Диа (уклањање само)"
 
 #. Installer message: directory delete confirmation line 1
-#: ../installer/win32/gennsh.c:75
-#| msgid ""
-#| "The installation directory you specified already exists. Any contents$"
-#| "\rwill be deleted. Would you like to continue?"
+#: ../installer/win32/gennsh.c:82
 msgid ""
 "Your old Dia directory is about to be deleted. Would you like to continue?"
 msgstr "Ваш стари директоријум Дие ће бити обрисан. Да ли желите да наставите?"
 
 #. Installer message: directory delete confirmation line 2
-#: ../installer/win32/gennsh.c:77
+#: ../installer/win32/gennsh.c:84
 msgid ""
 "Note: Any non-standard plugins that you may have installed will be deleted."
 msgstr ""
@@ -2764,54 +2772,44 @@ msgstr ""
 "обрисани."
 
 #. Installer message: directory delete confirmation line 3
-#: ../installer/win32/gennsh.c:79
+#: ../installer/win32/gennsh.c:86
 msgid "Dia user settings will not be affected."
 msgstr "Ово неће утицати на подешавања корисника Дие."
 
 #. Installer message: DIA_PROMPT_DIR_EXISTS line 1
-#: ../installer/win32/gennsh.c:82
-#| msgid ""
-#| "The installation directory you specified already exists. Any contents$"
-#| "\rwill be deleted. Would you like to continue?"
+#: ../installer/win32/gennsh.c:89
 msgid "The installation directory you specified already exists. Any contents"
 msgstr "Инсталациони директоријум који сте навели већ постоји. Сав садржај"
 
 #. Installer message: DIA_PROMP_DIR_EXISTS line 2
-#: ../installer/win32/gennsh.c:84
-#| msgid "Nothing selected for saving.  Would you like to try again?"
+#: ../installer/win32/gennsh.c:91
 msgid "will be deleted. Would you like to continue?"
 msgstr "ће бити обрисан. Да ли желите да наставите?"
 
 #. Installer message: registry entries not found line 1
-#: ../installer/win32/gennsh.c:87
-#| msgid ""
-#| "The uninstaller could not find registry entries for Dia.$\rIt is likely "
-#| "that another user installed this application."
+#: ../installer/win32/gennsh.c:94
 msgid "The uninstaller could not find registry entries for Dia."
 msgstr "Програм за уклањање не може да пронађе ставке регистра за Диу."
 
 #. Installer message: registry entries not found line 2
-#: ../installer/win32/gennsh.c:89
-#| msgid ""
-#| "The uninstaller could not find registry entries for Dia.$\rIt is likely "
-#| "that another user installed this application."
+#: ../installer/win32/gennsh.c:96
 msgid "It is likely that another user installed this application."
 msgstr "Највероватније да је други корисник инсталирао овај програм."
 
 #. Installer message: Uninstall error message
-#: ../installer/win32/gennsh.c:92
+#: ../installer/win32/gennsh.c:99
 msgid "You do not have permission to uninstall this application."
 msgstr "Немате овлашћења да уклоните овај програм."
 
 #. Installer message: Uninstallation warning. Keep $INSTDIR
-#: ../installer/win32/gennsh.c:95
+#: ../installer/win32/gennsh.c:102
 msgid "This will completely delete $INSTDIR and all subdirectories. Continue?"
 msgstr ""
 "Ово ће у потпуности да обрише $INSTDIR и све садржане директоријуме. Да "
 "наставим?"
 
 #. Installer message: Uninstallation warning. Keep $\PROFILE\.dia
-#: ../installer/win32/gennsh.c:98
+#: ../installer/win32/gennsh.c:105
 msgid ""
 "This will completely delete $PROFILE\\.dia and all subdirectories. Continue?"
 msgstr ""
@@ -6391,7 +6389,6 @@ msgid "MoveTo not at start of Bezier\n"
 msgstr "„Премести у“ није на почетку Безјера\n"
 
 #: ../plug-ins/vdx/vdx-import.c:1740
-#| msgid "Invalid NURBS formula"
 msgid "Invalid NURBS formula\n"
 msgstr "Неисправна НУРБС формула\n"
 
@@ -6402,7 +6399,6 @@ msgstr "Не могу да запишем датотеку %s"
 
 #: ../plug-ins/vdx/vdx-import.c:2069
 #, c-format
-#| msgid "Couldn't handle foreign object type %s"
 msgid "Couldn't handle foreign object type %s\n"
 msgstr "Не могу да рукујем страном врстом објекта „%s“\n"
 
@@ -6422,7 +6418,6 @@ msgstr "Запис Визио ИксМЛ датотеке"
 
 #: ../plug-ins/vdx/vdx-xml.c:3344
 #, c-format
-#| msgid "Can't decode object %s"
 msgid "Can't decode object %s\n"
 msgstr "Не могу да декодирам објекат „%s“\n"
 
