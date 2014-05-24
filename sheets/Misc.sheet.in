@@ -30,6 +30,9 @@
     <object name="Misc - Diagram">
       <_description>Diagram object</_description>
     </object>
+    <object name="Misc - Ngon">
+      <_description>N-gon or Star object</_description>
+    </object>
   </contents>
 </sheet>
 

@@ -7,6 +7,7 @@ libmisc_objects_la_SOURCES = \
 			diagram_as_object.c \
 			grid_object.c \
 			measure.c \
+			n_gon.c \
 			tree.c
 
 
@@ -22,7 +23,7 @@ EXTRA_DIST = \
 	pixmaps/diagram_as_element.xpm \
 	pixmaps/grid_object.xpm \
 	pixmaps/measure.xpm \
-	pixmaps/newgroup.xpm \
+	pixmaps/n_gon.xpm \
 	pixmaps/tree.xpm
 
 
