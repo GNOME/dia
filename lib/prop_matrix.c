@@ -195,7 +195,6 @@ matrixprop_reset_widget(MatrixProperty *prop, GtkWidget *widget)
 {
   GList *children, *child;
   GtkWidget *sb;
-  GtkAdjustment *adj;
   real angle, sx, sy;
   int i = 0;
 
@@ -213,16 +212,17 @@ matrixprop_reset_widget(MatrixProperty *prop, GtkWidget *widget)
 
   children = gtk_container_get_children (GTK_CONTAINER (widget));
   for (child = children; child != NULL; child = g_list_next (child)) {
+    GtkAdjustment *adj;
     sb = child->data;
+    adj = gtk_spin_button_get_adjustment (GTK_SPIN_BUTTON(sb));
     if (i == 0)
-      adj = GTK_ADJUSTMENT (gtk_adjustment_new(angle, -180.0, 180.0, 1.0, 15.0, 0));
+      gtk_adjustment_configure (adj, angle, -180.0, 180.0, 1.0, 15.0, 0);
     else if (i == 1)
-      adj = GTK_ADJUSTMENT (gtk_adjustment_new(sx, 0.01, 100.0, 0.1, 1.0, 0));
+      gtk_adjustment_configure (adj, sx, 0.01, 100.0, 0.1, 1.0, 0);
     else if (i == 2)
-      adj = GTK_ADJUSTMENT (gtk_adjustment_new(sy, 0.01, 100.0, 0.1, 1.0, 0));
+      gtk_adjustment_configure (adj, sy, 0.01, 100.0, 0.1, 1.0, 0);
     else
       g_assert_not_reached ();
-    gtk_spin_button_set_adjustment(GTK_SPIN_BUTTON(sb), GTK_ADJUSTMENT (adj));
     ++i;
   }
 }

@@ -81,19 +81,17 @@ realprop_get_widget(RealProperty *prop, PropDialog *dialog)
 static void 
 realprop_reset_widget(RealProperty *prop, WIDGET *widget)
 {
-  GtkAdjustment *adj;
+  GtkAdjustment *adj = gtk_spin_button_get_adjustment (GTK_SPIN_BUTTON(widget));
   if (prop->common.descr->extra_data) {
     PropNumData *numdata = prop->common.descr->extra_data;
-    adj = GTK_ADJUSTMENT(gtk_adjustment_new(prop->real_data,
-                                            numdata->min, numdata->max,
-                                            numdata->step, 
-                                            10.0 * numdata->step, 0));
+    gtk_adjustment_configure (adj, prop->real_data,
+			      numdata->min, numdata->max,
+			      numdata->step, 10.0 * numdata->step, 0);
   } else {
-    adj = GTK_ADJUSTMENT(gtk_adjustment_new(prop->real_data,
-                                            G_MINFLOAT, G_MAXFLOAT,
-                                            0.1, 1.0, 0));
+    gtk_adjustment_configure (adj, prop->real_data,
+			      G_MINFLOAT, G_MAXFLOAT,
+			      0.1, 1.0, 0);
   }
-  gtk_spin_button_set_adjustment(GTK_SPIN_BUTTON(widget), adj);
 }
 
 static void 
@@ -191,21 +189,6 @@ lengthprop_get_widget(LengthProperty *prop, PropDialog *dialog)
 static void 
 lengthprop_reset_widget(LengthProperty *prop, WIDGET *widget)
 {
-  /*
-  GtkAdjustment *adj;
-  if (prop->common.extra_data) {
-    PropNumData *numdata = prop->common.extra_data;
-    adj = GTK_ADJUSTMENT(gtk_adjustment_new(prop->length_data,
-                                            numdata->min, numdata->max,
-                                            numdata->step, 
-                                            10.0 * numdata->step, 0));
-  } else {
-    adj = GTK_ADJUSTMENT(gtk_adjustment_new(prop->length_data,
-                                            G_MINFLOAT, G_MAXFLOAT,
-                                            0.1, 1.0, 0));
-  }
-  dia_unit_spinner_set_adjustment(GTK_SPIN_BUTTON(widget), adj);
-  */
   dia_unit_spinner_set_value(DIA_UNIT_SPINNER(widget), prop->length_data);
 }
 
@@ -295,9 +278,7 @@ fontsizeprop_get_widget(FontsizeProperty *prop, PropDialog *dialog)
                                                          G_MAXFLOAT,
                                                          0.1, 1.0, 0));
   GtkWidget *ret = dia_unit_spinner_new(adj, prefs_get_fontsize_unit());
-  /*  gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(ret),TRUE);*/
   prophandler_connect(&prop->common, G_OBJECT(ret), "value-changed");
-  /*fontsizeprop_reset_widget(prop, ret);*/
   return ret;
 }
 
