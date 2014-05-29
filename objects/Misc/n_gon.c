@@ -24,6 +24,7 @@
 #include "diarenderer.h"
 #include "attributes.h"
 #include "properties.h"
+#include "prop_inttypes.h" /* PropEventHandler needs internals */
 #include "boundingbox.h"
 #include "element.h"
 #include "pattern.h"
@@ -55,6 +56,9 @@ struct _Ngon {
 
   int        num_rays;
   NgonKind   kind;
+  int        density;
+  int        last_density; /*!< last value to decide direction */
+
   LineStyle  line_style;
   LineJoin   line_join;
   real       dashlength;
@@ -102,6 +106,10 @@ static PropEnumData _ngon_type_data[] = {
   { NULL, }
 };
 static PropNumData _num_rays_range_data = { 3, 360, 1 };
+static PropNumData _density_range_data = { 2, 180, 1 };
+
+/* PropEventHandler to keep the density property valid */
+static gboolean _ngon_density_constraints_handler (DiaObject *obj, Property *prop);
 
 static PropDescription _ngon_props[] = {
   ELEMENT_COMMON_PROPERTIES,
@@ -109,6 +117,9 @@ static PropDescription _ngon_props[] = {
     N_("N-gon kind"), NULL, &_ngon_type_data },
   { "num_rays", PROP_TYPE_INT, PROP_FLAG_VISIBLE,
     N_("Number of rays"), NULL, &_num_rays_range_data },
+  { "density", PROP_TYPE_INT, PROP_FLAG_VISIBLE|PROP_FLAG_OPTIONAL,
+    N_("Density"), N_("Winding number for Crossing"), &_density_range_data,
+    &_ngon_density_constraints_handler },
   { "center", PROP_TYPE_POINT, PROP_FLAG_NO_DEFAULTS, /* no property widget, but still to be serialized */
     N_("Center position"), NULL, NULL },
   { "ray_len", PROP_TYPE_REAL, PROP_FLAG_NO_DEFAULTS, /* no property widget, but still to be serialized */
@@ -136,6 +147,7 @@ static PropOffset _ngon_offsets[] = {
   ELEMENT_COMMON_PROPERTIES_OFFSETS,
   { "ngon_kind", PROP_TYPE_ENUM, offsetof(Ngon, kind) },
   { "num_rays", PROP_TYPE_INT, offsetof(Ngon, num_rays) },
+  { "density", PROP_TYPE_INT, offsetof(Ngon, density) },
   { "center", PROP_TYPE_POINT, offsetof(Ngon, center) },
   { "ray_len", PROP_TYPE_REAL, offsetof(Ngon, ray_len) },
   { PROP_STDNAME_LINE_WIDTH, PROP_STDTYPE_LINE_WIDTH, offsetof(Ngon, line_width) },
@@ -150,12 +162,13 @@ static PropOffset _ngon_offsets[] = {
 };
 static void
 _ngon_get_props(Ngon *ng, GPtrArray *props)
-{  
+{
   object_get_props_from_offsets(&ng->element.object, _ngon_offsets, props);
 }
 static void
 _ngon_set_props(Ngon *ng, GPtrArray *props)
 {
+  ng->last_density = ng->density;
   object_set_props_from_offsets(&ng->element.object, _ngon_offsets, props);
   _ngon_update_data(ng);
 }
@@ -254,9 +267,45 @@ _gcd (int a, int b)
 static int
 _calc_step (int a, int b)
 {
+  if (b > a / 2)
+    b = a / 2;
   while (_gcd (a, b) != 1)
     --b;
   return b;
+}
+static int
+_calc_step_up (int a, int b)
+{
+  while (_gcd (a, b) != 1)
+    ++b;
+  return b;
+}
+
+/*!
+ * \brief Event handler called for property change by user
+ *
+ * The n-gon density value depends on num_rays. Only a limited set of values
+ * can be supported, where min/max/step is not enough to reflect it.
+ *
+ * This function gets called between Ngon::set_props() and
+ * Ngon::get_props(). It does need to do anything cause Ngon::update_data()
+ * already ensured data consistency. The pure existance of this of this
+ * property handler leads to bidirectional communication between property
+ * dialog and object's property change.
+ */
+static gboolean
+_ngon_density_constraints_handler (DiaObject *obj, Property *prop)
+{
+  Ngon *ng = (Ngon *)obj;
+  IntProperty *p = (IntProperty *)prop;
+  int maxDensity = _calc_step (ng->num_rays, ng->num_rays / 2);
+
+  g_return_val_if_fail (strcmp(prop->descr->type, PROP_TYPE_INT) == 0, FALSE);
+
+  if (p->int_data > maxDensity) {
+    ng->density = maxDensity;
+  }
+  return TRUE;
 }
 
 static void
@@ -309,8 +358,7 @@ _ngon_make_name (Ngon *ng)
   if (ng->kind == NGON_CONVEX)
     ng->name = g_strdup_printf ("%s {%d}", name, ng->num_rays);
   else
-    ng->name = g_strdup_printf ("%s {%d/%d}", name, ng->num_rays,
-			        _calc_step (ng->num_rays, ng->num_rays / 2));
+    ng->name = g_strdup_printf ("%s {%d/%d}", name, ng->num_rays, ng->density);
 }
 
 /*!
@@ -324,7 +372,7 @@ _ngon_make_name (Ngon *ng)
 static void
 _ngon_adjust_for_crossing (Ngon *ng)
 {
-  int n = ng->points->len, i, step = _calc_step (ng->points->len, ng->points->len / 2);
+  int n = ng->points->len, i, step = _calc_step (ng->num_rays, ng->density);
   GArray *points = g_array_new (FALSE /* zero_terminated */,
 			        FALSE /* clear_ */, sizeof(Point));
 
@@ -355,6 +403,12 @@ _ngon_update_data (Ngon *ng)
     n = ng->num_rays;
   else
     n = ng->num_rays * 2;
+
+  /* ensure density stays in range */
+  if (ng->last_density > ng->density)
+    ng->density = _calc_step (ng->num_rays, ng->density);
+  else
+    ng->density = _calc_step_up (ng->num_rays, ng->density);
 
   _ngon_make_name (ng);
   if (1 || n != ng->points->len) {
@@ -454,7 +508,7 @@ static ObjectOps _ngon_ops = {
 DiaObjectType _ngon_type =
 {
   "Misc - Ngon",  /* name */
-  0,           /* version */
+  1,           /* version */
   n_gon_xpm,    /* pixmap */
   &_ngon_type_ops, /* ops */
   NULL,    /* pixmap_file */
@@ -498,6 +552,7 @@ _ngon_create (Point *startpoint,
 			    FALSE /* clear_ */, sizeof(Point));
   ng->kind = NGON_CONVEX;
   ng->num_rays = 5;
+  ng->last_density = ng->density = _calc_step (ng->num_rays, ng->num_rays / 2);
   ng->ray_len = 1.0; /* for intial object size */
   ng->center = *startpoint;
 
@@ -520,7 +575,14 @@ _ngon_load (ObjectNode obj_node, int version, DiaContext *ctx)
   Ngon *ng;
  
   obj = object_load_using_properties (&_ngon_type, obj_node, version, ctx);
-  /* XXX: do some sanity check? */
+  ng = (Ngon *)obj;
+  if (version == 0) { /* default to maximum */
+    ng->last_density = ng->density = _calc_step (ng->num_rays, ng->num_rays/2);
+    _ngon_update_data(ng);
+  }
+  /* the density value is optional, so calculate if not valid */
+  if (_calc_step (ng->num_rays, ng->density) != ng->density)
+    ng->density = _calc_step (ng->num_rays, ng->num_rays/2);
   return obj;
 }
 

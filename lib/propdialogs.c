@@ -200,8 +200,23 @@ property_signal_handler(GObject *obj,
     for (j = 0; j < dialog->prop_widgets->len; j++) {
       PropWidgetAssoc *pwa = 
         &g_array_index(dialog->prop_widgets,PropWidgetAssoc,j);
+      /* The event handler above might have changed every property 
+       * so we would have to mark them all as set (aka. to be applied).
+       * But doing so would not work well with multiple/grouped objects
+       * with unchanged and unequal object properties. Idea: keep as
+       * set, what was before calling reset (but it's too late after get_props).
+       *
+       * See also commonprop_reset_widget() for more information
+       */
+      gboolean was_set = (pwa->prop->experience & PXP_NOTSET == 0);
       pwa->prop->ops->reset_widget(pwa->prop,pwa->widget);
+      if (was_set)
+	pwa->prop->experience &= ~PXP_NOTSET;
     }
+    /* once more at least for _this_ property otherwise a property with
+     * signal handler attached would not be changed at all ...
+     */
+    prop->experience &= ~PXP_NOTSET;
   } else {
     g_assert_not_reached();
   }
