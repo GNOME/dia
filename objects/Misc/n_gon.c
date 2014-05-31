@@ -364,10 +364,9 @@ _ngon_make_name (Ngon *ng)
 /*!
  * \brief Sort points to produce a star with crossing edges
  *
- * We could support the different possibilities explained by
+ * We support the different possibilities explained by
  * http://en.wikipedia.org/wiki/Star_polygon
- * but first need a good user interface to select between this
- * number of point dependent selection.
+ * via the density parameter mostly.
  */
 static void
 _ngon_adjust_for_crossing (Ngon *ng)
@@ -380,10 +379,35 @@ _ngon_adjust_for_crossing (Ngon *ng)
   g_array_insert_vals (points, 0,
 		       &g_array_index (ng->points, Point, 0),
 		       ng->points->len);
-  for (i = 1; i < n; ++i) {
-    int j = (i * step) % n;
-    g_array_index (ng->points, Point, i).x = g_array_index (points, Point, j).x;
-    g_array_index (ng->points, Point, i).y = g_array_index (points, Point, j).y;
+  if (1 == step && n > 5 && (n % 2) == 0) {
+    /* calculate the crossing of edges as extra point */
+    Point crossing;
+    if (!line_line_intersection (&crossing,
+				 &g_array_index (points, Point, 0), &g_array_index (points, Point, n-2),
+				 &g_array_index (points, Point, 1), &g_array_index (points, Point, n-1)))
+      g_warning ("No intersection?");
+    step = 2;
+    for (i = 0; i < n/2; ++i) {
+      int j = (i * step) % n;
+      g_array_index (ng->points, Point, i).x = g_array_index (points, Point, j).x;
+      g_array_index (ng->points, Point, i).y = g_array_index (points, Point, j).y;
+    }
+    /* go backward for the second half */
+    for (i = 0; i < n/2; ++i) {
+      int j = (n - 1 - i * step) % n;
+      g_array_index (ng->points, Point, i + n/2).x = g_array_index (points, Point, j).x;
+      g_array_index (ng->points, Point, i + n/2).y = g_array_index (points, Point, j).y;
+    }
+    /* insert the crossing point at the end */
+    g_array_insert_val (ng->points, n, crossing);
+    /* insert the crossing point in the middle */
+    g_array_insert_val (ng->points, n/2, crossing);
+  } else {
+    for (i = 1; i < n; ++i) {
+      int j = (i * step) % n;
+      g_array_index (ng->points, Point, i).x = g_array_index (points, Point, j).x;
+      g_array_index (ng->points, Point, i).y = g_array_index (points, Point, j).y;
+    }
   }
   g_array_free (points, TRUE);
 }
@@ -405,11 +429,15 @@ _ngon_update_data (Ngon *ng)
     n = ng->num_rays * 2;
 
   /* ensure density stays in range */
-  if (ng->last_density > ng->density)
-    ng->density = _calc_step (ng->num_rays, ng->density);
-  else
+  if (ng->last_density > ng->density) {
+    real temp = _calc_step (ng->num_rays, ng->density);
+    /* special case for Hexagram and above */
+    if (temp == 1 && ng->kind == NGON_CROSSING && ng->num_rays > 5)
+      temp = 2;
+    ng->density = temp;
+  } else {
     ng->density = _calc_step_up (ng->num_rays, ng->density);
-
+  }
   _ngon_make_name (ng);
   if (1 || n != ng->points->len) {
     /* recalculate all points */

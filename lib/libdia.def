@@ -523,6 +523,7 @@ EXPORTS
  new_layer
 
  line_bbox
+ line_line_intersection
 
  dia_error_quark
  

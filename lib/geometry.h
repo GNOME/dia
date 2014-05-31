@@ -377,6 +377,9 @@ void transform_bezpoint (BezPoint *bpt, const DiaMatrix *m);
 real dot2(Point *p1, Point *p2);
 void line_coef(real *a, real *b, real *c, Point *p1, Point *p2);
 real line_to_point(real a, real b , real c, Point *p);
+gboolean line_line_intersection (Point *crossing,
+				 const Point *p1, const Point *p2,
+				 const Point *p3, const Point *p4);
 void point_perp(Point *p, real a, real b, real c, Point *perp);
 gboolean fillet(Point *p1, Point *p2, Point *p3, Point *p4,
 		real r, Point *c, real *pa, real *aa);

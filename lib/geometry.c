@@ -518,6 +518,23 @@ void point_perp(Point *p, real a, real b, real c, Point *perp) {
   return;
 }
 
+gboolean
+line_line_intersection (Point *crossing,
+			const Point *p1, const Point *p2,
+			const Point *p3, const Point *p4)
+{
+  real d = (p1->x - p2->x) * (p3->y - p4->y) - (p1->y - p2->y) * (p3->x - p4->x);
+  real a, b;
+
+  if (fabs(d) < 0.0000001)
+    return FALSE;
+  a = p1->x * p2->y - p1->y * p2->x;
+  b = p3->x * p4->y - p3->y * p4->x;
+  crossing->x = (a * (p3->x - p4->x) - (p1->x - p2->x) * b) / d;
+  crossing->y = (a * (p3->y - p4->y) - (p1->y - p2->y) * b) / d;
+  return TRUE;
+}
+
 /* Compute a circular arc fillet between lines L1 (p1 to p2)
    and L2 (p3 to p4) with radius r.
    The circle center is c.
