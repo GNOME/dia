@@ -148,7 +148,7 @@ class SvgRenderer :
 	def fill_arc (self, center, width, height, angle1, angle2, color) :
 		self._arc(center, width, height, angle1, angle2, color, 1)
 	def draw_ellipse (self, center, width, height, fill, stroke) :
-		self.f.write('<ellipse cx="%.3f" cy="%.3f" rx="%.3f" ry="%.3f"' \
+		self.f.write('<ellipse cx="%.3f" cy="%.3f" rx="%.3f" ry="%.3f" ' \
 				'fill="%s" stroke="%s"  stroke-width="%.3f" %s/>\n' \
 				% (center.x, center.y, width / 2, height / 2,
 				   self._rgb(fill), self._rgb(stroke),
