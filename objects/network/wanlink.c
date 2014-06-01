@@ -225,7 +225,7 @@ wanlink_draw (WanLink *wanlink, DiaRenderer *renderer)
 
     renderer_ops->set_linewidth(renderer, FLASH_LINE);
     renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
-    renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
+    renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
 
     renderer_ops->draw_polygon (renderer, wanlink->poly,  WANLINK_POLY_LEN,
 				&wanlink->fill_color, &wanlink->line_color);

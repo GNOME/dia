@@ -336,8 +336,7 @@ ellipse_draw(Ellipse *ellipse, DiaRenderer *renderer)
   if (ellipse->show_background)
     renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);  
   renderer_ops->set_linewidth(renderer, ellipse->border_width);
-  renderer_ops->set_linestyle(renderer, ellipse->line_style);
-  renderer_ops->set_dashlength(renderer, ellipse->dashlength);
+  renderer_ops->set_linestyle(renderer, ellipse->line_style, ellipse->dashlength);
   renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
 
   renderer_ops->draw_ellipse (renderer, &center,

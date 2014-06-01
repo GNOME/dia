@@ -294,7 +294,7 @@ objet_draw(Objet *ob, DiaRenderer *renderer)
 
   renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
   renderer_ops->set_linewidth(renderer, bw);
-  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
+  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
 
 
   p1.x = x; p1.y = y;

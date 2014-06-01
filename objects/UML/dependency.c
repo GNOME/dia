@@ -237,8 +237,7 @@ dependency_draw(Dependency *dep, DiaRenderer *renderer)
   n = orth->numpoints;
   
   renderer_ops->set_linewidth(renderer, dep->line_width);
-  renderer_ops->set_linestyle(renderer, LINESTYLE_DASHED);
-  renderer_ops->set_dashlength(renderer, DEPENDENCY_DASHLEN);
+  renderer_ops->set_linestyle(renderer, LINESTYLE_DASHED, DEPENDENCY_DASHLEN);
   renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
   renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
 

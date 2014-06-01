@@ -506,7 +506,7 @@ link_draw(Link *link, DiaRenderer *renderer)
 
   /** drawing line **/
   renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
-  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
+  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
   renderer_ops->set_linewidth(renderer, w);
   renderer_ops->draw_bezier_with_arrows(renderer, link->line, 3, w, &LINK_FG_COLOR, NULL, &arrow);
 

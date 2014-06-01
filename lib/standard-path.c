@@ -413,7 +413,7 @@ static void
 stdpath_draw(StdPath *stdpath, DiaRenderer *renderer)
 {
   DIA_RENDERER_GET_CLASS (renderer)->set_linewidth (renderer, stdpath->line_width);
-  DIA_RENDERER_GET_CLASS (renderer)->set_linestyle (renderer, stdpath->line_style);
+  DIA_RENDERER_GET_CLASS (renderer)->set_linestyle (renderer, stdpath->line_style, stdpath->dashlength);
   DIA_RENDERER_GET_CLASS (renderer)->set_linejoin(renderer, stdpath->line_join);
   DIA_RENDERER_GET_CLASS (renderer)->set_linecaps(renderer, stdpath->line_caps);
 

@@ -371,10 +371,7 @@ lifeline_draw(Lifeline *lifeline, DiaRenderer *renderer)
   endpoints = &lifeline->connection.endpoints[0];
   
   renderer_ops->set_linewidth(renderer, LIFELINE_LINEWIDTH);    
-  renderer_ops->set_dashlength(renderer, LIFELINE_DASHLEN);
-  renderer_ops->set_linestyle(renderer, LINESTYLE_DASHED);
-
-  
+  renderer_ops->set_linestyle(renderer, LINESTYLE_DASHED, LIFELINE_DASHLEN);
 
   /* Ok, instead rendering one big line between two endpoints we just
      from endpoints to rtop and rbottom respectively.
@@ -393,7 +390,7 @@ lifeline_draw(Lifeline *lifeline, DiaRenderer *renderer)
 
 
   renderer_ops->set_linewidth(renderer, LIFELINE_BOXWIDTH);
-  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
+  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
 
   p1.x = endpoints[0].x - LIFELINE_WIDTH/2.0;
   p1.y = endpoints[0].y + lifeline->rtop;

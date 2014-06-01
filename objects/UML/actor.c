@@ -230,7 +230,7 @@ actor_draw(Actor *actor, DiaRenderer *renderer)
   
   renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
   renderer_ops->set_linewidth(renderer, actor->line_width);
-  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
+  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
 
   r = ACTOR_HEAD(actor_height);
   r1 = 2*r;

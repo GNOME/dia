@@ -212,13 +212,30 @@ set_linejoin(DiaRenderer *self, LineJoin mode)
 }
 
 static void
-set_linestyle(DiaRenderer *self, LineStyle mode)
+set_linestyle(DiaRenderer *self, LineStyle mode, real length)
 {
   DiaLibartRenderer *renderer = DIA_LIBART_RENDERER (self);
   static double dash[10];
   double hole_width;
+  real dash_length;
+  real dot_length;
+  real ddisp_len;
+
+  ddisp_len =
+    dia_transform_length(renderer->transform, length);
   
-  renderer->saved_line_style = mode;
+  dash_length = ddisp_len;
+  dot_length = ddisp_len*0.1;
+  
+  if (dash_length<1.0)
+    dash_length = 1.0;
+  if (dash_length>255.0)
+    dash_length = 255.0;
+  if (dot_length<1.0)
+    dot_length = 1.0;
+  if (dot_length>255.0)
+    dot_length = 255.0;
+
   switch(mode) {
   case LINESTYLE_SOLID:
     renderer->dash_enabled = 0;
@@ -228,20 +245,20 @@ set_linestyle(DiaRenderer *self, LineStyle mode)
     renderer->dash.offset = 0.0;
     renderer->dash.n_dash = 2;
     renderer->dash.dash = dash;
-    dash[0] = renderer->dash_length;
-    dash[1] = renderer->dash_length;
+    dash[0] = dash_length;
+    dash[1] = dash_length;
     break;
   case LINESTYLE_DASH_DOT:
     renderer->dash_enabled = 1;
     renderer->dash.offset = 0.0;
     renderer->dash.n_dash = 4;
     renderer->dash.dash = dash;
-    hole_width = (renderer->dash_length - renderer->dot_length) / 2.0;
+    hole_width = (dash_length - dot_length) / 2.0;
     if (hole_width<1.0)
       hole_width = 1.0;
-    dash[0] = renderer->dash_length;
+    dash[0] = dash_length;
     dash[1] = hole_width;
-    dash[2] = renderer->dot_length;
+    dash[2] = dot_length;
     dash[3] = hole_width;
     break;
   case LINESTYLE_DASH_DOT_DOT:
@@ -249,14 +266,14 @@ set_linestyle(DiaRenderer *self, LineStyle mode)
     renderer->dash.offset = 0.0;
     renderer->dash.n_dash = 6;
     renderer->dash.dash = dash;
-    hole_width = (renderer->dash_length - 2*renderer->dot_length) / 3;
+    hole_width = (dash_length - 2*dot_length) / 3;
     if (hole_width<1.0)
       hole_width = 1.0;
-    dash[0] = renderer->dash_length;
+    dash[0] = dash_length;
     dash[1] = hole_width;
-    dash[2] = renderer->dot_length;
+    dash[2] = dot_length;
     dash[3] = hole_width;
-    dash[4] = renderer->dot_length;
+    dash[4] = dot_length;
     dash[5] = hole_width;
     break;
   case LINESTYLE_DOTTED:
@@ -264,33 +281,10 @@ set_linestyle(DiaRenderer *self, LineStyle mode)
     renderer->dash.offset = 0.0;
     renderer->dash.n_dash = 2;
     renderer->dash.dash = dash;
-    dash[0] = renderer->dot_length;
-    dash[1] = renderer->dot_length;
+    dash[0] = dot_length;
+    dash[1] = dot_length;
     break;
   }
-}
-
-static void
-set_dashlength(DiaRenderer *self, real length)
-{  /* dot = 10% of len */
-  DiaLibartRenderer *renderer = DIA_LIBART_RENDERER (self);
-  real ddisp_len;
-
-  ddisp_len =
-    dia_transform_length(renderer->transform, length);
-  
-  renderer->dash_length = ddisp_len;
-  renderer->dot_length = ddisp_len*0.1;
-  
-  if (renderer->dash_length<1.0)
-    renderer->dash_length = 1.0;
-  if (renderer->dash_length>255.0)
-    renderer->dash_length = 255.0;
-  if (renderer->dot_length<1.0)
-    renderer->dot_length = 1.0;
-  if (renderer->dot_length>255.0)
-    renderer->dot_length = 255.0;
-  set_linestyle(self, renderer->saved_line_style);
 }
 
 static void
@@ -1266,11 +1260,8 @@ renderer_init (DiaLibartRenderer *renderer, gpointer g_class)
   renderer->line_width = 1.0;
   renderer->cap_style = ART_PATH_STROKE_CAP_BUTT;
   renderer->join_style = ART_PATH_STROKE_JOIN_MITER;
-  
-  renderer->saved_line_style = LINESTYLE_SOLID;
+
   renderer->dash_enabled = 0;
-  renderer->dash_length = 10;
-  renderer->dot_length = 1;
 
   renderer->highlight_color = NULL;
 
@@ -1405,7 +1396,6 @@ dia_libart_renderer_class_init (DiaLibartRendererClass *klass)
   renderer_class->set_linecaps = set_linecaps;
   renderer_class->set_linejoin = set_linejoin;
   renderer_class->set_linestyle = set_linestyle;
-  renderer_class->set_dashlength = set_dashlength;
   renderer_class->set_fillstyle = set_fillstyle;
   renderer_class->set_font = set_font;
   

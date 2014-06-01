@@ -265,7 +265,7 @@ measure_draw(Measure *measure, DiaRenderer *renderer)
   Arrow arrow = MEASURE_ARROW(measure);
 
   DIA_RENDERER_GET_CLASS (renderer)->set_linewidth (renderer, measure->line_width);
-  DIA_RENDERER_GET_CLASS (renderer)->set_linestyle (renderer, LINESTYLE_SOLID);
+  DIA_RENDERER_GET_CLASS (renderer)->set_linestyle (renderer, LINESTYLE_SOLID, 0.0);
   DIA_RENDERER_GET_CLASS (renderer)->set_linejoin(renderer, LINEJOIN_MITER);
   DIA_RENDERER_GET_CLASS (renderer)->set_linecaps(renderer, LINECAPS_ROUND);
   

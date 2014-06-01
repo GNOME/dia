@@ -312,8 +312,7 @@ box_draw(Box *box, DiaRenderer *renderer)
   lr_corner.y = elem->corner.y + elem->height;
 
   renderer_ops->set_linewidth(renderer, box->border_width);
-  renderer_ops->set_linestyle(renderer, box->line_style);
-  renderer_ops->set_dashlength(renderer, box->dashlength);
+  renderer_ops->set_linestyle(renderer, box->line_style, box->dashlength);
   if (box->corner_radius > 0)
     renderer_ops->set_linejoin(renderer, LINEJOIN_ROUND);
   else

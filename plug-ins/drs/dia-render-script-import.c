@@ -259,9 +259,7 @@ _render_object (xmlNodePtr render, DiaContext *ctx)
     if (xmlStrcmp (node->name, (const xmlChar *)"set-linewidth") == 0)
       ops->set_linewidth (ir, _parse_real (node, "width"));
     else if (xmlStrcmp (node->name, (const xmlChar *)"set-linestyle") == 0)
-      ops->set_linestyle (ir, _parse_linestyle (node, "mode"));
-    else if (xmlStrcmp (node->name, (const xmlChar *)"set-dashlength") == 0)
-      ops->set_dashlength (ir, _parse_real (node, "length"));
+      ops->set_linestyle (ir, _parse_linestyle (node, "mode"), _parse_real (node, "dash-length"));
     else if (xmlStrcmp (node->name, (const xmlChar *)"set-linecaps") == 0)
       ops->set_linecaps (ir, _parse_linecaps (node, "mode"));
     else if (xmlStrcmp (node->name, (const xmlChar *)"set-linejoin") == 0)

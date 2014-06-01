@@ -225,8 +225,7 @@ beziergon_draw(Beziergon *beziergon, DiaRenderer *renderer)
   n = bez->bezier.num_points;
 
   renderer_ops->set_linewidth(renderer, beziergon->line_width);
-  renderer_ops->set_linestyle(renderer, beziergon->line_style);
-  renderer_ops->set_dashlength(renderer, beziergon->dashlength);
+  renderer_ops->set_linestyle(renderer, beziergon->line_style, beziergon->dashlength);
   renderer_ops->set_linejoin(renderer, beziergon->line_join);
   renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
 

@@ -55,10 +55,6 @@ struct _PstricksRenderer
     int is_ps;
     int pagenum;
 
-    LineStyle saved_line_style;
-    real dash_length;
-    real dot_length;
-
     DiaContext *ctx;
 };
 

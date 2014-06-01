@@ -91,17 +91,10 @@ dia::Renderer::set_linejoin (LineJoin join)
 }
 // set current linestyle
 void 
-dia::Renderer::set_linestyle (LineStyle style)
+dia::Renderer::set_linestyle (LineStyle style, real dash_length)
 {
     assert (self);
-    DIA_RENDERER_GET_CLASS(self)->set_linestyle (self, style);
-}
-// set current dashlength
-void 
-dia::Renderer::set_dashlength (double length)
-{
-    assert (self);
-    DIA_RENDERER_GET_CLASS(self)->set_dashlength (self, length);
+    DIA_RENDERER_GET_CLASS(self)->set_linestyle (self, style, dash_length);
 }
 // set current font
 void 

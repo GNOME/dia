@@ -283,7 +283,7 @@ state_draw(State *state, DiaRenderer *renderer)
   
   renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
   renderer_ops->set_linewidth(renderer, state->line_width);
-  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
+  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
 
   if (state->state_type!=STATE_NORMAL) {
       p1.x = x + w/2;

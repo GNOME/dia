@@ -331,7 +331,7 @@ compfeat_draw(Compfeat *compfeat, DiaRenderer *renderer)
   n = orth->numpoints;
 
   renderer_ops->set_linewidth(renderer, compfeat->line_width);
-  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
+  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
   renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
 
   if (compfeat->orth.orientation[orth->numorient - 1] == HORIZONTAL) {

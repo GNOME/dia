@@ -207,7 +207,7 @@ arc_draw(Arc *arc, DiaRenderer *renderer)
   n = orth->numpoints;
   
   renderer_ops->set_linewidth(renderer, ARC_LINE_WIDTH);
-  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
+  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
   renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
   renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
 

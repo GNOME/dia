@@ -331,7 +331,7 @@ step_draw(Step *step, DiaRenderer *renderer)
 
   renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
   renderer_ops->set_linewidth(renderer, STEP_LINE_WIDTH);
-  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
+  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0);
   renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
 
   pts[0] = step->north.pos;

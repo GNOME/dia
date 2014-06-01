@@ -303,7 +303,7 @@ tree_draw(Tree *tree, DiaRenderer *renderer)
   endpoints = &tree->real_ends[0];
   
   renderer_ops->set_linewidth(renderer, LINE_WIDTH);
-  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
+  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
   renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
 
   renderer_ops->draw_line(renderer,

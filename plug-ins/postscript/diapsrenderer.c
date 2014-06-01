@@ -200,29 +200,33 @@ set_linejoin(DiaRenderer *self, LineJoin mode)
 }
 
 static void
-set_linestyle(DiaRenderer *self, LineStyle mode)
+set_linestyle(DiaRenderer *self, LineStyle mode, real dash_length)
 {
   DiaPsRenderer *renderer = DIA_PS_RENDERER(self);
   real hole_width;
   gchar dashl_buf[DTOSTR_BUF_SIZE];
   gchar dotl_buf[DTOSTR_BUF_SIZE];
   gchar holew_buf[DTOSTR_BUF_SIZE];
+  real dot_length;
 
-  renderer->saved_line_style = mode;
-  
+  if (dash_length<0.001)
+     dash_length = 0.001;
+
+  dot_length = dash_length*0.2; /* dot = 20% of len */
+
   switch(mode) {
   case LINESTYLE_SOLID:
     fprintf(renderer->file, "[] 0 sd\n");
     break;
   case LINESTYLE_DASHED:
     fprintf(renderer->file, "[%s] 0 sd\n",
-	    psrenderer_dtostr(dashl_buf, renderer->dash_length) );
+	    psrenderer_dtostr(dashl_buf, dash_length) );
     break;
   case LINESTYLE_DASH_DOT:
-    hole_width = (renderer->dash_length - renderer->dot_length) / 2.0;
+    hole_width = (dash_length - dot_length) / 2.0;
     psrenderer_dtostr(holew_buf, hole_width);
-    psrenderer_dtostr(dashl_buf, renderer->dash_length);
-    psrenderer_dtostr(dotl_buf, renderer->dot_length);
+    psrenderer_dtostr(dashl_buf, dash_length);
+    psrenderer_dtostr(dotl_buf, dot_length);
     fprintf(renderer->file, "[%s %s %s %s] 0 sd\n",
 	    dashl_buf,
 	    holew_buf,
@@ -230,10 +234,10 @@ set_linestyle(DiaRenderer *self, LineStyle mode)
 	    holew_buf );
     break;
   case LINESTYLE_DASH_DOT_DOT:
-    hole_width = (renderer->dash_length - 2.0*renderer->dot_length) / 3.0;
+    hole_width = (dash_length - 2.0*dot_length) / 3.0;
     psrenderer_dtostr(holew_buf, hole_width);
-    psrenderer_dtostr(dashl_buf, renderer->dash_length);
-    psrenderer_dtostr(dotl_buf, renderer->dot_length);
+    psrenderer_dtostr(dashl_buf, dash_length);
+    psrenderer_dtostr(dotl_buf, dot_length);
     fprintf(renderer->file, "[%s %s %s %s %s %s] 0 sd\n",
 	    dashl_buf,
 	    holew_buf,
@@ -244,23 +248,9 @@ set_linestyle(DiaRenderer *self, LineStyle mode)
     break;
   case LINESTYLE_DOTTED:
     fprintf(renderer->file, "[%s] 0 sd\n",
-	    psrenderer_dtostr(dotl_buf, renderer->dot_length) );
+	    psrenderer_dtostr(dotl_buf, dot_length) );
     break;
   }
-}
-
-static void
-set_dashlength(DiaRenderer *self, real length)
-{  /* dot = 20% of len */
-  DiaPsRenderer *renderer = DIA_PS_RENDERER(self);
-
-  if (length<0.001)
-    length = 0.001;
-  
-  renderer->dash_length = length;
-  renderer->dot_length = length*0.2;
-  
-  set_linestyle(self, renderer->saved_line_style);
 }
 
 static void
@@ -913,9 +903,6 @@ ps_renderer_init (GTypeInstance *instance, gpointer g_class)
 
   renderer->lcolor.red = -1.0;
   
-  renderer->dash_length = 1.0;
-  renderer->dot_length = 0.2;
-  renderer->saved_line_style = LINESTYLE_SOLID;
   renderer->is_portrait = TRUE;
 
   renderer->scale = 28.346;
@@ -983,7 +970,6 @@ dia_ps_renderer_class_init (DiaPsRendererClass *klass)
   renderer_class->set_linecaps   = set_linecaps;
   renderer_class->set_linejoin   = set_linejoin;
   renderer_class->set_linestyle  = set_linestyle;
-  renderer_class->set_dashlength = set_dashlength;
   renderer_class->set_fillstyle  = set_fillstyle;
   renderer_class->set_font       = set_font;
 

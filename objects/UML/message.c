@@ -310,13 +310,12 @@ message_draw(Message *message, DiaRenderer *renderer)
   }
 
   if (message->type==MESSAGE_RETURN) {
-      renderer_ops->set_dashlength(renderer, MESSAGE_DASHLEN);
-      renderer_ops->set_linestyle(renderer, LINESTYLE_DASHED);
+      renderer_ops->set_linestyle(renderer, LINESTYLE_DASHED, MESSAGE_DASHLEN);
       n1 = 0;
       n2 = 1;
-  } else 
-      renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
-
+  } else {
+      renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
+  }
   p1 = endpoints[n1];
   p2 = endpoints[n2];
 

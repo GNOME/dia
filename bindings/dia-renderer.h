@@ -64,11 +64,9 @@ public :
     //! \ingroup RendererRequired
     virtual void set_linejoin (LineJoin join);
     //! set current line style (dottet, dashed, solid)
-    //! \ingroup RendererRequired
-    virtual void set_linestyle (LineStyle style);
     //! set current length for dashes
     //! \ingroup RendererRequired
-    virtual void set_dashlength (double length);
+    virtual void set_linestyle (LineStyle style, real dash_length);
     //! set current font
     //! \ingroup RendererRequired
     //! \todo wrap font objecs ?

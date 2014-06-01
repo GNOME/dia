@@ -256,9 +256,8 @@ radiocell_draw(RadioCell *radiocell, DiaRenderer *renderer)
     renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
   renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
   renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
-  renderer_ops->set_linestyle(renderer, radiocell->line_style);
+  renderer_ops->set_linestyle(renderer, radiocell->line_style, radiocell->dashlength);
   renderer_ops->set_linewidth(renderer, radiocell->line_width);
-  renderer_ops->set_dashlength(renderer, radiocell->dashlength);
   renderer_ops->draw_polygon(renderer, points, n,
 			     (radiocell->show_background) ? &radiocell->fill_colour : NULL,
 			     &radiocell->line_colour);

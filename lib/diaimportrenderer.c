@@ -36,8 +36,7 @@ static void end_render (DiaRenderer *);
 static void set_linewidth (DiaRenderer *renderer, real linewidth);
 static void set_linecaps (DiaRenderer *renderer, LineCaps mode);
 static void set_linejoin (DiaRenderer *renderer, LineJoin mode);
-static void set_linestyle (DiaRenderer *renderer, LineStyle mode);
-static void set_dashlength (DiaRenderer *renderer, real length);
+static void set_linestyle (DiaRenderer *renderer, LineStyle mode, real dash_length);
 static void set_fillstyle (DiaRenderer *renderer, FillStyle mode);
 
 static void draw_line (DiaRenderer *renderer,
@@ -164,7 +163,6 @@ dia_import_renderer_class_init (DiaImportRendererClass *klass)
   renderer_class->set_linecaps   = set_linecaps;
   renderer_class->set_linejoin   = set_linejoin;
   renderer_class->set_linestyle  = set_linestyle;
-  renderer_class->set_dashlength = set_dashlength;
   renderer_class->set_fillstyle  = set_fillstyle;
 
   renderer_class->draw_line    = draw_line;
@@ -243,17 +241,11 @@ set_linejoin (DiaRenderer *renderer, LineJoin mode)
 }
 
 static void 
-set_linestyle (DiaRenderer *renderer, LineStyle mode)
+set_linestyle (DiaRenderer *renderer, LineStyle mode, real dash_length)
 {
   DiaImportRenderer *self = DIA_IMPORT_RENDERER (renderer);
   self->line_style = mode;
-}
-
-static void 
-set_dashlength (DiaRenderer *renderer, real length)
-{
-  DiaImportRenderer *self = DIA_IMPORT_RENDERER (renderer);
-  self->dash_length = length;
+  self->dash_length = dash_length;
 }
 
 static void 
@@ -480,7 +472,7 @@ draw_image (DiaRenderer *renderer,
   object->ops->set_props (object, props);
   prop_list_free (props);
 
-  dia_object_set_pixbuf (object, dia_image_pixbuf (image));
+  dia_object_set_pixbuf (object, (GdkPixbuf *)dia_image_pixbuf (image));
   _push_object (self, object);
 }
 

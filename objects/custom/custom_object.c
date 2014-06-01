@@ -865,8 +865,7 @@ custom_draw(Custom *custom, DiaRenderer *renderer)
   renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
   renderer_ops->set_linewidth(renderer, custom->border_width);
   cur_line = custom->border_width;
-  renderer_ops->set_linestyle(renderer, cur_style);
-  renderer_ops->set_dashlength(renderer, custom->dashlength);
+  renderer_ops->set_linestyle(renderer, cur_style, custom->dashlength);
   renderer_ops->set_linecaps(renderer, cur_caps);
   renderer_ops->set_linejoin(renderer, cur_join);
 
@@ -941,12 +940,13 @@ custom_draw_element(GraphicElement* el, Custom *custom, DiaRenderer *renderer,
       (*cur_style) != custom->line_style) || el->any.s.linestyle != (*cur_style)) {
     (*cur_style) = (el->any.s.linestyle!=DIA_SVG_LINESTYLE_DEFAULT) ?
     el->any.s.linestyle : custom->line_style;
-    renderer_ops->set_linestyle(renderer, (*cur_style));
+    renderer_ops->set_linestyle(renderer, (*cur_style),
+				custom->dashlength*(*cur_dash));
   }
   if (el->any.s.dashlength != (*cur_dash)) {
     (*cur_dash) = el->any.s.dashlength;
-    renderer_ops->set_dashlength(renderer,
-		   custom->dashlength*(*cur_dash));
+    renderer_ops->set_linestyle(renderer, (*cur_style),
+				custom->dashlength*(*cur_dash));
   }
       
   (*cur_line) = el->any.s.line_width;

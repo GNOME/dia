@@ -54,8 +54,7 @@ static void end_render (DiaRenderer *);
 static void set_linewidth (DiaRenderer *renderer, real linewidth);
 static void set_linecaps (DiaRenderer *renderer, LineCaps mode);
 static void set_linejoin (DiaRenderer *renderer, LineJoin mode);
-static void set_linestyle (DiaRenderer *renderer, LineStyle mode);
-static void set_dashlength (DiaRenderer *renderer, real length);
+static void set_linestyle (DiaRenderer *renderer, LineStyle mode, real length);
 static void set_fillstyle (DiaRenderer *renderer, FillStyle mode);
 
 static void draw_line (DiaRenderer *renderer,
@@ -207,7 +206,6 @@ dia_gdk_renderer_class_init(DiaGdkRendererClass *klass)
   renderer_class->set_linecaps   = set_linecaps;
   renderer_class->set_linejoin   = set_linejoin;
   renderer_class->set_linestyle  = set_linestyle;
-  renderer_class->set_dashlength = set_dashlength;
   renderer_class->set_fillstyle  = set_fillstyle;
 
   renderer_class->draw_line    = draw_line;
@@ -414,9 +412,26 @@ dia_gdk_renderer_set_dashes(DiaGdkRenderer *renderer, int offset)
 }
 
 static void 
-set_linestyle (DiaRenderer *object, LineStyle mode)
+set_linestyle (DiaRenderer *object, LineStyle mode, real length)
 {
   DiaGdkRenderer *renderer = DIA_GDK_RENDERER (object);
+  /* dot = 10% of len */
+  real ddisp_len;
+
+  ddisp_len =
+    dia_transform_length(renderer->transform, length);
+  
+  renderer->dash_length = (int)floor(ddisp_len+0.5);
+  renderer->dot_length = (int)floor(ddisp_len*0.1+0.5);
+
+  if (renderer->dash_length<=0)
+    renderer->dash_length = 1;
+  if (renderer->dash_length>255)
+    renderer->dash_length = 255;
+  if (renderer->dot_length<=0)
+    renderer->dot_length = 1;
+  if (renderer->dot_length>255)
+    renderer->dot_length = 255;
 
   renderer->saved_line_style = mode;
   switch(mode) {
@@ -445,30 +460,6 @@ set_linestyle (DiaRenderer *object, LineStyle mode)
 			     renderer->line_style,
 			     renderer->cap_style,
 			     renderer->join_style);
-}
-
-static void 
-set_dashlength (DiaRenderer *object, real length)
-{
-  DiaGdkRenderer *renderer = DIA_GDK_RENDERER (object);
-  /* dot = 10% of len */
-  real ddisp_len;
-
-  ddisp_len =
-    dia_transform_length(renderer->transform, length);
-  
-  renderer->dash_length = (int)floor(ddisp_len+0.5);
-  renderer->dot_length = (int)floor(ddisp_len*0.1+0.5);
-  
-  if (renderer->dash_length<=0)
-    renderer->dash_length = 1;
-  if (renderer->dash_length>255)
-    renderer->dash_length = 255;
-  if (renderer->dot_length<=0)
-    renderer->dot_length = 1;
-  if (renderer->dot_length>255)
-    renderer->dot_length = 255;
-  set_linestyle(object, renderer->saved_line_style);
 }
 
 static void 

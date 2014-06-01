@@ -71,8 +71,6 @@ struct _DiaCairoRenderer
   cairo_t *cr; /**< if NULL it gets created from the surface */
   cairo_surface_t *surface; /**< can be NULL to use the provived cr */
 
-  double dash_length;
-  LineStyle line_style;
   DiagramData *dia; /*!< pointer to the diagram to render, might be NULL for the display case */
 
   real scale;

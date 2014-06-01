@@ -39,9 +39,6 @@ struct _DiaPsRenderer
   guint pagenum;
 
   Color lcolor;
-  real  dash_length;
-  real  dot_length;
-  LineStyle saved_line_style;
 
   gchar *title;
   gchar *paper;

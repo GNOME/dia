@@ -118,9 +118,10 @@ grid_draw_horizontal_lines(DDisplay *ddisp, Rectangle *update, real length)
   while (y < height) {
     if (major_lines) {
       if (major_count == 0)
-	DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_SOLID);
+	DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
       else
-	DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_DOTTED);
+	DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_DOTTED,
+							ddisplay_untransform_length(ddisp, 31));
       major_count = (major_count+1)%major_lines;
     }
     irenderer->draw_pixel_line(renderer, x, y, width, y,
@@ -156,9 +157,10 @@ grid_draw_vertical_lines(DDisplay *ddisp, Rectangle *update, real length)
     ddisplay_transform_coords(ddisp, pos, update->top, &x, &y);
     if (major_lines) {
       if (major_count == 0)
-	DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_SOLID);
+	DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
       else
-	DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_DOTTED);
+	DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_DOTTED,
+							ddisplay_untransform_length(ddisp, 31));
       major_count = (major_count+1)%major_lines;
     }
     irenderer->draw_pixel_line(renderer, x, y, x, height,
@@ -282,8 +284,6 @@ grid_draw(DDisplay *ddisp, Rectangle *update)
     }
 
     DIA_RENDERER_GET_CLASS(renderer)->set_linewidth(renderer, 0.0);
-    DIA_RENDERER_GET_CLASS(renderer)->set_dashlength(renderer,
-						     ddisplay_untransform_length(ddisp, 31));
     
     if (ddisp->diagram->grid.hex) {
       grid_draw_hex(ddisp, update, width_w);
@@ -317,12 +317,11 @@ pagebreak_draw(DDisplay *ddisp, Rectangle *update)
     int x,y;
 
     DIA_RENDERER_GET_CLASS(renderer)->set_linewidth(renderer, 0.0);
-    DIA_RENDERER_GET_CLASS(renderer)->set_dashlength(renderer,
-				    ddisplay_untransform_length(ddisp, 31));
     if (prefs.pagebreak.solid)
-      DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_SOLID);
+      DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
     else
-      DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_DOTTED);
+      DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_DOTTED,
+						      ddisplay_untransform_length(ddisp, 31));
 
     if (dia->data->paper.fitto) {
       origx = dia->data->extents.left;

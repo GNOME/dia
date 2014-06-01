@@ -280,7 +280,7 @@ sadtbox_draw(Box *box, DiaRenderer *renderer)
 
   renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
   renderer_ops->set_linewidth(renderer, SADTBOX_LINE_WIDTH);
-  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
+  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
   renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
 
   renderer_ops->draw_rect(renderer, 

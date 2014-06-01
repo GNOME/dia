@@ -381,7 +381,7 @@ mbr_draw(Mbr *mbr, DiaRenderer *renderer)
   /** drawing directed line **/
   renderer_ops->set_linewidth(renderer, MBR_WIDTH);
   renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
-  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
+  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
 
   dx=p1.x-p2.x;
   dy=p1.y-p2.y;

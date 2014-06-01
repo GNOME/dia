@@ -529,7 +529,7 @@ table_draw (Table *table, DiaRenderer *renderer)
 
   renderer_ops->set_linewidth (renderer, table->border_width);
   renderer_ops->set_fillstyle (renderer, FILLSTYLE_SOLID);
-  renderer_ops->set_linestyle (renderer, LINESTYLE_SOLID);
+  renderer_ops->set_linestyle (renderer, LINESTYLE_SOLID, 0.0);
 
   elem = &table->element;
 

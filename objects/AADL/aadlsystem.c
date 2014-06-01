@@ -87,8 +87,7 @@ void aadlbox_draw_rounded_box (Aadlbox *aadlbox, DiaRenderer *renderer,
 
   renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
   renderer_ops->set_linewidth(renderer, AADLBOX_BORDERWIDTH);
-  renderer_ops->set_linestyle(renderer, linestyle);
-  renderer_ops->set_dashlength(renderer, AADLBOX_DASH_LENGTH);
+  renderer_ops->set_linestyle(renderer, linestyle, AADLBOX_DASH_LENGTH);
 
   renderer_ops->draw_beziergon(renderer, bez, 9, &aadlbox->fill_color, &aadlbox->line_color);
 }

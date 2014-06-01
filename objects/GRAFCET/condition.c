@@ -294,7 +294,7 @@ condition_draw(Condition *condition, DiaRenderer *renderer)
   Connection *conn = &condition->connection;
 
   renderer_ops->set_linewidth(renderer, CONDITION_LINE_WIDTH);
-  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
+  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
   renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
 
   if (CONDITION_ARROW_SIZE > (CONDITION_LINE_WIDTH/2.0)) {

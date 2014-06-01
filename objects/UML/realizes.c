@@ -230,8 +230,7 @@ realizes_draw(Realizes *realize, DiaRenderer *renderer)
   n = orth->numpoints;
   
   renderer_ops->set_linewidth(renderer, realize->line_width);
-  renderer_ops->set_linestyle(renderer, LINESTYLE_DASHED);
-  renderer_ops->set_dashlength(renderer, REALIZES_DASHLEN);
+  renderer_ops->set_linestyle(renderer, LINESTYLE_DASHED, REALIZES_DASHLEN);
   renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
   renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
 

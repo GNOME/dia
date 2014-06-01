@@ -289,10 +289,16 @@ set_linejoin(DiaRenderer *self, LineJoin mode)
 }
 
 static void 
-set_linestyle(DiaRenderer *self, LineStyle mode)
+set_linestyle(DiaRenderer *self, LineStyle mode, real dash_length)
 {
     MetapostRenderer *renderer = METAPOST_RENDERER (self);
     renderer->saved_line_style = mode;
+    /* dot = 10% of len */
+    if (dash_length < 0.001)
+	dash_length = 0.001;
+
+    renderer->dash_length = dash_length;
+    renderer->dot_length = dash_length * 0.1;
 }
 
 static void
@@ -343,20 +349,6 @@ draw_with_linestyle(MetapostRenderer *renderer)
 		dot_lenght_buf, hole_width_buf);
 	break;
     }
-}
-
-static void
-set_dashlength(DiaRenderer *self, real length)
-{  /* dot = 10% of len */
-    MetapostRenderer *renderer = METAPOST_RENDERER (self);
-
-    if (length<0.001)
-	length = 0.001;
-  
-    renderer->dash_length = length;
-    renderer->dot_length = length * 0.1;
-  
-    set_linestyle(self, renderer->saved_line_style);
 }
 
 static void
@@ -1014,7 +1006,6 @@ metapost_renderer_class_init (MetapostRendererClass *klass)
   renderer_class->set_linecaps = set_linecaps;
   renderer_class->set_linejoin = set_linejoin;
   renderer_class->set_linestyle = set_linestyle;
-  renderer_class->set_dashlength = set_dashlength;
   renderer_class->set_fillstyle = set_fillstyle;
   renderer_class->set_font = set_font;
   

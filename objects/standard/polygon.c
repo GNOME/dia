@@ -227,8 +227,7 @@ polygon_draw(Polygon *polygon, DiaRenderer *renderer)
   n = poly->numpoints;
 
   renderer_ops->set_linewidth(renderer, polygon->line_width);
-  renderer_ops->set_linestyle(renderer, polygon->line_style);
-  renderer_ops->set_dashlength(renderer, polygon->dashlength);
+  renderer_ops->set_linestyle(renderer, polygon->line_style, polygon->dashlength);
   renderer_ops->set_linejoin(renderer, polygon->line_join);
   renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
 

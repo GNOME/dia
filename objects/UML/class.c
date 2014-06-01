@@ -1129,8 +1129,7 @@ umlclass_draw_template_parameters_box(UMLClass *umlclass, DiaRenderer *renderer,
   LowerRight.x += umlclass->templates_width;
   LowerRight.y += umlclass->templates_height;
 
-  renderer_ops->set_linestyle(renderer, LINESTYLE_DASHED);
-  renderer_ops->set_dashlength(renderer, 0.3);
+  renderer_ops->set_linestyle(renderer, LINESTYLE_DASHED, 0.3);
   renderer_ops->draw_rect(renderer, &UpperLeft, &LowerRight, fill_color, line_color);
 
   TextInsert.x += 0.3;
@@ -1177,7 +1176,7 @@ umlclass_draw(UMLClass *umlclass, DiaRenderer *renderer)
 
   renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
   renderer_ops->set_linewidth(renderer, umlclass->line_width);
-  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
+  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
   
   elem = &umlclass->element;
 

@@ -273,7 +273,7 @@ chronoref_draw(Chronoref *chronoref, DiaRenderer *renderer)
 
   elem = &chronoref->element;
   
-  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
+  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
   renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
 
 

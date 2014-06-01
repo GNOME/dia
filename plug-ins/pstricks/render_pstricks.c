@@ -69,8 +69,7 @@ static void end_render(DiaRenderer *self);
 static void set_linewidth(DiaRenderer *self, real linewidth);
 static void set_linecaps(DiaRenderer *self, LineCaps mode);
 static void set_linejoin(DiaRenderer *self, LineJoin mode);
-static void set_linestyle(DiaRenderer *self, LineStyle mode);
-static void set_dashlength(DiaRenderer *self, real length);
+static void set_linestyle(DiaRenderer *self, LineStyle mode, real dash_length);
 static void set_fillstyle(DiaRenderer *self, FillStyle mode);
 static void set_font(DiaRenderer *self, DiaFont *font, real height);
 static void draw_line(DiaRenderer *self, 
@@ -194,7 +193,6 @@ pstricks_renderer_class_init (PstricksRendererClass *klass)
   renderer_class->set_linecaps = set_linecaps;
   renderer_class->set_linejoin = set_linejoin;
   renderer_class->set_linestyle = set_linestyle;
-  renderer_class->set_dashlength = set_dashlength;
   renderer_class->set_fillstyle = set_fillstyle;
   renderer_class->set_font = set_font;
   
@@ -317,61 +315,51 @@ set_linejoin(DiaRenderer *self, LineJoin mode)
 }
 
 static void
-set_linestyle(DiaRenderer *self, LineStyle mode)
+set_linestyle(DiaRenderer *self, LineStyle mode, real dash_length)
 {
     PstricksRenderer *renderer = PSTRICKS_RENDERER(self);
     real hole_width;
     gchar dash_length_buf[DTOSTR_BUF_SIZE];
     gchar dot_length_buf[DTOSTR_BUF_SIZE];
     gchar hole_width_buf[DTOSTR_BUF_SIZE];
+    real dot_length;
 
-    renderer->saved_line_style = mode;
-  
+    if (dash_length<0.001)
+	dash_length = 0.001;
+    /* dot = 20% of len - for some reason not the usual 10% */
+    dot_length = dash_length * 0.2;
+
     switch(mode) {
     case LINESTYLE_SOLID:
 	fprintf(renderer->file, "\\psset{linestyle=solid}\n");
 	break;
     case LINESTYLE_DASHED:
-	pstricks_dtostr(dash_length_buf,renderer->dash_length);
+	pstricks_dtostr(dash_length_buf, dash_length);
 	fprintf(renderer->file, "\\psset{linestyle=dashed,dash=%s %s}\n", 
 		dash_length_buf, dash_length_buf);
 	break;
     case LINESTYLE_DASH_DOT:
-	hole_width = (renderer->dash_length - renderer->dot_length) / 2.0;
+	hole_width = (dash_length - dot_length) / 2.0;
 	pstricks_dtostr(hole_width_buf,hole_width);
-	pstricks_dtostr(dot_length_buf,renderer->dot_length);
-	pstricks_dtostr(dash_length_buf,renderer->dash_length);
+	pstricks_dtostr(dot_length_buf, dot_length);
+	pstricks_dtostr(dash_length_buf, dash_length);
 	fprintf(renderer->file, "\\psset{linestyle=dashed,dash=%s %s %s %s}\n",
 		dash_length_buf, hole_width_buf, dot_length_buf, hole_width_buf );
 	break;
     case LINESTYLE_DASH_DOT_DOT:
-	hole_width = (renderer->dash_length - 2.0*renderer->dot_length) / 3.0;
+	hole_width = (dash_length - 2.0*dot_length) / 3.0;
 	pstricks_dtostr(hole_width_buf,hole_width);
-	pstricks_dtostr(dot_length_buf,renderer->dot_length);
-	pstricks_dtostr(dash_length_buf,renderer->dash_length);
+	pstricks_dtostr(dot_length_buf,dot_length);
+	pstricks_dtostr(dash_length_buf, dash_length);
 	fprintf(renderer->file, "\\psset{linestyle=dashed,dash=%s %s %s %s %s %s}\n",
 		dash_length_buf, hole_width_buf, dot_length_buf, hole_width_buf,
 		dot_length_buf, hole_width_buf );
 	break;
     case LINESTYLE_DOTTED:
-	pstricks_dtostr(dot_length_buf,renderer->dot_length);
+	pstricks_dtostr(dot_length_buf, dot_length);
 	fprintf(renderer->file, "\\psset{linestyle=dotted,dotsep=%s}\n", dot_length_buf);
 	break;
     }
-}
-
-static void
-set_dashlength(DiaRenderer *self, real length)
-{  /* dot = 20% of len */
-    PstricksRenderer *renderer = PSTRICKS_RENDERER(self);
-
-    if (length<0.001)
-	length = 0.001;
-  
-    renderer->dash_length = length;
-    renderer->dot_length = length*0.2;
-  
-    set_linestyle(self, renderer->saved_line_style);
 }
 
 static void
@@ -887,10 +875,6 @@ export_pstricks(DiagramData *data, DiaContext *ctx,
     renderer->file = file;
     renderer->ctx = ctx;
 
-    renderer->dash_length = 1.0;
-    renderer->dot_length = 0.2;
-    renderer->saved_line_style = LINESTYLE_SOLID;
-  
     time_now  = time(NULL);
     extent = &data->extents;
   

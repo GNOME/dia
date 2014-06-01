@@ -68,7 +68,7 @@ handle_draw(Handle *handle, DDisplay *ddisp)
   }
 
   DIA_RENDERER_GET_CLASS(renderer)->set_linewidth(renderer, 0.0);
-  DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_SOLID);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
   DIA_RENDERER_GET_CLASS(renderer)->set_linejoin(renderer, LINEJOIN_MITER);
   DIA_RENDERER_GET_CLASS(renderer)->set_fillstyle(renderer, FILLSTYLE_SOLID);
   
@@ -105,6 +105,7 @@ handle_draw(Handle *handle, DDisplay *ddisp)
 void
 handle_add_update(Handle *handle, Diagram *dia)
 {
+  g_return_if_fail (handle != NULL);
   diagram_add_update_pixels(dia, &handle->pos,
 			    HANDLE_SIZE, HANDLE_SIZE);
 }

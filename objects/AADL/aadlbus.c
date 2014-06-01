@@ -76,7 +76,7 @@ static void aadlbus_draw_borders(Aadlbox *aadlbox, DiaRenderer *renderer)
 
   renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
   renderer_ops->set_linewidth(renderer, AADLBOX_BORDERWIDTH);
-  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
+  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
 
   renderer_ops->draw_polygon(renderer, points, 10, &aadlbox->fill_color, &aadlbox->line_color);
 }

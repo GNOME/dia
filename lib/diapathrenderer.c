@@ -207,12 +207,8 @@ set_linejoin(DiaRenderer *self, LineJoin mode)
 {
 }
 static void
-set_linestyle(DiaRenderer *self, LineStyle mode)
+set_linestyle(DiaRenderer *self, LineStyle mode, real dash_length)
 {
-}
-static void
-set_dashlength(DiaRenderer *self, real length)
-{  /* dot = 20% of len */
 }
 static void
 set_fillstyle(DiaRenderer *self, FillStyle mode)
@@ -668,7 +664,6 @@ dia_path_renderer_class_init (DiaPathRendererClass *klass)
   renderer_class->set_linecaps   = set_linecaps;
   renderer_class->set_linejoin   = set_linejoin;
   renderer_class->set_linestyle  = set_linestyle;
-  renderer_class->set_dashlength = set_dashlength;
   renderer_class->set_fillstyle  = set_fillstyle;
 
   renderer_class->draw_line    = draw_line;

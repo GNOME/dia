@@ -230,7 +230,7 @@ note_draw(Note *note, DiaRenderer *renderer)
   
   renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
   renderer_ops->set_linewidth(renderer, note->line_width);
-  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
+  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
 
   poly[0].x = x;
   poly[0].y = y;

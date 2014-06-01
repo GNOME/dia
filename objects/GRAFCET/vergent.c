@@ -245,7 +245,7 @@ vergent_draw(Vergent *vergent, DiaRenderer *renderer)
   Connection *conn = &vergent->connection;
   Point p1,p2;
 
-  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
+  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
   
   switch(vergent->type) {
   case VERGENT_OR:

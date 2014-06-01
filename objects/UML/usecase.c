@@ -264,9 +264,9 @@ usecase_draw(Usecase *usecase, DiaRenderer *renderer)
   renderer_ops->set_linewidth(renderer, usecase->line_width);
 
   if (usecase->collaboration)
-	  renderer_ops->set_linestyle(renderer, LINESTYLE_DASHED);
+    renderer_ops->set_linestyle(renderer, LINESTYLE_DASHED, 1.0);
   else 
-	  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
+    renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
 
   renderer_ops->draw_ellipse(renderer, 
 			     &c,

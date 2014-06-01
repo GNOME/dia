@@ -98,7 +98,7 @@ action_text_draw(Text *text, DiaRenderer *renderer)
     p2.x = curs_x;
     p2.y = curs_y + text->height;
     
-    renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
+    renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
     renderer_ops->set_linewidth(renderer, 0.1);
     renderer_ops->draw_line(renderer, &p1, &p2, &color_black);
   }

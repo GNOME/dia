@@ -319,7 +319,7 @@ analog_clock_draw(Analog_Clock *analog_clock, DiaRenderer *renderer)
   g_assert(renderer != NULL);
 
   renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
-  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
+  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0);
   renderer_ops->set_linewidth(renderer, analog_clock->border_line_width);
 
   renderer_ops->draw_ellipse(renderer,&analog_clock->centre,

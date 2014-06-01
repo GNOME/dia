@@ -249,7 +249,7 @@ entity_draw(Entity *entity, DiaRenderer *renderer)
   renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
   
   renderer_ops->set_linewidth(renderer, entity->border_width);
-  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
+  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
   renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
 
   renderer_ops->draw_rect(renderer, 
@@ -282,7 +282,7 @@ entity_draw(Entity *entity, DiaRenderer *renderer)
     renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
 
     renderer_ops->set_linewidth(renderer, entity->border_width);
-    renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
+    renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
     renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
 
     renderer_ops->draw_polygon (renderer, corners, 4,

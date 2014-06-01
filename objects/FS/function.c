@@ -302,10 +302,10 @@ function_draw(Function *pkg, DiaRenderer *renderer)
 
   renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
   renderer_ops->set_linewidth(renderer, font_height / FUNCTION_BORDERWIDTH_SCALE );
-  renderer_ops->set_linestyle(renderer, pkg->is_wish ? LINESTYLE_DASHED : LINESTYLE_SOLID);
-  if ( pkg->is_wish )
-    renderer_ops->set_dashlength( renderer, font_height / FUNCTION_DASHLENGTH_SCALE ) ;
-
+  if (pkg->is_wish)
+    renderer_ops->set_linestyle( renderer, LINESTYLE_DASHED, font_height / FUNCTION_DASHLENGTH_SCALE ) ;
+  else
+    renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
 
   p1.x = x; p1.y = y;
   p2.x = x+w; p2.y = y+h;

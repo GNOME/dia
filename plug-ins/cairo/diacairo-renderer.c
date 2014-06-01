@@ -424,7 +424,7 @@ set_linejoin(DiaRenderer *self, LineJoin mode)
 }
 
 static void
-set_linestyle(DiaRenderer *self, LineStyle mode)
+set_linestyle(DiaRenderer *self, LineStyle mode, real dash_length)
 {
   /* dot = 10% of len */
   DiaCairoRenderer *renderer = DIA_CAIRO_RENDERER (self);
@@ -432,59 +432,42 @@ set_linestyle(DiaRenderer *self, LineStyle mode)
 
   DIAG_NOTE(g_message("set_linestyle %d", mode));
 
-  /* also stored for use in set_dashlength */
-  renderer->line_style = mode;
+  ensure_minimum_one_device_unit(renderer, &dash_length);
   /* line type */
   switch (mode) {
   case LINESTYLE_SOLID:
     cairo_set_dash (renderer->cr, NULL, 0, 0);
     break;
   case LINESTYLE_DASHED:
-    dash[0] = renderer->dash_length;
-    dash[1] = renderer->dash_length;
+    dash[0] = dash_length;
+    dash[1] = dash_length;
     cairo_set_dash (renderer->cr, dash, 2, 0);
     break;
   case LINESTYLE_DASH_DOT:
-    dash[0] = renderer->dash_length;
-    dash[1] = renderer->dash_length * 0.45;
-    dash[2] = renderer->dash_length * 0.1;
-    dash[3] = renderer->dash_length * 0.45;
+    dash[0] = dash_length;
+    dash[1] = dash_length * 0.45;
+    dash[2] = dash_length * 0.1;
+    dash[3] = dash_length * 0.45;
     cairo_set_dash (renderer->cr, dash, 4, 0);
     break;
   case LINESTYLE_DASH_DOT_DOT:
-    dash[0] = renderer->dash_length;
-    dash[1] = renderer->dash_length * (0.8/3);
-    dash[2] = renderer->dash_length * 0.1;
-    dash[3] = renderer->dash_length * (0.8/3);
-    dash[4] = renderer->dash_length * 0.1;
-    dash[5] = renderer->dash_length * (0.8/3);
+    dash[0] = dash_length;
+    dash[1] = dash_length * (0.8/3);
+    dash[2] = dash_length * 0.1;
+    dash[3] = dash_length * (0.8/3);
+    dash[4] = dash_length * 0.1;
+    dash[5] = dash_length * (0.8/3);
     cairo_set_dash (renderer->cr, dash, 6, 0);
     break;
   case LINESTYLE_DOTTED:
-    dash[0] = renderer->dash_length * 0.1;
-    dash[1] = renderer->dash_length * 0.1;
+    dash[0] = dash_length * 0.1;
+    dash[1] = dash_length * 0.1;
     cairo_set_dash (renderer->cr, dash, 2, 0);
     break;
   default:
     g_warning("DiaCairoRenderer : Unsupported line style specified!\n");
   }
   DIAG_STATE(renderer->cr)
-}
-
-static void
-set_dashlength(DiaRenderer *self, real length)
-{
-  DiaCairoRenderer *renderer = DIA_CAIRO_RENDERER (self);
-
-  DIAG_NOTE(g_message("set_dashlength %f", length));
-
-  /* this call does not make sense, the value is certainly bigger
-   * than one device unit. But the side-effect seems to end the endless loop */
-  ensure_minimum_one_device_unit(renderer, &length);
-  renderer->dash_length = length;
-  /* updating the line style (potentially once more) make the real
-   * style and it's length indepndent of the calling sequence */
-  set_linestyle(self, renderer->line_style);
 }
 
 /*!
@@ -1169,14 +1152,6 @@ dia_cairo_renderer_get_type (void)
 static void
 cairo_renderer_init (DiaCairoRenderer *renderer, void *p)
 {
-  renderer->line_style = LINESTYLE_SOLID;
-  /*
-   * Initialize fields where 0 init isn't good enough. Bug #151716
-   * appears to show that we are sometimes called to render a line
-   * without setting the linestyle first. Probably a bug elsewhere
-   * but it's this plug-in which hangs ;)
-   */
-  renderer->dash_length = 1.0;
   renderer->scale = 1.0;
 }
 
@@ -1215,7 +1190,6 @@ cairo_renderer_class_init (DiaCairoRendererClass *klass)
   renderer_class->set_linecaps   = set_linecaps;
   renderer_class->set_linejoin   = set_linejoin;
   renderer_class->set_linestyle  = set_linestyle;
-  renderer_class->set_dashlength = set_dashlength;
   renderer_class->set_fillstyle  = set_fillstyle;
 
   renderer_class->set_font  = set_font;

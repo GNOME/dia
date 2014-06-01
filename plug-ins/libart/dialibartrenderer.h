@@ -43,11 +43,8 @@ struct _DiaLibartRenderer
   ArtPathStrokeCapType cap_style;
   ArtPathStrokeJoinType join_style;
 
-  LineStyle saved_line_style;
   int dash_enabled;
   ArtVpathDash dash;
-  double dash_length;
-  double dot_length;
   Color *highlight_color;
 #endif
   DiaContext *ctx;

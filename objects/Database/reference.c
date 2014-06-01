@@ -225,8 +225,7 @@ reference_draw (TableReference *ref, DiaRenderer *renderer)
   num_points = orth->numpoints;
 
   renderer_ops->set_linewidth (renderer, ref->line_width);
-  renderer_ops->set_linestyle (renderer, ref->line_style);
-  renderer_ops->set_dashlength (renderer, ref->dashlength);
+  renderer_ops->set_linestyle (renderer, ref->line_style, ref->dashlength);
   renderer_ops->set_linejoin (renderer, LINEJOIN_MITER);
   renderer_ops->set_linecaps (renderer, LINECAPS_BUTT);
 

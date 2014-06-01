@@ -347,8 +347,7 @@ diamond_draw(Diamond *diamond, DiaRenderer *renderer)
     renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
 
   renderer_ops->set_linewidth(renderer, diamond->border_width);
-  renderer_ops->set_linestyle(renderer, diamond->line_style);
-  renderer_ops->set_dashlength(renderer, diamond->dashlength);
+  renderer_ops->set_linestyle(renderer, diamond->line_style, diamond->dashlength);
   renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
 
   renderer_ops->draw_polygon (renderer, 

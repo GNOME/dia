@@ -242,8 +242,7 @@ req_draw(Requirement *req, DiaRenderer *renderer)
   renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
   renderer_ops->set_linewidth(renderer, REQ_LINEWIDTH);
 
-  renderer_ops->set_dashlength(renderer, REQ_DASHLEN);
-  renderer_ops->set_linestyle(renderer, LINESTYLE_DASHED);
+  renderer_ops->set_linestyle(renderer, LINESTYLE_DASHED, REQ_DASHLEN);
 
   renderer_ops->draw_ellipse(renderer, &c, w, h, &color_white, &color_black);
 

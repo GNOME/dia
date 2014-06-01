@@ -102,8 +102,7 @@ static void end_render(DiaRenderer *renderer);
 static void set_linewidth(DiaRenderer *self, real linewidth);
 static void set_linecaps(DiaRenderer *self, LineCaps mode);
 static void set_linejoin(DiaRenderer *self, LineJoin mode);
-static void set_linestyle(DiaRenderer *self, LineStyle mode);
-static void set_dashlength(DiaRenderer *self, real length);
+static void set_linestyle(DiaRenderer *self, LineStyle mode, real dash_length);
 static void set_fillstyle(DiaRenderer *self, FillStyle mode);
 static void set_font(DiaRenderer *self, DiaFont *font, real height);
 static void draw_line(DiaRenderer *self, 
@@ -213,7 +212,6 @@ vdx_renderer_class_init (VDXRendererClass *klass)
   renderer_class->set_linecaps = set_linecaps;
   renderer_class->set_linejoin = set_linejoin;
   renderer_class->set_linestyle = set_linestyle;
-  renderer_class->set_dashlength = set_dashlength;
   renderer_class->set_fillstyle = set_fillstyle;
   renderer_class->set_font = set_font;
   
@@ -359,24 +357,12 @@ set_linejoin(DiaRenderer *self, LineJoin mode)
  */
 
 static void 
-set_linestyle(DiaRenderer *self, LineStyle mode) 
+set_linestyle(DiaRenderer *self, LineStyle mode, real dash_length)
 {
   VDXRenderer *renderer = VDX_RENDERER(self);
 
   renderer->stylemode = mode;
-}
-
-/** Set dash length
- * @param self a renderer
- * @param mode new dash length
- */
-
-static void 
-set_dashlength(DiaRenderer *self, real length) 
-{
-  VDXRenderer *renderer = VDX_RENDERER(self);
-
-  renderer->dashlength = length;
+  renderer->dashlength = dash_length;
 }
 
 /** Set fill style

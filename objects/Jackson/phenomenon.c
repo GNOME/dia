@@ -275,11 +275,10 @@ message_draw(Message *message, DiaRenderer *renderer)
   renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
 
   if (message->type==MSG_REQ) {
-      renderer_ops->set_dashlength(renderer, MESSAGE_DASHLEN);
-      renderer_ops->set_linestyle(renderer, LINESTYLE_DASHED);
+      renderer_ops->set_linestyle(renderer, LINESTYLE_DASHED, MESSAGE_DASHLEN);
       arrow.type = ARROW_FILLED_TRIANGLE;
   } else {
-      renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
+      renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
       arrow.type = ARROW_NONE;
   }
 

@@ -255,15 +255,18 @@ set_linejoin(DiaRenderer *self, LineJoin mode)
 }
 
 static void
-set_linestyle(DiaRenderer *self, LineStyle mode)
+set_linestyle(DiaRenderer *self, LineStyle mode, real dash_length)
 {
   DiaSvgRenderer *renderer = DIA_SVG_RENDERER (self);
   real hole_width;
   gchar dash_length_buf[DTOSTR_BUF_SIZE];
   gchar dot_length_buf[DTOSTR_BUF_SIZE];
   gchar hole_width_buf[DTOSTR_BUF_SIZE];
+  real dot_length; /* dot = 20% of len */
 
-  renderer->saved_line_style = mode;
+  if (dash_length<0.001)
+    dash_length = 0.001;
+  dot_length = dash_length*0.2;
 
   g_free(renderer->linestyle);
   switch(mode) {
@@ -271,14 +274,14 @@ set_linestyle(DiaRenderer *self, LineStyle mode)
     renderer->linestyle = NULL;
     break;
   case LINESTYLE_DASHED:
-    dia_svg_dtostr(dash_length_buf, renderer->dash_length);
+    dia_svg_dtostr(dash_length_buf, dash_length);
     renderer->linestyle = g_strdup_printf("%s", dash_length_buf);
     break;
   case LINESTYLE_DASH_DOT:
-    hole_width = (renderer->dash_length - renderer->dot_length) / 2.0;
+    hole_width = (dash_length - dot_length) / 2.0;
 
-    dia_svg_dtostr(dash_length_buf, renderer->dash_length);
-    dia_svg_dtostr(dot_length_buf, renderer->dot_length);
+    dia_svg_dtostr(dash_length_buf, dash_length);
+    dia_svg_dtostr(dot_length_buf, dot_length);
     dia_svg_dtostr(hole_width_buf, hole_width);
 
     renderer->linestyle = g_strdup_printf("%s %s %s %s",
@@ -288,10 +291,10 @@ set_linestyle(DiaRenderer *self, LineStyle mode)
 					  hole_width_buf );
     break;
   case LINESTYLE_DASH_DOT_DOT:
-    hole_width = (renderer->dash_length - 2.0*renderer->dot_length) / 3.0;
+    hole_width = (dash_length - 2.0*dot_length) / 3.0;
 
-    dia_svg_dtostr(dash_length_buf, renderer->dash_length);
-    dia_svg_dtostr(dot_length_buf, renderer->dot_length);
+    dia_svg_dtostr(dash_length_buf, dash_length);
+    dia_svg_dtostr(dot_length_buf, dot_length);
     dia_svg_dtostr(hole_width_buf, hole_width);
 
     renderer->linestyle = g_strdup_printf("%s %s %s %s %s %s",
@@ -304,27 +307,13 @@ set_linestyle(DiaRenderer *self, LineStyle mode)
     break;
   case LINESTYLE_DOTTED:
 
-    dia_svg_dtostr(dot_length_buf, renderer->dot_length);
+    dia_svg_dtostr(dot_length_buf, dot_length);
 
     renderer->linestyle = g_strdup_printf("%s", dot_length_buf);
     break;
   default:
     renderer->linestyle = NULL;
   }
-}
-
-static void
-set_dashlength(DiaRenderer *self, real length)
-{  /* dot = 20% of len */
-  DiaSvgRenderer *renderer = DIA_SVG_RENDERER (self);
-
-  if (length<0.001)
-    length = 0.001;
-  
-  renderer->dash_length = length;
-  renderer->dot_length = length*0.2;
-  
-  set_linestyle(self, renderer->saved_line_style);
 }
 
 static void
@@ -902,7 +891,6 @@ dia_svg_renderer_class_init (DiaSvgRendererClass *klass)
   renderer_class->set_linecaps   = set_linecaps;
   renderer_class->set_linejoin   = set_linejoin;
   renderer_class->set_linestyle  = set_linestyle;
-  renderer_class->set_dashlength = set_dashlength;
   renderer_class->set_fillstyle  = set_fillstyle;
   renderer_class->set_pattern    = set_pattern;
 

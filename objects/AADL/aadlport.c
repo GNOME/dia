@@ -92,7 +92,7 @@ rotate_around_origin (Point *p, real angle)   /* FIXME: no namespace */
 								  \
     renderer_ops->set_linewidth(renderer, AADL_PORT_LINEWIDTH);	  \
     renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);	  \
-    renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);	  \
+    renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);  \
 								  \
     renderer_ops->draw_polygon(renderer, p,  3, &color_black, &color_black);
 
@@ -116,7 +116,7 @@ rotate_around_origin (Point *p, real angle)   /* FIXME: no namespace */
 								     \
     renderer_ops->set_linewidth(renderer, AADL_PORT_LINEWIDTH);	     \
     renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);	     \
-    renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);	     \
+    renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);     \
                                                                      \
     renderer_ops->draw_polyline(renderer, p,  3, &color_black);
 
@@ -140,7 +140,7 @@ rotate_around_origin (Point *p, real angle)   /* FIXME: no namespace */
 								    \
     renderer_ops->set_linewidth(renderer, AADL_PORT_LINEWIDTH);	    \
     renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);	    \
-    renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);	    \
+    renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);    \
 								    \
     renderer_ops->draw_polygon(renderer, p,  3, &color_black, &color_black);
 
@@ -164,7 +164,7 @@ rotate_around_origin (Point *p, real angle)   /* FIXME: no namespace */
 								    \
     renderer_ops->set_linewidth(renderer, AADL_PORT_LINEWIDTH);	    \
     renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);	    \
-    renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);	    \
+    renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);    \
 								    \
     renderer_ops->draw_polyline(renderer, p,  3, &color_black);
 
@@ -193,7 +193,7 @@ rotate_around_origin (Point *p, real angle)   /* FIXME: no namespace */
 								    \
     renderer_ops->set_linewidth(renderer, AADL_PORT_LINEWIDTH);	    \
     renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);	    \
-    renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);	    \
+    renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);    \
 								    \
     renderer_ops->draw_polygon(renderer, p,  4, &color_black, &color_black);
 
@@ -224,7 +224,7 @@ rotate_around_origin (Point *p, real angle)   /* FIXME: no namespace */
 								   \
     renderer_ops->set_linewidth(renderer, AADL_PORT_LINEWIDTH);	   \
     renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);	   \
-    renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);	   \
+    renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);   \
 								   \
     renderer_ops->draw_polygon(renderer, p,  4, NULL, &color_black); 
 
@@ -272,7 +272,7 @@ aadlbox_draw_port(Aadlport *port, DiaRenderer *renderer)
 
     renderer_ops->set_linewidth(renderer, AADL_PORT_LINEWIDTH);
     renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
-    renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
+    renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
 
     renderer_ops->draw_polygon(renderer, p,  5, &color_white, &color_black);
 
@@ -308,7 +308,7 @@ aadlbox_draw_port(Aadlport *port, DiaRenderer *renderer)
 
     renderer_ops->set_linewidth(renderer, AADL_PORT_LINEWIDTH);
     renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
-    renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
+    renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
 
     renderer_ops->draw_polygon(renderer, p,  5, &color_white, &color_black);
 
@@ -367,7 +367,7 @@ aadlbox_draw_port(Aadlport *port, DiaRenderer *renderer)
 
       renderer_ops->set_linewidth(renderer, AADL_PORT_LINEWIDTH);
       renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
-      renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
+      renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
       
       renderer_ops->draw_ellipse(renderer, p,
 				 6 * AADL_PORT_GROUP_SIZE,

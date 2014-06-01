@@ -406,8 +406,7 @@ image_draw(Image *image, DiaRenderer *renderer)
 
   if (image->draw_border) {
     renderer_ops->set_linewidth(renderer, image->border_width);
-    renderer_ops->set_linestyle(renderer, image->line_style);
-    renderer_ops->set_dashlength(renderer, image->dashlength);
+    renderer_ops->set_linestyle(renderer, image->line_style, image->dashlength);
     renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
     
     renderer_ops->draw_rect(renderer, 

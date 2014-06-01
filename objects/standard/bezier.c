@@ -373,8 +373,7 @@ bezierline_draw(Bezierline *bezierline, DiaRenderer *renderer)
   DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   
   renderer_ops->set_linewidth(renderer, bezierline->line_width);
-  renderer_ops->set_linestyle(renderer, bezierline->line_style);
-  renderer_ops->set_dashlength(renderer, bezierline->dashlength);
+  renderer_ops->set_linestyle(renderer, bezierline->line_style, bezierline->dashlength);
   renderer_ops->set_linejoin(renderer, bezierline->line_join);
   renderer_ops->set_linecaps(renderer, bezierline->line_caps);
 

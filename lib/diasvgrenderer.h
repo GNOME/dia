@@ -32,10 +32,6 @@ struct _DiaSvgRenderer
   xmlNodePtr root;
   xmlNsPtr svg_name_space;
 
-  LineStyle saved_line_style;
-  real dash_length;
-  real dot_length;
-
   real linewidth;
   const char *linecap;
   const char *linejoin;

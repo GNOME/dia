@@ -329,7 +329,7 @@ set_linejoin(DiaRenderer *self, LineJoin mode)
 }
 
 static void
-set_linestyle(DiaRenderer *self, LineStyle mode)
+set_linestyle(DiaRenderer *self, LineStyle mode, real dash_length)
 {
   DrsRenderer *renderer = DRS_RENDERER (self);
   xmlNodePtr node;
@@ -357,16 +357,8 @@ set_linestyle(DiaRenderer *self, LineStyle mode)
   node =  xmlNewChild(renderer->root, NULL, (const xmlChar *)"set-linestyle", NULL);
   xmlSetProp(node, (const xmlChar *)"mode", 
              value ? (xmlChar *)value : (xmlChar *)"?");
-}
-
-static void
-set_dashlength(DiaRenderer *self, real length)
-{  
-  DrsRenderer *renderer = DRS_RENDERER (self);
-  xmlNodePtr node;
-  
-  node =  xmlNewChild(renderer->root, NULL, (const xmlChar *)"set-dashlength", NULL);
-  _node_set_real (node, "length", length);
+  if (mode != LINESTYLE_SOLID)
+    _node_set_real (node, "dash-length", dash_length);
 }
 
 static void
@@ -681,7 +673,6 @@ drs_renderer_class_init (DrsRendererClass *klass)
   renderer_class->set_linecaps   = set_linecaps;
   renderer_class->set_linejoin   = set_linejoin;
   renderer_class->set_linestyle  = set_linestyle;
-  renderer_class->set_dashlength = set_dashlength;
   renderer_class->set_fillstyle  = set_fillstyle;
 
   renderer_class->set_font  = set_font;

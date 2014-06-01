@@ -234,9 +234,8 @@ _ngon_draw(Ngon *ng, DiaRenderer *renderer)
   g_return_if_fail (ng->points->len);
 
   renderer_ops->set_linewidth(renderer, ng->line_width);
-  renderer_ops->set_linestyle(renderer, ng->line_style);
+  renderer_ops->set_linestyle(renderer, ng->line_style, ng->dashlength);
   renderer_ops->set_linejoin(renderer, ng->line_join);
-  renderer_ops->set_dashlength(renderer, ng->dashlength);
   renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
   if (ng->pattern)
     dia_pattern_get_fallback_color (ng->pattern, &fill);

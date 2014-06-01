@@ -165,30 +165,18 @@ set_linejoin(DiaRenderer *self, LineJoin mode)
   DIA_RENDERER_GET_CLASS (renderer->worker)->set_linejoin (renderer->worker, mode);
 }
 /*!
- * \brief Pass through line style
+ * \brief Pass through line style, transform dash length and pass through
  * \memberof _DiaTransformRenderer
  */
 static void
-set_linestyle(DiaRenderer *self, LineStyle mode)
+set_linestyle(DiaRenderer *self, LineStyle mode, real dash_length)
 {
   DiaTransformRenderer *renderer = DIA_TRANSFORM_RENDERER (self);
-  g_return_if_fail (renderer->worker != NULL);
-  DIA_RENDERER_GET_CLASS (renderer->worker)->set_linestyle (renderer->worker, mode);
-}
-/*!
- * \brief Transform dash length and pass through
- * \memberof _DiaTransformRenderer
- */
-static void
-set_dashlength(DiaRenderer *self, real length)
-{  /* dot = 20% of len */
-  DiaTransformRenderer *renderer = DIA_TRANSFORM_RENDERER (self);
-  real dl= length;
   DiaMatrix *m = g_queue_peek_tail (renderer->matrices);
   g_return_if_fail (renderer->worker != NULL);
   if (m)
-    transform_length (&dl, m);
-  DIA_RENDERER_GET_CLASS (renderer->worker)->set_dashlength (renderer->worker, dl);
+    transform_length (&dash_length, m);
+  DIA_RENDERER_GET_CLASS (renderer->worker)->set_linestyle (renderer->worker, mode, dash_length);
 }
 /*!
  * \brief Pass through fill style
@@ -495,7 +483,6 @@ dia_transform_renderer_class_init (DiaTransformRendererClass *klass)
   renderer_class->set_linecaps   = set_linecaps;
   renderer_class->set_linejoin   = set_linejoin;
   renderer_class->set_linestyle  = set_linestyle;
-  renderer_class->set_dashlength = set_dashlength;
   renderer_class->set_fillstyle  = set_fillstyle;
 
   renderer_class->draw_line    = draw_line;

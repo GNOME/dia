@@ -447,7 +447,7 @@ maor_draw(Maor *maor, DiaRenderer *renderer)
   /** drawing directed line **/
   renderer_ops->set_linewidth(renderer, MAOR_WIDTH);
   renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
-  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
+  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0);
   renderer_ops->draw_line_with_arrows(renderer,&p1,&p2,MAOR_WIDTH,&MAOR_FG_COLOR,NULL,&arrow);
 
   /** drawing vector decoration  **/

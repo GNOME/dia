@@ -300,7 +300,7 @@ other_draw(Other *other, DiaRenderer *renderer)
 
   elem = &other->element;
 
-  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
+  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
   renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
 
   switch (other->type) {

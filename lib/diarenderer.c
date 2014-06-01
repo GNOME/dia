@@ -59,8 +59,7 @@ static void end_render (DiaRenderer *);
 static void set_linewidth (DiaRenderer *renderer, real linewidth);
 static void set_linecaps (DiaRenderer *renderer, LineCaps mode);
 static void set_linejoin (DiaRenderer *renderer, LineJoin mode);
-static void set_linestyle (DiaRenderer *renderer, LineStyle mode);
-static void set_dashlength (DiaRenderer *renderer, real length);
+static void set_linestyle (DiaRenderer *renderer, LineStyle mode, real length);
 static void set_fillstyle (DiaRenderer *renderer, FillStyle mode);
 static void set_font (DiaRenderer *renderer, DiaFont *font, real height);
 
@@ -256,7 +255,7 @@ draw_object (DiaRenderer *renderer,
     pt[3].y = matrix->yx * bb->left + matrix->yy * bb->bottom + matrix->y0;
     
     DIA_RENDERER_GET_CLASS(renderer)->set_linewidth(renderer, 0.0);
-    DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_DOTTED);
+    DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_DOTTED, 1.0);
     DIA_RENDERER_GET_CLASS(renderer)->draw_polygon(renderer, pt, 4, NULL, &red);
     DIA_RENDERER_GET_CLASS(renderer)->draw_line(renderer, &pt[0], &pt[2], &red);
     DIA_RENDERER_GET_CLASS(renderer)->draw_line(renderer, &pt[1], &pt[3], &red);
@@ -306,7 +305,6 @@ dia_renderer_class_init (DiaRendererClass *klass)
   renderer_class->set_linecaps   = set_linecaps;
   renderer_class->set_linejoin   = set_linejoin;
   renderer_class->set_linestyle  = set_linestyle;
-  renderer_class->set_dashlength = set_dashlength;
   renderer_class->set_fillstyle  = set_fillstyle;
   renderer_class->set_font       = set_font;
 
@@ -376,16 +374,9 @@ set_linejoin (DiaRenderer *renderer, LineJoin mode)
 }
 
 static void 
-set_linestyle (DiaRenderer *renderer, LineStyle mode)
+set_linestyle (DiaRenderer *renderer, LineStyle mode, real dash_length)
 {
   g_warning ("%s::set_line_style not implemented!", 
-             G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (renderer)));
-}
-
-static void 
-set_dashlength (DiaRenderer *renderer, real length)
-{
-  g_warning ("%s::set_dash_length not implemented!", 
              G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (renderer)));
 }
 

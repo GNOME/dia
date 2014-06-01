@@ -217,8 +217,7 @@ zigzagline_draw(Zigzagline *zigzagline, DiaRenderer *renderer)
   n = orth->numpoints;
   
   renderer_ops->set_linewidth(renderer, zigzagline->line_width);
-  renderer_ops->set_linestyle(renderer, zigzagline->line_style);
-  renderer_ops->set_dashlength(renderer, zigzagline->dashlength);
+  renderer_ops->set_linestyle(renderer, zigzagline->line_style, zigzagline->dashlength);
   renderer_ops->set_linejoin(renderer, zigzagline->line_join);
   renderer_ops->set_linecaps(renderer, zigzagline->line_caps);
 

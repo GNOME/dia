@@ -80,7 +80,6 @@ struct _HpglRenderer
     int   has_it;
   } pen[HPGL_MAX_PENS];
   int last_pen;
-  real dash_length;
   real font_height;
 
   Point size;  /* extent size */
@@ -177,7 +176,6 @@ begin_render(DiaRenderer *object, const Rectangle *update)
         renderer->pen[i].has_it = 0;
     }
     renderer->last_pen = -1;
-    renderer->dash_length = 0.0;
 }
 
 static void
@@ -234,7 +232,7 @@ set_linejoin(DiaRenderer *object, LineJoin mode)
 }
 
 static void
-set_linestyle(DiaRenderer *object, LineStyle mode)
+set_linestyle(DiaRenderer *object, LineStyle mode, real dash_length)
 {
     HpglRenderer *renderer = HPGL_RENDERER (object);
 
@@ -246,7 +244,7 @@ set_linestyle(DiaRenderer *object, LineStyle mode)
       fprintf(renderer->file, "LT;\n");
       break;
     case LINESTYLE_DASHED:
-      if (renderer->dash_length > 0.5) /* ??? unit of dash_lenght ? */
+      if (dash_length > 0.5) /* ??? unit of dash_lenght ? */
           fprintf(renderer->file, "LT2;\n"); /* short */
       else
           fprintf(renderer->file, "LT3;\n"); /* long */
@@ -263,17 +261,6 @@ set_linestyle(DiaRenderer *object, LineStyle mode)
     default:
 	g_warning("HpglRenderer : Unsupported fill mode specified!");
     }
-}
-
-static void
-set_dashlength(DiaRenderer *object, real length)
-{  
-    HpglRenderer *renderer = HPGL_RENDERER (object);
-
-    DIAG_NOTE(diag_note("set_dashlength %f", length));
-
-    /* dot = 20% of len */
-    renderer->dash_length = length;
 }
 
 static void
@@ -640,7 +627,6 @@ hpgl_renderer_class_init (HpglRendererClass *klass)
   renderer_class->set_linecaps   = set_linecaps;
   renderer_class->set_linejoin   = set_linejoin;
   renderer_class->set_linestyle  = set_linestyle;
-  renderer_class->set_dashlength = set_dashlength;
   renderer_class->set_fillstyle  = set_fillstyle;
 
   renderer_class->set_font  = set_font;

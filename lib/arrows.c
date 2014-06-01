@@ -386,7 +386,7 @@ draw_none_or_many(DiaRenderer *renderer, Point *to, Point *from,
   /* use the middle of the arrow */
 
   DIA_RENDERER_GET_CLASS(renderer)->set_linewidth(renderer, linewidth);
-  DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_SOLID);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
   DIA_RENDERER_GET_CLASS(renderer)->set_linejoin(renderer, LINEJOIN_MITER);
   DIA_RENDERER_GET_CLASS(renderer)->set_linecaps(renderer, LINECAPS_BUTT);
  
@@ -463,7 +463,7 @@ draw_one_or_many(DiaRenderer *renderer, Point *to, Point *from,
   calculate_arrow(poly, to, from, length, width);
  
   DIA_RENDERER_GET_CLASS(renderer)->set_linewidth(renderer, linewidth);
-  DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_SOLID);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
   DIA_RENDERER_GET_CLASS(renderer)->set_linejoin(renderer, LINEJOIN_MITER);
   DIA_RENDERER_GET_CLASS(renderer)->set_linecaps(renderer, LINECAPS_BUTT);
  
@@ -532,7 +532,7 @@ draw_crow_foot(DiaRenderer *renderer, Point *to, Point *from,
   calculate_crow(poly, to, from, length, width);
   
   DIA_RENDERER_GET_CLASS(renderer)->set_linewidth(renderer, linewidth);
-  DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_SOLID);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
   DIA_RENDERER_GET_CLASS(renderer)->set_linejoin(renderer, LINEJOIN_MITER);
 
   DIA_RENDERER_GET_CLASS(renderer)->draw_line(renderer,&poly[0],&poly[1],fg_color);
@@ -558,7 +558,7 @@ draw_lines(DiaRenderer *renderer, Point *to, Point *from,
   calculate_arrow(poly, to, from, length, width);
     
   DIA_RENDERER_GET_CLASS(renderer)->set_linewidth(renderer, linewidth);
-  DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_SOLID);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
   DIA_RENDERER_GET_CLASS(renderer)->set_linejoin(renderer, LINEJOIN_MITER);
   DIA_RENDERER_GET_CLASS(renderer)->set_linecaps(renderer, LINECAPS_BUTT);
     
@@ -593,7 +593,7 @@ draw_fill_ellipse(DiaRenderer *renderer, Point *to, Point *from,
   Point vl,vt;
 
   DIA_RENDERER_GET_CLASS(renderer)->set_linewidth(renderer, linewidth);
-  DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_SOLID);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
   DIA_RENDERER_GET_CLASS(renderer)->set_linejoin(renderer, LINEJOIN_MITER);
   DIA_RENDERER_GET_CLASS(renderer)->set_linecaps(renderer, LINECAPS_BUTT);
 
@@ -659,7 +659,7 @@ draw_empty_ellipse(DiaRenderer *renderer, Point *to, Point *from,
   Point disp;
   
   DIA_RENDERER_GET_CLASS(renderer)->set_linewidth(renderer, linewidth);
-  DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_SOLID);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
   DIA_RENDERER_GET_CLASS(renderer)->set_linejoin(renderer, LINEJOIN_MITER);
   DIA_RENDERER_GET_CLASS(renderer)->set_linecaps(renderer, LINECAPS_BUTT);
 
@@ -758,7 +758,7 @@ draw_fill_box(DiaRenderer *renderer, Point *to, Point *from,
   real lw_factor,clength,cwidth;
   
   DIA_RENDERER_GET_CLASS(renderer)->set_linewidth(renderer, linewidth);
-  DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_SOLID);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
   DIA_RENDERER_GET_CLASS(renderer)->set_linejoin(renderer, LINEJOIN_MITER);
   DIA_RENDERER_GET_CLASS(renderer)->set_linecaps(renderer, LINECAPS_BUTT);
 
@@ -809,7 +809,7 @@ draw_fill_dot(DiaRenderer *renderer, Point *to, Point *from,
   real lw_factor,clength,cwidth;
   
   DIA_RENDERER_GET_CLASS(renderer)->set_linewidth(renderer, linewidth);
-  DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_SOLID);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
   DIA_RENDERER_GET_CLASS(renderer)->set_linejoin(renderer, LINEJOIN_MITER);
   DIA_RENDERER_GET_CLASS(renderer)->set_linecaps(renderer, LINECAPS_BUTT);
 
@@ -895,7 +895,7 @@ draw_integral(DiaRenderer *renderer, Point *to, Point *from,
   Point vl,vt;
   Point bs,be, bs2,be2;
   DIA_RENDERER_GET_CLASS(renderer)->set_linewidth(renderer, linewidth);
-  DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_SOLID);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
   DIA_RENDERER_GET_CLASS(renderer)->set_linejoin(renderer, LINEJOIN_MITER);
   DIA_RENDERER_GET_CLASS(renderer)->set_linecaps(renderer, LINECAPS_BUTT);
 
@@ -985,7 +985,7 @@ draw_slashed(DiaRenderer *renderer, Point *to, Point *from,
   calculate_slashed (poly, to, from, length, width);
   
   DIA_RENDERER_GET_CLASS(renderer)->set_linewidth(renderer, linewidth);
-  DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_SOLID);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
   DIA_RENDERER_GET_CLASS(renderer)->set_linejoin(renderer, LINEJOIN_MITER);
   DIA_RENDERER_GET_CLASS(renderer)->set_linecaps(renderer, LINECAPS_BUTT);
 
@@ -1059,7 +1059,7 @@ draw_halfhead(DiaRenderer *renderer, Point *to, Point *from,
   calculate_halfhead(poly, to, from, length, width);
   
   DIA_RENDERER_GET_CLASS(renderer)->set_linewidth(renderer, linewidth);
-  DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_SOLID);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
   DIA_RENDERER_GET_CLASS(renderer)->set_linejoin(renderer, LINEJOIN_MITER);
   DIA_RENDERER_GET_CLASS(renderer)->set_linecaps(renderer, LINECAPS_BUTT);
     
@@ -1085,7 +1085,7 @@ draw_triangle(DiaRenderer *renderer, Point *to, Point *from,
   calculate_arrow(poly, to, from, length, width);
   
   DIA_RENDERER_GET_CLASS(renderer)->set_linewidth(renderer, linewidth);
-  DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_SOLID);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
   DIA_RENDERER_GET_CLASS(renderer)->set_linejoin(renderer, LINEJOIN_MITER);
 
   DIA_RENDERER_GET_CLASS(renderer)->draw_polygon(renderer, poly, 3, bg_color, fg_color);
@@ -1184,7 +1184,7 @@ draw_diamond(DiaRenderer *renderer, Point *to, Point *from,
   calculate_diamond(poly, to, from, length, width);
   
   DIA_RENDERER_GET_CLASS(renderer)->set_linewidth(renderer, linewidth);
-  DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_SOLID);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
   DIA_RENDERER_GET_CLASS(renderer)->set_linejoin(renderer, LINEJOIN_MITER);
   DIA_RENDERER_GET_CLASS(renderer)->set_linecaps(renderer, LINECAPS_BUTT);
 
@@ -1210,7 +1210,7 @@ draw_half_diamond(DiaRenderer *renderer, Point *to, Point *from,
   calculate_diamond(poly, to, from, length, width);
   
   DIA_RENDERER_GET_CLASS(renderer)->set_linewidth(renderer, linewidth);
-  DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_SOLID);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
   DIA_RENDERER_GET_CLASS(renderer)->set_linejoin(renderer, LINEJOIN_MITER);
   DIA_RENDERER_GET_CLASS(renderer)->set_linecaps(renderer, LINECAPS_BUTT);
 
@@ -1234,7 +1234,7 @@ fill_diamond(DiaRenderer *renderer, Point *to, Point *from,
 
   calculate_diamond(poly, to, from, length, width);
   
-  DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_SOLID);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
   DIA_RENDERER_GET_CLASS(renderer)->set_linejoin(renderer, LINEJOIN_MITER);
   DIA_RENDERER_GET_CLASS(renderer)->set_linecaps(renderer, LINECAPS_BUTT);
 
@@ -1310,7 +1310,7 @@ draw_slashed_cross(DiaRenderer *renderer, Point *to, Point *from,
   calculate_slashed_cross(poly, to, from, length, width);
   
   DIA_RENDERER_GET_CLASS(renderer)->set_linewidth(renderer, linewidth);
-  DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_SOLID);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
   DIA_RENDERER_GET_CLASS(renderer)->set_linejoin(renderer, LINEJOIN_MITER);
   DIA_RENDERER_GET_CLASS(renderer)->set_linecaps(renderer, LINECAPS_BUTT);
   
@@ -1374,7 +1374,7 @@ draw_backslash(DiaRenderer *renderer, Point *to, Point *from,
   calculate_backslash (poly, to, from, length, width);
   
   DIA_RENDERER_GET_CLASS(renderer)->set_linewidth(renderer, linewidth);
-  DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_SOLID);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
   DIA_RENDERER_GET_CLASS(renderer)->set_linejoin(renderer, LINEJOIN_MITER);
   DIA_RENDERER_GET_CLASS(renderer)->set_linecaps(renderer, LINECAPS_BUTT);
 
@@ -1400,7 +1400,7 @@ draw_cross(DiaRenderer *renderer, Point *to, Point *from,
   calculate_arrow(poly, to, from, length, width);
   
   DIA_RENDERER_GET_CLASS(renderer)->set_linewidth(renderer, linewidth);
-  DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_SOLID);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
   DIA_RENDERER_GET_CLASS(renderer)->set_linejoin(renderer, LINEJOIN_MITER);
   DIA_RENDERER_GET_CLASS(renderer)->set_linecaps(renderer, LINECAPS_BUTT);
   
@@ -1563,7 +1563,7 @@ draw_concave_triangle(DiaRenderer *renderer, Point *to, Point *from,
 
   calculate_concave(poly, to, from, length, width);
   
-  DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_SOLID);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
   DIA_RENDERER_GET_CLASS(renderer)->set_linejoin(renderer, LINEJOIN_MITER);
   DIA_RENDERER_GET_CLASS(renderer)->set_linecaps(renderer, LINECAPS_BUTT);
 
@@ -1595,7 +1595,7 @@ draw_rounded(DiaRenderer *renderer, Point *to, Point *from,
   real angle_start;
   
   DIA_RENDERER_GET_CLASS(renderer)->set_linewidth(renderer, linewidth);
-  DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_SOLID);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
   DIA_RENDERER_GET_CLASS(renderer)->set_linejoin(renderer, LINEJOIN_MITER);
   DIA_RENDERER_GET_CLASS(renderer)->set_linecaps(renderer, LINECAPS_BUTT);
   
@@ -1647,7 +1647,7 @@ draw_open_rounded(DiaRenderer *renderer, Point *to, Point *from,
   real angle_start;
   Point p_line;
 
-  DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_SOLID);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
   DIA_RENDERER_GET_CLASS(renderer)->set_linejoin(renderer, LINEJOIN_MITER);
   DIA_RENDERER_GET_CLASS(renderer)->set_linecaps(renderer, LINECAPS_BUTT);
   
@@ -1702,7 +1702,7 @@ draw_filled_dot_n_triangle(DiaRenderer *renderer, Point *to, Point *from,
 
   DIA_RENDERER_GET_CLASS(renderer)->set_linecaps(renderer, LINECAPS_BUTT);
   DIA_RENDERER_GET_CLASS(renderer)->set_linejoin(renderer, LINEJOIN_MITER);
-  DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_SOLID);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
   DIA_RENDERER_GET_CLASS(renderer)->set_linewidth(renderer, linewidth);
   
   delta = *from;
@@ -1763,7 +1763,7 @@ draw_three_dots(DiaRenderer *renderer, Point *to, Point *from,
   hole_width = width / 3 - dot_width;
   
   DIA_RENDERER_GET_CLASS(renderer)->set_linewidth(renderer, linewidth);
-  DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_SOLID);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
 
   for (i = 0; i < 3; i++) {
     dot_from.x = to->x - i  * (dot_width + hole_width) * delta.x;

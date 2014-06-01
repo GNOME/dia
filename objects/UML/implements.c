@@ -269,7 +269,7 @@ implements_draw(Implements *implements, DiaRenderer *renderer)
   endpoints = &implements->connection.endpoints[0];
   
   renderer_ops->set_linewidth(renderer, implements->line_width);
-  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
+  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
   renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
 
   renderer_ops->draw_line(renderer,

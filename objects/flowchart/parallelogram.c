@@ -357,8 +357,7 @@ pgram_draw(Pgram *pgram, DiaRenderer *renderer)
     renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
 
   renderer_ops->set_linewidth(renderer, pgram->border_width);
-  renderer_ops->set_linestyle(renderer, pgram->line_style);
-  renderer_ops->set_dashlength(renderer, pgram->dashlength);
+  renderer_ops->set_linestyle(renderer, pgram->line_style, pgram->dashlength);
   renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
 
   renderer_ops->draw_polygon (renderer, 

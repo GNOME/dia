@@ -169,8 +169,7 @@ bezier_draw_control_lines (int          num_points,
   
   /* setup renderer ... */
   DIA_RENDERER_GET_CLASS(renderer)->set_linewidth(renderer, 0);
-  DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_DOTTED);
-  DIA_RENDERER_GET_CLASS(renderer)->set_dashlength(renderer, 1);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_DOTTED, 1);
   DIA_RENDERER_GET_CLASS(renderer)->set_linejoin(renderer, LINEJOIN_MITER);
   DIA_RENDERER_GET_CLASS(renderer)->set_linecaps(renderer, LINECAPS_BUTT);
 

@@ -329,18 +329,17 @@ flow_draw(Flow *flow, DiaRenderer *renderer)
 
   switch (flow->type) {
   case FLOW_SIGNAL:
-    renderer_ops->set_dashlength(renderer, FLOW_DASHLEN);
-    renderer_ops->set_linestyle(renderer, LINESTYLE_DASHED);
+    renderer_ops->set_linestyle(renderer, LINESTYLE_DASHED, FLOW_DASHLEN);
     render_color = &flow_color_signal ;
     break ;
   case FLOW_MATERIAL:
     renderer_ops->set_linewidth(renderer, FLOW_MATERIAL_WIDTH ) ;
-    renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
+    renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
     render_color = &flow_color_material ;
     break ;
   case FLOW_ENERGY:
     render_color = &flow_color_energy ;
-    renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
+    renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
   }
 
   p1 = endpoints[n1];

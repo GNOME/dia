@@ -245,7 +245,7 @@ basestation_draw(Basestation *basestation, DiaRenderer *renderer)
 
   renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
   renderer_ops->set_linejoin(renderer, LINEJOIN_ROUND);
-  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
+  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0);
   renderer_ops->set_linewidth(renderer, BASESTATION_LINEWIDTH);
 
   ct.x = x + w/2.0;

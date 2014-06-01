@@ -309,8 +309,7 @@ ellipse_draw(Ellipse *ellipse, DiaRenderer *renderer)
   center.y = elem->corner.y + elem->height/2;
 
   renderer_ops->set_linewidth(renderer, ellipse->border_width);
-  renderer_ops->set_linestyle(renderer, ellipse->line_style);
-  renderer_ops->set_dashlength(renderer, ellipse->dashlength);
+  renderer_ops->set_linestyle(renderer, ellipse->line_style, ellipse->dashlength);
   if (ellipse->show_background) {
     Color fill = ellipse->inner_color;
     renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);

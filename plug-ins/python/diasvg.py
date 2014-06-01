@@ -90,9 +90,8 @@ class SvgRenderer :
 		self.line_caps = mode
 	def set_linejoin (self, mode) :
 		self.line_join = mode
-	def set_linestyle (self, style) :
+	def set_linestyle (self, style, length) :
 		self.line_style = style
-	def set_dashlength (self, length) :
 		self.dash_length = length
 	def set_fillstyle (self, style) :
 		# currently only 'solid' so not used anywhere else

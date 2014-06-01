@@ -330,7 +330,7 @@ action_draw(Action *action, DiaRenderer *renderer)
   Color cl;
 
   renderer_ops->set_linewidth(renderer, ACTION_LINE_WIDTH);
-  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
+  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
   renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
 
   /* first, draw the line or polyline from the step to the action label */

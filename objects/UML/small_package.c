@@ -252,7 +252,7 @@ smallpackage_draw(SmallPackage *pkg, DiaRenderer *renderer)
   
   renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
   renderer_ops->set_linewidth(renderer, pkg->line_width);
-  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
+  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
 
   p1.x = x; p1.y = y;
   p2.x = x+w; p2.y = y+h;

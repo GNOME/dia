@@ -246,9 +246,6 @@ new_svg_renderer(DiagramData *data, const char *filename)
 
   renderer->filename = g_strdup(filename);
 
-  renderer->dash_length = 1.0;
-  renderer->dot_length = 0.2;
-  renderer->saved_line_style = LINESTYLE_SOLID;
   /* apparently most svg readers don't like small values, especially not in the viewBox attribute */
   renderer->scale = 20.0;
 

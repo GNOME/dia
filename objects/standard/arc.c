@@ -610,8 +610,7 @@ arc_draw(Arc *arc, DiaRenderer *renderer)
   arc_compute_midpoint(arc, &gaptmp[0], &gaptmp[1], &gaptmp[2]); 
 
   renderer_ops->set_linewidth(renderer, arc->line_width);
-  renderer_ops->set_linestyle(renderer, arc->line_style);
-  renderer_ops->set_dashlength(renderer, arc->dashlength);
+  renderer_ops->set_linestyle(renderer, arc->line_style, arc->dashlength);
   renderer_ops->set_linecaps(renderer, arc->line_caps);
   
   /* Special case when almost line: */
@@ -657,8 +656,7 @@ arc_draw(Arc *arc, DiaRenderer *renderer)
     Color line_color = { 0.0, 0.0, 0.6, 1.0 };
 
     renderer_ops->set_linewidth(renderer, 0);
-    renderer_ops->set_linestyle(renderer, LINESTYLE_DOTTED);
-    renderer_ops->set_dashlength(renderer, 1);
+    renderer_ops->set_linestyle(renderer, LINESTYLE_DOTTED, 1);
     renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
     renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
     

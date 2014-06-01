@@ -444,8 +444,7 @@ line_draw(Line *line, DiaRenderer *renderer)
   assert(renderer != NULL);
 
   renderer_ops->set_linewidth(renderer, line->line_width);
-  renderer_ops->set_linestyle(renderer, line->line_style);
-  renderer_ops->set_dashlength(renderer, line->dashlength);
+  renderer_ops->set_linestyle(renderer, line->line_style, line->dashlength);
   renderer_ops->set_linecaps(renderer, line->line_caps);
 
   if (line->absolute_start_gap || line->absolute_end_gap ) {

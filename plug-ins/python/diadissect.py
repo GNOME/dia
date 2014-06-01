@@ -74,12 +74,11 @@ class DissectRenderer :
 	def set_linejoin (self, mode) :
 		if mode < 0 or mode > 2 :
 			self.Error ("linejoin '%d' unknown" % (mode,))
-	def set_linestyle (self, style) :
+	def set_linestyle (self, style, dash_length) :
 		if style < 0 or style > 4 :
 			self.Error ("linestyle '%d' unknown" % (style,))
-	def set_dashlength (self, length) :
-		if length < 0.001 or length > 1 :
-			self.Warning ("dashlength '%f' out of range" % (length,))
+		if dash_length < 0.001 or dash_length > 1 :
+			self.Warning ("dashlength '%f' out of range" % (dash_length,))
 	def set_fillstyle (self, style) :
 		# currently only 'solid' so not used anywhere else
 		if style != 0 :

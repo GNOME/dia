@@ -290,8 +290,7 @@ polyline_draw(Polyline *polyline, DiaRenderer *renderer)
   points = &poly->points[0];
   n = poly->numpoints;
   renderer_ops->set_linewidth(renderer, polyline->line_width);
-  renderer_ops->set_linestyle(renderer, polyline->line_style);
-  renderer_ops->set_dashlength(renderer, polyline->dashlength);
+  renderer_ops->set_linestyle(renderer, polyline->line_style, polyline->dashlength);
   renderer_ops->set_linejoin(renderer, polyline->line_join);
   renderer_ops->set_linecaps(renderer, polyline->line_caps);
 

@@ -151,9 +151,6 @@ new_shape_renderer(DiagramData *data, const char *filename)
 
   renderer->filename = g_strdup(filename);
 
-  renderer->dash_length = 1.0;
-  renderer->dot_length = 0.2;
-  renderer->saved_line_style = LINESTYLE_SOLID;
   /* keep everything unscaled, i.e. in Dia's scale default */
   renderer->scale = 1.0;
 

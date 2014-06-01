@@ -119,11 +119,9 @@ struct _DiaRendererClass
   void (*set_linecaps) (DiaRenderer *renderer, LineCaps mode);
   /*! Set the current linejoin (the way two lines are joined together) */
   void (*set_linejoin) (DiaRenderer *renderer, LineJoin mode);
-  /*! Set the current line style */
-  void (*set_linestyle) (DiaRenderer *renderer, LineStyle mode);
-  /*! Set the dash length, when the style is not SOLID
-     A dot will be 10% of length */
-  void (*set_dashlength) (DiaRenderer *renderer, real length);
+  /*! Set the current line style and the dash length, when the style is
+   * not SOLID. A dot will be 10% of length */
+  void (*set_linestyle) (DiaRenderer *renderer, LineStyle mode, real length);
   /*! Set the fill style */
   void (*set_fillstyle) (DiaRenderer *renderer, FillStyle mode);
   /*! Set the current font */

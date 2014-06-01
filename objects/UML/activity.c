@@ -223,16 +223,15 @@ state_draw(State *state, DiaRenderer *renderer)
   
   renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
   renderer_ops->set_linewidth(renderer, STATE_LINEWIDTH);
-  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
+  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
 
-   p1.x = x;
-   p1.y = y;
-   p2.x = x + w;
-   p2.y = y + h;
-   renderer_ops->draw_rounded_rect(renderer, &p1, &p2,
-				   &state->fill_color, &state->line_color, 1.0);
-   
-   text_draw(state->text, renderer);
+  p1.x = x;
+  p1.y = y;
+  p2.x = x + w;
+  p2.y = y + h;
+  renderer_ops->draw_rounded_rect(renderer, &p1, &p2,
+				  &state->fill_color, &state->line_color, 1.0);
+  text_draw(state->text, renderer);
 }
 
 

@@ -451,12 +451,14 @@ set_linejoin(DiaRenderer *self, LineJoin mode)
 }
 
 static void
-set_linestyle(DiaRenderer *self, LineStyle mode)
+set_linestyle(DiaRenderer *self, LineStyle mode, real dash_length)
 {
     WmfRenderer *renderer = WMF_RENDERER (self);
 
     DIAG_NOTE(renderer, "set_linestyle %d\n", mode);
 
+    /* dot = 10% of len */
+    renderer->nDashLen = SC(dash_length);
     /* line type */
     renderer->fnPenStyle &= ~(PS_STYLE_MASK);
     switch (mode) {
@@ -495,17 +497,6 @@ set_linestyle(DiaRenderer *self, LineStyle mode)
     case LINESTYLE_SOLID:
       break;
     }
-}
-
-static void
-set_dashlength(DiaRenderer *self, real length)
-{  
-    WmfRenderer *renderer = WMF_RENDERER (self);
-
-    DIAG_NOTE(renderer, "set_dashlength %f\n", length);
-
-    /* dot = 10% of len */
-    renderer->nDashLen = SC(length);
 }
 
 static void
@@ -1264,7 +1255,6 @@ wmf_renderer_class_init (WmfRendererClass *klass)
   renderer_class->set_linecaps   = set_linecaps;
   renderer_class->set_linejoin   = set_linejoin;
   renderer_class->set_linestyle  = set_linestyle;
-  renderer_class->set_dashlength = set_dashlength;
   renderer_class->set_fillstyle  = set_fillstyle;
 
   renderer_class->set_font  = set_font;

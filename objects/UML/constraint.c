@@ -260,8 +260,7 @@ constraint_draw(Constraint *constraint, DiaRenderer *renderer)
   endpoints = &constraint->connection.endpoints[0];
   
   renderer_ops->set_linewidth(renderer, constraint->line_width);
-  renderer_ops->set_dashlength(renderer, CONSTRAINT_DASHLEN);
-  renderer_ops->set_linestyle(renderer, LINESTYLE_DASHED);
+  renderer_ops->set_linestyle(renderer, LINESTYLE_DASHED, CONSTRAINT_DASHLEN);
   renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
 
   arrow.type = ARROW_LINES;

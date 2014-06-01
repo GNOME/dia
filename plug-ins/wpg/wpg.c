@@ -86,8 +86,6 @@ struct _WpgRenderer
   real Scale;   /* to WPU == 1/1200 inch */
   real XOffset, YOffset; /* in dia units */
 
-  real dash_length;
-
   WPGStartData Box;
   WPGFillAttr  FillAttr;
   WPGLineAttr  LineAttr;
@@ -371,11 +369,11 @@ set_linejoin(DiaRenderer *self, LineJoin mode)
 }
 
 static void
-set_linestyle(DiaRenderer *self, LineStyle mode)
+set_linestyle(DiaRenderer *self, LineStyle mode, real dash_length)
 {
   WpgRenderer *renderer = WPG_RENDERER (self);
 
-  DIAG_NOTE(g_message("set_linestyle %d", mode));
+  DIAG_NOTE(g_message("set_linestyle %d, %g", mode, dash_length));
 
   /* line type */
   switch (mode) {
@@ -383,7 +381,7 @@ set_linestyle(DiaRenderer *self, LineStyle mode)
     renderer->LineAttr.Type = WPG_LA_SOLID;
     break;
   case LINESTYLE_DASHED:
-    if (renderer->dash_length < 0.5)
+    if (dash_length < 0.5)
       renderer->LineAttr.Type = WPG_LA_SHORTDASH;
     else
       renderer->LineAttr.Type = WPG_LA_MEDIUMDASH;
@@ -400,17 +398,6 @@ set_linestyle(DiaRenderer *self, LineStyle mode)
   default:
     g_warning("WpgRenderer : Unsupported fill mode specified!\n");
   }
-}
-
-static void
-set_dashlength(DiaRenderer *self, real length)
-{  
-  WpgRenderer *renderer = WPG_RENDERER (self);
-
-  DIAG_NOTE(g_message("set_dashlength %f", length));
-
-  /* dot = 20% of len */
-  renderer->dash_length = length;
 }
 
 static void
@@ -1034,7 +1021,6 @@ wpg_renderer_class_init (WpgRendererClass *klass)
   renderer_class->set_linecaps   = set_linecaps;
   renderer_class->set_linejoin   = set_linejoin;
   renderer_class->set_linestyle  = set_linestyle;
-  renderer_class->set_dashlength = set_dashlength;
   renderer_class->set_fillstyle  = set_fillstyle;
 
   renderer_class->set_font  = set_font;

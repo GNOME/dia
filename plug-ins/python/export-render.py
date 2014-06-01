@@ -39,11 +39,9 @@ class DumpRenderer :
 	## \brief Remember the line join
 	def set_linejoin (self, mode) :
 		self.line_join = mode
-	## \brief Remember the line style
-	def set_linestyle (self, style) :
+	## \brief Remember the line style and dash length
+	def set_linestyle (self, style, length) :
 		self.line_style = style
-	## \brief Remember the dash length
-	def set_dashlength (self, length) :
 		self.dash_length = length
 	## \brief Remember the fill style
 	def set_fillstyle (self, style) :
