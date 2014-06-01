@@ -838,7 +838,7 @@ draw_arc(DiaRenderer *self,
          Color *color) 
 {
   Point first, second, last;
-  int direction = 1; /* Dia always gives counterclockwise */
+  int direction = angle2 > angle1 ? 1 : 0; /* Dia not always gives counterclockwise */
   XfigRenderer *renderer = XFIG_RENDERER(self);
   gchar dl_buf[DTOSTR_BUF_SIZE];
   gchar cx_buf[DTOSTR_BUF_SIZE];

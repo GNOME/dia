@@ -138,7 +138,7 @@ struct _DiaRendererClass
                         Point *points, int num_points,
                         Color *fill, Color *stroke);
   /*! Draw an arc, given its center, the bounding box (widget, height),
-     the start angle and the end angle */
+     the start angle and the end angle. It's counter-clockwise if angle2>angle1 */
   void (*draw_arc) (DiaRenderer *renderer,
                     Point *center,
                     real width, real height,

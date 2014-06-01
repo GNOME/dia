@@ -200,7 +200,8 @@ class StandardDiaRenderer :
 		dx = (sx + ex) / 2.0 - cx
 		dy = (sy + ey) / 2.0 - cy
 		dist = math.sqrt(dx * dx + dy * dy)
-		# FIXME: need direction, too
+		if angle1 > angle2 :
+			dist = -dist
 		self.f.write('''
     <dia:object type="Standard - Arc" version="0" id="O%d">
       <dia:attribute name="conn_endpoints">

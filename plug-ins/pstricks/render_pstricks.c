@@ -505,6 +505,12 @@ pstricks_arc(PstricksRenderer *renderer,
     pstricks_dtostr(r1_buf,radius1);
     pstricks_dtostr(r2_buf,radius2);
     pstricks_dtostr(sqrt_buf,sqrt(radius1*radius1+radius2*radius2));
+    /* counter-clockwise */
+    if (angle2 < angle1) {
+       real tmp = angle1;
+       angle1 = angle2;
+       angle2 = tmp;
+    }
     pstricks_dtostr(angle1_buf,360.0-angle1);
     pstricks_dtostr(angle2_buf,360.0-angle2);
 

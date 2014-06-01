@@ -579,10 +579,14 @@ draw_arc(DiaRenderer *self,
 
   if ((width<0.0) || (height<0.0))
     return;
-  
+
+  if (angle2 < angle1) {
+    /* swap to counter-clockwise to keep the original algorithm */
+    real tmp = angle1;
+    angle1 = angle2;
+    angle2 = tmp;
+  }
   dangle = angle2-angle1;
-  if (dangle<0)
-    dangle += 360.0;
 
   /* Over-approximate the circumference */
   if (width>height)
@@ -666,9 +670,13 @@ fill_arc(DiaRenderer *self,
   if ((width<0.0) || (height<0.0))
     return;
 
+  if (angle2 < angle1) {
+    /* swap to counter-clockwise to keep the original algorithm */
+    real tmp = angle1;
+    angle1 = angle2;
+    angle2 = tmp;
+  }
   dangle = angle2-angle1;
-  if (dangle<0)
-    dangle += 360.0;
 
   /* Over-approximate the circumference */
   if (width>height)

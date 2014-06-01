@@ -594,23 +594,13 @@ fillet(Point *p1, Point *p2, Point *p3, Point *p4,
 
   start_angle = atan2(gv1.y,gv1.x);   /* Beginning angle for arc */
   stop_angle = dot2(&gv1,&gv2);
-  if ( point_cross(&gv1,&gv2) < 0.0 ) {
-    stop_angle = -stop_angle; /* Angle subtended by arc */
-    /* also this means we need to swap our angles later on */
-    righthand = TRUE;
-  }
+  righthand = point_cross(&gv1,&gv2) < 0.0;
   /* now calculate the actual angles in a form that the draw_arc function
      of the renderer can use */
   start_angle = start_angle*180.0/G_PI;
+  if (righthand)
+    stop_angle = -stop_angle;
   stop_angle  = start_angle + stop_angle*180.0/G_PI;
-  while (start_angle < 0.0) start_angle += 360.0;
-  while (stop_angle < 0.0)  stop_angle += 360.0;
-  /* swap the start and stop if we had to negate the cross product */
-  if ( righthand ) {
-    real tmp = start_angle;
-    start_angle = stop_angle;
-    stop_angle = tmp;
-  }
   *pa = start_angle;
   *aa = stop_angle;
   return TRUE;

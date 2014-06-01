@@ -606,6 +606,7 @@ draw_arc(DiaRenderer *self,
 {
   WpgRenderer *renderer = WPG_RENDERER (self);
   WPGEllipse ell;
+  gboolean counter_clockwise = angle2 > angle1;
 
   DIAG_NOTE(g_message("draw_arc %fx%f <%f,<%f", 
             width, height, angle1, angle2));
@@ -616,8 +617,17 @@ draw_arc(DiaRenderer *self,
   ell.rx = SC(width / 2.0);
   ell.ry = SC(height / 2.0);
 
-  ell.StartAngle = angle1;
-  ell.EndAngle   = angle2;
+  /* ensure range of 0..360 */
+  while (angle1 < 0.0) angle1 += 360.0;
+  while (angle2 < 0.0) angle2 += 360.0;
+  /* make it counter-clockwise */
+  if (counter_clockwise) {
+    ell.StartAngle = angle1;
+    ell.EndAngle   = angle2;
+  } else {
+    ell.StartAngle = angle2;
+    ell.EndAngle   = angle1;
+  }
   ell.Flags = 0;
 
   WriteLineAttr(renderer, colour);
@@ -636,6 +646,7 @@ fill_arc(DiaRenderer *self,
 {
   WpgRenderer *renderer = WPG_RENDERER (self);
   WPGEllipse ell;
+  gboolean counter_clockwise = angle2 > angle1;
 
   DIAG_NOTE(g_message("fill_arc %fx%f <%f,<%f", 
             width, height, angle1, angle2));
@@ -646,8 +657,17 @@ fill_arc(DiaRenderer *self,
   ell.rx = SC(width / 2.0);
   ell.ry = SC(height / 2.0);
 
-  ell.StartAngle = angle1;
-  ell.EndAngle   = angle2;
+  /* ensure range of 0..360 */
+  while (angle1 < 0.0) angle1 += 360.0;
+  while (angle2 < 0.0) angle2 += 360.0;
+  /* make it counter-clockwise */
+  if (counter_clockwise) {
+    ell.StartAngle = angle1;
+    ell.EndAngle   = angle2;
+  } else {
+    ell.StartAngle = angle2;
+    ell.EndAngle   = angle1;
+  }
   ell.Flags = 0; /* 0: connect to center; 1: connect start and end */
 
   WriteFillAttr(renderer, colour, TRUE);

@@ -133,8 +133,10 @@ class SvgRenderer :
 		sy = center.y - ry * math.sin(mPi180 * angle1)
 		ex = center.x + rx * math.cos(mPi180 * angle2)
 		ey = center.y - ry * math.sin(mPi180 * angle2)
-		largearc = (angle2 - angle1 >= 180)
-		sweep = 0 # always draw in negative direction
+		largearc = abs(angle2 - angle1) >= 180
+		sweep = 0 # 0: draw in negative direction
+		if angle1 > angle2 :
+			sweep = 1
 		if not fill :
 			self.f.write('<path stroke="%s" fill="none" stroke-width="%.3f" %s' \
 				% (self._rgb(color), self.line_width, self._stroke_style()))

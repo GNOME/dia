@@ -115,7 +115,14 @@ class DissectRenderer :
 			self.Warning ("%s width too small" % (fun,))
 		if height <= 0 :
 			self.Warning ("%s height too small" % (fun,))
-		# XXX: angles?
+		# angles
+		rot = 0.0
+		if angle1 < angle2 :
+			rot = angle2 - angle1
+		else :
+			rot = angle1 - angle2
+		if rot <= 0 or rot >= 360 :
+			self.Warning ("%s bad rotation %g,%g" % (fun, angle1, angle2))
 	def draw_arc (self, center, width, height, angle1, angle2, color) :
 		self._arc(center, width, height, angle1, angle2, "draw_arc")
 	def fill_arc (self, center, width, height, angle1, angle2, color) :

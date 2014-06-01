@@ -754,6 +754,12 @@ draw_arc(DiaRenderer *self,
 
     hPen = UsePen(renderer, colour);
 
+    if (angle1 > angle2) {
+	/* make it counter-clockwise by swapping start/end */
+	real tmp = angle1;
+	angle1 = angle2;
+	angle2 = tmp;
+    }
     /* calculate start and end points of arc */
     ptStart.x = SCX(center->x + (width / 2.0)  * cos((M_PI / 180.0) * angle1));
     ptStart.y = SCY(center->y - (height / 2.0) * sin((M_PI / 180.0) * angle1));
@@ -787,6 +793,12 @@ fill_arc(DiaRenderer *self,
     DIAG_NOTE(renderer, "fill_arc %fx%f <%f,<%f @%f,%f\n", 
               width, height, angle1, angle2, center->x, center->y);
 
+    if (angle1 > angle2) {
+	/* make it counter-clockwise by swapping start/end */
+	real tmp = angle1;
+	angle1 = angle2;
+	angle2 = tmp;
+    }
     /* calculate start and end points of arc */
     ptStart.x = SCX(center->x + (width / 2.0)  * cos((M_PI / 180.0) * angle1));
     ptStart.y = SCY(center->y - (height / 2.0) * sin((M_PI / 180.0) * angle1));

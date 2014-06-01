@@ -937,11 +937,7 @@ static void draw_arc(DiaRenderer *self,
     /* Find a control point at the midpoint of the arc */
     control = *center;
     control_angle = (angle1 + angle2)/2.0;
-    if (angle1 > angle2)
-    {
-        /* Arc goes antclockwise - allow for this */
-        control_angle -= 180;
-    }
+    /* no matter which direction the arc is control_angle is always between start and end */
     control.x += (width/2.0)*cos(control_angle*DEG_TO_RAD);
     control.y -= (height/2.0)*sin(control_angle*DEG_TO_RAD);
     g_debug("control(%f,%f @ %f)", control.x, control.y, control_angle);

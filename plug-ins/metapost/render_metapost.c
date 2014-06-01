@@ -546,8 +546,7 @@ metapost_arc(MetapostRenderer *renderer,
     fprintf(renderer->file, "%% %s = %s", "height", mp_dtostr(d1_buf, height));
     fprintf(renderer->file, "%% %s = %s", "angle1", mp_dtostr(d1_buf, angle1));
     fprintf(renderer->file, "%% %s = %s", "angle2", mp_dtostr(d1_buf, angle2));
-    
-    
+
     angle1 = angle1*M_PI/180;
     angle2 = angle2*M_PI/180;
     angle3 = (double) (angle1+angle2)/2;

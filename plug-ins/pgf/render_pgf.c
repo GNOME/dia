@@ -671,6 +671,12 @@ pgf_arc(PgfRenderer *renderer,
     radius1=(double) width/2.0;
     radius2=(double) height/2.0;
 
+    /* counter-clockwise */
+    if (angle2 < angle1) {
+       real tmp = angle1;
+       angle1 = angle2;
+       angle2 = tmp;
+    }
     pgf_dtostr(stx_buf,center->x+ radius1*cos(angle1*.017453));
     pgf_dtostr(sty_buf,center->y- radius2*sin(angle1*.017453));
     pgf_dtostr(cx_buf,center->x);

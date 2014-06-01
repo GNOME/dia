@@ -396,6 +396,12 @@ draw_arc(DiaRenderer *object,
               width, height, angle1, angle2));
     hpgl_select_pen(renderer, colour, 0.0);
 
+    /* make counter-clockwise swapping start/end */
+    if (angle2 < angle1) {
+	real tmp = angle1;
+	angle1 = angle2;
+	angle2 = tmp;
+    }
     /* move to start point */
     start.x = center->x + (width / 2.0)  * cos((M_PI / 180.0) * angle1);  
     start.y = - center->y + (height / 2.0) * sin((M_PI / 180.0) * angle1);

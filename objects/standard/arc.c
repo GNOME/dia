@@ -629,10 +629,17 @@ arc_draw(Arc *arc, DiaRenderer *renderer)
   if (   arc->start_arrow.type ==  ARROW_NONE
       && arc->end_arrow.type ==  ARROW_NONE
       && !start_cp && !end_cp) {
-    /* avoid all the calculation errors and use what whe have */
+    /* avoid all the calculation errors and start with original arcs */
+    real angle1 = arc->curve_distance > 0.0 ? arc->angle1 : arc->angle2;
+    real angle2 = arc->curve_distance > 0.0 ? arc->angle2 : arc->angle1;
+    /* make it direction aware */
+    if (arc->curve_distance > 0.0 && angle2 < angle1)
+      angle1 -= 360.0;
+    else if (arc->curve_distance < 0.0 && angle2 > angle1)
+      angle2 -= 360.0;
     renderer_ops->draw_arc(renderer, &arc->center_handle.pos,
 			   arc->radius*2.0, arc->radius*2.0,
-			   arc->angle1, arc->angle2,
+			   angle1, angle2,
 			   &arc->arc_color);
   } else {
     renderer_ops->draw_arc_with_arrows(renderer,
@@ -820,7 +827,9 @@ arc_update_data(Arc *arc)
   if (angle2<0)
     angle2+=360.0;
 
-  /* swap: draw_arc is always counter-clockwise */
+  /* swap: draw_arc is not always counter-clockwise, but our member variables
+   * stay counter-clockwise to keep all the internal calculations simple
+   */
   if (radius<0.0) {
     real tmp;
     tmp = angle1;

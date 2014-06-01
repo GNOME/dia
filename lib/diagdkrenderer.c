@@ -99,9 +99,6 @@ static void draw_polyline (DiaRenderer *renderer,
 static void draw_polygon (DiaRenderer *renderer,
                           Point *points, int num_points,
                           Color *fill, Color *stroke);
-static void draw_rounded_rect (DiaRenderer *renderer,
-                               Point *ul_corner, Point *lr_corner,
-                               Color *fill, Color *stroke, real radius);
 
 static real get_text_width (DiaRenderer *renderer,
                             const gchar *text, int length);
@@ -228,9 +225,6 @@ dia_gdk_renderer_class_init(DiaGdkRendererClass *klass)
   /* medium level functions */
   renderer_class->draw_rect    = draw_rect;
   renderer_class->draw_polyline  = draw_polyline;
-
-  /* highest level functions */
-  renderer_class->draw_rounded_rect = draw_rounded_rect;
 
   /* Interactive functions */
   renderer_class->get_text_width = get_text_width;
@@ -553,6 +547,7 @@ draw_fill_arc (DiaRenderer *object,
   GdkColor gdkcolor;
   gint top, left, bottom, right;
   real dangle;
+  gboolean counter_clockwise = angle2 > angle1;
   
   dia_transform_coords(renderer->transform,
                        center->x - width/2, center->y - height/2,
@@ -567,14 +562,19 @@ draw_fill_arc (DiaRenderer *object,
   renderer_color_convert(renderer, color, &gdkcolor);
   gdk_gc_set_foreground(gc, &gdkcolor);
 
-  dangle = angle2-angle1;
+  /* GDK wants it always counter-clockwise */
+  if (counter_clockwise)
+    dangle = angle2-angle1;
+  else
+    dangle = angle1-angle2;
   if (dangle<0)
     dangle += 360.0;
 
   gdk_draw_arc(renderer->pixmap,
 	       gc, fill,
 	       left, top, right-left, bottom-top,
-	       (int) (angle1*64.0), (int) (dangle*64.0));
+	       (int) (counter_clockwise ? angle1 : angle2) * 64.0,
+	       (int) (dangle * 64.0));
 }
 static void 
 draw_arc (DiaRenderer *object, 
@@ -922,94 +922,6 @@ draw_polyline (DiaRenderer *self,
   
   gdk_draw_lines(renderer->pixmap, gc, gdk_points, num_points);
   g_free(gdk_points);
-}
-
-/*!
- * \brief Fill and/or stroke a rectangle with rounded corner
- * Implemented to avoid seams between arcs and lines caused by the base class
- * working in real which than gets rounded independently to int here
- * \memberof _DiaGdkRenderer
- */
-static void
-draw_rounded_rect (DiaRenderer *self, 
-		   Point *ul_corner, Point *lr_corner,
-		   Color *fill, Color *stroke,
-		   real radius)
-{
-  DiaGdkRenderer *renderer = DIA_GDK_RENDERER (self);
-  GdkGC *gc = renderer->gc;
-  GdkColor gdkcolor;
-  gint top, bottom, left, right, d;
-  gint offset = 0; /* to compensate for a radius smaller than line_width */
-  Color *color = fill ? fill : stroke;
-  gint r = dia_transform_length(renderer->transform, radius);
-
-  g_return_if_fail (color != NULL);
-
-  if (r < 1) {
-    draw_rect (self, ul_corner, lr_corner, fill, stroke);
-    return;
-  }
-
-  dia_transform_coords(renderer->transform, 
-                       ul_corner->x, ul_corner->y, &left, &top);
-  dia_transform_coords(renderer->transform, 
-                       lr_corner->x, lr_corner->y, &right, &bottom);
-  r = dia_transform_length(renderer->transform, radius);
-
-  if ((left>right) || (top>bottom))
-    return;
-  /* adjust radius to possible size */
-  if (r>(right-left)/2)
-    r = (right-left)/2;
-  if (r>(bottom-top)/2)
-    r = (bottom-top)/2;
-
-  d = r<<1;
-  /* line_width is already scaled */
-  if (renderer->line_width > d)
-    offset = (renderer->line_width + 1) / 2;
-
-  renderer_color_convert(renderer, color, &gdkcolor);
-  gdk_gc_set_foreground(gc, &gdkcolor);
-
-  if (d > 0) {
-    if (offset > 0) {
-      /* avoid windowing system defined arc artifacts drawing by some adjustments  */
-      gdk_gc_set_line_attributes(renderer->gc, 
-                                 r, renderer->line_style, 
-				 renderer->cap_style, renderer->join_style);
-      gdk_draw_arc(renderer->pixmap, gc, TRUE, left-offset, top-offset, d, d, 90<<6, 90<<6);
-      gdk_draw_arc(renderer->pixmap, gc, TRUE, right-d+offset, top-offset, d, d, 0<<6, 90<<6);
-      gdk_draw_arc(renderer->pixmap, gc, TRUE, right-d+offset, bottom-d+offset, d, d, 270<<6, 90<<6);
-      gdk_draw_arc(renderer->pixmap, gc, TRUE, left-offset, bottom-d+offset, d, d, 180<<6, 90<<6);
-      gdk_gc_set_line_attributes(renderer->gc, 
-                                 renderer->line_width, renderer->line_style, 
-				 renderer->cap_style, renderer->join_style);
-    } else {
-      gdk_draw_arc(renderer->pixmap, gc, !!fill, left, top, d, d, 90<<6, 90<<6);
-      gdk_draw_arc(renderer->pixmap, gc, !!fill, right-d, top, d, d, 0<<6, 90<<6);
-      gdk_draw_arc(renderer->pixmap, gc, !!fill, right-d, bottom-d, d, d, 270<<6, 90<<6);
-      gdk_draw_arc(renderer->pixmap, gc, !!fill, left, bottom-d, d, d, 180<<6, 90<<6);
-    }
-  }
-
-  if (fill) {
-    renderer_color_convert(renderer, fill, &gdkcolor);
-    gdk_gc_set_foreground(gc, &gdkcolor);
-    gdk_draw_rectangle (renderer->pixmap, renderer->gc, TRUE, 
-                        left+r-offset, top, right-left-d+offset, bottom-top);
-    gdk_draw_rectangle (renderer->pixmap, renderer->gc, TRUE, 
-                        left, top+r-offset, right-left, bottom-top-d+offset);
-  }
-  if (stroke) {
-    renderer_color_convert(renderer, stroke, &gdkcolor);
-    gdk_gc_set_foreground(gc, &gdkcolor);
-    gdk_draw_line(renderer->pixmap, gc, left+r-offset, top, right-r+offset, top);
-    gdk_draw_line(renderer->pixmap, gc, right, top+r-offset, right, bottom-r+offset);
-    gdk_draw_line(renderer->pixmap, gc, right-r+offset, bottom, left+r-1-offset, bottom);
-    gdk_draw_line(renderer->pixmap, gc, left, bottom-r+offset, left, top+r-1-offset);
-  }
 }
 
 static int

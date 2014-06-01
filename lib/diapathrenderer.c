@@ -386,11 +386,8 @@ path_build_arc (GArray *path,
   int i, segs;
   real ars;
 
-  while (angle1 > angle2)
-    angle1 -= 360;
-
-  ar1 = (M_PI / 180.0) * angle2;
-  ar2 = (M_PI / 180.0) * angle1;
+  ar1 = (M_PI / 180.0) * angle1;
+  ar2 = (M_PI / 180.0) * angle2;
   /* one segment for ever 90 degrees */
   segs = (int)(fabs(ar2 - ar1) / (M_PI/2)) + 1;
   ars = - (ar2 - ar1) / segs;
@@ -398,16 +395,6 @@ path_build_arc (GArray *path,
   /* move to start point */
   start.x = center->x + (width / 2.0)  * cos(ar1);
   start.y = center->y - (height / 2.0) * sin(ar1);
-
-  /* Dia and Cairo don't agree on arc definitions, so it needs
-   * to be converted, i.e. mirrored at the x axis
-   */
-  ar1 = - ar1;
-  ar2 = - ar2;
-  while (ar1 < 0 || ar2 < 0) {
-    ar1 += 2 * M_PI;
-    ar2 += 2 * M_PI;
-  }
 
   if (!closed) {
     _path_append (path, &start);

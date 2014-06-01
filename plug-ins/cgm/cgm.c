@@ -819,6 +819,12 @@ write_ellarc (CgmRenderer   *renderer,
     int  len;
     real ynew;
 
+    /* Although not explicitly stated CGM seems to want counter-clockwise */
+    if (angle2 < angle1) {
+	real tmp = angle1;
+	angle1 = angle2;
+	angle2 = tmp;
+    }
     /*
     ** Angle's are in degrees, need to be converted to 2PI.
     */

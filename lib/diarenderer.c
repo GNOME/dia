@@ -815,16 +815,20 @@ draw_rounded_polyline (DiaRenderer *renderer,
     Point c;
     real start_angle, stop_angle;
     real min_radius;
+    gboolean arc_it;
+
     p3.x = p[i+1].x; p3.y = p[i+1].y;
     p4.x = p[i+2].x; p4.y = p[i+2].y;
-    
+
     /* adjust the radius if it would cause odd rendering */
     min_radius = MIN(radius, calculate_min_radius(&p1,&p2,&p4));
-    if (fillet(&p1,&p2,&p3,&p4, min_radius, &c, &start_angle, &stop_angle))
+    arc_it = fillet(&p1,&p2,&p3,&p4, min_radius, &c, &start_angle, &stop_angle);
+    /* start with the line drawing to allow joining in backend */    
+    klass->draw_line(renderer, &p1, &p2, color);
+    if (arc_it)
       klass->draw_arc(renderer, &c, min_radius*2, min_radius*2,
 		      start_angle,
 		      stop_angle, color);
-    klass->draw_line(renderer, &p1, &p2, color);
     p1.x = p3.x; p1.y = p3.y;
     p2.x = p4.x; p2.y = p4.y;
   }
@@ -901,54 +905,58 @@ draw_rounded_rect (DiaRenderer *renderer,
   DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Point start, end, center;
   Color *color = fill ? fill : stroke;
-
-  radius = MIN(radius, (lr_corner->x-ul_corner->x)/2);
-  radius = MIN(radius, (lr_corner->y-ul_corner->y)/2);
+  /* clip radius per axis to use the full API;) */
+  real rw = MIN(radius, (lr_corner->x-ul_corner->x)/2);
+  real rh = MIN(radius, (lr_corner->y-ul_corner->y)/2);
   
-  if (radius < 0.00001) {
+  if (rw < 0.00001 || rh < 0.00001) {
     renderer_ops->draw_rect(renderer, ul_corner, lr_corner, fill, stroke);
-    return;
+  } else {
+    real tlx = ul_corner->x; /* top-left x */
+    real tly = ul_corner->y; /* top-left y */
+    real brx = lr_corner->x; /* bottom-right x */
+    real bry = lr_corner->y; /* bottom-right y */
+    /* calculate all start/end points needed in advance, counter-clockwise */
+    Point pts[8];
+    Point cts[4]; /* ... and centers */
+    int i;
+
+    cts[0].x = tlx + rw; cts[0].y = tly + rh; /* ul */
+    pts[0].x = tlx; pts[0].y = tly + rh;
+    pts[1].x = tlx; pts[1].y = bry - rh; /* down */
+
+    cts[1].x = tlx + rw; cts[1].y = bry - rh; /* ll */
+    pts[2].x = tlx + rw; pts[2].y = bry;
+    pts[3].x = brx - rw; pts[3].y = bry; /* right */
+
+    cts[2].x = brx - rw; cts[2].y = bry - rh; /* lr */
+    pts[4].x = brx; pts[4].y = bry - rh;
+    pts[5].x = brx; pts[5].y = tly + rh; /* up */
+
+    cts[3].x = brx - rw; cts[3].y = tly + rh; /* ur */
+    pts[6].x = brx - rw; pts[6].y = tly; /* left */
+    pts[7].x = tlx + rw; pts[7].y = tly;
+
+ 
+    /* If line_width would be available we could approximate small radius with:
+     * renderer_ops->draw_polygon (renderer, pts, 8, fill, stroke);
+     */
+    /* a filled cross w/ overlap : might not be desirable with alpha */
+    if (fill) {
+      if (pts[3].x > pts[7].x)
+        renderer_ops->draw_rect (renderer, &pts[7], &pts[3], fill, NULL);
+      if (pts[4].y > pts[0].y)
+        renderer_ops->draw_rect (renderer, &pts[0], &pts[4], fill, NULL);
+    }
+    for (i = 0; i < 4; ++i) {
+      if (fill)
+	renderer_ops->fill_arc (renderer, &cts[i], 2*rw, 2*rh, (i+1)*90.0, (i+2)*90.0, fill);
+      if (stroke)
+	renderer_ops->draw_arc (renderer, &cts[i], 2*rw, 2*rh, (i+1)*90.0, (i+2)*90.0, stroke);
+      if (stroke)
+        renderer_ops->draw_line (renderer, &pts[i*2], &pts[i*2+1], stroke);
+    }
   }
-
-  /* if the renderer has it's own draw_bezier use that */
-  if (DIA_RENDERER_GET_CLASS(renderer)->draw_bezier != &draw_bezier) {
-    _rounded_rect_with_bezier (renderer, ul_corner, lr_corner, fill, stroke, radius);
-    return;
-  }
-  /* final fallback */
-  //FIXME: needs extended draw_arc 
-  start.x = center.x = ul_corner->x+radius;
-  end.x = lr_corner->x-radius;
-  start.y = end.y = ul_corner->y;
-  renderer_ops->draw_line(renderer, &start, &end, color);
-  start.y = end.y = lr_corner->y;
-  renderer_ops->draw_line(renderer, &start, &end, color);
-
-  center.y = ul_corner->y+radius;
-  renderer_ops->draw_arc(renderer, &center, 
-			  2.0*radius, 2.0*radius,
-			  90.0, 180.0, color);
-  center.x = end.x;
-  renderer_ops->draw_arc(renderer, &center, 
-			  2.0*radius, 2.0*radius,
-			  0.0, 90.0, color);
-
-  start.y = ul_corner->y+radius;
-  start.x = end.x = ul_corner->x;
-  end.y = center.y = lr_corner->y-radius;
-  renderer_ops->draw_line(renderer, &start, &end, color);
-  start.x = end.x = lr_corner->x;
-  renderer_ops->draw_line(renderer, &start, &end, color);
-
-  center.y = lr_corner->y-radius;
-  center.x = ul_corner->x+radius;
-  renderer_ops->draw_arc(renderer, &center, 
-			  2.0*radius, 2.0*radius,
-			  180.0, 270.0, color);
-  center.x = lr_corner->x-radius;
-  renderer_ops->draw_arc(renderer, &center, 
-			  2.0*radius, 2.0*radius,
-			  270.0, 360.0, color);
 }
 
 static void
@@ -1385,17 +1393,17 @@ draw_arc_with_arrows (DiaRenderer *renderer,
   while (angle1 < 0.0) angle1 += 360.0;
   angle2 = -atan2(new_endpoint.y - center.y, new_endpoint.x - center.x)*180.0/G_PI;
   while (angle2 < 0.0) angle2 += 360.0;
-  if (righthand) {
-    real tmp = angle1;
-    angle1 = angle2;
-    angle2 = tmp;
-  }
 
   /* Only draw it if the original direction is preserved */
-  if (is_right_hand (&new_startpoint, midpoint, &new_endpoint) == righthand)
+  if (is_right_hand (&new_startpoint, midpoint, &new_endpoint) == righthand) {
+    /* make it direction aware */
+    if (!righthand && angle2 < angle1)
+      angle1 -= 360.0;
+    else if (righthand && angle2 > angle1)
+      angle2 -= 360.0;
     DIA_RENDERER_GET_CLASS(renderer)->draw_arc(renderer, &center, width, width,
 					       angle1, angle2, color);
-
+  }
   if (start_arrow != NULL && start_arrow->type != ARROW_NONE)
     arrow_draw(renderer, start_arrow->type,
 	       &start_arrow_head, &start_arrow_end,

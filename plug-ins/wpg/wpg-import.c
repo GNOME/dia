@@ -116,17 +116,21 @@ _do_ellipse (WpgImportRenderer *ren, WPGEllipse* pEll)
   center.y = (h - pEll->y) / WPU_PER_DCM;
   
   if (fabs(pEll->EndAngle - pEll->StartAngle) < 360) {
+    /* WPG arcs are counter-clockwise so ensure that end is bigger than start */
+    real arcEnd = pEll->EndAngle;
+    if (arcEnd < pEll->StartAngle)
+      arcEnd += 360;
     if (ren->LineAttr.Type != WPG_LA_NONE)
       DIA_RENDERER_GET_CLASS(ren)->draw_arc (DIA_RENDERER(ren), &center,
 					     2 * pEll->rx / WPU_PER_DCM,
 					     2 * pEll->ry / WPU_PER_DCM,
-					     pEll->StartAngle, pEll->EndAngle,
+					     pEll->StartAngle, arcEnd,
 					     &ren->stroke);
     if (ren->FillAttr.Type != WPG_FA_HOLLOW)
       DIA_RENDERER_GET_CLASS(ren)->fill_arc (DIA_RENDERER(ren), &center,
 					     2 * pEll->rx / WPU_PER_DCM,
 					     2 * pEll->ry / WPU_PER_DCM,
-					     pEll->StartAngle, pEll->EndAngle,
+					     pEll->StartAngle, arcEnd,
 					     &ren->fill);
   } else {
     DIA_RENDERER_GET_CLASS(ren)->draw_ellipse (DIA_RENDERER(ren), &center,

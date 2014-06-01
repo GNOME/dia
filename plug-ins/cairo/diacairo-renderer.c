@@ -292,10 +292,13 @@ _pattern_build_for_cairo (DiaPattern *pattern, const Rectangle *ext)
  * \brief Make use of the pattern if any
  */
 static void
-_dia_cairo_fill (DiaCairoRenderer *renderer)
+_dia_cairo_fill (DiaCairoRenderer *renderer, gboolean preserve)
 {
   if (!renderer->pattern) {
-    cairo_fill (renderer->cr);
+    if (preserve)
+      cairo_fill_preserve (renderer->cr);
+    else
+      cairo_fill (renderer->cr);
   } else {
     /* maybe we should cache the cairo-pattern */
     cairo_pattern_t *pat;
@@ -306,7 +309,10 @@ _dia_cairo_fill (DiaCairoRenderer *renderer)
 
     pat = _pattern_build_for_cairo (renderer->pattern, &fe);
     cairo_set_source (renderer->cr, pat);
-    cairo_fill (renderer->cr);
+    if (preserve)
+      cairo_fill_preserve (renderer->cr);
+    else
+      cairo_fill (renderer->cr);
     cairo_pattern_destroy (pat);
   }
 }
@@ -567,7 +573,8 @@ draw_line(DiaRenderer *self,
             start->x, start->y, end->x, end->y));
 
   cairo_set_source_rgba (renderer->cr, color->red, color->green, color->blue, color->alpha);
-  cairo_move_to (renderer->cr, start->x, start->y);
+  if (!renderer->stroke_pending) /* use current point from previous drawing command */
+    cairo_move_to (renderer->cr, start->x, start->y);
   cairo_line_to (renderer->cr, end->x, end->y);
   if (!renderer->stroke_pending)
     cairo_stroke (renderer->cr);
@@ -627,7 +634,7 @@ _polygon(DiaRenderer *self,
   cairo_line_to (renderer->cr, points[0].x, points[0].y);
   cairo_close_path (renderer->cr);
   if (fill)
-    _dia_cairo_fill (renderer);
+    _dia_cairo_fill (renderer, FALSE);
   else
     cairo_stroke (renderer->cr);
   DIAG_STATE(renderer->cr)
@@ -663,7 +670,7 @@ _rect(DiaRenderer *self,
                    lr_corner->x - ul_corner->x, lr_corner->y - ul_corner->y);
 
   if (fill)
-    _dia_cairo_fill (renderer);
+    _dia_cairo_fill (renderer, FALSE);
   else
     cairo_stroke (renderer->cr);
   DIAG_STATE(renderer->cr)
@@ -701,21 +708,25 @@ draw_arc(DiaRenderer *self,
 
   if (!renderer->stroke_pending)
     cairo_new_path (renderer->cr);
-  /* Dia and Cairo don't agree on arc definitions, so it needs
-   * to be converted, i.e. mirrored at the x axis
-   */
   start.x = center->x + (width / 2.0)  * cos((M_PI / 180.0) * angle1);
   start.y = center->y - (height / 2.0) * sin((M_PI / 180.0) * angle1);
-  cairo_move_to (renderer->cr, start.x, start.y);
+  if (!renderer->stroke_pending) /* when activated the first current point must be set */
+    cairo_move_to (renderer->cr, start.x, start.y);
   a1 = - (angle1 / 180.0) * G_PI;
   a2 = - (angle2 / 180.0) * G_PI;
   /* FIXME: to handle width != height some cairo_scale/cairo_translate would be needed */
   ensure_minimum_one_device_unit (renderer, &onedu);
   /* FIXME2: with too small arcs cairo goes into an endless loop */
-  if (height/2.0 > onedu && width/2.0 > onedu)
-    cairo_arc_negative (renderer->cr, center->x, center->y, 
-                        width > height ? height / 2.0 : width / 2.0, /* FIXME 2nd radius */
-                        a1, a2);
+  if (height/2.0 > onedu && width/2.0 > onedu) {
+    if (angle2 > angle1)
+      cairo_arc_negative (renderer->cr, center->x, center->y, 
+			  width > height ? height / 2.0 : width / 2.0, /* FIXME 2nd radius */
+			  a1, a2);
+    else
+      cairo_arc (renderer->cr, center->x, center->y, 
+		 width > height ? height / 2.0 : width / 2.0, /* FIXME 2nd radius */
+		 a1, a2);
+  }
   if (!renderer->stroke_pending)
     cairo_stroke (renderer->cr);
   DIAG_STATE(renderer->cr)
@@ -745,12 +756,17 @@ fill_arc(DiaRenderer *self,
   a1 = - (angle1 / 180.0) * G_PI;
   a2 = - (angle2 / 180.0) * G_PI;
   /* FIXME: to handle width != height some cairo_scale/cairo_translate would be needed */
-  cairo_arc_negative (renderer->cr, center->x, center->y, 
-                      width > height ? height / 2.0 : width / 2.0, /* FIXME 2nd radius */
-                      a1, a2);
+  if (angle2 > angle1)
+    cairo_arc_negative (renderer->cr, center->x, center->y, 
+			width > height ? height / 2.0 : width / 2.0, /* XXX 2nd radius */
+			a1, a2);
+  else
+    cairo_arc (renderer->cr, center->x, center->y, 
+	       width > height ? height / 2.0 : width / 2.0, /* XXX 2nd radius */
+	       a1, a2);
   cairo_line_to (renderer->cr, center->x, center->y);
   cairo_close_path (renderer->cr);
-  _dia_cairo_fill (renderer);
+  _dia_cairo_fill (renderer, FALSE);
   DIAG_STATE(renderer->cr)
 }
 
@@ -785,7 +801,7 @@ _ellipse(DiaRenderer *self,
   cairo_restore (renderer->cr);
 
   if (fill)
-    _dia_cairo_fill (renderer);
+    _dia_cairo_fill (renderer, FALSE);
   else
     cairo_stroke (renderer->cr);
   DIAG_STATE(renderer->cr)
@@ -844,7 +860,7 @@ _bezier(DiaRenderer *self,
   if (closed)
     cairo_close_path(renderer->cr);
   if (fill)
-    _dia_cairo_fill (renderer);
+    _dia_cairo_fill (renderer, FALSE);
   else
     cairo_stroke (renderer->cr);
   DIAG_STATE(renderer->cr)
@@ -1058,6 +1074,45 @@ draw_image(DiaRenderer *self,
 
 static gpointer parent_class = NULL;
 
+/*!
+ * \brief Fill and/or stroke a rectangle with rounded corner
+ * Implemented to avoid seams between arcs and lines caused by the base class
+ * working in real which than gets rounded independently to int here
+ * \memberof _DiaCairoRenderer
+ */
+static void
+draw_rounded_rect (DiaRenderer *self, 
+		   Point *ul_corner, Point *lr_corner,
+		   Color *fill, Color *stroke,
+		   real radius)
+{
+  DiaCairoRenderer *renderer = DIA_CAIRO_RENDERER (self);
+  real r2 = (lr_corner->x - ul_corner->x) / 2.0;
+  radius = MIN(r2, radius);
+  r2 = (lr_corner->y - ul_corner->y) / 2.0;
+  radius = MIN(r2, radius);
+  if (radius < 0.0001) {
+    draw_rect (self, ul_corner, lr_corner, fill, stroke);
+    return;
+  }
+  g_return_if_fail (stroke != NULL || fill != NULL);
+  /* use base class implementation to create a path */
+  cairo_new_path (renderer->cr);
+  cairo_move_to (renderer->cr, ul_corner->x + radius, ul_corner->y);
+  renderer->stroke_pending = TRUE;
+  DIA_RENDERER_CLASS(parent_class)->draw_rounded_rect(self, 
+						      ul_corner, lr_corner,
+						      NULL, fill, radius);
+  renderer->stroke_pending = FALSE;
+  cairo_close_path (renderer->cr);
+  if (fill) /* if a stroke follows preserve the path */
+    _dia_cairo_fill (renderer, stroke ? TRUE : FALSE);
+  if (stroke) {
+    cairo_set_source_rgba (renderer->cr, stroke->red, stroke->green, stroke->blue, stroke->alpha);
+    cairo_stroke (renderer->cr);
+  }
+}
+
 static void
 draw_rounded_polyline (DiaRenderer *self,
                        Point *points, int num_points,
@@ -1069,6 +1124,8 @@ draw_rounded_polyline (DiaRenderer *self,
   cairo_move_to (renderer->cr, points[0].x, points[0].y);
   /* use base class implementation */
   renderer->stroke_pending = TRUE;
+  /* set the starting point to avoid move-to in between */
+  cairo_move_to (renderer->cr, points[0].x, points[0].y);
   DIA_RENDERER_CLASS(parent_class)->draw_rounded_polyline (self, 
                                                            points, num_points,
 							   color, radius);
@@ -1180,6 +1237,7 @@ cairo_renderer_class_init (DiaCairoRendererClass *klass)
   renderer_class->draw_beziergon = draw_beziergon;
 
   /* highest level functions */
+  renderer_class->draw_rounded_rect = draw_rounded_rect;
   renderer_class->draw_rounded_polyline = draw_rounded_polyline;
   /* other */
   renderer_class->is_capable_to = is_capable_to;

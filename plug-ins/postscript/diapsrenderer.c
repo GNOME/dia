@@ -401,6 +401,12 @@ psrenderer_arc(DiaPsRenderer *renderer,
 
   lazy_setcolor(renderer, color);
 
+  if (angle2 < angle1) {
+    /* swap for counter-clockwise */
+    real tmp = angle1;
+    angle1 = angle2;
+    angle2 = tmp;
+  }
   psrenderer_dtostr(cx_buf, (gdouble) center->x);
   psrenderer_dtostr(cy_buf, (gdouble) center->y);
   psrenderer_dtostr(a1_buf, (gdouble) 360.0 - angle1);

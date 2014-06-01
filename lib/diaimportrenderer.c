@@ -330,6 +330,13 @@ _make_arc (Point *center,
   real rx = width / 2, ry = height / 2;
   real r = sqrt (rx*ry);
   real a, b, d;
+  /* handle direction information
+   *  - the arc being bigger than 180 => d>r!
+   *  - angle2 < angle1 => d must be negative
+   */
+  gboolean big_arc = fabs(angle2-angle1) > 180.0;
+  gboolean clockwise = angle2 < angle1;
+
   st.x = center->x + rx * cos(angle1*G_PI/180);
   st.y = center->y - ry * sin(angle1*G_PI/180);
   en.x = center->x + rx * cos(angle2*G_PI/180);
@@ -339,8 +346,12 @@ _make_arc (Point *center,
     b = sqrt(r*r - a*a); /* Pythagoras */
   else
     b = 0; /* half circle */
-  d = r - b;
-
+  if (big_arc)
+    d = r + b;
+  else
+    d = r - b;
+  if (clockwise)
+    d = -d;
   object = create_standard_arc (st.x, st.y, en.x, en.y, d, NULL, NULL);
   return object;
 }

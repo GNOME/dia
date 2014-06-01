@@ -438,21 +438,27 @@ draw_arc(DiaRenderer *self,
 {
     DxfRenderer *renderer = DXF_RENDERER(self);
     gchar buf[G_ASCII_DTOSTR_BUF_SIZE];
-
+    /* DXF arcs are preferably counter-clockwise, so we might need to swap angles
+     * According to my reading of the specs header section group code 70 might allow
+     * clockwise arcs with $ANGDIR = 1 but it's not supported on the single arc level
+     */
+    if (angle2 < angle1) {
+	real tmp = angle1;
+	angle1 = angle2;
+	angle2 = tmp;
+    }
     if(width != 0.0){
-        fprintf(renderer->file, "  0\nARC\n");
-        fprintf(renderer->file, "  8\n%s\n", renderer->layername);
-        fprintf(renderer->file, "  6\n%s\n", renderer->lcurrent.style);
-        fprintf(renderer->file, " 10\n%s\n", g_ascii_formatd (buf, sizeof(buf), "%g", center->x));
-        fprintf(renderer->file, " 20\n%s\n", g_ascii_formatd (buf, sizeof(buf), "%g", (-1)*center->y));
-        fprintf(renderer->file, " 40\n%s\n", g_ascii_formatd (buf, sizeof(buf), "%g", width/2)); /* radius */
-        fprintf(renderer->file, " 39\n%d\n", (int)(MAGIC_THICKNESS_FACTOR*renderer->lcurrent.width)); /* Thickness */
-	/* From specification: "output in degrees to DXF files". But radians work for all
-	 * importers I tested. Also there seems to be a problem with arcs to be drawn counter-clockwise
-	 */
+	fprintf(renderer->file, "  0\nARC\n");
+	fprintf(renderer->file, "  8\n%s\n", renderer->layername);
+	fprintf(renderer->file, "  6\n%s\n", renderer->lcurrent.style);
+	fprintf(renderer->file, " 10\n%s\n", g_ascii_formatd (buf, sizeof(buf), "%g", center->x));
+	fprintf(renderer->file, " 20\n%s\n", g_ascii_formatd (buf, sizeof(buf), "%g", (-1)*center->y));
+	fprintf(renderer->file, " 40\n%s\n", g_ascii_formatd (buf, sizeof(buf), "%g", width/2)); /* radius */
+	fprintf(renderer->file, " 39\n%d\n", (int)(MAGIC_THICKNESS_FACTOR*renderer->lcurrent.width)); /* Thickness */
+	/* From specification: "output in degrees to DXF files". */
 	fprintf(renderer->file, " 100\nAcDbArc\n");
-        fprintf(renderer->file, " 50\n%s\n", g_ascii_formatd (buf, sizeof(buf), "%g", (angle1 ))); /* start angle */
-        fprintf(renderer->file, " 51\n%s\n", g_ascii_formatd (buf, sizeof(buf), "%g", (angle2 ))); /* end angle */		
+	fprintf(renderer->file, " 50\n%s\n", g_ascii_formatd (buf, sizeof(buf), "%g", (angle1 ))); /* start angle */
+	fprintf(renderer->file, " 51\n%s\n", g_ascii_formatd (buf, sizeof(buf), "%g", (angle2 ))); /* end angle */
     }
     fprintf(renderer->file, " 62\n%d\n", dxf_color (colour));
 }
