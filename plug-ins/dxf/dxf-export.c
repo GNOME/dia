@@ -119,50 +119,6 @@ struct _DxfRenderer
 
 };
 
-
-static void begin_render(DiaRenderer *self, const Rectangle *update);
-static void end_render(DiaRenderer *self);
-static void set_linewidth(DiaRenderer *self, real linewidth);
-static void set_linecaps(DiaRenderer *self, LineCaps mode);
-static void set_linejoin(DiaRenderer *self, LineJoin mode);
-static void set_linestyle(DiaRenderer *self, LineStyle mode, real dash_length);
-static void set_fillstyle(DiaRenderer *self, FillStyle mode);
-static void set_font(DiaRenderer *self, DiaFont *font, real height);
-static void draw_line(DiaRenderer *self, 
-		      Point *start, Point *end, 
-		      Color *line_colour);
-static void draw_polyline(DiaRenderer *self, 
-                          Point *points, int num_points, 
-                          Color *color);
-static void draw_rect (DiaRenderer *renderer,
-                       Point *ul_corner, Point *lr_corner,
-                       Color *fill, Color *stroke);
-static void draw_polygon (DiaRenderer *renderer,
-                          Point *points, int num_points,
-                          Color *fill, Color *stroke);
-static void draw_arc(DiaRenderer *self, 
-		     Point *center,
-		     real width, real height,
-		     real angle1, real angle2,
-		     Color *colour);
-static void fill_arc(DiaRenderer *self, 
-		     Point *center,
-		     real width, real height,
-		     real angle1, real angle2,
-		     Color *colour);
-static void draw_ellipse(DiaRenderer *self, 
-			 Point *center,
-			 real width, real height,
-			 Color *fill, Color *stroke);
-static void draw_string(DiaRenderer *self,
-			const char *text,
-			Point *pos, Alignment alignment,
-			Color *colour);
-static void draw_image(DiaRenderer *self,
-		       Point *point,
-		       real width, real height,
-		       DiaImage *image);
-
 static void dxf_renderer_class_init (DxfRendererClass *klass);
 
 static gpointer parent_class = NULL;
@@ -200,41 +156,6 @@ dxf_renderer_finalize (GObject *object)
 {
   G_OBJECT_CLASS (parent_class)->finalize (object);
 }
-
-static void
-dxf_renderer_class_init (DxfRendererClass *klass)
-{
-  GObjectClass *object_class = G_OBJECT_CLASS (klass);
-  DiaRendererClass *renderer_class = DIA_RENDERER_CLASS (klass);
-
-  parent_class = g_type_class_peek_parent (klass);
-
-  object_class->finalize = dxf_renderer_finalize;
-
-  renderer_class->begin_render = begin_render;
-  renderer_class->end_render = end_render;
-
-  renderer_class->set_linewidth = set_linewidth;
-  renderer_class->set_linecaps = set_linecaps;
-  renderer_class->set_linejoin = set_linejoin;
-  renderer_class->set_linestyle = set_linestyle;
-  renderer_class->set_fillstyle = set_fillstyle;
-  renderer_class->set_font = set_font;
-  
-  renderer_class->draw_line = draw_line;
-  renderer_class->draw_polygon = draw_polygon;
-  renderer_class->draw_polyline = draw_polyline;
-
-  renderer_class->draw_arc = draw_arc;
-  renderer_class->fill_arc = fill_arc;
-
-  renderer_class->draw_ellipse = draw_ellipse;
-
-  renderer_class->draw_string = draw_string;
-
-  renderer_class->draw_image = draw_image;
-}
-
 
 static void
 init_attributes( DxfRenderer *renderer )
@@ -541,6 +462,40 @@ draw_image(DiaRenderer *self,
 	   real width, real height,
 	   DiaImage *image)
 {
+}
+
+static void
+dxf_renderer_class_init (DxfRendererClass *klass)
+{
+  GObjectClass *object_class = G_OBJECT_CLASS (klass);
+  DiaRendererClass *renderer_class = DIA_RENDERER_CLASS (klass);
+
+  parent_class = g_type_class_peek_parent (klass);
+
+  object_class->finalize = dxf_renderer_finalize;
+
+  renderer_class->begin_render = begin_render;
+  renderer_class->end_render = end_render;
+
+  renderer_class->set_linewidth = set_linewidth;
+  renderer_class->set_linecaps = set_linecaps;
+  renderer_class->set_linejoin = set_linejoin;
+  renderer_class->set_linestyle = set_linestyle;
+  renderer_class->set_fillstyle = set_fillstyle;
+  renderer_class->set_font = set_font;
+  
+  renderer_class->draw_line = draw_line;
+  renderer_class->draw_polygon = draw_polygon;
+  renderer_class->draw_polyline = draw_polyline;
+
+  renderer_class->draw_arc = draw_arc;
+  renderer_class->fill_arc = fill_arc;
+
+  renderer_class->draw_ellipse = draw_ellipse;
+
+  renderer_class->draw_string = draw_string;
+
+  renderer_class->draw_image = draw_image;
 }
 
 static gboolean
