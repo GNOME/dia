@@ -255,60 +255,6 @@ struct _CgmRenderer
     DiaContext *ctx;
 };
 
-
-
-static void begin_render(DiaRenderer *self, const Rectangle *update);
-static void end_render(DiaRenderer *self);
-static void set_linewidth(DiaRenderer *self, real linewidth);
-static void set_linecaps(DiaRenderer *self, LineCaps mode);
-static void set_linejoin(DiaRenderer *self, LineJoin mode);
-static void set_linestyle(DiaRenderer *self, LineStyle mode, real dash_length);
-static void set_fillstyle(DiaRenderer *self, FillStyle mode);
-static void set_font(DiaRenderer *self, DiaFont *font, real height);
-static void draw_line(DiaRenderer *self, 
-		      Point *start, Point *end, 
-		      Color *line_colour);
-static void draw_polyline(DiaRenderer *self, 
-			  Point *points, int num_points, 
-			  Color *line_colour);
-static void draw_polygon(DiaRenderer *self, 
-			 Point *points, int num_points, 
-			 Color *fill, Color *stroke);
-static void draw_rect(DiaRenderer *self, 
-		      Point *ul_corner, Point *lr_corner,
-		      Color *fill, Color *stroke);
-static void draw_arc(DiaRenderer *self, 
-		     Point *center,
-		     real width, real height,
-		     real angle1, real angle2,
-		     Color *colour);
-static void fill_arc(DiaRenderer *self, 
-		     Point *center,
-		     real width, real height,
-		     real angle1, real angle2,
-		     Color *colour);
-static void draw_ellipse(DiaRenderer *self, 
-			 Point *center,
-			 real width, real height,
-			 Color *fill, Color *stroke);
-static void draw_bezier(DiaRenderer *self, 
-			BezPoint *points,
-			int numpoints,
-			Color *colour);
-static void draw_beziergon(DiaRenderer *self, 
-			   BezPoint *points, /* Last point must be same as first point */
-			   int numpoints,
-			   Color *fill,
-			   Color *stroke);
-static void draw_string(DiaRenderer *self,
-			const char *text,
-			Point *pos, Alignment alignment,
-			Color *colour);
-static void draw_image(DiaRenderer *self,
-		       Point *point,
-		       real width, real height,
-		       DiaImage *image);
-
 static void
 init_attributes( CgmRenderer *renderer )
 {
