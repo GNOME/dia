@@ -212,7 +212,7 @@ draw_line(DiaRenderer *self,
 static void
 _polyline(DiaRenderer *self, 
 	  Point *points, int num_points, 
-	  Color *stroke, Color *fill,
+	  Color *fill, Color *stroke,
 	  gboolean closed)
 {
   Point *a_pts = g_newa (Point, num_points);
@@ -237,9 +237,9 @@ _polyline(DiaRenderer *self,
 static void
 draw_polyline(DiaRenderer *self, 
 	      Point *points, int num_points, 
-	      Color *line_colour)
+	      Color *stroke)
 {
-  _polyline (self, points, num_points, line_colour, NULL, FALSE);
+  _polyline (self, points, num_points, NULL, stroke, FALSE);
 }
 /*!
  * \brief Transform polygon and delegate draw
@@ -248,9 +248,9 @@ draw_polyline(DiaRenderer *self,
 static void
 draw_polygon(DiaRenderer *self, 
 	      Point *points, int num_points, 
-	      Color *line_colour)
+	      Color *fill, Color *stroke)
 {
-  _polyline (self, points, num_points, line_colour, NULL, TRUE);
+  _polyline (self, points, num_points, fill, stroke, TRUE);
 }
 /* ToDo: arc and ellipse to be emulated by bezier - in base class? */
 static void
