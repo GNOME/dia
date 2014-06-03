@@ -1083,13 +1083,16 @@ draw_rounded_rect (DiaRenderer *self,
   cairo_new_path (renderer->cr);
   cairo_move_to (renderer->cr, ul_corner->x + radius, ul_corner->y);
   renderer->stroke_pending = TRUE;
+  /* only stroke, no fill gives us the contour */
   DIA_RENDERER_CLASS(parent_class)->draw_rounded_rect(self, 
 						      ul_corner, lr_corner,
-						      NULL, fill, radius);
+						      NULL, stroke ? stroke : fill, radius);
   renderer->stroke_pending = FALSE;
   cairo_close_path (renderer->cr);
-  if (fill) /* if a stroke follows preserve the path */
+  if (fill) { /* if a stroke follows preserve the path */
+    cairo_set_source_rgba (renderer->cr, fill->red, fill->green, fill->blue, fill->alpha);
     _dia_cairo_fill (renderer, stroke ? TRUE : FALSE);
+  }
   if (stroke) {
     cairo_set_source_rgba (renderer->cr, stroke->red, stroke->green, stroke->blue, stroke->alpha);
     cairo_stroke (renderer->cr);
