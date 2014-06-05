@@ -710,6 +710,10 @@ extern PropEnumData prop_std_line_caps_data[];
   { PROP_STDNAME_TEXT_FITTING, PROP_TYPE_ENUM, PROP_FLAG_VISIBLE|PROP_FLAG_OPTIONAL, \
     N_("Text fitting"), NULL, prop_std_text_fitting_data }
 
+#define PROP_STD_PATTERN \
+  { "pattern", PROP_TYPE_PATTERN, PROP_FLAG_VISIBLE|PROP_FLAG_OPTIONAL, \
+    N_("Pattern"), NULL }
+
 /* Convenience macros */
 #define PROP_NOTEBOOK_BEGIN(name) \
   { "nbook_" name, PROP_TYPE_NOTEBOOK_BEGIN, \

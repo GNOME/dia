@@ -106,8 +106,7 @@ static PropDescription beziergon_props[] = {
   PROP_STD_LINE_JOIN_OPTIONAL,
   PROP_STD_FILL_COLOUR,
   PROP_STD_SHOW_BACKGROUND,
-  { "pattern", PROP_TYPE_PATTERN, PROP_FLAG_VISIBLE|PROP_FLAG_OPTIONAL,
-    N_("Pattern"), NULL },
+  PROP_STD_PATTERN,
   PROP_DESC_END
 };
 

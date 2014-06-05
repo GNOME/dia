@@ -144,8 +144,7 @@ static PropDescription box_props[] = {
     N_("Corner radius"), NULL, &corner_radius_data },
   { "aspect", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE,
     N_("Aspect ratio"), NULL, prop_aspect_data },
-  { "pattern", PROP_TYPE_PATTERN, PROP_FLAG_VISIBLE|PROP_FLAG_OPTIONAL,
-    N_("Pattern"), NULL },
+  PROP_STD_PATTERN,
   PROP_DESC_END
 };
 

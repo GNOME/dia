@@ -368,6 +368,7 @@ static PropDescription _style_prop_descs[] = {
   PROP_STD_TEXT_HEIGHT,
   PROP_STD_TEXT_COLOUR,
   PROP_STD_TEXT_FITTING,
+  PROP_STD_PATTERN,
 #endif
   PROP_DESC_END
 };
