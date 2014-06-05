@@ -178,14 +178,14 @@ static const GtkActionEntry display_entries[] =
     { "ViewRedraw", GTK_STOCK_REFRESH, NULL, NULL, NULL, G_CALLBACK (view_redraw_callback) },
 
   { "Objects", NULL, N_("_Objects"), NULL, NULL },
-    { "ObjectsSendtoback", GTK_STOCK_GOTO_BOTTOM, N_("Send to _Back"), FIRST_MODIFIER "<shift>B", NULL, G_CALLBACK (objects_place_under_callback) },
-    { "ObjectsBringtofront", GTK_STOCK_GOTO_TOP, N_("Bring to _Front"), FIRST_MODIFIER "<shift>F", NULL, G_CALLBACK (objects_place_over_callback) },
+    { "ObjectsSendtoback", GTK_STOCK_GOTO_BOTTOM, N_("Send to _Back"), FIRST_MODIFIER "<shift>B", N_("Move selection to the bottom"), G_CALLBACK (objects_place_under_callback) },
+    { "ObjectsBringtofront", GTK_STOCK_GOTO_TOP, N_("Bring to _Front"), FIRST_MODIFIER "<shift>F", N_("Move selection to the top"), G_CALLBACK (objects_place_over_callback) },
     { "ObjectsSendbackwards", GTK_STOCK_GO_DOWN, N_("Send Backwards"), NULL, NULL, G_CALLBACK (objects_place_down_callback) },
     { "ObjectsBringforwards", GTK_STOCK_GO_UP, N_("Bring Forwards"), NULL, NULL, G_CALLBACK (objects_place_up_callback) },
 
-    { "ObjectsGroup", DIA_STOCK_GROUP, N_("_Group"), FIRST_MODIFIER "G", NULL, G_CALLBACK (objects_group_callback) },
+    { "ObjectsGroup", DIA_STOCK_GROUP, N_("_Group"), FIRST_MODIFIER "G", N_("Group selected objects"), G_CALLBACK (objects_group_callback) },
     /* deliberately not using Ctrl+U for Ungroup */
-    { "ObjectsUngroup", DIA_STOCK_UNGROUP, N_("_Ungroup"), FIRST_MODIFIER "<shift>G", NULL, G_CALLBACK (objects_ungroup_callback) }, 
+    { "ObjectsUngroup", DIA_STOCK_UNGROUP, N_("_Ungroup"), FIRST_MODIFIER "<shift>G", N_("Ungroup selected groups"), G_CALLBACK (objects_ungroup_callback) }, 
 
     { "ObjectsParent", NULL, N_("_Parent"), FIRST_MODIFIER "K", NULL, G_CALLBACK (objects_parent_callback) },
     { "ObjectsUnparent", NULL, N_("_Unparent"), FIRST_MODIFIER "<shift>K", NULL, G_CALLBACK (objects_unparent_callback) },
