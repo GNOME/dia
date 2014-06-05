@@ -269,18 +269,18 @@ _path_arc_segment (GArray      *path,
   real r_sin_B, r_cos_B;
   real h;
 
-  r_sin_A = radius * sin (angle_A);
-  r_cos_A = radius * cos (angle_A);
-  r_sin_B = radius * sin (angle_B);
-  r_cos_B = radius * cos (angle_B);
+  r_sin_A = -radius * sin (angle_A);
+  r_cos_A =  radius * cos (angle_A);
+  r_sin_B = -radius * sin (angle_B);
+  r_cos_B =  radius * cos (angle_B);
 
   h = 4.0/3.0 * tan ((angle_B - angle_A) / 4.0);
-  
+
   bp.type = BEZ_CURVE_TO;
-  bp.p1.x = center->x + r_cos_A - h * r_sin_A;
-  bp.p1.y = center->y + r_sin_A + h * r_cos_A,
-  bp.p2.x = center->x + r_cos_B + h * r_sin_B,
-  bp.p2.y = center->y + r_sin_B - h * r_cos_B,
+  bp.p1.x = center->x + r_cos_A + h * r_sin_A;
+  bp.p1.y = center->y + r_sin_A - h * r_cos_A,
+  bp.p2.x = center->x + r_cos_B - h * r_sin_B,
+  bp.p2.y = center->y + r_sin_B + h * r_cos_B,
   bp.p3.x = center->x + r_cos_B;
   bp.p3.y = center->y + r_sin_B;
 
@@ -381,13 +381,19 @@ path_build_arc (GArray *path,
   real ar2;
   int i, segs;
   real ars;
+  real ctl;
+  gboolean ccw = angle2 > angle1;
 
   ar1 = (M_PI / 180.0) * angle1;
   ar2 = (M_PI / 180.0) * angle2;
   /* one segment for ever 90 degrees */
-  segs = (int)(fabs(ar2 - ar1) / (M_PI/2)) + 1;
-  ars = - (ar2 - ar1) / segs;
-
+  if (ccw) {
+    segs = (int)((ar2 - ar1) / (M_PI/2)) + 1;
+    ars = (ar2 - ar1) / segs;
+  } else {
+    segs = (int)((ar1 - ar2) / (M_PI/2)) + 1;
+    ars = -(ar1 - ar2) / segs;
+  }
   /* move to start point */
   start.x = center->x + (width / 2.0)  * cos(ar1);
   start.y = center->y - (height / 2.0) * sin(ar1);
@@ -398,7 +404,8 @@ path_build_arc (GArray *path,
       _path_arc_segment (path, center, radius, ar1, ar1 + ars);
   } else {
     _path_moveto (path, &start);
-    _path_arc_segment (path, center, radius, ar1, ar2);
+    for (i = 0; i < segs; ++i, ar1 += ars)
+      _path_arc_segment (path, center, radius, ar1, ar2);
     _path_lineto (path, center);
     _path_lineto (path, &start);
   }
@@ -406,8 +413,6 @@ path_build_arc (GArray *path,
 
 /*!
  * \brief Convert an arc to some bezier curve-to
- * \bug For arcs going through angle 0 the result is wrong, 
- * kind of the opposite of the desired.
  * \protected \memberof _DiaPathRenderer
  */
 static void
@@ -644,6 +649,34 @@ draw_image(DiaRenderer *self,
   _path_lineto (path, &to);
 }
 
+/*! 
+ * \brief Create contour of the rounded rect
+ *
+ * This methods needs to be implemented to avoid the default
+ * implementation mixing calls of draw_arc, drar_line and fill_arc.
+ * We still use the default but only method but only for the outline.
+ */
+static void
+draw_rounded_rect (DiaRenderer *self, 
+		   Point *ul_corner, Point *lr_corner,
+		   Color *fill, Color *stroke, real radius)
+{
+  DiaPathRenderer *renderer = DIA_PATH_RENDERER (self);
+  real rx = (lr_corner->x - ul_corner->x) / 2;
+  real ry = (lr_corner->y - ul_corner->y) / 2;
+  /* limit radius to fit */
+  if (radius > rx)
+    radius = rx;
+  if (radius > ry)
+    radius = ry;
+  DIA_RENDERER_CLASS(dia_path_renderer_parent_class)->draw_rounded_rect(self, 
+							ul_corner, lr_corner,
+							NULL, stroke ? stroke : fill, radius);
+  /* stroke is set by the piecewise rendering above already */
+  if (fill)
+    renderer->fill = *fill;
+}
+
 /*!
  * \brief _DiaPathRenderer class initialization
  * Overwrite methods of the base classes here.
@@ -682,6 +715,8 @@ dia_path_renderer_class_init (DiaPathRendererClass *klass)
   renderer_class->draw_bezier    = draw_bezier;
   renderer_class->draw_beziergon = draw_beziergon;
   renderer_class->draw_text      = draw_text;
+  /* highest level function */
+  renderer_class->draw_rounded_rect = draw_rounded_rect;
   /* other */
   renderer_class->is_capable_to = is_capable_to;
 }
