@@ -208,7 +208,7 @@ property_signal_handler(GObject *obj,
        *
        * See also commonprop_reset_widget() for more information
        */
-      gboolean was_set = (pwa->prop->experience & PXP_NOTSET == 0);
+      gboolean was_set = ((pwa->prop->experience & PXP_NOTSET) == 0);
       pwa->prop->ops->reset_widget(pwa->prop,pwa->widget);
       if (was_set)
 	pwa->prop->experience &= ~PXP_NOTSET;
