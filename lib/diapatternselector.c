@@ -99,7 +99,7 @@ _pattern_toggled(GtkWidget *wid, DiaPatternSelector *ps)
 typedef enum {
   LEFT = 0x1,
   DOWN = 0x2
-};
+} PatternPresetFlags;
 struct _PatternPreset {
   gchar *title;
   guint  type;
