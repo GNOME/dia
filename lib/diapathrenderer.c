@@ -121,8 +121,8 @@ _get_current_path (DiaPathRenderer *self,
     new_path = TRUE;
   }
   /* also create a new path if the last op was a fill and we now stroke */
-  if (   stroke && self->last_op == PATH_FILL 
-      || fill && self->last_op == PATH_STROKE)
+  if (   (stroke && self->last_op == PATH_FILL)
+      || (fill && self->last_op == PATH_STROKE))
     new_path = TRUE;
   self->last_op = stroke ? PATH_STROKE : PATH_FILL;
 
