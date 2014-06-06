@@ -22,6 +22,7 @@
 #include "pydia-layer.h"
 #include "pydia-object.h"
 #include "pydia-cpoint.h"
+#include "pydia-render.h"
 
 #include <structmember.h> /* PyMemberDef */
 
@@ -186,14 +187,39 @@ PyDiaLayer_UpdateExtents(PyDiaLayer *self, PyObject *args)
     return PyInt_FromLong(layer_update_extents(self->layer));
 }
 
+static PyObject *
+PyDiaLayer_Render(PyDiaLayer *self, PyObject *args)
+{
+    PyObject* renderer;
+    DiaRenderer *wrapper;
+    Rectangle *update = NULL;
+    gboolean active = FALSE; /* could derive from layer->parent_diagram->active_layer
+			      * but not sure if it's worth the effort. */
+
+    if (!PyArg_ParseTuple(args, "O:Layer.render", &renderer))
+	return NULL;
+
+    /* We need to create the PythonRenderer wrapper to provide the gobject interface.
+     * This could be done much more efficient if it would somehow be cached for the
+     * whole rendering pass ...
+     */
+    wrapper = PyDia_new_renderer_wrapper (renderer);
+    layer_render (self->layer, wrapper, update,
+		  NULL, /* no special object renderer */
+		  NULL, /* no user data */
+		  active);
+    g_object_unref (wrapper);
+
+    Py_INCREF(Py_None);
+    return Py_None;
+}
+
 /* missing functions:
  *  layer_add_objects
  *  layer_add_objects_first
  *  layer_remove_objects
  *  layer_replace_object_with_list
  *  layer_set_object_list
- *
- *  layer_render ???
  */
 
 static PyMethodDef PyDiaLayer_Methods[] = {
@@ -221,6 +247,9 @@ static PyMethodDef PyDiaLayer_Methods[] = {
      "  Given a point and an optional object to exclude return the distance and the closest connection point or None."},
     {"update_extents", (PyCFunction)PyDiaLayer_UpdateExtents, METH_VARARGS,
      "update_extents() -> None.  Force recaculation of the layer extents."},
+    { "render", (PyCFunction)PyDiaLayer_Render, METH_VARARGS,
+      "render(dia.Renderer: r) -> None."
+      "  Render the layer with the given renderer" },
     {NULL, 0, 0, NULL}
 };
 

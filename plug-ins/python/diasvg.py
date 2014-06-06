@@ -63,6 +63,11 @@ class SvgRenderer :
 		elif cap == 8 : # RENDER_PATTERN
 			return 0
 		return 0
+	def draw_layer (self, layer, active, update) :
+		self.f.write ("<!-- Layer: " + layer.name + " -->\n")
+		self.f.write ('<g id="' + self._escape (layer.name) + '">\n')
+		layer.render (self)
+		self.f.write ('</g>\n')
 	def draw_object (self, object, matrix) :
 		self.f.write("<!-- " + object.type.name + " -->\n")
 		odict = object.properties["meta"].value

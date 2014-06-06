@@ -47,6 +47,7 @@
 #include "pydia-image.h"
 #include "pydia-error.h"
 #include "pydia-render.h"
+#include "pydia-layer.h"
 
 #include "diarenderer.h"
 
@@ -413,6 +414,52 @@ is_capable_to (DiaRenderer *renderer, RenderCapability cap)
     return DIA_RENDERER_CLASS (parent_class)->is_capable_to (renderer, cap);
   }
   return bRet;
+}
+
+/*! 
+ * \brief Render all the visible object in the layer
+ * @param renderer explicit this pointer
+ * @param layer    layer to draw
+ * @param active   TRUE if it is the currently active layer
+ * @param update   the update rectangle, NULL for unlimited
+ *
+ * \memberof _DiaPyRenderer
+ */
+static void
+draw_layer (DiaRenderer *renderer,
+	    Layer       *layer,
+	    gboolean     active,
+	    Rectangle   *update)
+{
+  PyObject *func, *res, *arg, *self = PYDIA_RENDERER (renderer);
+
+  func = PyObject_GetAttrString (self, "draw_layer");
+  if (func && PyCallable_Check(func)) {
+    PyObject *olayer = PyDiaLayer_New (layer);
+    PyObject *orect;
+
+    Py_INCREF (self);
+    Py_INCREF (func);
+    if (update) {
+      orect = PyDiaRectangle_New (update, NULL);
+    } else {
+      Py_INCREF(Py_None);
+      orect = Py_None;
+    }
+    arg = Py_BuildValue ("(OiO)", olayer, active, orect);
+    if (arg) {
+      res = PyEval_CallObject (func, arg);
+      ON_RES(res, FALSE);
+    }
+    Py_XDECREF (olayer);
+    Py_XDECREF (orect);
+    Py_DECREF(func);
+    Py_DECREF(self);
+  } else { /* member optional */
+    PyErr_Clear();
+    /* have to call the base class */
+    DIA_RENDERER_CLASS (parent_class)->draw_layer (renderer, layer, active, update);
+  }
 }
 
 /*!
@@ -1143,6 +1190,7 @@ dia_py_renderer_class_init (DiaPyRendererClass *klass)
   renderer_class->begin_render = begin_render;
   renderer_class->end_render   = end_render;
 
+  renderer_class->draw_layer = draw_layer;
   renderer_class->draw_object  = draw_object;
 
   renderer_class->set_linewidth  = set_linewidth;
