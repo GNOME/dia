@@ -67,7 +67,7 @@ dia_log_func (const gchar    *log_domain,
   HANDLE file = (HANDLE)data;
   const char* level;
   static char* last_message = NULL;
-  guint32 dwWritten; /* looks like being optional in MSDN, but isn't */
+  DWORD dwWritten; /* looks like being optional in MSDN, but isn't */
 
   /* some small optimization especially for the ugly tweaked font message */
   if (last_message && (0 == strcmp (last_message, message)))
@@ -148,7 +148,7 @@ dia_redirect_console (void)
                                    "using Gtk %d.%d.%d (%d)\r\n",
                                    VERSION, i + 1,
                                    gtk_major_version, gtk_minor_version, gtk_micro_version, gtk_binary_age);
-      guint32 dwWritten; /* looks like being optional in msdn, but isn't */
+      DWORD dwWritten; /* looks like being optional in msdn, but isn't */
 
       if (!verbose || WriteFile (file, log, strlen(log), &dwWritten, 0))
         {
