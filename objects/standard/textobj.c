@@ -62,8 +62,10 @@ struct _Textobj {
   Valign vert_align;
   /*! bounding box filling */
   Color fill_color;
-  /*! backround to be filled or transparent */
+  /*! background to be filled or transparent */
   gboolean show_background;
+  /*! margin used for background drawing and connection point placement */
+  real margin;
 };
 
 static struct _TextobjProperties {
@@ -94,7 +96,7 @@ static void textobj_save(Textobj *textobj, ObjectNode obj_node,
 static DiaObject *textobj_load(ObjectNode obj_node, int version, DiaContext *ctx);
 static DiaMenu *textobj_get_object_menu(Textobj *textobj, Point *clickedpoint);
 
-static void textobj_valign_point(Textobj *textobj, Point* p, real factor);
+static void textobj_valign_point(Textobj *textobj, Point* p);
 
 static ObjectTypeOps textobj_type_ops =
 {
@@ -112,10 +114,11 @@ PropEnumData prop_text_vert_align_data[] = {
   { N_("First Line"), VALIGN_FIRST_LINE },
   { NULL, 0 }
 };
+static PropNumData text_margin_range = { 0.0, 10.0, 0.1 };
 static PropDescription textobj_props[] = {
   OBJECT_COMMON_PROPERTIES,
   PROP_STD_TEXT_ALIGNMENT,
-  { "text_vert_alignment", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL, \
+  { "text_vert_alignment", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
     N_("Vertical text alignment"), NULL, prop_text_vert_align_data },
   PROP_STD_TEXT_FONT,
   PROP_STD_TEXT_HEIGHT,
@@ -123,6 +126,8 @@ static PropDescription textobj_props[] = {
   PROP_STD_SAVED_TEXT,
   PROP_STD_FILL_COLOUR_OPTIONAL,
   PROP_STD_SHOW_BACKGROUND_OPTIONAL,
+  { "text_margin", PROP_TYPE_REAL,  PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
+    N_("Text margin"), NULL, &text_margin_range }, 
   PROP_DESC_END
 };
 
@@ -136,6 +141,7 @@ static PropOffset textobj_offsets[] = {
   {"text_vert_alignment",PROP_TYPE_ENUM,offsetof(Textobj,vert_align)},
   { "fill_colour", PROP_TYPE_COLOUR, offsetof(Textobj, fill_color) },
   { "show_background", PROP_TYPE_BOOL, offsetof(Textobj, show_background) },
+  { "text_margin", PROP_TYPE_REAL, offsetof(Textobj, margin) },
   { NULL, 0, 0 }
 };
 
@@ -191,6 +197,8 @@ textobj_set_props(Textobj *textobj, GPtrArray *props)
 static real
 textobj_distance_from(Textobj *textobj, Point *point)
 {
+  if (textobj->show_background)
+    return distance_rectangle_point(&textobj->object.bounding_box, point);
   return text_distance_from(textobj->text, point); 
 }
 
@@ -202,8 +210,6 @@ textobj_select(Textobj *textobj, Point *clicked_point,
   text_grab_focus(textobj->text, &textobj->object);
 }
 
-
-
 static ObjectChange*
 textobj_move_handle(Textobj *textobj, Handle *handle,
 		    Point *to, ConnectionPoint *cp,
@@ -214,12 +220,7 @@ textobj_move_handle(Textobj *textobj, Handle *handle,
   assert(to!=NULL);
 
   if (handle->id == HANDLE_TEXT) {
-          /*Point to2 = *to;
-          point_add(&to2,&textobj->text->position);
-          point_sub(&to2,&textobj->text_handle.pos);
-          textobj_move(textobj, &to2);*/
-          textobj_move(textobj, to);
-          
+    textobj_move(textobj, to);
   }
 
   return NULL;
@@ -245,36 +246,36 @@ textobj_draw(Textobj *textobj, DiaRenderer *renderer)
     Rectangle box;
     Point ul, lr;
     text_calc_boundingbox (textobj->text, &box);
-    ul.x = box.left;
-    ul.y = box.top;
-    lr.x = box.right;
-    lr.y = box.bottom;
+    ul.x = box.left - textobj->margin;
+    ul.y = box.top - textobj->margin;
+    lr.x = box.right + textobj->margin;
+    lr.y = box.bottom + textobj->margin;
     DIA_RENDERER_GET_CLASS (renderer)->draw_rect (renderer, &ul, &lr, &textobj->fill_color, NULL);
   }
   text_draw(textobj->text, renderer);
 }
 
-static void textobj_valign_point(Textobj *textobj, Point* p, real factor)
-        /* factor should be 1 or -1 */
+static void
+textobj_valign_point(Textobj *textobj, Point* p)
 {
-    Rectangle *bb  = &(textobj->object.bounding_box); 
-    real offset ;
-    switch (textobj->vert_align){
-        case VALIGN_BOTTOM:
-            offset = bb->bottom - textobj->object.position.y;
-            p->y -= offset * factor; 
-            break;
-        case VALIGN_TOP:
-            offset = bb->top - textobj->object.position.y;
-            p->y -= offset * factor; 
-            break;
-        case VALIGN_CENTER:
-            offset = (bb->bottom + bb->top)/2 - textobj->object.position.y;
-            p->y -= offset * factor; 
-            break;
-        case VALIGN_FIRST_LINE:
-            break;
-        }
+  Rectangle *bb  = &(textobj->object.bounding_box); 
+  real offset;
+  switch (textobj->vert_align){
+  case VALIGN_BOTTOM:
+    offset = bb->bottom - textobj->object.position.y;
+    p->y -= offset; 
+    break;
+  case VALIGN_TOP:
+    offset = bb->top - textobj->object.position.y;
+    p->y -= offset; 
+    break;
+  case VALIGN_CENTER:
+    offset = (bb->bottom + bb->top)/2 - textobj->object.position.y;
+    p->y -= offset; 
+    break;
+  case VALIGN_FIRST_LINE:
+    break;
+  }
 }
 static void
 textobj_update_data(Textobj *textobj)
@@ -286,10 +287,24 @@ textobj_update_data(Textobj *textobj)
   text_calc_boundingbox(textobj->text, &obj->bounding_box);
 
   to2 = obj->position;
-  textobj_valign_point(textobj, &to2, 1);
+  textobj_valign_point(textobj, &to2);
+  /* shift text position depending on text alignment */
+  if (VALIGN_TOP == textobj->vert_align)
+    to2.y += textobj->margin; /* down */
+  else if (VALIGN_BOTTOM == textobj->vert_align)
+    to2.y -= textobj->margin; /* up */
+  if (ALIGN_LEFT == textobj->text->alignment)
+    to2.x += textobj->margin; /* right */
+  else if (ALIGN_RIGHT == textobj->text->alignment)
+    to2.x -= textobj->margin; /* left */
   text_set_position(textobj->text, &to2);
   text_calc_boundingbox(textobj->text, &obj->bounding_box);
-  
+  /* grow the bounding box by 2x margin */
+  obj->bounding_box.top    -= textobj->margin;
+  obj->bounding_box.left   -= textobj->margin;
+  obj->bounding_box.bottom += textobj->margin;
+  obj->bounding_box.right  += textobj->margin;
+
   textobj->text_handle.pos = obj->position;
 }
 
@@ -333,6 +348,8 @@ textobj_create(Point *startpoint,
   textobj->text_handle.type = HANDLE_MAJOR_CONTROL;
   textobj->text_handle.connect_type = HANDLE_CONNECTABLE;
   textobj->text_handle.connected_to = NULL;
+  /* no margin till Dia 0.98 */
+  textobj->margin = 0.0;
 
   textobj_update_data(textobj);
 
@@ -362,6 +379,8 @@ textobj_save(Textobj *textobj, ObjectNode obj_node, DiaContext *ctx)
     data_add_color(new_attribute(obj_node, "fill_color"), &textobj->fill_color, ctx);
     data_add_boolean(new_attribute(obj_node, "show_background"), textobj->show_background, ctx);
   }
+  if (textobj->margin > 0.0)
+    data_add_real(new_attribute(obj_node, "margin"), textobj->margin, ctx);
 }
 
 static DiaObject *
@@ -407,6 +426,9 @@ textobj_load(ObjectNode obj_node, int version, DiaContext *ctx)
     textobj->show_background = data_boolean(attribute_first_data(attr), ctx);
   else
     textobj->show_background = FALSE;
+  attr = object_find_attribute(obj_node, "margin");
+  if (attr)
+    textobj->margin = data_real(attribute_first_data(attr), ctx);
 
   object_init(obj, 1, 0);
 
