@@ -856,8 +856,6 @@ draw_rounded_rect (DiaRenderer *renderer,
                    Color *fill, Color *stroke, real radius) 
 {
   DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
-  Point start, end, center;
-  Color *color = fill ? fill : stroke;
   /* clip radius per axis to use the full API;) */
   real rw = MIN(radius, (lr_corner->x-ul_corner->x)/2);
   real rh = MIN(radius, (lr_corner->y-ul_corner->y)/2);
@@ -1282,11 +1280,6 @@ draw_arc_with_arrows (DiaRenderer *renderer,
   while (angle1 < 0.0) angle1 += 360.0;
   angle2 = -atan2(new_endpoint.y - center.y, new_endpoint.x - center.x)*180.0/G_PI;
   while (angle2 < 0.0) angle2 += 360.0;
-  if (righthand) {
-    real tmp = angle1;
-    angle1 = angle2;
-    angle2 = tmp;
-  }
 
   width = 2*distance_point_point(&center, startpoint);
 
@@ -1501,28 +1494,10 @@ dia_renderer_get_height_pixels (DiaRenderer *renderer)
   return DIA_RENDERER_GET_CLASS(renderer)->get_height_pixels (renderer);
 }
 
-static Point
-_find_close_point (const BezPoint *pts, int n, const Point *p1)
-{
-  int i;
-  Point p;
-  real d = G_MAXDOUBLE;
-
-  for (i = 0; i < n; ++i) {
-    Point p2 = (pts[i].type == BEZ_CURVE_TO ? pts[i].p3 : pts[i].p1);
-    real dist = distance_point_point_manhattan (&p2, p1);
-    if (dist < d) {
-      p = p2;
-      d = dist;
-    }
-  }
-  return p;
-}
-
 void
 bezier_render_fill (DiaRenderer *renderer, BezPoint *pts, int total, Color *color)
 {
-  int i, n = 0;
+  int i;
   gboolean needs_split = FALSE;
 
   for (i = 1; i < total; ++i) {
@@ -1585,7 +1560,7 @@ bezier_render_fill (DiaRenderer *renderer, BezPoint *pts, int total, Color *colo
  * \brief Helper function to fill bezier with multiple BEZ_MOVE_TO
  * \memberof DiaRenderer
  */
-void
+G_GNUC_UNUSED static void
 bezier_render_fill_old (DiaRenderer *renderer, BezPoint *pts, int total, Color *color)
 {
   int i, n = 0;
