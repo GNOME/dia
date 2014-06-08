@@ -153,9 +153,11 @@ KGraph::AddEdge (int srcNode, int dstNode, double* coords, int len)
     src = m_nodes[srcNode];
     dst = m_nodes[dstNode];
     double xs, xd, ys, yd;
-    GetNodePosition (srcNode, &xs, &ys);
-    GetNodePosition (srcNode, &xd, &yd);
-    double dist = sqrt((xd - xs) * (xd - xs) + (yd - ys) * (yd - ys)) * m_scale;
+    double dist;
+    if (GetNodePosition (srcNode, &xs, &ys) && GetNodePosition (dstNode, &xd, &yd))
+    	dist = sqrt((xd - xs) * (xd - xs) + (yd - ys) * (yd - ys)) * m_scale;
+    else
+	dist = 0.0;
 
     edge = m_pGraph->newEdge(src, dst);
 
