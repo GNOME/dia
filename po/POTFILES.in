@@ -132,6 +132,7 @@ objects/Misc/diagram_as_object.c
 objects/Misc/grid_object.c
 objects/Misc/libmisc.c
 objects/Misc/measure.c
+objects/Misc/n_gon.c
 objects/Misc/tree.c
 objects/network/basestation.c
 objects/network/bus.c
