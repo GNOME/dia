@@ -20,16 +20,16 @@ msgstr ""
 "Project-Id-Version: dia master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=dia&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2014-05-05 15:11+0000\n"
-"PO-Revision-Date: 2014-05-05 17:28+0100\n"
-"Last-Translator: Christian Kirbach <christian.kirbach@gmail.com>\n"
+"POT-Creation-Date: 2014-06-01 15:12+0000\n"
+"PO-Revision-Date: 2014-06-01 19:45+0100\n"
+"Last-Translator: Benjamin Steinwender <b@stbe.at>\n"
 "Language-Team: Deutsch <gnome-de@gnome.org>\n"
 "Language: de_DE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.5.4\n"
+"X-Generator: Poedit 1.6.5\n"
 
 #. This is not an errror
 #: ../app/app_procs.c:208
@@ -145,7 +145,6 @@ msgid "Don't create an empty diagram"
 msgstr "Kein leeres Diagramm erzeugen"
 
 #: ../app/app_procs.c:724
-#| msgid "Start integrated user interface (diagrams in tabs)"
 msgid "Start classic user interface (no diagrams in tabs)"
 msgstr "Klassische Benutzerschnittstelle starten (Keine Diagramme in Reitern)"
 
@@ -730,7 +729,6 @@ msgid "Selection"
 msgstr "Auswahl"
 
 #: ../app/disp_callbacks.c:359
-#| msgid "_Input Methods"
 msgid "Input _Methods"
 msgstr "_Eingabemethoden"
 
@@ -872,7 +870,6 @@ msgstr ""
 "Soll sie überschrieben werden?"
 
 #: ../app/filedlg.c:425
-#| msgid "Save"
 msgid "Save as"
 msgstr "Speichern unter"
 
@@ -1109,7 +1106,6 @@ msgstr ""
 "Keine Dia-Datei."
 
 #: ../app/load_save.c:680
-#| msgid "Error reading resolution."
 msgid "Error reading connections"
 msgstr "Fehler beim Lesen der Verbindungen"
 
@@ -1125,7 +1121,6 @@ msgstr ""
 "Eine gültige Dia-Datei definiert mindestens eine Ebene."
 
 #: ../app/load_save.c:1001
-#| msgid "Error reading magnification."
 msgid "Error saving connections"
 msgstr "Fehler beim Speichern der Verbindungen"
 
@@ -1169,7 +1164,6 @@ msgstr "Die Ausgabedatei »%s« konnte nicht zu »%s« umbenannt werden: %s\n"
 
 #. no extra threads supported, stay in this one
 #: ../app/load_save.c:1252 ../app/load_save.c:1262 ../app/load_save.c:1270
-#| msgid "Autoclave"
 msgid "Auto save"
 msgstr "Automatisch speichern"
 
@@ -2392,7 +2386,7 @@ msgstr "Halber Pfeil"
 #: ../lib/arrows.c:1898
 msgctxt "Arrow"
 msgid "Slashed Cross"
-msgstr ""
+msgstr "Geschlitztes Kreuz"
 
 #: ../lib/arrows.c:1899
 msgctxt "Arrow"
@@ -2500,7 +2494,6 @@ msgid "Round"
 msgstr "Rund"
 
 #: ../lib/arrows.c:1920
-#, fuzzy
 msgctxt "Arrow"
 msgid "Open Round"
 msgstr "Offen, rund"
@@ -2577,10 +2570,6 @@ msgstr "Schriftfamilie von %s konnte nicht gefunden\n"
 #. pathologic case - pixbuf not even supporting PNG?
 #: ../lib/dia_image.c:333
 #, c-format
-#| msgid ""
-#| "Unsupported file format for saving:\n"
-#| "%s\n"
-#| "%s"
 msgid ""
 "Unsupported file format for saving:\n"
 "%s\n"
@@ -2592,10 +2581,6 @@ msgstr ""
 
 #: ../lib/dia_image.c:336
 #, c-format
-#| msgid ""
-#| "Could not save file:\n"
-#| "%s\n"
-#| "%s"
 msgid ""
 "Could not save file:\n"
 "%s\n"
@@ -2647,22 +2632,18 @@ msgid "Cancel"
 msgstr "Abbrechen"
 
 #: ../lib/diapatternselector.c:108
-#| msgid "Flip Horizontal"
 msgid "Horizontal"
 msgstr "Horizontal"
 
 #: ../lib/diapatternselector.c:109
-#| msgid "Diagram"
 msgid "Diagonal"
 msgstr "Diagonal"
 
 #: ../lib/diapatternselector.c:110
-#| msgid "Flip Vertical"
 msgid "Vertical"
 msgstr "Vertikal"
 
 #: ../lib/diapatternselector.c:111
-#| msgid "Radiation"
 msgid "Radial"
 msgstr "Kreisförmig"
 
@@ -3101,7 +3082,6 @@ msgstr "Steuerungslinien zeichnen"
 #: ../lib/standard-path.c:149 ../objects/standard/beziergon.c:110
 #: ../objects/standard/box.c:148 ../objects/standard/ellipse.c:135
 #: ../objects/standard/polygon.c:112
-#| msgid "Scatter"
 msgid "Pattern"
 msgstr "Muster"
 
@@ -3110,7 +3090,6 @@ msgid "Convert to Bezier"
 msgstr "Zu Bezier umwandeln"
 
 #: ../lib/standard-path.c:553
-#| msgid "Convert to Path"
 msgid "Invert Path"
 msgstr "Pfad invertieren"
 
@@ -5058,49 +5037,41 @@ msgid "Miscellaneous objects"
 msgstr "Diverse Objekte"
 
 #: ../objects/Misc/measure.c:168
-#| msgid "cm"
 msgctxt "length unit"
 msgid "cm"
 msgstr "cm"
 
 #: ../objects/Misc/measure.c:169
-#| msgid "dm"
 msgctxt "length unit"
 msgid "dm"
 msgstr "dm"
 
 #: ../objects/Misc/measure.c:170
-#| msgid "ft"
 msgctxt "length unit"
 msgid "ft"
 msgstr "ft"
 
 #: ../objects/Misc/measure.c:171
-#| msgid "in"
 msgctxt "length unit"
 msgid "in"
 msgstr "in"
 
 #: ../objects/Misc/measure.c:172
-#| msgid "m"
 msgctxt "length unit"
 msgid "m"
 msgstr "m"
 
 #: ../objects/Misc/measure.c:173
-#| msgid "mm"
 msgctxt "length unit"
 msgid "mm"
 msgstr "mm"
 
 #: ../objects/Misc/measure.c:174
-#| msgid "pt"
 msgctxt "length unit"
 msgid "pt"
 msgstr "pt"
 
 #: ../objects/Misc/measure.c:175
-#| msgid "pi"
 msgctxt "length unit"
 msgid "pi"
 msgstr "pi"
@@ -6180,7 +6151,6 @@ msgid "TeX Metapost macros"
 msgstr "TeX Metapost Makros"
 
 #: ../plug-ins/pdf/pdf.c:29
-#| msgid "PDF import filter"
 msgid "PDF import not available."
 msgstr "PDF-Import nicht verfügbar."
 
@@ -6371,7 +6341,6 @@ msgstr ""
 
 #: ../plug-ins/svg/svg-import.c:2007
 #, c-format
-#| msgid "Parse error for %s"
 msgid ""
 "SVG parser error for %s\n"
 "%s"
@@ -6390,7 +6359,6 @@ msgstr ""
 "%s"
 
 #: ../plug-ins/svg/svg-import.c:2046
-#| msgid "Expected SVG Namespace not found in file"
 msgid "Expected SVG name-space not found in file"
 msgstr "Erwarteter SVG-Namensbereich wurde nicht in der Datei gefunden"
 
@@ -6446,7 +6414,6 @@ msgstr "Fremd-Objekt konnte nicht behandelt werden: %s"
 
 #: ../plug-ins/vdx/vdx-import.c:2888
 #, c-format
-#| msgid "Parse error for %s"
 msgid ""
 "VDX parser error for %s\n"
 "%s"
@@ -6512,25 +6479,24 @@ msgid "File: %s type/version unsupported.\n"
 msgstr "Datei: %s Typ/Version nicht unterstützt.\n"
 
 #: ../plug-ins/wpg/wpg-import.c:612
-#, fuzzy, c-format
+#, c-format
 #| msgid "Unknown arrow type %d\n"
 msgid "Unknown WPG type %d size %d."
-msgstr "Unbekannter Pfeiltyp %d\n"
+msgstr "Unbekannter WPG-Typ %d Größe %d."
 
 #: ../plug-ins/wpg/wpg-import.c:617
 #, c-format
 msgid "Size 0 on WPG type %d, expecting WPG_END\n"
-msgstr ""
+msgstr "Größe 0 bei WPG-Typ %d, WPG_END erwartet\n"
 
 #: ../plug-ins/wpg/wpg-import.c:626
 #, c-format
-#| msgid "Unexpected end of file."
 msgid "Unexpected end of file. WPG type %d, size %d.\n"
 msgstr "Unerwartetes Dateiende. WPG-Typ %d, Größe %d.\n"
 
 #: ../plug-ins/wpg/wpg-import.c:636
 msgid "Empty WPG file?"
-msgstr ""
+msgstr "Leere WPG-Datei?"
 
 #: ../plug-ins/xfig/xfig.c:52
 msgid "Fig Format import and export filter"
@@ -6764,7 +6730,6 @@ msgstr "XFig-Dateiformat"
 
 #: ../plug-ins/xslt/xslt.c:114
 #, c-format
-#| msgid "Error while parsing %s\n"
 msgid ""
 "Error while parsing %s\n"
 "%s"
@@ -10024,7 +9989,6 @@ msgid "Resizable grid"
 msgstr "Anpassbares Gitter"
 
 #: ../sheets/Misc.sheet.in.h:11
-#| msgid "SADT diagram objects"
 msgid "Diagram object"
 msgstr "Diagrammobjekt"
 
