@@ -214,9 +214,11 @@ bus_move_handle(Bus *bus, Handle *handle,
   real vlen, vlen2;
   real len_scale;
   int i;
+  const int num_handles = bus->num_handles; /* const to help scan-build */
 
-  parallel = (real *)g_alloca (bus->num_handles * sizeof(real));
-  perp = (real *)g_alloca (bus->num_handles * sizeof(real));
+  /* code copied to Misc/tree.c */
+  parallel = (real *)g_alloca (num_handles * sizeof(real));
+  perp = (real *)g_alloca (num_handles * sizeof(real));
 
   if (handle->id == HANDLE_BUS) {
     handle->pos = *to;
@@ -232,7 +234,7 @@ bus_move_handle(Bus *bus, Handle *handle,
     
     vhatperp.x = -vhat.y;
     vhatperp.y =  vhat.x;
-    for (i=0;i<bus->num_handles;i++) {
+    for (i=0;i<num_handles;i++) {
       u = bus->handles[i]->pos;
       point_sub(&u, &endpoints[0]);
       parallel[i] = point_dot(&vhat, &u);
@@ -252,7 +254,7 @@ bus_move_handle(Bus *bus, Handle *handle,
     point_normalize(&vhat);
     vhatperp.x = -vhat.y;
     vhatperp.y =  vhat.x;
-    for (i=0;i<bus->num_handles;i++) {
+    for (i=0;i<num_handles;i++) {
       if (bus->handles[i]->connected_to == NULL) {
 	u = vhat;
 	point_scale(&u, parallel[i]*len_scale);
