@@ -86,6 +86,7 @@ _test_creation (gconstpointer user_data)
   g_assert (o->bounding_box.left <= o->position.x && o->position.x <= o->bounding_box.right);
   g_assert (o->bounding_box.top <= o->position.y && o->position.y <= o->bounding_box.bottom);
 
+  g_assert (o->num_handles > 0);
   /* both handles can be NULL, but if not they must belong to the object  */
   for (i = 0; i < o->num_handles; ++i)
     {
@@ -811,7 +812,6 @@ _ot_item (gpointer key,
   g_test_add_data_func (testpath, type, _test_move_handle);
   g_free (testpath);
 
-  
   testpath = g_strdup_printf ("%s/%s/%s", base, name, "ConnectionPoints");
   g_test_add_data_func (testpath, type, _test_connectionpoint_consistency);
   g_free (testpath);

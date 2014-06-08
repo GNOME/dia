@@ -255,35 +255,20 @@ parent_point_extents(Point *point, Rectangle *extents)
  * which is initialized to the biggest rectangle containing
  * all the objects handles
  */
-gboolean
+void
 parent_handle_extents(DiaObject *obj, Rectangle *extents)
 {
   int idx;
-  coord *left_most = NULL, *top_most = NULL, *bottom_most = NULL, *right_most = NULL;
 
-  for (idx = 0; idx < obj->num_handles; idx++)
-  {
+  g_assert (obj->num_handles > 0);
+  /* initialize the rectangle with the first handle */
+  extents->left = extents->right = obj->handles[0]->pos.x;
+  extents->top = extents->bottom = obj->handles[0]->pos.y;
+  /* grow it with the other ones */
+  for (idx = 1; idx < obj->num_handles; idx++) {
     Handle *handle = obj->handles[idx];
-
-    if (!left_most || *left_most > handle->pos.x)
-      left_most = &handle->pos.x;
-    if (!right_most || *right_most < handle->pos.x)
-      right_most = &handle->pos.x;
-    if (!top_most || *top_most > handle->pos.y)
-      top_most = &handle->pos.y;
-    if (!bottom_most || *bottom_most < handle->pos.y)
-      bottom_most = &handle->pos.y;
+    rectangle_add_point (extents, &handle->pos);
   }
-
-  if (!left_most ||  !right_most || !top_most || !bottom_most)
-    return FALSE;
-
-  extents->left = *left_most;
-  extents->right = *right_most;
-  extents->top = *top_most;
-  extents->bottom = *bottom_most;
-
-  return TRUE;
 }
 
 /** Apply a function to all children of the given object (recursively, 
