@@ -848,17 +848,19 @@ app_init (int argc, char **argv)
     /* gnome_window_icon_set_default_from_file (GNOME_ICONDIR"/dia_gnome_icon.png");*/
 
 #else
-#  ifdef G_THREADS_ENABLED
+#  if defined(G_THREADS_ENABLED) && !GLIB_CHECK_VERSION(2,32,0)
     g_thread_init (NULL);
 #  endif
     gtk_init(&argc, &argv);
 #endif
   }
   else {
-#ifdef G_THREADS_ENABLED
+#if defined(G_THREADS_ENABLED) && !GLIB_CHECK_VERSION(2,32,0)
     g_thread_init (NULL);
 #endif
+#if !GLIB_CHECK_VERSION(2,36,0)
     g_type_init();
+#endif
     /*
      * On Windows there is no command line without display so that gtk_init is harmless. 
      * On X11 we need gtk_init_check() to avoid exit() just because there is no display 

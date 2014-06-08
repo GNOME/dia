@@ -206,6 +206,7 @@ _test_movement (gconstpointer user_data)
   change = o->ops->move (o, &o->position);
   if (change) /* usually this is NULL for move */
     _object_change_free(change);
+  g_assert (num_connections == o->num_connections);
   bbox2 = o->bounding_box;
   if (   strcmp (type->name, "Cybernetics - b-sens") == 0
       || strcmp (type->name, "Cybernetics - l-sens") == 0
@@ -234,6 +235,7 @@ _test_movement (gconstpointer user_data)
   change = o->ops->move (o, &to);
   if (change) /* usually this is NULL for move */
     _object_change_free(change);
+  g_assert (num_connections == o->num_connections);
   /* does the position reflect the move? */
   g_assert (   fabs(fabs(pos.x - o->position.x) - fabs(from.x - to.x)) < EPSILON
             && fabs(fabs(pos.y - o->position.y) - fabs(from.y - to.y)) < EPSILON );
@@ -858,8 +860,10 @@ main (int argc, char** argv)
   SetErrorMode(SetErrorMode(0) | SEM_NOGPFAULTERRORBOX);
 #endif
 
-  /* not using gtk_test_init() means we can only test non-gtk facilities of objects */
+#if !GLIB_CHECK_VERSION(2,36,0)
   g_type_init ();
+#endif
+  /* not using gtk_test_init() means we can only test non-gtk facilities of objects */
   g_test_init (&argc, &argv, NULL);
   
   libdia_init (DIA_MESSAGE_STDERR);
