@@ -1272,7 +1272,8 @@ draw_arc_with_arrows (DiaRenderer *renderer,
 
   if (!find_center_point(&center, startpoint, endpoint, midpoint)) {
     /* Degenerate circle -- should have been caught by the drawer? */
-    printf("Degenerate\n");
+    g_warning("Degenerated arc in draw_arc_with_arrows()");
+    center = *startpoint; /* continue to draw something bogus ... */
   }
 
   righthand = is_right_hand (startpoint, midpoint, endpoint);
