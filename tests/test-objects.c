@@ -123,7 +123,7 @@ _test_copy (gconstpointer user_data)
   Point from = {0, 0};
   DiaObject *oc, *o = type->ops->create (&from, type->default_user_data, &h1, &h2);
   Rectangle bbox1, bbox2;
-  Point to = {0, 0};
+  Point to;
   int i;
 
   g_assert (o != NULL && o->type != NULL);
@@ -193,7 +193,12 @@ _test_movement (gconstpointer user_data)
   Point *handle_positions;
   Point *cp_positions;
   guint i;
-  
+  /* With the use here the number of connections can not change.
+   * Declaring and using it const avoids misinterpretation of scan-build
+   * about the first and second loop over it being different.
+   */
+  const int num_connections = o->num_connections;
+
   /* does the object move ... ? */
   from = o->position;
   bbox1 = o->bounding_box;
@@ -218,10 +223,12 @@ _test_movement (gconstpointer user_data)
   bbox1 = o->bounding_box;
   /* remember handle and connection point positions ... */
   handle_positions = g_alloca (sizeof(Point) * o->num_handles);
+  /* at least one handle is mandatory */
+  g_assert (o->num_handles > 0);
   for (i = 0; i < o->num_handles; ++i)
     handle_positions[i] = o->handles[i]->pos;
   cp_positions = g_alloca (sizeof(Point) * o->num_connections);
-  for (i = 0; i < o->num_connections; ++i)
+  for (i = 0; i < num_connections; ++i)
     cp_positions[i] = o->connections[i]->pos;
 
   change = o->ops->move (o, &to);
@@ -234,7 +241,7 @@ _test_movement (gconstpointer user_data)
   for (i = 0; i < o->num_handles; ++i)
     g_assert (   fabs(fabs(handle_positions[i].x - o->handles[i]->pos.x) - fabs(from.x - to.x)) < EPSILON
               && fabs(fabs(handle_positions[i].y - o->handles[i]->pos.y) - fabs(from.y - to.y)) < EPSILON);
-  for (i = 0; i < o->num_connections; ++i)
+  for (i = 0; i < num_connections; ++i)
     g_assert (   fabs(fabs(cp_positions[i].x - o->connections[i]->pos.x) - fabs(from.x - to.x)) < EPSILON
               && fabs(fabs(cp_positions[i].y - o->connections[i]->pos.y) - fabs(from.y - to.y)) < EPSILON);
 
