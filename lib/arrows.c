@@ -1593,31 +1593,32 @@ draw_rounded(DiaRenderer *renderer, Point *to, Point *from,
   real len, rayon;
   real rapport;
   real angle_start;
-  
+
   DIA_RENDERER_GET_CLASS(renderer)->set_linewidth(renderer, linewidth);
   DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
   DIA_RENDERER_GET_CLASS(renderer)->set_linejoin(renderer, LINEJOIN_MITER);
   DIA_RENDERER_GET_CLASS(renderer)->set_linecaps(renderer, LINECAPS_BUTT);
-  
+
   delta = *from;
-  
+
   point_sub(&delta, to);	
-  
+
   len = sqrt(point_dot(&delta, &delta)); /* line length */
   rayon = (length / 2.0);
   if (len > 0.0) {
-    /* no length, no direction - but invalid coords */
+    /* otherwise no length, no direction - but invalid coords */
     rapport = rayon / len;
-  
+
     p.x += delta.x * rapport;
     p.y += delta.y * rapport;
-  }  
-  angle_start = 90.0 - dia_asin((p.y - to->y) / rayon) * (180.0 / 3.14);
-  if (p.x - to->x < 0) { angle_start = 360.0 - angle_start;  }
+  }
+  angle_start = 90.0 - dia_asin((p.y - to->y) / rayon) * (180.0 / G_PI);
+  if (p.x - to->x < 0) { angle_start = 360.0 - angle_start; }
   
   DIA_RENDERER_GET_CLASS(renderer)->draw_arc(renderer, &p, width, length, angle_start, angle_start - 180.0, fg_color);
   
   if (len > 0.0) {
+    /* scan-build complains about may be used uninitialized, but nothing is changing len since init */
     p.x += delta.x * rapport;
     p.y += delta.y * rapport;
   }
@@ -1643,9 +1644,7 @@ draw_open_rounded(DiaRenderer *renderer, Point *to, Point *from,
   Point p = *to;
   Point delta;
   real len, rayon;
-  real rapport;
   real angle_start;
-  Point p_line;
 
   DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
   DIA_RENDERER_GET_CLASS(renderer)->set_linejoin(renderer, LINEJOIN_MITER);
@@ -1659,25 +1658,16 @@ draw_open_rounded(DiaRenderer *renderer, Point *to, Point *from,
   rayon = (length / 2.0);
   if (len > 0.0) {
     /* no length, no direction - but invalid coords */
-    rapport = rayon / len;
-  
+    real rapport = rayon / len;
     p.x += delta.x * rapport;
     p.y += delta.y * rapport;
   }  
   angle_start = 90.0 - dia_asin((p.y - to->y) / rayon) * (180.0 / 3.14);
   if (p.x - to->x < 0) { angle_start = 360.0 - angle_start;  }
 
-  p_line = p;
-  if (len > 0.0) {
-    p_line.x += delta.x * rapport;
-    p_line.y += delta.y * rapport;
-  }
-  /*
-  DIA_RENDERER_GET_CLASS(renderer)->set_linewidth(renderer, linewidth * 2.0);
-  DIA_RENDERER_GET_CLASS(renderer)->draw_line(renderer, &p_line, to, bg_color);
-  */
   DIA_RENDERER_GET_CLASS(renderer)->set_linewidth(renderer, linewidth);
-  DIA_RENDERER_GET_CLASS(renderer)->draw_arc(renderer, &p, width, length, angle_start - 180.0, angle_start, fg_color);  
+  DIA_RENDERER_GET_CLASS(renderer)->draw_arc(renderer, &p, width, length,
+					     angle_start - 180.0, angle_start, fg_color);
 }
 
 /** Draw an arrowhead with a circle in front of a triangle, filled.
