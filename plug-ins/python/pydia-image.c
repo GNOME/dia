@@ -95,17 +95,23 @@ PyDiaImage_GetAttr(PyDiaImage *self, gchar *attr)
       s = g_filename_to_uri(fname, NULL, &error);
     } else {
       gchar *b64 = pixbuf_encode_base64 (dia_image_pixbuf (self->image));
-      s = g_strdup_printf ("data:image/png;base64,%s", b64);
+      if (b64)
+	s = g_strdup_printf ("data:image/png;base64,%s", b64);
+      else
+	s = NULL;
       g_free (b64);
     }
     if (s) {
       PyObject* py_s = PyString_FromString(s);
       g_free(s);
       return py_s;
-    }
-    else {
-      PyErr_SetString(PyExc_RuntimeError, error->message);
-      g_error_free (error);
+    } else {
+      if (error) {
+	PyErr_SetString(PyExc_RuntimeError, error->message);
+	g_error_free (error);
+      } else {
+	PyErr_SetString(PyExc_RuntimeError, "Pixbuf conversion failed?");
+      }
       return NULL;
     }
   }
