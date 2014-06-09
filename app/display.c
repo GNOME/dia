@@ -142,7 +142,7 @@ initialize_display_widgets(DDisplay *ddisp)
   Diagram *dia = ddisp->diagram;
   gchar *filename;
 
-  /*  ddisp->renderer = new_gdk_renderer(ddisp);*/
+  g_return_if_fail (dia && dia->filename);
 
   ddisp->im_context = gtk_im_multicontext_new();
   g_signal_connect (G_OBJECT (ddisp->im_context), "commit",
@@ -1025,6 +1025,7 @@ ddisplay_scroll_center_point(DDisplay *ddisp, Point *p)
 {
   Point center;
 
+  g_return_val_if_fail (ddisp != NULL, FALSE);
   /* Find current center */
   center.x = (ddisp->visible.right+ddisp->visible.left)/2;
   center.y = (ddisp->visible.top+ddisp->visible.bottom)/2;
