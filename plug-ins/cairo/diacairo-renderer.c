@@ -76,6 +76,7 @@ begin_render(DiaRenderer *self, const Rectangle *update)
   real lmargin = 0.0, tmargin = 0.0;
   gboolean paginated = renderer->surface && /* only with our own pagination, not GtkPrint */
     cairo_surface_get_type (renderer->surface) == CAIRO_SURFACE_TYPE_PDF && !renderer->skip_show_page;
+  Color background = color_white;
 
   if (renderer->surface && !renderer->cr)
     renderer->cr = cairo_create (renderer->surface);
@@ -112,27 +113,31 @@ begin_render(DiaRenderer *self, const Rectangle *update)
                      update->right - update->left, update->bottom - update->top);
     cairo_clip (renderer->cr);
     cairo_translate (renderer->cr, -update->left + lmargin, -update->top + tmargin);
-  } else
-    cairo_translate (renderer->cr, -renderer->dia->extents.left + onedu, -renderer->dia->extents.top + onedu);
+  } else {
+    if (renderer->dia)
+      cairo_translate (renderer->cr, -renderer->dia->extents.left + onedu, -renderer->dia->extents.top + onedu);
+  }
   /* no more blurred UML diagrams */
   cairo_set_antialias (renderer->cr, CAIRO_ANTIALIAS_NONE);
 
   /* clear background */
+  if (renderer->dia)
+    background = renderer->dia->bg_color;
   if (renderer->with_alpha)
     {
       cairo_set_operator (renderer->cr, CAIRO_OPERATOR_SOURCE);
       cairo_set_source_rgba (renderer->cr,
-                             renderer->dia->bg_color.red, 
-                             renderer->dia->bg_color.green, 
-                             renderer->dia->bg_color.blue,
+                             background.red, 
+                             background.green, 
+                             background.blue,
                              0.0);
     }
   else
     {
       cairo_set_source_rgba (renderer->cr,
-                             renderer->dia->bg_color.red, 
-                             renderer->dia->bg_color.green, 
-                             renderer->dia->bg_color.blue,
+                             background.red, 
+                             background.green, 
+                             background.blue,
                              1.0);
     }
   cairo_paint (renderer->cr);
@@ -141,9 +146,9 @@ begin_render(DiaRenderer *self, const Rectangle *update)
       /* restore to default drawing */
       cairo_set_operator (renderer->cr, CAIRO_OPERATOR_OVER);
       cairo_set_source_rgba (renderer->cr,
-                             renderer->dia->bg_color.red, 
-                             renderer->dia->bg_color.green, 
-                             renderer->dia->bg_color.blue,
+                             background.red, 
+                             background.green, 
+                             background.blue,
                              1.0);
     }
 #ifdef HAVE_PANGOCAIRO_H
