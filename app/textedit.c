@@ -172,6 +172,7 @@ textedit_end_edit(DDisplay *ddisp, Focus *focus)
 Focus *
 textedit_move_focus(DDisplay *ddisp, Focus *focus, gboolean forwards)
 {
+  g_return_val_if_fail (ddisp != NULL, NULL);
   if (focus != NULL) {
     textedit_end_edit(ddisp, focus);
   }
