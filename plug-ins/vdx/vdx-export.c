@@ -1759,10 +1759,11 @@ export_vdx(DiagramData *data, DiaContext *ctx,
     for (i=0; i<data->layers->len; i++) 
     {
         layer = (Layer *) g_ptr_array_index(data->layers, i);
-        layer_render(layer, DIA_RENDERER(renderer), NULL, NULL, data, 0);
+        if (layer->visible)
+            layer_render(layer, DIA_RENDERER(renderer), NULL, NULL, data, 0);
         renderer->depth++;
     }
-  
+
     write_header(data, renderer);
 
     DIA_RENDERER_GET_CLASS(renderer)->end_render(DIA_RENDERER(renderer));
@@ -1776,10 +1777,11 @@ export_vdx(DiagramData *data, DiaContext *ctx,
     for (i=0; i<data->layers->len; i++) 
     {
         layer = (Layer *) g_ptr_array_index(data->layers, i);
-        layer_render(layer, DIA_RENDERER(renderer), NULL, NULL, data, 0);
+        if (layer->visible)
+            layer_render(layer, DIA_RENDERER(renderer), NULL, NULL, data, 0);
         renderer->depth++;
     }
-  
+
     DIA_RENDERER_GET_CLASS(renderer)->end_render(DIA_RENDERER(renderer));
 
     /* Done */
