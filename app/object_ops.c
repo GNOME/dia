@@ -710,5 +710,7 @@ object_list_nudge(GList *objects, Diagram *dia, Direction dir, real step)
     ++i;
     list = g_list_next(list);
   }
-  undo_move_objects(dia, orig_pos, dest_pos, g_list_copy(objects)); 
+  /* if anything is connected not anymore */
+  diagram_unconnect_selected(dia);
+  undo_move_objects(dia, orig_pos, dest_pos, g_list_copy(objects));
 }
