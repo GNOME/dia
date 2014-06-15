@@ -1078,7 +1078,7 @@ draw_halfhead(DiaRenderer *renderer, Point *to, Point *from,
 static void
 draw_triangle(DiaRenderer *renderer, Point *to, Point *from,
 	      real length, real width, real linewidth,
-	      Color *fg_color, Color *bg_color)
+	      Color *bg_color, Color *fg_color)
 {
   Point poly[3];
 
@@ -1089,30 +1089,6 @@ draw_triangle(DiaRenderer *renderer, Point *to, Point *from,
   DIA_RENDERER_GET_CLASS(renderer)->set_linejoin(renderer, LINEJOIN_MITER);
 
   DIA_RENDERER_GET_CLASS(renderer)->draw_polygon(renderer, poly, 3, bg_color, fg_color);
-}
-
-/** Draw a simple triangular arrow, with filled head.
- * @param renderer A renderer instance to draw into
- * @param to The point that the arrow points to.
- * @param from Where the arrow points from (e.g. end of stem)
- * @param length The length of the arrow
- * @param width The width of the arrow
- * @param linewidth The thickness of the lines used to draw the arrow.
- * @param color The color used for drawing the arrowhead.
- */
-static void
-fill_triangle(DiaRenderer *renderer, Point *to, Point *from,
-	      real length, real width, real linewidth,
-	      Color *fg_color, Color *bg_color)
-{
-  Point poly[3];
-
-  calculate_arrow(poly, to, from, length, width);
-  
-  DIA_RENDERER_GET_CLASS(renderer)->set_fillstyle(renderer, FILLSTYLE_SOLID);
-  DIA_RENDERER_GET_CLASS(renderer)->set_linejoin(renderer, LINEJOIN_MITER);
-
-  DIA_RENDERER_GET_CLASS(renderer)->draw_polygon(renderer, poly, 3, bg_color, NULL);
 }
 
 /** Calculate the points needed to draw a diamon arrowhead.
@@ -1177,7 +1153,7 @@ calculate_diamond(Point *poly, const Point *to, const Point *from,
 static void
 draw_diamond(DiaRenderer *renderer, Point *to, Point *from,
 	     real length, real width, real linewidth,
-	     Color *color)
+	     Color *fill, Color *stroke)
 {
   Point poly[4];
 
@@ -1188,7 +1164,7 @@ draw_diamond(DiaRenderer *renderer, Point *to, Point *from,
   DIA_RENDERER_GET_CLASS(renderer)->set_linejoin(renderer, LINEJOIN_MITER);
   DIA_RENDERER_GET_CLASS(renderer)->set_linecaps(renderer, LINECAPS_BUTT);
 
-  DIA_RENDERER_GET_CLASS(renderer)->draw_polygon(renderer, poly, 4, NULL, color);
+  DIA_RENDERER_GET_CLASS(renderer)->draw_polygon(renderer, poly, 4, fill, stroke);
 }
 
 /** Draw a right-hand part of a diamond arrowhead.
@@ -1215,30 +1191,6 @@ draw_half_diamond(DiaRenderer *renderer, Point *to, Point *from,
   DIA_RENDERER_GET_CLASS(renderer)->set_linecaps(renderer, LINECAPS_BUTT);
 
   DIA_RENDERER_GET_CLASS(renderer)->draw_polyline(renderer, poly+1, 3, fg_color);
-}
-
-/** Draw a filled diamond arrow head.
- * @param renderer A renderer instance to draw into
- * @param to The point that the arrow points to.
- * @param from Where the arrow points from (e.g. end of stem)
- * @param length The length of the arrow
- * @param width The width of the arrow
- * @param color The color used for drawing the arrowhead.
- */
-static void
-fill_diamond(DiaRenderer *renderer, Point *to, Point *from,
-	     real length, real width,
-	     Color *color)
-{
-  Point poly[4];
-
-  calculate_diamond(poly, to, from, length, width);
-  
-  DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
-  DIA_RENDERER_GET_CLASS(renderer)->set_linejoin(renderer, LINEJOIN_MITER);
-  DIA_RENDERER_GET_CLASS(renderer)->set_linecaps(renderer, LINECAPS_BUTT);
-
-  DIA_RENDERER_GET_CLASS(renderer)->draw_polygon(renderer, poly, 4, color, NULL);
 }
 
 /** Calculate the points needed to draw a slashed-cross arrowhead.
@@ -1457,34 +1409,13 @@ calculate_double_arrow(Point *second_to, Point *second_from,
 static void 
 draw_double_triangle(DiaRenderer *renderer, Point *to, Point *from,
 		     real length, real width, real linewidth, 
-		     Color *fg_color, Color *bg_color)
+		     Color *bg_color, Color *fg_color)
 {
   Point second_from, second_to;
   
-  draw_triangle(renderer, to, from, length, width, linewidth, fg_color, bg_color);
+  draw_triangle(renderer, to, from, length, width, linewidth, bg_color, fg_color);
   calculate_double_arrow(&second_to, &second_from, to, from, length+linewidth);
-  draw_triangle(renderer, &second_to, &second_from, length, width, linewidth, fg_color, bg_color);
-}
-
-/** Draw a filled double-triangle arrowhead.
- * @param renderer A renderer instance to draw into
- * @param to The point that the arrow points to.
- * @param from Where the arrow points from (e.g. end of stem)
- * @param length The length of the arrow
- * @param width The width of the arrow
- * @param linewidth The thickness of the lines used to draw the arrow.
- * @param color The color used for drawing the arrowhead.
- */
-static void 
-fill_double_triangle(DiaRenderer *renderer, Point *to, Point *from,
-		     real length, real width, real linewidth, 
-		     Color *fg_color, Color *bg_color)
-{
-  Point second_from, second_to;
-  
-  fill_triangle(renderer, to, from, length, width, linewidth, NULL, bg_color);
-  calculate_double_arrow(&second_to, &second_from, to, from, length);
-  fill_triangle(renderer, &second_to, &second_from, length, width, linewidth, NULL, bg_color);
+  draw_triangle(renderer, &second_to, &second_from, length, width, linewidth, bg_color, fg_color);
 }
 
 /** Calculate the points needed to draw a concave arrowhead.
@@ -1568,9 +1499,9 @@ draw_concave_triangle(DiaRenderer *renderer, Point *to, Point *from,
   DIA_RENDERER_GET_CLASS(renderer)->set_linecaps(renderer, LINECAPS_BUTT);
 
   if (fg_color == bg_color)
-    DIA_RENDERER_GET_CLASS(renderer)->draw_polygon(renderer, poly, 4, bg_color, NULL);
+    DIA_RENDERER_GET_CLASS(renderer)->draw_polygon(renderer, poly, 4, bg_color, bg_color);
   else
-    DIA_RENDERER_GET_CLASS(renderer)->draw_polygon(renderer, poly, 4, bg_color, fg_color);
+    DIA_RENDERER_GET_CLASS(renderer)->draw_polygon(renderer, poly, 4, NULL, fg_color);
 }
 
 /** Draw a rounded (half-circle) arrowhead.
@@ -1763,45 +1694,43 @@ draw_three_dots(DiaRenderer *renderer, Point *to, Point *from,
     DIA_RENDERER_GET_CLASS(renderer)->draw_line(renderer, &dot_from, &dot_to, fg_color);
   }
 }
-
+/* hollow is still filed, but with background color */
 static void
 draw_hollow_triangle (DiaRenderer *renderer, Point *to, Point *from,
 		      real length, real width, real linewidth,
 		      Color *fg_color, Color *bg_color)
 {
-  fill_triangle(renderer, to, from, length, width, linewidth, NULL, bg_color);
-  draw_triangle(renderer, to, from, length, width, linewidth, fg_color, NULL);
+  draw_triangle(renderer, to, from, length, width, linewidth, bg_color, fg_color);
 }
+/* unfilled is no backround drawn */
 static void
 draw_filled_triangle (DiaRenderer *renderer, Point *to, Point *from,
 		      real length, real width, real linewidth,
 		      Color *fg_color, Color *bg_color)
 {
-  fill_triangle(renderer, to, from, length, width, linewidth, NULL, fg_color);
-  draw_triangle(renderer, to, from, length, width, linewidth, fg_color, NULL);
+  draw_triangle(renderer, to, from, length, width, linewidth, fg_color, fg_color);
 }
 static void
 draw_unfilled_triangle (DiaRenderer *renderer, Point *to, Point *from,
 		        real length, real width, real linewidth,
 		        Color *fg_color, Color *bg_color)
 {
-  draw_triangle(renderer, to, from, length, width, linewidth, fg_color, bg_color);
+  draw_triangle(renderer, to, from, length, width, linewidth, NULL, fg_color);
 }
+/* hollow is still filed, but with background color */
 static void
 draw_hollow_diamond (DiaRenderer *renderer, Point *to, Point *from,
 		     real length, real width, real linewidth,
 		     Color *fg_color, Color *bg_color)
 {
-  fill_diamond(renderer, to, from, length, width, bg_color);
-  draw_diamond(renderer, to, from, length, width, linewidth, fg_color);
+  draw_diamond(renderer, to, from, length, width, linewidth, bg_color, fg_color);
 }
 static void
 draw_filled_diamond (DiaRenderer *renderer, Point *to, Point *from,
 		     real length, real width, real linewidth,
 		     Color *fg_color, Color *bg_color)
 {
-  fill_diamond(renderer, to, from, length, width, fg_color);
-  draw_diamond(renderer, to, from, length, width, linewidth, fg_color);
+  draw_diamond(renderer, to, from, length, width, linewidth, fg_color, fg_color);
 }
 static void
 draw_filled_ellipse (DiaRenderer *renderer, Point *to, Point *from,
@@ -1847,15 +1776,14 @@ draw_double_hollow_triangle (DiaRenderer *renderer, Point *to, Point *from,
 		             real length, real width, real linewidth,
 		             Color *fg_color, Color *bg_color)
 {
-  fill_double_triangle(renderer, to, from, length+(linewidth/2), width, linewidth, fg_color, bg_color);
-  draw_double_triangle(renderer, to, from, length, width, linewidth, fg_color, bg_color);  
+  draw_double_triangle(renderer, to, from, length, width, linewidth, bg_color, fg_color);  
 }
 static void
 draw_double_filled_triangle (DiaRenderer *renderer, Point *to, Point *from,
 		             real length, real width, real linewidth,
 		             Color *fg_color, Color *bg_color)
 {
-  fill_double_triangle(renderer, to, from, length, width, linewidth, fg_color, fg_color);
+  draw_double_triangle(renderer, to, from, length, width, linewidth, fg_color, fg_color);
 }
 struct ArrowDesc {
   const char *name;
