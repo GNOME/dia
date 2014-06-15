@@ -1706,12 +1706,17 @@ read_items (xmlNodePtr   startnode,
       /* put the global user scale on the stack */
       real user_scale_prev = user_scale;
       DiaMatrix *matrix = NULL;
+      DiaSvgStyle subsvg_gs;
 
       _node_read_viewbox (node, &matrix);
 
+      /* there may be specific style attached to this node, too */
+      dia_svg_style_init (&subsvg_gs, parent_gs);
+      dia_svg_parse_style (node, &subsvg_gs, user_scale);
+
       pos.x = _node_get_real (node, "x", 0.0);
       pos.y = _node_get_real (node, "y", 0.0);
-      moreitems = read_items (node->xmlChildrenNode, parent_gs,
+      moreitems = read_items (node->xmlChildrenNode, &subsvg_gs,
 			      defs_ht, style_ht, pattern_ht,
 			      filename_svg, ctx);
       if (moreitems) {
@@ -2082,11 +2087,15 @@ import_svg (xmlDocPtr doc, DiagramData *dia,
     GHashTable *defs_ht = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
     GHashTable *style_ht = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
     GHashTable *pattern_ht = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_object_unref);
+    DiaSvgStyle root_gs;
     /* first read all definitions ... */
     read_defs (root->xmlChildrenNode, NULL, defs_ht, style_ht, pattern_ht,
 	       dia_context_get_filename(ctx), ctx);
     /* ... to have the available for the rendered objects */
-    items = read_items (root->xmlChildrenNode, NULL, defs_ht, style_ht, pattern_ht,
+    /* also parse the style from the root element to have potential defaults */
+    dia_svg_style_init (&root_gs, NULL);
+    dia_svg_parse_style (root, &root_gs, user_scale);
+    items = read_items (root->xmlChildrenNode, &root_gs, defs_ht, style_ht, pattern_ht,
 		        dia_context_get_filename(ctx), ctx);
     g_hash_table_destroy (pattern_ht);
     g_hash_table_destroy (style_ht);
