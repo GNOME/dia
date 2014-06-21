@@ -312,10 +312,8 @@ public :
 		       | (f->isBold () ? DIA_FONT_BOLD : DIA_FONT_WEIGHT_NORMAL);
     gchar *family = g_strdup (f->getFamily() ? f->getFamily()->getCString() : "sans");
 
-    double *mat = state->getTextMat();
-
     // we are (not anymore) building the same font over and over again
-    g_print ("Font 0x%08x: '%s' size=%g (* %g)\n", f, family, state->getFontSize(), mat[3]);
+    g_print ("Font 0x%08x: '%s' size=%g (* %g)\n", f, family, state->getTransformedFontSize());
 
     // now try to make a fontname Dia/Pango can cope with
     // strip style postfix - we already have extracted the style bits above
@@ -329,10 +327,11 @@ public :
     if ((pf = strstr (family, " Oblique")) != NULL)
       *pf = 0;
 
-    if (mat[3] > 0.0)
-      font = dia_font_new (family, style, state->getFontSize() * mat[3] * scale / 0.8);
-    else // bug: in Gfx::opShowSpaceText() missing matrix setup?
-      font = dia_font_new (family, style, state->getFontSize() / 0.8);
+    double *fm = f->getFontMatrix();
+    double fsize = state->getTransformedFontSize();
+    if (fm[0] != 0)
+      fsize *= fabs(fm[3] / fm[0]);
+    font = dia_font_new (family, style, fsize * scale / 0.8);
 
     g_hash_table_insert (this->font_map, f, font);
     g_free (family);
@@ -730,10 +729,14 @@ DiaOutputDev::drawString(GfxState *state, GooString *s)
   if (state->getRender() == 3)
     text_color.alpha = 0.0;
 
-  double *mat = state->getTextMat();
+  // not sure how state->getLineX() is related, it's 0 in my test cases
   double tx = state->getCurX();
   double ty = state->getCurY();
-  obj = create_standard_text (tx * scale, page_height - ty * scale);
+  int rot = state->getRotate();
+  if (rot == 0)
+    obj = create_standard_text (tx * scale, page_height - ty * scale);
+  else /* XXX: at least for rot==90 */
+    obj = create_standard_text (ty * scale, tx * scale);
   //not applyStyle (obj, TEXT);
   GPtrArray *plist = g_ptr_array_new ();
   // the "text" property is special, it must be initialized with text 
@@ -743,10 +746,7 @@ DiaOutputDev::drawString(GfxState *state, GooString *s)
   prop_list_add_font (plist, "text_font", font);
   prop_list_add_text_colour (plist, &text_color);
   prop_list_add_enum (plist, "text_alignment", this->alignment);
-  if (mat[3] > 0.0)
-    prop_list_add_fontsize (plist, "text_height", state->getFontSize() * mat[3] * scale / 0.8);
-  else
-    prop_list_add_fontsize (plist, "text_height", state->getFontSize() / 0.8);
+  prop_list_add_fontsize (plist, "text_height", state->getTransformedFontSize() * scale / 0.8);
   obj->ops->set_props (obj, plist);
   prop_list_free (plist);
   g_free (utf8);
