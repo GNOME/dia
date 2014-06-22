@@ -39,6 +39,7 @@
 #include "pydia-text.h"
 #include "pydia-paperinfo.h"
 #include "pydia-menuitem.h"
+#include "pydia-sheet.h"
 
 #include "lib/dialib.h"
 #include "lib/object.h"
@@ -198,6 +199,23 @@ PyDia_RegisteredTypes(PyObject *self, PyObject *args)
     object_registry_foreach(_ot_item, dict);
 
     return dict;
+}
+
+static PyObject *
+PyDia_RegisteredSheets(PyObject *self, PyObject *args)
+{
+    PyObject *list;
+    GSList *items;
+
+    if (!PyArg_ParseTuple(args, ":dia.registered_sheets"))
+	return NULL;
+
+    list = PyList_New(0);
+
+    for (items = get_sheets_list (); items != NULL; items = items->next)
+	PyList_Append (list, PyDiaSheet_New (items->data));
+
+    return list;
 }
 
 static PyObject *
@@ -513,6 +531,9 @@ static PyMethodDef dia_methods[] = {
     { "registered_types", PyDia_RegisteredTypes, METH_VARARGS,
       "registered_types() -> Dict of ObjectType indexed by their name."
       "  A dictionary of all registered object factories, aka. DiaObjectType" },
+    { "registered_sheets", PyDia_RegisteredSheets, METH_VARARGS,
+      "registered_sheets() -> List of registered sheets."
+      "  A list of all registered sheets." },
     { "active_display", PyDia_ActiveDisplay, METH_VARARGS,
       "active_display() -> Display.  Delivers the currently active display 'dia.Display' or None" },
     { "update_all", PyDia_UpdateAll, METH_VARARGS,
@@ -582,6 +603,7 @@ initdia(void)
     PyDiaText_Type.ob_type = &PyType_Type;
     PyDiaPaperinfo_Type.ob_type = &PyType_Type;
     PyDiaMenuitem_Type.ob_type = &PyType_Type;
+    PyDiaSheet_Type.ob_type = &PyType_Type;
 #endif
 
     m = Py_InitModule3("dia", dia_methods, dia_module_doc);
@@ -643,9 +665,11 @@ initdia(void)
 			 (void *)&PyDiaPaperinfo_Type);
     PyDict_SetItemString(d, "Menuitem",
 			 (void *)&PyDiaMenuitem_Type);
+    PyDict_SetItemString(d, "Sheet",
+			 (void *)&PyDiaSheet_Type);
 
     if (PyErr_Occurred())
-	Py_FatalError("can't initialise module dia");
+	Py_FatalError("can't initialize module dia");
     else {
       /* should all be no-ops when used embedded */
       g_type_init ();

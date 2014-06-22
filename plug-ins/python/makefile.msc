@@ -41,6 +41,7 @@ OBJECTS = \
 	pydia-properties.obj \
 	pydia-property.obj \
 	pydia-render.obj \
+	pydia-sheet.obj \
 	pydia-text.obj \
 
 OBJECTS2 = \
