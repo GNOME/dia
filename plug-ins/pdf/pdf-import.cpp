@@ -379,7 +379,6 @@ public :
   void drawImage(GfxState *state, Object *ref, Stream *str,
 		 int width, int height, GfxImageColorMap *colorMap,
 		 GBool interpolate, int *maskColors, GBool inlineImg);
-
   
   //! everything on a single page it put into a Dia Group
   void startPage(int pageNum, GfxState *state)
@@ -775,13 +774,13 @@ DiaOutputDev::drawImage(GfxState *state, Object *ref, Stream *str,
   // cmt[2] and ctm[3] being negative - use that for y postion
   // ctm[0] and ctm[3] have width and height in device coordinates
   pos.y = (ctm[5] + ctm[3]) * scale;
-
+#ifdef USE_IMAGE_CACHE /* bogus: neither 'ref' nor  'str' work as unique key */
   // rather than creating the image over and over again we try to cache them
-  // via the given 'ref' object
-  if ((pixbuf = static_cast<GdkPixbuf*>(g_hash_table_lookup (this->image_cache, ref))) != NULL) {
+  // via the given 'stream' object
+  if ((pixbuf = static_cast<GdkPixbuf*>(g_hash_table_lookup (this->image_cache, str))) != NULL) {
     g_object_ref (pixbuf);
   } else {
-
+#endif
     pixbuf = gdk_pixbuf_new (GDK_COLORSPACE_RGB, maskColors ? TRUE : FALSE, 8, width, height);
 
     {
@@ -799,14 +798,33 @@ DiaOutputDev::drawImage(GfxState *state, Object *ref, Stream *str,
 
 	colorMap->getRGBLine (line, dest, width);
 
-	// ToDo: respect maskColors
+	if (maskColors) {
+	  for (int x = 0; x < width; x++) {
+	    bool is_opaque = false;
+	    for (int i = 0; i < colorMap->getNumPixelComps(); ++i) {
+	      if (line[i] < maskColors[2*i] ||
+		  line[i] > maskColors[2*i+1]) {
+		is_opaque = true;
+		break;
+	      }
+	    }
+	    if (is_opaque)
+	      *dest |= 0xff000000;
+	    else
+	      *dest = 0;
+	    dest++;
+	    line += colorMap->getNumPixelComps();
+	  }
+	}
 
 	line = imgStr.getLine ();
       }
     }
+#ifdef USE_IMAGE_CACHE
     // insert the new image into our cache
-    g_hash_table_insert (this->image_cache, ref, g_object_ref (pixbuf));
+    g_hash_table_insert (this->image_cache, str, g_object_ref (pixbuf));
   }
+#endif
   obj = create_standard_image (pos.x, pos.y, 
 			       ctm[0]  * scale,
 			       ctm[3]  * scale, NULL);
