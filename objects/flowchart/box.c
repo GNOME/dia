@@ -557,7 +557,7 @@ box_create(Point *startpoint,
   dia_font_unref(font);
   
   /* new default: let the user decide the size */
-  box->text_fitting = TEXTFIT_ALWAYS;
+  box->text_fitting = TEXTFIT_WHEN_NEEDED;
 
   element_init(elem, 8, NUM_CONNECTIONS);
 
