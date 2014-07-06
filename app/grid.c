@@ -64,7 +64,9 @@ grid_step (DDisplay *ddisp, GtkOrientation orientation,
   calculate_dynamic_grid (ddisp, &length, &length);
   pos = ceil(*start / length) * length;
 
-  pos += length;
+  /* compensate for missing 5 and 6 in 3,4,..,7,8 major ticks */
+  if (fmod(*start, length) == fmod(pos, length))
+    pos += length;
   if (major_lines) {
     major_count = ROUND (pos/length);
     if(major_count < 0) major_count -= major_lines * major_count;

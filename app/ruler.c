@@ -25,11 +25,10 @@
  * too specialized to be ported?
  *
  * Or maybe not - at least the ruler part can be reimplemented quite
- * easily with already exisiting application specific logic.
+ * easily with already existing application specific logic.
  */
 
 #include "ruler.h"
-#if GTK_CHECK_VERSION(2,24,0)
 #include "grid.h"
 #include "display.h"
 
@@ -63,15 +62,18 @@ dia_ruler_draw (GtkWidget *widget,
 {
   DiaRuler *ruler = DIA_RULER(widget);
 
+#if GTK_CHECK_VERSION(2,18,0)
   if (gtk_widget_is_drawable (widget))
+#else
+  if (GTK_WIDGET_DRAWABLE (widget))
+#endif
     {
       GtkStyle *style = gtk_widget_get_style (widget);
       PangoLayout *layout;
-      int x = 0, y = 0, dx, dy, width, height;
+      int x, y, dx, dy, width, height;
       real pos;
 
       layout = gtk_widget_create_pango_layout (widget, "012456789");
-
 #if GTK_CHECK_VERSION(3,0,0)
       width = gtk_widget_get_allocated_width (widget);
       height = gtk_widget_get_allocated_height (widget);
@@ -82,7 +84,11 @@ dia_ruler_draw (GtkWidget *widget,
       dx = (ruler->orientation == GTK_ORIENTATION_VERTICAL) ? width/3 : 0;
       dy = (ruler->orientation == GTK_ORIENTATION_HORIZONTAL) ? height/3 : 0;
 
+#if GTK_CHECK_VERSION(2,18,0)
       gdk_cairo_set_source_color (cr, &style->text[gtk_widget_get_state(widget)]);
+#else
+      gdk_cairo_set_source_color (cr, &style->text[GTK_WIDGET_STATE(widget)]);
+#endif
       cairo_set_line_width (cr, 1);
 
       pos = ruler->lower;
@@ -106,10 +112,10 @@ dia_ruler_draw (GtkWidget *widget,
 	  /* label */
 	  if (is_major)
 	    {
-	      gchar text[G_ASCII_DTOSTR_BUF_SIZE];
+	      gchar text[G_ASCII_DTOSTR_BUF_SIZE*2];
 
-	      g_snprintf (text, sizeof(text)-1, "%g", pos);
-	      pango_layout_set_text (layout, text, -1);
+	      g_snprintf (text, sizeof(text)-1, "<small>%g</small>", pos);
+	      pango_layout_set_markup (layout, text, -1);
 	      pango_layout_context_changed (layout);
 	      cairo_save (cr);
 	      if (ruler->orientation == GTK_ORIENTATION_VERTICAL)
@@ -120,12 +126,13 @@ dia_ruler_draw (GtkWidget *widget,
 		}
 	      else
 		{
-		  cairo_move_to (cr, x+2, y);
+		  cairo_move_to (cr, x+2, 0);
 		}
 	      pango_cairo_show_layout (cr, layout);
 	      cairo_restore (cr);
 	    }
 	}
+      g_object_unref (layout);
       /* arrow */
       if (ruler->position > ruler->lower && ruler->position < ruler->upper)
 	{
@@ -134,16 +141,16 @@ dia_ruler_draw (GtkWidget *widget,
 	    {
 	      ddisplay_transform_coords (ruler->ddisp, 0, pos, &x, &y);
 	      cairo_move_to (cr, 3*dx, y);
-	      cairo_line_to (cr,   dx, y - dx);
-	      cairo_line_to (cr,   dx, y + dx);
+	      cairo_line_to (cr, 2*dx, y - dx);
+	      cairo_line_to (cr, 2*dx, y + dx);
 	      cairo_fill (cr);
 	    }
 	  else
 	    {
 	      ddisplay_transform_coords (ruler->ddisp, pos, 0, &x, &y);
 	      cairo_move_to (cr, x, 3*dy);
-	      cairo_line_to (cr, x + dy, dy);
-	      cairo_line_to (cr, x - dy, dy);
+	      cairo_line_to (cr, x + dy, 2*dy);
+	      cairo_line_to (cr, x - dy, 2*dy);
 	      cairo_fill (cr);
 	    }
 	}
@@ -156,7 +163,11 @@ static gboolean
 dia_ruler_expose_event (GtkWidget      *widget,
                         GdkEventExpose *event)
 {
+#if GTK_CHECK_VERSION(2,18,0)
   if (gtk_widget_is_drawable (widget))
+#else
+  if (GTK_WIDGET_DRAWABLE (widget))
+#endif
     {
       GdkWindow *window = gtk_widget_get_window(widget);
       cairo_t *cr = gdk_cairo_create (window);
@@ -176,19 +187,59 @@ dia_ruler_motion_notify (GtkWidget      *widget,
   gint x;
   gint y;
   real tmp;
+  gint width, height;
+  gint x0, y0;
 
   gdk_event_request_motions (event);
   x = event->x;
   y = event->y;
+#if GTK_CHECK_VERSION(3,0,0)
+  width = gtk_widget_get_allocated_width (widget);
+  height = gtk_widget_get_allocated_height (widget);
+#else
+  width = widget->allocation.width;
+  height = widget->allocation.height;
+#endif
+
+  gdk_drawable_get_size (widget->window, &width, &height);
 
   if (ruler->orientation == GTK_ORIENTATION_HORIZONTAL)
-    ddisplay_untransform_coords (ruler->ddisp, x, y, &ruler->position, &tmp);
+    {
+      /* get old position in display coordinates */
+      ddisplay_transform_coords (ruler->ddisp, ruler->position, 0, &x0, &y0);
+      /* update ruler position with original coords */
+      ddisplay_untransform_coords (ruler->ddisp, x, y, &ruler->position, &tmp);
+      /* reuse x,y to restrict invalidation */
+      y0 = y = 0;
+      x0 = MAX(x0 - height/2, 0);
+      x = MAX(x - height/2, 0);
+      width = height;
+    }
   else
-    ddisplay_untransform_coords (ruler->ddisp, x, y, &tmp, &ruler->position);
-  /* FIXME: might be a bit too expensive */
+    {
+      ddisplay_transform_coords (ruler->ddisp, 0, ruler->position, &x0, &y0);
+      ddisplay_untransform_coords (ruler->ddisp, x, y, &tmp, &ruler->position);
+      x0 = x = 0;
+      y0 = MAX(y0 - width/2, 0);
+      y = MAX(y - width/2, 0);
+      height = width;
+    }
+#if GTK_CHECK_VERSION(2,18,0)
   if (gtk_widget_is_drawable (GTK_WIDGET (ruler)))
-    gtk_widget_queue_draw (GTK_WIDGET (ruler));
-
+#else
+  if (GTK_WIDGET_DRAWABLE (ruler))
+#endif
+    {
+#if 0
+      /* this is a bit too expensive - on a slow enough computer the indicators lags */
+      gtk_widget_queue_draw (GTK_WIDGET (ruler));
+#else
+      /* old arrow position */
+      gtk_widget_queue_draw_area (GTK_WIDGET (ruler), x0, y0, width, height);
+      /* new arrow position */
+      gtk_widget_queue_draw_area (GTK_WIDGET (ruler), x, y, width, height);
+#endif
+    }
   return FALSE;
 }
 
@@ -197,7 +248,7 @@ dia_ruler_class_init (DiaRulerClass *klass)
 {
   GtkWidgetClass *widget_class  = GTK_WIDGET_CLASS (klass);
 
-#if GTK_CHECK_VERSION(2,24,0)
+#if !GTK_CHECK_VERSION(3,0,0)
   widget_class->expose_event = dia_ruler_expose_event;
 #endif
 }
@@ -206,17 +257,17 @@ static void
 dia_ruler_init (DiaRuler *rule)
 {
 }
-#endif /* GTK_CHECK_VERSION(2.24.0) */
 
 GtkWidget *
 dia_ruler_new (GtkOrientation orientation, GtkWidget *shell, DDisplay *ddisp)
 {
-  GtkWidget *rule = NULL;
-
-#if GTK_CHECK_VERSION(2,24,0)
-  rule = g_object_new (DIA_TYPE_RULER, NULL);
-  /* FIXME: calculate from style settings  */
-  gtk_widget_set_size_request (rule, 15, 15);
+  GtkWidget *rule = g_object_new (DIA_TYPE_RULER, NULL);
+  /* calculate from style settings  */
+  PangoLayout *layout = gtk_widget_create_pango_layout (shell, "X");
+  gint height;
+  pango_layout_get_pixel_size (layout, NULL, &height);
+  gtk_widget_set_size_request (rule, height, height);
+  g_object_unref (layout);
 
   DIA_RULER(rule)->orientation = orientation;
   DIA_RULER(rule)->ddisp = ddisp;
@@ -226,16 +277,6 @@ dia_ruler_new (GtkOrientation orientation, GtkWidget *shell, DDisplay *ddisp)
   g_signal_connect_swapped (G_OBJECT (shell), "motion_notify_event",
                             G_CALLBACK (dia_ruler_motion_notify),
                             G_OBJECT (rule));
-#else
-  if (orientation == GTK_ORIENTATION_HORIZONTAL)
-    rule = gtk_hruler_new ();
-  else if (orientation == GTK_ORIENTATION_VERTICAL)
-    rule = gtk_vruler_new ();
-
-  g_signal_connect_swapped (G_OBJECT (shell), "motion_notify_event",
-                            G_CALLBACK(GTK_WIDGET_GET_CLASS (rule)->motion_notify_event),
-                            G_OBJECT (rule));
-#endif
   return rule;
 }
 
@@ -246,7 +287,6 @@ dia_ruler_set_range (GtkWidget *self,
                      gdouble    position,
                      gdouble    max_size)
 {
-#if GTK_CHECK_VERSION(2,24,0)
   DiaRuler *ruler = DIA_RULER(self);
 
   ruler->lower = lower;
@@ -254,9 +294,13 @@ dia_ruler_set_range (GtkWidget *self,
   ruler->position = position;
   ruler->max_size = max_size;
 
+#  if GTK_CHECK_VERSION(2,18,0)
   if (gtk_widget_is_drawable (GTK_WIDGET (ruler)))
-    gtk_widget_queue_draw (GTK_WIDGET (ruler));
-#else
-  gtk_ruler_set_range (GTK_RULER (self), lower, upper, position, max_size);
-#endif
+#  else
+  if (GTK_WIDGET_DRAWABLE (ruler))
+#  endif
+    {
+      gtk_widget_queue_draw (GTK_WIDGET (ruler));
+      /* XXX: draw arrow at mouse position */
+    }
 }
