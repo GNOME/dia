@@ -90,10 +90,10 @@ static const GtkActionEntry common_entries[] =
   { "File", NULL, N_("_File"), NULL, NULL, NULL },
     { "FileNew", GTK_STOCK_NEW, NULL, FIRST_MODIFIER "N", N_("Create a new diagram"), G_CALLBACK (file_new_callback) },
     { "FileOpen", GTK_STOCK_OPEN, N_("_Open\342\200\246"),FIRST_MODIFIER "O", N_("Open a diagram file"), G_CALLBACK (file_open_callback) },
-    { "FileQuit", GTK_STOCK_QUIT, NULL, FIRST_MODIFIER "Q", NULL, G_CALLBACK (file_quit_callback) }, 
+    { "FileQuit", GTK_STOCK_QUIT, NULL, FIRST_MODIFIER "Q", N_("Quit Dia"), G_CALLBACK (file_quit_callback) }, 
   { "Help", NULL, N_("_Help"), NULL, NULL, NULL },
-    { "HelpContents", GTK_STOCK_HELP, NULL, "F1", NULL, G_CALLBACK (help_manual_callback) },
-    { "HelpAbout", GTK_STOCK_ABOUT, NULL, NULL, NULL, G_CALLBACK (help_about_callback) }
+    { "HelpContents", GTK_STOCK_HELP, NULL, "F1", N_("Dia help"), G_CALLBACK (help_manual_callback) },
+    { "HelpAbout", GTK_STOCK_ABOUT, NULL, NULL, N_("Dia version, authors, license"), G_CALLBACK (help_about_callback) }
 };
 
 extern void diagram_tree_show(void);
@@ -101,17 +101,17 @@ extern void diagram_tree_show(void);
 /* Actions for toolbox menu */
 static const GtkActionEntry toolbox_entries[] = 
 {
-    { "FileSheets", NULL, N_("Sheets and Objects\342\200\246"), "F9", NULL, G_CALLBACK (sheets_dialog_show_callback) },
-    { "FilePrefs", GTK_STOCK_PREFERENCES, NULL, NULL, NULL, G_CALLBACK (file_preferences_callback) },
-    { "FilePlugins", NULL, N_("Plugins\342\200\246"), NULL, NULL, G_CALLBACK (file_plugins_callback) },
-    { "FileTree", NULL, N_("_Diagram Tree"), "F8", NULL, G_CALLBACK (diagram_tree_show) }
+    { "FileSheets", NULL, N_("Sheets and Objects\342\200\246"), "F9", N_("Manage sheets and their objects"), G_CALLBACK (sheets_dialog_show_callback) },
+    { "FilePrefs", GTK_STOCK_PREFERENCES, NULL, NULL, N_("Dia preferences"), G_CALLBACK (file_preferences_callback) },
+    { "FilePlugins", NULL, N_("Plugins\342\200\246"), NULL, N_("Manage plug-ins"), G_CALLBACK (file_plugins_callback) },
+    { "FileTree", NULL, N_("_Diagram Tree"), "F8", N_("Tree representation of diagrams"), G_CALLBACK (diagram_tree_show) }
 };
 
 static const GtkToggleActionEntry integrated_ui_view_toggle_entries[] = 
 {
-    { VIEW_MAIN_TOOLBAR_ACTION,   NULL, N_("Show Toolbar"),   NULL, NULL, G_CALLBACK (view_main_toolbar_callback) },
-    { VIEW_MAIN_STATUSBAR_ACTION, NULL, N_("Show Statusbar"), NULL, NULL, G_CALLBACK (view_main_statusbar_callback) },
-    { VIEW_LAYERS_ACTION,    NULL, N_("Show Layers"), FIRST_MODIFIER "L", NULL, G_CALLBACK (view_layers_callback) }
+    { VIEW_MAIN_TOOLBAR_ACTION,   NULL, N_("Show Toolbar"),   NULL, N_("Show or hide the toolbar"), G_CALLBACK (view_main_toolbar_callback) },
+    { VIEW_MAIN_STATUSBAR_ACTION, NULL, N_("Show Statusbar"), NULL, N_("Show or hide the statusbar"), G_CALLBACK (view_main_statusbar_callback) },
+    { VIEW_LAYERS_ACTION,    NULL, N_("Show Layers"), FIRST_MODIFIER "L", N_("Show or hide the layers toolwindow"), G_CALLBACK (view_layers_callback) }
 };
 
 /* Actions for diagram window */
@@ -120,10 +120,10 @@ static const GtkActionEntry display_entries[] =
     { "FileSave", GTK_STOCK_SAVE, NULL, FIRST_MODIFIER "S", N_("Save the diagram"), G_CALLBACK (file_save_callback) },
     { "FileSaveas", GTK_STOCK_SAVE_AS, N_("Save _As\342\200\246"), FIRST_MODIFIER "<shift>S", N_("Save the diagram with a new name"), G_CALLBACK (file_save_as_callback) },
     { "FileExport", GTK_STOCK_CONVERT, N_("_Export\342\200\246"), NULL, N_("Export the diagram"), G_CALLBACK (file_export_callback) },
-    { "DiagramProperties", GTK_STOCK_PROPERTIES, N_("_Diagram Properties"), "<shift><alt>Return", NULL, G_CALLBACK (view_diagram_properties_callback) },
-    { "FilePagesetup", NULL, N_("Page Set_up\342\200\246"), NULL, NULL, G_CALLBACK (file_pagesetup_callback) },
+    { "DiagramProperties", GTK_STOCK_PROPERTIES, N_("_Diagram Properties"), "<shift><alt>Return", N_("Modify diagram properties (grid, background)"), G_CALLBACK (view_diagram_properties_callback) },
+    { "FilePagesetup", NULL, N_("Page Set_up\342\200\246"), NULL, N_("Modify the diagram pagination"), G_CALLBACK (file_pagesetup_callback) },
     { "FilePrint", GTK_STOCK_PRINT, N_("_Print\342\200\246"), FIRST_MODIFIER "P", N_("Print the diagram"), G_CALLBACK (file_print_callback) },
-    { "FileClose", GTK_STOCK_CLOSE, NULL, FIRST_MODIFIER "W", NULL, G_CALLBACK (file_close_callback) },
+    { "FileClose", GTK_STOCK_CLOSE, NULL, FIRST_MODIFIER "W", N_("Close the diagram"), G_CALLBACK (file_close_callback) },
 
   { "Edit", NULL, N_("_Edit"), NULL, NULL, NULL },
     { "EditUndo", GTK_STOCK_UNDO, NULL, FIRST_MODIFIER "Z", N_("Undo"), G_CALLBACK (edit_undo_callback) },
@@ -132,19 +132,19 @@ static const GtkActionEntry display_entries[] =
     { "EditCopy", GTK_STOCK_COPY, NULL, FIRST_MODIFIER "C", N_("Copy selection"), G_CALLBACK (edit_copy_callback) },
     { "EditCut", GTK_STOCK_CUT, NULL, FIRST_MODIFIER "X", N_("Cut selection"), G_CALLBACK (edit_cut_callback) },
     { "EditPaste", GTK_STOCK_PASTE, NULL, FIRST_MODIFIER "V", N_("Paste selection"), G_CALLBACK (edit_paste_callback) },
-    { "EditDuplicate", NULL, N_("_Duplicate"), FIRST_MODIFIER "D", NULL, G_CALLBACK (edit_duplicate_callback) },
-    { "EditDelete", GTK_STOCK_DELETE, NULL, "Delete", NULL, G_CALLBACK (edit_delete_callback) },
+    { "EditDuplicate", NULL, N_("_Duplicate"), FIRST_MODIFIER "D", N_("Duplicate selection"), G_CALLBACK (edit_duplicate_callback) },
+    { "EditDelete", GTK_STOCK_DELETE, NULL, "Delete", N_("Delete selection"), G_CALLBACK (edit_delete_callback) },
 
-    { "EditFind", GTK_STOCK_FIND, N_("_Find\342\200\246"), FIRST_MODIFIER "F", NULL, G_CALLBACK (edit_find_callback) },
-    { "EditReplace", GTK_STOCK_FIND_AND_REPLACE, N_("_Replace\342\200\246"), FIRST_MODIFIER "H", NULL, G_CALLBACK (edit_replace_callback) },
+    { "EditFind", GTK_STOCK_FIND, N_("_Find\342\200\246"), FIRST_MODIFIER "F", N_("Search for text"), G_CALLBACK (edit_find_callback) },
+    { "EditReplace", GTK_STOCK_FIND_AND_REPLACE, N_("_Replace\342\200\246"), FIRST_MODIFIER "H", N_("Search and replace text"), G_CALLBACK (edit_replace_callback) },
 
     /* the following used to bind to <control><shift>C which collides with Unicode input. 
      * <control><alt> doesn't work either */
-    { "EditCopytext", NULL, N_("Copy Text"), NULL, NULL, G_CALLBACK (edit_copy_text_callback) },
-    { "EditCuttext", NULL, N_("Cut Text"), FIRST_MODIFIER "<shift>X", NULL, G_CALLBACK (edit_cut_text_callback) },
-    { "EditPastetext", NULL, N_("Paste _Text"), FIRST_MODIFIER "<shift>V", NULL, G_CALLBACK (edit_paste_text_callback) } ,
+    { "EditCopytext", NULL, N_("Copy Text"), NULL, N_("Copy object's text to clipboard"), G_CALLBACK (edit_copy_text_callback) },
+    { "EditCuttext", NULL, N_("Cut Text"), FIRST_MODIFIER "<shift>X", N_("Cut object's text to clipboard"), G_CALLBACK (edit_cut_text_callback) },
+    { "EditPastetext", NULL, N_("Paste _Text"), FIRST_MODIFIER "<shift>V", N_("Insert text from clipboard"), G_CALLBACK (edit_paste_text_callback) } ,
 
-    { "EditPasteImage", NULL, N_("Paste _Image"), FIRST_MODIFIER "<alt>V", NULL, G_CALLBACK (edit_paste_image_callback) },
+    { "EditPasteImage", NULL, N_("Paste _Image"), FIRST_MODIFIER "<alt>V", N_("Insert image from clipboard"), G_CALLBACK (edit_paste_image_callback) },
 
   { "Layers", NULL, N_("_Layers"), NULL, NULL, NULL }, 
     { "LayerAdd", DIA_STOCK_LAYER_ADD, N_("Add Layer\342\200\246"), NULL, NULL, G_CALLBACK (layers_add_layer_callback) },
