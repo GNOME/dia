@@ -519,6 +519,8 @@ text_distance_from(Text *text, Point *point)
   } else {
     dy = 0.0;
     line = (int) floor( (point->y - topy) / text->height );
+    if (line >= text->numlines)
+      line = text->numlines - 1;
   }
 
   left = text->position.x;
