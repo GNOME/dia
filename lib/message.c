@@ -314,6 +314,8 @@ dia_log_message (const char *format, ...)
   static GTimer *timer = NULL;
   char *log;
   va_list args;
+  gint64 t;
+  gulong h, m, s, ms;
 
   if (!log_enabled)
      return;
@@ -325,6 +327,10 @@ dia_log_message (const char *format, ...)
   log  = g_strdup_vprintf (format, args);
   va_end (args);
 
-  g_message ("t=%.03f - %s", g_timer_elapsed (timer, NULL), log);
+  t = (gint64)g_timer_elapsed (timer, &ms);
+  s = t % 60; t = (t - s) / 60;
+  m = t % 60; t = (t - m) / 60;
+  h = t;
+  g_message ("%02d:%02d:%02d.%03d - %s", h, m, s, ms/1000, log);
   g_free (log);
 }
