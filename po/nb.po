@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: dia 0.97.x\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-02-20 18:10+0100\n"
-"PO-Revision-Date: 2014-02-20 18:17+0100\n"
+"PO-Revision-Date: 2014-02-21 11:34+0100\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian <i18n-nb@lister.ping.uio.no>\n"
 "Language: no\n"
@@ -2374,67 +2374,56 @@ msgid "Slashed"
 msgstr "Streket"
 
 #: ../lib/arrows.c:1911
-#, fuzzy
 msgctxt "Arrow"
 msgid "Integral Symbol"
 msgstr "Itegraltegn"
 
 #: ../lib/arrows.c:1912
-#, fuzzy
 msgctxt "Arrow"
 msgid "Crow Foot"
 msgstr "Kråkefot"
 
 #: ../lib/arrows.c:1913
-#, fuzzy
 msgctxt "Arrow"
 msgid "Cross"
 msgstr "Kryss"
 
 #: ../lib/arrows.c:1914
-#, fuzzy
 msgctxt "Arrow"
 msgid "1-or-many"
 msgstr "1-eller-mange"
 
 #: ../lib/arrows.c:1915
-#, fuzzy
 msgctxt "Arrow"
 msgid "0-or-many"
 msgstr "0-eller-mange"
 
 #: ../lib/arrows.c:1916
-#, fuzzy
 msgctxt "Arrow"
 msgid "1-or-0"
 msgstr "1-eller-0"
 
 #: ../lib/arrows.c:1917
-#, fuzzy
 msgctxt "Arrow"
 msgid "1 exactly"
 msgstr "Eksakt 1"
 
 #: ../lib/arrows.c:1918
-#, fuzzy
 msgctxt "Arrow"
 msgid "Filled Concave"
 msgstr "Fylt konkav"
 
 #: ../lib/arrows.c:1919
-#, fuzzy
 msgctxt "Arrow"
 msgid "Blanked Concave"
 msgstr "Tom konkav"
 
 #: ../lib/arrows.c:1920
-#, fuzzy
 msgctxt "Arrow"
 msgid "Round"
 msgstr "Rund"
 
 #: ../lib/arrows.c:1921
-#, fuzzy
 msgctxt "Arrow"
 msgid "Open Round"
 msgstr "Åpen rund"
@@ -2445,7 +2434,6 @@ msgid "Backslash"
 msgstr ""
 
 #: ../lib/arrows.c:1923
-#, fuzzy
 msgctxt "Arrow"
 msgid "Infinite Line"
 msgstr "Uendelig linje"
@@ -2519,7 +2507,7 @@ msgid ""
 msgstr ""
 
 #: ../lib/dia_image.c:336
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Could not save file:\n"
 "%s\n"
@@ -2527,7 +2515,7 @@ msgid ""
 msgstr ""
 "Kunne ikke lagre fil:\n"
 "%s\n"
-"%s"
+"%s\n"
 
 #: ../lib/dialinechooser.c:309
 msgid "Line Style Properties"
@@ -2673,9 +2661,8 @@ msgid "Can't load font %s.\n"
 msgstr "Kan ikke laste skrift %s.\n"
 
 #: ../lib/group.c:624
-#, fuzzy
 msgid "Transformation"
-msgstr "Informasjon"
+msgstr "Transformasjon"
 
 #: ../lib/message.c:93 ../lib/message.c:284
 msgid "Warning"
@@ -2694,11 +2681,11 @@ msgid "Don't show this message again"
 msgstr "Ikke vis denne meldingen igjen"
 
 #: ../lib/message.c:206
-#, fuzzy, c-format
+#, c-format
 msgid "There is %d similar message."
 msgid_plural "There are %d similar messages."
-msgstr[0] "Det finnes en lignende melding."
-msgstr[1] "Det finnes en lignende melding."
+msgstr[0] "Det finnes %d lignende melding."
+msgstr[1] "Det finnes %d lignende meldinger."
 
 #: ../lib/message.c:268
 msgid "Notice"
@@ -2715,9 +2702,8 @@ msgstr ""
 
 #. base property stuff...
 #: ../lib/orth_conn.h:97
-#, fuzzy
 msgid "Autoroute"
-msgstr "IAD-ruter"
+msgstr ""
 
 #: ../lib/orth_conn.h:108
 msgid "Autorouting"
@@ -2815,7 +2801,7 @@ msgstr ""
 
 #: ../lib/properties.c:77 ../lib/properties.h:599
 msgid "Always"
-msgstr ""
+msgstr "Alltid"
 
 #: ../lib/properties.c:81 ../lib/properties.h:603
 msgctxt "LineJoin"
@@ -2823,7 +2809,6 @@ msgid "Miter"
 msgstr ""
 
 #: ../lib/properties.c:82 ../lib/properties.h:604
-#, fuzzy
 msgctxt "LineJoin"
 msgid "Round"
 msgstr "Rund"
