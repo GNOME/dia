@@ -15,9 +15,9 @@ msgstr ""
 "Project-Id-Version: dia 0-97\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=dia&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2014-02-23 04:14+0000\n"
-"PO-Revision-Date: 2014-02-23 16:33+0100\n"
-"Last-Translator: Balázs Úr <urbalazs at gmail dot com>\n"
+"POT-Creation-Date: 2014-07-26 03:10+0000\n"
+"PO-Revision-Date: 2014-07-26 10:33+0200\n"
+"Last-Translator: Balázs Úr <urbalazs@gmail.com>\n"
 "Language-Team: Hungarian <gnome at fsf dot hu>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -192,18 +192,18 @@ msgstr "Nem lehet kapcsolódni a munkafolyamat-kezelőhöz!\n"
 
 #  TRANSLATOR: 2nd and 3rd %s are time and date respectively.
 #. TRANSLATOR: 2nd and 3rd %s are time and date respectively.
-#: ../app/app_procs.c:881
+#: ../app/app_procs.c:880
 #, c-format
 msgid "Dia version %s, compiled %s %s\n"
 msgstr "Dia %s verzió, fordítva %s %s\n"
 
-#: ../app/app_procs.c:883
+#: ../app/app_procs.c:882
 #, c-format
 msgid "Dia version %s\n"
 msgstr "Dia %s verzió\n"
 
 # app/app_procs.c:229 app/app_procs.c:231
-#: ../app/app_procs.c:921
+#: ../app/app_procs.c:920
 msgid ""
 "Couldn't find standard objects when looking for object-libs; exiting...\n"
 msgstr ""
@@ -211,7 +211,7 @@ msgstr ""
 "kilépés…\n"
 
 # app/app_procs.c:229 app/app_procs.c:231
-#: ../app/app_procs.c:923
+#: ../app/app_procs.c:922
 #, c-format
 msgid ""
 "Couldn't find standard objects when looking for object-libs in '%s'; "
@@ -220,11 +220,11 @@ msgstr ""
 "Nem találhatók szabvány objektumok az objektumkönyvtárak keresése közben "
 "„%s” helyen, kilépés…\n"
 
-#: ../app/app_procs.c:990
+#: ../app/app_procs.c:989
 msgid "Diagram1.dia"
 msgstr "Diagram1.dia"
 
-#: ../app/app_procs.c:1025
+#: ../app/app_procs.c:1024
 msgid ""
 "This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\n"
 "describing how you can cause this message to appear.\n"
@@ -233,16 +233,16 @@ msgstr ""
 "ra\n"
 "leírva azt, hogyan tudja ezt a hibaüzenetet előcsalni.\n"
 
-#: ../app/app_procs.c:1040
+#: ../app/app_procs.c:1039
 msgid "Exiting Dia"
 msgstr "Kilépés a Dia-ból"
 
 #. no standard buttons
-#: ../app/app_procs.c:1104
+#: ../app/app_procs.c:1103
 msgid "Quitting without saving modified diagrams"
 msgstr "Kilépés a módosított diagramok mentése nélkül"
 
-#: ../app/app_procs.c:1106
+#: ../app/app_procs.c:1105
 msgid ""
 "Modified diagrams exist. Are you sure you want to quit Dia without saving "
 "them?"
@@ -250,15 +250,15 @@ msgstr ""
 "Módosított diagram van a rajztáblán. Tényleg mentés nélkül akar kilépni a "
 "Dia-ból?"
 
-#: ../app/app_procs.c:1110
+#: ../app/app_procs.c:1109
 msgid "Quit Dia"
 msgstr "Kilépés a Dia-ból"
 
-#: ../app/app_procs.c:1179 ../app/app_procs.c:1186
+#: ../app/app_procs.c:1178 ../app/app_procs.c:1185
 msgid "Could not create per-user Dia config directory"
 msgstr "Nem lehet létrehozni a felhasználói Dia konfigurációs könyvtárat"
 
-#: ../app/app_procs.c:1189
+#: ../app/app_procs.c:1188
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
@@ -266,11 +266,11 @@ msgstr ""
 "Nem lehet létrehozni a felhasználói Dia konfigurációs könyvtárat. Győződjön "
 "meg arról, hogy a HOME környezeti változó egy létező könyvtárra mutat."
 
-#: ../app/app_procs.c:1212
+#: ../app/app_procs.c:1211
 msgid "Objects and filters internal to dia"
 msgstr "A dia saját objektumai és szűrői"
 
-#: ../app/app_procs.c:1268
+#: ../app/app_procs.c:1267
 #, c-format
 msgid ""
 "The original author of Dia was:\n"
@@ -279,7 +279,7 @@ msgstr ""
 "A Dia eredeti szerzője:\n"
 "\n"
 
-#: ../app/app_procs.c:1273
+#: ../app/app_procs.c:1272
 #, c-format
 msgid ""
 "\n"
@@ -290,7 +290,7 @@ msgstr ""
 "A Dia jelenlegi karbantartói:\n"
 "\n"
 
-#: ../app/app_procs.c:1278
+#: ../app/app_procs.c:1277
 #, c-format
 msgid ""
 "\n"
@@ -301,7 +301,7 @@ msgstr ""
 "Egyéb szerzők:\n"
 "\n"
 
-#: ../app/app_procs.c:1283
+#: ../app/app_procs.c:1282
 #, c-format
 msgid ""
 "\n"
@@ -815,11 +815,11 @@ msgid "Nothing selected for saving.  Would you like to try again?"
 msgstr "Nincs kijelölve semmi mentésre. Megpróbálja újra?"
 
 #: ../app/filedlg.c:144 ../app/filedlg.c:152 ../app/filedlg.c:168
-#: ../app/filedlg.c:746 ../lib/widgets.c:1488
+#: ../app/filedlg.c:752 ../lib/widgets.c:1488
 msgid "Supported Formats"
 msgstr "Támogatott formátumok"
 
-#: ../app/filedlg.c:192 ../app/filedlg.c:604
+#: ../app/filedlg.c:192 ../app/filedlg.c:610
 msgid "By extension"
 msgstr "Kiterjesztés szerint"
 
@@ -833,15 +833,15 @@ msgid "Open Options"
 msgstr "Megnyitás beállításai"
 
 # app/filedlg.c:192 app/filedlg.c:532
-#: ../app/filedlg.c:317 ../app/filedlg.c:728
+#: ../app/filedlg.c:317 ../app/filedlg.c:734
 msgid "Determine file type:"
 msgstr "Fájltípus meghatározása:"
 
-#: ../app/filedlg.c:337 ../app/filedlg.c:741 ../lib/widgets.c:1493
+#: ../app/filedlg.c:337 ../app/filedlg.c:747 ../lib/widgets.c:1493
 msgid "All Files"
 msgstr "Minden fájl"
 
-#: ../app/filedlg.c:370 ../plug-ins/postscript/paginate_psprint.c:408
+#: ../app/filedlg.c:376 ../plug-ins/postscript/paginate_psprint.c:408
 msgid ""
 "Some characters in the filename are neither UTF-8\n"
 "nor your local encoding.\n"
@@ -851,12 +851,12 @@ msgstr ""
 "UTF-8-as, sem a helyi karakterkódolásnak.\n"
 "Néhány dolog elromolhat."
 
-#: ../app/filedlg.c:380 ../app/filedlg.c:651
+#: ../app/filedlg.c:386 ../app/filedlg.c:657
 #: ../plug-ins/postscript/paginate_psprint.c:422
 msgid "File already exists"
 msgstr "A fájl már létezik"
 
-#: ../app/filedlg.c:382 ../app/filedlg.c:653
+#: ../app/filedlg.c:388 ../app/filedlg.c:659
 #: ../plug-ins/postscript/paginate_psprint.c:418
 #, c-format
 msgid ""
@@ -866,7 +866,7 @@ msgstr ""
 "%s nevű fájl már létezik.\n"
 "Felülírja?"
 
-#: ../app/filedlg.c:436
+#: ../app/filedlg.c:442
 msgid "Save Diagram"
 msgstr "Diagram mentése"
 
@@ -874,11 +874,11 @@ msgstr "Diagram mentése"
 #  standard look for them (or is that just Gnome?)
 #. Need better way to make it a reasonable size.  Isn't there some
 #. standard look for them (or is that just Gnome?)
-#: ../app/filedlg.c:447
+#: ../app/filedlg.c:453
 msgid "Compress diagram files"
 msgstr "Diagramfájlok tömörítése"
 
-#: ../app/filedlg.c:457 ../app/filedlg.c:462
+#: ../app/filedlg.c:463 ../app/filedlg.c:468
 msgid ""
 "Compression reduces file size to less than 1/10th size and speeds up loading "
 "and saving.  Some text programs cannot manipulate compressed files."
@@ -887,7 +887,7 @@ msgstr ""
 "felgyorsítja a betöltést és a mentést. Néhány szövegkezelő program nem képes "
 "tömörített fájlokat kezelni."
 
-#: ../app/filedlg.c:677
+#: ../app/filedlg.c:683
 #, c-format
 msgid ""
 "Could not determine which export filter\n"
@@ -896,12 +896,12 @@ msgstr ""
 "Nem lehet megállapítani, hogy melyik exportszűrő legyen használva\n"
 "a(z) „%s” mentéséhez"
 
-#: ../app/filedlg.c:704
+#: ../app/filedlg.c:710
 msgid "Export Diagram"
 msgstr "Diagram exportálása"
 
 # app/filedlg.c:524
-#: ../app/filedlg.c:720
+#: ../app/filedlg.c:726
 msgid "Export Options"
 msgstr "Exportálás beállításai"
 
@@ -1168,7 +1168,7 @@ msgstr "Vonalvastagság"
 msgid "Line width:"
 msgstr "Vonalvastagság:"
 
-#: ../app/load_save.c:301
+#: ../app/load_save.c:303
 msgid ""
 "Error loading diagram.\n"
 "Linked object not found in document."
@@ -1176,7 +1176,7 @@ msgstr ""
 "Hiba a diagram betöltése közben.\n"
 "A hivatkozott objektum nem található a dokumentumban."
 
-#: ../app/load_save.c:305
+#: ../app/load_save.c:307
 #, c-format
 msgid ""
 "Error loading diagram.\n"
@@ -1185,7 +1185,7 @@ msgstr ""
 "Hiba a diagram betöltése közben.\n"
 "A(z) %d számú csatlakozásleíró nem létezik ezen: „%s”."
 
-#: ../app/load_save.c:333
+#: ../app/load_save.c:335
 #, c-format
 msgid ""
 "Error loading diagram.\n"
@@ -1194,23 +1194,23 @@ msgstr ""
 "Hiba a diagram betöltése közben.\n"
 "A(z) %d számú csatlakozási pont nem létezik ezen: „%s”."
 
-#: ../app/load_save.c:373
+#: ../app/load_save.c:375
 #, c-format
 msgid "Can't find parent %s of %s object\n"
 msgstr "Nem található a(z) %s objektum %s szülője.\n"
 
-#: ../app/load_save.c:422
+#: ../app/load_save.c:425
 msgid "You must specify a file, not a directory.\n"
 msgstr "Fájlt kell megadnia, nem könyvtárat.\n"
 
-#: ../app/load_save.c:429 ../plug-ins/dxf/dxf-import.c:1309
+#: ../app/load_save.c:432 ../plug-ins/dxf/dxf-import.c:1309
 #: ../plug-ins/wpg/wpg.c:1177 ../plug-ins/xfig/xfig-import.c:1270
 #: ../plug-ins/xslt/xslt.c:91
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
 msgstr "A(z) „%s” nem nyitható meg olvasásra.\n"
 
-#: ../app/load_save.c:447 ../app/load_save.c:453
+#: ../app/load_save.c:450 ../app/load_save.c:460
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -1219,7 +1219,7 @@ msgstr ""
 "Hiba a(z) %s diagram betöltése közben.\n"
 "Ismeretlen fájltípus."
 
-#: ../app/load_save.c:461
+#: ../app/load_save.c:468
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -1228,7 +1228,7 @@ msgstr ""
 "Hiba a(z) %s diagram betöltése közben.\n"
 "Nem Dia-fájl."
 
-#: ../app/load_save.c:678
+#: ../app/load_save.c:685
 #, c-format
 msgid ""
 "Error loading diagram:\n"
@@ -1239,17 +1239,17 @@ msgstr ""
 "%s.\n"
 "Az érvényes Dia-fájl legalább egy réteget tartalmaz."
 
-#: ../app/load_save.c:1001
+#: ../app/load_save.c:1008
 #, c-format
 msgid "Not allowed to write to output file %s\n"
 msgstr "Az írás nem engedélyezett a(z) %s kimeneti fájlba\n"
 
-#: ../app/load_save.c:1033
+#: ../app/load_save.c:1040
 #, c-format
 msgid "Not allowed to write temporary files in %s\n"
 msgstr "Az írás nem engedélyezett a(z) %s alatti ideiglenes fájlokba\n"
 
-#: ../app/load_save.c:1055 ../plug-ins/cairo/diacairo.c:121
+#: ../app/load_save.c:1062 ../plug-ins/cairo/diacairo.c:110
 #: ../plug-ins/cgm/cgm.c:1154 ../plug-ins/drs/dia-render-script.c:121
 #: ../plug-ins/dxf/dxf-export.c:547 ../plug-ins/hpgl/hpgl.c:710
 #: ../plug-ins/libart/export_png.c:159
@@ -1265,17 +1265,17 @@ msgstr "Nem lehet megnyitni a(z) %s kimeneti fájlt: %s\n"
 
 #. Save failed; we clean our stuff up, without touching the file named
 #. "filename" if it existed.
-#: ../app/load_save.c:1066
+#: ../app/load_save.c:1073
 #, c-format
 msgid "Internal error %d writing file %s\n"
 msgstr "%d. belső hiba %s fájl írásakor\n"
 
-#: ../app/load_save.c:1077
+#: ../app/load_save.c:1084
 #, c-format
 msgid "Can't rename %s to final output file %s: %s\n"
 msgstr "Nem lehet átnevezni a(z) %s-t a(z) %s kimeneti fájllá: %s\n"
 
-#: ../app/load_save.c:1168 ../app/load_save.c:1173
+#: ../app/load_save.c:1175 ../app/load_save.c:1180
 msgid "Dia Diagram File"
 msgstr "Dia-diagramfájl"
 
@@ -2752,81 +2752,79 @@ msgstr ""
 "A Python parancsnyelv 2.3 változatának támogatása. Ne válassza ki, ha a "
 "Python nincs telepítve."
 
-#. Installer message: hyperlink text on finish page
+#. Installer message: Component name
 #: ../installer/win32/gennsh.c:69
+#| msgid "Desktop PC"
+msgid "Desktop Shortcut"
+msgstr "Asztali parancsikon"
+
+#. Installer message: Component description
+#: ../installer/win32/gennsh.c:72
+msgid "Create a shortcut on the Desktop."
+msgstr "Egy parancsikon létrehozása az asztalon."
+
+#. Installer message: hyperlink text on finish page
+#: ../installer/win32/gennsh.c:76
 msgid "Visit the Dia for Windows Web Page"
 msgstr "Keresse fel a Dia for Windows weboldalát"
 
 #. Installer message: Dia uninstaller entry in Control Panel
-#: ../installer/win32/gennsh.c:72
+#: ../installer/win32/gennsh.c:79
 msgid "Dia (remove only)"
 msgstr "Dia (csak eltávolítás)"
 
 #. Installer message: directory delete confirmation line 1
-#: ../installer/win32/gennsh.c:75
-#| msgid ""
-#| "The installation directory you specified already exists. Any contents$"
-#| "\rwill be deleted. Would you like to continue?"
+#: ../installer/win32/gennsh.c:82
 msgid ""
 "Your old Dia directory is about to be deleted. Would you like to continue?"
 msgstr "A régi Dia könyvtára törlésére készül. Szeretné folytatni?"
 
 #. Installer message: directory delete confirmation line 2
-#: ../installer/win32/gennsh.c:77
+#: ../installer/win32/gennsh.c:84
 msgid ""
 "Note: Any non-standard plugins that you may have installed will be deleted."
 msgstr ""
 "Megjegyzés: Minden nem szabványos telepített bővítmény törlésre fog kerülni."
 
 #. Installer message: directory delete confirmation line 3
-#: ../installer/win32/gennsh.c:79
+#: ../installer/win32/gennsh.c:86
 msgid "Dia user settings will not be affected."
 msgstr "A Dia felhasználói beállításai nem lesznek érintve."
 
 #. Installer message: DIA_PROMPT_DIR_EXISTS line 1
-#: ../installer/win32/gennsh.c:82
-#| msgid ""
-#| "The installation directory you specified already exists. Any contents$"
-#| "\rwill be deleted. Would you like to continue?"
+#: ../installer/win32/gennsh.c:89
 msgid "The installation directory you specified already exists. Any contents"
 msgstr "A megadott telepítési könyvtár már létezik. A tartalma"
 
 #. Installer message: DIA_PROMP_DIR_EXISTS line 2
-#: ../installer/win32/gennsh.c:84
-#| msgid "Nothing selected for saving.  Would you like to try again?"
+#: ../installer/win32/gennsh.c:91
 msgid "will be deleted. Would you like to continue?"
 msgstr "törlésre kerül. Szeretné folytatni?"
 
 #. Installer message: registry entries not found line 1
-#: ../installer/win32/gennsh.c:87
-#| msgid ""
-#| "The uninstaller could not find registry entries for Dia.$\rIt is likely "
-#| "that another user installed this application."
+#: ../installer/win32/gennsh.c:94
 msgid "The uninstaller could not find registry entries for Dia."
 msgstr ""
 "Az eltávolító program nem találja a Dia regisztrációs adatbázis bejegyzéseit."
 
 #. Installer message: registry entries not found line 2
-#: ../installer/win32/gennsh.c:89
-#| msgid ""
-#| "The uninstaller could not find registry entries for Dia.$\rIt is likely "
-#| "that another user installed this application."
+#: ../installer/win32/gennsh.c:96
 msgid "It is likely that another user installed this application."
 msgstr "Valószínűleg másik felhasználó telepítette ezt az alkalmazást."
 
 #. Installer message: Uninstall error message
-#: ../installer/win32/gennsh.c:92
+#: ../installer/win32/gennsh.c:99
 msgid "You do not have permission to uninstall this application."
 msgstr "Nincs jogosultsága az alkalmazás eltávolítására."
 
 #. Installer message: Uninstallation warning. Keep $INSTDIR
-#: ../installer/win32/gennsh.c:95
+#: ../installer/win32/gennsh.c:102
 msgid "This will completely delete $INSTDIR and all subdirectories. Continue?"
 msgstr ""
 "Ez teljesen törli a(z) $INSTDIR könyvtárat és minden alkönyvtárát. Folytatja?"
 
 #. Installer message: Uninstallation warning. Keep $\PROFILE\.dia
-#: ../installer/win32/gennsh.c:98
+#: ../installer/win32/gennsh.c:105
 msgid ""
 "This will completely delete $PROFILE\\.dia and all subdirectories. Continue?"
 msgstr ""
@@ -6034,7 +6032,7 @@ msgstr "Nagyító mutató"
 msgid "Visible rect pointer"
 msgstr "Látható téglalapmutató"
 
-#: ../plug-ins/cairo/diacairo.c:129
+#: ../plug-ins/cairo/diacairo.c:118
 #, c-format
 msgid ""
 "Can't convert output filename '%s' to locale encoding.\n"
@@ -6044,61 +6042,61 @@ msgstr ""
 "kódolására.\n"
 "Válasszon másik nevet a cairo-val való mentéshez.\n"
 
-#: ../plug-ins/cairo/diacairo.c:256 ../plug-ins/cairo/diacairo.c:272
+#: ../plug-ins/cairo/diacairo.c:245 ../plug-ins/cairo/diacairo.c:261
 #, c-format
 msgid "Can't write %d bytes to %s"
 msgstr "Nem írható %d bájt a következőbe: %s"
 
-#: ../plug-ins/cairo/diacairo.c:285
+#: ../plug-ins/cairo/diacairo.c:274
 msgid "Clipboard copy failed"
 msgstr "A másolás meghiúsult a vágólapról"
 
-#: ../plug-ins/cairo/diacairo.c:311 ../plug-ins/postscript/postscript.c:39
+#: ../plug-ins/cairo/diacairo.c:300 ../plug-ins/postscript/postscript.c:39
 #: ../plug-ins/wmf/wmf.cpp:1381
 msgid "Nothing to print"
 msgstr "Nincs mit nyomtatni"
 
-#: ../plug-ins/cairo/diacairo.c:322
+#: ../plug-ins/cairo/diacairo.c:311
 msgid "Printing with Gtk+(cairo) requires at least version 2.10."
 msgstr "A Gtk+(cairo) nyomtatás legalább a 2.10-es változatot igényli."
 
-#: ../plug-ins/cairo/diacairo.c:329
+#: ../plug-ins/cairo/diacairo.c:318
 msgid "Cairo PostScript"
 msgstr "Cairo PostScript"
 
-#: ../plug-ins/cairo/diacairo.c:340
+#: ../plug-ins/cairo/diacairo.c:329
 msgid "Cairo Portable Document Format"
 msgstr "Cairo Portable Document Format"
 
-#: ../plug-ins/cairo/diacairo.c:355
+#: ../plug-ins/cairo/diacairo.c:344
 msgid "Cairo Scalable Vector Graphics"
 msgstr "Cairo Scalable Vector Graphics"
 
-#: ../plug-ins/cairo/diacairo.c:366
+#: ../plug-ins/cairo/diacairo.c:355
 msgid "Cairo PNG"
 msgstr "Cairo PNG"
 
-#: ../plug-ins/cairo/diacairo.c:374
+#: ../plug-ins/cairo/diacairo.c:363
 msgid "Cairo PNG (with alpha)"
 msgstr "Cairo PNG (alfával)"
 
-#: ../plug-ins/cairo/diacairo.c:384
+#: ../plug-ins/cairo/diacairo.c:373
 msgid "Cairo EMF"
 msgstr "Cairo EMF"
 
-#: ../plug-ins/cairo/diacairo.c:394
+#: ../plug-ins/cairo/diacairo.c:383
 msgid "Cairo WMF"
 msgstr "Cairo WMF"
 
-#: ../plug-ins/cairo/diacairo.c:416
+#: ../plug-ins/cairo/diacairo.c:405
 msgid "Copy _Diagram"
 msgstr "Diagram _másolása"
 
-#: ../plug-ins/cairo/diacairo.c:426
+#: ../plug-ins/cairo/diacairo.c:415
 msgid "Print (GTK) ..."
 msgstr "Nyomtatás (GTK)…"
 
-#: ../plug-ins/cairo/diacairo.c:471
+#: ../plug-ins/cairo/diacairo.c:460
 msgid "Cairo based Rendering"
 msgstr "Cairo alapú megjelenítés"
 
@@ -6381,7 +6379,6 @@ msgid "MoveTo not at start of Bezier\n"
 msgstr "A MoveTo elem nem a Bezier kezdeténél van\n"
 
 #: ../plug-ins/vdx/vdx-import.c:1740
-#| msgid "Invalid NURBS formula"
 msgid "Invalid NURBS formula\n"
 msgstr "Érvénytelen NURBS képlet\n"
 
@@ -6392,7 +6389,6 @@ msgstr "Nem lehet írni a következő fájlba: %s"
 
 #: ../plug-ins/vdx/vdx-import.c:2069
 #, c-format
-#| msgid "Couldn't handle foreign object type %s"
 msgid "Couldn't handle foreign object type %s\n"
 msgstr "A külső, %s típusú objektum nem kezelhető\n"
 
@@ -6412,7 +6408,6 @@ msgstr "Visio XML fájlformátum"
 
 #: ../plug-ins/vdx/vdx-xml.c:3344
 #, c-format
-#| msgid "Can't decode object %s"
 msgid "Can't decode object %s\n"
 msgstr "Nem lehet visszafejteni a(z) %s objektumot\n"
 
