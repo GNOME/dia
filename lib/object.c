@@ -373,6 +373,20 @@ static PropDescription _style_prop_descs[] = {
   PROP_DESC_END
 };
 
+void
+object_copy_style (DiaObject *dest, const DiaObject *src)
+{
+  GPtrArray *props;
+
+  g_return_if_fail (src && src->ops->get_props != NULL);
+  g_return_if_fail (dest && dest->ops->set_props != NULL);
+
+  props = prop_list_from_descs (_style_prop_descs, pdtpp_true);
+  src->ops->get_props((DiaObject *)src, props);
+  dest->ops->set_props(dest, props);
+  prop_list_free(props);
+}
+
 static void
 _object_exchange (ObjectChange *change, DiaObject *obj)
 {
@@ -427,8 +441,8 @@ _object_exchange (ObjectChange *change, DiaObject *obj)
     parent_object->children = g_list_insert_before (parent_object->children, sibling, subst);
     parent_object->children = g_list_remove (parent_object->children, obj);
   }
-  /* apply style properties */
-  if (subst->ops->get_props)
+  /* apply style properties - only if it's not restore of original */
+  if (subst->ops->get_props && subst != c->orig)
     subst->ops->set_props(subst, props);
   prop_list_free(props);
   /* adding to the diagram last, to have the right update areas */
@@ -473,7 +487,7 @@ _object_exchange_free (ObjectChange *change)
  * \brief Replace an object with another one
  *
  * The type of an object can not change dynamically. To substitute one
- * object with another this function help. It does it's best to transfer
+ * object with another this function helps. It does it's best to transfer
  * all the existing object relations, e.g. connections, parent_layer 
  * and parenting information.
  *

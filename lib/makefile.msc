@@ -96,6 +96,7 @@ OBJECTS = \
 	orth_conn.obj \
 	paper.obj \
 	parent.obj \
+	path-math.obj \
 	pattern.obj \
 	persistence.obj \
 	plug-ins.obj \

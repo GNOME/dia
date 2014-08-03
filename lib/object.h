@@ -600,6 +600,7 @@ void          object_save_props(DiaObject *obj, ObjectNode obj_node, DiaContext 
    same type) */
 void          object_copy_props(DiaObject *dest, const DiaObject *src,
                                 gboolean is_default);
+void          object_copy_style(DiaObject *dest, const DiaObject *src);
 
 G_END_DECLS
 

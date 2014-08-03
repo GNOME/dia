@@ -142,6 +142,8 @@ DiaObject *create_standard_group(GList *items);
 
 DiaObject *create_standard_path_from_object (DiaObject *obj);
 
+DiaObject *create_standard_path_from_list (GList *objects, PathCombineMode  mode);
+
 G_END_DECLS
 
 #endif

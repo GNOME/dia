@@ -72,15 +72,10 @@ dia_path_renderer_init (DiaPathRenderer *self)
   self->stroke = attributes_get_foreground ();
   self->fill = attributes_get_background ();
 }
-/*!
- * \brief Destructor
- * If there are still pathes left, deallocate them
- */
-static void
-dia_path_renderer_finalize (GObject *object)
-{
-  DiaPathRenderer *self = DIA_PATH_RENDERER (object);
 
+static void
+_path_renderer_clear (DiaPathRenderer *self)
+{
   if (self->pathes) {
     guint i;
    
@@ -92,6 +87,18 @@ dia_path_renderer_finalize (GObject *object)
     g_ptr_array_free (self->pathes, TRUE);
     self->pathes = NULL;
   }
+}
+/*!
+ * \brief Destructor
+ * If there are still paths left, deallocate them
+ * \memberof _DiaPathRenderer
+ */
+static void
+dia_path_renderer_finalize (GObject *object)
+{
+  DiaPathRenderer *self = DIA_PATH_RENDERER (object);
+
+  _path_renderer_clear (self);
   G_OBJECT_CLASS (dia_path_renderer_parent_class)->finalize (object);
 }
 
@@ -566,8 +573,6 @@ _bezier (DiaRenderer *self,
   }
   for (; i < numpoints; ++i)
     g_array_append_val (path, points[i]);
-  if (fill) /* might not be necessary anymore with draw_beziergon*/
-    _path_lineto (path, &points[0].p1);
 }
 /*!
  * \brief Create path from bezier line
@@ -713,9 +718,14 @@ draw_rounded_rect (DiaRenderer *self,
     radius = rx;
   if (radius > ry)
     radius = ry;
-  DIA_RENDERER_CLASS(dia_path_renderer_parent_class)->draw_rounded_rect(self, 
-							ul_corner, lr_corner,
-							NULL, stroke ? stroke : fill, radius);
+  if (stroke) /* deliberately ignoring fill for path building */
+    DIA_RENDERER_CLASS(dia_path_renderer_parent_class)->draw_rounded_rect(self, 
+									  ul_corner, lr_corner,
+									  NULL, stroke, radius);
+  else
+    DIA_RENDERER_CLASS(dia_path_renderer_parent_class)->draw_rounded_rect(self, 
+									  ul_corner, lr_corner,
+									  fill, NULL, radius);
   /* stroke is set by the piecewise rendering above already */
   if (fill)
     renderer->fill = *fill;
@@ -807,7 +817,6 @@ create_standard_path_from_object (DiaObject *obj)
     for (i = 0; i < pr->pathes->len; ++i) {
       GArray *points = g_ptr_array_index (pr->pathes, i);
       DiaObject *obj;
-
       if (points->len < 2)
 	obj = NULL;
       else
@@ -827,5 +836,57 @@ create_standard_path_from_object (DiaObject *obj)
   }
   g_object_unref (renderer);
 
+  return path;
+}
+
+/*!
+ * \brief Combine the list of object into a new path object
+ *
+ * Every single object get into a single path which gets combined
+ * with the following object. The result of that operation than gets
+ * combined again with the following object.
+ */
+DiaObject *
+create_standard_path_from_list (GList           *objects,
+				PathCombineMode  mode)
+{
+  DiaObject *path;
+  DiaRenderer *renderer;
+  DiaPathRenderer *pr;
+  GList *list;
+  GArray *p1 = NULL, *p2 = NULL;
+
+  renderer = g_object_new (DIA_TYPE_PATH_RENDERER, 0);
+  pr = DIA_PATH_RENDERER (renderer);
+
+  for (list = objects; list != NULL; list = list->next) {
+    DiaObject *obj = list->data;
+    int i;
+
+    _path_renderer_clear (pr);
+    obj->ops->draw (obj, renderer);
+    /* get a single path from this rendererer run */
+    p2 = g_array_new (FALSE, FALSE, sizeof(BezPoint));
+    for (i = 0; i < pr->pathes->len; ++i) {
+      GArray *points = g_ptr_array_index (pr->pathes, i);
+      g_array_append_vals (p2, &g_array_index (points, BezPoint, 0), points->len);
+    }
+    if (p1 && p2) {
+      GArray *combined = path_combine (p1, p2, mode);
+      if (combined) {
+	g_array_free (p1, TRUE);
+	p1 = combined;
+	g_array_free (p2, TRUE);
+	p2 = NULL;
+      }
+    } else {
+      p1 = p2;
+      p2 = NULL;
+    }
+  }
+  path = create_standard_path (p1->len, &g_array_index (p1, BezPoint, 0));
+  /* copy style from first object processed */
+  object_copy_style (path, (DiaObject *)objects->data);
+  g_array_free (p1, TRUE);
   return path;
 }

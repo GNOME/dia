@@ -217,8 +217,63 @@ add_convert_to_path_menu_item (GtkMenu *menu)
   gtk_menu_shell_append (GTK_MENU_SHELL (menu), menu_item);
   gtk_widget_show(menu_item);
 }
+
 static void
-create_object_menu(DiaMenu *dia_menu, gboolean root_menu)
+_combine_to_path_callback (GtkAction *action, gpointer data)
+{
+  DDisplay *ddisp = ddisplay_active();
+  GList *cut_list;
+  DiaObject *obj;
+  Diagram *dia;
+
+  if (!ddisp) return;
+  dia = ddisp->diagram;
+
+  diagram_selected_break_external(ddisp->diagram);
+  cut_list = parent_list_affected(diagram_get_sorted_selected(ddisp->diagram));
+  obj = create_standard_path_from_list (cut_list, GPOINTER_TO_INT (data));
+  if (obj) {
+    /* remove the objects just combined */
+    Change *change = undo_delete_objects_children(dia, cut_list);
+    (change->apply)(change, dia);
+    /* add the new object with undo */
+    undo_insert_objects(dia, g_list_prepend(NULL, obj), 1);
+    undo_set_transactionpoint(ddisp->diagram->undo);
+
+    diagram_add_object (dia, obj);
+    diagram_select(dia, obj);
+    object_add_updates(obj, dia);
+
+    ddisplay_do_update_menu_sensitivity(ddisp);
+    diagram_flush(dia);
+  } else {
+    g_list_free (cut_list);
+  }
+}
+static void
+add_combine_to_path_menu_items (GtkMenu *menu)
+{
+  struct {
+    const gchar    *name;
+    PathCombineMode mode;
+  } _ops[] = {
+    { N_("Union"), PATH_UNION }, 
+    { N_("Difference"), PATH_DIFFERENCE }, 
+    { N_("Intersection"), PATH_INTERSECTION }, 
+    { N_("Exclusion"), PATH_EXCLUSION }, 
+  };
+  int i;
+  for (i = 0; i < G_N_ELEMENTS (_ops); ++i) {
+    GtkWidget *menu_item = gtk_menu_item_new_with_label(_ops[i].name);
+    g_signal_connect(G_OBJECT(menu_item), "activate",
+		     G_CALLBACK(_combine_to_path_callback), GINT_TO_POINTER (_ops[i].mode));
+    gtk_menu_shell_append (GTK_MENU_SHELL (menu), menu_item);
+    gtk_widget_show(menu_item);
+  }
+}
+
+static void
+create_object_menu(DiaMenu *dia_menu, gboolean root_menu, gboolean combining)
 {
   int i;
   GtkWidget *menu;
@@ -273,7 +328,7 @@ create_object_menu(DiaMenu *dia_menu, gboolean root_menu)
              * DiaMenu pointer for the submenu. */
         if ( ((DiaMenu*)item->callback_data)->app_data == NULL ) {
               /* Create the popup menu items for the submenu. */
-          create_object_menu((DiaMenu*)(item->callback_data), FALSE) ;
+          create_object_menu((DiaMenu*)(item->callback_data), FALSE, FALSE) ;
           gtk_menu_item_set_submenu( GTK_MENU_ITEM (menu_item), 
                                      GTK_WIDGET(((DiaMenu*)(item->callback_data))->app_data));
         }
@@ -287,6 +342,8 @@ create_object_menu(DiaMenu *dia_menu, gboolean root_menu)
     add_follow_link_menu_item(GTK_MENU (menu));
     if (!native_convert_to_path)
       add_convert_to_path_menu_item(GTK_MENU (menu));
+    if (combining)
+      add_combine_to_path_menu_items (GTK_MENU (menu));
   }
 
   dia_menu->app_data = menu;
@@ -353,7 +410,7 @@ popup_object_menu(DDisplay *ddisp, GdkEvent *event)
   }
 
   if (dia_menu->app_data == NULL) {
-    create_object_menu(dia_menu, TRUE);
+    create_object_menu(dia_menu, TRUE, g_list_length (diagram->data->selected) > 1);
     /* append the Input Methods menu, if there is canvas editable text */
     if (obj && focus_get_first_on_object(obj) != NULL) {
       GtkWidget *menuitem = gtk_menu_item_new_with_mnemonic (_("Input _Methods"));

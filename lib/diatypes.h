@@ -193,4 +193,11 @@ typedef struct _DiaFileSelectorClass  DiaFileSelectorClass;
 /** A standard definition of a function that takes a DiaObject */
 typedef void (*DiaObjectFunc) (const DiaObject *obj);
 
+typedef enum {
+  PATH_UNION = 1,
+  PATH_DIFFERENCE,
+  PATH_INTERSECTION,
+  PATH_EXCLUSION
+} PathCombineMode;
+
 #endif
