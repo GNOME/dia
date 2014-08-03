@@ -351,8 +351,9 @@ autoroute_layout_parallel(Point *to, guint *num_points, Point **points)
     *num_points = 4;
     ps = g_new0(Point, *num_points);
     /* points[0] is 0,0 */
+    ps[1].x = to->x/2;
     ps[1].y = top;
-    ps[2].x = to->x;
+    ps[2].x = to->x/2;
     ps[2].y = top;
     ps[3] = *to;
   } else if (to->y > 0) { /* Close together, end below */
@@ -496,6 +497,8 @@ autoroute_layout_opposite(Point *to, guint *num_points, Point **points)
     ps = g_new0(Point, *num_points);
     if (fabs(to->x) < 0.00000001) {
       ps[2] = ps[3] = *to;
+      /* distribute y */
+      ps[1].y = ps[2].y = to->y / 2;
       *points = ps;
       return length_badness(fabs(to->y))+2*EXTRA_SEGMENT_BADNESS;
     } else {

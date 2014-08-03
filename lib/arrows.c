@@ -81,6 +81,7 @@ calculate_arrow_point(const Arrow *arrow, const Point *to, const Point *from,
   real add_len;
   real angle;
   Point tmp;
+  real dist;
   ArrowType arrow_type = arrow->type;
   /* Otherwise line is drawn through arrow
    * head for some hollow arrow heads
@@ -88,6 +89,7 @@ calculate_arrow_point(const Arrow *arrow, const Point *to, const Point *from,
   if (linewidth == 0.0)
     linewidth = 0.0001;
 
+  dist = distance_point_point (from, to);
   /** Since some of the calculations are sensitive to small values,
    * ignore small arrowheads.  They won't be visible anyway.
    */
@@ -96,6 +98,9 @@ calculate_arrow_point(const Arrow *arrow, const Point *to, const Point *from,
     arrow_type = ARROW_NONE;
   }
 
+  /* default to non-moving arrow */
+  move_arrow->x = 0.0;
+  move_arrow->y = 0.0;
   /* First, we move the arrow head backwards.
    * This in most cases just accounts for the linewidth of the arrow.
    * In pointy arrows, this means we must look at the angle of the
@@ -108,18 +113,23 @@ calculate_arrow_point(const Arrow *arrow, const Point *to, const Point *from,
   case ARROW_FILLED_CONCAVE:
   case ARROW_BLANKED_CONCAVE:
   case ARROW_DOUBLE_HOLLOW_TRIANGLE:
-    if (arrow->width < 0.0000001) return;
-    angle = atan(arrow->length/(arrow->width/2));
+    if (arrow->width < 0.0000001)
+      angle = 75*2*G_PI/360.0; /* -> add_len=0 */
+    else
+      angle = atan(arrow->length/(arrow->width/2));
     if (angle < 75*2*G_PI/360.0) {
       add_len = .5*linewidth/cos(angle);
     } else {
       add_len = 0;
     }
 
-    *move_arrow = *to;
-    point_sub(move_arrow, from);
-    point_normalize(move_arrow);    
-    point_scale(move_arrow, add_len);
+    /* don't move arrow if it would change direction */
+    if (fabs(add_len) < dist) {
+      *move_arrow = *to;
+      point_sub(move_arrow, from);
+      point_normalize(move_arrow);    
+      point_scale(move_arrow, add_len);
+    }
     break;
   case ARROW_HALF_HEAD:
     if (arrow->width < 0.0000001) return;
@@ -130,10 +140,13 @@ calculate_arrow_point(const Arrow *arrow, const Point *to, const Point *from,
       add_len = 0;
     }
 
-    *move_arrow = *to;
-    point_sub(move_arrow, from);
-    point_normalize(move_arrow);    
-    point_scale(move_arrow, add_len);
+    /* don't move arrow if it would change direction */
+    if (fabs(add_len) < dist) {
+      *move_arrow = *to;
+      point_sub(move_arrow, from);
+      point_normalize(move_arrow);    
+      point_scale(move_arrow, add_len);
+    }
     break;
   case ARROW_FILLED_TRIANGLE:
   case ARROW_HOLLOW_ELLIPSE:
@@ -143,10 +156,13 @@ calculate_arrow_point(const Arrow *arrow, const Point *to, const Point *from,
   case ARROW_BLANKED_BOX:
     add_len = .5*linewidth;
 
-    *move_arrow = *to;
-    point_sub(move_arrow, from);
-    point_normalize(move_arrow);
-    point_scale(move_arrow, add_len);
+    /* don't move arrow if it would change direction */
+    if (fabs(add_len) < dist) {
+      *move_arrow = *to;
+      point_sub(move_arrow, from);
+      point_normalize(move_arrow);
+      point_scale(move_arrow, add_len);
+    }
     break;
   case ARROW_ONE_EXACTLY:
   case ARROW_ONE_OR_NONE:
