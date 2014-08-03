@@ -512,27 +512,6 @@ beziergon_set_corner_type_callback (DiaObject *obj, Point *clicked, gpointer dat
   return change;
 }
 
-/*!
- * \brief Convert _Beziergon to _Path
- * \memberof _Beziergon
- */
-static ObjectChange *
-_beziergon_convert_to_path_callback (DiaObject *obj, Point *clicked, gpointer data)
-{
-  Beziergon *beziergon = (Beziergon *) obj;
-  BezierShape *bez = &beziergon->bezier;
-  DiaObject *path = NULL;
-
-  if (bez->bezier.num_points > 1)
-    path = create_standard_path (bez->bezier.num_points, bez->bezier.points);
-
-  if (path)
-    return object_substitute (obj, path);
-
-  /* just an empty change */
-  return change_list_create ();
-}
-
 static DiaMenuItem beziergon_menu_items[] = {
   { N_("Add Segment"), beziergon_add_segment_callback, NULL, 1 },
   { N_("Delete Segment"), beziergon_delete_segment_callback, NULL, 1 },
@@ -542,8 +521,7 @@ static DiaMenuItem beziergon_menu_items[] = {
   { N_("Smooth control"), beziergon_set_corner_type_callback, 
     GINT_TO_POINTER(BEZ_CORNER_SMOOTH), 1 },
   { N_("Cusp control"), beziergon_set_corner_type_callback,
-    GINT_TO_POINTER(BEZ_CORNER_CUSP), 1 },
-  { N_("Convert to Path"), _beziergon_convert_to_path_callback, NULL, DIAMENU_ACTIVE }
+    GINT_TO_POINTER(BEZ_CORNER_CUSP), 1 }
 };
 
 static DiaMenu beziergon_menu = {
