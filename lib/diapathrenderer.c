@@ -36,7 +36,7 @@ typedef enum {
  * \brief Renderer which turns everything into a path (or a list thereof)
  *
  * The path renderer does not produce any external output by itself. It
- * stroes it's results only internally in one or more pathes. These are
+ * strokes it's results only internally in one or more paths. These are
  * further processed by e.g. create_standard_path_from_object().
  *
  * \extends _DiaRenderer
@@ -64,6 +64,7 @@ G_DEFINE_TYPE (DiaPathRenderer, dia_path_renderer, DIA_TYPE_RENDERER)
 /*!
  * \brief Constructor
  * Initialize everything which needs something else than 0.
+ * \memberof _DiaPathRenderer
  */
 static void
 dia_path_renderer_init (DiaPathRenderer *self)
@@ -137,7 +138,7 @@ _get_current_path (DiaPathRenderer *self,
 /*!
  * \brief Optimize away potential duplicated path
  * Dia's object rendering often consists of identical consecutive fill and stroke
- * operations. This function check if two identical pathes are at the end of our
+ * operations. This function checks if two identical paths are at the end of our
  * list and just removes the second one.
  * \private \memberof _DiaPathRenderer
  */
@@ -172,6 +173,7 @@ _remove_duplicated_path (DiaPathRenderer *self)
  * \brief Starting a new rendering run
  * Could be used to clean the path leftovers from a previous run.
  * Typical export renderers flush here.
+ * \memberof _DiaPathRenderer
  */
 static void
 begin_render (DiaRenderer *self, const Rectangle *update)
@@ -179,7 +181,8 @@ begin_render (DiaRenderer *self, const Rectangle *update)
 }
 /*!
  * \brief End of current rendering run
- * Should not be used to clean the accumulated pathes 
+ * Should not be used to clean the accumulated paths 
+ * \memberof _DiaPathRenderer
  */
 static void
 end_render(DiaRenderer *self)
@@ -218,7 +221,7 @@ set_fillstyle(DiaRenderer *self, FillStyle mode)
 /*!
  * \brief Find the last point matching or add a new move-to
  *
- * Used to create as continuous pathes, but still incomplete. If the the exisiting
+ * Used to create as continuous paths, but still incomplete. If the the existing
  * and appended path would match in it's ends there would be a superfluous move-to.
  * Instead there probably should be a direction change with the newly appended path
  * segments to eliminate the extra move-to. The benefit would be that the resulting
@@ -287,6 +290,10 @@ _path_arc_segment (GArray      *path,
   g_array_append_val (path, bp);
 }
 
+/*!
+ * \brief Create path from line
+ * \memberof _DiaPathRenderer
+ */
 static void
 draw_line(DiaRenderer *self, 
 	  Point *start, Point *end, 
@@ -318,6 +325,10 @@ _polyline(DiaRenderer *self,
   for (i = 1; i < num_points; ++i)
     _path_lineto (path, &points[i]);
 }
+/*!
+ * \brief Create path from polyline
+ * \memberof _DiaPathRenderer
+ */
 static void
 draw_polyline(DiaRenderer *self, 
 	      Point *points, int num_points, 
@@ -326,20 +337,31 @@ draw_polyline(DiaRenderer *self,
   _polyline (self, points, num_points, NULL, line_colour);
   _remove_duplicated_path (DIA_PATH_RENDERER (self));
 }
+/*!
+ * \brief Create path from polygon
+ * \memberof _DiaPathRenderer
+ */
 static void
 draw_polygon(DiaRenderer *self, 
 	      Point *points, int num_points, 
 	      Color *fill, Color *stroke)
 {
   DiaPathRenderer *renderer = DIA_PATH_RENDERER (self);
-  GArray *path = _get_current_path (renderer, stroke, fill);
 
   /* can't be that simple ;) */
   _polyline (self, points, num_points, fill, stroke);
-  _path_lineto (path, &points[0]);
+  if (   points[0].x != points[num_points-1].x
+      || points[0].y != points[num_points-1].y) {
+    GArray *path = _get_current_path (renderer, stroke, NULL);
+    _path_lineto (path, &points[0]);
+  }
   /* usage of the optimized draw_polygon should imply this being superfluous */
   _remove_duplicated_path (renderer);
 }
+/*!
+ * \brief Create path from rectangle
+ * \memberof _DiaPathRenderer
+ */
 static void
 draw_rect (DiaRenderer *self, 
 	   Point *ul_corner, Point *lr_corner,
@@ -413,7 +435,7 @@ path_build_arc (GArray *path,
 
 /*!
  * \brief Convert an arc to some bezier curve-to
- * \protected \memberof _DiaPathRenderer
+ * \private \memberof _DiaPathRenderer
  */
 static void
 _arc (DiaRenderer *self, 
@@ -427,6 +449,10 @@ _arc (DiaRenderer *self,
 
   path_build_arc (path, center, width, height, angle1, angle2, stroke == NULL);
 }
+/*!
+ * \brief Create path from arc
+ * \memberof _DiaPathRenderer
+ */
 static void
 draw_arc (DiaRenderer *self, 
 	  Point *center,
@@ -437,6 +463,10 @@ draw_arc (DiaRenderer *self,
   _arc (self, center, width, height, angle1, angle2, color, NULL);
   _remove_duplicated_path (DIA_PATH_RENDERER (self));
 }
+/*!
+ * \brief Create path from closed arc
+ * \memberof _DiaPathRenderer
+ */
 static void
 fill_arc (DiaRenderer *self, 
 	  Point *center,
@@ -502,7 +532,11 @@ path_build_ellipse (GArray *path,
 
     g_array_append_val (path, bp);
   }
-}    
+}
+/*!
+ * \brief Create path from ellipse
+ * \memberof _DiaPathRenderer
+ */
 static void
 draw_ellipse (DiaRenderer *self,
 	      Point *center,
@@ -535,6 +569,10 @@ _bezier (DiaRenderer *self,
   if (fill) /* might not be necessary anymore with draw_beziergon*/
     _path_lineto (path, &points[0].p1);
 }
+/*!
+ * \brief Create path from bezier line
+ * \memberof _DiaPathRenderer
+ */
 static void
 draw_bezier (DiaRenderer *self, 
 	     BezPoint *points,
@@ -544,6 +582,10 @@ draw_bezier (DiaRenderer *self,
   _bezier(self, points, numpoints, NULL, color);
   _remove_duplicated_path (DIA_PATH_RENDERER (self));
 }
+/*!
+ * \brief Create path from bezier polygon
+ * \memberof _DiaPathRenderer
+ */
 static void
 draw_beziergon (DiaRenderer *self, 
 		BezPoint *points,
@@ -655,6 +697,8 @@ draw_image(DiaRenderer *self,
  * This methods needs to be implemented to avoid the default
  * implementation mixing calls of draw_arc, drar_line and fill_arc.
  * We still use the default but only method but only for the outline.
+ *
+ * \memberof _DiaPathRenderer
  */
 static void
 draw_rounded_rect (DiaRenderer *self, 
