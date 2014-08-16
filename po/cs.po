@@ -16,10 +16,10 @@ msgstr ""
 "Project-Id-Version: dia\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=dia&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2014-06-21 15:12+0000\n"
-"PO-Revision-Date: 2014-06-23 20:48+0200\n"
+"POT-Creation-Date: 2014-08-16 03:13+0000\n"
+"PO-Revision-Date: 2014-08-16 08:00+0200\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
-"Language-Team: Czech <gnome-cs-list@gnome.org>\n"
+"Language-Team: čeština <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -259,7 +259,7 @@ msgstr ""
 "Existují pozměněné diagramy. Opravdu chcete ukončit aplikaci Dia bez uložení "
 "těchto změn?"
 
-#: ../app/app_procs.c:1115
+#: ../app/app_procs.c:1115 ../app/menus.c:93
 msgid "Quit Dia"
 msgstr "Ukončit aplikaci Dia"
 
@@ -705,21 +705,35 @@ msgstr "Vlastnosti…"
 msgid "Follow link…"
 msgstr "Následovat odkaz…"
 
-#: ../app/disp_callbacks.c:215 ../objects/standard/bezier.c:784
-#: ../objects/standard/beziergon.c:546 ../objects/standard/box.c:782
-#: ../objects/standard/textobj.c:472
+#: ../app/disp_callbacks.c:215 ../objects/standard/textobj.c:472
 msgid "Convert to Path"
 msgstr "Převést na cestu"
 
-#: ../app/disp_callbacks.c:344
+#: ../app/disp_callbacks.c:260 ../app/menus.c:272
+msgid "Union"
+msgstr "Sjednocení"
+
+#: ../app/disp_callbacks.c:261
+msgid "Difference"
+msgstr "Rozdíl"
+
+#: ../app/disp_callbacks.c:262 ../app/menus.c:273
+msgid "Intersection"
+msgstr "Průnik"
+
+#: ../app/disp_callbacks.c:263
+msgid "Exclusion"
+msgstr "Vypuštění"
+
+#: ../app/disp_callbacks.c:401
 msgid "Selection"
 msgstr "Výběr"
 
-#: ../app/disp_callbacks.c:359
+#: ../app/disp_callbacks.c:416
 msgid "Input _Methods"
 msgstr "Vstupní _metody"
 
-#: ../app/disp_callbacks.c:1135
+#: ../app/disp_callbacks.c:1192
 msgid ""
 "The object you dropped cannot fit into its parent. \n"
 "Either expand the parent object, or drop the object elsewhere."
@@ -1183,29 +1197,65 @@ msgstr "Otevřít soubor s diagramem"
 msgid "_Help"
 msgstr "_Nápověda"
 
+#: ../app/menus.c:95
+msgid "Dia help"
+msgstr "Nápověda k aplikaci Dia"
+
+#: ../app/menus.c:96
+msgid "Dia version, authors, license"
+msgstr "Verze, autoři a licence aplikace Dia"
+
 #: ../app/menus.c:104
 msgid "Sheets and Objects…"
 msgstr "Listy a objekty…"
+
+#: ../app/menus.c:104
+msgid "Manage sheets and their objects"
+msgstr "Správa listů a jejich objektů"
+
+#: ../app/menus.c:105
+msgid "Dia preferences"
+msgstr "Předvolby aplikace Dia"
 
 #: ../app/menus.c:106
 msgid "Plugins…"
 msgstr "Zásuvné moduly…"
 
+#: ../app/menus.c:106
+msgid "Manage plug-ins"
+msgstr "Správa zásuvných modulů"
+
 #: ../app/menus.c:107
 msgid "_Diagram Tree"
 msgstr "Strom _diagramů"
 
+#: ../app/menus.c:107
+msgid "Tree representation of diagrams"
+msgstr "Stromové zpodobnění diagramů"
+
 #: ../app/menus.c:112
 msgid "Show Toolbar"
-msgstr "Zobrazovat panel nástrojů"
+msgstr "Zobrazovat nástrojovou lištu"
+
+#: ../app/menus.c:112
+msgid "Show or hide the toolbar"
+msgstr "Zobrazit nebo skrýt nástrojovou lištu"
 
 #: ../app/menus.c:113
 msgid "Show Statusbar"
-msgstr "Zobrazovat stavový panel"
+msgstr "Zobrazovat stavovou lištu"
+
+#: ../app/menus.c:113
+msgid "Show or hide the statusbar"
+msgstr "Zobrazit nebo skrýt stavovou lištu"
 
 #: ../app/menus.c:114
 msgid "Show Layers"
 msgstr "Zobrazovat vrstvy"
+
+#: ../app/menus.c:114
+msgid "Show or hide the layers toolwindow"
+msgstr "Zobrazit nebo skrýt nástrojové okno vrstev"
 
 #: ../app/menus.c:120
 msgid "Save the diagram"
@@ -1231,9 +1281,17 @@ msgstr "Exportovat diagram"
 msgid "_Diagram Properties"
 msgstr "Vlastnosti _diagramu"
 
+#: ../app/menus.c:123
+msgid "Modify diagram properties (grid, background)"
+msgstr "Změnit vlastnosti diagramu (mřížku, pozadí)"
+
 #: ../app/menus.c:124
 msgid "Page Set_up…"
 msgstr "Na_stavení stránky…"
+
+#: ../app/menus.c:124
+msgid "Modify the diagram pagination"
+msgstr "Změnit rozdělení diagramu na stránky"
 
 #: ../app/menus.c:125
 msgid "_Print…"
@@ -1242,6 +1300,10 @@ msgstr "Tisk…"
 #: ../app/menus.c:125
 msgid "Print the diagram"
 msgstr "Vytisknout diagram"
+
+#: ../app/menus.c:126
+msgid "Close the diagram"
+msgstr "Zavřít diagram"
 
 #: ../app/menus.c:128
 msgid "_Edit"
@@ -1271,13 +1333,29 @@ msgstr "Vložit do výběru"
 msgid "_Duplicate"
 msgstr "_Duplikovat"
 
+#: ../app/menus.c:135
+msgid "Duplicate selection"
+msgstr "Duplikovat výběr"
+
+#: ../app/menus.c:136
+msgid "Delete selection"
+msgstr "Smazat výběr"
+
 #: ../app/menus.c:138
 msgid "_Find…"
 msgstr "_Hledat…"
 
+#: ../app/menus.c:138
+msgid "Search for text"
+msgstr "Najít text"
+
 #: ../app/menus.c:139
 msgid "_Replace…"
 msgstr "Nah_radit…"
+
+#: ../app/menus.c:139
+msgid "Search and replace text"
+msgstr "Najít a nahradit text"
 
 #. the following used to bind to <control><shift>C which collides with Unicode input.
 #. * <control><alt> doesn't work either
@@ -1285,17 +1363,33 @@ msgstr "Nah_radit…"
 msgid "Copy Text"
 msgstr "Kopírovat text"
 
+#: ../app/menus.c:143
+msgid "Copy object's text to clipboard"
+msgstr "Kopírovat text objektů do schránky"
+
 #: ../app/menus.c:144
 msgid "Cut Text"
 msgstr "Vyjmout text"
+
+#: ../app/menus.c:144
+msgid "Cut object's text to clipboard"
+msgstr "Vyjmout text objektů do schránky"
 
 #: ../app/menus.c:145
 msgid "Paste _Text"
 msgstr "Vložit _text"
 
+#: ../app/menus.c:145
+msgid "Insert text from clipboard"
+msgstr "Vložit text ze schránky"
+
 #: ../app/menus.c:147
 msgid "Paste _Image"
 msgstr "Vlož_it obrázek"
+
+#: ../app/menus.c:147
+msgid "Insert image from clipboard"
+msgstr "Vložit obrázek ze schránky"
 
 #: ../app/menus.c:149
 msgid "_Layers"
@@ -1637,14 +1731,6 @@ msgstr "Zobrazovat _pravítka"
 #: ../app/menus.c:265
 msgid "Show _Connection Points"
 msgstr "Zobrazovat přípojné _body"
-
-#: ../app/menus.c:272
-msgid "Union"
-msgstr "Sjednocení"
-
-#: ../app/menus.c:273
-msgid "Intersection"
-msgstr "Průnik"
 
 #. Translators: Menu item Verb/Channel/Export/Remove
 #. Translators: Menu item Verb/Branch/Separate/Remove
@@ -2337,186 +2423,186 @@ msgstr ""
 "Tímto bude zcela vymazána složka $PROFILE\\.dia a všechny podsložky. "
 "Pokračovat?"
 
-#: ../lib/arrows.c:1807
+#: ../lib/arrows.c:1823
 msgctxt "Arrow"
 msgid "None"
 msgstr "Nic"
 
-#: ../lib/arrows.c:1808
+#: ../lib/arrows.c:1824
 msgctxt "Arrow"
 msgid "Lines"
 msgstr "Čáry"
 
-#: ../lib/arrows.c:1809
+#: ../lib/arrows.c:1825
 msgctxt "Arrow"
 msgid "Hollow Triangle"
 msgstr "Dutý trojúhelník"
 
-#: ../lib/arrows.c:1810
+#: ../lib/arrows.c:1826
 msgctxt "Arrow"
 msgid "Filled Triangle"
 msgstr "Plný trojúhelník"
 
-#: ../lib/arrows.c:1811
+#: ../lib/arrows.c:1827
 msgctxt "Arrow"
 msgid "Unfilled Triangle"
 msgstr "Prázdný trojúhelník"
 
-#: ../lib/arrows.c:1812
+#: ../lib/arrows.c:1828
 msgctxt "Arrow"
 msgid "Hollow Diamond"
 msgstr "Dutý kosočtverec"
 
-#: ../lib/arrows.c:1813
+#: ../lib/arrows.c:1829
 msgctxt "Arrow"
 msgid "Filled Diamond"
 msgstr "Plný kosočtverec"
 
-#: ../lib/arrows.c:1814
+#: ../lib/arrows.c:1830
 msgctxt "Arrow"
 msgid "Half Diamond"
 msgstr "Polovina kosočtverec"
 
-#: ../lib/arrows.c:1815
+#: ../lib/arrows.c:1831
 msgctxt "Arrow"
 msgid "Half Head"
 msgstr "Půl hlavy"
 
-#: ../lib/arrows.c:1816
+#: ../lib/arrows.c:1832
 msgctxt "Arrow"
 msgid "Slashed Cross"
 msgstr "Přeškrtnutý křížek"
 
-#: ../lib/arrows.c:1817
+#: ../lib/arrows.c:1833
 msgctxt "Arrow"
 msgid "Filled Ellipse"
 msgstr "Plná elipsa"
 
-#: ../lib/arrows.c:1818
+#: ../lib/arrows.c:1834
 msgctxt "Arrow"
 msgid "Hollow Ellipse"
 msgstr "Dutá elipsa"
 
-#: ../lib/arrows.c:1819
+#: ../lib/arrows.c:1835
 msgctxt "Arrow"
 msgid "Filled Dot"
 msgstr "Plná tečka"
 
-#: ../lib/arrows.c:1820
+#: ../lib/arrows.c:1836
 msgctxt "Arrow"
 msgid "Dimension Origin"
 msgstr "Počátek kóty"
 
-#: ../lib/arrows.c:1821
+#: ../lib/arrows.c:1837
 msgctxt "Arrow"
 msgid "Blanked Dot"
 msgstr "Prázdná tečka"
 
-#: ../lib/arrows.c:1822
+#: ../lib/arrows.c:1838
 msgctxt "Arrow"
 msgid "Double Hollow Triangle"
 msgstr "Dvojitý dutý trojúhelník"
 
-#: ../lib/arrows.c:1823
+#: ../lib/arrows.c:1839
 msgctxt "Arrow"
 msgid "Double Filled Triangle"
 msgstr "Dvojitý plný trojúhelník"
 
-#: ../lib/arrows.c:1824
+#: ../lib/arrows.c:1840
 msgctxt "Arrow"
 msgid "Filled Dot and Triangle"
 msgstr "Plná tečka a trojúhelník"
 
-#: ../lib/arrows.c:1825
+#: ../lib/arrows.c:1841
 msgctxt "Arrow"
 msgid "Filled Box"
 msgstr "Plný čtyřúhelník"
 
-#: ../lib/arrows.c:1826
+#: ../lib/arrows.c:1842
 msgctxt "Arrow"
 msgid "Blanked Box"
 msgstr "Prázdný čtyřúhelník"
 
-#: ../lib/arrows.c:1827
+#: ../lib/arrows.c:1843
 msgctxt "Arrow"
 msgid "Slashed"
 msgstr "Přeškrtnutí"
 
-#: ../lib/arrows.c:1828
+#: ../lib/arrows.c:1844
 msgctxt "Arrow"
 msgid "Integral Symbol"
 msgstr "Symbol integrálu"
 
-#: ../lib/arrows.c:1829
+#: ../lib/arrows.c:1845
 msgctxt "Arrow"
 msgid "Crow Foot"
 msgstr "Ptačí stopa"
 
-#: ../lib/arrows.c:1830
+#: ../lib/arrows.c:1846
 msgctxt "Arrow"
 msgid "Cross"
 msgstr "Křížek"
 
-#: ../lib/arrows.c:1831
+#: ../lib/arrows.c:1847
 msgctxt "Arrow"
 msgid "1-or-many"
 msgstr "1-nebo-mnoho"
 
-#: ../lib/arrows.c:1832
+#: ../lib/arrows.c:1848
 msgctxt "Arrow"
 msgid "0-or-many"
 msgstr "0-nebo-mnoho"
 
-#: ../lib/arrows.c:1833
+#: ../lib/arrows.c:1849
 msgctxt "Arrow"
 msgid "1-or-0"
 msgstr "1-nebo-0"
 
-#: ../lib/arrows.c:1834
+#: ../lib/arrows.c:1850
 msgctxt "Arrow"
 msgid "1 exactly"
 msgstr "právě 1"
 
-#: ../lib/arrows.c:1835
+#: ../lib/arrows.c:1851
 msgctxt "Arrow"
 msgid "Filled Concave"
 msgstr "Plná konkáva"
 
-#: ../lib/arrows.c:1836
+#: ../lib/arrows.c:1852
 msgctxt "Arrow"
 msgid "Blanked Concave"
 msgstr "Prázdná konkáva"
 
-#: ../lib/arrows.c:1837
+#: ../lib/arrows.c:1853
 msgctxt "Arrow"
 msgid "Round"
 msgstr "Zakulacení"
 
-#: ../lib/arrows.c:1838
+#: ../lib/arrows.c:1854
 msgctxt "Arrow"
 msgid "Open Round"
 msgstr "Otevřené zakulacení"
 
-#: ../lib/arrows.c:1839
+#: ../lib/arrows.c:1855
 msgctxt "Arrow"
 msgid "Backslash"
 msgstr "Zpětné lomítko"
 
-#: ../lib/arrows.c:1840
+#: ../lib/arrows.c:1856
 msgctxt "Arrow"
 msgid "Infinite Line"
 msgstr "Nekonečná přímka"
 
-#: ../lib/arrows.c:1968
+#: ../lib/arrows.c:1984
 msgid "Arrow head of unknown type"
 msgstr "Hrot šipky neznámého typu"
 
-#: ../lib/arrows.c:1976
+#: ../lib/arrows.c:1992
 #, c-format
 msgid "Arrow head of type %s has too small dimensions; removing.\n"
 msgstr "Hrot šipky typu %s má příliš malé rozměry, bude odstraněn.\n"
 
-#: ../lib/arrows.c:2109
+#: ../lib/arrows.c:2125
 msgid "unknown arrow"
 msgstr "neznámá šipka"
 
@@ -5097,7 +5183,7 @@ msgid "Triangle"
 msgstr "Trojúhelník"
 
 #: ../objects/Misc/n_gon.c:317 ../objects/standard/box.c:132
-#: ../objects/standard/box.c:780
+#: ../objects/standard/box.c:723
 msgid "Square"
 msgstr "Čtverec"
 
@@ -5340,23 +5426,23 @@ msgstr "Absolutní začátek mezery"
 msgid "Absolute end gap"
 msgstr "Absolutní konec mezery"
 
-#: ../objects/standard/bezier.c:775 ../objects/standard/beziergon.c:537
+#: ../objects/standard/bezier.c:759 ../objects/standard/beziergon.c:516
 msgid "Add Segment"
 msgstr "Přidat segment"
 
-#: ../objects/standard/bezier.c:776 ../objects/standard/beziergon.c:538
+#: ../objects/standard/bezier.c:760 ../objects/standard/beziergon.c:517
 msgid "Delete Segment"
 msgstr "Odstranit segment"
 
-#: ../objects/standard/bezier.c:778 ../objects/standard/beziergon.c:540
+#: ../objects/standard/bezier.c:762 ../objects/standard/beziergon.c:519
 msgid "Symmetric control"
 msgstr "Symetrické ovládání"
 
-#: ../objects/standard/bezier.c:780 ../objects/standard/beziergon.c:542
+#: ../objects/standard/bezier.c:764 ../objects/standard/beziergon.c:521
 msgid "Smooth control"
 msgstr "Hladké ovládání"
 
-#: ../objects/standard/bezier.c:782 ../objects/standard/beziergon.c:544
+#: ../objects/standard/bezier.c:766 ../objects/standard/beziergon.c:523
 msgid "Cusp control"
 msgstr "Hrotové ovládání"
 
@@ -5372,11 +5458,11 @@ msgstr "Pevné"
 msgid "Aspect ratio"
 msgstr "Poměr stran"
 
-#: ../objects/standard/box.c:776 ../objects/standard/ellipse.c:683
+#: ../objects/standard/box.c:719 ../objects/standard/ellipse.c:683
 msgid "Free aspect"
 msgstr "Volný poměr stran"
 
-#: ../objects/standard/box.c:778 ../objects/standard/ellipse.c:685
+#: ../objects/standard/box.c:721 ../objects/standard/ellipse.c:685
 msgid "Fixed aspect"
 msgstr "Pevný poměr stran"
 
@@ -6304,12 +6390,12 @@ msgstr "Portable Document File"
 msgid "PDF import filter"
 msgstr "Importní filtr formátu PDF"
 
-#: ../plug-ins/pdf/pdf-import.cpp:400
+#: ../plug-ins/pdf/pdf-import.cpp:398
 #, c-format
 msgid "Page %d"
 msgstr "Strana %d"
 
-#: ../plug-ins/pdf/pdf-import.cpp:839
+#: ../plug-ins/pdf/pdf-import.cpp:857
 #, c-format
 msgid ""
 "PDF document not OK.\n"
