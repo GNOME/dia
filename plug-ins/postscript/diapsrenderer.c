@@ -545,7 +545,7 @@ draw_beziergon (DiaRenderer *self,
     psrenderer_bezier(renderer, points, numpoints, fill, TRUE);
   /* XXX: still not closing the path */
   if (stroke)
-    psrenderer_bezier(renderer, points, numpoints, stroke, TRUE);
+    psrenderer_bezier(renderer, points, numpoints, stroke, FALSE);
 }
 
 static char*
