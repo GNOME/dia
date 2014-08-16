@@ -409,7 +409,10 @@ _convert_to_bezierline_callback (DiaObject *obj, Point *clicked, gpointer data)
   for (i = 1, j = 1; i < num_points && j < orth->numpoints; ++i) {
     bp[i].type = BEZ_CURVE_TO;
     bp[i].p1 = orth->points[j++];
-    bp[i].p2 = orth->points[j++];
+    if (j == orth->numpoints - 1)
+      bp[i].p2 = orth->points[j-1]; /* use the previous point again */
+    else
+      bp[i].p2 = orth->points[j++];
     if (j + 2 < orth->numpoints) {
       /* if we have more than two points left, use the middle of the segment */
       Point p = { (orth->points[j-1].x + orth->points[j].x) / 2.0,
