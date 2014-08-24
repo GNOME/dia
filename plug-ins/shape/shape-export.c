@@ -24,7 +24,7 @@
  */
 /*
  * TODO:
- *   - While porting to use DiaSvgRenderer I removved all connection point
+ *   - While porting to use DiaSvgRenderer I removed all connection point
        adding to fill_* methods with the assumption that they always have
        a corresponding draw_* method call where the connection points are 
        already added. Correct me if I'm wrong ...                    --hb 
@@ -115,6 +115,9 @@ static void draw_polygon(DiaRenderer *self,
 static void draw_rect(DiaRenderer *self, 
 		      Point *ul_corner, Point *lr_corner,
 		      Color *fill, Color *stroke);
+static void draw_rounded_rect (DiaRenderer *self, 
+			       Point *ul_corner, Point *lr_corner,
+			       Color *fill, Color *stroke, real rounding);
 static void draw_ellipse(DiaRenderer *self, 
 			 Point *center,
 			 real width, real height,
@@ -125,7 +128,7 @@ static void add_connection_point(ShapeRenderer *renderer,
                                  Point *point, gboolean design_connection, 
                                  gboolean main_point);
 static void add_rectangle_connection_points(ShapeRenderer *renderer,
-                                            Point *ul_corner, Point *lr_corner);
+                                            Point *ul_corner, Point *lr_corner, real r);
 static void add_ellipse_connection_points(ShapeRenderer *renderer,
                                           Point *center,
                                           real width, real height);      
@@ -252,6 +255,7 @@ shape_renderer_class_init (ShapeRendererClass *klass)
   renderer_class->draw_polyline = draw_polyline;
   renderer_class->draw_polygon = draw_polygon;
   renderer_class->draw_rect = draw_rect;
+  renderer_class->draw_rounded_rect = draw_rounded_rect;
   renderer_class->draw_ellipse = draw_ellipse;
 }
 
@@ -436,34 +440,47 @@ draw_polygon(DiaRenderer *self,
 
 static void
 add_rectangle_connection_points (ShapeRenderer *renderer,
-                                 Point *ul_corner, Point *lr_corner) 
+                                 Point *ul_corner, Point *lr_corner, real r) 
 {
-  Point connection;
-  coord center_x, center_y;
- 
-  center_x = (ul_corner->x + lr_corner->x)/2;
-  center_y = (ul_corner->y + lr_corner->y)/2;
-    
-  add_connection_point(renderer, ul_corner, FALSE, FALSE);
-  add_connection_point(renderer, lr_corner, FALSE, FALSE);
-  connection.x = ul_corner->x;
-  connection.y = lr_corner->y;
-  add_connection_point(renderer, &connection, FALSE, FALSE);
-  connection.y = center_y;
-  add_connection_point(renderer, &connection, FALSE, FALSE);
-  
-  connection.x = lr_corner->x;
-  connection.y = ul_corner->y;
-  add_connection_point(renderer, &connection, FALSE, FALSE);
-  connection.y = center_y;
-  add_connection_point(renderer, &connection, FALSE, FALSE);
-  
-  connection.x = center_x;
-  connection.y = lr_corner->y;
-  add_connection_point(renderer, &connection, FALSE, FALSE);
-  connection.y = ul_corner->y;
-  add_connection_point(renderer, &connection, FALSE, FALSE);
-}   
+  Point pos;
+  Point center;
+  real width, height;
+
+  width = lr_corner->x - ul_corner->x;
+  height = lr_corner->y - ul_corner->y;
+  r = MIN(width/2, r);
+  r = MIN(height/2, r);
+  r *= (1-M_SQRT1_2);
+
+  /* connection points in the same order as the handles are */
+  pos.x = ul_corner->x + r; /* NW */
+  pos.y = ul_corner->y + r;
+  add_connection_point(renderer, &pos, FALSE, FALSE);
+  pos.x = ul_corner->x + width/2; /* N */
+  pos.y = ul_corner->y;
+  add_connection_point(renderer, &pos, FALSE, FALSE);
+  pos.x = ul_corner->x + width - r; /* NE */
+  pos.y = ul_corner->y + r;
+  add_connection_point(renderer, &pos, FALSE, FALSE);
+  pos.x = ul_corner->x + width; /* E */
+  pos.y = ul_corner->y + height/2;
+  add_connection_point(renderer, &pos, FALSE, FALSE);
+  pos.x = ul_corner->x + width - r; /* SE */
+  pos.y = ul_corner->y + height - r;
+  add_connection_point(renderer, &pos, FALSE, FALSE);
+  pos.x = ul_corner->x + width/2; /* S */
+  pos.y = ul_corner->y + height;
+  add_connection_point(renderer, &pos, FALSE, FALSE);
+  pos.x = ul_corner->x + r; /* SW */
+  pos.y = ul_corner->y + height - r;
+  add_connection_point(renderer, &pos, FALSE, FALSE);
+  pos.x = ul_corner->x; /* W */
+  pos.y = ul_corner->y + height/2;
+  add_connection_point(renderer, &pos, FALSE, FALSE);
+  pos.x = (ul_corner->x + lr_corner->x)/2; /* center */
+  pos.y = (ul_corner->y + lr_corner->y)/2;
+  add_connection_point(renderer, &pos, FALSE, FALSE);
+}
     
 
 static void
@@ -477,7 +494,21 @@ draw_rect (DiaRenderer *self,
   DIA_RENDERER_CLASS(parent_class)->draw_rect (self, ul_corner, lr_corner, fill, stroke);
   /* do our own stuff */
   if (stroke)
-    add_rectangle_connection_points(renderer, ul_corner, lr_corner);
+    add_rectangle_connection_points(renderer, ul_corner, lr_corner, 0.0);
+}
+
+static void
+draw_rounded_rect (DiaRenderer *self, 
+		   Point *ul_corner, Point *lr_corner,
+		   Color *fill, Color *stroke, real rounding)
+{
+  ShapeRenderer *renderer = SHAPE_RENDERER(self);
+
+  /* use base class implementation */
+  DIA_RENDERER_CLASS(parent_class)->draw_rounded_rect (self, ul_corner, lr_corner, fill, stroke, rounding);
+  /* do our own stuff */
+  if (stroke)
+    add_rectangle_connection_points(renderer, ul_corner, lr_corner, rounding);
 }
 
 static void 

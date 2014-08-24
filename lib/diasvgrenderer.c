@@ -820,6 +820,37 @@ draw_image(DiaRenderer *self,
   g_free (uri);
 }
 
+/*!
+ * \brief creation of rectangles with corner radius
+ * \memberof SvgRenderer
+ */
+static void
+draw_rounded_rect (DiaRenderer *self, 
+		   Point *ul_corner, Point *lr_corner,
+		   Color *fill, Color *stroke, real rounding)
+{
+  DiaSvgRenderer *renderer = DIA_SVG_RENDERER (self);
+  xmlNodePtr node;
+  gchar buf[G_ASCII_DTOSTR_BUF_SIZE];
+
+  node = xmlNewChild(renderer->root, NULL, (const xmlChar *)"rect", NULL);
+
+  xmlSetProp(node, (const xmlChar *)"style",
+	     (const xmlChar *)DIA_SVG_RENDERER_GET_CLASS(self)->get_draw_style (renderer, fill, stroke));
+
+  g_ascii_formatd(buf, sizeof(buf), "%g", ul_corner->x * renderer->scale);
+  xmlSetProp(node, (const xmlChar *)"x", (xmlChar *) buf);
+  g_ascii_formatd(buf, sizeof(buf), "%g", ul_corner->y * renderer->scale);
+  xmlSetProp(node, (const xmlChar *)"y", (xmlChar *) buf);
+  g_ascii_formatd(buf, sizeof(buf), "%g", (lr_corner->x - ul_corner->x) * renderer->scale);
+  xmlSetProp(node, (const xmlChar *)"width", (xmlChar *) buf);
+  g_ascii_formatd(buf, sizeof(buf), "%g", (lr_corner->y - ul_corner->y) * renderer->scale);
+  xmlSetProp(node, (const xmlChar *)"height", (xmlChar *) buf);
+  g_ascii_formatd(buf, sizeof(buf),"%g", (rounding * renderer->scale));
+  xmlSetProp(node, (const xmlChar *)"rx", (xmlChar *) buf);
+  xmlSetProp(node, (const xmlChar *)"ry", (xmlChar *) buf);
+}
+
 /* constructor */
 static void
 dia_svg_renderer_init (GTypeInstance *self, gpointer g_class)
@@ -910,6 +941,9 @@ dia_svg_renderer_class_init (DiaSvgRendererClass *klass)
   renderer_class->draw_bezier   = draw_bezier;
   renderer_class->draw_beziergon = draw_beziergon;
   renderer_class->draw_text_line  = draw_text_line;
+
+  /* high level */
+  renderer_class->draw_rounded_rect = draw_rounded_rect;
 
   /* SVG specific */
   svg_renderer_class->get_draw_style = get_draw_style;

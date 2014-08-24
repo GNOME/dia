@@ -101,9 +101,6 @@ static void draw_layer (DiaRenderer *self,
 static void draw_object       (DiaRenderer *renderer,
                                DiaObject   *object,
 			       DiaMatrix   *matrix);
-static void draw_rounded_rect (DiaRenderer *renderer, 
-                               Point *ul_corner, Point *lr_corner,
-                               Color *fill, Color *stroke, real rounding);
 static void draw_string       (DiaRenderer *self,
 	                       const char *text,
 			       Point *pos, Alignment alignment,
@@ -217,7 +214,6 @@ svg_renderer_class_init (SvgRendererClass *klass)
   renderer_class->end_render = end_render;
   renderer_class->draw_layer = draw_layer;
   renderer_class->draw_object = draw_object;
-  renderer_class->draw_rounded_rect = draw_rounded_rect;
   renderer_class->draw_string  = draw_string;
   renderer_class->draw_text  = draw_text;
   renderer_class->draw_text_line  = draw_text_line;
@@ -355,37 +351,6 @@ draw_object(DiaRenderer *self,
   } else {
     xmlAddChild (renderer->root, group);
   }
-}
-
-/*!
- * \brief creation of rectangles with corner radius
- * \memberof SvgRenderer
- */
-static void
-draw_rounded_rect (DiaRenderer *self, 
-		   Point *ul_corner, Point *lr_corner,
-		   Color *fill, Color *stroke, real rounding)
-{
-  DiaSvgRenderer *renderer = DIA_SVG_RENDERER (self);
-  xmlNodePtr node;
-  gchar buf[G_ASCII_DTOSTR_BUF_SIZE];
-
-  node = xmlNewChild(renderer->root, NULL, (const xmlChar *)"rect", NULL);
-
-  xmlSetProp(node, (const xmlChar *)"style",
-	     (const xmlChar *)DIA_SVG_RENDERER_GET_CLASS(self)->get_draw_style (renderer, fill, stroke));
-
-  g_ascii_formatd(buf, sizeof(buf), "%g", ul_corner->x * renderer->scale);
-  xmlSetProp(node, (const xmlChar *)"x", (xmlChar *) buf);
-  g_ascii_formatd(buf, sizeof(buf), "%g", ul_corner->y * renderer->scale);
-  xmlSetProp(node, (const xmlChar *)"y", (xmlChar *) buf);
-  g_ascii_formatd(buf, sizeof(buf), "%g", (lr_corner->x - ul_corner->x) * renderer->scale);
-  xmlSetProp(node, (const xmlChar *)"width", (xmlChar *) buf);
-  g_ascii_formatd(buf, sizeof(buf), "%g", (lr_corner->y - ul_corner->y) * renderer->scale);
-  xmlSetProp(node, (const xmlChar *)"height", (xmlChar *) buf);
-  g_ascii_formatd(buf, sizeof(buf),"%g", (rounding * renderer->scale));
-  xmlSetProp(node, (const xmlChar *)"rx", (xmlChar *) buf);
-  xmlSetProp(node, (const xmlChar *)"ry", (xmlChar *) buf);
 }
 
 #define dia_svg_dtostr(buf,d) \
