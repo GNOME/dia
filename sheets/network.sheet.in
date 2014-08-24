@@ -13,6 +13,8 @@
       <_description>Storage</_description>
     </object>
     <object name="Network - Bus">
+      <!-- very old name kept for compatibility -->
+      <alias name="Standard - Bus"/>
       <_description>Ethernet bus</_description>
     </object>
     <object name="Network - General Printer">

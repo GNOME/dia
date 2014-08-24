@@ -28,7 +28,6 @@
 #include "plug-ins.h"
 
 extern DiaObjectType bus_type;
-extern DiaObjectType bus_type_std;
 extern DiaObjectType radiocell_type;
 extern DiaObjectType basestation_type;
 extern DiaObjectType wanlink_type;
@@ -42,7 +41,6 @@ dia_plugin_init(PluginInfo *info)
 			    NULL, NULL))
     return DIA_PLUGIN_INIT_ERROR;
 
-  object_register_type(&bus_type_std);
   object_register_type(&bus_type);
   object_register_type(&radiocell_type);
   object_register_type(&basestation_type);

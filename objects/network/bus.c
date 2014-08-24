@@ -113,14 +113,6 @@ DiaObjectType bus_type =
   &bus_type_ops       /* ops */
 };
 
-DiaObjectType bus_type_std = /* Old mistake, left for backwards compatibility */
-{
-  "Standard - Bus",   /* name */
-  0,                  /* version */
-  (const char **) bus_xpm,  /* pixmap */
-  &bus_type_ops       /* ops */
-};
-
 static ObjectOps bus_ops = {
   (DestroyFunc)         bus_destroy,
   (DrawFunc)            bus_draw,
