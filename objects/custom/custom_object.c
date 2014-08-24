@@ -1571,8 +1571,8 @@ custom_create(Point *startpoint,
                             info->text_align);
     dia_font_unref(font);
 
-    /* new default: shrink with textbox, too. */
-    custom->text_fitting = (info->resize_with_text ? TEXTFIT_ALWAYS : TEXTFIT_NEVER);
+    /* _no_ new default: does not shrink with textbox automatically. */
+    custom->text_fitting = (info->resize_with_text ? TEXTFIT_WHEN_NEEDED : TEXTFIT_NEVER);
   }
   shape_info_realise(custom->info);
   element_init(elem, 8, info->nconnections);
