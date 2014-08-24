@@ -443,12 +443,12 @@ modify_motion(ModifyTool *tool, GdkEventMotion *event,
   case STATE_MOVE_OBJECT:
 
     if (tool->orig_pos == NULL) {
-      GList *list;
+      GList *list, *pla;
       int i;
       DiaObject *obj;
 
       /* consider non-selected children affected */
-      list = parent_list_affected(ddisp->diagram->data->selected);
+      pla = list = parent_list_affected(ddisp->diagram->data->selected);
       tool->orig_pos = g_new(Point, g_list_length(list));
       i=0;
       while (list != NULL) {
@@ -456,6 +456,7 @@ modify_motion(ModifyTool *tool, GdkEventMotion *event,
 	tool->orig_pos[i] = obj->position;
 	list = g_list_next(list); i++;
       }
+      g_list_free (pla);
     }
     
     if (tool->break_connections)

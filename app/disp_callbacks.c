@@ -246,9 +246,8 @@ _combine_to_path_callback (GtkAction *action, gpointer data)
 
     ddisplay_do_update_menu_sensitivity(ddisp);
     diagram_flush(dia);
-  } else {
-    g_list_free (cut_list);
   }
+  g_list_free (cut_list);
 }
 static void
 add_combine_to_path_menu_items (GtkMenu *menu)
