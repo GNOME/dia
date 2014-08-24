@@ -248,6 +248,10 @@
       </listitem>
 
       <listitem>
+        <para><literal>pdf</literal> (Portable Document Format)</para>
+      </listitem>
+
+      <listitem>
         <para><literal>plt</literal> or <literal>hpgl</literal> (HP Graphics
         Language)</para>
       </listitem>

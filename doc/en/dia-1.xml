@@ -93,7 +93,7 @@
 
       <arg><option>-t <replaceable>FORMAT</replaceable></option></arg>
 
-      <arg><option>--filter=<replaceable>FORMAT</replaceable></option></arg>
+      <arg><option>--filter=<replaceable>TYPE</replaceable></option></arg>
 
       <arg><option>-v</option></arg>
 
@@ -118,8 +118,8 @@
     When objects are moved or resized the connections will follow the
     objects.</para>
 
-    <para>Diagrams drawn in <command>Dia</command> can be exported as
-    PostScript.</para>
+    <para>Diagrams drawn in <command>Dia</command> can be exported to
+    various formats.</para>
   </refsect1>
 
   <refsect1>
@@ -185,11 +185,17 @@
 	</listitem>
       </varlistentry>
       <varlistentry>
-	<term><option>-t <replaceable>FORMAT</replaceable></option>
-	  <option>--export-to-format=<replaceable>FORMAT</replaceable></option></term>
+	<term><option>-t <replaceable>TYPE</replaceable></option>
+	  <option>--filter=<replaceable>TYPE</replaceable></option></term>
 	<listitem>
-	  <para>Export loaded file in FORMAT and exit.  Format are
+	  <para>Export loaded file with TYPE and exit. Formats and variants are
 	  described below.</para>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term><option>--list-filters</option></term>
+	<listitem>
+	  <para>List export filters/formats and exit.</para>
 	</listitem>
       </varlistentry>
       <varlistentry>
@@ -206,7 +212,8 @@
     <title>Export Formats</title>
 
     <para>The following export formats are supported by
-    <command>dia</command>.</para>
+    <command>dia</command>. Most formats are implemnted by plug-ins so their
+    availability depends on compile- and runtime-configuration.</para>
 
     <itemizedlist>
       <listitem>
@@ -244,6 +251,10 @@
       </listitem>
 
       <listitem>
+	<para><literal>pdf</literal> (Portable Document Format)</para>
+      </listitem>
+
+      <listitem>
 	<para><literal>plt</literal> or <literal>hpgl</literal> (HP
 	Graphics Language)</para>
       </listitem>
@@ -259,6 +270,15 @@
 
       <listitem>
 	<para><literal>svg</literal> (Scalable Vector Graphics)</para>
+
+	<para>There are three different SVG exporters with Dia having different
+	specializations. <literal>cairo-svg</literal> is turning text to shapes
+	to become independent of font availabilty on the target system.
+	<literal>dia-svg</literal> is based on Dia core code only. It's
+	translating all Dia's rendering capabilities as closely as possible to SVG.
+	<literal>svg-py</literal> - as SVG renderer implemented in Python - is
+	producing plain SVG. It is the most hackable version to allow some user
+	adaptions</para>
       </listitem>
 
       <listitem>
@@ -267,6 +287,10 @@
 
       <listitem>
 	<para><literal>pgf-tex</literal> (TeX PGF/tikz macros)</para>
+      </listitem>
+
+      <listitem>
+	<para><literal>vdx</literal> (Visio Diagram XML)</para>
       </listitem>
 
       <listitem>
