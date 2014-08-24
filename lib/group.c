@@ -314,6 +314,9 @@ group_create(GList *objects)
   GList *list;
   int num_conn;
 
+  /* it's a programmer's error to create a group of nothing */
+  g_return_val_if_fail (objects != NULL, NULL);
+
   group = g_new0(Group,1);
   obj = &group->object;
 

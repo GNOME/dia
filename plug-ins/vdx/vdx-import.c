@@ -2687,7 +2687,8 @@ vdx_plot_shape(struct vdx_Shape *Shape, GSList *objects,
             if (child->data) group = g_list_append(group, child->data);
         }
 
-        objects = g_slist_append(objects, create_standard_group(group));
+        if (group) /* the above might leave us empty - ignore it: bug 735303 */
+            objects = g_slist_append(objects, create_standard_group(group));
         /* g_list_free(group); */
         g_slist_free(members);
     }
