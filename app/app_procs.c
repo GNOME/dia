@@ -91,7 +91,8 @@ static PluginInitResult internal_plugin_init(PluginInfo *info);
 static gboolean handle_all_diagrams(GSList *files, char *export_file_name,
 				    char *export_file_format, char *size, char *show_layers,
 				    const gchar *input_directory, const gchar *output_directory);
-static void print_credits(gboolean credits);
+static void print_credits(void);
+static void print_filters_list (gboolean verbose);
 
 static gboolean dia_is_interactive = FALSE;
 
@@ -673,6 +674,7 @@ app_init (int argc, char **argv)
   static gboolean nonew = FALSE;
   static gboolean use_integrated_ui = TRUE;
   static gboolean credits = FALSE;
+  static gboolean list_filters = FALSE;
   static gboolean version = FALSE;
   static gboolean verbose = FALSE;
   static gboolean log_to_stderr = FALSE;
@@ -688,29 +690,15 @@ app_init (int argc, char **argv)
   static const gchar **filenames = NULL;
   int i = 0;
 
-  gchar *export_format_string = 
-     /* Translators:  The argument is a list of options, not to be translated */
-    g_strdup_printf(_("Select the filter/format out of: %s"),
-		    "cgm, dia, dxf, eps, eps-builtin, " EPS_PANGO
-		    "fig, mp, plt, hpgl, png ("
-#  if defined(HAVE_LIBPNG) && defined(HAVE_LIBART)
-		    "png-libart, "
-#  endif
-#  ifdef HAVE_CAIRO
-		    "cairo-png, cairo-alpha-png, "
-#  endif
-		    /* we always have pixbuf but don't know exactly all it's *few* save formats */
-		    "pixbuf-png), jpg, "
-		    "shape, svg, tex (pgf-tex, pstricks-tex), " WMF
-		    "wpg");
-
   GOptionContext *context = NULL;
   static GOptionEntry options[] =
   {
     {"export", 'e', 0, G_OPTION_ARG_FILENAME, NULL /* &export_file_name */,
      N_("Export loaded file and exit"), N_("OUTPUT")},
-    {"filter",'t', 0, G_OPTION_ARG_STRING, NULL /* &export_file_format */,
-     NULL /* &export_format_string */, N_("TYPE") },
+    {"filter", 't', 0, G_OPTION_ARG_STRING, NULL /* &export_file_format */,
+     N_("Select the export filter/format"), N_("TYPE") },
+    {"list-filters", 0, 0, G_OPTION_ARG_NONE, &list_filters,
+     N_("List export filters/formats and exit"), NULL},
     {"size", 's', 0, G_OPTION_ARG_STRING, NULL,
      N_("Export graphics size"), N_("WxH")},
     {"show-layers", 'L', 0, G_OPTION_ARG_STRING, NULL,
@@ -744,11 +732,10 @@ app_init (int argc, char **argv)
 
   options[0].arg_data = &export_file_name;
   options[1].arg_data = &export_file_format;
-  options[1].description = export_format_string;
-  options[2].arg_data = &size;
-  options[3].arg_data = &show_layers;
-  g_assert (strcmp (options[13].long_name, G_OPTION_REMAINING) == 0);
-  options[13].arg_data = (void*)&filenames;
+  options[3].arg_data = &size;
+  options[4].arg_data = &show_layers;
+  g_assert (strcmp (options[14].long_name, G_OPTION_REMAINING) == 0);
+  options[14].arg_data = (void*)&filenames;
 
   argv0 = (argc > 0) ? argv[0] : "(none)";
 
@@ -818,13 +805,13 @@ app_init (int argc, char **argv)
 	++i;
       }
     }
-    /* given some files to output, we are not starting up the UI */
-    if (export_file_name || export_file_format || size)
+    /* given some files to output (or something;)), we are not starting up the UI */
+    if (export_file_name || export_file_format || size || credits || version || list_filters)
       dia_is_interactive = FALSE;
 
   }
 
-  if (argv && dia_is_interactive && !version) {
+  if (argv && dia_is_interactive) {
 #ifdef HAVE_GNOME
     GnomeProgram *program =
       gnome_program_init (PACKAGE, VERSION, LIBGNOMEUI_MODULE,
@@ -870,9 +857,6 @@ app_init (int argc, char **argv)
       dia_log_message ("Running without display");
   }
 
-  /* done with option parsing, don't leak */
-  g_free(export_format_string);
-  
   if (version) {
     gchar *ver_utf8;
     gchar *ver_locale;
@@ -898,7 +882,10 @@ app_init (int argc, char **argv)
 	       | (log_to_stderr ? DIA_MESSAGE_STDERR : 0)
 	       | (verbose ? DIA_VERBOSE : 0) );
 
-  print_credits(credits);
+  if (credits) {
+    print_credits();
+    exit(0);
+  }
 
   if (dia_is_interactive) {
     create_user_dirs();
@@ -913,6 +900,11 @@ app_init (int argc, char **argv)
 
   dia_register_plugins();
   dia_register_builtin_plugin(internal_plugin_init);
+
+  if (list_filters) {
+    print_filters_list (verbose);
+    exit (0);
+  }
 
   load_all_sheets();     /* new mechanism */
 
@@ -1267,33 +1259,95 @@ handle_all_diagrams(GSList *files, char *export_file_name,
    one maintainer).
 */
 static void
-print_credits(gboolean credits)
+print_credits(void)
 {
-  if (credits) {
-      int i;
-      const gint nauthors = (sizeof(authors) / sizeof(authors[0])) - 1;
-      const gint ndocumentors = (sizeof(documentors) / sizeof(documentors[0])) - 1;
+  int i;
+  const gint nauthors = (sizeof(authors) / sizeof(authors[0])) - 1;
+  const gint ndocumentors = (sizeof(documentors) / sizeof(documentors[0])) - 1;
 
-      g_print(_("The original author of Dia was:\n\n"));
-      for (i = 0; i < NUMBER_OF_ORIG_AUTHORS; i++) {
-          g_print("%s\n", authors[i]);
-      }
-
-      g_print(_("\nThe current maintainers of Dia are:\n\n"));
-      for (i = NUMBER_OF_ORIG_AUTHORS; i < NUMBER_OF_ORIG_AUTHORS + NUMBER_OF_MAINTAINERS; i++) {
-	  g_print("%s\n", authors[i]);
-      }
-
-      g_print(_("\nOther authors are:\n\n"));
-      for (i = NUMBER_OF_ORIG_AUTHORS + NUMBER_OF_MAINTAINERS; i < nauthors; i++) {
-          g_print("%s\n", authors[i]);
-      }
-
-      g_print(_("\nDia is documented by:\n\n"));
-      for (i = 0; i < ndocumentors; i++) {
-          g_print("%s\n", documentors[i]);
-      }
-
-      exit(0);
+  g_print(_("The original author of Dia was:\n\n"));
+  for (i = 0; i < NUMBER_OF_ORIG_AUTHORS; i++) {
+    g_print("%s\n", authors[i]);
   }
+
+  g_print(_("\nThe current maintainers of Dia are:\n\n"));
+  for (i = NUMBER_OF_ORIG_AUTHORS; i < NUMBER_OF_ORIG_AUTHORS + NUMBER_OF_MAINTAINERS; i++) {
+    g_print("%s\n", authors[i]);
+  }
+
+  g_print(_("\nOther authors are:\n\n"));
+  for (i = NUMBER_OF_ORIG_AUTHORS + NUMBER_OF_MAINTAINERS; i < nauthors; i++) {
+    g_print("%s\n", authors[i]);
+  }
+
+  g_print(_("\nDia is documented by:\n\n"));
+  for (i = 0; i < ndocumentors; i++) {
+    g_print("%s\n", documentors[i]);
+  }
+}
+
+typedef struct _PairExtensionFilter PairExtensionFilter;
+struct _PairExtensionFilter {
+  const char *ext;
+  const DiaExportFilter *ef;
+};
+
+static int
+_cmp_filter (const void *a, const void *b)
+{
+  const PairExtensionFilter *pa = a;
+  const PairExtensionFilter *pb = b;
+
+  return strcmp (pa->ext, pb->ext);
+}
+
+/*!
+ * \brief Dump available export filters
+ *
+ * Almost all of Dia's export formats are realized with plug-ins, either
+ * implemented in C or Python. Instead of a static help string which tries
+ * to cover these at compile time, this function queries the registered
+ * filters to proide the complete list for the current configuration.
+ *
+ * This list still might not cover all available filters for two reasons:
+ *  - only configured filters are registered
+ *  - some filters are only registered for the interactive (or X11) case
+ */
+static void
+print_filters_list (gboolean verbose)
+{
+  GList *list;
+  int j;
+  GArray *by_extension;
+
+  g_print ("%s\n", _("Available Export Filters (for --format)"));
+  g_print ("%10s%20s %s\n",
+	   /* Translators: be brief or mess up the table for --list-filters */
+	   _("Extension"),
+	   _("Identifier"),
+	   _("Description"));
+  by_extension = g_array_new (FALSE, FALSE, sizeof(PairExtensionFilter));
+  for (list = filter_get_export_filters(); list != NULL; list = list->next) {
+    const DiaExportFilter *ef = list->data;
+
+    if (!ef->extensions)
+      continue;
+    for (j = 0; ef->extensions[j] != NULL; ++j) {
+      PairExtensionFilter pair = { ef->extensions[j], ef };
+
+      g_array_append_val (by_extension, pair);
+      if (!verbose)
+	break; /* additional extensions don't provide significant information */
+    }
+  }
+  g_array_sort (by_extension, _cmp_filter);
+  for (j = 0; j < by_extension->len; ++j) {
+    PairExtensionFilter *pair = &g_array_index (by_extension, PairExtensionFilter, j);
+
+    g_print ("%10s%20s %s\n",
+	     pair->ext,
+	     pair->ef->unique_name ? pair->ef->unique_name : "",
+	     pair->ef->description);
+  }
+  g_array_free (by_extension, TRUE);
 }
