@@ -66,7 +66,7 @@ typedef struct _Custom Custom;
  * \brief Custom shape representation as DiaObject
  *
  * The custom shape object gets created with varying content given from the
- * shape file. It currently only spports two different sets of properties,
+ * shape file. It currently only supports two different sets of properties,
  * depending on the use of \code <textbox/> \endcode .
  *
  * \extends _Element
@@ -82,7 +82,7 @@ struct _Custom {
   real xoffs,  yoffs;
 
   /*!
-   * The subscale variables
+   * The sub-scale variables
    * The old_subscale is used for interactive 
    * (shift-pressed) scaling
    * @{
@@ -94,7 +94,7 @@ struct _Custom {
    * \brief Pointer changing during the drawing of the display list
    * this is sort of a hack, passing a temporary value
    * using this field, but otherwise 
-   * subshapes are going to need major code refactoring: 
+   * sub-shapes are going to need major code refactoring: 
    */
   GraphicElementSubShape* current_subshape;
   /*! Connection points need to be dynamically allocated */
@@ -159,7 +159,6 @@ static ObjectTypeOps custom_type_ops =
 
 /* This looks like it could be static, but it can't because we key
    on it to determine if an DiaObjectType is a custom/SVG shape */
-
 G_MODULE_EXPORT 
 DiaObjectType custom_type =
   {
@@ -201,7 +200,7 @@ static PropDescription custom_props[] = {
     N_("Flip vertical"), NULL, NULL },
   
   { "subscale", PROP_TYPE_REAL, PROP_FLAG_OPTIONAL,
-    N_("Scale of the subshapes"), NULL, NULL },
+    N_("Scale of the sub-shapes"), NULL, NULL },
   PROP_DESC_END
 };
 
@@ -221,7 +220,7 @@ static PropDescription custom_props_text[] = {
   PROP_STD_TEXT_HEIGHT,
   PROP_STD_TEXT_COLOUR,
   /* BEWARE: the following makes the whole Text optional during load. Normally this
-   * would leave the object in an inconsitent state but here we have a proper default 
+   * would leave the object in an inconsistent state but here we have a proper default 
    * initialization even in the load case. See custom_load_using_properties()  --hb
    */
   { "text", PROP_TYPE_TEXT, PROP_FLAG_OPTIONAL,
@@ -234,7 +233,7 @@ static PropDescription custom_props_text[] = {
     N_("Flip vertical"), NULL, NULL },
   
   { "subscale", PROP_TYPE_REAL, PROP_FLAG_OPTIONAL,
-    N_("Scale of the subshapes"), NULL, NULL },
+    N_("Scale of the sub-shapes"), NULL, NULL },
   PROP_DESC_END
 };
 
@@ -422,19 +421,19 @@ transform_subshape_coord(Custom *custom, GraphicElementSubShape* subshape,
     
     subshape->default_scale = (v_scale > h_scale ? h_scale : v_scale);
   }
-  
+
   scale = custom->subscale * subshape->default_scale;
-  	      
+
   xoffs = custom->xoffs;
   yoffs = custom->yoffs;
   
   /* step 1: calculate boundaries */
   orig_bounds = custom->info->shape_bounds;
-  
+
   /* step 2: undo unkown/funky number magic when flip_h or flip_v is set */
   if(custom->flip_h) custom->xscale = -custom->xscale;
   if(custom->flip_v) custom->yscale = -custom->yscale;
-  
+
   new_bounds.top = orig_bounds.top * custom->yscale;
   new_bounds.bottom = orig_bounds.bottom * custom->yscale;
   new_bounds.left = orig_bounds.left * custom->xscale;
@@ -467,25 +466,25 @@ transform_subshape_coord(Custom *custom, GraphicElementSubShape* subshape,
       cy = new_bounds.top + (subshape->center.y * scale);
    }
   }
-  
+
   /* step #4: calculate the new coordinate relative to the calculated center */
   out->x = cx - ((subshape->center.x - p1->x) * scale);
   out->y = cy - ((subshape->center.y - p1->y) * scale);
-  
+
   /* step #5: handle flip_h/flip_v */
   if (custom->flip_h) {
     out->x = -out->x + width;
-    
+
     xoffs -= (new_bounds.right - new_bounds.left);
     custom->xscale = -custom->xscale; /* undo the damage we've done above */
   }
   if (custom->flip_v) {
     out->y = -out->y + height;
-  
+
     yoffs -= (new_bounds.bottom - new_bounds.top);
     custom->yscale = -custom->yscale; /* undo the damage we've done above */
   }
-  
+
   /* step #6: finally, translate the coordinate to the correct offset */
   out->x += xoffs;
   out->y += yoffs;
@@ -814,7 +813,7 @@ static ObjectChange*
 custom_move(Custom *custom, Point *to)
 {
   custom->element.corner = *to;
-  
+
   custom_update_data(custom, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
 
   return NULL;
@@ -853,7 +852,7 @@ custom_draw(Custom *custom, DiaRenderer *renderer)
   LineCaps cur_caps = LINECAPS_BUTT;
   LineJoin cur_join = LINEJOIN_MITER;
   LineStyle cur_style = custom->line_style;
-  
+
   assert(custom != NULL);
   assert(renderer != NULL);
 
@@ -915,7 +914,7 @@ custom_draw_element(GraphicElement* el, Custom *custom, DiaRenderer *renderer,
   int i;
   real radius;
 
-  /* Somewhow - maybe due to scaling - the exact match does not always work. Instead of:
+  /* Somehow - maybe due to scaling - the exact match does not always work. Instead of:
    *   (el->any.s.line_width != (*cur_line))
    * be more tolerant to avoid using completely wrong line width.
    */
@@ -1015,7 +1014,7 @@ custom_draw_element(GraphicElement* el, Custom *custom, DiaRenderer *renderer,
     break;
   case GE_IMAGE:
     transform_coord(custom, &el->image.topleft, &p1);
-    /* to scale correctly also for subshape some extra hoops */
+    /* to scale correctly also for sub-shape some extra hoops */
     transform_size(custom, el->image.width, el->image.height, &width, &height);
     renderer_ops->draw_image(renderer, &p1,
 			     width, height,
@@ -1078,10 +1077,10 @@ assert_boundaries(Custom *custom)
 {
   Element *elem = &custom->element;
   ShapeInfo *info = custom->info;
-  
+
   int i = 0;
   GList *tmp;
-  
+
   real min_width = 0.0;
   real min_height = 0.0;
   real r = 0.0;
@@ -1089,14 +1088,14 @@ assert_boundaries(Custom *custom)
   /* undo unkown/funky number magic when flip_h or flip_v is set */
   if (custom->flip_h) custom->xscale = -custom->xscale;
   if (custom->flip_v) custom->yscale = -custom->yscale;
- 
+
   /* calculate the minimum width and height required for all subshapes */
   for (tmp = info->subshapes; tmp != NULL; tmp = tmp->next, i++) {
     GraphicElementSubShape *subshape = tmp->data;
-    
+
     real parent_shape_orig_width = info->shape_bounds.right - info->shape_bounds.left;
     real parent_shape_orig_height = info->shape_bounds.bottom - info->shape_bounds.top;
-    
+
     real scale = custom->subscale * subshape->default_scale;
     real width = (2*subshape->half_width) * scale;
     real height = (2*subshape->half_height) * scale;
@@ -1108,12 +1107,12 @@ assert_boundaries(Custom *custom)
 
       if (prop_min_width > 0.5)
         prop_min_width = 1.0 - prop_min_width;
-        
+
       r = prop_min_width * parent_shape_orig_width*custom->xscale;
-        
+
       if (scaled_half_width > r)
         width = (scaled_half_width / prop_min_width)-0.01;
-    
+
     } else {
       /* handle fixed anchor in x direction */
       if (subshape->h_anchor_method > 0)
@@ -1126,15 +1125,15 @@ assert_boundaries(Custom *custom)
       /* handle proportional anchor in y direction */
       real prop_min_height = subshape->center.y / parent_shape_orig_height;
       real scaled_half_height = subshape->half_height * scale;
-        
+
       if (prop_min_height > 0.5)
         prop_min_height = 1.0 - prop_min_height;
-      
+
       r = prop_min_height * parent_shape_orig_height*custom->yscale;
-      	
+
       if (scaled_half_height > r)
         height = (scaled_half_height / prop_min_height)-0.01;
-      
+
     } else {
       /* handle fixed anchor in y direction */
       if (subshape->v_anchor_method > 0)
@@ -1148,13 +1147,13 @@ assert_boundaries(Custom *custom)
     if (height > min_height)
       min_height = height;
   }
-  
+
   if (elem->width < min_width)
     elem->width = min_width;
   if (elem->height < min_height)
     elem->height = min_height;
-  
-  /* redo unkown/funky number magic when flip_h or flip_v is set */
+
+  /* redo unknown/funky number magic when flip_h or flip_v is set */
   if (custom->flip_h) custom->xscale = -custom->xscale;
   if (custom->flip_v) custom->yscale = -custom->yscale;
 }
@@ -1168,20 +1167,20 @@ custom_update_data(Custom *custom, AnchorShape horiz, AnchorShape vert)
   Point center, bottom_right;
   Point p;
   static GArray *arr = NULL, *barr = NULL;
-  
+
   int i;
   GList *tmp;
   char *txs;
-  
+
   /* save starting points */
   center = bottom_right = elem->corner;
   center.x += elem->width/2;
   bottom_right.x += elem->width;
   center.y += elem->height/2;
   bottom_right.y += elem->height;
-  
+
   assert_boundaries(custom);
-  
+
   /* update the translation coefficients first ... */
   custom->xscale = elem->width / (info->shape_bounds.right -
 				  info->shape_bounds.left);
@@ -1194,7 +1193,7 @@ custom_update_data(Custom *custom, AnchorShape horiz, AnchorShape vert)
     real text_width, text_height;
     real xscale = 0.0, yscale = 0.0;
     Rectangle tb;
-      
+
     text_calc_boundingbox(custom->text, NULL);
     text_width = 
       custom->text->max_width + 2*custom->padding+custom->border_width;
@@ -1203,13 +1202,13 @@ custom_update_data(Custom *custom, AnchorShape horiz, AnchorShape vert)
 
     transform_rect(custom, &info->text_bounds, &tb);
     xscale = text_width / (tb.right - tb.left);
-    
+
     if (   custom->text_fitting == TEXTFIT_ALWAYS
         || (   custom->text_fitting == TEXTFIT_WHEN_NEEDED
 	    && xscale > 1.00000001)) {
       elem->width  *= xscale;
       custom->xscale *= xscale;
-      
+
       /* Maybe now we won't need to do Y scaling */
       transform_rect(custom, &info->text_bounds, &tb);
     }
@@ -1292,7 +1291,7 @@ custom_update_data(Custom *custom, AnchorShape horiz, AnchorShape vert)
     custom->yscale = -custom->yscale;
     custom->yoffs = elem->corner.y -custom->yscale * info->shape_bounds.bottom;
   }
-  
+
   /* reposition the text element to the new text bounding box ... */
   if (info->has_text) {
     Rectangle tb;
@@ -1309,10 +1308,7 @@ custom_update_data(Custom *custom, AnchorShape horiz, AnchorShape vert)
       break;
     }
     /* align the text to be close to the shape ... */
-
-
     txs = text_get_string_copy(custom->text);
-    
     if ((tb.bottom+tb.top)/2 > elem->corner.y + elem->height)
       p.y = tb.top +
 	dia_font_ascent(txs,custom->text->font, custom->text->height);
@@ -1343,7 +1339,7 @@ custom_update_data(Custom *custom, AnchorShape horiz, AnchorShape vert)
     /* Line width handling/behavior for custom objects is special. Instead of
      * directly using the given width some ratio with the shape global custom
      * border_width gets calculated - to allow influencing all line width used
-     * in a complex shape (and not brea backward compatibility). With
+     * in a complex shape (and not break backward compatibility). With
     real lwfactor = custom->border_width / 2;
      * we get traces in the diagram at high zoom levels, so use something more
      * safe for the bounding box calculation     
@@ -1353,7 +1349,7 @@ custom_update_data(Custom *custom, AnchorShape horiz, AnchorShape vert)
 
     switch(el->type) {
     case GE_SUBSHAPE :
-      /* if the subshapes leave traces in the diagram here is the place to fix it --hb */
+      /* if the sub-shapes leave traces in the diagram here is the place to fix it --hb */
       continue;
       break;
     case GE_LINE: {
@@ -1380,7 +1376,7 @@ custom_update_data(Custom *custom, AnchorShape horiz, AnchorShape vert)
       for (i = 0; i < el->polyline.npoints; i++)
         transform_coord(custom, &el->polyline.points[i],
                         &g_array_index(arr, Point, i));
-     
+
       polyline_bbox(&g_array_index(arr,Point,0),el->polyline.npoints,
                     &extra,el->type==GE_POLYGON,&rect);
       break;
@@ -1415,7 +1411,7 @@ custom_update_data(Custom *custom, AnchorShape horiz, AnchorShape vert)
       Point centre;
       extra.border_trans = el->ellipse.s.line_width * lwfactor;
       transform_coord(custom, &el->ellipse.center, &centre);
-    
+
       ellipse_bbox(&centre,
                    el->ellipse.width * fabs(custom->xscale),
                    el->ellipse.height * fabs(custom->yscale),
@@ -1461,8 +1457,7 @@ custom_update_data(Custom *custom, AnchorShape horiz, AnchorShape vert)
     rectangle_union(&obj->bounding_box,&rect);
   }
 
-  
-  /* extend bouding box to include text bounds ... */
+  /* extend bounding box to include text bounds ... */
   if (info->has_text) {
     Rectangle tb;
     text_calc_boundingbox(custom->text, &tb);
@@ -1474,7 +1469,7 @@ custom_update_data(Custom *custom, AnchorShape horiz, AnchorShape vert)
   }
 
   obj->position = elem->corner;
-  
+
   element_update_handles(elem);
 }
 
@@ -1534,7 +1529,7 @@ custom_create(Point *startpoint,
 
   if (!info->loaded) /* called for it's side effect */
     shape_info_getbyname (info->name);
- 
+
   custom = g_new0_ext (Custom, info->ext_attr_size);
   elem = &custom->element;
   obj = &elem->object;
@@ -1549,7 +1544,7 @@ custom_create(Point *startpoint,
   elem->height = shape_info_get_default_height(info);
 
   custom->info = info;
-  
+
   obj->flags |= info->object_flags;
 
   custom->old_subscale = 1.0;
@@ -1566,7 +1561,7 @@ custom_create(Point *startpoint,
 
   custom->flip_h = FALSE;
   custom->flip_v = FALSE;
-  
+
   if (info->has_text) {
     attributes_get_default_font(&font, &font_height);
     p = *startpoint;
@@ -1575,7 +1570,7 @@ custom_create(Point *startpoint,
     custom->text = new_text("", font, font_height, &p, &custom->border_color,
                             info->text_align);
     dia_font_unref(font);
-    
+
     /* new default: shrink with textbox, too. */
     custom->text_fitting = (info->resize_with_text ? TEXTFIT_ALWAYS : TEXTFIT_NEVER);
   }
@@ -1632,7 +1627,7 @@ custom_destroy(Custom *custom)
   /* TODO: free allocated ext props (string, etc.) */
 
   element_destroy(&custom->element);
-  
+
   g_free(custom->connections);
 }
 
@@ -1643,7 +1638,7 @@ custom_copy(Custom *custom)
   Custom *newcustom;
   Element *elem, *newelem;
   DiaObject *newobj;
-  
+
   elem = &custom->element;
   /* can't use object_copy_using_properties() becauses there is no way 
    * to pass in our creation data (info) ... */
@@ -1663,7 +1658,7 @@ custom_copy(Custom *custom)
   if (custom->info->has_text) {
     newcustom->text = text_copy(custom->text);
   } 
-  
+
   newcustom->connections = g_new0(ConnectionPoint, custom->info->nconnections);
   for (i = 0; i < custom->info->nconnections; i++) {
     newobj->connections[i] = &newcustom->connections[i];
@@ -1675,7 +1670,7 @@ custom_copy(Custom *custom)
   }
 
   /* ... but everything mapped to property gets copied by StdProps method
-   * including the extended atrributes properties. A simple memcpy can't copy by refs */
+   * including the extended attributes properties. A simple memcpy can't copy by refs */
   object_copy_props (newobj, &custom->element.object, FALSE);
 
   return &newcustom->element.object;
@@ -1688,16 +1683,16 @@ custom_load_using_properties(ObjectNode obj_node, int version,DiaContext *ctx)
   DiaObject *obj;
   Point startpoint = {0.0,0.0};
   Handle *handle1,*handle2;
-  
+
   obj = custom_type.ops->create(&startpoint, shape_info_get(obj_node), &handle1, &handle2);
   if (obj) {
     custom = (Custom*)obj;
     if (version < 1)
-      custom->padding = 0.5 * M_SQRT1_2; /* old pading */
+      custom->padding = 0.5 * M_SQRT1_2; /* old padding */
     /* old default: only grow from text box, no auto-shrink. */
     custom->text_fitting = (custom->info->resize_with_text ? TEXTFIT_WHEN_NEEDED : TEXTFIT_NEVER);
     object_load_props(obj,obj_node,ctx);
-  
+
     custom_update_data(custom, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
     custom->old_subscale = custom->subscale;
   }
