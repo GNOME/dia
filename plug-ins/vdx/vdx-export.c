@@ -713,25 +713,6 @@ static void draw_polyline(DiaRenderer *self, Point *points, int num_points,
     g_free(LineTo);
 }
 
-/** Render a Dia polygon
- * @param self a renderer
- * @param points corners of polygon
- * @param num_points number of points
- * @param color line colour
- */
-static void
-stroke_polygon (DiaRenderer *self, 
-		Point *points, int num_points, 
-		Color *color)
-{
-    Point *more_points = g_new0(Point, num_points+1);
-    memcpy(more_points, points, num_points*sizeof(Point));
-    more_points[num_points] = more_points[0];
-    g_debug("draw_polygon -> draw_polyline");
-    draw_polyline(self, more_points, num_points+1, color);
-    g_free(more_points);
-}
-
 /** Render a Dia filled polygon
  * @param self a renderer
  * @param points corners of polygon
@@ -739,9 +720,9 @@ stroke_polygon (DiaRenderer *self,
  * @param color line colour
  */
 static void
-fill_polygon (DiaRenderer *self, 
+draw_polygon (DiaRenderer *self, 
 	      Point *points, int num_points, 
-	      Color *color)
+	      Color *fill, Color *stroke)
 {
     VDXRenderer *renderer = VDX_RENDERER(self);
     Point a, b;
@@ -751,6 +732,7 @@ fill_polygon (DiaRenderer *self,
     struct vdx_MoveTo MoveTo;
     struct vdx_LineTo* LineTo;
     struct vdx_Fill Fill;
+    struct vdx_Line Line;
     char NameU[VDX_NAMEU_LEN];
     unsigned int i;
     double minX, minY, maxX, maxY;
@@ -758,11 +740,14 @@ fill_polygon (DiaRenderer *self,
     /* First time through, just construct the colour table */
     if (renderer->first_pass) 
     {
-        vdxCheckColor(renderer, color);
+	if (fill)
+	    vdxCheckColor(renderer, fill);
+	if (stroke)
+	    vdxCheckColor(renderer, stroke);
         return;
     }
     
-    g_debug("fill_polygon(%d)", num_points);
+    g_debug("draw_polygon(%d)", num_points);
     
     /* Setup the standard shape object */
     memset(&Shape, 0, sizeof(Shape));
@@ -823,9 +808,13 @@ fill_polygon (DiaRenderer *self,
     }
 
     /* A Line (colour etc) */
-    create_Fill(renderer, color, &Fill);
+    if (fill)
+	create_Fill(renderer, fill, &Fill);
+    if (stroke)
+	create_Line(renderer, stroke, &Line, NULL, NULL);
 
-    Geom.NoLine = 1;
+    Geom.NoFill = fill ? 0 : 1;
+    Geom.NoLine = stroke ? 0 : 1;
     /* Setup children */
     Geom.any.children = g_slist_append(Geom.any.children, &MoveTo);
     for (i=0; i<num_points; i++)
@@ -834,7 +823,10 @@ fill_polygon (DiaRenderer *self,
     }
 
     Shape.any.children = g_slist_append(Shape.any.children, &XForm);
-    Shape.any.children = g_slist_append(Shape.any.children, &Fill);
+    if (fill)
+	Shape.any.children = g_slist_append(Shape.any.children, &Fill);
+    if (stroke)
+	Shape.any.children = g_slist_append(Shape.any.children, &Line);
     Shape.any.children = g_slist_append(Shape.any.children, &Geom);
 
     /* Write out XML */
@@ -844,20 +836,6 @@ fill_polygon (DiaRenderer *self,
     g_slist_free(Geom.any.children);
     g_slist_free(Shape.any.children);
     g_free(LineTo);
-}
-
-static void
-draw_polygon(DiaRenderer *self, 
-	     Point *points, int num_points, 
-	     Color *fill, Color *stroke)
-{
-  /* XXX: simple port, not optimized
-      also draw_polygon is just calling draw_polyline with an extra point
-   */
-  if (fill)
-    fill_polygon (self, points, num_points, fill);
-  if (stroke)
-    stroke_polygon (self, points, num_points, stroke);
 }
 
 /** Render a Dia arc
