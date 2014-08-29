@@ -754,7 +754,7 @@ draw_polygon (DiaRenderer *self,
     Shape.any.type = vdx_types_Shape;
     Shape.ID = renderer->shapeid++;
     Shape.Type = "Shape";
-    sprintf(NameU, "FillPolygon.%d", Shape.ID);
+    sprintf(NameU, "Polygon.%d", Shape.ID);
     Shape.NameU = NameU;
     Shape.LineStyle_exists = 1;
     Shape.FillStyle_exists = 1;
@@ -1006,14 +1006,14 @@ static void fill_arc(DiaRenderer *self,
  * @param center centre of ellipse
  * @param width width of bounding box
  * @param height height of bounding box
- * @param color line colour
+ * @param fill fill colour
+ * @param stroke line colour
  */
-
 static void
-stroke_ellipse (DiaRenderer *self, 
-	        Point *center,
-		real width, real height,
-		Color *color)
+draw_ellipse (DiaRenderer *self, 
+	      Point *center,
+	      real width, real height,
+	      Color *fill, Color *stroke)
 {
     VDXRenderer *renderer = VDX_RENDERER(self);
     Point a;
@@ -1021,17 +1021,21 @@ stroke_ellipse (DiaRenderer *self,
     struct vdx_XForm XForm;
     struct vdx_Geom Geom;
     struct vdx_Ellipse Ellipse;
+    struct vdx_Fill Fill;
     struct vdx_Line Line;
     char NameU[VDX_NAMEU_LEN];
 
     /* First time through, just construct the colour table */
     if (renderer->first_pass) 
     {
-        vdxCheckColor(renderer, color);
+	if (fill)
+	    vdxCheckColor(renderer, fill);
+	if (stroke)
+	    vdxCheckColor(renderer, stroke);
         return;
     }
     
-    g_debug("draw_ellipse");
+    g_debug("fill_ellipse");
     
     /* Setup the standard shape object */
     memset(&Shape, 0, sizeof(Shape));
@@ -1058,96 +1062,9 @@ stroke_ellipse (DiaRenderer *self,
 
     /* Standard Geom object */
     memset(&Geom, 0, sizeof(Geom));
-    Geom.NoFill = 1;
     Geom.any.type = vdx_types_Geom;
-
-    /* One child - Ellipse */
-    memset(&Ellipse, 0, sizeof(Ellipse));
-    Ellipse.any.type = vdx_types_Ellipse;
-    Ellipse.IX = 1;
-    Ellipse.X = XForm.Width/2.0;
-    Ellipse.Y = XForm.Height/2.0;
-    Ellipse.A = XForm.Width;
-    Ellipse.B = XForm.Height/2.0;
-    Ellipse.C = XForm.Width/2.0;
-    Ellipse.D = XForm.Height;
-
-    /* A Line (colour etc) */
-    create_Line(renderer, color, &Line, 0, 0);
-
-    /* Setup children */
-    Geom.any.children = g_slist_append(Geom.any.children, &Ellipse);
-
-    Shape.any.children = g_slist_append(Shape.any.children, &XForm);
-    Shape.any.children = g_slist_append(Shape.any.children, &Line);
-    Shape.any.children = g_slist_append(Shape.any.children, &Geom);
-
-    /* Write out XML */
-    vdx_write_object(renderer->file, renderer->xml_depth, &Shape);
-
-    /* Free up list entries */
-    g_slist_free(Geom.any.children);
-    g_slist_free(Shape.any.children);
-}
-
-/** Render a Dia filled ellipse (parallel to axes)
- * @param self a renderer
- * @param center centre of ellipse
- * @param width width of bounding box
- * @param height height of bounding box
- * @param color line colour
- */
-
-static void fill_ellipse(DiaRenderer *self, 
-			 Point *center,
-			 real width, real height,
-			 Color *color)
-{
-    VDXRenderer *renderer = VDX_RENDERER(self);
-    Point a;
-    struct vdx_Shape Shape;
-    struct vdx_XForm XForm;
-    struct vdx_Geom Geom;
-    struct vdx_Ellipse Ellipse;
-    struct vdx_Fill Fill;
-    char NameU[VDX_NAMEU_LEN];
-
-    /* First time through, just construct the colour table */
-    if (renderer->first_pass) 
-    {
-        vdxCheckColor(renderer, color);
-        return;
-    }
-    
-    g_debug("fill_ellipse");
-    
-    /* Setup the standard shape object */
-    memset(&Shape, 0, sizeof(Shape));
-    Shape.any.type = vdx_types_Shape;
-    Shape.ID = renderer->shapeid++;
-    Shape.Type = "Shape";
-    sprintf(NameU, "FillEllipse.%d", Shape.ID);
-    Shape.NameU = NameU;
-    Shape.LineStyle_exists = 1;
-    Shape.FillStyle_exists = 1;
-    Shape.TextStyle_exists = 1;
-
-    /* An XForm */
-    memset(&XForm, 0, sizeof(XForm));
-    XForm.any.type = vdx_types_XForm;
-    a = visio_point(*center);
-    XForm.PinX = a.x;           /* Start */
-    XForm.PinY = a.y;
-    XForm.Width = visio_length(width);
-    XForm.Height = visio_length(height);
-    XForm.LocPinX = XForm.Width/2.0;
-    XForm.LocPinY = XForm.Height/2.0;
-    XForm.Angle = 0.0;
-
-    /* Standard Geom object */
-    memset(&Geom, 0, sizeof(Geom));
-    Geom.any.type = vdx_types_Geom;
-    Geom.NoLine = 1;
+    Geom.NoFill = fill ? 0 : 1;
+    Geom.NoLine = stroke ? 0 : 1;
 
     /* One child - Ellipse */
     memset(&Ellipse, 0, sizeof(Ellipse));
@@ -1161,13 +1078,19 @@ static void fill_ellipse(DiaRenderer *self,
     Ellipse.D = XForm.Height;
 
     /* A Fill (colour etc) */
-    create_Fill(renderer, color, &Fill);
+    if (fill)
+	create_Fill(renderer, fill, &Fill);
+    if (stroke)
+	create_Line(renderer, stroke, &Line, NULL, NULL);
 
     /* Setup children */
     Geom.any.children = g_slist_append(Geom.any.children, &Ellipse);
 
     Shape.any.children = g_slist_append(Shape.any.children, &XForm);
-    Shape.any.children = g_slist_append(Shape.any.children, &Fill);
+    if (fill)
+	Shape.any.children = g_slist_append(Shape.any.children, &Fill);
+    if (stroke)
+	Shape.any.children = g_slist_append(Shape.any.children, &Line);
     Shape.any.children = g_slist_append(Shape.any.children, &Geom);
 
     /* Write out XML */
@@ -1176,18 +1099,6 @@ static void fill_ellipse(DiaRenderer *self,
     /* Free up list entries */
     g_slist_free(Geom.any.children);
     g_slist_free(Shape.any.children);
-}
-
-static void
-draw_ellipse (DiaRenderer *self, 
-	      Point *center,
-	      real width, real height,
-	      Color *fill, Color *stroke)
-{
-    if (fill)
-	fill_ellipse (self, center, width, height, fill);
-    if (stroke)
-	stroke_ellipse (self, center, width, height, stroke);
 }
 
 /** Render a Dia string
