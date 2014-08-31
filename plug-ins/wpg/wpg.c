@@ -1108,13 +1108,13 @@ export_data(DiagramData *data, DiaContext *ctx,
 
 static const gchar *extensions[] = { "wpg", NULL };
 static DiaExportFilter my_export_filter = {
-    N_("WPG"),
+    N_("WordPerfect Graphics"),
     extensions,
     export_data
 };
 
 DiaImportFilter my_import_filter = {
-    N_("WPG"),
+    N_("WordPerfect Graphics"),
     extensions,
     import_data
 };

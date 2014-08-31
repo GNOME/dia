@@ -184,7 +184,7 @@ DiaExportFilter epsi_ft2_export_filter = {
 #endif
 
 DiaExportFilter eps_export_filter = {
-  N_("Encapsulated PostScript (using PostScript Latin-1 fonts)"),
+  N_("Encapsulated PostScript (using PS Latin-1 fonts)"),
   eps_extensions,
   export_eps,
   GINT_TO_POINTER(PSTYPE_EPS), /* user_data */

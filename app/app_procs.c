@@ -943,7 +943,6 @@ app_init (int argc, char **argv)
       persistence_register_window_create("layer_window",
 				         (NullaryFunc*)&layer_dialog_create);
     }
-      
     /*fill recent file menu */
     recent_file_history_init();
 
@@ -959,18 +958,17 @@ app_init (int argc, char **argv)
 
     /* In current setup, we can't find the autosaved files. */
     /*autosave_restore_documents();*/
-
   }
 
   dia_log_message ("diagrams");
   made_conversions = handle_all_diagrams(files, export_file_name,
 					 export_file_format, size, show_layers,
 					 input_directory, output_directory);
-					 
+
   if (dia_is_interactive && files == NULL && !nonew) {
     if (use_integrated_ui) {
       GList * list;
-    
+
       file_new_callback(NULL);  
       list = dia_open_diagrams();
       if (list) {
@@ -1320,7 +1318,7 @@ print_filters_list (gboolean verbose)
   int j;
   GArray *by_extension;
 
-  g_print ("%s\n", _("Available Export Filters (for --format)"));
+  g_print ("%s\n", _("Available Export Filters (for --filter)"));
   g_print ("%10s%20s %s\n",
 	   /* Translators: be brief or mess up the table for --list-filters */
 	   _("Extension"),
