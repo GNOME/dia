@@ -2,7 +2,7 @@
 
 pkglib_LTLIBRARIES = libcgm_filter.la
 
-libcgm_filter_la_SOURCES = cgm.c
+libcgm_filter_la_SOURCES = cgm.c cgm.h
 
 libcgm_filter_la_LDFLAGS = -export-dynamic -module -avoid-version $(NO_UNDEFINED)
 
