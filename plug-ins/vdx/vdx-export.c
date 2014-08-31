@@ -1683,10 +1683,18 @@ write_header(DiagramData *data, VDXRenderer *renderer)
 
     g_slist_free(StyleSheet.any.children);
 
-    /*  Following attributes observed */
+    /*  Following attributes observed ... */
     fprintf(file, "  <Pages>\n");
-    fprintf(file, "    <Page ID='0' NameU='Page-1' ViewScale='-1' "
-            "ViewCenterX='5.8425196850394' ViewCenterY='3.7244094488189'>\n");
+    fprintf(file, "    <Page ID='0'>\n");
+    /* Write a single page size defintion - Visio Viewer does not care, but LibreOffice does. */
+    fprintf(file, "      <PageSheet ID='0'>\n"
+		  "        <PageProps>\n"
+		  "          <PageWidth>%f</PageWidth>\n"
+		  "          <PageHeight>%f</PageHeight>\n"
+		  "        </PageProps>\n"
+		  "      </PageSheet>\n",
+		  visio_length(data->extents.right - data->extents.left),
+		  visio_length(data->extents.bottom - data->extents.top));
     fprintf(file, "      <Shapes>\n");
     renderer->xml_depth = 4;
     renderer->shapeid = 1;
