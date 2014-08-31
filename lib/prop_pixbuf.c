@@ -202,7 +202,7 @@ pixbuf_encode_base64 (const GdkPixbuf *pixbuf)
   /* g_base64_encode_close ... [needs] up to 5 bytes if line-breaking is enabled */
   /* also make the array 0-terminated */
   g_byte_array_append (ed.array, (guint8 *)"\0\0\0\0\0", 6);
-  ed.size += g_base64_encode_close (TRUE, (gchar *)&ed.array->data[ed.size], 
+  ed.size += g_base64_encode_close (FALSE, (gchar *)&ed.array->data[ed.size],
 				    &ed.state, &ed.save);
   ed.array->data[ed.size] = '\0';
 

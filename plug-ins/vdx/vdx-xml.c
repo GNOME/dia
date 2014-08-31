@@ -4029,7 +4029,15 @@ vdx_write_object(FILE *file, unsigned int depth, const void *p)
 
     case vdx_types_ForeignData:
         ForeignData = (const struct vdx_ForeignData *)(p);
-        fprintf(file, "%s<ForeignData CompressionLevel='%f' CompressionType='%s' ForeignType='%s' ObjectHeight='%f' ObjectWidth='%f' ShowAsIcon='%u'", pad, ForeignData->CompressionLevel, vdx_convert_xml_string(ForeignData->CompressionType), vdx_convert_xml_string(ForeignData->ForeignType), ForeignData->ObjectHeight, ForeignData->ObjectWidth, ForeignData->ShowAsIcon);
+#if 0
+        fprintf(file, "%s<ForeignData CompressionLevel='%f' CompressionType='%s' ForeignType='%s' ObjectHeight='%f' ObjectWidth='%f' ShowAsIcon='%u'",
+		pad, ForeignData->CompressionLevel, vdx_convert_xml_string(ForeignData->CompressionType), vdx_convert_xml_string(ForeignData->ForeignType),
+		ForeignData->ObjectHeight, ForeignData->ObjectWidth, ForeignData->ShowAsIcon);
+#else
+	/* avoid writing optional values which are almost certainly meaningless */
+        fprintf(file, "%s<ForeignData CompressionType='%s' ForeignType='%s' ",
+		pad, vdx_convert_xml_string(ForeignData->CompressionType), vdx_convert_xml_string(ForeignData->ForeignType));
+#endif
         if (ForeignData->ExtentX_exists)
             fprintf(file, " ExtentX='%u'",
                     ForeignData->ExtentX);
@@ -5190,7 +5198,10 @@ vdx_write_object(FILE *file, unsigned int depth, const void *p)
         vdx_write_object(file, depth+1, child->data);
         child = child->next;
     }
-    if (Any->type != vdx_types_text)
+    /* LibreOffice Draw 4.2.4.2 does not like </ForeignData> with padding, it gives: General input/output error. */
+    if (Any->type == vdx_types_ForeignData)
+        fprintf(file, "</%s>\n", vdx_Types[(int)Any->type]);
+    else if (Any->type != vdx_types_text)
         fprintf(file, "%s</%s>\n", pad, vdx_Types[(int)Any->type]);
 }
 
