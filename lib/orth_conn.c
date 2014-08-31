@@ -499,7 +499,13 @@ orthconn_init(OrthConn *orth, Point *startpoint)
   orthconn_update_data(orth);
 }
 
-/** This function does *not* set up handles */
+/*!
+ * \brief Change the points of the OrthConn
+ *
+ * This function used to *not* set up handles, but that
+ * was leaving the object in an inconsistent state especially
+ * when auto-routing changed the number of points
+ */
 void
 orthconn_set_points(OrthConn *orth, int num_points, Point *points) 
 {
@@ -528,6 +534,8 @@ orthconn_set_points(OrthConn *orth, int num_points, Point *points)
     else orth->orientation[i] = VERTICAL;
     horiz = !horiz;
   }
+  /* keep the object sane regardless of it's previous comment */
+  adjust_handle_count_to (orth, orth->numpoints-1);
 }
 
 void
@@ -580,7 +588,7 @@ orthconn_destroy(OrthConn *orth)
 
   for (i=0;i<orth->numpoints-1;i++)
     g_free(orth->handles[i]);
-  
+
   g_free(orth->handles);
 }
 
