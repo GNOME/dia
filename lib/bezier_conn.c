@@ -849,6 +849,7 @@ bezierconn_destroy (BezierConn *bezier)
 /** Save the data defined by a bezierconn object to XML.
  * @param bezier The object to save.
  * @param obj_node The XML node to save it into
+ * @param ctx The context to transport error information.
  */
 void
 bezierconn_save (BezierConn *bezier,

@@ -740,7 +740,7 @@ dia_svg_parse_style_string (DiaSvgStyle *s, real user_scale, const gchar *str)
  * @param node An XML node to parse a style from.
  * @param s The SVG style object to fill out.  This should previously be
  *          initialized to some default values.
- * @param user_scale, if >0 scalable values (font-size, stroke-width, ...)
+ * @param user_scale if >0 scalable values (font-size, stroke-width, ...)
  *          are divided by this, otherwise ignored
  *
  * \ingroup DiaSvg

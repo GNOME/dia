@@ -290,6 +290,7 @@ xmlDiaParseFile(const char *filename, DiaContext *ctx)
 /*!
  * \brief Parse an xml file from a filename given in Dia's/GLib's filename encoding 
  * @param filename A file to parse. On win32 the filename encoding is utf-8 since GLib 2.6
+ * @param error Optional error return form underlying library.
  * @return An XML document.
  * \ingroup DiagramXmlIo
  */
@@ -1055,6 +1056,7 @@ composite_add_attribute(DataNode composite_node,
  * \brief Add integer data to an attribute node.
  * @param attr The attribute node.
  * @param data The value to set.
+ * @param ctx The context to transport error information.
  * \ingroup DiagramXmlOut
  */
 void
@@ -1073,6 +1075,7 @@ data_add_int(AttributeNode attr, int data, DiaContext *ctx)
  * \brief Add enum data to an attribute node.
  * @param attr The attribute node.
  * @param data The value to set.
+ * @param ctx The context to transport error information.
  * \ingroup DiagramXmlOut
  */
 void
@@ -1091,6 +1094,7 @@ data_add_enum(AttributeNode attr, int data, DiaContext *ctx)
  * \brief Add real-typed data to an attribute node.
  * @param attr The attribute node.
  * @param data The value to set.
+ * @param ctx The context to transport error information.
  * \ingroup DiagramXmlOut
  */
 void
@@ -1109,6 +1113,7 @@ data_add_real(AttributeNode attr, real data, DiaContext *ctx)
  * \brief Add boolean data to an attribute node.
  * @param attr The attribute node.
  * @param data The value to set.
+ * @param ctx The context to transport error information.
  * \ingroup DiagramXmlOut
  */
 void
@@ -1153,6 +1158,7 @@ convert_to_hex(float x, char *str)
  * \brief Add color data to an attribute node.
  * @param attr The attribute node.
  * @param col The value to set.
+ * @param ctx The context to transport error information.
  * \ingroup DiagramXmlOut
  */
 void
@@ -1190,6 +1196,7 @@ _str_point (const Point *point)
  * \brief Add point data to an attribute node.
  * @param attr The attribute node.
  * @param point The value to set.
+ * @param ctx The context to transport error information.
  * \ingroup DiagramXmlOut
  */
 void
@@ -1245,6 +1252,7 @@ data_add_bezpoint(AttributeNode attr, const BezPoint *point, DiaContext *ctx)
  * \brief Add rectangle data to an attribute node.
  * @param attr The attribute node.
  * @param rect The value to set.
+ * @param ctx The context to transport error information.
  * \ingroup DiagramXmlOut
  */
 void
@@ -1274,6 +1282,7 @@ data_add_rectangle(AttributeNode attr, const Rectangle *rect, DiaContext *ctx)
  * \brief Add string data to an attribute node.
  * @param attr The attribute node.
  * @param str The value to set.
+ * @param ctx The context to transport error information.
  * \ingroup DiagramXmlOut
  */
 void
@@ -1303,6 +1312,7 @@ data_add_string(AttributeNode attr, const char *str, DiaContext *ctx)
  * @param data The data node.
  * @param str The filename value to set. This should be n the local filesystem
  *  encoding, not utf-8.
+ * @param ctx The context to transport error information.
  * \ingroup DiagramXmlOut
  */
 void
@@ -1319,6 +1329,7 @@ data_add_filename(DataNode data, const char *str, DiaContext *ctx)
  * \brief Add font data to an attribute node.
  * @param attr The attribute node.
  * @param font The value to set.
+ * @param ctx The context to transport error information.
  * \ingroup DiagramXmlOut
  */
 void
@@ -1340,6 +1351,7 @@ data_add_font(AttributeNode attr, const DiaFont *font, DiaContext *ctx)
  * \brief Add a new composite node to an attribute node.
  * @param attr The attribute node to add to.
  * @param type The type of the new node.
+ * @param ctx The context to transport error information.
  * @return The new child of `attr'.
  * \ingroup DiagramXmlOut
  */

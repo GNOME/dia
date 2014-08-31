@@ -780,6 +780,7 @@ object_unconnect_all(DiaObject *obj)
  *  basic data (currently position and bounding box).
  * @param obj An object to save.
  * @param obj_node An XML node to save the data to.
+ * @param ctx The context to transport error information.
  */
 void 
 object_save(DiaObject *obj, ObjectNode obj_node, DiaContext *ctx)
@@ -1019,7 +1020,7 @@ object_load_using_properties(const DiaObjectType *type,
  *  for an object with normal attributes.
  * @param obj The object to save.
  * @param obj_node The XML structure to save into.
- * @param filename The name of the file being saved to, for error messages.
+ * @param ctx The context to transport error information.
  */
 void 
 object_save_using_properties(DiaObject *obj, ObjectNode obj_node, 

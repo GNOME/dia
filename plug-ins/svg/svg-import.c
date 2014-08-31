@@ -212,7 +212,7 @@ _node_get_real (xmlNodePtr node, const char *name, real defval)
 
 /*!
  * \brief Translate an existing object to a new position
- * <use/> has x and y attributes, use to position
+ * The tag 'use' has x and y attributes to position the used object
  * \ingroup SvgImport
  */
 static void
@@ -1387,9 +1387,10 @@ read_gradient (xmlNodePtr node, DiaSvgStyle *parent_gs, GHashTable  *pattern_ht,
 /*!
  * \brief Parse the CSS style block of the SVG
  *
+ * Extract style information from the given node into a map for later use.
  * 
- * @node : containing the style
- * @ht: hash table with style key and style string
+ * @param node  containing the style
+ * @param ht    hash table with style key and style string
  *
  * \ingroup SvgImport
  */
@@ -1455,7 +1456,7 @@ add_def (gpointer       data,
  * This function is modifying the global user scale. If it's effect
  * should be temporary user_scale needs to be saved before.
  *
- * @param node  element containing the viewBox attribute
+ * @param root  element containing the viewBox attribute
  * @param mat   out parameter for optional matrix transform
  *
  * \ingroup SvgImport
@@ -1535,6 +1536,8 @@ _node_read_viewbox (xmlNodePtr root, DiaMatrix **mat)
  * @param startnode the XML node to dive into
  * @param parent_gs the graphic style inherited by parent
  * @param defs_ht a map of objects filled from 'defs' to use as templates for 'use'
+ * @param style_ht map of styles 
+ * @param pattern_ht map of patterns
  * @param filename_svg SVG filename for better error messages
  * @param ctx context to keep error messages grouped
  * @return a list of _DiaObject

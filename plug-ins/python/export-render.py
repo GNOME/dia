@@ -68,7 +68,7 @@ class DumpRenderer :
 	# @param points An array of points in the diagram coordinate system
 	# @param fill The color to use for the interior
 	# @param stroke The color to use for the line
-	def draw_polygon (self, points, fill) :
+	def draw_polygon (self, points, fill, stroke) :
 		self.f.write("draw_polygon: " + str(fill) + str(stroke) + "\n")
 		for pt in points :
 			self.f.write ("\t" + str(pt) + "\n")

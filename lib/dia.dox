@@ -84,7 +84,7 @@ and "connected by" (connectionpoint->connected). The former is a 0 or 1 relation
 */
 
 /*!
-\defgroup ObjectConnects Connecting Objects
+\defgroup ObjectConnects Object Connections
 \ingroup Objects
 \brief Implementation details of connections between \ref _DiaObject "objects"
 
