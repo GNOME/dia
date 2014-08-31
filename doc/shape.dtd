@@ -86,7 +86,9 @@
   y CDATA #REQUIRED
   width CDATA #REQUIRED
   height CDATA #REQUIRED
-  style CDATA #IMPLIED >
+  style CDATA #IMPLIED
+  rx CDATA #IMPLIED
+  ry CDATA #IMPLIED >
 
 <!ELEMENT svg:image EMPTY >
 <!ATTLIST svg:image
