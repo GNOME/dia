@@ -2209,7 +2209,11 @@ plot_text(const struct vdx_Text *Text, const struct vdx_XForm *XForm,
     if (TextBlock && TextBlock->VerticalAlign == 2)
     {
         vert_align = VALIGN_BOTTOM;
-        p.y += XForm->Height;
+	/*
+	 * Not shifting by height makes text position right for text_tests.vdx
+	 * Doing no shift for the other VerticalAlign screws them ...
+        p.y -= XForm->Height;
+	 */
     }
 
     height = Char->Size*vdx_Font_Size_Conversion;
