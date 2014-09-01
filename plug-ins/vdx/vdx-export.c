@@ -984,21 +984,148 @@ static void draw_arc(DiaRenderer *self,
  * @param color line colour
  * @todo Not done yet - believe unused
  */
-
-static void fill_arc(DiaRenderer *self, 
-		     Point *center,
-		     real width, real height,
-		     real angle1, real angle2,
-		     Color *color)
+static void
+fill_arc (DiaRenderer *self, 
+	  Point *center,
+	  real width, real height,
+	  real angle1, real angle2,
+	  Color *color)
 {
     VDXRenderer *renderer = VDX_RENDERER(self);
-    
+    Point a;
+    struct vdx_Shape Shape;
+    struct vdx_XForm XForm;
+    struct vdx_Geom Geom;
+    struct vdx_EllipticalArcTo EllipticalArcTo;
+    struct vdx_MoveTo MoveTo;
+    struct vdx_LineTo LineToCenter, LineToStart;
+    struct vdx_Fill Fill;
+    char NameU[VDX_NAMEU_LEN];
+    Point start, control, end;
+    float control_angle;
+
+    /* First time through, just construct the colour table */
     if (renderer->first_pass) 
     {
         vdxCheckColor(renderer, color);
         return;
     }
-    g_debug("fill_arc (TODO)");
+
+    g_debug("fill_arc((%f,%f),%f,%f;%f,%f)", center->x, center->y,
+            width, height, angle1, angle2);
+
+    /* Setup the standard shape object */
+    memset(&Shape, 0, sizeof(Shape));
+    Shape.any.type = vdx_types_Shape;
+    Shape.ID = renderer->shapeid++;
+    Shape.Type = "Shape";
+    sprintf(NameU, "Arc.%d", Shape.ID);
+    Shape.NameU = NameU;
+    Shape.LineStyle_exists = 1;
+    Shape.FillStyle_exists = 1;
+    Shape.TextStyle_exists = 1;
+
+    /* An XForm */
+    memset(&XForm, 0, sizeof(XForm));
+    XForm.any.type = vdx_types_XForm;
+
+    /* Find the start of the arc */
+    start = *center;
+    start.x += (width/2.0)*cos(angle1*DEG_TO_RAD);
+    start.y -= (height/2.0)*sin(angle1*DEG_TO_RAD);
+    g_debug("start(%f,%f)", start.x, start.y);
+    start = visio_point(start);
+
+    /* Find a control point at the midpoint of the arc */
+    control = *center;
+    control_angle = (angle1 + angle2)/2.0;
+    /* no matter which direction the arc is control_angle is always between start and end */
+    control.x += (width/2.0)*cos(control_angle*DEG_TO_RAD);
+    control.y -= (height/2.0)*sin(control_angle*DEG_TO_RAD);
+    g_debug("control(%f,%f @ %f)", control.x, control.y, control_angle);
+    control = visio_point(control);
+
+    /* And the endpoint */
+    end = *center;
+    end.x += (width/2.0)*cos(angle2*DEG_TO_RAD);
+    end.y -= (height/2.0)*sin(angle2*DEG_TO_RAD);
+    g_debug("end(%f,%f)", end.x, end.y);
+    end = visio_point(end);
+
+    a = start;
+    XForm.PinX = a.x;           /* Start */
+    XForm.PinY = a.y;
+    XForm.Width = visio_length(width);
+    XForm.Height = visio_length(height);
+    XForm.LocPinX = 0;
+    XForm.LocPinY = 0;
+    XForm.Angle = 0.0;
+
+    /* Standard Geom object */
+    memset(&Geom, 0, sizeof(Geom));
+    Geom.NoLine = 1;
+    Geom.any.type = vdx_types_Geom;
+
+    memset(&MoveTo, 0, sizeof(MoveTo));
+    MoveTo.any.type = vdx_types_MoveTo;
+    MoveTo.IX = 1;
+    MoveTo.X = 0;
+    MoveTo.Y = 0;
+
+    /* Second child - EllipticalArcTo */
+    memset(&EllipticalArcTo, 0, sizeof(EllipticalArcTo));
+    EllipticalArcTo.any.type = vdx_types_EllipticalArcTo;
+    EllipticalArcTo.IX = 2;
+
+    /* X and Y are the end point
+       A and B are a control point on the arc
+       C is the angle of the major axis
+       D is the ratio of the major to minor axes */
+
+    /* Need to fix these */
+    EllipticalArcTo.X = end.x - a.x;
+    EllipticalArcTo.Y = end.y - a.y;
+    EllipticalArcTo.A = control.x - a.x;
+    EllipticalArcTo.B = control.y - a.y;
+    EllipticalArcTo.C = 0.0;      /* Dia major axis always x axis  */
+    if (fabs(height) > EPSILON)
+        EllipticalArcTo.D = width/height; /* Always 1 for Dia */
+    else
+        EllipticalArcTo.D = 1/EPSILON;
+
+    /* Line to center - reusing contol for transformed */
+    control = visio_point(*center);
+    memset(&LineToCenter, 0, sizeof(LineToCenter));
+    LineToCenter.any.type = vdx_types_LineTo;
+    LineToCenter.IX = 3;
+    LineToCenter.X = control.x - a.x;
+    LineToCenter.Y = control.y - a.y;
+    /* Line to start */
+    memset(&LineToStart, 0, sizeof(LineToStart));
+    LineToStart.any.type = vdx_types_LineTo;
+    LineToStart.IX = 4;
+    LineToStart.X = start.x - a.x;
+    LineToStart.Y = start.y - a.y;
+
+    /* A Line (colour etc) */
+    create_Fill(renderer, color, &Fill);
+
+    /* Setup children */
+    Geom.any.children = g_slist_append(Geom.any.children, &MoveTo);
+    Geom.any.children = g_slist_append(Geom.any.children, &EllipticalArcTo);
+    Geom.any.children = g_slist_append(Geom.any.children, &LineToCenter);
+    Geom.any.children = g_slist_append(Geom.any.children, &LineToStart);
+
+    Shape.any.children = g_slist_append(Shape.any.children, &XForm);
+    Shape.any.children = g_slist_append(Shape.any.children, &Fill);
+    Shape.any.children = g_slist_append(Shape.any.children, &Geom);
+
+    /* Write out XML */
+    vdx_write_object(renderer->file, renderer->xml_depth, &Shape);
+
+    /* Free up list entries */
+    g_slist_free(Geom.any.children);
+    g_slist_free(Shape.any.children);
 }
 
 /** Render a Dia ellipse (parallel to axes)
