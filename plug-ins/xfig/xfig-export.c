@@ -685,121 +685,61 @@ draw_polyline_with_arrows(DiaRenderer *self,
   fprintf(renderer->file, "\n");
 }
 
-static void 
-stroke_polygon (DiaRenderer *self, 
-		Point *points, int num_points, 
-		Color *color) 
-{
-  int i;
-  XfigRenderer *renderer = XFIG_RENDERER(self);
-  gchar d_buf[DTOSTR_BUF_SIZE];
-
-  if (renderer->color_pass) {
-    figCheckColor(renderer, color);
-    return;
-  }
-
-  fprintf(renderer->file, "2 3 %d %d %d 0 %d 0 -1 %s %d %d 0 0 0 %d\n",
-	  figLineStyle(renderer), figLineWidth(renderer), 
-	  figColor(renderer, color), figDepth(renderer),
-	  xfig_dtostr(d_buf, figDashLength(renderer)),
-	  figJoinStyle(renderer),
-	  figCapsStyle(renderer), num_points+1);
-  fprintf(renderer->file, "\t");
-  for (i = 0; i < num_points; i++) {
-    fprintf(renderer->file, "%d %d ",
-	    (int)figCoord(renderer, points[i].x), (int)figCoord(renderer, points[i].y));
-  }
-  fprintf(renderer->file, "%d %d\n",
-	  (int)figCoord(renderer, points[0].x), (int)figCoord(renderer, points[0].y));
-}
-
-static void 
-fill_polygon(DiaRenderer *self, 
-             Point *points, int num_points, 
-             Color *color) 
-{
-  int i;
-  XfigRenderer *renderer = XFIG_RENDERER(self);
-  gchar d_buf[DTOSTR_BUF_SIZE];
-
-  if (renderer->color_pass) {
-    figCheckColor(renderer, color);
-    return;
-  }
-
-  fprintf(renderer->file, "2 3 %d 0 %d %d %d 0 20 %s %d %d 0 0 0 %d\n",
-	  figLineStyle(renderer), 
-	  figColor(renderer, color), figColor(renderer, color),
-	  figDepth(renderer),
-	  xfig_dtostr(d_buf, figDashLength(renderer)),
-	  figJoinStyle(renderer),
-	  figCapsStyle(renderer), num_points+1);
-  fprintf(renderer->file, "\t");
-  for (i = 0; i < num_points; i++) {
-    fprintf(renderer->file, "%d %d ",
-	    (int)figCoord(renderer, points[i].x), (int)figCoord(renderer, points[i].y));
-  }
-  fprintf(renderer->file, "%d %d\n",
-	  (int)figCoord(renderer, points[0].x), (int)figCoord(renderer, points[0].y));
-}
-
 static void
-draw_polygon(DiaRenderer *self, 
-	     Point *points, int num_points, 
+draw_polygon(DiaRenderer *self,
+	     Point *points, int num_points,
 	     Color *fill, Color *stroke)
 {
-  /* XXX: simple port, not optimized */
-  if (fill)
-    fill_polygon (self, points, num_points, fill);
-  if (stroke)
-    stroke_polygon (self, points, num_points, stroke);
-}
-
-static void 
-stroke_rect(DiaRenderer *self, 
-            Point *ul_corner, Point *lr_corner,
-            Color *color)
-{
+  int i;
   XfigRenderer *renderer = XFIG_RENDERER(self);
   gchar d_buf[DTOSTR_BUF_SIZE];
 
   if (renderer->color_pass) {
-    figCheckColor(renderer, color);
+    if (stroke)
+      figCheckColor(renderer, stroke);
+    if (fill)
+      figCheckColor(renderer, fill);
     return;
   }
 
-  fprintf(renderer->file, "2 3 %d %d %d 0 %d 0 -1 %s %d %d 0 0 0 5\n",
-	  figLineStyle(renderer), figLineWidth(renderer), 
-	  figColor(renderer, color), figDepth(renderer),
-	  xfig_dtostr(d_buf, figDashLength(renderer)),
-	  figJoinStyle(renderer), 
-	  figCapsStyle(renderer));
-  fprintf(renderer->file, "\t%d %d %d %d %d %d %d %d %d %d\n",
-	  (int)figCoord(renderer, ul_corner->x), (int)figCoord(renderer, ul_corner->y), 
-	  (int)figCoord(renderer, lr_corner->x), (int)figCoord(renderer, ul_corner->y), 
-	  (int)figCoord(renderer, lr_corner->x), (int)figCoord(renderer, lr_corner->y), 
-	  (int)figCoord(renderer, ul_corner->x), (int)figCoord(renderer, lr_corner->y), 
-	  (int)figCoord(renderer, ul_corner->x), (int)figCoord(renderer, ul_corner->y));
-}
-
-static void 
-fill_rect(DiaRenderer *self, 
-          Point *ul_corner, Point *lr_corner,
-          Color *color)
-{
-  XfigRenderer *renderer = XFIG_RENDERER(self);
-  gchar d_buf[DTOSTR_BUF_SIZE];
-
-  if (renderer->color_pass) {
-    figCheckColor(renderer, color);
-    return;
-  }
-
-  fprintf(renderer->file, "2 3 %d %d %d %d %d -1 20 %s %d %d 0 0 0 5\n",
-	  figLineStyle(renderer), figLineWidth(renderer), 
-	  figColor(renderer, color), figColor(renderer, color),
+  fprintf(renderer->file, "2 3 %d %d %d %d %d 0 %d %s %d %d 0 0 0 %d\n",
+	  figLineStyle(renderer), stroke ? figLineWidth(renderer) : 0,
+	  stroke ? figColor(renderer, stroke) : 0, fill ? figColor(renderer, fill) : 0,
 	  figDepth(renderer),
+	  fill ? 20 : -1,
+	  xfig_dtostr(d_buf, figDashLength(renderer)),
+	  figJoinStyle(renderer),
+	  figCapsStyle(renderer), num_points+1);
+  fprintf(renderer->file, "\t");
+  for (i = 0; i < num_points; i++) {
+    fprintf(renderer->file, "%d %d ",
+	    (int)figCoord(renderer, points[i].x), (int)figCoord(renderer, points[i].y));
+  }
+  fprintf(renderer->file, "%d %d\n",
+	  (int)figCoord(renderer, points[0].x), (int)figCoord(renderer, points[0].y));
+}
+
+static void
+draw_rect(DiaRenderer *self,
+          Point *ul_corner, Point *lr_corner,
+          Color *fill, Color *stroke)
+{
+  XfigRenderer *renderer = XFIG_RENDERER(self);
+  gchar d_buf[DTOSTR_BUF_SIZE];
+
+  if (renderer->color_pass) {
+    if (stroke)
+      figCheckColor(renderer, stroke);
+    if (fill)
+      figCheckColor(renderer, fill);
+    return;
+  }
+
+  fprintf(renderer->file, "2 3 %d %d %d %d %d -1 %d %s %d %d 0 0 0 5\n",
+	  figLineStyle(renderer), stroke ? figLineWidth(renderer) : 0,
+	  stroke ? figColor(renderer, stroke) : 0, fill ? figColor(renderer, fill) : 0,
+	  figDepth(renderer),
+	  fill ? 20 : -1,
 	  xfig_dtostr(d_buf, figDashLength(renderer)),
 	  figJoinStyle(renderer), 
 	  figCapsStyle(renderer));
@@ -809,17 +749,6 @@ fill_rect(DiaRenderer *self,
 	  (int)figCoord(renderer, lr_corner->x), (int)figCoord(renderer, lr_corner->y), 
 	  (int)figCoord(renderer, ul_corner->x), (int)figCoord(renderer, lr_corner->y), 
 	  (int)figCoord(renderer, ul_corner->x), (int)figCoord(renderer, ul_corner->y));
-}
-static void
-draw_rect(DiaRenderer *self, 
-          Point *ul_corner, Point *lr_corner,
-          Color *fill, Color *stroke) 
-{
-  /* XXX: optimize to one call? */
-  if (fill)
-    fill_rect (self, ul_corner, lr_corner, fill);
-  if (stroke)
-    stroke_rect (self, ul_corner, lr_corner, stroke);
 }
 static void 
 draw_arc(DiaRenderer *self, 
@@ -989,66 +918,33 @@ fill_arc(DiaRenderer *self,
 
 }
 
-static void 
-stroke_ellipse(DiaRenderer *self, 
-               Point *center,
-               real width, real height,
-               Color *color) 
-{
-  XfigRenderer *renderer = XFIG_RENDERER(self);
-  gchar d_buf[DTOSTR_BUF_SIZE];
-
-  if (renderer->color_pass) {
-    figCheckColor(renderer, color);
-    return;
-  }
-
-  fprintf(renderer->file, "1 1 %d %d %d -1 %d 0 -1 %s 1 0.0 %d %d %d %d 0 0 0 0\n",
-	  figLineStyle(renderer), 
-	  figLineWidth(renderer), 
-	  figColor(renderer, color),
-	  figDepth(renderer),
-	  xfig_dtostr(d_buf, figDashLength(renderer)),
-	  (int)figCoord(renderer, center->x), (int)figCoord(renderer, center->y),
-	  (int)figCoord(renderer, width/2), (int)figCoord(renderer, height/2));
-
-}
-
-static void 
-fill_ellipse(DiaRenderer *self, 
-             Point *center,
-             real width, real height,
-             Color *color) 
-{
-  XfigRenderer *renderer = XFIG_RENDERER(self);
-  gchar d_buf[DTOSTR_BUF_SIZE];
-
-  if (renderer->color_pass) {
-    figCheckColor(renderer, color);
-    return;
-  }
-
-  fprintf(renderer->file, "1 1 %d %d %d %d %d 0 20 %s 1 0.0 %d %d %d %d 0 0 0 0\n",
-	  figLineStyle(renderer), 
-	  figLineWidth(renderer), 
-	  figColor(renderer, color),
-	  figColor(renderer, color),
-	  figDepth(renderer),
-	  xfig_dtostr(d_buf, figDashLength(renderer)),
-	  (int)figCoord(renderer, center->x), (int)figCoord(renderer, center->y),
-	  (int)figCoord(renderer, width/2), (int)figCoord(renderer, height/2));
-}
-
 static void
-draw_ellipse (DiaRenderer *self, 
+draw_ellipse (DiaRenderer *self,
 	      Point *center,
 	      real width, real height,
 	      Color *fill, Color *stroke)
 {
-  if (fill)
-    fill_ellipse (self, center, width, height, fill);
-  if (stroke)
-    stroke_ellipse (self, center, width, height, stroke);
+  XfigRenderer *renderer = XFIG_RENDERER(self);
+  gchar d_buf[DTOSTR_BUF_SIZE];
+
+  if (renderer->color_pass) {
+    if (stroke)
+      figCheckColor(renderer, stroke);
+    if (fill)
+      figCheckColor(renderer, fill);
+    return;
+  }
+
+  fprintf(renderer->file, "1 1 %d %d %d %d %d 0 %d %s 1 0.0 %d %d %d %d 0 0 0 0\n",
+	  figLineStyle(renderer), 
+	  stroke ? figLineWidth(renderer) : 0,
+	  stroke ? figColor(renderer, stroke) : 0,
+	  fill ? figColor(renderer, fill) : 0,
+	  figDepth(renderer),
+	  fill ? 20 : -1,
+	  xfig_dtostr(d_buf, figDashLength(renderer)),
+	  (int)figCoord(renderer, center->x), (int)figCoord(renderer, center->y),
+	  (int)figCoord(renderer, width/2), (int)figCoord(renderer, height/2));
 }
 
 static void 
