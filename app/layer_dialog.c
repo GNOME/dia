@@ -156,6 +156,7 @@ static void dia_layer_set_layer(DiaLayerWidget *widget, Diagram *dia, Layer *lay
 static void dia_layer_update_from_layer(DiaLayerWidget *widget);
 
 static void layer_dialog_new_callback(GtkWidget *widget, gpointer gdata);
+static void layer_dialog_rename_callback(GtkWidget *widget, gpointer gdata);
 static void layer_dialog_raise_callback(GtkWidget *widget, gpointer gdata);
 static void layer_dialog_lower_callback(GtkWidget *widget, gpointer gdata);
 static void layer_dialog_delete_callback(GtkWidget *widget, gpointer gdata);
@@ -163,6 +164,7 @@ static void layer_dialog_edit_layer(DiaLayerWidget *layer_widget, Diagram *dia, 
 
 static ButtonData buttons[] = {
   { GTK_STOCK_ADD, layer_dialog_new_callback, N_("New Layer") },
+  { GTK_STOCK_EDIT, layer_dialog_rename_callback, N_("Rename Layer") },
   { GTK_STOCK_GO_UP, layer_dialog_raise_callback, N_("Raise Layer") },
   { GTK_STOCK_GO_DOWN, layer_dialog_lower_callback, N_("Lower Layer") },
   { GTK_STOCK_DELETE, layer_dialog_delete_callback, N_("Delete Layer") },
@@ -537,6 +539,18 @@ layer_dialog_new_callback(GtkWidget *widget, gpointer gdata)
 }
 
 static void
+layer_dialog_rename_callback(GtkWidget *widget, gpointer gdata)
+{
+  GtkWidget *selected;
+  Diagram *dia;
+  Layer *layer;
+  dia = layer_dialog->diagram;
+  selected = GTK_LIST(layer_dialog->layer_list)->selection->data;
+  layer = dia->data->active_layer;
+  layer_dialog_edit_layer (DIA_LAYER_WIDGET (selected), dia, layer);
+}
+
+static void
 layer_dialog_delete_callback(GtkWidget *widget, gpointer gdata)
 {
   Diagram *dia;
@@ -823,7 +837,7 @@ layer_dialog_set_diagram(Diagram *dia)
 /******* DiaLayerWidget: *****/
 
 /* The connectability buttons don't quite behave the way they should.
- * The shift-click behaviour messes up the active layer.
+ * The shift-click behavior messes up the active layer.
  * To fix this, we need to rework the code so that the setting of
  * connect_on and connect_off is not tied to the button toggling,
  * but determined by what caused it (creation, user selection,
