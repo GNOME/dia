@@ -34,6 +34,12 @@
 
 #include "dia-render-script.h"
 
+/*!
+ * \defgroup DiaRenderScriptImport Dia Render Script Import
+ * \ingroup ImportFilters
+ * \brief Importing _Layer, _DiaObject from their XML representation saved with _DrsRenderer 
+ */
+
 static real
 _parse_real (xmlNodePtr node, const char *attrib)
 {
@@ -245,6 +251,10 @@ _parse_font (xmlNodePtr node)
 
   return font;
 }
+/*!
+ * \brief Create a _DiaObject from it's rendering XML representation
+ * \ingroup DiaRenderScriptImport
+ */
 static DiaObject *
 _render_object (xmlNodePtr render, DiaContext *ctx)
 {
@@ -358,9 +368,14 @@ find_child_named (xmlNodePtr node, const char *name)
 }
 
 /*!
+ * \brief Parse _DiaObject from the given node
  * Fill a GList* with objects which is to be put in a
  * diagram or a group by the caller. 
- * Can be called recusively to allow groups in groups.
+ * Can be called recursively to allow groups in groups.
+ * This is only using the render branch of the file, if the
+ * object type is not registered with Dia. Otherwise the objects
+ * are just created from their type and properties.
+ * \ingroup DiaRenderScriptImport
  */
 static GList*
 read_items (xmlNodePtr startnode, DiaContext *ctx)
@@ -418,7 +433,13 @@ read_items (xmlNodePtr startnode, DiaContext *ctx)
   return items;
 }
 
-/* imports the given DRS file, returns TRUE if successful */
+/*!
+ * \brief Imports the given DRS file
+ * Restore a diagram from it's Dia Render Script representation. This function
+ * is handling diagram and layers creation itself and delegates the object creation
+ * to read_items().
+ * \ingroup DiaRenderScriptImport
+ */
 gboolean
 import_drs (const gchar *filename, DiagramData *dia, DiaContext *ctx, void* user_data) 
 {

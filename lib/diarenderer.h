@@ -56,8 +56,8 @@ GType dia_renderer_get_type (void) G_GNUC_CONST;
  *
  * The Dia renderers are already realized with the GObject type system.
  * Most of the renderers are only used for export, but there are also
- * some renderers cabable of interaction (i.e. display). These are
- * extended versions providing the _DiaInteractiveRendererInterface
+ * some renderers capable of interaction (i.e. display). These are
+ * extended versions providing also the _DiaInteractiveRendererInterface
  *
  * \ingroup Renderers
  */
@@ -68,7 +68,7 @@ struct _DiaRenderer
   /*< private >*/
   DiaFont *font;
   real font_height; /* IMO It should be possible use the font's size to keep
-                     * this info, but currently _not_ : multiline text is 
+                     * this info, but currently _not_ : multi-line text is
                      * growing on every line when zoomed: BUG in font.c  --hb
                      */
   BezierApprox *bezier;
@@ -78,7 +78,7 @@ struct _DiaRenderer
  * \brief Base class for all of Dia's render facilities
  *
  * Renderers work in close cooperation with DiaObject. They provide the way to
- * make all the object drawing independent of concrete drawing backends
+ * make all the object drawing independent of concrete drawing back-ends
  */
 struct _DiaRendererClass
 {
@@ -91,7 +91,7 @@ struct _DiaRendererClass
   /*! \brief Render all the visible object in the layer */
   void (*draw_layer) (DiaRenderer*, Layer *, gboolean, Rectangle *);
   /*! Calls the objects draw function, which calls the renderer again 
-   *  Affine transforamtion is mostly done on the renderer side for matrix!=NULL */
+   *  Affine transformation is mostly done on the renderer side for matrix!=NULL */
   void (*draw_object) (DiaRenderer*, DiaObject*, DiaMatrix*);
   /*! Returns the EXACT width of text in cm, using the current font.
      There has been some confusion as to the definition of this.
@@ -169,8 +169,7 @@ struct _DiaRendererClass
    * Functions which SHOULD be implemented by specific renderer, but
    * have a default implementation based on the above functions 
    */
-  /*! Draw a bezier curve, given it's control points. The first BezPoint must 
-     be of type MOVE_TO, and no other ones may be MOVE_TO's. */
+  /*! Draw a bezier curve, given it's control points. */
   void (*draw_bezier) (DiaRenderer *renderer,
                        BezPoint *points,
                        int numpoints,

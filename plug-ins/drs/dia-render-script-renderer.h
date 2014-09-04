@@ -34,6 +34,15 @@ GType drs_renderer_get_type (void) G_GNUC_CONST;
 typedef struct _DrsRenderer DrsRenderer;
 typedef struct _DrsRendererClass DrsRendererClass;
 
+/*!
+ * \brief Dia RenderScript Renderer
+ * The DRS renderer implements an XML file format around Dia's renderer interface.
+ * It is useful for testing of _DiaObject draw implementations. The XML output includes
+ * not only all the rendering commands, but also the object properties and types used.
+ * This can be used with the \ref DiaRenderScriptImport to restore objects from file
+ * whether the original type is available or not.
+ * \extends _DiaRenderer
+ */
 struct _DrsRenderer
 {
   DiaRenderer parent_instance;

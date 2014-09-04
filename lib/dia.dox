@@ -1,15 +1,16 @@
 /*!
  * \mainpage Dia Developer Documentation
 
-This documentation is describing some of the internal structure of the 
-Dia application for sofware developers intersted in extending it. 
+This documentation describes some of the internal structure of the
+Dia application for software developers interested in extending it.
 
-Dia is a highly extensible application. There are plugin mechanism to add
+Dia is a highly extensible application. There are plug-in mechanisms to add
 diagram objects by 
- - C plug-ins (\ref Objects) 
+ - C plug-ins (\ref Objects)
  - and by XML files (\ref Shapes).
 
-Import and export facilties of Dia can be extended by plug-ins 
+Import and export facilities of Dia can be extended by plug-ins by
+implementing \ref Renderers "Renderers"
  - written in C/C++ (\ref Plugins) 
  - and Python (\ref PyDia).
 
@@ -22,7 +23,7 @@ functionality by registering actions in the menu. Again by
 
 /*!
 \defgroup Objects Objects and their Building Blocks
-\brief An \ref _DiaObject "Object" describes the apperance and behavior of diagram parts
+\brief An \ref _DiaObject "Object" describes the appearance and behavior of diagram parts
 
 There are a bunch of services to help implementing Dia objects.
 
@@ -43,7 +44,7 @@ There are a bunch of services to help implementing Dia objects.
 \ingroup ObjectParts
 \brief Automatic User Interface creation and serialization of object properties
 
-The Propery System for Dia Object allows to 
+The Property System for Dia Object allows to:
  - describe type, range and user interface representation, see PropDescription.
  - build dynamic user interfaces for all object properties
  - transform data fields of DiaObject implementation into list of generic Property
@@ -54,7 +55,7 @@ The Propery System for Dia Object allows to
 /*!
 \defgroup ObjectParts Building Blocks
 \ingroup Objects Building blocks to help implementing _DiaObject and interfacing _DiaRenderer
-\brief Typical \ref _DiaObject "Objects" are assembled from exisiting building blocks like _DiaImage
+\brief Typical \ref _DiaObject "Objects" are assembled from existing building blocks like _DiaImage
 */
 
 /*!
@@ -81,23 +82,6 @@ and "connected by" (connectionpoint->connected). The former is a 0 or 1 relation
 
 \verbinclude custom-shapes
 
-*/
-
-/*!
-\defgroup ObjectConnects Object Connections
-\ingroup Objects
-\brief Implementation details of connections between \ref _DiaObject "objects"
-
-There are two specialized objects involved in building a connection. One is a Handle, the other one 
-is a ConnectionPoint. In an existing connection between two DiaObject the Handle belongs to the 
-first ("connected to") and the ConnectionPoint belongs to second ("connected by").
-
-The "Standard - Line" DiaObject is special because it is one of only few objects which can be 
-"connected to" (has Handles) and also "connected by" (has a ConnectionPoint). 
-Note: there is an important difference between the active and the passive form.
-
-It is important to understand the difference Dia's source is making between handle->connected_to 
-and "connected by" (connectionpoint->connected). The former is a 0 or 1 relation, the latter is 0..n.
 */
 
 /*!
@@ -129,6 +113,10 @@ to help implementing rendering.
  - _DiaSvgRenderer : to create SVG format for SVG export and Shape creation
  - _DiaGdkRenderer : the _DiaGdkRenderer is the first display renderer
  - _DiaCairoRenderer : multi-format renderer based on http://cairographics.org
+ - _DiaPathRenderer : allows to convert objects into their path representation
+ - _DiaTransformRenderer : for affine transformation on the renderer API level
+ - _DiaImportRenderer : helps to write file importer for formats which are "rendering",
+   the result is a list of \ref StandardObjects
 
  */
 
@@ -140,14 +128,14 @@ to help implementing rendering.
 /*!
 \defgroup ExportFilters Export Filters
 \ingroup Plugins
-\brief Export filters are usually implmenting the \ref _DiaRenderer "renderer" interface
+\brief Export filters are usually implementing the \ref _DiaRenderer "renderer" interface
 
  */
  
 /*!
 \defgroup ImportFilters Import Filters
 \ingroup Plugins
-\brief Import filters translate an external represenation to Dia \ref _DiaObject "objects"
+\brief Import filters translate an external representation to Dia \ref _DiaObject "objects"
 
  */
  
@@ -158,10 +146,9 @@ to help implementing rendering.
 \ingroup Plugins
 
 The documentation of PyDia is self-contained with PyDia. You can use some
-example PyDia plug-ins to generate it from your local Dia installtion
+example PyDia plug-ins to generate it from your local Dia installation
 (if build with Python support)
 
 \image html PyDiaObjects.svg "PyDia Object Model" width=10cm
 
  */
-

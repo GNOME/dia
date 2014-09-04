@@ -263,7 +263,7 @@ set_fillstyle (DiaRenderer *renderer, FillStyle mode)
 
 /*!
  * \brief Apply the current renderer's style to the given object
- * \memberof _DiaImportRenderer
+ * \memberof _DiaImportRenderer \private
  */
 static void
 _apply_style (DiaImportRenderer *self,
@@ -297,7 +297,7 @@ _apply_style (DiaImportRenderer *self,
 }
 /*!
  * \brief Remember the object for later use
- * \memberof _DiaImportRenderer
+ * \memberof _DiaImportRenderer \private
  */
 static void
 _push_object (DiaImportRenderer *self, DiaObject *obj)
@@ -371,7 +371,7 @@ draw_arc (DiaRenderer *renderer, Point *center,
 }
 
 /*!
- * \brief Dtroke and/or fill a rectangle
+ * \brief Stroke and/or fill a rectangle
  * \memberof _DiaImportRenderer
  */
 static void 
@@ -459,7 +459,7 @@ draw_string (DiaRenderer *renderer,
 
 /*!
  * \brief Draw an image
- * Creates an _Image object. Ownership of the passed in image is _not_ transferred,
+ * Creates an \_Image object. Ownership of the passed in image is _not_ transferred,
  * but it's pixbuf is referenced. The caller is responsible to destroy the image
  * with dia_image_unref() when it is no longer needed.
  * \memberof _DiaImportRenderer
@@ -504,7 +504,7 @@ draw_bezier (DiaRenderer *renderer,
 }
 
 /*!
- * \brief Fill a bezier shape
+ * \brief Draw/fill a bezier shape
  * Creates a _Beziergon object.
  * \memberof _DiaImportRenderer
  */

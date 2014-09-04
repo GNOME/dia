@@ -21,7 +21,7 @@
  */
 /*!
  * \defgroup ObjChange Support for undo/redo
- * \brief Object implmentations need some effort to support undo/redo
+ * \brief Object implementations need some effort to support undo/redo
  * \ingroup ObjectParts
  */
 #ifndef OBJCHANGE_H
@@ -106,4 +106,3 @@ void change_list_add (ObjectChange *change_list, ObjectChange *change);
 G_END_DECLS
 
 #endif /* OBJCHANGE_H */
-

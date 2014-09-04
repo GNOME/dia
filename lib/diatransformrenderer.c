@@ -26,22 +26,6 @@
 #include "object.h"
 #include "diapathrenderer.h"
 
-typedef struct _DiaTransformRenderer DiaTransformRenderer;
-typedef struct _DiaTransformRendererClass DiaTransformRendererClass;
-
-/*! GObject boiler plate, create runtime information */
-#define DIA_TYPE_TRANSFORM_RENDERER           (dia_transform_renderer_get_type ())
-/*! GObject boiler plate, a safe type cast */
-#define DIA_TRANSFORM_RENDERER(obj)           (G_TYPE_CHECK_INSTANCE_CAST ((obj), DIA_TYPE_TRANSFORM_RENDERER, DiaTransformRenderer))
-/*! GObject boiler plate, in C++ this would be the vtable */
-#define DIA_TRANSFORM_RENDERER_CLASS(klass)   (G_TYPE_CHECK_CLASS_CAST ((klass), DIA_TYPE_TRANSFORM_RENDERER, DiaTransformRendererClass))
-/*! GObject boiler plate, type check */
-#define DIA_IS_TRANSFORM_RENDERER(obj)        (G_TYPE_CHECK_INSTANCE_TYPE ((obj), DIA_TYPE_TRANSFORM_RENDERER))
-/*! GObject boiler plate, get from object to class (vtable) */
-#define DIA_TRANSFORM_RENDERER_GET_CLASS(obj) (G_TYPE_INSTANCE_GET_CLASS ((obj), DIA_TYPE_TRANSFORM_RENDERER, DiaTransformRendererClass))
-
-GType dia_transform_renderer_get_type (void) G_GNUC_CONST;
-
 /*!
  * \brief Renderer which does affine transform rendering
  *
@@ -64,6 +48,21 @@ struct _DiaTransformRendererClass
   DiaRendererClass parent_class; /*!< the base class */
 };
 
+typedef struct _DiaTransformRenderer DiaTransformRenderer;
+typedef struct _DiaTransformRendererClass DiaTransformRendererClass;
+
+/*! GObject boiler plate, create runtime information */
+#define DIA_TYPE_TRANSFORM_RENDERER           (dia_transform_renderer_get_type ())
+/*! GObject boiler plate, a safe type cast */
+#define DIA_TRANSFORM_RENDERER(obj)           (G_TYPE_CHECK_INSTANCE_CAST ((obj), DIA_TYPE_TRANSFORM_RENDERER, DiaTransformRenderer))
+/*! GObject boiler plate, in C++ this would be the vtable */
+#define DIA_TRANSFORM_RENDERER_CLASS(klass)   (G_TYPE_CHECK_CLASS_CAST ((klass), DIA_TYPE_TRANSFORM_RENDERER, DiaTransformRendererClass))
+/*! GObject boiler plate, type check */
+#define DIA_IS_TRANSFORM_RENDERER(obj)        (G_TYPE_CHECK_INSTANCE_TYPE ((obj), DIA_TYPE_TRANSFORM_RENDERER))
+/*! GObject boiler plate, get from object to class (vtable) */
+#define DIA_TRANSFORM_RENDERER_GET_CLASS(obj) (G_TYPE_INSTANCE_GET_CLASS ((obj), DIA_TYPE_TRANSFORM_RENDERER, DiaTransformRendererClass))
+
+GType dia_transform_renderer_get_type (void) G_GNUC_CONST;
 
 G_DEFINE_TYPE (DiaTransformRenderer, dia_transform_renderer, DIA_TYPE_RENDERER)
 

@@ -42,11 +42,23 @@
 #include <vector>
 
 /*!
+ * \defgroup PdfImport Dia PDF Import
+ * \ingroup ImportFilters
+ * \brief Import PDF for further processing with Dia
+ *
+ * The PDF import plug-in is built on http://poppler.freedesktop.org/ library.
+ * It is currently considered experimental because it has no means of
+ * limiting the input to something Dia can really cope with. 
+ */
+
+/*!
  * \brief A Poppler output device turning PDF to _DiaObject
  *
  * Pretty straight translation of poppler/poppler/CairoOutputDev.cc
  * to _DiaObject semantics. A lot of things in PDF can not be easily
  * mapped to Dia capabilities, so this will stay incomplete for a while.
+ *
+ * \ingroup PdfImport
  */
 class DiaOutputDev : public OutputDev
 {
@@ -676,10 +688,12 @@ DiaOutputDev::eoFill (GfxState *state)
 
 /*!
  * \brief Draw a string to _Textobj
+ *
  * To get objects more similar to what we had during export we
  * should probably use TextOutputDev. It reassembles strings
  * based on their position on the page. Or maybe Dia/cairo should
  * stop realigning single glyphs in it's output?
+ *
  * \todo Check alignment options - it's just guessed yet.
  */
 void 

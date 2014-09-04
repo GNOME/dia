@@ -33,7 +33,17 @@
 typedef struct _WpgImportRenderer  WpgImportRenderer;
 
 /*!
+ * \defgroup WpgImport WordPerfect Graphics Import
+ * \ingroup ImportFilters
+ * \brief WordPerfect (5.1) Graphics Import
+ *
+ * The WordPerfect Graphics import is limited to the last WPG format with
+ * open documentation. As such it is mostly useful for historical graphics;)
+ */
+
+/*!
  * \brief Renderer for WordPerfect Graphics import
+ * \ingroup WpgImport
  * \extends _DiaImportRenderer
  */
 struct _WpgImportRenderer {

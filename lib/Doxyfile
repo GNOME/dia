@@ -1,5 +1,5 @@
 PROJECT_NAME           = Dia
-PROJECT_BRIEF          = "extensible application to draw structured diagrams"
+PROJECT_BRIEF          = "extensible application to create structured diagrams"
 PROJECT_LOGO           = ../data/icons/scalable/apps/dia.svg
 
 TAB_SIZE               = 8
@@ -13,7 +13,7 @@ WARN_LOGFILE           = doxygen.log
 INPUT                  = ../lib ../objects/standard ../objects/custom \
 			../plug-ins/python ../plug-ins/svg ../plug-ins/shape \
 			../plug-ins/cairo ../plug-ins/layout ../plug-ins/pdf \
-			../plug-ins/wpg
+			../plug-ins/wpg ../plug-ins/drs
 #STRIP_FROM_PATH        = ../
 FILE_PATTERNS          = *.c *.h *.dox *.py *.cpp
 # define HAVE_CAIRO to get the Outline dox

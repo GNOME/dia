@@ -194,6 +194,7 @@ dia_renderer_get_type (void)
 
 /*! 
  * \brief Render all the visible object in the layer
+ *
  * @param renderer explicit this pointer
  * @param layer    layer to draw
  * @param active   TRUE if it is the currently active layer
@@ -203,7 +204,8 @@ dia_renderer_get_type (void)
  * visibility, though. If an exporter wants to 'see' also invisible
  * layers this method needs to be overwritten. Also it does not pass any
  * matrix to draw_object().
- * \memberof DiaRenderer
+ *
+ * \memberof _DiaRenderer
  */
 static void
 draw_layer (DiaRenderer *renderer,
@@ -228,6 +230,15 @@ draw_layer (DiaRenderer *renderer,
   }
 }
 
+/*!
+ * \brief Render the given object with optional transformation matrix
+ *
+ * Calls _DiaObject::DrawFunc with the given renderer, if matrix is NULL.
+ * Otherwise the object is transformed with the help of _DiaTransformRenderer.
+ * A renderer capable to do affine transformation should overwrite this function.
+ *
+ * \memberof _DiaRenderer
+ */
 static void
 draw_object (DiaRenderer *renderer,
 	     DiaObject   *object,
@@ -338,6 +349,20 @@ dia_renderer_class_init (DiaRendererClass *klass)
   renderer_class->set_pattern = set_pattern;
 }
 
+/*!
+ * \name Renderer Required Members
+ * A few member functions of _DiaRenderer must be implemented in every derived renderer.
+ * These should be considered pure virtual although due to the C implementation actually
+ * these member functions exist put throw a warning.
+ @{
+ */
+/*!
+ * \brief Called before rendering begins.
+ *
+ * Can be used to do various pre-rendering setup.
+ *
+ * \memberof _DiaRenderer \pure
+ */
 static void 
 begin_render (DiaRenderer *object, const Rectangle *update)
 {
@@ -345,6 +370,13 @@ begin_render (DiaRenderer *object, const Rectangle *update)
              G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (object)));
 }
 
+/*!
+ * \brief Called after all rendering is done.
+ *
+ * Used to do various clean-ups.
+ *
+ * \memberof _DiaRenderer \pure
+ */
 static void 
 end_render (DiaRenderer *object)
 {
@@ -352,6 +384,10 @@ end_render (DiaRenderer *object)
              G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (object)));
 }
 
+/*!
+ * \brief Change the line width for the strokes to come
+ * \memberof _DiaRenderer \pure
+ */
 static void 
 set_linewidth (DiaRenderer *object, real linewidth)
 {
@@ -359,6 +395,10 @@ set_linewidth (DiaRenderer *object, real linewidth)
              G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (object)));
 }
 
+/*!
+ * \brief Change the line caps for the strokes to come
+ * \memberof _DiaRenderer \pure
+ */
 static void 
 set_linecaps (DiaRenderer *object, LineCaps mode)
 {
@@ -366,6 +406,10 @@ set_linecaps (DiaRenderer *object, LineCaps mode)
              G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (object)));
 }
 
+/*!
+ * \brief Change the line join mode for the strokes to come
+ * \memberof _DiaRenderer \pure
+ */
 static void 
 set_linejoin (DiaRenderer *renderer, LineJoin mode)
 {
@@ -373,6 +417,10 @@ set_linejoin (DiaRenderer *renderer, LineJoin mode)
              G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (renderer)));
 }
 
+/*!
+ * \brief Change line style and dash length for the strokes to come
+ * \memberof _DiaRenderer \pure
+ */
 static void 
 set_linestyle (DiaRenderer *renderer, LineStyle mode, real dash_length)
 {
@@ -380,6 +428,14 @@ set_linestyle (DiaRenderer *renderer, LineStyle mode, real dash_length)
              G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (renderer)));
 }
 
+/*!
+ * \brief Set the fill mode for following fills
+ *
+ * As of this writing there is only one fill mode defined, so this function
+ * might never get called, because it does not make a difference.
+ *
+ * \memberof _DiaRenderer \pure
+ */
 static void 
 set_fillstyle (DiaRenderer *renderer, FillStyle mode)
 {
@@ -387,7 +443,96 @@ set_fillstyle (DiaRenderer *renderer, FillStyle mode)
              G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (renderer)));
 }
 
+/*!
+ * \brief Draw a single line segment
+ * \memberof _DiaRenderer \pure
+ */
 static void 
+draw_line (DiaRenderer *renderer, Point *start, Point *end, Color *color)
+{
+  g_warning ("%s::draw_line not implemented!", 
+             G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (renderer)));
+}
+
+/*!
+ * \brief Fill and/or stroke a polygon
+ *
+ * The fall-back implementation of draw_polygon is mostly ignoring the fill.
+ * A derived renderer should definitely overwrite this function.
+ *
+ * \memberof _DiaRenderer
+ */
+static void 
+draw_polygon (DiaRenderer *renderer,
+              Point *points, int num_points,
+              Color *fill, Color *stroke)
+{
+  DiaRendererClass *klass = DIA_RENDERER_GET_CLASS (renderer);
+  int i;
+  Color *color = fill ? fill : stroke;
+
+  g_return_if_fail (num_points > 1);
+  g_return_if_fail (color != NULL);
+
+  for (i = 0; i < num_points - 1; i++)
+    klass->draw_line (renderer, &points[i+0], &points[i+1], color);
+  /* close it in any case */
+  if (   (points[0].x != points[num_points-1].x) 
+      || (points[0].y != points[num_points-1].y))
+    klass->draw_line (renderer, &points[num_points-1], &points[0], color);
+}
+
+/*!
+ * \brief Draw an arc
+ *
+ * Draw an arc, given its center, the bounding box (widget, height),
+ * the start angle and the end angle. It's counter-clockwise if angle2>angle1
+ *
+ * \memberof _DiaRenderer \pure
+ */
+static void 
+draw_arc (DiaRenderer *renderer, Point *center,
+          real width, real height, real angle1, real angle2,
+          Color *color)
+{
+  g_warning ("%s::draw_arc not implemented!",
+             G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (renderer)));
+}
+
+/*!
+ * \brief Fill an arc (a pie-chart)
+ * \memberof _DiaRenderer \pure
+ */
+static void 
+fill_arc (DiaRenderer *renderer, Point *center,
+          real width, real height, real angle1, real angle2,
+          Color *color)
+{
+  g_warning ("%s::fill_arc not implemented!", 
+             G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (renderer)));
+}
+/*!
+ * \brief Fill and/or stroke an ellipse
+ * \memberof _DiaRenderer \pure
+ */
+static void 
+draw_ellipse (DiaRenderer *renderer, Point *center,
+              real width, real height, 
+              Color *fill, Color *stroke)
+{
+  g_warning ("%s::draw_ellipse not implemented!", 
+             G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (renderer)));
+}
+
+/*!
+ * \brief Set the font to use for following strings
+ *
+ * This function might be called before begin_render() because it also
+ * sets the font for following get_text_width() calls.
+ *
+ * \memberof _DiaRenderer \pure
+ */
+static void
 set_font (DiaRenderer *renderer, DiaFont *font, real height)
 {
   /* if it's the same font we must ref it first */
@@ -398,73 +543,10 @@ set_font (DiaRenderer *renderer, DiaFont *font, real height)
   renderer->font_height = height;
 }
 
-
-static void 
-draw_line (DiaRenderer *renderer, Point *start, Point *end, Color *color)
-{
-  g_warning ("%s::draw_line not implemented!", 
-             G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (renderer)));
-}
-
-static void 
-draw_arc (DiaRenderer *renderer, Point *center, 
-          real width, real height, real angle1, real angle2,
-          Color *color)
-{
-  g_warning ("%s::draw_arc not implemented!", 
-             G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (renderer)));
-}
-
 /*!
- * \brief Stroke and/or fill a rectangle
- *
- * This only needs to be implemented in the derived class if it differs
- * from draw_polygon. Given that draw_polygon is a required method we can
- * use that instead of forcing every inherited class to implement
- * draw_rect(), too.
- *
- * \memberof _DiaRenderer
+ * \brief Draw a string
+ * \memberof _DiaRenderer \pure
  */
-static void 
-draw_rect (DiaRenderer *renderer,
-           Point *ul_corner, Point *lr_corner,
-           Color *fill, Color *stroke)
-{
-  if (DIA_RENDERER_GET_CLASS(renderer)->draw_polygon == &draw_polygon) {
-    g_warning ("%s::draw_rect and draw_polygon not implemented!", 
-               G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (renderer)));
-  } else {
-    Point corner[4];
-    /* translate to polygon */
-    corner[0] = *ul_corner;
-    corner[1].x = lr_corner->x;
-    corner[1].y = ul_corner->y;
-    corner[2] = *lr_corner;
-    corner[3].x = ul_corner->x;
-    corner[3].y = lr_corner->y;
-    /* delegate transformation and drawing */
-    DIA_RENDERER_GET_CLASS(renderer)->draw_polygon (renderer, corner, 4, fill, stroke);
-  }
-}
-
-static void 
-fill_arc (DiaRenderer *renderer, Point *center,
-          real width, real height, real angle1, real angle2,
-          Color *color)
-{
-  g_warning ("%s::fill_arc not implemented!", 
-             G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (renderer)));
-}
-
-static void 
-draw_ellipse (DiaRenderer *renderer, Point *center,
-              real width, real height, 
-              Color *fill, Color *stroke)
-{
-  g_warning ("%s::draw_ellipse not implemented!", 
-             G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (renderer)));
-}
-
 static void 
 draw_string (DiaRenderer *renderer,
              const gchar *text, Point *pos, Alignment alignment,
@@ -474,7 +556,30 @@ draw_string (DiaRenderer *renderer,
              G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (renderer)));
 }
 
-/** Default implementation of draw_text */
+/*!
+ * \brief Draw an image (pixbuf)
+ * \memberof _DiaRenderer \pure
+ */
+static void
+draw_image (DiaRenderer *renderer,
+            Point *point, real width, real height,
+            DiaImage *image)
+{
+  g_warning ("%s::draw_image not implemented!",
+             G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (renderer)));
+}
+
+/*! @} */
+
+/*!
+ * \brief Default implementation of draw_text
+ *
+ * The default implementation of draw_text() splits the given _Text object
+ * into single lines and passes them to draw_text_line().
+ * A Renderer with a concept of multi-line text should overwrite it.
+ *
+ * \memberof _DiaRenderer
+ */
 static void 
 draw_text (DiaRenderer *renderer,
 	   Text *text) 
@@ -496,7 +601,14 @@ draw_text (DiaRenderer *renderer,
   }
 }
 
-/** Default implementation of draw_text_line */
+/*!
+ * \brief Default implementation of draw_text_line
+ *
+ * The default implementation of draw_text_line() just calls set_font() and
+ * draw_string().
+ *
+ * \memberof _DiaRenderer
+ */
 static void 
 draw_text_line (DiaRenderer *renderer,
 		TextLine *text_line, Point *pos, Alignment alignment, Color *color) 
@@ -510,16 +622,6 @@ draw_text_line (DiaRenderer *renderer,
 						pos, alignment,
 						color);
 }
-
-static void 
-draw_image (DiaRenderer *renderer,
-            Point *point, real width, real height,
-            DiaImage *image)
-{
-  g_warning ("%s::draw_image not implemented!", 
-             G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (renderer)));
-}
-
 
 /*
  * medium level functions, implemented by the above
@@ -678,7 +780,28 @@ approximate_bezier (BezierApprox *bezier,
     }
 }
 
-/* bezier approximation with straight lines */
+/*!
+ * \name Medium Level Methods Usually Overwritten by Modern Renderer
+ *
+ * The medium level renderer methods have a working fall-back implementation to
+ * give the same visual appearance as native member function implementations.
+ * However these functions should be overwritten, if the goal is further processing
+ * or optimized output.
+ *
+ * @{
+ */
+/*!
+ * \brief Draw a bezier curve, given it's control points
+ *
+ * The first BezPoint must be of type MOVE_TO, and no other ones may be
+ * MOVE_TOs. If further holes are supported by a specific renderer should
+ * be checked with _DiaRenderer::is_capable_to(RENDER_HOLES).
+ *
+ * The default implementation of draw_bezier() converts the given path
+ * into a polyline approximation and calls draw_polyline().
+ *
+ * \memberof _DiaRenderer
+ */
 static void 
 draw_bezier (DiaRenderer *renderer,
              BezPoint *points, int numpoints,
@@ -705,6 +828,15 @@ draw_bezier (DiaRenderer *renderer,
                                                     color);
 }
 
+/*!
+ * \brief Fill and/or stroke a closed bezier curve
+ *
+ * The default implementation can only handle a single MOVE_TO at the
+ * first point. It emulates the actual drawing with an approximated
+ * polyline.
+ *
+ * \memberof _DiaRenderer
+ */
 static void 
 draw_beziergon (DiaRenderer *renderer,
                 BezPoint *points, int numpoints,
@@ -733,7 +865,46 @@ draw_beziergon (DiaRenderer *renderer,
                                                      bezier->currpoint,
                                                      fill, stroke);
 }
+/*!
+ * \brief Stroke and/or fill a rectangle
+ *
+ * This only needs to be implemented in the derived class if it differs
+ * from draw_polygon. Given that draw_polygon is a required method we can
+ * use that instead of forcing every inherited class to implement
+ * draw_rect(), too.
+ *
+ * \memberof _DiaRenderer \pure
+ */
+static void
+draw_rect (DiaRenderer *renderer,
+           Point *ul_corner, Point *lr_corner,
+           Color *fill, Color *stroke)
+{
+  if (DIA_RENDERER_GET_CLASS(renderer)->draw_polygon == &draw_polygon) {
+    g_warning ("%s::draw_rect and draw_polygon not implemented!",
+               G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (renderer)));
+  } else {
+    Point corner[4];
+    /* translate to polygon */
+    corner[0] = *ul_corner;
+    corner[1].x = lr_corner->x;
+    corner[1].y = ul_corner->y;
+    corner[2] = *lr_corner;
+    corner[3].x = ul_corner->x;
+    corner[3].y = lr_corner->y;
+    /* delegate transformation and drawing */
+    DIA_RENDERER_GET_CLASS(renderer)->draw_polygon (renderer, corner, 4, fill, stroke);
+  }
+}
 
+/*!
+ * \brief Draw a polyline with the given color
+ *
+ * The default implementation is delegating the drawing to consecutive
+ * calls to draw_line().
+ *
+ * \memberof _DiaRenderer
+ */
 static void 
 draw_polyline (DiaRenderer *renderer,
                Point *points, int num_points,
@@ -769,9 +940,13 @@ calculate_min_radius( Point *p1, Point *p2, Point *p3 )
   return (c*sin(a/2));
 }
 
-/** Draw a polyline with optionally rounded corners.
- *  Based on draw_line and draw_arc, but uses draw_polyline when
- *  the rounding is too small.
+/*!
+ * \brief Draw a polyline with optionally rounded corners
+ *
+ * Default implementation based on draw_line() and draw_arc(), but uses
+ * draw_polyline when the rounding is too small.
+ *
+ * \memberof _DiaRenderer
  */
 static void
 draw_rounded_polyline (DiaRenderer *renderer,
@@ -827,29 +1002,14 @@ draw_rounded_polyline (DiaRenderer *renderer,
 }
 
 /*!
- * \brief Fallback implementation of draw_polygon mostly ignoring the fill
+ * \brief Fill and/or stroke a rectangle with rounded corners
+ *
+ * Default implementation is assembling a rectangle with potentially rounded
+ * corners from consecutive draw_arc() and draw_line() calls - if stroked.
+ * Filling is done by two overlapping rectangles and four fill_arc() calls.
+ *
  * \memberof _DiaRenderer
  */
-static void 
-draw_polygon (DiaRenderer *renderer,
-              Point *points, int num_points,
-              Color *fill, Color *stroke)
-{
-  DiaRendererClass *klass = DIA_RENDERER_GET_CLASS (renderer);
-  int i;
-  Color *color = fill ? fill : stroke;
-
-  g_return_if_fail (num_points > 1);
-  g_return_if_fail (color != NULL);
-
-  for (i = 0; i < num_points - 1; i++)
-    klass->draw_line (renderer, &points[i+0], &points[i+1], color);
-  /* close it in any case */
-  if (   (points[0].x != points[num_points-1].x) 
-      || (points[0].y != points[num_points-1].y))
-    klass->draw_line (renderer, &points[num_points-1], &points[0], color);
-}
-
 static void 
 draw_rounded_rect (DiaRenderer *renderer, 
                    Point *ul_corner, Point *lr_corner,
@@ -909,7 +1069,24 @@ draw_rounded_rect (DiaRenderer *renderer,
     }
   }
 }
+/*! @} */
 
+/*!
+ * \name Draw With Arrows Methods
+ *
+ * A renderer implementation with a compatible concept of arrows should overwrite this
+ * function set to get the most high level output. For all other renderer a line with
+ * arrows will be split into multiple objects, which still will resemble the original
+ * appearance of the diagram.
+ *
+ * @{
+ */
+
+/*!
+ * \brief Draw a line fitting to the given arrows
+ *
+ * \memberof _DiaRenderer
+ */
 static void
 draw_line_with_arrows(DiaRenderer *renderer, 
                       Point *startpoint, 
@@ -964,6 +1141,11 @@ draw_line_with_arrows(DiaRenderer *renderer,
   *endpoint = oldend;
 }
 
+/*!
+ * \brief Draw a polyline fitting to the given arrows
+ *
+ * \memberof _DiaRenderer
+ */
 static void
 draw_polyline_with_arrows(DiaRenderer *renderer, 
                           Point *points, int num_points,
@@ -1016,7 +1198,7 @@ draw_polyline_with_arrows(DiaRenderer *renderer,
   }
   /* Don't draw degenerate line segments at end of line */
   if (lastline-firstline > 1) /* probably hiding a bug above, but don't try to draw a negative
-                                                                  * number of points at all, fixes bug #148139 */
+			       * number of points at all, fixes bug #148139 */
     DIA_RENDERER_GET_CLASS(renderer)->draw_polyline(renderer, &points[firstline], 
                                                     lastline-firstline, color);
   if (start_arrow != NULL && start_arrow->type != ARROW_NONE)
@@ -1036,6 +1218,11 @@ draw_polyline_with_arrows(DiaRenderer *renderer,
   points[lastline-1] = oldend;
 }
 
+/*!
+ * \brief Draw a rounded polyline fitting to the given arrows
+ *
+ * \memberof _DiaRenderer
+ */
 static void
 draw_rounded_polyline_with_arrows(DiaRenderer *renderer, 
 				  Point *points, int num_points,
@@ -1248,6 +1435,11 @@ is_right_hand (const Point *a, const Point *b, const Point *c)
   return point_cross(&dot1, &dot2) > 0;
 }
 
+/*!
+ * \brief Draw an arc fitting to the given arrows
+ *
+ * \memberof _DiaRenderer
+ */
 static void
 draw_arc_with_arrows (DiaRenderer *renderer, 
                       Point *startpoint, 
@@ -1365,6 +1557,11 @@ draw_arc_with_arrows (DiaRenderer *renderer,
 	       color, &color_white);
 }
 
+/*!
+ * \brief Draw a bezier line fitting to the given arrows
+ *
+ * \memberof _DiaRenderer
+ */
 static void
 draw_bezier_with_arrows(DiaRenderer *renderer, 
                         BezPoint *points,
@@ -1420,10 +1617,21 @@ draw_bezier_with_arrows(DiaRenderer *renderer,
   points[num_points-1].p3 = endpoint;
   
 }
+/*! @} */
 
-/*
- * Should we really provide this ? It formerly was an 'interactive op'
- * and depends on DiaRenderer::set_font() not or properly overwritten 
+/*!
+ * \name Interactive Renderer Methods
+ * @{
+ */
+/*!
+ * \brief Calculate text width of given string with previously set font
+ *
+ * Should we really provide this? It formerly was an 'interactive op'
+ * and depends on DiaRenderer::set_font() not or properly overwritten.
+ * As of this writing it is only used for cursor positioning in with
+ * an interactive renderer.
+ *
+ * \memberof _DiaRenderer
  */
 static real 
 get_text_width (DiaRenderer *renderer,
@@ -1446,6 +1654,10 @@ get_text_width (DiaRenderer *renderer,
   return ret;
 }
 
+/*!
+ * \brief Get drawing width in pixels if any
+ * \memberof _DiaRenderer \pure
+ */
 static int 
 get_width_pixels (DiaRenderer *renderer)
 {
@@ -1453,15 +1665,34 @@ get_width_pixels (DiaRenderer *renderer)
   return 0;
 }
 
+/*!
+ * \brief Get drawing height in pixels if any
+ * \memberof _DiaRenderer \pure
+ */
 static int 
 get_height_pixels (DiaRenderer *renderer)
 {
   g_return_val_if_fail (renderer->is_interactive, 0);
   return 0;
 }
+/*! @} */
 
 /*!
- * The base class has none of the advanced capabilities
+ * \brief Advertise special renderer capabilities
+ *
+ * The base class advertises none of the advanced capabilities, but it
+ * has basic transformation support in draw_object() with the help of
+ * _DiaTransformRenderer. Only an advanced renderer implementation will
+ * overwrite this method with it's own capabilities. Returning TRUE
+ * from this method usually requires to adapt at least one other member
+ * function, too. Current special capabilities are
+ *  - RENDER_HOLES : draw_beziergon() has to support multiple MOVE_TO
+ *  - RENDER_ALPHA : the alpha component of _Color is handled to create transparency
+ *  - RENDER_AFFINE : at least draw_object() to be overwritten to support affine transformations.
+ *    At some point in time also draw_text() and draw_image() need to handle at least rotation.
+ *  - RENDER_PATTERN : set_pattern() overwrite and filling with pattern instead of fill color
+ *
+ * \memberof _DiaRenderer
  */
 static gboolean 
 is_capable_to (DiaRenderer *renderer, RenderCapability cap)
@@ -1470,7 +1701,9 @@ is_capable_to (DiaRenderer *renderer, RenderCapability cap)
 }
 
 /*!
+ * \brief Set the (gradient) pattern for later fill
  * The base class has no pattern (gradient) support
+ * \memberof _DiaRenderer \pure
  */
 static void
 set_pattern (DiaRenderer *renderer, DiaPattern *pat)
@@ -1479,8 +1712,10 @@ set_pattern (DiaRenderer *renderer, DiaPattern *pat)
              G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (renderer)));
 }
 
-/*
- * non member functions
+/*!
+ * \brief Get the width in pixels of the drawing area (if any)
+ *
+ * \relates _DiaRenderer
  */
 int
 dia_renderer_get_width_pixels (DiaRenderer *renderer)
@@ -1488,12 +1723,25 @@ dia_renderer_get_width_pixels (DiaRenderer *renderer)
   return DIA_RENDERER_GET_CLASS(renderer)->get_width_pixels (renderer);
 }
 
+/*!
+ * \brief Get the height in pixels of the drawing area (if any)
+ *
+ * \relates _DiaRenderer
+ */
 int
 dia_renderer_get_height_pixels (DiaRenderer *renderer)
 {
   return DIA_RENDERER_GET_CLASS(renderer)->get_height_pixels (renderer);
 }
 
+/*!
+ * \brief Helper function to fill bezier with multiple BEZ_MOVE_TO
+ * A slightly improved version to split a bezier with multiple move-to into
+ * a form which can be used with _DiaRenderer not supporting RENDER_HOLES.
+ * With reasonable placement of the second movement it works well for single
+ * holes at least. There are artifacts for more complex path to render.
+ * \relates _DiaRenderer
+ */
 void
 bezier_render_fill (DiaRenderer *renderer, BezPoint *pts, int total, Color *color)
 {
@@ -1558,7 +1806,7 @@ bezier_render_fill (DiaRenderer *renderer, BezPoint *pts, int total, Color *colo
 
 /*!
  * \brief Helper function to fill bezier with multiple BEZ_MOVE_TO
- * \memberof DiaRenderer
+ * \relates _DiaRenderer
  */
 G_GNUC_UNUSED static void
 bezier_render_fill_old (DiaRenderer *renderer, BezPoint *pts, int total, Color *color)
@@ -1600,7 +1848,7 @@ bezier_render_fill_old (DiaRenderer *renderer, BezPoint *pts, int total, Color *
 
 /*!
  * \brief Helper function to stroke a bezier with multiple BEZ_MOVE_TO
- * \memberof DiaRenderer
+ * \relates _DiaRenderer
  */
 void
 bezier_render_stroke (DiaRenderer *renderer, BezPoint *pts, int total, Color *color)

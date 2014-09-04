@@ -22,7 +22,7 @@
  *
  * \ingroup StandardObjects
  *
- * Typical import plugins translate some vector representation of the import format
+ * Typical import plug-ins translate some vector representation of the import format
  * into _DiaObject representations. This set of functions and structures simplifies 
  * the creation of standard objects.
  */
@@ -56,15 +56,15 @@ struct _BezierCreateData {
 
 /*!
  * \brief Create a text object for the diagram.
- * @param xpos X position (in cm from the origo) of the object.
- * @param ypos Y position (in cm from the origo) of the object.
+ * @param xpos X position (in cm from the origin) of the object.
+ * @param ypos Y position (in cm from the origin) of the object.
  * \ingroup ObjectCreate
  */
 DiaObject *create_standard_text(real xpos, real ypos);
 /*!
  * \brief Create an ellipse object for the diagram
  * @param xpos top-left corner
- * @param ypos top-lef corner
+ * @param ypos top-left corner
  * @param width the horizontal diameter
  * @param height the vertical diameter
  * \ingroup ObjectCreate
@@ -104,7 +104,7 @@ DiaObject *create_standard_bezierline(int num_points, BezPoint *points,
  */
 DiaObject *create_standard_beziergon(int num_points, BezPoint *points);
 /*!
- * \brief Create a \ref _Beziergon
+ * \brief Create a \ref _StdPath
  * \ingroup ObjectCreate
  */
 DiaObject *create_standard_path(int num_points, BezPoint *points);
@@ -135,7 +135,7 @@ DiaObject *create_standard_arc(real x1, real y1, real x2, real y2,
 DiaObject *create_standard_image(real xpos, real ypos, real width, real height, char *file);
 /*!
  * \brief Create a _Group of objects given by list.
- * The objects in list must not be added to the diagra at the same time.
+ * The objects in list must not be added to the diagram at the same time.
  * \ingroup ObjectCreate
  */
 DiaObject *create_standard_group(GList *items);
