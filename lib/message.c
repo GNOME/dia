@@ -331,6 +331,6 @@ dia_log_message (const char *format, ...)
   s = t % 60; t = (t - s) / 60;
   m = t % 60; t = (t - m) / 60;
   h = t;
-  g_message ("%02d:%02d:%02d.%03d - %s", h, m, s, ms/1000, log);
+  g_message ("%02d:%02d:%02d.%03d - %s", (int)h, (int)m, (int)s, (int)(ms/1000), log);
   g_free (log);
 }
