@@ -884,6 +884,8 @@ create_standard_path_from_list (GList           *objects,
       p2 = NULL;
     }
   }
+  if (!p1)
+    return NULL;
   path = create_standard_path (p1->len, &g_array_index (p1, BezPoint, 0));
   /* copy style from first object processed */
   object_copy_style (path, (DiaObject *)objects->data);
