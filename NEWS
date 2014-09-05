@@ -115,6 +115,19 @@
   * bugs fixed:
     http://bugzilla.gnome.org/buglist.cgi?product=dia&target_milestone=0.98
 
+dia-0.97.3: 2014-09-05
+
+ * Fix double free with some SVG rendering (regression from Dia 0.97.2)
+ * Fixes to cope better with updated versions of Dia's dependencies:
+   - don't crash at start-up with ABI breaking GLib 2-36
+   - don't assert in cairo 1.12 with invalid arc parameters
+   - avoid kerning problems (character overlap) for all Pango versions
+   - fix image files to be loadable by libpng16
+ * Backport fixes for some seldom crashes and other annoyances, see:
+   http://bugzilla.gnome.org/buglist.cgi?product=dia&target_milestone=0.97.3
+ * Update translations for Brazilian Portuguese, German, Hungarian,
+   Polish, Romanian, Serbian and Slovenian
+
 dia-0.97.2: 2011-12-18
 
   * a lot of updated translations
