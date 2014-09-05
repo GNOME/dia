@@ -1042,7 +1042,10 @@ fig_read_object(FILE *file, DiaContext *ctx)
 	}
 
 	/* Make group item with these items */
-	item = create_standard_group((GList*)compound_stack->data);
+	if (g_list_length((GList*)compound_stack->data) > 1)
+	    item = create_standard_group((GList*)compound_stack->data);
+	else /* a single item needs no group */
+	    item = (DiaObject *)((GList*)compound_stack->data)->data;
 	compound_stack = g_slist_remove(compound_stack, compound_stack->data);
 	if (compound_stack == NULL) {
 	    depths[compound_depth] = g_list_append(depths[compound_depth],
