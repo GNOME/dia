@@ -269,7 +269,7 @@ autolayout_adjust_for_gap(Point *pos, int dir, ConnectionPoint *cp)
   Point dir_other;
   /* Do absolute gaps here, once it's defined */
   
-  if (!connpoint_is_autogap(cp)) {
+  if (!cp || !connpoint_is_autogap(cp)) {
     return *pos;
   }
 
