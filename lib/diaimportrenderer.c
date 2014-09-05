@@ -140,8 +140,14 @@ static void
 renderer_finalize (GObject *object)
 {
   DiaRenderer *renderer = DIA_RENDERER (object);
+  DiaImportRenderer *self = DIA_IMPORT_RENDERER (renderer);
 
-  /* XXX: anything to destroy */
+  /* anything more to destroy? */
+  if (self->objects) {
+    /* if no one called dia_import_renderer_get_objects() */
+    destroy_object_list(self->objects);
+    self->objects = NULL;
+  }
 
   G_OBJECT_CLASS (parent_class)->finalize (object);
 }
@@ -392,8 +398,8 @@ fill_arc (DiaRenderer *renderer, Point *center,
           real width, real height, real angle1, real angle2,
           Color *color)
 {
-  DiaImportRenderer *self = DIA_IMPORT_RENDERER (renderer);
 #if 0 /* does not work till 'Standard - Arc' supports filling */
+  DiaImportRenderer *self = DIA_IMPORT_RENDERER (renderer);
   DiaObject *object = _make_arc (center, width, height, angle1, angle2);
 
   _apply_style (self, object, color, NULL, 0.0);
