@@ -1,4 +1,4 @@
-dia-0.97.3: 2014-03-xx
+dia-0.97.3: 2014-09-05
 
  * Fix double free with some SVG rendering (regression from Dia 0.97.2)
  * Fixes to cope better with updated versions of Dia's dependencies:
