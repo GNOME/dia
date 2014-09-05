@@ -865,6 +865,8 @@ create_standard_path_from_list (GList           *objects,
 
     _path_renderer_clear (pr);
     obj->ops->draw (obj, renderer);
+    if (!pr->pathes) /* nothing created? */
+      continue;
     /* get a single path from this rendererer run */
     p2 = g_array_new (FALSE, FALSE, sizeof(BezPoint));
     for (i = 0; i < pr->pathes->len; ++i) {
