@@ -1785,7 +1785,8 @@ plot_nurbs(const struct vdx_Geom *Geom, const struct vdx_XForm *XForm,
             while ((item2 = item2->next))
             {
                 Any = (struct vdx_any*)(item2->data);
-                if (Any && Any->type != vdx_types_SplineKnot) break;
+                g_return_val_if_fail (Any != NULL, NULL); /* pathologic case */
+                if (Any->type != vdx_types_SplineKnot) break;
                 n++;
             }
             k = SplineStart->D;
