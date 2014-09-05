@@ -301,7 +301,6 @@ node_update_data(Node *node)
   p1.x = elem->corner.x + NODE_TEXT_MARGIN;
   p1.y = h + node->name->ascent;  /* position of text */
   text_set_position(node->name, &p1);
-  h += node->name->height * node->name->numlines;
 
   elem->width = MAX(elem->width, node->name->max_width + 2*NODE_TEXT_MARGIN);
   elem->height = MAX(elem->height, node->name->height * node->name->numlines + 2*NODE_TEXT_MARGIN);

@@ -311,7 +311,6 @@ objet_draw(Objet *ob, DiaRenderer *renderer)
     p1.y += OBJET_MARGIN_M(ob);
     p2.x -= OBJET_MARGIN_M(ob);
     p2.y += OBJET_MARGIN_M(ob);
-    y += OBJET_MARGIN_M(ob);
   }
 
   renderer_ops->draw_rect(renderer, 
