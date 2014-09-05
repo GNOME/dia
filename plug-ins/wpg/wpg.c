@@ -769,8 +769,6 @@ draw_beziergon (DiaRenderer *self,
 		Color *fill,
 		Color *stroke)
 {
-  WpgRenderer *renderer = WPG_RENDERER (self);
-
   DIAG_NOTE(g_message("draw_beziezgon %d points", numpoints));
 
 #if 1
@@ -782,6 +780,8 @@ draw_beziergon (DiaRenderer *self,
     DIA_RENDERER_CLASS(parent_class)->draw_beziergon (self, points, numpoints, fill, NULL);
 #else
   if (fill) {
+    WpgRenderer *renderer = WPG_RENDERER (self);
+
     WriteFillAttr(renderer, fill, TRUE);
     draw_bezier (self, points, numpoints, fill);
     WriteFillAttr(renderer, fill, FALSE);

@@ -329,10 +329,6 @@ end_render(DiaRenderer *self)
 
     if (hEmf)
 	W32::DeleteEnhMetaFile(hEmf);
-    if (renderer->hFont)
-	W32::DeleteObject(renderer->hFont);
-    if (renderer->pango_context)
-        g_object_unref (renderer->pango_context);
 }
 
 static gboolean 
@@ -679,7 +675,7 @@ draw_polygon(DiaRenderer *self,
       hPen = UsePen(renderer, stroke);
     if (fill) {
       hBrush = W32::CreateSolidBrush(rgb);
-      hBrOld = (W32::HBRUSH)W32::SelectObject(renderer->hFileDC, hBrush);
+      W32::SelectObject(renderer->hFileDC, hBrush);
     }
 
     W32::Polygon(renderer->hFileDC, pts, num_points);
@@ -707,10 +703,10 @@ draw_rect(DiaRenderer *self,
               ul_corner->x, ul_corner->y, lr_corner->x, lr_corner->y);
 
     if (fill) {
-	W32::HGDIOBJ hBrush, hBrOld;
+	W32::HGDIOBJ hBrush;
 	W32::COLORREF rgb = W32COLOR(fill);
 	hBrush = W32::CreateSolidBrush(rgb);
-	hBrOld = W32::SelectObject(renderer->hFileDC, hBrush);
+	W32::SelectObject(renderer->hFileDC, hBrush);
 	W32::Rectangle (renderer->hFileDC,
 			SCX(ul_corner->x), SCY(ul_corner->y),
 			SCX(lr_corner->x), SCY(lr_corner->y));
@@ -777,7 +773,7 @@ fill_arc(DiaRenderer *self,
 {
     WmfRenderer *renderer = WMF_RENDERER (self);
     W32::HPEN    hPen;
-    W32::HGDIOBJ hBrush, hBrOld;
+    W32::HGDIOBJ hBrush;
     W32::POINT ptStart, ptEnd;
     W32::COLORREF rgb = W32COLOR(colour);
 
@@ -798,7 +794,8 @@ fill_arc(DiaRenderer *self,
 
     hPen = UsePen(renderer, NULL); /* no border */
     hBrush = W32::CreateSolidBrush(rgb);
-    hBrOld = W32::SelectObject(renderer->hFileDC, hBrush);
+
+    W32::SelectObject(renderer->hFileDC, hBrush);
 
     W32::Pie(renderer->hFileDC,
              SCX(center->x - width / 2), /* bbox corners */
@@ -821,7 +818,7 @@ draw_ellipse(DiaRenderer *self,
 {
     WmfRenderer *renderer = WMF_RENDERER (self);
     W32::HPEN hPen;
-    W32::HGDIOBJ hBrush, hBrOld;
+    W32::HGDIOBJ hBrush;
 
     DIAG_NOTE(renderer, "draw_ellipse %fx%f @ %f,%f\n", 
               width, height, center->x, center->y);
@@ -829,7 +826,7 @@ draw_ellipse(DiaRenderer *self,
     if (fill) {
 	W32::COLORREF rgb = W32COLOR(fill);
 	hBrush = W32::CreateSolidBrush(rgb);
-	hBrOld = W32::SelectObject(renderer->hFileDC, hBrush);
+	W32::SelectObject(renderer->hFileDC, hBrush);
     }
     if (stroke)
 	hPen = UsePen(renderer, stroke);
@@ -1017,6 +1014,8 @@ draw_string(DiaRenderer *self,
     }
     /* work out size of first chunk of text */
     len = strlen(text);
+    if (!len)
+	return; /* nothing to do */
 
     hOld = W32::SelectObject(renderer->hFileDC, renderer->hFont);
     {
@@ -1061,10 +1060,10 @@ draw_image(DiaRenderer *self,
 	   real width, real height,
 	   DiaImage *image)
 {
-    WmfRenderer *renderer = WMF_RENDERER (self);
 #ifdef DIRECT_WMF
     /* not yet supported in compatibility mode */
 #else	
+    WmfRenderer *renderer = WMF_RENDERER (self);
     W32::HBITMAP hBmp;
     int iWidth, iHeight;
     unsigned char* pData = NULL;
@@ -1174,7 +1173,8 @@ draw_rounded_rect (DiaRenderer *self,
     if (fill) {
 	W32::COLORREF rgb = W32COLOR(fill);
 	W32::HGDIOBJ hBrush = W32::CreateSolidBrush(rgb);
-	W32::HGDIOBJ hBrOld = W32::SelectObject(renderer->hFileDC, hBrush);
+	
+	W32::SelectObject(renderer->hFileDC, hBrush);
 
 	W32::RoundRect (renderer->hFileDC,
 			SCX(ul_corner->x), SCY(ul_corner->y),
@@ -1229,7 +1229,12 @@ wmf_renderer_get_type (void)
 static void
 wmf_renderer_finalize (GObject *object)
 {
-  WmfRenderer *wmf_renderer = WMF_RENDERER (object);
+  WmfRenderer *renderer = WMF_RENDERER (object);
+
+  if (renderer->hFont)
+    W32::DeleteObject(renderer->hFont);
+  if (renderer->pango_context)
+    g_object_unref (renderer->pango_context);
 
   G_OBJECT_CLASS (parent_class)->finalize (object);
 }

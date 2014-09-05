@@ -521,7 +521,6 @@ _arrayprop_get_widget (ArrayProperty *prop, PropDialog *dialog)
   GtkTreeStore *model;
   GtkWidget *view;
   GtkWidget *branch_view = NULL;
-  const PropDescCommonArrayExtra *extra = prop->common.descr->extra_data;
   ArrayProperty *branch_prop = NULL;
 
   /* create */

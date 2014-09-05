@@ -890,7 +890,7 @@ read_poly_svg(xmlNodePtr node, DiaSvgStyle *parent_style,
 	      GHashTable *style_ht, GHashTable *pattern_ht,
 	      GList *list, char *object_type) 
 {
-    DiaObjectType *otype = object_get_type(object_type);
+    DiaObjectType *otype;
     DiaObject *new_obj;
     Handle *h1, *h2;
     MultipointCreateData *pcd;

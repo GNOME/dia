@@ -203,7 +203,7 @@ _ngon_move_handle (Ngon *ng, Handle *handle,
     real d1 = distance_point_point (to, &ng->center);
     ng->ray_len *= (d1 / d0);
     /* not sure if this is useful at all, but we must not do it with our center_handle */
-    change = element_move_handle(&ng->element, handle->id, to, cp, reason, modifiers);
+    change = element_move_handle(elem, handle->id, to, cp, reason, modifiers);
   }
 
   _ngon_update_data(ng);
