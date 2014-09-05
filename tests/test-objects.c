@@ -198,6 +198,8 @@ _test_movement (gconstpointer user_data)
    * about the first and second loop over it being different.
    */
   const int num_connections = o->num_connections;
+  /* same for the number of handles */
+  const int num_handles = o->num_handles;
 
   /* does the object move ... ? */
   from = o->position;
@@ -223,10 +225,10 @@ _test_movement (gconstpointer user_data)
   pos = o->position;
   bbox1 = o->bounding_box;
   /* remember handle and connection point positions ... */
-  handle_positions = g_alloca (sizeof(Point) * o->num_handles);
+  handle_positions = g_alloca (sizeof(Point) * num_handles);
   /* at least one handle is mandatory */
-  g_assert (o->num_handles > 0);
-  for (i = 0; i < o->num_handles; ++i)
+  g_assert (num_handles > 0);
+  for (i = 0; i < num_handles; ++i)
     handle_positions[i] = o->handles[i]->pos;
   cp_positions = g_alloca (sizeof(Point) * o->num_connections);
   for (i = 0; i < num_connections; ++i)
@@ -240,7 +242,7 @@ _test_movement (gconstpointer user_data)
   g_assert (   fabs(fabs(pos.x - o->position.x) - fabs(from.x - to.x)) < EPSILON
             && fabs(fabs(pos.y - o->position.y) - fabs(from.y - to.y)) < EPSILON );
   /* ... also for handles and connection points? */
-  for (i = 0; i < o->num_handles; ++i)
+  for (i = 0; i < num_handles; ++i)
     g_assert (   fabs(fabs(handle_positions[i].x - o->handles[i]->pos.x) - fabs(from.x - to.x)) < EPSILON
               && fabs(fabs(handle_positions[i].y - o->handles[i]->pos.y) - fabs(from.y - to.y)) < EPSILON);
   for (i = 0; i < num_connections; ++i)
