@@ -376,6 +376,7 @@ export_png(DiagramData *data, DiaContext *ctx,
     cbdata->size = (gchar *) user_data;
     export_png_ok(NULL, cbdata);
   }
+  return TRUE;
 }
 
 static const gchar *extensions[] = { "png", NULL };
