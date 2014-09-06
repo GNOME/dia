@@ -631,19 +631,25 @@ vdx_simple_properties(DiaObject *obj,
                 (LinestyleProperty *)make_new_prop("line_style",
                                                    PROP_TYPE_LINESTYLE,
                                                    PROP_FLAG_DONT_SAVE);
-            lsprop->style = LINESTYLE_SOLID;
-
-            if (Line->LinePattern > 1)
-                lsprop->style = LINESTYLE_DASHED;
-            if (Line->LinePattern == 4)
-                lsprop->style = LINESTYLE_DASH_DOT;
-            if (Line->LinePattern == 3)
-                lsprop->style = LINESTYLE_DOTTED;
+	    if (Line->LinePattern == 2)
+		lsprop->style = LINESTYLE_DASHED;
+	    else if (Line->LinePattern == 4)
+		lsprop->style = LINESTYLE_DASH_DOT;
+	    else if (Line->LinePattern == 3)
+		lsprop->style = LINESTYLE_DOTTED;
+	    else if (Line->LinePattern == 5)
+		lsprop->style = LINESTYLE_DASH_DOT_DOT;
+	    else
+		lsprop->style = LINESTYLE_SOLID;
 
             lsprop->dash = vdx_Dash_Length;
 
             g_ptr_array_add(props,lsprop);
         }
+	if (Line->Rounding > 0.0)
+	{
+	    prop_list_add_real(props, "corner_radius", Line->Rounding * vdx_Line_Scale);
+	}
     }
 
     if (Fill && Fill->FillPattern)
@@ -809,6 +815,46 @@ make_arrow(const struct vdx_Line *Line, char start_end,
     return a;
 }
 
+/*!
+ * \brief Translate points to rectangle representation if possible
+ */
+static gboolean
+_is_rect (int count, Point *points, real *x, real *y, real *w, real *h)
+{
+    int i;
+    real minx, miny, maxdx = 0.0, maxdy = 0.0, sumdx = 0.0, sumdy = 0.0;
+
+    if (count != 5)
+	return FALSE;
+    minx = points[0].x;
+    miny = points[0].y;
+    for (i = 1; i< 5; ++i)
+    {
+	real dx = points[i-1].x - points[i].x;
+	real dy = points[i-1].y - points[i].y;
+
+	/* must be both 0 for a real rectangle */
+	sumdx += dx;
+	sumdy += dy;
+
+	dx = fabs (dx);
+	dy = fabs (dy);
+
+	if (dx > EPSILON && dy > EPSILON)
+	    return FALSE;
+	minx = MIN(minx, points[i].x);
+	miny = MIN(miny, points[i].y);
+	maxdx = MAX(maxdx, dx);
+	maxdy = MAX(maxdy, dy);
+    }
+    if (fabs(sumdx) > EPSILON || fabs(sumdy) > EPSILON)
+	return FALSE;
+    *x = minx;
+    *y = miny;
+    *w = maxdx;
+    *h = maxdy;
+    return TRUE;
+}
 
 /* The following functions create the Dia standard objects */
 
@@ -942,7 +988,16 @@ plot_polyline(const struct vdx_Geom *Geom, const struct vdx_XForm *XForm,
         }
         else
         {
-            newobj = create_standard_polygon(count, points);
+	    real x, y, w, h;
+
+	    if (_is_rect (count, points, &x, &y, &w, &h))
+	    {
+		newobj = create_standard_box(x, y, w, h);
+	    }
+	    else
+	    {
+		newobj = create_standard_polygon(count, points);
+	    }
         }
     }
     else

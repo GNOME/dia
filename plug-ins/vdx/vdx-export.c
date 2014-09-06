@@ -97,46 +97,6 @@ struct _VDXRenderer
 };
 
 
-static void begin_render(DiaRenderer *self, const Rectangle *update);
-static void end_render(DiaRenderer *renderer);
-static void set_linewidth(DiaRenderer *self, real linewidth);
-static void set_linecaps(DiaRenderer *self, LineCaps mode);
-static void set_linejoin(DiaRenderer *self, LineJoin mode);
-static void set_linestyle(DiaRenderer *self, LineStyle mode, real dash_length);
-static void set_fillstyle(DiaRenderer *self, FillStyle mode);
-static void set_font(DiaRenderer *self, DiaFont *font, real height);
-static void draw_line(DiaRenderer *self, 
-		      Point *start, Point *end, 
-		      Color *color);
-static void draw_polyline(DiaRenderer *self, 
-			  Point *points, int num_points, 
-			  Color *color);
-static void draw_polygon(DiaRenderer *self, 
-			 Point *points, int num_points, 
-			 Color *fill, Color *stroke);
-static void draw_arc(DiaRenderer *self, 
-		     Point *center,
-		     real width, real height,
-		     real angle1, real angle2,
-		     Color *color);
-static void fill_arc(DiaRenderer *self, 
-		     Point *center,
-		     real width, real height,
-		     real angle1, real angle2,
-		     Color *color);
-static void draw_ellipse(DiaRenderer *self, 
-			 Point *center,
-			 real width, real height,
-			 Color *fill, Color *stroke);
-static void draw_string(DiaRenderer *self,
-			const char *text,
-			Point *pos, Alignment alignment,
-			Color *color);
-static void draw_image(DiaRenderer *self,
-		       Point *point,
-		       real width, real height,
-		       DiaImage *image);
-
 static void vdx_renderer_class_init (VDXRendererClass *klass);
 
 static gboolean export_vdx(DiagramData *data, DiaContext *ctx,
@@ -189,52 +149,6 @@ static void
 vdx_renderer_finalize (GObject *object)
 {
   G_OBJECT_CLASS (parent_class)->finalize (object);
-}
-
-/** Class constructor for renderer
- * @param klass a renderer
- */
-
-static void
-vdx_renderer_class_init (VDXRendererClass *klass)
-{
-  GObjectClass *object_class = G_OBJECT_CLASS (klass);
-  DiaRendererClass *renderer_class = DIA_RENDERER_CLASS (klass);
-
-  parent_class = g_type_class_peek_parent (klass);
-
-  object_class->finalize = vdx_renderer_finalize;
-
-  renderer_class->begin_render = begin_render;
-  renderer_class->end_render = end_render;
-
-  renderer_class->set_linewidth = set_linewidth;
-  renderer_class->set_linecaps = set_linecaps;
-  renderer_class->set_linejoin = set_linejoin;
-  renderer_class->set_linestyle = set_linestyle;
-  renderer_class->set_fillstyle = set_fillstyle;
-  renderer_class->set_font = set_font;
-  
-  renderer_class->draw_line = draw_line;
-  renderer_class->draw_polyline = draw_polyline;
-  
-  renderer_class->draw_polygon = draw_polygon;
-
-  renderer_class->draw_arc = draw_arc;
-  renderer_class->fill_arc = fill_arc;
-
-  renderer_class->draw_ellipse = draw_ellipse;
-
-  /* Until we have NURBS, let Dia use lines */
-  /* renderer_class->draw_bezier = draw_bezier; */
-  /* renderer_class->draw_beziergon = draw_beziergon; */
-  /* renderer_class->draw_bezier_with_arrows = draw_bezier_with_arrows; */
-
-  renderer_class->draw_string = draw_string;
-
-  renderer_class->draw_image = draw_image;
-
-  /* Further high level methods not required (or desired) */
 }
 
 /** Initialises VDXrenderer
@@ -446,7 +360,6 @@ vdxCheckFont(VDXRenderer *renderer)
  * @param end_arrow optional end arrow
  * @todo join, caps, dashlength
  */
-
 static void 
 create_Line(VDXRenderer *renderer, Color *color, struct vdx_Line *Line,
             Arrow *start_arrow, Arrow *end_arrow) 
@@ -476,6 +389,9 @@ create_Line(VDXRenderer *renderer, Color *color, struct vdx_Line *Line,
     Line->LineColor = *color;
     Line->LineColorTrans = 1.0 - color->alpha;
     Line->LineWeight = renderer->linewidth / vdx_Line_Scale;
+    /* VDX only has Rounded (0) or Square (1) ends */
+    if (renderer->capsmode != LINECAPS_ROUND)
+	Line->LineCap = 1; /* Square */
     if (start_arrow || end_arrow) 
     {
         g_debug("create_Line (ARROWS)");
@@ -713,16 +629,11 @@ static void draw_polyline(DiaRenderer *self, Point *points, int num_points,
     g_free(LineTo);
 }
 
-/** Render a Dia filled polygon
- * @param self a renderer
- * @param points corners of polygon
- * @param num_points number of points
- * @param color line colour
- */
 static void
-draw_polygon (DiaRenderer *self, 
-	      Point *points, int num_points, 
-	      Color *fill, Color *stroke)
+_polygon (DiaRenderer *self,
+	  Point *points, int num_points,
+	  Color *fill, Color *stroke,
+	  real radius)
 {
     VDXRenderer *renderer = VDX_RENDERER(self);
     Point a, b;
@@ -812,6 +723,7 @@ draw_polygon (DiaRenderer *self,
 	create_Fill(renderer, fill, &Fill);
     if (stroke)
 	create_Line(renderer, stroke, &Line, NULL, NULL);
+    Line.Rounding = visio_length (radius);
 
     Geom.NoFill = fill ? 0 : 1;
     Geom.NoLine = stroke ? 0 : 1;
@@ -825,7 +737,7 @@ draw_polygon (DiaRenderer *self,
     Shape.any.children = g_slist_append(Shape.any.children, &XForm);
     if (fill)
 	Shape.any.children = g_slist_append(Shape.any.children, &Fill);
-    if (stroke)
+    if (stroke || radius > 0.0)
 	Shape.any.children = g_slist_append(Shape.any.children, &Line);
     Shape.any.children = g_slist_append(Shape.any.children, &Geom);
 
@@ -838,6 +750,37 @@ draw_polygon (DiaRenderer *self,
     g_free(LineTo);
 }
 
+/** Render a Dia filled polygon
+ * @param self a renderer
+ * @param points corners of polygon
+ * @param num_points number of points
+ * @param color line colour
+ */
+static void
+draw_polygon (DiaRenderer *self,
+	      Point *points, int num_points,
+	      Color *fill, Color *stroke)
+{
+  _polygon (self, points, num_points, fill, stroke, 0.0);
+}
+
+static void
+draw_rounded_rect (DiaRenderer *self,
+		   Point *ul_corner, Point *lr_corner,
+		   Color *fill, Color *stroke,
+		   real radius)
+{
+    Point points[4];            /* close path done by _polygon() */
+
+    g_debug("draw_rounded_rect((%f,%f), (%f,%f)) -> draw_polyline",
+            ul_corner->x, ul_corner->y, lr_corner->x, lr_corner->y);
+    points[0].x = ul_corner->x; points[0].y = lr_corner->y;
+    points[1] = *lr_corner;
+    points[2].x = lr_corner->x; points[2].y = ul_corner->y;
+    points[3] = *ul_corner;
+
+    _polygon (self, points, 4, fill, stroke, radius);
+}
 /** Render a Dia arc
  * @param self a renderer
  * @param center centre of arc
@@ -2094,3 +2037,49 @@ draw_object (DiaRenderer *self,
 
 
 #endif
+
+/** Class constructor for renderer
+ * @param klass a renderer
+ */
+static void
+vdx_renderer_class_init (VDXRendererClass *klass)
+{
+  GObjectClass *object_class = G_OBJECT_CLASS (klass);
+  DiaRendererClass *renderer_class = DIA_RENDERER_CLASS (klass);
+
+  parent_class = g_type_class_peek_parent (klass);
+
+  object_class->finalize = vdx_renderer_finalize;
+
+  renderer_class->begin_render = begin_render;
+  renderer_class->end_render = end_render;
+
+  renderer_class->set_linewidth = set_linewidth;
+  renderer_class->set_linecaps = set_linecaps;
+  renderer_class->set_linejoin = set_linejoin;
+  renderer_class->set_linestyle = set_linestyle;
+  renderer_class->set_fillstyle = set_fillstyle;
+  renderer_class->set_font = set_font;
+
+  renderer_class->draw_line = draw_line;
+  renderer_class->draw_polyline = draw_polyline;
+
+  renderer_class->draw_polygon = draw_polygon;
+
+  renderer_class->draw_arc = draw_arc;
+  renderer_class->fill_arc = fill_arc;
+
+  renderer_class->draw_ellipse = draw_ellipse;
+
+  /* Until we have NURBS, let Dia use lines */
+  /* renderer_class->draw_bezier = draw_bezier; */
+  /* renderer_class->draw_beziergon = draw_beziergon; */
+  /* renderer_class->draw_bezier_with_arrows = draw_bezier_with_arrows; */
+
+  renderer_class->draw_string = draw_string;
+
+  renderer_class->draw_image = draw_image;
+
+  renderer_class->draw_rounded_rect = draw_rounded_rect;
+  /* Further high level methods not required (or desired?) */
+}
