@@ -417,6 +417,21 @@ node_set_text_style (xmlNodePtr      node,
 }
 
 /*!
+ * To minimize impact of this deprecated attribute we set it as locally as
+ * possible and only if it is needed at all.
+ */
+static void
+_adjust_space_preserve (xmlNodePtr node,
+			const char *str)
+{
+  gunichar uc;
+  if (!strlen(str))
+    return;
+  uc = g_utf8_get_char_validated (str, -1);
+  if (g_unichar_isspace (uc))
+    xmlSetProp (node, (const xmlChar *)"xml:space", (const xmlChar *)"preserve");
+}
+/*!
  * \brief Support rendering of raw text
  *
  * This is the only function in the renderer interface using the
@@ -435,6 +450,7 @@ draw_string(DiaRenderer *self,
   gchar d_buf[G_ASCII_DTOSTR_BUF_SIZE];
 
   node = xmlNewChild(renderer->root, renderer->svg_name_space, (xmlChar *)"text", (xmlChar *)text);
+  _adjust_space_preserve (node, text);
 
   node_set_text_style(node, renderer, self->font, self->font_height, alignment, colour);
   
@@ -460,6 +476,7 @@ draw_text_line(DiaRenderer *self, TextLine *text_line,
   
   node = xmlNewChild(renderer->root, renderer->svg_name_space, (const xmlChar *)"text", 
 		     (xmlChar *) text_line_get_string(text_line));
+  _adjust_space_preserve (node, text_line_get_string(text_line));
 
   /* not using the renderers font but the textlines */
   node_set_text_style(node, renderer, font, font_height, alignment, colour);
@@ -504,6 +521,7 @@ draw_text (DiaRenderer *self, Text *text)
 
     node_tspan = xmlNewTextChild(node_text, renderer->svg_name_space, (const xmlChar *)"tspan",
                                  (const xmlChar *)text_line_get_string(text_line));
+    _adjust_space_preserve (node_tspan, text_line_get_string(text_line));
     dia_svg_dtostr(d_buf, pos.x);
     xmlSetProp(node_tspan, (const xmlChar *)"x", (xmlChar *) d_buf);
     dia_svg_dtostr(d_buf, pos.y);
