@@ -150,6 +150,15 @@ _segment_is_moveto (const BezierSegment *bs)
     return TRUE;
   return FALSE;
 }
+static gboolean
+_segment_is_lineto (const BezierSegment *bs)
+{
+  if (   memcmp (&bs->p0, &bs->p1, sizeof (Point)) != 0 /* not move-to */
+      && memcmp (&bs->p1, &bs->p2, sizeof (Point)) == 0
+      && memcmp (&bs->p1, &bs->p3, sizeof (Point)) == 0)
+    return TRUE;
+  return FALSE;
+}
 
 /* search precision */
 static const real EPSILON = 0.0001;
@@ -201,9 +210,11 @@ bezier_bezier_intersection (GArray *crossing,
   /* if the boxes are small enough we can calculate the point */
   if (small_a && small_b) {
     /* intersecting and both small, should not matter which one is used */
-    Point pt = { (bbox.right + bbox.left) / 2, (bbox.bottom + bbox.top) / 2 };
+    Point pt = { (abox.right + abox.left + bbox.right + bbox.left) / 4,
+		 (abox.bottom + abox.top + bbox.bottom + bbox.top) / 4 };
     Intersection is;
     int i;
+
     for (i = 0; i < crossing->len; ++i) {
       /* if it's already included we are done */
       if (distance_point_point (&g_array_index (crossing, Intersection, i).pt, &pt) < 1.4142*EPSILON)
@@ -262,7 +273,7 @@ _curve_from_segment (BezPoint *bp, const BezierSegment *a, gboolean flip)
 {
   if (_segment_is_moveto (a))
     bp->type = BEZ_MOVE_TO;
-  else if (memcmp (&a->p1, &a->p2, sizeof(Point)) == 0)
+  else if (_segment_is_lineto (a))
     bp->type = BEZ_LINE_TO;
   else
     bp->type = BEZ_CURVE_TO;
@@ -271,9 +282,13 @@ _curve_from_segment (BezPoint *bp, const BezierSegment *a, gboolean flip)
     bp->p2 = a->p2;
     bp->p3 = a->p3;
   } else {
-    bp->p1 = a->p2;
-    bp->p2 = a->p1;
-    bp->p3 = a->p0;
+    if (bp->type != BEZ_CURVE_TO) {
+      bp->p1 = bp->p2 = bp->p3 = a->p0;
+    } else {
+      bp->p1 = a->p2;
+      bp->p2 = a->p1;
+      bp->p3 = a->p0;
+    }
   }
 }
 
@@ -323,7 +338,14 @@ _path_to_segments (const GArray *path)
       g_array_append_val (segs, bs);
   }
   /* if the path is not closed do an explicit line-to */
-  if (memcmp (&last_move->p1, &bs.p3, sizeof(Point)) != 0) {
+  if (distance_point_point (&last_move->p1, &bs.p3) < EPSILON) {
+    /* if the error is small enough just modify the last point */
+    BezierSegment *e = &g_array_index (segs, BezierSegment, segs->len - 1);
+    if (_segment_is_lineto (e))
+      e->p1 = e->p2 = e->p3 = last_move->p1;
+    else
+      e->p3 = last_move->p1;
+  } else {
     bs.p0 = bs.p3;
     bs.p1 = bs.p2 = bs.p3 = last_move->p1;
     g_array_append_val (segs, bs);
@@ -354,7 +376,7 @@ _compare_split (gconstpointer as, gconstpointer bs)
  * all segment splits and create unique segment index.
  *
  * Split.seg is the index to the segment to split before this function.
- * After the split it indexes the last segment in the row of splits.
+ * After the splits are applied every split.seq is unique.
  */
 static void
 _split_segments (GArray *segs, GArray *splits, const GArray *other)
@@ -401,16 +423,14 @@ _split_segments (GArray *segs, GArray *splits, const GArray *other)
     Split *sp = &g_array_index (splits, Split, i);
     BezierSegment *bs = &g_array_index (segs, BezierSegment, sp->seg);
     BezierSegment left, right;
-    Point pt;
     int to, j;
 
     if (i == 0 && sp->seg > 0)
       g_array_append_vals (pending, &g_array_index (segs, BezierSegment, 0), sp->seg);
 
     bezier_split (bs, &left, &right);
-    pt = right.p0;
     sp->outside = distance_bez_shape_point (&g_array_index (other, BezPoint, 0), other->len,
-					   0 /* line width */, &pt) > 0.0;
+					   0 /* line width */, &right.p0) > 0.0;
     /* also remember the sub-path */
     to = g_array_index (splits, Split, (i+1)%splits->len).seg;
     sp->path = g_array_new (FALSE, FALSE, sizeof(BezierSegment));
@@ -711,9 +731,9 @@ _make_path (GArray *one, /*!< array<BezierSegment> from first path */
  * \brief Combine two path into a single one with the given operation
  *
  * This should (but does not) consider
+ *  - holes within the path more explicitely
  *  - self intersections in a path
- *  - winding rule
- *  - typical path operations (Union, Difference, Intersection, Exclusion, ...)
+ *  - winding rule?
  */
 GArray *
 path_combine (const GArray   *p1,
@@ -733,10 +753,6 @@ path_combine (const GArray   *p1,
   one = _path_to_segments (p1);
   two = _path_to_segments (p2);
   crossing = _find_intersections (one, two);
-
-  if (crossing)
-    g_print ("Total path intersections: %d\n", crossing->len);
-
   if (crossing) {
     /* Now crossing includes points in arbitrary order. Every point has four lines
      * going in or out - two from p1, two from p2. Split one and two into segments
@@ -747,7 +763,7 @@ path_combine (const GArray   *p1,
     _split_segments (one, one_splits, p2);
     _split_segments (two, two_splits, p1);
 
-    /* XXX: convert segments back to a single path */
+    /* convert segments back to a single path */
     if (one_splits->len < 2) { /* XXX: just joining again */
       result = _make_path0 (one, one_splits, two, two_splits);
     } else if (debug) {

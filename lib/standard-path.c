@@ -29,7 +29,7 @@
  * with a single move-to, too.
  * Instead of breaking forward compatibility this is implementing a new bezier
  * based object, which can render holes, even if the _DiaRenderer can not. It is 
- * using a newer file format representaion through BezPointarrayProperty.
+ * using a newer file format representation through BezPointarrayProperty.
  */
 #include <config.h>
 
@@ -143,7 +143,7 @@ static PropDescription stdpath_props[] = {
   PROP_STD_LINE_JOIN_OPTIONAL,
   PROP_STD_LINE_CAPS_OPTIONAL,
   PROP_STD_FILL_COLOUR_OPTIONAL,
-  /* just to simplify transfering properties between objects */
+  /* just to simplify transferring properties between objects */
   { "show_background", PROP_TYPE_BOOL, PROP_FLAG_DONT_SAVE,  N_("Draw background"), NULL, NULL },
   { "show_control_lines", PROP_TYPE_BOOL, PROP_FLAG_OPTIONAL, N_("Draw Control Lines") },
   { "pattern", PROP_TYPE_PATTERN, PROP_FLAG_VISIBLE|PROP_FLAG_OPTIONAL, N_("Pattern"), NULL },
@@ -551,7 +551,7 @@ _show_control_lines (DiaObject *obj, Point *clicked, gpointer data)
 static DiaMenuItem _stdpath_menu_items[] = {
   { N_("Convert to Bezier"), _convert_to_beziers_callback, NULL, DIAMENU_ACTIVE },
   { N_("Invert Path"), _invert_path_callback, NULL, DIAMENU_ACTIVE },
-  { N_("Show Control Lines"), _show_control_lines, NULL, DIAMENU_ACTIVE }
+  { N_("Show Control Lines"), _show_control_lines, NULL, DIAMENU_ACTIVE | DIAMENU_TOGGLE }
 };
 static DiaMenu _stdpath_menu = {
   "Path",
@@ -570,6 +570,11 @@ static DiaMenu _stdpath_menu = {
 static DiaMenu *
 stdpath_get_object_menu(StdPath *stdpath, Point *clickedpoint)
 {
+  const int i = G_N_ELEMENTS(_stdpath_menu_items) - 1;
+  if (stdpath->show_control_lines)
+    _stdpath_menu_items[i].active |= DIAMENU_TOGGLE_ON;
+  else
+    _stdpath_menu_items[i].active &= ~DIAMENU_TOGGLE_ON;
   return &_stdpath_menu;
 }
 /*!
@@ -605,8 +610,8 @@ stdpath_set_props (StdPath *stdpath, GPtrArray *props)
     else
       stdpath->stroke_or_fill &= ~PDO_FILL;
   }
-  /* now when transfering properties from text we'll loose stroke and fill
-   * Instead of drawing nothing maket it just fill.
+  /* now when transferring properties from text we'll loose stroke and fill
+   * Instead of drawing nothing make it just fill.
    */
   if (!stdpath->stroke_or_fill)
     stdpath->stroke_or_fill = PDO_FILL;
