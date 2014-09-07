@@ -741,8 +741,6 @@ path_combine (const GArray   *p1,
 	      PathCombineMode mode)
 {
   GArray *result = NULL;
-  int i, j, k;
-  int total = 0;
   GArray *crossing = NULL;
   GArray *one, *two;
   static int debug = 0;

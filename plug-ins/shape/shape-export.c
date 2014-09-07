@@ -415,7 +415,6 @@ draw_polygon(DiaRenderer *self,
   Point center;
   gchar px_buf[G_ASCII_DTOSTR_BUF_SIZE];
   gchar py_buf[G_ASCII_DTOSTR_BUF_SIZE];
-  gchar *style;
 
   node = xmlNewChild(renderer->root, renderer->svg_name_space, (const xmlChar *)"polygon", NULL);
 
@@ -443,7 +442,6 @@ add_rectangle_connection_points (ShapeRenderer *renderer,
                                  Point *ul_corner, Point *lr_corner, real r) 
 {
   Point pos;
-  Point center;
   real width, height;
 
   width = lr_corner->x - ul_corner->x;

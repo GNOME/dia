@@ -111,7 +111,6 @@ _gradient_do (gpointer key,
 	      gpointer value,
 	      gpointer user_data)
 {
-  gchar *name = (gchar *)key;
   DiaPattern *pattern = (DiaPattern *)value;
   GradientData *gd = (GradientData *)user_data;
   DiaSvgRenderer *renderer = gd->renderer;

@@ -319,7 +319,6 @@ box_draw(Box *box, DiaRenderer *renderer)
   DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Point lr_corner;
   Element *elem;
-  real radius;
   
   assert(box != NULL);
   assert(renderer != NULL);

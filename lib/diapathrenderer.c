@@ -410,7 +410,6 @@ path_build_arc (GArray *path,
   real ar2;
   int i, segs;
   real ars;
-  real ctl;
   gboolean ccw = angle2 > angle1;
 
   ar1 = (M_PI / 180.0) * angle1;
