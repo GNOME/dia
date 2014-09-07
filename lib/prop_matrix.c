@@ -206,7 +206,6 @@ matrixprop_reset_widget(MatrixProperty *prop, GtkWidget *widget)
 
     dia_matrix_get_angle_and_scales (prop->matrix, &a, &sx, &sy);
 
-    angle = atan2 (prop->matrix->xy, prop->matrix->xx)*180/G_PI;
     angle = -a*180/G_PI;
   }
 
