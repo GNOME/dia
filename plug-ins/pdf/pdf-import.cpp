@@ -126,7 +126,6 @@ public :
 		 double m21, double m22,
 		 double m31, double m32)
   {
-    double *ctm = getDefCTM();
     DiaMatrix mat;
 
     mat.xx = m11;
@@ -325,7 +324,8 @@ public :
     gchar *family = g_strdup (f->getFamily() ? f->getFamily()->getCString() : "sans");
 
     // we are (not anymore) building the same font over and over again
-    g_print ("Font 0x%08x: '%s' size=%g (* %g)\n", f, family, state->getTransformedFontSize());
+    g_print ("Font 0x%08x: '%s' size=%g (* %g)\n",
+	     (int)f, family, state->getTransformedFontSize(), scale);
 
     // now try to make a fontname Dia/Pango can cope with
     // strip style postfix - we already have extracted the style bits above
