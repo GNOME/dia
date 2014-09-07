@@ -1,5 +1,5 @@
 /* XPM */
-static char * n_gon_xpm[] = {
+static const char * n_gon_xpm[] = {
 "22 22 60 1",
 " 	c None",
 "+	c #000000",
