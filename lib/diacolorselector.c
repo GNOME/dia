@@ -341,19 +341,17 @@ dia_color_selector_set_color (GtkWidget *widget,
 			      const Color *color)
 {
   DiaColorSelector *cs = DIACOLORSELECTOR(widget);
-  gint red, green, blue, alpha;
+  gint red, green, blue;
   gchar *entry;
   red = color->red * 255;
   green = color->green * 255;
   blue = color->blue * 255;
-  alpha = color->alpha * 255;
   if (color->red > 1.0 || color->green > 1.0 || color->blue > 1.0 || color->alpha > 1.0) {
     printf("Color out of range: r %f, g %f, b %f, a %f\n",
 	   color->red, color->green, color->blue, color->alpha);
     red = MIN(red, 255);
     green = MIN(green, 255);
     blue = MIN(blue, 255);
-    alpha = MIN(alpha, 255);
   }
   entry = g_strdup_printf("#%02X%02X%02X", red, green, blue);
   dia_dynamic_menu_select_entry(DIA_DYNAMIC_MENU(cs->ddm), entry);
@@ -367,3 +365,4 @@ dia_color_selector_set_color (GtkWidget *widget,
     gtk_color_button_set_alpha (cs->color_button, MIN(color->alpha * 65535, 65535));
   }
 }
+
