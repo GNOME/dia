@@ -36,15 +36,17 @@
 <object name="Cisco - Telecommuter"><_description>Telecommuter</_description></object>
 <object name="Cisco - Running woman"><_description>Running woman</_description></object>
 <object name="Cisco - CiscoWorks Man"><_description>CiscoWorks Man</_description></object>
-<object name="Cisco - PC Man left"><_description>PC Man left</_description></object>
-<object name="Cisco - PC Man"><_description>PC Man</_description></object>
-<object name="Cisco - Sitting woman"><_description>Sitting Woman</_description></object>
-<object name="Cisco - Sitting Woman right"><_description>Sitting Woman right</_description></object>
+<object name="Cisco - PC Man">
+  <alias name="Cisco - PC Man left"/>
+  <_description>PC Man</_description>
+</object>
+<object name="Cisco - Sitting woman">
+  <alias name="Cisco - Sitting Woman right"/>
+  <_description>Sitting Woman</_description>
+</object>
 <object name="Cisco - Mac Woman"><_description>Mac Woman</_description></object>
 <object name="Cisco - Androgynous Person"><_description>Androgynous Person</_description></object>
-    <object name="Cisco - Lock">
-    <_description>Lock</_description>
-    </object>
+<object name="Cisco - Lock"><_description>Lock</_description></object>
 <object name="Cisco - Key"><_description>Key</_description></object>
 <object name="Cisco - Lock and Key"><_description>Lock and Key</_description></object>
 <object name="Cisco - Satellite dish"><_description>Satellite dish</_description></object>
@@ -53,10 +55,13 @@
 <object name="Cisco - File cabinet"><_description>File cabinet</_description></object>
 <object name="Cisco - Car"><_description>Car</_description></object>
 <object name="Cisco - Truck"><_description>Truck</_description></object>
-<object name="Cisco - Video camera"><_description>Video Camera</_description></object>
-<object name="Cisco - Video Camera right"><_description>Video Camera right</_description></object>
+<object name="Cisco - Video camera">
+  <alias name="Cisco - Video Camera right"/>
+  <_description>Video Camera</_description>
+</object>
 <object name="Cisco - Microphone"><_description>Microphone</_description></object>
 <object name="Cisco - Headphones"><_description>Headphones</_description></object>
 <object name="Cisco - Speaker"><_description>Speaker</_description></object>
   </contents>
 </sheet>
+

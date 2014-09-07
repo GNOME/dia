@@ -19,8 +19,10 @@
 <object name="Cisco - Firewall horizontal"><_description>Firewall horizontal</_description></object>
 <object name="Cisco - Firewall Service Module"><_description>Firewall Service Module</_description></object>
 <object name="Cisco - IOS Firewall"><_description>IOS Firewall</_description></object>
-<object name="Cisco - PIX Firewall"><_description>PIX Firewall</_description></object>
-<object name="Cisco - PIX Firewall Left"><_description>PIX Firewall Left</_description></object>
+<object name="Cisco - PIX Firewall">
+  <alias name="Cisco - PIX Firewall Left"/> 
+  <_description>PIX Firewall</_description>
+</object>
 <object name="Cisco - Centri Firewall"><_description>Centri Firewall</_description></object>
 <object name="Cisco - Guard"><_description>Guard</_description></object>
 <object name="Cisco - Security appliance"><_description>Security appliance</_description></object>

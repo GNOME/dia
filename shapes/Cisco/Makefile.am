@@ -326,8 +326,6 @@ SHAPES3=\
   longreach_cpe.png\
   mac_woman.shape\
   mac_woman.png\
-  mac_woman_right.shape\
-  mac_woman_right.png\
   macintosh.shape\
   macintosh.png\
   man.shape\
@@ -440,8 +438,6 @@ SHAPES3=\
   pc_card.png\
   pc_man.shape\
   pc_man.png\
-  pc_man_left.shape\
-  pc_man_left.png\
   pc_router_card.shape\
   pc_router_card.png\
   pc_software.shape\
@@ -468,8 +464,6 @@ SHAPES4=\
   phone_feature.png\
   pix_firewall.shape\
   pix_firewall.png\
-  pix_firewall_left.shape\
-  pix_firewall_left.png\
   printer.shape\
   printer.png\
   programmable_switch.shape\
@@ -612,8 +606,6 @@ SHAPES5=\
   ups.png\
   video_camera.shape\
   video_camera.png\
-  video_camera_right.shape\
-  video_camera_right.png\
   vip.shape\
   vip.png\
   virtual_layer_switch.shape\
