@@ -106,6 +106,7 @@ autoroute_create_change(OrthConn *orth, gboolean on);
 struct AutorouteChange {
   ObjectChange obj_change;
   gboolean on;
+  int num_points;
   Point *points;
 };
 
@@ -1193,7 +1194,8 @@ autoroute_change_apply(struct AutorouteChange *change, DiaObject *obj)
 			      obj->handles[1]->connected_to);
   } else {
     orth->autorouting = FALSE;
-    orthconn_set_points(orth, orth->numpoints, change->points);
+    orthconn_set_points(orth, change->num_points, change->points);
+    /* adjust the rest of the object? nope, see: object_change_revert() */
   }
 }
 
@@ -1204,7 +1206,7 @@ autoroute_change_revert(struct AutorouteChange *change, DiaObject *obj)
 
   if (change->on) {
     orth->autorouting = FALSE;
-    orthconn_set_points(orth, orth->numpoints, change->points);
+    orthconn_set_points(orth, change->num_points, change->points);
   } else {
     orth->autorouting = TRUE;
     autoroute_layout_orthconn(orth, obj->handles[0]->connected_to,
@@ -1225,6 +1227,7 @@ autoroute_create_change(OrthConn *orth, gboolean on)
   change->obj_change.free = (ObjectChangeFreeFunc) autoroute_change_free;
 
   change->on = on;
+  change->num_points = orth->numpoints;
   change->points = g_new(Point, orth->numpoints);
   for (i = 0; i < orth->numpoints; i++)
     change->points[i] = orth->points[i];
