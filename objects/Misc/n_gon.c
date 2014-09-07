@@ -311,7 +311,8 @@ _ngon_make_name (Ngon *ng)
 {
   static struct {
     int         v;
-    const char *n[3];
+    const char *n0;
+    const char *n1;
   } _keys[] = {
     {  3, N_("Triangle"), },
     {  4, N_("Square"), },
@@ -339,9 +340,9 @@ _ngon_make_name (Ngon *ng)
   for (i = 0; i < G_N_ELEMENTS(_keys); ++i) {
     if (_keys[i].v == ng->num_rays) {
       if (ng->kind == NGON_CONVEX)
-	name = _keys[i].n[0];
+	name = _keys[i].n0;
       else if (ng->kind == NGON_CROSSING)
-	name = _keys[i].n[1];
+	name = _keys[i].n1;
     }
   }
   if (!name) {
