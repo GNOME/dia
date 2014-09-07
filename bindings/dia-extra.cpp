@@ -47,8 +47,9 @@
  */
 void dia::register_plugins ()
 {
+#if !GLIB_CHECK_VERSION(2,36,0)
     g_type_init();
-    
+#endif    
     libdia_init (DIA_MESSAGE_STDERR);
 
     dia_register_plugins ();
