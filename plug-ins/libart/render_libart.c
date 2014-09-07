@@ -396,14 +396,11 @@ draw_pixel_rect(DiaRenderer *self,
   DiaLibartRenderer *renderer = DIA_LIBART_RENDERER (self);
   guint8 r,g,b;
   int start, len;
-  int stride;
 
   r = color->red*0xff;
   g = color->green*0xff;
   b = color->blue*0xff;
 
-  stride = renderer->pixel_width*3;
-  
   /* clip in x */
   start = x;
   len = width;
