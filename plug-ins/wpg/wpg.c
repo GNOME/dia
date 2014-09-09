@@ -202,7 +202,7 @@ WriteRecHead(WpgRenderer *renderer, WPG_Type Type, guint32 Size)
     rh.Dummy = 0xFF;
     rh.Size  = Size;
 
-    /* To avoid problems with stucture packing this struct
+    /* To avoid problems with structure packing this struct
      * is written in parts ...
      */
     fwrite(&rh, sizeof(guint8), 2, renderer->file);
@@ -727,7 +727,7 @@ draw_bezier(DiaRenderer *self,
 
   /* WPG's Poly Curve is a cubic bezier compatible with Dia's bezier.
    * http://www.fileformat.info/format/wpg/egff.htm
-   * could lead to the assumption of ony quadratic bezier support,
+   * could lead to the assumption of only quadratic bezier support,
    * but that's not the case.
    */
   pts[0].x = SCX( points[0].p1.x);

@@ -433,7 +433,7 @@ _test_connectionpoint_consistency (gconstpointer user_data)
        * - the main point should be within the object, which can't work for
        *   an object consisting of only lines ...
        * - some main points where just placed automatically and got fixed
-       *   after idntified with this check
+       *   after identified with this check
        */
       if (   strcmp (type->name, "chemeng - coil") == 0
           || strcmp (type->name, "chemeng - coilv") == 0
@@ -564,6 +564,17 @@ _test_object_menu (gconstpointer user_data)
 	   * The object parameter is deprecated, but still necessary!
 	   */
 	  (change->revert)(change, o);
+#if 0
+	  /* XXX: Even more needs to be done to keep sane objects, see object_change_revert()
+	   * in app/undo.c. AFAICT this is only needed to compensate for orthconn_set_points()
+	   * while that does not update the object itself.
+	   */
+	  {
+	    /* Make sure object updates its data: */
+	    Point p = o->position;
+	    (o->ops->move)(o,&p);
+	  }
+#endif
 	  _object_change_free(change);
 	}
       }
