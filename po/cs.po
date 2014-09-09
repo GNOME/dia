@@ -16,8 +16,8 @@ msgstr ""
 "Project-Id-Version: dia\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=dia&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2014-08-24 15:27+0000\n"
-"PO-Revision-Date: 2014-08-24 19:17+0200\n"
+"POT-Creation-Date: 2014-09-09 03:12+0000\n"
+"PO-Revision-Date: 2014-09-09 08:06+0200\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -226,11 +226,11 @@ msgid ""
 msgstr ""
 "Nelze nalézt standardní objekty při hledání object-libs v „%s“; končí se…\n"
 
-#: ../app/app_procs.c:982
+#: ../app/app_procs.c:980
 msgid "Diagram1.dia"
 msgstr "Diagram1.dia"
 
-#: ../app/app_procs.c:1017
+#: ../app/app_procs.c:1015
 msgid ""
 "This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\n"
 "describing how you caused this message to appear.\n"
@@ -238,21 +238,21 @@ msgstr ""
 "Toto by se nemělo stát. Ohlaste prosím chybu na bugzilla.bnome.org\n"
 "a popište, jak k zobrazení této zprávy došlo.\n"
 
-#: ../app/app_procs.c:1032
+#: ../app/app_procs.c:1030
 msgid "Exiting Dia"
 msgstr "Aplikace Dia se ukončuje"
 
-#: ../app/app_procs.c:1059 ../app/display.c:1250 ../app/exit_dialog.c:115
+#: ../app/app_procs.c:1057 ../app/display.c:1250 ../app/exit_dialog.c:115
 #: ../app/filedlg.c:582
 msgid "Save"
 msgstr "Uložit"
 
 #. no standard buttons
-#: ../app/app_procs.c:1101
+#: ../app/app_procs.c:1099
 msgid "Quitting without saving modified diagrams"
 msgstr "Končí se bez uložení upravených diagramů"
 
-#: ../app/app_procs.c:1103
+#: ../app/app_procs.c:1101
 msgid ""
 "Modified diagrams exist. Are you sure you want to quit Dia without saving "
 "them?"
@@ -260,19 +260,19 @@ msgstr ""
 "Existují pozměněné diagramy. Opravdu chcete ukončit aplikaci Dia bez uložení "
 "těchto změn?"
 
-#: ../app/app_procs.c:1107 ../app/menus.c:93
+#: ../app/app_procs.c:1105 ../app/menus.c:93
 msgid "Quit Dia"
 msgstr "Ukončit aplikaci Dia"
 
-#: ../app/app_procs.c:1137
+#: ../app/app_procs.c:1135
 msgid "Exit"
 msgstr "Ukončit"
 
-#: ../app/app_procs.c:1183 ../app/app_procs.c:1190
+#: ../app/app_procs.c:1181 ../app/app_procs.c:1188
 msgid "Could not create per-user Dia configuration directory"
 msgstr "Nelze vytvořit složku s uživatelským nastavením Dia"
 
-#: ../app/app_procs.c:1193
+#: ../app/app_procs.c:1191
 msgid ""
 "Could not create per-user Dia configuration directory. Please make sure that "
 "the environment variable HOME points to an existing directory."
@@ -280,11 +280,11 @@ msgstr ""
 "Nelze vytvořit složku s uživatelským nastavením Dia. Ujistěte se prosím, že "
 "proměnná prostředí HOME ukazuje na existující složku."
 
-#: ../app/app_procs.c:1216
+#: ../app/app_procs.c:1214
 msgid "Objects and filters internal to Dia"
 msgstr "Objekty a filtry interní pro aplikaci Dia"
 
-#: ../app/app_procs.c:1268
+#: ../app/app_procs.c:1266
 #, c-format
 msgid ""
 "The original author of Dia was:\n"
@@ -293,7 +293,7 @@ msgstr ""
 "Původní autor Dia byl:\n"
 "\n"
 
-#: ../app/app_procs.c:1273
+#: ../app/app_procs.c:1271
 #, c-format
 msgid ""
 "\n"
@@ -304,7 +304,7 @@ msgstr ""
 "Současní správci Dia jsou:\n"
 "\n"
 
-#: ../app/app_procs.c:1278
+#: ../app/app_procs.c:1276
 #, c-format
 msgid ""
 "\n"
@@ -315,7 +315,7 @@ msgstr ""
 "Další autoři jsou:\n"
 "\n"
 
-#: ../app/app_procs.c:1283
+#: ../app/app_procs.c:1281
 #, c-format
 msgid ""
 "\n"
@@ -326,20 +326,20 @@ msgstr ""
 "Dokumentaci Dia napsali:\n"
 "\n"
 
-#: ../app/app_procs.c:1323
-msgid "Available Export Filters (for --format)"
-msgstr "Dostupné exportní filtry (pro --format)"
+#: ../app/app_procs.c:1321
+msgid "Available Export Filters (for --filter)"
+msgstr "Dostupné exportní filtry (pro --filter)"
 
 #. Translators: be brief or mess up the table for --list-filters
-#: ../app/app_procs.c:1326
+#: ../app/app_procs.c:1324
 msgid "Extension"
 msgstr "Přípona"
 
-#: ../app/app_procs.c:1327 ../lib/prop_dict.c:44
+#: ../app/app_procs.c:1325 ../lib/prop_dict.c:44
 msgid "Identifier"
 msgstr "Identifikátor"
 
-#: ../app/app_procs.c:1328 ../app/plugin-manager.c:276
+#: ../app/app_procs.c:1326 ../app/plugin-manager.c:276
 msgid "Description"
 msgstr "Popis"
 
@@ -524,7 +524,7 @@ msgid "Diagram"
 msgstr "Diagram"
 
 #: ../app/diagram_tree_view.c:171
-#: ../plug-ins/drs/dia-render-script-import.c:443
+#: ../plug-ins/drs/dia-render-script-import.c:464
 msgid "Layer"
 msgstr "Vrstva"
 
@@ -727,31 +727,31 @@ msgstr "Následovat odkaz…"
 msgid "Convert to Path"
 msgstr "Převést na cestu"
 
-#: ../app/disp_callbacks.c:260 ../app/menus.c:272
+#: ../app/disp_callbacks.c:259 ../app/menus.c:272
 msgid "Union"
 msgstr "Sjednocení"
 
-#: ../app/disp_callbacks.c:261
+#: ../app/disp_callbacks.c:260
 msgid "Difference"
 msgstr "Rozdíl"
 
-#: ../app/disp_callbacks.c:262 ../app/menus.c:273
+#: ../app/disp_callbacks.c:261 ../app/menus.c:273
 msgid "Intersection"
 msgstr "Průnik"
 
-#: ../app/disp_callbacks.c:263
+#: ../app/disp_callbacks.c:262
 msgid "Exclusion"
 msgstr "Vypuštění"
 
-#: ../app/disp_callbacks.c:401
+#: ../app/disp_callbacks.c:400
 msgid "Selection"
 msgstr "Výběr"
 
-#: ../app/disp_callbacks.c:416
+#: ../app/disp_callbacks.c:415
 msgid "Input _Methods"
 msgstr "Vstupní _metody"
 
-#: ../app/disp_callbacks.c:1192
+#: ../app/disp_callbacks.c:1191
 msgid ""
 "The object you dropped cannot fit into its parent. \n"
 "Either expand the parent object, or drop the object elsewhere."
@@ -1000,52 +1000,56 @@ msgstr "Přepne přichytávání k objektům pro toto okno."
 msgid "Diagram Editor"
 msgstr "Editor diagramu"
 
-#: ../app/layer_dialog.c:165
+#: ../app/layer_dialog.c:166
 msgid "New Layer"
 msgstr "Nová vrstva"
 
-#: ../app/layer_dialog.c:166
+#: ../app/layer_dialog.c:167
+msgid "Rename Layer"
+msgstr "Přejmenovat vrstvu"
+
+#: ../app/layer_dialog.c:168
 msgid "Raise Layer"
 msgstr "Vrstvu výše"
 
-#: ../app/layer_dialog.c:167
+#: ../app/layer_dialog.c:169
 msgid "Lower Layer"
 msgstr "Vrstvu níže"
 
-#: ../app/layer_dialog.c:168
+#: ../app/layer_dialog.c:170
 msgid "Delete Layer"
 msgstr "Odstranit vrstvu"
 
-#: ../app/layer_dialog.c:305
+#: ../app/layer_dialog.c:307
 msgid "Layers:"
 msgstr "Vrstvy:"
 
-#: ../app/layer_dialog.c:384
+#: ../app/layer_dialog.c:386
 msgid "Layers"
 msgstr "Vrstvy"
 
-#: ../app/layer_dialog.c:398
+#: ../app/layer_dialog.c:400
 msgid "Diagram:"
 msgstr "Diagram:"
 
-#: ../app/layer_dialog.c:512 ../app/layer_dialog.c:1238
+#: ../app/layer_dialog.c:514 ../app/layer_dialog.c:1252
 #, c-format
 msgid "New layer %d"
 msgstr "Nová vrstva %d"
 
-#: ../app/layer_dialog.c:727
+#: ../app/layer_dialog.c:741
 msgid "none"
 msgstr "nic"
 
-#: ../app/layer_dialog.c:1208
+#: ../app/layer_dialog.c:1222
 msgid "Edit Layer"
 msgstr "Upravit vrstvu"
 
-#: ../app/layer_dialog.c:1208
+#: ../app/layer_dialog.c:1222
 msgid "Add Layer"
 msgstr "Přidat vrstvu"
 
-#: ../app/layer_dialog.c:1227
+#: ../app/layer_dialog.c:1241
 msgid "Layer name:"
 msgstr "Název vrstvy:"
 
@@ -1095,7 +1099,7 @@ msgid "You must specify a file, not a directory."
 msgstr "Musíte zadat soubor, ne složku."
 
 #: ../app/load_save.c:400 ../plug-ins/dxf/dxf-import.c:1289
-#: ../plug-ins/wpg/wpg-import.c:457 ../plug-ins/xfig/xfig-import.c:1288
+#: ../plug-ins/wpg/wpg-import.c:467 ../plug-ins/xfig/xfig-import.c:1291
 #: ../plug-ins/xslt/xslt.c:97
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
@@ -1164,8 +1168,8 @@ msgstr "Není povoleno zapisovat do dočasných souborů v %s\n"
 #: ../plug-ins/metapost/render_metapost.c:1052
 #: ../plug-ins/pgf/render_pgf.c:1190 ../plug-ins/postscript/render_eps.c:123
 #: ../plug-ins/pstricks/render_pstricks.c:867
-#: ../plug-ins/vdx/vdx-export.c:1739 ../plug-ins/wmf/wmf.cpp:1340
-#: ../plug-ins/wpg/wpg.c:1059 ../plug-ins/xfig/xfig-export.c:1194
+#: ../plug-ins/vdx/vdx-export.c:1706 ../plug-ins/wmf/wmf.cpp:1345
+#: ../plug-ins/wpg/wpg.c:1059 ../plug-ins/xfig/xfig-export.c:1090
 #, c-format
 msgid "Can't open output file %s"
 msgstr "Nelze otevřít výstupní soubor %s"
@@ -1961,8 +1965,8 @@ msgstr "zobrazit vyhlazené"
 msgid "Portable Network Graphics"
 msgstr "Portable Network Graphics"
 
-#: ../app/preferences.c:224 ../plug-ins/svg/render_svg.c:537
-#: ../plug-ins/svg/svg-import.c:2160
+#: ../app/preferences.c:224 ../plug-ins/svg/render_svg.c:555
+#: ../plug-ins/svg/svg-import.c:2163
 msgid "Scalable Vector Graphics"
 msgstr "Scalable Vector Graphics"
 
@@ -1970,11 +1974,11 @@ msgstr "Scalable Vector Graphics"
 msgid "PostScript"
 msgstr "PostScript"
 
-#: ../app/preferences.c:228 ../plug-ins/wmf/wmf.cpp:1442
+#: ../app/preferences.c:228 ../plug-ins/wmf/wmf.cpp:1447
 msgid "Windows Metafile"
 msgstr "Windows Metafile"
 
-#: ../app/preferences.c:230 ../plug-ins/wmf/wmf.cpp:1451
+#: ../app/preferences.c:230 ../plug-ins/wmf/wmf.cpp:1456
 msgid "Enhanced Metafile"
 msgstr "Enhanced Metafile"
 
@@ -2756,71 +2760,71 @@ msgstr ""
 "Soubor %s neobsahuje specifikaci kódování;\n"
 "bude se předpokládat, že je kódován v %s"
 
-#: ../lib/dia_xml.c:511
+#: ../lib/dia_xml.c:512
 #, c-format
 msgid "Unknown type of DataNode '%s'"
 msgstr "Neznámý typ datového uzlu „%s“"
 
-#: ../lib/dia_xml.c:530
+#: ../lib/dia_xml.c:531
 msgid "Taking int value of non-int node."
 msgstr "Vybírá se hodnota celého čísla z uzlu, který není typu celé číslo."
 
-#: ../lib/dia_xml.c:706
+#: ../lib/dia_xml.c:707
 msgid "Taking point value of non-point node."
 msgstr "Vybírá se hodnota bodu z uzlu, který není typu bod."
 
-#: ../lib/dia_xml.c:717
+#: ../lib/dia_xml.c:718
 #, c-format
 msgid "Incorrect x Point value \"%s\" %f; discarding it."
 msgstr "Nesprávná hodnota bodu x „%s“ %f; bude zahozena."
 
-#: ../lib/dia_xml.c:724
+#: ../lib/dia_xml.c:725
 msgid "Error parsing point."
 msgstr "Chyba při zpracování bodu."
 
 #. don't bother with useless warnings (see above)
-#: ../lib/dia_xml.c:732
+#: ../lib/dia_xml.c:733
 #, c-format
 msgid "Incorrect y Point value \"%s\" %f; discarding it."
 msgstr "Nesprávná hodnota bodu y „%s“ %f; bude zahozena."
 
-#: ../lib/dia_xml.c:752
+#: ../lib/dia_xml.c:753
 msgid "Taking bezpoint value of non-point node."
 msgstr "Vybírá se hodnota Beziérova bodu z uzlu, který není typu bod."
 
-#: ../lib/dia_xml.c:770
+#: ../lib/dia_xml.c:771
 msgid "Error parsing bezpoint p1."
 msgstr "Chyba při zpracování Beziérova bodu p1."
 
-#: ../lib/dia_xml.c:784
+#: ../lib/dia_xml.c:785
 msgid "Error parsing bezpoint p2."
 msgstr "Chyba při zpracování Beziérova bodu p2."
 
-#: ../lib/dia_xml.c:798
+#: ../lib/dia_xml.c:799
 msgid "Error parsing bezpoint p3."
 msgstr "Chyba při zpracování Beziérova bodu p3."
 
-#: ../lib/dia_xml.c:825
+#: ../lib/dia_xml.c:826
 msgid "Taking rectangle value of non-rectangle node."
 msgstr "Vybírá se hodnota obdélníku z uzlu, který není typu obdélník."
 
-#: ../lib/dia_xml.c:837 ../lib/dia_xml.c:848 ../lib/dia_xml.c:859
+#: ../lib/dia_xml.c:838 ../lib/dia_xml.c:849 ../lib/dia_xml.c:860
 msgid "Error parsing rectangle."
 msgstr "Chyba při zpracování obdélníku."
 
-#: ../lib/dia_xml.c:887
+#: ../lib/dia_xml.c:888
 msgid "Taking string value of non-string node."
 msgstr "Vybírá se hodnota řetězce z uzlu, který není typu řetězec."
 
-#: ../lib/dia_xml.c:913
+#: ../lib/dia_xml.c:914
 msgid "Error in string tag."
 msgstr "Chyba v textové značce."
 
-#: ../lib/dia_xml.c:931
+#: ../lib/dia_xml.c:932
 msgid "Error in file, string not starting with #"
 msgstr "Chyba v souboru, řetězec nezačíná znakem #"
 
-#: ../lib/dia_xml.c:993
+#: ../lib/dia_xml.c:994
 msgid "Taking font value of non-font node."
 msgstr "Vybírá se hodnota písma z uzlu, který není typu písmo."
 
@@ -2944,7 +2948,7 @@ msgstr "Datum změny"
 msgid "URL"
 msgstr "URL"
 
-#: ../lib/prop_dict.c:243 ../sheets/ciscomisc.sheet.in.h:43
+#: ../lib/prop_dict.c:243 ../sheets/ciscomisc.sheet.in.h:41
 msgid "Key"
 msgstr "Klíč"
 
@@ -3022,7 +3026,7 @@ msgstr "Styl čáry"
 msgid "Fill color"
 msgstr "Barva výplně"
 
-#. just to simplify transfering properties between objects
+#. just to simplify transferring properties between objects
 #: ../lib/properties.c:99 ../lib/properties.h:663 ../lib/properties.h:666
 #: ../lib/standard-path.c:147
 msgid "Draw background"
@@ -3109,7 +3113,7 @@ msgid "Cant create image data from scratch!"
 msgstr "Nelze vytvořit obrazová data úplně od nuly!"
 
 #. Todo: get label for the branch view from props, e.g. UML Operations Parameters
-#: ../lib/prop_sdarray_widget.c:577 ../objects/chronogram/chronoline.c:161
+#: ../lib/prop_sdarray_widget.c:576 ../objects/chronogram/chronoline.c:161
 #: ../objects/UML/umloperation.c:79
 msgid "Parameters"
 msgstr "Parametry"
@@ -3925,7 +3929,7 @@ msgid "Mount"
 msgstr "Instalovat"
 
 #. Translators: Menu item Verb/Support/Secure/Lock
-#: ../objects/FS/function.c:787 ../sheets/ciscomisc.sheet.in.h:42
+#: ../objects/FS/function.c:787 ../sheets/ciscomisc.sheet.in.h:40
 msgid "Lock"
 msgstr "Zamknout"
 
@@ -5188,152 +5192,152 @@ msgstr "Poloha středu"
 msgid "Ray length"
 msgstr "Délka paprsku"
 
-#: ../objects/Misc/n_gon.c:316
+#: ../objects/Misc/n_gon.c:317
 msgid "Triangle"
 msgstr "Trojúhelník"
 
-#: ../objects/Misc/n_gon.c:317 ../objects/standard/box.c:132
+#: ../objects/Misc/n_gon.c:318 ../objects/standard/box.c:132
 #: ../objects/standard/box.c:723
 msgid "Square"
 msgstr "Čtverec"
 
-#: ../objects/Misc/n_gon.c:318
+#: ../objects/Misc/n_gon.c:319
 msgid "Pentagon"
 msgstr "Pětiúhelník"
 
-#: ../objects/Misc/n_gon.c:318
+#: ../objects/Misc/n_gon.c:319
 msgid "Pentagram"
 msgstr "Pentagram"
 
-#: ../objects/Misc/n_gon.c:319
+#: ../objects/Misc/n_gon.c:320
 msgid "Hexagon"
 msgstr "Šestiúhelník"
 
-#: ../objects/Misc/n_gon.c:319
+#: ../objects/Misc/n_gon.c:320
 msgid "Hexagram"
 msgstr "Hexagram"
 
-#: ../objects/Misc/n_gon.c:320
+#: ../objects/Misc/n_gon.c:321
 msgid "Heptagon"
 msgstr "Sedmiúhelník"
 
-#: ../objects/Misc/n_gon.c:320
+#: ../objects/Misc/n_gon.c:321
 msgid "Heptagram"
 msgstr "Heptagram"
 
-#: ../objects/Misc/n_gon.c:321
+#: ../objects/Misc/n_gon.c:322
 msgid "Octagon"
 msgstr "Osmiúhelník"
 
-#: ../objects/Misc/n_gon.c:321
+#: ../objects/Misc/n_gon.c:322
 msgid "Octagram"
 msgstr "Octagram"
 
-#: ../objects/Misc/n_gon.c:322
+#: ../objects/Misc/n_gon.c:323
 msgid "Enneagon"
 msgstr "Devítiúhelník"
 
-#: ../objects/Misc/n_gon.c:322
+#: ../objects/Misc/n_gon.c:323
 msgid "Enneagram"
 msgstr "Enneagram"
 
-#: ../objects/Misc/n_gon.c:323
+#: ../objects/Misc/n_gon.c:324
 msgid "Decagon"
 msgstr "Desítiúhelník"
 
-#: ../objects/Misc/n_gon.c:323
+#: ../objects/Misc/n_gon.c:324
 msgid "Decagram"
 msgstr "Decagram"
 
-#: ../objects/Misc/n_gon.c:324
+#: ../objects/Misc/n_gon.c:325
 msgid "Hendecagon"
 msgstr "Jedenáctiúhelník"
 
-#: ../objects/Misc/n_gon.c:324
+#: ../objects/Misc/n_gon.c:325
 msgid "Hendecagram"
 msgstr "Hendecagram"
 
-#: ../objects/Misc/n_gon.c:325
+#: ../objects/Misc/n_gon.c:326
 msgid "Dodecagon"
 msgstr "Dvanáctiúhelník"
 
-#: ../objects/Misc/n_gon.c:325
+#: ../objects/Misc/n_gon.c:326
 msgid "Dodecagram"
 msgstr "Dodecagram"
 
-#: ../objects/Misc/n_gon.c:326
+#: ../objects/Misc/n_gon.c:327
 msgid "Tridecagon"
 msgstr "Třináctiúhelník"
 
-#: ../objects/Misc/n_gon.c:326
+#: ../objects/Misc/n_gon.c:327
 msgid "Tridecagram"
 msgstr "Tridecagram"
 
-#: ../objects/Misc/n_gon.c:327
+#: ../objects/Misc/n_gon.c:328
 msgid "Tetradecagon"
 msgstr "Čtrnáctiúhelník"
 
-#: ../objects/Misc/n_gon.c:327
+#: ../objects/Misc/n_gon.c:328
 msgid "Tetradecagram"
 msgstr "Tetradecagram"
 
-#: ../objects/Misc/n_gon.c:328
+#: ../objects/Misc/n_gon.c:329
 msgid "Pentadecagon"
 msgstr "Patnáctiúhelník"
 
-#: ../objects/Misc/n_gon.c:328
+#: ../objects/Misc/n_gon.c:329
 msgid "Pentadecagram"
 msgstr "Pentadecagram"
 
-#: ../objects/Misc/n_gon.c:329
+#: ../objects/Misc/n_gon.c:330
 msgid "Hexadecagon"
 msgstr "Šestnáctiúhelník"
 
-#: ../objects/Misc/n_gon.c:329
+#: ../objects/Misc/n_gon.c:330
 msgid "Hexadecagram"
 msgstr "Hexadecagram"
 
-#: ../objects/Misc/n_gon.c:330
+#: ../objects/Misc/n_gon.c:331
 msgid "Heptadecagon"
 msgstr "Sedmnáctiúhelník"
 
-#: ../objects/Misc/n_gon.c:330
+#: ../objects/Misc/n_gon.c:331
 msgid "Heptadecagram"
 msgstr "Heptadecagram"
 
-#: ../objects/Misc/n_gon.c:331
+#: ../objects/Misc/n_gon.c:332
 msgid "Octadecagon"
 msgstr "Osmnáctiúhelník"
 
-#: ../objects/Misc/n_gon.c:331
+#: ../objects/Misc/n_gon.c:332
 msgid "Octadecagram"
 msgstr "Octadecagram"
 
-#: ../objects/Misc/n_gon.c:332
+#: ../objects/Misc/n_gon.c:333
 msgid "Enneadecagon"
 msgstr "Devatenáctiúhelník"
 
-#: ../objects/Misc/n_gon.c:332
+#: ../objects/Misc/n_gon.c:333
 msgid "Enneadecagram"
 msgstr "Enneadecagram"
 
-#: ../objects/Misc/n_gon.c:333
+#: ../objects/Misc/n_gon.c:334
 msgid "Icosagon"
 msgstr "Dvacetiúhelník"
 
-#: ../objects/Misc/n_gon.c:333
+#: ../objects/Misc/n_gon.c:334
 msgid "Icosagram"
 msgstr "Icosagram"
 
-#: ../objects/Misc/n_gon.c:349
+#: ../objects/Misc/n_gon.c:350
 msgid "N-gon"
 msgstr "N-úhelník"
 
-#: ../objects/Misc/n_gon.c:351
+#: ../objects/Misc/n_gon.c:352
 msgid "N-gram"
 msgstr "N-gram"
 
-#: ../objects/Misc/n_gon.c:353
+#: ../objects/Misc/n_gon.c:354
 msgid "Star"
 msgstr "Hvězda"
 
@@ -6090,7 +6094,7 @@ msgstr "Akce"
 msgid "Action to perform when this transition is taken"
 msgstr "Akce, která se má provést při použití tohoto přechodu"
 
-#: ../objects/UML/transition.c:145 ../sheets/cisconetwork.sheet.in.h:22
+#: ../objects/UML/transition.c:145 ../sheets/cisconetwork.sheet.in.h:21
 msgid "Guard"
 msgstr "Podmínka"
 
@@ -6155,7 +6159,7 @@ msgid "Clipboard copy failed"
 msgstr "Selhalo kopírování do schránky"
 
 #: ../plug-ins/cairo/diacairo.c:348 ../plug-ins/postscript/postscript.c:39
-#: ../plug-ins/wmf/wmf.cpp:1469
+#: ../plug-ins/wmf/wmf.cpp:1474
 msgid "Nothing to print"
 msgstr "K tisku není nic k dispozici"
 
@@ -6251,7 +6255,7 @@ msgstr "DiaRenderScript"
 msgid "DiaRenderScript filter"
 msgstr "Filtr DiaRenderScript"
 
-#: ../plug-ins/drs/dia-render-script-import.c:435
+#: ../plug-ins/drs/dia-render-script-import.c:456
 msgid "Broken file?"
 msgstr "Narušený soubor?"
 
@@ -6376,7 +6380,7 @@ msgstr "Šířka obrázku:"
 msgid "Image height:"
 msgstr "Výška obrázku:"
 
-#: ../plug-ins/libart/export_png.c:383
+#: ../plug-ins/libart/export_png.c:384
 msgid "PNG (antialiased)"
 msgstr "PNG (vyhlazené)"
 
@@ -6400,12 +6404,12 @@ msgstr "Portable Document File"
 msgid "PDF import filter"
 msgstr "Importní filtr formátu PDF"
 
-#: ../plug-ins/pdf/pdf-import.cpp:398
+#: ../plug-ins/pdf/pdf-import.cpp:410
 #, c-format
 msgid "Page %d"
 msgstr "Strana %d"
 
-#: ../plug-ins/pdf/pdf-import.cpp:857
+#: ../plug-ins/pdf/pdf-import.cpp:871
 #, c-format
 msgid ""
 "PDF document not OK.\n"
@@ -6509,8 +6513,8 @@ msgid "Encapsulated Postscript with preview (using Pango fonts)"
 msgstr "Zapouzdřený PostScript s náhledem (používající písma Pango)"
 
 #: ../plug-ins/postscript/render_eps.c:187
-msgid "Encapsulated PostScript (using PostScript Latin-1 fonts)"
-msgstr "Zapouzdřený PostScript (používající písma PostScript Latin-1)"
+msgid "Encapsulated PostScript (using PS Latin-1 fonts)"
+msgstr "Zapouzdřený PostScript (používající písma PS Latin-1)"
 
 #: ../plug-ins/pstricks/pstricks.c:26
 msgid "TeX PSTricks export filter"
@@ -6533,17 +6537,17 @@ msgstr "Podpora skriptování v jazyce Python"
 msgid "Dia shape export filter"
 msgstr "Exportní filtr symbolů aplikace Dia"
 
-#: ../plug-ins/shape/shape-export.c:567
+#: ../plug-ins/shape/shape-export.c:565
 msgid "Shape files must end in .shape, or they cannot be loaded by Dia"
 msgstr ""
 "Soubory se symboly musí končit v .shape, jinak je není možné do aplikace Dia "
 "načíst"
 
-#: ../plug-ins/shape/shape-export.c:581
+#: ../plug-ins/shape/shape-export.c:579
 msgid "Can't export PNG icon without export plugin!"
 msgstr "Ikonu PNG nelze exportovat bez exportního zásuvného modulu!"
 
-#: ../plug-ins/shape/shape-export.c:607
+#: ../plug-ins/shape/shape-export.c:605
 msgid "Dia Shape File"
 msgstr "Soubor se symboly Dia"
 
@@ -6559,16 +6563,16 @@ msgstr ""
 "Neplatná data cesty.\n"
 "Data svg:path musí začínat příkazem moveto."
 
-#: ../plug-ins/svg/svg-import.c:1934
+#: ../plug-ins/svg/svg-import.c:1937
 msgid "'Shape Design' shapes missing."
 msgstr "Schází symboly „Návrh symbolu“"
 
-#: ../plug-ins/svg/svg-import.c:1968
+#: ../plug-ins/svg/svg-import.c:1971
 #, c-format
 msgid "Object '%s' creation failed"
 msgstr "Vytvoření objektu „%s“ selhalo"
 
-#: ../plug-ins/svg/svg-import.c:1994
+#: ../plug-ins/svg/svg-import.c:1997
 #, c-format
 msgid ""
 "Parse error for memory block.\n"
@@ -6577,7 +6581,7 @@ msgstr ""
 "Chyba zpracování pro paměťový blok.\n"
 "%s"
 
-#: ../plug-ins/svg/svg-import.c:2012
+#: ../plug-ins/svg/svg-import.c:2015
 #, c-format
 msgid ""
 "SVG parser error for %s\n"
@@ -6587,7 +6591,7 @@ msgstr ""
 "%s"
 
 #. just a warning
-#: ../plug-ins/svg/svg-import.c:2018
+#: ../plug-ins/svg/svg-import.c:2021
 #, c-format
 msgid ""
 "SVG parser warning for %s\n"
@@ -6596,11 +6600,11 @@ msgstr ""
 "Varování zpracování SVG pro %s\n"
 "%s"
 
-#: ../plug-ins/svg/svg-import.c:2051
+#: ../plug-ins/svg/svg-import.c:2054
 msgid "Expected SVG name-space not found in file"
 msgstr "Očekávaný jmenný prostor SVG nebyl v souboru nalezen"
 
-#: ../plug-ins/svg/svg-import.c:2071
+#: ../plug-ins/svg/svg-import.c:2074
 #, c-format
 msgid "root element was '%s' -- expecting 'svg'."
 msgstr "kořenový element byl „%s“ -- očekává se „svg“."
@@ -6609,12 +6613,12 @@ msgstr "kořenový element byl „%s“ -- očekává se „svg“."
 msgid "Visio XML Format import and export filter"
 msgstr "Importní a exportní filtr formátu Visio XML"
 
-#: ../plug-ins/vdx/vdx-export.c:1797
+#: ../plug-ins/vdx/vdx-export.c:1764
 #, c-format
 msgid "Saving file '%s' failed."
 msgstr "Ukládání souboru „%s“ selhalo."
 
-#: ../plug-ins/vdx/vdx-export.c:1808
+#: ../plug-ins/vdx/vdx-export.c:1775
 msgid "Visio XML format"
 msgstr "Formát Visio XML"
 
@@ -6628,29 +6632,29 @@ msgstr "Nelze načíst barvu: %s"
 msgid "Couldn't find shape %d"
 msgstr "Nelze najít symbol %d"
 
-#: ../plug-ins/vdx/vdx-import.c:1011
+#: ../plug-ins/vdx/vdx-import.c:1066
 #, c-format
 msgid "Unexpected Ellipse object: %s"
 msgstr "Neočekávaný objekt elipsa: %s"
 
-#: ../plug-ins/vdx/vdx-import.c:1025
+#: ../plug-ins/vdx/vdx-import.c:1080
 msgid "Can't rotate ellipse"
 msgstr "Nelze otočit elipsu"
 
-#: ../plug-ins/vdx/vdx-import.c:1356
+#: ../plug-ins/vdx/vdx-import.c:1411
 msgid "MoveTo not at start of Bezier"
 msgstr "Beziérova křivka nezačíná s MoveTo"
 
-#: ../plug-ins/vdx/vdx-import.c:1706
+#: ../plug-ins/vdx/vdx-import.c:1761
 msgid "Invalid NURBS formula"
 msgstr "Neplatný vzorec NURBS"
 
-#: ../plug-ins/vdx/vdx-import.c:1964
+#: ../plug-ins/vdx/vdx-import.c:2020
 #, c-format
 msgid "Couldn't handle foreign object type %s"
 msgstr "Nelze obsloužit typ cizího objektu %s"
 
-#: ../plug-ins/vdx/vdx-import.c:2889
+#: ../plug-ins/vdx/vdx-import.c:2949
 #, c-format
 msgid ""
 "VDX parser error for %s\n"
@@ -6659,16 +6663,16 @@ msgstr ""
 "Chyba zpracování VDX pro %s\n"
 "%s"
 
-#: ../plug-ins/vdx/vdx-import.c:2901
+#: ../plug-ins/vdx/vdx-import.c:2961
 msgid "Nothing in document!"
 msgstr "V dokumentu nic není!"
 
-#: ../plug-ins/vdx/vdx-import.c:2906
+#: ../plug-ins/vdx/vdx-import.c:2966
 #, c-format
 msgid "Expecting VisioDocument, got %s"
 msgstr "Očekáván VisioDocument, obdržen %s"
 
-#: ../plug-ins/vdx/vdx-import.c:2990
+#: ../plug-ins/vdx/vdx-import.c:3050
 msgid "Visio XML File Format"
 msgstr "Formát souboru Visio XML"
 
@@ -6686,7 +6690,7 @@ msgstr ""
 "Nelze zapsat soubor %s\n"
 "%s"
 
-#: ../plug-ins/wmf/wmf.cpp:559
+#: ../plug-ins/wmf/wmf.cpp:555
 #, c-format
 msgid ""
 "Cannot render unknown font:\n"
@@ -6695,43 +6699,43 @@ msgstr ""
 "Nelze vykreslit neznámé písmo:\n"
 "%s"
 
-#: ../plug-ins/wmf/wmf.cpp:1480
+#: ../plug-ins/wmf/wmf.cpp:1485
 msgid "Print (GDI) ..."
 msgstr "Tisk (GDI)…"
 
-#: ../plug-ins/wmf/wmf.cpp:1496
+#: ../plug-ins/wmf/wmf.cpp:1501
 msgid "WMF export filter"
 msgstr "Exportní filtr formátu WMF"
 
 #: ../plug-ins/wpg/wpg.c:1111 ../plug-ins/wpg/wpg.c:1117
-msgid "WPG"
-msgstr "WPG"
+msgid "WordPerfect Graphics"
+msgstr "WordPerfect Graphics"
 
 #: ../plug-ins/wpg/wpg.c:1142
 msgid "WordPerfect Graphics export filter"
 msgstr "Exportní filtr formátu WordPerfect Graphics"
 
-#: ../plug-ins/wpg/wpg-import.c:469
+#: ../plug-ins/wpg/wpg-import.c:479
 #, c-format
 msgid "File: %s type/version unsupported.\n"
 msgstr "Soubor %s má nepodporovaný typ nebo verzi.\n"
 
-#: ../plug-ins/wpg/wpg-import.c:611
+#: ../plug-ins/wpg/wpg-import.c:621
 #, c-format
 msgid "Unknown WPG type %d size %d."
 msgstr "Neznámý typ WPG %d velikosti %d."
 
-#: ../plug-ins/wpg/wpg-import.c:616
+#: ../plug-ins/wpg/wpg-import.c:626
 #, c-format
 msgid "Size 0 on WPG type %d, expecting WPG_END\n"
 msgstr "Velikost 0 u typu WPG %d, očekáváno WPG_END\n"
 
-#: ../plug-ins/wpg/wpg-import.c:625
+#: ../plug-ins/wpg/wpg-import.c:635
 #, c-format
 msgid "Unexpected end of file. WPG type %d, size %d.\n"
 msgstr "Neočekávaný konec souboru. Typ WPG %d, velikost %d.\n"
 
-#: ../plug-ins/wpg/wpg-import.c:635
+#: ../plug-ins/wpg/wpg-import.c:645
 msgid "Empty WPG file?"
 msgstr "Prázdný soubor WPG?"
 
@@ -6750,7 +6754,7 @@ msgid "No more user-definable colors - using black"
 msgstr ""
 "Není k dispozici více uživatelsky definovaných barev - použije se černá"
 
-#: ../plug-ins/xfig/xfig-export.c:1250
+#: ../plug-ins/xfig/xfig-export.c:1146
 msgid "Xfig format"
 msgstr "Formát Xfig"
 
@@ -6871,81 +6875,81 @@ msgstr "Nelze identifikovat objekt Fig."
 msgid "Compound end outside compound\n"
 msgstr "Složený objekt končí mimo složený objekt\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1059
+#: ../plug-ins/xfig/xfig-import.c:1062
 #, c-format
 msgid "Couldn't read color: %s\n"
 msgstr "Nelze načíst barvu: %s\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1064
+#: ../plug-ins/xfig/xfig-import.c:1067
 #, c-format
 msgid "Color number %d out of range 0..%d.  Discarding color.\n"
 msgstr "Číslo barvy %d mimo rozsah 0..%d. Barva zahozena.\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1111
+#: ../plug-ins/xfig/xfig-import.c:1114
 msgid "Couldn't read group extent."
 msgstr "Nelze číst rozsah skupiny."
 
-#: ../plug-ins/xfig/xfig-import.c:1122
+#: ../plug-ins/xfig/xfig-import.c:1125
 #, c-format
 msgid "Unknown object type %d\n"
 msgstr "Neznámý typ objektu: %d\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1147
+#: ../plug-ins/xfig/xfig-import.c:1150
 #, c-format
 msgid "`%s' is not one of `%s' or `%s'\n"
 msgstr "Hodnota „%s“ není jedna z hodnot „%s“ nebo „%s“\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1157
+#: ../plug-ins/xfig/xfig-import.c:1160
 msgid "Error reading paper size."
 msgstr "Chyba při čtení velikosti papíru."
 
-#: ../plug-ins/xfig/xfig-import.c:1168
+#: ../plug-ins/xfig/xfig-import.c:1171
 #, c-format
 msgid "Unknown paper size `%s', using default\n"
 msgstr "Neznámá velikost papíru „%s“, použije se výchozí\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1181
+#: ../plug-ins/xfig/xfig-import.c:1184
 msgid "Error reading paper orientation."
 msgstr "Chyba při čtení orientace papíru."
 
-#: ../plug-ins/xfig/xfig-import.c:1191
+#: ../plug-ins/xfig/xfig-import.c:1194
 msgid "Error reading justification."
 msgstr "Chyba při čtení zarovnání."
 
-#: ../plug-ins/xfig/xfig-import.c:1201
+#: ../plug-ins/xfig/xfig-import.c:1204
 msgid "Error reading units."
 msgstr "Chyba při čtení jednotek."
 
-#: ../plug-ins/xfig/xfig-import.c:1217
+#: ../plug-ins/xfig/xfig-import.c:1220
 msgid "Error reading magnification."
 msgstr "Chyba při čtení zvětšení."
 
-#: ../plug-ins/xfig/xfig-import.c:1230
+#: ../plug-ins/xfig/xfig-import.c:1233
 msgid "Error reading multipage indicator."
 msgstr "Chyba při čtení indikátoru více stran."
 
-#: ../plug-ins/xfig/xfig-import.c:1241
+#: ../plug-ins/xfig/xfig-import.c:1244
 msgid "Error reading transparent color."
 msgstr "Chyba při čtení průsvitné barvy."
 
-#: ../plug-ins/xfig/xfig-import.c:1250 ../plug-ins/xfig/xfig-import.c:1311
-#: ../plug-ins/xfig/xfig-import.c:1329
+#: ../plug-ins/xfig/xfig-import.c:1253 ../plug-ins/xfig/xfig-import.c:1314
+#: ../plug-ins/xfig/xfig-import.c:1332
 msgid "Error reading Fig file."
 msgstr "Chyba při čtení souboru Fig."
 
-#: ../plug-ins/xfig/xfig-import.c:1252
+#: ../plug-ins/xfig/xfig-import.c:1255
 msgid "Premature end of Fig file\n"
 msgstr "Předčasný konec souboru ve formátu Fig\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1261
+#: ../plug-ins/xfig/xfig-import.c:1264
 msgid "Error reading resolution."
 msgstr "Chyba při čtení rozlišení."
 
-#: ../plug-ins/xfig/xfig-import.c:1297
+#: ../plug-ins/xfig/xfig-import.c:1300
 msgid "Doesn't look like a Fig file"
 msgstr "To nevypadá jako soubor ve formátu Fig."
 
-#: ../plug-ins/xfig/xfig-import.c:1303
+#: ../plug-ins/xfig/xfig-import.c:1306
 #, c-format
 msgid ""
 "This is a Fig version %d.%d file.\n"
@@ -6954,11 +6958,11 @@ msgstr ""
 "Toto je soubor ve formátu Fig verze %d.%d.\n"
 "Možná jej nepůjde naimportovat."
 
-#: ../plug-ins/xfig/xfig-import.c:1313
+#: ../plug-ins/xfig/xfig-import.c:1316
 msgid "Premature end of Fig file"
 msgstr "Předčasný konec souboru ve formátu Fig"
 
-#: ../plug-ins/xfig/xfig-import.c:1352
+#: ../plug-ins/xfig/xfig-import.c:1355
 msgid "Xfig File Format"
 msgstr "Formát souboru Xfig"
 
@@ -7748,11 +7752,11 @@ msgstr "Svisle orientovaný napájecí zdroj"
 msgid "Lamp"
 msgstr "Žárovka"
 
-#: ../sheets/Circuit.sheet.in.h:30 ../sheets/ciscomisc.sheet.in.h:55
+#: ../sheets/Circuit.sheet.in.h:30 ../sheets/ciscomisc.sheet.in.h:52
 msgid "Speaker"
 msgstr "Reproduktor"
 
-#: ../sheets/Circuit.sheet.in.h:31 ../sheets/ciscomisc.sheet.in.h:53
+#: ../sheets/Circuit.sheet.in.h:31 ../sheets/ciscomisc.sheet.in.h:50
 msgid "Microphone"
 msgstr "Mikrofon"
 
@@ -8418,66 +8422,54 @@ msgid "CiscoWorks Man"
 msgstr "Muž u CiscoWorks"
 
 #: ../sheets/ciscomisc.sheet.in.h:36
-msgid "PC Man left"
-msgstr "Muž u PC vlevo"
-
-#: ../sheets/ciscomisc.sheet.in.h:37
 msgid "PC Man"
 msgstr "Muž u PC"
 
-#: ../sheets/ciscomisc.sheet.in.h:38
+#: ../sheets/ciscomisc.sheet.in.h:37
 msgid "Sitting Woman"
 msgstr "Sedící žena"
 
-#: ../sheets/ciscomisc.sheet.in.h:39
-msgid "Sitting Woman right"
-msgstr "Sedící žena vpravo"
-
-#: ../sheets/ciscomisc.sheet.in.h:40
+#: ../sheets/ciscomisc.sheet.in.h:38
 msgid "Mac Woman"
 msgstr "Žena u Macu"
 
-#: ../sheets/ciscomisc.sheet.in.h:41
+#: ../sheets/ciscomisc.sheet.in.h:39
 msgid "Androgynous Person"
 msgstr "Oboupohlavní osoba"
 
-#: ../sheets/ciscomisc.sheet.in.h:44
+#: ../sheets/ciscomisc.sheet.in.h:42
 msgid "Lock and Key"
 msgstr "Zámek a klíč"
 
-#: ../sheets/ciscomisc.sheet.in.h:45
+#: ../sheets/ciscomisc.sheet.in.h:43
 msgid "Satellite dish"
 msgstr "Satelitní anténa"
 
-#: ../sheets/ciscomisc.sheet.in.h:46
+#: ../sheets/ciscomisc.sheet.in.h:44
 msgid "Satellite"
 msgstr "Satelit"
 
-#: ../sheets/ciscomisc.sheet.in.h:47
+#: ../sheets/ciscomisc.sheet.in.h:45
 msgid "Antenna"
 msgstr "Anténa"
 
-#: ../sheets/ciscomisc.sheet.in.h:48
+#: ../sheets/ciscomisc.sheet.in.h:46
 msgid "File cabinet"
 msgstr "Kartotéková skříň"
 
-#: ../sheets/ciscomisc.sheet.in.h:49
+#: ../sheets/ciscomisc.sheet.in.h:47
 msgid "Car"
 msgstr "Auto"
 
-#: ../sheets/ciscomisc.sheet.in.h:50
+#: ../sheets/ciscomisc.sheet.in.h:48
 msgid "Truck"
 msgstr "Nákladní auto"
 
-#: ../sheets/ciscomisc.sheet.in.h:51
+#: ../sheets/ciscomisc.sheet.in.h:49
 msgid "Video Camera"
 msgstr "Videokamera"
 
-#: ../sheets/ciscomisc.sheet.in.h:52
-msgid "Video Camera right"
-msgstr "Videokamera vpravo"
-
-#: ../sheets/ciscomisc.sheet.in.h:54
+#: ../sheets/ciscomisc.sheet.in.h:51
 msgid "Headphones"
 msgstr "Sluchátka"
 
@@ -8558,332 +8550,328 @@ msgid "PIX Firewall"
 msgstr "Firewall PIX"
 
 #: ../sheets/cisconetwork.sheet.in.h:20
-msgid "PIX Firewall Left"
-msgstr "Firewall PIX vlevo"
-
-#: ../sheets/cisconetwork.sheet.in.h:21
 msgid "Centri Firewall"
 msgstr "Firewall Centri"
 
-#: ../sheets/cisconetwork.sheet.in.h:23
+#: ../sheets/cisconetwork.sheet.in.h:22
 msgid "Security appliance"
 msgstr "Bezpečnostní zařízení"
 
-#: ../sheets/cisconetwork.sheet.in.h:24
+#: ../sheets/cisconetwork.sheet.in.h:23
 msgid "VPN Concentrator"
 msgstr "Koncentrátor VPN"
 
-#: ../sheets/cisconetwork.sheet.in.h:25
+#: ../sheets/cisconetwork.sheet.in.h:24
 msgid "VPN Gateway"
 msgstr "Brána VPN"
 
-#: ../sheets/cisconetwork.sheet.in.h:26
+#: ../sheets/cisconetwork.sheet.in.h:25
 msgid "LAN to LAN"
 msgstr "LAN - LAN"
 
-#: ../sheets/cisconetwork.sheet.in.h:27
+#: ../sheets/cisconetwork.sheet.in.h:26
 msgid "SSL Terminator"
 msgstr "Zakončení SSL"
 
-#: ../sheets/cisconetwork.sheet.in.h:28
+#: ../sheets/cisconetwork.sheet.in.h:27
 msgid "IP DSL Switch"
 msgstr "Přepínač IP DSL"
 
-#: ../sheets/cisconetwork.sheet.in.h:29
+#: ../sheets/cisconetwork.sheet.in.h:28
 msgid "DSLAM"
 msgstr "DSLAM"
 
-#: ../sheets/cisconetwork.sheet.in.h:30
+#: ../sheets/cisconetwork.sheet.in.h:29
 msgid "Cable Modem"
 msgstr "Kabelový modem"
 
-#: ../sheets/cisconetwork.sheet.in.h:31
+#: ../sheets/cisconetwork.sheet.in.h:30
 msgid "Wireless Connectivity"
 msgstr "Bezdrátové připojení"
 
-#: ../sheets/cisconetwork.sheet.in.h:32
+#: ../sheets/cisconetwork.sheet.in.h:31
 msgid "Wireless Transport"
 msgstr "Bezdrátový přenos"
 
-#: ../sheets/cisconetwork.sheet.in.h:33
+#: ../sheets/cisconetwork.sheet.in.h:32
 msgid "AccessPoint"
 msgstr "Přístupový bod"
 
-#: ../sheets/cisconetwork.sheet.in.h:34
+#: ../sheets/cisconetwork.sheet.in.h:33
 msgid "Wireless Bridge"
 msgstr "Bezdrátový most"
 
-#: ../sheets/cisconetwork.sheet.in.h:35
+#: ../sheets/cisconetwork.sheet.in.h:34
 msgid "Dual Mode AccessPoint"
 msgstr "Přístupový bod s dvojitým režimem"
 
-#: ../sheets/cisconetwork.sheet.in.h:36
+#: ../sheets/cisconetwork.sheet.in.h:35
 msgid "Wi-Fi Tag"
 msgstr "Značka Wi-Fi"
 
-#: ../sheets/cisconetwork.sheet.in.h:37
+#: ../sheets/cisconetwork.sheet.in.h:36
 msgid "Wireless Location Appliance"
 msgstr "Bezdrátové vyhledávací zařízení"
 
-#: ../sheets/cisconetwork.sheet.in.h:38
+#: ../sheets/cisconetwork.sheet.in.h:37
 msgid "Location server"
 msgstr "Vyhledávací server"
 
-#: ../sheets/cisconetwork.sheet.in.h:39
+#: ../sheets/cisconetwork.sheet.in.h:38
 msgid "Lightweight AP"
 msgstr "Odlehčený AP"
 
-#: ../sheets/cisconetwork.sheet.in.h:40
+#: ../sheets/cisconetwork.sheet.in.h:39
 msgid "WLAN controller"
 msgstr "Řadič WLAN"
 
-#: ../sheets/cisconetwork.sheet.in.h:41
+#: ../sheets/cisconetwork.sheet.in.h:40
 msgid "BBFW"
 msgstr "BBFW"
 
-#: ../sheets/cisconetwork.sheet.in.h:42
+#: ../sheets/cisconetwork.sheet.in.h:41
 msgid "BBFW media"
 msgstr "Média BBFW"
 
-#: ../sheets/cisconetwork.sheet.in.h:43
+#: ../sheets/cisconetwork.sheet.in.h:42
 msgid "Channelized Pipe"
 msgstr "Roura rozdělená na kanály"
 
-#: ../sheets/cisconetwork.sheet.in.h:44
+#: ../sheets/cisconetwork.sheet.in.h:43
 msgid "Concatenated Payload"
 msgstr "Zřetězené zatížení"
 
-#: ../sheets/cisconetwork.sheet.in.h:45
+#: ../sheets/cisconetwork.sheet.in.h:44
 msgid "Optical Cross-Connect"
 msgstr "Optické propojení do kříže"
 
-#: ../sheets/cisconetwork.sheet.in.h:46
+#: ../sheets/cisconetwork.sheet.in.h:45
 msgid "Optical Transport"
 msgstr "Optický přenos"
 
-#: ../sheets/cisconetwork.sheet.in.h:47
+#: ../sheets/cisconetwork.sheet.in.h:46
 msgid "Optical Fiber"
 msgstr "Optické vlákno"
 
-#: ../sheets/cisconetwork.sheet.in.h:48
+#: ../sheets/cisconetwork.sheet.in.h:47
 msgid "Optical Amplifier"
 msgstr "Optický zesilovač"
 
-#: ../sheets/cisconetwork.sheet.in.h:49
+#: ../sheets/cisconetwork.sheet.in.h:48
 msgid "Digital Cross-Connect"
 msgstr "Digitální propojení do kříže"
 
-#: ../sheets/cisconetwork.sheet.in.h:50
+#: ../sheets/cisconetwork.sheet.in.h:49
 msgid "IP Transport Concentrator"
 msgstr "Koncentrátor přenosu IP"
 
-#: ../sheets/cisconetwork.sheet.in.h:51
+#: ../sheets/cisconetwork.sheet.in.h:50
 msgid "DWDM Filter"
 msgstr "Filtr DWDM"
 
-#: ../sheets/cisconetwork.sheet.in.h:52
+#: ../sheets/cisconetwork.sheet.in.h:51
 msgid "WDM"
 msgstr "WDM"
 
-#: ../sheets/cisconetwork.sheet.in.h:53
+#: ../sheets/cisconetwork.sheet.in.h:52
 msgid "15200"
 msgstr "15200"
 
-#: ../sheets/cisconetwork.sheet.in.h:54
+#: ../sheets/cisconetwork.sheet.in.h:53
 msgid "15800"
 msgstr "15800"
 
-#: ../sheets/cisconetwork.sheet.in.h:55
+#: ../sheets/cisconetwork.sheet.in.h:54
 msgid "ONS15104"
 msgstr "ONS15104"
 
-#: ../sheets/cisconetwork.sheet.in.h:56
+#: ../sheets/cisconetwork.sheet.in.h:55
 msgid "10700"
 msgstr "10700"
 
-#: ../sheets/cisconetwork.sheet.in.h:57
+#: ../sheets/cisconetwork.sheet.in.h:56
 msgid "Metro 1500"
 msgstr "Metro 1500"
 
-#: ../sheets/cisconetwork.sheet.in.h:58
+#: ../sheets/cisconetwork.sheet.in.h:57
 msgid "ONS15540"
 msgstr "ONS15540"
 
-#: ../sheets/cisconetwork.sheet.in.h:59
+#: ../sheets/cisconetwork.sheet.in.h:58
 msgid "Automatic Protection Switching"
 msgstr "Přepínání automatické ochrany"
 
-#: ../sheets/cisconetwork.sheet.in.h:60
+#: ../sheets/cisconetwork.sheet.in.h:59
 msgid "RPS"
 msgstr "RPS"
 
-#: ../sheets/cisconetwork.sheet.in.h:61
+#: ../sheets/cisconetwork.sheet.in.h:60
 msgid "UPS"
 msgstr "UPS"
 
-#: ../sheets/cisconetwork.sheet.in.h:62
+#: ../sheets/cisconetwork.sheet.in.h:61
 msgid "LongReach CPE"
 msgstr "LongReach CPE"
 
-#: ../sheets/cisconetwork.sheet.in.h:63
+#: ../sheets/cisconetwork.sheet.in.h:62
 msgid "3X74 (floor) cluster controller"
 msgstr "Řadič klastru 3X74 (na podlahu)"
 
-#: ../sheets/cisconetwork.sheet.in.h:64
+#: ../sheets/cisconetwork.sheet.in.h:63
 msgid "3174 (desktop) cluster controller"
 msgstr "Řadič klastru 3174 (stolní)"
 
-#: ../sheets/cisconetwork.sheet.in.h:65
+#: ../sheets/cisconetwork.sheet.in.h:64
 msgid "CSU/DSU"
 msgstr "CSU/DSU"
 
-#: ../sheets/cisconetwork.sheet.in.h:66
+#: ../sheets/cisconetwork.sheet.in.h:65
 msgid "WAN"
 msgstr "WAN"
 
-#: ../sheets/cisconetwork.sheet.in.h:67
+#: ../sheets/cisconetwork.sheet.in.h:66
 msgid "Cloud"
 msgstr "Cloud"
 
-#: ../sheets/cisconetwork.sheet.in.h:68
+#: ../sheets/cisconetwork.sheet.in.h:67
 msgid "Cloud Gold"
 msgstr "Cloud zlatý"
 
-#: ../sheets/cisconetwork.sheet.in.h:69
+#: ../sheets/cisconetwork.sheet.in.h:68
 msgid "Cloud White"
 msgstr "Cloud bílý"
 
-#: ../sheets/cisconetwork.sheet.in.h:70
+#: ../sheets/cisconetwork.sheet.in.h:69
 msgid "Cloud Dark"
 msgstr "Cloud tmavý"
 
-#: ../sheets/cisconetwork.sheet.in.h:71
+#: ../sheets/cisconetwork.sheet.in.h:70
 msgid "Distributed Director"
 msgstr "Distribuovaný správce"
 
-#: ../sheets/cisconetwork.sheet.in.h:72
+#: ../sheets/cisconetwork.sheet.in.h:71
 msgid "LocalDirector"
 msgstr "LocalDirector"
 
-#: ../sheets/cisconetwork.sheet.in.h:73
+#: ../sheets/cisconetwork.sheet.in.h:72
 msgid "IOS SLB"
 msgstr "IOS SLB"
 
-#: ../sheets/cisconetwork.sheet.in.h:74
+#: ../sheets/cisconetwork.sheet.in.h:73
 msgid "MUX"
 msgstr "MUX"
 
-#: ../sheets/cisconetwork.sheet.in.h:75
+#: ../sheets/cisconetwork.sheet.in.h:74
 msgid "General Appliance"
 msgstr "Obecné zařízení"
 
 #. compatibility
 #. <alias name="Cisco - PAD"/>
-#: ../sheets/cisconetwork.sheet.in.h:78
+#: ../sheets/cisconetwork.sheet.in.h:77
 msgid "PAD"
 msgstr "PAD"
 
-#: ../sheets/cisconetwork.sheet.in.h:79
+#: ../sheets/cisconetwork.sheet.in.h:78
 msgid "CDDI/FDDI Concentrator"
 msgstr "Koncentrátor CDDI/FDDI"
 
-#: ../sheets/cisconetwork.sheet.in.h:80
+#: ../sheets/cisconetwork.sheet.in.h:79
 msgid "FDDI Ring"
 msgstr "Okruh FDDI"
 
-#: ../sheets/cisconetwork.sheet.in.h:81
+#: ../sheets/cisconetwork.sheet.in.h:80
 msgid "TokenRing"
 msgstr "TokenRing"
 
-#: ../sheets/cisconetwork.sheet.in.h:82
+#: ../sheets/cisconetwork.sheet.in.h:81
 msgid "MAU"
 msgstr "MAU"
 
-#: ../sheets/cisconetwork.sheet.in.h:83
+#: ../sheets/cisconetwork.sheet.in.h:82
 msgid "Repeater"
 msgstr "Opakovač"
 
-#: ../sheets/cisconetwork.sheet.in.h:84
+#: ../sheets/cisconetwork.sheet.in.h:83
 msgid "Bridge"
 msgstr "Most"
 
-#: ../sheets/cisconetwork.sheet.in.h:85
+#: ../sheets/cisconetwork.sheet.in.h:84
 msgid "Breakout box"
 msgstr "Panel s konektory"
 
-#: ../sheets/cisconetwork.sheet.in.h:86
+#: ../sheets/cisconetwork.sheet.in.h:85
 msgid "STB (set top box)"
 msgstr "STB (set top box)"
 
-#: ../sheets/cisconetwork.sheet.in.h:87
+#: ../sheets/cisconetwork.sheet.in.h:86
 msgid "TV"
 msgstr "TV"
 
-#: ../sheets/cisconetwork.sheet.in.h:88
+#: ../sheets/cisconetwork.sheet.in.h:87
 msgid "IPTV broadcast server"
 msgstr "Server vysílání IPTV"
 
-#: ../sheets/cisconetwork.sheet.in.h:89
+#: ../sheets/cisconetwork.sheet.in.h:88
 msgid "IPTV content manager"
 msgstr "Správce obsahu IPTV"
 
-#: ../sheets/cisconetwork.sheet.in.h:90
+#: ../sheets/cisconetwork.sheet.in.h:89
 msgid "VN2900"
 msgstr "VN2900"
 
-#: ../sheets/cisconetwork.sheet.in.h:91
+#: ../sheets/cisconetwork.sheet.in.h:90
 msgid "VN5902"
 msgstr "VN5902"
 
-#: ../sheets/cisconetwork.sheet.in.h:92
+#: ../sheets/cisconetwork.sheet.in.h:91
 msgid "VN5900"
 msgstr "VN5900"
 
-#: ../sheets/cisconetwork.sheet.in.h:93
+#: ../sheets/cisconetwork.sheet.in.h:92
 msgid "Catalyst Access Gateway"
 msgstr "Přístupová brána Catalyst"
 
-#: ../sheets/cisconetwork.sheet.in.h:94
+#: ../sheets/cisconetwork.sheet.in.h:93
 msgid "Generic Gateway"
 msgstr "Obecná brána"
 
-#: ../sheets/cisconetwork.sheet.in.h:95
+#: ../sheets/cisconetwork.sheet.in.h:94
 msgid "TransPath"
 msgstr "TransPath"
 
-#: ../sheets/cisconetwork.sheet.in.h:96
+#: ../sheets/cisconetwork.sheet.in.h:95
 msgid "uBR910 Cable DSU"
 msgstr "Kabelová DSU uBR910"
 
-#: ../sheets/cisconetwork.sheet.in.h:97
+#: ../sheets/cisconetwork.sheet.in.h:96
 msgid "Storage Solution Engine"
 msgstr "Úložný systém"
 
-#: ../sheets/cisconetwork.sheet.in.h:98
+#: ../sheets/cisconetwork.sheet.in.h:97
 msgid "Content Engine (Cache Director)"
 msgstr "Zpracování obsahu (správce mezipaměti)"
 
-#: ../sheets/cisconetwork.sheet.in.h:99
+#: ../sheets/cisconetwork.sheet.in.h:98
 msgid "CDM Content Distribution Manager"
 msgstr "Správce rozdělení obsahu CDM"
 
-#: ../sheets/cisconetwork.sheet.in.h:100
+#: ../sheets/cisconetwork.sheet.in.h:99
 msgid "Content Transformation Engine (CTE)"
 msgstr "Zpracování transformace obsahu (CTE)"
 
-#: ../sheets/cisconetwork.sheet.in.h:101
+#: ../sheets/cisconetwork.sheet.in.h:100
 msgid "ME 1100"
 msgstr "ME 1100"
 
-#: ../sheets/cisconetwork.sheet.in.h:102
+#: ../sheets/cisconetwork.sheet.in.h:101
 msgid "MAS Gateway"
 msgstr "Brána MAS"
 
-#: ../sheets/cisconetwork.sheet.in.h:103
+#: ../sheets/cisconetwork.sheet.in.h:102
 msgid "File Engine"
 msgstr "Zpracování souborů"
 
-#: ../sheets/cisconetwork.sheet.in.h:104
+#: ../sheets/cisconetwork.sheet.in.h:103
 msgid "Service Control"
 msgstr "Ovládání služeb"
 
