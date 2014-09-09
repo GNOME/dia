@@ -696,7 +696,8 @@ arc_create(Point *startpoint,
   Point defaultlen = { 1.0, 1.0 };
 
   arc = g_malloc0(sizeof(Arc));
-
+  arc->connection.object.enclosing_box = g_new0 (Rectangle, 1);
+  
   arc->line_width =  attributes_get_default_linewidth();
   arc->curve_distance = 1.0;
   arc->arc_color = attributes_get_foreground(); 
@@ -729,6 +730,8 @@ arc_create(Point *startpoint,
 static void
 arc_destroy(Arc *arc)
 {
+  g_free (arc->connection.object.enclosing_box);
+  arc->connection.object.enclosing_box = NULL;
   connection_destroy(&arc->connection);
 }
 
@@ -742,6 +745,7 @@ arc_copy(Arc *arc)
   conn = &arc->connection;
   
   newarc = g_malloc0(sizeof(Arc));
+  newarc->connection.object.enclosing_box = g_new0 (Rectangle, 1);
   newconn = &newarc->connection;
   newobj = &newconn->object;
 
@@ -926,8 +930,9 @@ arc_update_data(Arc *arc)
     rectangle_union(&obj->bounding_box, &bbox);
   }
   /* if selected put the centerpoint in the box, too. */
-  obj->enclosing_box = obj->bounding_box;
-  rectangle_add_point(&obj->enclosing_box, &arc->center);
+  g_assert (obj->enclosing_box != NULL);
+  *obj->enclosing_box = obj->bounding_box;
+  rectangle_add_point(obj->enclosing_box, &arc->center);
 
   obj->position = conn->endpoints[0];
 }
@@ -982,6 +987,7 @@ arc_load(ObjectNode obj_node, int version,DiaContext *ctx)
   AttributeNode attr;
 
   arc = g_malloc0(sizeof(Arc));
+  arc->connection.object.enclosing_box = g_new0 (Rectangle, 1);
 
   conn = &arc->connection;
   obj = &conn->object;

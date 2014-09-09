@@ -263,6 +263,7 @@ beziergon_create(Point *startpoint,
   Point defaulty = { 0.0, 1.0 };
 
   beziergon = g_new0(Beziergon, 1);
+  beziergon->bezier.object.enclosing_box = g_new0 (Rectangle, 1);
   bez = &beziergon->bezier;
   obj = &bez->object;
 
@@ -313,6 +314,8 @@ beziergon_destroy(Beziergon *beziergon)
 {
   if (beziergon->pattern)
     g_object_unref (beziergon->pattern);
+  g_free (beziergon->bezier.object.enclosing_box);
+  beziergon->bezier.object.enclosing_box = NULL;
   beziershape_destroy(&beziergon->bezier);
 }
 
@@ -325,6 +328,7 @@ beziergon_copy(Beziergon *beziergon)
   bezier = &beziergon->bezier;
  
   newbeziergon = g_malloc0(sizeof(Beziergon));
+  newbeziergon->bezier.object.enclosing_box = g_new0 (Rectangle, 1);
   newbezier = &newbeziergon->bezier;
 
   beziershape_copy(bezier, newbezier);
@@ -357,12 +361,13 @@ beziergon_update_data(Beziergon *beziergon)
   /* update the enclosing box using the control points */
   {
     int i, num_points = bez->bezier.num_points;
-    obj->enclosing_box = obj->bounding_box;
+    g_assert (obj->enclosing_box != NULL);
+    *obj->enclosing_box = obj->bounding_box;
     for (i = 0; i < num_points; ++i) {
       if (bez->bezier.points[i].type != BEZ_CURVE_TO)
         continue;
-      rectangle_add_point(&obj->enclosing_box, &bez->bezier.points[i].p1);      
-      rectangle_add_point(&obj->enclosing_box, &bez->bezier.points[i].p2);      
+      rectangle_add_point(obj->enclosing_box, &bez->bezier.points[i].p1);      
+      rectangle_add_point(obj->enclosing_box, &bez->bezier.points[i].p2);      
     }
   }
   obj->position = bez->bezier.points[0].p1;
@@ -416,6 +421,7 @@ beziergon_load(ObjectNode obj_node, int version, DiaContext *ctx)
   AttributeNode attr;
 
   beziergon = g_malloc0(sizeof(Beziergon));
+  beziergon->bezier.object.enclosing_box = g_new0 (Rectangle, 1);
 
   bez = &beziergon->bezier;
   obj = &bez->object;

@@ -1061,17 +1061,13 @@ dia_object_get_bounding_box(const DiaObject *obj) {
  * @return A pointer to a Rectangle object.  This object should *not*
  *  be freed after use, as it belongs to the object.
  */
-const Rectangle *dia_object_get_enclosing_box(const DiaObject *obj) {
-  /* I believe we can do this comparison, as it is only to compare for cases
-   * where it would be set explicitly to 0.
-   */
-  if (obj->enclosing_box.top == 0.0 &&
-      obj->enclosing_box.bottom == 0.0 &&
-      obj->enclosing_box.left == 0.0 &&
-      obj->enclosing_box.right == 0.0) {
+const Rectangle *
+dia_object_get_enclosing_box(const DiaObject *obj)
+{
+  if (!obj->enclosing_box)
     return &obj->bounding_box;
-  } else {
-  } return &obj->enclosing_box;
+  else
+    return obj->enclosing_box;
 }
 
 void

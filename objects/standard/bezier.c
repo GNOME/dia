@@ -441,6 +441,7 @@ bezierline_create(Point *startpoint,
   Point defaultlen = { .3, .3 };
 
   bezierline = g_new0(Bezierline, 1);
+  bezierline->bez.object.enclosing_box = g_new0 (Rectangle, 1);
   bez = &bezierline->bez;
   obj = &bez->object;
   
@@ -484,6 +485,8 @@ bezierline_create(Point *startpoint,
 static void
 bezierline_destroy(Bezierline *bezierline)
 {
+  g_free (bezierline->bez.object.enclosing_box);
+  bezierline->bez.object.enclosing_box = NULL;
   bezierconn_destroy(&bezierline->bez);
 }
 
@@ -496,6 +499,7 @@ bezierline_copy(Bezierline *bezierline)
   bez = &bezierline->bez;
  
   newbezierline = g_new0(Bezierline, 1);
+  newbezierline->bez.object.enclosing_box = g_new0 (Rectangle, 1);
   newbez = &newbezierline->bez;
 
   bezierconn_copy(bez, newbez);
@@ -573,13 +577,14 @@ bezierline_update_data(Bezierline *bezierline)
       * and to remove traces from them */
   {
     int i, num_points = bez->bezier.num_points;
-    obj->enclosing_box = obj->bounding_box;
+    g_assert (obj->enclosing_box != NULL);
+    *obj->enclosing_box = obj->bounding_box;
     /* starting with the second point, the first one is MOVE_TO */
     for (i = 1; i < num_points; ++i) {
       if (bez->bezier.points[i].type != BEZ_CURVE_TO)
         continue;
-      rectangle_add_point(&obj->enclosing_box, &bez->bezier.points[i].p1);      
-      rectangle_add_point(&obj->enclosing_box, &bez->bezier.points[i].p2);      
+      rectangle_add_point(obj->enclosing_box, &bez->bezier.points[i].p1);      
+      rectangle_add_point(obj->enclosing_box, &bez->bezier.points[i].p2);      
     }
   }
 }
@@ -650,6 +655,7 @@ bezierline_load(ObjectNode obj_node, int version, DiaContext *ctx)
   AttributeNode attr;
 
   bezierline = g_new0(Bezierline, 1);
+  bezierline->bez.object.enclosing_box = g_new0 (Rectangle, 1);
 
   bez = &bezierline->bez;
   obj = &bez->object;

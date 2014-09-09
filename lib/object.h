@@ -503,7 +503,7 @@ struct _DiaObject {
    *  Since handles and CPs are not in the BB, that will be the case for most
    *  objects.
    */
-  Rectangle         enclosing_box;
+  Rectangle        *enclosing_box;
   /*! Metainfo of the object, should not be manipulated directy. Use dia_object_set_meta() */
   GHashTable       *meta;
 };
