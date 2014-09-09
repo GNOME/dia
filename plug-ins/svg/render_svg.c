@@ -71,8 +71,12 @@ typedef struct _SvgRendererClass SvgRendererClass;
 
 /*!
  * \brief Renderer for SVG export
+ *
+ * This renderer is used for SVG export. It extends the base class with
+ * special handling of multi-line text, grouping of object rendering into
+ * object specific groups and grouping of layers.
+ *
  * \extends _DiaSvgRenderer
- * \bug Doxygen chokes on this file and simply ignores dox after parents
  */
 struct _SvgRenderer
 {
@@ -167,13 +171,14 @@ end_render (DiaRenderer *self)
 }
 
 /*!
- * \brief Advertize special capabilities
+ * \brief Advertise special capabilities
  *
- * Some objects drawing adapts to capabilities advertized by the respective
+ * Some objects drawing adapts to capabilities advertised by the respective
  * renderer. Usually there is a fallback, but generally the real thing should
- * be better.
+ * be better. The SVG renderer preserves holes, transparency, handles affine
+ * transformation and also gradients.
  *
- * \memberof SvgRenderer
+ * \memberof _SvgRenderer
  */
 static gboolean 
 is_capable_to (DiaRenderer *renderer, RenderCapability cap)
@@ -227,7 +232,7 @@ svg_renderer_class_init (SvgRendererClass *klass)
  * different parameters. Here we want to be as compatible as feasible
  * with the SVG specification to support proper diagram exchange.
  *
- * \memberof SvgRenderer
+ * \relates _SvgRenderer
  */
 static DiaSvgRenderer *
 new_svg_renderer(DiagramData *data, const char *filename)
@@ -280,7 +285,7 @@ new_svg_renderer(DiagramData *data, const char *filename)
  * This method intercepts DiaRenderer::draw_layer() to wrap every layer's
  * object into their own named group. This seems to be the common way to
  * transport layer information via SVG.
- * \memberof SvgRenderer
+ * \memberof _SvgRenderer
  */
 static void
 draw_layer (DiaRenderer *self,
@@ -311,7 +316,7 @@ draw_layer (DiaRenderer *self,
  * We could try to be smart and count the objects we using for the object.
  * If it is only one the grouping is superfluous and should be removed.
  *
- * \memberof SvgRenderer
+ * \memberof _SvgRenderer
  */
 static void 
 draw_object(DiaRenderer *self,
@@ -437,7 +442,7 @@ _adjust_space_preserve (xmlNodePtr node,
  * This is the only function in the renderer interface using the
  * font passed in by set_font() method.
  *
- * \memberof SvgRenderer
+ * \memberof _SvgRenderer
  */
 static void
 draw_string(DiaRenderer *self,
@@ -462,7 +467,7 @@ draw_string(DiaRenderer *self,
 
 /*!
  * \brief Support rendering of the _TextLine object
- * \memberof SvgRenderer
+ * \memberof _SvgRenderer
  */
 static void
 draw_text_line(DiaRenderer *self, TextLine *text_line,
@@ -493,10 +498,10 @@ draw_text_line(DiaRenderer *self, TextLine *text_line,
  * \brief multi-line text creation
  *
  * The most high-level member function for text support. Still the
- * others have to be implemented because some _DiaObject dimplementations
+ * others have to be implemented because some _DiaObject implementations
  * use the more low-level variants.
  *
- * \memberof SvgRenderer
+ * \memberof _SvgRenderer
  */
 static void
 draw_text (DiaRenderer *self, Text *text)

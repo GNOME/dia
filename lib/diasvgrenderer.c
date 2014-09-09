@@ -7,7 +7,7 @@
  * diasvgrenderer.c - refactoring of the above to serve as the
  *                    base class for plug-ins/svg/render_svg.c and
  *                    plug-ins/shape/shape-export.c
- *   Copyright (C) 2002, Hans Breuer
+ *   Copyright (C) 2002-2014 Hans Breuer
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -57,7 +57,10 @@ static void
 draw_text_line(DiaRenderer *self, TextLine *text_line,
 	       Point *pos, Alignment alignment, Color *colour);
 
-/* DiaSvgRenderer methods */
+/*!
+ * \brief Initialize to SVG rendering defaults
+ * \memberof _DiaSvgRenderer
+ */
 static void
 begin_render(DiaRenderer *self, const Rectangle *update)
 {
@@ -166,6 +169,10 @@ _gradient_do (gpointer key,
   }
 }
 
+/*!
+ * \brief Flush all pending information to file
+ * \memberof _DiaSvgRenderer
+ */
 static void
 end_render(DiaRenderer *self)
 {
@@ -188,6 +195,10 @@ end_render(DiaRenderer *self)
   xmlFreeDoc(renderer->doc);
 }
 
+/*!
+ * \brief Only basic capabilities for the base class
+ * \memberof _DiaSvgRenderer
+ */
 static gboolean
 is_capable_to (DiaRenderer *renderer, RenderCapability cap)
 {
@@ -202,6 +213,10 @@ is_capable_to (DiaRenderer *renderer, RenderCapability cap)
   return FALSE;
 }
 
+/*!
+ * \brief Set line width
+ * \memberof _DiaSvgRenderer
+ */
 static void
 set_linewidth(DiaRenderer *self, real linewidth)
 {  /* 0 == hairline **/
@@ -213,6 +228,10 @@ set_linewidth(DiaRenderer *self, real linewidth)
     renderer->linewidth = linewidth;
 }
 
+/*!
+ * \brief Set line caps
+ * \memberof _DiaSvgRenderer
+ */
 static void
 set_linecaps(DiaRenderer *self, LineCaps mode)
 {
@@ -233,6 +252,10 @@ set_linecaps(DiaRenderer *self, LineCaps mode)
   }
 }
 
+/*!
+ * \brief Set line join
+ * \memberof _DiaSvgRenderer
+ */
 static void
 set_linejoin(DiaRenderer *self, LineJoin mode)
 {
@@ -253,6 +276,10 @@ set_linejoin(DiaRenderer *self, LineJoin mode)
   }
 }
 
+/*!
+ * \brief Set line style
+ * \memberof _DiaSvgRenderer
+ */
 static void
 set_linestyle(DiaRenderer *self, LineStyle mode, real dash_length)
 {
@@ -315,6 +342,10 @@ set_linestyle(DiaRenderer *self, LineStyle mode, real dash_length)
   }
 }
 
+/*!
+ * \brief Set fill style
+ * \memberof _DiaSvgRenderer
+ */
 static void
 set_fillstyle(DiaRenderer *self, FillStyle mode)
 {
@@ -328,6 +359,7 @@ set_fillstyle(DiaRenderer *self, FillStyle mode)
 
 /*!
  * \brief Remember the pattern for later use
+ * \memberof _DiaSvgRenderer
  */
 static void
 set_pattern(DiaRenderer *self, DiaPattern *pattern)
@@ -350,7 +382,13 @@ set_pattern(DiaRenderer *self, DiaPattern *pattern)
     g_object_unref (prev);
 }
 
-/* the return value of this function should not be saved anywhere */
+/*!
+ * \brief Get the draw style for given fill/stroke
+ *
+ * The return value of this function should not be saved anywhere
+ *
+ * \protected \memberof _DiaSvgRenderer
+ */
 static const gchar *
 get_draw_style(DiaSvgRenderer *renderer,
 	       Color *fill,
@@ -401,8 +439,10 @@ get_draw_style(DiaSvgRenderer *renderer,
   return str->str;
 }
 
-/* the return value of this function should not be saved anywhere */
-
+/*!
+ * \brief Draw a single line element
+ * \memberof _DiaSvgRenderer
+ */
 static void
 draw_line(DiaRenderer *self, 
 	  Point *start, Point *end, 
@@ -426,6 +466,10 @@ draw_line(DiaRenderer *self,
   xmlSetProp(node, (const xmlChar *)"y2", (xmlChar *) d_buf);
 }
 
+/*!
+ * \brief Draw a polyline element
+ * \memberof _DiaSvgRenderer
+ */
 static void
 draw_polyline(DiaRenderer *self, 
 	      Point *points, int num_points, 
@@ -451,6 +495,10 @@ draw_polyline(DiaRenderer *self,
   g_string_free(str, TRUE);
 }
 
+/*!
+ * \brief Draw a polygon element (filled and/or stroked)
+ * \memberof _DiaSvgRenderer
+ */
 static void
 draw_polygon (DiaRenderer *self, 
 	      Point *points, int num_points, 
@@ -479,6 +527,10 @@ draw_polygon (DiaRenderer *self,
   g_string_free(str, TRUE);
 }
 
+/*!
+ * \brief Draw a rectangle element (filled and/or stroked)
+ * \memberof _DiaSvgRenderer
+ */
 static void
 draw_rect(DiaRenderer *self, 
 	  Point *ul_corner, Point *lr_corner,
@@ -502,6 +554,10 @@ draw_rect(DiaRenderer *self,
   xmlSetProp(node, (const xmlChar *)"height", (xmlChar *) d_buf);
 }
 
+/*!
+ * \brief Draw an arc with a path element
+ * \memberof _DiaSvgRenderer
+ */
 static void
 draw_arc(DiaRenderer *self, 
 	 Point *center,
@@ -541,6 +597,10 @@ draw_arc(DiaRenderer *self,
   xmlSetProp(node, (const xmlChar *)"d", (xmlChar *) buf);
 }
 
+/*!
+ * \brief Draw an filled arc (pie chart) with a path element
+ * \memberof _DiaSvgRenderer
+ */
 static void
 fill_arc(DiaRenderer *self, 
 	 Point *center,
@@ -582,6 +642,10 @@ fill_arc(DiaRenderer *self,
   xmlSetProp(node, (const xmlChar *)"d", (xmlChar *) buf);
 }
 
+/*!
+ * \brief Draw an ellipse element (filled and/or stroked)
+ * \memberof _DiaSvgRenderer
+ */
 static void
 draw_ellipse(DiaRenderer *self, 
 	     Point *center,
@@ -676,6 +740,10 @@ _bezier(DiaRenderer *self,
   g_string_free(str, TRUE);
 }
 
+/*!
+ * \brief Draw a path element (not closed)
+ * \memberof _DiaSvgRenderer
+ */
 static void
 draw_bezier(DiaRenderer *self, 
 	    BezPoint *points,
@@ -685,6 +753,10 @@ draw_bezier(DiaRenderer *self,
   _bezier(self, points, numpoints, NULL, stroke, FALSE);
 }
 
+/*!
+ * \brief Draw a path element (filled and/or stroked)
+ * \memberof _DiaSvgRenderer
+ */
 static void
 draw_beziergon (DiaRenderer *self, 
 		BezPoint *points,
@@ -700,6 +772,10 @@ draw_beziergon (DiaRenderer *self,
   _bezier(self, points, numpoints, fill, stroke, TRUE);
 }
 
+/*!
+ * \brief Draw a text element by delegating to draw_text_line()
+ * \memberof _DiaSvgRenderer
+ */
 static void
 draw_string(DiaRenderer *self,
 	    const char *text,
@@ -711,7 +787,10 @@ draw_string(DiaRenderer *self,
   text_line_destroy(text_line);
 }
 
-
+/*!
+ * \brief Draw a text element (single line)
+ * \memberof _DiaSvgRenderer
+ */
 static void
 draw_text_line(DiaRenderer *self, TextLine *text_line,
 	       Point *pos, Alignment alignment, Color *colour)
@@ -776,6 +855,10 @@ draw_text_line(DiaRenderer *self, TextLine *text_line,
   xmlSetProp(node, (const xmlChar*)"textLength", (xmlChar *) d_buf);
 }
 
+/*!
+ * \brief Draw an image element
+ * \memberof _DiaSvgRenderer
+ */
 static void
 draw_image(DiaRenderer *self,
 	   Point *point,
@@ -820,8 +903,8 @@ draw_image(DiaRenderer *self,
 }
 
 /*!
- * \brief creation of rectangles with corner radius
- * \memberof SvgRenderer
+ * \brief Draw a rectangle element (with corner rounding)
+ * \memberof _DiaSvgRenderer
  */
 static void
 draw_rounded_rect (DiaRenderer *self, 

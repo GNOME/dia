@@ -22,13 +22,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
-/*
- * TODO:
- *   - While porting to use DiaSvgRenderer I removed all connection point
-       adding to fill_* methods with the assumption that they always have
-       a corresponding draw_* method call where the connection points are 
-       already added. Correct me if I'm wrong ...                    --hb 
- */
 #include <config.h>
 
 #include <stdlib.h>
@@ -74,7 +67,12 @@ typedef struct _ShapeRenderer ShapeRenderer;
 typedef struct _ShapeRendererClass ShapeRendererClass;
 
 /*!
- * \brief Shape export for use as \ref Shapes
+ * \brief Shape export for use as new _Custom object
+ *
+ * Render to the SVG Shape dialect including connection points and icon information.
+ * The SVG output is unscaled - that is with untransformed diagram coordinates.
+ *
+ * \sa Shapes
  *
  * \extends _DiaSvgRenderer
  */
@@ -136,6 +134,11 @@ static void add_ellipse_connection_points(ShapeRenderer *renderer,
 /* Moved to reduce confusion of Doxygen */
 GType shape_renderer_get_type (void) G_GNUC_CONST;
 
+/*!
+ * \brief Create a shape renderer and initialize it from the diagram
+ *
+ * \relates _DiaSvgRenderer
+ */
 static DiaSvgRenderer *
 new_shape_renderer(DiagramData *data, const char *filename)
 {
@@ -260,7 +263,15 @@ shape_renderer_class_init (ShapeRendererClass *klass)
 }
 
 /* member implementations */
-/* full overwrite */
+/*!
+ * \brief Render an object
+ *
+ * Most objects rendering is delegated to the base class. Only special
+ * objects representing connection points are not rendered, but instead
+ * translated into shape connection points.
+ *
+ * \memberof _ShapeRenderer
+ */
 static void 
 draw_object(DiaRenderer *self,
             DiaObject   *object,
@@ -283,6 +294,10 @@ draw_object(DiaRenderer *self,
   }
 }
 
+/*!
+ * \brief Save the shape file
+ * \memberof _ShapeRenderer
+ */
 static void
 end_render(DiaRenderer *self)
 {
@@ -298,6 +313,10 @@ end_render(DiaRenderer *self)
   xmlFreeDoc(renderer->doc);
 }
 
+/*!
+ * \brief Add a connection point to the shape
+ * \protected \memberof _ShapeRenderer
+ */
 static void
 add_connection_point (ShapeRenderer *renderer, 
                       Point *point, gboolean design_connection, 
@@ -346,6 +365,10 @@ add_connection_point (ShapeRenderer *renderer,
   
 }
 
+/*!
+ * \brief Draw a line and add three connection points
+ * \memberof _ShapeRenderer
+ */
 static void
 draw_line(DiaRenderer *self, 
 	  Point *start, Point *end, 
@@ -366,7 +389,12 @@ draw_line(DiaRenderer *self,
 
 }
 
-/* complete overwrite, code duplication with base class */
+/*!
+ * \brief Draw a polyline and add connection points
+ *
+ * \note Complete overwrite, code duplication with base class
+ * \memberof _ShapeRenderer
+ */
 static void
 draw_polyline(DiaRenderer *self, 
 	      Point *points, int num_points, 
@@ -402,7 +430,12 @@ draw_polyline(DiaRenderer *self,
 }
 
 
-/* complete overwrite, necessary code duplication */
+/*!
+ * \brief Add a polygon including it's connection points
+ *
+ * \note complete overwrite, necessary code duplication?
+ * \memberof _ShapeRenderer
+ */
 static void
 draw_polygon(DiaRenderer *self, 
 	      Point *points, int num_points, 
@@ -437,6 +470,11 @@ draw_polygon(DiaRenderer *self,
   g_string_free(str, TRUE);
 }
 
+/*!
+ * \brief Add nine connection points for a rectangle
+ *
+ * \protected \memberof _ShapeRenderer
+ */
 static void
 add_rectangle_connection_points (ShapeRenderer *renderer,
                                  Point *ul_corner, Point *lr_corner, real r) 
@@ -479,8 +517,12 @@ add_rectangle_connection_points (ShapeRenderer *renderer,
   pos.y = (ul_corner->y + lr_corner->y)/2;
   add_connection_point(renderer, &pos, FALSE, FALSE);
 }
-    
 
+/*!
+ * \brief Draw a rectangle, if stroked with connection points
+ *
+ * \memberof _ShapeRenderer
+ */
 static void
 draw_rect (DiaRenderer *self, 
            Point *ul_corner, Point *lr_corner,
@@ -495,6 +537,11 @@ draw_rect (DiaRenderer *self,
     add_rectangle_connection_points(renderer, ul_corner, lr_corner, 0.0);
 }
 
+/*!
+ * \brief Draw a rounded rectangle, if stroked with connection points
+ *
+ * \memberof _ShapeRenderer
+ */
 static void
 draw_rounded_rect (DiaRenderer *self, 
 		   Point *ul_corner, Point *lr_corner,
@@ -509,6 +556,11 @@ draw_rounded_rect (DiaRenderer *self,
     add_rectangle_connection_points(renderer, ul_corner, lr_corner, rounding);
 }
 
+/*!
+ * \brief Add connection points for an ellipse
+ *
+ * \protected \memberof _ShapeRenderer
+ */
 static void 
 add_ellipse_connection_points (ShapeRenderer *renderer,
                                Point *center, 
@@ -529,6 +581,11 @@ add_ellipse_connection_points (ShapeRenderer *renderer,
   add_connection_point(renderer, &connection, FALSE, FALSE);
 }
 
+/*!
+ * \brief Draw an ellipse, if stroked with connection points
+ *
+ * \memberof _ShapeRenderer
+ */
 static void
 draw_ellipse(DiaRenderer *self, 
              Point *center,
