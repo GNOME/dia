@@ -302,6 +302,13 @@ struct _Split {
   GArray  *path;    /*!< subpath copy */
 };
 
+/*!
+ * \brief Extract splits from crossing
+ *
+ * Crossing is the array of Intersection which contains split information
+ * from crossing between two paths. This function separates the
+ * information into splits specific to a single path.
+ */
 static GArray *
 _extract_splits (const GArray *crossing, gboolean one)
 {
@@ -619,8 +626,8 @@ _make_path0 (GArray *one, /*!< array<BezierSegment> from first path */
     for (i = 0; i < segs->len; ++i) {
       BezierSegment *seg = &g_array_index (segs, BezierSegment, i);
       /* every split starts with a move-to */
-      if (   isp < splits->len
-	  && 0
+      if (   splits
+	  && isp < splits->len
 	  && i == g_array_index (splits, Split, isp).seg
 	  && g_array_index (result, BezPoint, result->len - 1).type != BEZ_MOVE_TO) {
 	bp.type = BEZ_MOVE_TO;
@@ -727,6 +734,16 @@ _make_path (GArray *one, /*!< array<BezierSegment> from first path */
   return result;
 }
 
+static GArray *
+_path_copy (const GArray *p)
+{
+  GArray *result = g_array_new (FALSE, FALSE, sizeof(BezPoint));
+
+  g_array_append_vals (result,  &g_array_index (p, BezPoint, 0), p->len);
+
+  return result;
+}
+
 /*!
  * \brief Combine two path into a single one with the given operation
  *
@@ -780,6 +797,46 @@ path_combine (const GArray   *p1,
     _free_splits (one_splits);
     _free_splits (two_splits);
     g_array_free (crossing, TRUE);
+  } else {
+    gboolean two_in_one = distance_bez_shape_point (&g_array_index (p1, BezPoint, 0), p1->len,
+				    0 /* line width */, &g_array_index (p2, BezPoint, 0).p1) == 0;
+    gboolean one_in_two = distance_bez_shape_point (&g_array_index (p2, BezPoint, 0), p2->len,
+				    0 /* line width */, &g_array_index (p1, BezPoint, 0).p1) == 0;
+
+    switch (mode) {
+    case PATH_UNION: /* Union and Exclusion just join the pathes */
+      if (two_in_one)
+	result = _path_copy (p1);
+      else if (one_in_two) /* the bigger one */
+	result = _path_copy (p2);
+      else
+	result = _make_path0 (one, NULL, two, NULL);
+      break;
+    case PATH_DIFFERENCE: /* Difference does it too, if p2 is inside p1 */
+      if (two_in_one)
+	result = _make_path0 (one, NULL, two, NULL);
+      else if (one_in_two)
+	result = NULL;
+      else
+	result = _path_copy (p1);
+      break;
+    case PATH_INTERSECTION:
+      if (two_in_one)
+	result = _path_copy (p2);
+      else if (one_in_two)
+	result = _path_copy (p1);
+      else
+	result = NULL; /* Intersection is just emtpy w/o crossing */
+      break;
+    case PATH_EXCLUSION:
+      if (two_in_one)/* with two_in_one this is like difference */
+	result = _make_path0 (one, NULL, two, NULL);
+      else if (one_in_two)
+	result = _make_path0 (two, NULL, one, NULL);
+      else /* join */
+	result = _make_path0 (one, NULL, two, NULL);
+      break;
+    }
   }
   g_array_free (one, TRUE);
   g_array_free (two, TRUE);

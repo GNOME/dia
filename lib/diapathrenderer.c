@@ -874,12 +874,11 @@ create_standard_path_from_list (GList           *objects,
     }
     if (p1 && p2) {
       GArray *combined = path_combine (p1, p2, mode);
-      if (combined) {
-	g_array_free (p1, TRUE);
-	p1 = combined;
-	g_array_free (p2, TRUE);
-	p2 = NULL;
-      }
+      /* combined == NULL is just passed on */
+      g_array_free (p1, TRUE);
+      p1 = combined;
+      g_array_free (p2, TRUE);
+      p2 = NULL;
     } else {
       p1 = p2;
       p2 = NULL;

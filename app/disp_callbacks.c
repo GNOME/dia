@@ -238,15 +238,18 @@ _combine_to_path_callback (GtkAction *action, gpointer data)
     (change->apply)(change, dia);
     /* add the new object with undo */
     undo_insert_objects(dia, g_list_prepend(NULL, obj), 1);
-    undo_set_transactionpoint(ddisp->diagram->undo);
-
     diagram_add_object (dia, obj);
     diagram_select(dia, obj);
+    undo_set_transactionpoint(ddisp->diagram->undo);
     object_add_updates(obj, dia);
-
-    ddisplay_do_update_menu_sensitivity(ddisp);
-    diagram_flush(dia);
+  } else {
+    /* path combination result is empty, this is just a delete */
+    Change *change = undo_delete_objects_children(ddisp->diagram, cut_list);
+    (change->apply)(change, ddisp->diagram);
+    undo_set_transactionpoint(ddisp->diagram->undo);
   }
+  ddisplay_do_update_menu_sensitivity(ddisp);
+  diagram_flush(dia);
   g_list_free (cut_list);
 }
 static void
