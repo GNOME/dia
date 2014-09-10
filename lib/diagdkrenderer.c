@@ -481,7 +481,10 @@ draw_line (DiaRenderer *object, Point *start, Point *end, Color *line_color)
   GdkGC *gc = renderer->gc;
   GdkColor color;
   int x1,y1,x2,y2;
-  
+
+  if (line_color->alpha == 0.0)
+    return;
+
   dia_transform_coords(renderer->transform, start->x, start->y, &x1, &y1);
   dia_transform_coords(renderer->transform, end->x, end->y, &x2, &y2);
   
@@ -501,7 +504,7 @@ draw_polygon (DiaRenderer *object, Point *points, int num_points,
   GdkColor color;
   GdkPoint *gdk_points;
   int i,x,y;
-  
+
   gdk_points = g_new(GdkPoint, num_points);
 
   for (i=0;i<num_points;i++) {
@@ -510,13 +513,13 @@ draw_polygon (DiaRenderer *object, Point *points, int num_points,
     gdk_points[i].y = y;
   }
 
-  if (fill) {
+  if (fill && fill->alpha > 0.0) {
     renderer_color_convert(renderer, fill, &color);
     gdk_gc_set_foreground(gc, &color);
   
     gdk_draw_polygon(renderer->pixmap, gc, TRUE, gdk_points, num_points);
   }
-  if (stroke) {
+  if (stroke && stroke->alpha > 0.0) {
     renderer_color_convert(renderer, stroke, &color);
     gdk_gc_set_foreground(gc, &color);
   
@@ -539,7 +542,10 @@ draw_fill_arc (DiaRenderer *object,
   gint top, left, bottom, right;
   real dangle;
   gboolean counter_clockwise = angle2 > angle1;
-  
+
+  if (color->alpha == 0.0)
+    return;
+
   dia_transform_coords(renderer->transform,
                        center->x - width/2, center->y - height/2,
                        &left, &top);
@@ -590,9 +596,9 @@ draw_ellipse (DiaRenderer *object, Point *center,
               real width, real height, 
               Color *fill, Color *stroke)
 {
-  if (fill)
+  if (fill && fill->alpha > 0.0)
     fill_arc(object, center, width, height, 0.0, 360.0, fill);
-  if (stroke)    
+  if (stroke && stroke->alpha > 0.0)    
     draw_arc(object, center, width, height, 0.0, 360.0, stroke);
 }
 
@@ -873,14 +879,14 @@ draw_rect (DiaRenderer *self,
   if ((left>right) || (top>bottom))
     return;
 
-  if (fill) {
+  if (fill && fill->alpha > 0.0) {
     renderer_color_convert(renderer, fill, &gdkcolor);
     gdk_gc_set_foreground(gc, &gdkcolor);
 
     gdk_draw_rectangle (renderer->pixmap, gc, TRUE,
 			left, top, right-left, bottom-top);
   }
-  if (stroke) {
+  if (stroke && stroke->alpha > 0.0) {
     renderer_color_convert(renderer, stroke, &gdkcolor);
     gdk_gc_set_foreground(gc, &gdkcolor);
 
@@ -899,7 +905,10 @@ draw_polyline (DiaRenderer *self,
   GdkColor color;
   GdkPoint *gdk_points;
   int i,x,y;
-  
+
+  if (line_color->alpha == 0.0)
+    return;
+
   gdk_points = g_new(GdkPoint, num_points);
 
   for (i=0;i<num_points;i++) {
