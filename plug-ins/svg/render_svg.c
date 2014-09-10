@@ -43,6 +43,7 @@
 #include "diagramdata.h"
 #include "dia_xml_libxml.h"
 #include "object.h"
+#include "group.h"
 #include "textline.h"
 #include "dia_svg.h"
 
@@ -333,28 +334,50 @@ draw_object(DiaRenderer *self,
   /* modifying the root pointer so everything below us gets into the new node */
   renderer->root = group = xmlNewNode (renderer->svg_name_space, (const xmlChar *)"g");
 
-  if (matrix) {
-    gchar *s = dia_svg_from_matrix (matrix, renderer->scale);
-    xmlSetProp(renderer->root, (const xmlChar *)"transform", (xmlChar *) s);
-    g_free (s);
-  }
+  if (IS_GROUP (object) && !matrix) {
+    /* group_draw() is applying it's matrix to every child, but we can do
+     * better with inline version of group drawing
+     */
+    const DiaMatrix *gm = group_get_transform ((Group *)object);
+    GList *objs = group_objects (object);
 
-  object->ops->draw(object, DIA_RENDERER (renderer));
-  
-  /* no easy way to count? */
-  child = renderer->root->children;
-  while (child != NULL) {
-    child = child->next;
-    ++n_children;
-  }
-  renderer->root = g_queue_pop_tail (svg_renderer->parents);
-  /* if there is only one element added to the group node unpack it again  */
-  if (1 == n_children && !matrix) {
-    xmlAddChild (renderer->root, group->children);
-    xmlUnlinkNode (group); /* dont free the children */
-    xmlFree (group);
-  } else {
+    if (gm) {
+      gchar *s = dia_svg_from_matrix (gm, renderer->scale);
+      xmlSetProp(renderer->root, (const xmlChar *)"transform", (xmlChar *) s);
+      g_free (s);
+    }
+    while (objs) {
+      DiaObject *obj = (DiaObject *)objs->data;
+
+      obj->ops->draw(obj, DIA_RENDERER (renderer));
+      objs = objs->next;
+    }
+    renderer->root = g_queue_pop_tail (svg_renderer->parents);
     xmlAddChild (renderer->root, group);
+  } else {
+    if (matrix) {
+      gchar *s = dia_svg_from_matrix (matrix, renderer->scale);
+      xmlSetProp(renderer->root, (const xmlChar *)"transform", (xmlChar *) s);
+      g_free (s);
+    }
+
+    object->ops->draw(object, DIA_RENDERER (renderer));
+  
+    /* no easy way to count? */
+    child = renderer->root->children;
+    while (child != NULL) {
+      child = child->next;
+      ++n_children;
+    }
+    renderer->root = g_queue_pop_tail (svg_renderer->parents);
+    /* if there is only one element added to the group node unpack it again  */
+    if (1 == n_children && !matrix) {
+      xmlAddChild (renderer->root, group->children);
+      xmlUnlinkNode (group); /* dont free the children */
+      xmlFree (group);
+    } else {
+      xmlAddChild (renderer->root, group);
+    }
   }
 }
 

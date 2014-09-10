@@ -895,3 +895,9 @@ group_transform (Group *group, const DiaMatrix *m)
   }
   group_update_data (group);
 }
+
+const DiaMatrix *
+group_get_transform (Group *group)
+{
+  return group->matrix;
+}

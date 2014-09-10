@@ -34,6 +34,8 @@ GList *group_objects(DiaObject *group);
 
 void group_destroy_shallow(DiaObject *group);
 void group_transform (Group *group, const DiaMatrix *mat);
+const DiaMatrix *group_get_transform (Group *group);
+
 #define IS_GROUP(obj) ((obj)->type == &group_type)
 
 G_END_DECLS
