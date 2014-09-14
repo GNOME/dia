@@ -204,11 +204,15 @@ end_render(DiaRenderer *self)
 }
 
 /*!
- * \brief Advertize special capabilities
+ * \brief Advertise special capabilities
  *
- * Some objects drawing adapts to capabilities advertized by the respective
+ * Some objects drawing adapts to capabilities advertised by the respective
  * renderer. Usually there is a fallback, but generally the real thing should
  * be better.
+ *
+ * Holes tested with http://www.tlhiv.org/mppreview/ and render-test as well as
+ * convert-to-path: apparently Metapost is not capable to render holes or
+ * draw_beziergon is doing something wrong.
  *
  * \memberof _MetapostRenderer
  */
@@ -950,6 +954,7 @@ draw_image(DiaRenderer *self,
 
 /* GObject stuff */
 static void metapost_renderer_class_init (MetapostRendererClass *klass);
+
 
 static gpointer parent_class = NULL;
 
