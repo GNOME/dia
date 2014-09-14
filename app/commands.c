@@ -311,9 +311,9 @@ received_clipboard_image_handler(GtkClipboard *clipboard,
 static void
 received_clipboard_content_handler (GtkClipboard     *clipboard,
 				    GtkSelectionData *selection_data,
-				    gpointer          data)
+				    gpointer          user_data)
 {
-  DDisplay *ddisp = (DDisplay *)data;
+  DDisplay *ddisp = (DDisplay *)user_data;
   GdkAtom type_atom;
   gchar *type_name;
   gint len;
@@ -322,44 +322,39 @@ received_clipboard_content_handler (GtkClipboard     *clipboard,
     const guchar *data = gtk_selection_data_get_data (selection_data);
     type_atom = gtk_selection_data_get_data_type (selection_data);
     type_name = gdk_atom_name (type_atom);
-    if (type_name && strcmp (type_name, "image/svg+xml") == 0) {
+    if (type_name && (   strcmp (type_name, "image/svg") == 0
+		      || strcmp (type_name, "image/svg+xml") == 0
+		      || strcmp (type_name, "UTF8_STRING") == 0)) {
       DiaImportFilter *ifilter = filter_import_get_by_name ("dia-svg");
       DiaContext *ctx = dia_context_new (_("Clipboard Paste"));
 
       if (ifilter->import_mem_func) {
-        Change *change = undo_import_change_setup (ddisp->diagram);
+	Change *change = undo_import_change_setup (ddisp->diagram);
 
 	if (!ifilter->import_mem_func (data, len, DIA_DIAGRAM_DATA (ddisp->diagram),
 				      ctx, ifilter->user_data)) {
 	  /* might become more right some day ;) */
-	  message_error (_("No clipboard handler for '%s'"), type_name);
+	  dia_context_add_message (ctx, _("Failed to import '%s' as SVG."), type_name);
+	  dia_context_release (ctx);
 	}
 	if (undo_import_change_done (ddisp->diagram, change)) {
-          undo_set_transactionpoint(ddisp->diagram->undo);
-          diagram_modified(ddisp->diagram);
-          diagram_flush(ddisp->diagram);
+	  undo_set_transactionpoint(ddisp->diagram->undo);
+	  diagram_modified(ddisp->diagram);
+	  diagram_flush(ddisp->diagram);
 	}
+      }
+    } else {
+      /* fallback to pixbuf loader */
+      GdkPixbuf *pixbuf = gtk_selection_data_get_pixbuf (selection_data);
+      if (pixbuf) {
+	received_clipboard_image_handler (clipboard, pixbuf, ddisp);
+	g_object_unref (pixbuf);
+      } else {
+        message_error (_("Paste failed: %s"), type_name);
       }
     }
     dia_log_message ("Content is %s (size=%d)", type_name, len);
     g_free (type_name);
-
-  }
-}
-
-static void
-_targets_receive (GtkClipboard *clipboard,
-		  GdkAtom      *atom,
-		  gint          n_atoms,
-		  gpointer      data)
-{
-  gint i;
-  gchar *aname;
-
-  for (i = 0; i < n_atoms; ++i) {
-    aname = gdk_atom_name (atom[i]);
-    dia_log_message ("clipboard-targets %d: %s", i, aname);
-    g_free (aname);
   }
 }
 
@@ -368,21 +363,33 @@ edit_paste_image_callback (GtkAction *action)
 {
   GtkClipboard *clipboard = gtk_clipboard_get(GDK_NONE);
   DDisplay *ddisp;
-  GdkAtom  svg_atom = gdk_atom_intern_static_string ("image/svg+xml");
+  GdkAtom *targets;
+  gint n_targets;
+  gboolean done = FALSE;
 
   ddisp = ddisplay_active();
   if (!ddisp) return;
 
-  gtk_clipboard_request_targets (clipboard, _targets_receive, ddisp);
-  /* a second request call is asynchronuously to the above. I've found no reliable
-   * way to make the latter use information generted by the former
-   */
-  if (gtk_clipboard_wait_for_contents (clipboard, svg_atom))
-    gtk_clipboard_request_contents (clipboard, svg_atom,
-				    received_clipboard_content_handler, ddisp);
-  else
-    gtk_clipboard_request_image (clipboard,
-			         received_clipboard_image_handler, ddisp);
+  if (gtk_clipboard_wait_for_targets (clipboard, &targets, &n_targets)) {
+    int i;
+    for (i = 0; i < n_targets; ++i) {
+      gchar *aname = gdk_atom_name (targets[i]);
+      if (   strcmp (aname, "image/svg") == 0
+	  || strcmp (aname, "image/svg+xml") == 0
+	  || strcmp (aname, "UTF8_STRING") == 0) {
+	gtk_clipboard_request_contents (clipboard, targets[i],
+					received_clipboard_content_handler, ddisp);
+	done = TRUE;
+      }
+      dia_log_message ("clipboard-targets %d: %s", i, aname);
+      g_free (aname);
+      if (done)
+	break;
+    }
+    if (!done)
+      gtk_clipboard_request_image (clipboard, received_clipboard_image_handler, ddisp);
+    g_free (targets);
+  }
 }
 
 static PropDescription text_prop_singleton_desc[] = {
@@ -405,12 +412,13 @@ static GtkTargetEntry target_entries[] = {
   { "image/svg+xml", GTK_TARGET_OTHER_APP, 2 },
   { "image/png", GTK_TARGET_OTHER_APP, 3 },
   { "image/bmp", GTK_TARGET_OTHER_APP, 4 },
+  { "image/tiff", GTK_TARGET_OTHER_APP, 5 },
 #ifdef G_OS_WIN32
   /* this is not working on win32 either, maybe we need to register it with
    * CF_ENHMETAFILE in Gtk+? Change order? Direct use of SetClipboardData()?
    */
-  { "image/emf", GTK_TARGET_OTHER_APP, 5 },
-  { "image/wmf", GTK_TARGET_OTHER_APP, 6 },
+  { "image/emf", GTK_TARGET_OTHER_APP, 6 },
+  { "image/wmf", GTK_TARGET_OTHER_APP, 7 },
 #endif
 };
 
@@ -437,6 +445,9 @@ _clipboard_get_data_callback (GtkClipboard     *clipboard,
    * convert from png on demand ... */
   if (strcmp (ext, "bmp") == 0) {
     tmplate = g_strdup ("dia-cb-XXXXXX.png"); 
+  } else if (strcmp (ext, "tiff") == 0) {
+    /* pixbuf on OS X offers qtif and qif - both look like a mistake to me ;) */
+    tmplate = g_strdup ("dia-cb-XXXXXX.png");
   } else if (g_str_has_suffix (ext, "+xml")) {
     gchar *ext2 = g_strndup (ext, strlen (ext) - 4);
     tmplate = g_strdup_printf ("dia-cb-XXXXXX.%s", ext2);
@@ -466,7 +477,7 @@ _clipboard_get_data_callback (GtkClipboard     *clipboard,
      * Or even better: only use pixbuf transport when asked
      * for 'OS native bitmaps' BMP (win32), TIFF(osx), ...?
      */
-    if (strcmp (ext, "bmp") == 0 || strcmp (ext, "tif") == 0) {
+    if (strcmp (ext, "bmp") == 0 || strcmp (ext, "tiff") == 0) {
       GdkPixbuf *pixbuf = gdk_pixbuf_new_from_file(outfname, &error);
       if (pixbuf) {
 	gtk_selection_data_set_pixbuf (selection_data, pixbuf);
@@ -537,7 +548,7 @@ edit_copy_callback (GtkAction *action)
      * Nowadays the notation of one system global clipboard is common
      * for many programs on Linux, too.
      */
-#ifdef G_OS_WIN32
+#ifndef GDK_WINDOWING_X11
     gtk_clipboard_set_text(gtk_clipboard_get(GDK_NONE),
 			   prop->text_data, -1);
 #else
@@ -613,7 +624,7 @@ edit_paste_callback (GtkAction *action)
   ddisp = ddisplay_active();
   if (!ddisp) return;
   if (textedit_mode(ddisp)) {
-#ifdef G_OS_WIN32
+#ifndef GDK_WINDOWING_X11
     gtk_clipboard_request_text(gtk_clipboard_get(GDK_NONE), 
 			       received_clipboard_text_handler, ddisp);
 #else
@@ -768,7 +779,7 @@ edit_copy_text_callback (GtkAction *action)
   /* GTK docs claim the selection clipboard is ignored on Win32.
    * The "clipboard" clipboard is mostly ignored in Unix
    */
-#ifdef G_OS_WIN32
+#ifndef GDK_WINDOWING_X11
   gtk_clipboard_set_text(gtk_clipboard_get(GDK_NONE),
 			 prop->text_data, -1);
 #else
@@ -806,7 +817,7 @@ edit_cut_text_callback (GtkAction *action)
   /* GTK docs claim the selection clipboard is ignored on Win32.
    * The "clipboard" clipboard is mostly ignored in Unix
    */
-#ifdef G_OS_WIN32
+#ifndef GDK_WINDOWING_X11
   gtk_clipboard_set_text(gtk_clipboard_get(GDK_NONE),
 			 prop->text_data, -1);
 #else
@@ -833,7 +844,7 @@ edit_paste_text_callback (GtkAction *action)
   ddisp = ddisplay_active();
   if (!ddisp) return;
 
-#ifdef G_OS_WIN32
+#ifndef GDK_WINDOWING_X11
   gtk_clipboard_request_text(gtk_clipboard_get(GDK_NONE), 
 			     received_clipboard_text_handler, ddisp);
 #else
