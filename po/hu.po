@@ -11,14 +11,13 @@
 # Szabolcs Varga <shirokuma at shirokuma dot hu>, 2005.
 # Gabor Kelemen <kelemeng at gnome dot hu>, 2005, 2006, 2007, 2008, 2009.
 # Balázs Úr <urbalazs at gmail dot com>, 2013, 2014.
-# Balázs Úr <urbalazs@gmail.com>, 2014.
 msgid ""
 msgstr ""
 "Project-Id-Version: dia master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=dia&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2014-09-11 15:12+0000\n"
-"PO-Revision-Date: 2014-09-11 19:37+0200\n"
+"POT-Creation-Date: 2014-09-14 15:12+0000\n"
+"PO-Revision-Date: 2014-09-14 21:48+0200\n"
 "Last-Translator: Balázs Úr <urbalazs@gmail.com>\n"
 "Language-Team: Hungarian <gnome at fsf dot hu>\n"
 "Language: \n"
@@ -104,7 +103,6 @@ msgstr "KIMENET"
 
 #. &export_file_format
 #: ../app/app_procs.c:699
-#| msgid "Select the filter/format out of: %s"
 msgid "Select the export filter/format"
 msgstr "Válassza ki a exportálási szűrőt/formátumot"
 
@@ -113,7 +111,6 @@ msgid "TYPE"
 msgstr "TÍPUS"
 
 #: ../app/app_procs.c:701
-#| msgid "Export loaded file and exit"
 msgid "List export filters/formats and exit"
 msgstr "Exportálási szűrők/formátumok felsorolása és kilépés"
 
@@ -345,7 +342,6 @@ msgstr "Elérhető exportálási szűrők (a --filter kapcsolóhoz)"
 
 #. Translators: be brief or mess up the table for --list-filters
 #: ../app/app_procs.c:1324
-#| msgid "By extension"
 msgid "Extension"
 msgstr "Kiterjesztés"
 
@@ -382,29 +378,34 @@ msgstr "Nincs beillesztendő kép a vágólapon."
 msgid "No selected object can take an image."
 msgstr "Nincs kijelölt objektum, amely képet tud készíteni."
 
-#: ../app/commands.c:327
+#: ../app/commands.c:329
 msgid "Clipboard Paste"
 msgstr "Vágólap beillesztése"
 
 #. might become more right some day ;)
-#: ../app/commands.c:335
+#: ../app/commands.c:337
 #, c-format
-msgid "No clipboard handler for '%s'"
-msgstr "Nincs vágólap kezelő ehhez: „%s”"
+msgid "Failed to import '%s' as SVG."
+msgstr "Meghiúsult a(z) „%s” importálása SVG-ként."
 
-#: ../app/commands.c:426
+#: ../app/commands.c:353
+#, c-format
+msgid "Paste failed: %s"
+msgstr "A beillesztés meghiúsult: %s"
+
+#: ../app/commands.c:434
 msgid "Clipboard Copy"
 msgstr "Vágólap másolása"
 
-#: ../app/commands.c:625
+#: ../app/commands.c:636
 msgid "No existing object to paste.\n"
 msgstr "Nincs beillesztendő objektum.\n"
 
-#: ../app/commands.c:935 ../app/commands.c:973
+#: ../app/commands.c:946 ../app/commands.c:984
 msgid "Could not find help directory"
 msgstr "Nem található a súgó könyvtára"
 
-#: ../app/commands.c:942
+#: ../app/commands.c:953
 #, c-format
 msgid ""
 "Could not open help directory:\n"
@@ -413,7 +414,7 @@ msgstr ""
 "Nem lehet megnyitni a súgókönyvtárat:\n"
 "%s"
 
-#: ../app/commands.c:1010
+#: ../app/commands.c:1021
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr ""
 "Bán Szabolcs <shooby@gnome.hu>\n"
@@ -423,7 +424,7 @@ msgstr ""
 "Kovács Emese <emese@gnome.hu>\n"
 "Varga Szabolcs <shirokuma@shirokuma.hu>"
 
-#: ../app/commands.c:1012
+#: ../app/commands.c:1023
 msgid ""
 "This program is free software; you can redistribute it and/or modify\n"
 "it under the terms of the GNU General Public License as published by\n"
@@ -452,7 +453,7 @@ msgstr ""
 "ha nem kapta meg, írjon a Free Software Foundation Inc.-nek. \n"
 "Levélcímük: 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.\n"
 
-#: ../app/commands.c:1039
+#: ../app/commands.c:1050
 msgid "A program for drawing structured diagrams."
 msgstr "Strukturált diagramok szerkesztésére szolgáló program."
 
@@ -745,32 +746,31 @@ msgstr "Hivatkozás követése…"
 msgid "Convert to Path"
 msgstr "Átalakítás útvonallá"
 
-#: ../app/disp_callbacks.c:259 ../app/menus.c:272
+#: ../app/disp_callbacks.c:262 ../app/menus.c:272
 msgid "Union"
 msgstr "Unió"
 
-#: ../app/disp_callbacks.c:260
-#| msgid "Differentiate"
+#: ../app/disp_callbacks.c:263
 msgid "Difference"
 msgstr "Különbség"
 
-#: ../app/disp_callbacks.c:261 ../app/menus.c:273
+#: ../app/disp_callbacks.c:264 ../app/menus.c:273
 msgid "Intersection"
 msgstr "Metszet"
 
-#: ../app/disp_callbacks.c:262
+#: ../app/disp_callbacks.c:265
 msgid "Exclusion"
 msgstr "Kizárás"
 
-#: ../app/disp_callbacks.c:400
+#: ../app/disp_callbacks.c:403
 msgid "Selection"
 msgstr "Kijelölés"
 
-#: ../app/disp_callbacks.c:415
+#: ../app/disp_callbacks.c:418
 msgid "Input _Methods"
 msgstr "_Beviteli módok"
 
-#: ../app/disp_callbacks.c:1191
+#: ../app/disp_callbacks.c:1194
 msgid ""
 "The object you dropped cannot fit into its parent. \n"
 "Either expand the parent object, or drop the object elsewhere."
@@ -1029,7 +1029,6 @@ msgid "New Layer"
 msgstr "Új réteg"
 
 #: ../app/layer_dialog.c:167
-#| msgid "Rename Layer…"
 msgid "Rename Layer"
 msgstr "Réteg átnevezése"
 
@@ -1247,13 +1246,11 @@ msgid "_Help"
 msgstr "_Súgó"
 
 #: ../app/menus.c:95
-#| msgid "Dia Shape File"
 msgid "Dia help"
 msgstr "Dia súgó"
 
 #  TRANSLATOR: 2nd and 3rd %s are time and date respectively.
 #: ../app/menus.c:96
-#| msgid "Dia version %s, compiled %s %s\n"
 msgid "Dia version, authors, license"
 msgstr "Dia verzió, szerzők, licenc"
 
@@ -1262,12 +1259,10 @@ msgid "Sheets and Objects…"
 msgstr "Munkalapok és objektumok…"
 
 #: ../app/menus.c:104
-#| msgid "Sheets and Objects…"
 msgid "Manage sheets and their objects"
 msgstr "Munkalapok és objektumaik kezelése"
 
 #: ../app/menus.c:105
-#| msgid "Preferences"
 msgid "Dia preferences"
 msgstr "Dia beállítások"
 
@@ -1278,7 +1273,6 @@ msgstr "Bővítmények…"
 
 # app/menus.c:43 app/plugin-manager.c:129 app/plugin-manager.c:135
 #: ../app/menus.c:106
-#| msgid "Python plug-in"
 msgid "Manage plug-ins"
 msgstr "Bővítmények kezelése"
 
@@ -1295,7 +1289,6 @@ msgid "Show Toolbar"
 msgstr "Eszköztár megjelenítése"
 
 #: ../app/menus.c:112
-#| msgid "Show Toolbar"
 msgid "Show or hide the toolbar"
 msgstr "Eszköztár megjelenítése vagy elrejtése"
 
@@ -1304,7 +1297,6 @@ msgid "Show Statusbar"
 msgstr "Állapotsor megjelenítése"
 
 #: ../app/menus.c:113
-#| msgid "Show Statusbar"
 msgid "Show or hide the statusbar"
 msgstr "Állapotsor megjelenítése vagy elrejtése"
 
@@ -1363,7 +1355,6 @@ msgid "Print the diagram"
 msgstr "A diagram nyomtatása"
 
 #: ../app/menus.c:126
-#| msgid "Close Diagram"
 msgid "Close the diagram"
 msgstr "A diagram bezárása"
 
@@ -1396,12 +1387,10 @@ msgid "_Duplicate"
 msgstr "Más_olat"
 
 #: ../app/menus.c:135
-#| msgid "Paste selection"
 msgid "Duplicate selection"
 msgstr "Kijelölés kettőzése"
 
 #: ../app/menus.c:136
-#| msgid "Paste selection"
 msgid "Delete selection"
 msgstr "Kijelölés törlése"
 
@@ -1410,7 +1399,6 @@ msgid "_Find…"
 msgstr "_Keresés…"
 
 #: ../app/menus.c:138
-#| msgid "_Search for:"
 msgid "Search for text"
 msgstr "Szöveg keresése"
 
@@ -1453,7 +1441,6 @@ msgid "Paste _Image"
 msgstr "_Kép beillesztése"
 
 #: ../app/menus.c:147
-#| msgid "No image from Clipboard to paste."
 msgid "Insert image from clipboard"
 msgstr "Kép beszúrása a vágólapról"
 
@@ -2013,7 +2000,7 @@ msgstr "megjelenítés élsimítással"
 msgid "Portable Network Graphics"
 msgstr "Portable Network Graphics"
 
-#: ../app/preferences.c:224 ../plug-ins/svg/render_svg.c:555
+#: ../app/preferences.c:224 ../plug-ins/svg/render_svg.c:583
 #: ../plug-ins/svg/svg-import.c:2163
 msgid "Scalable Vector Graphics"
 msgstr "Scalable Vector Graphics (SVG)"
@@ -3427,7 +3414,6 @@ msgid "Flip vertical"
 msgstr "Függőleges tükrözés"
 
 #: ../objects/custom/custom_object.c:203 ../objects/custom/custom_object.c:236
-#| msgid "Scale of the subshapes"
 msgid "Scale of the sub-shapes"
 msgstr "A részalakok méretezése"
 
@@ -5503,23 +5489,23 @@ msgstr "Abszolút kezdő rés"
 msgid "Absolute end gap"
 msgstr "Abszolút záró rés"
 
-#: ../objects/standard/bezier.c:759 ../objects/standard/beziergon.c:516
+#: ../objects/standard/bezier.c:765 ../objects/standard/beziergon.c:522
 msgid "Add Segment"
 msgstr "Szakasz hozzáadása"
 
-#: ../objects/standard/bezier.c:760 ../objects/standard/beziergon.c:517
+#: ../objects/standard/bezier.c:766 ../objects/standard/beziergon.c:523
 msgid "Delete Segment"
 msgstr "Szakasz törlése"
 
-#: ../objects/standard/bezier.c:762 ../objects/standard/beziergon.c:519
+#: ../objects/standard/bezier.c:768 ../objects/standard/beziergon.c:525
 msgid "Symmetric control"
 msgstr "Szimmetrikus vezérlés"
 
-#: ../objects/standard/bezier.c:764 ../objects/standard/beziergon.c:521
+#: ../objects/standard/bezier.c:770 ../objects/standard/beziergon.c:527
 msgid "Smooth control"
 msgstr "Sima vezérlés"
 
-#: ../objects/standard/bezier.c:766 ../objects/standard/beziergon.c:523
+#: ../objects/standard/bezier.c:772 ../objects/standard/beziergon.c:529
 msgid "Cusp control"
 msgstr "Cusp-vezérlés"
 
@@ -6585,7 +6571,6 @@ msgid "Encapsulated Postscript with preview (using Pango fonts)"
 msgstr "Beágyazott Postscript előnézettel (Pango betűkészletek használatával)"
 
 #: ../plug-ins/postscript/render_eps.c:187
-#| msgid "Encapsulated PostScript (using PostScript Latin-1 fonts)"
 msgid "Encapsulated PostScript (using PS Latin-1 fonts)"
 msgstr "Beágyazott PostScript (PS Latin-1 betűkészletek használatával)"
 
@@ -6610,17 +6595,17 @@ msgstr "Python makrózás támogatása"
 msgid "Dia shape export filter"
 msgstr "Dia alak exportálási szűrő"
 
-#: ../plug-ins/shape/shape-export.c:565
+#: ../plug-ins/shape/shape-export.c:622
 msgid "Shape files must end in .shape, or they cannot be loaded by Dia"
 msgstr ""
 "Az alakfájlok kiterjesztése .shape kell legyen, különben a Dia nem tölti be "
 "őket"
 
-#: ../plug-ins/shape/shape-export.c:579
+#: ../plug-ins/shape/shape-export.c:636
 msgid "Can't export PNG icon without export plugin!"
 msgstr "Nem lehet PNG ikonba exportálni exportáló bővítmény nélkül!"
 
-#: ../plug-ins/shape/shape-export.c:605
+#: ../plug-ins/shape/shape-export.c:662
 msgid "Dia Shape File"
 msgstr "Dia-alakfájl"
 
@@ -6781,7 +6766,6 @@ msgid "WMF export filter"
 msgstr "WMF-exportszűrő"
 
 #: ../plug-ins/wpg/wpg.c:1111 ../plug-ins/wpg/wpg.c:1117
-#| msgid "WordPerfect Graphics export filter"
 msgid "WordPerfect Graphics"
 msgstr "WordPerfect Graphics"
 
@@ -10755,6 +10739,9 @@ msgstr "Tevékenység"
 #: ../sheets/UML.sheet.in.h:31
 msgid "Fork/Union"
 msgstr "Elágazás/egyesítés"
+
+#~ msgid "No clipboard handler for '%s'"
+#~ msgstr "Nincs vágólap kezelő ehhez: „%s”"
 
 #~ msgid "WPG"
 #~ msgstr "WPG"
