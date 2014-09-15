@@ -115,7 +115,6 @@ object_copy(DiaObject *from, DiaObject *to)
 
   to->ops = from->ops;
 
-  to->flags = from->flags;
   to->parent = from->parent;
   to->children = g_list_copy(from->children);
 }
@@ -882,7 +881,7 @@ dia_object_get_parent_with_flags(DiaObject *obj, guint flags)
   }
   while (obj->parent != NULL) {
     obj = obj->parent;
-    if ((obj->flags & flags) == flags) {
+    if ((obj->type->flags & flags) == flags) {
       top = obj;
     }
   }
@@ -903,8 +902,7 @@ dia_object_is_selectable(DiaObject *obj)
   if (obj->parent_layer == NULL) {
     return FALSE;
   }
-  return obj->parent_layer == obj->parent_layer->parent_diagram->active_layer
-    && obj == dia_object_get_parent_with_flags(obj, DIA_OBJECT_GRABS_CHILD_INPUT);
+  return obj->parent_layer == obj->parent_layer->parent_diagram->active_layer;
 }
 
 
@@ -988,7 +986,7 @@ object_get_type(char *name)
 gboolean
 object_flags_set(DiaObject *obj, gint flags)
 {
-  return (obj->flags & flags) == flags;
+  return (obj->type->flags & flags) == flags;
 }
 
 /** Load an object from XML based on its properties.

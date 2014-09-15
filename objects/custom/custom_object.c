@@ -1545,8 +1545,6 @@ custom_create(Point *startpoint,
 
   custom->info = info;
 
-  obj->flags |= info->object_flags;
-
   custom->old_subscale = 1.0;
   custom->subscale = 1.0;
   custom->current_subshape = NULL;
@@ -1648,7 +1646,6 @@ custom_copy(Custom *custom)
 
   element_copy(elem, newelem);
   newcustom->info = custom->info;
-  newobj->flags = custom->element.object.flags;
 
   newcustom->padding = custom->padding;
   newcustom->current_subshape = NULL; /* it's temporary state, don't copy from wrong object */
@@ -1798,6 +1795,7 @@ custom_object_new(ShapeInfo *info, DiaObjectType **otype)
   *obj = custom_type;
 
   obj->name = info->name;
+  obj->flags |= info->object_flags;
   obj->default_user_data = info;
 
   if (info->icon) {

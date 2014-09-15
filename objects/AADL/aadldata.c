@@ -137,12 +137,15 @@ ObjectTypeOps aadldata_type_ops;
 
 DiaObjectType aadldata_type =
 {
-  "AADL - Data",          /* name */
-  0,                   /* version */
-  aadldata_xpm,         /* pixmap */
-  &aadldata_type_ops,      /* ops */
+  "AADL - Data",           /* name */
+  0,                    /* version */
+  aadldata_xpm,          /* pixmap */
+  &aadldata_type_ops,       /* ops */
   NULL,
-  &aadldata_specific /* user data */
+  &aadldata_specific, /* user data */
+  NULL, /* prop_descs: property descriptions */
+  NULL, /* prop_offsets: DiaObject struct offsets */
+  DIA_OBJECT_CAN_PARENT /* flags */
 };
 
 

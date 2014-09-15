@@ -107,12 +107,15 @@ ObjectTypeOps aadlsubprogram_type_ops;
 
 DiaObjectType aadlsubprogram_type =
 {
-  "AADL - Subprogram",          /* name */
-  0,                         /* version */
-  aadlsubprogram_xpm,         /* pixmap */
-  &aadlsubprogram_type_ops,      /* ops */
+  "AADL - Subprogram",           /* name */
+  0,                          /* version */
+  aadlsubprogram_xpm,          /* pixmap */
+  &aadlsubprogram_type_ops,       /* ops */
   NULL,
-  &aadlsubprogram_specific /* user data */
+  &aadlsubprogram_specific, /* user data */
+  NULL, /* prop_descs: property descriptions */
+  NULL, /* prop_offsets: DiaObject struct offsets */
+  DIA_OBJECT_CAN_PARENT /* flags */
 };
 
 

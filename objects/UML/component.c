@@ -94,7 +94,13 @@ DiaObjectType component_type =
   "UML - Component", /* name */
   0,              /* version */
   component_xpm,   /* pixmap */
-  &component_type_ops /* ops */
+  &component_type_ops, /* ops */
+
+  NULL, /* pixmap_file: fallback if pixmap is NULL */
+  NULL, /* default_user_data: use this if no user data is specified in the .sheet file */
+  NULL, /* prop_descs: property descriptions */
+  NULL, /* prop_offsets: DiaObject struct offsets */
+  DIA_OBJECT_CAN_PARENT /* flags */
 };
 
 static ObjectOps component_ops = {
@@ -390,8 +396,6 @@ component_create(Point *startpoint,
   obj->type = &component_type;
 
   obj->ops = &component_ops;
-
-  obj->flags |= DIA_OBJECT_CAN_PARENT;
 
   elem->corner = *startpoint;
   cmp->line_color = attributes_get_foreground();

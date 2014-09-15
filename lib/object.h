@@ -42,11 +42,7 @@ typedef enum {
    *  it, a.k.a. be a parent.  A parent moves its children along and 
    *  constricts its children to live inside its borders.
    */
-  DIA_OBJECT_CAN_PARENT = 1,
-  /** Set this if the DiaObject grabs all input destined for its children.
-   * This is typically used for group-like objects.
-   */
-  DIA_OBJECT_GRABS_CHILD_INPUT = 2
+  DIA_OBJECT_CAN_PARENT = 1
 } DiaObjectFlags;
 
 /** This enumeration gives a bitset of modifier keys currently held down.
@@ -538,7 +534,6 @@ struct _DiaObject {
 			   dia_object_get_parent_layer() */
   DiaObject *parent; /*!< Back-pointer to DiaObject which is parenting this object. Can be NULL */
   GList *children; /*!< In case this object is a parent of other object the children are listed here */
-  gint flags; /*!< Various flags that can be set for this object, see defines above */
 
   /** The area that contains all parts rendered interactively, so includes
    *  handles, bezier controllers etc.  Despite historical difference, this
@@ -594,6 +589,7 @@ struct _DiaObjectType {
   void *default_user_data; /*!< use this if no user data is specified in the .sheet file */
   const PropDescription *prop_descs; /*!< property descriptions */
   const PropOffset *prop_offsets; /*!< DiaObject struct offsets */
+  gint flags; /*!< Various flags that can be set for this object, see defines above */
 };
 
 /* base property stuff ... */

@@ -101,10 +101,15 @@ static ObjectTypeOps largepackage_type_ops =
 
 DiaObjectType largepackage_type =
 {
-  "UML - LargePackage", /* name */
-  0,                 /* version */
-  largepackage_xpm,   /* pixmap */
-  &largepackage_type_ops /* ops */
+  "UML - LargePackage",  /* name */
+  0,                  /* version */
+  largepackage_xpm,    /* pixmap */
+  &largepackage_type_ops, /* ops */
+  NULL, /* pixmap_file: fallback if pixmap is NULL */
+  NULL, /* default_user_data: use this if no user data is specified in the .sheet file */
+  NULL, /* prop_descs: property descriptions */
+  NULL, /* prop_offsets: DiaObject struct offsets */
+  DIA_OBJECT_CAN_PARENT /* flags */
 };
 
 static ObjectOps largepackage_ops = {
@@ -350,8 +355,6 @@ largepackage_create(Point *startpoint,
   obj->type = &largepackage_type;
 
   obj->ops = &largepackage_ops;
-
-  obj->flags |= DIA_OBJECT_CAN_PARENT;
 
   elem->corner = *startpoint;
 

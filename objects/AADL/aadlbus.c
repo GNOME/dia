@@ -185,12 +185,15 @@ extern ObjectTypeOps aadlbus_type_ops;
 
 DiaObjectType aadlbus_type =
 {
-  "AADL - Bus",          /* name */
-  0,                  /* version */
-  aadlbus_xpm,         /* pixmap */
-  &aadlbus_type_ops,      /* ops */
+  "AADL - Bus",           /* name */
+  0,                   /* version */
+  aadlbus_xpm,          /* pixmap */
+  &aadlbus_type_ops,       /* ops */
   NULL,
-  &aadlbus_specific /* user data */
+  &aadlbus_specific, /* user data */
+  NULL, /* prop_descs: property descriptions */
+  NULL, /* prop_offsets: DiaObject struct offsets */
+  DIA_OBJECT_CAN_PARENT /* flags */
 };
 
 static ObjectOps aadlbus_ops =

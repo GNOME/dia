@@ -124,12 +124,15 @@ ObjectTypeOps aadlprocess_type_ops;
 
 DiaObjectType aadlprocess_type =
 {
-  "AADL - Process",          /* name */
-  0,                      /* version */
-  aadlprocess_xpm,         /* pixmap */
-  &aadlprocess_type_ops,      /* ops */
+  "AADL - Process",           /* name */
+  0,                       /* version */
+  aadlprocess_xpm,          /* pixmap */
+  &aadlprocess_type_ops,       /* ops */
   NULL,
-  &aadlprocess_specific /* user data */
+  &aadlprocess_specific, /* user data */
+  NULL, /* prop_descs: property descriptions */
+  NULL, /* prop_offsets: DiaObject struct offsets */
+  DIA_OBJECT_CAN_PARENT /* flags */
 };
 
 

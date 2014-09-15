@@ -84,13 +84,16 @@ ObjectTypeOps aadlpackage_type_ops;
 
 DiaObjectType aadlpackage_type =
 {
-  "AADL - Package",          /* name */
-  0,                      /* version */
-  aadlpackage_xpm,         /* pixmap */
+  "AADL - Package",           /* name */
+  0,                       /* version */
+  aadlpackage_xpm,          /* pixmap */
 
   &aadlpackage_type_ops,      /* ops */
   NULL,
-  &aadlpackage_specific /* user data */
+  &aadlpackage_specific, /* user data */
+  NULL, /* prop_descs: property descriptions */
+  NULL, /* prop_offsets: DiaObject struct offsets */
+  DIA_OBJECT_CAN_PARENT /* flags */
 };
 
 

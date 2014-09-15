@@ -56,7 +56,10 @@ DiaObjectType aadlthread_type =
 
   &aadlthread_type_ops,      /* ops */
   NULL,
-  &aadlthread_specific /* user data */
+  &aadlthread_specific, /* user data */
+  NULL, /* prop_descs: property descriptions */
+  NULL, /* prop_offsets: DiaObject struct offsets */
+  DIA_OBJECT_CAN_PARENT /* flags */
 };
 
 

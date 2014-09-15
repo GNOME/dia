@@ -93,7 +93,13 @@ DiaObjectType radiocell_type =
   0,				/* version */
   (const char **) radiocell_xpm, /* pixmap */
 
-  &radiocell_type_ops		/* ops */
+  &radiocell_type_ops,		/* ops */
+
+  NULL, /* pixmap_file: fallback if pixmap is NULL */
+  NULL, /* default_user_data: use this if no user data is specified in the .sheet file */
+  NULL, /* prop_descs: property descriptions */
+  NULL, /* prop_offsets: DiaObject struct offsets */
+  DIA_OBJECT_CAN_PARENT /* flags */
 };
 
 static ObjectOps radiocell_ops = {
@@ -319,7 +325,6 @@ radiocell_create(Point *startpoint,
   obj = &poly->object;
   obj->type = &radiocell_type;
   obj->ops = &radiocell_ops;
-  obj->flags |= DIA_OBJECT_CAN_PARENT;
 
   radiocell->radius = 4.;
 

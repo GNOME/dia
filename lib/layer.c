@@ -477,10 +477,6 @@ layer_find_closest_object_except(Layer *layer, Point *pos,
   ;
   }
 
-  /* If the object is within a closed group, find the group. */
-  closest = dia_object_get_parent_with_flags(closest,
-					     DIA_OBJECT_GRABS_CHILD_INPUT);
-
   return closest;
 }
 
@@ -528,8 +524,7 @@ layer_find_closest_connectionpoint(Layer *layer,
   for (l = layer->objects; l!=NULL; l = g_list_next(l) ) {
     obj = (DiaObject *) l->data;
 
-    if (obj == notthis) continue;
-    if (obj != dia_object_get_parent_with_flags(obj, DIA_OBJECT_GRABS_CHILD_INPUT))
+    if (obj == notthis)
       continue;
     for (i=0;i<obj->num_connections;i++) {
       cp = obj->connections[i];

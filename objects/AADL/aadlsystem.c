@@ -116,13 +116,16 @@ ObjectTypeOps aadlsystem_type_ops;
 
 DiaObjectType aadlsystem_type =
 {
-  "AADL - System",          /* name */
-  0,                     /* version */
-  aadlsystem_xpm,         /* pixmap */
+  "AADL - System",           /* name */
+  0,                      /* version */
+  aadlsystem_xpm,          /* pixmap */
 
-  &aadlsystem_type_ops,      /* ops */
+  &aadlsystem_type_ops,       /* ops */
   NULL,
-  &aadlsystem_specific /* user data */
+  &aadlsystem_specific, /* user data */
+  NULL, /* prop_descs: property descriptions */
+  NULL, /* prop_offsets: DiaObject struct offsets */
+  DIA_OBJECT_CAN_PARENT /* flags */
 };
 
 
