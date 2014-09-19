@@ -910,35 +910,44 @@ app_set_icon (GtkWindow *window)
 
 #ifdef HAVE_MAC_INTEGRATION
 static void
-_create_mac_integration (void)
+_create_mac_integration (GtkWidget *menubar)
 {
   GtkosxApplication *theOsxApp = g_object_new(GTKOSX_TYPE_APPLICATION, NULL);
-  GtkWidget *menubar = NULL;
 
   /* from control-x to command-x in one call? Does _not_ work as advertized */
   gtkosx_application_set_use_quartz_accelerators (theOsxApp, TRUE);
-  /* might be too early ... */
-  menus_get_integrated_ui_menubar (&menubar, NULL, NULL);
+
   if (menubar) {
-    gtk_widget_hide (menubar); /* not working, it's shown elsewhere */
-    /* move some items to the dia menu */
-    {
-      GSList *proxies, *proxy;
-      GtkAction *action;
-
-      action = menus_get_action ("HelpAbout");
-      proxies = gtk_action_get_proxies (action);
-
-      for (proxy = proxies; proxy != NULL; proxy = g_slist_next (proxy)) {
-        g_print ("XXX ");
-        if (1 || GTK_IS_MENU_ITEM (proxy->data)) {
-          gtkosx_application_insert_app_menu_item (theOsxApp, GTK_WIDGET (proxy->data), 0);
-          break;
-        }
-      }     
-    }
     /* hijack the menubar */
     gtkosx_application_set_menu_bar(theOsxApp, GTK_MENU_SHELL(menubar));
+    /* move some items to the dia menu - apparently must be _after_ hijack */
+    {
+      GtkWidget *item;
+
+      item = menus_get_widget (INTEGRATED_MENU "/Help/HelpAbout");
+      if (GTK_IS_MENU_ITEM (item))
+        gtkosx_application_insert_app_menu_item (theOsxApp, item, 0);
+      gtkosx_application_insert_app_menu_item (theOsxApp, gtk_separator_menu_item_new (), 1);
+      item = menus_get_widget (INTEGRATED_MENU "/File/FilePrefs");
+      if (GTK_IS_MENU_ITEM (item))
+        gtkosx_application_insert_app_menu_item (theOsxApp, item, 2);
+      item = menus_get_widget (INTEGRATED_MENU "/File/FilePlugins");
+      if (GTK_IS_MENU_ITEM (item))
+        gtkosx_application_insert_app_menu_item (theOsxApp, item, 3);
+#if 0 /* not sure if we should move these, too */
+      item = menus_get_widget (INTEGRATED_MENU "/File/FileTree");
+      if (GTK_IS_MENU_ITEM (item))
+        gtkosx_application_insert_app_menu_item (theOsxApp, item, 4);
+      item = menus_get_widget (INTEGRATED_MENU "/File/FileSheets");
+      if (GTK_IS_MENU_ITEM (item))
+        gtkosx_application_insert_app_menu_item (theOsxApp, item, 5);
+#endif
+      /* remove Quit from File menu */
+      item = menus_get_widget (INTEGRATED_MENU "/File/FileQuit");
+      if (GTK_IS_MENU_ITEM (item))
+        gtk_widget_hide (item);
+    }
+    gtk_widget_hide (menubar); /* not working, it's shown elsewhere */
     /* setup the dock icon */
     gtkosx_application_set_dock_icon_pixbuf (theOsxApp,
 	gdk_pixbuf_new_from_inline (-1, dia_app_icon, FALSE, NULL));
@@ -1034,14 +1043,14 @@ create_integrated_ui (void)
    * uses the tool buttons*/
   menus_get_integrated_ui_menubar(&menubar, &toolbar, &accel_group);
   gtk_window_add_accel_group (GTK_WINDOW (window), accel_group);
+  gtk_widget_show (menubar);
 #ifdef HAVE_GNOME
   gnome_app_set_menus (GNOME_APP (window), GTK_MENU_BAR (menubar));
 #else
 #  ifdef HAVE_MAC_INTEGRATION
-  _create_mac_integration ();
+  _create_mac_integration (menubar);
 #  else
   gtk_box_pack_start (GTK_BOX (main_vbox), menubar, FALSE, TRUE, 0);
-  gtk_widget_show (menubar);
 #  endif
 #endif
 
@@ -1119,14 +1128,14 @@ create_toolbox ()
    * uses the tool buttons*/
   menus_get_toolbox_menubar(&menubar, &accel_group);
   gtk_window_add_accel_group (GTK_WINDOW (window), accel_group);
+  gtk_widget_show (menubar);
 #ifdef HAVE_GNOME
   gnome_app_set_menus(GNOME_APP(window), GTK_MENU_BAR(menubar));
 #else
 #  ifdef HAVE_MAC_INTEGRATION
-  _create_mac_integration ();
+  _create_mac_integration (menubar);
 #  else
   gtk_box_pack_start (GTK_BOX (main_vbox), menubar, FALSE, TRUE, 0);
-  gtk_widget_show (menubar);
 #  endif
 #endif
   persistence_register_window(GTK_WINDOW(window));

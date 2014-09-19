@@ -1045,7 +1045,7 @@ menus_get_integrated_ui_menubar (GtkWidget     **menubar,
 
   /* maybe better to put this into toolbox_actions? */
   gtk_action_group_add_toggle_actions (display_actions, integrated_ui_view_toggle_entries, 
-                G_N_ELEMENTS (integrated_ui_view_toggle_entries), NULL);
+				       G_N_ELEMENTS (integrated_ui_view_toggle_entries), NULL);
 
   /* for stand-alone they are per display */
   gtk_ui_manager_insert_action_group (_ui_manager, display_actions, 0);
@@ -1175,6 +1175,14 @@ menus_get_action (const gchar *name)
   }
 
   return action;
+}
+
+GtkWidget *
+menus_get_widget (const gchar *name)
+{
+  g_return_val_if_fail (_ui_manager != NULL, NULL);
+
+  return gtk_ui_manager_get_widget (_ui_manager, name);
 }
 
 static int
