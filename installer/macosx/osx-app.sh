@@ -225,20 +225,18 @@ echo "APPL????" > $package/Contents/PkgInfo
 # Pull in extra requirements for Pango and GTK
 pkgetc="$package/Contents/Resources/etc"
 mkdir -p $pkgetc/pango
-cp $binary_dir/../etc/pango/pangox.aliases $pkgetc/pango/
 # Need to adjust path and quote in case of spaces in path.
 sed -e "s,$LIBPREFIX,\"\${CWD},g" -e 's,\.so ,.so" ,g' $binary_dir/../etc/pango/pango.modules > $pkgetc/pango/pango.modules
 
 cat > $pkgetc/pango/pangorc <<END_PANGO
 [Pango]
 ModuleFiles=\${HOME}/.dia-etc/pango.modules
-[PangoX]
-AliasFiles=\${HOME}/.dia-etc/pangox.aliases
 END_PANGO
 
 # We use a modified fonts.conf file so only need the dtd
 mkdir -p $pkgetc/fonts
 cp $binary_dir/../etc/fonts/fonts.dtd $pkgetc/fonts/
+cp $binary_dir/../etc/fonts/fonts.conf $pkgetc/fonts/
 cp -r $binary_dir/../etc/fonts/conf.avail $pkgetc/fonts/
 cp -r $binary_dir/../etc/fonts/conf.d $pkgetc/fonts/
 
