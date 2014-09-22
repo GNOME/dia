@@ -708,14 +708,19 @@ text_set_cursor(Text *text, Point *clicked_point,
 
     /* Do an ugly linear search for the cursor index:
        TODO: Change to binary search */
-  
-    for (i=0;i<=text_get_line_strlen(text, row);i++) {
-      str_width_first =
-	DIA_RENDERER_GET_CLASS(renderer)->get_text_width(renderer, text_get_line(text, row), i);
-      if (clicked_point->x - start_x >= str_width_first) {
-	text->cursor_pos = i;
-      } else {
-	return;
+    {
+      real min_dist = G_MAXDOUBLE;
+      for (i=0;i<=text_get_line_strlen(text, row);i++) {
+	real dist;
+	str_width_first =
+	  DIA_RENDERER_GET_CLASS(renderer)->get_text_width(renderer, text_get_line(text, row), i);
+	dist = fabs(clicked_point->x - (start_x + str_width_first));
+	if (dist < min_dist) {
+	  min_dist = dist;
+	  text->cursor_pos = i;
+	} else {
+	  return;
+	}
       }
     }
     text->cursor_pos = text_get_line_strlen(text, row);
