@@ -541,9 +541,9 @@ object_within_parent(DiaObject *obj, DiaObject *p)
 void 
 diagram_update_menu_sensitivity (Diagram *dia)
 {
-  gint selected_count = g_list_length (dia->data->selected);
+  gint selected_count = dia ? g_list_length (dia->data->selected) : 0;
   DDisplay *ddisp = ddisplay_active();
-  gboolean focus_active = (get_active_focus(dia->data) != NULL);
+  gboolean focus_active = dia ? (get_active_focus(dia->data) != NULL) : FALSE;
   gboolean textedit_active = ddisp ? textedit_mode(ddisp) : FALSE;
   GtkAction *action;
 
@@ -588,13 +588,13 @@ diagram_update_menu_sensitivity (Diagram *dia)
   if ((action = menus_get_action ("ObjectsGroup")) != NULL)
     gtk_action_set_sensitive (action, !textedit_active && selected_count > 1);
   if ((action = menus_get_action ("ObjectsUngroup")) != NULL)
-    gtk_action_set_sensitive (action, !textedit_active && diagram_selected_any_groups (dia));
+    gtk_action_set_sensitive (action, !textedit_active && dia && diagram_selected_any_groups (dia));
   if ((action = menus_get_action ("ObjectsParent")) != NULL)
-    gtk_action_set_sensitive (action, !textedit_active && diagram_selected_can_parent (dia));
+    gtk_action_set_sensitive (action, !textedit_active && dia && diagram_selected_can_parent (dia));
   if ((action = menus_get_action ("ObjectsUnparent")) != NULL)
-    gtk_action_set_sensitive (action, !textedit_active && diagram_selected_any_children (dia));
+    gtk_action_set_sensitive (action, !textedit_active && dia && diagram_selected_any_children (dia));
   if ((action = menus_get_action ("ObjectsUnparentchildren")) != NULL)
-    gtk_action_set_sensitive (action, !textedit_active && diagram_selected_any_parents (dia));
+    gtk_action_set_sensitive (action, !textedit_active && dia && diagram_selected_any_parents (dia));
 
   if ((action = menus_get_action ("ObjectsProperties")) != NULL)
     gtk_action_set_sensitive (action, selected_count > 0);

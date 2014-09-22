@@ -874,15 +874,16 @@ _ui_manager_connect_proxy (GtkUIManager *manager,
 }
 
 static GtkActionGroup *
-create_or_ref_display_actions (void)
+create_or_ref_display_actions (gboolean include_common)
 {
   if (display_actions)
     return g_object_ref (display_actions);
   display_actions = gtk_action_group_new ("display-actions");
   gtk_action_group_set_translation_domain (display_actions, NULL);
   gtk_action_group_set_translate_func (display_actions, _dia_translate, NULL, NULL);
-  gtk_action_group_add_actions (display_actions, common_entries, 
-                G_N_ELEMENTS (common_entries), NULL);
+  if (include_common)
+    gtk_action_group_add_actions (display_actions, common_entries,
+                  G_N_ELEMENTS (common_entries), NULL);
   gtk_action_group_add_actions (display_actions, display_entries, 
                 G_N_ELEMENTS (display_entries), NULL);
   gtk_action_group_add_toggle_actions (display_actions, display_toggle_entries,
@@ -985,7 +986,7 @@ menus_init(void)
   g_free (uifile);
 
   /* the display menu */
-  display_actions = create_or_ref_display_actions ();
+  display_actions = create_or_ref_display_actions (TRUE);
 
   display_ui_manager = gtk_ui_manager_new ();
   g_signal_connect (G_OBJECT (display_ui_manager), 
@@ -1040,7 +1041,7 @@ menus_get_integrated_ui_menubar (GtkWidget     **menubar,
   g_return_if_fail (_ui_manager != NULL);
 
   /* the integrated ui menu */
-  display_actions = create_or_ref_display_actions ();
+  display_actions = create_or_ref_display_actions (FALSE);
   g_return_if_fail (tool_actions != NULL);
 
   /* maybe better to put this into toolbox_actions? */
@@ -1120,7 +1121,7 @@ menus_create_display_menubar (GtkUIManager   **ui_manager,
   gchar          *uifile;
 
   
-  *actions = create_or_ref_display_actions ();
+  *actions = create_or_ref_display_actions (TRUE);
   tool_actions = create_or_ref_tool_actions (); 
 
   *ui_manager = gtk_ui_manager_new ();
@@ -1147,6 +1148,12 @@ GtkActionGroup *
 menus_get_tool_actions (void)
 {
   return tool_actions;
+}
+
+GtkActionGroup *
+menus_get_display_actions (void)
+{
+  return display_actions;
 }
 
 GtkAction *

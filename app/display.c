@@ -1375,8 +1375,10 @@ ddisplay_do_update_menu_sensitivity (DDisplay *ddisp)
     Diagram *dia;
     
     if (ddisp == NULL) {
+      gtk_action_group_set_sensitive (menus_get_display_actions (), FALSE);
       return;
     }
+    gtk_action_group_set_sensitive (menus_get_display_actions (), TRUE);
     dia = ddisp->diagram;
     diagram_update_menu_sensitivity (dia);
 }
