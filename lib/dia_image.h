@@ -54,6 +54,9 @@ guint8 *dia_image_mask_data(const DiaImage *image);
 const guint8 *dia_image_rgba_data(const DiaImage *image);
 const char *dia_image_filename(const DiaImage *image);
 const GdkPixbuf *dia_image_pixbuf (const DiaImage *image);
+const gchar *dia_image_get_mime_type (const DiaImage *image);
+void dia_image_set_mime_type (DiaImage *image, const gchar *mime_type);
+
 GdkPixbuf *dia_image_get_scaled_pixbuf (DiaImage *image, int width, int height);
 
 G_END_DECLS

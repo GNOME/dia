@@ -280,6 +280,7 @@ EXPORTS
  dia_image_add_ref
  dia_image_filename
  dia_image_get_broken
+ dia_image_get_mime_type
  dia_image_height
  dia_image_load
  dia_image_save

@@ -884,15 +884,13 @@ draw_image(DiaRenderer *self,
   /* if the image file location is relative to the SVG file's store 
    * a relative path - if it does not have a path: inline it */
   if (strcmp (dia_image_filename(image), "(null)") == 0) {
-    gchar *b64 = pixbuf_encode_base64 (dia_image_pixbuf (image));
-    gchar *uri;
+    gchar *prefix = g_strdup_printf ("data:%s;base64,", dia_image_get_mime_type (image));
 
-    if (b64)
-      uri = g_strdup_printf ("data:image/png;base64,%s", b64);
-    else
+    uri = pixbuf_encode_base64 (dia_image_pixbuf (image), prefix);
+    if (!uri)
       uri = g_strdup ("(null)");
     xmlSetProp(node, (const xmlChar *)"xlink:href", (xmlChar *) uri);
-    g_free (b64);    
+    g_free (prefix);
   } else if ((uri = dia_relativize_filename (renderer->filename, dia_image_filename(image))) != NULL)
     xmlSetProp(node, (const xmlChar *)"xlink:href", (xmlChar *) uri);
   else if ((uri = g_filename_to_uri(dia_image_filename(image), NULL, NULL)) != NULL)

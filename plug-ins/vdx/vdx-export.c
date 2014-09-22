@@ -1382,7 +1382,7 @@ static void draw_image(DiaRenderer *self,
     /* And the data itself */
     memset(&text, 0, sizeof(text));
     text.any.type = vdx_types_text;
-    text.text = pixbuf_encode_base64 (dia_image_pixbuf (image));
+    text.text = pixbuf_encode_base64 (dia_image_pixbuf (image), NULL);
     if (!text.text) return;     /* Problem reading file */
 
     /* Setup children */

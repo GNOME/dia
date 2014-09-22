@@ -1220,7 +1220,7 @@ read_image_svg(xmlNodePtr node, DiaSvgStyle *parent_style,
 
 	  new_obj = create_standard_image(x, y, width, height, NULL);
 	  change = dia_object_set_pixbuf (new_obj, pixbuf);
-	  if (change) { /* throw it away, noone needs it here  */
+	  if (change) { /* throw it away, no one needs it here  */
 	    change->free (change);
             g_free (change);
           }

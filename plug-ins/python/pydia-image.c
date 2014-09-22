@@ -94,12 +94,10 @@ PyDiaImage_GetAttr(PyDiaImage *self, gchar *attr)
     if (g_path_is_absolute(fname)) {
       s = g_filename_to_uri(fname, NULL, &error);
     } else {
-      gchar *b64 = pixbuf_encode_base64 (dia_image_pixbuf (self->image));
-      if (b64)
-	s = g_strdup_printf ("data:image/png;base64,%s", b64);
-      else
-	s = NULL;
-      g_free (b64);
+      gchar *prefix = g_strdup_printf ("data:%s;base64,", dia_image_get_mime_type (self->image));
+
+      s = pixbuf_encode_base64 (dia_image_pixbuf (self->image), prefix);
+      g_free (prefix);
     }
     if (s) {
       PyObject* py_s = PyString_FromString(s);

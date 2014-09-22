@@ -69,7 +69,7 @@ pixbufprop_copy(PixbufProperty *src)
 GdkPixbuf *
 pixbuf_decode_base64 (const gchar *b64)
 {
-  /* see lib/prop_pixbuf.c(data_pixbuf) for a very similiar implementation */
+  /* see lib/prop_pixbuf.c(data_pixbuf) for a very similar implementation */
   GdkPixbuf *pixbuf = NULL;
   GdkPixbufLoader *loader;
   GError *error = NULL;
@@ -94,7 +94,18 @@ pixbuf_decode_base64 (const gchar *b64)
       len -= BUF_SIZE;
     } while (len > 0);
     if (gdk_pixbuf_loader_close (loader, error ? NULL : &error)) {
+      GdkPixbufFormat *format = gdk_pixbuf_loader_get_format (loader);
+      gchar  *format_name = gdk_pixbuf_format_get_name (format);
+      gchar **mime_types = gdk_pixbuf_format_get_mime_types (format);
+
+      dia_log_message ("Loaded pixbuf from '%s' with '%s'\n", format_name, mime_types[0]);
       pixbuf = g_object_ref (gdk_pixbuf_loader_get_pixbuf (loader));
+      /* attach the mime-type to the pixbuf */
+      g_object_set_data_full (G_OBJECT (pixbuf), "mime-type",
+			      g_strdup (mime_types[0]),
+			      (GDestroyNotify)g_free);
+      g_strfreev (mime_types);
+      g_free (format_name);
     } else {
       message_warning (_("Failed to load image form diagram:\n%s"), error->message);
       g_error_free (error);
@@ -184,17 +195,32 @@ _pixbuf_encode (const gchar *buf,
 
   return TRUE;
 }
+
+const gchar *
+_make_pixbuf_type_name (const char *p)
+{
+  if (p && strstr (p, "image/jpeg"))
+    return "jpeg";
+  if (p && strstr (p, "image/jp2"))
+    return "jpeg2000";
+  return "png";
+}
+
 /** Reusable variant of pixbuf to base64 string conversion
  */
 gchar *
-pixbuf_encode_base64 (const GdkPixbuf *pixbuf)
+pixbuf_encode_base64 (const GdkPixbuf *pixbuf, const char *prefix)
 {
   GError *error = NULL;
   EncodeData ed = { 0, };
-
+  const gchar *type = _make_pixbuf_type_name (prefix);
   ed.array = g_byte_array_new ();
 
-  if (!gdk_pixbuf_save_to_callback ((GdkPixbuf *)pixbuf, _pixbuf_encode, &ed, "png", &error, NULL)) {
+  if (prefix) {
+    ed.size = strlen (prefix);
+    g_byte_array_append (ed.array, (guint8 *)prefix, ed.size);
+  }
+  if (!gdk_pixbuf_save_to_callback ((GdkPixbuf *)pixbuf, _pixbuf_encode, &ed, type, &error, NULL)) {
     message_error (_("Saving inline pixbuf failed:\n%s"), error->message);
     g_error_free (error);
     return NULL;
@@ -215,7 +241,7 @@ data_add_pixbuf (AttributeNode attr, GdkPixbuf *pixbuf, DiaContext *ctx)
   AttributeNode comp_attr = composite_add_attribute (composite, "data");
   gchar *b64;
 
-  b64 = pixbuf_encode_base64 (pixbuf);
+  b64 = pixbuf_encode_base64 (pixbuf, NULL);
 
   if (b64)
     (void)xmlNewChild (comp_attr, NULL, (const xmlChar *)"data", (xmlChar *)b64);
@@ -235,7 +261,7 @@ static void
 pixbufprop_get_from_offset(PixbufProperty *prop,
                          void *base, guint offset, guint offset2) 
 {
-  /* before we start editing a simple refernce should be enough */
+  /* before we start editing a simple reference should be enough */
   GdkPixbuf *pixbuf = struct_member(base,offset,GdkPixbuf *);
 
   if (pixbuf)

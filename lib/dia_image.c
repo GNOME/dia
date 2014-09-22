@@ -55,6 +55,7 @@ struct _DiaImage {
   GObject parent_instance;
   GdkPixbuf *image;
   gchar *filename;
+  gchar *mime_type; /* optional */
 #ifdef SCALING_CACHE
   GdkPixbuf *scaled; /* a cache of the last scaled version */
   int scaled_width, scaled_height;
@@ -129,9 +130,9 @@ dia_image_finalize(GObject* object)
   image->image = NULL;
   g_free (image->filename);
   image->filename = NULL;
+  g_free (image->mime_type);
+  image->mime_type = NULL;
 }
-
-gboolean _dia_image_initialized = FALSE;
 
 /*!
  * \brief Constructor of a 'broken' image
@@ -188,6 +189,13 @@ dia_image_load(const gchar *filename)
   dia_img = DIA_IMAGE(g_object_new(DIA_TYPE_IMAGE, NULL));
   dia_img->image = image;
   dia_img->filename = g_strdup(filename);
+  /* the pixbuf does not know anymore where it came from */
+  {
+    GdkPixbufFormat *format = gdk_pixbuf_get_file_info (filename, NULL, NULL);
+    gchar **mime_types = gdk_pixbuf_format_get_mime_types (format);
+    dia_img->mime_type = g_strdup (mime_types[0]);
+    g_strfreev (mime_types);
+  }
 #ifdef SCALING_CACHE
   dia_img->scaled = NULL;
 #endif
@@ -206,9 +214,13 @@ DiaImage *
 dia_image_new_from_pixbuf (GdkPixbuf *pixbuf)
 {
   DiaImage *dia_img;
+  const gchar *mime_type;
 
   dia_img = DIA_IMAGE(g_object_new(DIA_TYPE_IMAGE, NULL));
   dia_img->image = g_object_ref (pixbuf);
+  mime_type = g_object_get_data (G_OBJECT (pixbuf), "mime-type");
+  if (mime_type)
+    dia_img->mime_type = g_strdup (mime_type);
   
   return dia_img;
 }
@@ -301,10 +313,10 @@ _guess_format (const gchar *filename)
       }
       g_strfreev (extensions);
     }
-    g_slist_free (formats);
     if (type)
       break;
   }
+  g_slist_free (formats);
   return type;
 }
 
@@ -323,7 +335,7 @@ dia_image_save(DiaImage *image, const gchar *filename)
     GError *error = NULL;
     gchar *type = _guess_format (filename);
     
-    if (type)
+    if (type) /* XXX: consider image->mime_type */
       saved = gdk_pixbuf_save (image->image, filename, type, &error, NULL);
     if (saved) {
       g_free (image->filename);
@@ -382,7 +394,7 @@ dia_image_rowstride(const DiaImage *image)
   g_return_val_if_fail (image != NULL, 0);
   return gdk_pixbuf_get_rowstride(image->image);
 }
-/*! 
+/*!
  * \brief Direct const access to the underlying GdkPixbuf
  * @param image An image object
  * @return The pixbuf
@@ -394,6 +406,33 @@ dia_image_pixbuf (const DiaImage *image)
   if (!image)
     return NULL;
   return image->image;
+}
+
+/*!
+ * \brief Get the mime-type of the image
+ * @param image An image object
+ * @return The mime type from creation or "image/png" as fallback
+ * \memberof _DiaImage
+ */
+const gchar *
+dia_image_get_mime_type (const DiaImage *image)
+{
+  if (image->mime_type)
+    return image->mime_type;
+  return "image/png";
+}
+/*!
+ * \brief Set the mime-type for the image
+ * @param image An image object
+ * @param mime_type A string like "image/jpeg"
+ * @return The mime type from creation or "image/png" as fallback
+ * \memberof _DiaImage
+ */
+void
+dia_image_set_mime_type (DiaImage *image, const gchar *mime_type)
+{
+  g_free (image->mime_type);
+  image->mime_type = g_strdup (mime_type);
 }
 
 /*!
