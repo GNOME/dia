@@ -48,18 +48,6 @@
 
 #define NUM_HANDLES 8
 
-/* anonymous enum to avoid warning:
- * implicit conversion from enumeration type 'MyHandleIds' to different
- * enumeration type 'HandleId'
- */
-enum {
-  _HANDLE_OBJ_POS = HANDLE_CUSTOM1,
-  _HANDLE_SHEAR,
-  _HANDLE_ROTATE,
-  _HANDLE_PERSPECTIVE,
-  _HANDLE_REF_POS
-};
-
 typedef enum {
   PDO_STROKE = (1<<0),
   PDO_FILL   = (1<<1),
@@ -221,7 +209,7 @@ static ObjectOps stdpath_ops = {
  * \brief Setup unchangeable part of the object handles
  *
  * The object must be initalized already.
- * \protected \memberof StdPath
+ * \protected \memberof _StdPath
  *
  * \todo Create a new handle type HANDLE_INVISBLE couple with object lock
  */
@@ -236,28 +224,18 @@ stdpath_init_handles (StdPath *stdpath)
   for (i = 0; i < NUM_HANDLES; ++i) {
     obj->handles[i] = &stdpath->handles[i];
     obj->handles[i]->connect_type = HANDLE_NONCONNECTABLE;
+    obj->handles[i]->type = HANDLE_MAJOR_CONTROL;
     obj->handles[i]->connected_to = NULL;
   }
-  /* now almost every handle gets a special meaning */
   /* from left to right, from top to bottom */
-  obj->handles[0]->type = HANDLE_NON_MOVABLE;
-  obj->handles[0]->id   = _HANDLE_OBJ_POS;
-  obj->handles[1]->type = HANDLE_MINOR_CONTROL;
-  obj->handles[1]->id   = _HANDLE_ROTATE;
-  obj->handles[2]->type = HANDLE_MINOR_CONTROL;
-  obj->handles[2]->id   = _HANDLE_SHEAR;
-
-  obj->handles[3]->type = HANDLE_NON_MOVABLE;
-  obj->handles[3]->id   = _HANDLE_REF_POS;
-  obj->handles[4]->type = HANDLE_MAJOR_CONTROL;
-  obj->handles[4]->id   = HANDLE_RESIZE_E;
-
-  obj->handles[5]->type = HANDLE_MINOR_CONTROL;
-  obj->handles[5]->id   = _HANDLE_PERSPECTIVE;
-  obj->handles[6]->type = HANDLE_MAJOR_CONTROL;
-  obj->handles[6]->id   = HANDLE_RESIZE_S;
-  obj->handles[7]->type = HANDLE_MAJOR_CONTROL;
-  obj->handles[7]->id   = HANDLE_RESIZE_SE;
+  obj->handles[0]->id = HANDLE_RESIZE_NW;
+  obj->handles[1]->id = HANDLE_RESIZE_N;
+  obj->handles[2]->id = HANDLE_RESIZE_NE;
+  obj->handles[3]->id = HANDLE_RESIZE_W;
+  obj->handles[4]->id = HANDLE_RESIZE_E;
+  obj->handles[5]->id = HANDLE_RESIZE_SW;
+  obj->handles[6]->id = HANDLE_RESIZE_S;
+  obj->handles[7]->id = HANDLE_RESIZE_SE;
 }
 /*! Factory function - create default object */
 static DiaObject *
@@ -337,7 +315,7 @@ stdpath_load(ObjectNode obj_node, int version,DiaContext *ctx)
  * \brief Update handle positions to reflect the current object state
  *
  * The object bounding box needs to be calculated already.
- * \protected \memberof StdPath
+ * \protected \memberof _StdPath
  */
 static void
 stdpath_update_handles(StdPath *stdpath)
@@ -378,7 +356,7 @@ stdpath_update_handles(StdPath *stdpath)
  * 
  * Not in the object interface but very important anyway.
  * Used to recalculate the object data after a change
- * \protected \memberof StdPath
+ * \protected \memberof _StdPath
  */
 static void
 stdpath_update_data (StdPath *stdpath)
@@ -407,7 +385,7 @@ stdpath_update_data (StdPath *stdpath)
 /*!
  * \brief Object drawing to the given renderer
  *
- * \memberof StdPath
+ * \memberof _StdPath
  */
 static void 
 stdpath_draw(StdPath *stdpath, DiaRenderer *renderer)
@@ -453,7 +431,8 @@ stdpath_draw(StdPath *stdpath, DiaRenderer *renderer)
     bezier_draw_control_lines (stdpath->num_points, stdpath->points, renderer);
 }
 
-static ObjectChange *_path_object_change_create (DiaObject *obj);
+static ObjectChange *_path_object_invert_change_create (DiaObject *obj);
+static ObjectChange *_path_object_transform_change_create (DiaObject *obj, DiaMatrix *mat);
 
 /*!
  * \brief Change the direction of the path
@@ -486,7 +465,7 @@ _invert_path_callback (DiaObject *obj, Point *clicked, gpointer data)
 {
   StdPath *stdpath = (StdPath *)obj;
   _stdpath_invert (stdpath);
-  return _path_object_change_create (obj);
+  return _path_object_invert_change_create (obj);
 }
 /* a very simple undo function, complete reversible function */
 static void
@@ -495,7 +474,7 @@ _apply_invert (ObjectChange *change, DiaObject *obj)
   _stdpath_invert ((StdPath *)obj);
 }
 static ObjectChange *
-_path_object_change_create (DiaObject *obj)
+_path_object_invert_change_create (DiaObject *obj)
 {
   ObjectChange *change = g_new(ObjectChange, 1);
   change->apply = _apply_invert;
@@ -503,8 +482,171 @@ _path_object_change_create (DiaObject *obj)
   change->free = NULL;
   return change;
 }
+
+static void
+_path_transform (StdPath *sp, const DiaMatrix *m)
+{
+  BezPoint *bezier = sp->points;
+  gsize n = sp->num_points;
+  guint i;
+
+  for (i = 0; i < n; ++i)
+    transform_bezpoint (&bezier[i], m);
+
+  stdpath_update_data (sp);
+}
+
+typedef struct _PathTransformChange {
+  ObjectChange change;
+  DiaMatrix    matrix;
+} PathTransformChange;
+
+static void
+_ptc_apply (ObjectChange *change, DiaObject *obj)
+{
+  PathTransformChange *ptc = (PathTransformChange *)change;
+  StdPath *sp = (StdPath *)obj;
+
+  _path_transform (sp, &ptc->matrix);
+}
+static void
+_ptc_revert (ObjectChange *change, DiaObject *obj)
+{
+  StdPath *sp = (StdPath *)obj;
+  PathTransformChange *ptc = (PathTransformChange *)change;
+  DiaMatrix mi = ptc->matrix;
+
+  if (cairo_matrix_invert ((cairo_matrix_t *)&mi) != CAIRO_STATUS_SUCCESS)
+    g_warning ("_ptc_revert matrix invert");
+  _path_transform (sp, &mi);
+}
+static ObjectChange *
+_path_object_transform_change_create (DiaObject *obj, DiaMatrix *matrix)
+{
+  PathTransformChange *ptc = g_new(PathTransformChange, 1);
+
+  ptc->change.apply = _ptc_apply;
+  ptc->change.revert = _ptc_revert;
+  ptc->change.free = NULL;
+  ptc->matrix = *matrix;
+  return &ptc->change;
+}
+
 /*!
- * \brief Convert _StdPath to one or more _BezierLine/BezierGon
+ * \brief Rotate path towards clicked point
+ *
+ * Rotate the given path around it's center with the angle given by
+ * the top center handle and the clicked point. This function is
+ * available with the context menu of the 'Standard - Path' object.
+ * @return Undo information
+ *
+ * \relates _StdPath
+ */
+static ObjectChange *
+_path_rotate_callback (DiaObject *obj, Point *clicked, gpointer data)
+{
+  StdPath *sp = (StdPath *)obj;
+  real cx = (sp->object.bounding_box.left + sp->object.bounding_box.right) / 2;
+  real cy = (sp->object.bounding_box.top + sp->object.bounding_box.bottom) / 2;
+  DiaMatrix m = {1, 0, 0, 1, 0, 0 };
+  DiaMatrix translate = {1, 0, 0, 1, 0, 0 };
+  Point d;
+
+  d.x = clicked->x - cx;
+  d.y = clicked->y - cy;
+  point_normalize (&d);
+  /* to make the top, center handle clicked no rotation we subtract -PI/2 */
+  dia_matrix_set_angle_and_scales (&m, atan2 (d.y, d.x) + M_PI/2.0, 1.0, 1.0);
+
+  /* rotate around center */
+  translate.x0 = cx;
+  translate.y0 = cy;
+  dia_matrix_multiply (&m, &m, &translate);
+  translate.x0 = -cx;
+  translate.y0 = -cy;
+  dia_matrix_multiply (&m, &translate, &m);
+
+  _path_transform (sp, &m);
+  return _path_object_transform_change_create (obj, &m);
+}
+
+static const Handle *
+_path_closest_corner_handle (StdPath *sp, const Point *pt)
+{
+  int i, j;
+  real dist = G_MAXDOUBLE;
+  Handle *closest = NULL;
+  int corners[] = {0, 2, 5, 7};
+
+  for (j = 0; j < 4; ++j) {
+    real new_dist;
+
+    i = corners[j];
+    new_dist = distance_point_point (&sp->handles[i].pos, pt);
+    if (new_dist < dist) {
+      closest = &sp->handles[i];
+      dist = new_dist;
+    }
+  }
+  return closest;
+}
+
+/*!
+ * \brief Shear path towards clicked point
+ *
+ * Shear the given path towards the clicked point by the amount of
+ * the closest corner handle. This is either horizonatl or vertical
+ * shear depending on the bigger delta between the handle and
+ * the clicked point.
+ * This function is available with the context menu of the
+ * 'Standard - Path' object.
+ * @return Undo information
+ *
+ * \relates _StdPath
+ */
+static ObjectChange *
+_path_shear_callback (DiaObject *obj, Point *clicked, gpointer data)
+{
+  StdPath *sp = (StdPath *)obj;
+  DiaMatrix m = {1, 0, 0, 1, 0, 0 };
+  DiaMatrix translate = {1, 0, 0, 1, 0, 0 };
+  real cx = (sp->object.bounding_box.left + sp->object.bounding_box.right) / 2;
+  real cy = (sp->object.bounding_box.top + sp->object.bounding_box.bottom) / 2;
+  const Handle *handle = _path_closest_corner_handle (sp, clicked);
+  real dx, dy;
+
+  g_return_val_if_fail (handle != NULL, NULL);
+
+  /* goal is to shear the point at corner handle close to the clicked point */
+  dx = (clicked->x - handle->pos.x) * (handle->pos.y > cy ? 1 : -1);
+  dy = clicked->y - handle->pos.y;
+  /* normalize shear with handle distance from center, only shear one axis */
+  if (fabs(dx) > fabs(dy))
+    m.xy = dx / fabs(handle->pos.x - cx);
+  else
+    m.yx = dy / fabs(handle->pos.y - cy);
+  /* XXX: shear around center */
+  translate.x0 = cx;
+  translate.y0 = cy;
+  dia_matrix_multiply (&m, &m, &translate);
+  translate.x0 = -cx;
+  translate.y0 = -cy;
+  dia_matrix_multiply (&m, &translate, &m);
+
+  _path_transform (sp, &m);
+  return _path_object_transform_change_create (obj, &m);
+}
+
+/*!
+ * \brief Convert _StdPath to one or more _BezierLine/_Beziergon
+ *
+ * This conversion splits the given path at it's move-to and creates
+ * a group of _BezierLine or _Beziergon as substitute for the single
+ * path object. If the path is filled a group of _Beziergon is created.
+ *
+ * @return Undo information
+ *
+ * \relates _StdPath
  */
 static ObjectChange *
 _convert_to_beziers_callback (DiaObject *obj, Point *clicked, gpointer data)
@@ -551,6 +693,8 @@ _show_control_lines (DiaObject *obj, Point *clicked, gpointer data)
 static DiaMenuItem _stdpath_menu_items[] = {
   { N_("Convert to Bezier"), _convert_to_beziers_callback, NULL, DIAMENU_ACTIVE },
   { N_("Invert Path"), _invert_path_callback, NULL, DIAMENU_ACTIVE },
+  { N_("Rotate"), _path_rotate_callback, NULL, DIAMENU_ACTIVE },
+  { N_("Shear"), _path_shear_callback, NULL, DIAMENU_ACTIVE },
   { N_("Show Control Lines"), _show_control_lines, NULL, DIAMENU_ACTIVE | DIAMENU_TOGGLE }
 };
 static DiaMenu _stdpath_menu = {
@@ -563,9 +707,10 @@ static DiaMenu _stdpath_menu = {
 /*!
  * \brief Optionally deliver an object specific menu
  *
- * returning NULL used to crash Dia, the method itself needed to be NULL if there is nothing to do
+ * returning NULL used to crash Dia, the method itself needed to be NULL
+ * if there was nothing to do
  *
- * \memberof StdPath
+ * \memberof _StdPath
  */
 static DiaMenu *
 stdpath_get_object_menu(StdPath *stdpath, Point *clickedpoint)
@@ -577,6 +722,7 @@ stdpath_get_object_menu(StdPath *stdpath, Point *clickedpoint)
     _stdpath_menu_items[i].active &= ~DIAMENU_TOGGLE_ON;
   return &_stdpath_menu;
 }
+
 /*!
  * \brief Initialize the given property vector from the object state.
  *
@@ -592,7 +738,7 @@ stdpath_get_props(StdPath *stdpath, GPtrArray *props)
 }
 /*!
  * \brief Set the object state from the given proeprty vector
- * \memberof StdPath
+ * \memberof _StdPath
  */
 static void 
 stdpath_set_props (StdPath *stdpath, GPtrArray *props)
@@ -620,7 +766,7 @@ stdpath_set_props (StdPath *stdpath, GPtrArray *props)
 }
 /*!
  * \brief Calculate the distance of the whole object to the given point
- * \memberof StdPath
+ * \memberof _StdPath
  */
 static real
 stdpath_distance_from (StdPath *stdpath, Point *point)
@@ -634,10 +780,15 @@ stdpath_distance_from (StdPath *stdpath, Point *point)
 }
 
 static void
-_stdpath_scale (StdPath *stdpath, real sx, real sy)
+_stdpath_scale (StdPath *stdpath, real sx, real sy, const Point *around)
 {
-  Point p0 = stdpath->object.position;
+  Point p0;
   int i;
+
+  if (around)
+    p0 = *around;
+  else
+    p0 = stdpath->object.position;
 
   for (i = 0; i < stdpath->num_points; ++i) {
     BezPoint *bp = &stdpath->points[i];
@@ -653,7 +804,7 @@ _stdpath_scale (StdPath *stdpath, real sx, real sy)
 
 /*!
  * \brief Move one of the objects handles
- * \memberof StdPath
+ * \memberof _StdPath
  */
 static ObjectChange* 
 stdpath_move_handle (StdPath *stdpath,
@@ -662,160 +813,108 @@ stdpath_move_handle (StdPath *stdpath,
 		     HandleMoveReason reason, ModifierKeys modifiers)
 {
   DiaObject *obj = &stdpath->object;
-  Point p0 = obj->position;
+  const real EPSILON = 0.01;
 
-  if (stdpath->move_reason != reason) {
-    if (HANDLE_MOVE_USER == reason) g_print ("move-user");
-    else if (HANDLE_MOVE_USER_FINAL == reason) g_print ("move-user-final\n");
-    else if (HANDLE_MOVE_CONNECTED == reason) g_print ("move-connected\n");
-    else g_print ("move-?reason?\n");
-    stdpath->move_reason = reason;
-  } else {
-    g_print ("*");
-  }
-  if (handle->id == HANDLE_RESIZE_SE) {
-    /* scale both directions - keep aspect ratio? */
-    Point p1 = stdpath->handles[7].pos;
-    real sx, sy;
+  /* move_handle is supposed to be just moving that and related handles (e.g.
+   * when N is moved NE and NW will move too). But 'opposite' handles are not
+   * to be moved at all. So our transformation is invariant to the opposite
+   * point of the path, not the object position.
+   *
+   * XXX: another issue - not yet solved - is limit checking. The path object
+   * must not get too small, so that it can not be restored by reverse
+   * move_handle. One way could be a minimum distance between the moving and
+   * the opposite handle, but it does not behave as expected.
+   */
+  if (handle->id == HANDLE_RESIZE_NW) {
+    Point p0 = stdpath->handles[7].pos; /* SE */
+    Point p1 = stdpath->handles[0].pos;
+    real sx = (to->x - p0.x) / (p1.x - p0.x);
+    real sy = (to->y - p0.y) / (p1.y - p0.y);
 
-    g_assert(stdpath->handles[7].id == handle->id);
+    g_assert(stdpath->handles[0].id == handle->id);
+    g_assert(stdpath->handles[7].id == HANDLE_RESIZE_SE);
 
-    sx = (to->x - p0.x) / (p1.x - p0.x);
-    sy = (to->y - p0.y) / (p1.y - p0.y);
-    _stdpath_scale (stdpath, sx, sy);
-    stdpath_update_data (stdpath);
-
-  } else if (handle->id == HANDLE_RESIZE_S) {
-    /* scale height */
-    Point p1 = stdpath->handles[6].pos;
-    real sy;
-    int i;
-
-    g_assert(stdpath->handles[6].id == handle->id);
-    sy = (to->y - p0.y) / (p1.y - p0.y);
-    for (i = 0; i < stdpath->num_points; ++i) {
-      BezPoint *bp = &stdpath->points[i];
-
-      bp->p1.y = p0.y + (bp->p1.y - p0.y) * sy;
-      bp->p2.y = p0.y + (bp->p2.y - p0.y) * sy;
-      bp->p3.y = p0.y + (bp->p3.y - p0.y) * sy;
-    }
-    stdpath_update_data (stdpath);
-
-  } else if (handle->id == HANDLE_RESIZE_E) {
-    /* scale width */
-    Point p1 = stdpath->handles[4].pos;
-    real sx;
-    int i;
-
-    g_assert(stdpath->handles[4].id == handle->id);
-
-    sx = (to->x - p0.x) / (p1.x - p0.x);
-    for (i = 0; i < stdpath->num_points; ++i) {
-      BezPoint *bp = &stdpath->points[i];
-
-      bp->p1.x = p0.x + (bp->p1.x - p0.x) * sx;
-      bp->p2.x = p0.x + (bp->p2.x - p0.x) * sx;
-      bp->p3.x = p0.x + (bp->p3.x - p0.x) * sx;
-    }
-    stdpath_update_data (stdpath);
-
-  } else if (handle->id == _HANDLE_SHEAR) {
-    /* apply horizontal shear weighted by the vertical distance */
-    Point p1 = stdpath->handles[2].pos;
-    Point pr = stdpath->handles[5].pos;
-    real dx; /* delta x */
-    real rd = (pr.y - p0.y); /* reference distance */
-    int i;
-    gboolean revert = FALSE;
-
-    g_assert(stdpath->handles[2].id == handle->id);
-    g_assert(stdpath->handles[3].id == _HANDLE_REF_POS);
-    g_return_val_if_fail(rd > 0, NULL);
-    dx = to->x - p1.x;
-    /* move_handle needs to be reversible, so do not move more than
-     * the sheared bounding box allows */
-    do {
-      for (i = 0; i < stdpath->num_points; ++i) {
-	BezPoint *bp = &stdpath->points[i];
-	real sw;
-
-	/* scaling weight [0..1] to not move the left boundary */
-	sw = (pr.y - bp->p1.y) / rd;
-	bp->p1.x += dx * sw;
-	sw = (pr.y - bp->p2.y) / rd;
-	bp->p2.x += dx * sw;
-	sw = (pr.y - bp->p3.y) / rd;
-	bp->p3.x += dx * sw;
-      }
-      stdpath_update_data (stdpath);
-      if (!revert && (fabs(stdpath->handles[2].pos.x - (p1.x + dx)) > 0.05)) {
-	dx = -dx;
-	revert = TRUE;
-      } else {
-	revert = FALSE;
-      }
-    } while (revert);
-  } else if (handle->id == _HANDLE_ROTATE) {
+    if (to->x + EPSILON > p0.x)
+      sx = 1.0;
+    if (to->y + EPSILON > p0.y)
+      sy = 1.0;
+    _stdpath_scale (stdpath, sx, sy, &p0);
+  } else if (handle->id == HANDLE_RESIZE_N) {
+    Point p0 = stdpath->handles[6].pos; /* S */
     Point p1 = stdpath->handles[1].pos;
-    Point pr = stdpath->handles[3].pos;
-    Point pc = {stdpath->handles[1].pos.x, stdpath->handles[3].pos.y };
-    real dx = to->x - p1.x;
-    real dy = pr.y - p1.y;
-    DiaMatrix m;
-    int i;
+    real sy = (to->y - p0.y) / (p1.y - p0.y);
 
     g_assert(stdpath->handles[1].id == handle->id);
+    g_assert(stdpath->handles[6].id == HANDLE_RESIZE_S);
 
-    if (fabs(dx) < 0.001)
-      return NULL;
-    dia_matrix_set_angle_and_scales (&m, -atan2 (dy, dx), 1.0, 1.0);
+    if (to->y + EPSILON > p0.y)
+      sy = 1.0;
+    _stdpath_scale (stdpath, 1.0, sy, &p0);
+  } else if (handle->id == HANDLE_RESIZE_NE) {
+    Point p0 = stdpath->handles[5].pos; /* SW */
+    Point p1 = stdpath->handles[2].pos;
+    real sx = (to->x - p0.x) / (p1.x - p0.x);
+    real sy = (to->y - p0.y) / (p1.y - p0.y);
 
-    for (i = 0; i < stdpath->num_points; ++i) {
-      BezPoint *bp = &stdpath->points[i];
-      int j;
+    g_assert(stdpath->handles[2].id == handle->id);
+    g_assert(stdpath->handles[5].id == HANDLE_RESIZE_SW);
 
-      for (j = 0; j < 3; ++j) {
-	Point *p = j == 0 ? &bp->p1 : (j == 1 ? &bp->p2 : &bp->p3);
-        real w, h;
+    _stdpath_scale (stdpath, sx, sy, &p0);
+  } else if (handle->id == HANDLE_RESIZE_W) {
+    /* scale width */
+    Point p0 = stdpath->handles[4].pos; /* E */
+    Point p1 = stdpath->handles[3].pos;
+    real sx = (to->x - p0.x) / (p1.x - p0.x);
 
-	w = p->x - pc.x;
-	h = p->y - pc.y;
+    g_assert(stdpath->handles[3].id == handle->id);
+    g_assert(stdpath->handles[4].id == HANDLE_RESIZE_E);
 
-	p->x = pc.x + w * m.xx + h * m.xy;
-	p->y = pc.y + w * m.yx + h * m.yy;
-      }
-    }
+    _stdpath_scale (stdpath, sx, 1.0, &p0);
+  } else if (handle->id == HANDLE_RESIZE_E) {
+    /* scale width */
+    Point p0 = stdpath->handles[3].pos; /* W */
+    Point p1 = stdpath->handles[4].pos;
+    real sx = (to->x - p0.x) / (p1.x - p0.x);
 
-    stdpath_update_data (stdpath);
+    g_assert(stdpath->handles[4].id == handle->id);
+    g_assert(stdpath->handles[3].id == HANDLE_RESIZE_W);
 
-  } else if (handle->id == _HANDLE_PERSPECTIVE) {
+    _stdpath_scale (stdpath, sx, 1.0, &p0);
+  } else if (handle->id == HANDLE_RESIZE_SW) {
+    Point p0 = stdpath->handles[2].pos; /* NE */
     Point p1 = stdpath->handles[5].pos;
-    Point pr = stdpath->handles[3].pos;
-    Point cp = { stdpath->handles[1].pos.x, pr.y };
-    real h2 = p1.y - pr.y;
-    /* relative movement against center and original pos */
-    real td = (cp.x - to->x) / (cp.x - p1.x) - 1.0;
-    int i;
+    real sx = (to->x - p0.x) / (p1.x - p0.x);
+    real sy = (to->y - p0.y) / (p1.y - p0.y);
 
     g_assert(stdpath->handles[5].id == handle->id);
+    g_assert(stdpath->handles[2].id == HANDLE_RESIZE_NE);
 
-    for (i = 0; i < stdpath->num_points; ++i) {
-      BezPoint *bp = &stdpath->points[i];
-      Point *p;
-      for (p = &bp->p1; p <= &bp->p3; ++p) {
-        /* the vertical distance from the center point decides about the strength */
-        real vd = (p->y - cp.y) / h2; /* normalized */
-	/* the horizontal distance from center gets modified */
-	real hd = (p->x - cp.x);
-	p->x += (hd * vd * td);
-      }
-    }
+    _stdpath_scale (stdpath, sx, sy, &p0);
+  } else if (handle->id == HANDLE_RESIZE_S) {
+    /* scale height */
+    Point p0 = stdpath->handles[1].pos; /* N */
+    Point p1 = stdpath->handles[6].pos;
+    real sy = (to->y - p0.y) / (p1.y - p0.y);
 
-    stdpath_update_data (stdpath);
+    g_assert(stdpath->handles[6].id == handle->id);
+    g_assert(stdpath->handles[1].id == HANDLE_RESIZE_N);
+
+    _stdpath_scale (stdpath, 1.0, sy, &p0);
+  } else if (handle->id == HANDLE_RESIZE_SE) {
+    /* scale both directions - keep aspect ratio? */
+    Point p0 = stdpath->handles[0].pos; /* NW */
+    Point p1 = stdpath->handles[7].pos;
+    real sx = (to->x - p0.x) / (p1.x - p0.x);
+    real sy = (to->y - p0.y) / (p1.y - p0.y);
+
+    g_assert(stdpath->handles[7].id == handle->id);
+    g_assert(stdpath->handles[0].id == HANDLE_RESIZE_NW);
+
+    _stdpath_scale (stdpath, sx, sy, &p0);
   } else if (handle->type != HANDLE_NON_MOVABLE) {
     g_warning ("stdpath_move_handle() %d not moving", handle->id);
   }
+  stdpath_update_data (stdpath);
   return NULL;
 }
 
@@ -826,7 +925,7 @@ stdpath_move_handle (StdPath *stdpath,
  * If the object position does not change the whole object should not either.
  * This is used as a kludge to call the protected update_data() function
  *
- * \memberof StdPath
+ * \memberof _StdPath
  */
 static ObjectChange* 
 stdpath_move (StdPath *stdpath, Point *to)
@@ -849,7 +948,7 @@ stdpath_move (StdPath *stdpath, Point *to)
 }
 /*!
  * \brief Create a deep copy of the object
- * \memberof StdPath
+ * \memberof _StdPath
  */
 static DiaObject *
 stdpath_copy (StdPath *from)
@@ -860,7 +959,7 @@ stdpath_copy (StdPath *from)
 }
 /*!
  * \brief Destruction of the object
- * \memberof StdPath
+ * \memberof _StdPath
  */
 static void 
 stdpath_destroy (StdPath *stdpath)
@@ -873,7 +972,7 @@ stdpath_destroy (StdPath *stdpath)
 }
 /*!
  * \brief Change the object state regarding selection 
- * \memberof StdPath
+ * \memberof _StdPath
  */
 static void 
 stdpath_select (StdPath *stdpath, Point *clicked_point,
@@ -988,7 +1087,7 @@ create_standard_path_from_text (const Text *text)
     pos.x = text_box.left; pos.y = text_box.top;
     sx = (text_box.right - text_box.left) / (pbb->right - pbb->left);
     sy = (text_box.bottom - text_box.top) / (pbb->bottom - pbb->top);
-    _stdpath_scale (path, sx, sy);
+    _stdpath_scale (path, sx, sy, NULL);
 
     /* also adjust top left corner - calling update, too */
     stdpath_move (path, &pos);
