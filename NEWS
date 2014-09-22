@@ -1,3 +1,15 @@
+  * overhaul of the renderer infrastructure
+    The renderer interface now allows to transport fill and stroke color
+    in one step. All export formats supporting both colors with one object
+    are now producing less objects (CGM, DRS, FIG, MetaPost, SVG, Shape,
+    VDX, WPG, ...) and smaller files.
+
+  * initial gradient support for Standard objects
+    - gradient fills can be imported and exported with SVG and PDF
+    - gradient fills can be created with a very simple user interface
+    - gradients are only rendered with cairo (and to SVG), other renderers
+      just fall back to a single color instead of some gradient emulation
+
   * introduce "Standard - Path" - an object between Bezierline and
     Beziergon not sharing their shortcomings, i.e multiple move-to
     is supported (objects with holes). The "Standard - Path" object
@@ -8,6 +20,12 @@
       (object menu: "Convert to Path")
     - rendering objects to path (also object menu "Convert to Path")
 
+  * Object upgrading like "Upgrade to Bezierline" in context menu
+    - from Line to ZigZagLine
+    - from ZigZagLine to Bezierline
+    - Convert to Path for all
+    - Selection has also Union, Difference, Intersection and Exclusion
+
   * experimental PDF import based on libpoppler (not very useful yet)
 
   * optional OGDF based automatic layout plug-in
@@ -16,21 +34,21 @@
 
   * Transparency (aka. Alpha support)
     Almost every place where a color can be selected now also allows to
-    choose the transparency value. If the the plugin/importer/exporter does
-    not support transparency, it will try to emulate (GDK renderer) or just ignore
-    the transparency.
+    choose the transparency value. If the the plug-in/importer/exporter does
+    not support transparency, it will try to emulate (GDK renderer) or just
+    ignore the transparency.
 
   * Improved clipboard support
     - global clipboard copy (selected) support, that is for every copy within
       Dia the selection can be rendered as bitmap with display scale if another
-      application asks for it. All attempts to find a common vector exchange
-      format via clipboard were failing.
+      application asks for it. Also SVG is offered as clipboard exchange format,
+      but only few programs support it (Inkscape is one of them).
     - Edit/Paste Image to either replace the pixels of a selected image or
       add a new image to the diagram
 
   * Embedded Images
     - images from clipboard don't have a filename, embedded by default
-    - embedded image support for shapes, SVG, DXF, VDX
+    - improved embedded image support for Shapes, SVG, VDX
 
   * Object alignment algorithms improved
     - there is a new command "Align connected" aligning on the coneected
@@ -44,9 +62,10 @@
     - Never: text space and object shape are completely independent
 
   * Transformations: Groups can be scaled and rotated. 
-    This limited support for object transformations can only be exploited with some 
-    of the existing renderers, but SVG, PNG, PDF (via cairo), WMF (win32 only) and
-    plain SVG are fully supporting transformations. (bgo#59880, bgo#100886)
+    This limited support for object transformations can only fully be exploited with
+    some of the existing renderers, but SVG, PNG, PDF (via cairo), WMF (win32 only)
+    and plain SVG (via PyDia) are fully supporting transformations. (bgo#59880, bgo#100886)
+    Other renderers show an approximation in the existence of transformed groups.
 
   * object meta info possible since 0.97 finally got an editor
     (see: Object Properties). Meta info can be used for 
@@ -60,7 +79,7 @@
     - sortable by name or typename
     - tooltips showing more detailed information about the objects at hand
 
-  * new object "Diagram as Element" allows to refernce external diagrams
+  * new object "Diagram as Element" allows to reference external diagrams
 
   * update of VDX plug-in
     - in-memory base64 encoding for export case
@@ -88,12 +107,26 @@
     - respect specialties of SOLID and THICKNESS round-trip
     - produce DXF independent of locale
 
-  * PyDia inline API documentation overhaul and easier access to it,
-    see e.g. "<Toolbox>/Help/PyDia HTML Docs"
+  * update of WPG plug-in
+    - support WordPerfect Graphics import
+    - fixed image export
+    - use WPG Polycurve
+    - fix object positioning
+
+  * PyDia documentation improvements and API additions
+    - inline API documentation overhaul and easier access to it,
+      see e.g. "<Toolbox>/Help/PyDia HTML Docs"
+    - add read-only Sheet object
+    - Renderer:draw_layer() and Layer::render()
+    - More PyErr_Warn(), less g_warning()
+    - support ConnectionPoint.flags and .directions
+    - JavaScript code generation
+    - some more reflection support
 
   * Standard object improvements
     - LineCaps and LineJoin switchable for Standard objects
     - Standard - Arc: movable center point
+    - Gradient fill
 
   * more diagrams describing internal behavior
 
@@ -103,7 +136,7 @@
   * allow to increase the width of 'UML - CLass' to help grid aligning
 
   * a lot less deprecated function use, still a long way to go for gtk+3
-    http://people.gnome.org/~fpeters/299.html and
+    https://people.gnome.org/~fpeters/reports/299.html and
     https://bugzilla.gnome.org/show_bug.cgi?id=575016    
 
   * a bunch of changes suggested by Static Code Analysis
