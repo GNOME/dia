@@ -91,7 +91,7 @@
     <path class="blue" id="yellow" d="M140,220h20v20h-20z"/>
     <!-- no such class: cyan by lookup implementation detail or gray from group id -->
     <path class="blue#cyan" d="M180,220h20v20h-20z"/>
-    <text x="220" y="240">CSS: blue, red, lime, yellow, cyan?</text>
+    <text x="220" y="240">CSS: blue, red, lime, yellow, gray (cyan?)</text>
   </g>
 
   <!-- more complex pathes -->
@@ -131,5 +131,27 @@
       <path d="M40,40 40,60 60,60 60,40 40,40z" fill="red"/>
     </g>
     <text x="200" y="20" fill="blue">Hole: counter-clockwise, evenodd, none(zero?), more...</text>
+  </g>
+  <!-- more paths with holes -->
+  <g transform="translate(20,300)">
+    <!-- reference, outer: clockwise, inner: counter-clockwise -->
+    <path d="M0,0 h20 v20 h-20 v-20zM5,5 v10 h10 v-10z" fill="black" stroke="none"/>
+    <!-- with hole, starting from inside -->
+    <path d="M45,5 h10 v10 h-10 v-10 m-5,-5 h20 v20 h-20z" fill="black" stroke="red" fill-rule="evenodd"/>
+    <!-- with hole, starting from inside, outside counter-clockwise -->
+    <path d="M85,5 h10 v10 h-10 v-10 m-5,-5 v20 h20 v-20z" fill="black" stroke="red"/>
+    <!-- with hole, starting from inside, inner counter-clockwise -->
+    <path d="M125,5 v10 h10 v-10 h-10 m-5,-5 h20 v20 h-20z" fill="black" stroke="red"/>
+    <text x="200" y="20" fill="black">Holes first: reference, evenodd, outside: ccw, inner: ccw</text>
+  </g>
+  <!-- implicit close -->
+  <g transform="translate(20,340)">
+    <!-- just a simple box with hole -->
+    <path d="M0,0 h20 v20 h-20 m5,-5 h10 v-10 h-10 z"/>
+    <!-- closing the path by fill attribute -->
+    <path d="M40,0 v20 h20 v-20" fill="black" stroke="red"/>
+    <!-- closing the path by fill attribute, with curves -->
+    <path d="M80,0 c7,0 13,0 20,0 c0,7 0,13 0,20 c-7,0 -13,0 -20,0" fill="black" stroke="red"/>
+    <text x="200" y="20" fill="black">Implicit close: hole, top, left, ...</text>
   </g>
 </svg>
