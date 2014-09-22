@@ -116,9 +116,9 @@ static PropDescription image_props[] = {
   ELEMENT_COMMON_PROPERTIES,
   { "image_file", PROP_TYPE_FILE, PROP_FLAG_VISIBLE,
     N_("Image file"), NULL, NULL},
-  { "inline_data", PROP_TYPE_BOOL, PROP_FLAG_DONT_MERGE|PROP_FLAG_VISIBLE|PROP_FLAG_OPTIONAL,
+  { "inline_data", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE|PROP_FLAG_OPTIONAL,
     N_("Inline data"), N_("Store image data in diagram"), NULL },
-  { "pixbuf", PROP_TYPE_PIXBUF, PROP_FLAG_OPTIONAL,
+  { "pixbuf", PROP_TYPE_PIXBUF, PROP_FLAG_DONT_MERGE|PROP_FLAG_OPTIONAL,
     N_("Pixbuf"), N_("The Pixbuf reference"), NULL },
   { "show_border", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE,
     N_("Draw border"), NULL, NULL},
@@ -191,6 +191,27 @@ image_get_props(Image *image, GPtrArray *props)
   object_get_props_from_offsets(&image->element.object, image_offsets, props);
 }
 
+/*!
+ * \brief Set properties of the _Image
+ * \memberof _Image
+ *
+ * The properties of _Image are not completely independent. Some logic
+ * in this method should lead to a consistent object state.
+ *
+ * - with inline_data=TRUE we shall have a valid pixbuf
+ * - with inline_data=FALSE we should have a valid filename (when created
+ *   from scratch we don't)
+ *
+ * Changing the properties tries to ensure consistency and might trigger
+ * additional actions like saving a file or loading it from disk. Also
+ * some dependent parameters might change in response.
+ *
+ * - switch on inline data => make inline: set pixbuf, keep filename
+ * - switch off inline data => save pixbuf to filename, if new filename
+ * - set a new, non empty filename => load the file
+ * - set an empty filename => make inline
+ * - set a new, non NULL pixbuf => use as image, inline
+ */
 static void
 image_set_props(Image *image, GPtrArray *props)
 {
@@ -202,43 +223,47 @@ image_set_props(Image *image, GPtrArray *props)
 
   object_set_props_from_offsets(&image->element.object, image_offsets, props);
 
-  if (old_pixbuf != image->pixbuf) {
-    if (!image->file || *image->file == '\0') {
-      GdkPixbuf *pixbuf = NULL;
-      image->inline_data = TRUE; /* otherwise we'll loose it */
-      /* somebody deleting the filename? */
-      if (!image->pixbuf && image->image)
-	pixbuf = g_object_ref ((GdkPixbuf *)dia_image_pixbuf (image->image));
-      if (image->image)
-        g_object_unref (image->image);
-      image->image = dia_image_new_from_pixbuf (image->pixbuf ? image->pixbuf : pixbuf);
-      if (image->pixbuf)
-        g_object_unref (image->pixbuf);
-      image->pixbuf = g_object_ref ((GdkPixbuf *)dia_image_pixbuf (image->image));
-      if (pixbuf)
-	g_object_unref (pixbuf);
-    } else {
-      if (image->pixbuf) {
-	if (image->image)
-	  g_object_unref (image->image);
-	image->image = dia_image_new_from_pixbuf (image->pixbuf);
-      }
-    }
-  }
-
   /* use old value on error */
   if (!image->file || g_stat (image->file, &st) != 0)
     mtime = image->mtime;
   else
     mtime = st.st_mtime;
 
-  /* handle changing the image. */
-  if (image->file && image->pixbuf && was_inline && !image->inline_data) {
-    /* export inline data */
-    if (was_inline && !image->inline_data)
-      /* if saving fails we keep it inline */
-      image->inline_data = !dia_image_save (image->image, image->file);
-  } else if (image->file && ((old_file && strcmp(image->file, old_file) != 0) || image->mtime != mtime)) {
+  if (   (!was_inline && image->inline_data && old_pixbuf)
+      || (   (!image->file || strlen(image->file) == 0)
+	  && old_pixbuf)
+      || (image->pixbuf && (image->pixbuf != old_pixbuf))) { /* switch on inline */
+    if (!image->pixbuf || old_pixbuf == image->pixbuf) { /* just reference the old image */
+      image->pixbuf = g_object_ref ((GdkPixbuf *)old_pixbuf);
+      image->inline_data = TRUE;
+    } else if (old_pixbuf != image->pixbuf && image->pixbuf) { /* substitute the image and pixbuf */
+      DiaImage *old_image = image->image;
+      image->image = dia_image_new_from_pixbuf (image->pixbuf);
+      image->pixbuf = g_object_ref ((GdkPixbuf *)dia_image_pixbuf (image->image));
+      if (old_image)
+        g_object_unref (old_image);
+      image->inline_data = TRUE;
+    } else {
+      image->inline_data = FALSE;
+      g_warning ("Not setting inline_data");
+    }
+  } else if (was_inline && !image->inline_data) { /* switch off inline */
+    if (old_file && image->file && strcmp (old_file, image->file) != 0) {
+       /* export inline data, if saving fails we keep it inline */
+       image->inline_data = !dia_image_save (image->image, image->file);
+    } else if (!image->file) {
+       message_warning (_("Can't save image without filename"));
+       image->inline_data = TRUE; /* keep inline */
+    }
+    if (!image->inline_data) {
+      /* drop the pixbuf reference */
+      if (image->pixbuf)
+        g_object_unref (image->pixbuf);
+      image->pixbuf = NULL;
+    }
+  } else if (   image->file && strlen(image->file) > 0
+	     && (   (!old_file || (strcmp (old_file, image->file) != 0))
+		 || (image->mtime != mtime))) { /* load new file */
     Element *elem = &image->element;
     DiaImage *img = NULL;
 
@@ -249,9 +274,20 @@ image_set_props(Image *image, GPtrArray *props)
     elem->height = (elem->width*(float)dia_image_height(image->image))/
       (float)dia_image_width(image->image);
     /* release image->pixbuf? */
+  } else if ((!image->file || strlen(image->file)==0) && !image->pixbuf) {
+    /* make it a "broken image" without complaints */
+    dia_log_message ("_Image::set_props() seting empty.");
+  } else {
+    if (   (image->inline_data && image->pixbuf != NULL) /* don't need a filename */
+        || (!image->inline_data && image->file)) /* don't need a pixbuf */
+      dia_log_message ("_Image::set_props() ok.");
+    else
+      g_warning ("_Image::set_props() not handled file='%s', pixbuf=%p, inline=%s",
+	         image->file ? image->file : "",
+	         image->pixbuf, image->inline_data ? "TRUE" : "FALSE");
   }
   g_free(old_file);
-  /* remember it */
+  /* remember modification time */
   image->mtime = mtime;
 
   image_update_data(image);
@@ -839,6 +875,11 @@ image_load(ObjectNode obj_node, int version, DiaContext *ctx)
 	g_object_unref (pixbuf);
       }
     }
+  } else {
+    attr = object_find_attribute(obj_node, "inline_data");
+    if (attr != NULL)
+      image->inline_data = data_boolean(attribute_first_data(attr), ctx);
+    /* Should be set pixbuf, too? Or leave it till the first get. */
   }
 
   /* update mtime */

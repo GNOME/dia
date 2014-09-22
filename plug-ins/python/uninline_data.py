@@ -24,6 +24,7 @@ class UninlineRenderer :
 	def begin_render (self, data, filename) :
 		imgmap = {}
 		dirname = os.path.dirname (filename)
+		basename = os.path.basename(filename)
 		ext = filename[string.rfind(filename, ".")+1:]
 		for layer in data.layers :
 			for o in layer.objects :
@@ -33,7 +34,7 @@ class UninlineRenderer :
 						pos = o.properties["obj_pos"].value
 						xk = "%03g" % pos.x
 						yk = "%03g" % pos.y
-						key = "L" + layer.name + "x" + xk + "y" + yk
+						key = basename + "-" + layer.name + "x" + xk + "y" + yk
 						imgmap[key] = o
 			for k, o in imgmap.iteritems() :
 				fname = dirname + "/" + k + "." + ext
