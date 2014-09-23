@@ -21,8 +21,8 @@ msgstr ""
 "Project-Id-Version: dia.HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=dia&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2014-09-21 15:12+0000\n"
-"PO-Revision-Date: 2014-09-22 13:50+0200\n"
+"POT-Creation-Date: 2014-09-23 15:17+0000\n"
+"PO-Revision-Date: 2014-09-23 20:05+0200\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español; Castellano <gnome-es-list@gnome.org>\n"
 "Language: es\n"
@@ -1042,7 +1042,7 @@ msgstr "Hundir capa"
 
 #: ../app/layer_dialog.c:170
 msgid "Delete Layer"
-msgstr "Borrar capa"
+msgstr "Eliminar capa"
 
 #: ../app/layer_dialog.c:307
 msgid "Layers:"
@@ -1258,26 +1258,20 @@ msgid "Sheets and Objects…"
 msgstr "Hojas y objetos…"
 
 #: ../app/menus.c:104
-#, fuzzy
-#| msgid "Sheets and Objects…"
 msgid "Manage sheets and their objects"
-msgstr "Hojas y objetos…"
+msgstr "Gestionar hojas y sus objetos"
 
 #: ../app/menus.c:105
-#, fuzzy
-#| msgid "Preferences"
 msgid "Dia preferences"
-msgstr "Preferencias"
+msgstr "Preferencias de Dia"
 
 #: ../app/menus.c:106
 msgid "Plugins…"
 msgstr "Complementos…"
 
 #: ../app/menus.c:106
-#, fuzzy
-#| msgid "Python plug-in"
 msgid "Manage plug-ins"
-msgstr "Complemento de Python"
+msgstr "Gestionar complementos"
 
 #: ../app/menus.c:107
 msgid "_Diagram Tree"
@@ -1292,20 +1286,16 @@ msgid "Show Toolbar"
 msgstr "Mostrar la barra de herramientas"
 
 #: ../app/menus.c:112
-#, fuzzy
-#| msgid "Show Toolbar"
 msgid "Show or hide the toolbar"
-msgstr "Mostrar la barra de herramientas"
+msgstr "Mostrar u ocultar la barra de herramientas"
 
 #: ../app/menus.c:113
 msgid "Show Statusbar"
 msgstr "Mostrar la barra de estado"
 
 #: ../app/menus.c:113
-#, fuzzy
-#| msgid "Show Statusbar"
 msgid "Show or hide the statusbar"
-msgstr "Mostrar la barra de estado"
+msgstr "Mostrar u ocultar la barra de estado"
 
 # No sé si quedaría en el contexto bien "Descender" en vez de "Bajar". RizOX.
 # Mejor Hundir.Cyphra
@@ -1362,8 +1352,6 @@ msgid "Print the diagram"
 msgstr "imprimir el diagrama"
 
 #: ../app/menus.c:126
-#, fuzzy
-#| msgid "Close Diagram"
 msgid "Close the diagram"
 msgstr "Cerrar el diagrama"
 
@@ -1396,26 +1384,20 @@ msgid "_Duplicate"
 msgstr "_Duplicar"
 
 #: ../app/menus.c:135
-#, fuzzy
-#| msgid "Paste selection"
 msgid "Duplicate selection"
-msgstr "Pegar selección"
+msgstr "Duplicar la selección"
 
 #: ../app/menus.c:136
-#, fuzzy
-#| msgid "Paste selection"
 msgid "Delete selection"
-msgstr "Pegar selección"
+msgstr "Eliminar la selección"
 
 #: ../app/menus.c:138
 msgid "_Find…"
 msgstr "_Buscar…"
 
 #: ../app/menus.c:138
-#, fuzzy
-#| msgid "_Search for:"
 msgid "Search for text"
-msgstr "_Busar:"
+msgstr "Buscar texto"
 
 #: ../app/menus.c:139
 msgid "_Replace…"
@@ -1456,10 +1438,8 @@ msgid "Paste _Image"
 msgstr "Pegar _imagen"
 
 #: ../app/menus.c:147
-#, fuzzy
-#| msgid "No image from Clipboard to paste."
 msgid "Insert image from clipboard"
-msgstr "No hay ninguna imagen en el portapapeles para pegar."
+msgstr "Insertar imagen desde el portapapeles"
 
 #: ../app/menus.c:149
 msgid "_Layers"
@@ -1570,20 +1550,16 @@ msgid "Send to _Back"
 msgstr "Enviar al _fondo"
 
 #: ../app/menus.c:181
-#, fuzzy
-#| msgid "Move Selection to Layer above"
 msgid "Move selection to the bottom"
-msgstr "Mover la selección a una capa superior"
+msgstr "Mover la selección a la parte inferior"
 
 #: ../app/menus.c:182
 msgid "Bring to _Front"
 msgstr "Traer al f_rente"
 
 #: ../app/menus.c:182
-#, fuzzy
-#| msgid "Move Selection to Layer above"
 msgid "Move selection to the top"
-msgstr "Mover la selección a una capa superior"
+msgstr "Mover la selección a la parte superior"
 
 #: ../app/menus.c:183
 msgid "Send Backwards"
@@ -1598,11 +1574,8 @@ msgid "_Group"
 msgstr "_Agrupar"
 
 #: ../app/menus.c:186
-#, fuzzy
-#| msgid "Group with %d object"
-#| msgid_plural "Group with %d objects"
 msgid "Group selected objects"
-msgstr "Grupo con %d objeto"
+msgstr "Grupo de objetos seleccionados"
 
 #. deliberately not using Ctrl+U for Ungroup
 #: ../app/menus.c:188
@@ -2518,14 +2491,14 @@ msgstr "No tiene permiso para desinstalar esta aplicación."
 #: ../installer/win32/gennsh.c:95
 msgid "This will completely delete $INSTDIR and all subdirectories. Continue?"
 msgstr ""
-"Esto borrará completamente $INSTDIR y todos sus subcarpetas. ¿Continuar?"
+"Esto eliminará completamente $INSTDIR y todos sus subcarpetas. ¿Continuar?"
 
 #. Installer message: Uninstallation warning. Keep $\PROFILE\.dia
 #: ../installer/win32/gennsh.c:98
 msgid ""
 "This will completely delete $PROFILE\\.dia and all subdirectories. Continue?"
 msgstr ""
-"Esto borrará completamente $PROFILE\\.dia y todos sus subcarpetas. "
+"Esto eliminará completamente $PROFILE\\.dia y todos sus subcarpetas. "
 "¿Continuar?"
 
 #: ../lib/arrows.c:1823
@@ -3363,7 +3336,7 @@ msgstr "Añadir punto de conexión"
 
 #: ../objects/AADL/aadlbox.c:384
 msgid "Delete Port"
-msgstr "Borrar puerto"
+msgstr "Eliminar puerto"
 
 #: ../objects/AADL/aadlbox.c:385
 msgid "Edit Port Declaration"
@@ -3371,7 +3344,7 @@ msgstr "Editar declaración de puerto"
 
 #: ../objects/AADL/aadlbox.c:389
 msgid "Delete Connection Point"
-msgstr "Borrar punto de conexión"
+msgstr "Eliminar punto de conexión"
 
 #: ../objects/AADL/aadl.c:52
 msgid "Architecture Analysis & Design Language diagram objects"
@@ -3479,8 +3452,6 @@ msgid "Flip vertical"
 msgstr "Invertir vertical"
 
 #: ../objects/custom/custom_object.c:203 ../objects/custom/custom_object.c:236
-#, fuzzy
-#| msgid "Scale of the subshapes"
 msgid "Scale of the sub-shapes"
 msgstr "Escala de las subformas"
 
@@ -3601,7 +3572,7 @@ msgstr "Añadir segmento"
 #: ../objects/UML/dependency.c:380 ../objects/UML/generalization.c:378
 #: ../objects/UML/realizes.c:367 ../objects/UML/transition.c:173
 msgid "Delete segment"
-msgstr "Borrar segmento"
+msgstr "Eliminar segmento"
 
 #: ../objects/Database/reference.c:152 ../sheets/Database.sheet.in.h:4
 msgid "Reference"
@@ -5004,7 +4975,7 @@ msgstr "Añadir punto de conexión"
 #: ../objects/KAOS/other.c:517 ../objects/SADT/box.c:443
 #: ../objects/standard/line.c:319
 msgid "Delete connection point"
-msgstr "Borrar punto de conexión"
+msgstr "Eliminar punto de conexión"
 
 #: ../objects/GRAFCET/vergent.c:408
 msgid "GRAFCET OR/AND vergent"
@@ -5307,24 +5278,16 @@ msgid "Precision"
 msgstr "Precisión"
 
 #: ../objects/Misc/n_gon.c:103
-#, fuzzy
-#| msgid "Convey"
 msgid "Convex"
-msgstr "Transportar"
+msgstr "Convexo"
 
 #: ../objects/Misc/n_gon.c:104
-#, fuzzy
-#| msgctxt "Arrow"
-#| msgid "Filled Concave"
 msgid "Concave"
-msgstr "Cóncavo relleno"
+msgstr "Cóncavo"
 
 #: ../objects/Misc/n_gon.c:105
-#, fuzzy
-#| msgctxt "Arrow"
-#| msgid "Cross"
 msgid "Crossing"
-msgstr "Cruz"
+msgstr "Cruce"
 
 #: ../objects/Misc/n_gon.c:117
 msgid "N-gon kind"
@@ -5333,10 +5296,8 @@ msgstr "Tipo de polígono de «n» lados"
 # Con las comillas se entiende mejor que "deshacer" se refiere a la "función deshacer". RizOX.
 # Se entiende perfectamente.
 #: ../objects/Misc/n_gon.c:119
-#, fuzzy
-#| msgid "Number of arms"
 msgid "Number of rays"
-msgstr "Número de brazos"
+msgstr "Número de radios"
 
 #: ../objects/Misc/n_gon.c:121
 msgid "Density"
@@ -5349,25 +5310,18 @@ msgstr "El índice de una curva cerrada"
 # Posicionar? FVD
 #. no property widget, but still to be serialized
 #: ../objects/Misc/n_gon.c:124
-#, fuzzy
-#| msgid "X position"
 msgid "Center position"
-msgstr "Posición X"
+msgstr "Posición central"
 
 #. no property widget, but still to be serialized
 #: ../objects/Misc/n_gon.c:126
-#, fuzzy
-#| msgid "Dash length: "
 msgid "Ray length"
-msgstr "Longitud de la discontinuidad: "
+msgstr "Longitud del radio"
 
 # "Hueco" queda más cercano al significado de "Hollow" que "Vacío". Además así no se confunde con "Unfilled". RizOX.
 #: ../objects/Misc/n_gon.c:317
-#, fuzzy
-#| msgctxt "Arrow"
-#| msgid "Hollow Triangle"
 msgid "Triangle"
-msgstr "Triángulo hueco"
+msgstr "Triángulo"
 
 #: ../objects/Misc/n_gon.c:318 ../objects/standard/box.c:132
 #: ../objects/standard/box.c:723
@@ -5375,118 +5329,92 @@ msgid "Square"
 msgstr "Cuadrado"
 
 #: ../objects/Misc/n_gon.c:319
-#, fuzzy
-#| msgid "Orientation"
 msgid "Pentagon"
-msgstr "Orientación"
+msgstr "Pentágono"
 
 #: ../objects/Misc/n_gon.c:319
-#, fuzzy
-#| msgid "Open Diagram"
 msgid "Pentagram"
-msgstr "Abrir diagrama"
+msgstr "Pentagrama"
 
 #: ../objects/Misc/n_gon.c:320
 msgid "Hexagon"
 msgstr "Hexágono"
 
 #: ../objects/Misc/n_gon.c:320
-#, fuzzy
-#| msgid "Diagram"
 msgid "Hexagram"
-msgstr "Diagrama"
+msgstr "Hexagrama"
 
 #: ../objects/Misc/n_gon.c:321
 msgid "Heptagon"
 msgstr "Heptágono"
 
 #: ../objects/Misc/n_gon.c:321
-#, fuzzy
-#| msgid "Diagram"
 msgid "Heptagram"
-msgstr "Diagrama"
+msgstr "Heptagrama"
 
 #: ../objects/Misc/n_gon.c:322
 msgid "Octagon"
 msgstr "Octógono"
 
 #: ../objects/Misc/n_gon.c:322
-#, fuzzy
-#| msgid "Diagram"
 msgid "Octagram"
-msgstr "Diagrama"
+msgstr "Octagrama"
 
 #: ../objects/Misc/n_gon.c:323
 msgid "Enneagon"
 msgstr "Eneágono"
 
 #: ../objects/Misc/n_gon.c:323
-#, fuzzy
-#| msgid "Diagram"
 msgid "Enneagram"
-msgstr "Diagrama"
+msgstr "Eneagrama"
 
 #: ../objects/Misc/n_gon.c:324
-#, fuzzy
-#| msgid "Diagonal"
 msgid "Decagon"
-msgstr "Diagonal"
+msgstr "Decágono"
 
 #: ../objects/Misc/n_gon.c:324
-#, fuzzy
-#| msgid "Diagram"
 msgid "Decagram"
-msgstr "Diagrama"
+msgstr "Decagrama"
 
 #: ../objects/Misc/n_gon.c:325
 msgid "Hendecagon"
 msgstr "Endecágono"
 
 #: ../objects/Misc/n_gon.c:325
-#, fuzzy
-#| msgid "Open Diagram"
 msgid "Hendecagram"
-msgstr "Abrir diagrama"
+msgstr "Endecagrama"
 
 #: ../objects/Misc/n_gon.c:326
 msgid "Dodecagon"
 msgstr "Dodecágono"
 
 #: ../objects/Misc/n_gon.c:326
-#, fuzzy
-#| msgid "Diagram"
 msgid "Dodecagram"
-msgstr "Diagrama"
+msgstr "Dodecagrama"
 
 #: ../objects/Misc/n_gon.c:327
 msgid "Tridecagon"
 msgstr "Tridecágono"
 
 #: ../objects/Misc/n_gon.c:327
-#, fuzzy
-#| msgid "Diagram"
 msgid "Tridecagram"
-msgstr "Diagrama"
+msgstr "Tridecagrama"
 
 #: ../objects/Misc/n_gon.c:328
 msgid "Tetradecagon"
 msgstr "Tetradecágono"
 
 #: ../objects/Misc/n_gon.c:328
-#, fuzzy
-#| msgid "Istar diagram"
 msgid "Tetradecagram"
-msgstr "Diagrama Istar"
+msgstr "Tetradecagrama"
 
 #: ../objects/Misc/n_gon.c:329
 msgid "Pentadecagon"
 msgstr "Pentadecágono"
 
 #: ../objects/Misc/n_gon.c:329
-#, fuzzy
-#| msgid "Istar diagram"
 msgid "Pentadecagram"
-msgstr "Diagrama Istar"
+msgstr "Pentadecagrama"
 
 #: ../objects/Misc/n_gon.c:330
 msgid "Hexadecagon"
@@ -5502,20 +5430,16 @@ msgid "Heptadecagon"
 msgstr "Heptadecágono"
 
 #: ../objects/Misc/n_gon.c:331
-#, fuzzy
-#| msgid "Istar diagram"
 msgid "Heptadecagram"
-msgstr "Diagrama Istar"
+msgstr "Heptadecagrama"
 
 #: ../objects/Misc/n_gon.c:332
 msgid "Octadecagon"
 msgstr "Octadecágono"
 
 #: ../objects/Misc/n_gon.c:332
-#, fuzzy
-#| msgid "Istar diagram"
 msgid "Octadecagram"
-msgstr "Diagrama Istar"
+msgstr "Octadecagrama"
 
 #: ../objects/Misc/n_gon.c:333
 msgid "Enneadecagon"
@@ -5530,26 +5454,20 @@ msgid "Icosagon"
 msgstr "Icoságono"
 
 #: ../objects/Misc/n_gon.c:334
-#, fuzzy
-#| msgid "Close Diagram"
 msgid "Icosagram"
-msgstr "Cerrar el diagrama"
+msgstr "Icosagrama"
 
 #: ../objects/Misc/n_gon.c:350
 msgid "N-gon"
 msgstr "Polígono de «n» lados"
 
 #: ../objects/Misc/n_gon.c:352
-#, fuzzy
-#| msgid "Diagram"
 msgid "N-gram"
-msgstr "Diagrama"
+msgstr "N-ésima-grama"
 
 #: ../objects/Misc/n_gon.c:354
-#, fuzzy
-#| msgid "Start"
 msgid "Star"
-msgstr "Iniciar"
+msgstr "Estrella"
 
 # Quizá Asa .FVD
 #: ../objects/Misc/tree.c:599 ../objects/network/bus.c:599
@@ -5558,7 +5476,7 @@ msgstr "Añadir manejador"
 
 #: ../objects/Misc/tree.c:600 ../objects/network/bus.c:600
 msgid "Delete Handle"
-msgstr "Borrar manejador"
+msgstr "Eliminar manejador"
 
 #: ../objects/network/basestation.c:134
 msgid "Sectors"
@@ -5657,7 +5575,7 @@ msgstr "Añadir segmento"
 
 #: ../objects/standard/bezier.c:766 ../objects/standard/beziergon.c:523
 msgid "Delete Segment"
-msgstr "Borrar segmento"
+msgstr "Eliminar segmento"
 
 #: ../objects/standard/bezier.c:768 ../objects/standard/beziergon.c:525
 msgid "Symmetric control"
@@ -5779,7 +5697,7 @@ msgstr "Añadir esquina"
 
 #: ../objects/standard/polygon.c:485 ../objects/standard/polyline.c:623
 msgid "Delete Corner"
-msgstr "Borrar esquina"
+msgstr "Eliminar esquina"
 
 # Como adjetivo Standard-->Estándar incluso en plurar. FVD
 #: ../objects/standard/standard.c:58
@@ -5795,10 +5713,8 @@ msgid "Vertical text alignment"
 msgstr "Alineación vertical del texto"
 
 #: ../objects/standard/textobj.c:130
-#, fuzzy
-#| msgid "Text padding"
 msgid "Text margin"
-msgstr "Relleno de texto"
+msgstr "Margen del texto"
 
 #: ../objects/standard/zigzagline.c:450
 msgid "Upgrade to Bezierline"
@@ -6200,7 +6116,7 @@ msgstr "Añadir puntos de conexión"
 
 #: ../objects/UML/lifeline.c:529
 msgid "Remove connection points"
-msgstr "Borrar puntos de conexión"
+msgstr "Eliminar puntos de conexión"
 
 #: ../objects/UML/lifeline.c:530
 msgid "Increase connection points distance"
@@ -6729,10 +6645,8 @@ msgid "Encapsulated Postscript with preview (using Pango fonts)"
 msgstr "PostScript encapsulado con vista previa (usando tipografía Pango)"
 
 #: ../plug-ins/postscript/render_eps.c:187
-#, fuzzy
-#| msgid "Encapsulated PostScript (using PostScript Latin-1 fonts)"
 msgid "Encapsulated PostScript (using PS Latin-1 fonts)"
-msgstr "PostScript encapsulado (usando tipografías PostScript Latin-1)"
+msgstr "PostScript encapsulado (usando tipografías PS Latin-1)"
 
 #: ../plug-ins/pstricks/pstricks.c:26
 msgid "TeX PSTricks export filter"
@@ -6927,10 +6841,8 @@ msgid "WMF export filter"
 msgstr "Filtro de exportación de WMF"
 
 #: ../plug-ins/wpg/wpg.c:1111 ../plug-ins/wpg/wpg.c:1117
-#, fuzzy
-#| msgid "WordPerfect Graphics export filter"
 msgid "WordPerfect Graphics"
-msgstr "Filtro de exportación de WordPerfect Graphics"
+msgstr "WordPerfect Graphics"
 
 #: ../plug-ins/wpg/wpg.c:1142
 msgid "WordPerfect Graphics export filter"
@@ -10435,10 +10347,8 @@ msgstr "Objetos de diagrama"
 
 # Como adjetivo Standard-->Estándar incluso en plurar. FVD
 #: ../sheets/Misc.sheet.in.h:12
-#, fuzzy
-#| msgid "Standard objects"
 msgid "N-gon or Star object"
-msgstr "Objetos estándar"
+msgstr "Polígono de «n» lados u objeto estrella"
 
 #: ../sheets/MSE.sheet.in.h:1
 msgid "MSE"
