@@ -16,8 +16,8 @@ msgstr ""
 "Project-Id-Version: dia\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=dia&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2014-09-09 03:12+0000\n"
-"PO-Revision-Date: 2014-09-09 08:06+0200\n"
+"POT-Creation-Date: 2014-09-23 03:15+0000\n"
+"PO-Revision-Date: 2014-09-23 07:52+0200\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -368,29 +368,34 @@ msgstr "Ve schránce není žádný obrázek, který by bylo možné vložit."
 msgid "No selected object can take an image."
 msgstr "Není vybrán žádný objekt, který by mohl poskytnout obrázek."
 
-#: ../app/commands.c:327
+#: ../app/commands.c:329
 msgid "Clipboard Paste"
 msgstr "Vložení ze schránky"
 
 #. might become more right some day ;)
-#: ../app/commands.c:335
+#: ../app/commands.c:337
 #, c-format
-msgid "No clipboard handler for '%s'"
-msgstr "Schází obsluha schránky pro „%s“"
+msgid "Failed to import '%s' as SVG."
+msgstr "Selhal import „%s“ jako SVG."
 
-#: ../app/commands.c:426
+#: ../app/commands.c:353
+#, c-format
+msgid "Paste failed: %s"
+msgstr "Selhalo vložení: %s"
+
+#: ../app/commands.c:434
 msgid "Clipboard Copy"
 msgstr "Kopírování do schránky"
 
-#: ../app/commands.c:625
+#: ../app/commands.c:636
 msgid "No existing object to paste.\n"
 msgstr "Žádný existující objekt, který by šel vložit.\n"
 
-#: ../app/commands.c:935 ../app/commands.c:973
+#: ../app/commands.c:946 ../app/commands.c:984
 msgid "Could not find help directory"
 msgstr "Nelze nalézt složku s nápovědou"
 
-#: ../app/commands.c:942
+#: ../app/commands.c:953
 #, c-format
 msgid ""
 "Could not open help directory:\n"
@@ -399,14 +404,14 @@ msgstr ""
 "Nelze otevřít složku s nápovědou:\n"
 "%s"
 
-#: ../app/commands.c:1010
+#: ../app/commands.c:1021
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr ""
 "Michal Bukovjan <bukm@centrum.cz>\n"
 "Miloslav Trmač <mitr@volny.cz>\n"
 "Marek Černocký <marek@manet.cz>"
 
-#: ../app/commands.c:1012
+#: ../app/commands.c:1023
 msgid ""
 "This program is free software; you can redistribute it and/or modify\n"
 "it under the terms of the GNU General Public License as published by\n"
@@ -435,7 +440,7 @@ msgstr ""
 "License. Pokud se tak nestalo, napište na Free Software Foundation, Inc., 59 "
 "Temple Place - Suite 330, Boston, MA 02111-1307, USA.\n"
 
-#: ../app/commands.c:1039
+#: ../app/commands.c:1050
 msgid "A program for drawing structured diagrams."
 msgstr "Program pro kreslení strukturovaných diagramů."
 
@@ -727,31 +732,31 @@ msgstr "Následovat odkaz…"
 msgid "Convert to Path"
 msgstr "Převést na cestu"
 
-#: ../app/disp_callbacks.c:259 ../app/menus.c:272
+#: ../app/disp_callbacks.c:262 ../app/menus.c:272
 msgid "Union"
 msgstr "Sjednocení"
 
-#: ../app/disp_callbacks.c:260
+#: ../app/disp_callbacks.c:263
 msgid "Difference"
 msgstr "Rozdíl"
 
-#: ../app/disp_callbacks.c:261 ../app/menus.c:273
+#: ../app/disp_callbacks.c:264 ../app/menus.c:273
 msgid "Intersection"
 msgstr "Průnik"
 
-#: ../app/disp_callbacks.c:262
+#: ../app/disp_callbacks.c:265
 msgid "Exclusion"
 msgstr "Vypuštění"
 
-#: ../app/disp_callbacks.c:400
+#: ../app/disp_callbacks.c:403
 msgid "Selection"
 msgstr "Výběr"
 
-#: ../app/disp_callbacks.c:415
+#: ../app/disp_callbacks.c:418
 msgid "Input _Methods"
 msgstr "Vstupní _metody"
 
-#: ../app/disp_callbacks.c:1191
+#: ../app/disp_callbacks.c:1194
 msgid ""
 "The object you dropped cannot fit into its parent. \n"
 "Either expand the parent object, or drop the object elsewhere."
@@ -996,7 +1001,7 @@ msgstr "Přepne přichytávání k mřížce pro toto okno."
 msgid "Toggles object snapping for this window."
 msgstr "Přepne přichytávání k objektům pro toto okno."
 
-#: ../app/interface.c:970 ../app/interface.c:1087 ../dia.desktop.in.in.h:2
+#: ../app/interface.c:979 ../app/interface.c:1096 ../dia.desktop.in.in.h:2
 msgid "Diagram Editor"
 msgstr "Editor diagramu"
 
@@ -1811,7 +1816,7 @@ msgstr "Přepíná přichytávání k mřížce."
 msgid "Toggles object snapping."
 msgstr "Přepíná přichytávání k objektům."
 
-#: ../app/menus.c:1260
+#: ../app/menus.c:1268
 msgid "The function is not available anymore."
 msgstr "Funkce nadále není k dispozici."
 
@@ -1965,7 +1970,7 @@ msgstr "zobrazit vyhlazené"
 msgid "Portable Network Graphics"
 msgstr "Portable Network Graphics"
 
-#: ../app/preferences.c:224 ../plug-ins/svg/render_svg.c:555
+#: ../app/preferences.c:224 ../plug-ins/svg/render_svg.c:583
 #: ../plug-ins/svg/svg-import.c:2163
 msgid "Scalable Vector Graphics"
 msgstr "Scalable Vector Graphics"
@@ -5440,23 +5445,23 @@ msgstr "Absolutní začátek mezery"
 msgid "Absolute end gap"
 msgstr "Absolutní konec mezery"
 
-#: ../objects/standard/bezier.c:759 ../objects/standard/beziergon.c:516
+#: ../objects/standard/bezier.c:765 ../objects/standard/beziergon.c:522
 msgid "Add Segment"
 msgstr "Přidat segment"
 
-#: ../objects/standard/bezier.c:760 ../objects/standard/beziergon.c:517
+#: ../objects/standard/bezier.c:766 ../objects/standard/beziergon.c:523
 msgid "Delete Segment"
 msgstr "Odstranit segment"
 
-#: ../objects/standard/bezier.c:762 ../objects/standard/beziergon.c:519
+#: ../objects/standard/bezier.c:768 ../objects/standard/beziergon.c:525
 msgid "Symmetric control"
 msgstr "Symetrické ovládání"
 
-#: ../objects/standard/bezier.c:764 ../objects/standard/beziergon.c:521
+#: ../objects/standard/bezier.c:770 ../objects/standard/beziergon.c:527
 msgid "Smooth control"
 msgstr "Hladké ovládání"
 
-#: ../objects/standard/bezier.c:766 ../objects/standard/beziergon.c:523
+#: ../objects/standard/bezier.c:772 ../objects/standard/beziergon.c:529
 msgid "Cusp control"
 msgstr "Hrotové ovládání"
 
@@ -6537,17 +6542,17 @@ msgstr "Podpora skriptování v jazyce Python"
 msgid "Dia shape export filter"
 msgstr "Exportní filtr symbolů aplikace Dia"
 
-#: ../plug-ins/shape/shape-export.c:565
+#: ../plug-ins/shape/shape-export.c:622
 msgid "Shape files must end in .shape, or they cannot be loaded by Dia"
 msgstr ""
 "Soubory se symboly musí končit v .shape, jinak je není možné do aplikace Dia "
 "načíst"
 
-#: ../plug-ins/shape/shape-export.c:579
+#: ../plug-ins/shape/shape-export.c:636
 msgid "Can't export PNG icon without export plugin!"
 msgstr "Ikonu PNG nelze exportovat bez exportního zásuvného modulu!"
 
-#: ../plug-ins/shape/shape-export.c:605
+#: ../plug-ins/shape/shape-export.c:662
 msgid "Dia Shape File"
 msgstr "Soubor se symboly Dia"
 
