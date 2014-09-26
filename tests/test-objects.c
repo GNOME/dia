@@ -1,5 +1,5 @@
 /* test-objects.c -- Unit test for Dia object implmentations
- * Copyright (C) 2008 Hans Breuer
+ * Copyright (C) 2008-2014 Hans Breuer
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -62,7 +62,7 @@ _test_creation (gconstpointer user_data)
 	    && o->ops->apply_properties_from_dialog != NULL
 	    );
   
-  /* can we really assume everthing complies with standard props nowadays? */
+  /* can we really assume everything complies with standard props nowadays? */
   g_assert (   o->ops->describe_props
             && o->ops->get_props
 	    && o->ops->set_props);
@@ -74,7 +74,7 @@ _test_creation (gconstpointer user_data)
     g_assert (plist != NULL);
     prop_list_free(plist);
   }
-  /* not implmeneted anywhere */
+  /* not implemented anywhere */
   g_assert (o->ops->edit_text == NULL);
   /* I think this is mandatory */
   g_assert (o->ops->apply_properties_list != NULL);
@@ -101,13 +101,15 @@ _test_creation (gconstpointer user_data)
 	        || (   o->handles[i]->type == HANDLE_NON_MOVABLE /* always together? */
 		    && o->handles[i]->connect_type == HANDLE_NONCONNECTABLE));
     }
-  /* handles now destroyed */
+  /* handles now found */
   g_assert (NULL == h1 && NULL == h2);
 
   for (i = 0; i < o->num_connections; ++i)
     {
       g_assert (o->connections[i] != NULL);
       g_assert (o->connections[i]->object == o); /* owner set? */
+      g_assert ((o->connections[i]->directions & ~DIR_ALL) == 0); /* known directions */
+      g_assert ((o->connections[i]->flags & ~CP_FLAGS_MAIN) == 0); /* known flags */
     }
 
   /* finally */
@@ -157,7 +159,7 @@ _test_copy (gconstpointer user_data)
       g_assert (oc->connections[i] != NULL && oc->connections[i] != o->connections[i]);
     }
 
-  /* check some further properties which must be copied ?*/
+  /* check some further properties which must be copied ? */
 
   /* finally */
   o->ops->destroy (o);
@@ -219,8 +221,8 @@ _test_movement (gconstpointer user_data)
   else
     epsilon = EPSILON;
 
-  g_assert (   fabs(fabs(bbox2.right - bbox2.left) - fabs(bbox1.right - bbox1.left)) < epsilon
-            && fabs(fabs(bbox2.bottom - bbox2.top) - fabs(bbox1.bottom - bbox1.top)) < epsilon);
+  g_assert_cmpfloat (fabs(fabs(bbox2.right - bbox2.left) - fabs(bbox1.right - bbox1.left)), <, epsilon);
+  g_assert_cmpfloat (fabs(fabs(bbox2.bottom - bbox2.top) - fabs(bbox1.bottom - bbox1.top)), <, epsilon);
   /* .... really: without changing size ? */
   pos = o->position;
   bbox1 = o->bounding_box;
@@ -239,35 +241,31 @@ _test_movement (gconstpointer user_data)
     _object_change_free(change);
   g_assert (num_connections == o->num_connections);
   /* does the position reflect the move? */
-  g_assert (   fabs(fabs(pos.x - o->position.x) - fabs(from.x - to.x)) < EPSILON
-            && fabs(fabs(pos.y - o->position.y) - fabs(from.y - to.y)) < EPSILON );
+  g_assert_cmpfloat (fabs(fabs(pos.x - o->position.x) - fabs(from.x - to.x)), <, EPSILON);
+  g_assert_cmpfloat (fabs(fabs(pos.y - o->position.y) - fabs(from.y - to.y)), <, EPSILON);
   /* ... also for handles and connection points? */
   for (i = 0; i < num_handles; ++i)
-    g_assert (   fabs(fabs(handle_positions[i].x - o->handles[i]->pos.x) - fabs(from.x - to.x)) < EPSILON
-              && fabs(fabs(handle_positions[i].y - o->handles[i]->pos.y) - fabs(from.y - to.y)) < EPSILON);
+    {
+      g_assert_cmpfloat (fabs(fabs(handle_positions[i].x - o->handles[i]->pos.x) - fabs(from.x - to.x)), <, EPSILON);
+      g_assert_cmpfloat (fabs(fabs(handle_positions[i].y - o->handles[i]->pos.y) - fabs(from.y - to.y)), <, EPSILON);
+    }
   for (i = 0; i < num_connections; ++i)
-    g_assert (   fabs(fabs(cp_positions[i].x - o->connections[i]->pos.x) - fabs(from.x - to.x)) < EPSILON
-              && fabs(fabs(cp_positions[i].y - o->connections[i]->pos.y) - fabs(from.y - to.y)) < EPSILON);
+    {
+      g_assert_cmpfloat (fabs(fabs(cp_positions[i].x - o->connections[i]->pos.x) - fabs(from.x - to.x)), <, EPSILON);
+      g_assert_cmpfloat (fabs(fabs(cp_positions[i].y - o->connections[i]->pos.y) - fabs(from.y - to.y)), <, EPSILON);
+    }
 
   bbox2 = o->bounding_box;
   /* test fails e.g. for 'Cisco - Web cluster' probably due to bezier-bbox-issues: bug 568115 */
-  if (   strcmp (type->name, "Cisco - IP Softphone") == 0 /* ok on win32 */
-      || strcmp (type->name, "Cisco - Router in building") == 0 /* height off 0.5 */
-      || strcmp (type->name, "Cisco - MCU") == 0 /* height off 0.8 */
-      || strcmp (type->name, "Cisco - Mac Woman") == 0 /* ok on win32 */
-      /* more failing recently? */
-      || strcmp (type->name, "Cisco - SVX (interchangeable with End office)") == 0 /* height off 0.32 */
-      /* ... changed move condition (starting point)  */
-      || strcmp (type->name, "Cisco - ATM Tag Switch Router") == 0 /* height off 0.7 */
-      /* FIXME: this shape should be simple enough to actually fix the bug */
-      || strcmp (type->name, "Assorted - Heart") == 0 /* height off 0.05 */
-      || strstr (type->name, "Bugs -") == type->name
-     )
-    g_test_message ("SKIPPED! ");
+  if (/* FIXME: this shape should be simple enough to actually fix the bug */
+         strcmp (type->name, "Assorted - Heart") == 0 /* height off 0.05 */
+      || strstr (type->name, "Bugs -") == type->name)
+    g_test_message ("SKIPPED %s! ", type->name);
   else
-    g_assert (   fabs((bbox2.right - bbox2.left) - (bbox1.right - bbox1.left)) < EPSILON
-              && fabs((bbox2.bottom - bbox2.top) - (bbox1.bottom - bbox1.top)) < EPSILON);
-
+    {
+      g_assert_cmpfloat (fabs((bbox2.right - bbox2.left) - fabs(bbox1.right - bbox1.left)), <, EPSILON);
+      g_assert_cmpfloat (fabs((bbox2.bottom - bbox2.top) - fabs(bbox1.bottom - bbox1.top)), <, EPSILON);
+    }
   /* finally */
   o->ops->destroy (o);
   g_free (o);
@@ -280,15 +278,13 @@ _test_change (gconstpointer user_data)
   Handle *h1 = NULL, *h2 = NULL;
   Point from = {0, 0};
   DiaObject *o = type->ops->create (&from, type->default_user_data, &h1, &h2);
-  ObjectChange *change;
-  const PropDescription *descs;
-  GPtrArray *props;
 
   if (o->ops->apply_properties_list) {
+    ObjectChange *change;
     /* get description */
-    descs = o->ops->describe_props (o);
+    const PropDescription *descs = o->ops->describe_props (o);
     /* get unset value vector */ 
-    props = prop_list_from_descs (descs, pdtpp_is_visible);
+    GPtrArray *props = prop_list_from_descs (descs, pdtpp_is_visible);
     /* fill it with this objects values */
     o->ops->get_props (o, props);
     /* apply it back to the object - maybe we should do some change first? */
@@ -356,27 +352,44 @@ _test_move_handle (gconstpointer user_data)
   if (h2)
     {
       Point to = h2->pos;
+      Rectangle bb_org = o->bounding_box;
+      from = to;
       to.x += 1.0; to.y += 1.0;
       if (cp)
         {
-          change = o->ops->move_handle(o, h2, &to, cp, HANDLE_MOVE_CONNECTED, 0);
-          /* again the API would allow, but it gave at least a leak at app/connectionpoint_ops.c */
-          g_assert (change == NULL);
+	  change = o->ops->move_handle(o, h2, &to, cp, HANDLE_MOVE_CONNECTED, 0);
+	  /* again the API would allow, but it gave at least a leak at app/connectionpoint_ops.c */
+	  g_assert (change == NULL);
 	}
       else
         {
-          change = o->ops->move_handle(o, h2, &to, NULL, HANDLE_MOVE_USER_FINAL, 0);
+	  change = o->ops->move_handle(o, h2, &to, NULL, HANDLE_MOVE_USER_FINAL, 0);
 	  if (change) /* still not mandatory */
 	    {
 	      to.x -= 1.0; to.y -= 1.0;
 	      change->revert(change, NULL);
 	      _object_change_free(change);
 	      if (TRUE) /* move_handle undo is handled on the application level ;( */
-                 /* NOP */;
+		/* NOP */;
 	      else
-	        g_assert(   fabs(to.x - o->handles[i]->pos.x) < EPSILON
-                         && fabs(to.y - o->handles[i]->pos.y) < EPSILON);
+		g_assert(   fabs(to.x - o->handles[i]->pos.x) < EPSILON
+			 && fabs(to.y - o->handles[i]->pos.y) < EPSILON);
 	    }
+	}
+      /* moving back to the original position must restore the original object */
+      change = o->ops->move_handle(o, h2, &from, NULL, HANDLE_MOVE_USER_FINAL, 0);
+      _object_change_free(change); /* custom_move_handle() might return a change */
+      if (   strcmp (type->name, "UML - Lifeline") == 0
+	  || strcmp (type->name, "Standard - Outline") == 0)
+	{
+	  g_test_message ("No restore by '%s'::move_handle", type->name);
+	}
+      else
+	{
+	  g_assert_cmpfloat (fabs(o->bounding_box.top - bb_org.top), <, EPSILON);
+	  g_assert_cmpfloat (fabs(o->bounding_box.left - bb_org.left), <, EPSILON);
+	  g_assert_cmpfloat (fabs(o->bounding_box.right - bb_org.right), <, EPSILON);
+	  g_assert_cmpfloat (fabs(o->bounding_box.bottom - bb_org.bottom), <, EPSILON);
 	}
       h2 = NULL;
     }
@@ -567,7 +580,7 @@ _test_object_menu (gconstpointer user_data)
 #if 0
 	  /* XXX: Even more needs to be done to keep sane objects, see object_change_revert()
 	   * in app/undo.c. AFAICT this is only needed to compensate for orthconn_set_points()
-	   * while that does not update the object itself.
+	   * while that does not update the object itself (which it does nowadays).
 	   */
 	  {
 	    /* Make sure object updates its data: */
@@ -596,6 +609,10 @@ _test_draw (gconstpointer user_data)
   DiaRenderer *renderer = g_object_new (DIA_TYPE_PATH_RENDERER, 0);
 
   o->ops->draw (o, renderer);
+  /* XXX: when the DiaPathRender could tell the bounds compare these with the
+   * o->bounding_box?
+   */
+
   /* finally */
   o->ops->destroy (o);
   g_free (o);
