@@ -854,10 +854,9 @@ stdpath_move_handle (StdPath *stdpath,
    * to be moved at all. So our transformation is invariant to the opposite
    * point of the path, not the object position.
    *
-   * XXX: another issue - not yet solved - is limit checking. The path object
-   * must not get too small, so that it can not be restored by reverse
-   * move_handle. One way could be a minimum distance between the moving and
-   * the opposite handle, but it does not behave as expected.
+   * Another issue is limit checking. The path object must not get too small,
+   * otherwise it can not be restored by reverse move_handle. So implement a
+   * minimum distance between the moving and the opposite handle.
    */
   if (handle->id == HANDLE_RESIZE_NW) {
     Point p0 = stdpath->handles[7].pos; /* SE */
@@ -893,6 +892,10 @@ stdpath_move_handle (StdPath *stdpath,
     g_assert(stdpath->handles[2].id == handle->id);
     g_assert(stdpath->handles[5].id == HANDLE_RESIZE_SW);
 
+    if (to->x - EPSILON < p0.x)
+      sx = 1.0;
+    if (to->y + EPSILON > p0.y)
+      sy = 1.0;
     _stdpath_scale (stdpath, sx, sy, &p0);
   } else if (handle->id == HANDLE_RESIZE_W) {
     /* scale width */
@@ -903,6 +906,8 @@ stdpath_move_handle (StdPath *stdpath,
     g_assert(stdpath->handles[3].id == handle->id);
     g_assert(stdpath->handles[4].id == HANDLE_RESIZE_E);
 
+    if (to->x + EPSILON > p0.x)
+      sx = 1.0;
     _stdpath_scale (stdpath, sx, 1.0, &p0);
   } else if (handle->id == HANDLE_RESIZE_E) {
     /* scale width */
@@ -913,6 +918,8 @@ stdpath_move_handle (StdPath *stdpath,
     g_assert(stdpath->handles[4].id == handle->id);
     g_assert(stdpath->handles[3].id == HANDLE_RESIZE_W);
 
+    if (to->x - EPSILON < p0.x)
+      sx = 1.0;
     _stdpath_scale (stdpath, sx, 1.0, &p0);
   } else if (handle->id == HANDLE_RESIZE_SW) {
     Point p0 = stdpath->handles[2].pos; /* NE */
@@ -923,6 +930,10 @@ stdpath_move_handle (StdPath *stdpath,
     g_assert(stdpath->handles[5].id == handle->id);
     g_assert(stdpath->handles[2].id == HANDLE_RESIZE_NE);
 
+    if (to->x + EPSILON > p0.x)
+      sx = 1.0;
+    if (to->y - EPSILON < p0.y)
+      sy = 1.0;
     _stdpath_scale (stdpath, sx, sy, &p0);
   } else if (handle->id == HANDLE_RESIZE_S) {
     /* scale height */
@@ -933,6 +944,8 @@ stdpath_move_handle (StdPath *stdpath,
     g_assert(stdpath->handles[6].id == handle->id);
     g_assert(stdpath->handles[1].id == HANDLE_RESIZE_N);
 
+    if (to->y - EPSILON < p0.y)
+      sy = 1.0;
     _stdpath_scale (stdpath, 1.0, sy, &p0);
   } else if (handle->id == HANDLE_RESIZE_SE) {
     /* scale both directions - keep aspect ratio? */
@@ -944,6 +957,10 @@ stdpath_move_handle (StdPath *stdpath,
     g_assert(stdpath->handles[7].id == handle->id);
     g_assert(stdpath->handles[0].id == HANDLE_RESIZE_NW);
 
+    if (to->x - EPSILON < p0.x)
+      sx = 1.0;
+    if (to->y - EPSILON < p0.y)
+      sy = 1.0;
     _stdpath_scale (stdpath, sx, sy, &p0);
   } else if (handle->type != HANDLE_NON_MOVABLE) {
     g_warning ("stdpath_move_handle() %d not moving", handle->id);
