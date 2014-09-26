@@ -33,7 +33,7 @@ struct _Group {
   /*! \protected DiaObject must be first because this is a 'subclass' of it. */
   DiaObject object;
   /*! \protected To move handles use Group::move_handle() */
-  Handle resize_handles[8];
+  Handle handles[8];
   /*! \protected To group objects use group_create() */
   GList *objects;
   /*! \protected Description of the contained properties */
@@ -135,37 +135,37 @@ group_update_handles(Group *group)
 {
   Rectangle *bb = &group->object.bounding_box;
   
-  group->resize_handles[0].id = HANDLE_RESIZE_NW;
-  group->resize_handles[0].pos.x = bb->left;
-  group->resize_handles[0].pos.y = bb->top;
+  group->handles[0].id = HANDLE_RESIZE_NW;
+  group->handles[0].pos.x = bb->left;
+  group->handles[0].pos.y = bb->top;
 
-  group->resize_handles[1].id = HANDLE_RESIZE_N;
-  group->resize_handles[1].pos.x = (bb->left + bb->right) / 2.0;
-  group->resize_handles[1].pos.y = bb->top;
+  group->handles[1].id = HANDLE_RESIZE_N;
+  group->handles[1].pos.x = (bb->left + bb->right) / 2.0;
+  group->handles[1].pos.y = bb->top;
 
-  group->resize_handles[2].id = HANDLE_RESIZE_NE;
-  group->resize_handles[2].pos.x = bb->right;
-  group->resize_handles[2].pos.y = bb->top;
+  group->handles[2].id = HANDLE_RESIZE_NE;
+  group->handles[2].pos.x = bb->right;
+  group->handles[2].pos.y = bb->top;
 
-  group->resize_handles[3].id = HANDLE_RESIZE_W;
-  group->resize_handles[3].pos.x = bb->left;
-  group->resize_handles[3].pos.y = (bb->top + bb->bottom) / 2.0;
+  group->handles[3].id = HANDLE_RESIZE_W;
+  group->handles[3].pos.x = bb->left;
+  group->handles[3].pos.y = (bb->top + bb->bottom) / 2.0;
 
-  group->resize_handles[4].id = HANDLE_RESIZE_E;
-  group->resize_handles[4].pos.x = bb->right;
-  group->resize_handles[4].pos.y = (bb->top + bb->bottom) / 2.0;
+  group->handles[4].id = HANDLE_RESIZE_E;
+  group->handles[4].pos.x = bb->right;
+  group->handles[4].pos.y = (bb->top + bb->bottom) / 2.0;
 
-  group->resize_handles[5].id = HANDLE_RESIZE_SW;
-  group->resize_handles[5].pos.x = bb->left;
-  group->resize_handles[5].pos.y = bb->bottom;
+  group->handles[5].id = HANDLE_RESIZE_SW;
+  group->handles[5].pos.x = bb->left;
+  group->handles[5].pos.y = bb->bottom;
 
-  group->resize_handles[6].id = HANDLE_RESIZE_S;
-  group->resize_handles[6].pos.x = (bb->left + bb->right) / 2.0;
-  group->resize_handles[6].pos.y = bb->bottom;
+  group->handles[6].id = HANDLE_RESIZE_S;
+  group->handles[6].pos.x = (bb->left + bb->right) / 2.0;
+  group->handles[6].pos.y = bb->bottom;
 
-  group->resize_handles[7].id = HANDLE_RESIZE_SE;
-  group->resize_handles[7].pos.x = bb->right;
-  group->resize_handles[7].pos.y = bb->bottom;
+  group->handles[7].id = HANDLE_RESIZE_SE;
+  group->handles[7].pos.x = bb->right;
+  group->handles[7].pos.y = bb->bottom;
 }
 
 /*! \brief Update connection points positions of contained objects
@@ -218,9 +218,9 @@ group_move_handle(Group *group, Handle *handle, Point *to, ConnectionPoint *cp,
   Rectangle *bb = &obj->bounding_box;
   /* top and left handles are also changing the objects position */
   Point top_left = { bb->left, bb->top };
-  Point delta = { 0.0, 0.0 };
   /* before and after width and height */
   real w0, h0, w1, h1;
+  Point fixed;
   
   assert(handle->id>=HANDLE_RESIZE_NW);
   assert(handle->id<=HANDLE_RESIZE_SE);
@@ -234,41 +234,51 @@ group_move_handle(Group *group, Handle *handle, Point *to, ConnectionPoint *cp,
    */
   switch(handle->id) {
   case HANDLE_RESIZE_NW:
-    delta.x = to->x - top_left.x;
-    delta.y = to->y - top_left.y;
-    w1 = w0 - delta.x;
-    h1 = h0 - delta.y;
+    g_assert(group->handles[7].id == HANDLE_RESIZE_SE);
+    fixed = group->handles[7].pos;
+    w1 = w0 - (to->x - top_left.x);
+    h1 = h0 - (to->y - top_left.y);
     break;
   case HANDLE_RESIZE_N:
-    delta.y = to->y - top_left.y;
-    h1 = h0 - delta.y;
+    g_assert(group->handles[6].id == HANDLE_RESIZE_S);
+    fixed = group->handles[6].pos;
+    h1 = h0 - (to->y - top_left.y);
     break;
   case HANDLE_RESIZE_NE:
-    delta.y = to->y - top_left.y;
+    g_assert(group->handles[5].id == HANDLE_RESIZE_SW);
+    fixed = group->handles[5].pos;
     w1 = to->x - top_left.x;
-    h1 = h0 - delta.y;
+    h1 = h0 - (to->y - top_left.y);
     break;
   case HANDLE_RESIZE_W:
-    delta.x = to->x - top_left.x;
-    w1 = w0 - delta.x;
+    g_assert(group->handles[4].id == HANDLE_RESIZE_E);
+    fixed = group->handles[4].pos;
+    w1 = w0 - (to->x - top_left.x);
     break;
   case HANDLE_RESIZE_E:
+    g_assert(group->handles[3].id == HANDLE_RESIZE_W);
+    fixed = group->handles[3].pos;
     w1 = to->x - top_left.x;
     break;
   case HANDLE_RESIZE_SW:
-    delta.x = to->x - top_left.x;
-    w1 = w0 - delta.x;
-    h1 = to->y - top_left.y;
-    break;
-  case HANDLE_RESIZE_SE:
-    w1 = to->x - top_left.x;
+    g_assert(group->handles[2].id == HANDLE_RESIZE_NE);
+    fixed = group->handles[2].pos;
+    w1 = w0 - (to->x - top_left.x);
     h1 = to->y - top_left.y;
     break;
   case HANDLE_RESIZE_S:
+    g_assert(group->handles[1].id == HANDLE_RESIZE_N);
+    fixed = group->handles[1].pos;
+    h1 = to->y - top_left.y;
+    break;
+  case HANDLE_RESIZE_SE:
+    g_assert(group->handles[0].id == HANDLE_RESIZE_NW);
+    fixed = group->handles[0].pos;
+    w1 = to->x - top_left.x;
     h1 = to->y - top_left.y;
     break;
   default:
-    g_warning("group_move_handle() called with wrong handle-id\n");
+    g_warning("group_move_handle() called with wrong handle-id %d", handle->id);
   }
 
   if (!group->matrix) {
@@ -281,22 +291,17 @@ group_move_handle(Group *group, Handle *handle, Point *to, ConnectionPoint *cp,
    * it to respective object offset. BEWARE: this is not completely
    * reversible, so we might need to deliver some extra undo information.
    */
+  w1 = MAX(w1, 0.05); /* arbitrary minimum size */
+  h1 = MAX(h1, 0.05);
   {
-    DiaMatrix mat;
+    DiaMatrix m = {w1/w0, 0, 0, h1/h0, 0, 0 };
+    DiaMatrix t = { 1, 0, 0, 1, fixed.x, fixed.y };
 
-    delta.x += group->matrix->x0;
-    delta.y += group->matrix->y0;
-    group->matrix->x0 = group->matrix->y0 = 0.0;
-    /* it's just another matrix transform */
-    mat.xx = w1/w0;
-    mat.yy = h1/h0;
-    /* no rotation via handles */
-    mat.yx = mat.xy = 0.0;
-    
-    dia_matrix_multiply (group->matrix, group->matrix, &mat);
-    /* restore complete offset */
-    group->matrix->x0 = delta.x;
-    group->matrix->y0 = delta.y;
+    dia_matrix_multiply (&m, &m, &t);
+    t.x0 = -fixed.x;
+    t.y0 = -fixed.y;
+    dia_matrix_multiply (&m, &t, &m);
+    dia_matrix_multiply (group->matrix, group->matrix, &m);
   }
   group_update_data(group);
 
@@ -408,8 +413,8 @@ group_copy(Group *group)
   object_copy(obj, newobj);
   
   for (i=0;i<8;i++) {
-    newobj->handles[i] = &newgroup->resize_handles[i];
-    newgroup->resize_handles[i] = group->resize_handles[i];
+    newobj->handles[i] = &newgroup->handles[i];
+    newgroup->handles[i] = group->handles[i];
   }
   
   newgroup->matrix = g_memdup(group->matrix, sizeof(DiaMatrix));
@@ -571,7 +576,7 @@ group_create(GList *objects)
   }
 
   for (i=0;i<8;i++) {
-    obj->handles[i] = &group->resize_handles[i];
+    obj->handles[i] = &group->handles[i];
     obj->handles[i]->type = HANDLE_MAJOR_CONTROL;
     obj->handles[i]->connect_type = HANDLE_NONCONNECTABLE;
     obj->handles[i]->connected_to = NULL;
