@@ -533,6 +533,38 @@ _path_object_transform_change_create (DiaObject *obj, DiaMatrix *matrix)
 }
 
 /*!
+ * \brief Flip the path over the vertical or horizontal axis
+ *
+ * Flip horizontal/vertical like custom objects do, except that this
+ * function is modifying the underlying point data. This function is
+ * available with the context menu of the 'Standard - Path' object.
+ * @return Undo information
+ *
+ * \relates _StdPath
+ */
+static ObjectChange *
+_path_flip_callback (DiaObject *obj, Point *clicked, gpointer data)
+{
+  gboolean horz = data == NULL;
+  StdPath *sp = (StdPath *)obj;
+  DiaMatrix m = {horz ? -1 : 1, 0, 0, horz ? 1 : -1, 0, 0 };
+  DiaMatrix translate = {1, 0, 0, 1, 0, 0 };
+  real cx = (sp->object.bounding_box.left + sp->object.bounding_box.right) / 2;
+  real cy = (sp->object.bounding_box.top + sp->object.bounding_box.bottom) / 2;
+
+  /* flip around center */
+  translate.x0 = cx;
+  translate.y0 = cy;
+  dia_matrix_multiply (&m, &m, &translate);
+  translate.x0 = -cx;
+  translate.y0 = -cy;
+  dia_matrix_multiply (&m, &translate, &m);
+
+  _path_transform (sp, &m);
+  return _path_object_transform_change_create (obj, &m);
+}
+
+/*!
  * \brief Rotate path towards clicked point
  *
  * Rotate the given path around it's center with the angle given by
@@ -693,6 +725,8 @@ _show_control_lines (DiaObject *obj, Point *clicked, gpointer data)
 static DiaMenuItem _stdpath_menu_items[] = {
   { N_("Convert to Bezier"), _convert_to_beziers_callback, NULL, DIAMENU_ACTIVE },
   { N_("Invert Path"), _invert_path_callback, NULL, DIAMENU_ACTIVE },
+  { N_("Flip horizontal"), _path_flip_callback, NULL, DIAMENU_ACTIVE },
+  { N_("Flip vertical"), _path_flip_callback, GINT_TO_POINTER(1), DIAMENU_ACTIVE },
   { N_("Rotate"), _path_rotate_callback, NULL, DIAMENU_ACTIVE },
   { N_("Shear"), _path_shear_callback, NULL, DIAMENU_ACTIVE },
   { N_("Show Control Lines"), _show_control_lines, NULL, DIAMENU_ACTIVE | DIAMENU_TOGGLE }
