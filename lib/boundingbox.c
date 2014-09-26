@@ -158,12 +158,16 @@ bicubicbezier2D_bbox(const Point *p0,const Point *p1,
   rectangle_add_point(rect,p3);
   /* start point */  
   point_copy_add_scaled(&vl,p0,p1,-1);
+  if (point_len(&vl) == 0)
+    point_copy_add_scaled(&vl,p0,p2,-1);
   point_normalize(&vl); 
   add_arrow_rectangle(rect,p0,&vl,extra->start_long,MAX(extra->start_trans,
                                                          extra->middle_trans));
 
   /* end point */
   point_copy_add_scaled(&vl,p3,p2,-1);
+  if (point_len(&vl) == 0)
+    point_copy_add_scaled(&vl,p3,p1,-1);
   point_normalize(&vl); 
   add_arrow_rectangle(rect,p3,&vl,extra->end_long,MAX(extra->end_trans,
                                                       extra->middle_trans));
@@ -312,7 +316,7 @@ polybezier_bbox(const BezPoint *pts, int numpoints,
   Point vx,vn,vsc,vp;
   int i,prev,next;
   Rectangle rt;
-  PolyBBExtras bextra,start_bextra,end_bextra;
+  PolyBBExtras bextra,start_bextra,end_bextra,full_bextra;
   LineBBExtras lextra,start_lextra,end_lextra,full_lextra;
   gboolean start,end;
 
@@ -342,6 +346,11 @@ polybezier_bbox(const BezPoint *pts, int numpoints,
   full_lextra.start_trans = MAX(extra->start_trans,extra->middle_trans);
   full_lextra.end_long = extra->end_long;
   full_lextra.end_trans = MAX(extra->end_trans,extra->middle_trans);
+  full_bextra.start_long = extra->start_long;
+  full_bextra.start_trans = MAX(extra->start_trans,extra->middle_trans);
+  full_bextra.middle_trans = extra->middle_trans;
+  full_bextra.end_long = extra->end_long;
+  full_bextra.end_trans = MAX(extra->end_trans,extra->middle_trans);
 
   if (!closed) {
     lextra.start_long = 0;
@@ -453,7 +462,7 @@ polybezier_bbox(const BezPoint *pts, int numpoints,
         if (end) {
           bicubicbezier2D_bbox(&vsc,
                                &pts[i].p1,&pts[i].p2,&pts[i].p3,
-                               extra,
+                               &full_bextra,
                                &rt);
         } else {
           bicubicbezier2D_bbox(&vsc,
@@ -497,12 +506,7 @@ polybezier_bbox(const BezPoint *pts, int numpoints,
       point_normalize(&vxn);
 
       co = point_dot(&vpx,&vxn);
-      if (co >= 1.0)
-        alpha = 0.0;
-      else if (co <= -1.0)
-        alpha = M_PI;
-      else
-        alpha = dia_acos(-co);
+      alpha = dia_acos(-co);
       if (co > -0.9816) { /* 0.9816 = cos(11deg) */
         /* we have a pointy join. */
         real overshoot;
@@ -520,6 +524,10 @@ polybezier_bbox(const BezPoint *pts, int numpoints,
         rectangle_add_point(rect,&pto);
       } else {
         /* we don't have a pointy join. */
+#if 0
+	/* so nothing to do really - this code would be growing the
+	 * bounding box arbitrarily. See e.g with bezier-extreme.dia
+	 */
         Point vpxt,vxnt,tmp;
 
         point_get_perp(&vpxt,&vpx);
@@ -533,6 +541,7 @@ polybezier_bbox(const BezPoint *pts, int numpoints,
         rectangle_add_point(rect,&tmp);
         point_copy_add_scaled(&tmp,&vx,&vxnt,-1);
         rectangle_add_point(rect,&tmp);
+#endif
       }
     }
   }
