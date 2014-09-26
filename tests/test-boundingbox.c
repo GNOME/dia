@@ -78,6 +78,37 @@ static BezPoint _bz7[5] = {
   { BEZ_CURVE_TO, {0,0}, {2,0}, {1,1} },
   { BEZ_CURVE_TO, {0,2}, {2,2}, {1,1} },
 };
+static BezPoint _bz8[] = { /* ying: wrong bbox {-0.05,-0.05,3.05,5.0} */
+  { BEZ_MOVE_TO, {2,0} },
+  { BEZ_CURVE_TO, {1.2855,0}, {0.6252,0.3812}, {0.2679,1} },
+  { BEZ_CURVE_TO, {-0.0893,1.6188}, {-0.0893,2.3812}, {0.2679,3} },
+  { BEZ_CURVE_TO, {0.6252,3.6188}, {1.2855,4}, {2,4} },
+  { BEZ_CURVE_TO, {1.6427,4}, {1.3126,3.8094}, {1.134,3.5} },
+  { BEZ_CURVE_TO, {0.9553,3.1906}, {0.9553,2.8094}, {1.134,2.5} },
+  { BEZ_CURVE_TO, {1.3126,2.1906}, {1.6427,2}, {2,2} },
+  { BEZ_CURVE_TO, {2.3573,2}, {2.6874,1.8094}, {2.866,1.5} },
+  { BEZ_CURVE_TO, {3.0447,1.1906}, {3.0447,0.8094}, {2.866,0.5} },
+  { BEZ_CURVE_TO, {2.6874,0.1906}, {2.3573,0}, {2,0} },
+  { BEZ_MOVE_TO, {2,2.6} },
+  { BEZ_CURVE_TO, {2.22,2.6}, {2.4,2.78}, {2.4,3} },
+  { BEZ_CURVE_TO, {2.4,3.22}, {2.22,3.4}, {2,3.4} },
+  { BEZ_CURVE_TO, {1.78,3.4}, {1.6,3.22}, {1.6,3} },
+  { BEZ_CURVE_TO, {1.6,2.78}, {1.78,2.6}, {2,2.6} },
+  { BEZ_MOVE_TO, {2,0.6} },
+  { BEZ_CURVE_TO, {2.22,0.6}, {2.4,0.78}, {2.4,1} },
+  { BEZ_CURVE_TO, {2.4,1.22}, {2.22,1.4}, {2,1.4} },
+  { BEZ_CURVE_TO, {1.78,1.4}, {1.6,1.22}, {1.6,1} },
+  { BEZ_CURVE_TO, {1.6,0.78}, {1.78,0.6}, {2,0.6} }
+};
+
+static BezPoint _bz9[] = { /* heart from assorted shapes */
+  { BEZ_MOVE_TO, {0.219064,0.919322} },
+  { BEZ_CURVE_TO, {-0.563306,-0.0586407}, {1.00143,-0.449826}, {1.00143,0.723729} },
+  { BEZ_CURVE_TO, {1.00143,0.723729}, {1.00143,0.723729}, {1.00143,0.723729} },
+  { BEZ_CURVE_TO, {1.00143,-0.449826}, {2.56617,-0.0586407}, {1.7838,0.919322} },
+  { BEZ_CURVE_TO, {1.7838,0.919322}, {1.00143,1.89728}, {1.00143,1.89728} },
+  { BEZ_CURVE_TO, {1.00143,1.89728}, {0.219064,0.919322}, {0.219064,0.919322} },
+};
 
 #define T (0.1)
 #define BEZ(x) sizeof(_bz ##x)/sizeof(BezPoint), _bz ##x
@@ -86,7 +117,7 @@ static struct _TestBeziers {
   int       num;
   BezPoint *pts;
   Rectangle box;
-} _test_beziers[] = {                   /* top, left, bottom, right */
+} _test_beziers[] = {                   /* left, top, right, bottom */
   { BEZ(1), { 0.0-T, 0.5-T, 2.0+T, 2.0+T } },
   { BEZ(2), {-2.0-T, 0.5-T, 0.0+T, 2.0+T } },
   { BEZ(3), {-2.0-T,-1.5-T, 0.0+T, 0.0+T } },
@@ -95,6 +126,8 @@ static struct _TestBeziers {
   { BEZ(5), { 0.0-T, 0.5-T, 2.0+T, 2.0+T } },
   { BEZ(6), { 0.2-T, 0.0-T, 1.8+T, 2.0+T } },
   { BEZ(7), { 0.25-T,0.25-T, 1.75+T, 1.75+T} },
+  { BEZ(8), { 0-T, 0-T, 3+T, 4+T} },
+  { BEZ(9), { 0-T, 0-T, 2.052+T, 1.897+T } },
 };
 #undef BEZ
 
@@ -122,11 +155,21 @@ _add_bezier_tests (void)
     }
 }
 
+#ifdef G_OS_WIN32
+#define Rectangle win32Rectangle
+#include <windows.h>
+#endif
+
 int
 main (int argc, char** argv)
 {
   int ret;
   
+#ifdef G_OS_WIN32
+  /* No dialog if it fails, please. */
+  SetErrorMode(SetErrorMode(0) | SEM_NOGPFAULTERRORBOX);
+#endif
+
   g_test_init (&argc, &argv, NULL);
   /* not really needed - or are there message_warnings in the bbox code? */
   libdia_init (DIA_MESSAGE_STDERR);
