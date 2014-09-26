@@ -194,8 +194,7 @@ dia_color_selector_more_ok(GtkWidget *ok, gpointer userdata)
   /* update color button */
   gtk_color_button_set_color (cs->color_button, &gcol);
   gtk_color_button_set_alpha (cs->color_button, galpha);
-
-  gtk_widget_destroy(colorsel);
+  /* not destroying colorsel */
 }
 
 static void
