@@ -381,9 +381,6 @@ dnl INTLOBJS doesn't seem to always get subst'ed, but I believe it's
 dnl idempotent
 AC_SUBST(INTLOBJS)
 
-localedir='${prefix}/${DATADIRNAME}/locale'
-AC_SUBST(localedir)
-
 dnl
 dnl Locate the gnome-xml library
 dnl
