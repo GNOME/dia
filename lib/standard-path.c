@@ -846,7 +846,6 @@ stdpath_move_handle (StdPath *stdpath,
 		     Point *to, ConnectionPoint *cp,
 		     HandleMoveReason reason, ModifierKeys modifiers)
 {
-  DiaObject *obj = &stdpath->object;
   const real EPSILON = 0.01;
 
   /* move_handle is supposed to be just moving that and related handles (e.g.
