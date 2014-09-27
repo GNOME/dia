@@ -330,7 +330,7 @@ static DiaObject *node_create(Point *startpoint, void *user_data, Handle **handl
   node = g_malloc0(sizeof(Node));
   
   /* old defaults */
-  node->line_width = 0.1;
+  node->line_width = NODE_BORDERWIDTH;
 
   elem = &node->element;
   obj = &elem->object;
@@ -344,11 +344,11 @@ static DiaObject *node_create(Point *startpoint, void *user_data, Handle **handl
   node->line_color = attributes_get_foreground();
   node->fill_color = attributes_get_background();
 
-  font = dia_font_new_from_style (DIA_FONT_SANS, 0.8);
+  font = dia_font_new_from_style (DIA_FONT_SANS, NODE_FONTHEIGHT);
   /* The text position is recalculated later */
   p.x = 0.0;
   p.y = 0.0;
-  node->name = new_text("", font, 0.8, &p, &color_black, ALIGN_LEFT);
+  node->name = new_text("", font, NODE_FONTHEIGHT, &p, &color_black, ALIGN_LEFT);
   dia_font_unref(font);
   
   element_init(elem, 8, NUM_CONNECTIONS);
