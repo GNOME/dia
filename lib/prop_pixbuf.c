@@ -196,7 +196,7 @@ _pixbuf_encode (const gchar *buf,
   return TRUE;
 }
 
-const gchar *
+static const gchar *
 _make_pixbuf_type_name (const char *p)
 {
   if (p && strstr (p, "image/jpeg"))
