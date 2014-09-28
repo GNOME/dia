@@ -21,8 +21,8 @@ msgstr ""
 "Project-Id-Version: dia.HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=dia&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2014-09-23 15:17+0000\n"
-"PO-Revision-Date: 2014-09-23 20:05+0200\n"
+"POT-Creation-Date: 2014-09-27 03:15+0000\n"
+"PO-Revision-Date: 2014-09-28 18:53+0200\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español; Castellano <gnome-es-list@gnome.org>\n"
 "Language: es\n"
@@ -598,7 +598,7 @@ msgstr "Propiedades"
 #: ../app/plugin-manager.c:270 ../objects/Database/table.c:147
 #: ../objects/Database/table.c:190 ../objects/Misc/n_gon.c:135
 #: ../objects/UML/association.c:236 ../objects/UML/class.c:140
-#: ../objects/UML/large_package.c:131 ../objects/UML/umlattribute.c:37
+#: ../objects/UML/large_package.c:136 ../objects/UML/umlattribute.c:37
 #: ../objects/UML/umlformalparameter.c:35 ../objects/UML/umloperation.c:62
 #: ../objects/UML/umlparameter.c:43
 msgid "Name"
@@ -1191,7 +1191,7 @@ msgstr "No se permite escribir archivos temporales en %s\n"
 
 #: ../app/load_save.c:1114 ../plug-ins/cgm/cgm.c:1083
 #: ../plug-ins/dxf/dxf-export.c:516
-#: ../plug-ins/metapost/render_metapost.c:1052
+#: ../plug-ins/metapost/render_metapost.c:1057
 #: ../plug-ins/pgf/render_pgf.c:1190 ../plug-ins/postscript/render_eps.c:123
 #: ../plug-ins/pstricks/render_pstricks.c:867
 #: ../plug-ins/vdx/vdx-export.c:1706 ../plug-ins/wmf/wmf.cpp:1345
@@ -1709,9 +1709,9 @@ msgstr "Desplazar"
 #: ../app/menus.c:240 ../app/toolbox.c:98 ../lib/properties.c:102
 #: ../lib/properties.h:677 ../objects/AADL/aadlbox.c:153
 #: ../objects/custom/custom_object.c:227 ../objects/Jackson/requirement.c:130
-#: ../objects/network/basestation.c:132 ../objects/network/radiocell.c:125
+#: ../objects/network/basestation.c:132 ../objects/network/radiocell.c:131
 #: ../objects/UML/activity.c:127 ../objects/UML/actor.c:120
-#: ../objects/UML/classicon.c:145 ../objects/UML/component.c:127
+#: ../objects/UML/classicon.c:145 ../objects/UML/component.c:133
 #: ../objects/UML/component_feature.c:158 ../objects/UML/node.c:127
 #: ../objects/UML/node.c:129 ../objects/UML/note.c:118
 #: ../objects/UML/object.c:164 ../objects/UML/small_package.c:129
@@ -1845,7 +1845,7 @@ msgstr "Conmuta el ajuste a la rejilla."
 msgid "Toggles object snapping."
 msgstr "Conmuta el ajuste del objeto."
 
-#: ../app/menus.c:1268
+#: ../app/menus.c:1275
 msgid "The function is not available anymore."
 msgstr "La función no estará disponible nunca más."
 
@@ -2053,14 +2053,14 @@ msgid "Hex Size:"
 msgstr "Tamaño Hex:"
 
 #: ../app/preferences.c:470 ../lib/diapatternselector.c:87
-#: ../lib/prop_inttypes.c:159 ../lib/prop_pixbuf.c:270
+#: ../lib/prop_inttypes.c:159 ../lib/prop_pixbuf.c:296
 msgid "Yes"
 msgstr "Sí"
 
 #: ../app/preferences.c:470 ../app/preferences.c:481
 #: ../lib/diapatternselector.c:91 ../lib/diapatternselector.c:182
 #: ../lib/prop_inttypes.c:161 ../lib/prop_inttypes.c:187
-#: ../lib/prop_pixbuf.c:272 ../lib/prop_pixbuf.c:278
+#: ../lib/prop_pixbuf.c:298 ../lib/prop_pixbuf.c:304
 msgid "No"
 msgstr "No"
 
@@ -2714,11 +2714,11 @@ msgstr "Más flechas"
 msgid "Size: "
 msgstr "Tamaño: "
 
-#: ../lib/diacolorselector.c:204
+#: ../lib/diacolorselector.c:203
 msgid "Select color"
 msgstr "Seleccione color"
 
-#: ../lib/diacolorselector.c:292
+#: ../lib/diacolorselector.c:291
 msgid "More colors…"
 msgstr "Más colores…"
 
@@ -2742,7 +2742,7 @@ msgid "Couldn't find font family for %s\n"
 msgstr "No se pudo encontrar la familia de tipografías para %s\n"
 
 #. pathologic case - pixbuf not even supporting PNG?
-#: ../lib/dia_image.c:333
+#: ../lib/dia_image.c:345
 #, c-format
 msgid ""
 "Unsupported file format for saving:\n"
@@ -2753,7 +2753,7 @@ msgstr ""
 "%s\n"
 "%s\n"
 
-#: ../lib/dia_image.c:336
+#: ../lib/dia_image.c:348
 #, c-format
 msgid ""
 "Could not save file:\n"
@@ -2914,7 +2914,7 @@ msgstr "Filtros múltiples de exportación con nombre único %s"
 msgid "Can't load font %s.\n"
 msgstr "No se puede cargar la tipografía %s.\n"
 
-#: ../lib/group.c:627
+#: ../lib/group.c:632
 msgid "Transformation"
 msgstr "Transformación"
 
@@ -3105,7 +3105,7 @@ msgstr "Color de relleno"
 
 #. just to simplify transferring properties between objects
 #: ../lib/properties.c:99 ../lib/properties.h:663 ../lib/properties.h:666
-#: ../lib/standard-path.c:147
+#: ../lib/standard-path.c:135
 msgid "Draw background"
 msgstr "Dibujar fondo"
 
@@ -3155,7 +3155,7 @@ msgstr "Finales de línea"
 msgid "Text fitting"
 msgstr "Ajuste de texto"
 
-#: ../lib/properties.h:715 ../lib/standard-path.c:149
+#: ../lib/properties.h:715 ../lib/standard-path.c:137
 msgid "Pattern"
 msgstr "Patrón"
 
@@ -3168,7 +3168,7 @@ msgstr "Cambio de tipo de propiedad de int a enum fuera de rango"
 msgid "No attribute '%s' (%p) or no data (%p) in this attribute"
 msgstr "No hay ningún atributo «%s» (%p) o no hay datos (%p) en este atributo"
 
-#: ../lib/prop_pixbuf.c:99 ../lib/prop_pixbuf.c:146
+#: ../lib/prop_pixbuf.c:110 ../lib/prop_pixbuf.c:157
 #, c-format
 msgid ""
 "Failed to load image form diagram:\n"
@@ -3177,7 +3177,7 @@ msgstr ""
 "Falló al cargar la imagen del diagrama:\n"
 "%s"
 
-#: ../lib/prop_pixbuf.c:198
+#: ../lib/prop_pixbuf.c:224
 #, c-format
 msgid ""
 "Saving inline pixbuf failed:\n"
@@ -3186,7 +3186,7 @@ msgstr ""
 "Falló al guardar el pixbuf en línea:\n"
 "%s"
 
-#: ../lib/prop_pixbuf.c:296
+#: ../lib/prop_pixbuf.c:322
 msgid "Cant create image data from scratch!"
 msgstr "No puedo crear mi imagen desde cero."
 
@@ -3233,40 +3233,61 @@ msgid "%s: you should use object tags rather than shape tags now"
 msgstr ""
 "%s: ahora debería usar etiquetas de objeto en lugar de etiquetas de formas"
 
-#: ../lib/standard-path.c:131
+#: ../lib/standard-path.c:119
 msgid "Stroke"
 msgstr "Trazo"
 
 #. Translators: Menu item Verb/Provision/Supply/Fill
-#: ../lib/standard-path.c:132 ../objects/FS/function.c:927
+#: ../lib/standard-path.c:120 ../objects/FS/function.c:927
 msgid "Fill"
 msgstr "Rellenar"
 
-#: ../lib/standard-path.c:133
+#: ../lib/standard-path.c:121
 msgid "Fill & Stroke"
 msgstr "Relleno y trazo"
 
-#: ../lib/standard-path.c:138
+#: ../lib/standard-path.c:126
 msgid "Bezier points"
 msgstr "Puntos Bézier"
 
-#: ../lib/standard-path.c:139
+#: ../lib/standard-path.c:127
 msgid "Drawing"
 msgstr "Dibujando"
 
-#: ../lib/standard-path.c:148
+#: ../lib/standard-path.c:136
 msgid "Draw Control Lines"
 msgstr "Dibujar líneas de control"
 
-#: ../lib/standard-path.c:552
+#: ../lib/standard-path.c:726
 msgid "Convert to Bezier"
 msgstr "Convertir a Bezier"
 
-#: ../lib/standard-path.c:553
+#: ../lib/standard-path.c:727
 msgid "Invert Path"
 msgstr "Invertir la ruta"
 
-#: ../lib/standard-path.c:554
+#: ../lib/standard-path.c:728 ../objects/custom/custom_object.c:198
+#: ../objects/custom/custom_object.c:231
+msgid "Flip horizontal"
+msgstr "Invertir horizontal"
+
+#: ../lib/standard-path.c:729 ../objects/custom/custom_object.c:200
+#: ../objects/custom/custom_object.c:233
+msgid "Flip vertical"
+msgstr "Invertir vertical"
+
+#. Translators: Menu item Verb/Channel/Guide/Rotate
+#. Translators: Menu item Verb/Channel/Guide/Rotate/Rotate
+#: ../lib/standard-path.c:730 ../objects/FS/function.c:739
+#: ../objects/FS/function.c:741
+msgid "Rotate"
+msgstr "Rotar"
+
+#: ../lib/standard-path.c:731
+msgid "Shear"
+msgstr "Recortar"
+
+#: ../lib/standard-path.c:732
 msgid "Show Control Lines"
 msgstr "Mostrar líneas de control"
 
@@ -3443,14 +3464,6 @@ msgstr "Personalizar"
 msgid "Custom XML shapes loader"
 msgstr "Cargador de formas personalizadas XML"
 
-#: ../objects/custom/custom_object.c:198 ../objects/custom/custom_object.c:231
-msgid "Flip horizontal"
-msgstr "Invertir horizontal"
-
-#: ../objects/custom/custom_object.c:200 ../objects/custom/custom_object.c:233
-msgid "Flip vertical"
-msgstr "Invertir vertical"
-
 #: ../objects/custom/custom_object.c:203 ../objects/custom/custom_object.c:236
 msgid "Scale of the sub-shapes"
 msgstr "Escala de las subformas"
@@ -3462,15 +3475,15 @@ msgid "Text padding"
 msgstr "Relleno de texto"
 
 # Quiza' si estas dos se diferencian so'lo en las mayu'sculas, deberi'amos respetarlas. FVD
-#: ../objects/custom/custom_object.c:1771
+#: ../objects/custom/custom_object.c:1768
 msgid "Flip Horizontal"
 msgstr "Invertir horizontal"
 
-#: ../objects/custom/custom_object.c:1772
+#: ../objects/custom/custom_object.c:1769
 msgid "Flip Vertical"
 msgstr "Invertir vertical"
 
-#: ../objects/custom/custom_object.c:1809
+#: ../objects/custom/custom_object.c:1807
 #, c-format
 msgid "Cannot open icon file %s for object type '%s'."
 msgstr "No se puede abrir el archivo de icono %s para el tipo de objeto «%s»."
@@ -3917,12 +3930,6 @@ msgstr "Dirigir"
 #: ../objects/FS/function.c:737
 msgid "Translate"
 msgstr "Trasladar"
-
-#. Translators: Menu item Verb/Channel/Guide/Rotate
-#. Translators: Menu item Verb/Channel/Guide/Rotate/Rotate
-#: ../objects/FS/function.c:739 ../objects/FS/function.c:741
-msgid "Rotate"
-msgstr "Rotar"
 
 # "Dar la vuelta" queda más clarificador que "Volver". RizOX.
 #. Translators: Menu item Verb/Channel/Guide/Rotate/Turn
@@ -5490,7 +5497,7 @@ msgstr "Estación base"
 msgid "Network diagram objects"
 msgstr "Objetos de diagrama de red"
 
-#: ../objects/network/radiocell.c:119
+#: ../objects/network/radiocell.c:125
 msgid "Radius"
 msgstr "Radio"
 
@@ -5642,13 +5649,17 @@ msgstr "Dibujar borde"
 msgid "Keep aspect ratio"
 msgstr "Mantener proporción"
 
-#: ../objects/standard/image.c:686
+#: ../objects/standard/image.c:255
+msgid "Can't save image without filename"
+msgstr "No se puede guardar la imagen sin un nombre de archivo"
+
+#: ../objects/standard/image.c:722
 msgid "Inconsistent pixbuf during image save."
 msgstr "Datos de pixbuf inconsistentes al guardar la imagen."
 
 #. Found file in same dir as diagram.
 #. Found file in current dir.
-#: ../objects/standard/image.c:783 ../objects/standard/image.c:794
+#: ../objects/standard/image.c:819 ../objects/standard/image.c:830
 #, c-format
 msgid ""
 "The image file '%s' was not found in the specified directory.\n"
@@ -5658,7 +5669,7 @@ msgstr ""
 "Se utiliza el archivo «%s» en su lugar.\n"
 
 #. Didn't find file in current dir.
-#: ../objects/standard/image.c:800 ../objects/standard/image.c:822
+#: ../objects/standard/image.c:836 ../objects/standard/image.c:858
 #, c-format
 msgid "The image file '%s' was not found.\n"
 msgstr "No se encontró el archivo de imagen «%s».\n"
@@ -5833,8 +5844,8 @@ msgstr "Clase"
 #. how it used to be before 0.96+SVN
 #. one name, one type: but breaks forward-compatibiliy so kind of reverted
 #: ../objects/UML/class.c:142 ../objects/UML/classicon.c:136
-#: ../objects/UML/classicon.c:138 ../objects/UML/component.c:123
-#: ../objects/UML/large_package.c:133 ../objects/UML/object.c:146
+#: ../objects/UML/classicon.c:138 ../objects/UML/component.c:129
+#: ../objects/UML/large_package.c:138 ../objects/UML/object.c:146
 #: ../objects/UML/small_package.c:125 ../objects/UML/umloperation.c:68
 msgid "Stereotype"
 msgstr "Estereotipo"
@@ -6357,7 +6368,7 @@ msgstr "Puntero visible de la recta"
 #: ../plug-ins/cairo/diacairo-renderer.c:976
 #: ../plug-ins/cairo/diacairo-renderer.c:1011
 #: ../plug-ins/libart/dialibartrenderer.c:1236
-#: ../plug-ins/metapost/render_metapost.c:901
+#: ../plug-ins/metapost/render_metapost.c:905
 #: ../plug-ins/postscript/diapsrenderer.c:659
 #: ../plug-ins/pstricks/render_pstricks.c:775 ../plug-ins/wpg/wpg.c:885
 msgid "Not enough memory for image drawing."
@@ -6521,7 +6532,7 @@ msgstr "PNG (con alisado)"
 msgid "TeX Metapost export filter"
 msgstr "Filtro de exportación Metapost de TeX"
 
-#: ../plug-ins/metapost/render_metapost.c:1134
+#: ../plug-ins/metapost/render_metapost.c:1139
 msgid "TeX Metapost macros"
 msgstr "Macros Metapost de TeX"
 
