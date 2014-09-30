@@ -4,14 +4,13 @@
 # Imam Musthaqim <musthaqim@telkom.net>, 2005.
 # Andika Triwidada <andika@gmail.com>, 2013, 2014.
 #
-#: ../objects/UML/class.c:193
 msgid ""
 msgstr ""
 "Project-Id-Version: dia master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=dia&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2014-09-14 12:30+0000\n"
-"PO-Revision-Date: 2014-09-14 21:13+0700\n"
+"POT-Creation-Date: 2014-09-29 15:16+0000\n"
+"PO-Revision-Date: 2014-09-30 00:46+0700\n"
 "Last-Translator: Andika Triwidada <andika@gmail.com>\n"
 "Language-Team: Indonesia <gnome@i15n.org>\n"
 "Language: id\n"
@@ -569,7 +568,7 @@ msgstr "Properti"
 #: ../app/plugin-manager.c:270 ../objects/Database/table.c:147
 #: ../objects/Database/table.c:190 ../objects/Misc/n_gon.c:135
 #: ../objects/UML/association.c:236 ../objects/UML/class.c:140
-#: ../objects/UML/large_package.c:131 ../objects/UML/umlattribute.c:37
+#: ../objects/UML/large_package.c:136 ../objects/UML/umlattribute.c:37
 #: ../objects/UML/umlformalparameter.c:35 ../objects/UML/umloperation.c:62
 #: ../objects/UML/umlparameter.c:43
 msgid "Name"
@@ -982,7 +981,7 @@ msgstr "Jungkitkan lengket-ke-kisi untuk jendela ini."
 msgid "Toggles object snapping for this window."
 msgstr "Jungkitkan pelengketan objek untuk jendela ini."
 
-#: ../app/interface.c:970 ../app/interface.c:1087 ../dia.desktop.in.in.h:2
+#: ../app/interface.c:979 ../app/interface.c:1096 ../dia.desktop.in.in.h:2
 msgid "Diagram Editor"
 msgstr "Penyunting Diagram"
 
@@ -1151,7 +1150,7 @@ msgstr "Tak diizinkan menulis berkas sementara dalam %s\n"
 
 #: ../app/load_save.c:1114 ../plug-ins/cgm/cgm.c:1083
 #: ../plug-ins/dxf/dxf-export.c:516
-#: ../plug-ins/metapost/render_metapost.c:1052
+#: ../plug-ins/metapost/render_metapost.c:1057
 #: ../plug-ins/pgf/render_pgf.c:1190 ../plug-ins/postscript/render_eps.c:123
 #: ../plug-ins/pstricks/render_pstricks.c:867
 #: ../plug-ins/vdx/vdx-export.c:1706 ../plug-ins/wmf/wmf.cpp:1345
@@ -1660,9 +1659,9 @@ msgstr "Gulung"
 #: ../app/menus.c:240 ../app/toolbox.c:98 ../lib/properties.c:102
 #: ../lib/properties.h:677 ../objects/AADL/aadlbox.c:153
 #: ../objects/custom/custom_object.c:227 ../objects/Jackson/requirement.c:130
-#: ../objects/network/basestation.c:132 ../objects/network/radiocell.c:125
+#: ../objects/network/basestation.c:132 ../objects/network/radiocell.c:131
 #: ../objects/UML/activity.c:127 ../objects/UML/actor.c:120
-#: ../objects/UML/classicon.c:145 ../objects/UML/component.c:127
+#: ../objects/UML/classicon.c:145 ../objects/UML/component.c:133
 #: ../objects/UML/component_feature.c:158 ../objects/UML/node.c:127
 #: ../objects/UML/node.c:129 ../objects/UML/note.c:118
 #: ../objects/UML/object.c:164 ../objects/UML/small_package.c:129
@@ -1795,7 +1794,7 @@ msgstr "Jungkitkan lengket ke kisi."
 msgid "Toggles object snapping."
 msgstr "Jungkitkan pelengketan objek."
 
-#: ../app/menus.c:1260
+#: ../app/menus.c:1275
 msgid "The function is not available anymore."
 msgstr "Fungsi tersebut tak tersedia lagi."
 
@@ -1998,14 +1997,14 @@ msgid "Hex Size:"
 msgstr "Ukuran Heksa:"
 
 #: ../app/preferences.c:470 ../lib/diapatternselector.c:87
-#: ../lib/prop_inttypes.c:159 ../lib/prop_pixbuf.c:270
+#: ../lib/prop_inttypes.c:159 ../lib/prop_pixbuf.c:296
 msgid "Yes"
 msgstr "Ya"
 
 #: ../app/preferences.c:470 ../app/preferences.c:481
 #: ../lib/diapatternselector.c:91 ../lib/diapatternselector.c:182
 #: ../lib/prop_inttypes.c:161 ../lib/prop_inttypes.c:187
-#: ../lib/prop_pixbuf.c:272 ../lib/prop_pixbuf.c:278
+#: ../lib/prop_pixbuf.c:298 ../lib/prop_pixbuf.c:304
 msgid "No"
 msgstr "Tidak"
 
@@ -2628,11 +2627,11 @@ msgstr "Panah selebihnya"
 msgid "Size: "
 msgstr "Ukuran: "
 
-#: ../lib/diacolorselector.c:204
+#: ../lib/diacolorselector.c:203
 msgid "Select color"
 msgstr "Pilih warna"
 
-#: ../lib/diacolorselector.c:292
+#: ../lib/diacolorselector.c:291
 msgid "More colors…"
 msgstr "Lebih banya warna…"
 
@@ -2655,7 +2654,7 @@ msgid "Couldn't find font family for %s\n"
 msgstr "Tidak bisa menemukan keluarga fonta untuk %s\n"
 
 #. pathologic case - pixbuf not even supporting PNG?
-#: ../lib/dia_image.c:333
+#: ../lib/dia_image.c:345
 #, c-format
 msgid ""
 "Unsupported file format for saving:\n"
@@ -2666,7 +2665,7 @@ msgstr ""
 "%s\n"
 "%s\n"
 
-#: ../lib/dia_image.c:336
+#: ../lib/dia_image.c:348
 #, c-format
 msgid ""
 "Could not save file:\n"
@@ -2826,7 +2825,7 @@ msgstr "Multi penyaring impor dengan nama unik %s"
 msgid "Can't load font %s.\n"
 msgstr "Tak bisa memuat fonta %s.\n"
 
-#: ../lib/group.c:627
+#: ../lib/group.c:632
 msgid "Transformation"
 msgstr "Transformasi"
 
@@ -3009,7 +3008,7 @@ msgstr "Warna isian"
 
 #. just to simplify transferring properties between objects
 #: ../lib/properties.c:99 ../lib/properties.h:663 ../lib/properties.h:666
-#: ../lib/standard-path.c:147
+#: ../lib/standard-path.c:135
 msgid "Draw background"
 msgstr "Gambar latar"
 
@@ -3058,7 +3057,7 @@ msgstr "Topi garis"
 msgid "Text fitting"
 msgstr "Pengepasan teks"
 
-#: ../lib/properties.h:715 ../lib/standard-path.c:149
+#: ../lib/properties.h:715 ../lib/standard-path.c:137
 msgid "Pattern"
 msgstr "Pola"
 
@@ -3071,7 +3070,7 @@ msgstr "Cast properti dari int ke enum di luar jangkauan"
 msgid "No attribute '%s' (%p) or no data (%p) in this attribute"
 msgstr "Tak ada atribut '%s' (%p) atau tak ada data (%p) dalam atribut ini"
 
-#: ../lib/prop_pixbuf.c:99 ../lib/prop_pixbuf.c:146
+#: ../lib/prop_pixbuf.c:110 ../lib/prop_pixbuf.c:157
 #, c-format
 msgid ""
 "Failed to load image form diagram:\n"
@@ -3080,7 +3079,7 @@ msgstr ""
 "Gagal memuat citra dari diagram:\n"
 "%s"
 
-#: ../lib/prop_pixbuf.c:198
+#: ../lib/prop_pixbuf.c:224
 #, c-format
 msgid ""
 "Saving inline pixbuf failed:\n"
@@ -3089,7 +3088,7 @@ msgstr ""
 "Penyimpanan pixbuf inline gagal:\n"
 "%s"
 
-#: ../lib/prop_pixbuf.c:296
+#: ../lib/prop_pixbuf.c:322
 msgid "Cant create image data from scratch!"
 msgstr "Tak dapat membuat data citra dari awal!"
 
@@ -3134,40 +3133,61 @@ msgstr ""
 msgid "%s: you should use object tags rather than shape tags now"
 msgstr "%s: Anda mesti memakai tag objek daripada tag bentuk sekarang"
 
-#: ../lib/standard-path.c:131
+#: ../lib/standard-path.c:119
 msgid "Stroke"
 msgstr "Sapuan"
 
 #. Translators: Menu item Verb/Provision/Supply/Fill
-#: ../lib/standard-path.c:132 ../objects/FS/function.c:927
+#: ../lib/standard-path.c:120 ../objects/FS/function.c:927
 msgid "Fill"
 msgstr "Mengisi"
 
-#: ../lib/standard-path.c:133
+#: ../lib/standard-path.c:121
 msgid "Fill & Stroke"
 msgstr "Pengisian & Sapuan"
 
-#: ../lib/standard-path.c:138
+#: ../lib/standard-path.c:126
 msgid "Bezier points"
 msgstr "Titik Bezier"
 
-#: ../lib/standard-path.c:139
+#: ../lib/standard-path.c:127
 msgid "Drawing"
 msgstr "Menggambar"
 
-#: ../lib/standard-path.c:148
+#: ../lib/standard-path.c:136
 msgid "Draw Control Lines"
 msgstr "Gambar Garis Kendali"
 
-#: ../lib/standard-path.c:552
+#: ../lib/standard-path.c:726
 msgid "Convert to Bezier"
 msgstr "Konversikan ke Bezier"
 
-#: ../lib/standard-path.c:553
+#: ../lib/standard-path.c:727
 msgid "Invert Path"
 msgstr "Balikkan Path"
 
-#: ../lib/standard-path.c:554
+#: ../lib/standard-path.c:728 ../objects/custom/custom_object.c:198
+#: ../objects/custom/custom_object.c:231
+msgid "Flip horizontal"
+msgstr "Flip horizontal"
+
+#: ../lib/standard-path.c:729 ../objects/custom/custom_object.c:200
+#: ../objects/custom/custom_object.c:233
+msgid "Flip vertical"
+msgstr "Putar vertikal"
+
+#. Translators: Menu item Verb/Channel/Guide/Rotate
+#. Translators: Menu item Verb/Channel/Guide/Rotate/Rotate
+#: ../lib/standard-path.c:730 ../objects/FS/function.c:739
+#: ../objects/FS/function.c:741
+msgid "Rotate"
+msgstr "Putar"
+
+#: ../lib/standard-path.c:731
+msgid "Shear"
+msgstr "Geser"
+
+#: ../lib/standard-path.c:732
 msgid "Show Control Lines"
 msgstr "Tampilkan Garis Kendali"
 
@@ -3345,14 +3365,6 @@ msgstr "Kustom"
 msgid "Custom XML shapes loader"
 msgstr "Pemuat bentuk XML kustom"
 
-#: ../objects/custom/custom_object.c:198 ../objects/custom/custom_object.c:231
-msgid "Flip horizontal"
-msgstr "Flip horizontal"
-
-#: ../objects/custom/custom_object.c:200 ../objects/custom/custom_object.c:233
-msgid "Flip vertical"
-msgstr "Putar vertikal"
-
 #: ../objects/custom/custom_object.c:203 ../objects/custom/custom_object.c:236
 msgid "Scale of the sub-shapes"
 msgstr "Skala dari sub bentuk"
@@ -3363,15 +3375,15 @@ msgstr "Skala dari sub bentuk"
 msgid "Text padding"
 msgstr "Teks pengisi"
 
-#: ../objects/custom/custom_object.c:1771
+#: ../objects/custom/custom_object.c:1768
 msgid "Flip Horizontal"
 msgstr "Putar Horisontal"
 
-#: ../objects/custom/custom_object.c:1772
+#: ../objects/custom/custom_object.c:1769
 msgid "Flip Vertical"
 msgstr "Putar Vertikal"
 
-#: ../objects/custom/custom_object.c:1809
+#: ../objects/custom/custom_object.c:1807
 #, c-format
 msgid "Cannot open icon file %s for object type '%s'."
 msgstr "Tak bisa membuka berkas ikon %s untuk tipe objek '%s'."
@@ -3808,12 +3820,6 @@ msgstr "Kemudi"
 #: ../objects/FS/function.c:737
 msgid "Translate"
 msgstr "Terjemahkan"
-
-#. Translators: Menu item Verb/Channel/Guide/Rotate
-#. Translators: Menu item Verb/Channel/Guide/Rotate/Rotate
-#: ../objects/FS/function.c:739 ../objects/FS/function.c:741
-msgid "Rotate"
-msgstr "Putar"
 
 #. Translators: Menu item Verb/Channel/Guide/Rotate/Turn
 #: ../objects/FS/function.c:743
@@ -5341,7 +5347,7 @@ msgstr "Stasiun Basis"
 msgid "Network diagram objects"
 msgstr "Obyek diagram jaringan"
 
-#: ../objects/network/radiocell.c:119
+#: ../objects/network/radiocell.c:125
 msgid "Radius"
 msgstr "Radius"
 
@@ -5492,13 +5498,17 @@ msgstr "Gambar batas"
 msgid "Keep aspect ratio"
 msgstr "Jaga rasio aspek"
 
-#: ../objects/standard/image.c:686
+#: ../objects/standard/image.c:255
+msgid "Can't save image without filename"
+msgstr "Tak bisa simpan citra tanpa nama berkas"
+
+#: ../objects/standard/image.c:722
 msgid "Inconsistent pixbuf during image save."
 msgstr "Pixbuf tak konsisten selama penyimpanan citra."
 
 #. Found file in same dir as diagram.
 #. Found file in current dir.
-#: ../objects/standard/image.c:783 ../objects/standard/image.c:794
+#: ../objects/standard/image.c:819 ../objects/standard/image.c:830
 #, c-format
 msgid ""
 "The image file '%s' was not found in the specified directory.\n"
@@ -5508,7 +5518,7 @@ msgstr ""
 "Menggunakan berkas '%s' sebagai gantinya.\n"
 
 #. Didn't find file in current dir.
-#: ../objects/standard/image.c:800 ../objects/standard/image.c:822
+#: ../objects/standard/image.c:836 ../objects/standard/image.c:858
 #, c-format
 msgid "The image file '%s' was not found.\n"
 msgstr "Berkas citra '%s' tidak ditemukan.\n"
@@ -5682,8 +5692,8 @@ msgstr "Kelas"
 #. how it used to be before 0.96+SVN
 #. one name, one type: but breaks forward-compatibiliy so kind of reverted
 #: ../objects/UML/class.c:142 ../objects/UML/classicon.c:136
-#: ../objects/UML/classicon.c:138 ../objects/UML/component.c:123
-#: ../objects/UML/large_package.c:133 ../objects/UML/object.c:146
+#: ../objects/UML/classicon.c:138 ../objects/UML/component.c:129
+#: ../objects/UML/large_package.c:138 ../objects/UML/object.c:146
 #: ../objects/UML/small_package.c:125 ../objects/UML/umloperation.c:68
 msgid "Stereotype"
 msgstr "Stereotif"
@@ -6204,7 +6214,7 @@ msgstr "Penunjuk kotak nampak"
 #: ../plug-ins/cairo/diacairo-renderer.c:976
 #: ../plug-ins/cairo/diacairo-renderer.c:1011
 #: ../plug-ins/libart/dialibartrenderer.c:1236
-#: ../plug-ins/metapost/render_metapost.c:901
+#: ../plug-ins/metapost/render_metapost.c:905
 #: ../plug-ins/postscript/diapsrenderer.c:659
 #: ../plug-ins/pstricks/render_pstricks.c:775 ../plug-ins/wpg/wpg.c:885
 msgid "Not enough memory for image drawing."
@@ -6368,7 +6378,7 @@ msgstr "PNG (antialias)"
 msgid "TeX Metapost export filter"
 msgstr "Filter ekspor TeX Metapost"
 
-#: ../plug-ins/metapost/render_metapost.c:1134
+#: ../plug-ins/metapost/render_metapost.c:1139
 msgid "TeX Metapost macros"
 msgstr "Makro TeX Metapost"
 
