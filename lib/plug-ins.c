@@ -231,7 +231,8 @@ dia_plugin_unload(PluginInfo *info)
     return;
 
   if (!dia_plugin_can_unload(info)) {
-    message(_("%s Plugin could not be unloaded"), info->name);
+    /* calling this function w/o check first is a programmer's error */
+    g_warning ("%s plugin could not be unloaded", info->name);
     return;
   }
   /* perform plugin cleanup */
