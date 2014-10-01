@@ -998,7 +998,7 @@ diagram_data_write_doc(DiagramData *data, const char *filename, DiaContext *ctx)
     while (layer_node && xmlStrcmp (layer_node->name, (xmlChar *)"layer") != 0)
       layer_node = layer_node->next;
     if (!layer_node) {
-      dia_context_add_message (ctx, _("Error saving connections"), layer->name);
+      dia_context_add_message (ctx, _("Error saving connections to layer '%s'"), layer->name);
       break;
     }
     res = write_connections(layer->objects, layer_node, objects_hash);
