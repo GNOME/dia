@@ -315,7 +315,7 @@ _extract_splits (const GArray *crossing, gboolean one)
   GArray *result = g_array_new (FALSE, FALSE, sizeof(Split));
   int i;
   for (i = 0; i < crossing->len; ++i) {
-    Split sp = { 0 };
+    Split sp = { { 0, 0 }, 0 };
     sp.pt = g_array_index (crossing, Intersection, i).pt;
     if (one) {
       sp.seg = g_array_index (crossing, Intersection, i).seg_one;
