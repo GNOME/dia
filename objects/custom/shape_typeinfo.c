@@ -146,6 +146,8 @@ endElementNs (void *ctx,
     context->state = READ_ON;
 }
 
+static void _error (void *ctx, const char * msg, ...) G_GNUC_PRINTF(2, 3);
+
 static void
 _error (void *ctx,
         const char * msg, 
@@ -162,6 +164,8 @@ _error (void *ctx,
   g_print ("\n");
   va_end(args);
 }
+
+static void _warning (void *ctx, const char * msg, ...) G_GNUC_PRINTF(2, 3);
 
 static void
 _warning (void *ctx,

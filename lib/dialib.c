@@ -37,6 +37,10 @@
 
 static void
 stderr_message_internal(const char *title, enum ShowAgainStyle showAgain,
+			const char *fmt, va_list args,  va_list args2) G_GNUC_PRINTF(3, 0);
+
+static void
+stderr_message_internal(const char *title, enum ShowAgainStyle showAgain,
 			const char *fmt, va_list args,  va_list args2)
 {
   static gchar *buf = NULL;

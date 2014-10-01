@@ -33,12 +33,12 @@ typedef void (*MessageInternal)(const char *title, enum ShowAgainStyle showAgain
                                 va_list args,  va_list args2);
 
 void set_message_func(MessageInternal func);
-void message(const char *title, const char *format, ...);
-void message_notice(const char *format, ...);
-void message_warning(const char *format, ...);
-void message_error(const char *format, ...);
+void message(const char *title, const char *format, ...) G_GNUC_PRINTF(2, 3);
+void message_notice(const char *format, ...) G_GNUC_PRINTF(1, 2);
+void message_warning(const char *format, ...) G_GNUC_PRINTF(1, 2);
+void message_error(const char *format, ...) G_GNUC_PRINTF(1, 2);
 
-void dia_log_message(const char *format, ...);
+void dia_log_message(const char *format, ...) G_GNUC_PRINTF(1, 2);
 void dia_log_message_enable (gboolean yes);
 /* also declared in dia_dirs.h, where I think it does not belong! --hb */
 const gchar *dia_message_filename (const gchar *filename);

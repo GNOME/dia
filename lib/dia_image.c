@@ -342,7 +342,7 @@ dia_image_save(DiaImage *image, const gchar *filename)
       image->filename = g_strdup (filename);
     } else if (!type) {
       /* pathologic case - pixbuf not even supporting PNG? */
-      message_error(_("Unsupported file format for saving:\n%s\n%s\n"),
+      message_error(_("Unsupported file format for saving:\n%s\n"),
                     dia_message_filename(filename));
     } else {
       message_warning(_("Could not save file:\n%s\n%s\n"),
