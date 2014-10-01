@@ -46,10 +46,7 @@ char* custom_linetype_strings[] = {
 };
 
 
-/* to go in customline_util.c/h */
-gchar *
-custom_get_relative_filename(const gchar *current, const gchar *relative);
-gchar *
+static gchar *
 custom_get_relative_filename(const gchar *current, const gchar *relative)
 {
   gchar *dirname, *tmp;
