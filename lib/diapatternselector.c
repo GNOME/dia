@@ -71,6 +71,8 @@ dia_pattern_selector_class_init (DiaPatternSelectorClass *klass)
   object_class->finalize = dia_pattern_selector_finalize;
 }
 
+static GType dia_pattern_selector_get_type (void);
+ 
 G_DEFINE_TYPE (DiaPatternSelector, dia_pattern_selector, GTK_TYPE_HBOX);
 
 /* GUI stuff - not completely done yet 
