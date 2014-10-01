@@ -324,7 +324,7 @@ public :
     gchar *family = g_strdup (f->getFamily() ? f->getFamily()->getCString() : "sans");
 
     // we are (not anymore) building the same font over and over again
-    g_print ("Font %p: '%s' size=%g (* %g)\n",
+    g_print ("Font 0x%x: '%s' size=%g (* %g)\n",
 	     GPOINTER_TO_INT (f), family, state->getTransformedFontSize(), scale);
 
     // now try to make a fontname Dia/Pango can cope with
