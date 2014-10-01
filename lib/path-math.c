@@ -585,6 +585,7 @@ _append_segments (GArray  *path,
     bp.type = BEZ_MOVE_TO;
     bp.p1 = sseg->p0;
     g_array_append_val (path, bp);
+    flip = FALSE;
   }
 
   if (flip) {
