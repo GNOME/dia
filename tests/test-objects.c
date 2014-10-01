@@ -605,18 +605,115 @@ _test_draw (gconstpointer user_data)
   Handle *h1 = NULL, *h2 = NULL;
   Point from = {0, 0};
   DiaObject *o = type->ops->create (&from, type->default_user_data, &h1, &h2);
+  /* using DiaPathRender for drawing internally */
+  DiaObject *p;
 
-  DiaRenderer *renderer = g_object_new (DIA_TYPE_PATH_RENDERER, 0);
+  p = create_standard_path_from_object (o);
+  if (p) /* play safe, maybe it can not be converted? */
+    {
+      const Rectangle *obb = dia_object_get_bounding_box (o);
+      const Rectangle *pbb = dia_object_get_bounding_box (p);
+      real epsilon = 0.2; /* XXX: smaller value needs longer exception list */
 
-  o->ops->draw (o, renderer);
-  /* XXX: when the DiaPathRender could tell the bounds compare these with the
-   * o->bounding_box?
-   */
+      /* Bounding boxes of these objects should be close, if not
+       * this could be either some miscalculation within the object
+       * implementation (update_data?) or some more generic problem
+       * with DiaPathRenderer
+       */
+      if (!rectangle_in_rectangle (obb, pbb))
+	{
+#if 0
+	  /* Generate exceptions list below with ./test-objects -q */
+	  real ov = MAX(fabs (obb->top - pbb->top), fabs (obb->left - pbb->left));
+	  ov = MAX(ov, fabs (obb->right - pbb->right));
+	  ov = MAX(ov, fabs (obb->bottom - pbb->bottom));
+	  if (ov >= epsilon)
+	    g_print ("\t  else if (strcmp (type->name, \"%s\") == 0)\n"
+		     "\t    epsilon = %.2g;\n", type->name, ov + 0.01);
+#else
+	  /* drawing _outside_ of objects's bounding box */
+	  if (strcmp (type->name, "T-Junction") == 0)
+	    epsilon = 0.2;
+	  else if (strcmp (type->name, "Cisco - Edge Label Switch Router with NetFlow") == 0)
+	    epsilon = 0.22;
+	  else if (strcmp (type->name, "Cisco - SSL Terminator") == 0)
+	    epsilon = 0.23;
+	  else if (strcmp (type->name, "Cisco - VPN concentrator") == 0)
+	    epsilon = 0.24;
+	  else if (strcmp (type->name, "Cisco - End Office") == 0)
+	    epsilon = 0.24;
+	  else if (strcmp (type->name, "Cisco - Printer") == 0)
+	    epsilon = 0.26;
+	  else if (strcmp (type->name, "Cisco - Pager") == 0)
+	    epsilon = 0.28;
+	  else if (strcmp (type->name, "Cisco - IAD router") == 0)
+	    epsilon = 0.28;
+	  else if (strcmp (type->name, "Cisco - Newton") == 0)
+	    epsilon = 0.28;
+	  else if (strcmp (type->name, "Cisco - Truck") == 0)
+	    epsilon = 0.29;
+	  else if (strcmp (type->name, "ER - Relationship") == 0)
+	    epsilon = 0.29;
+	  else if (strcmp (type->name, "Cisco - Protocol Translator") == 0)
+	    epsilon = 0.30;
+	  else if (strcmp (type->name, "UML - Message") == 0)
+	    epsilon = 0.39;
+	  else if (strcmp (type->name, "Cisco - ICM") == 0)
+	    epsilon = 0.34;
+	  else if (strcmp (type->name, "chemeng - SaT-floatinghead") == 0)
+	    epsilon = 0.40;
+	  else if (strcmp (type->name, "chemeng - kettle") == 0)
+	    epsilon = 0.42;
+	  else if (strcmp (type->name, "Cisco - Mac Woman") == 0)
+	    epsilon = 0.43;
+	  else if (strcmp (type->name, "Pneum - press") == 0)
+	    epsilon = 0.44;
+	  else if (strcmp (type->name, "Pneum - presspn") == 0)
+	    epsilon = 0.44;
+	  else if (strcmp (type->name, "Pneum - presshy") == 0)
+	    epsilon = 0.44;
+	  else if (strcmp (type->name, "Cisco - Optical Transport") == 0)
+	    epsilon = 0.47;
+	  else if (strcmp (type->name, "Jackson - phenomenon") == 0)
+	    epsilon = 0.51;
+	  else if (strcmp (type->name, "KAOS - mbr") == 0)
+	    epsilon = 0.69;
+	  else if (strcmp (type->name, "FS - Flow") == 0)
+	    epsilon = 0.73;
+	  else if (strcmp (type->name, "SADT - arrow") == 0)
+	    epsilon = 0.74;
+	  else if (strcmp (type->name, "Network - WAN Connection") == 0)
+	    epsilon = 0.86;
+	  else if (strcmp (type->name, "Network - General Printer") == 0)
+	    epsilon = 0.92;
+	  else if (strcmp (type->name, "UML - Constraint") == 0)
+	    epsilon = 1.1;
+	  else if (strcmp (type->name, "Pneum - SEIJack") == 0)
+	    epsilon = 1.1;
+	  else if (strcmp (type->name, "Pneum - SEOJack") == 0)
+	    epsilon = 1.1;
+	  else if (strcmp (type->name, "Pneum - DEJack") == 0)
+	    epsilon = 1.1;
+	  else if (strcmp (type->name, "SDL - Comment") == 0)
+	    epsilon = 3.5;
 
+	  g_assert_cmpfloat (fabs (obb->top - pbb->top), <, epsilon);
+	  g_assert_cmpfloat (fabs (obb->left - pbb->left), <, epsilon);
+	  g_assert_cmpfloat (fabs (obb->right - pbb->right), <, epsilon);
+	  g_assert_cmpfloat (fabs (obb->bottom - pbb->bottom), <, epsilon);
+#endif
+	}
+      /* destroy path object */
+      p->ops->destroy (p);
+      g_free (p);
+    }
+  else
+    {
+      g_test_message ("SKIPPED (no path from %s)! ", type->name);
+    }
   /* finally */
   o->ops->destroy (o);
   g_free (o);
-  g_object_unref (renderer);
 }
 
 static void
