@@ -504,7 +504,7 @@ _clipboard_get_data_callback (GtkClipboard     *clipboard,
     }
   }
   if (error) {
-    dia_context_add_message (ctx, error->message);
+    dia_context_add_message (ctx, "%s", error->message);
     g_error_free (error);
   }
   dia_context_release (ctx);

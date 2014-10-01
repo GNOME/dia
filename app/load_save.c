@@ -1252,7 +1252,7 @@ diagram_autosave(Diagram *dia)
 	asi->ctx = dia_context_new (_("Auto save"));
 
 	if (!g_thread_create (_autosave_in_thread, asi, FALSE, &error)) {
-	  message_error (error->message);
+	  message_error ("%s", error->message);
 	  g_error_free (error);
 	}
 	/* FIXME: need better synchronization */

@@ -283,7 +283,7 @@ xmlDiaParseFile(const char *filename, DiaContext *ctx)
     ret = xmlDoParseFile(filename, &error_xml);
   }
   if (error_xml)
-    dia_context_add_message (ctx, error_xml->message);
+    dia_context_add_message (ctx, "%s", error_xml->message);
   return ret;
 }
 

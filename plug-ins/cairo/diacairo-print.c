@@ -245,7 +245,7 @@ cairo_print_callback (DiagramData *data,
   
   res = gtk_print_operation_run (op, GTK_PRINT_OPERATION_ACTION_PRINT_DIALOG, NULL, &error);
   if (GTK_PRINT_OPERATION_RESULT_ERROR == res) {
-    message_error (error->message);
+    message_error ("%s", error->message);
     g_error_free (error);
   }
   return NULL;

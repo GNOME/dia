@@ -272,7 +272,7 @@ static void
 figWarn(XfigRenderer *renderer, int warning) 
 {
   if (renderer->warnings[warning]) {
-    message_warning(renderer->warnings[warning]);
+    message_warning("%s", renderer->warnings[warning]);
     renderer->warnings[warning] = NULL;
   }
 }
