@@ -9,7 +9,7 @@ AC_PREREQ(2.50)
 AC_REVISION($Revision: 1.288 $)
 
 dnl Specify a header configuration file
-AC_CONFIG_HEADER(config.h)
+AC_CONFIG_HEADERS(config.h)
 
 AC_CANONICAL_HOST
 
