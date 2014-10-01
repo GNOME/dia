@@ -81,6 +81,7 @@ static DiaObject *polyline_load(ObjectNode obj_node, int version, DiaContext *ct
 static DiaMenu *polyline_get_object_menu(Polyline *polyline, Point *clickedpoint);
 void polyline_calculate_gap_endpoints(Polyline *polyline, Point *gap_endpoints);
 static void polyline_exchange_gap_points(Polyline *polyline,  Point *gap_points);
+static gboolean polyline_transform(Polyline *polyline, const DiaMatrix *m);
 
 static ObjectTypeOps polyline_type_ops =
 {
@@ -164,6 +165,7 @@ static ObjectOps polyline_ops = {
   (SetPropsFunc)        polyline_set_props,
   (TextEditFunc) 0,
   (ApplyPropertiesListFunc) object_apply_props,
+  (TransformFunc)       polyline_transform,
 };
 
 static void
@@ -637,4 +639,19 @@ polyline_get_object_menu(Polyline *polyline, Point *clickedpoint)
   polyline_menu_items[0].active = 1;
   polyline_menu_items[1].active = polyline->poly.numpoints > 2;
   return &polyline_menu;
+}
+
+static gboolean
+polyline_transform(Polyline *polyline, const DiaMatrix *m)
+{
+  PolyConn *poly = &polyline->poly;
+  int i;
+
+  g_return_val_if_fail (m != NULL, FALSE);
+
+  for (i = 0; i < poly->numpoints; i++)
+    transform_point (&poly->points[i], m);
+
+  polyline_update_data(polyline);
+  return TRUE;
 }

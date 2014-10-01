@@ -90,6 +90,7 @@ static void polygon_save(Polygon *polygon, ObjectNode obj_node,
 			 DiaContext *ctx);
 static DiaObject *polygon_load(ObjectNode obj_node, int version, DiaContext *ctx);
 static DiaMenu *polygon_get_object_menu(Polygon *polygon, Point *clickedpoint);
+static gboolean polygon_transform(Polygon *polygon, const DiaMatrix *m);
 
 static ObjectTypeOps polygon_type_ops =
 {
@@ -157,6 +158,7 @@ static ObjectOps polygon_ops = {
   (SetPropsFunc)        polygon_set_props,
   (TextEditFunc) 0,
   (ApplyPropertiesListFunc) object_apply_props,
+  (TransformFunc)       polygon_transform,
 };
 
 static void
@@ -499,4 +501,19 @@ polygon_get_object_menu(Polygon *polygon, Point *clickedpoint)
   polygon_menu_items[0].active = 1;
   polygon_menu_items[1].active = polygon->poly.numpoints > 3;
   return &polygon_menu;
+}
+
+static gboolean
+polygon_transform(Polygon *polygon, const DiaMatrix *m)
+{
+  PolyShape *poly = &polygon->poly;
+  int i;
+
+  g_return_val_if_fail (m != NULL, FALSE);
+
+  for (i = 0; i < poly->numpoints; i++)
+    transform_point (&poly->points[i], m);
+
+  polygon_update_data(polygon);
+  return TRUE;
 }

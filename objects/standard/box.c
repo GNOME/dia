@@ -31,6 +31,7 @@
 #include "attributes.h"
 #include "properties.h"
 #include "create.h"
+#include "message.h"
 #include "pattern.h"
 
 #include "tool-icons.h"
@@ -69,6 +70,7 @@ struct _Box {
   real corner_radius;
   AspectType aspect;
   DiaPattern *pattern;
+  real angle; /*!< between [-45°-45°] to simplify connection point handling */
 };
 
 static struct _BoxProperties {
@@ -99,6 +101,7 @@ static void box_set_props(Box *box, GPtrArray *props);
 static void box_save(Box *box, ObjectNode obj_node, DiaContext *ctx);
 static DiaObject *box_load(ObjectNode obj_node, int version, DiaContext *ctx);
 static DiaMenu *box_get_object_menu(Box *box, Point *clickedpoint);
+static gboolean box_transform(Box *box, const DiaMatrix *m);
 
 static ObjectTypeOps box_type_ops =
 {
@@ -121,10 +124,12 @@ static PropOffset box_offsets[] = {
   { "line_join", PROP_TYPE_ENUM, offsetof(Box, line_join) },
   { "corner_radius", PROP_TYPE_REAL, offsetof(Box, corner_radius) },
   { "pattern", PROP_TYPE_PATTERN, offsetof(Box, pattern) },
+  { "angle", PROP_TYPE_REAL, offsetof(Box, angle) },
   { NULL, 0, 0 }
 };
 
 static PropNumData corner_radius_data = { 0.0, 10.0, 0.1 };
+static PropNumData angle_data = { -45, 45, 1 };
 
 static PropEnumData prop_aspect_data[] = {
   { N_("Free"), FREE_ASPECT },
@@ -145,6 +150,8 @@ static PropDescription box_props[] = {
   { "aspect", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE,
     N_("Aspect ratio"), NULL, prop_aspect_data },
   PROP_STD_PATTERN,
+  { "angle", PROP_TYPE_REAL, PROP_FLAG_VISIBLE|PROP_FLAG_OPTIONAL,
+    N_("Rotation"), N_("Rotation angle"), &angle_data },
   PROP_DESC_END
 };
 
@@ -179,6 +186,7 @@ static ObjectOps box_ops = {
   (SetPropsFunc)        box_set_props,
   (TextEditFunc) 0,
   (ApplyPropertiesListFunc) object_apply_props,
+  (TransformFunc)       box_transform,
 };
 
 static void
@@ -189,17 +197,50 @@ box_set_props(Box *box, GPtrArray *props)
   box_update_data(box);
 }
 
+static void
+_box_get_poly (const Box *box, Point corners[4])
+{
+  const Element *elem = &box->element;
+
+  corners[0] = elem->corner;
+  corners[1] = corners[0];
+  corners[1].x += elem->width;
+  corners[2] = corners[1];
+  corners[2].y += elem->height;
+  corners[3] = corners[2];
+  corners[3].x -= elem->width;
+
+  if (box->angle != 0) {
+    real cx = elem->corner.x + elem->width / 2.0;
+    real cy = elem->corner.y + elem->height / 2.0;
+    DiaMatrix m = { 1.0, 0.0, 0.0, 1.0, cx, cy };
+    DiaMatrix t = { 1.0, 0.0, 0.0, 1.0, -cx, -cy };
+    int i;
+
+    dia_matrix_set_angle_and_scales (&m, G_PI*box->angle/180, 1.0, 1.0);
+    dia_matrix_multiply (&m, &t, &m);
+    for (i = 0; i < 4; ++i)
+      transform_point (&corners[i], &m);
+  }
+}
+
 static real
 box_distance_from(Box *box, Point *point)
 {
   Element *elem = &box->element;
-  Rectangle rect;
 
-  rect.left = elem->corner.x - box->border_width/2;
-  rect.right = elem->corner.x + elem->width + box->border_width/2;
-  rect.top = elem->corner.y - box->border_width/2;
-  rect.bottom = elem->corner.y + elem->height + box->border_width/2;
-  return distance_rectangle_point(&rect, point);
+  if (box->angle == 0) {
+    Rectangle rect;
+    rect.left = elem->corner.x - box->border_width/2;
+    rect.right = elem->corner.x + elem->width + box->border_width/2;
+    rect.top = elem->corner.y - box->border_width/2;
+    rect.bottom = elem->corner.y + elem->height + box->border_width/2;
+    return distance_rectangle_point(&rect, point);
+  } else {
+    Point corners[4];
+    _box_get_poly (box, corners);
+    return distance_polygon_point (corners, 4, box->border_width, point);
+  }
 }
 
 static void
@@ -326,31 +367,28 @@ box_draw(Box *box, DiaRenderer *renderer)
       if (renderer_ops->is_capable_to(renderer, RENDER_PATTERN))
         renderer_ops->set_pattern (renderer, box->pattern);
     }
-    /* we only want separate calls for potential pattern fill */
-    if (box->corner_radius > 0) {
+    if (box->angle == 0) {
       renderer_ops->draw_rounded_rect (renderer,
 				       &elem->corner, &lr_corner,
 				       &fill, &box->border_color,
 				       box->corner_radius);
     } else {
-      renderer_ops->draw_rect(renderer, 
-			       &elem->corner,
-			       &lr_corner, 
-			       &fill, &box->border_color);
+      Point poly[4];
+      _box_get_poly (box, poly);
+      renderer_ops->draw_polygon (renderer, poly, 4, &fill, &box->border_color);
     }
     if (renderer_ops->is_capable_to(renderer, RENDER_PATTERN))
       renderer_ops->set_pattern (renderer, NULL);
   } else {
-    if (box->corner_radius > 0) {
+    if (box->angle == 0) {
       renderer_ops->draw_rounded_rect (renderer, 
 				       &elem->corner, &lr_corner,
 				       NULL, &box->border_color,
 				       box->corner_radius);
     } else {
-      renderer_ops->draw_rect (renderer, 
-			       &elem->corner,
-			       &lr_corner,
-			       NULL, &box->border_color);
+      Point poly[4];
+      _box_get_poly (box, poly);
+      renderer_ops->draw_polygon (renderer, poly, 4, &box->inner_color, &box->border_color);
     }
   }
 }
@@ -393,6 +431,18 @@ box_update_data(Box *box)
   box->connections[8].pos.x = elem->corner.x + elem->width / 2.0;
   box->connections[8].pos.y = elem->corner.y + elem->height / 2.0;
 
+  if (box->angle != 0) {
+    real cx = elem->corner.x + elem->width / 2.0;
+    real cy = elem->corner.y + elem->height / 2.0;
+    DiaMatrix m = { 1.0, 0.0, 0.0, 1.0, cx, cy };
+    DiaMatrix t = { 1.0, 0.0, 0.0, 1.0, -cx, -cy };
+    int i;
+
+    dia_matrix_set_angle_and_scales (&m, G_PI*box->angle/180, 1.0, 1.0);
+    dia_matrix_multiply (&m, &t, &m);
+    for (i = 0; i < 8; ++i)
+      transform_point (&box->connections[i].pos, &m);
+  }
   box->connections[0].directions = DIR_NORTH|DIR_WEST;
   box->connections[1].directions = DIR_NORTH;
   box->connections[2].directions = DIR_NORTH|DIR_EAST;
@@ -455,6 +505,7 @@ box_create(Point *startpoint,
   box->show_background = default_properties.show_background;
   box->corner_radius = default_properties.corner_radius;
   box->aspect = default_properties.aspect;
+  box->angle = 0.0;
 
   element_init(elem, 8, NUM_CONNECTIONS);
 
@@ -505,6 +556,7 @@ box_copy(Box *box)
   newbox->dashlength = box->dashlength;
   newbox->corner_radius = box->corner_radius;
   newbox->aspect = box->aspect;
+  newbox->angle = box->angle;
   if (box->pattern)
     newbox->pattern = g_object_ref (box->pattern);
 
@@ -563,6 +615,11 @@ box_save(Box *box, ObjectNode obj_node, DiaContext *ctx)
   if (box->pattern)
     data_add_pattern(new_attribute(obj_node, "pattern"),
 		     box->pattern, ctx);
+
+  if (box->angle != 0.0)
+    data_add_real(new_attribute(obj_node, "angle"),
+		  box->angle, ctx);
+
 }
 
 static DiaObject *
@@ -631,6 +688,11 @@ box_load(ObjectNode obj_node, int version, DiaContext *ctx)
   attr = object_find_attribute(obj_node, "pattern");
   if (attr != NULL)
     box->pattern = data_pattern(attribute_first_data(attr), ctx);
+
+  box->angle = 0.0;
+  attr = object_find_attribute(obj_node, "angle");
+  if (attr != NULL)
+    box->angle =  data_real(attribute_first_data(attr), ctx);
 
   element_init(elem, 8, NUM_CONNECTIONS);
 
@@ -743,4 +805,34 @@ box_get_object_menu(Box *box, Point *clickedpoint)
     DIAMENU_ACTIVE|DIAMENU_TOGGLE|DIAMENU_TOGGLE_ON;
   
   return &box_menu;
+}
+
+static gboolean
+box_transform(Box *box, const DiaMatrix *m)
+{
+  real a, sx, sy;
+
+  g_return_val_if_fail(m != NULL, FALSE);
+
+  if (!dia_matrix_get_angle_and_scales (m, &a, &sx, &sy)) {
+    dia_log_message ("box_transform() can't convert given matrix");
+    return FALSE;
+  } else {
+    real width = box->element.width * sx;
+    real height = box->element.height * sy;
+    real angle = a*180/G_PI;
+    Point c = { box->element.corner.x + width/2.0, box->element.corner.y + height/2.0 };
+
+    /* rotation is invariant to the center */
+    transform_point (&c, m);
+    /* XXX: we have to bring angle in range [-45..45] which may swap width and height */
+    box->angle = angle;
+    box->element.width = width;
+    box->element.height = height;
+    box->element.corner.x = c.x - width / 2.0;
+    box->element.corner.y = c.y - height / 2.0;
+ }
+
+  box_update_data(box);
+  return TRUE;
 }

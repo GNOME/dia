@@ -88,6 +88,7 @@ static void beziergon_save(Beziergon *beziergon, ObjectNode obj_node,
 static DiaObject *beziergon_load(ObjectNode obj_node, int version, DiaContext *ctx);
 static DiaMenu *beziergon_get_object_menu(Beziergon *beziergon,
 					  Point *clickedpoint);
+static gboolean beziergon_transform(Beziergon *beziergon, const DiaMatrix *m);
 
 static ObjectTypeOps beziergon_type_ops =
 {
@@ -155,6 +156,7 @@ static ObjectOps beziergon_ops = {
   (SetPropsFunc)        beziergon_set_props,
   (TextEditFunc) 0,
   (ApplyPropertiesListFunc) object_apply_props,
+  (TransformFunc)       beziergon_transform,
 };
 
 static void
@@ -544,4 +546,18 @@ beziergon_get_object_menu(Beziergon *beziergon, Point *clickedpoint)
   beziergon_menu_items[0].active = 1;
   beziergon_menu_items[1].active = beziergon->bezier.bezier.num_points > 3;
   return &beziergon_menu;
+}
+
+static gboolean
+beziergon_transform(Beziergon *beziergon, const DiaMatrix *m)
+{
+  int i;
+
+  g_return_val_if_fail (m != NULL, FALSE);
+
+  for (i = 0; i < beziergon->bezier.bezier.num_points; i++)
+    transform_bezpoint (&beziergon->bezier.bezier.points[i], m);
+
+  beziergon_update_data(beziergon);
+  return TRUE;
 }

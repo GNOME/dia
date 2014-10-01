@@ -89,6 +89,7 @@ static ObjectChange* image_move_handle(Image *image, Handle *handle,
 				       HandleMoveReason reason, ModifierKeys modifiers);
 static ObjectChange* image_move(Image *image, Point *to);
 static void image_draw(Image *image, DiaRenderer *renderer);
+static gboolean image_transform(Image *image, const DiaMatrix *m);
 static void image_update_data(Image *image);
 static DiaObject *image_create(Point *startpoint,
 			  void *user_data,
@@ -160,6 +161,7 @@ static ObjectOps image_ops = {
   (SetPropsFunc)        image_set_props,
   (TextEditFunc) 0,
   (ApplyPropertiesListFunc) object_apply_props,
+  (TransformFunc)       image_transform,
 };
 
 static PropOffset image_offsets[] = {
@@ -461,6 +463,34 @@ image_draw(Image *image, DiaRenderer *renderer)
 			      elem->height, broken);
     dia_image_unref(broken);
   }
+}
+
+static gboolean
+image_transform(Image *image, const DiaMatrix *m)
+{
+  Element *elem = &image->element;
+  real a, sx, sy;
+
+  g_return_val_if_fail(m != NULL, FALSE);
+
+  if (!dia_matrix_get_angle_and_scales (m, &a, &sx, &sy)) {
+    dia_log_message ("image_transform() can't convert given matrix");
+    return FALSE;
+  } else {
+    real width = elem->width * sx;
+    real height = elem->height * sy;
+    real angle = a*180/G_PI;
+    Point c = { elem->corner.x + width/2.0, elem->corner.y + height/2.0 };
+
+    /* rotation is invariant to the center */
+    transform_point (&c, m);
+    /* XXX: implement image rotate! */
+    elem->width = width;
+    elem->height = height;
+    elem->corner.x = c.x - width / 2.0;
+    elem->corner.y = c.y - height / 2.0;
+  }
+  return TRUE;
 }
 
 static void

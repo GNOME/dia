@@ -68,6 +68,7 @@ static DiaObject *group_copy(Group *group);
 static const PropDescription *group_describe_props(Group *group);
 static void group_get_props(Group *group, GPtrArray *props);
 static void group_set_props(Group *group, GPtrArray *props);
+static void group_transform (Group *group, const DiaMatrix *m);
 
 static ObjectOps group_ops = {
   (DestroyFunc)         group_destroy,
@@ -85,6 +86,7 @@ static ObjectOps group_ops = {
   (SetPropsFunc)        group_set_props,
   (TextEditFunc) 0,
   (ApplyPropertiesListFunc) group_apply_properties_list,
+  (TransformFunc)       group_transform
 };
 
 DiaObjectType group_type = {
@@ -888,7 +890,7 @@ group_prop_change_free(GroupPropChange *change)
   g_list_free(change->changes_per_object);
 }
 
-void
+static void
 group_transform (Group *group, const DiaMatrix *m)
 {
   g_return_if_fail (m != NULL);

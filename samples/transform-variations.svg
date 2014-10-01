@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1"
+	xmlns="http://www.w3.org/2000/svg"
+	xmlns:xlink="http://www.w3.org/1999/xlink"
+	x="0" y="0" width="28cm" height="28cm" viewBox="0, -5, 280, 275"
+	stroke-width="2"
+	text-anchor="middle" font-size="6" font-family="sans-serif">
+  <text x="210" y="30" text-anchor="start">Standard - Box</text>
+  <text x="210" y="40" text-anchor="start">Standard - Line</text>
+  <text x="210" y="80" text-anchor="start">Standard - Ellipse</text>
+  <text x="210" y="90" text-anchor="start">Standard - Text</text>
+  <text x="210" y="130" text-anchor="start">Standard - Polygon</text>
+  <text x="210" y="140" text-anchor="start">Standard - Polyline</text>
+  <text x="210" y="180" text-anchor="start">Standard - Beziergon</text>
+  <text x="210" y="190" text-anchor="start">Standard - Bezierline</text>
+  <text x="210" y="230" text-anchor="start">Standard - Image</text>
+
+  <text x="30" y="0" >Reference</text>
+  <!-- to be used below and directly -->
+  <rect id="box" x="18" y="10" width="24" height="40" fill="yellow" stroke="red"/>
+  <line id="line" x1="10" y1="30" x2="50" y2="30" stroke="red"/>
+  <ellipse id="ell" cx="30" cy="80" rx="20" ry="15" fill="lime" stroke="blue"/>
+  <text id="txt" x="30" y="80" text-anchor="middle" fill="blue">Rotate!</text>
+  <polygon id="pg1" points="30,110,50,145,10,145" fill="lightblue"/>
+  <polyline id="pl1" points="30,110,50,145,10,145" stroke="green" fill="none"/>
+  <path id="pc1" d="M30,160C40,170,50,200,30,200C10,200,20,170,30,160z" fill="cyan"/>
+  <path id="po1" d="M30,160C40,170,50,200,30,200C10,200,20,170,30,160" fill="none" stroke="gold"/>
+  <image id="img" x="10" y="210" width="40" height="40"
+	xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIkAAACbCAYAAABWOrhZAAAABHNCSVQICAgIfAhkiAAABDBJREFU&#10;eJzt3V2SEkEQReFsw0d34C5diLt0B763L4PBMMBt6Kyqm1XnezNCsYc+ZP9QAxGAsCU8xp7wGM9k&#10;bCNO+DZ6A+CPSCARCaTv6Y949gyFMxA7TBJIRAKJSCARCSQigUQkkIgEEpFAIhJIRAKJSCARCSQi&#10;gUQkkIgEUv56EtaDTIdJAolIIBEJpJ5nELerXzl7KYJJAolIIBEJJCKBRCSQiAQSkUAiEkhEAolI&#10;IN3eGm/90VZ4zvKtCiKpYWg8RFJP92CIpLYuwbBUYJzMF2TT55JIPGQF0+Q55RLYwxbGH7xMJF6y&#10;QkmNhUj82E0VIvFlM1WIxFvWieipUIjE3/DDD5Hc+Pvrp+sNxWGhEMmVSyCE8hmR1NM9FCL5cDs9&#10;jKdJlsM/H5HU1PUtDSKJx1PDfJp0O+wQSW1dQlk+EjUtzKdJRIdQlo/kiAKhNLV0JBPt/KbTZOlI&#10;XjFRUC9bNpIJd3qzabJsJO+YMKxDloxk4p3dZJosF8nZQCYO7KHlIllA+jRZKpIjU+DH7z/ySV5t&#10;miwVCd6zTCSvTJEJpknqIWeZSMw4B/bFEpG8cy7SYZqk/xJVK0tE0lLCYcc+lukjOXNFc2SaJMqO&#10;JW3bp4/krAEnsU6TZY+YPJKs+yKD2MQybSSZr+7Bl8TDY5k2kiNcpsi+77HvsoNhsUwZSYvDTI9p&#10;4hrLyI/DwodHYWzbod3z7C9lPOfblJNkFi6ThUgg5X/DONIkHG5SjIwk/YfrdV/k6Anqk//r6b93&#10;ieNimsNNzxtnrS6dt207EkjWJx8dNk0kvWVeErvGcTHFOUnx2+/K8O1mkpzQ+AbbsMlxq/wkmXCK&#10;2G1r6UnisM40cZrYTI4rW8QEk0QpMEVabR8fG+50mHlzmjhOjrvKRlJciTguSn4pksO5yLs6Hv7O&#10;Pkf/t5NJMqe1v++m8hSJqLn95SKZQeNQUhYaXf+hVCQVX4UzKBXJTIyD/3JiXSYS4yfVybrf5jlr&#10;IIY/193L85L3SXBX+gnrRYlJAqlZIBFEggOIpL6mUySCSKprHkgEkeAAIqmryxSJIJKqugUSQSQV&#10;dQ0kgkiq6R5IBJFUMiSQCCKpYlggEURSwdBAIhb4vZvCst4hPv1GKpF4Gj49rhGJF5vpcY1IPFjG&#10;cUEkY1nH8ejB3ZbT4bkuq/uYJDV1XfpJJHUMWxNMJL5sFoqzWh4St+UhEQkkIoFEJJCIBBKRQCIS&#10;SEQCiUggEQmkrFvjrZYYcOveQOZOyA6FQExwuIGU/WotsRwPr2m+nkR9Q/bBrzfFQNmHm4w9TjVm&#10;mp+TPJsUTJEaWkRyZs9TjaEuVzf3JgZTpI5WkbxTANWY6naf5HpyMEVqaRnJKyVQjbHWO+fozTUi&#10;MdZj56hQCMQc791AGv0dtUyRApgkkPhdYEhMEtjZg09TKodJAgAAHPwDyEsX4l8AdBUAAAAASUVO&#10;RK5CYII="/>
+
+  <text x="80" y="0">Element rotate</text>
+  <!-- transform object directly - must not have copied id="...", otherwise Dia would
+       translate the wrong object (not the first of id, but the last) -->
+  <rect x="18" y="10" width="24" height="40" fill="yellow" stroke="red"
+	transform="translate(80,30) rotate(30) translate(-30,-30)"/>
+  <line x1="10" y1="30" x2="50" y2="30" stroke="red"
+	transform="translate(80,30) rotate(30) translate(-30,-30)"/>
+  <ellipse cx="30" cy="80" rx="20" ry="15" fill="lime" stroke="blue"
+	transform="translate(80,80) rotate(30) translate(-30,-80)"/>
+  <text x="30" y="80" text-anchor="middle" fill="blue"
+	transform="translate(80,80) rotate(30) translate(-30,-80)">Rotate!</text>
+  <polygon points="30,110,50,145,10,145" fill="lightblue"
+	transform="translate(80,130)rotate(30)translate(-30,-130)"/>
+  <polyline points="30,110,50,145,10,145" fill="none" stroke="green"
+	transform="translate(80,130) rotate(30) translate(-30,-130)"/>
+  <path d="M30,160C40,170,50,200,30,200C10,200,20,170,30,160z" fill="cyan"
+	transform="translate(80,180) rotate(30) translate(-30,-180)"/>
+  <path d="M30,160C40,170,50,200,30,200C10,200,20,170,30,160" fill="none" stroke="gold"
+	transform="translate(80,180) rotate(30) translate(-30,-180)"/>
+  <image x="10" y="210" width="40" height="40"
+	transform="translate(80,230) rotate(30) translate(-30,-230)"
+	xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIkAAACbCAYAAABWOrhZAAAABHNCSVQICAgIfAhkiAAABDBJREFU&#10;eJzt3V2SEkEQReFsw0d34C5diLt0B763L4PBMMBt6Kyqm1XnezNCsYc+ZP9QAxGAsCU8xp7wGM9k&#10;bCNO+DZ6A+CPSCARCaTv6Y949gyFMxA7TBJIRAKJSCARCSQigUQkkIgEEpFAIhJIRAKJSCARCSQi&#10;gUQkkIgEUv56EtaDTIdJAolIIBEJpJ5nELerXzl7KYJJAolIIBEJJCKBRCSQiAQSkUAiEkhEAolI&#10;IN3eGm/90VZ4zvKtCiKpYWg8RFJP92CIpLYuwbBUYJzMF2TT55JIPGQF0+Q55RLYwxbGH7xMJF6y&#10;QkmNhUj82E0VIvFlM1WIxFvWieipUIjE3/DDD5Hc+Pvrp+sNxWGhEMmVSyCE8hmR1NM9FCL5cDs9&#10;jKdJlsM/H5HU1PUtDSKJx1PDfJp0O+wQSW1dQlk+EjUtzKdJRIdQlo/kiAKhNLV0JBPt/KbTZOlI&#10;XjFRUC9bNpIJd3qzabJsJO+YMKxDloxk4p3dZJosF8nZQCYO7KHlIllA+jRZKpIjU+DH7z/ySV5t&#10;miwVCd6zTCSvTJEJpknqIWeZSMw4B/bFEpG8cy7SYZqk/xJVK0tE0lLCYcc+lukjOXNFc2SaJMqO&#10;JW3bp4/krAEnsU6TZY+YPJKs+yKD2MQybSSZr+7Bl8TDY5k2kiNcpsi+77HvsoNhsUwZSYvDTI9p&#10;4hrLyI/DwodHYWzbod3z7C9lPOfblJNkFi6ThUgg5X/DONIkHG5SjIwk/YfrdV/k6Anqk//r6b93&#10;ieNimsNNzxtnrS6dt207EkjWJx8dNk0kvWVeErvGcTHFOUnx2+/K8O1mkpzQ+AbbsMlxq/wkmXCK&#10;2G1r6UnisM40cZrYTI4rW8QEk0QpMEVabR8fG+50mHlzmjhOjrvKRlJciTguSn4pksO5yLs6Hv7O&#10;Pkf/t5NJMqe1v++m8hSJqLn95SKZQeNQUhYaXf+hVCQVX4UzKBXJTIyD/3JiXSYS4yfVybrf5jlr&#10;IIY/193L85L3SXBX+gnrRYlJAqlZIBFEggOIpL6mUySCSKprHkgEkeAAIqmryxSJIJKqugUSQSQV&#10;dQ0kgkiq6R5IBJFUMiSQCCKpYlggEURSwdBAIhb4vZvCst4hPv1GKpF4Gj49rhGJF5vpcY1IPFjG&#10;cUEkY1nH8ejB3ZbT4bkuq/uYJDV1XfpJJHUMWxNMJL5sFoqzWh4St+UhEQkkIoFEJJCIBBKRQCIS&#10;SEQCiUggEQmkrFvjrZYYcOveQOZOyA6FQExwuIGU/WotsRwPr2m+nkR9Q/bBrzfFQNmHm4w9TjVm&#10;mp+TPJsUTJEaWkRyZs9TjaEuVzf3JgZTpI5WkbxTANWY6naf5HpyMEVqaRnJKyVQjbHWO+fozTUi&#10;MdZj56hQCMQc791AGv0dtUyRApgkkPhdYEhMEtjZg09TKodJAgAAHPwDyEsX4l8AdBUAAAAASUVO&#10;RK5CYII="/>
+
+  <text x="130" y="0">Group rotate</text>
+  <!-- just shift with use, transform by group -->
+  <g transform="translate(130,30)rotate(45)translate(-130,-30)">
+    <use x="100" y="0" xlink:href="#box"/>
+    <use x="100" y="0" xlink:href="#line"/>
+  </g>
+  <g transform="translate(130,80)rotate(45)translate(-130,-80)">
+    <use x="100" y="0" xlink:href="#ell"/>
+    <use x="100" y="0" xlink:href="#txt"/>
+  </g>
+  <g transform="translate(130,130)rotate(45)translate(-130,-130)">
+    <use x="100" y="0" xlink:href="#pg1"/>
+    <use x="100" y="0" xlink:href="#pl1"/>
+  </g>
+  <g transform="translate(130,180)rotate(45)translate(-130,-180)">
+    <use x="100" y="0" xlink:href="#pc1"/>
+    <use x="100" y="0" xlink:href="#po1"/>
+  </g>
+  <g transform="translate(130,230)rotate(45)translate(-130,-230)">
+    <use x="100" y="0" xlink:href="#img"/>
+  </g>
+
+  <text x="180" y="0">Use rotate</text>
+  <!-- transformed use, shifted by group -->
+  <g transform="translate(180,30)">
+    <use x="-30" y="-30" xlink:href="#box" transform="rotate(60)"/>
+    <use x="-30" y="-30" xlink:href="#line" transform="rotate(60)"/>
+  </g>
+  <g transform="translate(180,80)">
+    <use x="-30" y="-80" xlink:href="#ell" transform="rotate(60)"/>
+    <use x="-30" y="-80" xlink:href="#txt" transform="rotate(60)"/>
+  </g>
+  <g transform="translate(180,130)">
+    <use x="-30" y="-130" xlink:href="#pg1" transform="rotate(60)"/>
+    <use x="-30" y="-130" xlink:href="#pl1" transform="rotate(60)"/>
+  </g>
+  <g transform="translate(180,180)">
+    <use x="-30" y="-180" xlink:href="#pc1" transform="rotate(60)"/>
+    <use x="-30" y="-180" xlink:href="#po1" transform="rotate(60)"/>
+  </g>
+  <g transform="translate(180,230)">
+    <use x="-30" y="-230" xlink:href="#img" transform="rotate(60)"/>
+  </g>
+</svg>

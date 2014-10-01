@@ -94,6 +94,7 @@ static void line_set_props(Line *line, GPtrArray *props);
 static void line_save(Line *line, ObjectNode obj_node, DiaContext *ctx);
 static DiaObject *line_load(ObjectNode obj_node, int version, DiaContext *ctx);
 static DiaMenu *line_get_object_menu(Line *line, Point *clickedpoint);
+static gboolean line_transform(Line *line, const DiaMatrix *m);
 
 void Line_adjust_for_absolute_gap(Line *line, Point *gap_endpoints);
 
@@ -181,6 +182,7 @@ static ObjectOps line_ops = {
   (SetPropsFunc)        line_set_props,
   (TextEditFunc) 0,
   (ApplyPropertiesListFunc) object_apply_props,
+  (TransformFunc)       line_transform,
 };
 
 static void
@@ -342,7 +344,19 @@ line_get_object_menu(Line *line, Point *clickedpoint)
   return &object_menu;
 }
 
+static gboolean
+line_transform(Line *line, const DiaMatrix *m)
+{
+  int i;
 
+  g_return_val_if_fail (m != NULL, FALSE);
+
+  for (i = 0; i < 2; i++)
+    transform_point (&line->connection.endpoints[i], m);
+
+  line_update_data(line);
+  return TRUE;
+}
 
 /*!
  * \brief Gap calculation for _Line

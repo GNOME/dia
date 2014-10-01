@@ -403,6 +403,20 @@ typedef DiaMenu *(*ObjectMenuFunc) (DiaObject* obj, Point *position);
  */
 typedef gboolean (*TextEditFunc) (DiaObject *obj, Text *text, TextEditState state, gchar *textchange);
 
+/*!
+ * \brief Transform the object with the given matrix
+ *
+ * This function - if not null - will apply the transformation matrix to the
+ * object. It should be implemented for every standard object, because it's
+ * main use-case is the support of transformations from SVG.
+ *
+ * @param obj Explicit this pointer
+ * @param m The transformation matrix
+ * @returns TRUE if the matrix can be applied to the object, FALSE otherwise.
+ * \public \memberof _DiaObject
+ */
+typedef gboolean (*TransformFunc) (DiaObject *obj, const DiaMatrix *m);
+
 /*************************************
  **  The functions provided in object.c
  *************************************/
@@ -479,14 +493,15 @@ struct _ObjectOps {
   TextEditFunc        edit_text;
   
   ApplyPropertiesListFunc apply_properties_list;
-
+  /*! check for NULL before calling */
+  TransformFunc       transform;
   /*!
     Unused places (for extension).
     These should be NULL for now. In the future they might be used.
     Then an older object will be binary compatible, because all new code
     checks if new ops are supported (!= NULL)
   */
-  void      (*(unused[4]))(DiaObject *obj,...);
+  void      (*(unused[3]))(DiaObject *obj,...);
 };
 
 /*!
@@ -498,7 +513,7 @@ struct _ObjectOps {
   when connection objects. (Then handles and
   connections are changed).
 
-  position is not necessarly the corner of the object, but rather
+  position is not necessarily the corner of the object, but rather
   some 'good' spot on it which will be natural to snap to.
 */
 struct _DiaObject {
@@ -540,13 +555,13 @@ struct _DiaObject {
    *  should not be accessed directly, but through dia_object_get_bounding_box().
    *  Note that handles and connection points are not included by this, but
    *  added by that which needs it.
-   *  Internal:  If this is set to a 0x0 box, returns bounding_box.  That is for
+   *  Internal:  If this is set to a NULL, returns bounding_box.  That is for
    *  those objects that don't actually calculate it, but can just use the BB.
    *  Since handles and CPs are not in the BB, that will be the case for most
    *  objects.
    */
   Rectangle        *enclosing_box;
-  /*! Metainfo of the object, should not be manipulated directy. Use dia_object_set_meta() */
+  /*! Metainfo of the object, should not be manipulated directly. Use dia_object_set_meta() */
   GHashTable       *meta;
 };
 

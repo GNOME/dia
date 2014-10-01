@@ -4,7 +4,7 @@
  *
  * svg-import.c: SVG import filter for dia
  * Copyright (C) 2002 Steffen Macke
- * Copyright (C) 2005 Hans Breuer
+ * Copyright (C) 2005-2014 Hans Breuer
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -216,7 +216,7 @@ _node_get_real (xmlNodePtr node, const char *name, real defval)
  * \ingroup SvgImport
  */
 static void
-use_position (DiaObject *obj, xmlNodePtr node)
+use_position (DiaObject *obj, xmlNodePtr node, DiaContext *ctx)
 {
     Point pos = {0, 0};
     xmlChar *str;
@@ -234,41 +234,29 @@ use_position (DiaObject *obj, xmlNodePtr node)
         DiaMatrix *m = dia_svg_parse_transform ((char *)str, user_scale);
 
 	if (m) {
-	    if (IS_GROUP (obj)) {
+	    if (obj->ops->transform) {
 	      /* it is the only one transformation aware yet */
-	      Group *grp = (Group *)obj;
-
-	      group_transform (grp, m);
+	      if (!obj->ops->transform (obj, m))
+		dia_context_add_message (ctx, _("Failed to apply transformation for '%s'"),
+					 obj->type->name);
 	    } else {
 	      GPtrArray *props = g_ptr_array_new ();
 
 	      PointProperty *pp;
 	      RealProperty  *pr;
-	      PointarrayProperty *pap = NULL;
-	      BezPointarrayProperty *bpap = NULL;
-	      Property *prop = NULL;
 
 	      /* setting obj_pos is pointless, it is read-only in all objects */
 	      prop_list_add_point (props, "obj_pos", &pos); 
 	      prop_list_add_point (props, "elem_corner", &pos); 
 	      prop_list_add_real (props, "elem_width", 1.0);
 	      prop_list_add_real (props, "elem_height", 1.0);
-	      prop_list_add_real (props, PROP_STDNAME_LINE_WIDTH, 0.1);
-
-	      if ((prop = object_prop_by_name_type (obj, "bez_points", PROP_TYPE_BEZPOINTARRAY)) != NULL) {
-		prop_list_add_list (props, prop_list_from_single (prop));
-		bpap = g_ptr_array_index (props, 5);
-	      } else if ((prop = object_prop_by_name_type (obj, "poly_points", PROP_TYPE_POINTARRAY)) != NULL) {
-		prop_list_add_list (props, prop_list_from_single (prop));
-		pap = g_ptr_array_index (props, 5);
-	      }
 
 	      obj->ops->get_props (obj, props);
-	      /* try to transform the object without the full matrix  */
+	      /* XXX: try to transform the object without the full matrix  */
 	      pp = g_ptr_array_index (props, 0);
 	      pp->point_data.x +=  m->x0;
 	      pp->point_data.y +=  m->y0;
-	      /* set position a second time, now for non-elements */
+	      /* XXX: set position a second time, now for non-elements */
 	      pp = g_ptr_array_index (props, 1);
 	      pp->point_data.x +=  m->x0;
 	      pp->point_data.y +=  m->y0;
@@ -277,24 +265,8 @@ use_position (DiaObject *obj, xmlNodePtr node)
 	      pr->real_data *= m->xx;
 	      pr = g_ptr_array_index (props, 3);
 	      pr->real_data *= m->yy;
-	      pr = g_ptr_array_index (props, 4);
-	      pr->real_data *= m->yy;
-
-	      if (bpap) {
-		GArray *data = bpap->bezpointarray_data;
-		int i;
-		for (i = 0; i < data->len; ++i)
-		  transform_bezpoint (&g_array_index(data, BezPoint, i), m);
-	      } else if (pap) {
-		GArray *data = pap->pointarray_data;
-		int i;
-		for (i = 0; i < data->len; ++i)
-		  transform_point (&g_array_index(data, Point, i), m);
-	      }
 
 	      obj->ops->set_props (obj, props);
-	      if (prop)
-		prop->ops->free (prop);
 	      prop_list_free (props);
 	    }
 	    g_free (m);
@@ -967,7 +939,7 @@ read_poly_svg(xmlNodePtr node, DiaSvgStyle *parent_style,
 static GList *
 read_ellipse_svg(xmlNodePtr node, DiaSvgStyle *parent_style,
 		 GHashTable *style_ht, GHashTable *pattern_ht,
-		 GList *list) 
+		 GList *list, DiaContext *ctx)
 {
   xmlChar *str;
   real width, height;
@@ -995,15 +967,6 @@ read_ellipse_svg(xmlNodePtr node, DiaSvgStyle *parent_style,
     width = height = get_value_as_cm((char *) str, NULL)*2;
     xmlFree(str);
   }
-  if (matrix) {
-    /* TODO: transform angle - when it is supported */
-    Point wh = {width, height};
-    transform_point (&wh, matrix);
-    width = wh.x;
-    height = wh.y;
-    transform_point (&start, matrix);
-    g_free (matrix);
-  }
   /* A negative value is an error [...]. A value of zero disables rendering of the element. */
   if (width <= 0.0 || height <= 0.0)
     return list;
@@ -1014,6 +977,13 @@ read_ellipse_svg(xmlNodePtr node, DiaSvgStyle *parent_style,
   props = make_element_props(start.x-(width/2), start.y-(height/2),
 			     width, height);
   new_obj->ops->set_props(new_obj, props);
+  if (matrix) {
+    g_return_val_if_fail (new_obj->ops->transform, list);
+    if (!new_obj->ops->transform (new_obj, matrix))
+      dia_context_add_message (ctx, _("Failed to apply transformation for '%s'"),
+			       new_obj->type->name);
+    g_free (matrix);
+  }
   prop_list_free(props);
   return g_list_append (list, new_obj);
 }
@@ -1025,7 +995,7 @@ read_ellipse_svg(xmlNodePtr node, DiaSvgStyle *parent_style,
 static GList *
 read_line_svg(xmlNodePtr node, DiaSvgStyle *parent_style,
 	      GHashTable *style_ht, GHashTable *pattern_ht,
-	      GList *list) 
+	      GList *list, DiaContext *ctx)
 {
   xmlChar *str;
   DiaObjectType *otype = object_get_type("Standard - Line");
@@ -1047,12 +1017,6 @@ read_line_svg(xmlNodePtr node, DiaSvgStyle *parent_style,
   end.x = _node_get_real (node, "x2", start.x);
   end.y = _node_get_real (node, "y2", start.y);
 
-  if (matrix) {
-    transform_point (&start, matrix);
-    transform_point (&end, matrix);
-    g_free (matrix);
-  }
-
   new_obj = otype->ops->create(&start, otype->default_user_data,
 				 &h1, &h2);
   
@@ -1072,6 +1036,14 @@ read_line_svg(xmlNodePtr node, DiaSvgStyle *parent_style,
 
   apply_style(new_obj, node, parent_style, style_ht, pattern_ht, TRUE);
 
+  if (matrix) {
+    g_return_val_if_fail (new_obj->ops->transform, list);
+    if (!new_obj->ops->transform (new_obj, matrix))
+      dia_context_add_message (ctx, _("Failed to apply transformation for '%s'"),
+			       new_obj->type->name);
+    g_free (matrix);
+  }
+
   return g_list_append (list, new_obj);
 }
 
@@ -1082,7 +1054,7 @@ read_line_svg(xmlNodePtr node, DiaSvgStyle *parent_style,
 static GList *
 read_rect_svg(xmlNodePtr node, DiaSvgStyle *parent_style,
 	      GHashTable *style_ht, GHashTable *pattern_ht,
-	      GList *list) 
+	      GList *list, DiaContext *ctx)
 {
   xmlChar *str;
   real width, height;
@@ -1126,19 +1098,12 @@ read_rect_svg(xmlNodePtr node, DiaSvgStyle *parent_style,
   end.x = start.x + width;
   end.y = start.y + height;
 
-  if (matrix) {
-    /* TODO: for rotated rects we would need to create a polygon */
-    transform_point (&start, matrix);
-    transform_point (&end, matrix);
-    g_free (matrix);
-    width = end.x - start.x;
-    height = end.y - start.y;
-  }
   /* A negative value is an error [...]. A value of zero disables rendering of the element. */
   if (width <= 0.0 || height <= 0.0)
     return list; /* just ignore it w/o much complaints */
   new_obj = otype->ops->create(&start, otype->default_user_data,
 				 &h1, &h2);
+
   list = g_list_append (list, new_obj);
   props = prop_list_from_descs(svg_rect_prop_descs, pdtpp_true);
   g_assert(props->len == 3);
@@ -1160,6 +1125,13 @@ read_rect_svg(xmlNodePtr node, DiaSvgStyle *parent_style,
   apply_style(new_obj, node, parent_style, style_ht, pattern_ht, TRUE);
   prop_list_free(props);
 
+  if (matrix) {
+    g_return_val_if_fail (new_obj->ops->transform != NULL, list);
+    if (!new_obj->ops->transform (new_obj, matrix))
+      dia_context_add_message (ctx, _("Failed to apply transformation for '%s'"),
+			       new_obj->type->name);
+    g_free (matrix);
+  }
   return list;
 }
 
@@ -1171,7 +1143,7 @@ read_rect_svg(xmlNodePtr node, DiaSvgStyle *parent_style,
 static GList *
 read_image_svg(xmlNodePtr node, DiaSvgStyle *parent_style,
 	       GHashTable *style_ht, GHashTable *pattern_ht,
-	       GList *list, const gchar *filename_svg)
+	       GList *list, const gchar *filename_svg, DiaContext *ctx)
 {
   xmlChar *str;
   real x, y, width, height;
@@ -1190,21 +1162,6 @@ read_image_svg(xmlNodePtr node, DiaSvgStyle *parent_style,
   height = _node_get_real (node, "height", 0.0);
 
   /* TODO: aspect ratio? */
-
-  if (matrix) {
-    /* TODO: transform angle - when it is supported */
-    Point xy = {x, y};
-    Point wh = {width, height};
-
-    transform_point (&xy, matrix);
-    transform_point (&wh, matrix);
-    width = wh.x;
-    height = wh.y;
-    x = xy.x;
-    y = xy.y;
-
-    g_free (matrix);
-  }
 
   str = xmlGetNsProp (node, (const xmlChar *)"href", (const xmlChar *)"http://www.w3.org/1999/xlink");
   if (str) {
@@ -1265,6 +1222,13 @@ read_image_svg(xmlNodePtr node, DiaSvgStyle *parent_style,
     xmlFree(str);
   }
 
+  if (matrix) {
+    g_return_val_if_fail (new_obj->ops->transform, list);
+    if (!new_obj->ops->transform (new_obj, matrix))
+      dia_context_add_message (ctx, _("Failed to apply transformation for '%s'"),
+			       new_obj->type->name);
+    g_free (matrix);
+  }
   if (new_obj)
     return g_list_append (list, new_obj);
 
@@ -1629,15 +1593,15 @@ read_items (xmlNodePtr   startnode,
       else if (moreitems)
 	obj = g_list_last(moreitems)->data;
     } else if (!xmlStrcmp(node->name, (const xmlChar *)"rect")) {
-      items = read_rect_svg(node, parent_gs, style_ht, pattern_ht, items);
+      items = read_rect_svg(node, parent_gs, style_ht, pattern_ht, items, ctx);
       if (items)
 	obj = g_list_last(items)->data;
     } else if (!xmlStrcmp(node->name, (const xmlChar *)"line")) {
-      items = read_line_svg(node, parent_gs, style_ht, pattern_ht, items);
+      items = read_line_svg(node, parent_gs, style_ht, pattern_ht, items, ctx);
       if (items)
 	obj = g_list_last(items)->data;
     } else if (!xmlStrcmp(node->name, (const xmlChar *)"ellipse") || !xmlStrcmp(node->name, (const xmlChar *)"circle")) {
-      items = read_ellipse_svg(node, parent_gs, style_ht, pattern_ht, items);
+      items = read_ellipse_svg(node, parent_gs, style_ht, pattern_ht, items, ctx);
       if (items)
 	obj = g_list_last(items)->data;
     } else if (!xmlStrcmp(node->name, (const xmlChar *)"polyline")) {
@@ -1659,7 +1623,7 @@ read_items (xmlNodePtr   startnode,
       if (items && g_list_nth(items, first))
 	obj = g_list_nth(items, first)->data;
     } else if(!xmlStrcmp(node->name, (const xmlChar *)"image")) {
-      items = read_image_svg(node, parent_gs, style_ht, pattern_ht, items, filename_svg);
+      items = read_image_svg(node, parent_gs, style_ht, pattern_ht, items, filename_svg, ctx);
       if (items)
 	obj = g_list_last(items)->data;
     } else if(!xmlStrcmp(node->name, (const xmlChar *)"linearGradient") ||
@@ -1680,7 +1644,7 @@ read_items (xmlNodePtr   startnode,
 	   * be target for meta info, comment or something. */
 	  obj = otemp->ops->copy (otemp);
 
-	  use_position (obj, node);
+	  use_position (obj, node, ctx);
 	  /* this should only be styled from the containing group,
 	   * if it has no style on it's own. Sorry Dia can't create
 	   * objects w/o style so we have two options beside complete

@@ -186,6 +186,7 @@ static DiaMenu *stdpath_get_object_menu(StdPath *stdpath,
 					Point *clickedpoint);
 static void stdpath_get_props(StdPath *stdpath, GPtrArray *props);
 static void stdpath_set_props(StdPath *stdpath, GPtrArray *props);
+static gboolean stdpath_transform(StdPath *stdpath, const DiaMatrix *m);
 
 static ObjectOps stdpath_ops = {
   (DestroyFunc)         stdpath_destroy,
@@ -203,6 +204,7 @@ static ObjectOps stdpath_ops = {
   (SetPropsFunc)        stdpath_set_props,
   (TextEditFunc) 0,
   (ApplyPropertiesListFunc) object_apply_props,
+  (TransformFunc)       stdpath_transform,
 };
 
 /*!
@@ -1029,6 +1031,23 @@ stdpath_select (StdPath *stdpath, Point *clicked_point,
 		DiaRenderer *interactive_renderer)
 {
   stdpath_update_handles (stdpath);
+}
+/*!
+ * \brief Change the object state regarding selection
+ * \memberof _StdPath
+ */
+static gboolean
+stdpath_transform(StdPath *stdpath, const DiaMatrix *m)
+{
+  int i;
+
+  g_return_val_if_fail (m != NULL, FALSE);
+
+  for (i = 0; i < stdpath->num_points; i++)
+    transform_bezpoint (&stdpath->points[i], m);
+
+  stdpath_update_data(stdpath);
+  return TRUE;
 }
 
 gboolean

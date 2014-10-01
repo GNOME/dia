@@ -31,6 +31,8 @@
 #include "attributes.h"
 #include "properties.h"
 #include "pattern.h"
+#include "diapathrenderer.h"
+#include "message.h"
 
 #include "tool-icons.h"
 
@@ -65,6 +67,7 @@ struct _Ellipse {
   LineStyle line_style;
   real dashlength;
   DiaPattern *pattern;
+  real angle; /*!< between [-45°-45°] to simplify connection point handling */
 };
 
 static struct _EllipseProperties {
@@ -93,6 +96,7 @@ static void ellipse_set_props(Ellipse *ellipse, GPtrArray *props);
 static void ellipse_save(Ellipse *ellipse, ObjectNode obj_node, DiaContext *ctx);
 static DiaObject *ellipse_load(ObjectNode obj_node, int version, DiaContext *ctx);
 static DiaMenu *ellipse_get_object_menu(Ellipse *ellipse, Point *clickedpoint);
+static gboolean ellipse_transform(Ellipse *ellipse, const DiaMatrix *m);
 
 static ObjectTypeOps ellipse_type_ops =
 {
@@ -113,8 +117,11 @@ static PropOffset ellipse_offsets[] = {
   { "line_style", PROP_TYPE_LINESTYLE,
     offsetof(Ellipse, line_style), offsetof(Ellipse, dashlength) },
   { "pattern", PROP_TYPE_PATTERN, offsetof(Ellipse, pattern) },
+  { "angle", PROP_TYPE_REAL, offsetof(Ellipse, angle) },
   { NULL, 0, 0 }
 };
+
+static PropNumData angle_data = { -45, 45, 1 };
 
 static PropEnumData prop_aspect_data[] = {
   { N_("Free"), FREE_ASPECT },
@@ -132,6 +139,8 @@ static PropDescription ellipse_props[] = {
   { "aspect", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE,
     N_("Aspect ratio"), NULL, prop_aspect_data },
   PROP_STD_PATTERN,
+  { "angle", PROP_TYPE_REAL, PROP_FLAG_VISIBLE|PROP_FLAG_OPTIONAL,
+    N_("Rotation"), N_("Rotation angle"), &angle_data },
   PROP_DESC_END
 };
 
@@ -166,6 +175,7 @@ static ObjectOps ellipse_ops = {
   (SetPropsFunc)        ellipse_set_props,
   (TextEditFunc) 0,
   (ApplyPropertiesListFunc) object_apply_props,
+  (TransformFunc)       ellipse_transform,
 };
 
 static void
@@ -178,6 +188,24 @@ ellipse_set_props(Ellipse *ellipse, GPtrArray *props)
   ellipse_update_data(ellipse);
 }
 
+static GArray *
+_ellipse_to_path (Ellipse *ellipse, Point *center)
+{
+  Element *elem = &ellipse->element;
+  DiaMatrix m = { 1.0, 0.0, 0.0, 1.0, center->x, center->y };
+  DiaMatrix t = { 1.0, 0.0, 0.0, 1.0, -center->x, -center->y };
+  GArray *path;
+  int i;
+
+  dia_matrix_set_angle_and_scales (&m, G_PI*ellipse->angle/180, 1.0, 1.0);
+  dia_matrix_multiply (&m, &t, &m);
+  path = g_array_new (FALSE, FALSE, sizeof(BezPoint));
+  path_build_ellipse (path, center, elem->width, elem->height);
+  for (i = 0; i < path->len; ++i)
+    transform_bezpoint (&g_array_index (path, BezPoint, i), &m);
+  return path;
+}
+
 static real
 ellipse_distance_from(Ellipse *ellipse, Point *point)
 {
@@ -187,6 +215,15 @@ ellipse_distance_from(Ellipse *ellipse, Point *point)
   center.x = elem->corner.x+elem->width/2;
   center.y = elem->corner.y+elem->height/2;
 
+  if (ellipse->angle != 0) {
+    real dist;
+    GArray *path = _ellipse_to_path (ellipse, &center);
+
+    dist = distance_bez_shape_point (&g_array_index (path, BezPoint, 0), path->len,
+				     ellipse->border_width, point);
+    g_array_free (path, TRUE);
+    return dist;
+  }
   return distance_ellipse_point(&center, elem->width, elem->height,
 				ellipse->border_width, point);
 }
@@ -298,7 +335,8 @@ ellipse_draw(Ellipse *ellipse, DiaRenderer *renderer)
   DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Point center;
   Element *elem;
-  
+  GArray *path = NULL;
+
   assert(ellipse != NULL);
   assert(renderer != NULL);
 
@@ -306,6 +344,9 @@ ellipse_draw(Ellipse *ellipse, DiaRenderer *renderer)
 
   center.x = elem->corner.x + elem->width/2;
   center.y = elem->corner.y + elem->height/2;
+
+  if (ellipse->angle != 0)
+    path = _ellipse_to_path (ellipse, &center);
 
   renderer_ops->set_linewidth(renderer, ellipse->border_width);
   renderer_ops->set_linestyle(renderer, ellipse->line_style, ellipse->dashlength);
@@ -317,18 +358,30 @@ ellipse_draw(Ellipse *ellipse, DiaRenderer *renderer)
       if (renderer_ops->is_capable_to(renderer, RENDER_PATTERN))
         renderer_ops->set_pattern (renderer, ellipse->pattern);
     }
-    renderer_ops->draw_ellipse (renderer, 
-				&center,
-				elem->width, elem->height,
-				&fill, &ellipse->border_color);
+    if (!path)
+      renderer_ops->draw_ellipse (renderer,
+				  &center,
+				  elem->width, elem->height,
+				  &fill, &ellipse->border_color);
+    else
+      renderer_ops->draw_beziergon (renderer,
+				    &g_array_index (path, BezPoint, 0), path->len,
+				    &fill, &ellipse->border_color);
     if (renderer_ops->is_capable_to(renderer, RENDER_PATTERN))
       renderer_ops->set_pattern (renderer, NULL);
   } else {
-    renderer_ops->draw_ellipse (renderer,
-				&center,
-				elem->width, elem->height,
-				NULL, &ellipse->border_color);
+    if (!path)
+      renderer_ops->draw_ellipse (renderer,
+				  &center,
+				  elem->width, elem->height,
+				  NULL, &ellipse->border_color);
+    else
+      renderer_ops->draw_beziergon (renderer,
+				    &g_array_index (path, BezPoint, 0), path->len,
+				    NULL, &ellipse->border_color);
   }
+  if (path)
+    g_array_free (path, TRUE);
 }
 
 static void
@@ -372,6 +425,16 @@ ellipse_update_data(Ellipse *ellipse)
   ellipse->connections[8].pos.x = center.x;
   ellipse->connections[8].pos.y = center.y;
 
+  if (ellipse->angle != 0) {
+    DiaMatrix m = { 1.0, 0.0, 0.0, 1.0, center.x, center.y };
+    DiaMatrix t = { 1.0, 0.0, 0.0, 1.0, -center.x, -center.y };
+    int i;
+
+    dia_matrix_set_angle_and_scales (&m, G_PI*ellipse->angle/180, 1.0, 1.0);
+    dia_matrix_multiply (&m, &t, &m);
+    for (i = 0; i < 8; ++i)
+      transform_point (&ellipse->connections[i].pos, &m);
+  }
   /* Update directions -- if the ellipse is very thin, these may not be good */
   ellipse->connections[0].directions = DIR_NORTH|DIR_WEST;
   ellipse->connections[1].directions = DIR_NORTH;
@@ -476,6 +539,7 @@ ellipse_copy(Ellipse *ellipse)
   newellipse->dashlength = ellipse->dashlength;
   newellipse->show_background = ellipse->show_background;
   newellipse->aspect = ellipse->aspect;
+  newellipse->angle = ellipse->angle;
   newellipse->line_style = ellipse->line_style;
   if (ellipse->pattern)
     newellipse->pattern = g_object_ref (ellipse->pattern);
@@ -520,6 +584,9 @@ ellipse_save(Ellipse *ellipse, ObjectNode obj_node, DiaContext *ctx)
   if (ellipse->aspect != FREE_ASPECT)
     data_add_enum(new_attribute(obj_node, "aspect"),
 		  ellipse->aspect, ctx);
+  if (ellipse->angle != 0.0)
+    data_add_real(new_attribute(obj_node, "angle"),
+		  ellipse->angle, ctx);
 
   if (ellipse->line_style != LINESTYLE_SOLID) {
     data_add_enum(new_attribute(obj_node, "line_style"),
@@ -576,6 +643,11 @@ static DiaObject *ellipse_load(ObjectNode obj_node, int version, DiaContext *ctx
   attr = object_find_attribute(obj_node, "aspect");
   if (attr != NULL)
     ellipse->aspect = data_enum(attribute_first_data(attr), ctx);
+
+  ellipse->angle = 0.0;
+  attr = object_find_attribute(obj_node, "angle");
+  if (attr != NULL)
+    ellipse->angle =  data_real(attribute_first_data(attr), ctx);
 
   ellipse->line_style = LINESTYLE_SOLID;
   attr = object_find_attribute(obj_node, "line_style");
@@ -707,4 +779,34 @@ ellipse_get_object_menu(Ellipse *ellipse, Point *clickedpoint)
     DIAMENU_ACTIVE|DIAMENU_TOGGLE|DIAMENU_TOGGLE_ON;
   
   return &ellipse_menu;
+}
+
+static gboolean
+ellipse_transform(Ellipse *ellipse, const DiaMatrix *m)
+{
+  real a, sx, sy;
+
+  g_return_val_if_fail(m != NULL, FALSE);
+
+  if (!dia_matrix_get_angle_and_scales (m, &a, &sx, &sy)) {
+    dia_log_message ("ellipse_transform() can't convert given matrix");
+    return FALSE;
+  } else {
+    real width = ellipse->element.width * sx;
+    real height = ellipse->element.height * sy;
+    real angle = a*180/G_PI;
+    Point c = { ellipse->element.corner.x + width/2.0, ellipse->element.corner.y + height/2.0 };
+
+    /* rotation is invariant to the center */
+    transform_point (&c, m);
+    /* XXX: we have to bring angle in range [-45..45] which may swap width and height */
+    ellipse->angle = angle;
+    ellipse->element.width = width;
+    ellipse->element.height = height;
+    ellipse->element.corner.x = c.x - width / 2.0;
+    ellipse->element.corner.y = c.y - height / 2.0;
+ }
+
+  ellipse_update_data(ellipse);
+  return TRUE;
 }

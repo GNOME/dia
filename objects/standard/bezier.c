@@ -85,6 +85,7 @@ static void bezierline_save(Bezierline *bezierline, ObjectNode obj_node,
 			    DiaContext *ctx);
 static DiaObject *bezierline_load(ObjectNode obj_node, int version, DiaContext *ctx);
 static DiaMenu *bezierline_get_object_menu(Bezierline *bezierline, Point *clickedpoint);
+static gboolean bezierline_transform(Bezierline *bezierline, const DiaMatrix *m);
 
 static void compute_gap_points(Bezierline *bezierline, Point *gap_points);
 static real approx_bez_length(BezierConn *bez);
@@ -129,6 +130,7 @@ static ObjectOps bezierline_ops = {
   (SetPropsFunc)        bezierline_set_props,
   (TextEditFunc) 0,
   (ApplyPropertiesListFunc) object_apply_props,
+  (TransformFunc)       bezierline_transform,
 };
 
 static PropNumData gap_range = { -G_MAXFLOAT, G_MAXFLOAT, 0.1};
@@ -811,4 +813,18 @@ bezierline_get_object_menu(Bezierline *bezierline, Point *clickedpoint)
   bezierline_menu_items[5].active = !closest_is_endpoint &&
     (ctype != BEZ_CORNER_CUSP);
   return &bezierline_menu;
+}
+
+static gboolean
+bezierline_transform(Bezierline *bezierline, const DiaMatrix *m)
+{
+  int i;
+
+  g_return_val_if_fail (m != NULL, FALSE);
+
+  for (i = 0; i < bezierline->bez.bezier.num_points; i++)
+    transform_bezpoint (&bezierline->bez.bezier.points[i], m);
+
+  bezierline_update_data(bezierline);
+  return TRUE;
 }
