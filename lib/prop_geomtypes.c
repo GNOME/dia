@@ -926,6 +926,7 @@ prop_geomtypes_register(void)
   prop_type_register(PROP_TYPE_FONTSIZE,&fontsizeprop_ops);
   prop_type_register(PROP_TYPE_POINT,&pointprop_ops);
   prop_type_register(PROP_TYPE_POINTARRAY,&pointarrayprop_ops);
+  prop_type_register(PROP_TYPE_BEZPOINT,&bezpointprop_ops);
   prop_type_register(PROP_TYPE_BEZPOINTARRAY,&bezpointarrayprop_ops);
   prop_type_register(PROP_TYPE_RECT,&rectprop_ops);
   prop_type_register(PROP_TYPE_ENDPOINTS,&endpointsprop_ops);
