@@ -25,7 +25,8 @@
 
 #include <stdio.h>
 #include <stdarg.h>
+#include <glib.h>
 
-gboolean dia_assert_true(gboolean val, gchar *format, ...);
+gboolean dia_assert_true(gboolean val, const gchar *format, ...) G_GNUC_PRINTF(2,3);
 
 #endif

@@ -32,7 +32,8 @@
  * @return val
  */
 gboolean
-dia_assert_true(gboolean val, gchar *format, ...) {
+dia_assert_true(gboolean val, const gchar *format, ...)
+{
   va_list args;
   if (!val) {
     va_start(args, format);

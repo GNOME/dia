@@ -1106,7 +1106,7 @@ dia_object_sanity_check(const DiaObject *obj, const gchar *msg) {
   if (obj != NULL) {
     dia_assert_true(obj->type->name != NULL &&
 		    g_utf8_validate(obj->type->name, -1, NULL),
-		    "%s: Object %p has illegal type name %p (%s)\n",
+		    "%s: Object %p has illegal type name '%s'\n",
 		    msg, obj, obj->type->name);
     /* Check the position vs. the bounding box */
     /* Check the handles */
@@ -1115,7 +1115,7 @@ dia_object_sanity_check(const DiaObject *obj, const gchar *msg) {
 		    msg, obj,  obj->num_handles);
     if (obj->num_handles != 0) {
       dia_assert_true(obj->handles != NULL,
-		      "%s: Object %p has null handles\n", obj);
+		      "%s: Object %p has null handles\n", msg, obj);
     }
     for (i = 0; i < obj->num_handles; i++) {
       Handle *h = obj->handles[i];
