@@ -61,19 +61,6 @@
 #include <libart_lgpl/art_svp_intersect.h>
 
 static inline guint32 
-color_to_abgr(Color *col)
-{
-  int rgba;
-
-  rgba = (guint)(0xFF*col->alpha) << 24;
-  rgba |= (guint)(0xFF*col->blue) << 16;
-  rgba |= (guint)(0xFF*col->green) << 8;
-  rgba |= (guint)(0xFF*col->red);
-  
-  return rgba;
-}
-
-static inline guint32 
 color_to_rgba(DiaLibartRenderer *renderer, Color *col)
 {
   int rgba;
