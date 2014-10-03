@@ -644,6 +644,14 @@ _test_draw (gconstpointer user_data)
 	    epsilon = 0.24;
 	  else if (strcmp (type->name, "Cisco - Printer") == 0)
 	    epsilon = 0.26;
+	  else if (strcmp (type->name, "Circuit - Vertical Resistor") == 0)
+	    epsilon = 0.26; /* win32: pass */
+	  else if (strcmp (type->name, "Circuit - Horizontal Resistor") == 0)
+	    epsilon = 0.26; /* win32: pass */
+	  else if (strcmp (type->name, "Cisco - Location server") == 0)
+	    epsilon = 0.27; /* win32: pass */
+	  else if (strcmp (type->name, "Cisco - System controller") == 0)
+	    epsilon = 0.27; /* win32: pass */
 	  else if (strcmp (type->name, "Cisco - Pager") == 0)
 	    epsilon = 0.28;
 	  else if (strcmp (type->name, "Cisco - IAD router") == 0)
@@ -654,34 +662,48 @@ _test_draw (gconstpointer user_data)
 	    epsilon = 0.29;
 	  else if (strcmp (type->name, "ER - Relationship") == 0)
 	    epsilon = 0.29;
+	  else if (strcmp (type->name, "Network - Base Station") == 0)
+	    epsilon = 0.31; /* win32: pass */
 	  else if (strcmp (type->name, "Cisco - Protocol Translator") == 0)
-	    epsilon = 0.30;
+	    epsilon = 0.66; /* win32: 0.30 */
+	  else if (strcmp (type->name, "Cisco - Cellular phone") == 0)
+	    epsilon = 0.32; /* win32: pass */
+	  else if (strcmp (type->name, "UML - Constraint") == 0)
+	    epsilon = 0.33; /* win32: pass */
 	  else if (strcmp (type->name, "UML - Message") == 0)
-	    epsilon = 0.39;
+	    epsilon = 0.50; /* win32: 0.39 */
 	  else if (strcmp (type->name, "Cisco - ICM") == 0)
 	    epsilon = 0.34;
+	  else if (strcmp (type->name, "Cisco - Access Gateway") == 0)
+	    epsilon = 0.39; /* win32: pass */
 	  else if (strcmp (type->name, "chemeng - SaT-floatinghead") == 0)
 	    epsilon = 0.40;
 	  else if (strcmp (type->name, "chemeng - kettle") == 0)
 	    epsilon = 0.42;
+	  else if (strcmp (type->name, "Cisco - NetRanger") == 0)
+	    epsilon = 0.42; /* win32: pass */
 	  else if (strcmp (type->name, "Cisco - Mac Woman") == 0)
-	    epsilon = 0.43;
+	    epsilon = 0.47; /* win32: 0.43 */
 	  else if (strcmp (type->name, "Pneum - press") == 0)
-	    epsilon = 0.44;
+	    epsilon = 0.45; /* win32: 0.44 */
 	  else if (strcmp (type->name, "Pneum - presspn") == 0)
 	    epsilon = 0.44;
 	  else if (strcmp (type->name, "Pneum - presshy") == 0)
 	    epsilon = 0.44;
 	  else if (strcmp (type->name, "Cisco - Optical Transport") == 0)
-	    epsilon = 0.47;
+	    epsilon = 0.48; /* win32: 0.47 */
 	  else if (strcmp (type->name, "Jackson - phenomenon") == 0)
-	    epsilon = 0.51;
+	    epsilon = 0.51; /* osx: 0.39 */
+	  else if (strcmp (type->name, "Cisco - Speaker") == 0)
+	    epsilon = 0.58; /* win32: 0.57 */
+	  else if (strcmp (type->name, "Cisco - 6705") == 0)
+	    epsilon = 0.64;
 	  else if (strcmp (type->name, "KAOS - mbr") == 0)
-	    epsilon = 0.69;
+	    epsilon = 0.70; /* win32: 0.69 */
 	  else if (strcmp (type->name, "FS - Flow") == 0)
-	    epsilon = 0.73;
+	    epsilon = 0.73; /* osx: 0.58 */
 	  else if (strcmp (type->name, "SADT - arrow") == 0)
-	    epsilon = 0.74;
+	    epsilon = 0.75; /* win32: 0.74 */
 	  else if (strcmp (type->name, "Network - WAN Connection") == 0)
 	    epsilon = 0.86;
 	  else if (strcmp (type->name, "Network - General Printer") == 0)
@@ -693,9 +715,9 @@ _test_draw (gconstpointer user_data)
 	  else if (strcmp (type->name, "Pneum - SEOJack") == 0)
 	    epsilon = 1.1;
 	  else if (strcmp (type->name, "Pneum - DEJack") == 0)
-	    epsilon = 1.1;
+	    epsilon = 1.1; /* osx: 0.9 */
 	  else if (strcmp (type->name, "SDL - Comment") == 0)
-	    epsilon = 3.5;
+	    epsilon = 3.5; /* osx: 3.1 */
 
 	  g_assert_cmpfloat (fabs (obb->top - pbb->top), <, epsilon);
 	  g_assert_cmpfloat (fabs (obb->left - pbb->left), <, epsilon);
