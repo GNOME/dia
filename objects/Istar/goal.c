@@ -478,11 +478,6 @@ static void update_goal_connectors(ConnectionPoint *c, Point p, double w, double
   c[8].directions = DIR_ALL;
 }
 
-inline static ObjectChange *
-goal_create_change(Goal *goal, ObjectChange *inner, ConnPointLine *cpl) {
-  return (ObjectChange *)inner;
-}
-
 /* creating stuff */
 static DiaObject *
 goal_create(Point *startpoint,
