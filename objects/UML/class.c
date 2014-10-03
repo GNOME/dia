@@ -2430,7 +2430,7 @@ umlclass_sanity_check(UMLClass *c, gchar *msg)
   dia_assert_true(&c->connections[i] ==
 		  obj->connections[i + umlclass_num_dynamic_connectionpoints(c)],
 		  "%s: Class %p mainpoint mismatch: %p != %p (at %d)\n",
-		  msg, c, i, &c->connections[i],
+		  msg, c, &c->connections[i],
 		  obj->connections[i + umlclass_num_dynamic_connectionpoints(c)],
 		  i + umlclass_num_dynamic_connectionpoints(c));
 #endif
