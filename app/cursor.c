@@ -72,8 +72,9 @@ static GdkCursor *create_cursor(GdkWindow *window,
 				int hot_x, int hot_y);
 
 GdkCursor *
-get_cursor(DiaCursorType ctype) {
-  if (ctype >= MAX_CURSORS || ctype < 0) {
+get_cursor(DiaCursorType ctype)
+{
+  if (ctype >= G_N_ELEMENTS (cursors)) {
     return NULL;
   }
   if (cursors[ctype].cursor == NULL) {
