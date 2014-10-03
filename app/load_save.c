@@ -1133,7 +1133,7 @@ diagram_data_save(DiagramData *data, DiaContext *ctx, const char *user_filename)
   g_rename(filename,bakname);
   ret = g_rename(tmpname,filename);
   if (ret < 0) {
-    dia_context_add_message_with_errno(ctx, errno, _("Can't rename %s to final output file %s: %s\n"), 
+    dia_context_add_message_with_errno(ctx, errno, _("Can't rename %s to final output file %s"), 
 				       dia_message_filename(tmpname),
 				       dia_context_get_filename(ctx));
   }
