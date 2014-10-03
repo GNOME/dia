@@ -908,7 +908,7 @@ load_shape_info(const gchar *filename, ShapeInfo *preload)
     } else if (node->ns == svg_ns && !xmlStrcmp(node->name, (const xmlChar *)"svg")) {
       DiaSvgStyle s = {
 	1.0, DIA_SVG_COLOUR_FOREGROUND, 1.0, DIA_SVG_COLOUR_NONE, 1.0,
-	DIA_SVG_LINECAPS_DEFAULT, DIA_SVG_LINEJOIN_DEFAULT, DIA_SVG_LINESTYLE_DEFAULT, 1.0
+	LINECAPS_DEFAULT, LINEJOIN_DEFAULT, LINESTYLE_DEFAULT, 1.0
       };
 
       dia_svg_parse_style(node, &s, -1);

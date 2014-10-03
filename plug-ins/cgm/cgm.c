@@ -582,6 +582,7 @@ set_linecaps(DiaRenderer *self, LineCaps mode)
 
     switch(mode) 
     {
+    case LINECAPS_DEFAULT:
     case LINECAPS_BUTT:
 	cap = 2;
 	break;
@@ -606,6 +607,7 @@ set_linejoin(DiaRenderer *self, LineJoin mode)
 
     switch(mode) 
     {
+    case LINEJOIN_DEFAULT:
     case LINEJOIN_MITER:
 	join = 2;
 	break;
@@ -645,6 +647,7 @@ set_linestyle(DiaRenderer *self, LineStyle mode, real dash_length)
     case LINESTYLE_DOTTED:
        style = 3;
        break;
+    case LINESTYLE_DEFAULT:
     case LINESTYLE_SOLID:
     default:
        style = 1;

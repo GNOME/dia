@@ -340,6 +340,7 @@ set_linecaps(DiaRenderer *self, LineCaps mode)
   DIAG_NOTE(g_message("set_linecaps %d", mode));
 
   switch(mode) {
+  case LINECAPS_DEFAULT:
   case LINECAPS_BUTT:
     break;
   case LINECAPS_ROUND:
@@ -347,7 +348,7 @@ set_linecaps(DiaRenderer *self, LineCaps mode)
   case LINECAPS_PROJECTING:
     break;
   default:
-    g_warning("WpgRenderer : Unsupported fill mode specified!\n");
+    g_warning("WpgRenderer : Unsupported line-caps mode specified!\n");
   }
 }
 
@@ -357,6 +358,7 @@ set_linejoin(DiaRenderer *self, LineJoin mode)
   DIAG_NOTE(g_message("set_join %d", mode));
 
   switch(mode) {
+  case LINEJOIN_DEFAULT:
   case LINEJOIN_MITER:
     break;
   case LINEJOIN_ROUND:
@@ -364,7 +366,7 @@ set_linejoin(DiaRenderer *self, LineJoin mode)
   case LINEJOIN_BEVEL:
     break;
   default:
-    g_warning("WpgRenderer : Unsupported fill mode specified!\n");
+    g_warning("WpgRenderer : Unsupported line-join mode specified!\n");
   }
 }
 
@@ -377,6 +379,7 @@ set_linestyle(DiaRenderer *self, LineStyle mode, real dash_length)
 
   /* line type */
   switch (mode) {
+  case LINESTYLE_DEFAULT:
   case LINESTYLE_SOLID:
     renderer->LineAttr.Type = WPG_LA_SOLID;
     break;

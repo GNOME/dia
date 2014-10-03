@@ -465,7 +465,7 @@ apply_style(DiaObject *obj, xmlNodePtr node, DiaSvgStyle *parent_style,
       rprop->real_data = gs->line_width * scale;
   
       lsprop = g_ptr_array_index(props,2);
-      if (gs->linestyle != DIA_SVG_LINESTYLE_DEFAULT)
+      if (gs->linestyle != LINESTYLE_DEFAULT)
 	lsprop->style = gs->linestyle;
       else if (init)
 	lsprop->style = LINESTYLE_SOLID;
@@ -521,13 +521,13 @@ apply_style(DiaObject *obj, xmlNodePtr node, DiaSvgStyle *parent_style,
       }
 
       eprop = g_ptr_array_index(props,5);
-      if (gs->linejoin != DIA_SVG_LINEJOIN_DEFAULT)
+      if (gs->linejoin != LINEJOIN_DEFAULT)
 	eprop->enum_data = gs->linejoin;
       else
 	eprop->common.experience |= PXP_NOTSET;
 
       eprop = g_ptr_array_index(props,6);
-      if (gs->linecap != DIA_SVG_LINECAPS_DEFAULT)
+      if (gs->linecap != LINECAPS_DEFAULT)
         eprop->enum_data = gs->linecap;
       else
 	eprop->common.experience |= PXP_NOTSET;

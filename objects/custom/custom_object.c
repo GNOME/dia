@@ -923,21 +923,21 @@ custom_draw_element(GraphicElement* el, Custom *custom, DiaRenderer *renderer,
     renderer_ops->set_linewidth(renderer,
 		  custom->border_width*(*cur_line));
   }
-  if ((el->any.s.linecap == DIA_SVG_LINECAPS_DEFAULT && (*cur_caps) != LINECAPS_BUTT) ||
+  if ((el->any.s.linecap == LINECAPS_DEFAULT && (*cur_caps) != LINECAPS_BUTT) ||
     el->any.s.linecap != (*cur_caps)) {
-      (*cur_caps) = (el->any.s.linecap!=DIA_SVG_LINECAPS_DEFAULT) ?
+      (*cur_caps) = (el->any.s.linecap!=LINECAPS_DEFAULT) ?
       el->any.s.linecap : LINECAPS_BUTT;
       renderer_ops->set_linecaps(renderer, (*cur_caps));
     }
-  if ((el->any.s.linejoin==DIA_SVG_LINEJOIN_DEFAULT && (*cur_join)!=LINEJOIN_MITER) ||
+  if ((el->any.s.linejoin==LINEJOIN_DEFAULT && (*cur_join)!=LINEJOIN_MITER) ||
       el->any.s.linejoin != (*cur_join)) {
-    (*cur_join) = (el->any.s.linejoin!=DIA_SVG_LINEJOIN_DEFAULT) ?
+    (*cur_join) = (el->any.s.linejoin!=LINEJOIN_DEFAULT) ?
     el->any.s.linejoin : LINEJOIN_MITER;
     renderer_ops->set_linejoin(renderer, (*cur_join));
   }
-  if ((el->any.s.linestyle == DIA_SVG_LINESTYLE_DEFAULT &&
+  if ((el->any.s.linestyle == LINESTYLE_DEFAULT &&
       (*cur_style) != custom->line_style) || el->any.s.linestyle != (*cur_style)) {
-    (*cur_style) = (el->any.s.linestyle!=DIA_SVG_LINESTYLE_DEFAULT) ?
+    (*cur_style) = (el->any.s.linestyle!=LINESTYLE_DEFAULT) ?
     el->any.s.linestyle : custom->line_style;
     renderer_ops->set_linestyle(renderer, (*cur_style),
 				custom->dashlength*(*cur_dash));

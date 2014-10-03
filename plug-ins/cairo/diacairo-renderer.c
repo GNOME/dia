@@ -388,6 +388,7 @@ set_linecaps(DiaRenderer *self, LineCaps mode)
   DIAG_NOTE(g_message("set_linecaps %d", mode));
 
   switch(mode) {
+  case LINECAPS_DEFAULT:
   case LINECAPS_BUTT:
     cairo_set_line_cap (renderer->cr, CAIRO_LINE_CAP_BUTT);
     break;
@@ -411,6 +412,7 @@ set_linejoin(DiaRenderer *self, LineJoin mode)
   DIAG_NOTE(g_message("set_join %d", mode));
 
   switch(mode) {
+  case LINEJOIN_DEFAULT:
   case LINEJOIN_MITER:
     cairo_set_line_join (renderer->cr, CAIRO_LINE_JOIN_MITER);
     break;
@@ -438,6 +440,7 @@ set_linestyle(DiaRenderer *self, LineStyle mode, real dash_length)
   ensure_minimum_one_device_unit(renderer, &dash_length);
   /* line type */
   switch (mode) {
+  case LINESTYLE_DEFAULT:
   case LINESTYLE_SOLID:
     cairo_set_dash (renderer->cr, NULL, 0, 0);
     break;

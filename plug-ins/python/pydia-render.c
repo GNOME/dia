@@ -206,6 +206,7 @@ set_linecaps(DiaRenderer *renderer, LineCaps mode)
     break;
   case LINECAPS_PROJECTING:
     break;
+  case LINECAPS_DEFAULT:
   default:
     PyErr_Warn (PyExc_RuntimeWarning, "DiaPyRenderer : Unsupported fill mode specified!\n");
   }
@@ -246,6 +247,7 @@ set_linejoin(DiaRenderer *renderer, LineJoin mode)
     break;
   case LINEJOIN_BEVEL:
     break;
+  case LINEJOIN_DEFAULT:
   default:
     PyErr_Warn (PyExc_RuntimeWarning, "DiaPyRenderer : Unsupported fill mode specified!\n");
   }
@@ -291,6 +293,7 @@ set_linestyle(DiaRenderer *renderer, LineStyle mode, real dash_length)
     break;
   case LINESTYLE_DOTTED:
     break;
+  case LINESTYLE_DEFAULT:
   default:
     PyErr_Warn (PyExc_RuntimeWarning, "DiaPyRenderer : Unsupported fill mode specified!\n");
   }

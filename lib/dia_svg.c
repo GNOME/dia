@@ -68,9 +68,9 @@ dia_svg_style_init(DiaSvgStyle *gs, DiaSvgStyle *parent_style)
    */ 
   gs->fill = parent_style ? parent_style->fill : DIA_SVG_COLOUR_DEFAULT;
   gs->fill_opacity = parent_style ? parent_style->fill_opacity : 1.0;
-  gs->linecap = parent_style ? parent_style->linecap : DIA_SVG_LINECAPS_DEFAULT;
-  gs->linejoin = parent_style ? parent_style->linejoin : DIA_SVG_LINEJOIN_DEFAULT;
-  gs->linestyle = parent_style ? parent_style->linestyle : DIA_SVG_LINESTYLE_DEFAULT;
+  gs->linecap = parent_style ? parent_style->linecap : LINECAPS_DEFAULT;
+  gs->linejoin = parent_style ? parent_style->linejoin : LINEJOIN_DEFAULT;
+  gs->linestyle = parent_style ? parent_style->linestyle : LINESTYLE_DEFAULT;
   gs->font = (parent_style && parent_style->font) ? dia_font_ref(parent_style->font) : NULL;
   gs->font_height = parent_style ? parent_style->font_height : 0.8;
   gs->alignment = parent_style ? parent_style->alignment : ALIGN_LEFT;
@@ -481,7 +481,7 @@ _parse_linejoin (DiaSvgStyle *s, const char *val)
   else if (!strncmp(val, "bevel", 5))
     s->linejoin = LINEJOIN_BEVEL;
   else if (!strncmp(val, "default", 7))
-    s->linejoin = DIA_SVG_LINEJOIN_DEFAULT;
+    s->linejoin = LINEJOIN_DEFAULT;
 }
 static void
 _parse_linecap (DiaSvgStyle *s, const char *val)
@@ -493,7 +493,7 @@ _parse_linecap (DiaSvgStyle *s, const char *val)
   else if (!strncmp(val, "square", 6) || !strncmp(val, "projecting", 10))
     s->linecap = LINECAPS_PROJECTING;
   else if (!strncmp(val, "default", 7))
-    s->linecap = DIA_SVG_LINECAPS_DEFAULT;
+    s->linecap = LINECAPS_DEFAULT;
 }
 
 /*!
@@ -691,7 +691,7 @@ dia_svg_parse_style_string (DiaSvgStyle *s, real user_scale, const gchar *str)
       else if (!strncmp(ptr, "dotted", 6))
 	s->linestyle = LINESTYLE_DOTTED;
       else if (!strncmp(ptr, "default", 7))
-	s->linestyle = DIA_SVG_LINESTYLE_DEFAULT;
+	s->linestyle = LINESTYLE_DEFAULT;
       /* XXX: deal with a real pattern */
     } else if (!strncmp("stroke-dashlength:", ptr, 18)) {
       ptr += 18;

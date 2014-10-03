@@ -175,6 +175,7 @@ set_linecaps(DiaRenderer *self, LineCaps mode)
     renderer->cap_style = ART_PATH_STROKE_CAP_ROUND;
   } else {
     switch(mode) {
+    case LINECAPS_DEFAULT:
     case LINECAPS_BUTT:
       renderer->cap_style = ART_PATH_STROKE_CAP_BUTT;
       break;
@@ -198,6 +199,7 @@ set_linejoin(DiaRenderer *self, LineJoin mode)
     renderer->join_style = ART_PATH_STROKE_JOIN_ROUND;
   } else {
     switch(mode) {
+    case LINEJOIN_DEFAULT:
     case LINEJOIN_MITER:
       renderer->join_style = ART_PATH_STROKE_JOIN_MITER;
       break;
@@ -237,6 +239,7 @@ set_linestyle(DiaRenderer *self, LineStyle mode, real length)
     dot_length = 255.0;
 
   switch(mode) {
+  case LINESTYLE_DEFAULT:
   case LINESTYLE_SOLID:
     renderer->dash_enabled = 0;
     break;
@@ -1161,7 +1164,7 @@ get_text_width(DiaRenderer *object,
   if (length != g_utf8_strlen(text, -1)) {
     char *othertx;
     int ulen;
-    /* A couple UTF8-chars: æblegrød Š Ť Ž ę ć ń уфхц�?ОПРЄ є �? Њ Ћ �? */
+
     ulen = g_utf8_offset_to_pointer(text, length)-text;
     if (!g_utf8_validate(text, ulen, NULL)) {
       g_warning ("Text at char %d not valid\n", length);
@@ -1424,3 +1427,4 @@ dia_libart_renderer_class_init (DiaLibartRendererClass *klass)
 }
 
 #endif
+

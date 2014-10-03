@@ -312,6 +312,7 @@ set_linecaps (DiaRenderer *object, LineCaps mode)
     renderer->cap_style = GDK_CAP_ROUND;
   } else {
     switch(mode) {
+    case LINECAPS_DEFAULT:
     case LINECAPS_BUTT:
       renderer->cap_style = GDK_CAP_BUTT;
       break;
@@ -340,6 +341,7 @@ set_linejoin (DiaRenderer *object, LineJoin mode)
     renderer->join_style = GDK_JOIN_ROUND;
   } else {
     switch(mode) {
+    case LINEJOIN_DEFAULT:
     case LINEJOIN_MITER:
       renderer->join_style = GDK_JOIN_MITER;
       break;
@@ -374,6 +376,7 @@ dia_gdk_renderer_set_dashes(DiaGdkRenderer *renderer, int offset)
   int hole_width;
   
   switch(renderer->saved_line_style) {
+  case LINESTYLE_DEFAULT:
   case LINESTYLE_SOLID:
     break;
   case LINESTYLE_DASHED:
@@ -435,6 +438,7 @@ set_linestyle (DiaRenderer *object, LineStyle mode, real length)
 
   renderer->saved_line_style = mode;
   switch(mode) {
+  case LINESTYLE_DEFAULT:
   case LINESTYLE_SOLID:
     renderer->line_style = GDK_LINE_SOLID;
     break;

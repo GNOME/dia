@@ -33,14 +33,6 @@ enum DiaSvgColours
   DIA_SVG_COLOUR_DEFAULT = -5
 };
 
-/* these should be changed if they ever cause a conflict */
-enum DiaSvgLineDefaults
-{
-  DIA_SVG_LINECAPS_DEFAULT = 20,
-  DIA_SVG_LINEJOIN_DEFAULT = 20,
-  DIA_SVG_LINESTYLE_DEFAULT = 20
-};
-
 typedef struct _DiaSvgStyle DiaSvgStyle;
 struct _DiaSvgStyle {
   real line_width;

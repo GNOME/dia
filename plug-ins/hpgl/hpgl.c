@@ -203,6 +203,7 @@ set_linecaps(DiaRenderer *object, LineCaps mode)
     DIAG_NOTE(g_message("set_linecaps %d", mode));
 
     switch(mode) {
+    case LINECAPS_DEFAULT:
     case LINECAPS_BUTT:
 	break;
     case LINECAPS_ROUND:
@@ -220,6 +221,7 @@ set_linejoin(DiaRenderer *object, LineJoin mode)
     DIAG_NOTE(g_message("set_join %d", mode));
 
     switch(mode) {
+    case LINEJOIN_DEFAULT:
     case LINEJOIN_MITER:
 	break;
     case LINEJOIN_ROUND:
@@ -240,6 +242,7 @@ set_linestyle(DiaRenderer *object, LineStyle mode, real dash_length)
 
     /* line type */
     switch (mode) {
+    case LINESTYLE_DEFAULT:
     case LINESTYLE_SOLID:
       fprintf(renderer->file, "LT;\n");
       break;

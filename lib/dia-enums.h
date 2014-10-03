@@ -2,19 +2,22 @@
 #define DIA_ENUMS_H
 
 typedef enum {
-  LINECAPS_BUTT,
+  LINECAPS_DEFAULT = -1, /* default usually butt, this is unset */
+  LINECAPS_BUTT = 0,
   LINECAPS_ROUND,
   LINECAPS_PROJECTING
 } LineCaps;
 
 typedef enum {
-  LINEJOIN_MITER,
+  LINEJOIN_DEFAULT = -1, /* default usually miter, this is unset */
+  LINEJOIN_MITER = 0,
   LINEJOIN_ROUND,
   LINEJOIN_BEVEL
 } LineJoin;
 
 typedef enum {
-  LINESTYLE_SOLID,
+  LINESTYLE_DEFAULT = -1, /* default usually solid, this is unset */
+  LINESTYLE_SOLID = 0,
   LINESTYLE_DASHED,
   LINESTYLE_DASH_DOT,
   LINESTYLE_DASH_DOT_DOT,

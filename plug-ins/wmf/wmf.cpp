@@ -458,6 +458,7 @@ set_linestyle(DiaRenderer *self, LineStyle mode, real dash_length)
     /* line type */
     renderer->fnPenStyle &= ~(PS_STYLE_MASK);
     switch (mode) {
+    case LINESTYLE_DEFAULT:
     case LINESTYLE_SOLID:
       renderer->fnPenStyle |= PS_SOLID;
       break;
@@ -491,6 +492,7 @@ set_linestyle(DiaRenderer *self, LineStyle mode, real dash_length)
     case LINESTYLE_DOTTED:
       renderer->nLineWidth = MIN(renderer->nLineWidth, 1);
     case LINESTYLE_SOLID:
+    case LINESTYLE_DEFAULT:
       break;
     }
 }

@@ -378,6 +378,7 @@ set_linejoin(DiaRenderer *self, LineJoin mode)
     /* int ps_mode; */
   
     switch(mode) {
+    case LINEJOIN_DEFAULT:
     case LINEJOIN_MITER:
 	fprintf(renderer->file, "\\pgfsetmiterjoin\n");
 	break;
@@ -409,6 +410,7 @@ set_linestyle(DiaRenderer *self, LineStyle mode, real dash_length)
     dot_length = dash_length * 0.2;
 
     switch(mode) {
+    case LINESTYLE_DEFAULT:
     case LINESTYLE_SOLID:
 	fprintf(renderer->file, "\\pgfsetdash{}{0pt}\n");
 	break;

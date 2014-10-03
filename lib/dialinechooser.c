@@ -142,6 +142,7 @@ dia_line_preview_expose(GtkWidget *widget, GdkEventExpose *event)
     /* increase line width */
     gdk_gc_get_values(gc, &gcvalues);
     switch (line->lstyle) {
+    case LINESTYLE_DEFAULT:
     case LINESTYLE_SOLID:
       gdk_gc_set_line_attributes(gc, line_width, GDK_LINE_SOLID,
 				 gcvalues.cap_style, gcvalues.join_style);

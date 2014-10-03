@@ -507,3 +507,4 @@ new_libart_renderer(DiaTransform *transform, int interactive)
 }
 
 #endif
+

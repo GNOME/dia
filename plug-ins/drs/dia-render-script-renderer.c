@@ -288,6 +288,7 @@ set_linecaps(DiaRenderer *self, LineCaps mode)
   gchar *value = NULL;
 
   switch(mode) {
+  case LINECAPS_DEFAULT:
   case LINECAPS_BUTT:
     value = "butt";
     break;
@@ -312,6 +313,7 @@ set_linejoin(DiaRenderer *self, LineJoin mode)
   gchar *value = NULL;
 
   switch(mode) {
+  case LINEJOIN_DEFAULT:
   case LINEJOIN_MITER:
     value = "miter";
     break;
@@ -337,6 +339,7 @@ set_linestyle(DiaRenderer *self, LineStyle mode, real dash_length)
 
   /* line type */
   switch (mode) {
+  case LINESTYLE_DEFAULT:
   case LINESTYLE_SOLID:
     value = "solid";
     break;

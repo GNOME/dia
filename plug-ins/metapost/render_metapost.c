@@ -250,6 +250,7 @@ set_linecaps(DiaRenderer *self, LineCaps mode)
 	return;
   
     switch(mode) {
+    case LINECAPS_DEFAULT:
     case LINECAPS_BUTT:
 	fprintf(renderer->file, "linecap:=butt;\n");
 	break;
@@ -276,6 +277,7 @@ set_linejoin(DiaRenderer *self, LineJoin mode)
 	return;
 
     switch(mode) {
+    case LINEJOIN_DEFAULT:
     case LINEJOIN_MITER:
 	fprintf(renderer->file, "linejoin:=mitered;\n");
 	break;
@@ -314,6 +316,7 @@ draw_with_linestyle(MetapostRenderer *renderer)
     gchar hole_width_buf[DTOSTR_BUF_SIZE];
 
     switch(renderer->saved_line_style) {
+    case LINESTYLE_DEFAULT:
     case LINESTYLE_SOLID:
 	break;
     case LINESTYLE_DASHED:

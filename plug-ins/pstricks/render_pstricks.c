@@ -275,6 +275,7 @@ set_linecaps(DiaRenderer *self, LineCaps mode)
     int ps_mode;
   
     switch(mode) {
+    case LINECAPS_DEFAULT:
     case LINECAPS_BUTT:
 	ps_mode = 0;
 	break;
@@ -298,6 +299,7 @@ set_linejoin(DiaRenderer *self, LineJoin mode)
     int ps_mode;
   
     switch(mode) {
+    case LINEJOIN_DEFAULT:
     case LINEJOIN_MITER:
 	ps_mode = 0;
 	break;
@@ -330,6 +332,7 @@ set_linestyle(DiaRenderer *self, LineStyle mode, real dash_length)
     dot_length = dash_length * 0.2;
 
     switch(mode) {
+    case LINESTYLE_DEFAULT:
     case LINESTYLE_SOLID:
 	fprintf(renderer->file, "\\psset{linestyle=solid}\n");
 	break;
