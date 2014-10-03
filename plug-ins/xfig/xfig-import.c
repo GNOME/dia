@@ -1059,7 +1059,7 @@ fig_read_object(FILE *file, DiaContext *ctx)
 	Color color;
 
 	if (fscanf(file, " %d #%xd", &colornumber, &colorvalues) != 2) {
-	    dia_context_add_message_with_errno(ctx, errno, _("Couldn't read color: %s\n"));
+	    dia_context_add_message_with_errno(ctx, errno, _("Couldn't read color\n"));
 	    return FALSE;
 	}
 
