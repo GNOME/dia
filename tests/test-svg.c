@@ -80,8 +80,9 @@ PathData _test_path[] = {
 };
 
 static void
-_check_one_path (const PathData* pd)
+_check_one_path (gconstpointer _p)
 {
+  const PathData* pd = _p;
   const gchar* p;
   gchar* unparsed = NULL;
   gboolean closed = FALSE;
