@@ -2994,7 +2994,7 @@ import_vdx(const gchar *filename, DiagramData *dia, DiaContext *ctx, void* user_
     {
         s = debug;
         if (strchr(s, '=')) { s = strchr(debug, '=') + 1; }
-        for (s=s; *s; s++)
+        for (; *s; s++)
         {
             if (*s == ',') debug_shapes++;
         }
@@ -3005,7 +3005,7 @@ import_vdx(const gchar *filename, DiagramData *dia, DiaContext *ctx, void* user_
         s = debug;
         if (strchr(s, '=')) { s = strchr(debug, '=') + 1; }
         theDoc->debug_shape_ids[0] = atoi(s);
-        for (s=s; *s; s++)
+        for (; *s; s++)
         {
             if (*s == ',')
             {
