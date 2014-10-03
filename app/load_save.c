@@ -1251,7 +1251,11 @@ diagram_autosave(Diagram *dia)
 	asi->filename = g_strdup (save_filename);
 	asi->ctx = dia_context_new (_("Auto save"));
 
+#if GLIB_CHECK_VERSION(2,32,0)
+	if (g_thread_try_new ("Autosave", _autosave_in_thread, asi, &error)) {
+#else
 	if (!g_thread_create (_autosave_in_thread, asi, FALSE, &error)) {
+#endif
 	  message_error ("%s", error->message);
 	  g_error_free (error);
 	}
