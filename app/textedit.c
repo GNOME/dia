@@ -54,9 +54,6 @@ typedef struct TextEditChange {
   Text *text;
 } TextEditChange;
 
-static Change *text_edit_create_change(Text *text);
-static void text_edit_update(TextEditChange *change);
-static void text_edit_apply(Change *change, Diagram *dia);
 static void textedit_end_edit(DDisplay *ddisp, Focus *focus);
 
 /** Returns TRUE if the given display is currently in text-edit mode. */
@@ -131,9 +128,6 @@ textedit_begin_edit(DDisplay *ddisp, Focus *focus)
   ddisplay_set_active_focus(ddisp, focus);
   highlight_object(focus->obj, DIA_HIGHLIGHT_TEXT_EDIT, ddisp->diagram);
   object_add_updates(focus->obj, ddisp->diagram);
-/* Undo not quite ready yet.
-  undo_push_change(ddisp->diagram->undo, text_edit_create_change(focus->text));
-*/
 }
 
 /** Stop editing a particular text focus.  This must only be called in
@@ -145,7 +139,6 @@ textedit_begin_edit(DDisplay *ddisp, Focus *focus)
 static void
 textedit_end_edit(DDisplay *ddisp, Focus *focus) 
 {
-  TextEditChange *change;
   /* During destruction of the diagram the display may already be gone */
   if (!ddisp)
     return;
@@ -158,13 +151,6 @@ textedit_end_edit(DDisplay *ddisp, Focus *focus)
   highlight_object_off(focus->obj, ddisp->diagram);
   object_add_updates(focus->obj, ddisp->diagram);
   diagram_object_modified(ddisp->diagram, focus->obj);
-/* Undo not quite ready yet
-  change = (TextEditChange *) undo_remove_to(ddisp->diagram->undo,
-					     text_edit_apply);
-  if (change != NULL) {
-    text_edit_update(change);
-  }
-*/
   ddisplay_set_active_focus(ddisp, NULL);
 }
 
@@ -336,63 +322,4 @@ textedit_remove_focus_all(Diagram *diagram)
  * at the end removing every change after that one.  This is why non-text-edit
  * changes are not allowed in text edit mode:  It would break the undo.
  */
-
-static void
-text_edit_apply(Change *change, Diagram *dia)
-{
-  TextEditChange *te_change = (TextEditChange *) change;
-  text_set_string(te_change->text, te_change->new_text);
-}
-
-static void
-text_edit_revert(TextEditChange *change, Diagram *dia)
-{
-  if (textedit_mode(ddisplay_active())) {
-    DDisplay *ddisp = ddisplay_active();
-    textedit_exit(ddisp);
-  }
-  text_set_string(change->text, change->orig_text);
-}
-
-static void
-text_edit_free(TextEditChange *change)
-{
-  g_free(change->orig_text);
-  if (change->new_text) {
-    g_free(change->new_text);
-  }
-}
-
-/** Note that the new text isn't known when this is made.  That gets
- * added later.
- */
-static Change *
-text_edit_create_change(Text *text)
-{
-  TextEditChange *change;
-  
-  change = g_new0(TextEditChange, 1);
-
-  change->obj_change.apply = (UndoApplyFunc) text_edit_apply;
-  change->obj_change.revert = (UndoRevertFunc) text_edit_revert;
-  change->obj_change.free = (UndoFreeFunc) text_edit_free;
-
-  change->text = text;
-  if (text_is_empty(text)) {
-    change->orig_text = g_strdup("");
-  } else {
-    change->orig_text = text_get_string_copy(text);
-  }
-  /* new_text not ready yet */
-
-  return (Change *)change;
-}
-
-/** This should be called when an edit is finished, to store the final
- *  text. */
-static void
-text_edit_update(TextEditChange *change)
-{
-  change->new_text = text_get_string_copy(change->text);
-}
 
