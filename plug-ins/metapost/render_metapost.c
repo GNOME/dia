@@ -805,8 +805,9 @@ draw_string(DiaRenderer *self,
 }
 
 static void 
-draw_text(DiaRenderer *self, 
-		  Text *text) {
+draw_text (DiaRenderer *self, 
+	   Text *text)
+{
   Point pos;
   int i;
   pos = text->position;
@@ -825,45 +826,6 @@ draw_text(DiaRenderer *self,
     pos.y += text->height;
   }
 }
-
-static void
-draw_text_line(DiaRenderer *self, TextLine *text_line,
-		Point *pos, Alignment alignment, Color *color)
-{
-    MetapostRenderer *renderer = METAPOST_RENDERER (self);
-    gchar height_buf[DTOSTR_BUF_SIZE];
-    gchar px_buf[DTOSTR_BUF_SIZE];
-    gchar py_buf[DTOSTR_BUF_SIZE];
-    gchar red_buf[DTOSTR_BUF_SIZE];
-    gchar green_buf[DTOSTR_BUF_SIZE];
-    gchar blue_buf[DTOSTR_BUF_SIZE];
-
-    /* real width = text_line_get_width(text_line); */
-
-    set_line_color(renderer,color);
-
-    /* Ideally, we would be able to use the "infont" macro to print this label
-     * in the proper font.  Unfortunately, though, metapost is in the habit of
-     * converting spaces into visible spaces, which looks rather yucky.  So we
-     * embed some TeX with \usefont commands instead. */
-	/* Scale text by multiplying text by variable t in metapost */
-    fprintf(renderer->file,
-            "draw btex {\\usefont{OT1}{%s}{%s}{%s} %s} etex scaled %st,(%sx,%sy)",
-            renderer->mp_font, renderer->mp_weight, renderer->mp_slant,
-            text_line_get_string(text_line),
-	    g_ascii_formatd(height_buf, sizeof(height_buf), "%g", renderer->mp_font_height),
-	    mp_dtostr(px_buf, pos->x - text_line_get_alignment_adjustment (text_line, alignment)),
-	    mp_dtostr(py_buf, pos->y) );
-
-    if (!color_equals(&renderer->color, &color_black))
-        fprintf(renderer->file, "\n    withcolor (%s, %s, %s)", 
-                g_ascii_formatd(red_buf, sizeof(red_buf), "%5.4f", (gdouble) renderer->color.red), 
-                g_ascii_formatd(green_buf, sizeof(green_buf), "%5.4f", (gdouble) renderer->color.green),
-                g_ascii_formatd(blue_buf, sizeof(blue_buf), "%5.4f", (gdouble) renderer->color.blue) );
-
-    fprintf(renderer->file,";\n");
-}
-
 
 static void
 draw_image(DiaRenderer *self,
