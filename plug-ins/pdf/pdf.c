@@ -23,12 +23,14 @@
 #include "filter.h"
 #include "plug-ins.h"
 
+#ifndef HAVE_POPPLER
 static gboolean
 no_import_pdf(const gchar *filename, DiagramData *dia, DiaContext *ctx, void* user_data)
 {
   dia_context_add_message (ctx, _("PDF import not available."));
   return FALSE;
 }
+#endif
 
 gboolean import_pdf(const gchar *filename, DiagramData *dia, DiaContext *ctx, void* user_data);
 
@@ -58,3 +60,4 @@ dia_plugin_init(PluginInfo *info)
   filter_register_import(&pdf_import_filter);
   return DIA_PLUGIN_INIT_OK;
 }
+
