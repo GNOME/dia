@@ -777,6 +777,7 @@ dia_path_renderer_class_init (DiaPathRendererClass *klass)
 #include "object.h"
 #include "create.h"
 #include "group.h"
+#include "path-math.h" /* path_combine() */
 
 /*!
  * \brief Convert an object to a _StdPath by rendering it with _DiaPathRenderer
@@ -892,3 +893,4 @@ create_standard_path_from_list (GList           *objects,
   g_array_free (p1, TRUE);
   return path;
 }
+

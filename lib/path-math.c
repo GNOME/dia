@@ -22,6 +22,7 @@
 
 #include "geometry.h"
 #include "boundingbox.h"
+#include "path-math.h"
 
 #include <string.h> /* memcmp() */
 
@@ -848,3 +849,4 @@ path_combine (const GArray   *p1,
   }
   return result;
 }
+

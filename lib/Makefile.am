@@ -171,6 +171,7 @@ libdia_la_SOURCES =  \
 		diagdkrenderer.c \
 		diapathrenderer.h \
 		diapathrenderer.c \
+		path-math.h \
 		path-math.c \
 		diapatternselector.h \
 		diapatternselector.c \

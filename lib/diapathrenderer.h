@@ -48,6 +48,6 @@ void path_build_ellipse (GArray *path,
 			 real width, real height);
 
 /* in path-math.c */
-GArray *path_combine (const GArray *p1, const GArray *p2, PathCombineMode mode);
 
 #endif
+
