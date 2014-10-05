@@ -232,11 +232,6 @@ real dia_font_descent(const char* string, DiaFont* font, real height);
     /* prepares a layout of the text, in font 'font'. */
 PangoLayout* dia_font_build_layout(const char* string, DiaFont* font,
                                    real height);
-/* prepares a layout of the text, in font 'font' scaled by matrix. */
-PangoLayout* dia_font_build_layout_with_matrix(const char* string,
-					       DiaFont* font,
-					       real height,
-					       PangoMatrix *matrix);
 
 real* dia_font_get_sizes(const char* string, DiaFont *font, real height,
 			 real* width, real* ascent, real* descent, 

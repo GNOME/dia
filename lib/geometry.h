@@ -329,17 +329,6 @@ distance_point_point(const Point *p1, const Point *p2)
 }
 #endif
 
-G_INLINE_FUNC const Point *closest_to(const Point *to, const Point *p1, const Point *p2);
-#ifdef G_CAN_INLINE
-G_INLINE_FUNC const Point *
-closest_to(const Point *to, const Point *p1, const Point *p2)
-{
-  if (distance_point_point(to,p1) < distance_point_point(to,p2))
-          return p1;
-  return p2;
-}
-#endif
-
 G_INLINE_FUNC real distance_point_point_manhattan(const Point *p1, 
                                                   const Point *p2);
 #ifdef G_CAN_INLINE
