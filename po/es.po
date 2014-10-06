@@ -12,8 +12,8 @@
 # miguel <bokerones.fritos@gmail.com>, 2012.
 # miguel rodriguez nuñez <bokerones.fritos@gmail.com>, 2012.
 # Miguel Rodriguez Nuñez <bokerones.fritos@gmail.com>, 2014.
-# Miguel Rodríguez Núñez <bokerones.fritos@gmail.com>, 2012, 2013, 2014.
 # Daniel Mustieles <daniel.mustieles@gmail.com>, 2011, 2012, 2013, 2014.
+# Miguel Rodríguez Núñez <bokerones.fritos@gmail.com>, 2012, 2013, 2014.
 #
 #: ../objects/UML/class.c:193
 msgid ""
@@ -21,9 +21,9 @@ msgstr ""
 "Project-Id-Version: dia.HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=dia&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2014-09-27 03:15+0000\n"
-"PO-Revision-Date: 2014-09-28 18:53+0200\n"
-"Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
+"POT-Creation-Date: 2014-10-04 11:06+0000\n"
+"PO-Revision-Date: 2014-10-02 09:39+0200\n"
+"Last-Translator: Miguel Rodríguez Núñez <bokerones.fritos@gmail.com>\n"
 "Language-Team: Español; Castellano <gnome-es-list@gnome.org>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
@@ -522,7 +522,7 @@ msgstr "Predeterminados: "
 msgid "Couldn't convert filename '%s' to UTF-8: %s\n"
 msgstr "No se pudo convertir el nombre de archivo «%s» a UTF-8: %s\n"
 
-#: ../app/diagram.c:240 ../lib/message.c:91 ../lib/message.c:299
+#: ../app/diagram.c:240 ../lib/message.c:91 ../lib/message.c:304
 msgid "Error"
 msgstr "Error"
 
@@ -1171,8 +1171,9 @@ msgstr ""
 "Un archivo válido de Dia define al menos una capa."
 
 #: ../app/load_save.c:1001
-msgid "Error saving connections"
-msgstr "Error al guardar las conexiones"
+#, c-format
+msgid "Error saving connections to layer '%s'"
+msgstr "Error al guardar las conexiones para la capa «%s»"
 
 #: ../app/load_save.c:1006
 #, c-format
@@ -1189,13 +1190,13 @@ msgstr "No hay permiso para escribir el archivo de salida %s\n"
 msgid "Not allowed to write temporary files in %s\n"
 msgstr "No se permite escribir archivos temporales en %s\n"
 
-#: ../app/load_save.c:1114 ../plug-ins/cgm/cgm.c:1083
+#: ../app/load_save.c:1114 ../plug-ins/cgm/cgm.c:1086
 #: ../plug-ins/dxf/dxf-export.c:516
-#: ../plug-ins/metapost/render_metapost.c:1057
-#: ../plug-ins/pgf/render_pgf.c:1190 ../plug-ins/postscript/render_eps.c:123
-#: ../plug-ins/pstricks/render_pstricks.c:867
-#: ../plug-ins/vdx/vdx-export.c:1706 ../plug-ins/wmf/wmf.cpp:1345
-#: ../plug-ins/wpg/wpg.c:1059 ../plug-ins/xfig/xfig-export.c:1090
+#: ../plug-ins/metapost/render_metapost.c:1022
+#: ../plug-ins/pgf/render_pgf.c:1192 ../plug-ins/postscript/render_eps.c:123
+#: ../plug-ins/pstricks/render_pstricks.c:870
+#: ../plug-ins/vdx/vdx-export.c:1706 ../plug-ins/wmf/wmf.cpp:1347
+#: ../plug-ins/wpg/wpg.c:1062 ../plug-ins/xfig/xfig-export.c:1090
 #, c-format
 msgid "Can't open output file %s"
 msgstr "No se pudo abrir el archivo de salida %s"
@@ -1208,16 +1209,17 @@ msgid "Internal error %d writing file %s\n"
 msgstr "Error interno %d escribiendo archivo %s\n"
 
 #: ../app/load_save.c:1136
-#, c-format
-msgid "Can't rename %s to final output file %s: %s\n"
+#, fuzzy, c-format
+#| msgid "Can't rename %s to final output file %s: %s\n"
+msgid "Can't rename %s to final output file %s"
 msgstr "No se pudo renombrar %s al archivo final de salida %s: %s\n"
 
 #. no extra threads supported, stay in this one
-#: ../app/load_save.c:1252 ../app/load_save.c:1262 ../app/load_save.c:1270
+#: ../app/load_save.c:1252 ../app/load_save.c:1266 ../app/load_save.c:1274
 msgid "Auto save"
 msgstr "Guardado automático"
 
-#: ../app/load_save.c:1294 ../app/load_save.c:1299
+#: ../app/load_save.c:1298 ../app/load_save.c:1303
 msgid "Dia Diagram File"
 msgstr "Archivo de diagrama de Dia"
 
@@ -1735,7 +1737,7 @@ msgstr "Polígono"
 msgid "Beziergon"
 msgstr "Polígono Bézier"
 
-#: ../app/menus.c:246 ../app/toolbox.c:128 ../objects/standard/line.c:325
+#: ../app/menus.c:246 ../app/toolbox.c:128 ../objects/standard/line.c:327
 msgid "Line"
 msgstr "Línea"
 
@@ -2003,7 +2005,7 @@ msgid "Portable Network Graphics"
 msgstr "Portable Network Graphics"
 
 #: ../app/preferences.c:224 ../plug-ins/svg/render_svg.c:583
-#: ../plug-ins/svg/svg-import.c:2163
+#: ../plug-ins/svg/svg-import.c:2127
 msgid "Scalable Vector Graphics"
 msgstr "Scalable Vector Graphics"
 
@@ -2011,11 +2013,11 @@ msgstr "Scalable Vector Graphics"
 msgid "PostScript"
 msgstr "PostScript"
 
-#: ../app/preferences.c:228 ../plug-ins/wmf/wmf.cpp:1447
+#: ../app/preferences.c:228 ../plug-ins/wmf/wmf.cpp:1449
 msgid "Windows Metafile"
 msgstr "Meta archivo de Windows"
 
-#: ../app/preferences.c:230 ../plug-ins/wmf/wmf.cpp:1456
+#: ../app/preferences.c:230 ../plug-ins/wmf/wmf.cpp:1458
 msgid "Enhanced Metafile"
 msgstr "Meta archivo mejorado"
 
@@ -2052,13 +2054,13 @@ msgstr "Líneas por cada línea principal"
 msgid "Hex Size:"
 msgstr "Tamaño Hex:"
 
-#: ../app/preferences.c:470 ../lib/diapatternselector.c:87
+#: ../app/preferences.c:470 ../lib/diapatternselector.c:89
 #: ../lib/prop_inttypes.c:159 ../lib/prop_pixbuf.c:296
 msgid "Yes"
 msgstr "Sí"
 
 #: ../app/preferences.c:470 ../app/preferences.c:481
-#: ../lib/diapatternselector.c:91 ../lib/diapatternselector.c:182
+#: ../lib/diapatternselector.c:93 ../lib/diapatternselector.c:184
 #: ../lib/prop_inttypes.c:161 ../lib/prop_inttypes.c:187
 #: ../lib/prop_pixbuf.c:298 ../lib/prop_pixbuf.c:304
 msgid "No"
@@ -2084,7 +2086,7 @@ msgstr "Propiedades: "
 msgid "Object properties:"
 msgstr "Propiedades del objeto:"
 
-#: ../app/sheets.c:158
+#: ../app/sheets.c:159
 #, c-format
 msgid ""
 "%s\n"
@@ -2094,7 +2096,7 @@ msgstr ""
 "Hoja del sistema"
 
 # Si el anterior es "Hoja del sistema" este debe ser igualmente "Hoja del usuario".
-#: ../app/sheets.c:160
+#: ../app/sheets.c:161
 #, c-format
 msgid ""
 "%s\n"
@@ -2104,7 +2106,7 @@ msgstr ""
 "Hoja del usuario"
 
 # Nota: tiene pinta de que "shapes" no se refiere a "figuras" sino a "moldes", "modelos" o "formas". Me inclino por "formas" pendiente de verificación. RizOX.
-#: ../app/sheets.c:278
+#: ../app/sheets.c:279
 msgid ""
 "Can't get symbol 'custom_type' from any module.\n"
 "Editing shapes is disabled."
@@ -2112,17 +2114,17 @@ msgstr ""
 "No se pudo obtener el símbolo «custom_type» de ningún módulo.\n"
 "La edición de formas está desactivada."
 
-#: ../app/sheets.c:413
+#: ../app/sheets.c:414
 #, c-format
 msgid "Widget not found: %s"
 msgstr "Elemento no encontrado: %s"
 
 # Mantengo la traducción anterior de "Shape" como "Forma" en vez de "Figura". RizOX.
-#: ../app/sheets.c:443
+#: ../app/sheets.c:444
 msgid "SVG Shape"
 msgstr "Forma SVG"
 
-#: ../app/sheets.c:445
+#: ../app/sheets.c:446
 msgid "Programmed DiaObject"
 msgstr "Objeto BiaObject programado"
 
@@ -2696,7 +2698,7 @@ msgstr "flecha desconocida"
 #: ../lib/create.c:50 ../lib/create.c:100 ../lib/create.c:127
 #: ../lib/create.c:160 ../lib/create.c:196 ../lib/create.c:228
 #: ../lib/create.c:252 ../lib/create.c:284 ../lib/create.c:305
-#: ../lib/create.c:335 ../lib/create.c:378 ../plug-ins/svg/svg-import.c:694
+#: ../lib/create.c:335 ../lib/create.c:378 ../plug-ins/svg/svg-import.c:666
 #: ../plug-ins/vdx/vdx-import.c:144
 msgid "Can't find standard object"
 msgstr "No se pudo encontrar el objeto estándar"
@@ -2747,10 +2749,8 @@ msgstr "No se pudo encontrar la familia de tipografías para %s\n"
 msgid ""
 "Unsupported file format for saving:\n"
 "%s\n"
-"%s\n"
 msgstr ""
 "Formato de archivo que guardar no soportado:\n"
-"%s\n"
 "%s\n"
 
 #: ../lib/dia_image.c:348
@@ -2764,11 +2764,11 @@ msgstr ""
 "%s\n"
 "%s\n"
 
-#: ../lib/dialinechooser.c:309
+#: ../lib/dialinechooser.c:310
 msgid "Line Style Properties"
 msgstr "Propiedades de estilo de la línea"
 
-#: ../lib/dialinechooser.c:344
+#: ../lib/dialinechooser.c:345
 msgid "Details…"
 msgstr "Detalles…"
 
@@ -2806,19 +2806,19 @@ msgid "Cancel"
 msgstr "Cancelar"
 
 # Quiza' si estas dos se diferencian so'lo en las mayu'sculas, deberi'amos respetarlas. FVD
-#: ../lib/diapatternselector.c:108
+#: ../lib/diapatternselector.c:110
 msgid "Horizontal"
 msgstr "Horizontal"
 
-#: ../lib/diapatternselector.c:109
+#: ../lib/diapatternselector.c:111
 msgid "Diagonal"
 msgstr "Diagonal"
 
-#: ../lib/diapatternselector.c:110
+#: ../lib/diapatternselector.c:112
 msgid "Vertical"
 msgstr "Vertical"
 
-#: ../lib/diapatternselector.c:111
+#: ../lib/diapatternselector.c:113
 msgid "Radial"
 msgstr "Radial"
 
@@ -2914,11 +2914,11 @@ msgstr "Filtros múltiples de exportación con nombre único %s"
 msgid "Can't load font %s.\n"
 msgstr "No se puede cargar la tipografía %s.\n"
 
-#: ../lib/group.c:632
+#: ../lib/group.c:634
 msgid "Transformation"
 msgstr "Transformación"
 
-#: ../lib/message.c:93 ../lib/message.c:284
+#: ../lib/message.c:93 ../lib/message.c:289
 msgid "Warning"
 msgstr "Aviso"
 
@@ -2934,7 +2934,7 @@ msgstr "Mostrar mensajes repetidos."
 msgid "Don't show this message again"
 msgstr "No mostrar este mensaje de nuevo"
 
-#: ../lib/message.c:206
+#: ../lib/message.c:211
 #, c-format
 msgid "There is %d similar message."
 msgid_plural "There are %d similar messages."
@@ -2943,7 +2943,7 @@ msgstr[1] "Hay %d mensajes similares."
 
 # no estoy de acuerdo. FVD
 # Yo tampoco. "Noticia" es "News". "Notice" significa "Observación". RizOX.
-#: ../lib/message.c:268
+#: ../lib/message.c:273
 msgid "Notice"
 msgstr "Observación"
 
@@ -2987,13 +2987,7 @@ msgstr "No se encuentra el símbolo «dia_plugin_init»"
 msgid "dia_plugin_init() call failed"
 msgstr "falló la llamada a dia_plugin_init()"
 
-# Se traduce "plug-in" como "complemento" en vez de "extensión" para que no se confunda con las extensiones de los ficheros y para mantener la coherencia con lo anterior. RizOX.
-#: ../lib/plug-ins.c:234
-#, c-format
-msgid "%s Plugin could not be unloaded"
-msgstr "El complemento %s no pudo descargarse"
-
-#: ../lib/plug-ins.c:442
+#: ../lib/plug-ins.c:443
 msgid "Plugin Configuration"
 msgstr "Configuración del complemento"
 
@@ -3258,36 +3252,36 @@ msgstr "Dibujando"
 msgid "Draw Control Lines"
 msgstr "Dibujar líneas de control"
 
-#: ../lib/standard-path.c:726
+#: ../lib/standard-path.c:728
 msgid "Convert to Bezier"
 msgstr "Convertir a Bezier"
 
-#: ../lib/standard-path.c:727
+#: ../lib/standard-path.c:729
 msgid "Invert Path"
 msgstr "Invertir la ruta"
 
-#: ../lib/standard-path.c:728 ../objects/custom/custom_object.c:198
+#: ../lib/standard-path.c:730 ../objects/custom/custom_object.c:198
 #: ../objects/custom/custom_object.c:231
 msgid "Flip horizontal"
 msgstr "Invertir horizontal"
 
-#: ../lib/standard-path.c:729 ../objects/custom/custom_object.c:200
+#: ../lib/standard-path.c:731 ../objects/custom/custom_object.c:200
 #: ../objects/custom/custom_object.c:233
 msgid "Flip vertical"
 msgstr "Invertir vertical"
 
 #. Translators: Menu item Verb/Channel/Guide/Rotate
 #. Translators: Menu item Verb/Channel/Guide/Rotate/Rotate
-#: ../lib/standard-path.c:730 ../objects/FS/function.c:739
+#: ../lib/standard-path.c:732 ../objects/FS/function.c:739
 #: ../objects/FS/function.c:741
 msgid "Rotate"
 msgstr "Rotar"
 
-#: ../lib/standard-path.c:731
+#: ../lib/standard-path.c:733
 msgid "Shear"
 msgstr "Recortar"
 
-#: ../lib/standard-path.c:732
+#: ../lib/standard-path.c:734
 msgid "Show Control Lines"
 msgstr "Mostrar líneas de control"
 
@@ -3545,7 +3539,7 @@ msgid "Entity/Relationship table diagram objects"
 msgstr "Objetos de diagrama de tabla de entidad/relación"
 
 #: ../objects/Database/reference.c:109 ../objects/flowchart/box.c:150
-#: ../objects/standard/box.c:144 ../objects/standard/polyline.c:107
+#: ../objects/standard/box.c:149 ../objects/standard/polyline.c:108
 #: ../objects/standard/zigzagline.c:106
 msgid "Corner radius"
 msgstr "Radio de esquina"
@@ -4670,7 +4664,8 @@ msgid "Force"
 msgstr "Forzar"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Rotation
-#: ../objects/FS/function.c:1099 ../objects/standard/outline.c:104
+#: ../objects/FS/function.c:1099 ../objects/standard/box.c:154
+#: ../objects/standard/ellipse.c:143 ../objects/standard/outline.c:104
 msgid "Rotation"
 msgstr "Rotación"
 
@@ -4973,14 +4968,14 @@ msgstr "Tipo de divergencia:"
 #: ../objects/GRAFCET/vergent.c:403 ../objects/Istar/other.c:464
 #: ../objects/Jackson/domain.c:527 ../objects/KAOS/goal.c:567
 #: ../objects/KAOS/other.c:516 ../objects/SADT/box.c:442
-#: ../objects/standard/line.c:318
+#: ../objects/standard/line.c:320
 msgid "Add connection point"
 msgstr "Añadir punto de conexión"
 
 #: ../objects/GRAFCET/vergent.c:404 ../objects/Istar/other.c:465
 #: ../objects/Jackson/domain.c:528 ../objects/KAOS/goal.c:568
 #: ../objects/KAOS/other.c:517 ../objects/SADT/box.c:443
-#: ../objects/standard/line.c:319
+#: ../objects/standard/line.c:321
 msgid "Delete connection point"
 msgstr "Eliminar punto de conexión"
 
@@ -5330,8 +5325,8 @@ msgstr "Longitud del radio"
 msgid "Triangle"
 msgstr "Triángulo"
 
-#: ../objects/Misc/n_gon.c:318 ../objects/standard/box.c:132
-#: ../objects/standard/box.c:723
+#: ../objects/Misc/n_gon.c:318 ../objects/standard/box.c:137
+#: ../objects/standard/box.c:785
 msgid "Square"
 msgstr "Cuadrado"
 
@@ -5561,105 +5556,109 @@ msgstr "Objetos de diagrama SADT"
 msgid "Curve distance"
 msgstr "Distancia de curva"
 
-#: ../objects/standard/bezier.c:145 ../objects/standard/line.c:126
-#: ../objects/standard/polyline.c:108
+#: ../objects/standard/bezier.c:147 ../objects/standard/line.c:127
+#: ../objects/standard/polyline.c:109
 msgid "Line gaps"
 msgstr "Huecos de líneas"
 
-#: ../objects/standard/bezier.c:147 ../objects/standard/line.c:128
-#: ../objects/standard/polyline.c:110
+#: ../objects/standard/bezier.c:149 ../objects/standard/line.c:129
+#: ../objects/standard/polyline.c:111
 msgid "Absolute start gap"
 msgstr "Hueco de inicio absoluto"
 
-#: ../objects/standard/bezier.c:149 ../objects/standard/line.c:130
-#: ../objects/standard/polyline.c:112
+#: ../objects/standard/bezier.c:151 ../objects/standard/line.c:131
+#: ../objects/standard/polyline.c:113
 msgid "Absolute end gap"
 msgstr "Hueco de fin aboluto"
 
-#: ../objects/standard/bezier.c:765 ../objects/standard/beziergon.c:522
+#: ../objects/standard/bezier.c:767 ../objects/standard/beziergon.c:524
 msgid "Add Segment"
 msgstr "Añadir segmento"
 
-#: ../objects/standard/bezier.c:766 ../objects/standard/beziergon.c:523
+#: ../objects/standard/bezier.c:768 ../objects/standard/beziergon.c:525
 msgid "Delete Segment"
 msgstr "Eliminar segmento"
 
-#: ../objects/standard/bezier.c:768 ../objects/standard/beziergon.c:525
+#: ../objects/standard/bezier.c:770 ../objects/standard/beziergon.c:527
 msgid "Symmetric control"
 msgstr "Control simétrico"
 
-#: ../objects/standard/bezier.c:770 ../objects/standard/beziergon.c:527
+#: ../objects/standard/bezier.c:772 ../objects/standard/beziergon.c:529
 msgid "Smooth control"
 msgstr "Control de suavidad"
 
-#: ../objects/standard/bezier.c:772 ../objects/standard/beziergon.c:529
+#: ../objects/standard/bezier.c:774 ../objects/standard/beziergon.c:531
 msgid "Cusp control"
 msgstr "Control de cúspide"
 
 # Esto en cambio debe ser un sustantivo. FVD
-#: ../objects/standard/box.c:130 ../objects/standard/ellipse.c:120
+#: ../objects/standard/box.c:135 ../objects/standard/ellipse.c:127
 msgid "Free"
 msgstr "Liberar"
 
-#: ../objects/standard/box.c:131 ../objects/standard/ellipse.c:121
+#: ../objects/standard/box.c:136 ../objects/standard/ellipse.c:128
 msgid "Fixed"
 msgstr "Fijado"
 
-#: ../objects/standard/box.c:146 ../objects/standard/ellipse.c:133
+#: ../objects/standard/box.c:151 ../objects/standard/ellipse.c:140
 msgid "Aspect ratio"
 msgstr "Proporción"
 
-#: ../objects/standard/box.c:719 ../objects/standard/ellipse.c:683
+#: ../objects/standard/box.c:154 ../objects/standard/ellipse.c:143
+msgid "Rotation angle"
+msgstr "Ángulo de rotación"
+
+#: ../objects/standard/box.c:781 ../objects/standard/ellipse.c:755
 msgid "Free aspect"
 msgstr "Liberar proporción"
 
-#: ../objects/standard/box.c:721 ../objects/standard/ellipse.c:685
+#: ../objects/standard/box.c:783 ../objects/standard/ellipse.c:757
 msgid "Fixed aspect"
 msgstr "Proporción fija"
 
-#: ../objects/standard/ellipse.c:122 ../objects/standard/ellipse.c:687
+#: ../objects/standard/ellipse.c:129 ../objects/standard/ellipse.c:759
 msgid "Circle"
 msgstr "Círculo"
 
-#: ../objects/standard/image.c:118
+#: ../objects/standard/image.c:119
 msgid "Image file"
 msgstr "Archivo de imagen"
 
-#: ../objects/standard/image.c:120
+#: ../objects/standard/image.c:121
 msgid "Inline data"
 msgstr "Datos en línea"
 
-#: ../objects/standard/image.c:120
+#: ../objects/standard/image.c:121
 msgid "Store image data in diagram"
 msgstr "Almacenar los datos de la imagen en el diagrama"
 
-#: ../objects/standard/image.c:122
+#: ../objects/standard/image.c:123
 msgid "Pixbuf"
 msgstr "Pixbuf"
 
-#: ../objects/standard/image.c:122
+#: ../objects/standard/image.c:123
 msgid "The Pixbuf reference"
 msgstr "La referencia de Pixbuf"
 
-#: ../objects/standard/image.c:124
+#: ../objects/standard/image.c:125
 msgid "Draw border"
 msgstr "Dibujar borde"
 
-#: ../objects/standard/image.c:126
+#: ../objects/standard/image.c:127
 msgid "Keep aspect ratio"
 msgstr "Mantener proporción"
 
-#: ../objects/standard/image.c:255
+#: ../objects/standard/image.c:257
 msgid "Can't save image without filename"
 msgstr "No se puede guardar la imagen sin un nombre de archivo"
 
-#: ../objects/standard/image.c:722
+#: ../objects/standard/image.c:752
 msgid "Inconsistent pixbuf during image save."
 msgstr "Datos de pixbuf inconsistentes al guardar la imagen."
 
 #. Found file in same dir as diagram.
 #. Found file in current dir.
-#: ../objects/standard/image.c:819 ../objects/standard/image.c:830
+#: ../objects/standard/image.c:849 ../objects/standard/image.c:860
 #, c-format
 msgid ""
 "The image file '%s' was not found in the specified directory.\n"
@@ -5669,28 +5668,28 @@ msgstr ""
 "Se utiliza el archivo «%s» en su lugar.\n"
 
 #. Didn't find file in current dir.
-#: ../objects/standard/image.c:836 ../objects/standard/image.c:858
+#: ../objects/standard/image.c:866 ../objects/standard/image.c:888
 #, c-format
 msgid "The image file '%s' was not found.\n"
 msgstr "No se encontró el archivo de imagen «%s».\n"
 
-#: ../objects/standard/line.c:117
+#: ../objects/standard/line.c:118
 msgid "Arrows"
 msgstr "Flechas"
 
-#: ../objects/standard/line.c:122
+#: ../objects/standard/line.c:123
 msgid "Start point"
 msgstr "Punto de partida"
 
-#: ../objects/standard/line.c:124
+#: ../objects/standard/line.c:125
 msgid "End point"
 msgstr "Punto de llegada"
 
-#: ../objects/standard/line.c:320
+#: ../objects/standard/line.c:322
 msgid "Upgrade to Polyline"
 msgstr "Actualizar a polilínea"
 
-#: ../objects/standard/line.c:321
+#: ../objects/standard/line.c:323
 msgid "Upgrade to Zigzagline"
 msgstr "Actualizar a línea en zigzag"
 
@@ -5702,11 +5701,11 @@ msgstr "Contenido del texto"
 msgid "Angle to rotate the outline"
 msgstr "Ángulo para rotar el contorno"
 
-#: ../objects/standard/polygon.c:484 ../objects/standard/polyline.c:622
+#: ../objects/standard/polygon.c:486 ../objects/standard/polyline.c:624
 msgid "Add Corner"
 msgstr "Añadir esquina"
 
-#: ../objects/standard/polygon.c:485 ../objects/standard/polyline.c:623
+#: ../objects/standard/polygon.c:487 ../objects/standard/polyline.c:625
 msgid "Delete Corner"
 msgstr "Eliminar esquina"
 
@@ -6279,7 +6278,7 @@ msgid "Text outside"
 msgstr "Texto de fuera"
 
 #: ../plug-ins/cairo/diacairo.c:111 ../plug-ins/drs/dia-render-script.c:124
-#: ../plug-ins/hpgl/hpgl.c:662
+#: ../plug-ins/hpgl/hpgl.c:665
 #, c-format
 msgid "Can't open output file %s."
 msgstr "No se pudo abrir el archivo de salida %s."
@@ -6303,7 +6302,7 @@ msgid "Clipboard copy failed"
 msgstr "Falló al copiar al portapapeles"
 
 #: ../plug-ins/cairo/diacairo.c:348 ../plug-ins/postscript/postscript.c:39
-#: ../plug-ins/wmf/wmf.cpp:1474
+#: ../plug-ins/wmf/wmf.cpp:1476
 msgid "Nothing to print"
 msgstr "Nada que imprimir"
 
@@ -6365,16 +6364,16 @@ msgstr "Puntero de la ampliación"
 msgid "Visible rect pointer"
 msgstr "Puntero visible de la recta"
 
-#: ../plug-ins/cairo/diacairo-renderer.c:976
-#: ../plug-ins/cairo/diacairo-renderer.c:1011
-#: ../plug-ins/libart/dialibartrenderer.c:1236
-#: ../plug-ins/metapost/render_metapost.c:905
-#: ../plug-ins/postscript/diapsrenderer.c:659
-#: ../plug-ins/pstricks/render_pstricks.c:775 ../plug-ins/wpg/wpg.c:885
+#: ../plug-ins/cairo/diacairo-renderer.c:979
+#: ../plug-ins/cairo/diacairo-renderer.c:1014
+#: ../plug-ins/libart/dialibartrenderer.c:1226
+#: ../plug-ins/metapost/render_metapost.c:870
+#: ../plug-ins/postscript/diapsrenderer.c:662
+#: ../plug-ins/pstricks/render_pstricks.c:778 ../plug-ins/wpg/wpg.c:888
 msgid "Not enough memory for image drawing."
 msgstr "No hay suficiente memoria para dibujar la imagen."
 
-#: ../plug-ins/cgm/cgm.c:1018
+#: ../plug-ins/cgm/cgm.c:1021
 msgid ""
 "Image row length larger than maximum cell array.\n"
 "Image not exported to CGM."
@@ -6382,11 +6381,11 @@ msgstr ""
 "Longitud de filas de imagen mayor que máximo vector de celdas.\n"
 "No se exportó la imagen a CGM."
 
-#: ../plug-ins/cgm/cgm.c:1289
+#: ../plug-ins/cgm/cgm.c:1292
 msgid "Computer Graphics Metafile"
 msgstr "Computer Graphics Metafile"
 
-#: ../plug-ins/cgm/cgm.c:1314
+#: ../plug-ins/cgm/cgm.c:1317
 msgid "Computer Graphics Metafile export filter"
 msgstr "Filtro de exportación de Computer Graphics Metafile"
 
@@ -6421,11 +6420,11 @@ msgstr "falló read_dxf_codes en «%s»"
 msgid "Binary DXF from '%s' not supported"
 msgstr "DXF binario desde «%s» no soportado"
 
-#: ../plug-ins/hpgl/hpgl.c:705
+#: ../plug-ins/hpgl/hpgl.c:708
 msgid "HP Graphics Language"
 msgstr "Lenguaje de gráficos de HP"
 
-#: ../plug-ins/hpgl/hpgl.c:730
+#: ../plug-ins/hpgl/hpgl.c:733
 msgid "HP Graphics Language export filter"
 msgstr "Filtro de exportación de HP Graphics Language"
 
@@ -6486,11 +6485,11 @@ msgstr "Algoritmos OGDF de distribución"
 msgid "Libart-based rendering"
 msgstr "Renderizado basado en libart"
 
-#: ../plug-ins/libart/dialibartrenderer.c:1384
+#: ../plug-ins/libart/dialibartrenderer.c:1374
 msgid "Renderer transformation"
 msgstr "Transformación del renderizador"
 
-#: ../plug-ins/libart/dialibartrenderer.c:1385
+#: ../plug-ins/libart/dialibartrenderer.c:1375
 msgid "Transform pointer"
 msgstr "Puntero de transformación"
 
@@ -6532,19 +6531,19 @@ msgstr "PNG (con alisado)"
 msgid "TeX Metapost export filter"
 msgstr "Filtro de exportación Metapost de TeX"
 
-#: ../plug-ins/metapost/render_metapost.c:1139
+#: ../plug-ins/metapost/render_metapost.c:1104
 msgid "TeX Metapost macros"
 msgstr "Macros Metapost de TeX"
 
-#: ../plug-ins/pdf/pdf.c:29
+#: ../plug-ins/pdf/pdf.c:30
 msgid "PDF import not available."
 msgstr "Importación PDF no disponible."
 
-#: ../plug-ins/pdf/pdf.c:37
+#: ../plug-ins/pdf/pdf.c:39
 msgid "Portable Document File"
 msgstr "Portable Document File"
 
-#: ../plug-ins/pdf/pdf.c:55
+#: ../plug-ins/pdf/pdf.c:57
 msgid "PDF import filter"
 msgstr "Filtro de importación PDF"
 
@@ -6566,12 +6565,12 @@ msgstr ""
 msgid "LaTeX PGF export filter"
 msgstr "Filtro de exportación LaTeX PGF"
 
-#: ../plug-ins/pgf/render_pgf.c:1094
-#: ../plug-ins/pstricks/render_pstricks.c:683
+#: ../plug-ins/pgf/render_pgf.c:1096
+#: ../plug-ins/pstricks/render_pstricks.c:686
 msgid "Not valid UTF-8"
 msgstr "UTF-8 no válido"
 
-#: ../plug-ins/pgf/render_pgf.c:1250
+#: ../plug-ins/pgf/render_pgf.c:1252
 msgid "LaTeX PGF macros"
 msgstr "Macros LaTeX PGF"
 
@@ -6583,9 +6582,11 @@ msgstr "Falló al crear el pixbuf desde el dibujable."
 #, c-format
 msgid ""
 "Could not save file:\n"
+"%s\n"
 "%s"
 msgstr ""
 "No se pudo guardar el archivo:\n"
+"%s\n"
 "%s"
 
 #: ../plug-ins/pixbuf/pixbuf.c:112
@@ -6663,11 +6664,11 @@ msgstr "PostScript encapsulado (usando tipografías PS Latin-1)"
 msgid "TeX PSTricks export filter"
 msgstr "Filtro de exportación Pstricks de TeX"
 
-#: ../plug-ins/pstricks/render_pstricks.c:936
+#: ../plug-ins/pstricks/render_pstricks.c:939
 msgid "TeX PSTricks macros"
 msgstr "Macros PSTricks de TeX"
 
-#: ../plug-ins/python/pydia-render.c:1099
+#: ../plug-ins/python/pydia-render.c:1102
 #, c-format
 msgid "Couldn't open '%s' for writing.\n"
 msgstr "No se pudo abrir «%s» para escritura.\n"
@@ -6699,7 +6700,14 @@ msgid "Scalable Vector Graphics import and export filters"
 msgstr ""
 "Filtro de importación y exportación de gráficos de vector escalables (SVG)"
 
-#: ../plug-ins/svg/svg-import.c:675
+#: ../plug-ins/svg/svg-import.c:240 ../plug-ins/svg/svg-import.c:983
+#: ../plug-ins/svg/svg-import.c:1042 ../plug-ins/svg/svg-import.c:1131
+#: ../plug-ins/svg/svg-import.c:1228
+#, c-format
+msgid "Failed to apply transformation for '%s'"
+msgstr "Falló al aplicar la transformación de «%s»"
+
+#: ../plug-ins/svg/svg-import.c:647
 msgid ""
 "Invalid path data.\n"
 "svg:path data must start with moveto."
@@ -6707,16 +6715,16 @@ msgstr ""
 "Ruta de datos no válida.\n"
 "svg:la ruta de datos debe empezar con moveto."
 
-#: ../plug-ins/svg/svg-import.c:1937
+#: ../plug-ins/svg/svg-import.c:1901
 msgid "'Shape Design' shapes missing."
 msgstr "«Diseño de contorno» no encuentra los contornos."
 
-#: ../plug-ins/svg/svg-import.c:1971
+#: ../plug-ins/svg/svg-import.c:1935
 #, c-format
 msgid "Object '%s' creation failed"
 msgstr "Falló la creación de «%s»"
 
-#: ../plug-ins/svg/svg-import.c:1997
+#: ../plug-ins/svg/svg-import.c:1961
 #, c-format
 msgid ""
 "Parse error for memory block.\n"
@@ -6725,7 +6733,7 @@ msgstr ""
 "Analizar el error para el bloque de memoria\n"
 "%s"
 
-#: ../plug-ins/svg/svg-import.c:2015
+#: ../plug-ins/svg/svg-import.c:1979
 #, c-format
 msgid ""
 "SVG parser error for %s\n"
@@ -6735,7 +6743,7 @@ msgstr ""
 "%s"
 
 #. just a warning
-#: ../plug-ins/svg/svg-import.c:2021
+#: ../plug-ins/svg/svg-import.c:1985
 #, c-format
 msgid ""
 "SVG parser warning for %s\n"
@@ -6744,11 +6752,11 @@ msgstr ""
 "Analizador de advertencias en archivos SVG para %s\n"
 "%s"
 
-#: ../plug-ins/svg/svg-import.c:2054
+#: ../plug-ins/svg/svg-import.c:2018
 msgid "Expected SVG name-space not found in file"
 msgstr "No se encontró en el archivo el espacio de nombres SVG esperado"
 
-#: ../plug-ins/svg/svg-import.c:2074
+#: ../plug-ins/svg/svg-import.c:2038
 #, c-format
 msgid "root element was '%s' -- expecting 'svg'."
 msgstr "el elemento raíz era «%s»; se esperaba «svg»."
@@ -6834,7 +6842,7 @@ msgstr ""
 "No se pudo escribir el archivo %s\n"
 "%s"
 
-#: ../plug-ins/wmf/wmf.cpp:555
+#: ../plug-ins/wmf/wmf.cpp:557
 #, c-format
 msgid ""
 "Cannot render unknown font:\n"
@@ -6843,19 +6851,19 @@ msgstr ""
 "No se puede renderizar la tipografía desconocida:\n"
 "%s"
 
-#: ../plug-ins/wmf/wmf.cpp:1485
+#: ../plug-ins/wmf/wmf.cpp:1487
 msgid "Print (GDI) ..."
 msgstr "Imprimir (GDI)…"
 
-#: ../plug-ins/wmf/wmf.cpp:1501
+#: ../plug-ins/wmf/wmf.cpp:1503
 msgid "WMF export filter"
 msgstr "Filtro de exportación de WMF"
 
-#: ../plug-ins/wpg/wpg.c:1111 ../plug-ins/wpg/wpg.c:1117
+#: ../plug-ins/wpg/wpg.c:1114 ../plug-ins/wpg/wpg.c:1120
 msgid "WordPerfect Graphics"
 msgstr "WordPerfect Graphics"
 
-#: ../plug-ins/wpg/wpg.c:1142
+#: ../plug-ins/wpg/wpg.c:1145
 msgid "WordPerfect Graphics export filter"
 msgstr "Filtro de exportación de WordPerfect Graphics"
 
@@ -7022,8 +7030,9 @@ msgid "Compound end outside compound\n"
 msgstr "Fin de compuesto fuera de compuesto\n"
 
 #: ../plug-ins/xfig/xfig-import.c:1062
-#, c-format
-msgid "Couldn't read color: %s\n"
+#, fuzzy
+#| msgid "Couldn't read color: %s\n"
+msgid "Couldn't read color\n"
 msgstr "No se pudo leer el color %s\n"
 
 #: ../plug-ins/xfig/xfig-import.c:1067
@@ -10842,6 +10851,17 @@ msgstr "Actividad"
 #: ../sheets/UML.sheet.in.h:31
 msgid "Fork/Union"
 msgstr "División/unión"
+
+# Se traduce "plug-in" como "complemento" en vez de "extensión" para que no se confunda con las extensiones de los ficheros y para mantener la coherencia con lo anterior. RizOX.
+#~ msgid "%s Plugin could not be unloaded"
+#~ msgstr "El complemento %s no pudo descargarse"
+
+#~ msgid ""
+#~ "Could not save file:\n"
+#~ "%s"
+#~ msgstr ""
+#~ "No se pudo guardar el archivo:\n"
+#~ "%s"
 
 #~ msgid "No clipboard handler for '%s'"
 #~ msgstr "No existe un manejador del portapapeles para «%s»"
