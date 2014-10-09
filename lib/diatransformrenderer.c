@@ -122,7 +122,7 @@ is_capable_to (DiaRenderer *self, RenderCapability cap)
   DiaTransformRenderer *renderer = DIA_TRANSFORM_RENDERER (self);
 
   if (RENDER_AFFINE == cap)
-    return TRUE; /* reason for existance */
+    return TRUE; /* reason for existence */
   g_return_val_if_fail (renderer->worker != NULL, FALSE);
   return DIA_RENDERER_GET_CLASS (renderer->worker)->is_capable_to (renderer->worker, cap);
 }
@@ -363,29 +363,84 @@ draw_text (DiaRenderer *self,
 {
   DiaTransformRenderer *renderer = DIA_TRANSFORM_RENDERER (self);
   DiaMatrix *m = g_queue_peek_tail (renderer->matrices);
-
-  /* ToDo: see DiaPathRenderer? */
-  Point pos;
+  Point pos = text->position;
+  real angle, sx, sy;
   int i;
 
   pos = text->position;
+  if (m && dia_matrix_get_angle_and_scales (m, &angle, &sx, &sy)) {
+    Text *tc = text_copy (text);
+    transform_point (&pos, m);
+    text_set_position (tc, &pos);
+    text_set_height (tc, text_get_height (text) * MIN(sx,sy));
+    DIA_RENDERER_GET_CLASS(renderer->worker)->draw_rotated_text (renderer->worker, tc,
+								 NULL, 180.0 * angle / G_PI);
+    text_destroy (tc);
+  } else {
+    for (i=0;i<text->numlines;i++) {
+      TextLine *text_line = text->lines[i];
+      Point pt;
 
-  for (i=0;i<text->numlines;i++) {
-    TextLine *text_line = text->lines[i];
-    Point pt;
-
-    pt = pos;
-    if (m) {
-      transform_point (&pt, m);
-      /* ToDo: fon-size and angle */
+      pt = pos;
+      if (m) {
+        transform_point (&pt, m);
+        /* ToDo: font-size and angle */
+      }
+      DIA_RENDERER_GET_CLASS(renderer->worker)->draw_text_line(renderer->worker, text_line,
+							       &pt, text->alignment,
+							       &text->color);
+      pos.y += text->height;
     }
-    DIA_RENDERER_GET_CLASS(renderer->worker)->draw_text_line(renderer->worker, text_line,
-						             &pt, text->alignment,
-						             &text->color);
-    pos.y += text->height;
   }
-
 }
+
+/*!
+ * \brief Transform the text object while drawing
+ *
+ * Join the transformation from the renderer with the rotation from the API.
+ *
+ * \memberof _DiaTransformRenderer
+ */
+static void
+draw_rotated_text (DiaRenderer *self, Text *text, Point *center, real angle)
+{
+  DiaTransformRenderer *renderer = DIA_TRANSFORM_RENDERER (self);
+  DiaMatrix *m = g_queue_peek_tail (renderer->matrices);
+  Point pos = text->position;
+
+  if (m) {
+    real angle2, sx, sy;
+    DiaMatrix m2 = { 1, 0, 0, 1, -pos.x, -pos.y };
+    DiaMatrix t = { 1, 0, 0, 1, pos.x, pos.y };
+
+    if (center) {
+      m2.x0 = -center->x;
+      m2.y0 = -center->y;
+      t.x0 = center->x;
+      t.y0 = center->y;
+    }
+    dia_matrix_set_angle_and_scales (&m2, G_PI * angle / 180.0, 1.0, 1.0);
+    dia_matrix_multiply (&m2, &t, &m2);
+    dia_matrix_multiply (&m2, m, &m2);
+    if (dia_matrix_get_angle_and_scales (&m2, &angle2, &sx, &sy)) {
+      Text *tc = text_copy (text);
+      /* text position is independent of the rotation matrix */
+      transform_point (&pos, m);
+      text_set_position (tc, &pos);
+      text_set_height (tc, text_get_height (text) * MIN(sx,sy));
+      DIA_RENDERER_GET_CLASS(renderer->worker)->draw_rotated_text (renderer->worker, tc,
+								   NULL, 180.0 * angle2 / G_PI);
+      text_destroy (tc);
+    } else {
+      g_warning ("DiaTransformRenderer::draw_rotated_text() bad matrix.");
+    }
+  } else {
+    /* just pass through */
+    DIA_RENDERER_GET_CLASS(renderer->worker)->draw_rotated_text (renderer->worker, text,
+								 center, G_PI * angle / 180.0);
+  }
+}
+
 /*!
  * \brief Convert the string back to a _Text object and render that
  * \memberof _DiaTransformRenderer
@@ -428,9 +483,18 @@ draw_image(DiaRenderer *self,
   if (m) {
     transform_point (&p1, m);
     transform_point (&p2, m);
+    /* don't reduce to negative */
+    if (p2.x > p1.x)
+      width = p2.x - p1.x;
+    else
+      width = p1.x - p2.x;
+    if (p2.y > p1.y)
+      height = p2.y - p1.y;
+    else
+      height = p1.y - p2.y;
   }
   /* FIXME: for now only the position is transformed */
-  DIA_RENDERER_GET_CLASS (renderer->worker)->draw_image (renderer->worker, &p1, p2.x - p1.x, p2.y - p1.y, image);
+  DIA_RENDERER_GET_CLASS (renderer->worker)->draw_image (renderer->worker, &p1, width, height, image);
 }
 
 /*!
@@ -499,6 +563,7 @@ dia_transform_renderer_class_init (DiaTransformRendererClass *klass)
   renderer_class->draw_bezier   = draw_bezier;
   renderer_class->draw_beziergon = draw_beziergon;
   renderer_class->draw_text     = draw_text;
+  renderer_class->draw_rotated_text = draw_rotated_text;
   /* other */
   renderer_class->is_capable_to = is_capable_to;
 }
