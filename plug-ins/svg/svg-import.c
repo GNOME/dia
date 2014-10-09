@@ -433,7 +433,7 @@ apply_style(DiaObject *obj, xmlNodePtr node, DiaSvgStyle *parent_style,
       if (str) {
 	  DiaMatrix *m = dia_svg_parse_transform ((char *)str, user_scale);
 	  if (m) {
-	    scale = m->xx;
+	    transform_length (&scale, m);
 	    g_free (m);
 	  }
 	  xmlFree(str);
