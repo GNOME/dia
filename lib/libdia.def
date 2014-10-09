@@ -744,6 +744,7 @@ EXPORTS
  text_get_ascent
  text_get_attributes
  text_get_descent
+ text_get_height
  text_get_line
  text_get_line_strlen
  text_get_line_width

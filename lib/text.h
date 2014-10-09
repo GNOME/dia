@@ -77,6 +77,7 @@ gchar *text_get_line(const Text *text, int line);
 char *text_get_string_copy(const Text *text);
 void text_set_string(Text *text, const char *string);
 void text_set_height(Text *text, real height);
+real text_get_height(const Text *text);
 void text_set_font(Text *text, DiaFont *font);
 void text_set_position(Text *text, Point *pos);
 void text_set_color(Text *text, Color *col);

@@ -392,6 +392,12 @@ text_set_height(Text *text, real height)
   calc_ascent_descent(text);
 }
 
+real
+text_get_height(const Text *text)
+{
+  return text->height;
+}
+
 void
 text_set_font(Text *text, DiaFont *font)
 {

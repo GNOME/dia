@@ -252,6 +252,9 @@ struct _DiaRendererClass
 			     RenderCapability cap);
   /*! fill with a pattern, currently only gradient */
   void (*set_pattern) (DiaRenderer *renderer, DiaPattern *pat);
+  /*! draw text rotated around center with given angle in degrees */
+  void (*draw_rotated_text) (DiaRenderer *renderer, Text *text,
+			     Point *center, real angle);
 };
 
 /*

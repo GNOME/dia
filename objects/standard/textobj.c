@@ -33,6 +33,7 @@
 #include "properties.h"
 #include "diamenu.h"
 #include "create.h"
+#include "message.h" /* just dia_log_message */
 
 #include "tool-icons.h"
 
@@ -66,6 +67,8 @@ struct _Textobj {
   gboolean show_background;
   /*! margin used for background drawing and connection point placement */
   real margin;
+  /*! rotation around text handle position */
+  real text_angle;
 };
 
 static struct _TextobjProperties {
@@ -86,6 +89,7 @@ static DiaObject *textobj_create(Point *startpoint,
 			      void *user_data,
 			      Handle **handle1,
 			      Handle **handle2);
+static DiaObject *textobj_copy(Textobj *textobj);
 static void textobj_destroy(Textobj *textobj);
 
 static void textobj_get_props(Textobj *textobj, GPtrArray *props);
@@ -95,6 +99,7 @@ static void textobj_save(Textobj *textobj, ObjectNode obj_node,
 			 DiaContext *ctx);
 static DiaObject *textobj_load(ObjectNode obj_node, int version, DiaContext *ctx);
 static DiaMenu *textobj_get_object_menu(Textobj *textobj, Point *clickedpoint);
+static gboolean textobj_transform(Textobj *textobj, const DiaMatrix *m);
 
 static void textobj_valign_point(Textobj *textobj, Point* p);
 
@@ -115,6 +120,7 @@ PropEnumData prop_text_vert_align_data[] = {
   { NULL, 0 }
 };
 static PropNumData text_margin_range = { 0.0, 10.0, 0.1 };
+static PropNumData text_angle_range = { -180.0, 180.0, 5.0 };
 static PropDescription textobj_props[] = {
   OBJECT_COMMON_PROPERTIES,
   PROP_STD_TEXT_ALIGNMENT,
@@ -123,6 +129,8 @@ static PropDescription textobj_props[] = {
   PROP_STD_TEXT_FONT,
   PROP_STD_TEXT_HEIGHT,
   PROP_STD_TEXT_COLOUR,
+  { "text_angle", PROP_TYPE_REAL, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
+    N_("Text angle"), NULL, &text_angle_range },
   PROP_STD_SAVED_TEXT,
   PROP_STD_FILL_COLOUR_OPTIONAL,
   PROP_STD_SHOW_BACKGROUND_OPTIONAL,
@@ -138,6 +146,7 @@ static PropOffset textobj_offsets[] = {
   {PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(Textobj,text),offsetof(Text,height)},
   {"text_colour",PROP_TYPE_COLOUR,offsetof(Textobj,text),offsetof(Text,color)},
   {"text_alignment",PROP_TYPE_ENUM,offsetof(Textobj,text),offsetof(Text,alignment)},
+  {"text_angle",PROP_TYPE_REAL,offsetof(Textobj,text_angle)},
   {"text_vert_alignment",PROP_TYPE_ENUM,offsetof(Textobj,vert_align)},
   { "fill_colour", PROP_TYPE_COLOUR, offsetof(Textobj, fill_color) },
   { "show_background", PROP_TYPE_BOOL, offsetof(Textobj, show_background) },
@@ -168,7 +177,7 @@ static ObjectOps textobj_ops = {
   (DrawFunc)            textobj_draw,
   (DistanceFunc)        textobj_distance_from,
   (SelectFunc)          textobj_select,
-  (CopyFunc)            object_copy_using_properties,
+  (CopyFunc)            textobj_copy,
   (MoveFunc)            textobj_move,
   (MoveHandleFunc)      textobj_move_handle,
   (GetPropertiesFunc)   object_create_props_dialog,
@@ -179,6 +188,7 @@ static ObjectOps textobj_ops = {
   (SetPropsFunc)        textobj_set_props,
   (TextEditFunc) 0,
   (ApplyPropertiesListFunc) object_apply_props,
+  (TransformFunc)       textobj_transform,
 };
 
 static void
@@ -194,9 +204,47 @@ textobj_set_props(Textobj *textobj, GPtrArray *props)
   textobj_update_data(textobj);
 }
 
+static void
+_textobj_get_poly (const Textobj *textobj, Point poly[4])
+{
+  Point ul, lr;
+  Point pt = textobj->text_handle.pos;
+  Rectangle box;
+  DiaMatrix m = { 1, 0, 0, 1, pt.x, pt.y };
+  DiaMatrix t = { 1, 0, 0, 1, -pt.x, -pt.y };
+  int i;
+
+  dia_matrix_set_angle_and_scales (&m, G_PI * textobj->text_angle / 180.0, 1.0, 1.0);
+  dia_matrix_multiply (&m, &t, &m);
+
+  text_calc_boundingbox (textobj->text, &box);
+  ul.x = box.left - textobj->margin;
+  ul.y = box.top - textobj->margin;
+  lr.x = box.right + textobj->margin;
+  lr.y = box.bottom + textobj->margin;
+
+  poly[0].x = ul.x;
+  poly[0].y = ul.y;
+  poly[1].x = lr.x;
+  poly[1].y = ul.y;
+  poly[2].x = lr.x;
+  poly[2].y = lr.y;
+  poly[3].x = ul.x;
+  poly[3].y = lr.y;
+
+  for (i = 0; i < 4; ++i)
+    transform_point (&poly[i], &m);
+}
+
 static real
 textobj_distance_from(Textobj *textobj, Point *point)
 {
+  if (textobj->text_angle != 0) {
+    Point poly[4];
+
+    _textobj_get_poly (textobj, poly);
+    return distance_polygon_point(poly, 4, 0.0, point);
+  }
   if (textobj->show_background)
     return distance_rectangle_point(&textobj->object.bounding_box, point);
   return text_distance_from(textobj->text, point); 
@@ -250,9 +298,29 @@ textobj_draw(Textobj *textobj, DiaRenderer *renderer)
     ul.y = box.top - textobj->margin;
     lr.x = box.right + textobj->margin;
     lr.y = box.bottom + textobj->margin;
-    DIA_RENDERER_GET_CLASS (renderer)->draw_rect (renderer, &ul, &lr, &textobj->fill_color, NULL);
+    if (textobj->text_angle == 0) {
+      DIA_RENDERER_GET_CLASS (renderer)->draw_rect (renderer, &ul, &lr, &textobj->fill_color, NULL);
+    } else {
+      Point poly[4];
+
+      _textobj_get_poly (textobj, poly);
+      DIA_RENDERER_GET_CLASS (renderer)->draw_polygon (renderer, poly, 4, &textobj->fill_color, NULL);
+    }
   }
-  text_draw(textobj->text, renderer);
+  if (textobj->text_angle == 0) {
+    text_draw(textobj->text, renderer);
+  } else {
+    DIA_RENDERER_GET_CLASS (renderer)->draw_rotated_text (renderer, textobj->text,
+							  &textobj->text_handle.pos, textobj->text_angle);
+    /* XXX: interactive case not working correctly */
+    if (renderer->is_interactive &&
+        dia_object_is_selected(&textobj->object) &&
+	textobj->text->focus.has_focus) {
+      /* editing is not rotated */
+      text_draw(textobj->text, renderer);
+    }
+
+  }
 }
 
 static void
@@ -282,6 +350,7 @@ textobj_update_data(Textobj *textobj)
 {
   Point to2;
   DiaObject *obj = &textobj->object;
+  Rectangle tx_bb;
   
   text_set_position(textobj->text, &obj->position);
   text_calc_boundingbox(textobj->text, &obj->bounding_box);
@@ -298,7 +367,9 @@ textobj_update_data(Textobj *textobj)
   else if (ALIGN_RIGHT == textobj->text->alignment)
     to2.x -= textobj->margin; /* left */
   text_set_position(textobj->text, &to2);
-  text_calc_boundingbox(textobj->text, &obj->bounding_box);
+
+  /* always use the unrotated box ... */
+  text_calc_boundingbox(textobj->text, &tx_bb);
   /* grow the bounding box by 2x margin */
   obj->bounding_box.top    -= textobj->margin;
   obj->bounding_box.left   -= textobj->margin;
@@ -306,6 +377,28 @@ textobj_update_data(Textobj *textobj)
   obj->bounding_box.right  += textobj->margin;
 
   textobj->text_handle.pos = obj->position;
+  if (textobj->text_angle == 0) {
+    obj->bounding_box = tx_bb;
+    g_return_if_fail (obj->enclosing_box != NULL);
+    *obj->enclosing_box = tx_bb;
+  } else {
+    /* ... and grow it when necessary */
+    Point poly[4];
+    int i;
+
+    _textobj_get_poly (textobj, poly);
+    /* we don't want the joined box for boundingbox because
+     * selection would become too greedy than.
+     */
+    obj->bounding_box.left = obj->bounding_box.right = poly[0].x;
+    obj->bounding_box.top = obj->bounding_box.bottom = poly[0].y;
+    for (i = 1; i < 4; ++i)
+      rectangle_add_point (&obj->bounding_box, &poly[i]);
+    g_return_if_fail (obj->enclosing_box != NULL);
+    *obj->enclosing_box = obj->bounding_box;
+    /* join for editing/selection bbox */
+    rectangle_union (obj->enclosing_box, &tx_bb);
+  }
 }
 
 static DiaObject *
@@ -322,7 +415,8 @@ textobj_create(Point *startpoint,
   
   textobj = g_malloc0(sizeof(Textobj));
   obj = &textobj->object;
-  
+  obj->enclosing_box = g_new0 (Rectangle, 1);
+
   obj->type = &textobj_type;
 
   obj->ops = &textobj_ops;
@@ -358,10 +452,21 @@ textobj_create(Point *startpoint,
   return &textobj->object;
 }
 
+static DiaObject *
+textobj_copy(Textobj *textobj)
+{
+  Textobj *copied = (Textobj *)object_copy_using_properties(&textobj->object);
+  copied->object.enclosing_box = g_new (Rectangle, 1);
+  *copied->object.enclosing_box = *textobj->object.enclosing_box;
+  return &copied->object;
+}
+
 static void
 textobj_destroy(Textobj *textobj)
 {
   text_destroy(textobj->text);
+  g_free (textobj->object.enclosing_box);
+  textobj->object.enclosing_box = NULL;
   object_destroy(&textobj->object);
 }
 
@@ -381,6 +486,8 @@ textobj_save(Textobj *textobj, ObjectNode obj_node, DiaContext *ctx)
   }
   if (textobj->margin > 0.0)
     data_add_real(new_attribute(obj_node, "margin"), textobj->margin, ctx);
+  if (textobj->text_angle != 0.0)
+    data_add_real(new_attribute(obj_node, "text_angle"), textobj->text_angle, ctx);
 }
 
 static DiaObject *
@@ -393,6 +500,7 @@ textobj_load(ObjectNode obj_node, int version, DiaContext *ctx)
 
   textobj = g_malloc0(sizeof(Textobj));
   obj = &textobj->object;
+  obj->enclosing_box = g_new0(Rectangle,1);
   
   obj->type = &textobj_type;
   obj->ops = &textobj_ops;
@@ -415,6 +523,9 @@ textobj_load(ObjectNode obj_node, int version, DiaContext *ctx)
   else if (version == 0) {
     textobj->vert_align = VALIGN_FIRST_LINE;
   }
+  attr = object_find_attribute(obj_node, "text_angle");
+  if (attr != NULL)
+    textobj->text_angle = data_real(attribute_first_data(attr), ctx);
 
   /* default visibility must be off to keep compatibility */
   textobj->fill_color = attributes_get_background();
@@ -488,4 +599,30 @@ textobj_get_object_menu(Textobj *textobj, Point *clickedpoint)
   textobj_menu_items[0].active = (text->numlines > 0) ? DIAMENU_ACTIVE : 0;
 
   return &textobj_menu;
+}
+static gboolean
+textobj_transform(Textobj *textobj, const DiaMatrix *m)
+{
+  real a, sx, sy;
+
+  g_return_val_if_fail(m != NULL, FALSE);
+
+  if (!dia_matrix_get_angle_and_scales (m, &a, &sx, &sy)) {
+    dia_log_message ("textobj_transform() can't convert given matrix");
+    return FALSE;
+  } else {
+    /* XXX: what to do if width!=height */
+    real height = text_get_height (textobj->text) * MIN(sx,sy);
+    real angle = a*180/G_PI;
+    Point p = textobj->object.position;
+
+    /* rotation is invariant to the handle position */
+    transform_point (&p, m);
+    text_set_height (textobj->text, height);
+    textobj->text_angle = angle;
+    textobj->object.position = p;
+ }
+
+  textobj_update_data(textobj);
+  return TRUE;
 }

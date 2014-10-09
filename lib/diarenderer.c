@@ -19,14 +19,15 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
-
+#include <config.h>
 
 #include "diarenderer.h"
 #include "object.h"
 #include "text.h"
 #include "textline.h"
 #include "diatransformrenderer.h"
-
+#include "standard-path.h" /* text_to_path */
+#include "boundingbox.h" /* PolyBBextra */
 /*
  * redefinition of isnan, for portability, as explained in :
  * http://www.gnu.org/software/autoconf/manual/html_node/Function-Portability.html
@@ -105,6 +106,8 @@ static void draw_text  (DiaRenderer *renderer,
                         Text *text);
 static void draw_text_line  (DiaRenderer *renderer,
 			     TextLine *text_line, Point *pos, Alignment alignment, Color *color);
+static void draw_rotated_text (DiaRenderer *renderer, Text *text,
+			       Point *center, real angle);
 
 static void draw_polyline (DiaRenderer *renderer,
                            Point *points, int num_points,
@@ -335,6 +338,7 @@ dia_renderer_class_init (DiaRendererClass *klass)
   renderer_class->draw_polyline  = draw_polyline;
   renderer_class->draw_text      = draw_text;
   renderer_class->draw_text_line = draw_text_line;
+  renderer_class->draw_rotated_text = draw_rotated_text;
 
   /* highest level functions */
   renderer_class->draw_rounded_rect = draw_rounded_rect;
@@ -598,6 +602,108 @@ draw_text (DiaRenderer *renderer,
 						     text->alignment,
 						     &text->color);
     pos.y += text->height;
+  }
+}
+
+/*!
+ * \brief Default implementation to draw rotated text
+ *
+ * The default implementation converts the given _Text object to a
+ * path and passes it to draw_beziergon() if the renderer support
+ * rendering wih holes. If not a fallback implementation is used.
+ *
+ * A Renderer with a good own concept of rotated text should
+ * overwrite it.
+ *
+ * \memberof _DiaRenderer
+ */
+static void
+draw_rotated_text (DiaRenderer *renderer, Text *text,
+		   Point *center, real angle)
+{
+  if (angle == 0.0) {
+    /* maybe the fallback should also consider center? */
+    draw_text (renderer, text);
+  } else {
+    GArray *path = g_array_new (FALSE, FALSE, sizeof(BezPoint));
+    if (!text_is_empty (text) && text_to_path (text, path)) {
+      /* Scaling and transformation here */
+      Rectangle bz_bb, tx_bb;
+      PolyBBExtras extra = { 0, };
+      real sx, sy;
+      guint i;
+      real dx = center ? (text->position.x - center->x) : 0;
+      real dy = center ? (text->position.y - center->y) : 0;
+      DiaMatrix m = { 1, 0, 0, 1, 0, 0 };
+      DiaMatrix t = { 1, 0, 0, 1, 0, 0 };
+
+      polybezier_bbox (&g_array_index (path, BezPoint, 0), path->len, &extra, TRUE, &bz_bb);
+      text_calc_boundingbox (text, &tx_bb);
+      sx = (tx_bb.right - tx_bb.left) / (bz_bb.right - bz_bb.left);
+      sy = (tx_bb.bottom - tx_bb.top) / (bz_bb.bottom - bz_bb.top);
+
+      /* move center to origin */
+      if (ALIGN_LEFT == text->alignment)
+	t.x0 = -bz_bb.left;
+      else if (ALIGN_RIGHT == text->alignment)
+	t.x0 = - bz_bb.right;
+      else
+	t.x0 = -(bz_bb.left + bz_bb.right) / 2.0;
+      t.x0 -= dx / sx;
+      t.y0 = - bz_bb.top - (text_get_ascent (text) - dy) / sy;
+      dia_matrix_set_angle_and_scales (&m, G_PI * angle / 180.0, sx, sx);
+      dia_matrix_multiply (&m, &t, &m);
+      /* move back center from origin */
+      if (ALIGN_LEFT == text->alignment)
+	t.x0 = tx_bb.left;
+      else if (ALIGN_RIGHT == text->alignment)
+	t.x0 = tx_bb.right;
+      else
+	t.x0 = (tx_bb.left + tx_bb.right) / 2.0;
+      t.x0 += dx;
+      t.y0 = tx_bb.top + (text_get_ascent (text) - dy);
+      dia_matrix_multiply (&m, &m, &t);
+
+      for (i = 0; i < path->len; ++i) {
+	BezPoint *bp = &g_array_index (path, BezPoint, i);
+	transform_bezpoint (bp, &m);
+      }
+
+      if (DIA_RENDERER_GET_CLASS (renderer)->is_capable_to(renderer, RENDER_HOLES))
+	DIA_RENDERER_GET_CLASS (renderer)->draw_beziergon(renderer,
+							  &g_array_index (path, BezPoint, 0),
+							  path->len,
+							  &text->color, NULL);
+      else
+	bezier_render_fill (renderer,
+			    &g_array_index (path, BezPoint, 0), path->len,
+			    &text->color);
+    } else {
+      Color magenta = { 1.0, 0.0, 1.0, 1.0 };
+      Point pt = center ? *center : text->position;
+      DiaMatrix m = { 1, 0, 0, 1, pt.x, pt.y };
+      DiaMatrix t = { 1, 0, 0, 1, -pt.x, -pt.y };
+      Rectangle tb;
+      Point poly[4];
+      int i;
+
+      text_calc_boundingbox (text, &tb);
+      poly[0].x = tb.left;  poly[0].y = tb.top;
+      poly[1].x = tb.right; poly[1].y = tb.top;
+      poly[2].x = tb.right; poly[2].y = tb.bottom;
+      poly[3].x = tb.left;  poly[3].y = tb.bottom;
+
+      dia_matrix_set_angle_and_scales (&m, G_PI * angle / 180.0, 1.0, 1.0);
+      dia_matrix_multiply (&m, &t, &m);
+
+      for (i = 0; i < 4; ++i)
+	transform_point (&poly[i], &m);
+
+      DIA_RENDERER_GET_CLASS (renderer)->set_linewidth (renderer, 0.0);
+      DIA_RENDERER_GET_CLASS (renderer)->draw_polygon (renderer, poly, 4,
+						       NULL, &magenta);
+    }
+    g_array_free (path, TRUE);
   }
 }
 
