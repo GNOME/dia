@@ -21,8 +21,8 @@ msgstr ""
 "Project-Id-Version: dia.HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=dia&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2014-10-04 11:06+0000\n"
-"PO-Revision-Date: 2014-10-02 09:39+0200\n"
+"POT-Creation-Date: 2014-10-06 15:16+0000\n"
+"PO-Revision-Date: 2014-10-07 21:15+0200\n"
 "Last-Translator: Miguel Rodríguez Núñez <bokerones.fritos@gmail.com>\n"
 "Language-Team: Español; Castellano <gnome-es-list@gnome.org>\n"
 "Language: es\n"
@@ -1209,10 +1209,10 @@ msgid "Internal error %d writing file %s\n"
 msgstr "Error interno %d escribiendo archivo %s\n"
 
 #: ../app/load_save.c:1136
-#, fuzzy, c-format
+#, c-format
 #| msgid "Can't rename %s to final output file %s: %s\n"
 msgid "Can't rename %s to final output file %s"
-msgstr "No se pudo renombrar %s al archivo final de salida %s: %s\n"
+msgstr "No se pudo renombrar %s al archivo final de salida %s"
 
 #. no extra threads supported, stay in this one
 #: ../app/load_save.c:1252 ../app/load_save.c:1266 ../app/load_save.c:1274
@@ -7030,10 +7030,9 @@ msgid "Compound end outside compound\n"
 msgstr "Fin de compuesto fuera de compuesto\n"
 
 #: ../plug-ins/xfig/xfig-import.c:1062
-#, fuzzy
 #| msgid "Couldn't read color: %s\n"
 msgid "Couldn't read color\n"
-msgstr "No se pudo leer el color %s\n"
+msgstr "No se pudo leer el color\n"
 
 #: ../plug-ins/xfig/xfig-import.c:1067
 #, c-format
