@@ -785,8 +785,6 @@ read_text_svg(xmlNodePtr node, DiaSvgStyle *parent_style,
       multiline = NULL;
     }
     if(str || multiline) {
-      if (matrix)
-	transform_point (&point, matrix);
       new_obj = otype->ops->create(&point, otype->default_user_data,
 				 &h1, &h2);
       list = g_list_append (list, new_obj);
@@ -813,13 +811,8 @@ read_text_svg(xmlNodePtr node, DiaSvgStyle *parent_style,
 	/* font-size should be the line-height according to SVG spec,
 	 * but see node_set_text_style() - round-trip first */
 	real font_scale = dia_font_get_height (prop->attr.font) / dia_font_get_size (prop->attr.font);
-	if (matrix) /* ToDo: more text transform - or not at all? */
-	  transform_length (&font_height, matrix);
         prop->attr.height = font_height * font_scale;
       } else {
-        real fh = gs->font_height;
-	if (matrix)
-	  transform_length (&fh, matrix);
 	prop->attr.height = gs->font_height;
       }
       /* when operating with default values foreground and background are intentionally swapped
@@ -843,6 +836,10 @@ read_text_svg(xmlNodePtr node, DiaSvgStyle *parent_style,
       }
       new_obj->ops->set_props(new_obj, props);
       prop_list_free(props);
+      if (matrix) {
+	g_return_val_if_fail (new_obj->ops->transform, list);
+	new_obj->ops->transform(new_obj, matrix);
+      }
     }
     if (gs->font)
       dia_font_unref (gs->font);
