@@ -113,6 +113,7 @@ static void draw_string       (DiaRenderer *self,
 static void draw_text_line    (DiaRenderer *self, TextLine *text_line,
 	                       Point *pos, Alignment alignment, Color *colour);
 static void draw_text         (DiaRenderer *self, Text *text);
+static void draw_rotated_text (DiaRenderer *self, Text *text, Point *center, real angle);
 
 static void svg_renderer_class_init (SvgRendererClass *klass);
 
@@ -223,6 +224,7 @@ svg_renderer_class_init (SvgRendererClass *klass)
   renderer_class->draw_string  = draw_string;
   renderer_class->draw_text  = draw_text;
   renderer_class->draw_text_line  = draw_text_line;
+  renderer_class->draw_rotated_text  = draw_rotated_text;
   renderer_class->is_capable_to = is_capable_to;
 }
 
@@ -529,6 +531,12 @@ draw_text_line(DiaRenderer *self, TextLine *text_line,
 static void
 draw_text (DiaRenderer *self, Text *text)
 {
+  draw_rotated_text (self, text, NULL, 0.0);
+}
+
+static void
+draw_rotated_text (DiaRenderer *self, Text *text, Point *center, real angle)
+{
   DiaSvgRenderer *renderer = DIA_SVG_RENDERER (self);
   Point pos = text->position;
   int i;
@@ -538,11 +546,25 @@ draw_text (DiaRenderer *self, Text *text)
   node_text = xmlNewChild(renderer->root, renderer->svg_name_space, (const xmlChar *)"text", NULL);
   /* text 'global' properties  */
   node_set_text_style(node_text, renderer, text->font, text->height, text->alignment, &text->color);
-  dia_svg_dtostr(d_buf, pos.x);
-  xmlSetProp(node_text, (const xmlChar *)"x", (xmlChar *) d_buf);
-  dia_svg_dtostr(d_buf, pos.y);
-  xmlSetProp(node_text, (const xmlChar *)"y", (xmlChar *) d_buf);
-  
+  if (angle != 0) {
+     gchar x_buf[G_ASCII_DTOSTR_BUF_SIZE];
+     gchar y_buf[G_ASCII_DTOSTR_BUF_SIZE];
+     gchar *trans;
+     if (center)
+       pos = *center;
+     g_ascii_formatd (d_buf, sizeof(d_buf), "%g", angle);
+     dia_svg_dtostr(x_buf, pos.x);
+     dia_svg_dtostr(y_buf, pos.y);
+     trans = g_strdup_printf ("translate(%s,%s) rotate(%s) translate(-%s,-%s)",
+			      x_buf, y_buf, d_buf, x_buf, y_buf);
+     xmlSetProp(node_text, (const xmlChar *)"transform", (xmlChar *) trans);
+     g_free (trans);
+  } else {
+    dia_svg_dtostr(d_buf, pos.x);
+    xmlSetProp(node_text, (const xmlChar *)"x", (xmlChar *) d_buf);
+    dia_svg_dtostr(d_buf, pos.y);
+    xmlSetProp(node_text, (const xmlChar *)"y", (xmlChar *) d_buf);
+  }
   pos = text->position;
   for (i=0;i<text->numlines;i++) {
     TextLine *text_line = text->lines[i];
