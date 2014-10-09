@@ -492,7 +492,10 @@ apply_style(DiaObject *obj, xmlNodePtr node, DiaSvgStyle *parent_style,
       if(gs->fill == DIA_SVG_COLOUR_NONE || gs->fill_opacity == 0) {
 	bprop->bool_data = FALSE;
       } else {
-	bprop->bool_data = TRUE;
+	if (init)
+	  bprop->bool_data = TRUE;
+	else
+	  bprop->common.experience |= PXP_NOTSET; /* no overwrite */
       }
       /* apply pattern, gradient if any */
       str = xmlGetProp(node, (const xmlChar *)"fill");
@@ -738,7 +741,7 @@ read_text_svg(xmlNodePtr node, DiaSvgStyle *parent_style,
     point.x = _node_get_real (node, "x", 0.0);
     point.y = _node_get_real (node, "y", 0.0);
 
-    /* text propety handling is special, don't use apply_style() */
+    /* text property handling is special, don't use apply_style() */
     _node_css_parse_style (node, gs, user_scale, style_ht);
 
     /* font-size can be given in the style (with absolute unit) or
