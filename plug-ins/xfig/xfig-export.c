@@ -47,6 +47,7 @@
 #include "properties.h"
 #include "dia_image.h"
 #include "group.h"
+#include "diatransformrenderer.h"
 
 #include "xfig.h"
 
@@ -1064,13 +1065,20 @@ draw_object(DiaRenderer *self,
 {
   XfigRenderer *renderer = XFIG_RENDERER(self);
 
-  if (!renderer->color_pass)
+  if (renderer->color_pass) {
+    /* color pass does not need transformation */
+    object->ops->draw(object, DIA_RENDERER(renderer));
+  } else {
     fprintf(renderer->file, "6 0 0 0 0\n");
-  if (matrix)
-    g_warning ("XFigRenderer no transformations");
-  object->ops->draw(object, DIA_RENDERER(renderer));
-  if (!renderer->color_pass)
+    if (matrix) {
+      DiaRenderer *tr = dia_transform_renderer_new (self);
+      DIA_RENDERER_GET_CLASS(tr)->draw_object (tr, object, matrix);
+      g_object_unref (tr);
+    } else {
+      object->ops->draw(object, DIA_RENDERER(renderer));
+    }
     fprintf(renderer->file, "-6\n");
+  }
 }
 
 static gboolean
