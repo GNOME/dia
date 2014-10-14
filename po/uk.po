@@ -2,16 +2,17 @@
 # Ukrainian translation of dia.
 # Copyright (C) 1999, 2007 Free Software Foundation, Inc.
 #
+#: ../objects/UML/class.c:193
 # Yuri Syrota <rasta@renome.rovno.ua>, 1999.
 # Maxim Dziumanenko <dziumanenko@gmail.com>, 2004.
 # Yuri Chornoivan <yurchor@ukr.net>, 2007, 2011, 2014.
-#: ../objects/UML/class.c:193
 msgid ""
 msgstr ""
 "Project-Id-Version: uk\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-10-05 15:56+0300\n"
-"PO-Revision-Date: 2014-09-28 13:42+0300\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=dia&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2014-10-09 18:09+0000\n"
+"PO-Revision-Date: 2014-10-10 17:59+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -726,16 +727,14 @@ msgstr ""
 "Інформацію про скасування дії було вилучено."
 
 #: ../app/disp_callbacks.c:128
-#, fuzzy
-msgid "Propertiesے"
-msgstr "Властивості"
+msgid "Properties…"
+msgstr "Властивості…"
 
 #: ../app/disp_callbacks.c:167
-#, fuzzy
-msgid "Follow linkے"
+msgid "Follow link…"
 msgstr "Перейти за посиланням…"
 
-#: ../app/disp_callbacks.c:215 ../objects/standard/textobj.c:472
+#: ../app/disp_callbacks.c:215 ../objects/standard/textobj.c:583
 msgid "Convert to Path"
 msgstr "Перетворення на контур"
 
@@ -1158,9 +1157,9 @@ msgstr ""
 "Коректний файл Dia визначає принаймні один шар."
 
 #: ../app/load_save.c:1001
-#, fuzzy, c-format
+#, c-format
 msgid "Error saving connections to layer '%s'"
-msgstr "Помилка під час збереження з’єднань"
+msgstr "Помилка під час збереження з’єднань до шару «%s»"
 
 #: ../app/load_save.c:1006
 #, c-format
@@ -1196,9 +1195,9 @@ msgid "Internal error %d writing file %s\n"
 msgstr "Внутрішня помилка %d під час запису до файла %s\n"
 
 #: ../app/load_save.c:1136
-#, fuzzy, c-format
+#, c-format
 msgid "Can't rename %s to final output file %s"
-msgstr "Не вдалося перейменувати %s у кінцевий вихідний файл %s: %s\n"
+msgstr "Не вдалося перейменувати %s у кінцевий вихідний файл %s"
 
 #. no extra threads supported, stay in this one
 #: ../app/load_save.c:1252 ../app/load_save.c:1266 ../app/load_save.c:1274
@@ -1223,8 +1222,7 @@ msgid "Create a new diagram"
 msgstr "Створити діаграму"
 
 #: ../app/menus.c:92
-#, fuzzy
-msgid "_Openے"
+msgid "_Open…"
 msgstr "_Відкрити…"
 
 #: ../app/menus.c:92
@@ -1245,8 +1243,7 @@ msgid "Dia version, authors, license"
 msgstr "Версія, автори та умови ліцензування Dia"
 
 #: ../app/menus.c:104
-#, fuzzy
-msgid "Sheets and Objectsے"
+msgid "Sheets and Objects…"
 msgstr "Категорії та об'єкти…"
 
 #: ../app/menus.c:104
@@ -1258,9 +1255,8 @@ msgid "Dia preferences"
 msgstr "Налаштування Dia"
 
 #: ../app/menus.c:106
-#, fuzzy
-msgid "Pluginsے"
-msgstr "Додатки"
+msgid "Plugins…"
+msgstr "Додатки…"
 
 #: ../app/menus.c:106
 msgid "Manage plug-ins"
@@ -1303,8 +1299,7 @@ msgid "Save the diagram"
 msgstr "Зберегти діаграму"
 
 #: ../app/menus.c:121
-#, fuzzy
-msgid "Save _Asے"
+msgid "Save _As…"
 msgstr "Зберегти _як…"
 
 #: ../app/menus.c:121
@@ -1312,9 +1307,8 @@ msgid "Save the diagram with a new name"
 msgstr "Зберегти діаграму з новою назвою"
 
 #: ../app/menus.c:122
-#, fuzzy
-msgid "_Exportے"
-msgstr "Експорт"
+msgid "_Export…"
+msgstr "_Експортувати…"
 
 #: ../app/menus.c:122
 msgid "Export the diagram"
@@ -1329,17 +1323,15 @@ msgid "Modify diagram properties (grid, background)"
 msgstr "Змінити властивості діаграми (сітку, тло)"
 
 #: ../app/menus.c:124
-#, fuzzy
-msgid "Page Set_upے"
-msgstr "Параметри сторінки"
+msgid "Page Set_up…"
+msgstr "П_араметри сторінки…"
 
 #: ../app/menus.c:124
 msgid "Modify the diagram pagination"
 msgstr "Змінити поділ діаграми на сторінки"
 
 #: ../app/menus.c:125
-#, fuzzy
-msgid "_Printے"
+msgid "_Print…"
 msgstr "Над_рукувати…"
 
 #: ../app/menus.c:125
@@ -1388,18 +1380,16 @@ msgid "Delete selection"
 msgstr "Вилучити позначені об'єкти"
 
 #: ../app/menus.c:138
-#, fuzzy
-msgid "_Findے"
-msgstr "Знайти"
+msgid "_Find…"
+msgstr "З_найти…"
 
 #: ../app/menus.c:138
 msgid "Search for text"
 msgstr "Знайти текст"
 
 #: ../app/menus.c:139
-#, fuzzy
-msgid "_Replaceے"
-msgstr "_Замінити"
+msgid "_Replace…"
+msgstr "_Замінити…"
 
 #: ../app/menus.c:139
 msgid "Search and replace text"
@@ -1447,14 +1437,12 @@ msgid "_Layers"
 msgstr "_Шари"
 
 #: ../app/menus.c:150
-#, fuzzy
-msgid "Add Layerے"
-msgstr "Додати шар"
+msgid "Add Layer…"
+msgstr "Додати шар…"
 
 #: ../app/menus.c:151
-#, fuzzy
-msgid "Rename Layerے"
-msgstr "Перейменування шару"
+msgid "Rename Layer…"
+msgstr "Перейменувати шар…"
 
 #: ../app/menus.c:152
 msgid "Move Selection to Layer above"
@@ -1465,9 +1453,8 @@ msgid "Move Selection to Layer below"
 msgstr "Пересунути позначене на шар нижче"
 
 #: ../app/menus.c:154
-#, fuzzy
-msgid "_Layersے"
-msgstr "_Шари"
+msgid "_Layers…"
+msgstr "_Шари…"
 
 #
 #: ../app/menus.c:155
@@ -1615,7 +1602,7 @@ msgstr "Зробити _об'єкти-нащадки не вкладеним"
 msgid "Align"
 msgstr "Вирівнювати"
 
-#: ../app/menus.c:199 ../objects/standard/textobj.c:112
+#: ../app/menus.c:199 ../objects/standard/textobj.c:117
 msgid "Top"
 msgstr "Догори"
 
@@ -1623,7 +1610,7 @@ msgstr "Догори"
 msgid "Middle"
 msgstr "Посередині"
 
-#: ../app/menus.c:201 ../objects/standard/textobj.c:111
+#: ../app/menus.c:201 ../objects/standard/textobj.c:116
 msgid "Bottom"
 msgstr "Донизу"
 
@@ -2013,7 +2000,7 @@ msgstr "згладжений перегляд"
 msgid "Portable Network Graphics"
 msgstr "Portable Network Graphics"
 
-#: ../app/preferences.c:224 ../plug-ins/svg/render_svg.c:583
+#: ../app/preferences.c:224 ../plug-ins/svg/render_svg.c:605
 #: ../plug-ins/svg/svg-import.c:2127
 msgid "Scalable Vector Graphics"
 msgstr "SVG (векторна графіка)"
@@ -2261,8 +2248,7 @@ msgid "add shapes here"
 msgstr "додати форми тут"
 
 #: ../app/splash.c:50
-#, fuzzy
-msgid "Loading ے"
+msgid "Loading …"
 msgstr "Завантаження…"
 
 #: ../app/splash.c:68
@@ -2323,28 +2309,25 @@ msgstr ""
 "точно."
 
 #: ../app/toolbox.c:551
-#, fuzzy
 msgid ""
 "Arrow style at the beginning of new lines.  Click to pick an arrow, or set "
-"arrow parameters with Detailsے"
+"arrow parameters with Details…"
 msgstr ""
 "Стиль стрілки на початку нових ліній. Натисніть для вибору стрілки або "
 "встановіть властивості за допомогою кнопки «Параметри…»"
 
 #: ../app/toolbox.c:556
-#, fuzzy
 msgid ""
 "Line style for new lines.  Click to pick a line style, or set line style "
-"parameters with Detailsے"
+"parameters with Details…"
 msgstr ""
 "Стиль лінії на початку нових ліній. Натисніть для вибору лінії або "
 "встановіть властивості за допомогою кнопки «Параметри…»"
 
 #: ../app/toolbox.c:572
-#, fuzzy
 msgid ""
 "Arrow style at the end of new lines.  Click to pick an arrow, or set arrow "
-"parameters with Detailsے"
+"parameters with Details…"
 msgstr ""
 "Стиль стрілки в кінці нових ліній. Натисніть для вибору стрілки або "
 "встановіть властивості за допомогою кнопки «Параметри…»"
@@ -2680,7 +2663,7 @@ msgstr "невідома стрілка"
 #: ../lib/create.c:50 ../lib/create.c:100 ../lib/create.c:127
 #: ../lib/create.c:160 ../lib/create.c:196 ../lib/create.c:228
 #: ../lib/create.c:252 ../lib/create.c:284 ../lib/create.c:305
-#: ../lib/create.c:335 ../lib/create.c:378 ../plug-ins/svg/svg-import.c:666
+#: ../lib/create.c:335 ../lib/create.c:378 ../plug-ins/svg/svg-import.c:669
 #: ../plug-ins/vdx/vdx-import.c:144
 msgid "Can't find standard object"
 msgstr "Стандартний об'єкт не знайдено"
@@ -2702,8 +2685,7 @@ msgid "Select color"
 msgstr "Вибір кольору"
 
 #: ../lib/diacolorselector.c:291
-#, fuzzy
-msgid "More colorsے"
+msgid "More colors…"
 msgstr "Інші кольори…"
 
 #: ../lib/dia_dirs.c:315
@@ -2726,13 +2708,12 @@ msgstr "Не вдалося знайти гарнітуру шрифту «%s»\
 
 #. pathologic case - pixbuf not even supporting PNG?
 #: ../lib/dia_image.c:345
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Unsupported file format for saving:\n"
 "%s\n"
 msgstr ""
 "Непідтримуваний формат файлів для збереження даних:\n"
-"%s\n"
 "%s\n"
 
 #: ../lib/dia_image.c:348
@@ -2751,8 +2732,7 @@ msgid "Line Style Properties"
 msgstr "Властивості стилю лінії"
 
 #: ../lib/dialinechooser.c:345
-#, fuzzy
-msgid "Detailsے"
+msgid "Details…"
 msgstr "Параметри…"
 
 #: ../lib/dialinestyleselector.c:107
@@ -3010,7 +2990,7 @@ msgid "Left"
 msgstr "Ліворуч"
 
 #: ../lib/properties.c:69 ../lib/properties.h:592 ../lib/widgets.c:270
-#: ../objects/standard/textobj.c:113
+#: ../objects/standard/textobj.c:118
 msgid "Center"
 msgstr "У центр"
 
@@ -5531,9 +5511,8 @@ msgid "Aspect ratio"
 msgstr "Пропорції"
 
 #: ../objects/standard/box.c:154 ../objects/standard/ellipse.c:143
-#, fuzzy
 msgid "Rotation angle"
-msgstr "Обертання"
+msgstr "Кут обертання"
 
 #: ../objects/standard/box.c:781 ../objects/standard/ellipse.c:755
 msgid "Free aspect"
@@ -5640,15 +5619,20 @@ msgstr "Вилучити кут"
 msgid "Standard objects"
 msgstr "Стандартні об'єкти"
 
-#: ../objects/standard/textobj.c:114
+#: ../objects/standard/textobj.c:119
 msgid "First Line"
 msgstr "Відступ у першому рядку"
 
-#: ../objects/standard/textobj.c:122
+#: ../objects/standard/textobj.c:128
 msgid "Vertical text alignment"
 msgstr "Вертикальне вирівнювання тексту"
 
-#: ../objects/standard/textobj.c:130
+#: ../objects/standard/textobj.c:133
+#| msgid "Text padding"
+msgid "Text angle"
+msgstr "Кут тексту"
+
+#: ../objects/standard/textobj.c:138
 msgid "Text margin"
 msgstr "Поля тексту"
 
@@ -6271,8 +6255,7 @@ msgid "Copy _Diagram"
 msgstr "Копіювати _діаграму"
 
 #: ../plug-ins/cairo/diacairo.c:476
-#, fuzzy
-msgid "Print (GTK) ے"
+msgid "Print (GTK) …"
 msgstr "Надрукувати (GTK)…"
 
 #: ../plug-ins/cairo/diacairo.c:525
@@ -6504,7 +6487,7 @@ msgid "Failed to create pixbuf from drawable."
 msgstr "Не вдалося створити буфер пікселів з придатних до малювання даних."
 
 #: ../plug-ins/pixbuf/pixbuf.c:91
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Could not save file:\n"
 "%s\n"
@@ -6512,7 +6495,7 @@ msgid ""
 msgstr ""
 "Не вдалося зберегти файл:\n"
 "%s\n"
-"%s\n"
+"%s"
 
 #: ../plug-ins/pixbuf/pixbuf.c:112
 msgid "Calling error, missing user_data."
@@ -6628,9 +6611,9 @@ msgstr "Фільтри експорту та імпорту масштабова
 #: ../plug-ins/svg/svg-import.c:1228
 #, c-format
 msgid "Failed to apply transformation for '%s'"
-msgstr ""
+msgstr "Не вдалося застосувати перетворення до «%s»"
 
-#: ../plug-ins/svg/svg-import.c:647
+#: ../plug-ins/svg/svg-import.c:650
 msgid ""
 "Invalid path data.\n"
 "svg:path data must start with moveto."
@@ -6950,9 +6933,8 @@ msgid "Compound end outside compound\n"
 msgstr "Кінець з'єднання за межами з'єднання\n"
 
 #: ../plug-ins/xfig/xfig-import.c:1062
-#, fuzzy
 msgid "Couldn't read color\n"
-msgstr "Не вдалося прочитати колір: %s\n"
+msgstr "Не вдалося прочитати колір\n"
 
 #: ../plug-ins/xfig/xfig-import.c:1067
 #, c-format
@@ -10752,34 +10734,41 @@ msgstr "Активність"
 msgid "Fork/Union"
 msgstr "Розгалуження/Об'єднання"
 
-#~ msgid "Properties…"
-#~ msgstr "Властивості…"
+#, fuzzy
+#~ msgid "Propertiesے"
+#~ msgstr "Властивості"
 
-#~ msgid "Plugins…"
-#~ msgstr "Додатки…"
+#, fuzzy
+#~ msgid "Pluginsے"
+#~ msgstr "Додатки"
 
-#~ msgid "_Export…"
-#~ msgstr "_Експортувати…"
+#, fuzzy
+#~ msgid "_Exportے"
+#~ msgstr "Експорт"
 
-#~ msgid "Page Set_up…"
-#~ msgstr "П_араметри сторінки…"
+#, fuzzy
+#~ msgid "Page Set_upے"
+#~ msgstr "Параметри сторінки"
 
-#~| msgid "Find"
-#~ msgid "_Find…"
-#~ msgstr "З_найти…"
+#, fuzzy
+#~ msgid "_Findے"
+#~ msgstr "Знайти"
 
-#~| msgid "_Replace"
-#~ msgid "_Replace…"
-#~ msgstr "_Замінити…"
+#, fuzzy
+#~ msgid "_Replaceے"
+#~ msgstr "_Замінити"
 
-#~ msgid "Add Layer…"
-#~ msgstr "Додати шар…"
+#, fuzzy
+#~ msgid "Add Layerے"
+#~ msgstr "Додати шар"
 
-#~ msgid "Rename Layer…"
-#~ msgstr "Перейменувати шар…"
+#, fuzzy
+#~ msgid "Rename Layerے"
+#~ msgstr "Перейменування шару"
 
-#~ msgid "_Layers…"
-#~ msgstr "_Шари…"
+#, fuzzy
+#~ msgid "_Layersے"
+#~ msgstr "_Шари"
 
 #~ msgid "%s Plugin could not be unloaded"
 #~ msgstr "Модуль %s не може бути вивантажений"
