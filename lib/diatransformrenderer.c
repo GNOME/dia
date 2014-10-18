@@ -472,26 +472,18 @@ draw_image(DiaRenderer *self,
 	   DiaImage *image)
 {
   Point p1 = *point;
-  Point p2 = p1;
+  Point pc = p1;
   DiaTransformRenderer *renderer = DIA_TRANSFORM_RENDERER (self);
   DiaMatrix *m = g_queue_peek_tail (renderer->matrices);
   g_return_if_fail (renderer->worker != NULL);
 
   /* ToDo: some support on the library level? */
-  p2.x += width;
-  p2.y += height;
+  pc.x += width/2.0;
+  pc.y += height/2.0;
   if (m) {
-    transform_point (&p1, m);
-    transform_point (&p2, m);
-    /* don't reduce to negative */
-    if (p2.x > p1.x)
-      width = p2.x - p1.x;
-    else
-      width = p1.x - p2.x;
-    if (p2.y > p1.y)
-      height = p2.y - p1.y;
-    else
-      height = p1.y - p2.y;
+    transform_point (&pc, m);
+    p1.x = pc.x - width/2.0;
+    p1.y = pc.y - height/2.0;
   }
   /* FIXME: for now only the position is transformed */
   DIA_RENDERER_GET_CLASS (renderer->worker)->draw_image (renderer->worker, &p1, width, height, image);
