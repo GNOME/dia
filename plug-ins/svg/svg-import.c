@@ -210,6 +210,17 @@ _node_get_real (xmlNodePtr node, const char *name, real defval)
     return val;
 }
 
+static void
+_transform_object (DiaObject *obj, DiaMatrix *m, DiaContext *ctx)
+{
+  g_return_if_fail (obj->ops->transform != NULL);
+
+  if (!obj->ops->transform (obj, m))
+    dia_context_add_message (ctx,
+			     _("Failed to apply transformation for '%s'"),
+			     obj->type->name);
+}
+
 /*!
  * \brief Translate an existing object to a new position
  * The tag 'use' has x and y attributes to position the used object
@@ -235,10 +246,7 @@ use_position (DiaObject *obj, xmlNodePtr node, DiaContext *ctx)
 
 	if (m) {
 	    if (obj->ops->transform) {
-	      /* it is the only one transformation aware yet */
-	      if (!obj->ops->transform (obj, m))
-		dia_context_add_message (ctx, _("Failed to apply transformation for '%s'"),
-					 obj->type->name);
+	      _transform_object (obj, m, ctx);
 	    } else {
 	      GPtrArray *props = g_ptr_array_new ();
 
@@ -713,7 +721,7 @@ read_path_svg(xmlNodePtr node, DiaSvgStyle *parent_style,
 static GList *
 read_text_svg(xmlNodePtr node, DiaSvgStyle *parent_style,
 	      GHashTable *style_ht, GHashTable *pattern_ht,
-	      GList *list) 
+	      GList *list, DiaContext *ctx)
 {
     DiaObjectType *otype = object_get_type("Standard - Text");
     DiaObject *new_obj;
@@ -839,10 +847,8 @@ read_text_svg(xmlNodePtr node, DiaSvgStyle *parent_style,
       }
       new_obj->ops->set_props(new_obj, props);
       prop_list_free(props);
-      if (matrix) {
-	g_return_val_if_fail (new_obj->ops->transform, list);
-	new_obj->ops->transform(new_obj, matrix);
-      }
+      if (matrix)
+	_transform_object (new_obj, matrix, ctx);
     }
     if (gs->font)
       dia_font_unref (gs->font);
@@ -978,10 +984,7 @@ read_ellipse_svg(xmlNodePtr node, DiaSvgStyle *parent_style,
 			     width, height);
   new_obj->ops->set_props(new_obj, props);
   if (matrix) {
-    g_return_val_if_fail (new_obj->ops->transform, list);
-    if (!new_obj->ops->transform (new_obj, matrix))
-      dia_context_add_message (ctx, _("Failed to apply transformation for '%s'"),
-			       new_obj->type->name);
+    _transform_object (new_obj, matrix, ctx);
     g_free (matrix);
   }
   prop_list_free(props);
@@ -1037,10 +1040,7 @@ read_line_svg(xmlNodePtr node, DiaSvgStyle *parent_style,
   apply_style(new_obj, node, parent_style, style_ht, pattern_ht, TRUE);
 
   if (matrix) {
-    g_return_val_if_fail (new_obj->ops->transform, list);
-    if (!new_obj->ops->transform (new_obj, matrix))
-      dia_context_add_message (ctx, _("Failed to apply transformation for '%s'"),
-			       new_obj->type->name);
+    _transform_object (new_obj, matrix, ctx);
     g_free (matrix);
   }
 
@@ -1126,10 +1126,7 @@ read_rect_svg(xmlNodePtr node, DiaSvgStyle *parent_style,
   prop_list_free(props);
 
   if (matrix) {
-    g_return_val_if_fail (new_obj->ops->transform != NULL, list);
-    if (!new_obj->ops->transform (new_obj, matrix))
-      dia_context_add_message (ctx, _("Failed to apply transformation for '%s'"),
-			       new_obj->type->name);
+    _transform_object (new_obj, matrix, ctx);
     g_free (matrix);
   }
   return list;
@@ -1222,11 +1219,8 @@ read_image_svg(xmlNodePtr node, DiaSvgStyle *parent_style,
     xmlFree(str);
   }
 
-  if (matrix) {
-    g_return_val_if_fail (new_obj->ops->transform, list);
-    if (!new_obj->ops->transform (new_obj, matrix))
-      dia_context_add_message (ctx, _("Failed to apply transformation for '%s'"),
-			       new_obj->type->name);
+  if (matrix && new_obj) {
+    _transform_object (new_obj, matrix, ctx);
     g_free (matrix);
   }
   if (new_obj)
@@ -1613,7 +1607,7 @@ read_items (xmlNodePtr   startnode,
       if (items)
 	obj = g_list_last(items)->data;
     } else if(!xmlStrcmp(node->name, (const xmlChar *)"text")) {
-      items = read_text_svg(node, parent_gs, style_ht, pattern_ht, items);
+      items = read_text_svg(node, parent_gs, style_ht, pattern_ht, items, ctx);
       if (items)
 	obj = g_list_last(items)->data;
     } else if(!xmlStrcmp(node->name, (const xmlChar *)"path")) {
