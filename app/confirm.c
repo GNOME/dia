@@ -87,7 +87,7 @@ confirm_export_size (Diagram *dia, GtkWindow *parent, guint flags)
   gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (dialog), 
 					    _("You can adjust the size of the diagram by changing "
 					      "the 'Scaling' in the 'Page Setup' dialog.\n"
-					      "Alternatively use 'Select All' and 'Best Fit' "
+					      "Alternatively use 'Best Fit' "
 					      "to move objects/handles into the intended bounds."));
   gtk_window_set_title (GTK_WINDOW (dialog), _("Confirm Diagram Size"));
   g_free (size);

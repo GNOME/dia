@@ -384,7 +384,7 @@ static void
 add_at_depth(DiaObject *newobj, int depth, DiaContext *ctx)
 {
     if (depth < 0 || depth >= FIG_MAX_DEPTHS) {
-	dia_context_add_message(ctx, _("Depth %d of of range, only 0-%d allowed.\n"),
+	dia_context_add_message(ctx, _("Depth %d out of range, only 0-%d allowed.\n"),
 		      depth, FIG_MAX_DEPTHS-1);
 	depth = FIG_MAX_DEPTHS - 1;
     }
