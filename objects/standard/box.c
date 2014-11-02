@@ -412,24 +412,7 @@ box_update_data(Box *box)
   radius *= (1-M_SQRT1_2);
   
   /* Update connections: */
-  box->connections[0].pos.x = elem->corner.x + radius;
-  box->connections[0].pos.y = elem->corner.y + radius;
-  box->connections[1].pos.x = elem->corner.x + elem->width / 2.0;
-  box->connections[1].pos.y = elem->corner.y;
-  box->connections[2].pos.x = elem->corner.x + elem->width - radius;
-  box->connections[2].pos.y = elem->corner.y + radius;
-  box->connections[3].pos.x = elem->corner.x;
-  box->connections[3].pos.y = elem->corner.y + elem->height / 2.0;
-  box->connections[4].pos.x = elem->corner.x + elem->width;
-  box->connections[4].pos.y = elem->corner.y + elem->height / 2.0;
-  box->connections[5].pos.x = elem->corner.x + radius;
-  box->connections[5].pos.y = elem->corner.y + elem->height - radius;
-  box->connections[6].pos.x = elem->corner.x + elem->width / 2.0;
-  box->connections[6].pos.y = elem->corner.y + elem->height;
-  box->connections[7].pos.x = elem->corner.x + elem->width - radius;
-  box->connections[7].pos.y = elem->corner.y + elem->height - radius;
-  box->connections[8].pos.x = elem->corner.x + elem->width / 2.0;
-  box->connections[8].pos.y = elem->corner.y + elem->height / 2.0;
+  element_update_connections_rectangle (elem, box->connections);
 
   if (box->angle != 0) {
     real cx = elem->corner.x + elem->width / 2.0;
@@ -443,15 +426,6 @@ box_update_data(Box *box)
     for (i = 0; i < 8; ++i)
       transform_point (&box->connections[i].pos, &m);
   }
-  box->connections[0].directions = DIR_NORTH|DIR_WEST;
-  box->connections[1].directions = DIR_NORTH;
-  box->connections[2].directions = DIR_NORTH|DIR_EAST;
-  box->connections[3].directions = DIR_WEST;
-  box->connections[4].directions = DIR_EAST;
-  box->connections[5].directions = DIR_SOUTH|DIR_WEST;
-  box->connections[6].directions = DIR_SOUTH;
-  box->connections[7].directions = DIR_SOUTH|DIR_EAST;
-  box->connections[8].directions = DIR_ALL;
 
   extra->border_trans = box->border_width / 2.0;
   element_update_boundingbox(elem);
