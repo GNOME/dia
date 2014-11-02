@@ -412,6 +412,7 @@ _test_connectionpoint_consistency (gconstpointer user_data)
   ObjectChange *change;
   int i;
   gboolean any_dir_set = FALSE;
+  ConnectionPoint *cp_prev = NULL;
 
   change = dia_object_set_string (o, NULL, "Test me!");
   _object_change_free (change);
@@ -437,6 +438,7 @@ _test_connectionpoint_consistency (gconstpointer user_data)
   pos = o->position;
   center.x = (o->bounding_box.right + o->bounding_box.left) / 2;
   center.y = (o->bounding_box.bottom + o->bounding_box.top) / 2;
+
   for (i = 0; i < o->num_connections; ++i) {
     ConnectionPoint *cp = o->connections[i];
     if (cp->directions == DIR_ALL) {
@@ -491,6 +493,26 @@ _test_connectionpoint_consistency (gconstpointer user_data)
       g_assert ((cp->directions & DIR_NORTH) == 0);
     else if (cp->pos.y < center.y)
       g_assert ((cp->directions & DIR_SOUTH) == 0);
+  }
+
+  if (o->num_connections > 1)
+    cp_prev = o->connections[o->num_connections-1];
+  for (i = 0; i < o->num_connections; ++i) {
+    ConnectionPoint *cp = o->connections[i];
+    if (cp_prev) {
+      /* if the previous cp had the same coordinate x or y it should have the same direction */
+      if (   strcmp (type->name, "GRAFCET - Vergent") == 0
+	  || strcmp (type->name, "Standard - Polygon") == 0)
+	continue; /* not a hard requirement */
+      /* not with main point which usually has DIR_ALL */
+      if (cp_prev->directions != DIR_ALL && cp->directions != DIR_ALL) {
+	if (cp_prev->pos.x == cp->pos.x)
+	  g_assert_cmpint ((cp_prev->directions & (DIR_WEST|DIR_EAST)), ==, (cp->directions & (DIR_WEST|DIR_EAST)));
+	if (cp_prev->pos.y == cp->pos.y)
+	  g_assert_cmpint ((cp_prev->directions & (DIR_NORTH|DIR_SOUTH)), ==, (cp->directions & (DIR_NORTH|DIR_SOUTH)));
+      }
+      cp_prev = cp;
+    }
   }
   /* every connection point should be in bounds of the object */
   for (i = 0; i < o->num_connections; ++i) {
