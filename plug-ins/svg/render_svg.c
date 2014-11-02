@@ -114,6 +114,9 @@ static void draw_text_line    (DiaRenderer *self, TextLine *text_line,
 	                       Point *pos, Alignment alignment, Color *colour);
 static void draw_text         (DiaRenderer *self, Text *text);
 static void draw_rotated_text (DiaRenderer *self, Text *text, Point *center, real angle);
+static void draw_rotated_image (DiaRenderer *self, Point *point,
+				real width, real height,
+				real angle, DiaImage *image);
 
 static void svg_renderer_class_init (SvgRendererClass *klass);
 
@@ -225,6 +228,7 @@ svg_renderer_class_init (SvgRendererClass *klass)
   renderer_class->draw_text  = draw_text;
   renderer_class->draw_text_line  = draw_text_line;
   renderer_class->draw_rotated_text  = draw_rotated_text;
+  renderer_class->draw_rotated_image  = draw_rotated_image;
   renderer_class->is_capable_to = is_capable_to;
 }
 
@@ -547,16 +551,20 @@ draw_rotated_text (DiaRenderer *self, Text *text, Point *center, real angle)
   /* text 'global' properties  */
   node_set_text_style(node_text, renderer, text->font, text->height, text->alignment, &text->color);
   if (angle != 0) {
-     gchar x_buf[G_ASCII_DTOSTR_BUF_SIZE];
-     gchar y_buf[G_ASCII_DTOSTR_BUF_SIZE];
+     gchar x_buf0[G_ASCII_DTOSTR_BUF_SIZE];
+     gchar y_buf0[G_ASCII_DTOSTR_BUF_SIZE];
+     gchar x_buf1[G_ASCII_DTOSTR_BUF_SIZE];
+     gchar y_buf1[G_ASCII_DTOSTR_BUF_SIZE];
      gchar *trans;
      if (center)
        pos = *center;
      g_ascii_formatd (d_buf, sizeof(d_buf), "%g", angle);
-     dia_svg_dtostr(x_buf, pos.x);
-     dia_svg_dtostr(y_buf, pos.y);
-     trans = g_strdup_printf ("translate(%s,%s) rotate(%s) translate(-%s,-%s)",
-			      x_buf, y_buf, d_buf, x_buf, y_buf);
+     dia_svg_dtostr(x_buf0, pos.x);
+     dia_svg_dtostr(y_buf0, pos.y);
+     dia_svg_dtostr(x_buf1, -pos.x);
+     dia_svg_dtostr(y_buf1, -pos.y);
+     trans = g_strdup_printf ("translate(%s,%s) rotate(%s) translate(%s,%s)",
+			      x_buf0, y_buf0, d_buf, x_buf1, y_buf1);
      xmlSetProp(node_text, (const xmlChar *)"transform", (xmlChar *) trans);
      g_free (trans);
   } else {
@@ -578,6 +586,42 @@ draw_rotated_text (DiaRenderer *self, Text *text, Point *center, real angle)
     xmlSetProp(node_tspan, (const xmlChar *)"y", (xmlChar *) d_buf);
     
     pos.y += text->height;
+  }
+}
+
+static void
+draw_rotated_image (DiaRenderer *self,
+		    Point *point,
+		    real width, real height,
+		    real angle,
+		    DiaImage *image)
+{
+  DiaSvgRenderer *renderer = DIA_SVG_RENDERER (self);
+
+  /* delegate to base class ... */
+  DIA_RENDERER_CLASS (parent_class)->draw_image (self, point, width, height, image);
+  /* ... and modify the image node to transform */
+  if (angle != 0.0) {
+    xmlNodePtr node = xmlFirstElementChild (renderer->root);
+    gchar d_buf[G_ASCII_DTOSTR_BUF_SIZE];
+    gchar x_buf0[G_ASCII_DTOSTR_BUF_SIZE];
+    gchar y_buf0[G_ASCII_DTOSTR_BUF_SIZE];
+    gchar x_buf1[G_ASCII_DTOSTR_BUF_SIZE];
+    gchar y_buf1[G_ASCII_DTOSTR_BUF_SIZE];
+    gchar *trans;
+    Point pos = { point->x + width/2, point->y + height/2 }; /* center */
+
+    g_return_if_fail (node != NULL && xmlStrcmp (node->name, "image") == 0);
+
+    g_ascii_formatd (d_buf, sizeof(d_buf), "%g", angle);
+    dia_svg_dtostr(x_buf0, pos.x);
+    dia_svg_dtostr(y_buf0, pos.y);
+    dia_svg_dtostr(x_buf1, -pos.x);
+    dia_svg_dtostr(y_buf1, -pos.y);
+    trans = g_strdup_printf ("translate(%s,%s) rotate(%s) translate(%s,%s)",
+			     x_buf0, y_buf0, d_buf, x_buf1, y_buf1);
+    xmlSetProp(node, (const xmlChar *)"transform", (xmlChar *) trans);
+    g_free (trans);
   }
 }
 
