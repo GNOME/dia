@@ -443,6 +443,7 @@ EXPORTS
  element_update_handles
  element_update_connections_rectangle
  element_update_connections_directions
+ element_get_poly
 
  ellipse_bbox
  element_change_new
@@ -803,6 +804,7 @@ EXPORTS
  dia_matrix_is_identity
  dia_matrix_get_angle_and_scales
  dia_matrix_set_angle_and_scales
+ dia_matrix_set_rotate_around
  dia_matrix_multiply
 
  dia_option_menu_add_item

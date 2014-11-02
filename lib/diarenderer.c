@@ -108,6 +108,11 @@ static void draw_text_line  (DiaRenderer *renderer,
 			     TextLine *text_line, Point *pos, Alignment alignment, Color *color);
 static void draw_rotated_text (DiaRenderer *renderer, Text *text,
 			       Point *center, real angle);
+static void draw_rotated_image (DiaRenderer *renderer,
+				Point *point,
+				real width, real height,
+				real angle,
+				DiaImage *image);
 
 static void draw_polyline (DiaRenderer *renderer,
                            Point *points, int num_points,
@@ -339,6 +344,7 @@ dia_renderer_class_init (DiaRendererClass *klass)
   renderer_class->draw_text      = draw_text;
   renderer_class->draw_text_line = draw_text_line;
   renderer_class->draw_rotated_text = draw_rotated_text;
+  renderer_class->draw_rotated_image = draw_rotated_image;
 
   /* highest level functions */
   renderer_class->draw_rounded_rect = draw_rounded_rect;
@@ -704,6 +710,21 @@ draw_rotated_text (DiaRenderer *renderer, Text *text,
 						       NULL, &magenta);
     }
     g_array_free (path, TRUE);
+  }
+}
+
+static void
+draw_rotated_image (DiaRenderer *renderer,
+		    Point *point,
+		    real width, real height,
+		    real angle,
+		    DiaImage *image)
+{
+  if (angle == 0.0) {
+    DIA_RENDERER_GET_CLASS (renderer)->draw_image (renderer, point, width, height, image);
+  } else {
+    /* XXX: implement fallback */
+    DIA_RENDERER_GET_CLASS (renderer)->draw_image (renderer, point, width, height, image);
   }
 }
 

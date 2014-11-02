@@ -255,6 +255,12 @@ struct _DiaRendererClass
   /*! draw text rotated around center with given angle in degrees */
   void (*draw_rotated_text) (DiaRenderer *renderer, Text *text,
 			     Point *center, real angle);
+  /*! draw image rotated around center with given angle in degrees */
+  void (*draw_rotated_image) (DiaRenderer *renderer,
+			      Point *point,
+			      real width, real height,
+			      real angle,
+			      DiaImage *image);
 };
 
 /*

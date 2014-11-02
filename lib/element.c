@@ -512,3 +512,28 @@ element_change_new (const Point *corner,
 
   return &ec->object_change;
 }
+
+void
+element_get_poly (const Element *elem, real angle, Point corners[4])
+{
+  corners[0] = elem->corner;
+  corners[1] = corners[0];
+  corners[1].x += elem->width;
+  corners[2] = corners[1];
+  corners[2].y += elem->height;
+  corners[3] = corners[2];
+  corners[3].x -= elem->width;
+
+  if (angle != 0) {
+    real cx = elem->corner.x + elem->width / 2.0;
+    real cy = elem->corner.y + elem->height / 2.0;
+    DiaMatrix m = { 1.0, 0.0, 0.0, 1.0, cx, cy };
+    DiaMatrix t = { 1.0, 0.0, 0.0, 1.0, -cx, -cy };
+    int i;
+
+    dia_matrix_set_angle_and_scales (&m, G_PI*angle/180, 1.0, 1.0);
+    dia_matrix_multiply (&m, &t, &m);
+    for (i = 0; i < 4; ++i)
+      transform_point (&corners[i], &m);
+  }
+}

@@ -70,6 +70,10 @@ void element_load(Element *elem, ObjectNode obj_node, DiaContext *ctx);
 ObjectChange *element_change_new (const Point *corner, 
 				  real width, real height,
 				  Element *elem);
+
+void element_get_poly (const Element *elem, real angle, Point corners[4]);
+
+
 /* base property stuff ... */
 #ifdef G_OS_WIN32
 /* see lib/properties.h for the reason */

@@ -952,10 +952,11 @@ draw_string(DiaRenderer *self,
 }
 
 static void
-draw_image(DiaRenderer *self,
-           Point *point,
-           real width, real height,
-           DiaImage *image)
+draw_rotated_image (DiaRenderer *self,
+		    Point *point,
+		    real width, real height,
+		    real angle,
+		    DiaImage *image)
 {
   DiaCairoRenderer *renderer = DIA_CAIRO_RENDERER (self);
   cairo_surface_t *surface;
@@ -1044,6 +1045,14 @@ draw_image(DiaRenderer *self,
   cairo_scale (renderer->cr, width/w, height/h);
   cairo_move_to (renderer->cr, 0.0, 0.0);
   cairo_set_source_surface (renderer->cr, surface, 0.0, 0.0);
+  if (angle != 0.0)
+    {
+      DiaMatrix rotate;
+      Point center = { w/2, h/2  };
+
+      dia_matrix_set_rotate_around (&rotate, -G_PI * angle / 180.0, &center);
+      cairo_pattern_set_matrix (cairo_get_source (renderer->cr), (cairo_matrix_t *)&rotate);
+    }
 #if 0
   /*
    * CAIRO_FILTER_FAST: aka. CAIRO_FILTER_NEAREST
@@ -1061,6 +1070,14 @@ draw_image(DiaRenderer *self,
   DIAG_STATE(renderer->cr);
 }
 
+static void
+draw_image (DiaRenderer *self,
+	    Point *point,
+	    real width, real height,
+	    DiaImage *image)
+{
+  draw_rotated_image (self, point, width, height, 0.0, image);
+}
 static gpointer parent_class = NULL;
 
 /*!
@@ -1222,6 +1239,8 @@ cairo_renderer_class_init (DiaCairoRendererClass *klass)
   /* highest level functions */
   renderer_class->draw_rounded_rect = draw_rounded_rect;
   renderer_class->draw_rounded_polyline = draw_rounded_polyline;
+  renderer_class->draw_rotated_image = draw_rotated_image;
+
   /* other */
   renderer_class->is_capable_to = is_capable_to;
   renderer_class->set_pattern = set_pattern;

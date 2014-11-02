@@ -840,6 +840,17 @@ dia_matrix_is_invertible (const DiaMatrix *matrix)
   return finite(det) && det != 0.0;
 }
 
+void
+dia_matrix_set_rotate_around (DiaMatrix *result,
+			      real angle,
+			      const Point *around)
+{
+  DiaMatrix m = { 1.0, 0.0, 0.0, 1.0,  around->x,  around->y };
+  DiaMatrix t = { 1.0, 0.0, 0.0, 1.0, -around->x, -around->y };
+
+  dia_matrix_set_angle_and_scales (&m, angle, 1.0, 1.0);
+  dia_matrix_multiply (result, &t, &m);
+}
 /*!
  * \brief asin wrapped to limit to valid result range
  *
