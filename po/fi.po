@@ -410,7 +410,7 @@ msgstr ""
 "Ilkka Tuohela, 2005-2006\n"
 "Sami Gerdt, 2000\n"
 "\n"
-"http://gnome.fi/"
+"https://l10n.gnome.org/teams/fi/"
 
 #: ../app/commands.c:1012
 msgid ""
