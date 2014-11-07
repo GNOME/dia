@@ -511,6 +511,7 @@ image_transform(Image *image, const DiaMatrix *m)
     image->angle = angle;
     elem->corner.x = c.x - width / 2.0;
     elem->corner.y = c.y - height / 2.0;
+    image_update_data (image);
   }
   return TRUE;
 }
@@ -542,17 +543,23 @@ image_update_data(Image *image)
     DiaMatrix m = { 1.0, 0.0, 0.0, 1.0, cx, cy };
     DiaMatrix t = { 1.0, 0.0, 0.0, 1.0, -cx, -cy };
     int i;
+    PolyBBExtras extra = { 0, };
+    Point poly[4];
+
 
     dia_matrix_set_angle_and_scales (&m, G_PI*image->angle/180, 1.0, 1.0);
     dia_matrix_multiply (&m, &t, &m);
     for (i = 0; i < 8; ++i)
       transform_point (&image->connections[i].pos, &m);
-  }
 
-  /* the image border is drawn vompletely outside of the image, so no /2.0 on border width */
-  extra->border_trans = (image->draw_border ? image->border_width : 0.0);
-  element_update_boundingbox(elem);
-  
+    element_get_poly (elem, image->angle, poly);
+    extra.middle_trans = (image->draw_border ? image->border_width : 0.0);
+    polyline_bbox(poly, 4, &extra, TRUE, &elem->object.bounding_box);
+  } else {
+    /* the image border is drawn completely outside of the image, so no /2.0 on border width */
+    extra->border_trans = (image->draw_border ? image->border_width : 0.0);
+    element_update_boundingbox(elem);
+  }
   obj->position = elem->corner;
   element_update_handles(elem);
 }
