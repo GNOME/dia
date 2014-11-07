@@ -1715,11 +1715,14 @@ write_user_sheet(Sheet *sheet)
       copy_file(som->svg_filename, dest);
       g_free(dest);
 
-      basename = g_path_get_basename(som->sheet_object.pixmap_file);
-      dest = g_strdup_printf("%s%s%s", dia_user_shapes, G_DIR_SEPARATOR_S, basename);
-      g_free(basename);
-      copy_file(som->sheet_object.pixmap_file, dest);
-      g_free(dest);
+      /* avoid crashing when there is no icon */
+      if (som->sheet_object.pixmap_file) {
+	basename = g_path_get_basename(som->sheet_object.pixmap_file);
+	dest = g_strdup_printf("%s%s%s", dia_user_shapes, G_DIR_SEPARATOR_S, basename);
+	g_free(basename);
+	copy_file(som->sheet_object.pixmap_file, dest);
+	g_free(dest);
+      }
     }
 
     sheetobject = &som->sheet_object;
