@@ -21,8 +21,8 @@ msgstr ""
 "Project-Id-Version: dia.HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=dia&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2014-10-06 15:16+0000\n"
-"PO-Revision-Date: 2014-10-07 21:15+0200\n"
+"POT-Creation-Date: 2014-11-09 16:14+0000\n"
+"PO-Revision-Date: 2014-11-10 01:11+0100\n"
 "Last-Translator: Miguel Rodríguez Núñez <bokerones.fritos@gmail.com>\n"
 "Language-Team: Español; Castellano <gnome-es-list@gnome.org>\n"
 "Language: es\n"
@@ -485,16 +485,21 @@ msgstr[1] ""
 "páginas)."
 
 #: ../app/confirm.c:88
+#| msgid ""
+#| "You can adjust the size of the diagram by changing the 'Scaling' in the "
+#| "'Page Setup' dialog.\n"
+#| "Alternatively use 'Select All' and 'Best Fit' to move objects/handles "
+#| "into the intended bounds."
 msgid ""
 "You can adjust the size of the diagram by changing the 'Scaling' in the "
 "'Page Setup' dialog.\n"
-"Alternatively use 'Select All' and 'Best Fit' to move objects/handles into "
-"the intended bounds."
+"Alternatively use 'Best Fit' to move objects/handles into the intended "
+"bounds."
 msgstr ""
 "Puede ajustar el tamaño del diagrama cambiando la «Escala» en el diálogo "
 "«Configuración de página».\n"
-"Alternativamente use «Seleccionar todo» y «Mejor ajuste» para mover objetos "
-"en los límites deseados."
+"Alternativamente use «Mejor ajuste» para mover objetos en los límites "
+"deseados."
 
 #: ../app/confirm.c:92
 msgid "Confirm Diagram Size"
@@ -742,7 +747,7 @@ msgstr "Propiedades…"
 msgid "Follow link…"
 msgstr "Seguir enlace…"
 
-#: ../app/disp_callbacks.c:215 ../objects/standard/textobj.c:472
+#: ../app/disp_callbacks.c:215 ../objects/standard/textobj.c:583
 msgid "Convert to Path"
 msgstr "Convertir a ruta"
 
@@ -1196,7 +1201,7 @@ msgstr "No se permite escribir archivos temporales en %s\n"
 #: ../plug-ins/pgf/render_pgf.c:1192 ../plug-ins/postscript/render_eps.c:123
 #: ../plug-ins/pstricks/render_pstricks.c:870
 #: ../plug-ins/vdx/vdx-export.c:1706 ../plug-ins/wmf/wmf.cpp:1347
-#: ../plug-ins/wpg/wpg.c:1062 ../plug-ins/xfig/xfig-export.c:1090
+#: ../plug-ins/wpg/wpg.c:1062 ../plug-ins/xfig/xfig-export.c:1098
 #, c-format
 msgid "Can't open output file %s"
 msgstr "No se pudo abrir el archivo de salida %s"
@@ -1210,7 +1215,6 @@ msgstr "Error interno %d escribiendo archivo %s\n"
 
 #: ../app/load_save.c:1136
 #, c-format
-#| msgid "Can't rename %s to final output file %s: %s\n"
 msgid "Can't rename %s to final output file %s"
 msgstr "No se pudo renombrar %s al archivo final de salida %s"
 
@@ -1606,7 +1610,7 @@ msgstr "_Orfandar hijos"
 msgid "Align"
 msgstr "Alinear"
 
-#: ../app/menus.c:199 ../objects/standard/textobj.c:112
+#: ../app/menus.c:199 ../objects/standard/textobj.c:117
 msgid "Top"
 msgstr "Superior"
 
@@ -1614,7 +1618,7 @@ msgstr "Superior"
 msgid "Middle"
 msgstr "Medio"
 
-#: ../app/menus.c:201 ../objects/standard/textobj.c:111
+#: ../app/menus.c:201 ../objects/standard/textobj.c:116
 msgid "Bottom"
 msgstr "Inferior"
 
@@ -2004,8 +2008,8 @@ msgstr "ver sin antialias"
 msgid "Portable Network Graphics"
 msgstr "Portable Network Graphics"
 
-#: ../app/preferences.c:224 ../plug-ins/svg/render_svg.c:583
-#: ../plug-ins/svg/svg-import.c:2127
+#: ../app/preferences.c:224 ../plug-ins/svg/render_svg.c:649
+#: ../plug-ins/svg/svg-import.c:2121
 msgid "Scalable Vector Graphics"
 msgstr "Scalable Vector Graphics"
 
@@ -2698,7 +2702,7 @@ msgstr "flecha desconocida"
 #: ../lib/create.c:50 ../lib/create.c:100 ../lib/create.c:127
 #: ../lib/create.c:160 ../lib/create.c:196 ../lib/create.c:228
 #: ../lib/create.c:252 ../lib/create.c:284 ../lib/create.c:305
-#: ../lib/create.c:335 ../lib/create.c:378 ../plug-ins/svg/svg-import.c:666
+#: ../lib/create.c:335 ../lib/create.c:378 ../plug-ins/svg/svg-import.c:677
 #: ../plug-ins/vdx/vdx-import.c:144
 msgid "Can't find standard object"
 msgstr "No se pudo encontrar el objeto estándar"
@@ -3030,7 +3034,7 @@ msgid "Left"
 msgstr "Izquierda"
 
 #: ../lib/properties.c:69 ../lib/properties.h:592 ../lib/widgets.c:270
-#: ../objects/standard/textobj.c:113
+#: ../objects/standard/textobj.c:118
 msgid "Center"
 msgstr "Centro"
 
@@ -5326,7 +5330,7 @@ msgid "Triangle"
 msgstr "Triángulo"
 
 #: ../objects/Misc/n_gon.c:318 ../objects/standard/box.c:137
-#: ../objects/standard/box.c:785
+#: ../objects/standard/box.c:759
 msgid "Square"
 msgstr "Cuadrado"
 
@@ -5484,7 +5488,7 @@ msgstr "Eliminar manejador"
 msgid "Sectors"
 msgstr "Sectores"
 
-#: ../objects/network/basestation.c:391 ../objects/network/basestation.c:393
+#: ../objects/network/basestation.c:365 ../objects/network/basestation.c:367
 msgid "Base Station"
 msgstr "Estación base"
 
@@ -5608,11 +5612,11 @@ msgstr "Proporción"
 msgid "Rotation angle"
 msgstr "Ángulo de rotación"
 
-#: ../objects/standard/box.c:781 ../objects/standard/ellipse.c:755
+#: ../objects/standard/box.c:755 ../objects/standard/ellipse.c:755
 msgid "Free aspect"
 msgstr "Liberar proporción"
 
-#: ../objects/standard/box.c:783 ../objects/standard/ellipse.c:757
+#: ../objects/standard/box.c:757 ../objects/standard/ellipse.c:757
 msgid "Fixed aspect"
 msgstr "Proporción fija"
 
@@ -5620,45 +5624,51 @@ msgstr "Proporción fija"
 msgid "Circle"
 msgstr "Círculo"
 
-#: ../objects/standard/image.c:119
+#: ../objects/standard/image.c:123
 msgid "Image file"
 msgstr "Archivo de imagen"
 
-#: ../objects/standard/image.c:121
+#: ../objects/standard/image.c:125
 msgid "Inline data"
 msgstr "Datos en línea"
 
-#: ../objects/standard/image.c:121
+#: ../objects/standard/image.c:125
 msgid "Store image data in diagram"
 msgstr "Almacenar los datos de la imagen en el diagrama"
 
-#: ../objects/standard/image.c:123
+#: ../objects/standard/image.c:127
 msgid "Pixbuf"
 msgstr "Pixbuf"
 
-#: ../objects/standard/image.c:123
+#: ../objects/standard/image.c:127
 msgid "The Pixbuf reference"
 msgstr "La referencia de Pixbuf"
 
-#: ../objects/standard/image.c:125
+#: ../objects/standard/image.c:129
 msgid "Draw border"
 msgstr "Dibujar borde"
 
-#: ../objects/standard/image.c:127
+#: ../objects/standard/image.c:131
 msgid "Keep aspect ratio"
 msgstr "Mantener proporción"
 
-#: ../objects/standard/image.c:257
+# "Hueco" queda más cercano al significado de "Hollow" que "Vacío". Además así no se confunde con "Unfilled". RizOX.
+#: ../objects/standard/image.c:133
+#| msgid "Triangle"
+msgid "Angle"
+msgstr "Ángulo"
+
+#: ../objects/standard/image.c:264
 msgid "Can't save image without filename"
 msgstr "No se puede guardar la imagen sin un nombre de archivo"
 
-#: ../objects/standard/image.c:752
+#: ../objects/standard/image.c:781
 msgid "Inconsistent pixbuf during image save."
 msgstr "Datos de pixbuf inconsistentes al guardar la imagen."
 
 #. Found file in same dir as diagram.
 #. Found file in current dir.
-#: ../objects/standard/image.c:849 ../objects/standard/image.c:860
+#: ../objects/standard/image.c:883 ../objects/standard/image.c:894
 #, c-format
 msgid ""
 "The image file '%s' was not found in the specified directory.\n"
@@ -5668,7 +5678,7 @@ msgstr ""
 "Se utiliza el archivo «%s» en su lugar.\n"
 
 #. Didn't find file in current dir.
-#: ../objects/standard/image.c:866 ../objects/standard/image.c:888
+#: ../objects/standard/image.c:900 ../objects/standard/image.c:922
 #, c-format
 msgid "The image file '%s' was not found.\n"
 msgstr "No se encontró el archivo de imagen «%s».\n"
@@ -5714,15 +5724,20 @@ msgstr "Eliminar esquina"
 msgid "Standard objects"
 msgstr "Objetos estándar"
 
-#: ../objects/standard/textobj.c:114
+#: ../objects/standard/textobj.c:119
 msgid "First Line"
 msgstr "Primera línea"
 
-#: ../objects/standard/textobj.c:122
+#: ../objects/standard/textobj.c:128
 msgid "Vertical text alignment"
 msgstr "Alineación vertical del texto"
 
-#: ../objects/standard/textobj.c:130
+#: ../objects/standard/textobj.c:133
+#| msgid "Text padding"
+msgid "Text angle"
+msgstr "Ángulo de texto"
+
+#: ../objects/standard/textobj.c:138
 msgid "Text margin"
 msgstr "Margen del texto"
 
@@ -6364,8 +6379,8 @@ msgstr "Puntero de la ampliación"
 msgid "Visible rect pointer"
 msgstr "Puntero visible de la recta"
 
-#: ../plug-ins/cairo/diacairo-renderer.c:979
-#: ../plug-ins/cairo/diacairo-renderer.c:1014
+#: ../plug-ins/cairo/diacairo-renderer.c:980
+#: ../plug-ins/cairo/diacairo-renderer.c:1015
 #: ../plug-ins/libart/dialibartrenderer.c:1226
 #: ../plug-ins/metapost/render_metapost.c:870
 #: ../plug-ins/postscript/diapsrenderer.c:662
@@ -6700,14 +6715,12 @@ msgid "Scalable Vector Graphics import and export filters"
 msgstr ""
 "Filtro de importación y exportación de gráficos de vector escalables (SVG)"
 
-#: ../plug-ins/svg/svg-import.c:240 ../plug-ins/svg/svg-import.c:983
-#: ../plug-ins/svg/svg-import.c:1042 ../plug-ins/svg/svg-import.c:1131
-#: ../plug-ins/svg/svg-import.c:1228
+#: ../plug-ins/svg/svg-import.c:220
 #, c-format
 msgid "Failed to apply transformation for '%s'"
 msgstr "Falló al aplicar la transformación de «%s»"
 
-#: ../plug-ins/svg/svg-import.c:647
+#: ../plug-ins/svg/svg-import.c:658
 msgid ""
 "Invalid path data.\n"
 "svg:path data must start with moveto."
@@ -6715,16 +6728,16 @@ msgstr ""
 "Ruta de datos no válida.\n"
 "svg:la ruta de datos debe empezar con moveto."
 
-#: ../plug-ins/svg/svg-import.c:1901
+#: ../plug-ins/svg/svg-import.c:1895
 msgid "'Shape Design' shapes missing."
 msgstr "«Diseño de contorno» no encuentra los contornos."
 
-#: ../plug-ins/svg/svg-import.c:1935
+#: ../plug-ins/svg/svg-import.c:1929
 #, c-format
 msgid "Object '%s' creation failed"
 msgstr "Falló la creación de «%s»"
 
-#: ../plug-ins/svg/svg-import.c:1961
+#: ../plug-ins/svg/svg-import.c:1955
 #, c-format
 msgid ""
 "Parse error for memory block.\n"
@@ -6733,7 +6746,7 @@ msgstr ""
 "Analizar el error para el bloque de memoria\n"
 "%s"
 
-#: ../plug-ins/svg/svg-import.c:1979
+#: ../plug-ins/svg/svg-import.c:1973
 #, c-format
 msgid ""
 "SVG parser error for %s\n"
@@ -6743,7 +6756,7 @@ msgstr ""
 "%s"
 
 #. just a warning
-#: ../plug-ins/svg/svg-import.c:1985
+#: ../plug-ins/svg/svg-import.c:1979
 #, c-format
 msgid ""
 "SVG parser warning for %s\n"
@@ -6752,11 +6765,11 @@ msgstr ""
 "Analizador de advertencias en archivos SVG para %s\n"
 "%s"
 
-#: ../plug-ins/svg/svg-import.c:2018
+#: ../plug-ins/svg/svg-import.c:2012
 msgid "Expected SVG name-space not found in file"
 msgstr "No se encontró en el archivo el espacio de nombres SVG esperado"
 
-#: ../plug-ins/svg/svg-import.c:2038
+#: ../plug-ins/svg/svg-import.c:2032
 #, c-format
 msgid "root element was '%s' -- expecting 'svg'."
 msgstr "el elemento raíz era «%s»; se esperaba «svg»."
@@ -6895,18 +6908,18 @@ msgstr "¿El archivo WPG está vacío?"
 msgid "Fig Format import and export filter"
 msgstr "Filtro de importación y exportación del formato Fig"
 
-#: ../plug-ins/xfig/xfig-export.c:469
+#: ../plug-ins/xfig/xfig-export.c:470
 #, c-format
 msgid "Fig format has no equivalent of arrow style %s; using simple arrow.\n"
 msgstr ""
 "El formato Fig no tiene un estilo de flecha equivalente a %s; usando flecha "
 "simple.\n"
 
-#: ../plug-ins/xfig/xfig-export.c:492
+#: ../plug-ins/xfig/xfig-export.c:493
 msgid "No more user-definable colors - using black"
 msgstr "No más colores definibles por el usuario; se usará el negro"
 
-#: ../plug-ins/xfig/xfig-export.c:1146
+#: ../plug-ins/xfig/xfig-export.c:1154
 msgid "Xfig format"
 msgstr "Formato XFig"
 
@@ -6952,8 +6965,9 @@ msgstr "Tipo de flecha desconocida %d\n"
 
 #: ../plug-ins/xfig/xfig-import.c:387
 #, c-format
-msgid "Depth %d of of range, only 0-%d allowed.\n"
-msgstr "La profundidad %d está fuera del rango, sólo se permite 0..%d.\n"
+#| msgid "Depth %d of of range, only 0-%d allowed.\n"
+msgid "Depth %d out of range, only 0-%d allowed.\n"
+msgstr "La profundidad %d está fuera del rango, sólo se permite 0.%d.\n"
 
 #: ../plug-ins/xfig/xfig-import.c:435
 msgid "Couldn't read ellipse info."
@@ -7030,7 +7044,6 @@ msgid "Compound end outside compound\n"
 msgstr "Fin de compuesto fuera de compuesto\n"
 
 #: ../plug-ins/xfig/xfig-import.c:1062
-#| msgid "Couldn't read color: %s\n"
 msgid "Couldn't read color\n"
 msgstr "No se pudo leer el color\n"
 
