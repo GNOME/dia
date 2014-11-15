@@ -11,7 +11,7 @@
 int
 main (int argc, char** argv)
 {
-#define DUMP(o) g_print ("%s: %d\n", #o, sizeof(##o))
+#define DUMP(o) g_print ("%s: %d\n", #o, (int)sizeof(o))
 
   DUMP(DiaObject);
   DUMP(Connection);

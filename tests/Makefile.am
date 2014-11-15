@@ -24,7 +24,6 @@ noinst_PROGRAMS = $(TEST_PROGS)
 progs_ldadd = $(top_builddir)/lib/libdia.la $(GTK_LIBS)
 
 
-
 TEST_PROGS = boundingbox
 boundingbox_SOURCES = test-boundingbox.c
 boundingbox_LDADD = $(progs_ldadd)
@@ -32,6 +31,10 @@ boundingbox_LDADD = $(progs_ldadd)
 TEST_PROGS += objects
 objects_SOURCES = test-objects.c
 objects_LDADD = $(progs_ldadd)
+
+TEST_PROGS += sizeof
+sizeof_SOURCES = test-sizeof.c
+sizeof_LDADD = $(progs_ldadd)
 
 TEST_PROGS += testsvg
 testsvg_SOURCES = test-svg.c
