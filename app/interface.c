@@ -909,6 +909,12 @@ app_set_icon (GtkWindow *window)
 }
 
 #ifdef HAVE_MAC_INTEGRATION
+static gboolean
+_osx_app_exit (GtkosxApplication *app,
+	       gpointer           user_data)
+{
+  return !app_exit ();
+}
 static void
 _create_mac_integration (GtkWidget *menubar)
 {
@@ -952,6 +958,9 @@ _create_mac_integration (GtkWidget *menubar)
     gtkosx_application_set_dock_icon_pixbuf (theOsxApp,
 	gdk_pixbuf_new_from_inline (-1, dia_app_icon, FALSE, NULL));
   }
+  /* Don't quit without asking to save files first */
+  g_signal_connect (theOsxApp, "NSApplicationBlockTermination",
+		    G_CALLBACK (_osx_app_exit), NULL);
   /* without this all the above wont have any effect */
   gtkosx_application_ready(theOsxApp);
 }
