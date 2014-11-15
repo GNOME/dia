@@ -132,10 +132,10 @@ if [ ! -e "$LIBPREFIX" ]; then
 	exit 1
 fi
 
-if ! pkg-config --exists gtk-engines-2; then
-	echo "Missing gtk-engines2 -- please install gtk-engines2 and try again." >&2
-	exit 1
-fi
+#if ! pkg-config --exists gtk-engines-2; then
+#	echo "Missing gtk-engines2 -- please install gtk-engines2 and try again." >&2
+#	exit 1
+#fi
 
 
 # Handle some version specific details.
