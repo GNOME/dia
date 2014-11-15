@@ -951,6 +951,52 @@ draw_string(DiaRenderer *self,
   DIAG_STATE(renderer->cr)
 }
 
+static cairo_surface_t *
+_image_to_mime_surface (DiaCairoRenderer *renderer,
+			DiaImage         *image)
+{
+  cairo_surface_type_t st;
+  const char *fname = dia_image_filename (image);
+  int w = dia_image_width(image);
+  int h = dia_image_height(image);
+  const char *mime_type = NULL;
+
+  if (!renderer->surface)
+    return NULL;
+
+  /* We only use the "mime" surface if:
+   *  - the target supports it
+   *  - we have a file name with a supported format
+   *  - the cairo version is new enough including
+   *    http://cgit.freedesktop.org/cairo/commit/?id=35e0a2685134
+   */
+  if (g_str_has_suffix (fname, ".jpg") || g_str_has_suffix (fname, ".jpeg"))
+    mime_type = CAIRO_MIME_TYPE_JPEG;
+  else if (g_str_has_suffix (fname, ".png"))
+    mime_type = CAIRO_MIME_TYPE_PNG;
+  st = cairo_surface_get_type (renderer->surface);
+  if (   mime_type
+      && cairo_version() >= CAIRO_VERSION_ENCODE(1, 12, 18)
+      && (CAIRO_SURFACE_TYPE_PDF == st || CAIRO_SURFACE_TYPE_SVG == st))
+    {
+      cairo_surface_t *surface;
+      gchar *data = NULL;
+      gsize  length = 0;
+
+      /* we still ned to create the image surface, but dont need to fill it */
+      surface = cairo_image_surface_create (CAIRO_FORMAT_RGB24, w, h);
+      cairo_surface_mark_dirty (surface); /* no effect */
+      if (   g_file_get_contents (fname, &data, &length, NULL)
+          && cairo_surface_set_mime_data (surface, mime_type,
+					  (unsigned char *)data,
+					  length, g_free, data) == CAIRO_STATUS_SUCCESS)
+        return surface;
+      cairo_surface_destroy (surface);
+      g_free (data);
+    }
+  return NULL;
+}
+
 static void
 draw_rotated_image (DiaRenderer *self,
 		    Point *point,
@@ -968,7 +1014,11 @@ draw_rotated_image (DiaRenderer *self,
   DIAG_NOTE(g_message("draw_image %fx%f [%d(%d),%d] @%f,%f", 
             width, height, w, rs, h, point->x, point->y));
 
-  if (dia_image_rgba_data (image))
+  if ((surface = _image_to_mime_surface (renderer, image)) != NULL)
+    {
+      data = NULL;
+    }
+  else if (dia_image_rgba_data (image))
     {
       const guint8 *p1 = dia_image_rgba_data (image);
       /* we need to make a copy to rearrange channels ... */
