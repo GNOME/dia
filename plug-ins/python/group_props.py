@@ -52,31 +52,35 @@ class CPropsDialog :
 
 		self.checkboxes = []
 		self.optionmenues = []
-		table = gtk.Table(2, len(props), 0)
+		if len(props) :
+			table = gtk.Table(2, len(props), 0)
+		else :
+			table = gtk.Table(2, 1, 0)
 		table.set_row_spacings(2)
 		table.set_col_spacings(5)
 		table.set_border_width(5)
-		y = 0
-		for s in props.keys() :
-			w = gtk.CheckButton(s)
-			self.checkboxes.append(w)
-			table.attach(w, 0, 1, y, y+1)
-			w.show()
-			menu = gtk.Menu()
-			milist = None
-			for opt in props[s].opts :
-				#print opt
-				menuitem = gtk.RadioMenuItem (milist, str(opt.value))
-				milist = menuitem # GSlist
-				menu.append(menuitem)
-				menuitem.show()
-			menu.show ()
-			w = gtk.OptionMenu()
-			w.set_menu(menu)
-			self.optionmenues.append(w)
-			table.attach(w, 1, 2, y, y+1)
-			w.show()
-			y = y + 1
+		if len(props) :
+			y = 0
+			for s in props.keys() :
+				w = gtk.CheckButton(s)
+				self.checkboxes.append(w)
+				table.attach(w, 0, 1, y, y+1)
+				w.show()
+				menu = gtk.Menu()
+				milist = None
+				for opt in props[s].opts :
+					#print opt
+					menuitem = gtk.RadioMenuItem (milist, str(opt.value))
+					milist = menuitem # GSlist
+					menu.append(menuitem)
+					menuitem.show()
+				menu.show ()
+				w = gtk.OptionMenu()
+				w.set_menu(menu)
+				self.optionmenues.append(w)
+				table.attach(w, 1, 2, y, y+1)
+				w.show()
+				y = y + 1
 		else :
 			w = gtk.Label("The selected objects don't share any\n properties to change at once.") 
 			table.attach(w, 0, 1, y, y+1)
