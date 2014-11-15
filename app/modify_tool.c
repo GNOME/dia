@@ -105,14 +105,45 @@ create_modify_tool(void)
 static ModifierKeys 
 gdk_event_to_dia_ModifierKeys(guint event_state)
 {
-        ModifierKeys mod = MODIFIER_NONE;
-        if (event_state & GDK_SHIFT_MASK)
-                mod |= MODIFIER_SHIFT;
-   /*     Used intenally do not propagate
-    *     if (event_state & GDK_CONTROL_MASK) 
-                mod | MODIFIER_CONTROL;  
-                */
-        return mod;
+  ModifierKeys mod = MODIFIER_NONE;
+#if defined GDK_WINDOWING_QUARTZ
+  static guint last_state = 0;
+
+  if (last_state != event_state) {
+    last_state = event_state;
+    g_print ("%s%s%s,M%s%s%s%s%s,B%s%s%s%s%s,%s%s%s\n",
+	     event_state & GDK_SHIFT_MASK ? "Sh" : "  ",
+	     event_state & GDK_LOCK_MASK ? "Lo" : "  ",
+	     event_state & GDK_CONTROL_MASK ? "Co" : "  ",
+	     event_state & GDK_MOD1_MASK ? "1" : " ",
+	     event_state & GDK_MOD2_MASK ? "2" : " ",
+	     event_state & GDK_MOD3_MASK ? "3" : " ",
+	     event_state & GDK_MOD4_MASK ? "4" : " ",
+	     event_state & GDK_MOD5_MASK ? "5" : " ",
+	     event_state & GDK_BUTTON1_MASK ? "1" : " ",
+	     event_state & GDK_BUTTON2_MASK ? "2" : " ",
+	     event_state & GDK_BUTTON3_MASK ? "3" : " ",
+	     event_state & GDK_BUTTON4_MASK ? "4" : " ",
+	     event_state & GDK_BUTTON5_MASK ? "5" : " ",
+	     event_state & GDK_SUPER_MASK ? "Su" : "  ",
+	     event_state & GDK_HYPER_MASK ? "Hy" : "  ",
+	     event_state & GDK_META_MASK ? "Me" : "  ");
+  }
+  /* Kludge against GTK/Quartz returning bogus values,
+   * see https://bugzilla.gnome.org/show_bug.cgi?id=722815
+   */
+  if (event_state == (GDK_CONTROL_MASK|GDK_MOD1_MASK|GDK_MOD2_MASK |GDK_MOD3_MASK|GDK_BUTTON1_MASK))
+    event_state = GDK_BUTTON1_MASK;
+#endif
+
+  if (event_state & GDK_SHIFT_MASK)
+    mod |= MODIFIER_SHIFT;
+  if (event_state & GDK_CONTROL_MASK)
+    mod |= MODIFIER_CONTROL;
+  if (event_state & GDK_MOD1_MASK)
+    mod |= MODIFIER_ALT;
+
+  return mod;
 }
 
         
@@ -160,13 +191,6 @@ click_select_object(DDisplay *ddisp, Point *clickedpoint,
       /* To be removed once text edit mode is stable.  By then,
        * we don't want to automatically edit selected objects. 
 	 textedit_activate_object(ddisp, obj, clickedpoint);
-      */
-
-      /*
-	This stuff is buggy, fix it later.
-      if (event->state & GDK_CONTROL_MASK) {
-	transitive_select(ddisp, clickedpoint, obj);
-      }
       */
 
       ddisplay_do_update_menu_sensitivity(ddisp);
@@ -461,8 +485,8 @@ modify_motion(ModifyTool *tool, GdkEventMotion *event,
     
     if (tool->break_connections)
       diagram_unconnect_selected(ddisp->diagram); /* Pushes UNDO info */
-  
-    if (event->state & GDK_CONTROL_MASK) {
+
+    if (gdk_event_to_dia_ModifierKeys (event->state) & MODIFIER_CONTROL) {
       full_delta = to;
       point_sub(&full_delta, &tool->start_at);
       vertical = (fabs(full_delta.x) < fabs(full_delta.y));
@@ -475,13 +499,13 @@ modify_motion(ModifyTool *tool, GdkEventMotion *event,
     
     delta = to;
     point_sub(&delta, &now);
-    
-    if (event->state & GDK_CONTROL_MASK) {
+
+    if (gdk_event_to_dia_ModifierKeys (event->state) & MODIFIER_CONTROL) {
       /* Up-down or left-right */
       if (vertical) {
-	delta.x = tool->start_at.x + tool->move_compensate.x - now.x;
+       delta.x = tool->start_at.x + tool->move_compensate.x - now.x;
       } else {
-	delta.y = tool->start_at.y + tool->move_compensate.y - now.y;
+       delta.y = tool->start_at.y + tool->move_compensate.y - now.y;
       }
     }
 
@@ -518,9 +542,7 @@ modify_motion(ModifyTool *tool, GdkEventMotion *event,
   case STATE_MOVE_HANDLE:
     full_delta = to;
     point_sub(&full_delta, &tool->start_at);
-
     /* make sure resizing is restricted to its parent */
-
 
     /* if resize was blocked by parent, that means the resizing was
       outward, thus it won't bother the children so we don't have to
@@ -528,7 +550,7 @@ modify_motion(ModifyTool *tool, GdkEventMotion *event,
     if (!parent_handle_move_out_check(tool->object, &to))
       parent_handle_move_in_check(tool->object, &to, &tool->start_at);
 
-    if (event->state & GDK_CONTROL_MASK)
+    if (gdk_event_to_dia_ModifierKeys (event->state) & MODIFIER_CONTROL)
       vertical = (fabs(full_delta.x) < fabs(full_delta.y));
 
     highlight_reset_all(ddisp->diagram);
@@ -564,12 +586,12 @@ modify_motion(ModifyTool *tool, GdkEventMotion *event,
       }
     }
 
-    if (event->state & GDK_CONTROL_MASK) {
+    if (gdk_event_to_dia_ModifierKeys (event->state) & MODIFIER_CONTROL) {
       /* Up-down or left-right */
       if (vertical) {
-	to.x = tool->start_at.x;
+       to.x = tool->start_at.x;
       } else {
-	to.y = tool->start_at.y;
+       to.y = tool->start_at.y;
       }
     }
 
