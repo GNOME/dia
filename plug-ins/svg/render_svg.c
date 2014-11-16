@@ -611,7 +611,7 @@ draw_rotated_image (DiaRenderer *self,
     gchar *trans;
     Point pos = { point->x + width/2, point->y + height/2 }; /* center */
 
-    g_return_if_fail (node != NULL && xmlStrcmp (node->name, "image") == 0);
+    g_return_if_fail (node != NULL && xmlStrcmp (node->name, (const xmlChar *)"image") == 0);
 
     g_ascii_formatd (d_buf, sizeof(d_buf), "%g", angle);
     dia_svg_dtostr(x_buf0, pos.x);
