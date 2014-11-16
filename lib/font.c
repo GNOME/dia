@@ -149,7 +149,7 @@ dia_font_get_context()
     else {
 #  ifdef GDK_WINDOWING_WIN32
       dia_font_push_context(pango_win32_get_context ());
-#  elif defined GDK_WINDOWING_QUARTZ
+#  elif defined(GDK_WINDOWING_QUARTZ) || defined(GDK_WINDOWING_X11)
       dia_font_push_context (pango_font_map_create_context (pango_cairo_font_map_get_default ()));
 #  else
       g_warning ("dia_font_get_context() : not font context w/o display. Crashing soon.");
