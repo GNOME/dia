@@ -132,7 +132,7 @@ real ddisplay_untransform_length(DDisplay *ddisp, real len);
 void ddisplay_add_update_pixels(DDisplay *ddisp, Point *point,
 				       int pixel_width, int pixel_height);
 void ddisplay_add_update_all(DDisplay *ddisp);
-void ddisplay_add_update_with_border(DDisplay *ddisp, Rectangle *rect,
+void ddisplay_add_update_with_border(DDisplay *ddisp, const Rectangle *rect,
 				     int pixel_border);
 void ddisplay_add_update(DDisplay *ddisp, const Rectangle *rect);
 void ddisplay_add_display_area(DDisplay *ddisp,

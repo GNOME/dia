@@ -888,7 +888,7 @@ diagram_add_update(Diagram *dia, const Rectangle *update)
  * Currently used for leaving room for highlighting.
  * */
 void
-diagram_add_update_with_border(Diagram *dia, Rectangle *update,
+diagram_add_update_with_border(Diagram *dia, const Rectangle *update,
 			       int pixel_border)
 {
   GSList *l;

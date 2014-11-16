@@ -408,7 +408,7 @@ ddisplay_add_update_all(DDisplay *ddisp)
 /** Marks a rectangle for update, with a pixel border around it.
  */
 void
-ddisplay_add_update_with_border(DDisplay *ddisp, Rectangle *rect,
+ddisplay_add_update_with_border(DDisplay *ddisp, const Rectangle *rect,
 				int pixel_border)
 {
   Rectangle r;
