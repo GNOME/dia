@@ -44,6 +44,7 @@
 #include "filter.h"
 #include "objchange.h"
 #include "toolbox.h"
+#include "diagram_tree.h"
 
 #define DIA_STOCK_GROUP "dia-stock-group"
 #define DIA_STOCK_UNGROUP "dia-stock-ungroup"
@@ -95,8 +96,6 @@ static const GtkActionEntry common_entries[] =
     { "HelpContents", GTK_STOCK_HELP, NULL, "F1", N_("Dia help"), G_CALLBACK (help_manual_callback) },
     { "HelpAbout", GTK_STOCK_ABOUT, NULL, NULL, N_("Dia version, authors, license"), G_CALLBACK (help_about_callback) }
 };
-
-extern void diagram_tree_show(void);
 
 /* Actions for toolbox menu */
 static const GtkActionEntry toolbox_entries[] = 

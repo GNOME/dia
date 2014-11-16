@@ -188,6 +188,7 @@ dia_core_files = \
 	dia-application.h \
 	dia-application.c \
 	\
+	diagram_tree.h \
 	diagram_tree_model.c \
 	diagram_tree_model.h \
 	diagram_tree_view.c \

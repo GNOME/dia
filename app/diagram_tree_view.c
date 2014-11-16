@@ -32,6 +32,7 @@
 #include <lib/object.h>
 
 #include "diagram_tree_model.h"
+#include "diagram_tree.h"
 
 #include "dia-app-icons.h" /* for dia_group_icon */
 #include <lib/group.h> /* IS_GROUP */
