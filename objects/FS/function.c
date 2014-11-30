@@ -158,7 +158,7 @@ function_describe_props(Function *mes)
 }
 
 static PropOffset function_offsets[] = {
-  OBJECT_COMMON_PROPERTIES_OFFSETS,
+  ELEMENT_COMMON_PROPERTIES_OFFSETS,
   { "wish function", PROP_TYPE_BOOL, offsetof(Function, is_wish) },
   { "user function", PROP_TYPE_BOOL, offsetof(Function, is_user) },
   { "text", PROP_TYPE_TEXT, offsetof (Function, text) },

@@ -139,7 +139,7 @@ static PropEnumData prop_flow_type_data[] = {
 };
 
 static PropDescription flow_props[] = {
-  OBJECT_COMMON_PROPERTIES,
+  CONNECTION_COMMON_PROPERTIES,
   { "type", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE,
     N_("Type:"), NULL, prop_flow_type_data },
   { "text", PROP_TYPE_TEXT, 0, NULL, NULL },
@@ -161,7 +161,7 @@ flow_describe_props(Flow *mes)
 }
 
 static PropOffset flow_offsets[] = {
-  OBJECT_COMMON_PROPERTIES_OFFSETS,
+  CONNECTION_COMMON_PROPERTIES_OFFSETS,
   { "type", PROP_TYPE_ENUM, offsetof(Flow, type) },
   { "text", PROP_TYPE_TEXT, offsetof (Flow, text) },
   { "text_alignment", PROP_TYPE_ENUM, offsetof(Flow,text),offsetof(Text,alignment) },

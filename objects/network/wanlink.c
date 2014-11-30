@@ -114,7 +114,7 @@ DiaObjectType wanlink_type =
 };
 
 static PropDescription wanlink_props[] = {
-  OBJECT_COMMON_PROPERTIES,
+  CONNECTION_COMMON_PROPERTIES,
   { "width", PROP_TYPE_REAL, PROP_FLAG_VISIBLE,
     N_("Width"), NULL, NULL },
   PROP_STD_LINE_COLOUR,
@@ -131,7 +131,7 @@ wanlink_describe_props(WanLink *wanlink)
 }
 
 static PropOffset wanlink_offsets[] = {
-  OBJECT_COMMON_PROPERTIES_OFFSETS,
+  CONNECTION_COMMON_PROPERTIES_OFFSETS,
   { "width", PROP_TYPE_REAL, offsetof(WanLink, width) },
   { "line_colour", PROP_TYPE_COLOUR, offsetof(WanLink, line_color) },
   { "fill_colour", PROP_TYPE_COLOUR, offsetof(WanLink, fill_color) },

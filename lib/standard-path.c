@@ -145,6 +145,7 @@ static PropOffset stdpath_offsets[] = {
   { PROP_STDNAME_LINE_WIDTH, PROP_STDTYPE_LINE_WIDTH, offsetof(StdPath, line_width) },
   { "line_colour", PROP_TYPE_COLOUR, offsetof(StdPath, line_color) },
   { "line_style", PROP_TYPE_LINESTYLE, offsetof(StdPath, line_style), offsetof(StdPath, dashlength) },
+  { "line_join", PROP_TYPE_ENUM, offsetof(StdPath, line_join) },
   { "line_caps", PROP_TYPE_ENUM, offsetof(StdPath, line_caps) },
   { "fill_colour", PROP_TYPE_COLOUR, offsetof(StdPath, fill_color) },
   { "show_background", PROP_TYPE_BOOL, offsetof(StdPath, show_background) },

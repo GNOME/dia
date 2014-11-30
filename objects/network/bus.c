@@ -132,7 +132,7 @@ static ObjectOps bus_ops = {
 };
 
 static PropDescription bus_props[] = {
-  OBJECT_COMMON_PROPERTIES,
+  CONNECTION_COMMON_PROPERTIES,
   PROP_STD_LINE_COLOUR,
   PROP_DESC_END
 };
@@ -146,7 +146,7 @@ bus_describe_props(Bus *bus)
 }
 
 static PropOffset bus_offsets[] = {
-  OBJECT_COMMON_PROPERTIES_OFFSETS,
+  CONNECTION_COMMON_PROPERTIES_OFFSETS,
   { "line_colour", PROP_TYPE_COLOUR, offsetof(Bus, line_color) },
   { NULL, 0, 0 }
 };

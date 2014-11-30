@@ -69,10 +69,31 @@ _test_creation (gconstpointer user_data)
   {
     const PropDescription *pdesc = o->ops->describe_props (o);
     /* get all properties */
-    GPtrArray *plist = prop_list_from_descs (pdesc, pdtpp_true);
-    
-    g_assert (plist != NULL);
-    prop_list_free(plist);
+    GPtrArray *props = prop_list_from_descs (pdesc, pdtpp_true);
+    int num_described = props->len;
+    int num_used = 0;
+
+    /* Indirect check of object's private PropDescription and PropOffset array.
+     * Both arrays should be same length (reference the same properties).
+     * But the latter is only visible as parameter to object_get_props_from_offsets(),
+     * at least for objects not intialzing DiaObjectType::prop_offsets
+     */
+    o->ops->get_props (o, props);
+    for (i = 0; i < num_described; ++i) {
+      Property *prop = (Property*)g_ptr_array_index(props,i);
+      if ((prop->experience & PXP_NOTSET) == 0)
+        ++num_used;
+      else if ((prop->descr->flags & PROP_FLAG_WIDGET_ONLY) != 0)
+	++num_used; /* ... but not expected to be set */
+      else if (strcmp (prop->descr->type, PROP_TYPE_STATIC) == 0)
+	++num_used; /* also not to be set */
+      else
+	g_print ("Not set '%s'\n", prop->descr->name);
+    }
+    g_assert_cmpint (num_used, ==, num_described);
+
+    g_assert (props != NULL);
+    prop_list_free(props);
   }
   /* not implemented anywhere */
   g_assert (o->ops->edit_text == NULL);

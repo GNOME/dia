@@ -149,6 +149,7 @@ implements_describe_props(Implements *implements)
 static PropOffset implements_offsets[] = {
   CONNECTION_COMMON_PROPERTIES_OFFSETS,
   { "text", PROP_TYPE_STRING, offsetof(Implements, text) },
+  { "name", PROP_TYPE_STRING, offsetof(Implements, text) },
   { "text_font", PROP_TYPE_FONT, offsetof(Implements, font) },
   { PROP_STDNAME_TEXT_HEIGHT, PROP_STDTYPE_TEXT_HEIGHT, offsetof(Implements, font_height) },
   { "text_colour",PROP_TYPE_COLOUR,offsetof(Implements, text_color) },

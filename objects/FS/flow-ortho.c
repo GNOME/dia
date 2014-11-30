@@ -162,7 +162,7 @@ static PropEnumData prop_orthflow_type_data[] = {
 };
 
 static PropDescription orthflow_props[] = {
-  ELEMENT_COMMON_PROPERTIES,
+  ORTHCONN_COMMON_PROPERTIES,
   { "type", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE,
     N_("Type:"), NULL, prop_orthflow_type_data },
   { "text", PROP_TYPE_TEXT, 0, NULL, NULL },
@@ -184,7 +184,7 @@ orthflow_describe_props(Orthflow *mes)
 }
 
 static PropOffset orthflow_offsets[] = {
-  OBJECT_COMMON_PROPERTIES_OFFSETS,
+  ORTHCONN_COMMON_PROPERTIES_OFFSETS,
   { "type", PROP_TYPE_ENUM, offsetof(Orthflow, type) },
   { "text", PROP_TYPE_TEXT, offsetof (Orthflow, text) },
   { "text_alignment", PROP_TYPE_ENUM, offsetof(Orthflow,text),offsetof(Text,alignment) },
