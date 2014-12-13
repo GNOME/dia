@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: dia master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=dia&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2014-09-29 15:16+0000\n"
-"PO-Revision-Date: 2014-09-30 00:46+0700\n"
+"POT-Creation-Date: 2014-12-13 04:14+0000\n"
+"PO-Revision-Date: 2014-12-13 18:58+0700\n"
 "Last-Translator: Andika Triwidada <andika@gmail.com>\n"
 "Language-Team: Indonesia <gnome@i15n.org>\n"
 "Language: id\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 1.6.9\n"
+"X-Generator: Poedit 1.7.1\n"
 
 #. This is not an errror
 #: ../app/app_procs.c:209
@@ -253,7 +253,7 @@ msgstr ""
 "Diagram yang diubah sudah ada. Anda yakin ingin keluar Dia tanpa "
 "menyimpannya?"
 
-#: ../app/app_procs.c:1105 ../app/menus.c:93
+#: ../app/app_procs.c:1105 ../app/menus.c:94
 msgid "Quit Dia"
 msgstr "Keluar Dia"
 
@@ -463,13 +463,13 @@ msgstr[0] ""
 msgid ""
 "You can adjust the size of the diagram by changing the 'Scaling' in the "
 "'Page Setup' dialog.\n"
-"Alternatively use 'Select All' and 'Best Fit' to move objects/handles into "
-"the intended bounds."
+"Alternatively use 'Best Fit' to move objects/handles into the intended "
+"bounds."
 msgstr ""
 "Anda dapat menyetel ukuran diagram dengan mengubah 'Skala' dalam dialog "
 "'Penyiapan Halaman'.\n"
-"Sebagai alternatif, pakai 'Pilih Semua' dan 'Pas Terbaik' untuk memindah "
-"objek/handel ke batas yang dimaksudkan."
+"Sebagai alternatif, pakai 'Pas Terbaik' untuk memindah objek/handel ke batas "
+"yang dimaksudkan."
 
 #: ../app/confirm.c:92
 msgid "Confirm Diagram Size"
@@ -497,7 +497,7 @@ msgstr "Baku:"
 msgid "Couldn't convert filename '%s' to UTF-8: %s\n"
 msgstr "Tidak bisa mengubah nama berkas '%s' ke UTF-8: %s\n"
 
-#: ../app/diagram.c:240 ../lib/message.c:91 ../lib/message.c:299
+#: ../app/diagram.c:240 ../lib/message.c:91 ../lib/message.c:304
 msgid "Error"
 msgstr "Galat"
 
@@ -510,22 +510,22 @@ msgstr "Muat Ke Dalam"
 msgid "Trying to group with no selected objects."
 msgstr "Mencoba mengelompokkan tanpa ada objek yang dipilih."
 
-#: ../app/diagram_tree_view.c:164
+#: ../app/diagram_tree_view.c:165
 msgid "Diagram"
 msgstr "Diagram"
 
-#: ../app/diagram_tree_view.c:171
+#: ../app/diagram_tree_view.c:172
 #: ../plug-ins/drs/dia-render-script-import.c:464
 msgid "Layer"
 msgstr "Lapis"
 
-#: ../app/diagram_tree_view.c:177
+#: ../app/diagram_tree_view.c:178
 #, c-format
 msgid "%d Layer"
 msgid_plural "%d Layers"
 msgstr[0] "Lapis %d"
 
-#: ../app/diagram_tree_view.c:181 ../app/diagram_tree_view.c:519
+#: ../app/diagram_tree_view.c:182 ../app/diagram_tree_view.c:520
 #: ../objects/Database/table.c:149 ../objects/Istar/actor.c:142
 #: ../objects/Istar/actor.c:143 ../objects/Istar/other.c:147
 #: ../objects/Istar/other.c:148 ../objects/KAOS/other.c:150
@@ -535,36 +535,36 @@ msgstr[0] "Lapis %d"
 msgid "Type"
 msgstr "Tipe"
 
-#: ../app/diagram_tree_view.c:184
+#: ../app/diagram_tree_view.c:185
 msgid "object|Position"
 msgstr "objek"
 
-#: ../app/diagram_tree_view.c:187
+#: ../app/diagram_tree_view.c:188
 msgid "Children"
 msgstr "Anak"
 
-#: ../app/diagram_tree_view.c:191
+#: ../app/diagram_tree_view.c:192
 #, c-format
 msgid "%d Object"
 msgid_plural "%d Objects"
 msgstr[0] "Objek %d"
 
-#: ../app/diagram_tree_view.c:448
+#: ../app/diagram_tree_view.c:449
 msgid "Select"
 msgstr "Pilih"
 
 #. Translators: Menu item Verb/Support/Position/Locate
 #. Translators: Menu item Verb/Signal/Sense/Locate
-#: ../app/diagram_tree_view.c:449 ../objects/FS/function.c:801
+#: ../app/diagram_tree_view.c:450 ../objects/FS/function.c:801
 #: ../objects/FS/function.c:1043
 msgid "Locate"
 msgstr "Lokasi"
 
-#: ../app/diagram_tree_view.c:450
+#: ../app/diagram_tree_view.c:451
 msgid "Properties"
 msgstr "Properti"
 
-#: ../app/diagram_tree_view.c:502 ../app/exit_dialog.c:125
+#: ../app/diagram_tree_view.c:503 ../app/exit_dialog.c:125
 #: ../app/plugin-manager.c:270 ../objects/Database/table.c:147
 #: ../objects/Database/table.c:190 ../objects/Misc/n_gon.c:135
 #: ../objects/UML/association.c:236 ../objects/UML/class.c:140
@@ -574,7 +574,7 @@ msgstr "Properti"
 msgid "Name"
 msgstr "Nama"
 
-#: ../app/diagram_tree_view.c:565
+#: ../app/diagram_tree_view.c:566
 msgid "Diagram Tree"
 msgstr "Pohon Diagram"
 
@@ -710,11 +710,11 @@ msgstr "Properti"
 msgid "Follow link…"
 msgstr "Ikuti taut..."
 
-#: ../app/disp_callbacks.c:215 ../objects/standard/textobj.c:472
+#: ../app/disp_callbacks.c:215 ../objects/standard/textobj.c:583
 msgid "Convert to Path"
 msgstr "Konversi ke Path"
 
-#: ../app/disp_callbacks.c:262 ../app/menus.c:272
+#: ../app/disp_callbacks.c:262 ../app/menus.c:271
 msgid "Union"
 msgstr "Union"
 
@@ -722,7 +722,7 @@ msgstr "Union"
 msgid "Difference"
 msgstr "Perbedaan"
 
-#: ../app/disp_callbacks.c:264 ../app/menus.c:273
+#: ../app/disp_callbacks.c:264 ../app/menus.c:272
 msgid "Intersection"
 msgstr "Perpotongan"
 
@@ -946,7 +946,7 @@ msgstr "Cocok semu_a properti (bukan hanya nama objek)"
 msgid "Find"
 msgstr "Cari"
 
-#: ../app/find-and-replace.c:567 ../app/menus.c:271
+#: ../app/find-and-replace.c:567 ../app/menus.c:270
 msgid "Replace"
 msgstr "Ganti"
 
@@ -981,7 +981,7 @@ msgstr "Jungkitkan lengket-ke-kisi untuk jendela ini."
 msgid "Toggles object snapping for this window."
 msgstr "Jungkitkan pelengketan objek untuk jendela ini."
 
-#: ../app/interface.c:979 ../app/interface.c:1096 ../dia.desktop.in.in.h:2
+#: ../app/interface.c:988 ../app/interface.c:1105 ../dia.desktop.in.in.h:2
 msgid "Diagram Editor"
 msgstr "Penyunting Diagram"
 
@@ -1130,8 +1130,9 @@ msgstr ""
 "Sebuah berkas Dia yang valid mendefinisikan sedikitnya satu layer."
 
 #: ../app/load_save.c:1001
-msgid "Error saving connections"
-msgstr "Galat saat menyimpan koneksi"
+#, c-format
+msgid "Error saving connections to layer '%s'"
+msgstr "Galat saat menyimpan koneksi ke lapisan '%s'"
 
 #: ../app/load_save.c:1006
 #, c-format
@@ -1148,13 +1149,13 @@ msgstr "Tidak diijinkan menulis ke berkas keluaran %s\n"
 msgid "Not allowed to write temporary files in %s\n"
 msgstr "Tak diizinkan menulis berkas sementara dalam %s\n"
 
-#: ../app/load_save.c:1114 ../plug-ins/cgm/cgm.c:1083
+#: ../app/load_save.c:1114 ../plug-ins/cgm/cgm.c:1086
 #: ../plug-ins/dxf/dxf-export.c:516
-#: ../plug-ins/metapost/render_metapost.c:1057
-#: ../plug-ins/pgf/render_pgf.c:1190 ../plug-ins/postscript/render_eps.c:123
-#: ../plug-ins/pstricks/render_pstricks.c:867
-#: ../plug-ins/vdx/vdx-export.c:1706 ../plug-ins/wmf/wmf.cpp:1345
-#: ../plug-ins/wpg/wpg.c:1059 ../plug-ins/xfig/xfig-export.c:1090
+#: ../plug-ins/metapost/render_metapost.c:1022
+#: ../plug-ins/pgf/render_pgf.c:1192 ../plug-ins/postscript/render_eps.c:123
+#: ../plug-ins/pstricks/render_pstricks.c:870
+#: ../plug-ins/vdx/vdx-export.c:1706 ../plug-ins/wmf/wmf.cpp:1347
+#: ../plug-ins/wpg/wpg.c:1062 ../plug-ins/xfig/xfig-export.c:1098
 #, c-format
 msgid "Can't open output file %s"
 msgstr "Tidak bisa membuka berkas keluaran %s"
@@ -1168,495 +1169,495 @@ msgstr "Kesalahan internal %d saat menulis berkas %s\n"
 
 #: ../app/load_save.c:1136
 #, c-format
-msgid "Can't rename %s to final output file %s: %s\n"
-msgstr "Tidak bisa mengubah nama %s ke berkas keluaran akhir %s: %s\n"
+msgid "Can't rename %s to final output file %s"
+msgstr "Tidak bisa mengubah nama %s ke berkas keluaran akhir %s"
 
 #. no extra threads supported, stay in this one
-#: ../app/load_save.c:1252 ../app/load_save.c:1262 ../app/load_save.c:1270
+#: ../app/load_save.c:1252 ../app/load_save.c:1266 ../app/load_save.c:1274
 msgid "Auto save"
 msgstr "Simpan sendiri"
 
-#: ../app/load_save.c:1294 ../app/load_save.c:1299
+#: ../app/load_save.c:1298 ../app/load_save.c:1303
 msgid "Dia Diagram File"
 msgstr "Berkas Diagram Dia"
 
-#: ../app/menus.c:63
+#: ../app/menus.c:64
 msgid "Fit"
 msgstr "Pas"
 
-#: ../app/menus.c:90
+#: ../app/menus.c:91
 msgid "_File"
 msgstr "_Berkas"
 
-#: ../app/menus.c:91
+#: ../app/menus.c:92
 msgid "Create a new diagram"
 msgstr "Buat diagram baru"
 
-#: ../app/menus.c:92
+#: ../app/menus.c:93
 msgid "_Open…"
 msgstr "_Buka…"
 
-#: ../app/menus.c:92
+#: ../app/menus.c:93
 msgid "Open a diagram file"
 msgstr "Padatkan berkas diagram"
 
-#: ../app/menus.c:94
+#: ../app/menus.c:95
 msgid "_Help"
 msgstr "_Bantuan"
 
-#: ../app/menus.c:95
+#: ../app/menus.c:96
 msgid "Dia help"
 msgstr "Bantuan Dia"
 
-#: ../app/menus.c:96
+#: ../app/menus.c:97
 msgid "Dia version, authors, license"
 msgstr "Versi, penulis, lisensi Dia"
 
-#: ../app/menus.c:104
+#: ../app/menus.c:103
 msgid "Sheets and Objects…"
 msgstr "Lembar dan Objek..."
 
-#: ../app/menus.c:104
+#: ../app/menus.c:103
 msgid "Manage sheets and their objects"
 msgstr "Kelola lembar dan objek-objek mereka"
 
-#: ../app/menus.c:105
+#: ../app/menus.c:104
 msgid "Dia preferences"
 msgstr "Preferensi Dia"
 
-#: ../app/menus.c:106
+#: ../app/menus.c:105
 msgid "Plugins…"
 msgstr "Pengaya…"
 
-#: ../app/menus.c:106
+#: ../app/menus.c:105
 msgid "Manage plug-ins"
 msgstr "Kelola plug-in"
 
-#: ../app/menus.c:107
+#: ../app/menus.c:106
 msgid "_Diagram Tree"
 msgstr "Pohon _Diagram"
 
-#: ../app/menus.c:107
+#: ../app/menus.c:106
 msgid "Tree representation of diagrams"
 msgstr "Representasi pohon dari diagram"
 
-#: ../app/menus.c:112
+#: ../app/menus.c:111
 msgid "Show Toolbar"
 msgstr "Tampilkan Bilah Alat"
 
-#: ../app/menus.c:112
+#: ../app/menus.c:111
 msgid "Show or hide the toolbar"
 msgstr "Tampilkan atau sembunyikan bilah alat"
 
-#: ../app/menus.c:113
+#: ../app/menus.c:112
 msgid "Show Statusbar"
 msgstr "Tampilkan Bilah Status"
 
-#: ../app/menus.c:113
+#: ../app/menus.c:112
 msgid "Show or hide the statusbar"
 msgstr "Tampilkan atau sembunyikan bilah status"
 
-#: ../app/menus.c:114
+#: ../app/menus.c:113
 msgid "Show Layers"
 msgstr "Tampilkan Lapisan"
 
-#: ../app/menus.c:114
+#: ../app/menus.c:113
 msgid "Show or hide the layers toolwindow"
 msgstr "Tampilkan atau sembunyikan jendela alat lapisan"
 
-#: ../app/menus.c:120
+#: ../app/menus.c:119
 msgid "Save the diagram"
 msgstr "Simpan diagram"
 
-#: ../app/menus.c:121
+#: ../app/menus.c:120
 msgid "Save _As…"
 msgstr "Simpan Seb_agai..."
 
-#: ../app/menus.c:121
+#: ../app/menus.c:120
 msgid "Save the diagram with a new name"
 msgstr "Simpan diagram dengan nama baru"
 
-#: ../app/menus.c:122
+#: ../app/menus.c:121
 msgid "_Export…"
 msgstr "_Ekspor..."
 
-#: ../app/menus.c:122
+#: ../app/menus.c:121
 msgid "Export the diagram"
 msgstr "Ekspor diagram"
 
-#: ../app/menus.c:123
+#: ../app/menus.c:122
 msgid "_Diagram Properties"
 msgstr "Properti _Diagram"
 
-#: ../app/menus.c:123
+#: ../app/menus.c:122
 msgid "Modify diagram properties (grid, background)"
 msgstr "Ubah properti diagram (kisi, latar)"
 
-#: ../app/menus.c:124
+#: ../app/menus.c:123
 msgid "Page Set_up…"
 msgstr "Pen_yiapan Halaman…"
 
-#: ../app/menus.c:124
+#: ../app/menus.c:123
 msgid "Modify the diagram pagination"
 msgstr "Ubah penataan halaman diagram"
 
-#: ../app/menus.c:125
+#: ../app/menus.c:124
 msgid "_Print…"
 msgstr "_Cetak..."
 
-#: ../app/menus.c:125
+#: ../app/menus.c:124
 msgid "Print the diagram"
 msgstr "Cetak diagram"
 
-#: ../app/menus.c:126
+#: ../app/menus.c:125
 msgid "Close the diagram"
 msgstr "Tutup diagram"
 
-#: ../app/menus.c:128
+#: ../app/menus.c:127
 msgid "_Edit"
 msgstr "_Sunting"
 
-#: ../app/menus.c:129
+#: ../app/menus.c:128
 msgid "Undo"
 msgstr "Tak jadi"
 
-#: ../app/menus.c:130
+#: ../app/menus.c:129
 msgid "Redo"
 msgstr "Jadi lagi"
 
-#: ../app/menus.c:132
+#: ../app/menus.c:131
 msgid "Copy selection"
 msgstr "Salin pilihan"
 
-#: ../app/menus.c:133
+#: ../app/menus.c:132
 msgid "Cut selection"
 msgstr "Potong pilihan"
 
-#: ../app/menus.c:134
+#: ../app/menus.c:133
 msgid "Paste selection"
 msgstr "Tempel pilihan"
 
-#: ../app/menus.c:135
+#: ../app/menus.c:134
 msgid "_Duplicate"
 msgstr "Gan_dakan"
 
-#: ../app/menus.c:135
+#: ../app/menus.c:134
 msgid "Duplicate selection"
 msgstr "Duplikatkan pilihan"
 
-#: ../app/menus.c:136
+#: ../app/menus.c:135
 msgid "Delete selection"
 msgstr "Hapus yang dipilih"
 
-#: ../app/menus.c:138
+#: ../app/menus.c:137
 msgid "_Find…"
 msgstr "_Cari..."
 
-#: ../app/menus.c:138
+#: ../app/menus.c:137
 msgid "Search for text"
 msgstr "Cari teks"
 
-#: ../app/menus.c:139
+#: ../app/menus.c:138
 msgid "_Replace…"
 msgstr "_Ganti..."
 
-#: ../app/menus.c:139
+#: ../app/menus.c:138
 msgid "Search and replace text"
 msgstr "Cari dan ganti teks"
 
 #. the following used to bind to <control><shift>C which collides with Unicode input.
 #. * <control><alt> doesn't work either
-#: ../app/menus.c:143
+#: ../app/menus.c:142
 msgid "Copy Text"
 msgstr "Salin Teks"
 
-#: ../app/menus.c:143
+#: ../app/menus.c:142
 msgid "Copy object's text to clipboard"
 msgstr "Salin teks milik objek ke papan klip"
 
-#: ../app/menus.c:144
+#: ../app/menus.c:143
 msgid "Cut Text"
 msgstr "Potong Teks"
 
-#: ../app/menus.c:144
+#: ../app/menus.c:143
 msgid "Cut object's text to clipboard"
 msgstr "Potong teks milik objek ke papan klip"
 
-#: ../app/menus.c:145
+#: ../app/menus.c:144
 msgid "Paste _Text"
 msgstr "Tempel _Teks"
 
-#: ../app/menus.c:145
+#: ../app/menus.c:144
 msgid "Insert text from clipboard"
 msgstr "Tempelkan teks dari papan klip"
 
-#: ../app/menus.c:147
+#: ../app/menus.c:146
 msgid "Paste _Image"
 msgstr "Tempel C_itra"
 
-#: ../app/menus.c:147
+#: ../app/menus.c:146
 msgid "Insert image from clipboard"
 msgstr "Sisipkan citra dari papan klip"
 
-#: ../app/menus.c:149
+#: ../app/menus.c:148
 msgid "_Layers"
 msgstr "_Lapisan"
 
-#: ../app/menus.c:150
+#: ../app/menus.c:149
 msgid "Add Layer…"
 msgstr "Tambah Lapisan..."
 
-#: ../app/menus.c:151
+#: ../app/menus.c:150
 msgid "Rename Layer…"
 msgstr "Ubah Nama Lapisan..."
 
-#: ../app/menus.c:152
+#: ../app/menus.c:151
 msgid "Move Selection to Layer above"
 msgstr "Pindahkan Pilihan ke Lapisan di atas"
 
-#: ../app/menus.c:153
+#: ../app/menus.c:152
 msgid "Move Selection to Layer below"
 msgstr "Pindahkan Pilihan ke Lapisan di bawah"
 
-#: ../app/menus.c:154
+#: ../app/menus.c:153
 msgid "_Layers…"
 msgstr "_Lapisan…"
 
-#: ../app/menus.c:155
+#: ../app/menus.c:154
 msgid "_View"
 msgstr "_Lihat"
 
-#: ../app/menus.c:156
+#: ../app/menus.c:155
 msgid "Zoom in"
 msgstr "Perbesar"
 
-#: ../app/menus.c:157
+#: ../app/menus.c:156
 msgid "Zoom out"
 msgstr "Perkecil"
 
-#: ../app/menus.c:158
+#: ../app/menus.c:157
 msgid "_Zoom"
 msgstr "_Zum"
 
-#: ../app/menus.c:159
+#: ../app/menus.c:158
 msgid "1600%"
 msgstr "1600%"
 
-#: ../app/menus.c:160 ../app/menus.c:597 ../app/menus.c:609
+#: ../app/menus.c:159 ../app/menus.c:596 ../app/menus.c:608
 msgid "800%"
 msgstr "800%"
 
-#: ../app/menus.c:161 ../app/menus.c:598 ../app/menus.c:610
+#: ../app/menus.c:160 ../app/menus.c:597 ../app/menus.c:609
 msgid "400%"
 msgstr "400%"
 
-#: ../app/menus.c:162
+#: ../app/menus.c:161
 msgid "283"
 msgstr "283"
 
-#: ../app/menus.c:163
+#: ../app/menus.c:162
 msgid "200"
 msgstr "200"
 
-#: ../app/menus.c:164
+#: ../app/menus.c:163
 msgid "141"
 msgstr "141"
 
-#: ../app/menus.c:166
+#: ../app/menus.c:165
 msgid "85"
 msgstr "85"
 
-#: ../app/menus.c:167
+#: ../app/menus.c:166
 msgid "70.7"
 msgstr "70.7"
 
-#: ../app/menus.c:168
+#: ../app/menus.c:167
 msgid "50"
 msgstr "50"
 
-#: ../app/menus.c:169
+#: ../app/menus.c:168
 msgid "35.4"
 msgstr "35.4"
 
-#: ../app/menus.c:170
+#: ../app/menus.c:169
 msgid "25"
 msgstr "25"
 
 #. Show All, Best Fit.  Same as the Gimp, Ctrl+E
-#: ../app/menus.c:172
+#: ../app/menus.c:171
 msgid "Zoom fit"
 msgstr "Paskan"
 
 #. "display_toggle_entries" items go here
-#: ../app/menus.c:176
+#: ../app/menus.c:175
 msgid "New _View"
 msgstr "Tampilan Ba_ru"
 
-#: ../app/menus.c:177
+#: ../app/menus.c:176
 msgid "C_lone View"
 msgstr "Tilikan K_lon"
 
-#: ../app/menus.c:180
+#: ../app/menus.c:179
 msgid "_Objects"
 msgstr "_Obyek"
 
-#: ../app/menus.c:181
+#: ../app/menus.c:180
 msgid "Send to _Back"
 msgstr "Kirim ke _Belakang"
 
-#: ../app/menus.c:181
+#: ../app/menus.c:180
 msgid "Move selection to the bottom"
 msgstr "Pindahkan pilihan ke dasar"
 
-#: ../app/menus.c:182
+#: ../app/menus.c:181
 msgid "Bring to _Front"
 msgstr "Bawa ke _Depan"
 
-#: ../app/menus.c:182
+#: ../app/menus.c:181
 msgid "Move selection to the top"
 msgstr "Pindahkan pilihan ke puncak"
 
-#: ../app/menus.c:183
+#: ../app/menus.c:182
 msgid "Send Backwards"
 msgstr "Kirim Mundur"
 
-#: ../app/menus.c:184
+#: ../app/menus.c:183
 msgid "Bring Forwards"
 msgstr "Bawa Maju"
 
-#: ../app/menus.c:186
+#: ../app/menus.c:185
 msgid "_Group"
 msgstr "_Grup"
 
-#: ../app/menus.c:186
+#: ../app/menus.c:185
 msgid "Group selected objects"
 msgstr "Kelompokkan objek-objek yang dipilih"
 
 #. deliberately not using Ctrl+U for Ungroup
-#: ../app/menus.c:188
+#: ../app/menus.c:187
 msgid "_Ungroup"
 msgstr "_Ungrup"
 
-#: ../app/menus.c:188
+#: ../app/menus.c:187
 msgid "Ungroup selected groups"
 msgstr "Bongkar kelompok yang dipilih"
 
-#: ../app/menus.c:190
+#: ../app/menus.c:189
 msgid "_Parent"
 msgstr "_Induk"
 
-#: ../app/menus.c:191
+#: ../app/menus.c:190
 msgid "_Unparent"
 msgstr "_Tak-berinduk"
 
-#: ../app/menus.c:192
+#: ../app/menus.c:191
 msgid "_Unparent Children"
 msgstr "Anak _Tak-berinduk"
 
 #. Translators: Menu item Verb/Support/Position/Align
-#: ../app/menus.c:194 ../objects/FS/function.c:799
+#: ../app/menus.c:193 ../objects/FS/function.c:799
 msgid "Align"
 msgstr "Rapikan"
 
-#: ../app/menus.c:199 ../objects/standard/textobj.c:112
+#: ../app/menus.c:198 ../objects/standard/textobj.c:117
 msgid "Top"
 msgstr "Puncak"
 
-#: ../app/menus.c:200
+#: ../app/menus.c:199
 msgid "Middle"
 msgstr "Tengah"
 
-#: ../app/menus.c:201 ../objects/standard/textobj.c:111
+#: ../app/menus.c:200 ../objects/standard/textobj.c:116
 msgid "Bottom"
 msgstr "Dasar"
 
-#: ../app/menus.c:203
+#: ../app/menus.c:202
 msgid "Spread Out Horizontally"
 msgstr "Sebar Mendatar"
 
-#: ../app/menus.c:204
+#: ../app/menus.c:203
 msgid "Spread Out Vertically"
 msgstr "Sebar Tegak"
 
-#: ../app/menus.c:205
+#: ../app/menus.c:204
 msgid "Adjacent"
 msgstr "Bersebelahan"
 
-#: ../app/menus.c:206
+#: ../app/menus.c:205
 msgid "Stacked"
 msgstr "Ditumpuk"
 
-#: ../app/menus.c:207 ../app/menus.c:217
+#: ../app/menus.c:206 ../app/menus.c:216
 msgid "Connected"
 msgstr "Tersambung"
 
-#: ../app/menus.c:211
+#: ../app/menus.c:210
 msgid "_Select"
 msgstr "_Pilih"
 
-#: ../app/menus.c:212
+#: ../app/menus.c:211
 msgid "All"
 msgstr "Semua"
 
-#: ../app/menus.c:213 ../objects/Jackson/domain.c:94
+#: ../app/menus.c:212 ../objects/Jackson/domain.c:94
 #: ../objects/UML/association.c:220 ../objects/UML/association.c:226
 msgid "None"
 msgstr "Tidak satupun"
 
-#: ../app/menus.c:214
+#: ../app/menus.c:213
 msgid "Invert"
 msgstr "Balik"
 
-#: ../app/menus.c:216
+#: ../app/menus.c:215
 msgid "Transitive"
 msgstr "Transitif"
 
-#: ../app/menus.c:218
+#: ../app/menus.c:217
 msgid "Same Type"
 msgstr "Sama Tipe"
 
 #. display_select_radio_entries go here
-#: ../app/menus.c:222
+#: ../app/menus.c:221
 msgid "Select By"
 msgstr "_Pilih"
 
 #. For placment of the toplevel Layout menu and it's accelerator
-#: ../app/menus.c:225
+#: ../app/menus.c:224
 msgid "L_ayout"
 msgstr "T_ata Letak"
 
-#: ../app/menus.c:227
+#: ../app/menus.c:226
 msgid "D_ialogs"
 msgstr "D_ialog"
 
-#: ../app/menus.c:229
+#: ../app/menus.c:228
 msgid "D_ebug"
 msgstr "_Awakutu"
 
-#: ../app/menus.c:235
+#: ../app/menus.c:234
 msgid "_Tools"
 msgstr "_Perkakas"
 
-#: ../app/menus.c:236
+#: ../app/menus.c:235
 msgid "Modify"
 msgstr "Ubah"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Magnify
-#: ../app/menus.c:237 ../app/toolbox.c:86 ../objects/FS/function.c:979
+#: ../app/menus.c:236 ../app/toolbox.c:86 ../objects/FS/function.c:979
 msgid "Magnify"
 msgstr "Perbesar"
 
-#: ../app/menus.c:238
+#: ../app/menus.c:237
 msgid "Edit Text"
 msgstr "Sunting Teks"
 
-#: ../app/menus.c:239
+#: ../app/menus.c:238
 msgid "Scroll"
 msgstr "Gulung"
 
 #. how it used to be before 0.96+SVN
 #. new name matching "same name, same type"  rule
-#: ../app/menus.c:240 ../app/toolbox.c:98 ../lib/properties.c:102
+#: ../app/menus.c:239 ../app/toolbox.c:98 ../lib/properties.c:102
 #: ../lib/properties.h:677 ../objects/AADL/aadlbox.c:153
 #: ../objects/custom/custom_object.c:227 ../objects/Jackson/requirement.c:130
 #: ../objects/network/basestation.c:132 ../objects/network/radiocell.c:131
@@ -1669,136 +1670,136 @@ msgstr "Gulung"
 msgid "Text"
 msgstr "Teks"
 
-#: ../app/menus.c:241 ../app/toolbox.c:104
+#: ../app/menus.c:240 ../app/toolbox.c:104
 msgid "Box"
 msgstr "Kotak"
 
-#: ../app/menus.c:242 ../app/toolbox.c:110
+#: ../app/menus.c:241 ../app/toolbox.c:110
 msgid "Ellipse"
 msgstr "Elips"
 
-#: ../app/menus.c:243 ../app/toolbox.c:116
+#: ../app/menus.c:242 ../app/toolbox.c:116
 msgid "Polygon"
 msgstr "Poligon"
 
-#: ../app/menus.c:244 ../app/toolbox.c:122
+#: ../app/menus.c:243 ../app/toolbox.c:122
 msgid "Beziergon"
 msgstr "Beziergon"
 
-#: ../app/menus.c:246 ../app/toolbox.c:128 ../objects/standard/line.c:325
+#: ../app/menus.c:245 ../app/toolbox.c:128 ../objects/standard/line.c:327
 msgid "Line"
 msgstr "Garis"
 
-#: ../app/menus.c:247 ../app/toolbox.c:134
+#: ../app/menus.c:246 ../app/toolbox.c:134
 msgid "Arc"
 msgstr "Arc"
 
-#: ../app/menus.c:248 ../app/toolbox.c:140
+#: ../app/menus.c:247 ../app/toolbox.c:140
 msgid "Zigzagline"
 msgstr "Garis zigzag"
 
-#: ../app/menus.c:249 ../app/toolbox.c:146
+#: ../app/menus.c:248 ../app/toolbox.c:146
 msgid "Polyline"
 msgstr "Polyline"
 
-#: ../app/menus.c:250 ../app/toolbox.c:152
+#: ../app/menus.c:249 ../app/toolbox.c:152
 msgid "Bezierline"
 msgstr "Garis bezier"
 
-#: ../app/menus.c:251 ../app/toolbox.c:165
+#: ../app/menus.c:250 ../app/toolbox.c:165
 msgid "Outline"
 msgstr "Outline"
 
-#: ../app/menus.c:253 ../app/toolbox.c:158
+#: ../app/menus.c:252 ../app/toolbox.c:158
 msgid "Image"
 msgstr "Citra"
 
-#: ../app/menus.c:260
+#: ../app/menus.c:259
 msgid "_Antialiased"
 msgstr "_Antialias"
 
-#: ../app/menus.c:261
+#: ../app/menus.c:260
 msgid "Show _Grid"
 msgstr "Tampilkan _Grid"
 
-#: ../app/menus.c:262
+#: ../app/menus.c:261
 msgid "_Snap to Grid"
 msgstr "Lengket ke Ki_si"
 
-#: ../app/menus.c:263
+#: ../app/menus.c:262
 msgid "Snap to _Objects"
 msgstr "Lengket ke _Objek"
 
-#: ../app/menus.c:264
+#: ../app/menus.c:263
 msgid "Show _Rulers"
 msgstr "Tampilkan _Penggaris"
 
-#: ../app/menus.c:265
+#: ../app/menus.c:264
 msgid "Show _Connection Points"
 msgstr "Tampilkan _Titik Koneksi"
 
 #. Translators: Menu item Verb/Channel/Export/Remove
 #. Translators: Menu item Verb/Branch/Separate/Remove
 #. Translators: Menu item Verb/Branch/Separate/Remove/Remove
-#: ../app/menus.c:274 ../objects/FS/function.c:699
+#: ../app/menus.c:273 ../objects/FS/function.c:699
 #: ../objects/FS/function.c:851 ../objects/FS/function.c:853
 msgid "Remove"
 msgstr "Hapus"
 
 #. Cannot also be called Invert, duplicate names caused keybinding problems
-#: ../app/menus.c:276
+#: ../app/menus.c:275
 msgid "Inverse"
 msgstr "Kebalikan"
 
-#: ../app/menus.c:338
+#: ../app/menus.c:337
 msgid "NULL tooldata in tool_menu_select"
 msgstr "NULL tooldata dalam tool_menu_select"
 
-#: ../app/menus.c:599 ../app/menus.c:611
+#: ../app/menus.c:598 ../app/menus.c:610
 msgid "300%"
 msgstr "300%"
 
-#: ../app/menus.c:600 ../app/menus.c:612
+#: ../app/menus.c:599 ../app/menus.c:611
 msgid "200%"
 msgstr "200%"
 
-#: ../app/menus.c:601 ../app/menus.c:613
+#: ../app/menus.c:600 ../app/menus.c:612
 msgid "150%"
 msgstr "150%"
 
-#: ../app/menus.c:602 ../app/menus.c:614
+#: ../app/menus.c:601 ../app/menus.c:613
 msgid "100%"
 msgstr "100%"
 
-#: ../app/menus.c:603 ../app/menus.c:615
+#: ../app/menus.c:602 ../app/menus.c:614
 msgid "75%"
 msgstr "75%"
 
-#: ../app/menus.c:604 ../app/menus.c:616
+#: ../app/menus.c:603 ../app/menus.c:615
 msgid "50%"
 msgstr "50%"
 
-#: ../app/menus.c:605 ../app/menus.c:617
+#: ../app/menus.c:604 ../app/menus.c:616
 msgid "25%"
 msgstr "25%"
 
-#: ../app/menus.c:606 ../app/menus.c:618
+#: ../app/menus.c:605 ../app/menus.c:617
 msgid "10%"
 msgstr "10%"
 
-#: ../app/menus.c:644
+#: ../app/menus.c:643
 msgid "Toggles snap-to-grid."
 msgstr "Jungkitkan lengket ke kisi."
 
-#: ../app/menus.c:655
+#: ../app/menus.c:654
 msgid "Toggles object snapping."
 msgstr "Jungkitkan pelengketan objek."
 
-#: ../app/menus.c:1275
+#: ../app/menus.c:1274
 msgid "The function is not available anymore."
 msgstr "Fungsi tersebut tak tersedia lagi."
 
-#: ../app/modify_tool.c:387
+#: ../app/modify_tool.c:411
 msgid "Couldn't get GTK+ settings"
 msgstr "Tak bisa memperoleh pengaturan GTK+"
 
@@ -1947,8 +1948,8 @@ msgstr "tilik dalam anti alias"
 msgid "Portable Network Graphics"
 msgstr "Portable Network Graphics"
 
-#: ../app/preferences.c:224 ../plug-ins/svg/render_svg.c:583
-#: ../plug-ins/svg/svg-import.c:2163
+#: ../app/preferences.c:224 ../plug-ins/svg/render_svg.c:649
+#: ../plug-ins/svg/svg-import.c:2121
 msgid "Scalable Vector Graphics"
 msgstr "Scalable Vector Graphics"
 
@@ -1956,11 +1957,11 @@ msgstr "Scalable Vector Graphics"
 msgid "PostScript"
 msgstr "PostScript"
 
-#: ../app/preferences.c:228 ../plug-ins/wmf/wmf.cpp:1447
+#: ../app/preferences.c:228 ../plug-ins/wmf/wmf.cpp:1449
 msgid "Windows Metafile"
 msgstr "Windows Metafile"
 
-#: ../app/preferences.c:230 ../plug-ins/wmf/wmf.cpp:1456
+#: ../app/preferences.c:230 ../plug-ins/wmf/wmf.cpp:1458
 msgid "Enhanced Metafile"
 msgstr "Enhanced Metafile"
 
@@ -1996,13 +1997,13 @@ msgstr "Garis per garis utama"
 msgid "Hex Size:"
 msgstr "Ukuran Heksa:"
 
-#: ../app/preferences.c:470 ../lib/diapatternselector.c:87
+#: ../app/preferences.c:470 ../lib/diapatternselector.c:89
 #: ../lib/prop_inttypes.c:159 ../lib/prop_pixbuf.c:296
 msgid "Yes"
 msgstr "Ya"
 
 #: ../app/preferences.c:470 ../app/preferences.c:481
-#: ../lib/diapatternselector.c:91 ../lib/diapatternselector.c:182
+#: ../lib/diapatternselector.c:93 ../lib/diapatternselector.c:184
 #: ../lib/prop_inttypes.c:161 ../lib/prop_inttypes.c:187
 #: ../lib/prop_pixbuf.c:298 ../lib/prop_pixbuf.c:304
 msgid "No"
@@ -2028,7 +2029,7 @@ msgstr "Properti: "
 msgid "Object properties:"
 msgstr "Properti obyek:"
 
-#: ../app/sheets.c:158
+#: ../app/sheets.c:159
 #, c-format
 msgid ""
 "%s\n"
@@ -2037,7 +2038,7 @@ msgstr ""
 "%s\n"
 "Lembar sistem"
 
-#: ../app/sheets.c:160
+#: ../app/sheets.c:161
 #, c-format
 msgid ""
 "%s\n"
@@ -2046,7 +2047,7 @@ msgstr ""
 "%s\n"
 "Lembar pengguna"
 
-#: ../app/sheets.c:278
+#: ../app/sheets.c:279
 msgid ""
 "Can't get symbol 'custom_type' from any module.\n"
 "Editing shapes is disabled."
@@ -2054,16 +2055,16 @@ msgstr ""
 "Tidak bisa mendapatkan simbol 'custom_type' dari modul manapun.\n"
 "Penyuntingan bentuk dinonaktifkan."
 
-#: ../app/sheets.c:413
+#: ../app/sheets.c:414
 #, c-format
 msgid "Widget not found: %s"
 msgstr "Widget tidak ditemukan: %s"
 
-#: ../app/sheets.c:443
+#: ../app/sheets.c:444
 msgid "SVG Shape"
 msgstr "Bentuk SVG"
 
-#: ../app/sheets.c:445
+#: ../app/sheets.c:446
 msgid "Programmed DiaObject"
 msgstr "DiaObject Terprogram"
 
@@ -2610,7 +2611,7 @@ msgstr "panah tak dikenal"
 #: ../lib/create.c:50 ../lib/create.c:100 ../lib/create.c:127
 #: ../lib/create.c:160 ../lib/create.c:196 ../lib/create.c:228
 #: ../lib/create.c:252 ../lib/create.c:284 ../lib/create.c:305
-#: ../lib/create.c:335 ../lib/create.c:378 ../plug-ins/svg/svg-import.c:694
+#: ../lib/create.c:335 ../lib/create.c:378 ../plug-ins/svg/svg-import.c:677
 #: ../plug-ins/vdx/vdx-import.c:144
 msgid "Can't find standard object"
 msgstr "Tidak bisa menemukan obyek standar"
@@ -2659,10 +2660,8 @@ msgstr "Tidak bisa menemukan keluarga fonta untuk %s\n"
 msgid ""
 "Unsupported file format for saving:\n"
 "%s\n"
-"%s\n"
 msgstr ""
 "Format berkas yang tak didukung untuk menyimpan:\n"
-"%s\n"
 "%s\n"
 
 #: ../lib/dia_image.c:348
@@ -2676,11 +2675,11 @@ msgstr ""
 "%s\n"
 "%s\n"
 
-#: ../lib/dialinechooser.c:309
+#: ../lib/dialinechooser.c:310
 msgid "Line Style Properties"
 msgstr "Properti Gaya Garis"
 
-#: ../lib/dialinechooser.c:344
+#: ../lib/dialinechooser.c:345
 msgid "Details…"
 msgstr "Rincian…"
 
@@ -2717,19 +2716,19 @@ msgstr "OK"
 msgid "Cancel"
 msgstr "Batal"
 
-#: ../lib/diapatternselector.c:108
+#: ../lib/diapatternselector.c:110
 msgid "Horizontal"
 msgstr "Horisontal"
 
-#: ../lib/diapatternselector.c:109
+#: ../lib/diapatternselector.c:111
 msgid "Diagonal"
 msgstr "Diagonal"
 
-#: ../lib/diapatternselector.c:110
+#: ../lib/diapatternselector.c:112
 msgid "Vertical"
 msgstr "Vertikal"
 
-#: ../lib/diapatternselector.c:111
+#: ../lib/diapatternselector.c:113
 msgid "Radial"
 msgstr "Radial"
 
@@ -2825,11 +2824,11 @@ msgstr "Multi penyaring impor dengan nama unik %s"
 msgid "Can't load font %s.\n"
 msgstr "Tak bisa memuat fonta %s.\n"
 
-#: ../lib/group.c:632
+#: ../lib/group.c:634
 msgid "Transformation"
 msgstr "Transformasi"
 
-#: ../lib/message.c:93 ../lib/message.c:284
+#: ../lib/message.c:93 ../lib/message.c:289
 msgid "Warning"
 msgstr "Peringatan"
 
@@ -2845,13 +2844,13 @@ msgstr "Tampilkan pesan ulangan"
 msgid "Don't show this message again"
 msgstr "Jangan tunjukkan pesan ini lagi"
 
-#: ../lib/message.c:206
+#: ../lib/message.c:211
 #, c-format
 msgid "There is %d similar message."
 msgid_plural "There are %d similar messages."
 msgstr[0] "Ada %d pesan serupa."
 
-#: ../lib/message.c:268
+#: ../lib/message.c:273
 msgid "Notice"
 msgstr "Pemberitahuan"
 
@@ -2894,12 +2893,7 @@ msgstr "Kehilangan simbol 'dia_plugin_init'"
 msgid "dia_plugin_init() call failed"
 msgstr "dia_plugin_init() gagal dipanggil"
 
-#: ../lib/plug-ins.c:234
-#, c-format
-msgid "%s Plugin could not be unloaded"
-msgstr "%s Plugin tidak bisa dikeluarkan"
-
-#: ../lib/plug-ins.c:442
+#: ../lib/plug-ins.c:443
 msgid "Plugin Configuration"
 msgstr "Konfigurasi Plugin"
 
@@ -2942,7 +2936,7 @@ msgid "Left"
 msgstr "Kiri"
 
 #: ../lib/properties.c:69 ../lib/properties.h:592 ../lib/widgets.c:270
-#: ../objects/standard/textobj.c:113
+#: ../objects/standard/textobj.c:118
 msgid "Center"
 msgstr "Tengah"
 
@@ -3093,7 +3087,7 @@ msgid "Cant create image data from scratch!"
 msgstr "Tak dapat membuat data citra dari awal!"
 
 #. Todo: get label for the branch view from props, e.g. UML Operations Parameters
-#: ../lib/prop_sdarray_widget.c:576 ../objects/chronogram/chronoline.c:161
+#: ../lib/prop_sdarray_widget.c:561 ../objects/chronogram/chronoline.c:161
 #: ../objects/UML/umloperation.c:79
 msgid "Parameters"
 msgstr "Parameter"
@@ -3158,36 +3152,36 @@ msgstr "Menggambar"
 msgid "Draw Control Lines"
 msgstr "Gambar Garis Kendali"
 
-#: ../lib/standard-path.c:726
+#: ../lib/standard-path.c:728
 msgid "Convert to Bezier"
 msgstr "Konversikan ke Bezier"
 
-#: ../lib/standard-path.c:727
+#: ../lib/standard-path.c:729
 msgid "Invert Path"
 msgstr "Balikkan Path"
 
-#: ../lib/standard-path.c:728 ../objects/custom/custom_object.c:198
+#: ../lib/standard-path.c:730 ../objects/custom/custom_object.c:198
 #: ../objects/custom/custom_object.c:231
 msgid "Flip horizontal"
 msgstr "Flip horizontal"
 
-#: ../lib/standard-path.c:729 ../objects/custom/custom_object.c:200
+#: ../lib/standard-path.c:731 ../objects/custom/custom_object.c:200
 #: ../objects/custom/custom_object.c:233
 msgid "Flip vertical"
 msgstr "Putar vertikal"
 
 #. Translators: Menu item Verb/Channel/Guide/Rotate
 #. Translators: Menu item Verb/Channel/Guide/Rotate/Rotate
-#: ../lib/standard-path.c:730 ../objects/FS/function.c:739
+#: ../lib/standard-path.c:732 ../objects/FS/function.c:739
 #: ../objects/FS/function.c:741
 msgid "Rotate"
 msgstr "Putar"
 
-#: ../lib/standard-path.c:731
+#: ../lib/standard-path.c:733
 msgid "Shear"
 msgstr "Geser"
 
-#: ../lib/standard-path.c:732
+#: ../lib/standard-path.c:734
 msgid "Show Control Lines"
 msgstr "Tampilkan Garis Kendali"
 
@@ -3442,7 +3436,7 @@ msgid "Entity/Relationship table diagram objects"
 msgstr "Objek-objek diagram tabel entitas/relasi"
 
 #: ../objects/Database/reference.c:109 ../objects/flowchart/box.c:150
-#: ../objects/standard/box.c:144 ../objects/standard/polyline.c:107
+#: ../objects/standard/box.c:149 ../objects/standard/polyline.c:108
 #: ../objects/standard/zigzagline.c:106
 msgid "Corner radius"
 msgstr "Radius sudut"
@@ -4533,7 +4527,8 @@ msgid "Force"
 msgstr "Kekuatan"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Rotation
-#: ../objects/FS/function.c:1099 ../objects/standard/outline.c:104
+#: ../objects/FS/function.c:1099 ../objects/standard/box.c:154
+#: ../objects/standard/ellipse.c:143 ../objects/standard/outline.c:104
 msgid "Rotation"
 msgstr "Putaran"
 
@@ -4832,14 +4827,14 @@ msgstr "Tipe vergent:"
 #: ../objects/GRAFCET/vergent.c:403 ../objects/Istar/other.c:464
 #: ../objects/Jackson/domain.c:527 ../objects/KAOS/goal.c:567
 #: ../objects/KAOS/other.c:516 ../objects/SADT/box.c:442
-#: ../objects/standard/line.c:318
+#: ../objects/standard/line.c:320
 msgid "Add connection point"
 msgstr "Tambahkan titik sambungan"
 
 #: ../objects/GRAFCET/vergent.c:404 ../objects/Istar/other.c:465
 #: ../objects/Jackson/domain.c:528 ../objects/KAOS/goal.c:568
 #: ../objects/KAOS/other.c:517 ../objects/SADT/box.c:443
-#: ../objects/standard/line.c:319
+#: ../objects/standard/line.c:321
 msgid "Delete connection point"
 msgstr "Hapus titik sambungan"
 
@@ -5182,8 +5177,8 @@ msgstr "Panjang cahaya"
 msgid "Triangle"
 msgstr "Segi Tiga"
 
-#: ../objects/Misc/n_gon.c:318 ../objects/standard/box.c:132
-#: ../objects/standard/box.c:723
+#: ../objects/Misc/n_gon.c:318 ../objects/standard/box.c:137
+#: ../objects/standard/box.c:759
 msgid "Square"
 msgstr "Persegi-empat"
 
@@ -5339,7 +5334,7 @@ msgstr "Hapus Handel"
 msgid "Sectors"
 msgstr "Sektor"
 
-#: ../objects/network/basestation.c:391 ../objects/network/basestation.c:393
+#: ../objects/network/basestation.c:365 ../objects/network/basestation.c:367
 msgid "Base Station"
 msgstr "Stasiun Basis"
 
@@ -5411,104 +5406,112 @@ msgstr "Obyek diagram SADT"
 msgid "Curve distance"
 msgstr "Jarak kurva"
 
-#: ../objects/standard/bezier.c:145 ../objects/standard/line.c:126
-#: ../objects/standard/polyline.c:108
+#: ../objects/standard/bezier.c:147 ../objects/standard/line.c:127
+#: ../objects/standard/polyline.c:109
 msgid "Line gaps"
 msgstr "Celah garis"
 
-#: ../objects/standard/bezier.c:147 ../objects/standard/line.c:128
-#: ../objects/standard/polyline.c:110
+#: ../objects/standard/bezier.c:149 ../objects/standard/line.c:129
+#: ../objects/standard/polyline.c:111
 msgid "Absolute start gap"
 msgstr "Celah mulai absolut"
 
-#: ../objects/standard/bezier.c:149 ../objects/standard/line.c:130
-#: ../objects/standard/polyline.c:112
+#: ../objects/standard/bezier.c:151 ../objects/standard/line.c:131
+#: ../objects/standard/polyline.c:113
 msgid "Absolute end gap"
 msgstr "Celah akhir absolut"
 
-#: ../objects/standard/bezier.c:765 ../objects/standard/beziergon.c:522
+#: ../objects/standard/bezier.c:767 ../objects/standard/beziergon.c:524
 msgid "Add Segment"
 msgstr "Tambah Segmen"
 
-#: ../objects/standard/bezier.c:766 ../objects/standard/beziergon.c:523
+#: ../objects/standard/bezier.c:768 ../objects/standard/beziergon.c:525
 msgid "Delete Segment"
 msgstr "Hapus Segmen"
 
-#: ../objects/standard/bezier.c:768 ../objects/standard/beziergon.c:525
+#: ../objects/standard/bezier.c:770 ../objects/standard/beziergon.c:527
 msgid "Symmetric control"
 msgstr "Kontrol simetris"
 
-#: ../objects/standard/bezier.c:770 ../objects/standard/beziergon.c:527
+#: ../objects/standard/bezier.c:772 ../objects/standard/beziergon.c:529
 msgid "Smooth control"
 msgstr "Kontrol penghalus"
 
-#: ../objects/standard/bezier.c:772 ../objects/standard/beziergon.c:529
+#: ../objects/standard/bezier.c:774 ../objects/standard/beziergon.c:531
 msgid "Cusp control"
 msgstr "Kontrol cusp"
 
-#: ../objects/standard/box.c:130 ../objects/standard/ellipse.c:120
+#: ../objects/standard/box.c:135 ../objects/standard/ellipse.c:127
 msgid "Free"
 msgstr "Bebas"
 
-#: ../objects/standard/box.c:131 ../objects/standard/ellipse.c:121
+#: ../objects/standard/box.c:136 ../objects/standard/ellipse.c:128
 msgid "Fixed"
 msgstr "Baku"
 
-#: ../objects/standard/box.c:146 ../objects/standard/ellipse.c:133
+#: ../objects/standard/box.c:151 ../objects/standard/ellipse.c:140
 msgid "Aspect ratio"
 msgstr "Rasio aspek"
 
-#: ../objects/standard/box.c:719 ../objects/standard/ellipse.c:683
+#: ../objects/standard/box.c:154 ../objects/standard/ellipse.c:143
+msgid "Rotation angle"
+msgstr "Sudut putar"
+
+#: ../objects/standard/box.c:755 ../objects/standard/ellipse.c:755
 msgid "Free aspect"
 msgstr "Aspek bebas"
 
-#: ../objects/standard/box.c:721 ../objects/standard/ellipse.c:685
+#: ../objects/standard/box.c:757 ../objects/standard/ellipse.c:757
 msgid "Fixed aspect"
 msgstr "Aspek tetap"
 
-#: ../objects/standard/ellipse.c:122 ../objects/standard/ellipse.c:687
+#: ../objects/standard/ellipse.c:129 ../objects/standard/ellipse.c:759
 msgid "Circle"
 msgstr "Lingkaran"
 
-#: ../objects/standard/image.c:118
+#: ../objects/standard/image.c:123
 msgid "Image file"
 msgstr "Berkas citra"
 
-#: ../objects/standard/image.c:120
+#: ../objects/standard/image.c:125
 msgid "Inline data"
 msgstr "Data inline"
 
-#: ../objects/standard/image.c:120
+#: ../objects/standard/image.c:125
 msgid "Store image data in diagram"
 msgstr "Simpan data citra dalam diagram"
 
-#: ../objects/standard/image.c:122
+#: ../objects/standard/image.c:127
 msgid "Pixbuf"
 msgstr "Pixbuf"
 
-#: ../objects/standard/image.c:122
+#: ../objects/standard/image.c:127
 msgid "The Pixbuf reference"
 msgstr "Acuan Pixbuf"
 
-#: ../objects/standard/image.c:124
+#: ../objects/standard/image.c:129
 msgid "Draw border"
 msgstr "Gambar batas"
 
-#: ../objects/standard/image.c:126
+#: ../objects/standard/image.c:131
 msgid "Keep aspect ratio"
 msgstr "Jaga rasio aspek"
 
-#: ../objects/standard/image.c:255
+#: ../objects/standard/image.c:133
+msgid "Angle"
+msgstr "Sudut"
+
+#: ../objects/standard/image.c:264
 msgid "Can't save image without filename"
 msgstr "Tak bisa simpan citra tanpa nama berkas"
 
-#: ../objects/standard/image.c:722
+#: ../objects/standard/image.c:781
 msgid "Inconsistent pixbuf during image save."
 msgstr "Pixbuf tak konsisten selama penyimpanan citra."
 
 #. Found file in same dir as diagram.
 #. Found file in current dir.
-#: ../objects/standard/image.c:819 ../objects/standard/image.c:830
+#: ../objects/standard/image.c:883 ../objects/standard/image.c:894
 #, c-format
 msgid ""
 "The image file '%s' was not found in the specified directory.\n"
@@ -5518,28 +5521,28 @@ msgstr ""
 "Menggunakan berkas '%s' sebagai gantinya.\n"
 
 #. Didn't find file in current dir.
-#: ../objects/standard/image.c:836 ../objects/standard/image.c:858
+#: ../objects/standard/image.c:900 ../objects/standard/image.c:922
 #, c-format
 msgid "The image file '%s' was not found.\n"
 msgstr "Berkas citra '%s' tidak ditemukan.\n"
 
-#: ../objects/standard/line.c:117
+#: ../objects/standard/line.c:118
 msgid "Arrows"
 msgstr "Panah"
 
-#: ../objects/standard/line.c:122
+#: ../objects/standard/line.c:123
 msgid "Start point"
 msgstr "Titik mulai"
 
-#: ../objects/standard/line.c:124
+#: ../objects/standard/line.c:125
 msgid "End point"
 msgstr "Titik akhir"
 
-#: ../objects/standard/line.c:320
+#: ../objects/standard/line.c:322
 msgid "Upgrade to Polyline"
 msgstr "Tingkatkan ke Polyline"
 
-#: ../objects/standard/line.c:321
+#: ../objects/standard/line.c:323
 msgid "Upgrade to Zigzagline"
 msgstr "Tingkatkan ke Zigzagline"
 
@@ -5551,11 +5554,11 @@ msgstr "Isi teks"
 msgid "Angle to rotate the outline"
 msgstr "Sudut untuk memutar outline"
 
-#: ../objects/standard/polygon.c:484 ../objects/standard/polyline.c:622
+#: ../objects/standard/polygon.c:486 ../objects/standard/polyline.c:624
 msgid "Add Corner"
 msgstr "Tambahkan Sudut"
 
-#: ../objects/standard/polygon.c:485 ../objects/standard/polyline.c:623
+#: ../objects/standard/polygon.c:487 ../objects/standard/polyline.c:625
 msgid "Delete Corner"
 msgstr "Hapus Sudut"
 
@@ -5563,15 +5566,19 @@ msgstr "Hapus Sudut"
 msgid "Standard objects"
 msgstr "Obyek standar"
 
-#: ../objects/standard/textobj.c:114
+#: ../objects/standard/textobj.c:119
 msgid "First Line"
 msgstr "Garis Pertama"
 
-#: ../objects/standard/textobj.c:122
+#: ../objects/standard/textobj.c:128
 msgid "Vertical text alignment"
 msgstr "Perataan teks vertikal"
 
-#: ../objects/standard/textobj.c:130
+#: ../objects/standard/textobj.c:133
+msgid "Text angle"
+msgstr "Sudut teks"
+
+#: ../objects/standard/textobj.c:138
 msgid "Text margin"
 msgstr "Marjin teks"
 
@@ -6125,7 +6132,7 @@ msgid "Text outside"
 msgstr "Teks luar"
 
 #: ../plug-ins/cairo/diacairo.c:111 ../plug-ins/drs/dia-render-script.c:124
-#: ../plug-ins/hpgl/hpgl.c:662
+#: ../plug-ins/hpgl/hpgl.c:665
 #, c-format
 msgid "Can't open output file %s."
 msgstr "Tak bisa membuka berkas keluaran %s."
@@ -6149,7 +6156,7 @@ msgid "Clipboard copy failed"
 msgstr "Penyalinan papan klip gagal"
 
 #: ../plug-ins/cairo/diacairo.c:348 ../plug-ins/postscript/postscript.c:39
-#: ../plug-ins/wmf/wmf.cpp:1474
+#: ../plug-ins/wmf/wmf.cpp:1476
 msgid "Nothing to print"
 msgstr "Tak ada yang akan dicetak"
 
@@ -6211,16 +6218,16 @@ msgstr "Zum penunjuk"
 msgid "Visible rect pointer"
 msgstr "Penunjuk kotak nampak"
 
-#: ../plug-ins/cairo/diacairo-renderer.c:976
-#: ../plug-ins/cairo/diacairo-renderer.c:1011
-#: ../plug-ins/libart/dialibartrenderer.c:1236
-#: ../plug-ins/metapost/render_metapost.c:905
-#: ../plug-ins/postscript/diapsrenderer.c:659
-#: ../plug-ins/pstricks/render_pstricks.c:775 ../plug-ins/wpg/wpg.c:885
+#: ../plug-ins/cairo/diacairo-renderer.c:1030
+#: ../plug-ins/cairo/diacairo-renderer.c:1065
+#: ../plug-ins/libart/dialibartrenderer.c:1226
+#: ../plug-ins/metapost/render_metapost.c:870
+#: ../plug-ins/postscript/diapsrenderer.c:662
+#: ../plug-ins/pstricks/render_pstricks.c:778 ../plug-ins/wpg/wpg.c:888
 msgid "Not enough memory for image drawing."
 msgstr "Memori tak cukup untuk menggambar citra."
 
-#: ../plug-ins/cgm/cgm.c:1018
+#: ../plug-ins/cgm/cgm.c:1021
 msgid ""
 "Image row length larger than maximum cell array.\n"
 "Image not exported to CGM."
@@ -6228,11 +6235,11 @@ msgstr ""
 "Panjang baris citra lebih dari larik sel maksimum.\n"
 "Citra tak diekspor ke CGM."
 
-#: ../plug-ins/cgm/cgm.c:1289
+#: ../plug-ins/cgm/cgm.c:1292
 msgid "Computer Graphics Metafile"
 msgstr "Computer Graphics Metafile"
 
-#: ../plug-ins/cgm/cgm.c:1314
+#: ../plug-ins/cgm/cgm.c:1317
 msgid "Computer Graphics Metafile export filter"
 msgstr "Filter ekspor Computer Graphics Metafile"
 
@@ -6267,11 +6274,11 @@ msgstr "read_dxf_codes gagal pada '%s'"
 msgid "Binary DXF from '%s' not supported"
 msgstr "DXF biner dari '%s' tak didukung"
 
-#: ../plug-ins/hpgl/hpgl.c:705
+#: ../plug-ins/hpgl/hpgl.c:708
 msgid "HP Graphics Language"
 msgstr "HP Graphics Language"
 
-#: ../plug-ins/hpgl/hpgl.c:730
+#: ../plug-ins/hpgl/hpgl.c:733
 msgid "HP Graphics Language export filter"
 msgstr "Filter ekspor HP Graphics Language"
 
@@ -6332,11 +6339,11 @@ msgstr "Algoritma Tata Letak OGDF"
 msgid "Libart-based rendering"
 msgstr "Perenderan berbasis Libart"
 
-#: ../plug-ins/libart/dialibartrenderer.c:1384
+#: ../plug-ins/libart/dialibartrenderer.c:1374
 msgid "Renderer transformation"
 msgstr "Transformasi perender"
 
-#: ../plug-ins/libart/dialibartrenderer.c:1385
+#: ../plug-ins/libart/dialibartrenderer.c:1375
 msgid "Transform pointer"
 msgstr "Transformasikan penunjuk"
 
@@ -6378,19 +6385,19 @@ msgstr "PNG (antialias)"
 msgid "TeX Metapost export filter"
 msgstr "Filter ekspor TeX Metapost"
 
-#: ../plug-ins/metapost/render_metapost.c:1139
+#: ../plug-ins/metapost/render_metapost.c:1104
 msgid "TeX Metapost macros"
 msgstr "Makro TeX Metapost"
 
-#: ../plug-ins/pdf/pdf.c:29
+#: ../plug-ins/pdf/pdf.c:30
 msgid "PDF import not available."
 msgstr "Impor PDF tak tersedia."
 
-#: ../plug-ins/pdf/pdf.c:37
+#: ../plug-ins/pdf/pdf.c:39
 msgid "Portable Document File"
 msgstr "Portable Document File"
 
-#: ../plug-ins/pdf/pdf.c:55
+#: ../plug-ins/pdf/pdf.c:57
 msgid "PDF import filter"
 msgstr "Penyaring impor PDF"
 
@@ -6412,12 +6419,12 @@ msgstr ""
 msgid "LaTeX PGF export filter"
 msgstr "Penyaring ekspor LaTeX PGF"
 
-#: ../plug-ins/pgf/render_pgf.c:1094
-#: ../plug-ins/pstricks/render_pstricks.c:683
+#: ../plug-ins/pgf/render_pgf.c:1096
+#: ../plug-ins/pstricks/render_pstricks.c:686
 msgid "Not valid UTF-8"
 msgstr "Bukan UTF-8 yang valid"
 
-#: ../plug-ins/pgf/render_pgf.c:1250
+#: ../plug-ins/pgf/render_pgf.c:1252
 msgid "LaTeX PGF macros"
 msgstr "Makro LaTeX PGF"
 
@@ -6429,9 +6436,11 @@ msgstr "Gagal membuat pixbuf dari yang dapat digambar."
 #, c-format
 msgid ""
 "Could not save file:\n"
+"%s\n"
 "%s"
 msgstr ""
 "Tidak bisa menyimpan berkas:\n"
+"%s\n"
 "%s"
 
 #: ../plug-ins/pixbuf/pixbuf.c:112
@@ -6508,11 +6517,11 @@ msgstr "Encapsulated Postscript (memakai fonta PS Latin-1)"
 msgid "TeX PSTricks export filter"
 msgstr "Penyaring ekspor TeX PSTricks"
 
-#: ../plug-ins/pstricks/render_pstricks.c:936
+#: ../plug-ins/pstricks/render_pstricks.c:939
 msgid "TeX PSTricks macros"
 msgstr "Makro TeX PSTricks"
 
-#: ../plug-ins/python/pydia-render.c:1099
+#: ../plug-ins/python/pydia-render.c:1102
 #, c-format
 msgid "Couldn't open '%s' for writing.\n"
 msgstr "Tak bisa membuka '%s' untuk penulisan.\n"
@@ -6542,7 +6551,12 @@ msgstr "Berkas Bentuk Dia"
 msgid "Scalable Vector Graphics import and export filters"
 msgstr "Filter impor dan ekspor Scalable Vector Graphics"
 
-#: ../plug-ins/svg/svg-import.c:675
+#: ../plug-ins/svg/svg-import.c:220
+#, c-format
+msgid "Failed to apply transformation for '%s'"
+msgstr "Gagal menerapkan transformasi untuk '%s'"
+
+#: ../plug-ins/svg/svg-import.c:658
 msgid ""
 "Invalid path data.\n"
 "svg:path data must start with moveto."
@@ -6550,16 +6564,16 @@ msgstr ""
 "Data path tak valid.\n"
 "Data svg:path mesti diawali dengan moveto."
 
-#: ../plug-ins/svg/svg-import.c:1937
+#: ../plug-ins/svg/svg-import.c:1895
 msgid "'Shape Design' shapes missing."
 msgstr "Kurang bentuk 'Rancangan Bentuk'."
 
-#: ../plug-ins/svg/svg-import.c:1971
+#: ../plug-ins/svg/svg-import.c:1929
 #, c-format
 msgid "Object '%s' creation failed"
 msgstr "Pembuatan objek '%s' gagal"
 
-#: ../plug-ins/svg/svg-import.c:1997
+#: ../plug-ins/svg/svg-import.c:1955
 #, c-format
 msgid ""
 "Parse error for memory block.\n"
@@ -6568,7 +6582,7 @@ msgstr ""
 "Galat penguraian dari blok memori.\n"
 "%s"
 
-#: ../plug-ins/svg/svg-import.c:2015
+#: ../plug-ins/svg/svg-import.c:1973
 #, c-format
 msgid ""
 "SVG parser error for %s\n"
@@ -6578,7 +6592,7 @@ msgstr ""
 "%s"
 
 #. just a warning
-#: ../plug-ins/svg/svg-import.c:2021
+#: ../plug-ins/svg/svg-import.c:1979
 #, c-format
 msgid ""
 "SVG parser warning for %s\n"
@@ -6587,11 +6601,11 @@ msgstr ""
 "Peringatan pengurai SVG bagi %s\n"
 "%s"
 
-#: ../plug-ins/svg/svg-import.c:2054
+#: ../plug-ins/svg/svg-import.c:2012
 msgid "Expected SVG name-space not found in file"
 msgstr "Namespace SVG yang diharapkan tidak ditemukan dalam berkas"
 
-#: ../plug-ins/svg/svg-import.c:2074
+#: ../plug-ins/svg/svg-import.c:2032
 #, c-format
 msgid "root element was '%s' -- expecting 'svg'."
 msgstr "elemen root '%s' -- menginginkan 'svg'."
@@ -6677,7 +6691,7 @@ msgstr ""
 "Tidak bisa menulis berkas %s\n"
 "%s"
 
-#: ../plug-ins/wmf/wmf.cpp:555
+#: ../plug-ins/wmf/wmf.cpp:557
 #, c-format
 msgid ""
 "Cannot render unknown font:\n"
@@ -6686,19 +6700,19 @@ msgstr ""
 "Tak bisa merender fonta tak dikenal:\n"
 "%s"
 
-#: ../plug-ins/wmf/wmf.cpp:1485
+#: ../plug-ins/wmf/wmf.cpp:1487
 msgid "Print (GDI) ..."
 msgstr "Cetak (GDI) ..."
 
-#: ../plug-ins/wmf/wmf.cpp:1501
+#: ../plug-ins/wmf/wmf.cpp:1503
 msgid "WMF export filter"
 msgstr "Filter ekspor WMF"
 
-#: ../plug-ins/wpg/wpg.c:1111 ../plug-ins/wpg/wpg.c:1117
+#: ../plug-ins/wpg/wpg.c:1114 ../plug-ins/wpg/wpg.c:1120
 msgid "WordPerfect Graphics"
 msgstr "Grafis WordPerfect"
 
-#: ../plug-ins/wpg/wpg.c:1142
+#: ../plug-ins/wpg/wpg.c:1145
 msgid "WordPerfect Graphics export filter"
 msgstr "Filter ekspor WordPerfect Graphics"
 
@@ -6730,18 +6744,18 @@ msgstr "Berkas WPG kosong?"
 msgid "Fig Format import and export filter"
 msgstr "Filter impor dan ekspor Format Fig"
 
-#: ../plug-ins/xfig/xfig-export.c:469
+#: ../plug-ins/xfig/xfig-export.c:470
 #, c-format
 msgid "Fig format has no equivalent of arrow style %s; using simple arrow.\n"
 msgstr ""
 "Format Fig tak memiliki padanan untuk gaya panah %s; menggunakan panah "
 "sederhana.\n"
 
-#: ../plug-ins/xfig/xfig-export.c:492
+#: ../plug-ins/xfig/xfig-export.c:493
 msgid "No more user-definable colors - using black"
 msgstr "Tidak ada lagi warna yang dipilih pengguna sendiri - pakai hitam"
 
-#: ../plug-ins/xfig/xfig-export.c:1146
+#: ../plug-ins/xfig/xfig-export.c:1154
 msgid "Xfig format"
 msgstr "Format Xfig"
 
@@ -6785,8 +6799,8 @@ msgstr "Tipe panah tidak dikenal %d\n"
 
 #: ../plug-ins/xfig/xfig-import.c:387
 #, c-format
-msgid "Depth %d of of range, only 0-%d allowed.\n"
-msgstr "Kedalaman %d dari jangkauan, hanya 0-%d yang diizinkan.\n"
+msgid "Depth %d out of range, only 0-%d allowed.\n"
+msgstr "Kedalaman %d di luar jangkauan, hanya 0-%d yang diizinkan.\n"
 
 #: ../plug-ins/xfig/xfig-import.c:435
 msgid "Couldn't read ellipse info."
@@ -6861,9 +6875,8 @@ msgid "Compound end outside compound\n"
 msgstr "Kompon berakhir di luar kompon\n"
 
 #: ../plug-ins/xfig/xfig-import.c:1062
-#, c-format
-msgid "Couldn't read color: %s\n"
-msgstr "Tak bisa membaca warna: %s\n"
+msgid "Couldn't read color\n"
+msgstr "Tak bisa membaca warna\n"
 
 #: ../plug-ins/xfig/xfig-import.c:1067
 #, c-format
