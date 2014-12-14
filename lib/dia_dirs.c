@@ -338,9 +338,16 @@ dia_relativize_filename (const gchar *master, const gchar *slave)
   bp1 = g_path_get_dirname (master);
   bp2 = g_path_get_dirname (slave);
 
-  if (g_str_has_prefix (bp1, bp2)) {
+  /* the slave path has to be included in master to become relative */
+  if (g_str_has_prefix (bp2, bp1)) {
     gchar *p;
-    rel = g_strdup (slave + strlen (bp1) + 1);
+    /* We have do deal with the special meaning of Windows drives, where 'c:' is
+     * a reference to the current directory, but c:\ is the root path. For other
+     * directory names the trailing backslash is stripped by g_path_get_dirname().
+     * So only advance (+1) in slave when there is no trailing backslash.
+     */
+    rel = g_strdup (slave + strlen (bp1)
+			  + (g_str_has_suffix (bp1, G_DIR_SEPARATOR_S) ? 0 : 1));
     /* flip backslashes */
     for (p = rel; *p != '\0'; p++)
       if (*p == '\\') *p = '/';    

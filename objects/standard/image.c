@@ -37,6 +37,7 @@
 #include "dia_image.h"
 #include "message.h"
 #include "properties.h"
+#include "dia_dirs.h"
 
 #include "tool-icons.h"
 
@@ -689,41 +690,9 @@ image_copy(Image *image)
   return &newimage->element.object;
 }
 
-/* Gets the directory path of a filename.
-   Uses current working directory if filename is a relative pathname.
-   Examples:
-     /some/dir/file.gif => /some/dir
-     dir/file.gif => /cwd/dir
-   
-*/
-static char *
-get_directory(const char *filename) 
-{
-  char *cwd;
-  char *directory;
-  char *dirname;
-  
-  if (filename==NULL)
-    return NULL;
-
-  dirname = g_path_get_dirname(filename);
-  if (g_path_is_absolute(dirname)) {
-      directory = g_build_path(G_DIR_SEPARATOR_S, dirname, NULL);
-  } else {
-      cwd = g_get_current_dir();
-      directory = g_build_path(G_DIR_SEPARATOR_S, cwd, dirname, NULL);
-      g_free(cwd);
-  }
-  g_free(dirname);
-
-  return directory;
-}
-
 static void
 image_save(Image *image, ObjectNode obj_node, DiaContext *ctx)
 {
-  char *diafile_dir;
-  
   element_save(&image->element, obj_node, ctx);
 
   if (image->border_width != 0.1)
@@ -750,22 +719,14 @@ image_save(Image *image, ObjectNode obj_node, DiaContext *ctx)
     data_add_real(new_attribute(obj_node, "angle"), image->angle, ctx);
 
   if (image->file != NULL) {
-    if (g_path_is_absolute(image->file)) { /* Absolute pathname */
-      diafile_dir = get_directory(dia_context_get_filename (ctx));
+    gchar *relative = dia_relativize_filename (dia_context_get_filename (ctx), image->file);
 
-      if (diafile_dir && strncmp(diafile_dir, image->file, strlen(diafile_dir))==0) {
-	/* The image pathname has the dia file pathname in the begining */
-	/* Save the relative path: */
-	data_add_filename(new_attribute(obj_node, "file"),
-			  image->file + strlen(diafile_dir) + 1, ctx);
-      } else {
-	/* Save the absolute path: */
-	data_add_filename(new_attribute(obj_node, "file"), image->file, ctx);
-      }
-      g_free(diafile_dir);
+    if (relative) {
+      /* The image pathname has the diagram file pathname in the beginning */
+      data_add_filename(new_attribute(obj_node, "file"), relative, ctx);
+      g_free (relative);
     } else {
-      /* Relative path. Must be an erronuous filename...
-	 Just save the filename. */
+      /* Save the absolute path: */
       data_add_filename(new_attribute(obj_node, "file"), image->file, ctx);
     }
   }
@@ -857,74 +818,28 @@ image_load(ObjectNode obj_node, int version, DiaContext *ctx)
   image->image = NULL;
   
   if (strcmp(image->file, "")!=0) {
-    diafile_dir = get_directory(dia_context_get_filename(ctx));
-
-    if (g_path_is_absolute(image->file)) { /* Absolute pathname */
+    if (   g_path_is_absolute (image->file)
+	&& g_file_test (image->file, G_FILE_TEST_IS_REGULAR)) { /* Absolute pathname */
       image->image = dia_image_load(image->file);
-      if (image->image == NULL) {
-	/* Not found as abs path, try in same dir as diagram. */
-	char *temp_string;
-	const char *image_file_name = image->file;
-	const char *psep;
+    } else { /* build from relative pathname */
+      gchar *image_filename = dia_absolutize_filename (dia_context_get_filename (ctx), image->file);
 
-	psep = strrchr(image->file, G_DIR_SEPARATOR);
-	/* try the other G_OS as well */
-	if (!psep)
-	  psep =  strrchr(image->file, G_DIR_SEPARATOR == '/' ? '\\' : '/');
-	if (psep)
-	  image_file_name = psep + 1;
-
-	temp_string = g_build_filename(diafile_dir, image_file_name, NULL);
-
-	image->image = dia_image_load(temp_string);
-
-	if (image->image != NULL) {
-	  /* Found file in same dir as diagram. */
-	  message_warning(_("The image file '%s' was not found in the specified directory.\n"
-			  "Using the file '%s' instead.\n"), image->file, temp_string);
-	  g_free(image->file);
-	  image->file = temp_string;
-	} else {
-	  g_free(temp_string);
-	  
-	  image->image = dia_image_load((char *)image_file_name);
-	  if (image->image != NULL) {
-	    char *tmp;
-	    /* Found file in current dir. */
-	    message_warning(_("The image file '%s' was not found in the specified directory.\n"
-			    "Using the file '%s' instead.\n"), image->file, image_file_name);
-	    tmp = image->file;
-	    image->file = g_strdup(image_file_name);
-	    g_free(tmp);
-	  } else {
-	    message_warning(_("The image file '%s' was not found.\n"),
-			    image_file_name);
-	  }
-	}
-      }
-    } else { /* Relative pathname: */
-      char *temp_string;
-
-      temp_string = g_build_filename (diafile_dir, image->file, NULL);
-
-      image->image = dia_image_load(temp_string);
-
+      image->image = dia_image_load(image_filename);
       if (image->image != NULL) {
-	/* Found file in same dir as diagram. */
+	/* Found file in same directory as diagram. */
 	g_free(image->file);
-	image->file = temp_string;
+	image->file = image_filename;
       } else {
-	g_free(temp_string);
-	  
+	/* not found as relative path, try literally */
+	g_free (image_filename);
+
 	image->image = dia_image_load(image->file);
 	if (image->image == NULL) {
-	  /* Didn't find file in current dir. */
-	  message_warning(_("The image file '%s' was not found.\n"),
-			  image->file);
+	  /* Didn't find file in current directory. */
+	  dia_context_add_message (ctx, _("The image file '%s' was not found.\n"), image->file);
 	}
       }
     }
-    g_free(diafile_dir);
   }
   /* if we don't have an image yet try to recover it from inlined data */
   if (!image->image) {

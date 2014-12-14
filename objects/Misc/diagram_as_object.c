@@ -395,7 +395,7 @@ _dae_save (DiaObject *obj, ObjectNode obj_node, DiaContext *ctx)
     gchar *dirname = g_path_get_dirname (dia_context_get_filename (ctx));
     if (strstr (dae->filename, dirname) == dae->filename) {
       saved_path = dae->filename;
-      dae->filename += (strlen (dirname) + 1);
+      dae->filename += (strlen (dirname) + g_str_has_suffix (dirname, G_DIR_SEPARATOR_S) ? 0 : 1);
     }
     g_free (dirname);
   }
