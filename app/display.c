@@ -1325,6 +1325,7 @@ display_update_menu_state(DDisplay *ddisp)
   GtkToggleAction *snap_to_grid;
   GtkToggleAction *show_cx_pts;
   GtkToggleAction *antialiased;
+  gboolean scrollbars_shown;
 
   rulers       = GTK_TOGGLE_ACTION (menus_get_action ("ViewShowrulers"));
   visible_grid = GTK_TOGGLE_ACTION (menus_get_action ("ViewShowgrid"));
@@ -1338,6 +1339,15 @@ display_update_menu_state(DDisplay *ddisp)
   ddisplay_do_update_menu_sensitivity (ddisp);
 
   gtk_toggle_action_set_active (rulers, display_get_rulers_showing(ddisp));
+
+#if GTK_CHECK_VERSION(2,20,0)
+  scrollbars_shown = gtk_widget_get_visible (ddisp->hsb);
+#else
+  scrollbars_shown = GTK_WIDGET_VISIBLE (ddisp->hsb);
+#endif
+  gtk_toggle_action_set_active (GTK_TOGGLE_ACTION (menus_get_action ("ViewShowscrollbars")),
+				scrollbars_shown);
+
   gtk_toggle_action_set_active (visible_grid,
 				ddisp->grid.visible);
   gtk_toggle_action_set_active (snap_to_grid,

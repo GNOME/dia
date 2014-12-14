@@ -1221,6 +1221,22 @@ view_toggle_rulers_callback (GtkToggleAction *action)
   }
 }
 
+void
+view_toggle_scrollbars_callback (GtkToggleAction *action)
+{
+  DDisplay *ddisp;
+
+  ddisp = ddisplay_active();
+  if (!ddisp) return;
+
+  if (gtk_toggle_action_get_active (action)) {
+    gtk_widget_show (ddisp->hsb);
+    gtk_widget_show (ddisp->vsb);
+  } else {
+    gtk_widget_hide (ddisp->hsb);
+    gtk_widget_hide (ddisp->vsb);
+  }
+}
 extern void
 view_new_view_callback (GtkAction *action)
 {

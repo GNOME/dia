@@ -55,6 +55,8 @@ void view_visible_grid_callback    (GtkToggleAction *action);
 void view_snap_to_grid_callback    (GtkToggleAction *action);
 void view_snap_to_objects_callback (GtkToggleAction *action);
 void view_toggle_rulers_callback   (GtkToggleAction *action);
+void view_toggle_scrollbars_callback (GtkToggleAction *action);
+
 void view_show_cx_pts_callback     (GtkToggleAction *action);
 void view_new_view_callback           (GtkAction *action);
 void view_clone_view_callback         (GtkAction *action);

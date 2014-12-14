@@ -80,6 +80,7 @@
 			<menuitem name="ViewSnaptogrid" action="ViewSnaptogrid" />
 			<menuitem name="ViewSnaptoobjects" action="ViewSnaptoobjects" />
 			<menuitem name="ViewShowrulers" action="ViewShowrulers" />
+			<menuitem name="ViewShowscrollbars" action="ViewShowscrollbars" />
 			<menuitem name="ViewShowconnectionpoints" action="ViewShowconnectionpoints" />
 			<separator name="ViewSep3" />
 			<menuitem name="ViewNewview" action="ViewNewview" />

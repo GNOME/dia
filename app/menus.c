@@ -261,6 +261,7 @@ static const GtkToggleActionEntry display_toggle_entries[] =
     { "ViewSnaptogrid", NULL, N_("_Snap to Grid"), NULL, NULL, G_CALLBACK (view_snap_to_grid_callback) },
     { "ViewSnaptoobjects", NULL, N_("Snap to _Objects"), NULL, NULL, G_CALLBACK (view_snap_to_objects_callback) },
     { "ViewShowrulers", NULL, N_("Show _Rulers"), NULL, NULL, G_CALLBACK (view_toggle_rulers_callback)  },
+    { "ViewShowscrollbars", NULL, N_("Show Scrollbars"), NULL, N_("Show or hide the toolbar"), G_CALLBACK (view_toggle_scrollbars_callback) },
     { "ViewShowconnectionpoints", NULL, N_("Show _Connection Points"), NULL, NULL, G_CALLBACK (view_show_cx_pts_callback) }
 };
 
