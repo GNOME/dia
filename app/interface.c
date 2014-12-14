@@ -511,7 +511,7 @@ _ddisplay_setup_scrollbars (DDisplay *ddisp, GtkWidget *table, int width, int he
   gtk_widget_show (ddisp->vsb);
 }
 static void
-_ddisplay_setup_navigation (DDisplay *ddisp, GtkWidget *table)
+_ddisplay_setup_navigation (DDisplay *ddisp, GtkWidget *table, gboolean top_left)
 {
   GtkWidget *navigation_button;
 
@@ -522,8 +522,14 @@ _ddisplay_setup_navigation (DDisplay *ddisp, GtkWidget *table)
   gtk_widget_show(navigation_button);
 
   /* harder to change position in the table, but we did not do it for years ;) */
-  gtk_table_attach (GTK_TABLE (table), navigation_button, 2, 3, 2, 3,
-                    GTK_FILL, GTK_FILL, 0, 0);
+  if (top_left)
+    gtk_table_attach (GTK_TABLE (table), navigation_button, 0, 1, 0, 1,
+                      GTK_FILL, GTK_FILL, 0, 0);
+  else
+    gtk_table_attach (GTK_TABLE (table), navigation_button, 2, 3, 2, 3,
+                      GTK_FILL, GTK_FILL, 0, 0);
+  if (!ddisp->origin)
+    ddisp->origin = g_object_ref (navigation_button);
 }
 /**
  * @param ddisp The diagram display object that a window is created for
@@ -599,9 +605,7 @@ use_integrated_ui_for_display_shell(DDisplay *ddisp, char *title)
   gtk_box_pack_start( GTK_BOX(ddisp->container), table, TRUE, TRUE, 0 );
 
   /*  scrollbars, rulers, canvas, menu popup button  */
-  ddisp->origin = gtk_frame_new (NULL);
-  gtk_frame_set_shadow_type (GTK_FRAME (ddisp->origin), GTK_SHADOW_OUT);
-
+  ddisp->origin = NULL;
   _ddisplay_setup_rulers (ddisp, ddisp->container, table);
 
   /* Get the width/height of the Notebook child area */
@@ -609,13 +613,11 @@ use_integrated_ui_for_display_shell(DDisplay *ddisp, char *title)
   width = 100;
   height = 100;
   _ddisplay_setup_scrollbars (ddisp, table, width, height);
-  _ddisplay_setup_navigation (ddisp, table);
+  _ddisplay_setup_navigation (ddisp, table, TRUE);
 
   ddisp->canvas = create_canvas (ddisp);
 
-  /*  place all remaining widgets  */
-  gtk_table_attach (GTK_TABLE (table), ddisp->origin, 0, 1, 0, 1,
-                    GTK_FILL, GTK_FILL, 0, 0);
+  /*  place all remaining widgets (no 'origin' anymore, since navigation is top-left */
   gtk_table_attach (GTK_TABLE (table), ddisp->canvas, 1, 2, 1, 2,
                     GTK_EXPAND | GTK_SHRINK | GTK_FILL,
                     GTK_EXPAND | GTK_SHRINK | GTK_FILL, 0, 0);
@@ -745,7 +747,7 @@ create_display_shell(DDisplay *ddisp,
   
   _ddisplay_setup_rulers (ddisp, ddisp->shell, table);
   _ddisplay_setup_scrollbars (ddisp, table, width, height);
-  _ddisplay_setup_navigation (ddisp, table);
+  _ddisplay_setup_navigation (ddisp, table, FALSE);
 
   ddisp->canvas = create_canvas (ddisp);
 
@@ -760,8 +762,7 @@ create_display_shell(DDisplay *ddisp,
   ddisp->accel_group = menus_get_display_accels ();
   gtk_window_add_accel_group(GTK_WINDOW(ddisp->shell), ddisp->accel_group);
 
-  if (use_mbar) 
-  {
+  if (use_mbar) {
     ddisp->menu_bar = menus_create_display_menubar (&ddisp->ui_manager, &ddisp->actions);
     g_assert (ddisp->menu_bar);
     gtk_box_pack_start (GTK_BOX (root_vbox), ddisp->menu_bar, FALSE, TRUE, 0);
