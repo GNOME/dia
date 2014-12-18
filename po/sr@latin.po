@@ -1,16 +1,16 @@
 # Serbian translation of dia
 # Courtesy of Prevod.org team (http://prevod.org/) -- 2003—2014.
 # This file is distributed under the same license as the dia package.
-# Maintainer: Dejan Matijević <dmax@neobee.net>
-# Reviewed on 2004-03-24 by: Danilo Šegan <danilo@prevod.org>
+# Dejan Matijević <dmax@neobee.net>
+# Danilo Šegan <danilo@prevod.org>, 2004
 # Miroslav Nikolić <miroslavnikolic@rocketmail.com>, 2012—2014.
 msgid ""
 msgstr ""
 "Project-Id-Version: dia\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=dia&key"
 "words=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2014-10-30 16:14+0000\n"
-"PO-Revision-Date: 2014-10-30 22:29+0200\n"
+"POT-Creation-Date: 2014-12-18 04:15+0000\n"
+"PO-Revision-Date: 2014-12-18 10:23+0200\n"
 "Last-Translator: Miroslav Nikolić <miroslavnikolic@rocketmail.com>\n"
 "Language-Team: Serbian <gnom@prevod.org>\n"
 "Language: sr\n"
@@ -96,7 +96,6 @@ msgstr "IZLAZ"
 
 #. &export_file_format
 #: ../app/app_procs.c:699
-#| msgid "Select the filter/format out of: %s"
 msgid "Select the export filter/format"
 msgstr "Izaberite propusnik/zapis izlaza"
 
@@ -105,7 +104,6 @@ msgid "TYPE"
 msgstr "VRSTA"
 
 #: ../app/app_procs.c:701
-#| msgid "Export loaded file and exit"
 msgid "List export filters/formats and exit"
 msgstr "Ispisuje propusnike/zapise izlaza i izlazi"
 
@@ -258,7 +256,7 @@ msgstr ""
 "Postoje izmenjeni dijagrami. Da li sigurno želite da prekinete Diu bez "
 "njihovog čuvanja?"
 
-#: ../app/app_procs.c:1105 ../app/menus.c:93
+#: ../app/app_procs.c:1105 ../app/menus.c:94
 msgid "Quit Dia"
 msgstr "Prekini Diu"
 
@@ -330,7 +328,6 @@ msgstr "Dostupni propusnici izvoza (za „--filter“)"
 
 #. Translators: be brief or mess up the table for --list-filters
 #: ../app/app_procs.c:1324
-#| msgid "By extension"
 msgid "Extension"
 msgstr "Proširenje"
 
@@ -476,15 +473,10 @@ msgstr[0] "Izvozite dijagram koji može da zahteva %s memorije. (%d stranica)."
 msgstr[1] "Izvozite dijagram koji može da zahteva %s memorije. (%d stranice)."
 msgstr[2] "Izvozite dijagram koji može da zahteva %s memorije. (%d stranica)."
 msgstr[3] ""
-"Hoćete da izvezete dijagram koji može da zahteva %s memorije. (br. stranica —"
-" %d)."
+"Hoćete da izvezete dijagram koji može da zahteva %s memorije. (br. stranica "
+"— %d)."
 
 #: ../app/confirm.c:88
-#| msgid ""
-#| "You can adjust the size of the diagram by changing the 'Scaling' in the "
-#| "'Page Setup' dialog.\n"
-#| "Alternatively use 'Select All' and 'Best Fit' to move objects/handles "
-#| "into the intended bounds."
 msgid ""
 "You can adjust the size of the diagram by changing the 'Scaling' in the "
 "'Page Setup' dialog.\n"
@@ -535,16 +527,16 @@ msgstr "Učitavanje u"
 msgid "Trying to group with no selected objects."
 msgstr "Pokušavam da grupišem bez izabranih objekata."
 
-#: ../app/diagram_tree_view.c:164
+#: ../app/diagram_tree_view.c:165
 msgid "Diagram"
 msgstr "Dijagram"
 
-#: ../app/diagram_tree_view.c:171
+#: ../app/diagram_tree_view.c:172
 #: ../plug-ins/drs/dia-render-script-import.c:464
 msgid "Layer"
 msgstr "Sloj"
 
-#: ../app/diagram_tree_view.c:177
+#: ../app/diagram_tree_view.c:178
 #, c-format
 msgid "%d Layer"
 msgid_plural "%d Layers"
@@ -553,7 +545,7 @@ msgstr[1] "%d sloja"
 msgstr[2] "%d slojeva"
 msgstr[3] "Jedan sloj"
 
-#: ../app/diagram_tree_view.c:181 ../app/diagram_tree_view.c:519
+#: ../app/diagram_tree_view.c:182 ../app/diagram_tree_view.c:520
 #: ../objects/Database/table.c:149 ../objects/Istar/actor.c:142
 #: ../objects/Istar/actor.c:143 ../objects/Istar/other.c:147
 #: ../objects/Istar/other.c:148 ../objects/KAOS/other.c:150
@@ -563,15 +555,15 @@ msgstr[3] "Jedan sloj"
 msgid "Type"
 msgstr "Vrsta"
 
-#: ../app/diagram_tree_view.c:184
+#: ../app/diagram_tree_view.c:185
 msgid "object|Position"
 msgstr "Položaj"
 
-#: ../app/diagram_tree_view.c:187
+#: ../app/diagram_tree_view.c:188
 msgid "Children"
 msgstr "Sadržaoci"
 
-#: ../app/diagram_tree_view.c:191
+#: ../app/diagram_tree_view.c:192
 #, c-format
 msgid "%d Object"
 msgid_plural "%d Objects"
@@ -581,22 +573,22 @@ msgstr[2] "%d objekata"
 msgstr[3] "Jedan objekat"
 
 #
-#: ../app/diagram_tree_view.c:448
+#: ../app/diagram_tree_view.c:449
 msgid "Select"
 msgstr "Izaberi"
 
 #. Translators: Menu item Verb/Support/Position/Locate
 #. Translators: Menu item Verb/Signal/Sense/Locate
-#: ../app/diagram_tree_view.c:449 ../objects/FS/function.c:801
+#: ../app/diagram_tree_view.c:450 ../objects/FS/function.c:801
 #: ../objects/FS/function.c:1043
 msgid "Locate"
 msgstr "Pronađi"
 
-#: ../app/diagram_tree_view.c:450
+#: ../app/diagram_tree_view.c:451
 msgid "Properties"
 msgstr "Osobine"
 
-#: ../app/diagram_tree_view.c:502 ../app/exit_dialog.c:125
+#: ../app/diagram_tree_view.c:503 ../app/exit_dialog.c:125
 #: ../app/plugin-manager.c:270 ../objects/Database/table.c:147
 #: ../objects/Database/table.c:190 ../objects/Misc/n_gon.c:135
 #: ../objects/UML/association.c:236 ../objects/UML/class.c:140
@@ -606,7 +598,7 @@ msgstr "Osobine"
 msgid "Name"
 msgstr "Naziv"
 
-#: ../app/diagram_tree_view.c:565
+#: ../app/diagram_tree_view.c:566
 msgid "Diagram Tree"
 msgstr "Stablo dijagrama"
 
@@ -748,16 +740,15 @@ msgstr "Prati vezu…"
 msgid "Convert to Path"
 msgstr "Pretvori u putanju"
 
-#: ../app/disp_callbacks.c:262 ../app/menus.c:272
+#: ../app/disp_callbacks.c:262 ../app/menus.c:271
 msgid "Union"
 msgstr "Unija"
 
 #: ../app/disp_callbacks.c:263
-#| msgid "Differentiate"
 msgid "Difference"
 msgstr "Razlika"
 
-#: ../app/disp_callbacks.c:264 ../app/menus.c:273
+#: ../app/disp_callbacks.c:264 ../app/menus.c:272
 msgid "Intersection"
 msgstr "Presek"
 
@@ -985,7 +976,7 @@ msgstr "Uporedi _sva svojstva (ne samo naziv objekta)"
 msgid "Find"
 msgstr "Nađi"
 
-#: ../app/find-and-replace.c:567 ../app/menus.c:271
+#: ../app/find-and-replace.c:567 ../app/menus.c:270
 msgid "Replace"
 msgstr "Zameni"
 
@@ -1020,7 +1011,7 @@ msgstr "Prebacite prijanjanje uz mrežu za ovaj prozor."
 msgid "Toggles object snapping for this window."
 msgstr "Prebacite prijanjanje objekta za ovaj prozor."
 
-#: ../app/interface.c:979 ../app/interface.c:1096 ../dia.desktop.in.in.h:2
+#: ../app/interface.c:988 ../app/interface.c:1105 ../dia.desktop.in.in.h:2
 msgid "Diagram Editor"
 msgstr "Uređivać dijagrama"
 
@@ -1029,7 +1020,6 @@ msgid "New Layer"
 msgstr "Novi sloj"
 
 #: ../app/layer_dialog.c:167
-#| msgid "Rename Layer…"
 msgid "Rename Layer"
 msgstr "Preimenuj sloj"
 
@@ -1171,7 +1161,6 @@ msgstr ""
 
 #: ../app/load_save.c:1001
 #, c-format
-#| msgid "Error saving connections"
 msgid "Error saving connections to layer '%s'"
 msgstr "Greška čuvanja veza u sloju „%s“"
 
@@ -1210,7 +1199,6 @@ msgstr "Unutrašnja greška %d zapisivanja datoteke %s\n"
 
 #: ../app/load_save.c:1136
 #, c-format
-#| msgid "Can't rename %s to final output file %s: %s\n"
 msgid "Can't rename %s to final output file %s"
 msgstr "Ne mogu da preimenujem „%s“ u krajnju izlaznu datoteku „%s“"
 
@@ -1223,507 +1211,491 @@ msgstr "Samostalno čuvanje"
 msgid "Dia Diagram File"
 msgstr "Datoteka dijagrama Die"
 
-#: ../app/menus.c:63
+#: ../app/menus.c:64
 msgid "Fit"
 msgstr "Ispuni"
 
 #
-#: ../app/menus.c:90
+#: ../app/menus.c:91
 msgid "_File"
 msgstr "_Datoteka"
 
-#: ../app/menus.c:91
+#: ../app/menus.c:92
 msgid "Create a new diagram"
 msgstr "Napravite novi dijagram"
 
-#: ../app/menus.c:92
+#: ../app/menus.c:93
 msgid "_Open…"
 msgstr "_Otvori…"
 
-#: ../app/menus.c:92
+#: ../app/menus.c:93
 msgid "Open a diagram file"
 msgstr "Otvorite datoteku dijagrama"
 
-#: ../app/menus.c:94
+#: ../app/menus.c:95
 msgid "_Help"
 msgstr "_Pomoć"
 
-#: ../app/menus.c:95
-#| msgid "Dia Shape File"
+#: ../app/menus.c:96
 msgid "Dia help"
 msgstr "Pomoć Die"
 
-#: ../app/menus.c:96
-#| msgid "Dia version %s, compiled %s %s\n"
+#: ../app/menus.c:97
 msgid "Dia version, authors, license"
 msgstr "Izdanje Die, stvaraoci, dozvola"
 
-#: ../app/menus.c:104
+#: ../app/menus.c:103
 msgid "Sheets and Objects…"
 msgstr "Listovi i objekti…"
 
-#: ../app/menus.c:104
-#| msgid "Sheets and Objects…"
+#: ../app/menus.c:103
 msgid "Manage sheets and their objects"
 msgstr "Upravljaj listovima i njihovim objektima"
 
-#: ../app/menus.c:105
-#| msgid "Preferences"
+#: ../app/menus.c:104
 msgid "Dia preferences"
 msgstr "Postavke Die"
 
-#: ../app/menus.c:106
+#: ../app/menus.c:105
 msgid "Plugins…"
 msgstr "Priključci…"
 
-#: ../app/menus.c:106
-#| msgid "Python plug-in"
+#: ../app/menus.c:105
 msgid "Manage plug-ins"
 msgstr "Upravljajte priključcima"
 
-#: ../app/menus.c:107
+#: ../app/menus.c:106
 msgid "_Diagram Tree"
 msgstr "Stablo _dijagrama"
 
-#: ../app/menus.c:107
+#: ../app/menus.c:106
 msgid "Tree representation of diagrams"
 msgstr "Predstavljanje stablom dijagrama"
 
-#: ../app/menus.c:112
+#: ../app/menus.c:111
 msgid "Show Toolbar"
 msgstr "Prikaži traku alata"
 
-#: ../app/menus.c:112
-#| msgid "Show Toolbar"
+#: ../app/menus.c:111
 msgid "Show or hide the toolbar"
 msgstr "Prikažite ili sakrijte traku alata"
 
-#: ../app/menus.c:113
+#: ../app/menus.c:112
 msgid "Show Statusbar"
 msgstr "Prikaži traku stanja"
 
-#: ../app/menus.c:113
-#| msgid "Show Statusbar"
+#: ../app/menus.c:112
 msgid "Show or hide the statusbar"
 msgstr "Prikažite ili sakrijte traku stanja"
 
-#: ../app/menus.c:114
+#: ../app/menus.c:113
 msgid "Show Layers"
 msgstr "Prikaži slojeve"
 
-#: ../app/menus.c:114
+#: ../app/menus.c:113
 msgid "Show or hide the layers toolwindow"
 msgstr "Prikažite ili sakrijte prozor alata slojeva"
 
-#: ../app/menus.c:120
+#: ../app/menus.c:119
 msgid "Save the diagram"
 msgstr "Sačuvajte dijagram"
 
-#: ../app/menus.c:121
+#: ../app/menus.c:120
 msgid "Save _As…"
 msgstr "Sačuvaj _kao…"
 
-#: ../app/menus.c:121
+#: ../app/menus.c:120
 msgid "Save the diagram with a new name"
 msgstr "Sačuvajte dijagram sa novim nazivom"
 
-#: ../app/menus.c:122
+#: ../app/menus.c:121
 msgid "_Export…"
 msgstr "_Izvezi…"
 
-#: ../app/menus.c:122
+#: ../app/menus.c:121
 msgid "Export the diagram"
 msgstr "Izvezite dijagram"
 
-#: ../app/menus.c:123
+#: ../app/menus.c:122
 msgid "_Diagram Properties"
 msgstr "Svojstva _dijagrama"
 
-#: ../app/menus.c:123
+#: ../app/menus.c:122
 msgid "Modify diagram properties (grid, background)"
 msgstr "Izmenite svojstva dijagrama (mrežu, pozadinu)"
 
-#: ../app/menus.c:124
+#: ../app/menus.c:123
 msgid "Page Set_up…"
 msgstr "Podešavanje _strane…"
 
-#: ../app/menus.c:124
+#: ../app/menus.c:123
 msgid "Modify the diagram pagination"
 msgstr "Izmenite straničenje dijagrama"
 
-#: ../app/menus.c:125
+#: ../app/menus.c:124
 msgid "_Print…"
 msgstr "_Štampaj…"
 
-#: ../app/menus.c:125
+#: ../app/menus.c:124
 msgid "Print the diagram"
 msgstr "Odštampajte dijagram"
 
-#: ../app/menus.c:126
-#| msgid "Close Diagram"
+#: ../app/menus.c:125
 msgid "Close the diagram"
 msgstr "Zatvorite dijagram"
 
-#: ../app/menus.c:128
+#: ../app/menus.c:127
 msgid "_Edit"
 msgstr "_Uređivanje"
 
-#: ../app/menus.c:129
+#: ../app/menus.c:128
 msgid "Undo"
 msgstr "Opozovi"
 
-#: ../app/menus.c:130
+#: ../app/menus.c:129
 msgid "Redo"
 msgstr "Povrati"
 
-#: ../app/menus.c:132
+#: ../app/menus.c:131
 msgid "Copy selection"
 msgstr "Umnožite izbor"
 
-#: ../app/menus.c:133
+#: ../app/menus.c:132
 msgid "Cut selection"
 msgstr "Isecite izbor"
 
-#: ../app/menus.c:134
+#: ../app/menus.c:133
 msgid "Paste selection"
 msgstr "Ubacite izbor"
 
 # ispari pa kondenzuj u čvrsto stanje
-#: ../app/menus.c:135
+#: ../app/menus.c:134
 msgid "_Duplicate"
 msgstr "_Udvostruči"
 
-#: ../app/menus.c:135
-#| msgid "Paste selection"
+#: ../app/menus.c:134
 msgid "Duplicate selection"
 msgstr "Udvostručite izbor"
 
-#: ../app/menus.c:136
-#| msgid "Paste selection"
+#: ../app/menus.c:135
 msgid "Delete selection"
 msgstr "Obrišite izbor"
 
-#: ../app/menus.c:138
+#: ../app/menus.c:137
 msgid "_Find…"
 msgstr "_Nađi…"
 
-#: ../app/menus.c:138
-#| msgid "_Search for:"
+#: ../app/menus.c:137
 msgid "Search for text"
 msgstr "Potražite tekst"
 
-#: ../app/menus.c:139
+#: ../app/menus.c:138
 msgid "_Replace…"
 msgstr "_Zameni…"
 
-#: ../app/menus.c:139
+#: ../app/menus.c:138
 msgid "Search and replace text"
 msgstr "Potražite i zamenite tekst"
 
 #. the following used to bind to <control><shift>C which collides with Unicode input.
 #. * <control><alt> doesn't work either
-#: ../app/menus.c:143
+#: ../app/menus.c:142
 msgid "Copy Text"
 msgstr "Umnoži tekst"
 
-#: ../app/menus.c:143
+#: ../app/menus.c:142
 msgid "Copy object's text to clipboard"
 msgstr "Umnožite tekst objketa u ostavu"
 
-#: ../app/menus.c:144
+#: ../app/menus.c:143
 msgid "Cut Text"
 msgstr "Iseci tekst"
 
-#: ../app/menus.c:144
+#: ../app/menus.c:143
 msgid "Cut object's text to clipboard"
 msgstr "Isecite tekst objketa u ostavu"
 
-#: ../app/menus.c:145
+#: ../app/menus.c:144
 msgid "Paste _Text"
 msgstr "Ubaci _tekst"
 
-#: ../app/menus.c:145
+#: ../app/menus.c:144
 msgid "Insert text from clipboard"
 msgstr "Ubacite tekst iz ostave"
 
-#: ../app/menus.c:147
+#: ../app/menus.c:146
 msgid "Paste _Image"
 msgstr "Ubaci _sliku"
 
-#: ../app/menus.c:147
-#| msgid "No image from Clipboard to paste."
+#: ../app/menus.c:146
 msgid "Insert image from clipboard"
 msgstr "Ubacite sliku iz ostave"
 
-#: ../app/menus.c:149
+#: ../app/menus.c:148
 msgid "_Layers"
 msgstr "_Slojevi"
 
-#: ../app/menus.c:150
+#: ../app/menus.c:149
 msgid "Add Layer…"
 msgstr "Dodaj sloj…"
 
-#: ../app/menus.c:151
+#: ../app/menus.c:150
 msgid "Rename Layer…"
 msgstr "Preimenuj sloj…"
 
-#: ../app/menus.c:152
+#: ../app/menus.c:151
 msgid "Move Selection to Layer above"
 msgstr "Premesti izbor na gornji sloj"
 
-#: ../app/menus.c:153
+#: ../app/menus.c:152
 msgid "Move Selection to Layer below"
 msgstr "Premesti izbor na donji sloj"
 
-#: ../app/menus.c:154
+#: ../app/menus.c:153
 msgid "_Layers…"
 msgstr "_Slojevi…"
 
 #
-#: ../app/menus.c:155
+#: ../app/menus.c:154
 msgid "_View"
 msgstr "P_regled"
 
-#: ../app/menus.c:156
+#: ../app/menus.c:155
 msgid "Zoom in"
 msgstr "Uvećaj"
 
-#: ../app/menus.c:157
+#: ../app/menus.c:156
 msgid "Zoom out"
 msgstr "Umanji"
 
-#: ../app/menus.c:158
+#: ../app/menus.c:157
 msgid "_Zoom"
 msgstr "_Povećaj"
 
-#: ../app/menus.c:159
+#: ../app/menus.c:158
 msgid "1600%"
 msgstr "1600%"
 
-#: ../app/menus.c:160 ../app/menus.c:597 ../app/menus.c:609
+#: ../app/menus.c:159 ../app/menus.c:596 ../app/menus.c:608
 msgid "800%"
 msgstr "800%"
 
-#: ../app/menus.c:161 ../app/menus.c:598 ../app/menus.c:610
+#: ../app/menus.c:160 ../app/menus.c:597 ../app/menus.c:609
 msgid "400%"
 msgstr "400%"
 
-#: ../app/menus.c:162
+#: ../app/menus.c:161
 msgid "283"
 msgstr "283"
 
-#: ../app/menus.c:163
+#: ../app/menus.c:162
 msgid "200"
 msgstr "200"
 
-#: ../app/menus.c:164
+#: ../app/menus.c:163
 msgid "141"
 msgstr "141"
 
-#: ../app/menus.c:166
+#: ../app/menus.c:165
 msgid "85"
 msgstr "85"
 
-#: ../app/menus.c:167
+#: ../app/menus.c:166
 msgid "70.7"
 msgstr "70.7"
 
-#: ../app/menus.c:168
+#: ../app/menus.c:167
 msgid "50"
 msgstr "50"
 
-#: ../app/menus.c:169
+#: ../app/menus.c:168
 msgid "35.4"
 msgstr "35.4"
 
-#: ../app/menus.c:170
+#: ../app/menus.c:169
 msgid "25"
 msgstr "25"
 
 #. Show All, Best Fit.  Same as the Gimp, Ctrl+E
-#: ../app/menus.c:172
+#: ../app/menus.c:171
 msgid "Zoom fit"
 msgstr "Ispuni povećanje"
 
 #. "display_toggle_entries" items go here
-#: ../app/menus.c:176
+#: ../app/menus.c:175
 msgid "New _View"
 msgstr "Novi _pregled"
 
-#: ../app/menus.c:177
+#: ../app/menus.c:176
 msgid "C_lone View"
 msgstr "_Kloniraj pregled"
 
-#: ../app/menus.c:180
+#: ../app/menus.c:179
 msgid "_Objects"
 msgstr "_Objekti"
 
-#: ../app/menus.c:181
+#: ../app/menus.c:180
 msgid "Send to _Back"
 msgstr "Pošalji na _kraj"
 
-#: ../app/menus.c:181
-#| msgid "Move Selection to Layer above"
+#: ../app/menus.c:180
 msgid "Move selection to the bottom"
 msgstr "Premestite izbor na dno"
 
-#: ../app/menus.c:182
+#: ../app/menus.c:181
 msgid "Bring to _Front"
 msgstr "Iznesi na _površinu"
 
-#: ../app/menus.c:182
-#| msgid "Move Selection to Layer above"
+#: ../app/menus.c:181
 msgid "Move selection to the top"
 msgstr "Premestite izbor na vrh"
 
-#: ../app/menus.c:183
+#: ../app/menus.c:182
 msgid "Send Backwards"
 msgstr "Pošalji u pozadinu"
 
-#: ../app/menus.c:184
+#: ../app/menus.c:183
 msgid "Bring Forwards"
 msgstr "Iznesi na površinu"
 
-#: ../app/menus.c:186
+#: ../app/menus.c:185
 msgid "_Group"
 msgstr "_Grupiši"
 
-#: ../app/menus.c:186
-#| msgid "Group with %d object"
-#| msgid_plural "Group with %d objects"
+#: ../app/menus.c:185
 msgid "Group selected objects"
 msgstr "Grupišite izabrane objkete"
 
 #. deliberately not using Ctrl+U for Ungroup
-#: ../app/menus.c:188
+#: ../app/menus.c:187
 msgid "_Ungroup"
 msgstr "_Razgrupiši"
 
-#: ../app/menus.c:188
+#: ../app/menus.c:187
 msgid "Ungroup selected groups"
 msgstr "Razgrupišite izabrane grupe"
 
-#: ../app/menus.c:190
+#: ../app/menus.c:189
 msgid "_Parent"
 msgstr "_Sadržalac"
 
-#: ../app/menus.c:191
+#: ../app/menus.c:190
 msgid "_Unparent"
 msgstr "_Nesadržalac"
 
-#: ../app/menus.c:192
+#: ../app/menus.c:191
 msgid "_Unparent Children"
 msgstr "Iz_baci iz sadržaoca"
 
 #. Translators: Menu item Verb/Support/Position/Align
-#: ../app/menus.c:194 ../objects/FS/function.c:799
+#: ../app/menus.c:193 ../objects/FS/function.c:799
 msgid "Align"
 msgstr "Poravnaj"
 
-#: ../app/menus.c:199 ../objects/standard/textobj.c:117
+#: ../app/menus.c:198 ../objects/standard/textobj.c:117
 msgid "Top"
 msgstr "Vrh"
 
-#: ../app/menus.c:200
+#: ../app/menus.c:199
 msgid "Middle"
 msgstr "Sredina"
 
-#: ../app/menus.c:201 ../objects/standard/textobj.c:116
+#: ../app/menus.c:200 ../objects/standard/textobj.c:116
 msgid "Bottom"
 msgstr "Dno"
 
 #
-#: ../app/menus.c:203
+#: ../app/menus.c:202
 msgid "Spread Out Horizontally"
 msgstr "Raširi vodoravno"
 
 #
-#: ../app/menus.c:204
+#: ../app/menus.c:203
 msgid "Spread Out Vertically"
 msgstr "Raširi uspravno"
 
-#: ../app/menus.c:205
+#: ../app/menus.c:204
 msgid "Adjacent"
 msgstr "Pripijeno"
 
-#: ../app/menus.c:206
+#: ../app/menus.c:205
 msgid "Stacked"
 msgstr "Naslagano"
 
-#: ../app/menus.c:207 ../app/menus.c:217
+#: ../app/menus.c:206 ../app/menus.c:216
 msgid "Connected"
 msgstr "Povezane"
 
 #
-#: ../app/menus.c:211
+#: ../app/menus.c:210
 msgid "_Select"
 msgstr "_Izaberi"
 
-#: ../app/menus.c:212
+#: ../app/menus.c:211
 msgid "All"
 msgstr "Sve"
 
-#: ../app/menus.c:213 ../objects/Jackson/domain.c:94
+#: ../app/menus.c:212 ../objects/Jackson/domain.c:94
 #: ../objects/UML/association.c:220 ../objects/UML/association.c:226
 msgid "None"
 msgstr "Ništa"
 
-#: ../app/menus.c:214
+#: ../app/menus.c:213
 msgid "Invert"
 msgstr "Preokreni"
 
-#: ../app/menus.c:216
+#: ../app/menus.c:215
 msgid "Transitive"
 msgstr "Prelazne"
 
 #
-#: ../app/menus.c:218
+#: ../app/menus.c:217
 msgid "Same Type"
 msgstr "Iste vrste"
 
 #
 #. display_select_radio_entries go here
-#: ../app/menus.c:222
+#: ../app/menus.c:221
 msgid "Select By"
 msgstr "Izaberi prema"
 
 #. For placment of the toplevel Layout menu and it's accelerator
-#: ../app/menus.c:225
+#: ../app/menus.c:224
 msgid "L_ayout"
 msgstr "_Raspored"
 
-#: ../app/menus.c:227
+#: ../app/menus.c:226
 msgid "D_ialogs"
 msgstr "_Prozorčići"
 
-#: ../app/menus.c:229
+#: ../app/menus.c:228
 msgid "D_ebug"
 msgstr "_Uklanjanje grešaka"
 
-#: ../app/menus.c:235
+#: ../app/menus.c:234
 msgid "_Tools"
 msgstr "_Alati"
 
-#: ../app/menus.c:236
+#: ../app/menus.c:235
 msgid "Modify"
 msgstr "Izmeni"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Magnify
-#: ../app/menus.c:237 ../app/toolbox.c:86 ../objects/FS/function.c:979
+#: ../app/menus.c:236 ../app/toolbox.c:86 ../objects/FS/function.c:979
 msgid "Magnify"
 msgstr "Uveličaj"
 
-#: ../app/menus.c:238
+#: ../app/menus.c:237
 msgid "Edit Text"
 msgstr "Uredi tekst"
 
-#: ../app/menus.c:239
+#: ../app/menus.c:238
 msgid "Scroll"
 msgstr "Pomeranje"
 
 #. how it used to be before 0.96+SVN
 #. new name matching "same name, same type"  rule
-#: ../app/menus.c:240 ../app/toolbox.c:98 ../lib/properties.c:102
+#: ../app/menus.c:239 ../app/toolbox.c:98 ../lib/properties.c:102
 #: ../lib/properties.h:677 ../objects/AADL/aadlbox.c:153
 #: ../objects/custom/custom_object.c:227 ../objects/Jackson/requirement.c:130
 #: ../objects/network/basestation.c:132 ../objects/network/radiocell.c:131
@@ -1736,138 +1708,138 @@ msgstr "Pomeranje"
 msgid "Text"
 msgstr "Tekst"
 
-#: ../app/menus.c:241 ../app/toolbox.c:104
+#: ../app/menus.c:240 ../app/toolbox.c:104
 msgid "Box"
 msgstr "Kvadrat"
 
-#: ../app/menus.c:242 ../app/toolbox.c:110
+#: ../app/menus.c:241 ../app/toolbox.c:110
 msgid "Ellipse"
 msgstr "Elipsa"
 
-#: ../app/menus.c:243 ../app/toolbox.c:116
+#: ../app/menus.c:242 ../app/toolbox.c:116
 msgid "Polygon"
 msgstr "Poligon"
 
 # Ovo je sklop od „bezierov“ i „poligon“, pa može i kod nas
-#: ../app/menus.c:244 ../app/toolbox.c:122
+#: ../app/menus.c:243 ../app/toolbox.c:122
 msgid "Beziergon"
 msgstr "Bezjergon"
 
-#: ../app/menus.c:246 ../app/toolbox.c:128 ../objects/standard/line.c:327
+#: ../app/menus.c:245 ../app/toolbox.c:128 ../objects/standard/line.c:327
 msgid "Line"
 msgstr "Linija"
 
-#: ../app/menus.c:247 ../app/toolbox.c:134
+#: ../app/menus.c:246 ../app/toolbox.c:134
 msgid "Arc"
 msgstr "Luk"
 
-#: ../app/menus.c:248 ../app/toolbox.c:140
+#: ../app/menus.c:247 ../app/toolbox.c:140
 msgid "Zigzagline"
 msgstr "Cik-cak linija"
 
-#: ../app/menus.c:249 ../app/toolbox.c:146
+#: ../app/menus.c:248 ../app/toolbox.c:146
 msgid "Polyline"
 msgstr "Izlomljena linija"
 
-#: ../app/menus.c:250 ../app/toolbox.c:152
+#: ../app/menus.c:249 ../app/toolbox.c:152
 msgid "Bezierline"
 msgstr "Bezjerova linija"
 
-#: ../app/menus.c:251 ../app/toolbox.c:165
+#: ../app/menus.c:250 ../app/toolbox.c:165
 msgid "Outline"
 msgstr "Kontura"
 
-#: ../app/menus.c:253 ../app/toolbox.c:158
+#: ../app/menus.c:252 ../app/toolbox.c:158
 msgid "Image"
 msgstr "Slika"
 
-#: ../app/menus.c:260
+#: ../app/menus.c:259
 msgid "_Antialiased"
 msgstr "_Umekšano"
 
-#: ../app/menus.c:261
+#: ../app/menus.c:260
 msgid "Show _Grid"
 msgstr "Prikaži _mrežu"
 
-#: ../app/menus.c:262
+#: ../app/menus.c:261
 msgid "_Snap to Grid"
 msgstr "Prioni na _mrežu"
 
 #
-#: ../app/menus.c:263
+#: ../app/menus.c:262
 msgid "Snap to _Objects"
 msgstr "Prioni na _objekte"
 
-#: ../app/menus.c:264
+#: ../app/menus.c:263
 msgid "Show _Rulers"
 msgstr "Prikaži _lenjire"
 
-#: ../app/menus.c:265
+#: ../app/menus.c:264
 msgid "Show _Connection Points"
 msgstr "Prikaži tačke _veze"
 
 #. Translators: Menu item Verb/Channel/Export/Remove
 #. Translators: Menu item Verb/Branch/Separate/Remove
 #. Translators: Menu item Verb/Branch/Separate/Remove/Remove
-#: ../app/menus.c:274 ../objects/FS/function.c:699
+#: ../app/menus.c:273 ../objects/FS/function.c:699
 #: ../objects/FS/function.c:851 ../objects/FS/function.c:853
 msgid "Remove"
 msgstr "Ukloni"
 
 #. Cannot also be called Invert, duplicate names caused keybinding problems
-#: ../app/menus.c:276
+#: ../app/menus.c:275
 msgid "Inverse"
 msgstr "Izvrnuto"
 
-#: ../app/menus.c:338
+#: ../app/menus.c:337
 msgid "NULL tooldata in tool_menu_select"
 msgstr "NIŠTAVNI podaci alata u izboru_izbornika_alata"
 
-#: ../app/menus.c:599 ../app/menus.c:611
+#: ../app/menus.c:598 ../app/menus.c:610
 msgid "300%"
 msgstr "300%"
 
-#: ../app/menus.c:600 ../app/menus.c:612
+#: ../app/menus.c:599 ../app/menus.c:611
 msgid "200%"
 msgstr "200%"
 
-#: ../app/menus.c:601 ../app/menus.c:613
+#: ../app/menus.c:600 ../app/menus.c:612
 msgid "150%"
 msgstr "150%"
 
-#: ../app/menus.c:602 ../app/menus.c:614
+#: ../app/menus.c:601 ../app/menus.c:613
 msgid "100%"
 msgstr "100%"
 
-#: ../app/menus.c:603 ../app/menus.c:615
+#: ../app/menus.c:602 ../app/menus.c:614
 msgid "75%"
 msgstr "75%"
 
-#: ../app/menus.c:604 ../app/menus.c:616
+#: ../app/menus.c:603 ../app/menus.c:615
 msgid "50%"
 msgstr "50%"
 
-#: ../app/menus.c:605 ../app/menus.c:617
+#: ../app/menus.c:604 ../app/menus.c:616
 msgid "25%"
 msgstr "25%"
 
-#: ../app/menus.c:606 ../app/menus.c:618
+#: ../app/menus.c:605 ../app/menus.c:617
 msgid "10%"
 msgstr "10%"
 
-#: ../app/menus.c:644
+#: ../app/menus.c:643
 msgid "Toggles snap-to-grid."
 msgstr "Prebacite prijanjanje uz mrežu."
 
-#: ../app/menus.c:655
+#: ../app/menus.c:654
 msgid "Toggles object snapping."
 msgstr "Prebacite prijanjanje objekta."
 
-#: ../app/menus.c:1275
+#: ../app/menus.c:1274
 msgid "The function is not available anymore."
 msgstr "Funkcija nije više dostupna."
 
-#: ../app/modify_tool.c:387
+#: ../app/modify_tool.c:411
 msgid "Couldn't get GTK+ settings"
 msgstr "Ne mogu da dobavim GTK+ podešavanja"
 
@@ -2017,8 +1989,8 @@ msgstr "Prikaži umekšano"
 msgid "Portable Network Graphics"
 msgstr "Prenosna mrežna grafika"
 
-#: ../app/preferences.c:224 ../plug-ins/svg/render_svg.c:605
-#: ../plug-ins/svg/svg-import.c:2127
+#: ../app/preferences.c:224 ../plug-ins/svg/render_svg.c:649
+#: ../plug-ins/svg/svg-import.c:2121
 msgid "Scalable Vector Graphics"
 msgstr "Promenljiva vektorska grafika"
 
@@ -2680,7 +2652,7 @@ msgstr "nepoznata strelica"
 #: ../lib/create.c:50 ../lib/create.c:100 ../lib/create.c:127
 #: ../lib/create.c:160 ../lib/create.c:196 ../lib/create.c:228
 #: ../lib/create.c:252 ../lib/create.c:284 ../lib/create.c:305
-#: ../lib/create.c:335 ../lib/create.c:378 ../plug-ins/svg/svg-import.c:669
+#: ../lib/create.c:335 ../lib/create.c:378 ../plug-ins/svg/svg-import.c:677
 #: ../plug-ins/vdx/vdx-import.c:144
 msgid "Can't find standard object"
 msgstr "Ne mogu da nađem uobičajeni objekat"
@@ -2726,10 +2698,6 @@ msgstr "Ne mogu da nađem porodicu pisma za %s\n"
 #. pathologic case - pixbuf not even supporting PNG?
 #: ../lib/dia_image.c:345
 #, c-format
-#| msgid ""
-#| "Unsupported file format for saving:\n"
-#| "%s\n"
-#| "%s\n"
 msgid ""
 "Unsupported file format for saving:\n"
 "%s\n"
@@ -2791,23 +2759,19 @@ msgid "Cancel"
 msgstr "Poništi"
 
 #: ../lib/diapatternselector.c:110
-#| msgid "Flip Horizontal"
 msgid "Horizontal"
 msgstr "Vodoravno"
 
 #: ../lib/diapatternselector.c:111
-#| msgid "Diagram"
 msgid "Diagonal"
 msgstr "Dijagonalno"
 
 #: ../lib/diapatternselector.c:112
-#| msgid "Flip Vertical"
 msgid "Vertical"
 msgstr "Uspravno"
 
 #  Translators: Menu item Noun/Energy/Thermal/Radiation
 #: ../lib/diapatternselector.c:113
-#| msgid "Radiation"
 msgid "Radial"
 msgstr "Unaokolo"
 
@@ -3170,7 +3134,7 @@ msgid "Cant create image data from scratch!"
 msgstr "Ne mogu da napravim podatke slike iz početka!"
 
 #. Todo: get label for the branch view from props, e.g. UML Operations Parameters
-#: ../lib/prop_sdarray_widget.c:576 ../objects/chronogram/chronoline.c:161
+#: ../lib/prop_sdarray_widget.c:561 ../objects/chronogram/chronoline.c:161
 #: ../objects/UML/umloperation.c:79
 msgid "Parameters"
 msgstr "Parametri"
@@ -3245,7 +3209,6 @@ msgid "Convert to Bezier"
 msgstr "Pretvori u Bezjer"
 
 #: ../lib/standard-path.c:729
-#| msgid "Convert to Path"
 msgid "Invert Path"
 msgstr "Okreni putanju"
 
@@ -3267,7 +3230,6 @@ msgid "Rotate"
 msgstr "Zaokreni"
 
 #: ../lib/standard-path.c:733
-#| msgid "Shear angle"
 msgid "Shear"
 msgstr "Zaoštri"
 
@@ -3449,7 +3411,6 @@ msgid "Custom XML shapes loader"
 msgstr "Učitavač proizvoljnih IksML oblika"
 
 #: ../objects/custom/custom_object.c:203 ../objects/custom/custom_object.c:236
-#| msgid "Scale of the subshapes"
 msgid "Scale of the sub-shapes"
 msgstr "Razmera sadržanih oblika"
 
@@ -5261,19 +5222,14 @@ msgid "Precision"
 msgstr "Tačnost"
 
 #: ../objects/Misc/n_gon.c:103
-#| msgid "Convey"
 msgid "Convex"
 msgstr "Ispupčeno"
 
 #: ../objects/Misc/n_gon.c:104
-#| msgctxt "Arrow"
-#| msgid "Filled Concave"
 msgid "Concave"
 msgstr "Udubljeno"
 
 #: ../objects/Misc/n_gon.c:105
-#| msgctxt "Arrow"
-#| msgid "Cross"
 msgid "Crossing"
 msgstr "Unakrsno"
 
@@ -5282,7 +5238,6 @@ msgid "N-gon kind"
 msgstr "Vrsta N-ugaonika"
 
 #: ../objects/Misc/n_gon.c:119
-#| msgid "Number of arms"
 msgid "Number of rays"
 msgstr "Broj zraka"
 
@@ -5296,35 +5251,29 @@ msgstr "Broj zavoja za ukrštanje"
 
 #. no property widget, but still to be serialized
 #: ../objects/Misc/n_gon.c:124
-#| msgid "Composition"
 msgid "Center position"
 msgstr "Položaj središta"
 
 #. no property widget, but still to be serialized
 #: ../objects/Misc/n_gon.c:126
-#| msgid "Dash length: "
 msgid "Ray length"
 msgstr "Dužina zraka"
 
 #: ../objects/Misc/n_gon.c:317
-#| msgctxt "Arrow"
-#| msgid "Hollow Triangle"
 msgid "Triangle"
 msgstr "Trougao"
 
 #  Translators: Menu item Verb/Support/Secure
 #: ../objects/Misc/n_gon.c:318 ../objects/standard/box.c:137
-#: ../objects/standard/box.c:785
+#: ../objects/standard/box.c:759
 msgid "Square"
 msgstr "Kvadrat"
 
 #: ../objects/Misc/n_gon.c:319
-#| msgid "Orientation"
 msgid "Pentagon"
 msgstr "Petougaonik"
 
 #: ../objects/Misc/n_gon.c:319
-#| msgid "Open Diagram"
 msgid "Pentagram"
 msgstr "Petokraknik"
 
@@ -5333,7 +5282,6 @@ msgid "Hexagon"
 msgstr "Šestougaonik"
 
 #: ../objects/Misc/n_gon.c:320
-#| msgid "Diagram"
 msgid "Hexagram"
 msgstr "Šestokraknik"
 
@@ -5342,7 +5290,6 @@ msgid "Heptagon"
 msgstr "Sedmougaonik"
 
 #: ../objects/Misc/n_gon.c:321
-#| msgid "Diagram"
 msgid "Heptagram"
 msgstr "Sedmokraknik"
 
@@ -5351,7 +5298,6 @@ msgid "Octagon"
 msgstr "Osmougaonik"
 
 #: ../objects/Misc/n_gon.c:322
-#| msgid "Diagram"
 msgid "Octagram"
 msgstr "Osmokraknik"
 
@@ -5360,7 +5306,6 @@ msgid "Enneagon"
 msgstr "Devetougaonik"
 
 #: ../objects/Misc/n_gon.c:323
-#| msgid "Diagram"
 msgid "Enneagram"
 msgstr "Devetokraknik"
 
@@ -5369,7 +5314,6 @@ msgid "Decagon"
 msgstr "Desetougaonik"
 
 #: ../objects/Misc/n_gon.c:324
-#| msgid "Diagram"
 msgid "Decagram"
 msgstr "Desetokraknik"
 
@@ -5378,7 +5322,6 @@ msgid "Hendecagon"
 msgstr "Jedenaestougaonik"
 
 #: ../objects/Misc/n_gon.c:325
-#| msgid "Open Diagram"
 msgid "Hendecagram"
 msgstr "Jedenaestokraknik"
 
@@ -5387,7 +5330,6 @@ msgid "Dodecagon"
 msgstr "Dvanaestougaonik"
 
 #: ../objects/Misc/n_gon.c:326
-#| msgid "Diagram"
 msgid "Dodecagram"
 msgstr "Dvanaestokraknik"
 
@@ -5396,7 +5338,6 @@ msgid "Tridecagon"
 msgstr "Trinaestougaonik"
 
 #: ../objects/Misc/n_gon.c:327
-#| msgid "Diagram"
 msgid "Tridecagram"
 msgstr "Trinaestokraknik"
 
@@ -5405,7 +5346,6 @@ msgid "Tetradecagon"
 msgstr "Četrnaestougaonik"
 
 #: ../objects/Misc/n_gon.c:328
-#| msgid "Istar diagram"
 msgid "Tetradecagram"
 msgstr "Četrnaestokraknik"
 
@@ -5414,7 +5354,6 @@ msgid "Pentadecagon"
 msgstr "Petnaestougaonik"
 
 #: ../objects/Misc/n_gon.c:329
-#| msgid "Istar diagram"
 msgid "Pentadecagram"
 msgstr "Petnaestokraknik"
 
@@ -5431,7 +5370,6 @@ msgid "Heptadecagon"
 msgstr "Sedamnaestougaonik"
 
 #: ../objects/Misc/n_gon.c:331
-#| msgid "Istar diagram"
 msgid "Heptadecagram"
 msgstr "Sedamnaestokraknik"
 
@@ -5440,7 +5378,6 @@ msgid "Octadecagon"
 msgstr "Osamnaestougaonik"
 
 #: ../objects/Misc/n_gon.c:332
-#| msgid "Istar diagram"
 msgid "Octadecagram"
 msgstr "Osamnaestokraknik"
 
@@ -5457,7 +5394,6 @@ msgid "Icosagon"
 msgstr "Dvadesetougaonik"
 
 #: ../objects/Misc/n_gon.c:334
-#| msgid "Close Diagram"
 msgid "Icosagram"
 msgstr "Dvadesetokraknik"
 
@@ -5466,12 +5402,10 @@ msgid "N-gon"
 msgstr "N-ugaonik"
 
 #: ../objects/Misc/n_gon.c:352
-#| msgid "Diagram"
 msgid "N-gram"
 msgstr "N-kraknik"
 
 #: ../objects/Misc/n_gon.c:354
-#| msgid "Start"
 msgid "Star"
 msgstr "Zvezda"
 
@@ -5487,7 +5421,7 @@ msgstr "Obriši ručku"
 msgid "Sectors"
 msgstr "Sektori"
 
-#: ../objects/network/basestation.c:391 ../objects/network/basestation.c:393
+#: ../objects/network/basestation.c:365 ../objects/network/basestation.c:367
 msgid "Base Station"
 msgstr "Bazna stanica"
 
@@ -5609,15 +5543,14 @@ msgstr "Odnos razmere"
 
 #  Translators: Menu item Noun/Energy/Mechanical/Rotation
 #: ../objects/standard/box.c:154 ../objects/standard/ellipse.c:143
-#| msgid "Rotation"
 msgid "Rotation angle"
 msgstr "Ugao zaokrenutosti"
 
-#: ../objects/standard/box.c:781 ../objects/standard/ellipse.c:755
+#: ../objects/standard/box.c:755 ../objects/standard/ellipse.c:755
 msgid "Free aspect"
 msgstr "Slobodan odnos"
 
-#: ../objects/standard/box.c:783 ../objects/standard/ellipse.c:757
+#: ../objects/standard/box.c:757 ../objects/standard/ellipse.c:757
 msgid "Fixed aspect"
 msgstr "Utvrđen odnos"
 
@@ -5625,45 +5558,50 @@ msgstr "Utvrđen odnos"
 msgid "Circle"
 msgstr "Krug"
 
-#: ../objects/standard/image.c:119
+#: ../objects/standard/image.c:123
 msgid "Image file"
 msgstr "Datoteka slike"
 
-#: ../objects/standard/image.c:121
+#: ../objects/standard/image.c:125
 msgid "Inline data"
 msgstr "Utkani podaci"
 
-#: ../objects/standard/image.c:121
+#: ../objects/standard/image.c:125
 msgid "Store image data in diagram"
 msgstr "Uskladišti podatke o slici u dijagram"
 
-#: ../objects/standard/image.c:123
+#: ../objects/standard/image.c:127
 msgid "Pixbuf"
 msgstr "Sličica"
 
-#: ../objects/standard/image.c:123
+#: ../objects/standard/image.c:127
 msgid "The Pixbuf reference"
 msgstr "Referenca sličice"
 
-#: ../objects/standard/image.c:125
+#: ../objects/standard/image.c:129
 msgid "Draw border"
 msgstr "Iscrtaj granicu"
 
-#: ../objects/standard/image.c:127
+#: ../objects/standard/image.c:131
 msgid "Keep aspect ratio"
 msgstr "Zadrži odnos razmere"
 
-#: ../objects/standard/image.c:257
+#: ../objects/standard/image.c:133
+#| msgid "Triangle"
+msgid "Angle"
+msgstr "Ugao"
+
+#: ../objects/standard/image.c:264
 msgid "Can't save image without filename"
 msgstr "Ne mogu da sačuvam sliku bez naziva datoteke"
 
-#: ../objects/standard/image.c:752
+#: ../objects/standard/image.c:781
 msgid "Inconsistent pixbuf during image save."
 msgstr "Nedosledna sličica za vreme čuvanja slike."
 
 #. Found file in same dir as diagram.
 #. Found file in current dir.
-#: ../objects/standard/image.c:849 ../objects/standard/image.c:860
+#: ../objects/standard/image.c:883 ../objects/standard/image.c:894
 #, c-format
 msgid ""
 "The image file '%s' was not found in the specified directory.\n"
@@ -5674,7 +5612,7 @@ msgstr ""
 
 #  Didn't find file in current dir.
 #. Didn't find file in current dir.
-#: ../objects/standard/image.c:866 ../objects/standard/image.c:888
+#: ../objects/standard/image.c:900 ../objects/standard/image.c:922
 #, c-format
 msgid "The image file '%s' was not found.\n"
 msgstr "Datoteka slike „%s“ nije pronađena.\n"
@@ -5728,12 +5666,10 @@ msgid "Vertical text alignment"
 msgstr "Uspravno poravnanje teksta"
 
 #: ../objects/standard/textobj.c:133
-#| msgid "Text padding"
 msgid "Text angle"
 msgstr "Ugao teksta"
 
 #: ../objects/standard/textobj.c:138
-#| msgid "Text padding"
 msgid "Text margin"
 msgstr "Ivica teksta"
 
@@ -6380,8 +6316,8 @@ msgstr "Pokazivač uvećanja"
 msgid "Visible rect pointer"
 msgstr "Vidljiv pravougaoni pokazivač"
 
-#: ../plug-ins/cairo/diacairo-renderer.c:979
-#: ../plug-ins/cairo/diacairo-renderer.c:1014
+#: ../plug-ins/cairo/diacairo-renderer.c:1030
+#: ../plug-ins/cairo/diacairo-renderer.c:1065
 #: ../plug-ins/libart/dialibartrenderer.c:1226
 #: ../plug-ins/metapost/render_metapost.c:870
 #: ../plug-ins/postscript/diapsrenderer.c:662
@@ -6596,10 +6532,6 @@ msgstr "Nisam uspeo da napravim sličicu iz iscrtavajućeg."
 
 #: ../plug-ins/pixbuf/pixbuf.c:91
 #, c-format
-#| msgid ""
-#| "Could not save file:\n"
-#| "%s\n"
-#| "%s\n"
 msgid ""
 "Could not save file:\n"
 "%s\n"
@@ -6676,7 +6608,6 @@ msgid "Encapsulated Postscript with preview (using Pango fonts)"
 msgstr "Ugneždeni Postskript sa pregledom (koristi Pango pisma)"
 
 #: ../plug-ins/postscript/render_eps.c:187
-#| msgid "Encapsulated PostScript (using PostScript Latin-1 fonts)"
 msgid "Encapsulated PostScript (using PS Latin-1 fonts)"
 msgstr "Ugneždeni Postskript (koristi Post skript latinska-1 pisma)"
 
@@ -6720,14 +6651,12 @@ msgstr "Datoteka Dia oblika"
 msgid "Scalable Vector Graphics import and export filters"
 msgstr "Propusnici za uvoz i izvoz SVG-a"
 
-#: ../plug-ins/svg/svg-import.c:240 ../plug-ins/svg/svg-import.c:983
-#: ../plug-ins/svg/svg-import.c:1042 ../plug-ins/svg/svg-import.c:1131
-#: ../plug-ins/svg/svg-import.c:1228
+#: ../plug-ins/svg/svg-import.c:220
 #, c-format
 msgid "Failed to apply transformation for '%s'"
 msgstr "Nisam uspeo da primenim preobražaj za „%s“"
 
-#: ../plug-ins/svg/svg-import.c:650
+#: ../plug-ins/svg/svg-import.c:658
 msgid ""
 "Invalid path data.\n"
 "svg:path data must start with moveto."
@@ -6735,16 +6664,16 @@ msgstr ""
 "Neispravni podaci o putanji.\n"
 "podaci svg:putanje moraju početi sa premesti u."
 
-#: ../plug-ins/svg/svg-import.c:1901
+#: ../plug-ins/svg/svg-import.c:1895
 msgid "'Shape Design' shapes missing."
 msgstr "Nedostaju oblici „Dizajna oblika“."
 
-#: ../plug-ins/svg/svg-import.c:1935
+#: ../plug-ins/svg/svg-import.c:1929
 #, c-format
 msgid "Object '%s' creation failed"
 msgstr "Stvaranje objekta „%s“ nije uspelo"
 
-#: ../plug-ins/svg/svg-import.c:1961
+#: ../plug-ins/svg/svg-import.c:1955
 #, c-format
 msgid ""
 "Parse error for memory block.\n"
@@ -6753,7 +6682,7 @@ msgstr ""
 "Greška obrade za blokiranje memorije.\n"
 "%s"
 
-#: ../plug-ins/svg/svg-import.c:1979
+#: ../plug-ins/svg/svg-import.c:1973
 #, c-format
 msgid ""
 "SVG parser error for %s\n"
@@ -6763,7 +6692,7 @@ msgstr ""
 "%s"
 
 #. just a warning
-#: ../plug-ins/svg/svg-import.c:1985
+#: ../plug-ins/svg/svg-import.c:1979
 #, c-format
 msgid ""
 "SVG parser warning for %s\n"
@@ -6772,11 +6701,11 @@ msgstr ""
 "Upozorenje SVG obrađivača za „%s“\n"
 "%s"
 
-#: ../plug-ins/svg/svg-import.c:2018
+#: ../plug-ins/svg/svg-import.c:2012
 msgid "Expected SVG name-space not found in file"
 msgstr "Očekivani razmak naziva SVG-a nije pronađen u datoteci"
 
-#: ../plug-ins/svg/svg-import.c:2038
+#: ../plug-ins/svg/svg-import.c:2032
 #, c-format
 msgid "root element was '%s' -- expecting 'svg'."
 msgstr "koreni element beše „%s“ — očekivah „svg“."
@@ -6880,7 +6809,6 @@ msgid "WMF export filter"
 msgstr "Propusnik izvoza VMF-a"
 
 #: ../plug-ins/wpg/wpg.c:1114 ../plug-ins/wpg/wpg.c:1120
-#| msgid "WordPerfect Graphics export filter"
 msgid "WordPerfect Graphics"
 msgstr "Grafika savršenih reči"
 
@@ -6895,7 +6823,6 @@ msgstr "Datoteka: %s vrsta/izdanje nisu podržani.\n"
 
 #: ../plug-ins/wpg/wpg-import.c:621
 #, c-format
-#| msgid "Unknown arrow type %d\n"
 msgid "Unknown WPG type %d size %d."
 msgstr "Nepoznata vrsta GSR „%d“ veličine %d."
 
@@ -6906,7 +6833,6 @@ msgstr "Veličina 0 na vrsti GSR „%d“, očekujem „WPG_END“\n"
 
 #: ../plug-ins/wpg/wpg-import.c:635
 #, c-format
-#| msgid "Unexpected end of file."
 msgid "Unexpected end of file. WPG type %d, size %d.\n"
 msgstr "Neočekivani kraj datoteke. Vrsta GSR-a „%d“, veličine %d.\n"
 
@@ -6971,7 +6897,6 @@ msgstr "Nepoznata vrsta strelice %d\n"
 
 #: ../plug-ins/xfig/xfig-import.c:387
 #, c-format
-#| msgid "Depth %d of of range, only 0-%d allowed.\n"
 msgid "Depth %d out of range, only 0-%d allowed.\n"
 msgstr "Dubina %d je van opsega, dopušteno je samo 0-%d.\n"
 
@@ -7048,7 +6973,6 @@ msgid "Compound end outside compound\n"
 msgstr "Složeni završava spoljni složeni\n"
 
 #: ../plug-ins/xfig/xfig-import.c:1062
-#| msgid "Couldn't read color: %s\n"
 msgid "Couldn't read color\n"
 msgstr "Ne mogu da čitam boju\n"
 
@@ -10375,7 +10299,6 @@ msgid "Diagram object"
 msgstr "Objekat dijagrama"
 
 #: ../sheets/Misc.sheet.in.h:12
-#| msgid "Standard objects"
 msgid "N-gon or Star object"
 msgstr "N-ugaoni ili zvezdasti objekat"
 
