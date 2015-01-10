@@ -577,6 +577,7 @@ EXPORTS
  object_substitute
  object_toggle_prop
  object_unconnect
+ object_unconnect_all
 
  orthconn_add_segment
  orthconn_can_add_segment

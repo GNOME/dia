@@ -2,7 +2,7 @@
 
 PLUGINS = aadl chronogram custom er flowchart fs grafcet \
 	Istar Jackson Kaos misc network sadt standard uml \
-	Database custom_lines
+	Database Sozi custom_lines
 
 #outdated:	labels
 
@@ -113,6 +113,16 @@ OBJECTS = \
 	reference.obj \
 	table.obj
 PKG_LINK = $(PKG_LINK) 
+!ENDIF
+
+!IFDEF OBJ_Sozi
+OBJECTS = \
+	sozi.obj \
+	sozi-frame.obj \
+	sozi-media.obj \
+	sozi-object.obj
+PKG_LINK = $(PKG_LINK) $(LIBXML2_LIBS) \
+	$(GTK2_LIBS)
 !ENDIF
 
 !IFDEF OBJ_eml

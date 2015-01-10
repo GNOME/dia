@@ -13,7 +13,7 @@ sheet_in_files = \
   ciscotelephony.sheet.in Cybernetics.sheet.in IsometricMap.sheet.in \
   Istar.sheet.in Jackson.sheet.in KAOS.sheet.in ChemEng.sheet.in \
   AADL.sheet.in Gane_and_Sarson.sheet.in BPMN.sheet.in \
-  Lights.sheet.in Database.sheet.in Shape_Design.sheet.in
+  Lights.sheet.in Database.sheet.in Sozi.sheet.in Shape_Design.sheet.in
 
 SHEETS = $(sheet_in_files:.sheet.in=.sheet)
 

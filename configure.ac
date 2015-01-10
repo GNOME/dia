@@ -203,6 +203,18 @@ AC_SUBST(XSLT_DIR)
 AC_SUBST(XSLT_LIBS)
 AC_SUBST(XSLT_CFLAGS)
 
+# Find where are the sozi.version, sozi.js and sozi.css files
+AC_ARG_WITH(sozi-path, 
+            [  --with-sozi-path=DIR     Specify where to find the optional sozi player
+                             (default=DATAROOTDIR/sozi)], 
+	    SOZI_PATH=$withval,
+	    SOZI_PATH=$prefix/share/sozi)
+AC_CHECK_FILE($SOZI_PATH/sozi.version,have_sozi_version=yes,have_sozi_version=no)
+#AC_CHECK_FILE($SOZI_PATH/sozi.js,have_sozi_js=yes,have_sozi_js=no)
+#AC_CHECK_FILE($SOZI_PATH/sozi.css,have_sozi_css=yes,have_sozi_css=no)
+AM_CONDITIONAL(WITH_SOZI_PATH, test "$have_sozi_version" = yes)
+AC_SUBST(SOZI_PATH)
+
 # Figure out a prefix for where to find libxslt at runtime.
 AC_ARG_WITH(xslt-prefix, 
             AC_HELP_STRING([--with-xslt-prefix=DIR],[Specify where to find the optional XSLT libraries
@@ -654,6 +666,7 @@ objects/SADT/Makefile
 objects/standard/Makefile
 objects/UML/Makefile
 objects/Database/Makefile
+objects/Sozi/Makefile
 shapes/Makefile
 shapes/Assorted/Makefile
 shapes/BPMN/Makefile

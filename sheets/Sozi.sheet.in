@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?> <!-- -*- xml -*- -->
+<sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
+  <_name>Sozi</_name>
+  <_description>Objects to do Sozi (zooming ui) presentations</_description>
+  <contents>
+    <object name="Sozi - Frame">
+      <_description>Sozi frame</_description>
+    </object>
+    <object name="Sozi - Media">
+      <_description>Sozi media</_description>
+    </object>
+  </contents>
+</sheet>
