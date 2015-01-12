@@ -143,6 +143,9 @@ objects/SADT/annotation.c
 objects/SADT/arrow.c
 objects/SADT/box.c
 objects/SADT/sadt.c
+objects/Sozi/sozi.c
+objects/Sozi/sozi-frame.c
+objects/Sozi/sozi-media.c
 objects/standard/arc.c
 objects/standard/bezier.c
 objects/standard/beziergon.c
@@ -274,5 +277,6 @@ sheets/Pneumatic.sheet.in
 sheets/SADT.sheet.in
 sheets/SDL.sheet.in
 sheets/Shape_Design.sheet.in
+sheets/Sozi.sheet.in
 sheets/sybase.sheet.in
 sheets/UML.sheet.in
