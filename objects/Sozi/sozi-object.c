@@ -29,6 +29,7 @@
 
 /* dia stuff */
 #include "diarenderer.h"
+#include "message.h"
 
 /* sozi stuff */
 #include "sozi-player.h"
@@ -54,34 +55,34 @@ static const Handle default_handles[4] =
  * @param[in] doc the svg document
  * @param[in] sozi_elem the sozi player identification string that will
  * probably be "//script[@id='sozi-script']"
- * @return 1 if the sozi player has been found, 0 otherwise.
+ * @return 1 if the sozi player has been found, 0 if not, -1 if errors 
+ * happened.
  */
 static int
 sozi_player_is_present(xmlDocPtr doc, const xmlChar *sozi_elem)
 {
     xmlXPathContextPtr context;
     xmlXPathObjectPtr result;
+    int is_present;
 
     context = xmlXPathNewContext(doc);
-    if(context == NULL) {
-        fprintf(stderr, "sozi-object : error in xmlXPathNewContext\n");
-        return 0;
+    if (context == NULL) {
+        g_warning("sozi-object : error in xmlXPathNewContext\n");
+        return -1;
     }
 
     result = xmlXPathEvalExpression(sozi_elem, context);
     xmlXPathFreeContext(context);
-    if(result == NULL) {
-        fprintf(stderr, "sozi-object : error in xmlXPathEvalExpression\n");
-        return 0;
+    if (result == NULL) {
+        g_warning("sozi-object : error in xmlXPathEvalExpression\n");
+        return -1;
     }
 
-    if(xmlXPathNodeSetIsEmpty(result->nodesetval)) {
-        xmlXPathFreeObject(result);
-        return 0;
-    }
+    is_present = xmlXPathNodeSetIsEmpty(result->nodesetval)?0:1;
 
     xmlXPathFreeObject(result);
-    return 1;
+
+    return is_present;
 }
 
 /**
@@ -96,7 +97,6 @@ sozi_player_get(gchar **sozi_version_ptr, gchar **sozi_js_ptr, gchar **sozi_extr
 {
 #if defined(SOZI_PATH)
     /* try to get sozi engine from SOZI_PATH */
-    int i;
     struct
     {
         const gchar * filename;
@@ -108,16 +108,18 @@ sozi_player_get(gchar **sozi_version_ptr, gchar **sozi_js_ptr, gchar **sozi_extr
               { SOZI_PATH"/extras/sozi_extras_media.js" , sozi_extras_media_js_ptr },
               { SOZI_PATH"/sozi.css"                    , sozi_css_ptr             }
           };
-
-    for (i = 0; i < 3; i++) {
+    static const unsigned external_sozi_cnt = sizeof(external_sozi)/sizeof(external_sozi[0]);
+    unsigned i;
+    
+    for (i = 0; i < external_sozi_cnt; i++) {
         GError * err = 0;
         if (!g_file_get_contents(external_sozi[i].filename,
                                  external_sozi[i].data,
                                  NULL,
                                  &err)) {
-            g_warning("sozi-object : unable to read file \"%s\" : %s",
-                      external_sozi[i].filename,
-                      err->message);
+            message_error("sozi-object : unable to read file \"%s\" : %s",
+                          external_sozi[i].filename,
+                          err->message);
             g_error_free (err);
             while(i--) {
                 g_free (*external_sozi[i].data);
@@ -126,13 +128,12 @@ sozi_player_get(gchar **sozi_version_ptr, gchar **sozi_js_ptr, gchar **sozi_extr
         }
     }
 
-    if(i == 3) {
+    if (i == external_sozi_cnt) {
         /* that's ok, don't need to go further */
         return;
     }
 
-#else /* defined(SOZI_PATH) */
-    g_warning("sozi-object : use builtin player");
+    dia_log_message("sozi-object : use builtin player");
 #endif /* defined(SOZI_PATH) */
 
     /* if SOZI_PATH isn't defined, fallback to the player that comes with dia sources */
@@ -142,7 +143,7 @@ sozi_player_get(gchar **sozi_version_ptr, gchar **sozi_js_ptr, gchar **sozi_extr
     *sozi_css_ptr             = g_strdup((const gchar *)sozi_min_css);
 
 #if defined(SOZI_PATH)
-    g_warning("sozi-object : use sozi player version '%s'", *sozi_version_ptr);
+    dia_log_message("sozi-object : use sozi player version '%s'", *sozi_version_ptr);
 #endif /* defined(SOZI_PATH) */
 }
 
@@ -163,23 +164,23 @@ sozi_object_init(SoziObject *sozi_object, Point *center)
     /* dia_object->bounding_box will be set in sozi_object_update */
 
     dia_object->num_handles = 4;
-    if(dia_object->handles == NULL) {
+    if (dia_object->handles == NULL) {
         dia_object->handles = g_new0(Handle *, 4);
     }
 
     for (i = 0; i < 4; i++) {
-        if(dia_object->handles[i] == NULL) {
+        if (dia_object->handles[i] == NULL) {
             dia_object->handles[i] = g_new0(Handle, 1);
         }
         *dia_object->handles[i] = default_handles[i];
     }
 
     dia_object->num_connections = 1;
-    if(dia_object->connections == NULL) {
+    if (dia_object->connections == NULL) {
         dia_object->connections = g_new0(ConnectionPoint *, 1);
     }
 
-    if(dia_object->connections[0] == NULL) {
+    if (dia_object->connections[0] == NULL) {
         dia_object->connections[0] = g_new0(ConnectionPoint, 1);
     }
     dia_object->connections[0]->object = dia_object;
@@ -215,13 +216,13 @@ sozi_object_kill(SoziObject *sozi_object)
     object_unconnect_all(&sozi_object->dia_object);
 
     for (i = 0; i < 1; i++) {
-        if(sozi_object->dia_object.connections[i] != NULL) {
+        if (sozi_object->dia_object.connections[i] != NULL) {
             g_free(sozi_object->dia_object.connections[i]);
         }
     }
 
     for (i = 0; i < 4; i++) {
-        if(sozi_object->dia_object.handles[i] != NULL) {
+        if (sozi_object->dia_object.handles[i] != NULL) {
             g_free(sozi_object->dia_object.handles[i]);
         }
     }
@@ -260,10 +261,10 @@ sozi_object_update(SoziObject *sozi_object)
     dia_object->bounding_box.bottom = -G_MAXFLOAT;
 
     /* angle */
-    if(sozi_object->angle < -180) {
+    if (sozi_object->angle < -180) {
         sozi_object->angle += 360.0;
     }
-    if(180 < sozi_object->angle) {
+    if (180 < sozi_object->angle) {
         sozi_object->angle -= 360;
     }
     sozi_object->cos_angle = cos(sozi_object->angle * M_PI / 180.0);
@@ -297,16 +298,16 @@ sozi_object_update(SoziObject *sozi_object)
 
         dia_object->handles[i]->pos = sozi_object->corners[i];
 
-        if(sozi_object->corners[i].x < dia_object->bounding_box.left) {
+        if (sozi_object->corners[i].x < dia_object->bounding_box.left) {
             dia_object->bounding_box.left = sozi_object->corners[i].x - SOZI_OBJECT_LINE_WIDTH;
         }
-        if(dia_object->bounding_box.right < sozi_object->corners[i].x) {
+        if (dia_object->bounding_box.right < sozi_object->corners[i].x) {
             dia_object->bounding_box.right = sozi_object->corners[i].x + SOZI_OBJECT_LINE_WIDTH;
         }
-        if(sozi_object->corners[i].y < dia_object->bounding_box.top) {
+        if (sozi_object->corners[i].y < dia_object->bounding_box.top) {
             dia_object->bounding_box.top = sozi_object->corners[i].y - SOZI_OBJECT_LINE_WIDTH;
         }
-        if(dia_object->bounding_box.bottom < sozi_object->corners[i].y) {
+        if (dia_object->bounding_box.bottom < sozi_object->corners[i].y) {
             dia_object->bounding_box.bottom = sozi_object->corners[i].y + SOZI_OBJECT_LINE_WIDTH;
         }
     }
@@ -331,6 +332,7 @@ void
 sozi_object_draw_svg(SoziObject *sozi_object, DiaSvgRenderer *svg_renderer, gchar * refid, xmlNs **p_sozi_name_space, xmlNodePtr * p_root, xmlNodePtr * p_rect)
 {
     static xmlNs * sozi_name_space = NULL;
+    int player_is_present;
     xmlNodePtr root;
     xmlNodePtr node;
     /* for managing sozi player implantation */
@@ -353,7 +355,11 @@ sozi_object_draw_svg(SoziObject *sozi_object, DiaSvgRenderer *svg_renderer, gcha
 
     /* check that the sozi namespace, scripts and style are present */
 
-    if (!sozi_player_is_present(svg_renderer->doc, (const xmlChar*) "//script[@id='sozi-script']")) {
+    player_is_present = sozi_player_is_present(svg_renderer->doc, (const xmlChar*) "//script[@id='sozi-script']");
+    if (player_is_present < 0) {
+        return;
+    }
+    else if (!player_is_present) {
 
         sozi_player_get(&sozi_version, &sozi_js, &sozi_extras_media_js, &sozi_css);
 
@@ -483,7 +489,7 @@ sozi_object_draw_svg(SoziObject *sozi_object, DiaSvgRenderer *svg_renderer, gcha
 }
 
 /******************************************************************************
- * FUNCTIONS FOR MANAGING THE OBJECT GRABBING AND SCALLING
+ * FUNCTIONS FOR MANAGING THE OBJECT GRABBING, SCALLING AND ROTATION
  *****************************************************************************/
 
 ObjectChange*
@@ -491,6 +497,7 @@ sozi_object_move(SoziObject *sozi_object, Point *to)
 {
     sozi_object->center = *to;
 
+    /* refresh interactive rendering */
     sozi_object_update(sozi_object);
 
     return NULL;
@@ -498,125 +505,126 @@ sozi_object_move(SoziObject *sozi_object, Point *to)
 
 ObjectChange*
 sozi_object_move_handle(SoziObject *sozi_object, Handle *handle,
-                       Point *to, ConnectionPoint *cp,
-                       HandleMoveReason reason, ModifierKeys modifiers)
+                        Point *to, ConnectionPoint *cp,
+                        HandleMoveReason reason, ModifierKeys modifiers)
 {
-    if(reason == HANDLE_MOVE_USER) {
+    /* fprintf(stdout, "reason %d modifiers %x\n", reason, modifiers); */
 
-        if(modifiers & MODIFIER_SHIFT) {
-            /* rotate object around its center */
-            Point p1;
-            Point p2;
+    if (modifiers & MODIFIER_SHIFT) {
+        /* rotate object around its center */
+        Point p1;
+        Point p2;
 
-            /* p1 is the vector from the center to the old position of the handle */
-            p1 = handle->pos;
-            point_sub(&p1, &sozi_object->center);
-            /* p2 is the vector from the center to the new position of the handle */
-            p2 = *to;
-            point_sub(&p2, &sozi_object->center);
+        /* p1 is the vector from the center to the old position of the handle */
+        p1 = handle->pos;
+        point_sub(&p1, &sozi_object->center);
+        /* p2 is the vector from the center to the new position of the handle */
+        p2 = *to;
+        point_sub(&p2, &sozi_object->center);
 
-            /*
-              p1 . p2 = ||p1|| ||p2|| cos(delta)
-              p1 ^ p2 = ||p1|| ||p2|| sin(delta)
-              tan(delta) = (p1 ^ p2) / p1 . p2
-            */
-            sozi_object->angle += (180.0 / M_PI * atan2(p1.x * p2.y - p1.y * p2.x, p1.x * p2.x + p1.y * p2.y));
-        }
-        else {
-            /* scale object */
-            DiaObject * dia_object;
-            unsigned i;
+        /*
+          p1 . p2 = ||p1|| ||p2|| cos(delta)
+          p1 ^ p2 = ||p1|| ||p2|| sin(delta)
+          tan(delta) = (p1 ^ p2) / p1 . p2
+        */
+        sozi_object->angle += (180.0 / M_PI * atan2(p1.x * p2.y - p1.y * p2.x, p1.x * p2.x + p1.y * p2.y));
+    }
+    else {
+        /* scale object */
+        DiaObject * dia_object;
+        unsigned i;
 
-            Point diagonal;
+        Point diagonal;
 
-            real ratio;
-            real width;
-            real height;
+        real ratio;
+        real width;
+        real height;
 
-            /* find the current handle */
-            dia_object = &sozi_object->dia_object;
-            for(i = 0; i < 4; i++) {
-                if(dia_object->handles[i] == handle) {
-                    break;
-                }
+        /* find the current handle */
+        dia_object = &sozi_object->dia_object;
+        for (i = 0; i < 4; i++) {
+            if (dia_object->handles[i] == handle) {
+                break;
             }
-            assert(i < 4);
+        }
+        assert(i < 4);
 
-            if(sozi_object->scale_from_center) {
-                /* scale object from its center  */
+        if (sozi_object->scale_from_center) {
+            /* scale object from its center  */
 
-                /* diagonal is the vector from the center to the new handle pos */
-                diagonal = *to;
-                point_sub(&diagonal, &sozi_object->center);
-                /* ratio is the old ratio */
-                ratio = sozi_object->width / sozi_object->height;
-                /* dot product with the unit lenght vector that hold the width axe */
-                width = 2 * fabs(diagonal.x * sozi_object->cos_angle +
-                                 diagonal.y * sozi_object->sin_angle);
-                /* cross product with the unit lenght vector that hold the width axe */
-                height = 2 * fabs(diagonal.x * sozi_object->sin_angle -
-                                  diagonal.y * sozi_object->cos_angle);
-                /* compute the new size */
-                if(sozi_object->aspect == ASPECT_FREE) {
-                    sozi_object->width  = width;
-                    sozi_object->height = height;
-                }
-                else {
-                    sozi_object->width  = (((height * ratio) < width)?width:(height * ratio));
-                    sozi_object->height = (((width / ratio) < height)?height:(width / ratio));
-                }
+            /* diagonal is the vector from the center to the new handle pos */
+            diagonal = *to;
+            point_sub(&diagonal, &sozi_object->center);
+            /* ratio is the old ratio */
+            ratio = sozi_object->width / sozi_object->height;
+            /* dot product with the unit lenght vector that hold the width axe */
+            width = 2 * fabs(diagonal.x * sozi_object->cos_angle +
+                             diagonal.y * sozi_object->sin_angle);
+            /* cross product with the unit lenght vector that hold the width axe */
+            height = 2 * fabs(diagonal.x * sozi_object->sin_angle -
+                              diagonal.y * sozi_object->cos_angle);
+            /* compute the new size */
+            if (sozi_object->aspect == ASPECT_FREE) {
+                sozi_object->width  = width;
+                sozi_object->height = height;
             }
             else {
-                /* scale object from oposite handle */
-
-                /* go to the oposite handle */
-                i = (i + 2) % 4;
-
-                /* diagonal is the vector from the oposite handle to the new handle pos */
-                diagonal = *to;
-                point_sub(&diagonal, &dia_object->handles[i]->pos);
-                /* ratio is the old ratio */
-                ratio = sozi_object->width / sozi_object->height;
-                /* dot product with the unit lenght vector that hold the width axe */
-                width = fabs(diagonal.x * sozi_object->cos_angle +
-                             diagonal.y * sozi_object->sin_angle);
-                /* cross product with the unit lenght vector that hold the width axe */
-                height = fabs(diagonal.x * sozi_object->sin_angle -
-                              diagonal.y * sozi_object->cos_angle);
-                /* compute the new size */
-                if(sozi_object->aspect == ASPECT_FREE) {
-                    sozi_object->width  = width;
-                    sozi_object->height = height;
-                }
-                else {
-                    sozi_object->width  = (((height * ratio) < width)?width:(height * ratio));
-                    sozi_object->height = (((width / ratio) < height)?height:(width / ratio));
-                }
-                /* compute the new position */
-                if(sozi_object->aspect == ASPECT_FREE) {
-                    sozi_object->center.x = 0.5 * (dia_object->handles[i]->pos.x + to->x);
-                    sozi_object->center.y = 0.5 * (dia_object->handles[i]->pos.y + to->y);
-                }
-                else {
-                    /* FIXME : in FIXED aspect the behavior isn't userfriendly */
-                    static const real coefs [4][4] =
-                        {
-                            { 0.5,-0.5, 0.5, 0.5},
-                            { 0.5, 0.5, 0.5,-0.5},
-                            {-0.5, 0.5,-0.5,-0.5},
-                            {-0.5,-0.5,-0.5, 0.5},
-                        };
-                    sozi_object->center.x = dia_object->handles[i]->pos.x +
-                        coefs[i][0] * sozi_object->width  * sozi_object->cos_angle +
-                        coefs[i][1] * sozi_object->height * sozi_object->sin_angle;
-                    sozi_object->center.y = dia_object->handles[i]->pos.y +
-                        coefs[i][2] * sozi_object->width  * sozi_object->sin_angle +
-                        coefs[i][3] * sozi_object->height * sozi_object->cos_angle;
-                }
+                sozi_object->width  = (((height * ratio) < width)?width:(height * ratio));
+                sozi_object->height = (((width / ratio) < height)?height:(width / ratio));
             }
         }
-        sozi_object_update(sozi_object);
+        else {
+            /* scale object from oposite handle */
+
+            /* go to the oposite handle */
+            i = (i + 2) % 4;
+
+            /* diagonal is the vector from the oposite handle to the new handle pos */
+            diagonal = *to;
+            point_sub(&diagonal, &dia_object->handles[i]->pos);
+            /* ratio is the old ratio */
+            ratio = sozi_object->width / sozi_object->height;
+            /* dot product with the unit lenght vector that hold the width axe */
+            width = fabs(diagonal.x * sozi_object->cos_angle +
+                         diagonal.y * sozi_object->sin_angle);
+            /* cross product with the unit lenght vector that hold the width axe */
+            height = fabs(diagonal.x * sozi_object->sin_angle -
+                          diagonal.y * sozi_object->cos_angle);
+            /* compute the new size */
+            if (sozi_object->aspect == ASPECT_FREE) {
+                sozi_object->width  = width;
+                sozi_object->height = height;
+            }
+            else {
+                sozi_object->width  = (((height * ratio) < width)?width:(height * ratio));
+                sozi_object->height = (((width / ratio) < height)?height:(width / ratio));
+            }
+            /* compute the new position */
+            if (sozi_object->aspect == ASPECT_FREE) {
+                sozi_object->center.x = 0.5 * (dia_object->handles[i]->pos.x + to->x);
+                sozi_object->center.y = 0.5 * (dia_object->handles[i]->pos.y + to->y);
+            }
+            else {
+                /* FIXME : in FIXED aspect the behavior isn't userfriendly */
+                static const real coefs [4][4] =
+                    {
+                        { 0.5,-0.5, 0.5, 0.5},
+                        { 0.5, 0.5, 0.5,-0.5},
+                        {-0.5, 0.5,-0.5,-0.5},
+                        {-0.5,-0.5,-0.5, 0.5},
+                    };
+                sozi_object->center.x = dia_object->handles[i]->pos.x +
+                    coefs[i][0] * sozi_object->width  * sozi_object->cos_angle +
+                    coefs[i][1] * sozi_object->height * sozi_object->sin_angle;
+                sozi_object->center.y = dia_object->handles[i]->pos.y +
+                    coefs[i][2] * sozi_object->width  * sozi_object->sin_angle +
+                    coefs[i][3] * sozi_object->height * sozi_object->cos_angle;
+            }
+        }
     }
+
+    /* refresh interactive rendering */
+    sozi_object_update(sozi_object);
 
     return NULL;
 }

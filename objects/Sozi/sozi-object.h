@@ -126,13 +126,14 @@ void sozi_object_draw_svg(SoziObject *sozi_object, DiaSvgRenderer *svg_renderer,
  * Helper function for the dia's MoveFunc
  * @param[in] sozi_object pointer to object
  * @param[in] to destination point pointer
+ * @see lib/object.h
  */
 ObjectChange* sozi_object_move(SoziObject *sozi_object, Point *to);
 
 /**
  * Helper function for the dia's MoveHandleFunc
  * @param[in] sozi_object pointer to object
- * ...
+ * @see lib/object.h
  */
 ObjectChange* sozi_object_move_handle(SoziObject *sozi_object, Handle *handle,
                                       Point *to, ConnectionPoint *cp,

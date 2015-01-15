@@ -189,18 +189,18 @@ sozi_frames_reorder(gpointer data, gpointer user_data)
 {
     /* see object.h for the description of the object structure */
     DiaObject *dia_object = (DiaObject *)data;
-    if(strcmp(dia_object->type->name, sozi_frame_type.name) == 0) {
+    if (strcmp(dia_object->type->name, sozi_frame_type.name) == 0) {
         SoziFrame *sozi_frame = (SoziFrame *)dia_object;
         struct sequence_pair * seq_pair = (struct sequence_pair *)user_data;
         int this_seq = sozi_frame->sequence;
-        if((seq_pair->new <= this_seq) && (this_seq < seq_pair->old)) {
+        if ((seq_pair->new <= this_seq) && (this_seq < seq_pair->old)) {
             /* fprintf(stdout, "old value %d ++ new value %d\n", sozi_frame->sequence, sozi_frame->sequence + 1); */
             sozi_frame->sequence++;
             sozi_frame->old_sequence = sozi_frame->sequence;
             /* FIXME : not sure it's the good way to redraw an object */
             /* sozi_frame_draw(sozi_frame); */
         }
-        else if((seq_pair->old < this_seq) && (this_seq <= seq_pair->new)) {
+        else if ((seq_pair->old < this_seq) && (this_seq <= seq_pair->new)) {
             /* fprintf(stdout, "old value %d -- new value %d\n", sozi_frame->sequence, sozi_frame->sequence - 1); */
             sozi_frame->sequence--;
             sozi_frame->old_sequence = sozi_frame->sequence;
@@ -215,11 +215,11 @@ sozi_frames_count(gpointer data, gpointer user_data)
 {
     /* see object.h for the description of the object structure */
     DiaObject *dia_object = (DiaObject *)data;
-    if(strcmp(dia_object->type->name, sozi_frame_type.name) == 0) {
+    if (strcmp(dia_object->type->name, sozi_frame_type.name) == 0) {
         SoziFrame *sozi_frame = (SoziFrame *)dia_object;
         /* only object with old_sequence different of zero should be
            taken into account */
-        if(sozi_frame->sequence) {
+        if (sozi_frame->sequence) {
             int * counter = (int *)user_data;
             *counter = *counter + 1;
         }
@@ -236,7 +236,7 @@ sozi_frame_update(SoziFrame *sozi_frame)
 
     /* probably editing default configuration or loading object 
        -> do not care */
-    if(!sozi_frame->sozi_object.dia_object.parent_layer) {
+    if (!sozi_frame->sozi_object.dia_object.parent_layer) {
         return;
     }
 
@@ -246,7 +246,7 @@ sozi_frame_update(SoziFrame *sozi_frame)
        sequence managment
        We use exemples of data_foreach_object of diagramdata.h
     */
-    if(!sozi_frame->sequence) {
+    if (!sozi_frame->sequence) {
         /* this condition is true iif the object have just been created */
         int frames_count = 0;
         /* trig COUNTING of all frames */
@@ -255,7 +255,7 @@ sozi_frame_update(SoziFrame *sozi_frame)
         /* fprintf(stdout, "seq must be initialized after object creation (%d frames)\n", frames_count); */
         sozi_frame->sequence = frames_count + 1;
     }
-    else if(sozi_frame->old_sequence &&
+    else if (sozi_frame->old_sequence &&
             (sozi_frame->old_sequence != sozi_frame->sequence)) {
         /* this condition is true iif the object's sequence number
            have just been changed (in sozi_frame_set_props for instance) */
@@ -277,7 +277,7 @@ sozi_frame_update(SoziFrame *sozi_frame)
 
     /* update legend */
     nb_char = g_snprintf(legend, sizeof(legend), "#%d : %s", sozi_frame->sequence, sozi_frame->title);
-    if(sizeof(legend) < nb_char)
+    if (sizeof(legend) < nb_char)
     {
        legend[sizeof(legend) - 1] = 0;
        legend[sizeof(legend) - 2] = '.';
@@ -299,7 +299,7 @@ sozi_frame_init(SoziFrame *sozi_frame)
     sozi_frame->old_sequence = 0;
     sozi_frame->sequence = 0;
 
-    if(sozi_frame->title == NULL) {
+    if (sozi_frame->title == NULL) {
         sozi_frame->title = g_strdup("frame title");
     }
 
@@ -315,7 +315,7 @@ sozi_frame_init(SoziFrame *sozi_frame)
 static void
 sozi_frame_kill(SoziFrame *sozi_frame)
 {
-    if(sozi_frame->title != NULL) {
+    if (sozi_frame->title != NULL) {
         g_free(sozi_frame->title);
     }
 }
@@ -350,8 +350,10 @@ sozi_frame_create(Point *startpoint,
     sozi_object_update(&sozi_frame->sozi_object);
 
     /* handle are not used */
-    *handle1 = NULL;
-    *handle2 = NULL;
+    *handle1 = NULL; /* first handle to connect: not here */
+    /* we intend to use the lower "SE" handle */
+    g_assert (sozi_frame->sozi_object.dia_object.handles[2]->id == HANDLE_RESIZE_SE);
+    *handle2 = sozi_frame->sozi_object.dia_object.handles[2]; /* second handle to resize */
 
     return &sozi_frame->sozi_object.dia_object;
 }
@@ -483,7 +485,7 @@ sozi_frame_draw(SoziFrame *sozi_frame, DiaRenderer *renderer)
     if (DIA_IS_SVG_RENDERER(renderer)) {
         sozi_frame_draw_svg(sozi_frame, DIA_SVG_RENDERER (renderer));
     }
-    else if(DIA_GET_INTERACTIVE_RENDERER_INTERFACE (renderer) ||
+    else if (DIA_GET_INTERACTIVE_RENDERER_INTERFACE (renderer) ||
             !sozi_frame->hide) {
         DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
 
@@ -494,7 +496,7 @@ sozi_frame_draw(SoziFrame *sozi_frame, DiaRenderer *renderer)
 
         renderer_ops->draw_polygon(renderer, sozi_frame->sozi_object.corners, 4, NULL, &color_black);
 
-        if(sozi_frame->sozi_object.legend.disp == TRUE) {
+        if (sozi_frame->sozi_object.legend.disp == TRUE) {
             text_draw(sozi_frame->sozi_object.legend.text, renderer);
         }
     }
@@ -649,9 +651,9 @@ sozi_frame_get_properties(SoziFrame *sozi_frame, gboolean is_default)
     for (i = 0; i < dialog->prop_widgets->len; ++i) {
         PropWidgetAssoc *pwa = &g_array_index(dialog->prop_widgets,
                                               PropWidgetAssoc, i);
-        if(pwa) {
+        if (pwa) {
             if (strcmp(pwa->prop->descr->name, "frame_sequence") == 0) {
-                if(GTK_IS_SPIN_BUTTON(pwa->widget)) {
+                if (GTK_IS_SPIN_BUTTON(pwa->widget)) {
                     int count = 0;
                     data_foreach_object(layer_get_parent_diagram(dia_object->parent_layer), sozi_frames_count, &count);
 

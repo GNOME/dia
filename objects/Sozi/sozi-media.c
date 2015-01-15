@@ -217,9 +217,9 @@ sozi_media_create(Point *startpoint,
     /* update sozi object geometry */
     sozi_object_update(&sozi_media->sozi_object);
 
-    /* handle are not used */
-    *handle1 = NULL;
-    *handle2 = NULL;
+    *handle1 = NULL; /* not connectable ... */
+    g_assert (sozi_media->sozi_object.dia_object.handles[2]->id == HANDLE_RESIZE_SE);
+    *handle2 = sozi_media->sozi_object.dia_object.handles[2]; /* ... but resizable */
 
     return &sozi_media->sozi_object.dia_object;
 }
