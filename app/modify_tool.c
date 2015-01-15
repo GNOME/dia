@@ -754,7 +754,7 @@ modify_button_release(ModifyTool *tool, GdkEventButton *event,
 
     if (tool->orig_pos != NULL) {
       undo_move_handle(ddisp->diagram, tool->handle, tool->object,
-		       *tool->orig_pos, tool->last_to);
+		       *tool->orig_pos, tool->last_to, gdk_event_to_dia_ModifierKeys(event->state));
     }
     
     /* Final move: */

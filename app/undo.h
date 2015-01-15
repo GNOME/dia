@@ -63,7 +63,8 @@ Change *undo_move_objects(Diagram *dia, Point *orig_pos,
 			  Point *dest_pos, GList *obj_list);
 Change *undo_move_handle(Diagram *dia,
 			 Handle *handle, DiaObject *obj,
-			 Point orig_pos, Point dest_pos);
+			 Point orig_pos, Point dest_pos,
+			 int modifiers);
 Change *undo_connect(Diagram *dia, DiaObject *obj, Handle *handle,
 		     ConnectionPoint *connectionpoint);
 Change *undo_unconnect(Diagram *dia, DiaObject *obj, Handle *handle);

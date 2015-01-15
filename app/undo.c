@@ -441,6 +441,8 @@ struct MoveHandleChange {
   Point dest_pos;
   Handle *handle;
   DiaObject *obj;
+
+  int modifiers;
 };
 
 static void
@@ -449,7 +451,7 @@ move_handle_apply(struct MoveHandleChange *change, Diagram *dia)
   object_add_updates(change->obj, dia);
   change->obj->ops->move_handle(change->obj, change->handle,
 				&change->dest_pos, NULL,
-				HANDLE_MOVE_USER_FINAL, 0);
+				HANDLE_MOVE_USER_FINAL, change->modifiers);
   object_add_updates(change->obj, dia);
   diagram_update_connections_object(dia, change->obj, TRUE);
 }
@@ -460,7 +462,7 @@ move_handle_revert(struct MoveHandleChange *change, Diagram *dia)
   object_add_updates(change->obj, dia);
   change->obj->ops->move_handle(change->obj, change->handle,
 				&change->orig_pos, NULL,
-				HANDLE_MOVE_USER_FINAL, 0);
+				HANDLE_MOVE_USER_FINAL, change->modifiers);
   object_add_updates(change->obj, dia);
   diagram_update_connections_object(dia, change->obj, TRUE);
 }
@@ -474,7 +476,8 @@ move_handle_free(struct MoveHandleChange *change)
 Change *
 undo_move_handle(Diagram *dia,
 		 Handle *handle, DiaObject *obj,
-		 Point orig_pos, Point dest_pos)
+		 Point orig_pos, Point dest_pos,
+		 int modifiers)
 {
   struct MoveHandleChange *change;
 
@@ -489,6 +492,8 @@ undo_move_handle(Diagram *dia,
   change->handle = handle;
   change->obj = obj;
 
+  change->modifiers = modifiers;
+ 
   DEBUG_PRINTF(("UNDO: Push new move handle at %d\n", depth(dia->undo)));
 
   undo_push_change(dia->undo, (Change *) change);
