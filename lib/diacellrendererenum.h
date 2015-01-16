@@ -4,6 +4,10 @@
 #include <gtk/gtk.h>
 #include "diatypes.h"
 
-GtkCellRenderer *dia_cell_renderer_enum_new (const PropEnumData *enum_data);
+/* Found no built-in way to get to the column in the callback ... */
+#define COLUMN_KEY "column-key"
+
+GtkCellRenderer *dia_cell_renderer_enum_new (const PropEnumData *enum_data,
+					     GtkTreeView        *tree_view);
 
 #endif

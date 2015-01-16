@@ -114,8 +114,13 @@ static ObjectOps umlclass_ops = {
   (CopyFunc)            umlclass_copy,
   (MoveFunc)            umlclass_move,
   (MoveHandleFunc)      umlclass_move_handle,
+#if 1
   (GetPropertiesFunc)   umlclass_get_properties,
   (ApplyPropertiesDialogFunc) _umlclass_apply_props_from_dialog,
+#else
+  (GetPropertiesFunc)   object_create_props_dialog,
+  (ApplyPropertiesDialogFunc) object_apply_props_from_dialog,
+#endif
   (ObjectMenuFunc)      umlclass_object_menu,
   (DescribePropsFunc)   umlclass_describe_props,
   (GetPropsFunc)        umlclass_get_props,
