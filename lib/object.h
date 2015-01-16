@@ -262,7 +262,10 @@ typedef ObjectChange* (*MoveFunc) (DiaObject* obj, Point * pos);
  *     - HANDLE_MOVE_USER means the user is dragging the point.
  *     - HANDLE_MOVE_USER_FINAL means the user let go of the point.
  *     - HANDLE_MOVE_CONNECTED means it was moved because something
- *	    it was connected to moved.
+ *       it was connected to moved.
+ *     - HANDLE_MOVE_CREATE_FINAL: is given for resizing during creation
+ *   None of the given reasons is a reason to decline movement, typical
+ *   object implementations can safely ignore this parameter.
  * @param modifiers gives a bitset of modifier keys currently held down
  *     - MODIFIER_SHIFT is either shift key
  *     - MODIFIER_ALT is either alt key
