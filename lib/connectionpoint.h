@@ -27,9 +27,6 @@
 #include <glib.h>
 #include "geometry.h"
 
-#define CONNECTIONPOINT_SIZE 5
-#define CHANGED_TRESHOLD 0.001
-
 /*! \brief Connections directions, used as hints to e.g. zigzaglines 
  * Ordered this way to let *2 be rotate clockwise, /2 rotate counterclockwise.
  * Used as bits

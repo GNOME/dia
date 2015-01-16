@@ -25,6 +25,9 @@
 #include "object.h"
 #include "connectionpoint.h"
 
+#define CONNECTIONPOINT_SIZE 7
+#define CHANGED_TRESHOLD 0.001
+
 static Color connectionpoint_color = { 0.4, 0.4, 1.0, 1.0 };
 
 #define CP_SZ (CONNECTIONPOINT_SIZE/2)

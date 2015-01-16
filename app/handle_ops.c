@@ -22,7 +22,7 @@
 #include "color.h"
 
 /* This value is best left odd so that the handles are centered. */
-#define HANDLE_SIZE 7
+#define HANDLE_SIZE 9
 
 static const Color handle_color[NUM_HANDLE_TYPES<<1] =
 {
