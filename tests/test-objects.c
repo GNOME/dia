@@ -333,7 +333,24 @@ _test_move_handle (gconstpointer user_data)
   ObjectChange *change;
   ConnectionPoint *cp = NULL;
   gint i;
-  
+
+  if (h1)
+    {
+      /* The first handle is used to connect - if possible.
+       * Only very few object return in unconnectable handle, namely:
+       *   "Standard - Beziergon", "Standard - Path", "Standard - Polygon",
+       *   "Database - Compound",
+       *   "GRAFCET - Condition",
+       *   "Misc - Ngon",
+       *   "Network - Radio Cell"
+       * This is not a bug in these object implementations, because other
+       * uses are possible ...
+       */
+      if (h1->connect_type != HANDLE_CONNECTABLE)
+        g_test_message ("Handle 1 not connectable");
+
+    }
+
   if (h2) /* not mandatory to return one */
     {
       Point to = h2->pos;
