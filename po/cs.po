@@ -8,16 +8,16 @@
 # Jakub Friedl <jfriedl@suse.cz>, 2006, 2007.
 # Lucas Lommer <llommer@svn.gnome.org>, 2008.
 # Petr Kovar <pknbe@volny.cz>, 2008, 2010.
-# Marek Černocký <marek@manet.cz>, 2010, 2012, 2013, 2014.
+# Marek Černocký <marek@manet.cz>, 2010, 2012, 2013, 2014, 2015.
 #
-#: ../objects/UML/class.c:193
+#: ../objects/UML/class.c:198
 msgid ""
 msgstr ""
 "Project-Id-Version: dia\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=dia&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2014-11-23 04:15+0000\n"
-"PO-Revision-Date: 2014-11-23 09:43+0100\n"
+"POT-Creation-Date: 2015-01-18 16:14+0000\n"
+"PO-Revision-Date: 2015-01-18 18:05+0100\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -242,7 +242,7 @@ msgstr ""
 msgid "Exiting Dia"
 msgstr "Aplikace Dia se ukončuje"
 
-#: ../app/app_procs.c:1057 ../app/display.c:1250 ../app/exit_dialog.c:115
+#: ../app/app_procs.c:1057 ../app/display.c:1239 ../app/exit_dialog.c:115
 #: ../app/filedlg.c:582
 msgid "Save"
 msgstr "Uložit"
@@ -585,7 +585,7 @@ msgstr "Vlastnosti"
 #: ../app/diagram_tree_view.c:503 ../app/exit_dialog.c:125
 #: ../app/plugin-manager.c:270 ../objects/Database/table.c:147
 #: ../objects/Database/table.c:190 ../objects/Misc/n_gon.c:135
-#: ../objects/UML/association.c:236 ../objects/UML/class.c:140
+#: ../objects/UML/association.c:236 ../objects/UML/class.c:145
 #: ../objects/UML/large_package.c:136 ../objects/UML/umlattribute.c:37
 #: ../objects/UML/umlformalparameter.c:35 ../objects/UML/umloperation.c:62
 #: ../objects/UML/umlparameter.c:43
@@ -732,7 +732,7 @@ msgstr "Následovat odkaz…"
 msgid "Convert to Path"
 msgstr "Převést na cestu"
 
-#: ../app/disp_callbacks.c:262 ../app/menus.c:271
+#: ../app/disp_callbacks.c:262 ../app/menus.c:272
 msgid "Union"
 msgstr "Sjednocení"
 
@@ -740,7 +740,7 @@ msgstr "Sjednocení"
 msgid "Difference"
 msgstr "Rozdíl"
 
-#: ../app/disp_callbacks.c:264 ../app/menus.c:272
+#: ../app/disp_callbacks.c:264 ../app/menus.c:273
 msgid "Intersection"
 msgstr "Průnik"
 
@@ -781,20 +781,20 @@ msgid "Selected '%s'"
 msgstr "Vybráno „%s“"
 
 #. we really should not come here but instead disable the menu command earlier
-#: ../app/display.c:1138
+#: ../app/display.c:1127
 msgid "No antialiased renderer found"
 msgstr "Nenalezeno žádné vykreslování s podporou vyhlazování"
 
-#: ../app/display.c:1296
+#: ../app/display.c:1285
 msgid "<unnamed>"
 msgstr "<nepojmenovaný>"
 
 #. no standard buttons
-#: ../app/display.c:1302
+#: ../app/display.c:1291
 msgid "Closing diagram without saving"
 msgstr "Diagram se zavírá bez uložení"
 
-#: ../app/display.c:1304
+#: ../app/display.c:1293
 #, c-format
 msgid ""
 "The diagram '%s'\n"
@@ -803,11 +803,11 @@ msgstr ""
 "Diagram „%s“\n"
 "nebyl uložen. Chcete jej uložit nyní?"
 
-#: ../app/display.c:1306
+#: ../app/display.c:1295
 msgid "Close Diagram"
 msgstr "Zavřít diagram"
 
-#: ../app/display.c:1311
+#: ../app/display.c:1300
 msgid "_Discard Changes"
 msgstr "_Zahodit změny"
 
@@ -966,7 +966,7 @@ msgstr "Shoda všech vl_astností (nejen názvu objektu)"
 msgid "Find"
 msgstr "Hledat"
 
-#: ../app/find-and-replace.c:567 ../app/menus.c:270
+#: ../app/find-and-replace.c:567 ../app/menus.c:271
 msgid "Replace"
 msgstr "Nahradit"
 
@@ -985,23 +985,23 @@ msgstr "Nah_radit"
 msgid "Pops up the Navigation window."
 msgstr "Zobrazit okno Navigace."
 
-#: ../app/interface.c:736
+#: ../app/interface.c:738
 msgid "Diagram menu."
 msgstr "Nabídka diagramu."
 
-#: ../app/interface.c:776
+#: ../app/interface.c:777
 msgid "Zoom"
 msgstr "Přiblížení"
 
-#: ../app/interface.c:791
+#: ../app/interface.c:792
 msgid "Toggles snap-to-grid for this window."
 msgstr "Přepne přichytávání k mřížce pro toto okno."
 
-#: ../app/interface.c:802
+#: ../app/interface.c:803
 msgid "Toggles object snapping for this window."
 msgstr "Přepne přichytávání k objektům pro toto okno."
 
-#: ../app/interface.c:988 ../app/interface.c:1105 ../dia.desktop.in.in.h:2
+#: ../app/interface.c:989 ../app/interface.c:1106 ../dia.desktop.in.in.h:2
 msgid "Diagram Editor"
 msgstr "Editor diagramu"
 
@@ -1265,7 +1265,7 @@ msgstr "Stromové zpodobnění diagramů"
 msgid "Show Toolbar"
 msgstr "Zobrazovat nástrojovou lištu"
 
-#: ../app/menus.c:111
+#: ../app/menus.c:111 ../app/menus.c:264
 msgid "Show or hide the toolbar"
 msgstr "Zobrazit nebo skrýt nástrojovou lištu"
 
@@ -1463,11 +1463,11 @@ msgstr "Při_blížení"
 msgid "1600%"
 msgstr "1600%"
 
-#: ../app/menus.c:159 ../app/menus.c:596 ../app/menus.c:608
+#: ../app/menus.c:159 ../app/menus.c:597 ../app/menus.c:609
 msgid "800%"
 msgstr "800%"
 
-#: ../app/menus.c:160 ../app/menus.c:597 ../app/menus.c:609
+#: ../app/menus.c:160 ../app/menus.c:598 ../app/menus.c:610
 msgid "400%"
 msgstr "400%"
 
@@ -1681,7 +1681,7 @@ msgstr "Posouvat"
 #: ../lib/properties.h:677 ../objects/AADL/aadlbox.c:153
 #: ../objects/custom/custom_object.c:227 ../objects/Jackson/requirement.c:130
 #: ../objects/network/basestation.c:132 ../objects/network/radiocell.c:131
-#: ../objects/UML/activity.c:127 ../objects/UML/actor.c:120
+#: ../objects/UML/activity.c:129 ../objects/UML/actor.c:120
 #: ../objects/UML/classicon.c:145 ../objects/UML/component.c:133
 #: ../objects/UML/component_feature.c:158 ../objects/UML/node.c:127
 #: ../objects/UML/node.c:129 ../objects/UML/note.c:118
@@ -1757,67 +1757,71 @@ msgid "Show _Rulers"
 msgstr "Zobrazovat _pravítka"
 
 #: ../app/menus.c:264
+msgid "Show Scrollbars"
+msgstr "Zobrazovat posuvníky"
+
+#: ../app/menus.c:265
 msgid "Show _Connection Points"
 msgstr "Zobrazovat přípojné _body"
 
 #. Translators: Menu item Verb/Channel/Export/Remove
 #. Translators: Menu item Verb/Branch/Separate/Remove
 #. Translators: Menu item Verb/Branch/Separate/Remove/Remove
-#: ../app/menus.c:273 ../objects/FS/function.c:699
+#: ../app/menus.c:274 ../objects/FS/function.c:699
 #: ../objects/FS/function.c:851 ../objects/FS/function.c:853
 msgid "Remove"
 msgstr "Odstranit"
 
 #. Cannot also be called Invert, duplicate names caused keybinding problems
-#: ../app/menus.c:275
+#: ../app/menus.c:276
 msgid "Inverse"
 msgstr "Inverze"
 
-#: ../app/menus.c:337
+#: ../app/menus.c:338
 msgid "NULL tooldata in tool_menu_select"
 msgstr "tooldata mají hodnotu NULL v tool_menu_select"
 
-#: ../app/menus.c:598 ../app/menus.c:610
+#: ../app/menus.c:599 ../app/menus.c:611
 msgid "300%"
 msgstr "300%"
 
-#: ../app/menus.c:599 ../app/menus.c:611
+#: ../app/menus.c:600 ../app/menus.c:612
 msgid "200%"
 msgstr "200%"
 
-#: ../app/menus.c:600 ../app/menus.c:612
+#: ../app/menus.c:601 ../app/menus.c:613
 msgid "150%"
 msgstr "150%"
 
-#: ../app/menus.c:601 ../app/menus.c:613
+#: ../app/menus.c:602 ../app/menus.c:614
 msgid "100%"
 msgstr "100%"
 
-#: ../app/menus.c:602 ../app/menus.c:614
+#: ../app/menus.c:603 ../app/menus.c:615
 msgid "75%"
 msgstr "75%"
 
-#: ../app/menus.c:603 ../app/menus.c:615
+#: ../app/menus.c:604 ../app/menus.c:616
 msgid "50%"
 msgstr "50%"
 
-#: ../app/menus.c:604 ../app/menus.c:616
+#: ../app/menus.c:605 ../app/menus.c:617
 msgid "25%"
 msgstr "25%"
 
-#: ../app/menus.c:605 ../app/menus.c:617
+#: ../app/menus.c:606 ../app/menus.c:618
 msgid "10%"
 msgstr "10%"
 
-#: ../app/menus.c:643
+#: ../app/menus.c:644
 msgid "Toggles snap-to-grid."
 msgstr "Přepíná přichytávání k mřížce."
 
-#: ../app/menus.c:654
+#: ../app/menus.c:655
 msgid "Toggles object snapping."
 msgstr "Přepíná přichytávání k objektům."
 
-#: ../app/menus.c:1274
+#: ../app/menus.c:1275
 msgid "The function is not available anymore."
 msgstr "Funkce nadále není k dispozici."
 
@@ -3112,7 +3116,7 @@ msgid "Cant create image data from scratch!"
 msgstr "Nelze vytvořit obrazová data úplně od nuly!"
 
 #. Todo: get label for the branch view from props, e.g. UML Operations Parameters
-#: ../lib/prop_sdarray_widget.c:561 ../objects/chronogram/chronoline.c:161
+#: ../lib/prop_sdarray_widget.c:559 ../objects/chronogram/chronoline.c:161
 #: ../objects/UML/umloperation.c:79
 msgid "Parameters"
 msgstr "Parametry"
@@ -3179,36 +3183,36 @@ msgstr "Vykreslit"
 msgid "Draw Control Lines"
 msgstr "Vykreslovat řídící čáry"
 
-#: ../lib/standard-path.c:728
+#: ../lib/standard-path.c:729
 msgid "Convert to Bezier"
 msgstr "Převést na Beziérovu křivku"
 
-#: ../lib/standard-path.c:729
+#: ../lib/standard-path.c:730
 msgid "Invert Path"
 msgstr "Obrátit cestu"
 
-#: ../lib/standard-path.c:730 ../objects/custom/custom_object.c:198
+#: ../lib/standard-path.c:731 ../objects/custom/custom_object.c:198
 #: ../objects/custom/custom_object.c:231
 msgid "Flip horizontal"
 msgstr "Překlopit vodorovně"
 
-#: ../lib/standard-path.c:731 ../objects/custom/custom_object.c:200
+#: ../lib/standard-path.c:732 ../objects/custom/custom_object.c:200
 #: ../objects/custom/custom_object.c:233
 msgid "Flip vertical"
 msgstr "Překlopit svisle"
 
 #. Translators: Menu item Verb/Channel/Guide/Rotate
 #. Translators: Menu item Verb/Channel/Guide/Rotate/Rotate
-#: ../lib/standard-path.c:732 ../objects/FS/function.c:739
+#: ../lib/standard-path.c:733 ../objects/FS/function.c:739
 #: ../objects/FS/function.c:741
 msgid "Rotate"
 msgstr "Otočit"
 
-#: ../lib/standard-path.c:733
+#: ../lib/standard-path.c:734
 msgid "Shear"
 msgstr "Ustřihnout"
 
-#: ../lib/standard-path.c:734
+#: ../lib/standard-path.c:735
 msgid "Show Control Lines"
 msgstr "Zobrazovat řídící čáry"
 
@@ -3480,9 +3484,9 @@ msgstr "Popis konce"
 #: ../objects/UML/association.c:247 ../objects/UML/association.c:258
 #: ../objects/UML/association.c:260 ../objects/UML/association.c:262
 #: ../objects/UML/association.c:264 ../objects/UML/association.c:266
-#: ../objects/UML/class.c:215 ../objects/UML/class.c:217
-#: ../objects/UML/class.c:219 ../objects/UML/class.c:221
-#: ../objects/UML/class.c:223 ../objects/UML/class.c:225
+#: ../objects/UML/class.c:220 ../objects/UML/class.c:222
+#: ../objects/UML/class.c:224 ../objects/UML/class.c:226
+#: ../objects/UML/class.c:228 ../objects/UML/class.c:230
 msgid " "
 msgstr " "
 
@@ -3509,8 +3513,8 @@ msgid "Reference"
 msgstr "Odkaz"
 
 #: ../objects/Database/table.c:151 ../objects/Database/table.c:192
-#: ../objects/Database/table.c:220 ../objects/UML/class.c:144
-#: ../objects/UML/class.c:211 ../objects/UML/class_dialog.c:486
+#: ../objects/Database/table.c:220 ../objects/UML/class.c:149
+#: ../objects/UML/class.c:216 ../objects/UML/class_dialog.c:486
 #: ../objects/UML/umlattribute.c:43 ../objects/UML/umloperation.c:66
 #: ../objects/UML/umlparameter.c:49 ../sheets/SDL.sheet.in.h:18
 msgid "Comment"
@@ -3554,7 +3558,7 @@ msgstr "Viditelné komentáře"
 msgid "Underline primary keys"
 msgstr "Podtrhávat primární klíče"
 
-#: ../objects/Database/table.c:202 ../objects/UML/class.c:159
+#: ../objects/Database/table.c:202 ../objects/UML/class.c:164
 msgid "Comment tagging"
 msgstr "Označování komentáři"
 
@@ -3562,7 +3566,7 @@ msgstr "Označování komentáři"
 msgid "Use bold font for primary keys"
 msgstr "Použít tučné písmo pro primární klíče"
 
-#: ../objects/Database/table.c:207 ../objects/UML/class.c:181
+#: ../objects/Database/table.c:207 ../objects/UML/class.c:186
 #: ../objects/UML/object.c:150
 msgid "Attributes"
 msgstr "Atributy"
@@ -3570,17 +3574,17 @@ msgstr "Atributy"
 #. umlformalparameters_extra
 #. all this just to make the defaults selectable ...
 #: ../objects/Database/table.c:211 ../objects/UML/association.c:269
-#: ../objects/UML/class.c:196 ../objects/UML/object.c:159
+#: ../objects/UML/class.c:201 ../objects/UML/object.c:159
 msgid "Style"
 msgstr "Styl"
 
-#: ../objects/Database/table.c:212 ../objects/UML/class.c:197
+#: ../objects/Database/table.c:212 ../objects/UML/class.c:202
 msgid "Fonts"
 msgstr "Písma"
 
 #. property rows
 #: ../objects/Database/table.c:216 ../objects/SADT/arrow.c:135
-#: ../objects/UML/class.c:201 ../objects/UML/class_dialog.c:461
+#: ../objects/UML/class.c:206 ../objects/UML/class_dialog.c:461
 msgid "Normal"
 msgstr "Normální"
 
@@ -3588,7 +3592,7 @@ msgstr "Normální"
 msgid "Table name"
 msgstr "Název tabulky"
 
-#: ../objects/Database/table.c:273 ../objects/UML/class.c:342
+#: ../objects/Database/table.c:273 ../objects/UML/class.c:347
 msgid "Show comments"
 msgstr "Zobrazit komentáře"
 
@@ -5372,7 +5376,8 @@ msgstr "Objekty síťového diagramu"
 msgid "Radius"
 msgstr "Poloměr"
 
-#: ../objects/network/wanlink.c:119
+#: ../objects/network/wanlink.c:119 ../objects/Sozi/sozi-frame.c:575
+#: ../objects/Sozi/sozi-media.c:424
 msgid "Width"
 msgstr "Šířka"
 
@@ -5428,6 +5433,187 @@ msgstr "Zařízení SADT"
 msgid "SADT diagram objects"
 msgstr "Objekty diagramu SADT"
 
+#
+#: ../objects/Sozi/sozi.c:39
+msgid "Sozi presentation objects"
+msgstr "Objekty prezentace Sozi"
+
+#: ../objects/Sozi/sozi-frame.c:544 ../objects/Sozi/sozi-media.c:398
+#: ../objects/standard/box.c:135 ../objects/standard/ellipse.c:127
+msgid "Free"
+msgstr "Volné"
+
+#: ../objects/Sozi/sozi-frame.c:545 ../objects/Sozi/sozi-media.c:399
+#: ../objects/standard/box.c:136 ../objects/standard/ellipse.c:128
+msgid "Fixed"
+msgstr "Pevné"
+
+#: ../objects/Sozi/sozi-frame.c:551
+msgid "Constant speed"
+msgstr "Stálá rychlost"
+
+#: ../objects/Sozi/sozi-frame.c:552
+msgid "Speed up"
+msgstr "Zvýšení rychlosti"
+
+#: ../objects/Sozi/sozi-frame.c:553
+msgid "Speed up (strong)"
+msgstr "Zvýšení rychlosti (výrazné)"
+
+#: ../objects/Sozi/sozi-frame.c:554
+msgid "Speed down"
+msgstr "Snížení rychlosti"
+
+#: ../objects/Sozi/sozi-frame.c:555
+msgid "Speed down (strong)"
+msgstr "Snížení rychlosti (výrazné)"
+
+#: ../objects/Sozi/sozi-frame.c:556
+msgid "Speed up, then down"
+msgstr "Zvýšení rychlosti, následné snížení"
+
+#: ../objects/Sozi/sozi-frame.c:557
+msgid "Speed up, then down (strong)"
+msgstr "Zvýšení rychlosti, následné snížení (výrazné)"
+
+#: ../objects/Sozi/sozi-frame.c:558
+msgid "Speed down, then up"
+msgstr "Snížení rychlosti, následné zvýšení"
+
+#: ../objects/Sozi/sozi-frame.c:559
+msgid "Speed down, then up (strong)"
+msgstr "Snížení rychlosti, následné zvýšení (výrazné)"
+
+#: ../objects/Sozi/sozi-frame.c:560
+msgid "Immediate (beginning)"
+msgstr "Nejbližší (počáteční)"
+
+#: ../objects/Sozi/sozi-frame.c:561
+msgid "Immediate (end)"
+msgstr "Nejbližší (koncový)"
+
+#: ../objects/Sozi/sozi-frame.c:562
+msgid "Immediate (middle)"
+msgstr "Nejbližší (prostřední)"
+
+#: ../objects/Sozi/sozi-frame.c:572 ../objects/Sozi/sozi-media.c:421
+msgid "Geometry"
+msgstr "Umístění a velikost"
+
+#: ../objects/Sozi/sozi-frame.c:573 ../objects/Sozi/sozi-media.c:422
+msgid "Center x"
+msgstr "Střed x"
+
+#: ../objects/Sozi/sozi-frame.c:574 ../objects/Sozi/sozi-media.c:423
+msgid "Center y"
+msgstr "Střed y"
+
+#: ../objects/Sozi/sozi-frame.c:576 ../objects/Sozi/sozi-media.c:425
+msgid "Height"
+msgstr "Výška"
+
+#: ../objects/Sozi/sozi-frame.c:577 ../objects/Sozi/sozi-media.c:426
+msgid "Angle (deg)"
+msgstr "Úhel (stupně)"
+
+#: ../objects/Sozi/sozi-frame.c:578 ../objects/Sozi/sozi-media.c:427
+#: ../objects/standard/box.c:151 ../objects/standard/ellipse.c:140
+msgid "Aspect ratio"
+msgstr "Poměr stran"
+
+#: ../objects/Sozi/sozi-frame.c:579 ../objects/Sozi/sozi-media.c:428
+msgid "Scale from center"
+msgstr "Škálovat od středu"
+
+#: ../objects/Sozi/sozi-frame.c:581 ../objects/Sozi/sozi-media.c:430
+msgid "Legend"
+msgstr "Popis"
+
+#: ../objects/Sozi/sozi-frame.c:582 ../objects/Sozi/sozi-media.c:431
+msgid "Legend is visible"
+msgstr "Popis je viditelný"
+
+#: ../objects/Sozi/sozi-frame.c:589 ../objects/Sozi/sozi-media.c:438
+#: ../sheets/Sozi.sheet.in.h:1
+msgid "Sozi"
+msgstr "Sozi"
+
+#: ../objects/Sozi/sozi-frame.c:590
+msgid "Frame sequence"
+msgstr "Sekvence snímků"
+
+#: ../objects/Sozi/sozi-frame.c:591
+msgid "Frame title"
+msgstr "Název snímku"
+
+#: ../objects/Sozi/sozi-frame.c:592
+msgid "Frame hide"
+msgstr "Skrytý snímek"
+
+#: ../objects/Sozi/sozi-frame.c:593
+msgid "Frame clip"
+msgstr "Klip snímku"
+
+#: ../objects/Sozi/sozi-frame.c:594
+msgid "Frame timeout enable"
+msgstr "Povoleno časové omezení snímku"
+
+#: ../objects/Sozi/sozi-frame.c:595
+msgid "Frame timeout (ms)"
+msgstr "Časové omezení snímku (ms)"
+
+#: ../objects/Sozi/sozi-frame.c:596
+msgid "Frame transition profile"
+msgstr "Profil přechodu snímku"
+
+#: ../objects/Sozi/sozi-frame.c:597
+msgid "Frame transition duration (ms)"
+msgstr "Doba trvání přechodu snímku (ms)"
+
+#: ../objects/Sozi/sozi-media.c:405
+msgid "undefined"
+msgstr "nedefinovano"
+
+#: ../objects/Sozi/sozi-media.c:406
+msgid "video/mp4"
+msgstr "video/mp4"
+
+#: ../objects/Sozi/sozi-media.c:407
+msgid "video/webm"
+msgstr "video/webm"
+
+#: ../objects/Sozi/sozi-media.c:408
+msgid "video/ogg"
+msgstr "video/ogg"
+
+#: ../objects/Sozi/sozi-media.c:409
+msgid "audio/mpeg"
+msgstr "audio/mpeg"
+
+#: ../objects/Sozi/sozi-media.c:410
+msgid "audio/ogg"
+msgstr "audio/ogg"
+
+#: ../objects/Sozi/sozi-media.c:411
+msgid "audio/wav"
+msgstr "audio/wav"
+
+#: ../objects/Sozi/sozi-media.c:439
+msgid "Media type"
+msgstr "Typ multimédia"
+
+#: ../objects/Sozi/sozi-media.c:440
+msgid "Media file"
+msgstr "Multimediální soubor"
+
+#: ../objects/Sozi/sozi-media.c:441
+msgid "Start frame"
+msgstr "Počáteční snímek"
+
+#: ../objects/Sozi/sozi-media.c:442
+msgid "Stop frame"
+msgstr "Koncový snímek"
+
 #: ../objects/standard/arc.c:120
 msgid "Curve distance"
 msgstr "Vzdálenost křivky"
@@ -5467,18 +5653,6 @@ msgstr "Hladké ovládání"
 msgid "Cusp control"
 msgstr "Hrotové ovládání"
 
-#: ../objects/standard/box.c:135 ../objects/standard/ellipse.c:127
-msgid "Free"
-msgstr "Volné"
-
-#: ../objects/standard/box.c:136 ../objects/standard/ellipse.c:128
-msgid "Fixed"
-msgstr "Pevné"
-
-#: ../objects/standard/box.c:151 ../objects/standard/ellipse.c:140
-msgid "Aspect ratio"
-msgstr "Poměr stran"
-
 #: ../objects/standard/box.c:154 ../objects/standard/ellipse.c:143
 msgid "Rotation angle"
 msgstr "Úhel otočení"
@@ -5495,59 +5669,48 @@ msgstr "Pevný poměr stran"
 msgid "Circle"
 msgstr "Kruh"
 
-#: ../objects/standard/image.c:123
+#: ../objects/standard/image.c:124
 msgid "Image file"
 msgstr "Soubor obrázku"
 
-#: ../objects/standard/image.c:125
+#: ../objects/standard/image.c:126
 msgid "Inline data"
 msgstr "Vložená data"
 
-#: ../objects/standard/image.c:125
+#: ../objects/standard/image.c:126
 msgid "Store image data in diagram"
 msgstr "Obrazová data uchovaná v diagramu"
 
-#: ../objects/standard/image.c:127
+#: ../objects/standard/image.c:128
 msgid "Pixbuf"
 msgstr "Pixbuf"
 
-#: ../objects/standard/image.c:127
+#: ../objects/standard/image.c:128
 msgid "The Pixbuf reference"
 msgstr "Odkaz na pixelový objekt"
 
-#: ../objects/standard/image.c:129
+#: ../objects/standard/image.c:130
 msgid "Draw border"
 msgstr "Kreslit hranice"
 
-#: ../objects/standard/image.c:131
+#: ../objects/standard/image.c:132
 msgid "Keep aspect ratio"
 msgstr "Zachovat poměr stran"
 
-#: ../objects/standard/image.c:133
+#: ../objects/standard/image.c:134
 msgid "Angle"
 msgstr "Úhel"
 
-#: ../objects/standard/image.c:264
+#: ../objects/standard/image.c:265
 msgid "Can't save image without filename"
 msgstr "Obrázek nelze uložit bez názvu"
 
-#: ../objects/standard/image.c:781
+#: ../objects/standard/image.c:742
 msgid "Inconsistent pixbuf during image save."
 msgstr "Nekonzistentní objekt pixbuf během ukládání obrázku."
 
-#. Found file in same dir as diagram.
-#. Found file in current dir.
-#: ../objects/standard/image.c:883 ../objects/standard/image.c:894
-#, c-format
-msgid ""
-"The image file '%s' was not found in the specified directory.\n"
-"Using the file '%s' instead.\n"
-msgstr ""
-"Soubor s obrázkem „%s“ nebyl v zadané složce nalezen.\n"
-"Použije se místo něj soubor „%s“.\n"
-
-#. Didn't find file in current dir.
-#: ../objects/standard/image.c:900 ../objects/standard/image.c:922
+#. Didn't find file in current directory.
+#: ../objects/standard/image.c:839
 #, c-format
 msgid "The image file '%s' was not found.\n"
 msgstr "Soubor s obrázkem „%s“ nebyl nalezen.\n"
@@ -5717,86 +5880,86 @@ msgstr "Implementace"
 msgid "Class scope"
 msgstr "Pole působnosti třídy"
 
-#: ../objects/UML/class.c:138 ../objects/UML/class.c:349
-#: ../objects/UML/class.c:1838 ../sheets/UML.sheet.in.h:3
+#: ../objects/UML/class.c:143 ../objects/UML/class.c:354
+#: ../objects/UML/class.c:1843 ../sheets/UML.sheet.in.h:3
 msgid "Class"
 msgstr "Třída"
 
 #. how it used to be before 0.96+SVN
 #. one name, one type: but breaks forward-compatibiliy so kind of reverted
-#: ../objects/UML/class.c:142 ../objects/UML/classicon.c:136
+#: ../objects/UML/class.c:147 ../objects/UML/classicon.c:136
 #: ../objects/UML/classicon.c:138 ../objects/UML/component.c:129
 #: ../objects/UML/large_package.c:138 ../objects/UML/object.c:146
 #: ../objects/UML/small_package.c:125 ../objects/UML/umloperation.c:68
 msgid "Stereotype"
 msgstr "Stereotyp"
 
-#: ../objects/UML/class.c:149 ../objects/UML/class.c:205
+#: ../objects/UML/class.c:154 ../objects/UML/class.c:210
 #: ../objects/UML/class_dialog.c:359 ../objects/UML/class_dialog.c:471
 #: ../objects/UML/class_operations_dialog.c:832
 #: ../objects/UML/umlattribute.c:48 ../objects/UML/uml.c:111
 msgid "Abstract"
 msgstr "Abstraktní"
 
-#: ../objects/UML/class.c:151
+#: ../objects/UML/class.c:156
 msgid "Visible Attributes"
 msgstr "Viditelné atributy"
 
-#: ../objects/UML/class.c:153
+#: ../objects/UML/class.c:158
 msgid "Visible Operations"
 msgstr "Viditelné operace"
 
-#: ../objects/UML/class.c:155 ../objects/UML/class_dialog.c:384
+#: ../objects/UML/class.c:160 ../objects/UML/class_dialog.c:384
 msgid "Wrap Operations"
 msgstr "Operace zalamování"
 
-#: ../objects/UML/class.c:157
+#: ../objects/UML/class.c:162
 msgid "Visible Comments"
 msgstr "Viditelné komentáře"
 
-#: ../objects/UML/class.c:161 ../objects/UML/class.c:344
+#: ../objects/UML/class.c:166 ../objects/UML/class.c:349
 msgid "Allow resizing"
 msgstr "Umožnit změnu velikosti"
 
-#: ../objects/UML/class.c:165 ../objects/UML/class.c:1835
+#: ../objects/UML/class.c:170 ../objects/UML/class.c:1840
 msgid "Template"
 msgstr "Šablona"
 
-#: ../objects/UML/class.c:167 ../objects/UML/class_dialog.c:368
+#: ../objects/UML/class.c:172 ../objects/UML/class_dialog.c:368
 msgid "Suppress Attributes"
 msgstr "Potlačit atributy"
 
-#: ../objects/UML/class.c:169
+#: ../objects/UML/class.c:174
 msgid "Suppress Operations"
 msgstr "Potlačit operace"
 
-#: ../objects/UML/class.c:171
+#: ../objects/UML/class.c:176
 msgid "Wrap after char"
 msgstr "Zalamovat po znaku"
 
-#: ../objects/UML/class.c:173
+#: ../objects/UML/class.c:178
 msgid "Comment line length"
 msgstr "Délka řádku s komentářem"
 
 #. umlattribute_extra
-#: ../objects/UML/class.c:186
+#: ../objects/UML/class.c:191
 msgid "Operations"
 msgstr "Operace"
 
 #. umloperations_extra
-#: ../objects/UML/class.c:190
+#: ../objects/UML/class.c:195
 msgid "Template Parameters"
 msgstr "Parametry šablony"
 
-#: ../objects/UML/class.c:203 ../objects/UML/class_dialog.c:466
+#: ../objects/UML/class.c:208 ../objects/UML/class_dialog.c:466
 msgid "Polymorphic"
 msgstr "Polymorfní"
 
-#: ../objects/UML/class.c:207 ../objects/UML/class_dialog.c:476
+#: ../objects/UML/class.c:212 ../objects/UML/class_dialog.c:476
 msgid "Class Name"
 msgstr "Název třídy"
 
-#: ../objects/UML/class.c:209
+#: ../objects/UML/class.c:214
 msgid "Abstract Class Name"
 msgstr "Název abstraktní třídy"
 
@@ -10590,6 +10753,18 @@ msgstr "Přípojný bod"
 #: ../sheets/Shape_Design.sheet.in.h:4
 msgid "Main Connection Point"
 msgstr "Hlavní přípojný bod"
+
+#: ../sheets/Sozi.sheet.in.h:2
+msgid "Objects to do Sozi (zooming ui) presentations"
+msgstr "Objekty vytvářející prezentaci Sozi (ovládání přiblížení)"
+
+#: ../sheets/Sozi.sheet.in.h:3
+msgid "Sozi frame"
+msgstr "Snímek Sozi"
+
+#: ../sheets/Sozi.sheet.in.h:4
+msgid "Sozi media"
+msgstr "Multimédia Sozi"
 
 #: ../sheets/sybase.sheet.in.h:1
 msgid "Sybase"
