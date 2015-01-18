@@ -101,25 +101,23 @@ sozi_player_get(gchar **sozi_version_ptr, gchar **sozi_js_ptr, gchar **sozi_extr
     {
         const gchar * filename;
         gchar **      data;
-    } external_sozi[3] =
+    } external_sozi[] =
           {
-              { SOZI_PATH"/sozi.version"                , sozi_version_ptr         },
-              { SOZI_PATH"/sozi.js"                     , sozi_js_ptr              },
-              { SOZI_PATH"/extras/sozi_extras_media.js" , sozi_extras_media_js_ptr },
-              { SOZI_PATH"/sozi.css"                    , sozi_css_ptr             }
+              { SOZI_PATH"/sozi.version"         , sozi_version_ptr         },
+              { SOZI_PATH"/sozi.js"              , sozi_js_ptr              },
+              { SOZI_PATH"/sozi_extras_media.js" , sozi_extras_media_js_ptr },
+              { SOZI_PATH"/sozi.css"             , sozi_css_ptr             }
           };
     static const unsigned external_sozi_cnt = sizeof(external_sozi)/sizeof(external_sozi[0]);
     unsigned i;
-    
+
     for (i = 0; i < external_sozi_cnt; i++) {
         GError * err = 0;
         if (!g_file_get_contents(external_sozi[i].filename,
                                  external_sozi[i].data,
                                  NULL,
                                  &err)) {
-            message_error("sozi-object : unable to read file \"%s\" : %s",
-                          external_sozi[i].filename,
-                          err->message);
+            message_error("sozi-object : %s\nWill use builtin player", err->message);
             g_error_free (err);
             while(i--) {
                 g_free (*external_sozi[i].data);
@@ -132,8 +130,6 @@ sozi_player_get(gchar **sozi_version_ptr, gchar **sozi_js_ptr, gchar **sozi_extr
         /* that's ok, don't need to go further */
         return;
     }
-
-    dia_log_message("sozi-object : use builtin player");
 #endif /* defined(SOZI_PATH) */
 
     /* if SOZI_PATH isn't defined, fallback to the player that comes with dia sources */
@@ -141,10 +137,6 @@ sozi_player_get(gchar **sozi_version_ptr, gchar **sozi_js_ptr, gchar **sozi_extr
     *sozi_js_ptr              = g_strdup((const gchar *)sozi_min_js);
     *sozi_extras_media_js_ptr = g_strdup((const gchar *)sozi_extras_media_min_js);
     *sozi_css_ptr             = g_strdup((const gchar *)sozi_min_css);
-
-#if defined(SOZI_PATH)
-    dia_log_message("sozi-object : use sozi player version '%s'", *sozi_version_ptr);
-#endif /* defined(SOZI_PATH) */
 }
 
 /******************************************************************************
