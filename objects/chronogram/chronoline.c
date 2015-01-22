@@ -467,7 +467,7 @@ chronoline_draw(Chronoline *chronoline, DiaRenderer *renderer)
                         chronoline->font,chronoline->font_size);
   p3.x = p1.x - chronoline->main_lwidth;
   renderer_ops->draw_string(renderer,chronoline->name,&p3,ALIGN_RIGHT,
-			     &chronoline->color);
+			    &chronoline->font_color);
 }
 
 inline static void grayify(Color *col,Color *src)
