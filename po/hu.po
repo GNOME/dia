@@ -1,8 +1,8 @@
 # Hungarian translation of dia.
-# Copyright (C) 1999, 2000, 2001, 2003, 2004, 2005, 2006, 2007, 2008, 2009 Free Software Foundation, Inc.
+# Copyright (C) 1999-2015 Free Software Foundation, Inc.
 # This file is distributed under the same license as the dia package.
 #
-#: ../objects/UML/class.c:193
+#: ../objects/UML/class.c:198
 # Szabolcs Ban <shooby at gnome dot hu>, 1999.
 # Emese Kovacs <emese at gnome dot hu>, 2000, 2001, 2003.
 # Gabor Kmetyko <kg_kilo at freemail dot hu>, 2004.
@@ -10,14 +10,14 @@
 # Kalman Kemenczy <kkemenczy at novell dot com>, 2005.
 # Szabolcs Varga <shirokuma at shirokuma dot hu>, 2005.
 # Gabor Kelemen <kelemeng at gnome dot hu>, 2005, 2006, 2007, 2008, 2009.
-# Balázs Úr <urbalazs at gmail dot com>, 2013, 2014.
+# Balázs Úr <urbalazs at gmail dot com>, 2013, 2014, 2015.
 msgid ""
 msgstr ""
 "Project-Id-Version: dia master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=dia&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2014-11-28 16:15+0000\n"
-"PO-Revision-Date: 2014-11-28 23:37+0100\n"
+"POT-Creation-Date: 2015-03-15 04:14+0000\n"
+"PO-Revision-Date: 2015-03-15 11:38+0100\n"
 "Last-Translator: Balázs Úr <urbalazs@gmail.com>\n"
 "Language-Team: Hungarian <gnome at fsf dot hu>\n"
 "Language: \n"
@@ -252,7 +252,7 @@ msgstr ""
 msgid "Exiting Dia"
 msgstr "Kilépés a Dia-ból"
 
-#: ../app/app_procs.c:1057 ../app/display.c:1250 ../app/exit_dialog.c:115
+#: ../app/app_procs.c:1057 ../app/display.c:1239 ../app/exit_dialog.c:115
 #: ../app/filedlg.c:582
 msgid "Save"
 msgstr "Mentés"
@@ -485,11 +485,6 @@ msgstr[1] ""
 "oldal)."
 
 #: ../app/confirm.c:88
-#| msgid ""
-#| "You can adjust the size of the diagram by changing the 'Scaling' in the "
-#| "'Page Setup' dialog.\n"
-#| "Alternatively use 'Select All' and 'Best Fit' to move objects/handles "
-#| "into the intended bounds."
 msgid ""
 "You can adjust the size of the diagram by changing the 'Scaling' in the "
 "'Page Setup' dialog.\n"
@@ -498,8 +493,8 @@ msgid ""
 msgstr ""
 "A diagram mérete az „Oldalbeállítás” ablak „Méretezés” beállításával "
 "módosítható.\n"
-"Ehelyett használható a „Legjobb illeszkedés” beállítás az "
-"objektumok/fogantyúk a tervezett határokra mozgatásához."
+"Ehelyett használható a „Legjobb illeszkedés” beállítás az objektumok/"
+"fogantyúk a tervezett határokra mozgatásához."
 
 #: ../app/confirm.c:92
 msgid "Confirm Diagram Size"
@@ -601,7 +596,7 @@ msgstr "Tulajdonságok"
 #: ../app/diagram_tree_view.c:503 ../app/exit_dialog.c:125
 #: ../app/plugin-manager.c:270 ../objects/Database/table.c:147
 #: ../objects/Database/table.c:190 ../objects/Misc/n_gon.c:135
-#: ../objects/UML/association.c:236 ../objects/UML/class.c:140
+#: ../objects/UML/association.c:236 ../objects/UML/class.c:145
 #: ../objects/UML/large_package.c:136 ../objects/UML/umlattribute.c:37
 #: ../objects/UML/umlformalparameter.c:35 ../objects/UML/umloperation.c:62
 #: ../objects/UML/umlparameter.c:43
@@ -751,7 +746,7 @@ msgstr "Hivatkozás követése…"
 msgid "Convert to Path"
 msgstr "Átalakítás útvonallá"
 
-#: ../app/disp_callbacks.c:262 ../app/menus.c:271
+#: ../app/disp_callbacks.c:262 ../app/menus.c:272
 msgid "Union"
 msgstr "Unió"
 
@@ -759,7 +754,7 @@ msgstr "Unió"
 msgid "Difference"
 msgstr "Különbség"
 
-#: ../app/disp_callbacks.c:264 ../app/menus.c:272
+#: ../app/disp_callbacks.c:264 ../app/menus.c:273
 msgid "Intersection"
 msgstr "Metszet"
 
@@ -799,20 +794,20 @@ msgid "Selected '%s'"
 msgstr "„%s” kiválasztva"
 
 #. we really should not come here but instead disable the menu command earlier
-#: ../app/display.c:1138
+#: ../app/display.c:1127
 msgid "No antialiased renderer found"
 msgstr "Nem található élsimított megjelenítő"
 
-#: ../app/display.c:1296
+#: ../app/display.c:1285
 msgid "<unnamed>"
 msgstr "<névtelen>"
 
 #. no standard buttons
-#: ../app/display.c:1302
+#: ../app/display.c:1291
 msgid "Closing diagram without saving"
 msgstr "Diagram bezárása mentés nélkül"
 
-#: ../app/display.c:1304
+#: ../app/display.c:1293
 #, c-format
 msgid ""
 "The diagram '%s'\n"
@@ -821,11 +816,11 @@ msgstr ""
 "A(z) „%s” diagram\n"
 "nem lett mentve. Menti most a változásokat?"
 
-#: ../app/display.c:1306
+#: ../app/display.c:1295
 msgid "Close Diagram"
 msgstr "Diagram bezárása"
 
-#: ../app/display.c:1311
+#: ../app/display.c:1300
 msgid "_Discard Changes"
 msgstr "_Változtatások eldobása"
 
@@ -990,7 +985,7 @@ msgstr "Min_den tulajdonságra (nem csak az objektumnévre)"
 msgid "Find"
 msgstr "Keresés"
 
-#: ../app/find-and-replace.c:567 ../app/menus.c:270
+#: ../app/find-and-replace.c:567 ../app/menus.c:271
 msgid "Replace"
 msgstr "Csere"
 
@@ -1009,23 +1004,23 @@ msgstr "_Csere"
 msgid "Pops up the Navigation window."
 msgstr "Megjeleníti a Navigáció ablakot."
 
-#: ../app/interface.c:736
+#: ../app/interface.c:738
 msgid "Diagram menu."
 msgstr "Diagrammenü."
 
-#: ../app/interface.c:776
+#: ../app/interface.c:777
 msgid "Zoom"
 msgstr "Nagyítás"
 
-#: ../app/interface.c:791
+#: ../app/interface.c:792
 msgid "Toggles snap-to-grid for this window."
 msgstr "Be-/kikapcsolja ebben az ablakban a rácshoz igazítást."
 
-#: ../app/interface.c:802
+#: ../app/interface.c:803
 msgid "Toggles object snapping for this window."
 msgstr "Be-/kikapcsolja ebben az ablakban az objektumok rácshoz igazítását."
 
-#: ../app/interface.c:988 ../app/interface.c:1105 ../dia.desktop.in.in.h:2
+#: ../app/interface.c:989 ../app/interface.c:1106 ../dia.desktop.in.in.h:2
 msgid "Diagram Editor"
 msgstr "Diagramszerkesztő"
 
@@ -1175,7 +1170,6 @@ msgstr ""
 
 #: ../app/load_save.c:1001
 #, c-format
-#| msgid "Error saving connections"
 msgid "Error saving connections to layer '%s'"
 msgstr "Hiba a kapcsolatok mentése közben a(z) „%s” réteghez"
 
@@ -1214,7 +1208,6 @@ msgstr "%d. belső hiba %s fájl írásakor\n"
 
 #: ../app/load_save.c:1136
 #, c-format
-#| msgid "Can't rename %s to final output file %s: %s\n"
 msgid "Can't rename %s to final output file %s"
 msgstr "Nem lehetséges a(z) %s átnevezése a végső %s kimeneti fájllá"
 
@@ -1296,7 +1289,7 @@ msgstr "Diagramok fa ábrázolása"
 msgid "Show Toolbar"
 msgstr "Eszköztár megjelenítése"
 
-#: ../app/menus.c:111
+#: ../app/menus.c:111 ../app/menus.c:264
 msgid "Show or hide the toolbar"
 msgstr "Eszköztár megjelenítése vagy elrejtése"
 
@@ -1498,11 +1491,11 @@ msgstr "_Nagyítás"
 msgid "1600%"
 msgstr "1600%"
 
-#: ../app/menus.c:159 ../app/menus.c:596 ../app/menus.c:608
+#: ../app/menus.c:159 ../app/menus.c:597 ../app/menus.c:609
 msgid "800%"
 msgstr "800%"
 
-#: ../app/menus.c:160 ../app/menus.c:597 ../app/menus.c:609
+#: ../app/menus.c:160 ../app/menus.c:598 ../app/menus.c:610
 msgid "400%"
 msgstr "400%"
 
@@ -1717,7 +1710,7 @@ msgstr "Görgetés"
 #: ../lib/properties.h:677 ../objects/AADL/aadlbox.c:153
 #: ../objects/custom/custom_object.c:227 ../objects/Jackson/requirement.c:130
 #: ../objects/network/basestation.c:132 ../objects/network/radiocell.c:131
-#: ../objects/UML/activity.c:127 ../objects/UML/actor.c:120
+#: ../objects/UML/activity.c:129 ../objects/UML/actor.c:120
 #: ../objects/UML/classicon.c:145 ../objects/UML/component.c:133
 #: ../objects/UML/component_feature.c:158 ../objects/UML/node.c:127
 #: ../objects/UML/node.c:129 ../objects/UML/note.c:118
@@ -1791,67 +1784,72 @@ msgid "Show _Rulers"
 msgstr "_Vonalzók megjelenítése"
 
 #: ../app/menus.c:264
+#| msgid "Show Toolbar"
+msgid "Show Scrollbars"
+msgstr "Gördítősávok megjelenítése"
+
+#: ../app/menus.c:265
 msgid "Show _Connection Points"
 msgstr "_Csatlakozási pontok megjelenítése"
 
 #. Translators: Menu item Verb/Channel/Export/Remove
 #. Translators: Menu item Verb/Branch/Separate/Remove
 #. Translators: Menu item Verb/Branch/Separate/Remove/Remove
-#: ../app/menus.c:273 ../objects/FS/function.c:699
+#: ../app/menus.c:274 ../objects/FS/function.c:699
 #: ../objects/FS/function.c:851 ../objects/FS/function.c:853
 msgid "Remove"
 msgstr "Eltávolítás"
 
 #. Cannot also be called Invert, duplicate names caused keybinding problems
-#: ../app/menus.c:275
+#: ../app/menus.c:276
 msgid "Inverse"
 msgstr "Megfordítás"
 
-#: ../app/menus.c:337
+#: ../app/menus.c:338
 msgid "NULL tooldata in tool_menu_select"
 msgstr "NULL tooldata a tool_menu_select-ben"
 
-#: ../app/menus.c:598 ../app/menus.c:610
+#: ../app/menus.c:599 ../app/menus.c:611
 msgid "300%"
 msgstr "300%"
 
-#: ../app/menus.c:599 ../app/menus.c:611
+#: ../app/menus.c:600 ../app/menus.c:612
 msgid "200%"
 msgstr "200%"
 
-#: ../app/menus.c:600 ../app/menus.c:612
+#: ../app/menus.c:601 ../app/menus.c:613
 msgid "150%"
 msgstr "150%"
 
-#: ../app/menus.c:601 ../app/menus.c:613
+#: ../app/menus.c:602 ../app/menus.c:614
 msgid "100%"
 msgstr "100%"
 
-#: ../app/menus.c:602 ../app/menus.c:614
+#: ../app/menus.c:603 ../app/menus.c:615
 msgid "75%"
 msgstr "75%"
 
-#: ../app/menus.c:603 ../app/menus.c:615
+#: ../app/menus.c:604 ../app/menus.c:616
 msgid "50%"
 msgstr "50%"
 
-#: ../app/menus.c:604 ../app/menus.c:616
+#: ../app/menus.c:605 ../app/menus.c:617
 msgid "25%"
 msgstr "25%"
 
-#: ../app/menus.c:605 ../app/menus.c:617
+#: ../app/menus.c:606 ../app/menus.c:618
 msgid "10%"
 msgstr "10%"
 
-#: ../app/menus.c:643
+#: ../app/menus.c:644
 msgid "Toggles snap-to-grid."
 msgstr "Be-/kikapcsolja a rácshoz igazítást."
 
-#: ../app/menus.c:654
+#: ../app/menus.c:655
 msgid "Toggles object snapping."
 msgstr "Be-/kikapcsolja az objektumok rácshoz igazítását."
 
-#: ../app/menus.c:1274
+#: ../app/menus.c:1275
 msgid "The function is not available anymore."
 msgstr "A funkció többé nem érhető el."
 
@@ -2719,10 +2717,6 @@ msgstr "Nem található a(z) %s betűtípuscsalád\n"
 #. pathologic case - pixbuf not even supporting PNG?
 #: ../lib/dia_image.c:345
 #, c-format
-#| msgid ""
-#| "Unsupported file format for saving:\n"
-#| "%s\n"
-#| "%s\n"
 msgid ""
 "Unsupported file format for saving:\n"
 "%s\n"
@@ -3157,7 +3151,7 @@ msgid "Cant create image data from scratch!"
 msgstr "Nem lehet képadatokat létrehozni a semmiből!"
 
 #. Todo: get label for the branch view from props, e.g. UML Operations Parameters
-#: ../lib/prop_sdarray_widget.c:561 ../objects/chronogram/chronoline.c:161
+#: ../lib/prop_sdarray_widget.c:559 ../objects/chronogram/chronoline.c:161
 #: ../objects/UML/umloperation.c:79
 msgid "Parameters"
 msgstr "Paraméterek"
@@ -3224,37 +3218,36 @@ msgstr "Rajzolás"
 msgid "Draw Control Lines"
 msgstr "Vezérlővonalak rajzolása"
 
-#: ../lib/standard-path.c:728
+#: ../lib/standard-path.c:729
 msgid "Convert to Bezier"
 msgstr "Átalakítás Bezierre"
 
-#: ../lib/standard-path.c:729
+#: ../lib/standard-path.c:730
 msgid "Invert Path"
 msgstr "Útvonal megfordítása"
 
-#: ../lib/standard-path.c:730 ../objects/custom/custom_object.c:198
+#: ../lib/standard-path.c:731 ../objects/custom/custom_object.c:198
 #: ../objects/custom/custom_object.c:231
 msgid "Flip horizontal"
 msgstr "Vízszintes tükrözés"
 
-#: ../lib/standard-path.c:731 ../objects/custom/custom_object.c:200
+#: ../lib/standard-path.c:732 ../objects/custom/custom_object.c:200
 #: ../objects/custom/custom_object.c:233
 msgid "Flip vertical"
 msgstr "Függőleges tükrözés"
 
 #. Translators: Menu item Verb/Channel/Guide/Rotate
 #. Translators: Menu item Verb/Channel/Guide/Rotate/Rotate
-#: ../lib/standard-path.c:732 ../objects/FS/function.c:739
+#: ../lib/standard-path.c:733 ../objects/FS/function.c:739
 #: ../objects/FS/function.c:741
 msgid "Rotate"
 msgstr "Forgatás"
 
-#: ../lib/standard-path.c:733
-#| msgid "Shear angle"
+#: ../lib/standard-path.c:734
 msgid "Shear"
 msgstr "Nyírás"
 
-#: ../lib/standard-path.c:734
+#: ../lib/standard-path.c:735
 msgid "Show Control Lines"
 msgstr "_Vezérlővonalak megjelenítése"
 
@@ -3526,9 +3519,9 @@ msgstr "Leírás vége"
 #: ../objects/UML/association.c:247 ../objects/UML/association.c:258
 #: ../objects/UML/association.c:260 ../objects/UML/association.c:262
 #: ../objects/UML/association.c:264 ../objects/UML/association.c:266
-#: ../objects/UML/class.c:215 ../objects/UML/class.c:217
-#: ../objects/UML/class.c:219 ../objects/UML/class.c:221
-#: ../objects/UML/class.c:223 ../objects/UML/class.c:225
+#: ../objects/UML/class.c:220 ../objects/UML/class.c:222
+#: ../objects/UML/class.c:224 ../objects/UML/class.c:226
+#: ../objects/UML/class.c:228 ../objects/UML/class.c:230
 msgid " "
 msgstr " "
 
@@ -3555,8 +3548,8 @@ msgid "Reference"
 msgstr "Hivatkozás"
 
 #: ../objects/Database/table.c:151 ../objects/Database/table.c:192
-#: ../objects/Database/table.c:220 ../objects/UML/class.c:144
-#: ../objects/UML/class.c:211 ../objects/UML/class_dialog.c:486
+#: ../objects/Database/table.c:220 ../objects/UML/class.c:149
+#: ../objects/UML/class.c:216 ../objects/UML/class_dialog.c:486
 #: ../objects/UML/umlattribute.c:43 ../objects/UML/umloperation.c:66
 #: ../objects/UML/umlparameter.c:49 ../sheets/SDL.sheet.in.h:18
 msgid "Comment"
@@ -3601,7 +3594,7 @@ msgstr "Látható megjegyzések"
 msgid "Underline primary keys"
 msgstr "Elsődleges kulcsok aláhúzása"
 
-#: ../objects/Database/table.c:202 ../objects/UML/class.c:159
+#: ../objects/Database/table.c:202 ../objects/UML/class.c:164
 msgid "Comment tagging"
 msgstr "Megjegyzés jelölése"
 
@@ -3609,7 +3602,7 @@ msgstr "Megjegyzés jelölése"
 msgid "Use bold font for primary keys"
 msgstr "Elsődleges kulcsok félkövérrel"
 
-#: ../objects/Database/table.c:207 ../objects/UML/class.c:181
+#: ../objects/Database/table.c:207 ../objects/UML/class.c:186
 #: ../objects/UML/object.c:150
 msgid "Attributes"
 msgstr "Attribútumok"
@@ -3617,18 +3610,18 @@ msgstr "Attribútumok"
 #. umlformalparameters_extra
 #. all this just to make the defaults selectable ...
 #: ../objects/Database/table.c:211 ../objects/UML/association.c:269
-#: ../objects/UML/class.c:196 ../objects/UML/object.c:159
+#: ../objects/UML/class.c:201 ../objects/UML/object.c:159
 msgid "Style"
 msgstr "Stílus"
 
-#: ../objects/Database/table.c:212 ../objects/UML/class.c:197
+#: ../objects/Database/table.c:212 ../objects/UML/class.c:202
 msgid "Fonts"
 msgstr "Betűkészletek"
 
 #  property rows
 #. property rows
 #: ../objects/Database/table.c:216 ../objects/SADT/arrow.c:135
-#: ../objects/UML/class.c:201 ../objects/UML/class_dialog.c:461
+#: ../objects/UML/class.c:206 ../objects/UML/class_dialog.c:461
 msgid "Normal"
 msgstr "Normál"
 
@@ -3636,7 +3629,7 @@ msgstr "Normál"
 msgid "Table name"
 msgstr "Tábla neve"
 
-#: ../objects/Database/table.c:273 ../objects/UML/class.c:342
+#: ../objects/Database/table.c:273 ../objects/UML/class.c:347
 msgid "Show comments"
 msgstr "Megjegyzések megjelenítése"
 
@@ -5427,7 +5420,8 @@ msgstr "Hálózati diagramobjektumok"
 msgid "Radius"
 msgstr "Sugár"
 
-#: ../objects/network/wanlink.c:119
+#: ../objects/network/wanlink.c:119 ../objects/Sozi/sozi-frame.c:575
+#: ../objects/Sozi/sozi-media.c:424
 msgid "Width"
 msgstr "Szélesség"
 
@@ -5483,6 +5477,202 @@ msgstr "SADT-mező"
 msgid "SADT diagram objects"
 msgstr "SADT diagramobjektumok"
 
+#: ../objects/Sozi/sozi.c:39
+#| msgid "/_Sort objects"
+msgid "Sozi presentation objects"
+msgstr "Sozi bemutatóobjektumok"
+
+#: ../objects/Sozi/sozi-frame.c:544 ../objects/Sozi/sozi-media.c:398
+#: ../objects/standard/box.c:135 ../objects/standard/ellipse.c:127
+msgid "Free"
+msgstr "Szabad"
+
+#: ../objects/Sozi/sozi-frame.c:545 ../objects/Sozi/sozi-media.c:399
+#: ../objects/standard/box.c:136 ../objects/standard/ellipse.c:128
+msgid "Fixed"
+msgstr "Rögzített"
+
+#: ../objects/Sozi/sozi-frame.c:551
+#| msgid "Constraint:"
+msgid "Constant speed"
+msgstr "Állandó sebesség"
+
+#: ../objects/Sozi/sozi-frame.c:552
+msgid "Speed up"
+msgstr "Gyorsítás"
+
+#: ../objects/Sozi/sozi-frame.c:553
+msgid "Speed up (strong)"
+msgstr "Gyorsítás (erősen)"
+
+#: ../objects/Sozi/sozi-frame.c:554
+#| msgid "Move down"
+msgid "Speed down"
+msgstr "Lassítás"
+
+#: ../objects/Sozi/sozi-frame.c:555
+msgid "Speed down (strong)"
+msgstr "Lassítás (erősen)"
+
+#: ../objects/Sozi/sozi-frame.c:556
+msgid "Speed up, then down"
+msgstr "Gyorsítás, majd lassítás"
+
+#: ../objects/Sozi/sozi-frame.c:557
+msgid "Speed up, then down (strong)"
+msgstr "Gyorsítás, majd lassítás (erősen)"
+
+#: ../objects/Sozi/sozi-frame.c:558
+msgid "Speed down, then up"
+msgstr "Lassítás, majd gyorsítás"
+
+#: ../objects/Sozi/sozi-frame.c:559
+msgid "Speed down, then up (strong)"
+msgstr "Lassítás, majd gyorsítás (erősen)"
+
+#: ../objects/Sozi/sozi-frame.c:560
+msgid "Immediate (beginning)"
+msgstr "Köztes (kezdés)"
+
+#: ../objects/Sozi/sozi-frame.c:561
+#| msgid "Intermediate Event"
+msgid "Immediate (end)"
+msgstr "Köztes (vége)"
+
+#: ../objects/Sozi/sozi-frame.c:562
+msgid "Immediate (middle)"
+msgstr "Köztes (középen)"
+
+#: ../objects/Sozi/sozi-frame.c:572 ../objects/Sozi/sozi-media.c:421
+msgid "Geometry"
+msgstr "Geometria"
+
+#: ../objects/Sozi/sozi-frame.c:573 ../objects/Sozi/sozi-media.c:422
+#| msgid "Center"
+msgid "Center x"
+msgstr "X közép"
+
+#: ../objects/Sozi/sozi-frame.c:574 ../objects/Sozi/sozi-media.c:423
+#| msgid "Center"
+msgid "Center y"
+msgstr "Y közép"
+
+#: ../objects/Sozi/sozi-frame.c:576 ../objects/Sozi/sozi-media.c:425
+#| msgid "Height:"
+msgid "Height"
+msgstr "Magasság"
+
+#: ../objects/Sozi/sozi-frame.c:577 ../objects/Sozi/sozi-media.c:426
+#| msgid "Angle"
+msgid "Angle (deg)"
+msgstr "Szög (fok)"
+
+#: ../objects/Sozi/sozi-frame.c:578 ../objects/Sozi/sozi-media.c:427
+#: ../objects/standard/box.c:151 ../objects/standard/ellipse.c:140
+msgid "Aspect ratio"
+msgstr "Képarány"
+
+#: ../objects/Sozi/sozi-frame.c:579 ../objects/Sozi/sozi-media.c:428
+#| msgid "Alarm center"
+msgid "Scale from center"
+msgstr "Méretezés a közepétől"
+
+#: ../objects/Sozi/sozi-frame.c:581 ../objects/Sozi/sozi-media.c:430
+msgid "Legend"
+msgstr "Jelmagyarázat"
+
+#: ../objects/Sozi/sozi-frame.c:582 ../objects/Sozi/sozi-media.c:431
+#| msgid "Comments visible"
+msgid "Legend is visible"
+msgstr "A jelmagyarázat látható"
+
+#: ../objects/Sozi/sozi-frame.c:589 ../objects/Sozi/sozi-media.c:438
+#: ../sheets/Sozi.sheet.in.h:1
+msgid "Sozi"
+msgstr "Sozi"
+
+#: ../objects/Sozi/sozi-frame.c:590
+msgid "Frame sequence"
+msgstr "Képkockasorozat"
+
+#: ../objects/Sozi/sozi-frame.c:591
+#| msgid "Document title"
+msgid "Frame title"
+msgstr "Képkockacím"
+
+#: ../objects/Sozi/sozi-frame.c:592
+msgid "Frame hide"
+msgstr "Képkockaelrejtés"
+
+#: ../objects/Sozi/sozi-frame.c:593
+msgid "Frame clip"
+msgstr "Képkockavágás"
+
+#: ../objects/Sozi/sozi-frame.c:594
+msgid "Frame timeout enable"
+msgstr "Képkocka időkorlát engedélyezés"
+
+#: ../objects/Sozi/sozi-frame.c:595
+msgid "Frame timeout (ms)"
+msgstr "Képkocka időkorlát (ms)"
+
+#: ../objects/Sozi/sozi-frame.c:596
+#| msgid "Transaction file"
+msgid "Frame transition profile"
+msgstr "Képkockaátmenet profil"
+
+#: ../objects/Sozi/sozi-frame.c:597
+msgid "Frame transition duration (ms)"
+msgstr "Képkockaátmenet időtartam (ms)"
+
+#: ../objects/Sozi/sozi-media.c:405
+#| msgid "Undefined"
+msgid "undefined"
+msgstr "nincs meghatározva"
+
+#: ../objects/Sozi/sozi-media.c:406
+msgid "video/mp4"
+msgstr "videó/mp4"
+
+#: ../objects/Sozi/sozi-media.c:407
+msgid "video/webm"
+msgstr "videó/webm"
+
+#: ../objects/Sozi/sozi-media.c:408
+msgid "video/ogg"
+msgstr "videó/ogg"
+
+#: ../objects/Sozi/sozi-media.c:409
+msgid "audio/mpeg"
+msgstr "hang/mpeg"
+
+#: ../objects/Sozi/sozi-media.c:410
+msgid "audio/ogg"
+msgstr "hang/ogg"
+
+#: ../objects/Sozi/sozi-media.c:411
+msgid "audio/wav"
+msgstr "hang/wav"
+
+#: ../objects/Sozi/sozi-media.c:439
+#| msgid "Message type:"
+msgid "Media type"
+msgstr "Médiatípus"
+
+#: ../objects/Sozi/sozi-media.c:440
+#| msgid "Diagram file"
+msgid "Media file"
+msgstr "Médiafájl"
+
+#: ../objects/Sozi/sozi-media.c:441
+#| msgid "Start time"
+msgid "Start frame"
+msgstr "Kezdő képkocka"
+
+#: ../objects/Sozi/sozi-media.c:442
+msgid "Stop frame"
+msgstr "Leállító képkocka"
+
 #: ../objects/standard/arc.c:120
 msgid "Curve distance"
 msgstr "Görbe távolsága"
@@ -5522,20 +5712,7 @@ msgstr "Sima vezérlés"
 msgid "Cusp control"
 msgstr "Cusp-vezérlés"
 
-#: ../objects/standard/box.c:135 ../objects/standard/ellipse.c:127
-msgid "Free"
-msgstr "Szabad"
-
-#: ../objects/standard/box.c:136 ../objects/standard/ellipse.c:128
-msgid "Fixed"
-msgstr "Rögzített"
-
-#: ../objects/standard/box.c:151 ../objects/standard/ellipse.c:140
-msgid "Aspect ratio"
-msgstr "Képarány"
-
 #: ../objects/standard/box.c:154 ../objects/standard/ellipse.c:143
-#| msgid "Rotation"
 msgid "Rotation angle"
 msgstr "Forgatási szög"
 
@@ -5551,60 +5728,48 @@ msgstr "Rögzített képarány"
 msgid "Circle"
 msgstr "Kör"
 
-#: ../objects/standard/image.c:123
+#: ../objects/standard/image.c:124
 msgid "Image file"
 msgstr "Képfájl"
 
-#: ../objects/standard/image.c:125
+#: ../objects/standard/image.c:126
 msgid "Inline data"
 msgstr "Belső adatok"
 
-#: ../objects/standard/image.c:125
+#: ../objects/standard/image.c:126
 msgid "Store image data in diagram"
 msgstr "Képadatok tárolása a diagramban"
 
-#: ../objects/standard/image.c:127
+#: ../objects/standard/image.c:128
 msgid "Pixbuf"
 msgstr "Pixbuf"
 
-#: ../objects/standard/image.c:127
+#: ../objects/standard/image.c:128
 msgid "The Pixbuf reference"
 msgstr "A Pixbuf hivatkozása"
 
-#: ../objects/standard/image.c:129
+#: ../objects/standard/image.c:130
 msgid "Draw border"
 msgstr "Keret rajzolása"
 
-#: ../objects/standard/image.c:131
+#: ../objects/standard/image.c:132
 msgid "Keep aspect ratio"
 msgstr "Képarány megtartása"
 
-#: ../objects/standard/image.c:133
-#| msgid "Triangle"
+#: ../objects/standard/image.c:134
 msgid "Angle"
 msgstr "Szög"
 
-#: ../objects/standard/image.c:264
+#: ../objects/standard/image.c:265
 msgid "Can't save image without filename"
 msgstr "Nem lehet a képet elmenteni fájlnév nélkül"
 
-#: ../objects/standard/image.c:781
+#: ../objects/standard/image.c:742
 msgid "Inconsistent pixbuf during image save."
 msgstr "Inkonzistens kép a kép mentése közben."
 
-#. Found file in same dir as diagram.
-#. Found file in current dir.
-#: ../objects/standard/image.c:883 ../objects/standard/image.c:894
-#, c-format
-msgid ""
-"The image file '%s' was not found in the specified directory.\n"
-"Using the file '%s' instead.\n"
-msgstr ""
-"A(z) „%s” képfájl nem található a megadott könyvtárban.\n"
-"A(z) „%s” fájl használata helyette.\n"
-
-#. Didn't find file in current dir.
-#: ../objects/standard/image.c:900 ../objects/standard/image.c:922
+#. Didn't find file in current directory.
+#: ../objects/standard/image.c:839
 #, c-format
 msgid "The image file '%s' was not found.\n"
 msgstr "A(z) „%s” képfájl nem található.\n"
@@ -5658,7 +5823,6 @@ msgid "Vertical text alignment"
 msgstr "Függőleges szövegigazítás"
 
 #: ../objects/standard/textobj.c:133
-#| msgid "Text padding"
 msgid "Text angle"
 msgstr "Szöveg szög"
 
@@ -5776,86 +5940,86 @@ msgstr "Megvalósítás"
 msgid "Class scope"
 msgstr "Osztály hatáskör"
 
-#: ../objects/UML/class.c:138 ../objects/UML/class.c:349
-#: ../objects/UML/class.c:1838 ../sheets/UML.sheet.in.h:3
+#: ../objects/UML/class.c:143 ../objects/UML/class.c:354
+#: ../objects/UML/class.c:1843 ../sheets/UML.sheet.in.h:3
 msgid "Class"
 msgstr "Osztály"
 
 #. how it used to be before 0.96+SVN
 #. one name, one type: but breaks forward-compatibiliy so kind of reverted
-#: ../objects/UML/class.c:142 ../objects/UML/classicon.c:136
+#: ../objects/UML/class.c:147 ../objects/UML/classicon.c:136
 #: ../objects/UML/classicon.c:138 ../objects/UML/component.c:129
 #: ../objects/UML/large_package.c:138 ../objects/UML/object.c:146
 #: ../objects/UML/small_package.c:125 ../objects/UML/umloperation.c:68
 msgid "Stereotype"
 msgstr "Sztereotípia"
 
-#: ../objects/UML/class.c:149 ../objects/UML/class.c:205
+#: ../objects/UML/class.c:154 ../objects/UML/class.c:210
 #: ../objects/UML/class_dialog.c:359 ../objects/UML/class_dialog.c:471
 #: ../objects/UML/class_operations_dialog.c:832
 #: ../objects/UML/umlattribute.c:48 ../objects/UML/uml.c:111
 msgid "Abstract"
 msgstr "Absztrakt"
 
-#: ../objects/UML/class.c:151
+#: ../objects/UML/class.c:156
 msgid "Visible Attributes"
 msgstr "Attribútumok megjelenítése"
 
-#: ../objects/UML/class.c:153
+#: ../objects/UML/class.c:158
 msgid "Visible Operations"
 msgstr "Műveletek megjelenítése"
 
-#: ../objects/UML/class.c:155 ../objects/UML/class_dialog.c:384
+#: ../objects/UML/class.c:160 ../objects/UML/class_dialog.c:384
 msgid "Wrap Operations"
 msgstr "Műveletek áttörése"
 
-#: ../objects/UML/class.c:157
+#: ../objects/UML/class.c:162
 msgid "Visible Comments"
 msgstr "Megjegyzések megjelenítése"
 
-#: ../objects/UML/class.c:161 ../objects/UML/class.c:344
+#: ../objects/UML/class.c:166 ../objects/UML/class.c:349
 msgid "Allow resizing"
 msgstr "Átméretezés engedélyezése"
 
-#: ../objects/UML/class.c:165 ../objects/UML/class.c:1835
+#: ../objects/UML/class.c:170 ../objects/UML/class.c:1840
 msgid "Template"
 msgstr "Sablon"
 
-#: ../objects/UML/class.c:167 ../objects/UML/class_dialog.c:368
+#: ../objects/UML/class.c:172 ../objects/UML/class_dialog.c:368
 msgid "Suppress Attributes"
 msgstr "Attribútumok elnyomása"
 
-#: ../objects/UML/class.c:169
+#: ../objects/UML/class.c:174
 msgid "Suppress Operations"
 msgstr "Műveletek elnyomása"
 
-#: ../objects/UML/class.c:171
+#: ../objects/UML/class.c:176
 msgid "Wrap after char"
 msgstr "Adott karakter után sortörés"
 
-#: ../objects/UML/class.c:173
+#: ../objects/UML/class.c:178
 msgid "Comment line length"
 msgstr "Megjegyzéssor hossza"
 
 #. umlattribute_extra
-#: ../objects/UML/class.c:186
+#: ../objects/UML/class.c:191
 msgid "Operations"
 msgstr "Műveletek"
 
 #. umloperations_extra
-#: ../objects/UML/class.c:190
+#: ../objects/UML/class.c:195
 msgid "Template Parameters"
 msgstr "Sablon paraméterei"
 
-#: ../objects/UML/class.c:203 ../objects/UML/class_dialog.c:466
+#: ../objects/UML/class.c:208 ../objects/UML/class_dialog.c:466
 msgid "Polymorphic"
 msgstr "Polimorf"
 
-#: ../objects/UML/class.c:207 ../objects/UML/class_dialog.c:476
+#: ../objects/UML/class.c:212 ../objects/UML/class_dialog.c:476
 msgid "Class Name"
 msgstr "Osztály neve"
 
-#: ../objects/UML/class.c:209
+#: ../objects/UML/class.c:214
 msgid "Abstract Class Name"
 msgstr "Absztrakt osztálynév"
 
@@ -6529,10 +6693,6 @@ msgstr "Nem sikerült a kép létrehozása a rajzolhatóból."
 
 #: ../plug-ins/pixbuf/pixbuf.c:91
 #, c-format
-#| msgid ""
-#| "Could not save file:\n"
-#| "%s\n"
-#| "%s\n"
 msgid ""
 "Could not save file:\n"
 "%s\n"
@@ -6901,7 +7061,6 @@ msgstr "Ismeretlen %d nyíltípus\n"
 
 #: ../plug-ins/xfig/xfig-import.c:387
 #, c-format
-#| msgid "Depth %d of of range, only 0-%d allowed.\n"
 msgid "Depth %d out of range, only 0-%d allowed.\n"
 msgstr "A(z) %d mélység kívül esik a tartományon, csak a 0-%d engedélyezett.\n"
 
@@ -6979,7 +7138,6 @@ msgid "Compound end outside compound\n"
 msgstr "Az összetétel az összetételen kívül végződik\n"
 
 #: ../plug-ins/xfig/xfig-import.c:1062
-#| msgid "Couldn't read color: %s\n"
 msgid "Couldn't read color\n"
 msgstr "Nem lehet beolvasni a színt\n"
 
@@ -10667,6 +10825,19 @@ msgstr "Csatlakozási pont"
 msgid "Main Connection Point"
 msgstr "Fő csatlakozási pont"
 
+#: ../sheets/Sozi.sheet.in.h:2
+msgid "Objects to do Sozi (zooming ui) presentations"
+msgstr "Objektumok Sozi (nagyítási felület) bemutatók készítéséhez"
+
+#: ../sheets/Sozi.sheet.in.h:3
+msgid "Sozi frame"
+msgstr "Sozi képkocka"
+
+#: ../sheets/Sozi.sheet.in.h:4
+#| msgid "BBFW media"
+msgid "Sozi media"
+msgstr "Sozi média"
+
 #: ../sheets/sybase.sheet.in.h:1
 msgid "Sybase"
 msgstr "Sybase"
@@ -10784,6 +10955,13 @@ msgstr "Tevékenység"
 msgid "Fork/Union"
 msgstr "Elágazás/egyesítés"
 
+#~ msgid ""
+#~ "The image file '%s' was not found in the specified directory.\n"
+#~ "Using the file '%s' instead.\n"
+#~ msgstr ""
+#~ "A(z) „%s” képfájl nem található a megadott könyvtárban.\n"
+#~ "A(z) „%s” fájl használata helyette.\n"
+
 # lib/plug-ins.c:254
 #~ msgid "%s Plugin could not be unloaded"
 #~ msgstr "a(z) %s bővítményt nem lehet eltávolítani"
@@ -10876,9 +11054,6 @@ msgstr "Elágazás/egyesítés"
 #~ msgstr ""
 #~ "Nem csoportosíthat másik csoportokba tartozó vagy eltérő szülőkkel "
 #~ "rendelkező objektumokat"
-
-#~ msgid "/_Sort objects"
-#~ msgstr "/Objektumok rendezé_se"
 
 #~ msgid "/Sort objects/by _name"
 #~ msgstr "/Objektumok rendezése/_név alapján"
@@ -11004,9 +11179,6 @@ msgstr "Elágazás/egyesítés"
 
 #~ msgid "Move up"
 #~ msgstr "Fel"
-
-#~ msgid "Move down"
-#~ msgstr "Le"
 
 #~ msgid "_Primary key"
 #~ msgstr "_Elsődleges kulcs"
@@ -11347,9 +11519,6 @@ msgstr "Elágazás/egyesítés"
 #~ msgid "Documents"
 #~ msgstr "Dokumentumok"
 
-#~ msgid "Document title"
-#~ msgstr "Dokumentumcím"
-
 #~ msgid "Classname"
 #~ msgstr "Osztálynév"
 
@@ -11389,9 +11558,6 @@ msgstr "Elágazás/egyesítés"
 
 #~ msgid "Air quality detector"
 #~ msgstr "Levegőminőség-érzékelő"
-
-#~ msgid "Alarm center"
-#~ msgstr "Riasztóközpont"
 
 #~ msgid "Axial Ventilator"
 #~ msgstr "Axiál ventilátor"
