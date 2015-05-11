@@ -29,11 +29,17 @@
 
 /* dia stuff */
 #include "diarenderer.h"
-#include "message.h"
 
 /* sozi stuff */
-#include "sozi-player.h"
 #include "sozi-object.h"
+
+/******************************************************************************
+ * pointers to the sozi engine ressources (defined in sozi.c)
+ *****************************************************************************/
+extern const gchar *sozi_version_ptr;
+extern const gchar *sozi_js_ptr;
+extern const gchar *sozi_extras_media_js_ptr;
+extern const gchar *sozi_css_ptr;
 
 /******************************************************************************
  * unit square
@@ -83,60 +89,6 @@ sozi_player_is_present(xmlDocPtr doc, const xmlChar *sozi_elem)
     xmlXPathFreeObject(result);
 
     return is_present;
-}
-
-/**
- * Retreive the sozi player.
- * @param[out] sozi_version_ptr sozi version placeholder
- * @param[out] sozi_js_ptr sozi player placeholder
- * @param[out] sozi_extras_media_js_ptr sozi player media extension placeholder
- * @param[out] sozi_css_ptr sozi stylesheet placeholder
- */
-static void
-sozi_player_get(gchar **sozi_version_ptr, gchar **sozi_js_ptr, gchar **sozi_extras_media_js_ptr, gchar **sozi_css_ptr)
-{
-#if defined(SOZI_PATH)
-    /* try to get sozi engine from SOZI_PATH */
-    struct
-    {
-        const gchar * filename;
-        gchar **      data;
-    } external_sozi[] =
-          {
-              { SOZI_PATH"/sozi.version"         , sozi_version_ptr         },
-              { SOZI_PATH"/sozi.js"              , sozi_js_ptr              },
-              { SOZI_PATH"/sozi_extras_media.js" , sozi_extras_media_js_ptr },
-              { SOZI_PATH"/sozi.css"             , sozi_css_ptr             }
-          };
-    static const unsigned external_sozi_cnt = sizeof(external_sozi)/sizeof(external_sozi[0]);
-    unsigned i;
-
-    for (i = 0; i < external_sozi_cnt; i++) {
-        GError * err = 0;
-        if (!g_file_get_contents(external_sozi[i].filename,
-                                 external_sozi[i].data,
-                                 NULL,
-                                 &err)) {
-            message_error("sozi-object : %s\nWill use builtin player", err->message);
-            g_error_free (err);
-            while(i--) {
-                g_free (*external_sozi[i].data);
-            }
-            break;
-        }
-    }
-
-    if (i == external_sozi_cnt) {
-        /* that's ok, don't need to go further */
-        return;
-    }
-#endif /* defined(SOZI_PATH) */
-
-    /* if SOZI_PATH isn't defined, fallback to the player that comes with dia sources */
-    *sozi_version_ptr         = g_strdup((const gchar *)sozi_version);
-    *sozi_js_ptr              = g_strdup((const gchar *)sozi_min_js);
-    *sozi_extras_media_js_ptr = g_strdup((const gchar *)sozi_extras_media_min_js);
-    *sozi_css_ptr             = g_strdup((const gchar *)sozi_min_css);
 }
 
 /******************************************************************************
@@ -328,10 +280,10 @@ sozi_object_draw_svg(SoziObject *sozi_object, DiaSvgRenderer *svg_renderer, gcha
     xmlNodePtr root;
     xmlNodePtr node;
     /* for managing sozi player implantation */
-    gchar * sozi_version;
-    gchar * sozi_js;
-    gchar * sozi_extras_media_js;
-    gchar * sozi_css;
+    const gchar * sozi_version = sozi_version_ptr;
+    const gchar * sozi_js = sozi_js_ptr;
+    const gchar * sozi_extras_media_js = sozi_extras_media_js_ptr;
+    const gchar * sozi_css = sozi_css_ptr;
     xmlChar * escaped;
     /* buffers for storing attributes */
     gchar * x;
@@ -352,8 +304,6 @@ sozi_object_draw_svg(SoziObject *sozi_object, DiaSvgRenderer *svg_renderer, gcha
         return;
     }
     else if (!player_is_present) {
-
-        sozi_player_get(&sozi_version, &sozi_js, &sozi_extras_media_js, &sozi_css);
 
         sozi_name_space = xmlNewNs(root, (const xmlChar *)"http://sozi.baierouge.fr", (const xmlChar *)"sozi");
 
@@ -377,10 +327,6 @@ sozi_object_draw_svg(SoziObject *sozi_object, DiaSvgRenderer *svg_renderer, gcha
         escaped = xmlEncodeEntitiesReentrant(svg_renderer->doc, (const xmlChar *)sozi_css);
         xmlNodeSetContent(node, escaped);
         xmlFree(escaped);
-
-        g_free(sozi_version);
-        g_free(sozi_js);
-        g_free(sozi_css);
     }
 
     assert(sozi_name_space != NULL);
