@@ -124,7 +124,7 @@ msgid ""
 "Show only specified layers (e.g. when exporting). Can be either the layer "
 "name or a range of layer numbers (X-Y)"
 msgstr ""
-"Mostra només les capes especificades (p.ex. quan exportis). Pot ser el nom "
+"Mostra només les capes especificades (p. ex. quan exportis). Pot ser el nom "
 "de la capa o un rang de números de capes (X-Y)"
 
 #: ../app/app_procs.c:718
@@ -403,11 +403,11 @@ msgid ""
 msgstr ""
 "Aquest programa és programari lliure; podeu redistribuir-lo i/o modificar-"
 "lo\n"
-"sota els termes de la Llicència Pública General GNU tal i com ha estat\n"
+"sota els termes de la Llicència Pública General GNU tal com ha estat\n"
 "publicada per la Free Software Foundation; ja sigui la versió 2 de la\n"
 "Llicència o (si ho preferiu) qualsevol versió posterior.\n"
 "\n"
-"Aquest programa es distribueix amb l'expectativa de que serà útil,\n"
+"Aquest programa es distribueix amb l'expectativa de què serà útil,\n"
 "però SENSE CAP GARANTIA; fins i tot sense la garantia implícita de\n"
 "COMERCIALITZACIÓ o ADEQUACIÓ PER A CAP PROPÒSIT EN PARTICULAR. Vegeu la\n"
 "Llicència Pública General GNU per obtenir-ne més detalls.\n"
@@ -4896,7 +4896,7 @@ msgstr "Amplada de la línia de la graella"
 
 #: ../objects/Misc/libmisc.c:42
 msgid "Miscellaneous objects"
-msgstr "Objecte variats"
+msgstr "Objectes variats"
 
 #: ../objects/Misc/measure.c:169
 msgid "cm"
@@ -7446,7 +7446,7 @@ msgstr "IBM Mini (AS400)"
 
 #: ../sheets/ciscocomputer.sheet.in.h:21
 msgid "Front End Processor"
-msgstr "Processador per a l'interfície amb l'usuari"
+msgstr "Processador per a la interfície amb l'usuari"
 
 #: ../sheets/ciscocomputer.sheet.in.h:22
 msgid "IBM mainframe"
