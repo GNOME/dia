@@ -9,8 +9,8 @@ msgstr ""
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=dia&keywords=I18N+L10N&component=general\n"
 "POT-Creation-Date: 2015-01-12 18:13+0000\n"
-"PO-Revision-Date: 2015-05-12 23:17+0100\n"
-"Last-Translator: Cédric Valmary (Tot en òc) <cvalmary@yahoo.fr>\n"
+"PO-Revision-Date: 2015-06-17 20:39+0100\n"
+"Last-Translator: Cédric Valmary (totenoc.eu) <cvalmary@yahoo.fr>\n"
 "Language-Team: Tot en òc (totenoc.eu)\n"
 "Language: oc\n"
 "MIME-Version: 1.0\n"
@@ -44,26 +44,25 @@ msgstr "Avertiment : existís pas de calc nomenat « %s »\n"
 #: ../app/app_procs.c:339
 #, c-format
 msgid "%s error: don't know how to export into %s\n"
-msgstr "Error %s : ne sait pas cossí exportar cap a %s\n"
+msgstr "Error %s : sap pas cossí exportar cap a %s\n"
 
 #: ../app/app_procs.c:348
 #, c-format
 msgid "%s error: input and output filenames are identical: %s"
 msgstr ""
-"Error %s : los noms des fichièrs d'entrada e de sortida son identics : %s"
+"Error %s : los noms dels fichièrs d'entrada e de sortida son identics : %s"
 
 #. Translators: Menu item Verb/Channel/Import
 #. Translators: Menu item Verb/Channel/Import/Import
 #: ../app/app_procs.c:354 ../objects/FS/function.c:675
 #: ../objects/FS/function.c:677
-#, fuzzy
 msgid "Import"
 msgstr "Importar"
 
 #: ../app/app_procs.c:357
 #, c-format
 msgid "%s error: need valid input file %s\n"
-msgstr "Error %s : nécessite un fichièr d'entrada valide %s\n"
+msgstr "Error %s : necessita un fichièr d'entrada valida %s\n"
 
 #. if (!quiet)
 #: ../app/app_procs.c:385
@@ -105,13 +104,12 @@ msgid "TYPE"
 msgstr "TIPE"
 
 #: ../app/app_procs.c:701
-#, fuzzy
 msgid "List export filters/formats and exit"
 msgstr "Expòrta lo fichièr en PostScript e quita"
 
 #: ../app/app_procs.c:703
 msgid "Export graphics size"
-msgstr "Exportar la talha del graphique"
+msgstr "Exportar la talha del grafic"
 
 #: ../app/app_procs.c:703
 msgid "WxH"
@@ -122,8 +120,8 @@ msgid ""
 "Show only specified layers (e.g. when exporting). Can be either the layer "
 "name or a range of layer numbers (X-Y)"
 msgstr ""
-"Aficha unicament que los calques indicats (i.e. a l'exportacion). Ça pòt "
-"èsser lo nom d'un calc o un interval de n° de calques (x-y)."
+"Aficha unicament los calques indicats (i.e. a l'exportacion). Aquò pòt èsser "
+"lo nom d'un calc o un interval de n° de calques (x-y)."
 
 #: ../app/app_procs.c:706
 msgid "LAYER,LAYER,..."
@@ -131,12 +129,11 @@ msgstr "CALC, CALC, ..."
 
 #: ../app/app_procs.c:708
 msgid "Don't show the splash screen"
-msgstr "N'aficha pas l'ecran d'aviada"
+msgstr "Aficha pas l'ecran d'aviada"
 
 #: ../app/app_procs.c:710
-#, fuzzy
 msgid "Don't create an empty diagram"
-msgstr "Ne crée pas de diagrama vide"
+msgstr "Crèa pas de diagrama void"
 
 #: ../app/app_procs.c:712
 msgid "Start classic user interface (no diagrams in tabs)"
@@ -145,8 +142,8 @@ msgstr ""
 #: ../app/app_procs.c:714
 msgid "Send error messages to stderr instead of showing dialogs."
 msgstr ""
-"Transmet los messatges d'errors sus la sortida d'errors estandard al lieu "
-"d'afichar des bóstias de dialòg."
+"Transmet los messatges d'errors sus la sortida d'errors estandarda al luòc "
+"d'afichar de bóstias de dialòg."
 
 #: ../app/app_procs.c:716
 msgid "Directory containing input files"
@@ -154,7 +151,7 @@ msgstr ""
 
 #: ../app/app_procs.c:716 ../app/app_procs.c:718
 msgid "DIRECTORY"
-msgstr ""
+msgstr "REPERTÒRI"
 
 #: ../app/app_procs.c:718
 msgid "Directory containing output files"
@@ -162,11 +159,11 @@ msgstr ""
 
 #: ../app/app_procs.c:720
 msgid "Display credits list and exit"
-msgstr "Aficha la lista des crédits e quita"
+msgstr "Aficha la lista dels crèdits e quita"
 
 #: ../app/app_procs.c:722
 msgid "Generate verbose output"
-msgstr "Donne des detalhs en sortida"
+msgstr "Dona de detalhs en sortida"
 
 #: ../app/app_procs.c:724
 msgid "Display version and exit"
@@ -182,10 +179,10 @@ msgid "Invalid option?"
 msgstr "Opcion invalida ?"
 
 #: ../app/app_procs.c:787
-#, fuzzy, c-format
+#, c-format
 #| msgid "Dia version %s\n"
 msgid "Filename conversion failed: %s\n"
-msgstr "Dia version %s, compilé a %s lo %s\n"
+msgstr ""
 
 #: ../app/app_procs.c:800
 #, c-format
@@ -194,7 +191,7 @@ msgstr ""
 
 #: ../app/app_procs.c:825
 msgid "Can't connect to session manager!\n"
-msgstr "Impossible de se connecter al gestionari de sessions !\n"
+msgstr "Impossible de se connectar al gestionari de sesilhas !\n"
 
 #. TRANSLATOR: 2nd and 3rd %s are time and date respectively.
 #: ../app/app_procs.c:865
@@ -216,7 +213,7 @@ msgstr "Objècte per defaut"
 msgid ""
 "Couldn't find standard objects when looking for object-libs; exiting...\n"
 msgstr ""
-"Impossible de trobar los objèctes estandards per object-libs ; fermeture...\n"
+"Impossible de trobar los objèctes estandards per object-libs ; tampadura...\n"
 
 #: ../app/app_procs.c:922
 #, c-format
@@ -225,30 +222,27 @@ msgid ""
 "exiting...\n"
 msgstr ""
 "Impossible de trobar los objèctes estandards per object-libs in « %s » ; "
-"fermeture...\n"
+"tampadura...\n"
 
 #: ../app/app_procs.c:980
 msgid "Diagram1.dia"
 msgstr "Diagrama1.dia"
 
 #: ../app/app_procs.c:1015
-#, fuzzy
 msgid ""
 "This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\n"
 "describing how you caused this message to appear.\n"
 msgstr ""
-"Aquò ne devrait pas se produire. Veuillez soumettre un rapport d'anomalies\n"
-"à bugzilla.gnome.org en décrivant las manipulacions  qui causent ce "
+"Aquò se deuriá pas produsir. Sometètz un rapòrt d'anomalias\n"
+"a bugzilla.gnome.org en descrivent las manipulacions que causan aqueste "
 "messatge.\n"
 
 #: ../app/app_procs.c:1030
-#, fuzzy
 msgid "Exiting Dia"
 msgstr "Sortir de Dia"
 
 #: ../app/app_procs.c:1057 ../app/display.c:1239 ../app/exit_dialog.c:115
 #: ../app/filedlg.c:582
-#, fuzzy
 msgid "Save"
 msgstr "Enregistrar"
 
@@ -266,7 +260,6 @@ msgstr ""
 "los enregistrar ?"
 
 #: ../app/app_procs.c:1105 ../app/menus.c:94
-#, fuzzy
 msgid "Quit Dia"
 msgstr "Sortir de Dia"
 
@@ -275,12 +268,10 @@ msgid "Exit"
 msgstr ""
 
 #: ../app/app_procs.c:1181 ../app/app_procs.c:1188
-#, fuzzy
 msgid "Could not create per-user Dia configuration directory"
 msgstr "Impossible de crear lo repertòri de configuracion personal de Dia"
 
 #: ../app/app_procs.c:1191
-#, fuzzy
 msgid ""
 "Could not create per-user Dia configuration directory. Please make sure that "
 "the environment variable HOME points to an existing directory."
@@ -290,7 +281,6 @@ msgstr ""
 "repertòri existent."
 
 #: ../app/app_procs.c:1214
-#, fuzzy
 msgid "Objects and filters internal to Dia"
 msgstr "Objèctes e filtres intèrnes de Dia"
 
@@ -437,23 +427,23 @@ msgid ""
 "along with this program; if not, write to the Free Software\n"
 "Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.\n"
 msgstr ""
-"Aqueste programa es un logiciel libre ; vous pouvez lo diffuser et/ou lo "
-"modifier suivant los termes de la Licence Publique Générale GNU telle que "
-"publiée per la Free Software Foundation ; soit la version 2 de aquesta "
-"licence, soit (à votre convenance) una version ulteriora.\n"
+"Aqueste programa es un logicial liure ; lo podètz difusar e/o lo modificar "
+"segon los tèrmes de la Licéncia Publica Generala GNU tala coma publicada per "
+"la Free Software Foundation ; siá la version 2 d'aquesta licence, siá "
+"(comavolètz) una version ulteriora.\n"
 "\n"
-"Aqueste programa es diffusé dins l'espoir qu'il sera utile, mais SANS AUCUNE "
-"GARANTIE ; sens même una garantie implicite de COMMERCIALISATION o "
-"d'ADÉQUATION À UN USAGE PARTICULIER. Voyez la Licence Publique Générale GNU "
-"per plus de detalhs.\n"
+"Aqueste programa es difusat dins l'esper que serà utile, mas SENS CAP DE "
+"GARANTIDA ; sens la quita garantida implicita de COMERCIALIZACION o "
+"d'ADEQUACION A UN USATGE PARTICULAR. Vejatz la Licéncia Publica Generala GNU "
+"per mai de detalhs.\n"
 "\n"
-"Vous devriez aver reçu una copie de la Licence Publique Générale GNU amb ce "
-"programa ; sinon, veuillez escriure a la Free Software Foundation, Inc., 59 "
-"Temple Place - Suite 330, Boston, MA 02111-1307, États-Unis.\n"
+"Vos caldriá aver recebut una còpia de la Licéncia Publica Generala GNU amb "
+"aqueste programa ; siquenon, escrivètz a la Free Software Foundation, Inc., "
+"59 Temple Place - Suite 330, Boston, MA 02111-1307, États-Unis.\n"
 
 #: ../app/commands.c:1050
 msgid "A program for drawing structured diagrams."
-msgstr "Editor de diagramas structurels."
+msgstr "Editor de diagramas estructurals."
 
 #: ../app/confirm.c:71
 #, c-format
@@ -497,7 +487,7 @@ msgstr "Fracàs de la creacion de '%s'"
 
 #: ../app/defaults.c:44 ../app/defaults.c:147
 msgid "Object defaults"
-msgstr "Caracteristicas per defaut d'un nouvel objècte."
+msgstr "Caracteristicas per defaut d'un novèl objècte."
 
 #: ../app/defaults.c:62
 msgid "This object has no defaults."
@@ -523,12 +513,11 @@ msgstr ""
 
 #: ../app/diagram.c:1217
 msgid "Trying to group with no selected objects."
-msgstr "Essai de gropar des objèctes mais aucun objècte n'est seleccionat"
+msgstr "Essai de gropar des objèctes mas cap d'objècte es pas seleccionat"
 
 #: ../app/diagram_tree_view.c:165
-#, fuzzy
 msgid "Diagram"
-msgstr "Diagrama :"
+msgstr "Diagrama"
 
 #: ../app/diagram_tree_view.c:172
 #: ../plug-ins/drs/dia-render-script-import.c:464
@@ -546,22 +535,20 @@ msgstr[1] "%d Calques"
 #: ../objects/Database/table.c:149 ../objects/Istar/actor.c:142
 #: ../objects/Istar/actor.c:143 ../objects/Istar/other.c:147
 #: ../objects/Istar/other.c:148 ../objects/KAOS/other.c:150
-#: ../objects/KAOS/other.c:151 ../objects/UML/association.c:242
+#: ../objects/KAOS/other.c:151 ../objects/UML/associacion.c:242
 #: ../objects/UML/umlattribute.c:39 ../objects/UML/umlformalparameter.c:37
 #: ../objects/UML/umloperation.c:64 ../objects/UML/umlparameter.c:45
 msgid "Type"
 msgstr "Tipe"
 
 #: ../app/diagram_tree_view.c:185
-#, fuzzy
 #| msgid "Position"
 msgid "object|Position"
-msgstr "Posicionar"
+msgstr "objècte|Posicion"
 
 #: ../app/diagram_tree_view.c:188
-#, fuzzy
 msgid "Children"
-msgstr "_Abandonar los fials"
+msgstr "Enfants"
 
 #: ../app/diagram_tree_view.c:192
 #, c-format
@@ -591,7 +578,7 @@ msgstr "Proprietats"
 #: ../app/diagram_tree_view.c:503 ../app/exit_dialog.c:125
 #: ../app/plugin-manager.c:270 ../objects/Database/table.c:147
 #: ../objects/Database/table.c:190 ../objects/Misc/n_gon.c:135
-#: ../objects/UML/association.c:236 ../objects/UML/class.c:140
+#: ../objects/UML/associacion.c:236 ../objects/UML/class.c:140
 #: ../objects/UML/large_package.c:136 ../objects/UML/umlattribute.c:37
 #: ../objects/UML/umlformalparameter.c:35 ../objects/UML/umloperation.c:62
 #: ../objects/UML/umlparameter.c:43
@@ -690,7 +677,7 @@ msgstr "Grasilha hex."
 
 #: ../app/dia-props.c:186
 msgid "Hex grid size"
-msgstr "Taille de la grasilha hex."
+msgstr "Talha de la grasilha hex."
 
 #: ../app/dia-props.c:199
 msgid "Grid"
@@ -736,9 +723,8 @@ msgid "Follow link…"
 msgstr ""
 
 #: ../app/disp_callbacks.c:215 ../objects/standard/textobj.c:583
-#, fuzzy
 msgid "Convert to Path"
-msgstr "Convertir"
+msgstr "Convertir en Camin"
 
 #: ../app/disp_callbacks.c:262 ../app/menus.c:272
 msgid "Union"
@@ -771,8 +757,8 @@ msgid ""
 "The object you dropped cannot fit into its parent. \n"
 "Either expand the parent object, or drop the object elsewhere."
 msgstr ""
-"L'objècte que vous avez déposé ne s'ajuste pas a son parent. \n"
-"Agrandissez l'objècte parent, o déposer l'objècte ailleurs."
+"L'objècte qu'avètz depausat s'ajusta pas a son parent. \n"
+"Agrandissètz l'objècte parent, o depausatz l'objècte endacòm mai."
 
 #. http://www.gnu.org/software/gettext/manual/html_chapter/gettext_10.html#SEC150
 #. * Althoug the single objects wont get triggered here some languages have variations on the other numbers
@@ -834,7 +820,7 @@ msgstr "Enregistrar la seleccion"
 
 #: ../app/exit_dialog.c:87
 msgid "The following are not saved:"
-msgstr "Ce qui suit n'a pas été salvat :"
+msgstr "Çò que seguís es pas estat salvat :"
 
 #: ../app/exit_dialog.c:131
 msgid "Path"
@@ -850,13 +836,12 @@ msgstr "Seleccionar pas cap"
 
 #: ../app/exit_dialog.c:244
 msgid "Nothing selected for saving.  Would you like to try again?"
-msgstr ""
-"Rien n'a été seleccionat per la salvament. Voulez-vous essayer a novèl ?"
+msgstr "Res es pas estat seleccionat pel salvament. Volètz ensajar tornamai ?"
 
 #: ../app/filedlg.c:144 ../app/filedlg.c:152 ../app/filedlg.c:168
 #: ../app/filedlg.c:825 ../lib/widgets.c:402
 msgid "Supported Formats"
-msgstr "Formats pris en carga"
+msgstr "Formats preses en carga"
 
 #: ../app/filedlg.c:197 ../app/filedlg.c:199 ../app/filedlg.c:668
 #: ../app/filedlg.c:670
@@ -885,9 +870,9 @@ msgid ""
 "nor your local encoding.\n"
 "Some things will break."
 msgstr ""
-"Certains caractèrs del nom del fichièr ne son ni de l'UTF-8,\n"
-"ni dins votre codage local.\n"
-"Il pòt en résulter un disfonctionnement de Dia."
+"Certans caractèrs del nom del fichièr son pas ni d'UTF-8,\n"
+"ni dins vòstre encodatge local.\n"
+"Ne pòt resultar un disfoncionament de Dia."
 
 #: ../app/filedlg.c:403 ../app/filedlg.c:722
 #: ../plug-ins/postscript/paginate_psprint.c:430
@@ -924,9 +909,9 @@ msgid ""
 "Compression reduces file size to less than 1/10th size and speeds up loading "
 "and saving.  Some text programs cannot manipulate compressed files."
 msgstr ""
-"La compression réduit la talha des fichièrs a mens d'un dixième de la talha "
-"d'origine e accélère lo cargament ainsi que l'enregistrament. Certains "
-"programas orientats tèxte ne pòdon pas manipuler los fichièrs compressats."
+"La compression redusís la talha dels fichièrs a mens d'un detzen de la talha "
+"d'origina e accelèra lo cargament e l'enregistrament. Certans programas "
+"orientats tèxte pòdon pas manipular los fichièrs compressats."
 
 #. Favored Filter
 #. Translators: Menu item Verb/Channel/Export
@@ -942,8 +927,8 @@ msgid ""
 "Could not determine which export filter\n"
 "to use to save '%s'"
 msgstr ""
-"Impossible de determinar quel filtre d'exportacion\n"
-"utiliser per enregistrar « %s »"
+"Impossible de determinar quin filtre d'exportacion\n"
+"cal utilizar per enregistrar « %s »"
 
 #: ../app/filedlg.c:780
 msgid "Export Diagram"
@@ -998,11 +983,11 @@ msgstr "_Remplaçar"
 
 #: ../app/interface.c:521
 msgid "Pops up the Navigation window."
-msgstr "Aficha la fenèstra de navigation."
+msgstr "Aficha la fenèstra de navigacion."
 
 #: ../app/interface.c:738
 msgid "Diagram menu."
-msgstr "Menú des diagramas."
+msgstr "Menú dels diagramas."
 
 #: ../app/interface.c:777
 msgid "Zoom"
@@ -1090,7 +1075,7 @@ msgid ""
 "Linked object not found in document."
 msgstr ""
 "Error al cargament del diagrama.\n"
-"Un objècte attaché n'a pas été trobat dins lo document."
+"Un objècte estacat es pas estat trobat dins lo document."
 
 #: ../app/load_save.c:270
 #, c-format
@@ -1114,9 +1099,8 @@ msgid "Can't find parent %s of %s object\n"
 msgstr "Impossible de trobar lo parent %s de l'objècte %s\n"
 
 #: ../app/load_save.c:393
-#, fuzzy
 msgid "You must specify a file, not a directory."
-msgstr "Vos cal especificar un fichièr, pas un repertòri.\n"
+msgstr "Vos cal especificar un fichièr, pas un repertòri."
 
 #: ../app/load_save.c:400 ../plug-ins/dxf/dxf-import.c:1289
 #: ../plug-ins/wpg/wpg-import.c:467 ../plug-ins/xfig/xfig-import.c:1291
@@ -1152,9 +1136,8 @@ msgstr ""
 "Il ne s'agit pas d'un fichièr creat per Dia."
 
 #: ../app/load_save.c:680
-#, fuzzy
 msgid "Error reading connections"
-msgstr "Error al moment de la lectura de la résolution : %s\n"
+msgstr "Error al moment de la lectura de las connexions"
 
 #: ../app/load_save.c:700
 #, c-format
@@ -1165,7 +1148,7 @@ msgid ""
 msgstr ""
 "Error al cargament del diagrama :\n"
 "%s.\n"
-"Un fichièr Dia valide definís al mens un calc."
+"Un fichièr Dia valid definís al mens un calc."
 
 #: ../app/load_save.c:1001
 #, c-format
@@ -1212,36 +1195,32 @@ msgstr "Impossible de renomenar %s en fichièr de sortida %s"
 
 #. no extra threads supported, stay in this one
 #: ../app/load_save.c:1252 ../app/load_save.c:1266 ../app/load_save.c:1274
-#, fuzzy
 msgid "Auto save"
-msgstr "Autoclave"
+msgstr "Enregistrament automatic"
 
 #: ../app/load_save.c:1298 ../app/load_save.c:1303
 msgid "Dia Diagram File"
 msgstr "Fichièr diagrama Dia"
 
 #: ../app/menus.c:64
-#, fuzzy
 msgid "Fit"
-msgstr "Filtrer"
+msgstr "Filtrar"
 
 #: ../app/menus.c:91
 msgid "_File"
 msgstr "_Fichièr"
 
 #: ../app/menus.c:92
-#, fuzzy
 msgid "Create a new diagram"
-msgstr "Ne crée pas de diagrama vide"
+msgstr "Crèa pas de diagrama void"
 
 #: ../app/menus.c:93
 msgid "_Open…"
-msgstr ""
+msgstr "D_obrir..."
 
 #: ../app/menus.c:93
-#, fuzzy
 msgid "Open a diagram file"
-msgstr "Compressar los fichièrs enregistrats"
+msgstr "Obrir un fichièr diagrama"
 
 #: ../app/menus.c:95
 msgid "_Help"
@@ -1302,18 +1281,16 @@ msgid "Show or hide the statusbar"
 msgstr "Afichar o amagar la barra d'estatut"
 
 #: ../app/menus.c:113
-#, fuzzy
 msgid "Show Layers"
-msgstr "Davalar lo calc"
+msgstr "Afichar los calques"
 
 #: ../app/menus.c:113
 msgid "Show or hide the layers toolwindow"
 msgstr ""
 
 #: ../app/menus.c:119
-#, fuzzy
 msgid "Save the diagram"
-msgstr "Enregistrament del diagrama"
+msgstr "Enregistrar lo diagrama"
 
 #: ../app/menus.c:120
 msgid "Save _As…"
@@ -1329,15 +1306,13 @@ msgid "_Export…"
 msgstr "_Exportar..."
 
 #: ../app/menus.c:121
-#, fuzzy
 msgid "Export the diagram"
 msgstr "Expòrt del diagrama"
 
 #: ../app/menus.c:122
-#, fuzzy
 #| msgid "/_Properties"
 msgid "_Diagram Properties"
-msgstr "Proprietats del diagrama"
+msgstr "Proprietats del _diagrama"
 
 #: ../app/menus.c:122
 msgid "Modify diagram properties (grid, background)"
@@ -1353,23 +1328,19 @@ msgid "Modify the diagram pagination"
 msgstr ""
 
 #: ../app/menus.c:124
-#, fuzzy
 #| msgid "Printer"
 msgid "_Print…"
-msgstr "Imprimenta"
+msgstr "Im_prir..."
 
 #: ../app/menus.c:124
-#, fuzzy
 msgid "Print the diagram"
-msgstr "Desplaçar la zòna d'afichatge"
+msgstr "Imprimir lo diagrama"
 
 #: ../app/menus.c:125
-#, fuzzy
 msgid "Close the diagram"
-msgstr "Tampadura del diagrama"
+msgstr "Tampar lo diagrama"
 
 #: ../app/menus.c:127
-#, fuzzy
 msgid "_Edit"
 msgstr "_Edicion"
 
@@ -1401,10 +1372,9 @@ msgid "_Duplicate"
 msgstr "_Duplicar"
 
 #: ../app/menus.c:134
-#, fuzzy
 #| msgid "Water detection"
 msgid "Duplicate selection"
-msgstr "Deteccion inondation"
+msgstr "Duplicar la seleccion"
 
 #: ../app/menus.c:135
 #| msgid "Font Selection"
@@ -1413,14 +1383,13 @@ msgstr "Suprimir la seleccion"
 
 #
 #: ../app/menus.c:137
-#, fuzzy
 #| msgid "Find"
 msgid "_Find…"
-msgstr "Recercar"
+msgstr "_Recercar..."
 
 #: ../app/menus.c:137
 msgid "Search for text"
-msgstr ""
+msgstr "Recercar lo tèxte"
 
 #
 #: ../app/menus.c:138
@@ -1430,7 +1399,7 @@ msgstr "_Remplaçar..."
 
 #: ../app/menus.c:138
 msgid "Search and replace text"
-msgstr ""
+msgstr "Recercar e remplaçar lo tèxte"
 
 #. the following used to bind to <control><shift>C which collides with Unicode input.
 #. * <control><alt> doesn't work either
@@ -1472,7 +1441,7 @@ msgstr "_Calques"
 
 #: ../app/menus.c:149
 msgid "Add Layer…"
-msgstr ""
+msgstr "Apondre un calc..."
 
 #: ../app/menus.c:150
 msgid "Rename Layer…"
@@ -1495,12 +1464,12 @@ msgid "_View"
 msgstr "_Vista"
 
 #: ../app/menus.c:155
-#| msgid "Zoom pointer"
+#| msgid "Zoom puntar"
 msgid "Zoom in"
 msgstr "Zoom avant"
 
 #: ../app/menus.c:156
-#| msgid "Zoom pointer"
+#| msgid "Zoom puntar"
 msgid "Zoom out"
 msgstr "Zoom arrièr"
 
@@ -1554,19 +1523,18 @@ msgstr "25"
 
 #. Show All, Best Fit.  Same as the Gimp, Ctrl+E
 #: ../app/menus.c:171
-#, fuzzy
-#| msgid "Zoom pointer"
+#| msgid "Zoom puntar"
 msgid "Zoom fit"
-msgstr "Imprimenta simple"
+msgstr ""
 
 #. "display_toggle_entries" items go here
 #: ../app/menus.c:175
 msgid "New _View"
-msgstr "Novèla _vue"
+msgstr "_Vista novèla"
 
 #: ../app/menus.c:176
 msgid "C_lone View"
-msgstr "C_loner la vue"
+msgstr "C_lonar la vista"
 
 #: ../app/menus.c:179
 msgid "_Objects"
@@ -1574,7 +1542,7 @@ msgstr "_Objèctes"
 
 #: ../app/menus.c:180
 msgid "Send to _Back"
-msgstr "Recular a lo rèire plan"
+msgstr "Recular al rèire _plan"
 
 #: ../app/menus.c:180
 msgid "Move selection to the bottom"
@@ -1582,7 +1550,7 @@ msgstr ""
 
 #: ../app/menus.c:181
 msgid "Bring to _Front"
-msgstr "Avançar al primièr plan"
+msgstr "A_vançar al primièr plan"
 
 #: ../app/menus.c:181
 msgid "Move selection to the top"
@@ -1598,12 +1566,11 @@ msgstr "Avançar cap a lo primièr plan"
 
 #: ../app/menus.c:185
 msgid "_Group"
-msgstr "_Grouper"
+msgstr "_Gropar"
 
 #: ../app/menus.c:185
-#, fuzzy
 msgid "Group selected objects"
-msgstr "Groupe de %d objèctes"
+msgstr "Gropar los objèctes seleccionats"
 
 #. deliberately not using Ctrl+U for Ungroup
 #: ../app/menus.c:187
@@ -1616,7 +1583,7 @@ msgstr ""
 
 #: ../app/menus.c:189
 msgid "_Parent"
-msgstr "_Adopter"
+msgstr "_Adoptar"
 
 #: ../app/menus.c:190
 msgid "_Unparent"
@@ -1624,88 +1591,79 @@ msgstr "_Abandonar"
 
 #: ../app/menus.c:191
 msgid "_Unparent Children"
-msgstr "_Abandonar los fials"
+msgstr "_Abandonar los filhs"
 
 #. Translators: Menu item Verb/Support/Position/Align
 #: ../app/menus.c:193 ../objects/FS/function.c:799
-#, fuzzy
 msgid "Align"
 msgstr "Alinhar"
 
 #: ../app/menus.c:198 ../objects/standard/textobj.c:117
-#, fuzzy
 msgid "Top"
-msgstr "Superior"
+msgstr "Amont"
 
 #: ../app/menus.c:199
 msgid "Middle"
-msgstr "Milieu"
+msgstr "Mitan"
 
 #: ../app/menus.c:200 ../objects/standard/textobj.c:116
-#, fuzzy
 msgid "Bottom"
-msgstr "Inferior"
+msgstr "Aval"
 
 #: ../app/menus.c:202
 msgid "Spread Out Horizontally"
-msgstr "Étaler orizontalament"
+msgstr "Espandir orizontalament"
 
 #: ../app/menus.c:203
 msgid "Spread Out Vertically"
-msgstr "Étaler verticalament"
+msgstr "Espandir verticalament"
 
 #: ../app/menus.c:204
 msgid "Adjacent"
 msgstr "Adjacent"
 
 #: ../app/menus.c:205
-#, fuzzy
 msgid "Stacked"
 msgstr "Empilat"
 
 #: ../app/menus.c:206 ../app/menus.c:216
-#, fuzzy
 msgid "Connected"
 msgstr "Connectat"
 
 #: ../app/menus.c:210
-#, fuzzy
 msgid "_Select"
 msgstr "_Seleccionar"
 
 #: ../app/menus.c:211
-#, fuzzy
 msgid "All"
 msgstr "Totes"
 
 #: ../app/menus.c:212 ../objects/Jackson/domain.c:94
-#: ../objects/UML/association.c:220 ../objects/UML/association.c:226
-#, fuzzy
+#: ../objects/UML/associacion.c:220 ../objects/UML/associacion.c:226
 msgid "None"
 msgstr "Pas cap"
 
 #: ../app/menus.c:213
-#, fuzzy
 msgid "Invert"
-msgstr "Enversar"
+msgstr "Inversar"
 
 #: ../app/menus.c:215
 msgid "Transitive"
-msgstr "Transitif"
+msgstr "Transitiu"
 
 #: ../app/menus.c:217
 msgid "Same Type"
-msgstr "Même tipe"
+msgstr "Meteis tipe"
 
 #. display_select_radio_entries go here
 #: ../app/menus.c:221
 msgid "Select By"
-msgstr "Seleccionar par"
+msgstr "Seleccionar per"
 
 #. For placment of the toplevel Layout menu and it's accelerator
 #: ../app/menus.c:224
 msgid "L_ayout"
-msgstr ""
+msgstr "D_isposicion"
 
 #: ../app/menus.c:226
 msgid "D_ialogs"
@@ -1713,7 +1671,7 @@ msgstr "Bóstias de d_ialòg"
 
 #: ../app/menus.c:228
 msgid "D_ebug"
-msgstr "Débogag_e"
+msgstr "Desbugatg_e"
 
 #: ../app/menus.c:234
 msgid "_Tools"
@@ -1725,15 +1683,13 @@ msgstr "Modificar"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Magnify
 #: ../app/menus.c:236 ../app/toolbox.c:86 ../objects/FS/function.c:979
-#, fuzzy
 msgid "Magnify"
 msgstr "Lópia"
 
 #: ../app/menus.c:237
-#, fuzzy
 #| msgid "Edit text"
 msgid "Edit Text"
-msgstr "Editar"
+msgstr "Editar lo tèxte"
 
 #: ../app/menus.c:238
 msgid "Scroll"
@@ -1768,10 +1724,9 @@ msgstr "Poligòn"
 
 #: ../app/menus.c:243 ../app/toolbox.c:122
 msgid "Beziergon"
-msgstr "Corba de Bézier fermée"
+msgstr "Corba de Bézier tampada"
 
 #: ../app/menus.c:245 ../app/toolbox.c:128 ../objects/standard/line.c:327
-#, fuzzy
 msgid "Line"
 msgstr "Linha"
 
@@ -1785,14 +1740,13 @@ msgstr "Ziga zaga"
 
 #: ../app/menus.c:248 ../app/toolbox.c:146
 msgid "Polyline"
-msgstr "Linha brisée"
+msgstr "Linha copada"
 
 #: ../app/menus.c:249 ../app/toolbox.c:152
 msgid "Bezierline"
 msgstr "Corba de Bézier"
 
 #: ../app/menus.c:250 ../app/toolbox.c:165
-#, fuzzy
 msgid "Outline"
 msgstr "Linha de donadas"
 
@@ -1801,30 +1755,26 @@ msgid "Image"
 msgstr "Imatge"
 
 #: ../app/menus.c:259
-#, fuzzy
 msgid "_Antialiased"
-msgstr "_Anti-crénelé"
+msgstr "_Anticrenelat"
 
 #: ../app/menus.c:260
 msgid "Show _Grid"
 msgstr "Afichar la _grasilha"
 
 #: ../app/menus.c:261
-#, fuzzy
 msgid "_Snap to Grid"
-msgstr "Grasilha _magnetica"
+msgstr ""
 
 #: ../app/menus.c:262
-#, fuzzy
 msgid "Snap to _Objects"
-msgstr "Objèctes _magnetics"
+msgstr ""
 
 #: ../app/menus.c:263
 msgid "Show _Rulers"
 msgstr "Afichar las _règlas"
 
 #: ../app/menus.c:264
-#, fuzzy
 #| msgid "Show Statusbar"
 msgid "Show Scrollbars"
 msgstr "Afichar la barra d'aisinas"
@@ -1838,18 +1788,17 @@ msgstr "Afichar los punts de _connexion"
 #. Translators: Menu item Verb/Branch/Separate/Remove/Remove
 #: ../app/menus.c:274 ../objects/FS/function.c:699
 #: ../objects/FS/function.c:851 ../objects/FS/function.c:853
-#, fuzzy
 msgid "Remove"
 msgstr "Suprimir"
 
 #. Cannot also be called Invert, duplicate names caused keybinding problems
 #: ../app/menus.c:276
 msgid "Inverse"
-msgstr "Inverser"
+msgstr "Inversar"
 
 #: ../app/menus.c:338
 msgid "NULL tooldata in tool_menu_select"
-msgstr "Variabla « tooldata » = NULL dins la foncion « tool_menú_select »"
+msgstr "Variabla « tooldata » = NULL dins la foncion « tool_menu_select »"
 
 #: ../app/menus.c:599 ../app/menus.c:611
 msgid "300%"
@@ -1889,16 +1838,15 @@ msgstr "Bascula lo snap-to-grid."
 
 #: ../app/menus.c:655
 msgid "Toggles object snapping."
-msgstr "Bascula lo collage d'objècte."
+msgstr "Bascula lo pegament d'objècte."
 
 #: ../app/menus.c:1275
 msgid "The function is not available anymore."
 msgstr ""
 
 #: ../app/modify_tool.c:411
-#, fuzzy
 msgid "Couldn't get GTK+ settings"
-msgstr "Impossible d'obténer los paramètres de GTK"
+msgstr "Impossible d'obténer los paramètres de GTK+"
 
 #: ../app/plugin-manager.c:208
 msgid "Plugins"
@@ -1918,10 +1866,9 @@ msgid "Filename"
 msgstr "Nom del fichièr"
 
 #: ../app/preferences.c:100 ../app/preferences.c:143
-#, fuzzy
 #| msgid "Day"
 msgid "any"
-msgstr "Jour"
+msgstr ""
 
 #: ../app/preferences.c:118
 msgid "User Interface"
@@ -1929,11 +1876,11 @@ msgstr "Interfàcia d'utilizaire"
 
 #: ../app/preferences.c:119
 msgid "Diagram Defaults"
-msgstr "Menú des diagramas"
+msgstr "Menú dels diagramas"
 
 #: ../app/preferences.c:120
 msgid "View Defaults"
-msgstr "Caracteristicas de la vue"
+msgstr "Caracteristicas de la vista"
 
 #: ../app/preferences.c:121
 msgid "Favorites"
@@ -1953,46 +1900,44 @@ msgid ""
 "intersecting objects"
 msgstr ""
 "Un rectangle de seleccion inversat a la mirga selecciona\n"
-"tous los objèctes ayant una interseccion amb lui :"
+"totes los objèctes qu'an una interseccion amb el :"
 
 #: ../app/preferences.c:173
 msgid "Recent documents list size:"
-msgstr "Taille de la lista des documents récents :"
+msgstr "Talha de la lista dels documents recents :"
 
 #: ../app/preferences.c:176
 msgid "Use menu bar"
-msgstr "Utiliser la barra de menús"
+msgstr "Utilizar la barra de menús"
 
 #: ../app/preferences.c:179
 msgid "Keep tool box on top of diagram windows"
-msgstr "Maintenir la bóstia a aisinas per dessus los diagramas"
+msgstr "Manténer la bóstia a aisinas per dessús los diagramas"
 
 #: ../app/preferences.c:182
 msgid "Length unit:"
 msgstr "Unitat de longor :"
 
 #: ../app/preferences.c:185
-#, fuzzy
 #| msgid "Font-size unit:"
 msgid "Font size unit:"
 msgstr "Unitat de talha de poliça :"
 
 #: ../app/preferences.c:188
 msgid "New diagram:"
-msgstr "Novèl diagrama :"
+msgstr "Diagrama novèl:"
 
 #: ../app/preferences.c:189
-#, fuzzy
 msgid "Portrait"
-msgstr "Contrast"
+msgstr "Retrach"
 
 #: ../app/preferences.c:191
 msgid "Paper type:"
-msgstr "Tipe de papier :"
+msgstr "Tipe de papièr :"
 
 #: ../app/preferences.c:193
 msgid "Background Color:"
-msgstr "Color d'arrière-plan :"
+msgstr "Color de rèire plan :"
 
 #: ../app/preferences.c:195
 msgid "Compress saved files"
@@ -2008,55 +1953,48 @@ msgid "Visible"
 msgstr "Visible"
 
 #: ../app/preferences.c:200
-#, fuzzy
 msgid "Snap to object"
-msgstr "Objèctes _magnetics"
+msgstr ""
 
 #: ../app/preferences.c:203
 msgid "New window:"
-msgstr "Per una novèla fenèstra :"
+msgstr "Fenèstra novèla :"
 
 #: ../app/preferences.c:204
-#, fuzzy
 msgid "Width:"
 msgstr "Largor :"
 
 #: ../app/preferences.c:205
-#, fuzzy
 msgid "Height:"
 msgstr "Nautor :"
 
 #: ../app/preferences.c:206
 msgid "Magnify:"
-msgstr "Grossissement :"
+msgstr "Grossiment :"
 
 #: ../app/preferences.c:209
 msgid "Page breaks:"
-msgstr "Sauts de page :"
+msgstr "Sauts de pagina :"
 
 #: ../app/preferences.c:211 ../app/preferences.c:241
-#, fuzzy
 msgid "Color:"
 msgstr "Color :"
 
 #: ../app/preferences.c:212
 msgid "Solid lines"
-msgstr "Linhas pleines"
+msgstr "Linhas plenas"
 
 #: ../app/preferences.c:215
-#, fuzzy
 msgid "Antialias:"
-msgstr "_Anti-crénelé"
+msgstr "Anticrenelat :"
 
 #: ../app/preferences.c:216
-#, fuzzy
 msgid "view antialised"
-msgstr "PNG (anti-crénelé)"
+msgstr "PNG (anticrenelat)"
 
 #: ../app/preferences.c:222
-#, fuzzy
 msgid "Portable Network Graphics"
-msgstr "Scalable Vector Graphics"
+msgstr "Portable Network Graphics"
 
 #: ../app/preferences.c:224 ../plug-ins/svg/render_svg.c:649
 #: ../plug-ins/svg/svg-import.c:2121
@@ -2064,27 +2002,24 @@ msgid "Scalable Vector Graphics"
 msgstr "Scalable Vector Graphics"
 
 #: ../app/preferences.c:226
-#, fuzzy
 msgid "PostScript"
-msgstr "PostScript Cairo"
+msgstr "PostScript"
 
 #: ../app/preferences.c:228 ../plug-ins/wmf/wmf.cpp:1449
-#, fuzzy
 msgid "Windows Metafile"
-msgstr "Métafichièr Windows (WMF)"
+msgstr "Metafichièr Windows (WMF)"
 
 #: ../app/preferences.c:230 ../plug-ins/wmf/wmf.cpp:1458
-#, fuzzy
 msgid "Enhanced Metafile"
-msgstr "Métafichièr Windows amélioré (WMF)"
+msgstr "Metafichièr Windows melhorat (WMF)"
 
 #: ../app/preferences.c:235
 msgid "Snap to"
-msgstr "Magnétisme"
+msgstr "Magnetisme"
 
 #: ../app/preferences.c:236
 msgid "Dynamic grid resizing"
-msgstr "Redimensionnement de la grasilha dynamique"
+msgstr "Redimensionament de la grasilha dinamica"
 
 # Voir code source (Stéphane R.) !
 #: ../app/preferences.c:237
@@ -2096,26 +2031,23 @@ msgid "Y Size:"
 msgstr "Nautor del pas :"
 
 #: ../app/preferences.c:239
-#, fuzzy
 msgid "Visual Spacing X:"
-msgstr "Espaçament visible"
+msgstr "Espaçament X visible :"
 
 #: ../app/preferences.c:240
-#, fuzzy
 msgid "Visual Spacing Y:"
-msgstr "Espaçament visible"
+msgstr "Espaçament Y visible :"
 
 #: ../app/preferences.c:242
 msgid "Lines per major line"
-msgstr "Linhas per subdivision majeure"
+msgstr "Linhas per subdivision màger"
 
 #: ../app/preferences.c:244
 msgid "Hex Size:"
-msgstr "Taille hex. :"
+msgstr "Talha exad. :"
 
 #: ../app/preferences.c:470 ../lib/diapatternselector.c:89
 #: ../lib/prop_inttypes.c:159 ../lib/prop_pixbuf.c:296
-#, fuzzy
 msgid "Yes"
 msgstr "Òc"
 
@@ -2127,28 +2059,24 @@ msgid "No"
 msgstr "Non"
 
 #: ../app/preferences.c:584
-#, fuzzy
 msgid "Preferences"
 msgstr "Preferéncias"
 
 #: ../app/properties-dialog.c:60
-#, fuzzy
 msgid "Object properties"
 msgstr "Proprietats de l'objècte"
 
 #: ../app/properties-dialog.c:85
 msgid "This object has no properties."
-msgstr "Aqueste objècte n'a pas de proprietats."
+msgstr "Aqueste objècte a pas de proprietats."
 
 #: ../app/properties-dialog.c:248
-#, fuzzy
 msgid "Properties: "
 msgstr "Proprietats : "
 
 #: ../app/properties-dialog.c:252
-#, fuzzy
 msgid "Object properties:"
-msgstr "Proprietats del objècte :"
+msgstr "Proprietats de l'objècte :"
 
 #: ../app/sheets.c:159
 #, c-format
@@ -2173,20 +2101,20 @@ msgid ""
 "Can't get symbol 'custom_type' from any module.\n"
 "Editing shapes is disabled."
 msgstr ""
-"Impossible de trobar lo simbòl « custom_tipe » dins aucun modul.\n"
+"Impossible de trobar lo simbòl « custom_tipe » dins cap de modul.\n"
 "L'edicion de forma es desactivada."
 
 #: ../app/sheets.c:414
 #, c-format
 msgid "Widget not found: %s"
-msgstr "Component graphique non trobat : %s"
+msgstr "Component grafic pas trobat : %s"
 
 #: ../app/sheets.c:444
 msgid "SVG Shape"
 msgstr "Forma SVG"
 
 #: ../app/sheets.c:446
-msgid "Programmed DiaObject"
+msgid "Programad DiaObject"
 msgstr "Objècte DiaObjects programat"
 
 #: ../app/sheets_dialog.c:253
@@ -2227,7 +2155,7 @@ msgstr "<- Desplaçar tot"
 
 #: ../app/sheets_dialog_callbacks.c:289 ../app/sheets_dialog_callbacks.c:1071
 msgid "Line Break"
-msgstr "Rupture de linha"
+msgstr "Ruptura de linha"
 
 #: ../app/sheets_dialog_callbacks.c:303
 #, c-format
@@ -2314,7 +2242,7 @@ msgstr "Per : %s"
 
 #: ../app/sheets_dialog_callbacks.c:1687
 msgid "add shapes here"
-msgstr "ajoutez des formas aicí"
+msgstr "apondètz de formas aicí"
 
 #: ../app/splash.c:50
 #| msgid "Loading ..."
@@ -2332,15 +2260,15 @@ msgid ""
 "Use <Space> to toggle between this and other tools"
 msgstr ""
 "Modifica los objèctes\n"
-"Utilizatz <Espaci> per bascular entre celui-ci e las autras aisinas"
+"Utilizatz <Espaci> per bascular entre aqueste e las autras aisinas"
 
 #: ../app/toolbox.c:80
 msgid ""
 "Text edit(s)\n"
 "Use <Esc> to leave this tool"
 msgstr ""
-"Édite lo tèxte\n"
-"Utilizatz <Espaci> per quitar aqueste aisina"
+"Edita lo tèxte\n"
+"Utilizatz <Espaci> per quitar aquesta aisina"
 
 #: ../app/toolbox.c:92
 msgid "Scroll around the diagram"
@@ -2349,7 +2277,7 @@ msgstr "Desplaçar la zòna d'afichatge"
 #: ../app/toolbox.c:352
 #, c-format
 msgid "No sheet named %s"
-msgstr "Aucune fuèlh de nom « %s »"
+msgstr "Pas cap de fuèlh de nom « %s »"
 
 #: ../app/toolbox.c:390
 msgid "Other sheets"
@@ -2357,18 +2285,17 @@ msgstr "Autres fuèlhs"
 
 #: ../app/toolbox.c:450 ../sheets/Flowchart.sheet.in.h:1
 msgid "Flowchart"
-msgstr "Graphes de flux"
+msgstr "Grafes de flux"
 
 #: ../app/toolbox.c:494
-#, fuzzy
 msgid ""
 "Foreground & background colors for new objects.  The small black and white "
 "squares reset colors.  The small arrows swap colors.  Double-click to change "
 "colors."
 msgstr ""
-"Colors de trait e de fond per los novèls objèctes. Los carrés noirs e blancs "
-"reïnicializan las colors. La flècha permute ces colors. Un double clic "
-"permet de las changer."
+"Colors de trach e de fons pels objèctes novèls. Los carrats negres e blancs "
+"reïnicializan las colors. La flècha permuta aquelas colors. Un clic doble "
+"permet de las cambiar."
 
 #: ../app/toolbox.c:508
 msgid ""
@@ -2376,50 +2303,46 @@ msgid ""
 "objects.  Double-click to set the line width more precisely."
 msgstr ""
 "Largors des linhas. Clicatz una linha per definir la largor per defaut per "
-"los novèls objèctes. Double-clicatz per definir la largor amb plus de "
+"los novèls objèctes. Doble-clicatz per definir la largor amb mai de "
 "precision."
 
 #: ../app/toolbox.c:551
-#, fuzzy
 msgid ""
 "Arrow style at the beginning of new lines.  Click to pick an arrow, or set "
 "arrow parameters with Details…"
 msgstr ""
 "Estil de flècha en començament de novèla linha. Seleccionatz una flècha o "
-"définissez los paramètres de flècha dins Detalhs..."
+"definissètz los paramètres de flècha dins Detalhs..."
 
 #: ../app/toolbox.c:556
-#, fuzzy
 msgid ""
 "Line style for new lines.  Click to pick a line style, or set line style "
 "parameters with Details…"
 msgstr ""
 "Estil de linha per las novèlas linhas. Seleccionatz un estil de linha o "
-"définissez los paramètres dins Detalhs..."
+"definissètz los paramètres dins Detalhs..."
 
 #: ../app/toolbox.c:572
-#, fuzzy
 msgid ""
 "Arrow style at the end of new lines.  Click to pick an arrow, or set arrow "
 "parameters with Details…"
 msgstr ""
 "Estil de flècha a la fin des novèlas linhas. Clicatz per seleccionar una "
-"flècha o définissez los paramètres dins Detalhs..."
+"flècha o definissètz los paramètres dins Detalhs..."
 
 #: ../dia.desktop.in.in.h:1
-#, fuzzy
 #| msgid "Day"
 msgid "Dia"
-msgstr "Jour"
+msgstr "Dia"
 
 #: ../dia.desktop.in.in.h:3
 msgid "Dia Diagram Editor"
 msgstr "Editor de diagramas Dia"
 
-# Utilisation de l'infinitif sur les infobulles du Bureau
+# Utilizacion de l'infinitif sus les infobulles del Bureau
 #: ../dia.desktop.in.in.h:4
 msgid "Edit your Diagrams"
-msgstr "Editar vos diagramas"
+msgstr "Editar vòstres diagramas"
 
 #. Installer message if no GTK+ was found
 #: ../installer/win32/gennsh.c:39
@@ -2449,16 +2372,14 @@ msgstr ""
 
 #. Installer message: Components page
 #: ../installer/win32/gennsh.c:51
-#, fuzzy
 msgid "Dia Diagram Editor (required)"
-msgstr "Editor de diagramas Dia"
+msgstr "Editor de diagramas Dia (requesit)"
 
 #. Installer message: Components page
 #: ../installer/win32/gennsh.c:54
-#, fuzzy
 #| msgid "Translation"
 msgid "Translations"
-msgstr "Translation"
+msgstr "Traduccion"
 
 #. Installer message: Component description
 #: ../installer/win32/gennsh.c:57
@@ -2472,9 +2393,8 @@ msgstr ""
 
 #. Installer message: Component name
 #: ../installer/win32/gennsh.c:63
-#, fuzzy
 msgid "Python plug-in"
-msgstr "Empeutons"
+msgstr "Empeutons Python"
 
 #. Installer message: Component description
 #: ../installer/win32/gennsh.c:66
@@ -2517,10 +2437,8 @@ msgstr ""
 
 #. Installer message: DIA_PROMP_DIR_EXISTS line 2
 #: ../installer/win32/gennsh.c:84
-#, fuzzy
 msgid "will be deleted. Would you like to continue?"
 msgstr ""
-"Rien n'a été seleccionat per la salvament. Voulez-vous essayer a novèl ?"
 
 #. Installer message: registry entries not found line 1
 #: ../installer/win32/gennsh.c:87
@@ -2549,215 +2467,181 @@ msgid ""
 msgstr ""
 
 #: ../lib/arrows.c:1823
-#, fuzzy
 #| msgid "None"
 msgctxt "Arrow"
 msgid "None"
-msgstr "Aucun"
+msgstr "Pas cap"
 
 #: ../lib/arrows.c:1824
-#, fuzzy
 #| msgid "Lines"
 msgctxt "Arrow"
 msgid "Lines"
 msgstr "Linhas"
 
 #: ../lib/arrows.c:1825
-#, fuzzy
 msgctxt "Arrow"
 msgid "Hollow Triangle"
-msgstr "Triangle vide"
+msgstr "Triangle void"
 
 #: ../lib/arrows.c:1826
-#, fuzzy
 msgctxt "Arrow"
 msgid "Filled Triangle"
-msgstr "Triangle plein"
+msgstr "Triangle plen"
 
 #: ../lib/arrows.c:1827
-#, fuzzy
 msgctxt "Arrow"
 msgid "Unfilled Triangle"
 msgstr "Triangle transparent"
 
 #: ../lib/arrows.c:1828
-#, fuzzy
 msgctxt "Arrow"
 msgid "Hollow Diamond"
-msgstr "Diamant vide"
+msgstr "Diamant void"
 
 #: ../lib/arrows.c:1829
-#, fuzzy
 msgctxt "Arrow"
 msgid "Filled Diamond"
-msgstr "Diamant plein"
+msgstr "Diamant plen"
 
 #: ../lib/arrows.c:1830
-#, fuzzy
 msgctxt "Arrow"
 msgid "Half Diamond"
-msgstr "Demi Diamant"
+msgstr "Mièg Diamant"
 
 #: ../lib/arrows.c:1831
-#, fuzzy
 msgctxt "Arrow"
 msgid "Half Head"
-msgstr "Demi flècha"
+msgstr "Mièja flècha"
 
 #: ../lib/arrows.c:1832
-#, fuzzy
 msgctxt "Arrow"
 msgid "Slashed Cross"
-msgstr "Crotz barrée"
+msgstr "Crotz raiada"
 
 #: ../lib/arrows.c:1833
-#, fuzzy
 msgctxt "Arrow"
 msgid "Filled Ellipse"
-msgstr "Ellipsa pleine"
+msgstr "Ellipsa plena"
 
 #: ../lib/arrows.c:1834
-#, fuzzy
 msgctxt "Arrow"
 msgid "Hollow Ellipse"
-msgstr "Ellipsa vide"
+msgstr "Ellipsa voida"
 
 #: ../lib/arrows.c:1835
-#, fuzzy
 #| msgid "Fill color"
 msgctxt "Arrow"
 msgid "Filled Dot"
-msgstr "Punt plein"
+msgstr "Punt plen"
 
 #: ../lib/arrows.c:1836
-#, fuzzy
 msgctxt "Arrow"
 msgid "Dimension Origin"
-msgstr "Origine de Dimension"
+msgstr "Origina de Dimension"
 
 #: ../lib/arrows.c:1837
-#, fuzzy
 msgctxt "Arrow"
 msgid "Blanked Dot"
-msgstr "Punt vide"
+msgstr "Punt void"
 
 #: ../lib/arrows.c:1838
-#, fuzzy
 msgctxt "Arrow"
 msgid "Double Hollow Triangle"
-msgstr "Double triangle vide"
+msgstr "Doble triangle void"
 
 #: ../lib/arrows.c:1839
-#, fuzzy
 msgctxt "Arrow"
 msgid "Double Filled Triangle"
-msgstr "Double triangle plein"
+msgstr "Doble triangle plen"
 
 #: ../lib/arrows.c:1840
-#, fuzzy
 msgctxt "Arrow"
 msgid "Filled Dot and Triangle"
-msgstr "Punt plein e triangle"
+msgstr "Punt plen e triangle"
 
 #: ../lib/arrows.c:1841
-#, fuzzy
 #| msgid "Fill color"
 msgctxt "Arrow"
 msgid "Filled Box"
-msgstr "Diamant plein"
+msgstr "Diamant plen"
 
 #: ../lib/arrows.c:1842
-#, fuzzy
 msgctxt "Arrow"
 msgid "Blanked Box"
-msgstr "Bóstia vierge"
+msgstr "Bóstia vèrge"
 
 #: ../lib/arrows.c:1843
-#, fuzzy
 msgctxt "Arrow"
 msgid "Slashed"
 msgstr "Jonhent"
 
 #: ../lib/arrows.c:1844
-#, fuzzy
 msgctxt "Arrow"
 msgid "Integral Symbol"
-msgstr "Simbòl d'intégrale"
+msgstr "Simbòl d'integrala"
 
 #: ../lib/arrows.c:1845
-#, fuzzy
 #| msgid "Foot"
 msgctxt "Arrow"
 msgid "Crow Foot"
-msgstr "Pès de Corbeau"
+msgstr "Pès de Còrb"
 
 #: ../lib/arrows.c:1846
-#, fuzzy
 msgctxt "Arrow"
 msgid "Cross"
 msgstr "Crotz"
 
 #: ../lib/arrows.c:1847
-#, fuzzy
 msgctxt "Arrow"
 msgid "1-or-many"
-msgstr "1-ou-plus"
+msgstr "1-o-mai"
 
 #: ../lib/arrows.c:1848
-#, fuzzy
 msgctxt "Arrow"
 msgid "0-or-many"
-msgstr "0-ou-plus"
+msgstr "0-o-mai"
 
 #: ../lib/arrows.c:1849
-#, fuzzy
 msgctxt "Arrow"
 msgid "1-or-0"
-msgstr "1-ou-0"
+msgstr "1-o-0"
 
 #: ../lib/arrows.c:1850
-#, fuzzy
 msgctxt "Arrow"
 msgid "1 exactly"
-msgstr "Exactement 1"
+msgstr "Exactament 1"
 
 #: ../lib/arrows.c:1851
-#, fuzzy
 msgctxt "Arrow"
 msgid "Filled Concave"
-msgstr "Cavitat pleine"
+msgstr "Cavitat plena"
 
 #: ../lib/arrows.c:1852
-#, fuzzy
 msgctxt "Arrow"
 msgid "Blanked Concave"
-msgstr "Cavitat vierge"
+msgstr "Cavitat vèrge"
 
 #: ../lib/arrows.c:1853
-#, fuzzy
 #| msgid "Round"
 msgctxt "Arrow"
 msgid "Round"
-msgstr "Arredonditdit"
+msgstr "Arredondit"
 
 #: ../lib/arrows.c:1854
-#, fuzzy
 #| msgid "Round"
 msgctxt "Arrow"
 msgid "Open Round"
-msgstr "Arredondit Ouvert"
+msgstr "Arredondit Dobèrt"
 
 #: ../lib/arrows.c:1855
-#, fuzzy
 msgctxt "Arrow"
 msgid "Backslash"
 msgstr "Antislash"
 
 #: ../lib/arrows.c:1856
-#, fuzzy
 msgctxt "Arrow"
 msgid "Infinite Line"
-msgstr "Drecha infinie"
+msgstr "Drecha infinida"
 
 #: ../lib/arrows.c:1984
 msgid "Arrow head of unknown type"
@@ -2767,7 +2651,7 @@ msgstr "Punte de flècha de tipe desconegut"
 #, c-format
 msgid "Arrow head of type %s has too small dimensions; removing.\n"
 msgstr ""
-"Una punte de flècha de tipe %s a des dimensions trop petites, suppression.\n"
+"Una punta de flècha de tipe %s a des dimensions tròp pichonas, supression.\n"
 
 #: ../lib/arrows.c:2125
 msgid "unknown arrow"
@@ -2787,27 +2671,24 @@ msgstr "Proprietats de la flècha"
 
 #: ../lib/diaarrowselector.c:123
 msgid "More arrows"
-msgstr "Plus de flèchas"
+msgstr "Mai de flèchas"
 
 #: ../lib/diaarrowselector.c:140
-#, fuzzy
 msgid "Size: "
 msgstr "Talha : "
 
 #: ../lib/diacolorselector.c:203
-#, fuzzy
 msgid "Select color"
 msgstr "Seleccionar una color"
 
 #: ../lib/diacolorselector.c:291
-#, fuzzy
 msgid "More colors…"
-msgstr "Plus de colors..."
+msgstr "Mai de colors..."
 
 #: ../lib/dia_dirs.c:315
 #, c-format
 msgid "Too many \"..\"s in filename %s\n"
-msgstr "Trop de « .. » dins lo nom de fichièr %s\n"
+msgstr "Tròp de « .. » dins lo nom de fichièr %s\n"
 
 #: ../lib/diadynamicmenu.c:396
 msgid "Reset menu"
@@ -2820,7 +2701,7 @@ msgstr "Autras poliças"
 #: ../lib/diafontselector.c:233
 #, c-format
 msgid "Couldn't find font family for %s\n"
-msgstr "Impossible de trobar una famille de poliça per %s\n"
+msgstr "Impossible de trobar una familha de poliça per %s\n"
 
 #. pathologic case - pixbuf not even supporting PNG?
 #: ../lib/dia_image.c:345
@@ -2831,7 +2712,7 @@ msgid ""
 msgstr ""
 
 #: ../lib/dia_image.c:348
-#, fuzzy, c-format
+#, c-format
 #| msgid ""
 #| "Could not open `%s'\n"
 #| "`%s'"
@@ -2842,40 +2723,34 @@ msgid ""
 msgstr ""
 "Impossible d'enregistrar lo fichièr :\n"
 "%s\n"
-"%s"
+"%s\n"
 
 #: ../lib/dialinechooser.c:310
 msgid "Line Style Properties"
 msgstr "Proprietats de la linha"
 
 #: ../lib/dialinechooser.c:345
-#, fuzzy
 #| msgid "Details..."
 msgid "Details…"
 msgstr "Detalhs..."
 
 #: ../lib/dialinestyleselector.c:107
-#, fuzzy
 msgid "line|Solid"
-msgstr "Plein"
+msgstr "Linha|Plen"
 
 #: ../lib/dialinestyleselector.c:108
-#, fuzzy
 msgid "line|Dashed"
 msgstr "Jonhent"
 
 #: ../lib/dialinestyleselector.c:109
-#, fuzzy
 msgid "line|Dash-Dot"
 msgstr "Jonhent-punt"
 
 #: ../lib/dialinestyleselector.c:110
-#, fuzzy
 msgid "line|Dash-Dot-Dot"
 msgstr "Jonhent-punt-punt"
 
 #: ../lib/dialinestyleselector.c:111
-#, fuzzy
 msgid "line|Dotted"
 msgstr "Puntilhat"
 
@@ -2889,30 +2764,25 @@ msgid "OK"
 msgstr "D'acòrdi"
 
 #: ../lib/dialogs.c:52 ../plug-ins/postscript/paginate_psprint.c:326
-#, fuzzy
 msgid "Cancel"
 msgstr "Anullar"
 
 #: ../lib/diapatternselector.c:110
-#, fuzzy
 #| msgid "Flip horizontal"
 msgid "Horizontal"
-msgstr "Revirar orizontalament"
+msgstr "Orizontal"
 
 #: ../lib/diapatternselector.c:111
-#, fuzzy
 msgid "Diagonal"
-msgstr "Diagrama :"
+msgstr "Diagonal"
 
 #: ../lib/diapatternselector.c:112
-#, fuzzy
 msgid "Vertical"
-msgstr "Revirar verticalament"
+msgstr "Vertical"
 
 #: ../lib/diapatternselector.c:113
-#, fuzzy
 msgid "Radial"
-msgstr "Radiation"
+msgstr "Radial"
 
 #: ../lib/dia_xml.c:214
 #, c-format
@@ -2920,8 +2790,8 @@ msgid ""
 "The file %s has no encoding specification;\n"
 "assuming it is encoded in %s"
 msgstr ""
-"Lo fichièr %s n'a pas de spécification de codage ;\n"
-"Dia suppose qu'il es codé en %s"
+"Lo fichièr %s a pas d'especificacion d'encodatge ;\n"
+"Dia supausa qu'es encodat en %s"
 
 #: ../lib/dia_xml.c:512
 #, c-format
@@ -2929,9 +2799,8 @@ msgid "Unknown type of DataNode '%s'"
 msgstr ""
 
 #: ../lib/dia_xml.c:531
-#, fuzzy
 msgid "Taking int value of non-int node."
-msgstr "Prend una valor d'un nosèl non-punt coma un punt."
+msgstr "Pren una valor d'un nosèl non-punt coma un punt."
 
 #: ../lib/dia_xml.c:707
 msgid "Taking point value of non-point node."
@@ -2953,74 +2822,64 @@ msgid "Incorrect y Point value \"%s\" %f; discarding it."
 msgstr "Valor y = « %s » %f d'un punt incorrecte ; rejetée."
 
 #: ../lib/dia_xml.c:753
-#, fuzzy
 msgid "Taking bezpoint value of non-point node."
-msgstr "Prend una valor d'un nosèl non-punt coma un punt."
+msgstr "Pren una valor d'un nosèl non-punt coma un punt."
 
 #: ../lib/dia_xml.c:771
-#, fuzzy
 msgid "Error parsing bezpoint p1."
-msgstr "Error d'interpretacion d'un punt."
+msgstr ""
 
 #: ../lib/dia_xml.c:785
-#, fuzzy
 msgid "Error parsing bezpoint p2."
-msgstr "Error d'interpretacion d'un punt."
+msgstr ""
 
 #: ../lib/dia_xml.c:799
-#, fuzzy
 msgid "Error parsing bezpoint p3."
-msgstr "Error d'interpretacion d'un punt."
+msgstr ""
 
 #: ../lib/dia_xml.c:826
-#, fuzzy
 msgid "Taking rectangle value of non-rectangle node."
-msgstr "Prend una valor d'un nosèl non-punt coma un punt."
+msgstr ""
 
 #: ../lib/dia_xml.c:838 ../lib/dia_xml.c:849 ../lib/dia_xml.c:860
-#, fuzzy
 msgid "Error parsing rectangle."
-msgstr "Error d'interpretacion d'un punt."
+msgstr ""
 
 #: ../lib/dia_xml.c:888
-#, fuzzy
 msgid "Taking string value of non-string node."
-msgstr "Prend una valor d'un nosèl non-punt coma un punt."
+msgstr ""
 
 #: ../lib/dia_xml.c:914
-#, fuzzy
 msgid "Error in string tag."
-msgstr "Error d'interpretacion d'un punt."
+msgstr ""
 
 #: ../lib/dia_xml.c:932
 msgid "Error in file, string not starting with #"
 msgstr ""
 
 #: ../lib/dia_xml.c:994
-#, fuzzy
 msgid "Taking font value of non-font node."
-msgstr "Prend una valor d'un nosèl non-punt coma un punt."
+msgstr ""
 
 #: ../lib/filter.c:177
 #, c-format
 msgid "Multiple export filters with unique name %s"
-msgstr "Plusieurs filtres d'exportacion ont lo même nom %s"
+msgstr ""
 
 #: ../lib/filter.c:195
 #, c-format
 msgid "Multiple import filters with unique name %s"
-msgstr "Plusieurs filtres d'exportacion ont lo même nom %s"
+msgstr ""
 
 #: ../lib/font.c:89
-#, fuzzy, c-format
+#, c-format
 msgid "Can't load font %s.\n"
 msgstr "Impossible de cargar la poliça %s.\n"
 
 #: ../lib/group.c:634
-#, fuzzy
 #| msgid "Information"
 msgid "Transformation"
-msgstr "Informacion"
+msgstr "Transformacion"
 
 #: ../lib/message.c:93 ../lib/message.c:289
 msgid "Warning"
@@ -3036,7 +2895,7 @@ msgstr "Afichar los messatges répétés"
 
 #: ../lib/message.c:146
 msgid "Don't show this message again"
-msgstr "Ne plus afichar ce messatge"
+msgstr "Ne mai afichar ce messatge"
 
 #: ../lib/message.c:211
 #, c-format
@@ -3056,7 +2915,7 @@ msgid ""
 "Not a Dia diagram file."
 msgstr ""
 "Error al cargament del diagrama « %s ».\n"
-"Il ne s'agit pas d'un fichièr creat per Dia."
+"S'agís pas d'un fichièr creat per Dia."
 
 #. base property stuff...
 #: ../lib/orth_conn.h:97
@@ -3093,7 +2952,7 @@ msgstr "L'apèl a dia_plugin_init() a fracassat"
 msgid "Plugin Configuration"
 msgstr ""
 
-#: ../lib/propdialogs.c:339 ../objects/UML/association.c:234
+#: ../lib/propdialogs.c:339 ../objects/UML/associacion.c:234
 #: ../objects/UML/object.c:144
 msgid "General"
 msgstr "General"
@@ -3107,10 +2966,9 @@ msgid "Author"
 msgstr ""
 
 #: ../lib/prop_dict.c:45
-#, fuzzy
 #| msgid "Create"
 msgid "Creation date"
-msgstr "Donada de l'operacion"
+msgstr "Dota de creacion"
 
 #: ../lib/prop_dict.c:46
 msgid "Modification date"
@@ -3160,7 +3018,6 @@ msgid "Miter"
 msgstr ""
 
 #: ../lib/properties.c:82 ../lib/properties.h:604
-#, fuzzy
 #| msgid "Round"
 msgctxt "LineJoin"
 msgid "Round"
@@ -3177,7 +3034,6 @@ msgid "Butt"
 msgstr ""
 
 #: ../lib/properties.c:88 ../lib/properties.h:610
-#, fuzzy
 #| msgid "Round"
 msgctxt "LineCap"
 msgid "Round"
@@ -3185,33 +3041,28 @@ msgstr "Arredondit"
 
 #
 #: ../lib/properties.c:89 ../lib/properties.h:611
-#, fuzzy
 #| msgid "Direction"
 msgctxt "LineCap"
 msgid "Projecting"
-msgstr "Pas de protection"
+msgstr "Proteccion"
 
 #: ../lib/properties.c:96 ../lib/properties.h:632 ../lib/properties.h:635
 #: ../objects/chronogram/chronoline.c:178
 #: ../objects/chronogram/chronoref.c:157
-#, fuzzy
 msgid "Line color"
 msgstr "Color de linha"
 
 #: ../lib/properties.c:97 ../lib/properties.h:638 ../lib/properties.h:641
-#, fuzzy
 msgid "Line style"
 msgstr "Estil de linha"
 
 #: ../lib/properties.c:98 ../lib/properties.h:657 ../lib/properties.h:660
-#, fuzzy
 msgid "Fill color"
 msgstr "Color d'emplenament"
 
 #. just to simplify transferring properties between objects
 #: ../lib/properties.c:99 ../lib/properties.h:663 ../lib/properties.h:666
 #: ../lib/standard-path.c:135
-#, fuzzy
 msgid "Draw background"
 msgstr "Dessenhar lo fons"
 
@@ -3232,7 +3083,6 @@ msgstr "Alinhament"
 #: ../objects/chronogram/chronoref.c:163 ../objects/Database/reference.c:118
 #: ../objects/GRAFCET/condition.c:131 ../objects/GRAFCET/step.c:165
 #: ../objects/GRAFCET/transition.c:141 ../objects/UML/class_dialog.c:455
-#, fuzzy
 msgid "Font"
 msgstr "Poliça"
 
@@ -3240,38 +3090,32 @@ msgstr "Poliça"
 #: ../objects/chronogram/chronoline.c:184
 #: ../objects/chronogram/chronoref.c:165 ../objects/GRAFCET/condition.c:133
 #: ../objects/GRAFCET/step.c:167 ../objects/GRAFCET/transition.c:143
-#, fuzzy
 msgid "Font size"
 msgstr "Talha de la poliça"
 
 #: ../lib/properties.c:106 ../lib/properties.h:702
 #: ../objects/chronogram/chronoline.c:186
 #: ../objects/chronogram/chronoref.c:167 ../objects/GRAFCET/step.c:169
-#, fuzzy
 msgid "Text color"
 msgstr "Color del tèxte"
 
 #: ../lib/properties.h:644 ../lib/properties.h:647
-#, fuzzy
 #| msgid "Line color"
 msgid "Line join"
 msgstr "Largor de linha"
 
 #: ../lib/properties.h:650 ../lib/properties.h:653
-#, fuzzy
 #| msgid "Lines"
 msgid "Line caps"
 msgstr "Blancs de linha"
 
 #: ../lib/properties.h:711
-#, fuzzy
 msgid "Text fitting"
 msgstr "Emplenatge del tèxte"
 
 #: ../lib/properties.h:715 ../lib/standard-path.c:137
-#, fuzzy
 msgid "Pattern"
-msgstr "Éparpiller"
+msgstr "Escampilhar"
 
 #: ../lib/prop_inttypes.c:568
 msgid "Property cast from int to enum out of range"
@@ -3310,8 +3154,8 @@ msgstr "Paramètres"
 #, c-format
 msgid "Group with %d object"
 msgid_plural "Group with %d objects"
-msgstr[0] "Groupe de %d objèctes"
-msgstr[1] "Groupe de %d objèctes"
+msgstr[0] "Grop de %d objècte"
+msgstr[1] "Grop de %d objèctes"
 
 #: ../lib/sheet.c:71 ../lib/sheet.c:86
 #, c-format
@@ -3341,7 +3185,6 @@ msgstr ""
 
 #. Translators: Menu item Verb/Provision/Supply/Fill
 #: ../lib/standard-path.c:120 ../objects/FS/function.c:927
-#, fuzzy
 msgid "Fill"
 msgstr "Emplenar"
 
@@ -3350,81 +3193,73 @@ msgid "Fill & Stroke"
 msgstr ""
 
 #: ../lib/standard-path.c:126
-#, fuzzy
 msgid "Bezier points"
-msgstr "Corba de Bézier fermée"
+msgstr "Punts de corba de Bézier"
 
 #: ../lib/standard-path.c:127
 msgid "Drawing"
-msgstr ""
+msgstr "Dessenhar"
 
-# problème: utilisé dans des formes grammaticales différentes !!
+# problèma: utilizat dans des formes grammaticales diferentas !!
 #: ../lib/standard-path.c:136
-#, fuzzy
 #| msgid "Controls"
 msgid "Draw Control Lines"
-msgstr "Contraròtles"
+msgstr "Dessenhar las linhas de Contraròtle"
 
 #: ../lib/standard-path.c:729
 msgid "Convert to Bezier"
 msgstr ""
 
 #: ../lib/standard-path.c:730
-#, fuzzy
 #| msgid "Invert"
 msgid "Invert Path"
-msgstr "Inverse"
+msgstr "Camin Invèrse"
 
 #: ../lib/standard-path.c:731 ../objects/custom/custom_object.c:198
 #: ../objects/custom/custom_object.c:231
-#, fuzzy
 msgid "Flip horizontal"
-msgstr "Coalevar orizontalament"
+msgstr "Bascular orizontalament"
 
 #: ../lib/standard-path.c:732 ../objects/custom/custom_object.c:200
 #: ../objects/custom/custom_object.c:233
 msgid "Flip vertical"
-msgstr "Revirar verticalament"
+msgstr "Bacular verticalament"
 
 #. Translators: Menu item Verb/Channel/Guide/Rotate
 #. Translators: Menu item Verb/Channel/Guide/Rotate/Rotate
 #: ../lib/standard-path.c:733 ../objects/FS/function.c:739
 #: ../objects/FS/function.c:741
 msgid "Rotate"
-msgstr "Pivoter"
+msgstr "Pivotar"
 
 #: ../lib/standard-path.c:734
-#, fuzzy
 msgid "Shear"
 msgstr "Angle de torsion"
 
 #: ../lib/standard-path.c:735
-#, fuzzy
 #| msgid "Show Comments"
 msgid "Show Control Lines"
 msgstr "Afichar los punts de _connexion"
 
 #: ../lib/widgets.c:390
-#, fuzzy
 msgid "Select image file"
 msgstr "Seleccionar un fichièr imatge"
 
 #: ../lib/widgets.c:441
-#, fuzzy
 msgid "Browse"
-msgstr "Navigar"
+msgstr "Percórrer"
 
 #: ../objects/AADL/aadlbox.c:147
 msgid "Declaration"
-msgstr "Déclaration"
+msgstr "Declaracion"
 
 #: ../objects/AADL/aadlbox.c:356
 msgid "Add Access Provider"
-msgstr "Apondre un fournisseur d'accès"
+msgstr "Apondre un provesidor d'accès"
 
 #: ../objects/AADL/aadlbox.c:358
 msgid "Add Access Requirer"
-msgstr "Apondre un demandeur d'accès"
+msgstr "Apondre un demandaire d'accès"
 
 #: ../objects/AADL/aadlbox.c:360
 msgid "Add In Data Port"
@@ -3464,7 +3299,7 @@ msgstr "Apondre un pòrt d'entrada/sortida de donadas e d'eveniments"
 
 #: ../objects/AADL/aadlbox.c:378
 msgid "Add Port Group"
-msgstr "Apondre un grop de ports"
+msgstr "Apondre un grop de pòrts"
 
 #: ../objects/AADL/aadlbox.c:380
 msgid "Add Connection Point"
@@ -3472,11 +3307,11 @@ msgstr "Apondre un punt de connexion"
 
 #: ../objects/AADL/aadlbox.c:384
 msgid "Delete Port"
-msgstr "Suprimir lo port"
+msgstr "Suprimir lo pòrt"
 
 #: ../objects/AADL/aadlbox.c:385
 msgid "Edit Port Declaration"
-msgstr "Editar la déclaration del port"
+msgstr "Editar la declaracion del pòrt"
 
 #: ../objects/AADL/aadlbox.c:389
 msgid "Delete Connection Point"
@@ -3491,7 +3326,6 @@ msgid "Chronogram diagram objects"
 msgstr "Objèctes de diagramas de chronogramme"
 
 #: ../objects/chronogram/chronoline.c:147 ../sheets/AADL.sheet.in.h:5
-#, fuzzy
 msgid "Data"
 msgstr "Donadas"
 
@@ -3500,7 +3334,6 @@ msgid "Data name"
 msgstr "Nom de la donada"
 
 #: ../objects/chronogram/chronoline.c:151
-#, fuzzy
 msgid "Events"
 msgstr "Eveniments"
 
@@ -3509,25 +3342,23 @@ msgid "Event specification"
 msgstr "Especificacion des eveniments"
 
 #: ../objects/chronogram/chronoline.c:155
-#, fuzzy
 msgid ""
-"@ time    set the pointer to an absolute time.\n"
+"@ time    set the puntar to an absolute time.\n"
 "( duration  set the signal up, then wait 'duration'.\n"
 ") duration  set the signal down, then wait 'duration'.\n"
 "u duration  set the signal to \"unknown\" state, then wait 'duration'.\n"
 "Example: @ 1.0 (2.0)1.0(2.0)\n"
 msgstr ""
-"@ data  definís lo punteur a una data absolue.\n"
-"( durada definís un front montant, puèi attend « durada ».\n"
-") durada definís un front descendant, puèi attend « durada ».\n"
-"u durada met lo signal dins l'état « desconegut », puèi attend « durada ».\n"
+"@ data  definís lo puntador a una data absoluda.\n"
+"( durada definís un front montant, puèi espèra « durada ».\n"
+") durada definís un front descendent, puèi espèra « durada ».\n"
+"u durada met lo senhal dins l'estat « desconegut », puèi espèra « durada ».\n"
 "exemple : @ 1.0 (2.0)1.0(2.0)\n"
 
 #: ../objects/chronogram/chronoline.c:163
 #: ../objects/chronogram/chronoref.c:145
-#, fuzzy
 msgid "Start time"
-msgstr "Ora de debuta"
+msgstr "Ora de començament"
 
 #: ../objects/chronogram/chronoline.c:165
 #: ../objects/chronogram/chronoref.c:147
@@ -3536,11 +3367,11 @@ msgstr "Data de fin"
 
 #: ../objects/chronogram/chronoline.c:167
 msgid "Rise time"
-msgstr "Temps de montée"
+msgstr "Temps de montada"
 
 #: ../objects/chronogram/chronoline.c:169
 msgid "Fall time"
-msgstr "Temps de descente"
+msgstr "Temps de davalada"
 
 #: ../objects/chronogram/chronoline.c:170
 msgid "Multi-bit data"
@@ -3549,31 +3380,31 @@ msgstr "Multiplet"
 #: ../objects/chronogram/chronoline.c:172
 #: ../objects/chronogram/chronoref.c:155
 msgid "Aspect"
-msgstr "Aspect"
+msgstr "Aspècte"
 
 #: ../objects/chronogram/chronoline.c:174
 msgid "Data color"
-msgstr "Color des donadas"
+msgstr "Color de las donadas"
 
 #: ../objects/chronogram/chronoline.c:176
 msgid "Data line width"
-msgstr "Largor des linhas de donadas"
+msgstr "Largor de las linhas de donadas"
 
 #: ../objects/chronogram/chronoref.c:143
 msgid "Time data"
-msgstr "Donadas temporelles"
+msgstr "Donadas temporalas"
 
 #: ../objects/chronogram/chronoref.c:149
 msgid "Major time step"
-msgstr "Pas des graduacions majeures"
+msgstr "Pas de graduacions màgers"
 
 #: ../objects/chronogram/chronoref.c:151
 msgid "Minor time step"
-msgstr "Pas des graduacions mineures"
+msgstr "Pas de las graduacions menoras"
 
 #: ../objects/chronogram/chronoref.c:161
 msgid "Minor step line width"
-msgstr "Taille des graduacions mineures"
+msgstr "Talha de las graduacions menoras"
 
 #: ../objects/custom/custom.c:140
 msgid "Custom"
@@ -3604,7 +3435,7 @@ msgstr "Revirar verticalament"
 #: ../objects/custom/custom_object.c:1807
 #, c-format
 msgid "Cannot open icon file %s for object type '%s'."
-msgstr "Impossible de dobrir lo fichièr icône %s per l'objècte de tipe « %s »."
+msgstr "Impossible de dobrir lo fichièr icòna %s per l'objècte de tipe « %s »."
 
 #
 #: ../objects/custom_lines/custom_lines.c:160
@@ -3648,12 +3479,12 @@ msgstr "Revirar orizontalament"
 #: ../objects/Database/compound.c:223
 #, fuzzy
 msgid "Center mount point vertically"
-msgstr "Conduite pneumatique a la verticala"
+msgstr "Conducha pneumatica a la verticala"
 
 #: ../objects/Database/compound.c:225
 #, fuzzy
 msgid "Center mount point horizontally"
-msgstr "Conduite pneumatique a la verticala"
+msgstr "Conducha pneumatica a l'ozizontala"
 
 #: ../objects/Database/compound.c:227
 #, fuzzy
@@ -3668,7 +3499,7 @@ msgstr "Component"
 #: ../objects/Database/database.c:39
 #, fuzzy
 msgid "Entity/Relationship table diagram objects"
-msgstr "Objèctes d'un diagrama Entités/Relacions"
+msgstr "Objèctes d'un diagrama Entitats/Relacions"
 
 #: ../objects/Database/reference.c:109 ../objects/flowchart/box.c:150
 #: ../objects/standard/box.c:149 ../objects/standard/polyline.c:108
@@ -3677,31 +3508,28 @@ msgid "Corner radius"
 msgstr "Arredondits ses coins"
 
 #: ../objects/Database/reference.c:112
-#, fuzzy
 msgid "Start description"
-msgstr "descripcion :"
+msgstr "Començament de la descripcion"
 
 #: ../objects/Database/reference.c:114
-#, fuzzy
 msgid "End description"
-msgstr "descripcion :"
+msgstr "Fin de la descripcion"
 
 #: ../objects/Database/reference.c:121 ../objects/Database/table.c:223
 #: ../objects/Database/table.c:225 ../objects/Database/table.c:227
-#: ../objects/UML/association.c:247 ../objects/UML/association.c:258
-#: ../objects/UML/association.c:260 ../objects/UML/association.c:262
-#: ../objects/UML/association.c:264 ../objects/UML/association.c:266
+#: ../objects/UML/associacion.c:247 ../objects/UML/associacion.c:258
+#: ../objects/UML/associacion.c:260 ../objects/UML/associacion.c:262
+#: ../objects/UML/associacion.c:264 ../objects/UML/associacion.c:266
 #: ../objects/UML/class.c:215 ../objects/UML/class.c:217
 #: ../objects/UML/class.c:219 ../objects/UML/class.c:221
 #: ../objects/UML/class.c:223 ../objects/UML/class.c:225
-#, fuzzy
 msgid " "
 msgstr " "
 
 #: ../objects/Database/reference.c:145 ../objects/ER/participation.c:404
 #: ../objects/FS/flow-ortho.c:626 ../objects/GRAFCET/vector.c:309
 #: ../objects/SADT/arrow.c:462 ../objects/standard/zigzagline.c:448
-#: ../objects/UML/association.c:866 ../objects/UML/component_feature.c:189
+#: ../objects/UML/associacion.c:866 ../objects/UML/component_feature.c:189
 #: ../objects/UML/dependency.c:379 ../objects/UML/generalization.c:377
 #: ../objects/UML/realizes.c:366 ../objects/UML/transition.c:172
 msgid "Add segment"
@@ -3710,7 +3538,7 @@ msgstr "Apondre un segment"
 #: ../objects/Database/reference.c:146 ../objects/ER/participation.c:405
 #: ../objects/FS/flow-ortho.c:627 ../objects/GRAFCET/vector.c:310
 #: ../objects/SADT/arrow.c:463 ../objects/standard/zigzagline.c:449
-#: ../objects/UML/association.c:867 ../objects/UML/component_feature.c:190
+#: ../objects/UML/associacion.c:867 ../objects/UML/component_feature.c:190
 #: ../objects/UML/dependency.c:380 ../objects/UML/generalization.c:378
 #: ../objects/UML/realizes.c:367 ../objects/UML/transition.c:173
 msgid "Delete segment"
@@ -3781,7 +3609,7 @@ msgstr "Atributs"
 
 #. umlformalparameters_extra
 #. all this just to make the defaults selectable ...
-#: ../objects/Database/table.c:211 ../objects/UML/association.c:269
+#: ../objects/Database/table.c:211 ../objects/UML/associacion.c:269
 #: ../objects/UML/class.c:196 ../objects/UML/object.c:159
 #| msgid "_Style"
 msgid "Style"
@@ -3848,11 +3676,11 @@ msgstr "Associatif :"
 #: ../objects/ER/entity.c:407 ../objects/UML/classicon.c:129
 #: ../sheets/ER.sheet.in.h:3
 msgid "Entity"
-msgstr "Entité"
+msgstr "Entitat"
 
 #: ../objects/ER/er.c:44
 msgid "Entity/Relationship diagram objects"
-msgstr "Objèctes d'un diagrama Entités/Relacions"
+msgstr "Objèctes d'un diagrama Entitats/Relacions"
 
 #: ../objects/ER/participation.c:116
 msgid "Total:"
@@ -3923,7 +3751,7 @@ msgstr "Tipe :"
 
 #: ../objects/FS/fs.c:43
 msgid "Function structure diagram objects"
-msgstr "Objèctes de diagramas de structures fonctionnelles."
+msgstr "Objèctes de diagramas de estructuras foncionalas."
 
 #: ../objects/FS/function.c:141
 msgid "Wish function"
@@ -3948,7 +3776,6 @@ msgstr "Canal"
 
 #. Translators: Menu item Verb/Channel/Import/Input
 #: ../objects/FS/function.c:679 ../objects/KAOS/metabinrel.c:164
-#, fuzzy
 msgid "Input"
 msgstr "Entrada"
 
@@ -4034,7 +3861,6 @@ msgstr "Convoyer"
 #. Translators: Menu item Verb/Channel/Guide/Guide/Guide
 #: ../objects/FS/function.c:725 ../objects/FS/function.c:727
 #: ../objects/FS/function.c:729
-#, fuzzy
 msgid "Guide"
 msgstr "Guida"
 
@@ -4199,13 +4025,13 @@ msgstr "Jónher"
 #. Translators: Menu item Verb/Connect/Couple/Assemble
 #: ../objects/FS/function.c:813
 msgid "Assemble"
-msgstr "Assembler"
+msgstr "Assemblar"
 
 #. Translators: Menu item Verb/Connect/Mix
 #. Translators: Menu item Verb/Connect/Mix/Mix
 #: ../objects/FS/function.c:817 ../objects/FS/function.c:819
 msgid "Mix"
-msgstr "Mélanger"
+msgstr "Mesclar"
 
 #. Translators: Menu item Verb/Connect/Mix/Combine
 #: ../objects/FS/function.c:821
@@ -4215,7 +4041,7 @@ msgstr "Combinar"
 #. Translators: Menu item Verb/Connect/Mix/Blend
 #: ../objects/FS/function.c:823
 msgid "Blend"
-msgstr "Mélanger"
+msgstr "Mesclar"
 
 #. Translators: Menu item Verb/Connect/Mix/Add
 #: ../objects/FS/function.c:825
@@ -4245,7 +4071,7 @@ msgstr "Bifurquer"
 #: ../objects/FS/function.c:835 ../objects/FS/function.c:837
 #: ../objects/FS/function.c:839
 msgid "Separate"
-msgstr "Séparer"
+msgstr "Separar"
 
 #. Translators: Menu item Verb/Branch/Separate/Separate/Switch
 #: ../objects/FS/function.c:841
@@ -4280,7 +4106,7 @@ msgstr "Talhar"
 #. Translators: Menu item Verb/Branch/Separate/Remove/Polish
 #: ../objects/FS/function.c:857
 msgid "Polish"
-msgstr "Polonés"
+msgstr "Polir"
 
 #. Translators: Menu item Verb/Branch/Separate/Remove/Sand
 #: ../objects/FS/function.c:859
@@ -4325,16 +4151,14 @@ msgstr "Égouter"
 
 #. Translators: Menu item Verb/Branch/Refine/Clear
 #: ../objects/FS/function.c:877
-#, fuzzy
 msgid "Clear"
 msgstr "Netejar"
 
 #. Translators: Menu item Verb/Branch/Distribute
 #. Translators: Menu item Verb/Branch/Distribute/Distribute
 #: ../objects/FS/function.c:879 ../objects/FS/function.c:881
-#, fuzzy
 msgid "Distribute"
-msgstr "Dividir"
+msgstr "Distribuir"
 
 #. Translators: Menu item Verb/Branch/Distribute/Diverge
 #: ../objects/FS/function.c:883
@@ -4344,7 +4168,7 @@ msgstr "Diverger"
 #. Translators: Menu item Verb/Branch/Distribute/Scatter
 #: ../objects/FS/function.c:885
 msgid "Scatter"
-msgstr "Éparpiller"
+msgstr "Escampilhar"
 
 #. Translators: Menu item Verb/Branch/Distribute/Disperse
 #: ../objects/FS/function.c:887
@@ -4355,7 +4179,7 @@ msgstr "Disperser"
 #. Translators: Menu item Verb/Branch/Dissipate/Diffuse
 #: ../objects/FS/function.c:889 ../objects/FS/function.c:903
 msgid "Diffuse"
-msgstr "Diffuser"
+msgstr "Difusar"
 
 #. Translators: Menu item Verb/Branch/Distribute/Empty
 #: ../objects/FS/function.c:891
@@ -4392,14 +4216,13 @@ msgstr "Resistir"
 #. Translators: Menu item Verb/Provision/Provision
 #: ../objects/FS/function.c:907 ../objects/FS/function.c:909
 msgid "Provision"
-msgstr "Approvisionner"
+msgstr "Aprovisionar"
 
 #. Translators: Menu item Verb/Provision/Store
 #. Translators: Menu item Verb/Provision/Store/Store
 #: ../objects/FS/function.c:911 ../objects/FS/function.c:913
-#, fuzzy
 msgid "Store"
-msgstr "Store"
+msgstr "Emmagazinar"
 
 #. Translators: Menu item Verb/Provision/Store/Contain
 #: ../objects/FS/function.c:915
@@ -4470,7 +4293,7 @@ msgstr "Iniciar"
 msgid "Regulate"
 msgstr "Regular"
 
-# problème: utilisé dans des formes grammaticales différentes !!
+# problèma: utilizat dans des formes grammaticales diferentas !!
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Control
 #. Translators: Menu item Noun/Signal/Control
 #: ../objects/FS/function.c:953 ../objects/FS/function.c:1171
@@ -4788,7 +4611,7 @@ msgstr "Couple"
 #. Translators: Menu item Noun/Energy/Mechanical/Random Motion
 #: ../objects/FS/function.c:1103
 msgid "Random Motion"
-msgstr "Mouvement aléatoire"
+msgstr "Movement aléatoire"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Vibration
 #: ../objects/FS/function.c:1105
@@ -4938,7 +4761,7 @@ msgstr "Estatut"
 
 #: ../objects/FS/function.c:1173
 msgid "User/Device Fn"
-msgstr "Foncion d'utilizacion/d'appareil"
+msgstr "Foncion d'utilizacion/d'aparelh"
 
 #: ../objects/FS/function.c:1174
 msgid "Wish Fn"
@@ -4946,14 +4769,13 @@ msgstr "Foncion désirée"
 
 #: ../objects/GRAFCET/action.c:132 ../sheets/SDL.sheet.in.h:11
 msgid "Macro call"
-msgstr "Appel de macro"
+msgstr "Apèl de macro"
 
 #: ../objects/GRAFCET/action.c:132
 msgid "This action is a call to a macro-step"
-msgstr "Aquesta accion appelle una macro-etapa"
+msgstr "Aquesta accion apèla una macro-etapa"
 
 #: ../objects/GRAFCET/condition.c:129
-#, fuzzy
 msgid "Condition"
 msgstr "Condicion"
 
@@ -4970,7 +4792,6 @@ msgid "The condition's font size"
 msgstr "La talha de la poliça de la condicion"
 
 #: ../objects/GRAFCET/condition.c:136 ../objects/GRAFCET/transition.c:146
-#, fuzzy
 msgid "Color"
 msgstr "Color"
 
@@ -4984,7 +4805,7 @@ msgstr "Objèctes de diagramas GRAFCET"
 
 #: ../objects/GRAFCET/step.c:146 ../sheets/GRAFCET.sheet.in.h:3
 msgid "Regular step"
-msgstr "Etapa normale"
+msgstr "Etapa normala"
 
 #: ../objects/GRAFCET/step.c:147 ../sheets/GRAFCET.sheet.in.h:4
 msgid "Initial step"
@@ -5000,11 +4821,11 @@ msgstr "Etapa de fin de macro"
 
 #: ../objects/GRAFCET/step.c:150 ../sheets/GRAFCET.sheet.in.h:7
 msgid "Macro call step"
-msgstr "Etapa d'appel de macro"
+msgstr "Etapa d'apèl de macro"
 
 #: ../objects/GRAFCET/step.c:151
 msgid "Subprogram call step"
-msgstr "Etapa d'appel de sosprograma"
+msgstr "Etapa d'apèl de sosprograma"
 
 #: ../objects/GRAFCET/step.c:158
 msgid "Step name"
@@ -5023,13 +4844,12 @@ msgid "The kind of step"
 msgstr "Lo genre d'etapa"
 
 #: ../objects/GRAFCET/step.c:163
-#, fuzzy
 msgid "Active"
-msgstr "Actiu"
+msgstr "Activar"
 
 #: ../objects/GRAFCET/step.c:163
 msgid "Shows a red dot to figure the step's activity"
-msgstr "Montre un punt rouge figurant l'activitat de l'etapa"
+msgstr "Fa veire un punt roge figurant l'activitat de l'etapa"
 
 #: ../objects/GRAFCET/transition.c:139
 msgid "Receptivity"
@@ -5064,12 +4884,10 @@ msgid "Draw arrow heads on upward arcs:"
 msgstr "Dessine las flèchas sus los arcs montants :"
 
 #: ../objects/GRAFCET/vergent.c:120
-#, fuzzy
 msgid "OR"
 msgstr "O"
 
 #: ../objects/GRAFCET/vergent.c:121
-#, fuzzy
 msgid "AND"
 msgstr "E"
 
@@ -5103,8 +4921,7 @@ msgstr "Indéfini"
 msgid "Agent"
 msgstr "Agent"
 
-#: ../objects/Istar/actor.c:69 ../objects/UML/association.c:249
-#, fuzzy
+#: ../objects/Istar/actor.c:69 ../objects/UML/associacion.c:249
 msgid "Role"
 msgstr "Ròtle"
 
@@ -5126,14 +4943,13 @@ msgid "Istar diagram"
 msgstr "Diagrama i*"
 
 #: ../objects/Istar/link.c:150
-#, fuzzy
 #| msgid "Position"
 msgid "Positive contrib"
-msgstr "Causal"
+msgstr "Apòrt positiu"
 
 #: ../objects/Istar/link.c:151
 msgid "Negative contrib"
-msgstr "Apport negatiu"
+msgstr "Apòrt negatiu"
 
 #: ../objects/Istar/link.c:152 ../sheets/UML.sheet.in.h:6
 msgid "Dependency"
@@ -5145,17 +4961,15 @@ msgstr "Descomposicion"
 
 #: ../objects/Istar/link.c:154
 msgid "Means-Ends"
-msgstr "Moyens-Fins"
+msgstr "Mejans-Fins"
 
 #: ../objects/Istar/other.c:71
-#, fuzzy
 msgid "Resource"
 msgstr "Ressorsa"
 
 #: ../objects/Istar/other.c:72 ../sheets/BPMN.sheet.in.h:33
-#, fuzzy
 msgid "Task"
-msgstr "Prètzfach (Task)"
+msgstr "Prètzfach"
 
 #: ../objects/Istar/other.c:470
 msgid "i* other"
@@ -5163,15 +4977,15 @@ msgstr "Autre i*"
 
 #: ../objects/Jackson/domain.c:77
 msgid "Given Domain"
-msgstr "Domeni donné"
+msgstr "Domeni donat"
 
 #: ../objects/Jackson/domain.c:78
 msgid "Designed Domain"
-msgstr "Domeni désigné"
+msgstr "Domeni designat"
 
 #: ../objects/Jackson/domain.c:79
 msgid "Machine Domain"
-msgstr "Domeni des machines"
+msgstr "Domeni des maquinas"
 
 #: ../objects/Jackson/domain.c:95
 msgid "Causal"
@@ -5270,19 +5084,18 @@ msgid "Obstructs"
 msgstr "Obstrue"
 
 #: ../objects/KAOS/metabinrel.c:158
-#, fuzzy
 msgid "Conflicts"
 msgstr "Conflictes"
 
 #: ../objects/KAOS/metabinrel.c:159
 msgid "Responsibility"
-msgstr "Responsabilité"
+msgstr "Responsabilitat"
 
 #: ../objects/KAOS/metabinrel.c:160
 msgid "Monitors"
-msgstr "Moniteurs"
+msgstr "Monitors"
 
-# problème: utilisé dans des formes grammaticales différentes !!
+# problèma: utilizat dans des formes grammaticales diferentas !!
 #: ../objects/KAOS/metabinrel.c:161
 #, fuzzy
 msgid "Controls"
@@ -5431,7 +5244,7 @@ msgstr "Convoyer"
 #: ../objects/Misc/n_gon.c:104
 #, fuzzy
 msgid "Concave"
-msgstr "Cavitat pleine"
+msgstr "Cavitat plena"
 
 #: ../objects/Misc/n_gon.c:105
 #, fuzzy
@@ -5992,7 +5805,7 @@ msgstr "Dessenhar la bordadura"
 
 #: ../objects/standard/image.c:132
 msgid "Keep aspect ratio"
-msgstr "Conserver las proporcions"
+msgstr "Conservar las proporcions"
 
 #: ../objects/standard/image.c:134
 msgid "Angle"
@@ -6083,61 +5896,61 @@ msgstr "Corba de Bézier"
 msgid "Actor"
 msgstr "Actor"
 
-#: ../objects/UML/association.c:221
+#: ../objects/UML/associacion.c:221
 msgid "From A to B"
 msgstr "De A cap a B"
 
-#: ../objects/UML/association.c:222
+#: ../objects/UML/associacion.c:222
 msgid "From B to A"
 msgstr "De B cap a A"
 
 #
-#: ../objects/UML/association.c:227
+#: ../objects/UML/associacion.c:227
 #, fuzzy
 msgid "Aggregation"
 msgstr "Agréger"
 
-#: ../objects/UML/association.c:228
+#: ../objects/UML/associacion.c:228
 msgid "Composition"
 msgstr "Composicion"
 
 #
-#: ../objects/UML/association.c:238
+#: ../objects/UML/associacion.c:238
 #, fuzzy
 msgid "Direction"
 msgstr "Direccion :"
 
 #
-#: ../objects/UML/association.c:240
+#: ../objects/UML/associacion.c:240
 #, fuzzy
 msgid "Show direction"
 msgstr "Direccion :"
 
-#: ../objects/UML/association.c:240
+#: ../objects/UML/associacion.c:240
 msgid "Show the small arrow denoting the reading direction"
 msgstr ""
 
-#: ../objects/UML/association.c:247
+#: ../objects/UML/associacion.c:247
 msgid "Side A"
 msgstr "Costat A"
 
 #
-#: ../objects/UML/association.c:251
+#: ../objects/UML/associacion.c:251
 #, fuzzy
 msgid "Multiplicity"
 msgstr "Multiplicité :"
 
-#: ../objects/UML/association.c:253 ../objects/UML/umlattribute.c:45
+#: ../objects/UML/associacion.c:253 ../objects/UML/umlattribute.c:45
 #: ../objects/UML/umloperation.c:71
 #, fuzzy
 msgid "Visibility"
 msgstr "Visibilitat"
 
-#: ../objects/UML/association.c:255
+#: ../objects/UML/associacion.c:255
 msgid "Show arrow"
 msgstr "Afichar la flècha"
 
-#: ../objects/UML/association.c:258
+#: ../objects/UML/associacion.c:258
 msgid "Side B"
 msgstr "Costat B"
 
@@ -6203,7 +6016,7 @@ msgid "Class"
 msgstr "Classa"
 
 #. how it used to be before 0.96+SVN
-#. one name, one type: but breaks forward-compatibiliy so kind of reverted
+#. one name, one type: but breaks forward-compatibiliy so kind of reverdad
 #: ../objects/UML/class.c:142 ../objects/UML/classicon.c:136
 #: ../objects/UML/classicon.c:138 ../objects/UML/component.c:129
 #: ../objects/UML/large_package.c:138 ../objects/UML/object.c:146
@@ -6482,7 +6295,7 @@ msgid "Show arrow:"
 msgstr "Afichar la flècha :"
 
 #. how it used to be before 0.96+SVN
-#. new name matching "same name, same type"  rule - reverted, forward compatibility seems more important
+#. new name matching "same name, same type"  rule - reverdad, forward compatibility seems more important
 #: ../objects/UML/implements.c:127 ../objects/UML/implements.c:129
 msgid "Interface:"
 msgstr "Interfàcia :"
@@ -6592,8 +6405,7 @@ msgid ""
 "This option will go away in future versions.\n"
 "Please use the Initial/Final State object instead.\n"
 msgstr ""
-"Aqueste diagrama utiliza l'estat de l'objècte per los estats initiaux/"
-"finaux.\n"
+"Aqueste diagrama utiliza l'estat de l'objècte pels estats initiaux/finaux.\n"
 "Aquesta option disparaîtra dins las futuras versions.\n"
 "Veuillez utiliser l'estat inicial/final de l'objècte a la plaça\n"
 
@@ -6746,13 +6558,13 @@ msgstr "Rendu Cairo"
 #: ../plug-ins/cairo/diacairo-interactive.c:408
 #: ../plug-ins/cairo/diacairo-interactive.c:409
 #, fuzzy
-msgid "Zoom pointer"
+msgid "Zoom puntar"
 msgstr "Imprimenta simple"
 
 #: ../plug-ins/cairo/diacairo-interactive.c:415
 #: ../plug-ins/cairo/diacairo-interactive.c:416
 #, fuzzy
-msgid "Visible rect pointer"
+msgid "Visible rect puntar"
 msgstr "Atributs visibles"
 
 #: ../plug-ins/cairo/diacairo-renderer.c:1030
@@ -6769,8 +6581,8 @@ msgid ""
 "Image row length larger than maximum cell array.\n"
 "Image not exported to CGM."
 msgstr ""
-"L'imatge es plus large que lo maximum.\n"
-"L'imatge n'a pas été exporté en CGM."
+"L'imatge es mai large que lo maximum.\n"
+"L'imatge n'a pas été exportat en CGM."
 
 #: ../plug-ins/cgm/cgm.c:1292
 msgid "Computer Graphics Metafile"
@@ -6885,7 +6697,7 @@ msgstr ""
 
 #
 #: ../plug-ins/libart/dialibartrenderer.c:1375
-msgid "Transform pointer"
+msgid "Transform puntar"
 msgstr "Transformar lo puntador"
 
 #: ../plug-ins/libart/export_png.c:159 ../plug-ins/xslt/xslt.c:105
@@ -7285,7 +7097,7 @@ msgstr ""
 
 #: ../plug-ins/xfig/xfig-export.c:493
 msgid "No more user-definable colors - using black"
-msgstr "Plus de colors définissables per l'utilizaire -- utilizacion del noir"
+msgstr "Mai de colors définissables per l'utilizaire -- utilizacion del noir"
 
 #: ../plug-ins/xfig/xfig-export.c:1154
 msgid "Xfig format"
@@ -7306,7 +7118,7 @@ msgstr "Los motius son pas encara implementats"
 msgid "Triple-dotted lines are not supported by Dia; using double-dotted"
 msgstr ""
 "Puntilhats de punt triple pas suportats per Dia, utilizacion dels puntilhats "
-"de punt double a la plaça."
+"de punt doble a la plaça."
 
 #: ../plug-ins/xfig/xfig-import.c:172
 #, c-format
@@ -7335,27 +7147,23 @@ msgstr "Tipe de flècha %d desconegut\n"
 #, c-format
 msgid "Depth %d out of range, only 0-%d allowed.\n"
 msgstr ""
-"Prigondor de %d, sola una prigondor comprise entre 0 e %d es permise.\n"
+"Prigondor de %d, sola una prigondor compresa entre 0 e %d es permesa.\n"
 
 #: ../plug-ins/xfig/xfig-import.c:435
-#, fuzzy
 msgid "Couldn't read ellipse info."
-msgstr "Impossible de legir las informacions de l'ellipsa : %s\n"
+msgstr "Impossible de legir las informacions de l'ellipsa."
 
 #: ../plug-ins/xfig/xfig-import.c:504
-#, fuzzy
 msgid "Couldn't read polyline info.\n"
-msgstr "Impossible de legir las informacions de la polyligne : %s\n"
+msgstr "Impossible de legir las informacions de la polilinha.\n"
 
 #: ../plug-ins/xfig/xfig-import.c:519
-#, fuzzy
 msgid "Couldn't read flipped bit."
-msgstr "Impossible de legir lo bit inversat : %s\n"
+msgstr "Impossible de legir lo bit inversat."
 
 #: ../plug-ins/xfig/xfig-import.c:537
-#, fuzzy
 msgid "Negative corner radius; negating"
-msgstr "Rai de courbure negatiu. Inversion."
+msgstr "Rai de corbadura negatiu ; Inversion"
 
 #: ../plug-ins/xfig/xfig-import.c:580
 #, c-format
@@ -7363,9 +7171,8 @@ msgid "Unknown polyline subtype: %d\n"
 msgstr "Sostipe de polyligne desconegut : %d\n"
 
 #: ../plug-ins/xfig/xfig-import.c:732 ../plug-ins/xfig/xfig-import.c:764
-#, fuzzy
 msgid "Couldn't read spline info."
-msgstr "Impossible de legir las informacions de la spline : %s\n"
+msgstr "Impossible de legir las informacions de la spline."
 
 #. Open approximated spline
 #. Closed approximated spline
@@ -7379,9 +7186,8 @@ msgid "Unknown spline subtype: %d\n"
 msgstr "Sostipe de spline desconegut : %d\n"
 
 #: ../plug-ins/xfig/xfig-import.c:871
-#, fuzzy
 msgid "Couldn't read arc info."
-msgstr "Impossible de legir las informacions de l'arc : %s\n"
+msgstr "Impossible de legir las informacions de l'arc."
 
 #. set new fill property on arc?
 #: ../plug-ins/xfig/xfig-import.c:899
@@ -7394,9 +7200,8 @@ msgid "Unknown polyline arc: %d\n"
 msgstr "Sostipe de polyligne desconegut : %d\n"
 
 #: ../plug-ins/xfig/xfig-import.c:968
-#, fuzzy
 msgid "Couldn't read text info."
-msgstr "Impossible de legir las informacions del tèxte : %s\n"
+msgstr "Impossible de legir las informacions del tèxte."
 
 #: ../plug-ins/xfig/xfig-import.c:996
 #, c-format
@@ -7409,18 +7214,16 @@ msgid "Can't find Postscript font nr. %d, using sans"
 msgstr ""
 
 #: ../plug-ins/xfig/xfig-import.c:1032
-#, fuzzy
 msgid "Couldn't identify Fig object."
-msgstr "Impossible d'identificar l'objècte FIG : %s\n"
+msgstr "Impossible d'identificar l'objècte FIG."
 
 #: ../plug-ins/xfig/xfig-import.c:1040
 msgid "Compound end outside compound\n"
 msgstr "Fin de composite hors del composite\n"
 
 #: ../plug-ins/xfig/xfig-import.c:1062
-#, fuzzy
 msgid "Couldn't read color\n"
-msgstr "Impossible de legir la color : %s\n"
+msgstr "Impossible de legir la color\n"
 
 #: ../plug-ins/xfig/xfig-import.c:1067
 #, c-format
@@ -7429,9 +7232,8 @@ msgstr ""
 "Lo numèro de color %d es hors des limites 0..%d. Abandon de la color.\n"
 
 #: ../plug-ins/xfig/xfig-import.c:1114
-#, fuzzy
 msgid "Couldn't read group extent."
-msgstr "Impossible de legir l'extension de grop : %s\n"
+msgstr "Impossible de legir l'extension de grop."
 
 #: ../plug-ins/xfig/xfig-import.c:1125
 #, c-format
@@ -7444,9 +7246,8 @@ msgid "`%s' is not one of `%s' or `%s'\n"
 msgstr "« %s » n'est ni « %s » ni « %s »\n"
 
 #: ../plug-ins/xfig/xfig-import.c:1160
-#, fuzzy
 msgid "Error reading paper size."
-msgstr "Error al moment de la lectura de la talha del papier : %s\n"
+msgstr "Error al moment de la lectura de la talha del papièr."
 
 #: ../plug-ins/xfig/xfig-import.c:1171
 #, c-format
@@ -7454,56 +7255,45 @@ msgid "Unknown paper size `%s', using default\n"
 msgstr "Format de papier '%s' desconegut, utilizacion d'un format per defaut\n"
 
 #: ../plug-ins/xfig/xfig-import.c:1184
-#, fuzzy
 msgid "Error reading paper orientation."
-msgstr "Error al moment de la lectura de l'orientation del papier : %s\n"
+msgstr "Error al moment de la lectura de l'orientacion del papièr."
 
 #: ../plug-ins/xfig/xfig-import.c:1194
-#, fuzzy
 msgid "Error reading justification."
-msgstr "Error al moment de la lectura de la justification : %s\n"
+msgstr "Error al moment de la lectura de la justification."
 
 #: ../plug-ins/xfig/xfig-import.c:1204
-#, fuzzy
 msgid "Error reading units."
-msgstr "Error al moment de la lectura des unitats : %s\n"
+msgstr "Error al moment de la lectura de las unitats."
 
 #: ../plug-ins/xfig/xfig-import.c:1220
-#, fuzzy
 msgid "Error reading magnification."
-msgstr "Error al moment de la lectura del factor d'escala : %s\n"
+msgstr "Error al moment de la lectura del factor d'escala."
 
 #: ../plug-ins/xfig/xfig-import.c:1233
-#, fuzzy
 msgid "Error reading multipage indicator."
-msgstr ""
-"Error al moment de la lectura de l'indicateur de multi-pagination : %s\n"
+msgstr "Error al moment de la lectura de l'indicador de multipaginacion."
 
 #: ../plug-ins/xfig/xfig-import.c:1244
-#, fuzzy
 msgid "Error reading transparent color."
-msgstr "Error al moment de la lectura de la color transparente : %s\n"
+msgstr "Error al moment de la lectura de la color transparenta."
 
 #: ../plug-ins/xfig/xfig-import.c:1253 ../plug-ins/xfig/xfig-import.c:1314
 #: ../plug-ins/xfig/xfig-import.c:1332
-#, fuzzy
 msgid "Error reading Fig file."
-msgstr "Error al moment de la lectura del fichièr FIG : %s\n"
+msgstr "Error al moment de la lectura del fichièr FIG."
 
 #: ../plug-ins/xfig/xfig-import.c:1255
-#, fuzzy
 msgid "Premature end of Fig file\n"
 msgstr "Fin prematurada de fichièr FIG\n"
 
 #: ../plug-ins/xfig/xfig-import.c:1264
-#, fuzzy
 msgid "Error reading resolution."
-msgstr "Error al moment de la lectura de la résolution : %s\n"
+msgstr "Error al moment de la lectura de la resolucion."
 
 #: ../plug-ins/xfig/xfig-import.c:1300
-#, fuzzy
 msgid "Doesn't look like a Fig file"
-msgstr "Aquò ne semble pas èsser un fichièr Fig : %s\n"
+msgstr "Aquò sembla pas èsser un fichièr Fig."
 
 #: ../plug-ins/xfig/xfig-import.c:1306
 #, c-format
@@ -7513,12 +7303,10 @@ msgid ""
 msgstr ""
 
 #: ../plug-ins/xfig/xfig-import.c:1316
-#, fuzzy
 msgid "Premature end of Fig file"
-msgstr "Fin prematurada de fichièr FIG\n"
+msgstr "Fin prematurada de fichièr FIG"
 
 #: ../plug-ins/xfig/xfig-import.c:1355
-#, fuzzy
 msgid "Xfig File Format"
 msgstr "Format de fichièr XFig"
 
@@ -7564,20 +7352,18 @@ msgstr "Filtre de transformations XSL"
 #, fuzzy
 msgid "No valid configuration files found for the XSLT plugin; not loading."
 msgstr ""
-"Aucun fichièr de configuracion valide n'a été trobat per lo empeuton XSLT, "
-"pas de cargament."
+"Aucun fichièr de configuracion valide n'a été trobat pel empeuton XSLT, pas "
+"de cargament."
 
 #: ../plug-ins/xslt/xsltdialog.c:99
 msgid "Export through XSLT"
 msgstr "Expòrt a travers XSLT"
 
 #: ../plug-ins/xslt/xsltdialog.c:114
-#, fuzzy
 msgid "From:"
-msgstr "Expedidor :"
+msgstr "Expeditor :"
 
 #: ../plug-ins/xslt/xsltdialog.c:149
-#, fuzzy
 msgid "To:"
 msgstr "Destinatari :"
 
@@ -7598,7 +7384,6 @@ msgid "Processor"
 msgstr "Processor"
 
 #: ../sheets/AADL.sheet.in.h:7
-#, fuzzy
 msgid "Memory"
 msgstr "Memòria"
 
@@ -7607,7 +7392,6 @@ msgid "Bus"
 msgstr "Bus"
 
 #: ../sheets/AADL.sheet.in.h:9
-#, fuzzy
 msgid "System"
 msgstr "Sistèma"
 
@@ -7617,10 +7401,9 @@ msgstr "Sosprograma"
 
 #: ../sheets/AADL.sheet.in.h:11
 msgid "Thread Group"
-msgstr "Groupe de threads"
+msgstr "Grop de threads"
 
 #: ../sheets/AADL.sheet.in.h:12
-#, fuzzy
 msgid "Device"
 msgstr "Periferic"
 
@@ -7641,7 +7424,7 @@ msgid ""
 "An Assorted Collection of Polygons, Beziergons and other Miscellaneous "
 "Geometric Shapes"
 msgstr ""
-"Una collection de poligòns, poligòns de Bézier e autres formas géométriques "
+"Una colleccion de poligòns, poligòns de Bézier e autres formas géométriques "
 "diverses"
 
 #: ../sheets/Assorted.sheet.in.h:7
@@ -7649,17 +7432,16 @@ msgid "Right angle triangle"
 msgstr "Triangle rectangle"
 
 #: ../sheets/Assorted.sheet.in.h:8
-#, fuzzy
 msgid "Isosceles triangle"
-msgstr "Triangle isocèle"
+msgstr "Triangle isocèl"
 
 #: ../sheets/Assorted.sheet.in.h:9
 msgid "Perfect square, height equals width"
-msgstr "Carré parfait, la nautor égale la largor"
+msgstr "Carré perfièch, la nautor egala la largor"
 
 #: ../sheets/Assorted.sheet.in.h:10
 msgid "Perfect circle"
-msgstr "Cercle parfait"
+msgstr "Cercle perfièch"
 
 #: ../sheets/Assorted.sheet.in.h:11
 msgid "Quarter circle"
@@ -7938,11 +7720,11 @@ msgstr "Palanca"
 
 #: ../sheets/BPMN.sheet.in.h:28
 msgid "Exclusive (XOR) Data Based"
-msgstr "Exclusiu (XOR) basé sus des donadas"
+msgstr "Exclusiu (XOR) basat sus des donadas"
 
 #: ../sheets/BPMN.sheet.in.h:29
 msgid "Exclusive (XOR) Event Based"
-msgstr "Exclusiu (XOR) basé sus des eveniments"
+msgstr "Exclusiu (XOR) basat sus des eveniments"
 
 #: ../sheets/BPMN.sheet.in.h:30
 msgid "Inclusive (OR)"
@@ -8008,16 +7790,16 @@ msgstr "Annotacion textuelle"
 #. For: zenith
 #: ../sheets/ChemEng.sheet.in.h:2
 msgid "ChemEng"
-msgstr "Génie chimique"
+msgstr "Gèni quimic"
 
 #: ../sheets/ChemEng.sheet.in.h:3
 msgid "Collection for chemical engineering"
-msgstr "Collection d'objèctes del génie chimique"
+msgstr "Colleccion d'objèctes del gèni quimic"
 
 #: ../sheets/ChemEng.sheet.in.h:4
 #, fuzzy
 msgid "Fan or Stirrer"
-msgstr "Pompa centrifuge o ventilateur"
+msgstr "Pompa centrifuge o ventilador"
 
 #: ../sheets/ChemEng.sheet.in.h:5
 msgid "Spraying Device"
@@ -8025,37 +7807,37 @@ msgstr "Pulvérisateur o sistèma d'arrosage"
 
 #: ../sheets/ChemEng.sheet.in.h:6
 msgid "Pneumatic Line"
-msgstr "Conduite pneumatique"
+msgstr "Conducha pneumatica"
 
 #: ../sheets/ChemEng.sheet.in.h:7
 msgid "Pneumatic Line, vertical"
-msgstr "Conduite pneumatique a la verticala"
+msgstr "Conducha pneumatica a la verticala"
 
 #: ../sheets/ChemEng.sheet.in.h:9
 msgid "Simple Heat Exchanger"
-msgstr "Échangeur thermique, o de chaleur simple"
+msgstr "Escambiador termic, o de calor simpla"
 
 #: ../sheets/ChemEng.sheet.in.h:10
 msgid "Simple Heat Exchanger, vertical"
-msgstr "Échangeur thermique, o de chaleur simple, a la verticala"
+msgstr "Escambiador termic, o de calor simpla, a la verticala"
 
 #: ../sheets/ChemEng.sheet.in.h:11
 msgid "Water Cooler"
-msgstr "Refroidisseur a eau"
+msgstr "Enfregidor amb aiga"
 
 #: ../sheets/ChemEng.sheet.in.h:12
 msgid "Water Cooler, vertical"
-msgstr "Refroidisseur a eau a la verticala (ou d'eau)"
+msgstr "Enfregidor amb aiga a la verticala"
 
 #: ../sheets/ChemEng.sheet.in.h:13
 #, fuzzy
 msgid "Fixed-Sheet Exchanger"
-msgstr "Échangeur thermique, o de chaleur simple"
+msgstr "Escambiador termic, o de calor simpla"
 
 #: ../sheets/ChemEng.sheet.in.h:14
 #, fuzzy
 msgid "Floating-Head or U-Tube Exchanger"
-msgstr "Porte-alésoir flottant o échangeur u-tube"
+msgstr "Porte-alésoir flottant o escambiador u-tube"
 
 #: ../sheets/ChemEng.sheet.in.h:15
 msgid "Kettle Reboiler"
@@ -8063,34 +7845,34 @@ msgstr "Rebouilleur de Kettle"
 
 #: ../sheets/ChemEng.sheet.in.h:16
 msgid "Air Cooler"
-msgstr "Aérorefroidisseur"
+msgstr "Aeroenfregidor"
 
 #: ../sheets/ChemEng.sheet.in.h:17
 #, fuzzy
 msgid "Forced-Flow Air Cooler"
-msgstr "Sistèma de refroidissement a évacuation forcée"
+msgstr "Sistèma de refregiment a évacuation forcée"
 
 #: ../sheets/ChemEng.sheet.in.h:18
 #, fuzzy
 msgid "Induced-Flow Air Cooler"
-msgstr "Sistèma de refroidissement d'air a flux induit"
+msgstr "Sistèma de refregiment d'air a flux induit"
 
 #: ../sheets/ChemEng.sheet.in.h:19
 #, fuzzy
 msgid "Plate Exchanger"
-msgstr "Échangeur thermique"
+msgstr "Escambiador termic"
 
 #: ../sheets/ChemEng.sheet.in.h:20
 msgid "Double-Pipe Exchanger"
-msgstr "Double-échangeur thermique"
+msgstr "Doble-escambiador termic"
 
 #: ../sheets/ChemEng.sheet.in.h:21
 msgid "Heating/Cooling Coil"
-msgstr "Serpentin de réchauffage o de refroidissement"
+msgstr "Serpentin de réchauffage o de refregiment"
 
 #: ../sheets/ChemEng.sheet.in.h:22
 msgid "Heating/Cooling Coil, vertical"
-msgstr "Serpentin de réchauffage o de refroidissement, vertical"
+msgstr "Serpentin de réchauffage o de refregiment, vertical"
 
 #: ../sheets/ChemEng.sheet.in.h:23
 #, fuzzy
@@ -8140,7 +7922,7 @@ msgstr "Clarificateur o nauc de décantation"
 
 #: ../sheets/ChemEng.sheet.in.h:33
 msgid "Sealed Tank"
-msgstr "Cuve étanche/fermée"
+msgstr "Cuve étanche/tampada"
 
 #: ../sheets/ChemEng.sheet.in.h:34
 msgid "Covered tank"
@@ -8164,7 +7946,7 @@ msgstr "Gazomètre, de base"
 
 #: ../sheets/ChemEng.sheet.in.h:39
 msgid "Centrifugal Pump or Fan"
-msgstr "Pompa centrifuge o ventilateur"
+msgstr "Pompa centrifuge o ventilador"
 
 #: ../sheets/ChemEng.sheet.in.h:40
 #, fuzzy
@@ -8177,7 +7959,7 @@ msgstr "Compresseur a piston o pompe"
 
 #: ../sheets/ChemEng.sheet.in.h:42
 msgid "Axial Flow Fan"
-msgstr "Ventilateur axial"
+msgstr "Ventilador axial"
 
 #: ../sheets/ChemEng.sheet.in.h:43
 msgid "Compressor or Turbine"
@@ -8189,33 +7971,31 @@ msgstr "Injector o éjector"
 
 #: ../sheets/ChemEng.sheet.in.h:45
 msgid "AC Generator"
-msgstr "Générateur de courant alternatif"
+msgstr "Générateur de courant alternatiu"
 
 #: ../sheets/ChemEng.sheet.in.h:46
 msgid "Valve"
-msgstr "Vanne"
+msgstr "Martelièra"
 
 #: ../sheets/ChemEng.sheet.in.h:47
-#, fuzzy
 msgid "Valve, vertical"
-msgstr "Ajustement vertical"
+msgstr "Martelièra verticala"
 
 #: ../sheets/ChemEng.sheet.in.h:48
 msgid "Regulable Valve"
-msgstr "Valve réglable"
+msgstr "Martelièra reglabla"
 
 #: ../sheets/ChemEng.sheet.in.h:49
 msgid "Regulable Valve, vertical"
-msgstr "Valve réglable, orientada verticalament"
+msgstr "Martelièra reglabla, orientada verticalament"
 
 #: ../sheets/ChemEng.sheet.in.h:50
 msgid "Basic Filter"
-msgstr "Filtre basique"
+msgstr "Filtre basic"
 
 #: ../sheets/ChemEng.sheet.in.h:51
-#, fuzzy
 msgid "Mixer"
-msgstr "Boirador"
+msgstr "Mesclador"
 
 #: ../sheets/ChemEng.sheet.in.h:52
 msgid "Cyclone and hydrocyclone"
@@ -8230,7 +8010,7 @@ msgid "Centrifuge"
 msgstr "Centrifugeuse"
 
 #: ../sheets/ChemEng.sheet.in.h:55
-msgid "Pressure Relief Valve"
+msgid "Pressure Relèu Valve"
 msgstr ""
 
 #: ../sheets/chronogram.sheet.in.h:1
@@ -8239,7 +8019,7 @@ msgstr "Chronogramme"
 
 #: ../sheets/chronogram.sheet.in.h:2
 msgid "Objects to design chronogram charts"
-msgstr "Objèctes per lo dessenh de chronogrammes"
+msgstr "Objèctes pel dessenh de chronogrammes"
 
 #: ../sheets/chronogram.sheet.in.h:3
 msgid "Time scale"
@@ -8263,11 +8043,11 @@ msgstr "Résistància alinhada verticalament"
 
 #: ../sheets/Circuit.sheet.in.h:4
 msgid "Horizontally aligned inductor"
-msgstr "Bobine d'induction alinhada orizontalament"
+msgstr "Bobina d'induccion alinhada orizontalament"
 
 #: ../sheets/Circuit.sheet.in.h:5
 msgid "Vertically aligned inductor"
-msgstr "Bobine d'induction alinhada verticalament"
+msgstr "Bobina d'induccion alinhada verticalament"
 
 #: ../sheets/Circuit.sheet.in.h:6
 msgid "Horizontally aligned resistor"
@@ -8275,15 +8055,15 @@ msgstr "Résistància alinhada orizontalament"
 
 #: ../sheets/Circuit.sheet.in.h:7
 msgid "Vertically aligned resistor (European)"
-msgstr "Résistància alinhada verticalament (européenne)"
+msgstr "Résistància alinhada verticalament (europèa)"
 
 #: ../sheets/Circuit.sheet.in.h:8
 msgid "Horizontally aligned inductor (European)"
-msgstr "Bobine d'induction alinhada orizontalament (européenne)"
+msgstr "Bobina d'induccion alinhada orizontalament (europèa)"
 
 #: ../sheets/Circuit.sheet.in.h:9
 msgid "Vertically aligned inductor (European)"
-msgstr "Bobine d'induction alinhada verticalament (européenne)"
+msgstr "Bobina d'induccion alinhada verticalament (europèa)"
 
 #: ../sheets/Circuit.sheet.in.h:10
 msgid "Horizontally aligned resistor (European)"
@@ -8415,11 +8195,11 @@ msgstr "Terminal"
 
 #: ../sheets/ciscocomputer.sheet.in.h:6
 msgid "SUN workstation"
-msgstr "Una estacion de travail SUN"
+msgstr "Una estacion de trabalh SUN"
 
 #: ../sheets/ciscocomputer.sheet.in.h:7
 msgid "CiscoWorks workstation"
-msgstr "Una estacion de travail CiscoWorks"
+msgstr "Una estacion de trabalh CiscoWorks"
 
 #: ../sheets/ciscocomputer.sheet.in.h:8
 msgid "PC Router Card"
@@ -8427,11 +8207,11 @@ msgstr "Carte rotador per PC"
 
 #: ../sheets/ciscocomputer.sheet.in.h:9
 msgid "PC Software"
-msgstr "Logiciel PC"
+msgstr "Logicial PC"
 
 #: ../sheets/ciscocomputer.sheet.in.h:10
 msgid "PC with Router-Based Software"
-msgstr "PC amb un logiciel de routage"
+msgstr "PC amb un logicial de rotatge"
 
 #: ../sheets/ciscocomputer.sheet.in.h:11
 msgid "Workgroup director"
@@ -8446,7 +8226,6 @@ msgid "Cisco CA"
 msgstr "CA Cisco"
 
 #: ../sheets/ciscocomputer.sheet.in.h:14
-#, fuzzy
 msgid "WWW server"
 msgstr "Servidor WWW"
 
@@ -8460,7 +8239,7 @@ msgstr "Servidor de Fichièrs"
 
 #: ../sheets/ciscocomputer.sheet.in.h:17
 msgid "Software-Based Router on File Server"
-msgstr "Rotador logiciel sus servidor de fichièrs"
+msgstr "Rotador logicial sus servidor de fichièrs"
 
 #: ../sheets/ciscocomputer.sheet.in.h:18
 msgid "Server with PC Router"
@@ -8468,7 +8247,7 @@ msgstr "Servidor amb rotador PC"
 
 #: ../sheets/ciscocomputer.sheet.in.h:19
 msgid "IBM Tower"
-msgstr "Tour IBM"
+msgstr "Torre IBM"
 
 #: ../sheets/ciscocomputer.sheet.in.h:20
 msgid "IBM Mini (AS400)"
@@ -8541,7 +8320,7 @@ msgstr "Ordenador portable"
 
 #: ../sheets/ciscocomputer.sheet.in.h:38 ../sheets/network.sheet.in.h:4
 msgid "Monitor"
-msgstr "Un moniteur"
+msgstr "Un monitor"
 
 #: ../sheets/ciscocomputer.sheet.in.h:39
 msgid "PC Video"
@@ -8629,7 +8408,7 @@ msgstr "Rotador de longor d'ondes"
 
 #: ../sheets/ciscohub.sheet.in.h:9
 msgid "Wireless router"
-msgstr "Wireless router"
+msgstr "Wireless rotar"
 
 #: ../sheets/ciscohub.sheet.in.h:10
 msgid "7507 Router"
@@ -8703,7 +8482,7 @@ msgstr "Commutator de grop de travail"
 
 #: ../sheets/ciscohub.sheet.in.h:27
 msgid "Workgroup switch Subdued"
-msgstr "Commutator de grop de travail atténué"
+msgstr "Commutator de grop de trabalh atténué"
 
 #: ../sheets/ciscohub.sheet.in.h:28
 msgid "Workgroup Switch Voice-Enabled"
@@ -8724,12 +8503,12 @@ msgstr "Processor de commutator"
 
 #: ../sheets/ciscohub.sheet.in.h:32
 msgid "Route Switch Processor"
-msgstr "Processor de commutation de routes"
+msgstr "Processor de commutation de rotas"
 
 #: ../sheets/ciscohub.sheet.in.h:33
 #, fuzzy
 msgid "Route Switch Processor with Si"
-msgstr "Processor de commutation de routes a silicium"
+msgstr "Processor de commutation de rotas a silicium"
 
 #: ../sheets/ciscohub.sheet.in.h:34
 msgid "PXF"
@@ -8842,8 +8621,8 @@ msgid "Workgroup 5002"
 msgstr "Workgroup 5002"
 
 #: ../sheets/ciscohub.sheet.in.h:61
-msgid "NetRanger"
-msgstr "NetRanger"
+msgid "NetRenger"
+msgstr "NetRenger"
 
 #: ../sheets/ciscohub.sheet.in.h:62
 msgid "MGX 8220"
@@ -8964,11 +8743,11 @@ msgstr "Ostal"
 
 #: ../sheets/ciscomisc.sheet.in.h:17
 msgid "House blue"
-msgstr "Ostal bleue"
+msgstr "Ostal blava"
 
 #: ../sheets/ciscomisc.sheet.in.h:18
 msgid "Telecommuter house"
-msgstr "Ostal de télétravailleur"
+msgstr "Ostal de télétravalhador"
 
 #: ../sheets/ciscomisc.sheet.in.h:19
 msgid "Telecommuter house subdued"
@@ -9016,7 +8795,7 @@ msgstr "Femna dorée"
 
 #: ../sheets/ciscomisc.sheet.in.h:30
 msgid "Woman blue"
-msgstr "Femna bleue"
+msgstr "Femna blava"
 
 #: ../sheets/ciscomisc.sheet.in.h:31
 msgid "Running man"
@@ -9028,7 +8807,7 @@ msgstr "Coureur atténué"
 
 #: ../sheets/ciscomisc.sheet.in.h:33
 msgid "Telecommuter"
-msgstr "Télétravailleur"
+msgstr "Télétravalhador"
 
 #: ../sheets/ciscomisc.sheet.in.h:34
 msgid "Running woman"
@@ -9372,7 +9151,7 @@ msgstr "Nívol foncé"
 #: ../sheets/cisconetwork.sheet.in.h:70
 #, fuzzy
 msgid "Distributed Director"
-msgstr "Director de Groupe de Travail"
+msgstr "Director de Grop de Travail"
 
 #: ../sheets/cisconetwork.sheet.in.h:71
 msgid "LocalDirector"
@@ -9553,7 +9332,7 @@ msgstr "Telefòn IP"
 
 #: ../sheets/ciscotelephony.sheet.in.h:12
 msgid "Softphone"
-msgstr "Un telefòn logiciel"
+msgstr "Un telefòn logicial"
 
 #: ../sheets/ciscotelephony.sheet.in.h:13
 msgid "Cellular Phone"
@@ -9671,11 +9450,11 @@ msgstr "BTS 10200"
 
 #: ../sheets/ciscotelephony.sheet.in.h:40
 msgid "Generic softswitch"
-msgstr "Commutator logiciel générique"
+msgstr "Commutator logicial générique"
 
 #: ../sheets/ciscotelephony.sheet.in.h:41
 msgid "SC2200/VSC3000 host"
-msgstr "Hôte SC2200/VSC3000"
+msgstr "Òste SC2200/VSC3000"
 
 #: ../sheets/ciscotelephony.sheet.in.h:42
 msgid "Virtual switch controller (VSC 3000)"
@@ -9684,11 +9463,11 @@ msgstr "Contrarotlador de commutator virtual (VSC 3000)"
 #: ../sheets/ciscotelephony.sheet.in.h:43
 #, fuzzy
 msgid "SC2200 (Signalling Controller)"
-msgstr "Hôte SC2200/VSC3000"
+msgstr "Òste SC2200/VSC3000"
 
 #: ../sheets/ciscotelephony.sheet.in.h:44
 msgid "MoH server (Music on Hold)"
-msgstr "Servidor de disc musical d'attente"
+msgstr "Servidor de disc musical d'espèra"
 
 #: ../sheets/ciscotelephony.sheet.in.h:45
 msgid "TDM router"
@@ -9745,7 +9524,7 @@ msgstr "Génie Civil"
 
 #: ../sheets/civil.sheet.in.h:2
 msgid "Civil Engineering Components"
-msgstr "Simbòls utilisés en Génie Civil"
+msgstr "Simbòls utilizats en Génie Civil"
 
 #: ../sheets/civil.sheet.in.h:3
 msgid "Vertical rest"
@@ -9805,11 +9584,11 @@ msgstr "Compresseur orientat verticalament"
 
 #: ../sheets/civil.sheet.in.h:17
 msgid "Vertically aligned valve"
-msgstr "Vanne orientada verticalament"
+msgstr "Martelièra orientada verticalament"
 
 #: ../sheets/civil.sheet.in.h:18
 msgid "Horizontally aligned valve"
-msgstr "Vanne orientada orizontalament"
+msgstr "Martelièra orientada orizontalament"
 
 #: ../sheets/civil.sheet.in.h:19
 msgid "Backflow preventer"
@@ -9824,7 +9603,7 @@ msgid "Gas bottle"
 msgstr "Bonbonne de gaz"
 
 #: ../sheets/civil.sheet.in.h:22
-msgid "Frequency converter"
+msgid "Frequency converdar"
 msgstr "Convertisseur de fréquence"
 
 #: ../sheets/civil.sheet.in.h:23
@@ -9865,11 +9644,11 @@ msgstr "Components de diagramas LADDER"
 
 #: ../sheets/Contact.sheet.in.h:3
 msgid "'if' (normally open) ladder contact"
-msgstr "Contacte ladder normalement ouvert « si »"
+msgstr "Contacte ladder normalament dobèrt « si »"
 
 #: ../sheets/Contact.sheet.in.h:4
 msgid "'if not' (normally closed) ladder contact"
-msgstr "Contacte ladder normalement fermé « sinon »"
+msgstr "Contacte ladder normalament tampat « sinon »"
 
 #: ../sheets/Contact.sheet.in.h:5
 msgid "Simple output variable"
@@ -9962,22 +9741,22 @@ msgstr "Somme, soustrayant l'entrada del haut (?)"
 #: ../sheets/Cybernetics.sheet.in.h:11
 #, fuzzy
 msgid "Integrator — input left"
-msgstr "Organe d'intégration - entrada esquèrra"
+msgstr "Organe d'integracion - entrada esquèrra"
 
 #: ../sheets/Cybernetics.sheet.in.h:12
 #, fuzzy
 msgid "Integrator — input right"
-msgstr "Organe d'intégration - entrada drecha"
+msgstr "Organe d'integracion - entrada drecha"
 
 #: ../sheets/Cybernetics.sheet.in.h:13
 #, fuzzy
 msgid "Integrator — input bottom"
-msgstr "Organe d'intégration - entrada bas"
+msgstr "Organe d'integracion - entrada bas"
 
 #: ../sheets/Cybernetics.sheet.in.h:14
 #, fuzzy
 msgid "Integrator — input top"
-msgstr "Organe d'intégration - entrada haut"
+msgstr "Organe d'integracion - entrada haut"
 
 #: ../sheets/Cybernetics.sheet.in.h:15
 #, fuzzy
@@ -10021,7 +9800,7 @@ msgstr "Redresseur demi-onde o « entrada-rampe »"
 
 #: ../sheets/Cybernetics.sheet.in.h:24
 msgid "Full wave rectifier (absolute value)"
-msgstr "Redresseur pleine-onde (valor absolue)"
+msgstr "Redresseur plena-onde (valor absolue)"
 
 #: ../sheets/Cybernetics.sheet.in.h:25
 msgid "Constant positive shift on the y-axis"
@@ -10050,7 +9829,7 @@ msgstr "Factor constant inferior a -1"
 #: ../sheets/Cybernetics.sheet.in.h:31
 #, fuzzy
 msgid "Template for custom characteristics"
-msgstr "Onglets personnalisés per ce tèxte"
+msgstr "Onglets personalizats per ce tèxte"
 
 #: ../sheets/Cybernetics.sheet.in.h:32
 msgid "Time delay"
@@ -10063,7 +9842,7 @@ msgstr "Donadas"
 
 #: ../sheets/Database.sheet.in.h:2
 msgid "Editor for Database Table Relation Diagrams"
-msgstr "Editor de diagramas Entités-Relacions"
+msgstr "Editor de diagramas Entitats-Relacions"
 
 #: ../sheets/Database.sheet.in.h:5
 #, fuzzy
@@ -10080,35 +9859,35 @@ msgstr "Components de circuits électriques"
 
 #: ../sheets/Electric.sheet.in.h:3
 msgid "Normally open contact (horizontal)"
-msgstr "Contacte normalement ouvert (orizontal)"
+msgstr "Contacte normalament dobèrt (orizontal)"
 
 #: ../sheets/Electric.sheet.in.h:4
 msgid "Normally closed contact (horizontal)"
-msgstr "Contacte normalement fermé (orizontal)"
+msgstr "Contacte normalament tampat (orizontal)"
 
 #: ../sheets/Electric.sheet.in.h:5
 msgid "Normally open position switch (horizontal)"
-msgstr "Interrupteur de posicion normalement ouvert (orizontal)"
+msgstr "Interruptor de posicion normalament dobèrt (orizontal)"
 
 #: ../sheets/Electric.sheet.in.h:6
 msgid "Normally closed position switch (horizontal)"
-msgstr "Interrupteur de posicion normalement fermé (orizontal)"
+msgstr "Interruptor de posicion normalament tampat (orizontal)"
 
 #: ../sheets/Electric.sheet.in.h:7
 msgid "Normally open contact (vertical)"
-msgstr "Contacte normalement ouvert a la verticala"
+msgstr "Contacte normalament dobèrt a la verticala"
 
 #: ../sheets/Electric.sheet.in.h:8
 msgid "Normally closed contact (vertical)"
-msgstr "Contacte normalement fermé a la verticala"
+msgstr "Contacte normalament tampat a la verticala"
 
 #: ../sheets/Electric.sheet.in.h:9
 msgid "Normally open position switch (vertical)"
-msgstr "Interrupteur de posicion normalement ouvert a la verticala"
+msgstr "Interruptor de posicion normalament dobèrt a la verticala"
 
 #: ../sheets/Electric.sheet.in.h:10
 msgid "Normally closed position switch (vertical)"
-msgstr "Interrupteur de posicion normalement fermé a la verticala"
+msgstr "Interruptor de posicion normalament tampat a la verticala"
 
 #: ../sheets/Electric.sheet.in.h:11
 msgid "The command organ of a relay (horizontal)"
@@ -10120,7 +9899,7 @@ msgstr "Relais a l'orizontal"
 
 #: ../sheets/Electric.sheet.in.h:13
 msgid "Lamp or indicator light (horizontal)"
-msgstr "Lampe o un voyant lumineux (orizontal)"
+msgstr "Lampe o un lum lumineux (orizontal)"
 
 #: ../sheets/Electric.sheet.in.h:14
 msgid "The command organ of a relay (vertical)"
@@ -10132,7 +9911,7 @@ msgstr "Relais a la verticala"
 
 #: ../sheets/Electric.sheet.in.h:16
 msgid "Lamp or indicator light (vertical)"
-msgstr "Lampe o un voyant lumineux a la verticala"
+msgstr "Lampe o un lum lumineux a la verticala"
 
 #: ../sheets/Electric.sheet.in.h:17 ../sheets/Pneumatic.sheet.in.h:22
 msgid "Connection point"
@@ -10144,11 +9923,11 @@ msgstr "ER"
 
 #: ../sheets/ER.sheet.in.h:2
 msgid "Editor for Entity Relations Diagrams"
-msgstr "Editor de diagramas Entités-Relacions"
+msgstr "Editor de diagramas Entitats-Relacions"
 
 #: ../sheets/ER.sheet.in.h:4
 msgid "Weak entity"
-msgstr "Entité faible"
+msgstr "Entitat faible"
 
 #: ../sheets/ER.sheet.in.h:7
 msgid "Participation"
@@ -10189,7 +9968,7 @@ msgstr "Document"
 
 #: ../sheets/Flowchart.sheet.in.h:12
 msgid "Manual operation"
-msgstr "Operacion Manuelle"
+msgstr "Operacion Manuala"
 
 #: ../sheets/Flowchart.sheet.in.h:13
 msgid "Preparation"
@@ -10197,15 +9976,15 @@ msgstr "Preparacion"
 
 #: ../sheets/Flowchart.sheet.in.h:14
 msgid "Manual input"
-msgstr "Entrada Manuelle"
+msgstr "Entrada Manuala"
 
 #: ../sheets/Flowchart.sheet.in.h:15
 msgid "Predefined process"
-msgstr "Processus prédéfini"
+msgstr "Processus predefinit"
 
 #: ../sheets/Flowchart.sheet.in.h:16
 msgid "Terminal Interrupt"
-msgstr "Interruption Terminale"
+msgstr "Interrupcion Terminala"
 
 #: ../sheets/Flowchart.sheet.in.h:17
 msgid "Magnetic disk"
@@ -10224,41 +10003,38 @@ msgid "Internal storage"
 msgstr "Emmagazinatge Intèrne"
 
 #: ../sheets/Flowchart.sheet.in.h:21
-#, fuzzy
 msgid "Merge"
 msgstr "Fusionar"
 
 #: ../sheets/Flowchart.sheet.in.h:23
 msgid "Delay"
-msgstr "Délai"
+msgstr "Relambi"
 
 #. XXX
 #: ../sheets/Flowchart.sheet.in.h:25
 msgid "Summing junction"
-msgstr "Jonction sommante"
+msgstr "Joncion sommante"
 
 #. XXX
 #: ../sheets/Flowchart.sheet.in.h:27
 msgid "Collate"
-msgstr "Rassembler"
+msgstr "Rassemblar"
 
 #: ../sheets/Flowchart.sheet.in.h:28
-#, fuzzy
 msgid "Sort"
-msgstr "Ordenar"
+msgstr "Triar"
 
 #: ../sheets/Flowchart.sheet.in.h:29
-#, fuzzy
 msgid "Or"
 msgstr "O"
 
 #: ../sheets/Flowchart.sheet.in.h:30
 msgid "Punched card"
-msgstr "Carte perforée"
+msgstr "Carta perforada"
 
 #: ../sheets/Flowchart.sheet.in.h:31
 msgid "Punched tape"
-msgstr "Bande perforée"
+msgstr "Bande perforada"
 
 #: ../sheets/Flowchart.sheet.in.h:32
 msgid "Transmittal tape"
@@ -10269,7 +10045,6 @@ msgid "Offline storage"
 msgstr "Emmagazinatge hors-ligne"
 
 #: ../sheets/Flowchart.sheet.in.h:34
-#, fuzzy
 msgid "Data source"
 msgstr "Font de donadas"
 
@@ -10279,7 +10054,7 @@ msgstr "FS"
 
 #: ../sheets/FS.sheet.in.h:2
 msgid "Editor for Function Structure Diagrams."
-msgstr "Editor de diagramas de structures fonctionnelles."
+msgstr "Editor de diagramas de estructuras foncionalas."
 
 #: ../sheets/FS.sheet.in.h:3
 msgid "Flow"
@@ -10290,7 +10065,6 @@ msgid "Orthogonal polyline flow"
 msgstr "Tracer un segment orthogonal de flux"
 
 #: ../sheets/FS.sheet.in.h:5
-#, fuzzy
 msgid "Function"
 msgstr "Foncion"
 
@@ -10304,17 +10078,16 @@ msgid "Gane and Sarson DFD"
 msgstr "Diagrama de flux de donadas Gane e Sarson"
 
 #: ../sheets/Gane_and_Sarson.sheet.in.h:4
-#, fuzzy
 msgid "Alternate external entity"
-msgstr "Referéncia de l'entité décimale :"
+msgstr "Referéncia de l'entitat decimala :"
 
 #: ../sheets/Gane_and_Sarson.sheet.in.h:5
 msgid "Data store"
-msgstr "Emmagazinatge des donadas"
+msgstr "Emmagazinatge de las donadas"
 
 #: ../sheets/Gane_and_Sarson.sheet.in.h:6
 msgid "External entity"
-msgstr "Entité externe"
+msgstr "Entitat extèrna"
 
 #: ../sheets/GRAFCET.sheet.in.h:1
 msgid "GRAFCET"
@@ -10322,11 +10095,11 @@ msgstr "GRAFCET"
 
 #: ../sheets/GRAFCET.sheet.in.h:2
 msgid "Objects to design GRAFCET charts"
-msgstr "Objèctes per lo dessenh de Grafcets"
+msgstr "Objèctes pel dessenh de Grafcets"
 
 #: ../sheets/GRAFCET.sheet.in.h:8
 msgid "Macro sub-program call step"
-msgstr "Una etapa d'appel de sosprograma"
+msgstr "Una etapa d'apèl de sosprograma"
 
 #: ../sheets/GRAFCET.sheet.in.h:9
 msgid "Action to associate to a step"
@@ -10355,34 +10128,33 @@ msgstr "Un arc (montant)"
 #. use dc:title instead?
 #: ../sheets/IsometricMap.sheet.in.h:2
 msgid "Map, Isometric"
-msgstr "Carte isométrique"
+msgstr "Mapa isometrica"
 
 #. use dc:description instead?
 #: ../sheets/IsometricMap.sheet.in.h:4
 #, fuzzy
 msgid "Isometric Directional Map Shapes"
-msgstr "Formas isométriques"
+msgstr "Formas isometricas"
 
 #: ../sheets/IsometricMap.sheet.in.h:5
 msgid "Road Section"
-msgstr "Carrefour"
+msgstr "Caireforc"
 
 #: ../sheets/IsometricMap.sheet.in.h:6
-#, fuzzy
 msgid "Long Straight Road Section"
-msgstr "Element de grande rue"
+msgstr "Element de granda carrièra"
 
 #: ../sheets/IsometricMap.sheet.in.h:7
 msgid "Crossroads"
-msgstr "Carrefour"
+msgstr "Caireforc"
 
 #: ../sheets/IsometricMap.sheet.in.h:8
 msgid "T-Junction"
-msgstr "Jonction en T"
+msgstr "Joncion en T"
 
 #: ../sheets/IsometricMap.sheet.in.h:9
 msgid "Elevated Road"
-msgstr "Route surélevée"
+msgstr "Rota surélevée"
 
 #: ../sheets/IsometricMap.sheet.in.h:10
 msgid "Corner 1"
@@ -10397,63 +10169,56 @@ msgid "River"
 msgstr "Rivière"
 
 #: ../sheets/IsometricMap.sheet.in.h:13
-#, fuzzy
 msgid "Roof 1"
-msgstr "Toit 1"
+msgstr "Teulat 1"
 
 #: ../sheets/IsometricMap.sheet.in.h:14
 msgid "Block 1, 2:4"
-msgstr "Pâté de ostals 1, 2:4"
+msgstr "Illa 1, 2:4"
 
 #: ../sheets/IsometricMap.sheet.in.h:15
-#, fuzzy
 msgid "Block 2, 2:8"
-msgstr "Block 2, 2:8"
+msgstr "Illa 2, 2:8"
 
 #: ../sheets/IsometricMap.sheet.in.h:16
-#, fuzzy
 msgid "Block 3, 4:4"
-msgstr "Block 3, 4:4"
+msgstr "Illa 3, 4:4"
 
 #: ../sheets/IsometricMap.sheet.in.h:17
-#, fuzzy
 msgid "Block 4, 4:8"
-msgstr "Block 4, 4:8"
+msgstr "Illa 4, 4:8"
 
 #: ../sheets/IsometricMap.sheet.in.h:18
-#, fuzzy
 msgid "Block 5, 3:3"
-msgstr "Block 5, 3:3"
+msgstr "Illa 5, 3:3"
 
 #: ../sheets/IsometricMap.sheet.in.h:19
 msgid "Block 6, 4:6"
-msgstr "Pâté de ostals 6, 4:6"
+msgstr "Illa 6, 4:6"
 
 #: ../sheets/IsometricMap.sheet.in.h:20
 msgid "Block 7"
-msgstr "Pâté de ostals 7"
+msgstr "Illa 7"
 
 #: ../sheets/IsometricMap.sheet.in.h:21
 msgid "Factory"
-msgstr "Fabrique"
+msgstr "Fabrica"
 
 #: ../sheets/IsometricMap.sheet.in.h:22
 msgid "Car 1, Front View"
-msgstr "Veitura 1, vista devant"
+msgstr "Veitura 1, vista davant"
 
 #: ../sheets/IsometricMap.sheet.in.h:23
 msgid "Car 2, Rear View"
-msgstr "Veitura 2, vista arrière"
+msgstr "Veitura 2, vista arrièr"
 
 #: ../sheets/IsometricMap.sheet.in.h:24
-#, fuzzy
 msgid "Train 1, angled downward"
-msgstr "Train 1, vista descendante"
+msgstr "Tren 1, vista descendenta"
 
 #: ../sheets/IsometricMap.sheet.in.h:25
-#, fuzzy
 msgid "Train 2, angled upward"
-msgstr "Train 2, vista ascendante"
+msgstr "Tren 2, vista ascendenta"
 
 #: ../sheets/IsometricMap.sheet.in.h:26
 msgid "Tree 1"
@@ -10465,15 +10230,15 @@ msgstr "Palanca"
 
 #: ../sheets/IsometricMap.sheet.in.h:28
 msgid "One Way Road Sign"
-msgstr "Simbòl routier « sens unique »"
+msgstr "Simbòl rotièr « sens unic »"
 
 #: ../sheets/Istar.sheet.in.h:1
 msgid "RE-i*"
-msgstr "Ingénierie des exigences - représenation i*"
+msgstr "Ingénierie des exigences - representacion i*"
 
 #: ../sheets/Istar.sheet.in.h:2
 msgid "Objects to design i* diagrams"
-msgstr "Objèctes per lo dessenh des diagramas i*"
+msgstr "Objèctes pel dessenh des diagramas i*"
 
 #: ../sheets/Istar.sheet.in.h:3
 msgid "An i* softgoal"
@@ -10485,7 +10250,7 @@ msgstr "But"
 
 #: ../sheets/Istar.sheet.in.h:5
 msgid "An i* resource"
-msgstr "Refont"
+msgstr "Ressorsa"
 
 #: ../sheets/Istar.sheet.in.h:6
 msgid "An i* task"
@@ -10493,7 +10258,7 @@ msgstr "Prètzfach"
 
 #: ../sheets/Istar.sheet.in.h:7
 msgid "An i* unspecified actor"
-msgstr "Acteur non spécifié"
+msgstr "Acteur non especificat"
 
 #: ../sheets/Istar.sheet.in.h:8
 msgid "An i* agent"
@@ -10509,15 +10274,15 @@ msgstr "Rôle"
 
 #: ../sheets/Istar.sheet.in.h:11
 msgid "An i* unspecified link"
-msgstr "Ligam non spécifié"
+msgstr "Ligam non especificat"
 
 #: ../sheets/Istar.sheet.in.h:12
 msgid "An i* positive contribution"
-msgstr "Apport positiu"
+msgstr "Apòrt positiu"
 
 #: ../sheets/Istar.sheet.in.h:13
 msgid "An i* negative contribution"
-msgstr "Apport negatiu"
+msgstr "Apòrt negatiu"
 
 #: ../sheets/Istar.sheet.in.h:14
 msgid "An i* dependency link"
@@ -10537,7 +10302,7 @@ msgstr "Ingénierie des exigences - représenation de Jackson"
 
 #: ../sheets/Jackson.sheet.in.h:2
 msgid "Objects to design Jackson diagrams"
-msgstr "Objèctes per lo dessenh de diagramas de Jackson"
+msgstr "Objèctes pel dessenh de diagramas de Jackson"
 
 #: ../sheets/Jackson.sheet.in.h:3
 msgid "A Jackson given domain"
@@ -10545,11 +10310,11 @@ msgstr "Domeni donné"
 
 #: ../sheets/Jackson.sheet.in.h:4
 msgid "A Jackson designed domain"
-msgstr "Domeni désigné"
+msgstr "Domeni designat"
 
 #: ../sheets/Jackson.sheet.in.h:5
 msgid "A Jackson machine domain"
-msgstr "Domeni « machine »"
+msgstr "Domeni « maquina »"
 
 #: ../sheets/Jackson.sheet.in.h:6
 msgid "A Jackson requirement"
@@ -10557,12 +10322,12 @@ msgstr "Exigence"
 
 #: ../sheets/Jackson.sheet.in.h:7
 msgid "A Jackson shared phenomenon"
-msgstr "Phénomène partagé"
+msgstr "Fenomèn Jackson partejat"
 
 #: ../sheets/Jackson.sheet.in.h:8
 #, fuzzy
 msgid "A Jackson requirement phenomenon"
-msgstr "Phénomène partagé"
+msgstr "Fenomèn partejat"
 
 #: ../sheets/jigsaw.sheet.in.h:1
 msgid "Jigsaw"
@@ -10642,7 +10407,7 @@ msgstr "Ingénierie des exigences - représenation KAOS"
 
 #: ../sheets/KAOS.sheet.in.h:2
 msgid "Objects to design KAOS diagrams"
-msgstr "Objèctes per lo dessenh de diagramas KAOS"
+msgstr "Objèctes pel dessenh de diagramas KAOS"
 
 #: ../sheets/KAOS.sheet.in.h:3
 msgid "A KAOS softgoal"
@@ -10695,7 +10460,7 @@ msgstr "Obstruction"
 
 #: ../sheets/KAOS.sheet.in.h:15
 msgid "A KAOS binary conflict"
-msgstr "Conflit binaire"
+msgstr "Conflicte binaire"
 
 #: ../sheets/KAOS.sheet.in.h:16
 msgid "A KAOS agent"
@@ -10703,12 +10468,12 @@ msgstr "Agent KAOS"
 
 #: ../sheets/KAOS.sheet.in.h:17
 msgid "A KAOS responsibility"
-msgstr "Responsabilité"
+msgstr "Responsabilitat"
 
 #: ../sheets/KAOS.sheet.in.h:18
 #, fuzzy
 msgid "A KAOS monitor link"
-msgstr "Moniteur de ret sens fial"
+msgstr "Monitor de ret sens fial"
 
 #: ../sheets/KAOS.sheet.in.h:19
 msgid "A KAOS control link"
@@ -10737,7 +10502,7 @@ msgstr "Drecha"
 
 #: ../sheets/Lights.sheet.in.h:2
 msgid "Objects to design simple lighting plots"
-msgstr "Objèctes per lo dessenh des plans de feu"
+msgstr "Objèctes pel dessenh des plans de feu"
 
 #: ../sheets/Lights.sheet.in.h:3
 #, fuzzy
@@ -10763,7 +10528,7 @@ msgstr "Projector a lentilha de Fresnel"
 
 #: ../sheets/Lights.sheet.in.h:8
 msgid "Striplight"
-msgstr "Cyclïode"
+msgstr "Cicloïd"
 
 #: ../sheets/Lights.sheet.in.h:9
 msgid "Ellipsoidal Reflector Spotlight"
@@ -10792,7 +10557,7 @@ msgstr "Estructura"
 
 #: ../sheets/Logic.sheet.in.h:1
 msgid "Logic"
-msgstr "Logique"
+msgstr "Logic"
 
 #: ../sheets/Logic.sheet.in.h:2
 msgid "Boolean Logic"
@@ -10815,7 +10580,7 @@ msgid "Simple buffer"
 msgstr "Tampon simple"
 
 #: ../sheets/Logic.sheet.in.h:7
-msgid "Inverter"
+msgid "Inverdar"
 msgstr "Ondulador"
 
 #: ../sheets/Logic.sheet.in.h:8
@@ -10905,11 +10670,11 @@ msgstr "Terminal de comunicacions tactiques satellites"
 
 #: ../sheets/MSE.sheet.in.h:7
 msgid "Multiplexer"
-msgstr "Multiplexeur"
+msgstr "Multiplexador"
 
 #: ../sheets/MSE.sheet.in.h:8
 msgid "Demultiplexer"
-msgstr "Démultiplexeur"
+msgstr "Demultiplexador"
 
 #: ../sheets/network.sheet.in.h:1
 msgid "Network"
@@ -10917,7 +10682,7 @@ msgstr "Ret"
 
 #: ../sheets/network.sheet.in.h:2
 msgid "Objects to design network diagrams with"
-msgstr "Objèctes per lo dessenh des diagramas ret"
+msgstr "Objèctes pel dessenh des diagramas ret"
 
 #: ../sheets/network.sheet.in.h:3
 msgid "Computer"
@@ -10953,7 +10718,7 @@ msgstr "Sistèma de commutation modulaire"
 
 #: ../sheets/network.sheet.in.h:12
 msgid "24 Port Patch Panel"
-msgstr "Panneau 24 ports (Patch pannel)"
+msgstr "Panneau 24 pòrts (Patch pannel)"
 
 #: ../sheets/network.sheet.in.h:13
 msgid "RJ45 wall-plug"
@@ -10961,7 +10726,7 @@ msgstr "Prise murale RJ45"
 
 #: ../sheets/network.sheet.in.h:14
 msgid "Wall-plug for the scEAD cabling system"
-msgstr "Prise murale per lo sistèma de câblage scEAD"
+msgstr "Prise murale pel sistèma de câblage scEAD"
 
 #: ../sheets/network.sheet.in.h:15
 msgid "Simple modem"
@@ -11001,11 +10766,11 @@ msgstr "Rotador parafuòc"
 
 #: ../sheets/network.sheet.in.h:24
 msgid "Workstation monitor"
-msgstr "Moniteur de estacion de travail"
+msgstr "Monitor de estacion de travail"
 
 #: ../sheets/network.sheet.in.h:25
 msgid "UNIX workstation"
-msgstr "Station de travail UNIX"
+msgstr "Station de trabalh UNIX"
 
 #: ../sheets/network.sheet.in.h:26
 msgid "Desktop PC"
@@ -11017,15 +10782,15 @@ msgstr "PC portable"
 
 #: ../sheets/network.sheet.in.h:28
 msgid "Bigtower PC"
-msgstr "PC, format grande tour"
+msgstr "PC, format granda torre"
 
 #: ../sheets/network.sheet.in.h:29
 msgid "Miditower PC"
-msgstr "PC, format mejana tour"
+msgstr "PC, format torre mejana"
 
 #: ../sheets/network.sheet.in.h:30
 msgid "Minitower PC"
-msgstr "PC, format mini-tour"
+msgstr "PC, format minitorre"
 
 #: ../sheets/network.sheet.in.h:31
 msgid "Speaker with integrated amplifier"
@@ -11057,31 +10822,31 @@ msgstr "Telefòn"
 
 #: ../sheets/network.sheet.in.h:38
 msgid "Plotter"
-msgstr "Table traçante"
+msgstr "Taula traçante"
 
 #: ../sheets/network.sheet.in.h:39
 msgid "Digitizing board"
-msgstr "Table a numériser"
+msgstr "Taula a numériser"
 
 #: ../sheets/Pneumatic.sheet.in.h:1
 msgid "Pneumatic/Hydraulic"
-msgstr "Pneumatique/Hydraulique"
+msgstr "Pneumatic/Idraulic"
 
 #: ../sheets/Pneumatic.sheet.in.h:2
 msgid "Components for pneumatic and hydraulic circuits"
-msgstr "Components de schémas pneumatiques e hydrauliques"
+msgstr "Components d'esquèmas pneumatics e idraulics"
 
 #: ../sheets/Pneumatic.sheet.in.h:3
 msgid "Double-effect jack"
-msgstr "Vérin double-effet"
+msgstr "Sòla doble-efièch"
 
 #: ../sheets/Pneumatic.sheet.in.h:4
 msgid "Normally-in simple-effect jack"
-msgstr "Vérin simple-effet, normalement rentré"
+msgstr "Sòla simple-efièch, normalament dintrada"
 
 #: ../sheets/Pneumatic.sheet.in.h:5
 msgid "Normally-out simple-effect jack"
-msgstr "Vérin simple-effet, normalement sorti"
+msgstr "Sòla simple-efièch, normalament sortida"
 
 #: ../sheets/Pneumatic.sheet.in.h:6
 msgid "Generic pressure source"
@@ -11089,11 +10854,11 @@ msgstr "Font de pression (générique)"
 
 #: ../sheets/Pneumatic.sheet.in.h:7
 msgid "Hydraulic pressure source"
-msgstr "Font de pression hydraulique"
+msgstr "Font de pression idraulica"
 
 #: ../sheets/Pneumatic.sheet.in.h:8
 msgid "Pneumatic pressure source"
-msgstr "Font de pression pneumatique"
+msgstr "Font de pression pneumatica"
 
 #: ../sheets/Pneumatic.sheet.in.h:9
 msgid "Air exhaust orifice"
@@ -11121,31 +10886,31 @@ msgstr "Comanda musculaire"
 
 #: ../sheets/Pneumatic.sheet.in.h:15
 msgid "Push-button command"
-msgstr "Comanda per bouton poussoir"
+msgstr "Comanda per boton possador"
 
 #: ../sheets/Pneumatic.sheet.in.h:16
 msgid "Mechanical command by tappet"
-msgstr "Comanda mécanique per poussoir"
+msgstr "Comanda mecanica per possador"
 
 #: ../sheets/Pneumatic.sheet.in.h:17
 msgid "Mechanical command by spring"
-msgstr "Comanda mécanique per ressort"
+msgstr "Comanda mecanica per ressort"
 
 #: ../sheets/Pneumatic.sheet.in.h:18
 msgid "Electric command (single coil)"
-msgstr "Comanda électrique (simple enroulement)"
+msgstr "Comanda electrica (simple enrotlament)"
 
 #: ../sheets/Pneumatic.sheet.in.h:19
 msgid "Electric command (double coil)"
-msgstr "Comanda électrique (double enroulement)"
+msgstr "Comanda electrica (doble enrotlament)"
 
 #: ../sheets/Pneumatic.sheet.in.h:20
 msgid "Indirect command by hydraulic driver"
-msgstr "Comanda indirecte per pilòt hydraulique"
+msgstr "Comanda indirècta per pilòt idraulic"
 
 #: ../sheets/Pneumatic.sheet.in.h:21
 msgid "Indirect command by pneumatic driver"
-msgstr "Comanda indirecte per pilòt pneumatique"
+msgstr "Comanda indirècta per pilòt pneumatic"
 
 #: ../sheets/SADT.sheet.in.h:1
 msgid "SADT/IDEF0"
@@ -11153,7 +10918,7 @@ msgstr "SADT/IDEF0"
 
 #: ../sheets/SADT.sheet.in.h:2
 msgid "Objects to design SADT diagrams"
-msgstr "Objèctes per lo dessenh de diagramas SADT"
+msgstr "Objèctes pel dessenh de diagramas SADT"
 
 #: ../sheets/SADT.sheet.in.h:3
 msgid "Activity/data flow arrow"
@@ -11193,7 +10958,7 @@ msgstr "Estat"
 
 #: ../sheets/SDL.sheet.in.h:7
 msgid "Function header"
-msgstr "Entèsta de fonction"
+msgstr "Entèsta de foncion"
 
 #: ../sheets/SDL.sheet.in.h:8
 msgid "Send message"
@@ -11201,19 +10966,19 @@ msgstr "Enviar un messatge"
 
 #: ../sheets/SDL.sheet.in.h:9
 msgid "Receive message"
-msgstr "Réception de messatge"
+msgstr "Recepcion de messatge"
 
 #: ../sheets/SDL.sheet.in.h:10
 msgid "Function call"
-msgstr "Appel de fonction"
+msgstr "Apèl de foncion"
 
 #: ../sheets/SDL.sheet.in.h:12
 msgid "Action being executed"
-msgstr "Accion en cours d'exécution"
+msgstr "Accion en cours d'execucion"
 
 #: ../sheets/SDL.sheet.in.h:13
 msgid "Save state"
-msgstr "Salvament d'état"
+msgstr "Salvament d'estat"
 
 #: ../sheets/SDL.sheet.in.h:15
 msgid "In/Out connector"
@@ -11221,11 +10986,11 @@ msgstr "Connector d'Entrada/Sortida"
 
 #: ../sheets/SDL.sheet.in.h:17
 msgid "Procedure return"
-msgstr "Retour de procédure"
+msgstr "Retorn de procédure"
 
 #: ../sheets/SDL.sheet.in.h:19
 msgid "Generic text note"
-msgstr "Note de tèxte générique"
+msgstr "Nòta de tèxte générique"
 
 #: ../sheets/Shape_Design.sheet.in.h:1
 msgid "Shape Design"
@@ -11262,7 +11027,7 @@ msgstr "Sybase"
 
 #: ../sheets/sybase.sheet.in.h:2
 msgid "Objects to design Sybase replication domain diagrams with"
-msgstr "Objèctes per lo dessenh de diagramas de réplication de domenis Sybase"
+msgstr "Objèctes pel dessenh de diagramas de replicacion de domenis Sybase"
 
 #: ../sheets/sybase.sheet.in.h:3
 msgid "Sybase dataserver"
@@ -11270,11 +11035,11 @@ msgstr "Servidor de donadas Sybase"
 
 #: ../sheets/sybase.sheet.in.h:4
 msgid "Sybase replication server"
-msgstr "Servidor de réplication Sybase"
+msgstr "Servidor de replicacion Sybase"
 
 #: ../sheets/sybase.sheet.in.h:5
 msgid "Log transfer manager or rep agent"
-msgstr "Gestionari de transfert de journaux o agent de réplication"
+msgstr "Gestionari de transfert de jornals o agent de replicacion"
 
 #: ../sheets/sybase.sheet.in.h:6
 msgid "Stable storage device"
@@ -11286,7 +11051,7 @@ msgstr "Aplicacion clienta Sybase"
 
 #: ../sheets/sybase.sheet.in.h:8
 msgid "Replication server manager"
-msgstr "Gestionari de Servidor de Réplication"
+msgstr "Gestionari de Servidor de Replicacion"
 
 #: ../sheets/UML.sheet.in.h:1
 msgid "UML"
@@ -11294,7 +11059,7 @@ msgstr "UML"
 
 #: ../sheets/UML.sheet.in.h:2
 msgid "Editor for UML Static Structure Diagrams"
-msgstr "Editor de diagramas de structures statiques UML"
+msgstr "Editor de diagramas de estructuras statiques UML"
 
 #: ../sheets/UML.sheet.in.h:5
 msgid "Note"
@@ -11306,11 +11071,11 @@ msgstr "Réalise, implémente una interfàcia especifica"
 
 #: ../sheets/UML.sheet.in.h:8
 msgid "Generalization, class inheritance"
-msgstr "Généralisation, ereitatge de classa"
+msgstr "Generalisation, ereitatge de classa"
 
 #: ../sheets/UML.sheet.in.h:9
-msgid "Association, two classes are associated"
-msgstr "Association, deux classas son associadas"
+msgid "Associacion, two classes are associated"
+msgstr "Associacion, deux classas son associadas"
 
 #: ../sheets/UML.sheet.in.h:10
 msgid "Aggregation, one class is part of another"
@@ -11322,11 +11087,11 @@ msgstr "Implémente, una classa implémente una interfàcia especifica"
 
 #: ../sheets/UML.sheet.in.h:12
 msgid "Constraint, place a constraint on something"
-msgstr "Placer una constrencha sus quelque chose"
+msgstr "Placer una constrencha sus quicòm"
 
 #: ../sheets/UML.sheet.in.h:13
 msgid "Small package"
-msgstr "Crear un (petit) paquetatge"
+msgstr "Crear un (pichon) paquetatge"
 
 #: ../sheets/UML.sheet.in.h:14
 msgid "Large package"
@@ -11358,7 +11123,7 @@ msgstr "Nosèl"
 
 #: ../sheets/UML.sheet.in.h:26
 msgid "Class stereotype icon"
-msgstr "Icône de classa-stéréotipe"
+msgstr "Icòna de classa-stéréotipe"
 
 #: ../sheets/UML.sheet.in.h:27
 msgid "Initial/End state"
@@ -11579,34 +11344,34 @@ msgstr "Crear una division/union"
 #~ "Please select those you wish to recover."
 #~ msgstr ""
 #~ "Il y a des diagrammes auto-sauvegardés.\n"
-#~ "Choisissez ceux que vous souhaitez récupérer."
+#~ "Causissètz ceux que vous souhaitez recuperar."
 
 #~ msgid "Could not initialize Bonobo!"
 #~ msgstr "Impossible d'initialiser Bonobo !"
 
 #~ msgid "X position of child widget"
-#~ msgstr "Position en X du fils"
+#~ msgstr "Position en X del fils"
 
 #~ msgid "Y position"
 #~ msgstr "Position en Y"
 
 #~ msgid "Y position of child widget"
-#~ msgstr "Position en Y du fils"
+#~ msgstr "Position en Y del fils"
 
 #~ msgid ""
 #~ "You have loaded a non-Dia file.  The file has become an element in a new "
 #~ "diagram, and if you save it, it will be saved as a Dia diagram."
 #~ msgstr ""
-#~ "Vous avez chargé un fichier non-Dia. Le fichier est devenu un élément "
-#~ "dans un nouveau diagramme, et si vous l'enregistrez, il sera sauvegardé "
+#~ "Vous avez chargé un fichièr non-Dia. Le fichièr est devenu un élément "
+#~ "dans un nouveau diagramme, et si vous l'enregistrez, il serà sauvegardé "
 #~ "comme un diagramme Dia."
 
 #~ msgid ""
 #~ "You cannot group objects that belong to different groups or have "
 #~ "different parents"
 #~ msgstr ""
-#~ "Vous ne pouvez pas grouper des objets appartenant à des groupes "
-#~ "différents ou ayant des parents différents"
+#~ "Podètz pas grouper des objets appartenant à des groupes diferents ou "
+#~ "ayant des parents diferents"
 
 #~ msgid "/Sort objects/by _name"
 #~ msgstr "/Trier les objets/par _nom"
@@ -11615,7 +11380,7 @@ msgstr "Crear una division/union"
 #~ msgstr "/Trier les objets/par _type"
 
 #~ msgid "/Sort objects/as _inserted"
-#~ msgstr "/Trier les objets/comme _insérés"
+#~ msgstr "/Trier les objets/comme _inserits"
 
 #~ msgid "/Sort objects/All by name"
 #~ msgstr "/Trier les objets/Tous par noms"
@@ -11624,7 +11389,7 @@ msgstr "Crear una division/union"
 #~ msgstr "/Trier les objets/Tous par type"
 
 #~ msgid "/Sort objects/All as inserted"
-#~ msgstr "/Trier les objets/Tous comme insérés"
+#~ msgstr "/Trier les objets/Tous coma inserits"
 
 #~ msgid "/Sort objects/_Default"
 #~ msgstr "/Trier les objets/Par _défaut"
@@ -11636,7 +11401,7 @@ msgstr "Crear una division/union"
 #~ msgstr "/Trier les objets/Par défaut/par _type"
 
 #~ msgid "/Sort objects/Default/as _inserted"
-#~ msgstr "/Trier les objets/Par défaut/comme _insérés"
+#~ msgstr "/Trier les objets/Par défaut/comme _inserits"
 
 #~ msgid "/Sort _diagrams"
 #~ msgstr "/Trier les _diagrammes"
@@ -11645,7 +11410,7 @@ msgstr "Crear una division/union"
 #~ msgstr "/Trier les _diagrammes/par _nom"
 
 #~ msgid "/Sort _diagrams/as _inserted"
-#~ msgstr "/Trier les _diagrammes/comme _insérés"
+#~ msgstr "/Trier les _diagrammes/comme _inserits"
 
 #~ msgid "/Sort diagrams/_Default"
 #~ msgstr "/Trier les diagrammes/Par _défaut"
@@ -11654,7 +11419,7 @@ msgstr "Crear una division/union"
 #~ msgstr "/Trier les diagrammes/par défaut/par _nom"
 
 #~ msgid "/Sort diagrams/Default/as _inserted"
-#~ msgstr "/Trier les diagrammes/par défaut/comme _insérés"
+#~ msgstr "/Trier les diagrammes/par défaut/comme _inserits"
 
 #~ msgid "/_Locate"
 #~ msgstr "/_Localiser"
@@ -11666,11 +11431,10 @@ msgstr "Crear una division/union"
 #~ msgstr "Diagramme modifié !"
 
 #~ msgid "NULL tooldata in tool_select_update"
-#~ msgstr ""
-#~ "Variable « tooldata » = NULL dans la fonction « tool_select_update »"
+#~ msgstr "Variable « tooldata » = NULL dans la foncion « tool_select_update »"
 
 #~ msgid "Edit Layer Attributes"
-#~ msgstr "Édition des attributs du calque"
+#~ msgstr "Édition des attributs del calque"
 
 #~ msgid "Sheets and Objects..."
 #~ msgstr "Feuilles et objets..."
@@ -11679,7 +11443,7 @@ msgstr "Crear una division/union"
 #~ msgstr "Greffons..."
 
 #~ msgid "_Diagram tree..."
-#~ msgstr "Arborescence du _diagramme..."
+#~ msgstr "Arborescéncia del _diagramme..."
 
 #~ msgid "_Export ..."
 #~ msgstr "E_xporter..."
@@ -11691,18 +11455,18 @@ msgstr "Crear una division/union"
 #~ msgstr "_Calques..."
 
 #~ msgid "Fullscr_een"
-#~ msgstr "Plein _écran"
+#~ msgstr "Plein _ecran"
 
 #~ msgid "Diagram tree window:"
-#~ msgstr "Fenêtre de l'arborescense du diagramme :"
+#~ msgstr "Fenèstra de l'arborescense del diagramme :"
 
 #~ msgid "Save hidden object types"
 #~ msgstr "Enregistrer les types d'objets cachés"
 
 #~ msgid "User Interface type settings change will take after restart"
 #~ msgstr ""
-#~ "Les modifications des paramètres de l'interface utilisateur prendront "
-#~ "effet au prochain démarrage"
+#~ "Les modifications des paramètres de l'interfàcia utilisateur prendront "
+#~ "efièch al prochain démarrage"
 
 #~ msgid "SVG Shape:"
 #~ msgstr "Forme SVG :"
@@ -11721,7 +11485,7 @@ msgstr "Crear una division/union"
 
 #~ msgid "Internal error: Setting corner type of endpoint of bezier"
 #~ msgstr ""
-#~ "Erreur interne : impossible d'établir le type de coin pour point final de "
+#~ "Erreur interne : impossible d'établir le tipe de coin pour point final de "
 #~ "courbe de Bézier"
 
 #~ msgid "%s<illegal characters>..."
@@ -11733,19 +11497,19 @@ msgstr "Crear una division/union"
 #~ "encounter  problems. Please report to dia-list@gnome.org if you see this "
 #~ "message."
 #~ msgstr ""
-#~ "Votre jeu de caractères est l'UTF-8. À cause de problèmes avec libxml1 et "
-#~ "la compatibilité avec les fichiers générés par des versions antérieures "
-#~ "de Dia, vous allez rencontrer des problèmes. Veuillez signaler à la liste "
+#~ "Votre jeu de caractères est l'UTF-8. À cause de problèmas avec libxml1 et "
+#~ "la compatibilitat avec les fichièrs générés par des versions antérieures "
+#~ "de Dia, vous allez rencontrer des problèmas. Veuillez signaler à la lista "
 #~ "dia-list@gnome.org (en anglais) que vous avez vu ce message."
 
 #~ msgid "The X string that represents this font."
-#~ msgstr "La chaîne X qui représente cette police."
+#~ msgstr "La chaîne X qui représente aquesta police."
 
 #~ msgid "The text to display in order to demonstrate the selected font."
-#~ msgstr "Le texte à afficher pour présenter la police sélectionnée."
+#~ msgstr "Le texte à afficher pour présenter la police sélectionada."
 
 #~ msgid "gdk_renderer: Unsupported fill mode specified!\n"
-#~ msgstr "gdk_renderer : mode de remplissage non pris en charge !\n"
+#~ msgstr "gdk_renderer : mode de remplissage non pris en carga !\n"
 
 #~ msgid "There are %d similar messages."
 #~ msgstr "Il y a %d messages similaires"
@@ -11757,15 +11521,15 @@ msgstr "Crear una division/union"
 #~ "Could not load plugin '%s'\n"
 #~ "%s"
 #~ msgstr ""
-#~ "Ne peut charger le greffon « %s »\n"
+#~ "Ne pòt cargar le empeuton « %s »\n"
 #~ "%s"
 
 #~ msgid "Could not find plugin init function in `%s'"
 #~ msgstr ""
-#~ "Impossible de trouver la fonction d'initialisation de greffon dans « %s »"
+#~ "Impossible de trouver la foncion d'initialisation de empeuton dans « %s »"
 
 #~ msgid "%s Plugin could not be unloaded"
-#~ msgstr "Le greffon %s ne peut être déchargé"
+#~ msgstr "Le empeuton %s ne pòt èsser déchargé"
 
 #~ msgid ""
 #~ "Could not open `%s'\n"
@@ -11778,7 +11542,7 @@ msgstr "Crear una division/union"
 #~ msgstr "Nom de la table"
 
 #~ msgid "Comment visible"
-#~ msgstr "Commentaire visible"
+#~ msgstr "Comentari visible"
 
 #~ msgid "Border width:"
 #~ msgstr "Largeur de la bordure :"
@@ -11850,7 +11614,7 @@ msgstr "Crear una division/union"
 #~ msgstr "Matériel à intégrité haute"
 
 #~ msgid "Millisecond"
-#~ msgstr "Miliseconde"
+#~ msgstr "Milisegonda"
 
 #~ msgid "SYSTEM"
 #~ msgstr "SYSTEM"
@@ -11877,7 +11641,7 @@ msgstr "Crear una division/union"
 #~ msgstr "SITE"
 
 #~ msgid "External environment"
-#~ msgstr "Environnement externe"
+#~ msgstr "Environament externe"
 
 #~ msgid "Premises"
 #~ msgstr "Traiter"
@@ -11892,7 +11656,7 @@ msgstr "Crear una division/union"
 #~ msgstr "Refroidissement / pollution"
 
 #~ msgid "Thermal detection"
-#~ msgstr "Détection thermique"
+#~ msgstr "Deteccion thermique"
 
 #~ msgid "Decision maker"
 #~ msgstr "Décideur"
@@ -11901,13 +11665,13 @@ msgstr "Crear una division/union"
 #~ msgstr "Responsable SSI"
 
 #~ msgid "Functional administrator"
-#~ msgstr "Administrateur fonctionnel"
+#~ msgstr "Administrator foncional"
 
 #~ msgid "Technical administrator"
-#~ msgstr "Administrateur technique"
+#~ msgstr "Administrator technique"
 
 #~ msgid "SSI administrator"
-#~ msgstr "Administrateur SSI"
+#~ msgstr "Administrator SSI"
 
 #~ msgid "Developer"
 #~ msgstr "Développeur"
@@ -11946,7 +11710,7 @@ msgstr "Crear una division/union"
 #~ msgstr "Équipement fixe"
 
 #~ msgid "Peripheral processing"
-#~ msgstr "Traitement périphérique"
+#~ msgstr "Tractament périphérique"
 
 #~ msgid "Electronic medium"
 #~ msgstr "Moyen électronique"
@@ -11955,13 +11719,13 @@ msgstr "Crear una division/union"
 #~ msgstr "Autres moyens"
 
 #~ msgid "Menace"
-#~ msgstr "Remplacer"
+#~ msgstr "Remplaçar"
 
 #~ msgid "P Action"
 #~ msgstr "Action"
 
 #~ msgid "P Detection"
-#~ msgstr "Détecteur"
+#~ msgstr "Détector"
 
 #~ msgid "Vulnerability"
 #~ msgstr "Vulnérabilité"
@@ -11970,25 +11734,25 @@ msgstr "Crear una division/union"
 #~ msgstr "Nom de la classe"
 
 #~ msgid "Show Comments"
-#~ msgstr "Afficher les commentaires"
+#~ msgstr "Afficher les comentaris"
 
 #~ msgid "Abstract (?)"
 #~ msgstr "Abstraite (?)"
 
 #~ msgid "Query (const)"
-#~ msgstr "Requête (const)"
+#~ msgstr "Requèsta (const)"
 
 #~ msgid ""
 #~ "The image file '%s' was not found in that directory.\n"
 #~ "Using the file '%s' instead\n"
 #~ msgstr ""
-#~ "L'image « %s » n'a pas été trouvé dans ce répertoire.\n"
-#~ "Utilisation du fichier image « %s » à la place\n"
+#~ "L'imatge « %s » n'a pas été trouvé dans ce repertòri.\n"
+#~ "Utilizacion del fichièr image « %s » à la place\n"
 
 #~ msgid "Cairo old WMF"
 #~ msgstr "WMF ancien Cairo"
 
-#~ msgid "Bad vertex bulge\n"
+#~ msgid "Bad verdax bulge\n"
 #~ msgstr "Sommet de bosse incorrect\n"
 
 #~ msgid "Scale: %f\n"
@@ -12014,18 +11778,18 @@ msgstr "Crear una division/union"
 
 #~ msgid "GNOME Print based Rendering"
 #~ msgstr ""
-#~ "Rendu basé sur l'impression GNOME\n"
+#~ "Rendu basat sus l'impression GNOME\n"
 #~ " « %s »\n"
 #~ " non disponible."
 
 #~ msgid "Couldn't read file %s"
-#~ msgstr "Impossible de lire le fichier %s"
+#~ msgstr "Impossible de legir le fichièr %s"
 
 #~ msgid "Couldn't make object dir %s"
 #~ msgstr "Impossible de créer le rép objet %s"
 
 #~ msgid "Couldn't open: '%s' for writing.\n"
-#~ msgstr "Impossible d'ouvrir « %s » en écriture.\n"
+#~ msgstr "Impossible d'ouvrir « %s » en escrichure.\n"
 
 #~ msgid "A KAOS operation"
 #~ msgstr "Opération"
@@ -12034,7 +11798,7 @@ msgstr "Crear una division/union"
 #~ msgstr "Filtre à air"
 
 #~ msgid "Air quality detector"
-#~ msgstr "Détecteur de qualité de l'air"
+#~ msgstr "Détector de qualité de l'air"
 
 #~ msgid "Axial Ventilator"
 #~ msgstr "Ventilateur axial"
@@ -12043,13 +11807,13 @@ msgstr "Crear una division/union"
 #~ msgstr "Sauvegarde"
 
 #~ msgid "Badge reader"
-#~ msgstr "Lecteur de badge"
+#~ msgstr "Lector de badge"
 
 #~ msgid "Badge reader/keyboard"
-#~ msgstr "Lecteur de badge ou clavier"
+#~ msgstr "Lector de badge ou clavièr"
 
 #~ msgid "Biometric reader"
-#~ msgstr "Lecteur de données biométriques"
+#~ msgstr "Lector de donadas biométriques"
 
 #~ msgid "Centrifugal Ventilator"
 #~ msgstr "Ventilateur centrifuge"
@@ -12082,31 +11846,31 @@ msgstr "Crear una division/union"
 #~ msgstr "Site géographique"
 
 #~ msgid "Glass-break sensor"
-#~ msgstr "Détecteur de bris de glace"
+#~ msgstr "Détector de bris de glace"
 
 #~ msgid "Information system"
-#~ msgstr "Système d'information"
+#~ msgstr "Sistèma d'information"
 
 #~ msgid "Level detector"
-#~ msgstr "Détecteur de niveau"
+#~ msgstr "Détector de niveau"
 
 #~ msgid "Light detector"
-#~ msgstr "Détecteur de lumière"
+#~ msgstr "Détector de lumière"
 
 #~ msgid "Log analysis"
 #~ msgstr "Analyseur de logs"
 
 #~ msgid "Magnetic storage"
-#~ msgstr "Stockage sur bande magnétique"
+#~ msgstr "Stockage sus bande magnétique"
 
 #~ msgid "Moisture extractor"
 #~ msgstr "Déshumidificateur d'air"
 
 #~ msgid "Moisture sensor"
-#~ msgstr "Détecteur d'humidité"
+#~ msgstr "Détector d'humidité"
 
 #~ msgid "Movement detector"
-#~ msgstr "Détecteur de mouvement"
+#~ msgstr "Détector de mouvement"
 
 #~ msgid "Objects to design sissi diagrams"
 #~ msgstr "Objets pour la conception de diagrammes sissi"
@@ -12133,13 +11897,13 @@ msgstr "Crear una division/union"
 #~ msgstr "Zone sécurisée"
 
 #~ msgid "Sensor beam"
-#~ msgstr "Rayon du capteur"
+#~ msgstr "Rayon del capteur"
 
 #~ msgid "Smoke detector"
-#~ msgstr "Détecteur de fumée"
+#~ msgstr "Détector de fumée"
 
 #~ msgid "Vehicle detector"
-#~ msgstr "Détecteur de véhicules"
+#~ msgstr "Détector de véhicules"
 
 #~ msgid "Ventilator"
 #~ msgstr "Ventilateur"
@@ -12151,7 +11915,7 @@ msgstr "Crear una division/union"
 #~ msgstr "Caméra vidéo"
 
 #~ msgid "Video movement detector"
-#~ msgstr "Détecteur vidéo de mouvements"
+#~ msgstr "Détector vidéo de mouvements"
 
 #~ msgid "Voltage detector"
 #~ msgstr "Voltmètre"
