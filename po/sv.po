@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: dia\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=dia&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2015-02-27 16:15+0000\n"
+"POT-Creation-Date: 2015-08-10 15:19+0000\n"
 "PO-Revision-Date: 2015-02-21 13:41+0100\n"
 "Last-Translator: Sebastian Rasmussen <sebras@gmail.com>\n"
 "Language-Team: Svenska <tp-sv@listor.tp-sv.se>\n"
@@ -1084,7 +1084,7 @@ msgid ""
 "Connection handle %d does not exist on '%s'."
 msgstr ""
 "Fel vid inläsning av diagram.\n"
-"Anslutningshandtaget %d finns inte på “%s”."
+"Anslutningshandtaget %d finns inte på ”%s”."
 
 #: ../app/load_save.c:286
 #, c-format
