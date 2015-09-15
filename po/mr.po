@@ -1679,7 +1679,7 @@ msgid "Antialias:"
 msgstr ""
 
 #: ../app/preferences.c:222
-msgid "view antialised"
+msgid "view antialiased"
 msgstr ""
 
 #. Favored Filter
@@ -6629,7 +6629,7 @@ msgid "Notched right arrow"
 msgstr ""
 
 #: ../sheets/Assorted.sheet.in.h:27
-msgid "Octogon. Eight sided shape"
+msgid "Octagon. Eight sided shape"
 msgstr ""
 
 #: ../sheets/Assorted.sheet.in.h:28

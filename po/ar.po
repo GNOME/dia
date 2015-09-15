@@ -1660,7 +1660,7 @@ msgstr "الحواف المحسّنة"
 
 #: ../app/preferences.c:181
 #, fuzzy
-msgid "view antialised"
+msgid "view antialiased"
 msgstr "PNG (غير مسنّن)"
 
 #: ../app/preferences.c:186
@@ -6691,7 +6691,7 @@ msgid "Notched right arrow"
 msgstr "حجم سهم الموسّع"
 
 #: ../sheets/Assorted.sheet.in.h:27
-msgid "Octogon. Eight sided shape"
+msgid "Octagon. Eight sided shape"
 msgstr ""
 
 #: ../sheets/Assorted.sheet.in.h:28

@@ -1941,7 +1941,7 @@ msgid "Antialias:"
 msgstr "Antialias:"
 
 #: ../app/preferences.c:216
-msgid "view antialised"
+msgid "view antialiased"
 msgstr "tilik dalam anti alias"
 
 #: ../app/preferences.c:222
@@ -7114,7 +7114,7 @@ msgid "Heptagon. Seven-point shape"
 msgstr "Heptagon. Persegi tujuh"
 
 #: ../sheets/Assorted.sheet.in.h:16
-msgid "Octogon. Eight-point shape"
+msgid "Octagon. Eight-point shape"
 msgstr "Oktagon. Persegi delapan"
 
 #: ../sheets/Assorted.sheet.in.h:17

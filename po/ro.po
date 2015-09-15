@@ -1815,7 +1815,7 @@ msgid "Antialias:"
 msgstr "Antialias"
 
 #: ../app/preferences.c:216
-msgid "view antialised"
+msgid "view antialiased"
 msgstr "Vizualizează cu antialias"
 
 # titlu pe chenar
@@ -6669,8 +6669,8 @@ msgid "Heptagon. Seven-point shape"
 msgstr "Heptagon. Formă cu șapte laturi"
 
 #: ../sheets/Assorted.sheet.in.h:16
-msgid "Octogon. Eight-point shape"
-msgstr "Octogon. Formă cu opt laturi"
+msgid "Octagon. Eight-point shape"
+msgstr "Octagon. Formă cu opt laturi"
 
 #: ../sheets/Assorted.sheet.in.h:17
 msgid "Horizontal parallelogram"

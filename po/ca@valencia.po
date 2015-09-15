@@ -1797,7 +1797,7 @@ msgid "Antialias:"
 msgstr "Antialiàsing:"
 
 #: ../app/preferences.c:216
-msgid "view antialised"
+msgid "view antialiased"
 msgstr "mostra amb antialiàsing"
 
 #. Favored Filter
@@ -6685,7 +6685,7 @@ msgid "Heptagon. Seven-point shape"
 msgstr "Heptàgon. Figura de set puntes"
 
 #: ../sheets/Assorted.sheet.in.h:16
-msgid "Octogon. Eight-point shape"
+msgid "Octagon. Eight-point shape"
 msgstr "Octàgon. Figura de vuit puntes"
 
 #: ../sheets/Assorted.sheet.in.h:17

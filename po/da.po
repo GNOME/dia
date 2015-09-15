@@ -1872,7 +1872,7 @@ msgid "Antialias:"
 msgstr "Udjævning:"
 
 #: ../app/preferences.c:216
-msgid "view antialised"
+msgid "view antialiased"
 msgstr "Vis udjævning"
 
 #. Favored Filter
@@ -7119,7 +7119,7 @@ msgstr "Højrepil  m. indhak"
 
 #: ../sheets/Assorted.sheet.in.h:27
 #, fuzzy
-msgid "Octogon. Eight-point shape"
+msgid "Octagon. Eight-point shape"
 msgstr "Ottekant"
 
 #: ../sheets/Assorted.sheet.in.h:28

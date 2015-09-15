@@ -1870,7 +1870,7 @@ msgid "Antialias:"
 msgstr ""
 
 #: ../app/preferences.c:217
-msgid "view antialised"
+msgid "view antialiased"
 msgstr ""
 
 #. Favored Filter
@@ -6787,7 +6787,7 @@ msgid "Notched right arrow"
 msgstr "Flecha a la drecha cortada"
 
 #: ../sheets/Assorted.sheet.in.h:27
-msgid "Octogon. Eight sided shape"
+msgid "Octagon. Eight sided shape"
 msgstr "Octógonu, figura d'ocho llaos"
 
 #: ../sheets/Assorted.sheet.in.h:28

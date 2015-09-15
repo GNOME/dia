@@ -5761,7 +5761,7 @@ msgid "Notched right arrow"
 msgstr "Кропкавая стрэлка"
 
 #: ../sheets/Assorted.sheet.in.h:27
-msgid "Octogon. Eight sided shape"
+msgid "Octagon. Eight sided shape"
 msgstr ""
 
 #: ../sheets/Assorted.sheet.in.h:28

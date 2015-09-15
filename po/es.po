@@ -1999,7 +1999,7 @@ msgid "Antialias:"
 msgstr "Antialias:"
 
 #: ../app/preferences.c:216
-msgid "view antialised"
+msgid "view antialiased"
 msgstr "ver sin antialias"
 
 #: ../app/preferences.c:222
@@ -7444,7 +7444,7 @@ msgid "Heptagon. Seven-point shape"
 msgstr "Heptágono. Figura de siete lados"
 
 #: ../sheets/Assorted.sheet.in.h:16
-msgid "Octogon. Eight-point shape"
+msgid "Octagon. Eight-point shape"
 msgstr "Octógono. Figura de ocho lados"
 
 #: ../sheets/Assorted.sheet.in.h:17

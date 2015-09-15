@@ -1812,7 +1812,7 @@ msgid "Antialias:"
 msgstr " アンチエイリアス "
 
 #: ../app/preferences.c:216
-msgid "view antialised"
+msgid "view antialiased"
 msgstr "アンチエイリアス効果を付与する"
 
 #. Favored Filter
@@ -6729,7 +6729,7 @@ msgid "Heptagon. Seven-point shape"
 msgstr "七角形"
 
 #: ../sheets/Assorted.sheet.in.h:16
-msgid "Octogon. Eight-point shape"
+msgid "Octagon. Eight-point shape"
 msgstr "八角形"
 
 #: ../sheets/Assorted.sheet.in.h:17

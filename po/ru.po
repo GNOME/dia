@@ -1814,7 +1814,7 @@ msgid "Antialias:"
 msgstr "_Сглаженный:"
 
 #: ../app/preferences.c:216
-msgid "view antialised"
+msgid "view antialiased"
 msgstr "Сглаженное представление"
 
 #. Favored Filter
@@ -6895,7 +6895,7 @@ msgstr "Зубчатая стрелка вправо"
 
 #: ../sheets/Assorted.sheet.in.h:27
 #, fuzzy
-msgid "Octogon. Eight-point shape"
+msgid "Octagon. Eight-point shape"
 msgstr "Октогон. Восьмисторонний многогранник"
 
 #: ../sheets/Assorted.sheet.in.h:28

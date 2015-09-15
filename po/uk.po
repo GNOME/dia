@@ -1993,7 +1993,7 @@ msgid "Antialias:"
 msgstr "Згладжування:"
 
 #: ../app/preferences.c:216
-msgid "view antialised"
+msgid "view antialiased"
 msgstr "згладжений перегляд"
 
 #: ../app/preferences.c:222
@@ -7177,7 +7177,7 @@ msgid "Heptagon. Seven-point shape"
 msgstr "Семикутник"
 
 #: ../sheets/Assorted.sheet.in.h:16
-msgid "Octogon. Eight-point shape"
+msgid "Octagon. Eight-point shape"
 msgstr "Восьмикутник"
 
 #: ../sheets/Assorted.sheet.in.h:17

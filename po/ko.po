@@ -1774,7 +1774,7 @@ msgid "Antialias:"
 msgstr "부드럽게:"
 
 #: ../app/preferences.c:217
-msgid "view antialised"
+msgid "view antialiased"
 msgstr "부드러움 보이기"
 
 #. Favored Filter
@@ -6721,7 +6721,7 @@ msgid "Notched right arrow"
 msgstr "새김 눈 오른쪽 화살표"
 
 #: ../sheets/Assorted.sheet.in.h:27
-msgid "Octogon. Eight sided shape"
+msgid "Octagon. Eight sided shape"
 msgstr "8각형"
 
 #: ../sheets/Assorted.sheet.in.h:28

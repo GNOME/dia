@@ -1867,7 +1867,7 @@ msgid "Antialias:"
 msgstr "Con _antialias"
 
 #: ../app/preferences.c:222
-msgid "view antialised"
+msgid "view antialiased"
 msgstr ""
 
 #. Favored Filter
@@ -7076,7 +7076,7 @@ msgid "Notched right arrow"
 msgstr "Freccia destra marcata"
 
 #: ../sheets/Assorted.sheet.in.h:27
-msgid "Octogon. Eight sided shape"
+msgid "Octagon. Eight sided shape"
 msgstr "Ottagono: figura con otto lati"
 
 #: ../sheets/Assorted.sheet.in.h:28

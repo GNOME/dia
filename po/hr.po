@@ -5803,7 +5803,7 @@ msgid "Notched right arrow"
 msgstr "Zasječena strelica udesno"
 
 #: ../sheets/Assorted.sheet.in.h:27
-msgid "Octogon. Eight sided shape"
+msgid "Octagon. Eight sided shape"
 msgstr "Osmerokutnik"
 
 #: ../sheets/Assorted.sheet.in.h:28

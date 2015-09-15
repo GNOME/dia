@@ -6247,7 +6247,7 @@ msgid "Notched right arrow"
 msgstr "अविछिन्न दायाँ बाँण"
 
 #: ../sheets/Assorted.sheet.in.h:27
-msgid "Octogon. Eight sided shape"
+msgid "Octagon. Eight sided shape"
 msgstr "अष्ठभुज, आठ भुजा भएको आकार"
 
 #: ../sheets/Assorted.sheet.in.h:28

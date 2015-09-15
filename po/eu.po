@@ -1901,7 +1901,7 @@ msgid "Antialias:"
 msgstr "Antialias-a:"
 
 #: ../app/preferences.c:217
-msgid "view antialised"
+msgid "view antialiased"
 msgstr "ikusi antialiasing-a"
 
 #. Favored Filter
@@ -6878,7 +6878,7 @@ msgid "Notched right arrow"
 msgstr "Eskuin-gezi moztua"
 
 #: ../sheets/Assorted.sheet.in.h:27
-msgid "Octogon. Eight sided shape"
+msgid "Octagon. Eight sided shape"
 msgstr "Oktogonoa. Zortzi aldeko forma"
 
 #: ../sheets/Assorted.sheet.in.h:28

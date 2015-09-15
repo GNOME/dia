@@ -6529,7 +6529,7 @@ msgstr "Akambi Gatoboye Iburyo"
 
 #: ../sheets/Assorted.sheet.in.h:27
 #, fuzzy
-msgid "Octogon. Eight sided shape"
+msgid "Octagon. Eight sided shape"
 msgstr "Imisusire"
 
 #: ../sheets/Assorted.sheet.in.h:28

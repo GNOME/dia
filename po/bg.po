@@ -6001,7 +6001,7 @@ msgid "Notched right arrow"
 msgstr "Вдлъбната дясна стрелка"
 
 #: ../sheets/Assorted.sheet.in.h:27
-msgid "Octogon. Eight sided shape"
+msgid "Octagon. Eight sided shape"
 msgstr "Осмоъгълник. Осем странна форма"
 
 #: ../sheets/Assorted.sheet.in.h:28

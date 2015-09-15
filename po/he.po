@@ -1814,7 +1814,7 @@ msgid "Antialias:"
 msgstr "החלקה:"
 
 #: ../app/preferences.c:216
-msgid "view antialised"
+msgid "view antialiased"
 msgstr "תצוגה חלקה"
 
 #: ../app/preferences.c:222
@@ -6685,7 +6685,7 @@ msgid "Heptagon. Seven-point shape"
 msgstr ""
 
 #: ../sheets/Assorted.sheet.in.h:16
-msgid "Octogon. Eight-point shape"
+msgid "Octagon. Eight-point shape"
 msgstr ""
 
 #: ../sheets/Assorted.sheet.in.h:17

@@ -5720,8 +5720,8 @@ msgid "Notched right arrow"
 msgstr "Notched right arrow"
 
 #: ../sheets/Assorted.sheet.in.h:27
-msgid "Octogon. Eight sided shape"
-msgstr "Octogon. Eight sided shape"
+msgid "Octagon. Eight sided shape"
+msgstr "Octagon. Eight sided shape"
 
 #: ../sheets/Assorted.sheet.in.h:28
 msgid "Pentagon block arrow"

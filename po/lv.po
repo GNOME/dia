@@ -1803,7 +1803,7 @@ msgid "Antialias:"
 msgstr "Nogludināšana:"
 
 #: ../app/preferences.c:216
-msgid "view antialised"
+msgid "view antialiased"
 msgstr "skatīt nogludinātu"
 
 #. Favored Filter
@@ -6752,7 +6752,7 @@ msgid "Heptagon. Seven-point shape"
 msgstr "Septiņstūris. Septiņu punktu forma"
 
 #: ../sheets/Assorted.sheet.in.h:16
-msgid "Octogon. Eight-point shape"
+msgid "Octagon. Eight-point shape"
 msgstr "Astoņstūris. Astoņu punktu forma"
 
 #: ../sheets/Assorted.sheet.in.h:17

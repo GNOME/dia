@@ -1820,7 +1820,7 @@ msgid "Antialias:"
 msgstr "反锯齿："
 
 #: ../app/preferences.c:216
-msgid "view antialised"
+msgid "view antialiased"
 msgstr "查看反锯齿化的对象"
 
 #. Favored Filter
@@ -6624,7 +6624,7 @@ msgid "Heptagon. Seven-point shape"
 msgstr "七边形。七点形状"
 
 #: ../sheets/Assorted.sheet.in.h:16
-msgid "Octogon. Eight-point shape"
+msgid "Octagon. Eight-point shape"
 msgstr "八边形。八点形状"
 
 #: ../sheets/Assorted.sheet.in.h:17

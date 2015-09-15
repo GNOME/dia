@@ -1881,8 +1881,8 @@ msgid "Antialias:"
 msgstr "Antialias:"
 
 #: ../app/preferences.c:217
-msgid "view antialised"
-msgstr "view antialised"
+msgid "view antialiased"
+msgstr "view antialiased"
 
 #. Favored Filter
 #. Translators: Menu item Verb/Channel/Export
@@ -6833,8 +6833,8 @@ msgid "Notched right arrow"
 msgstr "Notched right arrow"
 
 #: ../sheets/Assorted.sheet.in.h:27
-msgid "Octogon. Eight sided shape"
-msgstr "Octogon. Eight-sided shape"
+msgid "Octagon. Eight sided shape"
+msgstr "Octagon. Eight-sided shape"
 
 #: ../sheets/Assorted.sheet.in.h:28
 msgid "Pentagon block arrow"

@@ -98,7 +98,7 @@ shape_info_getbyname(const gchar *name)
 }
 
 /*!
- * \brief After laoding and before drawing ShapeInfo needs to be realised
+ * \brief After loading and before drawing ShapeInfo needs to be realised
  * @param : the shape to realise
  * 
  * Puts the ShapeInfo into a form suitable for actual use (lazy loading)

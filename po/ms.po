@@ -5836,7 +5836,7 @@ msgid "Notched right arrow"
 msgstr "Anak panah kanan ditakik"
 
 #: ../sheets/Assorted.sheet.in.h:27
-msgid "Octogon. Eight sided shape"
+msgid "Octagon. Eight sided shape"
 msgstr "Oktogon. Bentuk lapan sisi"
 
 #: ../sheets/Assorted.sheet.in.h:28

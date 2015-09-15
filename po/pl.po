@@ -1775,7 +1775,7 @@ msgid "Antialias:"
 msgstr "Wygładzanie:"
 
 #: ../app/preferences.c:216
-msgid "view antialised"
+msgid "view antialiased"
 msgstr "zastosuj wygładzanie"
 
 #. Favored Filter
@@ -6620,7 +6620,7 @@ msgstr "Siedmiokąt. Kształt z siedmioma krawędziami"
 
 #: ../sheets/Assorted.sheet.in.h:16
 #, fuzzy
-msgid "Octogon. Eight-point shape"
+msgid "Octagon. Eight-point shape"
 msgstr "Ośmiokąt. Kształt z ośmioma krawędziami"
 
 #: ../sheets/Assorted.sheet.in.h:17

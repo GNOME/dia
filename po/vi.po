@@ -6589,7 +6589,7 @@ msgid "Notched right arrow"
 msgstr "Mũi tên phải có khía hình V"
 
 #: ../sheets/Assorted.sheet.in.h:27
-msgid "Octogon. Eight sided shape"
+msgid "Octagon. Eight sided shape"
 msgstr "Bát giác: tám cạnh"
 
 #: ../sheets/Assorted.sheet.in.h:28

@@ -1794,7 +1794,7 @@ msgid "Antialias:"
 msgstr "Suavizado:"
 
 #: ../app/preferences.c:216
-msgid "view antialised"
+msgid "view antialiased"
 msgstr "ver suavizado"
 
 #. Favored Filter
@@ -6740,7 +6740,7 @@ msgstr "Heptágono. Figura de sete lados"
 
 #: ../sheets/Assorted.sheet.in.h:16
 #, fuzzy
-msgid "Octogon. Eight-point shape"
+msgid "Octagon. Eight-point shape"
 msgstr "Octógono. Figura de oito lados"
 
 #: ../sheets/Assorted.sheet.in.h:17

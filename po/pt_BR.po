@@ -1922,7 +1922,7 @@ msgid "Antialias:"
 msgstr "Suavização:"
 
 #: ../app/preferences.c:216
-msgid "view antialised"
+msgid "view antialiased"
 msgstr "ver suavizado"
 
 #: ../app/preferences.c:222
@@ -7112,7 +7112,7 @@ msgid "Heptagon. Seven-point shape"
 msgstr "Heptágono. Forma de sete pontas"
 
 #: ../sheets/Assorted.sheet.in.h:16
-msgid "Octogon. Eight-point shape"
+msgid "Octagon. Eight-point shape"
 msgstr "Octágono. Forma de oito pontas"
 
 #: ../sheets/Assorted.sheet.in.h:17

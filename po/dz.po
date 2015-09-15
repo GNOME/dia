@@ -5934,7 +5934,7 @@ msgid "Notched right arrow"
 msgstr "ལྟོང་དབྱིབས་གཡས་ཀྱི་མདའ་རྟགས་"
 
 #: ../sheets/Assorted.sheet.in.h:27
-msgid "Octogon. Eight sided shape"
+msgid "Octagon. Eight sided shape"
 msgstr "ཟུར་བརྒྱད་མ། ཟུར་བརྒྱད་དང་ལྡན་པའི་དབྱིབས་"
 
 #: ../sheets/Assorted.sheet.in.h:28

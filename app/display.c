@@ -252,7 +252,7 @@ new_display(Diagram *dia)
   if (preset != 0) 
     ddisp->mainpoint_magnetism = (preset > 0 ? TRUE : FALSE);
 
-  ddisp->aa_renderer = prefs.view_antialised;
+  ddisp->aa_renderer = prefs.view_antialiased;
   preset = GPOINTER_TO_INT (g_object_get_data (G_OBJECT(dia), "antialiased"));
   if (preset != 0) 
     ddisp->aa_renderer = (preset > 0 ? TRUE : FALSE);

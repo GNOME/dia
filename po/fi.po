@@ -2110,7 +2110,7 @@ msgid "Antialias:"
 msgstr "Antialiasointi:"
 
 #: ../app/preferences.c:216
-msgid "view antialised"
+msgid "view antialiased"
 msgstr "näytä antialiasoituna"
 
 #: ../app/preferences.c:222
@@ -7878,8 +7878,8 @@ msgstr "Heptagoni. Seitsensivuinen muoto"
 
 #: ../sheets/Assorted.sheet.in.h:16
 #, fuzzy
-#| msgid "Octogon. Eight sided shape"
-msgid "Octogon. Eight-point shape"
+#| msgid "Octagon. Eight sided shape"
+msgid "Octagon. Eight-point shape"
 msgstr "Oktagoni. Kahdeksansivuinen muoto"
 
 #: ../sheets/Assorted.sheet.in.h:17

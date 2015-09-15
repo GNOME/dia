@@ -1968,7 +1968,7 @@ msgid "Antialias:"
 msgstr "Vyhlazené:"
 
 #: ../app/preferences.c:216
-msgid "view antialised"
+msgid "view antialiased"
 msgstr "zobrazit vyhlazené"
 
 #: ../app/preferences.c:222
@@ -7311,7 +7311,7 @@ msgid "Heptagon. Seven-point shape"
 msgstr "Sedmiúhelník. Útvar se sedmi stranami"
 
 #: ../sheets/Assorted.sheet.in.h:16
-msgid "Octogon. Eight-point shape"
+msgid "Octagon. Eight-point shape"
 msgstr "Osmiúhelník. Útvar s osmi stranami"
 
 #: ../sheets/Assorted.sheet.in.h:17

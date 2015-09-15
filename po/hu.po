@@ -1999,7 +1999,7 @@ msgid "Antialias:"
 msgstr "Élsimítás:"
 
 #: ../app/preferences.c:216
-msgid "view antialised"
+msgid "view antialiased"
 msgstr "megjelenítés élsimítással"
 
 #: ../app/preferences.c:222
@@ -7378,7 +7378,7 @@ msgid "Heptagon. Seven-point shape"
 msgstr "Hétszög. Hétpontos alak"
 
 #: ../sheets/Assorted.sheet.in.h:16
-msgid "Octogon. Eight-point shape"
+msgid "Octagon. Eight-point shape"
 msgstr "Nyolcszög. Nyolcpontos alak"
 
 #: ../sheets/Assorted.sheet.in.h:17

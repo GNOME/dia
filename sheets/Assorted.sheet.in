@@ -39,7 +39,7 @@ have been included to save users the effort of flipping them
 <object name="Geometric - Pentagon"><_description>Pentagon.  Five-point shape</_description></object>
 <object name="Geometric - Hexagon"><_description>Hexagon.  Six-point shape</_description></object>
 <object name="Geometric - Heptagon"><_description>Heptagon.  Seven-point shape</_description></object>
-<object name="Geometric - Octogon"><_description>Octogon.  Eight-point shape</_description></object>
+<object name="Geometric - Octagon"><_description>Octagon.  Eight-point shape</_description></object>
 <!-- Alan Horkan was here 2002 -->
 <object name="Geometric - Horizontal Parallelogram"><_description>Horizontal parallelogram</_description></object>
 <object name="Geometric - Vertical Parallelogram"><_description>Vertical parallelogram</_description></object>

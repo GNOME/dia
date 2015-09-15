@@ -1813,7 +1813,7 @@ msgid "Antialias:"
 msgstr "Glajenje robov:"
 
 #: ../app/preferences.c:216
-msgid "view antialised"
+msgid "view antialiased"
 msgstr "pokaži z zglajenimi robovi"
 
 #. Favored Filter
@@ -6726,7 +6726,7 @@ msgid "Heptagon. Seven-point shape"
 msgstr "Sedemkotnik. Sedemstrani lik"
 
 #: ../sheets/Assorted.sheet.in.h:16
-msgid "Octogon. Eight-point shape"
+msgid "Octagon. Eight-point shape"
 msgstr "Osemkotnik. Osemstrani lik"
 
 #: ../sheets/Assorted.sheet.in.h:17

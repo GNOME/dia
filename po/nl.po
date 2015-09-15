@@ -5730,7 +5730,7 @@ msgid "Notched right arrow"
 msgstr "Gestippelde pijl naar rechts"
 
 #: ../sheets/Assorted.sheet.in.h:27
-msgid "Octogon. Eight sided shape"
+msgid "Octagon. Eight sided shape"
 msgstr "Octogoon. Achtzijdige vorm"
 
 #: ../sheets/Assorted.sheet.in.h:28

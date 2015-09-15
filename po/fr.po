@@ -6440,8 +6440,8 @@ msgid "Notched right arrow"
 msgstr "Flèche à droite avec encoche"
 
 #: ../sheets/Assorted.sheet.in.h:27
-msgid "Octogon. Eight sided shape"
-msgstr "Octogone. Forme à huit côtés"
+msgid "Octagon. Eight sided shape"
+msgstr "Octagone. Forme à huit côtés"
 
 #: ../sheets/Assorted.sheet.in.h:28
 msgid "Pentagon block arrow"
