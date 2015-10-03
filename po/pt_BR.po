@@ -1,5 +1,5 @@
 # Brazilian Portuguese translation of Dia.
-# Copyright (C) 2000-2008 Free Software Foundation, Inc.
+# Copyright (C) 2015 Free Software Foundation, Inc.
 # Francisco Petrúcio Cavalcante Junior <fpcj@impa.br>, 2000.
 # Alexandre Folle de Menezes <afmenez@terra.com.br>, 2003, 2006.
 # Gustavo Maciel Dias Vieira <gdvieira@zaz.com.br>, 2003.
@@ -9,22 +9,23 @@
 # Og Maciel <ogmaciel@gnome.org>, 2009.
 # Isis Binder <isis.binder@gmail.com>, 2009.
 # Rodolfo RG <rodolforg@gmail.com>, 2011.
+# Rafael Fontenelle <rffontenelle@gmail.com>, 2015.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Dia\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=dia&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2012-06-23 13:56+0000\n"
-"PO-Revision-Date: 2012-12-27 08:05-0300\n"
-"Last-Translator: Rafael Ferreira <rafael.f.f1@gmail.com>\n"
+"POT-Creation-Date: 2015-10-03 15:25+0000\n"
+"PO-Revision-Date: 2015-10-03 16:37-0300\n"
+"Last-Translator: Rafael Fontenelle <rffontenelle@gmail.com>\n"
 "Language-Team: Português (Brasil) <gnome-pt_br-list@gnome.org>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Virtaal 0.4.0\n"
+"X-Generator: Poedit 1.8.5\n"
 
 #. This is not an errror
 #: ../app/app_procs.c:209
@@ -188,24 +189,24 @@ msgid "Can't connect to session manager!\n"
 msgstr "Não foi possível conectar ao gerenciador de sessão!\n"
 
 #. TRANSLATOR: 2nd and 3rd %s are time and date respectively.
-#: ../app/app_procs.c:881
+#: ../app/app_procs.c:880
 #, c-format
 msgid "Dia version %s, compiled %s %s\n"
 msgstr "Dia versão %s, compilado %s %s\n"
 
-#: ../app/app_procs.c:883
+#: ../app/app_procs.c:882
 #, c-format
 msgid "Dia version %s\n"
 msgstr "Dia versão %s\n"
 
-#: ../app/app_procs.c:921
+#: ../app/app_procs.c:920
 msgid ""
 "Couldn't find standard objects when looking for object-libs; exiting...\n"
 msgstr ""
 "Não foi possível localizar objetos padrão ao procurar por object-libs, "
 "saindo...\n"
 
-#: ../app/app_procs.c:923
+#: ../app/app_procs.c:922
 #, c-format
 msgid ""
 "Couldn't find standard objects when looking for object-libs in '%s'; "
@@ -214,11 +215,11 @@ msgstr ""
 "Não foi possível localizar objetos padrão ao procurar por object-libs em \"%s"
 "\"; saindo...\n"
 
-#: ../app/app_procs.c:990
+#: ../app/app_procs.c:989
 msgid "Diagram1.dia"
 msgstr "Diagrama1.dia"
 
-#: ../app/app_procs.c:1025
+#: ../app/app_procs.c:1024
 msgid ""
 "This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\n"
 "describing how you can cause this message to appear.\n"
@@ -226,16 +227,16 @@ msgstr ""
 "Isso não deveria acontecer. Por favor, crie um relatório de erro em\n"
 "bugzilla.gnome.org descrevendo a situação que gerou esta mensagem.\n"
 
-#: ../app/app_procs.c:1040
+#: ../app/app_procs.c:1039
 msgid "Exiting Dia"
 msgstr "Saindo do Dia"
 
 #. no standard buttons
-#: ../app/app_procs.c:1104
+#: ../app/app_procs.c:1103
 msgid "Quitting without saving modified diagrams"
 msgstr "Saindo sem salvar diagramas modificados"
 
-#: ../app/app_procs.c:1106
+#: ../app/app_procs.c:1105
 msgid ""
 "Modified diagrams exist. Are you sure you want to quit Dia without saving "
 "them?"
@@ -243,15 +244,15 @@ msgstr ""
 "Existem diagramas modificados. Você tem certeza de que deseja sair do Dia "
 "sem salvá-los?"
 
-#: ../app/app_procs.c:1110
+#: ../app/app_procs.c:1109
 msgid "Quit Dia"
 msgstr "Sair do Dia"
 
-#: ../app/app_procs.c:1179 ../app/app_procs.c:1186
+#: ../app/app_procs.c:1178 ../app/app_procs.c:1185
 msgid "Could not create per-user Dia config directory"
 msgstr "Não foi possível criar o diretório de configuração pessoal do Dia"
 
-#: ../app/app_procs.c:1189
+#: ../app/app_procs.c:1188
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
@@ -260,11 +261,11 @@ msgstr ""
 "favor, certifique-se de que a variável de ambiente HOME aponta para um "
 "diretório existente."
 
-#: ../app/app_procs.c:1212
+#: ../app/app_procs.c:1211
 msgid "Objects and filters internal to dia"
 msgstr "Objetos e filtros internos do Dia"
 
-#: ../app/app_procs.c:1268
+#: ../app/app_procs.c:1267
 #, c-format
 msgid ""
 "The original author of Dia was:\n"
@@ -273,7 +274,7 @@ msgstr ""
 "O autor original do Dia é:\n"
 "\n"
 
-#: ../app/app_procs.c:1273
+#: ../app/app_procs.c:1272
 #, c-format
 msgid ""
 "\n"
@@ -284,7 +285,7 @@ msgstr ""
 "Os mantenedores atuais do Dia são:\n"
 "\n"
 
-#: ../app/app_procs.c:1278
+#: ../app/app_procs.c:1277
 #, c-format
 msgid ""
 "\n"
@@ -295,7 +296,7 @@ msgstr ""
 "Os outros autores são:\n"
 "\n"
 
-#: ../app/app_procs.c:1283
+#: ../app/app_procs.c:1282
 #, c-format
 msgid ""
 "\n"
@@ -808,11 +809,11 @@ msgid "Nothing selected for saving.  Would you like to try again?"
 msgstr "Nada está selecionado para salvar. Você gostaria de tentar novamente?"
 
 #: ../app/filedlg.c:144 ../app/filedlg.c:152 ../app/filedlg.c:168
-#: ../app/filedlg.c:746 ../lib/widgets.c:1488
+#: ../app/filedlg.c:752 ../lib/widgets.c:1488
 msgid "Supported Formats"
 msgstr "Formatos suportados"
 
-#: ../app/filedlg.c:192 ../app/filedlg.c:604
+#: ../app/filedlg.c:192 ../app/filedlg.c:610
 msgid "By extension"
 msgstr "Por extensão"
 
@@ -824,15 +825,15 @@ msgstr "Abrir diagrama"
 msgid "Open Options"
 msgstr "Opções de abertura"
 
-#: ../app/filedlg.c:317 ../app/filedlg.c:728
+#: ../app/filedlg.c:317 ../app/filedlg.c:734
 msgid "Determine file type:"
 msgstr "Determinar o tipo de arquivo:"
 
-#: ../app/filedlg.c:337 ../app/filedlg.c:741 ../lib/widgets.c:1493
+#: ../app/filedlg.c:337 ../app/filedlg.c:747 ../lib/widgets.c:1493
 msgid "All Files"
 msgstr "Todos os arquivos"
 
-#: ../app/filedlg.c:370 ../plug-ins/postscript/paginate_psprint.c:408
+#: ../app/filedlg.c:376 ../plug-ins/postscript/paginate_psprint.c:408
 msgid ""
 "Some characters in the filename are neither UTF-8\n"
 "nor your local encoding.\n"
@@ -842,12 +843,12 @@ msgstr ""
 "estão na sua codificação local.\n"
 "Algumas partes apresentarão defeito."
 
-#: ../app/filedlg.c:380 ../app/filedlg.c:651
+#: ../app/filedlg.c:386 ../app/filedlg.c:657
 #: ../plug-ins/postscript/paginate_psprint.c:422
 msgid "File already exists"
 msgstr "O arquivo já existe"
 
-#: ../app/filedlg.c:382 ../app/filedlg.c:653
+#: ../app/filedlg.c:388 ../app/filedlg.c:659
 #: ../plug-ins/postscript/paginate_psprint.c:418
 #, c-format
 msgid ""
@@ -857,17 +858,17 @@ msgstr ""
 "O arquivo \"%s\" já existe.\n"
 "Você deseja sobrescrevê-lo?"
 
-#: ../app/filedlg.c:436
+#: ../app/filedlg.c:442
 msgid "Save Diagram"
 msgstr "Salvar diagrama"
 
 #. Need better way to make it a reasonable size.  Isn't there some
 #. standard look for them (or is that just Gnome?)
-#: ../app/filedlg.c:447
+#: ../app/filedlg.c:453
 msgid "Compress diagram files"
 msgstr "Compactar os arquivos de diagramas"
 
-#: ../app/filedlg.c:457 ../app/filedlg.c:462
+#: ../app/filedlg.c:463 ../app/filedlg.c:468
 msgid ""
 "Compression reduces file size to less than 1/10th size and speeds up loading "
 "and saving.  Some text programs cannot manipulate compressed files."
@@ -876,7 +877,7 @@ msgstr ""
 "velocidade de leitura e gravação. Alguns programas de texto não podem "
 "manipular arquivos comprimidos."
 
-#: ../app/filedlg.c:677
+#: ../app/filedlg.c:683
 #, c-format
 msgid ""
 "Could not determine which export filter\n"
@@ -885,11 +886,11 @@ msgstr ""
 "Não foi possível determinar qual filtro de\n"
 "exportação utilizar para salvar \"%s\""
 
-#: ../app/filedlg.c:704
+#: ../app/filedlg.c:710
 msgid "Export Diagram"
 msgstr "Exportar diagrama"
 
-#: ../app/filedlg.c:720
+#: ../app/filedlg.c:726
 msgid "Export Options"
 msgstr "Opções de exportação"
 
@@ -1016,40 +1017,40 @@ msgstr "Imagem"
 msgid "Outline"
 msgstr "Contorno"
 
-#: ../app/interface.c:621 ../app/interface.c:857
+#: ../app/interface.c:634 ../app/interface.c:870
 msgid "Pops up the Navigation window."
 msgstr "Abre uma janela de navegação."
 
-#: ../app/interface.c:819
+#: ../app/interface.c:832
 msgid "Diagram menu."
 msgstr "Menu do diagrama."
 
-#: ../app/interface.c:922
+#: ../app/interface.c:935
 msgid "Zoom"
 msgstr "Zoom"
 
-#: ../app/interface.c:937
+#: ../app/interface.c:950
 msgid "Toggles snap-to-grid for this window."
 msgstr "Alterna entre alinhar à grade ou não para esta janela."
 
-#: ../app/interface.c:948
+#: ../app/interface.c:961
 msgid "Toggles object snapping for this window."
 msgstr "Alterna entre alinhar aos objetos ou não para esta janela."
 
-#: ../app/interface.c:1338
+#: ../app/interface.c:1351
 #, c-format
 msgid "No sheet named %s"
 msgstr "Não há nenhuma folha denominada %s"
 
-#: ../app/interface.c:1376
+#: ../app/interface.c:1389
 msgid "Other sheets"
 msgstr "Outras folhas"
 
-#: ../app/interface.c:1436 ../sheets/Flowchart.sheet.in.h:1
+#: ../app/interface.c:1449 ../sheets/Flowchart.sheet.in.h:1
 msgid "Flowchart"
 msgstr "Fluxograma"
 
-#: ../app/interface.c:1496
+#: ../app/interface.c:1509
 msgid ""
 "Foreground & background colors for new objects.  The small black and white "
 "squares reset colors.  The small arrows swap colors.  Double click to change "
@@ -1059,7 +1060,7 @@ msgstr ""
 "preto e branco restauram as cores. As setas pequenas trocam as cores. Clique "
 "duplo para mudar as cores."
 
-#: ../app/interface.c:1511
+#: ../app/interface.c:1524
 msgid ""
 "Line widths.  Click on a line to set the default line width for new "
 "objects.  Double-click to set the line width more precisely."
@@ -1068,7 +1069,7 @@ msgstr ""
 "padrão para novos objetos. Clique duplo para definir a largura de linha de "
 "formar mais precisa."
 
-#: ../app/interface.c:1554
+#: ../app/interface.c:1567
 msgid ""
 "Arrow style at the beginning of new lines.  Click to pick an arrow, or set "
 "arrow parameters with Details..."
@@ -1076,7 +1077,7 @@ msgstr ""
 "Estilo de seta no início de novas linhas. Clique para escolher um seta, ou "
 "defina os parâmetros de estilo de seta através da opção Detalhes..."
 
-#: ../app/interface.c:1559
+#: ../app/interface.c:1572
 msgid ""
 "Line style for new lines.  Click to pick a line style, or set line style "
 "parameters with Details..."
@@ -1084,7 +1085,7 @@ msgstr ""
 "Estilo de linha para novas linhas. Clique para escolher um estilo de linha "
 "ou defina os parâmetros de estilo de linha através da opção Detalhes..."
 
-#: ../app/interface.c:1575
+#: ../app/interface.c:1588
 msgid ""
 "Arrow style at the end of new lines.  Click to pick an arrow, or set arrow "
 "parameters with Details..."
@@ -1092,7 +1093,7 @@ msgstr ""
 "Estilo de seta no final de novas linhas. Clique para escolher um seta ou "
 "defina os parâmetros através da opção Detalhes..."
 
-#: ../app/interface.c:1635 ../app/interface.c:1762
+#: ../app/interface.c:1648 ../app/interface.c:1775
 msgid "Diagram Editor"
 msgstr "Editor de diagramas"
 
@@ -1146,8 +1147,7 @@ msgid "Layer name:"
 msgstr "Nome da camada:"
 
 #: ../app/linewidth_area.c:246 ../lib/properties.h:491 ../lib/properties.h:494
-#: ../objects/chronogram/chronoline.c:183
-#: ../objects/chronogram/chronoref.c:162
+#: ../objects/chronogram/chronoline.c:183 ../objects/chronogram/chronoref.c:162
 msgid "Line width"
 msgstr "Largura da linha"
 
@@ -1155,7 +1155,7 @@ msgstr "Largura da linha"
 msgid "Line width:"
 msgstr "Largura da linha:"
 
-#: ../app/load_save.c:301
+#: ../app/load_save.c:303
 msgid ""
 "Error loading diagram.\n"
 "Linked object not found in document."
@@ -1163,7 +1163,7 @@ msgstr ""
 "Erro ao carregar diagrama.\n"
 "Objeto vinculado não encontrado no documento."
 
-#: ../app/load_save.c:305
+#: ../app/load_save.c:307
 #, c-format
 msgid ""
 "Error loading diagram.\n"
@@ -1172,7 +1172,7 @@ msgstr ""
 "Erro ao carregar diagrama.\n"
 "Manipulador de conexão %d não existe em \"%s\"."
 
-#: ../app/load_save.c:333
+#: ../app/load_save.c:335
 #, c-format
 msgid ""
 "Error loading diagram.\n"
@@ -1181,23 +1181,23 @@ msgstr ""
 "Erro ao carregar diagrama.\n"
 "O ponto de conexão %d não existe em \"%s\"."
 
-#: ../app/load_save.c:373
+#: ../app/load_save.c:375
 #, c-format
 msgid "Can't find parent %s of %s object\n"
 msgstr "Não foi possível localizar o pai %s do objeto %s\n"
 
-#: ../app/load_save.c:422
+#: ../app/load_save.c:425
 msgid "You must specify a file, not a directory.\n"
 msgstr "Você deve especificar um arquivo, não um diretório.\n"
 
-#: ../app/load_save.c:429 ../plug-ins/dxf/dxf-import.c:1309
+#: ../app/load_save.c:432 ../plug-ins/dxf/dxf-import.c:1309
 #: ../plug-ins/wpg/wpg.c:1177 ../plug-ins/xfig/xfig-import.c:1270
 #: ../plug-ins/xslt/xslt.c:91
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
 msgstr "Não foi possível abrir \"%s\" para leitura.\n"
 
-#: ../app/load_save.c:447 ../app/load_save.c:453
+#: ../app/load_save.c:450 ../app/load_save.c:460
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -1206,7 +1206,7 @@ msgstr ""
 "Erro ao carregar o diagrama %s.\n"
 "Tipo de arquivo desconhecido."
 
-#: ../app/load_save.c:461
+#: ../app/load_save.c:468
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -1215,7 +1215,7 @@ msgstr ""
 "Erro ao carregar o diagrama %s.\n"
 "Não é um arquivo Dia."
 
-#: ../app/load_save.c:678
+#: ../app/load_save.c:685
 #, c-format
 msgid ""
 "Error loading diagram:\n"
@@ -1226,17 +1226,17 @@ msgstr ""
 "%s.\n"
 "Um arquivo válido do Dia possui ao menos uma camada."
 
-#: ../app/load_save.c:1001
+#: ../app/load_save.c:1008
 #, c-format
 msgid "Not allowed to write to output file %s\n"
 msgstr "Não é permitido gravar no arquivo de saída %s\n"
 
-#: ../app/load_save.c:1033
+#: ../app/load_save.c:1040
 #, c-format
 msgid "Not allowed to write temporary files in %s\n"
 msgstr "Não é permitido gravar arquivos temporários em %s\n"
 
-#: ../app/load_save.c:1055 ../plug-ins/cairo/diacairo.c:121
+#: ../app/load_save.c:1062 ../plug-ins/cairo/diacairo.c:110
 #: ../plug-ins/cgm/cgm.c:1154 ../plug-ins/drs/dia-render-script.c:121
 #: ../plug-ins/dxf/dxf-export.c:547 ../plug-ins/hpgl/hpgl.c:710
 #: ../plug-ins/libart/export_png.c:159
@@ -1252,17 +1252,17 @@ msgstr "Não é possível abrir o arquivo de saída %s: %s\n"
 
 #. Save failed; we clean our stuff up, without touching the file named
 #. "filename" if it existed.
-#: ../app/load_save.c:1066
+#: ../app/load_save.c:1073
 #, c-format
 msgid "Internal error %d writing file %s\n"
 msgstr "Erro interno %d ao gravar arquivo %s\n"
 
-#: ../app/load_save.c:1077
+#: ../app/load_save.c:1084
 #, c-format
 msgid "Can't rename %s to final output file %s: %s\n"
 msgstr "Não foi possível renomear %s para o arquivo de saída final %s: %s\n"
 
-#: ../app/load_save.c:1168 ../app/load_save.c:1173
+#: ../app/load_save.c:1175 ../app/load_save.c:1180
 msgid "Dia Diagram File"
 msgstr "Arquivo de diagrama do Dia"
 
@@ -1743,7 +1743,7 @@ msgstr "Retrato"
 msgid "Paper type:"
 msgstr "Tipo de papel:"
 
-#: ../app/preferences.c:194 ../objects/Database/table_dialog.c:1078
+#: ../app/preferences.c:194 ../objects/Database/table_dialog.c:1079
 msgid "Background Color:"
 msgstr "Cor do segundo plano:"
 
@@ -1870,8 +1870,8 @@ msgstr "Salvar tipos de objetos ocultos"
 msgid "Yes"
 msgstr "Sim"
 
-#: ../app/preferences.c:485 ../app/preferences.c:496
-#: ../lib/prop_inttypes.c:160 ../lib/prop_inttypes.c:186
+#: ../app/preferences.c:485 ../app/preferences.c:496 ../lib/prop_inttypes.c:160
+#: ../lib/prop_inttypes.c:186
 msgid "No"
 msgstr "Não"
 
@@ -2009,7 +2009,7 @@ msgstr "DiaObject"
 msgid "Description:"
 msgstr "Descrição:"
 
-#: ../app/sheets_dialog.c:619 ../objects/Database/table_dialog.c:695
+#: ../app/sheets_dialog.c:619 ../objects/Database/table_dialog.c:696
 #: ../objects/FS/flow-ortho.c:169 ../objects/FS/flow.c:146
 #: ../objects/Istar/link.c:162 ../objects/Jackson/phenomenon.c:146
 #: ../objects/KAOS/metaandorrel.c:166 ../objects/KAOS/metabinrel.c:173
@@ -2022,8 +2022,8 @@ msgstr "Tipo:"
 msgid "Sheet"
 msgstr "Folha"
 
-#: ../app/sheets_dialog.c:673 ../objects/Database/table_dialog.c:683
-#: ../objects/Database/table_dialog.c:1046 ../objects/ER/attribute.c:155
+#: ../app/sheets_dialog.c:673 ../objects/Database/table_dialog.c:684
+#: ../objects/Database/table_dialog.c:1047 ../objects/ER/attribute.c:155
 #: ../objects/ER/entity.c:137 ../objects/ER/relationship.c:142
 #: ../objects/UML/class_dialog.c:1148 ../objects/UML/class_dialog.c:2014
 #: ../objects/UML/class_dialog.c:2250 ../objects/UML/class_dialog.c:2853
@@ -2515,8 +2515,7 @@ msgid "Right"
 msgstr "Direita"
 
 #: ../lib/properties.c:74 ../lib/properties.h:497 ../lib/properties.h:500
-#: ../objects/chronogram/chronoline.c:181
-#: ../objects/chronogram/chronoref.c:160
+#: ../objects/chronogram/chronoline.c:181 ../objects/chronogram/chronoref.c:160
 msgid "Line color"
 msgstr "Cor da linha"
 
@@ -2546,7 +2545,7 @@ msgstr "Alinhamento do texto"
 
 #. all this just to make the defaults selectable ...
 #: ../lib/properties.c:82 ../lib/properties.h:541
-#: ../objects/Database/table_dialog.c:1036 ../objects/Database/reference.c:117
+#: ../objects/Database/table_dialog.c:1037 ../objects/Database/reference.c:117
 #: ../objects/GRAFCET/condition.c:134 ../objects/GRAFCET/step.c:167
 #: ../objects/GRAFCET/transition.c:144 ../objects/UML/class.c:174
 #: ../objects/UML/class_dialog.c:564 ../objects/chronogram/chronoline.c:185
@@ -2561,9 +2560,8 @@ msgstr "Fonte"
 msgid "Font size"
 msgstr "Tamanho da fonte"
 
-#: ../lib/properties.c:84 ../lib/properties.h:555
-#: ../objects/GRAFCET/step.c:171 ../objects/chronogram/chronoline.c:189
-#: ../objects/chronogram/chronoref.c:170
+#: ../lib/properties.c:84 ../lib/properties.h:555 ../objects/GRAFCET/step.c:171
+#: ../objects/chronogram/chronoline.c:189 ../objects/chronogram/chronoref.c:170
 msgid "Text color"
 msgstr "Cor do texto"
 
@@ -2731,62 +2729,79 @@ msgstr ""
 "Suporte para a linguagem de script Python 2.3. Não selecione isto se o "
 "Python não estiver instalado."
 
-#. Installer message: hyperlink text on finish page
+#. Installer message: Component name
 #: ../installer/win32/gennsh.c:69
+msgid "Desktop Shortcut"
+msgstr "Atalho de área de trabalho"
+
+#. Installer message: Component description
+#: ../installer/win32/gennsh.c:72
+msgid "Create a shortcut on the Desktop."
+msgstr "Cria um atalho na área de trabalho."
+
+#. Installer message: hyperlink text on finish page
+#: ../installer/win32/gennsh.c:76
 msgid "Visit the Dia for Windows Web Page"
 msgstr "Acesse a página web do Dia para Windows"
 
 #. Installer message: Dia uninstaller entry in Control Panel
-#: ../installer/win32/gennsh.c:72
+#: ../installer/win32/gennsh.c:79
 msgid "Dia (remove only)"
 msgstr "Dia (somente excluir)"
 
-#. Installer message: confirmation question. Keep $\r
-#: ../installer/win32/gennsh.c:75
+#. Installer message: directory delete confirmation line 1
+#: ../installer/win32/gennsh.c:82
 msgid ""
-"Your old Dia directory is about to be deleted. Would you like to continue?$\r"
-"$\rNote: Any non-standard plugins that you may have installed will be "
-"deleted.$\rDia user settings will not be affected."
-msgstr ""
-"Seu diretório Dia antigo está prestes a ser excluído. Você deseja continuar?"
-"$\n"
-"$\n"
-"Nota: quaisquer plug-ins de terceiros que tiverem sido instalados serão "
-"excluídos.$\n"
-"As configurações de usuário do Dia não serão afetadas."
+"Your old Dia directory is about to be deleted. Would you like to continue?"
+msgstr "Seu antigo diretório do Dia está para ser excluído. Deseja continuar?"
 
-#. Installer message: confirmatin question. Keep $\r
-#: ../installer/win32/gennsh.c:78
+#. Installer message: directory delete confirmation line 2
+#: ../installer/win32/gennsh.c:84
 msgid ""
-"The installation directory you specified already exists. Any contents$\rwill "
-"be deleted. Would you like to continue?"
-msgstr ""
-"O diretório de instalação especificado já existe. Qualquer conteúdo$\n"
-"será excluído. Deseja continuar?"
+"Note: Any non-standard plugins that you may have installed will be deleted."
+msgstr "Nota: Qualquer plug-in fora do padrão que você instalou será excluído."
 
-#. Installer message: Uninstall Section Prompts. Keep $\r
-#: ../installer/win32/gennsh.c:81
-msgid ""
-"The uninstaller could not find registry entries for Dia.$\rIt is likely that "
-"another user installed this application."
+#. Installer message: directory delete confirmation line 3
+#: ../installer/win32/gennsh.c:86
+msgid "Dia user settings will not be affected."
+msgstr "Configurações do usuário Dia não serão afetadas."
+
+#. Installer message: DIA_PROMPT_DIR_EXISTS line 1
+#: ../installer/win32/gennsh.c:89
+msgid "The installation directory you specified already exists. Any contents"
 msgstr ""
-"O desinstalador não pôde localizar nenhuma entrada de registro para o Dia.$\n"
-"Parece que outro usuário instalou essa aplicação."
+"O diretório de instalação que você especificou já existe. Qualquer conteúdo"
+
+#. Installer message: DIA_PROMP_DIR_EXISTS line 2
+#: ../installer/win32/gennsh.c:91
+msgid "will be deleted. Would you like to continue?"
+msgstr "será excluído. Deseja continuar?"
+
+#. Installer message: registry entries not found line 1
+#: ../installer/win32/gennsh.c:94
+msgid "The uninstaller could not find registry entries for Dia."
+msgstr ""
+"O desinstalador não pôde localizar nenhuma entrada de registro para o Dia."
+
+#. Installer message: registry entries not found line 2
+#: ../installer/win32/gennsh.c:96
+msgid "It is likely that another user installed this application."
+msgstr "Parece que um outro usuário instalou esse aplicativo."
 
 #. Installer message: Uninstall error message
-#: ../installer/win32/gennsh.c:84
+#: ../installer/win32/gennsh.c:99
 msgid "You do not have permission to uninstall this application."
 msgstr "Você não possui permissão para desinstalar esta aplicação."
 
 #. Installer message: Uninstallation warning. Keep $INSTDIR
-#: ../installer/win32/gennsh.c:87
+#: ../installer/win32/gennsh.c:102
 msgid "This will completely delete $INSTDIR and all subdirectories. Continue?"
 msgstr ""
 "Isto removerá completamente $INSTDIR e todos os seus subdiretórios. "
 "Continuar?"
 
 #. Installer message: Uninstallation warning. Keep $\PROFILE\.dia
-#: ../installer/win32/gennsh.c:90
+#: ../installer/win32/gennsh.c:105
 msgid ""
 "This will completely delete $PROFILE\\.dia and all subdirectories. Continue?"
 msgstr ""
@@ -2925,11 +2940,11 @@ msgstr "Comentários visíveis"
 msgid "Comment tagging"
 msgstr "Etiquetagem de comentário"
 
-#: ../objects/Database/table.c:189 ../objects/Database/table_dialog.c:976
+#: ../objects/Database/table.c:189 ../objects/Database/table_dialog.c:977
 msgid "Underline primary keys"
 msgstr "Sublinhar chaves primárias"
 
-#: ../objects/Database/table.c:191 ../objects/Database/table_dialog.c:981
+#: ../objects/Database/table.c:191 ../objects/Database/table_dialog.c:982
 msgid "Use bold font for primary keys"
 msgstr "Usar negrito para chaves primárias"
 
@@ -2970,114 +2985,114 @@ msgid "Table"
 msgstr "Tabela"
 
 #. Attributes page:
-#: ../objects/Database/table_dialog.c:611 ../objects/UML/class_dialog.c:1081
+#: ../objects/Database/table_dialog.c:612 ../objects/UML/class_dialog.c:1081
 msgid "_Attributes"
 msgstr "_Atributos"
 
 #. the "new" button
-#: ../objects/Database/table_dialog.c:639 ../objects/SISSI/sissi_dialog.c:739
+#: ../objects/Database/table_dialog.c:640 ../objects/SISSI/sissi_dialog.c:739
 #: ../objects/SISSI/sissi_dialog.c:871
 msgid "_New"
 msgstr "_Novo"
 
 #. the "delete" button
-#: ../objects/Database/table_dialog.c:647
+#: ../objects/Database/table_dialog.c:648
 msgid "_Delete"
 msgstr "_Excluir"
 
 #. the "Move up" button
-#: ../objects/Database/table_dialog.c:655
+#: ../objects/Database/table_dialog.c:656
 msgid "Move up"
 msgstr "Subir"
 
 #. the "Move down" button
-#: ../objects/Database/table_dialog.c:663
+#: ../objects/Database/table_dialog.c:664
 msgid "Move down"
 msgstr "Descer"
 
-#: ../objects/Database/table_dialog.c:673 ../objects/UML/class_dialog.c:1138
+#: ../objects/Database/table_dialog.c:674 ../objects/UML/class_dialog.c:1138
 msgid "Attribute data"
 msgstr "Dados do atributo"
 
-#: ../objects/Database/table_dialog.c:707
-#: ../objects/Database/table_dialog.c:946
-#: ../objects/Database/table_dialog.c:1051 ../objects/UML/class_dialog.c:452
+#: ../objects/Database/table_dialog.c:708
+#: ../objects/Database/table_dialog.c:947
+#: ../objects/Database/table_dialog.c:1052 ../objects/UML/class_dialog.c:452
 #: ../objects/UML/class_dialog.c:1181 ../objects/UML/class_dialog.c:2111
 #: ../objects/UML/class_dialog.c:2283
 msgid "Comment:"
 msgstr "Comentário:"
 
-#: ../objects/Database/table_dialog.c:726
+#: ../objects/Database/table_dialog.c:727
 msgid "_Primary key"
 msgstr "_Chave primária"
 
-#: ../objects/Database/table_dialog.c:733
+#: ../objects/Database/table_dialog.c:734
 msgid "N_ullable"
 msgstr "Aceita n_ulo"
 
-#: ../objects/Database/table_dialog.c:740
+#: ../objects/Database/table_dialog.c:741
 msgid "Uni_que"
 msgstr "Úni_co"
 
-#: ../objects/Database/table_dialog.c:928
+#: ../objects/Database/table_dialog.c:929
 msgid "_Table"
 msgstr "_Tabela"
 
-#: ../objects/Database/table_dialog.c:936
+#: ../objects/Database/table_dialog.c:937
 msgid "Table name:"
 msgstr "Nome da tabela:"
 
 #. XXX create a handler and disable the 'show documentation tag' checkbox
 #. if 'comment visible' is not active.
-#: ../objects/Database/table_dialog.c:966
+#: ../objects/Database/table_dialog.c:967
 msgid "Comment visible"
 msgstr "Comentário visível"
 
-#: ../objects/Database/table_dialog.c:971 ../objects/UML/class_dialog.c:522
+#: ../objects/Database/table_dialog.c:972 ../objects/UML/class_dialog.c:522
 msgid "Show documentation tag"
 msgstr "Mostrar etiqueta de documentação"
 
 #. * Fonts and Colors selection *
-#: ../objects/Database/table_dialog.c:1010 ../objects/UML/class_dialog.c:551
+#: ../objects/Database/table_dialog.c:1011 ../objects/UML/class_dialog.c:551
 msgid "_Style"
 msgstr "E_stilo"
 
-#: ../objects/Database/table_dialog.c:1021
+#: ../objects/Database/table_dialog.c:1022
 msgid "Border width:"
 msgstr "Largura da borda:"
 
 #. head line
-#: ../objects/Database/table_dialog.c:1034 ../objects/UML/class_dialog.c:561
+#: ../objects/Database/table_dialog.c:1035 ../objects/UML/class_dialog.c:561
 #: ../objects/UML/umlparameter.c:51
 msgid "Kind"
 msgstr "Tipo"
 
-#: ../objects/Database/table_dialog.c:1038 ../objects/UML/class_dialog.c:566
+#: ../objects/Database/table_dialog.c:1039 ../objects/UML/class_dialog.c:566
 msgid "Size"
 msgstr "Tamanho"
 
-#: ../objects/Database/table_dialog.c:1041
+#: ../objects/Database/table_dialog.c:1042
 msgid "Normal:"
 msgstr "Normal:"
 
-#: ../objects/Database/table_dialog.c:1062
+#: ../objects/Database/table_dialog.c:1063
 msgid "Text Color:"
 msgstr "Cor do texto:"
 
-#: ../objects/Database/table_dialog.c:1070
+#: ../objects/Database/table_dialog.c:1071
 msgid "Foreground Color:"
 msgstr "Cor do primeiro plano:"
 
 #. two chars at the beginning
-#: ../objects/Database/table_dialog.c:1383
+#: ../objects/Database/table_dialog.c:1384
 msgid "not null"
 msgstr "Não nulo"
 
-#: ../objects/Database/table_dialog.c:1384
+#: ../objects/Database/table_dialog.c:1385
 msgid "null"
 msgstr "nulo"
 
-#: ../objects/Database/table_dialog.c:1385
+#: ../objects/Database/table_dialog.c:1386
 msgid "unique"
 msgstr "único"
 
@@ -5707,13 +5722,11 @@ msgstr ""
 "\"duração\".\n"
 "exemplo : @ 1.0 (2.0)1.0(2.0)\n"
 
-#: ../objects/chronogram/chronoline.c:166
-#: ../objects/chronogram/chronoref.c:148
+#: ../objects/chronogram/chronoline.c:166 ../objects/chronogram/chronoref.c:148
 msgid "Start time"
 msgstr "Hora inicial"
 
-#: ../objects/chronogram/chronoline.c:168
-#: ../objects/chronogram/chronoref.c:150
+#: ../objects/chronogram/chronoline.c:168 ../objects/chronogram/chronoref.c:150
 msgid "End time"
 msgstr "Hora final"
 
@@ -5729,8 +5742,7 @@ msgstr "Tempo de descida"
 msgid "Multi-bit data"
 msgstr "Dados multi-bit"
 
-#: ../objects/chronogram/chronoline.c:175
-#: ../objects/chronogram/chronoref.c:158
+#: ../objects/chronogram/chronoline.c:175 ../objects/chronogram/chronoref.c:158
 msgid "Aspect"
 msgstr "Aspecto"
 
@@ -5978,7 +5990,7 @@ msgstr "Ponteiro do zoom"
 msgid "Visible rect pointer"
 msgstr "Ponteiro ret. visível"
 
-#: ../plug-ins/cairo/diacairo.c:129
+#: ../plug-ins/cairo/diacairo.c:118
 #, c-format
 msgid ""
 "Can't convert output filename '%s' to locale encoding.\n"
@@ -5988,61 +6000,61 @@ msgstr ""
 "codificação da localidade.\n"
 "Por favor, escolha um nome diferente para salvar com o cairo.\n"
 
-#: ../plug-ins/cairo/diacairo.c:256 ../plug-ins/cairo/diacairo.c:272
+#: ../plug-ins/cairo/diacairo.c:245 ../plug-ins/cairo/diacairo.c:261
 #, c-format
 msgid "Can't write %d bytes to %s"
 msgstr "Não foi possível gravar %d bytes em %s"
 
-#: ../plug-ins/cairo/diacairo.c:285
+#: ../plug-ins/cairo/diacairo.c:274
 msgid "Clipboard copy failed"
 msgstr "Falha ao copiar da área de transferência"
 
-#: ../plug-ins/cairo/diacairo.c:311 ../plug-ins/postscript/postscript.c:39
+#: ../plug-ins/cairo/diacairo.c:300 ../plug-ins/postscript/postscript.c:39
 #: ../plug-ins/wmf/wmf.cpp:1381
 msgid "Nothing to print"
 msgstr "Nada a ser impresso"
 
-#: ../plug-ins/cairo/diacairo.c:322
+#: ../plug-ins/cairo/diacairo.c:311
 msgid "Printing with Gtk+(cairo) requires at least version 2.10."
 msgstr "A impressão com a Gtk+(cairo) requer pelo menos a versão 2.10."
 
-#: ../plug-ins/cairo/diacairo.c:329
+#: ../plug-ins/cairo/diacairo.c:318
 msgid "Cairo PostScript"
 msgstr "PostScript Cairo"
 
-#: ../plug-ins/cairo/diacairo.c:340
+#: ../plug-ins/cairo/diacairo.c:329
 msgid "Cairo Portable Document Format"
 msgstr "Cairo Portable Document Format"
 
-#: ../plug-ins/cairo/diacairo.c:355
+#: ../plug-ins/cairo/diacairo.c:344
 msgid "Cairo Scalable Vector Graphics"
 msgstr "Cairo Scalable Vector Graphics"
 
-#: ../plug-ins/cairo/diacairo.c:366
+#: ../plug-ins/cairo/diacairo.c:355
 msgid "Cairo PNG"
 msgstr "PNG Cairo"
 
-#: ../plug-ins/cairo/diacairo.c:374
+#: ../plug-ins/cairo/diacairo.c:363
 msgid "Cairo PNG (with alpha)"
 msgstr "Cairo PNG (com alpha)"
 
-#: ../plug-ins/cairo/diacairo.c:384
+#: ../plug-ins/cairo/diacairo.c:373
 msgid "Cairo EMF"
 msgstr "Cairo EMF"
 
-#: ../plug-ins/cairo/diacairo.c:394
+#: ../plug-ins/cairo/diacairo.c:383
 msgid "Cairo WMF"
 msgstr "Cairo WMF"
 
-#: ../plug-ins/cairo/diacairo.c:416
+#: ../plug-ins/cairo/diacairo.c:405
 msgid "Copy _Diagram"
 msgstr "Copiar _diagrama"
 
-#: ../plug-ins/cairo/diacairo.c:426
+#: ../plug-ins/cairo/diacairo.c:415
 msgid "Print (GTK) ..."
 msgstr "Imprimir (GTK) ..."
 
-#: ../plug-ins/cairo/diacairo.c:471
+#: ../plug-ins/cairo/diacairo.c:460
 msgid "Cairo based Rendering"
 msgstr "Renderização baseada na Cairo"
 
@@ -6155,8 +6167,7 @@ msgstr "Macros TeX Metapost"
 msgid "LaTeX PGF export filter"
 msgstr "Filtro de exportação para LaTeX PGF"
 
-#: ../plug-ins/pgf/render_pgf.c:1112
-#: ../plug-ins/pstricks/render_pstricks.c:733
+#: ../plug-ins/pgf/render_pgf.c:1112 ../plug-ins/pstricks/render_pstricks.c:733
 msgid "Not valid UTF8"
 msgstr "Codificação UTF8 inválida"
 
@@ -6326,15 +6337,20 @@ msgid "MoveTo not at start of Bezier\n"
 msgstr "MoveTo não está no início do Bezier\n"
 
 #: ../plug-ins/vdx/vdx-import.c:1740
-msgid "Invalid NURBS formula"
-msgstr "Fórmula NURBS inválida"
+msgid "Invalid NURBS formula\n"
+msgstr "Fórmula NURBS inválida\n"
 
 #: ../plug-ins/vdx/vdx-import.c:1984
 #, c-format
 msgid "Couldn't write file %s"
 msgstr "Não foi possível gravar o arquivo %s"
 
-#: ../plug-ins/vdx/vdx-import.c:2069 ../plug-ins/vdx/vdx-import.c:2082
+#: ../plug-ins/vdx/vdx-import.c:2069
+#, c-format
+msgid "Couldn't handle foreign object type %s\n"
+msgstr "Não foi possível manipular o objeto externo %s\n"
+
+#: ../plug-ins/vdx/vdx-import.c:2082
 #, c-format
 msgid "Couldn't handle foreign object type %s"
 msgstr "Não foi possível manipular o objeto externo %s"
@@ -6344,14 +6360,14 @@ msgstr "Não foi possível manipular o objeto externo %s"
 msgid "Couldn't make object dir %s"
 msgstr "Não foi possível criar o diretório de objeto %s"
 
-#: ../plug-ins/vdx/vdx-import.c:3100
+#: ../plug-ins/vdx/vdx-import.c:3118
 msgid "Visio XML File Format"
 msgstr "Formato de arquivo XML do Visio"
 
 #: ../plug-ins/vdx/vdx-xml.c:3344
 #, c-format
-msgid "Can't decode object %s"
-msgstr "Não foi possível decodificar o objeto %s"
+msgid "Can't decode object %s\n"
+msgstr "Não foi possível decodificar o objeto %s\n"
 
 #: ../plug-ins/vdx/vdx-xml.c:5125
 #, c-format
@@ -10526,6 +10542,18 @@ msgstr "Aplicação Sybase cliente"
 #: ../sheets/sybase.sheet.in.h:8
 msgid "Replication server manager"
 msgstr "Gerenciador de servidor de replicação"
+
+#~ msgid ""
+#~ "Your old Dia directory is about to be deleted. Would you like to continue?"
+#~ "$\r$\rNote: Any non-standard plugins that you may have installed will be "
+#~ "deleted.$\rDia user settings will not be affected."
+#~ msgstr ""
+#~ "Seu diretório Dia antigo está prestes a ser excluído. Você deseja "
+#~ "continuar?$\n"
+#~ "$\n"
+#~ "Nota: quaisquer plug-ins de terceiros que tiverem sido instalados serão "
+#~ "excluídos.$\n"
+#~ "As configurações de usuário do Dia não serão afetadas."
 
 #~ msgid "'%s' not found!\n"
 #~ msgstr "\"%s\" não encontrado!\n"
