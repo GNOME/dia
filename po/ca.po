@@ -14,9 +14,9 @@ msgstr ""
 "Project-Id-Version: dia 0.92.2\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=dia&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2015-11-29 16:25+0000\n"
-"PO-Revision-Date: 2015-11-29 22:55+0100\n"
-"Last-Translator: Robert Antoni Buj Gelonch <rbuj@fedoraproject.ord>\n"
+"POT-Creation-Date: 2015-12-01 04:26+0000\n"
+"PO-Revision-Date: 2015-12-01 09:51+0100\n"
+"Last-Translator: Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>\n"
 "Language-Team: Catalan <tradgnome@softcatala.org>\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
@@ -492,7 +492,7 @@ msgid ""
 msgstr ""
 "Podeu ajustar la mida del diagrama en canviar l'«escalat» al diàleg de "
 "«configuració de la pàgina».\n"
-"Com alternativa, podeu utilitzar el «millor ajustament» per a moure els "
+"Com a alternativa, podeu utilitzar el «millor ajustament» per a moure els "
 "objectes/nanses als límits desitjats."
 
 #: ../app/confirm.c:92
@@ -756,7 +756,7 @@ msgstr "Intersecció"
 
 #: ../app/disp_callbacks.c:265
 msgid "Exclusion"
-msgstr "Exclussió"
+msgstr "Exclusió"
 
 #: ../app/disp_callbacks.c:403
 msgid "Selection"
@@ -6675,7 +6675,7 @@ msgid ""
 "PDF document not OK.\n"
 "%s"
 msgstr ""
-"El document PDF està malmés.\n"
+"El document PDF està malmès.\n"
 "%s"
 
 #: ../plug-ins/pgf/pgf.c:26
@@ -6891,7 +6891,7 @@ msgstr ""
 
 #: ../plug-ins/vdx/vdx-export.c:1775
 msgid "Visio XML format"
-msgstr "Format XML del Visio"
+msgstr "Format XML de Visio"
 
 #: ../plug-ins/vdx/vdx-import.c:222
 #, c-format
@@ -6923,7 +6923,7 @@ msgstr "Fórmula NURBS no vàlida"
 #: ../plug-ins/vdx/vdx-import.c:2020
 #, c-format
 msgid "Couldn't handle foreign object type %s"
-msgstr "No s'ha pogut gestionar el tipus d'objecte forani %s"
+msgstr "No s'ha pogut gestionar el tipus d'objecte forà %s"
 
 #: ../plug-ins/vdx/vdx-import.c:2949
 #, c-format
@@ -7005,7 +7005,7 @@ msgstr "Mida 0 al tipus WPG %d, esperant WPG_END\n"
 #: ../plug-ins/wpg/wpg-import.c:635
 #, c-format
 msgid "Unexpected end of file. WPG type %d, size %d.\n"
-msgstr "Final inesesperat del fitxer. Tipus WPG %d, mida %d.\n"
+msgstr "Final inesperat de fitxer. Tipus WPG %d, mida %d.\n"
 
 #: ../plug-ins/wpg/wpg-import.c:645
 msgid "Empty WPG file?"
@@ -7028,7 +7028,7 @@ msgstr "No hi ha més colors definibles per l'usuari - s'utilitzarà el negre"
 
 #: ../plug-ins/xfig/xfig-export.c:1154
 msgid "Xfig format"
-msgstr "Format de l'Xfig"
+msgstr "Format de Xfig"
 
 #: ../plug-ins/xfig/xfig-import.c:109
 #, c-format
@@ -8149,7 +8149,7 @@ msgstr "IBM Mini (AS400)"
 
 #: ../sheets/ciscocomputer.sheet.in.h:21
 msgid "Front End Processor"
-msgstr "Processador per a la interficie amb l'usuari"
+msgstr "Processador per a la interfície amb l'usuari"
 
 #: ../sheets/ciscocomputer.sheet.in.h:22
 msgid "IBM mainframe"
@@ -8199,7 +8199,7 @@ msgstr "Agenda electrònica"
 
 #: ../sheets/ciscocomputer.sheet.in.h:33
 msgid "Wireless"
-msgstr "Sense fils"
+msgstr "Sense fil"
 
 #: ../sheets/ciscocomputer.sheet.in.h:34
 msgid "PDA"
@@ -8476,7 +8476,7 @@ msgstr "Encaminador d'interruptor d'etiqueta"
 
 #: ../sheets/ciscohub.sheet.in.h:49
 msgid "MultiSwitch Device"
-msgstr "Dispositiu multicommutador"
+msgstr "Dispositiu commutador múltiple"
 
 #: ../sheets/ciscohub.sheet.in.h:50
 msgid "LAN2LAN Switch"
@@ -8881,11 +8881,11 @@ msgstr "Mòdem de cable"
 
 #: ../sheets/cisconetwork.sheet.in.h:30
 msgid "Wireless Connectivity"
-msgstr "Connectivitat sense fils"
+msgstr "Connectivitat sense fil"
 
 #: ../sheets/cisconetwork.sheet.in.h:31
 msgid "Wireless Transport"
-msgstr "Transport sense fils"
+msgstr "Transport sense fil"
 
 #: ../sheets/cisconetwork.sheet.in.h:32
 msgid "AccessPoint"
@@ -8893,7 +8893,7 @@ msgstr "Punt d'accés"
 
 #: ../sheets/cisconetwork.sheet.in.h:33
 msgid "Wireless Bridge"
-msgstr "Pont sense fils"
+msgstr "Pont sense fil"
 
 #: ../sheets/cisconetwork.sheet.in.h:34
 msgid "Dual Mode AccessPoint"
@@ -8905,7 +8905,7 @@ msgstr "Etiqueta Wi-Fi"
 
 #: ../sheets/cisconetwork.sheet.in.h:36
 msgid "Wireless Location Appliance"
-msgstr "Aparell d'ubicació sense fils"
+msgstr "Aparell d'ubicació sense fil"
 
 #: ../sheets/cisconetwork.sheet.in.h:37
 msgid "Location server"
@@ -9050,7 +9050,7 @@ msgstr "Director local"
 
 #: ../sheets/cisconetwork.sheet.in.h:72
 msgid "IOS SLB"
-msgstr "Balanceig de càrrega de servidor d'IOS"
+msgstr "Balanceig de càrrega de servidor de IOS"
 
 #: ../sheets/cisconetwork.sheet.in.h:73
 msgid "MUX"
@@ -9364,7 +9364,7 @@ msgstr "6732"
 
 #: ../sheets/ciscotelephony.sheet.in.h:49
 msgid "IAD router"
-msgstr "Encaminador d'IAD"
+msgstr "Encaminador de IAD"
 
 #: ../sheets/ciscotelephony.sheet.in.h:50
 msgid "ICS"
@@ -10587,7 +10587,7 @@ msgstr "Mòdem simple"
 
 #: ../sheets/network.sheet.in.h:16
 msgid "Antenna for wireless transmission"
-msgstr "Antena per a la transmissió sense fils"
+msgstr "Antena per a la transmissió sense fil"
 
 #: ../sheets/network.sheet.in.h:17
 msgid "Mobile telephony base station"
@@ -10775,7 +10775,7 @@ msgstr "Objectes per dissenyar diagrames SADT"
 
 #: ../sheets/SADT.sheet.in.h:3
 msgid "Activity/data flow arrow"
-msgstr "Fletxa de flux d'activitato de dades"
+msgstr "Fletxa de flux d'activitat o de dades"
 
 #: ../sheets/SADT.sheet.in.h:4
 msgid "Activity/data box"
