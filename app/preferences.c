@@ -213,7 +213,7 @@ DiaPrefData prefs_data[] =
   { NULL, PREF_END_GROUP, 0, NULL, VIEW_TAB, NULL },
   
   { NULL, PREF_NONE, 0, NULL, VIEW_TAB, N_("Antialias:") },
-  { "view_antialiased", PREF_BOOLEAN, PREF_OFFSET(view_antialiased), &default_false, VIEW_TAB, N_("view view_antialiased") },
+  { "view_antialiased", PREF_BOOLEAN, PREF_OFFSET(view_antialiased), &default_false, VIEW_TAB, N_("view antialiased") },
   { NULL, PREF_END_GROUP, 0, NULL, VIEW_TAB, NULL },
 
   /* Favored Filter */
