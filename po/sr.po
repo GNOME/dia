@@ -1,16 +1,16 @@
 # Serbian translation of dia
-# Courtesy of Prevod.org team (http://prevod.org/) -- 2003—2014.
+# Courtesy of Prevod.org team (http://prevod.org/) -- 2003—2016.
 # This file is distributed under the same license as the dia package.
 # Дејан Матијевић <dmax@neobee.net>
 # Данило Шеган <danilo@prevod.org>, 2004
-# Мирослав Николић <miroslavnikolic@rocketmail.com>, 2012—2014.
+# Мирослав Николић <miroslavnikolic@rocketmail.com>, 2012—2016.
 msgid ""
 msgstr ""
 "Project-Id-Version: dia\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=dia&key"
 "words=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2014-12-18 04:15+0000\n"
-"PO-Revision-Date: 2014-12-18 10:23+0200\n"
+"POT-Creation-Date: 2016-01-03 04:26+0000\n"
+"PO-Revision-Date: 2016-01-03 13:32+0200\n"
 "Last-Translator: Мирослав Николић <miroslavnikolic@rocketmail.com>\n"
 "Language-Team: Serbian <gnom@prevod.org>\n"
 "Language: sr\n"
@@ -210,7 +210,7 @@ msgstr "Основности објекта"
 msgid ""
 "Couldn't find standard objects when looking for object-libs; exiting...\n"
 msgstr ""
-"Не могу да пронађем стандардане објекте када тражим библиотеке објеката; "
+"Не могу да пронађем стандардне објекте када тражим библиотеке објеката; "
 "излазим...\n"
 
 #: ../app/app_procs.c:922
@@ -219,7 +219,7 @@ msgid ""
 "Couldn't find standard objects when looking for object-libs in '%s'; "
 "exiting...\n"
 msgstr ""
-"Не могу да пронађем стандардане објекте када тражим библиотеке објеката у "
+"Не могу да пронађем стандардне објекте када тражим библиотеке објеката у "
 "„%s“; излазим...\n"
 
 #: ../app/app_procs.c:980
@@ -238,7 +238,7 @@ msgstr ""
 msgid "Exiting Dia"
 msgstr "Излазим из Дие"
 
-#: ../app/app_procs.c:1057 ../app/display.c:1250 ../app/exit_dialog.c:115
+#: ../app/app_procs.c:1057 ../app/display.c:1239 ../app/exit_dialog.c:115
 #: ../app/filedlg.c:582
 msgid "Save"
 msgstr "Сачувај"
@@ -591,7 +591,7 @@ msgstr "Особине"
 #: ../app/diagram_tree_view.c:503 ../app/exit_dialog.c:125
 #: ../app/plugin-manager.c:270 ../objects/Database/table.c:147
 #: ../objects/Database/table.c:190 ../objects/Misc/n_gon.c:135
-#: ../objects/UML/association.c:236 ../objects/UML/class.c:140
+#: ../objects/UML/association.c:236 ../objects/UML/class.c:145
 #: ../objects/UML/large_package.c:136 ../objects/UML/umlattribute.c:37
 #: ../objects/UML/umlformalparameter.c:35 ../objects/UML/umloperation.c:62
 #: ../objects/UML/umlparameter.c:43
@@ -740,7 +740,7 @@ msgstr "Прати везу…"
 msgid "Convert to Path"
 msgstr "Претвори у путању"
 
-#: ../app/disp_callbacks.c:262 ../app/menus.c:271
+#: ../app/disp_callbacks.c:262 ../app/menus.c:272
 msgid "Union"
 msgstr "Унија"
 
@@ -748,7 +748,7 @@ msgstr "Унија"
 msgid "Difference"
 msgstr "Разлика"
 
-#: ../app/disp_callbacks.c:264 ../app/menus.c:272
+#: ../app/disp_callbacks.c:264 ../app/menus.c:273
 msgid "Intersection"
 msgstr "Пресек"
 
@@ -791,20 +791,20 @@ msgid "Selected '%s'"
 msgstr "Изабрано је „%s“"
 
 #. we really should not come here but instead disable the menu command earlier
-#: ../app/display.c:1138
+#: ../app/display.c:1127
 msgid "No antialiased renderer found"
 msgstr "Није пронађен исцртавач умекшавања"
 
-#: ../app/display.c:1296
+#: ../app/display.c:1285
 msgid "<unnamed>"
 msgstr "<неименован>"
 
 #. no standard buttons
-#: ../app/display.c:1302
+#: ../app/display.c:1291
 msgid "Closing diagram without saving"
 msgstr "Затварам дијаграм без чувања"
 
-#: ../app/display.c:1304
+#: ../app/display.c:1293
 #, c-format
 msgid ""
 "The diagram '%s'\n"
@@ -813,11 +813,11 @@ msgstr ""
 "Дијаграм „%s“\n"
 "није сачуван. Да сачувам измене сада?"
 
-#: ../app/display.c:1306
+#: ../app/display.c:1295
 msgid "Close Diagram"
 msgstr "Затвори дијаграм"
 
-#: ../app/display.c:1311
+#: ../app/display.c:1300
 msgid "_Discard Changes"
 msgstr "_Одбаци измене"
 
@@ -976,7 +976,7 @@ msgstr "Упореди _сва својства (не само назив обј
 msgid "Find"
 msgstr "Нађи"
 
-#: ../app/find-and-replace.c:567 ../app/menus.c:270
+#: ../app/find-and-replace.c:567 ../app/menus.c:271
 msgid "Replace"
 msgstr "Замени"
 
@@ -995,23 +995,23 @@ msgstr "_Замени"
 msgid "Pops up the Navigation window."
 msgstr "Избаците прозор за кретање."
 
-#: ../app/interface.c:736
+#: ../app/interface.c:738
 msgid "Diagram menu."
 msgstr "Изборник дијаграма."
 
-#: ../app/interface.c:776
+#: ../app/interface.c:777
 msgid "Zoom"
 msgstr "Увећај"
 
-#: ../app/interface.c:791
+#: ../app/interface.c:792
 msgid "Toggles snap-to-grid for this window."
 msgstr "Пребаците пријањање уз мрежу за овај прозор."
 
-#: ../app/interface.c:802
+#: ../app/interface.c:803
 msgid "Toggles object snapping for this window."
 msgstr "Пребаците пријањање објекта за овај прозор."
 
-#: ../app/interface.c:988 ../app/interface.c:1105 ../dia.desktop.in.in.h:2
+#: ../app/interface.c:989 ../app/interface.c:1106 ../dia.desktop.in.in.h:2
 msgid "Diagram Editor"
 msgstr "Уређиваћ дијаграма"
 
@@ -1069,8 +1069,7 @@ msgid "Layer name:"
 msgstr "Назив слоја:"
 
 #: ../app/linewidth_area.c:246 ../lib/properties.h:626 ../lib/properties.h:629
-#: ../objects/chronogram/chronoline.c:180
-#: ../objects/chronogram/chronoref.c:159
+#: ../objects/chronogram/chronoline.c:180 ../objects/chronogram/chronoref.c:159
 msgid "Line width"
 msgstr "Ширина линије"
 
@@ -1180,12 +1179,11 @@ msgid "Not allowed to write temporary files in %s\n"
 msgstr "Није ми допуштено да запишем привремену датотеку у %s\n"
 
 #: ../app/load_save.c:1114 ../plug-ins/cgm/cgm.c:1086
-#: ../plug-ins/dxf/dxf-export.c:516
-#: ../plug-ins/metapost/render_metapost.c:1022
+#: ../plug-ins/dxf/dxf-export.c:516 ../plug-ins/metapost/render_metapost.c:1022
 #: ../plug-ins/pgf/render_pgf.c:1192 ../plug-ins/postscript/render_eps.c:123
-#: ../plug-ins/pstricks/render_pstricks.c:870
-#: ../plug-ins/vdx/vdx-export.c:1706 ../plug-ins/wmf/wmf.cpp:1347
-#: ../plug-ins/wpg/wpg.c:1062 ../plug-ins/xfig/xfig-export.c:1098
+#: ../plug-ins/pstricks/render_pstricks.c:870 ../plug-ins/vdx/vdx-export.c:1706
+#: ../plug-ins/wmf/wmf.cpp:1347 ../plug-ins/wpg/wpg.c:1062
+#: ../plug-ins/xfig/xfig-export.c:1098
 #, c-format
 msgid "Can't open output file %s"
 msgstr "Не могу да отворим излазну датотеку %s"
@@ -1276,7 +1274,7 @@ msgstr "Представљање стаблом дијаграма"
 msgid "Show Toolbar"
 msgstr "Прикажи траку алата"
 
-#: ../app/menus.c:111
+#: ../app/menus.c:111 ../app/menus.c:264
 msgid "Show or hide the toolbar"
 msgstr "Прикажите или сакријте траку алата"
 
@@ -1405,7 +1403,7 @@ msgstr "Умножи текст"
 
 #: ../app/menus.c:142
 msgid "Copy object's text to clipboard"
-msgstr "Умножите текст објкета у оставу"
+msgstr "Умножите текст објекта у оставу"
 
 #: ../app/menus.c:143
 msgid "Cut Text"
@@ -1413,7 +1411,7 @@ msgstr "Исеци текст"
 
 #: ../app/menus.c:143
 msgid "Cut object's text to clipboard"
-msgstr "Исеците текст објкета у оставу"
+msgstr "Исеците текст објекта у оставу"
 
 #: ../app/menus.c:144
 msgid "Paste _Text"
@@ -1476,11 +1474,11 @@ msgstr "_Повећај"
 msgid "1600%"
 msgstr "1600%"
 
-#: ../app/menus.c:159 ../app/menus.c:596 ../app/menus.c:608
+#: ../app/menus.c:159 ../app/menus.c:597 ../app/menus.c:609
 msgid "800%"
 msgstr "800%"
 
-#: ../app/menus.c:160 ../app/menus.c:597 ../app/menus.c:609
+#: ../app/menus.c:160 ../app/menus.c:598 ../app/menus.c:610
 msgid "400%"
 msgstr "400%"
 
@@ -1564,7 +1562,7 @@ msgstr "_Групиши"
 
 #: ../app/menus.c:185
 msgid "Group selected objects"
-msgstr "Групишите изабране објкете"
+msgstr "Групишите изабране објекте"
 
 #. deliberately not using Ctrl+U for Ungroup
 #: ../app/menus.c:187
@@ -1699,7 +1697,7 @@ msgstr "Померање"
 #: ../lib/properties.h:677 ../objects/AADL/aadlbox.c:153
 #: ../objects/custom/custom_object.c:227 ../objects/Jackson/requirement.c:130
 #: ../objects/network/basestation.c:132 ../objects/network/radiocell.c:131
-#: ../objects/UML/activity.c:127 ../objects/UML/actor.c:120
+#: ../objects/UML/activity.c:129 ../objects/UML/actor.c:120
 #: ../objects/UML/classicon.c:145 ../objects/UML/component.c:133
 #: ../objects/UML/component_feature.c:158 ../objects/UML/node.c:127
 #: ../objects/UML/node.c:129 ../objects/UML/note.c:118
@@ -1775,67 +1773,72 @@ msgid "Show _Rulers"
 msgstr "Прикажи _лењире"
 
 #: ../app/menus.c:264
+#| msgid "Show Toolbar"
+msgid "Show Scrollbars"
+msgstr "Прикажи клизаче"
+
+#: ../app/menus.c:265
 msgid "Show _Connection Points"
 msgstr "Прикажи тачке _везе"
 
 #. Translators: Menu item Verb/Channel/Export/Remove
 #. Translators: Menu item Verb/Branch/Separate/Remove
 #. Translators: Menu item Verb/Branch/Separate/Remove/Remove
-#: ../app/menus.c:273 ../objects/FS/function.c:699
-#: ../objects/FS/function.c:851 ../objects/FS/function.c:853
+#: ../app/menus.c:274 ../objects/FS/function.c:699 ../objects/FS/function.c:851
+#: ../objects/FS/function.c:853
 msgid "Remove"
 msgstr "Уклони"
 
 #. Cannot also be called Invert, duplicate names caused keybinding problems
-#: ../app/menus.c:275
+#: ../app/menus.c:276
 msgid "Inverse"
 msgstr "Изврнуто"
 
-#: ../app/menus.c:337
+#: ../app/menus.c:338
 msgid "NULL tooldata in tool_menu_select"
 msgstr "НИШТАВНИ подаци алата у избору_изборника_алата"
 
-#: ../app/menus.c:598 ../app/menus.c:610
+#: ../app/menus.c:599 ../app/menus.c:611
 msgid "300%"
 msgstr "300%"
 
-#: ../app/menus.c:599 ../app/menus.c:611
+#: ../app/menus.c:600 ../app/menus.c:612
 msgid "200%"
 msgstr "200%"
 
-#: ../app/menus.c:600 ../app/menus.c:612
+#: ../app/menus.c:601 ../app/menus.c:613
 msgid "150%"
 msgstr "150%"
 
-#: ../app/menus.c:601 ../app/menus.c:613
+#: ../app/menus.c:602 ../app/menus.c:614
 msgid "100%"
 msgstr "100%"
 
-#: ../app/menus.c:602 ../app/menus.c:614
+#: ../app/menus.c:603 ../app/menus.c:615
 msgid "75%"
 msgstr "75%"
 
-#: ../app/menus.c:603 ../app/menus.c:615
+#: ../app/menus.c:604 ../app/menus.c:616
 msgid "50%"
 msgstr "50%"
 
-#: ../app/menus.c:604 ../app/menus.c:616
+#: ../app/menus.c:605 ../app/menus.c:617
 msgid "25%"
 msgstr "25%"
 
-#: ../app/menus.c:605 ../app/menus.c:617
+#: ../app/menus.c:606 ../app/menus.c:618
 msgid "10%"
 msgstr "10%"
 
-#: ../app/menus.c:643
+#: ../app/menus.c:644
 msgid "Toggles snap-to-grid."
 msgstr "Пребаците пријањање уз мрежу."
 
-#: ../app/menus.c:654
+#: ../app/menus.c:655
 msgid "Toggles object snapping."
 msgstr "Пребаците пријањање објекта."
 
-#: ../app/menus.c:1274
+#: ../app/menus.c:1275
 msgid "The function is not available anymore."
 msgstr "Функција није више доступна."
 
@@ -3034,8 +3037,7 @@ msgid "Projecting"
 msgstr "Пројектовање"
 
 #: ../lib/properties.c:96 ../lib/properties.h:632 ../lib/properties.h:635
-#: ../objects/chronogram/chronoline.c:178
-#: ../objects/chronogram/chronoref.c:157
+#: ../objects/chronogram/chronoline.c:178 ../objects/chronogram/chronoref.c:157
 msgid "Line color"
 msgstr "Боја линије"
 
@@ -3066,23 +3068,23 @@ msgid "Text alignment"
 msgstr "Поравнање текста"
 
 #: ../lib/properties.c:104 ../lib/properties.h:688
-#: ../objects/chronogram/chronoline.c:182
-#: ../objects/chronogram/chronoref.c:163 ../objects/Database/reference.c:118
-#: ../objects/GRAFCET/condition.c:131 ../objects/GRAFCET/step.c:165
-#: ../objects/GRAFCET/transition.c:141 ../objects/UML/class_dialog.c:455
+#: ../objects/chronogram/chronoline.c:182 ../objects/chronogram/chronoref.c:163
+#: ../objects/Database/reference.c:118 ../objects/GRAFCET/condition.c:131
+#: ../objects/GRAFCET/step.c:165 ../objects/GRAFCET/transition.c:141
+#: ../objects/UML/class_dialog.c:455
 msgid "Font"
 msgstr "Писмо"
 
 #: ../lib/properties.c:105 ../lib/properties.h:696
-#: ../objects/chronogram/chronoline.c:184
-#: ../objects/chronogram/chronoref.c:165 ../objects/GRAFCET/condition.c:133
-#: ../objects/GRAFCET/step.c:167 ../objects/GRAFCET/transition.c:143
+#: ../objects/chronogram/chronoline.c:184 ../objects/chronogram/chronoref.c:165
+#: ../objects/GRAFCET/condition.c:133 ../objects/GRAFCET/step.c:167
+#: ../objects/GRAFCET/transition.c:143
 msgid "Font size"
 msgstr "Величина писма"
 
 #: ../lib/properties.c:106 ../lib/properties.h:702
-#: ../objects/chronogram/chronoline.c:186
-#: ../objects/chronogram/chronoref.c:167 ../objects/GRAFCET/step.c:169
+#: ../objects/chronogram/chronoline.c:186 ../objects/chronogram/chronoref.c:167
+#: ../objects/GRAFCET/step.c:169
 msgid "Text color"
 msgstr "Боја текста"
 
@@ -3134,7 +3136,7 @@ msgid "Cant create image data from scratch!"
 msgstr "Не могу да направим податке слике из почетка!"
 
 #. Todo: get label for the branch view from props, e.g. UML Operations Parameters
-#: ../lib/prop_sdarray_widget.c:561 ../objects/chronogram/chronoline.c:161
+#: ../lib/prop_sdarray_widget.c:559 ../objects/chronogram/chronoline.c:161
 #: ../objects/UML/umloperation.c:79
 msgid "Parameters"
 msgstr "Параметри"
@@ -3143,9 +3145,9 @@ msgstr "Параметри"
 #, c-format
 msgid "Group with %d object"
 msgid_plural "Group with %d objects"
-msgstr[0] "Група од %d предмета"
-msgstr[1] "Група од %d предмета"
-msgstr[2] "Група од %d предмета"
+msgstr[0] "Група од %d објекта"
+msgstr[1] "Група од %d објекта"
+msgstr[2] "Група од %d објеката"
 msgstr[3] "Група од %d објекта"
 
 #: ../lib/sheet.c:71 ../lib/sheet.c:86
@@ -3175,8 +3177,7 @@ msgstr ""
 #: ../lib/sheet.c:378
 #, c-format
 msgid "%s: you should use object tags rather than shape tags now"
-msgstr ""
-"%s: сада бисте требали да користите ознаке објекта уместо ознака облика"
+msgstr "%s: сада бисте требали да користите ознаке објекта уместо ознака облика"
 
 #: ../lib/standard-path.c:119
 msgid "Stroke"
@@ -3204,36 +3205,36 @@ msgstr "Цртање"
 msgid "Draw Control Lines"
 msgstr "Исцртај линије управљања"
 
-#: ../lib/standard-path.c:728
+#: ../lib/standard-path.c:729
 msgid "Convert to Bezier"
 msgstr "Претвори у Безјер"
 
-#: ../lib/standard-path.c:729
+#: ../lib/standard-path.c:730
 msgid "Invert Path"
 msgstr "Окрени путању"
 
-#: ../lib/standard-path.c:730 ../objects/custom/custom_object.c:198
+#: ../lib/standard-path.c:731 ../objects/custom/custom_object.c:198
 #: ../objects/custom/custom_object.c:231
 msgid "Flip horizontal"
 msgstr "Изврните водоравно"
 
-#: ../lib/standard-path.c:731 ../objects/custom/custom_object.c:200
+#: ../lib/standard-path.c:732 ../objects/custom/custom_object.c:200
 #: ../objects/custom/custom_object.c:233
 msgid "Flip vertical"
 msgstr "Изврните усправно"
 
 #. Translators: Menu item Verb/Channel/Guide/Rotate
 #. Translators: Menu item Verb/Channel/Guide/Rotate/Rotate
-#: ../lib/standard-path.c:732 ../objects/FS/function.c:739
+#: ../lib/standard-path.c:733 ../objects/FS/function.c:739
 #: ../objects/FS/function.c:741
 msgid "Rotate"
 msgstr "Заокрени"
 
-#: ../lib/standard-path.c:733
+#: ../lib/standard-path.c:734
 msgid "Shear"
 msgstr "Заоштри"
 
-#: ../lib/standard-path.c:734
+#: ../lib/standard-path.c:735
 msgid "Show Control Lines"
 msgstr "Прикажи линије управљања"
 
@@ -3351,13 +3352,11 @@ msgstr ""
 "u трајање   поставља сигнал на „непознато“ стање, а затим чека „трајање“.\n"
 "Пример : @ 1.0 (2.0)1.0(2.0)\n"
 
-#: ../objects/chronogram/chronoline.c:163
-#: ../objects/chronogram/chronoref.c:145
+#: ../objects/chronogram/chronoline.c:163 ../objects/chronogram/chronoref.c:145
 msgid "Start time"
 msgstr "Почетно време"
 
-#: ../objects/chronogram/chronoline.c:165
-#: ../objects/chronogram/chronoref.c:147
+#: ../objects/chronogram/chronoline.c:165 ../objects/chronogram/chronoref.c:147
 msgid "End time"
 msgstr "Крајње време"
 
@@ -3373,8 +3372,7 @@ msgstr "Време опадања"
 msgid "Multi-bit data"
 msgstr "Више-битни подаци"
 
-#: ../objects/chronogram/chronoline.c:172
-#: ../objects/chronogram/chronoref.c:155
+#: ../objects/chronogram/chronoline.c:172 ../objects/chronogram/chronoref.c:155
 msgid "Aspect"
 msgstr "Изглед"
 
@@ -3507,9 +3505,9 @@ msgstr "Завршите опис"
 #: ../objects/UML/association.c:247 ../objects/UML/association.c:258
 #: ../objects/UML/association.c:260 ../objects/UML/association.c:262
 #: ../objects/UML/association.c:264 ../objects/UML/association.c:266
-#: ../objects/UML/class.c:215 ../objects/UML/class.c:217
-#: ../objects/UML/class.c:219 ../objects/UML/class.c:221
-#: ../objects/UML/class.c:223 ../objects/UML/class.c:225
+#: ../objects/UML/class.c:220 ../objects/UML/class.c:222
+#: ../objects/UML/class.c:224 ../objects/UML/class.c:226
+#: ../objects/UML/class.c:228 ../objects/UML/class.c:230
 msgid " "
 msgstr " "
 
@@ -3536,8 +3534,8 @@ msgid "Reference"
 msgstr "Референце"
 
 #: ../objects/Database/table.c:151 ../objects/Database/table.c:192
-#: ../objects/Database/table.c:220 ../objects/UML/class.c:144
-#: ../objects/UML/class.c:211 ../objects/UML/class_dialog.c:486
+#: ../objects/Database/table.c:220 ../objects/UML/class.c:149
+#: ../objects/UML/class.c:216 ../objects/UML/class_dialog.c:486
 #: ../objects/UML/umlattribute.c:43 ../objects/UML/umloperation.c:66
 #: ../objects/UML/umlparameter.c:49 ../sheets/SDL.sheet.in.h:18
 msgid "Comment"
@@ -3581,7 +3579,7 @@ msgstr "Видљиве напомене"
 msgid "Underline primary keys"
 msgstr "Подвуци примарне кључеве"
 
-#: ../objects/Database/table.c:202 ../objects/UML/class.c:159
+#: ../objects/Database/table.c:202 ../objects/UML/class.c:164
 msgid "Comment tagging"
 msgstr "Означавање напомене"
 
@@ -3590,7 +3588,7 @@ msgid "Use bold font for primary keys"
 msgstr "Користи подебљано писмо за примарне кључеве"
 
 #  Attributes page:
-#: ../objects/Database/table.c:207 ../objects/UML/class.c:181
+#: ../objects/Database/table.c:207 ../objects/UML/class.c:186
 #: ../objects/UML/object.c:150
 msgid "Attributes"
 msgstr "Особине"
@@ -3598,17 +3596,17 @@ msgstr "Особине"
 #. umlformalparameters_extra
 #. all this just to make the defaults selectable ...
 #: ../objects/Database/table.c:211 ../objects/UML/association.c:269
-#: ../objects/UML/class.c:196 ../objects/UML/object.c:159
+#: ../objects/UML/class.c:201 ../objects/UML/object.c:159
 msgid "Style"
 msgstr "Стил"
 
-#: ../objects/Database/table.c:212 ../objects/UML/class.c:197
+#: ../objects/Database/table.c:212 ../objects/UML/class.c:202
 msgid "Fonts"
 msgstr "Словни ликови"
 
 #. property rows
 #: ../objects/Database/table.c:216 ../objects/SADT/arrow.c:135
-#: ../objects/UML/class.c:201 ../objects/UML/class_dialog.c:461
+#: ../objects/UML/class.c:206 ../objects/UML/class_dialog.c:461
 msgid "Normal"
 msgstr "Обичан"
 
@@ -3616,7 +3614,7 @@ msgstr "Обичан"
 msgid "Table name"
 msgstr "Назив табеле"
 
-#: ../objects/Database/table.c:273 ../objects/UML/class.c:342
+#: ../objects/Database/table.c:273 ../objects/UML/class.c:347
 msgid "Show comments"
 msgstr "Прикажи напомене"
 
@@ -5433,7 +5431,8 @@ msgstr "Објекти дијаграма мреже"
 msgid "Radius"
 msgstr "Полупречник"
 
-#: ../objects/network/wanlink.c:119
+#: ../objects/network/wanlink.c:119 ../objects/Sozi/sozi-frame.c:575
+#: ../objects/Sozi/sozi-media.c:424
 msgid "Width"
 msgstr "Ширина"
 
@@ -5489,6 +5488,200 @@ msgstr "САДТ квадратић"
 msgid "SADT diagram objects"
 msgstr "Објекти САДТ дијаграма"
 
+#
+#: ../objects/Sozi/sozi.c:39
+#| msgid "Snap to object"
+msgid "Sozi presentation objects"
+msgstr "Објекти Сози излагања"
+
+#: ../objects/Sozi/sozi-frame.c:544 ../objects/Sozi/sozi-media.c:398
+#: ../objects/standard/box.c:135 ../objects/standard/ellipse.c:127
+msgid "Free"
+msgstr "Слободно"
+
+#: ../objects/Sozi/sozi-frame.c:545 ../objects/Sozi/sozi-media.c:399
+#: ../objects/standard/box.c:136 ../objects/standard/ellipse.c:128
+msgid "Fixed"
+msgstr "Везано"
+
+#: ../objects/Sozi/sozi-frame.c:551
+#| msgid "Constraint:"
+msgid "Constant speed"
+msgstr "Стална брзина"
+
+#: ../objects/Sozi/sozi-frame.c:552
+msgid "Speed up"
+msgstr "Убрзај"
+
+#: ../objects/Sozi/sozi-frame.c:553
+msgid "Speed up (strong)"
+msgstr "Убрзај (јако)"
+
+#: ../objects/Sozi/sozi-frame.c:554
+msgid "Speed down"
+msgstr "Успори"
+
+#: ../objects/Sozi/sozi-frame.c:555
+msgid "Speed down (strong)"
+msgstr "Успори (јако)"
+
+#: ../objects/Sozi/sozi-frame.c:556
+msgid "Speed up, then down"
+msgstr "Убрзај, затим успори"
+
+#: ../objects/Sozi/sozi-frame.c:557
+msgid "Speed up, then down (strong)"
+msgstr "Убрзај, затим успори (јако)"
+
+#: ../objects/Sozi/sozi-frame.c:558
+msgid "Speed down, then up"
+msgstr "Успори, затим убрзај"
+
+#: ../objects/Sozi/sozi-frame.c:559
+msgid "Speed down, then up (strong)"
+msgstr "Успори, затим убрзај (јако)"
+
+#: ../objects/Sozi/sozi-frame.c:560
+msgid "Immediate (beginning)"
+msgstr "Одмах (почетак)"
+
+#: ../objects/Sozi/sozi-frame.c:561
+#| msgid "Intermediate Event"
+msgid "Immediate (end)"
+msgstr "Одмах (крај)"
+
+#: ../objects/Sozi/sozi-frame.c:562
+msgid "Immediate (middle)"
+msgstr "Одмах (средина)"
+
+#: ../objects/Sozi/sozi-frame.c:572 ../objects/Sozi/sozi-media.c:421
+msgid "Geometry"
+msgstr "Геометрија"
+
+#: ../objects/Sozi/sozi-frame.c:573 ../objects/Sozi/sozi-media.c:422
+#| msgid "Center"
+msgid "Center x"
+msgstr "Средишње x"
+
+#: ../objects/Sozi/sozi-frame.c:574 ../objects/Sozi/sozi-media.c:423
+#| msgid "Center"
+msgid "Center y"
+msgstr "Средишње y"
+
+#: ../objects/Sozi/sozi-frame.c:576 ../objects/Sozi/sozi-media.c:425
+#| msgid "Height:"
+msgid "Height"
+msgstr "Висина"
+
+#: ../objects/Sozi/sozi-frame.c:577 ../objects/Sozi/sozi-media.c:426
+#| msgid "Angle"
+msgid "Angle (deg)"
+msgstr "Угао (°)"
+
+#: ../objects/Sozi/sozi-frame.c:578 ../objects/Sozi/sozi-media.c:427
+#: ../objects/standard/box.c:151 ../objects/standard/ellipse.c:140
+msgid "Aspect ratio"
+msgstr "Однос размере"
+
+#: ../objects/Sozi/sozi-frame.c:579 ../objects/Sozi/sozi-media.c:428
+msgid "Scale from center"
+msgstr "Сразмери од средишта"
+
+#: ../objects/Sozi/sozi-frame.c:581 ../objects/Sozi/sozi-media.c:430
+msgid "Legend"
+msgstr "Легенда"
+
+#: ../objects/Sozi/sozi-frame.c:582 ../objects/Sozi/sozi-media.c:431
+#| msgid "Comments visible"
+msgid "Legend is visible"
+msgstr "Легенда је видљива"
+
+#: ../objects/Sozi/sozi-frame.c:589 ../objects/Sozi/sozi-media.c:438
+#: ../sheets/Sozi.sheet.in.h:1
+msgid "Sozi"
+msgstr "Сози"
+
+#: ../objects/Sozi/sozi-frame.c:590
+msgid "Frame sequence"
+msgstr "Низ кадра"
+
+#: ../objects/Sozi/sozi-frame.c:591
+msgid "Frame title"
+msgstr "Наслов кадра"
+
+#: ../objects/Sozi/sozi-frame.c:592
+msgid "Frame hide"
+msgstr "Висина кадра"
+
+#: ../objects/Sozi/sozi-frame.c:593
+msgid "Frame clip"
+msgstr "Исечак кадра"
+
+#: ../objects/Sozi/sozi-frame.c:594
+msgid "Frame timeout enable"
+msgstr "Укључи временски истек кадра"
+
+#: ../objects/Sozi/sozi-frame.c:595
+msgid "Frame timeout (ms)"
+msgstr "Временски истек кадра (ms)"
+
+#: ../objects/Sozi/sozi-frame.c:596
+#| msgid "Transaction file"
+msgid "Frame transition profile"
+msgstr "Профил прелаза кадра"
+
+#: ../objects/Sozi/sozi-frame.c:597
+msgid "Frame transition duration (ms)"
+msgstr "Трајање прелаза кадра (ms)"
+
+#: ../objects/Sozi/sozi-media.c:405
+#| msgid "Undefined"
+msgid "undefined"
+msgstr "неодређено"
+
+#: ../objects/Sozi/sozi-media.c:406
+msgid "video/mp4"
+msgstr "видео/mp4"
+
+#: ../objects/Sozi/sozi-media.c:407
+msgid "video/webm"
+msgstr "видео/webm"
+
+#: ../objects/Sozi/sozi-media.c:408
+msgid "video/ogg"
+msgstr "видео/ogg"
+
+#: ../objects/Sozi/sozi-media.c:409
+msgid "audio/mpeg"
+msgstr "аудио/mpeg"
+
+#: ../objects/Sozi/sozi-media.c:410
+msgid "audio/ogg"
+msgstr "аудио/ogg"
+
+#: ../objects/Sozi/sozi-media.c:411
+msgid "audio/wav"
+msgstr "аудио/wav"
+
+#: ../objects/Sozi/sozi-media.c:439
+#| msgid "Message type:"
+msgid "Media type"
+msgstr "Врста медија"
+
+#: ../objects/Sozi/sozi-media.c:440
+#| msgid "Diagram file"
+msgid "Media file"
+msgstr "Датотека медија"
+
+#: ../objects/Sozi/sozi-media.c:441
+#| msgid "Start time"
+msgid "Start frame"
+msgstr "Почетни кадар"
+
+#: ../objects/Sozi/sozi-media.c:442
+msgid "Stop frame"
+msgstr "Завршни кадар"
+
 #: ../objects/standard/arc.c:120
 msgid "Curve distance"
 msgstr "Растојање криве"
@@ -5529,18 +5722,6 @@ msgstr "Контрола глаткости"
 msgid "Cusp control"
 msgstr "Контрола шиљка"
 
-#: ../objects/standard/box.c:135 ../objects/standard/ellipse.c:127
-msgid "Free"
-msgstr "Слободно"
-
-#: ../objects/standard/box.c:136 ../objects/standard/ellipse.c:128
-msgid "Fixed"
-msgstr "Везано"
-
-#: ../objects/standard/box.c:151 ../objects/standard/ellipse.c:140
-msgid "Aspect ratio"
-msgstr "Однос размере"
-
 #  Translators: Menu item Noun/Energy/Mechanical/Rotation
 #: ../objects/standard/box.c:154 ../objects/standard/ellipse.c:143
 msgid "Rotation angle"
@@ -5558,61 +5739,49 @@ msgstr "Утврђен однос"
 msgid "Circle"
 msgstr "Круг"
 
-#: ../objects/standard/image.c:123
+#: ../objects/standard/image.c:124
 msgid "Image file"
 msgstr "Датотека слике"
 
-#: ../objects/standard/image.c:125
+#: ../objects/standard/image.c:126
 msgid "Inline data"
 msgstr "Уткани подаци"
 
-#: ../objects/standard/image.c:125
+#: ../objects/standard/image.c:126
 msgid "Store image data in diagram"
 msgstr "Ускладишти податке о слици у дијаграм"
 
-#: ../objects/standard/image.c:127
+#: ../objects/standard/image.c:128
 msgid "Pixbuf"
 msgstr "Сличица"
 
-#: ../objects/standard/image.c:127
+#: ../objects/standard/image.c:128
 msgid "The Pixbuf reference"
 msgstr "Референца сличице"
 
-#: ../objects/standard/image.c:129
+#: ../objects/standard/image.c:130
 msgid "Draw border"
 msgstr "Исцртај границу"
 
-#: ../objects/standard/image.c:131
+#: ../objects/standard/image.c:132
 msgid "Keep aspect ratio"
 msgstr "Задржи однос размере"
 
-#: ../objects/standard/image.c:133
-#| msgid "Triangle"
+#: ../objects/standard/image.c:134
 msgid "Angle"
 msgstr "Угао"
 
-#: ../objects/standard/image.c:264
+#: ../objects/standard/image.c:265
 msgid "Can't save image without filename"
 msgstr "Не могу да сачувам слику без назива датотеке"
 
-#: ../objects/standard/image.c:781
+#: ../objects/standard/image.c:742
 msgid "Inconsistent pixbuf during image save."
 msgstr "Недоследна сличица за време чувања слике."
 
-#. Found file in same dir as diagram.
-#. Found file in current dir.
-#: ../objects/standard/image.c:883 ../objects/standard/image.c:894
-#, c-format
-msgid ""
-"The image file '%s' was not found in the specified directory.\n"
-"Using the file '%s' instead.\n"
-msgstr ""
-"Датотека слике „%s“ није нађена у наведеном директоријуму.\n"
-"Уместо тога користим датотеку „%s“.\n"
-
 #  Didn't find file in current dir.
-#. Didn't find file in current dir.
-#: ../objects/standard/image.c:900 ../objects/standard/image.c:922
+#. Didn't find file in current directory.
+#: ../objects/standard/image.c:839
 #, c-format
 msgid "The image file '%s' was not found.\n"
 msgstr "Датотека слике „%s“ није пронађена.\n"
@@ -5784,88 +5953,88 @@ msgid "Class scope"
 msgstr "Домет разреда"
 
 #  Class page:
-#: ../objects/UML/class.c:138 ../objects/UML/class.c:349
-#: ../objects/UML/class.c:1838 ../sheets/UML.sheet.in.h:3
+#: ../objects/UML/class.c:143 ../objects/UML/class.c:354
+#: ../objects/UML/class.c:1843 ../sheets/UML.sheet.in.h:3
 msgid "Class"
 msgstr "Разред"
 
 #. how it used to be before 0.96+SVN
 #. one name, one type: but breaks forward-compatibiliy so kind of reverted
-#: ../objects/UML/class.c:142 ../objects/UML/classicon.c:136
+#: ../objects/UML/class.c:147 ../objects/UML/classicon.c:136
 #: ../objects/UML/classicon.c:138 ../objects/UML/component.c:129
 #: ../objects/UML/large_package.c:138 ../objects/UML/object.c:146
 #: ../objects/UML/small_package.c:125 ../objects/UML/umloperation.c:68
 msgid "Stereotype"
 msgstr "Стереотип"
 
-#: ../objects/UML/class.c:149 ../objects/UML/class.c:205
+#: ../objects/UML/class.c:154 ../objects/UML/class.c:210
 #: ../objects/UML/class_dialog.c:359 ../objects/UML/class_dialog.c:471
 #: ../objects/UML/class_operations_dialog.c:832
 #: ../objects/UML/umlattribute.c:48 ../objects/UML/uml.c:111
 msgid "Abstract"
 msgstr "Апстракт"
 
-#: ../objects/UML/class.c:151
+#: ../objects/UML/class.c:156
 msgid "Visible Attributes"
 msgstr "Видљиве особине"
 
-#: ../objects/UML/class.c:153
+#: ../objects/UML/class.c:158
 msgid "Visible Operations"
 msgstr "Видљиве операције"
 
 #  Operations page:
-#: ../objects/UML/class.c:155 ../objects/UML/class_dialog.c:384
+#: ../objects/UML/class.c:160 ../objects/UML/class_dialog.c:384
 msgid "Wrap Operations"
 msgstr "Операције прелома"
 
-#: ../objects/UML/class.c:157
+#: ../objects/UML/class.c:162
 msgid "Visible Comments"
 msgstr "Видљиве примедбе"
 
-#: ../objects/UML/class.c:161 ../objects/UML/class.c:344
+#: ../objects/UML/class.c:166 ../objects/UML/class.c:349
 msgid "Allow resizing"
 msgstr "Дозволи промену величине"
 
-#: ../objects/UML/class.c:165 ../objects/UML/class.c:1835
+#: ../objects/UML/class.c:170 ../objects/UML/class.c:1840
 msgid "Template"
 msgstr "Шаблон"
 
-#: ../objects/UML/class.c:167 ../objects/UML/class_dialog.c:368
+#: ../objects/UML/class.c:172 ../objects/UML/class_dialog.c:368
 msgid "Suppress Attributes"
 msgstr "Занемари атрибуте"
 
-#: ../objects/UML/class.c:169
+#: ../objects/UML/class.c:174
 msgid "Suppress Operations"
 msgstr "Занемари операције"
 
-#: ../objects/UML/class.c:171
+#: ../objects/UML/class.c:176
 msgid "Wrap after char"
 msgstr "Преломи након знака"
 
-#: ../objects/UML/class.c:173
+#: ../objects/UML/class.c:178
 msgid "Comment line length"
 msgstr "Дужина напомене"
 
 #  Operations page:
 #. umlattribute_extra
-#: ../objects/UML/class.c:186
+#: ../objects/UML/class.c:191
 msgid "Operations"
 msgstr "Операције"
 
 #. umloperations_extra
-#: ../objects/UML/class.c:190
+#: ../objects/UML/class.c:195
 msgid "Template Parameters"
 msgstr "Параметри шаблона"
 
-#: ../objects/UML/class.c:203 ../objects/UML/class_dialog.c:466
+#: ../objects/UML/class.c:208 ../objects/UML/class_dialog.c:466
 msgid "Polymorphic"
 msgstr "Полиморфна"
 
-#: ../objects/UML/class.c:207 ../objects/UML/class_dialog.c:476
+#: ../objects/UML/class.c:212 ../objects/UML/class_dialog.c:476
 msgid "Class Name"
 msgstr "Назив разреда"
 
-#: ../objects/UML/class.c:209
+#: ../objects/UML/class.c:214
 msgid "Abstract Class Name"
 msgstr "Назив апстрактног разреда"
 
@@ -5880,9 +6049,8 @@ msgid "Class name:"
 msgstr "Назив разреда:"
 
 #: ../objects/UML/class_dialog.c:336
-#: ../objects/UML/class_operations_dialog.c:799
-#: ../objects/UML/dependency.c:134 ../objects/UML/generalization.c:131
-#: ../objects/UML/realizes.c:131
+#: ../objects/UML/class_operations_dialog.c:799 ../objects/UML/dependency.c:134
+#: ../objects/UML/generalization.c:131 ../objects/UML/realizes.c:131
 msgid "Stereotype:"
 msgstr "Стереотип:"
 
@@ -6517,8 +6685,7 @@ msgstr ""
 msgid "LaTeX PGF export filter"
 msgstr "Пропусник извоза ЛаТеКс ПГФ-а"
 
-#: ../plug-ins/pgf/render_pgf.c:1096
-#: ../plug-ins/pstricks/render_pstricks.c:686
+#: ../plug-ins/pgf/render_pgf.c:1096 ../plug-ins/pstricks/render_pstricks.c:686
 msgid "Not valid UTF-8"
 msgstr "Није исправан УТФ-8"
 
@@ -6753,7 +6920,7 @@ msgstr "Неисправна НУРБС формула"
 #: ../plug-ins/vdx/vdx-import.c:2020
 #, c-format
 msgid "Couldn't handle foreign object type %s"
-msgstr "Не могу да рукујрм страном врстом објекта %s"
+msgstr "Не могу да рукујем страном врстом објекта %s"
 
 #: ../plug-ins/vdx/vdx-import.c:2949
 #, c-format
@@ -10666,6 +10833,19 @@ msgstr "Тачка спајања"
 msgid "Main Connection Point"
 msgstr "Главна тачка спајања"
 
+#: ../sheets/Sozi.sheet.in.h:2
+msgid "Objects to do Sozi (zooming ui) presentations"
+msgstr "Објекти да одраде Сози (кс увеличавања) излагања"
+
+#: ../sheets/Sozi.sheet.in.h:3
+msgid "Sozi frame"
+msgstr "Созијев кадар"
+
+#: ../sheets/Sozi.sheet.in.h:4
+#| msgid "BBFW media"
+msgid "Sozi media"
+msgstr "Созијев медиј"
+
 #: ../sheets/sybase.sheet.in.h:1
 msgid "Sybase"
 msgstr "Сибејз"
@@ -10781,6 +10961,13 @@ msgstr "Радња"
 #: ../sheets/UML.sheet.in.h:31
 msgid "Fork/Union"
 msgstr "Растави/сједини"
+
+#~ msgid ""
+#~ "The image file '%s' was not found in the specified directory.\n"
+#~ "Using the file '%s' instead.\n"
+#~ msgstr ""
+#~ "Датотека слике „%s“ није нађена у наведеном директоријуму.\n"
+#~ "Уместо тога користим датотеку „%s“.\n"
 
 #~ msgid "No clipboard handler for '%s'"
 #~ msgstr "Нема руковаоца оставом за „%s“"
