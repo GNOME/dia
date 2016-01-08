@@ -18,8 +18,8 @@ msgstr ""
 "Project-Id-Version: dia-0-97\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=dia&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2016-01-03 19:35+0000\n"
-"PO-Revision-Date: 2016-01-06 22:47+0100\n"
+"POT-Creation-Date: 2016-01-08 04:26+0000\n"
+"PO-Revision-Date: 2016-01-08 15:41+0100\n"
 "Last-Translator: Mario Blättermann <mario.blaettermann@gmail.com>\n"
 "Language-Team: Deutsch <gnome-de@gnome.org>\n"
 "Language: de_DE\n"
@@ -2172,7 +2172,6 @@ msgstr ""
 "Nicht zugewiesener Typ"
 
 #: ../app/sheets_dialog_callbacks.c:770
-#| msgid "Select SVG Shape File"
 msgid "Please select a .shape file"
 msgstr "Bitte wählen Sie eine .shape-Datei"
 
@@ -2318,7 +2317,6 @@ msgstr ""
 "oder die Pfeilparameter mit Hilfe von »Details …« festzulegen."
 
 #: ../dia.desktop.in.in.h:1
-#| msgid "Day"
 msgid "Dia"
 msgstr "Dia"
 
@@ -2762,7 +2760,6 @@ msgid "Horizontal"
 msgstr "Horizontale"
 
 #: ../lib/diapatternselector.c:111
-#| msgid "Diagram:"
 msgid "Diagonal"
 msgstr "Diagonal"
 
@@ -2771,7 +2768,6 @@ msgid "Vertical"
 msgstr "Vertikal"
 
 #: ../lib/diapatternselector.c:113
-#| msgid "Radiation"
 msgid "Radial"
 msgstr "Radial"
 
@@ -2878,7 +2874,6 @@ msgid "Can't load font %s.\n"
 msgstr "Schrift %s konnte nicht geladen werden.\n"
 
 #: ../lib/group.c:634
-#| msgid "Information"
 msgid "Transformation"
 msgstr "Transformation"
 
@@ -2920,7 +2915,6 @@ msgstr ""
 
 #. base property stuff...
 #: ../lib/orth_conn.h:97
-#| msgid "IAD router"
 msgid "Autoroute"
 msgstr "Autoroute"
 
@@ -2929,7 +2923,6 @@ msgid "Autorouting"
 msgstr "Autorouting"
 
 #: ../lib/persistence.c:321
-#| msgid "Preferences"
 msgid "Persistence"
 msgstr "Persistenz"
 
@@ -3196,7 +3189,7 @@ msgstr "%s: Sie sollten jetzt Objekt-Tags anstelle von Form-Tags verwenden"
 
 #: ../lib/standard-path.c:119
 msgid "Stroke"
-msgstr ""
+msgstr "Umranden"
 
 #. Translators: Menu item Verb/Provision/Supply/Fill
 #: ../lib/standard-path.c:120 ../objects/FS/function.c:927
@@ -3205,7 +3198,7 @@ msgstr "Füllen"
 
 #: ../lib/standard-path.c:121
 msgid "Fill & Stroke"
-msgstr ""
+msgstr "Füllen und Umranden"
 
 #: ../lib/standard-path.c:126
 msgid "Bezier points"
@@ -5244,12 +5237,10 @@ msgstr "Präzision"
 
 # CHECK Translation
 #: ../objects/Misc/n_gon.c:103
-#| msgid "Convey"
 msgid "Convex"
 msgstr "Konvex"
 
 #: ../objects/Misc/n_gon.c:104
-#| msgid "Filled Concave"
 msgid "Concave"
 msgstr "Konkav"
 
@@ -5305,7 +5296,6 @@ msgid "Pentagon"
 msgstr "Fünfeck"
 
 #: ../objects/Misc/n_gon.c:319
-#| msgid "Open Diagram"
 msgid "Pentagram"
 msgstr "Pentagramm"
 
@@ -5314,7 +5304,6 @@ msgid "Hexagon"
 msgstr "Sechseck"
 
 #: ../objects/Misc/n_gon.c:320
-#| msgid "Diagram:"
 msgid "Hexagram"
 msgstr "Hexagramm"
 
@@ -5323,7 +5312,6 @@ msgid "Heptagon"
 msgstr "Siebeneck"
 
 #: ../objects/Misc/n_gon.c:321
-#| msgid "Export Diagram"
 msgid "Heptagram"
 msgstr "Heptagramm"
 
@@ -5761,14 +5749,10 @@ msgid "Absolute end gap"
 msgstr "Absoluter Endabstand"
 
 #: ../objects/standard/bezier.c:767 ../objects/standard/beziergon.c:524
-#, fuzzy
-#| msgid "Add segment"
 msgid "Add Segment"
 msgstr "Segment hinzufügen"
 
 #: ../objects/standard/bezier.c:768 ../objects/standard/beziergon.c:525
-#, fuzzy
-#| msgid "Delete segment"
 msgid "Delete Segment"
 msgstr "Segment löschen"
 
@@ -5897,16 +5881,12 @@ msgid "Vertical text alignment"
 msgstr "Vertikale Textausrichtung"
 
 #: ../objects/standard/textobj.c:133
-#, fuzzy
-#| msgid "Text padding"
 msgid "Text angle"
-msgstr "Textabstand"
+msgstr "Textwinkel"
 
 #: ../objects/standard/textobj.c:138
-#, fuzzy
-#| msgid "Text padding"
 msgid "Text margin"
-msgstr "Textabstand"
+msgstr "Textrand"
 
 #: ../objects/standard/zigzagline.c:450
 #, fuzzy
@@ -6451,10 +6431,8 @@ msgid "Unified Modelling Language diagram objects UML 1.3"
 msgstr "'Unified Modelling Language' Diagrammobjekte (UML 1.3)"
 
 #: ../objects/UML/umloperation.c:73
-#, fuzzy
-#| msgid "Inheritance type"
 msgid "Inheritance"
-msgstr "Typ der Vererbung:"
+msgstr "Vererbung"
 
 #: ../objects/UML/umloperation.c:75
 msgid "C++ const method"
@@ -6476,16 +6454,12 @@ msgstr "Text außerhalb"
 
 #: ../plug-ins/cairo/diacairo.c:111 ../plug-ins/drs/dia-render-script.c:124
 #: ../plug-ins/hpgl/hpgl.c:665
-#, fuzzy, c-format
-#| msgid "Can't open output file %s: %s\n"
+#, c-format
 msgid "Can't open output file %s."
-msgstr "Die Ausgabedatei »%s« konnte nicht geöffnet werden: %s\n"
+msgstr "Die Ausgabedatei »%s« konnte nicht geöffnet werden."
 
 #: ../plug-ins/cairo/diacairo.c:119
-#, fuzzy, c-format
-#| msgid ""
-#| "Can't convert output filename '%s' to locale encoding.\n"
-#| "Please choose a different name to save with cairo.\n"
+#, c-format
 msgid ""
 "Can't convert output filename '%s' to locale encoding.\n"
 "Please choose a different name to save with Cairo.\n"
@@ -6521,10 +6495,9 @@ msgid "Cairo Scalable Vector Graphics"
 msgstr "Skalierbare Vektorgrafik (SVG, cairo)"
 
 #: ../plug-ins/cairo/diacairo.c:400
-#, fuzzy
 #| msgid "Cairo PostScript"
 msgid "CairoScript"
-msgstr "Cairo PostScript"
+msgstr "CairoScript"
 
 #: ../plug-ins/cairo/diacairo.c:411
 msgid "Cairo PNG"
@@ -6553,14 +6526,10 @@ msgid "Copy _Diagram"
 msgstr "_Diagramm kopieren"
 
 #: ../plug-ins/cairo/diacairo.c:476
-#, fuzzy
-#| msgid "Print (GTK) ..."
 msgid "Print (GTK) …"
 msgstr "Drucken (GTK) …"
 
 #: ../plug-ins/cairo/diacairo.c:525
-#, fuzzy
-#| msgid "Cairo based Rendering"
 msgid "Cairo-based Rendering"
 msgstr "Cairo-basierte Darstellung"
 
@@ -6621,16 +6590,14 @@ msgid "Drawing Interchange File"
 msgstr "DXF-Datei"
 
 #: ../plug-ins/dxf/dxf-import.c:1299
-#, fuzzy, c-format
-#| msgid "read_dxf_codes failed on '%s'\n"
+#, c-format
 msgid "read_dxf_codes failed on '%s'"
-msgstr "»read_dxf_codes(%s)« fehlgeschlagen\n"
+msgstr "»read_dxf_codes« für »%s« fehlgeschlagen"
 
 #: ../plug-ins/dxf/dxf-import.c:1306
-#, fuzzy, c-format
-#| msgid "Binary DXF from '%s' not supported\n"
+#, c-format
 msgid "Binary DXF from '%s' not supported"
-msgstr "Binäres DXF (»%s«) nicht unterstützt\n"
+msgstr "Binäres DXF von »%s« wird nicht unterstützt"
 
 # HP Graphics Language ist ein Name. Nicht übersetzen.
 #: ../plug-ins/hpgl/hpgl.c:708
@@ -6647,10 +6614,8 @@ msgid "Please select edges and nodes to layout."
 msgstr ""
 
 #: ../plug-ins/layout/layout.cpp:240
-#, fuzzy
-#| msgid "'%s' creation failed"
 msgid "Graph creation failed"
-msgstr "'%s' Erzeugung gescheitert"
+msgstr "Diagrammerzeugung gescheitert"
 
 #: ../plug-ins/layout/layout.cpp:266
 msgid "No such module."
@@ -6679,16 +6644,13 @@ msgid "Failed precondition."
 msgstr "Klimaanlage"
 
 #: ../plug-ins/layout/layout.cpp:272
-#, fuzzy
 #| msgid "Dashed"
 msgid "OGDF crashed."
-msgstr "Gestrichelt"
+msgstr "OGDF abgestürzt."
 
 #: ../plug-ins/layout/layout.cpp:273
-#, fuzzy
-#| msgid "unknown arrow"
 msgid "Unknown reason"
-msgstr "Unbekannter Pfeil"
+msgstr "Unbekannter Grund"
 
 #: ../plug-ins/layout/layout.cpp:275
 #, c-format
@@ -6702,8 +6664,6 @@ msgid "OGDF Layout Algorithms"
 msgstr ""
 
 #: ../plug-ins/libart/dialibart.c:58
-#, fuzzy
-#| msgid "Libart based rendering"
 msgid "Libart-based rendering"
 msgstr "Libart-basierte Darstellung"
 
@@ -6746,8 +6706,6 @@ msgid "Image height:"
 msgstr "Bildhöhe:"
 
 #: ../plug-ins/libart/export_png.c:384
-#, fuzzy
-#| msgid "PNG (anti-aliased)"
 msgid "PNG (antialiased)"
 msgstr "PNG (geglättet)"
 
@@ -6764,22 +6722,17 @@ msgid "PDF import not available."
 msgstr ""
 
 #: ../plug-ins/pdf/pdf.c:39
-#, fuzzy
-#| msgid "Cairo Portable Document Format"
 msgid "Portable Document File"
-msgstr "Cairo Portable Document Format"
+msgstr "Portable-Document-Datei"
 
 #: ../plug-ins/pdf/pdf.c:57
-#, fuzzy
-#| msgid "WMF export filter"
 msgid "PDF import filter"
-msgstr "WMF-Exportfilter"
+msgstr "PDF-Exportfilter"
 
 #: ../plug-ins/pdf/pdf-import.cpp:410
-#, fuzzy, c-format
-#| msgid "Pager"
+#, c-format
 msgid "Page %d"
-msgstr "Pager"
+msgstr "Seite %d"
 
 #: ../plug-ins/pdf/pdf-import.cpp:871
 #, c-format
@@ -6793,8 +6746,6 @@ msgid "LaTeX PGF export filter"
 msgstr "LaTeX PGF-Exportfilter"
 
 #: ../plug-ins/pgf/render_pgf.c:1096 ../plug-ins/pstricks/render_pstricks.c:686
-#, fuzzy
-#| msgid "Not valid UTF8"
 msgid "Not valid UTF-8"
 msgstr "Ungültiges UTF-8"
 
@@ -6828,8 +6779,6 @@ msgid ""
 msgstr ""
 
 #: ../plug-ins/pixbuf/pixbuf.c:196
-#, fuzzy
-#| msgid "gdk-pixbuf based bitmap export/import"
 msgid "gdk-pixbuf-based bitmap export/import"
 msgstr "gdk-pixbuf-basierender Export/Import von Bitmaps"
 
@@ -6871,14 +6820,10 @@ msgid "Print (PS)"
 msgstr "Drucken (PS)"
 
 #: ../plug-ins/postscript/postscript.c:82
-#, fuzzy
-#| msgid "Postscript Rendering"
 msgid "PostScript Rendering"
 msgstr "PostScript-Ausgabe"
 
 #: ../plug-ins/postscript/render_eps.c:168
-#, fuzzy
-#| msgid "Encapsulated Postscript (using Pango fonts)"
 msgid "Encapsulated PostScript (using Pango fonts)"
 msgstr "Gekapseltes PostScript (unter Verwendung von Pango-Schriften)"
 
@@ -6888,16 +6833,12 @@ msgstr ""
 "Gekapseltes PostScript mit Vorschau (unter Verwendung von Pango-Schriften)"
 
 #: ../plug-ins/postscript/render_eps.c:187
-#, fuzzy
-#| msgid "Encapsulated Postscript (using PostScript Latin-1 fonts)"
 msgid "Encapsulated PostScript (using PS Latin-1 fonts)"
-msgstr "Gekapseltes PostScript (unter Verwendung von Pango-Latin-1-Schriften)"
+msgstr "Gekapseltes PostScript (unter Verwendung von PS-Latin-1-Schriften)"
 
 #: ../plug-ins/pstricks/pstricks.c:26
-#, fuzzy
-#| msgid "TeX Pstricks export filter"
 msgid "TeX PSTricks export filter"
-msgstr "TeX Pstricks Exportfilter"
+msgstr "TeX PSTricks-Exportfilter"
 
 #: ../plug-ins/pstricks/render_pstricks.c:939
 msgid "TeX PSTricks macros"
@@ -6913,8 +6854,6 @@ msgid "Python scripting support"
 msgstr "Python-Makro-Unterstützung"
 
 #: ../plug-ins/shape/shape.c:36
-#, fuzzy
-#| msgid "dia shape export filter"
 msgid "Dia shape export filter"
 msgstr "Dia Form-Exportfilter"
 
@@ -6925,10 +6864,8 @@ msgstr ""
 "geladen werden"
 
 #: ../plug-ins/shape/shape-export.c:636
-#, fuzzy
-#| msgid "Can't export png icon without export plug-in!"
 msgid "Can't export PNG icon without export plugin!"
-msgstr "png-Symbol kann ohne Export-Plugin nicht exportiert werden!"
+msgstr "PNG-Symbol kann ohne Export-Plugin nicht exportiert werden!"
 
 #: ../plug-ins/shape/shape-export.c:662
 msgid "Dia Shape File"
@@ -6956,10 +6893,9 @@ msgid "'Shape Design' shapes missing."
 msgstr ""
 
 #: ../plug-ins/svg/svg-import.c:1929
-#, fuzzy, c-format
-#| msgid "'%s' creation failed"
+#, c-format
 msgid "Object '%s' creation failed"
-msgstr "'%s' Erzeugung gescheitert"
+msgstr "»%s«-Erzeugung gescheitert"
 
 #: ../plug-ins/svg/svg-import.c:1955
 #, c-format
@@ -6984,8 +6920,6 @@ msgid ""
 msgstr ""
 
 #: ../plug-ins/svg/svg-import.c:2012
-#, fuzzy
-#| msgid "Expected SVG Namespace not found in file"
 msgid "Expected SVG name-space not found in file"
 msgstr "Erwarteter SVG-Namensbereich konnte in der Datei nicht gefunden werden"
 
@@ -7008,40 +6942,31 @@ msgid "Visio XML format"
 msgstr "Visio XML-Format"
 
 #: ../plug-ins/vdx/vdx-import.c:222
-#, fuzzy, c-format
-#| msgid "Couldn't read color: %s\n"
+#, c-format
 msgid "Couldn't read color: %s"
-msgstr "Farbe konnte nicht gelesen werden: %s\n"
+msgstr "Farbe konnte nicht gelesen werden: %s"
 
 #: ../plug-ins/vdx/vdx-import.c:536
-#, fuzzy, c-format
-#| msgid "Couldn't find shape %d\n"
+#, c-format
 msgid "Couldn't find shape %d"
-msgstr "Form %d konnte nicht gefunden werden\n"
+msgstr "Form %d konnte nicht gefunden werden"
 
 #: ../plug-ins/vdx/vdx-import.c:1066
-#, fuzzy, c-format
-#| msgid "Unexpected Ellipse object: %s\n"
+#, c-format
 msgid "Unexpected Ellipse object: %s"
-msgstr "Unerwartetes Ellipsenobjekt: %s\n"
+msgstr "Unerwartetes Ellipsenobjekt: %s"
 
 #: ../plug-ins/vdx/vdx-import.c:1080
-#, fuzzy
-#| msgid "Can't rotate ellipse\n"
 msgid "Can't rotate ellipse"
-msgstr "Ellipsendrehung nicht möglich\n"
+msgstr "Ellipsendrehung nicht möglich"
 
 #: ../plug-ins/vdx/vdx-import.c:1411
-#, fuzzy
-#| msgid "MoveTo not at start of Bezier\n"
 msgid "MoveTo not at start of Bezier"
-msgstr "MoveTo nicht am Beginn der Bezierlinie\n"
+msgstr "MoveTo nicht am Beginn der Bezierlinie"
 
 #: ../plug-ins/vdx/vdx-import.c:1761
-#, fuzzy
-#| msgid "Invalid NURBS formula\n"
 msgid "Invalid NURBS formula"
-msgstr "Ungültige NURBS-Formel\n"
+msgstr "Ungültige NURBS-Formel"
 
 #: ../plug-ins/vdx/vdx-import.c:2020
 #, c-format
@@ -7056,10 +6981,8 @@ msgid ""
 msgstr ""
 
 #: ../plug-ins/vdx/vdx-import.c:2961
-#, fuzzy
-#| msgid "Nothing to print"
 msgid "Nothing in document!"
-msgstr "Nichts zu drucken"
+msgstr "Nichts im Dokument!"
 
 #: ../plug-ins/vdx/vdx-import.c:2966
 #, c-format
@@ -7071,24 +6994,21 @@ msgid "Visio XML File Format"
 msgstr "Visio XML-Dateiformat"
 
 #: ../plug-ins/vdx/vdx-xml.c:3343
-#, fuzzy, c-format
-#| msgid "Can't decode object %s\n"
+#, c-format
 msgid "Can't decode object %s"
-msgstr "Objekt »%s« konnte nicht dekodiert werden\n"
+msgstr "Objekt »%s« konnte nicht dekodiert werden"
 
 #: ../plug-ins/wmf/wmf.cpp:317
-#, fuzzy, c-format
-#| msgid "Couldn't write file %s"
+#, c-format
 msgid ""
 "Couldn't write file %s\n"
 "%s"
-msgstr "Datei konnte nicht geschrieben werden: %s"
+msgstr ""
+"Datei %s konnte nicht geschrieben werden\n"
+"%s"
 
 #: ../plug-ins/wmf/wmf.cpp:557
-#, fuzzy, c-format
-#| msgid ""
-#| "Can not render unknown font:\n"
-#| "%s"
+#, c-format
 msgid ""
 "Cannot render unknown font:\n"
 "%s"
@@ -7105,10 +7025,8 @@ msgid "WMF export filter"
 msgstr "WMF-Exportfilter"
 
 #: ../plug-ins/wpg/wpg.c:1114 ../plug-ins/wpg/wpg.c:1120
-#, fuzzy
-#| msgid "WordPerfect Graphics export filter"
 msgid "WordPerfect Graphics"
-msgstr "WordPerfect Grafik-Exportfilter"
+msgstr "WordPerfect Grafik"
 
 #: ../plug-ins/wpg/wpg.c:1145
 msgid "WordPerfect Graphics export filter"
@@ -7120,10 +7038,9 @@ msgid "File: %s type/version unsupported.\n"
 msgstr "Datei: %s Typ/Version nicht unterstützt.\n"
 
 #: ../plug-ins/wpg/wpg-import.c:621
-#, fuzzy, c-format
-#| msgid "Unknown arrow type %d\n"
+#, c-format
 msgid "Unknown WPG type %d size %d."
-msgstr "Unbekannter Pfeiltyp %d\n"
+msgstr "Unbekannter WPG-Typ %d, Größe %d."
 
 #: ../plug-ins/wpg/wpg-import.c:626
 #, c-format
@@ -7159,10 +7076,8 @@ msgstr ""
 "verwendet"
 
 #: ../plug-ins/xfig/xfig-export.c:1154
-#, fuzzy
-#| msgid "XFig format"
 msgid "Xfig format"
-msgstr "XFig Format"
+msgstr "Xfig-Format"
 
 #: ../plug-ins/xfig/xfig-import.c:109
 #, fuzzy, c-format
@@ -7186,28 +7101,22 @@ msgstr ""
 "doppelt gepunktete Linien verwendet"
 
 #: ../plug-ins/xfig/xfig-import.c:172
-#, fuzzy, c-format
-#| msgid "Line style %d should not appear\n"
+#, c-format
 msgid "Line style %d should not appear"
-msgstr "Linienstil %d nicht unterstützt\n"
+msgstr "Linienstil %d sollte nicht erscheinen"
 
 #: ../plug-ins/xfig/xfig-import.c:244
-#, fuzzy, c-format
-#| msgid "Error while reading %dth of %d points: %s\n"
+#, c-format
 msgid "Error while reading %dth of %d points"
-msgstr "Fehler beim Lesen des %d. von %d Punkten: %s\n"
+msgstr "Fehler beim Lesen des %d. von %d Punkten"
 
 #: ../plug-ins/xfig/xfig-import.c:253
-#, fuzzy
-#| msgid "Premature end of FIG file\n"
 msgid "Unexpected end of file."
-msgstr "Vorzeitiges Ende der FIG-Datei\n"
+msgstr "Vorzeitiges Ende der Datei."
 
 #: ../plug-ins/xfig/xfig-import.c:273
-#, fuzzy
-#| msgid "Error while reading arrowhead\n"
 msgid "Error while reading arrowhead"
-msgstr "Fehler beim Lesen des Pfeilkopfes\n"
+msgstr "Fehler beim Lesen des Pfeilkopfes"
 
 #: ../plug-ins/xfig/xfig-import.c:295
 #, c-format
@@ -7215,32 +7124,23 @@ msgid "Unknown arrow type %d\n"
 msgstr "Unbekannter Pfeiltyp %d\n"
 
 #: ../plug-ins/xfig/xfig-import.c:387
-#, fuzzy, c-format
-#| msgid "Depth %d of of range, only 0-%d allowed.\n"
+#, c-format
 msgid "Depth %d out of range, only 0-%d allowed.\n"
 msgstr "Tiefe %d außerhalb des Bereichs, nur 0-%d sind erlaubt.\n"
 
 #: ../plug-ins/xfig/xfig-import.c:435
-#, fuzzy
-#| msgid "Couldn't read ellipse info: %s\n"
 msgid "Couldn't read ellipse info."
-msgstr "Ellipseninformationen konnten nicht gelesen werden: %s\n"
+msgstr "Ellipseninformationen konnten nicht gelesen werden."
 
 #: ../plug-ins/xfig/xfig-import.c:504
-#, fuzzy
-#| msgid "Couldn't read polyline info: %s\n"
 msgid "Couldn't read polyline info.\n"
-msgstr "Mehrfachlinien-Informationen konnten nicht gelesen werden: %s\n"
+msgstr "Mehrfachlinien-Informationen konnten nicht gelesen werden.\n"
 
 #: ../plug-ins/xfig/xfig-import.c:519
-#, fuzzy
-#| msgid "Couldn't read flipped bit: %s\n"
 msgid "Couldn't read flipped bit."
-msgstr "Gedrehtes Bit %s konnte nicht gelesen werden\n"
+msgstr "Gedrehtes Bit konnte nicht gelesen werden."
 
 #: ../plug-ins/xfig/xfig-import.c:537
-#, fuzzy
-#| msgid "Negative corner radius, negating"
 msgid "Negative corner radius; negating"
 msgstr "Negativer Eckenradius; wird invertiert"
 
@@ -7267,10 +7167,8 @@ msgid "Unknown spline subtype: %d\n"
 msgstr "Unbekannter Mehrfachlinien-Untertyp %d\n"
 
 #: ../plug-ins/xfig/xfig-import.c:871
-#, fuzzy
-#| msgid "Couldn't read arc info: %s\n"
 msgid "Couldn't read arc info."
-msgstr "Bogeninformationen konnten nicht gelesen werden: %s\n"
+msgstr "Bogeninformationen konnten nicht gelesen werden."
 
 #. set new fill property on arc?
 #: ../plug-ins/xfig/xfig-import.c:899
@@ -7283,10 +7181,8 @@ msgid "Unknown polyline arc: %d\n"
 msgstr "Unbekannter Winkel %d in Linienzug\n"
 
 #: ../plug-ins/xfig/xfig-import.c:968
-#, fuzzy
-#| msgid "Couldn't read text info: %s\n"
 msgid "Couldn't read text info."
-msgstr "Textinformationen konnten nicht gelesen werden: %s\n"
+msgstr "Textinformationen konnten nicht gelesen werden."
 
 #: ../plug-ins/xfig/xfig-import.c:996
 #, c-format
@@ -7299,20 +7195,16 @@ msgid "Can't find Postscript font nr. %d, using sans"
 msgstr ""
 
 #: ../plug-ins/xfig/xfig-import.c:1032
-#, fuzzy
-#| msgid "Couldn't identify FIG object: %s\n"
 msgid "Couldn't identify Fig object."
-msgstr "FIG-Objekt konnte nicht identifiziert werden: %s\n"
+msgstr "FIG-Objekt konnte nicht identifiziert werden."
 
 #: ../plug-ins/xfig/xfig-import.c:1040
 msgid "Compound end outside compound\n"
 msgstr "Verbund endete außerhalb des Verbundes\n"
 
 #: ../plug-ins/xfig/xfig-import.c:1062
-#, fuzzy
-#| msgid "Couldn't read color: %s\n"
 msgid "Couldn't read color\n"
-msgstr "Farbe konnte nicht gelesen werden: %s\n"
+msgstr "Farbe konnte nicht gelesen werden.\n"
 
 #: ../plug-ins/xfig/xfig-import.c:1067
 #, c-format
@@ -7337,10 +7229,8 @@ msgid "`%s' is not one of `%s' or `%s'\n"
 msgstr "»%s« ist nicht einer von »%s« oder »%s«\n"
 
 #: ../plug-ins/xfig/xfig-import.c:1160
-#, fuzzy
-#| msgid "Error reading paper size: %s\n"
 msgid "Error reading paper size."
-msgstr "Fehler beim Lesen der Papiergröße: %s\n"
+msgstr "Fehler beim Lesen der Papiergröße."
 
 #: ../plug-ins/xfig/xfig-import.c:1171
 #, c-format
@@ -7348,10 +7238,8 @@ msgid "Unknown paper size `%s', using default\n"
 msgstr "Unbekannte Papiergröße »%s«, Vorgabe wird verwendet\n"
 
 #: ../plug-ins/xfig/xfig-import.c:1184
-#, fuzzy
-#| msgid "Error reading paper orientation: %s\n"
 msgid "Error reading paper orientation."
-msgstr "Fehler beim Lesen der Papierausrichtung: %s\n"
+msgstr "Fehler beim Lesen der Papierausrichtung."
 
 #: ../plug-ins/xfig/xfig-import.c:1194
 #, fuzzy
@@ -7360,83 +7248,63 @@ msgid "Error reading justification."
 msgstr "Fehler beim Lesen der Ausrichtung: %s\n"
 
 #: ../plug-ins/xfig/xfig-import.c:1204
-#, fuzzy
-#| msgid "Error reading units: %s\n"
 msgid "Error reading units."
-msgstr "Fehler beim Lesen der Einheiten: %s\n"
+msgstr "Fehler beim Lesen der Einheiten."
 
 #: ../plug-ins/xfig/xfig-import.c:1220
-#, fuzzy
-#| msgid "Error reading magnification: %s\n"
 msgid "Error reading magnification."
-msgstr "Fehler beim Lesen der Vergrößerung: %s\n"
+msgstr "Fehler beim Lesen der Vergrößerung."
 
 #: ../plug-ins/xfig/xfig-import.c:1233
-#, fuzzy
-#| msgid "Error reading multipage indicator: %s\n"
 msgid "Error reading multipage indicator."
-msgstr "Fehler beim Lesen des Mehrfachseiten-Indikators: %s\n"
+msgstr "Fehler beim Lesen des Mehrfachseiten-Indikators."
 
 #: ../plug-ins/xfig/xfig-import.c:1244
-#, fuzzy
-#| msgid "Error reading transparent color: %s\n"
 msgid "Error reading transparent color."
-msgstr "Fehler beim Lesen der transparenten Farbe: %s\n"
+msgstr "Fehler beim Lesen der transparenten Farbe."
 
 #: ../plug-ins/xfig/xfig-import.c:1253 ../plug-ins/xfig/xfig-import.c:1314
 #: ../plug-ins/xfig/xfig-import.c:1332
-#, fuzzy
-#| msgid "Error reading FIG file: %s\n"
 msgid "Error reading Fig file."
-msgstr "Fehler beim Lesen der FIG-Datei: %s\n"
+msgstr "Fehler beim Lesen der FIG-Datei."
 
 #: ../plug-ins/xfig/xfig-import.c:1255
-#, fuzzy
-#| msgid "Premature end of FIG file\n"
 msgid "Premature end of Fig file\n"
 msgstr "Vorzeitiges Ende der FIG-Datei\n"
 
 #: ../plug-ins/xfig/xfig-import.c:1264
-#, fuzzy
-#| msgid "Error reading resolution: %s\n"
 msgid "Error reading resolution."
-msgstr "Fehler beim Lesen der Auflösung: %s\n"
+msgstr "Fehler beim Lesen der Auflösung."
 
 #: ../plug-ins/xfig/xfig-import.c:1300
-#, fuzzy
-#| msgid "Doesn't look like a Fig file: %s\n"
 msgid "Doesn't look like a Fig file"
-msgstr "Sieht nicht nach einer FIG-Datei aus: %s\n"
+msgstr "Sieht nicht nach einer FIG-Datei aus."
 
 #: ../plug-ins/xfig/xfig-import.c:1306
-#, fuzzy, c-format
-#| msgid "This is a FIG version %d.%d file, I may not understand it\n"
+#, c-format
 msgid ""
 "This is a Fig version %d.%d file.\n"
 " It may not be importable."
 msgstr ""
-"Dies ist eine FIG-Datei Version %d.%d, es kann sein, dass sie nicht lesbar "
-"ist\n"
+"Dies ist eine FIG-Datei Version %d.%d.\n"
+"Es kann sein, dass sie nicht importierbar ist."
 
 #: ../plug-ins/xfig/xfig-import.c:1316
-#, fuzzy
-#| msgid "Premature end of FIG file\n"
 msgid "Premature end of Fig file"
-msgstr "Vorzeitiges Ende der FIG-Datei\n"
+msgstr "Vorzeitiges Ende der FIG-Datei"
 
 #: ../plug-ins/xfig/xfig-import.c:1355
-#, fuzzy
-#| msgid "XFig File Format"
 msgid "Xfig File Format"
-msgstr "XFig Dateiformat"
+msgstr "XFig-Dateiformat"
 
 #: ../plug-ins/xslt/xslt.c:114
-#, fuzzy, c-format
-#| msgid "Error while parsing %s\n"
+#, c-format
 msgid ""
 "Error while parsing %s\n"
 "%s"
-msgstr "Fehler beim Verarbeiten von %s\n"
+msgstr ""
+"Fehler beim Verarbeiten von %s\n"
+"%s"
 
 #: ../plug-ins/xslt/xslt.c:124
 #, c-format
@@ -7468,8 +7336,6 @@ msgid "XSL Transformation filter"
 msgstr "XSL-Transformationsfilter"
 
 #: ../plug-ins/xslt/xslt.c:370
-#, fuzzy
-#| msgid "No valid configuration files found for the XSLT plugin, not loading."
 msgid "No valid configuration files found for the XSLT plugin; not loading."
 msgstr ""
 "Für das XSLT-Plugin konnten keine gültigen Konfigurationsdateien gefunden "
@@ -7552,8 +7418,6 @@ msgid "Right angle triangle"
 msgstr "Rechtwinkliges Dreieck"
 
 #: ../sheets/Assorted.sheet.in.h:8
-#, fuzzy
-#| msgid "Isoceles triangle"
 msgid "Isosceles triangle"
 msgstr "Gleichschenkliges Dreieck"
 
@@ -7574,26 +7438,18 @@ msgid "Diamond"
 msgstr "Diamant"
 
 #: ../sheets/Assorted.sheet.in.h:13
-#, fuzzy
-#| msgid "Pentagon. Five sided shape"
 msgid "Pentagon. Five-point shape"
 msgstr "Pentagon. Fünfseitige Form"
 
 #: ../sheets/Assorted.sheet.in.h:14
-#, fuzzy
-#| msgid "Hexagon. Six sided shape"
 msgid "Hexagon. Six-point shape"
 msgstr "Hexagon. Sechsseitige Form"
 
 #: ../sheets/Assorted.sheet.in.h:15
-#, fuzzy
-#| msgid "Heptagon. Seven sided shape"
 msgid "Heptagon. Seven-point shape"
 msgstr "Heptagon. Siebenseitige Form"
 
 #: ../sheets/Assorted.sheet.in.h:16
-#, fuzzy
-#| msgid "Octogon. Eight sided shape"
 msgid "Octagon. Eight-point shape"
 msgstr "Oktogon. Achtseitige Form"
 
@@ -7610,50 +7466,34 @@ msgid "Trapezoid"
 msgstr "Trapezoid"
 
 #: ../sheets/Assorted.sheet.in.h:20
-#, fuzzy
-#| msgid "Four point star"
 msgid "Four-point star"
 msgstr "Stern mit vier Zacken"
 
 #: ../sheets/Assorted.sheet.in.h:21
-#, fuzzy
-#| msgid "Curved four point star"
 msgid "Curved four-point star"
 msgstr "Gekurvter Stern mit vier Zacken"
 
 #: ../sheets/Assorted.sheet.in.h:22
-#, fuzzy
-#| msgid "Five point star"
 msgid "Five-point star"
 msgstr "Stern mit fünf Zacken"
 
 #: ../sheets/Assorted.sheet.in.h:23
-#, fuzzy
-#| msgid "Six point star"
 msgid "Six-point star"
 msgstr "Stern mit sechs Zacken"
 
 #: ../sheets/Assorted.sheet.in.h:24
-#, fuzzy
-#| msgid "Seven point star"
 msgid "Seven-point star"
 msgstr "Stern mit sieben Zacken"
 
 #: ../sheets/Assorted.sheet.in.h:25
-#, fuzzy
-#| msgid "Eight point star"
 msgid "Eight-point star"
 msgstr "Stern mit acht Zacken"
 
 #: ../sheets/Assorted.sheet.in.h:26
-#, fuzzy
-#| msgid "Sharp eight point star"
 msgid "Sharp eight-point star"
 msgstr "Scharfer Stern mit acht Zacken"
 
 #: ../sheets/Assorted.sheet.in.h:27
-#, fuzzy
-#| msgid "Curved eight point star"
 msgid "Curved eight-point star"
 msgstr "Gekurvter Stern mit acht Zacken"
 
@@ -7751,132 +7591,92 @@ msgid "Start Event"
 msgstr "Anfangsereignis"
 
 #: ../sheets/BPMN.sheet.in.h:5
-#, fuzzy
-#| msgid "Start Event - Message"
 msgid "Start Event — Message"
-msgstr "Anfangsereignis - Nachricht"
+msgstr "Anfangsereignis — Nachricht"
 
 #: ../sheets/BPMN.sheet.in.h:6
-#, fuzzy
-#| msgid "Start Event - Timer"
 msgid "Start Event — Timer"
-msgstr "Anfangsereignis - Zeituhr"
+msgstr "Anfangsereignis — Zeituhr"
 
 #: ../sheets/BPMN.sheet.in.h:7
-#, fuzzy
-#| msgid "Start Event - Rule"
 msgid "Start Event — Rule"
-msgstr "Anfangsereignis - Regel"
+msgstr "Anfangsereignis — Regel"
 
 #: ../sheets/BPMN.sheet.in.h:8
-#, fuzzy
-#| msgid "Start Event - Link"
 msgid "Start Event — Link"
-msgstr "Anfangsereignis - Verweis"
+msgstr "Anfangsereignis — Verweis"
 
 #: ../sheets/BPMN.sheet.in.h:9
-#, fuzzy
-#| msgid "Start Event - Multiple"
 msgid "Start Event — Multiple"
-msgstr "Anfangsereignis - Mehrfach"
+msgstr "Anfangsereignis — Mehrfach"
 
 #: ../sheets/BPMN.sheet.in.h:10
 msgid "Intermediate Event"
 msgstr "Zwischenzeitliches Ereignis"
 
 #: ../sheets/BPMN.sheet.in.h:11
-#, fuzzy
-#| msgid "Intermediate Event - Message"
 msgid "Intermediate Event — Message"
-msgstr "Zwischenzeitliches Ereignis - Nachricht"
+msgstr "Zwischenzeitliches Ereignis — Nachricht"
 
 #: ../sheets/BPMN.sheet.in.h:12
-#, fuzzy
-#| msgid "Intermediate Event - Timer"
 msgid "Intermediate Event — Timer"
-msgstr "Zwischenzeitliches Ereignis - Zeituhr"
+msgstr "Zwischenzeitliches Ereignis — Zeituhr"
 
 #: ../sheets/BPMN.sheet.in.h:13
-#, fuzzy
-#| msgid "Intermediate Event - Error"
 msgid "Intermediate Event — Error"
-msgstr "Zwischenzeitliches Ereignis - Fehler"
+msgstr "Zwischenzeitliches Ereignis — Fehler"
 
 #: ../sheets/BPMN.sheet.in.h:14
-#, fuzzy
-#| msgid "Intermediate Event - Cancel"
 msgid "Intermediate Event — Cancel"
-msgstr "Zwischenzeitliches Ereignis - Abbruch"
+msgstr "Zwischenzeitliches Ereignis — Abbruch"
 
 #: ../sheets/BPMN.sheet.in.h:15
-#, fuzzy
-#| msgid "Intermediate Event - Compensation"
 msgid "Intermediate Event — Compensation"
-msgstr "Zwischenzeitliches Ereignis - Ausgleich"
+msgstr "Zwischenzeitliches Ereignis — Ausgleich"
 
 #: ../sheets/BPMN.sheet.in.h:16
-#, fuzzy
-#| msgid "Intermediate Event - Rule"
 msgid "Intermediate Event — Rule"
-msgstr "Zwischenzeitliches Ereignis - Regel"
+msgstr "Zwischenzeitliches Ereignis — Regel"
 
 #: ../sheets/BPMN.sheet.in.h:17
-#, fuzzy
-#| msgid "Intermediate Event - Link"
 msgid "Intermediate Event — Link"
-msgstr "Zwischenzeitliches Ereignis - Verweis"
+msgstr "Zwischenzeitliches Ereignis — Verweis"
 
 #: ../sheets/BPMN.sheet.in.h:18
-#, fuzzy
-#| msgid "Intermediate Event - Multiple"
 msgid "Intermediate Event — Multiple"
-msgstr "Zwischenzeitliches Ereignis - Mehrfach"
+msgstr "Zwischenzeitliches Ereignis — Mehrfach"
 
 #: ../sheets/BPMN.sheet.in.h:19
 msgid "End Event"
 msgstr "Endereignis"
 
 #: ../sheets/BPMN.sheet.in.h:20
-#, fuzzy
-#| msgid "End Event - Message"
 msgid "End Event — Message"
-msgstr "Endereignis - Nachricht"
+msgstr "Endereignis — Nachricht"
 
 #: ../sheets/BPMN.sheet.in.h:21
-#, fuzzy
-#| msgid "End Event - Error"
 msgid "End Event — Error"
-msgstr "Endereignis - Fehler"
+msgstr "Endereignis — Fehler"
 
 #: ../sheets/BPMN.sheet.in.h:22
-#, fuzzy
-#| msgid "End Event - Cancel"
 msgid "End Event — Cancel"
-msgstr "Endereignis - Abbruch"
+msgstr "Endereignis — Abbruch"
 
 #: ../sheets/BPMN.sheet.in.h:23
-#, fuzzy
-#| msgid "End Event - Compensation"
 msgid "End Event — Compensation"
-msgstr "Endereignis - Ausgleich"
+msgstr "Endereignis — Ausgleich"
 
 #: ../sheets/BPMN.sheet.in.h:24
-#, fuzzy
-#| msgid "End Event - Link"
 msgid "End Event — Link"
-msgstr "Endereignis - Verweis"
+msgstr "Endereignis — Verweis"
 
 #: ../sheets/BPMN.sheet.in.h:25
-#, fuzzy
-#| msgid "End Event - Multiple"
 msgid "End Event — Multiple"
-msgstr "Endereignis - Mehrfach"
+msgstr "Endereignis — Mehrfach"
 
 #: ../sheets/BPMN.sheet.in.h:26
-#, fuzzy
-#| msgid "End Event - Terminate"
 msgid "End Event — Terminate"
-msgstr "Endereignis - Beenden"
+msgstr "Endereignis — Beenden"
 
 #: ../sheets/BPMN.sheet.in.h:27
 msgid "Gateway"
@@ -8272,14 +8072,10 @@ msgid "Vertically aligned fuse"
 msgstr "Vertikal ausgerichtete Sicherung"
 
 #: ../sheets/Circuit.sheet.in.h:27
-#, fuzzy
-#| msgid "Horizontally aligned powersource"
 msgid "Horizontally aligned power source"
 msgstr "Horizontal ausgerichtete Stromquelle"
 
 #: ../sheets/Circuit.sheet.in.h:28
-#, fuzzy
-#| msgid "Vertically aligned powersource"
 msgid "Vertically aligned power source"
 msgstr "Vertikal ausgerichtete Stromquelle"
 
@@ -8316,22 +8112,16 @@ msgid "Horizontal jumper"
 msgstr "Horizontaler Jumper"
 
 #: ../sheets/Circuit.sheet.in.h:37
-#, fuzzy
-#| msgid "Horizontal rest"
 msgid "Horizontal xtal"
-msgstr "Horizontale Auflage"
+msgstr ""
 
 #: ../sheets/Circuit.sheet.in.h:38
-#, fuzzy
-#| msgid "Vertical rest"
 msgid "Vertical xtal"
-msgstr "Vertikale Auflage"
+msgstr ""
 
 #: ../sheets/ciscocomputer.sheet.in.h:1
-#, fuzzy
-#| msgid "Cisco - Computer"
 msgid "Cisco — Computer"
-msgstr "Cisco - Computer"
+msgstr "Cisco — Computer"
 
 #: ../sheets/ciscocomputer.sheet.in.h:2
 msgid "Computer shapes by Cisco"
@@ -8531,10 +8321,9 @@ msgid "PC Adapter Card"
 msgstr "PC-Adapterkarte"
 
 #: ../sheets/ciscohub.sheet.in.h:1
-#, fuzzy
 #| msgid "Cisco - Switch"
 msgid "Cisco — Switch"
-msgstr "Cisco - Switch"
+msgstr "Cisco — Switch"
 
 #: ../sheets/ciscohub.sheet.in.h:2
 msgid "Router and switch shapes by Cisco"
@@ -8826,10 +8615,9 @@ msgid "Virtual Layer Switch"
 msgstr "Virtueller Layer-Switch"
 
 #: ../sheets/ciscomisc.sheet.in.h:1
-#, fuzzy
 #| msgid "Cisco - Misc"
 msgid "Cisco — Miscellaneous"
-msgstr "Cisco - Versch."
+msgstr "Cisco — Versch."
 
 #: ../sheets/ciscomisc.sheet.in.h:2
 msgid "Miscellaneous shapes by Cisco"
@@ -9022,10 +8810,8 @@ msgid "Headphones"
 msgstr "Telefone"
 
 #: ../sheets/cisconetwork.sheet.in.h:1
-#, fuzzy
-#| msgid "Cisco - Network"
 msgid "Cisco — Network"
-msgstr "Cisco - Netzwerk"
+msgstr "Cisco — Netzwerk"
 
 #: ../sheets/cisconetwork.sheet.in.h:2
 msgid "Network shapes by Cisco"
@@ -9428,10 +9214,9 @@ msgid "Service Control"
 msgstr "Dienstkontrolle"
 
 #: ../sheets/ciscotelephony.sheet.in.h:1
-#, fuzzy
 #| msgid "Cisco - Telephony"
 msgid "Cisco — Telephony"
-msgstr "Cisco - Telefon"
+msgstr "Cisco — Telefonie"
 
 #: ../sheets/ciscotelephony.sheet.in.h:2
 msgid "Telephony shapes by Cisco"
@@ -9835,28 +9620,24 @@ msgid "Elements of cybernetic circuits"
 msgstr "Komponenten für kybernetische Schaltkreise"
 
 #: ../sheets/Cybernetics.sheet.in.h:3
-#, fuzzy
 #| msgid "Sensor - left"
 msgid "Sensor — left"
-msgstr "Sensor - links"
+msgstr "Sensor — links"
 
 #: ../sheets/Cybernetics.sheet.in.h:4
-#, fuzzy
 #| msgid "Sensor - right"
 msgid "Sensor — right"
-msgstr "Sensor - rechts"
+msgstr "Sensor — rechts"
 
 #: ../sheets/Cybernetics.sheet.in.h:5
-#, fuzzy
 #| msgid "Sensor - bottom"
 msgid "Sensor — bottom"
-msgstr "Sensor - unten"
+msgstr "Sensor — unten"
 
 #: ../sheets/Cybernetics.sheet.in.h:6
-#, fuzzy
 #| msgid "Sensor - top"
 msgid "Sensor — top"
-msgstr "Sensor - oben"
+msgstr "Sensor — oben"
 
 #: ../sheets/Cybernetics.sheet.in.h:7
 msgid "Sum, subtracting left input"
@@ -9875,28 +9656,20 @@ msgid "Sum, subtracting top input"
 msgstr "Summe, Abziehen des oberen Eingangs"
 
 #: ../sheets/Cybernetics.sheet.in.h:11
-#, fuzzy
-#| msgid "Integrator - input left"
 msgid "Integrator — input left"
-msgstr "Integrierer - Eingang links"
+msgstr "Integrierer — Eingang links"
 
 #: ../sheets/Cybernetics.sheet.in.h:12
-#, fuzzy
-#| msgid "Integrator - input right"
 msgid "Integrator — input right"
-msgstr "Integrierer - Eingang rechts"
+msgstr "Integrierer — Eingang rechts"
 
 #: ../sheets/Cybernetics.sheet.in.h:13
-#, fuzzy
-#| msgid "Integrator - input bottom"
 msgid "Integrator — input bottom"
-msgstr "Integrierer - Eingang unten"
+msgstr "Integrierer — Eingang unten"
 
 #: ../sheets/Cybernetics.sheet.in.h:14
-#, fuzzy
-#| msgid "Integrator - input top"
 msgid "Integrator — input top"
-msgstr "Integrierer - Eingang oben"
+msgstr "Integrierer — Eingang oben"
 
 #: ../sheets/Cybernetics.sheet.in.h:15
 msgid "Sum"
@@ -10305,8 +10078,6 @@ msgid "River"
 msgstr "Fluss"
 
 #: ../sheets/IsometricMap.sheet.in.h:13
-#, fuzzy
-#| msgid "Roof1"
 msgid "Roof 1"
 msgstr "Dach 1"
 
@@ -10477,100 +10248,68 @@ msgid "Pieces of a jigsaw"
 msgstr "Puzzleteile"
 
 #: ../sheets/jigsaw.sheet.in.h:3
-#, fuzzy
-#| msgid "Jigsaw - part_oioi"
 msgid "Jigsaw — part_oioi"
-msgstr "Puzzle - Teil_oioi"
+msgstr "Puzzle — Teil_oioi"
 
 #: ../sheets/jigsaw.sheet.in.h:4
-#, fuzzy
-#| msgid "Jigsaw - part_ioio"
 msgid "Jigsaw — part_ioio"
-msgstr "Puzzle - Teil_ioio"
+msgstr "Puzzle — Teil_ioio"
 
 #: ../sheets/jigsaw.sheet.in.h:5
-#, fuzzy
-#| msgid "Jigsaw - part_iiii"
 msgid "Jigsaw — part_iiii"
-msgstr "Puzzle - Teil_iiii"
+msgstr "Puzzle — Teil_iiii"
 
 #: ../sheets/jigsaw.sheet.in.h:6
-#, fuzzy
-#| msgid "Jigsaw - part_oooo"
 msgid "Jigsaw — part_oooo"
-msgstr "Puzzle - Teil_oooo"
+msgstr "Puzzle — Teil_oooo"
 
 #: ../sheets/jigsaw.sheet.in.h:7
-#, fuzzy
-#| msgid "Jigsaw - part_oooi"
 msgid "Jigsaw — part_oooi"
-msgstr "Puzzle - Teil_oooi"
+msgstr "Puzzle — Teil_oooi"
 
 #: ../sheets/jigsaw.sheet.in.h:8
-#, fuzzy
-#| msgid "Jigsaw - part_iooo"
 msgid "Jigsaw — part_iooo"
-msgstr "Puzzle - Teil_iooo"
+msgstr "Puzzle — Teil_iooo"
 
 #: ../sheets/jigsaw.sheet.in.h:9
-#, fuzzy
-#| msgid "Jigsaw - part_oioo"
 msgid "Jigsaw — part_oioo"
-msgstr "Puzzle - Teil_oioo"
+msgstr "Puzzle — Teil_oioo"
 
 #: ../sheets/jigsaw.sheet.in.h:10
-#, fuzzy
-#| msgid "Jigsaw - part_ooio"
 msgid "Jigsaw — part_ooio"
-msgstr "Puzzle - Teil_ooio"
+msgstr "Puzzle — Teil_ooio"
 
 #: ../sheets/jigsaw.sheet.in.h:11
-#, fuzzy
-#| msgid "Jigsaw - part_iioo"
 msgid "Jigsaw — part_iioo"
-msgstr "Puzzle - Teil_iioo"
+msgstr "Puzzle — Teil_iioo"
 
 #: ../sheets/jigsaw.sheet.in.h:12
-#, fuzzy
-#| msgid "Jigsaw - part_oiio"
 msgid "Jigsaw — part_oiio"
-msgstr "Puzzle - Teil_oiio"
+msgstr "Puzzle — Teil_oiio"
 
 #: ../sheets/jigsaw.sheet.in.h:13
-#, fuzzy
-#| msgid "Jigsaw - part_ooii"
 msgid "Jigsaw — part_ooii"
-msgstr "Puzzle - Teil_ooii"
+msgstr "Puzzle — Teil_ooii"
 
 #: ../sheets/jigsaw.sheet.in.h:14
-#, fuzzy
-#| msgid "Jigsaw - part_iooi"
 msgid "Jigsaw — part_iooi"
-msgstr "Puzzle - Teil_iooi"
+msgstr "Puzzle — Teil_iooi"
 
 #: ../sheets/jigsaw.sheet.in.h:15
-#, fuzzy
-#| msgid "Jigsaw - part_oiii"
 msgid "Jigsaw — part_oiii"
-msgstr "Puzzle - Teil_oiii"
+msgstr "Puzzle — Teil_oiii"
 
 #: ../sheets/jigsaw.sheet.in.h:16
-#, fuzzy
-#| msgid "Jigsaw - part_ioii"
 msgid "Jigsaw — part_ioii"
-msgstr "Puzzle - Teil_ioii"
+msgstr "Puzzle — Teil_ioii"
 
 #: ../sheets/jigsaw.sheet.in.h:17
-#, fuzzy
-#| msgid "Jigsaw - part_iioi"
 msgid "Jigsaw — part_iioi"
-msgstr "Puzzle - Teil_iioi"
+msgstr "Puzzle — Teil_iioi"
 
 #: ../sheets/jigsaw.sheet.in.h:18
-#, fuzzy
-#| msgid "Jigsaw - part_iiio"
 msgid "Jigsaw — part_iiio"
-msgstr "Puzzle - Teil_iiio"
+msgstr "Puzzle — Teil_iiio"
 
 #: ../sheets/KAOS.sheet.in.h:1
 msgid "RE-KAOS"
@@ -10692,8 +10431,6 @@ msgid "Pebble Convex lantern"
 msgstr "PC-Scheinwerfer"
 
 #: ../sheets/Lights.sheet.in.h:7
-#, fuzzy
-#| msgid "Fresel lantern"
 msgid "Fresnel lantern"
 msgstr "Scheinwerfer mit Fresnellinse"
 
@@ -10769,16 +10506,12 @@ msgid "NOT"
 msgstr "NICHT"
 
 #: ../sheets/Logic.sheet.in.h:11
-#, fuzzy
-#| msgid "Crossconnector"
 msgid "Cross-connector"
 msgstr "Kreuzverbinder"
 
 #: ../sheets/Misc.sheet.in.h:1
-#, fuzzy
-#| msgid "Miscellaneous Shapes"
 msgid "Miscellaneous"
-msgstr "Diverse Formen"
+msgstr "Diverses"
 
 #: ../sheets/Misc.sheet.in.h:2
 msgid "Miscellaneous Shapes"
@@ -10793,14 +10526,10 @@ msgid "Folder"
 msgstr "Ordner"
 
 #: ../sheets/Misc.sheet.in.h:6
-#, fuzzy
-#| msgid "expensible node"
 msgid "expansible node"
 msgstr "Aufklappbarer Knoten"
 
 #: ../sheets/Misc.sheet.in.h:7
-#, fuzzy
-#| msgid "expended node"
 msgid "expanded node"
 msgstr "Aufgeklappter Knoten"
 
@@ -10817,10 +10546,8 @@ msgid "Resizable grid"
 msgstr "Anpassbares Gitter"
 
 #: ../sheets/Misc.sheet.in.h:11
-#, fuzzy
-#| msgid "SADT diagram objects"
 msgid "Diagram object"
-msgstr "SADT Diagrammobjekte"
+msgstr "Diagrammobjekt"
 
 #: ../sheets/Misc.sheet.in.h:12
 #, fuzzy
@@ -11188,16 +10915,12 @@ msgid "Design Dia objects with individual connection points"
 msgstr ""
 
 #: ../sheets/Shape_Design.sheet.in.h:3
-#, fuzzy
-#| msgid "Connection Points:"
 msgid "Connection Point"
-msgstr "Verbindungspunkte:"
+msgstr "Verbindungspunkt"
 
 #: ../sheets/Shape_Design.sheet.in.h:4
-#, fuzzy
-#| msgid "Add Connection Point"
 msgid "Main Connection Point"
-msgstr "Verbindungspunkt hinzufügen"
+msgstr "Hauptverbindungspunkt"
 
 #: ../sheets/Sozi.sheet.in.h:2
 msgid "Objects to do Sozi (zooming ui) presentations"
@@ -11318,8 +11041,6 @@ msgid "Class stereotype icon"
 msgstr "Klassenstereotypsymbol"
 
 #: ../sheets/UML.sheet.in.h:27
-#, fuzzy
-#| msgid "Initial/end state"
 msgid "Initial/End state"
 msgstr "Anfangs-/Endzustand"
 
@@ -11329,8 +11050,6 @@ msgstr "Aktivität"
 
 # CHECK
 #: ../sheets/UML.sheet.in.h:31
-#, fuzzy
-#| msgid "Fork/union"
 msgid "Fork/Union"
 msgstr "Abzweigung/Vereinigung"
 
