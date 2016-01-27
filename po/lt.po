@@ -5,14 +5,14 @@
 # $Id$
 # Aurimas Černius <aurisc4@gmail.com>, 2013, 2014.
 #
-#: ../objects/UML/class.c:193
+#: ../objects/UML/class.c:198
 msgid ""
 msgstr ""
 "Project-Id-Version: Dia HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=dia&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2014-04-13 15:19+0000\n"
-"PO-Revision-Date: 2014-04-13 23:14+0300\n"
+"POT-Creation-Date: 2016-01-08 16:26+0000\n"
+"PO-Revision-Date: 2016-01-09 00:15+0200\n"
 "Last-Translator: Aurimas Černius <aurisc4@gmail.com>\n"
 "Language-Team: Lietuvių <gnome-lt@lists.akl.lt>\n"
 "Language: lt\n"
@@ -21,102 +21,107 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
 "%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Gtranslator 2.91.6\n"
+"X-Generator: Poedit 1.8.6\n"
 
 #. This is not an errror
-#: ../app/app_procs.c:208
+#: ../app/app_procs.c:209
 #, c-format
 msgid "Warning: invalid layer range %lu - %lu\n"
 msgstr "Dėmesio: klaidinga sluoksnių seka %lu - %lu\n"
 
-#: ../app/app_procs.c:220
+#: ../app/app_procs.c:221
 #, c-format
 msgid "Warning: Layer %lu (%s) selected more than once.\n"
 msgstr "Dėmesio: Sluoksnis %lu (%s) yra pasirinktas daugiau nei vieną kartą.\n"
 
-#: ../app/app_procs.c:246
+#: ../app/app_procs.c:247
 #, c-format
 msgid "Warning: Layer %d (%s) selected more than once.\n"
 msgstr "Dėmesio: Sluoksnis %d (%s) pasirinktas daugiau nei vieną kartą.\n"
 
-#: ../app/app_procs.c:255
+#: ../app/app_procs.c:256
 #, c-format
 msgid "Warning: There is no layer named %s.\n"
 msgstr "Dėmesio: Nėra sluoksnio %s.\n"
 
-#: ../app/app_procs.c:338
+#: ../app/app_procs.c:339
 #, c-format
 msgid "%s error: don't know how to export into %s\n"
 msgstr "%s klaida: nėra informacijos apie eksportavimą į %s\n"
 
-#: ../app/app_procs.c:347
+#: ../app/app_procs.c:348
 #, c-format
 msgid "%s error: input and output filenames are identical: %s"
 msgstr "%s klaida: sutampa pradinis ir galutinis failo pavadinimas: %s"
 
 #. Translators: Menu item Verb/Channel/Import
 #. Translators: Menu item Verb/Channel/Import/Import
-#: ../app/app_procs.c:353 ../objects/FS/function.c:680
-#: ../objects/FS/function.c:682
+#: ../app/app_procs.c:354 ../objects/FS/function.c:675
+#: ../objects/FS/function.c:677
 msgid "Import"
 msgstr "Importuoti"
 
-#: ../app/app_procs.c:356
+#: ../app/app_procs.c:357
 #, c-format
 msgid "%s error: need valid input file %s\n"
 msgstr "%s klaida: reikia nurodyti tinkamą pradinį failą %s\n"
 
 #. if (!quiet)
-#: ../app/app_procs.c:384
+#: ../app/app_procs.c:385
 #, c-format
 msgid "%s --> %s\n"
 msgstr "%s --> %s\n"
 
-#: ../app/app_procs.c:556
+#: ../app/app_procs.c:557
 #, c-format
 msgid "Can't find output format/filter %s\n"
 msgstr "Nepavyko aptikti išvedimo formato/filtro %s\n"
 
-#: ../app/app_procs.c:626
+#: ../app/app_procs.c:627
 #, c-format
 msgid "Input directory '%s' must exist!\n"
 msgstr "Įvesties aplankas „%s“ turi egzistuoti!\n"
 
-#: ../app/app_procs.c:643
+#: ../app/app_procs.c:644
 #, c-format
 msgid "Output directory '%s' must exist!\n"
 msgstr "Išvesties aplankas „%s“ turi egzistuoti!\n"
 
-#. Translators:  The argument is a list of options, not to be translated
-#: ../app/app_procs.c:693
-#, c-format
-msgid "Select the filter/format out of: %s"
-msgstr "Pasirinkite filtrą/formatą iš sąrašo: %s"
-
 #. &export_file_name
-#: ../app/app_procs.c:711
+#: ../app/app_procs.c:697
 msgid "Export loaded file and exit"
 msgstr "Eksportuoti įkeltą failą ir išeiti"
 
-#: ../app/app_procs.c:711
+#: ../app/app_procs.c:697
 msgid "OUTPUT"
 msgstr "IŠVESTIS"
 
 #. &export_file_format
-#. &export_format_string
-#: ../app/app_procs.c:713
+#: ../app/app_procs.c:699
+#, fuzzy
+#| msgid "Select the filter/format out of: %s"
+msgid "Select the export filter/format"
+msgstr "Pasirinkite filtrą/formatą iš sąrašo: %s"
+
+#: ../app/app_procs.c:699
 msgid "TYPE"
 msgstr "TIPAS"
 
-#: ../app/app_procs.c:715
+#: ../app/app_procs.c:701
+#, fuzzy
+#| msgid "Export loaded file and exit"
+msgid "List export filters/formats and exit"
+msgstr "Eksportuoti įkeltą failą ir išeiti"
+
+#: ../app/app_procs.c:703
 msgid "Export graphics size"
 msgstr "Eksportuojamo paveikslėlio dydis"
 
-#: ../app/app_procs.c:715
+#: ../app/app_procs.c:703
 msgid "WxH"
 msgstr "PxA"
 
-#: ../app/app_procs.c:717
+#: ../app/app_procs.c:705
 msgid ""
 "Show only specified layers (e.g. when exporting). Can be either the layer "
 "name or a range of layer numbers (X-Y)"
@@ -124,108 +129,107 @@ msgstr ""
 "Rodyti tik nurodytus sluoksnius (pvz. eksportavimo metu). Gali būti "
 "sluoksnio pavadinimas arba sluoksnių numerių seka (X-Y)"
 
-#: ../app/app_procs.c:718
+#: ../app/app_procs.c:706
 msgid "LAYER,LAYER,..."
 msgstr "SLUOKSNIS,SLUOKSNIS,..."
 
-#: ../app/app_procs.c:720
+#: ../app/app_procs.c:708
 msgid "Don't show the splash screen"
 msgstr "Nerodyti pristatymo lango"
 
-#: ../app/app_procs.c:722
+#: ../app/app_procs.c:710
 msgid "Don't create an empty diagram"
 msgstr "Nekurti tuščios diagramos"
 
-#: ../app/app_procs.c:724
-#| msgid "Start integrated user interface (diagrams in tabs)"
+#: ../app/app_procs.c:712
 msgid "Start classic user interface (no diagrams in tabs)"
 msgstr "Paleisti klasikinę naudotojo sąsają (jokių diagramų kortelėse)"
 
-#: ../app/app_procs.c:726
+#: ../app/app_procs.c:714
 msgid "Send error messages to stderr instead of showing dialogs."
 msgstr ""
 "Nukreipti klaidų pranešimus į standartinį klaidų išvedimą užuot rodžius "
 "dialogo langus."
 
-#: ../app/app_procs.c:728
+#: ../app/app_procs.c:716
 msgid "Directory containing input files"
 msgstr "Aplankas su įvesties failais"
 
-#: ../app/app_procs.c:728 ../app/app_procs.c:730
+#: ../app/app_procs.c:716 ../app/app_procs.c:718
 msgid "DIRECTORY"
 msgstr "APLANKAS"
 
-#: ../app/app_procs.c:730
+#: ../app/app_procs.c:718
 msgid "Directory containing output files"
 msgstr "Aplankas su išvesties failas"
 
-#: ../app/app_procs.c:732
+#: ../app/app_procs.c:720
 msgid "Display credits list and exit"
 msgstr "Rodyti padėkas ir išeiti"
 
-#: ../app/app_procs.c:734
+#: ../app/app_procs.c:722
 msgid "Generate verbose output"
 msgstr "Įjungti išsamią išvestį"
 
-#: ../app/app_procs.c:736
+#: ../app/app_procs.c:724
 msgid "Display version and exit"
 msgstr "Parodyti versiją ir išeiti"
 
-#: ../app/app_procs.c:763
+#: ../app/app_procs.c:750
 msgid "[FILE...]"
 msgstr "[FAILAS...]"
 
-#: ../app/app_procs.c:777
+#: ../app/app_procs.c:764
 #, c-format
 msgid "Invalid option?"
-msgstr "Netinkamas parinktis?"
+msgstr "Netinkamas parametras?"
 
-#: ../app/app_procs.c:800
+#: ../app/app_procs.c:787
 #, c-format
 msgid "Filename conversion failed: %s\n"
 msgstr "Nepavyko konvertuoti failo: %s\n"
 
-#: ../app/app_procs.c:813
+#: ../app/app_procs.c:800
 #, c-format
 msgid "Missing input: %s\n"
 msgstr "Trūkstama įvestis: %s\n"
 
-#: ../app/app_procs.c:838
+#: ../app/app_procs.c:825
 msgid "Can't connect to session manager!\n"
-msgstr "Nepavyko prisijungti prie sesijos tvarkyklės!\n"
+msgstr "Nepavyko prisijungti prie sesijos tvarkytuvės!\n"
 
 #. TRANSLATOR: 2nd and 3rd %s are time and date respectively.
-#: ../app/app_procs.c:879
+#: ../app/app_procs.c:865
 #, c-format
 msgid "Dia version %s, compiled %s %s\n"
 msgstr "Dia versija %s, sukompiliuota %s %s\n"
 
-#: ../app/app_procs.c:881
+#: ../app/app_procs.c:867
 #, c-format
 msgid "Dia version %s\n"
 msgstr "Dia versija %s\n"
 
-#: ../app/app_procs.c:919
+#: ../app/app_procs.c:913
 msgid "Object Defaults"
 msgstr "Numatytosios objekto reikšmės"
 
-#: ../app/app_procs.c:926
+#: ../app/app_procs.c:920
 msgid ""
 "Couldn't find standard objects when looking for object-libs; exiting...\n"
 msgstr "Nepavyko rasti standartinių objektų; programa uždaroma...\n"
 
-#: ../app/app_procs.c:928
+#: ../app/app_procs.c:922
 #, c-format
 msgid ""
 "Couldn't find standard objects when looking for object-libs in '%s'; "
 "exiting...\n"
 msgstr "Nepavyko rasti standartinių objektų tarp '%s'; programa uždaroma...\n"
 
-#: ../app/app_procs.c:988
+#: ../app/app_procs.c:980
 msgid "Diagram1.dia"
 msgstr "Diagrama1.dia"
 
-#: ../app/app_procs.c:1023
+#: ../app/app_procs.c:1015
 msgid ""
 "This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\n"
 "describing how you caused this message to appear.\n"
@@ -234,21 +238,21 @@ msgstr ""
 "org adresu\n"
 "ir aprašykite, kaip gavote šį klaidos pranešimą.\n"
 
-#: ../app/app_procs.c:1038
+#: ../app/app_procs.c:1030
 msgid "Exiting Dia"
 msgstr "Išeinama iš Dia"
 
-#: ../app/app_procs.c:1065 ../app/display.c:1248 ../app/exit_dialog.c:115
+#: ../app/app_procs.c:1057 ../app/display.c:1239 ../app/exit_dialog.c:115
 #: ../app/filedlg.c:582
 msgid "Save"
 msgstr "Įrašyti"
 
 #. no standard buttons
-#: ../app/app_procs.c:1107
+#: ../app/app_procs.c:1099
 msgid "Quitting without saving modified diagrams"
 msgstr "Programa uždaroma neišsaugojus pakeistų diagramų"
 
-#: ../app/app_procs.c:1109
+#: ../app/app_procs.c:1101
 msgid ""
 "Modified diagrams exist. Are you sure you want to quit Dia without saving "
 "them?"
@@ -256,19 +260,19 @@ msgstr ""
 "Yra pakeistų diagramų. Ar tikrai norite uždaryti Dia neišsaugoję pakeitimų "
 "diagramose?"
 
-#: ../app/app_procs.c:1113
+#: ../app/app_procs.c:1105 ../app/menus.c:94
 msgid "Quit Dia"
 msgstr "Išeiti iš Dia"
 
-#: ../app/app_procs.c:1143
+#: ../app/app_procs.c:1135
 msgid "Exit"
 msgstr "Išeiti"
 
-#: ../app/app_procs.c:1189 ../app/app_procs.c:1196
+#: ../app/app_procs.c:1181 ../app/app_procs.c:1188
 msgid "Could not create per-user Dia configuration directory"
 msgstr "Nepavyko sukurti naudotojo Dia nustatymų aplanko"
 
-#: ../app/app_procs.c:1199
+#: ../app/app_procs.c:1191
 msgid ""
 "Could not create per-user Dia configuration directory. Please make sure that "
 "the environment variable HOME points to an existing directory."
@@ -276,11 +280,11 @@ msgstr ""
 "Nepavyko sukurti naudotojo Dia nustatymų aplanko. Įsitikinkite, kad "
 "aplankas, nurodytas aplinkos kintamajame HOME, egzistuoja."
 
-#: ../app/app_procs.c:1222
+#: ../app/app_procs.c:1214
 msgid "Objects and filters internal to Dia"
 msgstr "Vidiniai Dia objektai ir filtrai"
 
-#: ../app/app_procs.c:1275
+#: ../app/app_procs.c:1266
 #, c-format
 msgid ""
 "The original author of Dia was:\n"
@@ -289,7 +293,7 @@ msgstr ""
 "Pirmasis Dia autorius buvo:\n"
 "\n"
 
-#: ../app/app_procs.c:1280
+#: ../app/app_procs.c:1271
 #, c-format
 msgid ""
 "\n"
@@ -300,7 +304,7 @@ msgstr ""
 "Šiuo metu Dia tvarko:\n"
 "\n"
 
-#: ../app/app_procs.c:1285
+#: ../app/app_procs.c:1276
 #, c-format
 msgid ""
 "\n"
@@ -311,7 +315,7 @@ msgstr ""
 "Kiti autoriai:\n"
 "\n"
 
-#: ../app/app_procs.c:1290
+#: ../app/app_procs.c:1281
 #, c-format
 msgid ""
 "\n"
@@ -321,6 +325,25 @@ msgstr ""
 "\n"
 "Dokumentaciją parašė:\n"
 "\n"
+
+#: ../app/app_procs.c:1321
+msgid "Available Export Filters (for --filter)"
+msgstr ""
+
+#. Translators: be brief or mess up the table for --list-filters
+#: ../app/app_procs.c:1324
+#, fuzzy
+#| msgid "By extension"
+msgid "Extension"
+msgstr "Pagal plėtinį"
+
+#: ../app/app_procs.c:1325 ../lib/prop_dict.c:44
+msgid "Identifier"
+msgstr "Identifikatorius"
+
+#: ../app/app_procs.c:1326 ../app/plugin-manager.c:276
+msgid "Description"
+msgstr "Aprašymas"
 
 #: ../app/color_area.c:333 ../app/color_area.c:343
 msgid "Select foreground color"
@@ -347,29 +370,34 @@ msgstr "Iškarpinėje nėra paveikslėlio įdėjimui."
 msgid "No selected object can take an image."
 msgstr "Joks pasirinktas objektas negali priimti paveikslėlio."
 
-#: ../app/commands.c:327
+#: ../app/commands.c:329
 msgid "Clipboard Paste"
 msgstr "Iškarpinės įdėjimas"
 
 #. might become more right some day ;)
-#: ../app/commands.c:335
+#: ../app/commands.c:337
 #, c-format
-msgid "No clipboard handler for '%s'"
-msgstr "Nėra „%s“ iškarpinės apdorojoto"
+msgid "Failed to import '%s' as SVG."
+msgstr ""
 
-#: ../app/commands.c:426
+#: ../app/commands.c:353
+#, c-format
+msgid "Paste failed: %s"
+msgstr ""
+
+#: ../app/commands.c:434
 msgid "Clipboard Copy"
 msgstr "Kopijuoti į iškarpinę"
 
-#: ../app/commands.c:625
+#: ../app/commands.c:636
 msgid "No existing object to paste.\n"
 msgstr "Nėra jokių įkeltinų objektų.\n"
 
-#: ../app/commands.c:935 ../app/commands.c:973
+#: ../app/commands.c:946 ../app/commands.c:984
 msgid "Could not find help directory"
 msgstr "Nepavyko rasti pagalbos sistemos katalogo"
 
-#: ../app/commands.c:942
+#: ../app/commands.c:953
 #, c-format
 msgid ""
 "Could not open help directory:\n"
@@ -378,13 +406,13 @@ msgstr ""
 "Nepavyko atidaryti pagalbos katalogo:\n"
 "%s"
 
-#: ../app/commands.c:1010
+#: ../app/commands.c:1021
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr ""
 "Tomas Kuliavas <tokul@users.sourceforge.net>,\n"
 "Aurimas Černius <aurisc4@gmail.com>"
 
-#: ../app/commands.c:1012
+#: ../app/commands.c:1023
 msgid ""
 "This program is free software; you can redistribute it and/or modify\n"
 "it under the terms of the GNU General Public License as published by\n"
@@ -414,7 +442,7 @@ msgstr ""
 "licenzijos kopija; jei ne - rašykite Free Software Foundation, Inc., 59\n"
 "Temple Place - Suite 330, Boston, MA 02111-1307, USA.\n"
 
-#: ../app/commands.c:1039
+#: ../app/commands.c:1050
 msgid "A program for drawing structured diagrams."
 msgstr "Programa diagramoms braižyti."
 
@@ -451,11 +479,17 @@ msgstr[2] ""
 "puslapių)."
 
 #: ../app/confirm.c:88
+#, fuzzy
+#| msgid ""
+#| "You can adjust the size of the diagram by changing the 'Scaling' in the "
+#| "'Page Setup' dialog.\n"
+#| "Alternatively use 'Select All' and 'Best Fit' to move objects/handles "
+#| "into the intended bounds."
 msgid ""
 "You can adjust the size of the diagram by changing the 'Scaling' in the "
 "'Page Setup' dialog.\n"
-"Alternatively use 'Select All' and 'Best Fit' to move objects/handles into "
-"the intended bounds."
+"Alternatively use 'Best Fit' to move objects/handles into the intended "
+"bounds."
 msgstr ""
 "Galite priderinti diagramos dydį pakeisdami ištempimą puslapio sąrankos "
 "dialoge.\n"
@@ -488,7 +522,7 @@ msgstr "Įprastos reikšmės:"
 msgid "Couldn't convert filename '%s' to UTF-8: %s\n"
 msgstr "Nepavyko konvertuoti failo vardo '%s' į UTF-8: %s\n"
 
-#: ../app/diagram.c:240 ../lib/message.c:91 ../lib/message.c:299
+#: ../app/diagram.c:240 ../lib/message.c:91 ../lib/message.c:304
 msgid "Error"
 msgstr "Klaida"
 
@@ -501,16 +535,16 @@ msgstr "Įkelti į"
 msgid "Trying to group with no selected objects."
 msgstr "Bandoma grupuoti be pasirinktų objektų."
 
-#: ../app/diagram_tree_view.c:164
+#: ../app/diagram_tree_view.c:165
 msgid "Diagram"
 msgstr "Diagrama"
 
-#: ../app/diagram_tree_view.c:171
-#: ../plug-ins/drs/dia-render-script-import.c:234
+#: ../app/diagram_tree_view.c:172
+#: ../plug-ins/drs/dia-render-script-import.c:464
 msgid "Layer"
 msgstr "Sluoksnis"
 
-#: ../app/diagram_tree_view.c:177
+#: ../app/diagram_tree_view.c:178
 #, c-format
 msgid "%d Layer"
 msgid_plural "%d Layers"
@@ -518,7 +552,7 @@ msgstr[0] "%d sluoksnis"
 msgstr[1] "%d sluoksniai"
 msgstr[2] "%d sluoksnių"
 
-#: ../app/diagram_tree_view.c:181 ../app/diagram_tree_view.c:519
+#: ../app/diagram_tree_view.c:182 ../app/diagram_tree_view.c:520
 #: ../objects/Database/table.c:149 ../objects/Istar/actor.c:142
 #: ../objects/Istar/actor.c:143 ../objects/Istar/other.c:147
 #: ../objects/Istar/other.c:148 ../objects/KAOS/other.c:150
@@ -528,15 +562,15 @@ msgstr[2] "%d sluoksnių"
 msgid "Type"
 msgstr "Tipas"
 
-#: ../app/diagram_tree_view.c:184
+#: ../app/diagram_tree_view.c:185
 msgid "object|Position"
 msgstr "objektas|Padėtis"
 
-#: ../app/diagram_tree_view.c:187
+#: ../app/diagram_tree_view.c:188
 msgid "Children"
 msgstr "Vaikai"
 
-#: ../app/diagram_tree_view.c:191
+#: ../app/diagram_tree_view.c:192
 #, c-format
 msgid "%d Object"
 msgid_plural "%d Objects"
@@ -544,31 +578,32 @@ msgstr[0] "%d objektas"
 msgstr[1] "%d objektai"
 msgstr[2] "%d objektų"
 
-#: ../app/diagram_tree_view.c:448
+#: ../app/diagram_tree_view.c:449
 msgid "Select"
 msgstr "Pasirinkti"
 
 #. Translators: Menu item Verb/Support/Position/Locate
 #. Translators: Menu item Verb/Signal/Sense/Locate
-#: ../app/diagram_tree_view.c:449 ../objects/FS/function.c:806
-#: ../objects/FS/function.c:1048
+#: ../app/diagram_tree_view.c:450 ../objects/FS/function.c:801
+#: ../objects/FS/function.c:1043
 msgid "Locate"
 msgstr "Surasti"
 
-#: ../app/diagram_tree_view.c:450
+#: ../app/diagram_tree_view.c:451
 msgid "Properties"
 msgstr "Savybės"
 
-#: ../app/diagram_tree_view.c:502 ../app/exit_dialog.c:125
+#: ../app/diagram_tree_view.c:503 ../app/exit_dialog.c:125
 #: ../app/plugin-manager.c:270 ../objects/Database/table.c:147
-#: ../objects/Database/table.c:190 ../objects/UML/association.c:236
-#: ../objects/UML/class.c:140 ../objects/UML/large_package.c:131
-#: ../objects/UML/umlattribute.c:37 ../objects/UML/umlformalparameter.c:35
-#: ../objects/UML/umloperation.c:62 ../objects/UML/umlparameter.c:43
+#: ../objects/Database/table.c:190 ../objects/Misc/n_gon.c:135
+#: ../objects/UML/association.c:236 ../objects/UML/class.c:145
+#: ../objects/UML/large_package.c:136 ../objects/UML/umlattribute.c:37
+#: ../objects/UML/umlformalparameter.c:35 ../objects/UML/umloperation.c:62
+#: ../objects/UML/umlparameter.c:43
 msgid "Name"
 msgstr "Pavadinimas"
 
-#: ../app/diagram_tree_view.c:565
+#: ../app/diagram_tree_view.c:566
 msgid "Diagram Tree"
 msgstr "Diagramų medis"
 
@@ -704,22 +739,37 @@ msgstr "Savybės…"
 msgid "Follow link…"
 msgstr "Sekti saitų…"
 
-#: ../app/disp_callbacks.c:215 ../objects/standard/bezier.c:785
-#: ../objects/standard/beziergon.c:549 ../objects/standard/box.c:784
-#: ../objects/standard/textobj.c:450
+#: ../app/disp_callbacks.c:215 ../objects/standard/textobj.c:583
 msgid "Convert to Path"
 msgstr "Konvertuoti į kelią"
 
-#: ../app/disp_callbacks.c:344
+#: ../app/disp_callbacks.c:262 ../app/menus.c:272
+msgid "Union"
+msgstr "Sąjunga"
+
+#: ../app/disp_callbacks.c:263
+#, fuzzy
+#| msgid "Differentiate"
+msgid "Difference"
+msgstr "Diferencijuoti"
+
+#: ../app/disp_callbacks.c:264 ../app/menus.c:273
+msgid "Intersection"
+msgstr "Sankirta"
+
+#: ../app/disp_callbacks.c:265
+msgid "Exclusion"
+msgstr ""
+
+#: ../app/disp_callbacks.c:403
 msgid "Selection"
 msgstr "Pažymėjimas"
 
-#: ../app/disp_callbacks.c:359
-#| msgid "_Input Methods"
+#: ../app/disp_callbacks.c:418
 msgid "Input _Methods"
 msgstr "Įvesties _metodai"
 
-#: ../app/disp_callbacks.c:1127
+#: ../app/disp_callbacks.c:1194
 msgid ""
 "The object you dropped cannot fit into its parent. \n"
 "Either expand the parent object, or drop the object elsewhere."
@@ -744,20 +794,20 @@ msgid "Selected '%s'"
 msgstr "Pasirinkta '%s'"
 
 #. we really should not come here but instead disable the menu command earlier
-#: ../app/display.c:1136
+#: ../app/display.c:1127
 msgid "No antialiased renderer found"
 msgstr "Nerastas glodinantis piešėjas"
 
-#: ../app/display.c:1294
+#: ../app/display.c:1285
 msgid "<unnamed>"
 msgstr "<bevardis>"
 
 #. no standard buttons
-#: ../app/display.c:1300
+#: ../app/display.c:1291
 msgid "Closing diagram without saving"
 msgstr "Diagrama uždaroma neišsaugant"
 
-#: ../app/display.c:1302
+#: ../app/display.c:1293
 #, c-format
 msgid ""
 "The diagram '%s'\n"
@@ -766,11 +816,11 @@ msgstr ""
 "Diagrama '%s'\n"
 "nebuvo išsaugota. Ar išsaugoti pakeitimus?"
 
-#: ../app/display.c:1304
+#: ../app/display.c:1295
 msgid "Close Diagram"
 msgstr "Uždaryti diagramą"
 
-#: ../app/display.c:1309
+#: ../app/display.c:1300
 msgid "_Discard Changes"
 msgstr "_Atsisakyti pakeitimų"
 
@@ -822,7 +872,7 @@ msgstr "Atverti diagramą"
 
 #: ../app/filedlg.c:326
 msgid "Open Options"
-msgstr "Atidarymo nustatymai"
+msgstr "Atidarymo parametrai"
 
 #: ../app/filedlg.c:334 ../app/filedlg.c:807
 msgid "Determine file type:"
@@ -858,7 +908,6 @@ msgstr ""
 "Ar norite ją perrašyti?"
 
 #: ../app/filedlg.c:425
-#| msgid "Save"
 msgid "Save as"
 msgstr "Įrašyti taip"
 
@@ -884,8 +933,8 @@ msgstr ""
 #. Favored Filter
 #. Translators: Menu item Verb/Channel/Export
 #. Translators: Menu item Verb/Channel/Export/Export
-#: ../app/filedlg.c:744 ../app/preferences.c:220 ../objects/FS/function.c:694
-#: ../objects/FS/function.c:696 ../plug-ins/libart/export_png.c:329
+#: ../app/filedlg.c:744 ../app/preferences.c:220 ../objects/FS/function.c:689
+#: ../objects/FS/function.c:691 ../plug-ins/libart/export_png.c:329
 msgid "Export"
 msgstr "Eksportuoti"
 
@@ -904,7 +953,7 @@ msgstr "Eksportuoti diagramą"
 
 #: ../app/filedlg.c:799
 msgid "Export Options"
-msgstr "Eksportavimo nustatymai"
+msgstr "Eksportavimo parametrai"
 
 #: ../app/find-and-replace.c:480
 msgid "_Search for:"
@@ -949,78 +998,83 @@ msgstr "_Pakeisti"
 msgid "Pops up the Navigation window."
 msgstr "Iškviečia navigacijos langą."
 
-#: ../app/interface.c:736
+#: ../app/interface.c:738
 msgid "Diagram menu."
 msgstr "Diagramos meniu."
 
-#: ../app/interface.c:776
+#: ../app/interface.c:777
 msgid "Zoom"
 msgstr "Mastelis"
 
-#: ../app/interface.c:791
+#: ../app/interface.c:792
 msgid "Toggles snap-to-grid for this window."
 msgstr "Perjungia pritraukimą prie tinklelio šiam langui."
 
-#: ../app/interface.c:802
+#: ../app/interface.c:803
 msgid "Toggles object snapping for this window."
 msgstr "Perjungia objekto pritraukimą šiam langui."
 
-#: ../app/interface.c:970 ../app/interface.c:1087 ../dia.desktop.in.in.h:2
+#: ../app/interface.c:989 ../app/interface.c:1106 ../dia.desktop.in.in.h:2
 msgid "Diagram Editor"
 msgstr "Diagramų redaktorius"
 
-#: ../app/layer_dialog.c:165
+#: ../app/layer_dialog.c:166
 msgid "New Layer"
 msgstr "Naujas sluoksnis"
 
-#: ../app/layer_dialog.c:166
+#: ../app/layer_dialog.c:167
+#, fuzzy
+#| msgid "Rename Layer…"
+msgid "Rename Layer"
+msgstr "Pervadinti sluoksnį…"
+
+#: ../app/layer_dialog.c:168
 msgid "Raise Layer"
 msgstr "Pakelti sluoksnį"
 
-#: ../app/layer_dialog.c:167
+#: ../app/layer_dialog.c:169
 msgid "Lower Layer"
 msgstr "Nuleisti sluoksnį"
 
-#: ../app/layer_dialog.c:168
+#: ../app/layer_dialog.c:170
 msgid "Delete Layer"
 msgstr "Ištrinti sluoksnį"
 
-#: ../app/layer_dialog.c:305
+#: ../app/layer_dialog.c:307
 msgid "Layers:"
 msgstr "Sluoksniai:"
 
-#: ../app/layer_dialog.c:384
+#: ../app/layer_dialog.c:386
 msgid "Layers"
 msgstr "Sluoksniai"
 
-#: ../app/layer_dialog.c:398
+#: ../app/layer_dialog.c:400
 msgid "Diagram:"
 msgstr "Diagrama:"
 
-#: ../app/layer_dialog.c:512 ../app/layer_dialog.c:1238
+#: ../app/layer_dialog.c:514 ../app/layer_dialog.c:1252
 #, c-format
 msgid "New layer %d"
 msgstr "Naujas sluoksnis %d"
 
-#: ../app/layer_dialog.c:727
+#: ../app/layer_dialog.c:741
 msgid "none"
 msgstr "joks"
 
-#: ../app/layer_dialog.c:1208
+#: ../app/layer_dialog.c:1222
 msgid "Edit Layer"
 msgstr "Keisti sluoksnį"
 
-#: ../app/layer_dialog.c:1208
+#: ../app/layer_dialog.c:1222
 msgid "Add Layer"
 msgstr "Pridėti sluoksnį"
 
-#: ../app/layer_dialog.c:1227
+#: ../app/layer_dialog.c:1241
 msgid "Layer name:"
 msgstr "Sluoksnio pavadinimas:"
 
 #: ../app/linewidth_area.c:246 ../lib/properties.h:626 ../lib/properties.h:629
-#: ../objects/chronogram/chronoline.c:180
-#: ../objects/chronogram/chronoref.c:159
+#: ../objects/chronogram/chronoline.c:180 ../objects/chronogram/chronoref.c:159
 msgid "Line width"
 msgstr "Linijos plotis"
 
@@ -1064,7 +1118,7 @@ msgid "You must specify a file, not a directory."
 msgstr "Turite nurodyti failą, o ne aplanką."
 
 #: ../app/load_save.c:400 ../plug-ins/dxf/dxf-import.c:1289
-#: ../plug-ins/wpg/wpg.c:1195 ../plug-ins/xfig/xfig-import.c:1288
+#: ../plug-ins/wpg/wpg-import.c:467 ../plug-ins/xfig/xfig-import.c:1291
 #: ../plug-ins/xslt/xslt.c:97
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
@@ -1095,7 +1149,6 @@ msgstr ""
 "Ne Dia failas."
 
 #: ../app/load_save.c:680
-#| msgid "Error reading resolution."
 msgid "Error reading connections"
 msgstr "Klaida skaitant ryšį"
 
@@ -1111,8 +1164,9 @@ msgstr ""
 "Dia faile turi būti bent vienas sluoksnis."
 
 #: ../app/load_save.c:1001
-#| msgid "Error reading magnification."
-msgid "Error saving connections"
+#, fuzzy, c-format
+#| msgid "Error saving connections"
+msgid "Error saving connections to layer '%s'"
 msgstr "Klaida įrašant sujungimus"
 
 #: ../app/load_save.c:1006
@@ -1130,13 +1184,12 @@ msgstr "Neleidžiama rašyti išvesties failo %s\n"
 msgid "Not allowed to write temporary files in %s\n"
 msgstr "Neleidžiama rašyti laikinųjų failų aplanke %s\n"
 
-#: ../app/load_save.c:1114 ../plug-ins/cgm/cgm.c:1181
-#: ../plug-ins/dxf/dxf-export.c:599
-#: ../plug-ins/metapost/render_metapost.c:1179
-#: ../plug-ins/pgf/render_pgf.c:1207 ../plug-ins/postscript/render_eps.c:123
-#: ../plug-ins/pstricks/render_pstricks.c:917
-#: ../plug-ins/vdx/vdx-export.c:1801 ../plug-ins/wmf/wmf.cpp:1376
-#: ../plug-ins/wpg/wpg.c:1087 ../plug-ins/xfig/xfig-export.c:1178
+#: ../app/load_save.c:1114 ../plug-ins/cgm/cgm.c:1086
+#: ../plug-ins/dxf/dxf-export.c:516 ../plug-ins/metapost/render_metapost.c:1022
+#: ../plug-ins/pgf/render_pgf.c:1192 ../plug-ins/postscript/render_eps.c:123
+#: ../plug-ins/pstricks/render_pstricks.c:870 ../plug-ins/vdx/vdx-export.c:1706
+#: ../plug-ins/wmf/wmf.cpp:1347 ../plug-ins/wpg/wpg.c:1062
+#: ../plug-ins/xfig/xfig-export.c:1098
 #, c-format
 msgid "Can't open output file %s"
 msgstr "Nepavyko atverti išvedimo failo %s"
@@ -1149,406 +1202,527 @@ msgid "Internal error %d writing file %s\n"
 msgstr "Vidinė klaida %d rašant failą %s\n"
 
 #: ../app/load_save.c:1136
-#, c-format
-msgid "Can't rename %s to final output file %s: %s\n"
+#, fuzzy, c-format
+#| msgid "Can't rename %s to final output file %s: %s\n"
+msgid "Can't rename %s to final output file %s"
 msgstr "Nepavyko pervardinti %s į galutinį išvesties failą %s: %s\n"
 
 #. no extra threads supported, stay in this one
-#: ../app/load_save.c:1252 ../app/load_save.c:1262 ../app/load_save.c:1270
-#| msgid "Autoclave"
+#: ../app/load_save.c:1252 ../app/load_save.c:1266 ../app/load_save.c:1274
 msgid "Auto save"
 msgstr "Automatinis įrašymas"
 
-#: ../app/load_save.c:1294 ../app/load_save.c:1299
+#: ../app/load_save.c:1298 ../app/load_save.c:1303
 msgid "Dia Diagram File"
 msgstr "Dia diagramų failas"
 
-#: ../app/menus.c:63
+#: ../app/menus.c:64
 msgid "Fit"
 msgstr "Pritaikyti"
 
-#: ../app/menus.c:90
+#: ../app/menus.c:91
 msgid "_File"
 msgstr "_Failas"
 
-#: ../app/menus.c:91
+#: ../app/menus.c:92
 msgid "Create a new diagram"
 msgstr "Sukurti naują diagramą"
 
-#: ../app/menus.c:92
+#: ../app/menus.c:93
 msgid "_Open…"
 msgstr "_Atverti…"
 
-#: ../app/menus.c:92
+#: ../app/menus.c:93
 msgid "Open a diagram file"
 msgstr "Atverti diagramos failą"
 
-#: ../app/menus.c:94
+#: ../app/menus.c:95
 msgid "_Help"
 msgstr "_Pagalba"
 
-#: ../app/menus.c:104
+#: ../app/menus.c:96
+#, fuzzy
+#| msgid "Dia Shape File"
+msgid "Dia help"
+msgstr "Dia figūrų failas"
+
+#: ../app/menus.c:97
+#, fuzzy
+#| msgid "Dia version %s, compiled %s %s\n"
+msgid "Dia version, authors, license"
+msgstr "Dia versija %s, sukompiliuota %s %s\n"
+
+#: ../app/menus.c:103
 msgid "Sheets and Objects…"
 msgstr "Lentelės ir objektai…"
 
-#: ../app/menus.c:106
+#: ../app/menus.c:103
+msgid "Manage sheets and their objects"
+msgstr "Tvarkyti lenteles ir jų objektus"
+
+#: ../app/menus.c:104
+msgid "Dia preferences"
+msgstr "Dia nuostatos"
+
+#: ../app/menus.c:105
 msgid "Plugins…"
 msgstr "Įskiepiai…"
 
-#: ../app/menus.c:107
+#: ../app/menus.c:105
+msgid "Manage plug-ins"
+msgstr "Tvarkyti įskiepius"
+
+#: ../app/menus.c:106
 msgid "_Diagram Tree"
 msgstr "_Diagramų medis"
 
-#: ../app/menus.c:112
+#: ../app/menus.c:106
+msgid "Tree representation of diagrams"
+msgstr ""
+
+#: ../app/menus.c:111
 msgid "Show Toolbar"
 msgstr "Rodyti įrankinę"
 
-#: ../app/menus.c:113
+#: ../app/menus.c:111 ../app/menus.c:264
+#, fuzzy
+#| msgid "Show Toolbar"
+msgid "Show or hide the toolbar"
+msgstr "Rodyti įrankinę"
+
+#: ../app/menus.c:112
 msgid "Show Statusbar"
 msgstr "Rodyti būsenos juostą"
 
-#: ../app/menus.c:114
+#: ../app/menus.c:112
+#, fuzzy
+#| msgid "Show Statusbar"
+msgid "Show or hide the statusbar"
+msgstr "Rodyti būsenos juostą"
+
+#: ../app/menus.c:113
 msgid "Show Layers"
 msgstr "Rodyti sluoksnius"
 
-#: ../app/menus.c:120
+#: ../app/menus.c:113
+msgid "Show or hide the layers toolwindow"
+msgstr ""
+
+#: ../app/menus.c:119
 msgid "Save the diagram"
 msgstr "Įrašyti diagramą"
 
-#: ../app/menus.c:121
+#: ../app/menus.c:120
 msgid "Save _As…"
 msgstr "Įrašyti _taip…"
 
-#: ../app/menus.c:121
+#: ../app/menus.c:120
 msgid "Save the diagram with a new name"
 msgstr "Įrašyti diagramą nauju pavadinimu"
 
-#: ../app/menus.c:122
+#: ../app/menus.c:121
 msgid "_Export…"
 msgstr "_Eksportuoti…"
 
-#: ../app/menus.c:122
+#: ../app/menus.c:121
 msgid "Export the diagram"
 msgstr "Eksportuoti diagramą"
 
-#: ../app/menus.c:123
+#: ../app/menus.c:122
 msgid "_Diagram Properties"
 msgstr "_Diagramos savybės"
 
-#: ../app/menus.c:124
+#: ../app/menus.c:122
+msgid "Modify diagram properties (grid, background)"
+msgstr ""
+
+#: ../app/menus.c:123
 msgid "Page Set_up…"
 msgstr "Puslapio _sąranka…"
 
-#: ../app/menus.c:125
+#: ../app/menus.c:123
+msgid "Modify the diagram pagination"
+msgstr ""
+
+#: ../app/menus.c:124
 msgid "_Print…"
 msgstr "S_pausdinti…"
 
-#: ../app/menus.c:125
+#: ../app/menus.c:124
 msgid "Print the diagram"
 msgstr "Spausdinti diagramą"
 
-#: ../app/menus.c:128
+#: ../app/menus.c:125
+#, fuzzy
+#| msgid "Close Diagram"
+msgid "Close the diagram"
+msgstr "Uždaryti diagramą"
+
+#: ../app/menus.c:127
 msgid "_Edit"
 msgstr "K_eisti"
 
-#: ../app/menus.c:129
+#: ../app/menus.c:128
 msgid "Undo"
 msgstr "Atšaukti"
 
-#: ../app/menus.c:130
+#: ../app/menus.c:129
 msgid "Redo"
 msgstr "Pakartoti"
 
-#: ../app/menus.c:132
+#: ../app/menus.c:131
 msgid "Copy selection"
 msgstr "Kopijuoti pažymėjimą"
 
-#: ../app/menus.c:133
+#: ../app/menus.c:132
 msgid "Cut selection"
 msgstr "Iškirpti pažymėjimą"
 
-#: ../app/menus.c:134
+#: ../app/menus.c:133
 msgid "Paste selection"
 msgstr "Įdėti pasirinkimą"
 
-#: ../app/menus.c:135
+#: ../app/menus.c:134
 msgid "_Duplicate"
 msgstr "_Dubliuoti"
 
-#: ../app/menus.c:138
+#: ../app/menus.c:134
+#, fuzzy
+#| msgid "Paste selection"
+msgid "Duplicate selection"
+msgstr "Įdėti pasirinkimą"
+
+#: ../app/menus.c:135
+#, fuzzy
+#| msgid "Paste selection"
+msgid "Delete selection"
+msgstr "Įdėti pasirinkimą"
+
+#: ../app/menus.c:137
 msgid "_Find…"
 msgstr "_Rasti…"
 
-#: ../app/menus.c:139
+#: ../app/menus.c:137
+#, fuzzy
+#| msgid "_Search for:"
+msgid "Search for text"
+msgstr "_Ieškoti:"
+
+#: ../app/menus.c:138
 msgid "_Replace…"
 msgstr "Pa_keisti…"
 
+#: ../app/menus.c:138
+msgid "Search and replace text"
+msgstr ""
+
 #. the following used to bind to <control><shift>C which collides with Unicode input.
 #. * <control><alt> doesn't work either
-#: ../app/menus.c:143
+#: ../app/menus.c:142
 msgid "Copy Text"
 msgstr "Kopijuoti tekstą"
 
-#: ../app/menus.c:144
+#: ../app/menus.c:142
+msgid "Copy object's text to clipboard"
+msgstr ""
+
+#: ../app/menus.c:143
 msgid "Cut Text"
 msgstr "Iškirpti tekstą"
 
-#: ../app/menus.c:145
+#: ../app/menus.c:143
+msgid "Cut object's text to clipboard"
+msgstr ""
+
+#: ../app/menus.c:144
 msgid "Paste _Text"
 msgstr "Įdėti _tekstą"
 
-#: ../app/menus.c:147
+#: ../app/menus.c:144
+msgid "Insert text from clipboard"
+msgstr ""
+
+#: ../app/menus.c:146
 msgid "Paste _Image"
 msgstr "Įdėti _paveikslėlį"
 
-#: ../app/menus.c:149
+#: ../app/menus.c:146
+#, fuzzy
+#| msgid "No image from Clipboard to paste."
+msgid "Insert image from clipboard"
+msgstr "Iškarpinėje nėra paveikslėlio įdėjimui."
+
+#: ../app/menus.c:148
 msgid "_Layers"
 msgstr "S_luoksniai"
 
-#: ../app/menus.c:150
+#: ../app/menus.c:149
 msgid "Add Layer…"
 msgstr "Pridėti sluoksnį…"
 
-#: ../app/menus.c:151
+#: ../app/menus.c:150
 msgid "Rename Layer…"
 msgstr "Pervadinti sluoksnį…"
 
-#: ../app/menus.c:152
+#: ../app/menus.c:151
 msgid "Move Selection to Layer above"
 msgstr "Perkelti pasirinktą sluoksnį aukštyn"
 
-#: ../app/menus.c:153
+#: ../app/menus.c:152
 msgid "Move Selection to Layer below"
 msgstr "Perkelti pasirinktą sluoksnį žemyn"
 
-#: ../app/menus.c:154
+#: ../app/menus.c:153
 msgid "_Layers…"
 msgstr "S_luoksniai…"
 
-#: ../app/menus.c:155
+#: ../app/menus.c:154
 msgid "_View"
 msgstr "_Peržiūra"
 
-#: ../app/menus.c:156
+#: ../app/menus.c:155
 msgid "Zoom in"
 msgstr "Pritraukti"
 
-#: ../app/menus.c:157
+#: ../app/menus.c:156
 msgid "Zoom out"
 msgstr "Atitolinti"
 
-#: ../app/menus.c:158
+#: ../app/menus.c:157
 msgid "_Zoom"
 msgstr "_Mastelis"
 
-#: ../app/menus.c:159
+#: ../app/menus.c:158
 msgid "1600%"
 msgstr "1600%"
 
-#: ../app/menus.c:160 ../app/menus.c:585 ../app/menus.c:597
+#: ../app/menus.c:159 ../app/menus.c:597 ../app/menus.c:609
 msgid "800%"
 msgstr "800%"
 
-#: ../app/menus.c:161 ../app/menus.c:586 ../app/menus.c:598
+#: ../app/menus.c:160 ../app/menus.c:598 ../app/menus.c:610
 msgid "400%"
 msgstr "400%"
 
-#: ../app/menus.c:162
+#: ../app/menus.c:161
 msgid "283"
 msgstr "283"
 
-#: ../app/menus.c:163
+#: ../app/menus.c:162
 msgid "200"
 msgstr "200"
 
-#: ../app/menus.c:164
+#: ../app/menus.c:163
 msgid "141"
 msgstr "141"
 
-#: ../app/menus.c:166
+#: ../app/menus.c:165
 msgid "85"
 msgstr "85"
 
-#: ../app/menus.c:167
+#: ../app/menus.c:166
 msgid "70.7"
 msgstr "70.7"
 
-#: ../app/menus.c:168
+#: ../app/menus.c:167
 msgid "50"
 msgstr "50"
 
-#: ../app/menus.c:169
+#: ../app/menus.c:168
 msgid "35.4"
 msgstr "35.4"
 
-#: ../app/menus.c:170
+#: ../app/menus.c:169
 msgid "25"
 msgstr "25"
 
 #. Show All, Best Fit.  Same as the Gimp, Ctrl+E
-#: ../app/menus.c:172
+#: ../app/menus.c:171
 msgid "Zoom fit"
 msgstr "Pritaikyti mastelį"
 
 #. "display_toggle_entries" items go here
-#: ../app/menus.c:176
+#: ../app/menus.c:175
 msgid "New _View"
 msgstr "Nauja _peržiūra"
 
-#: ../app/menus.c:177
+#: ../app/menus.c:176
 msgid "C_lone View"
 msgstr "_Klonuoti vaizdą"
 
-#: ../app/menus.c:180
+#: ../app/menus.c:179
 msgid "_Objects"
 msgstr "_Objektai"
 
-#: ../app/menus.c:181
+#: ../app/menus.c:180
 msgid "Send to _Back"
 msgstr "Nuleisti į _apačią"
 
-#: ../app/menus.c:182
+#: ../app/menus.c:180
+#, fuzzy
+#| msgid "Move Selection to Layer above"
+msgid "Move selection to the bottom"
+msgstr "Perkelti pasirinktą sluoksnį aukštyn"
+
+#: ../app/menus.c:181
 msgid "Bring to _Front"
 msgstr "Iškelti į _viršų"
 
-#: ../app/menus.c:183
+#: ../app/menus.c:181
+#, fuzzy
+#| msgid "Move Selection to Layer above"
+msgid "Move selection to the top"
+msgstr "Perkelti pasirinktą sluoksnį aukštyn"
+
+#: ../app/menus.c:182
 msgid "Send Backwards"
 msgstr "Nuleisti žemiau"
 
-#: ../app/menus.c:184
+#: ../app/menus.c:183
 msgid "Bring Forwards"
 msgstr "Iškelti aukščiau"
 
-#: ../app/menus.c:186
+#: ../app/menus.c:185
 msgid "_Group"
 msgstr "_Grupuoti"
 
+#: ../app/menus.c:185
+#, fuzzy
+#| msgid "Group with %d object"
+#| msgid_plural "Group with %d objects"
+msgid "Group selected objects"
+msgstr "Grupė iš %d objekto"
+
 #. deliberately not using Ctrl+U for Ungroup
-#: ../app/menus.c:188
+#: ../app/menus.c:187
 msgid "_Ungroup"
 msgstr "Išgr_upuoti"
 
-#: ../app/menus.c:190
+#: ../app/menus.c:187
+msgid "Ungroup selected groups"
+msgstr ""
+
+#: ../app/menus.c:189
 msgid "_Parent"
 msgstr "_Priskirti tėvą"
 
-#: ../app/menus.c:191
+#: ../app/menus.c:190
 msgid "_Unparent"
 msgstr "_Atskirti nuo tėvo"
 
-#: ../app/menus.c:192
+#: ../app/menus.c:191
 msgid "_Unparent Children"
 msgstr "_Atskirti vaikus nuo tėvo"
 
 #. Translators: Menu item Verb/Support/Position/Align
-#: ../app/menus.c:194 ../objects/FS/function.c:804
+#: ../app/menus.c:193 ../objects/FS/function.c:799
 msgid "Align"
 msgstr "Lygiavimas"
 
-#: ../app/menus.c:199 ../objects/standard/textobj.c:110
+#: ../app/menus.c:198 ../objects/standard/textobj.c:117
 msgid "Top"
 msgstr "Viršuje"
 
-#: ../app/menus.c:200
+#: ../app/menus.c:199
 msgid "Middle"
 msgstr "Viduryje"
 
-#: ../app/menus.c:201 ../objects/standard/textobj.c:109
+#: ../app/menus.c:200 ../objects/standard/textobj.c:116
 msgid "Bottom"
 msgstr "Apačioje"
 
-#: ../app/menus.c:203
+#: ../app/menus.c:202
 msgid "Spread Out Horizontally"
 msgstr "Išsklaidyti horizontaliai"
 
-#: ../app/menus.c:204
+#: ../app/menus.c:203
 msgid "Spread Out Vertically"
 msgstr "Išsklaidyti vertikaliai"
 
-#: ../app/menus.c:205
+#: ../app/menus.c:204
 msgid "Adjacent"
 msgstr "Greta"
 
-#: ../app/menus.c:206
+#: ../app/menus.c:205
 msgid "Stacked"
 msgstr "Ant viršaus"
 
-#: ../app/menus.c:207 ../app/menus.c:217
+#: ../app/menus.c:206 ../app/menus.c:216
 msgid "Connected"
 msgstr "Prijungta"
 
-#: ../app/menus.c:211
+#: ../app/menus.c:210
 msgid "_Select"
 msgstr "_Pasirinkti"
 
-#: ../app/menus.c:212
+#: ../app/menus.c:211
 msgid "All"
 msgstr "Visi"
 
-#: ../app/menus.c:213 ../objects/Jackson/domain.c:94
+#: ../app/menus.c:212 ../objects/Jackson/domain.c:94
 #: ../objects/UML/association.c:220 ../objects/UML/association.c:226
 msgid "None"
 msgstr "Joks"
 
-#: ../app/menus.c:214
+#: ../app/menus.c:213
 msgid "Invert"
 msgstr "Invertuoti"
 
-#: ../app/menus.c:216
+#: ../app/menus.c:215
 msgid "Transitive"
 msgstr "Tranzityvus"
 
-#: ../app/menus.c:218
+#: ../app/menus.c:217
 msgid "Same Type"
 msgstr "To paties tipo"
 
 #. display_select_radio_entries go here
-#: ../app/menus.c:222
+#: ../app/menus.c:221
 msgid "Select By"
 msgstr "Pasirinkti pagal"
 
 #. For placment of the toplevel Layout menu and it's accelerator
-#: ../app/menus.c:225
+#: ../app/menus.c:224
 msgid "L_ayout"
 msgstr "Iš_dėstymas"
 
-#: ../app/menus.c:227
+#: ../app/menus.c:226
 msgid "D_ialogs"
 msgstr "D_ialogo langai"
 
-#: ../app/menus.c:229
+#: ../app/menus.c:228
 msgid "D_ebug"
 msgstr "D_erinti"
 
-#: ../app/menus.c:235
+#: ../app/menus.c:234
 msgid "_Tools"
 msgstr "Įran_kiai"
 
-#: ../app/menus.c:236
+#: ../app/menus.c:235
 msgid "Modify"
 msgstr "Keisti"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Magnify
-#: ../app/menus.c:237 ../app/toolbox.c:86 ../objects/FS/function.c:984
+#: ../app/menus.c:236 ../app/toolbox.c:86 ../objects/FS/function.c:979
 msgid "Magnify"
 msgstr "Lupa"
 
-#: ../app/menus.c:238
+#: ../app/menus.c:237
 msgid "Edit Text"
 msgstr "Redaguoti tekstą"
 
-#: ../app/menus.c:239
+#: ../app/menus.c:238
 msgid "Scroll"
 msgstr "Persukti"
 
 #. how it used to be before 0.96+SVN
 #. new name matching "same name, same type"  rule
-#: ../app/menus.c:240 ../app/toolbox.c:98 ../lib/properties.c:102
+#: ../app/menus.c:239 ../app/toolbox.c:98 ../lib/properties.c:102
 #: ../lib/properties.h:677 ../objects/AADL/aadlbox.c:153
-#: ../objects/custom/custom_object.c:228 ../objects/Jackson/requirement.c:130
-#: ../objects/network/basestation.c:132 ../objects/network/radiocell.c:125
-#: ../objects/UML/activity.c:127 ../objects/UML/actor.c:120
-#: ../objects/UML/classicon.c:145 ../objects/UML/component.c:127
+#: ../objects/custom/custom_object.c:227 ../objects/Jackson/requirement.c:130
+#: ../objects/network/basestation.c:132 ../objects/network/radiocell.c:131
+#: ../objects/UML/activity.c:129 ../objects/UML/actor.c:120
+#: ../objects/UML/classicon.c:145 ../objects/UML/component.c:133
 #: ../objects/UML/component_feature.c:158 ../objects/UML/node.c:127
 #: ../objects/UML/node.c:129 ../objects/UML/note.c:118
 #: ../objects/UML/object.c:164 ../objects/UML/small_package.c:129
@@ -1556,87 +1730,85 @@ msgstr "Persukti"
 msgid "Text"
 msgstr "Tekstas"
 
-#: ../app/menus.c:241 ../app/toolbox.c:104
+#: ../app/menus.c:240 ../app/toolbox.c:104
 msgid "Box"
 msgstr "Dėžutė"
 
-#: ../app/menus.c:242 ../app/toolbox.c:110
+#: ../app/menus.c:241 ../app/toolbox.c:110
 msgid "Ellipse"
 msgstr "Elipsė"
 
-#: ../app/menus.c:243 ../app/toolbox.c:116
+#: ../app/menus.c:242 ../app/toolbox.c:116
 msgid "Polygon"
 msgstr "Daugiakampis"
 
-#: ../app/menus.c:244 ../app/toolbox.c:122
+#: ../app/menus.c:243 ../app/toolbox.c:122
 msgid "Beziergon"
 msgstr "Bezjė daugiakampis"
 
-#: ../app/menus.c:246 ../app/toolbox.c:128 ../objects/standard/line.c:325
+#: ../app/menus.c:245 ../app/toolbox.c:128 ../objects/standard/line.c:327
 msgid "Line"
 msgstr "Eilutė"
 
-#: ../app/menus.c:247 ../app/toolbox.c:134
+#: ../app/menus.c:246 ../app/toolbox.c:134
 msgid "Arc"
 msgstr "Kreivė"
 
-#: ../app/menus.c:248 ../app/toolbox.c:140
+#: ../app/menus.c:247 ../app/toolbox.c:140
 msgid "Zigzagline"
 msgstr "Zigzagas"
 
-#: ../app/menus.c:249 ../app/toolbox.c:146
+#: ../app/menus.c:248 ../app/toolbox.c:146
 msgid "Polyline"
 msgstr "Polilinija"
 
-#: ../app/menus.c:250 ../app/toolbox.c:152
+#: ../app/menus.c:249 ../app/toolbox.c:152
 msgid "Bezierline"
 msgstr "Bezjė linija"
 
-#: ../app/menus.c:251 ../app/toolbox.c:165
+#: ../app/menus.c:250 ../app/toolbox.c:165
 msgid "Outline"
 msgstr "Apžvalga"
 
-#: ../app/menus.c:253 ../app/toolbox.c:158
+#: ../app/menus.c:252 ../app/toolbox.c:158
 msgid "Image"
 msgstr "Paveiksliukas"
 
-#: ../app/menus.c:260
+#: ../app/menus.c:259
 msgid "_Antialiased"
 msgstr "_Glotnintas"
 
-#: ../app/menus.c:261
+#: ../app/menus.c:260
 msgid "Show _Grid"
 msgstr "Rodyti _tinklelį"
 
-#: ../app/menus.c:262
+#: ../app/menus.c:261
 msgid "_Snap to Grid"
 msgstr "_Pritraukti prie tinklelio"
 
-#: ../app/menus.c:263
+#: ../app/menus.c:262
 msgid "Snap to _Objects"
 msgstr "_Pritraukti prie objektų"
 
-#: ../app/menus.c:264
+#: ../app/menus.c:263
 msgid "Show _Rulers"
 msgstr "Rodyti _Liniuotes"
+
+#: ../app/menus.c:264
+#, fuzzy
+#| msgid "Show Toolbar"
+msgid "Show Scrollbars"
+msgstr "Rodyti įrankinę"
 
 #: ../app/menus.c:265
 msgid "Show _Connection Points"
 msgstr "Rodyti prijungimo ta_škus"
 
-#: ../app/menus.c:272
-msgid "Union"
-msgstr "Sąjunga"
-
-#: ../app/menus.c:273
-msgid "Intersection"
-msgstr "Sankirta"
-
 #. Translators: Menu item Verb/Channel/Export/Remove
 #. Translators: Menu item Verb/Branch/Separate/Remove
 #. Translators: Menu item Verb/Branch/Separate/Remove/Remove
-#: ../app/menus.c:274 ../objects/FS/function.c:704
-#: ../objects/FS/function.c:856 ../objects/FS/function.c:858
+#: ../app/menus.c:274 ../objects/FS/function.c:699 ../objects/FS/function.c:851
+#: ../objects/FS/function.c:853
 msgid "Remove"
 msgstr "Pašalinti"
 
@@ -1649,51 +1821,51 @@ msgstr "Inversija"
 msgid "NULL tooldata in tool_menu_select"
 msgstr "NULL tooldata tarp tool_menu_select"
 
-#: ../app/menus.c:587 ../app/menus.c:599
+#: ../app/menus.c:599 ../app/menus.c:611
 msgid "300%"
 msgstr "300%"
 
-#: ../app/menus.c:588 ../app/menus.c:600
+#: ../app/menus.c:600 ../app/menus.c:612
 msgid "200%"
 msgstr "200%"
 
-#: ../app/menus.c:589 ../app/menus.c:601
+#: ../app/menus.c:601 ../app/menus.c:613
 msgid "150%"
 msgstr "150%"
 
-#: ../app/menus.c:590 ../app/menus.c:602
+#: ../app/menus.c:602 ../app/menus.c:614
 msgid "100%"
 msgstr "100%"
 
-#: ../app/menus.c:591 ../app/menus.c:603
+#: ../app/menus.c:603 ../app/menus.c:615
 msgid "75%"
 msgstr "75%"
 
-#: ../app/menus.c:592 ../app/menus.c:604
+#: ../app/menus.c:604 ../app/menus.c:616
 msgid "50%"
 msgstr "50%"
 
-#: ../app/menus.c:593 ../app/menus.c:605
+#: ../app/menus.c:605 ../app/menus.c:617
 msgid "25%"
 msgstr "25%"
 
-#: ../app/menus.c:594 ../app/menus.c:606
+#: ../app/menus.c:606 ../app/menus.c:618
 msgid "10%"
 msgstr "10%"
 
-#: ../app/menus.c:632
+#: ../app/menus.c:644
 msgid "Toggles snap-to-grid."
 msgstr "Perjungia pritraukimą prie tinklelio."
 
-#: ../app/menus.c:643
+#: ../app/menus.c:655
 msgid "Toggles object snapping."
 msgstr "Perjungia objektų pritraukimą."
 
-#: ../app/menus.c:1249
+#: ../app/menus.c:1275
 msgid "The function is not available anymore."
 msgstr "Šis funkcija daugiau nebeprieinama."
 
-#: ../app/modify_tool.c:387
+#: ../app/modify_tool.c:411
 msgid "Couldn't get GTK+ settings"
 msgstr "Nepavyko gauti GTK+ nustatymų"
 
@@ -1704,10 +1876,6 @@ msgstr "Įskiepiai"
 #: ../app/plugin-manager.c:263
 msgid "Loaded"
 msgstr "Įkelta"
-
-#: ../app/plugin-manager.c:276
-msgid "Description"
-msgstr "Aprašymas"
 
 #: ../app/plugin-manager.c:285
 msgid "Load at Startup"
@@ -1846,8 +2014,8 @@ msgstr "rodyti glotnintą"
 msgid "Portable Network Graphics"
 msgstr "Portable Network Graphics"
 
-#: ../app/preferences.c:224 ../plug-ins/svg/render_svg.c:605
-#: ../plug-ins/svg/svg-import.c:2053
+#: ../app/preferences.c:224 ../plug-ins/svg/render_svg.c:649
+#: ../plug-ins/svg/svg-import.c:2121
 msgid "Scalable Vector Graphics"
 msgstr "Scalable Vector Graphics"
 
@@ -1855,11 +2023,11 @@ msgstr "Scalable Vector Graphics"
 msgid "PostScript"
 msgstr "PostScript"
 
-#: ../app/preferences.c:228 ../plug-ins/wmf/wmf.cpp:1478
+#: ../app/preferences.c:228 ../plug-ins/wmf/wmf.cpp:1449
 msgid "Windows Metafile"
 msgstr "Windows Metafile"
 
-#: ../app/preferences.c:230 ../plug-ins/wmf/wmf.cpp:1487
+#: ../app/preferences.c:230 ../plug-ins/wmf/wmf.cpp:1458
 msgid "Enhanced Metafile"
 msgstr "Enhanced Metafile"
 
@@ -1895,21 +2063,21 @@ msgstr "Eilučių pagrindinėje eilutėje"
 msgid "Hex Size:"
 msgstr "Korio dydis:"
 
-#: ../app/preferences.c:470 ../lib/prop_inttypes.c:159
-#: ../lib/prop_pattern.c:217 ../lib/prop_pixbuf.c:270
+#: ../app/preferences.c:470 ../lib/diapatternselector.c:89
+#: ../lib/prop_inttypes.c:159 ../lib/prop_pixbuf.c:296
 msgid "Yes"
 msgstr "Taip"
 
 #: ../app/preferences.c:470 ../app/preferences.c:481
+#: ../lib/diapatternselector.c:93 ../lib/diapatternselector.c:184
 #: ../lib/prop_inttypes.c:161 ../lib/prop_inttypes.c:187
-#: ../lib/prop_pattern.c:219 ../lib/prop_pattern.c:225
-#: ../lib/prop_pixbuf.c:272 ../lib/prop_pixbuf.c:278
+#: ../lib/prop_pixbuf.c:298 ../lib/prop_pixbuf.c:304
 msgid "No"
 msgstr "Ne"
 
 #: ../app/preferences.c:584
 msgid "Preferences"
-msgstr "Nustatymai"
+msgstr "Nuostatos"
 
 #: ../app/properties-dialog.c:60
 msgid "Object properties"
@@ -1927,7 +2095,7 @@ msgstr "Savybės: "
 msgid "Object properties:"
 msgstr "Objekto savybės:"
 
-#: ../app/sheets.c:158
+#: ../app/sheets.c:159
 #, c-format
 msgid ""
 "%s\n"
@@ -1936,7 +2104,7 @@ msgstr ""
 "%s\n"
 "Sisteminė lentelė"
 
-#: ../app/sheets.c:160
+#: ../app/sheets.c:161
 #, c-format
 msgid ""
 "%s\n"
@@ -1945,7 +2113,7 @@ msgstr ""
 "%s\n"
 "Naudotojo lentelė"
 
-#: ../app/sheets.c:278
+#: ../app/sheets.c:279
 msgid ""
 "Can't get symbol 'custom_type' from any module.\n"
 "Editing shapes is disabled."
@@ -1953,16 +2121,16 @@ msgstr ""
 "Nepavyksta gauti simbolio „custom_type“ iš jokio modulio.\n"
 "Figūrų redagavimas išjungtas."
 
-#: ../app/sheets.c:413
+#: ../app/sheets.c:414
 #, c-format
 msgid "Widget not found: %s"
 msgstr "Objektas nerastas: %s"
 
-#: ../app/sheets.c:443
+#: ../app/sheets.c:444
 msgid "SVG Shape"
 msgstr "SVG figūra"
 
-#: ../app/sheets.c:445
+#: ../app/sheets.c:446
 msgid "Programmed DiaObject"
 msgstr "Programuojamas DiaObjektas"
 
@@ -2279,7 +2447,7 @@ msgstr "Pastaba: visi jūsų įdiegti nestandartiniai įskiepiai bus ištrinti."
 #. Installer message: directory delete confirmation line 3
 #: ../installer/win32/gennsh.c:79
 msgid "Dia user settings will not be affected."
-msgstr "Dia naudotojo nustatymai bus paveikti."
+msgstr "Dia naudotojo nustatymai nebus paveikti."
 
 #. Installer message: DIA_PROMPT_DIR_EXISTS line 1
 #: ../installer/win32/gennsh.c:82
@@ -2317,193 +2485,193 @@ msgid ""
 "This will completely delete $PROFILE\\.dia and all subdirectories. Continue?"
 msgstr "Tai visiškai ištrins $PROFILE\\.dia ir visus poaplankius. Tęsti?"
 
-#: ../lib/arrows.c:1890
+#: ../lib/arrows.c:1823
 msgctxt "Arrow"
 msgid "None"
 msgstr "Nėra"
 
-#: ../lib/arrows.c:1891
+#: ../lib/arrows.c:1824
 msgctxt "Arrow"
 msgid "Lines"
 msgstr "Linijos"
 
-#: ../lib/arrows.c:1892
+#: ../lib/arrows.c:1825
 msgctxt "Arrow"
 msgid "Hollow Triangle"
 msgstr "Tuščias trikampis"
 
-#: ../lib/arrows.c:1893
+#: ../lib/arrows.c:1826
 msgctxt "Arrow"
 msgid "Filled Triangle"
 msgstr "Užpildytas trikampis"
 
-#: ../lib/arrows.c:1894
+#: ../lib/arrows.c:1827
 msgctxt "Arrow"
 msgid "Unfilled Triangle"
 msgstr "Neužpildytas trikampis"
 
-#: ../lib/arrows.c:1895
+#: ../lib/arrows.c:1828
 msgctxt "Arrow"
 msgid "Hollow Diamond"
 msgstr "Tuščia prizmė"
 
-#: ../lib/arrows.c:1896
+#: ../lib/arrows.c:1829
 msgctxt "Arrow"
 msgid "Filled Diamond"
 msgstr "Užpildyta prizmė"
 
-#: ../lib/arrows.c:1897
+#: ../lib/arrows.c:1830
 msgctxt "Arrow"
 msgid "Half Diamond"
 msgstr "Pusinė prizmė"
 
-#: ../lib/arrows.c:1898
+#: ../lib/arrows.c:1831
 msgctxt "Arrow"
 msgid "Half Head"
 msgstr "Pusė galvos"
 
-#: ../lib/arrows.c:1899
+#: ../lib/arrows.c:1832
 msgctxt "Arrow"
 msgid "Slashed Cross"
 msgstr "Pasviręs kryžius"
 
-#: ../lib/arrows.c:1900
+#: ../lib/arrows.c:1833
 msgctxt "Arrow"
 msgid "Filled Ellipse"
 msgstr "Užpildyta elipsė"
 
-#: ../lib/arrows.c:1901
+#: ../lib/arrows.c:1834
 msgctxt "Arrow"
 msgid "Hollow Ellipse"
 msgstr "Tuščia elipsė"
 
-#: ../lib/arrows.c:1902
+#: ../lib/arrows.c:1835
 msgctxt "Arrow"
 msgid "Filled Dot"
 msgstr "Užpildytas taškas"
 
-#: ../lib/arrows.c:1903
+#: ../lib/arrows.c:1836
 msgctxt "Arrow"
 msgid "Dimension Origin"
 msgstr "Dimensijos pagrindas"
 
-#: ../lib/arrows.c:1904
+#: ../lib/arrows.c:1837
 msgctxt "Arrow"
 msgid "Blanked Dot"
 msgstr "Tuščias taškas"
 
-#: ../lib/arrows.c:1905
+#: ../lib/arrows.c:1838
 msgctxt "Arrow"
 msgid "Double Hollow Triangle"
 msgstr "Dvigubas tuščias trikampis"
 
-#: ../lib/arrows.c:1906
+#: ../lib/arrows.c:1839
 msgctxt "Arrow"
 msgid "Double Filled Triangle"
 msgstr "Dvigubas užpildytas trikampis"
 
-#: ../lib/arrows.c:1907
+#: ../lib/arrows.c:1840
 msgctxt "Arrow"
 msgid "Filled Dot and Triangle"
 msgstr "Užpildytas taškas ir trikampis"
 
-#: ../lib/arrows.c:1908
+#: ../lib/arrows.c:1841
 msgctxt "Arrow"
 msgid "Filled Box"
 msgstr "Užpildytas stačiakampis"
 
-#: ../lib/arrows.c:1909
+#: ../lib/arrows.c:1842
 msgctxt "Arrow"
 msgid "Blanked Box"
 msgstr "Uždengta dėžutė"
 
-#: ../lib/arrows.c:1910
+#: ../lib/arrows.c:1843
 msgctxt "Arrow"
 msgid "Slashed"
 msgstr "Pasviręs"
 
-#: ../lib/arrows.c:1911
+#: ../lib/arrows.c:1844
 msgctxt "Arrow"
 msgid "Integral Symbol"
 msgstr "Integralo simbolis"
 
-#: ../lib/arrows.c:1912
+#: ../lib/arrows.c:1845
 msgctxt "Arrow"
 msgid "Crow Foot"
 msgstr "Varnos koja"
 
-#: ../lib/arrows.c:1913
+#: ../lib/arrows.c:1846
 msgctxt "Arrow"
 msgid "Cross"
 msgstr "Kryžius"
 
-#: ../lib/arrows.c:1914
+#: ../lib/arrows.c:1847
 msgctxt "Arrow"
 msgid "1-or-many"
 msgstr "1-ar-daugiau"
 
-#: ../lib/arrows.c:1915
+#: ../lib/arrows.c:1848
 msgctxt "Arrow"
 msgid "0-or-many"
 msgstr "0-ar-daugiau"
 
-#: ../lib/arrows.c:1916
+#: ../lib/arrows.c:1849
 msgctxt "Arrow"
 msgid "1-or-0"
 msgstr "1-arba-0"
 
-#: ../lib/arrows.c:1917
+#: ../lib/arrows.c:1850
 msgctxt "Arrow"
 msgid "1 exactly"
 msgstr "lygiai 1"
 
-#: ../lib/arrows.c:1918
+#: ../lib/arrows.c:1851
 msgctxt "Arrow"
 msgid "Filled Concave"
 msgstr "Užpildytas įgaubimas"
 
-#: ../lib/arrows.c:1919
+#: ../lib/arrows.c:1852
 msgctxt "Arrow"
 msgid "Blanked Concave"
 msgstr "Tuščiaviduris įgaubimas"
 
-#: ../lib/arrows.c:1920
+#: ../lib/arrows.c:1853
 msgctxt "Arrow"
 msgid "Round"
 msgstr "Apskritimas"
 
-#: ../lib/arrows.c:1921
+#: ../lib/arrows.c:1854
 msgctxt "Arrow"
 msgid "Open Round"
 msgstr "Atviras apskritimas"
 
-#: ../lib/arrows.c:1922
+#: ../lib/arrows.c:1855
 msgctxt "Arrow"
 msgid "Backslash"
 msgstr "Atvirkščiai įkypas brūkšnys"
 
-#: ../lib/arrows.c:1923
+#: ../lib/arrows.c:1856
 msgctxt "Arrow"
 msgid "Infinite Line"
 msgstr "Begalinė linija"
 
-#: ../lib/arrows.c:2051
+#: ../lib/arrows.c:1984
 msgid "Arrow head of unknown type"
 msgstr "Nežinomo tipo rodyklės viršūnė"
 
-#: ../lib/arrows.c:2059
+#: ../lib/arrows.c:1992
 #, c-format
 msgid "Arrow head of type %s has too small dimensions; removing.\n"
 msgstr "%s tipo rodyklės viršūnė per mažų matavimų; pašalinama.\n"
 
-#: ../lib/arrows.c:2192
+#: ../lib/arrows.c:2125
 msgid "unknown arrow"
 msgstr "nežinoma rodyklė"
 
 #: ../lib/create.c:50 ../lib/create.c:100 ../lib/create.c:127
 #: ../lib/create.c:160 ../lib/create.c:196 ../lib/create.c:228
 #: ../lib/create.c:252 ../lib/create.c:284 ../lib/create.c:305
-#: ../lib/create.c:335 ../lib/create.c:378 ../plug-ins/svg/svg-import.c:652
+#: ../lib/create.c:335 ../lib/create.c:378 ../plug-ins/svg/svg-import.c:677
 #: ../plug-ins/vdx/vdx-import.c:144
 msgid "Can't find standard object"
 msgstr "Nepavyko rasti standartinio objekto"
@@ -2520,11 +2688,11 @@ msgstr "Daugiau rodyklių"
 msgid "Size: "
 msgstr "Dydis:"
 
-#: ../lib/diacolorselector.c:204
+#: ../lib/diacolorselector.c:203
 msgid "Select color"
 msgstr "Pasirinkti spalvą"
 
-#: ../lib/diacolorselector.c:292
+#: ../lib/diacolorselector.c:291
 msgid "More colors…"
 msgstr "Daugiau spalvų…"
 
@@ -2547,27 +2715,22 @@ msgid "Couldn't find font family for %s\n"
 msgstr "Nepavyko rasti %s šriftų šeimos\n"
 
 #. pathologic case - pixbuf not even supporting PNG?
-#: ../lib/dia_image.c:333
-#, c-format
+#: ../lib/dia_image.c:345
+#, fuzzy, c-format
 #| msgid ""
 #| "Unsupported file format for saving:\n"
 #| "%s\n"
-#| "%s"
+#| "%s\n"
 msgid ""
 "Unsupported file format for saving:\n"
-"%s\n"
 "%s\n"
 msgstr ""
 "Nepalaikomas failo formatas įrašymui:\n"
 "%s\n"
 "%s\n"
 
-#: ../lib/dia_image.c:336
+#: ../lib/dia_image.c:348
 #, c-format
-#| msgid ""
-#| "Could not save file:\n"
-#| "%s\n"
-#| "%s"
 msgid ""
 "Could not save file:\n"
 "%s\n"
@@ -2577,11 +2740,11 @@ msgstr ""
 "%s\n"
 "%s\n"
 
-#: ../lib/dialinechooser.c:309
+#: ../lib/dialinechooser.c:310
 msgid "Line Style Properties"
 msgstr "Linijos stiliaus savybės"
 
-#: ../lib/dialinechooser.c:344
+#: ../lib/dialinechooser.c:345
 msgid "Details…"
 msgstr "Detalės…"
 
@@ -2618,6 +2781,30 @@ msgstr "Gerai"
 msgid "Cancel"
 msgstr "Nutraukti"
 
+#: ../lib/diapatternselector.c:110
+#, fuzzy
+#| msgid "Flip Horizontal"
+msgid "Horizontal"
+msgstr "Apversti horizontaliai"
+
+#: ../lib/diapatternselector.c:111
+#, fuzzy
+#| msgid "Diagram"
+msgid "Diagonal"
+msgstr "Diagrama"
+
+#: ../lib/diapatternselector.c:112
+#, fuzzy
+#| msgid "Flip Vertical"
+msgid "Vertical"
+msgstr "Apversti vertikaliai"
+
+#: ../lib/diapatternselector.c:113
+#, fuzzy
+#| msgid "Radiation"
+msgid "Radial"
+msgstr "Radiacija"
+
 #: ../lib/dia_xml.c:214
 #, c-format
 msgid ""
@@ -2627,71 +2814,71 @@ msgstr ""
 "Failas %s neturi kodavimo informacijos;\n"
 "pasirinktas %s kodavimas"
 
-#: ../lib/dia_xml.c:511
+#: ../lib/dia_xml.c:512
 #, c-format
 msgid "Unknown type of DataNode '%s'"
 msgstr "Nežinomas DataNode tipas „%s“"
 
-#: ../lib/dia_xml.c:530
+#: ../lib/dia_xml.c:531
 msgid "Taking int value of non-int node."
 msgstr "Imama neskaitinės viršūnės skaitinė vertė."
 
-#: ../lib/dia_xml.c:706
+#: ../lib/dia_xml.c:707
 msgid "Taking point value of non-point node."
 msgstr "Imama taško vertė ne taško viršūnei."
 
-#: ../lib/dia_xml.c:717
+#: ../lib/dia_xml.c:718
 #, c-format
 msgid "Incorrect x Point value \"%s\" %f; discarding it."
 msgstr "Netinkama x taško vertė „%s“ %f; išmetama."
 
-#: ../lib/dia_xml.c:724
+#: ../lib/dia_xml.c:725
 msgid "Error parsing point."
 msgstr "Klaida apdorojant tašką."
 
 #. don't bother with useless warnings (see above)
-#: ../lib/dia_xml.c:732
+#: ../lib/dia_xml.c:733
 #, c-format
 msgid "Incorrect y Point value \"%s\" %f; discarding it."
 msgstr "Netinkama y taško vertė „%s“ %f; išmetama."
 
-#: ../lib/dia_xml.c:752
+#: ../lib/dia_xml.c:753
 msgid "Taking bezpoint value of non-point node."
 msgstr "Imama bezpoint vertė ne taško viršūnei."
 
-#: ../lib/dia_xml.c:770
+#: ../lib/dia_xml.c:771
 msgid "Error parsing bezpoint p1."
 msgstr "Klaida skaitant bezpoint p1."
 
-#: ../lib/dia_xml.c:784
+#: ../lib/dia_xml.c:785
 msgid "Error parsing bezpoint p2."
 msgstr "Klaida skaitant bezpoint p2."
 
-#: ../lib/dia_xml.c:798
+#: ../lib/dia_xml.c:799
 msgid "Error parsing bezpoint p3."
 msgstr "Klaida skaitant bezpoint p3."
 
-#: ../lib/dia_xml.c:825
+#: ../lib/dia_xml.c:826
 msgid "Taking rectangle value of non-rectangle node."
 msgstr "Imama stačiakampio vertė ne stačiakampio viršūnei."
 
-#: ../lib/dia_xml.c:837 ../lib/dia_xml.c:848 ../lib/dia_xml.c:859
+#: ../lib/dia_xml.c:838 ../lib/dia_xml.c:849 ../lib/dia_xml.c:860
 msgid "Error parsing rectangle."
 msgstr "Klaida skaitant stačiakampį."
 
-#: ../lib/dia_xml.c:887
+#: ../lib/dia_xml.c:888
 msgid "Taking string value of non-string node."
 msgstr "Imama eilutės vertė ne eilutės viršūnei."
 
-#: ../lib/dia_xml.c:913
+#: ../lib/dia_xml.c:914
 msgid "Error in string tag."
 msgstr "Klaida eilutės žymoje."
 
-#: ../lib/dia_xml.c:931
+#: ../lib/dia_xml.c:932
 msgid "Error in file, string not starting with #"
 msgstr "Klaida faile, eilutė neprasideda #"
 
-#: ../lib/dia_xml.c:993
+#: ../lib/dia_xml.c:994
 msgid "Taking font value of non-font node."
 msgstr "Imama šrifto vertė ne šrifto viršūnei."
 
@@ -2710,11 +2897,11 @@ msgstr "Keli importo filtrai naudoja vardą %s"
 msgid "Can't load font %s.\n"
 msgstr "Nepavyko įkelti šrifto „%s“\n"
 
-#: ../lib/group.c:624
+#: ../lib/group.c:634
 msgid "Transformation"
 msgstr "Transformacija"
 
-#: ../lib/message.c:93 ../lib/message.c:284
+#: ../lib/message.c:93 ../lib/message.c:289
 msgid "Warning"
 msgstr "Perspėjimas"
 
@@ -2730,7 +2917,7 @@ msgstr "Rodyti pasikartojančius pranešimus"
 msgid "Don't show this message again"
 msgstr "Daugiau nerodyti šio pranešimo"
 
-#: ../lib/message.c:206
+#: ../lib/message.c:211
 #, c-format
 msgid "There is %d similar message."
 msgid_plural "There are %d similar messages."
@@ -2738,7 +2925,7 @@ msgstr[0] "Yra dar %d panašus pranešimas."
 msgstr[1] "Yra dar %d panašūs pranešimai."
 msgstr[2] "Yra dar %d panašių pranešimų."
 
-#: ../lib/message.c:268
+#: ../lib/message.c:273
 msgid "Notice"
 msgstr "Perspėjimas"
 
@@ -2781,31 +2968,22 @@ msgstr "Trūksta simbolių tarp 'dia_plugin_init'"
 msgid "dia_plugin_init() call failed"
 msgstr "dia_plugin_init() komandos klaida"
 
-#: ../lib/plug-ins.c:234
-#, c-format
-msgid "%s Plugin could not be unloaded"
-msgstr "Nepavyko pašalinti iš atminties %s priedo"
-
-#: ../lib/plug-ins.c:442
+#: ../lib/plug-ins.c:443
 msgid "Plugin Configuration"
 msgstr "Įskiepio konfigūracija"
 
-#: ../lib/propdialogs.c:324 ../objects/UML/association.c:234
+#: ../lib/propdialogs.c:339 ../objects/UML/association.c:234
 #: ../objects/UML/object.c:144
 msgid "General"
 msgstr "Bendra"
 
-#: ../lib/propdialogs.c:325
+#: ../lib/propdialogs.c:340
 msgid "Meta"
 msgstr "Meta"
 
 #: ../lib/prop_dict.c:43
 msgid "Author"
 msgstr "Autorius"
-
-#: ../lib/prop_dict.c:44
-msgid "Identifier"
-msgstr "Identifikatorius"
 
 #: ../lib/prop_dict.c:45
 msgid "Creation date"
@@ -2819,7 +2997,7 @@ msgstr "Keitimo data"
 msgid "URL"
 msgstr "URL"
 
-#: ../lib/prop_dict.c:243 ../sheets/ciscomisc.sheet.in.h:43
+#: ../lib/prop_dict.c:243 ../sheets/ciscomisc.sheet.in.h:41
 msgid "Key"
 msgstr "Raktas"
 
@@ -2833,7 +3011,7 @@ msgid "Left"
 msgstr "Kairė"
 
 #: ../lib/properties.c:69 ../lib/properties.h:592 ../lib/widgets.c:270
-#: ../objects/standard/textobj.c:111
+#: ../objects/standard/textobj.c:118
 msgid "Center"
 msgstr "Vidurys"
 
@@ -2884,8 +3062,7 @@ msgid "Projecting"
 msgstr "Projektuojama"
 
 #: ../lib/properties.c:96 ../lib/properties.h:632 ../lib/properties.h:635
-#: ../objects/chronogram/chronoline.c:178
-#: ../objects/chronogram/chronoref.c:157
+#: ../objects/chronogram/chronoline.c:178 ../objects/chronogram/chronoref.c:157
 msgid "Line color"
 msgstr "Linijos spalva"
 
@@ -2897,9 +3074,9 @@ msgstr "Linijos stilius"
 msgid "Fill color"
 msgstr "Užpildanti spalva"
 
-#. just to simplify transfering properties between objects
+#. just to simplify transferring properties between objects
 #: ../lib/properties.c:99 ../lib/properties.h:663 ../lib/properties.h:666
-#: ../lib/standard-path.c:147
+#: ../lib/standard-path.c:135
 msgid "Draw background"
 msgstr "Rodyti foną"
 
@@ -2916,23 +3093,23 @@ msgid "Text alignment"
 msgstr "Teksto lygiavimas"
 
 #: ../lib/properties.c:104 ../lib/properties.h:688
-#: ../objects/chronogram/chronoline.c:182
-#: ../objects/chronogram/chronoref.c:163 ../objects/Database/reference.c:118
-#: ../objects/GRAFCET/condition.c:131 ../objects/GRAFCET/step.c:165
-#: ../objects/GRAFCET/transition.c:141 ../objects/UML/class_dialog.c:455
+#: ../objects/chronogram/chronoline.c:182 ../objects/chronogram/chronoref.c:163
+#: ../objects/Database/reference.c:118 ../objects/GRAFCET/condition.c:131
+#: ../objects/GRAFCET/step.c:165 ../objects/GRAFCET/transition.c:141
+#: ../objects/UML/class_dialog.c:455
 msgid "Font"
 msgstr "Šriftas"
 
 #: ../lib/properties.c:105 ../lib/properties.h:696
-#: ../objects/chronogram/chronoline.c:184
-#: ../objects/chronogram/chronoref.c:165 ../objects/GRAFCET/condition.c:133
-#: ../objects/GRAFCET/step.c:167 ../objects/GRAFCET/transition.c:143
+#: ../objects/chronogram/chronoline.c:184 ../objects/chronogram/chronoref.c:165
+#: ../objects/GRAFCET/condition.c:133 ../objects/GRAFCET/step.c:167
+#: ../objects/GRAFCET/transition.c:143
 msgid "Font size"
 msgstr "Šrifto dydis"
 
 #: ../lib/properties.c:106 ../lib/properties.h:702
-#: ../objects/chronogram/chronoline.c:186
-#: ../objects/chronogram/chronoref.c:167 ../objects/GRAFCET/step.c:169
+#: ../objects/chronogram/chronoline.c:186 ../objects/chronogram/chronoref.c:167
+#: ../objects/GRAFCET/step.c:169
 msgid "Text color"
 msgstr "Teksto spalva"
 
@@ -2948,7 +3125,11 @@ msgstr "Linijos viršūnės"
 msgid "Text fitting"
 msgstr "Teksto pritaikymas"
 
-#: ../lib/prop_inttypes.c:567
+#: ../lib/properties.h:715 ../lib/standard-path.c:137
+msgid "Pattern"
+msgstr "Šablonas"
+
+#: ../lib/prop_inttypes.c:568
 msgid "Property cast from int to enum out of range"
 msgstr "Savybės vertimas iš iš sveiko skaičiaus į išvardinimą už ribų"
 
@@ -2957,12 +3138,7 @@ msgstr "Savybės vertimas iš iš sveiko skaičiaus į išvardinimą už ribų"
 msgid "No attribute '%s' (%p) or no data (%p) in this attribute"
 msgstr "Nenurodytas atributas „%s“ (%p) arba nėra (%p) duomenų šiame atribute"
 
-#: ../lib/prop_pattern.c:243
-#| msgid "Cant create image data from scratch!"
-msgid "Cant create pattern from scratch!"
-msgstr "Nepavyksta iš naujo šablono!"
-
-#: ../lib/prop_pixbuf.c:99 ../lib/prop_pixbuf.c:146
+#: ../lib/prop_pixbuf.c:110 ../lib/prop_pixbuf.c:157
 #, c-format
 msgid ""
 "Failed to load image form diagram:\n"
@@ -2971,7 +3147,7 @@ msgstr ""
 "Nepavyko įkelti paveikslėlio formos diagramos:\n"
 "%s"
 
-#: ../lib/prop_pixbuf.c:198
+#: ../lib/prop_pixbuf.c:224
 #, c-format
 msgid ""
 "Saving inline pixbuf failed:\n"
@@ -2980,17 +3156,17 @@ msgstr ""
 "Įterpto pixbuf įrašymas nepavyko:\n"
 "%s"
 
-#: ../lib/prop_pixbuf.c:296
+#: ../lib/prop_pixbuf.c:322
 msgid "Cant create image data from scratch!"
 msgstr "Nepavyksta iš naujo sukurti paveikslėlio duomenų!"
 
 #. Todo: get label for the branch view from props, e.g. UML Operations Parameters
-#: ../lib/prop_sdarray_widget.c:577 ../objects/chronogram/chronoline.c:161
+#: ../lib/prop_sdarray_widget.c:559 ../objects/chronogram/chronoline.c:161
 #: ../objects/UML/umloperation.c:79
 msgid "Parameters"
 msgstr "Parametrai"
 
-#: ../lib/prop_text.c:483
+#: ../lib/prop_text.c:484
 #, c-format
 msgid "Group with %d object"
 msgid_plural "Group with %d objects"
@@ -3027,43 +3203,65 @@ msgstr ""
 msgid "%s: you should use object tags rather than shape tags now"
 msgstr "%s: dabar reikia naudoti objektų žymas vietoj figūrų žymų"
 
-#: ../lib/standard-path.c:131
+#: ../lib/standard-path.c:119
 msgid "Stroke"
 msgstr "Kirtis"
 
 #. Translators: Menu item Verb/Provision/Supply/Fill
-#: ../lib/standard-path.c:132 ../objects/FS/function.c:932
+#: ../lib/standard-path.c:120 ../objects/FS/function.c:927
 msgid "Fill"
 msgstr "Užpildyti"
 
-#: ../lib/standard-path.c:133
+#: ../lib/standard-path.c:121
 msgid "Fill & Stroke"
 msgstr "Užpildas ir kirtis"
 
-#: ../lib/standard-path.c:138
+#: ../lib/standard-path.c:126
 msgid "Bezier points"
 msgstr "Bezjė taškai"
 
-#: ../lib/standard-path.c:139
+#: ../lib/standard-path.c:127
 msgid "Drawing"
 msgstr "Piešimas"
 
-#: ../lib/standard-path.c:148
+#: ../lib/standard-path.c:136
 msgid "Draw Control Lines"
 msgstr "Piešti valdymo linijas"
 
-#: ../lib/standard-path.c:149 ../objects/standard/beziergon.c:110
-#: ../objects/standard/box.c:148 ../objects/standard/ellipse.c:135
-#: ../objects/standard/polygon.c:112
-#| msgid "Scatter"
-msgid "Pattern"
-msgstr "Šablonas"
-
-#: ../lib/standard-path.c:498
+#: ../lib/standard-path.c:729
 msgid "Convert to Bezier"
 msgstr "Konvertuoti į Bezjė"
 
-#: ../lib/standard-path.c:499
+#: ../lib/standard-path.c:730
+#, fuzzy
+#| msgid "Convert to Path"
+msgid "Invert Path"
+msgstr "Konvertuoti į kelią"
+
+#: ../lib/standard-path.c:731 ../objects/custom/custom_object.c:198
+#: ../objects/custom/custom_object.c:231
+msgid "Flip horizontal"
+msgstr "Apversti horizontaliai"
+
+#: ../lib/standard-path.c:732 ../objects/custom/custom_object.c:200
+#: ../objects/custom/custom_object.c:233
+msgid "Flip vertical"
+msgstr "Apversti vertikaliai"
+
+#. Translators: Menu item Verb/Channel/Guide/Rotate
+#. Translators: Menu item Verb/Channel/Guide/Rotate/Rotate
+#: ../lib/standard-path.c:733 ../objects/FS/function.c:739
+#: ../objects/FS/function.c:741
+msgid "Rotate"
+msgstr "Pasukti"
+
+#: ../lib/standard-path.c:734
+#, fuzzy
+#| msgid "Shear angle"
+msgid "Shear"
+msgstr "Kirpimo kampas"
+
+#: ../lib/standard-path.c:735
 msgid "Show Control Lines"
 msgstr "Rodyti valdymo linijas"
 
@@ -3181,13 +3379,11 @@ msgstr ""
 "u trukmė  nustatyti signalo „nežinomą“ būseną ir laukti trukmę.\n"
 "Pavyzdys @ 1.0 (2.0)1.0(2.0)\n"
 
-#: ../objects/chronogram/chronoline.c:163
-#: ../objects/chronogram/chronoref.c:145
+#: ../objects/chronogram/chronoline.c:163 ../objects/chronogram/chronoref.c:145
 msgid "Start time"
 msgstr "Pradžios laikas"
 
-#: ../objects/chronogram/chronoline.c:165
-#: ../objects/chronogram/chronoref.c:147
+#: ../objects/chronogram/chronoline.c:165 ../objects/chronogram/chronoref.c:147
 msgid "End time"
 msgstr "Pabaigos laikas"
 
@@ -3203,8 +3399,7 @@ msgstr "Kritimo laikas"
 msgid "Multi-bit data"
 msgstr "Daugiabičiai duomenys"
 
-#: ../objects/chronogram/chronoline.c:172
-#: ../objects/chronogram/chronoref.c:155
+#: ../objects/chronogram/chronoline.c:172 ../objects/chronogram/chronoref.c:155
 msgid "Aspect"
 msgstr "Proporcija"
 
@@ -3240,33 +3435,27 @@ msgstr "Specialūs"
 msgid "Custom XML shapes loader"
 msgstr "Specialių XML figūrų įkėlimas"
 
-#: ../objects/custom/custom_object.c:199 ../objects/custom/custom_object.c:232
-msgid "Flip horizontal"
-msgstr "Apversti horizontaliai"
-
-#: ../objects/custom/custom_object.c:201 ../objects/custom/custom_object.c:234
-msgid "Flip vertical"
-msgstr "Apversti vertikaliai"
-
-#: ../objects/custom/custom_object.c:204 ../objects/custom/custom_object.c:237
-msgid "Scale of the subshapes"
+#: ../objects/custom/custom_object.c:203 ../objects/custom/custom_object.c:236
+#, fuzzy
+#| msgid "Scale of the subshapes"
+msgid "Scale of the sub-shapes"
 msgstr "Po-figūrų skalė"
 
-#: ../objects/custom/custom_object.c:218 ../objects/flowchart/box.c:152
+#: ../objects/custom/custom_object.c:217 ../objects/flowchart/box.c:152
 #: ../objects/flowchart/diamond.c:150 ../objects/flowchart/ellipse.c:149
 #: ../objects/flowchart/parallelogram.c:154 ../objects/SADT/box.c:135
 msgid "Text padding"
 msgstr "Teksto paraštė"
 
-#: ../objects/custom/custom_object.c:1776
+#: ../objects/custom/custom_object.c:1768
 msgid "Flip Horizontal"
 msgstr "Apversti horizontaliai"
 
-#: ../objects/custom/custom_object.c:1777
+#: ../objects/custom/custom_object.c:1769
 msgid "Flip Vertical"
 msgstr "Apversti vertikaliai"
 
-#: ../objects/custom/custom_object.c:1814
+#: ../objects/custom/custom_object.c:1807
 #, c-format
 msgid "Cannot open icon file %s for object type '%s'."
 msgstr "Nepavyko atidaryti ženklų failo %s, skirtos objektų tipui '%s'."
@@ -3325,7 +3514,7 @@ msgid "Entity/Relationship table diagram objects"
 msgstr "Esybės/ryšio lentelės diagramos objektai"
 
 #: ../objects/Database/reference.c:109 ../objects/flowchart/box.c:150
-#: ../objects/standard/box.c:144 ../objects/standard/polyline.c:107
+#: ../objects/standard/box.c:149 ../objects/standard/polyline.c:108
 #: ../objects/standard/zigzagline.c:106
 msgid "Corner radius"
 msgstr "Kampas"
@@ -3343,27 +3532,27 @@ msgstr "Baigti aprašymą"
 #: ../objects/UML/association.c:247 ../objects/UML/association.c:258
 #: ../objects/UML/association.c:260 ../objects/UML/association.c:262
 #: ../objects/UML/association.c:264 ../objects/UML/association.c:266
-#: ../objects/UML/class.c:215 ../objects/UML/class.c:217
-#: ../objects/UML/class.c:219 ../objects/UML/class.c:221
-#: ../objects/UML/class.c:223 ../objects/UML/class.c:225
+#: ../objects/UML/class.c:220 ../objects/UML/class.c:222
+#: ../objects/UML/class.c:224 ../objects/UML/class.c:226
+#: ../objects/UML/class.c:228 ../objects/UML/class.c:230
 msgid " "
 msgstr " "
 
 #: ../objects/Database/reference.c:145 ../objects/ER/participation.c:404
-#: ../objects/FS/flow-ortho.c:627 ../objects/GRAFCET/vector.c:309
-#: ../objects/SADT/arrow.c:462 ../objects/standard/zigzagline.c:446
+#: ../objects/FS/flow-ortho.c:626 ../objects/GRAFCET/vector.c:309
+#: ../objects/SADT/arrow.c:462 ../objects/standard/zigzagline.c:448
 #: ../objects/UML/association.c:866 ../objects/UML/component_feature.c:189
-#: ../objects/UML/dependency.c:380 ../objects/UML/generalization.c:377
-#: ../objects/UML/realizes.c:367 ../objects/UML/transition.c:172
+#: ../objects/UML/dependency.c:379 ../objects/UML/generalization.c:377
+#: ../objects/UML/realizes.c:366 ../objects/UML/transition.c:172
 msgid "Add segment"
 msgstr "Pridėti segmentą"
 
 #: ../objects/Database/reference.c:146 ../objects/ER/participation.c:405
-#: ../objects/FS/flow-ortho.c:628 ../objects/GRAFCET/vector.c:310
-#: ../objects/SADT/arrow.c:463 ../objects/standard/zigzagline.c:447
+#: ../objects/FS/flow-ortho.c:627 ../objects/GRAFCET/vector.c:310
+#: ../objects/SADT/arrow.c:463 ../objects/standard/zigzagline.c:449
 #: ../objects/UML/association.c:867 ../objects/UML/component_feature.c:190
-#: ../objects/UML/dependency.c:381 ../objects/UML/generalization.c:378
-#: ../objects/UML/realizes.c:368 ../objects/UML/transition.c:173
+#: ../objects/UML/dependency.c:380 ../objects/UML/generalization.c:378
+#: ../objects/UML/realizes.c:367 ../objects/UML/transition.c:173
 msgid "Delete segment"
 msgstr "Ištrinti segmentą"
 
@@ -3372,8 +3561,8 @@ msgid "Reference"
 msgstr "Nuoroda"
 
 #: ../objects/Database/table.c:151 ../objects/Database/table.c:192
-#: ../objects/Database/table.c:220 ../objects/UML/class.c:144
-#: ../objects/UML/class.c:211 ../objects/UML/class_dialog.c:486
+#: ../objects/Database/table.c:220 ../objects/UML/class.c:149
+#: ../objects/UML/class.c:216 ../objects/UML/class_dialog.c:486
 #: ../objects/UML/umlattribute.c:43 ../objects/UML/umloperation.c:66
 #: ../objects/UML/umlparameter.c:49 ../sheets/SDL.sheet.in.h:18
 msgid "Comment"
@@ -3417,7 +3606,7 @@ msgstr "Matomi komentarai"
 msgid "Underline primary keys"
 msgstr "Pabraukti pirminius raktus"
 
-#: ../objects/Database/table.c:202 ../objects/UML/class.c:159
+#: ../objects/Database/table.c:202 ../objects/UML/class.c:164
 msgid "Comment tagging"
 msgstr "Komentarų žymėjimas"
 
@@ -3425,7 +3614,7 @@ msgstr "Komentarų žymėjimas"
 msgid "Use bold font for primary keys"
 msgstr "Naudoti pusjuodį šriftą pirminiams raktams"
 
-#: ../objects/Database/table.c:207 ../objects/UML/class.c:181
+#: ../objects/Database/table.c:207 ../objects/UML/class.c:186
 #: ../objects/UML/object.c:150
 msgid "Attributes"
 msgstr "Požymiai"
@@ -3433,17 +3622,17 @@ msgstr "Požymiai"
 #. umlformalparameters_extra
 #. all this just to make the defaults selectable ...
 #: ../objects/Database/table.c:211 ../objects/UML/association.c:269
-#: ../objects/UML/class.c:196 ../objects/UML/object.c:159
+#: ../objects/UML/class.c:201 ../objects/UML/object.c:159
 msgid "Style"
 msgstr "Stilius"
 
-#: ../objects/Database/table.c:212 ../objects/UML/class.c:197
+#: ../objects/Database/table.c:212 ../objects/UML/class.c:202
 msgid "Fonts"
 msgstr "Šriftai"
 
 #. property rows
 #: ../objects/Database/table.c:216 ../objects/SADT/arrow.c:135
-#: ../objects/UML/class.c:201 ../objects/UML/class_dialog.c:461
+#: ../objects/UML/class.c:206 ../objects/UML/class_dialog.c:461
 msgid "Normal"
 msgstr "Normalus"
 
@@ -3451,7 +3640,7 @@ msgstr "Normalus"
 msgid "Table name"
 msgstr "Lentelės pavadinimas"
 
-#: ../objects/Database/table.c:273 ../objects/UML/class.c:342
+#: ../objects/Database/table.c:273 ../objects/UML/class.c:347
 msgid "Show comments"
 msgstr "Rodyti komentarus"
 
@@ -3481,7 +3670,7 @@ msgstr "Išvestinis:"
 msgid "Multivalue:"
 msgstr "Daugelio verčių:"
 
-#: ../objects/ER/attribute.c:433 ../sheets/ER.sheet.in.h:6
+#: ../objects/ER/attribute.c:431 ../sheets/ER.sheet.in.h:6
 msgid "Attribute"
 msgstr "Atributas"
 
@@ -3493,7 +3682,7 @@ msgstr "Silpnas:"
 msgid "Associative:"
 msgstr "Asociatyvus:"
 
-#: ../objects/ER/entity.c:412 ../objects/UML/classicon.c:129
+#: ../objects/ER/entity.c:407 ../objects/UML/classicon.c:129
 #: ../sheets/ER.sheet.in.h:3
 msgid "Entity"
 msgstr "Esybės"
@@ -3522,7 +3711,7 @@ msgstr "Pasukti:"
 msgid "Identifying:"
 msgstr "Identifikuojamas:"
 
-#: ../objects/ER/relationship.c:456 ../sheets/ER.sheet.in.h:5
+#: ../objects/ER/relationship.c:454 ../sheets/ER.sheet.in.h:5
 msgid "Relationship"
 msgstr "Ryšys"
 
@@ -3535,16 +3724,16 @@ msgid "Shear angle"
 msgstr "Kirpimo kampas"
 
 #. Translators: Menu item Noun/Energy
-#: ../objects/FS/flow.c:135 ../objects/FS/flow.c:627
-#: ../objects/FS/flow-ortho.c:158 ../objects/FS/flow-ortho.c:624
-#: ../objects/FS/function.c:1094
+#: ../objects/FS/flow.c:135 ../objects/FS/flow.c:626
+#: ../objects/FS/flow-ortho.c:158 ../objects/FS/flow-ortho.c:623
+#: ../objects/FS/function.c:1089
 msgid "Energy"
 msgstr "Energija"
 
 #. Translators: Menu item Noun/Material
-#: ../objects/FS/flow.c:136 ../objects/FS/flow.c:628
-#: ../objects/FS/flow-ortho.c:159 ../objects/FS/flow-ortho.c:625
-#: ../objects/FS/function.c:1070
+#: ../objects/FS/flow.c:136 ../objects/FS/flow.c:627
+#: ../objects/FS/flow-ortho.c:159 ../objects/FS/flow-ortho.c:624
+#: ../objects/FS/function.c:1065
 msgid "Material"
 msgstr "Medžiaga"
 
@@ -3552,10 +3741,10 @@ msgstr "Medžiaga"
 #. Translators: Menu item Verb/Signal/Signal
 #. Translators: Menu item Noun/Signal
 #. Translators: Menu item Noun/Signal/Signal
-#: ../objects/FS/flow.c:137 ../objects/FS/flow.c:629
-#: ../objects/FS/flow-ortho.c:160 ../objects/FS/flow-ortho.c:626
-#: ../objects/FS/function.c:1032 ../objects/FS/function.c:1034
-#: ../objects/FS/function.c:1170 ../objects/FS/function.c:1172
+#: ../objects/FS/flow.c:137 ../objects/FS/flow.c:628
+#: ../objects/FS/flow-ortho.c:160 ../objects/FS/flow-ortho.c:625
+#: ../objects/FS/function.c:1027 ../objects/FS/function.c:1029
+#: ../objects/FS/function.c:1165 ../objects/FS/function.c:1167
 msgid "Signal"
 msgstr "Signalas"
 
@@ -3582,310 +3771,304 @@ msgid "User function"
 msgstr "Naudotojo funkcija"
 
 #. Translators: Menu item Verb
-#: ../objects/FS/function.c:674
+#: ../objects/FS/function.c:669
 msgid "Verb"
 msgstr "Veiksmažodis"
 
 #. Translators: Menu item Verb/Channel
 #. Translators: Menu item Verb/Channel/Channel
 #. Translators: Menu item Verb/Channel/Transfer/Transport/Channel
-#: ../objects/FS/function.c:676 ../objects/FS/function.c:678
-#: ../objects/FS/function.c:718
+#: ../objects/FS/function.c:671 ../objects/FS/function.c:673
+#: ../objects/FS/function.c:713
 msgid "Channel"
 msgstr "Kanalas"
 
 #. Translators: Menu item Verb/Channel/Import/Input
-#: ../objects/FS/function.c:684 ../objects/KAOS/metabinrel.c:164
+#: ../objects/FS/function.c:679 ../objects/KAOS/metabinrel.c:164
 msgid "Input"
 msgstr "Įvestis"
 
 #. Translators: Menu item Verb/Channel/Import/Receive
-#: ../objects/FS/function.c:686
+#: ../objects/FS/function.c:681
 msgid "Receive"
 msgstr "Gauti"
 
 #. Translators: Menu item Verb/Channel/Import/Allow
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Allow
-#: ../objects/FS/function.c:688 ../objects/FS/function.c:960
+#: ../objects/FS/function.c:683 ../objects/FS/function.c:955
 msgid "Allow"
 msgstr "Leisti"
 
 #. Translators: Menu item Verb/Channel/Import/Form Entrance
-#: ../objects/FS/function.c:690
+#: ../objects/FS/function.c:685
 msgid "Form Entrance"
 msgstr "Formos įėjimas"
 
 #. Translators: Menu item Verb/Channel/Import/Capture
 #. Translators: Menu item Verb/Provision/Store/Capture
-#: ../objects/FS/function.c:692 ../objects/FS/function.c:926
+#: ../objects/FS/function.c:687 ../objects/FS/function.c:921
 msgid "Capture"
 msgstr "Užfiksuoti"
 
 #. Translators: Menu item Verb/Channel/Export/Discharge
-#: ../objects/FS/function.c:698
+#: ../objects/FS/function.c:693
 msgid "Discharge"
 msgstr "Iškrauti"
 
 #. Translators: Menu item Verb/Channel/Export/Eject
-#: ../objects/FS/function.c:700
+#: ../objects/FS/function.c:695
 msgid "Eject"
 msgstr "Išmesti"
 
 #. Translators: Menu item Verb/Channel/Export/Dispose
-#: ../objects/FS/function.c:702
+#: ../objects/FS/function.c:697
 msgid "Dispose"
 msgstr "Atsikratyti"
 
 #. Translators: Menu item Verb/Channel/Transfer
 #. Translators: Menu item Verb/Channel/Transfer/Transfer
 #. Translators: Menu item Verb/Channel/Transfer/Transmit/Transfer
-#: ../objects/FS/function.c:706 ../objects/FS/function.c:708
-#: ../objects/FS/function.c:726
+#: ../objects/FS/function.c:701 ../objects/FS/function.c:703
+#: ../objects/FS/function.c:721
 msgid "Transfer"
 msgstr "Nukreipti"
 
 #. Translators: Menu item Verb/Channel/Transfer/Transport
 #. Translators: Menu item Verb/Channel/Transfer/Transport/Transport
-#: ../objects/FS/function.c:710 ../objects/FS/function.c:712
+#: ../objects/FS/function.c:705 ../objects/FS/function.c:707
 msgid "Transport"
 msgstr "Perkelti"
 
 #. Translators: Menu item Verb/Channel/Transfer/Transport/Lift
-#: ../objects/FS/function.c:714
+#: ../objects/FS/function.c:709
 msgid "Lift"
 msgstr "Pakelti"
 
 #. Translators: Menu item Verb/Channel/Transfer/Transport/Move
-#: ../objects/FS/function.c:716
+#: ../objects/FS/function.c:711
 msgid "Move"
 msgstr "Perkelti"
 
 #. Translators: Menu item Verb/Channel/Transfer/Transmit
 #. Translators: Menu item Verb/Channel/Transfer/Transmit/Transmit
-#: ../objects/FS/function.c:720 ../objects/FS/function.c:722
+#: ../objects/FS/function.c:715 ../objects/FS/function.c:717
 msgid "Transmit"
 msgstr "Perduoti"
 
 #. Translators: Menu item Verb/Channel/Transfer/Transmit/Conduct
-#: ../objects/FS/function.c:724
+#: ../objects/FS/function.c:719
 msgid "Conduct"
 msgstr "Valdyti"
 
 #. Translators: Menu item Verb/Channel/Transfer/Transmit/Convey
-#: ../objects/FS/function.c:728
+#: ../objects/FS/function.c:723
 msgid "Convey"
 msgstr "Perduoti"
 
 #. Translators: Menu item Verb/Channel/Guide
 #. Translators: Menu item Verb/Channel/Guide/Guide
 #. Translators: Menu item Verb/Channel/Guide/Guide/Guide
-#: ../objects/FS/function.c:730 ../objects/FS/function.c:732
-#: ../objects/FS/function.c:734
+#: ../objects/FS/function.c:725 ../objects/FS/function.c:727
+#: ../objects/FS/function.c:729
 msgid "Guide"
 msgstr "Nukreipti"
 
 #. Translators: Menu item Verb/Channel/Guide/Guide/Direct
-#: ../objects/FS/function.c:736
+#: ../objects/FS/function.c:731
 msgid "Direct"
 msgstr "Tiesioginis"
 
 #. Translators: Menu item Verb/Channel/Guide/Guide/Straighten
-#: ../objects/FS/function.c:738
+#: ../objects/FS/function.c:733
 msgid "Straighten"
 msgstr "Išlyginti"
 
 #. Translators: Menu item Verb/Channel/Guide/Guide/Steer
-#: ../objects/FS/function.c:740
+#: ../objects/FS/function.c:735
 msgid "Steer"
 msgstr "Vairuoti"
 
 #. Translators: Menu item Verb/Channel/Guide/Translate
-#: ../objects/FS/function.c:742
+#: ../objects/FS/function.c:737
 msgid "Translate"
 msgstr "Pastumti"
 
-#. Translators: Menu item Verb/Channel/Guide/Rotate
-#. Translators: Menu item Verb/Channel/Guide/Rotate/Rotate
-#: ../objects/FS/function.c:744 ../objects/FS/function.c:746
-msgid "Rotate"
-msgstr "Pasukti"
-
 #. Translators: Menu item Verb/Channel/Guide/Rotate/Turn
-#: ../objects/FS/function.c:748
+#: ../objects/FS/function.c:743
 msgid "Turn"
 msgstr "Pasukti"
 
 #. Translators: Menu item Verb/Channel/Guide/Rotate/Spin
-#: ../objects/FS/function.c:750
+#: ../objects/FS/function.c:745
 msgid "Spin"
 msgstr "Pasukti"
 
 #. Translators: Menu item Verb/Channel/Guide/Allow DOF
 #. Translators: Menu item Verb/Channel/Guide/Allow DOF/Allow DOF
-#: ../objects/FS/function.c:752 ../objects/FS/function.c:754
+#: ../objects/FS/function.c:747 ../objects/FS/function.c:749
 msgid "Allow DOF"
 msgstr "Leisti DOF"
 
 #. Translators: Menu item Verb/Channel/Guide/Allow DOF/Constrain
-#: ../objects/FS/function.c:756
+#: ../objects/FS/function.c:751
 msgid "Constrain"
 msgstr "Apriboti"
 
 #. Translators: Menu item Verb/Channel/Guide/Allow DOF/Unlock
-#: ../objects/FS/function.c:758
+#: ../objects/FS/function.c:753
 msgid "Unlock"
 msgstr "Atkabinti"
 
 #. Translators: Menu item Verb/Support
 #. Translators: Menu item Verb/Support/Support
-#: ../objects/FS/function.c:760 ../objects/FS/function.c:762
+#: ../objects/FS/function.c:755 ../objects/FS/function.c:757
 msgid "Support"
 msgstr "Palaikyti"
 
 #. Translators: Menu item Verb/Support/Stop
 #. Translators: Menu item Verb/Support/Stop/Stop
-#: ../objects/FS/function.c:764 ../objects/FS/function.c:766
+#: ../objects/FS/function.c:759 ../objects/FS/function.c:761
 #: ../sheets/SDL.sheet.in.h:16
 msgid "Stop"
 msgstr "Sustabdyti"
 
 #. Translators: Menu item Verb/Support/Stop/Insulate
-#: ../objects/FS/function.c:768
+#: ../objects/FS/function.c:763
 msgid "Insulate"
 msgstr "Atskirti"
 
 #. Translators: Menu item Verb/Support/Stop/Protect
-#: ../objects/FS/function.c:770
+#: ../objects/FS/function.c:765
 msgid "Protect"
 msgstr "Apsaugoti"
 
 #. Translators: Menu item Verb/Support/Stop/Prevent
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Prevent
-#: ../objects/FS/function.c:772 ../objects/FS/function.c:962
+#: ../objects/FS/function.c:767 ../objects/FS/function.c:957
 msgid "Prevent"
 msgstr "Apsaugoti"
 
 #. Translators: Menu item Verb/Support/Stop/Shield
-#: ../objects/FS/function.c:774
+#: ../objects/FS/function.c:769
 msgid "Shield"
 msgstr "Ekranuoti"
 
 #. Translators: Menu item Verb/Support/Stop/Inhibit
-#: ../objects/FS/function.c:776
+#: ../objects/FS/function.c:771
 msgid "Inhibit"
 msgstr "Slopinti"
 
 #. Translators: Menu item Verb/Support/Stabilize
 #. Translators: Menu item Verb/Support/Stabilize/Stabilize
-#: ../objects/FS/function.c:778 ../objects/FS/function.c:780
+#: ../objects/FS/function.c:773 ../objects/FS/function.c:775
 msgid "Stabilize"
 msgstr "Stabilizuoti"
 
 #. Translators: Menu item Verb/Support/Stabilize/Steady
-#: ../objects/FS/function.c:782
+#: ../objects/FS/function.c:777
 msgid "Steady"
 msgstr "Pastovus"
 
 #. Translators: Menu item Verb/Support/Secure
 #. Translators: Menu item Verb/Support/Secure/Secure
-#: ../objects/FS/function.c:784 ../objects/FS/function.c:786
+#: ../objects/FS/function.c:779 ../objects/FS/function.c:781
 msgid "Secure"
 msgstr "Apsaugoti"
 
 #. Translators: Menu item Verb/Support/Secure/Attach
 #. Translators: Menu item Verb/Connect/Couple/Attach
-#: ../objects/FS/function.c:788 ../objects/FS/function.c:820
+#: ../objects/FS/function.c:783 ../objects/FS/function.c:815
 msgid "Attach"
 msgstr "Prisegti"
 
 #. Translators: Menu item Verb/Support/Secure/Mount
-#: ../objects/FS/function.c:790
+#: ../objects/FS/function.c:785
 msgid "Mount"
 msgstr "Prijungti"
 
 #. Translators: Menu item Verb/Support/Secure/Lock
-#: ../objects/FS/function.c:792 ../sheets/ciscomisc.sheet.in.h:42
+#: ../objects/FS/function.c:787 ../sheets/ciscomisc.sheet.in.h:40
 msgid "Lock"
 msgstr "Prikabinti"
 
 #. Translators: Menu item Verb/Support/Secure/Fasten
-#: ../objects/FS/function.c:794
+#: ../objects/FS/function.c:789
 msgid "Fasten"
 msgstr "Pritvirtinti"
 
 #. Translators: Menu item Verb/Support/Secure/Hold
-#: ../objects/FS/function.c:796
+#: ../objects/FS/function.c:791
 msgid "Hold"
 msgstr "Sulaikyti"
 
 #. Translators: Menu item Verb/Support/Position
 #. Translators: Menu item Verb/Support/Position/Position
-#: ../objects/FS/function.c:798 ../objects/FS/function.c:800
+#: ../objects/FS/function.c:793 ../objects/FS/function.c:795
 #: ../objects/Istar/actor.c:68
 msgid "Position"
 msgstr "Padėtis"
 
 #. Translators: Menu item Verb/Support/Position/Orient
-#: ../objects/FS/function.c:802
+#: ../objects/FS/function.c:797
 msgid "Orient"
 msgstr "Orientuoti"
 
 #. Translators: Menu item Verb/Connect
 #. Translators: Menu item Verb/Connect/Connect
-#: ../objects/FS/function.c:808 ../objects/FS/function.c:810
+#: ../objects/FS/function.c:803 ../objects/FS/function.c:805
 msgid "Connect"
 msgstr "Prijungti"
 
 #. Translators: Menu item Verb/Connect/Couple
 #. Translators: Menu item Verb/Connect/Couple/Couple
-#: ../objects/FS/function.c:812 ../objects/FS/function.c:814
+#: ../objects/FS/function.c:807 ../objects/FS/function.c:809
 msgid "Couple"
 msgstr "Suporuoti"
 
 #. Translators: Menu item Verb/Connect/Couple/Join
-#: ../objects/FS/function.c:816
+#: ../objects/FS/function.c:811
 msgid "Join"
 msgstr "Sujungti"
 
 #. Translators: Menu item Verb/Connect/Couple/Assemble
-#: ../objects/FS/function.c:818
+#: ../objects/FS/function.c:813
 msgid "Assemble"
 msgstr "Sujungti"
 
 #. Translators: Menu item Verb/Connect/Mix
 #. Translators: Menu item Verb/Connect/Mix/Mix
-#: ../objects/FS/function.c:822 ../objects/FS/function.c:824
+#: ../objects/FS/function.c:817 ../objects/FS/function.c:819
 msgid "Mix"
 msgstr "Sumaišyti"
 
 #. Translators: Menu item Verb/Connect/Mix/Combine
-#: ../objects/FS/function.c:826
+#: ../objects/FS/function.c:821
 msgid "Combine"
 msgstr "Kombinuoti"
 
 #. Translators: Menu item Verb/Connect/Mix/Blend
-#: ../objects/FS/function.c:828
+#: ../objects/FS/function.c:823
 msgid "Blend"
 msgstr "Sumaišyti"
 
 #. Translators: Menu item Verb/Connect/Mix/Add
-#: ../objects/FS/function.c:830
+#: ../objects/FS/function.c:825
 msgid "Add"
 msgstr "Pridėti"
 
 #. Translators: Menu item Verb/Connect/Mix/Pack
-#: ../objects/FS/function.c:832
+#: ../objects/FS/function.c:827
 msgid "Pack"
 msgstr "Supakuoti"
 
 #. Translators: Menu item Verb/Connect/Mix/Coalesce
-#: ../objects/FS/function.c:834
+#: ../objects/FS/function.c:829
 msgid "Coalesce"
 msgstr "Sujungti"
 
 #. Translators: Menu item Verb/Branch
 #. Translators: Menu item Verb/Branch/Branch
-#: ../objects/FS/function.c:836 ../objects/FS/function.c:838
+#: ../objects/FS/function.c:831 ../objects/FS/function.c:833
 #: ../sheets/UML.sheet.in.h:30
 msgid "Branch"
 msgstr "Šaka"
@@ -3893,700 +4076,701 @@ msgstr "Šaka"
 #. Translators: Menu item Verb/Branch/Separate
 #. Translators: Menu item Verb/Branch/Separate/Separate
 #. Translators: Menu item Verb/Branch/Separate/Separate/Separate
-#: ../objects/FS/function.c:840 ../objects/FS/function.c:842
-#: ../objects/FS/function.c:844
+#: ../objects/FS/function.c:835 ../objects/FS/function.c:837
+#: ../objects/FS/function.c:839
 msgid "Separate"
 msgstr "Atskirti"
 
 #. Translators: Menu item Verb/Branch/Separate/Separate/Switch
-#: ../objects/FS/function.c:846
+#: ../objects/FS/function.c:841
 msgid "Switch"
 msgstr "Perjungti"
 
 #. Translators: Menu item Verb/Branch/Separate/Separate/Divide
-#: ../objects/FS/function.c:848
+#: ../objects/FS/function.c:843
 msgid "Divide"
 msgstr "Dalinti"
 
 #. Translators: Menu item Verb/Branch/Separate/Separate/Release
-#: ../objects/FS/function.c:850
+#: ../objects/FS/function.c:845
 msgid "Release"
 msgstr "Paleisti"
 
 #. Translators: Menu item Verb/Branch/Separate/Separate/Detach
-#: ../objects/FS/function.c:852
+#: ../objects/FS/function.c:847
 msgid "Detach"
 msgstr "Atkabinti"
 
 #. Translators: Menu item Verb/Branch/Separate/Separate/Disconnect
-#: ../objects/FS/function.c:854
+#: ../objects/FS/function.c:849
 msgid "Disconnect"
 msgstr "Atjungti"
 
 #. Translators: Menu item Verb/Branch/Separate/Remove/Cut
-#: ../objects/FS/function.c:860
+#: ../objects/FS/function.c:855
 msgid "Cut"
 msgstr "Iškirpti"
 
 #. Translators: Menu item Verb/Branch/Separate/Remove/Polish
-#: ../objects/FS/function.c:862
+#: ../objects/FS/function.c:857
 msgid "Polish"
 msgstr "Poliruoti"
 
 #. Translators: Menu item Verb/Branch/Separate/Remove/Sand
-#: ../objects/FS/function.c:864
+#: ../objects/FS/function.c:859
 msgid "Sand"
 msgstr "Smėlis"
 
 #. Translators: Menu item Verb/Branch/Separate/Remove/Drill
-#: ../objects/FS/function.c:866
+#: ../objects/FS/function.c:861
 msgid "Drill"
 msgstr "Gręžti"
 
 #. Translators: Menu item Verb/Branch/Separate/Remove/Lathe
-#: ../objects/FS/function.c:868
+#: ../objects/FS/function.c:863
 msgid "Lathe"
 msgstr "Putoti"
 
 #. Translators: Menu item Verb/Branch/Refine
 #. Translators: Menu item Verb/Branch/Refine/Refine
-#: ../objects/FS/function.c:870 ../objects/FS/function.c:872
+#: ../objects/FS/function.c:865 ../objects/FS/function.c:867
 msgid "Refine"
 msgstr "Patikslinti"
 
 #. Translators: Menu item Verb/Branch/Refine/Purify
-#: ../objects/FS/function.c:874
+#: ../objects/FS/function.c:869
 msgid "Purify"
 msgstr "Išvalyti"
 
 #. Translators: Menu item Verb/Branch/Refine/Strain
-#: ../objects/FS/function.c:876
+#: ../objects/FS/function.c:871
 msgid "Strain"
 msgstr "Išvarginti"
 
 #. Translators: Menu item Verb/Branch/Refine/Filter
-#: ../objects/FS/function.c:878
+#: ../objects/FS/function.c:873
 msgid "Filter"
 msgstr "Filtras"
 
 #. Translators: Menu item Verb/Branch/Refine/Percolate
-#: ../objects/FS/function.c:880
+#: ../objects/FS/function.c:875
 msgid "Percolate"
 msgstr "Filtruoti"
 
 #. Translators: Menu item Verb/Branch/Refine/Clear
-#: ../objects/FS/function.c:882
+#: ../objects/FS/function.c:877
 msgid "Clear"
 msgstr "Išvalyti"
 
 #. Translators: Menu item Verb/Branch/Distribute
 #. Translators: Menu item Verb/Branch/Distribute/Distribute
-#: ../objects/FS/function.c:884 ../objects/FS/function.c:886
+#: ../objects/FS/function.c:879 ../objects/FS/function.c:881
 msgid "Distribute"
 msgstr "Išplatinti"
 
 #. Translators: Menu item Verb/Branch/Distribute/Diverge
-#: ../objects/FS/function.c:888
+#: ../objects/FS/function.c:883
 msgid "Diverge"
 msgstr "Diverguoti"
 
 #. Translators: Menu item Verb/Branch/Distribute/Scatter
-#: ../objects/FS/function.c:890
+#: ../objects/FS/function.c:885
 msgid "Scatter"
 msgstr "Išklaidyti"
 
 #. Translators: Menu item Verb/Branch/Distribute/Disperse
-#: ../objects/FS/function.c:892
+#: ../objects/FS/function.c:887
 msgid "Disperse"
 msgstr "Išbarstyti"
 
 #. Translators: Menu item Verb/Branch/Distribute/Diffuse
 #. Translators: Menu item Verb/Branch/Dissipate/Diffuse
-#: ../objects/FS/function.c:894 ../objects/FS/function.c:908
+#: ../objects/FS/function.c:889 ../objects/FS/function.c:903
 msgid "Diffuse"
 msgstr "Išsklaidyti"
 
 #. Translators: Menu item Verb/Branch/Distribute/Empty
-#: ../objects/FS/function.c:896
+#: ../objects/FS/function.c:891
 msgid "Empty"
 msgstr "Tuščias"
 
 #. Translators: Menu item Verb/Branch/Dissipate
 #. Translators: Menu item Verb/Branch/Dissipate/Dissipate
-#: ../objects/FS/function.c:898 ../objects/FS/function.c:900
+#: ../objects/FS/function.c:893 ../objects/FS/function.c:895
 msgid "Dissipate"
 msgstr "Išsklaidyti"
 
 #. Translators: Menu item Verb/Branch/Dissipate/Absorb
-#: ../objects/FS/function.c:902
+#: ../objects/FS/function.c:897
 msgid "Absorb"
 msgstr "Sugerti"
 
 #. Translators: Menu item Verb/Branch/Dissipate/Dampen
-#: ../objects/FS/function.c:904
+#: ../objects/FS/function.c:899
 msgid "Dampen"
 msgstr "Kliudyti"
 
 #. Translators: Menu item Verb/Branch/Dissipate/Dispel
-#: ../objects/FS/function.c:906
+#: ../objects/FS/function.c:901
 msgid "Dispel"
 msgstr "Išblaškyti"
 
 #. Translators: Menu item Verb/Branch/Dissipate/Resist
-#: ../objects/FS/function.c:910
+#: ../objects/FS/function.c:905
 msgid "Resist"
 msgstr "Priešintis"
 
 #. Translators: Menu item Verb/Provision
 #. Translators: Menu item Verb/Provision/Provision
-#: ../objects/FS/function.c:912 ../objects/FS/function.c:914
+#: ../objects/FS/function.c:907 ../objects/FS/function.c:909
 msgid "Provision"
 msgstr "Numatymas"
 
 #. Translators: Menu item Verb/Provision/Store
 #. Translators: Menu item Verb/Provision/Store/Store
-#: ../objects/FS/function.c:916 ../objects/FS/function.c:918
+#: ../objects/FS/function.c:911 ../objects/FS/function.c:913
 msgid "Store"
 msgstr "Išsaugoti"
 
 #. Translators: Menu item Verb/Provision/Store/Contain
-#: ../objects/FS/function.c:920
+#: ../objects/FS/function.c:915
 msgid "Contain"
 msgstr "Turėti"
 
 #. Translators: Menu item Verb/Provision/Store/Collect
-#: ../objects/FS/function.c:922
+#: ../objects/FS/function.c:917
 msgid "Collect"
 msgstr "Surinkti"
 
 #. Translators: Menu item Verb/Provision/Store/Reserve
-#: ../objects/FS/function.c:924
+#: ../objects/FS/function.c:919
 msgid "Reserve"
 msgstr "Rezervuoti"
 
 #. Translators: Menu item Verb/Provision/Supply
 #. Translators: Menu item Verb/Provision/Supply/Supply
-#: ../objects/FS/function.c:928 ../objects/FS/function.c:930
+#: ../objects/FS/function.c:923 ../objects/FS/function.c:925
 msgid "Supply"
 msgstr "Pateikti"
 
 #. Translators: Menu item Verb/Provision/Supply/Provide
-#: ../objects/FS/function.c:934
+#: ../objects/FS/function.c:929
 msgid "Provide"
 msgstr "Pateikti"
 
 #. Translators: Menu item Verb/Provision/Supply/Replenish
-#: ../objects/FS/function.c:936
+#: ../objects/FS/function.c:931
 msgid "Replenish"
 msgstr "Papildyti"
 
 #. Translators: Menu item Verb/Provision/Supply/Expose
-#: ../objects/FS/function.c:938
+#: ../objects/FS/function.c:933
 msgid "Expose"
 msgstr "Pateikti"
 
 #. Translators: Menu item Verb/Provision/Extract
-#: ../objects/FS/function.c:940 ../sheets/Flowchart.sheet.in.h:22
+#: ../objects/FS/function.c:935 ../sheets/Flowchart.sheet.in.h:22
 msgid "Extract"
 msgstr "Ištraukti"
 
 #. Translators: Menu item Verb/Control Magnitude
 #. Translators: Menu item Verb/Control Magnitude/Control Magnitude
-#: ../objects/FS/function.c:942 ../objects/FS/function.c:944
+#: ../objects/FS/function.c:937 ../objects/FS/function.c:939
 msgid "Control Magnitude"
 msgstr "Valdyti mastelį"
 
 #. Translators: Menu item Verb/Control Magnitude/Actuate
 #. Translators: Menu item Verb/Control Magnitude/Actuate/Actuate
-#: ../objects/FS/function.c:946 ../objects/FS/function.c:948
+#: ../objects/FS/function.c:941 ../objects/FS/function.c:943
 msgid "Actuate"
 msgstr "Skatinti"
 
 #. Translators: Menu item Verb/Control Magnitude/Actuate/Start
-#: ../objects/FS/function.c:950
+#: ../objects/FS/function.c:945
 msgid "Start"
 msgstr "Pradėti"
 
 #. Translators: Menu item Verb/Control Magnitude/Actuate/Initiate
-#: ../objects/FS/function.c:952
+#: ../objects/FS/function.c:947
 msgid "Initiate"
 msgstr "Inicijuoti"
 
 #. Translators: Menu item Verb/Control Magnitude/Regulate
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Regulate
-#: ../objects/FS/function.c:954 ../objects/FS/function.c:956
+#: ../objects/FS/function.c:949 ../objects/FS/function.c:951
 msgid "Regulate"
 msgstr "Reguliuoti"
 
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Control
 #. Translators: Menu item Noun/Signal/Control
-#: ../objects/FS/function.c:958 ../objects/FS/function.c:1176
+#: ../objects/FS/function.c:953 ../objects/FS/function.c:1171
 #: ../objects/UML/classicon.c:127
 msgid "Control"
 msgstr "Kontroliuoti"
 
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Enable
-#: ../objects/FS/function.c:964
+#: ../objects/FS/function.c:959
 msgid "Enable"
 msgstr "Įjungti"
 
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Disable
-#: ../objects/FS/function.c:966
+#: ../objects/FS/function.c:961
 msgid "Disable"
 msgstr "Išjungti"
 
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Limit
-#: ../objects/FS/function.c:968
+#: ../objects/FS/function.c:963
 msgid "Limit"
 msgstr "Apriboti"
 
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Interrupt
-#: ../objects/FS/function.c:970
+#: ../objects/FS/function.c:965
 msgid "Interrupt"
 msgstr "Pertraukti"
 
 #. Translators: Menu item Verb/Control Magnitude/Change
 #. Translators: Menu item Verb/Control Magnitude/Change/Change
-#: ../objects/FS/function.c:972 ../objects/FS/function.c:974
+#: ../objects/FS/function.c:967 ../objects/FS/function.c:969
 msgid "Change"
 msgstr "Pakeisti"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Increase
-#: ../objects/FS/function.c:976
+#: ../objects/FS/function.c:971
 msgid "Increase"
 msgstr "Padidinti"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Decrease
-#: ../objects/FS/function.c:978
+#: ../objects/FS/function.c:973
 msgid "Decrease"
 msgstr "Sumažinti"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Amplify
-#: ../objects/FS/function.c:980
+#: ../objects/FS/function.c:975
 msgid "Amplify"
 msgstr "Sustiprinti"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Reduce
-#: ../objects/FS/function.c:982
+#: ../objects/FS/function.c:977
 msgid "Reduce"
 msgstr "Sumažinti"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Normalize
-#: ../objects/FS/function.c:986
+#: ../objects/FS/function.c:981
 msgid "Normalize"
 msgstr "Normalizuoti"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Multiply
-#: ../objects/FS/function.c:988
+#: ../objects/FS/function.c:983
 msgid "Multiply"
 msgstr "Dauginti"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Scale
 #. FIXME: mark read-only
-#: ../objects/FS/function.c:990 ../objects/Misc/measure.c:185
+#: ../objects/FS/function.c:985 ../objects/Misc/measure.c:185
 msgid "Scale"
 msgstr "Mastelis"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Rectify
-#: ../objects/FS/function.c:992
+#: ../objects/FS/function.c:987
 msgid "Rectify"
 msgstr "Išlyginti"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Adjust
-#: ../objects/FS/function.c:994
+#: ../objects/FS/function.c:989
 msgid "Adjust"
 msgstr "Keisti"
 
 #. Translators: Menu item Verb/Control Magnitude/Form
 #. Translators: Menu item Verb/Control Magnitude/Form/Form
-#: ../objects/FS/function.c:996 ../objects/FS/function.c:998
+#: ../objects/FS/function.c:991 ../objects/FS/function.c:993
 msgid "Form"
 msgstr "Forma"
 
 #. Translators: Menu item Verb/Control Magnitude/Form/Compact
-#: ../objects/FS/function.c:1000
+#: ../objects/FS/function.c:995
 msgid "Compact"
 msgstr "Suglaudinti"
 
 #. Translators: Menu item Verb/Control Magnitude/Form/Crush
-#: ../objects/FS/function.c:1002
+#: ../objects/FS/function.c:997
 msgid "Crush"
 msgstr "Suploti"
 
 #. Translators: Menu item Verb/Control Magnitude/Form/Shape
-#: ../objects/FS/function.c:1004
+#: ../objects/FS/function.c:999
 msgid "Shape"
 msgstr "Formuoti"
 
 #. Translators: Menu item Verb/Control Magnitude/Form/Compress
-#: ../objects/FS/function.c:1006
+#: ../objects/FS/function.c:1001
 msgid "Compress"
 msgstr "Suspausti"
 
 #. Translators: Menu item Verb/Control Magnitude/Form/Pierce
-#: ../objects/FS/function.c:1008
+#: ../objects/FS/function.c:1003
 msgid "Pierce"
 msgstr "Persmeigti"
 
 #. Translators: Menu item Verb/Convert
 #. Translators: Menu item Verb/Convert/Convert
-#: ../objects/FS/function.c:1010 ../objects/FS/function.c:1012
+#: ../objects/FS/function.c:1005 ../objects/FS/function.c:1007
 msgid "Convert"
 msgstr "Konvertuoti"
 
 #. Translators: Menu item Verb/Convert/Transform
-#: ../objects/FS/function.c:1014
+#: ../objects/FS/function.c:1009
 msgid "Transform"
 msgstr "Transformuoti"
 
 #. Translators: Menu item Verb/Convert/Liquefy
-#: ../objects/FS/function.c:1016
+#: ../objects/FS/function.c:1011
 msgid "Liquefy"
 msgstr "Suskystinti"
 
 #. Translators: Menu item Verb/Convert/Solidify
-#: ../objects/FS/function.c:1018
+#: ../objects/FS/function.c:1013
 msgid "Solidify"
 msgstr "Sukietinti"
 
 #. Translators: Menu item Verb/Convert/Evaporate
-#: ../objects/FS/function.c:1020
+#: ../objects/FS/function.c:1015
 msgid "Evaporate"
 msgstr "Išgaruoti"
 
 #. Translators: Menu item Verb/Convert/Sublimate
-#: ../objects/FS/function.c:1022
+#: ../objects/FS/function.c:1017
 msgid "Sublimate"
 msgstr "Sublimuoti"
 
 #. Translators: Menu item Verb/Convert/Condense
-#: ../objects/FS/function.c:1024
+#: ../objects/FS/function.c:1019
 msgid "Condense"
 msgstr "Kondensuoti"
 
 #. Translators: Menu item Verb/Convert/Integrate
-#: ../objects/FS/function.c:1026
+#: ../objects/FS/function.c:1021
 msgid "Integrate"
 msgstr "Integruoti"
 
 #. Translators: Menu item Verb/Convert/Differentiate
-#: ../objects/FS/function.c:1028
+#: ../objects/FS/function.c:1023
 msgid "Differentiate"
 msgstr "Diferencijuoti"
 
 #. Translators: Menu item Verb/Convert/Process
-#: ../objects/FS/function.c:1030 ../sheets/AADL.sheet.in.h:3
+#: ../objects/FS/function.c:1025 ../sheets/AADL.sheet.in.h:3
 #: ../sheets/Gane_and_Sarson.sheet.in.h:7
 msgid "Process"
 msgstr "Procesas"
 
 #. Translators: Menu item Verb/Signal/Sense
 #. Translators: Menu item Verb/Signal/Sense/Sense
-#: ../objects/FS/function.c:1036 ../objects/FS/function.c:1038
+#: ../objects/FS/function.c:1031 ../objects/FS/function.c:1033
 msgid "Sense"
 msgstr "Pajusti"
 
 #. Translators: Menu item Verb/Signal/Sense/Perceive
-#: ../objects/FS/function.c:1040
+#: ../objects/FS/function.c:1035
 msgid "Perceive"
 msgstr "Suvokti"
 
 #. Translators: Menu item Verb/Signal/Sense/Recognize
-#: ../objects/FS/function.c:1042
+#: ../objects/FS/function.c:1037
 msgid "Recognize"
 msgstr "Atpažinti"
 
 #. Translators: Menu item Verb/Signal/Sense/Discern
-#: ../objects/FS/function.c:1044
+#: ../objects/FS/function.c:1039
 msgid "Discern"
 msgstr "Atskirti"
 
 #. Translators: Menu item Verb/Signal/Sense/Check
-#: ../objects/FS/function.c:1046
+#: ../objects/FS/function.c:1041
 msgid "Check"
 msgstr "Patikrinti"
 
 #. Translators: Menu item Verb/Signal/Sense/Verify
-#: ../objects/FS/function.c:1050
+#: ../objects/FS/function.c:1045
 msgid "Verify"
 msgstr "Patikrinti"
 
 #. Translators: Menu item Verb/Signal/Indicate
 #. Translators: Menu item Verb/Signal/Indicate/Indicate
-#: ../objects/FS/function.c:1052 ../objects/FS/function.c:1054
+#: ../objects/FS/function.c:1047 ../objects/FS/function.c:1049
 msgid "Indicate"
 msgstr "Indikuoti"
 
 #. Translators: Menu item Verb/Signal/Indicate/Mark
-#: ../objects/FS/function.c:1056
+#: ../objects/FS/function.c:1051
 msgid "Mark"
 msgstr "Pažymėti"
 
 #. Translators: Menu item Verb/Signal/Display
-#: ../objects/FS/function.c:1058 ../sheets/Flowchart.sheet.in.h:7
+#: ../objects/FS/function.c:1053 ../sheets/Flowchart.sheet.in.h:7
 msgid "Display"
 msgstr "Atvaizduoti"
 
 #. Translators: Menu item Verb/Signal/Measure
 #. Translators: Menu item Verb/Signal/Measure/Measure
-#: ../objects/FS/function.c:1060 ../objects/FS/function.c:1062
+#: ../objects/FS/function.c:1055 ../objects/FS/function.c:1057
 msgid "Measure"
 msgstr "Pamatuoti"
 
 #. Translators: Menu item Verb/Signal/Measure/Calculate
-#: ../objects/FS/function.c:1064
+#: ../objects/FS/function.c:1059
 msgid "Calculate"
 msgstr "Apskaičiuoti"
 
 #. Translators: Menu item Verb/Signal/Represent
-#: ../objects/FS/function.c:1066
+#: ../objects/FS/function.c:1061
 msgid "Represent"
 msgstr "Atvaizduoti"
 
 #. Translators: Menu item Noun
-#: ../objects/FS/function.c:1068
+#: ../objects/FS/function.c:1063
 msgid "Noun"
 msgstr "Daiktavardis"
 
 #. Translators: Menu item Noun/Material/Solid
-#: ../objects/FS/function.c:1072
+#: ../objects/FS/function.c:1067
 msgid "Solid"
 msgstr "Vientisas"
 
 #. Translators: Menu item Noun/Material/Liquid
-#: ../objects/FS/function.c:1074
+#: ../objects/FS/function.c:1069
 msgid "Liquid"
 msgstr "Skystis"
 
 #. Translators: Menu item Noun/Material/Gas
-#: ../objects/FS/function.c:1076
+#: ../objects/FS/function.c:1071
 msgid "Gas"
 msgstr "Dujos"
 
 #. Translators: Menu item Noun/Material/Human
 #. Translators: Menu item Noun/Material/Human/Human
 #. Translators: Menu item Noun/Energy/Human
-#: ../objects/FS/function.c:1078 ../objects/FS/function.c:1080
-#: ../objects/FS/function.c:1164
+#: ../objects/FS/function.c:1073 ../objects/FS/function.c:1075
+#: ../objects/FS/function.c:1159
 msgid "Human"
 msgstr "Žmogus"
 
 #. Translators: Menu item Noun/Material/Human/Hand
-#: ../objects/FS/function.c:1082
+#: ../objects/FS/function.c:1077
 msgid "Hand"
 msgstr "Ranka"
 
 #. Translators: Menu item Noun/Material/Human/Foot
-#: ../objects/FS/function.c:1084
+#: ../objects/FS/function.c:1079
 msgid "Foot"
 msgstr "Pėda"
 
 #. Translators: Menu item Noun/Material/Human/Head
-#: ../objects/FS/function.c:1086
+#: ../objects/FS/function.c:1081
 msgid "Head"
 msgstr "Galva"
 
 #. Translators: Menu item Noun/Material/Human/Finger
-#: ../objects/FS/function.c:1088
+#: ../objects/FS/function.c:1083
 msgid "Finger"
 msgstr "Pirštas"
 
 #. Translators: Menu item Noun/Material/Human/Toe
-#: ../objects/FS/function.c:1090
+#: ../objects/FS/function.c:1085
 msgid "Toe"
 msgstr "Pirštas"
 
 #. Translators: Menu item Noun/Material/Biological
-#: ../objects/FS/function.c:1092
+#: ../objects/FS/function.c:1087
 msgid "Biological"
 msgstr "Biologinis"
 
 #. Translators: Menu item Noun/Energy/Mechanical
-#: ../objects/FS/function.c:1096
+#: ../objects/FS/function.c:1091
 msgid "Mechanical"
 msgstr "Mechaninis"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Mech. Energy
-#: ../objects/FS/function.c:1098
+#: ../objects/FS/function.c:1093
 msgid "Mech. Energy"
 msgstr "Mech. energija"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Translation
-#: ../objects/FS/function.c:1100
+#: ../objects/FS/function.c:1095
 msgid "Translation"
 msgstr "Vertimas"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Force
-#: ../objects/FS/function.c:1102
+#: ../objects/FS/function.c:1097
 msgid "Force"
 msgstr "Jėga"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Rotation
-#: ../objects/FS/function.c:1104 ../objects/standard/outline.c:104
+#: ../objects/FS/function.c:1099 ../objects/standard/box.c:154
+#: ../objects/standard/ellipse.c:143 ../objects/standard/outline.c:104
 msgid "Rotation"
 msgstr "Pasukimas"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Torque
-#: ../objects/FS/function.c:1106
+#: ../objects/FS/function.c:1101
 msgid "Torque"
 msgstr "Sukimo momentas"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Random Motion
-#: ../objects/FS/function.c:1108
+#: ../objects/FS/function.c:1103
 msgid "Random Motion"
 msgstr "Atsitiktinis judėjimas"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Vibration
-#: ../objects/FS/function.c:1110
+#: ../objects/FS/function.c:1105
 msgid "Vibration"
 msgstr "Vibracija"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Rotational Energy
-#: ../objects/FS/function.c:1112
+#: ../objects/FS/function.c:1107
 msgid "Rotational Energy"
 msgstr "Sukamoji energija"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Translational Energy
-#: ../objects/FS/function.c:1114
+#: ../objects/FS/function.c:1109
 msgid "Translational Energy"
 msgstr "Stumiamoji energija"
 
 #. Translators: Menu item Noun/Energy/Electricity
-#: ../objects/FS/function.c:1116
+#: ../objects/FS/function.c:1111
 msgid "Electrical"
 msgstr "Elektrinis"
 
 #. Translators: Menu item Noun/Energy/Electricity/Electricity
-#: ../objects/FS/function.c:1118
+#: ../objects/FS/function.c:1113
 msgid "Electricity"
 msgstr "Elektra"
 
 #. Translators: Menu item Noun/Energy/Electricity/Voltage
-#: ../objects/FS/function.c:1120
+#: ../objects/FS/function.c:1115
 msgid "Voltage"
 msgstr "Srovė"
 
 #. Translators: Menu item Noun/Energy/Electricity/Current
-#: ../objects/FS/function.c:1122
+#: ../objects/FS/function.c:1117
 msgid "Current"
 msgstr "Srovė"
 
 #. Translators: Menu item Noun/Energy/Hydraulic
-#: ../objects/FS/function.c:1124
+#: ../objects/FS/function.c:1119
 msgid "Hydraulic"
 msgstr "Hidraulinis"
 
 #. Translators: Menu item Noun/Energy/Hydraulic/Pressure
-#: ../objects/FS/function.c:1126
+#: ../objects/FS/function.c:1121
 msgid "Pressure"
 msgstr "Slėgis"
 
 #. Translators: Menu item Noun/Energy/Hydraulic/Volumetric Flow
-#: ../objects/FS/function.c:1128
+#: ../objects/FS/function.c:1123
 msgid "Volumetric Flow"
 msgstr "Tūrio srautas"
 
 #. Translators: Menu item Noun/Energy/Thermal
-#: ../objects/FS/function.c:1130
+#: ../objects/FS/function.c:1125
 msgid "Thermal"
 msgstr "Terminis"
 
 #. Translators: Menu item Noun/Energy/Thermal/Heat
-#: ../objects/FS/function.c:1132
+#: ../objects/FS/function.c:1127
 msgid "Heat"
 msgstr "Karštis"
 
 #. Translators: Menu item Noun/Energy/Thermal/Conduction
-#: ../objects/FS/function.c:1134
+#: ../objects/FS/function.c:1129
 msgid "Conduction"
 msgstr "Laidumas"
 
 #. Translators: Menu item Noun/Energy/Thermal/Convection
-#: ../objects/FS/function.c:1136
+#: ../objects/FS/function.c:1131
 msgid "Convection"
 msgstr "Konvekcija"
 
 #. Translators: Menu item Noun/Energy/Thermal/Radiation
 #. Translators: Menu item Noun/Energy/Radioactive/Radiation
-#: ../objects/FS/function.c:1138 ../objects/FS/function.c:1146
+#: ../objects/FS/function.c:1133 ../objects/FS/function.c:1141
 msgid "Radiation"
 msgstr "Radiacija"
 
 #. Translators: Menu item Noun/Energy/Pneumatic
-#: ../objects/FS/function.c:1140
+#: ../objects/FS/function.c:1135
 msgid "Pneumatic"
 msgstr "Pneumatinis"
 
 #. Translators: Menu item Noun/Energy/Chemical
-#: ../objects/FS/function.c:1142
+#: ../objects/FS/function.c:1137
 msgid "Chemical"
 msgstr "Chemija"
 
 #. Translators: Menu item Noun/Energy/Radioactive
-#: ../objects/FS/function.c:1144
+#: ../objects/FS/function.c:1139
 msgid "Radioactive"
 msgstr "Radioaktyvus"
 
 #. Translators: Menu item Noun/Energy/Radioactive/Microwaves
-#: ../objects/FS/function.c:1148
+#: ../objects/FS/function.c:1143
 msgid "Microwaves"
 msgstr "Mikrobangos"
 
 #. Translators: Menu item Noun/Energy/Radioactive/Radio waves
-#: ../objects/FS/function.c:1150
+#: ../objects/FS/function.c:1145
 msgid "Radio waves"
 msgstr "Radio bangos"
 
 #. Translators: Menu item Noun/Energy/Radioactive/X-Rays
-#: ../objects/FS/function.c:1152
+#: ../objects/FS/function.c:1147
 msgid "X-Rays"
 msgstr "Rentgenas"
 
 #. Translators: Menu item Noun/Energy/Radioactive/Gamma Rays
-#: ../objects/FS/function.c:1154
+#: ../objects/FS/function.c:1149
 msgid "Gamma Rays"
 msgstr "Gama spinduliai"
 
 #. Translators: Menu item Noun/Energy/Acoustic Energy
-#: ../objects/FS/function.c:1156
+#: ../objects/FS/function.c:1151
 msgid "Acoustic Energy"
 msgstr "Akustinė energija"
 
 #. Translators: Menu item Noun/Energy/Optical Energy
-#: ../objects/FS/function.c:1158
+#: ../objects/FS/function.c:1153
 msgid "Optical Energy"
 msgstr "Optinė energija"
 
 #. Translators: Menu item Noun/Energy/Solar Energy
-#: ../objects/FS/function.c:1160
+#: ../objects/FS/function.c:1155
 msgid "Solar Energy"
 msgstr "Saulės energija"
 
 #. Translators: Menu item Noun/Energy/Magnetic Energy
-#: ../objects/FS/function.c:1162
+#: ../objects/FS/function.c:1157
 msgid "Magnetic Energy"
 msgstr "Magnetinė energija"
 
 #. Translators: Menu item Noun/Energy/Human/Human Motion
-#: ../objects/FS/function.c:1166
+#: ../objects/FS/function.c:1161
 msgid "Human Motion"
 msgstr "Žmogiškas judesys"
 
 #. Translators: Menu item Noun/Energy/Human/Human Force
-#: ../objects/FS/function.c:1168
+#: ../objects/FS/function.c:1163
 msgid "Human Force"
 msgstr "Žmogiška jėga"
 
 #. Translators: Menu item Noun/Signal/Status
-#: ../objects/FS/function.c:1174
+#: ../objects/FS/function.c:1169
 msgid "Status"
 msgstr "Būsena"
 
-#: ../objects/FS/function.c:1178
+#: ../objects/FS/function.c:1173
 msgid "User/Device Fn"
 msgstr "Naudotojo/įrenginio fn"
 
-#: ../objects/FS/function.c:1179
+#: ../objects/FS/function.c:1174
 msgid "Wish Fn"
 msgstr "Pageidavimo fn"
 
@@ -4718,17 +4902,17 @@ msgstr "IR"
 msgid "Vergent type:"
 msgstr "Sueinantis tipas:"
 
-#: ../objects/GRAFCET/vergent.c:403 ../objects/Istar/other.c:466
-#: ../objects/Jackson/domain.c:528 ../objects/KAOS/goal.c:569
-#: ../objects/KAOS/other.c:520 ../objects/SADT/box.c:447
-#: ../objects/standard/line.c:318
+#: ../objects/GRAFCET/vergent.c:403 ../objects/Istar/other.c:464
+#: ../objects/Jackson/domain.c:527 ../objects/KAOS/goal.c:567
+#: ../objects/KAOS/other.c:516 ../objects/SADT/box.c:442
+#: ../objects/standard/line.c:320
 msgid "Add connection point"
 msgstr "Pridėti ryšio tašką"
 
-#: ../objects/GRAFCET/vergent.c:404 ../objects/Istar/other.c:467
-#: ../objects/Jackson/domain.c:529 ../objects/KAOS/goal.c:570
-#: ../objects/KAOS/other.c:521 ../objects/SADT/box.c:448
-#: ../objects/standard/line.c:319
+#: ../objects/GRAFCET/vergent.c:404 ../objects/Istar/other.c:465
+#: ../objects/Jackson/domain.c:528 ../objects/KAOS/goal.c:568
+#: ../objects/KAOS/other.c:517 ../objects/SADT/box.c:443
+#: ../objects/standard/line.c:321
 msgid "Delete connection point"
 msgstr "Pašalinti susijungimo tašką"
 
@@ -4793,7 +4977,7 @@ msgstr "Resursas"
 msgid "Task"
 msgstr "Užduotis"
 
-#: ../objects/Istar/other.c:472
+#: ../objects/Istar/other.c:470
 msgid "i* other"
 msgstr "i* kita"
 
@@ -4833,7 +5017,7 @@ msgstr "Domeno rūšis"
 msgid "Optional kind which appears in the lower-right corner of the Domain"
 msgstr "Nebūtinas tipas, kuris rodomas apatiniame dešiniajame domeno kampe"
 
-#: ../objects/Jackson/domain.c:534
+#: ../objects/Jackson/domain.c:533
 msgid "Jackson domain"
 msgstr "Džeksono domenas"
 
@@ -4864,7 +5048,7 @@ msgstr "Prielaida"
 msgid "Obstacle"
 msgstr "Kliūtis"
 
-#: ../objects/KAOS/goal.c:575
+#: ../objects/KAOS/goal.c:573
 msgid "KAOS goal"
 msgstr "KAOS tikslas"
 
@@ -4928,7 +5112,7 @@ msgstr "Atlieka"
 msgid "Output"
 msgstr "Išvestis"
 
-#: ../objects/KAOS/other.c:526
+#: ../objects/KAOS/other.c:522
 msgid "KAOS other"
 msgstr "KAOS kitkas"
 
@@ -4972,54 +5156,46 @@ msgstr "Tinklelio linijos spalva"
 msgid "Grid line width"
 msgstr "Tinklelio linijos storis"
 
-#: ../objects/Misc/libmisc.c:42
+#: ../objects/Misc/libmisc.c:43
 msgid "Miscellaneous objects"
 msgstr "Kiti objektai"
 
 #: ../objects/Misc/measure.c:168
-#| msgid "cm"
 msgctxt "length unit"
 msgid "cm"
 msgstr "cm"
 
 #: ../objects/Misc/measure.c:169
-#| msgid "dm"
 msgctxt "length unit"
 msgid "dm"
 msgstr "dm"
 
 #: ../objects/Misc/measure.c:170
-#| msgid "ft"
 msgctxt "length unit"
 msgid "ft"
 msgstr "pėdos"
 
 #: ../objects/Misc/measure.c:171
-#| msgid "in"
 msgctxt "length unit"
 msgid "in"
 msgstr "coliai"
 
 #: ../objects/Misc/measure.c:172
-#| msgid "m"
 msgctxt "length unit"
 msgid "m"
 msgstr "m"
 
 #: ../objects/Misc/measure.c:173
-#| msgid "mm"
 msgctxt "length unit"
 msgid "mm"
 msgstr "mm"
 
 #: ../objects/Misc/measure.c:174
-#| msgid "pt"
 msgctxt "length unit"
 msgid "pt"
 msgstr "tšk"
 
 #: ../objects/Misc/measure.c:175
-#| msgid "pi"
 msgctxt "length unit"
 msgid "pi"
 msgstr "pi"
@@ -5037,11 +5213,249 @@ msgstr "Vienetas"
 msgid "Precision"
 msgstr "Tikslumas"
 
-#: ../objects/Misc/tree.c:597 ../objects/network/bus.c:605
+#: ../objects/Misc/n_gon.c:103
+#, fuzzy
+#| msgid "Convey"
+msgid "Convex"
+msgstr "Perduoti"
+
+#: ../objects/Misc/n_gon.c:104
+#, fuzzy
+#| msgctxt "Arrow"
+#| msgid "Filled Concave"
+msgid "Concave"
+msgstr "Užpildytas įgaubimas"
+
+#: ../objects/Misc/n_gon.c:105
+#, fuzzy
+#| msgctxt "Arrow"
+#| msgid "Cross"
+msgid "Crossing"
+msgstr "Kryžius"
+
+#: ../objects/Misc/n_gon.c:117
+msgid "N-gon kind"
+msgstr ""
+
+#: ../objects/Misc/n_gon.c:119
+#, fuzzy
+#| msgid "Number of arms"
+msgid "Number of rays"
+msgstr "Rankų skaičius"
+
+#: ../objects/Misc/n_gon.c:121
+msgid "Density"
+msgstr ""
+
+#: ../objects/Misc/n_gon.c:121
+msgid "Winding number for Crossing"
+msgstr ""
+
+#. no property widget, but still to be serialized
+#: ../objects/Misc/n_gon.c:124
+#, fuzzy
+#| msgid "Composition"
+msgid "Center position"
+msgstr "Kompozicija"
+
+#. no property widget, but still to be serialized
+#: ../objects/Misc/n_gon.c:126
+#, fuzzy
+#| msgid "Dash length: "
+msgid "Ray length"
+msgstr "Punktyro ilgis: "
+
+#: ../objects/Misc/n_gon.c:317
+#, fuzzy
+#| msgctxt "Arrow"
+#| msgid "Hollow Triangle"
+msgid "Triangle"
+msgstr "Tuščias trikampis"
+
+#: ../objects/Misc/n_gon.c:318 ../objects/standard/box.c:137
+#: ../objects/standard/box.c:759
+msgid "Square"
+msgstr "Kvadratas"
+
+#: ../objects/Misc/n_gon.c:319
+#, fuzzy
+#| msgid "Orientation"
+msgid "Pentagon"
+msgstr "Orientacija"
+
+#: ../objects/Misc/n_gon.c:319
+#, fuzzy
+#| msgid "Open Diagram"
+msgid "Pentagram"
+msgstr "Atverti diagramą"
+
+#: ../objects/Misc/n_gon.c:320
+msgid "Hexagon"
+msgstr ""
+
+#: ../objects/Misc/n_gon.c:320
+#, fuzzy
+#| msgid "Diagram"
+msgid "Hexagram"
+msgstr "Diagrama"
+
+#: ../objects/Misc/n_gon.c:321
+msgid "Heptagon"
+msgstr ""
+
+#: ../objects/Misc/n_gon.c:321
+#, fuzzy
+#| msgid "Diagram"
+msgid "Heptagram"
+msgstr "Diagrama"
+
+#: ../objects/Misc/n_gon.c:322
+msgid "Octagon"
+msgstr ""
+
+#: ../objects/Misc/n_gon.c:322
+#, fuzzy
+#| msgid "Diagram"
+msgid "Octagram"
+msgstr "Diagrama"
+
+#: ../objects/Misc/n_gon.c:323
+msgid "Enneagon"
+msgstr ""
+
+#: ../objects/Misc/n_gon.c:323
+#, fuzzy
+#| msgid "Diagram"
+msgid "Enneagram"
+msgstr "Diagrama"
+
+#: ../objects/Misc/n_gon.c:324
+msgid "Decagon"
+msgstr ""
+
+#: ../objects/Misc/n_gon.c:324
+#, fuzzy
+#| msgid "Diagram"
+msgid "Decagram"
+msgstr "Diagrama"
+
+#: ../objects/Misc/n_gon.c:325
+msgid "Hendecagon"
+msgstr ""
+
+#: ../objects/Misc/n_gon.c:325
+#, fuzzy
+#| msgid "Open Diagram"
+msgid "Hendecagram"
+msgstr "Atverti diagramą"
+
+#: ../objects/Misc/n_gon.c:326
+msgid "Dodecagon"
+msgstr ""
+
+#: ../objects/Misc/n_gon.c:326
+#, fuzzy
+#| msgid "Diagram"
+msgid "Dodecagram"
+msgstr "Diagrama"
+
+#: ../objects/Misc/n_gon.c:327
+msgid "Tridecagon"
+msgstr ""
+
+#: ../objects/Misc/n_gon.c:327
+#, fuzzy
+#| msgid "Diagram"
+msgid "Tridecagram"
+msgstr "Diagrama"
+
+#: ../objects/Misc/n_gon.c:328
+msgid "Tetradecagon"
+msgstr ""
+
+#: ../objects/Misc/n_gon.c:328
+#, fuzzy
+#| msgid "Istar diagram"
+msgid "Tetradecagram"
+msgstr "Istar diagrama"
+
+#: ../objects/Misc/n_gon.c:329
+msgid "Pentadecagon"
+msgstr ""
+
+#: ../objects/Misc/n_gon.c:329
+#, fuzzy
+#| msgid "Istar diagram"
+msgid "Pentadecagram"
+msgstr "Istar diagrama"
+
+#: ../objects/Misc/n_gon.c:330
+msgid "Hexadecagon"
+msgstr ""
+
+#: ../objects/Misc/n_gon.c:330
+msgid "Hexadecagram"
+msgstr ""
+
+#: ../objects/Misc/n_gon.c:331
+msgid "Heptadecagon"
+msgstr ""
+
+#: ../objects/Misc/n_gon.c:331
+#, fuzzy
+#| msgid "Istar diagram"
+msgid "Heptadecagram"
+msgstr "Istar diagrama"
+
+#: ../objects/Misc/n_gon.c:332
+msgid "Octadecagon"
+msgstr ""
+
+#: ../objects/Misc/n_gon.c:332
+#, fuzzy
+#| msgid "Istar diagram"
+msgid "Octadecagram"
+msgstr "Istar diagrama"
+
+#: ../objects/Misc/n_gon.c:333
+msgid "Enneadecagon"
+msgstr ""
+
+#: ../objects/Misc/n_gon.c:333
+msgid "Enneadecagram"
+msgstr ""
+
+#: ../objects/Misc/n_gon.c:334
+msgid "Icosagon"
+msgstr ""
+
+#: ../objects/Misc/n_gon.c:334
+#, fuzzy
+#| msgid "Close Diagram"
+msgid "Icosagram"
+msgstr "Uždaryti diagramą"
+
+#: ../objects/Misc/n_gon.c:350
+msgid "N-gon"
+msgstr ""
+
+#: ../objects/Misc/n_gon.c:352
+#, fuzzy
+#| msgid "Diagram"
+msgid "N-gram"
+msgstr "Diagrama"
+
+#: ../objects/Misc/n_gon.c:354
+#, fuzzy
+#| msgid "Start"
+msgid "Star"
+msgstr "Pradėti"
+
+#: ../objects/Misc/tree.c:599 ../objects/network/bus.c:599
 msgid "Add Handle"
 msgstr "Pridėti rankenėlę"
 
-#: ../objects/Misc/tree.c:598 ../objects/network/bus.c:606
+#: ../objects/Misc/tree.c:600 ../objects/network/bus.c:600
 msgid "Delete Handle"
 msgstr "Ištrinti rankenėlę"
 
@@ -5049,19 +5463,20 @@ msgstr "Ištrinti rankenėlę"
 msgid "Sectors"
 msgstr "Sektoriai"
 
-#: ../objects/network/basestation.c:395 ../objects/network/basestation.c:397
+#: ../objects/network/basestation.c:365 ../objects/network/basestation.c:367
 msgid "Base Station"
 msgstr "Bazinė stotis"
 
-#: ../objects/network/network.c:43
+#: ../objects/network/network.c:40
 msgid "Network diagram objects"
 msgstr "Tinklo diagramų objektai"
 
-#: ../objects/network/radiocell.c:119
+#: ../objects/network/radiocell.c:125
 msgid "Radius"
 msgstr "Spindulys"
 
-#: ../objects/network/wanlink.c:119
+#: ../objects/network/wanlink.c:119 ../objects/Sozi/sozi-frame.c:575
+#: ../objects/Sozi/sozi-media.c:424
 msgid "Width"
 msgstr "Plotis"
 
@@ -5109,7 +5524,7 @@ msgstr "Veiklos/duomenų identifikatorius"
 msgid "The identifier which appears in the lower-right corner of the Box"
 msgstr "Identifikatorius, kuris rodomas apatiniame dešiniajame dėžutės kampe"
 
-#: ../objects/SADT/box.c:453
+#: ../objects/SADT/box.c:448
 msgid "SADT box"
 msgstr "SADT dėžutė"
 
@@ -5117,139 +5532,330 @@ msgstr "SADT dėžutė"
 msgid "SADT diagram objects"
 msgstr "SADT diagramų objektai"
 
+#: ../objects/Sozi/sozi.c:39
+#, fuzzy
+#| msgid "Snap to object"
+msgid "Sozi presentation objects"
+msgstr "Pritraukti prie objekto"
+
+#: ../objects/Sozi/sozi-frame.c:544 ../objects/Sozi/sozi-media.c:398
+#: ../objects/standard/box.c:135 ../objects/standard/ellipse.c:127
+msgid "Free"
+msgstr "Laisvas"
+
+#: ../objects/Sozi/sozi-frame.c:545 ../objects/Sozi/sozi-media.c:399
+#: ../objects/standard/box.c:136 ../objects/standard/ellipse.c:128
+msgid "Fixed"
+msgstr "Fiksuotas"
+
+#: ../objects/Sozi/sozi-frame.c:551
+#, fuzzy
+#| msgid "Constraint:"
+msgid "Constant speed"
+msgstr "Apribojimas:"
+
+#: ../objects/Sozi/sozi-frame.c:552
+msgid "Speed up"
+msgstr ""
+
+#: ../objects/Sozi/sozi-frame.c:553
+msgid "Speed up (strong)"
+msgstr ""
+
+#: ../objects/Sozi/sozi-frame.c:554
+msgid "Speed down"
+msgstr ""
+
+#: ../objects/Sozi/sozi-frame.c:555
+msgid "Speed down (strong)"
+msgstr ""
+
+#: ../objects/Sozi/sozi-frame.c:556
+msgid "Speed up, then down"
+msgstr ""
+
+#: ../objects/Sozi/sozi-frame.c:557
+msgid "Speed up, then down (strong)"
+msgstr ""
+
+#: ../objects/Sozi/sozi-frame.c:558
+msgid "Speed down, then up"
+msgstr ""
+
+#: ../objects/Sozi/sozi-frame.c:559
+msgid "Speed down, then up (strong)"
+msgstr ""
+
+#: ../objects/Sozi/sozi-frame.c:560
+msgid "Immediate (beginning)"
+msgstr ""
+
+#: ../objects/Sozi/sozi-frame.c:561
+#, fuzzy
+#| msgid "Intermediate Event"
+msgid "Immediate (end)"
+msgstr "Tarpinis įvykis"
+
+#: ../objects/Sozi/sozi-frame.c:562
+msgid "Immediate (middle)"
+msgstr ""
+
+#: ../objects/Sozi/sozi-frame.c:572 ../objects/Sozi/sozi-media.c:421
+msgid "Geometry"
+msgstr ""
+
+#: ../objects/Sozi/sozi-frame.c:573 ../objects/Sozi/sozi-media.c:422
+#, fuzzy
+#| msgid "Center"
+msgid "Center x"
+msgstr "Vidurys"
+
+#: ../objects/Sozi/sozi-frame.c:574 ../objects/Sozi/sozi-media.c:423
+#, fuzzy
+#| msgid "Center"
+msgid "Center y"
+msgstr "Vidurys"
+
+#: ../objects/Sozi/sozi-frame.c:576 ../objects/Sozi/sozi-media.c:425
+#, fuzzy
+#| msgid "Height:"
+msgid "Height"
+msgstr "Aukštis:"
+
+#: ../objects/Sozi/sozi-frame.c:577 ../objects/Sozi/sozi-media.c:426
+msgid "Angle (deg)"
+msgstr ""
+
+#: ../objects/Sozi/sozi-frame.c:578 ../objects/Sozi/sozi-media.c:427
+#: ../objects/standard/box.c:151 ../objects/standard/ellipse.c:140
+msgid "Aspect ratio"
+msgstr "Proporcija"
+
+#: ../objects/Sozi/sozi-frame.c:579 ../objects/Sozi/sozi-media.c:428
+msgid "Scale from center"
+msgstr ""
+
+#: ../objects/Sozi/sozi-frame.c:581 ../objects/Sozi/sozi-media.c:430
+msgid "Legend"
+msgstr ""
+
+#: ../objects/Sozi/sozi-frame.c:582 ../objects/Sozi/sozi-media.c:431
+#, fuzzy
+#| msgid "Comments visible"
+msgid "Legend is visible"
+msgstr "Komentarai matomi"
+
+#: ../objects/Sozi/sozi-frame.c:589 ../objects/Sozi/sozi-media.c:438
+#: ../sheets/Sozi.sheet.in.h:1
+msgid "Sozi"
+msgstr ""
+
+#: ../objects/Sozi/sozi-frame.c:590
+msgid "Frame sequence"
+msgstr ""
+
+#: ../objects/Sozi/sozi-frame.c:591
+msgid "Frame title"
+msgstr ""
+
+#: ../objects/Sozi/sozi-frame.c:592
+msgid "Frame hide"
+msgstr ""
+
+#: ../objects/Sozi/sozi-frame.c:593
+msgid "Frame clip"
+msgstr ""
+
+#: ../objects/Sozi/sozi-frame.c:594
+msgid "Frame timeout enable"
+msgstr ""
+
+#: ../objects/Sozi/sozi-frame.c:595
+msgid "Frame timeout (ms)"
+msgstr ""
+
+#: ../objects/Sozi/sozi-frame.c:596
+#, fuzzy
+#| msgid "Transaction file"
+msgid "Frame transition profile"
+msgstr "Tranzakcijų failas"
+
+#: ../objects/Sozi/sozi-frame.c:597
+msgid "Frame transition duration (ms)"
+msgstr ""
+
+#: ../objects/Sozi/sozi-media.c:405
+#, fuzzy
+#| msgid "Undefined"
+msgid "undefined"
+msgstr "Nenurodyta"
+
+#: ../objects/Sozi/sozi-media.c:406
+msgid "video/mp4"
+msgstr ""
+
+#: ../objects/Sozi/sozi-media.c:407
+msgid "video/webm"
+msgstr ""
+
+#: ../objects/Sozi/sozi-media.c:408
+msgid "video/ogg"
+msgstr ""
+
+#: ../objects/Sozi/sozi-media.c:409
+msgid "audio/mpeg"
+msgstr ""
+
+#: ../objects/Sozi/sozi-media.c:410
+msgid "audio/ogg"
+msgstr ""
+
+#: ../objects/Sozi/sozi-media.c:411
+msgid "audio/wav"
+msgstr ""
+
+#: ../objects/Sozi/sozi-media.c:439
+#, fuzzy
+#| msgid "Message type:"
+msgid "Media type"
+msgstr "Pranešimo tipas:"
+
+#: ../objects/Sozi/sozi-media.c:440
+#, fuzzy
+#| msgid "Diagram file"
+msgid "Media file"
+msgstr "Diagramų failas"
+
+#: ../objects/Sozi/sozi-media.c:441
+#, fuzzy
+#| msgid "Start time"
+msgid "Start frame"
+msgstr "Pradžios laikas"
+
+#: ../objects/Sozi/sozi-media.c:442
+msgid "Stop frame"
+msgstr ""
+
 #: ../objects/standard/arc.c:120
 msgid "Curve distance"
 msgstr "Kreivės atstumas"
 
-#: ../objects/standard/bezier.c:145 ../objects/standard/line.c:126
-#: ../objects/standard/polyline.c:108
+#: ../objects/standard/bezier.c:147 ../objects/standard/line.c:127
+#: ../objects/standard/polyline.c:109
 msgid "Line gaps"
 msgstr "Linijos tarpai"
 
-#: ../objects/standard/bezier.c:147 ../objects/standard/line.c:128
-#: ../objects/standard/polyline.c:110
+#: ../objects/standard/bezier.c:149 ../objects/standard/line.c:129
+#: ../objects/standard/polyline.c:111
 msgid "Absolute start gap"
 msgstr "Absoliutus pradžios tarpas"
 
-#: ../objects/standard/bezier.c:149 ../objects/standard/line.c:130
-#: ../objects/standard/polyline.c:112
+#: ../objects/standard/bezier.c:151 ../objects/standard/line.c:131
+#: ../objects/standard/polyline.c:113
 msgid "Absolute end gap"
 msgstr "Absoliutus pabaigos tarpas"
 
-#: ../objects/standard/bezier.c:776 ../objects/standard/beziergon.c:540
+#: ../objects/standard/bezier.c:767 ../objects/standard/beziergon.c:524
 msgid "Add Segment"
 msgstr "Pridėti segmentą"
 
-#: ../objects/standard/bezier.c:777 ../objects/standard/beziergon.c:541
+#: ../objects/standard/bezier.c:768 ../objects/standard/beziergon.c:525
 msgid "Delete Segment"
 msgstr "Ištrinti segmentą"
 
-#: ../objects/standard/bezier.c:779 ../objects/standard/beziergon.c:543
+#: ../objects/standard/bezier.c:770 ../objects/standard/beziergon.c:527
 msgid "Symmetric control"
 msgstr "Simetrinė kontrolė"
 
-#: ../objects/standard/bezier.c:781 ../objects/standard/beziergon.c:545
+#: ../objects/standard/bezier.c:772 ../objects/standard/beziergon.c:529
 msgid "Smooth control"
 msgstr "Sklandus valdymas"
 
-#: ../objects/standard/bezier.c:783 ../objects/standard/beziergon.c:547
+#: ../objects/standard/bezier.c:774 ../objects/standard/beziergon.c:531
 msgid "Cusp control"
 msgstr "Smaigalio valdymas"
 
-#: ../objects/standard/box.c:130 ../objects/standard/ellipse.c:120
-msgid "Free"
-msgstr "Laisvas"
+#: ../objects/standard/box.c:154 ../objects/standard/ellipse.c:143
+#, fuzzy
+#| msgid "Rotation"
+msgid "Rotation angle"
+msgstr "Pasukimas"
 
-#: ../objects/standard/box.c:131 ../objects/standard/ellipse.c:121
-msgid "Fixed"
-msgstr "Fiksuotas"
-
-#: ../objects/standard/box.c:132 ../objects/standard/box.c:782
-msgid "Square"
-msgstr "Kvadratas"
-
-#: ../objects/standard/box.c:146 ../objects/standard/ellipse.c:133
-msgid "Aspect ratio"
-msgstr "Proporcija"
-
-#: ../objects/standard/box.c:778 ../objects/standard/ellipse.c:686
+#: ../objects/standard/box.c:755 ../objects/standard/ellipse.c:755
 msgid "Free aspect"
 msgstr "Kintanti proporcija"
 
-#: ../objects/standard/box.c:780 ../objects/standard/ellipse.c:688
+#: ../objects/standard/box.c:757 ../objects/standard/ellipse.c:757
 msgid "Fixed aspect"
 msgstr "Užfiksuota proporcija"
 
-#: ../objects/standard/ellipse.c:122 ../objects/standard/ellipse.c:690
+#: ../objects/standard/ellipse.c:129 ../objects/standard/ellipse.c:759
 msgid "Circle"
 msgstr "Apskritimas"
 
-#: ../objects/standard/image.c:118
+#: ../objects/standard/image.c:124
 msgid "Image file"
 msgstr "Paveikslėlio failas"
 
-#: ../objects/standard/image.c:120
+#: ../objects/standard/image.c:126
 msgid "Inline data"
 msgstr "Vidiniai duomenys"
 
-#: ../objects/standard/image.c:120
+#: ../objects/standard/image.c:126
 msgid "Store image data in diagram"
 msgstr "Įrašyti paveikslėlio duomenis į diagramą"
 
-#: ../objects/standard/image.c:122
+#: ../objects/standard/image.c:128
 msgid "Pixbuf"
 msgstr "Pixbuf"
 
-#: ../objects/standard/image.c:122
+#: ../objects/standard/image.c:128
 msgid "The Pixbuf reference"
 msgstr "Pixbuf nuoroda"
 
-#: ../objects/standard/image.c:124
+#: ../objects/standard/image.c:130
 msgid "Draw border"
 msgstr "Brėžti rėmelį"
 
-#: ../objects/standard/image.c:126
+#: ../objects/standard/image.c:132
 msgid "Keep aspect ratio"
 msgstr "Išsaugoti proporcijas"
 
-#: ../objects/standard/image.c:683
+#: ../objects/standard/image.c:134
+msgid "Angle"
+msgstr ""
+
+#: ../objects/standard/image.c:265
+msgid "Can't save image without filename"
+msgstr ""
+
+#: ../objects/standard/image.c:742
 msgid "Inconsistent pixbuf during image save."
 msgstr "Nevientisas pixbuf įrašant paveikslėlį."
 
-#. Found file in same dir as diagram.
-#. Found file in current dir.
-#: ../objects/standard/image.c:780 ../objects/standard/image.c:791
-#, c-format
-msgid ""
-"The image file '%s' was not found in the specified directory.\n"
-"Using the file '%s' instead.\n"
-msgstr ""
-"Paveikslėlio failas „%s“ nerasta nurodytame aplanke.\n"
-"Vietoj to naudojamas failas „%s“.\n"
-
-#. Didn't find file in current dir.
-#: ../objects/standard/image.c:797 ../objects/standard/image.c:819
+#. Didn't find file in current directory.
+#: ../objects/standard/image.c:839
 #, c-format
 msgid "The image file '%s' was not found.\n"
 msgstr "Nepavyko rasti paveikslėlio failo „%s“.\n"
 
-#: ../objects/standard/line.c:117
+#: ../objects/standard/line.c:118
 msgid "Arrows"
 msgstr "Rodyklės"
 
-#: ../objects/standard/line.c:122
+#: ../objects/standard/line.c:123
 msgid "Start point"
 msgstr "Pradinis taškas"
 
-#: ../objects/standard/line.c:124
+#: ../objects/standard/line.c:125
 msgid "End point"
 msgstr "Galinis taškas"
 
-#: ../objects/standard/line.c:320
+#: ../objects/standard/line.c:322
 msgid "Upgrade to Polyline"
 msgstr "Atnaujinti į poliliniją"
 
-#: ../objects/standard/line.c:321
+#: ../objects/standard/line.c:323
 msgid "Upgrade to Zigzagline"
 msgstr "Atnaujinti į zigzagą"
 
@@ -5261,11 +5867,11 @@ msgstr "Teksto turinys"
 msgid "Angle to rotate the outline"
 msgstr "Kontūro posūkio kampas"
 
-#: ../objects/standard/polygon.c:481 ../objects/standard/polyline.c:623
+#: ../objects/standard/polygon.c:486 ../objects/standard/polyline.c:624
 msgid "Add Corner"
 msgstr "Pridėti kampą"
 
-#: ../objects/standard/polygon.c:482 ../objects/standard/polyline.c:624
+#: ../objects/standard/polygon.c:487 ../objects/standard/polyline.c:625
 msgid "Delete Corner"
 msgstr "Ištrinti kampą"
 
@@ -5273,19 +5879,31 @@ msgstr "Ištrinti kampą"
 msgid "Standard objects"
 msgstr "Standartiniai objektai"
 
-#: ../objects/standard/textobj.c:112
+#: ../objects/standard/textobj.c:119
 msgid "First Line"
 msgstr "Pirmoji linija"
 
-#: ../objects/standard/textobj.c:119
+#: ../objects/standard/textobj.c:128
 msgid "Vertical text alignment"
 msgstr "Vertikalus teksto lygiavimas"
 
-#: ../objects/standard/zigzagline.c:448
+#: ../objects/standard/textobj.c:133
+#, fuzzy
+#| msgid "Text padding"
+msgid "Text angle"
+msgstr "Teksto paraštė"
+
+#: ../objects/standard/textobj.c:138
+#, fuzzy
+#| msgid "Text padding"
+msgid "Text margin"
+msgstr "Teksto paraštė"
+
+#: ../objects/standard/zigzagline.c:450
 msgid "Upgrade to Bezierline"
 msgstr "Atnaujinti į Bezjė liniją"
 
-#: ../objects/UML/actor.c:351 ../objects/UML/actor.c:353
+#: ../objects/UML/actor.c:347 ../objects/UML/actor.c:349
 #: ../sheets/UML.sheet.in.h:15
 msgid "Actor"
 msgstr "Veikėjas"
@@ -5390,86 +6008,86 @@ msgstr "Realizacija"
 msgid "Class scope"
 msgstr "Klasės sritis"
 
-#: ../objects/UML/class.c:138 ../objects/UML/class.c:349
-#: ../objects/UML/class.c:1845 ../sheets/UML.sheet.in.h:3
+#: ../objects/UML/class.c:143 ../objects/UML/class.c:354
+#: ../objects/UML/class.c:1843 ../sheets/UML.sheet.in.h:3
 msgid "Class"
 msgstr "Klasė"
 
 #. how it used to be before 0.96+SVN
 #. one name, one type: but breaks forward-compatibiliy so kind of reverted
-#: ../objects/UML/class.c:142 ../objects/UML/classicon.c:136
-#: ../objects/UML/classicon.c:138 ../objects/UML/component.c:123
-#: ../objects/UML/large_package.c:133 ../objects/UML/object.c:146
+#: ../objects/UML/class.c:147 ../objects/UML/classicon.c:136
+#: ../objects/UML/classicon.c:138 ../objects/UML/component.c:129
+#: ../objects/UML/large_package.c:138 ../objects/UML/object.c:146
 #: ../objects/UML/small_package.c:125 ../objects/UML/umloperation.c:68
 msgid "Stereotype"
 msgstr "Stereotipas"
 
-#: ../objects/UML/class.c:149 ../objects/UML/class.c:205
+#: ../objects/UML/class.c:154 ../objects/UML/class.c:210
 #: ../objects/UML/class_dialog.c:359 ../objects/UML/class_dialog.c:471
 #: ../objects/UML/class_operations_dialog.c:832
 #: ../objects/UML/umlattribute.c:48 ../objects/UML/uml.c:111
 msgid "Abstract"
 msgstr "Abstraktus"
 
-#: ../objects/UML/class.c:151
+#: ../objects/UML/class.c:156
 msgid "Visible Attributes"
 msgstr "Matomi požymiai"
 
-#: ../objects/UML/class.c:153
+#: ../objects/UML/class.c:158
 msgid "Visible Operations"
 msgstr "Matomos operacijos"
 
-#: ../objects/UML/class.c:155 ../objects/UML/class_dialog.c:384
+#: ../objects/UML/class.c:160 ../objects/UML/class_dialog.c:384
 msgid "Wrap Operations"
 msgstr "Apjungti veiksmus"
 
-#: ../objects/UML/class.c:157
+#: ../objects/UML/class.c:162
 msgid "Visible Comments"
 msgstr "Matomi komentarai"
 
-#: ../objects/UML/class.c:161 ../objects/UML/class.c:344
+#: ../objects/UML/class.c:166 ../objects/UML/class.c:349
 msgid "Allow resizing"
 msgstr "Leisti keisti dydį"
 
-#: ../objects/UML/class.c:165 ../objects/UML/class.c:1842
+#: ../objects/UML/class.c:170 ../objects/UML/class.c:1840
 msgid "Template"
 msgstr "Šablonas"
 
-#: ../objects/UML/class.c:167 ../objects/UML/class_dialog.c:368
+#: ../objects/UML/class.c:172 ../objects/UML/class_dialog.c:368
 msgid "Suppress Attributes"
 msgstr "Paslėpti požymiai"
 
-#: ../objects/UML/class.c:169
+#: ../objects/UML/class.c:174
 msgid "Suppress Operations"
 msgstr "Paslėptos operacijos"
 
-#: ../objects/UML/class.c:171
+#: ../objects/UML/class.c:176
 msgid "Wrap after char"
 msgstr "Perkelti po simbolio"
 
-#: ../objects/UML/class.c:173
+#: ../objects/UML/class.c:178
 msgid "Comment line length"
 msgstr "Komentarų eilutės ilgis"
 
 #. umlattribute_extra
-#: ../objects/UML/class.c:186
+#: ../objects/UML/class.c:191
 msgid "Operations"
 msgstr "Operacijos"
 
 #. umloperations_extra
-#: ../objects/UML/class.c:190
+#: ../objects/UML/class.c:195
 msgid "Template Parameters"
 msgstr "Šablono parametrai"
 
-#: ../objects/UML/class.c:203 ../objects/UML/class_dialog.c:466
+#: ../objects/UML/class.c:208 ../objects/UML/class_dialog.c:466
 msgid "Polymorphic"
 msgstr "Polimorfinis"
 
-#: ../objects/UML/class.c:207 ../objects/UML/class_dialog.c:476
+#: ../objects/UML/class.c:212 ../objects/UML/class_dialog.c:476
 msgid "Class Name"
 msgstr "Klasės vardas"
 
-#: ../objects/UML/class.c:209
+#: ../objects/UML/class.c:214
 msgid "Abstract Class Name"
 msgstr "Abstrakčios klasės pavadinimas"
 
@@ -5483,9 +6101,8 @@ msgid "Class name:"
 msgstr "Klasės vardas:"
 
 #: ../objects/UML/class_dialog.c:336
-#: ../objects/UML/class_operations_dialog.c:799
-#: ../objects/UML/dependency.c:134 ../objects/UML/generalization.c:131
-#: ../objects/UML/realizes.c:131
+#: ../objects/UML/class_operations_dialog.c:799 ../objects/UML/dependency.c:134
+#: ../objects/UML/generalization.c:131 ../objects/UML/realizes.c:131
 msgid "Stereotype:"
 msgstr "Stereotipas:"
 
@@ -5674,27 +6291,27 @@ msgstr "Rodyti valdiklio fokusą:"
 msgid "Draw destruction mark:"
 msgstr "Piešti naikinimo žymę:"
 
-#: ../objects/UML/lifeline.c:534
+#: ../objects/UML/lifeline.c:528
 msgid "Add connection points"
 msgstr "Pridėti prijungimo taškus"
 
-#: ../objects/UML/lifeline.c:535
+#: ../objects/UML/lifeline.c:529
 msgid "Remove connection points"
 msgstr "Pašalinti prijungimo taškus"
 
-#: ../objects/UML/lifeline.c:536
+#: ../objects/UML/lifeline.c:530
 msgid "Increase connection points distance"
 msgstr "Padidinti ryšio taškų atstumą"
 
-#: ../objects/UML/lifeline.c:537
+#: ../objects/UML/lifeline.c:531
 msgid "Decrease connection points distance"
 msgstr "Sumažinti ryšio taškų atstumą"
 
-#: ../objects/UML/lifeline.c:538
+#: ../objects/UML/lifeline.c:532
 msgid "Set default connection points distance"
 msgstr "Nustatyti numatytąjį ryšio taškų atstumą"
 
-#: ../objects/UML/lifeline.c:542
+#: ../objects/UML/lifeline.c:536
 msgid "UML Lifeline"
 msgstr "UML gyvenimo linija"
 
@@ -5760,17 +6377,17 @@ msgstr "Baigimo veiksmas"
 
 #. Would like to create a state_term instead, but making the connections
 #. * is a pain
-#: ../objects/UML/state.c:486
+#: ../objects/UML/state.c:482
 msgid ""
 "This diagram uses the State object for initial/final states.\n"
 "This option will go away in future versions.\n"
 "Please use the Initial/Final State object instead.\n"
 msgstr ""
 "Ši diagrama naudoja būsenos objektą pradinėms/galutinėms būsenoms.\n"
-"Šis nustatymas bus pašalintas ateities versijose.\n"
+"Šis parametras bus pašalintas ateities versijose.\n"
 "Vietoj to naudokite pradinių/galutinių būsenų objektą.\n"
 
-#: ../objects/UML/state_term.c:125
+#: ../objects/UML/state_term.c:122
 msgid "Is final"
 msgstr "Yra galutinis"
 
@@ -5790,7 +6407,7 @@ msgstr "Veiksmas"
 msgid "Action to perform when this transition is taken"
 msgstr "Veiksmas, vykdomas, kai įvykdomas šis perėjimas"
 
-#: ../objects/UML/transition.c:145 ../sheets/cisconetwork.sheet.in.h:22
+#: ../objects/UML/transition.c:145 ../sheets/cisconetwork.sheet.in.h:21
 msgid "Guard"
 msgstr "Apsauga"
 
@@ -5830,13 +6447,13 @@ msgstr "Bendradarbiavimas"
 msgid "Text outside"
 msgstr "Išorinis tekstas"
 
-#: ../plug-ins/cairo/diacairo.c:125 ../plug-ins/drs/dia-render-script.c:124
-#: ../plug-ins/hpgl/hpgl.c:710
+#: ../plug-ins/cairo/diacairo.c:111 ../plug-ins/drs/dia-render-script.c:124
+#: ../plug-ins/hpgl/hpgl.c:665
 #, c-format
 msgid "Can't open output file %s."
 msgstr "Nepavyko atverti išvesties failo %s."
 
-#: ../plug-ins/cairo/diacairo.c:133
+#: ../plug-ins/cairo/diacairo.c:119
 #, c-format
 msgid ""
 "Can't convert output filename '%s' to locale encoding.\n"
@@ -5845,65 +6462,65 @@ msgstr ""
 "Nepavyksta konvertuoti išvesties failo pavadinimo „%s“ į lokalės koduotę.\n"
 "Pasirinkite kitą failo pavadinimą įrašymui su Cairo.\n"
 
-#: ../plug-ins/cairo/diacairo.c:305 ../plug-ins/cairo/diacairo.c:321
+#: ../plug-ins/cairo/diacairo.c:291 ../plug-ins/cairo/diacairo.c:307
 #, c-format
 msgid "Can't write %d bytes to %s"
 msgstr "Nepavyko įrašyti %d baitų į %s"
 
-#: ../plug-ins/cairo/diacairo.c:334
+#: ../plug-ins/cairo/diacairo.c:320
 msgid "Clipboard copy failed"
 msgstr "Iškarpinės kopijavimas nepavyko"
 
-#: ../plug-ins/cairo/diacairo.c:362 ../plug-ins/postscript/postscript.c:39
-#: ../plug-ins/wmf/wmf.cpp:1505
+#: ../plug-ins/cairo/diacairo.c:348 ../plug-ins/postscript/postscript.c:39
+#: ../plug-ins/wmf/wmf.cpp:1476
 msgid "Nothing to print"
 msgstr "Nėra ką spausdinti"
 
-#: ../plug-ins/cairo/diacairo.c:379
+#: ../plug-ins/cairo/diacairo.c:365
 msgid "Cairo PostScript"
 msgstr "Cairo PostScript"
 
-#: ../plug-ins/cairo/diacairo.c:390
+#: ../plug-ins/cairo/diacairo.c:376
 msgid "Cairo Portable Document Format"
 msgstr "Cairo Portable Document Format"
 
-#: ../plug-ins/cairo/diacairo.c:402
+#: ../plug-ins/cairo/diacairo.c:388
 msgid "Cairo Scalable Vector Graphics"
 msgstr "Cairo Scalable Vector Graphics"
 
-#: ../plug-ins/cairo/diacairo.c:414
+#: ../plug-ins/cairo/diacairo.c:400
 msgid "CairoScript"
 msgstr "CairoScript"
 
-#: ../plug-ins/cairo/diacairo.c:425
+#: ../plug-ins/cairo/diacairo.c:411
 msgid "Cairo PNG"
 msgstr "Cairo PNG"
 
-#: ../plug-ins/cairo/diacairo.c:433
+#: ../plug-ins/cairo/diacairo.c:419
 msgid "Cairo PNG (with alpha)"
 msgstr "Cairo PNG (su alfa)"
 
-#: ../plug-ins/cairo/diacairo.c:443
+#: ../plug-ins/cairo/diacairo.c:429
 msgid "Cairo EMF"
 msgstr "Cairo EMF"
 
-#: ../plug-ins/cairo/diacairo.c:453
+#: ../plug-ins/cairo/diacairo.c:439
 msgid "Cairo WMF"
 msgstr "Cairo WMF"
 
-#: ../plug-ins/cairo/diacairo.c:467
+#: ../plug-ins/cairo/diacairo.c:453
 msgid "Cairo Clipboard Copy"
 msgstr "Cairo iškarpinės kopijavimas"
 
-#: ../plug-ins/cairo/diacairo.c:481
+#: ../plug-ins/cairo/diacairo.c:467
 msgid "Copy _Diagram"
 msgstr "Kopijuoti _diagramą"
 
-#: ../plug-ins/cairo/diacairo.c:490
+#: ../plug-ins/cairo/diacairo.c:476
 msgid "Print (GTK) …"
 msgstr "Spausdinti (GTK) …"
 
-#: ../plug-ins/cairo/diacairo.c:539
+#: ../plug-ins/cairo/diacairo.c:525
 msgid "Cairo-based Rendering"
 msgstr "Cairo pagrindo piešimas"
 
@@ -5917,16 +6534,16 @@ msgstr "Mastelio rodyklė"
 msgid "Visible rect pointer"
 msgstr "Matoma stačiakampė rodyklė"
 
-#: ../plug-ins/cairo/diacairo-renderer.c:986
-#: ../plug-ins/cairo/diacairo-renderer.c:1021 ../plug-ins/cgm/cgm.c:1135
-#: ../plug-ins/libart/dialibartrenderer.c:1329
-#: ../plug-ins/metapost/render_metapost.c:1108
-#: ../plug-ins/postscript/diapsrenderer.c:715
-#: ../plug-ins/pstricks/render_pstricks.c:825 ../plug-ins/wpg/wpg.c:901
+#: ../plug-ins/cairo/diacairo-renderer.c:1030
+#: ../plug-ins/cairo/diacairo-renderer.c:1065
+#: ../plug-ins/libart/dialibartrenderer.c:1226
+#: ../plug-ins/metapost/render_metapost.c:870
+#: ../plug-ins/postscript/diapsrenderer.c:662
+#: ../plug-ins/pstricks/render_pstricks.c:778 ../plug-ins/wpg/wpg.c:888
 msgid "Not enough memory for image drawing."
 msgstr "Nepakanka atminties paveikslėlio piešimui."
 
-#: ../plug-ins/cgm/cgm.c:1128
+#: ../plug-ins/cgm/cgm.c:1021
 msgid ""
 "Image row length larger than maximum cell array.\n"
 "Image not exported to CGM."
@@ -5934,11 +6551,11 @@ msgstr ""
 "Paveikslėlio eilutės ilgis didesnis nei langelių masyvas.\n"
 "Paveikslėlis neeksportuotas į CGM."
 
-#: ../plug-ins/cgm/cgm.c:1392
+#: ../plug-ins/cgm/cgm.c:1292
 msgid "Computer Graphics Metafile"
 msgstr "Computer Graphics Metafile"
 
-#: ../plug-ins/cgm/cgm.c:1417
+#: ../plug-ins/cgm/cgm.c:1317
 msgid "Computer Graphics Metafile export filter"
 msgstr "Computer Graphics Metafile eksporto filtras"
 
@@ -5951,7 +6568,7 @@ msgstr "DiaRenderScript"
 msgid "DiaRenderScript filter"
 msgstr "DiaRenderScript filtras"
 
-#: ../plug-ins/drs/dia-render-script-import.c:226
+#: ../plug-ins/drs/dia-render-script-import.c:456
 msgid "Broken file?"
 msgstr "Sugadintas failas?"
 
@@ -5959,7 +6576,7 @@ msgstr "Sugadintas failas?"
 msgid "Drawing Interchange File import and export filters"
 msgstr "Drawing Interchange File importo ir eksporto filtrai"
 
-#: ../plug-ins/dxf/dxf-export.c:655 ../plug-ins/dxf/dxf-import.c:1389
+#: ../plug-ins/dxf/dxf-export.c:572 ../plug-ins/dxf/dxf-import.c:1389
 msgid "Drawing Interchange File"
 msgstr "Drawing Interchange failas"
 
@@ -5973,11 +6590,11 @@ msgstr "read_dxf_codes nepavyko „%s“"
 msgid "Binary DXF from '%s' not supported"
 msgstr "Dvejetainis DXF iš „%s“ yra nepalaikomas"
 
-#: ../plug-ins/hpgl/hpgl.c:753
+#: ../plug-ins/hpgl/hpgl.c:708
 msgid "HP Graphics Language"
 msgstr "HP Graphics Language"
 
-#: ../plug-ins/hpgl/hpgl.c:778
+#: ../plug-ins/hpgl/hpgl.c:733
 msgid "HP Graphics Language export filter"
 msgstr "HP Graphics Language eksporto filtras"
 
@@ -6038,11 +6655,11 @@ msgstr "OGDF išdėstymo algoritmai"
 msgid "Libart-based rendering"
 msgstr "Libart pagrindo piešimas"
 
-#: ../plug-ins/libart/dialibartrenderer.c:1480
+#: ../plug-ins/libart/dialibartrenderer.c:1374
 msgid "Renderer transformation"
 msgstr "Piešėjo transformacija"
 
-#: ../plug-ins/libart/dialibartrenderer.c:1481
+#: ../plug-ins/libart/dialibartrenderer.c:1375
 msgid "Transform pointer"
 msgstr "Transformuoti rodyklę"
 
@@ -6066,7 +6683,7 @@ msgstr "Įvyko klaida įrašant PNG bylą"
 #. Create a dialog
 #: ../plug-ins/libart/export_png.c:328
 msgid "PNG Export Options"
-msgstr "PNG eksportavimo nustatymai"
+msgstr "PNG eksportavimo parametrai"
 
 #: ../plug-ins/libart/export_png.c:334
 msgid "Image width:"
@@ -6076,7 +6693,7 @@ msgstr "Paveikslėlio plotis:"
 msgid "Image height:"
 msgstr "Paveikslėlio aukštis:"
 
-#: ../plug-ins/libart/export_png.c:383
+#: ../plug-ins/libart/export_png.c:384
 msgid "PNG (antialiased)"
 msgstr "PNG (glotnintas)"
 
@@ -6084,29 +6701,28 @@ msgstr "PNG (glotnintas)"
 msgid "TeX Metapost export filter"
 msgstr "TeX Metapost eksporto filtras"
 
-#: ../plug-ins/metapost/render_metapost.c:1267
+#: ../plug-ins/metapost/render_metapost.c:1104
 msgid "TeX Metapost macros"
 msgstr "TeX Metapost makrosai"
 
-#: ../plug-ins/pdf/pdf.c:29
-#| msgid "PDF import filter"
+#: ../plug-ins/pdf/pdf.c:30
 msgid "PDF import not available."
 msgstr "PDF importas neprieinamas"
 
-#: ../plug-ins/pdf/pdf.c:37
+#: ../plug-ins/pdf/pdf.c:39
 msgid "Portable Document File"
 msgstr "Portable Document File"
 
-#: ../plug-ins/pdf/pdf.c:55
+#: ../plug-ins/pdf/pdf.c:57
 msgid "PDF import filter"
 msgstr "PDF importo filtras"
 
-#: ../plug-ins/pdf/pdf-import.cpp:400
+#: ../plug-ins/pdf/pdf-import.cpp:410
 #, c-format
 msgid "Page %d"
 msgstr "Puslapis %d"
 
-#: ../plug-ins/pdf/pdf-import.cpp:839
+#: ../plug-ins/pdf/pdf-import.cpp:871
 #, c-format
 msgid ""
 "PDF document not OK.\n"
@@ -6119,12 +6735,11 @@ msgstr ""
 msgid "LaTeX PGF export filter"
 msgstr "LaTeX PGF eksporto filtras"
 
-#: ../plug-ins/pgf/render_pgf.c:1112
-#: ../plug-ins/pstricks/render_pstricks.c:733
+#: ../plug-ins/pgf/render_pgf.c:1096 ../plug-ins/pstricks/render_pstricks.c:686
 msgid "Not valid UTF-8"
 msgstr "Netinkamas UTF-8"
 
-#: ../plug-ins/pgf/render_pgf.c:1271
+#: ../plug-ins/pgf/render_pgf.c:1252
 msgid "LaTeX PGF macros"
 msgstr "LaTeX PGF makro komandos"
 
@@ -6133,13 +6748,19 @@ msgid "Failed to create pixbuf from drawable."
 msgstr "Nepavyko sukurti pixbuf iš piešiamo objekto."
 
 #: ../plug-ins/pixbuf/pixbuf.c:91
-#, c-format
+#, fuzzy, c-format
+#| msgid ""
+#| "Could not save file:\n"
+#| "%s\n"
+#| "%s\n"
 msgid ""
 "Could not save file:\n"
+"%s\n"
 "%s"
 msgstr ""
-"Nepavyko įrašyti failo:\n"
-"%s"
+"Nepavyko išsaugoti failo:\n"
+"%s\n"
+"%s\n"
 
 #: ../plug-ins/pixbuf/pixbuf.c:112
 msgid "Calling error, missing user_data."
@@ -6208,18 +6829,20 @@ msgid "Encapsulated Postscript with preview (using Pango fonts)"
 msgstr "Encapsulated Postscript su peržiūra (su Pango šriftais)"
 
 #: ../plug-ins/postscript/render_eps.c:187
-msgid "Encapsulated PostScript (using PostScript Latin-1 fonts)"
+#, fuzzy
+#| msgid "Encapsulated PostScript (using PostScript Latin-1 fonts)"
+msgid "Encapsulated PostScript (using PS Latin-1 fonts)"
 msgstr "Encapsulated Postscript (naudojant PostScript Latin-1 šriftus)"
 
 #: ../plug-ins/pstricks/pstricks.c:26
 msgid "TeX PSTricks export filter"
 msgstr "TeX Pstricks eksporto filtras"
 
-#: ../plug-ins/pstricks/render_pstricks.c:990
+#: ../plug-ins/pstricks/render_pstricks.c:939
 msgid "TeX PSTricks macros"
 msgstr "TeX PSTricks makrosai"
 
-#: ../plug-ins/python/pydia-render.c:1115
+#: ../plug-ins/python/pydia-render.c:1102
 #, c-format
 msgid "Couldn't open '%s' for writing.\n"
 msgstr "Nepavyko atverti '%s' rašymui.\n"
@@ -6232,23 +6855,28 @@ msgstr "Python scenarijų palaikymas"
 msgid "Dia shape export filter"
 msgstr "Dia figūrų eksporto filtras"
 
-#: ../plug-ins/shape/shape-export.c:536
+#: ../plug-ins/shape/shape-export.c:622
 msgid "Shape files must end in .shape, or they cannot be loaded by Dia"
 msgstr "Figūrų failai turi baigtis .shape arba Dia negalės jų įkelti"
 
-#: ../plug-ins/shape/shape-export.c:550
+#: ../plug-ins/shape/shape-export.c:636
 msgid "Can't export PNG icon without export plugin!"
 msgstr "Negalima eksportuoti PNG piktogramos be eksporto įskiepio!"
 
-#: ../plug-ins/shape/shape-export.c:576
+#: ../plug-ins/shape/shape-export.c:662
 msgid "Dia Shape File"
 msgstr "Dia figūrų failas"
 
-#: ../plug-ins/svg/svg.c:50
+#: ../plug-ins/svg/svg.c:60
 msgid "Scalable Vector Graphics import and export filters"
 msgstr "Scalable Vector Graphics importo ir eksporto filtrai"
 
-#: ../plug-ins/svg/svg-import.c:633
+#: ../plug-ins/svg/svg-import.c:220
+#, c-format
+msgid "Failed to apply transformation for '%s'"
+msgstr ""
+
+#: ../plug-ins/svg/svg-import.c:658
 msgid ""
 "Invalid path data.\n"
 "svg:path data must start with moveto."
@@ -6256,16 +6884,16 @@ msgstr ""
 "Klaidingas kelias.\n"
 "svg:kelias turi prasidėti nuo moveto požymio."
 
-#: ../plug-ins/svg/svg-import.c:1839
+#: ../plug-ins/svg/svg-import.c:1895
 msgid "'Shape Design' shapes missing."
 msgstr "Trūksta „figūrų dizaino“ figūrų."
 
-#: ../plug-ins/svg/svg-import.c:1873
+#: ../plug-ins/svg/svg-import.c:1929
 #, c-format
 msgid "Object '%s' creation failed"
 msgstr "Nepavyko sukurti „%s“ objekto"
 
-#: ../plug-ins/svg/svg-import.c:1895
+#: ../plug-ins/svg/svg-import.c:1955
 #, c-format
 msgid ""
 "Parse error for memory block.\n"
@@ -6274,9 +6902,8 @@ msgstr ""
 "Atminties bloko skaitymo klaida.\n"
 "%s"
 
-#: ../plug-ins/svg/svg-import.c:1909
+#: ../plug-ins/svg/svg-import.c:1973
 #, c-format
-#| msgid "Parse error for %s"
 msgid ""
 "SVG parser error for %s\n"
 "%s"
@@ -6285,7 +6912,7 @@ msgstr ""
 "%s"
 
 #. just a warning
-#: ../plug-ins/svg/svg-import.c:1915
+#: ../plug-ins/svg/svg-import.c:1979
 #, c-format
 msgid ""
 "SVG parser warning for %s\n"
@@ -6294,12 +6921,11 @@ msgstr ""
 "SVG skaitymo įspėjimas failui %s\n"
 "%s"
 
-#: ../plug-ins/svg/svg-import.c:1948
-#| msgid "Expected SVG Namespace not found in file"
+#: ../plug-ins/svg/svg-import.c:2012
 msgid "Expected SVG name-space not found in file"
 msgstr "Failas neatitinka reikiamos SVG vardų specifikacijos"
 
-#: ../plug-ins/svg/svg-import.c:1968
+#: ../plug-ins/svg/svg-import.c:2032
 #, c-format
 msgid "root element was '%s' -- expecting 'svg'."
 msgstr "Šakninis elementas buvo '%s' -- reikia 'svg'."
@@ -6308,12 +6934,12 @@ msgstr "Šakninis elementas buvo '%s' -- reikia 'svg'."
 msgid "Visio XML Format import and export filter"
 msgstr "Visio XML bylų formato importo ir eksporto filtras"
 
-#: ../plug-ins/vdx/vdx-export.c:1857
+#: ../plug-ins/vdx/vdx-export.c:1764
 #, c-format
 msgid "Saving file '%s' failed."
 msgstr "Nepavyko įrašyti failo „%s“."
 
-#: ../plug-ins/vdx/vdx-export.c:1868
+#: ../plug-ins/vdx/vdx-export.c:1775
 msgid "Visio XML format"
 msgstr "Visio XML formatas"
 
@@ -6327,31 +6953,30 @@ msgstr "Nepavyko perskaityti spalvos: %s"
 msgid "Couldn't find shape %d"
 msgstr "Nepavyko rasti figūros %d"
 
-#: ../plug-ins/vdx/vdx-import.c:1011
+#: ../plug-ins/vdx/vdx-import.c:1066
 #, c-format
 msgid "Unexpected Ellipse object: %s"
 msgstr "Nelauktas elipsės objektas: %s"
 
-#: ../plug-ins/vdx/vdx-import.c:1025
+#: ../plug-ins/vdx/vdx-import.c:1080
 msgid "Can't rotate ellipse"
 msgstr "Negalima pasukti elipsės"
 
-#: ../plug-ins/vdx/vdx-import.c:1356
+#: ../plug-ins/vdx/vdx-import.c:1411
 msgid "MoveTo not at start of Bezier"
 msgstr "MoveTo ne Bezjė pradžioje"
 
-#: ../plug-ins/vdx/vdx-import.c:1706
+#: ../plug-ins/vdx/vdx-import.c:1761
 msgid "Invalid NURBS formula"
 msgstr "Klaidinga NURBS formulė"
 
-#: ../plug-ins/vdx/vdx-import.c:1964
+#: ../plug-ins/vdx/vdx-import.c:2020
 #, c-format
 msgid "Couldn't handle foreign object type %s"
 msgstr "Nepavyko apdoroti svetimo objekto tipo %s"
 
-#: ../plug-ins/vdx/vdx-import.c:2888
+#: ../plug-ins/vdx/vdx-import.c:2949
 #, c-format
-#| msgid "Parse error for %s"
 msgid ""
 "VDX parser error for %s\n"
 "%s"
@@ -6359,16 +6984,16 @@ msgstr ""
 "VDX skaitymo klaida failui %s\n"
 "%s"
 
-#: ../plug-ins/vdx/vdx-import.c:2900
+#: ../plug-ins/vdx/vdx-import.c:2961
 msgid "Nothing in document!"
 msgstr "Dokumente nieko nėra!"
 
-#: ../plug-ins/vdx/vdx-import.c:2905
+#: ../plug-ins/vdx/vdx-import.c:2966
 #, c-format
 msgid "Expecting VisioDocument, got %s"
 msgstr "Tikėtasi VisioDocument, gauta %s"
 
-#: ../plug-ins/vdx/vdx-import.c:2989
+#: ../plug-ins/vdx/vdx-import.c:3050
 msgid "Visio XML File Format"
 msgstr "Visio XML failų formatas"
 
@@ -6386,7 +7011,7 @@ msgstr ""
 "Nepavyko įrašyti failo %s\n"
 "%s"
 
-#: ../plug-ins/wmf/wmf.cpp:568
+#: ../plug-ins/wmf/wmf.cpp:557
 #, c-format
 msgid ""
 "Cannot render unknown font:\n"
@@ -6395,43 +7020,66 @@ msgstr ""
 "Nepavyksta piešti nežinomo šrifto:\n"
 "%s"
 
-#: ../plug-ins/wmf/wmf.cpp:1516
+#: ../plug-ins/wmf/wmf.cpp:1487
 msgid "Print (GDI) ..."
 msgstr "Spausdinti (GDI) ..."
 
-#: ../plug-ins/wmf/wmf.cpp:1532
+#: ../plug-ins/wmf/wmf.cpp:1503
 msgid "WMF export filter"
 msgstr "WMF eksporto filtras"
 
-#: ../plug-ins/wpg/wpg.c:1207
+#: ../plug-ins/wpg/wpg.c:1114 ../plug-ins/wpg/wpg.c:1120
+#, fuzzy
+#| msgid "WordPerfect Graphics export filter"
+msgid "WordPerfect Graphics"
+msgstr "WordPerfect Graphics eksporto filtras"
+
+#: ../plug-ins/wpg/wpg.c:1145
+msgid "WordPerfect Graphics export filter"
+msgstr "WordPerfect Graphics eksporto filtras"
+
+#: ../plug-ins/wpg/wpg-import.c:479
 #, c-format
 msgid "File: %s type/version unsupported.\n"
 msgstr "Failas: %s tipas/versija nepalaikoma.\n"
 
-#: ../plug-ins/wpg/wpg.c:1337 ../plug-ins/wpg/wpg.c:1344
-msgid "WPG"
-msgstr "WPG"
+#: ../plug-ins/wpg/wpg-import.c:621
+#, fuzzy, c-format
+#| msgid "Unknown arrow type %d\n"
+msgid "Unknown WPG type %d size %d."
+msgstr "Nežinomas rodyklės tipas %d\n"
 
-#: ../plug-ins/wpg/wpg.c:1372
-msgid "WordPerfect Graphics export filter"
-msgstr "WordPerfect Graphics eksporto filtras"
+#: ../plug-ins/wpg/wpg-import.c:626
+#, c-format
+msgid "Size 0 on WPG type %d, expecting WPG_END\n"
+msgstr ""
+
+#: ../plug-ins/wpg/wpg-import.c:635
+#, fuzzy, c-format
+#| msgid "Unexpected end of file."
+msgid "Unexpected end of file. WPG type %d, size %d.\n"
+msgstr "Netikėta failo pabaiga."
+
+#: ../plug-ins/wpg/wpg-import.c:645
+msgid "Empty WPG file?"
+msgstr ""
 
 #: ../plug-ins/xfig/xfig.c:52
 msgid "Fig Format import and export filter"
 msgstr "Fig Formato importo ir eksporto filtras"
 
-#: ../plug-ins/xfig/xfig-export.c:484
+#: ../plug-ins/xfig/xfig-export.c:470
 #, c-format
 msgid "Fig format has no equivalent of arrow style %s; using simple arrow.\n"
 msgstr ""
 "Fig formatas neturi rodyklių, atitinkančių %s stilių; naudojamos paprastos "
 "rodyklės.\n"
 
-#: ../plug-ins/xfig/xfig-export.c:507
+#: ../plug-ins/xfig/xfig-export.c:493
 msgid "No more user-definable colors - using black"
 msgstr "Nebeliko naudotojo nustatytų spalvų - naudojama juoda"
 
-#: ../plug-ins/xfig/xfig-export.c:1234
+#: ../plug-ins/xfig/xfig-export.c:1154
 msgid "Xfig format"
 msgstr "Xfig formatas"
 
@@ -6474,8 +7122,9 @@ msgid "Unknown arrow type %d\n"
 msgstr "Nežinomas rodyklės tipas %d\n"
 
 #: ../plug-ins/xfig/xfig-import.c:387
-#, c-format
-msgid "Depth %d of of range, only 0-%d allowed.\n"
+#, fuzzy, c-format
+#| msgid "Depth %d of of range, only 0-%d allowed.\n"
+msgid "Depth %d out of range, only 0-%d allowed.\n"
 msgstr "Gylis %d už ribų, leidžiama tik “-%d.\n"
 
 #: ../plug-ins/xfig/xfig-import.c:435
@@ -6550,81 +7199,82 @@ msgstr "Nepavyko atpažinti Fig objekto."
 msgid "Compound end outside compound\n"
 msgstr "Sudėtinį pabaiga už sudėtinio ribų\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1059
-#, c-format
-msgid "Couldn't read color: %s\n"
+#: ../plug-ins/xfig/xfig-import.c:1062
+#, fuzzy
+#| msgid "Couldn't read color: %s\n"
+msgid "Couldn't read color\n"
 msgstr "Nepavyko atpažinti spalvos: %s\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1064
+#: ../plug-ins/xfig/xfig-import.c:1067
 #, c-format
 msgid "Color number %d out of range 0..%d.  Discarding color.\n"
 msgstr "Spalvos numeris %d už “..%d ribų.  Atsisakoma spalvos.\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1111
+#: ../plug-ins/xfig/xfig-import.c:1114
 msgid "Couldn't read group extent."
 msgstr "Nepavyko perskaityti grupės išplėtimo."
 
-#: ../plug-ins/xfig/xfig-import.c:1122
+#: ../plug-ins/xfig/xfig-import.c:1125
 #, c-format
 msgid "Unknown object type %d\n"
 msgstr "Nežinomas objekto tipas %d\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1147
+#: ../plug-ins/xfig/xfig-import.c:1150
 #, c-format
 msgid "`%s' is not one of `%s' or `%s'\n"
 msgstr "`%s' nėra nei `%s' nei `%s'\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1157
+#: ../plug-ins/xfig/xfig-import.c:1160
 msgid "Error reading paper size."
 msgstr "Klaida skaitant lapo dydį."
 
-#: ../plug-ins/xfig/xfig-import.c:1168
+#: ../plug-ins/xfig/xfig-import.c:1171
 #, c-format
 msgid "Unknown paper size `%s', using default\n"
 msgstr "Nežinomas lapo dydis `%s', naudojamas standartinis\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1181
+#: ../plug-ins/xfig/xfig-import.c:1184
 msgid "Error reading paper orientation."
 msgstr "Klaida skaitant lapo orientaciją."
 
-#: ../plug-ins/xfig/xfig-import.c:1191
+#: ../plug-ins/xfig/xfig-import.c:1194
 msgid "Error reading justification."
 msgstr "Klaida skaitant lygiavimą."
 
-#: ../plug-ins/xfig/xfig-import.c:1201
+#: ../plug-ins/xfig/xfig-import.c:1204
 msgid "Error reading units."
 msgstr "Klaida nuskaitant vienetus."
 
-#: ../plug-ins/xfig/xfig-import.c:1217
+#: ../plug-ins/xfig/xfig-import.c:1220
 msgid "Error reading magnification."
 msgstr "Klaida skaitant išdidinimą."
 
-#: ../plug-ins/xfig/xfig-import.c:1230
+#: ../plug-ins/xfig/xfig-import.c:1233
 msgid "Error reading multipage indicator."
 msgstr "Klaida skaitant daugelio puslapių indikatorių."
 
-#: ../plug-ins/xfig/xfig-import.c:1241
+#: ../plug-ins/xfig/xfig-import.c:1244
 msgid "Error reading transparent color."
 msgstr "Klaida skaitant permatomą spalvą."
 
-#: ../plug-ins/xfig/xfig-import.c:1250 ../plug-ins/xfig/xfig-import.c:1311
-#: ../plug-ins/xfig/xfig-import.c:1329
+#: ../plug-ins/xfig/xfig-import.c:1253 ../plug-ins/xfig/xfig-import.c:1314
+#: ../plug-ins/xfig/xfig-import.c:1332
 msgid "Error reading Fig file."
 msgstr "Klaida skaitant Fig failą."
 
-#: ../plug-ins/xfig/xfig-import.c:1252
+#: ../plug-ins/xfig/xfig-import.c:1255
 msgid "Premature end of Fig file\n"
 msgstr "Netikėta Fig failo pabaiga\n"
 
-#: ../plug-ins/xfig/xfig-import.c:1261
+#: ../plug-ins/xfig/xfig-import.c:1264
 msgid "Error reading resolution."
 msgstr "Klaida skaitant raišką."
 
-#: ../plug-ins/xfig/xfig-import.c:1297
+#: ../plug-ins/xfig/xfig-import.c:1300
 msgid "Doesn't look like a Fig file"
 msgstr "Neatitinka Fig failo formato"
 
-#: ../plug-ins/xfig/xfig-import.c:1303
+#: ../plug-ins/xfig/xfig-import.c:1306
 #, c-format
 msgid ""
 "This is a Fig version %d.%d file.\n"
@@ -6633,17 +7283,16 @@ msgstr ""
 "Failas yra Fig %d.%d versijos formate.\n"
 " Programa gali jo nesuprasti."
 
-#: ../plug-ins/xfig/xfig-import.c:1313
+#: ../plug-ins/xfig/xfig-import.c:1316
 msgid "Premature end of Fig file"
 msgstr "Netikėta Fig failo pabaiga"
 
-#: ../plug-ins/xfig/xfig-import.c:1352
+#: ../plug-ins/xfig/xfig-import.c:1355
 msgid "Xfig File Format"
 msgstr "Xfig failo formatas"
 
 #: ../plug-ins/xslt/xslt.c:114
 #, c-format
-#| msgid "Error while parsing %s\n"
 msgid ""
 "Error while parsing %s\n"
 "%s"
@@ -7424,11 +8073,11 @@ msgstr "Vertikaliai išdėstytas energijos šaltinis"
 msgid "Lamp"
 msgstr "Lempa"
 
-#: ../sheets/Circuit.sheet.in.h:30 ../sheets/ciscomisc.sheet.in.h:55
+#: ../sheets/Circuit.sheet.in.h:30 ../sheets/ciscomisc.sheet.in.h:52
 msgid "Speaker"
 msgstr "Garsiakalbis"
 
-#: ../sheets/Circuit.sheet.in.h:31 ../sheets/ciscomisc.sheet.in.h:53
+#: ../sheets/Circuit.sheet.in.h:31 ../sheets/ciscomisc.sheet.in.h:50
 msgid "Microphone"
 msgstr "Mikrofonas"
 
@@ -8093,66 +8742,54 @@ msgid "CiscoWorks Man"
 msgstr "Vyras prie CiscoWorks"
 
 #: ../sheets/ciscomisc.sheet.in.h:36
-msgid "PC Man left"
-msgstr "Žmogus prie PK (kairys)"
-
-#: ../sheets/ciscomisc.sheet.in.h:37
 msgid "PC Man"
 msgstr "Vyras prie PK"
 
-#: ../sheets/ciscomisc.sheet.in.h:38
+#: ../sheets/ciscomisc.sheet.in.h:37
 msgid "Sitting Woman"
 msgstr "Sėdinti moteris"
 
-#: ../sheets/ciscomisc.sheet.in.h:39
-msgid "Sitting Woman right"
-msgstr "Sėdinti moteris (dešinė)"
-
-#: ../sheets/ciscomisc.sheet.in.h:40
+#: ../sheets/ciscomisc.sheet.in.h:38
 msgid "Mac Woman"
 msgstr "Moteris prie Mac"
 
-#: ../sheets/ciscomisc.sheet.in.h:41
+#: ../sheets/ciscomisc.sheet.in.h:39
 msgid "Androgynous Person"
 msgstr "Belytis asmuo"
 
-#: ../sheets/ciscomisc.sheet.in.h:44
+#: ../sheets/ciscomisc.sheet.in.h:42
 msgid "Lock and Key"
 msgstr "Užraktas ir raktas"
 
-#: ../sheets/ciscomisc.sheet.in.h:45
+#: ../sheets/ciscomisc.sheet.in.h:43
 msgid "Satellite dish"
 msgstr "Palydovinė lėkštė"
 
-#: ../sheets/ciscomisc.sheet.in.h:46
+#: ../sheets/ciscomisc.sheet.in.h:44
 msgid "Satellite"
 msgstr "Palydovas"
 
-#: ../sheets/ciscomisc.sheet.in.h:47
+#: ../sheets/ciscomisc.sheet.in.h:45
 msgid "Antenna"
 msgstr "Antena"
 
-#: ../sheets/ciscomisc.sheet.in.h:48
+#: ../sheets/ciscomisc.sheet.in.h:46
 msgid "File cabinet"
 msgstr "Failų saugykla"
 
-#: ../sheets/ciscomisc.sheet.in.h:49
+#: ../sheets/ciscomisc.sheet.in.h:47
 msgid "Car"
 msgstr "Automobilis"
 
-#: ../sheets/ciscomisc.sheet.in.h:50
+#: ../sheets/ciscomisc.sheet.in.h:48
 msgid "Truck"
 msgstr "Sunkvežimis"
 
-#: ../sheets/ciscomisc.sheet.in.h:51
+#: ../sheets/ciscomisc.sheet.in.h:49
 msgid "Video Camera"
 msgstr "Video kamera"
 
-#: ../sheets/ciscomisc.sheet.in.h:52
-msgid "Video Camera right"
-msgstr "Video kamera (dešinė)"
-
-#: ../sheets/ciscomisc.sheet.in.h:54
+#: ../sheets/ciscomisc.sheet.in.h:51
 msgid "Headphones"
 msgstr "Ausinės"
 
@@ -8233,332 +8870,328 @@ msgid "PIX Firewall"
 msgstr "PIX ugniasienė"
 
 #: ../sheets/cisconetwork.sheet.in.h:20
-msgid "PIX Firewall Left"
-msgstr "PIX ugniasienė (kairė)"
-
-#: ../sheets/cisconetwork.sheet.in.h:21
 msgid "Centri Firewall"
 msgstr "Centri ugniasienė"
 
-#: ../sheets/cisconetwork.sheet.in.h:23
+#: ../sheets/cisconetwork.sheet.in.h:22
 msgid "Security appliance"
 msgstr "Saugumo įrengimas"
 
-#: ../sheets/cisconetwork.sheet.in.h:24
+#: ../sheets/cisconetwork.sheet.in.h:23
 msgid "VPN Concentrator"
 msgstr "VPN koncentratorius"
 
-#: ../sheets/cisconetwork.sheet.in.h:25
+#: ../sheets/cisconetwork.sheet.in.h:24
 msgid "VPN Gateway"
 msgstr "VPN šliuzas"
 
-#: ../sheets/cisconetwork.sheet.in.h:26
+#: ../sheets/cisconetwork.sheet.in.h:25
 msgid "LAN to LAN"
 msgstr "LAN į LAN"
 
-#: ../sheets/cisconetwork.sheet.in.h:27
+#: ../sheets/cisconetwork.sheet.in.h:26
 msgid "SSL Terminator"
 msgstr "SSL terminatorius"
 
-#: ../sheets/cisconetwork.sheet.in.h:28
+#: ../sheets/cisconetwork.sheet.in.h:27
 msgid "IP DSL Switch"
 msgstr "IP DSL perjungiklis"
 
-#: ../sheets/cisconetwork.sheet.in.h:29
+#: ../sheets/cisconetwork.sheet.in.h:28
 msgid "DSLAM"
 msgstr "DSLAM"
 
-#: ../sheets/cisconetwork.sheet.in.h:30
+#: ../sheets/cisconetwork.sheet.in.h:29
 msgid "Cable Modem"
 msgstr "Kabelinis modemas"
 
-#: ../sheets/cisconetwork.sheet.in.h:31
+#: ../sheets/cisconetwork.sheet.in.h:30
 msgid "Wireless Connectivity"
 msgstr "Bevielis ryšys"
 
-#: ../sheets/cisconetwork.sheet.in.h:32
+#: ../sheets/cisconetwork.sheet.in.h:31
 msgid "Wireless Transport"
 msgstr "Bevielė sąsaja"
 
-#: ../sheets/cisconetwork.sheet.in.h:33
+#: ../sheets/cisconetwork.sheet.in.h:32
 msgid "AccessPoint"
 msgstr "Priėjimo taškas"
 
-#: ../sheets/cisconetwork.sheet.in.h:34
+#: ../sheets/cisconetwork.sheet.in.h:33
 msgid "Wireless Bridge"
 msgstr "Belaidis tiltas"
 
-#: ../sheets/cisconetwork.sheet.in.h:35
+#: ../sheets/cisconetwork.sheet.in.h:34
 msgid "Dual Mode AccessPoint"
 msgstr "Dvigubos veiksenos priėjimo taškas"
 
-#: ../sheets/cisconetwork.sheet.in.h:36
+#: ../sheets/cisconetwork.sheet.in.h:35
 msgid "Wi-Fi Tag"
 msgstr "Wi-Fi žymė"
 
-#: ../sheets/cisconetwork.sheet.in.h:37
+#: ../sheets/cisconetwork.sheet.in.h:36
 msgid "Wireless Location Appliance"
 msgstr "Belaidės vietos taikymas"
 
-#: ../sheets/cisconetwork.sheet.in.h:38
+#: ../sheets/cisconetwork.sheet.in.h:37
 msgid "Location server"
 msgstr "Adresavimo serveris"
 
-#: ../sheets/cisconetwork.sheet.in.h:39
+#: ../sheets/cisconetwork.sheet.in.h:38
 msgid "Lightweight AP"
 msgstr "Nedidelis priėjimo taškas"
 
-#: ../sheets/cisconetwork.sheet.in.h:40
+#: ../sheets/cisconetwork.sheet.in.h:39
 msgid "WLAN controller"
 msgstr "WLAN kontroleris"
 
-#: ../sheets/cisconetwork.sheet.in.h:41
+#: ../sheets/cisconetwork.sheet.in.h:40
 msgid "BBFW"
 msgstr "BBFW antena"
 
-#: ../sheets/cisconetwork.sheet.in.h:42
+#: ../sheets/cisconetwork.sheet.in.h:41
 msgid "BBFW media"
 msgstr "BBFW srautas"
 
-#: ../sheets/cisconetwork.sheet.in.h:43
+#: ../sheets/cisconetwork.sheet.in.h:42
 msgid "Channelized Pipe"
 msgstr "Vamzdis su kanalais"
 
-#: ../sheets/cisconetwork.sheet.in.h:44
+#: ../sheets/cisconetwork.sheet.in.h:43
 msgid "Concatenated Payload"
 msgstr "Sudėtinė apkrova"
 
-#: ../sheets/cisconetwork.sheet.in.h:45
+#: ../sheets/cisconetwork.sheet.in.h:44
 msgid "Optical Cross-Connect"
 msgstr "Optinis Cross-Connect"
 
-#: ../sheets/cisconetwork.sheet.in.h:46
+#: ../sheets/cisconetwork.sheet.in.h:45
 msgid "Optical Transport"
 msgstr "Optinis transportas"
 
-#: ../sheets/cisconetwork.sheet.in.h:47
+#: ../sheets/cisconetwork.sheet.in.h:46
 msgid "Optical Fiber"
 msgstr "Optinis pluoštas"
 
-#: ../sheets/cisconetwork.sheet.in.h:48
+#: ../sheets/cisconetwork.sheet.in.h:47
 msgid "Optical Amplifier"
 msgstr "Optinis keitiklis"
 
-#: ../sheets/cisconetwork.sheet.in.h:49
+#: ../sheets/cisconetwork.sheet.in.h:48
 msgid "Digital Cross-Connect"
 msgstr "Skaitmeninis Cross-Connect"
 
-#: ../sheets/cisconetwork.sheet.in.h:50
+#: ../sheets/cisconetwork.sheet.in.h:49
 msgid "IP Transport Concentrator"
 msgstr "IP transporto koncentratorius"
 
-#: ../sheets/cisconetwork.sheet.in.h:51
+#: ../sheets/cisconetwork.sheet.in.h:50
 msgid "DWDM Filter"
 msgstr "DWDM filtras"
 
-#: ../sheets/cisconetwork.sheet.in.h:52
+#: ../sheets/cisconetwork.sheet.in.h:51
 msgid "WDM"
 msgstr "WDM"
 
-#: ../sheets/cisconetwork.sheet.in.h:53
+#: ../sheets/cisconetwork.sheet.in.h:52
 msgid "15200"
 msgstr "15200"
 
-#: ../sheets/cisconetwork.sheet.in.h:54
+#: ../sheets/cisconetwork.sheet.in.h:53
 msgid "15800"
 msgstr "15800"
 
-#: ../sheets/cisconetwork.sheet.in.h:55
+#: ../sheets/cisconetwork.sheet.in.h:54
 msgid "ONS15104"
 msgstr "ONS15104"
 
-#: ../sheets/cisconetwork.sheet.in.h:56
+#: ../sheets/cisconetwork.sheet.in.h:55
 msgid "10700"
 msgstr "10700"
 
-#: ../sheets/cisconetwork.sheet.in.h:57
+#: ../sheets/cisconetwork.sheet.in.h:56
 msgid "Metro 1500"
 msgstr "Metro 1500"
 
-#: ../sheets/cisconetwork.sheet.in.h:58
+#: ../sheets/cisconetwork.sheet.in.h:57
 msgid "ONS15540"
 msgstr "ONS15540"
 
-#: ../sheets/cisconetwork.sheet.in.h:59
+#: ../sheets/cisconetwork.sheet.in.h:58
 msgid "Automatic Protection Switching"
 msgstr "Automatinės apsaugos perjungimas"
 
-#: ../sheets/cisconetwork.sheet.in.h:60
+#: ../sheets/cisconetwork.sheet.in.h:59
 msgid "RPS"
 msgstr "RPS"
 
-#: ../sheets/cisconetwork.sheet.in.h:61
+#: ../sheets/cisconetwork.sheet.in.h:60
 msgid "UPS"
 msgstr "UPS"
 
-#: ../sheets/cisconetwork.sheet.in.h:62
+#: ../sheets/cisconetwork.sheet.in.h:61
 msgid "LongReach CPE"
 msgstr "LongReach CPE"
 
-#: ../sheets/cisconetwork.sheet.in.h:63
+#: ../sheets/cisconetwork.sheet.in.h:62
 msgid "3X74 (floor) cluster controller"
 msgstr "3X74 (grindinis) klasterio kontroleris"
 
-#: ../sheets/cisconetwork.sheet.in.h:64
+#: ../sheets/cisconetwork.sheet.in.h:63
 msgid "3174 (desktop) cluster controller"
 msgstr "3174 (stalinis) klasterio kontroleris"
 
-#: ../sheets/cisconetwork.sheet.in.h:65
+#: ../sheets/cisconetwork.sheet.in.h:64
 msgid "CSU/DSU"
 msgstr "CSU/DSU"
 
-#: ../sheets/cisconetwork.sheet.in.h:66
+#: ../sheets/cisconetwork.sheet.in.h:65
 msgid "WAN"
 msgstr "WAN"
 
-#: ../sheets/cisconetwork.sheet.in.h:67
+#: ../sheets/cisconetwork.sheet.in.h:66
 msgid "Cloud"
 msgstr "Debesis"
 
-#: ../sheets/cisconetwork.sheet.in.h:68
+#: ../sheets/cisconetwork.sheet.in.h:67
 msgid "Cloud Gold"
 msgstr "Debesis (auksinis)"
 
-#: ../sheets/cisconetwork.sheet.in.h:69
+#: ../sheets/cisconetwork.sheet.in.h:68
 msgid "Cloud White"
 msgstr "Debesis (baltas)"
 
-#: ../sheets/cisconetwork.sheet.in.h:70
+#: ../sheets/cisconetwork.sheet.in.h:69
 msgid "Cloud Dark"
 msgstr "Debesis (tamsus)"
 
-#: ../sheets/cisconetwork.sheet.in.h:71
+#: ../sheets/cisconetwork.sheet.in.h:70
 msgid "Distributed Director"
 msgstr "Išsirstytas derektorius"
 
-#: ../sheets/cisconetwork.sheet.in.h:72
+#: ../sheets/cisconetwork.sheet.in.h:71
 msgid "LocalDirector"
 msgstr "LocalDirector"
 
-#: ../sheets/cisconetwork.sheet.in.h:73
+#: ../sheets/cisconetwork.sheet.in.h:72
 msgid "IOS SLB"
 msgstr "IOS SLB"
 
-#: ../sheets/cisconetwork.sheet.in.h:74
+#: ../sheets/cisconetwork.sheet.in.h:73
 msgid "MUX"
 msgstr "MUX"
 
-#: ../sheets/cisconetwork.sheet.in.h:75
+#: ../sheets/cisconetwork.sheet.in.h:74
 msgid "General Appliance"
 msgstr "Bendrinis įrengimas"
 
 #. compatibility
 #. <alias name="Cisco - PAD"/>
-#: ../sheets/cisconetwork.sheet.in.h:78
+#: ../sheets/cisconetwork.sheet.in.h:77
 msgid "PAD"
 msgstr "PAD"
 
-#: ../sheets/cisconetwork.sheet.in.h:79
+#: ../sheets/cisconetwork.sheet.in.h:78
 msgid "CDDI/FDDI Concentrator"
 msgstr "CDDI/FDDI koncentratorius"
 
-#: ../sheets/cisconetwork.sheet.in.h:80
+#: ../sheets/cisconetwork.sheet.in.h:79
 msgid "FDDI Ring"
 msgstr "FDDI žiedas"
 
-#: ../sheets/cisconetwork.sheet.in.h:81
+#: ../sheets/cisconetwork.sheet.in.h:80
 msgid "TokenRing"
 msgstr "TokenRing"
 
-#: ../sheets/cisconetwork.sheet.in.h:82
+#: ../sheets/cisconetwork.sheet.in.h:81
 msgid "MAU"
 msgstr "MAU"
 
-#: ../sheets/cisconetwork.sheet.in.h:83
+#: ../sheets/cisconetwork.sheet.in.h:82
 msgid "Repeater"
 msgstr "Kartotuvas"
 
-#: ../sheets/cisconetwork.sheet.in.h:84
+#: ../sheets/cisconetwork.sheet.in.h:83
 msgid "Bridge"
 msgstr "Tinklų tiltas"
 
-#: ../sheets/cisconetwork.sheet.in.h:85
+#: ../sheets/cisconetwork.sheet.in.h:84
 msgid "Breakout box"
 msgstr "Nutrūkimo dėžė"
 
-#: ../sheets/cisconetwork.sheet.in.h:86
+#: ../sheets/cisconetwork.sheet.in.h:85
 msgid "STB (set top box)"
 msgstr "STB (set top box)"
 
-#: ../sheets/cisconetwork.sheet.in.h:87
+#: ../sheets/cisconetwork.sheet.in.h:86
 msgid "TV"
 msgstr "TV"
 
-#: ../sheets/cisconetwork.sheet.in.h:88
+#: ../sheets/cisconetwork.sheet.in.h:87
 msgid "IPTV broadcast server"
 msgstr "IPTV perdavimo serveris"
 
-#: ../sheets/cisconetwork.sheet.in.h:89
+#: ../sheets/cisconetwork.sheet.in.h:88
 msgid "IPTV content manager"
-msgstr "IPTV turinio valdyklė"
+msgstr "IPTV turinio tvarkytuvė"
 
-#: ../sheets/cisconetwork.sheet.in.h:90
+#: ../sheets/cisconetwork.sheet.in.h:89
 msgid "VN2900"
 msgstr "VN2900"
 
-#: ../sheets/cisconetwork.sheet.in.h:91
+#: ../sheets/cisconetwork.sheet.in.h:90
 msgid "VN5902"
 msgstr "VN5902"
 
-#: ../sheets/cisconetwork.sheet.in.h:92
+#: ../sheets/cisconetwork.sheet.in.h:91
 msgid "VN5900"
 msgstr "VN5900"
 
-#: ../sheets/cisconetwork.sheet.in.h:93
+#: ../sheets/cisconetwork.sheet.in.h:92
 msgid "Catalyst Access Gateway"
 msgstr "Catalyst Access Gateway"
 
-#: ../sheets/cisconetwork.sheet.in.h:94
+#: ../sheets/cisconetwork.sheet.in.h:93
 msgid "Generic Gateway"
 msgstr "Bendrinis šliuzas"
 
-#: ../sheets/cisconetwork.sheet.in.h:95
+#: ../sheets/cisconetwork.sheet.in.h:94
 msgid "TransPath"
 msgstr "TransPath"
 
-#: ../sheets/cisconetwork.sheet.in.h:96
+#: ../sheets/cisconetwork.sheet.in.h:95
 msgid "uBR910 Cable DSU"
 msgstr "uBR910 kabelinis DSU"
 
-#: ../sheets/cisconetwork.sheet.in.h:97
+#: ../sheets/cisconetwork.sheet.in.h:96
 msgid "Storage Solution Engine"
 msgstr "Saugyklos sprendimų variklis"
 
-#: ../sheets/cisconetwork.sheet.in.h:98
+#: ../sheets/cisconetwork.sheet.in.h:97
 msgid "Content Engine (Cache Director)"
 msgstr "Turinio variklis (podėlio direktorius)"
 
-#: ../sheets/cisconetwork.sheet.in.h:99
+#: ../sheets/cisconetwork.sheet.in.h:98
 msgid "CDM Content Distribution Manager"
-msgstr "CDM Turinio paskirstymo tvarkyklė"
+msgstr "CDM Turinio paskirstymo tvarkytuvė"
 
-#: ../sheets/cisconetwork.sheet.in.h:100
+#: ../sheets/cisconetwork.sheet.in.h:99
 msgid "Content Transformation Engine (CTE)"
 msgstr "Turinio transformavimo variklis (CTE)"
 
-#: ../sheets/cisconetwork.sheet.in.h:101
+#: ../sheets/cisconetwork.sheet.in.h:100
 msgid "ME 1100"
 msgstr "ME 1100"
 
-#: ../sheets/cisconetwork.sheet.in.h:102
+#: ../sheets/cisconetwork.sheet.in.h:101
 msgid "MAS Gateway"
 msgstr "MAS šliuzas"
 
-#: ../sheets/cisconetwork.sheet.in.h:103
+#: ../sheets/cisconetwork.sheet.in.h:102
 msgid "File Engine"
 msgstr "Failų variklis"
 
-#: ../sheets/cisconetwork.sheet.in.h:104
+#: ../sheets/cisconetwork.sheet.in.h:103
 msgid "Service Control"
 msgstr "Tarnybos kontrolė"
 
@@ -9877,9 +10510,14 @@ msgid "Resizable grid"
 msgstr "Keičiamo dydžio tinklelis"
 
 #: ../sheets/Misc.sheet.in.h:11
-#| msgid "SADT diagram objects"
 msgid "Diagram object"
 msgstr "Diagramos objektas"
+
+#: ../sheets/Misc.sheet.in.h:12
+#, fuzzy
+#| msgid "Standard objects"
+msgid "N-gon or Star object"
+msgstr "Standartiniai objektai"
 
 #: ../sheets/MSE.sheet.in.h:1
 msgid "MSE"
@@ -10245,6 +10883,20 @@ msgstr "Ryšio taškas"
 msgid "Main Connection Point"
 msgstr "Pagrindinis ryšio taškas"
 
+#: ../sheets/Sozi.sheet.in.h:2
+msgid "Objects to do Sozi (zooming ui) presentations"
+msgstr ""
+
+#: ../sheets/Sozi.sheet.in.h:3
+msgid "Sozi frame"
+msgstr ""
+
+#: ../sheets/Sozi.sheet.in.h:4
+#, fuzzy
+#| msgid "BBFW media"
+msgid "Sozi media"
+msgstr "BBFW srautas"
+
 #: ../sheets/sybase.sheet.in.h:1
 msgid "Sybase"
 msgstr "Sybase"
@@ -10275,7 +10927,7 @@ msgstr "Sybase klientinė programa"
 
 #: ../sheets/sybase.sheet.in.h:8
 msgid "Replication server manager"
-msgstr "Replikavimo serverio tvarkyklė"
+msgstr "Replikavimo serverio tvarkytuvė"
 
 #: ../sheets/UML.sheet.in.h:1
 msgid "UML"
@@ -10361,3 +11013,41 @@ msgstr "Aktyvumas"
 msgid "Fork/Union"
 msgstr "Išsišakojimas/sąjunga"
 
+#~ msgid "No clipboard handler for '%s'"
+#~ msgstr "Nėra „%s“ iškarpinės apdorojoto"
+
+#~ msgid "%s Plugin could not be unloaded"
+#~ msgstr "Nepavyko pašalinti iš atminties %s priedo"
+
+#~| msgid "Cant create image data from scratch!"
+#~ msgid "Cant create pattern from scratch!"
+#~ msgstr "Nepavyksta iš naujo šablono!"
+
+#~ msgid ""
+#~ "The image file '%s' was not found in the specified directory.\n"
+#~ "Using the file '%s' instead.\n"
+#~ msgstr ""
+#~ "Paveikslėlio failas „%s“ nerasta nurodytame aplanke.\n"
+#~ "Vietoj to naudojamas failas „%s“.\n"
+
+#~ msgid ""
+#~ "Could not save file:\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Nepavyko įrašyti failo:\n"
+#~ "%s"
+
+#~ msgid "WPG"
+#~ msgstr "WPG"
+
+#~ msgid "PC Man left"
+#~ msgstr "Žmogus prie PK (kairys)"
+
+#~ msgid "Sitting Woman right"
+#~ msgstr "Sėdinti moteris (dešinė)"
+
+#~ msgid "Video Camera right"
+#~ msgstr "Video kamera (dešinė)"
+
+#~ msgid "PIX Firewall Left"
+#~ msgstr "PIX ugniasienė (kairė)"
