@@ -1989,7 +1989,7 @@ msgid "Antialias:"
 msgstr "Anticrenelat :"
 
 #: ../app/preferences.c:216
-msgid "view antialiased"
+msgid "view antialised"
 msgstr "PNG (anticrenelat)"
 
 #: ../app/preferences.c:222
@@ -7464,7 +7464,7 @@ msgid "Heptagon. Seven-point shape"
 msgstr "Heptagòn. Poligòn de sèt costats"
 
 #: ../sheets/Assorted.sheet.in.h:16
-msgid "Octagon. Eight-point shape"
+msgid "Octogon. Eight-point shape"
 msgstr "Octogòn. Forma de uèch costats"
 
 #: ../sheets/Assorted.sheet.in.h:17
