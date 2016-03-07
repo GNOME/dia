@@ -282,7 +282,7 @@ msgstr "රූප සටහන %d.dia"
 
 #: ../app/commands.c:345
 msgid "No existing object to paste.\n"
-msgstr "لصق.\n"
+msgstr ".\n"
 
 #: ../app/commands.c:649 ../app/commands.c:687
 msgid "Could not find help directory"
