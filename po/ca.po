@@ -5015,7 +5015,7 @@ msgstr "Classe de domini"
 #: ../objects/Jackson/domain.c:181
 msgid "Optional kind which appears in the lower-right corner of the Domain"
 msgstr ""
-"Classe opcional que apareix a la cantonada inferior esquerra del domini"
+"Classe opcional que apareix a la cantonada inferior dreta del domini"
 
 #: ../objects/Jackson/domain.c:533
 msgid "Jackson domain"
