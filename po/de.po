@@ -1,25 +1,25 @@
 # German dia translation.
 # Copyright (C) 1999-2003 Free Software Foundation, Inc.
-# Karsten Weiss <knweiss@gmx.de>, 1999, 2000, 2002.
+# Karsten Weiss <knweiss@gmx.de>, 1999-2000, 2002.
 # Daniel Egger <Daniel.Egger@suse.de>, 2000.
 # Benedikt Roth <Benedikt.Roth@gmx.net>, 2000.
 # Christian Meyer <chrisime@gnome.org>, 2001.
 # Jörgen Scheibengruber <mfcn@gmx.de>, 2002.
-# Christian Neumair <chris@gnome-de.org>, 2002, 2003, 2004.
+# Christian Neumair <chris@gnome-de.org>, 2002-2004.
 # Frank Arnold <frank@scirocco-5v-turbo.de>, 2005.
-# Hendrik Richter <hendrikr@gnome.org>, 2005, 2006.
+# Hendrik Richter <hendrikr@gnome.org>, 2005-2006.
 # Jens Seidel <jseidel@cvs.gnome.org>, 2006.
 # Hans Breuer <hans@breuer.org>, 2007, 2009.
-# Mario Blättermann <mario.blaettermann@gmail.com>, 2009, 2010, 2016.
-# Christian Kirbach <Christian.Kirbach@googlemail.com>, 2010, 2011, 2012.
+# Mario Blättermann <mario.blaettermann@gmail.com>, 2009-2010, 2016.
+# Christian Kirbach <Christian.Kirbach@googlemail.com>, 2010-2012.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: dia-0-97\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=dia&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2016-01-08 04:26+0000\n"
-"PO-Revision-Date: 2016-01-08 15:41+0100\n"
+"POT-Creation-Date: 2016-03-29 03:29+0000\n"
+"PO-Revision-Date: 2016-03-29 11:13+0200\n"
 "Last-Translator: Mario Blättermann <mario.blaettermann@gmail.com>\n"
 "Language-Team: Deutsch <gnome-de@gnome.org>\n"
 "Language: de_DE\n"
@@ -27,7 +27,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.8.6\n"
+"X-Generator: Poedit 1.8.7.1\n"
 
 #. This is not an errror
 #: ../app/app_procs.c:209
@@ -3009,11 +3009,9 @@ msgstr "Immer"
 #: ../lib/properties.c:81 ../lib/properties.h:603
 msgctxt "LineJoin"
 msgid "Miter"
-msgstr ""
+msgstr "Gehrung"
 
 #: ../lib/properties.c:82 ../lib/properties.h:604
-#, fuzzy
-#| msgid "Round"
 msgctxt "LineJoin"
 msgid "Round"
 msgstr "Rund"
@@ -3021,16 +3019,14 @@ msgstr "Rund"
 #: ../lib/properties.c:83 ../lib/properties.h:605
 msgctxt "LineJoin"
 msgid "Bevel"
-msgstr ""
+msgstr "Schräg"
 
 #: ../lib/properties.c:87 ../lib/properties.h:609
 msgctxt "LineCap"
 msgid "Butt"
-msgstr ""
+msgstr "Tonne"
 
 #: ../lib/properties.c:88 ../lib/properties.h:610
-#, fuzzy
-#| msgid "Round"
 msgctxt "LineCap"
 msgid "Round"
 msgstr "Rund"
@@ -3095,10 +3091,8 @@ msgid "Text color"
 msgstr "Schriftfarbe"
 
 #: ../lib/properties.h:644 ../lib/properties.h:647
-#, fuzzy
-#| msgid "Line width"
 msgid "Line join"
-msgstr "Linienbreite"
+msgstr "Linienverbindung"
 
 #: ../lib/properties.h:650 ../lib/properties.h:653
 #, fuzzy
@@ -3131,6 +3125,8 @@ msgid ""
 "Failed to load image form diagram:\n"
 "%s"
 msgstr ""
+"Bild konnte nicht aus Diagramm geladen werden:\n"
+"%s"
 
 #: ../lib/prop_pixbuf.c:224
 #, c-format
@@ -3138,10 +3134,12 @@ msgid ""
 "Saving inline pixbuf failed:\n"
 "%s"
 msgstr ""
+"Eingebettetes Pixbuf konnte nicht gespeichert werden:\n"
+"%s"
 
 #: ../lib/prop_pixbuf.c:322
 msgid "Cant create image data from scratch!"
-msgstr ""
+msgstr "Bilddaten können nicht von Grund auf neu erstellt werden!"
 
 #. Todo: get label for the branch view from props, e.g. UML Operations Parameters
 #: ../lib/prop_sdarray_widget.c:559 ../objects/chronogram/chronoline.c:161
@@ -3210,10 +3208,8 @@ msgstr "Zeichnen"
 
 #  Translators: Menu item Verb/Control Magnitude/Regulate/Control
 #: ../lib/standard-path.c:136
-#, fuzzy
-#| msgid "Controls"
 msgid "Draw Control Lines"
-msgstr "Steuerung"
+msgstr "Kontrolllinien zeichnen"
 
 #: ../lib/standard-path.c:729
 msgid "Convert to Bezier"
@@ -3241,16 +3237,12 @@ msgid "Rotate"
 msgstr "Rotieren"
 
 #: ../lib/standard-path.c:734
-#, fuzzy
-#| msgid "Shear angle"
 msgid "Shear"
-msgstr "Scherenwinkel"
+msgstr "Scheren"
 
 #: ../lib/standard-path.c:735
-#, fuzzy
-#| msgid "Show _Connection Points"
 msgid "Show Control Lines"
-msgstr "Ver_bindungspunkte anzeigen"
+msgstr "Kontrolllinien anzeigen"
 
 #: ../lib/widgets.c:390
 msgid "Select image file"
@@ -3353,13 +3345,6 @@ msgid "Event specification"
 msgstr "Ereignisspezifikation"
 
 #: ../objects/chronogram/chronoline.c:155
-#, fuzzy
-#| msgid ""
-#| "@ time    set the pointer at an absolute time.\n"
-#| "( duration  sets the signal up, then wait 'duration'.\n"
-#| ") duration  sets the signal down, then wait 'duration'.\n"
-#| "u duration  sets the signal to \"unknown\" state, then wait 'duration'.\n"
-#| "example : @ 1.0 (2.0)1.0(2.0)\n"
 msgid ""
 "@ time    set the pointer to an absolute time.\n"
 "( duration  set the signal up, then wait 'duration'.\n"
@@ -5245,8 +5230,6 @@ msgid "Concave"
 msgstr "Konkav"
 
 #: ../objects/Misc/n_gon.c:105
-#, fuzzy
-#| msgid "Cross"
 msgid "Crossing"
 msgstr "Kreuz"
 
@@ -5325,125 +5308,114 @@ msgstr "Oktagramm"
 
 #: ../objects/Misc/n_gon.c:323
 msgid "Enneagon"
-msgstr ""
+msgstr "Neuneck"
 
 #: ../objects/Misc/n_gon.c:323
 msgid "Enneagram"
-msgstr ""
+msgstr "Enneagramm"
 
 #: ../objects/Misc/n_gon.c:324
 msgid "Decagon"
-msgstr ""
+msgstr "Zehneck"
 
 #: ../objects/Misc/n_gon.c:324
-#, fuzzy
-#| msgid "Diagram:"
 msgid "Decagram"
-msgstr "Diagramm:"
+msgstr "Dekagramm"
 
 #: ../objects/Misc/n_gon.c:325
 msgid "Hendecagon"
-msgstr ""
+msgstr "Elfeck"
 
 #: ../objects/Misc/n_gon.c:325
-#, fuzzy
 #| msgid "Open Diagram"
 msgid "Hendecagram"
-msgstr "Diagramm öffnen"
+msgstr "Hendekagramm"
 
 #: ../objects/Misc/n_gon.c:326
 msgid "Dodecagon"
-msgstr ""
+msgstr "Zwölfeck"
 
 #: ../objects/Misc/n_gon.c:326
-#, fuzzy
-#| msgid "Diagram:"
 msgid "Dodecagram"
-msgstr "Diagramm:"
+msgstr "Dodekagramm"
 
 #: ../objects/Misc/n_gon.c:327
 msgid "Tridecagon"
-msgstr ""
+msgstr "Dreizehneck"
 
 #: ../objects/Misc/n_gon.c:327
-#, fuzzy
 #| msgid "Diagram:"
 msgid "Tridecagram"
-msgstr "Diagramm:"
+msgstr "Tridekagramm"
 
 #: ../objects/Misc/n_gon.c:328
 msgid "Tetradecagon"
-msgstr ""
+msgstr "Vierzehneck"
 
 #: ../objects/Misc/n_gon.c:328
-#, fuzzy
 #| msgid "Istar diagram"
 msgid "Tetradecagram"
-msgstr "Istar-Diagramm"
+msgstr "Tetradekagramm"
 
 #: ../objects/Misc/n_gon.c:329
 msgid "Pentadecagon"
-msgstr ""
+msgstr "Fünfzehneck"
 
 #: ../objects/Misc/n_gon.c:329
-#, fuzzy
 #| msgid "Istar diagram"
 msgid "Pentadecagram"
-msgstr "Istar-Diagramm"
+msgstr "Pentadekagramm"
 
 #: ../objects/Misc/n_gon.c:330
 msgid "Hexadecagon"
-msgstr ""
+msgstr "Sechzehneck"
 
 #: ../objects/Misc/n_gon.c:330
 msgid "Hexadecagram"
-msgstr ""
+msgstr "Hexadekagramm"
 
 #: ../objects/Misc/n_gon.c:331
 msgid "Heptadecagon"
-msgstr ""
+msgstr "Siebzehneck"
 
 #: ../objects/Misc/n_gon.c:331
-#, fuzzy
 #| msgid "Istar diagram"
 msgid "Heptadecagram"
-msgstr "Istar-Diagramm"
+msgstr "Heptadekagramm"
 
 #: ../objects/Misc/n_gon.c:332
 msgid "Octadecagon"
-msgstr ""
+msgstr "Achtzehneck"
 
 #: ../objects/Misc/n_gon.c:332
-#, fuzzy
 #| msgid "Istar diagram"
 msgid "Octadecagram"
-msgstr "Istar-Diagramm"
+msgstr "Oktadekagramm"
 
 #: ../objects/Misc/n_gon.c:333
 msgid "Enneadecagon"
-msgstr ""
+msgstr "Neunzehneck"
 
 #: ../objects/Misc/n_gon.c:333
 msgid "Enneadecagram"
-msgstr ""
+msgstr "Enneadekagramm"
 
 #: ../objects/Misc/n_gon.c:334
 msgid "Icosagon"
-msgstr ""
+msgstr "Zwanzigeck"
 
 #: ../objects/Misc/n_gon.c:334
-#, fuzzy
 #| msgid "Close Diagram"
 msgid "Icosagram"
-msgstr "Diagramm schließen"
+msgstr "Ikosagramm"
 
 #: ../objects/Misc/n_gon.c:350
 msgid "N-gon"
-msgstr ""
+msgstr "N-Eck"
 
 #: ../objects/Misc/n_gon.c:352
 msgid "N-gram"
-msgstr ""
+msgstr "N-Gramm"
 
 #: ../objects/Misc/n_gon.c:354
 msgid "Star"
@@ -5557,33 +5529,31 @@ msgstr "Beschleunigen"
 
 #: ../objects/Sozi/sozi-frame.c:553
 msgid "Speed up (strong)"
-msgstr ""
+msgstr "Beschleunigen (stark)"
 
 #: ../objects/Sozi/sozi-frame.c:554
-#, fuzzy
-#| msgid "Move down"
 msgid "Speed down"
-msgstr "Runterschieben"
+msgstr "Verlangsamen"
 
 #: ../objects/Sozi/sozi-frame.c:555
 msgid "Speed down (strong)"
-msgstr ""
+msgstr "Verlangsamen (stark)"
 
 #: ../objects/Sozi/sozi-frame.c:556
 msgid "Speed up, then down"
-msgstr ""
+msgstr "Beschleunigen, dann verlangsamen"
 
 #: ../objects/Sozi/sozi-frame.c:557
 msgid "Speed up, then down (strong)"
-msgstr ""
+msgstr "Beschleunigen, dann verlangsamen (stark)"
 
 #: ../objects/Sozi/sozi-frame.c:558
 msgid "Speed down, then up"
-msgstr ""
+msgstr "Verlangsamen, dann beschleunigen"
 
 #: ../objects/Sozi/sozi-frame.c:559
 msgid "Speed down, then up (strong)"
-msgstr ""
+msgstr "Verlangsamen, dann beschleunigen (stark)"
 
 #: ../objects/Sozi/sozi-frame.c:560
 msgid "Immediate (beginning)"
@@ -5649,13 +5619,11 @@ msgstr ""
 
 #: ../objects/Sozi/sozi-frame.c:590
 msgid "Frame sequence"
-msgstr ""
+msgstr "Einzelbildsequenz"
 
 #: ../objects/Sozi/sozi-frame.c:591
-#, fuzzy
-#| msgid "Document title"
 msgid "Frame title"
-msgstr "Dokumententitel"
+msgstr "Einzelbildtitel"
 
 #: ../objects/Sozi/sozi-frame.c:592
 msgid "Frame hide"
@@ -5674,14 +5642,12 @@ msgid "Frame timeout (ms)"
 msgstr ""
 
 #: ../objects/Sozi/sozi-frame.c:596
-#, fuzzy
-#| msgid "Transaction file"
 msgid "Frame transition profile"
-msgstr "Transaktionsdatei"
+msgstr "Einzelbild-Übergangsprofil"
 
 #: ../objects/Sozi/sozi-frame.c:597
 msgid "Frame transition duration (ms)"
-msgstr ""
+msgstr "Dauer des Einzelbildübergangs (ms)"
 
 #: ../objects/Sozi/sozi-media.c:405
 msgid "undefined"
@@ -5720,14 +5686,12 @@ msgid "Media file"
 msgstr "Mediendatei"
 
 #: ../objects/Sozi/sozi-media.c:441
-#, fuzzy
-#| msgid "Start time"
 msgid "Start frame"
-msgstr "Startzeit"
+msgstr "Startbild"
 
 #: ../objects/Sozi/sozi-media.c:442
 msgid "Stop frame"
-msgstr ""
+msgstr "Endbild"
 
 #: ../objects/standard/arc.c:120
 msgid "Curve distance"
@@ -5822,7 +5786,7 @@ msgstr "Bild kann nicht ohne Dateinamen gespeichert werden"
 
 #: ../objects/standard/image.c:742
 msgid "Inconsistent pixbuf during image save."
-msgstr ""
+msgstr "Inkonsistentes Pixbuf während der Speicherung des Bildes."
 
 #. Didn't find file in current directory.
 #: ../objects/standard/image.c:839
@@ -6374,11 +6338,6 @@ msgstr "Ausgangsaktion"
 #. Would like to create a state_term instead, but making the connections
 #. * is a pain
 #: ../objects/UML/state.c:482
-#, fuzzy
-#| msgid ""
-#| "This diagram uses the State object for initial/final states.\n"
-#| "That option will go away in future versions.\n"
-#| "Please use the Initial/Final State object instead\n"
 msgid ""
 "This diagram uses the State object for initial/final states.\n"
 "This option will go away in future versions.\n"
@@ -6495,7 +6454,6 @@ msgid "Cairo Scalable Vector Graphics"
 msgstr "Skalierbare Vektorgrafik (SVG, cairo)"
 
 #: ../plug-ins/cairo/diacairo.c:400
-#| msgid "Cairo PostScript"
 msgid "CairoScript"
 msgstr "CairoScript"
 
@@ -6550,7 +6508,7 @@ msgstr "Sichtbarer Bereich-Zeiger"
 #: ../plug-ins/postscript/diapsrenderer.c:662
 #: ../plug-ins/pstricks/render_pstricks.c:778 ../plug-ins/wpg/wpg.c:888
 msgid "Not enough memory for image drawing."
-msgstr ""
+msgstr "Nicht genug Speicher zum Zeichnen des Bildes."
 
 #: ../plug-ins/cgm/cgm.c:1021
 msgid ""
@@ -6579,7 +6537,7 @@ msgstr "DiaRenderScript-Filter"
 
 #: ../plug-ins/drs/dia-render-script-import.c:456
 msgid "Broken file?"
-msgstr ""
+msgstr "Beschädigte Datei?"
 
 #: ../plug-ins/dxf/dxf.c:50
 msgid "Drawing Interchange File import and export filters"
@@ -6619,32 +6577,29 @@ msgstr "Diagrammerzeugung gescheitert"
 
 #: ../plug-ins/layout/layout.cpp:266
 msgid "No such module."
-msgstr ""
+msgstr "Kein solches Modul."
 
 #: ../plug-ins/layout/layout.cpp:267
 msgid "Out of memory."
-msgstr ""
+msgstr "Speicher ausgeschöpft."
 
 #: ../plug-ins/layout/layout.cpp:268
 msgid "Not a tree."
-msgstr ""
+msgstr "Kein Baum."
 
 #: ../plug-ins/layout/layout.cpp:269
 msgid "Not a forest."
-msgstr ""
+msgstr "Kein Wald."
 
 #: ../plug-ins/layout/layout.cpp:270
 msgid "Failed algorithm."
-msgstr ""
+msgstr "Algorithmus ist fehlgeschlagen."
 
 #: ../plug-ins/layout/layout.cpp:271
-#, fuzzy
-#| msgid "Airconditioner"
 msgid "Failed precondition."
-msgstr "Klimaanlage"
+msgstr "Vorbedingung ist fehlgeschlagen."
 
 #: ../plug-ins/layout/layout.cpp:272
-#| msgid "Dashed"
 msgid "OGDF crashed."
 msgstr "OGDF abgestürzt."
 
@@ -6658,10 +6613,12 @@ msgid ""
 "Layout '%s' failed.\n"
 "%s"
 msgstr ""
+"Layout »%s« ist fehlgeschlagen.\n"
+"%s"
 
 #: ../plug-ins/layout/layout.cpp:416
 msgid "OGDF Layout Algorithms"
-msgstr ""
+msgstr "OGDF-Layout-Algorithmen"
 
 #: ../plug-ins/libart/dialibart.c:58
 msgid "Libart-based rendering"
@@ -6719,7 +6676,7 @@ msgstr "TeX Metapost Makros"
 
 #: ../plug-ins/pdf/pdf.c:30
 msgid "PDF import not available."
-msgstr ""
+msgstr "PDF-Import ist nicht verfügbar."
 
 #: ../plug-ins/pdf/pdf.c:39
 msgid "Portable Document File"
@@ -6740,6 +6697,8 @@ msgid ""
 "PDF document not OK.\n"
 "%s"
 msgstr ""
+"Das PDF-Dokument ist nicht in Ordnung.\n"
+"%s"
 
 #: ../plug-ins/pgf/pgf.c:26
 msgid "LaTeX PGF export filter"
@@ -6777,6 +6736,8 @@ msgid ""
 "Pixbuf[%s] can't load:\n"
 "%s"
 msgstr ""
+"Pixbuf[%s] kann nicht geladen werden:\n"
+"%s"
 
 #: ../plug-ins/pixbuf/pixbuf.c:196
 msgid "gdk-pixbuf-based bitmap export/import"
@@ -6878,7 +6839,7 @@ msgstr "Import- und Exportfilter für Skalierbare Vektorgrafik (SVG)"
 #: ../plug-ins/svg/svg-import.c:220
 #, c-format
 msgid "Failed to apply transformation for '%s'"
-msgstr ""
+msgstr "Transformation kann nicht auf »%s« angewendet werden"
 
 #: ../plug-ins/svg/svg-import.c:658
 msgid ""
@@ -6903,6 +6864,8 @@ msgid ""
 "Parse error for memory block.\n"
 "%s"
 msgstr ""
+"Auswertungsfehler für Speicherblock.\n"
+"%s"
 
 #: ../plug-ins/svg/svg-import.c:1973
 #, c-format
@@ -6910,6 +6873,8 @@ msgid ""
 "SVG parser error for %s\n"
 "%s"
 msgstr ""
+"SVG-Auswertungsfehler für %s\n"
+"%s"
 
 #. just a warning
 #: ../plug-ins/svg/svg-import.c:1979
@@ -6935,7 +6900,7 @@ msgstr "Visio XML-Format Import- und Exportfilter"
 #: ../plug-ins/vdx/vdx-export.c:1764
 #, c-format
 msgid "Saving file '%s' failed."
-msgstr ""
+msgstr "Speichern der Datei »%s« ist fehlgeschlagen."
 
 #: ../plug-ins/vdx/vdx-export.c:1775
 msgid "Visio XML format"
@@ -6987,7 +6952,7 @@ msgstr "Nichts im Dokument!"
 #: ../plug-ins/vdx/vdx-import.c:2966
 #, c-format
 msgid "Expecting VisioDocument, got %s"
-msgstr ""
+msgstr "VisioDocument erwartet, doch %s erhalten"
 
 #: ../plug-ins/vdx/vdx-import.c:3050
 msgid "Visio XML File Format"
@@ -7045,29 +7010,27 @@ msgstr "Unbekannter WPG-Typ %d, Größe %d."
 #: ../plug-ins/wpg/wpg-import.c:626
 #, c-format
 msgid "Size 0 on WPG type %d, expecting WPG_END\n"
-msgstr ""
+msgstr "Größe 0 im WPG-Typ %d, WPG_END wurde erwartet\n"
 
 #: ../plug-ins/wpg/wpg-import.c:635
 #, c-format
 msgid "Unexpected end of file. WPG type %d, size %d.\n"
-msgstr ""
+msgstr "Unerwartetes Dateiende. WPG-Typ %d, Größe %d.\n"
 
 #: ../plug-ins/wpg/wpg-import.c:645
 msgid "Empty WPG file?"
-msgstr ""
+msgstr "Leere WPG-Datei?"
 
 #: ../plug-ins/xfig/xfig.c:52
 msgid "Fig Format import and export filter"
 msgstr "FIG-Format Import- und Exportfilter"
 
 #: ../plug-ins/xfig/xfig-export.c:470
-#, fuzzy, c-format
-#| msgid ""
-#| "FIG format has no equivalent of arrow style %s, using simple arrow.\n"
+#, c-format
 msgid "Fig format has no equivalent of arrow style %s; using simple arrow.\n"
 msgstr ""
-"Das FIG-Format bietet kein Äquivalent zum Pfeilstils %s, einfacher Pfeil "
-"wird verwendet.\n"
+"Das FIG-Format bietet kein Äquivalent zum Pfeilstil %s, einfacher Pfeil wird "
+"verwendet.\n"
 
 #: ../plug-ins/xfig/xfig-export.c:493
 msgid "No more user-definable colors - using black"
@@ -7080,9 +7043,7 @@ msgid "Xfig format"
 msgstr "Xfig-Format"
 
 #: ../plug-ins/xfig/xfig-import.c:109
-#, fuzzy, c-format
-#| msgid ""
-#| "Color index %d too high, only 512 colors allowed. Using black instead."
+#, c-format
 msgid "Color index %d too high; only 512 colors allowed. Using black instead."
 msgstr ""
 "Farbindex %d ist zu groß, nur 512 Farben sind erlaubt. Stattdessen wird "
@@ -7093,8 +7054,6 @@ msgid "Patterns are not supported by Dia"
 msgstr "Schablonen sind noch nicht implementiert"
 
 #: ../plug-ins/xfig/xfig-import.c:168
-#, fuzzy
-#| msgid "Triple-dotted lines are not supported by Dia, using double-dotted"
 msgid "Triple-dotted lines are not supported by Dia; using double-dotted"
 msgstr ""
 "Dreifach gepunktete Linien werden von Dia nicht unterstützt, es werden "
@@ -7188,11 +7147,13 @@ msgstr "Textinformationen konnten nicht gelesen werden."
 #, c-format
 msgid "Can't find LaTeX font nr. %d, using sans"
 msgstr ""
+"LaTeX-Schrift Nr. %d konnte nicht gefunden werden, »Sans« wird verwendet"
 
 #: ../plug-ins/xfig/xfig-import.c:1004
 #, c-format
 msgid "Can't find Postscript font nr. %d, using sans"
 msgstr ""
+"PostScript-Schrift Nr. %d konnte nicht gefunden werden, »Sans« wird verwendet"
 
 #: ../plug-ins/xfig/xfig-import.c:1032
 msgid "Couldn't identify Fig object."
@@ -7242,10 +7203,8 @@ msgid "Error reading paper orientation."
 msgstr "Fehler beim Lesen der Papierausrichtung."
 
 #: ../plug-ins/xfig/xfig-import.c:1194
-#, fuzzy
-#| msgid "Error reading justification: %s\n"
 msgid "Error reading justification."
-msgstr "Fehler beim Lesen der Ausrichtung: %s\n"
+msgstr "Fehler beim Lesen der Ausrichtung."
 
 #: ../plug-ins/xfig/xfig-import.c:1204
 msgid "Error reading units."
@@ -8321,7 +8280,6 @@ msgid "PC Adapter Card"
 msgstr "PC-Adapterkarte"
 
 #: ../sheets/ciscohub.sheet.in.h:1
-#| msgid "Cisco - Switch"
 msgid "Cisco — Switch"
 msgstr "Cisco — Switch"
 
@@ -8615,7 +8573,6 @@ msgid "Virtual Layer Switch"
 msgstr "Virtueller Layer-Switch"
 
 #: ../sheets/ciscomisc.sheet.in.h:1
-#| msgid "Cisco - Misc"
 msgid "Cisco — Miscellaneous"
 msgstr "Cisco — Versch."
 
@@ -9214,7 +9171,6 @@ msgid "Service Control"
 msgstr "Dienstkontrolle"
 
 #: ../sheets/ciscotelephony.sheet.in.h:1
-#| msgid "Cisco - Telephony"
 msgid "Cisco — Telephony"
 msgstr "Cisco — Telefonie"
 
@@ -9620,22 +9576,18 @@ msgid "Elements of cybernetic circuits"
 msgstr "Komponenten für kybernetische Schaltkreise"
 
 #: ../sheets/Cybernetics.sheet.in.h:3
-#| msgid "Sensor - left"
 msgid "Sensor — left"
 msgstr "Sensor — links"
 
 #: ../sheets/Cybernetics.sheet.in.h:4
-#| msgid "Sensor - right"
 msgid "Sensor — right"
 msgstr "Sensor — rechts"
 
 #: ../sheets/Cybernetics.sheet.in.h:5
-#| msgid "Sensor - bottom"
 msgid "Sensor — bottom"
 msgstr "Sensor — unten"
 
 #: ../sheets/Cybernetics.sheet.in.h:6
-#| msgid "Sensor - top"
 msgid "Sensor — top"
 msgstr "Sensor — oben"
 
@@ -10550,10 +10502,8 @@ msgid "Diagram object"
 msgstr "Diagrammobjekt"
 
 #: ../sheets/Misc.sheet.in.h:12
-#, fuzzy
-#| msgid "Standard objects"
 msgid "N-gon or Star object"
-msgstr "Standardobjekte"
+msgstr "N-Eck oder Stern-Objekt"
 
 #: ../sheets/MSE.sheet.in.h:1
 msgid "MSE"
@@ -10912,7 +10862,7 @@ msgstr ""
 
 #: ../sheets/Shape_Design.sheet.in.h:2
 msgid "Design Dia objects with individual connection points"
-msgstr ""
+msgstr "Dia-Objekte mit individuellen Verbindungspunkten entwerfen"
 
 #: ../sheets/Shape_Design.sheet.in.h:3
 msgid "Connection Point"
