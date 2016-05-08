@@ -1,5 +1,5 @@
 # Swedish messages for Dia.
-# Copyright © 1999-2014 Free Software Foundation, Inc.
+# Copyright © 1999-2016 Free Software Foundation, Inc.
 # Fredrik Hallenberg <hallon@lysator.liu.se>, 1999.
 # Andreas Hyden <a.hyden@cyberpoint.se>.
 # Tomas Ögren <stric@ing.umu.se>, 2000.
@@ -7,22 +7,23 @@
 # Richard Hult <rhult@codefactory.se>, 2001.
 # Daniel Nylander <po@danielnylander.se>, 2006, 2007, 2008, 2009.
 # Josef Andersson <josef.andersson@fripost.org>, 2014.
+# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2016.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: dia\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=dia&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2015-03-22 16:14+0000\n"
-"PO-Revision-Date: 2015-03-22 23:21+0100\n"
-"Last-Translator: Josef Andersson <josef.andersson@fripost.org>\n"
+"POT-Creation-Date: 2015-11-02 16:25+0000\n"
+"PO-Revision-Date: 2016-05-08 10:41+0200\n"
+"Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Svenska <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.7.3\n"
+"X-Generator: Poedit 1.8.7.1\n"
 
 #. This is not an errror
 #: ../app/app_procs.c:209
@@ -53,7 +54,7 @@ msgstr "%s-fel: vet inte hur man exporterar till %s\n"
 #: ../app/app_procs.c:347
 #, c-format
 msgid "%s error: input and output file name is identical: %s"
-msgstr "%s-fel: indata- och utdatafilnamn är indentiska: %s"
+msgstr "%s-fel: indata- och utdatafilnamn är identiska: %s"
 
 #: ../app/app_procs.c:355
 #, c-format
@@ -74,18 +75,18 @@ msgstr "Kan inte hitta utdataformatet/-filtret %s\n"
 #: ../app/app_procs.c:628
 #, c-format
 msgid "Input-directory '%s' must exist!\n"
-msgstr ""
+msgstr "Indatakatalog ”%s” måste existera!\n"
 
 #: ../app/app_procs.c:645
 #, c-format
 msgid "Output-directory '%s' must exist!\n"
-msgstr ""
+msgstr "Utdatakatalog ”%s” måste existera!\n"
 
 #. Translators:  The argument is a list of options, not to be translated
 #: ../app/app_procs.c:702
 #, c-format
 msgid "Select the filter/format out of: %s"
-msgstr ""
+msgstr "Välj filtret/formatet bland: %s"
 
 #. &export_file_name
 #: ../app/app_procs.c:720
@@ -130,9 +131,10 @@ msgstr "Visa inte startbilden"
 msgid "Don't create empty diagram"
 msgstr "Skapa inte tomma diagram"
 
+# tabb eller flik?
 #: ../app/app_procs.c:733
 msgid "Start integrated user interface (diagrams in tabs)"
-msgstr ""
+msgstr "Starta integrerat användargränssnitt (diagram i flikar)"
 
 #: ../app/app_procs.c:735
 msgid "Send error messages to stderr instead of showing dialogs."
@@ -326,7 +328,7 @@ msgstr "Välj bakgrundsfärg"
 
 #: ../app/commands.c:130
 msgid "No print plug-in found!"
-msgstr ""
+msgstr "Ingen insticksmodul för utskrift hittades!"
 
 #: ../app/commands.c:150
 #, c-format
@@ -399,18 +401,19 @@ msgstr "Ett program för att rita strukturerade diagram."
 #: ../app/confirm.c:69
 #, c-format
 msgid "You are about to print a diagram with %d pages."
-msgstr ""
+msgstr "Du håller på att skriva ut ett diagram med %d sidor."
 
 #: ../app/confirm.c:71
 #, c-format
 msgid "You are about to export a diagram with %d pages."
-msgstr ""
+msgstr "Du håller på att exportera ett diagram med %d sidor."
 
 #: ../app/confirm.c:73
 #, c-format
 msgid ""
 "You are about to export a diagram which may require %s of memory.(%d pages)."
 msgstr ""
+"Du håller på att exportera ut ett diagram som kan kräva %s minne.(%d sidor)."
 
 #: ../app/confirm.c:81
 msgid ""
@@ -419,6 +422,10 @@ msgid ""
 "Alternatively use 'Select All' and 'Best Fit' to move objects/handles into "
 "the intended bounds."
 msgstr ""
+"Du kan justera storleken på diagrammet genom att ändra ”Skala” i dialogen "
+"”Sidinställningar”.\n"
+"Alternativt, använd 'Markera alla' och ”Bästa anpassning” för att flytta "
+"objekt/handtag inom de avsedda gränserna."
 
 #: ../app/confirm.c:85
 msgid "Confirm Diagram Size"
@@ -724,7 +731,7 @@ msgstr "Markerade ”%s”"
 #. we really should not come here but instead disable the menu command earlier
 #: ../app/display.c:1121
 msgid "No anti-aliased renderer found"
-msgstr ""
+msgstr "Ingen kantutjämnad renderare funnen"
 
 #: ../app/display.c:1259
 msgid "<unnamed>"
@@ -1136,8 +1143,7 @@ msgid "Layer name:"
 msgstr "Lagernamn:"
 
 #: ../app/linewidth_area.c:246 ../lib/properties.h:491 ../lib/properties.h:494
-#: ../objects/chronogram/chronoline.c:183
-#: ../objects/chronogram/chronoref.c:162
+#: ../objects/chronogram/chronoline.c:183 ../objects/chronogram/chronoref.c:162
 msgid "Line width"
 msgstr "Linjebredd"
 
@@ -1154,25 +1160,22 @@ msgstr ""
 "Refererat objekt finns inte i dokumentet."
 
 #: ../app/load_save.c:307
-#, fuzzy, c-format
-#| msgid ""
-#| "Error loading diagram.\n"
-#| "connection handle does not exist."
+#, c-format
 msgid ""
 "Error loading diagram.\n"
 "connection handle %d does not exist on '%s'."
 msgstr ""
 "Fel vid inläsning av diagram.\n"
-"Anslutningshandtaget finns inte."
+"anslutningshandtag %d finns inte på ”%s”."
 
 #: ../app/load_save.c:335
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Error loading diagram.\n"
 "connection point %d does not exist on '%s'."
 msgstr ""
 "Fel vid inläsning av diagram.\n"
-"Anslutningspunkten finns inte."
+"anslutningspunkt %d finns inte på ”%s”."
 
 #: ../app/load_save.c:375
 #, c-format
@@ -1251,9 +1254,9 @@ msgid "Internal error %d writing file %s\n"
 msgstr "Internt fel %d vid skrivning av filen %s\n"
 
 #: ../app/load_save.c:1084
-#, fuzzy, c-format
+#, c-format
 msgid "Can't rename %s to final output file %s: %s\n"
-msgstr "Kan inte öppna utdatafilen %s: %s\n"
+msgstr "Kan inte byta namn på %s till slutgiltig utdatafil %s: %s\n"
 
 #: ../app/load_save.c:1175 ../app/load_save.c:1180
 msgid "Dia Diagram File"
@@ -1337,24 +1340,20 @@ msgid "_Layers"
 msgstr "_Lager"
 
 #: ../app/menus.c:143
-#, fuzzy
-#| msgid "_Layers..."
 msgid "Add Layer..."
-msgstr "_Lager..."
+msgstr "Lägg till lager..."
 
 #: ../app/menus.c:144
-#, fuzzy
-#| msgid "Raise Layer"
 msgid "Rename Layer..."
-msgstr "Höj lager"
+msgstr "Byt namn på lager..."
 
 #: ../app/menus.c:145
 msgid "Move selection to layer above"
-msgstr ""
+msgstr "Flytta markerade till lagret ovan"
 
 #: ../app/menus.c:146
 msgid "Move selection to layer below"
-msgstr ""
+msgstr "Flytta markerade till lagret nedan"
 
 #: ../app/menus.c:147
 msgid "_Layers..."
@@ -1742,9 +1741,8 @@ msgid "Length unit:"
 msgstr "Längdenhet:"
 
 #: ../app/preferences.c:186
-#, fuzzy
 msgid "Font-size unit:"
-msgstr "Typsnittsstorlek"
+msgstr "Typsnittsenhet:"
 
 #: ../app/preferences.c:189
 msgid "New diagram:"
@@ -1886,8 +1884,8 @@ msgstr "Spara dolda objekttyper"
 msgid "Yes"
 msgstr "Ja"
 
-#: ../app/preferences.c:485 ../app/preferences.c:496
-#: ../lib/prop_inttypes.c:160 ../lib/prop_inttypes.c:186
+#: ../app/preferences.c:485 ../app/preferences.c:496 ../lib/prop_inttypes.c:160
+#: ../lib/prop_inttypes.c:186
 msgid "No"
 msgstr "Nej"
 
@@ -2306,7 +2304,7 @@ msgstr "Omvänt backsteg"
 
 #: ../lib/arrows.c:1931
 msgid "Infinite Line"
-msgstr ""
+msgstr "Oändlig linje"
 
 #: ../lib/arrows.c:2059
 msgid "Arrow head of unknown type"
@@ -2315,7 +2313,7 @@ msgstr "Pilhuvud på okänd typ"
 #: ../lib/arrows.c:2067
 #, c-format
 msgid "Arrow head of type %s has too small dimensions, removing.\n"
-msgstr ""
+msgstr "Pilhuvud på typen %s har för små dimensioner, tar bort.\n"
 
 #: ../lib/arrows.c:2200
 msgid "unknown arrow"
@@ -2340,7 +2338,7 @@ msgstr "%s<otillåtna tecken>..."
 #: ../lib/dia_dirs.c:273
 #, c-format
 msgid "Too many ..'s in filename %s\n"
-msgstr ""
+msgstr "För många ”..” i filnamnet %s\n"
 
 #: ../lib/dia_xml.c:192
 #, c-format
@@ -2529,8 +2527,7 @@ msgid "Right"
 msgstr "Höger"
 
 #: ../lib/properties.c:74 ../lib/properties.h:497 ../lib/properties.h:500
-#: ../objects/chronogram/chronoline.c:181
-#: ../objects/chronogram/chronoref.c:160
+#: ../objects/chronogram/chronoline.c:181 ../objects/chronogram/chronoref.c:160
 msgid "Line color"
 msgstr "Linjefärg"
 
@@ -2575,9 +2572,8 @@ msgstr "Typsnitt"
 msgid "Font size"
 msgstr "Typsnittsstorlek"
 
-#: ../lib/properties.c:84 ../lib/properties.h:555
-#: ../objects/GRAFCET/step.c:171 ../objects/chronogram/chronoline.c:189
-#: ../objects/chronogram/chronoref.c:170
+#: ../lib/properties.c:84 ../lib/properties.h:555 ../objects/GRAFCET/step.c:171
+#: ../objects/chronogram/chronoline.c:189 ../objects/chronogram/chronoref.c:170
 msgid "Text color"
 msgstr "Textfärg"
 
@@ -2746,15 +2742,13 @@ msgstr ""
 
 #. Installer message: Component name
 #: ../installer/win32/gennsh.c:69
-#, fuzzy
-#| msgid "Desktop PC"
 msgid "Desktop Shortcut"
-msgstr "Skrivbordsdator"
+msgstr "Skrivbordsgenväg"
 
 #. Installer message: Component description
 #: ../installer/win32/gennsh.c:72
 msgid "Create a shortcut on the Desktop."
-msgstr ""
+msgstr "Skapa en genväg på skrivbordet."
 
 #. Installer message: hyperlink text on finish page
 #: ../installer/win32/gennsh.c:76
@@ -2902,23 +2896,20 @@ msgid "Number of arms"
 msgstr "Antal armar"
 
 #: ../objects/Database/compound.c:221
-#, fuzzy
 msgid "Flip arms verticaly"
-msgstr "Vänd vertikalt"
+msgstr "Vänd armar vertikalt"
 
 #: ../objects/Database/compound.c:223
-#, fuzzy
 msgid "Flip arms horizontaly"
-msgstr "Vänd horisontellt"
+msgstr "Vänd armar horisontellt"
 
 #: ../objects/Database/compound.c:225
-#, fuzzy
 msgid "Center mount point verticaly"
-msgstr "Vattenkylare, vertikal"
+msgstr "Centrera monteringspunkt vertikalt"
 
 #: ../objects/Database/compound.c:227
 msgid "Center mount point horizontaly"
-msgstr ""
+msgstr "Centrera monteringspunkt horisontellt"
 
 #: ../objects/Database/compound.c:229
 msgid "Center mount point"
@@ -3044,11 +3035,11 @@ msgstr "Kommentar:"
 
 #: ../objects/Database/table_dialog.c:727
 msgid "_Primary key"
-msgstr ""
+msgstr "_Primärnyckel"
 
 #: ../objects/Database/table_dialog.c:734
 msgid "N_ullable"
-msgstr ""
+msgstr "N_ullbar"
 
 #: ../objects/Database/table_dialog.c:741
 msgid "Uni_que"
@@ -3078,9 +3069,8 @@ msgid "_Style"
 msgstr "_Stil"
 
 #: ../objects/Database/table_dialog.c:1022
-#, fuzzy
 msgid "Border width:"
-msgstr "Linjebredd:"
+msgstr "Kantbredd:"
 
 #. head line
 #: ../objects/Database/table_dialog.c:1035 ../objects/UML/class_dialog.c:561
@@ -4516,9 +4506,8 @@ msgid "Domain Kind"
 msgstr "Domäntyp"
 
 #: ../objects/Jackson/domain.c:184
-#, fuzzy
 msgid "Optional kind which appears in the lower right corner of the Domain"
-msgstr "Identifieraren som visas i nedre högra hörnet i rutan"
+msgstr "Alternativ typ som visas längst ner till höger i domänen"
 
 #: ../objects/Jackson/domain.c:539
 msgid "Jackson domain"
@@ -4648,16 +4637,12 @@ msgid "Columns"
 msgstr "Kolumner"
 
 #: ../objects/Misc/grid_object.c:144
-#, fuzzy
-#| msgid "Line color"
 msgid "Gridline color"
-msgstr "Linjefärg"
+msgstr "Färg på rutnätslinje"
 
 #: ../objects/Misc/grid_object.c:146
-#, fuzzy
-#| msgid "Line width"
 msgid "Gridline width"
-msgstr "Linjebredd"
+msgstr "Bredd på rutnätslinje"
 
 #: ../objects/Misc/libmisc.c:41
 msgid "Miscellaneous objects"
@@ -4780,108 +4765,94 @@ msgstr "Inget skydd"
 
 #: ../objects/SISSI/classification.h:39 ../objects/SISSI/sissi_dialog.c:43
 msgid "Restricted Diffusion"
-msgstr ""
+msgstr "Begränsad spridning"
 
 #: ../objects/SISSI/classification.h:40 ../objects/SISSI/sissi_dialog.c:44
 msgid "Special Country Confidential"
-msgstr ""
+msgstr "Speciellt land-konfidentiell"
 
 #: ../objects/SISSI/classification.h:41
-#, fuzzy
 msgid "Confidential"
-msgstr "Kondensera"
+msgstr "Konfidentiell"
 
 #: ../objects/SISSI/classification.h:42 ../objects/SISSI/sissi_dialog.c:45
 msgid "NATO Confidential"
-msgstr ""
+msgstr "NATO-konfidentiell"
 
 #: ../objects/SISSI/classification.h:43 ../objects/SISSI/sissi_dialog.c:46
 msgid "Personal Confidential"
-msgstr ""
+msgstr "Personligt konfidentiell"
 
 #: ../objects/SISSI/classification.h:44 ../objects/SISSI/sissi_dialog.c:47
 msgid "Medical Confidential"
-msgstr ""
+msgstr "Medicinskt konfidentiell"
 
 #: ../objects/SISSI/classification.h:45
 msgid "Industrie Confidential"
-msgstr ""
+msgstr "Industrikonfidentiell"
 
 #: ../objects/SISSI/classification.h:46
 msgid "Defense Confidential"
-msgstr ""
+msgstr "Försvarskonfidentiell"
 
 #: ../objects/SISSI/classification.h:47 ../objects/SISSI/sissi_dialog.c:49
-#, fuzzy
 msgid "Secret"
-msgstr "Säkra"
+msgstr "Hemlig"
 
 #: ../objects/SISSI/classification.h:48
-#, fuzzy
 msgid "Defense Secret"
-msgstr "Ta bort segment"
+msgstr "Försvarshemlig"
 
 #: ../objects/SISSI/classification.h:49 ../objects/SISSI/sissi_dialog.c:50
 msgid "Secret special country"
-msgstr ""
+msgstr "Speciellt land-hemlig"
 
 #: ../objects/SISSI/classification.h:50 ../objects/SISSI/sissi_dialog.c:51
 msgid "NATO Secret"
-msgstr ""
+msgstr "NATO-hemlig"
 
 #: ../objects/SISSI/classification.h:51 ../objects/SISSI/sissi_dialog.c:52
 msgid "Very Secret"
-msgstr ""
+msgstr "Väldigt hemlig"
 
 #: ../objects/SISSI/classification.h:52 ../objects/SISSI/sissi_dialog.c:53
 msgid "NATO Very Secret"
-msgstr ""
+msgstr "Väldigt NATO-hemlig"
 
 #: ../objects/SISSI/sissi.c:66
-#, fuzzy
 msgid "SISSI diagram"
-msgstr "_Nytt diagram"
+msgstr "SISSI-diagram"
 
 #: ../objects/SISSI/sissi.c:923
-#, fuzzy, c-format
-#| msgid ""
-#| "Error loading diagram %s.\n"
-#| "Not a Dia file."
+#, c-format
 msgid ""
 "Error loading object.\n"
 "Not a regular file: %s"
 msgstr ""
-"Fel vid inläsning av diagrammet %s.\n"
-"Inte en Dia-fil."
+"Fel vid inläsning av objekt.\n"
+"Inte en vanlig fil: %s"
 
 #: ../objects/SISSI/sissi.c:928 ../objects/SISSI/sissi.c:932
-#, fuzzy, c-format
-#| msgid ""
-#| "Error loading diagram %s.\n"
-#| "Unknown file type."
+#, c-format
 msgid ""
 "Error loading object.\n"
 "Incorrect file type: %s"
 msgstr ""
-"Fel vid inläsning av diagrammet %s.\n"
-"Okänd filtyp."
+"Fel vid inläsning av objekt.\n"
+"Ogiltig filtyp: %s"
 
 #: ../objects/SISSI/sissi.c:940
-#, fuzzy, c-format
-#| msgid ""
-#| "Error loading diagram %s.\n"
-#| "Not a Dia file."
+#, c-format
 msgid ""
 "Error loading object.\n"
 "Not a Dia file: %s"
 msgstr ""
-"Fel vid inläsning av diagrammet %s.\n"
-"Inte en Dia-fil."
+"Fel vid inläsning av objekt.\n"
+"Inte en Dia-fil: %s"
 
 #: ../objects/SISSI/sissi_dialog.c:48
-#, fuzzy
 msgid "Industrial Confidential"
-msgstr "Kondensera"
+msgstr "Industriellt konfidentiell"
 
 #: ../objects/SISSI/sissi_dialog.c:58
 msgid "No integrity"
@@ -4889,25 +4860,23 @@ msgstr "Ingen integritet"
 
 #: ../objects/SISSI/sissi_dialog.c:59
 msgid "Low integrity"
-msgstr ""
+msgstr "Låg integritet"
 
 #: ../objects/SISSI/sissi_dialog.c:60
 msgid "Average software integrity"
-msgstr ""
+msgstr "Medelmåttig programvaruintegritet"
 
 #: ../objects/SISSI/sissi_dialog.c:61
-#, fuzzy
 msgid "High software integrity"
-msgstr "Högerkardinalitet:"
+msgstr "Hög programvaruintegritet"
 
 #: ../objects/SISSI/sissi_dialog.c:62
 msgid "Average hardware integrity"
-msgstr ""
+msgstr "Medelmåttig hårdvaruintegritet"
 
 #: ../objects/SISSI/sissi_dialog.c:63
-#, fuzzy
 msgid "High hardware integrity"
-msgstr "Högerkardinalitet:"
+msgstr "Hög hårdvaruintegritet"
 
 #: ../objects/SISSI/sissi_dialog.c:68
 msgid "Millisecond"
@@ -4938,23 +4907,20 @@ msgid "SYSTEM"
 msgstr "SYSTEM"
 
 #: ../objects/SISSI/sissi_dialog.c:79
-#, fuzzy
 msgid "Internet access device"
-msgstr "6705 integrerad åtkomstenhet"
+msgstr "Enhet för internetåtkomst"
 
 #: ../objects/SISSI/sissi_dialog.c:80
-#, fuzzy
 msgid "Electronic messaging"
-msgstr "Elektrisk"
+msgstr "Elektroniska meddelanden"
 
 #: ../objects/SISSI/sissi_dialog.c:81
 msgid "Intranet"
 msgstr "Intranet"
 
 #: ../objects/SISSI/sissi_dialog.c:82
-#, fuzzy
 msgid "Company directory"
-msgstr "Arbetsgruppsdirigerare"
+msgstr "Företagskatalog"
 
 #: ../objects/SISSI/sissi_dialog.c:83
 msgid "External portal"
@@ -4966,147 +4932,127 @@ msgstr "ORGANISATION"
 
 #: ../objects/SISSI/sissi_dialog.c:89
 msgid "Higher-tier organisation"
-msgstr ""
+msgstr "Högnivåorganisation"
 
 #: ../objects/SISSI/sissi_dialog.c:90
 msgid "Structure of the organisation"
-msgstr ""
+msgstr "Struktur för organisationen"
 
 #: ../objects/SISSI/sissi_dialog.c:91
 msgid "Project or system organisation"
-msgstr ""
+msgstr "Projekt eller systemorganisation"
 
 #: ../objects/SISSI/sissi_dialog.c:92
 msgid "Subcontractors / Suppliers / Manufacturers"
-msgstr ""
+msgstr "Underleverantörer / Leverantörer / Tillverkare"
 
 #: ../objects/SISSI/sissi_dialog.c:97
 msgid "SITE"
-msgstr ""
+msgstr "PLATS"
 
 #: ../objects/SISSI/sissi_dialog.c:98
 msgid "Places"
 msgstr "Platser"
 
 #: ../objects/SISSI/sissi_dialog.c:99
-#, fuzzy
 msgid "External environment"
-msgstr "Svag enhet"
+msgstr "Extern miljö"
 
 #: ../objects/SISSI/sissi_dialog.c:100
-#, fuzzy
 msgid "Premises"
-msgstr "Bearbeta"
+msgstr "Lokal"
 
 #: ../objects/SISSI/sissi_dialog.c:101
 msgid "Zone"
 msgstr "Zon"
 
 #: ../objects/SISSI/sissi_dialog.c:102
-#, fuzzy
 msgid "Essential Services"
-msgstr "Router för optiska tjänster"
+msgstr "Nödvändiga tjänster"
 
 #: ../objects/SISSI/sissi_dialog.c:103
 msgid "Communication"
 msgstr "Kommunikation"
 
 #: ../objects/SISSI/sissi_dialog.c:104
-#, fuzzy
 msgid "Power"
-msgstr "Matrisskrivare"
+msgstr "Ström"
 
 #: ../objects/SISSI/sissi_dialog.c:105
 msgid "Cooling / Pollution"
-msgstr ""
+msgstr "Kylning / Förorening"
 
 #: ../objects/SISSI/sissi_dialog.c:109
-#, fuzzy
 msgid "Thermal detection"
-msgstr "Aktör"
+msgstr "Värmedetektion"
 
 #: ../objects/SISSI/sissi_dialog.c:113
-#, fuzzy
 msgid "Fire detection"
-msgstr "Aktör"
+msgstr "Elddetektion"
 
 #: ../objects/SISSI/sissi_dialog.c:117
-#, fuzzy
 msgid "Water detection"
-msgstr "Aktör"
+msgstr "Vattendetektion"
 
 #: ../objects/SISSI/sissi_dialog.c:121
-#, fuzzy
 msgid "Air detection"
-msgstr "Aktör"
+msgstr "Luftdetektion"
 
 #: ../objects/SISSI/sissi_dialog.c:125
-#, fuzzy
 msgid "Energy detection"
-msgstr "Extrahera"
+msgstr "Energidetektion"
 
 #: ../objects/SISSI/sissi_dialog.c:129
-#, fuzzy
 msgid "Intrusion detection"
-msgstr "Skär"
+msgstr "Intrångsdetektion"
 
 #: ../objects/SISSI/sissi_dialog.c:133
-#, fuzzy
 msgid "Thermal action"
-msgstr "Omvandling"
+msgstr "Värmeåtgärd"
 
 #: ../objects/SISSI/sissi_dialog.c:137
-#, fuzzy
 msgid "Fire action"
-msgstr "Riktning:"
+msgstr "Eldåtgärd"
 
 #: ../objects/SISSI/sissi_dialog.c:141
-#, fuzzy
 msgid "Water action"
-msgstr "Extrahera"
+msgstr "Vattenåtgärd"
 
 #: ../objects/SISSI/sissi_dialog.c:145
-#, fuzzy
 msgid "Air action"
-msgstr "Extrahera"
+msgstr "Luftåtgärd"
 
 #: ../objects/SISSI/sissi_dialog.c:149
-#, fuzzy
 msgid "Energy action"
-msgstr "Extrahera"
+msgstr "Energiåtgärd"
 
 #: ../objects/SISSI/sissi_dialog.c:153
-#, fuzzy
 msgid "Intrusion action"
-msgstr "Skär"
+msgstr "Intrångsåtgärd"
 
 #: ../objects/SISSI/sissi_dialog.c:158
-#, fuzzy
 msgid "Personal"
-msgstr "Person"
+msgstr "Personlig"
 
 #: ../objects/SISSI/sissi_dialog.c:159
 msgid "Decision maker"
 msgstr "Beslutsfattare"
 
 #: ../objects/SISSI/sissi_dialog.c:160
-#, fuzzy
 msgid "SSI Responsible"
-msgstr "Synlighet:"
+msgstr "SSI-ansvarig"
 
 #: ../objects/SISSI/sissi_dialog.c:161
 msgid "Users"
 msgstr "Användare"
 
 #: ../objects/SISSI/sissi_dialog.c:162
-#, fuzzy
 msgid "Functional administrator"
-msgstr "SSI-administratör"
+msgstr "Funktionell administratör"
 
 #: ../objects/SISSI/sissi_dialog.c:163
-#, fuzzy
 msgid "Technical administrator"
-msgstr "SSI-administratör"
+msgstr "Teknisk administratör"
 
 #: ../objects/SISSI/sissi_dialog.c:164
 msgid "SSI administrator"
@@ -5117,18 +5063,16 @@ msgid "Developer"
 msgstr "Utvecklare"
 
 #: ../objects/SISSI/sissi_dialog.c:166
-#, fuzzy
 msgid "Operator / Maintenance"
-msgstr "Operationsdata"
+msgstr "Operatör / Underhåll"
 
 #: ../objects/SISSI/sissi_dialog.c:171 ../sheets/network.sheet.in.h:1
 msgid "Network"
 msgstr "Nätverk"
 
 #: ../objects/SISSI/sissi_dialog.c:172
-#, fuzzy
 msgid "Medium and support"
-msgstr "Magnetisk disk"
+msgstr "Media och stöd"
 
 #: ../objects/SISSI/sissi_dialog.c:173
 msgid "Passive or active relay"
@@ -5148,26 +5092,23 @@ msgstr "Operativsystem"
 
 #: ../objects/SISSI/sissi_dialog.c:181
 msgid "Service - maintenance or administration software"
-msgstr ""
+msgstr "Tjänst - programvara för underhåll eller administration"
 
 #: ../objects/SISSI/sissi_dialog.c:182
 msgid "Packaged software or standard software"
-msgstr ""
+msgstr "Paketerad programvara eller standardprogramvara"
 
 #: ../objects/SISSI/sissi_dialog.c:183
-#, fuzzy
 msgid "Business application"
-msgstr "Sybase-klientprogram"
+msgstr "Affärsprogram"
 
 #: ../objects/SISSI/sissi_dialog.c:184
-#, fuzzy
 msgid "Standard business application"
-msgstr "Sybase-klientprogram"
+msgstr "Standardaffärsprogram"
 
 #: ../objects/SISSI/sissi_dialog.c:185
-#, fuzzy
 msgid "Specific business application"
-msgstr "Sybase-klientprogram"
+msgstr "Speciellt affärsprogram"
 
 #: ../objects/SISSI/sissi_dialog.c:190
 msgid "HARDWARE"
@@ -5175,57 +5116,49 @@ msgstr "HÅRDVARA"
 
 #: ../objects/SISSI/sissi_dialog.c:191
 msgid "Data-processing equipment (active)"
-msgstr ""
+msgstr "Databearbetande utrustning (aktiv)"
 
 #: ../objects/SISSI/sissi_dialog.c:192
-#, fuzzy
 msgid "Mobile equipment"
-msgstr "Krav"
+msgstr "Mobil utrustning"
 
 #: ../objects/SISSI/sissi_dialog.c:193
-#, fuzzy
 msgid "Fixed equipment"
-msgstr "Krav"
+msgstr "Fast utrustning"
 
 #: ../objects/SISSI/sissi_dialog.c:194
-#, fuzzy
 msgid "Peripheral processing"
-msgstr "Fördefinierad process"
+msgstr "Perifer bearbetning"
 
 #: ../objects/SISSI/sissi_dialog.c:195
-#, fuzzy
 msgid "Electronic medium"
-msgstr "Elektricitet"
+msgstr "Elektroniskt media"
 
 #: ../objects/SISSI/sissi_dialog.c:196
-#, fuzzy
 msgid "Other media"
-msgstr "Andra blad"
+msgstr "Andra media"
 
 #: ../objects/SISSI/sissi_dialog.c:197
 msgid "Data medium (passive)"
-msgstr ""
+msgstr "Datamedia (passivt)"
 
 #. Class page:
 #: ../objects/SISSI/sissi_dialog.c:301
 msgid "_Menace"
-msgstr ""
+msgstr "_Hot"
 
 #. ********* label of board *********
 #: ../objects/SISSI/sissi_dialog.c:317 ../objects/SISSI/sissi_dialog.c:326
-#, fuzzy
 msgid "Menace"
-msgstr "Ersätt"
+msgstr "Hot"
 
 #: ../objects/SISSI/sissi_dialog.c:319 ../objects/SISSI/sissi_dialog.c:328
-#, fuzzy
 msgid "P Action"
-msgstr "Åtgärd"
+msgstr "P-åtgärd"
 
 #: ../objects/SISSI/sissi_dialog.c:321 ../objects/SISSI/sissi_dialog.c:330
-#, fuzzy
 msgid "P Detection"
-msgstr "Aktör"
+msgstr "P-detektion"
 
 #: ../objects/SISSI/sissi_dialog.c:323 ../objects/SISSI/sissi_dialog.c:332
 msgid "Vulnerability"
@@ -5233,9 +5166,8 @@ msgstr "Sårbarhet"
 
 #. Other properties of page:
 #: ../objects/SISSI/sissi_dialog.c:488
-#, fuzzy
 msgid "Other properties"
-msgstr "Objektegenskaper"
+msgstr "Andra egenskaper"
 
 #. ********* selection menu of entity ********
 #. ********* Label of board *********
@@ -5375,9 +5307,8 @@ msgid "Classname"
 msgstr "Klassnamn"
 
 #: ../objects/UML/class.c:187
-#, fuzzy
 msgid "Abstract Classname"
-msgstr "Abstrakt klass"
+msgstr "Namn på abstrakt klass"
 
 #: ../objects/UML/class.c:211
 msgid "Operations"
@@ -5801,13 +5732,11 @@ msgstr ""
 "\"varaktighet\".\n"
 "exempel: @ 1.0 (2.0)1.0(2.0)\n"
 
-#: ../objects/chronogram/chronoline.c:166
-#: ../objects/chronogram/chronoref.c:148
+#: ../objects/chronogram/chronoline.c:166 ../objects/chronogram/chronoref.c:148
 msgid "Start time"
 msgstr "Starttid"
 
-#: ../objects/chronogram/chronoline.c:168
-#: ../objects/chronogram/chronoref.c:150
+#: ../objects/chronogram/chronoline.c:168 ../objects/chronogram/chronoref.c:150
 msgid "End time"
 msgstr "Sluttid"
 
@@ -5823,8 +5752,7 @@ msgstr "Falltid"
 msgid "Multi-bit data"
 msgstr "Flerbitarsdata"
 
-#: ../objects/chronogram/chronoline.c:175
-#: ../objects/chronogram/chronoref.c:158
+#: ../objects/chronogram/chronoline.c:175 ../objects/chronogram/chronoref.c:158
 msgid "Aspect"
 msgstr "Förhållande"
 
@@ -5872,7 +5800,7 @@ msgstr "Vänd vertikalt"
 
 #: ../objects/custom/custom_object.c:212 ../objects/custom/custom_object.c:244
 msgid "Scale of the subshapes"
-msgstr ""
+msgstr "Skala för underfigurerna"
 
 #: ../objects/custom/custom_object.c:1820
 #: ../objects/custom_lines/custom_linetypes.c:263
@@ -5895,7 +5823,7 @@ msgstr "INTERN: CustomLines: ogiltig radtyp i LineInfo-objektet."
 #: ../objects/custom_lines/custom_linetypes.c:251
 #, c-format
 msgid "INTERNAL: CustomLines: Illegal line type in LineInfo object %s."
-msgstr ""
+msgstr "INTERN: CustomLines: ogiltig radtyp i LineInfo-objektet %s."
 
 #: ../objects/custom/shape_info.c:162
 #, c-format
@@ -6246,8 +6174,7 @@ msgstr "TeX Metapost-makron"
 msgid "LaTeX PGF export filter"
 msgstr "Exportfilter för LaTeX PGF"
 
-#: ../plug-ins/pgf/render_pgf.c:1112
-#: ../plug-ins/pstricks/render_pstricks.c:733
+#: ../plug-ins/pgf/render_pgf.c:1112 ../plug-ins/pstricks/render_pstricks.c:733
 msgid "Not valid UTF8"
 msgstr "Inte giltig UTF8"
 
@@ -6350,10 +6277,8 @@ msgstr ""
 "Figurfiler måste ha ändelsen .shape eller så kan de inte läsas in av Dia"
 
 #: ../plug-ins/shape/shape-export.c:488
-#, fuzzy
-#| msgid "Can't export png without libart!"
 msgid "Can't export png icon without export plug-in!"
-msgstr "Kan inte exportera png utan libart!"
+msgstr "Kan inte exportera png-ikon utan insticksmodul för export!"
 
 #: ../plug-ins/shape/shape-export.c:512
 msgid "Dia Shape File"
@@ -6373,7 +6298,7 @@ msgstr ""
 
 #: ../plug-ins/svg/svg-import.c:806
 msgid "Expected SVG Namespace not found in file"
-msgstr ""
+msgstr "Väntad SVG-namnrymd hittades inte i filen"
 
 #: ../plug-ins/svg/svg-import.c:826
 #, c-format
@@ -6399,14 +6324,14 @@ msgid "Couldn't read color: %s\n"
 msgstr "Kunde inte läsa färgen: %s\n"
 
 #: ../plug-ins/vdx/vdx-import.c:541
-#, fuzzy, c-format
+#, c-format
 msgid "Couldn't find shape %d\n"
-msgstr "Kunde inte hitta hjälpkatalogen"
+msgstr "Kunde inte hitta figur %d\n"
 
 #: ../plug-ins/vdx/vdx-import.c:1047
 #, c-format
 msgid "Unexpected Ellipse object: %s\n"
-msgstr ""
+msgstr "Oväntat ellipsobjekt: %s\n"
 
 #: ../plug-ins/vdx/vdx-import.c:1061
 msgid "Can't rotate ellipse\n"
@@ -6414,11 +6339,11 @@ msgstr "Kunde inte rotera ellips\n"
 
 #: ../plug-ins/vdx/vdx-import.c:1392
 msgid "MoveTo not at start of Bezier\n"
-msgstr ""
+msgstr "MoveTo inte i början på Bezier\n"
 
 #: ../plug-ins/vdx/vdx-import.c:1740
 msgid "Invalid NURBS formula\n"
-msgstr ""
+msgstr "Ogiltig NURBS-formel\n"
 
 #: ../plug-ins/vdx/vdx-import.c:1984
 #, c-format
@@ -6426,9 +6351,9 @@ msgid "Couldn't write file %s"
 msgstr "Kunde inte skriva filen %s"
 
 #: ../plug-ins/vdx/vdx-import.c:2069
-#, fuzzy, c-format
+#, c-format
 msgid "Couldn't handle foreign object type %s\n"
-msgstr "Kunde inte identifiera FIG-objekt: %s\n"
+msgstr "Kunde inte identifiera den främmande objekttypen %s\n"
 
 #: ../plug-ins/vdx/vdx-import.c:2082
 #, c-format
@@ -6436,19 +6361,18 @@ msgid "Couldn't handle foreign object type %s"
 msgstr "Kunde inte hantera främmande objekttypen: %s"
 
 #: ../plug-ins/vdx/vdx-import.c:2110
-#, fuzzy, c-format
+#, c-format
 msgid "Couldn't make object dir %s"
-msgstr "Kunde inte identifiera FIG-objekt: %s\n"
+msgstr "Kunde inte skapa objektkatalog %s"
 
 #: ../plug-ins/vdx/vdx-import.c:3118
 msgid "Visio XML File Format"
 msgstr "Visio XML-filformat"
 
 #: ../plug-ins/vdx/vdx-xml.c:3344
-#, fuzzy, c-format
-#| msgid "Can't decode object %s"
+#, c-format
 msgid "Can't decode object %s\n"
-msgstr "Kan inte avkoda objektet %s"
+msgstr "Kan inte avkoda objektet %s\n"
 
 #: ../plug-ins/vdx/vdx-xml.c:5125
 #, c-format
@@ -6520,6 +6444,7 @@ msgstr "XFig-format"
 #, c-format
 msgid "Color index %d too high, only 512 colors allowed. Using black instead."
 msgstr ""
+"Färgindex %d för högt, tillåter bara 512 färger. Använder svart istället."
 
 #: ../plug-ins/xfig/xfig-import.c:138
 msgid "Patterns are not supported by Dia"
@@ -6552,7 +6477,7 @@ msgstr "Okänd piltyp %d\n"
 #: ../plug-ins/xfig/xfig-import.c:379
 #, c-format
 msgid "Depth %d of of range, only 0-%d allowed.\n"
-msgstr ""
+msgstr "Djup %d utanför intervallet, endast 0-%d tillåtet.\\n\n"
 
 #: ../plug-ins/xfig/xfig-import.c:426
 #, c-format
@@ -7006,27 +6931,24 @@ msgid "Start Event"
 msgstr "Starthändelse"
 
 #: ../sheets/BPMN.sheet.in.h:5
-#, fuzzy
 msgid "Start Event - Message"
-msgstr "Skicka meddelande"
+msgstr "Starthändelse - Meddelande"
 
 #: ../sheets/BPMN.sheet.in.h:6
-#, fuzzy
 msgid "Start Event - Timer"
-msgstr "Starttid"
+msgstr "Starthändelse - Timer"
 
 #: ../sheets/BPMN.sheet.in.h:7
 msgid "Start Event - Rule"
-msgstr ""
+msgstr "Starthändelse - Regel"
 
 #: ../sheets/BPMN.sheet.in.h:8
-#, fuzzy
 msgid "Start Event - Link"
-msgstr "Händelseslask"
+msgstr "Starthändelse - Länk"
 
 #: ../sheets/BPMN.sheet.in.h:9
 msgid "Start Event - Multiple"
-msgstr ""
+msgstr "Starthändelse - Multipla"
 
 #: ../sheets/BPMN.sheet.in.h:10
 msgid "Intermediate Event"
@@ -7034,35 +6956,35 @@ msgstr "Mellanhändelse"
 
 #: ../sheets/BPMN.sheet.in.h:11
 msgid "Intermediate Event - Message"
-msgstr ""
+msgstr "Mellanhändelse - Meddelande"
 
 #: ../sheets/BPMN.sheet.in.h:12
 msgid "Intermediate Event - Timer"
-msgstr ""
+msgstr "Mellanhändelse - Timer"
 
 #: ../sheets/BPMN.sheet.in.h:13
 msgid "Intermediate Event - Error"
-msgstr ""
+msgstr "Mellanhändelse - Fel"
 
 #: ../sheets/BPMN.sheet.in.h:14
 msgid "Intermediate Event - Cancel"
-msgstr ""
+msgstr "Mellanhändelse - Avbryt"
 
 #: ../sheets/BPMN.sheet.in.h:15
 msgid "Intermediate Event - Compensation"
-msgstr ""
+msgstr "Mellanhändelse - Kompensation"
 
 #: ../sheets/BPMN.sheet.in.h:16
 msgid "Intermediate Event - Rule"
-msgstr ""
+msgstr "Mellanhändelse - Regel"
 
 #: ../sheets/BPMN.sheet.in.h:17
 msgid "Intermediate Event - Link"
-msgstr ""
+msgstr "Mellanhändelse - Länk"
 
 #: ../sheets/BPMN.sheet.in.h:18
 msgid "Intermediate Event - Multiple"
-msgstr ""
+msgstr "Mellanhändelse - Multipla"
 
 #: ../sheets/BPMN.sheet.in.h:19
 msgid "End Event"
@@ -7070,33 +6992,31 @@ msgstr "Sluthändelse"
 
 #: ../sheets/BPMN.sheet.in.h:20
 msgid "End Event - Message"
-msgstr ""
+msgstr "Sluthändelse - Meddelande"
 
 #: ../sheets/BPMN.sheet.in.h:21
 msgid "End Event - Error"
-msgstr ""
+msgstr "Sluthändelse - Fel"
 
 #: ../sheets/BPMN.sheet.in.h:22
 msgid "End Event - Cancel"
-msgstr ""
+msgstr "Sluthändelse - Avbryt"
 
 #: ../sheets/BPMN.sheet.in.h:23
-#, fuzzy
 msgid "End Event - Compensation"
-msgstr "Händelseangivelse"
+msgstr "Sluthändelse - Kompensation"
 
 #: ../sheets/BPMN.sheet.in.h:24
-#, fuzzy
 msgid "End Event - Link"
-msgstr "Händelseslask"
+msgstr "Sluthändelse - Länk"
 
 #: ../sheets/BPMN.sheet.in.h:25
 msgid "End Event - Multiple"
-msgstr ""
+msgstr "Sluthändelse - Multipla"
 
 #: ../sheets/BPMN.sheet.in.h:26
 msgid "End Event - Terminate"
-msgstr ""
+msgstr "Sluthändelse - Avsluta"
 
 #: ../sheets/BPMN.sheet.in.h:27
 msgid "Gateway"
@@ -7613,19 +7533,19 @@ msgstr "Summa, subtraherar toppindata"
 
 #: ../sheets/Cybernetics.sheet.in.h:11
 msgid "Integrator - input left"
-msgstr ""
+msgstr "Integrator — vänster indata"
 
 #: ../sheets/Cybernetics.sheet.in.h:12
 msgid "Integrator - input right"
-msgstr ""
+msgstr "Integrator — höger indata"
 
 #: ../sheets/Cybernetics.sheet.in.h:13
 msgid "Integrator - input bottom"
-msgstr ""
+msgstr "Integrator — bottenindata"
 
 #: ../sheets/Cybernetics.sheet.in.h:14
 msgid "Integrator - input top"
-msgstr ""
+msgstr "Integrator — toppenindata"
 
 #: ../sheets/Cybernetics.sheet.in.h:15
 msgid "Sum"
@@ -7920,7 +7840,7 @@ msgstr "Hålband"
 
 #: ../sheets/Flowchart.sheet.in.h:32
 msgid "Transmittal tape"
-msgstr "Överförningsband"
+msgstr "Överföringsband"
 
 #: ../sheets/Flowchart.sheet.in.h:33
 msgid "Offline storage"
@@ -8274,9 +8194,8 @@ msgid "A KAOS performs"
 msgstr "Ett KAOS-utför"
 
 #: ../sheets/KAOS.sheet.in.h:22
-#, fuzzy
 msgid "A KAOS operation"
-msgstr "Operationer"
+msgstr "En KAOS-operation"
 
 #: ../sheets/KAOS.sheet.in.h:23
 msgid "A KAOS input"
@@ -8312,7 +8231,7 @@ msgstr "Strålkastare"
 
 #: ../sheets/Lights.sheet.in.h:7
 msgid "Fresel lantern"
-msgstr ""
+msgstr "Fresnelstrålkastare"
 
 #: ../sheets/Lights.sheet.in.h:8
 msgid "Striplight"
@@ -8440,14 +8359,12 @@ msgid "Folder"
 msgstr "Mapp"
 
 #: ../sheets/Misc.sheet.in.h:6
-#, fuzzy
 msgid "expensible node"
-msgstr "Stor utökningsnod"
+msgstr "expanderbar nod"
 
 #: ../sheets/Misc.sheet.in.h:7
-#, fuzzy
 msgid "expended node"
-msgstr "Beroende"
+msgstr "expanderad nod"
 
 #: ../sheets/Misc.sheet.in.h:8
 msgid "Traditional clock"
@@ -8463,7 +8380,7 @@ msgstr "Storlekändringsbart rutnät"
 
 #: ../sheets/Misc.sheet.in.h:11
 msgid "New-style group object, for testing"
-msgstr ""
+msgstr "Gruppobjekt med ny stil, för tester"
 
 #: ../sheets/Pneumatic.sheet.in.h:1
 msgid "Pneumatic/Hydraulic"
@@ -8630,9 +8547,8 @@ msgid "Generic text note"
 msgstr "Allmän textanteckning"
 
 #: ../sheets/SISSI.sheet.in.h:1
-#, fuzzy
 msgid "Objects to design sissi diagrams"
-msgstr "Objekt för att skapa SADT-diagram"
+msgstr "Objekt för att designa sissi-diagram"
 
 #: ../sheets/SISSI.sheet.in.h:2
 msgid "Workstation"
@@ -8684,17 +8600,15 @@ msgstr "Modem"
 
 #: ../sheets/SISSI.sheet.in.h:14
 msgid "Cipher machine"
-msgstr ""
+msgstr "Chiffermaskin"
 
 #: ../sheets/SISSI.sheet.in.h:15
-#, fuzzy
 msgid "Magnetic storage"
-msgstr "Magnetiskt band"
+msgstr "Magnetisk lagring"
 
 #: ../sheets/SISSI.sheet.in.h:16
-#, fuzzy
 msgid "Paper storage"
-msgstr "Stöd"
+msgstr "Papperslagring"
 
 #: ../sheets/SISSI.sheet.in.h:17
 msgid "Person"
@@ -8705,14 +8619,12 @@ msgid "File cabinet"
 msgstr "Filarkiv"
 
 #: ../sheets/SISSI.sheet.in.h:19
-#, fuzzy
 msgid "Safe"
-msgstr "Skala"
+msgstr "Kassaskåp"
 
 #: ../sheets/SISSI.sheet.in.h:20
-#, fuzzy
 msgid "Backup"
-msgstr "Bakgrund"
+msgstr "Säkerhetskopia"
 
 #: ../sheets/SISSI.sheet.in.h:22
 msgid "Log analysis"
@@ -8732,21 +8644,19 @@ msgstr "Rum"
 
 #: ../sheets/SISSI.sheet.in.h:26
 msgid "Faraday cage"
-msgstr ""
+msgstr "Faradays bur"
 
 #: ../sheets/SISSI.sheet.in.h:27
 msgid "Security area"
 msgstr "Säkerhetsområde"
 
 #: ../sheets/SISSI.sheet.in.h:28
-#, fuzzy
 msgid "Geographic site"
-msgstr "Exportera grafikstorlek"
+msgstr "Geografisk plats"
 
 #: ../sheets/SISSI.sheet.in.h:29
-#, fuzzy
 msgid "Gate"
-msgstr "MAS-gateway"
+msgstr "Port"
 
 #: ../sheets/SISSI.sheet.in.h:30
 msgid "Video camera"
@@ -8754,30 +8664,27 @@ msgstr "Videokamera"
 
 #: ../sheets/SISSI.sheet.in.h:31
 msgid "Glass-break sensor"
-msgstr ""
+msgstr "Glaskrossningssensor"
 
 #: ../sheets/SISSI.sheet.in.h:32
-#, fuzzy
 msgid "Sensor beam"
-msgstr "Sensor - botten"
+msgstr "Sensorstråle"
 
 #: ../sheets/SISSI.sheet.in.h:33
 msgid "Condensator"
 msgstr "Kondensator"
 
 #: ../sheets/SISSI.sheet.in.h:34
-#, fuzzy
 msgid "Power transducer"
-msgstr "Formuläringång"
+msgstr "Effekttransduktor"
 
 #: ../sheets/SISSI.sheet.in.h:35
-#, fuzzy
 msgid "Current transducer"
-msgstr "Kurvavstånd"
+msgstr "Strömtransduktor"
 
 #: ../sheets/SISSI.sheet.in.h:36
 msgid "Enthalpy transducer"
-msgstr ""
+msgstr "Entalpitransduktor"
 
 #: ../sheets/SISSI.sheet.in.h:37
 msgid "Smoke detector"
@@ -8785,55 +8692,51 @@ msgstr "Röksensor"
 
 #: ../sheets/SISSI.sheet.in.h:38
 msgid "Moisture sensor"
-msgstr ""
+msgstr "Fuktdetektor"
 
 #: ../sheets/SISSI.sheet.in.h:39
-#, fuzzy
 msgid "Light detector"
-msgstr "Aktör"
+msgstr "Ljusdetektor"
 
 #: ../sheets/SISSI.sheet.in.h:40
 msgid "Movement detector"
-msgstr ""
+msgstr "Rörelsedetektor"
 
 #: ../sheets/SISSI.sheet.in.h:41
 msgid "Video movement detector"
-msgstr ""
+msgstr "Videorörelsedetektor"
 
 #: ../sheets/SISSI.sheet.in.h:42
-#, fuzzy
 msgid "Level detector"
-msgstr "Aktör"
+msgstr "Nivådetektor"
 
 #: ../sheets/SISSI.sheet.in.h:43
 msgid "Pressure transducer"
-msgstr ""
+msgstr "Trycktransduktor"
 
 #: ../sheets/SISSI.sheet.in.h:44
 msgid "Air quality detector"
-msgstr ""
+msgstr "Luftkvalitetsdetektor"
 
 #: ../sheets/SISSI.sheet.in.h:45
-#, fuzzy
 msgid "Voltage detector"
-msgstr "Spänning"
+msgstr "Spänningsdetektor"
 
 #: ../sheets/SISSI.sheet.in.h:46
 msgid "Vehicle detector"
-msgstr ""
+msgstr "Fordonsdetektor"
 
 #: ../sheets/SISSI.sheet.in.h:47
 msgid "Vibration sensor"
 msgstr "Vibrationssensor"
 
 #: ../sheets/SISSI.sheet.in.h:48
-#, fuzzy
 msgid "Digital code"
-msgstr "Korsanslutning"
+msgstr "Digital kod"
 
 #: ../sheets/SISSI.sheet.in.h:49
 msgid "Moisture extractor"
-msgstr ""
+msgstr "Avfuktare"
 
 #: ../sheets/SISSI.sheet.in.h:50
 msgid "Air filter"
@@ -8841,16 +8744,15 @@ msgstr "Luftfilter"
 
 #: ../sheets/SISSI.sheet.in.h:51
 msgid "Badge reader/keyboard"
-msgstr ""
+msgstr "Kortläsare/tangentbord"
 
 #: ../sheets/SISSI.sheet.in.h:52
-#, fuzzy
 msgid "Badge reader"
-msgstr "Sidbrytningar"
+msgstr "Kortläsare"
 
 #: ../sheets/SISSI.sheet.in.h:53
 msgid "Biometric reader"
-msgstr ""
+msgstr "Biometrisk läsare"
 
 #: ../sheets/SISSI.sheet.in.h:54
 msgid "Pump"
@@ -8858,39 +8760,35 @@ msgstr "Pump"
 
 #: ../sheets/SISSI.sheet.in.h:55
 msgid "Circulation pump"
-msgstr ""
+msgstr "Cirkulationspump"
 
 #: ../sheets/SISSI.sheet.in.h:56
 msgid "Revolving door"
-msgstr ""
+msgstr "Roterdörr"
 
 #: ../sheets/SISSI.sheet.in.h:57
 msgid "Axial Ventilator"
-msgstr ""
+msgstr "Axialfläkt"
 
 #: ../sheets/SISSI.sheet.in.h:58
-#, fuzzy
 msgid "Centrifugal Ventilator"
-msgstr "Centrifug"
+msgstr "Centrifugalfläkt"
 
 #: ../sheets/SISSI.sheet.in.h:59
-#, fuzzy
 msgid "Ventilator"
-msgstr "Initiera"
+msgstr "Fläkt"
 
 #: ../sheets/SISSI.sheet.in.h:60
 msgid "Extinguisher"
-msgstr ""
+msgstr "Släckare"
 
 #: ../sheets/SISSI.sheet.in.h:62
-#, fuzzy
 msgid "Airconditioner"
-msgstr "Villkor"
+msgstr "Luftkonditionering"
 
 #: ../sheets/SISSI.sheet.in.h:63
-#, fuzzy
 msgid "Alarm center"
-msgstr "Parametrar"
+msgstr "Alarmcentral"
 
 #: ../sheets/UML.sheet.in.h:1
 msgid "UML"
