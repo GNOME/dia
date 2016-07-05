@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: dia master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=dia&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2014-12-13 04:14+0000\n"
-"PO-Revision-Date: 2014-12-13 18:58+0700\n"
+"POT-Creation-Date: 2016-05-19 15:27+0000\n"
+"PO-Revision-Date: 2016-07-05 22:36+0700\n"
 "Last-Translator: Andika Triwidada <andika@gmail.com>\n"
 "Language-Team: Indonesia <gnome@i15n.org>\n"
 "Language: id\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 1.7.1\n"
+"X-Generator: Poedit 1.8.8\n"
 
 #. This is not an errror
 #: ../app/app_procs.c:209
@@ -235,7 +235,7 @@ msgstr ""
 msgid "Exiting Dia"
 msgstr "Keluar Dia"
 
-#: ../app/app_procs.c:1057 ../app/display.c:1250 ../app/exit_dialog.c:115
+#: ../app/app_procs.c:1057 ../app/display.c:1239 ../app/exit_dialog.c:115
 #: ../app/filedlg.c:582
 msgid "Save"
 msgstr "Simpan"
@@ -401,7 +401,7 @@ msgstr ""
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr ""
 "Imam Musthaqim <musthaqim@telkom.net>, 2005\n"
-"Andika Triwidada <andika@gmail.com>, 2013."
+"Andika Triwidada <andika@gmail.com>, 2013, 2016."
 
 #: ../app/commands.c:1023
 msgid ""
@@ -567,7 +567,7 @@ msgstr "Properti"
 #: ../app/diagram_tree_view.c:503 ../app/exit_dialog.c:125
 #: ../app/plugin-manager.c:270 ../objects/Database/table.c:147
 #: ../objects/Database/table.c:190 ../objects/Misc/n_gon.c:135
-#: ../objects/UML/association.c:236 ../objects/UML/class.c:140
+#: ../objects/UML/association.c:236 ../objects/UML/class.c:145
 #: ../objects/UML/large_package.c:136 ../objects/UML/umlattribute.c:37
 #: ../objects/UML/umlformalparameter.c:35 ../objects/UML/umloperation.c:62
 #: ../objects/UML/umlparameter.c:43
@@ -714,7 +714,7 @@ msgstr "Ikuti taut..."
 msgid "Convert to Path"
 msgstr "Konversi ke Path"
 
-#: ../app/disp_callbacks.c:262 ../app/menus.c:271
+#: ../app/disp_callbacks.c:262 ../app/menus.c:272
 msgid "Union"
 msgstr "Union"
 
@@ -722,7 +722,7 @@ msgstr "Union"
 msgid "Difference"
 msgstr "Perbedaan"
 
-#: ../app/disp_callbacks.c:264 ../app/menus.c:272
+#: ../app/disp_callbacks.c:264 ../app/menus.c:273
 msgid "Intersection"
 msgstr "Perpotongan"
 
@@ -761,20 +761,20 @@ msgid "Selected '%s'"
 msgstr "Dipilih '%s'"
 
 #. we really should not come here but instead disable the menu command earlier
-#: ../app/display.c:1138
+#: ../app/display.c:1127
 msgid "No antialiased renderer found"
 msgstr "Tak ditemukan perender anti alias"
 
-#: ../app/display.c:1296
+#: ../app/display.c:1285
 msgid "<unnamed>"
 msgstr "<tak bernama>"
 
 #. no standard buttons
-#: ../app/display.c:1302
+#: ../app/display.c:1291
 msgid "Closing diagram without saving"
 msgstr "Menutup diagram tanpa menyimpan"
 
-#: ../app/display.c:1304
+#: ../app/display.c:1293
 #, c-format
 msgid ""
 "The diagram '%s'\n"
@@ -783,11 +783,11 @@ msgstr ""
 "Diagram '%s'\n"
 "belum disimpan. Simpan perubahannya sekarang?"
 
-#: ../app/display.c:1306
+#: ../app/display.c:1295
 msgid "Close Diagram"
 msgstr "Tutup Diagram"
 
-#: ../app/display.c:1311
+#: ../app/display.c:1300
 msgid "_Discard Changes"
 msgstr "_Buang Perubahan"
 
@@ -946,7 +946,7 @@ msgstr "Cocok semu_a properti (bukan hanya nama objek)"
 msgid "Find"
 msgstr "Cari"
 
-#: ../app/find-and-replace.c:567 ../app/menus.c:270
+#: ../app/find-and-replace.c:567 ../app/menus.c:271
 msgid "Replace"
 msgstr "Ganti"
 
@@ -965,23 +965,23 @@ msgstr "_Ganti"
 msgid "Pops up the Navigation window."
 msgstr "Munculkan jendela Navigasi."
 
-#: ../app/interface.c:736
+#: ../app/interface.c:738
 msgid "Diagram menu."
 msgstr "Menu diagram."
 
-#: ../app/interface.c:776
+#: ../app/interface.c:777
 msgid "Zoom"
 msgstr "Zum"
 
-#: ../app/interface.c:791
+#: ../app/interface.c:792
 msgid "Toggles snap-to-grid for this window."
 msgstr "Jungkitkan lengket-ke-kisi untuk jendela ini."
 
-#: ../app/interface.c:802
+#: ../app/interface.c:803
 msgid "Toggles object snapping for this window."
 msgstr "Jungkitkan pelengketan objek untuk jendela ini."
 
-#: ../app/interface.c:988 ../app/interface.c:1105 ../dia.desktop.in.in.h:2
+#: ../app/interface.c:989 ../app/interface.c:1106 ../dia.desktop.in.in.h:2
 msgid "Diagram Editor"
 msgstr "Penyunting Diagram"
 
@@ -1039,8 +1039,7 @@ msgid "Layer name:"
 msgstr "Nama lapisan:"
 
 #: ../app/linewidth_area.c:246 ../lib/properties.h:626 ../lib/properties.h:629
-#: ../objects/chronogram/chronoline.c:180
-#: ../objects/chronogram/chronoref.c:159
+#: ../objects/chronogram/chronoline.c:180 ../objects/chronogram/chronoref.c:159
 msgid "Line width"
 msgstr "Lebar garis"
 
@@ -1150,12 +1149,11 @@ msgid "Not allowed to write temporary files in %s\n"
 msgstr "Tak diizinkan menulis berkas sementara dalam %s\n"
 
 #: ../app/load_save.c:1114 ../plug-ins/cgm/cgm.c:1086
-#: ../plug-ins/dxf/dxf-export.c:516
-#: ../plug-ins/metapost/render_metapost.c:1022
+#: ../plug-ins/dxf/dxf-export.c:516 ../plug-ins/metapost/render_metapost.c:1022
 #: ../plug-ins/pgf/render_pgf.c:1192 ../plug-ins/postscript/render_eps.c:123
-#: ../plug-ins/pstricks/render_pstricks.c:870
-#: ../plug-ins/vdx/vdx-export.c:1706 ../plug-ins/wmf/wmf.cpp:1347
-#: ../plug-ins/wpg/wpg.c:1062 ../plug-ins/xfig/xfig-export.c:1098
+#: ../plug-ins/pstricks/render_pstricks.c:870 ../plug-ins/vdx/vdx-export.c:1706
+#: ../plug-ins/wmf/wmf.cpp:1347 ../plug-ins/wpg/wpg.c:1062
+#: ../plug-ins/xfig/xfig-export.c:1098
 #, c-format
 msgid "Can't open output file %s"
 msgstr "Tidak bisa membuka berkas keluaran %s"
@@ -1245,7 +1243,7 @@ msgstr "Representasi pohon dari diagram"
 msgid "Show Toolbar"
 msgstr "Tampilkan Bilah Alat"
 
-#: ../app/menus.c:111
+#: ../app/menus.c:111 ../app/menus.c:264
 msgid "Show or hide the toolbar"
 msgstr "Tampilkan atau sembunyikan bilah alat"
 
@@ -1443,11 +1441,11 @@ msgstr "_Zum"
 msgid "1600%"
 msgstr "1600%"
 
-#: ../app/menus.c:159 ../app/menus.c:596 ../app/menus.c:608
+#: ../app/menus.c:159 ../app/menus.c:597 ../app/menus.c:609
 msgid "800%"
 msgstr "800%"
 
-#: ../app/menus.c:160 ../app/menus.c:597 ../app/menus.c:609
+#: ../app/menus.c:160 ../app/menus.c:598 ../app/menus.c:610
 msgid "400%"
 msgstr "400%"
 
@@ -1661,7 +1659,7 @@ msgstr "Gulung"
 #: ../lib/properties.h:677 ../objects/AADL/aadlbox.c:153
 #: ../objects/custom/custom_object.c:227 ../objects/Jackson/requirement.c:130
 #: ../objects/network/basestation.c:132 ../objects/network/radiocell.c:131
-#: ../objects/UML/activity.c:127 ../objects/UML/actor.c:120
+#: ../objects/UML/activity.c:129 ../objects/UML/actor.c:120
 #: ../objects/UML/classicon.c:145 ../objects/UML/component.c:133
 #: ../objects/UML/component_feature.c:158 ../objects/UML/node.c:127
 #: ../objects/UML/node.c:129 ../objects/UML/note.c:118
@@ -1735,67 +1733,71 @@ msgid "Show _Rulers"
 msgstr "Tampilkan _Penggaris"
 
 #: ../app/menus.c:264
+msgid "Show Scrollbars"
+msgstr "Tampilkan Bilah Gulir"
+
+#: ../app/menus.c:265
 msgid "Show _Connection Points"
 msgstr "Tampilkan _Titik Koneksi"
 
 #. Translators: Menu item Verb/Channel/Export/Remove
 #. Translators: Menu item Verb/Branch/Separate/Remove
 #. Translators: Menu item Verb/Branch/Separate/Remove/Remove
-#: ../app/menus.c:273 ../objects/FS/function.c:699
-#: ../objects/FS/function.c:851 ../objects/FS/function.c:853
+#: ../app/menus.c:274 ../objects/FS/function.c:699 ../objects/FS/function.c:851
+#: ../objects/FS/function.c:853
 msgid "Remove"
 msgstr "Hapus"
 
 #. Cannot also be called Invert, duplicate names caused keybinding problems
-#: ../app/menus.c:275
+#: ../app/menus.c:276
 msgid "Inverse"
 msgstr "Kebalikan"
 
-#: ../app/menus.c:337
+#: ../app/menus.c:338
 msgid "NULL tooldata in tool_menu_select"
 msgstr "NULL tooldata dalam tool_menu_select"
 
-#: ../app/menus.c:598 ../app/menus.c:610
+#: ../app/menus.c:599 ../app/menus.c:611
 msgid "300%"
 msgstr "300%"
 
-#: ../app/menus.c:599 ../app/menus.c:611
+#: ../app/menus.c:600 ../app/menus.c:612
 msgid "200%"
 msgstr "200%"
 
-#: ../app/menus.c:600 ../app/menus.c:612
+#: ../app/menus.c:601 ../app/menus.c:613
 msgid "150%"
 msgstr "150%"
 
-#: ../app/menus.c:601 ../app/menus.c:613
+#: ../app/menus.c:602 ../app/menus.c:614
 msgid "100%"
 msgstr "100%"
 
-#: ../app/menus.c:602 ../app/menus.c:614
+#: ../app/menus.c:603 ../app/menus.c:615
 msgid "75%"
 msgstr "75%"
 
-#: ../app/menus.c:603 ../app/menus.c:615
+#: ../app/menus.c:604 ../app/menus.c:616
 msgid "50%"
 msgstr "50%"
 
-#: ../app/menus.c:604 ../app/menus.c:616
+#: ../app/menus.c:605 ../app/menus.c:617
 msgid "25%"
 msgstr "25%"
 
-#: ../app/menus.c:605 ../app/menus.c:617
+#: ../app/menus.c:606 ../app/menus.c:618
 msgid "10%"
 msgstr "10%"
 
-#: ../app/menus.c:643
+#: ../app/menus.c:644
 msgid "Toggles snap-to-grid."
 msgstr "Jungkitkan lengket ke kisi."
 
-#: ../app/menus.c:654
+#: ../app/menus.c:655
 msgid "Toggles object snapping."
 msgstr "Jungkitkan pelengketan objek."
 
-#: ../app/menus.c:1274
+#: ../app/menus.c:1275
 msgid "The function is not available anymore."
 msgstr "Fungsi tersebut tak tersedia lagi."
 
@@ -2987,8 +2989,7 @@ msgid "Projecting"
 msgstr "Memprojeksikan"
 
 #: ../lib/properties.c:96 ../lib/properties.h:632 ../lib/properties.h:635
-#: ../objects/chronogram/chronoline.c:178
-#: ../objects/chronogram/chronoref.c:157
+#: ../objects/chronogram/chronoline.c:178 ../objects/chronogram/chronoref.c:157
 msgid "Line color"
 msgstr "Warna garis"
 
@@ -3019,23 +3020,23 @@ msgid "Text alignment"
 msgstr "Perapian teks"
 
 #: ../lib/properties.c:104 ../lib/properties.h:688
-#: ../objects/chronogram/chronoline.c:182
-#: ../objects/chronogram/chronoref.c:163 ../objects/Database/reference.c:118
-#: ../objects/GRAFCET/condition.c:131 ../objects/GRAFCET/step.c:165
-#: ../objects/GRAFCET/transition.c:141 ../objects/UML/class_dialog.c:455
+#: ../objects/chronogram/chronoline.c:182 ../objects/chronogram/chronoref.c:163
+#: ../objects/Database/reference.c:118 ../objects/GRAFCET/condition.c:131
+#: ../objects/GRAFCET/step.c:165 ../objects/GRAFCET/transition.c:141
+#: ../objects/UML/class_dialog.c:455
 msgid "Font"
 msgstr "Font"
 
 #: ../lib/properties.c:105 ../lib/properties.h:696
-#: ../objects/chronogram/chronoline.c:184
-#: ../objects/chronogram/chronoref.c:165 ../objects/GRAFCET/condition.c:133
-#: ../objects/GRAFCET/step.c:167 ../objects/GRAFCET/transition.c:143
+#: ../objects/chronogram/chronoline.c:184 ../objects/chronogram/chronoref.c:165
+#: ../objects/GRAFCET/condition.c:133 ../objects/GRAFCET/step.c:167
+#: ../objects/GRAFCET/transition.c:143
 msgid "Font size"
 msgstr "Ukuran font"
 
 #: ../lib/properties.c:106 ../lib/properties.h:702
-#: ../objects/chronogram/chronoline.c:186
-#: ../objects/chronogram/chronoref.c:167 ../objects/GRAFCET/step.c:169
+#: ../objects/chronogram/chronoline.c:186 ../objects/chronogram/chronoref.c:167
+#: ../objects/GRAFCET/step.c:169
 msgid "Text color"
 msgstr "Warna teks"
 
@@ -3087,7 +3088,7 @@ msgid "Cant create image data from scratch!"
 msgstr "Tak dapat membuat data citra dari awal!"
 
 #. Todo: get label for the branch view from props, e.g. UML Operations Parameters
-#: ../lib/prop_sdarray_widget.c:561 ../objects/chronogram/chronoline.c:161
+#: ../lib/prop_sdarray_widget.c:559 ../objects/chronogram/chronoline.c:161
 #: ../objects/UML/umloperation.c:79
 msgid "Parameters"
 msgstr "Parameter"
@@ -3152,36 +3153,36 @@ msgstr "Menggambar"
 msgid "Draw Control Lines"
 msgstr "Gambar Garis Kendali"
 
-#: ../lib/standard-path.c:728
+#: ../lib/standard-path.c:729
 msgid "Convert to Bezier"
 msgstr "Konversikan ke Bezier"
 
-#: ../lib/standard-path.c:729
+#: ../lib/standard-path.c:730
 msgid "Invert Path"
 msgstr "Balikkan Path"
 
-#: ../lib/standard-path.c:730 ../objects/custom/custom_object.c:198
+#: ../lib/standard-path.c:731 ../objects/custom/custom_object.c:198
 #: ../objects/custom/custom_object.c:231
 msgid "Flip horizontal"
 msgstr "Flip horizontal"
 
-#: ../lib/standard-path.c:731 ../objects/custom/custom_object.c:200
+#: ../lib/standard-path.c:732 ../objects/custom/custom_object.c:200
 #: ../objects/custom/custom_object.c:233
 msgid "Flip vertical"
 msgstr "Putar vertikal"
 
 #. Translators: Menu item Verb/Channel/Guide/Rotate
 #. Translators: Menu item Verb/Channel/Guide/Rotate/Rotate
-#: ../lib/standard-path.c:732 ../objects/FS/function.c:739
+#: ../lib/standard-path.c:733 ../objects/FS/function.c:739
 #: ../objects/FS/function.c:741
 msgid "Rotate"
 msgstr "Putar"
 
-#: ../lib/standard-path.c:733
+#: ../lib/standard-path.c:734
 msgid "Shear"
 msgstr "Geser"
 
-#: ../lib/standard-path.c:734
+#: ../lib/standard-path.c:735
 msgid "Show Control Lines"
 msgstr "Tampilkan Garis Kendali"
 
@@ -3300,13 +3301,11 @@ msgstr ""
 "'durasi'.\n"
 "Contoh: @ 1.0 (2.0)1.0(2.0)\n"
 
-#: ../objects/chronogram/chronoline.c:163
-#: ../objects/chronogram/chronoref.c:145
+#: ../objects/chronogram/chronoline.c:163 ../objects/chronogram/chronoref.c:145
 msgid "Start time"
 msgstr "Mulai waktu"
 
-#: ../objects/chronogram/chronoline.c:165
-#: ../objects/chronogram/chronoref.c:147
+#: ../objects/chronogram/chronoline.c:165 ../objects/chronogram/chronoref.c:147
 msgid "End time"
 msgstr "Akhiri waktu"
 
@@ -3322,8 +3321,7 @@ msgstr "Turunkan waktu"
 msgid "Multi-bit data"
 msgstr "Data multi-bit"
 
-#: ../objects/chronogram/chronoline.c:172
-#: ../objects/chronogram/chronoref.c:155
+#: ../objects/chronogram/chronoline.c:172 ../objects/chronogram/chronoref.c:155
 msgid "Aspect"
 msgstr "Aspek"
 
@@ -3454,9 +3452,9 @@ msgstr "Akhir deskripsi"
 #: ../objects/UML/association.c:247 ../objects/UML/association.c:258
 #: ../objects/UML/association.c:260 ../objects/UML/association.c:262
 #: ../objects/UML/association.c:264 ../objects/UML/association.c:266
-#: ../objects/UML/class.c:215 ../objects/UML/class.c:217
-#: ../objects/UML/class.c:219 ../objects/UML/class.c:221
-#: ../objects/UML/class.c:223 ../objects/UML/class.c:225
+#: ../objects/UML/class.c:220 ../objects/UML/class.c:222
+#: ../objects/UML/class.c:224 ../objects/UML/class.c:226
+#: ../objects/UML/class.c:228 ../objects/UML/class.c:230
 msgid " "
 msgstr " "
 
@@ -3483,8 +3481,8 @@ msgid "Reference"
 msgstr "Referensi"
 
 #: ../objects/Database/table.c:151 ../objects/Database/table.c:192
-#: ../objects/Database/table.c:220 ../objects/UML/class.c:144
-#: ../objects/UML/class.c:211 ../objects/UML/class_dialog.c:486
+#: ../objects/Database/table.c:220 ../objects/UML/class.c:149
+#: ../objects/UML/class.c:216 ../objects/UML/class_dialog.c:486
 #: ../objects/UML/umlattribute.c:43 ../objects/UML/umloperation.c:66
 #: ../objects/UML/umlparameter.c:49 ../sheets/SDL.sheet.in.h:18
 msgid "Comment"
@@ -3528,7 +3526,7 @@ msgstr "Komentar tampak"
 msgid "Underline primary keys"
 msgstr "Garis bawahi kunci primer"
 
-#: ../objects/Database/table.c:202 ../objects/UML/class.c:159
+#: ../objects/Database/table.c:202 ../objects/UML/class.c:164
 msgid "Comment tagging"
 msgstr "Pengetagan komentar"
 
@@ -3536,7 +3534,7 @@ msgstr "Pengetagan komentar"
 msgid "Use bold font for primary keys"
 msgstr "Gunakan fonta tebal bagi kunci primer"
 
-#: ../objects/Database/table.c:207 ../objects/UML/class.c:181
+#: ../objects/Database/table.c:207 ../objects/UML/class.c:186
 #: ../objects/UML/object.c:150
 msgid "Attributes"
 msgstr "Atribut"
@@ -3544,17 +3542,17 @@ msgstr "Atribut"
 #. umlformalparameters_extra
 #. all this just to make the defaults selectable ...
 #: ../objects/Database/table.c:211 ../objects/UML/association.c:269
-#: ../objects/UML/class.c:196 ../objects/UML/object.c:159
+#: ../objects/UML/class.c:201 ../objects/UML/object.c:159
 msgid "Style"
 msgstr "Gaya"
 
-#: ../objects/Database/table.c:212 ../objects/UML/class.c:197
+#: ../objects/Database/table.c:212 ../objects/UML/class.c:202
 msgid "Fonts"
 msgstr "Fonta"
 
 #. property rows
 #: ../objects/Database/table.c:216 ../objects/SADT/arrow.c:135
-#: ../objects/UML/class.c:201 ../objects/UML/class_dialog.c:461
+#: ../objects/UML/class.c:206 ../objects/UML/class_dialog.c:461
 msgid "Normal"
 msgstr "Normal"
 
@@ -3562,7 +3560,7 @@ msgstr "Normal"
 msgid "Table name"
 msgstr "Nama tabel"
 
-#: ../objects/Database/table.c:273 ../objects/UML/class.c:342
+#: ../objects/Database/table.c:273 ../objects/UML/class.c:347
 msgid "Show comments"
 msgstr "Tampilkan komentar"
 
@@ -5346,7 +5344,8 @@ msgstr "Obyek diagram jaringan"
 msgid "Radius"
 msgstr "Radius"
 
-#: ../objects/network/wanlink.c:119
+#: ../objects/network/wanlink.c:119 ../objects/Sozi/sozi-frame.c:575
+#: ../objects/Sozi/sozi-media.c:424
 msgid "Width"
 msgstr "Lebar"
 
@@ -5402,6 +5401,186 @@ msgstr "Kotak SADT"
 msgid "SADT diagram objects"
 msgstr "Obyek diagram SADT"
 
+#: ../objects/Sozi/sozi.c:39
+msgid "Sozi presentation objects"
+msgstr "Objek presentasi Sozi"
+
+#: ../objects/Sozi/sozi-frame.c:544 ../objects/Sozi/sozi-media.c:398
+#: ../objects/standard/box.c:135 ../objects/standard/ellipse.c:127
+msgid "Free"
+msgstr "Bebas"
+
+#: ../objects/Sozi/sozi-frame.c:545 ../objects/Sozi/sozi-media.c:399
+#: ../objects/standard/box.c:136 ../objects/standard/ellipse.c:128
+msgid "Fixed"
+msgstr "Baku"
+
+#: ../objects/Sozi/sozi-frame.c:551
+msgid "Constant speed"
+msgstr "Laju tetap"
+
+#: ../objects/Sozi/sozi-frame.c:552
+msgid "Speed up"
+msgstr "Melaju"
+
+#: ../objects/Sozi/sozi-frame.c:553
+msgid "Speed up (strong)"
+msgstr "Melaju (kuat)"
+
+#: ../objects/Sozi/sozi-frame.c:554
+msgid "Speed down"
+msgstr "Melambat"
+
+#: ../objects/Sozi/sozi-frame.c:555
+msgid "Speed down (strong)"
+msgstr "Melambat (kuat)"
+
+#: ../objects/Sozi/sozi-frame.c:556
+msgid "Speed up, then down"
+msgstr "Melaju, lalu melambat"
+
+#: ../objects/Sozi/sozi-frame.c:557
+msgid "Speed up, then down (strong)"
+msgstr "Melaju, lalu melambat (kuat)"
+
+#: ../objects/Sozi/sozi-frame.c:558
+msgid "Speed down, then up"
+msgstr "Melambat, lalu melaju"
+
+#: ../objects/Sozi/sozi-frame.c:559
+msgid "Speed down, then up (strong)"
+msgstr "Melambat, lalu melaju (kuat)"
+
+#: ../objects/Sozi/sozi-frame.c:560
+msgid "Immediate (beginning)"
+msgstr "Seketika (awal)"
+
+#: ../objects/Sozi/sozi-frame.c:561
+msgid "Immediate (end)"
+msgstr "Seketika (akhir)"
+
+#: ../objects/Sozi/sozi-frame.c:562
+msgid "Immediate (middle)"
+msgstr "Seketika (tengah)"
+
+#: ../objects/Sozi/sozi-frame.c:572 ../objects/Sozi/sozi-media.c:421
+msgid "Geometry"
+msgstr "Geometri"
+
+#: ../objects/Sozi/sozi-frame.c:573 ../objects/Sozi/sozi-media.c:422
+msgid "Center x"
+msgstr "Pusat x"
+
+#: ../objects/Sozi/sozi-frame.c:574 ../objects/Sozi/sozi-media.c:423
+msgid "Center y"
+msgstr "Pusat y"
+
+#: ../objects/Sozi/sozi-frame.c:576 ../objects/Sozi/sozi-media.c:425
+msgid "Height"
+msgstr "Tinggi"
+
+#: ../objects/Sozi/sozi-frame.c:577 ../objects/Sozi/sozi-media.c:426
+msgid "Angle (deg)"
+msgstr "Sudut (der)"
+
+#: ../objects/Sozi/sozi-frame.c:578 ../objects/Sozi/sozi-media.c:427
+#: ../objects/standard/box.c:151 ../objects/standard/ellipse.c:140
+msgid "Aspect ratio"
+msgstr "Rasio aspek"
+
+#: ../objects/Sozi/sozi-frame.c:579 ../objects/Sozi/sozi-media.c:428
+msgid "Scale from center"
+msgstr "Skala dari tengah"
+
+#: ../objects/Sozi/sozi-frame.c:581 ../objects/Sozi/sozi-media.c:430
+msgid "Legend"
+msgstr "Legenda"
+
+#: ../objects/Sozi/sozi-frame.c:582 ../objects/Sozi/sozi-media.c:431
+msgid "Legend is visible"
+msgstr "Legenda tampak"
+
+#: ../objects/Sozi/sozi-frame.c:589 ../objects/Sozi/sozi-media.c:438
+#: ../sheets/Sozi.sheet.in.h:1
+msgid "Sozi"
+msgstr "Sozi"
+
+#: ../objects/Sozi/sozi-frame.c:590
+msgid "Frame sequence"
+msgstr "Urutan bingkai"
+
+#: ../objects/Sozi/sozi-frame.c:591
+msgid "Frame title"
+msgstr "Judul bingkai"
+
+#: ../objects/Sozi/sozi-frame.c:592
+msgid "Frame hide"
+msgstr "Sembunyikan bingkai"
+
+#: ../objects/Sozi/sozi-frame.c:593
+msgid "Frame clip"
+msgstr "Potong bingkai"
+
+#: ../objects/Sozi/sozi-frame.c:594
+msgid "Frame timeout enable"
+msgstr "Tenggat waktu bingkai difungsikan"
+
+#: ../objects/Sozi/sozi-frame.c:595
+msgid "Frame timeout (ms)"
+msgstr "Tenggat waktu bingkai (ms)"
+
+#: ../objects/Sozi/sozi-frame.c:596
+msgid "Frame transition profile"
+msgstr "Profil transisi bingkai"
+
+#: ../objects/Sozi/sozi-frame.c:597
+msgid "Frame transition duration (ms)"
+msgstr "Durasi transisi bingkai (ms)"
+
+#: ../objects/Sozi/sozi-media.c:405
+msgid "undefined"
+msgstr "tak-terdefinisi"
+
+#: ../objects/Sozi/sozi-media.c:406
+msgid "video/mp4"
+msgstr "video/mp4"
+
+#: ../objects/Sozi/sozi-media.c:407
+msgid "video/webm"
+msgstr "video/webm"
+
+#: ../objects/Sozi/sozi-media.c:408
+msgid "video/ogg"
+msgstr "video/ogg"
+
+#: ../objects/Sozi/sozi-media.c:409
+msgid "audio/mpeg"
+msgstr "audio/mpeg"
+
+#: ../objects/Sozi/sozi-media.c:410
+msgid "audio/ogg"
+msgstr "audio/ogg"
+
+#: ../objects/Sozi/sozi-media.c:411
+msgid "audio/wav"
+msgstr "audio/wav"
+
+#: ../objects/Sozi/sozi-media.c:439
+msgid "Media type"
+msgstr "Tipe media"
+
+#: ../objects/Sozi/sozi-media.c:440
+msgid "Media file"
+msgstr "Berkas media"
+
+#: ../objects/Sozi/sozi-media.c:441
+msgid "Start frame"
+msgstr "Bingkai mulai"
+
+#: ../objects/Sozi/sozi-media.c:442
+msgid "Stop frame"
+msgstr "Bingkai berhenti"
+
 #: ../objects/standard/arc.c:120
 msgid "Curve distance"
 msgstr "Jarak kurva"
@@ -5441,18 +5620,6 @@ msgstr "Kontrol penghalus"
 msgid "Cusp control"
 msgstr "Kontrol cusp"
 
-#: ../objects/standard/box.c:135 ../objects/standard/ellipse.c:127
-msgid "Free"
-msgstr "Bebas"
-
-#: ../objects/standard/box.c:136 ../objects/standard/ellipse.c:128
-msgid "Fixed"
-msgstr "Baku"
-
-#: ../objects/standard/box.c:151 ../objects/standard/ellipse.c:140
-msgid "Aspect ratio"
-msgstr "Rasio aspek"
-
 #: ../objects/standard/box.c:154 ../objects/standard/ellipse.c:143
 msgid "Rotation angle"
 msgstr "Sudut putar"
@@ -5469,59 +5636,48 @@ msgstr "Aspek tetap"
 msgid "Circle"
 msgstr "Lingkaran"
 
-#: ../objects/standard/image.c:123
+#: ../objects/standard/image.c:124
 msgid "Image file"
 msgstr "Berkas citra"
 
-#: ../objects/standard/image.c:125
+#: ../objects/standard/image.c:126
 msgid "Inline data"
 msgstr "Data inline"
 
-#: ../objects/standard/image.c:125
+#: ../objects/standard/image.c:126
 msgid "Store image data in diagram"
 msgstr "Simpan data citra dalam diagram"
 
-#: ../objects/standard/image.c:127
+#: ../objects/standard/image.c:128
 msgid "Pixbuf"
 msgstr "Pixbuf"
 
-#: ../objects/standard/image.c:127
+#: ../objects/standard/image.c:128
 msgid "The Pixbuf reference"
 msgstr "Acuan Pixbuf"
 
-#: ../objects/standard/image.c:129
+#: ../objects/standard/image.c:130
 msgid "Draw border"
 msgstr "Gambar batas"
 
-#: ../objects/standard/image.c:131
+#: ../objects/standard/image.c:132
 msgid "Keep aspect ratio"
 msgstr "Jaga rasio aspek"
 
-#: ../objects/standard/image.c:133
+#: ../objects/standard/image.c:134
 msgid "Angle"
 msgstr "Sudut"
 
-#: ../objects/standard/image.c:264
+#: ../objects/standard/image.c:265
 msgid "Can't save image without filename"
 msgstr "Tak bisa simpan citra tanpa nama berkas"
 
-#: ../objects/standard/image.c:781
+#: ../objects/standard/image.c:742
 msgid "Inconsistent pixbuf during image save."
 msgstr "Pixbuf tak konsisten selama penyimpanan citra."
 
-#. Found file in same dir as diagram.
-#. Found file in current dir.
-#: ../objects/standard/image.c:883 ../objects/standard/image.c:894
-#, c-format
-msgid ""
-"The image file '%s' was not found in the specified directory.\n"
-"Using the file '%s' instead.\n"
-msgstr ""
-"Berkas citra '%s' tidak ditemukan dalam direktori yang dinyatakan.\n"
-"Menggunakan berkas '%s' sebagai gantinya.\n"
-
-#. Didn't find file in current dir.
-#: ../objects/standard/image.c:900 ../objects/standard/image.c:922
+#. Didn't find file in current directory.
+#: ../objects/standard/image.c:839
 #, c-format
 msgid "The image file '%s' was not found.\n"
 msgstr "Berkas citra '%s' tidak ditemukan.\n"
@@ -5691,86 +5847,86 @@ msgstr "Penerapan"
 msgid "Class scope"
 msgstr "Lingkup kelas"
 
-#: ../objects/UML/class.c:138 ../objects/UML/class.c:349
-#: ../objects/UML/class.c:1838 ../sheets/UML.sheet.in.h:3
+#: ../objects/UML/class.c:143 ../objects/UML/class.c:354
+#: ../objects/UML/class.c:1843 ../sheets/UML.sheet.in.h:3
 msgid "Class"
 msgstr "Kelas"
 
 #. how it used to be before 0.96+SVN
 #. one name, one type: but breaks forward-compatibiliy so kind of reverted
-#: ../objects/UML/class.c:142 ../objects/UML/classicon.c:136
+#: ../objects/UML/class.c:147 ../objects/UML/classicon.c:136
 #: ../objects/UML/classicon.c:138 ../objects/UML/component.c:129
 #: ../objects/UML/large_package.c:138 ../objects/UML/object.c:146
 #: ../objects/UML/small_package.c:125 ../objects/UML/umloperation.c:68
 msgid "Stereotype"
 msgstr "Stereotif"
 
-#: ../objects/UML/class.c:149 ../objects/UML/class.c:205
+#: ../objects/UML/class.c:154 ../objects/UML/class.c:210
 #: ../objects/UML/class_dialog.c:359 ../objects/UML/class_dialog.c:471
 #: ../objects/UML/class_operations_dialog.c:832
 #: ../objects/UML/umlattribute.c:48 ../objects/UML/uml.c:111
 msgid "Abstract"
 msgstr "Abstrak"
 
-#: ../objects/UML/class.c:151
+#: ../objects/UML/class.c:156
 msgid "Visible Attributes"
 msgstr "Atribut Terlihat"
 
-#: ../objects/UML/class.c:153
+#: ../objects/UML/class.c:158
 msgid "Visible Operations"
 msgstr "Operasi Terlihat"
 
-#: ../objects/UML/class.c:155 ../objects/UML/class_dialog.c:384
+#: ../objects/UML/class.c:160 ../objects/UML/class_dialog.c:384
 msgid "Wrap Operations"
 msgstr "Gulung Operasi"
 
-#: ../objects/UML/class.c:157
+#: ../objects/UML/class.c:162
 msgid "Visible Comments"
 msgstr "Komentar Terlihat"
 
-#: ../objects/UML/class.c:161 ../objects/UML/class.c:344
+#: ../objects/UML/class.c:166 ../objects/UML/class.c:349
 msgid "Allow resizing"
 msgstr "Ijinkan ubah ukuran"
 
-#: ../objects/UML/class.c:165 ../objects/UML/class.c:1835
+#: ../objects/UML/class.c:170 ../objects/UML/class.c:1840
 msgid "Template"
 msgstr "Templat"
 
-#: ../objects/UML/class.c:167 ../objects/UML/class_dialog.c:368
+#: ../objects/UML/class.c:172 ../objects/UML/class_dialog.c:368
 msgid "Suppress Attributes"
 msgstr "Sembunyikan Atribut"
 
-#: ../objects/UML/class.c:169
+#: ../objects/UML/class.c:174
 msgid "Suppress Operations"
 msgstr "Sembunyikan Operasi"
 
-#: ../objects/UML/class.c:171
+#: ../objects/UML/class.c:176
 msgid "Wrap after char"
 msgstr "Gulung setelah karakter"
 
-#: ../objects/UML/class.c:173
+#: ../objects/UML/class.c:178
 msgid "Comment line length"
 msgstr "Panjang garis komentar"
 
 #. umlattribute_extra
-#: ../objects/UML/class.c:186
+#: ../objects/UML/class.c:191
 msgid "Operations"
 msgstr "Operasi"
 
 #. umloperations_extra
-#: ../objects/UML/class.c:190
+#: ../objects/UML/class.c:195
 msgid "Template Parameters"
 msgstr "Parameter Templat"
 
-#: ../objects/UML/class.c:203 ../objects/UML/class_dialog.c:466
+#: ../objects/UML/class.c:208 ../objects/UML/class_dialog.c:466
 msgid "Polymorphic"
 msgstr "Polimorfik"
 
-#: ../objects/UML/class.c:207 ../objects/UML/class_dialog.c:476
+#: ../objects/UML/class.c:212 ../objects/UML/class_dialog.c:476
 msgid "Class Name"
 msgstr "Nama Kelas"
 
-#: ../objects/UML/class.c:209
+#: ../objects/UML/class.c:214
 msgid "Abstract Class Name"
 msgstr "Nama Kelas Abstrak"
 
@@ -5784,9 +5940,8 @@ msgid "Class name:"
 msgstr "Nama Kelas:"
 
 #: ../objects/UML/class_dialog.c:336
-#: ../objects/UML/class_operations_dialog.c:799
-#: ../objects/UML/dependency.c:134 ../objects/UML/generalization.c:131
-#: ../objects/UML/realizes.c:131
+#: ../objects/UML/class_operations_dialog.c:799 ../objects/UML/dependency.c:134
+#: ../objects/UML/generalization.c:131 ../objects/UML/realizes.c:131
 msgid "Stereotype:"
 msgstr "Stereotif:"
 
@@ -6419,8 +6574,7 @@ msgstr ""
 msgid "LaTeX PGF export filter"
 msgstr "Penyaring ekspor LaTeX PGF"
 
-#: ../plug-ins/pgf/render_pgf.c:1096
-#: ../plug-ins/pstricks/render_pstricks.c:686
+#: ../plug-ins/pgf/render_pgf.c:1096 ../plug-ins/pstricks/render_pstricks.c:686
 msgid "Not valid UTF-8"
 msgstr "Bukan UTF-8 yang valid"
 
@@ -10554,6 +10708,18 @@ msgstr "Titik Sambungan"
 #: ../sheets/Shape_Design.sheet.in.h:4
 msgid "Main Connection Point"
 msgstr "Titik Sambungan Utama"
+
+#: ../sheets/Sozi.sheet.in.h:2
+msgid "Objects to do Sozi (zooming ui) presentations"
+msgstr "Objek untuk melakukan presentasi Sozi (zum ui)"
+
+#: ../sheets/Sozi.sheet.in.h:3
+msgid "Sozi frame"
+msgstr "Bingkai Sozi"
+
+#: ../sheets/Sozi.sheet.in.h:4
+msgid "Sozi media"
+msgstr "Media Sozi"
 
 #: ../sheets/sybase.sheet.in.h:1
 msgid "Sybase"
