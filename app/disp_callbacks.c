@@ -729,18 +729,18 @@ ddisplay_canvas_events (GtkWidget *canvas,
             case GDK_SCROLL_UP:
               if (sevent->state & GDK_SHIFT_MASK)
                   ddisplay_scroll_left(ddisp);
-              else if (sevent->state & GDK_CONTROL_MASK) {
+              else if (!(sevent->state & GDK_CONTROL_MASK) != (!prefs.wheel_zoom_without_modifier)) {
                   ddisplay_untransform_coords(ddisp, (int)sevent->x, (int)sevent->y, &middle.x, &middle.y);
 		  /* zooming with the wheel in small steps 1^(1/8) */
                   ddisplay_zoom_centered(ddisp, &middle, 1.090508);
               }
-              else 
+              else
                   ddisplay_scroll_up(ddisp);
               break;
             case GDK_SCROLL_DOWN:
               if (sevent->state & GDK_SHIFT_MASK)
                   ddisplay_scroll_right(ddisp);
-              else if (sevent->state & GDK_CONTROL_MASK) { 
+              else if (!(sevent->state & GDK_CONTROL_MASK) != (!prefs.wheel_zoom_without_modifier)) { 
                   ddisplay_untransform_coords(ddisp, (int)sevent->x, (int)sevent->y, &middle.x, &middle.y);
 		  /* zooming with the wheel in small steps 1/(1^(1/8)) */
                   ddisplay_zoom_centered(ddisp, &middle, 0.917004);

@@ -54,6 +54,7 @@ struct DiaPreferences {
   int reset_tools_after_create;
   int undo_depth;
   int reverse_rubberbanding_intersects;
+  int wheel_zoom_without_modifier;
   guint recent_documents_list_size;
 
   gchar* length_unit;
