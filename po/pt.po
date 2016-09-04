@@ -6,22 +6,21 @@
 # Ricardo Cruz <rpmcruz@alunos.dcc.fc.up.pt>, 2010.
 # Pedro Albuquerque <palbuquerque73@openmailbox.com>, 2015.
 #
-#: ../objects/UML/class.c:198
 msgid ""
 msgstr ""
 "Project-Id-Version: 2.10\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=dia&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2015-07-06 03:19+0000\n"
-"PO-Revision-Date: 2015-07-06 10:07+0100\n"
-"Last-Translator: Pedro Albuquerque <palbuquerque73@openmailbox.com>\n"
+"POT-Creation-Date: 2016-07-05 15:37+0000\n"
+"PO-Revision-Date: 2016-09-04 13:28+0100\n"
+"Last-Translator: Tiago Santos <tiagofsantos81@sapo.pt>\n"
 "Language-Team: Português <palbuquerque73@openmailbox.com>\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Gtranslator 2.91.6\n"
+"X-Generator: Poedit 1.8.7.1\n"
 
 #. This is not an errror
 #: ../app/app_procs.c:209
@@ -98,7 +97,6 @@ msgstr "SAÍDA"
 
 #. &export_file_format
 #: ../app/app_procs.c:699
-#| msgid "Select the filter/format out of: %s"
 msgid "Select the export filter/format"
 msgstr "Selecione o filtro/formato de saída"
 
@@ -107,7 +105,6 @@ msgid "TYPE"
 msgstr "TIPO"
 
 #: ../app/app_procs.c:701
-#| msgid "Export loaded file and exit"
 msgid "List export filters/formats and exit"
 msgstr "Listar ficheiros/formatos de exportação e sair"
 
@@ -330,7 +327,6 @@ msgstr "Filtros de exportação disponíveis (para --filter)"
 
 #. Translators: be brief or mess up the table for --list-filters
 #: ../app/app_procs.c:1324
-#| msgid "By extension"
 msgid "Extension"
 msgstr "Extensão"
 
@@ -374,7 +370,6 @@ msgstr "Colar área de transferência"
 #. might become more right some day ;)
 #: ../app/commands.c:337
 #, c-format
-#| msgid "Failed to save file '%s'.\n"
 msgid "Failed to import '%s' as SVG."
 msgstr "Falha ao importar \"%s\" como SVG."
 
@@ -470,11 +465,6 @@ msgstr[0] "Vai exportar um diagrama que requer %s de memória. (uma página.)"
 msgstr[1] "Vai exportar um diagrama que requer %s de memória. (%d páginas.)"
 
 #: ../app/confirm.c:88
-#| msgid ""
-#| "You can adjust the size of the diagram by changing the 'Scaling' in the "
-#| "'Page Setup' dialog.\n"
-#| "Alternatively use 'Select All' and 'Best Fit' to move objects/handles "
-#| "into the intended bounds."
 msgid ""
 "You can adjust the size of the diagram by changing the 'Scaling' in the "
 "'Page Setup' dialog.\n"
@@ -738,7 +728,6 @@ msgid "Union"
 msgstr "União"
 
 #: ../app/disp_callbacks.c:263
-#| msgid "Differentiate"
 msgid "Difference"
 msgstr "Diferença"
 
@@ -955,7 +944,7 @@ msgstr "_Substituir por:"
 
 #: ../app/find-and-replace.c:503
 msgid "_Match case"
-msgstr "Comparar _Maiúsculas e minúsculas"
+msgstr "Comparar _maiúsculas e minúsculas"
 
 #: ../app/find-and-replace.c:507
 msgid "Match _entire word only"
@@ -963,7 +952,7 @@ msgstr "_Comparar palavras completas"
 
 #: ../app/find-and-replace.c:511
 msgid "Match _all properties (not just object name)"
-msgstr "Comparar _Todas as propriedades (não só o nome do objeto)"
+msgstr "Comparar _todas as propriedades (não só o nome do objeto)"
 
 #: ../app/find-and-replace.c:537
 msgid "Find"
@@ -975,7 +964,7 @@ msgstr "Substituir"
 
 #: ../app/find-and-replace.c:570
 msgid "Replace _All"
-msgstr "Substituir _Tudo"
+msgstr "Substituir _tudo"
 
 #. not adding the button in the list above to modify it's text;
 #. * the default "Find and Replace" is just too long for my taste ;)
@@ -1013,7 +1002,6 @@ msgid "New Layer"
 msgstr "Nova camada"
 
 #: ../app/layer_dialog.c:167
-#| msgid "Rename Layer…"
 msgid "Rename Layer"
 msgstr "Renomear camada"
 
@@ -1063,8 +1051,7 @@ msgid "Layer name:"
 msgstr "Nome da camada:"
 
 #: ../app/linewidth_area.c:246 ../lib/properties.h:626 ../lib/properties.h:629
-#: ../objects/chronogram/chronoline.c:180
-#: ../objects/chronogram/chronoref.c:159
+#: ../objects/chronogram/chronoline.c:180 ../objects/chronogram/chronoref.c:159
 msgid "Line width"
 msgstr "Largura da linha"
 
@@ -1155,7 +1142,6 @@ msgstr ""
 
 #: ../app/load_save.c:1001
 #, c-format
-#| msgid "Error saving connections"
 msgid "Error saving connections to layer '%s'"
 msgstr "Erro ao gravar ligações na camada \"%s\""
 
@@ -1175,12 +1161,11 @@ msgid "Not allowed to write temporary files in %s\n"
 msgstr "Impossível escrever ficheiros temporários em %s\n"
 
 #: ../app/load_save.c:1114 ../plug-ins/cgm/cgm.c:1086
-#: ../plug-ins/dxf/dxf-export.c:516
-#: ../plug-ins/metapost/render_metapost.c:1022
+#: ../plug-ins/dxf/dxf-export.c:516 ../plug-ins/metapost/render_metapost.c:1022
 #: ../plug-ins/pgf/render_pgf.c:1192 ../plug-ins/postscript/render_eps.c:123
-#: ../plug-ins/pstricks/render_pstricks.c:870
-#: ../plug-ins/vdx/vdx-export.c:1706 ../plug-ins/wmf/wmf.cpp:1347
-#: ../plug-ins/wpg/wpg.c:1062 ../plug-ins/xfig/xfig-export.c:1098
+#: ../plug-ins/pstricks/render_pstricks.c:870 ../plug-ins/vdx/vdx-export.c:1706
+#: ../plug-ins/wmf/wmf.cpp:1347 ../plug-ins/wpg/wpg.c:1062
+#: ../plug-ins/xfig/xfig-export.c:1098
 #, c-format
 msgid "Can't open output file %s"
 msgstr "Impossível abrir o ficheiro de saída %s"
@@ -1194,7 +1179,6 @@ msgstr "Erro interno %d ao escrever o ficheiro %s\n"
 
 #: ../app/load_save.c:1136
 #, c-format
-#| msgid "Can't rename %s to final output file %s: %s\n"
 msgid "Can't rename %s to final output file %s"
 msgstr "Impossível renomear %s como ficheiro de saída final %s"
 
@@ -1231,15 +1215,13 @@ msgstr "Abrir um ficheiro de diagrama"
 #
 #: ../app/menus.c:95
 msgid "_Help"
-msgstr "A_Juda"
+msgstr "A_juda"
 
 #: ../app/menus.c:96
-#| msgid "Dia Shape File"
 msgid "Dia help"
 msgstr "Ajuda do Dia"
 
 #: ../app/menus.c:97
-#| msgid "Dia version %s, compiled %s %s\n"
 msgid "Dia version, authors, license"
 msgstr "Versão, autores e licença do Dia"
 
@@ -1248,12 +1230,10 @@ msgid "Sheets and Objects…"
 msgstr "Folhas e objetos…"
 
 #: ../app/menus.c:103
-#| msgid "Sheets and Objects…"
 msgid "Manage sheets and their objects"
 msgstr "Gerir folhas e seus objetos"
 
 #: ../app/menus.c:104
-#| msgid "Preferences"
 msgid "Dia preferences"
 msgstr "Preferências do Dia"
 
@@ -1267,7 +1247,7 @@ msgstr "Gerir extensões"
 
 #: ../app/menus.c:106
 msgid "_Diagram Tree"
-msgstr "Árvore de _Diagrama"
+msgstr "Árvore de _diagrama"
 
 #: ../app/menus.c:106
 msgid "Tree representation of diagrams"
@@ -1278,7 +1258,6 @@ msgid "Show Toolbar"
 msgstr "Mostrar barra de ferramentas"
 
 #: ../app/menus.c:111 ../app/menus.c:264
-#| msgid "Show Toolbar"
 msgid "Show or hide the toolbar"
 msgstr "Mostrar ou ocultar barra de ferramentas"
 
@@ -1287,7 +1266,6 @@ msgid "Show Statusbar"
 msgstr "Mostrar barra de estado"
 
 #: ../app/menus.c:112
-#| msgid "Show Statusbar"
 msgid "Show or hide the statusbar"
 msgstr "Mostrar ou ocultar barra de estado"
 
@@ -1305,7 +1283,7 @@ msgstr "Gravar o diagrama"
 
 #: ../app/menus.c:120
 msgid "Save _As…"
-msgstr "Gravar _Como..."
+msgstr "Gravar _como..."
 
 #: ../app/menus.c:120
 msgid "Save the diagram with a new name"
@@ -1344,7 +1322,6 @@ msgid "Print the diagram"
 msgstr "Imprimir o diagrama"
 
 #: ../app/menus.c:125
-#| msgid "Close Diagram"
 msgid "Close the diagram"
 msgstr "Fechar o diagrama"
 
@@ -1380,13 +1357,11 @@ msgstr "_Duplicar"
 
 #
 #: ../app/menus.c:134
-#| msgid "Paste selection"
 msgid "Duplicate selection"
 msgstr "Duplicar seleção"
 
 #
 #: ../app/menus.c:135
-#| msgid "Paste selection"
 msgid "Delete selection"
 msgstr "Eliminar seleção"
 
@@ -1395,7 +1370,6 @@ msgid "_Find…"
 msgstr "_Localizar…"
 
 #: ../app/menus.c:137
-#| msgid "_Search for:"
 msgid "Search for text"
 msgstr "Procurar por texto"
 
@@ -1430,7 +1404,7 @@ msgstr "Cortar o texto do objeto para a área de transferência"
 #
 #: ../app/menus.c:144
 msgid "Paste _Text"
-msgstr "Colar _Texto"
+msgstr "Colar _texto"
 
 #: ../app/menus.c:144
 msgid "Insert text from clipboard"
@@ -1439,10 +1413,9 @@ msgstr "Inserir texto da área de transferência"
 #
 #: ../app/menus.c:146
 msgid "Paste _Image"
-msgstr "Colar _Imagem"
+msgstr "Colar _imagem"
 
 #: ../app/menus.c:146
-#| msgid "No image from Clipboard to paste."
 msgid "Insert image from clipboard"
 msgstr "Inserir imagem da área de transferência"
 
@@ -1540,11 +1513,11 @@ msgstr "Ajustar ao ecrã"
 #. "display_toggle_entries" items go here
 #: ../app/menus.c:175
 msgid "New _View"
-msgstr "Nova _Vista"
+msgstr "Nova _vista"
 
 #: ../app/menus.c:176
 msgid "C_lone View"
-msgstr "C_Lonar vista"
+msgstr "C_lonar vista"
 
 #
 #: ../app/menus.c:179
@@ -1554,20 +1527,18 @@ msgstr "_Objetos"
 #
 #: ../app/menus.c:180
 msgid "Send to _Back"
-msgstr "Enviar para _Trás"
+msgstr "Enviar para _trás"
 
 #: ../app/menus.c:180
-#| msgid "Move Selection to Layer above"
 msgid "Move selection to the bottom"
 msgstr "Mover seleção para o fundo"
 
 #
 #: ../app/menus.c:181
 msgid "Bring to _Front"
-msgstr "Trazer para a _Frente"
+msgstr "Trazer para a _frente"
 
 #: ../app/menus.c:181
-#| msgid "Move Selection to Layer above"
 msgid "Move selection to the top"
 msgstr "Mover Seleção para o topo"
 
@@ -1586,8 +1557,6 @@ msgid "_Group"
 msgstr "_Agrupar"
 
 #: ../app/menus.c:185
-#| msgid "Group with %d object"
-#| msgid_plural "Group with %d objects"
 msgid "Group selected objects"
 msgstr "Agrupar objetos selecionados"
 
@@ -1613,7 +1582,7 @@ msgstr "_Remover do pai"
 #
 #: ../app/menus.c:191
 msgid "_Unparent Children"
-msgstr "Remover _Filhos do pai"
+msgstr "Remover _filhos do pai"
 
 #. Translators: Menu item Verb/Support/Position/Align
 #: ../app/menus.c:193 ../objects/FS/function.c:799
@@ -1694,16 +1663,16 @@ msgstr "_Disposição"
 
 #: ../app/menus.c:226
 msgid "D_ialogs"
-msgstr "D_Iálogos"
+msgstr "D_iálogos"
 
 #: ../app/menus.c:228
 msgid "D_ebug"
-msgstr "D_Epurar"
+msgstr "D_epurar"
 
 #
 #: ../app/menus.c:234
 msgid "_Tools"
-msgstr "Ferramen_Tas"
+msgstr "Ferramen_tas"
 
 #: ../app/menus.c:235
 msgid "Modify"
@@ -1789,7 +1758,7 @@ msgstr "_Suavisado"
 #
 #: ../app/menus.c:260
 msgid "Show _Grid"
-msgstr "Mostrar _Grelha"
+msgstr "Mostrar _grelha"
 
 #
 #: ../app/menus.c:261
@@ -1799,28 +1768,27 @@ msgstr "_Ajustar à grelha"
 #
 #: ../app/menus.c:262
 msgid "Snap to _Objects"
-msgstr "Ajustar aos _Objetos"
+msgstr "Ajustar aos _objetos"
 
 #
 #: ../app/menus.c:263
 msgid "Show _Rulers"
-msgstr "Mostrar _Réguas"
+msgstr "Mostrar _réguas"
 
 #: ../app/menus.c:264
-#| msgid "Show Toolbar"
 msgid "Show Scrollbars"
 msgstr "Mostrar barras de rolamento"
 
 #
 #: ../app/menus.c:265
 msgid "Show _Connection Points"
-msgstr "Mostrar _Pontos de ligação"
+msgstr "Mostrar _pontos de ligação"
 
 #. Translators: Menu item Verb/Channel/Export/Remove
 #. Translators: Menu item Verb/Branch/Separate/Remove
 #. Translators: Menu item Verb/Branch/Separate/Remove/Remove
-#: ../app/menus.c:274 ../objects/FS/function.c:699
-#: ../objects/FS/function.c:851 ../objects/FS/function.c:853
+#: ../app/menus.c:274 ../objects/FS/function.c:699 ../objects/FS/function.c:851
+#: ../objects/FS/function.c:853
 msgid "Remove"
 msgstr "Remover"
 
@@ -2450,9 +2418,6 @@ msgstr "Dia (só remover)"
 
 #. Installer message: directory delete confirmation line 1
 #: ../installer/win32/gennsh.c:75
-#| msgid ""
-#| "The installation directory you specified already exists. Any contents$"
-#| "\rwill be deleted. Would you like to continue?"
 msgid ""
 "Your old Dia directory is about to be deleted. Would you like to continue?"
 msgstr ""
@@ -2744,10 +2709,6 @@ msgstr "Impossível encontrar a família de letra para %s\n"
 #. pathologic case - pixbuf not even supporting PNG?
 #: ../lib/dia_image.c:345
 #, c-format
-#| msgid ""
-#| "Unsupported file format for saving:\n"
-#| "%s\n"
-#| "%s\n"
 msgid ""
 "Unsupported file format for saving:\n"
 "%s\n"
@@ -2808,22 +2769,18 @@ msgid "Cancel"
 msgstr "Cancelar"
 
 #: ../lib/diapatternselector.c:110
-#| msgid "Flip Horizontal"
 msgid "Horizontal"
 msgstr "Horizontal"
 
 #: ../lib/diapatternselector.c:111
-#| msgid "Diagram"
 msgid "Diagonal"
 msgstr "Diagonal"
 
 #: ../lib/diapatternselector.c:112
-#| msgid "Flip Vertical"
 msgid "Vertical"
 msgstr "Vertical"
 
 #: ../lib/diapatternselector.c:113
-#| msgid "Radiation"
 msgid "Radial"
 msgstr "Radial"
 
@@ -2885,7 +2842,6 @@ msgid "Taking rectangle value of non-rectangle node."
 msgstr "A obter valor de retângulo de nó não retângulo."
 
 #: ../lib/dia_xml.c:838 ../lib/dia_xml.c:849 ../lib/dia_xml.c:860
-#| msgid "Error parsing point."
 msgid "Error parsing rectangle."
 msgstr "Erro ao processar retângulo"
 
@@ -3084,8 +3040,7 @@ msgid "Projecting"
 msgstr "A projetar"
 
 #: ../lib/properties.c:96 ../lib/properties.h:632 ../lib/properties.h:635
-#: ../objects/chronogram/chronoline.c:178
-#: ../objects/chronogram/chronoref.c:157
+#: ../objects/chronogram/chronoline.c:178 ../objects/chronogram/chronoref.c:157
 msgid "Line color"
 msgstr "Cor da linha"
 
@@ -3116,23 +3071,23 @@ msgid "Text alignment"
 msgstr "Alinhamento do texto"
 
 #: ../lib/properties.c:104 ../lib/properties.h:688
-#: ../objects/chronogram/chronoline.c:182
-#: ../objects/chronogram/chronoref.c:163 ../objects/Database/reference.c:118
-#: ../objects/GRAFCET/condition.c:131 ../objects/GRAFCET/step.c:165
-#: ../objects/GRAFCET/transition.c:141 ../objects/UML/class_dialog.c:455
+#: ../objects/chronogram/chronoline.c:182 ../objects/chronogram/chronoref.c:163
+#: ../objects/Database/reference.c:118 ../objects/GRAFCET/condition.c:131
+#: ../objects/GRAFCET/step.c:165 ../objects/GRAFCET/transition.c:141
+#: ../objects/UML/class_dialog.c:455
 msgid "Font"
 msgstr "Letra"
 
 #: ../lib/properties.c:105 ../lib/properties.h:696
-#: ../objects/chronogram/chronoline.c:184
-#: ../objects/chronogram/chronoref.c:165 ../objects/GRAFCET/condition.c:133
-#: ../objects/GRAFCET/step.c:167 ../objects/GRAFCET/transition.c:143
+#: ../objects/chronogram/chronoline.c:184 ../objects/chronogram/chronoref.c:165
+#: ../objects/GRAFCET/condition.c:133 ../objects/GRAFCET/step.c:167
+#: ../objects/GRAFCET/transition.c:143
 msgid "Font size"
 msgstr "Tamanho da letra"
 
 #: ../lib/properties.c:106 ../lib/properties.h:702
-#: ../objects/chronogram/chronoline.c:186
-#: ../objects/chronogram/chronoref.c:167 ../objects/GRAFCET/step.c:169
+#: ../objects/chronogram/chronoline.c:186 ../objects/chronogram/chronoref.c:167
+#: ../objects/GRAFCET/step.c:169
 msgid "Text color"
 msgstr "Cor do texto"
 
@@ -3239,7 +3194,6 @@ msgid "Fill & Stroke"
 msgstr "Preencher & Pincelar"
 
 #: ../lib/standard-path.c:126
-#| msgid "Beziergon"
 msgid "Bezier points"
 msgstr "Pontos de Bezier"
 
@@ -3256,7 +3210,6 @@ msgid "Convert to Bezier"
 msgstr "Converter para Bezier"
 
 #: ../lib/standard-path.c:730
-#| msgid "Convert to Path"
 msgid "Invert Path"
 msgstr "Inverter caminho"
 
@@ -3278,7 +3231,6 @@ msgid "Rotate"
 msgstr "Rodar"
 
 #: ../lib/standard-path.c:734
-#| msgid "Shear angle"
 msgid "Shear"
 msgstr "Aparar"
 
@@ -3402,13 +3354,11 @@ msgstr ""
 "\"duração\" de espera.\n"
 "exemplo : @ 1.0 (2.0)1.0(2.0)\n"
 
-#: ../objects/chronogram/chronoline.c:163
-#: ../objects/chronogram/chronoref.c:145
+#: ../objects/chronogram/chronoline.c:163 ../objects/chronogram/chronoref.c:145
 msgid "Start time"
 msgstr "Hora de início"
 
-#: ../objects/chronogram/chronoline.c:165
-#: ../objects/chronogram/chronoref.c:147
+#: ../objects/chronogram/chronoline.c:165 ../objects/chronogram/chronoref.c:147
 msgid "End time"
 msgstr "Hora de fim"
 
@@ -3424,8 +3374,7 @@ msgstr "Hora de deitar"
 msgid "Multi-bit data"
 msgstr "Dados multibit"
 
-#: ../objects/chronogram/chronoline.c:172
-#: ../objects/chronogram/chronoref.c:155
+#: ../objects/chronogram/chronoline.c:172 ../objects/chronogram/chronoref.c:155
 msgid "Aspect"
 msgstr "Aspeto"
 
@@ -3462,7 +3411,6 @@ msgid "Custom XML shapes loader"
 msgstr "Leitor de formas XML personalizado"
 
 #: ../objects/custom/custom_object.c:203 ../objects/custom/custom_object.c:236
-#| msgid "Scale of the subshapes"
 msgid "Scale of the sub-shapes"
 msgstr "Escala das subformas"
 
@@ -5221,7 +5169,6 @@ msgid "pt"
 msgstr "pt"
 
 #: ../objects/Misc/measure.c:175
-#| msgid "pi"
 msgctxt "length unit"
 msgid "pi"
 msgstr "pi"
@@ -5240,19 +5187,14 @@ msgid "Precision"
 msgstr "Precisão"
 
 #: ../objects/Misc/n_gon.c:103
-#| msgid "Convey"
 msgid "Convex"
 msgstr "Convexo"
 
 #: ../objects/Misc/n_gon.c:104
-#| msgctxt "Arrow"
-#| msgid "Filled Concave"
 msgid "Concave"
 msgstr "Côncavo preenchido"
 
 #: ../objects/Misc/n_gon.c:105
-#| msgctxt "Arrow"
-#| msgid "Cross"
 msgid "Crossing"
 msgstr "Cruz"
 
@@ -5261,7 +5203,6 @@ msgid "N-gon kind"
 msgstr "Tipo n-gono"
 
 #: ../objects/Misc/n_gon.c:119
-#| msgid "Number of arms"
 msgid "Number of rays"
 msgstr "Número de raios"
 
@@ -5275,19 +5216,15 @@ msgstr "Número de liquidação para Cruz"
 
 #. no property widget, but still to be serialized
 #: ../objects/Misc/n_gon.c:124
-#| msgid "X position"
 msgid "Center position"
 msgstr "Posição central"
 
 #. no property widget, but still to be serialized
 #: ../objects/Misc/n_gon.c:126
-#| msgid "Dash length: "
 msgid "Ray length"
 msgstr "Comprimento do raio"
 
 #: ../objects/Misc/n_gon.c:317
-#| msgctxt "Arrow"
-#| msgid "Hollow Triangle"
 msgid "Triangle"
 msgstr "Triângulo"
 
@@ -5297,12 +5234,10 @@ msgid "Square"
 msgstr "Quadrado"
 
 #: ../objects/Misc/n_gon.c:319
-#| msgid "Orientation"
 msgid "Pentagon"
 msgstr "Pentágono"
 
 #: ../objects/Misc/n_gon.c:319
-#| msgid "Open Diagram"
 msgid "Pentagram"
 msgstr "Pentagrama"
 
@@ -5311,7 +5246,6 @@ msgid "Hexagon"
 msgstr "Hexágono"
 
 #: ../objects/Misc/n_gon.c:320
-#| msgid "Diagram"
 msgid "Hexagram"
 msgstr "Hexagrama"
 
@@ -5320,7 +5254,6 @@ msgid "Heptagon"
 msgstr "Heptágono"
 
 #: ../objects/Misc/n_gon.c:321
-#| msgid "Diagram"
 msgid "Heptagram"
 msgstr "Heptagrama"
 
@@ -5329,7 +5262,6 @@ msgid "Octagon"
 msgstr "Octógono"
 
 #: ../objects/Misc/n_gon.c:322
-#| msgid "Diagram"
 msgid "Octagram"
 msgstr "Octagrama"
 
@@ -5338,7 +5270,6 @@ msgid "Enneagon"
 msgstr "N-ágono"
 
 #: ../objects/Misc/n_gon.c:323
-#| msgid "Diagram"
 msgid "Enneagram"
 msgstr "N-agrama"
 
@@ -5347,7 +5278,6 @@ msgid "Decagon"
 msgstr "Decágono"
 
 #: ../objects/Misc/n_gon.c:324
-#| msgid "Diagram"
 msgid "Decagram"
 msgstr "Decagrama"
 
@@ -5356,7 +5286,6 @@ msgid "Hendecagon"
 msgstr "Hendecágono"
 
 #: ../objects/Misc/n_gon.c:325
-#| msgid "Open Diagram"
 msgid "Hendecagram"
 msgstr "Hendecagrama"
 
@@ -5365,7 +5294,6 @@ msgid "Dodecagon"
 msgstr "Dodecágono"
 
 #: ../objects/Misc/n_gon.c:326
-#| msgid "Diagram"
 msgid "Dodecagram"
 msgstr "Dodecagrama"
 
@@ -5374,7 +5302,6 @@ msgid "Tridecagon"
 msgstr "Tridecágono"
 
 #: ../objects/Misc/n_gon.c:327
-#| msgid "Diagram"
 msgid "Tridecagram"
 msgstr "Tridecagrama"
 
@@ -5383,7 +5310,6 @@ msgid "Tetradecagon"
 msgstr "Tetradecágono"
 
 #: ../objects/Misc/n_gon.c:328
-#| msgid "Istar diagram"
 msgid "Tetradecagram"
 msgstr "Tetradecagrama"
 
@@ -5392,7 +5318,6 @@ msgid "Pentadecagon"
 msgstr "Pentadecágono"
 
 #: ../objects/Misc/n_gon.c:329
-#| msgid "Istar diagram"
 msgid "Pentadecagram"
 msgstr "Pentadecagrama"
 
@@ -5409,7 +5334,6 @@ msgid "Heptadecagon"
 msgstr "Heptadecágono"
 
 #: ../objects/Misc/n_gon.c:331
-#| msgid "Istar diagram"
 msgid "Heptadecagram"
 msgstr "Heptadecagrama"
 
@@ -5418,7 +5342,6 @@ msgid "Octadecagon"
 msgstr "Octodecágono"
 
 #: ../objects/Misc/n_gon.c:332
-#| msgid "Istar diagram"
 msgid "Octadecagram"
 msgstr "Octadecagrama"
 
@@ -5435,7 +5358,6 @@ msgid "Icosagon"
 msgstr "Icoságono"
 
 #: ../objects/Misc/n_gon.c:334
-#| msgid "Close Diagram"
 msgid "Icosagram"
 msgstr "Icosagrama"
 
@@ -5444,12 +5366,10 @@ msgid "N-gon"
 msgstr "N-gono"
 
 #: ../objects/Misc/n_gon.c:352
-#| msgid "Diagram"
 msgid "N-gram"
 msgstr "N-grama"
 
 #: ../objects/Misc/n_gon.c:354
-#| msgid "Start"
 msgid "Star"
 msgstr "Estrela"
 
@@ -5535,7 +5455,6 @@ msgid "SADT diagram objects"
 msgstr "Objetos de diagrama SADT"
 
 #: ../objects/Sozi/sozi.c:39
-#| msgid "/_Sort objects"
 msgid "Sozi presentation objects"
 msgstr "Objetos de apresentação Sozi"
 
@@ -5550,7 +5469,6 @@ msgid "Fixed"
 msgstr "Fixo"
 
 #: ../objects/Sozi/sozi-frame.c:551
-#| msgid "Constraint:"
 msgid "Constant speed"
 msgstr "Velocidade fixa"
 
@@ -5563,7 +5481,6 @@ msgid "Speed up (strong)"
 msgstr "Acelerar (forte)"
 
 #: ../objects/Sozi/sozi-frame.c:554
-#| msgid "Move down"
 msgid "Speed down"
 msgstr "Travar"
 
@@ -5592,7 +5509,6 @@ msgid "Immediate (beginning)"
 msgstr "Imediato (início)"
 
 #: ../objects/Sozi/sozi-frame.c:561
-#| msgid "Intermediate Event"
 msgid "Immediate (end)"
 msgstr "Imediato (fim)"
 
@@ -5605,17 +5521,14 @@ msgid "Geometry"
 msgstr "Geometria"
 
 #: ../objects/Sozi/sozi-frame.c:573 ../objects/Sozi/sozi-media.c:422
-#| msgid "Center"
 msgid "Center x"
 msgstr "Centro x"
 
 #: ../objects/Sozi/sozi-frame.c:574 ../objects/Sozi/sozi-media.c:423
-#| msgid "Center"
 msgid "Center y"
 msgstr "Centro y"
 
 #: ../objects/Sozi/sozi-frame.c:576 ../objects/Sozi/sozi-media.c:425
-#| msgid "Height:"
 msgid "Height"
 msgstr "Altura"
 
@@ -5629,7 +5542,6 @@ msgid "Aspect ratio"
 msgstr "Proporção"
 
 #: ../objects/Sozi/sozi-frame.c:579 ../objects/Sozi/sozi-media.c:428
-#| msgid "Alarm center"
 msgid "Scale from center"
 msgstr "Escala a partir do centro"
 
@@ -5638,7 +5550,6 @@ msgid "Legend"
 msgstr "Legenda"
 
 #: ../objects/Sozi/sozi-frame.c:582 ../objects/Sozi/sozi-media.c:431
-#| msgid "Comments visible"
 msgid "Legend is visible"
 msgstr "Legenda visível"
 
@@ -5652,7 +5563,6 @@ msgid "Frame sequence"
 msgstr "Sequência de moldura"
 
 #: ../objects/Sozi/sozi-frame.c:591
-#| msgid "Document title"
 msgid "Frame title"
 msgstr "Título da moldura"
 
@@ -5673,7 +5583,6 @@ msgid "Frame timeout (ms)"
 msgstr "Expiração de moldura (ms)"
 
 #: ../objects/Sozi/sozi-frame.c:596
-#| msgid "Transaction file"
 msgid "Frame transition profile"
 msgstr "Perfil de transição de moldura"
 
@@ -5682,7 +5591,6 @@ msgid "Frame transition duration (ms)"
 msgstr "Duração da transição de moldura (ms)"
 
 #: ../objects/Sozi/sozi-media.c:405
-#| msgid "Undefined"
 msgid "undefined"
 msgstr "indefinido"
 
@@ -5711,17 +5619,14 @@ msgid "audio/wav"
 msgstr "áudio/wav"
 
 #: ../objects/Sozi/sozi-media.c:439
-#| msgid "Message type:"
 msgid "Media type"
 msgstr "Tipo de suporte"
 
 #: ../objects/Sozi/sozi-media.c:440
-#| msgid "Diagram file"
 msgid "Media file"
 msgstr "Ficheiro multimédia"
 
 #: ../objects/Sozi/sozi-media.c:441
-#| msgid "Start time"
 msgid "Start frame"
 msgstr "Moldura inicial"
 
@@ -5769,7 +5674,6 @@ msgid "Cusp control"
 msgstr "Controlo de ponta"
 
 #: ../objects/standard/box.c:154 ../objects/standard/ellipse.c:143
-#| msgid "Rotation"
 msgid "Rotation angle"
 msgstr "Ângulo de rotação"
 
@@ -5880,12 +5784,10 @@ msgid "Vertical text alignment"
 msgstr "Alinhamento vertical do texto"
 
 #: ../objects/standard/textobj.c:133
-#| msgid "Text padding"
 msgid "Text angle"
 msgstr "Ângulo do texto"
 
 #: ../objects/standard/textobj.c:138
-#| msgid "Text padding"
 msgid "Text margin"
 msgstr "Margemdo texto"
 
@@ -6091,9 +5993,8 @@ msgid "Class name:"
 msgstr "Nome da classe:"
 
 #: ../objects/UML/class_dialog.c:336
-#: ../objects/UML/class_operations_dialog.c:799
-#: ../objects/UML/dependency.c:134 ../objects/UML/generalization.c:131
-#: ../objects/UML/realizes.c:131
+#: ../objects/UML/class_operations_dialog.c:799 ../objects/UML/dependency.c:134
+#: ../objects/UML/generalization.c:131 ../objects/UML/realizes.c:131
 msgid "Stereotype:"
 msgstr "Estereótipo"
 
@@ -6505,7 +6406,7 @@ msgstr "Copiar para área de transferência Cairo"
 
 #: ../plug-ins/cairo/diacairo.c:467
 msgid "Copy _Diagram"
-msgstr "Copiar _Diagrama"
+msgstr "Copiar _diagrama"
 
 #: ../plug-ins/cairo/diacairo.c:476
 msgid "Print (GTK) …"
@@ -6727,8 +6628,7 @@ msgstr ""
 msgid "LaTeX PGF export filter"
 msgstr "Filtro de exportação para LaTeX PGF"
 
-#: ../plug-ins/pgf/render_pgf.c:1096
-#: ../plug-ins/pstricks/render_pstricks.c:686
+#: ../plug-ins/pgf/render_pgf.c:1096 ../plug-ins/pstricks/render_pstricks.c:686
 msgid "Not valid UTF-8"
 msgstr "UTF-8 inválido"
 
@@ -6742,10 +6642,6 @@ msgstr "Falha ao criar pixbuf a partir do desenho."
 
 #: ../plug-ins/pixbuf/pixbuf.c:91
 #, c-format
-#| msgid ""
-#| "Could not save file:\n"
-#| "%s\n"
-#| "%s\n"
 msgid ""
 "Could not save file:\n"
 "%s\n"
@@ -6757,7 +6653,7 @@ msgstr ""
 
 #: ../plug-ins/pixbuf/pixbuf.c:112
 msgid "Calling error, missing user_data."
-msgstr "Erro de chamada, _Dados do utilizador em falta."
+msgstr "Erro de chamada, _dados do utilizador em falta."
 
 #: ../plug-ins/pixbuf/pixbuf.c:141
 #, c-format
@@ -6822,7 +6718,6 @@ msgid "Encapsulated Postscript with preview (using Pango fonts)"
 msgstr "Postscript encapsulado com antevisão (utilizando letras Pango)"
 
 #: ../plug-ins/postscript/render_eps.c:187
-#| msgid "Encapsulated PostScript (using PostScript Latin-1 fonts)"
 msgid "Encapsulated PostScript (using PS Latin-1 fonts)"
 msgstr "PostScript encapsulado (a utilizar letras PostScript Latin-1)"
 
@@ -6916,7 +6811,6 @@ msgstr ""
 "%s"
 
 #: ../plug-ins/svg/svg-import.c:2012
-#| msgid "Expected SVG Namespace not found in file"
 msgid "Expected SVG name-space not found in file"
 msgstr "Espaço de nomes SVG não encontrado no ficheiro"
 
@@ -7024,7 +6918,6 @@ msgid "WMF export filter"
 msgstr "Filtro de exportação para WMF"
 
 #: ../plug-ins/wpg/wpg.c:1114 ../plug-ins/wpg/wpg.c:1120
-#| msgid "WordPerfect Graphics export filter"
 msgid "WordPerfect Graphics"
 msgstr "Gráficos WordPerfect"
 
@@ -7039,7 +6932,6 @@ msgstr "Ficheiro: tipo/versão %s não é suportado.\n"
 
 #: ../plug-ins/wpg/wpg-import.c:621
 #, c-format
-#| msgid "Unknown arrow type %d\n"
 msgid "Unknown WPG type %d size %d."
 msgstr "Tipo WPG %d desconhecido, tamanho %d."
 
@@ -7050,7 +6942,6 @@ msgstr "Tamanho 0 no tipo WPG %d, esperado WPG_END\n"
 
 #: ../plug-ins/wpg/wpg-import.c:635
 #, c-format
-#| msgid "Unexpected end of file."
 msgid "Unexpected end of file. WPG type %d, size %d.\n"
 msgstr "Fim prematuro de ficheiro. Tipo WPG %d, tamanho %d.\n"
 
@@ -7119,7 +7010,6 @@ msgstr "Tipo de seta %d desconhecida\n"
 
 #: ../plug-ins/xfig/xfig-import.c:387
 #, c-format
-#| msgid "Depth %d of of range, only 0-%d allowed.\n"
 msgid "Depth %d out of range, only 0-%d allowed.\n"
 msgstr "Profundidade %d fora do intervalo. Só 0-%d são permitidos.\n"
 
@@ -7196,7 +7086,6 @@ msgid "Compound end outside compound\n"
 msgstr "Fim composto fora da composição\n"
 
 #: ../plug-ins/xfig/xfig-import.c:1062
-#| msgid "Couldn't read color: %s\n"
 msgid "Couldn't read color\n"
 msgstr "Impossível ler cor: %s\n"
 
@@ -8101,12 +7990,10 @@ msgid "Horizontal jumper"
 msgstr "Jumper horizontal"
 
 #: ../sheets/Circuit.sheet.in.h:37
-#| msgid "Horizontal rest"
 msgid "Horizontal xtal"
 msgstr "Descanso horizontal"
 
 #: ../sheets/Circuit.sheet.in.h:38
-#| msgid "Vertical rest"
 msgid "Vertical xtal"
 msgstr "Descanso vertical"
 
@@ -10515,7 +10402,6 @@ msgid "Diagram object"
 msgstr "Objeto de diagrama"
 
 #: ../sheets/Misc.sheet.in.h:12
-#| msgid "Bond graph objects"
 msgid "N-gon or Star object"
 msgstr "Objeto n-gono ou estrela"
 
@@ -10893,7 +10779,6 @@ msgid "Sozi frame"
 msgstr "Moldura Sozi"
 
 #: ../sheets/Sozi.sheet.in.h:4
-#| msgid "BBFW media"
 msgid "Sozi media"
 msgstr "Media Sozi"
 
