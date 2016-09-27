@@ -34,6 +34,7 @@
 DIA_PLUGIN_CHECK_INIT
 
 void initdia(void);
+gint run_script_oneshot(gchar*);
 
 static gboolean
 on_error_report (void)
@@ -48,7 +49,7 @@ on_error_report (void)
          */
         PyObject *exc, *v, *tb, *ef;
         PyErr_Fetch (&exc, &v, &tb);
-        ef = PyDiaError_New ("Initialization Error:", FALSE);
+        ef = PyDiaError_New ("Execution Error:", FALSE);
         PyFile_WriteObject (exc, ef, 0);
         PyFile_WriteObject (v, ef, 0);
         PyTraceBack_Print(tb, ef);
@@ -84,8 +85,7 @@ dia_plugin_init(PluginInfo *info)
 {
     gchar *python_argv[] = { "dia-python", NULL };
     gchar *startup_file;
-    FILE *fp;
-    PyObject *__main__, *__file__;
+    gint  script_fail = 0;
 
     if (Py_IsInitialized ()) {
         g_warning ("Dia's Python embedding is not designed for concurrency.");
@@ -124,9 +124,31 @@ dia_plugin_init(PluginInfo *info)
 	return DIA_PLUGIN_INIT_ERROR;
     }
 
+	 script_fail = run_script_oneshot(startup_file);
+	 g_free(startup_file);
+
+   if (script_fail)
+     return DIA_PLUGIN_INIT_ERROR;
+
+   return DIA_PLUGIN_INIT_OK;
+}
+
+gint
+run_script_oneshot (gchar* filename) {
+    /*
+     * Let it be noted explicitly, that (currently) there is exactly one
+     * instance of the python interpreter for the entire dia session.
+     * This means that every call to this function runs a script with the
+     * interpreter in the very state left behind by any previous call to any
+     * python function, especially the execution of the startup file.
+     */
+
+    FILE *fp;
+    PyObject *__main__, *__file__;
+
     /* set __file__ in __main__ so that python-startup.py knows where it is */
     __main__ = PyImport_AddModule("__main__");
-    __file__ = PyString_FromString(startup_file);
+    __file__ = PyString_FromString(filename);
     PyObject_SetAttrString(__main__, "__file__", __file__);
     Py_DECREF(__file__);
 #if defined(G_OS_WIN32) && (PY_VERSION_HEX >= 0x02040000)
@@ -136,39 +158,37 @@ dia_plugin_init(PluginInfo *info)
      * It is not enabled by default yet, because I could not get PyGtk using 
      * plug-ins to work at all with 2.5/2.6 */
     {
-	gchar *startup_string = NULL;
+	gchar *python_string = NULL;
 	gsize i, length = 0;
 	GError *error = NULL;
-	if (!g_file_get_contents(startup_file, &startup_string, &length, &error)) {
-	    g_warning("Python: Couldn't find startup file %s\n%s\n", 
-		      startup_file, error->message);
+	if (!g_file_get_contents(filename, &python_string, &length, &error)) {
+	    g_warning("Python: Couldn't find file %s\n%s\n",
+		      filename, error->message);
 	    g_error_free(error);
-	    g_free(startup_file);
-	    return DIA_PLUGIN_INIT_ERROR;
+	    return -1;
 	}
 	/* PyRun_SimpleString does not like the windows format */
 	for (i = 0; i < length; ++i)
-	    if (startup_string[i] == '\r')
-		startup_string[i] = '\n';
+	    if (python_string[i] == '\r')
+		python_string[i] = '\n';
 
-	if (PyRun_SimpleString(startup_string) != 0) {
-	    g_warning("Python: Couldn't run startup file %s\n", startup_file);
+	if (PyRun_SimpleString(python_string) != 0) {
+	    g_warning("Python: Couldn't run file %s\n", filename);
 	}
-	g_free(startup_string);
+	g_free(python_string);
     }
 #else
-    fp = fopen(startup_file, "r");
+    fp = fopen(filename, "r");
     if (!fp) {
-	g_warning("Python: Couldn't find startup file %s\n", startup_file);
-	g_free(startup_file);
-	return DIA_PLUGIN_INIT_ERROR;
+	g_warning("Python: Couldn't find file %s\n", filename);
+	return -1;
     }
-    PyRun_SimpleFile(fp, startup_file);
+    PyRun_SimpleFile(fp, filename);
 #endif
-    g_free(startup_file);
 
     if (on_error_report())
-	return DIA_PLUGIN_INIT_ERROR;
-
-    return DIA_PLUGIN_INIT_OK;
+    {
+      return -2;
+    }
+    return 0;
 }

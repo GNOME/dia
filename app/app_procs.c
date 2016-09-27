@@ -685,6 +685,7 @@ app_init (int argc, char **argv)
   static char *export_file_format = NULL;
   static char *size = NULL;
   static char *show_layers = NULL;
+  static char *python_script = NULL;
   gboolean made_conversions = FALSE;
   GSList *files = NULL;
   static const gchar **filenames = NULL;
@@ -716,6 +717,8 @@ app_init (int argc, char **argv)
      N_("Directory containing input files"), N_("DIRECTORY")},
     {"output-directory", 'O', 0, G_OPTION_ARG_CALLBACK, _check_option_output_directory,
      N_("Directory containing output files"), N_("DIRECTORY")},
+    {"python", 'i', 0, G_OPTION_ARG_FILENAME, NULL,
+     N_("Run python script after initialization, then terminate"), N_("SCRIPTFILE")},
     {"credits", 'c', 0, G_OPTION_ARG_NONE, &credits,
      N_("Display credits list and exit"), NULL },
     {"verbose", 0, 0, G_OPTION_ARG_NONE, &verbose,
@@ -734,8 +737,9 @@ app_init (int argc, char **argv)
   options[1].arg_data = &export_file_format;
   options[3].arg_data = &size;
   options[4].arg_data = &show_layers;
-  g_assert (strcmp (options[14].long_name, G_OPTION_REMAINING) == 0);
-  options[14].arg_data = (void*)&filenames;
+  options[11].arg_data = &python_script;
+  g_assert (strcmp (options[15].long_name, G_OPTION_REMAINING) == 0);
+  options[15].arg_data = (void*)&filenames;
 
   argv0 = (argc > 0) ? argv[0] : "(none)";
 
@@ -806,7 +810,7 @@ app_init (int argc, char **argv)
       }
     }
     /* given some files to output (or something;)), we are not starting up the UI */
-    if (export_file_name || export_file_format || size || credits || version || list_filters)
+    if (export_file_name || export_file_format || size || credits || version || list_filters || python_script)
       dia_is_interactive = FALSE;
 
   }
@@ -961,6 +965,33 @@ app_init (int argc, char **argv)
   }
 
   dia_log_message ("diagrams");
+
+
+  if (python_script) {
+    GList *tmp;
+    PluginInfo *info;
+    gint (*run_script_func) (gchar*);
+
+    const char* python_plugin_name = "Python";
+    for (tmp = dia_list_plugins(); tmp != NULL; tmp = tmp->next) {
+      info = tmp->data;
+      if (strstr(info->name, python_plugin_name))
+        break;
+    }
+    if (tmp == NULL) {
+      g_critical( _("Python plug-in not loaded! Not running %s.\n"),
+        python_script);
+    }
+    else if (!g_module_symbol(info->module, "run_script_oneshot",
+									 (gpointer)&run_script_func)) {
+        g_critical("Unable to retrieve %s from module %s at %p!\n",
+								"run_script_oneshot", info->name, info->module);
+    }
+	 else {
+        (* run_script_func)(python_script);
+    }
+  }
+
   made_conversions = handle_all_diagrams(files, export_file_name,
 					 export_file_format, size, show_layers,
 					 input_directory, output_directory);
