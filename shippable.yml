@@ -1,4 +1,4 @@
-build_image: magwas/diabuild:master
+build_image: magwas/diabuild
 #the next three lines are just to workaround a shippable bug
 language: python
 python:
