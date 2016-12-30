@@ -174,7 +174,7 @@ DiaExportFilter eps_ft2_export_filter = {
 /* Disabled until we can actually make the preview. */
 #  if 0
 DiaExportFilter epsi_ft2_export_filter = {
-  N_("Encapsulated Postscript with preview (using Pango fonts)"),
+  N_("Encapsulated PostScript with preview (using Pango fonts)"),
   epsi_extensions,
   export_ft2_eps,
   GINT_TO_POINTER(PSTYPE_EPSI), /* user_data */
@@ -192,7 +192,7 @@ DiaExportFilter eps_export_filter = {
 };
 /* Commented out until we can actually make the preview.
 DiaExportFilter epsi_export_filter = {
-  N_("Encapsulated Postscript with preview (using PostScript Latin-1 fonts)"),
+  N_("Encapsulated PostScript with preview (using PostScript Latin-1 fonts)"),
   epsi_extensions,
   export_eps,
   PSTYPE_EPSI,

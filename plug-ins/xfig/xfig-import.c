@@ -1001,7 +1001,7 @@ fig_read_text(FILE *file, DiaContext *ctx)
 	    /* "Default font" - wazzat? */
 	    tprop->attr.font = dia_font_new_from_legacy_name("Times-Roman");
 	} else if (font < 0 || font >= num_fig_fonts()) {
-	    dia_context_add_message(ctx, _("Can't find Postscript font nr. %d, using sans"), font);
+	    dia_context_add_message(ctx, _("Can't find PostScript font nr. %d, using sans"), font);
 	    tprop->attr.font = dia_font_new_from_legacy_name("Helvetica");
 	} else {
 	    tprop->attr.font = dia_font_new_from_legacy_name(fig_fonts[font]);
