@@ -74,11 +74,11 @@ exit_dialog_make (GtkWindow * parent_window,
 {
     GtkWidget * dialog = gtk_dialog_new_with_buttons (title, parent_window,
                                                       GTK_DIALOG_MODAL,
-                                                      _("Do Not Exit"),
+                                                      _("_Do Not Exit"),
                                                       EXIT_DIALOG_EXIT_CANCEL,
-                                                      _("Exit Without Save"),
+                                                      _("_Exit Without Save"),
                                                       EXIT_DIALOG_EXIT_NO_SAVE,
-                                                      _("Save Selected"),
+                                                      _("_Save Selected"),
                                                       EXIT_DIALOG_EXIT_SAVE_SELECTED,
                                                       NULL);
 
