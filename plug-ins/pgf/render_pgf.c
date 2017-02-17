@@ -1089,12 +1089,19 @@ draw_bezier_with_arrows(DiaRenderer *self, BezPoint *points, int num_points,
 static gchar *
 tex_escape_string(const gchar *src, DiaContext *ctx)
 {
-    GString *dest = g_string_sized_new(g_utf8_strlen(src, -1));
+    int len = g_utf8_strlen(src, -1);
+    GString *dest = g_string_sized_new(len);
     gchar *p;
+    char b = src[0], e = src[len - 1];
 
     if (!g_utf8_validate(src, -1, NULL)) {
 	dia_context_add_message(ctx, _("Not valid UTF-8"));
 	return g_strdup(src);
+    }
+
+    // Do not escape TeX macros if string is marked properly -- "$...$" or "{...}"
+    if ((b == '$' && e == '$') || (b == '{' && e == '}')) {
+        return g_strdup(src);
     }
 
     p = (char *) src;
