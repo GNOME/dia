@@ -8,8 +8,9 @@
 #: ../objects/UML/class.c:198
 msgid ""
 msgstr ""
-"Project-Id-Version: eu\n"
-"Report-Msgid-Bugs-To: \n"
+"Project-Id-Version: dia master\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=dia&keywords=I18N+L10N&component=general\n"
 "POT-Creation-Date: 2017-03-05 11:31+0100\n"
 "PO-Revision-Date: 2017-03-04 19:44+0100\n"
 "Last-Translator: Iñaki Larrañaga Murgoitio <dooteo@zundan.com>\n"
