@@ -1,0 +1,11 @@
+build_image: magwas/diabuild
+#the next three lines are just to workaround a shippable bug
+language: python
+python:
+  - 2.7
+archive: true
+build:
+  ci:
+    - ./autogen.sh
+    - make
+    - make check
