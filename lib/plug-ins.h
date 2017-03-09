@@ -110,6 +110,21 @@ g_module_check_init(GModule *gmodule) \
 /* prototype for plugin init function (should be implemented by plugin) */
 G_MODULE_EXPORT PluginInitResult dia_plugin_init(PluginInfo *info);
 
+struct _PluginInfo {
+  GModule *module;
+  gchar *filename;      /* plugin filename */
+
+  gboolean is_loaded;
+  gboolean inhibit_load;
+
+  gchar *name;
+  gchar *description;
+
+  PluginInitFunc init_func;
+  PluginCanUnloadFunc can_unload_func;
+  PluginUnloadFunc unload_func;
+};
+
 G_END_DECLS
 
 #endif

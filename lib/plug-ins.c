@@ -49,21 +49,6 @@
 #undef Rectangle
 #endif
 
-struct _PluginInfo {
-  GModule *module;
-  gchar *filename;      /* plugin filename */
-
-  gboolean is_loaded;
-  gboolean inhibit_load;
-
-  gchar *name;
-  gchar *description;
-
-  PluginInitFunc init_func;
-  PluginCanUnloadFunc can_unload_func;
-  PluginUnloadFunc unload_func;
-};
-
 
 static GList *plugins = NULL;
 
