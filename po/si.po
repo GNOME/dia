@@ -1,0 +1,384 @@
+# Sinhala translations for THIS package.
+# Copyright (C) 2007 THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as THIS package.
+# Automatically generated, 2007.
+# Senasum Rajapaksha <senasum@live.com>, 2007
+msgid ""
+msgstr ""
+"Project-Id-Version: Sinhala\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2008-07-31 11:06+0100\n"
+"PO-Revision-Date: 2008-01-01 12:19+0100\n"
+"Last-Translator: Senasum Rajapaksha <senasum@live.com>\n"
+"Language-Team: Senasum Rajapaksha <senasum@live.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Bookmarks: 2024,-1,-1,-1,-1,-1,-1,-1,-1,-1\n"
+
+#. This is not an errror
+#: ../app/app_procs.c:200
+#, c-format
+msgid "Warning: invalid layer range %lu - %lu\n"
+msgstr "අවවාදයයි! අවලංගු ස්ථරය පරාසය %lu - %lu\n"
+
+#: ../app/app_procs.c:212
+#, c-format
+msgid "Warning: Layer %lu (%s) selected more than once.\n"
+msgstr "අවවාදයයි! පරාසය (%s) වරකට වඩා තෝරාගත්. \n"
+
+#: ../app/app_procs.c:238
+#, c-format
+msgid "Warning: Layer %d (%s) selected more than once.\n"
+msgstr "අවවාදයයි! පරාසය %d (%s) වරකට වඩා තෝරාගත්. \n"
+
+#: ../app/app_procs.c:247
+#, c-format
+msgid "Warning: There is no layer named %s\n"
+msgstr "අවවාදයයි!ස්තරය සඳහා කිසිදු නම  නැත %s\n"
+
+#: ../app/app_procs.c:329
+#, c-format
+msgid "%s error: don't know how to export into %s\n"
+msgstr "දෝෂයක්:  බවට අපනයනය කිරීමට කෙසේ දැයි මා දන්නේ නැහැ%s\n"
+
+#: ../app/app_procs.c:338
+#, c-format
+msgid "%s error: input and output file name is identical: %s"
+msgstr "%s දෝෂයක්: යෙදවුම් හා නිමැවුම් ගොනු නම අනන්ය වේ  %s"
+
+#: ../app/app_procs.c:346
+#, c-format
+msgid "%s error: need valid input file %s\n"
+msgstr "%s දෝෂයක්:  වලංගු ආදාන ගොනු අවශ්ය %s\n"
+
+#. if (!quiet)
+#: ../app/app_procs.c:371
+#, c-format
+msgid "%s --> %s\n"
+msgstr "%s --> %s\n"
+
+#: ../app/app_procs.c:542
+#, c-format
+msgid "Can't find output format/filter %s\n"
+msgstr "නිමැවුම ආකෘතිය සොයා ගැනීමට නොහැක %s\n"
+
+#. Translators:  The argument is a list of options, not to be translated
+#: ../app/app_procs.c:618
+#, fuzzy, c-format
+msgid "Select the filter/format out of: %s"
+msgstr "මෙම පෙරහන තෝරන්න.<p>"
+
+#. &export_file_name
+#: ../app/app_procs.c:636
+#, fuzzy
+msgid "Export loaded file and exit"
+msgstr "ගොනු අපනයන පටවා  සහ පිටවීම"
+
+#: ../app/app_procs.c:636
+msgid "OUTPUT"
+msgstr "නිමැවුම්"
+
+#. &export_file_format
+#. &export_format_string
+#: ../app/app_procs.c:638
+msgid "TYPE"
+msgstr "වර්ගය"
+
+#: ../app/app_procs.c:640
+#, fuzzy
+msgid "Export graphics size"
+msgstr "අපනයන රූප ප්රමාණය"
+
+#: ../app/app_procs.c:640
+msgid "WxH"
+msgstr "WxH"
+
+#: ../app/app_procs.c:642
+msgid ""
+"Show only specified layers (e.g. when exporting). Can be either the layer "
+"name or a range of layer numbers (X-Y)"
+msgstr "නිශ්චිතව දක්වා ඇති එකම ස්ථර පෙන්වන්න"
+
+#: ../app/app_procs.c:643
+msgid "LAYER,LAYER,..."
+msgstr "ස්ථරය,  ස්ථරය ..."
+
+#: ../app/app_procs.c:645
+#, fuzzy
+msgid "Don't show the splash screen"
+msgstr "ආරම්භක තිරයේ පෙන්වන්න එපා"
+
+#: ../app/app_procs.c:647
+#, fuzzy
+msgid "Don't create empty diagram"
+msgstr "හිස් සටහන ඇති කරන්න එපා"
+
+#: ../app/app_procs.c:649
+#, fuzzy
+msgid "Send error messages to stderr instead of showing dialogs."
+msgstr "දෝෂයක් පණිවිඩ යවන්න."
+
+#: ../app/app_procs.c:651
+#, fuzzy
+msgid "Display credits list and exit"
+msgstr "බැර ලැයිස්තුව ප්රදර්ශනය  සහ පිටවීමේ"
+
+#: ../app/app_procs.c:653
+#, fuzzy
+msgid "Generate verbose output"
+msgstr "විස්ථරාත්මක ප්රතිදානය උත්පාදනය"
+
+#: ../app/app_procs.c:655
+#, fuzzy
+msgid "Display version and exit"
+msgstr "අනුවාදය ප්රදර්ශනය  සහ පිටවීම"
+
+#: ../app/app_procs.c:707
+#, fuzzy
+msgid "Can't connect to session manager!\n"
+msgstr "සැසි කළමණාකරු වෙත සම්බන්ධ විය නොහැකි!"
+
+#. TRANSLATOR: 2nd and 3rd %s are time and date respectively.
+#: ../app/app_procs.c:747
+#, fuzzy, c-format
+msgid "Dia version %s, compiled %s %s\n"
+msgstr "Dia අනුවාදය."
+
+#: ../app/app_procs.c:749
+#, c-format
+msgid "Dia version %s\n"
+msgstr "Dia අනුවාදය %s\n"
+
+#: ../app/app_procs.c:785
+msgid ""
+"Couldn't find standard objects when looking for object-libs; exiting...\n"
+msgstr "වස්තුවක් සොයමින් විට සම්මත වස්තු සොයා ගත නොහැකි විය; පිටවීමට"
+
+#: ../app/app_procs.c:787
+#, c-format
+msgid ""
+"Couldn't find standard objects when looking for object-libs in '%s'; "
+"exiting...\n"
+msgstr "වස්තුවක් සොයමින් විට සම්මත වස්තු සොයා ගත නොහැකි විය; පිටවීමට"
+
+#: ../app/app_procs.c:846
+msgid "Diagram1.dia"
+msgstr "රූප සටහන 1.dia"
+
+#: ../app/app_procs.c:889
+msgid ""
+"This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\n"
+"describing how you can cause this message to appear.\n"
+msgstr "මෙය සිදු නොවිය යුතු"
+
+#: ../app/app_procs.c:904
+msgid "Exiting Dia"
+msgstr "පිටවීමට"
+
+#. no standard buttons
+#: ../app/app_procs.c:956
+msgid "Quitting without saving modified diagrams"
+msgstr "වෙනස් රූප සටහන් ඉතිරි තොරව ගමන අතරමඟ නතර"
+
+#: ../app/app_procs.c:958
+msgid ""
+"Modified diagrams exist. Are you sure you want to quit Dia without saving "
+"them?"
+msgstr ""
+
+#: ../app/app_procs.c:962
+msgid "Quit Dia"
+msgstr ""
+
+#: ../app/app_procs.c:1031 ../app/app_procs.c:1038
+msgid "Could not create per-user Dia config directory"
+msgstr ""
+
+#: ../app/app_procs.c:1041
+msgid ""
+"Could not create per-user Dia config directory. Please make sure that the "
+"environment variable HOME points to an existing directory."
+msgstr ""
+
+#: ../app/app_procs.c:1064
+msgid "Objects and filters internal to dia"
+msgstr ""
+
+#: ../app/app_procs.c:1096
+msgid "[FILE...]"
+msgstr "[...]"
+
+#: ../app/app_procs.c:1117
+#, c-format
+msgid "'%s' not found!\n"
+msgstr "'%s' !\n"
+
+#: ../app/app_procs.c:1161
+#, c-format
+msgid ""
+"The original author of Dia was:\n"
+"\n"
+msgstr ""
+":\n"
+"\n"
+
+#: ../app/app_procs.c:1166
+#, c-format
+msgid ""
+"\n"
+"The current maintainers of Dia are:\n"
+"\n"
+msgstr ""
+
+#: ../app/app_procs.c:1171
+#, c-format
+msgid ""
+"\n"
+"Other authors are:\n"
+"\n"
+msgstr ""
+"\n"
+"::\n"
+"\n"
+
+#: ../app/app_procs.c:1176
+#, c-format
+msgid ""
+"\n"
+"Dia is documented by:\n"
+"\n"
+msgstr ""
+"\n"
+":\n"
+"\n"
+
+#: ../app/autosave.c:90
+msgid "Recovering autosaved diagrams"
+msgstr ""
+
+#: ../app/autosave.c:98
+msgid ""
+"Autosaved files exist.\n"
+"Please select those you wish to recover."
+msgstr ""
+
+#: ../app/color_area.c:317 ../app/color_area.c:360
+msgid "Select foreground color"
+msgstr ""
+
+#: ../app/color_area.c:318 ../app/color_area.c:361
+msgid "Select background color"
+msgstr ""
+
+#: ../app/commands.c:124
+msgid "No print plug-in found!"
+msgstr ""
+
+#: ../app/commands.c:152
+#, c-format
+msgid "Diagram%d.dia"
+msgstr "රූප සටහන %d.dia"
+
+#: ../app/commands.c:345
+msgid "No existing object to paste.\n"
+msgstr ".\n"
+
+#: ../app/commands.c:649 ../app/commands.c:687
+msgid "Could not find help directory"
+msgstr ""
+
+#: ../app/commands.c:656
+#, c-format
+msgid ""
+"Could not open help directory:\n"
+"%s"
+msgstr ""
+":\n"
+"%s"
+
+#: ../app/commands.c:723
+msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
+msgstr "පරිවර්තක <senasum@live.com>"
+
+#: ../app/commands.c:725
+#, fuzzy
+msgid ""
+"This program is free software; you can redistribute it and/or modify\n"
+"it under the terms of the GNU General Public License as published by\n"
+"the Free Software Foundation; either version 2 of the License, or\n"
+"(at your option) any later version.\n"
+"\n"
+"This program is distributed in the hope that it will be useful,\n"
+"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
+"GNU General Public License for more details.\n"
+"\n"
+"You should have received a copy of the GNU General Public License\n"
+"along with this program; if not, write to the Free Software\n"
+"Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.\n"
+msgstr ""
+" "
+".\n"
+" "
+" "
+".\n"
+" "
+":\n"
+"Free Software Fondation Inc., 59 Temple Place - Suite 330, Boston, MA 02111 "
+"- 1307, USA"
+
+#: ../app/commands.c:748
+msgid "A program for drawing structured diagrams."
+msgstr ""
+
+#: ../app/defaults.c:43 ../app/defaults.c:145
+msgid "Object defaults"
+msgstr ""
+
+#: ../app/defaults.c:61
+#, fuzzy
+msgid "This object has no defaults."
+msgstr " %s"
+
+#: ../app/defaults.c:110
+msgid "Defaults: "
+msgstr ":"
+
+#: ../app/dia-props.c:85
+msgid "Diagram Properties"
+msgstr ""
+
+#: ../app/dia-props.c:119
+msgid "Dynamic grid"
+msgstr ""
+
+#: ../app/dia-props.c:127
+msgid "x"
+msgstr ""
+
+#: ../app/dia-props.c:131
+msgid "y"
+msgstr ""
+
+#: ../app/dia-props.c:136
+msgid "Spacing"
+msgstr ""
+
+#: ../app/dia-props.c:156
+msgid "Visible spacing"
+msgstr ""
+
+#. Hexes!
+#: ../app/dia-props.c:177 ../app/preferences.c:192
+msgid "Hex grid"
+msgstr ""
+
+#: ../app/dia-props.c:185
+msgid "Hex grid size"
+msgstr ""
+
+#: ../app/dia-props.c:198
+msgid "Grid"
+msgstr ""
+
