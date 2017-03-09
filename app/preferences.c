@@ -169,6 +169,9 @@ DiaPrefData prefs_data[] =
   { "reverse_rubberbanding_intersects", PREF_BOOLEAN, PREF_OFFSET(reverse_rubberbanding_intersects), 
     &default_true, UI_TAB, N_("Reverse dragging selects\nintersecting objects") },
 
+  { "wheel_zoom_without_modifier", PREF_BOOLEAN, PREF_OFFSET(wheel_zoom_without_modifier), 
+    &default_false, UI_TAB, N_("Mouse wheel zoom without modifier") },
+
   { "recent_documents_list_size", PREF_UINT, PREF_OFFSET(recent_documents_list_size), 
     &default_recent_documents, 0, N_("Recent documents list size:") },
 
