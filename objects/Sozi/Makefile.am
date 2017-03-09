@@ -9,10 +9,6 @@ libsozi_objects_la_SOURCES = \
 			sozi-media.c \
 			sozi-player.h
 
-if WITH_SOZI_PATH
-libsozi_objects_la_CFLAGS = -DSOZI_PATH="\"$(SOZI_PATH)\""
-endif
-
 libsozi_objects_la_LDFLAGS = -export-dynamic -module -avoid-version $(NO_UNDEFINED)
 
 libsozi_objects_la_LIBADD = $(top_builddir)/lib/libdia.la
