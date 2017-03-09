@@ -7466,7 +7466,7 @@ msgstr "Jezik za specifikaciju i opis (SDL)."
 
 #: ../sheets/SDL.sheet.in.h:18 ../sheets/UML.sheet.in.h:28
 msgid "State"
-msgstr "Država"
+msgstr "Stanje"
 
 #: ../sheets/UML.sheet.in.h:1
 msgid "Activity"
