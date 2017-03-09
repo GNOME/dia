@@ -156,6 +156,7 @@ static PropDescription chronoline_props[] = {
    "( duration  set the signal up, then wait 'duration'.\n"
    ") duration  set the signal down, then wait 'duration'.\n" 
    "u duration  set the signal to \"unknown\" state, then wait 'duration'.\n"
+   "x duration  set the signal to \"twisted\" state, then wait 'duration'.\n"
    "Example: @ 1.0 (2.0)1.0(2.0)\n" )},
 
   PROP_NOTEBOOK_PAGE("parameters",0,N_("Parameters")),
@@ -290,6 +291,9 @@ cld_onebit(Chronoline *chronoline,
 {
   DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Point pts[4];
+  Point ptsbis[4];
+  real xmid = .5 * (x1 + x2);
+  real ymid = .5 * (chronoline->y_down + chronoline->y_up);
   real y_down = chronoline->y_down;
   real y_up = chronoline->y_up;
   
@@ -299,7 +303,141 @@ cld_onebit(Chronoline *chronoline,
   pts[0].y = pts[3].y = chronoline->y_down;
   pts[1].y = (s1 == CLE_OFF)?y_down:y_up;
   pts[2].y = (s2 == CLE_OFF)?y_down:y_up;
-
+  
+  if (s1 == CLE_TWISTEDUNON) {
+    if (fill) {
+      ptsbis[0].x = ptsbis[1].x = x1;	 /*  1    */
+      ptsbis[2].x = ptsbis[3].x = xmid;	 /*  |\3  */
+      ptsbis[0].y = y_down;		 /*  |/2  */
+      ptsbis[1].y = y_up; 		 /*  0    */
+      ptsbis[2].y = ptsbis[3].y = ymid;
+      renderer_ops->fill_polygon(renderer,ptsbis,sizeof(ptsbis)/sizeof(ptsbis[0]),
+				  &chronoline->datagray);
+    	                                /*     2 */
+      pts[0].x = pts[1].x = xmid;       /*   1/| */
+      pts[0].y = pts[1].y = ymid;       /*   0\| */
+     		                        /*     3 */
+    } else {
+      pts[3].x = xmid;
+      pts[3].y = ymid;
+    }
+  } else if (s1 == CLE_TWISTEDONUN) {
+    if (fill) {
+      ptsbis[0].x = ptsbis[1].x = x1;	 /*  1    */
+      ptsbis[2].x = ptsbis[3].x = xmid;	 /*  |\3  */
+      ptsbis[0].y = y_down;		 /*  |/2  */
+      ptsbis[1].y = y_up; 		 /*  0    */
+      ptsbis[2].y = ptsbis[3].y = ymid;
+      renderer_ops->fill_polygon(renderer,ptsbis,sizeof(ptsbis)/sizeof(ptsbis[0]),
+				  &color_white);
+    	                             /*	2 */
+      pts[0].x = pts[1].x = xmid;    /* 1/| */
+      pts[0].y = pts[1].y = ymid;    /* 0\| */
+     		                     /*	3 */
+    } else {
+      pts[0].x = xmid;
+      pts[0].y = ymid;
+    }
+  }
+  
+  if ((s1 == CLE_TWISTED) || (s2 == CLE_TWISTED)) {
+    if (s1 == CLE_TWISTED) {
+      ptsbis[0].x = ptsbis[1].x = x1;	   /*  1    */
+      ptsbis[2].x = ptsbis[3].x = xmid;    /*  |\3  */
+      ptsbis[0].y = y_down;		   /*  |/2  */
+      ptsbis[1].y = y_up;		   /*  0    */
+      ptsbis[2].y = ptsbis[3].y = ymid;
+      renderer_ops->fill_polygon(renderer,ptsbis,sizeof(ptsbis)/sizeof(ptsbis[0]),
+				  &color_white);
+      switch(s2) {
+      case CLE_UNKNOWN:
+      case CLE_ON:
+	if (fill) {	       /*     2 */
+                               /*    /| */
+          pts[1].y = y_down ;  /*   /_| */
+	                       /*  01 3 */
+        } else {		
+	                       /*  1  2 */
+	  pts[3].x = xmid ;    /*   \/  */
+	  pts[3].y = ymid ;    /*   /3  */
+	                       /*  0	*/
+        }
+        break;
+      case CLE_OFF:
+	if (fill) {	      /*       */
+          pts[2].x = xmid ;   /*    2  */
+          pts[2].y = ymid ;   /*   /\  */
+                              /*  01 3 */
+             
+        } else {	     /*  1    */
+	  pts[2].x = xmid ;  /*   \2  */
+	  pts[2].y = ymid ;  /*   /\  */
+	                     /*  0  3 */
+        }
+        break;
+      case CLE_TWISTEDBIS:
+	if (fill) {
+          pts[0].y = y_down ;
+          pts[1].y = y_up ;
+        } else {
+	  pts[0].y = y_up ;
+	  pts[1].y = y_down ;
+        }
+        break;
+      case CLE_TWISTED:
+	if (fill) {
+          pts[0].y = y_down ;
+          pts[1].y = y_up ;
+        } else {
+	  pts[0].y = y_up ;
+	  pts[1].y = y_down ;
+        }
+        break;
+      }
+    } else {
+      ptsbis[2].x = ptsbis[3].x = x2;	   /*     2 */
+      ptsbis[0].x = ptsbis[1].x = xmid;    /*   1/| */
+      ptsbis[3].y = y_down;		   /*   0\| */
+      ptsbis[2].y = y_up;		   /*     3 */
+      ptsbis[0].y = ptsbis[1].y = ymid;
+      renderer_ops->fill_polygon(renderer,ptsbis,sizeof(ptsbis)/sizeof(ptsbis[0]),
+				  &color_white);
+      switch(s1) {
+      case CLE_UNKNOWN:
+      case CLE_ON:
+	if (fill) {	      /*  1    */
+                              /*  |\2  */
+          pts[2].x = xmid ;   /*  |_\  */
+          pts[2].y = ymid ;   /*  0  3 */
+        } else {
+	                      /*  1  2 */
+	  pts[0].x = xmid ;   /*   \/  */
+	  pts[0].y = ymid ;   /*   0\  */
+	                      /*     3 */
+        }
+        break;
+      case CLE_OFF:
+	if (fill) {	       /*	*/
+          pts[1].x = xmid ;    /*   1	*/
+          pts[1].y = ymid ;    /*   /\  */
+                               /*  0 32 */
+        } else {
+	  pts[1].x = xmid ;    /*     2 */
+	  pts[1].y = ymid ;    /*   1/  */
+	                       /*   /\  */
+	                       /*  0  3 */
+        }
+        break;
+      case CLE_TWISTEDBIS:
+	if (fill) {
+          pts[0].y = y_up ;
+          pts[1].y = y_down ;
+	  break;
+	}
+      }
+    }
+  }
+  
   if (fill) {
     if ((s1 == CLE_UNKNOWN) || (s2 == CLE_UNKNOWN)) {
       renderer_ops->draw_polygon(renderer,pts,sizeof(pts)/sizeof(pts[0]),
@@ -309,8 +447,17 @@ cld_onebit(Chronoline *chronoline,
 				 &color_white, NULL);
     }    
   } else {
-    renderer_ops->draw_line(renderer,&pts[1],&pts[2],
+    if ((s1 == CLE_TWISTED) || (s2 == CLE_TWISTED) 
+               || (s1 == CLE_TWISTEDBIS) || (s1 == CLE_TWISTEDONUN) 
+	       || (s1 == CLE_TWISTEDUNON)) {
+      renderer_ops->draw_line(renderer,&pts[1],&pts[3],
 			     &chronoline->data_color);
+      renderer_ops->draw_line(renderer,&pts[0],&pts[2],
+			     &chronoline->data_color);
+    } else {
+      renderer_ops->draw_line(renderer,&pts[1],&pts[2],
+			     &chronoline->data_color);
+    }
   }
 }
 
@@ -324,6 +471,8 @@ cld_multibit(Chronoline *chronoline,
 {
   DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Point pts[4];
+  Point ptsbis[4];
+  real xmid = .5 * (x1 + x2);
   real ymid = .5 * (chronoline->y_down + chronoline->y_up);
   real y_down = chronoline->y_down;
   real y_up = chronoline->y_up;
@@ -332,18 +481,91 @@ cld_multibit(Chronoline *chronoline,
   pts[2].x = pts[3].x = x2;
 
   if (s1 == CLE_OFF) {
+    ptsbis[0].x = x1;
+    ptsbis[1].x = xmid;
+    ptsbis[0].y = ptsbis[1].y = ymid; 
+    renderer_ops->draw_line(renderer,&ptsbis[0],&ptsbis[1],
+        		   &chronoline->data_color);
+    pts[0].x = pts[1].x = xmid;
     pts[0].y = pts[1].y = ymid;
   } else {
     pts[0].y = y_down;
     pts[1].y = y_up;
   }
   if (s2 == CLE_OFF) {
+    ptsbis[0].x = xmid ;
+    ptsbis[1].x = x2;
+    ptsbis[0].y = ptsbis[1].y = ymid; 
+    renderer_ops->draw_line(renderer,&ptsbis[0],&ptsbis[1],
+        		   &chronoline->data_color);
+    pts[2].x = pts[3].x = xmid;
     pts[2].y = pts[3].y = ymid;
+  } else if ((s1 == CLE_TWISTEDBIS) && fill) {
+    pts[2].y = y_down;
+    pts[3l].y = y_up;
   } else {
     pts[3].y = y_down;
     pts[2].y = y_up;
   }
-
+  
+  if (s1 == CLE_TWISTEDONUN) {
+    if (fill) {
+      ptsbis[0].x = ptsbis[1].x = x1;	/*  1	 */
+      ptsbis[2].x = ptsbis[3].x = xmid;	/*  |\3  */
+      ptsbis[0].y = y_down;		/*  |/2  */
+      ptsbis[1].y = y_up; 		/*  0	 */
+      ptsbis[2].y = ptsbis[3].y = ymid;
+      renderer_ops->fill_polygon(renderer,ptsbis,sizeof(ptsbis)/sizeof(ptsbis[0]),
+				  &color_white);
+    	                                /*     2 */
+      pts[0].x = pts[1].x = xmid;       /*   1/| */
+      pts[0].y = pts[1].y = ymid;       /*   0\| */
+     		                        /*     3 */
+    } 
+  } else if (s1 == CLE_TWISTEDUNON) {
+    if (fill) {
+      ptsbis[0].x = ptsbis[1].x = x1;	/*  1	 */
+      ptsbis[2].x = ptsbis[3].x = xmid;	/*  |\3  */
+      ptsbis[0].y = y_down;		/*  |/2  */
+      ptsbis[1].y = y_up; 		/*  0	 */
+      ptsbis[2].y = ptsbis[3].y = ymid;
+      renderer_ops->fill_polygon(renderer,ptsbis,sizeof(ptsbis)/sizeof(ptsbis[0]),
+				  &chronoline->datagray);
+    	                               /*    2 */
+      pts[0].x = pts[1].x = xmid;      /*  1/| */
+      pts[0].y = pts[1].y = ymid;      /*  0\| */
+     		                       /*    3 */
+    }
+  } else if ((s1 == CLE_TWISTED) && (s2 != s1) && (s2 != CLE_TWISTEDBIS)) {
+    if (fill) {
+      ptsbis[0].x = ptsbis[1].x = x1;	/*  1	 */
+      ptsbis[2].x = ptsbis[3].x = xmid;	/*  |\3  */
+      ptsbis[0].y = y_down;		/*  |/2  */
+      ptsbis[1].y = y_up; 		/*  0	 */
+      ptsbis[2].y = ptsbis[3].y = ymid;
+      renderer_ops->fill_polygon(renderer,ptsbis,sizeof(ptsbis)/sizeof(ptsbis[0]),
+				  &color_white);
+    	                               /*    2 */
+      pts[0].x = pts[1].x = xmid;      /*  1/| */
+      pts[0].y = pts[1].y = ymid;      /*  0\| */
+     		                       /*    3 */
+    }
+  } else if ((s2 == CLE_TWISTED) && (s2 != s1) && (s1 != CLE_TWISTEDBIS)) {
+    if (fill) {
+      ptsbis[2].x = ptsbis[3].x = x2;	/*     2 */
+      ptsbis[0].x = ptsbis[1].x = xmid;	/*   1/| */
+      ptsbis[3].y = y_down;		/*   0\| */
+      ptsbis[2].y = y_up; 		/*     3 */
+      ptsbis[0].y = ptsbis[1].y = ymid;
+      renderer_ops->fill_polygon(renderer,ptsbis,sizeof(ptsbis)/sizeof(ptsbis[0]),
+				  &color_white);
+    	                               /* 1    */
+      pts[2].x = pts[3].x = xmid;      /* |\2  */
+      pts[2].y = pts[3].y = ymid;      /* |/3  */
+     		                       /* 0    */
+    }
+  }
+  
   if (fill) { 
     if ((s1 == CLE_UNKNOWN) || (s2 == CLE_UNKNOWN)) {
       renderer_ops->draw_polygon(renderer,pts,sizeof(pts)/sizeof(pts[0]),
@@ -353,10 +575,27 @@ cld_multibit(Chronoline *chronoline,
 				 &color_white, NULL);
     }
   } else {
+    if ((s1 == CLE_TWISTEDBIS) || (s1 == CLE_TWISTEDONUN) || (s1 == CLE_TWISTEDUNON)) {
+      renderer_ops->draw_line(renderer,&pts[1],&pts[3],
+			     &chronoline->data_color);
+      renderer_ops->draw_line(renderer,&pts[0],&pts[2],
+			     &chronoline->data_color);
+    } else if ((s1 == CLE_UNKNOWN) && (s2 == CLE_TWISTED)) {
+      renderer_ops->draw_line(renderer,&pts[1],&pts[3],
+			     &chronoline->data_color);
+      renderer_ops->draw_line(renderer,&pts[0],&pts[2],
+			     &chronoline->data_color);
+    } else if (((s1 == CLE_TWISTED) || (s2 == CLE_TWISTED)) && ((s1 != s2) && (s2 != CLE_TWISTEDBIS) ) ) {
+      renderer_ops->draw_line(renderer,&pts[1],&pts[3],
+			     &chronoline->data_color);
+      renderer_ops->draw_line(renderer,&pts[0],&pts[2],
+			     &chronoline->data_color);
+    } else {
     renderer_ops->draw_line(renderer,&pts[1],&pts[2],
 			     &chronoline->data_color);
     renderer_ops->draw_line(renderer,&pts[0],&pts[3],
 			     &chronoline->data_color);
+    }
   }
 }
 
