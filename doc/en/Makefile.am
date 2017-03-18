@@ -47,8 +47,13 @@ xml_files += \
 
 EXTRA_DIST += \
 	dia.dbk \
+	dia.dia \
+	dia-dbk-to-chapter.sed \
 	dia-1.xml \
-	html.xsl
+	html.xsl \
+	topic.dat \
+	ps/graphics/color_selector.eps \
+	ps/graphics/preferences_fig.eps
 
 ##	graphics/line_props.png \
 ##	graphics/home_network.png \
