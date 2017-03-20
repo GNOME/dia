@@ -1,3 +1,8 @@
+2017-03-20  gettextize  <bug-gnu-gettext@gnu.org>
+
+	* Makefile.am (ACLOCAL_AMFLAGS): New variable.
+	(EXTRA_DIST): New variable.
+
 2009-04-13  Hans Breuer  <hans@breuer.org>
 
 	* * : The ChangeLog is auto-generated when releasing. If cou are

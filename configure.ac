@@ -1,7 +1,8 @@
 dnl Process this -*- autoconf -*- file with autoconf to produce a 
 dnl configure script.
-AC_INIT(dia, 0.98+git20170312110906~761c2a7a)
+AC_INIT(dia, 0.98+git20170320213049~0ddf3030)
 AC_CONFIG_SRCDIR(app/diagram.c)
+AC_CONFIG_MACRO_DIRS([m4])
 AM_INIT_AUTOMAKE([1.9 tar-pax])
 m4_ifdef([AM_SILENT_RULES],[AM_SILENT_RULES([yes])])
 
@@ -747,6 +748,10 @@ doc/en/Makefile
 doc/eu/Makefile
 doc/pl/Makefile
 doc/fr/Makefile
+doc/html/Makefile
+doc/html/css/Makefile
+doc/html/images/Makefile
+doc/html/images/callouts/Makefile
 installer/Makefile
 installer/macosx/Makefile
 installer/macosx/Resources/Makefile

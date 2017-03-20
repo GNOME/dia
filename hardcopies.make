@@ -82,11 +82,12 @@ $(progname)_html: $(progname).xml $(xml_files) $(htmlstyle) $(pngfigures)
 	$(mkinstalldirs) $(srcdir)/$(progname)_html/images
 	$(mkinstalldirs) $(srcdir)/$(progname)_html/images/callouts
 	$(mkinstalldirs) $(srcdir)/$(progname)_html/css
-	-cp ../html/images/*.png $(srcdir)/$(progname)_html/images
-	-cp ../html/images/callouts/*.png \
+	pwd
+	cp ../html/images/*.png $(srcdir)/$(progname)_html/images
+	cp ../html/images/callouts/*.png \
 	  $(srcdir)/$(progname)_html/images/callouts
-	-cp ../html/css/*.css $(srcdir)/$(progname)_html/css
-	-cp $(srcdir)/$(figdir)/*.png $(srcdir)/$(progname)_html/$(figdir)
+	cp ../html/css/*.css $(srcdir)/$(progname)_html/css
+	cp $(srcdir)/$(figdir)/*.png $(srcdir)/$(progname)_html/$(figdir)
 	cd $(srcdir)/$(progname)_html \
 	  && xsltproc --stringparam graphic.default.extension png \
 	    ../$(htmlstyle) ../$<
