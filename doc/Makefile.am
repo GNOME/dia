@@ -9,11 +9,7 @@ EXTRA_DIST = \
 	shape.dtd \
 	sheet.dtd
 
-if HAVE_GNOME
-helpdir = $(datadir)/gnome/help/$(docname)
-else
-helpdir = $(pkgdatadir)/help
-endif
+helpdir = $(datadir)/doc/dia/html
 
 sysdoc = $(DESTDIR)$(docdir)
 
