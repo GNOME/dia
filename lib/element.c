@@ -503,7 +503,7 @@ element_change_new (const Point *corner,
 
   ec->object_change.apply  = _element_change_swap;
   ec->object_change.revert = _element_change_swap;
-  ec->object_change.free = NULL;
+  ec->object_change.free = (ObjectChangeFreeFunc) g_free;
 
   ec->element = elem;
   ec->corner = elem->corner;
