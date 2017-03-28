@@ -1,0 +1,2 @@
+# "dia" is provided by binary packages dia and dia-gnome which are usually available if dia-common is installed
+dia-common: desktop-command-not-in-package usr/share/applications/dia.desktop dia

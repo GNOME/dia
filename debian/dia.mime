@@ -1,0 +1,1 @@
+application/x-dia-diagram; dia '%s'; description="DIA diagram"; test=test -n "$DISPLAY"; nametemplate=%s.dia

@@ -1,0 +1,7 @@
+config.log
+configure
+config.h.in
+aclocal.m4
+ltmain.sh
+po/.intltool-merge-cache*
+sheets/sheet-translation-report

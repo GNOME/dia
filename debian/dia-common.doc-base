@@ -1,0 +1,11 @@
+Document: dia-manual
+Title: Dia User's Manual
+Author: Kevin Breit, Henry House, Judith Samson
+Abstract: This User's Manual introduces Dia, an application for creating
+ technical diagrams.
+Section: Graphics
+
+Format: HTML
+Index: /usr/share/doc/dia/html/en/index.html
+Files: /usr/share/doc/dia/html/en/*.html
+

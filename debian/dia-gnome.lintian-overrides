@@ -1,0 +1,9 @@
+# Unfortunately, RPATH is the technique by Dia to find its libraries
+dia-gnome: binary-or-shlib-defines-rpath *usr/bin/dia-gnome /usr/lib/dia
+
+# File is in dia-common
+dia-gnome: menu-icon-missing *usr/share/pixmaps/dia_menu.xpm
+
+# Man page dia.1 (independent of GNOME or not) is in dia-common
+dia-gnome: binary-without-manpage *usr/bin/dia-gnome
+dia-gnome: binary-without-manpage *usr/bin/dia-gnome-integrated

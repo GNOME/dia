@@ -1,0 +1,10 @@
+debian/*.xpm usr/share/pixmaps/
+usr/share/doc/dia/*
+usr/share/locale/*
+usr/share/dia/*
+usr/share/applications/*
+usr/share/icons/*
+usr/share/mime-info/*
+usr/share/thumbnailers/*
+usr/share/man/*
+doc/*.dtd usr/share/xml/dia

@@ -1,0 +1,3 @@
+version=3
+
+ftp://ftp.gnome.org/pub/gnome/sources/dia/([\d\.]+)/dia-(.+)\.tar\..+
