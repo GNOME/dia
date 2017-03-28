@@ -51,6 +51,7 @@ libpython_plugin_la_SOURCES = \
 	pydia-properties.h \
 	pydia-property.c \
 	pydia-render.c \
+	pydia-render.h \
 	pydia-sheet.c \
 	pydia-sheet.h \
 	pydia-text.c \

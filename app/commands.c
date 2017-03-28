@@ -941,7 +941,7 @@ help_manual_callback (GtkAction *action)
     return;
   }
 
-  helpdir = dia_get_data_directory("help");
+  helpdir = g_strdup("/usr/share/doc/dia/html");
   if (!helpdir) {
     message_warning(_("Could not find help directory"));
     return;

@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding='iso-8859-2' ?>
-<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd"
+<?xml version="1.0" encoding="iso-8859-2" ?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd"
 
 [
 <!ENTITY VERSION "0.92.2">
@@ -16,6 +16,8 @@
 <!ENTITY AUTHORS-NOTE SYSTEM "authors-note.xml">
 <!ENTITY AUTHORS SYSTEM "authors.xml">
 <!ENTITY LICENSE SYSTEM "license.xml">
+<!ENTITY % local_entities SYSTEM "entities.xml">
+%local_entities;
 ]>
 
 <book id="index"> <!-- proszę nie zmieniać identyfikatora -->
