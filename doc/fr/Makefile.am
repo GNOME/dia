@@ -44,6 +44,9 @@ xml_files += \
 	dia-1.xml
 
 EXTRA_DIST += \
+	dia.dia \
+	dia-dbk-to-chapter.sed \
+	topic.dat \
 	dia.dbk \
 	dia-1.xml \
 	graphics/line_props.png \
@@ -52,7 +55,9 @@ EXTRA_DIST += \
 	graphics/greendots.png \
 	graphics/preferences_fig.png \
 	graphics/color_selector.png \
-	html.xsl
+	html.xsl \
+	ps/graphics/color_selector.eps \
+	ps/graphics/preferences_fig.eps
 
 
 pngfigures = \

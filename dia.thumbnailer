@@ -1,0 +1,4 @@
+[Thumbnailer Entry]
+TryExec=dia
+Exec=dia -t png -e %o -s %s %i
+MimeType=application/x-dia-diagram;

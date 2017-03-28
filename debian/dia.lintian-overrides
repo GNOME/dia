@@ -1,0 +1,6 @@
+# File is in dia-common
+dia: menu-icon-missing *usr/share/pixmaps/dia_menu.xpm
+
+# Man page dia.1 (independent of GNOME or not) is in dia-common
+dia: binary-without-manpage *usr/bin/dia-normal
+dia: binary-without-manpage *usr/bin/dia-normal-integrated

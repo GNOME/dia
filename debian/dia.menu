@@ -1,0 +1,13 @@
+?package(dia): \
+   needs="X11" \
+   section="Applications/Science/Engineering" \
+   hints="Vector" \
+   command="/usr/bin/dia" \
+   icon="/usr/share/pixmaps/dia_menu.xpm" \
+   title="Dia" \
+   longtitle="Dia diagram drawer" \
+   description="Dia can be used to draw different kind of diagrams. \
+     There is support for UML static structure diagrams \
+     (class diagrams), Entity-Relationship diagrams and \
+     Network diagrams. Diagrams can be exported to postscript \
+     and other formats."

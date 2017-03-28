@@ -1,0 +1,4 @@
+local;debian/catalog.xml;/usr/share/xml/dia/
+root-and-package;system;http://www.lysator.liu.se/~alla/dia/;/usr/share/xml/dia/diagram.dtd
+root-and-package;system;http://www.lysator.liu.se/~alla/dia/dia-sheet-ns;/usr/share/xml/dia/sheet.dtd
+root-and-package;system;http://www.daa.com.au/~james/dia-shape-ns;/usr/share/xml/dia/shape.dtd

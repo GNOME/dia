@@ -1,0 +1,47 @@
+Dia for Debian
+==============
+
+This is the Debian packaged version of Dia in Debian. Please note the
+following:
+
+Debian defaults to integrated version
+-------------------------------------
+
+Since 0.97, dia supports an integrated versions, including all diagrams and the
+main menu in a single X window. This is now the default in Debian when using
+the Debian alternatives mechanism in automatic mode. E.g.:
+
+$ update-alternatives --display dia
+dia - auto mode
+  link currently points to /usr/bin/dia-gnome-integrated
+/usr/bin/dia-gnome - priority 50
+/usr/bin/dia-gnome-integrated - priority 55
+/usr/bin/dia-normal - priority 40
+/usr/bin/dia-normal-integrated - priority 45
+Current 'best' version is '/usr/bin/dia-gnome-integrated'.
+$
+
+You can switch back to the non-integrated version by setting dia alternatives
+manually to the respective mode, e.g.:
+
+# update-alternatives --config dia
+
+or by directly calling "dia-normal" or "dia-gnome".
+
+
+Opening diagrams created wth older Dia versions
+-----------------------------------------------
+
+Regarding problems on import of .dia files created with dia 0.90 (or earlier),
+this is a problem that probably won't be fixed, according to the authors of
+Dia on their webpages:
+
+http://www.gnome.org/projects/dia/news.html:
+
+   "Warning: Since the font handling is changed, some elements in old diagrams
+   may change size. Since the font size was somewhat arbitrary in older
+   versions of Dia, there is little we can do to fix this."
+
+See also http://bugs.debian.org/292326
+
+-- Roland Stigge, Fri, 06 Jan 2012 16:01:30 +0100

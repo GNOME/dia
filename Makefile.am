@@ -74,7 +74,7 @@ distuninstallcheck_listfiles = find . -type f -print | grep -v '^\./var/scrollke
 #	@:
 
 EXTRA_DIST = dia.desktop.in.in KNOWN_BUGS $(pkgdata_DATA) \
-	dia.mime dia.keys.in po-checktrans.py po-checktrans \
+	dia.thumbnailer dia.mime dia.keys.in po-checktrans.py po-checktrans \
 	intltool-extract.in intltool-merge.in intltool-update.in \
 	RELEASE-PROCESS autogen.sh makefile.msc \
 	config.h.win32 readme.win32 AUTHORS MAINTAINERS THANKS \
@@ -92,6 +92,10 @@ dist-hook:
 	else \
 		echo A git clone is required to generate a ChageLog >&2; \
 	fi
+
+install-data-local:
+	$(mkinstalldirs) $(DESTDIR)$(datadir)/thumbnailers
+	$(INSTALL_DATA) $(srcdir)/dia.thumbnailer $(DESTDIR)$(datadir)/thumbnailers/dia.thumbnailer
 
 if MAINTAINER_MODE
 THANKS: all-recursive

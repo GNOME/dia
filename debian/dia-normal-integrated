@@ -1,0 +1,7 @@
+#!/bin/sh
+#
+# Wrapped that calls dia in integrated version
+#
+
+dia-normal --integrated "$@"
+

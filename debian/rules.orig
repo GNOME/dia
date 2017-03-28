@@ -1,0 +1,49 @@
+#!/usr/bin/make -f
+
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
+
+CONFIGURE_OPTIONS=--with-python --with-cairo
+
+%:
+	dh $@ --with python2
+
+override_dh_auto_configure:
+	libtoolize --copy --force
+	autoreconf -fi
+	dh_auto_configure -Bdia -- $(CONFIGURE_OPTIONS) --with-hardbooks
+	dh_auto_configure -Bdia-gnome -- $(CONFIGURE_OPTIONS) --enable-gnome
+
+override_dh_auto_build:
+	# docbook-xsl source for referenced pngs
+	# ln -s /usr/share/xml/docbook/stylesheet/docbook-xsl doc/html
+	
+	dh_auto_build -Bdia
+	dh_auto_build -Bdia-gnome
+
+override_dh_auto_install:
+	dh_auto_install -Bdia
+	install -D debian/tmp/usr/bin/dia debian/dia/usr/bin/dia-normal
+	install -D dia-gnome/app/.libs/dia debian/dia-gnome/usr/bin/dia-gnome
+	$(MAKE) -C dia/doc install-html DESTDIR=$(CURDIR)/debian/dia-common
+	# remove links in doc dir: en, fr, pl, eu
+	rm debian/tmp/usr/share/doc/dia/html/en/en
+	rm debian/tmp/usr/share/doc/dia/html/fr/fr
+	rm debian/tmp/usr/share/doc/dia/html/eu/eu
+	rm debian/tmp/usr/share/doc/dia/html/pl/pl
+	
+override_dh_auto_clean:
+	dh_auto_clean
+	-find . -name 'Makefile.in' | xargs rm -f
+	-rm -rf dia dia-gnome
+
+override_dh_compress:
+	dh_compress -X.dia -X.pdf
+	
+override_dh_installcatalogs:
+	dh_installcatalogs
+	# Workaround as long as dh_installxmlcatalogs is not integrated in dh (#575770)
+	dh_installxmlcatalogs
+	# Workaround for #611418 leaving /etc/xml around
+	rm -rf debian/dia-common/etc
+

@@ -77,19 +77,19 @@ clean-local: clean-local-xml \
 endif
 
 $(progname)_html: $(progname).xml $(xml_files) $(htmlstyle) $(pngfigures)
-	$(mkinstalldirs) $(srcdir)/$(progname)_html
-	$(mkinstalldirs) $(srcdir)/$(progname)_html/$(figdir)
-	$(mkinstalldirs) $(srcdir)/$(progname)_html/images
-	$(mkinstalldirs) $(srcdir)/$(progname)_html/images/callouts
-	$(mkinstalldirs) $(srcdir)/$(progname)_html/css
-	-cp ../html/images/*.png $(srcdir)/$(progname)_html/images
-	-cp ../html/images/callouts/*.png \
-	  $(srcdir)/$(progname)_html/images/callouts
-	-cp ../html/css/*.css $(srcdir)/$(progname)_html/css
-	-cp $(srcdir)/$(figdir)/*.png $(srcdir)/$(progname)_html/$(figdir)
-	cd $(srcdir)/$(progname)_html \
+	$(mkinstalldirs) $(progname)_html
+	$(mkinstalldirs) $(progname)_html/$(figdir)
+	$(mkinstalldirs) $(progname)_html/images
+	$(mkinstalldirs) $(progname)_html/images/callouts
+	$(mkinstalldirs) $(progname)_html/css
+	-cp $(srcdir)/../html/images/*.png $(progname)_html/images
+	-cp $(srcdir)/../html/images/callouts/*.png \
+	  $(progname)_html/images/callouts
+	-cp $(srcdir)/../html/css/*.css $(progname)_html/css
+	-cp $(srcdir)/$(figdir)/*.png $(progname)_html/$(figdir)
+	cd $(progname)_html \
 	  && xsltproc --stringparam graphic.default.extension png \
-	    ../$(htmlstyle) ../$<
+	    ../$(srcdir)/$(htmlstyle) ../$<
 	touch $(progname)_html
 
 if WITH_PDFDOC
@@ -98,6 +98,7 @@ $(progname).pdf: $(progname).xml $(xml_files) $(pngfigures)
 		-P 'latex.unicode.use=$(UNICODE)' \
 		-P latex.encoding='$(ENCODING)' \
 		$(LATEX_CLASS_OPTIONS) \
+		-o $@ \
 		$<
 endif
 
@@ -146,7 +147,7 @@ endif
 
 install-html: $(htmldoc)
 	$(mkinstalldirs) $(sysdoc_html)
-	cp -r $(srcdir)/$(progname)_html/* $(sysdoc_html)
+	cp -r $(progname)_html/* $(sysdoc_html)
 
 uninstall-html:
 	-rm -f $(sysdoc_html)/*.html

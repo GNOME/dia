@@ -1,0 +1,90 @@
+Source: dia
+Section: graphics
+Priority: optional
+Maintainer: Debian Dia Team <pkg-dia-team@lists.alioth.debian.org>
+Uploaders: Roland Stigge <stigge@antcom.de>,
+           Wolfgang Borgert <debacle@debian.org>
+Standards-Version: 3.9.7
+Build-Depends: autoconf,
+               automake,
+               debhelper (>= 9),
+               docbook-xml,
+               docbook-xsl,
+               intltool,
+               libart-2.0-dev,
+               libfreetype6-dev,
+               libglib2.0-dev,
+               libgnome2-dev,
+               libgnomeui-dev,
+               libgtk2.0-dev,
+               libpango1.0-dev,
+               libpng-dev,
+               libpopt-dev,
+               libtool,
+               libxml-parser-perl,
+               libxml2-dev,
+               libxslt1-dev,
+               python-dev,
+               python-gtk2,
+               texlive-lang-cyrillic,
+               xml-core,
+               xsltproc
+Build-Conflicts: autoconf2.13
+Homepage: http://live.gnome.org/Dia
+
+Package: dia-common
+Architecture: all
+Depends: python-gtk2, ${misc:Depends}, ${python:Depends}, ${shlibs:Depends}
+Recommends: dia | dia-gnome, dia-libs
+Replaces: dia (<= 0.86-1)
+Conflicts: dia (<= 0.86-1)
+Description: Diagram editor (common files)
+ Dia is an editor for diagrams, graphs, charts etc. There is support for UML
+ static structure diagrams (class diagrams), Entity-Relationship diagrams,
+ network diagrams and much more. Diagrams can be exported to postscript and
+ many other formats.
+ .
+ This package contains hardware independent files common to dia and dia-gnome
+
+Package: dia-libs
+Architecture: any
+Depends: ${misc:Depends}, ${python:Depends}, ${shlibs:Depends}
+Recommends: dia | dia-gnome, dia-common
+Replaces: dia (<= 0.86-1), dia-common (<= 0.92.2-3)
+Conflicts: dia (<= 0.86-1), dia-common (<= 0.92.2-3)
+Description: Diagram editor (library files)
+ Dia is an editor for diagrams, graphs, charts etc. There is support for UML
+ static structure diagrams (class diagrams), Entity-Relationship diagrams,
+ network diagrams and much more. Diagrams can be exported to postscript and
+ many other formats.
+ .
+ This package contains library files common to dia and dia-gnome
+
+Package: dia
+Architecture: any
+Depends: dia-common (=${source:Version}),
+         dia-libs (=${binary:Version}),
+         ${misc:Depends},
+         ${shlibs:Depends}
+Recommends: dia-shapes, gsfonts-x11
+Description: Diagram editor
+ Dia is an editor for diagrams, graphs, charts etc. There is support for UML
+ static structure diagrams (class diagrams), Entity-Relationship diagrams,
+ network diagrams and much more. Diagrams can be exported to postscript and
+ many other formats.
+
+Package: dia-gnome
+Architecture: any
+Depends: dia-common (=${source:Version}),
+         dia-libs (=${binary:Version}),
+         ${misc:Depends},
+         ${shlibs:Depends}
+Recommends: dia-shapes, gsfonts-x11
+Section: gnome
+Description: Diagram editor (GNOME version)
+ Dia is an editor for diagrams, graphs, charts etc. There is support for UML
+ static structure diagrams (class diagrams), Entity-Relationship diagrams,
+ network diagrams and much more. Diagrams can be exported to postscript and
+ many other formats.
+ .
+ This package contains the GNOME version of Dia.

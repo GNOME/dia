@@ -1,0 +1,10 @@
+#!/bin/sh -e
+
+case "$1" in
+  configure)
+    update-alternatives --install /usr/bin/dia dia /usr/bin/dia-gnome 50
+    update-alternatives --install /usr/bin/dia dia /usr/bin/dia-gnome-integrated 55
+    ;;
+esac
+
+#DEBHELPER#
