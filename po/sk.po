@@ -6196,24 +6196,24 @@ msgid "Printing error: command '%s' caused sigpipe."
 msgstr "Chyba tlače: príkaz „%s“ spôsobil sigpipe."
 
 #: ../plug-ins/postscript/render_eps.c:150
-msgid "Encapsulated Postscript (using Pango fonts)"
-msgstr "Zapuzdrený Postscript (používajúci písma Pango)"
+msgid "Encapsulated PostScript (using Pango fonts)"
+msgstr "Zapuzdrený PostScript (používajúci písma Pango)"
 
 #: ../plug-ins/postscript/render_eps.c:159
-msgid "Encapsulated Postscript with preview (using Pango fonts)"
-msgstr "Zapuzdrený Postscript s náhľadom (používajúci písma Pango)"
+msgid "Encapsulated PostScript with preview (using Pango fonts)"
+msgstr "Zapuzdrený PostScript s náhľadom (používajúci písma Pango)"
 
 #: ../plug-ins/postscript/render_eps.c:169
-msgid "Encapsulated Postscript (using PostScript Latin-1 fonts)"
-msgstr "Zapuzdrený Postscript (používajúci písma PostScript Latin-1)"
+msgid "Encapsulated PostScript (using PostScript Latin-1 fonts)"
+msgstr "Zapuzdrený PostScript (používajúci písma PostScript Latin-1)"
 
 #: ../plug-ins/postscript/postscript.c:46
 msgid "Print (PS)"
 msgstr "Tlačiť (PS)"
 
 #: ../plug-ins/postscript/postscript.c:70
-msgid "Postscript Rendering"
-msgstr "Postscriptové vykreslenie"
+msgid "PostScript Rendering"
+msgstr "PostScriptové vykreslenie"
 
 #: ../plug-ins/pstricks/pstricks.c:26
 msgid "TeX Pstricks export filter"

@@ -6143,22 +6143,22 @@ msgstr "Imprimir (PS)"
 #: ../plug-ins/postscript/postscript.c:82
 #, fuzzy
 msgid "PostScript Rendering"
-msgstr "Renderizado Postscript"
+msgstr "Renderizado PostScript"
 
 #: ../plug-ins/postscript/render_eps.c:168
 #, fuzzy
 msgid "Encapsulated PostScript (using Pango fonts)"
-msgstr "Postscript encapsulado (usando tipos de letra Pango)"
+msgstr "PostScript encapsulado (usando tipos de letra Pango)"
 
 #: ../plug-ins/postscript/render_eps.c:177
-msgid "Encapsulated Postscript with preview (using Pango fonts)"
+msgid "Encapsulated PostScript with preview (using Pango fonts)"
 msgstr ""
 "Postscrip encapsulado con previsualización (usando tipos de letra Pango)"
 
 #: ../plug-ins/postscript/render_eps.c:187
 #, fuzzy
 msgid "Encapsulated PostScript (using PostScript Latin-1 fonts)"
-msgstr "Postscript encapsulado (usando tipos de letra PostScript Latin-1)"
+msgstr "PostScript encapsulado (usando tipos de letra PostScript Latin-1)"
 
 #: ../plug-ins/pstricks/pstricks.c:26
 #, fuzzy
@@ -6470,7 +6470,7 @@ msgstr ""
 
 #: ../plug-ins/xfig/xfig-import.c:1004
 #, c-format
-msgid "Can't find Postscript font nr. %d, using sans"
+msgid "Can't find PostScript font nr. %d, using sans"
 msgstr ""
 
 #: ../plug-ins/xfig/xfig-import.c:1032

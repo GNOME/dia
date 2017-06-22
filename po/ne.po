@@ -1871,15 +1871,15 @@ msgid "Object properties:"
 msgstr "वस्तु गुण:"
 
 #: ../app/render_eps.c:150
-msgid "Encapsulated Postscript (using Pango fonts)"
+msgid "Encapsulated PostScript (using Pango fonts)"
 msgstr "इनक्याप्सुलेट गरिएको पोष्टस्क्रिप्ट (पिङ्गो फन्ट प्रयोग गरेर)"
 
 #: ../app/render_eps.c:159
-msgid "Encapsulated Postscript with preview (using Pango fonts)"
+msgid "Encapsulated PostScript with preview (using Pango fonts)"
 msgstr "पूर्वावलोकनसँग इनक्याप्सुलेट गरिएको पोष्टस्क्रिप्ट (पिङ्गो फन्ट प्रयोग गरेर)"
 
 #: ../app/render_eps.c:169
-msgid "Encapsulated Postscript (using PostScript Latin-1 fonts)"
+msgid "Encapsulated PostScript (using PostScript Latin-1 fonts)"
 msgstr "इनक्याप्सुलेट गरिएको पोष्टस्क्रिप्ट (पोष्टस्क्रिप्ट ल्याटिन-१ फन्ट प्रयोग गरेर)"
 
 #: ../app/sheets.c:156

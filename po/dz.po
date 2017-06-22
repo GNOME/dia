@@ -1759,15 +1759,15 @@ msgid "Object properties:"
 msgstr "དངོས་པོའི་རྒྱུ་དངོས་:"
 
 #: ../app/render_eps.c:148
-msgid "Encapsulated Postscript (using Pango fonts)"
+msgid "Encapsulated PostScript (using Pango fonts)"
 msgstr "བསྡུས་དོན་བཀོད་ཡོད་པའི་པོསིཊི་སིཀིརིཔཊི་(པང་གོའི་ཡིག་གཟུགས་ལག་ལེན་འཐབ་ཐོག་ལས་)"
 
 #: ../app/render_eps.c:157
-msgid "Encapsulated Postscript with preview (using Pango fonts)"
+msgid "Encapsulated PostScript with preview (using Pango fonts)"
 msgstr "སྔོན་ལྟ་དང་བཅས་ བསྡུས་དོན་བཀོད་ཡོད་པའི་པོསིཊི་སིཀིརིཔཊི་(པང་གོའི་ཡིག་གཟུགས་ལག་ལེན་འཐབ་ཐོག་ལས་)"
 
 #: ../app/render_eps.c:167
-msgid "Encapsulated Postscript (using PostScript Latin-1 fonts)"
+msgid "Encapsulated PostScript (using PostScript Latin-1 fonts)"
 msgstr "བསྡུས་དོན་བཀོད་ཡོད་པའི་པོསིཊི་སིཀིརིཔཊི་(པོསིཊི་སིཀིརིཔཊི་ལེ་ཊིན་-༡ ཡིག་གཟུགས་ ལག་ལེན་འཐབ་ཐོག་ལས་)"
 
 #: ../app/sheets.c:156

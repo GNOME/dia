@@ -1673,16 +1673,16 @@ msgid "Object properties:"
 msgstr "คุณสมบัติของวัตถุ:"
 
 #: ../app/render_eps.c:148
-msgid "Encapsulated Postscript (using Pango fonts)"
-msgstr "Encapsulated Postscript (โดยใช้แบบอักษร Pango)"
+msgid "Encapsulated PostScript (using Pango fonts)"
+msgstr "Encapsulated PostScript (โดยใช้แบบอักษร Pango)"
 
 #: ../app/render_eps.c:157
-msgid "Encapsulated Postscript with preview (using Pango fonts)"
-msgstr "Encapsulated Postscript พร้อมภาพตัวอย่าง (โดยใช้แบบอักษร Pango)"
+msgid "Encapsulated PostScript with preview (using Pango fonts)"
+msgstr "Encapsulated PostScript พร้อมภาพตัวอย่าง (โดยใช้แบบอักษร Pango)"
 
 #: ../app/render_eps.c:167
-msgid "Encapsulated Postscript (using PostScript Latin-1 fonts)"
-msgstr "Encapsulated Postscript (โดยใช้แบบอักษร PostScript Latin-1)"
+msgid "Encapsulated PostScript (using PostScript Latin-1 fonts)"
+msgstr "Encapsulated PostScript (โดยใช้แบบอักษร PostScript Latin-1)"
 
 #: ../app/sheets.c:156
 #, c-format

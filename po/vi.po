@@ -1934,16 +1934,16 @@ msgid "Object properties:"
 msgstr "Thuộc tính đối tượng:"
 
 #: ../app/render_eps.c:150
-msgid "Encapsulated Postscript (using Pango fonts)"
-msgstr "Postscript đã bao bọc (dùng phông chữ Pango)"
+msgid "Encapsulated PostScript (using Pango fonts)"
+msgstr "PostScript đã bao bọc (dùng phông chữ Pango)"
 
 #: ../app/render_eps.c:159
-msgid "Encapsulated Postscript with preview (using Pango fonts)"
-msgstr "Postscript đã bao bọc với ô xem thử bản in (dùng phông chữ Pango)"
+msgid "Encapsulated PostScript with preview (using Pango fonts)"
+msgstr "PostScript đã bao bọc với ô xem thử bản in (dùng phông chữ Pango)"
 
 #: ../app/render_eps.c:169
-msgid "Encapsulated Postscript (using PostScript Latin-1 fonts)"
-msgstr "Postscript đã bao bọc (dùng phông chữ Latin-1 PostScript)"
+msgid "Encapsulated PostScript (using PostScript Latin-1 fonts)"
+msgstr "PostScript đã bao bọc (dùng phông chữ Latin-1 PostScript)"
 
 #: ../app/sheets.c:156
 #, c-format

@@ -6129,15 +6129,15 @@ msgid "Printing error: command '%s' caused sigpipe."
 msgstr "인쇄 오류: 명령어 '%s'가 sigpipe를 일으킵니다. "
 
 #: ../plug-ins/postscript/render_eps.c:150
-msgid "Encapsulated Postscript (using Pango fonts)"
+msgid "Encapsulated PostScript (using Pango fonts)"
 msgstr "암호화 포스트스크립트 (Pango 글꼴 사용)"
 
 #: ../plug-ins/postscript/render_eps.c:159
-msgid "Encapsulated Postscript with preview (using Pango fonts)"
+msgid "Encapsulated PostScript with preview (using Pango fonts)"
 msgstr "미리보기 있는 암호화 포스트스크립트 (Pango 글꼴 사용)"
 
 #: ../plug-ins/postscript/render_eps.c:169
-msgid "Encapsulated Postscript (using PostScript Latin-1 fonts)"
+msgid "Encapsulated PostScript (using PostScript Latin-1 fonts)"
 msgstr "암호화 포스트스크립트 (포스트스크립트 라틴-1 글꼴 사용)"
 
 #: ../plug-ins/postscript/postscript.c:46
@@ -6145,7 +6145,7 @@ msgid "Print (PS)"
 msgstr "인쇄 (PS)"
 
 #: ../plug-ins/postscript/postscript.c:70
-msgid "Postscript Rendering"
+msgid "PostScript Rendering"
 msgstr "포스트스크립트 렌더링"
 
 #: ../plug-ins/pstricks/pstricks.c:26

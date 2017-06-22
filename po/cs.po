@@ -6697,7 +6697,7 @@ msgid "Encapsulated PostScript (using Pango fonts)"
 msgstr "Zapouzdřený PostScript (používající písma Pango)"
 
 #: ../plug-ins/postscript/render_eps.c:177
-msgid "Encapsulated Postscript with preview (using Pango fonts)"
+msgid "Encapsulated PostScript with preview (using Pango fonts)"
 msgstr "Zapouzdřený PostScript s náhledem (používající písma Pango)"
 
 #: ../plug-ins/postscript/render_eps.c:187
@@ -7057,7 +7057,7 @@ msgstr "Nelze najít LaTeXové písmo č. %d, použije se Sans"
 
 #: ../plug-ins/xfig/xfig-import.c:1004
 #, c-format
-msgid "Can't find Postscript font nr. %d, using sans"
+msgid "Can't find PostScript font nr. %d, using sans"
 msgstr "Nelze najít postskriptové písmo č. %d, použije se Sans"
 
 #: ../plug-ins/xfig/xfig-import.c:1032

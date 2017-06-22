@@ -6113,7 +6113,7 @@ msgid "Encapsulated PostScript (using Pango fonts)"
 msgstr "PostScript încapsulat (folosind fonturi Pango)"
 
 #: ../plug-ins/postscript/render_eps.c:177
-msgid "Encapsulated Postscript with preview (using Pango fonts)"
+msgid "Encapsulated PostScript with preview (using Pango fonts)"
 msgstr "PostScript încapsulat cu previzualizare (folosind fonturi Pango)"
 
 #: ../plug-ins/postscript/render_eps.c:187
@@ -6416,7 +6416,7 @@ msgstr ""
 
 #: ../plug-ins/xfig/xfig-import.c:1004
 #, c-format
-msgid "Can't find Postscript font nr. %d, using sans"
+msgid "Can't find PostScript font nr. %d, using sans"
 msgstr ""
 
 #: ../plug-ins/xfig/xfig-import.c:1032

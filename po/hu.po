@@ -6765,8 +6765,8 @@ msgid "Encapsulated PostScript (using Pango fonts)"
 msgstr "Beágyazott PostScript (Pango betűkészletek használatával)"
 
 #: ../plug-ins/postscript/render_eps.c:177
-msgid "Encapsulated Postscript with preview (using Pango fonts)"
-msgstr "Beágyazott Postscript előnézettel (Pango betűkészletek használatával)"
+msgid "Encapsulated PostScript with preview (using Pango fonts)"
+msgstr "Beágyazott PostScript előnézettel (Pango betűkészletek használatával)"
 
 #: ../plug-ins/postscript/render_eps.c:187
 msgid "Encapsulated PostScript (using PS Latin-1 fonts)"
@@ -7125,7 +7125,7 @@ msgstr "Nem található a(z) %d számú LaTeX betűkészlet, a sans lesz haszná
 
 #: ../plug-ins/xfig/xfig-import.c:1004
 #, c-format
-msgid "Can't find Postscript font nr. %d, using sans"
+msgid "Can't find PostScript font nr. %d, using sans"
 msgstr ""
 "Nem található a(z) %d számú PostScript betűkészlet, a sans lesz használva"
 

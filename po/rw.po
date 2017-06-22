@@ -1969,17 +1969,17 @@ msgstr "Ibiranga Ibikoresho..."
 
 #: ../app/render_eps.c:148
 #, fuzzy
-msgid "Encapsulated Postscript (using Pango fonts)"
+msgid "Encapsulated PostScript (using Pango fonts)"
 msgstr "ikoresha Imyandikire"
 
 #: ../app/render_eps.c:157
 #, fuzzy
-msgid "Encapsulated Postscript with preview (using Pango fonts)"
+msgid "Encapsulated PostScript with preview (using Pango fonts)"
 msgstr "Na: Igaragazambere ikoresha Imyandikire"
 
 #: ../app/render_eps.c:167
 #, fuzzy
-msgid "Encapsulated Postscript (using PostScript Latin-1 fonts)"
+msgid "Encapsulated PostScript (using PostScript Latin-1 fonts)"
 msgstr "ikoresha 1. Imyandikire"
 
 #: ../app/sheets.c:156

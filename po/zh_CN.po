@@ -6072,8 +6072,8 @@ msgid "Encapsulated PostScript (using Pango fonts)"
 msgstr "内嵌的 PostScript (使用 Pango 字体)"
 
 #: ../plug-ins/postscript/render_eps.c:177
-msgid "Encapsulated Postscript with preview (using Pango fonts)"
-msgstr "带预览的内嵌 Postscript (使用 Pango 字体) "
+msgid "Encapsulated PostScript with preview (using Pango fonts)"
+msgstr "带预览的内嵌 PostScript (使用 Pango 字体) "
 
 #: ../plug-ins/postscript/render_eps.c:187
 msgid "Encapsulated PostScript (using PostScript Latin-1 fonts)"
@@ -6377,8 +6377,8 @@ msgstr "找不到 LaTeX 字体 nr. %d，将使用 sans"
 
 #: ../plug-ins/xfig/xfig-import.c:1004
 #, c-format
-msgid "Can't find Postscript font nr. %d, using sans"
-msgstr "找不到 Postscript 字体 nr. %d，将使用 sans"
+msgid "Can't find PostScript font nr. %d, using sans"
+msgstr "找不到 PostScript 字体 nr. %d，将使用 sans"
 
 #: ../plug-ins/xfig/xfig-import.c:1032
 msgid "Couldn't identify Fig object."

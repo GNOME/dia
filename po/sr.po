@@ -6771,7 +6771,7 @@ msgid "Encapsulated PostScript (using Pango fonts)"
 msgstr "Угнеждени Постскрипт (користи Панго писма)"
 
 #: ../plug-ins/postscript/render_eps.c:177
-msgid "Encapsulated Postscript with preview (using Pango fonts)"
+msgid "Encapsulated PostScript with preview (using Pango fonts)"
 msgstr "Угнеждени Постскрипт са прегледом (користи Панго писма)"
 
 #: ../plug-ins/postscript/render_eps.c:187
@@ -7128,7 +7128,7 @@ msgstr "Не могу да пронађем словни лик ЛаТеКсил
 
 #: ../plug-ins/xfig/xfig-import.c:1004
 #, c-format
-msgid "Can't find Postscript font nr. %d, using sans"
+msgid "Can't find PostScript font nr. %d, using sans"
 msgstr "Не могу да пронађем словни лик Постскрипта бр. %d, користим санс"
 
 #: ../plug-ins/xfig/xfig-import.c:1032

@@ -1803,17 +1803,17 @@ msgid "Object properties:"
 msgstr "pronësitë:"
 
 #: ../app/render_eps.c:148
-msgid "Encapsulated Postscript (using Pango fonts)"
+msgid "Encapsulated PostScript (using Pango fonts)"
 msgstr ""
 
 #: ../app/render_eps.c:157
 #, fuzzy
-msgid "Encapsulated Postscript with preview (using Pango fonts)"
+msgid "Encapsulated PostScript with preview (using Pango fonts)"
 msgstr "me"
 
 #: ../app/render_eps.c:167
 #, fuzzy
-msgid "Encapsulated Postscript (using PostScript Latin-1 fonts)"
+msgid "Encapsulated PostScript (using PostScript Latin-1 fonts)"
 msgstr "PostScript Latinishte"
 
 #: ../app/sheets.c:156

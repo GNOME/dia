@@ -6804,16 +6804,16 @@ msgstr "Απόδοση PostScript"
 
 #: ../plug-ins/postscript/render_eps.c:168
 msgid "Encapsulated PostScript (using Pango fonts)"
-msgstr "Encapsulated Postscript (με γραμματοσειρές Pango)"
+msgstr "Encapsulated PostScript (με γραμματοσειρές Pango)"
 
 #: ../plug-ins/postscript/render_eps.c:177
-msgid "Encapsulated Postscript with preview (using Pango fonts)"
-msgstr "Encapsulated Postscript με προεπισκόπηση (με γραμματοσειρές Pango)"
+msgid "Encapsulated PostScript with preview (using Pango fonts)"
+msgstr "Encapsulated PostScript με προεπισκόπηση (με γραμματοσειρές Pango)"
 
 #: ../plug-ins/postscript/render_eps.c:187
 #| msgid "Encapsulated PostScript (using PostScript Latin-1 fonts)"
 msgid "Encapsulated PostScript (using PS Latin-1 fonts)"
-msgstr "Encapsulated Postscript (με γραμματοσειρές PostScript Latin-1)"
+msgstr "Encapsulated PostScript (με γραμματοσειρές PostScript Latin-1)"
 
 #: ../plug-ins/pstricks/pstricks.c:26
 msgid "TeX PSTricks export filter"
@@ -7170,9 +7170,9 @@ msgstr ""
 
 #: ../plug-ins/xfig/xfig-import.c:1004
 #, c-format
-msgid "Can't find Postscript font nr. %d, using sans"
+msgid "Can't find PostScript font nr. %d, using sans"
 msgstr ""
-"Αδυναμία εύρεσης γραμματοσειράς Postscript αριθμός %d, χρησιμοποιώντας χωρίς "
+"Αδυναμία εύρεσης γραμματοσειράς PostScript αριθμός %d, χρησιμοποιώντας χωρίς "
 "πατούρα"
 
 #: ../plug-ins/xfig/xfig-import.c:1032

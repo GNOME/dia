@@ -6293,8 +6293,8 @@ msgid "Encapsulated PostScript (using Pango fonts)"
 msgstr "Encapsulated PostScript (используя шрифты Pango)"
 
 #: ../plug-ins/postscript/render_eps.c:159
-msgid "Encapsulated Postscript with preview (using Pango fonts)"
-msgstr "Encapsulated Postscript с предпросмотром (используя шрифты Pango)"
+msgid "Encapsulated PostScript with preview (using Pango fonts)"
+msgstr "Encapsulated PostScript с предпросмотром (используя шрифты Pango)"
 
 #: ../plug-ins/postscript/render_eps.c:169
 #, fuzzy
@@ -6308,7 +6308,7 @@ msgstr "Печать (PS)"
 #: ../plug-ins/postscript/postscript.c:70
 #, fuzzy
 msgid "PostScript Rendering"
-msgstr "Отрисовка Postscript"
+msgstr "Отрисовка PostScript"
 
 #: ../plug-ins/pstricks/pstricks.c:26
 #, fuzzy

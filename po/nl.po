@@ -1718,16 +1718,16 @@ msgid "Object properties:"
 msgstr "Object eigenschappen:"
 
 #: ../app/render_eps.c:148
-msgid "Encapsulated Postscript (using Pango fonts)"
-msgstr "Encapsulated Postscript (gebruikt Pango lettertypen)"
+msgid "Encapsulated PostScript (using Pango fonts)"
+msgstr "Encapsulated PostScript (gebruikt Pango lettertypen)"
 
 #: ../app/render_eps.c:157
-msgid "Encapsulated Postscript with preview (using Pango fonts)"
-msgstr "Encapsulated Postscript met voorbeeld (gebruikt Pango lettertypen)"
+msgid "Encapsulated PostScript with preview (using Pango fonts)"
+msgstr "Encapsulated PostScript met voorbeeld (gebruikt Pango lettertypen)"
 
 #: ../app/render_eps.c:167
-msgid "Encapsulated Postscript (using PostScript Latin-1 fonts)"
-msgstr "Encapsulated Postscript (gebruikt Postscript Latin-1 lettertypen)"
+msgid "Encapsulated PostScript (using PostScript Latin-1 fonts)"
+msgstr "Encapsulated PostScript (gebruikt PostScript Latin-1 lettertypen)"
 
 #: ../app/sheets.c:156
 #, c-format

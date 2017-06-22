@@ -1742,17 +1742,17 @@ msgid "Object properties:"
 msgstr "Ciri-ciri objek:"
 
 #: ../app/render_eps.c:148
-msgid "Encapsulated Postscript (using Pango fonts)"
-msgstr "Postscript encapsulate (gunakan fon Pango)"
+msgid "Encapsulated PostScript (using Pango fonts)"
+msgstr "PostScript encapsulate (gunakan fon Pango)"
 
 #: ../app/render_eps.c:157
 #, fuzzy
-msgid "Encapsulated Postscript with preview (using Pango fonts)"
-msgstr "Postscript encapsulate (gunakan fon Pango)"
+msgid "Encapsulated PostScript with preview (using Pango fonts)"
+msgstr "PostScript encapsulate (gunakan fon Pango)"
 
 #: ../app/render_eps.c:167
-msgid "Encapsulated Postscript (using PostScript Latin-1 fonts)"
-msgstr "Postscript encapsulate (gunakan fon Latin-1 PostScript "
+msgid "Encapsulated PostScript (using PostScript Latin-1 fonts)"
+msgstr "PostScript encapsulate (gunakan fon Latin-1 PostScript "
 
 #: ../app/sheets.c:156
 #, c-format

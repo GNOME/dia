@@ -6859,12 +6859,12 @@ msgid "Encapsulated PostScript (using Pango fonts)"
 msgstr "PostScript encapsulat (qu'utiliza las poliças Pango)"
 
 #: ../plug-ins/postscript/render_eps.c:177
-msgid "Encapsulated Postscript with preview (using Pango fonts)"
+msgid "Encapsulated PostScript with preview (using Pango fonts)"
 msgstr "PostScript encapsulat amb apercebut qu'utiliza las poliças Pango"
 
 #: ../plug-ins/postscript/render_eps.c:187
 msgid "Encapsulated PostScript (using PS Latin-1 fonts)"
-msgstr "Postscript encapsulat (qu'utiliza las poliças PostScript Latin-1)"
+msgstr "PostScript encapsulat (qu'utiliza las poliças PostScript Latin-1)"
 
 #: ../plug-ins/pstricks/pstricks.c:26
 msgid "TeX PSTricks export filter"
@@ -7210,7 +7210,7 @@ msgstr ""
 
 #: ../plug-ins/xfig/xfig-import.c:1004
 #, c-format
-msgid "Can't find Postscript font nr. %d, using sans"
+msgid "Can't find PostScript font nr. %d, using sans"
 msgstr ""
 
 #: ../plug-ins/xfig/xfig-import.c:1032

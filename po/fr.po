@@ -1820,16 +1820,16 @@ msgid "Object properties:"
 msgstr "Propriétés de l'objet :"
 
 #: ../app/render_eps.c:150
-msgid "Encapsulated Postscript (using Pango fonts)"
+msgid "Encapsulated PostScript (using Pango fonts)"
 msgstr "PostScript encapsulé (EPS) utilisant les polices Pango"
 
 #: ../app/render_eps.c:159
-msgid "Encapsulated Postscript with preview (using Pango fonts)"
+msgid "Encapsulated PostScript with preview (using Pango fonts)"
 msgstr "PostScript encapsulé avec apperçu utilisant les polices Pango"
 
 #: ../app/render_eps.c:169
-msgid "Encapsulated Postscript (using PostScript Latin-1 fonts)"
-msgstr "Postscript encapsulé (utilisant les polices PostScript Latin-1)"
+msgid "Encapsulated PostScript (using PostScript Latin-1 fonts)"
+msgstr "PostScript encapsulé (utilisant les polices PostScript Latin-1)"
 
 #: ../app/sheets.c:156
 #, c-format

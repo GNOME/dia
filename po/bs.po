@@ -6686,8 +6686,8 @@ msgid "Encapsulated PostScript (using Pango fonts)"
 msgstr "Enpsuliran PostScript (koristeći Pango fontove)"
 
 #: ../plug-ins/postscript/render_eps.c:177
-msgid "Encapsulated Postscript with preview (using Pango fonts)"
-msgstr "Ugnježdeni Postskript sa pregledom (EPS — koristi Pango fontove)"
+msgid "Encapsulated PostScript with preview (using Pango fonts)"
+msgstr "Ugnježdeni PostScript sa pregledom (EPS — koristi Pango fontove)"
 
 #: ../plug-ins/postscript/render_eps.c:187
 msgid "Encapsulated PostScript (using PS Latin-1 fonts)"
@@ -7044,8 +7044,8 @@ msgstr "Nemoze naci LaTeX font br.%d,bez koriscenje"
 
 #: ../plug-ins/xfig/xfig-import.c:1004
 #, c-format
-msgid "Can't find Postscript font nr. %d, using sans"
-msgstr "Nemoze naci Postscript font br.%d,bez koriscenje"
+msgid "Can't find PostScript font nr. %d, using sans"
+msgstr "Nemoze naci PostScript font br.%d,bez koriscenje"
 
 #: ../plug-ins/xfig/xfig-import.c:1032
 msgid "Couldn't identify Fig object."

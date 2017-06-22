@@ -7179,15 +7179,15 @@ msgstr "Tulosta (PS)"
 #, fuzzy
 #| msgid "Postscript Rendering"
 msgid "PostScript Rendering"
-msgstr "Postscript-piirto"
+msgstr "PostScript-piirto"
 
 #: ../plug-ins/postscript/render_eps.c:168
 msgid "Encapsulated PostScript (using Pango fonts)"
 msgstr "Encapsulated PostScriptiä (Pango-fonteilla)"
 
 #: ../plug-ins/postscript/render_eps.c:177
-msgid "Encapsulated Postscript with preview (using Pango fonts)"
-msgstr "Encapsulated Postscriptiä esikatselulla (Pango-fonteilla)"
+msgid "Encapsulated PostScript with preview (using Pango fonts)"
+msgstr "Encapsulated PostScriptiä esikatselulla (Pango-fonteilla)"
 
 #: ../plug-ins/postscript/render_eps.c:187
 #, fuzzy
@@ -7584,7 +7584,7 @@ msgstr ""
 
 #: ../plug-ins/xfig/xfig-import.c:1004
 #, c-format
-msgid "Can't find Postscript font nr. %d, using sans"
+msgid "Can't find PostScript font nr. %d, using sans"
 msgstr ""
 
 #: ../plug-ins/xfig/xfig-import.c:1032

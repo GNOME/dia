@@ -1730,15 +1730,15 @@ msgstr "Eigenskapar for objekt:"
 
 #: ../app/render_eps.c:148
 #, fuzzy
-msgid "Encapsulated Postscript (using Pango fonts)"
-msgstr "Encapsulated Postscript"
+msgid "Encapsulated PostScript (using Pango fonts)"
+msgstr "Encapsulated PostScript"
 
 #: ../app/render_eps.c:157
-msgid "Encapsulated Postscript with preview (using Pango fonts)"
+msgid "Encapsulated PostScript with preview (using Pango fonts)"
 msgstr ""
 
 #: ../app/render_eps.c:167
-msgid "Encapsulated Postscript (using PostScript Latin-1 fonts)"
+msgid "Encapsulated PostScript (using PostScript Latin-1 fonts)"
 msgstr ""
 
 #: ../app/sheets.c:156

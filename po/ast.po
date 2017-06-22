@@ -6195,15 +6195,15 @@ msgid "Printing error: command '%s' caused sigpipe."
 msgstr "Fallu d'imprentación: el comandu «%s» causó un sigpipe."
 
 #: ../plug-ins/postscript/render_eps.c:150
-msgid "Encapsulated Postscript (using Pango fonts)"
+msgid "Encapsulated PostScript (using Pango fonts)"
 msgstr "PostScript encapsuláu (usando tipografía Pango)"
 
 #: ../plug-ins/postscript/render_eps.c:159
-msgid "Encapsulated Postscript with preview (using Pango fonts)"
+msgid "Encapsulated PostScript with preview (using Pango fonts)"
 msgstr "PostScript encapsuláu con vista previa (usando tipografía Pango)"
 
 #: ../plug-ins/postscript/render_eps.c:169
-msgid "Encapsulated Postscript (using PostScript Latin-1 fonts)"
+msgid "Encapsulated PostScript (using PostScript Latin-1 fonts)"
 msgstr "PostScript encapsuláu (usando tipografía PostScript Latin-1)"
 
 #: ../plug-ins/postscript/postscript.c:46
@@ -6211,7 +6211,7 @@ msgid "Print (PS)"
 msgstr ""
 
 #: ../plug-ins/postscript/postscript.c:70
-msgid "Postscript Rendering"
+msgid "PostScript Rendering"
 msgstr ""
 
 #: ../plug-ins/pstricks/pstricks.c:26

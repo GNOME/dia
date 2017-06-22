@@ -1698,15 +1698,15 @@ msgid "Can't open history file for writing."
 msgstr ""
 
 #: app/render_eps.c:145
-msgid "Encapsulated Postscript (using Pango fonts)"
+msgid "Encapsulated PostScript (using Pango fonts)"
 msgstr ""
 
 #: app/render_eps.c:154
-msgid "Encapsulated Postscript with preview (using Pango fonts)"
+msgid "Encapsulated PostScript with preview (using Pango fonts)"
 msgstr ""
 
 #: app/render_eps.c:164
-msgid "Encapsulated Postscript (using PostScript Latin-1 fonts)"
+msgid "Encapsulated PostScript (using PostScript Latin-1 fonts)"
 msgstr ""
 
 #: app/render_libart.c:318
