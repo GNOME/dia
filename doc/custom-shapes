@@ -272,6 +272,7 @@ To extend your custom shape with custom attributes you can put something like:
     <ext_attribute name="Integer" type="int" />
     <ext_attribute name="String" type="string" />
     <ext_attribute name="Float" type="real" />
+    <ext_attribute name="Enum" type="enum" values="lit1, lit2, lit3" />
   </ext_attributes>
 
 between the <shape></shape> tags. The effect will be some custom properties

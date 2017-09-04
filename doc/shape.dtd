@@ -46,7 +46,8 @@
 <!ATTLIST ext_attribute
   name CDATA #REQUIRED
   type CDATA #REQUIRED
-  description CDATA #IMPLIED >
+  description CDATA #IMPLIED
+  values CDATA #IMPLIED>
 
 <!ELEMENT svg:svg (svg:g | svg:line | svg:polyline | svg:polygon | svg:rect |
                    svg:circle | svg:ellipse | svg:path | svg:image | svg:text)* >

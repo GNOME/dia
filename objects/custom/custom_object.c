@@ -338,6 +338,35 @@ custom_setup_properties (ShapeInfo *info, xmlNodePtr node)
 	ptype = g_strdup((gchar *) str);
 	xmlFree(str);
 
+        if (!g_strcmp0(ptype, "enum"))
+        {
+          str = xmlGetProp(node, (const xmlChar *)"values");
+          if (str) {
+            gchar **tokens;
+            gchar* values = g_strdup((gchar *) str);
+            gint count = 0;
+            gint j;
+            PropEnumData* data;
+
+            /* find and count enum literals (comma, colon, semi-colon or space separated)*/
+            tokens = g_strsplit(values, ",", -1);
+            for (count=0; tokens[count]; ++count);
+
+            /* last element (+1) is the terminator */
+            data = g_new0(PropEnumData, count + 1);
+            for (j=0; j < count; ++j) {
+              gchar* lit = g_strdup(tokens[j]);
+              data[j] = (PropEnumData) { g_strstrip(lit), j };
+            }
+            /* this will not be freed */
+            info->props[i].extra_data = data;
+
+            g_strfreev(tokens);
+            g_free(values);
+            xmlFree(str);
+          }
+        }
+
 	/* we got here, then fill an entry */
 	info->props[i].name = g_strdup_printf("custom:%s", pname);
 	info->props[i].type = ptype;
@@ -351,6 +380,7 @@ custom_setup_properties (ShapeInfo *info, xmlNodePtr node)
 	  xmlFree(str);
 	}
 	info->props[i++].description = pname;
+
       }
     }
   }
