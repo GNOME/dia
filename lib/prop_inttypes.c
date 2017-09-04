@@ -604,6 +604,13 @@ enumprop_set_from_offset(EnumProperty *prop,
   }
 }
 
+static int
+enumprop_get_data_size(EnumProperty *prop)
+{
+  return sizeof (prop->enum_data); /* only the field */
+}
+
+
 static const PropertyOps enumprop_ops = {
   (PropertyType_New) enumprop_new,
   (PropertyType_Free) noopprop_free,
@@ -616,7 +623,8 @@ static const PropertyOps enumprop_ops = {
 
   (PropertyType_CanMerge) noopprop_can_merge, 
   (PropertyType_GetFromOffset) enumprop_get_from_offset,
-  (PropertyType_SetFromOffset) enumprop_set_from_offset
+  (PropertyType_SetFromOffset) enumprop_set_from_offset,
+  (PropertyType_GetDataSize) enumprop_get_data_size
 };
 
 /********************************/
