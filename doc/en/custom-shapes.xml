@@ -586,6 +586,7 @@
     <ext_attribute name="Integer" type="int" />
     <ext_attribute name="String" type="string" />
     <ext_attribute name="Float" type="real" />
+    <ext_attribute name="Enum" type="enum" values="lit1, lit2, lit3" />
   </ext_attributes>
 ]]>
       </literal>
