@@ -8,14 +8,13 @@
 # Daniel Nylander <po@danielnylander.se>, 2006, 2007, 2008, 2009.
 # Josef Andersson <josef.andersson@fripost.org>, 2014.
 #
-#: ../objects/UML/class.c:198
 msgid ""
 msgstr ""
 "Project-Id-Version: dia\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
 "product=dia&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2015-08-10 15:19+0000\n"
-"PO-Revision-Date: 2015-02-21 13:41+0100\n"
+"POT-Creation-Date: 2017-06-22 19:53+0000\n"
+"PO-Revision-Date: 2017-09-11 11:07+0200\n"
 "Last-Translator: Sebastian Rasmussen <sebras@gmail.com>\n"
 "Language-Team: Svenska <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -23,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.6.10\n"
+"X-Generator: Poedit 2.0.3\n"
 
 #. This is not an errror
 #: ../app/app_procs.c:209
@@ -1060,8 +1059,7 @@ msgid "Layer name:"
 msgstr "Lagernamn:"
 
 #: ../app/linewidth_area.c:246 ../lib/properties.h:626 ../lib/properties.h:629
-#: ../objects/chronogram/chronoline.c:180
-#: ../objects/chronogram/chronoref.c:159
+#: ../objects/chronogram/chronoline.c:180 ../objects/chronogram/chronoref.c:159
 msgid "Line width"
 msgstr "Linjebredd"
 
@@ -1171,12 +1169,11 @@ msgid "Not allowed to write temporary files in %s\n"
 msgstr "Ej tillåtet att skriva temporära filer i %s\n"
 
 #: ../app/load_save.c:1114 ../plug-ins/cgm/cgm.c:1086
-#: ../plug-ins/dxf/dxf-export.c:516
-#: ../plug-ins/metapost/render_metapost.c:1022
+#: ../plug-ins/dxf/dxf-export.c:516 ../plug-ins/metapost/render_metapost.c:1022
 #: ../plug-ins/pgf/render_pgf.c:1192 ../plug-ins/postscript/render_eps.c:123
-#: ../plug-ins/pstricks/render_pstricks.c:870
-#: ../plug-ins/vdx/vdx-export.c:1706 ../plug-ins/wmf/wmf.cpp:1347
-#: ../plug-ins/wpg/wpg.c:1062 ../plug-ins/xfig/xfig-export.c:1098
+#: ../plug-ins/pstricks/render_pstricks.c:870 ../plug-ins/vdx/vdx-export.c:1706
+#: ../plug-ins/wmf/wmf.cpp:1347 ../plug-ins/wpg/wpg.c:1062
+#: ../plug-ins/xfig/xfig-export.c:1098
 #, c-format
 msgid "Can't open output file %s"
 msgstr "Kan inte öppna utdatafilen %s"
@@ -1196,7 +1193,7 @@ msgstr "Kan inte döpa om %s till slutliga utdatafilen %s"
 #. no extra threads supported, stay in this one
 #: ../app/load_save.c:1252 ../app/load_save.c:1266 ../app/load_save.c:1274
 msgid "Auto save"
-msgstr "Autospara"
+msgstr "Spara automatiskt"
 
 #: ../app/load_save.c:1298 ../app/load_save.c:1303
 msgid "Dia Diagram File"
@@ -1781,8 +1778,8 @@ msgstr "Visa _anslutningspunkter"
 #. Translators: Menu item Verb/Channel/Export/Remove
 #. Translators: Menu item Verb/Branch/Separate/Remove
 #. Translators: Menu item Verb/Branch/Separate/Remove/Remove
-#: ../app/menus.c:274 ../objects/FS/function.c:699
-#: ../objects/FS/function.c:851 ../objects/FS/function.c:853
+#: ../app/menus.c:274 ../objects/FS/function.c:699 ../objects/FS/function.c:851
+#: ../objects/FS/function.c:853
 msgid "Remove"
 msgstr "Ta bort"
 
@@ -3030,8 +3027,7 @@ msgid "Projecting"
 msgstr "Projekterar"
 
 #: ../lib/properties.c:96 ../lib/properties.h:632 ../lib/properties.h:635
-#: ../objects/chronogram/chronoline.c:178
-#: ../objects/chronogram/chronoref.c:157
+#: ../objects/chronogram/chronoline.c:178 ../objects/chronogram/chronoref.c:157
 msgid "Line color"
 msgstr "Linjefärg"
 
@@ -3062,23 +3058,23 @@ msgid "Text alignment"
 msgstr "Textjustering"
 
 #: ../lib/properties.c:104 ../lib/properties.h:688
-#: ../objects/chronogram/chronoline.c:182
-#: ../objects/chronogram/chronoref.c:163 ../objects/Database/reference.c:118
-#: ../objects/GRAFCET/condition.c:131 ../objects/GRAFCET/step.c:165
-#: ../objects/GRAFCET/transition.c:141 ../objects/UML/class_dialog.c:455
+#: ../objects/chronogram/chronoline.c:182 ../objects/chronogram/chronoref.c:163
+#: ../objects/Database/reference.c:118 ../objects/GRAFCET/condition.c:131
+#: ../objects/GRAFCET/step.c:165 ../objects/GRAFCET/transition.c:141
+#: ../objects/UML/class_dialog.c:455
 msgid "Font"
 msgstr "Typsnitt"
 
 #: ../lib/properties.c:105 ../lib/properties.h:696
-#: ../objects/chronogram/chronoline.c:184
-#: ../objects/chronogram/chronoref.c:165 ../objects/GRAFCET/condition.c:133
-#: ../objects/GRAFCET/step.c:167 ../objects/GRAFCET/transition.c:143
+#: ../objects/chronogram/chronoline.c:184 ../objects/chronogram/chronoref.c:165
+#: ../objects/GRAFCET/condition.c:133 ../objects/GRAFCET/step.c:167
+#: ../objects/GRAFCET/transition.c:143
 msgid "Font size"
 msgstr "Typsnittsstorlek"
 
 #: ../lib/properties.c:106 ../lib/properties.h:702
-#: ../objects/chronogram/chronoline.c:186
-#: ../objects/chronogram/chronoref.c:167 ../objects/GRAFCET/step.c:169
+#: ../objects/chronogram/chronoline.c:186 ../objects/chronogram/chronoref.c:167
+#: ../objects/GRAFCET/step.c:169
 msgid "Text color"
 msgstr "Textfärg"
 
@@ -3345,13 +3341,11 @@ msgstr ""
 "”varaktighet”.\n"
 "exempel: @ 1.0 (2.0)1.0(2.0)\n"
 
-#: ../objects/chronogram/chronoline.c:163
-#: ../objects/chronogram/chronoref.c:145
+#: ../objects/chronogram/chronoline.c:163 ../objects/chronogram/chronoref.c:145
 msgid "Start time"
 msgstr "Starttid"
 
-#: ../objects/chronogram/chronoline.c:165
-#: ../objects/chronogram/chronoref.c:147
+#: ../objects/chronogram/chronoline.c:165 ../objects/chronogram/chronoref.c:147
 msgid "End time"
 msgstr "Sluttid"
 
@@ -3367,8 +3361,7 @@ msgstr "Falltid"
 msgid "Multi-bit data"
 msgstr "Flerbitarsdata"
 
-#: ../objects/chronogram/chronoline.c:172
-#: ../objects/chronogram/chronoref.c:155
+#: ../objects/chronogram/chronoline.c:172 ../objects/chronogram/chronoref.c:155
 msgid "Aspect"
 msgstr "Förhållande"
 
@@ -5989,9 +5982,8 @@ msgid "Class name:"
 msgstr "Klassnamn:"
 
 #: ../objects/UML/class_dialog.c:336
-#: ../objects/UML/class_operations_dialog.c:799
-#: ../objects/UML/dependency.c:134 ../objects/UML/generalization.c:131
-#: ../objects/UML/realizes.c:131
+#: ../objects/UML/class_operations_dialog.c:799 ../objects/UML/dependency.c:134
+#: ../objects/UML/generalization.c:131 ../objects/UML/realizes.c:131
 msgid "Stereotype:"
 msgstr "Stereotyp:"
 
@@ -6625,8 +6617,7 @@ msgstr ""
 msgid "LaTeX PGF export filter"
 msgstr "Exportfilter för LaTeX PGF"
 
-#: ../plug-ins/pgf/render_pgf.c:1096
-#: ../plug-ins/pstricks/render_pstricks.c:686
+#: ../plug-ins/pgf/render_pgf.c:1096 ../plug-ins/pstricks/render_pstricks.c:686
 msgid "Not valid UTF-8"
 msgstr "Inte giltig UTF-8"
 
