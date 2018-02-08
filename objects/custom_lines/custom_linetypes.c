@@ -230,7 +230,7 @@ customline_create(Point *startpoint,
   LineInfo* line_info = (LineInfo*)user_data;
 
   if (!ensure_standard_types()) {
-    g_warning ("Can't create standar types.");
+    g_warning ("Can't create standard types.");
     return NULL;
   }
 

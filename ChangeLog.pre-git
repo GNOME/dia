@@ -182,7 +182,7 @@
 	* plug-ins/python/Makefile.am : added to EXTRA_DIST
 	* plug-ins/python/pydia-render.c : if the PyDia renderer does not
 	implement an optional method just fall back to the base classes
-	render implmentation. Also (try to) warn about missing, not optional
+	render implementation. Also (try to) warn about missing, not optional
 	methods with PyErr_Warn(), but can't find these messages yet.
 
 	* plug-ins/python/diasvg.py : self.line_width was not initialized
@@ -727,7 +727,7 @@
 	* plug-ins/drs/dia-render-script-import.c : unfinished (some helpers
 	to parse back .drs, but far away from real import)
 	* plug-ins/drs/dia-render-script-object.c : mostly empty (should later
-	include the implmentation of a DiaObject capable to render .drs
+	include the implementation of a DiaObject capable to render .drs
 	* plug-ins/makefile.msc : build it
 	* configure.in plug-ins/Makefile.am plug-ins/drs/Makefile.am : build
 	drs on *NIX, too. But do not install it.
@@ -2457,7 +2457,7 @@
 	* plug-ins/cairo/diacairo.c : gtk-print implementation for paginated 
 	output of PDF (bug #513226) and register for printing, also ... 
 	  plug-ins/cairo/diacairo-renderer.c : ... split off the renderer
-	implmentation in it's own file. Some tweaking for use in the
+	implementation in it's own file. Some tweaking for use in the
 	print context.
 	* plug-ins/cairo/diacairo.h : calback function to be registered
 	in the menu (later to replace native printing?)

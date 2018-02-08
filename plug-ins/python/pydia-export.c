@@ -75,7 +75,7 @@ static PyMemberDef PyDiaExportFilter_Members[] = {
     { "name", T_INVALID, 0, RESTRICTED|READONLY,
       "The description for the filter." },
     { "unique_name", T_INVALID, 0, RESTRICTED|READONLY,
-      "A uniqe name within filters to allow disambiguation.", },
+      "A unique name within filters to allow disambiguation.", },
     { NULL }
 };
 

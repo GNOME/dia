@@ -328,7 +328,7 @@ export_data(DiagramData *data, DiaContext *ctx,
   return TRUE;
 }
 
-G_GNUC_UNUSED /* keep implmentation for reference, see bug 599401 */
+G_GNUC_UNUSED /* keep implementation for reference, see bug 599401 */
 static gboolean
 export_print_data (DiagramData *data, DiaContext *ctx,
 		   const gchar *filename_utf8, const gchar *diafilename,
