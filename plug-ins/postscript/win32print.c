@@ -52,7 +52,7 @@ PrintError (const char* s, DWORD err)
                    MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), 
                    (char*)&lpBuffer,
                    0,NULL);
-    g_print ("%s : %s", s, lpBuffer);
+    g_printerr ("%s : %s", s, lpBuffer);
 		LocalFree (lpBuffer);
   }
 }
@@ -86,7 +86,7 @@ win32_printer_open (char* sName)
                     &hPrinter,
                     NULL))
   {
-    g_print ("Failed to open printer : %s\n", sName);
+    g_printerr ("Failed to open printer : %s\n", sName);
     return NULL;
   }
 

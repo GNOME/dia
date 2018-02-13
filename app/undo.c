@@ -29,7 +29,7 @@
 #include "parent.h"
 
 #if 0
-#define DEBUG_PRINTF(args) printf args
+#define DEBUG_PRINTF(args) { char *tmps = g_strdup_printf args ; fprintf(stderr, tmps); g_free(tmps); }
 #else
 #define DEBUG_PRINTF(args)
 #endif

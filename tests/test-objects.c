@@ -88,7 +88,7 @@ _test_creation (gconstpointer user_data)
       else if (strcmp (prop->descr->type, PROP_TYPE_STATIC) == 0)
 	++num_used; /* also not to be set */
       else
-	g_print ("Not set '%s'\n", prop->descr->name);
+	g_printerr ("Not set '%s'\n", prop->descr->name);
     }
     g_assert_cmpint (num_used, ==, num_described);
 
@@ -315,7 +315,7 @@ _test_change (gconstpointer user_data)
       /* maybe we should do something interesting first? */
       _object_change_free(change);
     } else {
-      g_print ("'%s' - no undo?\n", o->type->name);
+      g_printerr ("'%s' - no undo?\n", o->type->name);
     }
   }
   /* finally */
@@ -469,7 +469,7 @@ _test_connectionpoint_consistency (gconstpointer user_data)
         ++start_end;
     }
     if (start_end < 2 && o->num_connections > 0)
-      g_print ("'%s' with no directions\n", type->name);
+      g_printerr ("'%s' with no directions\n", type->name);
     return;
   }
 
@@ -509,7 +509,7 @@ _test_connectionpoint_consistency (gconstpointer user_data)
           || strcmp (type->name, "Civil - Final-Settling Basin") == 0
           || strcmp (type->name, "Small Extension Node") == 0 /* MSE */
          )
-        g_print ("'%s' main-cp misplaced!\n", type->name);
+        g_printerr ("'%s' main-cp misplaced!\n", type->name);
       else
         g_assert (o->ops->distance_from (o, &cp->pos) == 0 && "within");
       continue;
@@ -580,7 +580,7 @@ _test_connectionpoint_consistency (gconstpointer user_data)
     /* generate exception list - after all it is legal to have CPs out of bounds */
     if (   o->ops->distance_from (o, &cp->pos) >= 0.01
         && distance_rectangle_point (&o->bounding_box, &cp->pos) >= 0.01) {
-      g_print ("        || strcmp (type->name, \"%s\") == 0\n", type->name);
+      g_printerr ("        || strcmp (type->name, \"%s\") == 0\n", type->name);
       break;
     }
 #endif
@@ -1101,7 +1101,7 @@ main (int argc, char** argv)
   object_registry_foreach (_ot_item, "/Dia/Objects");
 
   ret = g_test_run ();
-  g_print ("%d objects.\n", num_objects);
+  g_printerr ("%d objects.\n", num_objects);
 
   return ret;
 }

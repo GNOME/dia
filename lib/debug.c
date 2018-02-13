@@ -37,7 +37,7 @@ dia_assert_true(gboolean val, const gchar *format, ...)
   va_list args;
   if (!val) {
     va_start(args, format);
-    g_vprintf(format, args);
+    g_vfprintf(stderr, format, args);
     va_end(args);
   }
   return val;

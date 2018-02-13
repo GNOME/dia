@@ -541,7 +541,7 @@ read_entity_polyline_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
    
     if( points == 0 )
     {
-        printf( "No vertexes defined\n" );
+        fprintf(stderr,  "No vertexes defined\n" );
         return( NULL );
     }
    

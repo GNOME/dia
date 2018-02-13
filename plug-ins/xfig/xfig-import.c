@@ -330,11 +330,11 @@ fig_fix_text(gchar *text) {
 	converted = g_convert(text, strlen(text), "UTF-8", "ISO-8859-1",
 			      NULL, NULL, &err);
 	if (err != NULL) {
-	    printf("Error converting %s: %s\n", text, err->message);
+	    fprintf(stderr, "Error converting %s: %s\n", text, err->message);
 	    return text;
 	}
 	if (!g_utf8_validate(converted, -1, NULL)) {
-	    printf("Fails to validate %s\n", converted);
+	    fprintf(stderr, "Fails to validate %s\n", converted);
 	    return text;
 	}
 	if (text != converted) g_free(text);

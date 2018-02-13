@@ -1194,7 +1194,7 @@ void diagram_unparent_children_selected(Diagram *dia)
       (change->apply)(change, dia);
     }
     if (obj->children != NULL)
-      printf("Obj still has %d children\n",
+      fprintf(stderr, "Obj still has %d children\n",
 	     g_list_length(obj->children));
   }
   if (any_unparented) {

@@ -336,7 +336,7 @@ text_line_adjust_layout_line(TextLine *line, PangoLayoutLine *layoutline,
   runs = line->layout_offsets->runs;
 
   if (g_slist_length(runs) != g_slist_length(layoutruns)) {
-    printf("Runs length error: %d != %d\n",
+    fprintf(stderr, "Runs length error: %d != %d\n",
 	   g_slist_length(line->layout_offsets->runs),
 	   g_slist_length(layoutline->runs));
   }
@@ -356,7 +356,7 @@ text_line_adjust_layout_line(TextLine *line, PangoLayoutLine *layoutline,
 	(int)(glyphs->glyphs[i].geometry.y_offset * scale / 20.0);
     }
     if (glyphs->num_glyphs != layoutglyphs->num_glyphs) {
-      printf("Glyph length error: %d != %d\n", 
+      fprintf(stderr, "Glyph length error: %d != %d\n",
 	     glyphs->num_glyphs, layoutglyphs->num_glyphs);
     }
   }

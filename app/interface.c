@@ -369,7 +369,7 @@ canvas_configure_event (GtkWidget         *widget,
 
   /* Only do this when size is really changing */
   if (width != cevent->width || height != cevent->height) {
-    g_print ("Canvas size change...\n");
+    g_printerr ("Canvas size change...\n");
     ddisplay_resize_canvas (ddisp, cevent->width, cevent->height);
     ddisplay_update_scrollbars(ddisp);
     /* on resize stop further propagation - does not help */

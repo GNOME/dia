@@ -1451,7 +1451,7 @@ layer_visibility_change_revert(struct LayerVisibilityChange *change,
   }
 
   if (vis != NULL || i < layers->len) {
-    printf("Internal error: visibility undo has %d visibilities, but %d layers\n",
+    fprintf(stderr, "Internal error: visibility undo has %d visibilities, but %d layers\n",
 	   g_list_length(change->original_visibility), layers->len);
   }
 

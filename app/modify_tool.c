@@ -111,7 +111,7 @@ gdk_event_to_dia_ModifierKeys(guint event_state)
 
   if (last_state != event_state) {
     last_state = event_state;
-    g_print ("%s%s%s,M%s%s%s%s%s,B%s%s%s%s%s,%s%s%s\n",
+    g_printerr ("%s%s%s,M%s%s%s%s%s,B%s%s%s%s%s,%s%s%s\n",
 	     event_state & GDK_SHIFT_MASK ? "Sh" : "  ",
 	     event_state & GDK_LOCK_MASK ? "Lo" : "  ",
 	     event_state & GDK_CONTROL_MASK ? "Co" : "  ",

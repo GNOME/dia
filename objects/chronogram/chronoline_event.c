@@ -75,7 +75,7 @@ static void dump_parsed_clelist(CLEventList *clel)
   int i = 0;
   const char *s = NULL;
 
-  printf("ChronoLine Event List dump follows:\n");
+  fprintf(stderr, "ChronoLine Event List dump follows:\n");
   while (clel) {
     CLEvent *evt = (CLEvent *)(clel->data);
     switch (evt->type) {
@@ -86,11 +86,11 @@ static void dump_parsed_clelist(CLEventList *clel)
     default:
       g_assert_not_reached();
     }
-    printf("%3d  t=%7.3f %s\n",i++,evt->time,s);
+    fprintf(stderr, "%3d  t=%7.3f %s\n",i++,evt->time,s);
     
     clel = g_slist_next(clel);
   }
-  printf("ChronoLine Event List dump finished.\n");
+  fprintf(stderr, "ChronoLine Event List dump finished.\n");
 }
 
 #endif

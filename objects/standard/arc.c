@@ -366,9 +366,9 @@ arc_move_handle(Arc *arc, Handle *handle,
   }
 
   if (handle->id == HANDLE_MIDDLE) {
-          TRACE(printf("curve_dist: %.2f \n",arc->curve_distance));
+          TRACE(fprintf(stderr, "curve_dist: %.2f \n",arc->curve_distance));
           arc->curve_distance = arc_compute_curve_distance(arc, &arc->connection.endpoints[0], &arc->connection.endpoints[1], to);
-          TRACE(printf("curve_dist: %.2f \n",arc->curve_distance));
+          TRACE(fprintf(stderr, "curve_dist: %.2f \n",arc->curve_distance));
   } else if (handle->id == HANDLE_CENTER) {
           /* We can move the handle only on the line through center and middle
 	   * Intersecting chord theorem says a*a=b*c
@@ -394,11 +394,11 @@ arc_move_handle(Arc *arc, Handle *handle,
 	  arc->curve_distance = (arc->curve_distance > 0) ? cd : -cd;
   } else {
         Point best;
-        TRACE(printf("Modifiers: %d \n",modifiers));
+        TRACE(fprintf(stderr, "Modifiers: %d \n",modifiers));
         if (modifiers & MODIFIER_SHIFT)
         /* if(arc->end_arrow.type == ARROW_NONE)*/
         {
-          TRACE(printf("SHIFT USED, to at %.2f %.2f  ",to->x,to->y));
+          TRACE(fprintf(stderr, "SHIFT USED, to at %.2f %.2f  ",to->x,to->y));
           if (arc_find_radial(arc, to, &best)){
             /* needs to move two handles at the same time 
              * compute pos of middle handle */
@@ -414,10 +414,10 @@ arc_move_handle(Arc *arc, Handle *handle,
             connection_adjust_for_autogap(&arc->connection);
             /* recompute curve distance equiv. move middle handle */
             arc->curve_distance = arc_compute_curve_distance(arc, &arc->connection.endpoints[0], &arc->connection.endpoints[1], &midpoint);
-            TRACE(printf("curve_dist: %.2f \n",arc->curve_distance));
+            TRACE(fprintf(stderr, "curve_dist: %.2f \n",arc->curve_distance));
           }
           else {
-            TRACE(printf("NO best\n"));
+            TRACE(fprintf(stderr, "NO best\n"));
           }
        } else {
           connection_move_handle(&arc->connection, handle->id, to, cp, reason, modifiers);
@@ -466,21 +466,21 @@ arc_compute_midpoint(Arc *arc, const Point * ep0, const Point * ep1 , Point * mi
                     return 0;
             }
             if (angle < -1 * M_PI){
-                    TRACE(printf("angle: %.2f ",angle));
+                    TRACE(fprintf(stderr, "angle: %.2f ",angle));
                     angle += 2*M_PI;
-                    TRACE(printf("angle: %.2f ",angle));
+                    TRACE(fprintf(stderr, "angle: %.2f ",angle));
             }
             if (angle > 1 * M_PI){
-                    TRACE(printf("angle: %.2f ",angle));
+                    TRACE(fprintf(stderr, "angle: %.2f ",angle));
                     angle -= 2*M_PI;
-                    TRACE(printf("angle: %.2f ",angle));
+                    TRACE(fprintf(stderr, "angle: %.2f ",angle));
             }
 
             midpos = arc->middle_handle.pos;
             /*rotate middle handle by half the angle */
-            TRACE(printf("\nmidpos before: %.2f %.2f \n",midpos.x, midpos.y));
-            rotate_point_around_point(&midpos, &arc->center, angle/2); 
-            TRACE(printf("\nmidpos after : %.2f %.2f \n",midpos.x, midpos.y));
+            TRACE(fprintf(stderr, "\nmidpos before: %.2f %.2f \n",midpos.x, midpos.y));
+            rotate_point_around_point(&midpos, &arc->center, angle/2);
+            TRACE(fprintf(stderr, "\nmidpos after : %.2f %.2f \n",midpos.x, midpos.y));
             *midpoint = midpos;
             return 1;
 }
@@ -615,7 +615,7 @@ arc_draw(Arc *arc, DiaRenderer *renderer)
   
   /* Special case when almost line: */
   if (arc_is_line (arc)) {
-          TRACE(printf("drawing like a line\n")); 
+          TRACE(fprintf(stderr, "drawing like a line\n"));
     renderer_ops->draw_line_with_arrows(renderer,
 					 &gaptmp[0], &gaptmp[1],
 					 arc->line_width,

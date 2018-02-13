@@ -1080,7 +1080,7 @@ dia_svg_parse_path(GArray *points, const gchar *path_str, gchar **unparsed,
   path_chomp(path);
   while (path[0] != '\0') {
 #ifdef DEBUG_CUSTOM
-    g_print("Path: %s\n", path);
+    g_printerr("Path: %s\n", path);
 #endif
     /* check for a new command */
     switch (path[0]) {

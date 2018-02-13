@@ -159,9 +159,9 @@ _error (void *ctx,
   if (READ_DONE == context->state)
     return; /* we are ready, not interested in further complains */
   va_start(args, msg);
-  g_print ("Error: %s\n", context->si->filename);
-  g_vprintf (msg, args);
-  g_print ("\n");
+  g_printerr ("Error: %s\n", context->si->filename);
+  g_vfprintf(stderr, msg, args);
+  g_printerr ("\n");
   va_end(args);
 }
 
@@ -178,9 +178,9 @@ _warning (void *ctx,
   if (READ_DONE == context->state)
     return; /* we are ready, not interested in further complains */
   va_start(args, msg);
-  g_print ("Warning: %s\n", context->si->filename);
-  g_vprintf (msg, args);
-  g_print ("\n");
+  g_printerr ("Warning: %s\n", context->si->filename);
+  g_vfprintf(stderr, msg, args);
+  g_printerr ("\n");
   va_end(args);
 }
 
@@ -235,7 +235,7 @@ shape_typeinfo_load (ShapeInfo* info)
     }
     return TRUE;
   } else {
-    g_print ("Preloading shape file '%s' failed.\n"
+    g_printerr ("Preloading shape file '%s' failed.\n"
              "Please ensure that <name/> and <icon/> are early in the file.\n",
              info->filename);
   }
