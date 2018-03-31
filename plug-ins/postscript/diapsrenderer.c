@@ -95,7 +95,7 @@ begin_render(DiaRenderer *self, const Rectangle *update)
           renderer->is_portrait ? "Portrait" : "Landscape");
 
   if (renderer_is_epsi(renderer)) {
-    g_assert(!"Preview image not implmented");
+    g_assert(!"Preview image not implemented");
     /* but it *may* belong here ... */
   }
   if (renderer_is_eps(renderer))
