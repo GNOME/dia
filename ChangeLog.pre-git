@@ -65,7 +65,7 @@
 	Replaced some leaking, superfluous heap allocations with stack allocs.
 
 	* lib/diarenderer.c(get_text_width) : complain if the derived renderer
-	does not implment the method and does not maintian DiaRenderer::font.
+	does not implement the method and does not maintian DiaRenderer::font.
 	* plug-ins/cairo/diacairo-renderer.c : actually maintain the font field
 	to make text cursor position calculation work, part of bug #576548
 
@@ -164,7 +164,7 @@
 
 	* plug-ins/python/diastddia.py : almost finished, a bug left in Arc's 
 	curve_distance calculation. Implemented the insane load/save property
-	name mapping - bug #576468, implmented draw_text and draw_arc. Some 
+	name mapping - bug #576468, implemented draw_text and draw_arc. Some 
 	comments on bezier related file format weakness.
 	Write some paper info; convert strings before writing to avoid 
 	invalid XML (text and filename)
@@ -1740,7 +1740,7 @@
 	(toolbox visible) properties were overwritten although not set
 	
 	* plug-ins/cairo/diacairo-interactive.c : draw_pixel_line and 
-	draw_pixel_rect implmented with cairo rather than GDK makes the
+	draw_pixel_rect implemented with cairo rather than GDK makes the
 	line style of the grid visible again
 
 	* app/menus.c(plugin_callback) : was using ddisp unconditionally 
@@ -3324,7 +3324,7 @@
 	Dia's Shape/SVG consumption. Fixes bug #316590
 	
 	* lib/dia_svg.[ch](dia_svg_parse_style) : allow to pass in user_scale	
-	* plug-ins/svg/svg-import.c : implment some unit awareness and use it 
+	* plug-ins/svg/svg-import.c : implement some unit awareness and use it 
 	to scale the input to Dia's internal cm. Adapt the user_scale with the
 	viewBox as explained above. This not only gives almost correct 
 	round-trip with Dia's own SVG writing, but also works better for the
@@ -4351,7 +4351,7 @@
 
 	[ two more steps slowly fixing issues from bug #340352 ]
 	* plug-ins/python/diamodule.c : instead of breaking compatibility with
-	former PyDia plug-ins reimplmented dia.register_calback() by mapping
+	former PyDia plug-ins reimplemented dia.register_calback() by mapping
 	to the GtkAction framework (it is not yet possible again to create 
 	new menus, only adding menuitems to existing menus)
 	* plug-ins/python/select_by.py : restored menuitems to shorter form
@@ -7063,7 +7063,7 @@
 	* lib/widget.c : variable declarations need to be at the start of a block,
 	at least as we are not using C++ or C99
 
-	* plug-ins/python/pydia-property.c : implment the read part for Property
+	* plug-ins/python/pydia-property.c : implement the read part for Property
 	arrays - aka. umlclass.properties["operations"], umlclass.properties["attributes"]
 	They are working quite well as can be seen with export-object.py
 

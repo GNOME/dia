@@ -31,7 +31,7 @@
 #include "dialib.h"
 
 /*
- * To test DiaObject bounding boxes a nice approach would be to implment a BoundingboxRenderer
+ * To test DiaObject bounding boxes a nice approach would be to implement a BoundingboxRenderer
  * which uses it's state while rendering objects via DiaObject::draw () to compare the bounding got
  * dia_object_get_bounding_box (). For this to be integrated with test-objects.c it is kind of required
  * that the bounding box primitives are working ...

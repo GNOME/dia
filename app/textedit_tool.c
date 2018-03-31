@@ -125,7 +125,7 @@ static void
 textedit_double_click(TexteditTool *tool, GdkEventButton *event,
 		      DDisplay *ddisp)
 {
-  /* if we implment text selection this should select a word */
+  /* if we implement text selection this should select a word */
 }
 
 Tool *
