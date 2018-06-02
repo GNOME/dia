@@ -341,6 +341,73 @@
   </refsect1>
 
   <refsect1>
+    <title>Environment</title>
+
+    <para>The following environment variables - if set - will be used by
+    <command>dia</command> to search for components:</para>
+
+    <itemizedlist>
+      <listitem>
+        <para><envar>DIA_LIB_PATH</envar>: shared libraries search path.
+        Default: set during program build.</para>
+      </listitem>
+      <listitem>
+        <para><envar>DIA_LINE_PATH</envar>: line definitions search path.
+        Default: set during program build. Under Unix usually
+        <filename>/usr/share/dia/lines</filename>.</para>
+      </listitem>
+      <listitem>
+        <para><envar>DIA_SHAPE_PATH</envar>: shape definitions search path.
+        Default: set during program build. Under Unix usually
+        <filename>/usr/share/dia/shapes</filename>.</para>
+      </listitem>
+      <listitem>
+        <para><envar>DIA_XSLT_PATH</envar>: xslt defintions for transformation
+        of diagrams into class declarations for programming languages
+        Default: set during program build. Under Unix usually
+        <filename>/usr/share/dia/xslt</filename>.</para>
+      </listitem>
+      <listitem>
+        <para><envar>DIA_PYTHON_PATH</envar>: script that starts
+        the <command>python</command> environment within
+        <command>dia</command>. Default: set during program build.
+        Under Unix usually <filename>/usr/share/dia/xslt</filename>.
+        TODO: verify this claim.</para>
+      </listitem>
+      <listitem>
+        <para><envar>DIA_BASE_PATH</envar>: purpose unknown.
+        Default: set during program build.</para>
+      </listitem>
+    </itemizedlist>
+
+    <para>Other environment variables:</para>
+
+    <itemizedlist>
+      <listitem>
+        <para><envar>DIA_RENDER_BOUNDING_BOXES</envar>: draw bounding
+        boxes around geometric elements. Mostly useful for debugging.
+        </para>
+      </listitem>
+    </itemizedlist>
+
+    <para>Supported standard Unix environment variables:</para>
+
+    <itemizedlist>
+      <listitem>
+        <para><envar>TEMP</envar>: temporary directory.</para>
+      </listitem>
+      <listitem>
+        <para><envar>PAPERCONF</envar>: paper size. Overrides
+        <filename>/etc/papersize</filename>. Default: a4.</para>
+      </listitem>
+      <listitem>
+        <para><envar>PRINTER</envar>: where to print to. Passed
+        as argument to <command>lpr -L</command>. Default: lpr.</para>
+      </listitem>
+    </itemizedlist>
+  </refsect1>
+
+  <refsect1>
     <title>See Also</title>
 
     <para><ulink url="http://www.pango.org/">Pango</ulink></para>
