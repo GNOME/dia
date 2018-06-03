@@ -19,9 +19,10 @@ AM_CPPFLAGS = \
 
 
 
-noinst_PROGRAMS = run_dia.sh
+noinst_PROGRAMS = run_dia.sh set_paths.sh
 
 run_dia_sh_SOURCES = 
+set_paths_sh_SOURCES = 
 
 bin_PROGRAMS = dia
 
@@ -256,21 +257,29 @@ EXTRA_DIST = \
 	\
 	$(ICON_PNGS)
 
+set_paths.sh$(EXEEXT): Makefile.am
+	echo "#!$(SHELL) " > set_paths.sh
+	echo "#" >> set_paths.sh
+	echo "# The purpose of this script is to set dia paths to within this source code distribution" >> set_paths.sh
+	echo "#" >> set_paths.sh
+	echo DIA_APP_PATH=\"`pwd`\" >>set_paths.sh
+	echo DIA_BASE_PATH=\"'$$DIA_APP_PATH'/..\" >>set_paths.sh
+	echo DIA_LIBS_PATH=\"'$$DIA_APP_PATH'/.libs\" >>set_paths.sh
+	echo >> set_paths.sh
+	echo DIA_LIB_PATH=\"'$$DIA_BASE_PATH'/objects//:'$$DIA_BASE_PATH'/plug-ins//\" >> set_paths.sh
+	echo DIA_PLUGIN_PATH=\"'$$DIA_BASE_PATH'/plug-ins\" >> set_paths.sh
+	echo DIA_SHAPE_PATH=\"'$$DIA_BASE_PATH'/shapes\" >> set_paths.sh
+	echo DIA_INT_SHAPE_PATH=\"'$$DIA_BASE_PATH'/objects\" >> set_paths.sh
+	echo DIA_SHEET_PATH=\"'$$DIA_BASE_PATH'/sheets\" >> set_paths.sh
+	echo DIA_PYTHON_PATH=\"'$$DIA_BASE_PATH'/plug-ins/python\" >> set_paths.sh
+	echo DIA_XSLT_PATH=\"'$$DIA_BASE_PATH'/plug-ins/xslt\" >> set_paths.sh
+	echo >> set_paths.sh
+	echo "export DIA_BASE_PATH DIA_LIB_PATH DIA_SHAPE_PATH DIA_INT_SHAPE_PATH DIA_SHEET_PATH DIA_PLUGIN_PATH DIA_PYTHON_PATH DIA_XSLT_PATH" >> set_paths.sh
+	chmod a+x set_paths.sh
+
 run_dia.sh$(EXEEXT): Makefile.am
 	echo "#!$(SHELL) " > run_dia.sh
-	echo DIA_APP_PATH=\"`pwd`\" >>run_dia.sh
-	echo DIA_BASE_PATH=\"'$$DIA_APP_PATH'/..\" >>run_dia.sh
-	echo DIA_LIBS_PATH=\"'$$DIA_APP_PATH'/.libs\" >>run_dia.sh
-	echo >> run_dia.sh
-	echo DIA_LIB_PATH=\"'$$DIA_BASE_PATH'/objects//:'$$DIA_BASE_PATH'/plug-ins//\" >> run_dia.sh
-	echo DIA_PLUGIN_PATH=\"'$$DIA_BASE_PATH'/plug-ins\" >> run_dia.sh
-	echo DIA_SHAPE_PATH=\"'$$DIA_BASE_PATH'/shapes\" >> run_dia.sh
-	echo DIA_INT_SHAPE_PATH=\"'$$DIA_BASE_PATH'/objects\" >> run_dia.sh
-	echo DIA_SHEET_PATH=\"'$$DIA_BASE_PATH'/sheets\" >> run_dia.sh
-	echo DIA_PYTHON_PATH=\"'$$DIA_BASE_PATH'/plug-ins/python\" >> run_dia.sh
-	echo DIA_XSLT_PATH=\"'$$DIA_BASE_PATH'/plug-ins/xslt\" >> run_dia.sh
-	echo >> run_dia.sh
-	echo "export DIA_BASE_PATH DIA_LIB_PATH DIA_SHAPE_PATH DIA_INT_SHAPE_PATH DIA_SHEET_PATH DIA_PLUGIN_PATH DIA_PYTHON_PATH DIA_XSLT_PATH" >> run_dia.sh
+	echo "source `pwd`/set_paths.sh" >> run_dia.sh
 	echo "if [ \"x\$$DEBUGGER\" != \"x\" ] ; then " >> run_dia.sh
 	echo "  if [ ! -f \"\$$DIA_LIBS_PATH/lt-dia\" -o \"\$$DIA_LIBS_PATH/lt-dia\" -ot \"\$$DIA_LIBS_PATH/dia\" ] ; then" >> run_dia.sh
 	echo "    echo \"libtool relink stage necessary before debugging is possible.\"" >> run_dia.sh
