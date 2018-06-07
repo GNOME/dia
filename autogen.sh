@@ -14,6 +14,17 @@ FILE=objects
 
 DIE=0
 
+case "$(uname -s)" in
+	Darvin)
+		libtool=glibtool
+		libtoolize=glibtoolize
+		;;
+	*)
+		libtool=libtool
+		libtoolize=libtoolize
+		;;
+esac
+
 (autoconf --version) < /dev/null > /dev/null 2>&1 || {
 	echo
 	echo "You must have autoconf installed to compile $PROJECT."
@@ -22,7 +33,7 @@ DIE=0
 	DIE=1
 }
 
-(libtool --version) < /dev/null > /dev/null 2>&1 || {
+($libtool --version) < /dev/null > /dev/null 2>&1 || {
 	echo
 	echo "You must have libtool installed to compile $PROJECT."
 	echo "Get ftp://alpha.gnu.org/gnu/libtool-1.0h.tar.gz"
@@ -66,7 +77,7 @@ echo "Running intltoolize"
 intltoolize --copy --force --automake
 
 echo "Running libtoolize"
-libtoolize --copy --force
+$libtoolize --copy --force
 
 aclocal $ACLOCAL_FLAGS
 autoheader
