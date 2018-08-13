@@ -1012,7 +1012,7 @@ app_exit(void)
   static gboolean app_exit_once = FALSE;
 
   if (app_exit_once) {
-    g_error(_("This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\n"
+    g_error(_("This shouldn't happen.  Please file a bug report at https://gitlab.gnome.org/GNOME/dia\n"
 	      "describing how you caused this message to appear.\n"));
     return FALSE;
   }
