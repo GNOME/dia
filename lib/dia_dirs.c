@@ -156,24 +156,76 @@ dia_get_locale_directory(void)
 #endif
 }
 
-/** Get the name of a file under the Dia config directory.  If no home
- *  directory can be found, uses a temporary directory.
+/** Migrate a file or dir from $HOME/.dia to a new location.
+ * @param newloc New location of the subfile.
+ * @param subfile Name of the subfile.
+ */
+void
+dia_migrate_file (const gchar *newloc, const gchar *subfile)
+{
+    gchar *oldloc;
+    gchar *oldroot;
+
+    oldloc = g_strconcat(g_get_home_dir(), G_DIR_SEPARATOR_S ".dia"
+             G_DIR_SEPARATOR_S, subfile, NULL);
+    if(g_file_test(oldloc, G_FILE_TEST_EXISTS))
+    {
+        if (g_rename(oldloc, newloc) == -1)
+        {
+            g_warning("Could not migrate '%s' from '%s' to '%s'.",
+                subfile, oldloc, newloc);
+        }
+    }
+    g_free (oldloc);
+    /* we are trying to remove an empty folder '$HOME/.dia'
+     * if it is not empty, it is not removed */
+    oldroot = g_strconcat(g_get_home_dir(), G_DIR_SEPARATOR_S ".dia", NULL);
+    rmdir (oldroot);
+    g_free (oldroot);
+}
+
+/** Get the name of a file under the XDG user Dia config directory.
  * @param subfile Name of the subfile.
  * @returns A string with the full path of the desired file.  This string
  *          should be freed after use.
  */
 gchar *
-dia_config_filename(const gchar *subfile)
+dia_user_config_filename(const gchar *subfile)
 {
-  const gchar *homedir;
+  const gchar *confdir;
+  gchar *diaconfdir;
 
-  homedir = g_get_home_dir();
-  if (!homedir) {
-    homedir = g_get_tmp_dir(); /* put config stuff in /tmp -- not ideal, but
-				* we should not reach this state */
+  confdir = g_get_user_config_dir();
+  if (!confdir) {
+    confdir = g_get_tmp_dir(); /* put config stuff in /tmp -- not ideal, but
+                * we should not reach this state */
   }
-  return g_strconcat(homedir, G_DIR_SEPARATOR_S ".dia" G_DIR_SEPARATOR_S,
-		     subfile, NULL);
+  diaconfdir = g_strconcat(confdir, G_DIR_SEPARATOR_S "dia" G_DIR_SEPARATOR_S,
+               subfile, NULL);
+  dia_migrate_file (diaconfdir, subfile);
+  return diaconfdir;
+}
+
+/** Get the name of a file under the XDG user Dia config directory.
+ * @param subfile Name of the subfile.
+ * @returns A string with the full path of the desired file.  This string
+ *          should be freed after use.
+ */
+gchar *
+dia_user_data_filename(const gchar *subfile)
+{
+  const gchar *datadir;
+  gchar *diadatadir;
+
+  datadir = g_get_user_data_dir();
+  if (!datadir) {
+    datadir = g_get_tmp_dir(); /* put config stuff in /tmp -- not ideal, but
+                * we should not reach this state */
+  }
+  diadatadir = g_strconcat(datadir, G_DIR_SEPARATOR_S "dia" G_DIR_SEPARATOR_S,
+               subfile, NULL);
+  dia_migrate_file (diadatadir, subfile);
+  return diadatadir;
 }
 
 /** Ensure that the directory part of `filename' exists.
@@ -192,9 +244,9 @@ dia_config_ensure_dir(const gchar *filename)
       exists = TRUE;
     } else {
       if (dia_config_ensure_dir(dir)) {
-	exists = (g_mkdir(dir, 0755) == 0);
+    exists = (g_mkdir(dir, 0755) == 0);
       } else {
-	exists = FALSE;
+    exists = FALSE;
       }
     }
   } else {
@@ -256,9 +308,9 @@ dia_get_canonical_path(const gchar *path)
       if (strlen(list[i]) > 0) {
 
         /* win32 filenames usually don't start with a dir separator but
-         * with <drive>:\ 
+         * with <drive>:\
          */
-	if (i != 0 || list[i][1] != ':')
+    if (i != 0 || list[i][1] != ':')
           g_string_append (str, G_DIR_SEPARATOR_S);
         g_string_append (str, list[i]);
       }
@@ -347,14 +399,14 @@ dia_relativize_filename (const gchar *master, const gchar *slave)
      * So only advance (+1) in slave when there is no trailing backslash.
      */
     rel = g_strdup (slave + strlen (bp1)
-			  + (g_str_has_suffix (bp1, G_DIR_SEPARATOR_S) ? 0 : 1));
+              + (g_str_has_suffix (bp1, G_DIR_SEPARATOR_S) ? 0 : 1));
     /* flip backslashes */
     for (p = rel; *p != '\0'; p++)
-      if (*p == '\\') *p = '/';    
+      if (*p == '\\') *p = '/';
   }
   g_free (bp1);
   g_free (bp2);
-  
+
   return rel;
 }
 

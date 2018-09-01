@@ -39,12 +39,12 @@
 void custom_object_new (ShapeInfo *info,
                         DiaObjectType **otype);
 
-G_MODULE_EXPORT gboolean custom_object_load(gchar *filename, 
+G_MODULE_EXPORT gboolean custom_object_load(gchar *filename,
                                             DiaObjectType **otype);
 
 /* Cannot be static, because we may use this fn later when loading
    a new shape via the sheets dialog */
-   
+
 G_MODULE_EXPORT gboolean
 custom_object_load(gchar *filename, DiaObjectType **otype)
 {
@@ -55,7 +55,7 @@ custom_object_load(gchar *filename, DiaObjectType **otype)
   info = shape_info_load(filename);
   /*g_assert(info);*/
   if (!info) {
-    *otype = NULL; 
+    *otype = NULL;
     return FALSE;
   }
   custom_object_new(info, otype);
@@ -66,12 +66,12 @@ static gboolean
 custom_object_preload(gchar *filename, DiaObjectType **otype)
 {
   ShapeInfo *info;
-  
+
   info = g_new0 (ShapeInfo, 1);
   info->filename = g_strdup (filename);
   /* Just enough to register the type, not enough to create the object */
   if (!shape_typeinfo_load(info)) {
-    /* there are currently 5 - out of ~700 shapes - which fail the size assumption 
+    /* there are currently 5 - out of ~700 shapes - which fail the size assumption
      * (reading only the first 512 bytes of the shape).
      * Instead of not loading them at all, they are loaded  completely as a fallback.
      * Another way would be to increase the size to read for every shape, seems worse.
@@ -85,7 +85,7 @@ custom_object_preload(gchar *filename, DiaObjectType **otype)
   custom_object_new(info, otype);
   return TRUE;
 }
-static void 
+static void
 load_shapes_from_tree(const gchar *directory)
 {
   GDir *dp;
@@ -97,7 +97,7 @@ load_shapes_from_tree(const gchar *directory)
   }
   while ( (dentry = g_dir_read_name(dp)) ) {
     gchar *filename = g_strconcat(directory, G_DIR_SEPARATOR_S,
-				  dentry, NULL);
+                  dentry, NULL);
     const gchar *p;
 
     if (g_file_test(filename, G_FILE_TEST_IS_DIR)) {
@@ -111,7 +111,7 @@ load_shapes_from_tree(const gchar *directory)
       g_free(filename);
       continue;
     }
-    
+
     p = dentry + strlen(dentry) - 6;
     if (0==strcmp(".shape",p)) {
       DiaObjectType *ot;
@@ -119,7 +119,7 @@ load_shapes_from_tree(const gchar *directory)
       if (!custom_object_preload(filename, &ot)) {
         g_warning("could not load shape file %s",filename);
       } else {
-        g_assert(ot); 
+        g_assert(ot);
         g_assert(ot->default_user_data);
         object_register_type(ot);
       }
@@ -138,12 +138,12 @@ dia_plugin_init(PluginInfo *info)
   const char *home_dir;
 
   if (!dia_plugin_info_init(info, _("Custom"), _("Custom XML shapes loader"),
-			    NULL, NULL))
+                NULL, NULL))
     return DIA_PLUGIN_INIT_ERROR;
 
-  home_dir = g_get_home_dir();
+  home_dir = g_get_user_data_dir();
   if (home_dir) {
-    home_dir = dia_config_filename("shapes");
+    home_dir = dia_user_data_filename("shapes");
     load_shapes_from_tree(home_dir);
     g_free((char *)home_dir);
   }

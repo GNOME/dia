@@ -74,10 +74,10 @@ static void     info_fill_from_pluginrc(PluginInfo *info);
 
 gboolean
 dia_plugin_info_init(PluginInfo *info,
-		     const gchar *name,
-		     const gchar *description,
-		     PluginCanUnloadFunc can_unload_func, 
-		     PluginUnloadFunc unload_func)
+             const gchar *name,
+             const gchar *description,
+             PluginCanUnloadFunc can_unload_func,
+             PluginUnloadFunc unload_func)
 {
   g_free(info->name);
   info->name = g_strdup(name);
@@ -168,7 +168,7 @@ dia_plugin_load(PluginInfo *info)
 
   if (info->is_loaded)
     return;
-    
+
 #ifdef G_OS_WIN32
   /* suppress the systems error dialog, we can handle a plug-in not loadable */
   error_mode = SetErrorMode (SEM_FAILCRITICALERRORS|SEM_NOOPENFILEERRORBOX);
@@ -193,7 +193,7 @@ dia_plugin_load(PluginInfo *info)
 
   info->init_func = NULL;
   if (!g_module_symbol(info->module, "dia_plugin_init",
-		       (gpointer)&info->init_func)) {
+               (gpointer)&info->init_func)) {
     g_module_close(info->module);
     info->module = NULL;
     info->description = g_strdup(_("Missing symbol 'dia_plugin_init'"));
@@ -281,7 +281,7 @@ dia_register_plugin(const gchar *filename)
 }
 
 static gboolean
-this_is_a_plugin(const gchar *name) 
+this_is_a_plugin(const gchar *name)
 {
   return g_str_has_suffix(name, G_MODULE_SUFFIX);
 }
@@ -289,7 +289,7 @@ this_is_a_plugin(const gchar *name)
 typedef void (*ForEachInDirDoFunc)(const gchar *name);
 typedef gboolean (*ForEachInDirFilterFunc)(const gchar *name);
 
-static void 
+static void
 for_each_in_dir(const gchar *directory, ForEachInDirDoFunc dofunc,
                 ForEachInDirFilterFunc filter)
 {
@@ -317,13 +317,13 @@ for_each_in_dir(const gchar *directory, ForEachInDirDoFunc dofunc,
   g_dir_close(dp);
 }
 
-static gboolean 
+static gboolean
 directory_filter(const gchar *name)
 {
   const char *rslash = strrchr(name, G_DIR_SEPARATOR);
-  
+
   if (rslash && (   0 == strcmp(rslash, G_DIR_SEPARATOR_S ".")
-		 || 0 == strcmp(rslash, G_DIR_SEPARATOR_S "..")))
+         || 0 == strcmp(rslash, G_DIR_SEPARATOR_S "..")))
     return FALSE;
 
   if (!g_file_test (name, G_FILE_TEST_IS_DIR))
@@ -332,8 +332,8 @@ directory_filter(const gchar *name)
   return TRUE;
 }
 
-static gboolean 
-dia_plugin_filter(const gchar *name) 
+static gboolean
+dia_plugin_filter(const gchar *name)
 {
   if (!g_file_test (name, G_FILE_TEST_IS_REGULAR | G_FILE_TEST_IS_DIR))
     return FALSE;
@@ -344,7 +344,7 @@ dia_plugin_filter(const gchar *name)
 static void
 walk_dirs_for_plugins(const gchar *dirname)
 {
-  for_each_in_dir(dirname,walk_dirs_for_plugins,directory_filter);  
+  for_each_in_dir(dirname,walk_dirs_for_plugins,directory_filter);
   for_each_in_dir(dirname,dia_register_plugin,dia_plugin_filter);
 }
 
@@ -374,7 +374,7 @@ dia_register_plugins(void)
 
   library_path = g_getenv("DIA_LIB_PATH");
 
-  lib_dir = dia_config_filename("objects");
+  lib_dir = dia_user_data_filename("objects");
 
   if (lib_dir != NULL) {
     dia_register_plugins_in_dir(lib_dir);
@@ -444,20 +444,20 @@ ensure_pluginrc(void)
 
   if (pluginrc)
     return;
-  filename = dia_config_filename("pluginrc");
+  filename = dia_user_config_filename("pluginrc");
   dia_context_set_filename (ctx, filename);
   if (g_file_test (filename,  G_FILE_TEST_IS_REGULAR))
     pluginrc = diaXmlParseFile(filename, ctx, FALSE);
   else
     pluginrc = NULL;
-  
+
   g_free(filename);
 
   if (!pluginrc) {
     pluginrc = xmlNewDoc((const xmlChar *)"1.0");
     pluginrc->encoding = xmlStrdup((const xmlChar *)"UTF-8");
     xmlDocSetRootElement(pluginrc,
-			 xmlNewDocNode(pluginrc, NULL, (const xmlChar *)"plugins", NULL));
+             xmlNewDocNode(pluginrc, NULL, (const xmlChar *)"plugins", NULL));
   }
   dia_context_release (ctx);
 }
@@ -478,8 +478,8 @@ plugin_load_inhibited(const gchar *filename)
   xmlNodePtr node;
 
   ensure_pluginrc();
-  for (node = pluginrc->xmlRootNode->xmlChildrenNode; 
-       node != NULL; 
+  for (node = pluginrc->xmlRootNode->xmlChildrenNode;
+       node != NULL;
        node = node->next) {
     xmlChar *node_filename;
 
@@ -492,13 +492,13 @@ plugin_load_inhibited(const gchar *filename)
       xmlNodePtr node2;
 
       xmlFree(node_filename);
-      for (node2 = node->xmlChildrenNode; 
-           node2 != NULL; 
+      for (node2 = node->xmlChildrenNode;
+           node2 != NULL;
            node2 = node2->next) {
         if (xmlIsBlankNode(node2)) continue;
-	if (node2->type == XML_ELEMENT_NODE &&
-	    !xmlStrcmp(node2->name, (const xmlChar *)"inhibit-load"))
-	  return TRUE;
+    if (node2->type == XML_ELEMENT_NODE &&
+        !xmlStrcmp(node2->name, (const xmlChar *)"inhibit-load"))
+      return TRUE;
       }
       return FALSE;
     }
@@ -522,8 +522,8 @@ info_fill_from_pluginrc(PluginInfo *info)
   info->unload_func = NULL;
 
   ensure_pluginrc();
-  for (node = pluginrc->xmlRootNode->xmlChildrenNode; 
-       node != NULL; 
+  for (node = pluginrc->xmlRootNode->xmlChildrenNode;
+       node != NULL;
        node = node->next) {
     xmlChar *node_filename;
 
@@ -536,24 +536,24 @@ info_fill_from_pluginrc(PluginInfo *info)
       xmlNodePtr node2;
 
       xmlFree(node_filename);
-      for (node2 = node->xmlChildrenNode; 
-           node2 != NULL; 
+      for (node2 = node->xmlChildrenNode;
+           node2 != NULL;
            node2 = node2->next) {
-	gchar *content;
+    gchar *content;
 
         if (xmlIsBlankNode(node2)) continue;
 
-	if (node2->type != XML_ELEMENT_NODE)
-	  continue;
-	content = (gchar *)xmlNodeGetContent(node2);
-	if (!xmlStrcmp(node2->name, (const xmlChar *)"name")) {
-	  g_free(info->name);
-	  info->name = g_strdup(content);
-	} else if (!xmlStrcmp(node2->name, (const xmlChar *)"description")) {
-	  g_free(info->description);
-	  info->description = g_strdup(content);
-	}
-	xmlFree(content);
+    if (node2->type != XML_ELEMENT_NODE)
+      continue;
+    content = (gchar *)xmlNodeGetContent(node2);
+    if (!xmlStrcmp(node2->name, (const xmlChar *)"name")) {
+      g_free(info->name);
+      info->name = g_strdup(content);
+    } else if (!xmlStrcmp(node2->name, (const xmlChar *)"description")) {
+      g_free(info->description);
+      info->description = g_strdup(content);
+    }
+    xmlFree(content);
       }
       break;
     }
@@ -588,21 +588,21 @@ dia_pluginrc_write(void)
     if (info->inhibit_load)
       (void)xmlNewChild(pluginnode, NULL, (const xmlChar *)"inhibit-load", NULL);
 
-    for (node = pluginrc->xmlRootNode->xmlChildrenNode; 
-         node != NULL; 
+    for (node = pluginrc->xmlRootNode->xmlChildrenNode;
+         node != NULL;
          node = node->next) {
       xmlChar *node_filename;
 
       if (xmlIsBlankNode(node)) continue;
 
       if (node->type != XML_ELEMENT_NODE || xmlStrcmp(node->name, (const xmlChar *)"plugin") != 0)
-	continue;
+    continue;
       node_filename = xmlGetProp(node, (const xmlChar *)"filename");
       if (node_filename && !strcmp(info->filename, (char *) node_filename)) {
-	xmlFree(node_filename);
-	xmlReplaceNode(node, pluginnode);
-	xmlFreeNode(node);
-	break;
+    xmlFree(node_filename);
+    xmlReplaceNode(node, pluginnode);
+    xmlFreeNode(node);
+    break;
       }
       if (node_filename) xmlFree(node_filename);
     }
@@ -613,10 +613,10 @@ dia_pluginrc_write(void)
     xmlSetProp(pluginnode, (const xmlChar *)"filename", (xmlChar *)info->filename);
   }
 
-  filename = dia_config_filename("pluginrc");
-  
+  filename = dia_user_config_filename("pluginrc");
+
   xmlDiaSaveFile(filename, pluginrc);
-  
+
   g_free(filename);
   free_pluginrc();
 }

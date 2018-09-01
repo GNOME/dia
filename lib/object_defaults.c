@@ -2,8 +2,8 @@
  * Copyright (C) 1998 Alexander Larsson
  *
  * object_defaults.c : manage default properties of dia objects
- *	The serialization is done with standard object methods in 
- *	a diagram compatible format.
+ *  The serialization is done with standard object methods in
+ *  a diagram compatible format.
  *
  * Copyright (C) 2002 Hans Breuer
  *
@@ -37,7 +37,7 @@
 #include "diacontext.h"
 #include "dia_dirs.h"
 #include "propinternals.h"
- 
+
 static GHashTable *defaults_hash = NULL;
 static gboolean object_default_create_lazy = FALSE;
 
@@ -52,7 +52,7 @@ _obj_create (gpointer key,
   DiaObject *obj;
   Point startpoint = {0.0,0.0};
   Handle *handle1,*handle2;
-  
+
   g_assert (g_hash_table_lookup (ht, name) == NULL);
 
   /* at least 'Group' has no ops */
@@ -84,7 +84,7 @@ _obj_destroy (gpointer val)
  *             every known type. Otherwise default objects
  *             are created on demand
  * @param ctx The context in which this function is called
- * 
+ *
  * Create all the default objects.
  */
 gboolean
@@ -105,11 +105,11 @@ dia_object_defaults_load (const gchar *filename, gboolean create_lazy, DiaContex
         object_registry_foreach (_obj_create, defaults_hash);
     }
 
-    
+
   /* overload properties from file */
-  if (!filename) 
+  if (!filename)
     {
-      gchar *default_filename = dia_config_filename("defaults.dia");
+      gchar *default_filename = dia_user_data_filename("defaults.dia");
 
       dia_context_set_filename(ctx, default_filename);
       if (g_file_test(default_filename, G_FILE_TEST_EXISTS))
@@ -117,7 +117,7 @@ dia_object_defaults_load (const gchar *filename, gboolean create_lazy, DiaContex
       else
         doc = NULL;
       g_free (default_filename);
-    } 
+    }
   else
     {
       dia_context_set_filename (ctx, filename);
@@ -128,11 +128,11 @@ dia_object_defaults_load (const gchar *filename, gboolean create_lazy, DiaContex
       return FALSE;
 
   name_space = xmlSearchNs(doc, doc->xmlRootNode, (const xmlChar *)"dia");
-  if (xmlStrcmp (doc->xmlRootNode->name, (const xmlChar *)"diagram") 
+  if (xmlStrcmp (doc->xmlRootNode->name, (const xmlChar *)"diagram")
       || (name_space == NULL))
     {
       dia_context_add_message(ctx, _("Error loading defaults '%s'.\n"
-				     "Not a Dia diagram file."), filename);
+                     "Not a Dia diagram file."), filename);
       xmlFreeDoc (doc);
       return FALSE;
     }
@@ -141,68 +141,68 @@ dia_object_defaults_load (const gchar *filename, gboolean create_lazy, DiaContex
   while (layer_node)
     {
       if (   !xmlIsBlankNode(layer_node)
-          && 0 == xmlStrcmp(layer_node->name, (const xmlChar *)"layer")) 
+          && 0 == xmlStrcmp(layer_node->name, (const xmlChar *)"layer"))
         {
-	  obj_node = layer_node->xmlChildrenNode;
-	  while (obj_node)
-	    {
-	      if (!xmlIsBlankNode(obj_node)
-		  && 0 == xmlStrcmp(obj_node->name, (const xmlChar *)"object")) 
-		{
-		  char *typestr = (char *) xmlGetProp(obj_node, (const xmlChar *)"type");
-		  char *version = (char *) xmlGetProp(obj_node, (const xmlChar *)"version");
-		  if (typestr)
-		    {
-		      DiaObject *obj = g_hash_table_lookup (defaults_hash, typestr);
-		      if (!obj)
-		        {
-			  if (!create_lazy)
-			    g_warning ("Unknown object '%s' while reading '%s'",
-				       typestr, filename);
-			  else
-			    {
-			      DiaObjectType *type = object_get_type (typestr);
-			      if (type)
-			        obj = type->ops->load (
-					obj_node,
-					version ? atoi(version) : 0,
-					ctx);
-			      if (obj)
-			        g_hash_table_insert (defaults_hash,
-			                             obj->type->name, obj);
-			    }
-			}
-		      else
-		        {
+      obj_node = layer_node->xmlChildrenNode;
+      while (obj_node)
+        {
+          if (!xmlIsBlankNode(obj_node)
+          && 0 == xmlStrcmp(obj_node->name, (const xmlChar *)"object"))
+        {
+          char *typestr = (char *) xmlGetProp(obj_node, (const xmlChar *)"type");
+          char *version = (char *) xmlGetProp(obj_node, (const xmlChar *)"version");
+          if (typestr)
+            {
+              DiaObject *obj = g_hash_table_lookup (defaults_hash, typestr);
+              if (!obj)
+                {
+              if (!create_lazy)
+                g_warning ("Unknown object '%s' while reading '%s'",
+                       typestr, filename);
+              else
+                {
+                  DiaObjectType *type = object_get_type (typestr);
+                  if (type)
+                    obj = type->ops->load (
+                    obj_node,
+                    version ? atoi(version) : 0,
+                    ctx);
+                  if (obj)
+                    g_hash_table_insert (defaults_hash,
+                                         obj->type->name, obj);
+                }
+            }
+              else
+                {
 #if 0 /* lots of complaining about missing attributes */
-			  object_load_props(obj, obj_node, ctx); /* leaks ?? */
+              object_load_props(obj, obj_node, ctx); /* leaks ?? */
 #else
-			  DiaObject *def_obj;
-			  def_obj = obj->type->ops->load (
-					obj_node,
-			                version ? atoi(version) : 0,
-					ctx);
-			  if (def_obj->ops->set_props)
-			    { 
-			      object_copy_props (obj, def_obj, TRUE);
-			      def_obj->ops->destroy (def_obj);
-			    }
-			  else
-			    {
-			      /* can't copy props */
-			      g_hash_table_replace (defaults_hash,
-			                            def_obj->type->name, def_obj);
-			    }
+              DiaObject *def_obj;
+              def_obj = obj->type->ops->load (
+                    obj_node,
+                            version ? atoi(version) : 0,
+                    ctx);
+              if (def_obj->ops->set_props)
+                {
+                  object_copy_props (obj, def_obj, TRUE);
+                  def_obj->ops->destroy (def_obj);
+                }
+              else
+                {
+                  /* can't copy props */
+                  g_hash_table_replace (defaults_hash,
+                                        def_obj->type->name, def_obj);
+                }
 #endif
-			}
-		      if (version)
-		          xmlFree (version);
-		      xmlFree (typestr);
-		    }
-		}
-	      obj_node = obj_node->next;
-	    }
-	}
+            }
+              if (version)
+                  xmlFree (version);
+              xmlFree (typestr);
+            }
+        }
+          obj_node = obj_node->next;
+        }
+    }
       layer_node = layer_node->next;
     }
   xmlFreeDoc(doc);
@@ -226,15 +226,15 @@ dia_object_default_get (const DiaObjectType *type, gpointer user_data)
     {
       Point startpoint = {0.0,0.0};
       Handle *handle1,*handle2;
-  
+
       /* at least 'Group' has no ops */
       if (!type->ops)
-	return NULL;
+    return NULL;
 
       /* the custom objects needs extra_data */
-      obj = type->ops->create(&startpoint, 
-                              type->default_user_data, 
-			      &handle1,&handle2);
+      obj = type->ops->create(&startpoint,
+                              type->default_user_data,
+                  &handle1,&handle2);
       if (obj)
         g_hash_table_insert (defaults_hash, obj->type->name, obj);
     }
@@ -242,7 +242,7 @@ dia_object_default_get (const DiaObjectType *type, gpointer user_data)
   return obj;
 }
 
-static gboolean 
+static gboolean
 pdtpp_standard_or_defaults (const PropDescription *pdesc)
 {
   return (   (pdesc->flags & PROP_FLAG_NO_DEFAULTS) == 0
@@ -281,13 +281,13 @@ dia_object_default_create (const DiaObjectType *type,
       obj = type->ops->create (startpoint, user_data, handle1, handle2);
       if (obj)
         {
-	  GPtrArray *props = prop_list_from_descs (
-	      object_get_prop_descriptions(def_obj), pdtpp_standard_or_defaults);
+      GPtrArray *props = prop_list_from_descs (
+          object_get_prop_descriptions(def_obj), pdtpp_standard_or_defaults);
           def_obj->ops->get_props((DiaObject *)def_obj, props);
           obj->ops->set_props(obj, props);
-	  obj->ops->move (obj, startpoint);
+      obj->ops->move (obj, startpoint);
           prop_list_free(props);
-	}
+    }
     }
   else
     {
@@ -329,7 +329,7 @@ _obj_store (gpointer key,
   gchar *p;
   MyLayerInfo *li;
 
-  /* fires if you have messed up the hash keys, 
+  /* fires if you have messed up the hash keys,
    * e.g. by using non permanent memory */
   g_assert (0 == strcmp (obj->type->name, name));
 
@@ -366,7 +366,7 @@ _obj_store (gpointer key,
   xmlSetProp(obj_node, (const xmlChar *)"id", (xmlChar *)buffer);
 
   /* if it looks like intdata store it as well */
-  if (   GPOINTER_TO_INT(obj->type->default_user_data) > 0 
+  if (   GPOINTER_TO_INT(obj->type->default_user_data) > 0
       && GPOINTER_TO_INT(obj->type->default_user_data) < 0xFF) {
     g_snprintf(buffer, 30, "%d", GPOINTER_TO_INT(obj->type->default_user_data));
     xmlSetProp(obj_node, (const xmlChar *)"intdata", (xmlChar *)buffer);
@@ -377,7 +377,7 @@ _obj_store (gpointer key,
   obj->type->ops->save (obj, obj_node, ri->ctx);
 
   /* arrange following objects below */
-  li->pos.y += (obj->bounding_box.bottom - obj->bounding_box.top + 1.0); 
+  li->pos.y += (obj->bounding_box.bottom - obj->bounding_box.top + 1.0);
 }
 
 /**
@@ -396,7 +396,7 @@ dia_object_defaults_save (const gchar *filename, DiaContext *ctx)
   gchar *real_filename;
 
   if (!filename)
-    real_filename = dia_config_filename("defaults.dia");
+    real_filename = dia_user_data_filename("defaults.dia");
   else
     real_filename = g_strdup (filename);
 
@@ -404,9 +404,9 @@ dia_object_defaults_save (const gchar *filename, DiaContext *ctx)
   doc->encoding = xmlStrdup((const xmlChar *)"UTF-8");
   doc->xmlRootNode = xmlNewDocNode(doc, NULL, (const xmlChar *)"diagram", NULL);
 
-  ni.name_space = xmlNewNs(doc->xmlRootNode, 
+  ni.name_space = xmlNewNs(doc->xmlRootNode,
                            (const xmlChar *)DIA_XML_NAME_SPACE_BASE,
-			   (const xmlChar *)"dia");
+               (const xmlChar *)"dia");
   xmlSetNs(doc->xmlRootNode, ni.name_space);
 
   ni.obj_nr = 0;

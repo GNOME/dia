@@ -47,7 +47,7 @@ G_MODULE_EXPORT gboolean custom_linefile_load(gchar *filename, LineInfo **info);
 
 /* Cannot be static, because we may use this fn later when loading
    a new shape via the sheets dialog */
-   
+
 G_MODULE_EXPORT gboolean custom_linefile_load(gchar *filename, LineInfo **info)
 {
   if (!filename)
@@ -65,11 +65,11 @@ G_MODULE_EXPORT gboolean custom_linefile_load(gchar *filename, LineInfo **info)
 
 char* custom_lines_string_plus( char* lhs, char* mid, char* rhs )
 {
-	char* res = g_new0(char, strlen(lhs) + strlen(rhs) + strlen( mid ) + 1);
+    char* res = g_new0(char, strlen(lhs) + strlen(rhs) + strlen( mid ) + 1);
 
-	sprintf( res, "%s%s%s", lhs, mid, rhs );
+    sprintf( res, "%s%s%s", lhs, mid, rhs );
 
-	return( res );
+    return( res );
 }
 
 void custom_linetype_create_and_register( LineInfo* info )
@@ -88,20 +88,20 @@ void custom_linetype_create_and_register( LineInfo* info )
         /* split at the file extension */
         char** chunks = g_strsplit( info->icon_filename, ".png", 0 );
         char buf[20];
-        
+
         sprintf( buf, "_%s", custom_linetype_strings[i] );
-        cloned_info->icon_filename = 
+        cloned_info->icon_filename =
           custom_lines_string_plus( chunks[0], buf, ".png" );
       }
 
       custom_linetype_new(cloned_info, &otype);
-      g_assert(otype); 
+      g_assert(otype);
       g_assert(otype->default_user_data);
       object_register_type(otype);
     }
   } else {
     custom_linetype_new(info, &otype);
-    g_assert(otype); 
+    g_assert(otype);
     g_assert(otype->default_user_data);
     object_register_type(otype);
   }
@@ -111,14 +111,14 @@ static void load_linefiles_from_tree(const gchar *directory)
 {
   GDir *dp;
   const char *dentry;
-  
+
   dp = g_dir_open(directory, 0, NULL);
   if (dp == NULL) {
     return;
   }
   while ( (dentry = g_dir_read_name(dp)) ) {
     gchar *filename = g_strconcat(directory, G_DIR_SEPARATOR_S,
-				  dentry, NULL);
+                  dentry, NULL);
     const gchar *p;
 
     if (g_file_test(filename, G_FILE_TEST_IS_DIR)) {
@@ -132,7 +132,7 @@ static void load_linefiles_from_tree(const gchar *directory)
       g_free(filename);
       continue;
     }
-    
+
     p = dentry + strlen(dentry) - strlen( ".line" );
     if (0==strcmp(".line",p)) {
       LineInfo *info;
@@ -155,15 +155,15 @@ dia_plugin_init(PluginInfo *info)
 {
   char *line_path;
   const char *home_dir;
-  
-  
+
+
   if (!dia_plugin_info_init(info, _("CustomLines"), _("Custom XML lines loader"),
-			    NULL, NULL))
+                NULL, NULL))
     return DIA_PLUGIN_INIT_ERROR;
-  
-  home_dir = g_get_home_dir();
+
+  home_dir = g_get_user_data_dir();
   if (home_dir) {
-    home_dir = dia_config_filename("lines");
+    home_dir = dia_user_data_filename("lines");
     load_linefiles_from_tree(home_dir);
     g_free((char *)home_dir);
   }
@@ -181,7 +181,7 @@ dia_plugin_init(PluginInfo *info)
     load_linefiles_from_tree(thedir);
     g_free(thedir);
   }
-  
+
   return DIA_PLUGIN_INIT_OK;
 }
 

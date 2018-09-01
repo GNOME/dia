@@ -17,7 +17,7 @@
  */
 
 /*!
- * \file persistence.c -- functions that handle persistent stores, such as 
+ * \file persistence.c -- functions that handle persistent stores, such as
  * window positions and sizes, font menu, document history etc.
  */
 
@@ -122,7 +122,7 @@ persistence_load_entrystring(gchar *role, xmlNodePtr node, DiaContext *ctx)
   attr = composite_find_attribute(node, "stringvalue");
   if (attr != NULL)
     string = data_string(attribute_first_data(attr), ctx);
-  else 
+  else
     return;
 
   if (string != NULL)
@@ -139,7 +139,7 @@ persistence_load_list(gchar *role, xmlNodePtr node, DiaContext *ctx)
   attr = composite_find_attribute(node, "listvalue");
   if (attr != NULL)
     string = data_string(attribute_first_data(attr), ctx);
-  else 
+  else
     return;
 
   if (string != NULL) {
@@ -253,7 +253,7 @@ persistence_load_type(xmlNodePtr node, DiaContext *ctx)
   if (name == NULL) {
     return;
   }
-  
+
   (*func)(name, node, ctx);
 }
 
@@ -309,7 +309,7 @@ void
 persistence_load()
 {
   xmlDocPtr doc;
-  gchar *filename = dia_config_filename("persistence");
+  gchar *filename = dia_user_data_filename("persistence");
   DiaContext *ctx;
 
   persistence_init();
@@ -325,11 +325,11 @@ persistence_load()
     if (doc->xmlRootNode != NULL) {
       xmlNsPtr namespace = xmlSearchNs(doc, doc->xmlRootNode, (const xmlChar *)"dia");
       if (!xmlStrcmp (doc->xmlRootNode->name, (const xmlChar *)"persistence") &&
-	  namespace != NULL) {
-	xmlNodePtr child_node = doc->xmlRootNode->children;
-	for (; child_node != NULL; child_node = child_node->next) {
-	  persistence_load_type(child_node, ctx);
-	}
+      namespace != NULL) {
+    xmlNodePtr child_node = doc->xmlRootNode->children;
+    for (; child_node != NULL; child_node = child_node->next) {
+      persistence_load_type(child_node, ctx);
+    }
       }
     }
     xmlFreeDoc(doc);
@@ -356,7 +356,7 @@ persistence_save_window(gpointer key, gpointer value, gpointer data)
   ObjectNode window;
 
   window = (ObjectNode)xmlNewChild(tree, NULL, (const xmlChar *)"window", NULL);
-  
+
   xmlSetProp(window, (const xmlChar *)"role", (xmlChar *) key);
   data_add_int(new_attribute(window, "xpos"), window_pos->x, ctx);
   data_add_int(new_attribute(window, "ypos"), window_pos->y, ctx);
@@ -385,10 +385,10 @@ persistence_save_list(gpointer key, gpointer value, gpointer data)
   for (items = ((PersistentList*)value)->glist; items != NULL;
        items = g_list_next(items)) {
     g_string_append(buf, (gchar *)items->data);
-    if (g_list_next(items) != NULL) 
+    if (g_list_next(items) != NULL)
       g_string_append(buf, "\n");
   }
-  
+
   data_add_string(new_attribute(listnode, "listvalue"), buf->str, ctx);
   g_string_free(buf, TRUE);
 }
@@ -482,16 +482,16 @@ persistence_save()
   xmlDocPtr doc;
   xmlNs *name_space;
   DiaContext *ctx;
-  gchar *filename = dia_config_filename("persistence");
+  gchar *filename = dia_user_data_filename("persistence");
 
   ctx = dia_context_new ("Persistence");
   doc = xmlNewDoc((const xmlChar *)"1.0");
   doc->encoding = xmlStrdup((const xmlChar *)"UTF-8");
   doc->xmlRootNode = xmlNewDocNode(doc, NULL, (const xmlChar *)"persistence", NULL);
 
-  name_space = xmlNewNs(doc->xmlRootNode, 
+  name_space = xmlNewNs(doc->xmlRootNode,
                         (const xmlChar *) DIA_XML_NAME_SPACE_BASE,
-			(const xmlChar *)"dia");
+            (const xmlChar *)"dia");
   xmlSetNs(doc->xmlRootNode, name_space);
 
   persistence_save_type(doc, ctx, persistent_windows, persistence_save_window);
@@ -528,7 +528,7 @@ persistence_get_window_name(GtkWindow *window)
 
 static void
 persistence_store_window_info(GtkWindow *window, PersistentWindow *wininfo,
-			      gboolean isclosed)
+                  gboolean isclosed)
 {
   /* Drawable means visible & mapped, what we usually think of as open. */
   if (!isclosed) {
@@ -557,10 +557,10 @@ persistence_update_window(GtkWindow *window, gboolean isclosed)
 
   if (persistent_windows == NULL) {
     persistent_windows = _dia_hash_table_str_any_new();
-  }    
+  }
   wininfo = (PersistentWindow *)g_hash_table_lookup(persistent_windows, name);
 
-  if (wininfo != NULL) {  
+  if (wininfo != NULL) {
     persistence_store_window_info(window, wininfo, isclosed);
   } else {
     wininfo = g_new0(PersistentWindow, 1);
@@ -584,7 +584,7 @@ persistence_update_window(GtkWindow *window, gboolean isclosed)
  *
  * Handler for window-related events that should cause persistent storage changes.
  * @param window The GTK window to store for.
- * @param event the GDK event that caused us to be called.  Note that the 
+ * @param event the GDK event that caused us to be called.  Note that the
  * window state hasn't been updated by the event yet.
  * @param data Userdata passed when adding signal handler.
  * @return Always FALSE to continue processing of events
@@ -593,14 +593,14 @@ static gboolean
 persistence_window_event_handler(GtkWindow *window, GdkEvent *event, gpointer data)
 {
   switch (event->type) {
-  case GDK_UNMAP : 
-    dia_log_message ("unmap (%s)", persistence_get_window_name(window)); 
+  case GDK_UNMAP :
+    dia_log_message ("unmap (%s)", persistence_get_window_name(window));
     break;
-  case GDK_MAP : 
-    dia_log_message  ("map (%s)", persistence_get_window_name(window)); 
+  case GDK_MAP :
+    dia_log_message  ("map (%s)", persistence_get_window_name(window));
     break;
-  case GDK_CONFIGURE : 
-    dia_log_message ("configure (%s)", persistence_get_window_name(window)); 
+  case GDK_CONFIGURE :
+    dia_log_message ("configure (%s)", persistence_get_window_name(window));
     break;
   default :
     /* silence gcc */
@@ -646,12 +646,12 @@ wininfo_in_range (const PersistentWindow *wininfo)
   gint num_monitors = gdk_screen_get_n_monitors (screen), i;
   GdkRectangle rwin = {wininfo->x, wininfo->y, wininfo->width, wininfo->height};
   GdkRectangle rres = {0, 0, 0, 0};
-  
+
   for (i = 0; i < num_monitors; ++i) {
     GdkRectangle rmon;
-    
+
     gdk_screen_get_monitor_geometry (screen, i, &rmon);
-    
+
     gdk_rectangle_intersect (&rwin, &rmon, &rres);
     if (rres.width * rres.height > 0)
       break;
@@ -675,7 +675,7 @@ persistence_register_window(GtkWindow *window)
   if (name == NULL) return;
   if (persistent_windows == NULL) {
     persistent_windows = _dia_hash_table_str_any_new();
-  }    
+  }
   wininfo = (PersistentWindow *)g_hash_table_lookup(persistent_windows, name);
   if (wininfo != NULL) {
     if (wininfo_in_range (wininfo)) {
@@ -706,16 +706,16 @@ persistence_register_window(GtkWindow *window)
   }
 
   g_signal_connect(G_OBJECT(window), "configure-event",
-		   G_CALLBACK(persistence_window_event_handler), NULL);
+           G_CALLBACK(persistence_window_event_handler), NULL);
   g_signal_connect(G_OBJECT(window), "map-event",
-		   G_CALLBACK(persistence_window_event_handler), NULL);
+           G_CALLBACK(persistence_window_event_handler), NULL);
   g_signal_connect(G_OBJECT(window), "unmap-event",
-		   G_CALLBACK(persistence_window_event_handler), NULL);
+           G_CALLBACK(persistence_window_event_handler), NULL);
 
   g_signal_connect(G_OBJECT(window), "hide",
-		   G_CALLBACK(persistence_hide_show_window), NULL);
+           G_CALLBACK(persistence_hide_show_window), NULL);
   g_signal_connect(G_OBJECT(window), "show",
-		   G_CALLBACK(persistence_hide_show_window), NULL);
+           G_CALLBACK(persistence_hide_show_window), NULL);
 }
 
 /*!
@@ -748,7 +748,7 @@ persistence_register_window_create(gchar *role, NullaryFunc *func)
 
 static gboolean
 persistence_update_string_entry(GtkWidget *widget, GdkEvent *event,
-				gpointer userdata)
+                gpointer userdata)
 {
   gchar *role = (gchar*)userdata;
 
@@ -773,7 +773,7 @@ persistence_update_string_entry(GtkWidget *widget, GdkEvent *event,
  */
 gboolean
 persistence_change_string_entry(gchar *role, gchar *string,
-				GtkWidget *widget)
+                GtkWidget *widget)
 {
   gchar *old_string = (gchar*)g_hash_table_lookup(persistent_entrystrings, role);
   if (old_string != NULL) {
@@ -799,7 +799,7 @@ persistence_register_string_entry(gchar *role, GtkWidget *entry)
   if (role == NULL) return;
   if (persistent_entrystrings == NULL) {
     persistent_entrystrings = _dia_hash_table_str_any_new();
-  }    
+  }
   string = (gchar *)g_hash_table_lookup(persistent_entrystrings, role);
   if (string != NULL) {
     gtk_entry_set_text(GTK_ENTRY(entry), string);
@@ -807,12 +807,12 @@ persistence_register_string_entry(gchar *role, GtkWidget *entry)
     string = g_strdup(gtk_entry_get_text(GTK_ENTRY(entry)));
     g_hash_table_insert(persistent_entrystrings, role, string);
   }
-  g_signal_connect(G_OBJECT(entry), "event", 
-		   G_CALLBACK(persistence_update_string_entry), role);
+  g_signal_connect(G_OBJECT(entry), "event",
+           G_CALLBACK(persistence_update_string_entry), role);
 }
 
 /* ********* LISTS ********** */
-/* Lists are used for e.g. recent files, selected fonts, etc. 
+/* Lists are used for e.g. recent files, selected fonts, etc.
  * Anywhere where the user occasionally picks from a long list and
  * is likely to reuse the items.
  */
@@ -824,7 +824,7 @@ persistence_register_list(const gchar *role)
   if (role == NULL) return NULL;
   if (persistent_lists == NULL) {
     persistent_lists = _dia_hash_table_str_any_new();
-  } else {   
+  } else {
     list = (PersistentList *)g_hash_table_lookup(persistent_lists, role);
     if (list != NULL) {
       return list;
@@ -966,8 +966,8 @@ typedef struct {
  * @param userdata Data passed back into the callback function.
  */
 void
-persistent_list_add_listener(const gchar *role, PersistenceCallback func, 
-			     GObject *watch, gpointer userdata)
+persistent_list_add_listener(const gchar *role, PersistenceCallback func,
+                 GObject *watch, gpointer userdata)
 {
   PersistentList *plist = persistent_list_get(role);
   ListenerData *listener;
@@ -1003,7 +1003,7 @@ persistence_register_integer(gchar *role, int defaultvalue)
   if (role == NULL) return 0;
   if (persistent_integers == NULL) {
     persistent_integers = _dia_hash_table_str_any_new();
-  }    
+  }
   integer = (gint *)g_hash_table_lookup(persistent_integers, role);
   if (integer == NULL) {
     integer = g_new(gint, 1);
@@ -1036,9 +1036,9 @@ persistence_set_integer(gchar *role, gint newvalue)
     return;
   }
   integer = (gint *)g_hash_table_lookup(persistent_integers, role);
-  if (integer != NULL) 
+  if (integer != NULL)
     *integer = newvalue;
-  else 
+  else
     g_warning("No integer to set for %s", role);
 }
 
@@ -1050,7 +1050,7 @@ persistence_register_real(gchar *role, real defaultvalue)
   if (role == NULL) return 0;
   if (persistent_reals == NULL) {
     persistent_reals = _dia_hash_table_str_any_new();
-  }    
+  }
   realval = (real *)g_hash_table_lookup(persistent_reals, role);
   if (realval == NULL) {
     realval = g_new(real, 1);
@@ -1083,9 +1083,9 @@ persistence_set_real(gchar *role, real newvalue)
     return;
   }
   realval = (real *)g_hash_table_lookup(persistent_reals, role);
-  if (realval != NULL) 
+  if (realval != NULL)
     *realval = newvalue;
-  else 
+  else
     g_warning("No real to set for %s", role);
 }
 
@@ -1099,7 +1099,7 @@ persistence_boolean_is_registered(const gchar *role)
   if (role == NULL) return 0;
   if (persistent_booleans == NULL) {
     persistent_booleans = _dia_hash_table_str_any_new();
-  }    
+  }
   booleanval = (gboolean *)g_hash_table_lookup(persistent_booleans, role);
   return booleanval != NULL;
 }
@@ -1111,7 +1111,7 @@ persistence_register_boolean(const gchar *role, gboolean defaultvalue)
   if (role == NULL) return 0;
   if (persistent_booleans == NULL) {
     persistent_booleans = _dia_hash_table_str_any_new();
-  }    
+  }
   booleanval = (gboolean *)g_hash_table_lookup(persistent_booleans, role);
   if (booleanval == NULL) {
     booleanval = g_new(gboolean, 1);
@@ -1144,9 +1144,9 @@ persistence_set_boolean(const gchar *role, gboolean newvalue)
     return;
   }
   booleanval = (gboolean *)g_hash_table_lookup(persistent_booleans, role);
-  if (booleanval != NULL) 
+  if (booleanval != NULL)
     *booleanval = newvalue;
-  else 
+  else
     g_warning("No boolean to set for %s", role);
 }
 
@@ -1167,7 +1167,7 @@ persistence_register_string(gchar *role, gchar *defaultvalue)
   if (role == NULL) return 0;
   if (persistent_strings == NULL) {
     persistent_strings = _dia_hash_table_str_any_new();
-  }    
+  }
   stringval = (gchar *)g_hash_table_lookup(persistent_strings, role);
   if (stringval == NULL) {
     stringval = g_strdup(defaultvalue);
@@ -1219,7 +1219,7 @@ persistence_register_color(gchar *role, Color *defaultvalue)
   if (role == NULL) return 0;
   if (persistent_colors == NULL) {
     persistent_colors = _dia_hash_table_str_any_new();
-  }    
+  }
   colorval = (Color *)g_hash_table_lookup(persistent_colors, role);
   if (colorval == NULL) {
     colorval = g_new(Color, 1);
@@ -1252,8 +1252,8 @@ persistence_set_color(gchar *role, Color *newvalue)
     return;
   }
   colorval = (Color *)g_hash_table_lookup(persistent_colors, role);
-  if (colorval != NULL) 
+  if (colorval != NULL)
     *colorval = *newvalue;
-  else 
+  else
     g_warning("No color to set for %s", role);
 }

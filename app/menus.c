@@ -65,7 +65,7 @@
 
 static void plugin_callback (GtkWidget *widget, gpointer data);
 
-static GtkWidget * 
+static GtkWidget *
 create_integrated_ui_toolbar (void);
 
 static void add_plugin_actions (GtkUIManager *ui_manager, const char *base_path);
@@ -91,14 +91,14 @@ static const GtkActionEntry common_entries[] =
   { "File", NULL, N_("_File"), NULL, NULL, NULL },
     { "FileNew", GTK_STOCK_NEW, NULL, FIRST_MODIFIER "N", N_("Create a new diagram"), G_CALLBACK (file_new_callback) },
     { "FileOpen", GTK_STOCK_OPEN, N_("_Open\342\200\246"),FIRST_MODIFIER "O", N_("Open a diagram file"), G_CALLBACK (file_open_callback) },
-    { "FileQuit", GTK_STOCK_QUIT, NULL, FIRST_MODIFIER "Q", N_("Quit Dia"), G_CALLBACK (file_quit_callback) }, 
+    { "FileQuit", GTK_STOCK_QUIT, NULL, FIRST_MODIFIER "Q", N_("Quit Dia"), G_CALLBACK (file_quit_callback) },
   { "Help", NULL, N_("_Help"), NULL, NULL, NULL },
     { "HelpContents", GTK_STOCK_HELP, NULL, "F1", N_("Dia help"), G_CALLBACK (help_manual_callback) },
     { "HelpAbout", GTK_STOCK_ABOUT, NULL, NULL, N_("Dia version, authors, license"), G_CALLBACK (help_about_callback) }
 };
 
 /* Actions for toolbox menu */
-static const GtkActionEntry toolbox_entries[] = 
+static const GtkActionEntry toolbox_entries[] =
 {
     { "FileSheets", NULL, N_("Sheets and Objects\342\200\246"), "F9", N_("Manage sheets and their objects"), G_CALLBACK (sheets_dialog_show_callback) },
     { "FilePrefs", GTK_STOCK_PREFERENCES, NULL, NULL, N_("Dia preferences"), G_CALLBACK (file_preferences_callback) },
@@ -106,7 +106,7 @@ static const GtkActionEntry toolbox_entries[] =
     { "FileTree", NULL, N_("_Diagram Tree"), "F8", N_("Tree representation of diagrams"), G_CALLBACK (diagram_tree_show) }
 };
 
-static const GtkToggleActionEntry integrated_ui_view_toggle_entries[] = 
+static const GtkToggleActionEntry integrated_ui_view_toggle_entries[] =
 {
     { VIEW_MAIN_TOOLBAR_ACTION,   NULL, N_("Show Toolbar"),   NULL, N_("Show or hide the toolbar"), G_CALLBACK (view_main_toolbar_callback) },
     { VIEW_MAIN_STATUSBAR_ACTION, NULL, N_("Show Statusbar"), NULL, N_("Show or hide the statusbar"), G_CALLBACK (view_main_statusbar_callback) },
@@ -137,7 +137,7 @@ static const GtkActionEntry display_entries[] =
     { "EditFind", GTK_STOCK_FIND, N_("_Find\342\200\246"), FIRST_MODIFIER "F", N_("Search for text"), G_CALLBACK (edit_find_callback) },
     { "EditReplace", GTK_STOCK_FIND_AND_REPLACE, N_("_Replace\342\200\246"), FIRST_MODIFIER "H", N_("Search and replace text"), G_CALLBACK (edit_replace_callback) },
 
-    /* the following used to bind to <control><shift>C which collides with Unicode input. 
+    /* the following used to bind to <control><shift>C which collides with Unicode input.
      * <control><alt> doesn't work either */
     { "EditCopytext", NULL, N_("Copy Text"), NULL, N_("Copy object's text to clipboard"), G_CALLBACK (edit_copy_text_callback) },
     { "EditCuttext", NULL, N_("Cut Text"), FIRST_MODIFIER "<shift>X", N_("Cut object's text to clipboard"), G_CALLBACK (edit_cut_text_callback) },
@@ -145,7 +145,7 @@ static const GtkActionEntry display_entries[] =
 
     { "EditPasteImage", NULL, N_("Paste _Image"), FIRST_MODIFIER "<alt>V", N_("Insert image from clipboard"), G_CALLBACK (edit_paste_image_callback) },
 
-  { "Layers", NULL, N_("_Layers"), NULL, NULL, NULL }, 
+  { "Layers", NULL, N_("_Layers"), NULL, NULL, NULL },
     { "LayerAdd", DIA_STOCK_LAYER_ADD, N_("Add Layer\342\200\246"), NULL, NULL, G_CALLBACK (layers_add_layer_callback) },
     { "LayerRename", DIA_STOCK_LAYER_RENAME, N_("Rename Layer\342\200\246"), NULL, NULL, G_CALLBACK (layers_rename_layer_callback) },
     { "ObjectsLayerAbove", DIA_STOCK_OBJECTS_LAYER_ABOVE, N_("Move Selection to Layer above"), NULL, NULL, G_CALLBACK (objects_move_up_layer) },
@@ -184,7 +184,7 @@ static const GtkActionEntry display_entries[] =
 
     { "ObjectsGroup", DIA_STOCK_GROUP, N_("_Group"), FIRST_MODIFIER "G", N_("Group selected objects"), G_CALLBACK (objects_group_callback) },
     /* deliberately not using Ctrl+U for Ungroup */
-    { "ObjectsUngroup", DIA_STOCK_UNGROUP, N_("_Ungroup"), FIRST_MODIFIER "<shift>G", N_("Ungroup selected groups"), G_CALLBACK (objects_ungroup_callback) }, 
+    { "ObjectsUngroup", DIA_STOCK_UNGROUP, N_("_Ungroup"), FIRST_MODIFIER "<shift>G", N_("Ungroup selected groups"), G_CALLBACK (objects_ungroup_callback) },
 
     { "ObjectsParent", NULL, N_("_Parent"), FIRST_MODIFIER "K", NULL, G_CALLBACK (objects_parent_callback) },
     { "ObjectsUnparent", NULL, N_("_Unparent"), FIRST_MODIFIER "<shift>K", NULL, G_CALLBACK (objects_unparent_callback) },
@@ -229,7 +229,7 @@ static const GtkActionEntry display_entries[] =
 };
 
 /* Standard-Tool entries */
-static const GtkActionEntry tool_entries[] = 
+static const GtkActionEntry tool_entries[] =
 {
   { "Tools", NULL, N_("_Tools"), NULL, NULL, NULL },
     { "ToolsModify", NULL, N_("Modify"), TOOL_MODIFIER "N", NULL, NULL },
@@ -253,7 +253,7 @@ static const GtkActionEntry tool_entries[] =
 };
 
 /* Toggle-Actions for diagram window */
-static const GtkToggleActionEntry display_toggle_entries[] = 
+static const GtkToggleActionEntry display_toggle_entries[] =
 {
     { "ViewFullscreen", GTK_STOCK_FULLSCREEN, NULL, "F11", NULL, G_CALLBACK (view_fullscreen_callback) },
     { "ViewAntialiased", NULL, N_("_Antialiased"), NULL, NULL, G_CALLBACK (view_aa_callback) },
@@ -305,7 +305,7 @@ static gchar*
 _dia_translate (const gchar* term, gpointer data)
 {
   gchar* trans = (gchar*) term;
-  
+
   if (term && *term) {
     /* first try our own ... */
     trans = dgettext (GETTEXT_PACKAGE, term);
@@ -318,9 +318,9 @@ _dia_translate (const gchar* term, gpointer data)
       gchar* kludge = g_strdup_printf ("/%s", term);
       trans = dgettext (GETTEXT_PACKAGE, kludge);
       if (kludge == trans)
-	trans = term;
+    trans = term;
       else
-	++trans;
+    ++trans;
       g_free (kludge);
     }
     if (term == trans)
@@ -347,7 +347,7 @@ load_accels(void)
 {
   gchar *accelfilename;
   /* load accelerators and prepare to later save them */
-  accelfilename = dia_config_filename("menurc");
+  accelfilename = dia_user_config_filename("menurc");
 
   if (accelfilename) {
     gtk_accel_map_load(accelfilename);
@@ -359,7 +359,7 @@ save_accels(gpointer data)
 {
   gchar *accelfilename;
 
-  accelfilename = dia_config_filename("menurc");
+  accelfilename = dia_user_config_filename("menurc");
   if (accelfilename) {
     gtk_accel_map_save (accelfilename);
     g_free (accelfilename);
@@ -377,7 +377,7 @@ integrated_ui_toolbar_object_snap_synchronize_to_display(gpointer param)
   DDisplay *ddisp = param;
   if (ddisp && ddisp->common_toolbar)
   {
-    GtkToggleButton *b = g_object_get_data (G_OBJECT (ddisp->common_toolbar), 
+    GtkToggleButton *b = g_object_get_data (G_OBJECT (ddisp->common_toolbar),
                                             DIA_INTEGRATED_TOOLBAR_OBJECT_SNAP);
     gboolean active = ddisp->mainpoint_magnetism? TRUE : FALSE;
     gtk_toggle_button_set_active (b, active);
@@ -409,7 +409,7 @@ integrated_ui_toolbar_grid_snap_synchronize_to_display(gpointer param)
   DDisplay *ddisp = param;
   if (ddisp && ddisp->common_toolbar)
   {
-    GtkToggleButton *b = g_object_get_data (G_OBJECT (ddisp->common_toolbar), 
+    GtkToggleButton *b = g_object_get_data (G_OBJECT (ddisp->common_toolbar),
                                             DIA_INTEGRATED_TOOLBAR_SNAP_GRID);
     gboolean active = ddisp->grid.snap? TRUE : FALSE;
     gtk_toggle_button_set_active (b, active);
@@ -434,15 +434,15 @@ integrated_ui_toolbar_grid_snap_toggle(GtkToggleButton *b, gpointer *not_used)
 /**
  * Sets the zoom text for the toolbar
  * @param toolbar Integrated UI toolbar.
- * @param text Current zoom percentage for the active window 
+ * @param text Current zoom percentage for the active window
  */
 void integrated_ui_toolbar_set_zoom_text (GtkToolbar *toolbar, const gchar * text)
 {
   if (toolbar)
   {
-    GtkComboBox *combo_entry = g_object_get_data (G_OBJECT (toolbar), 
+    GtkComboBox *combo_entry = g_object_get_data (G_OBJECT (toolbar),
                                                   DIA_INTEGRATED_TOOLBAR_ZOOM_COMBO);
-    
+
     if (combo_entry)
     {
         GtkWidget * entry = gtk_bin_get_child (GTK_BIN (combo_entry));
@@ -452,7 +452,7 @@ void integrated_ui_toolbar_set_zoom_text (GtkToolbar *toolbar, const gchar * tex
   }
 }
 
-/** 
+/**
  * Adds a widget to the toolbar making sure that it doesn't take any excess space, and
  * vertically centers it.
  * @param toolbar The toolbar to add the widget to.
@@ -460,7 +460,7 @@ void integrated_ui_toolbar_set_zoom_text (GtkToolbar *toolbar, const gchar * tex
  */
 static void integrated_ui_toolbar_add_custom_item (GtkToolbar *toolbar, GtkWidget *w)
 {
-    GtkToolItem *tool_item; 
+    GtkToolItem *tool_item;
     GtkWidget   *c; /* container */
 
     tool_item = gtk_tool_item_new ();
@@ -475,7 +475,7 @@ static void integrated_ui_toolbar_add_custom_item (GtkToolbar *toolbar, GtkWidge
 }
 
 static void
-integrated_ui_toolbar_zoom_activate (GtkWidget *item, 
+integrated_ui_toolbar_zoom_activate (GtkWidget *item,
                                      gpointer   user_data)
 {
     const gchar *text =  gtk_entry_get_text (GTK_ENTRY (item));
@@ -492,18 +492,18 @@ static void
 integrated_ui_toolbar_zoom_combo_selection_changed (GtkComboBox *combo,
                                                     gpointer     user_data)
 {
-    /* 
+    /*
      * We call gtk_combo_get_get_active() so that typing in the combo entry
-     * doesn't get handled as a selection change                           
+     * doesn't get handled as a selection change
      */
     if (gtk_combo_box_get_active (combo) != -1)
     {
         float zoom_percent;
         gchar * text;
 #if GTK_CHECK_VERSION(2,24,0)
-	text = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT (combo));
+    text = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT (combo));
 #else
-	text = gtk_combo_box_get_active_text (combo);
+    text = gtk_combo_box_get_active_text (combo);
 #endif
         if (sscanf (text, "%f", &zoom_percent) == 1)
         {
@@ -513,7 +513,7 @@ integrated_ui_toolbar_zoom_combo_selection_changed (GtkComboBox *combo,
         {
             view_show_all_callback (NULL);
         }
-        
+
         g_free (text);
     }
 }
@@ -535,7 +535,7 @@ ensure_menu_path (GtkUIManager *ui_manager, GtkActionGroup *actions, const gchar
       sep = strrchr (subpath, '/');
       *sep = '\0'; /* cut subpath */
       action_name = sep + 1;
-      
+
       ensure_menu_path (ui_manager, actions, subpath, FALSE);
 
       action = gtk_action_new (action_name, sep + 1, NULL, NULL);
@@ -543,10 +543,10 @@ ensure_menu_path (GtkUIManager *ui_manager, GtkActionGroup *actions, const gchar
         gtk_action_group_add_action (actions, action);
       g_object_unref (G_OBJECT (action));
 
-      gtk_ui_manager_add_ui (ui_manager, id, subpath, 
-	                     action_name, action_name,
-			     end ? GTK_UI_MANAGER_SEPARATOR : GTK_UI_MANAGER_MENU,
-			     FALSE); /* FALSE=add-to-end */
+      gtk_ui_manager_add_ui (ui_manager, id, subpath,
+                         action_name, action_name,
+                 end ? GTK_UI_MANAGER_SEPARATOR : GTK_UI_MANAGER_MENU,
+                 FALSE); /* FALSE=add-to-end */
     } else {
       g_warning ("ensure_menu_path() invalid menu path: %s.", subpath ? subpath : "NULL");
     }
@@ -559,7 +559,7 @@ ensure_menu_path (GtkUIManager *ui_manager, GtkActionGroup *actions, const gchar
  * Create the toolbar for the integrated UI
  * @return Main toolbar (GtkToolbar*) for the integrated UI main window
  */
-static GtkWidget * 
+static GtkWidget *
 create_integrated_ui_toolbar (void)
 {
   GtkToolbar  *toolbar;
@@ -578,7 +578,7 @@ create_integrated_ui_toolbar (void)
   else {
     toolbar =  GTK_TOOLBAR(gtk_ui_manager_get_widget (_ui_manager, "/Toolbar"));
   }
-  g_free (uifile);  
+  g_free (uifile);
 
   /* Zoom Combo Box Entry */
 #if GTK_CHECK_VERSION(2,24,0)
@@ -587,11 +587,11 @@ create_integrated_ui_toolbar (void)
   w = gtk_combo_box_entry_new_text ();
 #endif
 
-  g_object_set_data (G_OBJECT (toolbar), 
+  g_object_set_data (G_OBJECT (toolbar),
                      DIA_INTEGRATED_TOOLBAR_ZOOM_COMBO,
                      w);
   integrated_ui_toolbar_add_custom_item (toolbar, w);
- 
+
 #if GTK_CHECK_VERSION(2,24,0)
   gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (w), ZOOM_FIT);
   gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (w), _("800%"));
@@ -618,19 +618,19 @@ create_integrated_ui_toolbar (void)
   gtk_combo_box_append_text (GTK_COMBO_BOX (w), _("10%"));
 #endif
 
-  g_signal_connect (G_OBJECT (w), 
+  g_signal_connect (G_OBJECT (w),
                     "changed",
-		            G_CALLBACK (integrated_ui_toolbar_zoom_combo_selection_changed), 
+                    G_CALLBACK (integrated_ui_toolbar_zoom_combo_selection_changed),
                     NULL);
-  
+
   /* Get the combo's GtkEntry child to set the width for the widget */
   w = gtk_bin_get_child (GTK_BIN (w));
   gtk_entry_set_width_chars (GTK_ENTRY (w), 6);
-  
+
   g_signal_connect (G_OBJECT (w), "activate",
-		    G_CALLBACK(integrated_ui_toolbar_zoom_activate),
-		    NULL);
-  
+            G_CALLBACK(integrated_ui_toolbar_zoom_activate),
+            NULL);
+
   /* Seperator */
   sep = gtk_separator_tool_item_new ();
   gtk_toolbar_insert (toolbar, sep, -1);
@@ -640,20 +640,20 @@ create_integrated_ui_toolbar (void)
   w = dia_toggle_button_new_with_icons (dia_on_grid_icon,
                                         dia_off_grid_icon);
   g_signal_connect (G_OBJECT (w), "toggled",
-		   G_CALLBACK (integrated_ui_toolbar_grid_snap_toggle), toolbar);
+           G_CALLBACK (integrated_ui_toolbar_grid_snap_toggle), toolbar);
   gtk_widget_set_tooltip_text (w, _("Toggles snap-to-grid."));
-  g_object_set_data (G_OBJECT (toolbar), 
+  g_object_set_data (G_OBJECT (toolbar),
                      DIA_INTEGRATED_TOOLBAR_SNAP_GRID,
                      w);
   integrated_ui_toolbar_add_custom_item (toolbar, w);
- 
+
   /* Object Snapping */
   w = dia_toggle_button_new_with_icons (dia_mainpoints_on_icon,
                                         dia_mainpoints_off_icon);
   g_signal_connect (G_OBJECT (w), "toggled",
-		   G_CALLBACK (integrated_ui_toolbar_object_snap_toggle), toolbar);
+           G_CALLBACK (integrated_ui_toolbar_object_snap_toggle), toolbar);
   gtk_widget_set_tooltip_text (w, _("Toggles object snapping."));
-  g_object_set_data (G_OBJECT (toolbar), 
+  g_object_set_data (G_OBJECT (toolbar),
                      DIA_INTEGRATED_TOOLBAR_OBJECT_SNAP,
                      w);
   integrated_ui_toolbar_add_custom_item (toolbar, w);
@@ -665,7 +665,7 @@ create_integrated_ui_toolbar (void)
   return GTK_WIDGET (toolbar);
 }
 
-/* 
+/*
  * Initialise tool actions.
  * The caller owns the return value.
  */
@@ -684,8 +684,8 @@ create_or_ref_tool_actions (void)
   gtk_action_group_set_translation_domain (actions, NULL);
   gtk_action_group_set_translate_func (actions, _dia_translate, NULL, NULL);
 
-  gtk_action_group_add_actions (actions, tool_entries, 
-				G_N_ELEMENTS (tool_entries), NULL);
+  gtk_action_group_add_actions (actions, tool_entries,
+                G_N_ELEMENTS (tool_entries), NULL);
 
   icon_factory = gtk_icon_factory_new ();
 
@@ -693,20 +693,20 @@ create_or_ref_tool_actions (void)
     action = gtk_action_group_get_action (actions, tool_data[i].action_name);
     if (action != NULL) {
       g_signal_connect (G_OBJECT (action), "activate",
-			G_CALLBACK (tool_menu_select),
-			&tool_data[i].callback_data);
+            G_CALLBACK (tool_menu_select),
+            &tool_data[i].callback_data);
 
       gtk_action_set_tooltip (action, tool_data[i].tool_desc);
 
       {
         GdkPixbuf *pb = tool_get_pixbuf (&tool_data[i]);
-	GtkIconSet *is = gtk_icon_set_new_from_pixbuf (pb);
+    GtkIconSet *is = gtk_icon_set_new_from_pixbuf (pb);
 
-	/* not sure if the action name is unique enough */
-	gtk_icon_factory_add (icon_factory, tool_data[i].action_name, is);
-	gtk_action_set_stock_id (action, tool_data[i].action_name);
+    /* not sure if the action name is unique enough */
+    gtk_icon_factory_add (icon_factory, tool_data[i].action_name, is);
+    gtk_action_set_stock_id (action, tool_data[i].action_name);
 
-	g_object_unref (pb);
+    g_object_unref (pb);
       }
     }
     else {
@@ -751,12 +751,12 @@ add_plugin_actions (GtkUIManager *ui_manager, const gchar *base_path)
     }
 
     if (cbf->action == NULL) {
-      g_warning ("Plugin '%s': doesn't specify action. Loading failed.", 
-		cbf->description);
+      g_warning ("Plugin '%s': doesn't specify action. Loading failed.",
+        cbf->description);
       continue;
     }
 
-    if (   base_path != NULL 
+    if (   base_path != NULL
         && strncmp (cbf->menupath, base_path, strlen (base_path)) != 0) {
       /* hook for wrong base path, skip */
       continue;
@@ -769,19 +769,19 @@ add_plugin_actions (GtkUIManager *ui_manager, const gchar *base_path)
     }
 
     action = gtk_action_new (cbf->action, cbf->description, NULL, NULL);
-    g_signal_connect (G_OBJECT (action), "activate", 
-		      G_CALLBACK (plugin_callback), (gpointer) cbf);
+    g_signal_connect (G_OBJECT (action), "activate",
+              G_CALLBACK (plugin_callback), (gpointer) cbf);
 
     gtk_action_group_add_action (actions, action);
     g_object_unref (G_OBJECT (action));
 
     id = ensure_menu_path (ui_manager, actions, menu_path ? menu_path : cbf->menupath, TRUE);
-    gtk_ui_manager_add_ui (ui_manager, id, 
-			   menu_path ? menu_path : cbf->menupath, 
-			   cbf->description, 
-			   cbf->action, 
-			   GTK_UI_MANAGER_AUTO, 
-			   FALSE);
+    gtk_ui_manager_add_ui (ui_manager, id,
+               menu_path ? menu_path : cbf->menupath,
+               cbf->description,
+               cbf->action,
+               GTK_UI_MANAGER_AUTO,
+               FALSE);
     g_free (menu_path);
   }
 }
@@ -844,7 +844,7 @@ build_ui_filename (const gchar* name)
 }
 
 /*!
- * Not sure why this service is not provided by GTK+. 
+ * Not sure why this service is not provided by GTK+.
  * We are passing tooltips into the actions (especially recent file menu).
  * But they were not shown without explicit setting on connect.
  */
@@ -861,15 +861,15 @@ _ui_manager_connect_proxy (GtkUIManager *manager,
 
       if (tooltip)
         {
-	  gtk_widget_set_tooltip_text (proxy, tooltip);
-	  g_free (tooltip);
-	}
+      gtk_widget_set_tooltip_text (proxy, tooltip);
+      g_free (tooltip);
+    }
       else
-	{
-	  const gchar *name = gtk_action_get_name (action);
+    {
+      const gchar *name = gtk_action_get_name (action);
 
-	  dia_log_message ("Action '%s' missing tooltip\n", name);
-	}
+      dia_log_message ("Action '%s' missing tooltip\n", name);
+    }
     }
 }
 
@@ -884,10 +884,10 @@ create_or_ref_display_actions (gboolean include_common)
   if (include_common)
     gtk_action_group_add_actions (display_actions, common_entries,
                   G_N_ELEMENTS (common_entries), NULL);
-  gtk_action_group_add_actions (display_actions, display_entries, 
+  gtk_action_group_add_actions (display_actions, display_entries,
                 G_N_ELEMENTS (display_entries), NULL);
   gtk_action_group_add_toggle_actions (display_actions, display_toggle_entries,
-                G_N_ELEMENTS (display_toggle_entries), 
+                G_N_ELEMENTS (display_toggle_entries),
                 NULL);
   gtk_action_group_add_radio_actions (display_actions,
                 display_select_radio_entries,
@@ -899,7 +899,7 @@ create_or_ref_display_actions (gboolean include_common)
   return display_actions;
 }
 
-/* Very minimal fallback menu info for ui-files missing 
+/* Very minimal fallback menu info for ui-files missing
  * as well as to register the InvisibleMenu */
 static const gchar *ui_info =
 "<ui>\n"
@@ -913,15 +913,15 @@ static const gchar *ui_info =
 
 static void
 _action_start (GtkActionGroup *action_group,
-	       GtkAction *action,
-	       gpointer user_data)
+           GtkAction *action,
+           gpointer user_data)
 {
   dia_log_message ("Start '%s'\n", gtk_action_get_name (action));
 }
 static void
 _action_done (GtkActionGroup *action_group,
-	       GtkAction *action,
-	       gpointer user_data)
+           GtkAction *action,
+           gpointer user_data)
 {
   dia_log_message ("Done '%s'\n", gtk_action_get_name (action));
 }
@@ -940,24 +940,24 @@ _setup_global_actions (void)
   toolbox_actions = gtk_action_group_new ("toolbox-actions");
   gtk_action_group_set_translation_domain (toolbox_actions, NULL);
   gtk_action_group_set_translate_func (toolbox_actions, _dia_translate, NULL, NULL);
-  gtk_action_group_add_actions (toolbox_actions, common_entries, 
+  gtk_action_group_add_actions (toolbox_actions, common_entries,
                 G_N_ELEMENTS (common_entries), NULL);
-  gtk_action_group_add_actions (toolbox_actions, toolbox_entries, 
+  gtk_action_group_add_actions (toolbox_actions, toolbox_entries,
                 G_N_ELEMENTS (toolbox_entries), NULL);
 
   _ui_manager = gtk_ui_manager_new ();
-  g_signal_connect (G_OBJECT (_ui_manager), 
+  g_signal_connect (G_OBJECT (_ui_manager),
                     "connect_proxy",
-		    G_CALLBACK (_ui_manager_connect_proxy),
-		    NULL);
-  g_signal_connect (G_OBJECT (_ui_manager), 
+            G_CALLBACK (_ui_manager_connect_proxy),
+            NULL);
+  g_signal_connect (G_OBJECT (_ui_manager),
                     "pre-activate",
-		    G_CALLBACK (_action_start),
-		    NULL);
-  g_signal_connect (G_OBJECT (_ui_manager), 
+            G_CALLBACK (_action_start),
+            NULL);
+  g_signal_connect (G_OBJECT (_ui_manager),
                     "post-activate",
-		    G_CALLBACK (_action_done),
-		    NULL);
+            G_CALLBACK (_action_done),
+            NULL);
 
   gtk_ui_manager_set_add_tearoffs (_ui_manager, DIA_SHOW_TEAROFFS);
   gtk_ui_manager_insert_action_group (_ui_manager, toolbox_actions, 0);
@@ -973,7 +973,7 @@ menus_init(void)
 
   if (!initialise)
     return;
-  
+
   initialise = FALSE;
   _setup_global_actions ();
 
@@ -989,10 +989,10 @@ menus_init(void)
   display_actions = create_or_ref_display_actions (TRUE);
 
   display_ui_manager = gtk_ui_manager_new ();
-  g_signal_connect (G_OBJECT (display_ui_manager), 
+  g_signal_connect (G_OBJECT (display_ui_manager),
                     "connect_proxy",
-		    G_CALLBACK (_ui_manager_connect_proxy),
-		    NULL);
+            G_CALLBACK (_ui_manager_connect_proxy),
+            NULL);
   gtk_ui_manager_set_add_tearoffs (display_ui_manager, DIA_SHOW_TEAROFFS);
   gtk_ui_manager_insert_action_group (display_ui_manager, display_actions, 0);
   gtk_ui_manager_insert_action_group (display_ui_manager, tool_actions, 0);
@@ -1003,7 +1003,7 @@ menus_init(void)
   }
 
   uifile = build_ui_filename ("ui/popup-ui.xml");
-  /* TODO it would be more elegant if we had only one definition of the 
+  /* TODO it would be more elegant if we had only one definition of the
    * menu hierarchy and merge it into a popup somehow. */
   if (!gtk_ui_manager_add_ui_from_file (display_ui_manager, uifile, &error)) {
     g_warning ("building menus failed: %s", error->message);
@@ -1032,7 +1032,7 @@ menus_init(void)
 void
 menus_get_integrated_ui_menubar (GtkWidget     **menubar,
                                  GtkWidget     **toolbar,
-			         GtkAccelGroup **accel_group)
+                     GtkAccelGroup **accel_group)
 {
   GError *error = NULL;
   gchar  *uifile;
@@ -1045,8 +1045,8 @@ menus_get_integrated_ui_menubar (GtkWidget     **menubar,
   g_return_if_fail (tool_actions != NULL);
 
   /* maybe better to put this into toolbox_actions? */
-  gtk_action_group_add_toggle_actions (display_actions, integrated_ui_view_toggle_entries, 
-				       G_N_ELEMENTS (integrated_ui_view_toggle_entries), NULL);
+  gtk_action_group_add_toggle_actions (display_actions, integrated_ui_view_toggle_entries,
+                       G_N_ELEMENTS (integrated_ui_view_toggle_entries), NULL);
 
   /* for stand-alone they are per display */
   gtk_ui_manager_insert_action_group (_ui_manager, display_actions, 0);
@@ -1080,7 +1080,7 @@ menus_get_integrated_ui_menubar (GtkWidget     **menubar,
 
 void
 menus_get_toolbox_menubar (GtkWidget     **menubar,
-			   GtkAccelGroup **accel_group)
+               GtkAccelGroup **accel_group)
 {
   if (initialise)
     menus_init();
@@ -1091,7 +1091,7 @@ menus_get_toolbox_menubar (GtkWidget     **menubar,
     *accel_group = gtk_ui_manager_get_accel_group (_ui_manager);
 }
 
-GtkWidget * 
+GtkWidget *
 menus_get_display_popup (void)
 {
   if (initialise)
@@ -1100,7 +1100,7 @@ menus_get_display_popup (void)
   return display_menubar;
 }
 
-GtkAccelGroup * 
+GtkAccelGroup *
 menus_get_display_accels (void)
 {
   /* for integrated-ui the accels are delivered by menus_get_integrated_ui_menubar() */
@@ -1113,23 +1113,23 @@ menus_get_display_accels (void)
 }
 
 GtkWidget *
-menus_create_display_menubar (GtkUIManager   **ui_manager, 
-			      GtkActionGroup **actions)
+menus_create_display_menubar (GtkUIManager   **ui_manager,
+                  GtkActionGroup **actions)
 {
   GtkWidget      *menu_bar;
   GError         *error = NULL;
   gchar          *uifile;
 
-  
+
   *actions = create_or_ref_display_actions (TRUE);
-  tool_actions = create_or_ref_tool_actions (); 
+  tool_actions = create_or_ref_tool_actions ();
 
   *ui_manager = gtk_ui_manager_new ();
   gtk_ui_manager_set_add_tearoffs (*ui_manager, DIA_SHOW_TEAROFFS);
   gtk_ui_manager_insert_action_group (*ui_manager, *actions, 0);
   gtk_ui_manager_insert_action_group (*ui_manager, tool_actions, 0);
   g_object_unref (G_OBJECT (tool_actions));
-  
+
   uifile = build_ui_filename ("ui/display-ui.xml");
   if (!gtk_ui_manager_add_ui_from_file (*ui_manager, uifile, &error)) {
     g_warning ("building menus failed: %s", error->message);
@@ -1177,7 +1177,7 @@ menus_get_action (const gchar *name)
     for (list = groups; list != NULL; list = list->next) {
       action = gtk_action_group_get_action (GTK_ACTION_GROUP (list->data), name);
       if (action)
-	break;
+    break;
     }
   }
 
@@ -1222,8 +1222,8 @@ menus_set_recent (GtkActionGroup *actions)
 
   recent_actions = actions;
   g_object_ref (G_OBJECT (recent_actions));
-  gtk_ui_manager_insert_action_group (_ui_manager, 
-                    recent_actions, 
+  gtk_ui_manager_insert_action_group (_ui_manager,
+                    recent_actions,
                     10 /* insert at back */ );
 
   do {
@@ -1232,11 +1232,11 @@ menus_set_recent (GtkActionGroup *actions)
     id = gtk_ui_manager_new_merge_id (_ui_manager);
     recent_merge_ids = g_slist_prepend (recent_merge_ids, (gpointer) id);
 
-    gtk_ui_manager_add_ui (_ui_manager, id, 
-                 recent_path, 
-                 aname, 
-                 aname, 
-                 GTK_UI_MANAGER_AUTO, 
+    gtk_ui_manager_add_ui (_ui_manager, id,
+                 recent_path,
+                 aname,
+                 aname,
+                 GTK_UI_MANAGER_AUTO,
                  TRUE);
 
   } while (NULL != (list = list->next));
@@ -1251,9 +1251,9 @@ menus_clear_recent (void)
     id = recent_merge_ids;
     do {
       gtk_ui_manager_remove_ui (_ui_manager, (guint) id->data);
-      
+
     } while (NULL != (id = id->next));
-    
+
     g_slist_free (recent_merge_ids);
     recent_merge_ids = NULL;
   }
@@ -1289,12 +1289,12 @@ plugin_callback (GtkWidget *widget, gpointer data)
     if (change != NULL) {
       if (ddisp) {
         undo_object_change(ddisp->diagram, NULL, change);
-	/*
-	 * - can not call object_add_update() w/o object
-	 * - could call object_add_updates_list() with the selected objects,
-	 *   but that would just be an educated guess (layout working on selection)
-	 */
-	diagram_add_update_all(ddisp->diagram);
+    /*
+     * - can not call object_add_update() w/o object
+     * - could call object_add_updates_list() with the selected objects,
+     *   but that would just be an educated guess (layout working on selection)
+     */
+    diagram_add_update_all(ddisp->diagram);
         diagram_modified(ddisp->diagram);
         diagram_update_extents(ddisp->diagram);
         undo_set_transactionpoint(ddisp->diagram->undo);
@@ -1302,7 +1302,7 @@ plugin_callback (GtkWidget *widget, gpointer data)
         if (change->free)
           change->free(change);
         g_free(change);
-      }   
+      }
     }
   }
 }

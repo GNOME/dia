@@ -59,13 +59,13 @@ _test_creation (gconstpointer user_data)
             && o->ops->copy != NULL
             && o->ops->move != NULL
             && o->ops->move_handle != NULL
-	    && o->ops->apply_properties_from_dialog != NULL
-	    );
-  
+        && o->ops->apply_properties_from_dialog != NULL
+        );
+
   /* can we really assume everything complies with standard props nowadays? */
   g_assert (   o->ops->describe_props
             && o->ops->get_props
-	    && o->ops->set_props);
+        && o->ops->set_props);
   {
     const PropDescription *pdesc = o->ops->describe_props (o);
     /* get all properties */
@@ -84,11 +84,11 @@ _test_creation (gconstpointer user_data)
       if ((prop->experience & PXP_NOTSET) == 0)
         ++num_used;
       else if ((prop->descr->flags & PROP_FLAG_WIDGET_ONLY) != 0)
-	++num_used; /* ... but not expected to be set */
+    ++num_used; /* ... but not expected to be set */
       else if (strcmp (prop->descr->type, PROP_TYPE_STATIC) == 0)
-	++num_used; /* also not to be set */
+    ++num_used; /* also not to be set */
       else
-	g_print ("Not set '%s'\n", prop->descr->name);
+    g_print ("Not set '%s'\n", prop->descr->name);
     }
     g_assert_cmpint (num_used, ==, num_described);
 
@@ -118,9 +118,9 @@ _test_creation (gconstpointer user_data)
       /* handles properly set up? */
       g_assert (o->handles[i] != NULL);
       g_assert (o->handles[i]->connected_to == NULL); /* starts not connected */
-      g_assert (   o->handles[i]->type != HANDLE_NON_MOVABLE 
-	        || (   o->handles[i]->type == HANDLE_NON_MOVABLE /* always together? */
-		    && o->handles[i]->connect_type == HANDLE_NONCONNECTABLE));
+      g_assert (   o->handles[i]->type != HANDLE_NON_MOVABLE
+            || (   o->handles[i]->type == HANDLE_NON_MOVABLE /* always together? */
+            && o->handles[i]->connect_type == HANDLE_NONCONNECTABLE));
     }
   /* handles now found */
   g_assert (NULL == h1 && NULL == h2);
@@ -304,7 +304,7 @@ _test_change (gconstpointer user_data)
     ObjectChange *change;
     /* get description */
     const PropDescription *descs = o->ops->describe_props (o);
-    /* get unset value vector */ 
+    /* get unset value vector */
     GPtrArray *props = prop_list_from_descs (descs, pdtpp_is_visible);
     /* fill it with this objects values */
     o->ops->get_props (o, props);
@@ -367,24 +367,24 @@ _test_move_handle (gconstpointer user_data)
   /* find a good handle to move */
   for (i = 0; i < o->num_handles; ++i)
     {
-      
+
       if (o->handles[i]->type == HANDLE_MAJOR_CONTROL)
         {
           h2 = o->handles[i];
-	  if (h2->connect_type == HANDLE_CONNECTABLE)
-	    {
-	      o2 = create_standard_box (5.0, 5.0, 2.0, 2.0);
-	      if (!o2) {
-		/* this may happen if Standard objects are not included */
-		g_test_message ("SKIPPED connect test.");
-		break;
-	      }
-	      g_assert(o2->num_connections > 0);
-	      cp = o2->connections[0];
-	      object_connect(o, h2, cp);
-	    }
-	  break;
-	}
+      if (h2->connect_type == HANDLE_CONNECTABLE)
+        {
+          o2 = create_standard_box (5.0, 5.0, 2.0, 2.0);
+          if (!o2) {
+        /* this may happen if Standard objects are not included */
+        g_test_message ("SKIPPED connect test.");
+        break;
+          }
+          g_assert(o2->num_connections > 0);
+          cp = o2->connections[0];
+          object_connect(o, h2, cp);
+        }
+      break;
+    }
     }
   /* second move */
   if (h2)
@@ -395,40 +395,40 @@ _test_move_handle (gconstpointer user_data)
       to.x += 1.0; to.y += 1.0;
       if (cp)
         {
-	  change = o->ops->move_handle(o, h2, &to, cp, HANDLE_MOVE_CONNECTED, 0);
-	  /* again the API would allow, but it gave at least a leak at app/connectionpoint_ops.c */
-	  g_assert (change == NULL);
-	}
+      change = o->ops->move_handle(o, h2, &to, cp, HANDLE_MOVE_CONNECTED, 0);
+      /* again the API would allow, but it gave at least a leak at app/connectionpoint_ops.c */
+      g_assert (change == NULL);
+    }
       else
         {
-	  change = o->ops->move_handle(o, h2, &to, NULL, HANDLE_MOVE_USER_FINAL, 0);
-	  if (change) /* still not mandatory */
-	    {
-	      to.x -= 1.0; to.y -= 1.0;
-	      change->revert(change, NULL);
-	      _object_change_free(change);
-	      if (TRUE) /* move_handle undo is handled on the application level ;( */
-		/* NOP */;
-	      else
-		g_assert(   fabs(to.x - o->handles[i]->pos.x) < EPSILON
-			 && fabs(to.y - o->handles[i]->pos.y) < EPSILON);
-	    }
-	}
+      change = o->ops->move_handle(o, h2, &to, NULL, HANDLE_MOVE_USER_FINAL, 0);
+      if (change) /* still not mandatory */
+        {
+          to.x -= 1.0; to.y -= 1.0;
+          change->revert(change, NULL);
+          _object_change_free(change);
+          if (TRUE) /* move_handle undo is handled on the application level ;( */
+        /* NOP */;
+          else
+        g_assert(   fabs(to.x - o->handles[i]->pos.x) < EPSILON
+             && fabs(to.y - o->handles[i]->pos.y) < EPSILON);
+        }
+    }
       /* moving back to the original position must restore the original object */
       change = o->ops->move_handle(o, h2, &from, NULL, HANDLE_MOVE_USER_FINAL, 0);
       _object_change_free(change); /* custom_move_handle() might return a change */
       if (   strcmp (type->name, "UML - Lifeline") == 0
-	  || strcmp (type->name, "Standard - Outline") == 0)
-	{
-	  g_test_message ("No restore by '%s'::move_handle", type->name);
-	}
+      || strcmp (type->name, "Standard - Outline") == 0)
+    {
+      g_test_message ("No restore by '%s'::move_handle", type->name);
+    }
       else
-	{
-	  g_assert_cmpfloat (fabs(o->bounding_box.top - bb_org.top), <, EPSILON);
-	  g_assert_cmpfloat (fabs(o->bounding_box.left - bb_org.left), <, EPSILON);
-	  g_assert_cmpfloat (fabs(o->bounding_box.right - bb_org.right), <, EPSILON);
-	  g_assert_cmpfloat (fabs(o->bounding_box.bottom - bb_org.bottom), <, EPSILON);
-	}
+    {
+      g_assert_cmpfloat (fabs(o->bounding_box.top - bb_org.top), <, EPSILON);
+      g_assert_cmpfloat (fabs(o->bounding_box.left - bb_org.left), <, EPSILON);
+      g_assert_cmpfloat (fabs(o->bounding_box.right - bb_org.right), <, EPSILON);
+      g_assert_cmpfloat (fabs(o->bounding_box.bottom - bb_org.bottom), <, EPSILON);
+    }
       h2 = NULL;
     }
   /* finally */
@@ -540,14 +540,14 @@ _test_connectionpoint_consistency (gconstpointer user_data)
     if (cp_prev) {
       /* if the previous cp had the same coordinate x or y it should have the same direction */
       if (   strcmp (type->name, "GRAFCET - Vergent") == 0
-	  || strcmp (type->name, "Standard - Polygon") == 0)
-	continue; /* not a hard requirement */
+      || strcmp (type->name, "Standard - Polygon") == 0)
+    continue; /* not a hard requirement */
       /* not with main point which usually has DIR_ALL */
       if (cp_prev->directions != DIR_ALL && cp->directions != DIR_ALL) {
-	if (cp_prev->pos.x == cp->pos.x)
-	  g_assert_cmpint ((cp_prev->directions & (DIR_WEST|DIR_EAST)), ==, (cp->directions & (DIR_WEST|DIR_EAST)));
-	if (cp_prev->pos.y == cp->pos.y)
-	  g_assert_cmpint ((cp_prev->directions & (DIR_NORTH|DIR_SOUTH)), ==, (cp->directions & (DIR_NORTH|DIR_SOUTH)));
+    if (cp_prev->pos.x == cp->pos.x)
+      g_assert_cmpint ((cp_prev->directions & (DIR_WEST|DIR_EAST)), ==, (cp->directions & (DIR_WEST|DIR_EAST)));
+    if (cp_prev->pos.y == cp->pos.y)
+      g_assert_cmpint ((cp_prev->directions & (DIR_NORTH|DIR_SOUTH)), ==, (cp->directions & (DIR_NORTH|DIR_SOUTH)));
       }
       cp_prev = cp;
     }
@@ -586,7 +586,7 @@ _test_connectionpoint_consistency (gconstpointer user_data)
 #endif
   }
   /* finally */
-  o->ops->destroy (o);  
+  o->ops->destroy (o);
   g_free (o);
 }
 static void
@@ -623,38 +623,38 @@ _test_object_menu (gconstpointer user_data)
       /* if we have a callback active, call it */
       if (item->callback && (item->active & DIAMENU_ACTIVE))
       {
-	ObjectChange *change;
+    ObjectChange *change;
 
-	/* g_test_message() does not show normally */
-	g_test_message ("\n\tCalling '%s'...", item->text);
-	change = (item->callback)(o, &from, item->callback_data);
-	if (!change) {
-	  g_test_message ("Undo/redo missing: %s\n", item->text);
-	} else {
-	  /* Don't just call _object_change_free(change);
-	   * For 'Convert to *' this will screw up (destroy) the object 
-	   * at hand'. So revert first, afterwards destroy the change.
-	   * The object parameter is deprecated, but still necessary!
-	   */
-	  (change->revert)(change, o);
+    /* g_test_message() does not show normally */
+    g_test_message ("\n\tCalling '%s'...", item->text);
+    change = (item->callback)(o, &from, item->callback_data);
+    if (!change) {
+      g_test_message ("Undo/redo missing: %s\n", item->text);
+    } else {
+      /* Don't just call _object_change_free(change);
+       * For 'Convert to *' this will screw up (destroy) the object
+       * at hand'. So revert first, afterwards destroy the change.
+       * The object parameter is deprecated, but still necessary!
+       */
+      (change->revert)(change, o);
 #if 0
-	  /* XXX: Even more needs to be done to keep sane objects, see object_change_revert()
-	   * in app/undo.c. AFAICT this is only needed to compensate for orthconn_set_points()
-	   * while that does not update the object itself (which it does nowadays).
-	   */
-	  {
-	    /* Make sure object updates its data: */
-	    Point p = o->position;
-	    (o->ops->move)(o,&p);
-	  }
+      /* XXX: Even more needs to be done to keep sane objects, see object_change_revert()
+       * in app/undo.c. AFAICT this is only needed to compensate for orthconn_set_points()
+       * while that does not update the object itself (which it does nowadays).
+       */
+      {
+        /* Make sure object updates its data: */
+        Point p = o->position;
+        (o->ops->move)(o,&p);
+      }
 #endif
-	  _object_change_free(change);
-	}
+      _object_change_free(change);
+    }
       }
     }
   }
   /* finally */
-  o->ops->destroy (o);  
+  o->ops->destroy (o);
   g_free (o);
 }
 
@@ -681,110 +681,110 @@ _test_draw (gconstpointer user_data)
        * with DiaPathRenderer
        */
       if (!rectangle_in_rectangle (obb, pbb))
-	{
+    {
 #if 0
-	  /* Generate exceptions list below with ./test-objects -q */
-	  real ov = MAX(fabs (obb->top - pbb->top), fabs (obb->left - pbb->left));
-	  ov = MAX(ov, fabs (obb->right - pbb->right));
-	  ov = MAX(ov, fabs (obb->bottom - pbb->bottom));
-	  if (ov >= epsilon)
-	    g_print ("\t  else if (strcmp (type->name, \"%s\") == 0)\n"
-		     "\t    epsilon = %.2g;\n", type->name, ov + 0.01);
+      /* Generate exceptions list below with ./test-objects -q */
+      real ov = MAX(fabs (obb->top - pbb->top), fabs (obb->left - pbb->left));
+      ov = MAX(ov, fabs (obb->right - pbb->right));
+      ov = MAX(ov, fabs (obb->bottom - pbb->bottom));
+      if (ov >= epsilon)
+        g_print ("\t  else if (strcmp (type->name, \"%s\") == 0)\n"
+             "\t    epsilon = %.2g;\n", type->name, ov + 0.01);
 #else
-	  /* drawing _outside_ of objects's bounding box */
-	  if (strcmp (type->name, "T-Junction") == 0)
-	    epsilon = 0.2;
-	  else if (strcmp (type->name, "Cisco - Edge Label Switch Router with NetFlow") == 0)
-	    epsilon = 0.22;
-	  else if (strcmp (type->name, "Cisco - SSL Terminator") == 0)
-	    epsilon = 0.23;
-	  else if (strcmp (type->name, "Cisco - VPN concentrator") == 0)
-	    epsilon = 0.24;
-	  else if (strcmp (type->name, "Cisco - End Office") == 0)
-	    epsilon = 0.24;
-	  else if (strcmp (type->name, "Cisco - Printer") == 0)
-	    epsilon = 0.26;
-	  else if (strcmp (type->name, "Circuit - Vertical Resistor") == 0)
-	    epsilon = 0.26; /* win32: pass */
-	  else if (strcmp (type->name, "Circuit - Horizontal Resistor") == 0)
-	    epsilon = 0.26; /* win32: pass */
-	  else if (strcmp (type->name, "Cisco - Location server") == 0)
-	    epsilon = 0.27; /* win32: pass */
-	  else if (strcmp (type->name, "Cisco - System controller") == 0)
-	    epsilon = 0.27; /* win32: pass */
-	  else if (strcmp (type->name, "Cisco - Pager") == 0)
-	    epsilon = 0.28;
-	  else if (strcmp (type->name, "Cisco - IAD router") == 0)
-	    epsilon = 0.28;
-	  else if (strcmp (type->name, "Cisco - Newton") == 0)
-	    epsilon = 0.28;
-	  else if (strcmp (type->name, "Cisco - Truck") == 0)
-	    epsilon = 0.29;
-	  else if (strcmp (type->name, "ER - Relationship") == 0)
-	    epsilon = 0.29;
-	  else if (strcmp (type->name, "Network - Base Station") == 0)
-	    epsilon = 0.31; /* win32: pass */
-	  else if (strcmp (type->name, "Cisco - Protocol Translator") == 0)
-	    epsilon = 0.66; /* win32: 0.30 */
-	  else if (strcmp (type->name, "Cisco - Cellular phone") == 0)
-	    epsilon = 0.32; /* win32: pass */
-	  else if (strcmp (type->name, "UML - Constraint") == 0)
-	    epsilon = 0.33; /* win32: pass */
-	  else if (strcmp (type->name, "UML - Message") == 0)
-	    epsilon = 0.50; /* win32: 0.39 */
-	  else if (strcmp (type->name, "Cisco - ICM") == 0)
-	    epsilon = 0.34;
-	  else if (strcmp (type->name, "Cisco - Access Gateway") == 0)
-	    epsilon = 0.39; /* win32: pass */
-	  else if (strcmp (type->name, "chemeng - SaT-floatinghead") == 0)
-	    epsilon = 0.40;
-	  else if (strcmp (type->name, "chemeng - kettle") == 0)
-	    epsilon = 0.42;
-	  else if (strcmp (type->name, "Cisco - NetRanger") == 0)
-	    epsilon = 0.42; /* win32: pass */
-	  else if (strcmp (type->name, "Cisco - Mac Woman") == 0)
-	    epsilon = 0.47; /* win32: 0.43 */
-	  else if (strcmp (type->name, "Pneum - press") == 0)
-	    epsilon = 0.45; /* win32: 0.44 */
-	  else if (strcmp (type->name, "Pneum - presspn") == 0)
-	    epsilon = 0.44;
-	  else if (strcmp (type->name, "Pneum - presshy") == 0)
-	    epsilon = 0.44;
-	  else if (strcmp (type->name, "Cisco - Optical Transport") == 0)
-	    epsilon = 0.48; /* win32: 0.47 */
-	  else if (strcmp (type->name, "Jackson - phenomenon") == 0)
-	    epsilon = 0.51; /* osx: 0.39 */
-	  else if (strcmp (type->name, "Cisco - Speaker") == 0)
-	    epsilon = 0.58; /* win32: 0.57 */
-	  else if (strcmp (type->name, "Cisco - 6705") == 0)
-	    epsilon = 0.64;
-	  else if (strcmp (type->name, "KAOS - mbr") == 0)
-	    epsilon = 0.70; /* win32: 0.69 */
-	  else if (strcmp (type->name, "FS - Flow") == 0)
-	    epsilon = 0.73; /* osx: 0.58 */
-	  else if (strcmp (type->name, "SADT - arrow") == 0)
-	    epsilon = 0.75; /* win32: 0.74 */
-	  else if (strcmp (type->name, "Network - WAN Connection") == 0)
-	    epsilon = 0.86;
-	  else if (strcmp (type->name, "Network - General Printer") == 0)
-	    epsilon = 0.92;
-	  else if (strcmp (type->name, "UML - Constraint") == 0)
-	    epsilon = 1.1;
-	  else if (strcmp (type->name, "Pneum - SEIJack") == 0)
-	    epsilon = 1.1;
-	  else if (strcmp (type->name, "Pneum - SEOJack") == 0)
-	    epsilon = 1.1;
-	  else if (strcmp (type->name, "Pneum - DEJack") == 0)
-	    epsilon = 1.1; /* osx: 0.9 */
-	  else if (strcmp (type->name, "SDL - Comment") == 0)
-	    epsilon = 3.5; /* osx: 3.1 */
+      /* drawing _outside_ of objects's bounding box */
+      if (strcmp (type->name, "T-Junction") == 0)
+        epsilon = 0.2;
+      else if (strcmp (type->name, "Cisco - Edge Label Switch Router with NetFlow") == 0)
+        epsilon = 0.22;
+      else if (strcmp (type->name, "Cisco - SSL Terminator") == 0)
+        epsilon = 0.23;
+      else if (strcmp (type->name, "Cisco - VPN concentrator") == 0)
+        epsilon = 0.24;
+      else if (strcmp (type->name, "Cisco - End Office") == 0)
+        epsilon = 0.24;
+      else if (strcmp (type->name, "Cisco - Printer") == 0)
+        epsilon = 0.26;
+      else if (strcmp (type->name, "Circuit - Vertical Resistor") == 0)
+        epsilon = 0.26; /* win32: pass */
+      else if (strcmp (type->name, "Circuit - Horizontal Resistor") == 0)
+        epsilon = 0.26; /* win32: pass */
+      else if (strcmp (type->name, "Cisco - Location server") == 0)
+        epsilon = 0.27; /* win32: pass */
+      else if (strcmp (type->name, "Cisco - System controller") == 0)
+        epsilon = 0.27; /* win32: pass */
+      else if (strcmp (type->name, "Cisco - Pager") == 0)
+        epsilon = 0.28;
+      else if (strcmp (type->name, "Cisco - IAD router") == 0)
+        epsilon = 0.28;
+      else if (strcmp (type->name, "Cisco - Newton") == 0)
+        epsilon = 0.28;
+      else if (strcmp (type->name, "Cisco - Truck") == 0)
+        epsilon = 0.29;
+      else if (strcmp (type->name, "ER - Relationship") == 0)
+        epsilon = 0.29;
+      else if (strcmp (type->name, "Network - Base Station") == 0)
+        epsilon = 0.31; /* win32: pass */
+      else if (strcmp (type->name, "Cisco - Protocol Translator") == 0)
+        epsilon = 0.66; /* win32: 0.30 */
+      else if (strcmp (type->name, "Cisco - Cellular phone") == 0)
+        epsilon = 0.32; /* win32: pass */
+      else if (strcmp (type->name, "UML - Constraint") == 0)
+        epsilon = 0.33; /* win32: pass */
+      else if (strcmp (type->name, "UML - Message") == 0)
+        epsilon = 0.50; /* win32: 0.39 */
+      else if (strcmp (type->name, "Cisco - ICM") == 0)
+        epsilon = 0.34;
+      else if (strcmp (type->name, "Cisco - Access Gateway") == 0)
+        epsilon = 0.39; /* win32: pass */
+      else if (strcmp (type->name, "chemeng - SaT-floatinghead") == 0)
+        epsilon = 0.40;
+      else if (strcmp (type->name, "chemeng - kettle") == 0)
+        epsilon = 0.42;
+      else if (strcmp (type->name, "Cisco - NetRanger") == 0)
+        epsilon = 0.42; /* win32: pass */
+      else if (strcmp (type->name, "Cisco - Mac Woman") == 0)
+        epsilon = 0.47; /* win32: 0.43 */
+      else if (strcmp (type->name, "Pneum - press") == 0)
+        epsilon = 0.45; /* win32: 0.44 */
+      else if (strcmp (type->name, "Pneum - presspn") == 0)
+        epsilon = 0.44;
+      else if (strcmp (type->name, "Pneum - presshy") == 0)
+        epsilon = 0.44;
+      else if (strcmp (type->name, "Cisco - Optical Transport") == 0)
+        epsilon = 0.48; /* win32: 0.47 */
+      else if (strcmp (type->name, "Jackson - phenomenon") == 0)
+        epsilon = 0.51; /* osx: 0.39 */
+      else if (strcmp (type->name, "Cisco - Speaker") == 0)
+        epsilon = 0.58; /* win32: 0.57 */
+      else if (strcmp (type->name, "Cisco - 6705") == 0)
+        epsilon = 0.64;
+      else if (strcmp (type->name, "KAOS - mbr") == 0)
+        epsilon = 0.70; /* win32: 0.69 */
+      else if (strcmp (type->name, "FS - Flow") == 0)
+        epsilon = 0.73; /* osx: 0.58 */
+      else if (strcmp (type->name, "SADT - arrow") == 0)
+        epsilon = 0.75; /* win32: 0.74 */
+      else if (strcmp (type->name, "Network - WAN Connection") == 0)
+        epsilon = 0.86;
+      else if (strcmp (type->name, "Network - General Printer") == 0)
+        epsilon = 0.92;
+      else if (strcmp (type->name, "UML - Constraint") == 0)
+        epsilon = 1.1;
+      else if (strcmp (type->name, "Pneum - SEIJack") == 0)
+        epsilon = 1.1;
+      else if (strcmp (type->name, "Pneum - SEOJack") == 0)
+        epsilon = 1.1;
+      else if (strcmp (type->name, "Pneum - DEJack") == 0)
+        epsilon = 1.1; /* osx: 0.9 */
+      else if (strcmp (type->name, "SDL - Comment") == 0)
+        epsilon = 3.5; /* osx: 3.1 */
 
-	  g_assert_cmpfloat (fabs (obb->top - pbb->top), <, epsilon);
-	  g_assert_cmpfloat (fabs (obb->left - pbb->left), <, epsilon);
-	  g_assert_cmpfloat (fabs (obb->right - pbb->right), <, epsilon);
-	  g_assert_cmpfloat (fabs (obb->bottom - pbb->bottom), <, epsilon);
+      g_assert_cmpfloat (fabs (obb->top - pbb->top), <, epsilon);
+      g_assert_cmpfloat (fabs (obb->left - pbb->left), <, epsilon);
+      g_assert_cmpfloat (fabs (obb->right - pbb->right), <, epsilon);
+      g_assert_cmpfloat (fabs (obb->bottom - pbb->bottom), <, epsilon);
 #endif
-	}
+    }
       /* destroy path object */
       p->ops->destroy (p);
       g_free (p);
@@ -862,7 +862,7 @@ _change_point (DiaObject *o, const gchar *verb, Point *pt)
 
     if (item->text && strncmp (item->text, verb, strlen(verb)) == 0) {
       if (item->callback && (item->active & DIAMENU_ACTIVE))
-	return (item->callback)(o, pt, item->callback_data);
+    return (item->callback)(o, pt, item->callback_data);
     }
   }
   return NULL;
@@ -898,50 +898,50 @@ _test_segments (gconstpointer user_data)
       ObjectChange *ch1, *ch2;
       from = _bez_between (&g_array_index(d1, BezPoint, n), &g_array_index(d1, BezPoint, n+1));
       if ((ch1 = _change_point (o, "Add ", &from)) != NULL) {
-	int i;
-	Property *prop2 = object_prop_by_name_type (o, "bez_points", PROP_TYPE_BEZPOINTARRAY);
-	GArray *d2 = ((BezPointarrayProperty *)prop2)->bezpointarray_data;
-	g_assert (d1->len == d2->len - 1);
-	ch2 = _change_point (o, "Delete ", &from);
-	prop2->ops->free (prop2);
-	/* adding and deleting the same point shall lead to the initial state */
-	prop2 = object_prop_by_name_type (o, "bez_points", PROP_TYPE_BEZPOINTARRAY);
-	d2 = ((BezPointarrayProperty *)prop2)->bezpointarray_data;
-	for (i = 0; i < d1->len; ++i) {
-	  BezPoint *bp1 = &g_array_index(d1, BezPoint, i);
-	  BezPoint *bp2 = &g_array_index(d2, BezPoint, i);
-	  g_assert_cmpfloat (fabs (bp1->p1.x - bp2->p1.x), <, EPSILON); /* for all types of BezPoint */
-	  g_assert_cmpfloat (fabs (bp1->p1.y - bp2->p1.y), <, EPSILON); /* - " - */
-	  g_assert (bp1->type == bp2->type);
-	  if (bp1->type != BEZ_CURVE_TO)
-	    continue;
-	  g_assert_cmpfloat (fabs (bp1->p2.x - bp2->p2.x), <, EPSILON);
-	  g_assert_cmpfloat (fabs (bp1->p2.y - bp2->p2.y), <, EPSILON);
-	  g_assert_cmpfloat (fabs (bp1->p3.x - bp2->p3.x), <, EPSILON);
-	  g_assert_cmpfloat (fabs (bp1->p3.y - bp2->p3.y), <, EPSILON);
-	}
-	prop2->ops->free (prop2);
-	/* Check if undo is reconstructing the object, too */
-	(ch2->revert)(ch2, o);
-	_object_change_free(ch2);
-	(ch1->revert)(ch1, o);
-	_object_change_free(ch1);
-	prop2 = object_prop_by_name_type (o, "bez_points", PROP_TYPE_BEZPOINTARRAY);
-	d2 = ((BezPointarrayProperty *)prop2)->bezpointarray_data;
-	for (i = 0; i < d1->len; ++i) {
-	  BezPoint *bp1 = &g_array_index(d1, BezPoint, i);
-	  BezPoint *bp2 = &g_array_index(d2, BezPoint, i);
-	  g_assert_cmpfloat (fabs (bp1->p1.x - bp2->p1.x), <, EPSILON); /* for all types of BezPoint */
-	  g_assert_cmpfloat (fabs (bp1->p1.y - bp2->p1.y), <, EPSILON); /* - " - */
-	  g_assert (bp1->type == bp2->type);
-	  if (bp1->type != BEZ_CURVE_TO)
-	    continue;
-	  g_assert_cmpfloat (fabs (bp1->p2.x - bp2->p2.x), <, EPSILON);
-	  g_assert_cmpfloat (fabs (bp1->p2.y - bp2->p2.y), <, EPSILON);
-	  g_assert_cmpfloat (fabs (bp1->p3.x - bp2->p3.x), <, EPSILON);
-	  g_assert_cmpfloat (fabs (bp1->p3.y - bp2->p3.y), <, EPSILON);
-	}
-	prop2->ops->free (prop2);
+    int i;
+    Property *prop2 = object_prop_by_name_type (o, "bez_points", PROP_TYPE_BEZPOINTARRAY);
+    GArray *d2 = ((BezPointarrayProperty *)prop2)->bezpointarray_data;
+    g_assert (d1->len == d2->len - 1);
+    ch2 = _change_point (o, "Delete ", &from);
+    prop2->ops->free (prop2);
+    /* adding and deleting the same point shall lead to the initial state */
+    prop2 = object_prop_by_name_type (o, "bez_points", PROP_TYPE_BEZPOINTARRAY);
+    d2 = ((BezPointarrayProperty *)prop2)->bezpointarray_data;
+    for (i = 0; i < d1->len; ++i) {
+      BezPoint *bp1 = &g_array_index(d1, BezPoint, i);
+      BezPoint *bp2 = &g_array_index(d2, BezPoint, i);
+      g_assert_cmpfloat (fabs (bp1->p1.x - bp2->p1.x), <, EPSILON); /* for all types of BezPoint */
+      g_assert_cmpfloat (fabs (bp1->p1.y - bp2->p1.y), <, EPSILON); /* - " - */
+      g_assert (bp1->type == bp2->type);
+      if (bp1->type != BEZ_CURVE_TO)
+        continue;
+      g_assert_cmpfloat (fabs (bp1->p2.x - bp2->p2.x), <, EPSILON);
+      g_assert_cmpfloat (fabs (bp1->p2.y - bp2->p2.y), <, EPSILON);
+      g_assert_cmpfloat (fabs (bp1->p3.x - bp2->p3.x), <, EPSILON);
+      g_assert_cmpfloat (fabs (bp1->p3.y - bp2->p3.y), <, EPSILON);
+    }
+    prop2->ops->free (prop2);
+    /* Check if undo is reconstructing the object, too */
+    (ch2->revert)(ch2, o);
+    _object_change_free(ch2);
+    (ch1->revert)(ch1, o);
+    _object_change_free(ch1);
+    prop2 = object_prop_by_name_type (o, "bez_points", PROP_TYPE_BEZPOINTARRAY);
+    d2 = ((BezPointarrayProperty *)prop2)->bezpointarray_data;
+    for (i = 0; i < d1->len; ++i) {
+      BezPoint *bp1 = &g_array_index(d1, BezPoint, i);
+      BezPoint *bp2 = &g_array_index(d2, BezPoint, i);
+      g_assert_cmpfloat (fabs (bp1->p1.x - bp2->p1.x), <, EPSILON); /* for all types of BezPoint */
+      g_assert_cmpfloat (fabs (bp1->p1.y - bp2->p1.y), <, EPSILON); /* - " - */
+      g_assert (bp1->type == bp2->type);
+      if (bp1->type != BEZ_CURVE_TO)
+        continue;
+      g_assert_cmpfloat (fabs (bp1->p2.x - bp2->p2.x), <, EPSILON);
+      g_assert_cmpfloat (fabs (bp1->p2.y - bp2->p2.y), <, EPSILON);
+      g_assert_cmpfloat (fabs (bp1->p3.x - bp2->p3.x), <, EPSILON);
+      g_assert_cmpfloat (fabs (bp1->p3.y - bp2->p3.y), <, EPSILON);
+    }
+    prop2->ops->free (prop2);
       }
     }
   } else if ((prop = object_prop_by_name_type (o, "poly_points", PROP_TYPE_POINTARRAY)) != NULL) {
@@ -955,37 +955,37 @@ _test_segments (gconstpointer user_data)
       from.x = (g_array_index(d1, Point, n).x + g_array_index(d1, Point, n+1).x) / 2;
       from.y = (g_array_index(d1, Point, n).y + g_array_index(d1, Point, n+1).y) / 2;
       if ((ch1 = _change_point (o, "Add ", &from)) != NULL) {
-	int i;
-	GArray *d2;
-	Property *prop2 = object_prop_by_name_type (o, "poly_points", PROP_TYPE_POINTARRAY);
-	d2 = ((PointarrayProperty *)prop2)->pointarray_data;
-	g_assert (d1->len == d2->len - 1);
-	ch2 = _change_point (o, "Delete ", &from);
-	prop2->ops->free (prop2);
-	/* adding and deleting the same point shall lead to the initial state */
-	prop2 = object_prop_by_name_type (o, "poly_points", PROP_TYPE_POINTARRAY);
-	d2 = ((PointarrayProperty *)prop2)->pointarray_data;
-	for (i = 0; i < d1->len; ++i) {
-	  Point p1 = g_array_index(d1, Point, i);
-	  Point p2 = g_array_index(d2, Point, i);
-	  g_assert_cmpfloat (fabs (p1.x - p2.x), <, EPSILON);
-	  g_assert_cmpfloat (fabs (p1.y - p2.y), <, EPSILON);
-	}
-	prop2->ops->free (prop2);
-	/* Check if undo is reconstructing the object, too */
-	(ch2->revert)(ch2, o);
-	_object_change_free(ch2);
-	(ch1->revert)(ch1, o);
-	_object_change_free(ch1);
-	prop2 = object_prop_by_name_type (o, "poly_points", PROP_TYPE_POINTARRAY);
-	d2 = ((PointarrayProperty *)prop2)->pointarray_data;
-	for (i = 0; i < d1->len; ++i) {
-	  Point p1 = g_array_index(d1, Point, i);
-	  Point p2 = g_array_index(d2, Point, i);
-	  g_assert_cmpfloat (fabs (p1.x - p2.x), <, EPSILON);
-	  g_assert_cmpfloat (fabs (p1.y - p2.y), <, EPSILON);
-	}
-	prop2->ops->free (prop2);
+    int i;
+    GArray *d2;
+    Property *prop2 = object_prop_by_name_type (o, "poly_points", PROP_TYPE_POINTARRAY);
+    d2 = ((PointarrayProperty *)prop2)->pointarray_data;
+    g_assert (d1->len == d2->len - 1);
+    ch2 = _change_point (o, "Delete ", &from);
+    prop2->ops->free (prop2);
+    /* adding and deleting the same point shall lead to the initial state */
+    prop2 = object_prop_by_name_type (o, "poly_points", PROP_TYPE_POINTARRAY);
+    d2 = ((PointarrayProperty *)prop2)->pointarray_data;
+    for (i = 0; i < d1->len; ++i) {
+      Point p1 = g_array_index(d1, Point, i);
+      Point p2 = g_array_index(d2, Point, i);
+      g_assert_cmpfloat (fabs (p1.x - p2.x), <, EPSILON);
+      g_assert_cmpfloat (fabs (p1.y - p2.y), <, EPSILON);
+    }
+    prop2->ops->free (prop2);
+    /* Check if undo is reconstructing the object, too */
+    (ch2->revert)(ch2, o);
+    _object_change_free(ch2);
+    (ch1->revert)(ch1, o);
+    _object_change_free(ch1);
+    prop2 = object_prop_by_name_type (o, "poly_points", PROP_TYPE_POINTARRAY);
+    d2 = ((PointarrayProperty *)prop2)->pointarray_data;
+    for (i = 0; i < d1->len; ++i) {
+      Point p1 = g_array_index(d1, Point, i);
+      Point p2 = g_array_index(d2, Point, i);
+      g_assert_cmpfloat (fabs (p1.x - p2.x), <, EPSILON);
+      g_assert_cmpfloat (fabs (p1.y - p2.y), <, EPSILON);
+    }
+    prop2->ops->free (prop2);
       }
     }
   } else {
@@ -1025,7 +1025,7 @@ _ot_item (gpointer key,
   testpath = g_strdup_printf ("%s/%s/%s", base, name, "Change");
   g_test_add_data_func (testpath, type, _test_change);
   g_free (testpath);
-  
+
   testpath = g_strdup_printf ("%s/%s/%s", base, name, "MoveHandle");
   g_test_add_data_func (testpath, type, _test_move_handle);
   g_free (testpath);
@@ -1074,14 +1074,14 @@ main (int argc, char** argv)
 #endif
   /* not using gtk_test_init() means we can only test non-gtk facilities of objects */
   g_test_init (&argc, &argv, NULL);
-  
+
   libdia_init (DIA_MESSAGE_STDERR);
-  
+
   /* todo: improve command line parsing */
   if (argc > 1)
     {
       const gchar* path = argv[1];
-      
+
       if (g_file_test (path, G_FILE_TEST_IS_DIR))
         dia_register_plugins_in_dir (path);
       else
@@ -1090,6 +1090,8 @@ main (int argc, char** argv)
   else
     {
       /* avoid loading objects/plug-ins form the users home directory */
+      g_setenv ("XDG_DATA_HOME", "/tmp", TRUE);
+      g_setenv ("XDG_CONFIG_HOME", "/tmp", TRUE);
       g_setenv ("HOME", "/tmp", TRUE);
       dia_register_plugins ();
     }
@@ -1111,7 +1113,7 @@ int _matherr( struct _exception *except )
 
 #define CASE(x) case _ ##x : type=#x; break
   switch (except->type) {
-  CASE(DOMAIN); 
+  CASE(DOMAIN);
   CASE(SING);
   CASE(UNDERFLOW);
   CASE(OVERFLOW);

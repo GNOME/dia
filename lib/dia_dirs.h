@@ -20,6 +20,7 @@
 #define DIA_DIRS_H
 
 #include <glib.h>
+#include <unistd.h>
 
 #ifdef G_OS_WIN32
 #define DIA_SHEETDIR "sheets"
@@ -30,7 +31,9 @@
 gchar *dia_get_data_directory (const gchar* subdir);
 gchar *dia_get_lib_directory  (const gchar* subdir);
 gchar *dia_get_locale_directory (void);
-gchar *dia_config_filename    (const gchar* file);
+void dia_migrate_file (const gchar *newloc, const gchar *file);
+gchar *dia_user_config_filename    (const gchar* file);
+gchar *dia_user_data_filename    (const gchar* file);
 gboolean dia_config_ensure_dir  (const gchar* filename);
 gchar *dia_get_absolute_filename (const gchar *filename);
 gchar *dia_relativize_filename (const gchar *master, const gchar *slave);

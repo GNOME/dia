@@ -69,8 +69,8 @@ sheet_prepend_sheet_obj(Sheet *sheet, SheetObject *obj)
   type = object_get_type(obj->object_type);
   if (type == NULL) {
     message_warning(_("DiaObject '%s' needed in sheet '%s' was not found.\n"
-		      "It will not be available for use."),
-		    obj->object_type, sheet->name);
+              "It will not be available for use."),
+            obj->object_type, sheet->name);
   } else {
     sheet->objects = g_slist_prepend( sheet->objects, (gpointer) obj);
   }
@@ -84,8 +84,8 @@ sheet_append_sheet_obj(Sheet *sheet, SheetObject *obj)
   type = object_get_type(obj->object_type);
   if (type == NULL) {
     message_warning(_("DiaObject '%s' needed in sheet '%s' was not found.\n"
-		      "It will not be available for use."),
-		      obj->object_type, sheet->name);
+              "It will not be available for use."),
+              obj->object_type, sheet->name);
   } else {
     sheet->objects = g_slist_append( sheet->objects, (gpointer) obj);
   }
@@ -115,7 +115,7 @@ static gint
 dia_sheet_sort_callback(gconstpointer a, gconstpointer b)
 {
   return g_utf8_collate(gettext( ((Sheet *)(a))->name ),
-			gettext( ((Sheet *)(b))->name ));
+            gettext( ((Sheet *)(b))->name ));
 }
 
 void
@@ -124,13 +124,13 @@ dia_sort_sheets(void)
   sheets = g_slist_sort(sheets, dia_sheet_sort_callback);
 }
 
-void 
-load_all_sheets(void) 
+void
+load_all_sheets(void)
 {
   char *sheet_path;
   char *home_dir;
 
-  home_dir = dia_config_filename("sheets");
+  home_dir = dia_user_data_filename("sheets");
   if (home_dir) {
     dia_log_message ("sheets from '%s'", home_dir);
     load_sheets_from_dir(home_dir, SHEET_SCOPE_USER);
@@ -159,7 +159,7 @@ load_all_sheets(void)
   dia_sort_sheets();
 }
 
-static void 
+static void
 load_sheets_from_dir(const gchar *directory, SheetScope scope)
 {
   GDir *dp;
@@ -171,7 +171,7 @@ load_sheets_from_dir(const gchar *directory, SheetScope scope)
 
   while ( (dentry = g_dir_read_name(dp)) ) {
     gchar *filename = g_strconcat(directory,G_DIR_SEPARATOR_S,
-				  dentry,NULL);
+                  dentry,NULL);
 
     if (!g_file_test(filename, G_FILE_TEST_IS_REGULAR)) {
       g_free(filename);
@@ -187,13 +187,13 @@ load_sheets_from_dir(const gchar *directory, SheetScope scope)
 
     load_register_sheet(directory, filename, scope);
     g_free(filename);
-				
+
   }
 
   g_dir_close(dp);
 }
 
-static void 
+static void
 load_register_sheet(const gchar *dirname, const gchar *filename,
                     SheetScope scope)
 {
@@ -224,13 +224,13 @@ load_register_sheet(const gchar *dirname, const gchar *filename,
   if (xmlIsBlankNode(root)) return;
 
   if (!(ns = xmlSearchNsByHref(doc,root, (const xmlChar *)
-	   DIA_XML_NAME_SPACE_BASE "dia-sheet-ns"))) {
+       DIA_XML_NAME_SPACE_BASE "dia-sheet-ns"))) {
     g_warning("could not find sheet namespace");
-    xmlFreeDoc(doc); 
+    xmlFreeDoc(doc);
     return;
   }
   if ((root->ns != ns) || (xmlStrcmp(root->name, (const xmlChar *)"sheet"))) {
-    g_warning("root element was %s -- expecting sheet", 
+    g_warning("root element was %s -- expecting sheet",
               doc->xmlRootNode->name);
     xmlFreeDoc(doc);
     return;
@@ -244,7 +244,7 @@ load_register_sheet(const gchar *dirname, const gchar *filename,
 
     if (node->ns == ns && !xmlStrcmp(node->name, (const xmlChar *)"name")) {
       gint score;
-      
+
       /* compare the xml:lang property on this element to see if we get a
        * better language match.  LibXML seems to throw away attribute
        * namespaces, so we use "lang" instead of "xml:lang" */
@@ -265,7 +265,7 @@ load_register_sheet(const gchar *dirname, const gchar *filename,
         name_score = score;
         if (name) xmlFree(name);
         name = (char *) xmlNodeGetContent(node);
-      }      
+      }
     } else if (node->ns == ns && !xmlStrcmp(node->name, (const xmlChar *)"description")) {
       gint score;
 
@@ -282,7 +282,7 @@ load_register_sheet(const gchar *dirname, const gchar *filename,
         if (description) xmlFree(description);
         description = (char *) xmlNodeGetContent(node);
       }
-      
+
     } else if (node->ns == ns && !xmlStrcmp(node->name, (const xmlChar *)"contents")) {
       contents = node;
     }
@@ -302,11 +302,11 @@ load_register_sheet(const gchar *dirname, const gchar *filename,
   sheetp = get_sheets_list();
   while (sheetp)
   {
-    if (sheetp->data && !strcmp(((Sheet *)(sheetp->data))->name, name)) 
+    if (sheetp->data && !strcmp(((Sheet *)(sheetp->data))->name, name))
     {
       struct stat first_file, this_file;
       int stat_ret;
-      
+
       stat_ret = g_stat(((Sheet *)(sheetp->data))->filename, &first_file);
       g_assert(!stat_ret);
 
@@ -364,12 +364,12 @@ load_register_sheet(const gchar *dirname, const gchar *filename,
 
     gboolean has_intdata = FALSE;
     gboolean has_icon_on_sheet = FALSE;
-    
+
     xmlChar *ot_name = NULL;
 
     if (xmlIsBlankNode(node)) continue;
 
-    if (node->type != XML_ELEMENT_NODE) 
+    if (node->type != XML_ELEMENT_NODE)
       continue;
     if (node->ns != ns) continue;
     if (!xmlStrcmp(node->name, (const xmlChar *)"object")) {
@@ -383,9 +383,9 @@ load_register_sheet(const gchar *dirname, const gchar *filename,
       continue;
     } else
       continue; /* unknown tag */
-    
+
     tmp = xmlGetProp(node, (const xmlChar *)"intdata");
-    if (tmp) { 
+    if (tmp) {
       char *p;
       intdata = (gint)strtol((char *) tmp,&p,0);
       if (*p != 0) intdata = 0;
@@ -395,47 +395,47 @@ load_register_sheet(const gchar *dirname, const gchar *filename,
     chardata = (gchar *) xmlGetProp(node, (const xmlChar *)"chardata");
     /* TODO.... */
     if (chardata) xmlFree(chardata);
-   
+
     ot_name = xmlGetProp(node, (xmlChar *)"name");
-    
-    for (subnode = node->xmlChildrenNode; 
-         subnode != NULL ; 
+
+    for (subnode = node->xmlChildrenNode;
+         subnode != NULL ;
          subnode = subnode->next) {
       if (xmlIsBlankNode(subnode)) continue;
 
       if (subnode->ns == ns && !xmlStrcmp(subnode->name, (const xmlChar *)"description")) {
-	gint score;
+    gint score;
 
-	/* compare the xml:lang property on this element to see if we get a
-	 * better language match.  LibXML seems to throw away attribute
-	 * namespaces, so we use "lang" instead of "xml:lang" */
-	  
-	tmp = xmlGetProp(subnode, (xmlChar *)"xml:lang");
-	if (!tmp) tmp = xmlGetProp(subnode, (xmlChar *)"lang");
-	score = intl_score_locale((char *) tmp);
-	if (tmp) xmlFree(tmp);
+    /* compare the xml:lang property on this element to see if we get a
+     * better language match.  LibXML seems to throw away attribute
+     * namespaces, so we use "lang" instead of "xml:lang" */
 
-	if (subdesc_score < 0 || score < subdesc_score) {
-	  subdesc_score = score;
-	  if (objdesc) xmlFree(objdesc);
-	  objdesc = xmlNodeGetContent(subnode);
-	}
-	  
+    tmp = xmlGetProp(subnode, (xmlChar *)"xml:lang");
+    if (!tmp) tmp = xmlGetProp(subnode, (xmlChar *)"lang");
+    score = intl_score_locale((char *) tmp);
+    if (tmp) xmlFree(tmp);
+
+    if (subdesc_score < 0 || score < subdesc_score) {
+      subdesc_score = score;
+      if (objdesc) xmlFree(objdesc);
+      objdesc = xmlNodeGetContent(subnode);
+    }
+
       } else if (subnode->ns == ns && !xmlStrcmp(subnode->name, (const xmlChar *)"icon")) {
           tmp = xmlNodeGetContent(subnode);
           iconname = g_strconcat(dirname,G_DIR_SEPARATOR_S, (char *) tmp,NULL);
-	  if(!shadowing_sheet && !g_file_test (iconname, G_FILE_TEST_EXISTS))
+      if(!shadowing_sheet && !g_file_test (iconname, G_FILE_TEST_EXISTS))
           {
-	   /* Fall back to system directory if there is no user icon */
+       /* Fall back to system directory if there is no user icon */
             gchar *sheetdir = dia_get_data_directory("sheets");
             iconname = g_strconcat(sheetdir,G_DIR_SEPARATOR_S, (char *) tmp,NULL);
-	    g_free(sheetdir);
+        g_free(sheetdir);
           }
           has_icon_on_sheet = TRUE;
           if (tmp) xmlFree(tmp);
       } else if (subnode->ns == ns && !xmlStrcmp(subnode->name, (const xmlChar *)"alias")) {
         if (ot_name)
-          object_register_alias_type (object_get_type ((char *)ot_name), subnode); 
+          object_register_alias_type (object_get_type ((char *)ot_name), subnode);
       }
     }
 
@@ -448,7 +448,7 @@ load_register_sheet(const gchar *dirname, const gchar *filename,
     sheet_obj->user_data = GINT_TO_POINTER(intdata); /* XXX modify user_data type ? */
     sheet_obj->user_data_type = has_intdata ? USER_DATA_IS_INTDATA /* sure,   */
                                             : USER_DATA_IS_OTHER;  /* why not */
-    sheet_obj->pixmap_file = iconname; 
+    sheet_obj->pixmap_file = iconname;
     sheet_obj->has_icon_on_sheet = has_icon_on_sheet;
     sheet_obj->line_break = set_line_break;
     set_line_break = FALSE;
@@ -461,9 +461,9 @@ load_register_sheet(const gchar *dirname, const gchar *filename,
       g_free(sheet_obj->object_type);
       g_free(sheet_obj);
       if (tmp) xmlFree(ot_name);
-      continue; 
-    }	  
-    
+      continue;
+    }
+
     /* set defaults */
     if (sheet_obj->pixmap_file == NULL) {
       g_assert(otype->pixmap || otype->pixmap_file);
@@ -479,15 +479,15 @@ load_register_sheet(const gchar *dirname, const gchar *filename,
 
     if (ot_name)
       xmlFree(ot_name);
-      
+
     /* we don't need to fix up the icon and descriptions for simple objects,
-       since they don't have their own description, and their icon is 
+       since they don't have their own description, and their icon is
        already automatically handled. */
     sheet_append_sheet_obj(sheet,sheet_obj);
   }
 
   if (!shadowing_sheet)
-    register_sheet(sheet); 
+    register_sheet(sheet);
 
   xmlFreeDoc(doc);
 }
