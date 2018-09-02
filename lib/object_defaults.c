@@ -132,7 +132,7 @@ dia_object_defaults_load (const gchar *filename, gboolean create_lazy, DiaContex
       || (name_space == NULL))
     {
       dia_context_add_message(ctx, _("Error loading defaults '%s'.\n"
-                     "Not a Dia diagram file."), filename);
+                              "Not a Dia diagram file."), filename);
       xmlFreeDoc (doc);
       return FALSE;
     }
@@ -147,62 +147,62 @@ dia_object_defaults_load (const gchar *filename, gboolean create_lazy, DiaContex
       while (obj_node)
         {
           if (!xmlIsBlankNode(obj_node)
-          && 0 == xmlStrcmp(obj_node->name, (const xmlChar *)"object"))
-        {
-          char *typestr = (char *) xmlGetProp(obj_node, (const xmlChar *)"type");
-          char *version = (char *) xmlGetProp(obj_node, (const xmlChar *)"version");
-          if (typestr)
+              && 0 == xmlStrcmp(obj_node->name, (const xmlChar *)"object"))
             {
-              DiaObject *obj = g_hash_table_lookup (defaults_hash, typestr);
-              if (!obj)
-                {
-              if (!create_lazy)
-                g_warning ("Unknown object '%s' while reading '%s'",
-                       typestr, filename);
-              else
-                {
-                  DiaObjectType *type = object_get_type (typestr);
-                  if (type)
-                    obj = type->ops->load (
-                    obj_node,
-                    version ? atoi(version) : 0,
-                    ctx);
-                  if (obj)
-                    g_hash_table_insert (defaults_hash,
-                                         obj->type->name, obj);
-                }
-            }
-              else
-                {
-#if 0 /* lots of complaining about missing attributes */
-              object_load_props(obj, obj_node, ctx); /* leaks ?? */
+              char *typestr = (char *) xmlGetProp(obj_node, (const xmlChar *)"type");
+              char *version = (char *) xmlGetProp(obj_node, (const xmlChar *)"version");
+              if (typestr)
+              {
+                DiaObject *obj = g_hash_table_lookup (defaults_hash, typestr);
+                if (!obj)
+                  {
+                    if (!create_lazy)
+                      g_warning ("Unknown object '%s' while reading '%s'",
+                                 typestr, filename);
+                    else
+                      {
+                        DiaObjectType *type = object_get_type (typestr);
+                        if (type)
+                          obj = type->ops->load (
+                                  obj_node,
+                                  version ? atoi(version) : 0,
+                                  ctx);
+                        if (obj)
+                          g_hash_table_insert (defaults_hash,
+                                               obj->type->name, obj);
+                      }
+                  }
+                else
+                  {
+#if 0 /* lots   of complaining about missing attributes */
+                    object_load_props(obj, obj_node, ctx); /* leaks ?? */
 #else
-              DiaObject *def_obj;
-              def_obj = obj->type->ops->load (
-                    obj_node,
-                            version ? atoi(version) : 0,
-                    ctx);
-              if (def_obj->ops->set_props)
-                {
-                  object_copy_props (obj, def_obj, TRUE);
-                  def_obj->ops->destroy (def_obj);
-                }
-              else
-                {
-                  /* can't copy props */
-                  g_hash_table_replace (defaults_hash,
-                                        def_obj->type->name, def_obj);
-                }
+                    DiaObject *def_obj;
+                    def_obj = obj->type->ops->load (
+                          obj_node,
+                                  version ? atoi(version) : 0,
+                          ctx);
+                    if (def_obj->ops->set_props)
+                      {
+                        object_copy_props (obj, def_obj, TRUE);
+                        def_obj->ops->destroy (def_obj);
+                      }
+                    else
+                      {
+                        /* can't copy props */
+                        g_hash_table_replace (defaults_hash,
+                                              def_obj->type->name, def_obj);
+                      }
 #endif
-            }
-              if (version)
+                 }
+                if (version)
                   xmlFree (version);
-              xmlFree (typestr);
-            }
-        }
+                xmlFree (typestr);
+              }
+          }
           obj_node = obj_node->next;
         }
-    }
+        }
       layer_node = layer_node->next;
     }
   xmlFreeDoc(doc);
@@ -229,12 +229,12 @@ dia_object_default_get (const DiaObjectType *type, gpointer user_data)
 
       /* at least 'Group' has no ops */
       if (!type->ops)
-    return NULL;
+        return NULL;
 
       /* the custom objects needs extra_data */
       obj = type->ops->create(&startpoint,
                               type->default_user_data,
-                  &handle1,&handle2);
+                              &handle1,&handle2);
       if (obj)
         g_hash_table_insert (defaults_hash, obj->type->name, obj);
     }
@@ -281,13 +281,13 @@ dia_object_default_create (const DiaObjectType *type,
       obj = type->ops->create (startpoint, user_data, handle1, handle2);
       if (obj)
         {
-      GPtrArray *props = prop_list_from_descs (
+          GPtrArray *props = prop_list_from_descs (
           object_get_prop_descriptions(def_obj), pdtpp_standard_or_defaults);
           def_obj->ops->get_props((DiaObject *)def_obj, props);
           obj->ops->set_props(obj, props);
-      obj->ops->move (obj, startpoint);
+          obj->ops->move (obj, startpoint);
           prop_list_free(props);
-    }
+        }
     }
   else
     {
@@ -406,7 +406,7 @@ dia_object_defaults_save (const gchar *filename, DiaContext *ctx)
 
   ni.name_space = xmlNewNs(doc->xmlRootNode,
                            (const xmlChar *)DIA_XML_NAME_SPACE_BASE,
-               (const xmlChar *)"dia");
+                           (const xmlChar *)"dia");
   xmlSetNs(doc->xmlRootNode, ni.name_space);
 
   ni.obj_nr = 0;
