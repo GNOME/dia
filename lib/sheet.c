@@ -69,8 +69,8 @@ sheet_prepend_sheet_obj(Sheet *sheet, SheetObject *obj)
   type = object_get_type(obj->object_type);
   if (type == NULL) {
     message_warning(_("DiaObject '%s' needed in sheet '%s' was not found.\n"
-              "It will not be available for use."),
-            obj->object_type, sheet->name);
+                    "It will not be available for use."),
+                    obj->object_type, sheet->name);
   } else {
     sheet->objects = g_slist_prepend( sheet->objects, (gpointer) obj);
   }
@@ -84,8 +84,8 @@ sheet_append_sheet_obj(Sheet *sheet, SheetObject *obj)
   type = object_get_type(obj->object_type);
   if (type == NULL) {
     message_warning(_("DiaObject '%s' needed in sheet '%s' was not found.\n"
-              "It will not be available for use."),
-              obj->object_type, sheet->name);
+                    "It will not be available for use."),
+                    obj->object_type, sheet->name);
   } else {
     sheet->objects = g_slist_append( sheet->objects, (gpointer) obj);
   }
@@ -115,7 +115,7 @@ static gint
 dia_sheet_sort_callback(gconstpointer a, gconstpointer b)
 {
   return g_utf8_collate(gettext( ((Sheet *)(a))->name ),
-            gettext( ((Sheet *)(b))->name ));
+                        gettext( ((Sheet *)(b))->name ));
 }
 
 void
@@ -171,7 +171,7 @@ load_sheets_from_dir(const gchar *directory, SheetScope scope)
 
   while ( (dentry = g_dir_read_name(dp)) ) {
     gchar *filename = g_strconcat(directory,G_DIR_SEPARATOR_S,
-                  dentry,NULL);
+                                  dentry,NULL);
 
     if (!g_file_test(filename, G_FILE_TEST_IS_REGULAR)) {
       g_free(filename);
@@ -224,7 +224,7 @@ load_register_sheet(const gchar *dirname, const gchar *filename,
   if (xmlIsBlankNode(root)) return;
 
   if (!(ns = xmlSearchNsByHref(doc,root, (const xmlChar *)
-       DIA_XML_NAME_SPACE_BASE "dia-sheet-ns"))) {
+           DIA_XML_NAME_SPACE_BASE "dia-sheet-ns"))) {
     g_warning("could not find sheet namespace");
     xmlFreeDoc(doc);
     return;
@@ -404,33 +404,33 @@ load_register_sheet(const gchar *dirname, const gchar *filename,
       if (xmlIsBlankNode(subnode)) continue;
 
       if (subnode->ns == ns && !xmlStrcmp(subnode->name, (const xmlChar *)"description")) {
-    gint score;
+        gint score;
 
-    /* compare the xml:lang property on this element to see if we get a
-     * better language match.  LibXML seems to throw away attribute
-     * namespaces, so we use "lang" instead of "xml:lang" */
+        /* compare the xml:lang property on this element to see if we get a
+         * better language match.  LibXML seems to throw away attribute
+         * namespaces, so we use "lang" instead of "xml:lang" */
 
-    tmp = xmlGetProp(subnode, (xmlChar *)"xml:lang");
-    if (!tmp) tmp = xmlGetProp(subnode, (xmlChar *)"lang");
-    score = intl_score_locale((char *) tmp);
-    if (tmp) xmlFree(tmp);
+        tmp = xmlGetProp(subnode, (xmlChar *)"xml:lang");
+        if (!tmp) tmp = xmlGetProp(subnode, (xmlChar *)"lang");
+        score = intl_score_locale((char *) tmp);
+        if (tmp) xmlFree(tmp);
 
-    if (subdesc_score < 0 || score < subdesc_score) {
-      subdesc_score = score;
-      if (objdesc) xmlFree(objdesc);
-      objdesc = xmlNodeGetContent(subnode);
-    }
+        if (subdesc_score < 0 || score < subdesc_score) {
+          subdesc_score = score;
+          if (objdesc) xmlFree(objdesc);
+          objdesc = xmlNodeGetContent(subnode);
+        }
 
       } else if (subnode->ns == ns && !xmlStrcmp(subnode->name, (const xmlChar *)"icon")) {
           tmp = xmlNodeGetContent(subnode);
           iconname = g_strconcat(dirname,G_DIR_SEPARATOR_S, (char *) tmp,NULL);
-      if(!shadowing_sheet && !g_file_test (iconname, G_FILE_TEST_EXISTS))
-          {
-       /* Fall back to system directory if there is no user icon */
-            gchar *sheetdir = dia_get_data_directory("sheets");
-            iconname = g_strconcat(sheetdir,G_DIR_SEPARATOR_S, (char *) tmp,NULL);
-        g_free(sheetdir);
-          }
+          if(!shadowing_sheet && !g_file_test (iconname, G_FILE_TEST_EXISTS))
+              {
+                /* Fall back to system directory if there is no user icon */
+                gchar *sheetdir = dia_get_data_directory("sheets");
+                iconname = g_strconcat(sheetdir,G_DIR_SEPARATOR_S, (char *) tmp,NULL);
+                g_free(sheetdir);
+              }
           has_icon_on_sheet = TRUE;
           if (tmp) xmlFree(tmp);
       } else if (subnode->ns == ns && !xmlStrcmp(subnode->name, (const xmlChar *)"alias")) {
