@@ -325,11 +325,11 @@ persistence_load()
     if (doc->xmlRootNode != NULL) {
       xmlNsPtr namespace = xmlSearchNs(doc, doc->xmlRootNode, (const xmlChar *)"dia");
       if (!xmlStrcmp (doc->xmlRootNode->name, (const xmlChar *)"persistence") &&
-      namespace != NULL) {
-    xmlNodePtr child_node = doc->xmlRootNode->children;
-    for (; child_node != NULL; child_node = child_node->next) {
-      persistence_load_type(child_node, ctx);
-    }
+          namespace != NULL) {
+        xmlNodePtr child_node = doc->xmlRootNode->children;
+        for (; child_node != NULL; child_node = child_node->next) {
+          persistence_load_type(child_node, ctx);
+        }
       }
     }
     xmlFreeDoc(doc);
@@ -491,7 +491,7 @@ persistence_save()
 
   name_space = xmlNewNs(doc->xmlRootNode,
                         (const xmlChar *) DIA_XML_NAME_SPACE_BASE,
-            (const xmlChar *)"dia");
+                        (const xmlChar *)"dia");
   xmlSetNs(doc->xmlRootNode, name_space);
 
   persistence_save_type(doc, ctx, persistent_windows, persistence_save_window);
@@ -528,7 +528,7 @@ persistence_get_window_name(GtkWindow *window)
 
 static void
 persistence_store_window_info(GtkWindow *window, PersistentWindow *wininfo,
-                  gboolean isclosed)
+                              gboolean isclosed)
 {
   /* Drawable means visible & mapped, what we usually think of as open. */
   if (!isclosed) {
@@ -706,16 +706,16 @@ persistence_register_window(GtkWindow *window)
   }
 
   g_signal_connect(G_OBJECT(window), "configure-event",
-           G_CALLBACK(persistence_window_event_handler), NULL);
+                   G_CALLBACK(persistence_window_event_handler), NULL);
   g_signal_connect(G_OBJECT(window), "map-event",
-           G_CALLBACK(persistence_window_event_handler), NULL);
+                   G_CALLBACK(persistence_window_event_handler), NULL);
   g_signal_connect(G_OBJECT(window), "unmap-event",
-           G_CALLBACK(persistence_window_event_handler), NULL);
+                   G_CALLBACK(persistence_window_event_handler), NULL);
 
   g_signal_connect(G_OBJECT(window), "hide",
-           G_CALLBACK(persistence_hide_show_window), NULL);
+                   G_CALLBACK(persistence_hide_show_window), NULL);
   g_signal_connect(G_OBJECT(window), "show",
-           G_CALLBACK(persistence_hide_show_window), NULL);
+                   G_CALLBACK(persistence_hide_show_window), NULL);
 }
 
 /*!
@@ -748,7 +748,7 @@ persistence_register_window_create(gchar *role, NullaryFunc *func)
 
 static gboolean
 persistence_update_string_entry(GtkWidget *widget, GdkEvent *event,
-                gpointer userdata)
+                                gpointer userdata)
 {
   gchar *role = (gchar*)userdata;
 
@@ -773,7 +773,7 @@ persistence_update_string_entry(GtkWidget *widget, GdkEvent *event,
  */
 gboolean
 persistence_change_string_entry(gchar *role, gchar *string,
-                GtkWidget *widget)
+                                GtkWidget *widget)
 {
   gchar *old_string = (gchar*)g_hash_table_lookup(persistent_entrystrings, role);
   if (old_string != NULL) {
@@ -808,7 +808,7 @@ persistence_register_string_entry(gchar *role, GtkWidget *entry)
     g_hash_table_insert(persistent_entrystrings, role, string);
   }
   g_signal_connect(G_OBJECT(entry), "event",
-           G_CALLBACK(persistence_update_string_entry), role);
+                   G_CALLBACK(persistence_update_string_entry), role);
 }
 
 /* ********* LISTS ********** */
@@ -967,7 +967,7 @@ typedef struct {
  */
 void
 persistent_list_add_listener(const gchar *role, PersistenceCallback func,
-                 GObject *watch, gpointer userdata)
+                             GObject *watch, gpointer userdata)
 {
   PersistentList *plist = persistent_list_get(role);
   ListenerData *listener;
