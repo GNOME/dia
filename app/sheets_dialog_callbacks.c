@@ -289,7 +289,7 @@ sheets_dialog_wrapbox_add_line_break(GtkWidget *wrapbox)
   gtk_widget_set_tooltip_text(button, _("Line Break"));
 
   g_signal_connect(G_OBJECT(button), "toggled",
-           G_CALLBACK(on_sheets_dialog_object_button_toggled),
+                   G_CALLBACK(on_sheets_dialog_object_button_toggled),
                    wrapbox);
 }
 
@@ -339,7 +339,7 @@ sheets_dialog_create_object_button(SheetObjectMod *som, SheetMod *sm,
   g_object_set_data(G_OBJECT(button), "sheet_object_mod", som);
 
   g_signal_connect(G_OBJECT(button), "toggled",
-           G_CALLBACK(on_sheets_dialog_object_button_toggled),
+                   G_CALLBACK(on_sheets_dialog_object_button_toggled),
                    wrapbox);
   return button;
 }
@@ -377,8 +377,8 @@ on_sheets_dialog_optionmenu_activate   (GtkMenuItem     *menuitem,
   }
 
   g_signal_connect(G_OBJECT(hidden_button), "toggled",
-           G_CALLBACK(on_sheets_dialog_object_button_toggled),
-                   wrapbox);
+                   G_CALLBACK(on_sheets_dialog_object_button_toggled),
+                              wrapbox);
   g_object_set_data(G_OBJECT(hidden_button), "is_hidden_button",
                     (gpointer)TRUE);
   g_object_set_data(G_OBJECT(wrapbox), "hidden_button", hidden_button);
@@ -416,7 +416,7 @@ on_sheets_dialog_optionmenu_activate   (GtkMenuItem     *menuitem,
     button = sheets_dialog_create_object_button(som, user_data, wrapbox);
 
     gtk_wrap_box_pack_wrapped(GTK_WRAP_BOX(wrapbox), button,
-              FALSE, TRUE, FALSE, TRUE, som->sheet_object.line_break);
+                              FALSE, TRUE, FALSE, TRUE, som->sheet_object.line_break);
 
     gtk_widget_show(button);
   }
@@ -783,7 +783,7 @@ on_sheets_new_dialog_button_ok_clicked (GtkButton       *button,
     if (g_stat(file_name, &stat_buf) == -1)
     {
       message_error(_("Error examining %s: %s"),
-            dia_message_filename(file_name), strerror(errno));
+                    dia_message_filename(file_name), strerror(errno));
       g_free(file_name);
       return;
     }
@@ -803,22 +803,21 @@ on_sheets_new_dialog_button_ok_clicked (GtkButton       *button,
 
     if (!(*custom_object_load_fn)(file_name, &ot))
     {
-        xmlDoc *doc = NULL;
-    xmlNode *root_element = NULL;
+      xmlDoc *doc = NULL;
+      xmlNode *root_element = NULL;
 
-    /* See if the user tries to open a diagram as a shape */
-    doc = xmlReadFile(file_name, NULL, 0);
-    if(doc != NULL)
-    {
+      /* See if the user tries to open a diagram as a shape */
+      doc = xmlReadFile(file_name, NULL, 0);
+      if(doc != NULL)
+      {
         root_element = xmlDocGetRootElement(doc);
         if(0 == g_ascii_strncasecmp((gchar *)root_element->name, "dia", 3))
-            message_error(
-                _("Please export the diagram as a shape."));
-        xmlFreeDoc(doc);
-    }
-    message_error(_("Could not interpret shape file: '%s'"),
-            dia_message_filename(file_name));
-        g_free(file_name);
+          message_error(_("Please export the diagram as a shape."));
+          xmlFreeDoc(doc);
+      }
+      message_error(_("Could not interpret shape file: '%s'"),
+                    dia_message_filename(file_name));
+      g_free(file_name);
       return;
     }
     object_register_type(ot);
@@ -828,7 +827,7 @@ on_sheets_new_dialog_button_ok_clicked (GtkButton       *button,
     sheet_obj->object_type = g_strdup(ot->name);
     {
       sheet_obj->description =
-    gtk_editable_get_chars(GTK_EDITABLE(entry), 0, -1);
+        gtk_editable_get_chars(GTK_EDITABLE(entry), 0, -1);
     }
     sheet_obj->pixmap = ot->pixmap;
     sheet_obj->user_data = ot->default_user_data;
@@ -1577,14 +1576,14 @@ copy_file(gchar *src, gchar *dst)
   if ((fp_src = g_fopen(src, "rb")) == NULL)
   {
     message_error(_("Couldn't open '%s': %s"),
-          dia_message_filename(src), strerror(errno));
+                  dia_message_filename(src), strerror(errno));
     return FALSE;
   }
 
   if ((fp_dst = g_fopen(dst, "wb")) == NULL)
   {
     message_error(_("Couldn't open '%s': %s"),
-          dia_message_filename(dst), strerror(errno));
+                  dia_message_filename(dst), strerror(errno));
     return FALSE;
   }
 
@@ -1597,7 +1596,7 @@ copy_file(gchar *src, gchar *dst)
   return TRUE;
 }
 
-/* write a sheet to ~/.dia/sheets */
+/* write a sheet to dia user sheets folder. */
 static gboolean
 write_user_sheet(Sheet *sheet)
 {
@@ -1638,7 +1637,7 @@ write_user_sheet(Sheet *sheet)
   if (file==NULL)
   {
     message_error(_("Couldn't open: '%s' for writing"),
-          dia_message_filename(filename));
+                  dia_message_filename(filename));
     g_free(filename);
     return FALSE;
   }
@@ -1717,11 +1716,11 @@ write_user_sheet(Sheet *sheet)
 
       /* avoid crashing when there is no icon */
       if (som->sheet_object.pixmap_file) {
-    basename = g_path_get_basename(som->sheet_object.pixmap_file);
-    dest = g_strdup_printf("%s%s%s", dia_user_shapes, G_DIR_SEPARATOR_S, basename);
-    g_free(basename);
-    copy_file(som->sheet_object.pixmap_file, dest);
-    g_free(dest);
+        basename = g_path_get_basename(som->sheet_object.pixmap_file);
+        dest = g_strdup_printf("%s%s%s", dia_user_shapes, G_DIR_SEPARATOR_S, basename);
+        g_free(basename);
+        copy_file(som->sheet_object.pixmap_file, dest);
+        g_free(dest);
       }
     }
 
@@ -1830,14 +1829,14 @@ on_sheets_dialog_button_apply_clicked  (GtkButton       *button,
       for (list = sheet_object_mods_list; list; list = g_slist_next(list))
       {
         SheetObjectMod *som;
-    SheetObject *new_object;
+        SheetObject *new_object;
 
         som = list->data;
         if (som->mod == SHEET_OBJECT_MOD_DELETED)
           continue;
 
-    new_object = g_new0(SheetObject, 1);
-    *new_object = som->sheet_object;
+        new_object = g_new0(SheetObject, 1);
+        *new_object = som->sheet_object;
         sheet_append_sheet_obj(new_sheet, new_object);
       }
 
@@ -1859,14 +1858,14 @@ on_sheets_dialog_button_apply_clicked  (GtkButton       *button,
       for (list = sheet_object_mods_list; list; list = g_slist_next(list))
       {
         SheetObjectMod *som;
-    SheetObject *new_object;
+        SheetObject *new_object;
 
         som = list->data;
         if (som->mod == SHEET_OBJECT_MOD_DELETED)
           continue;
 
-    new_object = g_new0(SheetObject, 1);
-    *new_object = som->sheet_object;
+        new_object = g_new0(SheetObject, 1);
+        *new_object = som->sheet_object;
         sheet_append_sheet_obj(sheets_list->data, new_object);
       }
       fill_sheet_menu();
