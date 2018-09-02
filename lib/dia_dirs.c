@@ -168,20 +168,18 @@ dia_migrate_file (const gchar *newloc, const gchar *subfile)
 
     oldloc = g_strconcat(g_get_home_dir(), G_DIR_SEPARATOR_S ".dia"
              G_DIR_SEPARATOR_S, subfile, NULL);
-    if(g_file_test(oldloc, G_FILE_TEST_EXISTS))
-    {
-        if (g_rename(oldloc, newloc) == -1)
-        {
-            g_warning("Could not migrate '%s' from '%s' to '%s'.",
-                subfile, oldloc, newloc);
+    if(g_file_test(oldloc, G_FILE_TEST_EXISTS)) {
+      if (g_rename(oldloc, newloc) == -1) {
+        g_warning("Could not migrate '%s' from '%s' to '%s'.",
+                  subfile, oldloc, newloc);
         }
     }
-    g_free (oldloc);
+    g_free(oldloc);
     /* we are trying to remove an empty folder '$HOME/.dia'
      * if it is not empty, it is not removed */
     oldroot = g_strconcat(g_get_home_dir(), G_DIR_SEPARATOR_S ".dia", NULL);
-    rmdir (oldroot);
-    g_free (oldroot);
+    rmdir(oldroot);
+    g_free(oldroot);
 }
 
 /** Get the name of a file under the XDG user Dia config directory.
@@ -198,11 +196,11 @@ dia_user_config_filename(const gchar *subfile)
   confdir = g_get_user_config_dir();
   if (!confdir) {
     confdir = g_get_tmp_dir(); /* put config stuff in /tmp -- not ideal, but
-                * we should not reach this state */
+                                * we should not reach this state */
   }
   diaconfdir = g_strconcat(confdir, G_DIR_SEPARATOR_S "dia" G_DIR_SEPARATOR_S,
                subfile, NULL);
-  dia_migrate_file (diaconfdir, subfile);
+  dia_migrate_file(diaconfdir, subfile);
   return diaconfdir;
 }
 
@@ -220,11 +218,11 @@ dia_user_data_filename(const gchar *subfile)
   datadir = g_get_user_data_dir();
   if (!datadir) {
     datadir = g_get_tmp_dir(); /* put config stuff in /tmp -- not ideal, but
-                * we should not reach this state */
+                                * we should not reach this state */
   }
   diadatadir = g_strconcat(datadir, G_DIR_SEPARATOR_S "dia" G_DIR_SEPARATOR_S,
                subfile, NULL);
-  dia_migrate_file (diadatadir, subfile);
+  dia_migrate_file(diadatadir, subfile);
   return diadatadir;
 }
 
@@ -244,9 +242,9 @@ dia_config_ensure_dir(const gchar *filename)
       exists = TRUE;
     } else {
       if (dia_config_ensure_dir(dir)) {
-    exists = (g_mkdir(dir, 0755) == 0);
+        exists = (g_mkdir(dir, 0755) == 0);
       } else {
-    exists = FALSE;
+        exists = FALSE;
       }
     }
   } else {
@@ -310,7 +308,7 @@ dia_get_canonical_path(const gchar *path)
         /* win32 filenames usually don't start with a dir separator but
          * with <drive>:\
          */
-    if (i != 0 || list[i][1] != ':')
+        if (i != 0 || list[i][1] != ':')
           g_string_append (str, G_DIR_SEPARATOR_S);
         g_string_append (str, list[i]);
       }
