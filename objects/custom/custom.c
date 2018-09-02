@@ -97,7 +97,7 @@ load_shapes_from_tree(const gchar *directory)
   }
   while ( (dentry = g_dir_read_name(dp)) ) {
     gchar *filename = g_strconcat(directory, G_DIR_SEPARATOR_S,
-                  dentry, NULL);
+                                  dentry, NULL);
     const gchar *p;
 
     if (g_file_test(filename, G_FILE_TEST_IS_DIR)) {
@@ -138,7 +138,7 @@ dia_plugin_init(PluginInfo *info)
   const char *home_dir;
 
   if (!dia_plugin_info_init(info, _("Custom"), _("Custom XML shapes loader"),
-                NULL, NULL))
+                            NULL, NULL))
     return DIA_PLUGIN_INIT_ERROR;
 
   home_dir = g_get_user_data_dir();
