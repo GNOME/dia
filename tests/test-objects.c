@@ -59,13 +59,13 @@ _test_creation (gconstpointer user_data)
             && o->ops->copy != NULL
             && o->ops->move != NULL
             && o->ops->move_handle != NULL
-        && o->ops->apply_properties_from_dialog != NULL
+            && o->ops->apply_properties_from_dialog != NULL
         );
 
   /* can we really assume everything complies with standard props nowadays? */
   g_assert (   o->ops->describe_props
             && o->ops->get_props
-        && o->ops->set_props);
+            && o->ops->set_props);
   {
     const PropDescription *pdesc = o->ops->describe_props (o);
     /* get all properties */
@@ -84,11 +84,11 @@ _test_creation (gconstpointer user_data)
       if ((prop->experience & PXP_NOTSET) == 0)
         ++num_used;
       else if ((prop->descr->flags & PROP_FLAG_WIDGET_ONLY) != 0)
-    ++num_used; /* ... but not expected to be set */
+        ++num_used; /* ... but not expected to be set */
       else if (strcmp (prop->descr->type, PROP_TYPE_STATIC) == 0)
-    ++num_used; /* also not to be set */
+        ++num_used; /* also not to be set */
       else
-    g_print ("Not set '%s'\n", prop->descr->name);
+        g_print ("Not set '%s'\n", prop->descr->name);
     }
     g_assert_cmpint (num_used, ==, num_described);
 
@@ -119,8 +119,8 @@ _test_creation (gconstpointer user_data)
       g_assert (o->handles[i] != NULL);
       g_assert (o->handles[i]->connected_to == NULL); /* starts not connected */
       g_assert (   o->handles[i]->type != HANDLE_NON_MOVABLE
-            || (   o->handles[i]->type == HANDLE_NON_MOVABLE /* always together? */
-            && o->handles[i]->connect_type == HANDLE_NONCONNECTABLE));
+                || (   o->handles[i]->type == HANDLE_NON_MOVABLE /* always together? */
+                    && o->handles[i]->connect_type == HANDLE_NONCONNECTABLE));
     }
   /* handles now found */
   g_assert (NULL == h1 && NULL == h2);
@@ -375,9 +375,9 @@ _test_move_handle (gconstpointer user_data)
         {
           o2 = create_standard_box (5.0, 5.0, 2.0, 2.0);
           if (!o2) {
-        /* this may happen if Standard objects are not included */
-        g_test_message ("SKIPPED connect test.");
-        break;
+            /* this may happen if Standard objects are not included */
+            g_test_message ("SKIPPED connect test.");
+            break;
           }
           g_assert(o2->num_connections > 0);
           cp = o2->connections[0];
@@ -395,40 +395,38 @@ _test_move_handle (gconstpointer user_data)
       to.x += 1.0; to.y += 1.0;
       if (cp)
         {
-      change = o->ops->move_handle(o, h2, &to, cp, HANDLE_MOVE_CONNECTED, 0);
-      /* again the API would allow, but it gave at least a leak at app/connectionpoint_ops.c */
-      g_assert (change == NULL);
-    }
+          change = o->ops->move_handle(o, h2, &to, cp, HANDLE_MOVE_CONNECTED, 0);
+          /* again the API would allow, but it gave at least a leak at app/connectionpoint_ops.c */
+          g_assert (change == NULL);
+        }
       else
         {
-      change = o->ops->move_handle(o, h2, &to, NULL, HANDLE_MOVE_USER_FINAL, 0);
-      if (change) /* still not mandatory */
-        {
-          to.x -= 1.0; to.y -= 1.0;
-          change->revert(change, NULL);
-          _object_change_free(change);
-          if (TRUE) /* move_handle undo is handled on the application level ;( */
-        /* NOP */;
-          else
-        g_assert(   fabs(to.x - o->handles[i]->pos.x) < EPSILON
-             && fabs(to.y - o->handles[i]->pos.y) < EPSILON);
-        }
-    }
+          change = o->ops->move_handle(o, h2, &to, NULL, HANDLE_MOVE_USER_FINAL, 0);
+          if (change) /* still not mandatory */
+            {
+              to.x -= 1.0; to.y -= 1.0;
+              change->revert(change, NULL);
+              _object_change_free(change);
+              if (TRUE) /* move_handle undo is handled on the application level ;( */
+                /* NOP */;
+              else
+                g_assert(   fabs(to.x - o->handles[i]->pos.x) < EPSILON
+                         && fabs(to.y - o->handles[i]->pos.y) < EPSILON);
+            }
+       }
       /* moving back to the original position must restore the original object */
       change = o->ops->move_handle(o, h2, &from, NULL, HANDLE_MOVE_USER_FINAL, 0);
       _object_change_free(change); /* custom_move_handle() might return a change */
       if (   strcmp (type->name, "UML - Lifeline") == 0
-      || strcmp (type->name, "Standard - Outline") == 0)
-    {
-      g_test_message ("No restore by '%s'::move_handle", type->name);
-    }
-      else
-    {
-      g_assert_cmpfloat (fabs(o->bounding_box.top - bb_org.top), <, EPSILON);
-      g_assert_cmpfloat (fabs(o->bounding_box.left - bb_org.left), <, EPSILON);
-      g_assert_cmpfloat (fabs(o->bounding_box.right - bb_org.right), <, EPSILON);
-      g_assert_cmpfloat (fabs(o->bounding_box.bottom - bb_org.bottom), <, EPSILON);
-    }
+          || strcmp (type->name, "Standard - Outline") == 0)
+      {
+        g_test_message ("No restore by '%s'::move_handle", type->name);
+      } else {
+        g_assert_cmpfloat (fabs(o->bounding_box.top - bb_org.top), <, EPSILON);
+        g_assert_cmpfloat (fabs(o->bounding_box.left - bb_org.left), <, EPSILON);
+        g_assert_cmpfloat (fabs(o->bounding_box.right - bb_org.right), <, EPSILON);
+        g_assert_cmpfloat (fabs(o->bounding_box.bottom - bb_org.bottom), <, EPSILON);
+      }
       h2 = NULL;
     }
   /* finally */
@@ -541,13 +539,13 @@ _test_connectionpoint_consistency (gconstpointer user_data)
       /* if the previous cp had the same coordinate x or y it should have the same direction */
       if (   strcmp (type->name, "GRAFCET - Vergent") == 0
       || strcmp (type->name, "Standard - Polygon") == 0)
-    continue; /* not a hard requirement */
+        continue; /* not a hard requirement */
       /* not with main point which usually has DIR_ALL */
       if (cp_prev->directions != DIR_ALL && cp->directions != DIR_ALL) {
-    if (cp_prev->pos.x == cp->pos.x)
-      g_assert_cmpint ((cp_prev->directions & (DIR_WEST|DIR_EAST)), ==, (cp->directions & (DIR_WEST|DIR_EAST)));
-    if (cp_prev->pos.y == cp->pos.y)
-      g_assert_cmpint ((cp_prev->directions & (DIR_NORTH|DIR_SOUTH)), ==, (cp->directions & (DIR_NORTH|DIR_SOUTH)));
+        if (cp_prev->pos.x == cp->pos.x)
+          g_assert_cmpint ((cp_prev->directions & (DIR_WEST|DIR_EAST)), ==, (cp->directions & (DIR_WEST|DIR_EAST)));
+        if (cp_prev->pos.y == cp->pos.y)
+          g_assert_cmpint ((cp_prev->directions & (DIR_NORTH|DIR_SOUTH)), ==, (cp->directions & (DIR_NORTH|DIR_SOUTH)));
       }
       cp_prev = cp;
     }
@@ -623,33 +621,33 @@ _test_object_menu (gconstpointer user_data)
       /* if we have a callback active, call it */
       if (item->callback && (item->active & DIAMENU_ACTIVE))
       {
-    ObjectChange *change;
+        ObjectChange *change;
 
-    /* g_test_message() does not show normally */
-    g_test_message ("\n\tCalling '%s'...", item->text);
-    change = (item->callback)(o, &from, item->callback_data);
-    if (!change) {
-      g_test_message ("Undo/redo missing: %s\n", item->text);
-    } else {
-      /* Don't just call _object_change_free(change);
-       * For 'Convert to *' this will screw up (destroy) the object
-       * at hand'. So revert first, afterwards destroy the change.
-       * The object parameter is deprecated, but still necessary!
-       */
-      (change->revert)(change, o);
+        /* g_test_message() does not show normally */
+        g_test_message ("\n\tCalling '%s'...", item->text);
+        change = (item->callback)(o, &from, item->callback_data);
+        if (!change) {
+          g_test_message ("Undo/redo missing: %s\n", item->text);
+        } else {
+          /* Don't just call _object_change_free(change);
+           * For 'Convert to *' this will screw up (destroy) the object
+           * at hand'. So revert first, afterwards destroy the change.
+           * The object parameter is deprecated, but still necessary!
+           */
+          (change->revert)(change, o);
 #if 0
-      /* XXX: Even more needs to be done to keep sane objects, see object_change_revert()
-       * in app/undo.c. AFAICT this is only needed to compensate for orthconn_set_points()
-       * while that does not update the object itself (which it does nowadays).
-       */
-      {
-        /* Make sure object updates its data: */
-        Point p = o->position;
-        (o->ops->move)(o,&p);
-      }
+          /* XXX: Even more needs to be done to keep sane objects, see object_change_revert()
+           * in app/undo.c. AFAICT this is only needed to compensate for orthconn_set_points()
+           * while that does not update the object itself (which it does nowadays).
+           */
+          {
+            /* Make sure object updates its data: */
+            Point p = o->position;
+            (o->ops->move)(o,&p);
+          }
 #endif
-      _object_change_free(change);
-    }
+          _object_change_free(change);
+        }
       }
     }
   }
@@ -862,7 +860,7 @@ _change_point (DiaObject *o, const gchar *verb, Point *pt)
 
     if (item->text && strncmp (item->text, verb, strlen(verb)) == 0) {
       if (item->callback && (item->active & DIAMENU_ACTIVE))
-    return (item->callback)(o, pt, item->callback_data);
+        return (item->callback)(o, pt, item->callback_data);
     }
   }
   return NULL;
@@ -898,50 +896,50 @@ _test_segments (gconstpointer user_data)
       ObjectChange *ch1, *ch2;
       from = _bez_between (&g_array_index(d1, BezPoint, n), &g_array_index(d1, BezPoint, n+1));
       if ((ch1 = _change_point (o, "Add ", &from)) != NULL) {
-    int i;
-    Property *prop2 = object_prop_by_name_type (o, "bez_points", PROP_TYPE_BEZPOINTARRAY);
-    GArray *d2 = ((BezPointarrayProperty *)prop2)->bezpointarray_data;
-    g_assert (d1->len == d2->len - 1);
-    ch2 = _change_point (o, "Delete ", &from);
-    prop2->ops->free (prop2);
-    /* adding and deleting the same point shall lead to the initial state */
-    prop2 = object_prop_by_name_type (o, "bez_points", PROP_TYPE_BEZPOINTARRAY);
-    d2 = ((BezPointarrayProperty *)prop2)->bezpointarray_data;
-    for (i = 0; i < d1->len; ++i) {
-      BezPoint *bp1 = &g_array_index(d1, BezPoint, i);
-      BezPoint *bp2 = &g_array_index(d2, BezPoint, i);
-      g_assert_cmpfloat (fabs (bp1->p1.x - bp2->p1.x), <, EPSILON); /* for all types of BezPoint */
-      g_assert_cmpfloat (fabs (bp1->p1.y - bp2->p1.y), <, EPSILON); /* - " - */
-      g_assert (bp1->type == bp2->type);
-      if (bp1->type != BEZ_CURVE_TO)
-        continue;
-      g_assert_cmpfloat (fabs (bp1->p2.x - bp2->p2.x), <, EPSILON);
-      g_assert_cmpfloat (fabs (bp1->p2.y - bp2->p2.y), <, EPSILON);
-      g_assert_cmpfloat (fabs (bp1->p3.x - bp2->p3.x), <, EPSILON);
-      g_assert_cmpfloat (fabs (bp1->p3.y - bp2->p3.y), <, EPSILON);
-    }
-    prop2->ops->free (prop2);
-    /* Check if undo is reconstructing the object, too */
-    (ch2->revert)(ch2, o);
-    _object_change_free(ch2);
-    (ch1->revert)(ch1, o);
-    _object_change_free(ch1);
-    prop2 = object_prop_by_name_type (o, "bez_points", PROP_TYPE_BEZPOINTARRAY);
-    d2 = ((BezPointarrayProperty *)prop2)->bezpointarray_data;
-    for (i = 0; i < d1->len; ++i) {
-      BezPoint *bp1 = &g_array_index(d1, BezPoint, i);
-      BezPoint *bp2 = &g_array_index(d2, BezPoint, i);
-      g_assert_cmpfloat (fabs (bp1->p1.x - bp2->p1.x), <, EPSILON); /* for all types of BezPoint */
-      g_assert_cmpfloat (fabs (bp1->p1.y - bp2->p1.y), <, EPSILON); /* - " - */
-      g_assert (bp1->type == bp2->type);
-      if (bp1->type != BEZ_CURVE_TO)
-        continue;
-      g_assert_cmpfloat (fabs (bp1->p2.x - bp2->p2.x), <, EPSILON);
-      g_assert_cmpfloat (fabs (bp1->p2.y - bp2->p2.y), <, EPSILON);
-      g_assert_cmpfloat (fabs (bp1->p3.x - bp2->p3.x), <, EPSILON);
-      g_assert_cmpfloat (fabs (bp1->p3.y - bp2->p3.y), <, EPSILON);
-    }
-    prop2->ops->free (prop2);
+        int i;
+        Property *prop2 = object_prop_by_name_type (o, "bez_points", PROP_TYPE_BEZPOINTARRAY);
+        GArray *d2 = ((BezPointarrayProperty *)prop2)->bezpointarray_data;
+        g_assert (d1->len == d2->len - 1);
+        ch2 = _change_point (o, "Delete ", &from);
+        prop2->ops->free (prop2);
+        /* adding and deleting the same point shall lead to the initial state */
+        prop2 = object_prop_by_name_type (o, "bez_points", PROP_TYPE_BEZPOINTARRAY);
+        d2 = ((BezPointarrayProperty *)prop2)->bezpointarray_data;
+        for (i = 0; i < d1->len; ++i) {
+          BezPoint *bp1 = &g_array_index(d1, BezPoint, i);
+          BezPoint *bp2 = &g_array_index(d2, BezPoint, i);
+          g_assert_cmpfloat (fabs (bp1->p1.x - bp2->p1.x), <, EPSILON); /* for all types of BezPoint */
+          g_assert_cmpfloat (fabs (bp1->p1.y - bp2->p1.y), <, EPSILON); /* - " - */
+          g_assert (bp1->type == bp2->type);
+          if (bp1->type != BEZ_CURVE_TO)
+            continue;
+          g_assert_cmpfloat (fabs (bp1->p2.x - bp2->p2.x), <, EPSILON);
+          g_assert_cmpfloat (fabs (bp1->p2.y - bp2->p2.y), <, EPSILON);
+          g_assert_cmpfloat (fabs (bp1->p3.x - bp2->p3.x), <, EPSILON);
+          g_assert_cmpfloat (fabs (bp1->p3.y - bp2->p3.y), <, EPSILON);
+        }
+        prop2->ops->free (prop2);
+        /* Check if undo is reconstructing the object, too */
+        (ch2->revert)(ch2, o);
+        _object_change_free(ch2);
+        (ch1->revert)(ch1, o);
+        _object_change_free(ch1);
+        prop2 = object_prop_by_name_type (o, "bez_points", PROP_TYPE_BEZPOINTARRAY);
+        d2 = ((BezPointarrayProperty *)prop2)->bezpointarray_data;
+        for (i = 0; i < d1->len; ++i) {
+          BezPoint *bp1 = &g_array_index(d1, BezPoint, i);
+          BezPoint *bp2 = &g_array_index(d2, BezPoint, i);
+          g_assert_cmpfloat (fabs (bp1->p1.x - bp2->p1.x), <, EPSILON); /* for all types of BezPoint */
+          g_assert_cmpfloat (fabs (bp1->p1.y - bp2->p1.y), <, EPSILON); /* - " - */
+          g_assert (bp1->type == bp2->type);
+          if (bp1->type != BEZ_CURVE_TO)
+            continue;
+          g_assert_cmpfloat (fabs (bp1->p2.x - bp2->p2.x), <, EPSILON);
+          g_assert_cmpfloat (fabs (bp1->p2.y - bp2->p2.y), <, EPSILON);
+          g_assert_cmpfloat (fabs (bp1->p3.x - bp2->p3.x), <, EPSILON);
+          g_assert_cmpfloat (fabs (bp1->p3.y - bp2->p3.y), <, EPSILON);
+        }
+        prop2->ops->free (prop2);
       }
     }
   } else if ((prop = object_prop_by_name_type (o, "poly_points", PROP_TYPE_POINTARRAY)) != NULL) {
@@ -955,37 +953,37 @@ _test_segments (gconstpointer user_data)
       from.x = (g_array_index(d1, Point, n).x + g_array_index(d1, Point, n+1).x) / 2;
       from.y = (g_array_index(d1, Point, n).y + g_array_index(d1, Point, n+1).y) / 2;
       if ((ch1 = _change_point (o, "Add ", &from)) != NULL) {
-    int i;
-    GArray *d2;
-    Property *prop2 = object_prop_by_name_type (o, "poly_points", PROP_TYPE_POINTARRAY);
-    d2 = ((PointarrayProperty *)prop2)->pointarray_data;
-    g_assert (d1->len == d2->len - 1);
-    ch2 = _change_point (o, "Delete ", &from);
-    prop2->ops->free (prop2);
-    /* adding and deleting the same point shall lead to the initial state */
-    prop2 = object_prop_by_name_type (o, "poly_points", PROP_TYPE_POINTARRAY);
-    d2 = ((PointarrayProperty *)prop2)->pointarray_data;
-    for (i = 0; i < d1->len; ++i) {
-      Point p1 = g_array_index(d1, Point, i);
-      Point p2 = g_array_index(d2, Point, i);
-      g_assert_cmpfloat (fabs (p1.x - p2.x), <, EPSILON);
-      g_assert_cmpfloat (fabs (p1.y - p2.y), <, EPSILON);
-    }
-    prop2->ops->free (prop2);
-    /* Check if undo is reconstructing the object, too */
-    (ch2->revert)(ch2, o);
-    _object_change_free(ch2);
-    (ch1->revert)(ch1, o);
-    _object_change_free(ch1);
-    prop2 = object_prop_by_name_type (o, "poly_points", PROP_TYPE_POINTARRAY);
-    d2 = ((PointarrayProperty *)prop2)->pointarray_data;
-    for (i = 0; i < d1->len; ++i) {
-      Point p1 = g_array_index(d1, Point, i);
-      Point p2 = g_array_index(d2, Point, i);
-      g_assert_cmpfloat (fabs (p1.x - p2.x), <, EPSILON);
-      g_assert_cmpfloat (fabs (p1.y - p2.y), <, EPSILON);
-    }
-    prop2->ops->free (prop2);
+        int i;
+        GArray *d2;
+        Property *prop2 = object_prop_by_name_type (o, "poly_points", PROP_TYPE_POINTARRAY);
+        d2 = ((PointarrayProperty *)prop2)->pointarray_data;
+        g_assert (d1->len == d2->len - 1);
+        ch2 = _change_point (o, "Delete ", &from);
+        prop2->ops->free (prop2);
+        /* adding and deleting the same point shall lead to the initial state */
+        prop2 = object_prop_by_name_type (o, "poly_points", PROP_TYPE_POINTARRAY);
+        d2 = ((PointarrayProperty *)prop2)->pointarray_data;
+        for (i = 0; i < d1->len; ++i) {
+          Point p1 = g_array_index(d1, Point, i);
+          Point p2 = g_array_index(d2, Point, i);
+          g_assert_cmpfloat (fabs (p1.x - p2.x), <, EPSILON);
+          g_assert_cmpfloat (fabs (p1.y - p2.y), <, EPSILON);
+        }
+        prop2->ops->free (prop2);
+        /* Check if undo is reconstructing the object, too */
+        (ch2->revert)(ch2, o);
+        _object_change_free(ch2);
+        (ch1->revert)(ch1, o);
+        _object_change_free(ch1);
+        prop2 = object_prop_by_name_type (o, "poly_points", PROP_TYPE_POINTARRAY);
+        d2 = ((PointarrayProperty *)prop2)->pointarray_data;
+        for (i = 0; i < d1->len; ++i) {
+          Point p1 = g_array_index(d1, Point, i);
+          Point p2 = g_array_index(d2, Point, i);
+          g_assert_cmpfloat (fabs (p1.x - p2.x), <, EPSILON);
+          g_assert_cmpfloat (fabs (p1.y - p2.y), <, EPSILON);
+        }
+        prop2->ops->free (prop2);
       }
     }
   } else {
