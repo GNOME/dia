@@ -65,11 +65,11 @@ G_MODULE_EXPORT gboolean custom_linefile_load(gchar *filename, LineInfo **info)
 
 char* custom_lines_string_plus( char* lhs, char* mid, char* rhs )
 {
-    char* res = g_new0(char, strlen(lhs) + strlen(rhs) + strlen( mid ) + 1);
+  char* res = g_new0(char, strlen(lhs) + strlen(rhs) + strlen( mid ) + 1);
 
-    sprintf( res, "%s%s%s", lhs, mid, rhs );
+  sprintf( res, "%s%s%s", lhs, mid, rhs );
 
-    return( res );
+  return( res );
 }
 
 void custom_linetype_create_and_register( LineInfo* info )
@@ -118,7 +118,7 @@ static void load_linefiles_from_tree(const gchar *directory)
   }
   while ( (dentry = g_dir_read_name(dp)) ) {
     gchar *filename = g_strconcat(directory, G_DIR_SEPARATOR_S,
-                  dentry, NULL);
+                                  dentry, NULL);
     const gchar *p;
 
     if (g_file_test(filename, G_FILE_TEST_IS_DIR)) {
@@ -158,7 +158,7 @@ dia_plugin_init(PluginInfo *info)
 
 
   if (!dia_plugin_info_init(info, _("CustomLines"), _("Custom XML lines loader"),
-                NULL, NULL))
+                            NULL, NULL))
     return DIA_PLUGIN_INIT_ERROR;
 
   home_dir = g_get_user_data_dir();
