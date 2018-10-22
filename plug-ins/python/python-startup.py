@@ -25,17 +25,19 @@ if not os.environ.has_key('HOME'):
   os.environ['XDG_DATA_HOME'] = os.pathsep + 'tmp'
 else:
   default = os.path.join(os.environ['HOME'], '.local', 'share')
-  oldlocation = os.path.join(os.environ['HOME'], '.dia')
+  oldlocation = os.path.join(os.environ['HOME'], '.dia', 'python')
   newlocation = os.path.join (
     os.getenv ('XDG_DATA_HOME', default),
-    'dia'
+    'dia',
+    'python'
   )
   if os.path.isdir(oldlocation):
     try:
       os.rename(oldlocation, newlocation)
     except OSError:
       sys.stderr.write('Could not migrate python scripts from \
-                       "%s" to "%s". Check if %s is empty.' %
+                       "%s" to "%s". Check if %s is empty or \
+                       do it manually.' %
                        (oldlocation, newlocation, newlocation))
 
 # import all plugins found in user plugin dir
