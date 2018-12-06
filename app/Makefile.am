@@ -10,6 +10,7 @@ AM_CPPFLAGS = \
 	$(GTK_CFLAGS) \
 	$(GTK_MAC_CFLAGS) \
 	$(LIBART_CFLAGS) \
+	$(CAIRO_CFLAGS) \
 	-DPREFIX=\""$(prefix)"\" \
 	-DSYSCONFDIR=\""$(sysconfdir)"\" \
 	-DDATADIR=\""$(datadir)"\" \
@@ -156,6 +157,12 @@ dia_core_files = \
 	cut_n_paste.h \
 	render_gdk.c \
 	render_gdk.h \
+	renderer/diacairo.c \
+	renderer/diacairo.h \
+	renderer/diacairo-interactive.c \
+	renderer/diacairo-renderer.c \
+	renderer/diacairo-print.c \
+	renderer/diacairo-print.h \
 	ruler.c \
 	ruler.h \
 	tool.c \
