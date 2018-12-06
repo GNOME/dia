@@ -155,12 +155,6 @@ dia_core_files = \
 	menus.h \
 	cut_n_paste.c \
 	cut_n_paste.h \
-	renderer/diacairo.c \
-	renderer/diacairo.h \
-	renderer/diacairo-interactive.c \
-	renderer/diacairo-renderer.c \
-	renderer/diacairo-print.c \
-	renderer/diacairo-print.h \
 	ruler.c \
 	ruler.h \
 	tool.c \
