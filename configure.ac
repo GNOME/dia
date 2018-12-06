@@ -116,21 +116,6 @@ if test "$have_poppler" = "yes" ; then
 fi
 AM_CONDITIONAL(HAVE_POPPLER, test "x$have_poppler" != "xno")
 
-AC_MSG_CHECKING([whether GNOME specific code should be used])
-AC_ARG_ENABLE(gnome,
-	      AC_HELP_STRING([--enable-gnome],[enable gnome code]),,
-              enable_gnome=no)
-if test x"$enable_gnome" = "xyes" ; then
-    GTK_MODULES="$GTK_MODULES libgnome-2.0 libgnomeui-2.0"
-    AC_DEFINE(HAVE_GNOME,1,[Define if building with GNOME support])
-    AC_DEFINE_UNQUOTED(GNOME_ICONDIR, "${prefix}/share/pixmaps", [GNOME icon directory])
-    have_gnome=yes
-else
-    have_gnome=no
-fi
-AM_CONDITIONAL(HAVE_GNOME, [test "x$have_gnome" != "xno"])
-AC_MSG_RESULT($GNOME)
-
 dnl GTK2:     libgnomecanvas-2.0 ?
 
 PKG_CHECK_MODULES(GTK,$GTK_MODULES)
@@ -394,16 +379,6 @@ if test $found_libxml = false; then
       found_libxml=true
       XML_LIBS="`$XML2_CONFIG --libs`"
       XML_CFLAGS="`$XML2_CONFIG --cflags`"
-
-      if test "$enable_gnome_print" = "yes"; then
-          gnome-config --cflags print | \
-          grep gnome-xml 2>&1 >/dev/null && \
-          AC_MSG_ERROR(libxml2 found but gnome-print uses libxml1 ; this is a conflict.\nPlease do either provide libxml1 or disable gnome-print.)
-      fi
-      echo $GNOME_CFLAGS | \
-      grep gnome-xml 2>&1 >/dev/null && \
-      AC_MSG_ERROR(libxml2 found but one GNOME component uses libxml1 ; this is a conflict.\nPlease do either provide libxml1 or disable the offending GNOME component.)
-        
     else
       AC_MSG_RESULT(not found)
     fi
@@ -754,11 +729,10 @@ Configuration:
 	Compiler:		${CC}
 	can C++:		${cxx_ok}
 
-	Gnome support:				 ${have_gnome}
-	Python support:				 ${with_python}
-	Libart support (PNG export):		 ${have_libart}
-	Cairo support (PNG, PDF, print):	 ${with_cairo}
-	Dia Python bindings with SWIG		 ${with_swig}
+	Python support:                          ${with_python}
+	Libart support (PNG export):             ${have_libart}
+	Cairo support (PNG, PDF, print):         ${with_cairo}
+	Dia Python bindings with SWIG            ${with_swig}
 	PDF import with poppler (experimental)   ${have_poppler}
 	WMF plug-in with libEMF:                 ${emf_ok}
 	Layout plug-in with OGDF:                ${ogdf_ok}

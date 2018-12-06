@@ -18,12 +18,8 @@
 
 #include <config.h>
 
-#ifdef HAVE_GNOME
-#undef GTK_DISABLE_DEPRECATED /* gnome */
-#include <gnome.h>
-#else
 #include <gtk/gtk.h>
-#endif
+
 /* this file should be the only place to include it */
 #ifdef HAVE_MAC_INTEGRATION
 #include <gtkosxapplication.h>
@@ -985,13 +981,9 @@ create_integrated_ui (void)
 
   GtkWidget *layer_view;
 	
-#ifdef HAVE_GNOME
-  window = gnome_app_new ("Dia", _("Diagram Editor"));
-#else
   window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
   g_object_ref (window);
   gtk_window_set_title (GTK_WINDOW (window), "Dia v" VERSION);
-#endif
 
   /* hint to window manager on X so the wm can put the window in the same  
      as it was when the application shut down                             */      
@@ -1011,11 +1003,7 @@ create_integrated_ui (void)
 
   main_vbox = gtk_vbox_new (FALSE, 1);
   gtk_container_set_border_width (GTK_CONTAINER (main_vbox), 1);
-#ifdef HAVE_GNOME
-  gnome_app_set_contents (GNOME_APP(window), main_vbox);
-#else
   gtk_container_add (GTK_CONTAINER (window), main_vbox);
-#endif
   gtk_widget_show (main_vbox);
 
   /* Applicatioon Statusbar */
@@ -1054,15 +1042,11 @@ create_integrated_ui (void)
   menus_get_integrated_ui_menubar(&menubar, &toolbar, &accel_group);
   gtk_window_add_accel_group (GTK_WINDOW (window), accel_group);
   gtk_widget_show (menubar);
-#ifdef HAVE_GNOME
-  gnome_app_set_menus (GNOME_APP (window), GTK_MENU_BAR (menubar));
-#else
 #  ifdef HAVE_MAC_INTEGRATION
   _create_mac_integration (menubar);
 #  else
   gtk_box_pack_start (GTK_BOX (main_vbox), menubar, FALSE, TRUE, 0);
 #  endif
-#endif
 
   /* Toolbar */
   /* TODO: maybe delete set_style(toolbar,ICONS) */
@@ -1102,13 +1086,9 @@ create_toolbox ()
   GtkWidget *menubar;
   GtkAccelGroup *accel_group;
 
-#ifdef HAVE_GNOME
-  window = gnome_app_new ("Dia", _("Diagram Editor"));
-#else
   window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
   g_object_ref(window);
   gtk_window_set_title (GTK_WINDOW (window), "Dia v" VERSION);
-#endif
   gtk_window_set_role (GTK_WINDOW (window), "toolbox_window");
   gtk_window_set_default_size(GTK_WINDOW(window), 146, 349);
 
@@ -1121,11 +1101,7 @@ create_toolbox ()
 
   main_vbox = gtk_vbox_new (FALSE, 1);
   gtk_container_set_border_width (GTK_CONTAINER (main_vbox), 1);
-#ifdef HAVE_GNOME
-  gnome_app_set_contents(GNOME_APP(window), main_vbox);
-#else
   gtk_container_add (GTK_CONTAINER (window), main_vbox);
-#endif
 
   wrapbox = toolbox_create();
   gtk_box_pack_end (GTK_BOX (main_vbox), wrapbox, TRUE, TRUE, 0);
@@ -1139,15 +1115,11 @@ create_toolbox ()
   menus_get_toolbox_menubar(&menubar, &accel_group);
   gtk_window_add_accel_group (GTK_WINDOW (window), accel_group);
   gtk_widget_show (menubar);
-#ifdef HAVE_GNOME
-  gnome_app_set_menus(GNOME_APP(window), GTK_MENU_BAR(menubar));
-#else
 #  ifdef HAVE_MAC_INTEGRATION
   _create_mac_integration (menubar);
 #  else
   gtk_box_pack_start (GTK_BOX (main_vbox), menubar, FALSE, TRUE, 0);
 #  endif
-#endif
   persistence_register_window(GTK_WINDOW(window));
 
   toolbox_shell = window;

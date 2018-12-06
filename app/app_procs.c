@@ -34,12 +34,6 @@
 #include <png.h> /* just for the version stuff */
 #endif
 
-#ifdef HAVE_GNOME
-#undef GTK_DISABLE_DEPRECATED
-/* /usr/include/libgnomeui-2.0/libgnomeui/gnome-entry.h:58: error: expected specifier-qualifier-list before 'GtkCombo' */
-#include <gnome.h>
-#endif
-
 #include <gtk/gtk.h>
 #include <gmodule.h>
 
@@ -95,44 +89,6 @@ static void print_credits(void);
 static void print_filters_list (gboolean verbose);
 
 static gboolean dia_is_interactive = FALSE;
-
-#ifdef HAVE_GNOME
-
-static void
-session_die (gpointer client_data)
-{
-  gtk_main_quit ();
-}
-
-static int
-save_state (GnomeClient        *client,
-	    gint                phase,
-	    GnomeRestartStyle   save_style,
-	    gint                shutdown,
-	    GnomeInteractStyle  interact_style,
-	    gint                fast,
-	    gpointer            client_data)
-{
-  gchar *argv[20];
-  gint i = 0;
-  GList *l;
-  Diagram *dia;
-
-  argv[i++] = "dia";
-
-  for(l = dia_open_diagrams(); l != NULL; l = g_list_next(l)) {
-    dia = (Diagram *)l->data;
-    if(!dia->unsaved) {
-      argv[i++] = dia->filename;
-    }
-  }
-
-  gnome_client_set_restart_command (client, i, argv);
-  gnome_client_set_clone_command (client, i, argv);
-
-  return TRUE;
-}
-#endif
 
 static char *
 build_output_file_name(const char *infname, const char *format, const char *outdir)
@@ -416,9 +372,6 @@ dump_dependencies(void)
 #ifdef HAVE_CAIRO
   "cairo "
 #endif
-#ifdef HAVE_GNOME
-  "gnome "
-#endif
 #ifdef HAVE_LIBART
   "libart "
 #endif
@@ -507,14 +460,6 @@ dump_dependencies(void)
   g_print ("gtk+    : %d.%d.%d (%d.%d.%d)\n",
            gtk_major_version, gtk_minor_version, gtk_micro_version,
            GTK_MAJOR_VERSION, GTK_MINOR_VERSION, GTK_MICRO_VERSION);
-
-#if 0
-  /* we could read $PREFIX/share/gnome-about/gnome-version.xml 
-   * but is it worth the effort ? */
-  g_print ("gnome   : %d.%d.%d (%d.%d.%d)\n"
-           gnome_major_version, gnome_minor_version, gnome_micro_version,
-           GNOME_MAJOR_VERSION, GNOME_MINOR_VERSION, GNOME_MICRO_VERSION);
-#endif
 }
 
 gboolean
@@ -678,9 +623,6 @@ app_init (int argc, char **argv)
   static gboolean version = FALSE;
   static gboolean verbose = FALSE;
   static gboolean log_to_stderr = FALSE;
-#ifdef HAVE_GNOME
-  GnomeClient *client;
-#endif
   static char *export_file_name = NULL;
   static char *export_file_format = NULL;
   static char *size = NULL;
@@ -749,10 +691,8 @@ app_init (int argc, char **argv)
 
   context = g_option_context_new(_("[FILE...]"));
   g_option_context_add_main_entries (context, options, GETTEXT_PACKAGE);
-#ifndef HAVE_GNOME
   /* avoid to add it a second time */
   g_option_context_add_group (context, gtk_get_option_group (FALSE));
-#endif
   if (argv) {
     GError *error = NULL;
 
@@ -812,34 +752,10 @@ app_init (int argc, char **argv)
   }
 
   if (argv && dia_is_interactive) {
-#ifdef HAVE_GNOME
-    GnomeProgram *program =
-      gnome_program_init (PACKAGE, VERSION, LIBGNOMEUI_MODULE,
-			  argc, argv,
-			  /* haven't found a quick way to pass GOption here */
-			  GNOME_PARAM_GOPTION_CONTEXT, context,
-			  GNOME_PROGRAM_STANDARD_PROPERTIES,
-			  GNOME_PARAM_NONE);
-    client = gnome_master_client();
-    if(client == NULL) {
-      g_warning(_("Can't connect to session manager!\n"));
-    }
-    else {
-      g_signal_connect(G_OBJECT (client), "save_yourself",
-		       G_CALLBACK (save_state), NULL);
-      g_signal_connect(G_OBJECT (client), "die",
-		       G_CALLBACK (session_die), NULL);
-    }
-
-    /* This smaller icon is 48x48, standard Gnome size */
-    /* gnome_window_icon_set_default_from_file (GNOME_ICONDIR"/dia_gnome_icon.png");*/
-
-#else
 #  if defined(G_THREADS_ENABLED) && !GLIB_CHECK_VERSION(2,32,0)
     g_thread_init (NULL);
 #  endif
     gtk_init(&argc, &argv);
-#endif
   }
   else {
 #if defined(G_THREADS_ENABLED) && !GLIB_CHECK_VERSION(2,32,0)

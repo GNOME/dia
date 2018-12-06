@@ -36,13 +36,8 @@
 # **********  Begin of section some packagers may need to modify  **********
 # This variable (helpdocdir) specifies where the documents should be installed.
 # This default value should work for most packages.
-if HAVE_GNOME
-helpdocdir = $(datadir)/gnome/help/$(docname)/$(lang)
-install-data-hook: install-data-hook-omf
-else
 helpdocdir = $(datadir)/$(docname)/help/$(lang)
 install-data-hook:
-endif
 
 # **********  You should not have to edit below this line  **********
 xml_files = $(entities) $(docname).xml

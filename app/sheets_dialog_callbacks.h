@@ -20,11 +20,7 @@
  *
  */
 
-#ifdef GNOME
-#include <gnome.h>
-#else
 #include <gtk/gtk.h>
-#endif
 
 gboolean
 on_sheets_main_dialog_delete_event     (GtkWidget       *widget,

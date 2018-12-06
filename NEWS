@@ -1,3 +1,8 @@
+
+  * Removal of libgnome dependency
+
+  -------
+
   * overhaul of the renderer infrastructure
     The renderer interface now allows to transport fill and stroke color
     in one step. All export formats supporting both colors with one object
