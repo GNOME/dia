@@ -22,11 +22,7 @@
 
 #ifndef SHEETS_H
 
-#ifdef GNOME
-#include <gnome.h>
-#else
 #include <gtk/gtk.h>
-#endif
 
 #include "../lib/sheet.h"
 

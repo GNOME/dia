@@ -23,12 +23,7 @@
 #include <config.h>
 #endif
 
-#ifdef GNOME
-#undef GTK_DISABLE_DEPRECATED /* gnome */
-#include <gnome.h>
-#else
 #include <gdk/gdkkeysyms.h>
-#endif
 
 #include <glib.h>
 #include <gtk/gtk.h>

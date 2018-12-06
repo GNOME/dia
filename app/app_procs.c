@@ -460,14 +460,6 @@ dump_dependencies(void)
   g_print ("gtk+    : %d.%d.%d (%d.%d.%d)\n",
            gtk_major_version, gtk_minor_version, gtk_micro_version,
            GTK_MAJOR_VERSION, GTK_MINOR_VERSION, GTK_MICRO_VERSION);
-
-#if 0
-  /* we could read $PREFIX/share/gnome-about/gnome-version.xml 
-   * but is it worth the effort ? */
-  g_print ("gnome   : %d.%d.%d (%d.%d.%d)\n"
-           gnome_major_version, gnome_minor_version, gnome_micro_version,
-           GNOME_MAJOR_VERSION, GNOME_MINOR_VERSION, GNOME_MICRO_VERSION);
-#endif
 }
 
 gboolean

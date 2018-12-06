@@ -25,7 +25,7 @@ libxslt_filter_la_LDFLAGS = -export-dynamic -module -avoid-version $(NO_UNDEFINE
 
 libxslt_filter_la_LIBADD = $(XSLT_LIBS) $(top_builddir)/lib/libdia.la
 
-AM_CPPFLAGS = -I$(top_srcdir)/intl -I$(srcdir)/../../lib $(GTK_CFLAGS) $(GNOME_CFLAGS) $(PANGOFT2_CFLAGS) $(XML_CFLAGS) $(UNICODE_CFLAGS) $(DEBUG_FLAGS) $(XSLT_CFLAGS)
+AM_CPPFLAGS = -I$(top_srcdir)/intl -I$(srcdir)/../../lib $(GTK_CFLAGS) $(PANGOFT2_CFLAGS) $(XML_CFLAGS) $(UNICODE_CFLAGS) $(DEBUG_FLAGS) $(XSLT_CFLAGS)
 
 if !HAVE_XSLT	
 # Prevent installation

@@ -14,7 +14,7 @@ libcustom_lines_objects_la_LIBADD = $(top_builddir)/lib/libdia.la
 
 AM_CPPFLAGS = \
 	-I$(srcdir)/../../lib \
-	$(DEBUG_FLAGS) $(GTK_CFLAGS) $(GNOME_CFLAGS) $(PANGOFT2_CFLAGS) $(UNICODE_CFLAGS)
+	$(DEBUG_FLAGS) $(GTK_CFLAGS) $(PANGOFT2_CFLAGS) $(UNICODE_CFLAGS)
 
 EXTRA_DIST = \
 	pixmaps/default.xpm 

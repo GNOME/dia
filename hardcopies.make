@@ -42,20 +42,6 @@ psdoc = $(progname).ps
 ps_install = install-ps
 endif
 
-if HAVE_GNOME
-all: omf $(htmldoc) $(pdfdoc) $(psdoc)
-
-install-data-local: install-data-xml \
-	$(html_install) $(pdf_install) $(ps_install) install-examples
-
-uninstall-local: uninstall-local-xml  \
-	$(html_install) uninstall-pdf uninstall-ps uninstall-examples
-
-clean-local: clean-local-xml \
-	clean-html clean-ps clean-pdf
-
-else
- 
 if HAVE_XSLTPROC
 all: $(htmldoc) $(pdfdoc) $(psdoc)
 
@@ -74,7 +60,6 @@ endif
 
 clean-local: clean-local-xml \
 	clean-html clean-ps clean-pdf
-endif
 
 $(progname)_html: $(progname).xml $(xml_files) $(htmlstyle) $(pngfigures)
 	$(mkinstalldirs) $(srcdir)/$(progname)_html
