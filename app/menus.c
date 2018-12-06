@@ -347,7 +347,7 @@ load_accels(void)
 {
   gchar *accelfilename;
   /* load accelerators and prepare to later save them */
-  accelfilename = dia_config_filename("menurc");
+  accelfilename = dia_user_config_filename("menurc");
 
   if (accelfilename) {
     gtk_accel_map_load(accelfilename);
@@ -359,7 +359,7 @@ save_accels(gpointer data)
 {
   gchar *accelfilename;
 
-  accelfilename = dia_config_filename("menurc");
+  accelfilename = dia_user_config_filename("menurc");
   if (accelfilename) {
     gtk_accel_map_save (accelfilename);
     g_free (accelfilename);

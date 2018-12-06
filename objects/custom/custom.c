@@ -141,9 +141,9 @@ dia_plugin_init(PluginInfo *info)
 			    NULL, NULL))
     return DIA_PLUGIN_INIT_ERROR;
 
-  home_dir = g_get_home_dir();
+  home_dir = g_get_user_data_dir();
   if (home_dir) {
-    home_dir = dia_config_filename("shapes");
+    home_dir = dia_user_data_filename("shapes");
     load_shapes_from_tree(home_dir);
     g_free((char *)home_dir);
   }

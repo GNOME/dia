@@ -130,7 +130,7 @@ load_all_sheets(void)
   char *sheet_path;
   char *home_dir;
 
-  home_dir = dia_config_filename("sheets");
+  home_dir = dia_user_data_filename("sheets");
   if (home_dir) {
     dia_log_message ("sheets from '%s'", home_dir);
     load_sheets_from_dir(home_dir, SHEET_SCOPE_USER);

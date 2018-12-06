@@ -374,7 +374,7 @@ dia_register_plugins(void)
 
   library_path = g_getenv("DIA_LIB_PATH");
 
-  lib_dir = dia_config_filename("objects");
+  lib_dir = dia_user_data_filename("objects");
 
   if (lib_dir != NULL) {
     dia_register_plugins_in_dir(lib_dir);
@@ -444,7 +444,7 @@ ensure_pluginrc(void)
 
   if (pluginrc)
     return;
-  filename = dia_config_filename("pluginrc");
+  filename = dia_user_config_filename("pluginrc");
   dia_context_set_filename (ctx, filename);
   if (g_file_test (filename,  G_FILE_TEST_IS_REGULAR))
     pluginrc = diaXmlParseFile(filename, ctx, FALSE);
@@ -613,7 +613,7 @@ dia_pluginrc_write(void)
     xmlSetProp(pluginnode, (const xmlChar *)"filename", (xmlChar *)info->filename);
   }
 
-  filename = dia_config_filename("pluginrc");
+  filename = dia_user_config_filename("pluginrc");
   
   xmlDiaSaveFile(filename, pluginrc);
   
