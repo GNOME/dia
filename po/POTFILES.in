@@ -78,6 +78,9 @@ lib/sheet.c
 lib/standard-path.c
 lib/text.c
 lib/widgets.c
+lib/renderer/diacairo-interactive.c
+lib/renderer/diacairo-renderer.c
+lib/renderer/diacairo.c
 objects/AADL/aadlbox.c
 objects/AADL/aadl.c
 objects/chronogram/chronogram.c
@@ -192,8 +195,6 @@ objects/UML/umloperation.c
 objects/UML/umlparameter.c
 objects/UML/usecase.c
 plug-ins/cairo/diacairo.c
-plug-ins/cairo/diacairo-interactive.c
-plug-ins/cairo/diacairo-renderer.c
 plug-ins/cgm/cgm.c
 plug-ins/drs/dia-render-script.c
 plug-ins/drs/dia-render-script-import.c
