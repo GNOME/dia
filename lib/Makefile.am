@@ -171,6 +171,12 @@ libdia_la_SOURCES =  \
 		diagdkrenderer.c \
 		diapathrenderer.h \
 		diapathrenderer.c \
+		renderer/diacairo.c \
+		renderer/diacairo.h \
+		renderer/diacairo-interactive.c \
+		renderer/diacairo-renderer.c \
+		renderer/diacairo-print.c \
+		renderer/diacairo-print.h \
 		path-math.h \
 		path-math.c \
 		diapatternselector.h \
