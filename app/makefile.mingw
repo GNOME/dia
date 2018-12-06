@@ -70,7 +70,6 @@ OBJECTS = \
 	properties-dialog.o \
 	recent_files.o \
 	render_eps.o \
-	render_gdk.o \
 	render_libart.o \
 	render_pixmap.o \
 	scroll_tool.o \

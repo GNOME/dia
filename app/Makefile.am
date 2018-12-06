@@ -155,8 +155,6 @@ dia_core_files = \
 	menus.h \
 	cut_n_paste.c \
 	cut_n_paste.h \
-	render_gdk.c \
-	render_gdk.h \
 	renderer/diacairo.c \
 	renderer/diacairo.h \
 	renderer/diacairo-interactive.c \

@@ -44,7 +44,6 @@
 #include "layer_dialog.h"
 #include "load_save.h"
 #include "dia-props.h"
-#include "render_gdk.h"
 #include "renderer/diacairo.h"
 #include "diatransform.h"
 #include "recent_files.h"
