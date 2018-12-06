@@ -45,6 +45,7 @@
 #include "load_save.h"
 #include "dia-props.h"
 #include "render_gdk.h"
+#include "renderer/diacairo.h"
 #include "diatransform.h"
 #include "recent_files.h"
 #include "filedlg.h"
@@ -1126,7 +1127,7 @@ new_aa_renderer (DDisplay *ddisp)
   /* we really should not come here but instead disable the menu command earlier */
   message_warning (_("No antialiased renderer found"));
   /* fallback: built-in libart renderer */
-  return new_gdk_renderer (ddisp);
+  return dia_cairo_interactive_renderer_new (ddisp);
 }
 
 void
@@ -1152,7 +1153,7 @@ ddisplay_set_renderer(DDisplay *ddisp, int aa_renderer)
   if (ddisp->aa_renderer){
     ddisp->renderer = new_aa_renderer (ddisp);
   } else {
-    ddisp->renderer = new_gdk_renderer(ddisp);
+    ddisp->renderer = dia_cairo_interactive_renderer_new(ddisp);
   }
 
   if (window)
@@ -1167,7 +1168,7 @@ ddisplay_resize_canvas(DDisplay *ddisp,
     if (ddisp->aa_renderer)
       ddisp->renderer = new_aa_renderer (ddisp);
     else
-      ddisp->renderer = new_gdk_renderer(ddisp);
+      ddisp->renderer = dia_cairo_interactive_renderer_new(ddisp);
   }
 
   dia_renderer_set_size(ddisp->renderer, gtk_widget_get_window(ddisp->canvas), width, height);
