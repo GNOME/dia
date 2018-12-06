@@ -16,8 +16,6 @@ INPUT                  = ../lib ../objects/standard ../objects/custom \
 			../plug-ins/wpg ../plug-ins/drs
 #STRIP_FROM_PATH        = ../
 FILE_PATTERNS          = *.c *.h *.dox *.py *.cpp
-# define HAVE_CAIRO to get the Outline dox
-PREDEFINED             = HAVE_CAIRO
 REFERENCES_RELATION    = NO
 VERBATIM_HEADERS       = NO
 GENERATE_LATEX         = NO

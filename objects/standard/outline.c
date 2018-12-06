@@ -35,12 +35,10 @@
 #include "boundingbox.h"
 #include "standard-path.h"
 
-#ifdef HAVE_CAIRO
-#include <cairo.h>
+#include "tool-icons.h"
 
-#ifdef CAIRO_HAS_SVG_SURFACE
+#include <cairo.h>
 #include <cairo-svg.h>
-#endif
 
 #define NUM_HANDLES 2
 
@@ -274,12 +272,7 @@ outline_update_data (Outline *outline)
     cairo_path_destroy (outline->path);
   outline->path = NULL;
   /* surface will not be used to render anything, it is just to create the cairo context */
-#ifdef CAIRO_HAS_SVG_SURFACE
   surface = cairo_svg_surface_create_for_stream (write_nul, NULL, 100, 100);
-#else
-  /* if only I could remember why I have choosen the svg surface in the first place */
-  surface = cairo_image_surface_create (CAIRO_FORMAT_ARGB32, 100, 100);
-#endif
   cr = cairo_create (surface);
   cairo_surface_destroy (surface); /* in fact: unref() */
   style = dia_font_get_style (outline->font);
@@ -551,5 +544,3 @@ outline_select (Outline *outline, Point *clicked_point,
 {
   outline_update_handles (outline);
 }
-
-#endif /* HAVE_CAIRO */
