@@ -47,8 +47,7 @@ DEFINES = \
 	-DGTK_DISABLE_DEPRECATED \
 
 PKG_LINK = $(GLIB_LIBS) $(INTL_LIBS) \
-	$(PRJ_TOP)\lib\libdia.lib \
-	$(CAIRO_LIBS)
+	$(PRJ_TOP)\lib\libdia.lib
 
 #
 # Object definitions for the various plugins

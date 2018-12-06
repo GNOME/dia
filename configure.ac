@@ -73,8 +73,6 @@ AC_SUBST(GMODULE_LIBS)
 AC_PATH_PROG(GLIB_GENMARSHAL, glib-genmarshal)
 
 GTK_MODULES="gtk+-2.0 >= 2.16.0 glib-2.0 >= 2.20.0 libxml-2.0 gdk-pixbuf-2.0 gthread-2.0 gmodule-2.0"
-PKG_CHECK_MODULES(PANGOVERSION, pango >= 1.20.0 pangocairo, , 
-                  AC_MSG_ERROR([Need Pango version 1.20.0 or higher]))
 
 AC_ARG_WITH(freetype,
   AC_HELP_STRING([--without-freetype],[compile without FreeType support]),,with_freetype=yes)
@@ -136,24 +134,9 @@ fi
 
 AM_CONDITIONAL(HAVE_BONOBO,[test "true" = "false"])
 
-dnl Look for Cairo
-AC_ARG_WITH(cairo,
-  AC_HELP_STRING([--with-cairo],[compile cairo plug-in]),,with_cairo=yes)
-if test "x$with_cairo" != "xno"; then
-  PKG_CHECK_MODULES(CAIROVERSION, cairo >= 1.6.0, , 
-                    AC_MSG_ERROR([Need Cairo version 1.6.0 or higher]))
-  PKG_CHECK_MODULES(CAIRO, cairo,have_cairo=yes,have_cairo=no)
-  AC_SUBST(CAIRO_LIBS)
-  AC_SUBST(CAIRO_CFLAGS)
-  AC_DEFINE(HAVE_CAIRO,1,[Define if building with Cairo support])
-fi
-AM_CONDITIONAL(WITH_CAIRO, test "x$with_cairo" != "xno")
-
-dnl with gtk+ >= 2.8 this is no longer optional
-PKG_CHECK_MODULES(PANGOCAIRO,pangocairo, pangocairo_ok=yes, pangocairo_ok=no)
-if test "x$pangocairo_ok" = "xyes"; then
-  AC_DEFINE(HAVE_PANGOCAIRO_H,1,[Defined to render text with pangocairo not cairos toy API])
-fi
+PKG_CHECK_MODULES(CAIROVERSION, cairo >= 1.8.0)
+AC_SUBST(CAIRO_LIBS)
+AC_SUBST(CAIRO_CFLAGS)
 
 dnl XSLT
 
@@ -731,7 +714,6 @@ Configuration:
 
 	Python support:                          ${with_python}
 	Libart support (PNG export):             ${have_libart}
-	Cairo support (PNG, PDF, print):         ${with_cairo}
 	Dia Python bindings with SWIG            ${with_swig}
 	PDF import with poppler (experimental)   ${have_poppler}
 	WMF plug-in with libEMF:                 ${emf_ok}

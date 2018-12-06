@@ -1,4 +1,3 @@
-if WITH_CAIRO
 plugin_sources = \
 	diacairo.c \
 	diacairo.h \
@@ -6,9 +5,6 @@ plugin_sources = \
 	diacairo-renderer.c \
 	diacairo-print.c \
 	diacairo-print.h 
-else
-plugin_sources = 
-endif
 
 pkglib_LTLIBRARIES = libcairo_filter.la
 

@@ -60,8 +60,8 @@ OBJECTS = \
 !ENDIF
 
 !IFDEF OBJ_cairo
-DEPCFLAGS = $(CAIRO_CFLAGS) -DHAVE_PANGOCAIRO_H
-PKG_LINK = $(PKG_LINK) $(CAIRO_LIBS) $(PANGOCAIRO_LIBS) gdi32.lib
+DEPCFLAGS = $(CAIRO_CFLAGS)
+PKG_LINK = $(PKG_LINK) $(CAIRO_LIBS) gdi32.lib
 OBJECTS = \
 	diacairo.obj \
 	diacairo-interactive.obj \
