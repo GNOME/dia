@@ -363,9 +363,7 @@ begin_render(DiaRenderer *self, const Rectangle *update)
     cairo_rectangle (base_renderer->cr, update->left, update->top, width, height);
     cairo_clip (base_renderer->cr);
   }
-#ifdef HAVE_PANGOCAIRO_H
   base_renderer->layout = pango_cairo_create_layout (base_renderer->cr);
-#endif
 
   cairo_set_fill_rule (base_renderer->cr, CAIRO_FILL_RULE_EVEN_ODD);
 
@@ -666,10 +664,11 @@ fill_pixel_rect(DiaRenderer *object,
 DiaRenderer *
 dia_cairo_interactive_renderer_new (DDisplay *ddisp)
 {
-  DiaCairoRenderer *renderer;
+  DiaCairoInteractiveRenderer *renderer;
 
   renderer = g_object_new (DIA_TYPE_CAIRO_INTERACTIVE_RENDERER, NULL);
-  /* CP: renderer->transform = dia_transform_new (&ddisp->visible, &ddisp->zoom_factor); */
+  renderer->visible = &ddisp->visible;
+  renderer->zoom_factor = &ddisp->zoom_factor;
 
   return DIA_RENDERER(renderer);
 }

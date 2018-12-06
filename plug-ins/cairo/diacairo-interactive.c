@@ -363,9 +363,7 @@ begin_render(DiaRenderer *self, const Rectangle *update)
     cairo_rectangle (base_renderer->cr, update->left, update->top, width, height);
     cairo_clip (base_renderer->cr);
   }
-#ifdef HAVE_PANGOCAIRO_H
   base_renderer->layout = pango_cairo_create_layout (base_renderer->cr);
-#endif
 
   cairo_set_fill_rule (base_renderer->cr, CAIRO_FILL_RULE_EVEN_ODD);
 
