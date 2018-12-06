@@ -2,7 +2,7 @@ dnl Process this -*- autoconf -*- file with autoconf to produce a
 dnl configure script.
 AC_INIT(dia, 0.97+git, http://bugzilla.gnome.org/enter_bug.cgi?product=dia)
 AC_CONFIG_SRCDIR(app/diagram.c)
-AM_INIT_AUTOMAKE(AC_PACKAGE_NAME,AC_PACKAGE_VERSION)
+AM_INIT_AUTOMAKE([subdir-objects])
 m4_ifdef([AM_SILENT_RULES],[AM_SILENT_RULES([yes])])
 
 AC_PREREQ(2.50)
