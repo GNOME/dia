@@ -159,14 +159,12 @@ ToolButton tool_data[] =
     "I",
     "ToolsImage",
     { CREATE_OBJECT_TOOL, "Standard - Image", NULL }
-#ifdef HAVE_CAIRO
   },
   { NULL,
     N_("Outline"),
     NULL,
     "ToolsOutline",
     { CREATE_OBJECT_TOOL, "Standard - Outline", NULL }
-#endif
   }
 };
 

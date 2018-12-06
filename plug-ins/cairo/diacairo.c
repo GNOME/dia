@@ -32,17 +32,13 @@
 
 #include <cairo.h>
 /* some backend headers, win32 missing in official Cairo */
-#ifdef CAIRO_HAS_PNG_SURFACE_FEATURE
 #include <cairo-png.h>
-#endif
+#include <cairo-svg.h>
 #ifdef  CAIRO_HAS_PS_SURFACE
 #include <cairo-ps.h>
 #endif
 #ifdef  CAIRO_HAS_PDF_SURFACE
 #include <cairo-pdf.h>
-#endif
-#ifdef CAIRO_HAS_SVG_SURFACE
-#include <cairo-svg.h>
 #endif
 #ifdef CAIRO_HAS_WIN32_SURFACE
 #include <cairo-win32.h>
@@ -53,9 +49,7 @@
 #include <cairo-script.h>
 #endif
 
-#ifdef HAVE_PANGOCAIRO_H
 #include <pango/pangocairo.h>
-#endif
 
 #include "intl.h"
 #include "geometry.h"
@@ -177,7 +171,6 @@ export_data(DiagramData *data, DiaContext *ctx,
 #undef DPI
     break;
 #endif
-#ifdef CAIRO_HAS_SVG_SURFACE
   case OUTPUT_SVG :
     /* quite arbitrary, but consistent with ../pixbuf ;-) */
     renderer->scale = 20.0 * data->paper.scaling; 
@@ -189,7 +182,6 @@ export_data(DiagramData *data, DiaContext *ctx,
 						filename_crt,
 						(int)width, (int)height);
     break;
-#endif
 #ifdef CAIRO_HAS_SCRIPT_SURFACE
   case OUTPUT_CAIRO_SCRIPT :
     /* quite arbitrary, but consistent with ../pixbuf ;-) */
@@ -382,7 +374,6 @@ static DiaExportFilter pdf_export_filter = {
 };
 #endif
 
-#ifdef CAIRO_HAS_SVG_SURFACE
 static const gchar *svg_extensions[] = { "svg", NULL };
 static DiaExportFilter svg_export_filter = {
     N_("Cairo Scalable Vector Graphics"),
@@ -392,7 +383,6 @@ static DiaExportFilter svg_export_filter = {
     "cairo-svg",
     FILTER_DONT_GUESS /* don't use this if not asked explicit */
 };
-#endif
 
 #ifdef CAIRO_HAS_SCRIPT_SURFACE
 static const gchar *cs_extensions[] = { "cs", NULL };
@@ -496,16 +486,12 @@ _plugin_unload (PluginInfo *info)
 #ifdef CAIRO_HAS_PDF_SURFACE
   filter_unregister_export(&pdf_export_filter);
 #endif
-#ifdef CAIRO_HAS_SVG_SURFACE
   filter_unregister_export(&svg_export_filter);
-#endif
 #ifdef CAIRO_HAS_SCRIPT_SURFACE
   filter_unregister_export(&cs_export_filter);
 #endif
-#if defined CAIRO_HAS_PNG_SURFACE || defined CAIRO_HAS_PNG_FUNCTIONS
   filter_unregister_export(&png_export_filter);
   filter_unregister_export(&pnga_export_filter);
-#endif
 #if DIA_CAIRO_CAN_EMF
   filter_unregister_export(&emf_export_filter);
   filter_unregister_export(&wmf_export_filter);
@@ -536,16 +522,12 @@ dia_plugin_init(PluginInfo *info)
 #ifdef CAIRO_HAS_PDF_SURFACE
   filter_register_export(&pdf_export_filter);
 #endif
-#ifdef CAIRO_HAS_SVG_SURFACE
   filter_register_export(&svg_export_filter);
-#endif
 #ifdef CAIRO_HAS_SCRIPT_SURFACE
   filter_register_export(&cs_export_filter);
 #endif
-#if defined CAIRO_HAS_PNG_SURFACE || defined CAIRO_HAS_PNG_FUNCTIONS
   filter_register_export(&png_export_filter);
   filter_register_export(&pnga_export_filter);
-#endif
 #if DIA_CAIRO_CAN_EMF
   filter_register_export(&emf_export_filter);
   filter_register_export(&wmf_export_filter);
