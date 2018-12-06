@@ -1126,7 +1126,7 @@ new_aa_renderer (DDisplay *ddisp)
   /* we really should not come here but instead disable the menu command earlier */
   message_warning (_("No antialiased renderer found"));
   /* fallback: built-in libart renderer */
-  return dia_cairo_interactive_renderer_new (ddisp);
+  return dia_cairo_interactive_renderer_new ();
 }
 
 void
@@ -1152,7 +1152,11 @@ ddisplay_set_renderer(DDisplay *ddisp, int aa_renderer)
   if (ddisp->aa_renderer){
     ddisp->renderer = new_aa_renderer (ddisp);
   } else {
-    ddisp->renderer = dia_cairo_interactive_renderer_new(ddisp);
+    ddisp->renderer = dia_cairo_interactive_renderer_new();
+    g_object_set (ddisp->renderer,
+                  "zoom", &ddisp->zoom_factor,
+                  "rect", &ddisp->visible,
+                  NULL);
   }
 
   if (window)
@@ -1164,10 +1168,15 @@ ddisplay_resize_canvas(DDisplay *ddisp,
 		       int width,  int height)
 {
   if (ddisp->renderer==NULL) {
-    if (ddisp->aa_renderer)
+    if (ddisp->aa_renderer) {
       ddisp->renderer = new_aa_renderer (ddisp);
-    else
-      ddisp->renderer = dia_cairo_interactive_renderer_new(ddisp);
+    } else {
+      ddisp->renderer = dia_cairo_interactive_renderer_new();
+      g_object_set (ddisp->renderer,
+                    "zoom", &ddisp->zoom_factor,
+                    "rect", &ddisp->visible,
+                    NULL);
+    }
   }
 
   dia_renderer_set_size(ddisp->renderer, gtk_widget_get_window(ddisp->canvas), width, height);

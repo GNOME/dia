@@ -661,3 +661,8 @@ fill_pixel_rect(DiaRenderer *object,
 #endif
 }
 
+DiaRenderer *
+dia_cairo_interactive_renderer_new ()
+{
+  return g_object_new (DIA_TYPE_CAIRO_INTERACTIVE_RENDERER, NULL);
+}
