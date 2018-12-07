@@ -69,7 +69,6 @@ OBJECTS = \
 	dia_xml.obj \
 	diaerror.obj \
 	diagramdata.obj \
-	diagdkrenderer.obj \
 	diaimportrenderer.obj \
 	diainteractiverenderer.obj \
 	diarenderer.obj \

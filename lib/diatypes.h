@@ -62,10 +62,6 @@ typedef struct _BezierCreateData BezierCreateData;
 /* In dia_image.h: */
 typedef struct _DiaImage DiaImage;
 
-/* In diagdkrenderer.h: */
-typedef struct _DiaGdkRenderer DiaGdkRenderer;
-typedef struct _DiaGdkRendererClass DiaGdkRendererClass;
-
 /* In diamenu.h: */
 typedef struct _DiaMenuItem DiaMenuItem;
 typedef struct _DiaMenu DiaMenu;

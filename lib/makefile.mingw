@@ -38,7 +38,6 @@ OBJECTS = \
 	dia_svg.o \
 	dia_xml.o \
 	diagramdata.o \
-	diagdkrenderer.o \
 	diagtkfontsel.o \
 	diainteractiverenderer.o \
 	diarenderer.o \

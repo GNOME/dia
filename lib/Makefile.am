@@ -167,8 +167,6 @@ libdia_la_SOURCES =  \
 		diaimportrenderer.c \
 		diaimportrenderer.h \
 		diainteractiverenderer.c \
-		diagdkrenderer.h \
-		diagdkrenderer.c \
 		diapathrenderer.h \
 		diapathrenderer.c \
 		renderer/diacairo.c \
