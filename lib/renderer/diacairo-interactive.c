@@ -31,15 +31,6 @@
 #include "object.h"
 #include "textline.h"
 
-/* There is a variant prepared for GTK+3 
- * but it seems to be sligly slower than the original version.
- */
-#if GTK_CHECK_VERSION(3,0,0)
-#define DIA_CAIRO_WITH_PIXMAP 0
-#else
-#define DIA_CAIRO_WITH_PIXMAP 1
-#endif
-
 #define DIA_TYPE_CAIRO_INTERACTIVE_RENDERER           (dia_cairo_interactive_renderer_get_type ())
 #define DIA_CAIRO_INTERACTIVE_RENDERER(obj)           (G_TYPE_CHECK_INSTANCE_CAST ((obj), DIA_TYPE_CAIRO_INTERACTIVE_RENDERER, DiaCairoInteractiveRenderer))
 #define DIA_CAIRO_INTERACTIVE_RENDERER_CLASS(klass)   (G_TYPE_CHECK_CLASS_CAST ((klass), DIA_TYPE_CAIRO_INTERACTIVE_RENDERER, DiaCairoInteractiveRendererClass))
@@ -59,12 +50,7 @@ struct _DiaCairoInteractiveRenderer
   Rectangle *visible;
   real *zoom_factor;
 
-#if DIA_CAIRO_WITH_PIXMAP
-  GdkPixmap *pixmap;              /* The pixmap shown in this display  */
-  GdkGC *gc;
-#else
   cairo_surface_t *pixmap;        /* The pixmap shown in this display  */
-#endif
   guint32 width;                  /* The width of the pixmap in pixels */
   guint32 height;                 /* The height of the pixmap in pixels */
   GdkRegion *clip_region;
@@ -153,18 +139,14 @@ cairo_interactive_renderer_init (DiaCairoInteractiveRenderer *object, void *p)
 static void
 cairo_interactive_renderer_finalize (GObject *object)
 {
-#if !DIA_CAIRO_WITH_PIXMAP
   DiaCairoInteractiveRenderer *renderer = DIA_CAIRO_INTERACTIVE_RENDERER (object);
-#endif
   DiaCairoRenderer *base_renderer = DIA_CAIRO_RENDERER (object);
 
   if (base_renderer->cr)
     cairo_destroy (base_renderer->cr);
   base_renderer->cr = NULL;
-#if !DIA_CAIRO_WITH_PIXMAP
   if (renderer->pixmap)
     cairo_surface_destroy (renderer->pixmap);
-#endif
   G_OBJECT_CLASS (parent_class)->finalize (object);
 }
 
@@ -342,11 +324,7 @@ begin_render(DiaRenderer *self, const Rectangle *update)
   DiaCairoRenderer *base_renderer = DIA_CAIRO_RENDERER (self);
 
   g_return_if_fail (base_renderer->cr == NULL);
-#if DIA_CAIRO_WITH_PIXMAP
-  base_renderer->cr = gdk_cairo_create(renderer->pixmap);
-#else
   base_renderer->cr = cairo_create(renderer->pixmap);
-#endif
 
   /* Setup clipping for this sequence of render operations */
   /* Must be done before the scaling because the clip is in pixel coords */
@@ -367,14 +345,12 @@ begin_render(DiaRenderer *self, const Rectangle *update)
 
   cairo_set_fill_rule (base_renderer->cr, CAIRO_FILL_RULE_EVEN_ODD);
 
-#if !DIA_CAIRO_WITH_PIXMAP
   /* should we set the background color? Or do nothing at all? */
   /* if this is drawn you can see 'clipping in action', outside of the clip it gets yellow ;) */
   cairo_set_source_rgba (base_renderer->cr, 1.0, 1.0, .8, 1.0);
   cairo_set_operator (base_renderer->cr, CAIRO_OPERATOR_OVER);
   cairo_rectangle (base_renderer->cr, 0, 0, renderer->width, renderer->height);
   cairo_fill (base_renderer->cr);
-#endif
 }
 
 static void
@@ -477,38 +453,12 @@ set_size(DiaRenderer *object, gpointer window,
 
   renderer->width = width;
   renderer->height = height;
-#if DIA_CAIRO_WITH_PIXMAP
-  if (renderer->pixmap != NULL)
-    g_object_unref(renderer->pixmap);
-
-  /* TODO: we can probably get rid of this extra pixmap and just draw directly
-   * to what gdk_cairo_create() gives us for the window
-   */
-  renderer->pixmap = gdk_pixmap_new(GDK_WINDOW(window),  width, height, -1);
-#else
-# if GTK_CHECK_VERSION(2,22,0)
   renderer->pixmap = gdk_window_create_similar_surface (GDK_WINDOW (window),
-							CAIRO_CONTENT_COLOR,
-							width, height);
-# else
-  {
-    cairo_rectangle_t extents;
-
-    extents.x = 0;
-    extents.y = 0;
-    extents.width = width;
-    extents.height = height;
-    renderer->pixmap = cairo_recording_surface_create(CAIRO_CONTENT_COLOR_ALPHA, &extents);
-  }
-# endif
-#endif
+                                                        CAIRO_CONTENT_COLOR,
+                                                        width, height);
 
   if (base_renderer->surface != NULL)
     cairo_surface_destroy(base_renderer->surface);
-#if DIA_CAIRO_WITH_PIXMAP
-  if (renderer->gc == NULL)
-    renderer->gc = gdk_gc_new(renderer->pixmap);
-#endif
 }
 
 static void
@@ -516,19 +466,6 @@ copy_to_window (DiaRenderer *object, gpointer window,
                 int x, int y, int width, int height)
 {
   DiaCairoInteractiveRenderer *renderer = DIA_CAIRO_INTERACTIVE_RENDERER (object);
-#if DIA_CAIRO_WITH_PIXMAP
-  static GdkGC *copy_gc = NULL;
-  
-  if (!copy_gc)
-    copy_gc = gdk_gc_new(window);
-
-  gdk_draw_drawable (GDK_WINDOW(window),
-                     copy_gc,
-                     renderer->pixmap,
-                     x, y,
-                     x, y,
-                     width > 0 ? width : -width, height > 0 ? height : -height);
-#else
   cairo_t *cr;
 
   cr = gdk_cairo_create (GDK_WINDOW(window));
@@ -537,7 +474,6 @@ copy_to_window (DiaRenderer *object, gpointer window,
   cairo_clip (cr);
   cairo_paint (cr);
   cairo_destroy (cr);
-#endif
 }
 
 static void
@@ -549,9 +485,6 @@ clip_region_clear(DiaRenderer *object)
     gdk_region_destroy(renderer->clip_region);
 
   renderer->clip_region =  gdk_region_new();
-#if DIA_CAIRO_WITH_PIXMAP
-  gdk_gc_set_clip_region(renderer->gc, renderer->clip_region);
-#endif
 }
 
 static void
@@ -576,9 +509,6 @@ clip_region_add_rect(DiaRenderer *object,
   clip_rect.height = y2 - y1 + 1;
 
   gdk_region_union_with_rect(renderer->clip_region, &clip_rect);
-#if DIA_CAIRO_WITH_PIXMAP
-  gdk_gc_set_clip_region(renderer->gc, renderer->clip_region);
-#endif
 }
 
 static void
@@ -632,18 +562,6 @@ fill_pixel_rect(DiaRenderer *object,
 		int width, int height,
 		Color *color)
 {
-#if DIA_CAIRO_WITH_PIXMAP
-  /* if we do it with cairo there is something wrong with the clipping? */
-  DiaCairoInteractiveRenderer *renderer = DIA_CAIRO_INTERACTIVE_RENDERER (object);
-  GdkGC *gc = renderer->gc;
-  GdkColor gdkcolor;
-    
-  color_convert(color, &gdkcolor);
-  gdk_gc_set_foreground(gc, &gdkcolor);
-
-  gdk_draw_rectangle (renderer->pixmap, gc, TRUE,
-		      x, y,  width, height);
-#else
   DiaCairoRenderer *renderer = DIA_CAIRO_RENDERER (object);
   double x1u = x + .5, y1u = y + .5, x2u = x + width + .5, y2u = y + height + .5;
   double lw[2];
@@ -658,7 +576,6 @@ fill_pixel_rect(DiaRenderer *object,
   cairo_set_source_rgba (renderer->cr, color->red, color->green, color->blue, color->alpha);
   cairo_rectangle (renderer->cr, x1u, y1u, x2u - x1u, y2u - y1u);
   cairo_fill (renderer->cr);
-#endif
 }
 
 DiaRenderer *
