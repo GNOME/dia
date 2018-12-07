@@ -107,7 +107,7 @@ magnify_motion(MagnifyTool *tool, GdkEventMotion *event,
   if (tool->box_active) {
     GdkColor white;
     cairo_t *ctx;
-    double dashes[] = { 1, 1, 1, 0, 0, 0 };
+    double dashes[] = { 3 };
 
     tool->moved = TRUE;
     color_convert(&color_white, &white);
@@ -117,7 +117,7 @@ magnify_motion(MagnifyTool *tool, GdkEventMotion *event,
     cairo_set_line_width (ctx, 1);
     cairo_set_line_cap (ctx, CAIRO_LINE_CAP_BUTT);
     cairo_set_line_join (ctx, CAIRO_LINE_JOIN_MITER);
-    cairo_set_dash (ctx, dashes, 6, 0);
+    cairo_set_dash (ctx, dashes, 1, 0);
 
     gdk_cairo_set_source_color (ctx, &white);
     cairo_set_operator (ctx, CAIRO_OPERATOR_XOR);
