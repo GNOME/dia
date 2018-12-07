@@ -354,8 +354,7 @@ dia_plugin_init(PluginInfo *info)
 	global_res = read_configuration(path);
 	g_free (path);
 
-	path = dia_config_filename("xslt" G_DIR_SEPARATOR_S 
-						     "stylesheets.xml");
+	path = dia_user_data_filename("xslt" G_DIR_SEPARATOR_S "stylesheets.xml");
 	user_res = read_configuration(path);
 	g_free (path);
 	

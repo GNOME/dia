@@ -1616,7 +1616,7 @@ write_user_sheet(Sheet *sheet)
   SheetObject *sheetobject;
   GSList *sheet_objects;
     
-  dir_user_sheets = dia_config_filename("sheets");
+  dir_user_sheets = dia_user_data_filename("sheets");
   if (!*(sheet->filename)) {
     gchar *basename;
 
@@ -1707,7 +1707,7 @@ write_user_sheet(Sheet *sheet)
       gchar *dest;
       gchar *basename;
 
-      dia_user_shapes = dia_config_filename("shapes");
+      dia_user_shapes = dia_user_data_filename("shapes");
 
       basename = g_path_get_basename(som->svg_filename);
       dest = g_strdup_printf("%s%s%s", dia_user_shapes, G_DIR_SEPARATOR_S, basename);

@@ -22,8 +22,26 @@ def load(plugindir):
 # import any python plugins from the user ...
 if not os.environ.has_key('HOME'):
 	os.environ['HOME'] = os.pathsep + 'tmp'
+	os.environ['XDG_DATA_HOME'] = os.pathsep + 'tmp'
+else:
+	default = os.path.join(os.environ['HOME'], '.local', 'share')
+	oldlocation = os.path.join(os.environ['HOME'], '.dia', 'python')
+	newlocation = os.path.join (
+		os.getenv ('XDG_DATA_HOME', default),
+		'dia',
+		'python'
+	)
+	if os.path.isdir(oldlocation):
+		try:
+			os.rename(oldlocation, newlocation)
+		except OSError:
+			sys.stderr.write('WARNING:' +
+			                 'Could not migrate python scripts from ' +
+					 '"%s" to "%s". Do it manually!%s' %
+					 (oldlocation, newlocation, os.linesep))
+
 # import all plugins found in user plugin dir
-load(os.path.join(os.environ['HOME'], '.dia', 'python'))
+load(os.path.join(os.environ['XDG_DATA_HOME'], 'dia', 'python'))
 
 # find system python plugin dir
 curdir = os.path.dirname(__file__)

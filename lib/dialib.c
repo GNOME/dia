@@ -114,7 +114,7 @@ libdia_init (guint flags)
 
     gtk_widget_set_default_colormap(gdk_rgb_get_cmap());
 
-    diagtkrc = dia_config_filename("diagtkrc");
+    diagtkrc = dia_user_config_filename("diagtkrc");
     dia_log_message ("Config from %s", diagtkrc);
     gtk_rc_parse(diagtkrc);
     g_free(diagtkrc);

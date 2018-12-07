@@ -309,7 +309,7 @@ void
 persistence_load()
 {
   xmlDocPtr doc;
-  gchar *filename = dia_config_filename("persistence");
+  gchar *filename = dia_user_data_filename("persistence");
   DiaContext *ctx;
 
   persistence_init();
@@ -482,7 +482,7 @@ persistence_save()
   xmlDocPtr doc;
   xmlNs *name_space;
   DiaContext *ctx;
-  gchar *filename = dia_config_filename("persistence");
+  gchar *filename = dia_user_data_filename("persistence");
 
   ctx = dia_context_new ("Persistence");
   doc = xmlNewDoc((const xmlChar *)"1.0");
