@@ -68,7 +68,6 @@ OBJECTS = \
 	properties-dialog.o \
 	recent_files.o \
 	render_eps.o \
-	render_pixmap.o \
 	scroll_tool.o \
 	select.o \
 	sheets.o \

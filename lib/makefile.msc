@@ -121,7 +121,6 @@ OBJECTS = \
 	propobject.obj \
 	propoffsets.obj \
 	propregistry.obj \
-	render_pixmap.obj \
 	sheet.obj \
 	standard-path.obj \
 	text.obj \

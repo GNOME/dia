@@ -191,8 +191,6 @@ libdia_la_SOURCES =  \
 		autoroute.h \
 		parent.c \
 		parent.h \
-		render_pixmap.h \
-		render_pixmap.c \
 		diaarrowchooser.h \
 		diaarrowchooser.c \
 		diaarrowselector.c \

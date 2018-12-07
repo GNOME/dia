@@ -28,7 +28,7 @@
 #include "intl.h"
 #include "widgets.h"
 #include "diaarrowchooser.h"
-#include "render_pixmap.h"
+#include "renderer/diacairo.h"
 
 static const char *button_menu_key = "dia-button-menu";
 static const char *menuitem_enum_key = "dia-menuitem-value";
@@ -166,7 +166,7 @@ dia_arrow_preview_expose(GtkWidget *widget, GdkEventExpose *event)
 #endif
     Point from, to;
     Point move_arrow, move_line, arrow_head;
-    DiaRenderer *renderer;
+    DiaCairoRenderer *renderer;
     DiaArrowPreview *arrow = DIA_ARROW_PREVIEW(widget);
     Arrow arrow_type;
     GtkMisc *misc = GTK_MISC(widget);
@@ -175,6 +175,8 @@ dia_arrow_preview_expose(GtkWidget *widget, GdkEventExpose *event)
     GdkWindow *win;
     int linewidth = 2;
     DiaRendererClass *renderer_ops;
+    cairo_surface_t *surface;
+    cairo_t *ctx;
 
     width = widget->allocation.width - misc->xpad * 2;
     height = widget->allocation.height - misc->ypad * 2;
@@ -207,37 +209,37 @@ dia_arrow_preview_expose(GtkWidget *widget, GdkEventExpose *event)
     point_add(&arrow_head, &move_arrow);
     point_add(&to, &move_line);
 
-    renderer = new_pixmap_renderer(win, width, height);
+    surface = cairo_image_surface_create (CAIRO_FORMAT_ARGB32, width, height);
+
+    renderer = g_object_new (dia_cairo_renderer_get_type (), NULL);
+    renderer->with_alpha = TRUE;
+    renderer->surface = cairo_surface_reference (surface);
+
     renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
-    renderer_pixmap_set_pixmap(renderer, win, x, y, width, height);
-    renderer_ops->begin_render(renderer, NULL);
-    renderer_ops->set_linewidth(renderer, linewidth);
+    renderer_ops->begin_render(DIA_RENDERER (renderer), NULL);
+    renderer_ops->set_linewidth(DIA_RENDERER (renderer), linewidth);
     {
       Color color_bg, color_fg;
       GtkStyle *style = gtk_widget_get_style (widget);
       /* the text colors are the best approximation to what we had */
-#if GTK_CHECK_VERSION(2,18,0)
       GdkColor bg = style->base[gtk_widget_get_state(widget)];
-#else
-      GdkColor bg = style->base[GTK_WIDGET_STATE(widget)];
-#endif
-#if GTK_CHECK_VERSION(2,18,0)
       GdkColor fg = style->text[gtk_widget_get_state(widget)];
-#else
-      GdkColor fg = style->text[GTK_WIDGET_STATE(widget)];
-#endif
 
       GDK_COLOR_TO_DIA(bg, color_bg);
       GDK_COLOR_TO_DIA(fg, color_fg);
-      renderer_ops->draw_line(renderer, &from, &to, &color_fg);
-      arrow_draw (renderer, arrow_type.type, 
+      renderer_ops->draw_line(DIA_RENDERER (renderer), &from, &to, &color_fg);
+      arrow_draw (DIA_RENDERER (renderer), arrow_type.type, 
                   &arrow_head, &from, 
 		  arrow_type.length, 
 		  arrow_type.width,
                   linewidth, &color_fg, &color_bg);
     }
-    renderer_ops->end_render(renderer);
+    renderer_ops->end_render(DIA_RENDERER (renderer));
     g_object_unref(renderer);
+
+    ctx = gdk_cairo_create (win);
+    cairo_set_source_surface (ctx, surface, x, y);
+    cairo_paint (ctx);
   }
 
   return TRUE;
