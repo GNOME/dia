@@ -71,7 +71,7 @@ linewidth_area_draw (GtkWidget *linewidth_area)
   int x_offs;
   GtkStyle *style;
   cairo_t *ctx;
-  double dashes[] = { 1, 1, 1, 0, 0, 0 };
+  double dashes[] = { 3 };
 
   if (!linewidth_area_pixmap)     /* we haven't gotten initial expose yet,
                                * no point in drawing anything */
@@ -81,7 +81,7 @@ linewidth_area_draw (GtkWidget *linewidth_area)
   cairo_set_line_width (ctx, 1);
   cairo_set_line_cap (ctx, CAIRO_LINE_CAP_BUTT);
   cairo_set_line_join (ctx, CAIRO_LINE_JOIN_MITER);
-  cairo_set_dash (ctx, dashes, 6, 0);
+  cairo_set_dash (ctx, dashes, 1, 0);
 
   gdk_drawable_get_size (linewidth_area_pixmap, &width, &height);
 
