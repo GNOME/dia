@@ -239,7 +239,6 @@ endif
 libdia_la_LIBADD = $(GTK_LIBS)
 
 AM_CPPFLAGS = \
-	$(LIBART_CFLAGS) \
 	-DLIBDIA_COMPILATION \
 	-DLIBDIR=\"$(libdir)\" \
 	-DDATADIR=\"$(pkgdatadir)\" \
@@ -251,7 +250,7 @@ sheetdir = $(pkgdatadir)/sheets
 AM_CPPFLAGS += -I$(top_srcdir)/intl $(DEBUG_FLAGS) $(GDK_PIXBUF_CFLAGS) \
   $(XML_CFLAGS) $(GTK_CFLAGS) \
   -DDIA_SHEETDIR=\"$(sheetdir)\" \
-  $(PANGOFT2_CFLAGS) $(LIBART_CFLAGS) $(UNICODE_CFLAGS)
+  $(PANGOFT2_CFLAGS) $(UNICODE_CFLAGS)
 
 libdia_la_extra_sources = diamarshal.list
 

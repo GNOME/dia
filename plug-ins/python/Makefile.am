@@ -4,7 +4,6 @@ AM_CPPFLAGS = \
 	-I$(top_srcdir)/lib \
 	$(DEBUG_FLAGS) \
 	$(GTK_CFLAGS) \
-	$(LIBART_CFLAGS) \
 	$(PYTHON_INCLUDES) \
 	$(XML_CFLAGS) $(UNICODE_CFLAGS) 
 

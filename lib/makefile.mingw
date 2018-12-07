@@ -13,7 +13,6 @@ PKG_CFLAGS = -I .. \
 	$(GTK2_CFLAGS) \
 	-DWIN32 $(LIBXML2_CFLAGS) \
 	$(ZLIB_CFLAGS) \
-	-I $(LIBART)/.. \
 	$(INTL_CFLAGS) \
 	-DLIBDIA_COMPILATION
 
@@ -42,7 +41,6 @@ OBJECTS = \
 	diagdkrenderer.o \
 	diagtkfontsel.o \
 	diainteractiverenderer.o \
-	dialibartrenderer.o \
 	diarenderer.o \
 	diatransform.o \
 	dynamic_obj.o \

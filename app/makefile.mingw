@@ -8,18 +8,16 @@ PRJ_TOP = ..
 PACKAGE = dia
 include $(TOP)/glib/build/win32/make.mingw
 
-LIBART = $(TOP)/libart_lgpl
-
 # -DHAVE_LIBPNG 
 PKG_CFLAGS = -DHAVE_CONFIG_H \
 	-fno-exceptions \
 	-I.. $(GLIB_CFLAGS) $(GTK2_CFLAGS) \
 	$(LIBXML2_CFLAGS) $(PNG_CFLAGS) \
-	-I$(PRJ_TOP)/lib -I$(LIBART)/.. -DHAVE_LIBART
+	-I$(PRJ_TOP)/lib
 
 PKG_LINK = $(GLIB_LIBS) $(GTK2_LIBS) $(PANGO_LIBS) \
 	$(LIBXML2_LIBS) $(PNG_LIBS) \
-	-L $(PRJ_TOP)/lib -llibdia -L $(LIBART) -llibart \
+	-L $(PRJ_TOP)/lib -llibdia \
 
 OBJECTS = \
 	autosave.o \
@@ -70,7 +68,6 @@ OBJECTS = \
 	properties-dialog.o \
 	recent_files.o \
 	render_eps.o \
-	render_libart.o \
 	render_pixmap.o \
 	scroll_tool.o \
 	select.o \

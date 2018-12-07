@@ -8,7 +8,6 @@ full: 	build \
 	build\win32\bin\diaw.exe \
 	build\win32\bin\dia-app.dll \
 	build\win32\bin\libdia.dll \
-	build\win32\bin\libart_lgpl_2-2.dll \
 #	build\win32\bin\libfontconfig-1.dll \
 	build\win32\bin\libgtk-win32-2.0-0.dll \
 	build\win32\bin\libxml2.dll \
@@ -29,7 +28,6 @@ full: 	build \
 	build\win32\dia\istar.dll \
 	build\win32\dia\jackson.dll \
 	build\win32\dia\kaos.dll \
-	build\win32\dia\libart.dll \
 	build\win32\dia\misc.dll \
 	build\win32\dia\network.dll \
 	build\win32\dia\sadt.dll \
@@ -114,9 +112,6 @@ build\win32\bin\diaw.exe: build\win32\bin app\diaw.exe
 
 build\win32\bin\dia-app.dll: build\win32\bin app\dia-app.dll
 	copy app\dia-app.dll build\win32\bin\dia-app.dll
-	
-build\win32\bin\libart_lgpl_2-2.dll: build\win32\bin ..\bin\libart_lgpl_2-2.dll
-	copy ..\bin\libart_lgpl_2-2.dll build\win32\bin
 
 build\win32\bin\libfontconfig-1.dll: build\win32\bin ..\bin\libfontconfig-1.dll
 	copy ..\bin\libfontconfig-1.dll build\win32\bin
@@ -178,9 +173,6 @@ build\win32\dia\jackson.dll: build\win32\dia objects\Jackson\jackson.dll
 build\win32\dia\kaos.dll: build\win32\dia objects\KAOS\kaos.dll
 	copy objects\KAOS\kaos.dll build\win32\dia
 
-build\win32\dia\libart.dll: build\win32\dia plug-ins\libart\libart.dll
-	copy plug-ins\libart\libart.dll build\win32\dia	
-	
 build\win32\dia\misc.dll: build\win32\dia objects\Misc\misc.dll
 	copy objects\Misc\misc.dll build\win32\dia
 

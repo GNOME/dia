@@ -626,11 +626,7 @@ export_shape(DiagramData *data, DiaContext *ctx,
     point = g_strndup(filename, i);
     png_filename = g_strdup_printf("%s.png",point);
     g_free(point);
-    /* we are especially requesting the libart/png cause it is the only one with the size-hack */
-    exportfilter = filter_export_get_by_name ("png-libart");
-    /* ... but the code below does not use the size-hack anymore ... */
-    if (!exportfilter)
-      exportfilter = filter_guess_export_filter(png_filename);
+    exportfilter = filter_guess_export_filter(png_filename);
 
     if (!exportfilter) {
       dia_context_add_message(ctx, _("Can't export PNG icon without export plugin!"));

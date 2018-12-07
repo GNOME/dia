@@ -327,13 +327,9 @@ do_convert(const char *infname,
    * are quite some filter selecting their output format by it. --hb
    */
   if (size) {
-    if (ef == filter_export_get_by_name ("png-libart")) /* the warning we get is appropriate, don't cast */
-      ef->export_func(diagdata, ctx, outfname, infname, size);
-    else {
-      g_warning ("--size parameter unsupported for %s filter", 
-                 ef->unique_name ? ef->unique_name : "selected");
-      ef->export_func(diagdata, ctx, outfname, infname, ef->user_data);
-    }
+    g_warning ("--size parameter unsupported for %s filter", 
+                ef->unique_name ? ef->unique_name : "selected");
+    ef->export_func(diagdata, ctx, outfname, infname, ef->user_data);
   }
   else
     ef->export_func(diagdata, ctx, outfname, infname, ef->user_data);
@@ -370,9 +366,6 @@ dump_dependencies(void)
   "threads "
 #endif
   "cairo "
-#ifdef HAVE_LIBART
-  "libart "
-#endif
   "pangocairo "
   "\n");
 
@@ -481,11 +474,7 @@ handle_initial_diagram(const char *in_file_name,
     /* First try guessing based on extension */
     export_file_name = build_output_file_name(in_file_name, export_file_format, outdir);
 
-    /* to make the --size hack even uglier but work again for the only filter supporting it */
-    if (   size && strcmp(export_file_format, "png") == 0)
-      ef = filter_export_get_by_name ("png-libart");
-    if (!ef)
-      ef = filter_guess_export_filter(export_file_name);
+    ef = filter_guess_export_filter(export_file_name);
     if (ef == NULL) {
       ef = filter_export_get_by_name(export_file_format);
       if (ef == NULL) {
@@ -501,10 +490,6 @@ handle_initial_diagram(const char *in_file_name,
     g_free(export_file_name);
   } else if (out_file_name) {
     DiaExportFilter *ef = NULL;
-
-    /* if this looks like an ugly hack to you, agreed ;)  */
-    if (size && strstr(out_file_name, ".png"))
-      ef = filter_export_get_by_name ("png-libart");
     
     made_conversions |= do_convert(in_file_name, out_file_name, ef,
 				   size, show_layers);

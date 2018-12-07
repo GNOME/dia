@@ -86,7 +86,7 @@ dia-python.cpp : $(INTERFACES)
 	echo /* No SWIG */ > $@
 endif
 
-GCCXMLINC = -I.. -I../lib -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/pango-1.0 -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/libxml2 -I/usr/include/libart-2.0   -I/usr/include/python2.5 -I/usr/include/libxml2
+GCCXMLINC = -I.. -I../lib -I/usr/include/gtk-2.0 -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/pango-1.0 -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/libxml2 -I/usr/include/python2.5 -I/usr/include/libxml2
 $(srcdir)/dia-object.xml : $(INTERFACES)
 	gccxml --gccxml-cxxflags '$(GTK_CFLAGS) $(XML_CFLAGS)' -I$(top_srcdir) -I ../lib dia-object.cpp -fxml=$@
 

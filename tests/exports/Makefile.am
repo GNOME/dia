@@ -1,4 +1,4 @@
-EXPORT_PLUGINS=cgm dxf eps eps-builtin eps-pango fig mp plt hpgl png png-libart pixbuf-png jpg shape svg tex wpg
+EXPORT_PLUGINS=cgm dxf eps eps-builtin eps-pango fig mp plt hpgl png pixbuf-png jpg shape svg tex wpg
 
 tests:
 	mkdir /tmp/dia-tests; \

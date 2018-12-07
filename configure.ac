@@ -100,13 +100,6 @@ AM_CONDITIONAL(WITH_FREETYPE, test "x$with_freetype" != "xno")
 
 CFLAGS="$FREETYPE_CFLAGS $CFLAGS"
 
-dnl Try for libart
-PKG_CHECK_MODULES(LIBART,libart-2.0,have_libart=yes,have_libart=no)
-if test "$have_libart" = "yes" ; then
-   GTK_MODULES="$GTK_MODULES libart-2.0"
-   AC_DEFINE(HAVE_LIBART,1,[Define if building with LIBART support])
-fi
-
 dnl Try for poppler
 PKG_CHECK_MODULES(POPPLER,poppler,have_poppler=yes,have_poppler=no)
 if test "$have_poppler" = "yes" ; then
@@ -650,7 +643,6 @@ plug-ins/drs/Makefile
 plug-ins/dxf/Makefile
 plug-ins/hpgl/Makefile
 plug-ins/layout/Makefile
-plug-ins/libart/Makefile
 plug-ins/metapost/Makefile
 plug-ins/pixbuf/Makefile
 plug-ins/postscript/Makefile
@@ -713,7 +705,6 @@ Configuration:
 	can C++:		${cxx_ok}
 
 	Python support:                          ${with_python}
-	Libart support (PNG export):             ${have_libart}
 	Dia Python bindings with SWIG            ${with_swig}
 	PDF import with poppler (experimental)   ${have_poppler}
 	WMF plug-in with libEMF:                 ${emf_ok}
