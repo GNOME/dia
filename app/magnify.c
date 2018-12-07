@@ -24,7 +24,6 @@
 
 struct _MagnifyTool {
   Tool tool;
-  GdkGC *gc;
   int box_active;
   int moved;
   int x, y;
@@ -107,29 +106,33 @@ magnify_motion(MagnifyTool *tool, GdkEventMotion *event,
 
   if (tool->box_active) {
     GdkColor white;
+    cairo_t *ctx;
+    double dashes[] = { 1, 1, 1, 0, 0, 0 };
 
     tool->moved = TRUE;
     color_convert(&color_white, &white);
 
-    if (tool->gc == NULL) {
-      tool->gc = gdk_gc_new(gtk_widget_get_window(ddisp->canvas));
-      gdk_gc_set_line_attributes(tool->gc, 1, GDK_LINE_ON_OFF_DASH,
-				 GDK_CAP_BUTT, GDK_JOIN_MITER);
-      gdk_gc_set_foreground(tool->gc, &white);
-      gdk_gc_set_function(tool->gc, GDK_XOR);
-    }
+    ctx = gdk_cairo_create(gtk_widget_get_window(ddisp->canvas));
+
+    cairo_set_line_width (ctx, 1);
+    cairo_set_line_cap (ctx, CAIRO_LINE_CAP_BUTT);
+    cairo_set_line_join (ctx, CAIRO_LINE_JOIN_MITER);
+    cairo_set_dash (ctx, dashes, 6, 0);
+
+    gdk_cairo_set_source_color (ctx, &white);
+    cairo_set_operator (ctx, CAIRO_OPERATOR_XOR);
 
     tl.x = MIN(tool->x, tool->oldx); tl.y = MIN(tool->y, tool->oldy);
     br.x = MAX(tool->x, tool->oldx); br.y = MAX(tool->y, tool->oldy);
 
-    gdk_draw_rectangle (gtk_widget_get_window(ddisp->canvas),
-			tool->gc, FALSE, tl.x, tl.y, br.x - tl.x, br.y - tl.y);
+    cairo_rectangle (ctx, tl.x, tl.y, br.x - tl.x, br.y - tl.y);
+    cairo_stroke (ctx);
 
     tl.x = MIN(tool->x, event->x); tl.y = MIN(tool->y, event->y);
     br.x = MAX(tool->x, event->x); br.y = MAX(tool->y, event->y);
 
-    gdk_draw_rectangle (gtk_widget_get_window(ddisp->canvas),
-			tool->gc, FALSE, tl.x, tl.y, br.x - tl.x, br.y - tl.y);
+    cairo_rectangle (ctx, tl.x, tl.y, br.x - tl.x, br.y - tl.y);
+    cairo_stroke (ctx);
 
     tool->oldx = event->x;
     tool->oldy = event->y;
@@ -162,7 +165,6 @@ create_magnify_tool(void)
   tool->tool.motion_func = (MotionFunc) &magnify_motion;
   tool->tool.double_click_func = NULL;
 
-  tool->gc = NULL;
   tool->box_active = FALSE;
   tool->zoom_out = FALSE;
 
