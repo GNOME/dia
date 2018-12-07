@@ -27,7 +27,7 @@
 
 #include "intl.h"
 #include "geometry.h"
-#include "diagdkrenderer.h"
+#include "renderer/diacairo.h"
 #include "filter.h"
 #include "plug-ins.h"
 #include "properties.h"
@@ -38,13 +38,14 @@ export_data(DiagramData *data, DiaContext *ctx,
 	    const gchar *filename, const gchar *diafilename,
 	    void* user_data)
 {
-  DiaGdkRenderer *renderer;
+  DiaCairoRenderer *renderer;
   GdkColor color;
   int width, height;
   GdkPixbuf* pixbuf = NULL;
   GError* error = NULL;
   Rectangle rect;
   real zoom = 1.0;
+  cairo_t *cctx;
   const char* format = (const char*)user_data;
 
   rect.left = data->extents.left;
@@ -59,23 +60,41 @@ export_data(DiagramData *data, DiaContext *ctx,
   width = ceil((rect.right - rect.left) * zoom) + 1;
   height = ceil((rect.bottom - rect.top) * zoom) + 1;
 
-  renderer = g_object_new (DIA_TYPE_GDK_RENDERER, NULL);
-  renderer->transform = dia_transform_new (&rect, &zoom);
-  renderer->pixmap = gdk_pixmap_new(NULL, width, height, gdk_visual_get_system()->depth);
-  renderer->gc = gdk_gc_new(renderer->pixmap);
+  renderer = g_object_new (dia_cairo_renderer_get_type(), NULL);
+  renderer->scale = zoom;
+  renderer->surface = cairo_surface_reference (cairo_image_surface_create (CAIRO_FORMAT_ARGB32,
+                                                  width, height));
+
+  cctx = cairo_create (renderer->surface);
 
   /* draw background */
   color_convert (&data->bg_color, &color);
-  gdk_gc_set_foreground(renderer->gc, &color);
-  gdk_draw_rectangle(renderer->pixmap, renderer->gc, 1,
-		 0, 0, width, height);
+  gdk_cairo_set_source_color (cctx, &color);
+  cairo_rectangle (cctx, 0, 0, width, height);
+  cairo_fill (cctx);
 
-  data_render(data, DIA_RENDERER (renderer), NULL, NULL, NULL);
+  data_render (data, DIA_RENDERER (renderer), NULL, NULL, NULL);
 
-  pixbuf = gdk_pixbuf_get_from_drawable (NULL, renderer->pixmap, 
-                                         gdk_colormap_get_system (),
-                                         0, 0, 0, 0,
-                                         width, height);
+  #if GTK_CHECK_VERSION(3,0,0)
+  pixbuf = gdk_pixbuf_get_from_surface (renderer->surface, 0, 0,
+                                        width, height);
+  #else
+  {
+    GdkPixmap *pixmap;
+    cairo_t *cr;
+
+    pixmap = gdk_pixmap_new (NULL, width, height, 24);
+    cr = gdk_cairo_create (pixmap);
+
+    cairo_set_operator (cr, CAIRO_OPERATOR_SOURCE);
+    cairo_set_source_surface (cr, renderer->surface, 0, 0);
+    cairo_paint (cr);
+    pixbuf = gdk_pixbuf_get_from_drawable (NULL,
+                                           pixmap,
+                                           gdk_colormap_get_system (),
+                                           0, 0, 0, 0, width, height);
+  }
+  #endif
   if (pixbuf)
     {
       gdk_pixbuf_save (pixbuf, filename, format, &error, NULL);
