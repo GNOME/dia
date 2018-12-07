@@ -58,7 +58,6 @@ struct _DiaPageLayout {
 
   GtkWidget *darea;
 
-  GdkGC *gc;
   GdkColor white, black, blue;
   gint papernum; /* index into page_metrics array */
 
@@ -366,7 +365,6 @@ dia_page_layout_init(DiaPageLayout *self)
   self->blue.blue = 0x7fff;
   gdk_color_alloc(gtk_widget_get_colormap(GTK_WIDGET(self)), &self->blue);
 
-  self->gc = NULL;
   self->block_changed = FALSE;
 }
 
@@ -610,68 +608,96 @@ darea_expose_event(DiaPageLayout *self, GdkEventExpose *event)
   GdkWindow *window = gtk_widget_get_window(self->darea);
   gfloat val;
   gint num;
+  cairo_t *ctx;
 
   if (!window)
     return FALSE;
 
-  if (!self->gc)
-    self->gc = gdk_gc_new(window);
+  ctx = gdk_cairo_create (window);
+  cairo_set_line_cap (ctx, CAIRO_LINE_CAP_SQUARE);
+  cairo_set_line_width (ctx, 1);
+  cairo_set_antialias (ctx, CAIRO_ANTIALIAS_NONE);
 
-  gdk_window_clear_area (window,
-                         0, 0,
-                         self->darea->allocation.width,
-                         self->darea->allocation.height);
+  cairo_set_source_rgba (ctx, 0, 0, 0, 0);
+  cairo_rectangle (ctx, 0, 0,
+                        self->darea->allocation.width,
+                        self->darea->allocation.height);
+  cairo_fill (ctx);
 
   /* draw the page image */
-  gdk_gc_set_foreground(self->gc, &self->black);
-  gdk_draw_rectangle(window, self->gc, TRUE, self->x+3, self->y+3,
-		     self->width, self->height);
-  gdk_gc_set_foreground(self->gc, &self->white);
-  gdk_draw_rectangle(window, self->gc, TRUE, self->x, self->y,
-		     self->width, self->height);
-  gdk_gc_set_foreground(self->gc, &self->black);
-  gdk_draw_rectangle(window, self->gc, FALSE, self->x, self->y,
-		     self->width-1, self->height-1);
+  gdk_cairo_set_source_color (ctx, &self->black);
+  cairo_rectangle(ctx, self->x+3, self->y+3, self->width, self->height);
+  cairo_fill (ctx);
+  gdk_cairo_set_source_color (ctx, &self->white);
+  cairo_rectangle (ctx, self->x, self->y, self->width, self->height);
+  cairo_fill (ctx);
+  gdk_cairo_set_source_color (ctx, &self->black);
+  cairo_rectangle (ctx, self->x + 1, self->y, self->width, self->height);
+  cairo_stroke (ctx);
 
-  gdk_gc_set_foreground(self->gc, &self->blue);
+  gdk_cairo_set_source_color (ctx, &self->blue);
 
   /* draw margins */
-  if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(self->orient_portrait))) {
-    val = dia_unit_spinner_get_value(DIA_UNIT_SPINNER(self->tmargin));
-    num = self->y + val * self->height /get_paper_psheight(self->papernum);
-    gdk_draw_line(window, self->gc, self->x+1, num, self->x+self->width-2,num);
+  if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (self->orient_portrait))) {
+    /* Top */
+    val = dia_unit_spinner_get_value (DIA_UNIT_SPINNER (self->tmargin));
+    num = self->y + val * self->height / get_paper_psheight (self->papernum);
+    cairo_move_to (ctx, self->x + 2, num);
+    cairo_line_to (ctx, self->x + self->width, num);
+    cairo_stroke (ctx);
 
-    val = dia_unit_spinner_get_value(DIA_UNIT_SPINNER(self->bmargin));
+    /* Bottom */
+    val = dia_unit_spinner_get_value (DIA_UNIT_SPINNER (self->bmargin));
     num = self->y + self->height -
-      val * self->height / get_paper_psheight(self->papernum);
-    gdk_draw_line(window, self->gc, self->x+1, num, self->x+self->width-2,num);
+      val * self->height / get_paper_psheight (self->papernum);
+    cairo_move_to (ctx, self->x + 2, num);
+    cairo_line_to (ctx, self->x + self->width, num);
+    cairo_stroke (ctx);
 
-    val = dia_unit_spinner_get_value(DIA_UNIT_SPINNER(self->lmargin));
-    num = self->x + val * self->width / get_paper_pswidth(self->papernum);
-    gdk_draw_line(window, self->gc, num, self->y+1,num,self->y+self->height-2);
+    /* Left */
+    val = dia_unit_spinner_get_value (DIA_UNIT_SPINNER (self->lmargin));
+    num = self->x + val * self->width / get_paper_pswidth (self->papernum);
+    cairo_move_to (ctx, num + 1, self->y + 1);
+    cairo_line_to (ctx, num + 1, self->y + self->height - 1);
+    cairo_stroke (ctx);
 
-    val = dia_unit_spinner_get_value(DIA_UNIT_SPINNER(self->rmargin));
+    /* Right */
+    val = dia_unit_spinner_get_value (DIA_UNIT_SPINNER (self->rmargin));
     num = self->x + self->width -
-      val * self->width / get_paper_pswidth(self->papernum);
-    gdk_draw_line(window, self->gc, num, self->y+1,num,self->y+self->height-2);
+      val * self->width / get_paper_pswidth (self->papernum);
+    cairo_move_to (ctx, num + 1, self->y + 1);
+    cairo_line_to (ctx, num + 1, self->y + self->height - 1);
+    cairo_stroke (ctx);
   } else {
-    val = dia_unit_spinner_get_value(DIA_UNIT_SPINNER(self->tmargin));
-    num = self->y + val * self->height /get_paper_pswidth(self->papernum);
-    gdk_draw_line(window, self->gc, self->x+1, num, self->x+self->width-2,num);
+    /* Top */
+    val = dia_unit_spinner_get_value (DIA_UNIT_SPINNER (self->tmargin));
+    num = self->y + val * self->height / get_paper_pswidth (self->papernum);
+    cairo_move_to (ctx, self->x + 2, num);
+    cairo_line_to (ctx, self->x + self->width, num);
+    cairo_stroke (ctx);
 
-    val = dia_unit_spinner_get_value(DIA_UNIT_SPINNER(self->bmargin));
+    /* Bottom */
+    val = dia_unit_spinner_get_value (DIA_UNIT_SPINNER (self->bmargin));
     num = self->y + self->height -
-      val * self->height / get_paper_pswidth(self->papernum);
-    gdk_draw_line(window, self->gc, self->x+1, num, self->x+self->width-2,num);
+      val * self->height / get_paper_pswidth (self->papernum);
+    cairo_move_to (ctx, self->x + 2, num);
+    cairo_line_to (ctx, self->x + self->width, num);
+    cairo_stroke (ctx);
 
-    val = dia_unit_spinner_get_value(DIA_UNIT_SPINNER(self->lmargin));
-    num = self->x + val * self->width / get_paper_psheight(self->papernum);
-    gdk_draw_line(window, self->gc, num, self->y+1,num,self->y+self->height-2);
+    /* Left */
+    val = dia_unit_spinner_get_value (DIA_UNIT_SPINNER (self->lmargin));
+    num = self->x + val * self->width / get_paper_psheight (self->papernum);
+    cairo_move_to (ctx, num + 1, self->y + 1);
+    cairo_line_to (ctx, num + 1, self->y + self->height - 1);
+    cairo_stroke (ctx);
 
-    val = dia_unit_spinner_get_value(DIA_UNIT_SPINNER(self->rmargin));
+    /* Right */
+    val = dia_unit_spinner_get_value (DIA_UNIT_SPINNER (self->rmargin));
     num = self->x + self->width -
-      val * self->width / get_paper_psheight(self->papernum);
-    gdk_draw_line(window, self->gc, num, self->y+1,num,self->y+self->height-2);
+      val * self->width / get_paper_psheight (self->papernum);
+    cairo_move_to (ctx, num + 1, self->y + 1);
+    cairo_line_to (ctx, num + 1, self->y + self->height - 1);
+    cairo_stroke (ctx);
   }
 
   return FALSE;
@@ -801,13 +827,6 @@ scale_changed(DiaPageLayout *self)
 static void
 dia_page_layout_destroy(GtkObject *object)
 {
-  DiaPageLayout *self = DIA_PAGE_LAYOUT(object);
-
-  if (self->gc) {
-    g_object_unref(self->gc);
-    self->gc = NULL;
-  }
-
   if (parent_class->destroy)
     (* parent_class->destroy)(object);
 }
