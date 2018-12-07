@@ -26,7 +26,7 @@
 
 #include "diagram.h"
 #include "display.h"
-#include "diagdkrenderer.h"
+#include "renderer/diacairo.h"
 
 #include "navigation.h"
 
@@ -48,7 +48,6 @@ struct _NavigationWindow
   /*miniframe*/
   int frame_w;
   int frame_h;
-  GdkGC * gc;
   GdkCursor * cursor;
 
   /*factors to translate thumbnail coordinates to adjustement values*/
@@ -56,7 +55,7 @@ struct _NavigationWindow
   gdouble vadj_coef;
 
   /*diagram thumbnail's buffer*/
-  GdkPixmap * buffer;
+  cairo_surface_t *surface;
 
   /*display to navigate*/
   DDisplay * ddisp;
@@ -150,7 +149,7 @@ on_button_navigation_popup_pressed (GtkButton * button, gpointer _ddisp)
   Rectangle rect;/*diagram's extents*/
   real zoom;/*zoom factor for thumbnail rendering*/
 
-  GtkStyle *style;
+  DiaCairoRenderer *renderer;
 
   memset (nav, 0, sizeof(NavigationWindow));
   /*--Retrieve the diagram's data*/
@@ -234,12 +233,6 @@ on_button_navigation_popup_pressed (GtkButton * button, gpointer _ddisp)
   gtk_widget_show (frame);
   gtk_widget_show (popup_window);
 
-  /*miniframe style*/
-  nav->gc = gdk_gc_new (gtk_widget_get_window (drawing_area));
-  gdk_gc_set_line_attributes (nav->gc,
-                              FRAME_THICKNESS,
-                              GDK_LINE_SOLID, GDK_CAP_BUTT, GDK_JOIN_MITER);
-
   /*cursor*/
   if (MIN(nav->frame_h, nav->frame_w) > STD_CURSOR_MIN) {
     nav->cursor = gdk_cursor_new (GDK_FLEUR);
@@ -261,34 +254,18 @@ on_button_navigation_popup_pressed (GtkButton * button, gpointer _ddisp)
                     nav->cursor,
                     GDK_CURRENT_TIME);
 
-  /*buffer to draw the thumbnail on*/
-  nav->buffer = gdk_pixmap_new (gtk_widget_get_window (drawing_area),
-                                nav->width, nav->height, -1);
-  style = gtk_widget_get_style (drawing_area);
-  gdk_draw_rectangle (nav->buffer,
-                      style->black_gc, TRUE,
-                      0, 0, nav->width, nav->height);
+  /* surface to draw the thumbnail on */
+  nav->surface = cairo_image_surface_create (CAIRO_FORMAT_ARGB32,
+                                            nav->width, nav->height);
 
-  {/*--Render the thumbnail*/
-    DiaGdkRenderer *renderer;
-    GdkColor color;
+  renderer = g_object_new (g_type_from_name ("DiaCairoRenderer"), NULL);
+  renderer->scale = zoom;
+  renderer->surface = cairo_surface_reference (nav->surface);
 
-    renderer = g_object_new (DIA_TYPE_GDK_RENDERER, NULL);
-    renderer->transform = dia_transform_new (&rect, &zoom);
-    renderer->pixmap = nav->buffer;/*render on the thumbnail buffer*/
-    renderer->gc = gdk_gc_new (nav->buffer);
+  /*render the data*/
+  data_render (data, DIA_RENDERER (renderer), NULL, NULL, NULL);
 
-    /*Background color*/
-    color_convert (&data->bg_color, &color);
-    gdk_gc_set_foreground (renderer->gc, &color);
-    gdk_draw_rectangle (renderer->pixmap, renderer->gc, 1, 0, 0, nav->width, nav->height);
-
-    /*render the data*/
-    data_render (data, DIA_RENDERER (renderer), NULL, NULL, NULL);
-
-    g_object_ref (renderer->pixmap);
-    g_object_unref (renderer);  
-  }
+  g_object_unref (renderer);
 
   nav->is_first_expose = TRUE;/*set to request to draw the miniframe*/
 }
@@ -313,38 +290,35 @@ reset_sc_adj (GtkAdjustment * adj, gdouble lower, gdouble upper, gdouble page)
 static gboolean
 on_da_expose_event (GtkWidget * widget, GdkEventExpose * event, gpointer unused)
 {
-  GtkStyle *style = gtk_widget_get_style (widget);
+  GtkAdjustment * adj;
+  int x, y;
+  cairo_t *ctx;
+
+  ctx = gdk_cairo_create (gtk_widget_get_window (widget));
+  cairo_set_line_width (ctx, FRAME_THICKNESS);
+  cairo_set_line_cap (ctx, CAIRO_LINE_CAP_BUTT);
+  cairo_set_line_join (ctx, CAIRO_LINE_JOIN_MITER);
+
   /*refresh the part outdated by the event*/
-  gdk_draw_drawable (gtk_widget_get_window (widget),
-#if GTK_CHECK_VERSION(2,18,0)
-                     style->fg_gc[gtk_widget_get_state (widget)],
-#else
-                     style->fg_gc[GTK_WIDGET_STATE (widget)],
-#endif
-                     GDK_PIXMAP(nav->buffer),
-                     event->area.x, event->area.y,
-                     event->area.x, event->area.y,
-                     event->area.width, event->area.height);
+  cairo_set_source_surface (ctx, nav->surface,
+                            event->area.x, event->area.y);
+  cairo_rectangle (ctx, event->area.x, event->area.y,
+                        event->area.width, event->area.height);
+  cairo_fill (ctx);
 
-  /*the first time, display the current display's state*/
-  if(nav->is_first_expose){
+  adj = nav->ddisp->hsbdata;
+  x = (adj->value - adj->lower) / (adj->upper - adj->lower) * (nav->width) +1;
 
-    GtkAdjustment * adj;
-    int x, y;
+  adj = nav->ddisp->vsbdata;
+  y = (adj->value - adj->lower) / (adj->upper - adj->lower) * (nav->height) +1;
 
-    adj = nav->ddisp->hsbdata;
-    x = (adj->value - adj->lower) / (adj->upper - adj->lower) * (nav->width) +1;
+  /*draw directly on the window, do not buffer the miniframe*/
+  cairo_set_source_rgb (ctx, 0, 0, 0);
+  cairo_rectangle (ctx, x, y, nav->frame_w, nav->frame_h);
+  cairo_stroke (ctx);
 
-    adj = nav->ddisp->vsbdata;
-    y = (adj->value - adj->lower) / (adj->upper - adj->lower) * (nav->height) +1;
-
-    /*draw directly on the window, do not buffer the miniframe*/
-    gdk_draw_rectangle (gtk_widget_get_window (widget),
-                        nav->gc, FALSE,
-                        x, y, nav->frame_w, nav->frame_h);
-
-    nav->is_first_expose = FALSE;
-  }
+  nav->is_first_expose = FALSE;
+  
   return FALSE;
 }
 
@@ -354,7 +328,6 @@ on_da_motion_notify_event (GtkWidget * drawing_area, GdkEventMotion * event, gpo
 {
   GtkAdjustment * adj;
   gboolean value_changed;
-  GtkStyle *style;
 
   int w = nav->frame_w;
   int h = nav->frame_h;
@@ -399,22 +372,9 @@ on_da_motion_notify_event (GtkWidget * drawing_area, GdkEventMotion * event, gpo
   }
   if (value_changed) gtk_adjustment_value_changed(adj);
 
+  /* Trigger redraw */
+  gdk_window_invalidate_rect (gtk_widget_get_window (drawing_area), NULL, TRUE);
 
-/*--Draw the miniframe*/
-/*refresh from the buffer*/
-  style = gtk_widget_get_style (drawing_area);
-  gdk_draw_drawable (gtk_widget_get_window (drawing_area),
-#if GTK_CHECK_VERSION(2,18,0)
-                     style->fg_gc[gtk_widget_get_state (drawing_area)],
-#else
-                     style->fg_gc[GTK_WIDGET_STATE (drawing_area)],
-#endif
-                     GDK_PIXMAP(nav->buffer),
-                     0, 0, 0, 0, nav->width, nav->height);
-/*draw directly on the window, do not buffer the miniframe*/
-  gdk_draw_rectangle (gtk_widget_get_window (drawing_area),
-                      nav->gc, FALSE,
-                      x, y, w, h);
   return FALSE;
 }
 
@@ -425,14 +385,6 @@ on_da_button_release_event (GtkWidget * widget, GdkEventButton * event, gpointer
   /* Apparently there are circumstances where this is run twice for one popup 
    * Protected calls to avoid crashing on second pass.
    */
-  if (nav->buffer)
-    g_object_unref (nav->buffer);
-  nav->buffer = NULL;
-
-  if (nav->gc)
-    g_object_unref (nav->gc);
-  nav->gc = NULL;
-
   if (nav->cursor)
     gdk_cursor_unref (nav->cursor);
   nav->cursor = NULL;
