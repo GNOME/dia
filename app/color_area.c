@@ -42,14 +42,9 @@ int active_color = 0;
 
 /*  Static variables  */
 GtkWidget *color_area;
-static GdkGC *color_area_gc = NULL;
-static GdkGC *mask_gc       = NULL;
 static GdkPixmap *color_area_pixmap = NULL;
-static GdkBitmap *color_area_mask   = NULL;
-static GdkPixmap *default_pixmap = NULL;
-static GdkBitmap *default_mask      = NULL;
-static GdkPixmap *swap_pixmap = NULL;
-static GdkBitmap *swap_mask         = NULL;
+static GdkPixbuf *default_pixmap = NULL;
+static GdkPixbuf *swap_pixmap = NULL;
 
 static GtkWidget *color_select = NULL;
 static int color_select_active = 0;
@@ -109,22 +104,20 @@ color_area_target (int x,
 }
 
 static void
-color_area_draw ()
+color_area_draw (cairo_t *color_area_ctx)
 {
   Color col;
   GdkColor *win_bg;
   GdkColor fg, bg;
   gint rect_w, rect_h;
   gint width, height;
-  gint def_width, def_height;
-  gint swap_width, swap_height;
-  GdkColor  mask_pattern;
+  gint img_width, img_height;
   GtkStyle *style;
 
   /* Check we haven't gotten initial expose yet,
    * no point in drawing anything
    */
-  if (!color_area_pixmap || !color_area_gc)
+  if (!color_area_pixmap || !color_area_ctx)
     return;
 
   gdk_drawable_get_size (color_area_pixmap, &width, &height);
@@ -139,24 +132,15 @@ color_area_draw ()
   rect_w = width * 0.65;
   rect_h = height * 0.65;
 
-  /*  initialize the mask to transparent  */
-  mask_pattern.pixel = 0;
-  gdk_gc_set_foreground (mask_gc, &mask_pattern);
-  gdk_draw_rectangle (color_area_mask, mask_gc, TRUE, 0, 0, -1, -1);
+  gdk_cairo_set_source_color (color_area_ctx, win_bg);
+  cairo_rectangle (color_area_ctx, 0, 0, width, height);
+  cairo_fill (color_area_ctx);
 
-  /*  set the mask's gc to opaque  */
-  mask_pattern.pixel = 1;
-  gdk_gc_set_foreground (mask_gc, &mask_pattern);
+  gdk_cairo_set_source_color (color_area_ctx, &bg);
 
-  gdk_gc_set_foreground (color_area_gc, win_bg);
-  gdk_draw_rectangle (color_area_pixmap, color_area_gc, 1,
-		      0, 0, width, height);
-
-  gdk_gc_set_foreground (color_area_gc, &bg);
-  gdk_draw_rectangle (color_area_pixmap, color_area_gc, 1,
-		      (width - rect_w), (height - rect_h), rect_w, rect_h);
-  gdk_draw_rectangle (color_area_mask, mask_gc, TRUE,
-		      (width - rect_w), (height - rect_h), rect_w, rect_h);
+  cairo_rectangle (color_area_ctx,
+                   (width - rect_w), (height - rect_h), rect_w, rect_h);
+  cairo_fill (color_area_ctx);
 
   if (active_color == FOREGROUND)
     gtk_paint_shadow (style, color_area_pixmap, GTK_STATE_NORMAL,
@@ -171,11 +155,9 @@ color_area_draw ()
 		      (width - rect_w), (height - rect_h),
                       rect_w, rect_h);
 
-  gdk_gc_set_foreground (color_area_gc, &fg);
-  gdk_draw_rectangle (color_area_pixmap, color_area_gc, 1,
-		      0, 0, rect_w, rect_h);
-  gdk_draw_rectangle (color_area_mask, mask_gc, TRUE,
-		      0, 0, rect_w, rect_h);
+  gdk_cairo_set_source_color (color_area_ctx, &fg);
+  cairo_rectangle (color_area_ctx, 0, 0, rect_w, rect_h);
+  cairo_fill (color_area_ctx);
 
   if (active_color == FOREGROUND)
     gtk_paint_shadow (style, color_area_pixmap, GTK_STATE_NORMAL,
@@ -190,28 +172,19 @@ color_area_draw ()
                       0, 0,
                       rect_w, rect_h);
 
-  /*  draw the default pixmap  */
-  gdk_drawable_get_size (default_pixmap, &def_width, &def_height);
-  gdk_draw_drawable (color_area_pixmap, color_area_gc, default_pixmap,
-		     0, 0, 0, height - def_height, def_width, def_height);
-  gdk_draw_drawable (color_area_mask, mask_gc, default_mask,
-		   0, 0, 0, height - def_height, def_width, def_height);
+  /*  draw the default colours pixmap  */
+  img_width = gdk_pixbuf_get_width (default_pixmap);
+  img_height = gdk_pixbuf_get_height (default_pixmap);
+  gdk_cairo_set_source_pixbuf (color_area_ctx, default_pixmap, 0, height - img_height);
+  cairo_rectangle (color_area_ctx, 0, height - img_height, img_width, img_height);
+  cairo_fill (color_area_ctx);
 
   /*  draw the swap pixmap  */
-  gdk_drawable_get_size (swap_pixmap, &swap_width, &swap_height);
-  gdk_draw_drawable (color_area_pixmap, color_area_gc, swap_pixmap,
-		     0, 0, width - swap_width, 0, swap_width, swap_height);
-  gdk_draw_drawable (color_area_mask, mask_gc, swap_mask,
-		   0, 0, width - swap_width, 0, swap_width, swap_height);
-
-  /*  draw the widget  */
-  gdk_gc_set_clip_mask (color_area_gc, color_area_mask);
-  gdk_gc_set_clip_origin (color_area_gc, 0, 0);
-  gdk_draw_drawable (gtk_widget_get_window(color_area), color_area_gc, color_area_pixmap,
-		   0, 0, 0, 0, width, height);
-
-  /*  reset the clip mask  */
-  gdk_gc_set_clip_mask (color_area_gc, NULL);
+  img_width = gdk_pixbuf_get_width (swap_pixmap);
+  img_height = gdk_pixbuf_get_height (swap_pixmap);
+  gdk_cairo_set_source_pixbuf (color_area_ctx, swap_pixmap, width - img_width, 0);
+  cairo_rectangle (color_area_ctx, width - img_width, 0, img_width, img_height);
+  cairo_fill (color_area_ctx);
 }
 
 static void
@@ -236,7 +209,8 @@ color_selection_ok (GtkWidget               *w,
   } else {
     attributes_set_background(&col);
   }
-  color_area_draw ();
+  /* Trigger redraw */
+  gdk_window_invalidate_rect (gtk_widget_get_window (color_area), NULL, TRUE);
 
   /*  gtk_color_selection_set_currentcolor(colorsel,&color);*/
 
@@ -254,7 +228,8 @@ color_selection_cancel (GtkWidget               *w,
   attributes_set_foreground(&stored_foreground);
   attributes_set_background(&stored_background);
   
-  color_area_draw ();
+  /* Trigger redraw */
+  gdk_window_invalidate_rect (gtk_widget_get_window (color_area), NULL, TRUE);
 }
 
 static gint
@@ -297,7 +272,8 @@ color_selection_changed (GtkWidget *w,
   } else {
     attributes_set_background(&col);
   }
-  color_area_draw ();
+  /* Trigger redraw */
+  gdk_window_invalidate_rect (gtk_widget_get_window (color_area), NULL, TRUE);
 }
 
 static void
@@ -392,37 +368,19 @@ color_area_events (GtkWidget *widget,
   GdkEventButton *bevent;
   int target;
   
-  switch (event->type)
-    {
+  switch (event->type) {
     case GDK_CONFIGURE:
-      if (color_area_pixmap)
-	{
-	  g_object_unref (color_area_pixmap);
-	  g_object_unref (color_area_mask);
-	}
-
-	color_area_pixmap = gdk_pixmap_new (gtk_widget_get_window(color_area),
-					  color_area->allocation.width,
-					  color_area->allocation.height, -1);
-        color_area_mask = gdk_pixmap_new (gtk_widget_get_window(color_area),
-					color_area->allocation.width,
-					color_area->allocation.height, 1);
+      if (color_area_pixmap) {
+        g_object_unref (color_area_pixmap);
+      }
+      color_area_pixmap = gdk_pixmap_new (gtk_widget_get_window (color_area),
+                                          color_area->allocation.width,
+                                          color_area->allocation.height, -1);
       break;
     case GDK_EXPOSE:
-#if GTK_CHECK_VERSION(2,18,0)
-      if (gtk_widget_is_drawable(color_area))
-#else
-      if (GTK_WIDGET_DRAWABLE (color_area))
-#endif
-	{
-	  if (!color_area_gc)
-	    {
-	      color_area_gc = gdk_gc_new (gtk_widget_get_window(color_area));
-	      mask_gc = gdk_gc_new (color_area_mask);
-	    }
-
-	  color_area_draw ();
-	}
+      if (gtk_widget_is_drawable (color_area)) {
+        color_area_draw (gdk_cairo_create (gtk_widget_get_window (color_area)));
+      }
       break;
     case GDK_BUTTON_PRESS:
       bevent = (GdkEventButton *) event;
@@ -435,16 +393,19 @@ color_area_events (GtkWidget *widget,
 	    color_area_edit ();
 	  } else {
 	      active_color = target;
-	      color_area_draw();
+      /* Trigger redraw */
+      gdk_window_invalidate_rect (gtk_widget_get_window (color_area), NULL, TRUE);
 	  }
 	  break;
 	case SWAP_AREA:
 	  attributes_swap_fgbg();
-	  color_area_draw();
+    /* Trigger redraw */
+    gdk_window_invalidate_rect (gtk_widget_get_window (color_area), NULL, TRUE);
 	  break;
 	case DEF_AREA:
 	  attributes_default_fgbg();
-	  color_area_draw();
+    /* Trigger redraw */
+    gdk_window_invalidate_rect (gtk_widget_get_window (color_area), NULL, TRUE);
 	  break;
 	}
       }
@@ -461,21 +422,15 @@ color_area_events (GtkWidget *widget,
 #include "pixmaps/default.xpm"
 
 GtkWidget *
-color_area_create (int        width,
-		   int        height,
-		   GtkWidget *parent,
-		   GtkStyle  *style)
+color_area_create (int width,
+                   int height)
 {
   GtkWidget *event_box;
 
   default_pixmap =
-    gdk_pixmap_colormap_create_from_xpm_d(NULL,
-		gtk_widget_get_colormap(parent), &default_mask, 
-		&style->bg[GTK_STATE_NORMAL], default_xpm);
+    gdk_pixbuf_new_from_xpm_data (default_xpm);
   swap_pixmap =
-    gdk_pixmap_colormap_create_from_xpm_d(NULL,
-		gtk_widget_get_colormap(parent), &swap_mask, 
-		&style->bg[GTK_STATE_NORMAL], swap_xpm);
+    gdk_pixbuf_new_from_xpm_data (swap_xpm);
 
   attributes_set_foreground(persistence_register_color("fg_color", &color_black));
   attributes_set_background(persistence_register_color("bg_color", &color_white));
