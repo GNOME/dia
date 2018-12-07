@@ -206,10 +206,6 @@ plug-ins/dxf/dxf-export.c
 plug-ins/dxf/dxf-import.c
 plug-ins/hpgl/hpgl.c
 plug-ins/layout/layout.cpp
-plug-ins/libart/dialibart.c
-plug-ins/libart/dialibartrenderer.c
-plug-ins/libart/export_png.c
-plug-ins/libart/render_libart.c
 plug-ins/metapost/metapost.c
 plug-ins/metapost/render_metapost.c
 plug-ins/pdf/pdf.c
