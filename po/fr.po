@@ -896,7 +896,7 @@ msgid ""
 "Use <Esc> to leave this tool"
 msgstr ""
 "Édite le texte\n"
-"Utilisez <Espace> pour quitter cet outil"
+"Utilisez <Échapper> pour quitter cet outil"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Magnify
 #: ../app/interface.c:156 ../app/menus.c:215 ../objects/FS/function.c:988
