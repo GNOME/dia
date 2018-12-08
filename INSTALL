@@ -118,9 +118,13 @@ COMPILING FROM GIT:
 If you are using the Git version of Dia you need to have the following programs:
 automake 1.4, autoconf 2.50, libtool 1.3, GNU gettext 0.10.38, intltool 0.21
 
-Get it by: git clone git://git.gnome.org/dia
+Get it by: git clone git@git.gnome.org:GNOME/dia
 
 Then run ./autogen.sh instead of configure to create all needed files.
+
+You can then configure using
+./configure --enable-maintainer-mode --enable-db2html
+make
 
 WARNING: if you run ./autogen.sh, you will need to have gettext
 0.10.38 installed, or to extract a few M4 files from that package and
