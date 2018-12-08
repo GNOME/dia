@@ -564,7 +564,7 @@ draw_line(DiaRenderer *renderer,
     Py_DECREF(self);
   }
   else { /* member not optional */
-    gchar *msg = g_strdup_printf ("%s.draw_line() implmentation missing.",
+    gchar *msg = g_strdup_printf ("%s.draw_line() implementation missing.",
 				  G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (renderer)));
     PyErr_Clear();
     PyErr_Warn (PyExc_RuntimeWarning, msg);
@@ -772,7 +772,7 @@ draw_arc(DiaRenderer *renderer,
     Py_DECREF(self);
   }
   else { /* member not optional */
-    gchar *msg = g_strdup_printf ("%s.draw_arc() implmentation missing.",
+    gchar *msg = g_strdup_printf ("%s.draw_arc() implementation missing.",
 				  G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (renderer)));
     PyErr_Clear();
     PyErr_Warn (PyExc_RuntimeWarning, msg);
@@ -818,7 +818,7 @@ fill_arc(DiaRenderer *renderer,
     Py_DECREF(self);
   }
   else { /* member not optional */
-    gchar *msg = g_strdup_printf ("%s.fill_arc() implmentation missing.",
+    gchar *msg = g_strdup_printf ("%s.fill_arc() implementation missing.",
 				  G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (renderer)));
     PyErr_Clear();
     PyErr_Warn (PyExc_RuntimeWarning, msg);
@@ -1038,7 +1038,7 @@ draw_string(DiaRenderer *renderer,
     Py_DECREF(func);
     Py_DECREF(self);
   } else { /* member not optional */
-    gchar *msg = g_strdup_printf ("%s.draw_string() implmentation missing.",
+    gchar *msg = g_strdup_printf ("%s.draw_string() implementation missing.",
 				  G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (renderer)));
     PyErr_Clear();
     PyErr_Warn (PyExc_RuntimeWarning, msg);
@@ -1080,7 +1080,7 @@ draw_image(DiaRenderer *renderer,
     Py_DECREF(func);
     Py_DECREF(self);
   } else { /* member not optional */
-    gchar *msg = g_strdup_printf ("%s.draw_image() implmentation missing.",
+    gchar *msg = g_strdup_printf ("%s.draw_image() implementation missing.",
 				  G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (renderer)));
     PyErr_Clear();
     PyErr_Warn (PyExc_RuntimeWarning, msg);

@@ -2780,7 +2780,7 @@
             <dia:string>##</dia:string>
           </dia:attribute>
           <dia:attribute name="comment">
-            <dia:string>#A uniqe name within filters to allow disambiguation.#</dia:string>
+            <dia:string>#A unique name within filters to allow disambiguation.#</dia:string>
           </dia:attribute>
           <dia:attribute name="visibility">
             <dia:enum val="0"/>

@@ -160,7 +160,7 @@ dia::Property< ::Property* >::~Property ()
 
 /*!
  * If there is still a property conversion missing it needs to be added
- * in four places. In the implmentation dia-properties.cpp, in the 
+ * in four places. In the implementation dia-properties.cpp, in the
  * interface of this class and IProperty: dia-properties.h and finally 
  * in the .swig file.
  */
