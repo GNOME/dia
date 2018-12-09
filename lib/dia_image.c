@@ -469,7 +469,7 @@ dia_image_rgb_data(const DiaImage *image)
   } else {
     guint8 *pixels = gdk_pixbuf_get_pixels(image->image);
 
-    g_memmove(rgb_pixels, pixels, height*rowstride);
+    memmove(rgb_pixels, pixels, height*rowstride);
     return rgb_pixels;
   }
 }

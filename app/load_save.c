@@ -19,7 +19,6 @@
 
 /* so we get fdopen declared even when compiling with -ansi */
 #define _POSIX_C_SOURCE 200809L
-#define _BSD_SOURCE 1 /* to get the prototype for fchmod() */
 #include <sys/stat.h>
 #ifdef HAVE_UNISTD_H
 #include <unistd.h>
@@ -1234,50 +1233,29 @@ diagram_autosave(Diagram *dia)
   Diagram *diagram;
   while (diagrams != NULL) {
     diagram = (Diagram *)diagrams->data;
-    if (diagram == dia &&
-	diagram_is_modified(diagram) && 
-	!diagram->autosaved) {
+    if (diagram == dia && 
+        diagram_is_modified(diagram) && 
+        !diagram->autosaved) {
+      AutoSaveInfo *asi = g_new (AutoSaveInfo, 1);
+      GError *error = NULL;
+
       save_filename = g_strdup_printf("%s.autosave", dia->filename);
-
+      
       if (dia->autosavefilename != NULL) 
-	g_free(dia->autosavefilename);
+        g_free(dia->autosavefilename);
+
       dia->autosavefilename = save_filename;
-#ifdef G_THREADS_ENABLED
-      if (g_thread_supported ()) {
-	AutoSaveInfo *asi = g_new (AutoSaveInfo, 1);
-	GError *error = NULL;
-
-	asi->clone = diagram_data_clone (dia->data);
-	asi->filename = g_strdup (save_filename);
-	asi->ctx = dia_context_new (_("Auto save"));
-
-#if GLIB_CHECK_VERSION(2,32,0)
-	if (!g_thread_try_new ("Autosave", _autosave_in_thread, asi, &error)) {
-#else
-	if (!g_thread_create (_autosave_in_thread, asi, FALSE, &error)) {
-#endif
-	  message_error ("%s", error->message);
-	  g_error_free (error);
-	}
-	/* FIXME: need better synchronization */
-        dia->autosaved = TRUE;
-      } else {
-	/* no extra threads supported, stay in this one */
-	DiaContext *ctx = dia_context_new (_("Auto save"));
-	dia_context_set_filename (ctx, save_filename);
-	diagram_data_raw_save(dia->data, save_filename, ctx);
-	dia->autosaved = TRUE;
-	dia_context_release (ctx);
+      
+      asi->clone = diagram_data_clone (dia->data);
+      asi->filename = g_strdup (save_filename);
+      asi->ctx = dia_context_new (_("Auto save"));
+      
+      if (!g_thread_try_new ("Autosave", _autosave_in_thread, asi, &error)) {
+        message_error ("%s", error->message);
+        g_error_free (error);
       }
-#else
-      {
-	DiaContext *ctx = dia_context_new (_("Auto save"));
-	dia_context_set_filename (ctx, save_filename);
-	diagram_data_raw_save(dia->data, save_filename, ctx);
-	dia->autosaved = TRUE;
-	dia_context_release (ctx);
-      }
-#endif
+      /* FIXME: need better synchronization */
+      dia->autosaved = TRUE;
       return;
     }
     diagrams = g_list_next(diagrams);
