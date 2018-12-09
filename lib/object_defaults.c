@@ -109,7 +109,7 @@ dia_object_defaults_load (const gchar *filename, gboolean create_lazy, DiaContex
   /* overload properties from file */
   if (!filename) 
     {
-      gchar *default_filename = dia_user_data_filename("defaults.dia");
+      gchar *default_filename = dia_config_filename("defaults.dia");
 
       dia_context_set_filename(ctx, default_filename);
       if (g_file_test(default_filename, G_FILE_TEST_EXISTS))
@@ -396,7 +396,7 @@ dia_object_defaults_save (const gchar *filename, DiaContext *ctx)
   gchar *real_filename;
 
   if (!filename)
-    real_filename = dia_user_data_filename("defaults.dia");
+    real_filename = dia_config_filename("defaults.dia");
   else
     real_filename = g_strdup (filename);
 

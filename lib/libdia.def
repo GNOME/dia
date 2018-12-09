@@ -204,8 +204,7 @@ EXPORTS
  dia_color_selector_new
  dia_color_selector_set_color
  dia_color_selector_set_use_alpha
- dia_user_config_filename
- dia_user_data_filename
+ dia_config_filename
 
  dia_context_add_message
  dia_context_add_message_with_errno

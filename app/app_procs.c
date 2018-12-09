@@ -1086,50 +1086,41 @@ app_exit(void)
 
 static void create_user_dirs(void)
 {
-  gchar *confdir, *datadir, *subdir;
+  gchar *dir, *subdir;
 
 #ifdef G_OS_WIN32
-  /*
-   * not necessary to quit the program with g_error. Spit out a warning ...
+  /* not necessary to quit the program with g_error, everywhere else
+   * dia_config_filename appears to be used. Spit out a warning ...
    */
-  if (!g_get_user_config_dir() || !g_get_user_data_dir())
+  if (!g_get_home_dir())
   {
-    g_warning(_("Could not create per-user Dia directories!"));
+    g_warning(_("Could not create per-user Dia configuration directory"));
     return; /* ... and return. Probably removes my one and only FAQ. --HB */
   }
 #endif
-  datadir = g_strconcat(g_get_user_data_dir(), G_DIR_SEPARATOR_S "dia", NULL);
-  if (g_mkdir(datadir, 0755) && errno != EEXIST) {
-#ifndef G_OS_WIN32
-    g_critical(_("Could not create per-user Dia data directory"));
-    exit(1);
-#else /* HB: it this really a reason to exit the program on *nix ? */
-    g_warning(_("Could not create per-user Dia data directory."));
-#endif
-  }
-  confdir = g_strconcat(g_get_user_config_dir(), G_DIR_SEPARATOR_S "dia", NULL);
-  if (g_mkdir(confdir, 0755) && errno != EEXIST) {
+  dir = g_strconcat(g_get_home_dir(), G_DIR_SEPARATOR_S ".dia", NULL);
+  if (g_mkdir(dir, 0755) && errno != EEXIST) {
 #ifndef G_OS_WIN32
     g_critical(_("Could not create per-user Dia configuration directory"));
     exit(1);
 #else /* HB: it this really a reason to exit the program on *nix ? */
-    g_warning(_("Could not create per-user Dia configuration directory."));
+    g_warning(_("Could not create per-user Dia configuration directory. Please make "
+        "sure that the environment variable HOME points to an existing directory."));
 #endif
   }
 
   /* it is no big deal if these directories can't be created */
-  subdir = g_strconcat(datadir, G_DIR_SEPARATOR_S "objects", NULL);
+  subdir = g_strconcat(dir, G_DIR_SEPARATOR_S "objects", NULL);
   g_mkdir(subdir, 0755);
   g_free(subdir);
-  subdir = g_strconcat(datadir, G_DIR_SEPARATOR_S "shapes", NULL);
+  subdir = g_strconcat(dir, G_DIR_SEPARATOR_S "shapes", NULL);
   g_mkdir(subdir, 0755);
   g_free(subdir);
-  subdir = g_strconcat(datadir, G_DIR_SEPARATOR_S "sheets", NULL);
+  subdir = g_strconcat(dir, G_DIR_SEPARATOR_S "sheets", NULL);
   g_mkdir(subdir, 0755);
   g_free(subdir);
 
-  g_free(datadir);
-  g_free(confdir);
+  g_free(dir);
 }
 
 static PluginInitResult

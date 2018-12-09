@@ -1090,8 +1090,6 @@ main (int argc, char** argv)
   else
     {
       /* avoid loading objects/plug-ins form the users home directory */
-      g_setenv ("XDG_DATA_HOME", "/tmp", TRUE);
-      g_setenv ("XDG_CONFIG_HOME", "/tmp", TRUE);
       g_setenv ("HOME", "/tmp", TRUE);
       dia_register_plugins ();
     }

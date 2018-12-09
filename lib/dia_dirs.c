@@ -156,76 +156,24 @@ dia_get_locale_directory(void)
 #endif
 }
 
-/** Migrate a file or dir from $HOME/.dia to a new location.
- * @param newloc New location of the subfile.
- * @param subfile Name of the subfile.
- */
-void
-dia_migrate_file (const gchar *newloc, const gchar *subfile)
-{
-  gchar *oldloc;
-  gchar *oldroot;
-
-  oldloc = g_strconcat(g_get_home_dir(), G_DIR_SEPARATOR_S ".dia"
-                       G_DIR_SEPARATOR_S, subfile, NULL);
-  if(g_file_test(oldloc, G_FILE_TEST_EXISTS))
-  {
-    if (!g_rename(oldloc, newloc))
-    {
-      g_warning("Could not migrate '%s' from '%s' to '%s'.",
-                subfile, oldloc, newloc);
-    }
-  }
-  g_free(oldloc);
-  /* we are trying to remove an empty folder '$HOME/.dia'
-   * if it is not empty, it is not removed */
-  oldroot = g_strconcat(g_get_home_dir(), G_DIR_SEPARATOR_S ".dia", NULL);
-  g_rmdir(oldroot);
-  g_free(oldroot);
-}
-
-/** Get the name of a file under the XDG user Dia config directory.
+/** Get the name of a file under the Dia config directory.  If no home
+ *  directory can be found, uses a temporary directory.
  * @param subfile Name of the subfile.
  * @returns A string with the full path of the desired file.  This string
  *          should be freed after use.
  */
 gchar *
-dia_user_config_filename(const gchar *subfile)
+dia_config_filename(const gchar *subfile)
 {
-  const gchar *confdir;
-  gchar *diaconfdir;
+  const gchar *homedir;
 
-  confdir = g_get_user_config_dir();
-  if (!confdir) {
-    confdir = g_get_tmp_dir(); /* put config stuff in /tmp -- not ideal, but
-                                * we should not reach this state */
+  homedir = g_get_home_dir();
+  if (!homedir) {
+    homedir = g_get_tmp_dir(); /* put config stuff in /tmp -- not ideal, but
+				* we should not reach this state */
   }
-  diaconfdir = g_strconcat(confdir, G_DIR_SEPARATOR_S "dia" G_DIR_SEPARATOR_S,
-                           subfile, NULL);
-  dia_migrate_file(diaconfdir, subfile);
-  return diaconfdir;
-}
-
-/** Get the name of a file under the XDG user Dia config directory.
- * @param subfile Name of the subfile.
- * @returns A string with the full path of the desired file.  This string
- *          should be freed after use.
- */
-gchar *
-dia_user_data_filename(const gchar *subfile)
-{
-  const gchar *datadir;
-  gchar *diadatadir;
-
-  datadir = g_get_user_data_dir();
-  if (!datadir) {
-    datadir = g_get_tmp_dir(); /* put config stuff in /tmp -- not ideal, but
-                                * we should not reach this state */
-  }
-  diadatadir = g_strconcat(datadir, G_DIR_SEPARATOR_S "dia" G_DIR_SEPARATOR_S,
-                           subfile, NULL);
-  dia_migrate_file(diadatadir, subfile);
-  return diadatadir;
+  return g_strconcat(homedir, G_DIR_SEPARATOR_S ".dia" G_DIR_SEPARATOR_S,
+		     subfile, NULL);
 }
 
 /** Ensure that the directory part of `filename' exists.
